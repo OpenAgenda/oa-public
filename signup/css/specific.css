@@ -1,0 +1,45 @@
+/*signup*/
+
+#signup { padding: 4em; text-align: center;}
+
+#signup #form-header { padding: 0; text-align: left;}
+#signup #form-header h1 { margin-bottom: 0.5em; }
+#signup #form-header h2 { max-width: 34em; font-size: 1.22em;}
+
+#signup .section { display: inline-block; vertical-align: top; padding: 2em 0; width: 20em; text-align: left;}
+#signup .section h5 { max-width: 14em; }
+
+#signup .section.services { padding-left: 2em; }
+#signup .section.services li { text-align: center; padding: 1em; }
+#signup .section.services ul { margin-top: 6em;}
+
+#signup .footer { text-align: center; }
+
+#signup .input-check { 
+  max-width: 180px; 
+  vertical-align: top; 
+  display: block;
+  background: none;
+  padding: 0;
+}
+
+#signup .captcha { margin-bottom: 0.5em; }
+
+#signup .button-container { text-align: center; }
+
+#signup input[type="text"],
+#signup input[type="password"] { min-width: 18em;}
+
+#signup fieldset img { display: block; margin: 0 0 10px; }
+#signup fieldset span { display: inline-block; }
+
+
+.mobile .body { padding: 0;}
+.mobile #signup { padding: 0; width: 100%;}
+.mobile #signup #form-header { padding: 1em 1em;}
+.mobile #signup .section { width: auto; padding: 2em 1em;}
+.mobile #signup .section.services { padding-bottom: 0; }
+.mobile #signup .section.services ul { margin-top: 0;}
+.mobile #signup .section h5 { min-width: auto; }
+.mobile #signup input[type="text"],
+.mobile #signup input[type="password"] { min-width: 0; }

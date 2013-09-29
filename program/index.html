@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/ei.css" type="text/css">
+    <link rel="stylesheet" href="../css/pli.css" type="text/css">
+    <link rel="stylesheet" href="../css/list-items.css" type="text/css">
+    <link rel="stylesheet" href="../css/rsli.css" type="text/css">
+    <link rel="stylesheet" href="../css/font-awesome/font-awesome.css"/>
+    <link rel="stylesheet" href="../css/howto.css"/>
+
+    <link rel="stylesheet" href="css/program.css"/>
+
+    <script type="text/javascript" src="../js/lib/common/common.js"></script>
+    <script type="text/javascript" src="../js/lib/remote/remote.js"></script>
+    <script type="text/javascript" src="../js/lib/EventHandler/EventHandler.js"></script>
+    <script type="text/javascript" src="../js/lib/urlStrings/urlStrings.js"></script>
+    <script type="text/javascript" src="../js/lib/hash/hash.js"></script>
+    <script type="text/javascript" src="../js/lib/Base64/Base64.js"></script>
+    <script type="text/javascript" src="../js/lib/lightbox/lightbox.js"></script>
+    <script type="text/javascript" src="../js/lib/maps/maps.js"></script>
+    <script type="text/javascript" src="../js/lib/maps/google.maps.js"></script>
+
+    <script type="text/javascript" src="../js/vendors/ejs/src/ejs_production.js"></script>
+    <script type="text/javascript" src="../js/vendors/spin/src/spin.min.js"></script>
+    <script type="text/javascript" src="../js/vendors/Cookies-master/src/cookies.js"></script>
+    <script type="text/javascript" src="../js/vendors/setLinks/src/setLinks.js"></script>
+    <script type="text/javascript" src="../js/vendors/CibulCalendar/src/CibulCalendar.js"></script>
+    <script type="text/javascript" src="../js/vendors/iscroll/src/iscroll.js"></script>
+
+    <script type="text/javascript" src="../js/cibul/sendGetMessage/src/sendGetMessage.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleList/src/handleList.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleNav/src/handleNav.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleShares/src/handleShares.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleLock/src/handleLock.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleSuggestions/src/handleSuggestions.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleHeadFilter/src/handleHeadFilter.js"></script>
+    <script type="text/javascript" src="../js/cibul/mapHandler/src/mapHandler.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleCalendar/src/handleCalendar.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleContextMenu/src/handleContextMenu.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleSectionRemove/src/handleSectionRemove.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleProgramControlData/src/handleProgramControlData.js"></script>
+    <script type="text/javascript" src="../js/cibul/action/src/action.js"></script>
+
+    <script type="text/javascript" src="js/handleCategories.js"></script>
+    <script type="text/javascript" src="js/handleTags.js"></script>
+    <script type="text/javascript" src="js/handleTagsEdit.js"></script>
+    <script type="text/javascript" src="js/handleMobile.js"></script>
+    <script type="text/javascript" src="js/handleMap.js"></script>
+    <script type="text/javascript" src="js/handleEdition.js"></script>
+    <script type="text/javascript" src="js/handleCibulFollow.js"></script>
+    <script type="text/javascript" src="js/handleProgram.js"></script>
+    <script type="text/javascript" src="js/handleEmptyProgram.js"></script>
+    <script type="text/javascript" src="js/handleSourceMenu.js"></script>
+    
+    
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC7gMvxBpIDtORZHe1ajfiHBuj2HNdfJk4&sensor=false"></script>
+    <style>
+      body { background: url("bg.png") repeat scroll 0 0 rgb(230,230,230); }
+      body { background: url('background1.jpg') fixed; }
+      /* body { background: black; } */
+      .cbody { margin: 60px auto; width: auto; position: relative; max-width: 1200px;}
+      @media all and (max-width: 500px) {
+        .cbody { margin: 0; }
+      }
+
+      .icon-remove { cursor: pointer; }
+
+    </style>
+  </head>
+  <body>
+    <div id="program" class="cbody center noposter">
+      <div class="wsq">
+        <nav class="sec">
+          <div class="head">
+            <div class="top">
+              <!--<div class="ppic">
+                <a href="#"><img src="program.jpg"/></a>
+              </div>--><!--
+              --><div class="ptitle">
+                <h1>Centre Des Arts d'Enghien</h1>
+                <a class="url" href="59rivoli.org">59rivoli.org</a>
+              </div>
+            </div>
+            <p>Toute la programmation événement du célèbre Aftersquat de la rue de Rivoli et un petit lien: http://cibul.net</p>
+            <ul class="actions js_program_actions">
+              <li>
+                <a class="js_follow_link"><i class="icon-arrow-right"></i><span>suivre</span></a>
+                <ul class="follow-menu wsq js_follow_menu">
+                  <li class="rss-feed"><a href="#"><i class="icon-rss"></i><span>flux rss</span></a></li>
+                  <li class="google-play>"><a href="#"><i class="icon-play"></i><span>Google Play</span></a></li>
+                  <li class="app-store"><a href="#"><i class="icon-mobile-phone"></i><span>App Store</span></a></li>
+                </ul>
+              </li>
+              <li><a href="#"><i class="icon-external-link"></i><span>exporter</span></a></li>
+              <li>
+                <a class="js_share"><i class="icon-share"></i><span>partager</span></a>
+                <ul class="share-menu wsq js_share_menu"></ul>
+              </li>
+            </ul>
+          </div>
+            
+          <div class="pblock first js_nav_widgets">
+            <div class="pblock-head">
+              <i class="icon-bookmark"></i><span>Catégories</span>
+            </div>
+            
+            <div class="pblock-body"><div class="content pcat"></div></div>
+
+            <div class="pblock-head">
+              <i class="icon-calendar"></i><span>Dates</span>
+            </div><!--
+            --><div class="pblock-body"><div class="pdates content">
+              <span class="filter-item active display-none"><span>10/10/2012 - 12/10/2012</span><i class="icon-remove"></i></span>
+              <a class="url js_show">séléctionner</a>
+              <div class="calendar-canvas display-none">
+              </div>
+              <a class="url js_hide display-none right">fermer</a>
+            </div></div><!--
+
+            --><div class="pblock-head">
+              <i class="icon-map-marker"></i><span>Lieux</span>
+            </div><!--
+            --><div class="pplaces pblock-body">
+              <div class="content">
+                <div class="js_map_canvas map-canvas"></div>
+                <div id="location-list-wrapper" class="js_location_list"></div>
+              </div>
+            </div>
+          </div>
+        </nav><!--
+
+        --><div class="main">
+
+          <div class="pfilter js_head_filter display-none">
+            <span class="js_label"><span></span></span><i class="icon-remove js_remove"></i>
+          </div>
+
+          <div>
+
+            <a class="list-nav js_nav_previous display-none"><span>...</span><i class="icon-arrow-up"></i></a>
+
+            <ul class="list-items"></ul>
+
+            <a class="list-nav bottom js_nav_next display-none"><span>...</span><i class="icon-arrow-down"></i></a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+
+      // empty program
+      //var programUrl = 'http://d.cibul.net/frontend_dev.php/empty/fr';
+
+      var programUrl = 'http://d.cibul.net/frontend_dev.php/la-gargouille/fr';
+
+      runProgramBehavior({
+        url: programUrl,
+        hasFeature: true,
+        currentUrl: programUrl,
+        debug: {
+          //user: 'kaore-olafsson',
+          aggregator: true
+        },
+        iconRoot: 'images/',
+        initNav: [false, false],
+        control: programUrl,
+        lang: 'fr',
+        resources: {
+          edit: '#edit',
+          aggList: 'http://d.cibul.net/frontend_dev.php/program/97216733/aggregator/sourcecontext',
+          aggAdd: 'http://d.cibul.net/frontend_dev.php/program/97216733/aggregator/addTo/aUid',
+          aggRemove: 'http://d.cibul.net/frontend_dev.php/program/97216733/aggregator/removeFrom/aUid',
+          tagAdd: 'http://d.cibul.net/frontend_dev.php/programarticle/tagsubmit/aId',
+          tagRemove: 'http://d.cibul.net/frontend_dev.php/programarticle/tagremove/aId',
+          empty: 'http://d.cibul.net/frontend_dev.php/howto/newprogram/fr',
+          admin: '#'
+        },
+        links: { follow: false, unfollow: false, addEvent: false, editors: false },
+        labels: {
+          edit: 'edit', 
+          editors: 'editors',
+          remove: 'remove', 
+          editCategory: 'edit category', 
+          addTag: 'edit tags', 
+          add: 'Add',
+          cibulFollow: 'follow on cibul', 
+          cibulNoFollow: 'cancel follow', 
+          addEvent: 'Add an Event',
+          tags: 'Tags',
+          aggLink: 'use as sources', 
+          tagEditMenu: 'Edit Share tags',
+          tagEditIndication: 'Add one tag to the shared event',
+          timeout: 'Connection problem. Try again.',
+          tagExists: 'Tag was already added',
+          tagOne: 'Add tags one by one',
+          admin: 'manage'
+        },
+        templates: {
+          article: ['<li class="pli" data-author="<%= values.author %>" data-id="<%= values.id %>">',
+            '<% if (values.reviewarticle.length) { %><div class="plihd">',
+              '<a href="<%= values.reviewurl %>" class="hdthumb"><img src="<%= values.infoimage.replace(\'\/\/cibultest\', \'\/\/cibul\') %>"/></a>',
+              '<div>',
+                '<a class="pliname" href="<%= values.reviewurl %>"><%= values.reviewtitle %></a>',
+                '<p><a href="<%= values.reviewurl %>"><%= values.reviewarticle %></a></p>',
+              '</div>',
+            '</div> <% } %>',
+            '<div class="ei">',
+              '<a class="evpic" href="<%= values.url %>"><img src="<%= values.image.replace(/cibultest/g,\'cibul\') %>"/></a><!--',
+            '--><div class="evcnt">',
+                '<ul>',
+                  '<li class="evtitle"><a href="<%= values.url %>"><%= values.title %></a></li>',
+                  '<li class="evdesc"><a href="<%= values.url %>"><%= values.description %></a></li>',
+                  '<li class="evspacetime"><a href="<%= values.url %>"><%= values.spacetimeinfo %></a></li>',
+                  '<% if (optionals.category) { %>',
+                  '<li class="ecat"><span><%= optionals.category %></span></li>',
+                  '<% } %>',
+                  '<% if (lists.tags.length) { %>',
+                  '<li class="etags">',
+                    '<ul>',
+                    '<% for (var i=0; i<lists.tags.length; i++) { %>',
+                      '<li><a href="#" class="program-tag"><%= lists.tags[i].values.tag %></a><%= (i!=lists.tags.length-1)?",":"" %></li>',
+                    '<% } %>',
+                    '</ul>',
+                  '</li>',
+                  '<% } %>',
+                '</ul>',
+              '</div>',  
+            '</div>',
+          '</li>'].join(''),
+          programItem: '<div class="rw-item srwi"><a class="rwi-pic" href="<%= url %>"><img alt="<%= title %>" src="<%= image %>"/></a><!----><div class="rwi-content">    <div class="rwi-title"><a href="<%= url %>"><%= title %></a></div></div></div>'
+        },
+        callbacks: {
+          edit: function(name, id) { 
+            console.log('edit callback called with name: ' + name + ' and id: ' + id);
+          },
+          removeTag: function(id, tag, tagElem) {
+            console.log('removeTag callback called with id: ' + id + ' tag: ' + tag);
+            console.log(tagElem);
+          }
+        }
+      });
+
+    </script>
+
+  </body>
+</html>

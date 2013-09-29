@@ -1,0 +1,8 @@
+#program-add-tag-menu { max-width: 300px; min-width: 250px;}
+#program-add-tag-menu h2 { margin-bottom: 0;}
+#program-add-tag-menu form { margin-top: 0.5em; }
+#program-add-tag-menu form li { display: inline-block; position: relative; vertical-align: middle; margin-bottom: 0;}
+#program-add-tag-menu h3 { margin-bottom: 0; }
+
+#program-add-tag-menu .current-tags { margin-top: 0.5em; }
+#program-add-tag-menu .error { font-size: 0.8em; color: red; margin: 0; padding: 0;}

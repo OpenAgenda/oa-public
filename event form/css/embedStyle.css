@@ -1,0 +1,11 @@
+#event-edit button {
+  padding: 0.1em 1em;
+  border: 1px solid #666;
+  background: #eee;
+  cursor: pointer;
+}
+
+#event-edit h2 {
+  font-size: 1.3em;
+  padding-top: 1em;
+}

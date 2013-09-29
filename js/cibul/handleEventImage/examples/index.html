@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <title>Event Form</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+    <!--[if IE]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="common/common.js"></script>
+    <script type="text/javascript" src="remote/remote.js"></script>
+    <script type="text/javascript" src="ejs/ejs_production.js"></script>
+    <script type="text/javascript" src="spin/spin.min.js"></script>
+    <script type="text/javascript" src="../src/latest/handleEventImage.js"></script>
+
+    <style type="text/css">
+    img { max-width: 400px; }
+    </style>
+  </head>
+  <body>
+    <div class="js_canvas"></div>
+    <script type="text/javascript">
+
+    addEvent(window, 'load', function() {
+
+        handleEventImage({
+          canvas: el('.js_canvas'),
+          upload: 'http://js.cibul.net/cibul/handleEventImage/examples/server/index.php',
+          remove: 'http://js.cibul.net/cibul/handleEventImage/examples/server/remove.php',
+          onSuccess: function(newPath) {
+            console.log(newPath);
+          },
+          initPath: 'http://js.cibul.net/cibul/handleEventImage/examples/server/uploaded/1364.jpg'
+        });
+
+    });
+
+    </script>
+
+  </body>
+</html>

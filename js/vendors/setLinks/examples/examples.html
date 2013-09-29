@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>setLinks examples</title>
+  <script type="text/javascript" src="../src/setLinks.js"></script>
+  <style type="text/css">
+    .italic { font-style: italic; }
+  </style>
+</head>
+<body onload="onload()">
+  <p>setLinks is a function that takes in a string and will wrap any link it finds with an 'a' anchor as such: http://cibul.net</p>
+  <p>It can take in a <i>className</i> option (like this: www.worlds-worst-website.com) in case you feel like appending classes to your link</p>
+  <ul>
+    <li>A wrapper function exists as well if you want (http://google.com) to just apply setLinks on a list of elements.</li>
+    <li>The function works on emails, bogusemail@fakedomain.com, anotherfake@email.com</li>
+    <li>It takes in a target option if you need to set it to "_blank" (little url here: http://www.youtube.com/watch?v=EmLHOGT0v4c)</li>
+  </ul>
+  <script type="text/javascript">
+
+    function onload() {
+
+      var paragraph = document.getElementsByTagName('p')[0].innerHTML;
+
+      document.getElementsByTagName('p')[0].innerHTML = setLinks(paragraph);
+
+      
+      // second paragraph with linkClasses option
+
+      paragraph = document.getElementsByTagName('p')[1].innerHTML;
+
+      document.getElementsByTagName('p')[1].innerHTML = setLinks(paragraph, {className: 'italic'});
+
+      
+      // use wrapper function
+
+      setLinksElems(document.getElementsByTagName('li'), { target: '_blank' });
+
+    }
+
+  </script>
+</body>
+</html>

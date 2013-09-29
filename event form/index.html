@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Event Form</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+    <!--[if IE]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="../js/lib/common/common.js"></script>
+    <script type="text/javascript" src="../js/lib/verboseDate/verboseDate.js"></script>
+    <script type="text/javascript" src="../js/lib/EventHandler/EventHandler.js"></script>
+    <script type="text/javascript" src="../js/lib/remote/remote.js"></script>
+    <script type="text/javascript" src="../js/lib/iTunnel/iTunnel.js"></script>
+    <script type="text/javascript" src="../js/lib/Base64/Base64.js"></script>
+    <script type="text/javascript" src="../js/lib/lightbox/lightbox.js"></script>
+    <script type="text/javascript" src="../js/lib/inputCounter/inputCounter.js"></script>
+    <script type="text/javascript" src="../js/lib/urlStrings/urlStrings.js"></script>
+    <script type="text/javascript" src="../js/lib/inputWidgets/inputWidgets.js"></script>
+    <script type="text/javascript" src="../js/lib/inputWidgets/inputControllers.js"></script>
+    <script type="text/javascript" src="../js/lib/inputWidgets/inputValidators.js"></script>
+    <script type="text/javascript" src="../js/lib/maps/leaflet.js"></script>
+    <script type="text/javascript" src="../js/lib/maps/maps.js"></script>
+    <script type="text/javascript" src="../js/lib/maps/osm.maps.js"></script>
+
+    <script type="text/javascript" src="../js/vendors/spin/src/spin.min.js"></script>
+    <script type="text/javascript" src="../js/vendors/ejs/src/ejs_production.js"></script>
+    <script type="text/javascript" src="../js/vendors/CibulCalendar/src/CibulCalendar.min.js"></script>
+
+    <script type="text/javascript" src="../js/cibul/handleEventImage/src/handleEventImage.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleDateSelection/src/handleDatesAdd.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleDateSelection/src/handleDatesList.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleDateSelection/src/handleDateSelection.js"></script>
+    <script type="text/javascript" src="../js/cibul/handlePlaceSelection/src/handlePlaceSelection.js"></script>
+    <script type="text/javascript" src="../js/cibul/handlePlaceSelection/src/handlePlaceSelectionList.js"></script>
+    <script type="text/javascript" src="../js/cibul/handlePlaceSelection/src/handlePlaceSelectionMap.js"></script>
+    <script type="text/javascript" src="../js/cibul/handlePlaceSelection/src/handlePlaceMapDrag.js"></script>
+    <script type="text/javascript" src="../js/cibul/handlePlaceFetch/src/handlePlaceFetch.js"></script>
+    <script type="text/javascript" src="../js/cibul/handlePlaceFetch/src/makeLooseGetFake.js"></script>
+    <script type="text/javascript" src="../js/cibul/handlePlaceFetch/src/makeLooseGet.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleEventPlaceEdit/src/handleEventPlaceEdit.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleContextMenu/src/handleContextMenu.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleSession/src/handleSession.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleSuggestions/src/handleSuggestions.js"></script>
+    <script type="text/javascript" src="../js/cibul/inputCountry/src/inputCountry.js"></script>
+    
+    <script type="text/javascript" src="js/handlePricingSelection.js"></script>
+    <script type="text/javascript" src="js/cibulEvent.js"></script>
+    <script type="text/javascript" src="js/cibulEventValidator.js"></script>
+    <script type="text/javascript" src="js/cibulEventDescription.js"></script>
+    <script type="text/javascript" src="js/cibulEventLocation.js"></script>
+    <script type="text/javascript" src="js/cibulEventFormTunnel.js"></script>
+    <script type="text/javascript" src="js/cibulEventImage.js"></script>
+    <script type="text/javascript" src="js/cibulEventSubmit.js"></script>
+
+    <script type="text/javascript" src="testdata.js"></script>
+
+    <link rel="stylesheet" href="../css/leaflet.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="../css/leaflet.ie.css" /><![endif]-->
+
+    <link rel="stylesheet" href="../css/font-awesome/font-awesome.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="../css/font-awesome/font-awesome-ie7.css" /><![endif]-->
+
+    <link rel="stylesheet" href="../css/embedMain.css" />
+    
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/embedStyle.css" />
+    <!--<link rel="stylesheet" href="css/mainStyle.css" />-->
+    
+
+
+    <style id="custom-css">
+    </style>
+
+  </head>
+  <body>
+    <div id="event-edit" class="js_form_canvas"></div>
+    <script type="text/javascript">
+
+    /*
+    var getFunc = makeLooseGetFake({
+      data: [
+        { name: 'Theatre du Grand Rond', address: '23 Rue des Potiers, 31000 Toulouse', lat:43.598648 , lng: 1.453954, uid: 1},
+        { name: "Fondation Cartier pour l'Art Contemporain", address: '261 Boulevard Raspail, 75014 Paris, France', lat: 48.837197, lng: 2.331679, uid: 12 },
+        { name: "Institut du Monde Arabe", address: "1 Rue Fossés Saint Bernard, 75005 Paris, France", lat: 48.849065, lng: 2.357423, uid: 13 },
+        { name: "Theatre Saint Louis", address: "Rue Saint Louis En L'Ile, 75004 Paris, France", lat: 48.851220, lng: 2.357740, uid: 14 },
+        { name: "La Fleche d'Or", address: "102 Rue de Bagnolet, 75020 Paris, France", lat: 48.859423, lng: 2.402919, uid: 15 },
+        { name: "Théâtre du Gymnase Paris", address: "38 Boulevard de Bonne Nouvelle, 75010 Paris, France", lat: 48.870826, lng: 2.347770, uid: 16 },
+        { name: "Grande Halle de la Villette Paris", address: "211 Avenue Jean Jaurès, 75019 Paris, France", lat: 48.889095, lng: 2.394431},
+        { name: "Théâtre de la Cité internationale Paris", address: "17 Boulevard Jourdan, 75014 Paris", lat: 48.820094, lng: 2.338727 },
+        { name: "Hôtel de Lauzun Paris", address: "17 Quai d'Anjou, 75004 Paris", lat: 48.851616, lng: 2.359222 },
+        { name: "Comédie de la Passerelle Paris", address: "102 Rue Orfila, 75020 Paris, France", lat: 48.867933, lng: 2.399883 },
+        { name: "Theatre des Bouffes du Nord", address: "37 Boulevard de la Chapelle, 75010 Paris, France", lat: 48.884203, lng: 2.358703 },
+        { name: "Le Bal", address: "6 Impasse de la Défense, 75018 Paris, France", lat: 48.885103, lng: 2.326857 },
+        { name: "Les Trois Baudets Paris", address: "64 Boulevard de Clichy, 75018 Paris, France", lat: 48.883411, lng: 2.334352 },
+        { name: "La Cigale Paris", address: "120 Boulevard de Rochechouart, 75018 Paris", lat: 48.882230, lng: 2.340260 },
+        { name: "Centre Culturel Bellegarde", address: "17 Rue de Bellegarde, 31000 Toulouse, France", lat: 43.608328, lng: 1.444757 },
+        { name: "Théâtre national de Chaillot Paris", address: "1 Square du Trocadéro, 75116 Paris, France", lat: 48.862324, lng: 2.281956 },
+        { name: "Palais des congrès", address: "58 Boulevard Charles Livon, 13007 Marseille, France", lat: 43.292057, lng: 5.358939 },
+      ]
+    });*/
+
+    var getFunc = makeLooseGet({
+      url: 'http://d.cibul.net/frontend_dev.php/event/location/search',
+      debug: true,
+    });
+
+
+    // these are the preloaded locations
+    var localLocations = [
+      { name: "Palais des congrès", address: "58 Boulevard Charles Livon, 13007 Marseille, France", lat: 43.292057, lng: 5.358939, uid: 281 },
+      { name: "Visionairs Gallery", address: "14 Rue des Carmes, 75005 Paris, France", lat: 48.849159, lng: 2.347472, uid: 282 },
+      { name: "Sentier des Halles", address: "50 Rue d'Aboukir, 75002 Paris, France", lat: 48.867336, lng: 2.345657, uid: 283 },
+      { name: "Théâtre musical Marsoulan", address: "20 Rue Marsoulan, 75012 Paris, France", lat: 48.846729, lng: 2.403448, uid: 284 },
+      { name: "Le Vingtième-Théâtre", address: "7 Rue des Plâtrières, 75020 Paris, France", lat: 48.867959, lng: 2.389516, uid: 285 },
+      { name: "Zenith Paris", address: "211 Avenue Jean Jaurès, 75019 Paris", lat: 48.889095, lng:48.889095, uid: 286 },
+      { name: "Theatre De Neuilly", address: "167 Avenue Charles de Gaulle, 92200 Neuilly-sur-Seine", lat: 48.884065, lng: 2.263169, uid: 287 },
+      { name: "Palais Royal", address: "Paris Palais Royal, 8 Rue Molière, 75001 Paris", lat: 48.865017, lng: 2.335248, uid: 288 },
+      { name: "Arènes de Montmartre", address: "25 Rue Chappe, 75018 Paris, France", lat: 48.885558, lng: 2.342023, uid: 289 }
+    ];
+
+    // to be used for embedded form - create session handler
+    handleSession({
+      url: 'http://d.cibul.net/frontend_dev.php/session/fr',
+      debug: true,
+      events: { fetch: 'getsessiondata' }
+    });
+
+
+    addEvent(window, 'load', function() {
+
+      cibulEvent({
+        event: testevent,
+        labels: {
+          title: 'Le titre',
+          description: 'La description',
+          tags: 'Les mots clés',
+          freeText: 'Le champ de texte libre',
+          empty: '%noun% ne peux pas être vide',
+          max: '%noun% ne doit pas excéder %max% caractères',
+          address: 'L\'adresse',
+          placename: 'Le nom du lieu',
+          noDates: 'Il doit y avoir au moins un horaire de défini par lieu'
+        }
+      });
+
+      cibulEventDescription({
+        elems: {
+          canvas: el('.js_form_canvas'),
+        },
+        languages: { fr: 'français', en: 'english', es: 'español', de: 'deutsch', it: 'italiano', ne: 'nederlands', pt: 'português', ar: 'العربية', is: 'íslenska' },
+        defaultLanguage: 'fr',
+        labels: {
+          title: { label: 'Titre', info: 'Saisissez le titre de l\'événement'},
+          description: { label: 'Description', info: 'Saisissez une description courte' },
+          tags: { label: 'Mots clés', info: 'Saisissez les mots clés résumant au mieux votre événement' },
+          freeText: { label: 'Champ libre', info: 'Ce que vous voulez.' },
+          remaining: 'Il vous reste %count% caractères'
+        },
+        initValidate: false // true if action is submit
+      });
+
+      cibulEventImage({
+        upload: 'http://templates.cibul.net/event form/prod/server/index.php',
+        remove: 'http://templates.cibul.net/event form/prod/server/remove.php',
+        canvas: el('.js_form_canvas'),
+        path: 'http://templates.cibul.net/event form/prod/server/uploaded/',
+        labels: {
+          upload: 'charger une image',
+          info: 'l\'image doit au moins avoir 300 pixels de largeur',
+          error: 'Un problème est survenu lors du chargement de l\'image. Rechargez le formulaire et retentez',
+          success: 'L\'image a été chargée avec succès',
+          imageSection: 'Image',
+          removeImage: 'retirer l\'image',
+          removeMessage: 'Un problème est survenu lors de la tentative de suppression de l\'image. Rechargez le formulaire et retentez',
+          noImage: 'Aucune image n\'est encore associée à cet événement'
+        }
+      });
+
+      cibulEventLocation({
+        canvas: el('.js_form_canvas'),
+        get: getFunc,
+        localSelection: localLocations,
+        countries: [ {code:"AD", name:"Andorra"},{code:"AE", name:"United Arab Emirates"},{code:"AF", name:"Afghanistan"},{code:"AG", name:"Antigua and Barbuda"},{code:"AI", name:"Anguilla"},{code:"AL", name:"Albania"},{code:"AM", name:"Armenia"},{code:"AN", name:"Netherlands Antilles"},{code:"AO", name:"Angola"},{code:"AQ", name:"Antarctica"},{code:"AR", name:"Argentina"},{code:"AS", name:"American Samoa"},{code:"AT", name:"Austria"},{code:"AU", name:"Australia"},{code:"AW", name:"Aruba"},{code:"AZ", name:"Azerbaijan"},{code:"BA", name:"Bosnia and Herzegovina"},{code:"BB", name:"Barbados"},{code:"BD", name:"Bangladesh"},{code:"BE", name:"Belgium"},{code:"BF", name:"Burkina Faso"},{code:"BG", name:"Bulgaria"},{code:"BH", name:"Bahrain"},{code:"BI", name:"Burundi"},{code:"BJ", name:"Benin"},{code:"BM", name:"Bermuda"},{code:"BN", name:"Brunei Darussalam"},{code:"BO", name:"Bolivia"},{code:"BR", name:"Brazil"},{code:"BS", name:"Bahamas"},{code:"BT", name:"Bhutan"},{code:"BV", name:"Bouvet Island"},{code:"BW", name:"Botswana"},{code:"BY", name:"Belarus"},{code:"BZ", name:"Belize"},{code:"CA", name:"Canada"},{code:"CC", name:"Cocos (Keeling) Islands"},{code:"CD", name:"Democratic Republic of Congo"},{code:"CF", name:"Central African Republic"},{code:"CG", name:"Congo"},{code:"CH", name:"Switzerland"},{code:"CI", name:"Cote D'Ivoire"},{code:"CK", name:"Cook Islands"},{code:"CL", name:"Chile"},{code:"CM", name:"Cameroon"},{code:"CN", name:"China"},{code:"CO", name:"Colombia"},{code:"CR", name:"Costa Rica"},{code:"CS", name:"Serbia and Montenegro"},{code:"CU", name:"Cuba"},{code:"CV", name:"Cape Verde"},{code:"CX", name:"Christmas Island"},{code:"CY", name:"Cyprus"},{code:"CZ", name:"Czech Republic"},{code:"DE", name:"Germany"},{code:"DJ", name:"Djibouti"},{code:"DK", name:"Denmark"},{code:"DM", name:"Dominica"},{code:"DO", name:"Dominican Republic"},{code:"DZ", name:"Algeria"},{code:"EC", name:"Ecuador"},{code:"EE", name:"Estonia"},{code:"EG", name:"Egypt"},{code:"EH", name:"Western Sahara"},{code:"ER", name:"Eritrea"},{code:"ES", name:"Spain"},{code:"ET", name:"Ethiopia"},{code:"FI", name:"Finland"},{code:"FJ", name:"Fiji"},{code:"FK", name:"Falkland Islands (Malvinas)"},{code:"FM", name:"Micronesia), Federated States of"},{code:"FO", name:"Faroe Islands"},{code:"FR", name:"France"},{code:"GA", name:"Gabon"},{code:"GB", name:"United Kingdom"},{code:"GD", name:"Grenada"},{code:"GE", name:"Georgia"},{code:"GF", name:"French Guiana"},{code:"GH", name:"Ghana"},{code:"GI", name:"Gibraltar"},{code:"GL", name:"Greenland"},{code:"GM", name:"Gambia"},{code:"GN", name:"Guinea"},{code:"GP", name:"Guadeloupe"},{code:"GQ", name:"Equatorial Guinea"},{code:"GR", name:"Greece"},{code:"GS", name:"South Georgia and the South Sandwich Islands"},{code:"GT", name:"Guatemala"},{code:"GU", name:"Guam"},{code:"GW", name:"Guinea-Bissau"},{code:"GY", name:"Guyana"},{code:"HK", name:"Hong Kong"},{code:"HM", name:"Heard Island and Mcdonald Islands"},{code:"HN", name:"Honduras"},{code:"HR", name:"Croatia"},{code:"HT", name:"Haiti"},{code:"HU", name:"Hungary"},{code:"ID", name:"Indonesia"},{code:"IE", name:"Ireland"},{code:"IL", name:"Israel"},{code:"IN", name:"India"},{code:"IO", name:"British Indian Ocean Territory"},{code:"IQ", name:"Iraq"},{code:"IR", name:"Iran), Islamic Republic of"},{code:"IS", name:"Iceland"},{code:"IT", name:"Italy"},{code:"JM", name:"Jamaica"},{code:"JO", name:"Jordan"},{code:"JP", name:"Japan"},{code:"KE", name:"Kenya"},{code:"KG", name:"Kyrgyzstan"},{code:"KH", name:"Cambodia"},{code:"KI", name:"Kiribati"},{code:"KM", name:"Comoros"},{code:"KN", name:"Saint Kitts and Nevis"},{code:"KP", name:"Korea), Democratic People's Republic of"},{code:"KR", name:"Korea), Republic of"},{code:"KW", name:"Kuwait"},{code:"KY", name:"Cayman Islands"},{code:"KZ", name:"Kazakhstan"},{code:"LA", name:"Lao People's Democratic Republic"},{code:"LB", name:"Lebanon"},{code:"LC", name:"Saint Lucia"},{code:"LI", name:"Liechtenstein"},{code:"LK", name:"Sri Lanka"},{code:"LR", name:"Liberia"},{code:"LS", name:"Lesotho"},{code:"LT", name:"Lithuania"},{code:"LU", name:"Luxembourg"},{code:"LV", name:"Latvia"},{code:"LY", name:"Libyan Arab Jamahiriya"},{code:"MA", name:"Morocco"},{code:"MC", name:"Monaco"},{code:"MD", name:"Moldova), Republic of"},{code:"MG", name:"Madagascar"},{code:"MH", name:"Marshall Islands"},{code:"MK", name:"Macedonia), the Former Yugoslav Republic of"},{code:"ML", name:"Mali"},{code:"MM", name:"Myanmar"},{code:"MN", name:"Mongolia"},{code:"MO", name:"Macao"},{code:"MP", name:"Northern Mariana Islands"},{code:"MQ", name:"Martinique"},{code:"MR", name:"Mauritania"},{code:"MS", name:"Montserrat"},{code:"MT", name:"Malta"},{code:"MU", name:"Mauritius"},{code:"MV", name:"Maldives"},{code:"MW", name:"Malawi"},{code:"MX", name:"Mexico"},{code:"MY", name:"Malaysia"},{code:"MZ", name:"Mozambique"},{code:"NA", name:"Namibia"},{code:"NC", name:"New Caledonia"},{code:"NE", name:"Niger"},{code:"NF", name:"Norfolk Island"},{code:"NG", name:"Nigeria"},{code:"NI", name:"Nicaragua"},{code:"NL", name:"Netherlands"},{code:"NO", name:"Norway"},{code:"NP", name:"Nepal"},{code:"NR", name:"Nauru"},{code:"NU", name:"Niue"},{code:"NZ", name:"New Zealand"},{code:"OM", name:"Oman"},{code:"PA", name:"Panama"},{code:"PE", name:"Peru"},{code:"PF", name:"French Polynesia"},{code:"PG", name:"Papua New Guinea"},{code:"PH", name:"Philippines"},{code:"PK", name:"Pakistan"},{code:"PL", name:"Poland"},{code:"PM", name:"Saint Pierre and Miquelon"},{code:"PN", name:"Pitcairn"},{code:"PR", name:"Puerto Rico"},{code:"PS", name:"Palestinian Territory), Occupied"},{code:"PT", name:"Portugal"},{code:"PW", name:"Palau"},{code:"PY", name:"Paraguay"},{code:"QA", name:"Qatar"},{code:"RE", name:"Reunion"},{code:"RO", name:"Romania"},{code:"RU", name:"Russian Federation"},{code:"RW", name:"Rwanda"},{code:"SA", name:"Saudi Arabia"},{code:"SB", name:"Solomon Islands"},{code:"SC", name:"Seychelles"},{code:"SD", name:"Sudan"},{code:"SE", name:"Sweden"},{code:"SG", name:"Singapore"},{code:"SH", name:"Saint Helena"},{code:"SI", name:"Slovenia"},{code:"SJ", name:"Svalbard and Jan Mayen"},{code:"SK", name:"Slovakia"},{code:"SL", name:"Sierra Leone"},{code:"SM", name:"San Marino"},{code:"SN", name:"Senegal"},{code:"SO", name:"Somalia"},{code:"SR", name:"Suriname"},{code:"ST", name:"Sao Tome and Principe"},{code:"SV", name:"El Salvador"},{code:"SY", name:"Syrian Arab Republic"},{code:"SZ", name:"Swaziland"},{code:"TC", name:"Turks and Caicos Islands"},{code:"TD", name:"Chad"},{code:"TF", name:"French Southern Territories"},{code:"TG", name:"Togo"},{code:"TH", name:"Thailand"},{code:"TJ", name:"Tajikistan"},{code:"TK", name:"Tokelau"},{code:"TL", name:"Timor-Leste"},{code:"TM", name:"Turkmenistan"},{code:"TN", name:"Tunisia"},{code:"TO", name:"Tonga"},{code:"TR", name:"Turkey"},{code:"TT", name:"Trinidad and Tobago"},{code:"TV", name:"Tuvalu"},{code:"TW", name:"Taiwan), Province of China"},{code:"TZ", name:"Tanzania), United Republic of"},{code:"UA", name:"Ukraine"},{code:"UG", name:"Uganda"},{code:"UM", name:"United States Minor Outlying Islands"},{code:"US", name:"United States"},{code:"UY", name:"Uruguay"},{code:"UZ", name:"Uzbekistan"},{code:"VA", name:"Holy See (Vatican City State)"},{code:"VC", name:"Saint Vincent and the Grenadines"},{code:"VE", name:"Venezuela"},{code:"VG", name:"British Virgin Islands"},{code:"VI", name:"U.S. Virgin Islands"},{code:"VN", name:"Viet Nam"},{code:"VU", name:"Vanuatu"},{code:"WF", name:"Wallis and Futuna"},{code:"WS", name:"Samoa"},{code:"YE", name:"Yemen"},{code:"YT", name:"Mayotte"},{code:"ZA", name:"South Africa"},{code:"ZM", name:"Zambia"},{code:"ZW", name:"Zimbabwe"} ],
+        labels: {
+          addPlace: 'ajouter un lieu',
+          locationTitle: 'Lieu',
+          dateTitle: 'Dates',
+          pricingTitle: 'Prix et Réservation',
+          change:'modifier',
+          remove: 'retirer',
+          removeLocation: 'retirer lieu',
+          removeLocationInfo: 'les dates et tarifs associés seront supprimés',
+          fetchInfo: 'Saisissez le nom et l\'adresse du lieu puis séléctionnez le sur la liste',
+          placename: 'Nom',
+          placenameInfo: 'Nom du lieu',
+          address: 'Adresse',
+          addressInfo: 'numéro, rue, ville',
+          empty: 'Saisissez un nom et une adresse pour voir la liste de choix apparaître.',
+          manualMark: 'Vous ne trouvez pas le bon lieu? Cliquez ici pour placer le marqueur manuellement sur la carte.',
+          addLabel: 'ajouter des dates',
+          addDate: 'Ajouter',
+          clearLabel: 'retirer les dates',
+          timingInfo: 'hh:mm',
+          timingError: 'hh:mm',
+          addTitle: 'Ajoutez des dates',
+          addInfo: 'séléctionnez une rangée de dates en cliquant et glissant le curseur sur le calendrier, puis saisissez les horaires.',
+          begin: 'horaire de début',
+          end: 'horaire de fin',
+          noPlaceName: 'Le nom est manquant.',
+          noAddress: 'L\'adresse est manquante.',
+          noLatLng: 'Les données géogaphiques sont manquantes veuillez refaire la séléction de votre lieu.',
+          incompletePlace: 'La saisie du lieu est incomplète.',
+          select: 'séléctionner',
+          seeMap: 'voir carte',
+          languages: {
+            en: 'english',
+            fr: 'français',
+            es: 'espanol',
+            it: 'italiano'
+          },
+          ticketLink: 'Lien de billetterie',
+          ticketLinkInfo: 'Si vous disposez d\'une billetterie en ligne',
+          pricingInfo: 'Tarification',
+          pricingInfoInfo: 'Informations générales',
+          countryField: 'pays', 
+          countryFieldInfo: 'saisissez un nom de pays puis cliquez sur "entrée"'
+        },
+        lang: 'fr',
+        map: {
+          type: 'osm',
+          init: {url: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'},
+          coords: [48.447052, 1.486754]
+        }
+      });
+
+      cibulEventSubmit({
+        canvas: el('.js_form_canvas'),
+        allowDraft: true,
+        publish: '#publish',
+        update: '#update{uid}',
+        nopublish: '#nopublish',
+        remove: '#remove/{uid}',
+        labels: {
+          update: 'Appliquer les changements',
+          publish: 'Publier',
+          create: 'Publier',
+          createdraft: 'Créer sans publier',
+          remove: 'Supprimer l\'événement',
+          removeMessage: 'Are you sure you want to delete this event?',
+          removeYes: 'Yes',
+          removeNo: 'Cancel'
+        }
+      });
+
+    });
+
+    // to be used for embedded form
+    cibulEventFormTunnel();
+
+    // to be used for sandbox form
+    function setCustomCss(css) {
+
+      var sheet = el('#custom-css');
+
+      sheet.styleSheet?sheet.styleSheet.cssText:sheet.innerHTML = css;
+
+    };
+
+    </script>
+  </body>
+</html>

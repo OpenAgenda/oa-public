@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <title>Wigglypoof</title>
+
+  <script type="text/javascript" src="common/common.js"></script>
+  <script type="text/javascript" src="ejs/ejs_production.js"></script>
+  <script type="text/javascript" src="remote/remote.js"></script>
+  <script type="text/javascript" src="inputWidgets/inputWidgets.js"></script>
+  <script type="text/javascript" src="inputWidgets/inputControllers.js"></script>
+  <script type="text/javascript" src="inputWidgets/inputValidators.js"></script>
+  <script type="text/javascript" src="../src/v0.1/handlePlaceFetch.js"></script>
+  <script type="text/javascript" src="../src/v0.1/makeLooseGet.js"></script>
+  <script type="text/javascript" src="../src/v0.1/makeLooseGetFake.js"></script>
+
+</head>
+<body>
+  <div class="js_canvas"></div>
+
+  <script type="text/javascript">
+
+    addEvent(window, 'load', function() {
+
+      var getFunc = makeLooseGet({
+        url: 'http://d.cibul.net/frontend_dev.php/event/location/search',
+        debug: true,
+      });
+
+      /*var getFunc = makeLooseGetFake({
+        data: [
+          { name: 'Theatre du Grand Rond', address: '23 Rue des Potiers, 31000 Toulouse', lat:43.598648 , lng: 1.453954, uid: 1},
+          { name: "Fondation Cartier pour l'Art Contemporain", address: '261 Boulevard Raspail, 75014 Paris, France', lat: 48.837197, lng: 2.331679, uid: 12 },
+          { name: "Institut du Monde Arabe", address: "1 Rue Fossés Saint Bernard, 75005 Paris, France", lat: 48.849065, lng: 2.357423, uid: 13 },
+          { name: "Theatre Saint Louis", address: "Rue Saint Louis En L'Ile, 75004 Paris, France", lat: 48.851220, lng: 2.357740, uid: 14 },
+          { name: "La Fleche d'Or", address: "102 Rue de Bagnolet, 75020 Paris, France", lat: 48.859423, lng: 2.402919, uid: 15 },
+          { name: "Théâtre du Gymnase Paris", address: "38 Boulevard de Bonne Nouvelle, 75010 Paris, France", lat: 48.870826, lng: 2.347770, uid: 16 },
+          { name: "Grande Halle de la Villette Paris", address: "211 Avenue Jean Jaurès, 75019 Paris, France", lat: 48.889095, lng: 2.394431},
+          { name: "Théâtre de la Cité internationale Paris", address: "17 Boulevard Jourdan, 75014 Paris", lat: 48.820094, lng: 2.338727 },
+          { name: "Hôtel de Lauzun Paris", address: "17 Quai d'Anjou, 75004 Paris", lat: 48.851616, lng: 2.359222 },
+          { name: "Comédie de la Passerelle Paris", address: "102 Rue Orfila, 75020 Paris, France", lat: 48.867933, lng: 2.399883 },
+          { name: "Theatre des Bouffes du Nord", address: "37 Boulevard de la Chapelle, 75010 Paris, France", lat: 48.884203, lng: 2.358703 },
+          { name: "Le Bal", address: "6 Impasse de la Défense, 75018 Paris, France", lat: 48.885103, lng: 2.326857 },
+          { name: "Les Trois Baudets Paris", address: "64 Boulevard de Clichy, 75018 Paris, France", lat: 48.883411, lng: 2.334352 },
+          { name: "La Cigale Paris", address: "120 Boulevard de Rochechouart, 75018 Paris", lat: 48.882230, lng: 2.340260 },
+          { name: "Centre Culturel Bellegarde", address: "17 Rue de Bellegarde, 31000 Toulouse, France", lat: 43.608328, lng: 1.444757 },
+          { name: "Théâtre national de Chaillot Paris", address: "1 Square du Trocadéro, 75116 Paris, France", lat: 48.862324, lng: 2.281956 },
+          { name: "Palais des congrès", address: "58 Boulevard Charles Livon, 13007 Marseille, France", lat: 43.292057, lng: 5.358939 },
+        ]
+      });*/
+
+      var localLocations = [
+        { name: "Palais des congrès", address: "58 Boulevard Charles Livon, 13007 Marseille, France", lat: 43.292057, lng: 5.358939, uid: 281 },
+        { name: "Visionairs Gallery", address: "14 Rue des Carmes, 75005 Paris, France", lat: 48.849159, lng: 2.347472, uid: 282 },
+        { name: "Sentier des Halles", address: "50 Rue d'Aboukir, 75002 Paris, France", lat: 48.867336, lng: 2.345657, uid: 283 },
+        { name: "Théâtre musical Marsoulan", address: "20 Rue Marsoulan, 75012 Paris, France", lat: 48.846729, lng: 2.403448, uid: 284 },
+        { name: "Le Vingtième-Théâtre", address: "7 Rue des Plâtrières, 75020 Paris, France", lat: 48.867959, lng: 2.389516, uid: 285 },
+        { name: "Zenith Paris", address: "211 Avenue Jean Jaurès, 75019 Paris", lat: 48.889095, lng:48.889095, uid: 286 },
+        { name: "Theatre De Neuilly", address: "167 Avenue Charles de Gaulle, 92200 Neuilly-sur-Seine", lat: 48.884065, lng: 2.263169, uid: 287 },
+        { name: "Palais Royal", address: "Paris Palais Royal, 8 Rue Molière, 75001 Paris", lat: 48.865017, lng: 2.335248, uid: 288 },
+        { name: "Arènes de Montmartre", address: "25 Rue Chappe, 75018 Paris, France", lat: 48.885558, lng: 2.342023, uid: 289 }
+      ];
+
+
+      handlePlaceFetch({
+        canvas: el('.js_canvas'),
+        get: getFunc,
+        locations: localLocations,
+        onFetched: function(suggestions) {
+          console.log(suggestions);
+        }
+      }).create();
+
+    });
+
+  </script>
+    
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+#program-search .main { width: auto!important; max-width: none!important; }
+
+#program-search .search-field { display: block; padding-bottom: 10px; }
+#program-search .search-field > div { display: inline-block; padding: 10px; }
+
+#program-search .search-result > div { margin: 10px 10px 10px 0; }

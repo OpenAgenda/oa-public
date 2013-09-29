@@ -1,0 +1,385 @@
+var paths = {
+  hv:  '../home visitor/js',
+  hs:  '../header/js/',
+  p:   '../program/js/',
+  ps:  '../program search/js/',
+  pl:  '../program small list page/js/',
+  e:   '../event page/js/',
+  el:  '../event list page/js/',
+  ee:  '../event page embedded/js/',
+  ep:  '../event form/js/',
+  pe:  '../program embedded/js/',
+  pf:  '../program edit menu/js/',
+  pm:  '../program menu/js/',
+  pem: '../program embed menu/js/',
+  jsc: '../js/cibul/',
+  lib: '../js/lib/',
+  vd:  '../js/vendors/'
+},
+
+destPath = '/home/kaore/Dev/www/cibul-symfony/web/js/',
+
+files = {
+
+  'event/eventPublish.min.js': [
+    [paths.ep,
+      'cibulEvent.js',
+      'cibulEventValidator.js',
+      'cibulEventDescription.js',
+      'cibulEventLocation.js',
+      'cibulEventImage.js',
+      'cibulEventSubmit.js',
+      'cibulEventFormTunnel.js',
+      'handlePricingSelection.js'
+    ],
+    [paths.lib, 
+      'common/common.js', 'Base64/Base64.js', 'iTunnel/iTunnel.js', 
+      'urlStrings/urlStrings.js', 'verboseDate/verboseDate.js',
+      'EventHandler/EventHandler.js', 'remote/remote.js',
+      'inputWidgets/inputControllers.js', 'inputWidgets/inputWidgets.js',
+      'inputWidgets/inputValidators.js', 'maps/maps.js', 'maps/google.maps.js',
+      'lightbox/lightbox.js', 'inputCounter/inputCounter.js'
+    ],
+    [paths.vd,
+      'spin/src/spin.min.js',  
+      'ejs/src/ejs_production.js', 
+      'CibulCalendar/src/CibulCalendar.js', 
+    ],
+    [paths.jsc,
+      'handleEventImage/src/handleEventImage.js',
+      'handleDateSelection/src/handleDateSelection.js',
+      'handleDateSelection/src/handleDatesAdd.js',
+      'handleDateSelection/src/handleDatesList.js',
+      'handlePlaceSelection/src/handlePlaceSelection.js',
+      'handlePlaceSelection/src/handlePlaceSelectionList.js',
+      'handlePlaceSelection/src/handlePlaceSelectionMap.js',
+      'handlePlaceSelection/src/handlePlaceMapDrag.js',
+      'handlePlaceFetch/src/makeLooseGet.js',
+      'handlePlaceFetch/src/handlePlaceFetch.js',
+      'handleEventPlaceEdit/src/handleEventPlaceEdit.js',
+      'handleContextMenu/src/handleContextMenu.js',
+      'handleSession/src/handleSession.js',
+      'handleSuggestions/src/handleSuggestions.js',
+      'inputCountry/src/inputCountry.js',
+    ],
+  ],
+
+  'review/embedPublish.min.js': [
+    [paths.ep,
+      'cibulEvent.js',
+      'cibulEventValidator.js',
+      'cibulEventDescription.js',
+      'cibulEventLocation.js',
+      'cibulEventImage.js',
+      'cibulEventSubmit.js',
+      'cibulEventFormTunnel.js',
+      'handlePricingSelection.js'
+    ],
+    [paths.lib, 
+      'common/common.js', 'Base64/Base64.js', 'iTunnel/iTunnel.js', 
+      'urlStrings/urlStrings.js', 'verboseDate/verboseDate.js', 'EventHandler/EventHandler.js',
+      'remote/remote.js', 'inputWidgets/inputControllers.js', 'inputWidgets/inputWidgets.js',
+      'inputWidgets/inputValidators.js', 'maps/leaflet.js', 'maps/maps.js',
+      'maps/osm.maps.js', 'lightbox/lightbox.js', 'inputCounter/inputCounter.js',
+    ],
+    [paths.vd,
+      'spin/src/spin.min.js', 
+      'ejs/src/ejs_production.js', 
+      'CibulCalendar/src/CibulCalendar.js', 
+      'Cookies-master/src/cookies.js',
+    ],
+    [paths.jsc,
+      'handleEventImage/src/handleEventImage.js',
+      'handleDateSelection/src/handleDateSelection.js',
+      'handleDateSelection/src/handleDatesAdd.js',
+      'handleDateSelection/src/handleDatesList.js',
+      'handlePlaceSelection/src/handlePlaceSelection.js',
+      'handlePlaceSelection/src/handlePlaceSelectionList.js',
+      'handlePlaceSelection/src/handlePlaceSelectionMap.js',
+      'handlePlaceSelection/src/handlePlaceMapDrag.js',
+      'handlePlaceFetch/src/makeLooseGet.js',
+      'handlePlaceFetch/src/handlePlaceFetch.js',
+      'handleEventPlaceEdit/src/handleEventPlaceEdit.js',
+      'handleContextMenu/src/handleContextMenu.js',
+      'handleSession/src/handleSession.js',
+      'handleSuggestions/src/handleSuggestions.js',
+      'inputCountry/src/inputCountry.js',
+    ],
+  ],
+
+  'header/search.min.js': [
+    [paths.hs, 'common.js', 'handleHeader.js', 'handleHeaderSearch.js', 'searchLib.js', 'geocoder.js', 'queryClient.js'],
+    [paths.lib, 'common/common.js', 'EventHandler/EventHandler.js', 'remote/remote.js' ],
+    [paths.vd, 
+      'CibulCalendar/src/CibulCalendar.js', 
+      'iscroll/src/iscroll.js', 
+      'ejs/src/ejs_production.js', 
+      'Cookies-master/src/cookies.js',
+    ],
+    [paths.jsc,
+      'handleContextMenu/src/handleContextMenu.js',
+      'handleSession/src/handleSession.js'
+    ]
+  ],
+
+  'home/visitor.min.js': [
+    [paths.lib, 'common/common.js', 'EventHandler/EventHandler.js', 'flowinate/flowinate.js', 'remote/remote.js', 'urlStrings/urlStrings.js'],
+    [paths.vd, 'ejs/src/ejs_production.js'],
+    [paths.jsc, 
+      'handleList/src/handleList.js',
+      'handleLock/src/handleLock.js',
+      'handleNav/src/handleNav.js', 
+      'handleProgramSearch/src/handleProgramSearch.js'
+    ]
+  ],
+
+  'event/event.min.js': [
+    [paths.jsc,
+      'handleEventPlaces/src/handleEventPlaces.js',
+      'handleEventDates/src/handleEventDates.js',
+      'handleLanguages/src/handleLanguages.js',
+      'handleOEmbed/src/handleOEmbed.js',
+      'handleEvent/src/handleEvent.js',
+      'handleShares/src/handleShares.js',
+      'mapHandler/src/mapHandler.js',
+      'handleContextMenu/src/handleContextMenu.js',
+      'action/src/action.js'
+    ],
+    [paths.lib, 
+      'Base64/Base64.js', 'common/common.js', 'remote/remote.js',
+      'loadJs/loadJs.js', 'lightbox/lightbox.js', 
+      'urlStrings/urlStrings.js', 'EventHandler/EventHandler.js',
+      'tabs/tabs.js', 'linkToImage/linkToImage.js',
+      'maps/maps.js', 'maps/google.maps.js', 'lineNav/lineNav.js',
+    ],
+    [paths.vd,
+      'setLinks/src/setLinks.js',
+      'ejs/src/ejs_production.js', 
+      'ejs/src/ejs_production.js', 
+      'Cookies-master/src/cookies.js'
+    ],
+    [paths.e, 'handleEventAdmin.js']
+  ],
+
+  'event/list.min.js': [
+    [paths.lib, 
+      'Base64/Base64.js', 'hash/hash.js', 'common/common.js',
+      'urlStrings/urlStrings.js', 
+      'remote/remote.js', 'lightbox/lightbox.js', 'EventHandler/EventHandler.js', 
+      'inputWidgets/inputControllers.js', 'inputWidgets/inputWidgets.js'
+    ],
+    [paths.vd, 
+      'setLinks/src/setLinks.js',
+      'spin/src/spin.min.js', 
+      'ejs/src/ejs_production.js', 
+    ],
+    [paths.jsc,
+      'handleList/src/handleList.js',
+      'handleContextMenu/src/handleContextMenu.js',
+      'handleNav/src/handleNav.js', 
+      'handleLock/src/handleLock.js', 
+    ],
+    [paths.el,
+      'handleEventList.js',
+      'handleEventListFilters.js'
+    ],
+  ],
+
+  'review/program.min.js': [
+    [paths.lib, 
+      'Base64/Base64.js', 'hash/hash.js', 'common/common.js',
+      'urlStrings/urlStrings.js', 'remote/remote.js', 
+      'loadJs/loadJs.js', 'maps/maps.js', 'maps/google.maps.js', 'lightbox/lightbox.js'
+    ],
+    [paths.vd, 
+      'setLinks/src/setLinks.js',
+      'ejs/src/ejs_production.js', 
+      'CibulCalendar/src/CibulCalendar.js',
+      'iscroll/src/iscroll.js',
+      'spin/src/spin.min.js', 
+      'Cookies-master/src/cookies.js'
+    ],
+    [paths.jsc,
+      'handleShares/src/handleShares.js',
+      'handleList/src/handleList.js',
+      'mapHandler/src/mapHandler.js',
+      'handleCalendar/src/handleCalendar.js',
+      'handleContextMenu/src/handleContextMenu.js',
+      'handleNav/src/handleNav.js', 
+      'handleSectionRemove/src/handleSectionRemove.js',
+      'handleHeadFilter/src/handleHeadFilter.js',
+      'handleLock/src/handleLock.js',
+      'handleProgramControlData/src/handleProgramControlData.js',
+      'action/src/action.js',
+      'sendGetMessage/src/sendGetMessage.js',
+      'handleSuggestions/src/handleSuggestions.js'
+    ],
+    [paths.p, 
+      'handleCategories.js',
+      'handleCibulFollow.js',
+      'handleEdition.js',
+      'handleMap.js',
+      'handleMobile.js',
+      'handleProgram.js',
+      'handleEmptyProgram.js',
+      'handleTags.js',
+      'handleTagsEdit.js',
+      'handleSourceMenu.js'
+    ]
+  ],
+
+  'list.min.js': [
+    [paths.lib, 
+      'Base64/Base64.js', 'hash/hash.js', 'common/common.js',
+      'urlStrings/urlStrings.js',
+      'remote/remote.js', 'lightbox/lightbox.js', 'EventHandler/EventHandler.js', 
+    ],
+    [paths.vd, 
+      'setLinks/src/setLinks.js',
+      'spin/src/spin.min.js', 
+      'ejs/src/ejs_production.js', 
+    ],
+    [paths.jsc,
+      'handleList/src/handleList.js',
+      'handleContextMenu/src/handleContextMenu.js',
+      'handleNav/src/handleNav.js', 
+      'handleLock/src/handleLock.js', 
+    ],
+    [paths.pl,
+      'handleListPage.js',
+    ],
+  ],
+
+  'review/search.min.js': [
+    [paths.lib, 
+      'common/common.js', 'EventHandler/EventHandler.js', 
+      'remote/remote.js', 'flowinate/flowinate.js'
+    ],
+    [paths.jsc,
+      'handleList/src/handleList.js',
+      'handleNav/src/handleNav.js', 
+      'handleLock/src/handleLock.js',
+      'handleProgramSearch/src/handleProgramSearch.js'
+    ],
+    [paths.vd,
+      'spin/src/spin.min.js', 
+      'ejs/src/ejs_production.js'
+    ]
+  ],
+
+  'event/embedEvent.min.js': [
+    [paths.jsc,
+      'handleEventPlaces/src/handleEventPlaces.js',
+      'handleEventDates/src/handleEventDates.js',
+      'handleLanguages/src/handleLanguages.js',
+      'handleOEmbed/src/handleOEmbed.js',
+      'handleEvent/src/handleEvent.js',
+      'mapHandler/src/mapHandler.js', 
+      'handleContextMenu/src/handleContextMenu.js'
+    ],
+    [paths.lib, 
+      'common/common.js', 'Base64/Base64.js', 'iTunnel/iTunnel.js', 'hash/hash.js' ,
+      'urlStrings/urlStrings.js', 'tabs/tabs.js', 'lineNav/lineNav.js',
+      'maps/maps.js', 'maps/osm.maps.js', 'maps/leaflet.js', 
+      'remote/remote.js', 'loadJs/loadJs.js', 
+      'linkToImage/linkToImage.js'
+    ],
+    [paths.vd, 
+      'setLinks/src/setLinks.js',
+      'spin/src/spin.min.js', 
+      'ejs/src/ejs_production.js'
+    ],
+    [paths.ee, 'handleEventTunnel.js', 'makeEventHeightGetter.js']
+  ],
+
+  'review/form.min.js': [
+    [paths.lib, 'common/common.js'],
+    [paths.vd, 'colorpicker/src/colorpicker.js'],
+    [paths.jsc, 'handleContextMenu/src/handleContextMenu.js'],
+    [paths.pf, 'form.js']
+  ],
+
+  'review/embedList.min.js': [
+    [paths.jsc,
+      'handleList/src/handleList.js',
+      'mapHandler/src/mapHandler.js',
+      'handleContextMenu/src/handleContextMenu.js',
+      'handleNav/src/handleNav.js', 
+      'handleSectionRemove/src/handleSectionRemove.js',
+      'handleHeadFilter/src/handleHeadFilter.js',
+      'handleLock/src/handleLock.js',
+      'handleProgramControlData/src/handleProgramControlData.js',
+      'handleEventPlaces/src/handleEventPlaces.js',
+      'handleEventDates/src/handleEventDates.js',
+      'handleLanguages/src/handleLanguages.js',
+      'handleOEmbed/src/handleOEmbed.js',
+      'handleEvent/src/handleEvent.js'
+    ],
+    [paths.lib, 
+      'Base64/Base64.js', 'iTunnel/iTunnel.js', 'hash/hash.js', 'common/common.js',
+      'EventHandler/EventHandler.js', 'urlStrings/urlStrings.js', 'remote/remote.js', 
+      'tabs/tabs.js', 'lineNav/lineNav.js', 'maps/maps.js', 'maps/osm.maps.js', 
+      'maps/leaflet.js', 'loadJs/loadJs.js',
+      'linkToImage/linkToImage.js'
+    ],
+    [paths.vd,
+      'setLinks/src/setLinks.js',
+      'spin/src/spin.min.js', 
+      'ejs/src/ejs_production.js',
+    ],
+    [paths.pe, 
+      'handleMap-0.2.js', 
+      'handleEventDisplay.js', 
+      'handleEmbeddedList.js',
+      'handleEmbeddedTunnel.js'
+    ],
+    [paths.ee, 'handleEventTunnel.js', 'makeEventHeightGetter.js']
+  ],
+
+  'review/embedListFb.min.js': [
+    [paths.vd, 'iscroll/src/iscroll.js' ],
+    [paths.lib, 'makeUnselectable/makeUnselectable.js'],
+    [paths.pe, 'handleEmbeddedMap.js', 'handleEmbeddedScroll.js' ]
+  ],
+
+  'review/menu.min.js': [
+    [paths.lib, 
+      'common/common.js', 'tabs/tabs.js', 'EventHandler/EventHandler.js', 
+      'remote/remote.js', 'lightbox/lightbox.js'
+    ],
+    [paths.vd, 'ejs/src/ejs_production.js', 'spin/src/spin.min.js' ],
+    [paths.jsc, 
+      'embedCodeField/src/embedCodeField.js', 
+      'handleContextMenu/src/handleContextMenu.js', 
+      'handleSuggestions/src/handleSuggestions.js',
+      'sendGetMessage/src/sendGetMessage.js'
+    ],
+    [paths.pm, 'specific.js', 'handleEditorsMenu.js', 'handleSourcesMenu.js']
+  ],
+
+  'review/embedMenu.min.js': [
+    [paths.jsc, 'handleContextMenu/src/handleContextMenu.js', 'embedCodeField/src/embedCodeField.js'],
+    [paths.lib, 'formWidgets/formWidgets.js', 'tabs/tabs.js', 'lightbox/lightbox.js'],
+    [paths.pem, 'handleEmbedMenuList-0.2.js', 'handleEmbedMenuMap-0.2.js', 'handleEmbedMenuCategories-0.2.js', 'handleEmbedMenuCalendar-0.2.js', 'handleEmbedMenuFacebook-0.1.js', 'handleEmbedMenuAddButton.js']
+  ],
+
+  'review/embedMap.min.js': [
+    [paths.lib, 
+      'common/common.js', 'Base64/Base64.js', 'iTunnel/iTunnel.js', 
+      'hash/hash.js', 'urlStrings/urlStrings.js', 'remote/remote.js', 
+      'EventHandler/EventHandler.js', 'maps/maps.js', 
+      'maps/osm.maps.js', 'maps/leaflet.js'
+    ],
+    [paths.jsc, 'handleProgramControlData/src/handleProgramControlData.js', 'mapHandler/src/mapHandler.js'],
+    [paths.pe, 'handleMap-0.2.js', 'handleEmbeddedMap.js', 'handleEmbeddedMapTunnel.js']
+  ],
+
+  'review/cibulEmbed.min.js': [
+    [paths.jsc, 'cibulEmbed/src/cibulEmbed.js']
+  ]
+
+  // menu, map, cibulEmbed.
+};
+
+exports.files = files;
+exports.destPath = destPath;

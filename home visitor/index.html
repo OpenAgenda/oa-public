@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nouvelle home</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+    <!--[if IE]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="../js/lib/common/common.js"></script>
+    <script type="text/javascript" src="../js/lib/flowinate/flowinate.js"></script>
+    <script type="text/javascript" src="../js/lib/EventHandler/EventHandler.js"></script>
+    <script type="text/javascript" src="../js/lib/remote/remote.js"></script>
+    <script type="text/javascript" src="../js/lib/urlStrings/urlStrings.js"></script>
+
+    <script type="text/javascript" src="../js/cibul/handleList/src/handleList.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleNav/src/handleNav.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleLock/src/handleLock.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleProgramSearch/src/handleProgramSearch.js"></script>
+
+    <script type="text/javascript" src="../js/vendors/spin/src/spin.min.js"></script>
+    <script type="text/javascript" src="../js/vendors/ejs/src/ejs_production.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="../css/global/global.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/page structure/page.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/rdl-item.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/ei.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/rsli.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/forms/forms.css"/>
+    <link rel="stylesheet" type="text/css" href="css/specific.css"/>
+    <link type="text/css" href="../css/font-awesome/font-awesome.css" rel="stylesheet"/>
+    <!--[if IE 7]><link rel="stylesheet" href="../css/font-awesome/font-awesome-ie7.css"><![endif]-->
+
+  </head>
+  <body>
+    <div id="nvh" class="cbody center">
+      <nav class="sec wsq"><div class="sidepane"></div>
+        <div class="content">
+          <h1>Diffusez votre programmation</h1>
+          <span class="subtitle">Publiez gratuitement votre programmation et rendez-la plus accessible</span>
+          <ul class="features">
+            <li><i class="icon-laptop"></i><span>Votre programmation est accessible sur une page dédiée adaptée à <strong>tous les formats d'écrans</strong></span></li>
+            <li><i class="icon-map-marker"></i><span>Vos événements sont <strong>géolocalisés</strong>, <strong>triables</strong> et <strong>filtrables</strong>.</span></li>
+            <li><i class="icon-refresh"></i><span>Mutualisez les agendas avec vos partenaires: finies les saisies en doublon!</span></li>
+            <li><i class="icon-cogs"></i><span>Votre programmation est <strong>Open Data</strong> grâce à l'<a class="url" href="#api"><strong>API</strong></a>.</li>
+            <li><div class="blue"><i class="icon-plus"></i><span>PRO</span></div><span>Intégrez vos programmes sur vos sites et pages Facebook en marque blanche avec les <a class="url" href="#integration"><strong>fonctions d'intégration</strong></a></li>
+          </ul>
+        </div>
+        <div class="content center">
+          <a class="button">Créez votre programme</a>
+        </div>
+        <div class="content">
+          <h1>Réseau d'acteurs: ouvrez un agenda collaboratif</h1>
+          <span class="subtitle">Vous êtes une communauté, un réseau, une fédération, un festival? Rendez visibles les événements de vos membres!</span>
+          <ul class="features">
+            <li><i class="icon-group"></i><span>Invitez des éditeurs sur vos programmes.</span></li>
+            <li><i class="icon-globe"></i><span>Rendez votre programme <strong>participatif</strong> et permettez à tout visiteur d'y rajouter des événements</span></li>
+            <li><i class="icon-cogs blue"></i><span>Allez plus loin en créant un programme <strong>agrégateur</strong> et séléctionnez des sources pour l'alimenter automatiquement. <a class="url">Contactez-nous</a> pour activer cette fonction.</span></li>
+          </ul>
+        </div>
+        <div class="content">
+          <h1>Développeurs: des événements OpenData via l'API</h1>
+          <span class="subtitle">Des données géolocalisées, structurées, à jour en temps réel.</span>
+          <ul class="features">
+            <li><i class="icon-cogs"></i><span>Récupérez les données <strong>détaillées</strong> de chaque événement ou programme <string>librement</string>.</span></li>
+            <li><i class="icon-search blue"></i><span>Faîtes des requêtes géographiques, chronologiques, thématiques. <a class="url">Contactez nous</a> pour obtenir un accès.</span></li>
+            <li><i class="icon-pencil"></i><span>Publiez et maintenez votre programmation à jour via une interface <strong>REST</strong></li>
+            <li><i class="icon-book"></i><span>Entrez dans le vif du sujet en lisant la <a class="url" href="http://developers.cibul.net" target="_blank">documentation</a>.</span>
+          </ul>
+        </div>
+        <div class="content" id="api">
+          <h1>L'événement: un contenu structuré et riche</h1>
+          <span class="subtitle">De nombreuses fonctionnalités à votre disposition pour mettre en avant vos événements</span>
+          <ul class="features">
+            <li><i class="icon-comments"></i><span>Les champs descriptifs d'un événement peuvent être multilingues</span></li>
+            <li><i class="icon-group"></i><span>Les événements sont éditables à plusieurs, qu'ils soient brouillons ou publiés</span></li>
+            <li><i class="icon-youtube-play"></i><span>Intégrez des vidéos, du son ou des images provenant de plateformes spécialisées</span></li>
+          </ul>
+        </div>
+        <div id="integration" class="content">
+          <div class="blue pro"><i class="icon-plus"></i><span>PACK PRO - Beta</span></div>
+          <h1>Vos programmes integrés sur vos site</h1>
+          <span class="subtitle">Affichez votre programme sur vos sites et pages Facebook</span>
+          <ul class="features">
+            <li><i class="icon-wrench"></i><span>Une interface simple de personnalisation permet d'adapter la mise en page de votre programme integré</span></li>
+            <li><i class="icon-calendar"></i><span>Ajoutez des éléments de navigation intuitifs: Carte, Calendrier, Catégories</span></li>
+            <li><i class="icon-code"></i><span>Ajoutez votre propre code css pour pousser les possibilités de personnalisation</span></li>
+          </ul>
+          <div class="pro bottom blue"><a href="#"><strong>activer</strong></a></div>
+        </div>
+        <div class="content">
+          <h1>Contact</h1>
+          <h2>Abonnez-vous à la Newsletter</h2>
+          <div class="newsletter">
+            <form action="http://cibul.us2.list-manage.com/subscribe/post?u=e10d865e1329edc7ae930d92c&amp;id=1fc2f5abe0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+              <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+              <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button small">
+            </form>
+          </div>
+          <h2>Remarques et suggestions</h2>
+          <div class="suggestions">
+            <li><i class="icon-bullhorn"></i><span>Soumettez vos suggestions <a class="blue" href="http://cibul.uservoice.com" target="_blank"><strong>ici</strong></a></span></li>
+            <li><i class="icon-bug"></i><span>Vous avez trouvé une erreur? <a class="blue" href="#" target="_blank"><strong>Cliquez ici</strong></a></span></li>
+          </div>
+          <!--End mc_embed_signup-->
+          <h2>Suivez nous!</h2>
+          <ul class="follow-us blue">
+            <li><a href="http://facebook.com/cibul.net" target="_blank"><i class="icon-facebook"></i></a></li>
+            <li><a href="http://www.twitter.com/cibul" target="_blank"><i class="icon-twitter"></i></a></li>
+            <li><a href="http://www.youtube.com/user/CibulTV" target="_blank"><i class="icon-youtube"></i></a></li>
+          </ul>
+          <h2>Cibul SARL</h2>
+          <ul class="company">
+            <li><i class="icon-home"></i><span>8 rue Alice, 92400, Courbevoie</span></li>
+            <li><i class="icon-phone"></i><span>+33 (0)174533461</span></li>
+          </ul>
+          <h2>L'équipe</h2>
+          <ul class="team">
+            <li>
+              <img alt="Romain Lange" src="https://secure.gravatar.com/avatar/a4af49635959c114983645a3363a9108?s=32"/>
+              <span>
+                <span class="name">Romain Lange</span>
+                <span class="title">Commercial</span>
+                <span class="mobile"><i class="icon-phone"></i><span>+33612016842</span></span>
+                <span class="email"><i class="icon-envelope"></i><a href="mailto:romain.lange@cibul.net">romain.lange@cibul.net</a></span>
+                <span class="links blue">
+                  <a href="https://twitter.com/romainlange" target="_blank"><i class="icon-twitter"></i></a>
+                  <a href="http://fr.linkedin.com/in/romainlange" target="_blank"><i class="icon-linkedin-sign"></i></a>
+                  <a href="https://facebook.com/656120718" target="_blank"><i class="icon-facebook"></i></a>
+                  <a href="skype:romainlange?call"><i class="icon-skype"></i></a>
+                </span>
+              </span>
+            </li>
+            <li>
+              <img alt="Kárì Olafsson" src="http://www.gravatar.com/avatar/6104e58beb5c56f52dd2ea531781f54a?s=32"/>
+              <span>
+                <span class="name">Kárì Olafsson</span>
+                <span class="title">Développeur</span>
+                <span class="email"><i class="icon-envelope"></i><a href="mailto:kaore@cibul.net">kaore@cibul.net</a></span>
+                <span class="links blue">
+                  <a href="https://twitter.com/ka0re" target="_blank"><i class="icon-twitter"></i></a>
+                  <a href="http://fr.linkedin.com/in/kariolafsson" target="_blank"><i class="icon-linkedin-sign"></i></a>
+                </span>
+              </span>
+            </li>
+            <li>
+              <img alt="Laura Cacciatore" src="images/laura.png"/>
+              <span>
+                <span class="name">Laura Cacciatore</span>
+                <div class="title">Assistante Développement Commercial</div>
+                <span class="email"><i class="icon-envelope"></i><a href="mailto:laura.cacciatore@cibul.net">laura.cacciatore@cibul.net</a></span>
+                <span class="links blue">
+                  <a href="https://twitter.com/locaccia" target="_blank"><i class="icon-twitter"></i></a>
+                  <a href="fr.linkedin.com/pub/laura-cacciatore/74/667/91b" target="_blank"><i class="icon-linkedin-sign"></i></a>
+                </span>
+              </span>
+            </li>
+          </ul>
+          
+          
+        </div>
+      </nav>
+      <div class="main js_lock_canvas">
+
+        <div class="js_list_content">
+
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img"><a href="/lafilledurock/fr"><img src="//cibul.s3.amazonaws.com/review_lafilledurock_00.jpg"></a></div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/lafilledurock/fr">Lafilledurock</a></span>
+                <span class="description"><a href="/lafilledurock/fr">Sélection des concerts parisiens en Rock/Metal/Etc ...</a></span>
+                <a class="url js_lget" href="/follow/review/lafilledurock">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/coal-chamber-checkmate/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_coal-chamber-checkmate_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/coal-chamber-checkmate/fr">Coal Chamber + Checkmate</a></li>
+                    <li class="evspacetime"><a href="/event/coal-chamber-checkmate/fr">Le Trabendo, le mardi 18 juin à 18:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/zz-top/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_zz-top_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/zz-top/fr">ZZ Top</a></li>
+                    <li class="evspacetime"><a href="/event/zz-top/fr">Le Zénith, le mardi 18 juin à 20:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/the-koffin-kats-king-phantom-midnight-rovers/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_the-koffin-kats-king-phantom-midnight-rovers_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/the-koffin-kats-king-phantom-midnight-rovers/fr">The Koffin Kats + King Phantom + Midnigh...</a></li>
+                    <li class="evspacetime"><a href="/event/the-koffin-kats-king-phantom-midnight-rovers/fr">La Miroiterie, le mardi 18 juin à 19:00</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img">
+                <a href="/la-murmure4577/fr"><img src="//cibul.s3.amazonaws.com/review_la-murmure4577_02.jpg"></a>
+              </div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/la-murmure4577/fr">La Murmure</a></span>
+                <span class="description"><a href="/la-murmure4577/fr">La Murmure Ce site vous murmure au creux de l ...</a></span>
+                <a class="url js_lget" href="/follow/review/la-murmure4577">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/joad-en-concert-boos-avec-suntaw-et-makasiwe/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_joad-en-concert-boos-avec-suntaw-et-makasiwe_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/joad-en-concert-boos-avec-suntaw-et-makasiwe/fr">Joad en concert à Boos avec Suntaw et Ma...</a></li>
+                    <li class="evspacetime"><a href="/event/joad-en-concert-boos-avec-suntaw-et-makasiwe/fr">Salle polyvalente (parking intermarché), le vendredi 21 juin à 20:00</a></li>
+                  </ul>
+                </div>
+              </li>
+                        <li class="ei">
+                <a class="evpic" href="/event/joad-en-concert-au-tigre-avec-miss-n-mister/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_joad-en-concert-au-tigre-avec-miss-n-mister_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/joad-en-concert-au-tigre-avec-miss-n-mister/fr">Joad en concert au Tigre avec Miss'n Mis...</a></li>
+                    <li class="evspacetime"><a href="/event/joad-en-concert-au-tigre-avec-miss-n-mister/fr">Le Tigre Club, le jeudi 27 juin à 22:00</a></li>
+                  </ul>
+                </div>
+              </li>
+                        <li class="ei">
+                <a class="evpic" href="/event/armada-2013-les-concerts/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_armada-2013-les-concerts_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/armada-2013-les-concerts/fr">Armada 2013 Les concerts !!!</a></li>
+                    <li class="evspacetime"><a href="/event/armada-2013-les-concerts/fr">du samedi 8 juin au samedi 15 juin à Pont Flaubert</a></li>
+                  </ul>
+                </div>
+              </li>
+                      </ul>
+          </div>
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img">
+                <a href="/saison-12-13-du-th-tre-de-chartres/fr"><img src="//cibul.s3.amazonaws.com/review_saison-12-13-du-th-tre-de-chartres_01.jpg"></a>
+              </div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/saison-12-13-du-th-tre-de-chartres/fr">Saison 12/13 du Théâtre de Chartres</a></span>
+                <span class="description"><a href="/saison-12-13-du-th-tre-de-chartres/fr">Le TDC porte une attention particulière aux attent ...</a></span>
+                <a class="url js_lget" href="/follow/review/saison-12-13-du-th-tre-de-chartres">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/ouverture-des-abonnements%2A944/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_ouverture-des-abonnements*944_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/ouverture-des-abonnements%2A944/fr">Ouverture des abonnements</a></li>
+                    <li class="evspacetime"><a href="/event/ouverture-des-abonnements%2A944/fr">Théâtre de Chartres, le samedi 21 septembre à 10:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/soir-e-d-ouverture-de-saison/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_soir-e-d-ouverture-de-saison_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/soir-e-d-ouverture-de-saison/fr">Soirée d'ouverture de saison</a></li>
+                    <li class="evspacetime"><a href="/event/soir-e-d-ouverture-de-saison/fr">Théâtre de Chartres, le jeudi 12 septembre à 20:30</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/robin-revient-tsoin-tsoin/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_robin-revient-tsoin-tsoin_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/robin-revient-tsoin-tsoin/fr">Robin revient Tsoin tsoin</a></li>
+                    <li class="evspacetime"><a href="/event/robin-revient-tsoin-tsoin/fr">Salle Ravenne - Chartrexpo, le mardi 21 mai à 20:30</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img">
+                <a href="/sur-les-planches/fr"><img src="//cibul.s3.amazonaws.com/review_sur-les-planches_00.jpg"></a>
+              </div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/sur-les-planches/fr">Sur les planches</a></span>
+                <span class="description"><a href="/sur-les-planches/fr">Le magazine culturel du Théâtre de Chartres - TDC...</a></span>
+                <a class="url js_lget" href="/follow/review/sur-les-planches">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/ouverture-des-abonnements%2A944/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_ouverture-des-abonnements*944_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/ouverture-des-abonnements%2A944/fr">Ouverture des abonnements</a></li>
+                    <li class="evspacetime"><a href="/event/ouverture-des-abonnements%2A944/fr">Théâtre de Chartres, le samedi 21 septembre à 10:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/soir-e-d-ouverture-de-saison/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_soir-e-d-ouverture-de-saison_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/soir-e-d-ouverture-de-saison/fr">Soirée d'ouverture de saison</a></li>
+                    <li class="evspacetime"><a href="/event/soir-e-d-ouverture-de-saison/fr">Théâtre de Chartres, le jeudi 12 septembre à 20:30</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/merlicoquet/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_merlicoquet_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/merlicoquet/fr">Merlicoquet</a></li>
+                    <li class="evspacetime"><a href="/event/merlicoquet/fr">Espace soutine, le vendredi 15 février à 20:30</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img">
+                <a href="/orange-bud/fr"><img src="//cibul.s3.amazonaws.com/review_orange-bud_00.jpg"></a>
+              </div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/orange-bud/fr">Orange Bud</a></span>
+                <span class="description"><a href="/orange-bud/fr">Agenda Orange Bud</a></span>
+                <a class="url js_lget" href="/follow/review/orange-bud">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/orange-bud-l-edgar-port-lesney-39/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_orange-bud-l-edgar-port-lesney-39_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/orange-bud-l-edgar-port-lesney-39/fr">Orange Bud / L'Edgar / Port Lesney (39)</a></li>
+                    <li class="evspacetime"><a href="/event/orange-bud-l-edgar-port-lesney-39/fr">L'Edgar, le vendredi 30 août à 20:30</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/orange-bud-centre-ccas-aussoix-73/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_orange-bud-centre-ccas-aussoix-73_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/orange-bud-centre-ccas-aussoix-73/fr">Orange Bud / Centre CCAS / Aussoix (73)</a></li>
+                    <li class="evspacetime"><a href="/event/orange-bud-centre-ccas-aussoix-73/fr">Centre CCAS, le vendredi 2 août à 19:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/orange-bud-r-sidence-au-totem-chamb-ry-73/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_orange-bud-r-sidence-au-totem-chamb-ry-73_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/orange-bud-r-sidence-au-totem-chamb-ry-73/fr">Orange Bud / Résidence Au Totem / Chambé...</a></li>
+                    <li class="evspacetime"><a href="/event/orange-bud-r-sidence-au-totem-chamb-ry-73/fr">du mercredi 9 octobre au vendredi 11 octobre à Le Totem</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img">
+                <a href="/elno-prod/fr"><img src="//cibul.s3.amazonaws.com/review_elno-prod_01.jpg"></a>
+              </div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/elno-prod/fr">ElNo Prod.</a></span>
+                <span class="description"><a href="/elno-prod/fr">Agenda des artistes et activités d'ElNo Prod.</a></span>
+                <a class="url js_lget" href="/follow/review/elno-prod">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/orange-bud-centre-ccas-aussoix-73/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_orange-bud-centre-ccas-aussoix-73_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/orange-bud-centre-ccas-aussoix-73/fr">Orange Bud / Centre CCAS / Aussoix (73)</a></li>
+                    <li class="evspacetime"><a href="/event/orange-bud-centre-ccas-aussoix-73/fr">Centre CCAS, le vendredi 2 août à 19:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/lolito-canal-fm-aulnoy-eymerie-59/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_lolito-canal-fm-aulnoy-eymerie-59_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/lolito-canal-fm-aulnoy-eymerie-59/fr">Lolito / Canal FM / Aulnoy Eymerie (59)</a></li>
+                    <li class="evspacetime"><a href="/event/lolito-canal-fm-aulnoy-eymerie-59/fr">Canal FM, le vendredi 18 octobre à 18:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/lolito-st-sauveur-59%2A979/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_lolito-st-sauveur-59*436_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/lolito-st-sauveur-59%2A979/fr">Lolito / St Sauveur (59)</a></li>
+                    <li class="evspacetime"><a href="/event/lolito-st-sauveur-59%2A979/fr">St Sauveur, le samedi 19 octobre à 18:00</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img">
+                <a href="/lolito/fr"><img src="//cibul.s3.amazonaws.com/review_lolito_00.jpg"></a>
+              </div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/lolito/fr">Lolito</a></span>
+                <span class="description"><a href="/lolito/fr">agenda Lolito</a></span>
+                <a class="url js_lget" href="/follow/review/lolito">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/orange-bud-centre-ccas-aussoix-73/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_orange-bud-centre-ccas-aussoix-73_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/orange-bud-centre-ccas-aussoix-73/fr">Orange Bud / Centre CCAS / Aussoix (73)</a></li>
+                    <li class="evspacetime"><a href="/event/orange-bud-centre-ccas-aussoix-73/fr">Centre CCAS, le vendredi 2 août à 19:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/lolito-canal-fm-aulnoy-eymerie-59/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_lolito-canal-fm-aulnoy-eymerie-59_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/lolito-canal-fm-aulnoy-eymerie-59/fr">Lolito / Canal FM / Aulnoy Eymerie (59)</a></li>
+                    <li class="evspacetime"><a href="/event/lolito-canal-fm-aulnoy-eymerie-59/fr">Canal FM, le vendredi 18 octobre à 18:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/lolito-st-sauveur-59%2A979/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_lolito-st-sauveur-59*436_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/lolito-st-sauveur-59%2A979/fr">Lolito / St Sauveur (59)</a></li>
+                    <li class="evspacetime"><a href="/event/lolito-st-sauveur-59%2A979/fr">St Sauveur, le samedi 19 octobre à 18:00</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img">
+                <a href="/cobn/fr"><img src="//cibul.s3.amazonaws.com/review_cobn_05.jpg"></a>
+              </div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/cobn/fr">écoBN</a></span>
+                <span class="description"><a href="/cobn/fr">L'agenda de l'écologie en Basse Normandi ...</a></span>
+                <a class="url js_lget" href="/follow/review/cobn">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/journ-e-nationale-des-v-loroutes-et-voies-vertes/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_journ-e-nationale-des-v-loroutes-et-voies-vertes_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/journ-e-nationale-des-v-loroutes-et-voies-vertes/fr">Journée Nationale des Véloroutes et Voie...</a></li>
+                    <li class="evspacetime"><a href="/event/journ-e-nationale-des-v-loroutes-et-voies-vertes/fr">Maison du Vélo, le samedi 15 juin à 09:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/f-te-de-la-musique-familiale-chez-libellune/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_f-te-de-la-musique-familiale-chez-libellune_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/f-te-de-la-musique-familiale-chez-libellune/fr">fête de la musique familiale chez Libell...</a></li>
+                    <li class="evspacetime"><a href="/event/f-te-de-la-musique-familiale-chez-libellune/fr">Café parents- enfants Libellune , le vendredi 21 juin à 18:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/les-dents-d-ad-le/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_les-dents-d-ad-le_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/les-dents-d-ad-le/fr">Les dents d'Adèle</a></li>
+                    <li class="evspacetime"><a href="/event/les-dents-d-ad-le/fr">Jardin de la venelle aux champs, le vendredi 21 juin à 18:30</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img">
+                <a href="/china-live-lybz/fr"><img src="//cibul.s3.amazonaws.com/review_china-live-lybz_00.jpg"></a>
+              </div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/china-live-lybz/fr">China Live LYBZ</a></span>
+                <span class="description"><a href="/china-live-lybz/fr">Live music in China</a></span>
+                <a class="url js_lget" href="/follow/review/china-live-lybz">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/he-minimalist-and-dada-shanghai-present-oblique-industries-australia/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_he-minimalist-and-dada-shanghai-present-oblique-industries-australia_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/he-minimalist-and-dada-shanghai-present-oblique-industries-australia/fr">he Minimalist and Dada Shanghai present....</a></li>
+                    <li class="evspacetime"><a href="/event/he-minimalist-and-dada-shanghai-present-oblique-industries-australia/fr">Dada Shanghai, le samedi 13 juillet à 21:30</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/solar-house-sessions/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_solar-house-sessions_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/solar-house-sessions/fr">Solar House Sessions</a></li>
+                    <li class="evspacetime"><a href="/event/solar-house-sessions/fr">Dada Shanghai, le vendredi 12 juillet à 22:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/sub-culture-presents-visionist/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_sub-culture-presents-visionist_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/sub-culture-presents-visionist/fr">Sub-Culture presents: VISIONIST</a></li>
+                    <li class="evspacetime"><a href="/event/sub-culture-presents-visionist/fr">The Shelter, le vendredi 28 juin à 22:00</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img">
+                <a href="/prochainement-la-java/fr"><img src="//cibul.s3.amazonaws.com/review_prochainement-la-java_00.jpg"></a>
+              </div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/prochainement-la-java/fr">Prochainement à La Java</a></span>
+                <span class="description"><a href="/prochainement-la-java/fr">Retrouvez la programmation à venir!</a></span>
+                <a class="url js_lget" href="/follow/review/prochainement-la-java">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/le-bal-des-martine%2A449/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_le-bal-des-martine*449_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/le-bal-des-martine%2A449/fr">LE BAL DES MARTINE</a></li>
+                    <li class="evspacetime"><a href="/event/le-bal-des-martine%2A449/fr">La Java, le jeudi 4 juillet à 21:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/funkaoliks-party/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_funkaoliks-party_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/funkaoliks-party/fr">FUNKAOLIKS PARTY</a></li>
+                    <li class="evspacetime"><a href="/event/funkaoliks-party/fr">La Java, le samedi 29 juin à 00:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/o-djila/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_o-djila_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/o-djila/fr">O'DJILA</a></li>
+                    <li class="evspacetime"><a href="/event/o-djila/fr">La Java, le vendredi 28 juin à 19:30</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img"><a href="/lafilledurock/fr"><img src="//cibul.s3.amazonaws.com/review_lafilledurock_00.jpg"></a></div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/lafilledurock/fr">Lafilledurock</a></span>
+                <span class="description"><a href="/lafilledurock/fr">Sélection des concerts parisiens en Rock/Metal/Etc ...</a></span>
+                <a class="url js_lget" href="/follow/review/lafilledurock">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/coal-chamber-checkmate/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_coal-chamber-checkmate_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/coal-chamber-checkmate/fr">Coal Chamber + Checkmate</a></li>
+                    <li class="evspacetime"><a href="/event/coal-chamber-checkmate/fr">Le Trabendo, le mardi 18 juin à 18:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/zz-top/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_zz-top_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/zz-top/fr">ZZ Top</a></li>
+                    <li class="evspacetime"><a href="/event/zz-top/fr">Le Zénith, le mardi 18 juin à 20:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/the-koffin-kats-king-phantom-midnight-rovers/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_the-koffin-kats-king-phantom-midnight-rovers_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/the-koffin-kats-king-phantom-midnight-rovers/fr">The Koffin Kats + King Phantom + Midnigh...</a></li>
+                    <li class="evspacetime"><a href="/event/the-koffin-kats-king-phantom-midnight-rovers/fr">La Miroiterie, le mardi 18 juin à 19:00</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img">
+                <a href="/la-murmure4577/fr"><img src="//cibul.s3.amazonaws.com/review_la-murmure4577_02.jpg"></a>
+              </div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/la-murmure4577/fr">La Murmure</a></span>
+                <span class="description"><a href="/la-murmure4577/fr">La Murmure Ce site vous murmure au creux de l ...</a></span>
+                <a class="url js_lget" href="/follow/review/la-murmure4577">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/joad-en-concert-boos-avec-suntaw-et-makasiwe/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_joad-en-concert-boos-avec-suntaw-et-makasiwe_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/joad-en-concert-boos-avec-suntaw-et-makasiwe/fr">Joad en concert à Boos avec Suntaw et Ma...</a></li>
+                    <li class="evspacetime"><a href="/event/joad-en-concert-boos-avec-suntaw-et-makasiwe/fr">Salle polyvalente (parking intermarché), le vendredi 21 juin à 20:00</a></li>
+                  </ul>
+                </div>
+              </li>
+                        <li class="ei">
+                <a class="evpic" href="/event/joad-en-concert-au-tigre-avec-miss-n-mister/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_joad-en-concert-au-tigre-avec-miss-n-mister_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/joad-en-concert-au-tigre-avec-miss-n-mister/fr">Joad en concert au Tigre avec Miss'n Mis...</a></li>
+                    <li class="evspacetime"><a href="/event/joad-en-concert-au-tigre-avec-miss-n-mister/fr">Le Tigre Club, le jeudi 27 juin à 22:00</a></li>
+                  </ul>
+                </div>
+              </li>
+                        <li class="ei">
+                <a class="evpic" href="/event/armada-2013-les-concerts/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_armada-2013-les-concerts_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/armada-2013-les-concerts/fr">Armada 2013 Les concerts !!!</a></li>
+                    <li class="evspacetime"><a href="/event/armada-2013-les-concerts/fr">du samedi 8 juin au samedi 15 juin à Pont Flaubert</a></li>
+                  </ul>
+                </div>
+              </li>
+                      </ul>
+          </div>
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img">
+                <a href="/saison-12-13-du-th-tre-de-chartres/fr"><img src="//cibul.s3.amazonaws.com/review_saison-12-13-du-th-tre-de-chartres_01.jpg"></a>
+              </div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/saison-12-13-du-th-tre-de-chartres/fr">Saison 12/13 du Théâtre de Chartres</a></span>
+                <span class="description"><a href="/saison-12-13-du-th-tre-de-chartres/fr">Le TDC porte une attention particulière aux attent ...</a></span>
+                <a class="url js_lget" href="/follow/review/saison-12-13-du-th-tre-de-chartres">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/ouverture-des-abonnements%2A944/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_ouverture-des-abonnements*944_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/ouverture-des-abonnements%2A944/fr">Ouverture des abonnements</a></li>
+                    <li class="evspacetime"><a href="/event/ouverture-des-abonnements%2A944/fr">Théâtre de Chartres, le samedi 21 septembre à 10:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/soir-e-d-ouverture-de-saison/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_soir-e-d-ouverture-de-saison_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/soir-e-d-ouverture-de-saison/fr">Soirée d'ouverture de saison</a></li>
+                    <li class="evspacetime"><a href="/event/soir-e-d-ouverture-de-saison/fr">Théâtre de Chartres, le jeudi 12 septembre à 20:30</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/robin-revient-tsoin-tsoin/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_robin-revient-tsoin-tsoin_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/robin-revient-tsoin-tsoin/fr">Robin revient Tsoin tsoin</a></li>
+                    <li class="evspacetime"><a href="/event/robin-revient-tsoin-tsoin/fr">Salle Ravenne - Chartrexpo, le mardi 21 mai à 20:30</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img">
+                <a href="/sur-les-planches/fr"><img src="//cibul.s3.amazonaws.com/review_sur-les-planches_00.jpg"></a>
+              </div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/sur-les-planches/fr">Sur les planches</a></span>
+                <span class="description"><a href="/sur-les-planches/fr">Le magazine culturel du Théâtre de Chartres - TDC...</a></span>
+                <a class="url js_lget" href="/follow/review/sur-les-planches">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/ouverture-des-abonnements%2A944/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_ouverture-des-abonnements*944_00.jpg"></a>
+                <div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/ouverture-des-abonnements%2A944/fr">Ouverture des abonnements</a></li>
+                    <li class="evspacetime"><a href="/event/ouverture-des-abonnements%2A944/fr">Théâtre de Chartres, le samedi 21 septembre à 10:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/soir-e-d-ouverture-de-saison/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_soir-e-d-ouverture-de-saison_00.jpg"></a>
+                <div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/soir-e-d-ouverture-de-saison/fr">Soirée d'ouverture de saison</a></li>
+                    <li class="evspacetime"><a href="/event/soir-e-d-ouverture-de-saison/fr">Théâtre de Chartres, le jeudi 12 septembre à 20:30</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/merlicoquet/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_merlicoquet_00.jpg"></a>
+                <div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/merlicoquet/fr">Merlicoquet</a></li>
+                    <li class="evspacetime"><a href="/event/merlicoquet/fr">Espace soutine, le vendredi 15 février à 20:30</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img">
+                <a href="/orange-bud/fr"><img src="//cibul.s3.amazonaws.com/review_orange-bud_00.jpg"></a>
+              </div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/orange-bud/fr">Orange Bud</a></span>
+                <span class="description"><a href="/orange-bud/fr">Agenda Orange Bud</a></span>
+                <a class="url js_lget" href="/follow/review/orange-bud">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/orange-bud-l-edgar-port-lesney-39/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_orange-bud-l-edgar-port-lesney-39_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/orange-bud-l-edgar-port-lesney-39/fr">Orange Bud / L'Edgar / Port Lesney (39)</a></li>
+                    <li class="evspacetime"><a href="/event/orange-bud-l-edgar-port-lesney-39/fr">L'Edgar, le vendredi 30 août à 20:30</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/orange-bud-centre-ccas-aussoix-73/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_orange-bud-centre-ccas-aussoix-73_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/orange-bud-centre-ccas-aussoix-73/fr">Orange Bud / Centre CCAS / Aussoix (73)</a></li>
+                    <li class="evspacetime"><a href="/event/orange-bud-centre-ccas-aussoix-73/fr">Centre CCAS, le vendredi 2 août à 19:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/orange-bud-r-sidence-au-totem-chamb-ry-73/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_orange-bud-r-sidence-au-totem-chamb-ry-73_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/orange-bud-r-sidence-au-totem-chamb-ry-73/fr">Orange Bud / Résidence Au Totem / Chambé...</a></li>
+                    <li class="evspacetime"><a href="/event/orange-bud-r-sidence-au-totem-chamb-ry-73/fr">du mercredi 9 octobre au vendredi 11 octobre à Le Totem</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img">
+                <a href="/elno-prod/fr"><img src="//cibul.s3.amazonaws.com/review_elno-prod_01.jpg"></a>
+              </div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/elno-prod/fr">ElNo Prod.</a></span>
+                <span class="description"><a href="/elno-prod/fr">Agenda des artistes et activités d'ElNo Prod.</a></span>
+                <a class="url js_lget" href="/follow/review/elno-prod">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/orange-bud-centre-ccas-aussoix-73/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_orange-bud-centre-ccas-aussoix-73_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/orange-bud-centre-ccas-aussoix-73/fr">Orange Bud / Centre CCAS / Aussoix (73)</a></li>
+                    <li class="evspacetime"><a href="/event/orange-bud-centre-ccas-aussoix-73/fr">Centre CCAS, le vendredi 2 août à 19:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/lolito-canal-fm-aulnoy-eymerie-59/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_lolito-canal-fm-aulnoy-eymerie-59_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/lolito-canal-fm-aulnoy-eymerie-59/fr">Lolito / Canal FM / Aulnoy Eymerie (59)</a></li>
+                    <li class="evspacetime"><a href="/event/lolito-canal-fm-aulnoy-eymerie-59/fr">Canal FM, le vendredi 18 octobre à 18:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/lolito-st-sauveur-59%2A979/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_lolito-st-sauveur-59*436_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/lolito-st-sauveur-59%2A979/fr">Lolito / St Sauveur (59)</a></li>
+                    <li class="evspacetime"><a href="/event/lolito-st-sauveur-59%2A979/fr">St Sauveur, le samedi 19 octobre à 18:00</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img">
+                <a href="/lolito/fr"><img src="//cibul.s3.amazonaws.com/review_lolito_00.jpg"></a>
+              </div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/lolito/fr">Lolito</a></span>
+                <span class="description"><a href="/lolito/fr">agenda Lolito</a></span>
+                <a class="url js_lget" href="/follow/review/lolito">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/orange-bud-centre-ccas-aussoix-73/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_orange-bud-centre-ccas-aussoix-73_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/orange-bud-centre-ccas-aussoix-73/fr">Orange Bud / Centre CCAS / Aussoix (73)</a></li>
+                    <li class="evspacetime"><a href="/event/orange-bud-centre-ccas-aussoix-73/fr">Centre CCAS, le vendredi 2 août à 19:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/lolito-canal-fm-aulnoy-eymerie-59/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_lolito-canal-fm-aulnoy-eymerie-59_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/lolito-canal-fm-aulnoy-eymerie-59/fr">Lolito / Canal FM / Aulnoy Eymerie (59)</a></li>
+                    <li class="evspacetime"><a href="/event/lolito-canal-fm-aulnoy-eymerie-59/fr">Canal FM, le vendredi 18 octobre à 18:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/lolito-st-sauveur-59%2A979/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_lolito-st-sauveur-59*436_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/lolito-st-sauveur-59%2A979/fr">Lolito / St Sauveur (59)</a></li>
+                    <li class="evspacetime"><a href="/event/lolito-st-sauveur-59%2A979/fr">St Sauveur, le samedi 19 octobre à 18:00</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="rdl-item wsq">
+            <div class="rdl-head">
+              <div class="rdl-img">
+                <a href="/cobn/fr"><img src="//cibul.s3.amazonaws.com/review_cobn_05.jpg"></a>
+              </div>
+              <div class="rdl-desc">
+                <span class="title"><a href="/cobn/fr">écoBN</a></span>
+                <span class="description"><a href="/cobn/fr">L'agenda de l'écologie en Basse Normandi ...</a></span>
+                <a class="url js_lget" href="/follow/review/cobn">suivre</a>
+              </div>
+            </div>
+            <p class="st">Les événements</p>
+            <ul>
+              <li class="ei">
+                <a class="evpic" href="/event/journ-e-nationale-des-v-loroutes-et-voies-vertes/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_journ-e-nationale-des-v-loroutes-et-voies-vertes_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/journ-e-nationale-des-v-loroutes-et-voies-vertes/fr">Journée Nationale des Véloroutes et Voie...</a></li>
+                    <li class="evspacetime"><a href="/event/journ-e-nationale-des-v-loroutes-et-voies-vertes/fr">Maison du Vélo, le samedi 15 juin à 09:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/f-te-de-la-musique-familiale-chez-libellune/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_f-te-de-la-musique-familiale-chez-libellune_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/f-te-de-la-musique-familiale-chez-libellune/fr">fête de la musique familiale chez Libell...</a></li>
+                    <li class="evspacetime"><a href="/event/f-te-de-la-musique-familiale-chez-libellune/fr">Café parents- enfants Libellune , le vendredi 21 juin à 18:00</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ei">
+                <a class="evpic" href="/event/les-dents-d-ad-le/fr"><img src="//cibul.s3.amazonaws.com/evtbevent_les-dents-d-ad-le_00.jpg"></a><!--
+                --><div class="evcnt">
+                  <ul>
+                    <li class="evtitle"><a href="/event/les-dents-d-ad-le/fr">Les dents d'Adèle</a></li>
+                    <li class="evspacetime"><a href="/event/les-dents-d-ad-le/fr">Jardin de la venelle aux champs, le vendredi 21 juin à 18:30</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          
+
+        </div>
+
+        <div class="list-nav bottom display-none js_nav_next"><div>show more</div><span>...</span></div>
+
+      </div>
+    </div>
+    <script type="text/javascript">
+
+    addEvent(window, 'load', function() {
+
+      handleProgramSearch({
+        url: 'http://d.cibul.net/frontend_dev.php/search/program/fr?page=2',
+        debug: true,
+        elems: {
+          listCanvas: getElementsByClassName(document, 'js_list_content')[0],
+          navNext: getElementsByClassName(document, 'js_nav_next')[0],
+          lockCanvas: getElementsByClassName(document, 'js_list_content')[0]
+        },
+        templates: {
+          programItem: '<div class="rdl-item wsq"><div class="rdl-head"><div class="rdl-img"><a href="<%= url %>"><img src="<%= image %>"/></a></div><div class="rdl-desc"><span class="title"><a href="<%= url %>"><%= title %></a></span><span class="description"><a href="<%= url %>"><%= description %></a></span><a class="url js_follow follow" href="<%= follow %>">suivre</a><a class="url js_unfollow unfollow display-none" href="<%= unfollow %>">désabonner</a></div></div><% if (events.length) { %>  <p class="st">Les événements</p><ul><% for (i in events) { %><li class="ei">      <a class="evpic" href="<%= events[i].url %>"><img src="<%= events[i].image %>"/></a><div class="evcnt"><ul><li class="evtitle"><a href="<%= events[i].url %>"><%= events[i].title %></li><li class="evspacetime"><a href="<%= events[i].url %>"><%= events[i].spacetime %></a></li></ul></div></li><% } %></ul><% } %></div>'
+        },
+        initNext: true
+      });
+
+    });
+
+    </script>
+  </body>
+</html>

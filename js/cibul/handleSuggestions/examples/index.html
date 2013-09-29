@@ -1,0 +1,37 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <script type="text/javascript" src="common/common.js"></script>
+    <script type="text/javascript" src="ejs/ejs_production.js"></script>
+    <script type="text/javascript" src="handleContextMenu/handleContextMenu.js"></script>
+    <script type="text/javascript" src="EventHandler/EventHandler.js"></script>
+    <script type="text/javascript" src="../src/latest/handleSuggestions.js"></script>
+  </head>
+  <body>
+    <input type="text"/>
+    <script type="text/javascript">
+
+      var list = [
+        { username: 'ned', fullname: 'Ned Stark' },
+        { username: 'jaime', fullname: 'Jaime Lannister'},
+        { username: 'sandor' , fullname: 'Sandor Clegaine'},
+        { username: 'denaerys', fullname: 'Denaerys Targaryen'},
+        { username: 'jon', fullname: 'Jon Snow'},
+        { username: 'robert', fullname: 'Robert Baratheon'},
+        { username: 'onion', fullname: 'Davos Seaworth'},
+        { username: 'cersei', fullname: 'Cersei Lannister'},
+        { username: 'podrick', fullname: 'Podrick Payne'},
+        { username: 'areo', fullname: 'Areo Hotah'},
+        { username: 'robb', fullname: 'Robb Stark'},
+        { username: 'raegar', fullname: 'Rhaegar Targaryen'}
+      ];
+
+      addEvent(window, 'load', function(){
+
+        handleSuggestions(document.getElementsByTagName('input')[0], list, 'fullname', '<span><%=fullname%></span>');
+
+      });
+
+    </script>
+  </body>
+</html>

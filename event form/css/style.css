@@ -1,0 +1,166 @@
+#event-edit .ccal { width: 20em; font-size: 0.8em; margin-bottom: 5px; max-width: 100%; }
+#event-edit .ccal ul { margin: 0; padding: 0!important; text-align: center; }
+#event-edit .ccal li { list-style-type: none; display: inline-block; width: 13.2%; cursor: pointer; text-align: center; margin:0; }
+#event-edit .ccal li span { display: inline-block; line-height: 1.8em; }
+#event-edit .ccal li.calmonth { width: 66%; }
+#event-edit .ccal li span { padding: 0.1em 0.05em; display: block; }
+#event-edit .ccal li.calprev span, 
+#event-edit .ccal li.calnext span { color: #aaa; }
+#event-edit .ccal .calbody li.selected span { background: #666; color: white; }
+#event-edit .ccal .calbody li.preselected span { background: #f0f0f0; }
+#event-edit .ccal * { -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -ms-user-select: none; user-select: none; }
+#event-edit .today { font-weight: bold; }
+
+
+
+
+#event-edit { text-align: center; }
+#event-edit > * { max-width: 600px; text-align: left; margin: 0 auto; }
+
+#event-edit input,
+#event-edit textarea { border: 1px solid #ddd; }
+
+#event-edit .context-menu { background: white; border: 1px solid #ddd; width: 100%;}
+#event-edit .context-menu ul { padding: 0.2em 0.8em; cursor: pointer; }
+
+#event-edit .input-fields > * { display: block; }
+
+#event-edit .info {
+  font-size: 0.8em;
+  margin-right: 1em;
+  display: block;
+}
+#event-edit .info,
+#event-edit .info * { color: #999; }
+
+#event-edit .info * { font-size: 1em; }
+
+#event-edit .embed-menu {
+  border: 1px solid #ddd;
+  padding: 1em;
+}
+
+#event-edit .description input,
+#event-edit .description textarea { 
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing: border-box;
+}
+
+#event-edit .description .info { display: inline; }
+
+#event-edit .error { font-size: 0.9em; }
+#event-edit .error, #event-edit .error * { color: #801B1B!important; }
+
+#event-edit .languages { text-align: right; }
+#event-edit ul.language-list { display: inline-block; vertical-align: middle; }
+#event-edit ul.language-list li { display: inline-block; padding-right: 0.4em; }
+#event-edit ul.language-list li > span { font-size: 0.9em; margin-right: 0.2em; cursor: pointer;}
+#event-edit ul.language-list li.active > span { text-decoration: underline; }
+#event-edit ul.language-list li a { vertical-align: middle; }
+
+#event-edit .add-language { display: inline-block; cursor: pointer;  }
+#event-edit .add-language ul { background: white; border: 1px solid #ddd; text-align: left; }
+#event-edit .add-language i { font-size: 0.9em; }
+#event-edit .add-language li { padding: 0.1em 0.5em 0; }
+#event-edit .add-language li:hover span { text-decoration: underline; }
+
+#event-edit .description > li { margin-bottom: 0.5em; }
+
+#event-edit .separator { margin: 1em 0; border-top: 1px solid #ddd; }
+
+#event-edit .place { margin: 0.5em 0 1em; clear: both; }
+#event-edit .place > * { display: block; }
+#event-edit .place .address { color: #999; font-size: 0.9em; line-height: 1em; }
+
+
+#event-edit .place-fetch, 
+#event-edit .place-selection { width: 50%; display: inline-block; vertical-align: top; }
+
+
+#event-edit .place-fetch > div label,
+#event-edit .place-fetch > div input,  
+#event-edit .place-fetch > div .info { display: block; }
+
+#event-edit .place-suggestion-tabs { float: left; width: 2em;}
+#event-edit .place-suggestion-tabs li { text-align: center; }
+#event-edit .place-suggestion-tabs i { font-size: 1.1em; color: #ccc; }
+#event-edit .place-suggestion-tabs .active i { color: #333; }
+#event-edit .place-suggestions { margin-left: 3em; }
+
+#event-edit .place-suggestions .empty-message { padding: 5em 0; }
+
+#event-edit .selection-map { min-height: 200px; }
+
+#event-edit .place .suggestion > span { display: block; }
+
+
+#event-edit .place ul .suggestion { padding-bottom: 0.5em; }
+#event-edit .place ul .suggestion .address { margin-bottom: -0.2em; }
+
+#event-edit .manual-link > * { color: #999; font-size: 0.8em; padding-right: 0.4em;}
+
+
+
+#event-edit .date { margin-top: 0.5em; display: inline-block; width: 33%; vertical-align: top; }
+#event-edit .timing > * { font-size: 0.9em; }
+#event-edit .timing a { margin-left: 0.4em; }
+
+
+#event-edit .add-dates .date-select,
+#event-edit .add-dates .timing-select {
+  display: inline-block;
+  vertical-align: top;
+  padding: 1em 0 0 0;
+  width: 50%;
+}
+
+#event-edit .add-dates button {
+  margin-top: 3em;
+}
+
+
+#event-edit .loader { margin-left: 10px; vertical-align: middle; padding-right: 10px; }
+
+#event-edit .action { padding-right: 0.3em; cursor: pointer; }
+#event-edit .action > * { display: inline-block; vertical-align: middle; }
+#event-edit .action span, 
+#event-edit .action i { font-size: 0.9em; margin-right: 0.2em;  }
+#event-edit .action i { font-size: 0.8em; }
+
+#event-edit .remove-action { float: right; text-align: right; max-width: 140px; }
+#event-edit .remove-action .action { padding-right: 0; }
+
+
+#event-edit .event-image .canvas { text-align: center; }
+#event-edit .event-image .canvas img { max-width: 100%; padding: 0.5em 0; }
+#event-edit .event-image .canvas div { padding: 20px; color: #aaa; background: rgba(0,0,0,0.03); }
+
+#event-edit .upload-image { padding: 1em 0;}
+#event-edit .upload-image > * { display: inline-block; margin-right: 0.2em; }
+
+
+#event-edit .pricing-info > div { display: inline-block; min-width: 120px; padding-right: 10px; }
+
+#event-edit .submit { padding-bottom: 60px; }
+#event-edit .submit button { margin: 1em 1em 0 0; }
+
+
+@media all and (max-width: 500px) {
+  #event-edit .add-dates .date-select { width: 65%; }
+  #event-edit .add-dates .timing-select { width: 35%; }
+  #event-edit .add-dates .timing-select input[type="text"] { -webkit-box-sizing: border-box; }
+
+  #event-edit .date { width: 130px; }
+}
+
+@media all and (max-width: 450px) {
+
+  #event-edit .place-fetch, #event-edit .place-selection { width: auto; display: block; }
+
+}
+
+@media all and (max-width: 350px) {
+  #event-edit .add-dates .date-select, #event-edit .add-dates .timing-select { width: auto; display: block; }
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+
+      * { font-family: arial; }
+
+      html, body { height: 100%; text-align: center;}
+
+      body { background: #333;}
+
+      .content { margin: 60px auto; text-align: center; background: white; border: 1px solid #444; display: inline-block; width: 100%; }
+
+      iframe { width: 100%; overflow: none; }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="content">
+
+      <script type="text/javascript" src="js/cibulEmbed/cibulEmbed.js"></script>
+      <iframe src="index.html" frameborder="0" onload="cibulEmbedWidget.controllers.event(this)"/>
+
+    </div>
+
+  </body>
+</html>

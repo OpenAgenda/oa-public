@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="../js/lib/common/common.js"></script>
+    <script type="text/javascript" src="../js/lib/Base64/Base64.js"></script>
+    <script type="text/javascript" src="../js/lib/hash/hash.js"></script>
+    <script type="text/javascript" src="../js/lib/urlStrings/urlStrings.js"></script>
+    <script type="text/javascript" src="../js/lib/remote/remote.js"></script>
+    <script type="text/javascript" src="../js/lib/hash/hash.js"></script>
+    <script type="text/javascript" src="../js/lib/iTunnel/iTunnel.js"></script>
+    <script type="text/javascript" src="../js/lib/EventHandler/EventHandler.js"></script>
+    <script type="text/javascript" src="../js/lib/maps/leaflet.js"></script>
+    <script type="text/javascript" src="../js/lib/maps/maps.js"></script>
+    <script type="text/javascript" src="../js/lib/maps/osm.maps.js"></script>
+
+    <script type="text/javascript" src="../js/cibul/mapHandler/src/mapHandler.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleProgramControlData/src/handleProgramControlData.js"></script>
+
+    <script type="text/javascript" src="js/handleMap-0.2.js"></script>
+    <script type="text/javascript" src="js/handleEmbeddedMap.js"></script>
+    <script type="text/javascript" src="js/handleEmbeddedMapTunnel.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="../css/leaflet.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/leaflet.ie.css"/>
+
+    <style type="text/css">
+      * { margin: 0; padding: 0; }
+      html, body, #map { height: 100%; }
+    </style>
+    
+  </head>
+  <body>
+    <div id="map"></div>
+    <script type="text/javascript">
+
+      addEvent(window, 'load', function(){
+
+        handleEmbeddedMapTunnel();
+
+        handleEmbeddedMap({
+          mapElem: document.getElementById('map'),
+          maps: 'osm',
+          control: 'http://d.cibul.net/frontend_dev.php/la-gargouille/fr',
+          iconRoot: 'images/'
+        });
+
+    });
+
+    </script>
+  </body>
+</html>

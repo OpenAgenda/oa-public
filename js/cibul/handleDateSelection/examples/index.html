@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script type="text/javascript" src="common/common.js"></script>
+  <script type="text/javascript" src="CibulCalendar/CibulCalendar.min.js"></script>
+  <script type="text/javascript" src="ejs/ejs_production.js"></script>
+  <script type="text/javascript" src="inputWidgets/inputWidgets.js"></script>
+  <script type="text/javascript" src="inputWidgets/inputControllers.js"></script>
+  <script type="text/javascript" src="inputWidgets/inputValidators.js"></script>
+  <script type="text/javascript" src="../src/v0.1/handleDateSelection.js"></script>
+  <script type="text/javascript" src="../src/v0.1/handleDatesAdd.js"></script>
+  <script type="text/javascript" src="../src/v0.1/handleDatesList.js"></script>
+  <style type="text/css">
+
+    .ccal { width: 18em; font-size: 0.8em; margin-bottom: 5px;}
+    .ccal ul { margin: 0; padding: 0!important; text-align: center; }
+    .ccal li { list-style-type: none; display: inline-block; width: 13.2%; cursor: pointer; text-align: center; margin:0; }
+    .ccal li span { display: inline-block; line-height: 1.8em; }
+    .ccal li.calmonth { width: 66%; }
+    .ccal li span { padding: 0.1em 0.05em; display: block; }
+    .ccal li.calprev span, .ccal li.calnext span { color: #aaa; }
+    .ccal .calbody li.selected span { background: #666; color: white; }
+    .ccal .calbody li.preselected span { background: #f0f0f0; }
+    .ccal * { -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -ms-user-select: none; user-select: none; }
+    .today { font-weight: bold; }
+    
+    .calendar-canvas { 
+      text-align: center;
+      background: white;
+      v-moz-box-shadow: 0 3px 4px #999999; 
+      -moz-box-shadow: 0 3px 4px #999999; 
+      -webkit-box-shadow: 0 3px 4px #999999; 
+      box-shadow: 0 1px 2px #999999;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="js_canvas"></div>
+
+  <script type="text/javascript">
+
+    addEvent(window, 'load', function() {
+
+      // handle date selection will be controlled by place edit
+      // it will show the date list and optionnally the date form
+
+      var initDates = [
+        {date: '2010-01-01', begin: '10:00', end: '15:00', id: 31183181 },
+        {date: '2010-10-10', begin: '13:00', end: '20:00'},
+        {date: '2012-08-01', begin: '08:00', end: '15:00'},
+        {date: '2010-03-10', begin: '10:00', end: '20:00', id: 93418461 },
+        {date: '2013-08-02', begin: '13:00', end: '15:00'},
+        {date: '2010-03-01', begin: '10:00', end: '15:00'},
+        {date: '2010-03-10', begin: '08:00', end: '20:00', id: 41867634 },
+        {date: '2012-10-08', begin: '15:00', end: '20:00'}
+      ];
+
+      var dateSelector = handleDateSelection({
+        canvas: el('.js_canvas'),
+        dates: initDates
+      });
+
+      dateSelector.showAdd();
+
+    });
+
+    /*
+
+    var additionalOccurrences = [
+
+      {date: '2012-08-02', begin: '09:30', end: '22:22', id: 1 },
+      {date: '2011-11-11', begin: '11:11', end: '22:22', id: 2 },
+      {date: '2012-08-02', begin: '09:30', end: '22:22', id: 3 },
+      {date: '2011-11-11', begin: '10:10', end: '22:22', id: 4 },
+      {date: '2001-01-01', begin: '10:10', end: '22:22', id: 4 }
+
+    ];
+
+    */
+
+  </script>
+    
+
+</body>
+</html>
