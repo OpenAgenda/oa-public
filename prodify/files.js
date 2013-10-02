@@ -14,7 +14,8 @@ var paths = {
   pem: '../program embed menu/js/',
   jsc: '../js/cibul/',
   lib: '../js/lib/',
-  vd:  '../js/vendors/'
+  vd:  '../js/vendors/',
+  lg:  '../js/legacy/'
 },
 
 destPath = '/home/kaore/Dev/www/cibul-symfony/web/js/',
@@ -376,7 +377,32 @@ files = {
 
   'review/cibulEmbed.min.js': [
     [paths.jsc, 'cibulEmbed/src/cibulEmbed.js']
-  ]
+  ],
+
+  'cmap.js': [[paths.lg, 'cmap.js']],
+  'colorpicker.min.js': [[paths.lg, 'colorpicker.min.js']],
+  'datepicker.js': [[paths.lg, 'datepicker.js']],
+  'global.min.js': [[paths.lg, 'global.min.js']],
+  'iscroll.js': [[paths.lg, 'iscroll.js']],
+  'hashchange.min.js': [[paths.lg, 'hashchange.min.js']],
+  'jquery-1.4.4.min.js': [[paths.lg, 'jquery-1.4.4.min.js']],
+  'jquery.base64.js': [[paths.lg, 'jquery.base64.js']],
+  'jquery.colorbox-min.js': [[paths.lg, 'jquery.colorbox-min.js']],
+  'jquery.cookie.js': [[paths.lg, 'jquery.cookie.js']],
+  'jquery.json-2.2.min.js': [[paths.lg, 'jquery.json-2.2.min.js']],
+  'jquery.oembed.min.js': [[paths.lg, 'jquery.oembed.min.js']],
+  'jquery.tools.min.js': [[paths.lg, 'jquery.tools.min.js']],
+  'jquery-ui-1.8.11.custom.min.js': [[paths.lg, 'jquery-ui-1.8.11.custom.min.js']],
+  'jScrollPane.js': [[paths.lg, 'jScrollPane.js']],
+  'list.min.js': [[paths.lg, 'list.min.js']],
+  'main28.js': [[paths.lg, 'main28.js']],
+  
+  'event/calendarExportMenu.2.min.js': [[paths.lg, 'calendarExportMenu.2.min.js']],
+  'event/show.4.min.js': [[paths.lg, 'show.4.min.js']],
+  'event/showEditors.min.js': [[paths.lg, 'showEditors.js']],
+
+  'review/addTagMenu.min.js': [[paths.lg, 'addTagMenu.min.js']],
+  'review/embedWidget.min.js': [[paths.lg, 'embedWidget.min.js']]
 
   // menu, map, cibulEmbed.
 };
