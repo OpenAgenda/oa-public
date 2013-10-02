@@ -14,25 +14,34 @@ var handlePlaceFetch = function(params) {
       placename: 'Name',
       placenameInfo: 'Name of the place',
       address: 'Address',
-      addressInfo: 'street number, street name, city, country',
+      addressNumberInfo: 'street number',
+      addressStreetInfo: 'street name',
+      addressCityInfo: 'city',
       countryField: 'country name', 
       countryFieldInfo: 'type in a country name and click or press enter'
     },
     templates: {
-      main: '<span class="info"><%= fetchInfo %></span><div></div>',
-      countryLink: '<a href="#" class="url"><span class="js_country"></span><i class="icon-edit"></i></a>'
+      main: '<span class="info"><%= fetchInfo %></span><div></div><a href="#" class="url"><div class="js_country_canvas"><span class="js_country"></span><i class="icon-edit"></i></div></a></div><div class="js_loader loader"></div>',
+      addressGuide: '<span><%= addressNumberInfo %></span> <span><%= addressStreetInfo %></span>, <span><%= addressCityInfo %></span></span>'
     },
+    spinner: { lines: 7, length: 1, width: 2, radius: 3, corners: 0, rotate: 0},
     classes: {
       main: 'place-fetch input-fields',
       country: 'country action',
-      contextMenu: 'context-menu'
+      contextMenu: 'context-menu',
+      addressGuide: 'info',
+      highlight: 'highlight'
     },
     selectors: {
-      country: '.js_country'
+      countryCanvas: '.js_country_canvas',
+      country: '.js_country',
+      loader: '.js_loader'
     }
   }, params);
 
   var widgets = { placename: false, address: false }, addressEnabled, elem, countryElem, country = params.country,
+
+  loading = false, spinner, addressGuide,
 
   create = function() {
 
@@ -61,9 +70,14 @@ var handlePlaceFetch = function(params) {
       canvas: el(elem, 'div'), 
       info: params.labels.addressInfo, 
       events: ['change', 'keyup'], 
-      onUpdate: _buildAddressSuggestions,
+      onUpdate: function(address) {
+        _buildAddressSuggestions(address);
+        _updateAddressGuide(address);
+      },
       enabled: false
     });
+
+    _createAddressGuide(el(elem, 'div'));
 
     // show country link
 
@@ -123,7 +137,11 @@ var handlePlaceFetch = function(params) {
 
     if (!suggestions) suggestions = [];
 
+    _loading();
+
     params.get(query, function(fetchedSuggestions) {
+
+      _notLoading();
 
       forEach(fetchedSuggestions, function(fetchedSuggestion){
 
@@ -172,13 +190,10 @@ var handlePlaceFetch = function(params) {
 
   _createCountryLink = function() {
 
-    countryElem = document.createElement('div');
-    countryElem.innerHTML = params.templates.countryLink;
+    countryElem = el(elem, params.selectors.countryCanvas);
     countryElem.className = params.classes.country;
 
     el(countryElem, params.selectors.country).innerHTML = country.name;
-
-    elem.appendChild(countryElem);
 
     addEvent(el(countryElem, 'a'), 'click', function(e) {
       
@@ -189,6 +204,48 @@ var handlePlaceFetch = function(params) {
       _showCountrySelect();
 
     });
+
+  },
+
+  _createAddressGuide = function(canvasElem) {
+
+    addressGuide = document.createElement('span');
+
+    addressGuide.className = params.classes.addressGuide;
+
+    addressGuide.innerHTML = new EJS({text: params.templates.addressGuide }).render(params.labels);
+
+    canvasElem.appendChild(addressGuide);
+
+    _updateAddressGuide();
+
+  },
+
+  _updateAddressGuide = function(address) {
+
+    if (!addressGuide) return;
+
+    if(!address) address = '';
+
+    var hIndex = false;
+
+    if (address.match(/^([0-9]+|)$/))
+      hIndex = 0;
+    else if (address.match(/^[0-9]+\s[A-Za-z\u00C0-\u017F\s]+$/))
+      hIndex = 1;
+    else if (address.match(/^[0-9]+\s[A-Za-z\u00C0-\u017F\s]+,.+$/))
+      hIndex = 2;
+
+    var spanElems = els(addressGuide, 'span');
+
+    for (var i = spanElems.length - 1; i >= 0; i--) {
+
+      if (i===hIndex) 
+        addClass(spanElems[i], params.classes.highlight);
+      else
+        removeClass(spanElems[i], params.classes.highlight);
+
+    };
 
   },
 
@@ -216,6 +273,28 @@ var handlePlaceFetch = function(params) {
     if (params.countries) cParams.countries = params.countries;
 
     var ic = inputCountry(cParams);
+
+  },
+
+  _loading = function(selector) {
+
+    if (loading) return;
+
+    loading = true;
+
+    if (!spinner) spinner = new Spinner(params.spinner);
+
+    spinner.spin();
+
+    el(elem, params.selectors.loader).appendChild(spinner.el);
+
+  },
+
+  _notLoading = function() {
+
+    loading = false;
+
+    spinner.stop();
 
   };
 

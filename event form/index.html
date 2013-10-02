@@ -161,10 +161,10 @@
       });
 
       cibulEventImage({
-        upload: 'http://templates.cibul.net/event form/prod/server/index.php',
-        remove: 'http://templates.cibul.net/event form/prod/server/remove.php',
+        upload: 'http://templates.cibul.net/event form/server/index.php',
+        remove: 'http://templates.cibul.net/event form/server/remove.php',
         canvas: el('.js_form_canvas'),
-        path: 'http://templates.cibul.net/event form/prod/server/uploaded/',
+        path: 'http://templates.cibul.net/event form/server/uploaded/',
         labels: {
           upload: 'charger une image',
           info: 'l\'image doit au moins avoir 300 pixels de largeur',
@@ -195,7 +195,9 @@
           placename: 'Nom',
           placenameInfo: 'Nom du lieu',
           address: 'Adresse',
-          addressInfo: 'numéro, rue, ville',
+          addressNumberInfo: 'street number',
+          addressStreetInfo: 'street name',
+          addressCityInfo: 'city',
           empty: 'Saisissez un nom et une adresse pour voir la liste de choix apparaître.',
           manualMark: 'Vous ne trouvez pas le bon lieu? Cliquez ici pour placer le marqueur manuellement sur la carte.',
           addLabel: 'ajouter des dates',

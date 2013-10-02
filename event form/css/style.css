@@ -83,6 +83,8 @@
 #event-edit .place-fetch > div input,  
 #event-edit .place-fetch > div .info { display: block; }
 
+#event-edit .place-fetch .highlight { color: #333; font-weight: 800; }
+
 #event-edit .place-suggestion-tabs { float: left; width: 2em;}
 #event-edit .place-suggestion-tabs li { text-align: center; }
 #event-edit .place-suggestion-tabs i { font-size: 1.1em; color: #ccc; }
@@ -121,7 +123,8 @@
 }
 
 
-#event-edit .loader { margin-left: 10px; vertical-align: middle; padding-right: 10px; }
+#event-edit .loader { padding: 0 0.5em 0 0.5em; vertical-align: middle; margin: 0.5em 0; }
+
 
 #event-edit .action { padding-right: 0.3em; cursor: pointer; }
 #event-edit .action > * { display: inline-block; vertical-align: middle; }
