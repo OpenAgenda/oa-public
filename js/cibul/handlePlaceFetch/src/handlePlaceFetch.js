@@ -21,7 +21,7 @@ var handlePlaceFetch = function(params) {
       countryFieldInfo: 'type in a country name and click or press enter'
     },
     templates: {
-      main: '<span class="info"><%= fetchInfo %></span><div></div><a href="#" class="url"><div class="js_country_canvas"><span class="js_country"></span><i class="icon-edit"></i></div></a></div><div class="js_loader loader"></div>',
+      main: '<span class="info"><%= fetchInfo %></span><div></div><div class="js_country_canvas"><a href="#" class="url"><span class="js_country"></span><i class="icon-edit"></i></a></div></div><div class="js_loader loader"></div>',
       addressGuide: '<span><%= addressNumberInfo %></span> <span><%= addressStreetInfo %></span>, <span><%= addressCityInfo %></span></span>'
     },
     spinner: { lines: 7, length: 1, width: 2, radius: 3, corners: 0, rotate: 0},
@@ -231,9 +231,9 @@ var handlePlaceFetch = function(params) {
 
     if (address.match(/^([0-9]+|)$/))
       hIndex = 0;
-    else if (address.match(/^[0-9]+\s[A-Za-z\u00C0-\u017F\s]+$/))
+    else if (address.match(/^[0-9]+\s[A-Za-z\u00C0-\u017F\s']+$/))
       hIndex = 1;
-    else if (address.match(/^[0-9]+\s[A-Za-z\u00C0-\u017F\s]+,.+$/))
+    else if (address.match(/^[0-9]+\s[A-Za-z\u00C0-\u017F\s']+,.+$/))
       hIndex = 2;
 
     var spanElems = els(addressGuide, 'span');
