@@ -178,7 +178,8 @@ var runProgramBehavior = function(params) {
 
   initHeadFilter = function(locations){ // locations needed because of the place names
 
-    addHeadFilterBehavior(getElementsByClassName(document, 'js_head_filter')[0], eh, {
+    addHeadFilterBehavior({
+      canvas: el('.js_head_filter'),
       triggerEvents: { loading: 'lhLoading', loadSuccess: 'lhSuccess', loadFail: 'lhFail' },
       triggeredEvents: { filterClear: 'load' },
       locations: locations

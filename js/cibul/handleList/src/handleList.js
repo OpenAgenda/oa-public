@@ -79,6 +79,7 @@ var handleList = function(elem, eventHandler, options) {
       if (options.filter) newParams = options.filter(newParams);
 
       for (index in newParams) {
+
         if (index=='page') pageSet = true;
 
         if (newParams[index] === null) {

@@ -357,7 +357,7 @@
 
             <div class="widget-preview">
               <div class="preview-canvas"><div class="preview">
-                <div class="cibulCategories" data-cbctl="27295690/46744426|4bc1106de56674b18e6910699525dfe8|http://d.cibul.net/frontend_dev.php/embed/{uid}/controldata"></div>
+                <div class="cibulCategories" data-cbctl="48959239/46744426|4bc1106de56674b18e6910699525dfe8|http://d.cibul.net/frontend_dev.php/embed/{uid}/controldata"></div>
               </div></div>
             </div>
 
@@ -380,7 +380,7 @@
 
             <div class="widget-preview">
               <div class="preview-canvas"><div class="preview">
-                <div class="cibulCalendar" data-cbctl="27295690/46744426|4bc1106de56674b18e6910699525dfe8|fr|http://d.cibul.net/frontend_dev.php/embed/{uid}/controldata"></div>
+                <div class="cibulCalendar" data-cbctl="48959239/46744426|4bc1106de56674b18e6910699525dfe8|fr|http://d.cibul.net/frontend_dev.php/embed/{uid}/controldata"></div>
               </div></div>
             </div>
 
@@ -432,17 +432,19 @@
     </div>
     <script type="text/javascript">
 
+
+
       var resources = {
         list: 'http://templates.cibul.net/program%20embedded/list.html',
         sandbox: 'http://templates.cibul.net/program%20embedded/list.html',
-        //list: 'http://d.cibul.net/frontend_dev.php/embed/27295690/46744426',
-        //sandbox: 'http://d.cibul.net/frontend_dev.php/embed/27295690/46744426/sandbox',
-        //map: 'http://d.cibul.net/frontend_dev.php/embed/27295690/46744426/map',
+        //list: 'http://d.cibul.net/frontend_dev.php/embed/48959239/46744426',
+        //sandbox: 'http://d.cibul.net/frontend_dev.php/embed/48959239/46744426/sandbox',
+        //map: 'http://d.cibul.net/frontend_dev.php/embed/48959239/46744426/map',
         form: 'http://templates.cibul.net/event%20form/index.html',
         formSandbox: 'http://templates.cibul.net/event%20form/index.html',
         map: 'http://templates.cibul.net/program%20embedded/map.html',
         control: 'http://d.cibul.net/frontend_dev.php/embed/{uid}/controldata',
-        update: 'http://d.cibul.net/frontend_dev.php/embed/27295690/46744426/update'
+        update: 'http://d.cibul.net/frontend_dev.php/embed/48959239/46744426/update'
       },
       configInputElem = el('.js_update_input'),
       programUid = '48959239',
@@ -512,7 +514,7 @@
 
       function enableUpdateForm() {
 
-        var form = getElementsByClassName(document, 'js_update_input')[0].parentNode;
+        var form = el('.js_update_input').parentNode;
 
         form.setAttribute('action', resources.update);
 

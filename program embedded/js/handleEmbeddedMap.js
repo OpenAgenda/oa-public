@@ -1,5 +1,5 @@
 var handleEmbeddedMap = function(options) {
-
+  
   options = extend({
     mapElem: false,       // map element. required
     maps: 'osm',           // which map library is to be used

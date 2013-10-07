@@ -137,8 +137,7 @@ var handleEmbeddedList = function(options) {
         section: function(){}
       },
       triggerEvents: { load: options.events.load, loadPrevious: options.events.prevPageRequest, loadNext: options.events.nextPageRequest },
-      triggeredEvents: { loading: options.events.loading, complete: options.events.loadComplete, success: options.events.loadSuccess, fail: options.events.loadFail, lock: options.events.lock, unlock: options.events.unlock },
-      filter: programParamFilter, // filter out filter parameters
+      triggeredEvents: { loading: options.events.loading, complete: options.events.loadComplete, success: options.events.loadSuccess, fail: options.events.loadFail, lock: options.events.lock, unlock: options.events.unlock }
     });
 
   },
@@ -183,9 +182,10 @@ var handleEmbeddedList = function(options) {
 
   },
 
-  _handleHeadFilter = function(locations){ // locations needed because of the place names
+  _handleHeadFilter = function(locations) { // locations needed because of the place names
 
-    addHeadFilterBehavior(getElementsByClassName(document, 'js_head_filter')[0], eh, {
+    addHeadFilterBehavior({
+      canvas: el('.js_head_filter'),
       triggerEvents: { loading: options.events.loading, loadSuccess: options.events.loadSuccess, loadFail: options.events.loadFail },
       triggeredEvents: { filterClear: options.events.load },
       locations: locations

@@ -85,9 +85,7 @@
 
     <ul class="program-list js_event_list">
 
-      <li class="pfilter js_head_filter display-none">
-        <span class="js_label"><span></span></span><i class="icon-remove js_remove"></i>
-      </li>
+      <li class="js_head_filter"></li>
 
       <li><a class="list-nav js_nav_previous"><span>...</span><i class="icon-arrow-up"></i></a></li>
 
@@ -104,18 +102,18 @@
       addEvent(window, 'load', function() {
 
         handleEmbeddedList({
-          url: 'http://d.cibul.net/frontend_dev.php/embed/27295690/46744426?key=4bc1106de56674b18e6910699525dfe8&format=jsonp',
+          url: 'http://d.cibul.net/frontend_dev.php/embed/48959239/46744426?key=4bc1106de56674b18e6910699525dfe8&format=jsonp',
           eventUrl: 'ajax.json?uid={uid}&grut=',
           oembedUrl: 'js/event/jquery.oembed.min.js',
           control: 'http://d.cibul.net/frontend_dev.php/la-gargouille/fr?format=jsonp&getcontroldata=',
           culture: 'fr',
           elems: {
-            program: getElementsByClassName(document, 'js_event_list')[0],
-            event: getElementsByClassName(document, 'js_event')[0],
-            list: getElementsByClassName(document, 'list-items')[0],
-            articleItems: getElementsByClassName(getElementsByClassName(document, 'list-items')[0], 'pli'),
-            navPrevious: getElementsByClassName(document, 'js_nav_previous')[0],
-            navNext: getElementsByClassName(document, 'js_nav_next')[0],
+            program: el('.js_event_list'),
+            event: el('.js_event'),
+            list: el('.list-items'),
+            articleItems: el(el('.list-items'), '.pli'),
+            navPrevious: el('.js_nav_previous'),
+            navNext: el('.js_nav_next'),
           },
           init: { prevPage: 0, nextPage: 2 },
           templates: {
@@ -135,7 +133,7 @@
       // for preview
       function setCustomCss(newCss) {
 
-        var sheet = document.getElementById('custom-list-css');
+        var sheet = el('#custom-list-css');
 
         if (sheet.styleSheet) {
           sheet.styleSheet.cssText = newCss;

@@ -1,77 +1,88 @@
-var addHeadFilterBehavior = function(elem, eventHandler, params) {
+var addHeadFilterBehavior = function(params) {
 
-  var disabled = false,
-  
-  , labelElem = el('.js_label')
-
-  , currentFilters = {};
+  var disabled = false, currentFilters = {}, eh = sEventHandler.getInstance(), existingParamNames,
 
   params = extend({
     canvas: false,
-    triggeredEvents: {filterClear: 'clear'},
-    triggerEvents: {loading: 'loading', loadSuccess: 'success', loadFail: 'fail'},
+    triggeredEvents: { filterClear: 'clear' },
+    triggerEvents: { loading: 'loading', loadSuccess: 'success', loadFail: 'fail' },
     classes: {
       disabled: 'disabled',
       displayNone: 'display-none'
     },
     selectors: {
       remove: '.js_remove_filter'
-    }
+    },
     locations: false,
-    template: '<span class="pfilter"><i class="<%= iconClass %>"></i><span><%= label %></span><i class="icon-remove js_remove_filter"></i></span>',
+    template: '<span class="pfilter"><i class="<%= icon %>"></i><span><%= label %></span><button class="js_remove_filter">&times;</button></span>',
     filterTypes: {
       location: { icon: 'icon-map-marker', params: ['location'] },
       category: { icon: 'icon-bookmark', params: ['category'] },
       date: { icon: 'icon-calendar', params: ['from', 'to'] },
-      tags: { icon: 'icon-tags', params: ['tags'] }
+      tag: { icon: 'icon-tags', params: ['tag'] }
     }
   }, params);
 
-  eventHandler.on(params.triggerEvents.loading, function(){
+  var run = function() {
 
-    _disable();
+    // define list of possible filter values from filter types array
+    _buildFilterParamNames();
 
-  });
+    eh.on(params.triggerEvents.loading, _disable);
 
-  eventHandler.on(params.triggerEvents.loadFail, function(){
+    eh.on(params.triggerEvents.loadFail, _enable);
 
-    _enable();
+    eh.on(params.triggerEvents.loadSuccess, function(newParams){
 
-  });
+      _enable();
 
-  eventHandler.on(params.triggerEvents.loadSuccess, function(newParams){
+      var newValues = _parseParams(newParams);
 
-    var newValues = __parseParams(newParams):
+      for (index in currentFilters)  _clearFilter(index);
 
-    // clear filter items which no longer apply
+      for (index in newValues) _addFilter(index, newValues[index]);
 
-    for (index in currentFilters)
-      if (!newValues[index]) _clearFilter(index);
-
-    for (index in newValues)
-      if (!currentFilters[index]) _addFilter(index, newValues[index]);
-
-  });
-
+      Object.size(newValues)?_display():_hide();
   
+    });
 
-  var _parseParams = function(reqParams) {
+  },
+
+  /**
+   * pick out filter values and parse them into a usable format
+   */
+
+  _parseParams = function(reqParams) {
 
     var newValues = {};
 
-    forEach(['location', 'category', 'from', 'to', 'tag'], function(paramName) {
+    for (rIndex in reqParams) if (contains(existingParamNames, rIndex)) for (tIndex in params.filterTypes) {
 
-      for (var index in params.filterTypes) {
-        if (contains(params.filterTypes[index].params, paramName)) {
-          if (!newValues[index]) newValues[index] = {};
-          newValues[index][paramName] = reqParams[paramName];
-          break;
-        }
+      if (contains(params.filterTypes[tIndex].params, rIndex)) {
+
+        if (!newValues[tIndex]) newValues[tIndex] = {};
+
+        newValues[tIndex][rIndex] = reqParams[rIndex];
+
+        break;
+          
       }
-        
-    });
+
+    }
 
     return newValues;
+
+  },
+
+  _buildFilterParamNames = function() {
+
+    existingParamNames = [];
+
+    for (fIndex in params.filterTypes) {
+      forEach(params.filterTypes[fIndex].params, function(param) {
+        if (!contains(existingParamNames, param)) existingParamNames.push(param);
+      });
+    }
 
   },
 
@@ -88,7 +99,7 @@ var addHeadFilterBehavior = function(elem, eventHandler, params) {
     var elem = document.createElement('div');
 
     if (index=='date') {
-      var label = filterValues.to?filterValues.from + ' -> ' + filterValues.to:filterValues.from;
+      var label = filterValues.to?filterValues.from + ' &rarr; ' + filterValues.to:filterValues.from;
     } else {
       var label = filterValues[index];
     }
@@ -101,39 +112,46 @@ var addHeadFilterBehavior = function(elem, eventHandler, params) {
 
       if (disabled) return;
 
+      _disable();
+
       var cleared = {};
 
       forEach(params.filterTypes[index].params, function(paramName) {
         cleared[paramName] = null;
       });
 
-      eventHandle.trigger(params.triggerEvents.filterClear, cleared);
+      eh.trigger(params.triggeredEvents.filterClear, cleared);
 
     });
 
     currentFilters[index] = {
-      elem: elem
+      elem: elem.childNodes[0]
     };
 
-    params.canvas.appendChild(elem);
+    params.canvas.appendChild(elem.childNodes[0]);
 
   },
 
   _disable = function() {
     disabled = true;
-    addClass(elem, params.disabledClassName);
+    addClass(params.canvas, params.classes.disabled);
   },
+
   _enable = function() {
     disabled = false;
-    removeClass(elem, params.disabledClassName);
+    removeClass(params.canvas, params.classes.disabled);
   },
+
   _display = function() {
     _enable();
-    removeClass(elem, params.displayNoneClassName);
+    removeClass(params.canvas, params.classes.displayNone);
   },
+
   _hide = function() {
     _disable();
-    addClass(elem, params.displayNoneClassName);
+    addClass(params.canvas, params.classes.displayNone);
   };
+
+  run();
   
 };

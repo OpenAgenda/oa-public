@@ -60,7 +60,7 @@
 #program .pblock-body .ptags { padding: 0 0 10px 18px; }
 #program .ptags li { padding: 0.2em 0; line-height: 1em; }
 #program .ptags li > * { padding: 2px; font-size: 0.9em; display:inline-block; line-height: 1em; }
-#program .ptags li > i { font-size: 0.7em; padding: 4px 2px 2px 2px; margin: 0;}
+#program .ptags li > button { margin: 0; background: transparent;}
 
 
 #program .pplaces .map-canvas { height: 200px; margin-bottom: 10px;}
@@ -73,30 +73,33 @@
 #program .pplaces ul li .icon-remove { padding-top: 0.2em 0; }
 
 
-#program .pfilter { padding: 0.2em; border: 1px solid #d00; }
-#program .pfilter * { color: #d00; font-weight: bold; display: inline-block; vertical-align: middle; }
-#program .pfilter .icon-filter { font-size: 1.1em; padding: 0 0.5em; }
-#program .pfilter i { padding: 0 0.3em; font-size: 1.1em; }
-#program .pfilter .icon-remove { float: right; padding: 0.2em 0.5em; }
+#program .pfilter { padding: 0.2em;  border: 1px solid #53D4FF; margin: 0 0.5em 0.3em 0; background: #53D4FF; display: inline-block;}
+#program .pfilter * { color: white; display: inline-block; }
+#program .pfilter span,
+#program .pfilter button { font-size: 1.1em; background: transparent; padding: 0 0.3em; cursor: pointer; }
+#program .pfilter .icon-filter { padding: 0 0.5em; }
+#program .pfilter i { padding: 0 0.1em 0 0.3em; }
+#program .pfilter .icon-remove { padding: 0.2em 0.5em; }
+#program .disabled .pfilter { background: #ccc; border: 1px solid #ccc; }
+
 
 #program .filter-item { padding: 0 5px 0 10px; display: inline-block; border: 1px solid transparent; line-height: 2em; vertical-align: middle; }
 #program .filter-item i { display: none; float: right; font-size: 0.8em; padding-top: 0.75em; margin-left: 5px; }
 #program .filter-item.active i { display: block; }
+
+#program .filter-item button { display: none; cursor: pointer; }
+#program .filter-item.active button { display: inline-block; padding: 0 4px;}
 
 #program .filter-item:hover { background: #f0f0f0; }
 #program .filter-item.active:hover { background: #53D4FF; }
 #program .filter-item:active * { color: #666; }
 
 
-
-#program .pfilter * { color: white; }
-#program .pfilter { background: #53D4FF; border: 1px solid #53D4FF; }
-#program .pfilter.disabled { background: #ccc; border: 1px solid #ccc; }
-
 #program .filter-item.active { border: none; background: #53D4FF; }
 #program .filter-item.active a, 
 #program .filter-item.active span,
-#program .filter-item.active i { color: white; }
+#program .filter-item.active i,
+#program .filter-item.active button { color: white; }
 #program .filter-item.active.disabled,
 #program .disabled .filter-item.active { background: #ccc; }
 

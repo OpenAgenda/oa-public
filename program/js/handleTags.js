@@ -23,7 +23,7 @@ var handleTags = function(params) {
     templates: {
       head: ['<div class="pblock-head"><i class="icon-tags"></i><span>', params.labels.tags,'</span></div>'].join(''),
       body: '<div class="pblock-body"><ul class="ptags js_tags"></ul></div>',
-      item: '<a href="#"><%= tag %></a><i class="icon-remove"></i>'
+      item: '<a href="#"><%= tag %></a><button>&times</button>'
     }
   }, params);
 
@@ -104,15 +104,15 @@ var handleTags = function(params) {
 
   _addTagBehavior = function(tagElem) {
 
-    var a = tagElem.getElementsByTagName('a')[0],
-      i = tagElem.getElementsByTagName('i')[0];
+    var a = el(tagElem, 'a'),
+        button = el(tagElem, 'button');
       
       addEvent(a, 'click', function(e) {
         preventDefault(e);
         _tagSelect(tagElem, a.innerHTML);
       });
 
-      addEvent(i, 'click', function(e) {
+      addEvent(button, 'click', function(e) {
         preventDefault(e);
         _tagUnselect();
       });
