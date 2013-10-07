@@ -285,7 +285,7 @@ var handleEventPlaceEdit = function(params) {
       labels: params.labels,
       languages: languages,
       onChange: function(ticketLink, pricingInfo) {
-        
+
         location.ticketLink = ticketLink;
         location.pricingInfo = pricingInfo;
 

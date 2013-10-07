@@ -22,6 +22,9 @@ var handlePricingSelection = function(params) {
 
   _run = function() {
 
+    ticketLink = params.location.ticketLink;
+    pricingInfo = params.location.pricingInfo;
+
     _createElement();
 
     _createFields();
