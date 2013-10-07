@@ -228,8 +228,7 @@ var handleList = function(elem, eventHandler, options) {
 
 
 var programParamFilter = function(params) {
-  // for program, there can be only one filter set at any given time
-
+  
   var setFilter = false;
   var resetParams = {
     category: null,

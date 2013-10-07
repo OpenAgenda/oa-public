@@ -16,12 +16,12 @@ var runProgramBehavior = function(params) {
       resources: { edit: '#edit', tagAdd: false, tagRemove: false, empty: false },
       events: { lock: 'lock', unlock: 'unlock' },
       elems: {
-        list: getElementsByClassName(document, 'list-items')[0],
-        map: getElementsByClassName(document, 'js_map_canvas')[0],
-        locationsList: getElementsByClassName(document, 'js_location_list')[0],
-        shareLink: getElementsByClassName(document, 'js_share')[0],
-        shareCanvas: getElementsByClassName(document, 'js_share_menu')[0],
-        actions: getElementsByClassName(document, 'js_program_actions')[0]
+        list: el('.list-items'),
+        map: el('.js_map_canvas'),
+        locationsList: el('.js_location_list'),
+        shareLink: el('.js_share'),
+        shareCanvas: el('.js_share_menu'),
+        actions: el('.js_program_actions')
       },
       lang: 'en',
       iconRoot: 'images/',
@@ -161,7 +161,6 @@ var runProgramBehavior = function(params) {
       triggerEvents: { load: 'load', loadPrevious: 'loadPrevious', loadNext: 'loadNext' },
       triggeredEvents: { loading: 'lhLoading', complete: 'lhComplete', success:'lhSuccess', fail: 'lhFail', lock: params.events.lock, unlock: params.events.unlock },
       anchor: 'params',
-      filter: programParamFilter, // filter out filter parameters
     });
 
   },
