@@ -247,13 +247,22 @@ var runProgramBehavior = function(params) {
       location.highlighted = true;
     });
 
+    // create map with associated behaviors
+
     var mHandler = mapHandler(m, params.elems.map, locationList, { events: {
-      triggeredEvents: { onLocationSelect: 'markerselect' },
-      triggerEvents: { /* selectLocation: 'load', unselectLocation: options.events.locationSelectCancel, */ disable: 'lhLoading', enable: 'lhSuccess' },
+      triggeredEvents: { onLocationSelect: 'markerselect', onBoundsChange: 'onboundschange' },
+      triggerEvents: { disable: 'lhLoading', enable: 'lhSuccess' /* selectLocation: 'load', unselectLocation: options.events.locationSelectCancel, */  },
     }, iconRoot: params.iconRoot });
+
+
+    // map map events with list
 
     eh.on('markerselect', function(location) {
       eh.trigger('load', { location: location.id });
+    });
+
+    eh.on('onboundschange', function(frameParams) {
+      //eh.trigger('load', frameParams);
     });
 
     addLocationListBehavior(params.elems.locationsList, locations, eh, {

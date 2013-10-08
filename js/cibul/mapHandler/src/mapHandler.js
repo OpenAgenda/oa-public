@@ -1,11 +1,18 @@
 var mapHandler = function(m, mapElt, locations, params) {
 
-  var map, eh = sEventHandler.getInstance(), bounds, enabled = true,
-
   params = extend({
     events: {
-      triggeredEvents: { onLocationSelect: 'onlocationselect' /* when marker of location is clicked */},
-      triggerEvents: { selectLocation: 'selectlocation' /* to know when selection of location has been made */, unselectLocation: 'unselectlocation', enable: 'enableMap', disable: 'disableMap' }
+      triggeredEvents: { 
+        onLocationSelect: 'onlocationselect',   /* when marker of location is clicked */
+        onBoundsChange: 'onboundschange'        /* when the bounds of the map change */
+      },
+      triggerEvents: { 
+        selectLocation: 'selectlocation'        /* to know when selection of location has been made */, 
+        unselectLocation: 'unselectlocation', 
+        enable: 'enableMap', 
+        disable: 'disableMap',
+        changeBounds: 'changebounds'            /* to know when new bounds are requested */
+      }
     },
     states: [
       { values: { enabled: true, highlighted: true }, icon: 'markerIcon.png', anchor: [9, 25] },
@@ -18,27 +25,47 @@ var mapHandler = function(m, mapElt, locations, params) {
       highlighted: true,
     },
     iconRoot: 'images/'
-  }, params),
+  }, params);
+
+  var map, eh = sEventHandler.getInstance(), bounds, enabled = true, lockBoundEvents = false,
 
   init = function() {
 
+    // if there aren't any locations, do not even display the map
+    
     if (!locations.length) return;
 
-    map = m.createMap(mapElt, {center: [locations[0].latitude,locations[0].longitude], draggable: false, scrollwheel: false, keyboard: false});
+    map = m.createMap(mapElt, { center: [locations[0].latitude,locations[0].longitude], keyboard: false });
 
+    _applyBoundsChangeBehavior();
+
+    // draw location markers on map and give them click behavior
+    
     setLocations(locations);
+
+    // setup interfaces through event handler
 
     if (params.events.triggerEvents.selectLocation) eh.on(params.events.triggerEvents.selectLocation, _focusOnLocationById);
 
     if (params.events.triggerEvents.unselectLocation) eh.on(params.events.triggerEvents.unselectLocation, _unsetFocus);
 
-    if (params.events.triggerEvents.enable) eh.on(params.events.triggerEvents.enable, _enable);
+    if (params.events.triggerEvents.enable) eh.on(params.events.triggerEvents.enable, function(data) {
+
+      if (data.neLat && data.neLng && data.swLat && data.swLng) _changeBounds(data);
+
+      _enable();
+
+    });
 
     if (params.events.triggerEvents.enable) eh.on(params.events.triggerEvents.disable, _disable);
 
     addEvent(window, 'resize', function(){
       setTimeout(_unsetFocus, 50);
     });
+
+    return {
+      setLocations: setLocations
+    };
 
   },
   setLocations = function(locations) {
@@ -85,6 +112,38 @@ var mapHandler = function(m, mapElt, locations, params) {
     if (!bounds) bounds = m.createBounds([locations[0].latitude, locations[0].longitude]);
 
     m.fitBounds(map, bounds);
+
+  },
+  _applyBoundsChangeBehavior = function() {
+
+    m.setOnBoundsChangeEnd(map, function(bounds) {
+
+      if (lockBoundEvents) return;
+
+      var ne = m.getBoundsNorthEast(bounds), sw = m.getBoundsSouthWest(bounds);
+
+      eh.trigger(params.events.triggeredEvents.onBoundsChange, {
+        neLat: Math.round(ne[0]*1000)/1000,
+        neLng: Math.round(ne[1]*1000)/1000,
+        swLat: Math.round(sw[0]*1000)/1000,
+        swLng: Math.round(sw[1]*1000)/1000
+      });
+
+    });
+
+
+  },
+  _changeBounds = function(bp) {
+
+    lockBoundEvents = true;
+
+    var bounds = m.createBounds([bp.neLat, bp.neLng]);
+
+    m.extendBounds(bounds, [bp.swLat, bp.swLng]);
+
+    m.fitBounds(map, bounds);
+
+    lockBoundEvents = false;
 
   },
   _enable = function() {
@@ -174,10 +233,6 @@ var mapHandler = function(m, mapElt, locations, params) {
 
   };
 
-  init();
-
-  return {
-    setLocations: setLocations
-  };
+  return init();
 
 }

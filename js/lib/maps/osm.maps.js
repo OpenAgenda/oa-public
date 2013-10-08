@@ -63,6 +63,20 @@ maps.register('osm', (function(){
       marker.on('click', callback);
     },
 
+    setOnBoundsChangeEnd: function(map, callback) {
+
+      var getBounds = function() {
+
+        callback(map.getBounds());
+
+      };
+
+      map.on('zoomend', getBounds);
+      map.on('dragend', getBounds);
+      map.on('resize', getBounds);
+
+    },
+
     setOnMarkerEvent: function(marker, event, callback) {
 
       marker.on(event, callback);
@@ -105,6 +119,18 @@ maps.register('osm', (function(){
 
       map.fitBounds(bounds);
       
+    },
+    
+    getBoundsNorthEast: function(bounds) {
+
+      return [bounds.getNorthEast().lat, bounds.getNorthEast().lng];
+
+    },
+
+    getBoundsSouthWest: function(bounds) {
+
+      return [bounds.getSouthWest().lat, bounds.getSouthWest().lng];
+
     },
 
     getPosition: function(marker) {

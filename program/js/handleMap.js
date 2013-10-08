@@ -52,15 +52,15 @@ var addLocationListBehavior = function(locationListElem, locations, eventHandler
     if (document.addEventListener) 
       iscroll = new iScroll('location-list-wrapper');
     else
-      document.getElementById('location-list-wrapper').style.overflowY = 'scroll';
+      el('#location-list-wrapper').style.overflowY = 'scroll';
 
-    if (Object.size(locations) > 1) forEach(locationListElem.getElementsByTagName('li'), function(listItem) {
+    if (Object.size(locations) > 1) forEach(els(locationListElem, 'li'), function(listItem) {
       addEvent(listItem, 'click', function(e){
         if (disabled) return;
         eventHandler.trigger(params.triggeredEvents.locationSelect, {location: listItem.getAttribute('data-slug')});
       });
 
-      addEvent(getElementsByClassName(listItem, 'icon-remove')[0], 'click', function(){
+      addEvent(el(listItem, '.icon-remove'), 'click', function(){
         if (disabled) return;
         eventHandler.trigger(params.triggeredEvents.locationSelect, {location: null});
       });
@@ -70,7 +70,7 @@ var addLocationListBehavior = function(locationListElem, locations, eventHandler
       disabled = false;
 
       if (data.location) {
-        forEach(locationListElem.getElementsByTagName('li'), function(listItem) { 
+        forEach(els(locationListElem, 'li'), function(listItem) { 
 
           if (listItem.getAttribute('data-slug')==data.location) {
             addClass(listItem, params.activeClass);
@@ -89,7 +89,7 @@ var addLocationListBehavior = function(locationListElem, locations, eventHandler
     eventHandler.on(params.triggerEvents.loading, function(){
       disabled = true;
 
-      forEach(locationListElem.getElementsByTagName('li'), function(listItem) { 
+      forEach(els(locationListElem, 'li'), function(listItem) { 
         removeClass(listItem, params.activeClass);
       });
       

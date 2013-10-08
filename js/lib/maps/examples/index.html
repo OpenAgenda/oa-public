@@ -3,17 +3,15 @@
   <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 
-    <script type="text/javascript" src="common/common.js"></script>
+    <script type="text/javascript" src="../../common/common.js"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-    <script type="text/javascript" src="../src/latest/leaflet.js"></script>
-    <script type="text/javascript" src="../src/latest/maps.js"></script>
-    <script type="text/javascript" src="../src/latest/osm.maps.js"></script>
-    <script type="text/javascript" src="../src/latest/google.maps.js"></script>
+    <script type="text/javascript" src="../leaflet.js"></script>
+    <script type="text/javascript" src="../maps.js"></script>
+    <script type="text/javascript" src="../osm.maps.js"></script>
+    <script type="text/javascript" src="../google.maps.js"></script>
 
-    <link rel="stylesheet" href="../src/latest/leaflet.css" />
-    <!--[if lte IE 8]>
-    <link rel="stylesheet" href="../src/latest/leaflet.ie.css" />
-    <![endif]-->
+    <link rel="stylesheet" href="leaflet.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="leaflet.ie.css" /><![endif]-->
     <style>
 
       * { margin: 0; padding: 0; border: 0; }
@@ -74,6 +72,17 @@
         // create a marker
         mapLib.createMarker(map, {
           position: [ 48.447,1.486 ]
+        });
+
+        // callback on bounds change
+
+        mapLib.setOnBoundsChangeEnd(map, function(bounds) {
+
+          var northEast = mapLib.getBoundsNorthEast(bounds);
+          var southWest = mapLib.getBoundsSouthWest(bounds);
+
+          console.log('bounds changed: ne:' + northEast[0] + ',' + northEast[1] + ' sw:' + southWest[0] + ',' + southWest[1]);
+
         });
 
       },

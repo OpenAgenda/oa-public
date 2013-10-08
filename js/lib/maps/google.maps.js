@@ -89,6 +89,20 @@ maps.register('google', (function(){
 
     },
 
+    setOnBoundsChangeEnd: function(map, callback) {
+
+      var getBounds = function() {
+
+        callback(map.getBounds());
+
+      };
+
+      google.maps.event.addListener(map, 'dragend', getBounds);
+      google.maps.event.addListener(map, 'zoom_changed', getBounds);
+      google.maps.event.addListener(map, 'resize', getBounds);
+
+    },
+
     setOnMarkerEvent: function(marker, event, callback) {
 
       google.maps.event.addListener(marker, event, callback);
@@ -130,6 +144,18 @@ maps.register('google', (function(){
     fitBounds: function(map, bounds) {
 
       map.fitBounds(bounds);
+
+    },
+
+    getBoundsNorthEast: function(bounds) {
+
+      return [bounds.getNorthEast().lat(), bounds.getNorthEast().lng()];
+
+    },
+
+    getBoundsSouthWest: function(bounds) {
+
+      return [bounds.getSouthWest().lat(), bounds.getSouthWest().lng()];
 
     },
 

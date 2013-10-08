@@ -76,7 +76,7 @@
 #program .pfilter { padding: 0.2em;  border: 1px solid #53D4FF; margin: 0 0.5em 0.3em 0; background: #53D4FF; display: inline-block;}
 #program .pfilter * { color: white; display: inline-block; }
 #program .pfilter span,
-#program .pfilter button { font-size: 1.1em; background: transparent; padding: 0 0.3em; cursor: pointer; }
+#program .pfilter button { font-size: 1.1em; background: transparent; padding: 0 0.3em; cursor: pointer; border: none; }
 #program .pfilter .icon-filter { padding: 0 0.5em; }
 #program .pfilter i { padding: 0 0.1em 0 0.3em; }
 #program .pfilter .icon-remove { padding: 0.2em 0.5em; }
@@ -87,7 +87,7 @@
 #program .filter-item i { display: none; float: right; font-size: 0.8em; padding-top: 0.75em; margin-left: 5px; }
 #program .filter-item.active i { display: block; }
 
-#program .filter-item button { display: none; cursor: pointer; }
+#program .filter-item button { display: none; cursor: pointer; border: none; }
 #program .filter-item.active button { display: inline-block; padding: 0 4px;}
 
 #program .filter-item:hover { background: #f0f0f0; }
