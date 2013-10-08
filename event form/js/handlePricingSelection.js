@@ -18,12 +18,12 @@ var handlePricingSelection = function(params) {
     languages: false, // required - languages used for ticket info
   }, params);
 
-  var languages = params.languages, linkWidget, pricingWidgets = {}, elems = [], ticketLink, pricingInfo = {}, pricingInfoElems = {},
+  var languages = params.languages, linkWidget, pricingWidgets = {}, elems = [], ticketLink, pricingInfo, pricingInfoElems = {},
 
   _run = function() {
 
-    ticketLink = params.location.ticketLink;
-    pricingInfo = params.location.pricingInfo;
+    ticketLink = params.location.ticketLink?params.location.ticketLink:{};
+    pricingInfo = params.location.pricingInfo?params.location.pricingInfo:{};
 
     _createElement();
 
