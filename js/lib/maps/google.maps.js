@@ -97,9 +97,19 @@ maps.register('google', (function(){
 
       };
 
-      google.maps.event.addListener(map, 'dragend', getBounds);
-      google.maps.event.addListener(map, 'zoom_changed', getBounds);
-      google.maps.event.addListener(map, 'resize', getBounds);
+      return [
+        google.maps.event.addListener(map, 'dragend', getBounds),
+        google.maps.event.addListener(map, 'zoom_changed', getBounds),
+        google.maps.event.addListener(map, 'resize', getBounds)
+      ];
+
+    },
+
+    unsetOnBoundsChangeEnd: function(map, reference) {
+
+      forEach(reference, function(listener) {
+        google.maps.event.removeListener(listener);
+      });
 
     },
 

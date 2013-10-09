@@ -97,15 +97,15 @@ var runProgramBehavior = function(params) {
       eh.trigger('resize');
     });
 
-    addMobileDisplayBehavior(getElementsByClassName(document, 'pblock-head'), getElementsByClassName(document, 'pblock-body'), eh, {
+    addMobileDisplayBehavior(el('.pblock-head'), el('.pblock-body'), eh, {
       widthThreshold: 740,
       triggeredEvents: { mobileOn: 'mobileon', mobileOff: 'mobileoff', tabActivated: 'tabactivated' },
       triggerEvents: { loading: 'lhLoading' }
     });
 
-    repeatingSectionsRemove(getElementsByClassName(document, 'list-items')[0], 'plis', eh, 'lhSuccess');
+    repeatingSectionsRemove(el('.list-items'), 'plis', eh, 'lhSuccess');
 
-    setLinksElems(getElementsByClassName(document, 'head')[0].getElementsByTagName('p'), {targetBlank: true, linkClasses: 'url'});
+    setLinksElems(els(el('.head'), 'p'), {targetBlank: true, linkClasses: 'url'});
 
     _isAggregationEnabled(_initSourceMenu);
 
@@ -145,7 +145,7 @@ var runProgramBehavior = function(params) {
 
   initListHandler = function(){
       
-    handleList(getElementsByClassName(document, 'list-items')[0], eh, {
+    handleList(el('.list-items'), eh, {
       url: params.currentUrl,
       params: params.debug?{format: 'jsonp'}:{},
       ajax: !params.debug,
@@ -158,7 +158,7 @@ var runProgramBehavior = function(params) {
         article: function(){},
         section: function(){}
       },
-      triggerEvents: { load: 'load', loadPrevious: 'loadPrevious', loadNext: 'loadNext' },
+      triggerEvents: { load: 'load', loadPrevious: 'loadPrevious', loadNext: 'loadNext', getParams: 'getlistparams' },
       triggeredEvents: { loading: 'lhLoading', complete: 'lhComplete', success:'lhSuccess', fail: 'lhFail', lock: params.events.lock, unlock: params.events.unlock },
       anchor: 'params',
     });
@@ -167,7 +167,7 @@ var runProgramBehavior = function(params) {
 
   initPageNav = function(){
 
-    handleNav(getElementsByClassName(document, 'js_nav_previous')[0], getElementsByClassName(document, 'js_nav_next')[0], eh, {
+    handleNav(el('.js_nav_previous'), el('.js_nav_next'), eh, {
       triggerEvents: { loading: 'lhLoading', loadSuccess: 'lhSuccess', loadFail: 'lhFail'},
       triggeredEvents: { getNextPage: 'loadNext', getPreviousPage: 'loadPrevious' },
       url: params.currentUrl,
@@ -190,11 +190,11 @@ var runProgramBehavior = function(params) {
   initCategories = function(categories) {
 
     createCategoriesElement(
-      getElementsByClassName(document, 'pcat')[0], categories,
+      el('.pcat'), categories,
       '<ul class="categories js_categories"><% for (index in categories) { %><li class="filter-item"><a><%= index %></a><i class="icon-remove"></i></li><% } %></ul>'
     );
 
-    if (Object.size(categories)) addCategoriesBehavior(getElementsByClassName(document, 'js_categories')[0], eh, {
+    if (Object.size(categories)) addCategoriesBehavior(el('.js_categories'), eh, {
       triggerEvents: { loading: 'lhLoading', loadSuccess: 'lhSuccess', loadFail: 'lhFail'},
       triggeredEvents: { newSelect: 'load' },
     });
@@ -208,7 +208,7 @@ var runProgramBehavior = function(params) {
     handleTags({
       tags: tags,
       events: {newSelect: 'load', loading: 'lhLoading', loadSuccess: 'lhSuccess', loadFail: 'fail', addTag: 'newtag'},
-      canvas: getElementsByClassName(document, 'js_nav_widgets')[0],
+      canvas: el('.js_nav_widgets'),
       labels: params.labels
     });
 
@@ -250,7 +250,7 @@ var runProgramBehavior = function(params) {
     // create map with associated behaviors
 
     var mHandler = mapHandler(m, params.elems.map, locationList, { events: {
-      triggeredEvents: { onLocationSelect: 'markerselect', onBoundsChange: 'onboundschange' },
+      triggeredEvents: { onLocationSelect: 'markerselect', onBoundsChange: 'onboundschange', getParams: 'getlistparams' },
       triggerEvents: { disable: 'lhLoading', enable: 'lhSuccess' /* selectLocation: 'load', unselectLocation: options.events.locationSelectCancel, */  },
     }, iconRoot: params.iconRoot });
 
@@ -262,7 +262,7 @@ var runProgramBehavior = function(params) {
     });
 
     eh.on('onboundschange', function(frameParams) {
-      //eh.trigger('load', frameParams);
+      eh.trigger('load', frameParams);
     });
 
     addLocationListBehavior(params.elems.locationsList, locations, eh, {

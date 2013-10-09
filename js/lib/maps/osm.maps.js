@@ -75,6 +75,16 @@ maps.register('osm', (function(){
       map.on('dragend', getBounds);
       map.on('resize', getBounds);
 
+      return getBounds;
+
+    },
+
+    unsetOnBoundsChangeEnd: function(map, reference) {
+
+      map.off('zoomend', getBounds);
+      map.off('dragend', getBounds);
+      map.off('resize', getBounds);
+
     },
 
     setOnMarkerEvent: function(marker, event, callback) {

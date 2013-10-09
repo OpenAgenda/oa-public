@@ -23,7 +23,7 @@ var handleList = function(elem, eventHandler, options) {
     ready: false,
     filter: false,
     listOffset: 150,
-    triggerEvents: { load: 'load', loadPrevious: 'loadPrevious', loadNext: 'loadNext' },
+    triggerEvents: { load: 'load', loadPrevious: 'loadPrevious', loadNext: 'loadNext', getParams: 'getlistparams' },
     triggeredEvents: {loading: 'lhLoading', complete: 'lhComplete', success:'lhSuccess', fail: 'lhFail', lock: 'lock', unlock: 'unlock'}
   }, options);
 
@@ -67,7 +67,12 @@ var handleList = function(elem, eventHandler, options) {
 
     eventHandler.on(options.triggerEvents.loadPrevious, _writePreviousPage);
 
+    if (options.triggerEvents.getParams) eventHandler.on(options.triggerEvents.getParams, function(callback) {
+      callback(parameters)
+    });
+
   },
+
   _writePage = function(newParams) {
 
     if (!Object.size(newParams)) newParams = false;
@@ -99,6 +104,7 @@ var handleList = function(elem, eventHandler, options) {
     _loadAndWriteContent(OVERWRITE);
 
   },
+
   _writeNextPage = function() {
 
     _setParameter('page', pageRange?pageRange[1] + 1:parseInt(_getParameter('page',1),10));
@@ -106,6 +112,7 @@ var handleList = function(elem, eventHandler, options) {
     _loadAndWriteContent(AFTER);
 
   },
+
   _writePreviousPage = function() {
 
     _setParameter('page', pageRange?pageRange[0] - 1:parseInt(_getParameter('page',1),10));
@@ -113,6 +120,7 @@ var handleList = function(elem, eventHandler, options) {
     _loadAndWriteContent(BEFORE);
 
   },
+
   _getParameter = function(name, defaultValue) {
 
     if (typeof parameters[name] == 'undefined') _setParameter(name, defaultValue);
@@ -120,11 +128,13 @@ var handleList = function(elem, eventHandler, options) {
     return parameters[name];
 
   },
+
   _setParameter = function(name, value) {
 
     parameters[name] = value;
 
   },
+
   _updatePageRange = function() {
 
     var page = parseInt(_getParameter('page',1), 10);
@@ -135,9 +145,13 @@ var handleList = function(elem, eventHandler, options) {
       pageRange = [page,page];
     }
   },
+
   _removeParameter = function(name) {
+
     if (typeof parameters[name] != 'undefined') delete parameters[name];
+
   },
+
   _loadAndWriteContent = function(position){
 
     eventHandler.trigger(options.triggeredEvents.loading);

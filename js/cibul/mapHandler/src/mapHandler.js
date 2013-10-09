@@ -4,7 +4,8 @@ var mapHandler = function(m, mapElt, locations, params) {
     events: {
       triggeredEvents: { 
         onLocationSelect: 'onlocationselect',   /* when marker of location is clicked */
-        onBoundsChange: 'onboundschange'        /* when the bounds of the map change */
+        onBoundsChange: 'onboundschange',       /* when the bounds of the map change */
+        getParams: 'getlistparams'
       },
       triggerEvents: { 
         selectLocation: 'selectlocation'        /* to know when selection of location has been made */, 
@@ -27,7 +28,7 @@ var mapHandler = function(m, mapElt, locations, params) {
     iconRoot: 'images/'
   }, params);
 
-  var map, eh = sEventHandler.getInstance(), bounds, enabled = true, lockBoundEvents = false,
+  var map, eh = sEventHandler.getInstance(), bounds, enabled = true, lockBoundEvents = false, ne, sw, boundsListener,
 
   init = function() {
 
@@ -35,12 +36,8 @@ var mapHandler = function(m, mapElt, locations, params) {
     
     if (!locations.length) return;
 
-    map = m.createMap(mapElt, { center: [locations[0].latitude,locations[0].longitude], keyboard: false });
+    map = m.createMap(mapElt, { center: [locations[0].latitude, locations[0].longitude], keyboard: false });
 
-    _applyBoundsChangeBehavior();
-
-    // draw location markers on map and give them click behavior
-    
     setLocations(locations);
 
     // setup interfaces through event handler
@@ -68,7 +65,9 @@ var mapHandler = function(m, mapElt, locations, params) {
     };
 
   },
-  setLocations = function(locations) {
+  setLocations = function(locations, setBounds) {
+
+    if (typeof setBounds == 'undefined') setBounds = true;
 
     bounds = false;
 
@@ -114,43 +113,94 @@ var mapHandler = function(m, mapElt, locations, params) {
     m.fitBounds(map, bounds);
 
   },
-  _applyBoundsChangeBehavior = function() {
 
-    m.setOnBoundsChangeEnd(map, function(bounds) {
+  _onBoundsChange = function(bounds) {
 
-      if (lockBoundEvents) return;
+    // do not trigger anything if bounds are too similar than previous set
 
-      var ne = m.getBoundsNorthEast(bounds), sw = m.getBoundsSouthWest(bounds);
+    var newBounds = {
+      ne: m.getBoundsNorthEast(bounds),
+      sw: m.getBoundsSouthWest(bounds)
+    };
 
-      eh.trigger(params.events.triggeredEvents.onBoundsChange, {
-        neLat: Math.round(ne[0]*1000)/1000,
-        neLng: Math.round(ne[1]*1000)/1000,
-        swLat: Math.round(sw[0]*1000)/1000,
-        swLng: Math.round(sw[1]*1000)/1000
-      });
+    newBounds = {
+      ne: [Math.round(newBounds.ne[0]*1000)/1000, Math.round(newBounds.ne[1]*1000)/1000],
+      sw: [Math.round(newBounds.sw[0]*1000)/1000, Math.round(newBounds.sw[1]*1000)/1000]
+    };
 
-    });
+    if (_areSameBounds(newBounds)) return;
 
+    ne = newBounds.ne;
+    sw = newBounds.sw;
+
+    eh.trigger(params.events.triggeredEvents.onBoundsChange, { neLat: ne[0], neLng: ne[1], swLat: sw[0], swLng: sw[1] });
 
   },
+
   _changeBounds = function(bp) {
 
-    lockBoundEvents = true;
+    var newBounds = {
+      ne: [parseFloat(bp.neLat), parseFloat(bp.neLng)],
+      sw: [parseFloat(bp.swLat), parseFloat(bp.swLng)]
+    };
 
-    var bounds = m.createBounds([bp.neLat, bp.neLng]);
+    if (_areSameBounds(newBounds)) return;
 
-    m.extendBounds(bounds, [bp.swLat, bp.swLng]);
+    if (boundsListener) {
+
+      m.unsetOnBoundsChangeEnd(map, boundsListener);
+      boundsListener = false;
+
+    }
+
+    ne = newBounds.ne;
+    sw = newBounds.sw;
+
+    var bounds = m.createBounds(ne);
+
+    m.extendBounds(bounds, sw);
 
     m.fitBounds(map, bounds);
 
-    lockBoundEvents = false;
+    boundsListener = m.setOnBoundsChangeEnd(map, _onBoundsChange);
+    
+  },
+
+  _readBounds = function(bp) {
+
+    if (!bp.neLat || !bp.neLng || !bp.swLat || !bp.swLng) return false;
+
+    return {
+      ne: [parseFloat(bp.neLat), parseFloat(bp.neLng)],
+      sw: [parseFloat(bp.swLat), parseFloat(bp.swLng)]
+    };
 
   },
+
+  _areSameBounds = function(newBounds) {
+
+    var sensitivity = 0.005;
+
+    if (ne && sw 
+
+    && (Math.abs(ne[0] - newBounds.ne[0]) < sensitivity) 
+
+    && (Math.abs(ne[1] - newBounds.ne[1]) < sensitivity)
+
+    && (Math.abs(sw[0] - newBounds.sw[0]) < sensitivity)
+
+    && (Math.abs(sw[1] - newBounds.sw[1]) < sensitivity)) return true;
+
+    return false;
+
+  },
+
   _enable = function() {
 
     enabled = true;
 
     // enable click and change icon for all markers
+
     forEach(locations, function(location){
 
       location.enabled = true;
@@ -159,12 +209,15 @@ var mapHandler = function(m, mapElt, locations, params) {
 
     });
 
+    if (!boundsListener) boundsListener = m.setOnBoundsChangeEnd(map, _onBoundsChange);
+
   },
   _disable = function() {
 
     enabled = false;
 
     // disable click and change icon for all markers
+
     forEach(locations, function(location){
 
       location.enabled = false;
@@ -172,6 +225,11 @@ var mapHandler = function(m, mapElt, locations, params) {
       m.setMarkerIcon(location.marker, _getMarkerOptions(location));
 
     });
+
+    if (boundsListener) {
+      m.unsetOnBoundsChangeEnd(map, boundsListener);
+      boundsListener = false;
+    }
 
   },
   _focusOnMarker = function(marker) {
