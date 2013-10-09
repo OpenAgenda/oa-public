@@ -166,6 +166,70 @@ var mapHandler = function(m, mapElt, locations, params) {
     
   },
 
+  _enable = function() {
+
+    enabled = true;
+
+    // enable click and change icon for all markers
+
+    forEach(locations, function(location){
+
+      location.enabled = true;
+
+      m.setMarkerIcon(location.marker, _getMarkerOptions(location));
+
+    });
+
+    if (!boundsListener) boundsListener = m.setOnBoundsChangeEnd(map, _onBoundsChange);
+
+  },
+
+  _disable = function() {
+
+    enabled = false;
+
+    // disable click and change icon for all markers
+
+    forEach(locations, function(location){
+
+      location.enabled = false;
+
+      m.setMarkerIcon(location.marker, _getMarkerOptions(location));
+
+    });
+
+    if (boundsListener) {
+      m.unsetOnBoundsChangeEnd(map, boundsListener);
+      boundsListener = false;
+    }
+
+  },
+
+  _focusOnMarker = function(marker) {
+
+    var markerBounds = m.createBounds(m.getPosition(marker), { padding: 0.005 });
+
+    m.fitBounds(map, markerBounds);
+
+  },
+
+  _focusOnLocationById = function(id) {
+
+    // find location
+
+    forEach(locations, function(location) {
+      if (location.id == id) {
+
+        if (!location.marker) return;
+
+        _focusOnMarker(location.marker);
+
+        return;
+      }
+    });
+
+  },
+
   _readBounds = function(bp) {
 
     if (!bp.neLat || !bp.neLng || !bp.swLat || !bp.swLng) return false;
@@ -195,71 +259,12 @@ var mapHandler = function(m, mapElt, locations, params) {
 
   },
 
-  _enable = function() {
-
-    enabled = true;
-
-    // enable click and change icon for all markers
-
-    forEach(locations, function(location){
-
-      location.enabled = true;
-
-      m.setMarkerIcon(location.marker, _getMarkerOptions(location));
-
-    });
-
-    if (!boundsListener) boundsListener = m.setOnBoundsChangeEnd(map, _onBoundsChange);
-
-  },
-  _disable = function() {
-
-    enabled = false;
-
-    // disable click and change icon for all markers
-
-    forEach(locations, function(location){
-
-      location.enabled = false;
-
-      m.setMarkerIcon(location.marker, _getMarkerOptions(location));
-
-    });
-
-    if (boundsListener) {
-      m.unsetOnBoundsChangeEnd(map, boundsListener);
-      boundsListener = false;
-    }
-
-  },
-  _focusOnMarker = function(marker) {
-
-    var markerBounds = m.createBounds(m.getPosition(marker), { padding: 0.005 });
-
-    m.fitBounds(map, markerBounds);
-
-  },
-  _focusOnLocationById = function(id) {
-
-    // find location
-
-    forEach(locations, function(location) {
-      if (location.id == id) {
-
-        if (!location.marker) return;
-
-        _focusOnMarker(location.marker);
-
-        return;
-      }
-    });
-
-  },
   _unsetFocus = function() {
 
     m.fitBounds(map, bounds);
 
   },
+
   _getMarkerOptions = function(location) {
 
     var options = false;

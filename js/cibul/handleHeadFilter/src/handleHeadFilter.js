@@ -19,7 +19,11 @@ var addHeadFilterBehavior = function(params) {
       location: { icon: 'icon-map-marker', params: ['location'] },
       category: { icon: 'icon-bookmark', params: ['category'] },
       date: { icon: 'icon-calendar', params: ['from', 'to'] },
-      tag: { icon: 'icon-tags', params: ['tag'] }
+      tag: { icon: 'icon-tags', params: ['tag'] },
+      map: { icon: 'icon-map-marker', params: ['neLat', 'neLng', 'swLat', 'swLng'], label: 'mapFilter' }
+    },
+    labels: {
+      mapFilter: 'within map boundaries'
     }
   }, params);
 
@@ -100,6 +104,8 @@ var addHeadFilterBehavior = function(params) {
 
     if (index=='date') {
       var label = filterValues.to?filterValues.from + ' &rarr; ' + filterValues.to:filterValues.from;
+    } else if (index=='map') {
+      var label = params.labels[params.filterTypes.map.label];
     } else {
       var label = filterValues[index];
     }

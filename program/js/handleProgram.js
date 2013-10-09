@@ -182,7 +182,8 @@ var runProgramBehavior = function(params) {
       canvas: el('.js_head_filter'),
       triggerEvents: { loading: 'lhLoading', loadSuccess: 'lhSuccess', loadFail: 'lhFail' },
       triggeredEvents: { filterClear: 'load' },
-      locations: locations
+      locations: locations,
+      labels: params.labels
     });
 
   },
