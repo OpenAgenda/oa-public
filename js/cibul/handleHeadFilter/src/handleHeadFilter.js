@@ -14,6 +14,7 @@ var addHeadFilterBehavior = function(params) {
       remove: '.js_remove_filter'
     },
     locations: false,
+    categories: [],
     template: '<span class="pfilter"><i class="<%= icon %>"></i><span><%= label %></span><button class="js_remove_filter">&times;</button></span>',
     filterTypes: {
       location: { icon: 'icon-map-marker', params: ['location'] },
@@ -100,15 +101,24 @@ var addHeadFilterBehavior = function(params) {
 
   _addFilter = function(index, filterValues) {
 
-    var elem = document.createElement('div');
+    var elem = document.createElement('div')
+      , label = filterValues[index];
 
     if (index=='date') {
-      var label = filterValues.to?filterValues.from + ' &rarr; ' + filterValues.to:filterValues.from;
+
+      label = filterValues.to?filterValues.from + ' &rarr; ' + filterValues.to:filterValues.from;
+
     } else if (index=='map') {
-      var label = params.labels[params.filterTypes.map.label];
-    } else {
-      var label = filterValues[index];
-    }
+
+      label = params.labels[params.filterTypes.map.label];
+
+    } else if (index=='category') {
+
+      forEach(params.categories, function(category) {
+        if (category.s==filterValues.category) label = category.c;
+      });
+
+    };
 
     elem.innerHTML = new EJS({text: params.template }).render({icon: params.filterTypes[index].icon, label: label });
 

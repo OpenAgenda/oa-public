@@ -40,44 +40,44 @@ var runProgramBehavior = function(params) {
 
     _initSocialShares();
 
-    getControlData(forEachLocationOfEachArticle, [extractCategory, extractLocation, extractDate, extractCurrentEditors, extractTags], function(controlData, processedData) {
+    getControlData(forEachLocationOfEachArticle, [extractLocation, extractDate, extractCurrentEditors, extractTags], function(controlData, processedData) {
 
       // merge actual editors with active ones
       forEach(controlData.e, function(editor) {
-        if (typeof processedData[3][editor] == 'undefined') processedData[3][editor] = 0;
+        if (typeof processedData[2][editor] == 'undefined') processedData[2][editor] = 0;
       });
 
       handleEmptyProgram({
         canvasElem: params.elems.list,
         control: controlData,
-        editors: processedData[3],
+        editors: processedData[2],
         res: params.resources.empty,
         debug: params.debug,
         user: getCurrentUsername()
       });
 
-      initEdition(controlData.m?true:false, controlData, processedData[4], processedData[3]);
+      initEdition(controlData.m?true:false, controlData, processedData[3], processedData[2]);
 
-      initAddEventLink(controlData.o, processedData[3], controlData.c);
+      initAddEventLink(controlData.o, processedData[2], controlData.c);
 
       initFollowBehavior(controlData.f);
 
       // no need to pass this point if program is empty
       if (!Object.size(controlData.a)) return;
 
-      initTags(processedData[4]);
+      initTags(processedData[3]);
 
-      initCategories(processedData[0]);
+      initCategories(controlData.ct);
 
-      initHeadFilter(processedData[1]);
+      initHeadFilter(processedData[0], controlData.ct);
 
-      initCalendar(processedData[2]);
+      initCalendar(processedData[1]);
 
       initPageNav();
 
       initListHandler();
 
-      initMap(processedData[1]);
+      initMap(processedData[0]);
 
     }, params.control);
 
@@ -176,13 +176,14 @@ var runProgramBehavior = function(params) {
 
   },
 
-  initHeadFilter = function(locations){ // locations needed because of the place names
+  initHeadFilter = function(locations, categories){ // locations needed because of the place names
 
     addHeadFilterBehavior({
       canvas: el('.js_head_filter'),
       triggerEvents: { loading: 'lhLoading', loadSuccess: 'lhSuccess', loadFail: 'lhFail' },
       triggeredEvents: { filterClear: 'load' },
       locations: locations,
+      categories: categories,
       labels: params.labels
     });
 
@@ -190,14 +191,11 @@ var runProgramBehavior = function(params) {
 
   initCategories = function(categories) {
 
-    createCategoriesElement(
-      el('.pcat'), categories,
-      '<ul class="categories js_categories"><% for (index in categories) { %><li class="filter-item"><a><%= index %></a><i class="icon-remove"></i></li><% } %></ul>'
-    );
-
-    if (Object.size(categories)) addCategoriesBehavior(el('.js_categories'), eh, {
+    handleCategories({
+      canvas: el('.pcat'),
+      categories: categories,
       triggerEvents: { loading: 'lhLoading', loadSuccess: 'lhSuccess', loadFail: 'lhFail'},
-      triggeredEvents: { newSelect: 'load' },
+      triggeredEvents: { newSelect: 'load' }
     });
 
   },

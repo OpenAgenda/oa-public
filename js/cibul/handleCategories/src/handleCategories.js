@@ -1,142 +1,119 @@
-var extractCategory = function(categories, item) {
-  
-  if (typeof item.article.c != 'undefined') if (item.article.c.length) 
-    if (typeof categories[item.article.c] == 'undefined') categories[item.article.c] = 1;
-    else categories[item.article.c]++;
-    
-};
+var handleCategories = function(params) {
 
-var createCategoriesElement = function(parent, categories, template) {
+  params = extend({
+    canvas: false,
+    templates: {
+      main: '<ul class="categories js_categories"></ul>',
+      category: '<li class="js_category filter-item" data-slug="<%= slug %>"><a><%= category %></a><i class="icon-remove"></i></li>'
+    },
+    triggeredEvents: {newSelect: 'newSelect'},
+    triggerEvents: {loading: 'loading', loadSuccess: 'success', loadFail: 'fail'},
+    classes: {
+      disabled: 'disabled',
+      active: 'active'
+    },
+    selectors: {
+      categories: '.js_categories',
+      category: '.js_category'
+    },
+    categories: []
+  }, params);
 
-  if (!Object.size(categories)) {
+  var elem, enabled = true, eh = sEventHandler.getInstance(),
 
-    var generalParent = parent.parentNode.parentNode;
+  init = function() {
+
+    if (!params.categories.length) return _removeCanvas();
+
+    _createElement();
+
+    forEach(params.categories, function(cat) {
+
+      var category = {slug: cat.s, category: cat.c }
+        , catElem = _createCategoryElement(category);
+
+      addEvent(catElem, 'click', function(e) {
+        
+        preventDefault(e);
+
+        if (enabled) eh.trigger(params.triggeredEvents.newSelect, { category: category.slug });
+
+      });
+
+      el(params.canvas, params.selectors.categories).appendChild(catElem);
+
+    });
+
+    eh.on(params.triggerEvents.loading, _disable);
+
+    // update widget on load success (could be triggered by anyone, so need to look at category value)
+    eh.on(params.triggerEvents.loadSuccess, function(params){
+      
+      _setActiveCategory(params.category);
+
+      _enable();
+
+    });
+
+
+  }
+
+  , _createElement = function() {
+
+    var div = document.createElement('div');
+
+    div.innerHTML = new EJS({text: params.templates.main }).render();
+
+    elem = div.childNodes[0];
+
+    params.canvas.appendChild(elem);
+
+  }
+
+  , _removeCanvas = function() {
+
+    var generalParent = params.canvas.parentNode.parentNode;
 
     generalParent.removeChild(previousObject(parent.parentNode));
     generalParent.removeChild(parent.parentNode);
 
-  } else {
+  }
 
-    var ejsTemplate = new EJS({ text: template });
+  , _createCategoryElement = function(category) {
 
-    var render = ejsTemplate.render({'categories': categories});
+    var ul = document.createElement('ul');
 
-    parent.insertAdjacentHTML('afterbegin', render);
+    ul.className = params.classes.category;
+
+    ul.innerHTML = new EJS({text: params.templates.category }).render(category);
+
+    return ul.childNodes[0];
 
   }
 
-};
+  , _enable = function() {
 
-var addCategoriesBehavior = function(element, eventHandler, params) {
-
-  var activeIndex = -1, // index of selected category. -1 if none is selected
     enabled = true;
 
-  var init = function() {
+    removeClass(elem, params.classes.disabled);
 
-    params = extend({
-      triggeredEvents: {newSelect: 'newSelect'},
-      triggerEvents: {loading: 'loading', loadSuccess: 'success', loadFail: 'fail'},
-      activeClass: 'active',
-      disabledClass: 'disabled'
-    }, params);
+  }
 
+  , _disable = function() {
 
-    forEach(element.getElementsByTagName('a'), function(categoryElt) {
-
-      // add category click behavior
-
-      addEvent(categoryElt, 'click', function(e){
-
-        _handleCategorySelect(e, categoryElt, function(selectedIndex, value) {
-        
-          if (selectedIndex == activeIndex || !enabled) return;
-
-          eventHandler.trigger(params.triggeredEvents.newSelect, {category: value});
-
-        });
-
-      });
-
-      // add Category remove behavior
-
-      addEvent(nextObject(categoryElt), 'click', function(e) {
-        
-        if (enabled) eventHandler.trigger(params.triggeredEvents.newSelect, {category: null});
-
-      });
-
-    });
-
-    // disable widget on load
-    eventHandler.on(params.triggerEvents.loading, _disableWidget);
-
-    // update widget on load success (could be triggered by anyone, so need to look at category value)
-    eventHandler.on(params.triggerEvents.loadSuccess, function(params){
-
-      _setActiveCategory(decodeURIComponent(params.category));
-
-      _enableWidget();
-
-    });
-
-    eventHandler.on(params.triggerEvents.loadFail, _enableWidget);
-
-  };
-
-  var _disableWidget = function() {
-    addClass(element, params.disabledClass);
     enabled = false;
-  };
 
-  var _enableWidget = function() {
-    removeClass(element, params.disabledClass);
-    enabled = true;
-  };
+    addClass(elem, params.classes.enabled);
 
-  var _setActiveCategory = function(category) {
+  }
 
-    _getCategoryElement(category, function(index, catElem) {
+  , _setActiveCategory = function(categorySlug) {
 
-      if (activeIndex!=-1) {
-        removeClass(childObject(element, activeIndex), params.activeClass);
-        activeIndex = -1;
-      }
+    forEach(els(elem, params.selectors.category), function(catElem) {
 
-      if (catElem) {
-
-        activeIndex = index;
-
-        addClass(childObject(element, activeIndex), params.activeClass);
-
-      };
+      (catElem.getAttribute('data-slug')==categorySlug?addClass:removeClass)(catElem, params.classes.active);
 
     });
-
-  };
-
-  var _handleCategorySelect = function(e, elem, callback){
-
-    preventDefault(e);
-
-    var i = getChildIndex(elem.parentNode);
-
-    callback(i, elem.innerHTML);
-
-  };
-
-  var _getCategoryElement = function(category, callback){
-
-    var as = element.getElementsByTagName('a');
-    
-    var i = as.length;
-
-    while (i--)
-      if (as[i].innerHTML == category) break;
-
-    if (i<0) return callback(i, false);
-
-    callback(i, as[i].parentNode);
 
   };
 
