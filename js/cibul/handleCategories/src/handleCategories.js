@@ -74,8 +74,8 @@ var handleCategories = function(params) {
 
     var generalParent = params.canvas.parentNode.parentNode;
 
-    generalParent.removeChild(previousObject(parent.parentNode));
-    generalParent.removeChild(parent.parentNode);
+    generalParent.removeChild(previousObject(params.canvas.parentNode));
+    generalParent.removeChild(params.canvas.parentNode);
 
   }
 

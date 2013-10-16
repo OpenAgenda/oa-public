@@ -1,7 +1,7 @@
 #program .content { padding: 20px; display: block; overflow: hidden; position: relative; }
 
 
-#program .main { width: 500px; }
+
 
 #program .head { padding: 10px 20px 20px; overflow: visible; }
 #program .head p { padding: 10px 0 10px }
@@ -36,6 +36,8 @@
 
 #program .head .icon-rss { color: #FA9C39; }
 #program .head .icon-play { color: #4CD2C9; }
+
+.program .main { width: 500px; }
 
 
 

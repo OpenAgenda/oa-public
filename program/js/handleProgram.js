@@ -10,7 +10,6 @@ var runProgramBehavior = function(params) {
     params = extend({
       url: false,
       currentUrl: false, // may include filtering variations
-      hasFeature: false,
       debug: false,
       control: false, // required
       resources: { edit: '#edit', tagAdd: false, tagRemove: false, empty: false },
@@ -284,7 +283,7 @@ var runProgramBehavior = function(params) {
 
   initEdition = function(main, controlData, tagsData, editors) {
 
-    addEditionBehavior(el('.list-items'), 'pli', editors, eh, {
+    addEditionBehavior(el('.list-items'), 'pli', editors, {
       triggerEvents: { refresh: 'lhSuccess' },
       isOwner: controlData.o==getCurrentUsername(),
       isMain: main,
@@ -298,7 +297,7 @@ var runProgramBehavior = function(params) {
       },
       labels: params.labels,
       edit: { template: '<a href="#"><i class="icon-cog"></i><span>' + params.labels.edit + '</span></a>', action: params.resources.edit, appendTo: el('.actions'), enabled: true },
-      admin: { template: '<a href="#"><i class="icon-edit"></i><span>' + params.labels.admin + '</span></a>', action: params.resources.admin, appendTo: el('.actions'), enabled: !!params.hasFeature },
+      admin: { template: '<a href="#"><i class="icon-edit"></i><span>' + params.labels.admin + '</span></a>', action: params.resources.admin, appendTo: el('.actions'), enabled: false },
       editors: { link: params.links.editors, appendTo: el('.actions') },
       actionCallback: function(name, id, elem) {
 

@@ -213,10 +213,10 @@ files = {
       'handleProgramControlData/src/handleProgramControlData.js',
       'action/src/action.js',
       'sendGetMessage/src/sendGetMessage.js',
-      'handleSuggestions/src/handleSuggestions.js'
+      'handleSuggestions/src/handleSuggestions.js',
+      'handleCategories/src/handleCategories.js'
     ],
     [paths.p, 
-      'handleCategories.js',
       'handleCibulFollow.js',
       'handleEdition.js',
       'handleMap.js',
