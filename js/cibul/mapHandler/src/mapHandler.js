@@ -28,7 +28,7 @@ var mapHandler = function(m, mapElt, locations, params) {
     iconRoot: 'images/'
   }, params);
 
-  var map, eh = sEventHandler.getInstance(), bounds, enabled = true, lockBoundEvents = false, ne, sw, boundsListener,
+  var map, eh = sEventHandler.getInstance(), bounds, corners, boundsSynced, history, enabled = true, lockBoundEvents = false, ne, sw, boundsListener,
 
   init = function() {
 
@@ -44,11 +44,29 @@ var mapHandler = function(m, mapElt, locations, params) {
 
     if (params.events.triggerEvents.selectLocation) eh.on(params.events.triggerEvents.selectLocation, _focusOnLocationById);
 
-    if (params.events.triggerEvents.unselectLocation) eh.on(params.events.triggerEvents.unselectLocation, _unsetFocus);
+    if (params.events.triggerEvents.unselectLocation) eh.on(params.events.triggerEvents.unselectLocation, function() {
+      _syncBounds({restore: true});
+    });
 
     if (params.events.triggerEvents.enable) eh.on(params.events.triggerEvents.enable, function(data) {
 
-      if (data.neLat && data.neLng && data.swLat && data.swLng) _changeBounds(data);
+      if (data) {
+
+        if (data.location) {
+
+          _focusOnLocationById(data.location);
+
+        } else if (history) {
+
+          _syncBounds({restore: true});
+
+        } else if (data && data.neLat && data.neLng && data.swLat && data.swLng) {
+
+          _changeBounds(data);
+
+        };
+
+      }
 
       _enable();
 
@@ -56,10 +74,12 @@ var mapHandler = function(m, mapElt, locations, params) {
 
     if (params.events.triggerEvents.enable) eh.on(params.events.triggerEvents.disable, _disable);
 
-    addEvent(window, 'resize', function(){
-      setTimeout(_unsetFocus, 50);
-    });
+    _enable();
 
+    setTimeout(function() {
+      m.setOnBoundsChangeEnd(map, _onBoundsChange);      
+    }, 500);
+    
     return {
       setLocations: setLocations
     };
@@ -69,7 +89,7 @@ var mapHandler = function(m, mapElt, locations, params) {
 
     if (typeof setBounds == 'undefined') setBounds = true;
 
-    bounds = false;
+    _updateCorners([locations[0].latitude, locations[0].longitude], {clear: true});
 
     forEach(locations, function(location) {
 
@@ -91,9 +111,7 @@ var mapHandler = function(m, mapElt, locations, params) {
 
       // adjust bounds
 
-      if (location.highlighted) 
-        bounds?m.extendBounds(bounds, [location.latitude, location.longitude]):(bounds = m.createBounds([location.latitude, location.longitude]));
-      
+      if (location.highlighted) _updateCorners([location.latitude, location.longitude]);
 
       // throw event on click with corresponding location
       if (params.events.triggeredEvents.onLocationSelect) m.setOnMarkerClick(location.marker, function() {
@@ -102,67 +120,56 @@ var mapHandler = function(m, mapElt, locations, params) {
 
         eh.trigger(params.events.triggeredEvents.onLocationSelect, location);
 
-        _focusOnMarker(location.marker);
+        // not focusing on clicked marker before the result of the loaded list is received
 
       });
 
     });
 
-    if (!bounds) bounds = m.createBounds([locations[0].latitude, locations[0].longitude]);
-
-    m.fitBounds(map, bounds);
+    _syncBounds();
 
   },
 
   _onBoundsChange = function(bounds) {
 
+    if (!enabled) return;
+
     // do not trigger anything if bounds are too similar than previous set
 
-    var newBounds = {
+    var newCorners = {
       ne: m.getBoundsNorthEast(bounds),
       sw: m.getBoundsSouthWest(bounds)
     };
 
-    newBounds = {
-      ne: [Math.round(newBounds.ne[0]*1000)/1000, Math.round(newBounds.ne[1]*1000)/1000],
-      sw: [Math.round(newBounds.sw[0]*1000)/1000, Math.round(newBounds.sw[1]*1000)/1000]
+    newCorners = {
+      ne: [Math.round(newCorners.ne[0]*1000)/1000, Math.round(newCorners.ne[1]*1000)/1000],
+      sw: [Math.round(newCorners.sw[0]*1000)/1000, Math.round(newCorners.sw[1]*1000)/1000]
     };
 
-    if (_areSameBounds(newBounds)) return;
+    if (_areSameCorners(newCorners)) return;
 
-    ne = newBounds.ne;
-    sw = newBounds.sw;
+    _updateCorners(newCorners.ne, {clear: true });
+    _updateCorners(newCorners.sw, {synced: true });
 
-    eh.trigger(params.events.triggeredEvents.onBoundsChange, { neLat: ne[0], neLng: ne[1], swLat: sw[0], swLng: sw[1] });
+    eh.trigger(params.events.triggeredEvents.onBoundsChange, { neLat: corners.ne[0], neLng: corners.ne[1], swLat: corners.sw[0], swLng: corners.sw[1] });
+
+    _disable();
 
   },
 
   _changeBounds = function(bp) {
 
-    var newBounds = {
+    var newCorners = {
       ne: [parseFloat(bp.neLat), parseFloat(bp.neLng)],
       sw: [parseFloat(bp.swLat), parseFloat(bp.swLng)]
     };
 
-    if (_areSameBounds(newBounds)) return;
+    if (_areSameCorners(newCorners)) return;
 
-    if (boundsListener) {
+    _updateCorners(newCorners.ne, {clear: true});
+    _updateCorners(newCorners.sw);
 
-      m.unsetOnBoundsChangeEnd(map, boundsListener);
-      boundsListener = false;
-
-    }
-
-    ne = newBounds.ne;
-    sw = newBounds.sw;
-
-    var bounds = m.createBounds(ne);
-
-    m.extendBounds(bounds, sw);
-
-    m.fitBounds(map, bounds);
-
-    boundsListener = m.setOnBoundsChangeEnd(map, _onBoundsChange);
+    _syncBounds();
     
   },
 
@@ -180,8 +187,6 @@ var mapHandler = function(m, mapElt, locations, params) {
 
     });
 
-    if (!boundsListener) boundsListener = m.setOnBoundsChangeEnd(map, _onBoundsChange);
-
   },
 
   _disable = function() {
@@ -198,18 +203,11 @@ var mapHandler = function(m, mapElt, locations, params) {
 
     });
 
-    if (boundsListener) {
-      m.unsetOnBoundsChangeEnd(map, boundsListener);
-      boundsListener = false;
-    }
-
   },
 
   _focusOnMarker = function(marker) {
 
-    var markerBounds = m.createBounds(m.getPosition(marker), { padding: 0.005 });
-
-    m.fitBounds(map, markerBounds);
+    _updateCorners(m.getPosition(marker), { clear: true, history: true, fit: true });
 
   },
 
@@ -241,19 +239,86 @@ var mapHandler = function(m, mapElt, locations, params) {
 
   },
 
-  _areSameBounds = function(newBounds) {
+
+  _updateCorners = function(position, boundOptions) {
+
+    if (typeof position[0] == 'string') position = [parseFloat(position[0]), parseFloat(position[1])];
+
+    // bounds, corners, boundsSynced
+
+    boundOptions = extend({
+      clear: false,   // clear bounds
+      history: false, // keep track of previous bounds
+      synced: false,  // force sync value to true
+      fit: false,      // fit map bounds to updated bounds
+      restore: false
+    }, boundOptions);
+
+    if (boundOptions.history && corners) history = extend({}, {ne: corners.ne.slice(), sw: corners.sw.slice()});
+
+    if (!corners || boundOptions.clear) {
+      corners = {ne: [position[0], position[1]], sw: [position[0], position[1]]};
+      boundsSynced = false;
+    }
+
+    if ((position[0] > corners.ne[0]) || (position[1] > corners.ne[1]) || (position[0] < corners.sw[0]) || (position[1] < corners.sw[1])) {
+
+      boundsSynced = false;
+
+      if (position[0] > corners.ne[0]) corners.ne[0] = position[0];
+      if (position[1] > corners.ne[1]) corners.ne[1] = position[1];
+      if (position[0] < corners.sw[0]) corners.sw[0] = position[0];
+      if (position[1] < corners.sw[1]) corners.sw[1] = position[1];
+
+    }
+
+    if (boundOptions.synced) boundsSynced = true;
+
+    if (boundOptions.fit) _syncBounds();
+
+  },
+
+  _syncBounds = function(syncOptions) {
+
+    syncOptions = extend({
+      restore: false
+    }, syncOptions);
+
+    if (syncOptions.restore && history) {
+
+      corners = history;
+      history = false;
+      boundsSynced = false;
+
+    }
+
+    if (boundsSynced) return;
+
+    bounds = m.createBounds(corners.ne);
+    m.extendBounds(bounds, corners.sw);
+
+    corners = {
+      ne: m.getBoundsNorthEast(bounds),
+      sw: m.getBoundsSouthWest(bounds)      
+    };
+
+    m.fitBounds(map, bounds);
+
+    boundsSynced = true;
+
+  },
+
+  _areSameCorners = function(newCorners) {
 
     var sensitivity = 0.005;
 
-    if (ne && sw 
+    if ((Math.abs(corners.ne[0] - newCorners.ne[0]) < sensitivity) 
 
-    && (Math.abs(ne[0] - newBounds.ne[0]) < sensitivity) 
+    && (Math.abs(corners.ne[1] - newCorners.ne[1]) < sensitivity)
 
-    && (Math.abs(ne[1] - newBounds.ne[1]) < sensitivity)
+    && (Math.abs(corners.sw[0] - newCorners.sw[0]) < sensitivity)
 
-    && (Math.abs(sw[0] - newBounds.sw[0]) < sensitivity)
-
-    && (Math.abs(sw[1] - newBounds.sw[1]) < sensitivity)) return true;
+    && (Math.abs(corners.sw[1] - newCorners.sw[1]) < sensitivity)) return true;
 
     return false;
 
@@ -261,7 +326,7 @@ var mapHandler = function(m, mapElt, locations, params) {
 
   _unsetFocus = function() {
 
-    m.fitBounds(map, bounds);
+    _syncBounds({restore: true});
 
   },
 

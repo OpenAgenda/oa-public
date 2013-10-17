@@ -148,6 +148,7 @@ var runProgramBehavior = function(params) {
       url: params.currentUrl,
       params: params.debug?{format: 'jsonp'}:{},
       ajax: !params.debug,
+      triggerScroll: false,
       mainItem: 'article',
       templates: {
         article: params.templates.article,

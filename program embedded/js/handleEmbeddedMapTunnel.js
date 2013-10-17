@@ -4,8 +4,8 @@ var handleEmbeddedMapTunnel = function(options) {
     events: {
       loadSuccess: 'loadsuccess',
       locationSelectCancel: 'locationselectcancel',
-      loadSuccess: 'loadsuccess', 
-      markerSelect: 'markerselect'
+      markerSelect: 'markerselect',
+      onBoundsChange: 'onboundschange'
     }
   }, options?options:{});
 
@@ -39,6 +39,14 @@ var handleEmbeddedMapTunnel = function(options) {
         selection = {location: location.id};
 
         if (tunnelReady) tunnel.send(selection);
+
+      });
+
+      eh.on(options.events.onBoundsChange, function(newBounds) {
+
+        selection = newBounds;
+
+        if (tunnelReady) tunnel.send(newBounds);
 
       });
 

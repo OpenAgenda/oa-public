@@ -123,7 +123,12 @@
             date: '<li <% if (!highlighted) { %>class="disabled"<% } %> ><span class="date"><%= date.verboseDate(culture, true, false) %></span><% if (locationCount > 1) { %><a class="place js_date_place"><span><%= placename %></span></a><% } %><ul><% for (var i=0; i<timings.length; i++) { %><li><%= timings[i].start.substr(0, 5) %> to <%= timings[i].finish.substr(0, 5) %></li><% } %></ul></li>',
             month: '<div class="month<% if (active) { %> active<% } %><% if (passed) { %> passed<% } %>" ><a><%= label %></a><span><%= count %> date<% if (count > 1) { %>s<% } %></span></div>'
           },
-          debug: { tiled: true }
+          debug: { tiled: true },
+          labels: {
+            placeInfo: 'Showing %d places. Click on a marker for details.',
+            reservation: 'réserver',
+            mapFilter: 'lieux affichés sur la carte'
+          }
         });
 
         handleEmbeddedTunnel();

@@ -81,9 +81,9 @@ maps.register('osm', (function(){
 
     unsetOnBoundsChangeEnd: function(map, reference) {
 
-      map.off('zoomend', getBounds);
-      map.off('dragend', getBounds);
-      map.off('resize', getBounds);
+      map.off('zoomend', reference);
+      map.off('dragend', reference);
+      map.off('resize', reference);
 
     },
 

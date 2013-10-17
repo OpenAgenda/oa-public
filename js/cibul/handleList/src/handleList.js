@@ -23,6 +23,7 @@ var handleList = function(elem, eventHandler, options) {
     ready: false,
     filter: false,
     listOffset: 150,
+    triggerScroll: true,
     triggerEvents: { load: 'load', loadPrevious: 'loadPrevious', loadNext: 'loadNext', getParams: 'getlistparams' },
     triggeredEvents: {loading: 'lhLoading', complete: 'lhComplete', success:'lhSuccess', fail: 'lhFail', lock: 'lock', unlock: 'unlock'}
   }, options);
@@ -202,7 +203,7 @@ var handleList = function(elem, eventHandler, options) {
 
       });
 
-      if (position==OVERWRITE) _scrollToTop();
+      if ((position==OVERWRITE) && options.triggerScroll) _scrollToTop();
 
       if (options.anchor) hash.setBase64Param(options.anchor, parameters);
 

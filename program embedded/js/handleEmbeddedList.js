@@ -83,7 +83,7 @@ var handleEmbeddedList = function(options) {
 
     handleProgramControlData([extractLocation], function(controlData, processedData) {
 
-      _handleHeadFilter(processedData[0]);
+      _handleHeadFilter(processedData[0], controlData.ct);
 
     }, options.control);
 
@@ -182,13 +182,15 @@ var handleEmbeddedList = function(options) {
 
   },
 
-  _handleHeadFilter = function(locations) { // locations needed because of the place names
+  _handleHeadFilter = function(locations, categories) { // locations needed because of the place names
 
     addHeadFilterBehavior({
       canvas: el('.js_head_filter'),
       triggerEvents: { loading: options.events.loading, loadSuccess: options.events.loadSuccess, loadFail: options.events.loadFail },
       triggeredEvents: { filterClear: options.events.load },
-      locations: locations
+      locations: locations,
+      categories: categories,
+      labels: options.labels
     });
 
   },

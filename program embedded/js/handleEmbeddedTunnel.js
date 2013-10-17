@@ -49,7 +49,9 @@ var handleEmbeddedTunnel = function(params){
 
       height = _getHeight();
 
-      tunnel.send(extend(data, { height: height, event: params.events.loadSuccess }));
+      var sentData = extend(data, { height: height, event: params.events.loadSuccess });
+
+      tunnel.send(sentData);
 
     });
 

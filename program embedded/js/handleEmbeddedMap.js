@@ -11,7 +11,8 @@ var handleEmbeddedMap = function(options) {
       loadSuccess: 'loadsuccess',                   // triggered from exterior, when new list load is successful 
       disable: 'disable',                           // triggered to disable the map
       enable: 'enable',                             // triggered to enable the map
-      load: 'load'
+      load: 'load',
+      onBoundsChange: 'onboundschange'
     },
     iconRoot: 'images/'
   }, options);
@@ -29,7 +30,7 @@ var handleEmbeddedMap = function(options) {
 
       // create the map handler, give it the extracted locations
       var mHandler = mapHandler(m, options.mapElem, locations, { events: {
-        triggeredEvents: {onLocationSelect: options.events.markerSelect },
+        triggeredEvents: {onLocationSelect: options.events.markerSelect, onBoundsChange: options.events.onBoundsChange },
         triggerEvents: { selectLocation: options.events.locationSelect, unselectLocation: options.events.locationSelectCancel, disable: options.events.markerSelect, enable: options.events.loadSuccess },
       }, iconRoot: options.iconRoot });
 
@@ -37,6 +38,10 @@ var handleEmbeddedMap = function(options) {
 
     eh.on(options.events.markerSelect, function(location) {
       eh.trigger(options.events.load, {location: location.id});
+    });
+
+    eh.on(options.events.onBoundsChange, function(newBounds) {
+      eh.trigger(options.events.load, newBounds);
     });
 
   },

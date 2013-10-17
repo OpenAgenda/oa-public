@@ -118,6 +118,10 @@ var addHeadFilterBehavior = function(params) {
         if (category.s==filterValues.category) label = category.c;
       });
 
+    } else if (index=='location') {
+
+      if (params.locations[filterValues.location]) label = params.locations[filterValues.location].placename;
+
     };
 
     elem.innerHTML = new EJS({text: params.template }).render({icon: params.filterTypes[index].icon, label: label });
