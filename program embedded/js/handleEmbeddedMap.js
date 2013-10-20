@@ -81,6 +81,8 @@ var handleEmbeddedMap = function(options) {
           }
         });
 
+        if (location.image) locations[locations.length-1].image = location.image;
+
       };
 
       if (allPassed) forEach(locations, function(location) {
