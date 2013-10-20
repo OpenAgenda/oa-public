@@ -206,7 +206,8 @@ files = {
       'mapHandler/src/mapHandler.js',
       'handleCalendar/src/handleCalendar.js',
       'handleContextMenu/src/handleContextMenu.js',
-      'handleNav/src/handleNav.js', 
+      'handleNav/src/handleNav.js',
+      'handleMap/src/handleMap.js',
       'handleSectionRemove/src/handleSectionRemove.js',
       'handleHeadFilter/src/handleHeadFilter.js',
       'handleLock/src/handleLock.js',
@@ -219,7 +220,6 @@ files = {
     [paths.p, 
       'handleCibulFollow.js',
       'handleEdition.js',
-      'handleMap.js',
       'handleMobile.js',
       'handleProgram.js',
       'handleEmptyProgram.js',
@@ -303,6 +303,7 @@ files = {
   'review/embedList.min.js': [
     [paths.jsc,
       'handleList/src/handleList.js',
+      'handleMap/src/handleMap.js', 
       'mapHandler/src/mapHandler.js',
       'handleContextMenu/src/handleContextMenu.js',
       'handleNav/src/handleNav.js', 
@@ -329,7 +330,6 @@ files = {
       'ejs/src/ejs_production.js',
     ],
     [paths.pe, 
-      'handleMap-0.2.js', 
       'handleEventDisplay.js', 
       'handleEmbeddedList.js',
       'handleEmbeddedTunnel.js'
@@ -365,14 +365,15 @@ files = {
   ],
 
   'review/embedMap.min.js': [
+    [paths.vd, 'ejs/src/ejs_production.js' ],
     [paths.lib, 
       'common/common.js', 'Base64/Base64.js', 'iTunnel/iTunnel.js', 
       'hash/hash.js', 'urlStrings/urlStrings.js', 'remote/remote.js', 
       'EventHandler/EventHandler.js', 'maps/maps.js', 
       'maps/osm.maps.js', 'maps/leaflet.js'
     ],
-    [paths.jsc, 'handleProgramControlData/src/handleProgramControlData.js', 'mapHandler/src/mapHandler.js'],
-    [paths.pe, 'handleMap-0.2.js', 'handleEmbeddedMap.js', 'handleEmbeddedMapTunnel.js']
+    [paths.jsc, 'handleProgramControlData/src/handleProgramControlData.js', 'mapHandler/src/mapHandler.js', 'handleMap/src/handleMap.js'],
+    [paths.pe, 'handleEmbeddedMap.js', 'handleEmbeddedMapTunnel.js']
   ],
 
   'review/cibulEmbed.min.js': [

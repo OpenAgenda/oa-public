@@ -255,3 +255,7 @@
 .tag-edit-menu .current-tags .icon-remove { color: #999; padding-right: 10px; font-size: 0.8em; width: 0.8em; }
 
 .tag-edit-menu .error { color: red; }
+
+.map-location > span, .map-location > img { display: inline-block; }
+.map-location > img { width: 48px; padding: 0.2em 0.5em 0 0; vertical-align: top;}
+.map-location > span { max-width: 160px; }

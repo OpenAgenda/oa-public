@@ -26,6 +26,9 @@ var extractLocation = function(locations, item){
       locations[item.locationSlug].dates.push(date);
   });
 
+  // add image
+  if (item.location.i) locations[item.locationSlug].image = item.location.i;
+
 };
 
 

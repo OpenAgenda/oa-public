@@ -37,11 +37,16 @@ var handleEmbeddedMap = function(options) {
     });
 
     eh.on(options.events.markerSelect, function(location) {
-      eh.trigger(options.events.load, {location: location.id});
+
+      // cancel boundaries parameters if a location is picked
+      eh.trigger(options.events.load, { location: location.id, neLat: null, neLng: null, swLat: null, swLng: null });
+
     });
 
     eh.on(options.events.onBoundsChange, function(newBounds) {
+
       eh.trigger(options.events.load, newBounds);
+      
     });
 
   },

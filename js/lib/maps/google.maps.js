@@ -57,15 +57,24 @@ maps.register('google', (function(){
         mapTypeControl: false,
         scrollwheel: true,
         draggable: true,
-        keyboard: true
+        keyboard: true,
+        onReady: false
       }, options);
 
-      return new google.maps.Map(mapElt, extend(options, {
+      var map = new google.maps.Map(mapElt, extend(options, {
         center: new google.maps.LatLng(options.center[0], options.center[1]),
         mapTypeId: options.type,
         styles: defaultStyle,
         keyboardShortcuts: options.keyboard
       }));
+
+      if (options.onReady) google.maps.event.addListenerOnce(map, 'idle', function() {
+
+        options.onReady(map);
+
+      });
+
+      return map;
     },
 
     createMarker: function(map, options) {
@@ -166,6 +175,36 @@ maps.register('google', (function(){
     getBoundsSouthWest: function(bounds) {
 
       return [bounds.getSouthWest().lat(), bounds.getSouthWest().lng()];
+
+    },
+
+    getBounds: function(map) {
+
+      return map.getBounds();
+
+    },
+
+    createPopup: function(map, content, options) {
+
+      options = extend({
+        marker: false
+      }, options?options:{});
+
+      if (!options.marker) throw new Exception('this fonctionnality is not available if not attached to a marker');
+
+      var infoWindow = new google.maps.InfoWindow({
+        content: content
+      });
+
+      infoWindow.open(map, options.marker);
+
+      return infoWindow;
+
+    },
+
+    removePopup: function(reference) {
+
+      if (reference) reference.close();
 
     },
 

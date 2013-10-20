@@ -240,6 +240,8 @@ var runProgramBehavior = function(params) {
         }
       });
 
+      if (location.image) locationList[locationList.length-1].image = location.image;
+
     };
 
     if (allPassed) forEach(locationList, function(location) {
@@ -257,7 +259,7 @@ var runProgramBehavior = function(params) {
     // map map events with list
 
     eh.on('markerselect', function(location) {
-      eh.trigger('load', { location: location.id });
+      eh.trigger('load', { location: location.id, neLat: null, neLng: null, swLat: null, swLng: null });
     });
 
     eh.on('onboundschange', function(frameParams) {

@@ -19,14 +19,21 @@ maps.register('osm', (function(){
         zoom: 15,
         draggable: true,
         scrollwheel: true,
-        keyboard: true
+        keyboard: true, 
+        onReady: false
       }, options);
 
       var map = L.map(mapElt, {
         dragging: options.draggable,
         scrollWheelZoom: options.scrollwheel,
         keyboard: options.keyboard
-      }).setView(options.center, options.zoom);
+      });
+
+      if (options.onReady) map.on('load', function() { 
+        options.onReady(map); 
+      });
+
+      map.setView(options.center, options.zoom);
 
       L.tileLayer(libOptions.url, { minZoom: 2, maxZoom: 18, attribution: libOptions.attr }).addTo(map);
 
@@ -141,6 +148,26 @@ maps.register('osm', (function(){
 
       return [bounds.getSouthWest().lat, bounds.getSouthWest().lng];
 
+    },
+
+    createPopup: function(map, content, options) {
+
+      options = extend({
+        marker: false
+      }, options?options:{});
+
+      if (!options.marker) throw new Exception('this fonctionnality is not available if not attached to a marker');
+
+      options.marker.bindPopup(content).openPopup();
+
+      return options.marker;
+
+    },
+
+    removePopup: function(reference) {
+
+      reference.closePopup();
+      
     },
 
     getPosition: function(marker) {

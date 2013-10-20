@@ -1,6 +1,9 @@
 var mapHandler = function(m, mapElt, locations, params) {
 
   params = extend({
+    templates: {
+      popup: '<div class="map-location"><% if (typeof image !== \'undefined\') { %><img src="<%= image %>"/><% } %><span><p><%= placename %></p><span><%= address %></span></span></div>'
+    },
     events: {
       triggeredEvents: { 
         onLocationSelect: 'onlocationselect',   /* when marker of location is clicked */
@@ -25,10 +28,13 @@ var mapHandler = function(m, mapElt, locations, params) {
       enabled: true,
       highlighted: true,
     },
-    iconRoot: 'images/'
+    iconRoot: 'images/',
+    imagePath: '//cibul.s3.amazonaws.com/'
   }, params);
 
-  var map, eh = sEventHandler.getInstance(), bounds, corners, boundsSynced, history, enabled = true, lockBoundEvents = false, ne, sw, boundsListener,
+  var map, 
+
+  eh = sEventHandler.getInstance(), bounds, corners, boundsSynced, history, enabled = true, highlightedLocations = [],
 
   init = function() {
 
@@ -36,7 +42,13 @@ var mapHandler = function(m, mapElt, locations, params) {
     
     if (!locations.length) return;
 
-    map = m.createMap(mapElt, { center: [locations[0].latitude, locations[0].longitude], keyboard: false });
+    map = m.createMap(mapElt, { center: [locations[0].latitude, locations[0].longitude], keyboard: false, onReady: function(map) {
+
+      setTimeout(function() { 
+        m.setOnBoundsChangeEnd(map, _onBoundsChange);
+      }, 10);
+
+    }});
 
     setLocations(locations);
 
@@ -45,6 +57,7 @@ var mapHandler = function(m, mapElt, locations, params) {
     if (params.events.triggerEvents.selectLocation) eh.on(params.events.triggerEvents.selectLocation, _focusOnLocationById);
 
     if (params.events.triggerEvents.unselectLocation) eh.on(params.events.triggerEvents.unselectLocation, function() {
+      _unhighlightLocation();
       _syncBounds({restore: true});
     });
 
@@ -52,9 +65,12 @@ var mapHandler = function(m, mapElt, locations, params) {
 
       if (data) {
 
+        _unhighlightLocation();
+
         if (data.location) {
 
-          _focusOnLocationById(data.location);
+          // change bounds to location only if bounds are not manually set
+          _focusOnLocationById(data.location, !(data.neLat && data.neLng && data.swLat && data.swLng));
 
         } else if (history) {
 
@@ -75,16 +91,13 @@ var mapHandler = function(m, mapElt, locations, params) {
     if (params.events.triggerEvents.enable) eh.on(params.events.triggerEvents.disable, _disable);
 
     _enable();
-
-    setTimeout(function() {
-      m.setOnBoundsChangeEnd(map, _onBoundsChange);      
-    }, 500);
     
     return {
       setLocations: setLocations
     };
 
   },
+
   setLocations = function(locations, setBounds) {
 
     if (typeof setBounds == 'undefined') setBounds = true;
@@ -166,7 +179,7 @@ var mapHandler = function(m, mapElt, locations, params) {
 
     if (_areSameCorners(newCorners)) return;
 
-    _updateCorners(newCorners.ne, {clear: true});
+    _updateCorners(newCorners.ne, { clear: true });
     _updateCorners(newCorners.sw);
 
     _syncBounds();
@@ -211,20 +224,73 @@ var mapHandler = function(m, mapElt, locations, params) {
 
   },
 
-  _focusOnLocationById = function(id) {
+  _focusOnLocationById = function(id, focus) {
+
+    focus = (typeof focus == 'undefined')?true:focus;
 
     // find location
 
-    forEach(locations, function(location) {
-      if (location.id == id) {
+    for (var i = locations.length - 1; i >= 0; i--) {
+      if (locations[i].id == id) {
 
-        if (!location.marker) return;
+        if (!locations[i].marker) return console.log('location has no marker');
 
-        _focusOnMarker(location.marker);
+        if (focus) _focusOnMarker(locations[i].marker);
 
-        return;
+        _highlightLocation(i);
+
+        break;
+
       }
-    });
+    };
+
+  },
+
+  _highlightLocation = function(locationIndex) {
+
+    var renderData = extend({}, locations[locationIndex]);
+
+    if (locations[locationIndex].image) renderData.image = params.imagePath + locations[locationIndex].image;
+
+    locations[locationIndex].popup = m.createPopup(map, new EJS({text: params.templates.popup}).render(renderData), { marker: locations[locationIndex].marker });
+
+    highlightedLocations.push(locationIndex);
+
+  },
+
+  _unhighlightLocation = function(locationIndex) {
+
+    var _unhighlight = function(index) {
+
+      if (!locations[index].popup) return;
+
+      m.removePopup(locations[index].popup);
+
+      locations[index].popup = undefined;
+
+    };
+
+    if (typeof locationIndex == 'undefined') {
+
+      while (highlightedLocations.length) 
+        _unhighlight(highlightedLocations.pop());
+
+    } else {
+
+      // look for that id and take it out
+
+      for (var i = highlightedLocations.length - 1; i >= 0; i--) {
+        if (highlightedLocations[i]==locationIndex) {
+          
+          highlightedLocations.splice(i, 1);
+
+          _unhighlight(locationIndex);
+
+          break;
+        }
+      };
+
+    }
 
   },
 
@@ -244,9 +310,7 @@ var mapHandler = function(m, mapElt, locations, params) {
 
     if (typeof position[0] == 'string') position = [parseFloat(position[0]), parseFloat(position[1])];
 
-    // bounds, corners, boundsSynced
-
-    boundOptions = extend({
+    var boundOptions = extend({
       clear: false,   // clear bounds
       history: false, // keep track of previous bounds
       synced: false,  // force sync value to true
@@ -303,7 +367,7 @@ var mapHandler = function(m, mapElt, locations, params) {
     };
 
     m.fitBounds(map, bounds);
-
+    
     boundsSynced = true;
 
   },
