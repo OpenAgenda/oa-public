@@ -2,7 +2,7 @@ var mapHandler = function(m, mapElt, locations, params) {
 
   params = extend({
     templates: {
-      popup: '<div class="map-location"><% if (typeof image !== \'undefined\') { %><img src="<%= image %>"/><% } %><span><p><%= placename %></p><span><%= address %></span></span></div>'
+      popup: '<div class="map-location"><% if (typeof image !== \'undefined\') { %><img src="<%= image %>"/><% } %><span><p><%= placename %></p><span><%= address %></span></span></div>',
     },
     events: {
       triggeredEvents: { 
@@ -91,6 +91,12 @@ var mapHandler = function(m, mapElt, locations, params) {
     if (params.events.triggerEvents.enable) eh.on(params.events.triggerEvents.disable, _disable);
 
     _enable();
+
+    if (locations.length > 10) mapSearchHandler({
+      mapElt: mapElt,
+      locations: locations,
+      onSelect: _changeBounds
+    });
     
     return {
       setLocations: setLocations
@@ -161,8 +167,8 @@ var mapHandler = function(m, mapElt, locations, params) {
 
     if (_areSameCorners(newCorners)) return;
 
-    _updateCorners(newCorners.ne, {clear: true });
-    _updateCorners(newCorners.sw, {synced: true });
+    _updateCorners(newCorners.ne, { clear: true });
+    _updateCorners(newCorners.sw, { synced: true });
 
     eh.trigger(params.events.triggeredEvents.onBoundsChange, { neLat: corners.ne[0], neLng: corners.ne[1], swLat: corners.sw[0], swLng: corners.sw[1] });
 
@@ -170,12 +176,12 @@ var mapHandler = function(m, mapElt, locations, params) {
 
   },
 
-  _changeBounds = function(bp) {
+  _changeBounds = function(newCorners) {
 
-    var newCorners = {
-      ne: [parseFloat(bp.neLat), parseFloat(bp.neLng)],
-      sw: [parseFloat(bp.swLat), parseFloat(bp.swLng)]
-    };
+    if (newCorners.neLat)
+      newCorners = { ne: [newCorners.neLat, newCorners.neLng], sw: [newCorners.swLat, newCorners.swLng] };
+      
+    newCorners = {ne: [parseFloat(newCorners.ne[0]), parseFloat(newCorners.ne[1])], sw: [parseFloat(newCorners.sw[0]), parseFloat(newCorners.sw[1])]};
 
     if (_areSameCorners(newCorners)) return;
 

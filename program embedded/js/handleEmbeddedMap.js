@@ -14,6 +14,7 @@ var handleEmbeddedMap = function(options) {
       load: 'load',
       onBoundsChange: 'onboundschange'
     },
+    search: false,
     iconRoot: 'images/'
   }, options);
 
@@ -32,7 +33,7 @@ var handleEmbeddedMap = function(options) {
       var mHandler = mapHandler(m, options.mapElem, locations, { events: {
         triggeredEvents: {onLocationSelect: options.events.markerSelect, onBoundsChange: options.events.onBoundsChange },
         triggerEvents: { selectLocation: options.events.locationSelect, unselectLocation: options.events.locationSelectCancel, disable: options.events.markerSelect, enable: options.events.loadSuccess },
-      }, iconRoot: options.iconRoot });
+      }, iconRoot: options.iconRoot, search: options.search });
 
     });
 
