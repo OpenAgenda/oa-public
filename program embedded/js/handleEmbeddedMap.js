@@ -2,6 +2,7 @@ var handleEmbeddedMap = function(options) {
   
   options = extend({
     mapElem: false,       // map element. required
+    searchElem: false,     // location search field element
     maps: 'osm',           // which map library is to be used
     control: false,       // control data resource
     events: {
@@ -30,24 +31,11 @@ var handleEmbeddedMap = function(options) {
     _extractLocationData(options.control, function(locations) {
 
       // create the map handler, give it the extracted locations
-      var mHandler = mapHandler(m, options.mapElem, locations, { events: {
-        triggeredEvents: {onLocationSelect: options.events.markerSelect, onBoundsChange: options.events.onBoundsChange },
+      var mHandler = mapHandler(m, locations, { events: {
+        triggeredEvents: { onLocationSelect: options.events.markerSelect, onBoundsChange: options.events.onBoundsChange },
         triggerEvents: { selectLocation: options.events.locationSelect, unselectLocation: options.events.locationSelectCancel, disable: options.events.markerSelect, enable: options.events.loadSuccess },
-      }, iconRoot: options.iconRoot, search: options.search });
+      }, iconRoot: options.iconRoot, elems: { map: options.mapElem, search: options.searchElem } });
 
-    });
-
-    eh.on(options.events.markerSelect, function(location) {
-
-      // cancel boundaries parameters if a location is picked
-      eh.trigger(options.events.load, { location: location.id, neLat: null, neLng: null, swLat: null, swLng: null });
-
-    });
-
-    eh.on(options.events.onBoundsChange, function(newBounds) {
-
-      eh.trigger(options.events.load, newBounds);
-      
     });
 
   },
@@ -72,17 +60,21 @@ var handleEmbeddedMap = function(options) {
           address: location.address,
           latitude: location.lat,
           longitude: location.lng,
-          highlighted: false
+          highlighted: false,
+          upcoming: 0
         });
 
         forEach(location.dates, function(date) {
           if (today <= new Date(date)) {
             locations[locations.length-1].highlighted = true;
+            locations[locations.length-1].upcoming++;
             allPassed = false;
           }
         });
 
-        if (location.image) locations[locations.length-1].image = location.image;
+        forEach(['image', 'city', 'country'] , function(optional) {
+          if (location[optional]) locations[locations.length-1][optional] = location[optional];
+        });
 
       };
 

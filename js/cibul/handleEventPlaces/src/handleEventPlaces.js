@@ -18,10 +18,10 @@ var handleEventPlaces = function(controlData, m, options) {
 
     if (!locations.length) return;
 
-    var mHandler = mapHandler(m, options.mapElem, locations, { events: {
+    var mHandler = mapHandler(m, locations, { events: {
       triggeredEvents: {onLocationSelect: events.triggeredEvents.onLocationSelect },
       triggerEvents: { selectLocation: events.triggerEvents.selectLocation, unselectLocation: events.triggeredEvents.onLocationSelectCancel },
-    }, iconRoot: options.iconRoot});
+    }, iconRoot: options.iconRoot, elems: { map: options.mapElem }});
 
 
     if (locations.length != 1) {

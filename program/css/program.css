@@ -207,8 +207,6 @@
 #program .etags li i { font-size: 0.8em; width: 1.25em; }
 
 
-#program .context-menu { padding: 5px; }
-
 #program .agg { min-width: 190px; }
 #program .agg * { vertical-align: middle; }
 #program .actions .agg i { font-size: 1em; line-height: 0.6em;}

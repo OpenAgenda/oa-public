@@ -1,13 +1,17 @@
 var mapSearchHandler = function(params) {
 
   var params = extend({
-    mapElt: false,
+    canvas: false,
     template: '<input type="text"/><label><%= searchInfo %></label>',
     labels: {
       searchInfo: 'type the name of a place or a city'
     },
-    onSelect: false, // callback for when a place is picked
-    locations: []  // list of locations of program
+    onLocationSelect: false, // callback for when a place is picked
+    onSelect: false, // callback for when a city or country is picked. A place too if the other callback is not set
+    locations: [],  // list of locations of program
+    classes: {
+      contextMenu: 'context-menu'
+    }
   }, params);
 
   var sIndex = {}, elem,
@@ -19,8 +23,15 @@ var mapSearchHandler = function(params) {
     _createElement();
 
     handleSuggestions(el(elem, 'input'), sIndex, 'name', '<div><%= name %></div>', {
+      contextMenuClass: params.classes.contextMenu,
       onSelect: function(selection) {
-        params.onSelect(selection.corners);
+
+        if (selection.id && params.onLocationSelect) {
+          params.onLocationSelect(selection.id);
+        } else {
+          params.onSelect(selection.corners);  
+        }
+
       }
     });
 
@@ -30,11 +41,11 @@ var mapSearchHandler = function(params) {
 
     forEach(params.locations, function(location) {
 
-      _index(location.placename, location.latitude, location.longitude);
+      _index(location.placename, location);
 
-      _index(location.city, location.latitude, location.longitude);
+      _index(location.city, location);
 
-      _index(location.country, location.latitude, location.longitude);
+      _index(location.country, location);
 
     });
 
@@ -44,26 +55,37 @@ var mapSearchHandler = function(params) {
 
     for (name in tmp) {
 
-      sIndex.push({name: name, corners: tmp[name]});
+      var index = {name: name, score: tmp[name].score, corners: {ne: tmp[name].ne, sw: tmp[name].sw}};
+
+      if (tmp[name]['id']) index['id'] = tmp[name]['id']; 
+
+      sIndex.push(index);
 
     };
 
   },
 
-  _index = function(name, latitude, longitude) {
+  _index = function(name, location) {
 
     if (!name || !name.length) return;
 
+    name = name.trim();
+
     if (!isDef(sIndex[name])) {
 
-      sIndex[name] = {ne: [latitude, longitude], sw: [latitude, longitude]};
+      sIndex[name] = {ne: [location.latitude, location.longitude], sw: [location.latitude, location.longitude], score: location.upcoming };
+
+      // if this is a place, keep track of id to throw it in the callback
+      if (location.placename==name) sIndex[name]['id'] = location.id;
 
     } else {
 
-      if (sIndex[name].ne.latitude < latitude) sIndex[name].ne.latitude = latitude;
-      if (sIndex[name].ne.longitude < longitude) sIndex[name].ne.longitude = longitude;
-      if (sIndex[name].sw.latitude > latitude) sIndex[name].sw.latitude = latitude;
-      if (sIndex[name].sw.longitude > longitude) sIndex[name].sw.longitude = longitude;
+      if (sIndex[name].ne[0] < location.latitude) sIndex[name].ne[0] = location.latitude;
+      if (sIndex[name].ne[1] < location.longitude) sIndex[name].ne[1] = location.longitude;
+      if (sIndex[name].sw[0] > location.latitude) sIndex[name].sw[0] = location.latitude;
+      if (sIndex[name].sw[1] > location.longitude) sIndex[name].sw[1] = location.longitude;
+
+      sIndex[name].score += location.upcoming;
 
     }
 
@@ -75,7 +97,7 @@ var mapSearchHandler = function(params) {
 
     elem.innerHTML = new EJS({text: params.template }).render(params.labels);
 
-    params.mapElt.parentNode.appendChild(elem);
+    params.canvas.appendChild(elem);
 
   };
 

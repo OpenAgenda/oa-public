@@ -36,7 +36,7 @@ var handleEmbeddedMapTunnel = function(options) {
 
       eh.on(options.events.markerSelect, function(location) {
 
-        selection = {location: location.id};
+        selection = { location: location.id, neLat: null, neLng: null, swLat: null, swLng: null };
 
         if (tunnelReady) tunnel.send(selection);
 

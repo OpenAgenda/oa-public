@@ -41,7 +41,6 @@ var handleEmbeddedTunnel = function(params){
 
     // this is executed every time data is successfully loaded by the list handler
     
-
     eh.on(params.events.loadSuccess, function(data){
 
       // know the height
@@ -92,7 +91,8 @@ var handleEmbeddedTunnel = function(params){
 
   _handleTunnelReceive =  function(data) {
 
-    if (data.category == 'null') data.category = null;
+    for (var key in data) 
+      if (data[key]=='null') data[key] = null;
 
     if (data.event) 
       if (data.event == params.events.nextPageRequest) 

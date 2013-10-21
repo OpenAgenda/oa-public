@@ -17,6 +17,7 @@ var runProgramBehavior = function(params) {
       elems: {
         list: el('.list-items'),
         map: el('.js_map_canvas'),
+        search: el('.js_map_search'),
         locationsList: el('.js_location_list'),
         shareLink: el('.js_share'),
         shareCanvas: el('.js_share_menu'),
@@ -230,17 +231,21 @@ var runProgramBehavior = function(params) {
         address: location.address,
         latitude: location.lat,
         longitude: location.lng,
-        highlighted: false
+        highlighted: false,
+        upcoming: 0
       });
 
       forEach(location.dates, function(date) {
         if (today <= new Date(date)) {
           locationList[locationList.length-1].highlighted = true;
+          locationList[locationList.length-1].upcoming++;
           allPassed = false;
         }
       });
 
-      if (location.image) locationList[locationList.length-1].image = location.image;
+      forEach(['image', 'city', 'country'] , function(optional) {
+        if (location[optional]) locationList[locationList.length-1][optional] = location[optional];
+      });
 
     };
 
@@ -250,10 +255,10 @@ var runProgramBehavior = function(params) {
 
     // create map with associated behaviors
 
-    var mHandler = mapHandler(m, params.elems.map, locationList, { events: {
+    var mHandler = mapHandler(m, locationList, { events: {
       triggeredEvents: { onLocationSelect: 'markerselect', onBoundsChange: 'onboundschange', getParams: 'getlistparams' },
-      triggerEvents: { disable: 'lhLoading', enable: 'lhSuccess' /* selectLocation: 'load', unselectLocation: options.events.locationSelectCancel, */  },
-    }, iconRoot: params.iconRoot });
+      triggerEvents: { disable: 'lhLoading', enable: 'lhSuccess' },
+    }, iconRoot: params.iconRoot, elems: { map: params.elems.map, search: params.elems.search } });
 
 
     // map map events with list
@@ -264,11 +269,6 @@ var runProgramBehavior = function(params) {
 
     eh.on('onboundschange', function(frameParams) {
       eh.trigger('load', frameParams);
-    });
-
-    addLocationListBehavior(params.elems.locationsList, locations, eh, {
-      triggerEvents: { loading: 'lhLoading', loadSuccess: 'lhSuccess', loadFail: 'lhFail', resize: 'resize'},
-      triggeredEvents: { locationSelect: 'load' },
     });
 
   },

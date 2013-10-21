@@ -1,8 +1,12 @@
-var mapHandler = function(m, mapElt, locations, params) {
+var mapHandler = function(m, locations, params) {
 
   params = extend({
     templates: {
       popup: '<div class="map-location"><% if (typeof image !== \'undefined\') { %><img src="<%= image %>"/><% } %><span><p><%= placename %></p><span><%= address %></span></span></div>',
+    },
+    elems: {
+      map: false,
+      search: false
     },
     events: {
       triggeredEvents: { 
@@ -42,7 +46,7 @@ var mapHandler = function(m, mapElt, locations, params) {
     
     if (!locations.length) return;
 
-    map = m.createMap(mapElt, { center: [locations[0].latitude, locations[0].longitude], keyboard: false, onReady: function(map) {
+    map = m.createMap(params.elems.map, { center: [locations[0].latitude, locations[0].longitude], keyboard: false, onReady: function(map) {
 
       setTimeout(function() { 
         m.setOnBoundsChangeEnd(map, _onBoundsChange);
@@ -93,9 +97,21 @@ var mapHandler = function(m, mapElt, locations, params) {
     _enable();
 
     if (locations.length > 10) mapSearchHandler({
-      mapElt: mapElt,
+      classes: {
+        contextMenu: 'wsq',
+      },
+      canvas: params.elems.search,
       locations: locations,
-      onSelect: _changeBounds
+      onLocationSelect: function(locationId) {
+        eh.trigger(params.events.triggeredEvents.onLocationSelect, {id: locationId});
+      },
+      onSelect: function(newCorners) { 
+
+        _unhighlightLocation();
+
+        _changeBounds(newCorners);
+
+      }
     });
     
     return {
@@ -170,7 +186,11 @@ var mapHandler = function(m, mapElt, locations, params) {
     _updateCorners(newCorners.ne, { clear: true });
     _updateCorners(newCorners.sw, { synced: true });
 
-    eh.trigger(params.events.triggeredEvents.onBoundsChange, { neLat: corners.ne[0], neLng: corners.ne[1], swLat: corners.sw[0], swLng: corners.sw[1] });
+    var searchParams = { neLat: corners.ne[0], neLng: corners.ne[1], swLat: corners.sw[0], swLng: corners.sw[1] };
+
+    if (!highlightedLocations.length) searchParams.location = null;
+
+    eh.trigger(params.events.triggeredEvents.onBoundsChange, searchParams);
 
     _disable();
 
