@@ -34,7 +34,7 @@ var handleEmbeddedMap = function(options) {
       var mHandler = mapHandler(m, locations, { events: {
         triggeredEvents: { onLocationSelect: options.events.markerSelect, onBoundsChange: options.events.onBoundsChange },
         triggerEvents: { selectLocation: options.events.locationSelect, unselectLocation: options.events.locationSelectCancel, disable: options.events.markerSelect, enable: options.events.loadSuccess },
-      }, iconRoot: options.iconRoot, elems: { map: options.mapElem, search: options.searchElem } });
+      }, iconRoot: options.iconRoot, labels: options.labels, elems: { map: options.mapElem, search: options.searchElem } });
 
     });
 

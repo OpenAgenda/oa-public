@@ -204,6 +204,7 @@ files = {
       'handleShares/src/handleShares.js',
       'handleList/src/handleList.js',
       'mapHandler/src/mapHandler.js',
+      'mapHandler/src/mapSearchHandler.js',
       'handleCalendar/src/handleCalendar.js',
       'handleContextMenu/src/handleContextMenu.js',
       'handleNav/src/handleNav.js',
@@ -372,7 +373,14 @@ files = {
       'EventHandler/EventHandler.js', 'maps/maps.js', 
       'maps/osm.maps.js', 'maps/leaflet.js'
     ],
-    [paths.jsc, 'handleProgramControlData/src/handleProgramControlData.js', 'mapHandler/src/mapHandler.js', 'handleMap/src/handleMap.js'],
+    [paths.jsc, 
+      'handleProgramControlData/src/handleProgramControlData.js', 
+      'mapHandler/src/mapHandler.js',
+      'mapHandler/src/mapSearchHandler.js', 
+      'handleMap/src/handleMap.js',
+      'handleContextMenu/src/handleContextMenu.js', 
+      'handleSuggestions/src/handleSuggestions.js',
+    ],
     [paths.pe, 'handleEmbeddedMap.js', 'handleEmbeddedMapTunnel.js']
   ],
 

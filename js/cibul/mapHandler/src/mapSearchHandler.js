@@ -2,17 +2,19 @@ var mapSearchHandler = function(params) {
 
   var params = extend({
     canvas: false,
-    template: '<input type="text"/><label><%= searchInfo %></label>',
-    labels: {
-      searchInfo: 'type the name of a place or a city'
-    },
+    template: '<input type="text" placeholder="<%= searchInfo %>"/>',
     onLocationSelect: false, // callback for when a place is picked
     onSelect: false, // callback for when a city or country is picked. A place too if the other callback is not set
     locations: [],  // list of locations of program
-    classes: {
-      contextMenu: 'context-menu'
-    }
+    linkCount: 4
   }, params);
+
+  params.classes = extend({
+    contextMenu: 'context-menu',
+    link: 'url'
+  }, params.classes?params.classes:{});
+
+  params.labels = extend({ searchInfo: 'type the name of a place or a city' }, params.labels?params.labels:{});
 
   var sIndex = {}, elem,
 
@@ -22,18 +24,43 @@ var mapSearchHandler = function(params) {
 
     _createElement();
 
+    for (var i = 0; i < Math.min(params.linkCount, sIndex.length); i++) _addLink(sIndex[i]);
+
     handleSuggestions(el(elem, 'input'), sIndex, 'name', '<div><%= name %></div>', {
       contextMenuClass: params.classes.contextMenu,
-      onSelect: function(selection) {
-
-        if (selection.id && params.onLocationSelect) {
-          params.onLocationSelect(selection.id);
-        } else {
-          params.onSelect(selection.corners);  
-        }
-
-      }
+      onSelect: _onSelect
     });
+
+  },
+
+  _onSelect = function(selection) {
+
+    if (selection.id && params.onLocationSelect)
+      params.onLocationSelect(selection.id);
+    else
+      params.onSelect(selection.corners); 
+
+  },
+
+  _addLink = function(indexedItem) {
+
+    var a = document.createElement('a');
+
+    a.className = params.classes.link;
+
+    addEvent(a, 'click', function(e) {
+      
+      preventDefault(e);
+
+      el(elem, 'input').value = indexedItem.name;
+
+      _onSelect(indexedItem);
+
+    });
+
+    a.innerHTML = indexedItem.name;
+
+    elem.appendChild(a);
 
   },
 
@@ -44,8 +71,6 @@ var mapSearchHandler = function(params) {
       _index(location.placename, location);
 
       _index(location.city, location);
-
-      _index(location.country, location);
 
     });
 
@@ -62,6 +87,8 @@ var mapSearchHandler = function(params) {
       sIndex.push(index);
 
     };
+
+    sIndex = sIndex.sort(function(a, b) { return b.score - a.score; });
 
   },
 

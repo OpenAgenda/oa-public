@@ -1,8 +1,6 @@
 #program .content { padding: 20px; display: block; overflow: hidden; position: relative; }
 
 
-
-
 #program .head { padding: 10px 20px 20px; overflow: visible; }
 #program .head p { padding: 10px 0 10px }
 #program .head .top { margin-bottom: 0.5em; }
@@ -257,3 +255,8 @@
 .map-location > span, .map-location > img { display: inline-block; }
 .map-location > img { width: 48px; padding: 0.2em 0.5em 0 0; vertical-align: top;}
 .map-location > span { max-width: 160px; }
+
+.map-search input { display: block; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
+.map-search .indication { margin: 0; }
+.map-search a { padding-right: 0.5em; font-size: 0.85em; }
+.map-search .context-menu { min-width: 170px; }

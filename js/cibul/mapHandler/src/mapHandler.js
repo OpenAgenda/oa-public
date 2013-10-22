@@ -98,8 +98,9 @@ var mapHandler = function(m, locations, params) {
 
     if (locations.length > 10) mapSearchHandler({
       classes: {
-        contextMenu: 'wsq',
+        contextMenu: 'context-menu wsq',
       },
+      labels: params.labels,
       canvas: params.elems.search,
       locations: locations,
       onLocationSelect: function(locationId) {

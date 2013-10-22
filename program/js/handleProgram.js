@@ -258,7 +258,7 @@ var runProgramBehavior = function(params) {
     var mHandler = mapHandler(m, locationList, { events: {
       triggeredEvents: { onLocationSelect: 'markerselect', onBoundsChange: 'onboundschange', getParams: 'getlistparams' },
       triggerEvents: { disable: 'lhLoading', enable: 'lhSuccess' },
-    }, iconRoot: params.iconRoot, elems: { map: params.elems.map, search: params.elems.search } });
+    }, iconRoot: params.iconRoot, elems: { map: params.elems.map, search: params.elems.search }, labels: params.labels });
 
 
     // map map events with list

@@ -31,18 +31,35 @@
     <link rel="stylesheet" type="text/css" href="../css/leaflet.ie.css"/>
 
     <style type="text/css">
-      * { margin: 0; padding: 0; }
-      html, body, #map { height: 100%; }
+
+      * { margin: 0; padding: 0; border: 0; font: 13px/1.5 'Helvetica Neue',Arial,Helvetica,'Liberation Sans',FreeSans,sans-serif; list-style: none outside none; color: #333; }
+      a { text-decoration: none; }
+      html, body, #map { height: 100%; overflow: hidden; }
+
+      input { border: 1px solid #999; }
 
       .leaflet-popup-content-wrapper { -webkit-border-radius: 0; border-radius: 0; }
       .leaflet-popup-content p, .leaflet-popup-content { margin: 0; }
       .leaflet-popup-content { padding: 2px 15px 2px 5px; }
       .leaflet-popup-tip-container { visibility: hidden; }
 
+      .map-search { position: absolute; top: 0; z-index: 2; }
+      .map-search input { min-width: 250px; }
+      .map-search .context-menu { background: white; z-index: 30000!important; padding: 0 4px; cursor: pointer; }
+      .map-search .context-menu li { padding: 2px 0; }
+      .map-search a { font-size: 0.8em; padding-right: 0.5em; cursor: pointer; }
+
+      .map-location > span, .map-location > img { display: inline-block; }
+      .map-location > img { width: 48px; padding: 0.2em 0.5em 0 0; vertical-align: top;}
+      .map-location > span { max-width: 160px; }
+
+      #map { margin-top: 3.5em; }
+
     </style>
     
   </head>
   <body>
+    <div class="js_map_search map-search"></div>
     <div id="map"></div>
     <script type="text/javascript">
 
@@ -52,11 +69,15 @@
 
         handleEmbeddedMap({
           mapElem: el('#map'),
+          searchElem: el('.js_map_search'),
           maps: 'osm',
           control: 'http://d.cibul.net/frontend_dev.php/la-gargouille/fr',
           iconRoot: '../images/',
           enableSearch: true,
-          search: 'http://d.cibul.net/frontend_dev.php/la-gargouille/search'
+          search: 'http://d.cibul.net/frontend_dev.php/la-gargouille/search',
+          labels: {
+            searchInfo: 'saisissez le nom d\'un lieu ou d\'une ville'
+          }
         });
 
     });
