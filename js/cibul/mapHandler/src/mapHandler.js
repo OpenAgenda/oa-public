@@ -19,7 +19,9 @@ var mapHandler = function(m, locations, params) {
         unselectLocation: 'unselectlocation', 
         enable: 'enableMap', 
         disable: 'disableMap',
-        changeBounds: 'changebounds'            /* to know when new bounds are requested */
+        changeBounds: 'changebounds',            /* to know when new bounds are requested */
+        onEventOpen: 'oneventopen',
+        onEventClose: 'oneventclose'
       }
     },
     states: [
@@ -38,7 +40,7 @@ var mapHandler = function(m, locations, params) {
 
   var map, 
 
-  eh = sEventHandler.getInstance(), bounds, corners, boundsSynced, history, enabled = true, highlightedLocations = [],
+  eh = sEventHandler.getInstance(), bounds, corners, boundsSynced, history, enabled = true, highlightedLocations = [], eventFocus = false,
 
   init = function() {
 
@@ -67,6 +69,8 @@ var mapHandler = function(m, locations, params) {
 
     if (params.events.triggerEvents.enable) eh.on(params.events.triggerEvents.enable, function(data) {
 
+      eventFocus = false;
+
       if (data) {
 
         _unhighlightLocation();
@@ -93,6 +97,10 @@ var mapHandler = function(m, locations, params) {
     });
 
     if (params.events.triggerEvents.enable) eh.on(params.events.triggerEvents.disable, _disable);
+
+    if (params.events.triggerEvents.onEventOpen) eh.on(params.events.triggerEvents.onEventOpen, _eventFocus);
+
+    if (params.events.triggerEvents.onEventClose) eh.on(params.events.triggerEvents.onEventClose, _eventUnfocus);
 
     _enable();
 
@@ -168,7 +176,7 @@ var mapHandler = function(m, locations, params) {
 
   _onBoundsChange = function(bounds) {
 
-    if (!enabled) return;
+    if (!enabled || eventFocus) return;
 
     // do not trigger anything if bounds are too similar than previous set
 
@@ -318,6 +326,37 @@ var mapHandler = function(m, locations, params) {
       };
 
     }
+
+  },
+
+  _eventFocus = function(data) {
+
+    var clear = true, uid = '' + data.uid;
+
+    eventFocus = true;
+
+    // loop through locations and pick the ones that match event
+
+    forEach(locations, function(location) {
+
+      if (contains(location.events, uid)) {
+
+        _updateCorners([location.latitude, location.longitude], {clear: clear, history: clear});
+
+        clear = false;
+      }
+
+    });
+
+    _syncBounds();
+
+  },
+
+  _eventUnfocus = function() {
+
+    eventFocus = false;
+
+    if (history) _syncBounds({restore: true});
 
   },
 

@@ -66,15 +66,15 @@ var handleEmbeddedTunnel = function(params){
 
     });
 
-    eh.on(params.events.openEventSuccess, function() {
+    eh.on(params.events.openEventSuccess, function(data) {
 
-      tunnel.send({eventDisplay: true});
+      tunnel.send({ eventDisplay: true, event: params.events.openEventSuccess, uid: data.uid });
 
     });
 
     eh.on(params.events.closeEvent, function() {
 
-      tunnel.send({eventDisplay: false});
+      tunnel.send({ eventDisplay: false, event: params.events.closeEvent });
 
     });
 

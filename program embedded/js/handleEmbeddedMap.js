@@ -13,7 +13,9 @@ var handleEmbeddedMap = function(options) {
       disable: 'disable',                           // triggered to disable the map
       enable: 'enable',                             // triggered to enable the map
       load: 'load',
-      onBoundsChange: 'onboundschange'
+      onBoundsChange: 'onboundschange',
+      onEventOpen: 'oneventopen',
+      onEventClose: 'oneventclose'
     },
     search: false,
     iconRoot: 'images/'
@@ -33,7 +35,7 @@ var handleEmbeddedMap = function(options) {
       // create the map handler, give it the extracted locations
       var mHandler = mapHandler(m, locations, { events: {
         triggeredEvents: { onLocationSelect: options.events.markerSelect, onBoundsChange: options.events.onBoundsChange },
-        triggerEvents: { selectLocation: options.events.locationSelect, unselectLocation: options.events.locationSelectCancel, disable: options.events.markerSelect, enable: options.events.loadSuccess },
+        triggerEvents: { selectLocation: options.events.locationSelect, unselectLocation: options.events.locationSelectCancel, disable: options.events.markerSelect, enable: options.events.loadSuccess, onEventOpen: options.events.onEventOpen, onEventClose: options.events.onEventClose },
       }, iconRoot: options.iconRoot, labels: options.labels, elems: { map: options.mapElem, search: options.searchElem } });
 
     });
@@ -61,7 +63,8 @@ var handleEmbeddedMap = function(options) {
           latitude: location.lat,
           longitude: location.lng,
           highlighted: false,
-          upcoming: 0
+          upcoming: 0,
+          events: location.events
         });
 
         forEach(location.dates, function(date) {

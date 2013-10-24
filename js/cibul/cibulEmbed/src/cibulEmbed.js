@@ -107,7 +107,7 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
         responsePending = false;
 
         if (data.event) eh.trigger(data.event, data);
-
+        
         if (data.eventDisplay || data.reset == 'true') {
 
           if (data.eventDisplay=='true' || data.reset == 'true') {
@@ -206,6 +206,7 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
         eh.trigger('load', data);
 
       }}),
+      
       eh = sEventHandler.getInstance();
 
       eh.on('success', function(data) {
@@ -213,6 +214,15 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
         tunnel.send(data);
 
       });
+
+      eh.on('eventopensuccess', function(data) {
+        tunnel.send(data);
+      });
+
+      eh.on('closeevent', function(data) {
+        tunnel.send(data);
+      })
+
     }, 
 
     categories: function(categoriesElem, onReady) {

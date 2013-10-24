@@ -13,7 +13,7 @@ var handleEmbeddedList = function(options) {
     iconRoot: 'images/',  // where are the map icons?
     control: false,       // required. either resource or data
     elems: {
-      proEventDisplaygram: false,     // canvas of program
+      program: false,     // canvas of program
       event: false,       // canvas of event
       list: false,        // canvas of list
       navPrevious: false, // control for loading previous list items
@@ -24,15 +24,15 @@ var handleEmbeddedList = function(options) {
       sections: 'plis'
     },
     events: {
-      load: 'load',                // request to load list
-      loading: 'lhLoading',          // event triggered when a list load is launched
-      loadSuccess: 'success',      // event triggered when a list load has successfully completed
-      loadComplete: 'lhComplete',    // event triggered when a list load is complete
-      loadFail: 'lhFail',            // event triggered when a list load has failed
-      nextPageRequest: 'loadNext',   // event triggering a load of the next page
-      prevPageRequest: 'loadPrev',   // event triggering a load of the previous page
-      hasNextPage: 'hasNext',        // event triggered to signal that there are no next pages to load
-      openEvent: 'openevent',        // request to open event triggered
+      load: 'load',                          // request to load list
+      loading: 'lhLoading',                  // event triggered when a list load is launched
+      loadSuccess: 'success',                // event triggered when a list load has successfully completed
+      loadComplete: 'lhComplete',            // event triggered when a list load is complete
+      loadFail: 'lhFail',                    // event triggered when a list load has failed
+      nextPageRequest: 'loadNext',           // event triggering a load of the next page
+      prevPageRequest: 'loadPrev',           // event triggering a load of the previous page
+      hasNextPage: 'hasNext',                // event triggered to signal that there are no next pages to load
+      openEvent: 'openevent',                // request to open event triggered
       closeEvent: 'closeevent',
       heightChange: 'embedheightchange',
       openEventSuccess: 'eventopensuccess',
@@ -93,6 +93,8 @@ var handleEmbeddedList = function(options) {
 
     eh.on(options.events.loadSuccess, function() {
       if (!displayedEvent) return;
+
+      eh.trigger(options.events.closeEvent);
 
       displayedEvent.close();
       displayedEvent = false;
@@ -206,7 +208,7 @@ var handleEmbeddedList = function(options) {
       },
       onEventOpen: function() {
         eh.trigger(options.events.unlock);
-        eh.trigger(options.events.openEventSuccess);
+        eh.trigger(options.events.openEventSuccess, {uid: eventId});
       },
       onEventClose: function() {
         eh.trigger(options.events.closeEvent);
