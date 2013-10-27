@@ -97,7 +97,7 @@ var runProgramBehavior = function(params) {
       eh.trigger('resize');
     });
 
-    addMobileDisplayBehavior(el('.pblock-head'), el('.pblock-body'), eh, {
+    addMobileDisplayBehavior(els('.pblock-head'), els('.pblock-body'), eh, {
       widthThreshold: 740,
       triggeredEvents: { mobileOn: 'mobileon', mobileOff: 'mobileoff', tabActivated: 'tabactivated' },
       triggerEvents: { loading: 'lhLoading' }

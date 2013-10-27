@@ -40,7 +40,7 @@ var mapHandler = function(m, locations, params) {
 
   var map, 
 
-  eh = sEventHandler.getInstance(), bounds, corners, boundsSynced, history, enabled = true, highlightedLocations = [], eventFocus = false,
+  eh = sEventHandler.getInstance(), bounds, corners, boundsSynced, history, enabled = true, highlightedLocations = [], eventFocus = false, boundsEnabled = true,
 
   init = function() {
 
@@ -55,7 +55,7 @@ var mapHandler = function(m, locations, params) {
       }, 10);
 
     }});
-
+    
     setLocations(locations);
 
     // setup interfaces through event handler
@@ -176,7 +176,7 @@ var mapHandler = function(m, locations, params) {
 
   _onBoundsChange = function(bounds) {
 
-    if (!enabled || eventFocus) return;
+    if (!enabled || eventFocus || !boundsEnabled) return;
 
     // do not trigger anything if bounds are too similar than previous set
 

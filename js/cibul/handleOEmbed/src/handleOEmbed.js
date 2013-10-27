@@ -163,6 +163,12 @@ var handleOEmbed = function(options) {
         $(item).replaceWith(data.code);          
 
         return false;
+
+      case 'bandcamp.':
+
+        $(item).replaceWith(data.code.replace(/(width=")[0-9]+"?/,'width="' + $(item).parent().width() + '"'));
+
+        return false;
     }
 
     return true;

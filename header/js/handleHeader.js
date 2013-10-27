@@ -40,9 +40,15 @@ var handleHeader = function(params) {
 
   _runUnlogged = function() {
 
+    var redirect = window.location.href.replace(/#[A-z0-9&=]+$/, '');
+
+    forEach(els('.js_page_redirect'), function(linkElem) {
+      linkElem.setAttribute('href', linkElem.getAttribute('href') + '?redirect=' + redirect);
+    });
+
     $('.js_language').poppit({ target: '.js_language_list', at: 'right bottom', my: 'right top' });
 
-    $('.js_signin_form').attr('action', $('.js_signin_form').attr('action') + '?redirect=' + $.base64Encode(window.location.href));
+    $('.js_signin_form').attr('action', $('.js_signin_form').attr('action') + '?redirect=' + $.base64Encode(redirect));
 
     // submit signin
     $('a', '.js_signin_form').click(function(e){

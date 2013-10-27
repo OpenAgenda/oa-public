@@ -4,9 +4,11 @@
 .ei * { font-size: 1em; }
 .ei > * { display: inline-block; text-align: left; }
 .ei .evpic { width: 96px; max-width: 20%; vertical-align: top; }
-.ei .evpic img { width: 100%; }
+.ei .evpic img { width: 100%; margin: 0.35em 0 0; }
 .ei .evcnt { width: 80%; vertical-align: middle; }
+.ei.nopic .evcnt { width: auto; }
 .ei .evcnt > ul { margin-left: 10px; }
+.ei.nopic .evcnt > ul { margin-left: 0; }
 .ei .evtitle a { font-weight: bold; }
 .ei .evspacetime *,
 .ei .evdesc { color: #666;}

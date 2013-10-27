@@ -158,8 +158,6 @@
   #program .pblock-head.active { background: #53D4FF; }
   #program .pblock-head.active * { color: white; }
   
-  #program .pblock-body { position: absolute; }
-
   #program .pdates .ccal li span { padding: 6px; }
 
   #program .pblock-body {

@@ -53,8 +53,8 @@
       addEvent(window, 'load', function() {
 
         handleEventList({
-          url: 'http://d.cibul.net/frontend_dev.php/getsearch/event',
-          //url: 'http://d.cibul.net/frontend_dev.php/home/published',
+          //url: 'http://d.cibul.net/frontend_dev.php/getsearch/event',
+          url: 'http://d.cibul.net/frontend_dev.php/home/published',
           //includeFilters: true,
           elems: {
             listCanvas: el('.js_list_content'),
@@ -63,8 +63,10 @@
             navPrevious: el('.js_nav_previous')
           },
           templates: {
-            event: ['<li class="mli"><div class="ei">',
-                '<a class="evpic" href="<%= values.url %>"><img src="<%= values.image.replace(/cibultest/g,\'cibul\') %>"/></a><!--',
+            event: ['<li class="mli"><div class="ei<% if (!values.image.length) { %> nopic<% } %>">',
+                '<% if (values.image.length) { %>',
+                '<a class="evpic" href="<%= values.url %>"><img src="<%= values.image.replace(/cibultest/g,\'cibul\') %>"/></a>',
+                '<% } %><!--',
               '--><div class="evcnt">',
                   '<ul>',
                     '<li class="evtitle"><a href="<%= values.url %>"><%= values.title %></a></li>',
