@@ -104,7 +104,7 @@ var mapHandler = function(m, locations, params) {
 
     _enable();
 
-    if (locations.length > 10) mapSearchHandler({
+    if (params.elems.search && locations.length > 10) mapSearchHandler({
       classes: {
         contextMenu: 'context-menu wsq',
       },

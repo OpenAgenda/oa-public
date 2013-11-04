@@ -36,9 +36,9 @@
     <script type="text/javascript" src="js/handleEventAdmin.js"></script>
     <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
 
-    <link rel="stylesheet" href="css/global.css" type="text/css"/>
-    <link rel="stylesheet" href="css/page.css" type="text/css"/>
-    <link rel="stylesheet" href="css/rsli.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/global/global.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/page structure/page.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/rsli.css" type="text/css"/>
     <link rel="stylesheet" href="css/event.css" type="text/css"/>
 
     <link type="text/css" href="../css/font-awesome/font-awesome.css" rel="stylesheet"/>
@@ -247,22 +247,22 @@
           }
         });
 
-        handleContextMenu(getElementsByClassName(document, 'js_share')[0], getElementsByClassName(document, 'js_share_menu')[0], sEventHandler.getInstance());
+        handleContextMenu(el('.js_share'), el('.js_share_menu'), sEventHandler.getInstance());
 
         handleShares({
           url: 'http://cibul.net',
-          canvas: getElementsByClassName(document, 'js_share_menu')[0],
+          canvas: el'.js_share_menu'),
           culture: 'fr'
         });
 
         handleEventAdmin({
-          canvas: getElementsByClassName(document, 'js_actions')[0],
+          canvas: el('.js_actions'),
           loggedUid: 111,
           ownerUid: 111,
           editors: [111,324,54354,4231413],
           publish: {
             html: '<p>This event is not published yet. <a class="url" href="#">Publish it now</a></p>',
-            canvas: getElementsByClassName(document, 'sec')[0] // where the publish action goes
+            canvas: el('.sec') // where the publish action goes
           }
         });
 
