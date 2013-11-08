@@ -11,6 +11,7 @@ var paths = {
   pe:  '../program embedded/js/',
   pf:  '../program edit menu/js/',
   pm:  '../program menu/js/',
+  pa:  '../program admin/js/',
   pem: '../program embed menu/js/',
   jsc: '../js/cibul/',
   lib: '../js/lib/',
@@ -250,6 +251,11 @@ files = {
     [paths.pl,
       'handleListPage.js',
     ],
+  ],
+
+  'review/adminList.min.js': [
+    [paths.lib, 'common/common.js', 'remote/remote.js'],
+    [paths.pa, 'handleAdminEventList.js']
   ],
 
   'review/search.min.js': [
