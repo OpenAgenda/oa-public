@@ -22,6 +22,7 @@ var handleList = function(elem, eventHandler, options) {
     ajax: true,
     ready: false,
     filter: false,
+    itemFilter: false, // function passed to items as they are received
     listOffset: 150,
     triggerScroll: true,
     triggerEvents: { load: 'load', loadPrevious: 'loadPrevious', loadNext: 'loadNext', getParams: 'getlistparams' },
@@ -186,6 +187,8 @@ var handleList = function(elem, eventHandler, options) {
       forEach(data.data, function(value) {
 
         if (typeof value.template == 'undefined') value.template = options.mainItem;
+
+        if (options.itemFilter) options.itemFilter(value);
 
         if (value.template == options.mainItem) receivedCount++;
 

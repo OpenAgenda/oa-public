@@ -6,6 +6,7 @@ var handleListPage = function(params) {
     initNav: [false, false],
     debug: false,
     anchor: 'list',
+    itemFilter: false,       // callback used on each received values of list
     mainItem: false          // takes the first template as main by default
   }, params);
   
@@ -16,6 +17,7 @@ var handleListPage = function(params) {
       url: params.url,
       params: params.debug?{format: 'jsonp'}:{},
       ajax: !params.debug,
+      itemFilter: params.itemFilter,
       mainItem: _getMainItem(),
       templates: params.templates,
       triggerEvents: { load: 'load', loadPrevious: 'loadPrevious', loadNext: 'loadNext' },

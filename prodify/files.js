@@ -254,7 +254,7 @@ files = {
   ],
 
   'review/adminList.min.js': [
-    [paths.lib, 'common/common.js', 'remote/remote.js'],
+    [paths.lib, 'common/common.js', 'remote/remote.js', 'lightbox/lightbox.js', 'urlStrings/urlStrings.js'],
     [paths.pa, 'handleAdminEventList.js']
   ],
 
@@ -409,7 +409,7 @@ files = {
   'jquery.tools.min.js': [[paths.lg, 'jquery.tools.min.js']],
   'jquery-ui-1.8.11.custom.min.js': [[paths.lg, 'jquery-ui-1.8.11.custom.min.js']],
   'jScrollPane.js': [[paths.lg, 'jScrollPane.js']],
-  'list.min.js': [[paths.lg, 'list.min.js']],
+  /*'list.min.js': [[paths.lg, 'list.min.js']],*/
   'main28.js': [[paths.lg, 'main28.js']],
   
   'event/calendarExportMenu.2.min.js': [[paths.lg, 'calendarExportMenu.2.min.js']],
