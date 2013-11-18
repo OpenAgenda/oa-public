@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <script type="text/javascript" src="common/common.js"></script>
-    <script type="text/javascript" src="Base64/Base64.js"></script>
-    <script type="text/javascript" src="urlStrings/urlStrings.js"></script>
-    <script type="text/javascript" src="hash/hash.js"></script>
-    <script type="text/javascript" src="../src/latest/iTunnel.js"></script>
+    <script type="text/javascript" src="../../common/common.js"></script>
+    <script type="text/javascript" src="../../Base64/Base64.js"></script>
+    <script type="text/javascript" src="../../urlStrings/urlStrings.js"></script>
+    <script type="text/javascript" src="../../hash/hash.js"></script>
+    <script type="text/javascript" src="../iTunnel.js"></script>
     <style>
 
     </style>
@@ -17,13 +17,15 @@
     <button id="paint2" disabled>Toggle iframe 2 background color</button>
     <button id="reload1">Reload iframe 1</button>
 
-    <iframe src="http://dl.dropboxusercontent.com/u/2009989/showcases/iTunnel/examples/iframecontent1.html" width="100" height="100"></iframe>
+    <iframe src="http://templates2.cibul.net/js/lib/iTunnel/examples/iframecontent1.html" width="100" height="100"></iframe>
 
-    <iframe src="http://dl.dropboxusercontent.com/u/2009989/showcases/iTunnel/examples/iframecontent2.html" width="100" height="100"></iframe>
+    <iframe src="http://templates2.cibul.net/js/lib/iTunnel/examples/iframecontent2.html" width="100" height="100"></iframe>
 
     <script type="text/javascript">
 
       function onload() {} {
+
+        var hashFallback = true;
 
         console.log('parent is loaded');
 
@@ -44,9 +46,11 @@
           forceFallback: true
         });
 
+        var tunnel2;
+
         setTimeout(function(){
 
-          var tunnel2 = iTunnel({
+          tunnel2 = iTunnel({
             target: frameElems[1], 
             onReady: function(){
 

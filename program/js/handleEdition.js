@@ -22,8 +22,6 @@ var addEditionBehavior = function(listCanvasElem, listElementClass, editors, par
     labels: false
   }, params);
 
-  params.editors = extend({ template: '<a href="<%= link %>"><i class="icon-group"></i><span><%= labels.editors %></span></a>', link: '#editors', appendTo: false, }, params.editors?params.editors:{});
-
   var menusDisabled = false,
 
     eventHandler = sEventHandler.getInstance(),
@@ -42,14 +40,6 @@ var addEditionBehavior = function(listCanvasElem, listElementClass, editors, par
         }
         
       });
-    }
-
-    // this bit is for the editors link. show it when editors are multiple or when program is not main
-
-    if (Object.size(editors)>1 || !params.isMain) {
-      var editorsLink = document.createElement('li');
-      editorsLink.innerHTML = new EJS({text: params.editors.template }).render({link: params.editors.link, labels: params.labels });
-      params.editors.appendTo.appendChild(editorsLink);
     }
 
   };

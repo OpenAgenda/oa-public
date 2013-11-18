@@ -110,7 +110,7 @@ var createDateSelect = function(elem, dates, eventHandler, params) {
           if (filterElem) _hideFilter();
         } else {
 
-          if (typeof data.to == 'undefined') data.to == data.from;
+          if (typeof data.to == 'undefined') data.to = data.from;
           if (calendar) calendar.setSelected({begin: new Date(data.from.replace(/-/g, "/")), end: new Date(data.to.replace(/-/g, "/"))});
 
           if (filterElem) _showFilter(data.from, data.to);

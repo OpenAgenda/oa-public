@@ -25,8 +25,8 @@ var runProgramBehavior = function(params) {
       },
       lang: 'en',
       iconRoot: 'images/',
-      labels: {tags: 'Tags', editors: 'editors', aggLink: 'use as sources', currentTags: 'Current Tags', programTags: 'Program Tags', addTag: 'Add a Tag', add: 'Add' }, // required
-      links: { follow: false, unfollow: false, addEvent: false, editors: false },
+      labels: {tags: 'Tags', aggLink: 'use as sources', currentTags: 'Current Tags', programTags: 'Program Tags', addTag: 'Add a Tag', add: 'Add' }, // required
+      links: { follow: false, unfollow: false, addEvent: false },
       lightboxClasses: {frame: 'wsq lightbox-frame', canvas: 'lightbox-canvas', buttonBox: 'lightbox-buttons', button: 'small button'}
     }, params);
 
@@ -301,7 +301,6 @@ var runProgramBehavior = function(params) {
       labels: params.labels,
       edit: { template: '<a href="#"><i class="icon-cog"></i><span>' + params.labels.edit + '</span></a>', action: params.resources.edit, appendTo: el('.actions'), enabled: true },
       admin: { template: '<a href="#"><i class="icon-edit"></i><span>' + params.labels.admin + '</span></a>', action: params.resources.admin, appendTo: el('.actions'), enabled: false },
-      editors: { link: params.links.editors, appendTo: el('.actions') },
       actionCallback: function(name, id, elem) {
 
         if (name=='tag') return handleTagsEdit({

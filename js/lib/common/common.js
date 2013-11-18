@@ -38,7 +38,6 @@ var unpack = function(encoded) {
 
   var result = JSON.parse(div.innerHTML
     .replace(new RegExp(String.fromCharCode(9), 'g'), ' ')
-    .replace(/\\/g, '\\\\')
     .replace(/\n/g, '\\n')
     .replace(String.fromCharCode(29), ''));
 

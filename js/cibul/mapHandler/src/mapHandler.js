@@ -112,7 +112,9 @@ var mapHandler = function(m, locations, params) {
       canvas: params.elems.search,
       locations: locations,
       onLocationSelect: function(locationId) {
+
         eh.trigger(params.events.triggeredEvents.onLocationSelect, {id: locationId});
+
       },
       onSelect: function(newCorners) { 
 

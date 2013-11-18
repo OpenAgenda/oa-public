@@ -149,7 +149,7 @@
 
     });
 
-  };
+  },
 
 
   _monitorHash = function(hashParamName, hashCacheName, callback, target) {
