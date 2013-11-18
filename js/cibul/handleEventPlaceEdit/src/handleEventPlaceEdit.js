@@ -61,7 +61,9 @@ var handleEventPlaceEdit = function(params) {
     icon: 'images/markerIcon.png'
   }, params);
 
-  var location = {}, dates = [], elem, infoElem, placeSelector, pricingSelector, placeFetch, dateSelector, languages = params.languages,
+  var location = {}, // this is the current location handled by this script
+
+  dates = [], elem, infoElem, placeSelector, pricingSelector, placeFetch, dateSelector, languages = params.languages,
 
   _run = function() {
 
@@ -121,8 +123,8 @@ var handleEventPlaceEdit = function(params) {
   },
 
   /**
-   * run locally everytime there is a change in the location or the dates
-   * binds them and calls onChange and onComplete
+   * run locally everytime there is a change in the location/dates/pricing
+   * binds them and calls onChange and onComplete (only when location is effectively complete)
    **/
 
   _onChange = function() {
@@ -252,6 +254,15 @@ var handleEventPlaceEdit = function(params) {
           });
 
         },
+        onDefaultSelect: function(item) {
+
+          // on Default select, it should be possible to give it as an update
+
+          location = extend(location?location:{}, item);
+
+          _onChange();
+
+        },
         onHeightChange: params.onHeightChange
       });
 
@@ -320,6 +331,10 @@ var handleEventPlaceEdit = function(params) {
     if (!dates.length) dateSelector.showAdd();
 
   },
+
+  /**
+   * makes some checks on location and callbacks with errors. If return list is empty then the location is fine.
+   */
 
   _controlLocation = function(callback) {
 

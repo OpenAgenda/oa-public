@@ -128,8 +128,6 @@
 
     addEvent(window, 'load', function() {
 
-      testevent = unpack('{&quot;uid&quot;:&quot;9919240&quot;,&quot;draft&quot;:false,&quot;title&quot;:{&quot;fr&quot;:&quot;The Moonshiners&quot;},&quot;description&quot;:{&quot;fr&quot;:&quot;Concert Grrove&quot;},&quot;freeText&quot;:{&quot;fr&quot;:&quot;Pour finir cette semaine de festival venez partagez le groove des Moonshiners! Ce groupe toulousain vous transportera toute la soir\u00e9e en passant par le reggea, la funk, le jazzy en approchant un peu le rock&#039;n roll mais c&#039;est garantie ils vous feront bouger sur leur groove imparable, venez c&#039;est gratuit!!&quot;},&quot;tags&quot;:{&quot;fr&quot;:&quot;reggae, funk&quot;},&quot;locations&quot;:[{&quot;uid&quot;:&quot;47621527&quot;,&quot;name&quot;:&quot;Champagne&quot;,&quot;address&quot;:&quot;4 Rue Peyras, 31000 Toulouse&quot;,&quot;lat&quot;:&quot;43.601506&quot;,&quot;lng&quot;:&quot;1.443867&quot;,&quot;dates&quot;:[{&quot;date&quot;:&quot;2013-11-23&quot;,&quot;begin&quot;:&quot;21:00:00&quot;,&quot;end&quot;:&quot;23:00:00&quot;,&quot;id&quot;:&quot;49623&quot;}],&quot;ticketLink&quot;:&quot;&quot;,&quot;pricingInfo&quot;:{&quot;fr&quot;:&quot;Entr\u00e9e libre&quot;}}]}');
-
       cibulEvent({
         event: testevent,
         labels: {
@@ -200,12 +198,15 @@
           addressStreetInfo: 'street name',
           addressCityInfo: 'city',
           empty: 'Saisissez un nom et une adresse pour voir la liste de choix apparaître.',
-          manualMark: 'Vous ne trouvez pas le bon lieu? Cliquez ici pour placer le marqueur manuellement sur la carte.',
+          manualMark: 'Placer le marqueur manuellement', // * new
+          manualMarkDetail: 'saisissez le nom du lieu et son adresse, puis ajustez la position du marqueur en le glissant sur la carte', // * new
           addLabel: 'ajouter des dates',
           addDate: 'Ajouter',
           clearLabel: 'retirer les dates',
           timingInfo: 'hh:mm',
           timingError: 'hh:mm',
+          timingGeneralError: 'les horaires doivent être spécifiés', // * new
+          dateError: 'aucune date n\'est séléctionnée', // * new
           addTitle: 'Ajoutez des dates',
           addInfo: 'séléctionnez une rangée de dates en cliquant et glissant le curseur sur le calendrier, puis saisissez les horaires.',
           begin: 'horaire de début',
@@ -234,7 +235,8 @@
           type: 'osm',
           init: {url: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'},
           coords: [48.447052, 1.486754]
-        }
+        },
+        icon: '../images/markerIcon.png',
       });
 
       cibulEventSubmit({

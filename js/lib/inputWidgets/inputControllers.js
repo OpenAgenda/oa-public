@@ -34,7 +34,7 @@ var inputController = {
   },
   _setValue: function(newValue) {
 
-    if (!this._validate(newValue)) return;
+    if (!this.validate(newValue)) return;
 
     if (this.params.onUpdate) this.params.onUpdate(newValue, this.params.name);
 
@@ -63,7 +63,7 @@ var inputController = {
 
   },
 
-  _validate: function(value) {
+  validate: function(value) {
 
     if (!this.params.onValidChange || !this.params.validator) return true;
 

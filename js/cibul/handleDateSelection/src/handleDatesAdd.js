@@ -4,16 +4,19 @@ var handleDatesAdd = function(params) {
     canvas: false,
     onAdd: false,
     templates: {
-      main: '<p><%= addTitle %></p><span class="info"><%= addInfo %></span><div class="js_dates date-select"></div><div class="timing-select"><div class="js_timings input-fields"></div><button><%= addDate %></button></div>'
+      main: '<p><%= addTitle %></p><span class="info"><%= addInfo %></span><div class="js_dates date-select"></div><div class="timing-select"><div class="js_timings input-fields"></div><button><%= addDate %></button><div class="error js_error"></div></div>'
     },
     selectors: {
       dates: '.js_dates',
       timings: '.js_timings',
+      error: '.js_error',
       add: 'button'
     },
     labels: {
       timingInfo: 'hh:mm',
+      timingGeneralError: 'timings have to be specified',
       timingError: 'time is not valid (example of valid time: 14:21)',
+      dateError: 'no dates are selected',
       addTitle: 'Add dates',
       addDate: 'Add',
       addInfo: 'select a range of dates by drag and drop on the calendar, then type in the timings.',
@@ -27,17 +30,17 @@ var handleDatesAdd = function(params) {
     }
   }, params);
 
-  var elem, 
-
-  timings = { begin: false, end: false },
-
-  dates = { begin: false, end: false },
-
-  addEnabled = false,
+  var elem, timings, dates, addEnabled,
 
   widgets = {},
 
   create = function() {
+
+    timings = { begin: false, end: false };
+
+    dates = { begin: false, end: false };
+
+    addEnabled = false;
 
     elem = document.createElement('div');
     elem.innerHTML = new EJS({text: params.templates.main }).render(params.labels);
@@ -93,7 +96,9 @@ var handleDatesAdd = function(params) {
       onSelect: function(selected) {
 
         dates = selected;
+        el(elem, params.selectors.error).innerHTML = '';
         _enableButton(_validateSelection());
+
 
       }
     });
@@ -103,6 +108,17 @@ var handleDatesAdd = function(params) {
     params.canvas.appendChild(elem);
 
     addEvent(el(elem, params.selectors.add), 'click', function() {
+
+      var validTimings = widgets.timeEnd.validate();
+
+      validTimings = widgets.timeBegin.validate() && validTimings;
+
+      // if there are no selected dates, 
+
+      if (!dates.begin)
+        el(elem, params.selectors.error).innerHTML = params.labels.dateError;
+      else if (!validTimings)
+        el(elem, params.selectors.error).innerHTML = params.labels.timingGeneralError;
 
       if (addEnabled) params.onAdd({
         dates: dates,

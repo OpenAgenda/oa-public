@@ -132,7 +132,9 @@ var cibulEventLocation = function(params) {
         eh.trigger(params.events.heightChange);
       },
       onChange: function(location) {
+
         _notifyLocationChange(index, location);
+        
       },
       onRemove: function() {
 

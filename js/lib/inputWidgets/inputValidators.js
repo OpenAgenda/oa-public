@@ -18,6 +18,8 @@ var inputValidators = {
 
     return function(value) {
 
+      if (typeof value == 'undefined') value = '';
+
       if (!value.match(regex)) throw label;
 
     }

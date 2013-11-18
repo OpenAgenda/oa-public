@@ -63,6 +63,8 @@ var handlePlaceSelectionMap = function(params) {
 
         _displayInfo(item);
 
+        if (params.onSelect) params.onSelect('defaultselect', item);
+
       });
 
       if (bounds)

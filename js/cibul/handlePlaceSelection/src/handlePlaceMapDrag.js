@@ -3,14 +3,15 @@ var handlePlaceMapDrag = function(params) {
   params = extend({
     canvas: false, // required
     templates: {
-      main: '<div class="js_drag_map selection-map"></div><div class="js_actions"><a class="js_select action" href="#"><i class="icon-arrow-right"></i><span><%= select %></span></a></div>',
+      main: '<span><%= manualMarkDetail %></span><div class="js_drag_map selection-map"></div><div class="js_actions"><a class="js_select action" href="#"><i class="icon-arrow-right"></i><span><%= select %></span></a></div>',
     },
     selectors: {
       map: '.js_drag_map',
       select: '.js_select'
     },
     labels: {
-      select: 'select'
+      select: 'select',
+      manualMarkDetail: 'type a location name and address and then adjust the marker to the desired location by drag and drop'
     },
     position: false,
     onSelect: false,
@@ -94,6 +95,8 @@ var handlePlaceMapDrag = function(params) {
       icon: params.icon
     });
 
+    mapLib.setOnMarkerEvent(marker, 'dragend', _markerPositionChange);
+
   },
 
   _updateMarkerPosition = function() {
@@ -101,6 +104,16 @@ var handlePlaceMapDrag = function(params) {
     mapLib.setMarkerPosition(marker, position);
 
     mapLib.setCenter(map, position);
+
+    _markerPositionChange()
+
+  },
+
+  _markerPositionChange = function() {
+
+    var latLng = mapLib.getPosition(marker);
+
+    if (params.onSelect) params.onSelect('defaultselect', {lat: latLng[0], lng: latLng[1]});
 
   };
 

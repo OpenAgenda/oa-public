@@ -35,11 +35,6 @@
 
 #event-edit .info * { font-size: 1em; }
 
-#event-edit .embed-menu {
-  border: 1px solid #ddd;
-  padding: 1em;
-}
-
 #event-edit .description input,
 #event-edit .description textarea { 
   width: 100%;
@@ -98,10 +93,11 @@
 #event-edit .place .suggestion > span { display: block; }
 
 
-#event-edit .place ul .suggestion { padding-bottom: 0.5em; }
+#event-edit .place ul .suggestion { margin-bottom: 0.5em; cursor: pointer; }
+#event-edit .place ul .suggestion.active { padding-left: 0.5em; border-left: 1px solid #ddd; }
 #event-edit .place ul .suggestion .address { margin-bottom: -0.2em; }
 
-#event-edit .manual-link > * { color: #999; font-size: 0.8em; padding-right: 0.4em;}
+#event-edit .manual-link > * { padding-right: 0.4em;}
 
 
 

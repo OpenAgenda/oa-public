@@ -10,6 +10,8 @@ var inputWidget = {
 
     this.inputElems = [];
 
+    this.error = false;
+
     this.params = params = extend({
       name: false, // not compulsory, but it would be nice
       canvas: false,
@@ -65,6 +67,12 @@ var inputWidget = {
       },
       setError: function(error) {
         self._onValidationChange(error);
+      },
+      validate: function() {
+        return self.controller.validate(self.controller.get());
+      },
+      getError: function() {
+        return self.error;
       },
       setValid: function() {
         self._onValidationChange();
@@ -147,10 +155,20 @@ var inputWidget = {
 
   _onValidationChange: function(err) {
 
-    if (err)
+    if (err) {
+
       this._displayError(err);
-    else
+
+      this.error = err;
+
+    }
+    else {
+
       this._displayInfo();
+
+      this.error = false;
+    }
+      
 
     if (this.onValidChange) this.onValidChange(err);
 

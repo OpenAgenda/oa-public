@@ -7,7 +7,7 @@ var testevent = {
   tags: { fr: 'concert, musique, son', en: 'concert, music, sound', es: 'concierto, musica, sonido' },
   image: '1364.jpg',
   locations: [
-    { 
+    /*{ 
       uid: 46541645,
       name: 'La Grande Arche', 
       address: 'Esplanade de la Grande Arche, Nanterre', 
@@ -57,6 +57,6 @@ var testevent = {
         { date: '2013-08-02', begin: '13:00', end: '15:00', uid: 70456843 },
         { date: '2010-03-01', begin: '10:00', end: '15:00', uid: 44532178 },
       ]
-    }
+    }*/
   ]
 }

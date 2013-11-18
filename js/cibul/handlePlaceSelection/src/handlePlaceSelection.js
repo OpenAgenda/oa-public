@@ -1,8 +1,9 @@
 var handlePlaceSelection = function(params) {
 
   params = extend({
-    canvas: false,         // required. where the selection widget will go
-    onSelect: false,       // required. called when a place has been chosen
+    canvas: false,          // required. where the selection widget will go
+    onSelect: false,        // required. called when a place has been chosen
+    onDefaultSelect: false, // required. whenever a location selection can be deduced
     onHeightChange: false, 
     templates: {
       main: '<ul class="place-suggestion-tabs js_suggestion_tabs"><li class="js_tab active"><a href="#"><i class="icon-list"></i></a></li><li class="js_tab"><a href="#"><i class="icon-map-marker"></i></a></li></ul><div class="js_suggestions place-suggestions"></div>',
@@ -87,8 +88,10 @@ var handlePlaceSelection = function(params) {
 
         if (name=='map')
           show(MAP, { highlight: item });
-        else
+        else if (name=='select')
           params.onSelect(item);
+        else if (name=='defaultselect')
+          params.onDefaultSelect(item);
           
       },
       map: params.map,

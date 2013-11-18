@@ -4,22 +4,28 @@ var handlePlaceSelectionList = function(params) {
     canvas: false, // required; 
     templates: {
       main: '<ul></ul>',
-      item: '<li class="suggestion"><span class="name"><%= name %></span><span <% if (name) { %>class="address"<% } %>><%= address %><span class="actions"></span></span></li>',
+      item: '<li class="suggestion js_suggestion"><span class="name"><%= name %></span><span <% if (name) { %>class="address"<% } %>><%= address %><span class="actions"></span></span></li>',
       action: '<a href="#" class="action"><% if (icon) { %><i class="<%= icon %>"></i><% } %><% if (label) { %><span><%= label %></span><% } %></a>'
     },
     labels: {
       seeMap: 'see map',
       select: 'select'
     },
+    selectors: {
+      item: '.js_suggestion'
+    },
     actions: [
       { name: 'map', icon: 'icon-map-marker', label: 'seeMap' },
       { name: 'select', icon: 'icon-arrow-right', label: 'select' }
     ],
+    classes: {
+      active: 'active'
+    },
     maxListItems: 10,
     onSelect: function(name, item) { console.log(name); console.log(item); }
   }, params);
 
-  var elem, list,
+  var elem, list, actionFlag = false,
 
   set = function(selection) {
 
@@ -33,8 +39,11 @@ var handlePlaceSelectionList = function(params) {
     // insert each item of the selection and their actions, give them behavior
 
     for (var i=0; i<=Math.min(selection.length-1, params.maxListItems); i++) {
-      list.appendChild(_createSelectionItem(selection[i]));
+      list.appendChild(_createSelectionItem(i, selection[i]));
     }
+
+    // first item is default
+    if (selection.length) _selectDefault(0, selection[0]);
 
 
   },
@@ -68,7 +77,7 @@ var handlePlaceSelectionList = function(params) {
 
   },
 
-  _createSelectionItem = function(item) {
+  _createSelectionItem = function(index, item) {
 
     var liCanvas = document.createElement('ul'), li;
 
@@ -80,6 +89,10 @@ var handlePlaceSelectionList = function(params) {
 
       li.appendChild(_createActionItem(item, action));
 
+    });
+
+    addEvent(li, 'click', function(e) {
+      _selectDefault(index, item);
     });
 
     return li;
@@ -96,11 +109,35 @@ var handlePlaceSelectionList = function(params) {
 
       preventDefault(e);
 
+      actionFlag = true;
+
       if (params.onSelect) params.onSelect(action.name, item);
 
     });
 
     return actionCanvas.childNodes[0];
+
+  },
+
+  _selectDefault = function(index, item) {
+
+    if (!actionFlag) {
+      if (params.onSelect) params.onSelect('defaultselect', item);
+    }
+
+    _highlightDomItem(index);
+
+    actionFlag = false;
+
+  },
+
+  _highlightDomItem = function(index) {
+
+    for (var i = els(params.canvas, params.selectors.item).length - 1; i >= 0; i--) {
+
+      (i==index?addClass:removeClass)(els(params.canvas, params.selectors.item)[i], params.classes.active);
+
+    };
 
   };
 
