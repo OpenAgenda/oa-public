@@ -63,9 +63,12 @@ var mapHandler = function(m, locations, params) {
     if (params.events.triggerEvents.selectLocation) eh.on(params.events.triggerEvents.selectLocation, _focusOnLocationById);
 
     if (params.events.triggerEvents.unselectLocation) eh.on(params.events.triggerEvents.unselectLocation, function() {
+      
       _unhighlightLocation();
       _syncBounds({restore: true});
     });
+
+    // check data given when map is enabled and set bounds
 
     if (params.events.triggerEvents.enable) eh.on(params.events.triggerEvents.enable, function(data) {
 
@@ -415,6 +418,7 @@ var mapHandler = function(m, locations, params) {
     syncOptions = extend({
       restore: false
     }, syncOptions);
+
 
     if (syncOptions.restore && history) {
 

@@ -216,10 +216,12 @@
 #program .agg .rw-item { width: 86%; }
 
 
-#program.noposter .head .ptitle { max-width: none; padding-top: 20px; }
-#program.noposter .head .ptitle h1,
-#program.noposter .head .ptitle a,
-#program.noposter .head .psub { margin-left: 0; }
+#program.noreviewposter .head .ptitle { max-width: none; padding-top: 20px; }
+#program.noreviewposter .head .ptitle h1,
+#program.noreviewposter .head .ptitle a,
+#program.noreviewposter .head .psub { margin-left: 0; }
+
+#program.noreviewposter .main { padding-top: 20px; }
 
 
 #program .howto { padding: 40px 20px; }

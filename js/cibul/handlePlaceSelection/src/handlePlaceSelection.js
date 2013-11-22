@@ -83,7 +83,7 @@ var handlePlaceSelection = function(params) {
     view = renderView[viewIndex]({
       canvas: el(elem, params.selectors.suggestions),
       onSelect: function(name, item) {
-
+        
         // if name is 'map', view should be changed to map, showing the selected marker
 
         if (name=='map')

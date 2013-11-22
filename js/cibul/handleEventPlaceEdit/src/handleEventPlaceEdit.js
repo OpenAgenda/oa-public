@@ -234,7 +234,7 @@ var handleEventPlaceEdit = function(params) {
         icon: params.icon,
         onSelect: function(item) {
 
-          location = extend(location?location:{}, item);
+          _updateLocation(item);
 
           _controlLocation(function(success, message) {
 
@@ -256,9 +256,7 @@ var handleEventPlaceEdit = function(params) {
         },
         onDefaultSelect: function(item) {
 
-          // on Default select, it should be possible to give it as an update
-
-          location = extend(location?location:{}, item);
+          _updateLocation(item);
 
           _onChange();
 
@@ -349,6 +347,14 @@ var handleEventPlaceEdit = function(params) {
     if (errorMessage.length) errorMessage.splice(0,0, params.labels.incompletePlace);
 
     callback(errorMessage.length?false:true, errorMessage.join(' '));
+
+  },
+
+  _updateLocation = function(item) {
+
+    if (location && location.uid) delete location.uid;
+
+    location = extend(location?location:{}, item);
 
   },
 

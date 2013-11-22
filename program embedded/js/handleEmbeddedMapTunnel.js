@@ -31,7 +31,7 @@ var handleEmbeddedMapTunnel = function(options) {
 
           if (data.event=='success') eh.trigger(options.events.loadSuccess, data);
 
-          if (!data.location) eh.trigger(options.events.locationSelectCancel);
+          if (!data.location && !data.uid && (data.event!=='closeevent')) eh.trigger(options.events.locationSelectCancel);
 
           if (data.uid) eh.trigger(options.events.onEventOpen, data);
 
