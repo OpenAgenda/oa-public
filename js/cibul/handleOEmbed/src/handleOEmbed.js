@@ -14,7 +14,7 @@ var handleOEmbed = function(options) {
 
 	, _run = function() {
 
-		setLinksElems(options.elements.embed.concat(options.elements.link), {linkClasses: options.linkClasses});
+		setLinksElems(options.elements.embed.concat(options.elements.link), { className: options.linkClasses });
 
     // convert links which are images
     forEach(options.elements.embed.concat(options.elements.link), function(elems) {

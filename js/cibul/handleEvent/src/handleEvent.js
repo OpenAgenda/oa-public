@@ -41,24 +41,24 @@ var handleEvent = function(controlData, options) {
 
   //var m = maps.use('osm');
   var m = options.maps=='google'?maps.use('google'):maps.use('osm', {url: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'})
-   , getHeight = (typeof makeEventHeightGetter !== 'undefined')?makeEventHeightGetter(document.getElementById('event'), options.events.heightChange):false;
+   , getHeight = (typeof makeEventHeightGetter !== 'undefined')?makeEventHeightGetter(el('#event'), options.events.heightChange):false;
 
   handleEventPlaces(controlData, m, {
-    triggeredEvents: {onLocationSelect: 'eventmapplaceselect', onLocationSelectCancel: 'eventmapplaceunselect'},
+    triggeredEvents: { onLocationSelect: 'eventmapplaceselect', onLocationSelectCancel: 'eventmapplaceunselect'},
     triggerEvents: { selectLocation: 'eventdateplaceselect' },
-    locationElem: getElementsByClassName(document, 'js_place_detail')[0],
-    showAllElem: getElementsByClassName(document, 'js_show_all_places')[0],
+    locationElem: el('.js_place_detail'),
+    showAllElem: el('.js_show_all_places'),
     generalInfoText: options.labels.placeInfo,
-    locationTitleElem: getElementsByClassName(document, 'js_placename')[0],
+    locationTitleElem: el('.js_placename'),
     mapElem: options.elems.map,
     iconRoot: options.iconRoot,
     template: options.templates.placeDetail
   });
 
   handleEventDates(controlData, {
-    monthElem: getElementsByClassName(document, 'js_months')[0],
-    dateElem: getElementsByClassName(document, 'js_dates')[0],
-    filterElem: getElementsByClassName(document, 'js_date_filter_cancel')[0],
+    monthElem: el('.js_months'),
+    dateElem: el('.js_dates'),
+    filterElem: el('.js_date_filter_cancel'),
     events: {
       triggered: { selectLocation: 'eventdateplaceselect', layoutChange: options.events.heightChange },
       trigger: { selectCancel: 'eventmapplaceunselect', selectLocation: 'eventmapplaceselect' }
@@ -77,8 +77,8 @@ var handleEvent = function(controlData, options) {
   });
 
   handleLanguages({
-    tabsElem: getElementsByClassName(document, 'js_event_language_list')[0],
-    contentElems: getElementsByClassName(document, 'js_lang'),
+    tabsElem: el('.js_event_language_list'),
+    contentElems: els('.js_lang'),
     template: '<div><div class="js_lang_select language-select"><span>language</span><i class="icon-caret-down"></i></div><ul class="js_language_menu wsq language-menu"><% for (index in tabs) { %><li <% if (tabs[index].active) {%>class="active"<% } %>><%= tabs[index].label %></li><% } %></ul></div>',
     labels: options.cultureLabels,
     onClick: function() {
@@ -88,8 +88,8 @@ var handleEvent = function(controlData, options) {
 
   handleOEmbed({
     elements: {
-      link: getElementsByClassName(document, 'js_links'),
-      embed: getElementsByClassName(document, 'js_embeds'),
+      link: els('.js_links'),
+      embed: els('.js_embeds'),
     },
     oembedUrl: options.oembedUrl,
     heightChange: options.events.heightChange

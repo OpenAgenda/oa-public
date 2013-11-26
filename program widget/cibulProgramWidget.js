@@ -196,6 +196,8 @@
 
     this.onProgramReceive = function(programData) {
 
+      console.log(programData);
+
       if (programData.success) {
 
         var html = '';
