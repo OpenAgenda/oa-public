@@ -21,10 +21,11 @@ var handleTags = function(params) {
       addTag: 'newtag'
     },
     templates: {
-      head: ['<div class="pblock-head"><i class="icon-tags"></i><span>', params.labels.tags,'</span></div>'].join(''),
-      body: '<div class="pblock-body"><ul class="ptags js_tags"></ul></div>',
+      head: ['<div class="pblock-head at5"><i class="icon-tags"></i><span>', params.labels.tags,'</span></div>'].join(''),
+      body: '<div class="pblock-body"><ul class="ptags content js_tags"></ul></div>',
       item: '<a href="#"><%= tag %></a><button>&times</button>'
-    }
+    },
+    canvas: false
   }, params);
 
   var enabled = true, element,
@@ -34,6 +35,8 @@ var handleTags = function(params) {
   run = function() {
 
     element = _createElement();
+
+    params.canvas.parentNode.removeChild(params.canvas);
 
     for (tag in params.tags)
       _addTagBehavior(_addTag(tag));
@@ -81,11 +84,20 @@ var handleTags = function(params) {
 
   _createElement = function() {
 
-    var html = params.templates.head + params.templates.body;
+    var canvas = document.createElement('div')
+      , tagElem;
 
-    params.canvas.insertAdjacentHTML('afterbegin', html);
+    canvas.innerHTML = params.templates.head + params.templates.body;
 
-    return getElementsByClassName(params.canvas, params.classes.list)[0];
+    while (canvas.childNodes.length) {
+
+      if (els(canvas.childNodes[0], '.' + params.classes.list).length) tagElem = el(canvas.childNodes[0], '.' + params.classes.list);
+
+      params.canvas.insertAdjacentElement('beforebegin', canvas.childNodes[0]);
+
+    }
+
+    return tagElem;
   },
 
   _addTag = function(tag) {

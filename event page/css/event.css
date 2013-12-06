@@ -10,15 +10,12 @@
 
 #event.cbody > .wsq { padding: 0 0 20px; }
 
-#event .main { max-width: 500px; padding: 10px; }
+#event .main { max-width: 500px; }
 #event .main .section { padding: 10px; }
 
 #event .poster { padding: 10px 20px 20px; }
 #event .poster img { width: 100%; max-width: 300px; }
 
-
-
-#event .sec { max-width: 310px; margin: 0 20px 0 0; padding: 10px; }
 #event .sec > p,  
 #event .sec .shares { padding: 0 20px; }
 

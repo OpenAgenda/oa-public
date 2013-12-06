@@ -313,18 +313,21 @@ body.embedded-body { background: transparent; }
 .cbody > div { display: inline-block; padding: 10px; }
 @media all and (max-width: 500px) { .cbody { margin: 0; } }
 
-.main { max-width: 600px; }
+.main { width: 600px; }
 .main, .sec { position: relative; display: inline-block; vertical-align: top; }
 .sec { width: 320px; margin: 0 10px 0 0; }
 .sec.rgt { margin: 0 0 0 10px; float: right; }
 
-@media all and (max-width: 1000px) { .main { width: 500px!important; } }
-@media all and (max-width: 900px) { .main { width: 400px!important; } }
+@media all and (max-width: 1000px) { 
+  .main { width: 460px; margin: 0; } 
+  .sec { width: 260px; margin: 0; }
+}
 
 @media screen and (max-width: 760px) {
   .main { display: block; }
-  .main, .sec { width: auto; max-width: 500px; margin: 0 auto; }
-  .sec.rgt { float: none; margin: 0; }
+  .main, .sec { width: auto!important; max-width: 500px; margin: 0 auto; }
+  .sec.rgt { float: none; margin:0; }
+  .sec { padding-bottom: 1em; display: block; }
 }
 
 .narrow { max-width: 600px; }
@@ -332,15 +335,6 @@ body.embedded-body { background: transparent; }
 .main .header h1 { display: inline-block; font-size: 20px; font-weight: bold; padding: 0 50px 10px 0; } 
 .main .header h2 { font-size: 20px; }
 
-
-
-#event-page.page,
-#review-page.page,
-#user-page.page { background: #fff; margin: 20px auto; width: 940px; position: relative; padding-bottom: 60px; } 
-
-.mobile #event-page.page,
-.mobile #review-page.page,
-.mobile #user-page.page { background: #fff; margin: none; width: auto; padding-bottom: none; margin: 0;}
 
 
 .page.basic { background:white; padding: 10px 20px; } /* proposed - used for basic pages */
@@ -354,14 +348,6 @@ body.embedded-body { background: transparent; }
   /* z-index: -1; */
 }
 
-
-#event-page #page-header,
-.publisher #page-header { border-bottom: none; padding: 60px 60px 30px; background: #fff; position: relative; }
-
-.mobile #page-header img { float: left; }
-
-
-#page-header h1 { color: #444444; line-height: 40px; }
 
 .page-tummy { background: #fff; clear: both; min-height: 600px; position: relative; }
 

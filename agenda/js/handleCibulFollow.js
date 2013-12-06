@@ -5,7 +5,8 @@ var handleCibulFollow = function(canvasElem, followers, params) {
     follow: { template: '<a href="#"><i class="icon-arrow-right"></i><span>follow on cibul</span></a>', link: false},
     unfollow: { template: '<a href="#"><i class="icon-remove"></i><span>unfollow</span></a>', link: false},
     disabledClass: 'disabled',
-    loginCallback: false
+    loginCallback: false,
+    displayNoneClass: 'display-none'
   }, params);
 
   var requesting = false,
@@ -16,7 +17,10 @@ var handleCibulFollow = function(canvasElem, followers, params) {
     
   },
   _setLink = function(type) {
-    _removeLink();
+
+    var prevElem = lElem?lElem:false;
+
+    if (prevElem) addClass(prevElem, params.displayNoneClass);
 
     lElem = document.createElement('li');
     lElem.innerHTML = params[type].template;
@@ -27,10 +31,13 @@ var handleCibulFollow = function(canvasElem, followers, params) {
       _processRequest(type);
     });
 
-    canvasElem.insertAdjacentElement('afterbegin', lElem);
-  },
-  _removeLink = function() {
-    if (lElem) canvasElem.removeChild(lElem);
+    if (prevElem) {
+      prevElem.insertAdjacentElement('afterend', lElem);
+      canvasElem.removeChild(prevElem);
+    } else {
+      canvasElem.insertAdjacentElement('afterbegin', lElem);
+    }
+
   },
   _processRequest = function(type) {
 

@@ -33,10 +33,10 @@ var createDateSelect = function(elem, dates, eventHandler, params) {
   var enabled = true,
     calendarDisplayed = false,
     calendar = false,
-    filterElem = getElementsByClassName(elem, 'filter-item'),
-    showElem = getElementsByClassName(elem, 'js_show'),
-    hideElem = getElementsByClassName(elem, 'js_hide'),
-    calendarCanvas = getElementsByClassName(elem, 'calendar-canvas')[0],
+    filterElem = els(elem, '.filter-item'),
+    showElem = els(elem, '.js_show'),
+    hideElem = els(elem, '.js_hide'),
+    calendarCanvas = el(elem, '.calendar-canvas'),
     mobile = params.mobile,
     init = function() {
 

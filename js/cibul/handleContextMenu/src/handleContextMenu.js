@@ -7,7 +7,8 @@ var handleContextMenu = function(triggerElement, contextMenuElement, eventHandle
       position: true, // position context element with script (no css prepositioned)
       left: true, // position context element on left. if not, its on right.
       bodyClickEvent: 'bodyclick',
-      openOnClick: true
+      openOnClick: true,
+      zIndex: 2
     }, params),
     init = function(){
 
@@ -59,7 +60,7 @@ var handleContextMenu = function(triggerElement, contextMenuElement, eventHandle
     extend(contextMenuElement.style, {
       display: 'none',
       position: 'absolute',
-      zIndex: '2'
+      zIndex: params.zIndex
     });
 
   },

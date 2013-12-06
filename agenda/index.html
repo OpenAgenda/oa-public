@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../css/font-awesome/font-awesome.css"/>
     <link rel="stylesheet" href="../css/howto.css"/>
 
-    <link rel="stylesheet" href="css/program.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
 
     <script type="text/javascript" src="../js/lib/common/common.js"></script>
     <script type="text/javascript" src="../js/lib/remote/remote.js"></script>
@@ -69,56 +69,30 @@
     </style>
   </head>
   <body>
-    <div id="program" class="cbody center noposter program">
+    <div id="program" class="cbody center program"><!-- noposter -->
       <div class="wsq">
-        <nav class="sec">
-          <div class="head">
-            <div class="top">
-              <!--<div class="ppic">
-                <a href="#"><img src="program.jpg"/></a>
-              </div>--><!--
-              --><div class="ptitle">
-                <h1>Centre Des Arts d'Enghien</h1>
-                <a class="url" href="59rivoli.org">59rivoli.org</a>
-              </div>
-            </div>
-            <p>Toute la programmation événement du célèbre Aftersquat de la rue de Rivoli et un petit lien: http://cibul.net</p>
-            <ul class="actions js_program_actions">
-              <li>
-                <a class="js_follow_link"><i class="icon-arrow-right"></i><span>suivre</span></a>
-                <ul class="follow-menu wsq js_follow_menu">
-                  <li class="rss-feed"><a href="#"><i class="icon-rss"></i><span>flux rss</span></a></li>
-                  <li class="google-play>"><a href="#"><i class="icon-play"></i><span>Google Play</span></a></li>
-                  <li class="app-store"><a href="#"><i class="icon-mobile-phone"></i><span>App Store</span></a></li>
-                </ul>
-              </li>
-              <li><a href="#"><i class="icon-external-link"></i><span>exporter</span></a></li>
-              <li>
-                <a class="js_share"><i class="icon-share"></i><span>partager</span></a>
-                <ul class="share-menu wsq js_share_menu"></ul>
-              </li>
-            </ul>
+        <header>
+          <a href="#"><img src="http://cibul.s3.amazonaws.com/review_le-chinois_01.jpg"/></a><!--
+          --><div class="title js_edit">
+            <h1>Centre Des Arts d'Enghien</h1>
+            <p>Toute la programmation événement du célèbre http://cibul.net Aftersquat de la rue de Rivoli</p>
+            <a class="url" href="59rivoli.org">59rivoli.org</a>
           </div>
-            
+          <ul class="actions js_program_actions">
+            <!--<li><a href="#"><i class="icon-rss"></i><span>flux rss</span></a></li>-->
+            <li><a href="https://www.google.com/calendar/render?cid=http://cibul.net/program/40445499.fr.ical"><i class="icon-google-plus"></i><span>google agenda</span></a></li>
+            <li><a href="#"><i class="icon-external-link"></i><span>exporter</span></a></li>
+            <li>
+              <a class="js_share"><i class="icon-share"></i><span>partager</span></a>
+              <ul class="share-menu wsq js_share_menu"></ul>
+            </li>
+            <li><a><i class="icon-share-alt"></i><span>utiliser en tant que source</span></a></li>
+          </ul>
+        </header>
+        <nav class="sec">
           <div class="pblock first js_nav_widgets">
-            <div class="pblock-head">
-              <i class="icon-bookmark"></i><span>Catégories</span>
-            </div>
-            
-            <div class="pblock-body"><div class="content pcat"></div></div>
 
-            <div class="pblock-head">
-              <i class="icon-calendar"></i><span>Dates</span>
-            </div><!--
-            --><div class="pblock-body"><div class="pdates content">
-              <span class="filter-item active display-none"><span>10/10/2012 - 12/10/2012</span><i class="icon-remove"></i></span>
-              <a class="url js_show">séléctionner</a>
-              <div class="calendar-canvas display-none">
-              </div>
-              <a class="url js_hide display-none right">fermer</a>
-            </div></div><!--
-
-            --><div class="pblock-head">
+            <div class="pblock-head at2">
               <i class="icon-map-marker"></i><span>Lieux</span>
             </div><!--
             --><div class="pplaces pblock-body">
@@ -127,6 +101,23 @@
                 <div class="js_map_canvas map-canvas"></div>
               </div>
             </div>
+
+            <div class="pblock-head at3">
+              <i class="icon-bookmark"></i><span>Catégories</span>
+            </div>
+            <div class="pblock-body"><div class="content pcat"></div></div>
+
+            <div class="pblock-head at4">
+              <i class="icon-calendar"></i><span>Dates</span>
+            </div><!--
+            --><div class="pblock-body"><div class="pdates content">
+              <span class="filter-item active display-none"><span>10/10/2012 - 12/10/2012</span><i class="icon-remove"></i></span>
+              <div class="calendar-canvas">
+              </div>
+            </div></div>
+
+            <div class="js_tag_widget"></div>
+
           </div>
         </nav><!--
 
@@ -151,15 +142,15 @@
       // empty program
       //var programUrl = 'http://d.cibul.net/frontend_dev.php/empty/fr';
 
-      //var programUrl = 'http://d.cibul.net/frontend_dev.php/la-gargouille/fr';
-      var programUrl = 'http://d.cibul.net/frontend_dev.php/festival-culture-bar-bars-2013/fr';
+      var programUrl = 'http://d.cibul.net/frontend_dev.php/la-gargouille/fr';
+      //var programUrl = 'http://d.cibul.net/frontend_dev.php/festival-culture-bar-bars-2013/fr';
 
       runProgramBehavior({
         url: programUrl,
         hasFeature: true,
         currentUrl: programUrl,
         debug: {
-          //user: 'kaore-olafsson',
+          user: 'kaore-olafsson',
           aggregator: true
         },
         iconRoot: '/images/',
@@ -174,17 +165,16 @@
           tagAdd: 'http://d.cibul.net/frontend_dev.php/programarticle/tagsubmit/aId',
           tagRemove: 'http://d.cibul.net/frontend_dev.php/programarticle/tagremove/aId',
           empty: 'http://d.cibul.net/frontend_dev.php/howto/newprogram/fr',
-          admin: '#'
         },
         links: { follow: false, unfollow: false, addEvent: false, editors: false },
         labels: {
-          edit: 'edit', 
+          edit: 'manage', 
           editors: 'editors',
           remove: 'remove', 
           editCategory: 'edit category', 
           addTag: 'edit tags', 
           add: 'Add',
-          cibulFollow: 'follow on cibul', 
+          cibulFollow: 'follow', 
           cibulNoFollow: 'cancel follow', 
           addEvent: 'Add an Event',
           tags: 'Tags',
@@ -196,7 +186,8 @@
           tagOne: 'Add tags one by one',
           admin: 'manage',
           mapFilter: 'résultats affichés sur la carte',
-          searchInfo: 'saisissez le nom d\'un lieu ou d\'une ville'
+          searchInfo: 'saisissez le nom d\'un lieu ou d\'une ville',
+          listTab: 'Liste'
         },
         templates: {
           article: ['<li class="pli" data-author="<%= values.author %>" data-id="<%= values.id %>">',

@@ -1,8 +1,7 @@
 var runProgramBehavior = function(params) {
 
   var eh = sEventHandler.getInstance()
-    , mobile = false
-    , mapTabOpen = false;
+    , mobile = false;
 
 
   var init = function() {
@@ -21,13 +20,17 @@ var runProgramBehavior = function(params) {
         locationsList: el('.js_location_list'),
         shareLink: el('.js_share'),
         shareCanvas: el('.js_share_menu'),
-        actions: el('.js_program_actions')
+        actions: el('.js_program_actions'),
+        edit: el('.js_edit'),
+        tags: el('.js_tag_widget'),
+        tabCanvas: el('.js_nav_widgets'),
       },
       lang: 'en',
       iconRoot: 'images/',
-      labels: {tags: 'Tags', aggLink: 'use as sources', currentTags: 'Current Tags', programTags: 'Program Tags', addTag: 'Add a Tag', add: 'Add' }, // required
+      labels: { tags: 'Tags', aggLink: 'use as sources', currentTags: 'Current Tags', programTags: 'Program Tags', addTag: 'Add a Tag', add: 'Add' }, // required
       links: { follow: false, unfollow: false, addEvent: false },
-      lightboxClasses: {frame: 'wsq lightbox-frame', canvas: 'lightbox-canvas', buttonBox: 'lightbox-buttons', button: 'small button'}
+      lightboxClasses: {frame: 'wsq lightbox-frame', canvas: 'lightbox-canvas', buttonBox: 'lightbox-buttons', button: 'small button'},
+      callbacks: {}
     }, params);
 
     params.templates = extend({ 
@@ -58,9 +61,11 @@ var runProgramBehavior = function(params) {
 
       initEdition(controlData.m?true:false, controlData, processedData[3], processedData[2]);
 
-      initAddEventLink(controlData.o, processedData[2], controlData.c);
+      
 
       initFollowBehavior(controlData.f);
+
+      initAddEventLink(controlData.o, processedData[2], controlData.c);
 
       // no need to pass this point if program is empty
       if (!Object.size(controlData.a)) return;
@@ -79,6 +84,18 @@ var runProgramBehavior = function(params) {
 
       initMap(processedData[0]);
 
+      addMobileDisplayBehavior(els('.pblock-head'), els('.pblock-body'), eh, {
+        tabCanvas: params.elems.tabCanvas,
+        listCanvas: params.elems.list.parentNode,
+        widthThreshold: 760,
+        triggeredEvents: { mobileOn: 'mobileon', mobileOff: 'mobileoff', tabActivated: 'tabactivated' },
+        triggerEvents: { loading: 'lhLoading', loadSuccess: 'lhSuccess' },
+        templates: {
+          listTab: '<div class="pblock-head"><i class="icon-list"></i><span><%= listTab %></span></div>'
+        },
+        labels: params.labels
+      });
+
     }, params.control);
 
     eh.on('mobileon', function(){
@@ -93,19 +110,15 @@ var runProgramBehavior = function(params) {
     handleLock(params.elems.list, {lock: params.events.lock, unlock: params.events.unlock });
 
     eh.on('tabactivated', function(data){
-      mapTabOpen = data.i==2?true:false;
-      eh.trigger('resize');
-    });
 
-    addMobileDisplayBehavior(els('.pblock-head'), els('.pblock-body'), eh, {
-      widthThreshold: 740,
-      triggeredEvents: { mobileOn: 'mobileon', mobileOff: 'mobileoff', tabActivated: 'tabactivated' },
-      triggerEvents: { loading: 'lhLoading' }
+      // that is the map
+      if (data.i==0) eh.trigger('resize');
+
     });
 
     repeatingSectionsRemove(el('.list-items'), 'plis', eh, 'lhSuccess');
 
-    setLinksElems(els(el('.head'), 'p'), {targetBlank: true, linkClasses: 'url'});
+    setLinksElems(els(el('.title'), 'p'), {targetBlank: true, className: 'url'});
 
     _isAggregationEnabled(_initSourceMenu);
 
@@ -113,7 +126,7 @@ var runProgramBehavior = function(params) {
 
   _initSocialShares = function() {
 
-    handleContextMenu(params.elems.shareLink, params.elems.shareCanvas, eh);
+    handleContextMenu(params.elems.shareLink, params.elems.shareCanvas, eh, { zIndex: 3 });
 
     handleShares({
       url: params.url,
@@ -208,7 +221,7 @@ var runProgramBehavior = function(params) {
     handleTags({
       tags: tags,
       events: {newSelect: 'load', loading: 'lhLoading', loadSuccess: 'lhSuccess', loadFail: 'fail', addTag: 'newtag'},
-      canvas: el('.js_nav_widgets'),
+      canvas: el('.js_tag_widget'),
       labels: params.labels
     });
 
@@ -286,37 +299,11 @@ var runProgramBehavior = function(params) {
 
   initEdition = function(main, controlData, tagsData, editors) {
 
-    addEditionBehavior(el('.list-items'), 'pli', editors, {
-      triggerEvents: { refresh: 'lhSuccess' },
+    addEditionBehavior(editors, {
       isOwner: controlData.o==getCurrentUsername(),
       isMain: main,
       user: getCurrentUsername(),
-      canvas: '<span class="edit-post"><i class="icon-cog"></i><span>' + params.labels.edit + '</span></span><ul class="wsq edit-post-menu"></ul>',
-      templates: {
-        remove: '<i class="icon-remove"></i><span>' + params.labels.remove + '</span>',
-        edit: '<i class="icon-edit"></i><span>' + params.labels.edit + '</span>',
-        category: '<i class="icon-bookmark"></i><span>' + params.labels.editCategory + '</span>',
-        tag: '<i class="icon-tags"></i><span>' + params.labels.addTag + '</span>'
-      },
-      labels: params.labels,
-      edit: { template: '<a href="#"><i class="icon-cog"></i><span>' + params.labels.edit + '</span></a>', action: params.resources.edit, appendTo: el('.actions'), enabled: true },
-      admin: { template: '<a href="#"><i class="icon-edit"></i><span>' + params.labels.admin + '</span></a>', action: params.resources.admin, appendTo: el('.actions'), enabled: false },
-      actionCallback: function(name, id, elem) {
-
-        if (name=='tag') return handleTagsEdit({
-          control: controlData,
-          debug: params.debug,
-          tags: controlData.a[id].t?controlData.a[id].t:[],
-          resources: { tagAdd: params.resources.tagAdd, tagRemove: params.resources.tagRemove },
-          programTags: tagsData,
-          elem: elem,
-          labels: params.labels,
-          lightboxClasses: params.lightboxClasses,
-          id: id
-        });
-
-        params.callbacks.edit(name, id);
-      }
+      edit: { template: '<a class="button smallest" href="#"><i class="icon-cog"></i><span>' + params.labels.edit + '</span></a>', action: params.resources.edit, appendTo: params.elems.edit, enabled: true }
     });
 
   },
@@ -333,9 +320,9 @@ var runProgramBehavior = function(params) {
 
   initFollowBehavior = function(followers) {
 
-    handleContextMenu(el('.js_follow_link'), el('.js_follow_menu'), eh);
+    //handleContextMenu(el('.js_follow_link'), el('.js_follow_menu'), eh);
 
-    handleCibulFollow(el('.js_follow_menu'), followers, {
+    handleCibulFollow(el('.actions'), followers, {
       user: getCurrentUsername(),
       follow: { template: '<a href="#"><i class="icon-arrow-right"></i><span>' + params.labels.cibulFollow + '</span></a>', link: params.links.follow },
       unfollow: { template: '<a href="#"><i class="icon-remove"></i><span>' + params.labels.cibulNoFollow + '</span></a>', link: params.links.unfollow },
@@ -346,8 +333,11 @@ var runProgramBehavior = function(params) {
 
   initAddEventLink = function(owner, editors, collaborative) {
 
-    if (collaborative || (owner==getCurrentUsername()) || (typeof editors[getCurrentUsername()] != 'undefined'))
-      el('.js_program_actions').insertAdjacentHTML('afterbegin', '<li class="add-event"><a class="add-event smallest button" href="' + params.links.addEvent + '"><i class="icon-plus"></i><span>' + params.labels.addEvent + '</span></a></li>');
+    if (collaborative || (owner==getCurrentUsername()) || (typeof editors[getCurrentUsername()] != 'undefined')) {
+
+      params.elems.actions.insertAdjacentHTML('afterbegin', '<li class="add-event"><a class="add-event smallest button" href="' + params.links.addEvent + '"><i class="icon-plus"></i><span>' + params.labels.addEvent + '</span></a></li>');
+
+    }
 
   },
 
