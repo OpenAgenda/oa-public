@@ -66,7 +66,7 @@ var handleHeader = function(params) {
 
   _runLogged = function() {
 
-    handleContextMenu(getElementsByClassName(document, 'js_profile')[0], getElementsByClassName(document, 'js_profile_menu')[0], new EventHandler(), { left: false });
+    handleContextMenu(el('.js_profile'), el('.js_profile_menu'), new EventHandler(), { left: false });
 
     // and needs to have logged values set in fields
     if (session.thumbnail) $('.js_user_thumb').attr('src', session.thumbnail);
@@ -82,8 +82,8 @@ var handleHeader = function(params) {
 
   _toggleDisplayedElements = function() {
 
-    forEach(getElementsByClassName(document, 'js_not_logged'), function(elem) { (session.logged?addClass:removeClass)(elem, 'display-none'); });
-    forEach(getElementsByClassName(document, 'js_logged'), function(elem) { (session.logged?removeClass:addClass)(elem, 'display-none'); });
+    forEach(els('.js_not_logged'), function(elem) { (session.logged?addClass:removeClass)(elem, 'display-none'); });
+    forEach(els('.js_logged'), function(elem) { (session.logged?removeClass:addClass)(elem, 'display-none'); });
 
   },
 

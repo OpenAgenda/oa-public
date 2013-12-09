@@ -288,7 +288,7 @@ var runProgramBehavior = function(params) {
 
   initCalendar = function(dates) {
 
-    createDateSelect(getElementsByClassName(document, 'pdates')[0], dates, eh, {
+    createDateSelect(el('.pdates'), dates, eh, {
       triggerEvents: { disable: 'lhLoading', refresh: 'lhSuccess', enable: 'lhFail', mobileOn: 'mobileon', mobileOff: 'mobileoff' },
       triggeredEvents: { dateSelect: 'load' },
       mobile: mobile,

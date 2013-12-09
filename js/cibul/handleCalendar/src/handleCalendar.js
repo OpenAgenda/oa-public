@@ -34,62 +34,17 @@ var createDateSelect = function(elem, dates, eventHandler, params) {
     calendarDisplayed = false,
     calendar = false,
     filterElem = els(elem, '.filter-item'),
-    showElem = els(elem, '.js_show'),
-    hideElem = els(elem, '.js_hide'),
     calendarCanvas = el(elem, '.calendar-canvas'),
     mobile = params.mobile,
     init = function() {
 
-      showElem = showElem.length?showElem[0]:false;
-      hideElem = showElem.length?showElem[0]:false;
       filterElem = filterElem.length?filterElem[0]:false;
 
-      eventHandler.on(params.triggerEvents.mobileOn, function(){
-        _mobileOn();
-      });
+      _showCalendar();
 
-      eventHandler.on(params.triggerEvents.mobileOff, function(){
-        _mobileOff();
-      });
-
-      if (mobile) {
-        _mobileOn();
-      } else {
-        _mobileOff();
-      }
-
-      if (showElem) {
-
-        addEvent(showElem, 'click', function(e) {
-
-          if (enabled && !calendarDisplayed) {
-            _hideShowButton();
-            _showHideButton();
-            _showCalendar();
-          }
-
-        });
-
-        addEvent(hideElem, 'click', function(e) {
-
-          if (enabled && calendarDisplayed) {
-            _showShowButton();
-            _hideHideButton();
-            _hideCalendar();
-          }
-
-        });
-
-      } else {
-        _showCalendar();
-      }
-
-      addEvent(getElementsByClassName(elem, 'icon-remove')[0], 'click', function(){
+      if (filterElem) addEvent(el(filterElem, '.icon-remove'), 'click', function(){
         if (enabled) {
-          eventHandler.trigger(params.triggeredEvents.dateSelect, {
-            from: null,
-            to: null
-          });
+          eventHandler.trigger(params.triggeredEvents.dateSelect, { from: null, to: null });
         }
       });
 
@@ -123,14 +78,14 @@ var createDateSelect = function(elem, dates, eventHandler, params) {
     },
     _showFilter = function(from, to) {
 
-      filterElem.getElementsByTagName('span')[0].innerHTML = from==to?from:from + ' ' + to;
+      el(filterElem, 'span').innerHTML = from==to?from:from + ' ' + to;
 
       removeClass(filterElem, params.displayNoneClass);
 
     },
     _hideFilter = function() {
 
-      filterElem.getElementsByTagName('span')[0].innerHTML = '';
+      el(filterElem, 'span').innerHTML = '';
 
       addClass(filterElem, params.displayNoneClass);
 
@@ -164,13 +119,6 @@ var createDateSelect = function(elem, dates, eventHandler, params) {
       calendarDisplayed = true;
 
     },
-    _hideCalendar = function() {
-
-      addClass(calendarCanvas, params.displayNoneClass);
-
-      calendarDisplayed = false;
-
-    },
     _disable = function() {
 
       if (filterElem) addClass(filterElem, params.disabledClass);
@@ -184,32 +132,6 @@ var createDateSelect = function(elem, dates, eventHandler, params) {
       if (calendar) calendar.enable();
       enabled = true;
 
-    },
-    _showHideButton = function(){
-
-      if (hideElem) removeClass(hideElem, params.displayNoneClass);
-
-    },
-    _hideHideButton = function() {
-      
-      if (hideElem) addClass(hideElem, params.displayNoneClass);
-
-    },
-    _showShowButton = function(){
-      if (showElem) removeClass(showElem, params.displayNoneClass);
-    },
-    _hideShowButton = function(){
-      if (showElem) addClass(showElem, params.displayNoneClass);
-    },
-    _mobileOn = function(){
-      _showCalendar();
-      _hideShowButton();
-      _hideHideButton();
-    },
-    _mobileOff = function(){
-      _hideCalendar();
-      _showShowButton();
-      _hideHideButton();
     };
 
   init();
