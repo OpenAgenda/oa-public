@@ -31,6 +31,10 @@ function contains(a, obj) {
   return false;
 };
 
+function isArray(obj) {
+  return Object.prototype.toString.call(obj) === '[object Array]';
+};
+
 var unpack = function(encoded) {
 
   var div = document.createElement('div'); 

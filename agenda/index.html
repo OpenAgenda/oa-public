@@ -13,6 +13,13 @@
 
     <link rel="stylesheet" href="css/style.css"/>
 
+    <!-- included in mainjs. will disappear. -->
+    <script type="text/javascript" src="../js/legacy/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="../js/legacy/poppit.js"></script>
+    <script type="text/javascript" src="../js/legacy/triggerShow.js"></script>
+    <!-- end -->
+
+
     <script type="text/javascript" src="../js/lib/common/common.js"></script>
     <script type="text/javascript" src="../js/lib/remote/remote.js"></script>
     <script type="text/javascript" src="../js/lib/EventHandler/EventHandler.js"></script>
@@ -22,6 +29,7 @@
     <script type="text/javascript" src="../js/lib/lightbox/lightbox.js"></script>
     <script type="text/javascript" src="../js/lib/maps/maps.js"></script>
     <script type="text/javascript" src="../js/lib/maps/google.maps.js"></script>
+    <script type="text/javascript" src="../js/lib/loadJs/loadJs.js"></script>
 
     <script type="text/javascript" src="../js/vendors/ejs/src/ejs_production.js"></script>
     <script type="text/javascript" src="../js/vendors/spin/src/spin.min.js"></script>
@@ -85,14 +93,14 @@
             </ul>
           </div>
           <ul class="share js_share_menu">
-            <li><a href="#"><i class="icon-facebook"></i><span>like</span></a></li>
-            <li><a href="#"><i class="icon-google-plus"></i><span>share</span></a></li>
-            <li><a href="#"><i class="icon-twitter"></i><span>tweet</span></a></li>
+            <li><a class="js_social_share" href="#"><i class="icon-facebook"></i><span>like</span></a></li>
+            <li><a class="js_social_share" href="#"><i class="icon-google-plus"></i><span>share</span></a></li>
+            <li><a class="js_social_share" href="#"><i class="icon-twitter"></i><span>tweet</span></a></li>
             <li><a href="#"><i class="icon-table"></i><span>csv</span></a></li>
             <li><a href="#"><i class="icon-code"></i><span>xml</span></a></li>
             <li><a href="#"><i class="icon-calendar"></i><span>ical</span></a></li>
             <li><a href="#"><i class="icon-rss"></i><span>rss</span></a></li>
-            <li><a href="#"><i class="icon-magic"></i><span>widget</span></a></li>
+            <li><a class="js_widget_link" href="http://d.cibul.net/frontend_dev.php/la-gargouille/widgetmenu"><i class="icon-magic"></i><span>widget</span></a></li>
           </ul>
         </header>
         <nav class="sec">
@@ -170,7 +178,7 @@
           aggRemove: 'http://d.cibul.net/frontend_dev.php/program/97216733/aggregator/removeFrom/aUid',
           tagAdd: 'http://d.cibul.net/frontend_dev.php/programarticle/tagsubmit/aId',
           tagRemove: 'http://d.cibul.net/frontend_dev.php/programarticle/tagremove/aId',
-          empty: 'http://d.cibul.net/frontend_dev.php/howto/newprogram/fr',
+          empty: 'http://d.cibul.net/frontend_dev.php/howto/newprogram/fr'
         },
         links: { follow: false, unfollow: false, addEvent: false, editors: false },
         labels: {

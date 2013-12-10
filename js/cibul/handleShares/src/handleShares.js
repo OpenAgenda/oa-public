@@ -3,6 +3,7 @@ var handleShares = function(params) {
   params = extend({
     url: false,
     canvas: false,
+    links: false,
     culture: 'fr',
     locales: { en: 'en_US', fr: 'fr_FR', it: 'it_IT', es: 'es_ES' },
     fb: { appId: '395915653831339'},
@@ -10,11 +11,37 @@ var handleShares = function(params) {
     gp: true
   }, params);
 
-  var eh = sEventHandler.getInstance(),
+  var eh = sEventHandler.getInstance(), canvas,
 
   init = function() {
 
     if (!params.url) return console.log('url not set');
+
+    if (params.canvas) {
+
+      canvas = params.canvas;
+      // items can be created right away and put in canvas
+
+      _createItems();
+      
+    } else {
+      // items are added on trigger to lightbox
+      _createCanvas();
+
+      _createItems();
+
+      forEach(params.links, function(linkElem) {
+        addEvent(linkElem, 'click', function(e) {
+          preventDefault(e);
+          _openLightbox();
+        });
+      })
+
+    }
+
+  },
+
+  _createItems = function() {
 
     if (params.fb) _initFacebookLike();
 
@@ -24,12 +51,44 @@ var handleShares = function(params) {
 
   },
 
+  _createCanvas = function() {
+
+    canvas = document.createElement('ul');
+
+    _hideCanvasOnPage();
+
+  },
+
+  _hideCanvasOnPage = function() {
+
+    canvas.style.display = 'none';
+
+    el('body').insertAdjacentElement('beforeend', canvas);
+
+  },
+
+  _openLightbox = function() {
+
+    canvas.style.display = 'block';
+
+    lightbox({
+      classes: {frame: 'wsq lightbox-frame', canvas: 'lightbox-canvas'},
+      elems: [canvas],
+      beforeClose: function(frameElem) {
+        canvas = frameElem.childNodes[0];
+        _hideCanvasOnPage(); 
+      },
+      buttons: false
+    });
+
+  },
+
   _initFacebookLike = function() {
 
-    if (!document.getElementById('fb-root')) {
+    if (!el('#fb-root')) {
       var fbRoot = document.createElement('div');
       fbRoot.id = 'fb-root';
-      document.getElementsByTagName('body')[0].appendChild(fbRoot);
+      el('body').appendChild(fbRoot);
     };
 
     _addItem([
@@ -89,8 +148,7 @@ var handleShares = function(params) {
     
     var li = document.createElement('li');
     li.innerHTML = innerHTML;
-    params.canvas.appendChild(li);
-
+    canvas.appendChild(li);
   };
 
   init();

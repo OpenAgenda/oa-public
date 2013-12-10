@@ -33,7 +33,11 @@ var action = function(elem, params) {
 
     } else if (contains(['ajax', 'jsonp'], params.type)) {
 
-      remote.get(params.link, {retries: 1, timeout: 10000}, function(responseType, data) {
+      var reqParams = { retries: 1, timeout: 10000 };
+
+      if (params.type=='jsonp') reqParams.data = {format: 'jsonp'};
+
+      remote.get(params.link?params.link:elem.getAttribute('href'), reqParams, function(responseType, data) {
 
         if (responseType=='success') {
 

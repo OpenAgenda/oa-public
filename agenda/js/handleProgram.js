@@ -18,7 +18,8 @@ var runProgramBehavior = function(params) {
         map: el('.js_map_canvas'),
         search: el('.js_map_search'),
         locationsList: el('.js_location_list'),
-        shareCanvas: el('.js_share_menu'),
+        shareLinks: els('.js_social_share'),
+        widgetLink: el('.js_widget_link'),
         actions: el('.js_program_actions'),
         edit: el('.js_edit'),
         tags: el('.js_tag_widget'),
@@ -41,6 +42,8 @@ var runProgramBehavior = function(params) {
     }, params.templates?params.templates:{});
 
     _initSocialShares();
+
+    _initWidgetLink();
 
     getControlData(forEachLocationOfEachArticle, [extractLocation, extractDate, extractCurrentEditors, extractTags], function(controlData, processedData) {
 
@@ -125,11 +128,19 @@ var runProgramBehavior = function(params) {
 
   _initSocialShares = function() {
 
-    /*handleShares({
+    handleShares({
       url: params.url,
-      canvas: params.elems.shareCanvas,
+      links: params.elems.shareLinks,
       culture: params.lang
-    });*/
+    });
+
+  },
+
+  _initWidgetLink = function() {
+
+    action(params.elems.widgetLink, {
+      type: params.debug?'jsonp':'ajax'
+    });
 
   },
 

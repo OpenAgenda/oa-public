@@ -3,6 +3,7 @@
   var canvasElem = false
     , frameElem = false
     , onClose = false
+    , beforeClose = false
 
   , lightbox = function(options) {
 
@@ -30,7 +31,9 @@
     _prepare(options.classes);
 
     if (options.html)
-      _setHTMLContent(options.html);
+      _setContent(options.html);
+    else if (options.elems)
+      _setContent(options.elems);
     else if (options.message)
       _setMessageContent(options.message);
 
@@ -40,6 +43,7 @@
 
     if (options.onOpen) options.onOpen(frameElem);
     onClose = options.onClose?options.onClose:false;
+    beforeClose = options.beforeClose?options.beforeClose:false;
 
     return {
       hide: _hide
@@ -108,13 +112,18 @@
 
     canvasElem.appendChild(frameElem);
 
-    document.getElementsByTagName('body')[0].appendChild(canvasElem);
+    el('body').appendChild(canvasElem);
 
     addEvent(window, 'resize', _repositionFrame);
 
   },
 
   _clear = function() {
+
+    if (beforeClose) {
+      beforeClose(frameElem);
+      beforeClose = false;
+    }
 
     while (frameElem.childNodes.length)
       frameElem.removeChild(frameElem.childNodes[0]);
@@ -155,16 +164,22 @@
 
   },
 
-  _setHTMLContent = function(html) {
+  _setContent = function(content) {
 
-    var div = document.createElement('div');
-    div.innerHTML = html;
+    if (typeof content == 'string') {
 
-    forEach(div.childNodes, function(child) {
-      frameElem.appendChild(child);
-    });
+      var div = document.createElement('div');
 
-    forEach(frameElem.getElementsByTagName('img'), function(imgElem) {
+      div.innerHTML = content;
+
+    }
+
+    var elems = div?div.childNodes:content;
+
+    while (elems.length)
+      frameElem.appendChild(isArray(elems)?elems.shift():elems[0]);
+
+    forEach(els(frameElem,'img'), function(imgElem) {
       addEvent(imgElem, 'load', _repositionFrame);
     });
 
