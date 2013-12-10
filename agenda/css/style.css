@@ -3,7 +3,7 @@
 
 .program .main { max-width: 500px; }
 
-.program header { padding: 10px 20px 20px; max-width: 820px; background: transparent; }
+.program header { padding: 10px 20px 10px; max-width: 820px; background: transparent; }
 .program header > * { vertical-align: middle; }
 .program header img { max-width: 90px; padding: 3px 10px 0 0; vertical-align: top; }
 .program header h1 { color: #333; line-height: 26px; font-weight: normal; letter-spacing: -1px; font-size: 2em; }
@@ -17,8 +17,8 @@
 .program header .actions a > * { vertical-align: middle; display: inline-block; color: #666; }
 .program header .actions a i { padding-right: 0.3em; }
 
-.program header .actions li { display: inline-block; padding: 0 0 0.3em 1em; }
-.program header .actions li.add-event { display: block; padding-bottom: 0.5em; }
+.program header .actions li { display: block; padding: 0 0 0.3em 1em; }
+.program header .actions li.add-event { padding-bottom: 0.5em; }
 
 .program header .actions i.icon-rss { color: #FA9C39; }
 .program header .actions i.icon-arrow-right { color: #3CAD2D; }
@@ -28,6 +28,11 @@
 .program header .actions .share-menu { padding: 7px 0 0 5px; display: none; z-index: 3; }
 
 .program header a i { padding-right: 0.4em; }
+
+.program header .share { padding: 1.6em 0 0; }
+.program header .share li { display: inline-block; padding: 0 1em 0 0; }
+.program header .share li * { color: #ccc; }
+.program header .share:hover li * { color: #333; } 
 
 
 .program .pblock-head { padding: 5px 20px 0; }

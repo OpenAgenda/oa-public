@@ -18,7 +18,6 @@ var runProgramBehavior = function(params) {
         map: el('.js_map_canvas'),
         search: el('.js_map_search'),
         locationsList: el('.js_location_list'),
-        shareLink: el('.js_share'),
         shareCanvas: el('.js_share_menu'),
         actions: el('.js_program_actions'),
         edit: el('.js_edit'),
@@ -126,13 +125,11 @@ var runProgramBehavior = function(params) {
 
   _initSocialShares = function() {
 
-    handleContextMenu(params.elems.shareLink, params.elems.shareCanvas, eh, { zIndex: 3 });
-
-    handleShares({
+    /*handleShares({
       url: params.url,
       canvas: params.elems.shareCanvas,
       culture: params.lang
-    });
+    });*/
 
   },
 
@@ -145,7 +142,7 @@ var runProgramBehavior = function(params) {
         add: params.resources.aggAdd,
         remove: params.resources.aggRemove
       },
-      anchor: params.elems.actions,
+      anchor: params.elems.shareCanvas,
       templates: {
         programItem: params.templates.programItem,
         aggItem: params.templates.aggItem,
