@@ -24,6 +24,7 @@ var runProgramBehavior = function(params) {
         edit: el('.js_edit'),
         tags: el('.js_tag_widget'),
         tabCanvas: el('.js_nav_widgets'),
+        shareCanvas: el('.js_share_menu')
       },
       lang: 'en',
       iconRoot: 'images/',

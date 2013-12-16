@@ -1,4 +1,4 @@
-(function() {
+if (typeof window.lightbox == 'undefined') (function() {
 
   var canvasElem = false
     , frameElem = false
@@ -147,20 +147,32 @@
 
     if (canvasElem.style.display == 'none') return;
 
-    extend(frameElem.style, {top: 0, left: 0});
-
     _positionFrame();
 
   },
 
   _positionFrame = function() {
 
-    frameElem.style.display = 'inline-block';
-
     extend(frameElem.style, {
-      top: Math.round((canvasElem.offsetHeight - frameElem.offsetHeight)/2) + 'px',
-      left: Math.round((canvasElem.offsetWidth - frameElem.offsetWidth)/2) + 'px'
+      display: 'inline-block',
+      left: Math.round((canvasElem.offsetWidth - frameElem.offsetWidth)/2) + 'px',
+      top: 0,
+      maxHeight: 'none',
+      overflowY: 'hidden'
     });
+
+    if (frameElem.offsetHeight > windowInnerHeight()) {
+
+      extend(frameElem.style, {
+        maxHeight: (windowInnerHeight()-20) + 'px',
+        overflowY: 'scroll'
+      });
+
+    } else {
+
+      extend(frameElem.style, { top: Math.round((canvasElem.offsetHeight - frameElem.offsetHeight)/2) + 'px' });
+
+    }
 
   },
 

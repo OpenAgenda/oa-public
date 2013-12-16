@@ -25,9 +25,9 @@ var runAddButtonBehavior = function(params) {
 
     if (!params.collaborative) return;
 
-    forEach(els(params.selectors.disabled), function(elem) { addClass(elem, params.classes.none)} );
+    forEach(els(params.selectors.disabled), function(elem) { addClass(elem, params.classes.none); });
 
-    forEach(els(params.selectors.enabled), function(elem) { removeClass(elem, params.classes.none)});
+    forEach(els(params.selectors.enabled), function(elem) { removeClass(elem, params.classes.none); });
 
     _extractFormLayout(params.initLayout);
     
@@ -78,7 +78,7 @@ var runAddButtonBehavior = function(params) {
 
   _updateFrame = function() {
 
-    formFrame.src = params.res.sandbox.addUrlParameters(extend({key: params.key }, currentLayout));
+    formFrame.src = params.res.sandbox.addUrlParameters(extend({ key: params.key }, currentLayout));
     formFrame.style.height = params.height + 'px';
 
   };

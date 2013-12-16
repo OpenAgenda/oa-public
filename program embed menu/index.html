@@ -19,266 +19,27 @@
     <script type="text/javascript" src="../js/cibul/handleContextMenu/src/handleContextMenu.js"></script>
     <script type="text/javascript" src="../js/cibul/embedCodeField/src/embedCodeField.js"></script>
 
-    <script type="text/javascript" src="js/handleEmbedMenuList-0.2.js"></script>
-    <script type="text/javascript" src="js/handleEmbedMenuMap-0.2.js"></script>
-    <script type="text/javascript" src="js/handleEmbedMenuCategories-0.2.js"></script>
-    <script type="text/javascript" src="js/handleEmbedMenuCalendar-0.2.js"></script>
+    <script type="text/javascript" src="js/handleEmbedMenuList.js"></script>
+    <script type="text/javascript" src="js/handleEmbedMenuMap.js"></script>
+    <script type="text/javascript" src="js/handleEmbedMenuCategories.js"></script>
+    <script type="text/javascript" src="js/handleEmbedMenuCalendar.js"></script>
     <script type="text/javascript" src="js/handleEmbedMenuAddButton.js"></script>
-    <script type="text/javascript" src="js/handleEmbedMenuFacebook-0.1.js"></script>
+    <script type="text/javascript" src="js/handleEmbedMenuFacebook.js"></script>
+
+    <script type="text/javascript" src="js/toggler.js"></script>
     
     <link rel="stylesheet" href="../css/main.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="../css/admin.css" type="text/css">
     <link rel="stylesheet" href="../css/font-awesome/font-awesome.css"/>
     <link rel="stylesheet" href="css/style.css"/>
     
   </head>
   <body>
-    <div id="pem" class="cbody center">
-      <div class="wsq">
-        <nav class="sec">
-          <div class="head">
-            <h1>Programme integré</h1>
-            <h2>Paramétrage</h2>
-          </div>
-          <ul class="sidebar-item">
-
-            <li><ul class="item-notes">
-              <li><div class="item-bullet"><span>1.</span><i class="icon-hand-up"></i></div><span class="item-text">Séléctionnez la section correspondant au widget que vous voulez intégrer.</span></li>
-              <li><div class="item-bullet"><span>2.</span><i class="icon-cogs"></i></div><span class="item-text">A l'aide des contrôles de la section çi-dessous, paramétrez la mise en page du widget.</span></li>
-              <li><div class="item-bullet"><span>3.</span><i class="icon-eye-open"></i></div><span class="item-text">Visualisez les modification dans l'aperçu du widget.</span></li>
-              <li><div class="item-bullet"><span>4.</span><i class="icon-save"></i></div><span class="item-text">Une fois satisfait, sauvegardez vos modifications et récupérez le code pour le placer dans votre site.</span></li>
-            </ul></li>
-            
-            <li class="menu-item-detail js_tab_content" data-tab-indexes="0,4">
-
-              <ul>
-                <li class="menu-item-detail-section"><h2>Général</h2></li>
-                <li class="disabled js_tab_content" data-tab-indexes="0">
-                  <span>Présentation: </span>
-                  <input type="radio" name="layout[pres]" value="list" checked="checked" disabled="disabled"/>
-                  <label>Liste</label>
-                  <input type="radio" name="layout[pres]" value="tiled" disabled="disabled"/>
-                  <label>Damier</label>
-                </li>
-                <li class="disabled js_tab_content" data-tab-indexes="0">
-                  <span>Tri: </span>
-                  <select name="layout[order]" disabled="disabled">
-                    <option value="relative">Sections</option>
-                    <option value="chronological">Choronologique</option>
-                    <option value="publication">Publication</option>
-                  </select>
-                </li>
-                <li class="disabled js_tab_content" data-tab-indexes="0">
-                  <span>Evénements par chargement: </span>
-                  <select name="layout[epp]" disabled="disabled">
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
-                    <option value="15">15</option>
-                    <option value="16">16</option>
-                    <option value="17">17</option>
-                    <option value="18">18</option>
-                    <option value="19">19</option>
-                    <option value="20">20</option>
-                    <option value="21">21</option>
-                    <option value="22">22</option>
-                    <option value="23">23</option>
-                    <option value="24">24</option>
-                  </select>
-                </li>
-                <li class="disabled">
-                  <span>Langue: </span>
-                  <select disabled="disabled" name="layout[lang]">
-                    <option value="en" selected="selected">English</option>
-                    <option value="fr">Français</option>
-                    <option value="it">Italiano</option>
-                  </select>
-                </li>
-                <li class="menu-item-detail-section"><h2>Texte</h2></li>
-                <li class="disabled">
-                  <span>Police de caractères:</span>
-                  <select disabled="disabled" name="layout[fontfamily]">
-                    <option value="arial" selected="selected">Arial</option>
-                    <option value="georgia">Georgia</option>
-                    <option value="courier new">Courier New</option>
-                    <option value="trebuchet">Trebuchet maximum-scale</option>
-                  </select>
-                </li>
-                <li class="disabled">
-                  <span>Textes principaux: </span>
-                  <input class="js_bgcolor" value="#333" name="layout[color1]" size="2"/>
-                  <div class="colorbox js_color_indicator" style="background-color:#333;"></div>
-                  <div class="js_color_context color-menu wsq">
-                    <div class="picker" id="picker"></div>
-                    <div class="slide" id="slide"></div>
-                  </div>
-                </li>
-                <li>
-                  <span>Textes secondaires: </span>
-                  <input class="js_bgcolor" value="#666" name="layout[color2]" size="2"/>
-                  <div class="colorbox js_color_indicator" style="background-color:#666;"></div>
-                  <div class="js_color_context color-menu wsq">
-                    <div class="picker" id="picker2"></div>
-                    <div class="slide" id="slide2"></div>
-                  </div>
-                </li>
-                <li>
-                  <span>Bordures: </span>
-                  <input class="js_bgcolor" value="#ddd" name="layout[color3]" size="2"/>
-                  <div class="colorbox js_color_indicator" style="background-color:#ddd;"></div>
-                  <div class="js_color_context color-menu wsq">
-                    <div class="picker" id="picker3"></div>
-                    <div class="slide" id="slide3"></div>
-                  </div>
-                </li>
-                <li>
-                  <span>liens & actions: </span>
-                  <input class="js_bgcolor" value="#0645ad" name="layout[color4]" size="2"/>
-                  <div class="colorbox js_color_indicator" style="background-color:#0645ad"></div>
-                  <div class="js_color_context color-menu wsq">
-                    <div class="picker" id="picker4"></div>
-                    <div class="slide" id="slide4"></div>
-                  </div>
-                </li>
-                <li class="disabled">
-                  <span>Taille: </span>
-                  <select disabled="disabled" name="layout[fontsize]">
-                    <option value="12">12px</option>
-                    <option value="13" selected="selected">13px</option>
-                    <option value="14">14px</option>
-                    <option value="15">15px</option>
-                    <option value="16">16px</option>
-                  </select>
-                </li>
-                <li class="menu-item-detail-section"><h2>Personnalisation du css</h2></li>
-                <li>
-                  <span>Saisissez votre css</span>
-                  <textarea name="customcss"></textarea>
-                  <div class="css-guidelines js_tab_content" data-tab-indexes="0">
-                    <span>Structure css de la liste:</span>
-                    <ul>
-                      <li>
-                        <span><strong>.list-items</strong>: canevas de la liste d'événements</span>
-                        <ul>
-                          <li><span><strong>.plis</strong>: tete de section</span></li>
-                          <li>
-                            <span><strong>.pli</strong>: bloc événement avec article</span>
-                            <ul>
-                              <li>
-                                <span><strong>.ei</strong>: bloc événement</span>
-                                <ul>
-                                  <li><span><strong>.evpic</strong>: canevas de l'image</span></li>
-                                  <li>
-                                    <span><strong>.evcnt</strong>: canvevas des descriptifs</span></span>
-                                    <ul>
-                                      <li><span><strong>.evtitle</strong>: titre d'un événement</span></li>
-                                      <li><span><strong>.evdesc</strong>: description courte d'un événement</span></li>
-                                      <li><span><strong>.evspacetime</strong>: lieu et dates d'un événement</span></li>
-                                      <li><span><strong>.ecat</strong>: catégorie</span></li>
-                                    </ul>
-                                </ul>
-                              </li>
-                            </ul>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-
-                    <span>Structure css d'un événement:</span>
-                    <ul>
-                      <li>
-                        <span><strong>#event</strong>: canevas de l'événement</span>
-                        <ul>
-                          <li>
-                            <span><strong>.main</strong>: informations principales de l'événement</span>
-                            <ul>
-                              <li><span><strong>.language-list</strong>: séléction des langues</span></li>
-                              <li>
-                                <span><strong>#description</strong>: section des descriptifs</span>
-                                <ul>
-                                  <li><span><strong>h1</strong>: titre</span></li>
-                                  <li><span><strong>.short</strong>: description courte</span></li>
-                                  <li><span><strong>.spacetime</strong>: info générale sur les lieux et horaires</span></li>
-                                  <li><span><strong>.tags</strong>: mots clés</span></li>
-                                  <li><span><strong>.free</strong>: description longue</span></li>
-                                </ul>
-                              </li>
-                              <li>
-                                <span><strong>#places</strong>: section des lieux</span>
-                                <ul>
-                                  <li><span><strong>.section-head</strong>: titre de la section</span></li>
-                                  <li><span><strong>.place-detail</strong>: addresse d'un lieu séléctionné</span></li>
-                                  <li><span><strong>.map</strong>: carte</span></li>
-                                </ul>
-                              </li>
-                              <li>
-                                <span><strong>#dates</strong>: section des dates et horaires</span>
-                                <ul>
-                                  <li><span><strong>.section-head</strong>: titre de la section</span></li>
-                                  <li>
-                                    <span><strong>.months</strong>: mois (si il y a plus de 10 dates)</span>
-                                    <ul>
-                                      <li>
-                                        <span><strong>li</strong>: un mois (si passé, contient la classe '.passed'</span>
-                                        <ul>
-                                          <li><span><strong>a</strong>: intitule du mois</span></li>
-                                          <li><span><strong>span</strong>: nombre de dates dans le mois</span></li>
-                                        </ul>
-                                      </li>
-                                    </ul>
-                                  </li>
-                                  <li>
-                                    <span><strong>.dates</strong>: dates</span>
-                                    <ul>
-                                      <li><span><strong>.date</strong>: intitule de la date</span></li>
-                                      <li><span><strong>ul li</strong>: horaires</span></li>
-                                    </ul>
-                                  </li>
-                                </ul>
-                              </li>
-                            </ul>
-                          </li>
-                          <li>
-                            <span><strong>.sec</strong>: informations secondaires</span>
-                            <ul>
-                              <li><span><strong>.poster</strong>: canvevas de l'affiche</span></li>
-                            </ul>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-
-                  </div>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item-detail js_tab_content display-none" data-tab-indexes="1">
-
-              <ul>
-                <li class="menu-item-detail-section"><h2>Général</h2></li>
-                <li class="disabled">
-                  <span>Hauteur: </span>
-                  <input class="js_map_height" name="layout[mapheight]" maxlength="4" size="4" value="300"/><span> px</span>
-                </li>
-                <li class="disabled">
-                  <span>Largeur: </span>
-                  <div><input type="radio" name="layout[mapautowidth]" checked="checked" value="1"/> <label>toute la largeur</label></div>
-                  <div><input type="radio" name="layout[mapautowidth]" value="0"/> <input maxlength="4" size="3" type="text" disabled="disabled" class="js_map_width" name="layout[mapwidth]" class="js_map_width" value="500"/><span>px</span></div>
-                </li>
-              </ul>
-
-            </li>
-          </ul>
-        </nav>
-        <div class="main">
+    <div class="program cbody center admin">
+      <div class="wsq" id="review-admin-menu">
+        <div id="pem" class="main">
 
           <div class="main-head">
-            <form method="post" class="disabled right">
-              <input class="js_update_input" name="layout" type="hidden"/>
-              <input class="button small save-changes" type="submit" value="Sauvegarder" disabled="disabled"/>
-            </form>
-
             <ul class="menu-list h">
               <li><a class="menu-item js_tab active"><i class="icon-list"></i><span>Liste</span></a></li>
               <li><a class="menu-item js_tab"><i class="icon-map-marker"></i><span>Carte</span></a></li>
@@ -288,12 +49,7 @@
             </ul>
           </div>
 
-
           <div class="js_tab_content" data-tab-indexes="0">
-
-            <h2>Evénements</h2>
-
-            <span class="embed-pres">Visualisez la liste des événements de votre programme. Un clic sur un événement affichera ses détails. Vous pouvez aussi <a class="js_embed_facebook">intégrer cette liste dans votre page Facebook</a>.</span>
 
             <h3>Intégration</h3>
             
@@ -301,25 +57,40 @@
               <input type="text" class="js_list_code" disabled="disabled"/>
               <span class="indication">placez ce code dans votre site</span>
             </div>
+
+            <label>Facebook</label> <a class="button small js_embed_facebook">Séléctionner Page</a>
             
             <h3>Aperçu</h3>
-            
-            <div>
-              <span>Couleur de fond de votre site:</span>
-              <input class="js_bgcolor" type="text" value="#FFFFFF" maxlength="7" size="4"/>
-              <div class="js_color_context color-menu wsq">
-                <div class="picker" id="backgroundpicker"></div>
-                <div class="slide" id="backgroundslide"></div>
-              </div>
-            </div>
 
             <div class="preview-canvas">
+              <div>
+                <select class="js_layout_selector">
+                  <option>Personnalisation</option>
+                  <option data-target="general">Général</option>
+                  <option data-target="text">Texte</option>
+                  <option data-target="colors">Couleurs</option>
+                  <option data-target="css">Avancé (css)</option>
+                </select>
+                <form method="post" class="disabled">
+                  <input class="js_update_input" name="layout" type="hidden"/>
+                  <button class="button" type="submit" disabled="disabled"><i class="icon-save"></i></button>
+                </form>
+                <div class="side-option">
+                  <span>Couleur de fond de votre site:</span>
+                  <input class="js_bgcolor" type="text" value="#FFFFFF" maxlength="7" size="4"/>
+                  <div class="js_color_context color-menu wsq">
+                    <div class="picker" id="backgroundpicker"></div>
+                    <div class="slide" id="backgroundslide"></div>
+                  </div>
+                </div>
+                <div class="js_layout_canvas"></div>
+              </div>
               <div class="preview">
                 <iframe class="js_list_embed"></iframe>
               </div>
             </div>
-
           </div>
+
           <div class="js_tab_content display-none" data-tab-indexes="1">
 
             <h2>Carte</h2>
@@ -335,10 +106,22 @@
             
             <h3>Aperçu</h3>
 
-            <div class="preview-canvas"><div class="preview">
-              <iframe class="cbFrame js_map_preview"></iframe>
-            </div></div>
-            
+            <div class="preview-canvas">
+              <div>
+                <select class="js_layout_selector_map">
+                  <option>Personnalisation</option>
+                  <option data-target="map-size">Dimensions</option>
+                </select>
+                <form method="post" class="disabled">
+                  <input class="js_update_input" name="layout" type="hidden"/>
+                  <button class="button" type="submit" disabled="disabled"><i class="icon-save"></i></button>
+                </form>
+                <div class="js_layout_canvas_map"></div>
+              </div>
+              <div class="preview">
+                <iframe class="cbFrame js_map_preview"></iframe>
+              </div>
+            </div>
           </div>
           
           <div class="js_tab_content display-none" data-tab-indexes="2">
@@ -361,7 +144,6 @@
                 <div class="cibulCategories" data-cbctl="48959239/46744426|4bc1106de56674b18e6910699525dfe8|http://d.cibul.net/frontend_dev.php/embed/{uid}/controldata"></div>
               </div></div>
             </div>
-
           </div>
 
           <div class="js_tab_content display-none" data-tab-indexes="3">
@@ -384,7 +166,6 @@
                 <div class="cibulCalendar" data-cbctl="48959239/46744426|4bc1106de56674b18e6910699525dfe8|fr|http://d.cibul.net/frontend_dev.php/embed/{uid}/controldata"></div>
               </div></div>
             </div>
-
           </div>
 
           <div class="js_tab_content display-none" data-tab-indexes="4">
@@ -423,13 +204,144 @@
                   <iframe class="js_form_embed"></iframe>
                 </div>
               </div>
-
             </div>
-
           </div>
 
         </div>
       </div>
+      <ul class="js_layout_menus display-none">
+        <li class="display-none menu-item-detail" data-content="general">
+          <ul>
+            <li class="disabled">
+              <span>Présentation: </span>
+              <input type="radio" name="layout[pres]" value="list" checked="checked" disabled="disabled"/>
+              <label>Liste</label>
+              <input type="radio" name="layout[pres]" value="tiled" disabled="disabled"/>
+              <label>Damier</label>
+            </li>
+            <li class="disabled">
+              <span>Tri: </span>
+              <select name="layout[order]" disabled="disabled">
+                <option value="relative">Sections</option>
+                <option value="chronological">Choronologique</option>
+                <option value="publication">Publication</option>
+              </select>
+            </li>
+            <li class="disabled">
+              <span>Evénements par chargement: </span>
+              <select name="layout[epp]" disabled="disabled">
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+              </select>
+            </li>
+            <li class="disabled">
+              <span>Langue: </span>
+              <select disabled="disabled" name="layout[lang]">
+                <option value="en" selected="selected">English</option>
+                <option value="fr">Français</option>
+                <option value="it">Italiano</option>
+              </select>
+            </li>
+          </ul>
+        </li>
+        <li class="display-none menu-item-detail" data-content="text">
+          <ul>
+            <li class="disabled">
+              <span>Police de caractères:</span>
+              <select disabled="disabled" name="layout[fontfamily]">
+                <option value="arial" selected="selected">Arial</option>
+                <option value="georgia">Georgia</option>
+                <option value="courier new">Courier New</option>
+                <option value="trebuchet">Trebuchet maximum-scale</option>
+              </select>
+            </li>
+            <li class="disabled">
+              <span>Taille: </span>
+              <select disabled="disabled" name="layout[fontsize]">
+                <option value="12">12px</option>
+                <option value="13" selected="selected">13px</option>
+                <option value="14">14px</option>
+                <option value="15">15px</option>
+                <option value="16">16px</option>
+              </select>
+            </li>
+          </ul>
+        </li>
+        <li class="display-none menu-item-detail" data-content="colors">
+          <ul>
+            <li class="disabled">
+              <span>Textes principaux: </span>
+              <input class="js_bgcolor" value="#333" name="layout[color1]" size="2"/>
+              <div class="colorbox js_color_indicator" style="background-color:#333;"></div>
+              <div class="js_color_context color-menu wsq">
+                <div class="picker" id="picker"></div>
+                <div class="slide" id="slide"></div>
+              </div>
+            </li>
+            <li class="disabled">
+              <span>Textes secondaires: </span>
+              <input class="js_bgcolor" value="#666" name="layout[color2]" size="2"/>
+              <div class="colorbox js_color_indicator" style="background-color:#666;"></div>
+              <div class="js_color_context color-menu wsq">
+                <div class="picker" id="picker2"></div>
+                <div class="slide" id="slide2"></div>
+              </div>
+            </li>
+            <li class="disabled">
+              <span>Bordures: </span>
+              <input class="js_bgcolor" value="#ddd" name="layout[color3]" size="2"/>
+              <div class="colorbox js_color_indicator" style="background-color:#ddd;"></div>
+              <div class="js_color_context color-menu wsq">
+                <div class="picker" id="picker3"></div>
+                <div class="slide" id="slide3"></div>
+              </div>
+            </li>
+            <li class="disabled">
+              <span>liens & actions: </span>
+              <input class="js_bgcolor" value="#0645ad" name="layout[color4]" size="2"/>
+              <div class="colorbox js_color_indicator" style="background-color:#0645ad"></div>
+              <div class="js_color_context color-menu wsq">
+                <div class="picker" id="picker4"></div>
+                <div class="slide" id="slide4"></div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="display-none menu-item-detail" data-content="css">
+          <ul>
+            <li class="block">
+              <span>Saisissez votre css</span>
+              <textarea name="customcss"></textarea>
+            </li>
+          </ul>
+        </li>
+        <li class="display-none menu-item-detail" data-content="map-size">
+          <ul>
+            <li class="disabled">
+              <span>Hauteur: </span>
+              <input class="js_map_height" name="layout[mapheight]" maxlength="4" size="4" value="300"/><span> px</span>
+            </li>
+            <li class="disabled">
+              <span>Largeur: </span>
+              <input type="radio" name="layout[mapautowidth]" checked="checked" value="1"/> <label>toute la largeur</label>
+              <input type="radio" name="layout[mapautowidth]" value="0"/> <input maxlength="4" size="3" type="text" disabled="disabled" class="js_map_width" name="layout[mapwidth]" class="js_map_width" value="500"/><span>px</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
     <script type="text/javascript">
 
@@ -447,7 +359,6 @@
         control: 'http://d.cibul.net/frontend_dev.php/embed/{uid}/controldata',
         update: 'http://d.cibul.net/frontend_dev.php/embed/48959239/46744426/update'
       },
-      configInputElem = el('.js_update_input'),
       programUid = '48959239',
       embedUid = '46744426',
       key = '4bc1106de56674b18e6910699525dfe8',
@@ -469,7 +380,10 @@
 
         loadJs(embedScriptPath, function(){
 
-          var cHandler = configHandler({});
+          var cHandler = configHandler();
+
+          toggler(el('.js_layout_selector'), el('.js_layout_menus'), {canvas: el('.js_layout_canvas')});
+          toggler(el('.js_layout_selector_map'), el('.js_layout_menus'), {canvas: el('.js_layout_canvas_map')});
 
           runListBehavior(cHandler, resources.sandbox, key);
 
@@ -503,7 +417,7 @@
 
           tabs(tabElems, bodyElems);
 
-          enableUpdateForm();
+          cHandler.addChangeCallback(updateForm);
 
         });
 
@@ -513,16 +427,32 @@
         removeClass(el('.js_category_tab'), 'display-none');
       });
 
-      function enableUpdateForm() {
+      function updateForm(newConfig) {
 
-        var form = el('.js_update_input').parentNode;
+        var inputs = els('.js_update_input');
 
-        form.setAttribute('action', resources.update);
+        forEach(inputs, function(input) {
 
-        removeClass(form, 'disabled');
+          if (hasClass(input.parentNode, 'disabled')) {
 
-        forEach(el(form, 'input'), function(input) {
-          input.removeAttribute('disabled');
+            input.parentNode.setAttribute('action', resources.update);  
+
+            removeClass(input.parentNode, 'disabled');
+
+            var child = input;
+
+            while (nextObject(child)) {
+              
+              child = nextObject(child);
+
+              child.removeAttribute('disabled');
+
+            }
+
+          };
+
+          input.value = JSON.stringify(newConfig);
+
         });
 
       }

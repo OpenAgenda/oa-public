@@ -1,22 +1,19 @@
-var runMapBehavior = function(eh, cHandler, resource, key, embedScriptPath) {
+var runMapBehavior = function(cHandler, resource, key, embedCode) {
 
   var autoWidth,
   mapWidthInput = getElementsByClassName(document, 'js_map_width')[0],
   mapStyle = {},
   mapElement = getElementsByClassName(document, 'js_map_preview')[0],
-  initFrameCode = '<script type="text/javascript" src="' + embedScriptPath + '"></script><iframe class="cbpgmp" src="" style=""></iframe>',
-  initSrc = resource + '?key=' + key,
+  eh = sEventHandler.getInstance(),
 
   run = function() {
 
-    mapElement.src = initSrc;
+    mapElement.src = resource + '?key=' + key;
 
     _initWidgets();
 
   },
   _setEmbedCode = function(values) {
-
-    var embedCodeElem = getElementsByClassName(document, 'js_map_code')[0];
 
     extend(mapStyle, values);
 
@@ -26,9 +23,7 @@ var runMapBehavior = function(eh, cHandler, resource, key, embedScriptPath) {
       style += index + ':' + mapStyle[index] + '; ';
     }
 
-    embedCodeElem.value = initFrameCode.replace('src=""', 'src="' + initSrc + '"').replace('style=""', 'style="' + style + '"');
-
-    embedCodeElem.removeAttribute('disabled');
+    embedCode.set({style: style});
 
     mapElement.setAttribute('style', style);
 
@@ -53,7 +48,7 @@ var runMapBehavior = function(eh, cHandler, resource, key, embedScriptPath) {
 
       autoWidth = value; 
 
-      cHandler.set(name, value, false);
+      cHandler.set(name, value);
 
     });
 
@@ -71,7 +66,7 @@ var runMapBehavior = function(eh, cHandler, resource, key, embedScriptPath) {
 
       _setEmbedCode({width: value + 'px'});
 
-      cHandler.set(name, value, false);
+      cHandler.set(name, value);
 
     });
 
@@ -87,7 +82,7 @@ var runMapBehavior = function(eh, cHandler, resource, key, embedScriptPath) {
 
       _setEmbedCode({height: value + 'px'});
 
-      cHandler.set(name, value, false);
+      cHandler.set(name, value);
 
     });
 

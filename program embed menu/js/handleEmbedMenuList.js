@@ -1,5 +1,5 @@
 var configHandler = function(config) {
-  var changeCallback;
+  var changeCallbacks = [];
 
   if (Object.prototype.toString.call(config) != '[object Object]') {
     config = {};
@@ -11,30 +11,34 @@ var configHandler = function(config) {
     config = decoratedConfig;
   }
 
-  configInputElem.value = JSON.stringify(config);
-
   return {
     get: function(name) {
+
       return config[name];
+
     },
     set: function(name, value, update) {
 
       if (typeof update == 'undefined') update = true;
 
       if (config[name] != value) {
+
         config[name] = value;
 
-        configInputElem.value = JSON.stringify(config);
+        if (changeCallbacks.length && update) {
 
-        if (changeCallback && update) changeCallback(config);
+          forEach(changeCallbacks, function(callback){
+            callback(config);
+          });
+        }
       }
       
     },
     getConfig: function() {
       return config;
     },
-    setChangeCallback: function(callback) {
-      changeCallback = callback;
+    addChangeCallback: function(callback) {
+      changeCallbacks.push(callback);
     }
   }
 },
@@ -56,7 +60,7 @@ runListBehavior = function(cHandler, sandboxResource, key) {
 
     eh.on('iframeready', _syncCss);
 
-    cHandler.setChangeCallback(_updateListElement);
+    cHandler.addChangeCallback(_updateListElement);
 
     _updateListElement(cHandler.getConfig());
 
@@ -81,12 +85,12 @@ runListBehavior = function(cHandler, sandboxResource, key) {
     // color pickers
 
     _enableColorPicker(el('#slide'), el('#picker'), function(value) {
-      els('.js_bgcolor')[0].setAttribute('value', value);
-      els('.js_color_indicator')[0].style.backgroundColor = value;
+      els('.js_bgcolor')[4].setAttribute('value', value);
+      els('.js_color_indicator')[4].style.backgroundColor = value;
       cHandler.set('layout[color1]', value);
     });
 
-    handleContextMenu(els('.js_bgcolor')[0], els('.js_color_context')[0], eh);
+    handleContextMenu(els('.js_bgcolor')[4], els('.js_color_context')[4], eh);
 
 
     _enableColorPicker(el('#slide2'), el('#picker2'), function(value) {
@@ -124,15 +128,15 @@ runListBehavior = function(cHandler, sandboxResource, key) {
 
     _enableColorPicker(el('#backgroundslide'), el('#backgroundpicker'), function(value) {
       
-      els('.js_bgcolor')[4].setAttribute('value', value);
+      els('.js_bgcolor')[0].setAttribute('value', value);
       el('.preview').style.backgroundColor = value;
       cHandler.set('layout[bgpreview]', value);
 
     });
 
-    el('.preview').style.backgroundColor = els('.js_bgcolor')[4].value;
+    el('.preview').style.backgroundColor = els('.js_bgcolor')[0].value;
 
-    handleContextMenu(els('.js_bgcolor')[4], els('.js_color_context')[4], eh);
+    handleContextMenu(els('.js_bgcolor')[0], els('.js_color_context')[0], eh);
   },
   _enableColorPicker = function(slideElem, pickerElem, callback) {
 
@@ -151,7 +155,7 @@ runListBehavior = function(cHandler, sandboxResource, key) {
   },
   _syncCss = function() {
 
-    if (toUpdateCss !== updatedCss) cHandler.set('layout[customcss]', toUpdateCss, false);
+    if (toUpdateCss !== updatedCss) cHandler.set('layout[customcss]', toUpdateCss);
       
     updatedCss = toUpdateCss;
 

@@ -279,3 +279,9 @@ function getScrollOffsets(w) {
     y: d.body.scrollTop 
   }; 
 };
+
+function windowInnerHeight() {
+
+  return window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight
+
+};

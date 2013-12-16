@@ -22,6 +22,4 @@ var runFacebookEmbedBehavior = function(params) {
 
   });
 
-  addClass(params.linkElem, 'url');
-
 };

@@ -368,7 +368,7 @@ files = {
   'review/embedMenu.min.js': [
     [paths.jsc, 'handleContextMenu/src/handleContextMenu.js', 'embedCodeField/src/embedCodeField.js'],
     [paths.lib, 'formWidgets/formWidgets.js', 'tabs/tabs.js', 'lightbox/lightbox.js'],
-    [paths.pem, 'handleEmbedMenuList-0.2.js', 'handleEmbedMenuMap-0.2.js', 'handleEmbedMenuCategories-0.2.js', 'handleEmbedMenuCalendar-0.2.js', 'handleEmbedMenuFacebook-0.1.js', 'handleEmbedMenuAddButton.js']
+    [paths.pem, 'handleEmbedMenuList.js', 'handleEmbedMenuMap.js', 'handleEmbedMenuCategories.js', 'handleEmbedMenuCalendar.js', 'handleEmbedMenuFacebook.js', 'handleEmbedMenuAddButton.js', 'toggler.js']
   ],
 
   'review/embedMap.min.js': [
