@@ -14,7 +14,7 @@ function setLinks(inputText, options) {
   return inputText
     .replace(/\u200B/g, "")
     //URLs starting with http://, https://, or ftp://  
-    .replace(patterns.http, function($0,$1){ 
+    .replace(patterns.http, function($0,$1){
       return $1?$0:['<a', className, ' href="', $0, '"', target, '>', $0, '</a>'].join('') 
     })
     //URLS starting with www and not the above

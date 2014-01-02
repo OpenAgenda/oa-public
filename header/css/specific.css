@@ -89,7 +89,8 @@ header .connect .button.small { padding: 3px 8px; height: 23px; }
 header .connect form { padding: 0.2em 0.4em; text-align: right; }
 header .connect form li { margin-right: 0; }
 
-
+header .connect form button { padding: 3px 5px 2px; }
+header .connect form button i { font-size: 1.2em; }
 
 
 

@@ -52,6 +52,7 @@
     <script type="text/javascript" src="js/cibulEventFormTunnel.js"></script>
     <script type="text/javascript" src="js/cibulEventImage.js"></script>
     <script type="text/javascript" src="js/cibulEventSubmit.js"></script>
+    <script type="text/javascript" src="js/addNote.js"></script>
 
     <script type="text/javascript" src="testdata.js"></script>
 
@@ -238,6 +239,8 @@
         },
         icon: '../images/markerIcon.png',
       });
+
+      addNote(el('.js_form_canvas'), 'ta mere en slip au prisunic');
 
       cibulEventSubmit({
         canvas: el('.js_form_canvas'),

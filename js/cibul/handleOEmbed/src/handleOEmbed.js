@@ -6,7 +6,8 @@ var handleOEmbed = function(options) {
 		oembedUrl: 'js/jquery.oembed.min.js',
     heightChange: 'heightchange',
 		linkClasses: 'url',
-    embedTypes: ['youtube.com', 'vimeo.com', 'soundcloud.com', 'flickr.com/photos', 'photobucket.', 'bandcamp.']
+    embedTypes: ['youtube.com', 'vimeo.com', 'soundcloud.com', 'flickr.com/photos', 'photobucket.', 'bandcamp.'],
+    targetBlankLinks: false // add a target blank attribute on links
 	}, options)
   , onReadySent = false
 
@@ -14,11 +15,11 @@ var handleOEmbed = function(options) {
 
 	, _run = function() {
 
-		setLinksElems(options.elements.embed.concat(options.elements.link), { className: options.linkClasses });
+		setLinksElems(options.elements.embed.concat(options.elements.link), { className: options.linkClasses, target: options.targetBlankLinks });
 
     // convert links which are images
     forEach(options.elements.embed.concat(options.elements.link), function(elems) {
-      forEach(elems.getElementsByTagName('a'), function(linkElem) {
+      forEach(els(elems, 'a'), function(linkElem) {
         linkToImage(linkElem, {onComplete: function(){
           sEventHandler.getInstance().trigger(options.heightChange);
         }});

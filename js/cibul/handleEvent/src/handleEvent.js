@@ -4,7 +4,7 @@ var handleEvent = function(controlData, options) {
     targetBlankLinks: false,
     maps: 'google',
     elems: {
-      map: getElementsByClassName(document, 'map')[0]
+      map: el('.map')
     },
     events: {
       heightChange: 'heightchange'
@@ -92,7 +92,8 @@ var handleEvent = function(controlData, options) {
       embed: els('.js_embeds'),
     },
     oembedUrl: options.oembedUrl,
-    heightChange: options.events.heightChange
+    heightChange: options.events.heightChange,
+    targetBlankLinks: options.targetBlankLinks
   });
 
   if (getElementsByClassName(document, 'poster').length) addEvent(getElementsByClassName(document, 'poster')[0].getElementsByTagName('img')[0], 'load', function(){

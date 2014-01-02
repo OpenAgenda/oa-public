@@ -409,6 +409,7 @@ body.embedded-body { background: transparent; }
 
 @media screen and (max-width: 760px) {
   .sidebar-item { padding: 0; border-bottom: none; }
+  .sidebar-item li.title { display: none; }
   .sidebar-item li { display: inline-block; margin-right: 1em;}
   .sidebar-item li > a { width: 4.4em; text-align: center; padding: 0.4em 0;}
   .sidebar-item li .menu-item i { font-size: 3em; height: 0.9em; display: inline-block; padding: 0 0 10px 0; }

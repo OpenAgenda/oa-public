@@ -13,7 +13,7 @@ var handleEmbeddedList = function(options) {
     iconRoot: 'images/',  // where are the map icons?
     control: false,       // required. either resource or data
     elems: {
-      program: false,     // canvas of program
+      program: false,     // canvas of agenda
       event: false,       // canvas of event
       list: false,        // canvas of list
       navPrevious: false, // control for loading previous list items

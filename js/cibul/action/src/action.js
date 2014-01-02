@@ -1,4 +1,4 @@
-var action = function(elem, params) {
+if (typeof action == 'undefined') var action = function(elem, params) {
 
   params = extend({
     message: false, // if set, displays lighbox with message

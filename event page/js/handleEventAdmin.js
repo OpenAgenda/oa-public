@@ -56,8 +56,6 @@ var handleEventAdmin = function(params) {
 
     if (link.link) el(li, 'a').href = link.link;
 
-    addEvent(li, 'click', link.click?link.click:function(e) { preventDefault(e); window.location.href = link.link; });
-
     action(li, link);
 
     params.canvas.appendChild(li);

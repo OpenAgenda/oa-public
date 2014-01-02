@@ -13,15 +13,29 @@ var paths = {
   pm:  '../program menu/js/',
   pa:  '../program admin/js/',
   pem: '../program embed menu/js/',
+  gl:  '../global/js/',
   jsc: '../js/cibul/',
   lib: '../js/lib/',
   vd:  '../js/vendors/',
-  lg:  '../js/legacy/'
+  lg:  '../js/legacy/',
+  m:   '../message/js/'
 },
 
 destPath = '/home/kaore/Dev/www/cibul-symfony/web/js/',
 
 files = {
+
+  'global.min.js': [
+    [paths.gl, 'handleMessageLinks.js'],
+    [paths.jsc, 'action/src/action.js'],
+    [paths.lib, 'common/common.js', 'lightbox/lightbox.js', 'EventHandler/EventHandler.js']
+  ],
+
+  'message.min.js': [
+    [paths.m, 'handleMessage.js'],
+    [paths.lib, 'common/common.js'],
+    [paths.vd, 'setLinks/src/setLinks.js']
+  ],
 
   'event/eventPublish.min.js': [
     [paths.ep,
@@ -32,7 +46,8 @@ files = {
       'cibulEventImage.js',
       'cibulEventSubmit.js',
       'cibulEventFormTunnel.js',
-      'handlePricingSelection.js'
+      'handlePricingSelection.js',
+      'addNote.js'
     ],
     [paths.lib, 
       'common/common.js', 'Base64/Base64.js', 'iTunnel/iTunnel.js', 
@@ -75,7 +90,8 @@ files = {
       'cibulEventImage.js',
       'cibulEventSubmit.js',
       'cibulEventFormTunnel.js',
-      'handlePricingSelection.js'
+      'handlePricingSelection.js',
+      'addNote.js'
     ],
     [paths.lib, 
       'common/common.js', 'Base64/Base64.js', 'iTunnel/iTunnel.js', 
@@ -111,7 +127,7 @@ files = {
 
   'header/search.min.js': [
     [paths.hs, 'common.js', 'handleHeader.js', 'handleHeaderSearch.js', 'searchLib.js', 'geocoder.js', 'queryClient.js'],
-    [paths.lib, 'common/common.js', 'EventHandler/EventHandler.js', 'remote/remote.js' ],
+    [paths.lib, 'common/common.js', 'EventHandler/EventHandler.js', 'remote/remote.js', 'Base64/Base64.js' ],
     [paths.vd, 
       'CibulCalendar/src/CibulCalendar.js', 
       'iscroll/src/iscroll.js', 
@@ -126,7 +142,7 @@ files = {
 
   'home/visitor.min.js': [
     [paths.lib, 'common/common.js', 'EventHandler/EventHandler.js', 'flowinate/flowinate.js', 'remote/remote.js', 'urlStrings/urlStrings.js'],
-    [paths.vd, 'ejs/src/ejs_production.js'],
+    [paths.vd, 'ejs/src/ejs_production.js', 'spin/src/spin.min.js'],
     [paths.jsc, 
       'handleList/src/handleList.js',
       'handleLock/src/handleLock.js',
@@ -244,6 +260,7 @@ files = {
     ],
     [paths.jsc,
       'handleList/src/handleList.js',
+      'handleSectionRemove/src/handleSectionRemove.js',
       'handleContextMenu/src/handleContextMenu.js',
       'handleNav/src/handleNav.js', 
       'handleLock/src/handleLock.js', 
@@ -300,10 +317,15 @@ files = {
     [paths.ee, 'handleEventTunnel.js', 'makeEventHeightGetter.js']
   ],
 
-  'review/form.min.js': [
+  'review/theme.min.js': [
     [paths.lib, 'common/common.js'],
     [paths.vd, 'colorpicker/src/colorpicker.js'],
     [paths.jsc, 'handleContextMenu/src/handleContextMenu.js'],
+    [paths.pf, 'theme.js']
+  ],
+
+  'review/form.min.js': [
+    [paths.lib, 'common/common.js'],
     [paths.pf, 'form.js']
   ],
 
@@ -397,7 +419,6 @@ files = {
   'cmap.js': [[paths.lg, 'cmap.js']],
   'colorpicker.min.js': [[paths.lg, 'colorpicker.min.js']],
   'datepicker.js': [[paths.lg, 'datepicker.js']],
-  'global.min.js': [[paths.lg, 'global.min.js']],
   'iscroll.js': [[paths.lg, 'iscroll.js']],
   'hashchange.min.js': [[paths.lg, 'hashchange.min.js']],
   'jquery-1.4.4.min.js': [[paths.lg, 'jquery-1.4.4.min.js']],
