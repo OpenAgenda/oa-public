@@ -3,7 +3,7 @@ var handleEventAdmin = function(params) {
   var isEditor = false
     , isOwner = false
     , defaultLinks = {
-        edit: {cred: 'editor', html: '<a><i class="icon-cog admin"></i><span>edit</span></a>', link: '#edit'},
+        edit: {cred: 'editor', html: '<a><i class="icon-cog admin"></i><span>edit</span></a>', link: '#edit', force: false},
         remove: {cred: 'owner', html: '<a><i class="icon-remove admin"></i><span>delete</span></a>', link: '#remove', confirm: true, message: 'Are you sure?' },
         editors: {cred: 'owner', html: '<a><i class="icon-group admin"></i><span>editors</span></a>', type: 'ajax', link: '#editors'},
         email: {cred: 'editor', html: '<a><i class="icon-envelope admin"></i><span>send to my email</span></a>', link: '#email', type: 'ajax' },
@@ -31,16 +31,24 @@ var handleEventAdmin = function(params) {
 
   var init = function() {
 
-    if (!params.loggedUid) return;
-
-    isEditor = contains(params.editors, params.loggedUid)?true:false;
     isOwner = params.ownerUid==params.loggedUid;
+    isEditor = contains(params.editors, params.loggedUid)||isOwner?true:false;
+    
+    var links = [];
 
-    if (!isEditor && !isOwner) return;
+    for (name in params.links) {
+      var link = _processLink(params.links[name]);
 
-    params.canvas.insertAdjacentHTML('beforeend', '<li class="section"><h2>' + params.labels.edition + '</h2></li>');
+      if (link) links.push(link);
+    }
 
-    for (name in params.links) _processLink(params.links[name]);
+    if (links.length) {
+      params.canvas.insertAdjacentHTML('beforeend', '<li class="section"><h2>' + params.labels.edition + '</h2></li>');
+
+      forEach(links, function(link) {
+        params.canvas.appendChild(link);
+      });
+    }
 
     if (params.publish) params.publish.canvas.insertAdjacentHTML('afterbegin', params.publish.html);
 
@@ -48,7 +56,9 @@ var handleEventAdmin = function(params) {
 
   _processLink = function(link) {
 
-    if (link.cred=='owner' && !isOwner) return;
+    if (link.cred=='owner' && !isOwner && !link.force) return false;
+
+    if (link.cred=='editor' && !isOwner && !link.force) return false;
 
     var li = document.createElement('li');
 
@@ -58,7 +68,7 @@ var handleEventAdmin = function(params) {
 
     action(li, link);
 
-    params.canvas.appendChild(li);
+    return li;
 
   };
 

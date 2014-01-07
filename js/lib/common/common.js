@@ -285,3 +285,25 @@ function windowInnerHeight() {
   return window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight
 
 };
+
+function triggerEvent(elem, name) {
+
+  var e;
+
+  if (document.createEvent) {
+    e = document.createEvent("HTMLEvents");
+    e.initEvent(name, true, true);
+  } else {
+    e = document.createEventObject();
+    e.eventType = name;
+  }
+
+  e.eventName = name;
+
+  if (document.createEvent) {
+    elem.dispatchEvent(e);
+  } else {
+    elem.fireEvent("on" + e.eventType, e);
+  }
+
+}

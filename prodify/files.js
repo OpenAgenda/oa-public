@@ -272,6 +272,7 @@ files = {
 
   'review/adminList.min.js': [
     [paths.lib, 'common/common.js', 'remote/remote.js', 'lightbox/lightbox.js', 'urlStrings/urlStrings.js'],
+    [paths.vd, 'spin/src/spin.min.js'],
     [paths.pa, 'handleAdminEventList.js']
   ],
 
@@ -325,7 +326,7 @@ files = {
   ],
 
   'review/form.min.js': [
-    [paths.lib, 'common/common.js'],
+    [paths.lib, 'common/common.js', 'lightbox/lightbox.js'],
     [paths.pf, 'form.js']
   ],
 
@@ -389,7 +390,7 @@ files = {
 
   'review/embedMenu.min.js': [
     [paths.jsc, 'handleContextMenu/src/handleContextMenu.js', 'embedCodeField/src/embedCodeField.js'],
-    [paths.lib, 'formWidgets/formWidgets.js', 'tabs/tabs.js', 'lightbox/lightbox.js'],
+    [paths.lib, 'loadJs/loadJs.js', 'formWidgets/formWidgets.js', 'tabs/tabs.js', 'lightbox/lightbox.js'],
     [paths.pem, 'handleEmbedMenuList.js', 'handleEmbedMenuMap.js', 'handleEmbedMenuCategories.js', 'handleEmbedMenuCalendar.js', 'handleEmbedMenuFacebook.js', 'handleEmbedMenuAddButton.js', 'toggler.js']
   ],
 
