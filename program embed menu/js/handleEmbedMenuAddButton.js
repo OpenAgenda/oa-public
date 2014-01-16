@@ -5,6 +5,7 @@ var runAddButtonBehavior = function(params) {
     key: false,
     selectors: {
       frame: '.js_form_embed',
+      login: '.js_login_embed',
       enabled: '.js_button_enabled',
       disabled: '.js_button_disabled'
     },
@@ -15,11 +16,17 @@ var runAddButtonBehavior = function(params) {
     },
     layoutWrapper: 'layout[%value%]',
     layout: ['fontsize', 'fontfamily', 'lang', 'color1', 'color2'], // layout params form is sensible to (other than customcss)
-    res: { form: false, sandbox: false }, // form is the production resource, sandbox is the one used in the config mode
+    res: { form: false, sandbox: false, loginSandbox: false }, // form is the production resource, sandbox is the one used in the config mode
     initLayout: false, // used to fetch configuration defined in config form
   }, params);
 
-  var formFrame = el(params.selectors.frame), eh = sEventHandler.getInstance(), currentLayout = {}, currentCss,
+  var formFrame = el(params.selectors.frame),
+
+  loginFrame = el(params.selectors.login),
+
+  eh = sEventHandler.getInstance(),
+
+  currentLayout = {}, currentCss,
 
   run = function() {
 
@@ -31,7 +38,7 @@ var runAddButtonBehavior = function(params) {
 
     _extractFormLayout(params.initLayout);
     
-    _updateFrame();
+    _updateFrames();
 
     eh.on(params.events.cssUpdate, function(css) {
 
@@ -41,7 +48,7 @@ var runAddButtonBehavior = function(params) {
 
     eh.on(params.events.layoutUpdate, function(newLayout) {
 
-      if (_extractFormLayout(newLayout)) _updateFrame();
+      if (_extractFormLayout(newLayout)) _updateFrames();
 
     });
 
@@ -76,13 +83,16 @@ var runAddButtonBehavior = function(params) {
 
   },
 
-  _updateFrame = function() {
+  _updateFrames = function() {
 
     formFrame.src = params.res.sandbox.addUrlParameters(extend({ key: params.key }, currentLayout));
     formFrame.style.height = params.height + 'px';
+
+    loginFrame.src = params.res.loginSandbox.addUrlParameters(extend({ key: params.key }, currentLayout));
+    loginFrame.style.height = '350px';
 
   };
 
   run();
 
-}
+};

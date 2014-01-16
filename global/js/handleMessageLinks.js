@@ -6,11 +6,11 @@ if (typeof handleMessageLinks == 'undefined') var handleMessageLinks = function(
     },
     events: ['contentload', 'lhSuccess', 'success', 'loadSuccess'],
     attribute: 'data-enabled'
-  }, typeof params == 'undefined'?{}:params)
+  }, typeof params == 'undefined'?{}:params),
 
-  , eh = sEventHandler.getInstance()
+  eh = sEventHandler.getInstance(),
 
-  , scan = function() {
+  scan = function() {
 
     forEach(els(params.selectors.links), function(linkElem) {
 
@@ -23,6 +23,7 @@ if (typeof handleMessageLinks == 'undefined') var handleMessageLinks = function(
       }
 
     });
+
   };
 
   scan();

@@ -113,7 +113,7 @@
 
 #event li.add-event { display: block; padding-bottom: 20px;}
 #event li.add-event * { display: inline-block; vertical-align: middle; }
-#event .add-event span { width: 85%; }
+#event .add-event span { width: 80%; }
 #event .add-event i { color: #3CAD2D; width: 15%; padding-right: 0;}
 
 #event .shares > div { display: block; }

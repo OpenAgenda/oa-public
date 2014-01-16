@@ -16,7 +16,7 @@ if (typeof action == 'undefined') var action = function(elem, params) {
     if (params.confirm) {
 
       lightbox({
-        message: params.message, 
+        message: params.message,
         classes: {frame: 'wsq lightbox-frame', canvas: 'lightbox-canvas', buttonBox: 'lightbox-buttons'},
         buttons: {
           cancel: { label: params.labels.cancel },
@@ -45,7 +45,13 @@ if (typeof action == 'undefined') var action = function(elem, params) {
             classes: {frame: 'wsq lightbox-frame', canvas: 'lightbox-canvas', buttonBox: 'lightbox-buttons'}
           };
 
+          if (data.redirect) {
+            window.location.href = data.redirect;
+            return;
+          }
+
           if (data.message) lParams.message = data.message;
+          
 
           if (data.partial) extend(lParams, {
             html: data.partial,
@@ -54,7 +60,7 @@ if (typeof action == 'undefined') var action = function(elem, params) {
 
           lightbox(lParams);
           
-        };
+        }
 
       }, params.type=='ajax'?true:false);
 
@@ -62,7 +68,7 @@ if (typeof action == 'undefined') var action = function(elem, params) {
 
       addEvent(elem, 'click', function(e) {
         preventDefault(e);
-        window.location.href = params.link
+        window.location.href = params.link;
       });
 
     }
