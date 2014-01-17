@@ -51,14 +51,14 @@ var handlePricingSelection = function(params) {
       value: params.location.ticketLink?params.location.ticketLink:false,
       label: params.labels.ticketLink,
       placeholder: params.labels.ticketLink,
-      name: 'ticketlink', 
-      canvas: el(params.canvas, params.selectors.ticketLink), 
-      info: params.labels.ticketLinkInfo, 
+      name: 'ticketlink',
+      canvas: el(params.canvas, params.selectors.ticketLink),
+      info: params.labels.ticketLinkInfo,
       onUpdate: function(value) {
 
         ticketLink = value; // validation?
 
-        _onChange()
+        _onChange();
 
       }
     });
@@ -137,6 +137,6 @@ var handlePricingSelection = function(params) {
 
   return {
     updateLanguages: updateLanguages
-  }
+  };
 
-}
+};

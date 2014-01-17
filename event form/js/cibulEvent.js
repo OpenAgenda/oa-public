@@ -19,6 +19,10 @@ var cibulEvent = function(params) {
         remove: 'eimageremove',
         write: 'eimagesend'
       },
+      agenda: {
+        fetch: 'eagendafetch',
+        write: 'eagendawrite'
+      },
       uidfetch: 'euidfetch',
       validate: 'evalidate',
       fetchEncoded: 'efetchencoded',
@@ -75,7 +79,7 @@ var cibulEvent = function(params) {
 
         error = e;
 
-      };
+      }
 
       if (!event[data.name]) event[data.name] = {};
 
@@ -157,6 +161,25 @@ var cibulEvent = function(params) {
 
     });
 
+
+    // get agenda information
+
+    eh.on(params.events.agenda.fetch, function(data) {
+
+      if (!event.agenda) data.callback(false);
+
+    });
+
+
+    eh.on(params.events.agenda.write, function(data) {
+
+      event.agenda = data;
+
+    });
+
+
+    // update agenda information
+
     eh.on(params.events.image.fetch, function(callback) {
 
       callback(event.image?{image: event.image }:false);
@@ -208,8 +231,7 @@ var cibulEvent = function(params) {
   _printLocationMap = function() {
 
     while (event.locations.length) {
-      var discardedLocation = event.locations.pop();
-      delete discardedLocation;
+      event.locations.pop();
     }
       
 
@@ -315,7 +337,7 @@ var cibulEvent = function(params) {
 
     forEach(params.descriptionFields, function(fieldName) {
 
-      if (isDef(event[fieldName])) 
+      if (isDef(event[fieldName]))
         for (var lang in event[fieldName])
           if (!contains(newLanguages, lang)) newLanguages.push(lang);
 
@@ -354,8 +376,8 @@ var cibulEvent = function(params) {
       }
     }
     return true;
-  }
+  };
 
   init();
 
-}
+};

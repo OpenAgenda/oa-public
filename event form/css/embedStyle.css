@@ -1,3 +1,6 @@
+#event-edit input,
+#event-edit textarea { border: 1px solid #ddd; }
+
 #event-edit button {
   padding: 0.1em 1em;
   border: 1px solid #666;
@@ -5,7 +8,6 @@
   cursor: pointer;
 }
 
-#event-edit h2 {
-  font-size: 1.3em;
-  padding-top: 1em;
-}
+#event-edit h2 { font-size: 1.3em; }
+
+#event-edit .selectable .selected span { background: #666; color: white; }

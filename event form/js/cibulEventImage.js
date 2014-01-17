@@ -42,7 +42,7 @@ var cibulEventImage = function(params) {
         },
         initName: data.image?data.image:false,
         path: params.path
-      });  
+      });
 
     });
 

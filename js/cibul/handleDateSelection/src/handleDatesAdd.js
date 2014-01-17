@@ -4,7 +4,7 @@ var handleDatesAdd = function(params) {
     canvas: false,
     onAdd: false,
     templates: {
-      main: '<p><%= addTitle %></p><span class="info"><%= addInfo %></span><div class="js_dates date-select"></div><div class="timing-select"><div class="js_timings input-fields"></div><button><%= addDate %></button><div class="error js_error"></div></div>'
+      main: '<p><%= addTitle %></p><div class="info"><%= addInfo %></div><div class="js_dates date-select"></div><div class="timing-select"><div class="js_timings input-fields"></div><button><%= addDate %></button><div class="error js_error"></div></div>'
     },
     selectors: {
       dates: '.js_dates',
@@ -25,7 +25,7 @@ var handleDatesAdd = function(params) {
     },
     lang: 'en',
     classes: {
-      main: 'add-dates embed-menu',
+      main: 'add-dates embed-menu selectable',
       disabled: 'disabled'
     }
   }, params);
@@ -48,44 +48,44 @@ var handleDatesAdd = function(params) {
 
     // setup time widgets
 
-    widgets.timeBegin = new inputWidgets.text({ 
+    widgets.timeBegin = new inputWidgets.text({
       name: 'begin',
       placeholder: params.labels.begin,
       label: params.labels.begin,
-      canvas: el(elem, params.selectors.timings), 
-      info: params.labels.timingInfo, 
+      canvas: el(elem, params.selectors.timings),
+      info: params.labels.timingInfo,
       events: ['keyup', 'change'],
       onUpdate: function(begin) {
         timings.begin = begin;
         _enableButton(_validateSelection());
-      }, 
+      },
       onValidChange: function(err) {
 
         if (err) timings.begin = false;
         _enableButton(_validateSelection());
 
-      }, 
-      validator: inputValidators.isTime(params.labels.timingError) 
+      },
+      validator: inputValidators.isTime(params.labels.timingError)
     });
 
-    widgets.timeEnd = new inputWidgets.text({ 
-      name: 'end', 
+    widgets.timeEnd = new inputWidgets.text({
+      name: 'end',
       placeholder: params.labels.end,
       label: params.labels.end,
-      canvas: el(elem, params.selectors.timings), 
-      info: params.labels.timingInfo, 
+      canvas: el(elem, params.selectors.timings),
+      info: params.labels.timingInfo,
       events: ['keyup', 'change'],
       onUpdate: function(end) {
         timings.end = end;
         _enableButton(_validateSelection());
-      }, 
+      },
       onValidChange: function(err) {
 
         if (err) timings.end = false;
         _enableButton(_validateSelection());
 
-      }, 
-      validator: inputValidators.isTime(params.labels.timingError) 
+      },
+      validator: inputValidators.isTime(params.labels.timingError)
     });
 
 

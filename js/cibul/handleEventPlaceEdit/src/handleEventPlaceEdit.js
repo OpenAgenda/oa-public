@@ -1,10 +1,10 @@
 var handleEventPlaceEdit = function(params) {
 
   params = extend({
-    canvas: false, 
+    canvas: false,
     country: {code: 'FR', name: 'France'},
     templates: {
-      main: '<div class="separator"></div><span class="remove-action js_remove"><a class="action"><span>&#215; </span><span><%= remove %></span></a><div class="info"><%= removeLocationInfo %></div></span><h2><%= locationTitle %></h2><div class="js_place place"></div><h2><%= pricingTitle %></h2><div class="js_pricing pricing"></div><h2><%= dateTitle %></h2><div class="js_dates dates"></div>',
+      main: '<span class="remove-action js_remove"><span class="info"><%= removeLocationInfo %></span><a class="action"><i class="icon-trash"></i></a></span><div class="js_place place"></div><div class="js_pricing pricing form-section"><h2><%= pricingTitle %></h2></div><div class="js_dates dates form-section"><h2><%= dateTitle %></h2></div><div class="separator"></div>',
       info: '<div class="title"><%= name %></div><div class="address"><%= address %></div><a href="#" class="action js_change"><i class="icon-edit"></i><span><%= changeLabel %></span></a>',
     },
     selectors: {
@@ -16,11 +16,12 @@ var handleEventPlaceEdit = function(params) {
       remove: '.js_remove'
     },
     classes: {
-      edit: 'embed-menu'
+      edit: 'embed-menu form-section'
     },
     locationData: false,
     labels: {
       locationTitle: 'Place',
+      locationInfo: false,
       pricingTitle: 'Pricing',
       dateTitle: 'Dates',
       change:'change',
@@ -41,7 +42,7 @@ var handleEventPlaceEdit = function(params) {
         es: 'espanol',
         it: 'italiano'
       },
-      countryField: 'country name', 
+      countryField: 'country name',
       countryFieldInfo: 'type in a country name and click or press enter'
     },
     get: false, // remote get function to use

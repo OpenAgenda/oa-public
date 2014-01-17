@@ -115,7 +115,7 @@ var handleEventDates = function(controlData, options) {
       , dates = []
       , months = [];
 
-    for (locationId in controlData.l) 
+    for (locationId in controlData.l)
       forEach(controlData.l[locationId].o, function(o) {
         
         var key = o.d + locationId;

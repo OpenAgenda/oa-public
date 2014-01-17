@@ -14,8 +14,8 @@ var cibulEventLocation = function(params) {
       sessionFetch: 'getsessiondata'
     },
     templates: {
-      main: '<div class="js_places"></div>',
-      add: '<div class="separator"></div><a class="js_add_place action"><i class="icon-plus"></i><span><%= addPlace %></span></a>'
+      main: '<h2><%= locationTitle %></h2><p><%= locationInfo %></p><div class="js_places"></div>',
+      add: '<div class="js_add_place"><button><%= addPlace %></button><div class="separator"></div></div>'
     },
     selectors: {
       addPlace: '.js_add_place',
@@ -105,7 +105,7 @@ var cibulEventLocation = function(params) {
 
       _createLocationHandler(response);
 
-      if (response.nextIndex) 
+      if (response.nextIndex)
         _createLocationHandlers(response.nextIndex, callback);
       else
         callback();
@@ -126,7 +126,7 @@ var cibulEventLocation = function(params) {
       languages: languages,
       canvas: el(elem, params.selectors.places),
       locationData: data.location?data.location:false,
-      get: params.get, 
+      get: params.get,
       locations: params.localSelection,
       onHeightChange: function() {
         eh.trigger(params.events.heightChange);
@@ -194,7 +194,7 @@ var cibulEventLocation = function(params) {
 
     elem = document.createElement('div');
 
-    elem.innerHTML = params.templates.main;
+    elem.innerHTML = new EJS({ text: params.templates.main }).render(params.labels);
 
     params.canvas.appendChild(elem);
 
@@ -251,7 +251,7 @@ var cibulEventLocation = function(params) {
   _findCountry = function(code) {
 
     for (var i = params.countries.length - 1; i >= 0; i--)
-      if (code == params.countries[i].code) return params.countries[i]
+      if (code == params.countries[i].code) return params.countries[i];
 
     return { code: 'FR', name: 'France' };
 

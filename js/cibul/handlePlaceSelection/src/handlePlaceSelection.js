@@ -4,7 +4,7 @@ var handlePlaceSelection = function(params) {
     canvas: false,          // required. where the selection widget will go
     onSelect: false,        // required. called when a place has been chosen
     onDefaultSelect: false, // required. whenever a location selection can be deduced
-    onHeightChange: false, 
+    onHeightChange: false,
     templates: {
       main: '<ul class="place-suggestion-tabs js_suggestion_tabs"><li class="js_tab active"><a href="#"><i class="icon-list"></i></a></li><li class="js_tab"><a href="#"><i class="icon-map-marker"></i></a></li></ul><div class="js_suggestions place-suggestions"></div>',
       empty: '<span class="info empty-message"><%= empty %></span>',
@@ -52,7 +52,7 @@ var handlePlaceSelection = function(params) {
 
     _toggleEmptyMessage();
 
-    if (!view) 
+    if (!view)
       show(displayed);
     else
       if (selection.length) view.set(newSelection, options);
@@ -71,7 +71,6 @@ var handlePlaceSelection = function(params) {
 
     if (view) {
       view.remove();
-      delete view;
     }
 
     displayed = viewIndex;

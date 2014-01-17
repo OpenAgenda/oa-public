@@ -6,7 +6,6 @@
 #event-edit .ccal li span { padding: 0.1em 0.05em; display: block; }
 #event-edit .ccal li.calprev span, 
 #event-edit .ccal li.calnext span { color: #aaa; }
-#event-edit .ccal .calbody li.selected span { background: #666; color: white; }
 #event-edit .ccal .calbody li.preselected span { background: #f0f0f0; }
 #event-edit .ccal * { -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -ms-user-select: none; user-select: none; }
 #event-edit .today { font-weight: bold; }
@@ -17,8 +16,8 @@
 #event-edit { text-align: center; }
 #event-edit > * { max-width: 600px; text-align: left; margin: 0 auto; }
 
-#event-edit input,
-#event-edit textarea { border: 1px solid #ddd; }
+
+#event-edit .form-section { padding-bottom: 2em; }
 
 #event-edit .context-menu { background: white; border: 1px solid #ddd; width: 100%;}
 #event-edit .context-menu ul { padding: 0.2em 0.8em; cursor: pointer; }
@@ -28,8 +27,8 @@
 #event-edit .info {
   font-size: 0.8em;
   margin-right: 1em;
-  display: block;
 }
+
 #event-edit .info,
 #event-edit .info * { color: #999; }
 
@@ -65,7 +64,7 @@
 
 #event-edit .separator { margin: 1em 0; border-top: 1px solid #ddd; }
 
-#event-edit .place { margin: 0.5em 0 1em; clear: both; }
+#event-edit .place { margin: 1em 0; clear: both; }
 #event-edit .place > * { display: block; }
 #event-edit .place .address { color: #999; font-size: 0.9em; line-height: 1em; }
 
@@ -125,10 +124,10 @@
 #event-edit .action { padding-right: 0.3em; cursor: pointer; }
 #event-edit .action > * { display: inline-block; vertical-align: middle; }
 #event-edit .action span, 
-#event-edit .action i { font-size: 0.9em; margin-right: 0.2em;  }
-#event-edit .action i { font-size: 0.8em; }
+#event-edit .action i { margin-right: 0.2em;  }
+#event-edit .action i.small { font-size: 0.8em; }
 
-#event-edit .remove-action { float: right; text-align: right; max-width: 140px; }
+#event-edit .remove-action { float: right; text-align: right; }
 #event-edit .remove-action .action { padding-right: 0; }
 
 
@@ -139,17 +138,34 @@
 #event-edit .upload-image { padding: 1em 0;}
 #event-edit .upload-image > * { display: inline-block; margin-right: 0.2em; }
 
-
-#event-edit .pricing-info > div { display: inline-block; min-width: 120px; padding-right: 10px; }
+#event-edit .pricing-info > div { display: inline-block; min-width: 120px; padding: 0 0 10px 0; }
+#event-edit .pricing-info > div span { display: block; }
 
 #event-edit .submit { padding-bottom: 60px; }
 #event-edit .submit button { margin: 1em 1em 0 0; }
 
 
+
+#event-edit .slist li { display: inline-block; }
+
+#event-edit .slist li span {
+  cursor: pointer;
+  padding: 0.1em 0.3em;
+  margin: 0 1em 0.5em 0;
+  display: block;
+}
+
+#event-edit .slist p { margin: 0 0 1em 0; }
+
 @media all and (max-width: 500px) {
   #event-edit .add-dates .date-select { width: 65%; }
   #event-edit .add-dates .timing-select { width: 35%; }
-  #event-edit .add-dates .timing-select input[type="text"] { -webkit-box-sizing: border-box; }
+  #event-edit .add-dates .timing-select input[type="text"] { 
+    -webkit-box-sizing: border-box; 
+    -moz-box-sizing:border-box;
+    -o-box-sizing:border-box;
+    box-sizing: border-box;
+  }
 
   #event-edit .date { width: 130px; }
 }

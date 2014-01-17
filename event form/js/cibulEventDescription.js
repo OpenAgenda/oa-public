@@ -11,7 +11,7 @@ var cibulEventDescription = function(params) {
       languageList: '<div class="languages action"><ul class="language-list js_language_select"></ul><div class="add-language js_language_add"><a><i class="icon-plus"></i></a><div class="menu"><ul></ul></div></div></div>',
       languageItem: '<li><span><%= language %></span></li>',
       languageRemoveItem: '<a href="#">&#215;</a>',
-      canvas: '',
+      canvas: '<h2><%= label %></h2><ul></ul><div class="separator"></div>',
     },
     fields: [
       { name: 'title', type: 'text', limit: 140 },
@@ -20,6 +20,7 @@ var cibulEventDescription = function(params) {
       { name: 'freeText', type: 'textarea', limit: 10000, rows: 6 }
     ],
     labels: {
+      sectionTitle: 'Description',
       title: { label: 'Title', info: 'Type in the title of your event'},
       description: { label: 'Description', info: 'Type a short description' },
       tags: { label: 'Tags', info: 'Type the key words best describing your event'},
@@ -34,7 +35,7 @@ var cibulEventDescription = function(params) {
     activeClass: 'active',
     defaultLanguage: 'en',
     classes: {
-      description: 'description',
+      description: 'description form-section',
       field: 'input-fields',
       languageTab: 'action'
     },
@@ -60,7 +61,11 @@ var cibulEventDescription = function(params) {
 
   _initCanvas = function() {
 
-    params.elems.canvas.appendChild(canvas = _lib.createElement('ul', params.templates.canvas));
+    var div = _lib.createElement('div', params.templates.canvas, {label: params.labels.sectionTitle});
+
+    params.elems.canvas.appendChild(div);
+
+    canvas = el(div, 'ul');
 
     canvas.className = params.classes.description;
 
@@ -131,7 +136,7 @@ var cibulEventDescription = function(params) {
 
     // clear field elements from the form
 
-    for (name in widgets) {
+    for (var name in widgets) {
       widgets[name].remove();
       counters[name].remove();
     }
@@ -156,9 +161,9 @@ var cibulEventDescription = function(params) {
         var widgetParams = {
           value: values[field.name],
           label: params.labels[field.name].label,
-          placeholder: params.labels[field.name].label,
-          name: field.name, 
-          canvas: li, 
+          placeholder: params.labels[field.name].placeholder?params.labels[field.name].placeholder:params.labels[field.name].label,
+          name: field.name,
+          canvas: li,
           info: params.labels[field.name].info,
         };
 
@@ -172,7 +177,7 @@ var cibulEventDescription = function(params) {
               
             if (err)
               widgets[field.name].setError(err);
-            else 
+            else
               widgets[field.name].setValid();
 
           });
@@ -196,8 +201,8 @@ var cibulEventDescription = function(params) {
   _syncContent = function(fieldName, language, value, callback) {
 
     eh.trigger(params.events.send, {
-      name: fieldName, 
-      language: language, 
+      name: fieldName,
+      language: language,
       value: typeof value == 'undefined'?fields[fieldName].getElementsByTagName(contains(['freeText', 'description'],fieldName)?'textarea':'input')[0].value:value,
       callback: callback
     });

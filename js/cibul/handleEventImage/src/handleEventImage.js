@@ -3,7 +3,7 @@ var handleEventImage = function(params) {
   params = extend({
     canvas: false,
     templates: {
-      main: '<div class="separator"></div><div class="js_remove remove-action"><a class="action" href="#"><span>&#215; </span><span><%= removeImage %></span></a><span class="js_remove_loader"></span><span class="js_remove_message info error"></span></div><h2><%= imageSection %></h2><div class="upload-image"><button><%= upload %></button><span class="js_loader loader"></span><span class="js_message info"></span></div><div class="canvas js_image_canvas"></div>',
+      main: '<div class="form-section"><div class="js_remove remove-action"><a class="action" href="#"><i class="icon-trash"></i></a><span class="js_remove_loader"></span><span class="js_remove_message info error"></span></div><h2><%= imageSection %></h2><div class="upload-image"><button><%= upload %></button><span class="js_loader loader"></span><span class="js_message info"></span></div><div class="canvas js_image_canvas"></div><div class="separator"></div></div>',
       empty: '<div><%= noImage %></div>'
     },
     classes: {
@@ -180,8 +180,8 @@ var handleEventImage = function(params) {
 
   _displayMessage = function(message, type) {
 
-    if (!message) 
-      if (type=='error') 
+    if (!message)
+      if (type=='error')
         message = params.labels.error;
       else if (type=='success')
         message = params.labels.success;
@@ -238,9 +238,9 @@ var handleEventImage = function(params) {
 
         }, true);
 
-      })
+      });
 
-    };
+    }
 
     el(elem, params.selectors.removeMessage).innerHTML = '';
 
@@ -252,7 +252,7 @@ var handleEventImage = function(params) {
 
     window[params.callbackName] = function(response) {
       _imageUploaded(response);
-    }
+    };
 
   },
 
@@ -286,7 +286,7 @@ var handleEventImage = function(params) {
 
   _fireEvent = function(elem, types) {
 
-    if (elem == null || elem == undefined) return;
+    if (elem === null || elem === undefined) return;
     if (typeof types == 'string') types = [types];
     forEach(types, function(type){
       if ("fireEvent" in elem) {
@@ -313,4 +313,4 @@ var handleEventImage = function(params) {
 
   run();
 
-}
+};
