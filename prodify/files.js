@@ -12,7 +12,7 @@ var paths = {
   pf:  '../program edit menu/js/',
   pm:  '../program menu/js/',
   pa:  '../program admin/js/',
-  pem: '../program embed menu/js/',
+  pem: '../agenda embed menu/js/',
   gl:  '../global/js/',
   jsc: '../js/cibul/',
   lib: '../js/lib/',

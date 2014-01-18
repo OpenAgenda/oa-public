@@ -5,7 +5,7 @@ var configHandler = function(config) {
     config = {};
   } else {
     var decoratedConfig = {};
-    for (index in config) {
+    for (var index in config) {
       decoratedConfig['layout[' + index + ']'] = config[index];
     }
     config = decoratedConfig;
@@ -40,7 +40,7 @@ var configHandler = function(config) {
     addChangeCallback: function(callback) {
       changeCallbacks.push(callback);
     }
-  }
+  };
 },
 
 runListBehavior = function(cHandler, sandboxResource, key) {
@@ -73,7 +73,7 @@ runListBehavior = function(cHandler, sandboxResource, key) {
       widgets: {
         radio: ['layout[pres]'],
         select: ['layout[order]', 'layout[fontsize]', 'layout[fontfamily]', 'layout[epp]', 'layout[lang]'],
-        text: ['layout[color1]', 'layout[color2]', 'layout[color3]', 'layout[color4]']
+        text: ['layout[color1]', 'layout[color2]', 'layout[color3]', 'layout[color4]', 'layout[linkcss]']
       }
     });
 
@@ -86,7 +86,7 @@ runListBehavior = function(cHandler, sandboxResource, key) {
 
     _enableColorPicker(el('#slide'), el('#picker'), function(value) {
       els('.js_bgcolor')[4].setAttribute('value', value);
-      els('.js_color_indicator')[4].style.backgroundColor = value;
+      els('.js_color_indicator')[0].style.backgroundColor = value;
       cHandler.set('layout[color1]', value);
     });
 
@@ -147,7 +147,7 @@ runListBehavior = function(cHandler, sandboxResource, key) {
         function(hex, hsv, rgb) {
           callback(hex);
         }
-      );  
+      );
     } catch (e) {
       console.log ('color picker error');
     }
@@ -169,6 +169,7 @@ runListBehavior = function(cHandler, sandboxResource, key) {
     if (!loading) _syncCss();
 
   },
+
   /**
    * reset list frame src attribute with passed layout parameters (css excluded)
   **/

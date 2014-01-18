@@ -10,7 +10,7 @@ var runAddButtonBehavior = function(params) {
       disabled: '.js_button_disabled'
     },
     events: { cssUpdate: 'cssupdate', layoutUpdate: 'layoutupdate' },
-    height: 1750,
+    height: 2090,
     classes: {
       none: 'display-none'
     },
