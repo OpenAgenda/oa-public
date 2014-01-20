@@ -40,6 +40,7 @@ var handleEventImage = function(params) {
     onSuccess: false,
     onRemove: false,
     onImageLoad: false,
+    prefix: false,
     path: false // path where images are found
   }, params);
 
@@ -162,7 +163,7 @@ var handleEventImage = function(params) {
 
     var img = document.createElement('img');
 
-    img.setAttribute('src', params.path + name + '?' + Math.random());
+    img.setAttribute('src', params.path + params.prefix + name + '?' + Math.random());
 
     addEvent(img, 'load', function(){
       params.onImageLoad();

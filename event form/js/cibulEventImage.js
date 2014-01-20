@@ -10,6 +10,7 @@ var cibulEventImage = function(params) {
       remove: 'eimageremove',
       heightChange: 'heightchange'
     },
+    imagePrefix: 'evf',
     labels: {},
     path: false // path where uploaded images are accessible
   }, params);
@@ -41,7 +42,8 @@ var cibulEventImage = function(params) {
           eh.trigger(params.events.heightChange);
         },
         initName: data.image?data.image:false,
-        path: params.path
+        path: params.path,
+        prefix: params.imagePrefix
       });
 
     });
