@@ -58,7 +58,7 @@ var handleEventAdmin = function(params) {
 
     if (link.cred=='owner' && !isOwner && !link.force) return false;
 
-    if (link.cred=='editor' && !isOwner && !link.force) return false;
+    if (link.cred=='editor' && !isEditor &&!isOwner && !link.force) return false;
 
     var li = document.createElement('li');
 

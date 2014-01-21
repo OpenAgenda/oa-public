@@ -8,7 +8,7 @@ var paths = {
   el:  '../event list page/js/',
   ee:  '../event page embedded/js/',
   ep:  '../event form/js/',
-  pe:  '../program embedded/js/',
+  pe:  '../agenda embedded/js/',
   pf:  '../program edit menu/js/',
   pm:  '../program menu/js/',
   pa:  '../program admin/js/',
@@ -164,17 +164,17 @@ files = {
       'handleContextMenu/src/handleContextMenu.js',
       'action/src/action.js'
     ],
-    [paths.lib, 
+    [paths.lib,
       'Base64/Base64.js', 'common/common.js', 'remote/remote.js',
-      'loadJs/loadJs.js', 'lightbox/lightbox.js', 
+      'loadJs/loadJs.js', 'lightbox/lightbox.js',
       'urlStrings/urlStrings.js', 'EventHandler/EventHandler.js',
       'tabs/tabs.js', 'linkToImage/linkToImage.js',
       'maps/maps.js', 'maps/google.maps.js', 'lineNav/lineNav.js',
     ],
     [paths.vd,
       'setLinks/src/setLinks.js',
-      'ejs/src/ejs_production.js', 
-      'ejs/src/ejs_production.js', 
+      'ejs/src/ejs_production.js',
+      'ejs/src/ejs_production.js',
       'Cookies-master/src/cookies.js'
     ],
     [paths.e, 'handleEventAdmin.js']
@@ -278,7 +278,7 @@ files = {
   ],
 
   'review/search.min.js': [
-    [paths.lib, 
+    [paths.lib,
       'common/common.js', 'EventHandler/EventHandler.js',
       'remote/remote.js', 'flowinate/flowinate.js'
     ],
@@ -304,8 +304,8 @@ files = {
       'mapHandler/src/mapHandler.js',
       'handleContextMenu/src/handleContextMenu.js'
     ],
-    [paths.lib, 
-      'common/common.js', 'Base64/Base64.js', 'iTunnel/iTunnel.js', 'hash/hash.js' ,
+    [paths.lib,
+      'common/common.js', 'EventHandler/EventHandler.js', 'Base64/Base64.js', 'iTunnel/iTunnel.js', 'hash/hash.js' ,
       'urlStrings/urlStrings.js', 'tabs/tabs.js', 'lineNav/lineNav.js',
       'maps/maps.js', 'maps/osm.maps.js', 'maps/leaflet.js',
       'remote/remote.js', 'loadJs/loadJs.js',

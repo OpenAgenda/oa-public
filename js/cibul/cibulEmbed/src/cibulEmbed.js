@@ -21,7 +21,9 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
     forEach(params.controllers, function(controller) {
 
-      forEach(getElementsByClassName(document, controller.className), _controllers[controller.name]);
+      var elems = els('.' + controller.className);
+
+       _controllers[controller.name](elems.length?elems[0]:null);
 
     });
 
@@ -34,7 +36,7 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
   _controllers = {
     list: function(iframeElem) {
 
-      if (_flagged(iframeElem)) return;
+      if ((iframeElem!==null) && _flagged(iframeElem)) return;
 
       var tunnel,
       eh = sEventHandler.getInstance(),
@@ -43,9 +45,20 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
       monitorScroll = true,
       programScrollPos = false,
       iframePos = false,
-      currentView = VIEWS.LIST,
-      views = {}, 
+      currentView = null,
+      views = {},
       _init = function() {
+
+        // request to get current view name
+        eh.on('getview', function(callback) {
+
+          callback(currentView);
+
+        });
+
+        if (iframeElem===null) return;
+
+        currentView = VIEWS.LIST;
 
         views[VIEWS.LIST] = {url: iframeElem.src};
 
@@ -58,10 +71,7 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
           if (data.height) _adjustHeight(data.height);
 
-          if (currentView==VIEWS.LIST) 
-            _processListData(data);
-          else // assuming its the form
-            _processFormData(data);
+          if (currentView==VIEWS.LIST) _processListData(data);
 
         }});
 
@@ -146,7 +156,7 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
       },
       _findPos = function(element) {
 
-        var curleft = curtop = 0;
+        var curleft = 0, curtop = 0;
 
         if (element.offsetParent) {
 
@@ -166,14 +176,14 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
         return document.getElementsByTagName('body')[0].scrollTop;
         
-      }
+      },
       _monitorScroll = function() {
 
         if (monitorScroll && hasNext && (iframeElem.offsetTop + iframeElem.offsetHeight <= _scrollPosition() + document.getElementsByTagName('html')[0].clientHeight)) {
           
           if (!responsePending) {
             responsePending = true;
-            tunnel.send({event: 'loadNext'});  
+            tunnel.send({event: 'loadNext'});
           }
 
         }
@@ -188,10 +198,13 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
     event: function(iframeElem) {
 
+      if (iframeElem===null) return;
+
       if(_flagged(iframeElem)) return;
 
-      var tunnel = iTunnel({target: iframeElem})
-        , eh = sEventHandler.getInstance();
+      var tunnel = iTunnel({target: iframeElem}),
+      
+      eh = sEventHandler.getInstance();
 
       tunnel.setOnReceive(function(data) {
 
@@ -201,6 +214,8 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
     },
 
     map: function(iframeElem) {
+
+      if (iframeElem===null) return;
 
       if(_flagged(iframeElem)) return;
 
@@ -226,24 +241,30 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
       eh.on('closeevent', function(data) {
         tunnel.send(data);
-      })
+      });
 
-    }, 
+    },
 
     categories: function(categoriesElem, onReady) {
+
+      if (categoriesElem===null) return;
 
       if(_flagged(categoriesElem)) return;
 
       if (!categoriesElem.getAttribute('data-cbctl')) {
         console.log('categories config not found');
         return;
-      };
+      }
 
-      var eh = sEventHandler.getInstance()
-      , ctlData = categoriesElem.getAttribute('data-cbctl').split('|')
-      , uid = ctlData[0]
-      , key = ctlData[1]
-      , ctl = cibulControlData.getInstance(key, ctlData.length==3?ctlData[2]:params.controlResource);
+      var eh = sEventHandler.getInstance(),
+      
+      ctlData = categoriesElem.getAttribute('data-cbctl').split('|'),
+      
+      uid = ctlData[0],
+      
+      key = ctlData[1],
+      
+      ctl = cibulControlData.getInstance(key, ctlData.length==3?ctlData[2]:params.controlResource);
 
       ctl.get(uid, function(controlData) {
 
@@ -264,19 +285,21 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
     calendar: function(calendarElem) {
 
+      if (calendarElem===null) return;
+
       if(_flagged(calendarElem)) return;
 
       if (!calendarElem.getAttribute('data-cbctl')) {
         console.log('calendar config not found');
         return;
-      };
+      }
 
-      var eh = sEventHandler.getInstance()
-        , ctlData = calendarElem.getAttribute('data-cbctl').split('|')
-        , uid = ctlData[0]
-        , key = ctlData[1]
-        , lang = ctlData[2]
-        , ctl = cibulControlData.getInstance(key, ctlData.length==4?ctlData[3]:params.controlResource);
+      var eh = sEventHandler.getInstance(),
+        ctlData = calendarElem.getAttribute('data-cbctl').split('|'),
+        uid = ctlData[0],
+        key = ctlData[1],
+        lang = ctlData[2],
+        ctl = cibulControlData.getInstance(key, ctlData.length==4?ctlData[3]:params.controlResource);
 
 
         ctl.get(uid, function(controlData) {
@@ -300,32 +323,51 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
     addButton: function(buttonElem) {
 
+      if (buttonElem===null) return;
+
       if(_flagged(buttonElem)) return;
 
       if (!buttonElem.getAttribute('data-cbctl')) {
-        console.log('categories config not found');
+        console.log('button config not found');
         return;
-      };
+      }
 
-      var eh = sEventHandler.getInstance()
-        , ctlData = buttonElem.getAttribute('data-cbctl').split('|')
-        , uid = ctlData[0], key = ctlData[1], formUrl = ctlData[2]
-        , currentView = VIEWS.LIST, labels = {}
-        , enabled = false
+      var eh = sEventHandler.getInstance(),
+      ctlData = buttonElem.getAttribute('data-cbctl').split('|'),
+      uid = ctlData[0], key = ctlData[1], formUrl = ctlData[2], height = ctlData.length>4?ctlData[4]:2300, width = ctlData.length>5?ctlData[5]:500,
+      currentView = null, labels = {},
+      enabled = false,
 
-      , init = function() {
+      init = function() {
 
         labels[VIEWS.LIST] = buttonElem.innerHTML;
-        labels[VIEWS.FORM] = ctlData[3]
+        labels[VIEWS.FORM] = ctlData[3];
 
         // the list controller is the beholder of urls. give it the form url
 
         eh.trigger('setviewparams', { name: VIEWS.FORM, url: formUrl + '?key=' + key });
 
         eh.trigger('getview', function(view) {
+
+          if (view === null) {
+
+            _displayFrame();
+
+          } else {
+
+            _applyButtonBehavior();
+
+            _enable();
+            
+          }
+
           currentView = view;
-          _enable();
+          
         });
+
+      },
+
+      _applyButtonBehavior = function() {
 
         addEvent(buttonElem, 'click', function(e) {
 
@@ -339,21 +381,35 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
           // pretty loose, but should be enough for now
 
-          setTimeout(function() { _enable() }, 1000);
+          setTimeout(function() { _enable(); }, 1000);
 
         });
 
-      }
+      },
 
-      , _enable = function() {
+      _displayFrame = function() {
+
+        buttonElem.style.display = 'none';
+
+        var iframe = document.createElement('iframe');
+
+        iframe.src= formUrl + '?key=' + key + '&standalone=';
+        iframe.style.height = height + 'px';
+        iframe.style.width = width + 'px';
+
+        buttonElem.insertAdjacentElement('afterend', iframe);
+
+      },
+
+      _enable = function() {
 
         buttonElem.innerHTML = labels[currentView];
 
         enabled = true;
 
-      }
+      },
 
-      , _disable = function() {
+      _disable = function() {
 
         enabled = false;
 

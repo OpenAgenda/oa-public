@@ -1,5 +1,5 @@
 .cbody { margin: 60px auto; width: auto; position: relative; max-width: 1200px; }
-.cbody > div { display: inline-block; padding: 10px; }
+.cbody > div { display: inline-block; padding: 10px; clear: both; }
 @media all and (max-width: 920px) { .cbody { margin: 60px auto!important; text-align: center!important; } }
 @media all and (max-width: 500px) { .cbody { margin: 0!important; } }
 

@@ -1,0 +1,113 @@
+* { margin: 0; padding: 0; border: 0; font: 13px/1.5 'Helvetica Neue',Arial,Helvetica,'Liberation Sans',FreeSans,sans-serif; list-style: none outside none; color: #333; }
+html { overflow: hidden; }
+a { text-decoration: none; }
+.display-none { display: none!important; }
+button { background: none; }
+
+
+/* list-items v0.3 - list general structure */
+.list-items li.plis { border-bottom: 1px solid #f8f8f8; margin: 20px 0; text-align: left; }
+.list-items li.plis:first-child { margin-top: 10px; }
+.list-items li.plis h2 { padding: 0 20px 5px; margin: 0; border-bottom: 1px solid #ccc; letter-spacing: 2px; font-size: 1.3em; }
+
+.list-items { position: relative; min-height: 120px; }
+.list-items > li.pli { padding: 5px 20px; }
+.tiled .list-items > li.pli { display: inline-block; vertical-align: top; }
+.list-items > li.ai { padding: 0 20px 5px; }
+.list-items > li.ri { padding: 5px 20px 0; }
+
+.lockPane { position: absolute;  top: 0; background-color: rgba(255,255,255,0.1); z-index: 3; }
+.spinner { position: absolute; left: 50%; }
+
+.list-nav { line-height: 1em; display: inline-block; margin: 0 1em 0 0; position: absolute; right: 0; cursor: pointer; z-index: 2; }
+.tiled .list-nav { display: block; position: relative; text-align: right; }
+.list-nav.bottom { display: block; text-align: center; position: relative;  }
+.list-nav > * { vertical-align: top; color: #666; }
+.list-nav span { font-size: 2em; line-height: 0.2em; margin: 0 0.2em; }
+.list-nav i { font-size: 1.2em; line-height: 1.2em; }
+.list-nav.disabled * { color: #ccc; }
+
+@media all and (max-width: 740px) { .list-nav .pli:last-child { margin-bottom: 0; } }
+
+/* end of list items */
+
+
+/*pli v0.6 - program article list item structure */
+.pli { margin-bottom: 10px;}
+.plihd p a { color: #666;}
+
+.plihd > * { display: inline-block; vertical-align: top; }
+.plihd > div { max-width: 80%; }
+.plihd > div > * { margin-left: 6px;}
+.plihd .hdthumb { width: 36px; max-width: 16%; margin-top: 2px; }
+.plihd .hdthumb img { width: 100%; }
+.plihd .pliname { font-weight: bold; }
+
+.pli .etags ul { max-height: 20px; overflow: hidden; display: inline-block; width: 80%; vertical-align: top; }
+.pli .etags li { display: inline; margin-right: 0.2em; }
+.pli .etags li > a { font-size: 0.9em; }
+
+.pli i { margin-right: 0.2em; }
+
+.pli .ecat { margin-right: 10px; }
+.pli .ecat > * { vertical-align: middle; text-transform: uppercase; letter-spacing: 0.1em; }
+
+.pli .edit { padding: 2px; margin-right: 10px; display: inline-block; height: 10px; vertical-align: middle;}
+.pli .edit i { vertical-align: top; line-height: 10px; }
+/*eof pli*/
+
+
+/*ei v0.2 event list item structure */
+
+.ei { margin: 4px 0 0; }
+.ei * { font-size: 1em; }
+.ei > * { display: inline-block; text-align: left; }
+.ei .evpic { width: 96px; max-width: 20%; vertical-align: top; }
+.ei .evpic img { width: 100%; }
+.ei .evcnt { width: 80%; vertical-align: middle; }
+.ei .evcnt > ul { margin-left: 10px; }
+.ei .evtitle a { font-weight: bold; }
+.ei .evspacetime *,
+.ei .evdesc { color: #666;}
+.ei .actions a { display: inline-block; }
+
+.tiled .ei { width: 200px; max-width: 300px; display: inline-block; }
+.tiled .ei .evpic { display: block; width: auto; max-width: none; }
+.tiled .ei .evpic img { width: 100%; max-width: none; }
+.tiled .ei .evcnt { width: auto; }
+.tiled .ei .evcnt > ul { margin-left: 0px; }
+
+/*eof ei*/
+
+
+/* filter head */
+.pfilter { border: none; margin-bottom: 2em; padding-right: 1em; }
+.pfilter > span * { font-size: 1.1em; display: inline-block; vertical-align: middle; }
+.pfilter > span i { font-size: 1.3em; cursor: pointer; display: inline-block; vertical-align: middle; }
+.pfilter > * { padding-right: 0.3em; }
+.pfilter .icon-remove { float: right; padding: 0.3em; }
+
+
+
+.event-back { padding: 0 1em; }
+.event-back * { color: #666; display: inline-block;}
+.event-back i { vertical-align: middle; }
+.event-back a { padding-left: 5px;}
+
+
+.poweredby { position: absolute!important; right: 0!important; bottom:0!important; font-size: 0.9em!important; z-index: 12000;}
+
+#embedded-map {
+  height:200px;
+  margin-bottom: 20px;
+}
+
+
+.leaflet-popup-content-wrapper { -webkit-border-radius: 0; border-radius: 0; }
+.leaflet-popup-content p, .leaflet-popup-content { margin: 0; }
+.leaflet-popup-content { padding: 2px 15px 2px 5px; }
+
+
+.map-location > span, .map-location > img { display: inline-block; }
+.map-location > img { width: 48px; padding: 0.2em 0.5em 0 0; vertical-align: top;}
+.map-location > span { max-width: 160px; }
