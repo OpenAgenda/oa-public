@@ -1,14 +1,14 @@
 var handleEventAdmin = function(params) {
 
-  var isEditor = false
-    , isOwner = false
-    , defaultLinks = {
-        edit: {cred: 'editor', html: '<a><i class="icon-cog admin"></i><span>edit</span></a>', link: '#edit', force: false},
-        remove: {cred: 'owner', html: '<a><i class="icon-remove admin"></i><span>delete</span></a>', link: '#remove', confirm: true, message: 'Are you sure?' },
-        editors: {cred: 'owner', html: '<a><i class="icon-group admin"></i><span>editors</span></a>', type: 'ajax', link: '#editors'},
-        email: {cred: 'editor', html: '<a><i class="icon-envelope admin"></i><span>send to my email</span></a>', link: '#email', type: 'ajax' },
-        csv: {cred: 'editor', html: '<a><i class="icon-table admin"></i><span>csv</span></a>', link: '#csv'},
-      };
+  var isEditor = false,
+  isOwner = false,
+  defaultLinks = {
+    edit: {cred: 'editor', html: '<a><i class="icon-cog admin"></i><span>edit</span></a>', link: '#edit', force: false},
+    remove: {cred: 'owner', html: '<a><i class="icon-remove admin"></i><span>delete</span></a>', link: '#remove', confirm: true, message: 'Are you sure?' },
+    editors: {cred: 'owner', html: '<a><i class="icon-group admin"></i><span>editors</span></a>', link: '#editors'},
+    email: {cred: 'editor', html: '<a><i class="icon-envelope admin"></i><span>send to my email</span></a>', link: '#email', type: 'ajax' },
+    csv: {cred: 'editor', html: '<a><i class="icon-table admin"></i><span>csv</span></a>', link: '#csv'},
+  };
 
   params = extend({
     labels: { edition: 'Edition' },
@@ -26,7 +26,7 @@ var handleEventAdmin = function(params) {
 
   if (!params.links) params.links = {};
 
-  for (name in defaultLinks) 
+  for (var name in defaultLinks)
     params.links[name] = extend(defaultLinks[name], (typeof params.links[name] == 'undefined'?{}:params.links[name]));
 
   var init = function() {
@@ -36,7 +36,7 @@ var handleEventAdmin = function(params) {
     
     var links = [];
 
-    for (name in params.links) {
+    for (var name in params.links) {
       var link = _processLink(params.links[name]);
 
       if (link) links.push(link);

@@ -60,7 +60,7 @@
 #event #description .short { font-style: italic; font-size: 1.1em; }
 #event #description .spacetime { display: block; }
 #event #description .tags > * { vertical-align: middle; }
-#event #description .tags span { color: #666; font-style: italic; }
+#event #description .tags span { color: #666; font-style: italic; word-break: break-all; }
 
 #event #places .place-detail { padding: 0 0 1em 0; }
 #event #places .address { font-style: italic; color: #666; }

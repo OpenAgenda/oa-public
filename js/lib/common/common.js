@@ -29,23 +29,14 @@ function contains(a, obj) {
      }
   }
   return false;
-};
+}
 
 function isArray(obj) {
   return Object.prototype.toString.call(obj) === '[object Array]';
-};
+}
 
 var unpack = function(encoded) {
-
-  var div = document.createElement('div'); 
-  div.innerHTML = encoded; 
-
-  var result = JSON.parse(div.innerHTML
-    .replace(new RegExp(String.fromCharCode(9), 'g'), ' ')
-    .replace(/\n/g, '\\n')
-    .replace(String.fromCharCode(29), ''));
-
-  return result;
+  return JSON.parse(encoded);
 };
 
 var hasClass = function(element, cls) { return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1; };
@@ -55,7 +46,7 @@ var removeClass = function(element, cls) { if (hasClass(element, cls)) { var reg
 
 /* removeEvent v0.1 */
 var removeEvent = function(elem,types,eventHandle) {
-  if (elem == null || elem == undefined) return;
+  if (elem === null || elem === undefined) return;
   if (typeof types == 'string') types = [types];
   forEach(types, function(type) {
     if (elem.removeEventListener) {
