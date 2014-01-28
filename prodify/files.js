@@ -11,7 +11,7 @@ var paths = {
   pe:  '../agenda embedded/js/',
   pf:  '../program edit menu/js/',
   pm:  '../program menu/js/',
-  pa:  '../program admin/js/',
+  pa:  '../agenda admin/js/',
   pem: '../agenda embed menu/js/',
   gl:  '../global/js/',
   jsc: '../js/cibul/',

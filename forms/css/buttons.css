@@ -31,3 +31,17 @@
 }
 
 .cform button:hover, .cform .button:hover { border-color: #999; }
+
+.cform .green {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #5bb75b;
+  background-image: -moz-linear-gradient(top, #62c462, #3CAD2D);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#3CAD2D));
+  background-image: -webkit-linear-gradient(top, #62c462, #3CAD2D);
+  background-image: -o-linear-gradient(top, #62c462, #3CAD2D);
+  background-image: linear-gradient(to bottom, #62c462, #3CAD2D);
+  background-repeat: repeat-x;
+  border-color: #51a351 #3CAD2D #387038;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}

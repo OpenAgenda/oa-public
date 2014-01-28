@@ -1,7 +1,8 @@
 var runProgramBehavior = function(params) {
 
-  var eh = sEventHandler.getInstance()
-    , mobile = false;
+  var eh = sEventHandler.getInstance(),
+  
+  mobile = false;
 
 
   var init = function() {
@@ -34,10 +35,10 @@ var runProgramBehavior = function(params) {
       callbacks: {}
     }, params);
 
-    params.templates = extend({ 
-      article: false, 
-      section: '<li class="plis"><h2><%= value %></h2></li>', 
-      programItem: false, 
+    params.templates = extend({
+      article: false,
+      section: '<li class="plis"><h2><%= value %></h2></li>',
+      programItem: false,
       aggItem: '<span><%= programItem %><span class="js_is_not"><i class="icon-plus"></i></span><span class="js_is"><i class="icon-ok"></i><i class="icon-remove"></i></span></span>',
       aggLink: '<a><i class="icon-share-alt"></i><span><%= label %></span></a>'
     }, params.templates?params.templates:{});
@@ -344,7 +345,7 @@ var runProgramBehavior = function(params) {
 
     if (collaborative || (owner==getCurrentUsername()) || (typeof editors[getCurrentUsername()] != 'undefined')) {
 
-      params.elems.actions.insertAdjacentHTML('afterbegin', '<li class="add-event"><a class="add-event smallest button" href="' + params.links.addEvent + '"><i class="icon-plus"></i><span>' + params.labels.addEvent + '</span></a></li>');
+      params.elems.actions.insertAdjacentHTML('afterbegin', '<li class="add-event"><a class="add-event small button green" href="' + params.links.addEvent + '">' + params.labels.addEvent + '</a></li>');
 
     }
 
