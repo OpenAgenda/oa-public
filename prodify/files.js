@@ -89,6 +89,7 @@ files = {
       'cibulEventDescription.js',
       'cibulEventLocation.js',
       'cibulEventImage.js',
+      'cibulEventAgenda.js',
       'cibulEventSubmit.js',
       'cibulEventFormTunnel.js',
       'handlePricingSelection.js',

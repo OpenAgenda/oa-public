@@ -147,6 +147,8 @@ var cibulEventLocation = function(params) {
 
         _toggleCancels();
 
+        _enableAdd();
+
       },
       onComplete: function() {
         _enableAdd();
