@@ -166,14 +166,28 @@ var cibulEvent = function(params) {
 
     eh.on(params.events.agenda.fetch, function(data) {
 
-      if (!event.agenda) data.callback(false);
+      if (!event.agendas) data.callback(false);
+
+      forEach(event.agendas, function(agenda) {
+
+        if (agenda.uid == data.uid) return data.callback(agenda);
+
+      });
 
     });
 
 
+    // write agenda information in existing or new entry
+
     eh.on(params.events.agenda.write, function(data) {
 
-      event.agenda = data;
+      if (!event.agendas) event.agendas = [];
+
+      for (var i = event.agendas.length - 1; i >= 0; i--) {
+        if (event.agendas[i].uid == data.uid) return event.agendas[i] = data;
+      }
+
+      event.agendas.push(data);
 
     });
 
@@ -223,7 +237,9 @@ var cibulEvent = function(params) {
     });
 
     eh.on(params.events.fetchLanguages, function(callback) {
+
       callback(languages);
+
     });
 
   },
@@ -234,7 +250,6 @@ var cibulEvent = function(params) {
       event.locations.pop();
     }
       
-
     var index;
 
     for (index in locationMap) {

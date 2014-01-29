@@ -58,5 +58,8 @@ var testevent = {
         { date: '2010-03-01', begin: '10:00', end: '15:00', uid: 44532178 },
       ]
     }*/
+  ],
+  agendas: [
+    {uid: 84735921, tags: ['theatre-du-chatelet', 'vente', 'festival-nemo', 'espace-jemmapes'], category: 'expositions' }
   ]
-}
+};

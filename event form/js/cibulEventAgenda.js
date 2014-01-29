@@ -1,6 +1,7 @@
 var cibulEventAgenda = function(params) {
 
   params = extend({
+    uid: false,
     selectors: {
       canvas: '.js_form_canvas'
     },
@@ -31,29 +32,42 @@ var cibulEventAgenda = function(params) {
     categories: false
   }, params);
 
-  var eh = sEventHandler.getInstance(), tagCanvas, catCanvas, selection = {tags: [], category: false}, mCanvas,
+  var eh = sEventHandler.getInstance(), tagCanvas, catCanvas, selection = {tags: [], category: false, uid: params.uid }, mCanvas,
 
   init = function() {
 
     if (!Object.size(params.categories) && !Object.size(params.tags)) return; // nothing to do here
 
-    _createMainCanvas();
+    eh.trigger(params.events.fetch, {
+      uid: params.uid,
+      callback: function(data) {
 
-    if (Object.size(params.tags)) {
+        if (!data) return;
 
-      tagCanvas = _createCanvas('tags');
+        selection.category = data.category?data.category:null;
 
-      forEach(params.tags, _addTagItem);
+        selection.tags = data.tags?data.tags:[];
 
-    }
+        _createMainCanvas();
 
-    if (Object.size(params.categories)) {
+        if (Object.size(params.tags)) {
 
-      catCanvas = _createCanvas('categories');
+          tagCanvas = _createCanvas('tags');
 
-      forEach(params.categories, _addCategoryItem);
+          forEach(params.tags, _addTagItem);
 
-    }
+        }
+
+        if (Object.size(params.categories)) {
+
+          catCanvas = _createCanvas('categories');
+
+          forEach(params.categories, _addCategoryItem);
+
+        }
+
+      }
+    });
 
   },
 
@@ -62,6 +76,8 @@ var cibulEventAgenda = function(params) {
     var li = document.createElement('li');
 
     li.innerHTML = new EJS({text: params.templates.tag }).render({label: item.label });
+
+    if (contains(selection.tags, item.slug)) addClass(li, params.classes.active);
 
     addEvent(li, 'click', function(e) {
 
@@ -101,6 +117,8 @@ var cibulEventAgenda = function(params) {
     var li = document.createElement('li');
 
     li.innerHTML = new EJS({text: params.templates.category }).render({ label: item.label });
+
+    if (item.slug==selection.category) addClass(li, params.classes.active);
 
     addEvent(li, 'click', function(e) {
 
