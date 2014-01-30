@@ -1,0 +1,39 @@
+.front { background: white; text-align: center; min-height: 100%; }
+
+.front header { background: rgb(244, 244, 244); }
+
+.front .content { max-width: 1000px; text-align: left; margin: 0 auto; padding: 3em 20px; clear: both; }
+
+.front .title { font-size: 3em; }
+.front .subtitle { font-size: 1.5em; padding: 0 0 1em; }
+
+.front .desc,
+.front .ill { display: inline-block; vertical-align: middle; }
+
+.front .desc { padding: 6em 0; width: 70%; }
+.front .right { text-align: right; }
+
+.front .ill { width: 30%; text-align: right; }
+.front .ill img { max-width: 300px; width: 100%; }
+
+.front section .title { font-size: 2em; }
+
+.front footer .content { text-align: center; }
+.front footer li { display: inline-block; padding: 0 1em; vertical-align: middle; }
+.front footer i { font-size: 1.8em; }
+
+@media all and (max-width: 700px) { 
+  .front .desc { padding: 4em 0; }
+  .front .title { font-size: 2.5em; }
+}
+
+@media all and (max-width: 530px) {
+  .front .ill,
+  .front .desc { display: block; width: auto; }
+
+  .front .right { text-align: left; }
+
+  .front .ill { text-align: center; }
+
+  .front header .desc { padding-top: 0; }
+}

@@ -166,13 +166,13 @@ var cibulEvent = function(params) {
 
     eh.on(params.events.agenda.fetch, function(data) {
 
-      if (!event.agendas) data.callback(false);
-
-      forEach(event.agendas, function(agenda) {
+      if (event.agendas) forEach(event.agendas, function(agenda) {
 
         if (agenda.uid == data.uid) return data.callback(agenda);
 
       });
+
+      data.callback(false);
 
     });
 

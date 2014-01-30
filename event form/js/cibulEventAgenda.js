@@ -12,8 +12,8 @@ var cibulEventAgenda = function(params) {
       bottom: 'separator'
     },
     templates: {
-      tags: '<h2><%= title %></h2><p><%= label %></p><ul></ul>',
-      categories: '<h2><%= title %></h2><p><%= label %></p><ul></ul>',
+      tags: '<h2><%= title %></h2><p class="info"><%= label %></p><ul></ul>',
+      categories: '<h2><%= title %></h2><p class="info"><%= label %></p><ul></ul>',
       tag: '<span><%= label %></span>',
       category: '<span><%= label %></span>',
       main: '<div class="separator"></div>'
@@ -42,11 +42,11 @@ var cibulEventAgenda = function(params) {
       uid: params.uid,
       callback: function(data) {
 
-        if (!data) return;
+        if (data) {
+          selection.category = data.category?data.category:null;
 
-        selection.category = data.category?data.category:null;
-
-        selection.tags = data.tags?data.tags:[];
+          selection.tags = data.tags?data.tags:[];
+        }
 
         _createMainCanvas();
 

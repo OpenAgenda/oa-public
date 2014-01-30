@@ -8,23 +8,6 @@ body { background: url("images/bg.png") repeat scroll 0 0 rgb(230,230,230); }
 input[type="radio"] { border: none; }
 a { text-decoration: none; cursor: pointer; outline: 0;}
 
-.button { 
-  display: inline-block;
-  padding: 9px 12px;
-  border-color: #cccccc #cccccc #bbbbbb;
-  border-width: 1px;
-  border-style: solid;
-  background: #f5f5f5; /* old browsers */
-  background: -moz-linear-gradient(top, #FFFFFF 0%, #E8E8E8 80%, #E2E2E2 100%); /* firefox */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(80%,#E8E8E8), color-stop(100%,#E2E2E2)); 
-  cursor: pointer;
-  -moz-border-radius: 4px; 
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-}
-
-.button.small { padding: 0.38em 0.77em; }
-.button.smallest { padding: 0 0.4em 0 0.2em; }
 
 .wsq {
   background: white;
@@ -43,7 +26,7 @@ a { text-decoration: none; cursor: pointer; outline: 0;}
 .lightbox-buttons { text-align: center; padding-top: 10px; }
 .lightbox-buttons button { margin: 0 5px; }
 
-.url, .url a, .url strong { color: #11BED4; /*color: #2276BB; */ word-wrap: break-word; font-size: 1em; }
+.url, .url a, .url strong, .url span, .url i { color: #11BED4; word-wrap: break-word; font-size: 1em; }
 
 
 .lockPane { position: absolute;  top: 0; background-color: rgba(255,255,255,0.5); z-index: 3; }

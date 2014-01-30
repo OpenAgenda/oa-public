@@ -6,6 +6,7 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
       { className: 'cbevdtl', name: 'event'},
       { className: 'cbpgmp', name: 'map'},
       { className: 'cbpgct', name: 'categories'},
+      { className: 'cbpgtg', name: 'tags' },
       { className: 'cbpgcl', name: 'calendar'},
       { className: 'cbpgae', name: 'addButton'}
     ],
@@ -21,9 +22,9 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
     forEach(params.controllers, function(controller) {
 
-      var elems = els('.' + controller.className);
-
-       _controllers[controller.name](elems.length?elems[0]:null);
+      forEach(els('.' + controller.className), function(elem) {
+        _controllers[controller.name](elem);
+      });
 
     });
 
@@ -36,7 +37,7 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
   _controllers = {
     list: function(iframeElem) {
 
-      if ((iframeElem!==null) && _flagged(iframeElem)) return;
+      if (_flagged(iframeElem)) return;
 
       var tunnel,
       eh = sEventHandler.getInstance(),
@@ -198,8 +199,6 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
     event: function(iframeElem) {
 
-      if (iframeElem===null) return;
-
       if(_flagged(iframeElem)) return;
 
       var tunnel = iTunnel({target: iframeElem}),
@@ -214,8 +213,6 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
     },
 
     map: function(iframeElem) {
-
-      if (iframeElem===null) return;
 
       if(_flagged(iframeElem)) return;
 
@@ -246,8 +243,6 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
     },
 
     categories: function(categoriesElem, onReady) {
-
-      if (categoriesElem===null) return;
 
       if(_flagged(categoriesElem)) return;
 
@@ -283,9 +278,31 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
     },
 
-    calendar: function(calendarElem) {
+    tags: function(tagsElem, onReady) {
 
-      if (calendarElem===null) return;
+      if (_flagged(tagsElem)) return;
+
+      if (!tagsElem.getAttribute('data-cbctl')) return console.log('tags config not found');
+
+      var eh = sEventHandler.getInstance(),
+
+      UID = 0, KEY = 1, RES = 2, TAGS = 3, // the indexes of config values
+
+      ctlData = tagsElem.getAttribute('data-cbctl').split('|');
+
+      if (ctlData.length < 3) return console.log('tags config is incomplete: ' . tagsElem.getAttribute('data-cbctl'));
+
+      ctl = cibulControlData.getInstance(ctlData[KEY], ctlData[RES]);
+
+      ctl.get(uid, function(controlData) {
+
+        if (!controlData.tg)
+
+      });
+
+    },
+
+    calendar: function(calendarElem) {
 
       if(_flagged(calendarElem)) return;
 
