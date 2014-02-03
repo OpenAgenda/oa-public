@@ -244,7 +244,6 @@ files = {
       'handleProgram.js',
       'handleEmptyProgram.js',
       'handleTags.js',
-      'handleTagsEdit.js',
       'handleSourceMenu.js'
     ]
   ],
@@ -393,7 +392,7 @@ files = {
   'review/embedMenu.min.js': [
     [paths.jsc, 'handleContextMenu/src/handleContextMenu.js', 'embedCodeField/src/embedCodeField.js'],
     [paths.lib, 'loadJs/loadJs.js', 'formWidgets/formWidgets.js', 'tabs/tabs.js', 'lightbox/lightbox.js'],
-    [paths.pem, 'handleEmbedMenuList.js', 'handleEmbedMenuMap.js', 'handleEmbedMenuCategories.js', 'handleEmbedMenuCalendar.js', 'handleEmbedMenuFacebook.js', 'handleEmbedMenuAddButton.js', 'toggler.js']
+    [paths.pem, 'handleEmbedMenuList.js', 'handleEmbedMenuMap.js', 'handleEmbedMenuCategories.js', 'handleEmbedMenuTags.js', 'handleEmbedMenuCalendar.js', 'handleEmbedMenuFacebook.js', 'handleEmbedMenuAddButton.js', 'toggler.js']
   ],
 
   'review/embedMap.min.js': [

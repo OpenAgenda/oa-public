@@ -21,6 +21,7 @@
     <script type="text/javascript" src="js/handleEmbedMenuList.js"></script>
     <script type="text/javascript" src="js/handleEmbedMenuMap.js"></script>
     <script type="text/javascript" src="js/handleEmbedMenuCategories.js"></script>
+    <script type="text/javascript" src="js/handleEmbedMenuTags.js"></script>
     <script type="text/javascript" src="js/handleEmbedMenuCalendar.js"></script>
     <script type="text/javascript" src="js/handleEmbedMenuAddButton.js"></script>
     <script type="text/javascript" src="js/handleEmbedMenuFacebook.js"></script>
@@ -45,6 +46,7 @@
               <li><a class="menu-item js_tab active"><i class="icon-list"></i><span>Liste</span></a></li>
               <li><a class="menu-item js_tab"><i class="icon-map-marker"></i><span>Carte</span></a></li>
               <li><a class="menu-item js_tab display-none js_category_tab"><i class="icon-bookmark"></i><span>Catégories</span></a></li>
+              <li><a class="menu-item js_tab display-none js_tags_tab"><i class="icon-tags"></i><span>Mots Clés</span></a></li>
               <li><a class="menu-item js_tab"><i class="icon-calendar"></i><span>Calendrier</span></a></li>
               <li><a class="menu-item js_tab"><i class="icon-plus"></i><span>Bouton Ajouter</span></a></li>
             </ul>
@@ -94,7 +96,7 @@
             </div>
           </div>
 
-          <div class="js_tab_content display-none" data-tab-indexes="1">
+          <div class="js_tab_content display-none">
 
             <div class="embed-pres">Intégrez cette Carte sur la page ou se trouve vos événements. Elle montrera leurs lieux par des marqueurs cliquables.</div>
 
@@ -143,7 +145,32 @@
             </div>
           </div>
 
-          <div class="js_tab_content display-none" data-tab-indexes="3">
+          <div class="js_tab_content display-none">
+
+            <div class="embed-pres">Intégrez un widget de mots clés sur votre site.</div>
+
+            <div class="embed-code cform">
+              <input type="text" class="js_tags_code" disabled="disabled"/>
+              <span class="info">placez ce code dans votre site</span>
+            </div>
+
+            <div class="widget-preview cform">
+              <ul>
+                <li class="line">
+                  <select class="js_layout_selector_tags">
+                    <option>Personnalisation</option>
+                    <option data-target="tags">choix de mots clés</option>
+                  </select>
+                </li>
+                <li class="js_layout_canvas_tags"></li>
+              </ul>
+              <div class="preview-canvas"><div class="preview">
+                <div class="cibulTags" data-cbctl="48959239/46744426|4bc1106de56674b18e6910699525dfe8|http://d.cibul.net/frontend_dev.php/embed/{uid}/controldata"></div>
+              </div></div>
+            </div>
+          </div>
+
+          <div class="js_tab_content display-none">
 
             <div class="embed-pres">Intégrez un calendrier dans votre site pour filtrer la liste d'événements par dates.</div>
             
@@ -337,15 +364,18 @@
         <li class="display-none menu-item-detail cform" data-content="map-size">
           <ul class="line">
             <li class="disabled line">
-              <span>Hauteur: </span>
+              <label>Hauteur: </label>
               <input class="js_map_height" name="layout[mapheight]" maxlength="4" size="4" value="300"/><span> px</span>
             </li>
             <li class="disabled line">
-              <span>Largeur: </span>
+              <label>Largeur: </label>
               <input type="radio" name="layout[mapautowidth]" checked="checked" value="1"/> <label>toute la largeur</label>
               <input type="radio" name="layout[mapautowidth]" value="0"/> <input maxlength="4" size="3" type="text" disabled="disabled" class="js_map_width" name="layout[mapwidth]" class="js_map_width" value="500"/><span>px</span>
             </li>
           </ul>
+        </li>
+        <li class="display-none menu-item-detail cform" data-content="tags">
+          <ul class="js_tag_options line"></ul>
         </li>
       </ul>
     </div>
@@ -377,6 +407,7 @@
         list: embedCodeField(el('.js_list_code'), {template: scriptCode + '<iframe class="cbpglst" frameborder="0" allowtransparency="allowtransparency" src="' + resources.list + '?key=' + key + '" style="width:100%;"></iframe>'}),
         map: embedCodeField(el('.js_map_code'), {template: scriptCode + '<iframe class="cbpgmp" src="' + resources.map + '?key=' + key + '" style="<%= style %>"></iframe>', init: {style: 'width: 100%;'}}),
         category: embedCodeField(el('.js_category_code'), {template: scriptCode + '<div class="cibulCategories cbpgct" data-cbctl="' + programUid + '/' + embedUid + '|' + key + '"></div>'}),
+        tags: embedCodeField(el('.js_tags_code'), { template: scriptCode + '<div class="cibulTags cbpgtg" data-cbctl="' + programUid + '/' + embedUid + '|' + key + '"></div>'}),
         calendar: embedCodeField(el('.js_calendar_code'), {template: scriptCode + '<div class="cbpgcl cibulCalendar" data-cbctl="' + programUid + '/' + embedUid + '|' + key + '|' +  lang + '"></div>'}),
         addButton: embedCodeField(el('.js_button_code'), {template: scriptCode + '<a class="cbpgae cibulAddButton" href="#" data-cbctl="' + programUid + '/' + embedUid + '|' + key + '|http://templates.cibul.net/event form/prod/index.html|Cancel">Add an Event</a>'})
       };
@@ -389,6 +420,7 @@
 
           toggler(el('.js_layout_selector'), el('.js_layout_menus'), {canvas: el('.js_layout_canvas')});
           toggler(el('.js_layout_selector_map'), el('.js_layout_menus'), {canvas: el('.js_layout_canvas_map')});
+          toggler(el('.js_layout_selector_tags'), el('.js_layout_menus'), {canvas: el('.js_layout_canvas_tags')});
 
           runListBehavior(cHandler, resources.sandbox, key);
 
@@ -407,6 +439,8 @@
           runMapBehavior(cHandler, resources.map, key, codeFields.map);
 
           runCategoriesBehavior();
+
+          runTagsBehavior();
 
           runCalendarBehavior();
 
@@ -431,6 +465,10 @@
 
       sEventHandler.getInstance().on('showcategories', function() {
         removeClass(el('.js_category_tab'), 'display-none');
+      });
+
+      sEventHandler.getInstance().on('showtags', function() {
+        removeClass(el('.js_tags_tab'), 'display-none');
       });
 
       function updateForm(newConfig) {

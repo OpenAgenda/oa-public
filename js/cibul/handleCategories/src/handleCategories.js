@@ -29,8 +29,9 @@ var handleCategories = function(params) {
 
     forEach(params.categories, function(cat) {
 
-      var category = {slug: cat.s, category: cat.c }
-        , catElem = _createCategoryElement(category);
+      var category = {slug: cat.s, category: cat.c },
+      
+      catElem = _createCategoryElement(category);
 
       addEvent(catElem, 'click', function(e) {
         
@@ -56,9 +57,9 @@ var handleCategories = function(params) {
     });
 
 
-  }
+  },
 
-  , _createElement = function() {
+  _createElement = function() {
 
     var div = document.createElement('div');
 
@@ -68,18 +69,18 @@ var handleCategories = function(params) {
 
     params.canvas.appendChild(elem);
 
-  }
+  },
 
-  , _removeCanvas = function() {
+  _removeCanvas = function() {
 
     var generalParent = params.canvas.parentNode.parentNode;
 
     generalParent.removeChild(previousObject(params.canvas.parentNode));
     generalParent.removeChild(params.canvas.parentNode);
 
-  }
+  },
 
-  , _createCategoryElement = function(category) {
+  _createCategoryElement = function(category) {
 
     var ul = document.createElement('ul');
 
@@ -89,25 +90,25 @@ var handleCategories = function(params) {
 
     return ul.childNodes[0];
 
-  }
+  },
 
-  , _enable = function() {
+  _enable = function() {
 
     enabled = true;
 
     removeClass(elem, params.classes.disabled);
 
-  }
+  },
 
-  , _disable = function() {
+  _disable = function() {
 
     enabled = false;
 
     addClass(elem, params.classes.enabled);
 
-  }
+  },
 
-  , _setActiveCategory = function(categorySlug) {
+  _setActiveCategory = function(categorySlug) {
 
     forEach(els(elem, params.selectors.category), function(catElem) {
 

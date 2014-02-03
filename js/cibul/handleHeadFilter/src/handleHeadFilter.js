@@ -1,6 +1,6 @@
 var addHeadFilterBehavior = function(params) {
 
-  var disabled = false, currentFilters = {}, eh = sEventHandler.getInstance(), existingParamNames,
+  var disabled = false, currentFilters = {}, eh = sEventHandler.getInstance(), existingParamNames;
 
   params = extend({
     canvas: false,
@@ -15,12 +15,13 @@ var addHeadFilterBehavior = function(params) {
     },
     locations: false,
     categories: [],
+    tags: [], // [{slug: tag slug, label: tag label}]
     template: '<span class="pfilter"><i class="<%= icon %>"></i><span><%= label %></span><button class="js_remove_filter">&times;</button></span>',
     filterTypes: {
       location: { icon: 'icon-map-marker', params: ['location'] },
       category: { icon: 'icon-bookmark', params: ['category'] },
       date: { icon: 'icon-calendar', params: ['from', 'to'] },
-      tag: { icon: 'icon-tags', params: ['tag'] },
+      tags: { icon: 'icon-tags', params: ['tags'] },
       map: { icon: 'icon-map-marker', params: ['neLat', 'neLng', 'swLat', 'swLng'], label: 'mapFilter' }
     },
     labels: {
@@ -43,7 +44,7 @@ var addHeadFilterBehavior = function(params) {
 
       var newValues = _parseParams(newParams);
 
-      for (index in currentFilters)  _clearFilter(index);
+      for (var index in currentFilters)  _clearFilter(index);
 
       for (index in newValues) _addFilter(index, newValues[index]);
 
@@ -61,7 +62,7 @@ var addHeadFilterBehavior = function(params) {
 
     var newValues = {};
 
-    for (rIndex in reqParams) if (contains(existingParamNames, rIndex)) for (tIndex in params.filterTypes) {
+    for (var rIndex in reqParams) if (contains(existingParamNames, rIndex)) for (var tIndex in params.filterTypes) {
 
       if (contains(params.filterTypes[tIndex].params, rIndex)) {
 
@@ -83,7 +84,7 @@ var addHeadFilterBehavior = function(params) {
 
     existingParamNames = [];
 
-    for (fIndex in params.filterTypes) {
+    for (var fIndex in params.filterTypes) {
       forEach(params.filterTypes[fIndex].params, function(param) {
         if (!contains(existingParamNames, param)) existingParamNames.push(param);
       });
@@ -101,8 +102,9 @@ var addHeadFilterBehavior = function(params) {
 
   _addFilter = function(index, filterValues) {
 
-    var elem = document.createElement('div')
-      , label = filterValues[index];
+    var elem = document.createElement('div'),
+    
+    label = filterValues[index];
 
     if (index=='date') {
 
@@ -118,11 +120,27 @@ var addHeadFilterBehavior = function(params) {
         if (category.s==filterValues.category) label = category.c;
       });
 
+    } else if (index=='tags') {
+
+      if ((typeof filterValues.tags == 'string') && (filterValues.tags.indexOf(',') !== -1)) {
+        filterValues.tags = filterValues.tags.split(',');
+      } else if (typeof filterValues.tags == 'string') {
+        filterValues.tags = [filterValues.tags];
+      }
+
+      label = [];
+
+      forEach(params.tags, function(tag) {
+        if (contains(filterValues.tags, tag.s)) label.push(tag.t);
+      });
+
+      label = label.join(', ');
+
     } else if (index=='location') {
 
       if (params.locations[filterValues.location]) label = params.locations[filterValues.location].placename;
 
-    };
+    }
 
     elem.innerHTML = new EJS({text: params.template }).render({icon: params.filterTypes[index].icon, label: label });
 

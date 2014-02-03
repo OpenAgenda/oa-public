@@ -22,6 +22,10 @@
 .front footer li { display: inline-block; padding: 0 1em; vertical-align: middle; }
 .front footer i { font-size: 1.8em; }
 
+.front .references { text-align: center; }
+.front .references li { display: inline-block; vertical-align: middle; padding: 10px; }
+.front .references img { width: 160px; }
+
 @media all and (max-width: 700px) { 
   .front .desc { padding: 4em 0; }
   .front .title { font-size: 2.5em; }

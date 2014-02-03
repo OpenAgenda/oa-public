@@ -1,17 +1,11 @@
-var extractTags = function(tags, item) {
-
-  if (typeof item.article.t == 'undefined') return;
-
-  forEach(item.article.t, function(tag) {
-    if (typeof tags[tag] == 'undefined') tags[tag] = 0;
-    tags[tag]++;
-  });
-
-};
-
 var handleTags = function(params) {
 
+  // the handle tag knows the current tag selection and refreshes it at every page reload
+  // but allows only for the selection of one tag at a time
+
   params = extend({
+    tags: false, // compulsory: list of objects with slugs and labels
+    usedSlugs: false,
     classes: { disabled: 'disabled', active: 'active', item: 'filter-item', list: 'js_tags' },
     events: {
       newSelect: 'load',
@@ -20,30 +14,71 @@ var handleTags = function(params) {
       loadFail: 'fail', // when load has failed
       addTag: 'newtag'
     },
-    templates: {
-      head: ['<div class="pblock-head at5"><i class="icon-tags"></i><span>', params.labels.tags,'</span></div>'].join(''),
-      body: '<div class="pblock-body"><ul class="ptags content js_tags"></ul></div>',
-      item: '<a href="#"><%= tag %></a><button>&times</button>'
+    attributes: {
+      slug: 'data-slug'
     },
-    canvas: false
+    templates: {
+      head: '<div class="pblock-head at5"><i class="icon-tags"></i><span><%= tags %></span></div>',
+      body: '<div class="pblock-body"><ul class="ptags content js_tags"></ul></div>',
+      item: '<a href="#" data-slug="<%= slug %>"><%= label %></a>'
+    },
+    canvas: false,
+    decorate: false, // decorate widget with a head and body before adding tag items
   }, params);
 
-  var enabled = true, element,
+  var enabled = true, element, selection = [], tag = false, usedSlugs = [],
 
   eh = sEventHandler.getInstance(),
 
   run = function() {
 
+    if (params.usedSlugs) usedSlugs = params.usedSlugs;
+
     element = _createElement();
 
-    params.canvas.parentNode.removeChild(params.canvas);
+    for (var i in params.tags) {
 
-    for (tag in params.tags)
-      _addTagBehavior(_addTag(tag));
+      if (!params.usedSlugs) usedSlugs.push(params.tags[i].s); // if a sublist was not given, widget should show all tags
 
+      if (!params.usedSlugs || contains(params.usedSlugs, params.tags[i].s)) {
+
+        var tag = _createTag({slug: params.tags[i].s, label: params.tags[i].t});
+
+        _addTagBehavior(tag);
+
+        element.appendChild(tag);
+
+      }
+
+    }
+  
     eh.on(params.events.loadSuccess, function(data) {
 
-      data.tag?_setActiveTag(data.tag):_removeActiveTag();
+      selection = (typeof data.tags == 'undefined')?[]:data.tags; //one for now
+
+      if ((typeof selection == 'string') && (selection.indexOf(',') != -1)) {
+
+        selection = selection.split(',');
+
+      } else if (typeof selection == 'string') {
+
+        selection = [selection];
+
+      }
+
+      forEach(els(element, 'li'), function(tagElem) {
+
+        if (contains(selection, el(tagElem, 'a').getAttribute(params.attributes.slug))) {
+
+          if (!hasClass(tagElem, params.classes.active)) addClass(tagElem, params.classes.active);
+
+        } else {
+
+          if (hasClass(tagElem, params.classes.active)) removeClass(tagElem, params.classes.active);
+
+        }
+
+      });
 
       _enable();
 
@@ -53,16 +88,95 @@ var handleTags = function(params) {
       _disable();
     });
 
-    eh.on(params.events.addTag, function(data) {
+    return {
+      getTags: function() { return params.tags; },
+      removeTag: _removeTag,
+      createTag: _createTag
+    };
 
-      if (typeof params.tags[data.tag] == 'undefined') {
-        params.tags[data.tag] = 1;
-        _addTagBehavior(_addTag(data.tag));
+  },
+
+  _createTag = function(tag) {
+
+    var li = document.createElement('li'),
+    
+    ejs = new EJS({text: params.templates.item });
+    
+    li.innerHTML = ejs.render(tag);
+
+    addClass(li, params.classes.item);
+
+    return li;
+  },
+
+  _removeTag = function(slug) {
+
+    if (usedSlugs.indexOf(slug) !== -1) usedSlugs.slice(usedSlugs.indexOf(slug), 1);
+    
+    var tagItems = els(element, 'li');
+
+    console.log(tagItems);
+
+    for (var i in tagItems) {
+
+      if (tagItems[i].getAttribute(params.attributes.slug) == slug) {
+
+        element.removeChild(tagItems[i]);
+
+        return;
+
       }
-      else
-        params.tags[data.tag]++;
+    }
+
+  },
+
+  _addTagBehavior = function(tagElem) {
+
+    addEvent(tagElem, 'click', function(e) {
+
+      preventDefault(e);
+
+      if (hasClass(tagElem, params.classes.active)) {
+
+        _tagUnselect(tagElem);
+
+      } else {
+
+        _tagSelect(tagElem);
+
+      }
 
     });
+
+  },
+
+  _tagSelect = function(tagElem) {
+
+    if (!enabled) return;
+
+    // keep in selection only tags not in widget set
+    
+    var newSelection = [];
+    
+    forEach(selection, function(selTag) {
+      if (usedSlugs.indexOf(selTag) == -1) newSelection.push(selTag);
+    });
+
+    newSelection.push(el(tagElem, 'a').getAttribute(params.attributes.slug));
+
+    eh.trigger(params.events.newSelect, {tags: newSelection});
+
+  },
+
+  _tagUnselect = function(tagElem) {
+
+    if (!enabled) return;
+
+    var deadTag = el(tagElem, 'a').getAttribute(params.attributes.slug);
+
+    selection.splice(selection.indexOf(deadTag), 1);
+
+    eh.trigger(params.events.newSelect, {tags: selection.length?selection:null });
 
   },
 
@@ -84,10 +198,22 @@ var handleTags = function(params) {
 
   _createElement = function() {
 
-    var canvas = document.createElement('div')
-      , tagElem;
+    if (!params.decorate) {
 
-    canvas.innerHTML = params.templates.head + params.templates.body;
+      var canvas = document.createElement('ul');
+
+      params.canvas.appendChild(canvas);
+
+      return canvas;
+      
+    }
+    
+
+    var canvas = document.createElement('div'),
+    
+    tagElem;
+
+    canvas.innerHTML = new EJS({text: params.templates.head }).render(params.labels) + new EJS({text: params.templates.body}).render(params.labels);
 
     while (canvas.childNodes.length) {
 
@@ -97,75 +223,11 @@ var handleTags = function(params) {
 
     }
 
+    params.canvas.parentNode.removeChild(params.canvas);
+
     return tagElem;
-  },
+  };
 
-  _addTag = function(tag) {
-
-    var li = document.createElement('li')
-      , ejs = new EJS({text: params.templates.item });
-    
-    li.innerHTML = ejs.render({tag: tag});
-
-    addClass(li, params.classes.item);
-
-    element.appendChild(li);
-
-    return li;
-  },
-
-  _addTagBehavior = function(tagElem) {
-
-    var a = el(tagElem, 'a'),
-        button = el(tagElem, 'button');
-      
-      addEvent(a, 'click', function(e) {
-        preventDefault(e);
-        _tagSelect(tagElem, a.innerHTML);
-      });
-
-      addEvent(button, 'click', function(e) {
-        preventDefault(e);
-        _tagUnselect();
-      });
-
-  },
-
-  _tagSelect = function(li, tag) {
-
-    if (!enabled) return;
-
-    eh.trigger(params.events.newSelect, {tag: tag});
-
-  },
-
-  _tagUnselect = function() {
-    if (!enabled) return;
-
-    eh.trigger(params.events.newSelect, {tag: null});
-  }
-
-  _setActiveTag = function(tag) {
-
-    _removeActiveTag();
-
-    forEach(element.getElementsByTagName('a'), function(a) {
-      if (a.innerHTML==tag) 
-        addClass(a.parentNode, params.classes.active);
-    });
-
-  },
-
-  _removeActiveTag = function() {
-
-    var activeElems = getElementsByClassName(element, params.classes.active);
-
-    if (!activeElems.length) return;
-
-    removeClass(activeElems[0], params.classes.active);
-
-  }
-
-  run();
+  return run();
 
 };

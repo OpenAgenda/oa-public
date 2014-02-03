@@ -20,6 +20,7 @@
 #pem .preview iframe { width: 100%; height: 1000px; }
 
 #pem .widget-preview { text-align: center; }
+#pem .widget-preview ul { text-align: left; }
 #pem .widget-preview .preview-canvas { display: inline-block; }
 
 

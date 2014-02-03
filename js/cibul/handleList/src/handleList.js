@@ -36,14 +36,14 @@ var handleList = function(elem, eventHandler, options) {
 
     parameters = options.url.getUrlParameters();
 
-    if (parameters.page == '1') delete parameters.page;  
+    if (parameters.page == '1') delete parameters.page;
 
     if (elem.innerHTML) pageRange = [parseInt(_getParameter('page',1),10), parseInt(_getParameter('page',1),10)];
 
     // load all templates and behavior functions
-    for (index in options.templates) {
+    for (var index in options.templates) {
       templates[index] = new EJS({ text: options.templates[index] });
-    };
+    }
 
     var aParameters = options.anchor?hash.getBase64Param(options.anchor,{}):{};
     if (aParameters.page == '1') delete aParameters.page;
@@ -70,7 +70,7 @@ var handleList = function(elem, eventHandler, options) {
     eventHandler.on(options.triggerEvents.loadPrevious, _writePreviousPage);
 
     if (options.triggerEvents.getParams) eventHandler.on(options.triggerEvents.getParams, function(callback) {
-      callback(parameters)
+      callback(parameters);
     });
 
   },
@@ -85,14 +85,14 @@ var handleList = function(elem, eventHandler, options) {
 
       if (options.filter) newParams = options.filter(newParams);
 
-      for (index in newParams) {
+      for (var index in newParams) {
 
         if (index=='page') pageSet = true;
 
         if (newParams[index] === null) {
           _removeParameter(index);
         } else {
-          _setParameter(index, newParams[index]);  
+          _setParameter(index, newParams[index]);
         }
         
       }

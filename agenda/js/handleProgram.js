@@ -47,7 +47,7 @@ var runProgramBehavior = function(params) {
 
     _initWidgetLink();
 
-    getControlData(forEachLocationOfEachArticle, [extractLocation, extractDate, extractCurrentEditors, extractTags], function(controlData, processedData) {
+    getControlData(forEachLocationOfEachArticle, [extractLocation, extractDate, extractCurrentEditors], function(controlData, processedData) {
 
       // merge actual editors with active ones
       forEach(controlData.e, function(editor) {
@@ -63,9 +63,7 @@ var runProgramBehavior = function(params) {
         user: getCurrentUsername()
       });
 
-      initEdition(controlData.m?true:false, controlData, processedData[3], processedData[2]);
-
-      
+      initEdition(controlData.m?true:false, controlData, processedData[2]);
 
       initFollowBehavior(controlData.f);
 
@@ -74,11 +72,11 @@ var runProgramBehavior = function(params) {
       // no need to pass this point if program is empty
       if (!Object.size(controlData.a)) return;
 
-      initTags(processedData[3]);
+      initTags(controlData.t);
 
       initCategories(controlData.ct);
 
-      initHeadFilter(processedData[0], controlData.ct);
+      initHeadFilter(processedData[0], controlData.ct, controlData.t);
 
       initCalendar(processedData[1]);
 
@@ -200,7 +198,7 @@ var runProgramBehavior = function(params) {
 
   },
 
-  initHeadFilter = function(locations, categories){ // locations needed because of the place names
+  initHeadFilter = function(locations, categories, tags){ // locations needed because of the place names
 
     addHeadFilterBehavior({
       canvas: el('.js_head_filter'),
@@ -208,6 +206,7 @@ var runProgramBehavior = function(params) {
       triggeredEvents: { filterClear: 'load' },
       locations: locations,
       categories: categories,
+      tags: tags,
       labels: params.labels
     });
 
@@ -232,19 +231,20 @@ var runProgramBehavior = function(params) {
       tags: tags,
       events: {newSelect: 'load', loading: 'lhLoading', loadSuccess: 'lhSuccess', loadFail: 'fail', addTag: 'newtag'},
       canvas: el('.js_tag_widget'),
+      decorate: true,
       labels: params.labels
     });
 
-  }
+  },
 
   initMap = function(locations) {
 
-    var locationList = []
-      , today = new Date()
-      , allPassed = true
-      , m = maps.use('google');
+    var locationList = [],
+    today = new Date(),
+    allPassed = true,
+    m = maps.use('google');
 
-    for (slug in locations) {
+    for (var slug in locations) {
 
       var location = locations[slug];
      
@@ -270,7 +270,7 @@ var runProgramBehavior = function(params) {
         if (location[optional]) locationList[locationList.length-1][optional] = location[optional];
       });
 
-    };
+    }
 
     if (allPassed) forEach(locationList, function(location) {
       location.highlighted = true;
@@ -307,7 +307,7 @@ var runProgramBehavior = function(params) {
 
   },
 
-  initEdition = function(main, controlData, tagsData, editors) {
+  initEdition = function(main, controlData, editors) {
 
     addEditionBehavior(editors, {
       isOwner: controlData.o==getCurrentUsername(),
