@@ -23,7 +23,7 @@ var loadJs=function(src, callback){
 
       script.onload=function(){
 
-        if(typeof callback=="function") callback(); callback=null
+        if(typeof callback=="function") callback(); callback=null;
 
       };
 
