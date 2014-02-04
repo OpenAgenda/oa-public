@@ -290,16 +290,11 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
       ctlData = tagsElem.getAttribute('data-cbctl').split('|');
 
-      if (ctlData.length==3) {
+      var tagSlugs = ctlData.length==2?[]:ctlData[TAGS].split(',');
 
-        RES = 2;
-        TAGS = false;
+      if (ctlData.length < 2) return console.log('tags config is incomplete: ' + tagsElem.getAttribute('data-cbctl'));
 
-      }
-
-      if (ctlData.length < 3) return console.log('tags config is incomplete: ' . tagsElem.getAttribute('data-cbctl'));
-
-      ctl = cibulControlData.getInstance(ctlData[KEY], ctlData[RES]);
+      ctl = cibulControlData.getInstance(ctlData[KEY], ctlData.length==4?ctlData[RES]:params.controlResource);
 
       ctl.get(ctlData[UID], function(controlData) {
 
@@ -308,7 +303,7 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
         if (!controlData.t || !controlData.t.length) return console.log('there are no tags in this agenda');
 
         var handler = handleTags({
-          usedSlugs: TAGS?ctlData[TAGS].split(','):false,
+          usedSlugs: tagSlugs.length?tagSlugs:false,
           tags: controlData.t,
           events: { newSelect: 'load', loading: 'lhLoading', loadSuccess: 'success', loadFail: 'lhFail' },
           canvas: tagsElem,
@@ -510,6 +505,10 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
       '.cibulTags { font: 13px/1.5 "Helvetica Neue",Arial,Helvetica, "Liberation Sans",FreeSans,sans-serif; max-width: 300px; display: inline-block; }',
 
       '.cibulTags li { display: inline-block; padding: 0.1em 0.4em; margin: 0 0.5em 0.5em 0; }',
+
+      '.cibulTags li a { text-decoration: none; color: #666; }',
+
+      '.cibulTags li a:hover { text-decoration: underline; }',
 
       '.cibulTags .active { border: 1px solid #ddd; }'
 
