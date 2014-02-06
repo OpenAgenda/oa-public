@@ -5,11 +5,16 @@
 
       var cibulDebug = {
         paths: {
-          ctl: 'http://d.cibul.net/frontend_dev.php/embed/{uid}/controldata?key={key}',
+          ctl: 'http://d.cibul.net/frontend_dev.php/embed/{uid}/controldata',
           lib: [
             '//templates.cibul.net/js/lib/common/common.js', 
             '//templates.cibul.net/js/lib/remote/remote.js',
-            '//templates.cibul.net/agenda embedded/new/js/cibulAgendaControllers.js']  
+            '//templates.cibul.net/js/lib/Base64/Base64.js',
+            '//templates.cibul.net/js/lib/urlStrings/urlStrings.js',
+            '//templates.cibul.net/agenda embedded/new/js/cibulAgendaControllers.js',
+            '//templates.cibul.net/agenda embedded/new/js/cibulWidgetInit.js',
+            '//templates.cibul.net/js/lib/iTunnel/iTunnel.js'
+          ]  
         }
       }
       
@@ -18,8 +23,16 @@
   <body>
 
     <main>
-      <div class="cbpgct cibulCategories" data-cbctl="48959239/46744426|4bc1106de56674b18e6910699525dfe8"></div>
+      <div class="cbpgct cibulCategories" data-cbctl="48959239/46744426"></div><!-- 4bc1106de56674b18e6910699525dfe8 no need for that -->
       <script type="text/javascript" src="js/cibulCategoriesWidget.js"></script>
+      <!-- rem1: cibulEmbed could act as a loader for this script for the transition -->
+
+      <!--<iframe class="cbFrame" src="http://d.cibul.net/frontend_dev.php/embed/48170813/51482544?key=4bc1106de56674b18e6910699525dfe8"></iframe>-->
+
+      <iframe class="cbpglst" src="http://templates.cibul.net/agenda%20embedded/list.html#48959239/46744426|4bc1106de56674b18e6910699525dfe8" style="width:300px;"></iframe>
+      <script type="text/javascript" src="js/cibulListWidget.js"></script>
+      <!-- rem1: cibulEmbed will act as a loader -->
+
     </main>
 
   </body>

@@ -57,7 +57,6 @@ var runProgramBehavior = function(params) {
       handleEmptyProgram({
         canvasElem: params.elems.list,
         control: controlData,
-        editors: processedData[2],
         res: params.resources.empty,
         debug: params.debug,
         user: getCurrentUsername()

@@ -3,7 +3,6 @@ var handleEmptyProgram = function(params) {
   params = extend({
     canvasElem: false,
     control: false,
-    editors: false,
     user: false,
     res: false,
     debug: false
@@ -11,7 +10,7 @@ var handleEmptyProgram = function(params) {
 
   if (Object.size(params.control.a)) return;
 
-  var data = { type: (!params.user || typeof params.editors[params.user] == 'undefined')?'visitor':'editor' };
+  var data = { type: (!params.user || (params.user !== params.control.o))?'visitor':'editor' };
 
   if (params.debug) data.format = 'jsonp';
     

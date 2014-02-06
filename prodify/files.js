@@ -369,9 +369,10 @@ files = {
   ],
 
   'review/embedListFb.min.js': [
+    [paths.jsc, 'handleCategories/src/handleCategories.js'],
     [paths.vd, 'iscroll/src/iscroll.js', 'ejs/src/ejs_production.js' ],
     [paths.lib, 'makeUnselectable/makeUnselectable.js'],
-    [paths.pe, 'handleEmbeddedMap.js', 'handleEmbeddedScroll.js' ]
+    [paths.pe, 'handleEmbeddedMap.js', 'handleEmbeddedScroll.js']
   ],
 
   'review/menu.min.js': [

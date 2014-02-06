@@ -14,26 +14,15 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
    * @return object    public   methods of the controller
    */
   
-  controller = function(uid, key) {
+  controller = function(uid) {
 
-    var aParams = {}, // current agenda parameters
+    var aParams = {}, // current agenda parameters. updated by data link
 
-    res = (isDef(cibulDebug)?cibulDebug.paths.ctl:'//cibul.net/embed/{uid}/controldata?key={key}').replace('{uid}', uid).replace('{key}', key),
+    key = false,
 
-    ready = false, // controller is ready only when link is established and agenda controller data is in hand
+    ready = false, // controller readiness to do anything
 
-    run = function() {
-
-      _fetchControllerData(function(data) {
-
-        // control data is here
-        console.log(data);
-
-        console.log('get link registered and loaded. should be the list iframe');
-
-      });
-
-    },
+    ctl = false, // control data here
 
 
     /**
@@ -45,7 +34,10 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
     
     register = function(params) {
 
-      if (params.type == 'link') return _linkReady;
+      // if there is a key, this is a link
+      if (params.key) return _registerLink(params);
+
+      // do the registering of the widget
 
       return _update;
       
@@ -75,7 +67,9 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
 
       // what to do if it is not successful?
       
-      remote.getJsonp(res, {}, function(success, data) {
+      var res = (isDef(cibulDebug)?cibulDebug.paths.ctl:'//cibul.net/embed/{uid}/controldata').replace('{uid}', uid);
+      
+      remote.getJsonp(res, {data: {key: key}}, function(success, data) {
 
         if (!success) return console.log('control data could not be fetched for ' + uid);
 
@@ -87,16 +81,59 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
 
 
     /**
-     * called by link when there are changes
+     * register a data link.
+     * a link for the controller serves as the reference for data exchanges.
+     * it indicates when requests have been processed by server
+     * 
+     * @param  {[type]} params [description]
+     * @return {[type]}        [description]
      */
     
-    _linkReady = function() {
+    _registerLink = function(params) {
 
-      console.log('aaand the link is ready, sweep on data can be done');
+      ready = false;
+
+      key = params.key;
+
+      _fetchControllerData(function(data) {
+
+        ready = true;
+
+        ctl = data;
+
+      });
+
+      return _linkReady;
+
+    },
+
+
+    /**
+     * called by link when changes have been received
+     */
+    
+    _linkReady = function(data) {
+
+      if (!_hasChanges(data)) return;
+
+      aParams = data;
+
+      //_sweep();
+
+    },
+
+    /**
+     * has there been any changes in parameters?
+     */
+    
+    _hasChanges = function(data) {
+
+      var changes = false;
+
+      for (var i in aParams) if (!isDef(data[i]) || data[i] !== aParams[i] ) return false;
+
 
     };
-
-    run();
 
     return {
       register: register
@@ -116,11 +153,10 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
   register = function(name, params) {
 
     if (!params.uid) return console.log(name + ': could not register widget : uid not set');
-    if (!params.key) return console.log(name + ': could not register: key not set');
 
-    if (!isDef(controllers[params.uid])) controllers[params.uid] = controller(params.uid, params.key);
+    if (!isDef(controllers[params.uid])) controllers[params.uid] = controller(params.uid);
 
-    return controllers[params.uid].register(name, params);
+    return controllers[params.uid].register(params);
 
   };
 

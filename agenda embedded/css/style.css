@@ -102,6 +102,11 @@ button { background: none; }
   margin-bottom: 20px;
 }
 
+#categories li { display: inline-block; padding: 0.1em 0.2em; margin: 0 0.3em 1em 0; cursor: pointer; }
+#categories li i { font-size: 0.7em; padding: 0 0 0 0.2em; visibility: hidden; }
+#categories li.active { border: 1px solid #ccc; }
+#categories li.active i { visibility: visible; }
+
 
 .leaflet-popup-content-wrapper { -webkit-border-radius: 0; border-radius: 0; }
 .leaflet-popup-content p, .leaflet-popup-content { margin: 0; }

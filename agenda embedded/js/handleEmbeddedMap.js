@@ -5,21 +5,23 @@ var handleEmbeddedMap = function(options) {
     searchElem: false,     // location search field element
     maps: 'osm',           // which map library is to be used
     control: false,       // control data resource
-    events: {
-      markerSelect: 'markerselect',                 // triggered when a marker is clicked
-      locationSelect: 'locationselect',             // triggered when focus is set on a specific location
-      locationSelectCancel: 'locationselectcancel', // triggered when focus on location is removed
-      loadSuccess: 'loadsuccess',                   // triggered from exterior, when new list load is successful 
-      disable: 'disable',                           // triggered to disable the map
-      enable: 'enable',                             // triggered to enable the map
-      load: 'load',
-      onBoundsChange: 'onboundschange',
-      onEventOpen: 'oneventopen',
-      onEventClose: 'oneventclose'
-    },
     search: false,
-    iconRoot: 'images/'
+    iconRoot: 'images/',
+    enabled: false
   }, options);
+
+  options.events = extend({
+    markerSelect: 'markerselect',                 // triggered when a marker is clicked
+    locationSelect: 'locationselect',             // triggered when focus is set on a specific location
+    locationSelectCancel: 'locationselectcancel', // triggered when focus on location is removed
+    loadSuccess: 'loadsuccess',                   // triggered from exterior, when new list load is successful 
+    disable: 'disable',                           // triggered to disable the map
+    enable: 'enable',                             // triggered to enable the map
+    load: 'load',
+    onBoundsChange: 'onboundschange',
+    onEventOpen: 'oneventopen',
+    onEventClose: 'oneventclose'
+  }, isDef(options.events)?options.events:{});
 
   var m, eh = sEventHandler.getInstance(),
 

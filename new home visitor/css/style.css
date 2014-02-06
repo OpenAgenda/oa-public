@@ -2,29 +2,56 @@
 
 .front header { background: rgb(244, 244, 244); }
 
-.front .content { max-width: 1000px; text-align: left; margin: 0 auto; padding: 3em 20px; clear: both; }
+.front .button { margin-right: 1em; }
 
-.front .title { font-size: 3em; }
-.front .subtitle { font-size: 1.5em; padding: 0 0 1em; }
+.front .content { max-width: 1200px; text-align: left; margin: 0 auto; padding: 3em 20px; clear: both; }
+
+.front .subtitle { font-size: 1.5em; padding: 0 1em 1em 0; }
+
+.front .content > div,
+.front .content > a { display: inline-block; }
 
 .front .desc,
-.front .ill { display: inline-block; vertical-align: middle; }
+.front .ill { vertical-align: middle; }
 
-.front .desc { padding: 6em 0; width: 70%; }
+.front .desc { padding: 6em 0; }
 .front .right { text-align: right; }
 
-.front .ill { width: 30%; text-align: right; }
-.front .ill img { max-width: 300px; width: 100%; }
+.front .ill { width: 30%; }
+.front .ill img { max-width: 400px; width: 100%; }
 
-.front section .title { font-size: 2em; }
+
+.front .w100 { width: 100%; }
+.front .w60 { width: 60%; }
+.front .w70 { width: 70%; }
+.front .w40 { width: 40%; }
+.front .w33 { width: 33%; }
+.front .w30 { width: 30%; }
+
+.front .title h1 { font-size: 3em; }
+.front .title h2 { font-size: 2em; display: inline-block; vertical-align: middle; }
+
+.front .offer {
+  display: inline-block;
+  border: 1px solid #11BED4;
+  opacity: 0.8;
+  padding: 0.3em 0.5em;
+  vertical-align: middle;
+  margin: 0 0 0.5em 0;
+  font-weight: bold;
+  color: #11BED4;
+}
+
+.front .title .offer { 
+  margin: 0.2em 1em 0;
+}
 
 .front footer .content { text-align: center; }
 .front footer li { display: inline-block; padding: 0 1em; vertical-align: middle; }
 .front footer i { font-size: 1.8em; }
 
-.front .references { text-align: center; }
-.front .references li { display: inline-block; vertical-align: middle; padding: 10px; }
-.front .references img { width: 160px; }
+.front .references li { display: inline-block; vertical-align: middle; padding: 0 20px 20px 0; width: 110px; }
+.front .references img { width: 100%; }
 
 @media all and (max-width: 700px) { 
   .front .desc { padding: 4em 0; }
