@@ -18,11 +18,15 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
 
     var aParams = {}, // current agenda parameters. updated by data link
 
+    widgets = [], // the widgets that registered to this controller
+
     key = false,
 
     ready = false, // controller readiness to do anything
 
     ctl = false, // control data here
+
+    ctlRequests = [], // control data requests stack
 
 
     /**
@@ -37,9 +41,12 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
       // if there is a key, this is a link
       if (params.key) return _registerLink(params);
 
-      // do the registering of the widget
+      widgets.push(params);
 
-      return _update;
+      return {
+        update: update,
+        getControlData: getControlData
+      };
       
     },
 
@@ -50,11 +57,24 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
      * @param  object    value   the values updated by the widget
      */
     
-    _update = function(value) {
+    update = function(value) {
 
-      console.log('controller: update received');
+      console.log('controller: update received from widget. Value is:');
 
       console.log(value);
+
+    },
+
+
+    /**
+     * hand over control data. stack request if data is not ready
+     */
+    
+    getControlData = function(callback) {
+
+      if (ctl) return callback(ctl);
+
+      ctlRequests.push(callback);
 
     },
 
@@ -84,9 +104,6 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
      * register a data link.
      * a link for the controller serves as the reference for data exchanges.
      * it indicates when requests have been processed by server
-     * 
-     * @param  {[type]} params [description]
-     * @return {[type]}        [description]
      */
     
     _registerLink = function(params) {
@@ -100,6 +117,16 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
         ready = true;
 
         ctl = data;
+
+        var stackedCallback;
+
+        while (stackedCallback = ctlRequests.pop()) {
+
+          stackedCallback(ctl);
+
+        }
+
+        _sweep();
 
       });
 
@@ -118,9 +145,89 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
 
       aParams = data;
 
-      //_sweep();
+      if (ready) _sweep();
 
     },
+
+
+    /**
+     * sweep through agenda control data to figure out which events are still within selection
+     * and which are not
+     */
+    
+    _sweep = function() {
+
+      _signalSweepStart();
+
+      for (var i in ctl.a) {
+
+        if (_applyFilters(ctl.a[i])) _include(ctl.a[i]);
+
+      }
+
+      _signalSweepComplete();
+
+    },
+
+
+    /**
+     * as part of sweep, tell widgets event item passed through filters
+     */
+    
+    _include = function(item) {
+
+      for (var i = widgets.length - 1; i >= 0; i--) {
+
+        widgets[i].include(item);
+
+      }
+
+    },
+
+
+    /**
+     * run item through all widget filters.. this will not work as not all widgets are always used.
+     * but filtering by location is not possible if there are no location widgets
+     */
+    
+    _applyFilters = function(item) {
+
+      for (var i in filters) {
+
+        if (!filters[i](item)) return false;
+
+      }
+
+      return true;
+
+    },
+
+
+    /**
+     * clear widgets
+     */
+    
+    _signalSweepStart = function() {
+
+      for (var i = widgets.length - 1; i >= 0; i--) {
+        widgets[i].clear();
+      }
+
+    },
+
+
+    /**
+     * once sweep is complete, enable widgets
+     */
+    
+    _signalSweepComplete = function() {
+
+      for (var i = widgets.length - 1; i >= 0; i--) {
+        widgets[i].enable();
+      }
+
+    },
+
 
     /**
      * has there been any changes in parameters?
@@ -132,6 +239,9 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
 
       for (var i in aParams) if (!isDef(data[i]) || data[i] !== aParams[i] ) return false;
 
+      for (i in data) if (!isDef(aParams[i]) || data[i] !== aParams[i] ) return false;
+
+      return true;
 
     };
 
@@ -157,6 +267,20 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
     if (!isDef(controllers[params.uid])) controllers[params.uid] = controller(params.uid);
 
     return controllers[params.uid].register(params);
+
+  },
+
+  /**
+   * filters used during sweep
+   */
+
+  filters = {
+    
+    categories: function(item, reqParams) {
+
+      return item;
+
+    }
 
   };
 

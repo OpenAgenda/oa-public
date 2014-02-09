@@ -292,6 +292,8 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
       var tagSlugs = ctlData.length==2?[]:ctlData[TAGS].split(',');
 
+      if (tagSlugs.length && !tagSlugs[0].length) tagSlugs.pop(); // tweak. really. for when debug tags are not set
+
       if (ctlData.length < 2) return console.log('tags config is incomplete: ' + tagsElem.getAttribute('data-cbctl'));
 
       ctl = cibulControlData.getInstance(ctlData[KEY], ctlData.length==4?ctlData[RES]:params.controlResource);
