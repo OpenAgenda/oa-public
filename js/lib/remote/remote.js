@@ -1,7 +1,7 @@
-/* remote v0.2 */
+/* remote v0.3 */
 var remote = {
   get: function(url, settings, callback, ajax) {
-    if (ajax == undefined) ajax = false;
+    if (ajax === undefined) ajax = false;
 
     if (ajax) {
       this.getXmlHttp(url, settings, callback);
@@ -9,7 +9,18 @@ var remote = {
       this.getJsonp(url, settings, callback);
     }
   },
-  getXmlHttp: function(url, settings, callback){
+  postXmlHttp: function(url, settings, callback) {
+
+    this.xmlHttp(url, settings, callback, "POST");
+
+  },
+  getXmlHttp: function(url, settings, callback) {
+
+    this.xmlHttp(url, settings, callback, "GET");
+
+  },
+
+  xmlHttp: function(url, settings, callback, type) {
 
     var self = this;
 
@@ -27,7 +38,7 @@ var remote = {
 
     if (settings.logger) settings.logger.log('remote.getXmlHttp - preparing get for item ' + settings.name);
 
-    var sentUrl = this.appendToUrl(url, settings.data);
+    var sentUrl = type=="GET"?this.appendToUrl(url, settings.data):url;
 
     var onSuccess = function(data){
 
@@ -74,7 +85,9 @@ var remote = {
 
       }, settings.timeout);
 
-      var xhr = new XMLHttpRequest();
+      var xhr = new XMLHttpRequest(),
+
+      response;
 
       xhr.onreadystatechange = function(){
 
@@ -83,21 +96,30 @@ var remote = {
           clearTimeout(timer);
 
           if (xhr.responseText.substring(0,1)=='(') {
-            var response = xhr.responseText.substring(1).substring(0,xhr.responseText.length-2);
+            response = xhr.responseText.substring(1).substring(0,xhr.responseText.length-2);
           } else {
-            var response = xhr.responseText;
+            response = xhr.responseText;
           }
             
           onSuccess(JSON.parse(response));
 
-        };
+        }
 
       };
 
-      xhr.open("GET", sentUrl, true);
+      xhr.open(type, sentUrl, true);
       xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-      xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
-      xhr.send();
+      xhr.setRequestHeader("Content-Type", type=="POST"?"application/x-www-form-urlencoded":"text/plain;charset=UTF-8");
+      
+      if (type=="GET") {
+
+        xhr.send();
+
+      } else {
+
+        xhr.send(self.appendToUrl('', settings.data).substr(1));
+
+      }
 
     };
 
@@ -136,7 +158,7 @@ var remote = {
       } else {
         callbackParam[callbackParamName] = callbackName;
         script.src = self.appendToUrl(sentUrl, callbackParam);
-      } 
+      }
         
       document.getElementsByTagName('head')[0].appendChild(script);
     };
@@ -151,13 +173,13 @@ var remote = {
     var failedAlready = false;
 
 
-    for (index in params.stack) {
+    for (var index in params.stack) {
 
       if (params.logger) params.logger.log('remote.getStack - sending index ' + index);
 
-      self.send(params.stack, index, receivedStack, params.callback, params.logger, params.retries, params.timeout, params.ajax);  
+      self.send(params.stack, index, receivedStack, params.callback, params.logger, params.retries, params.timeout, params.ajax);
 
-    };
+    }
 
   },
   send: function(stack, index, receivedStack, callback, logger, retries, timeout, ajax) {
@@ -205,10 +227,10 @@ var remote = {
         url = url + '&';
       }
 
-      for (name in data) {
+      for (var name in data) {
 
         if (typeof data[name] == 'object') {
-          for (index in data[name]) {
+          for (var index in data[name]) {
             url = url + name + '[]=' + encodeURIComponent(data[name][index]) + '&';
           }
         } else {
@@ -217,7 +239,7 @@ var remote = {
 
         }
 
-      };
+      }
 
       if (url.substr(url.length-1, 1) == '&') url = url.substr(0, url.length-1);
 

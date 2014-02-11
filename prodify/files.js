@@ -127,6 +127,16 @@ files = {
     ],
   ],
 
+  'review/embedComplete.min.js': [
+    [paths.lib, 'common/common.js', 'Base64/Base64.js', 'iTunnel/iTunnel.js', 'urlStrings/urlStrings.js'],
+    [paths.pe, 'handleCompleteTunnel.js']
+  ],
+
+  'review/embedLogin.min.js': [
+    [paths.lib, 'common/common.js', 'Base64/Base64.js', 'iTunnel/iTunnel.js', 'urlStrings/urlStrings.js'],
+    [paths.pe, 'handleLoginTunnel.js']
+  ],
+
   'header/search.min.js': [
     [paths.hs, 'common.js', 'handleHeader.js', 'handleHeaderSearch.js', 'searchLib.js', 'geocoder.js', 'queryClient.js'],
     [paths.lib, 'common/common.js', 'EventHandler/EventHandler.js', 'remote/remote.js', 'Base64/Base64.js' ],

@@ -1,6 +1,8 @@
 var cibulEventSubmit = function(params) {
 
   params = extend({
+    ajax: false,
+    beforeNext: false, // in case submission is ajax, this callback can be called before the next form is loaded
     canvas: el('.js_form_canvas'),
     template: '<ul class="event-errors js_errors"></ul><div class="js_actions actions"></div>',
     allowDraft: false,
@@ -34,7 +36,8 @@ var cibulEventSubmit = function(params) {
       uidfetch: 'euidfetch',
       validate: 'evalidate',
       fetchEncoded: 'efetchencoded',
-      heightChange: 'heightchange'
+      heightChange: 'heightchange',
+      next: 'next'
     }
   }, params);
 
@@ -99,20 +102,64 @@ var cibulEventSubmit = function(params) {
 
   _post = function(url, encodedEvent) {
 
-    var form = document.createElement('form');
-    form.setAttribute('method', 'post');
-    form.setAttribute('action', url);
+    if (!params.ajax) {
 
-    var field = document.createElement('input');
-    field.setAttribute('name', 'event');
-    field.value = encodedEvent;
+      var form = document.createElement('form');
+      form.setAttribute('method', 'post');
+      form.setAttribute('action', url);
 
-    form.appendChild(field);
+      var field = document.createElement('input');
+      field.setAttribute('name', 'event');
+      field.value = encodedEvent;
 
-    form.style.display = 'none'; //IE8
-    el('body').appendChild(form); //IE8
+      form.appendChild(field);
 
-    form.submit();
+      form.style.display = 'none'; //IE8
+      el('body').appendChild(form); //IE8
+
+      form.submit();
+
+    } else {
+
+      remote.postXmlHttp(url, {data: {event: encodedEvent}}, function(responseType, data) {
+
+        if (responseType !== 'success') throw 'submission response error';
+
+        if (data.next) {
+
+          _clear();
+
+          eh.trigger(params.events.next, data.next);
+
+        } else if (data.partial) {
+
+          _overwrite(data.partial);
+
+        }
+
+      });
+
+    }
+
+  },
+
+  _overwrite = function(newContent) {
+
+    _clear();
+
+    el('body').innerHTML = newContent;
+
+  },
+
+  _clear = function() {
+
+    var child;
+
+    while (child = childObject(el('body'))) {
+
+      el('body').removeChild(child);
+
+    }
 
   },
 
@@ -121,7 +168,7 @@ var cibulEventSubmit = function(params) {
     createdraft: function(callback) { _checkValidation(callback, true); },
     update: function(callback) { _checkValidation(callback, true); },
     publish: function(callback) { _checkValidation(callback, true); },
-    remove: function(callback) { 
+    remove: function(callback) {
       lightbox({
         classes: {
           frame: params.classes.lightboxFrame,
@@ -130,7 +177,7 @@ var cibulEventSubmit = function(params) {
         },
         message: params.labels.removeMessage,
         buttons: {
-          ok: {label: params.labels.removeYes, onClick: callback }, 
+          ok: {label: params.labels.removeYes, onClick: callback },
           cancel: {label: params.labels.removeNo }
         }
       });
@@ -193,4 +240,4 @@ var cibulEventSubmit = function(params) {
 
   run();
 
-}
+};

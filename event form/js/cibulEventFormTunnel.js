@@ -1,8 +1,11 @@
 var cibulEventFormTunnel = function(params) {
 
-  var params = extend({
+  var VIEWS = {LIST:0, FORM:0},
+
+  params = extend({
     events: {
-      heightChange: 'heightchange'
+      heightChange: 'heightchange',
+      next: 'next'
     }
   }, params),
 
@@ -22,6 +25,12 @@ var cibulEventFormTunnel = function(params) {
         }, 300);
 
       }
+    });
+
+    sEventHandler.getInstance().on(params.events.next, function(next) {
+
+      tunnel.send({next: next});
+
     });
 
   };

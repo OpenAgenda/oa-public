@@ -13,3 +13,5 @@
 #event-edit .selectable .selected span { background: #666; color: white; }
 
 #event-edit .confirm a { padding: 1em 1em 0 0; }
+
+#event-edit .input-fields { margin-bottom: 0.5em; }

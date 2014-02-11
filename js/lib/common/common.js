@@ -149,7 +149,7 @@ var nextObject = function(elem) {
   elem = elem.nextSibling;
 
   while (elem && elem.nodeType != 1)
-    elem = elem.nextSibling;  
+    elem = elem.nextSibling;
 
   return elem;
 };
@@ -241,7 +241,7 @@ if (typeof HTMLElement != "undefined" && !HTMLElement.prototype.insertAdjacentEl
     var parsedText = document.createTextNode(txtStr);
     this.insertAdjacentElement(where, parsedText);
   };
-};
+}
 
 
 function getScrollOffsets(w) {
@@ -250,8 +250,8 @@ function getScrollOffsets(w) {
   w = w || window;
 
   // This works for all browsers except IE versions 8 and before
-  if (w.pageXOffset != null) return {
-    x: w.pageXOffset, 
+  if (w.pageXOffset !== null) return {
+    x: w.pageXOffset,
     y:w.pageYOffset
   };
 
@@ -259,23 +259,23 @@ function getScrollOffsets(w) {
   var d = w.document;
   if (document.compatMode == "CSS1Compat") {
     return {
-      x:d.documentElement.scrollLeft, 
+      x:d.documentElement.scrollLeft,
       y:d.documentElement.scrollTop
     };
   }
 
   // For browsers in Quirks mode
-  return { 
-    x: d.body.scrollLeft, 
-    y: d.body.scrollTop 
-  }; 
-};
+  return {
+    x: d.body.scrollLeft,
+    y: d.body.scrollTop
+  };
+}
 
 function windowInnerHeight() {
 
-  return window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight
+  return window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
 
-};
+}
 
 function triggerEvent(elem, name) {
 

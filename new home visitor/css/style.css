@@ -8,13 +8,15 @@
 
 .front .subtitle { font-size: 1.5em; padding: 0 1em 1em 0; }
 
+.front .right .subtitle { padding: 0 0 1em 0; }
+
 .front .content > div,
 .front .content > a { display: inline-block; }
 
 .front .desc,
 .front .ill { vertical-align: middle; }
 
-.front .desc { padding: 6em 0; }
+.front .desc { padding: 6em 0 4em; }
 .front .right { text-align: right; }
 
 .front .ill { width: 30%; }
@@ -25,26 +27,35 @@
 .front .w60 { width: 60%; }
 .front .w70 { width: 70%; }
 .front .w40 { width: 40%; }
-.front .w33 { width: 33%; }
+.front .w33 { width: 33%; display: inline-block; }
 .front .w30 { width: 30%; }
 
 .front .title h1 { font-size: 3em; }
 .front .title h2 { font-size: 2em; display: inline-block; vertical-align: middle; }
 
 .front .offer {
-  display: inline-block;
-  border: 1px solid #11BED4;
-  opacity: 0.8;
-  padding: 0.3em 0.5em;
-  vertical-align: middle;
-  margin: 0 0 0.5em 0;
-  font-weight: bold;
-  color: #11BED4;
+  display: block;
+  /*border-bottom: 1px solid #eee;*/
+  margin: 1em 0 0.5em 0;
+  color: grey;
+  font-size: 2em;
 }
 
 .front .title .offer { 
   margin: 0.2em 1em 0;
 }
+
+
+.front .offer-main { padding: 3em 0 4em; }
+
+.front .offer-main i {
+
+  font-size: 1.8em;
+  vertical-align: middle;
+  padding-right: 0.3em;
+
+}
+
 
 .front footer .content { text-align: center; }
 .front footer li { display: inline-block; padding: 0 1em; vertical-align: middle; }
@@ -55,7 +66,7 @@
 
 @media all and (max-width: 700px) { 
   .front .desc { padding: 4em 0; }
-  .front .title { font-size: 2.5em; }
+  .front .title { font-size: 1em; }
 }
 
 @media all and (max-width: 530px) {
