@@ -462,7 +462,7 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
       _enable = function() {
 
-        buttonElem.innerHTML = labels[currentView];
+        if (currentView !== null) buttonElem.innerHTML = labels[currentView];
 
         enabled = true;
 
