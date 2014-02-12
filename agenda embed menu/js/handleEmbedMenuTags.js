@@ -41,7 +41,7 @@ var runTagsBehavior = function(params) {
 
       });
 
-      if (total) addClass(el(el('.cibulTags'), 'li'), params.classes.active);
+      if (total && els(el('.cibulTags'), 'li').length) addClass(el(el('.cibulTags'), 'li'), params.classes.active);
 
       eh.trigger('showtags');
 

@@ -206,7 +206,7 @@ var handleTags = function(params) {
 
       return canvas;
       
-    }
+    };
     
 
     var canvas = document.createElement('div'),

@@ -1,25 +1,29 @@
-var runMapBehavior = function(cHandler, resource, key, embedCode) {
+var runMapBehavior = function(cHandler, sandboxResource, key, embedCode) {
 
   var autoWidth,
-  mapWidthInput = getElementsByClassName(document, 'js_map_width')[0],
+  mapWidthInput = el('.js_map_width'),
+  mapTilesInput = el('.js_map_tiles'),
   mapStyle = {},
-  mapElement = getElementsByClassName(document, 'js_map_preview')[0],
+  mapElement = el('.js_map_preview'),
   eh = sEventHandler.getInstance(),
 
   run = function() {
 
-    mapElement.src = resource + '?key=' + key;
+    mapElement.src = sandboxResource + '?key=' + key;
 
     _initWidgets();
 
+    cHandler.addChangeCallback(_updateMapElement);
+
   },
-  _setEmbedCode = function(values) {
+
+  _setEmbedStyle = function(values) {
 
     extend(mapStyle, values);
 
     var style = '';
 
-    for (index in mapStyle) {
+    for (var index in mapStyle) {
       style += index + ':' + mapStyle[index] + '; ';
     }
 
@@ -30,6 +34,7 @@ var runMapBehavior = function(cHandler, resource, key, embedCode) {
     cibulEmbedWidget.controllers.map(mapElement);
 
   },
+
   _initWidgets = function() {
 
     new radioWidget('layout[mapautowidth]', function(name) {
@@ -38,15 +43,15 @@ var runMapBehavior = function(cHandler, resource, key, embedCode) {
 
       autoWidth = mapAutoWidth;
 
-      _setEmbedCode({width: mapAutoWidth=='1'?'100%':mapWidthInput.value+'px'});
+      _setEmbedStyle({width: mapAutoWidth=='1'?'100%':mapWidthInput.value+'px'});
 
       return mapAutoWidth;
 
     }, function(name, value) {
 
-      _setEmbedCode({width: value=='1'?'100%':mapWidthInput.value+'px'});
+      _setEmbedStyle({width: value=='1'?'100%':mapWidthInput.value+'px'});
 
-      autoWidth = value; 
+      autoWidth = value;
 
       cHandler.set(name, value);
 
@@ -56,7 +61,7 @@ var runMapBehavior = function(cHandler, resource, key, embedCode) {
 
       var mapWidth = cHandler.get(name);
 
-      if (autoWidth != '1' && mapWidth) _setEmbedCode({width: mapWidth + 'px'});
+      if (autoWidth != '1' && mapWidth) _setEmbedStyle({width: mapWidth + 'px'});
 
       return mapWidth;
 
@@ -64,7 +69,7 @@ var runMapBehavior = function(cHandler, resource, key, embedCode) {
 
       if (autoWidth=='1') return;
 
-      _setEmbedCode({width: value + 'px'});
+      _setEmbedStyle({width: value + 'px'});
 
       cHandler.set(name, value);
 
@@ -74,16 +79,50 @@ var runMapBehavior = function(cHandler, resource, key, embedCode) {
 
       var mapHeight = cHandler.get(name);
 
-      if (mapHeight) _setEmbedCode({height: mapHeight + 'px'});
+      if (mapHeight) _setEmbedStyle({height: mapHeight + 'px'});
 
       return mapHeight;
 
     }, function(name, value) {
 
-      _setEmbedCode({height: value + 'px'});
+      _setEmbedStyle({height: value + 'px'});
 
       cHandler.set(name, value);
 
+    });
+
+    new textWidget('layout[maptiles]', function(name) {
+
+      var mapTiles = cHandler.get(name);
+
+      return mapTiles;
+
+    }, function(name, value) {
+
+      cHandler.set(name, value);
+
+    });
+
+  },
+
+  _updateMapElement = function(newLayout) {
+
+    var urlParams = extend({key: key}, newLayout);
+
+    mapElement.setAttribute('src', sandboxResource.addUrlParameters(urlParams));
+
+    loading = true;
+
+    addEvent(mapElement, 'load', function() {
+      
+      if (mapElement.src.length) {
+
+        loading = false;
+
+        cibulEmbedWidget.controllers.map(mapElement);
+
+      }
+      
     });
 
   };

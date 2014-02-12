@@ -115,6 +115,7 @@
                   <select class="js_layout_selector_map">
                     <option>Personnalisation</option>
                     <option data-target="map-size">Dimensions</option>
+                    <option data-target="map-tiles">Fond de carte</option>
                   </select>
                   <form method="post" class="disabled">
                     <input class="js_update_input" name="layout" type="hidden"/>
@@ -374,6 +375,15 @@
             </li>
           </ul>
         </li>
+        <li class="display-none menu-item-detail cform" data-content="map-tiles">
+          <ul>
+            <li class="disabled">
+              <label>Lien de la source</label>
+              <input class="js_map_tiles" name="layout[maptiles]" placeholder="http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg"/>
+              <span class="info">par exemple: http://{s}.tiles.mapbox.com/v3/[idCompte.idCarte]/{z}/{x}/{y}.png</span>
+            </li>
+          </ul>
+        </li>
         <li class="display-none menu-item-detail cform" data-content="tags">
           <ul class="js_tag_options line"></ul>
         </li>
@@ -382,15 +392,16 @@
     <script type="text/javascript">
 
       var resources = {
-        list: 'http://templates.cibul.net/program%20embedded/list.html',
-        sandbox: 'http://templates.cibul.net/program%20embedded/list.html',
+        list: 'http://templates.cibul.net/agenda%20embedded/list.html',
+        sandbox: 'http://templates.cibul.net/agenda%20embedded/list.html',
         //list: 'http://d.cibul.net/frontend_dev.php/embed/48959239/46744426',
         //sandbox: 'http://d.cibul.net/frontend_dev.php/embed/48959239/46744426/sandbox',
-        //map: 'http://d.cibul.net/frontend_dev.php/embed/48959239/46744426/map',
         form: 'http://templates.cibul.net/event%20form/index.html',
         formSandbox: 'http://templates.cibul.net/event%20form/index.html',
         loginSandbox: 'http://templates.cibul.net/event%20login/index.html',
-        map: 'http://templates.cibul.net/program%20embedded/map.html',
+        //map: 'http://templates.cibul.net/agenda%20embedded/map.html',
+        map: 'http://d.cibul.net/frontend_dev.php/embed/48959239/46744426/map',
+        mapSandbox: 'http://d.cibul.net/frontend_dev.php/embed/48959239/46744426/mapsandbox',
         control: 'http://d.cibul.net/frontend_dev.php/embed/{uid}/controldata',
         update: 'http://d.cibul.net/frontend_dev.php/embed/48959239/46744426/update'
       },
@@ -436,7 +447,7 @@
             ]
           });
 
-          runMapBehavior(cHandler, resources.map, key, codeFields.map);
+          runMapBehavior(cHandler, resources.mapSandbox, key, codeFields.map);
 
           runCategoriesBehavior();
 

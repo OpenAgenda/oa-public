@@ -7,7 +7,8 @@ var handleEmbeddedMap = function(options) {
     control: false,       // control data resource
     search: false,
     iconRoot: 'images/',
-    enabled: false
+    enabled: false,
+    tiles: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'
   }, options);
 
   options.events = extend({
@@ -29,7 +30,7 @@ var handleEmbeddedMap = function(options) {
   _init = function() {
 
     // open map library
-    m = options.maps=='google'?maps.use('google'):maps.use('osm', {url: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'});
+    m = options.maps=='google'?maps.use('google'):maps.use('osm', {url: options.tiles});
 
     // extract location data from control data
     _extractLocationData(options.control, function(locations) {
@@ -50,11 +51,11 @@ var handleEmbeddedMap = function(options) {
 
       var data = processedData[0];
 
-      var locations = []
-      , today = new Date()
-      , allPassed = true;
+      var locations = [],
+      today = new Date(),
+      allPassed = true;
 
-      for (slug in data) {
+      for (var slug in data) {
 
         var location = data[slug];
        
