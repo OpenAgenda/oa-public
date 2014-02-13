@@ -16,6 +16,11 @@
 
   },
 
+
+  /**
+   * handle data received from the iframe tunnel
+   */
+  
   _handleTunnel = function(element, onResponse) {
 
     return iTunnel({target: element, onReceive: function(data) {
@@ -43,9 +48,11 @@
 
   },
 
+
   /**
    * extract key and uid from iframe source attribute
    */
+  
   _extractIdentifiers = function(element) {
 
     var src = element.getAttribute('src');
@@ -68,6 +75,7 @@
     }
 
   };
+
 
   // load widget dependencies before loading widget
   loadJs(cibulDebug?cibulDebug.paths.lib:['//cibul.net/js/cibulWidgetLib.js'], function() {

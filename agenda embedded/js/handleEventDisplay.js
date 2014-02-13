@@ -22,7 +22,8 @@ function handleEventDisplay(eventUid, options) {
     oembedUrl: false,
     timeout: 10000,
     iconRoot: 'images/',
-    labels: options.labels
+    labels: options.labels,
+    tiles: false
   }, options);
 
   var _run = function() {
@@ -47,8 +48,8 @@ function handleEventDisplay(eventUid, options) {
 
       if (options.onHeightChange) options.onHeightChange();
 
-      var eventInterface = handleEvent(data.control, { 
-        maps: 'osm', 
+      var eventInterface = handleEvent(data.control, {
+        maps: 'osm',
         targetBlankLinks: true,
         iconRoot: options.iconRoot,
         culture: options.culture,
@@ -58,7 +59,8 @@ function handleEventDisplay(eventUid, options) {
           month: options.templates.month,
           date: options.templates.date
         },
-        labels: options.labels
+        labels: options.labels,
+        tiles: options.tiles
       });
 
       eventInterface.getHeight(function() {
@@ -67,7 +69,7 @@ function handleEventDisplay(eventUid, options) {
 
       });
 
-    };
+    }
   },
 
   _createBackControl = function() {

@@ -1,7 +1,6 @@
-#event i { color: #aaa; padding-right: 0.5em; }
+#event i { padding-right: 0.5em; }
 #event i.icon-facebook { color: #3B5998; }
 #event .icon-share { color: #FF5555; }
-#event .url { color: #2276BB; }
 #event .sec h2 { color: #666666; font-size: 1.1em; margin-bottom: 6px; }
 
 #event .separator { display: block; padding: 10px 0;}
@@ -50,7 +49,6 @@
 #event .language-list .language-menu { display: none; border: 1px solid #ccc; padding: 0 3px; background: white; }
 #event .language-list .language-select { cursor: pointer; display: block; }
 #event .language-list .language-select span { margin-right: 2px; }
-#event .language-list .language-select i { color: #333;}
 
 
 #event #description .disabled { height: 0; overflow: hidden; display: block; }

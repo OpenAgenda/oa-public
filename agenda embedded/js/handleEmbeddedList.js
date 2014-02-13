@@ -55,6 +55,7 @@ var handleEmbeddedList = function(options) {
       placeInfo: 'Showing %d places. Click on a marker for details.',
       reservation: 'book'
     },
+    tiles: false,
     debug: false
   }, options);
 
@@ -224,7 +225,8 @@ var handleEmbeddedList = function(options) {
         month: options.templates.month,
         date: options.templates.date
       },
-      labels: options.labels
+      labels: options.labels,
+      tiles: options.tiles
     });
 
   },

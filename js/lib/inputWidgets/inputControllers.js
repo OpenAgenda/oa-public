@@ -27,7 +27,7 @@ var inputController = {
 
     this.params.value?this._updateDom(this.params.value):this._readDom();
 
-    if (this.params.enabled) 
+    if (this.params.enabled)
       this.enable();
     else
       this.disable();
@@ -143,7 +143,7 @@ inputControllers = {
 
 setControllers = function(params) {
 
-  for (type in params.widgets) {
+  for (var type in params.widgets) {
 
     forEach(params.widgets[type], function(name) {
       new inputControllers[type](name, params);

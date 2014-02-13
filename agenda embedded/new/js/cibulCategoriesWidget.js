@@ -5,7 +5,7 @@
     var params = {
       attributes: {
         slug: 'data-slug'
-      }
+      },
       classes: {
         item: 'filter-item',
         disabled: 'disabled',

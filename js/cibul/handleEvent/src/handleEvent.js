@@ -16,6 +16,7 @@ var handleEvent = function(controlData, options) {
       en: 'english',
       it: 'italiano'
     },
+    tiles: false
   },options);
 
   options.templates = extend({
@@ -40,8 +41,9 @@ var handleEvent = function(controlData, options) {
   }, options.labels?options.labels:{});
 
   //var m = maps.use('osm');
-  var m = options.maps=='google'?maps.use('google'):maps.use('osm', {url: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'})
-   , getHeight = (typeof makeEventHeightGetter !== 'undefined')?makeEventHeightGetter(el('#event'), options.events.heightChange):false;
+  var m = options.maps=='google'?maps.use('google'):maps.use('osm', {url: options.tiles?options.tiles:'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'}),
+
+  getHeight = (typeof makeEventHeightGetter !== 'undefined')?makeEventHeightGetter(el('#event'), options.events.heightChange):false;
 
   handleEventPlaces(controlData, m, {
     triggeredEvents: { onLocationSelect: 'eventmapplaceselect', onLocationSelectCancel: 'eventmapplaceunselect'},
@@ -64,7 +66,7 @@ var handleEvent = function(controlData, options) {
       trigger: { selectCancel: 'eventmapplaceunselect', selectLocation: 'eventmapplaceselect' }
     },
     culture: options.culture,
-    monthLabels: { 
+    monthLabels: {
       en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       fr: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
       it: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
@@ -79,7 +81,7 @@ var handleEvent = function(controlData, options) {
   handleLanguages({
     tabsElem: el('.js_event_language_list'),
     contentElems: els('.js_lang'),
-    template: '<div><div class="js_lang_select language-select"><span>language</span><i class="icon-caret-down"></i></div><ul class="js_language_menu wsq language-menu"><% for (index in tabs) { %><li <% if (tabs[index].active) {%>class="active"<% } %>><%= tabs[index].label %></li><% } %></ul></div>',
+    template: '<div><div class="js_lang_select language-select"><span><i class="icon-flag url"></i></span><i class="icon-caret-down url"></i></div><ul class="js_language_menu wsq language-menu"><% for (index in tabs) { %><li <% if (tabs[index].active) {%>class="active"<% } %>><%= tabs[index].label %></li><% } %></ul></div>',
     labels: options.cultureLabels,
     onClick: function() {
       sEventHandler.getInstance().trigger(options.events.heightChange);
