@@ -38,6 +38,7 @@ var handleDateSelection = function(params) {
     dateAdd = handleDatesAdd({
       labels: params.labels,
       canvas: el(elem, params.selectors.addDatesCanvas),
+      onValidChange: _updatePreselection,
       onAdd: _addDates,
       lang: params.lang
     });
@@ -76,9 +77,36 @@ var handleDateSelection = function(params) {
 
   },
 
+  /**
+   * when there are no confirmed selections, preselected dates are sent back
+   */
+
+  _updatePreselection = function(newDates) {
+
+    if (datesList.length) return;
+
+    params.onChange(_parseNewDates(newDates));
+
+  },
+
+  /**
+   * parses new dates selection, adds it to date selection, hides add menu
+   */
+  
   _addDates = function(newDates) {
 
-    // this must take the form of a list of {date, begin, end} elements
+    datesList.add(_parseNewDates(newDates));
+
+    hideAdd();
+
+  },
+
+
+  /**
+   * parses new dates selection to be included in current dates list
+   */
+  
+  _parseNewDates = function(newDates) {
 
     var newDateList = [],
 
@@ -96,13 +124,12 @@ var handleDateSelection = function(params) {
 
       dateCursor = new Date(dateCursor.getTime() + milliSecondDay);
 
-    };
+    }
 
-    datesList.add(newDateList);
-
-    hideAdd();
+    return newDateList;
 
   },
+
 
   _fZ = function(n) {
     return (n>9?'':'0') + n;
@@ -177,7 +204,7 @@ var handleDateSelection = function(params) {
 
     if (params.onHeightChange) params.onHeightChange();
 
-    clearLink = undefined;    
+    clearLink = undefined;
 
   },
 

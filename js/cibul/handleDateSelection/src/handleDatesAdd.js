@@ -3,6 +3,7 @@ var handleDatesAdd = function(params) {
   params = extend({
     canvas: false,
     onAdd: false,
+    onValidChange: false,
     templates: {
       main: '<p><%= addTitle %></p><div class="info"><%= addInfo %></div><div class="js_dates date-select"></div><div class="timing-select"><div class="js_timings input-fields"></div><button><%= addDate %></button><div class="error js_error"></div></div>'
     },
@@ -57,12 +58,14 @@ var handleDatesAdd = function(params) {
       events: ['keyup', 'change'],
       onUpdate: function(begin) {
         timings.begin = begin;
-        _enableButton(_validateSelection());
+        
+        _evaluateSelection();
       },
       onValidChange: function(err) {
 
         if (err) timings.begin = false;
-        _enableButton(_validateSelection());
+        
+        _evaluateSelection();
 
       },
       validator: inputValidators.isTime(params.labels.timingError)
@@ -76,13 +79,17 @@ var handleDatesAdd = function(params) {
       info: params.labels.timingInfo,
       events: ['keyup', 'change'],
       onUpdate: function(end) {
+        
         timings.end = end;
-        _enableButton(_validateSelection());
+
+        _evaluateSelection();
+
       },
       onValidChange: function(err) {
 
         if (err) timings.end = false;
-        _enableButton(_validateSelection());
+
+        _evaluateSelection();
 
       },
       validator: inputValidators.isTime(params.labels.timingError)
@@ -97,9 +104,8 @@ var handleDatesAdd = function(params) {
 
         dates = selected;
         el(elem, params.selectors.error).innerHTML = '';
-        _enableButton(_validateSelection());
-
-
+        
+        _evaluateSelection();
       }
     });
 
@@ -112,13 +118,16 @@ var handleDatesAdd = function(params) {
       var validTimings = widgets.timeEnd.validate();
 
       validTimings = widgets.timeBegin.validate() && validTimings;
-
-      // if there are no selected dates, 
+      
+      // display errors
 
       if (!dates.begin)
         el(elem, params.selectors.error).innerHTML = params.labels.dateError;
       else if (!validTimings)
         el(elem, params.selectors.error).innerHTML = params.labels.timingGeneralError;
+
+
+      // if button is enable, callback
 
       if (addEnabled) params.onAdd({
         dates: dates,
@@ -138,6 +147,19 @@ var handleDatesAdd = function(params) {
     }
 
     if (elem) params.canvas.removeChild(elem);
+
+  },
+
+  _evaluateSelection = function() {
+
+    var valid = _validateSelection();
+
+    _enableButton(valid);
+
+    if (valid && params.onValidChange) params.onValidChange({
+      dates: dates,
+      timings: timings
+    });
 
   },
 
