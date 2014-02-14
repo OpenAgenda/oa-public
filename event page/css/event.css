@@ -22,7 +22,7 @@
   #event .sec { display: inline-block; max-width: 40%!important; border-bottom: none; margin: 0!important;}
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   #event > div { display: block; }
   #event .main, #event .sec { display: block; width: auto!important; max-width: none!important; }
   #event .poster { padding: 1em; }

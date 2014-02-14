@@ -4,7 +4,6 @@ var runProgramBehavior = function(params) {
   
   mobile = false;
 
-
   var init = function() {
 
     params = extend({
@@ -13,26 +12,13 @@ var runProgramBehavior = function(params) {
       debug: false,
       control: false, // required
       resources: { edit: '#edit', tagAdd: false, tagRemove: false, empty: false },
-      events: { lock: 'lock', unlock: 'unlock' },
-      elems: {
-        list: el('.list-items'),
-        map: el('.js_map_canvas'),
-        search: el('.js_map_search'),
-        locationsList: el('.js_location_list'),
-        shareLinks: els('.js_social_share'),
-        widgetLink: el('.js_widget_link'),
-        actions: el('.js_program_actions'),
-        edit: el('.js_edit'),
-        tags: el('.js_tag_widget'),
-        tabCanvas: el('.js_nav_widgets'),
-        shareCanvas: el('.js_share_menu')
-      },
       lang: 'en',
       iconRoot: 'images/',
-      labels: { tags: 'Tags', aggLink: 'use as sources', currentTags: 'Current Tags', programTags: 'Program Tags', addTag: 'Add a Tag', add: 'Add' }, // required
+      labels: { tags: 'Tags', aggLink: 'use as sources', currentTags: 'Current Tags', programTags: 'Program Tags', addTag: 'Add a Tag', add: 'Add', more: 'more...' }, // required
       links: { follow: false, unfollow: false, addEvent: false },
       lightboxClasses: {frame: 'wsq lightbox-frame', canvas: 'lightbox-canvas', buttonBox: 'lightbox-buttons', button: 'small button'},
-      callbacks: {}
+      callbacks: {},
+      fbAppId: 'xxx'
     }, params);
 
     params.templates = extend({
@@ -40,8 +26,26 @@ var runProgramBehavior = function(params) {
       section: '<li class="plis"><h2><%= value %></h2></li>',
       programItem: false,
       aggItem: '<span><%= programItem %><span class="js_is_not"><i class="icon-plus"></i></span><span class="js_is"><i class="icon-ok"></i><i class="icon-remove"></i></span></span>',
-      aggLink: '<a><i class="icon-share-alt"></i><span><%= label %></span></a>'
+      aggLink: '<a><i class="icon-share-alt"></i><span><%= label %></span></a>',
+      actionsButton: '<a class="button small"><%= label %></a>'
     }, params.templates?params.templates:{});
+
+    params.elems = extend({
+      list: el('.list-items'),
+      map: el('.js_map_canvas'),
+      search: el('.js_map_search'),
+      locationsList: el('.js_location_list'),
+      shareLinks: els('.js_social_share'),
+      widgetLink: el('.js_widget_link'),
+      actions: el('.js_program_actions'),
+      mainActions: el('.js_main_actions'),
+      edit: el('.js_edit'),
+      tags: el('.js_tag_widget'),
+      tabCanvas: el('.js_nav_widgets'),
+      shareCanvas: el('.js_share_menu')
+    }, params.elems?params.elems:{});
+
+    params.events = extend({ lock: 'lock', unlock: 'unlock', mobileCheck: 'mobilecheck' }, params.events?params.events:{});
 
     _initSocialShares();
 
@@ -113,7 +117,7 @@ var runProgramBehavior = function(params) {
     eh.on('tabactivated', function(data){
 
       // that is the map
-      if (data.i==0) eh.trigger('resize');
+      if (data.i===0) eh.trigger('resize');
 
     });
 
@@ -130,7 +134,26 @@ var runProgramBehavior = function(params) {
     handleShares({
       url: params.url,
       links: params.elems.shareLinks,
+      fb: { appId: params.fbAppId, share: true },
       culture: params.lang
+    });
+
+    eh.trigger(params.events.mobileCheck, function(isMobile) {
+
+      if (isMobile) {
+
+        params.elems.mainActions.insertAdjacentHTML('afterbegin', '<li></li>');
+
+        var button = handleDisplayButton(params.templates.actionsButton.replace('<%= label %>', params.labels.more), params.elems.shareLinks, {event: 'agendaactionstapped' });
+
+        handleDisplayButton(button, params.elems.actions);
+
+        handleDisplayButton(button, params.elems.shareCanvas);
+
+        el(params.elems.mainActions, 'li').appendChild(button);
+
+      }
+
     });
 
   },
@@ -344,7 +367,7 @@ var runProgramBehavior = function(params) {
 
     if (collaborative || (owner==getCurrentUsername()) || (typeof editors[getCurrentUsername()] != 'undefined')) {
 
-      params.elems.actions.insertAdjacentHTML('afterbegin', '<li class="add-event"><a class="add-event small button green" href="' + params.links.addEvent + '">' + params.labels.addEvent + '</a></li>');
+      params.elems.mainActions.insertAdjacentHTML('afterbegin', '<li class="add-event"><a class="add-event small button green" href="' + params.links.addEvent + '">' + params.labels.addEvent + '</a></li>');
 
     }
 

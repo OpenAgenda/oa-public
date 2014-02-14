@@ -6,7 +6,7 @@ var handleShares = function(params) {
     links: false,
     culture: 'fr',
     locales: { en: 'en_US', fr: 'fr_FR', it: 'it_IT', es: 'es_ES' },
-    fb: { appId: '395915653831339'},
+    fb: { appId: '395915653831339', share: false },
     tw: true,
     gp: true
   }, params);
@@ -86,16 +86,34 @@ var handleShares = function(params) {
   _initFacebookLike = function() {
 
     if (!el('#fb-root')) {
+
       var fbRoot = document.createElement('div');
       fbRoot.id = 'fb-root';
       el('body').appendChild(fbRoot);
-    };
 
-    _addItem([
-      '<span><div class="fb-like" data-href="',
-      params.url,
-      , '" data-send="false" data-layout="button_count" data-width="200" data-show-faces="false"></div></span>'
-    ].join(''));
+    }
+
+    var html;
+
+    if (!params.fb.share) {
+
+      html = [
+        '<span><div class="fb-like" data-href="',
+        params.url,
+        , '" data-send="false" data-layout="button_count" data-width="200" data-show-faces="false"></div></span>'
+      ].join('');
+
+    } else {
+
+      html = [
+        '<div class="fb-share-button" data-href="',
+        params.url,
+        '" data-type="button_count"></div>'
+      ].join('');
+
+    }
+
+    _addItem(html);
 
     (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];

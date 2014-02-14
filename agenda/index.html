@@ -55,6 +55,7 @@
     <script type="text/javascript" src="../js/cibul/handleSectionRemove/src/handleSectionRemove.js"></script>
     <script type="text/javascript" src="../js/cibul/handleProgramControlData/src/handleProgramControlData.js"></script>
     <script type="text/javascript" src="../js/cibul/action/src/action.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleDisplayButton/src/handleDisplayButton.js"></script>
 
     <script type="text/javascript" src="js/handleTags.js"></script>
     <script type="text/javascript" src="js/handleMobile.js"></script>
@@ -63,13 +64,15 @@
     <script type="text/javascript" src="js/handleProgram.js"></script>
     <script type="text/javascript" src="js/handleEmptyProgram.js"></script>
     <script type="text/javascript" src="js/handleSourceMenu.js"></script>
+
+    <script type="text/javascript" src="../global/js/templateGlobals.js"></script>
     
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC7gMvxBpIDtORZHe1ajfiHBuj2HNdfJk4&sensor=false"></script>
     <style>
 
       body { background: url("../images/bg.png") repeat scroll 0 0 rgb(230,230,230); }
       
-      .cbody { margin: 60px auto; width: auto; position: relative; max-width: 1200px;}
+      .cbody { margin: 60px auto; width: auto; position: relative; max-width: 1200px; }
       @media all and (max-width: 500px) { .cbody { margin: 0; } }
 
       .icon-remove { cursor: pointer; }
@@ -87,6 +90,7 @@
             <a class="url" href="59rivoli.org">59rivoli.org</a>
           </div>
           <div class="nav">
+            <ul class="main-actions js_main_actions"></ul>
             <ul class="actions js_program_actions">
               <!--<li><a href="#"><i class="icon-rss"></i><span>flux rss</span></a></li>-->
               <li><a href="https://www.google.com/calendar/render?cid=http://cibul.net/program/40445499.fr.ical"><i class="icon-google-plus"></i><span>google agenda</span></a></li>
@@ -117,12 +121,12 @@
               </div>
             </div>
 
-            <div class="pblock-head at3">
+            <div class="pblock-head at4">
               <i class="icon-bookmark"></i><span>Catégories</span>
             </div>
             <div class="pblock-body"><div class="content pcat"></div></div>
 
-            <div class="pblock-head at4">
+            <div class="pblock-head at3">
               <i class="icon-calendar"></i><span>Dates</span>
             </div><!--
             --><div class="pblock-body"><div class="pdates content">
@@ -164,6 +168,7 @@
         url: programUrl,
         hasFeature: true,
         currentUrl: programUrl,
+        fbAppId: '228438553891122',
         debug: {
           user: 'kaore-olafsson',
           aggregator: true
@@ -191,7 +196,7 @@
           add: 'Add',
           cibulFollow: 'follow', 
           cibulNoFollow: 'cancel follow', 
-          addEvent: 'Add an Event',
+          addEvent: 'Ajouter un événement',
           tags: 'Tags',
           aggLink: 'use as sources', 
           tagEditMenu: 'Edit Share tags',
@@ -202,7 +207,9 @@
           admin: 'manage',
           mapFilter: 'résultats affichés sur la carte',
           searchInfo: 'saisissez le nom d\'un lieu ou d\'une ville',
-          listTab: 'Liste'
+          listTab: 'Liste',
+          more: 'plus...'
+
         },
         templates: {
           article: ['<li class="pli" data-author="<%= values.author %>" data-id="<%= values.id %>">',

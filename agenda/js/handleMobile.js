@@ -27,7 +27,7 @@ var addMobileDisplayBehavior = function(tabElems, contentElems, eventHandler, pa
 
       _addTabClickBehavior(i);
 
-    };
+    }
 
     _detectMobile();
 
@@ -85,7 +85,7 @@ var addMobileDisplayBehavior = function(tabElems, contentElems, eventHandler, pa
 
     for (var otherI = 0; otherI<tabElems.length; otherI++) {
       _deactivateTab(otherI);
-    }; 
+    };
 
     if (i!==false) {
       _hideList();

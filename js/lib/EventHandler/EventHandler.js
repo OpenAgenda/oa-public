@@ -34,7 +34,7 @@
 
       var i;
 
-      for (eventName in this.register) {
+      for (var eventName in this.register) {
 
         i = this.register[eventName].length;
 
@@ -45,7 +45,7 @@
 
             return true;
 
-          };
+          }
 
       
       }

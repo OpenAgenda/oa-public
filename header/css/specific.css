@@ -13,8 +13,12 @@ body { background: url("/images/bg.png") repeat scroll 0 0 rgb(230,230,230); }
 .display-none { display: none!important; }
 
 
+body > header { z-index: 4; }
 
+header.mobile i { font-size: 1.9em; color: #ccc; }
 
+header .head-icon { vertical-align: middle; padding: 0 0 0 1em; cursor: pointer; }
+header .head-icon.active { color: #11BED4; }
 
 header .flash-message { background: #333; padding: 12px 0; }
 header .flash-message * { display: inline-block; color: white; font-weight: bold; }
@@ -43,6 +47,9 @@ header form li:hover a.remove-field { color: #666; }
 
 header section.top img { vertical-align: middle; }
 header .small-black-down-arrow-css { border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid #333; height: 0; margin-left: 6px; position: relative; width: 0; vertical-align: middle; display: inline-block;}
+
+header.mobile .small-black-down-arrow-css { display: none; }
+
 
 header .header-dropdown { position: absolute; z-index: 4; display: none; }
 header .header-dropdown > div { border-top: 1px #eee solid; margin-top: 4px; }
@@ -73,14 +80,18 @@ header .visitor .sub-block { display: inline-block; vertical-align: middle; }
 header .visitor .lang-link { margin-right: 20px; vertical-align: top; margin-top: 12px; }
 header .visitor .lang-link div { display: inline-block; overflow: hidden; }
 
+header.mobile .visitor { text-align: left; display: block; }
+header.mobile .visitor .lang-link { position: absolute; top: 10px; right: 10px; }
+
 
 
 header .connect { display: inline-block; }
-header .connect > div { margin: 0; vertical-align: middle; display: inline-block; }
+header .connect > div { margin: 0 0.5em 0 0; vertical-align: middle; display: inline-block; }
 header .connect ul.connect-services { margin: 5px 20px 5px 3px; height: 33px; }
-header .connect ul.connect-services li { display: inline-block;}
-header li.fbl { width: 22px; overflow: hidden; }
-header li.twl { width: 13px; overflow: hidden; }
+header .connect ul.connect-services li { display: inline-block; }
+header .connect ul.connect-services li i { font-size: 1.4em; vertical-align: middle; padding: 0 0.5em 0 0.2em;}
+header li.fbl i { color: #3B5999; }
+header li.twl i { color: #9AE4E8; }
 header .connect span { margin: 0 10px; }
 header .connect li { position: relative; margin: 5px 5px 5px 0; vertical-align: middle; }
 header .connect li input { width: 120px; }
@@ -92,9 +103,11 @@ header .connect form li { margin-right: 0; }
 header .connect form button { padding: 3px 5px 2px; }
 header .connect form button i { font-size: 1.2em; }
 
+header.mobile .connect form { padding: 0.2em 0.4em; text-align: left; min-width: 300px; }
 
 
 
+header.mobile .user-menu { position: absolute!important; top: 0; right: 10px; }
 
 header .user-menu { display: inline-block; margin: 5px 0; }
 header .user-menu > div { display: inline-block; vertical-align: middle; cursor: pointer;}
@@ -102,11 +115,15 @@ header .user-menu .user-profile { margin-left: 10px; }
 header .user-menu .user-profile img { height: 30px; margin-right: 5px; }
 header .user-menu .user-profile .full-name { display: inline-block; font-weight: normal; }
 
+header.mobile .user-menu .user-profile .full-name { display: none; }
 
 
 header .user-menu .header-menu-icon { width: 20px; text-align: center; position: relative; padding: 5px 5px 8px; margin-right: 5px;}
+header .user-menu .header-menu-icon i { font-size: 1.6em; color: #aaa; vertical-align: middle; }
 header .user-menu .header-menu-icon > span { display: block; }
 header .user-menu .header-menu-icon .new-item-alert { position: absolute; bottom: 0; right: 0; }
+
+header.mobile .user-menu .header-menu-icon { padding: 0 10px; }
 
 
 
@@ -137,6 +154,9 @@ header .map { height: 400px; }
 
 
 header form { display: inline-block; margin-left: 0.2em; margin-right: 1em; }
+header.mobile form { display: block; }
+
+
 header form li { display: inline-block; margin: 0.5em 0.5em 0.5em 0; vertical-align: middle; }
 
 
@@ -174,6 +194,10 @@ header .event-list img.close-list { width: 15px; position: absolute; top: 5px; r
 header .what-menu,
 header .where-menu,
 header .when-menu { display: none; width: 200px; padding: 10px; position: absolute; z-index: 4; }
+
+header.mobile .what-menu,
+header.mobile .where-menu,
+header.mobile .when-menu { width: 250px; }
 
 header .where-menu { width: auto; }
 header .where-list { height:0!important; width:0; margin:0; padding:0; }

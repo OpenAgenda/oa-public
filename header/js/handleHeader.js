@@ -6,13 +6,30 @@ var handleHeader = function(params) {
     resEvent: '//cibul.net/ajax/event',
     resLocation: '//cibul.net/getsearch/location',
     env: 'prod',
+    selectors: {
+      header: 'header',
+      mobileAnchor: '.js_mobile_anchor',
+      searchMenu: '.js_header_search',
+      connect: '.js_connect_section'
+    },
     elems: {
       userMenu: false, // where the content of the logged user menu goes
     },
-    templates: {
-      userMenu: false, // this is the logged user menu
+    events: {
+      mobile: 'mobilecheck'
+    },
+    classes: {
+      displayNone: 'display-none',
+      active: 'active',
+      mobile: 'mobile'
     }
   }, params);
+
+  params.templates = extend({
+    userMenu: false, // this is the logged user menu
+    mobileSearch: '<i class="icon-search head-icon"></i>',
+    mobileConnect: '<i class="icon-signin head-icon"></i>'
+  }, params.templates?params.templates:{});
   
   var session = {},
 
@@ -23,6 +40,8 @@ var handleHeader = function(params) {
       session = data;
 
       session.logged?_runLogged():_runUnlogged();
+
+      _mobileSetup(session.logged);
 
       _toggleDisplayedElements();
 
@@ -74,7 +93,7 @@ var handleHeader = function(params) {
 
     // messages and notifications
     if (parseInt(session.notifications, 10)) $('.js_new_notification_count').removeClass('display-none').html(session.notifications);
-    if (parseInt(session.messages,10)) $('.js_new_message_count').removeClass('display-none').html(session.messages); 
+    if (parseInt(session.messages,10)) $('.js_new_message_count').removeClass('display-none').html(session.messages);
 
     _initUserMenu();
 
@@ -84,6 +103,27 @@ var handleHeader = function(params) {
 
     forEach(els('.js_not_logged'), function(elem) { (session.logged?addClass:removeClass)(elem, 'display-none'); });
     forEach(els('.js_logged'), function(elem) { (session.logged?removeClass:addClass)(elem, 'display-none'); });
+
+  },
+
+
+  /**
+   * switch to mobile behavior if is mobile
+   */
+  
+  _mobileSetup = function(logged) {
+
+    sEventHandler.getInstance().trigger(params.events.mobile, function(isMobile) {
+
+      if (!isMobile) return;
+
+      if (!logged) el(params.selectors.mobileAnchor).insertAdjacentElement('afterend', handleDisplayButton(params.templates.mobileConnect, el(params.selectors.connect), {event: 'headerbuttontapped' }));
+
+      el(params.selectors.mobileAnchor).insertAdjacentElement('afterend', handleDisplayButton(params.templates.mobileSearch, el(params.selectors.searchMenu), {event: 'headerbuttontapped'}));
+
+      addClass(el(params.selectors.header), params.classes.mobile);
+
+    });
 
   },
 
@@ -101,7 +141,7 @@ var handleHeader = function(params) {
 
         onDeployCallback();
 
-        var self=this;       
+        var self=this;
 
         $('.js_deployable').animate({'height': $('.js_map').height()}, function(){ window.scrollTo(0, $(self).offset().top - $(window).height() + 50); });
       
@@ -109,7 +149,7 @@ var handleHeader = function(params) {
       
       });
 
-    };
+    }
 
   },
 

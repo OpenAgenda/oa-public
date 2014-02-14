@@ -26,7 +26,7 @@ destPath = '/home/kaore/Dev/www/cibul-symfony/web/js/',
 files = {
 
   'global.min.js': [
-    [paths.gl, 'handleMessageLinks.js'],
+    [paths.gl, 'handleMessageLinks.js', 'handleMobileMonitor.js', 'handleGlobals.js'],
     [paths.jsc, 'action/src/action.js'],
     [paths.lib, 'common/common.js', 'lightbox/lightbox.js', 'EventHandler/EventHandler.js']
   ],
@@ -148,7 +148,8 @@ files = {
     ],
     [paths.jsc,
       'handleContextMenu/src/handleContextMenu.js',
-      'handleSession/src/handleSession.js'
+      'handleSession/src/handleSession.js',
+      'handleDisplayButton/src/handleDisplayButton.js'
     ]
   ],
 
@@ -245,7 +246,8 @@ files = {
       'action/src/action.js',
       'sendGetMessage/src/sendGetMessage.js',
       'handleSuggestions/src/handleSuggestions.js',
-      'handleCategories/src/handleCategories.js'
+      'handleCategories/src/handleCategories.js',
+      'handleDisplayButton/src/handleDisplayButton.js'
     ],
     [paths.p,
       'handleCibulFollow.js',

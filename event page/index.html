@@ -250,17 +250,20 @@
 
         handleContextMenu(el('.js_share'), el('.js_share_menu'), sEventHandler.getInstance());
 
+        console.log(window.location.href);
+
         handleShares({
-          url: 'http://cibul.net',
+          url: window.location.href,
           canvas: el('.js_share_menu'),
-          culture: 'fr'
+          culture: 'fr',
+          fb: {appId: '228438553891122', share: true }
         });
 
         handleEventAdmin({
           canvas: el('.js_actions'),
           loggedUid: 111,
           ownerUid: 111,
-          editors: [111,324,54354,4231413],
+          editors: [111, 324, 54354, 4231413],
           publish: {
             html: '<p>This event is not published yet. <a class="url" href="#">Publish it now</a></p>',
             canvas: el('.sec') // where the publish action goes

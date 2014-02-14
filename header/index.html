@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../css/main.css" type="text/css"/>
     <link type="text/css" href="../css/font-awesome/font-awesome.css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/specific.css" type="text/css"/>
-    
+
     <script type="text/javascript" src="../js/lib/common/common.js"></script>
     <script type="text/javascript" src="../js/lib/remote/remote.js"></script>
     <script type="text/javascript" src="../js/lib/EventHandler/EventHandler.js"></script>
@@ -18,6 +18,7 @@
 
     <script type="text/javascript" src="../js/cibul/handleContextMenu/src/handleContextMenu.js"></script>
     <script type="text/javascript" src="../js/cibul/handleSession/src/handleSession.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleDisplayButton/src/handleDisplayButton.js"></script>
 
     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.11.custom.min.js"></script>
@@ -28,6 +29,9 @@
     <script type="text/javascript" src="js/searchLib.js"></script>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" src="js/geocoder.js"></script>
+
+    <script type="text/javascript" src="../js/lib/loadJs/loadJs.js"></script>
+    <script type="text/javascript" src="../global/js/templateGlobals.js"></script>
     
     <script type="text/javascript">
 
@@ -91,8 +95,8 @@
       <section class="top">
         <div class="content">
           <a href="#" class="logo"><img width="90" src="images/biglogo.png"/></a>
-          <div class="subtitle js_subtitle">Trouvez, séléctionnez, partagez</div>
-          <form>
+          <div class="subtitle js_subtitle js_mobile_anchor">Trouvez, séléctionnez, partagez</div>
+          <form class="js_header_search">
             <ul>
               <li>
                 <label class="infield">Quoi</label>
@@ -135,7 +139,7 @@
             </ul>
           </form>
           <div class="visitor block js_connect js_not_logged">
-            <a class="js_dropdown_trigger js_language lang-link sub-block"><i class="icon-flag"></i><span class="small-black-down-arrow-css"></span></a>
+            <a class="js_dropdown_trigger js_language lang-link sub-block"><i class="icon-flag head-icon"></i><span class="small-black-down-arrow-css"></span></a>
             <div class="header-dropdown js_language_list">
               <div class="wsq">
                 <ul>
@@ -145,7 +149,7 @@
                 </ul>
               </div>
             </div>
-            <div class="sub-block">
+            <div class="sub-block js_connect_section">
               <div class="connect sub-block">
                 <div>
                   <a class="js_connect_link url">Connexion</a>
@@ -159,8 +163,8 @@
                 </div>
                 <div>
                   <ul class="connect-services">
-                    <li class="fbl"><a><img src="images/fbbutton.png"/></a></li>
-                    <li class="twl"><a><img src="images/twitterlogo.png"/></a></li>
+                    <li class="fbl"><a><i class="icon-facebook"></i></a></li>
+                    <li class="twl"><a><i class="icon-twitter"></i></a></li>
                   </ul>
                 </div>
               </div>
@@ -243,7 +247,7 @@
         events: { fetch: 'getsessiondata' }
       });
 
-      $(function() {
+      addEvent(window, 'load', function() {
 
         handleHeader({
           resEvent: '//d.cibul.net/frontend_dev.php/ajax/event',
@@ -253,7 +257,7 @@
             userMenu: userMenuTemplate
           },
           elems: {
-            userMenu: getElementsByClassName('js_profile_menu')[0]
+            userMenu: el('.js_profile_menu')
           }
         });
 

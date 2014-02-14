@@ -1,5 +1,6 @@
-.program .content { padding: 20px; display: block; overflow: hidden; position: relative; }
+.fb-share-button { padding-bottom: 0.5em; }
 
+.program .content { padding: 20px; display: block; overflow: hidden; position: relative; }
 
 .program .main { max-width: 500px; }
 .program.empty .main { max-width: none; width: auto; display: block; }
@@ -19,7 +20,6 @@
 .program header .actions a i { padding-right: 0.3em; }
 
 .program header .actions li { display: block; padding: 0 0 0.3em 1em; }
-.program header .actions li.add-event { padding-bottom: 0.5em; }
 
 .program header .actions i.icon-rss { color: #FA9C39; }
 .program header .actions i.icon-arrow-right { color: #3CAD2D; }
@@ -27,6 +27,12 @@
 .program header .actions i.icon-external-link { color: #11bed4; }
 .program header .actions i.icon-share { color: #FF5555; }
 .program header .actions .share-menu { padding: 7px 0 0 5px; display: none; z-index: 3; }
+
+.program header .main-actions { padding-bottom: 1em; }
+.program header .main-actions li { display: inline-block; padding-left: 1em; }
+.program header .main-actions i { font-size: 2em; }
+.program header .main-actions li.add-event { padding-left: 0; }
+
 
 .program header a i { padding-right: 0.4em; }
 
@@ -154,48 +160,47 @@
 
 
 @media all and (max-width: 760px) {
+
+  .program > div { display: block; }
   
   .program .head { margin-bottom: 0; box-shadow: none; }
   
-  .program .pblock { position: relative; padding-top: 70px; }
-  .program .pblock-head { padding: 5px 0; text-align: center; display: inline-block; cursor: pointer; position: absolute; top: 0; width: 70px; }
-  .program .pblock-head i { font-size: 2.4em; }
+  .program .pblock { position: relative; padding-top: 50px; }
+  .program .pblock-head { padding: 5px 0; margin: 10px 5px 0; text-align: center; display: inline-block; cursor: pointer; position: absolute; top: 0; width: 60px; border-bottom: 2px solid transparent; }
+  .program .pblock-head i { display: none; }
   .program .pblock-head span { display: block; margin-left: 0; }
 
-  .program .pblock-head.active { background: #53D4FF; }
-  .program .pblock-head.active * { color: white; }
+  .program .pblock-head.active { border-bottom: 2px solid #53D4FF; }
 
   .program .pblock-body .content { padding: 20px 0; }
 
   .program .at1 { left: 0; }
   .program .at2 { left: 70px; }
   .program .at3 { left: 140px; }
-  .program .at4 { left: 210px; }
+  .program .at4 { left: 215px; }
   .program .at5 { left: 280px; }
 
 
   .program .pdates .ccal li span { padding: 6px; }
 
-  .program .pplaces .map-canvas { height: 400px; margin-bottom: 0;}
+  .program .map-canvas { display: none; }
 
-  .program header { max-width: 460px; padding: 0; }
+  .program header { max-width: 460px; padding: 20px 0 0; }
   .program header .title { max-width: 75%; }
   .program header img { max-width: 20%; }
   .program header .nav { display: block; max-width: none; text-align: left; position: inherit; }
-  .program header .actions li { padding: 1em 1em 0 0; display: inline-block; }
+
+  .program header .actions li { padding: 1em 1em 1em 0; display: inline-block; }
+
+  .program header .main-actions { padding: 2em 0 1em; }
+  .program header .main-actions .button.active { display: none; }
 
   .program header .share { padding: 1em 0; text-align: left; }
   .program header .share li,
-  .program header .share li:first-child { display: inline-block; padding: 0 1em 0 0; }
+  .program header .share li:first-child { display: inline-block; padding: 0 2em 1em 0; }
   .program header .share li:last-child { padding: 0; }
   .program header .share li * { color: #666; }
-
-
-}
-
-@media all and (max-width: 360px) {
-  .program .pblock-head span { display: none; }
-  .program .pblock-head i { font-size: 2.3em!important; }
+  .program header .share li span { font-size: 1.1em; }
 
 }
 
@@ -254,19 +259,6 @@
 .program .howto h5,
 .program  .howto a { font-family: inherit; }
 
-
-
-.tag-edit-menu { max-width: 400px; }
-.tag-edit-menu input[type="text"] { margin-right: 5px; }
-.tag-edit-menu li { display: inline; }
-.tag-edit-menu li a { margin-right: 5px; }
-.tag-edit-menu .tag-suggestions li { display: block; }
-.tag-edit-menu .current-tags { margin-bottom: 10px; }
-
-.tag-edit-menu .button-spinner { display: inline-block; }
-.tag-edit-menu .button-spinner { vertical-align: middle; }
-.tag-edit-menu .button-spinner { padding-left: 15px; }
-.tag-edit-menu .current-tags .button-spinner { padding-left: 5px; padding-right: 10px; }
 
 .tag-edit-menu .current-tags .icon-remove { color: #999; padding-right: 10px; font-size: 0.8em; width: 0.8em; }
 
