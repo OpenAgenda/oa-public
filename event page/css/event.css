@@ -54,11 +54,13 @@
 #event #description .disabled { height: 0; overflow: hidden; display: block; }
 
 #event #description > div > * { margin-bottom: 0.5em; display: block; }
-#event #description h1 { line-height: 1em; font-weight: 300; letter-spacing: 1px; font-size: 2.3em; margin: 0 0 0.1em; }
-#event #description .short { font-style: italic; font-size: 1.1em; margin: 0 0 0.2em; }
+#event #description h1 { line-height: 1em; font-weight: 300; letter-spacing: 1px; font-size: 2.3em; margin: 0 0 0.1em; word-wrap: break-word; }
+#event #description .short { font-style: italic; font-size: 1.1em; margin: 0 0 0.2em; word-wrap: break-word; }
 #event #description .spacetime { display: block; margin: 0 0 0.2em; }
 #event #description .tags > * { vertical-align: middle; }
 #event #description .tags span { color: #666; font-style: italic; word-break: break-all; }
+
+#event #description .free { word-break: break-all; }
 
 #event #places .place-detail { padding: 0 0 1em 0; }
 #event #places .address { font-style: italic; color: #666; }

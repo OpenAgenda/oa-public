@@ -1,14 +1,26 @@
-.front { background: white; text-align: center; min-height: 100%; }
+.front {
+  background: white; 
+  text-align: center; 
+  min-height: 100%; 
+}
+
+.front .content {
+  text-align: left;
+  margin: 0 auto; 
+  padding: 3em 20px; 
+  clear: both;
+  max-width: 960px;
+}
 
 .front header { background: rgb(244, 244, 244); }
 
 .front .button { margin-right: 1em; }
 
-.front .content { max-width: 1200px; text-align: left; margin: 0 auto; padding: 3em 20px; clear: both; }
+.front header .content { max-width: 1200px; }
 
 .front .subtitle { font-size: 1.5em; padding: 0 1em 1em 0; }
 
-.front .right .subtitle { padding: 0 0 1em 0; }
+.front .right .subtitle { padding: 0 0 1em 0; }
 
 .front .content > div,
 .front .content > a { display: inline-block; }
@@ -16,7 +28,7 @@
 .front .desc,
 .front .ill { vertical-align: middle; }
 
-.front .desc { padding: 6em 0 4em; }
+.front .desc { padding: 4em 0; }
 .front .right { text-align: right; }
 
 .front .ill { width: 30%; }
@@ -28,32 +40,35 @@
 .front .w70 { width: 70%; }
 .front .w40 { width: 40%; }
 .front .w33 { width: 33%; display: inline-block; }
-.front .w30 { width: 30%; }
+.front .w30 { width: 30%; display: inline-block; }
+.front .pr3 { padding-right: 3%; }
 
-.front .title h1 { font-size: 3em; }
+.front .title { font-size: 3em; }
 .front .title h2 { font-size: 2em; display: inline-block; vertical-align: middle; }
 
 .front .offer {
   display: block;
-  /*border-bottom: 1px solid #eee;*/
   margin: 1em 0 0.5em 0;
-  color: grey;
+  color: #999;
   font-size: 2em;
 }
 
-.front .title .offer { 
-  margin: 0.2em 1em 0;
+.front .offer-main {
+  padding: 3em 0 4em;
 }
 
-
-.front .offer-main { padding: 3em 0 4em; }
+.front .offer-main > div {
+  vertical-align: top;
+}
 
 .front .offer-main i {
-
   font-size: 1.8em;
   vertical-align: middle;
   padding-right: 0.3em;
+}
 
+.front .offer-main .title {
+  font-size: 1em;
 }
 
 
@@ -61,7 +76,12 @@
 .front footer li { display: inline-block; padding: 0 1em; vertical-align: middle; }
 .front footer i { font-size: 1.8em; }
 
-.front .references li { display: inline-block; vertical-align: middle; padding: 0 20px 20px 0; width: 110px; }
+.front .references li {
+  display: inline-block;
+  vertical-align: middle; 
+  padding: 0 20px 20px 0; 
+  width: 110px; 
+}
 .front .references img { width: 100%; }
 
 @media all and (max-width: 700px) { 

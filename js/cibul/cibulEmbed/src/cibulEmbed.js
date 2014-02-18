@@ -148,7 +148,7 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
             iframePos = _findPos(iframeElem)[1];
 
-            if (programScrollPos > iframePos) _scrollPosition(iframePos - scrollOffset);
+            _reposition(programScrollPos);
 
           } else {
 
@@ -165,6 +165,8 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
       _processFormData = function(data) {
 
         if (data.next) {
+
+          iframePos = _findPos(iframeElem)[1];
           
           _reposition();
 
@@ -194,7 +196,11 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
       _reposition = function(refPos) {
 
-        if (_scrollPosition() > iframePos) _scrollPosition(iframePos - scrollOffset);
+        if (typeof refPos == 'undefined') {
+          refPos = _scrollPosition();
+        }
+
+        if (refPos > iframePos) _scrollPosition(iframePos - scrollOffset);
 
       };
 
@@ -515,11 +521,11 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
   _scrollPosition = function(value) {
 
-    if (typeof value != 'undefined') scrollTo(0, value);
+    if (typeof value !== 'undefined') scrollTo(0, value);
 
-    return document.getElementsByTagName('body')[0].scrollTop;
+    return getScrollOffsets().y;
     
-  }
+  },
 
   _addStyle = function() {
 
