@@ -13,8 +13,7 @@
       },
       templates: {
         main: '<ul class="categories"></ul>',
-        //category: '<li class="js_category filter-item" data-slug="<%= slug %>"><a><%= category %></a><i class="icon-remove"></i></li>'
-        item: '<a><%= c %></a>'
+        item: '<a data-slug="<%= s %>"><%= c %></a>'
       }
     },
 
@@ -28,19 +27,22 @@
 
     enabled = false,
 
+    controller = false,
+
     run = function() {
 
-      UID = 0, // index of the embed uid in the widget config
+      var UID = 0, // index of the embed uid in the widget config
 
       config = element.getAttribute('data-cbctl').split('|');
 
       // register widget and get handle to controller
 
-      var controller = controllers.register('categories', {
+      controller = controllers.register('categories', {
         uid: config[UID],
         clear: clear,
         include: include,
-        enable: enable
+        enable: enable,
+        disable: disable
       });
 
       controller.getControlData(function(ctl) {
@@ -54,11 +56,9 @@
     },
 
 
-    _onSelect = function(item, category) {
+    _onSelect = function(category) {
 
-      controller.update('category', category.s);
-
-      disable();
+      controller.update({category: category.s});
 
     },
 
@@ -81,8 +81,6 @@
     
     include = function(eItem) {
 
-      console.log('event item is included');
-
     },
 
     
@@ -94,9 +92,9 @@
 
       if (reqParams.category) currentCategory = reqParams.category;
 
-      _refresh();
-
       enabled = true;
+
+      _refresh();
 
     },
 
@@ -104,14 +102,34 @@
 
       enabled = false;
 
+      _refresh();
+
     },
 
     _refresh = function() {
+
+      // toggle disabled class on widget
 
       if (enabled) {
         removeClass(el(element, 'ul'), params.classes.disabled);
       } else {
         addClass(el(element, 'ul'), params.classes.disabled);
+
+        return;
+      }
+
+      // toggle active classe on widget items
+
+      var catElem, elemIndex = 0;
+
+      while (catElem = childObject(el(element, 'ul'), elemIndex++)) {
+
+        if (catElem.getAttribute(params.attributes.slug) == currentCategory) {
+          addClass(catElem, params.classes.active);
+        } else {
+          removeClass(catElem, params.classes.active);
+        }
+
       }
 
     },
@@ -148,7 +166,7 @@
 
       addEvent(li, 'click', function() {
 
-        if (enabled) _onSelect(item, category);
+        if (enabled) _onSelect(category);
 
       });
 

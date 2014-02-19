@@ -1,14 +1,34 @@
 (function() {var loadJs=function(a,b){if(typeof a=='string'){var c=document.createElement('script');if(c.readyState){c.onreadystatechange=function(){if(c.readyState=="loaded"||c.readyState=="complete"){c.onreadystatechange=null;if(typeof b=="function")b();b=null}}}else{c.onload=function(){if(typeof b=="function")b();b=null}}c.charset="utf-8";c.src=a;c.type='text/javascript';document.getElementsByTagName('head')[0].appendChild(c)}else{var d=0;for(var i=0;i<a.length;i++){loadJs(a[i],function(){d++;if(d==a.length){b();b=null}})}}};
 
-  var cibulListWidget = function(element, controllers) {
+  var params = {
+    events: {
+      load: 'load'
+    }
+  },
 
-    var hook, // link between widget and controller
+  cibulListWidget = function(element, controllers) {
+
+    var controller,
+
+    tunnel, // link between inside and outside of iframe.
 
     run = function() {
 
-      hook = controllers.register('list', _extractIdentifiers(element));
+      controller = controllers.register('list', extend(_extractIdentifiers(element), {
+        sendRequest: _sendRequest
+      }));
 
-      _handleTunnel(element, hook);
+      tunnel = _handleTunnel(element, controller.onResponse);
+
+    },
+
+    /**
+     * send data through the tunnel
+     */
+    
+    _sendRequest = function(request) {
+
+      tunnel.send(extend({event: params.events.load}, request));
 
     };
 

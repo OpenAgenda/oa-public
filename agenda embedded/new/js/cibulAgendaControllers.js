@@ -26,11 +26,13 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
 
     ctl = false, // control data here
 
+    sendRequest = false, // method given by link to 
+
     ctlRequests = [], // control data requests stack
 
 
     /**
-     * register a widget
+     * register a widget - run by widget to establish link with controller
      * 
      * @param   object      params  whatever this could be
      * @return  function    the callback to be used by the widget when it changes values
@@ -59,9 +61,17 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
     
     update = function(value) {
 
-      console.log('controller: update received from widget. Value is:');
+      // on update the controller appends it to the agenda params, and checks if there is a change
 
-      console.log(value);
+      var newParams = extend({}, aParams, value);
+
+      if (!_hasChanges(newParams)) return;
+
+      _forEachWidget('disable');
+
+      if (!sendRequest) return console.log('controller has no link to send request to');
+
+      sendRequest(newParams);
 
     },
 
@@ -112,6 +122,9 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
 
       key = params.key;
 
+      // register link method as method to call when there is a change in params
+      sendRequest = params.sendRequest;
+
       _fetchControllerData(function(data) {
 
         ready = true;
@@ -120,6 +133,7 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
 
         var stackedCallback;
 
+        // send control data to whoever requested it during registration process
         while (stackedCallback = ctlRequests.pop()) {
 
           stackedCallback(ctl);
@@ -130,7 +144,9 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
 
       });
 
-      return _linkReady;
+      return {
+        onResponse: _linkReady // link calls this whenever it has an update
+      };
 
     },
 
@@ -145,7 +161,7 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
 
       aParams = data;
 
-      if (ready) _sweep();
+      if (ready) _sweep(aParams);
 
     },
 
@@ -155,17 +171,16 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
      * and which are not
      */
     
-    _sweep = function() {
+    _sweep = function(reqParams) {
 
-      _signalSweepStart();
+      if (typeof reqParams == 'undefined') reqParams = {};
 
-      for (var i in ctl.a) {
+      _forEachWidget('clear');
 
-        if (_applyFilters(ctl.a[i])) _include(ctl.a[i]);
+      for (var i in ctl.a)
+        if (_applyFilters(ctl.a[i], reqParams)) _include(ctl.a[i]);
 
-      }
-
-      _signalSweepComplete();
+      _forEachWidget('enable', reqParams);
 
     },
 
@@ -190,11 +205,11 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
      * but filtering by location is not possible if there are no location widgets
      */
     
-    _applyFilters = function(item) {
+    _applyFilters = function(item, reqParams) {
 
       for (var i in filters) {
 
-        if (!filters[i](item)) return false;
+        if (!filters[i](item, reqParams)) return false;
 
       }
 
@@ -202,28 +217,10 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
 
     },
 
-
-    /**
-     * clear widgets
-     */
-    
-    _signalSweepStart = function() {
+    _forEachWidget = function(methodName, methodParams) {
 
       for (var i = widgets.length - 1; i >= 0; i--) {
-        widgets[i].clear();
-      }
-
-    },
-
-
-    /**
-     * once sweep is complete, enable widgets
-     */
-    
-    _signalSweepComplete = function() {
-
-      for (var i = widgets.length - 1; i >= 0; i--) {
-        widgets[i].enable();
+        widgets[i][methodName](methodParams);
       }
 
     },
@@ -235,13 +232,11 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
     
     _hasChanges = function(data) {
 
-      var changes = false;
+      for (var i in aParams) if (!isDef(data[i]) || data[i] !== aParams[i] ) return true;
 
-      for (var i in aParams) if (!isDef(data[i]) || data[i] !== aParams[i] ) return false;
+      for (i in data) if (!isDef(aParams[i]) || data[i] !== aParams[i] ) return true;
 
-      for (i in data) if (!isDef(aParams[i]) || data[i] !== aParams[i] ) return false;
-
-      return true;
+      return false;
 
     };
 
@@ -278,7 +273,9 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
     
     categories: function(item, reqParams) {
 
-      return item;
+      if (reqParams.category && (item.c !== reqParams.category)) return false;
+
+      return true;
 
     }
 
