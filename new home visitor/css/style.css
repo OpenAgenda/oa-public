@@ -7,44 +7,48 @@
 .front .content {
   text-align: left;
   margin: 0 auto; 
-  padding: 3em 20px; 
+  padding: 3em 0; 
   clear: both;
-  max-width: 960px;
+  max-width: 980px;
 }
-
-.front header { background: rgb(244, 244, 244); }
 
 .front .button { margin-right: 1em; }
 
-.front header .content { max-width: 1200px; }
+
+.front header { background: rgb(244, 244, 244); }
+
+.front section { padding: 0 2em; }
+
+.front header .content { max-width: 1200px; padding: 3em 2em; }
+
+.front header .title { font-size: 3em; }
 
 .front .subtitle { font-size: 1.5em; padding: 0 1em 1em 0; }
 
 .front .right .subtitle { padding: 0 0 1em 0; }
 
-.front .content > div,
-.front .content > a { display: inline-block; }
+.front section .title { font-size: 2.5em; }
 
-.front .desc,
-.front .ill { vertical-align: middle; }
+.front .desc { padding: 4em 0; display: inline-block; vertical-align: middle; }
 
-.front .desc { padding: 4em 0; }
 .front .right { text-align: right; }
 
-.front .ill { width: 30%; }
+.front .desc .desc-content { padding: 0 4em 0 0; }
+.front .desc.right .desc-content { padding: 0 0 0 4em; }
+
+.front .ill { vertical-align: middle; display: inline-block; }
 .front .ill img { max-width: 400px; width: 100%; }
 
 
 .front .w100 { width: 100%; }
-.front .w60 { width: 60%; }
 .front .w70 { width: 70%; }
+.front .w65 { width: 65%; }
+.front .w60 { width: 60%; }
 .front .w40 { width: 40%; }
 .front .w33 { width: 33%; display: inline-block; }
+.front .w35 { width: 35%; }
 .front .w30 { width: 30%; display: inline-block; }
 .front .pr3 { padding-right: 3%; }
-
-.front .title { font-size: 3em; }
-.front .title h2 { font-size: 2em; display: inline-block; vertical-align: middle; }
 
 .front .offer {
   display: block;
@@ -67,9 +71,9 @@
   padding-right: 0.3em;
 }
 
-.front .offer-main .title {
-  font-size: 1em;
-}
+.front .offer-main .title { font-size: 1em; }
+
+.front .offer-main h2 { display: inline-block; vertical-align: middle; }
 
 
 .front footer .content { text-align: center; }
@@ -84,18 +88,34 @@
 }
 .front .references img { width: 100%; }
 
-@media all and (max-width: 700px) { 
+@media all and (max-width: 800px) { 
   .front .desc { padding: 4em 0; }
-  .front .title { font-size: 1em; }
+  .front header .title { font-size: 2.2em; }
+  .front section .title { font-size: 2em; }
+  .front .subtitle { font-size: 1.2em; }
 }
 
-@media all and (max-width: 530px) {
-  .front .ill,
-  .front .desc { display: block; width: auto; }
+@media all and (max-width: 640px) {
+
+  .front .desc { display: block; width: auto; padding: 1em 0 0 0; }
 
   .front .right { text-align: left; }
 
-  .front .ill { text-align: center; }
+  .front .ill { text-align: center; display: block; padding: 2em 0 0 0; width: auto; }
 
   .front header .desc { padding-top: 0; }
+
+  .front .content { padding-top: 1em; }
+
+  .front .desc .desc-content,
+  .front .desc.right .desc-content { padding: 0; }
+
+  .front .desc a { margin: 1em 1em 0 0; }
+  .front .desc .url { display: block; }
+
+  .front .references { text-align: center; }
+  .front .references li { padding: 10px; width: 90px; }
+
+  .front .offer { font-size: 1.6em; }
+
 }
