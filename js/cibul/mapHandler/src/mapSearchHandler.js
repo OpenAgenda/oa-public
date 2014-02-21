@@ -38,7 +38,7 @@ var mapSearchHandler = function(params) {
     if (selection.id && params.onLocationSelect)
       params.onLocationSelect(selection.id);
     else
-      params.onSelect(selection.corners); 
+      params.onSelect(selection.corners);
 
   },
 
@@ -78,15 +78,15 @@ var mapSearchHandler = function(params) {
 
     sIndex = [];
 
-    for (name in tmp) {
+    for (var name in tmp) {
 
       var index = {name: name, score: tmp[name].score, corners: {ne: tmp[name].ne, sw: tmp[name].sw}};
 
-      if (tmp[name]['id']) index['id'] = tmp[name]['id']; 
+      if (tmp[name]['id']) index['id'] = tmp[name]['id'];
 
       sIndex.push(index);
 
-    };
+    }
 
     sIndex = sIndex.sort(function(a, b) { return b.score - a.score; });
 

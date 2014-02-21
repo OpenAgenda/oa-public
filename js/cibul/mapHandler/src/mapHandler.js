@@ -9,15 +9,15 @@ var mapHandler = function(m, locations, params) {
       search: false
     },
     events: {
-      triggeredEvents: { 
+      triggeredEvents: {
         onLocationSelect: 'onlocationselect',   /* when marker of location is clicked */
         onBoundsChange: 'onboundschange',       /* when the bounds of the map change */
         getParams: 'getlistparams'
       },
-      triggerEvents: { 
-        selectLocation: 'selectlocation'        /* to know when selection of location has been made */, 
-        unselectLocation: 'unselectlocation', 
-        enable: 'enableMap', 
+      triggerEvents: {
+        selectLocation: 'selectlocation',       /* to know when selection of location has been made */
+        unselectLocation: 'unselectlocation',
+        enable: 'enableMap',
         disable: 'disableMap',
         changeBounds: 'changebounds',            /* to know when new bounds are requested */
         onEventOpen: 'oneventopen',
@@ -38,7 +38,7 @@ var mapHandler = function(m, locations, params) {
     imagePath: '//cibul.s3.amazonaws.com/'
   }, params);
 
-  var map, 
+  var map,
 
   eh = sEventHandler.getInstance(), bounds, corners, boundsSynced, history, enabled = true, highlightedLocations = [], eventFocus = false, boundsEnabled = true,
 
@@ -50,7 +50,7 @@ var mapHandler = function(m, locations, params) {
 
     map = m.createMap(params.elems.map, { center: [locations[0].latitude, locations[0].longitude], keyboard: false, onReady: function(map) {
 
-      setTimeout(function() { 
+      setTimeout(function() {
         m.setOnBoundsChangeEnd(map, _onBoundsChange);
       }, 10);
 
@@ -435,7 +435,7 @@ var mapHandler = function(m, locations, params) {
 
     corners = {
       ne: m.getBoundsNorthEast(bounds),
-      sw: m.getBoundsSouthWest(bounds)      
+      sw: m.getBoundsSouthWest(bounds)
     };
 
     m.fitBounds(map, bounds);
@@ -448,7 +448,7 @@ var mapHandler = function(m, locations, params) {
 
     var sensitivity = 0.005;
 
-    if ((Math.abs(corners.ne[0] - newCorners.ne[0]) < sensitivity) 
+    if ((Math.abs(corners.ne[0] - newCorners.ne[0]) < sensitivity)
 
     && (Math.abs(corners.ne[1] - newCorners.ne[1]) < sensitivity)
 
@@ -489,7 +489,7 @@ var mapHandler = function(m, locations, params) {
           anchor: state.anchor
         };
         return;
-      } 
+      }
 
     });
 

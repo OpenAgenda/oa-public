@@ -104,10 +104,10 @@
 
         this.selection = (selected.begin > selected.end)?{ begin: selected.end, end: selected.begin }:selected;
 
-        if (this.selection && updateMonth) { 
+        if (this.selection && updateMonth) {
           this._setDisplayedMonth(new Date(this.selection.begin.getTime()));
         } else {
-          this._renderSelection(this.selection);  
+          this._renderSelection(this.selection);
         }
 
       } else {

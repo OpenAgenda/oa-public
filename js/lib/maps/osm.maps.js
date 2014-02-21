@@ -19,7 +19,7 @@ maps.register('osm', (function(){
         zoom: 15,
         draggable: true,
         scrollwheel: true,
-        keyboard: true, 
+        keyboard: true,
         onReady: false
       }, options);
 
@@ -29,8 +29,8 @@ maps.register('osm', (function(){
         keyboard: options.keyboard
       });
 
-      if (options.onReady) map.on('load', function() { 
-        options.onReady(map); 
+      if (options.onReady) map.on('load', function() {
+        options.onReady(map);
       });
 
       map.setView(options.center, options.zoom);
@@ -113,6 +113,12 @@ maps.register('osm', (function(){
     setMarkerPosition: function(marker, position) {
 
       marker.setLatLng(new L.LatLng(position[0], position[1]));
+
+    },
+
+    getBounds: function(map) {
+
+      return map.getBounds();
 
     },
 

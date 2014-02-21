@@ -277,7 +277,55 @@ if (typeof cibulAgendaControllers == 'undefined') (function() {
 
       return true;
 
-    }
+    },
+
+    tags: function(item, reqParams) {
+
+      if (reqParams.tag) {
+
+        if (item.t) for (var i = item.t.length - 1; i >= 0; i--) {
+
+          if (reqParams.tag == item.t[i]) return true;
+
+        }
+
+        return false;
+
+      }
+
+      return true;
+
+    },
+
+    locations: function(item, reqParams) {
+
+      if (reqParams.location && (typeof item.l[reqParams.location] == 'undefined')) return false;
+
+      // is one of the locations within square... works most places
+      
+      if (reqParams.neLat && reqParams.neLng && reqParams.swLat && reqParams.swLng) {
+
+        for (var i in item.l) {
+
+          var coords = [item.l[i].lt, item.l[i].lg];
+
+          if ((reqParams.neLat > coords[0]) &&
+
+          (reqParams.neLng > coords[1]) &&
+
+          (reqParams.swLat < coords[0]) &&
+
+          (reqParams.swLng < coords[1])) return true;
+
+        }
+
+        return false;
+
+      }
+
+      return true;
+
+    },
 
   };
 
