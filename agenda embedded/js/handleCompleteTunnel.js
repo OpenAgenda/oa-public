@@ -19,7 +19,7 @@ var handleCompleteTunnel = function(params) {
 
         preventDefault(e);
 
-        tunnel.send({ view: params.listView });
+        tunnel.send({ view: params.listView, complete: true });
 
       });
 

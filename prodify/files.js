@@ -12,7 +12,8 @@ var paths = {
   pf:  '../program edit menu/js/',
   pm:  '../program menu/js/',
   pa:  '../agenda admin/js/',
-  pem: '../agenda embed menu/js/',
+  pem: '../agenda embed menu/',
+  npem: '../agenda embedded/new/js/',
   gl:  '../global/js/',
   jsc: '../js/cibul/',
   lib: '../js/lib/',
@@ -405,7 +406,14 @@ files = {
   'review/embedMenu.min.js': [
     [paths.jsc, 'handleContextMenu/src/handleContextMenu.js', 'embedCodeField/src/embedCodeField.js'],
     [paths.lib, 'loadJs/loadJs.js', 'formWidgets/formWidgets.js', 'tabs/tabs.js', 'lightbox/lightbox.js'],
-    [paths.pem, 'handleEmbedMenuList.js', 'handleEmbedMenuMap.js', 'handleEmbedMenuCategories.js', 'handleEmbedMenuTags.js', 'handleEmbedMenuCalendar.js', 'handleEmbedMenuFacebook.js', 'handleEmbedMenuAddButton.js', 'toggler.js']
+    [paths.pem, 'js/handleEmbedMenuList.js', 'js/handleEmbedMenuMap.js', 'js/handleEmbedMenuCategories.js', 'js/handleEmbedMenuTags.js', 'js/handleEmbedMenuCalendar.js', 'js/handleEmbedMenuFacebook.js', 'js/handleEmbedMenuAddButton.js', 'js/toggler.js']
+  ],
+
+  'review/embedMenuLib.min.js': [
+    [paths.vd, 'ejs/src/ejs_production.js', 'CibulCalendar/src/CibulCalendar.js'],
+    [paths.lib, 'common/common.js', 'remote/remote.js', 'maps/maps.js', 'maps/osm.maps.js', 'selectForm/selectForm.js'],
+    [paths.npem, 'cibulSimpleController.js', 'cibulWidget.js', 'cibulStyle.js', 'cibulCategoriesWidget.js', 'cibulMapWidget.js', 'cibulTagsWidget.js', 'cibulCalendarWidget.js'],
+    [paths.pem, 'tags/handleTagsSelect.js']
   ],
 
   'review/embedMap.min.js': [
@@ -428,8 +436,39 @@ files = {
   ],
 
   'review/cibulEmbed.min.js': [
-    [paths.jsc, 'cibulEmbed/src/cibulEmbed.js']
+    [paths.jsc, 'cibulEmbed/src/cibulEmbed.js'],
   ],
+
+  'embed/cibulWidgetLib.js': [
+    [paths.vd, 'ejs/src/ejs_production.js', 'CibulCalendar/src/CibulCalendar.js', ],
+    [paths.lib, 'common/common.js', 'remote/remote.js', 'Base64/Base64.js', 'maps/maps.js', 'maps/osm.maps.js', 'urlStrings/urlStrings.js', 'iTunnel/iTunnel.js'],
+    [paths.npem, 'cibulControllers.js', 'cibulWidget.js', 'cibulStyle.js', 'cibulCategoriesWidget.js'],
+  ],
+
+  'embed/cibulListWidget.js': [
+    [paths.npem, 'cibulListWidget.js']
+  ],
+
+  'embed/cibulMapWidget.js': [
+    [paths.npem, 'cibulMapWidget.js']
+  ],
+
+  'embed/cibulCalendarWidget.js': [
+    [paths.npem, 'cibulCalendarWidget.js']
+  ],
+
+  'embed/cibulCategoriesWidget.js': [
+    [paths.npem, 'cibulCategoriesWidget.js']
+  ],
+
+  'embed/cibulTagsWidget.js': [
+    [paths.npem, 'cibulTagsWidget.js']
+  ],
+
+  'embed/cibulFormWidget.js': [
+    [paths.npem, 'cibulFormWidget.js']
+  ],
+
 
   'cmap.js': [[paths.lg, 'cmap.js']],
   'colorpicker.min.js': [[paths.lg, 'colorpicker.min.js']],

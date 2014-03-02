@@ -14,11 +14,11 @@ function extend(){
           if(arguments[i].hasOwnProperty(key))
               arguments[0][key] = arguments[i][key];
   return arguments[0];
-};
+}
 
 function isDef(value) {
   return typeof value !== 'undefined';
-};
+}
 
 /*contains*/
 function contains(a, obj) {
@@ -109,7 +109,7 @@ var els = function(node, selector) {
 
   if ('.#,'.indexOf(prefix) !== -1) selector = selector.substr(1);
 
-  if (prefix == '.') 
+  if (prefix == '.')
     return getElementsByClassName(node, selector);
   else if (prefix == '#') {
     var result = node.getElementById(selector);
@@ -179,7 +179,7 @@ var getChildIndex = function(child) {
 
   var i = 0;
 
-  while( (child = previousObject(child)) != null ) i++;
+  while ( (child = previousObject(child)) !== null ) i++;
 
   return i;
 
@@ -188,7 +188,7 @@ var getChildIndex = function(child) {
 function forEach(array, action) {
   for (var i = 0; i < array.length; i++)
     action(array[i]);
-};
+}
 
 
 // what values in object a are not in object b
@@ -197,7 +197,7 @@ function asymDiff(a, b) {
   if (typeof dSuffix != 'string') dSuffix = '';
   var diff = {};
   
-  for (pName in a) {
+  for (var pName in a) {
       if (typeof b[pName] != 'undefined') {
           if (b[pName] !== a[pName]) diff[pName] = a[pName];
       } else {
@@ -206,7 +206,7 @@ function asymDiff(a, b) {
   }
   
   return diff;
-};
+}
 
 
 /* HTMLElement.prototype.insertAdjacentElement (for FF) */

@@ -6,7 +6,9 @@
     }
   },
 
-  cibulListWidget = function(element, controllers) {
+  reqParams,
+
+  cibulListWidget = function(element, register) {
 
     var controller,
 
@@ -14,7 +16,7 @@
 
     run = function() {
 
-      controller = controllers.register('list', extend(_extractIdentifiers(element), {
+      controller = register('list', extend(_extractIdentifiers(element), {
         sendRequest: _sendRequest
       }));
 
@@ -60,7 +62,17 @@
 
         delete data.event;
 
-        onResponse(data);
+        reqParams = extend({}, data);
+
+        onResponse(reqParams);
+
+      } else if (data.event == 'eventopensuccess') {
+
+        onResponse({uid: data.uid});
+
+      } else if (data.event == 'closeevent') {
+
+        onResponse(reqParams);
 
       }
 
@@ -77,7 +89,7 @@
 
     var src = element.getAttribute('src');
 
-    if (isDef(cibulDebug)) {
+    if ((typeof cibulEnv !== 'undefined') && (typeof cibulEnv.templates !== 'undefined') && cibulEnv.templates.list) {
 
       var config = src.substr(src.indexOf('#')+1).split('|');
 
@@ -94,14 +106,14 @@
 
     }
 
+  },
+
+  run = function() {
+    cibulControllers.loadWidget('.cbpglst', cibulListWidget);
   };
 
-
-  // load widget dependencies before loading widget
-  loadJs(cibulDebug?cibulDebug.paths.lib:['//cibul.net/js/cibulWidgetLib.js'], function() {
-
-    cibulWidgetInit('.cbpglst', cibulListWidget, cibulAgendaControllers);
-
-  });
+  if (typeof cibulControllers !== 'undefined') return run();
+  
+  loadJs('//cibul.net/js/embed/cibulWidgetLib.js', run);
 
 })();

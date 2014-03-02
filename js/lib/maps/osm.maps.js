@@ -106,7 +106,15 @@ maps.register('osm', (function(){
 
       if (options.anchor) osmOptions.iconAnchor = L.point(options.anchor);
 
+      if (options.size) osmOptions.iconSize = options.size;
+
       marker.setIcon(L.icon(osmOptions));
+
+    },
+
+    setMarkerZIndex: function(marker, zIndex) {
+
+      marker.setZIndexOffset(zIndex);
 
     },
 
