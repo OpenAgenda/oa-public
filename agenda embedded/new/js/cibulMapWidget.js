@@ -156,9 +156,17 @@
 
         var self = this;
 
-        for (var s in this.locations ) break;
+        var center = [48.8705187,2.3821144];
 
-        this.m.createMap(el(this.element, 'div'), { center: this.locations[s].coords, onReady: function(map) {
+        if (Object.size(this.locations)) {
+          
+          for (var s in this.locations) break;
+
+          center = this.locations[s].coords;
+
+        }
+
+        this.m.createMap(el(this.element, 'div'), { center: center, onReady: function(map) {
 
           onReady(map);
 

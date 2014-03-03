@@ -254,7 +254,6 @@ if (typeof cibulControllers == 'undefined') (function() {
       if (typeof exception == 'undefined') exception = false;
 
       for (var i = widgets.length - 1; i >= 0; i--) {
-        console.log(widgets[i].name);
         if (widgets[i].name !== exception) widgets[i][methodName](methodParams);
       }
 
