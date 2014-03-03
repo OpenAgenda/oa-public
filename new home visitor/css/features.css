@@ -1,0 +1,49 @@
+
+
+
+
+.featlist i { margin: 1em 0; display: inline-block; }
+.featlist i.icon-check { color: #11BED4; }
+.featlist i.icon-check-empty { color: #999; }
+.featlist .featset li { text-align: center; padding: 1em 0 0; }
+
+.featlist * { text-align: center; }
+
+.desc .featset .featcheck { display: block; }
+
+.desc .featset .featdesc { display: none; text-align: left; }
+.desc .featset .featdesc span { color: #666; display: block; text-align: left; }
+.desc .featset .featdesc a { margin: 0; text-align: left; font-size: 1.1em; }
+.featlist .desc:first-child .featset .featdesc { display: inline-block; }
+
+.desc .featset .featdesc,
+.desc .featset .featcheck { min-height: 4em; vertical-align: top; }
+
+.featlist .desc { width: 15%; }
+.featlist .desc:first-child { width: 70%; }
+.featlist .desc:first-child h2 { padding-left: 80%; width: 20%; }
+.featlist .desc:first-child .featdesc { width: 80%; display: inline-block; }
+.featlist .desc:first-child .featcheck { width: 20%; display: inline-block; }
+
+.feature-details li {
+  list-style-type: disc;
+  margin: 0 0 1em 2em;
+  font-size: 1.2em;
+}
+.feature-details li a { font-size: 1em; }
+
+
+@media all and (max-width: 640px) {
+
+  .featlist .desc,
+  .featlist .desc:first-child { width: auto; max-width: 500px; margin: 0 auto;}
+
+  .featlist .desc .featdesc,
+  .featlist .desc .featdesc:first-child { width: 80%; display: inline-block; }
+  .featlist .desc .featcheck,
+  .featlist .desc .featcheck:first-child { width: 20%!important; display: inline-block; }
+
+  .featlist .desc h2,
+  .featlist .desc:first-child h2 { width: auto; padding-left: 0; }
+
+}
