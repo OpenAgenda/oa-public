@@ -147,7 +147,7 @@ var handleEmbeddedList = function(options) {
 
   _applyEventListItemBehavior = function(listItemElem) {
 
-    forEach(listItemElem.getElementsByTagName('a'), function(linkElem) {
+    forEach(els(listItemElem, 'a'), function(linkElem) {
 
       addEvent(linkElem, 'click', function(e) {
 
@@ -161,7 +161,32 @@ var handleEmbeddedList = function(options) {
 
     });
 
-    forEach(listItemElem.getElementsByTagName('img'), function(imgElem) {
+    var catElem = el(listItemElem, '.ecat');
+
+    if (catElem) {
+
+      addEvent(catElem, 'click', function() {
+
+        eh.trigger(options.events.load, {category: el(catElem, 'span').getAttribute('data-slug') });
+
+      });
+
+    }
+
+    var tagElems = els(listItemElem, '.program-tag');
+
+    if (tagElems.length) forEach(tagElems, function(tagElem) {
+
+      addEvent(tagElem, 'click', function() {
+
+        eh.trigger(options.events.load, {tags: tagElem.getAttribute('data-slug') });
+
+      });
+
+    });
+
+
+    forEach(els(listItemElem, 'img'), function(imgElem) {
 
       addEvent(imgElem, 'load', function(e) {
 

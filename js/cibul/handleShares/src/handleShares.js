@@ -76,7 +76,7 @@ var handleShares = function(params) {
       elems: [canvas],
       beforeClose: function(frameElem) {
         canvas = frameElem.childNodes[0];
-        _hideCanvasOnPage(); 
+        _hideCanvasOnPage();
       },
       buttons: false
     });

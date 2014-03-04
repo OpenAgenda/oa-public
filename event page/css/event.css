@@ -110,6 +110,7 @@
 #event .actions i { vertical-align: middle; }
 
 #event .share-menu { display: none; padding: 5px 0 0 5px; }
+#event .share-menu li { display: block; }
 
 #event li.add-event { display: block; padding-bottom: 20px;}
 #event li.add-event * { display: inline-block; vertical-align: middle; }

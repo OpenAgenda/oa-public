@@ -9,7 +9,7 @@
 .plihd .hdthumb img { width: 100%; }
 .plihd .pliname { font-weight: bold; }
 
-.pli .etags ul { max-height: 20px; overflow: hidden; display: inline-block; width: 80%; vertical-align: top; }
+.pli .etags ul { max-height: 20px; overflow: hidden; display: inline-block; vertical-align: top; }
 .pli .etags li { display: inline; margin-right: 0.2em; }
 .pli .etags li > a { font-size: 0.9em; }
 
