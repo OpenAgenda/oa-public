@@ -14,7 +14,7 @@
 
   format = function(tpl, ctx) {
     return tpl.replace(/\{\{([a-zA-Z ]*)\}\}/g, function(m, g) {
-        return ctx[g.trim()] || '';
+        return ctx[g.replace(/^\s+|\s+$/g, '')] || '';
     });
   };
 

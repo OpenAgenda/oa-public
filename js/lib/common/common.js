@@ -305,3 +305,10 @@ function isElement(o){
     o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName==="string"
   );
 }
+
+// add trim function to IE8
+if(typeof String.prototype.trim !== 'function') {
+  String.prototype.trim = function() {
+    return this.replace(/^\s+|\s+$/g, ''); 
+  }
+}

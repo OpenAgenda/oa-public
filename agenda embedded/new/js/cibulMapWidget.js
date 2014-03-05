@@ -22,8 +22,8 @@
       selectedLocation: false,
       activeLocations: [],
       icons: {
-        active: { icon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png', anchor: [9, 25] },
-        inactive: { icon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIconGray.png', anchor: [9, 25] }
+        active: { icon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png', anchor: [9, 25], size: [18,25] },
+        inactive: { icon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIconGray.png', anchor: [9, 25], size: [18,25] }
       },
       locations: {},
       templates: {

@@ -33,8 +33,7 @@
                                 '<div class="cibul-whenwhere">{spacetimeinfo}</div>' +
                                 '<div class="cibul-actions">' + 
                                   '{%optional/pricing}{pricing} · {optional/pricing%}' + 
-                                  '{%optional/book_url}<a class="cibul-url" href="{book_url}">r&eacute;server</a> · {optional/book_url%}' + 
-                                  '<a class="cibul-url" href="{share_url}">partager</a>' +
+                                  '{%optional/ticket}<a class="cibul-url" href="{ticket}">r&eacute;server</a>{optional/ticket%}' +
                                 '</div>' +
                               '</div>' + 
                             '</div>' + 
