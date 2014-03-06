@@ -10,11 +10,11 @@
       tiles: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
       labels: {
         fr: {
-          mapSync: 'mettre à jour la liste quand je déplace la carte'
+          mapSync: 'rechercher quand je déplace la carte'
         },
         en: {
-          mapSync: 'update list when I move the map'
-        },
+          mapSync: 'search when I move the map'
+        }
       },
       selectors: {
         sync: '.js_sync_checkbox'
