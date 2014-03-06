@@ -65,6 +65,8 @@
 
       enable: function(reqParams) {
 
+        this.updateBounds(reqParams);
+
         this.selectedLocation = reqParams.location?this.locations[reqParams.location]:false;
 
       },
@@ -100,6 +102,19 @@
       },
 
 
+      getBoundParams: function() {
+
+        var bounds = this.m.getBounds(this.map),
+
+        ne = this.m.getBoundsNorthEast(bounds),
+        
+        sw = this.m.getBoundsSouthWest(bounds);
+
+        return { neLat: ne[0], neLng: ne[1], swLat: sw[0], swLng: sw[1] };
+
+      },
+
+
       /**
        * use map bounds as filter
        */
@@ -112,7 +127,40 @@
         
         sw = this.m.getBoundsSouthWest(bounds);
 
-        this._select({neLat: ne[0], neLng: ne[1], swLat: sw[0], swLng: sw[1], location: null});
+        this._select(extend({location: null}, this.getBoundParams()));
+
+      },
+
+
+      /**
+       * update map bounds
+       */
+      
+      updateBounds: function(corners) {
+
+        if (!corners.neLat) return;
+
+        if (this.getBoundParams().neLat == corners.neLat) return;
+
+        var self = this,
+
+        auto = self.auto,
+
+        bounds = this.m.createBounds([corners.neLat, corners.neLng]);
+
+        this.m.extendBounds(bounds, [corners.swLat, corners.swLng]);
+
+        this.auto = false;
+
+        this.m.fitBounds(this.map, bounds);
+
+        // takes a while for map to adjust
+        
+        setTimeout(function() {
+
+          self.auto = auto;
+
+        }, 500);
 
       },
 
@@ -354,4 +402,4 @@
   
   loadJs(['//cdn.leafletjs.com/leaflet-0.6.4/leaflet.js', '//cibul.net/js/embed/cibulWidgetLib.js'], run);
 
-})();
+})();;

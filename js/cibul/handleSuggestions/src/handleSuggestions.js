@@ -10,7 +10,7 @@ var handleSuggestions = function(inputElem, list, key, template, options) {
       onChange: false
     }, options);
 
-    contextDiv = document.createElement('div');    
+    contextDiv = document.createElement('div');
 
     // create context menu element
     contextDiv.style.display = 'none';
@@ -29,7 +29,7 @@ var handleSuggestions = function(inputElem, list, key, template, options) {
 
       possibles = _shortlist(inputElem.value, list, key);
 
-      if (possibles.length == 0 || possibles.length > 10) {
+      if (possibles.length === 0 || possibles.length > 10) {
         contextMenu.hide();
         return;
       }
@@ -68,8 +68,8 @@ var handleSuggestions = function(inputElem, list, key, template, options) {
 
   _shortlist = function(value, list, key){
 
-    var regex = ''
-      , selection = [];
+    var regex = '',
+    selection = [];
 
     forEach (value, function(c) {
       regex += '.*' + c.toLowerCase();
@@ -95,12 +95,12 @@ var handleSuggestions = function(inputElem, list, key, template, options) {
 
     if (contextDiv) contextDiv.parentNode.removeChild(contextDiv);
 
-  }
+  };
 
   run();
 
   return {
     remove: _remove
-  }
+  };
 
 };
