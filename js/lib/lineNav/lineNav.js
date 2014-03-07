@@ -117,7 +117,7 @@
 
     },
     setCanvasWidth: function(elem) {
-      this.elems.canvas.style.width = (elem.offsetWidth - this.elems.previous.offsetWidth - this.elems.next.offsetWidth -1) + 'px';
+      this.elems.canvas.style.width = Math.max(0,(elem.offsetWidth - this.elems.previous.offsetWidth - this.elems.next.offsetWidth -1)) + 'px';
     },
 
 

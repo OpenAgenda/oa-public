@@ -74,7 +74,7 @@ var selectForm = function(headSelector, sectionHeadSelector, sectionContent, opt
     for (var i = sectionElems.length - 1; i >= 0; i--) {
 
       if (i==selectedIndex) {
-        sectionElems[i].style.removeProperty('display');
+        removeProperty(sectionElems[i].style, 'display');
       } else {
         sectionElems[i].style.display = 'none';
       }

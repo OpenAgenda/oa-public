@@ -7,13 +7,16 @@
       map: false,
       lang: 'en',
       auto: false, // syncronize selection with map
+      popup: false,
       tiles: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
       labels: {
         fr: {
-          mapSync: 'rechercher quand je déplace la carte'
+          mapSync: 'rechercher quand je déplace la carte',
+          events: 'événements'
         },
         en: {
-          mapSync: 'search when I move the map'
+          mapSync: 'search when I move the map',
+          events: 'events'
         }
       },
       selectors: {
@@ -28,6 +31,7 @@
       locations: {},
       templates: {
         main: '<div class="map-canvas"></div><div class="map-sync"><label><%= labels.mapSync %></label><input class="js_sync_checkbox" type="checkbox"/></div>',
+        popup: '<div class="map-location"><% if (typeof count !== \'undefined\') { %><span class="count"><span><%= count %></span><label> <%= count==1?labels.events.replace(\'s\', \'\'):labels.events %></label></span><% } %><% if (typeof image !== \'undefined\') { %><img src="<%= image %>"/><% } %><span><p><%= placename %></p><span><%= address %></span></span></div>'
       },
 
 
@@ -67,7 +71,17 @@
 
         this.updateBounds(reqParams);
 
-        this.selectedLocation = reqParams.location?this.locations[reqParams.location]:false;
+        if (!reqParams.location) {
+
+          this.selectedLocation = false;
+
+          return;
+
+        }
+
+        this.selectedLocation = this.locations[reqParams.location];
+
+        this.popup = this.m.createPopup(this.map, new EJS({ text: this.templates.popup }).render(extend({labels: this.labels[this.lang]}, this.selectedLocation)), { marker: this.selectedLocation.marker });
 
       },
 
@@ -75,12 +89,24 @@
 
         this.activeLocations = [];
 
+        if (this.popup) this.m.removePopup(this.popup);
+
+        for (var l in this.locations) {
+          this.locations[l].count = 0;
+        }
+
       },
 
       include: function(eItem) {
 
-        for (var l in eItem.l)
-          if (!contains(this.activeLocations, l)) this.activeLocations.push(l);
+        for (var l in eItem.l) {
+
+          if (!contains(this.activeLocations, l)) {
+            this.activeLocations.push(l);
+          }
+
+          this.locations[l].count += 1;
+        }
 
       },
       
@@ -130,7 +156,6 @@
         this._select(extend({location: null}, this.getBoundParams()));
 
       },
-
 
       /**
        * update map bounds
@@ -272,14 +297,14 @@
             if (typeof this.locations[l] == 'undefined') {
 
               this.locations[l] = {
+                placename: ctl.a[a].l[l].p,
+                city: ctl.a[a].l[l].ct,
+                address: ctl.a[a].l[l].a,
                 slug: l,
-                coords: [ctl.a[a].l[l].lt, ctl.a[a].l[l].lg],
-                count: 0
+                coords: [ctl.a[a].l[l].lt, ctl.a[a].l[l].lg]
               };
 
             }
-
-            this.locations[l].count++;
 
           }
 
@@ -313,6 +338,8 @@
         var self = this;
 
         this.m.setOnMarkerClick(location.marker, function() {
+
+          if (!contains(self.activeLocations, location.slug)) return;
 
           self._select({location: location.slug, neLat: null, neLng: null, swLat: null, swLng: null});
 
@@ -355,7 +382,15 @@
 
         this._log('using osm maps with tiles ' + this.tiles);
       
-        el('head').insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css">');
+        if (typeof document.createStyleSheet == "undefined") {
+          el('head').insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.css">');
+        } else {
+
+          document.createStyleSheet("//cdn.leafletjs.com/leaflet-0.6.4/leaflet.css");
+          document.createStyleSheet('"//cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css"');
+
+        }
+
 
         this.m = maps.use('osm', {url: this.tiles});
 

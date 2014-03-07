@@ -65,6 +65,8 @@
 
         addEvent(itemElem, 'click', function() {
 
+          if (!contains(self.activeCategories, itemData.s)) return;
+
           self._select({category: self.category==itemData.s?null:itemData.s});
 
         });

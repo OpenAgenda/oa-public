@@ -312,7 +312,7 @@ var mapHandler = function(m, locations, params) {
 
     if (typeof locationIndex == 'undefined') {
 
-      while (highlightedLocations.length) 
+      while (highlightedLocations.length)
         _unhighlight(highlightedLocations.pop());
 
     } else {

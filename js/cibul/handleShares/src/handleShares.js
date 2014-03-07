@@ -35,7 +35,7 @@ var handleShares = function(params) {
           preventDefault(e);
           _openLightbox();
         });
-      })
+      });
 
     }
 

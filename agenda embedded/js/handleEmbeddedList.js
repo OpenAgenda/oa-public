@@ -4,6 +4,7 @@ var handleEmbeddedList = function(options) {
     url: false,           // required. resource where to get the list item data
     eventUrl: false,      // required. resource to get embedded event
     culture: 'en',
+    tiledLayout: false,
     cultureLabels: {
       fr: 'français',
       en: 'english',
@@ -109,6 +110,13 @@ var handleEmbeddedList = function(options) {
 
 
     if (options.debug) _debugBehavior();
+
+
+    if (options.tiledLayout) {
+
+      //var flowinate = new Flowinate(options.elems.list);
+
+    }
 
   },
 

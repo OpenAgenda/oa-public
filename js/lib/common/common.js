@@ -309,6 +309,14 @@ function isElement(o){
 // add trim function to IE8
 if(typeof String.prototype.trim !== 'function') {
   String.prototype.trim = function() {
-    return this.replace(/^\s+|\s+$/g, ''); 
-  }
+    return this.replace(/^\s+|\s+$/g, '');
+  };
+}
+
+function removeProperty(obj, name) {
+
+  if (typeof obj.removeProperty !== 'undefined') return obj.removeProperty(name);
+
+  return obj.removeAttribute(name);
+
 }

@@ -366,7 +366,7 @@ files = {
       'EventHandler/EventHandler.js', 'urlStrings/urlStrings.js', 'remote/remote.js',
       'tabs/tabs.js', 'lineNav/lineNav.js', 'maps/maps.js', 'maps/osm.maps.js',
       'maps/leaflet.js', 'loadJs/loadJs.js',
-      'linkToImage/linkToImage.js'
+      'linkToImage/linkToImage.js', 'flowinate/flowinate.js'
     ],
     [paths.vd,
       'setLinks/src/setLinks.js',

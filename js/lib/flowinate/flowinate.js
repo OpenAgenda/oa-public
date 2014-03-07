@@ -2,9 +2,9 @@
 
   var Flowinate = function(canvasElem) {
 
-    var self = this
-      , i=0
-      , elem;
+    var self = this,
+    i=0,
+    elem;
 
     this.canvasElem = canvasElem;
 
@@ -18,7 +18,7 @@
     canvasElem._insertAdjacentElement = canvasElem.insertAdjacentElement;
 
     canvasElem.insertAdjacentElement = function(where, what) {
-      if (where == 'afterbegin') 
+      if (where == 'afterbegin')
         self.prependChild(what);
       else if (where == 'beforeend')
         self.appendChild(what);
@@ -50,8 +50,9 @@
 
     updateColumns: function() {
 
-      var self = this
-        , columns = this.createColumns(this.cCount);
+      var self = this,
+      
+      columns = this.createColumns(this.cCount);
 
       forEach(columns, function(column) {
         self.canvasElem._appendChild(column);
@@ -70,8 +71,8 @@
     onWidthChange: function() {
       // if count changed, need to update
 
-      var self = this
-        , newCount = Math.floor(this.getCanvasInnerWidth()/this.getWidth());
+      var self = this,
+      newCount = Math.floor(this.getCanvasInnerWidth()/this.getWidth());
 
       if (newCount != this.cCount) {
 
@@ -79,7 +80,7 @@
 
         this.updateColumns();
 
-      };
+      }
 
     },
 
@@ -114,9 +115,9 @@
         });
 
         columns.push(colElem);
-      };
+      }
 
-      return columns
+      return columns;
 
     },
 
@@ -150,7 +151,7 @@
     },
 
     getSmallestColumn: function(columns) {
-      var minHeight = false, 
+      var minHeight = false,
       chosenColumn;
 
       forEach(columns, function(column) {
@@ -165,8 +166,9 @@
 
     getWidth: function() {
 
-      var refElem = this.getRefElem()
-        , width = refElem.offsetWidth;
+      var refElem = this.getRefElem(),
+      
+      width = refElem.offsetWidth;
 
       forEach(['marginLeft', 'marginRight'], function(style){
         var computedStyle = (window.getComputedStyle?window.getComputedStyle(refElem):refElem.currentStyle)[style];
@@ -178,8 +180,9 @@
 
     getCanvasInnerWidth: function() {
       
-      var width = this.canvasElem.offsetWidth
-        , self = this;
+      var width = this.canvasElem.offsetWidth,
+      
+      self = this;
 
       forEach(['paddingLeft', 'paddingRight'], function(style) {
         var computedStyle = (window.getComputedStyle?window.getComputedStyle(self.canvasElem):self.canvasElem.currentStyle)[style];

@@ -61,8 +61,17 @@
     '.cibulMap { height: 300px; width: 100%; }',
     '.cibulMap .map-canvas { height: 100%; }',
     '.cibulMap .map-sync { text-align: right; }',
-    '.cibulMap .map-sync > * { vertical-align: middle; }'
+    '.cibulMap .map-sync > * { vertical-align: middle; }',
+    '.cibulMap .map-location .count { display: block; }',
+    '.cibulMap .map-location > span, .map-location > img { display: inline-block; }',
+    '.cibulMap .map-location > img { width: 48px; padding: 0.2em 0.5em 0 0; vertical-align: top;}',
+    '.cibulMap .map-location > span { max-width: 160px; }',
+    '.cibulMap .leaflet-popup-content-wrapper { -webkit-border-radius: 0; border-radius: 0; }',
+    '.cibulMap .leaflet-popup-content p, .leaflet-popup-content { margin: 0; }',
+    '.cibulMap .leaflet-popup-content { padding: 2px 15px 2px 5px; }',
+    '.cibulMap .leaflet-popup-tip-container { visibility: hidden; }'
   ]);
+
 
   style = style.concat([
     '.cibulSearch input { border: 1px solid #ccc; padding: 0em 0.4em; }',
