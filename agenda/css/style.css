@@ -46,6 +46,13 @@
 .program header .share:hover .icon-rss { color: #FA9C39; }
 .program header .share:hover .icon-magic { color: mediumpurple; }
 
+.program header .share:hover .fb i { color: #3b5998; }
+.program header .share:hover .gp i { color: #d34836; }
+.program header .share:hover .li i { color: #007bb6; }
+.program header .share:hover .tw i { color: #00aced; }
+.program header .share:hover .tb i { color: #32506d; }
+.program header .share:hover .pt i { color: #cb2027; }
+
 
 .program .pblock-head { padding: 5px 20px 0; }
 .program .pblock-head > * { display: inline-block; }

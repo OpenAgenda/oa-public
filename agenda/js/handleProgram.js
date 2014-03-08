@@ -35,7 +35,7 @@ var runProgramBehavior = function(params) {
       map: el('.js_map_canvas'),
       search: el('.js_map_search'),
       locationsList: el('.js_location_list'),
-      shareLinks: els('.js_social_share'),
+      shareLinks: el('.js_social_share'),
       widgetLink: el('.js_widget_link'),
       actions: el('.js_program_actions'),
       mainActions: el('.js_main_actions'),
@@ -133,9 +133,9 @@ var runProgramBehavior = function(params) {
 
     handleShares({
       url: params.url,
-      links: params.elems.shareLinks,
-      fb: { appId: params.fbAppId, share: true },
-      culture: params.lang
+      title: params.title,
+      imageUrl: params.imageUrl,
+      canvas: params.elems.shareLinks
     });
 
     eh.trigger(params.events.mobileCheck, function(isMobile) {
