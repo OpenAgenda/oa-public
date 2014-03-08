@@ -17,8 +17,7 @@ var runProgramBehavior = function(params) {
       labels: { tags: 'Tags', aggLink: 'use as sources', currentTags: 'Current Tags', programTags: 'Program Tags', addTag: 'Add a Tag', add: 'Add', more: 'more...' }, // required
       links: { follow: false, unfollow: false, addEvent: false },
       lightboxClasses: {frame: 'wsq lightbox-frame', canvas: 'lightbox-canvas', buttonBox: 'lightbox-buttons', button: 'small button'},
-      callbacks: {},
-      fbAppId: 'xxx'
+      callbacks: {}
     }, params);
 
     params.templates = extend({

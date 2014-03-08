@@ -18,7 +18,7 @@ var handleShares = function(params) {
         content: '<i class="icon-twitter"></i>',
         className: 'tw',
         res: 'https://twitter.com/share',
-        params: {url: 'url', title: 'title'}
+        params: {url: 'url', text: 'title'}
       },
       gp: {
         content: '<i class="icon-google-plus"></i>',

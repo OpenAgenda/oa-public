@@ -120,6 +120,8 @@
 #event .shares > div { display: block; }
 
 
+#event .social-shares { padding-bottom: 1em; margin-left: -10px; }
+
 #event .social-shares li { margin: 0.3em 0.3em 0 0; padding: 0; }
 #event .social-shares a { background: white; padding: 0.4em 0.5em 0.5em 0.5em; text-align: center; display: inline-block;}
 #event .social-shares i { font-size: 1.1em; color: #11BED4; padding: 0; width: 1em; display: inline-block; }
