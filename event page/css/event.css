@@ -120,6 +120,20 @@
 #event .shares > div { display: block; }
 
 
+#event .social-shares li { margin: 0.3em 0.3em 0 0; padding: 0; }
+#event .social-shares a { background: white; padding: 0.4em 0.5em 0.5em 0.5em; text-align: center; display: inline-block;}
+#event .social-shares i { font-size: 1.1em; color: #11BED4; padding: 0; width: 1em; display: inline-block; }
+
+#event .social-shares a:hover i { color: white; }
+
+#event .social-shares a.fb:hover { background: #3b5998; }
+#event .social-shares a.gp:hover { background: #d34836; }
+#event .social-shares a.li:hover { background: #007bb6; }
+#event .social-shares a.tw:hover { background: #00aced; }
+#event .social-shares a.tb:hover { background: #32506d; }
+#event .social-shares a.pt:hover { background: #cb2027; }
+
+
 
 #event.noposter .actions { padding: 10px 10px 20px 20px; max-width: 130px;   }
 #event.noposter .actions li { display: inline-block; margin: 0 5px 5px 0; }

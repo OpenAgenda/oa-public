@@ -46,7 +46,7 @@
 
   </head>
   <body>
-    <div id="event" class="cbody center noposter">
+    <div id="event" class="cbody center"><!-- noposter -->
       <div class="wsq" itemscope itemtype="http://schema.org/Organization">
         <div class="sec">
           <div class="poster head">
@@ -56,9 +56,7 @@
             <li class="add-event">
               <a class="smallest button js_add_program"><i class="icon-plus"></i><span>ajouter a un programme</span></a>
             </li>
-            <li>
-              <a class="js_share"><i class="icon-share"></i><span>partager</span></a>
-              <ul class="share-menu wsq js_share_menu"></ul>
+            <li class="js_share_menu social-shares">
             </li>
           </ul>
 
@@ -247,13 +245,13 @@
           }
         });
 
-        handleContextMenu(el('.js_share'), el('.js_share_menu'), sEventHandler.getInstance());
-
         handleShares({
+          title: 'Anastasia',
+          description: 'Woopidoo',
           url: window.location.href,
-          canvas: el('.js_share_menu'),
-          culture: 'fr',
-          fb: {appId: '228438553891122', share: true }
+          siteUrl: 'http://cibul.net',
+          imageUrl: 'http://cibul.s3.amazonaws.com/event_prestige-de-l-orchestre-symphonique_00.jpg',
+          canvas: el('.js_share_menu')
         });
 
         handleEventAdmin({

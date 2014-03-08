@@ -1,17 +1,21 @@
 var handleShares = function(params) {
 
   params = extend({
+    title: false,
     url: false,
+    siteUrl: false,
+    imageUrl: false,
     canvas: false,
     links: false,
-    culture: 'fr',
-    locales: { en: 'en_US', fr: 'fr_FR', it: 'it_IT', es: 'es_ES' },
-    fb: { appId: '395915653831339', share: false },
+    fb: true,
     tw: true,
-    gp: true
+    gp: true,
+    li: true,
+    tu: true,
+    pi: true
   }, params);
 
-  var eh = sEventHandler.getInstance(), canvas,
+  var canvas,
 
   init = function() {
 
@@ -43,11 +47,17 @@ var handleShares = function(params) {
 
   _createItems = function() {
 
-    if (params.fb) _initFacebookLike();
+    if (params.fb) _initFacebook();
 
     if (params.tw) _initTweet();
 
     if (params.gp) _initGooglePlus();
+
+    if (params.li) _initLinkedIn();
+
+    if (params.tu) _initTumblr();
+
+    if (params.pi) _initPinterest();
 
   },
 
@@ -83,82 +93,77 @@ var handleShares = function(params) {
 
   },
 
-  _initFacebookLike = function() {
+  _initFacebook = function() {
 
-    if (!el('#fb-root')) {
-
-      var fbRoot = document.createElement('div');
-      fbRoot.id = 'fb-root';
-      el('body').appendChild(fbRoot);
-
-    }
-
-    var html;
-
-    if (!params.fb.share) {
-
-      html = [
-        '<span><div class="fb-like" data-href="',
-        params.url,
-        , '" data-send="false" data-layout="button_count" data-width="200" data-show-faces="false"></div></span>'
-      ].join('');
-
-    } else {
-
-      html = [
-        '<div class="fb-share-button" data-href="',
-        params.url,
-        '" data-type="button_count"></div>'
-      ].join('');
-
-    }
+    var html = [
+      '<a class="fb" href="',
+      'https://www.facebook.com/sharer.php?u=',
+      params.url,
+      '" target="_blank"><i class="icon-facebook"></i></a>'
+    ].join('');
 
     _addItem(html);
-
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/" + params.locales[params.culture] + "/all.js#xfbml=1&appId=" + params.fb.appId;
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
 
   },
 
   _initTweet = function() {
 
-    _addItem([
-      '<a href="https://twitter.com/share" class="twitter-share-button" data-lang="',
-      params.culture,
-      '">Tweet</a>'
-    ].join(''));
+    var html = ['<a class="tw" href="https://twitter.com/share?url=', encodeURIComponent(params.url)];
 
-   !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+    if (params.title) html.push('&title=' + encodeURIComponent(params.title));
+
+    html.push('" target="_blank"><i class="icon-twitter"></i></a>');
+
+    _addItem(html.join(''));
+
   },
 
   _initGooglePlus = function() {
+    
+    _addItem(['<a class="gp" href="https://plus.google.com/share?url=', encodeURIComponent(params.url) ,'" target="_blank"><i class="icon-google-plus"></i></a>'].join(''));
 
-    // append share button
+  },
 
-    _addItem(['<div class="g-plus" data-action="share" data-annotation="bubble"></div>'].join(''));
+  _initLinkedIn = function() {
 
-    // check if script elem is there, add it if not
+    var html = ['<a class="li" href="http://www.linkedin.com/shareArticle?url=', encodeURIComponent(params.url)];
 
-    var noScript = true;
-    forEach(document.getElementsByTagName('script'), function(script) {
-      if (script.src == 'https://apis.google.com/js/plusone.js') return noScript = false;
-    });
+    if (params.title) html.push('&title=' + encodeURIComponent(params.title));
 
-    if (noScript) (function() {
-      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-      po.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-    })();
+    if (params.siteUrl) html.push('&source=' + encodeURIComponent(params.siteUrl));
 
-    window.___gcfg = {
-      lang: params.locales[params.culture],
-      parsetags: 'onload'
-    };
+    html.push('" target="_blank"><i class="icon-linkedin"></i></a>');
+
+    _addItem(html.join(''));
+
+  },
+
+  _initTumblr = function() {
+
+    var html = ['<a class="tb" href="http://tumblr.com/share?s=&v=3&u=', encodeURIComponent(params.url)];
+
+    if (params.title) html.push('&t=' + encodeURIComponent(params.title));
+
+    html.push('" target="_blank"><i class="icon-tumblr"></i></a>');
+
+    _addItem(html.join(''));
+    
+  },
+
+  _initPinterest = function() {
+
+    if (!params.imageUrl) return;
+
+    var html = [
+      '<a class="pt" href="http://pinterest.com/pin/create/button/?url=', encodeURIComponent(params.url),
+      '&media=', encodeURIComponent(params.imageUrl)
+    ];
+
+    if (params.description) html.push('&description=' + params.description);
+
+    html.push('" target="_blank"><i class="icon-pinterest"></i></a>');
+
+    _addItem(html.join(''));
 
   },
 
