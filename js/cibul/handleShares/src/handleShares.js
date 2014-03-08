@@ -1,25 +1,65 @@
 var handleShares = function(params) {
 
-  params = extend({
+  var defaults = {
     title: false,
     url: false,
     siteUrl: false,
     imageUrl: false,
     canvas: false,
     links: false,
-    fb: true,
-    tw: true,
-    gp: true,
-    li: true,
-    tu: true,
-    pi: true
-  }, params);
+    items: {
+      fb: {
+        content: '<i class="icon-facebook"></i>',
+        className: 'fb',
+        res: 'https://www.facebook.com/sharer.php',
+        params: {u: 'url'}
+      },
+      tw: {
+        content: '<i class="icon-twitter"></i>',
+        className: 'tw',
+        res: 'https://twitter.com/share',
+        params: {url: 'url', title: 'title'}
+      },
+      gp: {
+        content: '<i class="icon-google-plus"></i>',
+        className: 'gp',
+        res: 'https://plus.google.com/share',
+        params: {url: 'url'}
+      },
+      li: {
+        content: '<i class="icon-linkedin"></i>',
+        className: 'li',
+        res: 'http://www.linkedin.com/shareArticle',
+        params: { url: 'url', title: 'title', source: 'siteUrl' }
+      },
+      tu: {
+        content: '<i class="icon-tumblr"></i>',
+        className: 'tb',
+        res: 'http://tumblr.com/share',
+        params: { s: '', v: '3', u: 'url', t: 'title' }
+      },
+      pi: {
+        content: '<i class="icon-pinterest"></i>',
+        className: 'pt',
+        res: 'http://pinterest.com/pin/create/button/',
+        params: { url: 'url', media: 'imageUrl', description: 'description' }
+      }
+    }
+  };
+
+  if (params.items)
+    for (var i in defaults.items) params.items[i] = extend(defaults.items[i], params.items[i]);
+  else
+    params.items = defaults.items;
+
+  params = extend(defaults, params);
 
   var canvas,
 
   init = function() {
 
     if (!params.url) return console.log('url not set');
+    if (!params.title) return console.log('title not set');
 
     if (params.canvas) {
 
@@ -47,17 +87,33 @@ var handleShares = function(params) {
 
   _createItems = function() {
 
-    if (params.fb) _initFacebook();
+    for (var i in params.items) {
+      _createItem(params.items[i]);
+    }
 
-    if (params.tw) _initTweet();
+  },
 
-    if (params.gp) _initGooglePlus();
+  _createItem = function(item) {
 
-    if (params.li) _initLinkedIn();
+    var url = item.res + '?';
 
-    if (params.tu) _initTumblr();
+    var reqParams = [];
 
-    if (params.pi) _initPinterest();
+    for (var i in item.params) {
+      if (typeof params[item.params[i]] !== 'undefined') {
+        reqParams.push(i + '=' + encodeURIComponent(params[item.params[i]]));
+      } else {
+        reqParams.push(i + '=' + encodeURIComponent(item.params[i]));
+      }
+    }
+
+    url += reqParams.join('&');
+
+    console.log(url);
+
+    var html = '<a href="' + url + '" target="_blank" class="' + item.className + '">' + item.content + '</a>';
+
+    _addItem(html);
 
   },
 
@@ -90,80 +146,6 @@ var handleShares = function(params) {
       },
       buttons: false
     });
-
-  },
-
-  _initFacebook = function() {
-
-    var html = [
-      '<a class="fb" href="',
-      'https://www.facebook.com/sharer.php?u=',
-      params.url,
-      '" target="_blank"><i class="icon-facebook"></i></a>'
-    ].join('');
-
-    _addItem(html);
-
-  },
-
-  _initTweet = function() {
-
-    var html = ['<a class="tw" href="https://twitter.com/share?url=', encodeURIComponent(params.url)];
-
-    if (params.title) html.push('&title=' + encodeURIComponent(params.title));
-
-    html.push('" target="_blank"><i class="icon-twitter"></i></a>');
-
-    _addItem(html.join(''));
-
-  },
-
-  _initGooglePlus = function() {
-    
-    _addItem(['<a class="gp" href="https://plus.google.com/share?url=', encodeURIComponent(params.url) ,'" target="_blank"><i class="icon-google-plus"></i></a>'].join(''));
-
-  },
-
-  _initLinkedIn = function() {
-
-    var html = ['<a class="li" href="http://www.linkedin.com/shareArticle?url=', encodeURIComponent(params.url)];
-
-    if (params.title) html.push('&title=' + encodeURIComponent(params.title));
-
-    if (params.siteUrl) html.push('&source=' + encodeURIComponent(params.siteUrl));
-
-    html.push('" target="_blank"><i class="icon-linkedin"></i></a>');
-
-    _addItem(html.join(''));
-
-  },
-
-  _initTumblr = function() {
-
-    var html = ['<a class="tb" href="http://tumblr.com/share?s=&v=3&u=', encodeURIComponent(params.url)];
-
-    if (params.title) html.push('&t=' + encodeURIComponent(params.title));
-
-    html.push('" target="_blank"><i class="icon-tumblr"></i></a>');
-
-    _addItem(html.join(''));
-    
-  },
-
-  _initPinterest = function() {
-
-    if (!params.imageUrl) return;
-
-    var html = [
-      '<a class="pt" href="http://pinterest.com/pin/create/button/?url=', encodeURIComponent(params.url),
-      '&media=', encodeURIComponent(params.imageUrl)
-    ];
-
-    if (params.description) html.push('&description=' + params.description);
-
-    html.push('" target="_blank"><i class="icon-pinterest"></i></a>');
-
-    _addItem(html.join(''));
 
   },
 
