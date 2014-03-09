@@ -8,11 +8,15 @@
 
   reqParams,
 
+  hasNext = false,
+
   cibulListWidget = function(element, register) {
 
     var controller,
 
     tunnel, // link between inside and outside of iframe.
+
+    responsePending = false,
 
     run = function() {
 
@@ -22,6 +26,10 @@
 
       tunnel = _handleTunnel(element, controller.onResponse);
 
+      addEvent(document, 'scroll', function() {
+        _monitorScroll(tunnel, element);
+      });
+
     },
 
     /**
@@ -29,6 +37,8 @@
      */
     
     _sendRequest = function(request) {
+
+      responsePending = true;
 
       tunnel.send(extend({event: params.events.load}, request));
 
@@ -47,6 +57,8 @@
 
     return iTunnel({target: element, onReceive: function(data) {
 
+      responsePending = false;
+
       // adjust height if required
       if (data.height) {
 
@@ -55,6 +67,12 @@
         delete data.height;
 
       }
+
+
+      // does list have more content to load?
+      
+      if (data.hasNext) hasNext = (data.hasNext == 'true');
+
 
       // callback should only be called if a load has been successful
 
@@ -106,6 +124,27 @@
 
     }
 
+  },
+
+  _monitorScroll = function(tunnel, element) {
+
+    if (hasNext && (element.offsetTop + element.offsetHeight <= _scrollPosition() + el('html').clientHeight)) {
+      
+      if (!responsePending) {
+        responsePending = true;
+        tunnel.send({event: 'loadNext'});
+      }
+
+    }
+
+  },
+
+  _scrollPosition = function(value) {
+
+    if (typeof value !== 'undefined') scrollTo(0, value);
+
+    return getScrollOffsets().y;
+    
   },
 
   run = function() {

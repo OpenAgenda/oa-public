@@ -114,7 +114,7 @@ var handleEmbeddedList = function(options) {
 
     if (options.tiledLayout) {
 
-      //var flowinate = new Flowinate(options.elems.list);
+      var flowinate = new Flowinate(options.elems.list);
 
     }
 
@@ -259,7 +259,8 @@ var handleEmbeddedList = function(options) {
         date: options.templates.date
       },
       labels: options.labels,
-      tiles: options.tiles
+      tiles: options.tiles,
+      ctl: options.control
     });
 
   },
@@ -280,7 +281,7 @@ var handleEmbeddedList = function(options) {
         imgElem.src = imgElem.src.replace('evtb', '');
       });
 
-    };
+    }
 
   };
 

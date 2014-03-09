@@ -182,7 +182,9 @@ var handleList = function(elem, eventHandler, options) {
       var receivedCount = 0;
       if (position==BEFORE) followingSibling = elem.firstChild;
 
-      if (position==OVERWRITE) elem.innerHTML = '';
+      if (position==OVERWRITE) {
+        while (childObject(elem,0)) elem.removeChild(childObject(elem,0));
+      }
 
       forEach(data.data, function(value) {
 

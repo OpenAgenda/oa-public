@@ -315,7 +315,8 @@ files = {
       'handleOEmbed/src/handleOEmbed.js',
       'handleEvent/src/handleEvent.js',
       'mapHandler/src/mapHandler.js',
-      'handleContextMenu/src/handleContextMenu.js'
+      'handleContextMenu/src/handleContextMenu.js',
+      'handleShares/src/handleShares.js'
     ],
     [paths.lib,
       'common/common.js', 'EventHandler/EventHandler.js', 'Base64/Base64.js', 'iTunnel/iTunnel.js', 'hash/hash.js' ,
@@ -359,7 +360,8 @@ files = {
       'handleEventDates/src/handleEventDates.js',
       'handleLanguages/src/handleLanguages.js',
       'handleOEmbed/src/handleOEmbed.js',
-      'handleEvent/src/handleEvent.js'
+      'handleEvent/src/handleEvent.js',
+      'handleShares/src/handleShares.js'
     ],
     [paths.lib,
       'Base64/Base64.js', 'iTunnel/iTunnel.js', 'hash/hash.js', 'common/common.js',

@@ -2,12 +2,16 @@ function handleEventDisplay(eventUid, options) {
 
   options = extend({
     elems: { program: false, event: false},
+    ctl: false,
     displayNoneClass: 'display-none',
     culture: 'en',
     cultureLabels: {
       fr: 'français',
       en: 'english',
       it: 'italiano'
+    },
+    selectors: {
+      social: '.js_share_menu'
     },
     templates: {
       back: '<div class="event-back"><a class="url" href="#">back to list</a></div>',
@@ -45,6 +49,8 @@ function handleEventDisplay(eventUid, options) {
       options.elems.event.innerHTML = data.partial;
 
       _createBackControl();
+
+      if (els(options.elems.event, options.selectors.social).length) _initSocialLinks(data.control);
 
       if (options.onHeightChange) options.onHeightChange();
 
@@ -91,6 +97,46 @@ function handleEventDisplay(eventUid, options) {
 
   },
 
+  _initSocialLinks = function(data) {
+
+    var lang = options.culture,
+
+    shareOptions = {
+      url: data.u,
+      siteUrl: '//cibul.net',
+      canvas: el(options.elems.event, options.selectors.social),
+    };
+
+    if (typeof data.t[lang] == 'undefined') for (var l in data.t) {
+
+      lang = l;
+
+      break;
+
+    }
+
+    shareOptions.title = data.t[lang];
+
+    shareOptions.description = data.d[lang];
+
+    if (typeof data.i !== 'undefined') shareOptions.imageUrl = data.i;
+
+    if (options.ctl.ebd && options.ctl.ebd.sh) {
+
+      shareOptions.items = {};
+
+      for (var i in options.ctl.ebd.sh) {
+
+        shareOptions.items[i] = options.ctl.ebd.sh[i]?{}:false;
+
+      }
+
+    }
+
+    handleShares(shareOptions);
+
+  },
+
   displayProgram = function(triggerEvent) {
 
     addClass(options.elems.event, options.displayNoneClass);
@@ -109,6 +155,6 @@ function handleEventDisplay(eventUid, options) {
 
   return {
     close: displayProgram
-  }
+  };
 
 }

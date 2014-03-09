@@ -15,6 +15,10 @@
 
     canvasElem.appendChild = function(child) { self.appendChild(child); };
 
+    canvasElem._removeChild = canvasElem.removeChild;
+
+    canvasElem.removeChild = function(child) { self.removeChild(child); }
+
     canvasElem._insertAdjacentElement = canvasElem.insertAdjacentElement;
 
     canvasElem.insertAdjacentElement = function(where, what) {
@@ -35,7 +39,9 @@
     this.canvasWidth = this.getCanvasInnerWidth();
     this.canvasHeight = this.canvasElem.offsetHeight;
 
-    this.cCount = Math.floor(this.getCanvasInnerWidth()/this.getWidth());
+    this.cCount = this.evaluateColumnCount();
+
+    if (!this.cCount) this.cCount = 1;
 
     this.updateColumns();
 
@@ -72,9 +78,10 @@
       // if count changed, need to update
 
       var self = this,
-      newCount = Math.floor(this.getCanvasInnerWidth()/this.getWidth());
 
-      if (newCount != this.cCount) {
+      newCount = this.evaluateColumnCount();
+
+      if (newCount && (newCount !== this.cCount)) {
 
         this.cCount = newCount;
 
@@ -88,6 +95,8 @@
 
       this.elems.push(child);
 
+      if (!this.columns.length) this.updateColumns();
+
       this.appendToColumns(this.columns, [child]);
 
     },
@@ -100,7 +109,43 @@
 
     },
 
+    // remove all elems of column before popping it out as well
+
+    removeChild: function(child) {
+
+      if (this.columns) for (var i = this.columns.length - 1; i >= 0; i--) {
+        if (this.columns[i]==child) {
+          
+          var elem = childObject(this.columns[i],0);
+
+          while (elem) {
+
+            for (var j = this.elems.length - 1; j >= 0; j--) {
+              if (this.elems[j]==elem) {
+                this.elems.splice(j, 1);
+                break;
+              }
+            }
+
+            this.columns[i].removeChild(elem);
+
+            elem = childObject(this.columns[i],0);
+
+          }
+
+          this.columns.splice(i, 1);
+
+          break;
+        }
+      }
+
+      this.canvasElem._removeChild(child);
+
+    },
+
     createColumns: function(count) {
+
+      if (count > 100) throw 'Too many columns: ' + count;
 
       // create columns
 
@@ -197,6 +242,18 @@
     getRefElem: function() {
 
       return this.elems.length?this.elems[0]:false;
+
+    },
+
+    evaluateColumnCount: function() {
+
+      var width = this.getWidth(),
+
+      canvasWidth = this.getCanvasInnerWidth();
+
+      if (width === 0) return false;
+
+      return Math.floor(canvasWidth/width);
 
     }
 

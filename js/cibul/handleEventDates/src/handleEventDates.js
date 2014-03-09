@@ -2,15 +2,15 @@
 
 var handleEventDates = function(controlData, options) {
   
-  var dates
-    , months
-    , monthCount
-    , eh = sEventHandler.getInstance()
-    , options = extend({
-      monthActiveClass: 'active',
-      culture: 'en',
-      events: { triggered: {}, trigger: {}} 
-    }, options);
+  var dates,
+  months,
+  monthCount,
+  eh = sEventHandler.getInstance(),
+  options = extend({
+    monthActiveClass: 'active',
+    culture: 'en',
+    events: { triggered: {}, trigger: {}}
+  }, options);
     
     options.events = {
       triggered: extend({ selectLocation: 'eventdateplaceselect', layoutChange: 'layoutchange' }, options.events.triggered),
@@ -56,8 +56,10 @@ var handleEventDates = function(controlData, options) {
     },
 
     display = function() {
+
+      if (!options.dateElem) return;
       
-      if (monthCount>1) 
+      if (monthCount>1)
         _displayMonthLayout(dates, locationCount, applyDateBehavior, applyMonthBehavior);
       else {
         _displayDates(dates, locationCount, applyDateBehavior);
@@ -104,11 +106,11 @@ var handleEventDates = function(controlData, options) {
     
     display();
 
-  }
-  , _removeDateSection = function() {
+  },
+  _removeDateSection = function() {
     if (options.dateElem) options.dateElem.parentNode.parentNode.removeChild(options.dateElem.parentNode);
-  }
-  , _extractDates = function(controlData) {
+  },
+  _extractDates = function(controlData) {
 
     var sortKeys = []
       , aDates = {} // associative array of dates, keys being: locId-date
@@ -128,7 +130,7 @@ var handleEventDates = function(controlData, options) {
           
           aDates[key] = { locationId: locationId, placename: controlData.l[locationId].p, date: o.d, timings: [], highlighted: true };
 
-        };
+        }
 
         aDates[key].timings.push([o.s,o.e].join(','));
 
@@ -156,11 +158,11 @@ var handleEventDates = function(controlData, options) {
 
     return dates;
 
-  }
-  , _countLocations = function(controlData) {
+  },
+  _countLocations = function(controlData) {
     return Object.size(controlData.l);
-  }
-  , _displayDates = function(dates, locationCount, behaviorCallback) {
+  },
+  _displayDates = function(dates, locationCount, behaviorCallback) {
 
     options.dateElem.innerHTML = '';
 
@@ -172,8 +174,8 @@ var handleEventDates = function(controlData, options) {
       _renderItem(extend({culture: options.culture, locationCount: locationCount}, date), ejs, options.dateElem, behaviorCallback);
     });
 
-  }
-  , _displayMonths = function(monthBehavior) {
+  },
+  _displayMonths = function(monthBehavior) {
 
     options.monthElem.innerHTML = '';
 
@@ -187,8 +189,8 @@ var handleEventDates = function(controlData, options) {
 
     new lineNav(options.monthElem, {offset: activeMonthIndex, nav: {previous: '<i class="icon-chevron-left"></i>', next: '<i class="icon-chevron-right"></i>'}});
 
-  }
-  , _updateMonthElem = function(increment, monthData) {
+  },
+  _updateMonthElem = function(increment, monthData) {
 
     // because there is the nav widget, there are extra layers
     var canvas = options.monthElem.childNodes[1].childNodes[0];
@@ -199,8 +201,8 @@ var handleEventDates = function(controlData, options) {
       removeClass(canvas.childNodes[increment], options.monthActiveClass);
     }
 
-  }
-  , _renderItem = function(item, ejs, parentElem, itemBehavior) {
+  },
+  _renderItem = function(item, ejs, parentElem, itemBehavior) {
     
     var canvas = document.createElement('div');
     canvas.innerHTML = ejs.render(item);
@@ -209,11 +211,12 @@ var handleEventDates = function(controlData, options) {
 
     parentElem.appendChild(canvas.childNodes[0]);
 
-  }
-  , _displayMonthLayout = function(dates, locationCount, dateBehavior, monthBehavior, selected) {
+  },
+  _displayMonthLayout = function(dates, locationCount, dateBehavior, monthBehavior, selected) {
 
-    var activeMonthId = selected
-      , activeMonthDates = [];
+    var activeMonthId = selected,
+    
+    activeMonthDates = [];
 
     if (!months) _generateMonths();
 
@@ -221,15 +224,15 @@ var handleEventDates = function(controlData, options) {
 
     for (var i=0; i<months.length; i++) {
 
-      if (selected) 
+      if (selected)
         months[i].active = (months[i].id == selected);
       else
         if (months[i].active) activeMonthId = months[i].id;
 
       // if months are displayed, update layout
-      if (options.monthElem.innerHTML.length) _updateMonthElem(i, months[i]);
+      if ((options.monthElem && options.monthElem.innerHTML.length)) _updateMonthElem(i, months[i]);
 
-    };
+    }
   
     // filter dates
 
@@ -240,20 +243,20 @@ var handleEventDates = function(controlData, options) {
     });
 
     // display months
-    if (!options.monthElem.innerHTML.length) _displayMonths(monthBehavior);
+    if (options.monthElem && !options.monthElem.innerHTML.length) _displayMonths(monthBehavior);
 
     // display dates
     _displayDates(activeMonthDates, locationCount, dateBehavior);
 
 
-  }
-  , _generateMonths = function() {
+  },
+  _generateMonths = function() {
 
-    var monthIds = []
-      , monthCounts = {}
-      , today = new Date()
-      , currentMonthId = _getMonthId(today)
-      , chosenMonthId = currentMonthId;
+    var monthIds = [],
+    monthCounts = {},
+    today = new Date(),
+    currentMonthId = _getMonthId(today),
+    chosenMonthId = currentMonthId;
 
 
     // extract list of months

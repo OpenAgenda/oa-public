@@ -19,8 +19,11 @@ var handleNav = function(previousPageElement, nextPageElement, eventHandler, par
 
   init = function() {
 
-    if (params.initDisplay[PREVIOUS]!==false) _toggle(PREVIOUS, true);    
-    if (params.initDisplay[NEXT]!==false) _toggle(NEXT, true);
+    if (params.initDisplay[PREVIOUS]!==false) _toggle(PREVIOUS, true);
+    if (params.initDisplay[NEXT]!==false) {
+      _toggle(NEXT, true);
+      if (params.triggeredEvents.hasNextPage) eventHandler.trigger(params.triggeredEvents.hasNextPage, true);
+    }
 
     _initPageRange();
 
@@ -82,7 +85,8 @@ var handleNav = function(previousPageElement, nextPageElement, eventHandler, par
 
       if (enabled[0]) {
         eventHandler.trigger(params.triggeredEvents.getPreviousPage);
-      };
+      }
+
     });
 
     addEvent(nextPageElement, 'click', function(e){
@@ -91,12 +95,11 @@ var handleNav = function(previousPageElement, nextPageElement, eventHandler, par
 
       _getNextPage();
 
-    });     
+    });
 
     addEvent(document, 'scroll', function(){
       if (_scrollEndTrigger()) _getNextPage();
-
-    });       
+    });
 
   },
   _getNextPage = function(){

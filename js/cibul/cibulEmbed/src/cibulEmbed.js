@@ -101,7 +101,7 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
 
         eh.on('load', function(data){
 
-          tunnel.send(extend(data, {event: 'load'}));
+          tunnel.send(extend(data, { event: 'load' }));
 
         });
 

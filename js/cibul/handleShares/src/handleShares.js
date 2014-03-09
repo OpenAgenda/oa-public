@@ -48,7 +48,7 @@ var handleShares = function(params) {
   };
 
   if (params.items)
-    for (var i in defaults.items) params.items[i] = extend(defaults.items[i], params.items[i]);
+    for (var i in defaults.items) params.items[i] = params.items[i]===false?false:extend(defaults.items[i], params.items[i]);
   else
     params.items = defaults.items;
 
@@ -88,7 +88,7 @@ var handleShares = function(params) {
   _createItems = function() {
 
     for (var i in params.items) {
-      _createItem(params.items[i]);
+      if (params.items[i]) _createItem(params.items[i]);
     }
 
   },
@@ -108,8 +108,6 @@ var handleShares = function(params) {
     }
 
     url += reqParams.join('&');
-
-    console.log(url);
 
     var html = '<a href="' + url + '" target="_blank" class="' + item.className + '">' + item.content + '</a>';
 
