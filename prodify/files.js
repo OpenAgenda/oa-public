@@ -22,7 +22,7 @@ var paths = {
   m:   '../message/js/'
 },
 
-destPath = '/home/kaore/Dev/www/cibul-symfony/web/js/',
+destPath = '../../cibul-symfony/web/js/',
 
 files = {
 
