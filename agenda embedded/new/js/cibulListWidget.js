@@ -8,7 +8,9 @@
 
   reqParams,
 
-  hasNext = false,
+  hasNext = false,      // state indicating if there are more events to load
+
+  eventOpen = false,    // state indicating if event is being displayed or not
 
   cibulListWidget = function(element, register) {
 
@@ -86,9 +88,13 @@
 
       } else if (data.event == 'eventopensuccess') {
 
+        eventOpen = true;
+
         onResponse({uid: data.uid});
 
       } else if (data.event == 'closeevent') {
+
+        eventOpen = false;
 
         onResponse(reqParams);
 
@@ -109,7 +115,7 @@
 
     if ((typeof cibulEnv !== 'undefined') && (typeof cibulEnv.templates !== 'undefined') && cibulEnv.templates.list) {
 
-      var config = src.substr(src.indexOf('#')+1).split('|');
+      var config = src.substr(src.indexOf('#') + 1).split('|');
 
       return { uid: config[0], key: config[1] };
 
@@ -128,12 +134,11 @@
 
   _monitorScroll = function(tunnel, element) {
 
-    if (hasNext && (element.offsetTop + element.offsetHeight <= _scrollPosition() + el('html').clientHeight)) {
+    if (!responsePending && !eventOpen && hasNext && (element.offsetTop + element.offsetHeight <= _scrollPosition() + el('html').clientHeight)) {
       
-      if (!responsePending) {
-        responsePending = true;
-        tunnel.send({event: 'loadNext'});
-      }
+      responsePending = true;
+      
+      tunnel.send({event: 'loadNext'});
 
     }
 
