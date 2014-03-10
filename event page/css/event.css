@@ -112,10 +112,7 @@
 #event .share-menu { display: none; padding: 5px 0 0 5px; }
 #event .share-menu li { display: block; }
 
-#event li.add-event { display: block; padding-bottom: 20px;}
-#event li.add-event * { display: inline-block; vertical-align: middle; }
-#event .add-event span { width: 80%; }
-#event .add-event i { color: #3CAD2D; width: 15%; padding-right: 0;}
+#event li.add-event { display: block; padding-bottom: 20px; }
 
 #event .shares > div { display: block; }
 
