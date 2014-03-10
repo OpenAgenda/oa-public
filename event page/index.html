@@ -262,6 +262,9 @@
           publish: {
             html: '<p>This event is not published yet. <a class="url" href="#">Publish it now</a></p>',
             canvas: el('.sec') // where the publish action goes
+          },
+          links: {
+            remove: {cred: 'owner', html: '<a><i class="icon-remove admin"></i><span>delete</span></a>', link: '#remove', confirm: true, message: 'Etes vous sur?', labels: { ok: 'Confirmer', cancel: 'Annuler'} },
           }
         });
 
