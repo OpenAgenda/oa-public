@@ -92,8 +92,8 @@ var handleHeader = function(params) {
     $('.js_full_name').html(session.fullName);
 
     // messages and notifications
-    if (parseInt(session.notifications, 10)) $('.js_new_notification_count').removeClass('display-none').html(session.notifications);
-    if (parseInt(session.messages,10)) $('.js_new_message_count').removeClass('display-none').html(session.messages);
+    if (parseInt(session.counts.newnotifications, 10)) $('.js_new_notification_count').removeClass('display-none').html(session.counts.newnotifications);
+    if (parseInt(session.counts.newmessages,10)) $('.js_new_message_count').removeClass('display-none').html(session.counts.newmessages);
 
     _initUserMenu();
 
