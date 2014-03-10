@@ -334,7 +334,7 @@ files = {
   ],
 
   'review/theme.min.js': [
-    [paths.lib, 'common/common.js'],
+    [paths.lib, 'common/common.js', 'lightbox/lightbox.js'],
     [paths.vd, 'colorpicker/src/colorpicker.js'],
     [paths.jsc, 'handleContextMenu/src/handleContextMenu.js'],
     [paths.pf, 'theme.js']
