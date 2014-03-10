@@ -66,10 +66,7 @@ if (typeof action == 'undefined') var action = function(elem, params) {
 
     } else if (params.link) {
 
-      addEvent(elem, 'click', function(e) {
-        preventDefault(e);
-        window.location.href = params.link;
-      });
+      window.location.href = params.link;
 
     }
 
