@@ -32,7 +32,7 @@
   #event .sec { padding: 0; }
   #event .sec > * { padding: 5px!important;}
 
-  #event .actions { padding: none; }
+  #event .actions { padding: inherit; }
 }
 
 #event .section-head { margin: 10px 0 5px; }
@@ -58,9 +58,9 @@
 #event #description .short { font-style: italic; font-size: 1.1em; margin: 0 0 0.2em; word-wrap: break-word; }
 #event #description .spacetime { display: block; margin: 0 0 0.2em; }
 #event #description .tags > * { vertical-align: middle; }
-#event #description .tags span { color: #666; font-style: italic; word-break: break-all; }
+#event #description .tags span { color: #666; font-style: italic; word-wrap: break-word; }
 
-#event #description .free { word-break: break-all; }
+#event #description .free { word-wrap: break-word; }
 
 #event #places .place-detail { padding: 0 0 1em 0; }
 #event #places .address { font-style: italic; color: #666; }

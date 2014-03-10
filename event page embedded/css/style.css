@@ -6,7 +6,6 @@ html { overflow: hidden; }
 #event .main { margin-left: 320px; }
 #event.noposter .main { margin-left: 0; }
 
-
 #event .main .section { padding: 10px; }
 
 #event .poster { padding: 0 20px 20px; position: absolute; top: 20px; left: 0; }
@@ -58,8 +57,8 @@ html { overflow: hidden; }
 #event #description .short { font-style: italic; font-size: 1.1em; }
 #event #description .tags { display: block; }
 #event #description .tags > * { vertical-align: middle; }
-#event #description .tags span { color: #666; font-style: italic; margin-left: 0.5em; }
-#event #description .free { padding-top: 20px;}
+#event #description .tags span { color: #666; font-style: italic; margin-left: 0.5em; word-wrap: break-word; }
+#event #description .free { padding-top: 20px; word-wrap: break-word; }
 
 #event #places .place-detail { padding: 0 0 1em 0; }
 #event #places .address { font-style: italic; color: #666; }
