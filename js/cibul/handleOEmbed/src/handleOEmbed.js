@@ -6,14 +6,13 @@ var handleOEmbed = function(options) {
 		oembedUrl: 'js/jquery.oembed.min.js',
     heightChange: 'heightchange',
 		linkClasses: 'url',
-    embedTypes: ['youtube.com', 'vimeo.com', 'soundcloud.com', 'flickr.com/photos', 'photobucket.', 'bandcamp.'],
+    embedTypes: ['youtube.com', 'vimeo.com', 'soundcloud.com', 'flickr.com/photos', 'photobucket.', 'bandcamp.', 'dailymotion.com'],
     targetBlankLinks: false // add a target blank attribute on links
-	}, options)
-  , onReadySent = false
+	}, options),
+  
+  onReadySent = false,
 
-
-
-	, _run = function() {
+	_run = function() {
 
 		setLinksElems(options.elements.embed.concat(options.elements.link), { className: options.linkClasses, target: options.targetBlankLinks });
 
@@ -63,7 +62,7 @@ var handleOEmbed = function(options) {
 
         },
         onProviderNotFound: function() {
-          remaining --; 
+          remaining --;
         },
         afterEmbed: function() {
 
@@ -83,9 +82,9 @@ var handleOEmbed = function(options) {
       if (options.heightChange) sEventHandler.getInstance().trigger(options.heightChange);
     }
 
-	}
+	},
 
-  , _resizeFrames = function() {
+  _resizeFrames = function() {
 
     var frameElems = [];
 
@@ -105,8 +104,9 @@ var handleOEmbed = function(options) {
 
     });
 
-  }
-  , _getEmbedType = function(linkElem) {
+  },
+  
+  _getEmbedType = function(linkElem) {
 
     var regex = new RegExp(options.embedTypes.join('|'), 'g')
       , matches = linkElem.href.match(regex);
@@ -116,9 +116,11 @@ var handleOEmbed = function(options) {
     return matches[0];
 
   }
-  ,_beforeEmbedProcess = function(type, item, data) {
+  
+  _beforeEmbedProcess = function(type, item, data) {
 
     switch (type) {
+
       case 'youtube.com':
 
         // avoid weird overlaps with lightboxes
@@ -144,7 +146,7 @@ var handleOEmbed = function(options) {
         var wmode = "transparent";
     
         if (data.code != null) {
-          if (data.code.indexOf("wmode") < 0) {      
+          if (data.code.indexOf("wmode") < 0) {
             data.code = data.code.replace("<embed ", "<param name=\"wmode\" value=\"" + wmode + "\"></param>\n<embed ");
             data.code = data.code.replace("<embed ", "<embed wmode=\"" + wmode + "\"");
           }
@@ -161,7 +163,7 @@ var handleOEmbed = function(options) {
 
         data.code = data.code.replace(/<img src="/,'<img width="' + $(item).parent().width() + '" src="');
 
-        $(item).replaceWith(data.code);          
+        $(item).replaceWith(data.code);
 
         return false;
 
@@ -170,29 +172,33 @@ var handleOEmbed = function(options) {
         $(item).replaceWith(data.code.replace(/(width=")[0-9]+"?/,'width="' + $(item).parent().width() + '"'));
 
         return false;
+
     }
 
     return true;
 
-  }
-	, _hasEmbeddableLinks = function(elements) {
+  },
+	
+  _hasEmbeddableLinks = function(elements) {
 
-		var has = false
-      , regex = new RegExp(options.embedTypes.join('|'), 'g');
+		var has = false,
+    
+    regex = new RegExp(options.embedTypes.join('|'), 'g');
 
 		forEach(elements, function(element){
 
 			if (element.innerHTML.match(regex)) {
 				has = true;
 				return;
-			};
+			}
 
 		});
 
 		return has;
 
-	}
-  , _forEachLink = function(elements, callback) {
+	},
+  
+  _forEachLink = function(elements, callback) {
     
     forEach(elements, function(element) {
 
@@ -200,8 +206,9 @@ var handleOEmbed = function(options) {
 
     });
 
-  }
-	, _loadOembedLib = function(callback) {
+  },
+	
+  _loadOembedLib = function(callback) {
 
     var done = false;
 
