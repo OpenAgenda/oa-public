@@ -9,7 +9,7 @@ var handleNav = function(previousPageElement, nextPageElement, eventHandler, par
       itemToCount: 'article',
       itemsPerPage: 10,
       disabledClass: 'disabled',
-      scrollElt: document.getElementsByTagName('body')[0],
+      scrollElt: el('body'),
       initDisplay: [false,false],
       relyOnCount: false,
       url: false
@@ -28,8 +28,11 @@ var handleNav = function(previousPageElement, nextPageElement, eventHandler, par
     _initPageRange();
 
     eventHandler.on(params.triggerEvents.loading, function(){
+
       _disable(PREVIOUS);
+
       _disable(NEXT);
+      
     });
 
     eventHandler.on(params.triggerEvents.loadFail, function(){

@@ -56,6 +56,7 @@ var handleEmbeddedList = function(options) {
       placeInfo: 'Showing %d places. Click on a marker for details.',
       reservation: 'book'
     },
+    itemsPerPage: 10,
     tiles: false,
     debug: false
   }, options);
@@ -128,6 +129,7 @@ var handleEmbeddedList = function(options) {
       triggeredEvents: { getNextPage: options.events.nextPageRequest, getPreviousPage: options.events.prevPageRequest, hasNextPage: options.events.hasNextPage },
       url: options.url,
       initDisplay: [options.init.prevPage, options.init.nextPage],
+      itemsPerPage: options.itemsPerPage
     });
 
   },
