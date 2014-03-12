@@ -339,7 +339,7 @@
 
         this.m.setOnMarkerClick(location.marker, function() {
 
-          if (!contains(self.activeLocations, location.slug)) return;
+          if (!self.selectedLocation && !contains(self.activeLocations, location.slug)) return;
 
           self._select({location: location.slug, neLat: null, neLng: null, swLat: null, swLng: null});
 
