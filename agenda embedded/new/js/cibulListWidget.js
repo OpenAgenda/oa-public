@@ -42,6 +42,14 @@
 
       responsePending = true;
 
+      // clean request
+
+      delete request.page;
+      delete request.next;
+      delete request.prev;
+      delete request.count;
+      delete request.reset;
+
       tunnel.send(extend({event: params.events.load}, request));
 
     };
