@@ -68,7 +68,7 @@
 
         addEvent(itemElem, 'click', function() {
 
-          if (!contains(self.activeTags, itemData.s)) return;
+          if (!self.tag && !contains(self.activeTags, itemData.s)) return;
 
           self._select({tags: self.tag==itemData.s?null:itemData.s});
 
