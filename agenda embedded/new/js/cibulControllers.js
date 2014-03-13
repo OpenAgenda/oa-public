@@ -376,17 +376,17 @@ if (typeof cibulControllers == 'undefined') (function() {
       
       if (reqParams.neLat && reqParams.neLng && reqParams.swLat && reqParams.swLng) {
 
+        var ne = [parseFloat(reqParams.neLat), parseFloat(reqParams.neLng)], sw = [parseFloat(reqParams.swLat), parseFloat(reqParams.swLng)];
+
         for (var i in item.l) {
 
-          var coords = [item.l[i].lt, item.l[i].lg];
+          if ((item.l[i].lt <= ne[0]) &&
 
-          if ((reqParams.neLat > coords[0]) &&
+          (item.l[i].lg <= ne[1]) &&
 
-          (reqParams.neLng > coords[1]) &&
+          (item.l[i].lt >= sw[0]) &&
 
-          (reqParams.swLat < coords[0]) &&
-
-          (reqParams.swLng < coords[1])) return true;
+          (item.l[i].lg >= sw[1])) return true;
 
         }
 

@@ -211,9 +211,11 @@
 
     getWidth: function() {
 
-      var refElem = this.getRefElem(),
+      var refElem = this.getRefElem();
+
+      if (!refElem) return 0;
       
-      width = refElem.offsetWidth;
+      var width = refElem.offsetWidth;
 
       forEach(['marginLeft', 'marginRight'], function(style){
         var computedStyle = (window.getComputedStyle?window.getComputedStyle(refElem):refElem.currentStyle)[style];

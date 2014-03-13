@@ -49,6 +49,7 @@
       delete request.prev;
       delete request.count;
       delete request.reset;
+      delete request.uid;
 
       tunnel.send(extend({event: params.events.load}, request));
 
@@ -78,13 +79,23 @@
 
       }
 
-
       // does list have more content to load?
       
       if (data.hasNext) hasNext = (data.hasNext == 'true');
 
-
       // callback should only be called if a load has been successful
+      
+      if (!contains(['eventopensuccess', 'closeevent', 'success'], data.event)) return;
+
+      if (data.event == 'eventopensuccess') return onResponse({uid: data.uid});
+
+      if (data.event == 'closeevent') {
+
+        delete reqParams.uid;
+        
+        eventOpen = false;
+
+      }
 
       if (data.event == 'success') {
 
@@ -92,21 +103,9 @@
 
         reqParams = extend({}, data);
 
-        onResponse(reqParams);
-
-      } else if (data.event == 'eventopensuccess') {
-
-        eventOpen = true;
-
-        onResponse({uid: data.uid});
-
-      } else if (data.event == 'closeevent') {
-
-        eventOpen = false;
-
-        onResponse(reqParams);
-
       }
+
+      onResponse(reqParams);
 
     }});
 

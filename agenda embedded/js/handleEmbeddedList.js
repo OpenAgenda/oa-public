@@ -97,11 +97,10 @@ var handleEmbeddedList = function(options) {
     eh.on(options.events.loadSuccess, function() {
       if (!displayedEvent) return;
 
-      eh.trigger(options.events.closeEvent);
-
       displayedEvent.close();
-      displayedEvent = false;
-      
+
+      _onEventClose();
+
     });
 
     if (options.elems.articleItems.length) _applyEventListItemsBehavior();
@@ -118,6 +117,14 @@ var handleEmbeddedList = function(options) {
       var flowinate = new Flowinate(options.elems.list);
       
     }
+
+  },
+
+  _onEventClose = function() {
+
+    eh.trigger(options.events.closeEvent);
+    
+    displayedEvent = false;
 
   },
 
@@ -248,7 +255,7 @@ var handleEmbeddedList = function(options) {
         eh.trigger(options.events.openEventSuccess, {uid: eventId});
       },
       onEventClose: function() {
-        eh.trigger(options.events.closeEvent);
+        _onEventClose();
       },
       url: options.eventUrl,
       culture: options.culture,
