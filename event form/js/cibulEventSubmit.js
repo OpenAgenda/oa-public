@@ -62,7 +62,7 @@ var cibulEventSubmit = function(params) {
       } else {
 
         _addButton('update');
-        if (draft && params.allowDraft) _addButton('publish');
+        if (draft && params.allowDraft && params.publish) _addButton('publish');
 
         _addButton('remove');
       }
