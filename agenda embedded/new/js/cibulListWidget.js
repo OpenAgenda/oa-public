@@ -3,7 +3,8 @@
   var params = {
     events: {
       load: 'load'
-    }
+    },
+    scrollOffset: 50
   },
 
   reqParams,
@@ -11,6 +12,8 @@
   hasNext = false,      // state indicating if there are more events to load
 
   eventOpen = false,    // state indicating if event is being displayed or not
+
+  listPos = false,
 
   cibulListWidget = function(element, register) {
 
@@ -87,13 +90,23 @@
       
       if (!contains(['eventopensuccess', 'closeevent', 'success'], data.event)) return;
 
-      if (data.event == 'eventopensuccess') return onResponse({uid: data.uid});
+      if (data.event == 'eventopensuccess') {
+
+        eventOpen = true;
+
+        _repositionToFrameTop(element);
+
+        return onResponse({uid: data.uid});
+
+      }
 
       if (data.event == 'closeevent') {
-
-        delete reqParams.uid;
         
         eventOpen = false;
+
+        _repositionToListOffset();
+
+        delete reqParams.uid;
 
       }
 
@@ -141,7 +154,11 @@
 
   _monitorScroll = function(tunnel, element) {
 
-    if (!responsePending && !eventOpen && hasNext && (element.offsetTop + element.offsetHeight <= _scrollPosition() + el('html').clientHeight)) {
+    if (eventOpen) return;
+
+    listPos = _scrollPosition();
+
+    if (!responsePending && hasNext && (element.offsetTop + element.offsetHeight <= listPos + el('html').clientHeight)) {
       
       responsePending = true;
       
@@ -151,12 +168,43 @@
 
   },
 
+  _repositionToFrameTop = function(element) {
+
+    var framePos = _findPos(element)[1];
+
+    if (_scrollPosition() > framePos) _scrollPosition(Math.max(0,framePos - params.scrollOffset));
+
+  },
+
+  _repositionToListOffset = function() {
+
+    if (listPos) _scrollPosition(listPos);
+
+  },
+
   _scrollPosition = function(value) {
 
     if (typeof value !== 'undefined') scrollTo(0, value);
 
     return getScrollOffsets().y;
     
+  },
+
+  _findPos = function(element) {
+
+    var curleft = 0, curtop = 0;
+
+    if (element.offsetParent) {
+
+      do {
+        curleft += element.offsetLeft;
+        curtop += element.offsetTop;
+      } while (element = element.offsetParent);
+
+    }
+
+    return [curleft, curtop];
+
   },
 
   run = function() {
