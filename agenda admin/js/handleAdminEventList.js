@@ -29,7 +29,8 @@ var handleAdminEventList = function(params) {
       lightboxFrame: 'wsq lightbox-frame',
       lightboxCanvas: 'lightbox-canvas',
       lightboxButtonBox: 'lightbox-buttons',
-      displayNone: 'display-none'
+      displayNone: 'display-none',
+      selected: 'selected'
     }
   }, params);
 
@@ -64,6 +65,8 @@ var handleAdminEventList = function(params) {
     
     if (item.hasAttribute(params.flags.organizeShow)) return;
 
+    // display organize link, hide tags and categories sub menus
+
     addClass(el(item, params.selectors.organize), params.classes.displayNone);
     removeClass(el(item, params.selectors.organizeLink), params.classes.displayNone);
 
@@ -71,8 +74,11 @@ var handleAdminEventList = function(params) {
       
       preventDefault(e);
 
+      if (hasClass(el(item, params.selectors.organizeLink), params.classes.selected)) return;
+
       removeClass(el(item, params.selectors.organize), params.classes.displayNone);
-      addClass(el(item, params.selectors.organizeLink), params.classes.displayNone);
+
+      addClass(el(item, params.selectors.organizeLink), params.classes.selected);
 
     });
 
