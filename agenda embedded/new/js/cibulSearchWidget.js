@@ -10,6 +10,7 @@
       name: 'search',
       sSelection: {},
       lang: 'en',
+      offset: 0.01,
       labels: {
         fr: {
           search: 'saisissez le nom d\'un lieu ou d\'une ville'
@@ -116,11 +117,13 @@
 
         name = name.trim();
 
-        var point = this.hasUpcoming(location)?1:0;
+        var point = this.hasUpcoming(location)?1:0,
+
+        coords = [parseFloat(location.lt), parseFloat(location.lg)];
 
         if (typeof this.sIndex[name] == 'undefined') {
 
-          this.sIndex[name] = {ne: [location.lt, location.lg], sw: [location.lt, location.lg], score: point };
+          this.sIndex[name] = {ne: [coords[0]+this.offset, coords[1]+this.offset], sw: [coords[0]-this.offset, coords[1]-this.offset], score: point };
 
           // if this is a place, keep track of id to throw it in the callback
           if (id) this.sIndex[name].id = id;
@@ -129,10 +132,10 @@
 
         }
 
-        if (this.sIndex[name].ne[0] < location.lt) this.sIndex[name].ne[0] = location.lt;
-        if (this.sIndex[name].ne[1] < location.lg) this.sIndex[name].ne[1] = location.lg;
-        if (this.sIndex[name].sw[0] > location.lt) this.sIndex[name].sw[0] = location.lt;
-        if (this.sIndex[name].sw[1] > location.lg) this.sIndex[name].sw[1] = location.lg;
+        if (this.sIndex[name].ne[0] < coords[0]) this.sIndex[name].ne[0] = coords[0] + this.offset;
+        if (this.sIndex[name].ne[1] < coords[1]) this.sIndex[name].ne[1] = coords[1] + this.offset;
+        if (this.sIndex[name].sw[0] > coords[0]) this.sIndex[name].sw[0] = coords[0] - this.offset;
+        if (this.sIndex[name].sw[1] > coords[1]) this.sIndex[name].sw[1] = coords[1] - this.offset;
 
         this.sIndex[name].score += point;
 
