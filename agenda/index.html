@@ -56,6 +56,7 @@
     <script type="text/javascript" src="../js/cibul/handleProgramControlData/src/handleProgramControlData.js"></script>
     <script type="text/javascript" src="../js/cibul/action/src/action.js"></script>
     <script type="text/javascript" src="../js/cibul/handleDisplayButton/src/handleDisplayButton.js"></script>
+    <script type="text/javascript" src="../js/cibul/handleSession/src/handleSession.js"></script>
 
     <script type="text/javascript" src="js/handleTags.js"></script>
     <script type="text/javascript" src="js/handleMobile.js"></script>
@@ -155,6 +156,12 @@
       </div>
     </div>
     <script type="text/javascript">
+
+      handleSession({
+        url: 'http://d.cibul.net/frontend_dev.php/session/fr',
+        debug: true,
+        events: { fetch: 'getsessiondata' }
+      });
 
       // empty program
       //var programUrl = 'http://d.cibul.net/frontend_dev.php/empty/fr';

@@ -1,6 +1,6 @@
 var extractCurrentEditors = function(editors, item) {
   
-  if (!editors[item.article.a]) 
+  if (!editors[item.article.a])
     editors[item.article.a] = 0;
 
   editors[item.article.a]++;

@@ -330,11 +330,16 @@ var runProgramBehavior = function(params) {
 
   initEdition = function(main, controlData, editors) {
 
-    addEditionBehavior(editors, {
-      isOwner: controlData.o==getCurrentUsername(),
-      isMain: main,
-      user: getCurrentUsername(),
-      edit: { template: '<a class="button smallest" href="#"><i class="icon-cog"></i><span>' + params.labels.edit + '</span></a>', action: params.resources.edit, appendTo: params.elems.edit, enabled: true }
+    eh.trigger('getsessiondata', function(data) {
+
+      addEditionBehavior(editors, {
+        /* this bit will be deprecated, isOwner to become isAdmin, second bit of test to be removed */
+        isOwner: (controlData.adm && contains(controlData.adm, data.uid)) || (controlData.o==getCurrentUsername()),
+        isMain: main,
+        user: getCurrentUsername(),
+        edit: { template: '<a class="button smallest" href="#"><i class="icon-cog"></i><span>' + params.labels.edit + '</span></a>', action: params.resources.edit, appendTo: params.elems.edit, enabled: true }
+      });
+
     });
 
   },
