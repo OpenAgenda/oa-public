@@ -23,6 +23,7 @@
         sync: '.js_sync_checkbox'
       },
       selectedLocation: false,
+      selectedBounds: false,
       activeLocations: [],
       icons: {
         active: { icon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png', anchor: [9, 25], size: [18,25] },
@@ -71,17 +72,25 @@
 
         this.updateBounds(reqParams);
 
-        if (!reqParams.location) {
+        if (!reqParams.location) this.selectedLocation = false;
 
-          this.selectedLocation = false;
+        if (!reqParams.neLat && this.selectedBounds) {
 
-          return;
+          this.selectedBounds = false;
+
+          if (!this.selectedLocation && !reqParams.uid) this.setMapToDefaultBounds();
 
         }
 
-        this.selectedLocation = this.locations[reqParams.location];
+        if (reqParams.uid || this.selectedLocation) this.deactivateSync();
 
-        this.popup = this.m.createPopup(this.map, new EJS({ text: this.templates.popup }).render(extend({labels: this.labels[this.lang]}, this.selectedLocation)), { marker: this.selectedLocation.marker });
+        if (reqParams.location) {
+
+          this.selectedLocation = this.locations[reqParams.location];
+
+          this.popup = this.m.createPopup(this.map, new EJS({ text: this.templates.popup }).render(extend({labels: this.labels[this.lang]}, this.selectedLocation)), { marker: this.selectedLocation.marker });
+
+        }
 
       },
 
@@ -133,7 +142,7 @@
         var bounds = this.m.getBounds(this.map),
 
         ne = this.m.getBoundsNorthEast(bounds),
-        
+
         sw = this.m.getBoundsSouthWest(bounds);
 
         return { neLat: ne[0], neLng: ne[1], swLat: sw[0], swLng: sw[1] };
@@ -146,16 +155,13 @@
        */
       
       selectBounds: function() {
-        
-        var bounds = this.m.getBounds(this.map),
 
-        ne = this.m.getBoundsNorthEast(bounds),
-        
-        sw = this.m.getBoundsSouthWest(bounds);
+        this.selectedBounds = this.getBoundParams();
 
-        this._select(extend({location: null}, this.getBoundParams()));
+        this._select(extend({location: null}, this.selectedBounds));
 
       },
+
 
       /**
        * update map bounds
@@ -245,7 +251,7 @@
 
           self.m.setOnBoundsChangeEnd(map, function() {
 
-            if (self.auto && !self.selectedLocation) self.selectBounds();
+            if (self.enabled && self.auto && !self.selectedLocation) self.selectBounds();
 
           });
 
@@ -341,6 +347,10 @@
 
           if (!self.selectedLocation && !contains(self.activeLocations, location.slug)) return;
 
+          self.selectedBounds = false;
+
+          self.deactivateSync();
+
           self._select({location: location.slug, neLat: null, neLng: null, swLat: null, swLng: null});
 
         });
@@ -421,6 +431,14 @@
 
         });
 
+      },
+
+      deactivateSync: function() {
+
+        this.auto = false;
+
+        el(this.element, this.selectors.sync).checked = false;
+
       }
     
     });
@@ -437,4 +455,4 @@
   
   loadJs(['//cdn.leafletjs.com/leaflet-0.6.4/leaflet.js', '//cibul.net/js/embed/cibulWidgetLib.js'], run);
 
-})();;
+})();
