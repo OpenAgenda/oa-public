@@ -8,7 +8,7 @@ var handleLoginTunnel = function(params) {
     events: {
       next: 'next'
     },
-  }, params);
+  }, typeof params == 'undefined'?{}:params);
 
 
   var tunnel = iTunnel(); // should be ready on time

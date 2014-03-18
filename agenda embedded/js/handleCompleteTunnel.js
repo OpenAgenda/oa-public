@@ -10,7 +10,7 @@ var handleCompleteTunnel = function(params) {
       add: '.js_add'
     },
     listView: 0
-  }, params);
+  }, typeof params == 'undefined'?{}:params);
 
   var tunnel = iTunnel({
     onReady: function() {

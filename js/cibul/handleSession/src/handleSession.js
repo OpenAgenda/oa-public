@@ -96,7 +96,7 @@ var handleSession = function(params) {
 
     Cookies.set(params.cookie, Base64.encode(JSON.stringify(values)));
 
-  }
+  },
 
   _flaggedCookie = function() {
 
@@ -114,9 +114,15 @@ var handleSession = function(params) {
 
   _contradictingCookie = function() {
 
+    try {
+      var cookieValue = _getCookieValue('logged');
+    } catch (e) {
+      return false;
+    }
+
     var logged = _getSessionData().logged;
 
-    if (logged !== _getCookieValue('logged')) return true;
+    if (logged !== cookieValue) return true;
 
     return false;
 

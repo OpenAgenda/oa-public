@@ -24,7 +24,7 @@
       hashCache: 'v',         // used in fallback mode. name of cache parameter
       forceFallback: false,   // if set, forces hash method
       tunnelNextIdName: 'iTunnelNextId' // window variable for storing next id value
-    }, params),
+    }, typeof params == 'undefined'?{}:params),
 
     _init = function() {
 

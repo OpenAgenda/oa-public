@@ -115,8 +115,6 @@ var handleTags = function(params) {
     
     var tagItems = els(element, 'li');
 
-    console.log(tagItems);
-
     for (var i in tagItems) {
 
       if (tagItems[i].getAttribute(params.attributes.slug) == slug) {

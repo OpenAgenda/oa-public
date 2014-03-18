@@ -250,7 +250,7 @@ function getScrollOffsets(w) {
   w = w || window;
 
   // This works for all browsers except IE versions 8 and before
-  if (w.pageXOffset !== null) return {
+  if (typeof w.pageXOffset !== 'undefined') return {
     x: w.pageXOffset,
     y:w.pageYOffset
   };
