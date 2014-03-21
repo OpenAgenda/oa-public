@@ -25,7 +25,7 @@ var handleSourceMenu = function(params) {
       listItems = data.data;
 
       _makeDomMenu({
-        onAddClick: function(item) { 
+        onAddClick: function(item) {
 
           _hideIcons(item);
 
@@ -36,7 +36,7 @@ var handleSourceMenu = function(params) {
             debug: params.debug,
             success: function(data) {
               if (data.success) item.l = true;
-              _updateDisplay(item)
+              _updateDisplay(item);
             }
           });
 
@@ -52,9 +52,9 @@ var handleSourceMenu = function(params) {
             debug: params.debug,
             success: function(data) {
               item.l = false;
-              _updateDisplay(item)
+              _updateDisplay(item);
             }
-          })
+          });
         }
       });
 
@@ -100,7 +100,7 @@ var handleSourceMenu = function(params) {
 
     link.appendChild(cMenu);
 
-    handleContextMenu(link.childNodes[0], cMenu, sEventHandler.getInstance());
+    handleContextMenu(link.childNodes[0], cMenu, sEventHandler.getInstance(), {zIndex: 3});
 
     // add aggregator items to context menu
 
@@ -128,12 +128,12 @@ var handleSourceMenu = function(params) {
   _hideIcons = function(listItem) {
     getElementsByClassName(listItem.dom, params.classes.isSource)[0].style.display = 'none';
     getElementsByClassName(listItem.dom, params.classes.isNotSource)[0].style.display = 'none';
-  }
+  },
 
   _updateDisplay = function(listItem) {
     getElementsByClassName(listItem.dom, params.classes.isSource)[0].style.display = listItem.l?'inline-block':'none';
     getElementsByClassName(listItem.dom, params.classes.isNotSource)[0].style.display = listItem.l?'none':'inline-block';
-  }
+  };
 
   init();
 

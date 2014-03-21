@@ -65,7 +65,13 @@ var runProgramBehavior = function(params) {
         user: getCurrentUsername()
       });
 
-      initEdition(controlData.m?true:false, controlData, processedData[2]);
+      eh.trigger('getsessiondata', function(sessionData) {
+
+        initEdition(sessionData.uid, controlData.m?true:false, controlData, processedData[2]);
+
+        _isAggregationEnabled(sessionData, _initSourceMenu);
+
+      });
 
       initFollowBehavior(controlData.f);
 
@@ -123,8 +129,6 @@ var runProgramBehavior = function(params) {
     repeatingSectionsRemove(el('.list-items'), 'plis', eh, 'lhSuccess');
 
     setLinksElems(els(el('.title'), 'p'), {targetBlank: true, className: 'url'});
-
-    _isAggregationEnabled(_initSourceMenu);
 
   },
 
@@ -328,28 +332,24 @@ var runProgramBehavior = function(params) {
 
   },
 
-  initEdition = function(main, controlData, editors) {
+  initEdition = function(userUid, main, controlData, editors) {
 
-    eh.trigger('getsessiondata', function(data) {
-
-      addEditionBehavior(editors, {
-        /* this bit will be deprecated, isOwner to become isAdmin, second bit of test to be removed */
-        isOwner: (controlData.adm && contains(controlData.adm, data.uid)) || (controlData.o==getCurrentUsername()),
-        isMain: main,
-        user: getCurrentUsername(),
-        edit: { template: '<a class="button smallest" href="#"><i class="icon-cog"></i><span>' + params.labels.edit + '</span></a>', action: params.resources.edit, appendTo: params.elems.edit, enabled: true }
-      });
-
+    addEditionBehavior(editors, {
+      /* this bit will be deprecated, isOwner to become isAdmin, second bit of test to be removed */
+      isOwner: (controlData.adm && contains(controlData.adm, userUid)) || (controlData.o==getCurrentUsername()),
+      isMain: main,
+      user: getCurrentUsername(),
+      edit: { template: '<a class="button smallest" href="#"><i class="icon-cog"></i><span>' + params.labels.edit + '</span></a>', action: params.resources.edit, appendTo: params.elems.edit, enabled: true }
     });
 
   },
 
-  _isAggregationEnabled = function(callback) {
+  _isAggregationEnabled = function(sessionData, callback) {
 
     if (params.debug) {
       if (params.debug.aggregator) return callback();
     } else {
-      if (JSON.parse(Base64.decode(Cookies.get('cibul_session'))).agg) callback();
+      if (sessionData.aggregator) callback();
     }
 
   },
