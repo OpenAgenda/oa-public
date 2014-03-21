@@ -82,6 +82,12 @@
 
         }
 
+        if (reqParams.neLat && !this.selectedBounds) {
+
+          this.selectedBounds = { neLat: reqParams.neLat, neLng: reqParams.neLng, swLat: reqParams.swLat, swLng: reqParams.swLng };
+
+        }
+
         if (reqParams.uid || this.selectedLocation) this.deactivateSync();
 
         if (reqParams.location) {
