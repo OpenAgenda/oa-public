@@ -222,6 +222,12 @@ maps.register('google', (function(){
 
     },
 
+    getZoom: function(map) {
+
+      return map.getZoom();
+
+    },
+
     setCenter: function(map, position) {
 
       map.setCenter(new google.maps.LatLng(position[0], position[1]));

@@ -5,6 +5,8 @@
     var cibulMapWidget = cibulWidget({
       name: 'map',
       map: false,
+      //                 0        1       2      3       4        5       6     7      8      9     10    11    12  13  14  15 16 17 18
+      zoomToDistance: [500000, 500000, 500000, 300000, 150000, 100000, 80000, 40000, 20000, 10000, 3000, 1000, 300, 50, 25, 10, 5, 3, 2],
       lang: 'en',
       auto: false, // syncronize selection with map
       popup: false,
@@ -67,6 +69,12 @@
         this.bindSync();
 
       },
+
+      /**
+       * called by the controller to signal the map can be used.
+       * the widget ensures that bounds, pop ups are displayed in concordance
+       * with current request parameters (bounds or location)
+       */
 
       enable: function(reqParams) {
 
@@ -143,11 +151,11 @@
       },
 
 
-      getBoundParams: function() {
+      getBoundParams: function(bounds) {
 
-        var bounds = this.m.getBounds(this.map),
+        if (typeof bounds == 'undefined') bounds = this.m.getBounds(this.map);
 
-        ne = this.m.getBoundsNorthEast(bounds),
+        var ne = this.m.getBoundsNorthEast(bounds),
 
         sw = this.m.getBoundsSouthWest(bounds);
 
@@ -160,9 +168,9 @@
        * use map bounds as filter
        */
       
-      selectBounds: function() {
+      selectBounds: function(bounds) {
 
-        this.selectedBounds = this.getBoundParams();
+        this.selectedBounds = this.getBoundParams(bounds);
 
         this._select(extend({location: null}, this.selectedBounds));
 
@@ -351,6 +359,14 @@
 
         this.m.setOnMarkerClick(location.marker, function() {
 
+          // if there are neighbors, redefine bounds
+
+          var neighborhoodBounds = self.getNeighborBounds(location);
+
+          if (neighborhoodBounds) return self.selectBounds(neighborhoodBounds);
+
+          // there are no neighbords. select location as new filter
+
           if (!self.selectedLocation && !contains(self.activeLocations, location.slug)) return;
 
           self.selectedBounds = false;
@@ -445,7 +461,56 @@
 
         el(this.element, this.selectors.sync).checked = false;
 
-      }
+      },
+
+
+      /**
+       * get bounds showing location and its neighbors defined as per the zoomToLocation threshold
+       * 
+       * @param  object location   - the subject location
+       * @return boolean/bounds    - false if no neighbors, bounds if there are
+       */
+      
+      getNeighborBounds: function(location) {
+
+        var bounds = false,
+
+        distanceThreshold = this.zoomToDistance[this.m.getZoom(this.map)];
+
+        for (var l in this.locations) {
+
+          // is this is a neighbor?
+          if ((l!==location.slug) && this.distance(this.locations[l].coords[0], this.locations[l].coords[1], location.coords[0], location.coords[1]) < distanceThreshold) {
+
+            if (!bounds) bounds = this.m.createBounds(location.coords);
+
+            this.m.extendBounds(bounds, this.locations[l].coords);
+          }
+
+        }
+
+        return bounds;
+        
+      },
+
+
+      /**
+       * calculate distance between two points
+       */
+      distance: function(lat1, lon1, lat2, lon2) {
+  
+        var radlat1 = Math.PI * lat1/180,
+        
+        radlat2 = Math.PI * lat2/180,
+        
+        radlon1 = Math.PI * lon1/180,
+        
+        radlon2 = Math.PI * lon2/180,
+        
+        radtheta = Math.PI * (lon1-lon2)/180;
+        
+        return 60 * 1.1515 * 1609.344 * 180/Math.PI * Math.acos(Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta));
+      },
     
     });
 

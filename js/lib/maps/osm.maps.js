@@ -197,6 +197,12 @@ maps.register('osm', (function(){
 
     },
 
+    getZoom: function(map) {
+
+      return map.getZoom();
+
+    },
+
     setCenter: function(map, position) {
 
       position = new L.LatLng(position[0], position[1]);
