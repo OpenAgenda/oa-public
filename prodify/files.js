@@ -415,7 +415,7 @@ files = {
     [paths.vd, 'ejs/src/ejs_production.js', 'CibulCalendar/src/CibulCalendar.js'],
     [paths.lib, 'common/common.js', 'remote/remote.js', 'maps/maps.js', 'maps/osm.maps.js', 'selectForm/selectForm.js'],
     [paths.npem, 'cibulSimpleController.js', 'cibulWidget.js', 'cibulStyle.js', 'cibulCategoriesWidget.js', 'cibulMapWidget.js', 'cibulTagsWidget.js', 'cibulCalendarWidget.js', 'cibulSearchWidget.js'],
-    [paths.pem, 'tags/handleTagsSelect.js']
+    [paths.pem, 'tags/handleTagsSelect.js', 'js/handleEmbedMenuFacebook.js']
   ],
 
   'review/embedMap.min.js': [

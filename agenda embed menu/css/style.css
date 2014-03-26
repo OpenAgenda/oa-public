@@ -32,3 +32,9 @@
 .facebook-program-embed { padding: 10px; }
 .facebook-program-embed p { padding-bottom: 0.5em; }
 .facebook-program-embed a { padding-right: 0.8em; }
+
+#pem .fb-embed .button { background: #3b5998; border: none; }
+#pem .fb-embed .button i,
+#pem .fb-embed .button span { color: white; }
+
+#pem .cibul-information { padding: 0.5em 0; margin-bottom: 2em; border-bottom: 1px solid #11BED4; border-top: 1px solid #11BED4; display: block; }

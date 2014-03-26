@@ -17,7 +17,7 @@
 
     canvasElem._removeChild = canvasElem.removeChild;
 
-    canvasElem.removeChild = function(child) { self.removeChild(child); }
+    canvasElem.removeChild = function(child) { self.removeChild(child); };
 
     canvasElem._insertAdjacentElement = canvasElem.insertAdjacentElement;
 
