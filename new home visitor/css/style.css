@@ -74,9 +74,11 @@
   padding-right: 0.3em;
 }
 
+.front .offer-main i img { width: 1.6em; width: 1.6em; vertical-align: top; padding-top: 0.3em; }
+
 .front .offer-main .title { font-size: 1em; }
 
-.front .offer-main h2 { display: inline-block; vertical-align: middle; }
+.front .offer-main h2 { display: inline-block; vertical-align: middle; padding: 0.3em 0; }
 
 
 .front footer .content { text-align: center; }

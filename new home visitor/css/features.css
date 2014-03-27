@@ -1,7 +1,3 @@
-
-
-
-
 .featlist i { margin: 1em 0; display: inline-block; }
 .featlist i.icon-check { color: #11BED4; }
 .featlist i.icon-check-empty { color: #999; }
@@ -33,6 +29,10 @@
 .feature-details li a { font-size: 1em; }
 
 
+.desc .featset li.feathead { text-align: left; visibility: hidden; font-size: 1.2em; color: #999; height: 3em; }
+.desc:first-child .featset li.feathead { visibility: visible; }
+
+
 @media all and (max-width: 640px) {
 
   .featlist .desc,
@@ -45,5 +45,7 @@
 
   .featlist .desc h2,
   .featlist .desc:first-child h2 { width: auto; padding-left: 0; }
+
+  .featlist .desc .featset li.feathead { text-align: center; visibility: visible; }
 
 }
