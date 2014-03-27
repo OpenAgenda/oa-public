@@ -177,6 +177,7 @@ if (typeof cibulControllers == 'undefined') (function() {
       });
 
       return {
+        getControlData: getControlData,
         onResponse: _linkReady // link calls this whenever it has an update
       };
 

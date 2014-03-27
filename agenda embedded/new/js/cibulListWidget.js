@@ -4,7 +4,8 @@
     events: {
       load: 'load'
     },
-    scrollOffset: 50
+    scrollOffset: 50,
+    heightOffset: 40
   },
 
   reqParams,
@@ -12,6 +13,8 @@
   hasNext = false,      // state indicating if there are more events to load
 
   eventOpen = false,    // state indicating if event is being displayed or not
+
+  autoscroll = true,    // state indicating if list should load automatically
 
   listPos = false,
 
@@ -33,6 +36,12 @@
 
       addEvent(document, 'scroll', function() {
         _monitorScroll(tunnel, element);
+      });
+
+      controller.getControlData(function(ctl){
+
+        if (ctl.ebd && !ctl.ebd.sc) autoscroll = false;
+
       });
 
     },
@@ -76,7 +85,7 @@
       // adjust height if required
       if (data.height) {
 
-        element.style.height = data.height + 'px';
+        element.style.height = (parseInt(data.height, 10) + params.heightOffset) + 'px';
 
         delete data.height;
 
@@ -158,7 +167,7 @@
 
     listPos = _scrollPosition();
 
-    if (!responsePending && hasNext && (element.offsetTop + element.offsetHeight <= listPos + el('html').clientHeight)) {
+    if (autoscroll && !responsePending && hasNext && (element.offsetTop + element.offsetHeight <= listPos + el('html').clientHeight)) {
       
       responsePending = true;
       

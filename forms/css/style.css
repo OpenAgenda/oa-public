@@ -83,5 +83,6 @@
   padding: 10px 0;
 }
 
-.cform input[type="radio"] { display: inline; width: auto; margin: 0.6em 0; }
+.cform input[type="radio"],
+.cform input[type="checkbox"] { display: inline; width: auto; margin: 0.6em 0; }
 .cform .radio { display: inline; padding-right: 0.5em; }
