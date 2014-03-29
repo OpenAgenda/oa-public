@@ -1,7 +1,7 @@
 .featlist i { margin: 1em 0; display: inline-block; }
 .featlist i.icon-check { color: #11BED4; }
 .featlist i.icon-check-empty { color: #999; }
-.featlist .featset li { text-align: center; padding: 1em 0 0; }
+.featlist .featset li { text-align: center; padding: 1em 0 0; height: 5em; }
 
 .featlist * { text-align: center; }
 
@@ -29,14 +29,17 @@
 .feature-details li a { font-size: 1em; }
 
 
-.desc .featset li.feathead { text-align: left; visibility: hidden; font-size: 1.2em; color: #999; height: 3em; }
-.desc:first-child .featset li.feathead { visibility: visible; }
+.desc .featset li.feathead { height: inherit; margin: 0 0 1em; }
+.desc .featset li.feathead span { text-align: left; visibility: hidden; display: block; font-size: 1.4em; color: #999; height: 1.6em; }
+.desc:first-child .featset li.feathead span { visibility: visible; }
 
 
 @media all and (max-width: 640px) {
 
+  .featlist .featset li { height: auto; }
+
   .featlist .desc,
-  .featlist .desc:first-child { width: auto; max-width: 500px; margin: 0 auto;}
+  .featlist .desc:first-child { width: auto; max-width: 500px; margin: 0 auto 6em; }
 
   .featlist .desc .featdesc,
   .featlist .desc .featdesc:first-child { width: 80%; display: inline-block; }
@@ -46,6 +49,8 @@
   .featlist .desc h2,
   .featlist .desc:first-child h2 { width: auto; padding-left: 0; }
 
-  .featlist .desc .featset li.feathead { text-align: center; visibility: visible; }
+  .featlist .desc .featset li.feathead { text-align: center; position: relative; }
+  .featlist .desc .featset li.feathead h2 { display: block; padding: 1em 0 2em; }
+  .featlist .desc .featset li.feathead span { text-align: center; position: absolute; top: 3.5em; width: 100%; visibility: visible; }
 
 }

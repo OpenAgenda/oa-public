@@ -391,7 +391,7 @@ var runProgramBehavior = function(params) {
 
         var i = iterationFunctions.length;
 
-        while (i--) 
+        while (i--)
           iterationFunctions[i](callbackData[i], iterationItem);
 
       });
@@ -408,8 +408,8 @@ var runProgramBehavior = function(params) {
   },
 
   forEachLocationOfEachArticle = function(data, callback) {
-    for (aIndex in data) {
-      for (lIndex in data[aIndex].l) {
+    for (var aIndex in data) {
+      for (var lIndex in data[aIndex].l) {
         callback({articleId: aIndex, article: data[aIndex], locationSlug: lIndex, location: data[aIndex].l[lIndex]});
       }
     }
