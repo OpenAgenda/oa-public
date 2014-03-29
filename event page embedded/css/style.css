@@ -1,7 +1,11 @@
 html { overflow: hidden; }
 
+#event { position: relative; }
+
 #event i { color: #aaa; }
 #event .url { color: #2276BB; }
+
+#event h1 { font-size: 2em; }
 
 #event .main { margin-left: 320px; }
 #event.noposter .main { margin-left: 0; }
@@ -59,6 +63,8 @@ html { overflow: hidden; }
 #event #description .tags > * { vertical-align: middle; }
 #event #description .tags span { color: #666; font-style: italic; margin-left: 0.5em; word-wrap: break-word; }
 #event #description .free { padding-top: 20px; word-wrap: break-word; }
+
+#event .tags { display: block; }
 
 #event #places .place-detail { padding: 0 0 1em 0; }
 #event #places .address { font-style: italic; color: #666; }
