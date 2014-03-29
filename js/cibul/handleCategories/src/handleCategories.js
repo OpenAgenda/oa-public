@@ -16,7 +16,8 @@ var handleCategories = function(params) {
       categories: '.js_categories',
       category: '.js_category'
     },
-    categories: []
+    categories: [],
+    removeParent: true
   }, params);
 
   var elem, enabled = true, eh = sEventHandler.getInstance(),
@@ -72,6 +73,8 @@ var handleCategories = function(params) {
   },
 
   _removeCanvas = function() {
+
+    if (!params.removeParent) return;
 
     var generalParent = params.canvas.parentNode.parentNode;
 
