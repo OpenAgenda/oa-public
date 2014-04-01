@@ -520,10 +520,12 @@
 
   run = function() {
     cibulControllers.loadWidget('.cbpgmp', onLoad);
-  };
+  },
 
-  if (typeof cibulControllers !== 'undefined') return run();
+  scripts = ['//cdn.leafletjs.com/leaflet-0.6.4/leaflet.js'];
+
+  if (typeof cibulControllers == 'undefined') scripts.push('//cibul.net/js/embed/cibulWidgetLib.js');
   
-  loadJs(['//cdn.leafletjs.com/leaflet-0.6.4/leaflet.js', '//cibul.net/js/embed/cibulWidgetLib.js'], run);
+  loadJs(scripts, run);
 
 })();
