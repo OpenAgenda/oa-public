@@ -1,7 +1,8 @@
-.featlist i { margin: 1em 0; display: inline-block; }
+.featlist i { margin: 1.5em 0; display: inline-block; }
 .featlist i.icon-check { color: #11BED4; }
 .featlist i.icon-check-empty { color: #999; }
-.featlist .featset li { text-align: center; padding: 1em 0 0; height: 5em; }
+.featlist .featset li { text-align: center; padding: 1em; height: 5em; cursor: pointer; }
+.featlist .featset li.selected { background: #efefef;}
 
 .featlist * { text-align: center; }
 

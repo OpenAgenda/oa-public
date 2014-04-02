@@ -34,7 +34,7 @@
 .front .right { text-align: right; }
 
 .front .desc .desc-content { padding: 0 4em 0 0; }
-.front .desc.right .desc-content { padding: 0 0 0 4em; }
+.front .desc.right .desc-content { padding: 0 0 0 4em; text-align: left; }
 
 .front .ill { vertical-align: middle; display: inline-block; }
 .front .ill img { max-width: 400px; width: 100%; }
