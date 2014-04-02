@@ -25,6 +25,13 @@
       contextMenuClass: 'context-menu',
       today: false,
       sIndex: {},
+      defaultStyle: [
+        '.cibulSearch input { border: 1px solid #ccc; padding: 0em 0.4em; }',
+        '.cibulSearch label { display: none; }',
+        '.cibulSearch .context-menu { background: white; border: 1px solid #eee; padding: 0.2em 0.4em; margin-top: 0.4em; text-align: left; }',
+        '.cibulSearch .context-menu > ul { padding: 0; margin: 0; }',
+        '.cibulSearch .context-menu > ul li { padding: 0.1em 0.2em; list-style-type: none; cursor: pointer; }'
+      ].join(''),
       init: function(ctl, config) {
 
         var self = this;

@@ -11,6 +11,13 @@
         item: '<li><a data-slug="<%= s %>"><%= t %></a></li>'
       },
       tag: false, // active category (part of selection filter)
+      defaultStyle: [
+        '.cibulTags ul { margin: 0; padding: 0; }',
+        '.cibulTags li { display: inline-block; cursor: pointer; padding-right: 1em; color: {{ disabledColor }}; font-size: 0.9em; }',
+        '.cibulTags li.active { color: {{ activeColor }}; }',
+        '.cibulTags li.selected { color: {{ selectedColor }}; }',
+        '.cibulTags.disabled li { cursor: wait; color: {{ disabledColor }} }'
+      ].join(''),
       init: function(ctl, config) {
 
         this.defineTagSet(ctl, config);

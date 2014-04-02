@@ -10,6 +10,13 @@
       },
       category: false, // selected category (part of selection filter)
       activeCategories: [], // active categories (used by events in selection)
+      defaultStyle: [
+        '.cibulCategories ul { margin: 0; padding: 0; }',
+        '.cibulCategories li { display: inline-block; cursor: pointer; padding-right: 1em; color: {{ disabledColor }}; }',
+        '.cibulCategories li.active { color: {{ activeColor }}; }',
+        '.cibulCategories li.selected { color: {{ selectedColor }}; }',
+        '.cibulCategories.disabled li { cursor: wait; color: {{ disabledColor }} }'
+      ].join(''),
       init: function(ctl) {
 
         this.categories = ctl.ct;

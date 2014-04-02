@@ -48,6 +48,14 @@ if (typeof cibulWidget == 'undefined') var cibulWidget = function(methods) {
           return;
         }
 
+        self._log('styling widget');
+
+        if (ctl.ebd && ctl.ebd.dcss) {
+          if (ctl.ebd.dcss[self.name]) self._applyDefaultStyle();
+        } else {
+          self._applyDefaultStyle();
+        }
+
         self.init(ctl, config);
 
       });
@@ -185,6 +193,18 @@ if (typeof cibulWidget == 'undefined') var cibulWidget = function(methods) {
 
         elem.appendChild(item);
       }
+
+    },
+
+    /**
+     * apply default styles to widget, if any
+     */
+    
+    _applyDefaultStyle: function() {
+
+      this._log('applying default style');
+
+      if (typeof this.defaultStyle !== 'undefined') cibulStyle(this.defaultStyle);
 
     },
 

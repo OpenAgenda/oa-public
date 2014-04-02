@@ -36,7 +36,20 @@
         main: '<div class="map-canvas"></div><div class="map-sync"><label><%= labels.mapSync %></label><input class="js_sync_checkbox" type="checkbox"/></div>',
         popup: '<div class="map-location"><% if (typeof count !== \'undefined\') { %><span class="count"><span><%= count %></span><label> <%= count==1?labels.events.replace(\'s\', \'\'):labels.events %></label></span><% } %><% if (typeof image !== \'undefined\') { %><img src="<%= image %>"/><% } %><span><p><%= placename %></p><span><%= address %></span></span></div>'
       },
-
+      defaultStyle: [
+        '.cibulMap { height: 300px; width: 100%; }',
+        '.cibulMap .map-canvas { height: 100%; }',
+        '.cibulMap .map-sync { text-align: right; }',
+        '.cibulMap .map-sync > * { vertical-align: middle; }',
+        '.cibulMap .map-location .count { display: block; }',
+        '.cibulMap .map-location > span, .map-location > img { display: inline-block; }',
+        '.cibulMap .map-location > img { width: 48px; padding: 0.2em 0.5em 0 0; vertical-align: top;}',
+        '.cibulMap .map-location > span { max-width: 160px; }',
+        '.cibulMap .leaflet-popup-content-wrapper { -webkit-border-radius: 0; border-radius: 0; }',
+        '.cibulMap .leaflet-popup-content p, .leaflet-popup-content { margin: 0; }',
+        '.cibulMap .leaflet-popup-content { padding: 2px 15px 2px 5px; }',
+        '.cibulMap .leaflet-popup-tip-container { visibility: hidden; }'
+      ].join(''),
 
       /**
        * where it all begins. pick out config, create map, put markers, bind sync checkbox and chew bubblegum.
