@@ -20,7 +20,7 @@
         },
       },
       templates: {
-        main: '<input type="text" placeholder="<%= labels.search %>">'
+        main: '<label for="geosearch"><%= labels.search %></label><input type="text" placeholder="<%= labels.search %>" name="geosearch">'
       },
       contextMenuClass: 'context-menu',
       today: false,
