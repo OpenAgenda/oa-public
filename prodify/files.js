@@ -414,8 +414,13 @@ files = {
   'review/embedMenuLib.min.js': [
     [paths.vd, 'ejs/src/ejs_production.js', 'CibulCalendar/src/CibulCalendar.js'],
     [paths.lib, 'common/common.js', 'remote/remote.js', 'maps/maps.js', 'maps/osm.maps.js', 'selectForm/selectForm.js'],
-    [paths.npem, 'cibulSimpleController.js', 'cibulWidget.js', 'cibulStyle.js', 'cibulCategoriesWidget.js', 'cibulMapWidget.js', 'cibulTagsWidget.js', 'cibulCalendarWidget.js', 'cibulSearchWidget.js'],
+    [paths.npem, 'cibulSimpleController.js', 'cibulWidget.js', 'cibulStyle.js', 'cibulCategoriesWidget.js', 'cibulMapWidget.js', 'cibulTagsWidget.js', 'cibulCalendarWidget.js', 'cibulSearchWidget.js', 'mapWidgetSandbox.js', 'mapWidgetConfig.js'],
     [paths.pem, 'tags/handleTagsSelect.js', 'js/handleEmbedMenuFacebook.js']
+  ],
+
+  'embed/mapWidgetConfig.js': [
+    [paths.lib, 'common/common.js'],
+    [paths.npem, 'mapWidgetConfig.js']
   ],
 
   'review/embedMap.min.js': [

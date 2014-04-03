@@ -34,7 +34,8 @@ if (typeof cibulWidget == 'undefined') var cibulWidget = function(methods) {
         clear: function() { self._clear(); },
         include: function(i) { self._include(i); },
         enable: function(p) { self._enable(p); },
-        disable: function() { self._disable(); }
+        disable: function() { self._disable(); },
+        getWidget: function() { return self._getWidget(); }
       });
 
       if (this.requireCtl) self.controller.getControlData(function(ctl) {
@@ -60,6 +61,12 @@ if (typeof cibulWidget == 'undefined') var cibulWidget = function(methods) {
 
       });
       else self.init(config);
+
+    },
+
+    _getWidget: function() {
+
+      return this;
 
     },
 

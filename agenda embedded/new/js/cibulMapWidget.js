@@ -11,6 +11,7 @@
       auto: false, // syncronize selection with map
       popup: false,
       tiles: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
+      onBoundsChangeCallback: false,
       labels: {
         fr: {
           mapSync: 'rechercher quand je déplace la carte',
@@ -51,6 +52,7 @@
         '.cibulMap .leaflet-popup-tip-container { visibility: hidden; }'
       ].join(''),
 
+
       /**
        * where it all begins. pick out config, create map, put markers, bind sync checkbox and chew bubblegum.
        */
@@ -67,13 +69,15 @@
 
         this.initIcons(ctl);
 
+        this.defineInitialBounds(ctl);
+
         this._create({labels: this.labels[this.lang]});
 
         this.createMap(function(map) {
 
           self.map = map;
 
-          self.setMapToDefaultBounds();
+          self.setMapToInitialBounds();
 
           self.initMarkers();
 
@@ -82,6 +86,7 @@
         this.bindSync();
 
       },
+
 
       /**
        * called by the controller to signal the map can be used.
@@ -99,7 +104,7 @@
 
           this.selectedBounds = false;
 
-          if (!this.selectedLocation && !reqParams.uid) this.setMapToDefaultBounds();
+          if (!this.selectedLocation && !reqParams.uid) this.setMapToInitialBounds();
 
         }
 
@@ -120,6 +125,7 @@
         }
 
       },
+
 
       clear: function() {
 
@@ -146,7 +152,6 @@
 
       },
       
-      
       refresh: function() {
         
         if (this.selectedLocation) {
@@ -163,6 +168,11 @@
 
       },
 
+      registerOnBoundsChangeCallback: function(callback) {
+        
+        this.onBoundsChangeCallback = callback;
+
+      },
 
       getBoundParams: function(bounds) {
 
@@ -227,29 +237,64 @@
        * default bounds encapsulate all the locations
        */
       
-      setMapToDefaultBounds: function() {
+      setMapToInitialBounds: function() {
+
+        this.m.fitBounds(this.map, this.initBounds);
+
+      },
+
+
+      /**
+       * define what initial bounds are depending on embed config
+       */
+      
+      defineInitialBounds: function(ctl) {
+
+        var mode = 'all';
+
+        if (ctl.ebd && ctl.ebd.mp) mode = ctl.ebd.mp;
+
+        if ((mode == 'manual') && ctl.ebd.mc) return this.initManualBounds(ctl.ebd.mc);
+
+        this.initAllInclusiveBounds();
+
+      },
+
+
+      initManualBounds: function(corners) {
+
+        this.initBounds = this.m.createBounds([corners.neLat, corners.neLng]);
+
+        this.m.extendBounds(this.initBounds, [corners.swLat, corners.swLng]);
+
+      },
+
+
+      /**
+       * define initial bounds so that they include all markers
+       */
+
+      initAllInclusiveBounds: function() {
 
         if (!Object.size(this.locations)) return;
 
-        if (typeof this.defaultBounds !== 'undefined') {
+        if (typeof this.initBounds !== 'undefined') {
 
-          this.m.fitBounds(this.map, this.defaultBounds);
+          this.m.fitBounds(this.map, this.initBounds);
 
           return;
 
         }
 
-        for (var l in this.locations) break; // Errrhh..
+        for (var l in this.locations) break;
 
-        this.defaultBounds = this.m.createBounds(this.locations[l].coords);
+        this.initBounds = this.m.createBounds(this.locations[l].coords);
 
         for (l in this.locations) {
 
-          this.m.extendBounds(this.defaultBounds, this.locations[l].coords);
+          this.m.extendBounds(this.initBounds, this.locations[l].coords);
 
         }
-
-        this.m.fitBounds(this.map, this.defaultBounds);
 
       },
       
@@ -280,6 +325,8 @@
 
             if (self.enabled && self.auto && !self.selectedLocation) self.selectBounds();
 
+            if (self.onBoundsChangeCallback) self.onBoundsChangeCallback(self.getBoundParams());
+
           });
 
         }});
@@ -308,6 +355,7 @@
         }
 
       },
+
 
       initTiles: function(ctl) {
 
@@ -366,6 +414,7 @@
         }
 
       },
+
       setOnMarkerClick: function(location) {
 
         var self = this;

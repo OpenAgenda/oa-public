@@ -1,6 +1,6 @@
 if (typeof cibulControllers == 'undefined') (function() {
 
-  var enable, include, ctl, controlData,
+  var enable, include, ctl, controlData, widgetGetter = false, ready = false, onReadyCallback = false,
 
   update = function(values) {
 
@@ -53,13 +53,23 @@ if (typeof cibulControllers == 'undefined') (function() {
     enable = params.enable;
     include = params.include;
 
+    widgetGetter = params.getWidget;
+
+    if (onReadyCallback) onReadyCallback();
+
+    ready = true;
+
     return {
-        update: update,
-        getControlData: getControlData
+      update: update,
+      getControlData: getControlData
     };
 
   },
 
+  /**
+   * called by widget at init to register it with its controller
+   */
+  
   loadWidget = function(selector, callback) {
 
     var run = function() {
@@ -75,12 +85,26 @@ if (typeof cibulControllers == 'undefined') (function() {
     else
       addEvent(window, 'load', run);
 
+  },
+
+  onReady = function(callback) {
+
+    if (ready) return callback();
+
+    onReadyCallback = callback;
+
+  },
+
+  getWidget = function() {
+    return widgetGetter();
   };
 
 
   window.cibulControllers = {
     register: register,
-    loadWidget: loadWidget
+    loadWidget: loadWidget,
+    getWidget: getWidget,
+    onReady: onReady
   };
 
 })();
