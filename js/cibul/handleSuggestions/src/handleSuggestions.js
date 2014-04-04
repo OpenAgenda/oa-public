@@ -7,7 +7,9 @@ var handleSuggestions = function(inputElem, list, key, template, options) {
     options = extend({
       contextMenuClass: false,
       onSelect: false,
-      onChange: false
+      onChange: false,
+      maxResults: 10,
+      match: 'loose', // either loose or direct - anything else is considered as loose
     }, options);
 
     contextDiv = document.createElement('div');
@@ -29,7 +31,7 @@ var handleSuggestions = function(inputElem, list, key, template, options) {
 
       possibles = _shortlist(inputElem.value, list, key);
 
-      if (possibles.length === 0 || possibles.length > 10) {
+      if (possibles.length === 0 || possibles.length > options.maxResults) {
         contextMenu.hide();
         return;
       }
@@ -68,14 +70,9 @@ var handleSuggestions = function(inputElem, list, key, template, options) {
 
   _shortlist = function(value, list, key){
 
-    var regex = '',
+    var regex = _buildRegex(value),
+
     selection = [];
-
-    forEach (value, function(c) {
-      regex += '.*' + c.toLowerCase();
-    });
-
-    regex = new RegExp(regex);
 
     forEach(list, function(listItem) {
       if (listItem[key].toLowerCase().match(regex)) selection.push(listItem);
@@ -85,10 +82,32 @@ var handleSuggestions = function(inputElem, list, key, template, options) {
 
   },
 
+  _buildRegex = function(value) {
+
+    var regex = '';
+
+    if (options.match == 'direct') {
+
+      regex = value.toLowerCase();
+
+    } else {
+
+      forEach (value.toLowerCase(), function(c) {
+        regex += '.*' + c;
+      });
+
+    }
+
+    return new RegExp(regex);
+
+  },
+
   _select = function(selectedItem) {
+
     inputElem.value = selectedItem[key].replace('&#039;', '\'');
     contextMenu.hide();
     if (options.onSelect) options.onSelect(selectedItem);
+
   },
 
   _remove = function() {
