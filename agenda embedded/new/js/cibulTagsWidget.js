@@ -6,6 +6,7 @@
       name: 'tags',
       subset: false,
       activeTags: [],
+      reqTags: [],
       templates: {
         main: '<ul class="tags"></ul>',
         item: '<li><a data-slug="<%= s %>"><%= t %></a></li>'
@@ -29,7 +30,35 @@
       },
       enable: function(reqParams) {
 
-        this.tag = reqParams.tags?reqParams.tags:false;
+        this.tag = false;
+        this.reqTags = [];
+
+        // there is no active filter by tag
+        if (!reqParams.tags) return;
+
+        this.reqTags = (typeof reqParams.tags == 'string')?reqParams.tags.split(','):reqParams.tags;
+
+        // there is no subset for this widget. first tag is assumed right tag
+        if (!this.subset) {
+
+          this.tag = this.reqTags[0];
+
+          return;
+
+        }
+
+        // there is a subset, if tag is found in it, we keep it
+        for (var i = this.reqTags.length - 1; i >= 0; i--) {
+
+          if (contains(this.subset, this.reqTags[i])) {
+
+            this.tag = this.reqTags[i];
+
+            break;
+
+          }
+
+        }
 
       },
       clear: function() {
@@ -77,7 +106,19 @@
 
           if (!self.tag && !contains(self.activeTags, itemData.s)) return;
 
-          self._select({tags: self.tag==itemData.s?null:itemData.s});
+          // remove current tag from array
+          
+          if (self.tag) self.reqTags = removeValueFromArray(self.reqTags, self.tag);
+
+          if (self.tag!==itemData.s) {
+
+            // if clicked tag is not current tag, should be added to filter
+            
+            self.reqTags.push(itemData.s);
+            
+          }
+
+          self._select({tags: self.reqTags.length?self.reqTags:null});
 
         });
 

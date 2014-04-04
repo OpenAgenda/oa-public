@@ -38,7 +38,7 @@
         popup: '<div class="map-location"><% if (typeof count !== \'undefined\') { %><span class="count"><span><%= count %></span><label> <%= count==1?labels.events.replace(\'s\', \'\'):labels.events %></label></span><% } %><% if (typeof image !== \'undefined\') { %><img src="<%= image %>"/><% } %><span><p><%= placename %></p><span><%= address %></span></span></div>'
       },
       defaultStyle: [
-        '.cibulMap { height: 300px; width: 100%; }',
+        '.cibulMap { min-height: 300px; width: 100%; }',
         '.cibulMap .map-canvas { height: 100%; }',
         '.cibulMap .map-sync { text-align: right; }',
         '.cibulMap .map-sync > * { vertical-align: middle; }',
