@@ -61,6 +61,8 @@ var handleHeader = function(params) {
 
     var redirect = window.location.href.replace(/#[A-z0-9&=]+$/, '');
 
+    if (redirect.replace(/\/frontend_dev.php|http(|s):\/\/(d.|)|\/$/g, '')=='cibul.net') redirect = '//' + (params.env!=='prod'?'d.cibul.net/frontend_dev.php':'cibul.net') + '/home';
+
     forEach(els('.js_page_redirect'), function(linkElem) {
       linkElem.setAttribute('href', linkElem.getAttribute('href') + '?redirect=' + redirect);
     });
@@ -90,6 +92,8 @@ var handleHeader = function(params) {
     // and needs to have logged values set in fields
     if (session.thumbnail) $('.js_user_thumb').attr('src', session.thumbnail);
     $('.js_full_name').html(session.fullName);
+
+    $('.js_logo_link').attr('href', $('.js_logo_link').attr('href') + 'home');
 
     // messages and notifications
     if (parseInt(session.counts.newnotifications, 10)) $('.js_new_notification_count').removeClass('display-none').html(session.counts.newnotifications);
