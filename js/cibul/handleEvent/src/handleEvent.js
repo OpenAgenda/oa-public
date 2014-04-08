@@ -6,9 +6,6 @@ var handleEvent = function(controlData, options) {
     elems: {
       map: el('.map')
     },
-    events: {
-      heightChange: 'heightchange'
-    },
     iconRoot: 'images/',
     culture: 'en',
     cultureLabels: {
@@ -36,6 +33,12 @@ var handleEvent = function(controlData, options) {
     ].join('')
   }, options.templates?options.templates:{});
 
+  options.events = extend({
+    heightChange: 'heightchange',
+    onDateLocationSelection: 'eventdateplaceselect',
+    onDateLocationSelectionCancel: 'eventmapplaceunselect'
+  }, options.events);
+
   options.labels = extend({
     placeInfo: 'Showing %d places. Click on a marker for details.'
   }, options.labels?options.labels:{});
@@ -46,8 +49,8 @@ var handleEvent = function(controlData, options) {
   getHeight = (typeof makeEventHeightGetter !== 'undefined')?makeEventHeightGetter(el('#event'), options.events.heightChange):false;
 
   handleEventPlaces(controlData, m, {
-    triggeredEvents: { onLocationSelect: 'eventmapplaceselect', onLocationSelectCancel: 'eventmapplaceunselect'},
-    triggerEvents: { selectLocation: 'eventdateplaceselect' },
+    triggeredEvents: { onLocationSelect: 'eventmapplaceselect', onLocationSelectCancel: options.events.onDateLocationSelectionCancel },
+    triggerEvents: { selectLocation: options.events.onDateLocationSelection },
     locationElem: el('.js_place_detail'),
     showAllElem: el('.js_show_all_places'),
     generalInfoText: options.labels.placeInfo,
@@ -62,7 +65,7 @@ var handleEvent = function(controlData, options) {
     dateElem: el('.js_dates'),
     filterElem: el('.js_date_filter_cancel'),
     events: {
-      triggered: { selectLocation: 'eventdateplaceselect', layoutChange: options.events.heightChange },
+      triggered: { selectLocation: options.events.onDateLocationSelection, layoutChange: options.events.heightChange },
       trigger: { selectCancel: 'eventmapplaceunselect', selectLocation: 'eventmapplaceselect' }
     },
     culture: options.culture,

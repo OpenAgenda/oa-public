@@ -39,7 +39,9 @@ var handleEmbeddedList = function(options) {
       openEventSuccess: 'eventopensuccess',
       lock: 'lock',
       unlock: 'unlock',
-      initList: 'initlist'
+      initList: 'initlist',
+      onDateLocationSelection: 'eventdateplaceselect', // event triggered when a date list item is clicked in event
+      onDateLocationSelectionCancel: 'eventmapplaceunselect' // event triggered when a location selection is unset
     },
     templates: {
       article: false,                // ejs template for an article item
@@ -243,12 +245,26 @@ var handleEmbeddedList = function(options) {
 
   _handleEventOpen = function(eventId) {
 
+    var heightChanging = false; // buffer height changes, they can be many at the same time
+
     eh.trigger(options.events.lock);
 
     displayedEvent = handleEventDisplay(eventId, {
       elems: { program: options.elems.program, event: options.elems.event },
       onHeightChange: function() {
-        eh.trigger(options.events.heightChange);
+
+        if (heightChanging) return;
+
+        heightChanging = true;
+
+        setTimeout(function() {
+
+          heightChanging = false;
+
+          eh.trigger(options.events.heightChange);
+
+        }, 200);
+
       },
       onEventOpen: function() {
         eh.trigger(options.events.unlock);
@@ -257,6 +273,7 @@ var handleEmbeddedList = function(options) {
       onEventClose: function() {
         _onEventClose();
       },
+      events: options.events,
       url: options.eventUrl,
       culture: options.culture,
       cultureLabels: options.cultureLabels,

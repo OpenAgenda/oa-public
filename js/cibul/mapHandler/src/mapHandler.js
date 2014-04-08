@@ -438,9 +438,11 @@ var mapHandler = function(m, locations, params) {
       sw: m.getBoundsSouthWest(bounds)
     };
 
+    // for some reason this doesn't work sometimes
     m.fitBounds(map, bounds);
-    
+
     boundsSynced = true;
+    
 
   },
 

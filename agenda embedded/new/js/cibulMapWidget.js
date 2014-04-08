@@ -115,6 +115,7 @@
 
         }
 
+        // if a location is picked, or an event, deactivate selection when map is moved around
         if (reqParams.uid || this.selectedLocation) this.deactivateSync();
 
         if (reqParams.location) {
@@ -205,19 +206,19 @@
        * update map bounds
        */
       
-      updateBounds: function(corners) {
+      updateBounds: function(reqParams) {
 
-        if (!corners.neLat) return;
+        if (!reqParams.neLat) return;
 
-        if (this.getBoundParams().neLat == corners.neLat) return;
+        if (this.getBoundParams().neLat == reqParams.neLat) return;
 
         var self = this,
 
         auto = self.auto,
 
-        bounds = this.m.createBounds([corners.neLat, corners.neLng]);
+        bounds = this.m.createBounds([reqParams.neLat, reqParams.neLng]);
 
-        this.m.extendBounds(bounds, [corners.swLat, corners.swLng]);
+        this.m.extendBounds(bounds, [reqParams.swLat, reqParams.swLng]);
 
         this.auto = false;
 
@@ -232,7 +233,7 @@
         }, 500);
 
       },
-
+      
 
       /**
        * default bounds encapsulate all the locations

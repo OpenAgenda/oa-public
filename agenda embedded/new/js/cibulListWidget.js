@@ -12,7 +12,7 @@
 
   hasNext = false,      // state indicating if there are more events to load
 
-  eventOpen = false,    // state indicating if event is being displayed or not
+  activeEventUid = false,    // state indicating if event is being displayed or not
 
   autoscroll = true,    // state indicating if list should load automatically
 
@@ -97,11 +97,11 @@
 
       // callback should only be called if a load has been successful
       
-      if (!contains(['eventopensuccess', 'closeevent', 'success'], data.event)) return;
+      if (!contains(['eventopensuccess', 'closeevent', 'success', 'eventdateplaceselect', 'eventmapplaceunselect'], data.event)) return;
 
       if (data.event == 'eventopensuccess') {
 
-        eventOpen = true;
+        activeEventUid = data.uid;
 
         _repositionToFrameTop(element);
 
@@ -111,11 +111,23 @@
 
       if (data.event == 'closeevent') {
         
-        eventOpen = false;
+        activeEventUid = false;
 
         _repositionToListOffset();
 
         delete reqParams.uid;
+
+      }
+
+      if ((data.event == 'eventdateplaceselect') && activeEventUid) {
+
+        return onResponse({uid: activeEventUid, location: data.location});
+
+      }
+
+      if ((data.event == 'eventmapplaceunselect') && activeEventUid) {
+
+        return onResponse({uid: activeEventUid});
 
       }
 
@@ -163,7 +175,7 @@
 
   _monitorScroll = function(tunnel, element) {
 
-    if (eventOpen) return;
+    if (activeEventUid) return;
 
     listPos = _scrollPosition();
 

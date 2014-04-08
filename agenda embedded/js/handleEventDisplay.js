@@ -27,7 +27,8 @@ function handleEventDisplay(eventUid, options) {
     timeout: 10000,
     iconRoot: 'images/',
     labels: options.labels,
-    tiles: false
+    tiles: false,
+    events: {}
   }, options);
 
   var _run = function() {
@@ -61,6 +62,7 @@ function handleEventDisplay(eventUid, options) {
         culture: options.culture,
         cultureLabels: options.cultureLabels,
         oembedUrl: options.oembedUrl,
+        events: options.events,
         templates: {
           month: options.templates.month,
           date: options.templates.date

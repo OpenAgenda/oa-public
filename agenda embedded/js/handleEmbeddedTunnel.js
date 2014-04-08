@@ -9,7 +9,9 @@ var handleEmbeddedTunnel = function(params){
       heightChange: 'embedheightchange',
       openEventSuccess: 'eventopensuccess',
       load: 'load',
-      closeEvent: 'closeevent'
+      closeEvent: 'closeevent',
+      onDateLocationSelection: 'eventdateplaceselect',
+      onDateLocationSelectionCancel: 'eventmapplaceunselect'
     }
   }, params);
 
@@ -78,6 +80,18 @@ var handleEmbeddedTunnel = function(params){
 
     });
 
+    eh.on(params.events.onDateLocationSelection, function(data) {
+
+      tunnel.send({ location: data, event: params.events.onDateLocationSelection });
+
+    });
+
+    eh.on(params.events.onDateLocationSelectionCancel, function(data) {
+
+      tunnel.send({ location: data, event: params.events.onDateLocationSelectionCancel });
+
+    });
+
     eh.trigger(params.events.heightChange);
 
     tunnel.send({ event: params.events.loadSuccess });
@@ -91,13 +105,13 @@ var handleEmbeddedTunnel = function(params){
 
   _handleTunnelReceive =  function(data) {
 
-    for (var key in data) 
+    for (var key in data)
       if (data[key]=='null') data[key] = null;
 
-    if (data.event) 
-      if (data.event == params.events.nextPageRequest) 
+    if (data.event)
+      if (data.event == params.events.nextPageRequest)
         eh.trigger(params.events.nextPageRequest);
-      else if (data.event == params.events.load) 
+      else if (data.event == params.events.load)
         eh.trigger(params.events.load, data);
 
   };

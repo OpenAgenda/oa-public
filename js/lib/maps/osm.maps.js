@@ -148,6 +148,10 @@ maps.register('osm', (function(){
 
     fitBounds: function(map, bounds) {
 
+      // this only works if map is not in display none
+      
+      if (!map.getSize().x) return;
+
       map.fitBounds(bounds);
       
     },
@@ -165,6 +169,8 @@ maps.register('osm', (function(){
     },
 
     createPopup: function(map, content, options) {
+
+      if (!map.getSize().x) return;
 
       options = extend({
         marker: false
