@@ -13,6 +13,7 @@
       tiles: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
       onBoundsChangeCallback: false,
       zooming: false,
+      sendCount: 0, // loosely keep track of sent queries not yet received back.
       labels: {
         fr: {
           mapSync: 'rechercher quand je déplace la carte',
@@ -101,6 +102,7 @@
 
         if (!reqParams.location) this.selectedLocation = false;
 
+        // widget has active selection on bounds, its not set in received params
         if (!reqParams.neLat && this.selectedBounds) {
 
           this.selectedBounds = false;
@@ -109,6 +111,7 @@
 
         }
 
+        // received params have bounds defined but not map widget
         if (reqParams.neLat && !this.selectedBounds) {
 
           this.selectedBounds = { neLat: reqParams.neLat, neLng: reqParams.neLng, swLat: reqParams.swLat, swLng: reqParams.swLng };
@@ -125,6 +128,8 @@
           this.popup = this.m.createPopup(this.map, new EJS({ text: this.templates.popup }).render(extend({labels: this.labels[this.lang]}, this.selectedLocation)), { marker: this.selectedLocation.marker });
 
         }
+
+        if (this.sendCount) this.sendCount--;
 
       },
 
@@ -197,7 +202,15 @@
 
         this.selectedBounds = this.getBoundParams(bounds);
 
-        this._select(extend({location: null}, this.selectedBounds));
+        this.select(extend({location: null}, this.selectedBounds));
+
+      },
+
+      select: function(params) {
+
+        this.sendCount++;
+
+        this._select(params);
 
       },
 
@@ -207,6 +220,8 @@
        */
       
       updateBounds: function(reqParams) {
+
+        if (this.sendCount > 0) return;
 
         if (!reqParams.neLat) return;
 
@@ -325,23 +340,11 @@
 
           self.m.setOnBoundsChangeEnd(map, function() {
 
-            if (self.zooming) return;
+            // temporize, you might get two in a row
 
-            self.zooming = true;
+            if (self.enabled && self.auto && !self.selectedLocation) self.selectBounds();
 
-            setTimeout(function() {
-
-              // temporize, you might get two in a row
-
-              if (self.enabled && self.auto && !self.selectedLocation) self.selectBounds();
-
-              if (self.onBoundsChangeCallback) self.onBoundsChangeCallback(self.getBoundParams());
-
-              self.zooming = false;
-
-            }, 500);
-
-            
+            if (self.onBoundsChangeCallback) self.onBoundsChangeCallback(self.getBoundParams());
 
           });
 
@@ -451,7 +454,7 @@
 
           self.deactivateSync();
 
-          self._select({location: location.slug, neLat: null, neLng: null, swLat: null, swLng: null});
+          self.select({location: location.slug, neLat: null, neLng: null, swLat: null, swLng: null});
 
         });
       },
@@ -525,7 +528,7 @@
 
           } else {
 
-            self._select({neLat: null, neLng: null, swLat: null, swLng: null, location: null});
+            self.select({neLat: null, neLng: null, swLat: null, swLng: null, location: null});
 
           }
 
