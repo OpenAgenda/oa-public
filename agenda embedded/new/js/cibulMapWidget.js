@@ -12,6 +12,7 @@
       popup: false,
       tiles: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
       onBoundsChangeCallback: false,
+      zooming: false,
       labels: {
         fr: {
           mapSync: 'rechercher quand je déplace la carte',
@@ -38,8 +39,8 @@
         popup: '<div class="map-location"><% if (typeof count !== \'undefined\') { %><span class="count"><span><%= count %></span><label> <%= count==1?labels.events.replace(\'s\', \'\'):labels.events %></label></span><% } %><% if (typeof image !== \'undefined\') { %><img src="<%= image %>"/><% } %><span><p><%= placename %></p><span><%= address %></span></span></div>'
       },
       defaultStyle: [
-        '.cibulMap { min-height: 300px; width: 100%; }',
-        '.cibulMap .map-canvas { height: 100%; }',
+        '.cibulMap { width: 100%; }',
+        '.cibulMap .map-canvas { min-height: 300px; 100%; }',
         '.cibulMap .map-sync { text-align: right; }',
         '.cibulMap .map-sync > * { vertical-align: middle; }',
         '.cibulMap .map-location .count { display: block; }',
@@ -323,9 +324,23 @@
 
           self.m.setOnBoundsChangeEnd(map, function() {
 
-            if (self.enabled && self.auto && !self.selectedLocation) self.selectBounds();
+            if (self.zooming) return;
 
-            if (self.onBoundsChangeCallback) self.onBoundsChangeCallback(self.getBoundParams());
+            self.zooming = true;
+
+            setTimeout(function() {
+
+              // temporize, you might get two in a row
+
+              if (self.enabled && self.auto && !self.selectedLocation) self.selectBounds();
+
+              if (self.onBoundsChangeCallback) self.onBoundsChangeCallback(self.getBoundParams());
+
+              self.zooming = false;
+
+            }, 500);
+
+            
 
           });
 
