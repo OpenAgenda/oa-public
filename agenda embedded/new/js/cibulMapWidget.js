@@ -198,11 +198,15 @@
        * use map bounds as filter
        */
       
-      selectBounds: function(bounds) {
+      selectBounds: function(bounds, updateMap) {
+
+        if (typeof updateMap == 'undefined') updateMap = false;
 
         this.selectedBounds = this.getBoundParams(bounds);
 
         this.select(extend({location: null}, this.selectedBounds));
+
+        if (updateMap) this.m.fitBounds(this.map, bounds);
 
       },
 
@@ -444,7 +448,7 @@
 
           var neighborhoodBounds = self.getNeighborBounds(location);
 
-          if (neighborhoodBounds) return self.selectBounds(neighborhoodBounds);
+          if (neighborhoodBounds) return self.selectBounds(neighborhoodBounds, true);
 
           // there are no neighbords. select location as new filter
 
