@@ -20,7 +20,8 @@ var inputWidget = {
       label: false,
       validator: false,
       enabled: true,
-      classes: { info: 'info', error: 'error', disabled: 'disabled' }
+      classes: { info: 'info', error: 'error', disabled: 'disabled' },
+      filteredChars: {}
     }, (typeof params == 'undefined')?{}:params);
 
     this._createElements();
@@ -37,7 +38,7 @@ var inputWidget = {
 
         self._onValidationChange(err);
 
-      }
+      };
 
     }
 
@@ -47,13 +48,13 @@ var inputWidget = {
 
     if (params.canvas) {
 
-      if (typeof params.canvas == 'string') params.canvas = getElementsByClassName(params.canvas)[0];
+      if (typeof params.canvas == 'string') params.canvas = el(params.canvas);
 
       forEach(this.elems, function(elem) {
         params.canvas.insertAdjacentElement(params.where, elem);
       });
 
-    };
+    }
 
     return {
       enable: function() {
@@ -90,7 +91,7 @@ var inputWidget = {
       getElements: function() {
         return self.getElements();
       }
-    }
+    };
 
   },
 
@@ -102,7 +103,7 @@ var inputWidget = {
 
     var child;
 
-    while (child = this.elems.pop()) 
+    while (child = this.elems.pop())
       if (child.parentNode)
         child.parentNode.removeChild(child);
 

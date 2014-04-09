@@ -21,7 +21,19 @@ var inputController = {
       events: 'change',
       value: false,
       enabled: true,
+      filteredChars: {},
     }, typeof params == 'undefined'?{}:params);
+
+    // get array of chars to be filtered
+
+    this.filteredCharsKeys = [];
+
+    if (Object.size(this.params.filteredChars)) {
+
+      for (var key in this.params.filteredChars)
+        this.filteredCharsKeys.push(key);
+
+    }
 
     this._eventify();
 
@@ -34,20 +46,61 @@ var inputController = {
   },
   _setValue: function(newValue) {
 
-    if (!this.validate(newValue)) return;
+    var filteredValue = this._filter(newValue);
 
-    if (this.params.onUpdate) this.params.onUpdate(newValue, this.params.name);
+    if (filteredValue !== newValue) this._write(this.elems, filteredValue);
+
+    if (!this.validate(filteredValue)) return;
+
+    if (this.params.onUpdate) this.params.onUpdate(filteredValue, this.params.name);
 
   },
   _eventify: function() {
 
     var self = this;
 
+    // remove characters to be filtered as they are typed... 
+    
+    if (this.filteredCharsKeys.length) forEach(this.elems, function(widgetElement) {
+
+      addEvent(widgetElement, 'keyup', function() {
+
+        widgetElement.value = self._filter(widgetElement.value, true);
+
+      });
+
+    });
+    
+
     forEach(this.elems, function(widgetElement) {
       addEvent(widgetElement, self.params.events, function() {
+
         self._readDom();
+
       });
     });
+
+  },
+  _filter: function(value, lastCharOnly) {
+
+    if (!this.filteredCharsKeys.length) return value;
+
+    if (typeof lastCharOnly == 'undefined') lastCharOnly = false;
+
+    if (lastCharOnly) {
+
+      if (contains(this.filteredCharsKeys, value.substr(value.length-1,1)))
+        value = value.substr(0,value.length-1) + this.params.filteredChars[value.substr(value.length-1,1)];
+
+    } else {
+
+      for (var i = value.length - 1; i >= 0; i--)
+        if (contains(this.filteredCharsKeys, value.substr(i,1)))
+          value = value.substr(0, i) + this.params.filteredChars[value.substr(i,1)] + value.substr(i+1);
+
+    }
+
+    return value;
 
   },
   _readDom: function() {

@@ -27,6 +27,12 @@ var cibulEventDescription = function(params) {
       freeText: { label: 'Free Text', info: 'Type in anything you want' },
       remaining: '%count% characters left'
     },
+    filteredChars: {
+      description: { '\n' : ' ' },
+      title: {},
+      freeText: {},
+      tags: {';' : ','}
+    },
     selectors: {
       languageSelector: '.js_language_select',
       languageAddMenu: '.js_language_add'
@@ -165,6 +171,7 @@ var cibulEventDescription = function(params) {
           name: field.name,
           canvas: li,
           info: params.labels[field.name].info,
+          filteredChars: params.filteredChars[field.name]
         };
 
         if (field.rows) widgetParams.rows = field.rows;
