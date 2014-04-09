@@ -199,7 +199,11 @@
 
   _repositionToListOffset = function() {
 
-    if (listPos) _scrollPosition(listPos);
+    var offsetPos = listPos;
+
+    setTimeout(function() {
+      if (offsetPos) _scrollPosition(offsetPos);
+    },200);
 
   },
 
