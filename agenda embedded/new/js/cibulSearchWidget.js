@@ -139,6 +139,10 @@
 
           return;
 
+        } else {
+
+          if (typeof this.sIndex[name].id !== id) this.sIndex[name].id = undefined;
+
         }
 
         if (this.sIndex[name].ne[0] < coords[0]) this.sIndex[name].ne[0] = coords[0] + this.offset;
