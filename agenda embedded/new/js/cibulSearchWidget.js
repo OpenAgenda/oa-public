@@ -95,7 +95,13 @@
 
               this.index(location.p, location, l);
 
+              this.index(location.pc, location);
+
               this.index(location.ct, location);
+
+              this.index(location.rg, location);
+
+              this.index(location.dp, location);
 
             }
 
