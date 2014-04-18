@@ -290,6 +290,12 @@ files = {
     [paths.pa, 'handleAdminEventList.js']
   ],
 
+  'review/adminDataviz.min.js': [
+    [paths.lib, 'common/common.js', 'loadJs/loadJs.js'],
+    [paths.vd, 'ejs/src/ejs_production.js'],
+    [paths.pa, 'handleAdminDataViz.js']
+  ],
+
   'review/search.min.js': [
     [paths.lib,
       'common/common.js', 'EventHandler/EventHandler.js',
@@ -505,7 +511,6 @@ files = {
   'review/addTagMenu.min.js': [[paths.lg, 'addTagMenu.min.js']],
   'review/embedWidget.min.js': [[paths.lg, 'embedWidget.min.js']]
 
-  // menu, map, cibulEmbed.
 };
 
 exports.files = files;
