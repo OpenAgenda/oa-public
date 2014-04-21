@@ -38,6 +38,20 @@ var handleAdminDataViz = function(options) {
 
   run = function() {
 
+    // here everything is stacked up
+    // an element could be calculated, then graphed,
+    // following a config store
+    
+
+    // a module for handling the agenda data like this and that
+    // a module for rendering the data on a page following a configuration
+    // a module for reading agenda config and handling the menus
+    // 
+    // browserify can compile that shit and get it ready
+    // 
+    // everytime it is saved.
+    
+
     /*_writeTotalPublished();
 
     _writeTotalPublishedDates();*/

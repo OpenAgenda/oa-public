@@ -4,41 +4,185 @@
   min-height: 100%; 
 }
 
+.front h1, 
+.front h2, 
+.front h3, 
+.front p,
+header button {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.front .pricing,
+.front strong {
+  color: #11bed4;
+}
+
+.front h1 { 
+  font-weight: 300; 
+  letter-spacing: -1px;
+}
+.front h2 {
+  font-weight: 300; 
+  font-size: 2.6em;
+  letter-spacing: -1px;
+}
+.front h3 {
+  font-size: 2.2em;
+  text-align: left;
+}
+.front .pricing {
+  font-size: 1.8em;
+  text-align: left;
+  display: block;
+  padding: 0 0 1em;
+}
+
+.front p {
+  font-size: 1.4em;
+}
+
+.front .offers .features li {
+  clear: both;
+  font-size: 1.2em;
+}
+.front .offers .features li * {
+  font-size: 1em;
+  padding-bottom: 0.5em;
+}
+.front .offers .features li i {
+  padding-right: 0.5em;
+  float: left;
+}
+.front .offers .features li span {
+  padding-left: 2em;
+  display: block;
+}
+.front .offers .features strong {
+  font-size: 1.3em;
+  padding: 1em 0 0.2em;
+  display: block;
+}
+
+.front .colored-verylight {
+  background-color: #fafafa;
+}
+
+.front .colored-light {
+  background-color: #efefef;
+}
+
+.front .colored-dark {
+  background-color: #333;
+}
+
+.front .colored-dark * {
+  color: #ccc;
+}
+
+.front .colored-dark .content > h2 {
+  color: #ccc;
+}
+
+.front .colored li {
+  color: #eee;
+}
+
+@media all and (max-width: 980px) {
+
+  .front .offers p {
+    font-size: 1.2em;
+  }
+
+}
+
 .front .content {
   text-align: left;
   margin: 0 auto; 
-  padding: 3em 0; 
+  padding: 4em 0 0; 
   clear: both;
   max-width: 980px;
 }
 
+.front .content > h2 { 
+  color: #666;
+}
+
 .front .button { margin-right: 1em; }
-
-
-.front header { background: rgb(244, 244, 244); }
 
 .front section { padding: 0 2em; }
 
-.front header .content { max-width: 1200px; padding: 3em 2em; }
+.front header {
+  min-height: 500px;
+  background: url("../images/background.png") center top;
+  background-size: cover;
+}
 
-.front header .title { font-size: 3em; }
+.front header .content {
+  max-width: 1200px;
+  padding: 3em 2em;
+  z-index: 2;
+  text-align: right; 
+}
 
-.front .subtitle { font-size: 1.5em; padding: 0 1em 1em 0; }
+.front header .desc {
+  text-align: left;
+  max-width: 550px;
+}
 
-.front .right .subtitle { padding: 0 0 1em 0; }
+.front header .desc h1 {
+  color: white;
+  padding: 1em;
+  background: rgb(100,100,100);
+  background-color: rgba(0,0,0,0.5);
+}
 
-.front section .title { font-size: 2.5em; }
+.front header .title {
+  font-size: 3em;
+}
 
-.front .desc { padding: 4em 0; display: inline-block; vertical-align: middle; }
+.front header button {
+  margin: 3em 0;
+  background: #11bed4;
+  border: none;
+  color: white;
+  font-size: 1.4em;
+  border-radius: 0;
+  padding: 1em;
+  float: right;
+}
 
-.front .right { text-align: right; }
+.front section .title {
+  font-size: 2.5em;
+}
 
-.front .desc .desc-content { padding: 0 4em 0 0; }
-.front .desc.right .desc-content { padding: 0 0 0 4em; text-align: left; }
+.front .desc {
+  padding: 2em 0;
+  display: inline-block;
+  vertical-align: middle;
+}
 
-.front .ill { vertical-align: middle; display: inline-block; }
-.front .ill img { max-width: 400px; width: 100%; }
+.front .right {
+  text-align: right;
+}
 
+.front .desc .desc-content {
+  padding: 0 4em 0 0;
+}
+
+.front .desc.right .desc-content {
+  padding: 0 0 0 4em;
+  text-align: left;
+}
+
+.front .ill {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.front .ill img {
+  max-width: 400px;
+  width: 100%;
+}
 
 .front .w100 { width: 100%; }
 .front .w75 { width: 75%; }
@@ -53,45 +197,298 @@
 .front .w25 { width: 25%; display: inline-block; }
 .front .pr3 { padding-right: 3%; }
 
-.front .offer {
-  display: block;
-  margin: 1em 0 0.5em 0;
-  color: #999;
-  font-size: 2em;
+
+.front .page-menu {
+  padding: 2em 0;
 }
 
-.front .offer-main {
-  padding: 3em 0 4em;
+.front .page-menu li {
+  display: inline;
 }
 
-.front .offer-main > div {
+.front .page-menu a {
+  color: #11bed4;
+  font-size: 1.2em;
+  padding-right: 2em;
+}
+
+
+.front .desc .offers {
+  padding: 0;
+}
+
+.front .desc .offers h2 {
+  text-align: left;
+  padding: 0 0 0.5em 0;
+}
+
+.front .offers > li {
+  display: inline-block;
+  width: 33%;
+  text-align: center;
   vertical-align: top;
+  clear: both;
 }
 
-.front .offer-main i {
-  font-size: 1.8em;
-  vertical-align: middle;
-  padding-right: 0.3em;
+.offers .offer-item {
+  position: relative;
+  margin: auto;
+  display: block;
 }
 
-.front .offer-main i img { width: 1.6em; width: 1.6em; vertical-align: top; padding-top: 0.3em; }
+.offers li:first-child .offer-item {
+  margin: 0 auto 0 0;
+}
 
-.front .offer-main .title { font-size: 1em; }
+.offers li:last-child .offer-item {
+  margin: 0 0 0 auto;
+}
 
-.front .offer-main h2 { display: inline-block; vertical-align: middle; padding: 0.3em 0; }
+.front .offers li img,
+.front .offers li .cover {
+  height: 100%;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+}
+
+.front .offers li .cover {
+  width: 100%;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.offers .offer-middle {
+  height: 100%;
+  width: 100%;
+  overflow: hidden; 
+  position: relative;
+}
+.offers .offer-middle[id] {
+  display: table; 
+  position: static;
+}
+
+.offers .offer-middle .offer-title {
+  position: absolute; 
+  top: 50%;
+} /* for quirk explorer only*/
+
+.offers .offer-middle .offer-title[id] {
+  display: table-cell; 
+  vertical-align: middle; 
+  width: 100%; 
+  position: static;
+}
+
+.offers .offer-middle h3 { 
+  text-align: center; 
+  position: relative; 
+  top: -50%;
+  color: white;
+}
+
+.offers .offer-desc { 
+  text-align: left; 
+}
+.offers .offer-desc p {
+  padding: 1em 0 0 0;
+}
+.offers .offer-desc li {
+  display: block;
+}
+
+.offers .offer-canvas,
+.offers .offer-desc {
+  width: 280px;
+}
+.offers .offer-canvas { height: 280px; }
+
+@media all and (max-width: 980px) {
+  .offers .offer-canvas { width: 240px; height: 240px; }
+}
+
+@media all and (max-width: 850px) {
+  .front .offers li {
+    display: block;
+    width: auto;
+  }
+
+  .offers li .offer-canvas, 
+  .offers li:first-child .offer-canvas, 
+  .offers li:last-child .offer-canvas { 
+    float: left;
+    margin-bottom: 4em; 
+  }
+
+  .offers li .offer-desc {
+    display: block;
+    padding-left: 300px;
+    width: auto; 
+  }
+
+  .offers li .offer-desc p {
+    padding: 4em 0;
+  }
+}
+
+@media all and (max-width: 600px) {
+
+  .offers .offer-canvas,
+  .offers .offer-desc { width: 280px; }
+  .offers .offer-canvas { height: 280px; }
+
+  .offers li .offer-canvas, 
+  .offers li:first-child .offer-canvas, 
+  .offers li:last-child .offer-canvas { 
+    float: none; 
+    margin: 2em auto 0;
+  }
+  .offers li .offer-desc {
+    padding-left: 0;
+  }
+}
 
 
-.front footer .content { text-align: center; }
-.front footer li { display: inline-block; padding: 0 1em; vertical-align: middle; }
-.front footer i { font-size: 1.8em; }
+.front .testimonial {
+  max-width: 650px;
+  padding: 1em 0;
+}
+
+.front .testimonial .avatar {
+  float: left;
+  padding-top: 5px;
+}
+
+.front .testimonial .avatar img {
+  border-radius: 50%;
+}
+
+.front .testimonial p {
+  font-size: 1.1em;
+  font-style: italic;
+  margin-left: 50px;
+}
+
+.front .testimonial span {
+  margin-left: 50px;
+  color: #999;
+}
+
+.front .references {
+  padding: 0 0 2em;
+}
 
 .front .references li {
   display: inline-block;
   vertical-align: middle; 
   padding: 0 20px 20px 0; 
-  width: 110px; 
+  width: 180px;
 }
-.front .references img { width: 100%; }
+.front .references img { 
+  width: 100%; 
+}
+
+.front .offers .offer-desc {
+  padding-bottom: 2em;
+}
+
+.front .offers .offer-desc .name {
+  font-size: 1.4em;
+  display: block;
+}
+
+.front .offers .offer-desc .telephone {
+  display: block;
+}
+
+.front .offers .offer-desc h4 {
+  font-size: 1em;
+  text-align: left;
+  padding-bottom: 0.5em;
+}
+
+.front .offers .offer-desc .big-social-links li {
+  display: inline-block;
+  padding-right: 1em;
+}
+
+.front .offers .offer-desc .big-social-links li i {
+  font-size: 2em;
+}
+
+.front .offers .offer-desc p {
+  margin: 0;
+}
+
+.front .offers .offer-desc a {
+  font-size: 1em;
+}
+
+.front .team-member, 
+.front .newsletter,
+.front .api {
+  padding-bottom: 2em;
+  margin: 0;
+}
+
+.front .newsletter form {
+  background: #11bed4;
+  display: inline-block;
+}
+
+.front .newsletter button {
+  background: none;
+  color: white;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  padding: 1em 0;
+}
+
+.front .newsletter label { display: none; }
+
+.front .newsletter button i {
+  color: white;
+  font-size: 1.4em;
+  padding: 1em 1.3em;
+}
+
+.front .newsletter input {
+  padding: 1em;
+  font-size: 1.2em;
+  vertical-align: middle;
+}
+
+.front .team-member i {
+  padding-right: 0.4em;
+}
+
+.front .team-member .name,
+.front .team-member .title,
+.front .team-member .email,
+.front .team-member .telephone {
+  display: block;
+}
+
+
+.front .team-member .title {
+  font-size: 1.2em;
+}
+
+.front .offers .offer-desc.api span {
+  font-size: 1.2em;
+}
+
+.front footer .content {
+  text-align: center;
+}
+.front footer li {
+  display: inline-block;
+  padding: 0 1em;
+  vertical-align: middle;
+}
+.front footer i { font-size: 1.8em; }
+
 
 @media all and (max-width: 800px) { 
   .front .desc { padding: 4em 0; }
@@ -102,25 +499,52 @@
 
 @media all and (max-width: 640px) {
 
-  .front .desc { display: block; width: auto; padding: 1em 0 0 0; }
+  .front .desc {
+    display: block; 
+    width: auto; 
+    padding: 1em 0 0 0;
+  }
 
-  .front .right { text-align: left; }
+  .front .right {
+    text-align: left;
+  }
 
-  .front .ill { text-align: center; display: block; padding: 2em 0 0 0; width: auto; }
+  .front .ill {
+    text-align: center;
+    display: block;
+    padding: 2em 0 0 0;
+    width: auto; 
+  }
 
-  .front header .desc { padding-top: 0; }
-
-  .front .content { padding-top: 1em; }
+  .front .content {
+    padding-top: 1em;
+  }
+  .front header {
+    min-height: 0;
+  }
+  .front header .desc h1 {
+    font-size: 3.2em;
+  }
 
   .front .desc .desc-content,
-  .front .desc.right .desc-content { padding: 0; }
+  .front .desc.right .desc-content {
+    padding: 0;
+  }
 
-  .front .desc a { margin: 1em 1em 0 0; }
-  .front .desc .url { display: block; }
+  .front .desc .url {
+    display: block;
+  }
 
-  .front .references { text-align: center; }
-  .front .references li { padding: 10px; width: 90px; }
+  .front .references {
+    text-align: center;
+  }
+  .front .references li {
+    padding: 10px;
+    width: 90px;
+  }
 
-  .front .offer { font-size: 1.6em; }
+  .front .offer {
+    font-size: 1.6em;
+  }
 
 }
