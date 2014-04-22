@@ -10,7 +10,7 @@
       name: 'search',
       sSelection: {},
       lang: 'en',
-      offset: 0.01,
+      offset: 0.08, // fixed to include neighboring smaller cities
       labels: {
         fr: {
           search: 'saisissez le nom d\'un lieu ou d\'une ville'

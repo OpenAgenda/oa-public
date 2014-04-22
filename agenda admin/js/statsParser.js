@@ -36,9 +36,6 @@ init = function(ctlData) {
 
       } else {
 
-        console.log(map[attributes[0]]);
-        console.log(map[attributes[1]]);
-
         return processSubsets(ctl.a, map[attributes[0]], map[attributes[1]]);
 
       }
