@@ -9,6 +9,8 @@ var handleSuggestions = function(inputElem, list, key, template, options) {
       onSelect: false,
       onChange: false,
       maxResults: 10,
+      filter: false,
+      invalidClass: 'invalid',
       match: 'loose', // either loose or direct - anything else is considered as loose
     }, options);
 
@@ -25,6 +27,8 @@ var handleSuggestions = function(inputElem, list, key, template, options) {
     // provide and show shortlist based on input value
     addEvent(inputElem, 'keyup', function(e){
 
+      removeClass(inputElem, options.invalidClass);
+
       if (e.keyCode==13) if (possibles.length) return _select(possibles[0]);
 
       if (options.onChange) options.onChange(inputElem.value);
@@ -32,6 +36,9 @@ var handleSuggestions = function(inputElem, list, key, template, options) {
       possibles = _shortlist(inputElem.value, list, key);
 
       if (possibles.length === 0 || possibles.length > options.maxResults) {
+
+        if (!possibles.length) addClass(inputElem, options.invalidClass);
+
         contextMenu.hide();
         return;
       }
@@ -75,7 +82,9 @@ var handleSuggestions = function(inputElem, list, key, template, options) {
     selection = [];
 
     forEach(list, function(listItem) {
-      if (listItem[key].toLowerCase().match(regex)) selection.push(listItem);
+
+      if (listItem[key].match(regex)) selection.push(listItem);
+
     });
 
     return selection;
@@ -86,13 +95,17 @@ var handleSuggestions = function(inputElem, list, key, template, options) {
 
     var regex = '';
 
+    var clean = value.toLowerCase();
+
+    if (options.filter) clean = options.filter(clean);
+
     if (options.match == 'direct') {
 
-      regex = value.toLowerCase();
+      regex = clean.toLowerCase();
 
     } else {
 
-      forEach (value.toLowerCase(), function(c) {
+      forEach (clean.toLowerCase(), function(c) {
         regex += '.*' + c;
       });
 
