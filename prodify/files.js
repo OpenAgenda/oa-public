@@ -293,9 +293,7 @@ files = {
   ],
 
   'review/adminDataviz.min.js': [
-    [paths.lib, 'common/common.js', 'loadJs/loadJs.js'],
-    [paths.vd, 'ejs/src/ejs_production.js'],
-    [paths.pa, 'handleAdminDataViz.js']
+    [paths.pa, 'dataViz.bundle.js']
   ],
 
   'review/search.min.js': [

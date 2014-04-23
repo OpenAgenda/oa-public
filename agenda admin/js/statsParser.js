@@ -68,7 +68,7 @@ categoryLib = {
 
   extract: function(article) {
 
-    if (typeof article.c == 'undefined') return [];
+    if (typeof article.c == 'undefined') return [params.labels.unset];
 
     var labels = categoryLib.labels();
 
@@ -95,7 +95,7 @@ tagLib = {
 
   extract: function(article) {
 
-    if (typeof article.t == 'undefined') return [];
+    if (typeof article.t == 'undefined') return [params.labels.unset];
 
     var labels = tagLib.labels(), tagLabels = [];
 
@@ -193,6 +193,14 @@ locationLib = {
     var values = [];
 
     locationLib.loopArticleLocations(article, function(location) {
+
+      if (typeof location[key]=='undefined') {
+
+        values.push(params.labels.unset);
+
+        return;
+
+      }
 
       values.push(location[key]);
 
