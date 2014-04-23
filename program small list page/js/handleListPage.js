@@ -45,7 +45,7 @@ var handleListPage = function(params) {
     for (var index in params.templates)
       return index;
 
-  }
+  };
 
   run();
 

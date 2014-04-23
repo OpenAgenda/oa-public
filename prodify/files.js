@@ -210,6 +210,7 @@ files = {
       'handleContextMenu/src/handleContextMenu.js',
       'handleNav/src/handleNav.js',
       'handleLock/src/handleLock.js',
+      'handleAddToAgenda/src/handleAddToAgenda.bundle.js'
     ],
     [paths.el,
       'handleEventList.js',
@@ -248,7 +249,8 @@ files = {
       'sendGetMessage/src/sendGetMessage.js',
       'handleSuggestions/src/handleSuggestions.js',
       'handleCategories/src/handleCategories.js',
-      'handleDisplayButton/src/handleDisplayButton.js'
+      'handleDisplayButton/src/handleDisplayButton.js',
+      'handleAddToAgenda/src/handleAddToAgenda.bundle.js'
     ],
     [paths.p,
       'handleCibulFollow.js',

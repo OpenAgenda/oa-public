@@ -7,8 +7,8 @@ var handleEventList = function(params) {
     debug: false,
     anchor: 'search',
     orders: {
-      relevance: { label: 'pertinence' }, 
-      place: { label: 'lieu' }, 
+      relevance: { label: 'pertinence' },
+      place: { label: 'lieu' },
       date: { label: 'date' }
     },
     defaultOrder: 'relevance',
@@ -16,8 +16,8 @@ var handleEventList = function(params) {
   }, params);
 
   params.labels = extend({
-    order: 'order', 
-    includePast: 'include past events', 
+    order: 'order',
+    includePast: 'include past events',
     excludePast: 'exclude past events',
     filters: 'filters',
     titleFilter: 'title',
@@ -25,7 +25,7 @@ var handleEventList = function(params) {
   }, params.labels?params.labels:{});
 
   params.templates = extend({
-    event: false, 
+    event: false,
     order: '<li class="mlis"><h2><%= values.order %></h2></li>',
     pastLink: '<div class="past-link"><a><i class="icon-time"></i><span><%= includePast %></span></a><a><i class="icon-remove"></i><span><%= excludePast %></span></a>',
     orderSelect: '<div class="js_select order"><i class="icon-sort-by-attributes"></i><span><%= label %>: <span class="js_chosen"></span></div><ul class="order-list js_menu wsq"><% for (index in orders) { %><li data-order="<%= index %>"><%= orders[index].label %></li><% } %></ul>'
@@ -87,7 +87,7 @@ var handleEventList = function(params) {
 
       links[index].style.display = 'block';
 
-    }
+    };
 
     var widget = document.createElement('span');
     widget.innerHTML = new EJS({ text: params.templates.pastLink }).render(params.labels);
@@ -156,7 +156,7 @@ var handleEventList = function(params) {
 
     params.elems.listCanvas.insertAdjacentElement('beforebegin', widget);
 
-  }
+  };
 
   run();
 

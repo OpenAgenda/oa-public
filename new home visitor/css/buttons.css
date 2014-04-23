@@ -1,0 +1,47 @@
+button, .button { 
+  display: inline-block;
+  padding: 4px 6px 6px;
+  border-color: #cccccc #cccccc #bbbbbb;
+  border-width: 1px;
+  border-style: solid;
+  background: #f5f5f5; /* old browsers */
+  background: -moz-linear-gradient(top, #FFFFFF 0%, #E8E8E8 80%, #E2E2E2 100%); /* firefox */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(80%,#E8E8E8), color-stop(100%,#E2E2E2)); 
+  cursor: pointer;
+  -moz-border-radius: 4px; 
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.big { font-size: 1.1em; padding: 5px 10px; }
+.small { padding: 1px 4px; }
+
+button > span,
+.button > span {
+  padding: 0 0 0 5px;
+}
+
+button i,
+.button i {
+  vertical-align: middle!important;
+}
+
+.small i {
+  vertical-align: baseline!important;
+}
+
+button:hover, .cform .button:hover { border-color: #999; }
+
+.green {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #5bb75b;
+  background-image: -moz-linear-gradient(top, #62c462, #3CAD2D);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#3CAD2D));
+  background-image: -webkit-linear-gradient(top, #62c462, #3CAD2D);
+  background-image: -o-linear-gradient(top, #62c462, #3CAD2D);
+  background-image: linear-gradient(to bottom, #62c462, #3CAD2D);
+  background-repeat: repeat-x;
+  border-color: #51a351 #3CAD2D #387038;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}

@@ -1,4 +1,3 @@
-/* handleList v0.3 */
 var handleList = function(elem, eventHandler, options) {
 
   var lockElt,
@@ -24,10 +23,25 @@ var handleList = function(elem, eventHandler, options) {
     filter: false,
     itemFilter: false, // function passed to items as they are received
     listOffset: 150,
-    triggerScroll: true,
-    triggerEvents: { load: 'load', loadPrevious: 'loadPrevious', loadNext: 'loadNext', getParams: 'getlistparams' },
-    triggeredEvents: {loading: 'lhLoading', complete: 'lhComplete', success:'lhSuccess', fail: 'lhFail', lock: 'lock', unlock: 'unlock'}
+    triggerScroll: true
   }, options);
+
+  options.triggerEvents = extend({
+    load: 'load',
+    loadPrevious: 'loadPrevious',
+    loadNext: 'loadNext',
+    getParams: 'getlistparams'
+  }, options.triggerEvents?options.triggerEvents:{});
+
+  options.triggeredEvents = extend({
+    loading: 'lhLoading',
+    complete: 'lhComplete',
+    success:'lhSuccess',
+    fail: 'lhFail',
+    lock: 'lock',
+    unlock: 'unlock',
+    itemReady: 'listItemReady'
+  }, options.triggeredEvents?options.triggeredEvents:{});
 
 
   var init = function(){
@@ -198,13 +212,15 @@ var handleList = function(elem, eventHandler, options) {
         element.innerHTML = templates[value.template].render(value);
         element = element.firstChild;
 
-        if (options.scripts && options.scripts[value.template]) options.scripts[value.template](element);
+        if (options.scripts && options.scripts[value.template]) options.scripts[value.template](element, value);
 
         if (!followingSibling) {
           elem.appendChild(element);
         } else {
           elem.insertBefore(element, followingSibling);
         }
+
+        eventHandler.trigger(options.triggeredEvents.itemReady, {element: element, data: value});
 
       });
 
@@ -259,7 +275,7 @@ var programParamFilter = function(params) {
     location: null
   };
 
-  for (name in params) {
+  for (var name in params) {
 
     if (contains(['from', 'to'], name)) {
 
@@ -278,4 +294,4 @@ var programParamFilter = function(params) {
   }
 
   return params;
-}
+};
