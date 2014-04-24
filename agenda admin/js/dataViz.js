@@ -4,21 +4,11 @@ remote = require('../../js/lib/remote/remote.mod.js'),
 
 loadJs = require('../../js/lib/loadJs/loadJs.mod.js'),
 
-statsParser = require('./statsParser.js'),
+dataWidgetMaker = require('./dataWidgetMaker.js');
 
 ejs = require('ejs'),
 
-parser, // used for churning the agenda control data
-
 params = {
-  canvas: false,
-  ctl: false,
-  templates: {
-    totalPublished: '<span><%= data %></span>',
-    totalDatesPublished: '<span><%= data %></span>',
-    totalPublishedBy: '<ul class="<%= classes.datavizList %>"><% for (var i in data) { %><li><label><%= data[i].label %></label><span><%= data[i].count %></span></li><% } %></ul>',
-    totalPublishedByBy: '<ul class="<%= classes.datavizTopList %>"><% for (var i in data) { %><li><label><%= i %></label><ul class="<%= classes.datavizList %>"><% for (var j in data[i]) { %><li><label><%= data[i][j].label %></label><span><%= data[i][j].count %></span></li><% }%></ul></li><% } %>'
-  },
   labels: {
     totalPublished: 'Total published events',
     totalDatesPublished: 'Total published dates',
@@ -30,14 +20,12 @@ params = {
     totalPublishedByDay: 'Total published by day',
     totalPublishedByCategoryAndRegion: 'Total published by category and region',
     totalPublishedByCategoriesAndTags: 'Total published by category and tags',
-    unset: 'Unset',
-    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   },
-  classes: {
-    section: 'dataviz-section',
-    datavizList: 'dataviz-list',
-    datavizTopList: 'dataviz-top-list',
+  canvas: false,
+  ctl: false,
+  templates: {
+    totalPublished: '<span><%= data %></span>',
+    totalDatesPublished: '<span><%= data %></span>'
   }
 };
 
@@ -58,10 +46,17 @@ window.handleAdminDataViz = function(options) {
       {label: params.labels.totalPublishedByDay, sections: ['day']}
     ];
 
-    parser = statsParser(ctl, params);
+    var widget = dataWidgetMaker(ctl, {
+      w: window, d: document,
+      labels: params.labels,
+      canvas: cn.el(params.canvas)
+    }, function() {
 
-    for (var i = 0; i < config.length; i++)
-      processStat(config[i]);
+      // create a widget for each stat
+      for (var i = 0; i < config.length; i++)
+        widget(config[i]);
+
+    });
 
   });
 
@@ -71,12 +66,17 @@ processStat = function(cfg) {
 
   var data = parser(cfg.sections);
 
-  var statElem = render(cfg.label, data, cfg.sections.length);
+  // make widget
 
-  cn.el(params.canvas).appendChild(statElem);
+  //var statElem = render(cfg.label, data, cfg.sections.length);
+
+  
+
+  //cn.el(params.canvas).appendChild(statElem);
 
 },
 
+/*
 render = function(head, data, depth) {
 
   if (typeof depth == 'undefined') depth = 1;
@@ -99,7 +99,7 @@ render = function(head, data, depth) {
 
   return div;
 
-},
+}, */
 
 loadResources = function(params, callback) {
 
@@ -130,14 +130,6 @@ loadResources = function(params, callback) {
     callback(params.ctl);
 
   }
-
-  /*google.load('visualization', '1.0', {'packages':['corechart']});
-
-  google.setOnLoadCallback(function() {
-
-    attempt();
-
-  });*/
 
   cn.addEvent(window, 'load', function() {
 

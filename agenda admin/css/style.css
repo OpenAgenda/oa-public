@@ -1,4 +1,6 @@
-.dataviz .dataviz-list { padding: 1em 0; }
+.dataviz .dataviz-section { margin-bottom: 3em; }
+.dataviz .dataviz-section a { float: right; }
+.dataviz .dataviz-list { padding: 1em 0; max-width: 400px; }
 .dataviz .dataviz-list li { padding-bottom: 0.5em; }
 .dataviz .dataviz-list li > * { display: inline-block; }
 .dataviz .dataviz-list li label { width: 200px; }

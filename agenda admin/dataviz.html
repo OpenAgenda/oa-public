@@ -8,8 +8,11 @@
   <link rel="stylesheet" type="text/css" href="../css/page structure/page.css">
   <link rel="stylesheet" type="text/css" href="../css/headings.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
-  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <!--<script type="text/javascript" src="//www.google.com/jsapi"></script>-->
   <script type="text/javascript" src="js/dataViz.bundle.js"></script>
+  <style type="text/css">
+    .dataviz-canvas { min-width: 700px;}
+  </style>
 </head>
 <body>
   <div class="cbody center dataviz">
@@ -21,7 +24,25 @@
 
         handleAdminDataViz({
           canvas: '.js_canvas',
-          ctl: 'http://d.cibul.net/frontend_dev.php/la-gargouille/fr'
+          ctl: 'http://d.cibul.net/frontend_dev.php/la-gargouille/fr',
+          labels: {
+            totalPublished: 'Total événements publiés',
+            totalDatesPublished: 'Total dates publiées',
+            totalPublishedByCategories: 'Total catégories publiées',
+            totalPublishedByTags: 'Total par mots clés',
+            totalPublishedByRegion: 'Total par région',
+            totalPublishedByDepartment: 'Total par département',
+            totalPublishedByCity: 'Total par ville',
+            totalPublishedByDay: 'Total par jour',
+            totalPublishedByCategoryAndRegion: 'Total par catégorie et région',
+            totalPublishedByCategoriesAndTags: 'Total par catégorie et mots clés',
+            shortMonths: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'],
+            linkContent: {
+              list: 'voir graphique',
+              chart: 'voir liste'
+            },
+            count: 'total'
+          }
         });
 
       </script>

@@ -88,63 +88,7 @@ var handleAdminDataViz = function(options) {
 
   },
 
-  _renderComboChart = function(title, label, data) {
-
-    var div = document.createElement('div');
-
-    el(params.canvas).appendChild(div);
-
-    var cData = new google.visualization.DataTable();
-
-    cData.addColumn('string', label);
-
-    for (var first in data) break;
-
-    for (var i in data[first]) cData.addColumn('number', i);
-
-    for (i in data) {
-
-      var newRow = [i];
-
-      for (var j in data[i]) newRow.push(data[i][j].count);
-
-      cData.addRow(newRow);
-
-    }
-
-    var chart = new google.visualization.ComboChart(div);
-
-    chart.draw(cData, {
-      title: title,
-      width:'100%',
-      height:300,
-      seriesType: "bars"
-    });
-  },
-
-  _renderChart = function(type, title, countName, itemName, data) {
-
-    var div = document.createElement('div');
-
-    el(params.canvas).appendChild(div);
-    
-    var cData = new google.visualization.DataTable();
-
-    cData.addColumn('string', itemName);
-
-    cData.addColumn('number', countName);
-
-    for (var i in data) {
-      cData.addRow([data[i].label, data[i].count]);
-    }
-
-    // Set chart options
-
-    var chart = new google.visualization[type](div);
-    
-    chart.draw(cData, {title: title, width:'100%', height:300});
-
-  },
+  
 
   _writeTotalPublished = function() {
 

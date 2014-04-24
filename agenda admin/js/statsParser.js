@@ -4,7 +4,7 @@ ctl,
 
 params,
 
-init = function(ctlData) {
+init = function() {
 
   // this creates the parser
 

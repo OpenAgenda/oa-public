@@ -5,21 +5,11 @@ remote = require('../../js/lib/remote/remote.mod.js'),
 
 loadJs = require('../../js/lib/loadJs/loadJs.mod.js'),
 
-statsParser = require('./statsParser.js'),
+dataWidgetMaker = require('./dataWidgetMaker.js');
 
 ejs = require('ejs'),
 
-parser, // used for churning the agenda control data
-
 params = {
-  canvas: false,
-  ctl: false,
-  templates: {
-    totalPublished: '<span><%= data %></span>',
-    totalDatesPublished: '<span><%= data %></span>',
-    totalPublishedBy: '<ul class="<%= classes.datavizList %>"><% for (var i in data) { %><li><label><%= data[i].label %></label><span><%= data[i].count %></span></li><% } %></ul>',
-    totalPublishedByBy: '<ul class="<%= classes.datavizTopList %>"><% for (var i in data) { %><li><label><%= i %></label><ul class="<%= classes.datavizList %>"><% for (var j in data[i]) { %><li><label><%= data[i][j].label %></label><span><%= data[i][j].count %></span></li><% }%></ul></li><% } %>'
-  },
   labels: {
     totalPublished: 'Total published events',
     totalDatesPublished: 'Total published dates',
@@ -31,14 +21,12 @@ params = {
     totalPublishedByDay: 'Total published by day',
     totalPublishedByCategoryAndRegion: 'Total published by category and region',
     totalPublishedByCategoriesAndTags: 'Total published by category and tags',
-    unset: 'Unset',
-    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   },
-  classes: {
-    section: 'dataviz-section',
-    datavizList: 'dataviz-list',
-    datavizTopList: 'dataviz-top-list',
+  canvas: false,
+  ctl: false,
+  templates: {
+    totalPublished: '<span><%= data %></span>',
+    totalDatesPublished: '<span><%= data %></span>'
   }
 };
 
@@ -59,10 +47,17 @@ window.handleAdminDataViz = function(options) {
       {label: params.labels.totalPublishedByDay, sections: ['day']}
     ];
 
-    parser = statsParser(ctl, params);
+    var widget = dataWidgetMaker(ctl, {
+      w: window, d: document,
+      labels: params.labels,
+      canvas: cn.el(params.canvas)
+    }, function() {
 
-    for (var i = 0; i < config.length; i++)
-      processStat(config[i]);
+      // create a widget for each stat
+      for (var i = 0; i < config.length; i++)
+        widget(config[i]);
+
+    });
 
   });
 
@@ -72,12 +67,17 @@ processStat = function(cfg) {
 
   var data = parser(cfg.sections);
 
-  var statElem = render(cfg.label, data, cfg.sections.length);
+  // make widget
 
-  cn.el(params.canvas).appendChild(statElem);
+  //var statElem = render(cfg.label, data, cfg.sections.length);
+
+  
+
+  //cn.el(params.canvas).appendChild(statElem);
 
 },
 
+/*
 render = function(head, data, depth) {
 
   if (typeof depth == 'undefined') depth = 1;
@@ -100,7 +100,7 @@ render = function(head, data, depth) {
 
   return div;
 
-},
+}, */
 
 loadResources = function(params, callback) {
 
@@ -132,14 +132,6 @@ loadResources = function(params, callback) {
 
   }
 
-  /*google.load('visualization', '1.0', {'packages':['corechart']});
-
-  google.setOnLoadCallback(function() {
-
-    attempt();
-
-  });*/
-
   cn.addEvent(window, 'load', function() {
 
     attempt();
@@ -147,7 +139,278 @@ loadResources = function(params, callback) {
   });
 
 };
-},{"../../js/lib/common/common.mod.js":6,"../../js/lib/loadJs/loadJs.mod.js":7,"../../js/lib/remote/remote.mod.js":8,"./statsParser.js":5,"ejs":2}],2:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":8,"../../js/lib/loadJs/loadJs.mod.js":9,"../../js/lib/remote/remote.mod.js":10,"./dataWidgetMaker.js":2,"ejs":4}],2:[function(require,module,exports){
+var cn = require('../../js/lib/common/common.mod.js'),
+
+statsParser = require('./statsParser.js'),
+
+parser,
+
+gChartWrapper = require('./googleChartWrapper.js'),
+
+ejs = require('ejs'),
+
+labels = {
+  unset: 'Unset',
+  months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+  shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  linkContent: {
+    list: 'see chart',
+    chart: 'see list'
+  }
+},
+
+canvas = false, // where the widgets are stacked
+
+params = {
+  w: false, d: false,
+  canvas: false,
+  classes: {
+    section: 'dataviz-section',
+    datavizList: 'dataviz-list',
+    datavizTopList: 'dataviz-top-list',
+  },
+  selectors: {
+    statTargetElem: 'div'
+  },
+  templates: {
+    main: '<a class="url"><%= linkContent %></a><h2><%= label %></h2><div></div>',
+    simple: '<ul class="<%= classes.datavizList %>"><% for (var i in data) { %><li><label><%= data[i].label %></label><span><%= data[i].count %></span></li><% } %></ul>',
+    combo: '<ul class="<%= classes.datavizTopList %>"><% for (var i in data) { %><li><label><%= i %></label><ul class="<%= classes.datavizList %>"><% for (var j in data[i]) { %><li><label><%= data[i][j].label %></label><span><%= data[i][j].count %></span></li><% }%></ul></li><% } %>',
+  }
+};
+
+module.exports = function(ctl, options, callback) {
+
+  cn.extend(labels, options.labels?options.labels:{});
+
+  cn.extend(params, options);
+
+  canvas = params.canvas;
+  
+  parser = statsParser(ctl, {
+    labels: labels
+  });
+
+  gChartMake = gChartWrapper({w: params.w, d: params.d}, callback);
+
+  return createWidget;
+
+};
+
+var createWidget = function(config) {
+
+  var wConfig = cn.extend({
+    display: 'list', // other being chart
+    label: '',
+    sections: false // mandatory
+  }, config),
+
+  display = wConfig.display;
+
+  var wDiv = params.d.createElement('div');
+
+  var wData = parser(config.sections);
+
+  canvas.appendChild(wDiv);
+
+  wDiv.className = params.classes.section;
+
+  setContent(wDiv, wData, display, wConfig);
+},
+
+setContent = function(wCanvas, wData, currentMode, wConfig) {
+
+  clearWidget(wCanvas);
+
+  wCanvas.innerHTML = ejs.render(params.templates.main, {linkContent: labels.linkContent[currentMode], classes: params.classes, label: wConfig.label});
+
+  if (currentMode=='list') {
+
+    renderList(cn.el(wCanvas, params.selectors.statTargetElem), wConfig.label, wData, wConfig.sections.length);
+
+  } else {
+
+    gChartMake(wData, {
+      canvas: cn.el(wCanvas, params.selectors.statTargetElem),
+      depth: wConfig.sections.length,
+      countName: labels.count
+    });
+
+  }
+
+  cn.addEvent(cn.el(wCanvas, 'a'), 'click', function(e) {
+
+    cn.preventDefault(e);
+
+    setContent(wCanvas, wData, currentMode=='list'?'chart':'list', wConfig);
+
+  });
+
+
+},
+
+renderList = function(canvas, label, data, depth) {
+
+  if (typeof depth == 'undefined') depth = 1;
+
+  var template = params.templates.simple;
+
+  if (depth==2) template = params.templates.combo;
+
+  var child;
+
+  canvas.innerHTML = ejs.render(template, cn.extend({labels: params.labels, classes: params.classes}, {data: data}));
+
+},
+
+clearWidget = function(elem) {
+
+  var child;
+
+  while (child = cn.childObject(elem, 0))
+    elem.removeChild(child);
+
+};
+},{"../../js/lib/common/common.mod.js":8,"./googleChartWrapper.js":3,"./statsParser.js":7,"ejs":4}],3:[function(require,module,exports){
+var cn = require('../../js/lib/common/common.mod.js'),
+
+loadJs = require('../../js/lib/loadJs/loadJs.mod.js'),
+
+params = {
+  w: false,
+  d: false,
+},
+
+chartsReady;
+
+module.exports = function(options, callback) {
+
+  cn.extend(params, options);
+
+  chartsReady = callback;
+
+  params.w.googleChartsLoaded = onGoogleChartsLoaded;
+  
+  loadJs('//www.google.com/jsapi?callback=googleChartsLoaded');
+
+  return render;
+
+};
+
+var render = function(data, renderOptions) {
+
+  var rParams = cn.extend({
+    canvas: false,
+    depth: 1,
+    type: 'BarChart',
+    countName: 'total',
+    title: '',
+    label: 'Label'
+  }, renderOptions);
+
+  if (!rParams.canvas) throw new Exception('chart canvas is missing');
+
+  if (rParams.depth == 1) {
+    renderSimple(rParams.canvas, rParams.type, rParams.title, rParams.label, rParams.countName, data);
+  } else {
+    renderCombo(rParams.canvas, 'whatever', rParams.title, rParams.label, data);
+  }
+
+},
+
+onGoogleChartsLoaded = function() {
+
+  google.load('visualization', '1.0', {packages:['corechart'], callback: chartsReady});
+
+},
+
+
+renderCombo = function(canvas, type, title, label, data) {
+
+  // make the canvas
+  var div = params.d.createElement('div');
+
+  canvas.appendChild(div);
+
+  // get col valeus by fetching all sublevel keys
+  var cols = [];
+
+  for (var i in data)
+    for (var j in data[i])
+      if (!cn.contains(cols, j)) cols.push(j);
+
+  cols = cols.sort();
+
+
+  var cData = new google.visualization.DataTable();
+
+  cData.addColumn('string', label);
+
+  for (i = 0; i < cols.length; i++)
+    cData.addColumn('number', cols[i]);
+
+  for (var r in data) {
+
+    var newRow = [r];
+
+    for (i = 0; i < cols.length; i++) {
+
+      var count = 0;
+
+      if (typeof data[r][cols[i]] !== 'undefined') {
+        count = data[r][cols[i]].count;
+      }
+
+      newRow.push(count);
+
+    }
+
+    cData.addRow(newRow);
+
+  }
+
+  var chart = new google.visualization.ComboChart(div);
+
+  chart.draw(cData, {
+    title: title,
+    width:'100%',
+    height:300,
+    seriesType: "bars"
+  });
+},
+
+renderSimple = function(canvas, type, title, label, countName, data) {
+
+  var div = document.createElement('div'),
+
+  unitHeight = 25, offsetHeight = 40;
+
+  canvas.appendChild(div);
+  
+  var cData = new google.visualization.DataTable();
+
+  cData.addColumn('string', label);
+
+  cData.addColumn('number', countName);
+
+  for (var i in data) {
+    cData.addRow([data[i].label, data[i].count]);
+  }
+
+  // Set chart options
+
+  var chart = new google.visualization[type](div);
+  
+  chart.draw(cData, {
+    title: title,
+    width:'100%',
+    height: cn.size(data)*unitHeight + offsetHeight,
+    chartArea: {left:150,top:20,width:"100%"}
+  });
+
+};
+},{"../../js/lib/common/common.mod.js":8,"../../js/lib/loadJs/loadJs.mod.js":9}],4:[function(require,module,exports){
 
 /*!
  * EJS
@@ -511,7 +774,7 @@ if (require.extensions) {
   });
 }
 
-},{"./filters":3,"./utils":4,"fs":9,"path":11}],3:[function(require,module,exports){
+},{"./filters":5,"./utils":6,"fs":11,"path":13}],5:[function(require,module,exports){
 /*!
  * EJS - Filters
  * Copyright(c) 2010 TJ Holowaychuk <tj@vision-media.ca>
@@ -714,7 +977,7 @@ exports.json = function(obj){
   return JSON.stringify(obj);
 };
 
-},{}],4:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 
 /*!
  * EJS
@@ -740,14 +1003,14 @@ exports.escape = function(html){
 };
  
 
-},{}],5:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 ctl,
 
 params,
 
-init = function(ctlData) {
+init = function() {
 
   // this creates the parser
 
@@ -1071,7 +1334,7 @@ createSortGroup = function(articles, extractFunc) {
 };
 
 init();
-},{"../../js/lib/common/common.mod.js":6}],6:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":8}],8:[function(require,module,exports){
 /* Object.size */
 exports.size = function(obj) {
   var size = 0, key;
@@ -1406,7 +1669,7 @@ exports.removeProperty = function(obj, name) {
   return obj.removeAttribute(name);
 
 };
-},{}],7:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 module.exports = function(src, callback){
 
   if (typeof src == 'string') {
@@ -1469,7 +1732,7 @@ module.exports = function(src, callback){
   }
 
 };
-},{}],8:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 // this guy does not include the getStack method
 module.exports = {
   get: function(url, settings, callback, ajax) {
@@ -1669,9 +1932,9 @@ module.exports = {
     return url;
   }
 };
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -1733,7 +1996,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -1961,4 +2224,4 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require("/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":10}]},{},[1])
+},{"/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":12}]},{},[1])
