@@ -404,8 +404,8 @@ button {
 
 
 .front .testimonial {
-  max-width: 650px;
   padding: 1em 0;
+  text-align: justify;
 }
 
 .front .testimonial .avatar {
@@ -420,12 +420,12 @@ button {
 .front .testimonial p {
   font-size: 1.1em;
   font-style: italic;
-  margin-left: 50px;
+  margin-bottom: 0.2em;
 }
 
 .front .testimonial span {
-  margin-left: 50px;
   color: #999;
+  display: block;
 }
 
 .front .references {
