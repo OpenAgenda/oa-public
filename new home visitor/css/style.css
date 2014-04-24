@@ -57,12 +57,15 @@ button {
 }
 
 .front .cover-darker {
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.6);
 }
 
-.front :hover .cover,
-.front :hover .cover-darker {
+.front :hover .cover {
   background: rgba(0,0,0,0.6);
+}
+
+.front :hover .cover-darker {
+  background: rgba(0,0,0,0.7);
 }
 
 .front .offers .features li {
@@ -535,12 +538,15 @@ button {
 
 .front .ill-preview {
   display: block;
-  margin: 2em 0 6em;
+  margin: 3em 0;
   position: relative;
   overflow: hidden;
+  height: 80px;
+  width: 100%;
 }
 
 .front .ill-preview img {
+  margin-top: -34px;
   width: 100%;
   min-width: 800px;
 }
@@ -548,6 +554,7 @@ button {
 .front .ill-preview div {
   display:block;
   width: 100%;
+  height: 100%;
   position: absolute;
   bottom: 0;
 }
@@ -555,25 +562,17 @@ button {
 .front .ill-preview span,
 .front .ill-preview h4 {
   display: block;
-  padding: 0.5em 1em;
+  padding: 0.5em 1em 0;
   color: white;
 }
 
 .front .ill-preview span {
-  float: right;
   font-size: 1.2em;
   line-height: 1.7em;
+  display: block;
 }
 
-.front footer .content {
-  text-align: center;
-}
-.front footer li {
-  display: inline-block;
-  padding: 0 1em;
-  vertical-align: middle;
-}
-.front footer i { font-size: 1.8em; }
+.front .footer { margin-top: 6em; }
 
 
 @media all and (max-width: 800px) { 
