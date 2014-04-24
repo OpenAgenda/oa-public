@@ -6,9 +6,10 @@
 
 .front h1, 
 .front h2, 
-.front h3, 
+.front h3,
+.front h4, 
 .front p,
-header button {
+button {
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -30,6 +31,11 @@ header button {
   font-size: 2.2em;
   text-align: left;
 }
+
+.front h4 {
+  font-size: 1.4em;
+}
+
 .front .pricing {
   font-size: 1.8em;
   text-align: left;
@@ -39,6 +45,24 @@ header button {
 
 .front p {
   font-size: 1.4em;
+}
+
+.front .cover {
+  background: rgb(50,50,50);
+  width: 100%;
+}
+
+.front .cover {
+  background: rgba(0,0,0,0.4);
+}
+
+.front .cover-darker {
+  background: rgba(0,0,0,0.5);
+}
+
+.front :hover .cover,
+.front :hover .cover-darker {
+  background: rgba(0,0,0,0.6);
 }
 
 .front .offers .features li {
@@ -107,7 +131,19 @@ header button {
   color: #666;
 }
 
-.front .button { margin-right: 1em; }
+.front button { 
+  margin-right: 1em;
+  background: #11bed4;
+  border: none;
+  color: white;
+  border-radius: 0;
+  padding: 0.6em 1em;
+  font-size: 1.2em;
+}
+
+.front button:hover {
+  background: #31def4; 
+}
 
 .front section { padding: 0 2em; }
 
@@ -142,12 +178,7 @@ header button {
 
 .front header button {
   margin: 3em 0;
-  background: #11bed4;
-  border: none;
-  color: white;
   font-size: 1.4em;
-  border-radius: 0;
-  padding: 1em;
   float: right;
 }
 
@@ -212,6 +243,10 @@ header button {
   padding-right: 2em;
 }
 
+.front .page-menu a:hover {
+  color: #21cee4;
+}
+
 
 .front .desc .offers {
   padding: 0;
@@ -228,6 +263,16 @@ header button {
   text-align: center;
   vertical-align: top;
   clear: both;
+}
+
+.front .offer-details {
+  position: relative;
+  height: 470px;
+}
+
+.front .offer-details button {
+  position: absolute;
+  bottom: 10px;
 }
 
 .offers .offer-item {
@@ -252,10 +297,6 @@ header button {
   left: 0;
 }
 
-.front .offers li .cover {
-  width: 100%;
-  background-color: rgba(0,0,0,0.4);
-}
 
 .offers .offer-middle {
   height: 100%;
@@ -307,7 +348,7 @@ header button {
   .offers .offer-canvas { width: 240px; height: 240px; }
 }
 
-@media all and (max-width: 850px) {
+@media all and (max-width: 860px) {
   .front .offers li {
     display: block;
     width: auto;
@@ -328,6 +369,16 @@ header button {
 
   .offers li .offer-desc p {
     padding: 4em 0;
+  }
+
+  .front .offer-details {
+    position: relative;
+    height: auto;
+  }
+
+  .front .offer-details button {
+    position: relative;
+    bottom: none;
   }
 }
 
@@ -432,31 +483,33 @@ header button {
 }
 
 .front .newsletter form {
-  background: #11bed4;
   display: inline-block;
 }
 
 .front .newsletter button {
-  background: none;
   color: white;
   margin: 0;
   border: none;
   border-radius: 0;
-  padding: 1em 0;
+  padding: 1em 0.4em;
+}
+
+.front .newsletter button,
+.front .newsletter input {
+  height: 55px;
+  vertical-align: middle;
 }
 
 .front .newsletter label { display: none; }
 
 .front .newsletter button i {
   color: white;
-  font-size: 1.4em;
   padding: 1em 1.3em;
 }
 
 .front .newsletter input {
   padding: 1em;
   font-size: 1.2em;
-  vertical-align: middle;
   max-width: 200px;
 }
 
@@ -478,6 +531,38 @@ header button {
 
 .front .offers .offer-desc.api span {
   font-size: 1.2em;
+}
+
+.front .ill-preview {
+  display: block;
+  margin: 2em 0 6em;
+  position: relative;
+  overflow: hidden;
+}
+
+.front .ill-preview img {
+  width: 100%;
+  min-width: 800px;
+}
+
+.front .ill-preview div {
+  display:block;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.front .ill-preview span,
+.front .ill-preview h4 {
+  display: block;
+  padding: 0.5em 1em;
+  color: white;
+}
+
+.front .ill-preview span {
+  float: right;
+  font-size: 1.2em;
+  line-height: 1.7em;
 }
 
 .front footer .content {
