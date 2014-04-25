@@ -6,7 +6,7 @@ var handleOEmbed = function(options) {
 		oembedUrl: 'js/jquery.oembed.min.js',
     heightChange: 'heightchange',
 		linkClasses: 'url',
-    embedTypes: ['youtube.com', 'vimeo.com', 'soundcloud.com', 'flickr.com/photos', 'photobucket.', 'bandcamp.', 'dailymotion.com'],
+    embedTypes: ['youtu.be', 'youtube.com', 'vimeo.com', 'soundcloud.com', 'flickr.com/photos', 'photobucket.', 'bandcamp.', 'dailymotion.com'],
     targetBlankLinks: false // add a target blank attribute on links
 	}, options),
   
@@ -108,23 +108,25 @@ var handleOEmbed = function(options) {
   
   _getEmbedType = function(linkElem) {
 
-    var regex = new RegExp(options.embedTypes.join('|'), 'g')
-      , matches = linkElem.href.match(regex);
+    var regex = new RegExp(options.embedTypes.join('|'), 'g'),
+    
+    matches = linkElem.href.match(regex);
 
     if (!matches) return false;
 
     return matches[0];
 
-  }
+  },
   
   _beforeEmbedProcess = function(type, item, data) {
 
     switch (type) {
 
       case 'youtube.com':
+      case 'youtu.be':
 
         // avoid weird overlaps with lightboxes
-        if (data.code.indexOf('?wmode=opaque') < 0) data.code + '?wmode=opaque';
+        if (data.code.indexOf('?wmode=opaque') < 0) data.code += '?wmode=opaque';
 
         data.code = data.code.replace(/(width=")[0-9]+"?/,'width="' + $(item).parent().width() + '"');
 
@@ -145,7 +147,7 @@ var handleOEmbed = function(options) {
 
         var wmode = "transparent";
     
-        if (data.code != null) {
+        if (data.code !== null) {
           if (data.code.indexOf("wmode") < 0) {
             data.code = data.code.replace("<embed ", "<param name=\"wmode\" value=\"" + wmode + "\"></param>\n<embed ");
             data.code = data.code.replace("<embed ", "<embed wmode=\"" + wmode + "\"");
@@ -226,4 +228,4 @@ var handleOEmbed = function(options) {
 
   _run();
 
-}
+};
