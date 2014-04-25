@@ -192,15 +192,13 @@ var handleList = function(elem, eventHandler, options) {
       // now shove it in templates and apply behavior
 
       var element;
-      var followingSibling = false;
       var receivedCount = 0;
-      if (position==BEFORE) followingSibling = elem.firstChild;
 
       if (position==OVERWRITE) {
         while (childObject(elem,0)) elem.removeChild(childObject(elem,0));
       }
 
-      forEach(data.data, function(value) {
+      var processListItem = function(value) {
 
         if (typeof value.template == 'undefined') value.template = options.mainItem;
 
@@ -214,15 +212,21 @@ var handleList = function(elem, eventHandler, options) {
 
         if (options.scripts && options.scripts[value.template]) options.scripts[value.template](element, value);
 
-        if (!followingSibling) {
+        if (position!==BEFORE)
           elem.appendChild(element);
-        } else {
-          elem.insertBefore(element, followingSibling);
-        }
+        else
+          elem.insertAdjacentElement('afterbegin', element);
 
         eventHandler.trigger(options.triggeredEvents.itemReady, {element: element, data: value});
 
-      });
+      };
+
+      if (position!==BEFORE)
+        for (var i = 0; i < data.data.length; i++)
+          processListItem(data.data[i]);
+      else
+        for (var i = data.data.length - 1; i >= 0; i--)
+          processListItem(data.data[i]);
 
       if ((position==OVERWRITE) && options.triggerScroll) _scrollToTop();
 

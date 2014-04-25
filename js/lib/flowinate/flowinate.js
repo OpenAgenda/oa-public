@@ -71,11 +71,22 @@
 
   Flowinate.prototype = {
 
+    refresh: function() {
+
+      this.updateColumnSets();
+      
+    },
+
     updateColumnSets: function() {
 
       // create new column sets
       
       var columnSets = [];
+
+      // clear any element that is not on page anymore (has been removed since last refresh)
+      for (var i = this.elems.length - 1; i >= 0; i--)
+        if (this.elems[i].parentNode===null)
+          this.elems.splice(i, 1);
 
       // append all list items to new column sets
       this.appendTo(this.elems, columnSets);
@@ -242,23 +253,21 @@
 
       for (var i = 0; i < elems.length; i++) {
 
-        if (this.params.sectionElemClass && hasClass(elems[i], this.params.sectionElemClass)) {
+        if (this.isSectionElem(elems[i])) {
 
           this.canvasElem._appendChild(elems[i]);
 
-          this.appendSectionFlag = true;
-
         } else {
 
-          if (!columnSets.length || this.appendSectionFlag) columnSets.push(this.createColumnSet());
+          if (!columnSets.length || this.isSectionElem(this.elems[this.elems.length-(elems.length-i)-1])) {
+            columnSets.push(this.createColumnSet());
+          }
 
           var column = this.getSmallestColumn(this.getLastColumnSet(columnSets));
 
           elems[i].style.display = 'block';
 
           column.appendChild(elems[i]);
-
-          this.appendSectionFlag = false;
 
         }
 
@@ -278,23 +287,19 @@
       for (var i = elems.length - 1; i >= 0; i--) {
 
         // this is a section element
-        if (this.params.sectionElemClass && hasClass(elems[i], this.params.sectionElemClass)) {
+        if (this.isSectionElem(elems[i])) {
 
           this.canvasElem._insertAdjacentElement('afterbegin', elems[i]);
 
-          this.prependSectionFlag = true;
-
         } else {
 
-          if (!columnSets.length || this.prependSectionFlag) columnSets.splice(0, 0, this.createColumnSet(true));
+          if (!columnSets.length || this.isSectionElem(this.elems[i+1])) columnSets.splice(0, 0, this.createColumnSet(true));
 
           var column = this.getSmallestColumn(columnSets[0]);
 
           elems[i].style.display = 'block';
 
           column.insertAdjacentElement('afterbegin', elems[i]);
-
-          this.prependSectionFlag = false;
 
         }
         
@@ -324,6 +329,12 @@
       if (typeof columnSets == 'undefined') columnSets = this.columnSets;
 
       return columnSets[columnSets.length-1];
+
+    },
+
+    isSectionElem: function(elem) {
+
+      return this.params.sectionElemClass && hasClass(elem, this.params.sectionElemClass);
 
     },
 

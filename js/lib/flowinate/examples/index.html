@@ -55,7 +55,7 @@
           // sometimes, shove in a section element. Most of the time, don't.
           if (Math.random()>0.92) {
             div.className = 'section';
-            div.innerHTML = 'This is a section';
+            div.innerHTML = 'This is a section ' + (id++);
           } else {
             div.className = elem.className;
             div.style.height = Math.ceil(Math.random()*500) + 'px';

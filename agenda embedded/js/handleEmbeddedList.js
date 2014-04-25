@@ -80,7 +80,11 @@ var handleEmbeddedList = function(options) {
 
       _handleList();
 
-      _handleRemoveRepeatingSections(options.events.loadSuccess);
+      _handleRemoveRepeatingSections(options.events.loadSuccess, function() {
+
+        if (typeof flowinate !== 'undefined') flowinate.refresh();
+
+      });
 
     });
 
@@ -97,6 +101,7 @@ var handleEmbeddedList = function(options) {
     eh.on(options.events.openEvent, _handleEventOpen);
 
     eh.on(options.events.loadSuccess, function() {
+
       if (!displayedEvent) return;
 
       displayedEvent.close();
@@ -115,8 +120,6 @@ var handleEmbeddedList = function(options) {
 
 
     if (options.tiledLayout) {
-
-      console.log(options.classes.sections);
 
       var flowinate = new Flowinate(options.elems.list, {
         sectionElemClass: options.classes.sections
@@ -227,9 +230,9 @@ var handleEmbeddedList = function(options) {
 
   },
 
-  _handleRemoveRepeatingSections = function(triggerEvent) {
+  _handleRemoveRepeatingSections = function(triggerEvent, onRemovedCallback) {
 
-    repeatingSectionsRemove(options.elems.list, options.classes.sections, eh, triggerEvent);
+    repeatingSectionsRemove(options.elems.list, options.classes.sections, eh, triggerEvent, onRemovedCallback);
 
   },
 
