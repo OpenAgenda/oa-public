@@ -1,15 +1,21 @@
 (function(){
 
-  var Flowinate = function(canvasElem) {
+  var Flowinate = function(canvasElem, options) {
 
     var self = this,
     i=0,
     elem;
 
+    this.params = extend({
+      sectionElemClass: false // in case section elements should break the flow
+    }, options);
+
     this.canvasElem = canvasElem;
 
-    // use appendChild of canvas elem to add elements to it
-    // use insertAdjacentElement of canvas element to prepend to it
+    this.canvasTag = this.canvasElem.nodeName.toLowerCase();
+
+    // external scripts may use 'appendChild' of canvas element to add list items
+    // flowinate provides that method for the canvas
 
     canvasElem._appendChild = canvasElem.appendChild;
 
@@ -30,10 +36,19 @@
         canvasElem._insertAdjacentElement(where, what);
     };
 
+    // reference array of all list elements handled by the script
     this.elems = [];
+
+    // reference array of section list elements
+    this.sectionElems = [];
     
+    // initialize script by adding children to reference array
     while (elem = childObject(canvasElem, i++)) {
+
       this.elems.push(elem);
+
+      if (this.params.sectionElemClass && hasClass(elem, this.params.sectionElemClass)) this.sectionElems.push(elem);
+
     }
 
     this.canvasWidth = this.getCanvasInnerWidth();
@@ -43,10 +58,12 @@
 
     if (!this.cCount) this.cCount = 1;
 
-    this.updateColumns();
+    this.updateColumnSets();
 
     addEvent(window, 'resize', function() {
+
       self.onWidthChange();
+
     });
 
 
@@ -54,23 +71,40 @@
 
   Flowinate.prototype = {
 
-    updateColumns: function() {
+    updateColumnSets: function() {
 
-      var self = this,
+      // create new column sets
       
-      columns = this.createColumns(this.cCount);
+      var columnSets = [];
 
-      forEach(columns, function(column) {
-        self.canvasElem._appendChild(column);
-      });
+      // append all list items to new column sets
+      this.appendTo(this.elems, columnSets);
+      
+      this.removeColumnSets();
 
-      this.appendToColumns(columns, this.elems);
+      this.columnSets = columnSets;
 
-      if (this.columns) forEach(this.columns, function(column) {
-        column.parentNode.removeChild(column);
-      });
+    },
 
-      this.columns = columns;
+    removeColumnSets: function() {
+
+      if (typeof this.columnSets == 'undefined') return;
+
+      var columnSet = this.columnSets.pop();
+
+      while (typeof columnSet !== 'undefined') {
+
+        while (columnSet.length) {
+          
+          var column = columnSet.pop();
+
+          column.parentNode.removeChild(column);
+
+        }
+
+        columnSet = this.columnSets.pop();
+
+      }
 
     },
 
@@ -85,19 +119,24 @@
 
         this.cCount = newCount;
 
-        this.updateColumns();
+        this.updateColumnSets();
 
       }
 
     },
 
+
+    /**
+     * append child to canvas element
+     */
+    
     appendChild: function(child) {
 
       this.elems.push(child);
 
-      if (!this.columns.length) this.updateColumns();
+      if (!this.columnSets.length) this.updateColumnSets();
 
-      this.appendToColumns(this.columns, [child]);
+      this.appendTo([child]);
 
     },
 
@@ -105,7 +144,9 @@
 
       this.elems.splice(0, 0, child);
 
-      this.prependToColumns(this.columns, [child]);
+      if (!this.columnSets.length) this.updateColumnSets();
+
+      this.prependTo([child]);
 
     },
 
@@ -143,7 +184,16 @@
 
     },
 
-    createColumns: function(count) {
+
+    /**
+     * create a column set
+     */
+
+    createColumnSet: function(prepend) {
+
+      if (typeof prepend == 'undefined') var prepend = false;
+
+      var count = this.cCount;
 
       if (count > 100) throw 'Too many columns: ' + count;
 
@@ -152,50 +202,108 @@
       var columns = [];
 
       for (var i =0; i < count; i++) {
-        var colElem = document.createElement('div');
+
+        var colElem = document.createElement(this.canvasTag=='ul'?'li':'div');
         
         extend(colElem.style, {
           display: 'inline-block',
           verticalAlign: 'top'
         });
 
+        // if col is li item, it will need a ul subitem to shove in the elements
+        if (this.canvasTag=='ul') colElem.innerHTML = '<ul></ul>';
+
         columns.push(colElem);
+
+        if (prepend) {
+
+          this.canvasElem._insertAdjacentElement('afterbegin', colElem);
+
+        } else {
+
+          this.canvasElem._appendChild(colElem);
+
+        }
+
       }
 
       return columns;
 
     },
 
-    appendToColumns: function(columns, elems) {
 
-      var self = this;
+    /**
+     * loop through list elements, assign them to column sets when applicable and add them to canvas
+     */
 
-      forEach(elems, function(elem) {
+    appendTo: function(elems, columnSets) {
 
-        var column = self.getSmallestColumn(columns);
+      if (typeof columnSets == 'undefined') columnSets = this.columnSets;
 
-        elem.style.display = 'block';
+      for (var i = 0; i < elems.length; i++) {
 
-        column.appendChild(elem);
+        if (this.params.sectionElemClass && hasClass(elems[i], this.params.sectionElemClass)) {
 
-      });
+          this.canvasElem._appendChild(elems[i]);
+
+          this.appendSectionFlag = true;
+
+        } else {
+
+          if (!columnSets.length || this.appendSectionFlag) columnSets.push(this.createColumnSet());
+
+          var column = this.getSmallestColumn(this.getLastColumnSet(columnSets));
+
+          elems[i].style.display = 'block';
+
+          column.appendChild(elems[i]);
+
+          this.appendSectionFlag = false;
+
+        }
+
+      }
 
     },
 
-    prependToColumns: function(columns, elems) {
-      var self = this;
 
-      forEach(elems, function(elem) {
+    /**
+     * loop through list elements, add them to column sets when applicable and set at beginning of canvas
+     */
 
-        var column = self.getSmallestColumn(columns);
+    prependTo: function(elems, columnSets) {
 
-        elem.style.display = 'block';
-        column.insertAdjacentElement('afterbegin', elem);
+      if (typeof columnSets == 'undefined') columnSets = this.columnSets;
 
-      });
+      for (var i = elems.length - 1; i >= 0; i--) {
+
+        // this is a section element
+        if (this.params.sectionElemClass && hasClass(elems[i], this.params.sectionElemClass)) {
+
+          this.canvasElem._insertAdjacentElement('afterbegin', elems[i]);
+
+          this.prependSectionFlag = true;
+
+        } else {
+
+          if (!columnSets.length || this.prependSectionFlag) columnSets.splice(0, 0, this.createColumnSet(true));
+
+          var column = this.getSmallestColumn(columnSets[0]);
+
+          elems[i].style.display = 'block';
+
+          column.insertAdjacentElement('afterbegin', elems[i]);
+
+          this.prependSectionFlag = false;
+
+        }
+        
+      }
+
     },
 
     getSmallestColumn: function(columns) {
+
       var minHeight = false,
       chosenColumn;
 
@@ -206,8 +314,23 @@
         }
       });
 
-      return chosenColumn;
+      // when list items are li, they must be put in the ul of the column
+      return (this.canvasTag=='ul'?el(chosenColumn, 'ul'):chosenColumn);
+
     },
+
+    getLastColumnSet: function(columnSets) {
+
+      if (typeof columnSets == 'undefined') columnSets = this.columnSets;
+
+      return columnSets[columnSets.length-1];
+
+    },
+
+
+    /**
+     * get width of regular (non-section) list item
+     */
 
     getWidth: function() {
 
@@ -225,6 +348,11 @@
       return width;
     },
 
+
+    /**
+     * get the canvas width once padding has been stripped
+     */
+
     getCanvasInnerWidth: function() {
       
       var width = this.canvasElem.offsetWidth,
@@ -240,10 +368,19 @@
 
     },
 
-    // get reference elem.. pick the first one.
+    // get reference elem.. pick the first one which is not a section.
     getRefElem: function() {
 
-      return this.elems.length?this.elems[0]:false;
+      // sections are not used
+      if (!this.params.sectionElemClass) return this.elems.length?this.elems[0]:false;
+
+      // sections are used, pick first which is not a section
+      for (var i = 0; i < this.elems.length; i++)
+        if (!hasClass(this.elems[i], this.params.sectionElemClass))
+          return this.elems[i];
+
+      // there are no elements which are not a section
+      return false;
 
     },
 

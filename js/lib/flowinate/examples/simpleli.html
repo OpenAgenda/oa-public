@@ -16,9 +16,9 @@
   </head>
   <body>
     <button id="moreup">more</button>
-    <div class="content">
-      <div class="block"></div>
-    </div>
+    <ul class="content">
+      <li class="block"></li>
+    </ul>
     <button id="moredown">more</button>
     <script type="text/javascript">
 
@@ -28,9 +28,7 @@
 
         duplicateAndRandomizeHeight(el('.content'), el('.block'), 5);
 
-        flowinate = new Flowinate(el('.content'), {
-          sectionElemClass: 'section'
-        });
+        flowinate = new Flowinate(el('.content'));
 
         addEvent(el('#moredown'), 'click', function() {
           duplicateAndRandomizeHeight(el('.content'), el('.block'), 5);
@@ -50,18 +48,11 @@
 
         while (count--) {
 
-          var div = document.createElement('div');
+          var div = document.createElement('li');
 
-          // sometimes, shove in a section element. Most of the time, don't.
-          if (Math.random()>0.92) {
-            div.className = 'section';
-            div.innerHTML = 'This is a section';
-          } else {
-            div.className = elem.className;
-            div.style.height = Math.ceil(Math.random()*500) + 'px';
-            div.innerHTML = id++;
-          }
-            
+          div.className = elem.className;
+          div.style.height = Math.ceil(Math.random()*500) + 'px';
+          div.innerHTML = id++;
 
           if (appendChild)
             canvas.appendChild(div);

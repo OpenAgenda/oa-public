@@ -14,7 +14,11 @@ function extend(){
           if(arguments[i].hasOwnProperty(key))
               arguments[0][key] = arguments[i][key];
   return arguments[0];
-};
+}
+
+function isDef(value) {
+  return typeof value !== 'undefined';
+}
 
 /*contains*/
 function contains(a, obj) {
@@ -25,6 +29,25 @@ function contains(a, obj) {
      }
   }
   return false;
+}
+
+function isArray(obj) {
+  return Object.prototype.toString.call(obj) === '[object Array]';
+}
+
+function removeValueFromArray(arr) {
+    var what, a = arguments, L = a.length, ax;
+    while (L > 1 && arr.length) {
+        what = a[--L];
+        while ((ax= arr.indexOf(what)) !== -1) {
+            arr.splice(ax, 1);
+        }
+    }
+    return arr;
+}
+
+var unpack = function(encoded) {
+  return JSON.parse(encoded);
 };
 
 var hasClass = function(element, cls) { return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1; };
@@ -34,7 +57,7 @@ var removeClass = function(element, cls) { if (hasClass(element, cls)) { var reg
 
 /* removeEvent v0.1 */
 var removeEvent = function(elem,types,eventHandle) {
-  if (elem == null || elem == undefined) return;
+  if (elem === null || elem === undefined) return;
   if (typeof types == 'string') types = [types];
   forEach(types, function(type) {
     if (elem.removeEventListener) {
@@ -97,7 +120,7 @@ var els = function(node, selector) {
 
   if ('.#,'.indexOf(prefix) !== -1) selector = selector.substr(1);
 
-  if (prefix == '.') 
+  if (prefix == '.')
     return getElementsByClassName(node, selector);
   else if (prefix == '#') {
     var result = node.getElementById(selector);
@@ -137,7 +160,7 @@ var nextObject = function(elem) {
   elem = elem.nextSibling;
 
   while (elem && elem.nodeType != 1)
-    elem = elem.nextSibling;  
+    elem = elem.nextSibling;
 
   return elem;
 };
@@ -167,7 +190,7 @@ var getChildIndex = function(child) {
 
   var i = 0;
 
-  while( (child = previousObject(child)) != null ) i++;
+  while ( (child = previousObject(child)) !== null ) i++;
 
   return i;
 
@@ -176,15 +199,16 @@ var getChildIndex = function(child) {
 function forEach(array, action) {
   for (var i = 0; i < array.length; i++)
     action(array[i]);
-};
+}
 
 
+// what values in object a are not in object b
 function asymDiff(a, b) {
 
   if (typeof dSuffix != 'string') dSuffix = '';
   var diff = {};
   
-  for (pName in a) {
+  for (var pName in a) {
       if (typeof b[pName] != 'undefined') {
           if (b[pName] !== a[pName]) diff[pName] = a[pName];
       } else {
@@ -193,7 +217,7 @@ function asymDiff(a, b) {
   }
   
   return diff;
-};
+}
 
 
 /* HTMLElement.prototype.insertAdjacentElement (for FF) */
@@ -228,7 +252,7 @@ if (typeof HTMLElement != "undefined" && !HTMLElement.prototype.insertAdjacentEl
     var parsedText = document.createTextNode(txtStr);
     this.insertAdjacentElement(where, parsedText);
   };
-};
+}
 
 
 function getScrollOffsets(w) {
@@ -237,8 +261,8 @@ function getScrollOffsets(w) {
   w = w || window;
 
   // This works for all browsers except IE versions 8 and before
-  if (w.pageXOffset != null) return {
-    x: w.pageXOffset, 
+  if (typeof w.pageXOffset !== 'undefined') return {
+    x: w.pageXOffset,
     y:w.pageYOffset
   };
 
@@ -246,14 +270,64 @@ function getScrollOffsets(w) {
   var d = w.document;
   if (document.compatMode == "CSS1Compat") {
     return {
-      x:d.documentElement.scrollLeft, 
+      x:d.documentElement.scrollLeft,
       y:d.documentElement.scrollTop
     };
   }
 
   // For browsers in Quirks mode
-  return { 
-    x: d.body.scrollLeft, 
-    y: d.body.scrollTop 
-  }; 
-};
+  return {
+    x: d.body.scrollLeft,
+    y: d.body.scrollTop
+  };
+}
+
+function windowInnerHeight() {
+
+  return window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
+
+}
+
+function triggerEvent(elem, name) {
+
+  var e;
+
+  if (document.createEvent) {
+    e = document.createEvent("HTMLEvents");
+    e.initEvent(name, true, true);
+  } else {
+    e = document.createEventObject();
+    e.eventType = name;
+  }
+
+  e.eventName = name;
+
+  if (document.createEvent) {
+    elem.dispatchEvent(e);
+  } else {
+    elem.fireEvent("on" + e.eventType, e);
+  }
+
+}
+
+function isElement(o){
+  return (
+    typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
+    o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName==="string"
+  );
+}
+
+// add trim function to IE8
+if(typeof String.prototype.trim !== 'function') {
+  String.prototype.trim = function() {
+    return this.replace(/^\s+|\s+$/g, '');
+  };
+}
+
+function removeProperty(obj, name) {
+
+  if (typeof obj.removeProperty !== 'undefined') return obj.removeProperty(name);
+
+  return obj.removeAttribute(name);
+
+}

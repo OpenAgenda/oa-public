@@ -116,7 +116,11 @@ var handleEmbeddedList = function(options) {
 
     if (options.tiledLayout) {
 
-      var flowinate = new Flowinate(options.elems.list);
+      console.log(options.classes.sections);
+
+      var flowinate = new Flowinate(options.elems.list, {
+        sectionElemClass: options.classes.sections
+      });
       
     }
 
