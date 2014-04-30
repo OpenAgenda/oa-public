@@ -60,7 +60,7 @@ var init = function() {
 
     if (!cn.contains(['article', 'event'], item.data.template)) return;
 
-    processListItem(item.element, item.data.values.slug);
+    processListItem(item.element, item.data.slug);
 
   });
 
