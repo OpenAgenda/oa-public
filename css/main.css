@@ -269,10 +269,10 @@ input.smallest, a.smallest, button.smallest { padding: 0 0.2em; font-size: 0.8em
 .wsq {
   background: white;
   vertical-align: top; 
-  v-moz-box-shadow: 0 3px 4px #999999; 
-  -moz-box-shadow: 0 3px 4px #999999; 
-  -webkit-box-shadow: 0 3px 4px #999999; 
-  box-shadow: 0 1px 2px #999999; 
+  v-moz-box-shadow: 0 3px 4px #999999;
+  -moz-box-shadow: 0 3px 4px #999999;
+  -webkit-box-shadow: 0 3px 4px #999999;
+  box-shadow: 0 1px 2px #999999;
   text-align: left;
 }
 

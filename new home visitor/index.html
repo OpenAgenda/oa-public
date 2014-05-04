@@ -8,261 +8,238 @@
   <link type="text/css" href="css/style.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/font-awesome/font-awesome.css"/>
   <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+  <!--[if IE 8]><link type="text/css" href="css/style.ie8.css" rel="stylesheet" /><![endif]-->
   <!--[if IE 7]><link rel="stylesheet" href="css/font-awesome/font-awesome-ie7.css"><![endif]-->
   <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
 <body>
   <main class="front">
+    <nav>
+      <a class="logo" href="#"><img src="images/biglogo.png"></a>
+      <ul class="links page-links">
+        <li><a href="#solutions">Solutions et Pricing<!--Solutions and Pricing--></a></li>
+        <li><a href="#references">Références<!--References--></a></li>
+        <li><a href="#contact">Contact<!--Contact--></a></li>
+      </ul>
+      <ul class="links site-links">
+        <li><a href="#">Connexion<!--Sign In--></a></li>
+        <li><a href="#"><i class="icon-search"></i></a></li>
+      </ul>
+    </nav>
     <header>
-      <div class="content">
-        <div class="desc w60">
-          <h1 class="title">Communiquez efficacement sur vos événements</h1>
-          <button>Créer un agenda</button>
+      <div class="header-canvas">
+        <div class="content">
+          <div class="box w60">
+            <h1 class="title">Communiquez efficacement sur vos événements<!--Communicate efficiently on your events--></h1>
+            <p>Publiez, organisez et diffusez vos événements sur tous vos supports et chez vos partenaires.<!-- Publish, organize and broadcast your events on all your channels and to your media partners--></p>
+            <button>Créer un agenda<!--Create an agenda--></button>
+          </div>
         </div>
       </div>
-
     </header>
 
-    <section>
-      <div class="content">
-        <h2>Découvrez Cibul</h2>
-        <div class="desc w100">
-          <p>Depuis une même interface, publiez, organisez et diffusez vos événements sur tous vos supports et chez vos partenaires.</p>
-          <ul class="page-menu">
-            <li><a href="#offers">Nos solutions d'agenda</a></li>
-            <li><a href="#features">Détail des fonctions et tarifs</a></li>
-            <li><a href="#references">Références</a></li>
-            <li><a href="#sites">Exemples de sites</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
 
-
-    <section>
+    <section class="colored-light" id="solutions">
+      <div class="offers-white-back"></div>
       <div id="offers" class="content">
-        <h2>Nos solutions d'agenda</h2>
-        <div class="desc w100">
-          <ul class="desc-content offers">
-            <li>
-              <a href="#basic" class="offer-canvas offer-item">
+        <h2>Nos solutions d'agenda<!--Our Agenda solutions--></h2>
+        <ul class="row solutions">
+          <li class="col">
+            <div class="offer-head">
+              <a href="#basic" class="offer-canvas">
                 <img src="images/offer1.png" alt="basic offer"><div class="cover"></div>
                 <div class="offer-middle" id="basicoffer">
                   <div class="offer-title" id="basicofferlabel">
-                    <h3>Basique</h3>
+                    <div class="text"><h3>Basique<!--Basic--></h3><p>gratuit<!--free--></p></div>
                   </div>
                 </div>
               </a>
-              <div class="offer-desc offer-item">
-                <p>Communiquez efficacement grace à un agenda à votre nom compatible pour tous les écrans et réutilisable par les médias</p>
+              <span class="triangle"></span>
+            </div>
+            <div class="offer-details block">
+              <div class="offer-desc">
+                <h4>Communiquez efficacement grâce à un agenda réutilisable par les médias<!-- Communicate efficiently with an agenda reusable by all medias --></h4>
+                <ul class="features">
+                  <li><i class="icon-ok-sign"></i><span>Nombre d'événements illimité<!--Unlimited number of events--></span></li>
+                  <li><i class="icon-ok-sign"></i><span>Gestion multimédias et multilingue<!-- Multimedia and multilingual content --></span></li>
+                  <li><i class="icon-ok-sign"></i><span>Agendas personnalisables, organisable en catégories et tags, compatible pour tous les écrans<!-- Customizable agendas, organisable in categories and tags, compatible with all screen sizes --></span></li>
+                  <li><i class="icon-ok-sign"></i><span>Affichable sur votre site<!-- Displayable on your website --></span></li>
+                  <li><i class="icon-ok-sign"></i><span>Synchronisable avec les agendas personnels (Outlook, Google Agenda, etc.)<!-- Synchronizable with your personal calendars (Outlook, Google Calendar, etc) --></span></li>
+                </ul>
+                <button>Créer un agenda<!--Create an agenda--></button>
               </div>
-            </li><!--
-            --><li>
-              <a href="#editor" class="offer-canvas offer-item">
+            </div>
+          </li><!--
+          --><li class="col">
+            <div class="offer-head">
+              <a href="#editor" class="offer-canvas">
                 <img src="images/offer2.png" alt="basic offer"><div class="cover"></div>
                 <div class="offer-middle" id="editoroffer">
                   <div class="offer-title" id="editofferlabel">
-                    <h3>Editeur</h3>
+                    <div class="text"><h3>Editeur<!--Editor--></h3><p>60€/mois<!--60€/month--></p></div>
                   </div>
                 </div>
               </a>
-              <div class="offer-desc offer-item">
-                <p>Allez plus loin et alimentez automatiquement tous vos supports de communication en une saisie: site web, page Facebook, newsletter, programme papier, etc.</p>
+              <span class="triangle"></span>
+            </div>
+            <div class="offer-details block">
+              <div class="offer-desc">
+                <h4>Alimentez vos supports de communication en une saisie<!--Type once and publish on all your channels--></h4>
+                <ul class="features">
+                  <li><i class="icon-ok-sign passive"></i><span>Les fonctions de l'agenda Basique<!--Features of the Basic Agenda--></span></li>
+                  <li><i class="icon-ok-sign"></i><span>Intégration complète dans votre site<!--Complete integration in your website--></span></li>
+                  <li><i class="icon-ok-sign"></i><span>Création et syncronisation automatique des événements Facebook<!--Automatic creation and sync of your Facebook events--></span></li>
+                  <li><i class="icon-ok-sign"></i><span>Newsletter automatique<!--Automatic Newsletter--></span></li>
+				  <li><i class="icon-ok-sign"></i><span>Administrateurs multiples<!--Multiple Administrators--></span></li>
+                </ul>
+                <button>Essayer gratuitement<!--Try it for free--></button>
               </div>
-            </li><!--
-            --><li>
-              <a href="#community" class="offer-canvas offer-item">
+            </div>
+          </li><!--
+          --><li class="col">
+            <div class="offer-head">
+              <a href="#community" class="offer-canvas">
                 <img src="images/offer4.png" alt="basic offer"><div class="cover"></div>
                 <div class="offer-middle" id="netoffer">
                   <div class="offer-title" id="netofferlabel">
-                    <h3>Communautaire</h3>
+                    <div class="text"><h3>Communautaire<!--Community--></h3><p>4000€/an<!--On quote 4000€/yr--></p></div>
                   </div>
                 </div>
               </a>
-              <div class="offer-desc offer-item">
-                <p>Animez un réseau d'organisateurs et réalisez votre agenda collectif, thématique ou territorial.</p>  
-              </div>          
-            </li>
-          </ul>
-        </div>
+              <span class="triangle"></span>
+            </div>
+            <div class="offer-details block">
+              <div class="offer-desc">
+                <h4>Animez un agenda de réseau d'organisateurs<!--Manage an agenda for a network of Organizers--></h4>
+                <ul class="features">
+                  <li><i class="icon-ok-sign passive"></i><span>Les fonctions de l'agenda Basique<!--Features of the Basic Agenda--></span></li>
+                  <li><i class="icon-ok-sign passive"></i><span>Les fonctions de l'agenda Editeur<!--Features of the Editor Agenda--></span></li>
+                  <li><i class="icon-ok-sign"></i><span>Contrôle des contributeurs<!--Administration of contributors--></span></li>
+                  <li><i class="icon-ok-sign"></i><span>Maîtrise des contenus<!--Advanced moderation--></span></li>
+                  <li><i class="icon-ok-sign"></i><span>Agrégation d'agendas<!--Agenda aggregation--></span></li>
+                  <li><i class="icon-ok-sign"></i><span>Statistiques<!--Statistics--></span></li>
+                </ul>
+                <button>Essayer gratuitement<!--Try it for free--></button>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <section class="colored-light">
-      <div id="features" class="content">
-        <h2>Détail des fonctions et tarifs</h2>
-        <div class="desc w100">
-          <ul class="desc-content offers offer-details">
-            <li id="basic">
-              <h3>Basique</h3>
-              <span class="pricing">Gratuit</span>
-              <div class="offer-desc">
-                <ul class="features">
-                  <li><i>&bull;</i><span>Nombre d'événements illimité</span></li>
-                  <li><i>&bull;</i><span>Téléchargements illimités</span></li>
-                  <li><i>&bull;</i><span>Gestion multimédias et multilingue</span></li>
-                  <li><i>&bull;</i><span>Agendas personnalisables, organisable en catégories et tags, compatible pour tous les écrans</span></li>
-                  <li><i>&bull;</i><span>Affichable sur votre site</span></li>
-                  <li><i>&bull;</i><span>Synchronisable avec les agendas personnels (Outlook, Google Agenda, etc.)</span></li>
-                </ul>
-              </div>
-              <div class="offer-desc">
-                <button>Créer un agenda</button>
-              </div>
-            </li>
-            <li id="editor">
-              <h3>Editeur</h3>
-              <span class="pricing">60€/mois</span>
-              <div class="offer-desc">
-                <ul class="features">
-                  <li>Les fonctions de l'agenda Basique</li>
-                  <li><strong>Avec en plus</strong></li>
-                  <li><i>&bull;</i><span>Intégration complète dans votre site</span></li>
-                  <li><i>&bull;</i><span>Création automatique des événements Facebook</span></li>
-                  <li><i>&bull;</i><span>Génération de newsletter</span></li>
-                  <li><i>&bull;</i><span>Création de brouillons</span></li> 
-                </ul>
-              </div>
-              <div class="offer-desc">
-                <button>Essayer 1 mois gratuit</button>
-              </div>
-            </li>
-            <li id="community">
-              <h3>Communautaire</h3>
-              <span class="pricing">Nous contacter</span>
-              <div class="offer-desc">
-                <ul class="features">
-                  <li>Les fonctions de l'agenda Editeur</li>
-                  <li><strong>Avec en plus</strong></li>
-                  <li><i>&bull;</i><span>Administrateurs multiples</span></li>
-                  <li><i>&bull;</i><span>Contrôle des contributeurs</span></li>
-                  <li><i>&bull;</i><span>Maîtrise des contenus</span></li>
-                  <li><i>&bull;</i><span>Outils d'agrégation</span></li>
-                  <li><i>&bull;</i><span>Statistiques</span></li>
-                </ul>
-              </div>
-              <div class="offer-desc">
-                <button>Découvrir</button>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
+    
 
     <section id="references">
       <div class="content">
         <h2>Références</h2>
-        <div class="testimonial">
-          <p>"Nous avons monté une opération nationale où près de 100 contributeurs ont inscrit des événements dans l'agenda Cibul. Au final, tous ont rapporté la simplicité et la stabilité de l'agenda. La solution a largement participé à la réussite du projet de notre ministère!"</p>
-          <span>Virginie Staels - Chef de projet web</span>
-          <span>Ministère de l'Éducation nationale, de l'Enseignement supérieur et de la Recherche</span>
+        <div class="testimonial row">
+          <p>"Nous avons monté une opération nationale, où près de 100 contributeurs ont inscrit des événements dans l'agenda Cibul. Au final, tous ont rapporté la simplicité et la stabilité de l'agenda. La solution a largement participé à la réussite du projet de notre ministère!"<!-- We organized a nationwide operation, where nearly 100 contributors published events in our Cibul agenda. In the end, the feedbacks praised the ease of use and stability of the agenda. The solution contributed largely to the success of our ministry's project!"</p>
+          <span>Virginie Staels - Chef de projet web<!--Web Projects Manager--></span>
+          <span>Ministère de l'Éducation nationale, de l'Enseignement supérieur et de la Recherche<!--Ministry of National Education, Higher Education and Research--></span>
         </div>
-        <div class="desc w100">
-          <ul class="references">
-            <li><a href="#"><img src="images/refs/bretagne.jpg" alt="Région Bretagne"></a></li>
-            <li><a href="#"><img src="images/refs/ccbb.png" alt="Collectif Culture Bar-Bars"></a></li>
-            <li><a href="#"><img src="images/refs/greenpeace.png" alt="Greenpeace"></a></li>
-            <li><a href="#"><img src="images/refs/ministere.jpg" alt="Ministère"></a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="content">
-        <h2>Exemples de sites</h2>
-        <a href="//journee-arts-culture-sup.fr/" target="_blank" class="ill-preview">
-          <img src="images/integrated-jdc.png" alt="Journée des arts et de la culture dans l'enseignement supérieur"><!--
-          --><div class="cover-darker">
-            <h4>Journée des arts et de la culture dans l'enseignement supérieur</h4>
-            <span>journee-arts-culture-sup.fr</span>
-          </div>
-        </a>
-        <a href="//www.fetedelabretagne.com" target="_blank" class="ill-preview">
-          <img src="images/integrated-fdb.png" alt="Fête de la Bretagne"><!--
-          --><div class="cover-darker">
-            <h4>Fête de la Bretagne</h4>
-            <span>www.fetedelabretagne.com</span>
-          </div>
-        </a>
-        <a href="//bar-bars.com" target="_blank" class="ill-preview">
-          <img src="images/ccbb.png" alt="Culture Bar-Bars"><!--
-          --><div class="cover-darker">
-            <h4>Collectif Culture Bar-bars</h4>
-            <span>bar-bars.com</span>
-          </div>
-        </a>
+        
+        <ul class="sites row">
+          <li>
+            <a href="//www.fetedelabretagne.com">
+              <img src="images/fdb.png" alt="Collectif Culture Bar-Bars">
+              <p>Fête de la Bretagne</p>
+              <span>www.fetedelabretagne.com</span>
+            </a>
+          </li>
+          <li>
+            <a href="//bar-bars.com">
+              <img src="images/ccbb.png" alt="Fête de la Bretagne">
+              <p>Collectif Culture Bar-bars</p>
+              <span>bar-bars.com</span>
+            </a>
+          </li>
+          <li>
+            <a href="//journee-arts-culture-sup.fr">
+              <img src="images/jdc.png" alt="Journée des Arts et de la Culture">
+              <p>Journée des Arts et de la Culture</p>
+              <span>journee-arts-culture-sup.fr</span>
+            </a>
+          </li>
+        </ul>
+
+        <ul class="logos row">
+          <li><a target="_blank" href="//www.bretagne.fr/"><img src="images/refs/bretagne.jpg" alt="Région Bretagne"></a></li>
+          <li><a target="_blank" href="//bar-bars.com/"><img src="images/refs/ccbb.png" alt="Collectif Culture Bar-Bars"></a></li>
+          <li><a target="_blank" href="//www.greenpeace.org"><img src="images/refs/greenpeace.png" alt="Greenpeace"></a></li>
+          <li><a target="_blank" href="//www.education.gouv.fr/"><img src="images/refs/ministere.jpg" alt="Ministère de l'Education Nationale, de l'Enseignement Supérieur et de la Recherche"></a></li>
+          <li><a target="_blank" href="//www.fidh.org"><img src="images/refs/fidh.jpg" alt="Fédération Internationale des Droits de l'Homme"></a></li>
+          <li><a target="_blank" href="//levolume.fr/"><img src="images/refs/levolume.jpg" alt="Le Volume"></a></li>
+        </ul>
       </div>
     </section>
 
     <section class="colored-dark footer">
       
       <div id="contact" class="content">
-        <div class="desc w100">
-          <ul class="desc-content offers">
-            <li>
-              <h2>L'entreprise</h2>
-              <div class="offer-desc">
-                <span class="name">Cibul SARL</span>
-                <span class="address">24 rue de l'Est, 75011 Paris</span>
-                <span class="telephone">+33983743461</span>
-              </div>
-              <div class="offer-desc">
-                <ul class="big-social-links">
-                  <li><a href="//twitter.com/cibul" target="_blank"><i class="icon-twitter"></i></a></li>
-                  <li><a href="//facebook.com/cibul.net" target="_blank"><i class="icon-facebook"></i></a></li>
-                  <li><a href="//www.youtube.com/user/CibulTV" target="_blank"><i class="icon-youtube"></i></a></li>
-                </ul>
-              </div>
-              <div class="offer-desc bottom-links">
-                <ul>
-                  <li><a href="#">suggestions</a></li>
-                  <li><a href="#">bugs</a></li>
-                  <li><a href="#">à propos</a></li>
-                  <li><a href="#">conditions d'utilisation</a></li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <h2>L'équipe</h2>
-              <div class="offer-desc team-member">
-                <span class="name">Romain Lange</span>
-                <span class="title">Directeur Commercial</span>
-                <span class="mobile"><i class="icon-phone"></i><span>+33612016842</span></span>
-                <span class="email"><i class="icon-envelope"></i><a href="mailto:romain.lange@cibul.net">romain.lange@cibul.net</a></span>
-                <span class="links blue">
-                  <a href="https://twitter.com/romainlange" target="_blank"><i class="icon-twitter"></i></a>
-                  <a href="https://fr.linkedin.com/in/romainlange" target="_blank"><i class="icon-linkedin-sign"></i></a>
-                  <a href="skype:romainlange?call"><i class="icon-skype"></i></a>
-                </span>
-              </div>
-              <div class="offer-desc team-member">
-                <span class="name">Kárì Olafsson</span>
-                <span class="title">CTO</span>
-                <span class="email"><i class="icon-envelope"></i><a href="mailto:kaore@cibul.net">kaore@cibul.net</a></span>
-                <span class="links blue">
-                  <a href="//twitter.com/ka0re" target="_blank"><i class="icon-twitter"></i></a>
-                  <a href="//fr.linkedin.com/in/kariolafsson" target="_blank"><i class="icon-linkedin-sign"></i></a>
-                </span>
-              </div>
-            </li>
-            <li>
-              <h2>Newsletter</h2>
-              <div class="offer-desc newsletter">
-                <form>
-                  <label for="newsletter-subscribe">Votre email</label>
-                  <input type="text" name="newsletter-subscribe" placeholder="Votre email"><!--
-                  --><button type="submit"><i class="icon-angle-right"></i></button><!--
-                --></form>
-              </div>
-              <h2>Médias/API</h2>
-              <div class="offer-desc api">
-                <span>Les agendas Cibul sont <a href="http://cibul.net/termsofuse/fr">Open Data</a> et accessibles via l'API Cibul: <a href="//developers.cibul.net" target="_blank">http://developers.cibul.net</a></span>
-              </div>
-            </li>
-            <li>
-            </li>
-          </ul>
-        </div>  
+        <ul class="row contacts">
+          <li class="col">
+            <h2>L'entreprise</h2><!--The Company-->
+            <div class="block">
+              <span class="name">Cibul SARL</span>
+              <span class="address">24 rue de l'Est, 75020 Paris</span>
+              <span class="telephone">+33983743461</span>
+            </div>
+            <div class="block">
+              <ul class="big-social-links">
+                <li><a href="//twitter.com/cibul" target="_blank"><i class="icon-twitter"></i></a></li>
+                <li><a href="//facebook.com/cibul.net" target="_blank"><i class="icon-facebook"></i></a></li>
+                <li><a href="//www.youtube.com/user/CibulTV" target="_blank"><i class="icon-youtube"></i></a></li>
+              </ul>
+            </div>
+            <div class="block bottom-links">
+              <ul>
+                <li><a href="#">suggestions</a></li>
+                <li><a href="#">bugs</a></li>
+                <li><a href="#">à propos<!-- about --></a></li>
+                <li><a href="#">conditions d'utilisation<!-- terms of use --></a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="col">
+            <h2>L'équipe<!--The Team --></h2>
+            <div class="block team-member">
+              <span class="name">Romain Lange</span>
+              <span class="title">Directeur Commercial<!-- Commercial Director --></span>
+              <span class="mobile"><i class="icon-phone"></i><span>+33612016842</span></span>
+              <span class="email"><i class="icon-envelope"></i><a href="mailto:romain.lange@cibul.net">romain.lange@cibul.net</a></span>
+              <span>
+                <a href="https://twitter.com/romainlange" target="_blank"><i class="icon-twitter"></i></a>
+                <a href="https://fr.linkedin.com/in/romainlange" target="_blank"><i class="icon-linkedin-sign"></i></a>
+                <a href="skype:romainlange?call"><i class="icon-skype"></i></a>
+              </span>
+            </div>
+            <div class="block team-member">
+              <span class="name">Kárì Olafsson</span>
+              <span class="title">CTO</span>
+              <span class="email"><i class="icon-envelope"></i><a href="mailto:kaore@cibul.net">kaore@cibul.net</a></span>
+              <span>
+                <a href="//twitter.com/ka0re" target="_blank"><i class="icon-twitter"></i></a>
+                <a href="//fr.linkedin.com/in/kariolafsson" target="_blank"><i class="icon-linkedin-sign"></i></a>
+              </span>
+            </div>
+          </li>
+          <li class="col">
+            <h2>Newsletter<!--Newsletter --></h2>
+            <div class="block newsletter">
+              <form>
+                <label for="newsletter-subscribe">Votre email<!-- Your email --></label>
+                <input type="text" name="newsletter-subscribe" placeholder="Votre email"><!-- Your email --><!--
+                --><button type="submit"><i class="icon-angle-right"></i></button><!--
+              --></form>
+            </div>
+            <h2>Médias/API<!--Medias/API--></h2>
+            <div class="block api">
+              <span>Les agendas Cibul sont <a href="http://cibul.net/termsofuse/fr">Open Data</a> et accessibles via l'API Cibul: <a href="//developers.cibul.net" target="_blank">http://developers.cibul.net</a></span><!--Cibul agendas are Open Data and available through the Cibul API.-->
+            </div>
+          </li>
+          <li>
+          </li>
+        </ul>
       </div>
     </section>
 
