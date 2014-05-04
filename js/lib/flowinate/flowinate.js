@@ -161,33 +161,55 @@
 
     },
 
+    columnChild: function(column, index) {
+
+      var columnCanvas = column;
+
+      if (this.canvasTag=='ul') columnCanvas = el(column, 'ul');
+
+      return childObject(columnCanvas,index);
+
+    },
+
     // remove all elems of column before popping it out as well
 
     removeChild: function(child) {
 
-      if (this.columns) for (var i = this.columns.length - 1; i >= 0; i--) {
-        if (this.columns[i]==child) {
+      // if child is a column, all column children should be removed.
+
+      if (this.columnSets) for (var i = this.columnSets.length - 1; i >= 0; i--) {
+        for (var j = this.columnSets[i].length - 1; j >= 0; j--) {
           
-          var elem = childObject(this.columns[i],0);
+          if (this.columnSets[i][j]==child) {
+            
 
-          while (elem) {
+            var elem = this.columnChild(this.columnSets[i][j], 0);
 
-            for (var j = this.elems.length - 1; j >= 0; j--) {
-              if (this.elems[j]==elem) {
-                this.elems.splice(j, 1);
-                break;
+            while (elem) {
+
+              for (var k= this.elems.length - 1; k >= 0; k--) {
+                if (this.elems[k]==elem) {
+                  this.elems.splice(k, 1);
+                  break;
+                }
               }
+
+              (this.canvasTag=='ul'?el(this.columnSets[i][j], 'ul'):this.columnSets[i][j]).removeChild(elem);
+
+              elem = this.columnChild(this.columnSets[i][j], 0);
+
             }
 
-            this.columns[i].removeChild(elem);
+            // all children of column where removed, column can now be removed.
 
-            elem = childObject(this.columns[i],0);
+            this.columnSets[i].splice(j, 1);
+
+            if (!this.columnSets[i].length) this.columnSets.splice(i, 1);
+
+            break;
+            break;
 
           }
-
-          this.columns.splice(i, 1);
-
-          break;
         }
       }
 
@@ -259,9 +281,12 @@
 
         } else {
 
-          if (!columnSets.length || this.isSectionElem(this.elems[this.elems.length-(elems.length-i)-1])) {
+          var followingElem = this.elems[this.elems.length-(elems.length-i)-1];
+
+          if (!columnSets.length || (followingElem && this.isSectionElem(followingElem))) {
             columnSets.push(this.createColumnSet());
           }
+
 
           var column = this.getSmallestColumn(this.getLastColumnSet(columnSets));
 

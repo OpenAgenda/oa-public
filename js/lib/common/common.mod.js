@@ -1,3 +1,7 @@
+exports.addZero = function(number) {
+  return (parseInt(number, 10)<10?'0':'') + number;
+};
+
 /* Object.size */
 exports.size = function(obj) {
   var size = 0, key;
