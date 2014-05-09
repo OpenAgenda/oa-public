@@ -2,27 +2,24 @@ var cn = require('../../js/lib/common/common.mod.js'),
 
 remote = require('../../js/lib/remote/remote.mod.js'),
 
+debug = false,
+
 loadJs = require('../../js/lib/loadJs/loadJs.mod.js'),
 
-dataWidgetMaker = require('./dataWidgetMaker.js');
+dataWidgetMaker = require('./dataWidgetMaker.js'),
+
+configMaker = require('./configMaker.js'),
+
+widgetConfig,
 
 ejs = require('ejs'),
 
 params = {
-  labels: {
-    totalPublished: 'Total published events',
-    totalDatesPublished: 'Total published dates',
-    totalPublishedByCategories: 'Total published by categories',
-    totalPublishedByTags: 'Total published by tag',
-    totalPublishedByRegion: 'Total published by region',
-    totalPublishedByDepartment: 'Total published by department',
-    totalPublishedByCity: 'Total published by city',
-    totalPublishedByDay: 'Total published by day',
-    totalPublishedByCategoryAndRegion: 'Total published by category and region',
-    totalPublishedByCategoriesAndTags: 'Total published by category and tags',
-  },
+  labels: {},
   canvas: false,
   ctl: false,
+  config: false, // dataviz configuration
+  update: false,
   templates: {
     totalPublished: '<span><%= data %></span>',
     totalDatesPublished: '<span><%= data %></span>'
@@ -35,26 +32,49 @@ window.handleAdminDataViz = function(options) {
 
   cn.extend(params, options, {labels:labels});
 
-  loadResources(params, function(ctl) {
+  loadResources(params, function(ctl, config) {
 
-    var config = [
-      {label: params.labels.totalPublishedByCity, sections: ['city']},
-      {label: params.labels.totalPublishedByRegion, sections: ['region']},
-      {label: params.labels.totalPublishedByCategories, sections: ['category']},
-      {label: params.labels.totalPublishedByTags, sections: ['tag']},
-      {label: params.labels.totalPublishedByCategoriesAndTags, sections: ['category', 'tag']},
-      {label: params.labels.totalPublishedByDay, sections: ['day']}
-    ];
+    widgetConfig = config;
 
-    var widget = dataWidgetMaker(ctl, {
+    // here configuration is loaded
+
+    dataWidgetMaker(ctl, {
       w: window, d: document,
       labels: params.labels,
       canvas: cn.el(params.canvas)
-    }, function() {
+    }, function(generators) {
+
+
+      // create totals widget
+      generators.total();
+
 
       // create a widget for each stat
       for (var i = 0; i < config.length; i++)
-        widget(config[i]);
+        generators.widget(config[i], onWidgetRemove);
+        
+      var createButton = configMaker(ctl, {
+        canvas: cn.el(params.canvas),
+        labels: params.labels
+      });
+
+      createButton(function(section, subsection, filter) {
+
+        var newConfig = {sections: []};
+
+        newConfig.sections.push(section);
+
+        if (subsection) newConfig.sections.push(subsection);
+
+        if (filter=='upcoming') newConfig.filter = filter;
+
+        widgetConfig.push(newConfig);
+
+        update(widgetConfig);
+
+        generators.widget(newConfig, onWidgetRemove);
+
+      });
 
     });
 
@@ -70,50 +90,75 @@ processStat = function(cfg) {
 
   //var statElem = render(cfg.label, data, cfg.sections.length);
 
-  
-
   //cn.el(params.canvas).appendChild(statElem);
 
 },
 
-/*
-render = function(head, data, depth) {
 
-  if (typeof depth == 'undefined') depth = 1;
+/**
+ * things that happen when a widget is removed: widget config is removed, update is sent to server
+ */
 
-  var template = params.templates.totalPublishedBy;
+onWidgetRemove = function(wConfig) {
 
-  if (depth==2) template = params.templates.totalPublishedByBy;
+  var found = false;
 
-  var div = document.createElement('div'), child;
+  for (var i = widgetConfig.length - 1; i >= 0; i--)
+    if (configMatch(widgetConfig[i], wConfig)) {
+      found = true;
+      break;
+    }
 
-  div.innerHTML = ejs.render(template, cn.extend({labels: params.labels, classes: params.classes}, {data: data}));
+  if (found) {
 
-  div.className = params.classes.section;
+    widgetConfig = widgetConfig.splice(1,i);
 
-  var headElem = document.createElement('h2');
+    update(widgetConfig);
 
-  headElem.innerHTML = head;
+  }
 
-  div.insertAdjacentElement('afterbegin', headElem);
+},
 
-  return div;
 
-}, */
+/**
+ * check if widget configurations match
+ */
+
+configMatch = function(config1, config2) {
+
+  if (config1.sections.length !== config2.sections.length) return false;
+
+  for (var i = config1.sections.length - 1; i >= 0; i--) {
+    
+    if (!cn.contains(config2.sections, config1.sections[i])) return false;
+
+  }
+
+  return true;
+
+},
+
+
+/**
+ * load agenda control data and dataviz configuration
+ */
 
 loadResources = function(params, callback) {
 
-  var loadCount = 1, ctl,
+  var loadCount = 1, ctl, datavizConfig,
 
   attempt = function() {
 
     loadCount--;
 
-    if (loadCount===0) callback(ctl);
+    if (loadCount===0) callback(ctl, datavizConfig);
 
   };
 
   if (typeof params.ctl == 'string') {
+
+    // this is debug mode, update should be done with jsonp
+    debug = true;
 
     loadCount ++;
 
@@ -121,13 +166,19 @@ loadResources = function(params, callback) {
 
       ctl = data;
 
+      remote.getJsonp(params.ctl, {data: {format: 'jsonp', getdataviz: ''}}, function(responseType, data) {
+
+        datavizConfig = JSON.parse(data);
+
+      });
+
       attempt();
 
     });
 
   } else {
 
-    callback(params.ctl);
+    callback(params.ctl, params.config);
 
   }
 
@@ -136,5 +187,24 @@ loadResources = function(params, callback) {
     attempt();
 
   });
+
+},
+
+
+/**
+ * update dataviz config in server
+ */
+
+update = function(newConfig, callback) {
+
+  if (typeof callback == 'undefined') callback = function() {};
+
+  var submitData = {dataviz: JSON.stringify(newConfig)};
+
+  if (!debug) return remote.postXmlHttp(params.update, {data: submitData}, callback);
+
+  submitData.format = 'jsonp';
+
+  remote.getJsonp(params.update, {data: submitData}, callback);
 
 };

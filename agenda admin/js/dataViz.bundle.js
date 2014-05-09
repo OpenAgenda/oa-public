@@ -1,29 +1,285 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+/**
+ * handles interaction with user to add a new graph configuration
+ */
+var cn = require('../../js/lib/common/common.mod.js'),
+
+ejs = require('ejs'),
+
+labels = {
+  add: 'Add',
+  cancel: 'cancel',
+  create: 'create',
+  sectionSelect: 'select a breakdown',
+  subsectionSelect: 'add another breakdown',
+  sections: { date: 'Date', month: 'Month', year: 'Year', tag: 'Tag', category: 'Category', country: 'Country', place: 'Place Name', city: 'City', region: 'Region', department: 'Department', postalCode: 'Postal Code'},
+  includeAll: 'all events',
+  includeUpcoming: 'upcoming events',
+  count: 'select a count'
+},
+
+params = {
+  canvas: false,  // required. canvas where to put config maker
+  templates: {
+    add: '<a class="button" href="#"><%= add %></a>',
+    menu: '<div class="cform addMenu"><ul class="line"><li><select></select></li><li><select></select></li><li><a class="button" href="#"><%= create %></a></li></ul><ul><li><a class="url" href="#"><%= subsectionSelect %></a></li></ul></div>',
+    subsectionMenu: '<div><select></select> <a href="#" class="url"><%= cancel %></a></div>'
+  },
+  sections: ['country', 'department', 'region', 'city', 'postalCode', 'place', 'year', 'month', 'day', 'category', 'tag'],
+  mux: [
+    ['country', 'department', 'region', 'city', 'postalCode', 'place'],
+    ['year', 'month', 'day']
+  ]
+};
+
+module.exports = function(ctl, options) {
+
+  params = cn.extend(params, {
+    hasCategories: ctl.ct.length,
+    hasTags: ctl.t.length
+  }, options);
+
+  cn.extend(labels, typeof params.labels !== 'undefined'?params.labels:{});
+  
+  return create;
+
+};
+
+var create = function(callback) {
+
+  var sandbox = document.createElement('div');
+
+  sandbox.innerHTML = ejs.render(params.templates.add, labels);
+
+  var addButton = cn.childObject(sandbox, 0);
+
+  cn.addEvent(addButton, 'click', function(e) {
+    cn.preventDefault(e);
+    
+    createMenu(addButton, callback);
+    removeButton(addButton);
+
+  });
+
+  params.canvas.appendChild(addButton);
+
+},
+
+createMenu = function(button, callback) {
+
+  // initialize dom object
+  
+  var sandbox = document.createElement('div');
+
+  sandbox.innerHTML = ejs.render(params.templates.menu, labels);
+
+  var menu = cn.childObject(sandbox, 0),
+
+  section = false, subsection = false, filter = false,
+
+  filterSelect = cn.el(menu, 'select'),
+
+  sectionSelect = cn.els(menu, 'select')[1],
+
+  subsectionLink = cn.els(menu, 'a')[1];
+
+  createLink = cn.els(menu, 'a')[0];
+
+  subsectionMenu = false; // subsection menu does not exist
+
+  
+  // add behavior and content to section selectbox
+
+  addSectionOptions(sectionSelect, labels.sectionSelect);
+
+  cn.addEvent(sectionSelect, 'change', function() {
+
+    section = sectionSelect.value;
+
+    if (subsectionMenu) {
+
+      removeSubsection(subsectionMenu);
+
+      subsection = subsectionMenu = false;
+
+      subsectionLink.removeAttribute('style');
+
+    }
+      
+  });
+
+
+  // add behavior and content to filter select box
+  
+  createFilterSelect(filterSelect, function(value) {
+
+    filter = value;
+
+  });
+
+
+  // add behavior to subsection link
+  
+  cn.addEvent(subsectionLink, 'click', function(e) {
+
+    cn.preventDefault(e);
+
+    subsectionLink.style.display = 'none';
+
+    subsectionMenu = createSubsection(section, function() { // subsection select callback
+
+      subsection = cn.el(subsectionMenu, 'select').value;
+
+    }, function() { // cancel callback
+      
+      subsection = subsectionMenu = false;
+
+      subsectionLink.removeAttribute('style');
+
+    });
+
+    subsectionLink.insertAdjacentElement('afterend', subsectionMenu);
+
+  });
+
+  // add behavior to create link
+  
+  cn.addEvent(createLink, 'click', function(e) {
+
+    cn.preventDefault(e);
+
+    if (!section && !subsection) return;
+
+    if (!section) section = subsection;
+
+    callback(section, subsection, filter);
+
+    menu.parentNode.removeChild(menu);
+
+    create(callback);
+
+  });
+
+  button.insertAdjacentElement('afterend', menu);
+
+  return menu;
+
+},
+
+createSubsection = function(currentSection, selectCallback, cancelCallback) {
+
+  var sandbox = document.createElement('div');
+
+  sandbox.innerHTML = ejs.render(params.templates.subsectionMenu, labels);
+
+  var subsection = cn.childObject(sandbox, 0);
+
+  resetSubsection(subsection, currentSection);
+
+  cn.addEvent(subsection, 'change', selectCallback);
+  
+  // the first a of the subsection is the cancel link
+  cn.addEvent(cn.el(subsection, 'a'), 'click', function(e) {
+
+    cn.preventDefault(e);
+
+    removeSubsection(subsection);
+    cancelCallback();
+
+  });
+
+  return subsection;
+
+},
+
+createFilterSelect = function(elem, callback) {
+
+  addOption(elem, '', labels.countSelect);
+  addOption(elem, '', labels.includeAll);
+  addOption(elem, 'upcoming', labels.includeUpcoming);
+
+  cn.addEvent(elem, 'change', function() {
+    callback(elem.value);
+  });
+
+},
+
+removeSubsection = function(subsection) {
+
+  subsection.parentNode.removeChild(subsection);
+
+},
+
+resetSubsection = function(subsection, currentSection) {
+
+  while (cn.el(subsection, 'select').options.length > 0)
+    cn.el(subsection, 'select').remove(0);
+
+  // look at mutually exclusive sections to establish exception lists
+  var exclusions = [];
+
+  for (var i = 0; i < params.mux.length; i++)
+    if (cn.contains(params.mux[i], currentSection)) exclusions = exclusions.concat(params.mux[i]);
+
+  // add all except the one already used
+  addSectionOptions(cn.el(subsection, 'select'), labels.subsectionSelect, exclusions);
+
+},
+
+removeButton = function(button) {
+
+  button.parentNode.removeChild(button);
+
+},
+
+addSectionOptions = function(select, defaultLabel, exclusions) {
+
+  addOption(select, '', defaultLabel);
+
+  cn.forEach(params.sections, function(section) {
+
+    if ((typeof exclusions !== 'undefined') && cn.contains(exclusions, section)) return;
+
+    addOption(select, section, labels.sections[section]);
+    
+  });
+
+},
+
+addOption = function(select, value, label) {
+
+  if (typeof label == 'undefined') label = value;
+
+  var option = document.createElement('option');
+    
+  option.value = value;
+  option.innerHTML = label;
+  select.appendChild(option);
+
+};
+},{"../../js/lib/common/common.mod.js":9,"ejs":5}],2:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 remote = require('../../js/lib/remote/remote.mod.js'),
 
+debug = false,
+
 loadJs = require('../../js/lib/loadJs/loadJs.mod.js'),
 
-dataWidgetMaker = require('./dataWidgetMaker.js');
+dataWidgetMaker = require('./dataWidgetMaker.js'),
+
+configMaker = require('./configMaker.js'),
+
+widgetConfig,
 
 ejs = require('ejs'),
 
 params = {
-  labels: {
-    totalPublished: 'Total published events',
-    totalDatesPublished: 'Total published dates',
-    totalPublishedByCategories: 'Total published by categories',
-    totalPublishedByTags: 'Total published by tag',
-    totalPublishedByRegion: 'Total published by region',
-    totalPublishedByDepartment: 'Total published by department',
-    totalPublishedByCity: 'Total published by city',
-    totalPublishedByDay: 'Total published by day',
-    totalPublishedByCategoryAndRegion: 'Total published by category and region',
-    totalPublishedByCategoriesAndTags: 'Total published by category and tags',
-  },
+  labels: {},
   canvas: false,
   ctl: false,
+  config: false, // dataviz configuration
+  update: false,
   templates: {
     totalPublished: '<span><%= data %></span>',
     totalDatesPublished: '<span><%= data %></span>'
@@ -36,26 +292,49 @@ window.handleAdminDataViz = function(options) {
 
   cn.extend(params, options, {labels:labels});
 
-  loadResources(params, function(ctl) {
+  loadResources(params, function(ctl, config) {
 
-    var config = [
-      {label: params.labels.totalPublishedByCity, sections: ['city']},
-      {label: params.labels.totalPublishedByRegion, sections: ['region']},
-      {label: params.labels.totalPublishedByCategories, sections: ['category']},
-      {label: params.labels.totalPublishedByTags, sections: ['tag']},
-      {label: params.labels.totalPublishedByCategoriesAndTags, sections: ['category', 'tag']},
-      {label: params.labels.totalPublishedByDay, sections: ['day']}
-    ];
+    widgetConfig = config;
 
-    var widget = dataWidgetMaker(ctl, {
+    // here configuration is loaded
+
+    dataWidgetMaker(ctl, {
       w: window, d: document,
       labels: params.labels,
       canvas: cn.el(params.canvas)
-    }, function() {
+    }, function(generators) {
+
+
+      // create totals widget
+      generators.total();
+
 
       // create a widget for each stat
       for (var i = 0; i < config.length; i++)
-        widget(config[i]);
+        generators.widget(config[i], onWidgetRemove);
+        
+      var createButton = configMaker(ctl, {
+        canvas: cn.el(params.canvas),
+        labels: params.labels
+      });
+
+      createButton(function(section, subsection, filter) {
+
+        var newConfig = {sections: []};
+
+        newConfig.sections.push(section);
+
+        if (subsection) newConfig.sections.push(subsection);
+
+        if (filter=='upcoming') newConfig.filter = filter;
+
+        widgetConfig.push(newConfig);
+
+        update(widgetConfig);
+
+        generators.widget(newConfig, onWidgetRemove);
+
+      });
 
     });
 
@@ -71,50 +350,75 @@ processStat = function(cfg) {
 
   //var statElem = render(cfg.label, data, cfg.sections.length);
 
-  
-
   //cn.el(params.canvas).appendChild(statElem);
 
 },
 
-/*
-render = function(head, data, depth) {
 
-  if (typeof depth == 'undefined') depth = 1;
+/**
+ * things that happen when a widget is removed: widget config is removed, update is sent to server
+ */
 
-  var template = params.templates.totalPublishedBy;
+onWidgetRemove = function(wConfig) {
 
-  if (depth==2) template = params.templates.totalPublishedByBy;
+  var found = false;
 
-  var div = document.createElement('div'), child;
+  for (var i = widgetConfig.length - 1; i >= 0; i--)
+    if (configMatch(widgetConfig[i], wConfig)) {
+      found = true;
+      break;
+    }
 
-  div.innerHTML = ejs.render(template, cn.extend({labels: params.labels, classes: params.classes}, {data: data}));
+  if (found) {
 
-  div.className = params.classes.section;
+    widgetConfig = widgetConfig.splice(1,i);
 
-  var headElem = document.createElement('h2');
+    update(widgetConfig);
 
-  headElem.innerHTML = head;
+  }
 
-  div.insertAdjacentElement('afterbegin', headElem);
+},
 
-  return div;
 
-}, */
+/**
+ * check if widget configurations match
+ */
+
+configMatch = function(config1, config2) {
+
+  if (config1.sections.length !== config2.sections.length) return false;
+
+  for (var i = config1.sections.length - 1; i >= 0; i--) {
+    
+    if (!cn.contains(config2.sections, config1.sections[i])) return false;
+
+  }
+
+  return true;
+
+},
+
+
+/**
+ * load agenda control data and dataviz configuration
+ */
 
 loadResources = function(params, callback) {
 
-  var loadCount = 1, ctl,
+  var loadCount = 1, ctl, datavizConfig,
 
   attempt = function() {
 
     loadCount--;
 
-    if (loadCount===0) callback(ctl);
+    if (loadCount===0) callback(ctl, datavizConfig);
 
   };
 
   if (typeof params.ctl == 'string') {
+
+    // this is debug mode, update should be done with jsonp
+    debug = true;
 
     loadCount ++;
 
@@ -122,13 +426,19 @@ loadResources = function(params, callback) {
 
       ctl = data;
 
+      remote.getJsonp(params.ctl, {data: {format: 'jsonp', getdataviz: ''}}, function(responseType, data) {
+
+        datavizConfig = JSON.parse(data);
+
+      });
+
       attempt();
 
     });
 
   } else {
 
-    callback(params.ctl);
+    callback(params.ctl, params.config);
 
   }
 
@@ -138,13 +448,34 @@ loadResources = function(params, callback) {
 
   });
 
+},
+
+
+/**
+ * update dataviz config in server
+ */
+
+update = function(newConfig, callback) {
+
+  if (typeof callback == 'undefined') callback = function() {};
+
+  var submitData = {dataviz: JSON.stringify(newConfig)};
+
+  if (!debug) return remote.postXmlHttp(params.update, {data: submitData}, callback);
+
+  submitData.format = 'jsonp';
+
+  remote.getJsonp(params.update, {data: submitData}, callback);
+
 };
-},{"../../js/lib/common/common.mod.js":8,"../../js/lib/loadJs/loadJs.mod.js":9,"../../js/lib/remote/remote.mod.js":10,"./dataWidgetMaker.js":2,"ejs":4}],2:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":9,"../../js/lib/loadJs/loadJs.mod.js":10,"../../js/lib/remote/remote.mod.js":11,"./configMaker.js":1,"./dataWidgetMaker.js":3,"ejs":5}],3:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 statsParser = require('./statsParser.js'),
 
 parser,
+
+totals,
 
 gChartWrapper = require('./googleChartWrapper.js'),
 
@@ -152,13 +483,35 @@ ejs = require('ejs'),
 
 labels = {
   unset: 'Unset',
+  events: 'Events',
+  upcoming: 'Upcoming Events',
   months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   linkContent: {
     list: 'see chart',
     chart: 'see list'
-  }
+  },
+  sections: {
+    day: 'Day',
+    date: 'Date',
+    month: 'Month',
+    year: 'Year',
+    tag: 'Tag',
+    category: 'Category',
+    country: 'Country',
+    place: 'Place Name',
+    city: 'City',
+    region: 'Region',
+    department: 'Department',
+    postalCode: 'Postal Code'
+  },
+  total: 'Total events',
+  dates: 'dates',
+  totalUpcoming: 'Total upcoming events',
+  upcomingDates: 'dates'
 },
+
+sortedSections = ['tag', 'category', 'country', 'place', 'region', 'department', 'postalCode', 'city'], // sections that should be sorted by count
 
 canvas = false, // where the widgets are stacked
 
@@ -171,12 +524,14 @@ params = {
     datavizTopList: 'dataviz-top-list',
   },
   selectors: {
-    statTargetElem: 'div'
+    statTargetElem: '.js_graph'
   },
   templates: {
-    main: '<a class="url"><%= linkContent %></a><h2><%= label %></h2><div></div>',
-    simple: '<ul class="<%= classes.datavizList %>"><% for (var i in data) { %><li><label><%= data[i].label %></label><span><%= data[i].count %></span></li><% } %></ul>',
-    combo: '<ul class="<%= classes.datavizTopList %>"><% for (var i in data) { %><li><label><%= i %></label><ul class="<%= classes.datavizList %>"><% for (var j in data[i]) { %><li><label><%= data[i][j].label %></label><span><%= data[i][j].count %></span></li><% }%></ul></li><% } %>',
+    total: '<ul class="totals"><li><label><%= labels.total %>:</label><span><%= total %></span><label><%= labels.dates %>:</label><span><%= dates %></span></li><li><label><%= labels.totalUpcoming %>:</label><span><%= upcoming %></span><label><%= labels.upcomingDates %>: </label><span><%= upcomingDates %></span></li></ul>',
+    main: '<a class="url"><%= linkContent %></a><a class="url">csv</a><div class="dataviz-head"><h2><%= label %></h2><a class="url"><%= labels.remove %></a></div><div class="js_graph"></div>',
+    simple: '<ul class="<%= classes.datavizList %>"><% for (var i in data) { %><li <% if (odd) { %>class="odd"<% } %><% odd=!odd; %>><label><%= data[i].label %></label><span><%= data[i].count %></span></li><% } %></ul>',
+    combo: '<ul class="<%= classes.datavizTopList %>"><% for (var i in data) { %><li><label><%= i %></label><ul class="<%= classes.datavizList %>"><% var odd = true; %><% for (var j in data[i]) { %><li <% if (odd) { %>class="odd"<% } %><% odd=!odd; %>><label><%= data[i][j].label %></label><span><%= data[i][j].count %></span></li><% }%></ul></li><% } %>',
+    csv: '<% for (var r=0; r<rows.length; r++) { %><% for (var c=0; c<rows[0].length; c++) { %>"<%= rows[r][c]!==0?rows[r][c]:\'\' %>",<% } %>\n<% } %>'
   }
 };
 
@@ -192,46 +547,91 @@ module.exports = function(ctl, options, callback) {
     labels: labels
   });
 
-  gChartMake = gChartWrapper({w: params.w, d: params.d}, callback);
+  totals = countTotals(ctl);
 
-  return createWidget;
+  gChartMake = gChartWrapper({w: params.w, d: params.d}, function() {
+
+    // chart lib is ready
+
+    callback({
+      widget: createWidget,
+      total: createTotals
+    });
+
+  });
 
 };
 
-var createWidget = function(config) {
+/**
+ * create a stats widget
+ */
+
+var createWidget = function(config, removeCallback) {
 
   var wConfig = cn.extend({
     display: 'list', // other being chart
     label: '',
-    sections: false // mandatory
+    sections: false, // mandatory
+    filter: false // optional.
   }, config),
 
   display = wConfig.display;
 
   var wDiv = params.d.createElement('div');
 
-  var wData = parser(config.sections);
+  var wData = parser(config.sections, wConfig.filter?filters[wConfig.filter]:false, true);
 
   canvas.appendChild(wDiv);
 
   wDiv.className = params.classes.section;
 
-  setContent(wDiv, wData, display, wConfig);
+  setContent(wDiv, wData, display, wConfig, removeCallback);
 },
 
-setContent = function(wCanvas, wData, currentMode, wConfig) {
+
+/**
+ * create a totals widget
+ */
+
+createTotals = function() {
+
+  var sandbox = params.d.createElement('div');
+
+  sandbox.innerHTML = ejs.render(params.templates.total, cn.extend({labels: labels}, totals));
+
+  canvas.appendChild(cn.childObject(sandbox, 0));
+
+},
+
+setContent = function(wCanvas, wData, currentMode, wConfig, removeCallback) {
 
   clearWidget(wCanvas);
 
-  wCanvas.innerHTML = ejs.render(params.templates.main, {linkContent: labels.linkContent[currentMode], classes: params.classes, label: wConfig.label});
+  var label = setTitleLabel(wConfig.sections, wConfig.filter);
+
+  wCanvas.innerHTML = ejs.render(params.templates.main, { labels: labels, linkContent: labels.linkContent[currentMode], classes: params.classes, label: label });
+
+  cn.addEvent(cn.els(wCanvas, 'a')[2], 'click', function(e) {
+
+    cn.preventDefault(e);
+
+    clearWidget(wCanvas);
+
+    wCanvas.parentNode.removeChild(wCanvas);
+
+    removeCallback(wConfig);
+
+  });
+
+  var aData = sortByCount(wData, wConfig.sections);
 
   if (currentMode=='list') {
 
-    renderList(cn.el(wCanvas, params.selectors.statTargetElem), wConfig.label, wData, wConfig.sections.length);
+    renderList(cn.el(wCanvas, params.selectors.statTargetElem), wConfig.label, aData, wConfig.sections);
 
   } else {
 
-    gChartMake(wData, {
+    gChartMake(aData, {
       canvas: cn.el(wCanvas, params.selectors.statTargetElem),
       depth: wConfig.sections.length,
       countName: labels.count
@@ -247,12 +647,24 @@ setContent = function(wCanvas, wData, currentMode, wConfig) {
 
   });
 
+  cn.addEvent(cn.els(wCanvas, 'a')[1], 'click', function(e) {
+
+    cn.preventDefault(e);
+
+    var encodedUri = encodeURI(renderCsv(wData, wConfig.sections, wConfig.filter));
+    var link = document.createElement("a");
+    link.setAttribute("href", "data:text/csv;charset=utf-8,\uFEFF" + encodedUri);
+    link.setAttribute("download","report.csv");
+    link.click();
+
+  });
+
 
 },
 
-renderList = function(canvas, label, data, depth) {
+renderList = function(canvas, label, data, sections) {
 
-  if (typeof depth == 'undefined') depth = 1;
+  var depth = sections.length;
 
   var template = params.templates.simple;
 
@@ -260,7 +672,101 @@ renderList = function(canvas, label, data, depth) {
 
   var child;
 
-  canvas.innerHTML = ejs.render(template, cn.extend({labels: params.labels, classes: params.classes}, {data: data}));
+  canvas.innerHTML = ejs.render(template, cn.extend({labels: params.labels, classes: params.classes, odd: true}, {data: data}));
+
+},
+
+renderCsv = function(data, sections, filter) {
+
+  var rows = [], i;
+
+  if (sections.length==2) {
+
+    var cols = [labels.sections[sections[0]]];
+
+    // define columns 
+    for (var topSection in data)
+      for (i in data[topSection])
+        if (!cn.contains(cols, data[topSection][i].label)) cols.push(data[topSection][i].label);
+
+    rows.push(cols);
+
+    for (topSection in data) {
+
+      var newRow = [topSection];
+
+      for (var c=1; c<cols.length; c++) {
+
+        var found = false;
+
+        for (i in data[topSection]) {
+
+          if (cols[c]==data[topSection][i].label) {
+            found = true;
+            newRow.push(data[topSection][i].count);
+            break;
+          }
+
+        }
+
+        if (!found) newRow.push(0);
+
+      }
+
+      rows.push(newRow);
+    }
+
+  } else {
+
+    rows.push([labels.sections[sections[0]], filter?labels[filter]:labels.events]);
+
+    for (i in data)
+      rows.push([i, data[i].count]);
+
+  }
+
+  return ejs.render(params.templates.csv, {rows: rows});
+
+},
+
+sortByCount = function(data, sections) {
+
+  if (sections.length==1)
+    return toArray(data, sortRequired(sections));
+
+  for (var key in data)
+    data[key] = toArray(data[key], sortRequired(sections));
+
+  return data;
+
+},
+
+sortRequired = function(sections) {
+
+  return cn.contains(sortedSections, sections[sections.length-1]);
+
+},
+
+toArray = function(data, sort) {
+  
+  if (typeof sort == 'undefined') sort = false;
+
+  var aData = [];
+
+  for (var key in data)
+    aData.push(data[key]);
+
+  if (!sort) return aData;
+
+  return aData.sort(function(a, b) {
+
+    if (a.count > b.count) return -1;
+
+    if (a.count < b.count) return 1;
+
+    return 0;
+
+  });
 
 },
 
@@ -271,8 +777,77 @@ clearWidget = function(elem) {
   while (child = cn.childObject(elem, 0))
     elem.removeChild(child);
 
+},
+
+countTotals = function(ctl) {
+
+  var upcoming = filters.upcoming(ctl.a), dates = 0, upcomingDates = 0;
+
+  for (var i in ctl.a)
+    for (var l in ctl.a[i].l)
+      dates += ctl.a[i].l[l].d.length;
+      
+
+  for (i in upcoming)
+    for (l in upcoming[i].l)
+      upcomingDates += upcoming[i].l[l].d.length;
+
+  return {
+    total: cn.size(ctl.a),
+    upcoming: cn.size(upcoming),
+    dates: dates,
+    upcomingDates: upcomingDates
+  };
+
+},
+
+setTitleLabel = function(sections, filter) {
+
+  var label = [];
+
+  if (!filter)
+    label.push(labels.events);
+  else
+    label.push(labels[filter]);
+
+  for (var i = 0; i < sections.length; i++)
+    label.push(labels.sections[sections[i]]);
+
+  return label.join(' / ');
+
+},
+
+filters = {
+  upcoming: function(articles) {
+
+    var today = new Date();
+
+    today = today.getFullYear() + '-' + cn.addZero(today.getMonth()+1) + '-' + cn.addZero(today.getDate());
+    
+    var a = JSON.parse(JSON.stringify(articles));
+
+    for (var aId in a) {
+      for (var l in a[aId].l) {
+
+        var dates = [];
+
+        for (var i = a[aId].l[l].d.length - 1; i >= 0; i--)
+          if (a[aId].l[l].d[i]>=today)
+            dates.push(a[aId].l[l].d[i]);
+
+        a[aId].l[l].d = dates;
+
+        if (!dates.length) delete a[aId].l[l];
+      }
+
+      if (!cn.size(a[aId].l)) delete a[aId];
+    }
+
+    return a;
+
+  }
 };
-},{"../../js/lib/common/common.mod.js":8,"./googleChartWrapper.js":3,"./statsParser.js":7,"ejs":4}],3:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":9,"./googleChartWrapper.js":4,"./statsParser.js":8,"ejs":5}],4:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 loadJs = require('../../js/lib/loadJs/loadJs.mod.js'),
@@ -280,6 +855,9 @@ loadJs = require('../../js/lib/loadJs/loadJs.mod.js'),
 params = {
   w: false,
   d: false,
+  classes: {
+    canvas: 'graphbox'
+  }
 },
 
 chartsReady;
@@ -333,12 +911,19 @@ renderCombo = function(canvas, type, title, label, data) {
 
   canvas.appendChild(div);
 
-  // get col valeus by fetching all sublevel keys
-  var cols = [];
+  // get col values by fetching all sublevel keys
+  var cols = [], colLabels = {};
 
   for (var i in data)
-    for (var j in data[i])
-      if (!cn.contains(cols, j)) cols.push(j);
+    for (var j in data[i]) {
+      if (!cn.contains(cols, j)) {
+
+        cols.push(j);
+        colLabels[j] = data[i][j].label;
+
+      }
+    }
+      
 
   cols = cols.sort();
 
@@ -348,12 +933,13 @@ renderCombo = function(canvas, type, title, label, data) {
   cData.addColumn('string', label);
 
   for (i = 0; i < cols.length; i++)
-    cData.addColumn('number', cols[i]);
+    cData.addColumn('number', colLabels[cols[i]]);
 
   for (var r in data) {
 
     var newRow = [r];
 
+    // loop through columns and add counts where values exist
     for (i = 0; i < cols.length; i++) {
 
       var count = 0;
@@ -387,6 +973,10 @@ renderSimple = function(canvas, type, title, label, countName, data) {
   unitHeight = 25, offsetHeight = 40;
 
   canvas.appendChild(div);
+
+  div.className = params.classes.canvas;
+
+  div.style.height = cn.size(data)*unitHeight + offsetHeight + 'px';
   
   var cData = new google.visualization.DataTable();
 
@@ -405,12 +995,13 @@ renderSimple = function(canvas, type, title, label, countName, data) {
   chart.draw(cData, {
     title: title,
     width:'100%',
-    height: cn.size(data)*unitHeight + offsetHeight,
-    chartArea: {left:150,top:20,width:"100%"}
+    chartArea: {left:150,top: 0, width:"100%", height: "100%"},
+    backgroundColor: 'transparent',
+    colors: ['#31def4']
   });
 
 };
-},{"../../js/lib/common/common.mod.js":8,"../../js/lib/loadJs/loadJs.mod.js":9}],4:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":9,"../../js/lib/loadJs/loadJs.mod.js":10}],5:[function(require,module,exports){
 
 /*!
  * EJS
@@ -774,7 +1365,7 @@ if (require.extensions) {
   });
 }
 
-},{"./filters":5,"./utils":6,"fs":11,"path":13}],5:[function(require,module,exports){
+},{"./filters":6,"./utils":7,"fs":12,"path":14}],6:[function(require,module,exports){
 /*!
  * EJS - Filters
  * Copyright(c) 2010 TJ Holowaychuk <tj@vision-media.ca>
@@ -977,7 +1568,7 @@ exports.json = function(obj){
   return JSON.stringify(obj);
 };
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 
 /*!
  * EJS
@@ -1003,7 +1594,7 @@ exports.escape = function(html){
 };
  
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 ctl,
@@ -1022,6 +1613,8 @@ init = function() {
     city: locationLib.extractCity,
     region: locationLib.extractRegion,
     department: locationLib.extractDepartment,
+    country: locationLib.extractCountry,
+    postalCode: locationLib.extractPostalCode,
     category: categoryLib.extract,
     tag: tagLib.extract
   };
@@ -1032,17 +1625,23 @@ init = function() {
 
     params = cn.extend({}, options);
 
-    return function(attributes) {
+    return function(attributes, filter, countSort) {
+
+      var articles = ctl.a;
+
+      if (typeof countSort == 'undefined') countSort = false;
+
+      if (filter) articles = filter(articles);
 
       if (typeof attributes == 'string') attributes = [attributes];
 
       if (attributes.length==1) {
 
-        return processArticles(ctl.a, map[attributes[0]]);
+        return processArticles(articles, map[attributes[0]]);
 
       } else {
 
-        return processSubsets(ctl.a, map[attributes[0]], map[attributes[1]]);
+        return processSubsets(articles, map[attributes[0]], map[attributes[1]]);
 
       }
 
@@ -1191,8 +1790,14 @@ locationLib = {
   extractDepartment: function(article) {
     return locationLib.extract(article, 'dp');
   },
+  extractCountry: function(article) {
+    return locationLib.extract(article, 'cn');
+  },
   extractRegion: function(article) {
     return locationLib.extract(article, 'rg');
+  },
+  extractPostalCode: function(article) {
+    return locationLib.extract(article, 'pc');
   },
   extract: function(article, key) {
 
@@ -1254,6 +1859,17 @@ processSubsets = function(articles, topExtractFunc, bottomExtractFunc, filterEmp
 
 },
 
+compareCounts = function(a, b) {
+
+  if (a.count < b.count)
+    return -1;
+  if (a.count > b.count)
+    return 1;
+
+  return 0;
+
+},
+
 compareSortKeys = function(a,b) {
 
   var aKey = (typeof a.sortKey == 'undefined')?a:a.sortKey,
@@ -1309,8 +1925,6 @@ createSortGroup = function(articles, extractFunc) {
 
   var group = {}, aggregated = [];
 
-  // here extractFunc picks out the months 
-
   for (var i in articles) {
 
     var val = extractFunc(articles[i]);
@@ -1334,7 +1948,11 @@ createSortGroup = function(articles, extractFunc) {
 };
 
 init();
-},{"../../js/lib/common/common.mod.js":8}],8:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":9}],9:[function(require,module,exports){
+exports.addZero = function(number) {
+  return (parseInt(number, 10)<10?'0':'') + number;
+};
+
 /* Object.size */
 exports.size = function(obj) {
   var size = 0, key;
@@ -1669,7 +2287,7 @@ exports.removeProperty = function(obj, name) {
   return obj.removeAttribute(name);
 
 };
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 module.exports = function(src, callback){
 
   if (typeof src == 'string') {
@@ -1732,7 +2350,7 @@ module.exports = function(src, callback){
   }
 
 };
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 // this guy does not include the getStack method
 module.exports = {
   get: function(url, settings, callback, ajax) {
@@ -1932,9 +2550,9 @@ module.exports = {
     return url;
   }
 };
-},{}],11:[function(require,module,exports){
-
 },{}],12:[function(require,module,exports){
+
+},{}],13:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -1996,7 +2614,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -2224,4 +2842,4 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require("/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":12}]},{},[1])
+},{"/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":13}]},{},[2])

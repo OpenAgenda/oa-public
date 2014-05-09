@@ -5,6 +5,9 @@ loadJs = require('../../js/lib/loadJs/loadJs.mod.js'),
 params = {
   w: false,
   d: false,
+  classes: {
+    canvas: 'graphbox'
+  }
 },
 
 chartsReady;
@@ -58,12 +61,19 @@ renderCombo = function(canvas, type, title, label, data) {
 
   canvas.appendChild(div);
 
-  // get col valeus by fetching all sublevel keys
-  var cols = [];
+  // get col values by fetching all sublevel keys
+  var cols = [], colLabels = {};
 
   for (var i in data)
-    for (var j in data[i])
-      if (!cn.contains(cols, j)) cols.push(j);
+    for (var j in data[i]) {
+      if (!cn.contains(cols, j)) {
+
+        cols.push(j);
+        colLabels[j] = data[i][j].label;
+
+      }
+    }
+      
 
   cols = cols.sort();
 
@@ -73,12 +83,13 @@ renderCombo = function(canvas, type, title, label, data) {
   cData.addColumn('string', label);
 
   for (i = 0; i < cols.length; i++)
-    cData.addColumn('number', cols[i]);
+    cData.addColumn('number', colLabels[cols[i]]);
 
   for (var r in data) {
 
     var newRow = [r];
 
+    // loop through columns and add counts where values exist
     for (i = 0; i < cols.length; i++) {
 
       var count = 0;
@@ -112,6 +123,10 @@ renderSimple = function(canvas, type, title, label, countName, data) {
   unitHeight = 25, offsetHeight = 40;
 
   canvas.appendChild(div);
+
+  div.className = params.classes.canvas;
+
+  div.style.height = cn.size(data)*unitHeight + offsetHeight + 'px';
   
   var cData = new google.visualization.DataTable();
 
@@ -130,8 +145,9 @@ renderSimple = function(canvas, type, title, label, countName, data) {
   chart.draw(cData, {
     title: title,
     width:'100%',
-    height: cn.size(data)*unitHeight + offsetHeight,
-    chartArea: {left:150,top:20,width:"100%"}
+    chartArea: {left:150,top: 0, width:"100%", height: "100%"},
+    backgroundColor: 'transparent',
+    colors: ['#31def4']
   });
 
 };

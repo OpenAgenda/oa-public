@@ -16,6 +16,8 @@ init = function() {
     city: locationLib.extractCity,
     region: locationLib.extractRegion,
     department: locationLib.extractDepartment,
+    country: locationLib.extractCountry,
+    postalCode: locationLib.extractPostalCode,
     category: categoryLib.extract,
     tag: tagLib.extract
   };
@@ -26,17 +28,23 @@ init = function() {
 
     params = cn.extend({}, options);
 
-    return function(attributes) {
+    return function(attributes, filter, countSort) {
+
+      var articles = ctl.a;
+
+      if (typeof countSort == 'undefined') countSort = false;
+
+      if (filter) articles = filter(articles);
 
       if (typeof attributes == 'string') attributes = [attributes];
 
       if (attributes.length==1) {
 
-        return processArticles(ctl.a, map[attributes[0]]);
+        return processArticles(articles, map[attributes[0]]);
 
       } else {
 
-        return processSubsets(ctl.a, map[attributes[0]], map[attributes[1]]);
+        return processSubsets(articles, map[attributes[0]], map[attributes[1]]);
 
       }
 
@@ -185,8 +193,14 @@ locationLib = {
   extractDepartment: function(article) {
     return locationLib.extract(article, 'dp');
   },
+  extractCountry: function(article) {
+    return locationLib.extract(article, 'cn');
+  },
   extractRegion: function(article) {
     return locationLib.extract(article, 'rg');
+  },
+  extractPostalCode: function(article) {
+    return locationLib.extract(article, 'pc');
   },
   extract: function(article, key) {
 
@@ -248,6 +262,17 @@ processSubsets = function(articles, topExtractFunc, bottomExtractFunc, filterEmp
 
 },
 
+compareCounts = function(a, b) {
+
+  if (a.count < b.count)
+    return -1;
+  if (a.count > b.count)
+    return 1;
+
+  return 0;
+
+},
+
 compareSortKeys = function(a,b) {
 
   var aKey = (typeof a.sortKey == 'undefined')?a:a.sortKey,
@@ -302,8 +327,6 @@ createSubsets = function(articles, extractFunc) {
 createSortGroup = function(articles, extractFunc) {
 
   var group = {}, aggregated = [];
-
-  // here extractFunc picks out the months 
 
   for (var i in articles) {
 
