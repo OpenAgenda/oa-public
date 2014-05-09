@@ -21,8 +21,8 @@ labels = {
 params = {
   canvas: false,  // required. canvas where to put config maker
   templates: {
-    add: '<a class="button" href="#"><%= add %></a>',
-    menu: '<div class="cform addMenu"><ul class="line"><li><select></select></li><li><select></select></li><li><a class="button" href="#"><%= create %></a></li></ul><ul><li><a class="url" href="#"><%= subsectionSelect %></a></li></ul></div>',
+    add: '<button><%= add %></button>',
+    menu: '<div class="cform addMenu"><ul class="line"><li><select></select></li><li><select></select></li><li><button><%= create %></button></li></ul><ul><li><a class="url" href="#"><%= subsectionSelect %></a></li></ul></div>',
     subsectionMenu: '<div><select></select> <a href="#" class="url"><%= cancel %></a></div>'
   },
   sections: ['country', 'department', 'region', 'city', 'postalCode', 'place', 'year', 'month', 'day', 'category', 'tag'],
@@ -81,9 +81,9 @@ createMenu = function(button, callback) {
 
   sectionSelect = cn.els(menu, 'select')[1],
 
-  subsectionLink = cn.els(menu, 'a')[1];
+  subsectionLink = cn.el(menu, 'a');
 
-  createLink = cn.els(menu, 'a')[0];
+  createLink = cn.els(menu, 'button')[0];
 
   subsectionMenu = false; // subsection menu does not exist
 
@@ -308,7 +308,6 @@ window.handleAdminDataViz = function(options) {
       // create totals widget
       generators.total();
 
-
       // create a widget for each stat
       for (var i = 0; i < config.length; i++)
         generators.widget(config[i], onWidgetRemove);
@@ -339,18 +338,6 @@ window.handleAdminDataViz = function(options) {
     });
 
   });
-
-},
-
-processStat = function(cfg) {
-
-  var data = parser(cfg.sections);
-
-  // make widget
-
-  //var statElem = render(cfg.label, data, cfg.sections.length);
-
-  //cn.el(params.canvas).appendChild(statElem);
 
 },
 

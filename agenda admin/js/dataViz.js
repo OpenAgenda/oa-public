@@ -48,7 +48,6 @@ window.handleAdminDataViz = function(options) {
       // create totals widget
       generators.total();
 
-
       // create a widget for each stat
       for (var i = 0; i < config.length; i++)
         generators.widget(config[i], onWidgetRemove);
@@ -79,18 +78,6 @@ window.handleAdminDataViz = function(options) {
     });
 
   });
-
-},
-
-processStat = function(cfg) {
-
-  var data = parser(cfg.sections);
-
-  // make widget
-
-  //var statElem = render(cfg.label, data, cfg.sections.length);
-
-  //cn.el(params.canvas).appendChild(statElem);
 
 },
 

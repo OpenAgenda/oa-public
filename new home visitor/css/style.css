@@ -130,7 +130,6 @@ button {
 .front nav a {
   display: inline-block; 
   color: #333;
-  text-transform: uppercase;
   font-size: 1.2em;
   vertical-align: middle;
 }
