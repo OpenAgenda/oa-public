@@ -25,7 +25,7 @@ var queryClient = function(link, options){
     this.synced = false;
     this.loading = false;
 
-    this.loadingDoneCallbackStack = new Array();
+    this.loadingDoneCallbackStack = [];
 
     if (this.options.anchor) this.anchor = new anchorSet(this.options.anchor);
 
@@ -219,7 +219,7 @@ var queryClient = function(link, options){
     if (this.anchor) this.anchor.setOnChange(callback);
   };
 
-  this.isLoading = function(){ 
+  this.isLoading = function(){
 
     return this.loading;
 

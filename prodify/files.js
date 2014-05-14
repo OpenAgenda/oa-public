@@ -1,5 +1,5 @@
 var paths = {
-  hv:  '../home visitor/js',
+  hv: '../new home visitor/js/',
   hs:  '../header/js/',
   p:   '../agenda/js/',
   ps:  '../program search/js/',
@@ -154,15 +154,8 @@ files = {
     ]
   ],
 
-  'home/visitor.min.js': [
-    [paths.lib, 'common/common.js', 'EventHandler/EventHandler.js', 'flowinate/flowinate.js', 'remote/remote.js', 'urlStrings/urlStrings.js'],
-    [paths.vd, 'ejs/src/ejs_production.js', 'spin/src/spin.min.js'],
-    [paths.jsc,
-      'handleList/src/handleList.js',
-      'handleLock/src/handleLock.js',
-      'handleNav/src/handleNav.js',
-      'handleProgramSearch/src/handleProgramSearch.js'
-    ]
+  'home/visitor.js': [
+    [paths.hv, 'header.bundle.js']
   ],
 
   'event/event.min.js': [

@@ -1,4 +1,3 @@
-/* handleNav v0.2 */
 var handleNav = function(previousPageElement, nextPageElement, eventHandler, params) {
 
   var enabled = [false, false],

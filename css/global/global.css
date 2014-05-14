@@ -3,7 +3,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 
 @media screen and (max-width: 600px) { * { font-size: 15px; } }
 
-body { background: url("images/bg.png") repeat scroll 0 0 rgb(230,230,230); }
+body { background: rgb(230,230,230); }
 
 input[type="radio"] { border: none; }
 a { text-decoration: none; cursor: pointer; outline: 0;}

@@ -54,6 +54,8 @@ button {
   color: #ccc;
 }
 
+.front .colored-dark i { padding-right: 0.2em; }
+
 .front .colored-dark .content > h2 {
   color: #ccc;
 }
@@ -76,7 +78,8 @@ button {
   padding-left: 0.3em;
 }
 
-.front button { 
+.front button,
+.front .button { 
   margin-right: 1em;
   background: #11bed4;
   border: none;
@@ -86,7 +89,8 @@ button {
   font-size: 1.2em;
 }
 
-.front button:hover {
+.front button:hover,
+.front .button:hover {
   background: #31def4;
 }
 
@@ -102,7 +106,7 @@ button {
 /* HEADER SECTION */
 
 .front header {
-  background: url("../images/background.png") center top;
+  background: url("//cibulstatic.s3.amazonaws.com/background.png") center top;
   background-size: cover;
 }
 
@@ -117,7 +121,7 @@ button {
   );
   background-image: -o-linear-gradient(right, rgba(255,255,255,0) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.7) 100%);
   background-image: -moz-linear-gradient(right, rgba(255,255,255,0) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.7) 100%);
-  background-image: -webkit-linear-gradient(right, rgba(255,255,255,0) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.7) 100%);
+  background-image: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.7) 100%);
   background-image: -ms-linear-gradient(right, rgba(255,255,255,0) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.7) 100%);
   background-image: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.8) 100%);
 }
@@ -125,6 +129,7 @@ button {
 .front nav {
   text-align: right;
   padding: 1em;
+  background: white;
 }
 
 .front nav a {
@@ -132,10 +137,7 @@ button {
   color: #333;
   font-size: 1.2em;
   vertical-align: middle;
-}
-
-.front nav a:first-child {
-  padding-right: 0;
+  cursor: pointer;
 }
 
 .front nav .logo {
@@ -154,13 +156,48 @@ button {
   display: inline-block;
 }
 
+.front .links a:hover,
+.front .links a:hover i {
+  color: #11bed4;
+}
+
 .front .links li {
   display: inline-block;
   padding: 1em 2em 1em 0;
+  position: relative;
 }
 
 .front nav .links i {
   font-size: 1.2em;
+}
+
+.front nav .language-menu ul {
+  position: absolute;
+  right: 0;
+  background: white;
+  padding: 2em 0 0;
+  display: none;
+  z-index: 3;
+}
+
+.front nav .language-menu > a {
+  text-transform: uppercase;
+}
+
+.front nav .language-menu ul li {
+  display: block;
+  padding: 0;
+}
+
+.front nav .language-menu ul li a {
+  padding: 1em;
+  text-align: left;
+  display: block;
+}
+
+.front nav .language-menu ul li a:hover {
+  background: #333;
+  color: white;
 }
 
 
@@ -194,13 +231,13 @@ button {
   padding: 0 0 1em;
 }
 
-.front header button {
+.front header .button {
   margin: 3em 0;
   font-size: 1.4em;
   background: #31def4;
 }
 
-.front header button:hover {
+.front header .button:hover {
   background: #51feff;
 }
 
@@ -222,32 +259,32 @@ button {
 .front .w100 { width: 100%; }
 .front .w60 { width: 60%; }
 
-.row {
+.front .row {
   padding: 2em 1em;
 }
 
-.col {
+.front .col {
   width: 33%;
   vertical-align: top;
   display: inline-block;
   text-align: center;
 }
 
-.col h2 {
+.front .col h2 {
   padding-bottom: 1em;
   text-align: left;
 }
 
-.col:first-child {
+.front .col:first-child {
   text-align: left;
 }
 
-.col:last-child {
+.front .col:last-child {
   text-align: right;
 }
 
 
-.block {
+.front .block {
   text-align: left;
   padding-bottom: 2em;
 }
@@ -270,8 +307,8 @@ button {
   box-shadow: 0 9px 20px #ddd;
 }
 
-.offer-head,
-.offer-details {
+.front .offer-head,
+.front .offer-details {
   display: inline-block;
 }
 
@@ -282,7 +319,7 @@ button {
 
 /** offer head specifics **/
 
-.offer-head {
+.front .offer-head {
   position: relative;
   text-align: center;
   padding-bottom: 7em;
@@ -290,10 +327,10 @@ button {
   vertical-align: top;
 }
 
-
-.offer-head .triangle {
+.front .offer-head .triangle {
   position: absolute;
   bottom: -10px;
+  left: 50%;
   width: 40px;
   height: 40px;
   overflow: hidden;
@@ -301,7 +338,7 @@ button {
   margin-left: -20px;
 }
 
-.offer-head .triangle:after {
+.front .offer-head .triangle:after {
    content: "";
    position: absolute;
    width: 40px;
@@ -320,51 +357,51 @@ button {
    box-shadow: 0 9px 20px #ddd;
 }
 
-.offer-head img,
-.offer-head .cover,
-.offer-head .offer-middle,
-.offer-head .offer-canvas {
+.front .offer-head img,
+.front .offer-head .cover,
+.front .offer-head .offer-middle,
+.front .offer-head .offer-canvas {
   width: 280px;
   height: 280px;
 }
 
-.offer-head img,
-.offer-head .cover {
+.front .offer-head img,
+.front .offer-head .cover {
   border-radius: 50%;
   position: absolute;
   left: 0;
 }
 
-.offer-head .offer-middle,
-.offer-head .offer-canvas {
+.front .offer-head .offer-middle,
+.front .offer-head .offer-canvas {
   overflow: hidden; 
   position: relative;
   display: block;
 }
-.offer-head .offer-middle[id] {
+.front .offer-head .offer-middle[id] {
   display: table; 
   position: static;
 }
 
-.offer-head .offer-middle .offer-title {
+.front .offer-head .offer-middle .offer-title {
   position: absolute; 
   top: 50%;
 } /* for quirk explorer only*/
 
-.offer-head .offer-middle .offer-title[id] {
+.front .offer-head .offer-middle .offer-title[id] {
   display: table-cell; 
   vertical-align: middle; 
   width: 100%; 
   position: static;
 }
 
-.offer-head .offer-middle .text { 
+.front .offer-head .offer-middle .text { 
   position: relative; 
   top: -50%;
 }
 
-.offer-head h3,
-.offer-head p {
+.front .offer-head h3,
+.front .offer-head p {
   text-align: center;
   color: white;
 }
@@ -400,7 +437,7 @@ button {
 }
 
 
-.front .offer-details button {
+.front .offer-details .button {
   position: absolute;
   bottom: 2em;
 }
@@ -520,27 +557,27 @@ button {
 
 /** company and contacts **/
 
-.contacts .name {
+.front .contacts .name {
   font-size: 1.4em;
   display: block;
 }
 
-.contacts .telephone {
+.front .contacts .telephone {
   display: block;
 }
 
 
-.contacts .big-social-links li {
+.front .contacts .big-social-links li {
   display: inline-block;
   padding-right: 1em;
 }
 
-.contacts .big-social-links li i {
+.front .contacts .big-social-links li i {
   font-size: 2em;
 }
 
 
-.front .team-member i {
+.front .front .team-member i {
   padding-right: 0.4em;
 }
 
@@ -575,6 +612,8 @@ button {
 .front .newsletter input {
   height: 55px;
   vertical-align: middle;
+  border-radius: 0;
+  border-width: 0;
 }
 
 .front .newsletter label { display: none; }
@@ -606,11 +645,12 @@ button {
     width: auto;
   }
 
-  .col {
+  .front .col {
     width: 100%;
   }
 
-  .col:first-child, .col:last-child {
+  .front .col:first-child,
+  .front .col:last-child {
     text-align: center;
   }
 
@@ -630,16 +670,16 @@ button {
 
   /* SOLUTION SECTION */
 
-  .offers-white-back,
-  .triangle { display: none; }
+  .front .offers-white-back,
+  .front .triangle { display: none; }
 
-  .offer-head {
+  .front .offer-head {
     padding-top: 3em;
     width: 33%;
     overflow: visible;
   }
 
-  .offer-details {
+  .front .offer-details {
     width: 66%;
   }
 
@@ -656,11 +696,17 @@ button {
 
   /* CONTACT SECTION */
 
-  .contacts .name,
-  .contacts .address,
-  .contacts .telephone { display: inline-block; padding-right: 1em; }
+  .front .contacts .name,
+  .front .contacts .address,
+  .front .contacts .telephone {
+    display: inline-block;
+    padding-right: 1em;
+  }
 
-  .contacts .bottom-links li { display: inline-block; padding-right: 1em; }
+  .front .contacts .bottom-links li {
+    display: inline-block;
+    padding-right: 1em;
+  }
 
   .front .team-member .name,
   .front .team-member .title,
@@ -696,16 +742,14 @@ button {
   }
 
 
-  .offer-head img,
-  .offer-head .cover,
-  .offer-head .offer-middle,
-  .offer-head .offer-canvas {
+  .front .offer-head img,
+  .front .offer-head .cover,
+  .front .offer-head .offer-middle,
+  .front .offer-head .offer-canvas {
     display: inline-block;
     width: 200px;
     height: 200px;
   }
-
-
 
   .front .sites li {
     display: block;
@@ -717,7 +761,7 @@ button {
 
 @media all and (max-width: 540px) {
 
-  .row {
+  .front .row {
     padding: 2em 0.5em;
   }
 
@@ -725,26 +769,26 @@ button {
     padding-bottom: 2em;
   }
 
-  .solutions {
+  .front .solutions {
     padding: 2em 0;
   }
 
-  .offer-head,
-  .offer-details {
+  .front .offer-head,
+  .front .offer-details {
     display: block;
     width: auto;
   }
 
-  .offer-head img,
-  .offer-head .cover,
-  .offer-head .offer-middle,
-  .offer-head .offer-canvas {
+  .front .offer-head img,
+  .front .offer-head .cover,
+  .front .offer-head .offer-middle,
+  .front .offer-head .offer-canvas {
     display: inline-block;
     width: 280px;
     height: 280px;
   }
 
-  .offer-head {
+  .front .offer-head {
     padding: 2em 0;
     background: white;
     v-moz-box-shadow: 0 9px 20px #ddd;
@@ -753,12 +797,12 @@ button {
     box-shadow: 0 9px 20px #ddd;
   }
 
-  .offers-white-back, 
-  .offer-head .triangle {
+  .front .offers-white-back, 
+  .front .offer-head .triangle {
     display: block;
   }
 
-  .offer-head .triangle {
+  .front .offer-head .triangle {
     bottom: -40px;
     left: 50%;
   }
@@ -767,8 +811,27 @@ button {
     padding: 0.5em;
   }
 
+  .front .logos {
+    text-align: center;
+  }
+
   .front .logos li {
-    padding: 0 0.5em 0.5em 0;
+    padding: 1em;
+  }
+
+}
+
+@media all and (max-width: 480px) {
+
+  .front nav {
+    text-align: center;
+  }
+
+  .front nav .logo {
+    position: relative;
+    top: auto;
+    left: auto;
+    padding-right: 2em;
   }
 
 }

@@ -1,6 +1,7 @@
 <html>
 <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
   <link rel="stylesheet" type="text/css" href="css/global.css">
   <link rel="stylesheet" type="text/css" href="css/page.css">
   <link rel="stylesheet" type="text/css" href="css/headings.css">
@@ -11,6 +12,7 @@
   <!--[if IE 8]><link type="text/css" href="css/style.ie8.css" rel="stylesheet" /><![endif]-->
   <!--[if IE 7]><link rel="stylesheet" href="css/font-awesome/font-awesome-ie7.css"><![endif]-->
   <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script type="text/javascript" src="js/header.bundle.js"></script>
 </head>
 <body>
   <main class="front">
@@ -22,7 +24,14 @@
         <li><a href="#contact">Contact<!--Contact--></a></li>
       </ul>
       <ul class="links site-links">
-        <li><a href="#">Connexion<!--Sign In--></a></li>
+        <li><a class="js_connect" href="#">Connexion<!--Sign In--></a></li>
+        <li class="language-menu js_language_menu">
+          <a>fr</a>
+          <ul class="language-menu">
+            <li><a href="#">français</a></li><!--
+            --><li><a href="#">english</a></li>
+          </ul>
+        </li>
         <li><a href="#"><i class="icon-search"></i></a></li>
       </ul>
     </nav>
@@ -32,7 +41,7 @@
           <div class="box w60">
             <h1 class="title">Communiquez efficacement sur vos événements<!--Communicate efficiently on your events--></h1>
             <p>Publiez, organisez et diffusez vos événements sur tous vos supports et chez vos partenaires.<!-- Publish, organize and broadcast your events on all your channels and to your media partners--></p>
-            <button>Créer un agenda<!--Create an agenda--></button>
+            <a class="button">Créer un agenda<!--Create an agenda--></a>
           </div>
         </div>
       </div>
@@ -47,7 +56,7 @@
           <li class="col">
             <div class="offer-head">
               <a href="#basic" class="offer-canvas">
-                <img src="images/offer1.png" alt="basic offer"><div class="cover"></div>
+                <img src="images/offer1.jpg" alt="basic offer"><div class="cover"></div>
                 <div class="offer-middle" id="basicoffer">
                   <div class="offer-title" id="basicofferlabel">
                     <div class="text"><h3>Basique<!--Basic--></h3><p>gratuit<!--free--></p></div>
@@ -66,14 +75,14 @@
                   <li><i class="icon-ok-sign"></i><span>Affichable sur votre site<!-- Displayable on your website --></span></li>
                   <li><i class="icon-ok-sign"></i><span>Synchronisable avec les agendas personnels (Outlook, Google Agenda, etc.)<!-- Synchronizable with your personal calendars (Outlook, Google Calendar, etc) --></span></li>
                 </ul>
-                <button>Créer un agenda<!--Create an agenda--></button>
+                <a class="button">Créer un agenda<!--Create an agenda--></a>
               </div>
             </div>
           </li><!--
           --><li class="col">
             <div class="offer-head">
               <a href="#editor" class="offer-canvas">
-                <img src="images/offer2.png" alt="basic offer"><div class="cover"></div>
+                <img src="images/offer2.jpg" alt="basic offer"><div class="cover"></div>
                 <div class="offer-middle" id="editoroffer">
                   <div class="offer-title" id="editofferlabel">
                     <div class="text"><h3>Editeur<!--Editor--></h3><p>60€/mois<!--60€/month--></p></div>
@@ -92,14 +101,14 @@
                   <li><i class="icon-ok-sign"></i><span>Newsletter automatique<!--Automatic Newsletter--></span></li>
 				  <li><i class="icon-ok-sign"></i><span>Administrateurs multiples<!--Multiple Administrators--></span></li>
                 </ul>
-                <button>Essayer gratuitement<!--Try it for free--></button>
+                <a class="button">Essayer gratuitement<!--Try it for free--></a>
               </div>
             </div>
           </li><!--
           --><li class="col">
             <div class="offer-head">
               <a href="#community" class="offer-canvas">
-                <img src="images/offer4.png" alt="basic offer"><div class="cover"></div>
+                <img src="images/offer3.jpg" alt="basic offer"><div class="cover"></div>
                 <div class="offer-middle" id="netoffer">
                   <div class="offer-title" id="netofferlabel">
                     <div class="text"><h3>Communautaire<!--Community--></h3><p>4000€/an<!--On quote 4000€/yr--></p></div>
@@ -119,7 +128,7 @@
                   <li><i class="icon-ok-sign"></i><span>Agrégation d'agendas<!--Agenda aggregation--></span></li>
                   <li><i class="icon-ok-sign"></i><span>Statistiques<!--Statistics--></span></li>
                 </ul>
-                <button>Essayer gratuitement<!--Try it for free--></button>
+                <a class="button">Essayer gratuitement<!--Try it for free--></a>
               </div>
             </div>
           </li>
@@ -140,21 +149,21 @@
         
         <ul class="sites row">
           <li>
-            <a href="//www.fetedelabretagne.com">
+            <a href="http://www.fetedelabretagne.com">
               <img src="images/fdb.png" alt="Collectif Culture Bar-Bars">
               <p>Fête de la Bretagne</p>
               <span>www.fetedelabretagne.com</span>
             </a>
           </li>
           <li>
-            <a href="//bar-bars.com">
+            <a href="http://bar-bars.com">
               <img src="images/ccbb.png" alt="Fête de la Bretagne">
               <p>Collectif Culture Bar-bars</p>
               <span>bar-bars.com</span>
             </a>
           </li>
           <li>
-            <a href="//journee-arts-culture-sup.fr">
+            <a href="http://journee-arts-culture-sup.fr">
               <img src="images/jdc.png" alt="Journée des Arts et de la Culture">
               <p>Journée des Arts et de la Culture</p>
               <span>journee-arts-culture-sup.fr</span>
@@ -163,12 +172,12 @@
         </ul>
 
         <ul class="logos row">
-          <li><a target="_blank" href="//www.bretagne.fr/"><img src="images/refs/bretagne.jpg" alt="Région Bretagne"></a></li>
-          <li><a target="_blank" href="//bar-bars.com/"><img src="images/refs/ccbb.png" alt="Collectif Culture Bar-Bars"></a></li>
-          <li><a target="_blank" href="//www.greenpeace.org"><img src="images/refs/greenpeace.png" alt="Greenpeace"></a></li>
-          <li><a target="_blank" href="//www.education.gouv.fr/"><img src="images/refs/ministere.jpg" alt="Ministère de l'Education Nationale, de l'Enseignement Supérieur et de la Recherche"></a></li>
-          <li><a target="_blank" href="//www.fidh.org"><img src="images/refs/fidh.jpg" alt="Fédération Internationale des Droits de l'Homme"></a></li>
-          <li><a target="_blank" href="//levolume.fr/"><img src="images/refs/levolume.jpg" alt="Le Volume"></a></li>
+          <li><a target="_blank" href="http://www.bretagne.fr/"><img src="images/refs/bretagne.jpg" alt="Région Bretagne"></a></li>
+          <li><a target="_blank" href="http://bar-bars.com/"><img src="images/refs/barbars.jpg" alt="Collectif Culture Bar-Bars"></a></li>
+          <li><a target="_blank" href="http://www.greenpeace.org"><img src="images/refs/greenpeace.png" alt="Greenpeace"></a></li>
+          <li><a target="_blank" href="http://www.education.gouv.fr/"><img src="images/refs/ministere.jpg" alt="Ministère de l'Education Nationale, de l'Enseignement Supérieur et de la Recherche"></a></li>
+          <li><a target="_blank" href="http://www.fidh.org"><img src="images/refs/fidh.jpg" alt="Fédération Internationale des Droits de l'Homme"></a></li>
+          <li><a target="_blank" href="http://levolume.fr/"><img src="images/refs/levolume.jpg" alt="Le Volume"></a></li>
         </ul>
       </div>
     </section>
@@ -242,7 +251,6 @@
         </ul>
       </div>
     </section>
-
   </main>
 </body>
 </html>

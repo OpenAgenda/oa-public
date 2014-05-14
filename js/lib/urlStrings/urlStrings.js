@@ -1,21 +1,18 @@
-/*String.getUrlParameters v0.1.2*/
-String.prototype.getUrlParameters = function(){
+if (!String.prototype.getUrlParameters) String.prototype.getUrlParameters = function(){
   var map = {};
   var parts = this.replace(/[?#&]+([^=&]+)=([^&#]*)/gi, function(m,key,value) {
     map[key] = decodeURIComponent(value);
   });
-  return map; 
+  return map;
 };
 
-
-/*String.addUrlParameters v0.3*/
-String.prototype.addUrlParameters = function(parameters) {
+if (!String.prototype.addUrlParameters) String.prototype.addUrlParameters = function(parameters) {
 
   var newParameters = extend(this.getUrlParameters(), parameters);
 
   var newString = '';
 
-  for (index in newParameters) {
+  for (var index in newParameters) {
     newString = newString.addUrlParameter(index, newParameters[index]);
   }
 
@@ -25,8 +22,7 @@ String.prototype.addUrlParameters = function(parameters) {
 
 };
 
-/*String.addUrlParameter v0.2*/
-String.prototype.addUrlParameter = function(name, value){
+if (!String.prototype.addUrlParameter) String.prototype.addUrlParameter = function(name, value){
 
   if (typeof value == 'undefined') value = '';
   
