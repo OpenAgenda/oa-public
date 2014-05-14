@@ -1,5 +1,5 @@
 var paths = {
-  hv: '../new home visitor/js/',
+  hv: '../home visitor/js/',
   hs:  '../header/js/',
   p:   '../agenda/js/',
   ps:  '../program search/js/',

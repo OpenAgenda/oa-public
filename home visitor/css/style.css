@@ -200,7 +200,6 @@ button {
   color: white;
 }
 
-
 .front header .content {
   max-width: 1200px;
   padding: 0 2em;
@@ -605,7 +604,7 @@ button {
   margin: 0;
   border: none;
   border-radius: 0;
-  padding: 1em 0.4em;
+  padding: 0 0.4em;
 }
 
 .front .newsletter button,
@@ -624,9 +623,9 @@ button {
 }
 
 .front .newsletter input {
-  padding: 0 1em;
+  padding: 0 0 0 10px;
   font-size: 1.2em;
-  max-width: 200px;
+  max-width: 190px;
 }
 
 
@@ -668,6 +667,13 @@ button {
   }
 
 
+  .front .offer-details .button {
+    position: relative;
+    bottom: auto;
+    margin: 1em 0 0;
+  }
+
+
   /* SOLUTION SECTION */
 
   .front .offers-white-back,
@@ -696,26 +702,8 @@ button {
 
   /* CONTACT SECTION */
 
-  .front .contacts .name,
-  .front .contacts .address,
-  .front .contacts .telephone {
-    display: inline-block;
-    padding-right: 1em;
-  }
-
-  .front .contacts .bottom-links li {
-    display: inline-block;
-    padding-right: 1em;
-  }
-
-  .front .team-member .name,
-  .front .team-member .title,
-  .front .team-member .email,
-  .front .team-member .telephone,
-  .front .team-member span {
-    display: inline-block;
-    padding-right: 1em;
-  }
+  .contacts .col { display: inline-block; width: 50%; padding: 0 0 3em; min-width: 260px; }
+  
 
 }
 
@@ -765,8 +753,17 @@ button {
     padding: 2em 0.5em;
   }
 
+  .front .button {
+    display: block;
+    text-align: center;
+  }
+
   .front header nav .logo {
     padding-bottom: 2em;
+  }
+
+  .front header .button {
+    margin: 3em 0 1em;
   }
 
   .front .solutions {
@@ -805,6 +802,10 @@ button {
   .front .offer-head .triangle {
     bottom: -40px;
     left: 50%;
+  }
+
+  .front .offer-details {
+    padding: 4em 0; 
   }
 
   .front .offer-details .offer-desc {
