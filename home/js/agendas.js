@@ -1,5 +1,7 @@
 var cn = require('../../js/lib/common/common.mod.js'),
 
+handleListPage = require('../../program small list page/js/handleListPage.mod.js'),
+
 ejs = require('ejs'),
 
 debug = require('debug'),
@@ -9,34 +11,74 @@ log = debug('main'),
 sessionData = false, pageReady = false,
 
 params = {
+  url: '/home/agenda',
   template: false, // see at the bottom
+  selectors: {
+    prev: '.js_nav_previous',
+    next: '.js_nav_next',
+    list: '.js_list_content'
+  }
 };
 
 window.run = function(options) {
 
-  if (options.debug) debug.enable('main');
+  if (options.debug) debug.enable('*');
 
-  cn.extend({
-    url: '/home/agenda'
-  }, options);
+  cn.extend(params, options);
 
-  options.eh.trigger('getsessiondata', function(data) {
+  params.eh.trigger('getsessiondata', function(data) {
     log('session data fetched');
     sessionData = data;
+
+    handlePage();
   });
 
   cn.addEvent(window, 'load', function() {
     log('window loaded');
     pageReady = true;
+
+    handlePage();
   });
 
-  
-
-  // would be nice to load list now.
-  // but list is available at same url as always.
 };
 
+var handlePage = function() {
 
+  if (!pageReady || !sessionData) return;
+
+  log('all is set to load up page content');
+
+  handleListPage({
+    eh: params.eh,
+    url: params.url,
+    debug: params.debug,
+    elems: {
+      listCanvas: cn.el(params.selectors.list),
+      navNext: cn.el(params.selectors.next),
+      navPrevious: cn.el(params.selectors.prev)
+    },
+    itemFilter: function(item) {
+
+      item.main = item.uid==sessionData.uid;
+
+      item.owned = item.oUid==sessionData.uid;
+
+      item.admin = cn.contains(sessionData.reviews.admUids, item.uid) || item.owned;
+
+      /*item.creds = {
+        editor: availableEditorCred,
+        community: availableCommunityCred
+      };*/
+
+      item.creds = false;
+
+    },
+    templates: {
+      program: params.template
+    }
+  });
+
+};
 
 // this takes up space, it is better at the bottom
 params.template = [

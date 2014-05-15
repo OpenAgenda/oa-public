@@ -5,7 +5,8 @@
     <link rel="stylesheet" type="text/css" href="../css/page structure/page.css">
     <link rel="stylesheet" type="text/css" href="../css/page structure/elp.css">
     <link rel="stylesheet" type="text/css" href="../forms/css/buttons.css">
-    <link rel="stylesheet" href="../css/font-awesome/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="../css/font-awesome/font-awesome.css">
 
     <!-- START: required only for debug -->
     <script type="text/javascript" src="../js/lib/common/common.js"></script>
@@ -25,8 +26,9 @@
         <section class="main elp">
           <header class="header">
           </header>
-          <ul class="main-list js_list_content">
-          </ul>
+          <a class="list-nav js_nav_previous display-none"><span>...</span><i class="icon-arrow-up"></i></a>
+          <ul class="main-list js_list_content"></ul>
+          <a class="list-nav bottom display-none js_nav_next"><span>...</span><i class="icon-arrow-down"></i></a>
         </section>
       </div>
     </div>  
@@ -40,7 +42,7 @@
     });
 
     run({
-      url: '/frontend_dev.php/home/agenda',
+      url: 'http://d.cibul.net/frontend_dev.php/home/agendas',
       eh: sEventHandler.getInstance(),
       debug: true
     });

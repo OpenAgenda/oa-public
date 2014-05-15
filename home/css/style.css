@@ -1,0 +1,14 @@
+.rwa-item { padding: 0 0 2em; }
+.rwa-item .desc, .rwa-item .act { display: inline-block; vertical-align: middle; }
+.rwa-item .desc { width:50%; }
+.rwa-item .act { width: 50%; text-align: right; }
+.rwa-item .act a { margin: 0 0 0.3em 0.3em; }
+.rwa-item .indication { margin-bottom: 0; display: inline-block; }
+
+.rwa-item .sub i { vertical-align: middle; font-size: 0.9em; color: #666; }
+.rwa-item .sub i:hover { color: #333; }
+
+@media screen and (max-width: 600px) {
+  .rwa-item .desc, .rwa-item .act { width: auto; display: block; }
+  .rwa-item .act { text-align: inherit; }
+}

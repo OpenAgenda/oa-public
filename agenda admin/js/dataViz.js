@@ -12,8 +12,6 @@ configMaker = require('./configMaker.js'),
 
 widgetConfig,
 
-ejs = require('ejs'),
-
 params = {
   labels: {},
   canvas: false,

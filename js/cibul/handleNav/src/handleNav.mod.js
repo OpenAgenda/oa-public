@@ -19,9 +19,17 @@ enabled = [false, false],
 
 pageRange = [],
 
-PREVIOUS = 0, NEXT = 1, FIRST = 0, LAST = 1;
+PREVIOUS = 0, NEXT = 1, FIRST = 0, LAST = 1,
 
-module.exports = function(previousPageElement, nextPageElement, eventHandler, options) {
+previousPageElement, nextPageElement, eventHandler;
+
+module.exports = function(previousElt, nextElt, eh, options) {
+
+  previousPageElement = previousElt;
+
+  nextPageElement = nextElt;
+
+  eventHandler = eh;
 
   params.scrollElt = cn.el('body');
 
@@ -115,32 +123,48 @@ module.exports = function(previousPageElement, nextPageElement, eventHandler, op
 };
 
 var _getNextPage = function(){
-  if (enabled[NEXT]) {
+
+  if (enabled[NEXT])
     eventHandler.trigger(params.triggeredEvents.getNextPage);
-  }
+
 },
+
 _reset = function() {
+
   pageRange = [];
+
 },
+
 _enable = function(navButtonIndex) {
-  removeClass(navButtonIndex?nextPageElement:previousPageElement, params.disabledClass);
+
+  cn.removeClass(navButtonIndex?nextPageElement:previousPageElement, params.disabledClass);
   enabled[navButtonIndex] = true;
+
 },
+
 _disable = function(navButtonIndex) {
-  addClass(navButtonIndex?nextPageElement:previousPageElement, params.disabledClass);
+
+  cn.addClass(navButtonIndex?nextPageElement:previousPageElement, params.disabledClass);
   enabled[navButtonIndex] = false;
+
 },
+
 _toggle = function(navButtonIndex, activate) {
 
   if (activate) {
-    removeClass(navButtonIndex?nextPageElement:previousPageElement, params.displayNoneClass);
+
+    cn.removeClass(navButtonIndex?nextPageElement:previousPageElement, params.displayNoneClass);
     _enable(navButtonIndex);
+
   } else {
-    addClass(navButtonIndex?nextPageElement:previousPageElement, params.displayNoneClass);
+
+    cn.addClass(navButtonIndex?nextPageElement:previousPageElement, params.displayNoneClass);
     _disable(navButtonIndex);
+
   }
 
 },
+
 _scrollEndTrigger = function() {
 
   if (enabled[NEXT]) {
@@ -151,6 +175,7 @@ _scrollEndTrigger = function() {
 
   return false;
 },
+
 _initPageRange = function() {
 
   var initParams = extend(params.url.getUrlParameters(), params.anchor?hash.getBase64Param(params.anchor,{}):{});

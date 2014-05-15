@@ -11,7 +11,6 @@ ejs = require('ejs'),
 lockElt,
 spinner,
 parameters,
-templates = {},
 OVERWRITE = 0,
 AFTER = 1,
 BEFORE = -1,
@@ -50,13 +49,23 @@ triggeredEvents = {
   lock: 'lock',
   unlock: 'unlock',
   itemReady: 'listItemReady'
-};
+},
 
-module.exports = function(elem, eh, options) {
+debug = require('debug'),
+
+log = debug('handleList'),
+
+elem = false; // list canvas
+
+module.exports = function(canvas, eh, options) {
 
   eventHandler = eh;
 
   cn.extend(params, options);
+
+  elem = canvas;
+
+  log('initializing handleList');
 
   params.triggerEvents = cn.extend(triggerEvents, options.triggerEvents?options.triggerEvents:{});
 
@@ -70,11 +79,6 @@ module.exports = function(elem, eh, options) {
 
   if (elem.innerHTML) pageRange = [parseInt(_getParameter('page',1),10), parseInt(_getParameter('page',1),10)];
 
-  // load all templates and behavior functions
-  for (var index in params.templates) {
-    templates[index] = ejs({ text: params.templates[index] });
-  }
-
   var aParameters = params.anchor?hash.getBase64Param(params.anchor,{}):{};
   if (aParameters.page == '1') delete aParameters.page;
 
@@ -82,15 +86,21 @@ module.exports = function(elem, eh, options) {
 
   if (Object.size(aParameters)) {
 
-    if (!initLoad) {
-      if (Object.size(asymDiff(aParameters, parameters)) || Object.size(asymDiff(parameters, aParameters))) initLoad = true;
-    }
+    if (!initLoad)
+      if (Object.size(asymDiff(aParameters, parameters)) || Object.size(asymDiff(parameters, aParameters)))
+        initLoad = true;
       
     parameters = aParameters;
 
   }
 
-  if (initLoad) _writePage(parameters);
+  if (initLoad) {
+
+    log('initial load is required');
+
+    _writePage(parameters);
+
+  }
 
   // listen to load data event
   eventHandler.on(params.triggerEvents.load, _writePage);
@@ -186,6 +196,8 @@ _removeParameter = function(name) {
 
 _loadAndWriteContent = function(position){
 
+  log('initiating load and write at position %s', ['before', 'overwrite', 'after'][position+1]);
+
   eventHandler.trigger(params.triggeredEvents.loading);
 
   if (typeof position == 'undefined') position = OVERWRITE;
@@ -211,7 +223,7 @@ _loadAndWriteContent = function(position){
     var receivedCount = 0;
 
     if (position==OVERWRITE) {
-      while (childObject(elem,0)) elem.removeChild(childObject(elem,0));
+      while (cn.childObject(elem,0)) elem.removeChild(childObject(elem,0));
     }
 
     var processListItem = function(value) {
@@ -223,7 +235,8 @@ _loadAndWriteContent = function(position){
       if (value.template == params.mainItem) receivedCount++;
 
       element = document.createElement('div');
-      element.innerHTML = templates[value.template].render(value);
+      
+      element.innerHTML = ejs.render(params.templates[value.template], value);
       element = element.firstChild;
 
       if (params.scripts && params.scripts[value.template]) params.scripts[value.template](element, value);
@@ -241,7 +254,7 @@ _loadAndWriteContent = function(position){
       for (var i = 0; i < data.data.length; i++)
         processListItem(data.data[i]);
     else
-      for (var i = data.data.length - 1; i >= 0; i--)
+      for (i = data.data.length - 1; i >= 0; i--)
         processListItem(data.data[i]);
 
     if ((position==OVERWRITE) && params.triggerScroll) _scrollToTop();

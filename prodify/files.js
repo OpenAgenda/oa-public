@@ -1,5 +1,6 @@
 var paths = {
-  hv: '../home visitor/js/',
+  h:   '../home/js/',
+  hv:  '../home visitor/js/',
   hs:  '../header/js/',
   p:   '../agenda/js/',
   ps:  '../program search/js/',
@@ -277,6 +278,10 @@ files = {
     [paths.pl,
       'handleListPage.js',
     ],
+  ],
+
+  'home/agendas.js': [
+    [paths.h, 'agendas.bundle.js']
   ],
 
   'review/adminList.min.js': [

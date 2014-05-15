@@ -1,6 +1,8 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
+handleListPage = require('../../program small list page/js/handleListPage.mod.js'),
+
 ejs = require('ejs'),
 
 debug = require('debug'),
@@ -10,34 +12,74 @@ log = debug('main'),
 sessionData = false, pageReady = false,
 
 params = {
+  url: '/home/agenda',
   template: false, // see at the bottom
+  selectors: {
+    prev: '.js_nav_previous',
+    next: '.js_nav_next',
+    list: '.js_list_content'
+  }
 };
 
 window.run = function(options) {
 
-  if (options.debug) debug.enable('main');
+  if (options.debug) debug.enable('*');
 
-  cn.extend({
-    url: '/home/agenda'
-  }, options);
+  cn.extend(params, options);
 
-  options.eh.trigger('getsessiondata', function(data) {
+  params.eh.trigger('getsessiondata', function(data) {
     log('session data fetched');
     sessionData = data;
+
+    handlePage();
   });
 
   cn.addEvent(window, 'load', function() {
     log('window loaded');
     pageReady = true;
+
+    handlePage();
   });
 
-  
-
-  // would be nice to load list now.
-  // but list is available at same url as always.
 };
 
+var handlePage = function() {
 
+  if (!pageReady || !sessionData) return;
+
+  log('all is set to load up page content');
+
+  handleListPage({
+    eh: params.eh,
+    url: params.url,
+    debug: params.debug,
+    elems: {
+      listCanvas: cn.el(params.selectors.list),
+      navNext: cn.el(params.selectors.next),
+      navPrevious: cn.el(params.selectors.prev)
+    },
+    itemFilter: function(item) {
+
+      item.main = item.uid==sessionData.uid;
+
+      item.owned = item.oUid==sessionData.uid;
+
+      item.admin = cn.contains(sessionData.reviews.admUids, item.uid) || item.owned;
+
+      /*item.creds = {
+        editor: availableEditorCred,
+        community: availableCommunityCred
+      };*/
+
+      item.creds = false;
+
+    },
+    templates: {
+      program: params.template
+    }
+  });
+
+};
 
 // this takes up space, it is better at the bottom
 params.template = [
@@ -67,7 +109,7 @@ params.template = [
     '</div>',
   '</li>'
 ].join('');
-},{"../../js/lib/common/common.mod.js":6,"debug":2,"ejs":3}],2:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":15,"../../program small list page/js/handleListPage.mod.js":19,"debug":2,"ejs":3}],2:[function(require,module,exports){
 
 /**
  * Expose `debug()` as the module.
@@ -570,7 +612,7 @@ if (require.extensions) {
   });
 }
 
-},{"./filters":4,"./utils":5,"fs":7,"path":9}],4:[function(require,module,exports){
+},{"./filters":4,"./utils":5,"fs":21,"path":23}],4:[function(require,module,exports){
 /*!
  * EJS - Filters
  * Copyright(c) 2010 TJ Holowaychuk <tj@vision-media.ca>
@@ -800,6 +842,1074 @@ exports.escape = function(html){
  
 
 },{}],6:[function(require,module,exports){
+require('../../../lib/urlStrings/urlStrings.js');
+
+var cn = require('../../../lib/common/common.mod.js'),
+
+remote = require('../../../lib/remote/remote.mod.js'),
+
+hash = require('../../../lib/hash/hash.mod.js'),
+
+ejs = require('ejs'),
+
+lockElt,
+spinner,
+parameters,
+OVERWRITE = 0,
+AFTER = 1,
+BEFORE = -1,
+pageRange = false,
+sectionRange = false,
+resource = false,
+locked = false,
+lockAnchor,
+eventHandler,
+
+params = {
+  itemsPerPage: 10,
+  url: false,
+  params: {},
+  anchor: false,
+  ajax: true,
+  ready: false,
+  filter: false,
+  itemFilter: false, // function passed to items as they are received
+  listOffset: 150,
+  triggerScroll: true,
+},
+
+triggerEvents = {
+  load: 'load',
+  loadPrevious: 'loadPrevious',
+  loadNext: 'loadNext',
+  getParams: 'getlistparams'
+},
+
+triggeredEvents = {
+  loading: 'lhLoading',
+  complete: 'lhComplete',
+  success:'lhSuccess',
+  fail: 'lhFail',
+  lock: 'lock',
+  unlock: 'unlock',
+  itemReady: 'listItemReady'
+},
+
+debug = require('debug'),
+
+log = debug('handleList'),
+
+elem = false; // list canvas
+
+module.exports = function(canvas, eh, options) {
+
+  eventHandler = eh;
+
+  cn.extend(params, options);
+
+  elem = canvas;
+
+  log('initializing handleList');
+
+  params.triggerEvents = cn.extend(triggerEvents, options.triggerEvents?options.triggerEvents:{});
+
+  params.triggeredEvents = cn.extend(triggeredEvents, options.triggeredEvents?options.triggeredEvents:{});
+
+  resource = params.url.substr(0, params.url.indexOf('?')==-1?resource.length:params.url.indexOf('?'));
+
+  parameters = params.url.getUrlParameters();
+
+  if (parameters.page == '1') delete parameters.page;
+
+  if (elem.innerHTML) pageRange = [parseInt(_getParameter('page',1),10), parseInt(_getParameter('page',1),10)];
+
+  var aParameters = params.anchor?hash.getBase64Param(params.anchor,{}):{};
+  if (aParameters.page == '1') delete aParameters.page;
+
+  var initLoad = elem.innerHTML?false:true;
+
+  if (Object.size(aParameters)) {
+
+    if (!initLoad)
+      if (Object.size(asymDiff(aParameters, parameters)) || Object.size(asymDiff(parameters, aParameters)))
+        initLoad = true;
+      
+    parameters = aParameters;
+
+  }
+
+  if (initLoad) {
+
+    log('initial load is required');
+
+    _writePage(parameters);
+
+  }
+
+  // listen to load data event
+  eventHandler.on(params.triggerEvents.load, _writePage);
+
+  eventHandler.on(params.triggerEvents.loadNext, _writeNextPage);
+
+  eventHandler.on(params.triggerEvents.loadPrevious, _writePreviousPage);
+
+  if (params.triggerEvents.getParams) eventHandler.on(params.triggerEvents.getParams, function(callback) {
+    callback(parameters);
+  });
+
+};
+
+var _writePage = function(newParams) {
+
+  if (!Object.size(newParams)) newParams = false;
+
+  var pageSet = false;
+
+  if (newParams) {
+
+    if (params.filter) newParams = params.filter(newParams);
+
+    for (var index in newParams) {
+
+      if (index=='page') pageSet = true;
+
+      if (newParams[index] === null) {
+        _removeParameter(index);
+      } else {
+        _setParameter(index, newParams[index]);
+      }
+      
+    }
+
+  }
+
+  if (!pageSet) _setParameter('page', 1);
+
+  pageRange = false;
+  
+  _loadAndWriteContent(OVERWRITE);
+
+},
+
+_writeNextPage = function() {
+
+  _setParameter('page', pageRange?pageRange[1] + 1:parseInt(_getParameter('page',1),10));
+
+  _loadAndWriteContent(AFTER);
+
+},
+
+_writePreviousPage = function() {
+
+  _setParameter('page', pageRange?pageRange[0] - 1:parseInt(_getParameter('page',1),10));
+
+  _loadAndWriteContent(BEFORE);
+
+},
+
+_getParameter = function(name, defaultValue) {
+
+  if (typeof parameters[name] == 'undefined') _setParameter(name, defaultValue);
+
+  return parameters[name];
+
+},
+
+_setParameter = function(name, value) {
+
+  parameters[name] = value;
+
+},
+
+_updatePageRange = function() {
+
+  var page = parseInt(_getParameter('page',1), 10);
+  
+  if (pageRange) {
+    pageRange = [Math.min(pageRange[0], page), Math.max(pageRange[1], page)];
+  } else {
+    pageRange = [page,page];
+  }
+},
+
+_removeParameter = function(name) {
+
+  if (typeof parameters[name] != 'undefined') delete parameters[name];
+
+},
+
+_loadAndWriteContent = function(position){
+
+  log('initiating load and write at position %s', ['before', 'overwrite', 'after'][position+1]);
+
+  eventHandler.trigger(params.triggeredEvents.loading);
+
+  if (typeof position == 'undefined') position = OVERWRITE;
+
+  _lockElem(position);
+
+  remote.get(resource, { data: cn.extend({}, params.params, parameters), retries: 3, timeout: 5000 }, function(responseType, data) {
+
+    _unlockElem();
+
+    eventHandler.trigger(params.triggeredEvents.complete);
+
+    // needs to handle error (responseType other than success)
+
+    if (responseType != 'success') return eventHandler.trigger(params.triggeredEvents.fail);
+
+    // got the data, update the page range
+    _updatePageRange();
+
+    // now shove it in templates and apply behavior
+
+    var element;
+    var receivedCount = 0;
+
+    if (position==OVERWRITE) {
+      while (cn.childObject(elem,0)) elem.removeChild(childObject(elem,0));
+    }
+
+    var processListItem = function(value) {
+
+      if (typeof value.template == 'undefined') value.template = params.mainItem;
+
+      if (params.itemFilter) params.itemFilter(value);
+
+      if (value.template == params.mainItem) receivedCount++;
+
+      element = document.createElement('div');
+      
+      element.innerHTML = ejs.render(params.templates[value.template], value);
+      element = element.firstChild;
+
+      if (params.scripts && params.scripts[value.template]) params.scripts[value.template](element, value);
+
+      if (position!==BEFORE)
+        elem.appendChild(element);
+      else
+        elem.insertAdjacentElement('afterbegin', element);
+
+      eventHandler.trigger(params.triggeredEvents.itemReady, {element: element, data: value});
+
+    };
+
+    if (position!==BEFORE)
+      for (var i = 0; i < data.data.length; i++)
+        processListItem(data.data[i]);
+    else
+      for (i = data.data.length - 1; i >= 0; i--)
+        processListItem(data.data[i]);
+
+    if ((position==OVERWRITE) && params.triggerScroll) _scrollToTop();
+
+    if (params.anchor) hash.setBase64Param(params.anchor, parameters);
+
+    eventHandler.trigger(params.triggeredEvents.success, cn.extend({count: receivedCount, next: data.next, prev: data.prev, reset: position==OVERWRITE?true:false }, parameters, {data: data.data}));
+
+  }, params.ajax);
+
+},
+
+_lockElem = function(position) {
+
+  if (locked) return;
+
+  locked = true;
+
+  eventHandler.trigger(params.triggeredEvents.lock, {position: position==AFTER?'bottom':'top'});
+
+},
+
+_unlockElem = function() {
+
+  if (!locked) return;
+  locked = false;
+
+  eventHandler.trigger(params.triggeredEvents.unlock);
+
+},
+
+_scrollToTop = function() {
+
+  var timer = setInterval(function(){
+    if (getScrollOffsets().y < params.listOffset) clearInterval(timer);
+    else window.scrollBy(0, -20);
+  }, 10);
+
+};
+},{"../../../lib/common/common.mod.js":15,"../../../lib/hash/hash.mod.js":16,"../../../lib/remote/remote.mod.js":17,"../../../lib/urlStrings/urlStrings.js":18,"debug":7,"ejs":8}],7:[function(require,module,exports){
+module.exports=require(2)
+},{}],8:[function(require,module,exports){
+module.exports=require(3)
+},{"./filters":9,"./utils":10,"fs":21,"path":23}],9:[function(require,module,exports){
+module.exports=require(4)
+},{}],10:[function(require,module,exports){
+module.exports=require(5)
+},{}],11:[function(require,module,exports){
+var Spinner = require('spin.js'),
+
+cn = require('../../../lib/common/common.mod.js'),
+
+params = {
+  events: {
+    lock: 'lockevent',
+    unlock: 'unlockevent'
+  },
+  fullLock: false,
+  lockClass: 'lockPane',
+  spinnerColor: '#aaa',
+  spinnerWidth: 2
+},
+
+lockAnchor = false,
+
+locked = false,
+
+elem,
+
+lockElt;
+
+module.exports = function(el, eh, options) {
+
+  elem = el;
+
+  cn.extend(params, options);
+
+  eh.on(params.events.lock, _lock);
+
+  eh.on(params.events.unlock, _unlock);
+
+};
+
+
+var _lock = function(config) {
+
+  config = cn.extend({
+    position: 'top'
+  }, config);
+
+  if (locked) return;
+
+  locked = true;
+
+  if (!lockAnchor) {
+    if (params.fullLock) {
+      lockAnchor = cn.el('html');
+    } else {
+      lockAnchor = elem.parentNode;
+      if (!lockAnchor.style.position.length) lockAnchor.style.position = 'relative';
+    }
+  }
+
+  lockElt = document.createElement('div');
+  lockElt.className = params.lockClass;
+  lockElt.style.width = lockAnchor.offsetWidth + 'px';
+  lockElt.style.height = lockAnchor.offsetHeight + 'px';
+  lockElt.style.left = '-' + parseInt((window.getComputedStyle?window.getComputedStyle(elem):elem.currentStyle)['paddingLeft'], 10) + 'px';
+
+     
+  spinner = new Spinner({
+    color: params.spinnerColor,
+    width: params.spinnerWidth,
+  }).spin();
+  
+  lockElt.appendChild(spinner.el);
+
+  if (elem.offsetHeight>600) {
+    spinner.el.style[config.position] = '100px';
+    spinner.el.style.position = 'absolute';
+  } else {
+    spinner.el.style.top = '50%';
+  }
+  
+  lockAnchor.appendChild(lockElt);
+
+},
+
+_unlock = function() {
+
+  if (!locked) return;
+  locked = false;
+
+  spinner.stop();
+  lockAnchor.removeChild(lockElt);
+
+};
+},{"../../../lib/common/common.mod.js":15,"spin.js":12}],12:[function(require,module,exports){
+/**
+ * Copyright (c) 2011-2014 Felix Gnass
+ * Licensed under the MIT license
+ */
+(function(root, factory) {
+
+  /* CommonJS */
+  if (typeof exports == 'object')  module.exports = factory()
+
+  /* AMD module */
+  else if (typeof define == 'function' && define.amd) define(factory)
+
+  /* Browser global */
+  else root.Spinner = factory()
+}
+(this, function() {
+  "use strict";
+
+  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
+    , animations = {} /* Animation rules keyed by their name */
+    , useCssAnimations /* Whether to use CSS animations or setTimeout */
+
+  /**
+   * Utility function to create elements. If no tag name is given,
+   * a DIV is created. Optionally properties can be passed.
+   */
+  function createEl(tag, prop) {
+    var el = document.createElement(tag || 'div')
+      , n
+
+    for(n in prop) el[n] = prop[n]
+    return el
+  }
+
+  /**
+   * Appends children and returns the parent.
+   */
+  function ins(parent /* child1, child2, ...*/) {
+    for (var i=1, n=arguments.length; i<n; i++)
+      parent.appendChild(arguments[i])
+
+    return parent
+  }
+
+  /**
+   * Insert a new stylesheet to hold the @keyframe or VML rules.
+   */
+  var sheet = (function() {
+    var el = createEl('style', {type : 'text/css'})
+    ins(document.getElementsByTagName('head')[0], el)
+    return el.sheet || el.styleSheet
+  }())
+
+  /**
+   * Creates an opacity keyframe animation rule and returns its name.
+   * Since most mobile Webkits have timing issues with animation-delay,
+   * we create separate rules for each line/segment.
+   */
+  function addAnimation(alpha, trail, i, lines) {
+    var name = ['opacity', trail, ~~(alpha*100), i, lines].join('-')
+      , start = 0.01 + i/lines * 100
+      , z = Math.max(1 - (1-alpha) / trail * (100-start), alpha)
+      , prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase()
+      , pre = prefix && '-' + prefix + '-' || ''
+
+    if (!animations[name]) {
+      sheet.insertRule(
+        '@' + pre + 'keyframes ' + name + '{' +
+        '0%{opacity:' + z + '}' +
+        start + '%{opacity:' + alpha + '}' +
+        (start+0.01) + '%{opacity:1}' +
+        (start+trail) % 100 + '%{opacity:' + alpha + '}' +
+        '100%{opacity:' + z + '}' +
+        '}', sheet.cssRules.length)
+
+      animations[name] = 1
+    }
+
+    return name
+  }
+
+  /**
+   * Tries various vendor prefixes and returns the first supported property.
+   */
+  function vendor(el, prop) {
+    var s = el.style
+      , pp
+      , i
+
+    prop = prop.charAt(0).toUpperCase() + prop.slice(1)
+    for(i=0; i<prefixes.length; i++) {
+      pp = prefixes[i]+prop
+      if(s[pp] !== undefined) return pp
+    }
+    if(s[prop] !== undefined) return prop
+  }
+
+  /**
+   * Sets multiple style properties at once.
+   */
+  function css(el, prop) {
+    for (var n in prop)
+      el.style[vendor(el, n)||n] = prop[n]
+
+    return el
+  }
+
+  /**
+   * Fills in default values.
+   */
+  function merge(obj) {
+    for (var i=1; i < arguments.length; i++) {
+      var def = arguments[i]
+      for (var n in def)
+        if (obj[n] === undefined) obj[n] = def[n]
+    }
+    return obj
+  }
+
+  /**
+   * Returns the absolute page-offset of the given element.
+   */
+  function pos(el) {
+    var o = { x:el.offsetLeft, y:el.offsetTop }
+    while((el = el.offsetParent))
+      o.x+=el.offsetLeft, o.y+=el.offsetTop
+
+    return o
+  }
+
+  /**
+   * Returns the line color from the given string or array.
+   */
+  function getColor(color, idx) {
+    return typeof color == 'string' ? color : color[idx % color.length]
+  }
+
+  // Built-in defaults
+
+  var defaults = {
+    lines: 12,            // The number of lines to draw
+    length: 7,            // The length of each line
+    width: 5,             // The line thickness
+    radius: 10,           // The radius of the inner circle
+    rotate: 0,            // Rotation offset
+    corners: 1,           // Roundness (0..1)
+    color: '#000',        // #rgb or #rrggbb
+    direction: 1,         // 1: clockwise, -1: counterclockwise
+    speed: 1,             // Rounds per second
+    trail: 100,           // Afterglow percentage
+    opacity: 1/4,         // Opacity of the lines
+    fps: 20,              // Frames per second when using setTimeout()
+    zIndex: 2e9,          // Use a high z-index by default
+    className: 'spinner', // CSS class to assign to the element
+    top: '50%',           // center vertically
+    left: '50%',          // center horizontally
+    position: 'absolute'  // element position
+  }
+
+  /** The constructor */
+  function Spinner(o) {
+    this.opts = merge(o || {}, Spinner.defaults, defaults)
+  }
+
+  // Global defaults that override the built-ins:
+  Spinner.defaults = {}
+
+  merge(Spinner.prototype, {
+
+    /**
+     * Adds the spinner to the given target element. If this instance is already
+     * spinning, it is automatically removed from its previous target b calling
+     * stop() internally.
+     */
+    spin: function(target) {
+      this.stop()
+
+      var self = this
+        , o = self.opts
+        , el = self.el = css(createEl(0, {className: o.className}), {position: o.position, width: 0, zIndex: o.zIndex})
+        , mid = o.radius+o.length+o.width
+
+      css(el, {
+        left: o.left,
+        top: o.top
+      })
+        
+      if (target) {
+        target.insertBefore(el, target.firstChild||null)
+      }
+
+      el.setAttribute('role', 'progressbar')
+      self.lines(el, self.opts)
+
+      if (!useCssAnimations) {
+        // No CSS animation support, use setTimeout() instead
+        var i = 0
+          , start = (o.lines - 1) * (1 - o.direction) / 2
+          , alpha
+          , fps = o.fps
+          , f = fps/o.speed
+          , ostep = (1-o.opacity) / (f*o.trail / 100)
+          , astep = f/o.lines
+
+        ;(function anim() {
+          i++;
+          for (var j = 0; j < o.lines; j++) {
+            alpha = Math.max(1 - (i + (o.lines - j) * astep) % f * ostep, o.opacity)
+
+            self.opacity(el, j * o.direction + start, alpha, o)
+          }
+          self.timeout = self.el && setTimeout(anim, ~~(1000/fps))
+        })()
+      }
+      return self
+    },
+
+    /**
+     * Stops and removes the Spinner.
+     */
+    stop: function() {
+      var el = this.el
+      if (el) {
+        clearTimeout(this.timeout)
+        if (el.parentNode) el.parentNode.removeChild(el)
+        this.el = undefined
+      }
+      return this
+    },
+
+    /**
+     * Internal method that draws the individual lines. Will be overwritten
+     * in VML fallback mode below.
+     */
+    lines: function(el, o) {
+      var i = 0
+        , start = (o.lines - 1) * (1 - o.direction) / 2
+        , seg
+
+      function fill(color, shadow) {
+        return css(createEl(), {
+          position: 'absolute',
+          width: (o.length+o.width) + 'px',
+          height: o.width + 'px',
+          background: color,
+          boxShadow: shadow,
+          transformOrigin: 'left',
+          transform: 'rotate(' + ~~(360/o.lines*i+o.rotate) + 'deg) translate(' + o.radius+'px' +',0)',
+          borderRadius: (o.corners * o.width>>1) + 'px'
+        })
+      }
+
+      for (; i < o.lines; i++) {
+        seg = css(createEl(), {
+          position: 'absolute',
+          top: 1+~(o.width/2) + 'px',
+          transform: o.hwaccel ? 'translate3d(0,0,0)' : '',
+          opacity: o.opacity,
+          animation: useCssAnimations && addAnimation(o.opacity, o.trail, start + i * o.direction, o.lines) + ' ' + 1/o.speed + 's linear infinite'
+        })
+
+        if (o.shadow) ins(seg, css(fill('#000', '0 0 4px ' + '#000'), {top: 2+'px'}))
+        ins(el, ins(seg, fill(getColor(o.color, i), '0 0 1px rgba(0,0,0,.1)')))
+      }
+      return el
+    },
+
+    /**
+     * Internal method that adjusts the opacity of a single line.
+     * Will be overwritten in VML fallback mode below.
+     */
+    opacity: function(el, i, val) {
+      if (i < el.childNodes.length) el.childNodes[i].style.opacity = val
+    }
+
+  })
+
+
+  function initVML() {
+
+    /* Utility function to create a VML tag */
+    function vml(tag, attr) {
+      return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr)
+    }
+
+    // No CSS transforms but VML support, add a CSS rule for VML elements:
+    sheet.addRule('.spin-vml', 'behavior:url(#default#VML)')
+
+    Spinner.prototype.lines = function(el, o) {
+      var r = o.length+o.width
+        , s = 2*r
+
+      function grp() {
+        return css(
+          vml('group', {
+            coordsize: s + ' ' + s,
+            coordorigin: -r + ' ' + -r
+          }),
+          { width: s, height: s }
+        )
+      }
+
+      var margin = -(o.width+o.length)*2 + 'px'
+        , g = css(grp(), {position: 'absolute', top: margin, left: margin})
+        , i
+
+      function seg(i, dx, filter) {
+        ins(g,
+          ins(css(grp(), {rotation: 360 / o.lines * i + 'deg', left: ~~dx}),
+            ins(css(vml('roundrect', {arcsize: o.corners}), {
+                width: r,
+                height: o.width,
+                left: o.radius,
+                top: -o.width>>1,
+                filter: filter
+              }),
+              vml('fill', {color: getColor(o.color, i), opacity: o.opacity}),
+              vml('stroke', {opacity: 0}) // transparent stroke to fix color bleeding upon opacity change
+            )
+          )
+        )
+      }
+
+      if (o.shadow)
+        for (i = 1; i <= o.lines; i++)
+          seg(i, -2, 'progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)')
+
+      for (i = 1; i <= o.lines; i++) seg(i)
+      return ins(el, g)
+    }
+
+    Spinner.prototype.opacity = function(el, i, val, o) {
+      var c = el.firstChild
+      o = o.shadow && o.lines || 0
+      if (c && i+o < c.childNodes.length) {
+        c = c.childNodes[i+o]; c = c && c.firstChild; c = c && c.firstChild
+        if (c) c.opacity = val
+      }
+    }
+  }
+
+  var probe = css(createEl('group'), {behavior: 'url(#default#VML)'})
+
+  if (!vendor(probe, 'transform') && probe.adj) initVML()
+  else useCssAnimations = vendor(probe, 'animation')
+
+  return Spinner
+
+}));
+
+},{}],13:[function(require,module,exports){
+var cn = require('../../../lib/common/common.mod.js'),
+
+hash = require('../../../lib/hash/hash.mod.js'),
+
+params = {
+  displayNoneClass: 'display-none',
+  triggerEvents: { loading: 'loading', loadSuccess: 'success', loadFail: 'fail' },
+  triggeredEvents: { getNextPage: 'loadNext', getPreviousPage: 'loadPrevious', hasNextPage: false },
+  itemToCount: 'article',
+  itemsPerPage: 10,
+  disabledClass: 'disabled',
+  scrollElt: false,
+  initDisplay: [false,false],
+  relyOnCount: false,
+  url: false
+},
+
+enabled = [false, false],
+
+pageRange = [],
+
+PREVIOUS = 0, NEXT = 1, FIRST = 0, LAST = 1,
+
+previousPageElement, nextPageElement, eventHandler;
+
+module.exports = function(previousElt, nextElt, eh, options) {
+
+  previousPageElement = previousElt;
+
+  nextPageElement = nextElt;
+
+  eventHandler = eh;
+
+  params.scrollElt = cn.el('body');
+
+  extend(params, options);
+
+  if (params.initDisplay[PREVIOUS]!==false) _toggle(PREVIOUS, true);
+  if (params.initDisplay[NEXT]!==false) {
+    _toggle(NEXT, true);
+    if (params.triggeredEvents.hasNextPage) eventHandler.trigger(params.triggeredEvents.hasNextPage, true);
+  }
+
+  _initPageRange();
+
+  eventHandler.on(params.triggerEvents.loading, function(){
+
+    _disable(PREVIOUS);
+
+    _disable(NEXT);
+    
+  });
+
+  eventHandler.on(params.triggerEvents.loadFail, function(){
+    _enable(PREVIOUS);
+    _enable(NEXT);
+  });
+
+  // enable/disable nav buttons on reception of data
+  eventHandler.on(params.triggerEvents.loadSuccess, function(eventData) {
+
+    var newSet = true;
+
+    if (pageRange.length) if (eventData.page > pageRange[LAST] || eventData.page < pageRange[FIRST]) newSet = false;
+
+    var hasNext = eventData.next!==false && ( (eventData.count == params.itemsPerPage) || params.relyOnCount);
+
+    if (params.triggeredEvents.hasNextPage) eventHandler.trigger(params.triggeredEvents.hasNextPage, hasNext);
+
+    if (newSet) {
+      // is inside range. init on both sides
+
+      _toggle(PREVIOUS, eventData.prev!==false);
+
+      _toggle(NEXT, hasNext);
+
+      pageRange = [eventData.page, eventData.page];
+
+    } else {
+      // is outside range
+
+      if (eventData.page > pageRange[LAST]) {
+
+        _toggle(NEXT, hasNext);
+
+        if (previousPageElement) if (!hasClass(previousPageElement, params.displayNoneClass)) _enable(PREVIOUS);
+
+      } else {
+
+        _toggle(PREVIOUS, eventData.prev!==false);
+
+        if (!cn.hasClass(nextPageElement, params.displayNoneClass)) _enable(NEXT);
+
+      }
+
+      pageRange = [Math.min(eventData.page, pageRange[FIRST]), Math.max(eventData.page, pageRange[LAST])];
+    }
+
+  });
+
+  if (previousPageElement) cn.addEvent(previousPageElement, 'click', function(e){
+
+    preventDefault(e);
+
+    if (enabled[0]) {
+      eventHandler.trigger(params.triggeredEvents.getPreviousPage);
+    }
+
+  });
+
+  cn.addEvent(nextPageElement, 'click', function(e){
+
+    cn.preventDefault(e);
+
+    _getNextPage();
+
+  });
+
+  cn.addEvent(document, 'scroll', function(){
+    if (_scrollEndTrigger()) _getNextPage();
+  });
+  
+};
+
+var _getNextPage = function(){
+
+  if (enabled[NEXT])
+    eventHandler.trigger(params.triggeredEvents.getNextPage);
+
+},
+
+_reset = function() {
+
+  pageRange = [];
+
+},
+
+_enable = function(navButtonIndex) {
+
+  cn.removeClass(navButtonIndex?nextPageElement:previousPageElement, params.disabledClass);
+  enabled[navButtonIndex] = true;
+
+},
+
+_disable = function(navButtonIndex) {
+
+  cn.addClass(navButtonIndex?nextPageElement:previousPageElement, params.disabledClass);
+  enabled[navButtonIndex] = false;
+
+},
+
+_toggle = function(navButtonIndex, activate) {
+
+  if (activate) {
+
+    cn.removeClass(navButtonIndex?nextPageElement:previousPageElement, params.displayNoneClass);
+    _enable(navButtonIndex);
+
+  } else {
+
+    cn.addClass(navButtonIndex?nextPageElement:previousPageElement, params.displayNoneClass);
+    _disable(navButtonIndex);
+
+  }
+
+},
+
+_scrollEndTrigger = function() {
+
+  if (enabled[NEXT]) {
+    if (params.scrollElt.parentNode.clientHeight+params.scrollElt.scrollTop >= params.scrollElt.scrollHeight) {
+      return true;
+    }
+  }
+
+  return false;
+},
+
+_initPageRange = function() {
+
+  var initParams = extend(params.url.getUrlParameters(), params.anchor?hash.getBase64Param(params.anchor,{}):{});
+  
+  var initPage = typeof initParams != 'undefined'?initParams.page:1;
+
+  pageRange = [initPage, initPage];
+
+};
+},{"../../../lib/common/common.mod.js":15,"../../../lib/hash/hash.mod.js":16}],14:[function(require,module,exports){
+module.exports = {
+  
+  // public method for encoding
+  encode: function (input) {
+    var output = "";
+    var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+    var i = 0;
+
+    input = _utf8_encode(input);
+
+    while (i < input.length) {
+
+      chr1 = input.charCodeAt(i++);
+      chr2 = input.charCodeAt(i++);
+      chr3 = input.charCodeAt(i++);
+
+      enc1 = chr1 >> 2;
+      enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+      enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+      enc4 = chr3 & 63;
+
+      if (isNaN(chr2))
+        enc3 = enc4 = 64;
+      else if (isNaN(chr3))
+        enc4 = 64;
+      
+
+      output = output +
+      _keyStr.charAt(enc1) + _keyStr.charAt(enc2) +
+      _keyStr.charAt(enc3) + _keyStr.charAt(enc4);
+
+    }
+
+    return output;
+  },
+
+  // public method for decoding
+  decode: function (input) {
+
+    var output = "";
+    var chr1, chr2, chr3;
+    var enc1, enc2, enc3, enc4;
+    var i = 0;
+
+    input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+
+    while (i < input.length) {
+
+      enc1 = _keyStr.indexOf(input.charAt(i++));
+      enc2 = _keyStr.indexOf(input.charAt(i++));
+      enc3 = _keyStr.indexOf(input.charAt(i++));
+      enc4 = _keyStr.indexOf(input.charAt(i++));
+
+      chr1 = (enc1 << 2) | (enc2 >> 4);
+      chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+      chr3 = ((enc3 & 3) << 6) | enc4;
+
+      output = output + String.fromCharCode(chr1);
+
+      if (enc3 != 64)
+        output = output + String.fromCharCode(chr2);
+      
+      if (enc4 != 64)
+        output = output + String.fromCharCode(chr3);
+    }
+
+    output = _utf8_decode(output);
+
+    return output;
+
+  }
+  
+};
+
+
+var _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+
+_utf8_decode = function (utftext) {
+  var string = "";
+  var i, c, c1, c2;
+  i = c = c1 = c2 = 0;
+
+  while ( i < utftext.length ) {
+
+    c = utftext.charCodeAt(i);
+
+    if (c < 128) {
+        string += String.fromCharCode(c);
+        i++;
+    }
+    else if((c > 191) && (c < 224)) {
+      c2 = utftext.charCodeAt(i+1);
+      string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+      i += 2;
+    }
+    else {
+      c2 = utftext.charCodeAt(i+1);
+      c3 = utftext.charCodeAt(i+2);
+      string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+      i += 3;
+    }
+
+  }
+  return string;
+},
+
+_utf8_encode = function (string) {
+
+  string = string.replace(/\r\n/g,"\n");
+
+  var utftext = "";
+
+  for (var n = 0; n < string.length; n++) {
+
+    var c = string.charCodeAt(n);
+
+    if (c < 128) {
+        utftext += String.fromCharCode(c);
+    }
+    else if((c > 127) && (c < 2048)) {
+      utftext += String.fromCharCode((c >> 6) | 192);
+      utftext += String.fromCharCode((c & 63) | 128);
+    }
+    else {
+      utftext += String.fromCharCode((c >> 12) | 224);
+      utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+      utftext += String.fromCharCode((c & 63) | 128);
+    }
+
+  }
+
+  return utftext;
+};
+},{}],15:[function(require,module,exports){
 exports.addZero = function(number) {
   return (parseInt(number, 10)<10?'0':'') + number;
 };
@@ -1138,9 +2248,353 @@ exports.removeProperty = function(obj, name) {
   return obj.removeAttribute(name);
 
 };
-},{}],7:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
+require('../urlStrings/urlStrings.js');
 
-},{}],8:[function(require,module,exports){
+var Base64 = require('../Base64/Base64.mod.js');
+
+module.exports = {
+  getParam: function(name, defaultValue, hashValue) {
+
+    var hashParams = (hashValue?hashValue:document.location.hash).getUrlParameters();
+
+    return (typeof hashParams[name] != 'undefined')?hashParams[name]:defaultValue;
+
+  },
+  setParam: function(name, value, hashValue) {
+
+    if (hashValue === undefined) hashValue = false;
+
+    var hashParams = (hashValue?hashValue:document.location.hash).getUrlParameters();
+
+    hashParams[name] = value;
+
+    if (hashValue !== false) {
+      return hashValue.addUrlParameters(hashParams);
+    }
+    else {
+      document.location.hash = ''.addUrlParameters(hashParams);
+    }
+      
+
+  },
+  getBase64Param: function(name, defaultValue, hashValue) {
+
+    var hashParam = this.getParam(name, false, hashValue);
+
+    return hashParam?Base64.decode(hashParam).getUrlParameters():defaultValue;
+
+  },
+  setBase64Param: function(name, value, hashValue) {
+
+    return this.setParam(name, Base64.encode(''.addUrlParameters(value)), hashValue);
+
+  }
+};
+},{"../Base64/Base64.mod.js":14,"../urlStrings/urlStrings.js":18}],17:[function(require,module,exports){
+// this guy does not include the getStack method
+module.exports = {
+  get: function(url, settings, callback, ajax) {
+    if (ajax === undefined) ajax = false;
+
+    if (ajax) {
+      this.getXmlHttp(url, settings, callback);
+    } else {
+      this.getJsonp(url, settings, callback);
+    }
+  },
+  postXmlHttp: function(url, settings, callback) {
+
+    this.xmlHttp(url, settings, callback, "POST");
+
+  },
+  getXmlHttp: function(url, settings, callback) {
+
+    this.xmlHttp(url, settings, callback, "GET");
+
+  },
+
+  xmlHttp: function(url, settings, callback, type) {
+
+    var self = this;
+
+    if (typeof settings == 'function') {
+      callback = settings;
+      settings = {};
+    }
+
+    var retries = 0;
+    if (settings.retries) retries = settings.retries;
+    if (!settings.timeout) settings.timeout = 2000;
+    if (!settings.name) settings.name = url;
+
+    var finished = false;
+
+    if (settings.logger) settings.logger.log('remote.getXmlHttp - preparing get for item ' + settings.name);
+
+    var sentUrl = type=="GET"?this.appendToUrl(url, settings.data):url;
+
+    var onSuccess = function(data){
+
+      if (finished) return;
+
+      finished = true;
+
+      if (settings.logger) settings.logger.log('remote.getXmlHttp - response received for item ' + settings.name);
+
+      callback('success', data);
+
+    };
+
+    var onTimeout = function() {
+
+      if (finished) return;
+
+      if (retries) {
+
+        if (settings.logger) settings.logger.log('remote.getXmlHttp - timeout hit, retrying for item ' + settings.name);
+        
+        sendRequest();
+
+        retries--;
+
+      } else {
+
+        finished = true;
+
+        if (settings.logger) settings.logger.log('remote.getXmlHttp - timeout hit, no retry for item ' + settings.name);
+
+        callback('timeout');
+
+      }
+
+    };
+
+    // this will call the timeout if is hit, but will call callback even if it comes after
+    var sendRequest = function(){
+
+      var timer = setTimeout(function(){
+
+        onTimeout();
+
+      }, settings.timeout);
+
+      var xhr = new XMLHttpRequest(),
+
+      response;
+
+      xhr.onreadystatechange = function(){
+
+        if (xhr.readyState==4) if (xhr.status==200) {
+
+          clearTimeout(timer);
+
+          if (xhr.responseText.substring(0,1)=='(') {
+            response = xhr.responseText.substring(1).substring(0,xhr.responseText.length-2);
+          } else {
+            response = xhr.responseText;
+          }
+            
+          onSuccess(JSON.parse(response));
+
+        }
+
+      };
+
+      xhr.open(type, sentUrl, true);
+      xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+      xhr.setRequestHeader("Content-Type", type=="POST"?"application/x-www-form-urlencoded":"text/plain;charset=UTF-8");
+      
+      if (type=="GET") {
+
+        xhr.send();
+
+      } else {
+
+        xhr.send(self.appendToUrl('', settings.data).substr(1));
+
+      }
+
+    };
+
+    sendRequest(onSuccess, onTimeout);
+
+  },
+
+  getJsonp: function(url, settings, callback){
+
+    var timer,
+      timeout = settings.timeout?settings.timeout:2000,
+      retries = settings.retries?settings.retries:0,
+      sentUrl = this.appendToUrl(url, settings.data),
+      callbackParam = {},
+      self = this,
+      callbackParamName = settings.callbackParamName?settings.callbackParamName:'callback';
+
+    var handleResponse = function(data){
+      clearTimeout(timer);
+      callback('success', data);
+    };
+
+    var handleTimeout = function() {
+      if ((!window[settings.data.callback]) || !retries) return callback('timeout');
+      sendQuery();
+      retries--;
+    };
+
+    var sendQuery = function() {
+      var callbackName = 'jsonpCb' + Math.ceil(Math.random()*100000);
+
+      window[callbackName] = handleResponse;
+      var script = document.createElement('script');
+      if (sentUrl.indexOf(callbackParamName + '=') != -1) { // callback param is already in string
+        script.src = sentUrl.substring(0, sentUrl.indexOf(callbackParamName + '=') + 9) + callbackName + sentUrl.substring(sentUrl.indexOf(callbackParamName + '=') + 9);
+      } else {
+        callbackParam[callbackParamName] = callbackName;
+        script.src = self.appendToUrl(sentUrl, callbackParam);
+      }
+        
+      document.getElementsByTagName('head')[0].appendChild(script);
+    };
+
+    sendQuery();
+    
+  },
+  appendToUrl: function(url, data) {
+
+    if (typeof data != 'undefined') {
+
+      if (url.indexOf('?') == -1) {
+        url = url + '?';
+      } else {
+        url = url + '&';
+      }
+
+      for (var name in data) {
+
+        if (typeof data[name] == 'object') {
+          for (var index in data[name]) {
+            url = url + name + '[]=' + encodeURIComponent(data[name][index]) + '&';
+          }
+        } else {
+
+          url = url + name + '=' + encodeURIComponent(data[name]) + '&';
+
+        }
+
+      }
+
+      if (url.substr(url.length-1, 1) == '&') url = url.substr(0, url.length-1);
+
+    }
+
+    return url;
+  }
+};
+},{}],18:[function(require,module,exports){
+if (!String.prototype.getUrlParameters) String.prototype.getUrlParameters = function(){
+  var map = {};
+  var parts = this.replace(/[?#&]+([^=&]+)=([^&#]*)/gi, function(m,key,value) {
+    map[key] = decodeURIComponent(value);
+  });
+  return map;
+};
+
+if (!String.prototype.addUrlParameters) String.prototype.addUrlParameters = function(parameters) {
+
+  var newParameters = extend(this.getUrlParameters(), parameters);
+
+  var newString = '';
+
+  for (var index in newParameters) {
+    newString = newString.addUrlParameter(index, newParameters[index]);
+  }
+
+  if (this.indexOf('?') != -1) return this.substr(0,this.indexOf('?')) + '?' + newString.substr(1);
+  
+  return this + '?' + newString.substr(1);
+
+};
+
+if (!String.prototype.addUrlParameter) String.prototype.addUrlParameter = function(name, value){
+
+  if (typeof value == 'undefined') value = '';
+  
+  var string = name + '=' + encodeURIComponent(value);
+
+  var result = this;
+
+  if (result.indexOf('?') != -1) result = result + '&' + string;
+  else result = result + '?' + string;
+
+  return result;
+};
+},{}],19:[function(require,module,exports){
+var cn = require('../../js/lib/common/common.mod.js'),
+
+handleNav = require('../../js/cibul/handleNav/src/handleNav.mod.js'),
+
+handleList =  require('../../js/cibul/handleList/src/handleList.mod.js'),
+
+handleLock = require('../../js/cibul/handleLock/src/handleLock.mod.js'),
+
+debug = require('debug'),
+
+log = debug('handleListPage'),
+
+params = {
+  eh: false, // required. event handler
+  url: false,
+  elems: { listCanvas: false, navNext: false, navPrevious: false, lockCanvas: false },
+  initNav: [false, false],
+  debug: false,
+  anchor: 'list',
+  itemFilter: false,       // callback used on each received values of list
+  mainItem: false          // takes the first template as main by default
+};
+
+module.exports = function(options) {
+
+  params = cn.extend(params, options);
+  
+  handleList(params.elems.listCanvas, params.eh, {
+    url: params.url,
+    params: params.debug?{format: 'jsonp'}:{},
+    ajax: !params.debug,
+    itemFilter: params.itemFilter,
+    mainItem: _getMainItem(),
+    templates: params.templates,
+    triggerEvents: { load: 'load', loadPrevious: 'loadPrevious', loadNext: 'loadNext' },
+    triggeredEvents: { loading: 'loading', complete: 'loadComplete', success:'loadSuccess', fail: 'loadFail', lock: 'locklist', unlock: 'unlocklist' },
+    anchor: params.anchor
+  });
+
+  handleNav(params.elems.navPrevious, params.elems.navNext, params.eh, {
+    triggerEvents: { loading: 'loading', loadSuccess: 'loadSuccess', loadFail: 'loadFail'},
+    triggeredEvents: { getNextPage: 'loadNext', getPreviousPage: 'loadPrevious' },
+    url: params.url,
+    initDisplay: params.initNav,
+    anchor: params.anchor,
+    relyOnCount: true
+  });
+
+  handleLock(params.elems.listCanvas, params.eh, {events: {lock: 'locklist', unlock: 'unlocklist' }});
+
+};
+
+var _getMainItem = function() {
+
+  if (params.mainItem) return params.mainItem;
+
+  for (var index in params.templates)
+    return index;
+
+};
+},{"../../js/cibul/handleList/src/handleList.mod.js":6,"../../js/cibul/handleLock/src/handleLock.mod.js":11,"../../js/cibul/handleNav/src/handleNav.mod.js":13,"../../js/lib/common/common.mod.js":15,"debug":20}],20:[function(require,module,exports){
+module.exports=require(2)
+},{}],21:[function(require,module,exports){
+
+},{}],22:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -1202,7 +2656,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],9:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -1430,4 +2884,4 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require("/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":8}]},{},[1])
+},{"/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":22}]},{},[1])
