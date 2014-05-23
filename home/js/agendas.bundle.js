@@ -1,7 +1,87 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var lightbox = require('../../js/lib/lightbox/lightbox.mod.js'),
+
+cn = require('../../js/lib/common/common.mod.js'),
+
+remote = require('../../js/lib/remote/remote.mod.js'),
+
+debug = require('debug'),
+
+log = debug('action'),
+
+defaults = {
+  onResponse: false,  // type, data
+  onElemReady: false,  // form
+  loadLightbox: false
+},
+
+params = {
+  lightboxClasses: {frame: 'wsq lightbox-frame', canvas: 'lightbox-canvas', buttonBox: 'lightbox-buttons'},
+  debug: false
+};
+
+exports.init = function(options) {
+
+  cn.extend(params, options);
+
+};
+
+exports.get = function(res, options) {
+
+  log('processing get on %s', res);
+
+  var reqParams = options.data?options.data:{};
+
+  options = cn.extend({}, defaults, options);
+
+  request(res, reqParams, function(responseType, data) {
+
+    log('get response received: %s', responseType);
+
+    if (responseType!=='success') {
+
+      if (options.onResponse) options.onResponse(responseType);
+
+      return;
+
+    }
+
+    if (data.partial && options.loadLightbox) {
+
+      lightbox({
+        html: data.partial,
+        buttons: false,
+        classes: params.lightboxClasses,
+        onOpen: options.onElemReady
+      });
+
+    }
+
+    if (data.partial && !options.loadLightbox) {
+
+      log('TODO: partial is loaded not to be used for lightbox');
+
+    }
+
+    if (options.onResponse) options.onResponse(responseType, data);
+
+  });
+
+};
+
+var request =  function(res, reqParams, callback) {
+
+  if (params.debug) reqParams.format = 'jsonp';
+
+  remote.get(res, {data: reqParams, timeout: 10000, retries: 1}, callback, !params.debug);
+
+};
+},{"../../js/lib/common/common.mod.js":17,"../../js/lib/lightbox/lightbox.mod.js":19,"../../js/lib/remote/remote.mod.js":20,"debug":3}],2:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 handleListPage = require('../../program small list page/js/handleListPage.mod.js'),
+
+userCreds = require('./userCreds.js');
 
 ejs = require('ejs'),
 
@@ -17,9 +97,16 @@ params = {
   selectors: {
     prev: '.js_nav_previous',
     next: '.js_nav_next',
-    list: '.js_list_content'
+    list: '.js_list_content',
+    credActions: '.sub',
+  },
+  labels: {},
+  res: {
+    upgrade: '#',
+    downgrade: '#'
   }
 };
+
 
 window.run = function(options) {
 
@@ -28,24 +115,45 @@ window.run = function(options) {
   cn.extend(params, options);
 
   params.eh.trigger('getsessiondata', function(data) {
-    log('session data fetched');
-    sessionData = data;
 
+    log('session data fetched');
+
+    sessionData = data;
     handlePage();
+
   });
 
   cn.addEvent(window, 'load', function() {
-    log('window loaded');
-    pageReady = true;
 
+    log('window loaded');
+
+    pageReady = true;
     handlePage();
+
   });
 
 };
 
+
+/**
+ * general page behavior
+ */
+
 var handlePage = function() {
 
   if (!pageReady || !sessionData) return;
+
+  userCreds.load({
+    creds: sessionData.creds,
+    selectors: {
+      credActions: params.selectors.credActions,
+      upgrade: '.upgrade',
+      downgrade: '.downgrade'
+    },
+    res: params.res,
+    labels: params.labels,
+    debug: params.debug
+  });
 
   log('all is set to load up page content');
 
@@ -66,13 +174,9 @@ var handlePage = function() {
 
       item.admin = cn.contains(sessionData.reviews.admUids, item.uid) || item.owned;
 
-      /*item.creds = {
-        editor: availableEditorCred,
-        community: availableCommunityCred
-      };*/
-
-      item.creds = false;
-
+    },
+    onItemLoad: {
+      program: userCreds.decorateAgendaItem
     },
     templates: {
       program: params.template
@@ -91,25 +195,22 @@ params.template = [
         '</a>',
         '<div class="sub">',
           '<span class="indication">',
-            '<% if (main) { %>agenda principal<% } else if (owned) { %>propriétaire<% } else if (admin) { %>administrateur<% } else { %>éditeur<% } %>',
+            '<% if (main) { %>votre agenda principal<% } else if (owned) { %>vous êtes propriétaire<% } else if (admin) { %>vous êtes administrateur<% } else { %>vous êtes éditeur<% } %>',
           '</span>',
         '</div>',
       '</div>',
       '<div class="act">',
-        '<% if (creds && (creds.editor || creds.community)) { %>',
-        '<a class="button small"><i class="icon-certificate"></i></a>',
-        '<% } %>',
         '<% if (admin) { %>',
-        '<a class="button small" href="<%= \'/frontend_dev.php/slug/admin\'.replace(\'slug\', slug) %>">',
+        '<a class="button" href="<%= \'/frontend_dev.php/slug/admin\'.replace(\'slug\', slug) %>">',
           '<i class="icon-cog"></i><span>gérer</span>',
         '</a>',
         '<% } %>',
-        '<a href="<%= \'/frontend_dev.php/slug/addevent\'.replace(\'slug\', slug) %>" class="button small">publiez un événement</a>',
+        '<a href="<%= \'/frontend_dev.php/slug/addevent\'.replace(\'slug\', slug) %>" class="button">publier un événement</a>',
       '</div>',
     '</div>',
   '</li>'
 ].join('');
-},{"../../js/lib/common/common.mod.js":15,"../../program small list page/js/handleListPage.mod.js":19,"debug":2,"ejs":3}],2:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":17,"../../program small list page/js/handleListPage.mod.js":22,"./userCreds.js":7,"debug":3,"ejs":4}],3:[function(require,module,exports){
 
 /**
  * Expose `debug()` as the module.
@@ -248,7 +349,7 @@ try {
   if (window.localStorage) debug.enable(localStorage.debug);
 } catch(e){}
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 
 /*!
  * EJS
@@ -612,7 +713,7 @@ if (require.extensions) {
   });
 }
 
-},{"./filters":4,"./utils":5,"fs":21,"path":23}],4:[function(require,module,exports){
+},{"./filters":5,"./utils":6,"fs":24,"path":26}],5:[function(require,module,exports){
 /*!
  * EJS - Filters
  * Copyright(c) 2010 TJ Holowaychuk <tj@vision-media.ca>
@@ -815,7 +916,7 @@ exports.json = function(obj){
   return JSON.stringify(obj);
 };
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 
 /*!
  * EJS
@@ -841,7 +942,415 @@ exports.escape = function(html){
 };
  
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
+var creds = [], hasAvailable = false,
+
+cn = require('../../js/lib/common/common.mod.js'),
+
+lightbox = require('../../js/lib/lightbox/lightbox.mod.js'),
+
+ejs = require('ejs'),
+
+debug = require('debug'),
+
+action = require('./action'),
+
+log = debug('userCreds'),
+
+credTypes = {0: 'editor', 1: 'community', null: 'custom'},
+
+userCreds = [],
+
+credElems = [],
+
+params = {
+  creds: [], // array of credentials of user
+  selectors: {
+    upgrade: '.upgrade',
+    downgrade: '.downgrade'
+  },
+  templates: {
+    empty: '<div class="cred"><span><%= basic %></span></div>',
+    custom: '<div class="cred"><span><%= custom %></span></div>',
+    upgrade: '<div class="cred"><span><%= basic %></span><a class="url upgrade"><%= upgrade %></a></div>',
+    editor: '<div class="cred"><span><%= editor %></span><a class="url downgrade"><%= downgrade %></a></div>',
+    community: '<div class="cred"><span><%= community %></span><a class="url downgrade"><%= downgrade %></a></div>'
+  },
+  labels: {
+    basic: 'basic',
+    custom: 'custom',
+    upgrade: 'upgrade',
+    downgrade: 'downgrade',
+    editor: 'editor',
+    community: 'community'
+  },
+  res: {
+    upgrade: '#up',
+    downgrade: '#down'
+  },
+  lightboxClasses: {frame: 'wsq lightbox-frame', canvas: 'lightbox-canvas', buttonBox: 'lightbox-buttons'},
+  debug: false
+};
+
+exports.load = function(options) {
+
+  cn.extend(params, options);
+
+  initUserCreds(params.creds);
+
+  evaluateAvailability();
+
+  action.init({debug: params.debug, lightboxClasses: params.lightboxClasses});
+
+};
+
+
+/**
+ * append cred actions to agenda item
+ */
+
+var setCredElem = function(elem, item) {
+
+  log('setCredElem');
+
+  // clear the previous cred elem if exists
+  clearCredElem(item);
+
+  // a user cred is assigned to agenda
+  var aCred = getAgendaUserCred(item.uid);
+
+  var credElem = false;
+
+  if (typeof item.cred === 'undefined') {
+
+    if (hasAvailable)
+      credElem = addUpgradeAction(elem, item);
+    else
+      credElem = createCredElem(elem);
+
+  } else if (item.cred === null) {
+
+    credElem = addCustomInfos(elem);
+
+  } else if (parseInt(item.cred, 10) === 0) {
+
+    credElem = addEditorInfos(elem, !!aCred, item);
+
+  } else if (parseInt(item.cred, 10) === 1) {
+
+    credElem = addCommunityInfos(elem, !!aCred, item);
+
+  }
+
+  indexCredElem(elem, credElem, item.uid, item.cred);
+
+};
+
+exports.decorateAgendaItem = setCredElem;
+
+var addUpgradeAction = function(elem, item) {
+
+  var credElem = createCredElem(elem, 'upgrade');
+
+  credUpgradeAction(elem, credElem, item);
+
+  return credElem;
+
+},
+
+addEditorInfos = function(elem, displayAction, item) {
+
+  var credElem = createCredElem(elem, 'editor');
+
+  credDowngradeAction(elem, credElem, item);
+
+  return credElem;
+
+},
+
+addCommunityInfos = function(elem, displayAction, item) {
+
+  var credElem = createCredElem(elem, 'community');
+
+  credDowngradeAction(elem, credElem, item);
+
+  return credElem;
+
+},
+
+addCustomInfos = function(elem) {
+
+  var credElem = createCredElem(elem, 'custom');
+
+  return credElem;
+
+},
+
+createCredElem = function(canvasElem, name) {
+
+  var credElem = document.createElement('div');
+
+  if (typeof name == 'undefined') name = 'empty';
+
+  credElem.innerHTML = ejs.render(params.templates[name], params.labels);
+
+  credElem = cn.childObject(credElem, 0);
+
+  cn.el(canvasElem, params.selectors.credActions).insertAdjacentElement('afterbegin', credElem);
+
+  return credElem;
+
+},
+
+indexCredElem = function(elem, credElem, uid, cred) {
+
+  var value = {canvas: elem, elem: credElem, uid: uid, cred: cred};
+
+  for (var i = 0; i < credElems.length; i++)
+    if (credElems[i].uid == uid) {
+      credElems[i] = value;
+      return;
+    }
+
+  credElems.push(value);
+
+},
+
+clearCredElem = function(item) {
+
+  var f = false;
+
+  for (var i = 0; i < credElems.length; i++)
+    if (credElems[i].uid == item.uid) f = i;
+
+  if (f===false) return;
+
+  credElems[f].elem.parentNode.removeChild(credElems[f].elem);
+
+},
+
+credSelectFormBehavior = function(elem, credElem, formElem) {
+
+  cn.addEvent(cn.el(formElem, 'button'), 'click', function(e) {
+
+    cn.preventDefault(e);
+
+    var type = false;
+
+    // get the checked radio
+    cn.forEach(cn.els(formElem, 'input'), function(radioElem) {
+      if (radioElem.checked) type = radioElem.value;
+    });
+
+    // send choice via ajax
+    action.get(cn.el(formElem, 'form').getAttribute('action'), {data: {type: type}, onResponse: function(responseType, data) {
+
+      displayLightbox(data.message);
+
+      if (!data.success) return;
+
+      var cred = assignCred(data.type, data.uid);
+
+      setCredElem(elem, cred, credElem);
+
+    }});
+
+  });
+
+},
+
+credDowngradeAction = function(elem, credElem, item) {
+
+  credAction(credElem, true, function() {
+
+    action.get(params.res.downgrade.replace('uid', item.uid), {
+      onResponse: function(responseType, data) {
+
+        displayLightbox(data.message);
+
+        if (!data.success) return;
+
+        unassignCred(item.uid);
+
+      }, loadLightbox: true });
+
+  });
+
+},
+
+credUpgradeAction = function(elem, credElem, item) {
+
+  credAction(credElem, true, function() {
+
+    action.get(params.res.upgrade.replace('uid', item.uid), {
+      onResponse: function(responseType, data) {
+
+        if (data.partial) return;
+
+        displayLightbox(data.message);
+
+        if (!data.success) return;
+
+        var cred = assignCred(data.type, item.uid);
+
+        setCredElem(elem, cred, credElem);
+
+      },
+      onElemReady: function(formElem) {
+
+        credSelectFormBehavior(elem, credElem, formElem);
+        
+      },
+      loadLightbox: true
+    });
+
+  });
+
+},
+
+credAction = function(elem, displayAction, callback) {
+
+  if (typeof displayAction == 'undefined') displayAction = true;
+
+  if (displayAction) {
+
+    cn.addEvent(cn.el(elem, 'a'), 'click', function(e) {
+
+      cn.preventDefault(e);
+
+      callback();
+
+    });
+
+  } else {
+
+    elem.removeChild(cn.el(elem, 'a'));
+
+  }
+
+},
+
+displayLightbox = function(message) {
+
+  lightbox({
+    message: message,
+    classes: params.lightboxClasses
+  });
+
+},
+
+
+initUserCreds = function(initCreds) {
+
+  userCreds = initCreds;
+
+},
+
+
+/**
+ * assign cred of type to agenda of uid
+ */
+
+assignCred = function(type, uid) {
+
+  for (var i = 0; i < userCreds.length; i++)
+    if ((userCreds[i].type == type) && userCreds[i].aUid===null) {
+      userCreds[i].aUid = uid;
+      break;
+    }
+
+  evaluateAvailability();
+
+  if (!hasAvailable) removeUpgradeActions();
+
+  return {cred: parseInt(type, 10), uid: uid};
+
+},
+
+
+/**
+ * unassign cred
+ */
+
+unassignCred = function(uid) {
+
+  for (var i = 0; i < userCreds.length; i++)
+    if ((userCreds[i].aUid===uid)) userCreds[i].aUid = null;
+
+  for (i = 0; i < credElems.length; i++)
+    if (credElems[i].uid==uid) delete credElems[i].cred;
+
+  evaluateAvailability();
+
+  refreshCredElems();
+
+},
+
+
+/**
+ * check if agenda is assigned to a cred of user
+ */
+
+getAgendaUserCred = function(uid) {
+
+  for (var i = 0; i < userCreds.length; i++)
+    if (userCreds[i].aUid===uid) return userCreds[i].type;
+    
+  return false;
+
+},
+
+
+/**
+ * returns true if user has unassigned creds
+ */
+
+evaluateAvailability = function() {
+
+  hasAvailable =  false;
+
+  for (var i = 0; i < userCreds.length; i++) {
+
+    if (userCreds[i].aUid===null) {
+
+      hasAvailable = true;
+      return;
+
+    }
+
+  }
+
+},
+
+
+/**
+ * loop through cred elements and remove cred actions
+ */
+
+removeUpgradeActions = function() {
+
+  credElems.forEach(function(credElem) {
+
+    var upgradeLink = cn.el(credElem.elem, params.selectors.upgrade);
+
+    if (upgradeLink) upgradeLink.parentNode.removeChild(upgradeLink);
+
+  });
+
+},
+
+
+refreshCredElems = function() {
+
+  cn.forEach(credElems, function(credElem) {
+
+    setCredElem(credElem.canvas, credElem);
+  });
+
+};
+
+
+},{"../../js/lib/common/common.mod.js":17,"../../js/lib/lightbox/lightbox.mod.js":19,"./action":1,"debug":3,"ejs":4}],8:[function(require,module,exports){
 require('../../../lib/urlStrings/urlStrings.js');
 
 var cn = require('../../../lib/common/common.mod.js'),
@@ -1079,7 +1588,7 @@ _loadAndWriteContent = function(position){
       if (value.template == params.mainItem) receivedCount++;
 
       element = document.createElement('div');
-      
+
       element.innerHTML = ejs.render(params.templates[value.template], value);
       element = element.firstChild;
 
@@ -1138,15 +1647,15 @@ _scrollToTop = function() {
   }, 10);
 
 };
-},{"../../../lib/common/common.mod.js":15,"../../../lib/hash/hash.mod.js":16,"../../../lib/remote/remote.mod.js":17,"../../../lib/urlStrings/urlStrings.js":18,"debug":7,"ejs":8}],7:[function(require,module,exports){
-module.exports=require(2)
-},{}],8:[function(require,module,exports){
+},{"../../../lib/common/common.mod.js":17,"../../../lib/hash/hash.mod.js":18,"../../../lib/remote/remote.mod.js":20,"../../../lib/urlStrings/urlStrings.js":21,"debug":9,"ejs":10}],9:[function(require,module,exports){
 module.exports=require(3)
-},{"./filters":9,"./utils":10,"fs":21,"path":23}],9:[function(require,module,exports){
-module.exports=require(4)
 },{}],10:[function(require,module,exports){
+module.exports=require(4)
+},{"./filters":11,"./utils":12,"fs":24,"path":26}],11:[function(require,module,exports){
 module.exports=require(5)
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
+module.exports=require(6)
+},{}],13:[function(require,module,exports){
 var Spinner = require('spin.js'),
 
 cn = require('../../../lib/common/common.mod.js'),
@@ -1236,7 +1745,7 @@ _unlock = function() {
   lockAnchor.removeChild(lockElt);
 
 };
-},{"../../../lib/common/common.mod.js":15,"spin.js":12}],12:[function(require,module,exports){
+},{"../../../lib/common/common.mod.js":17,"spin.js":14}],14:[function(require,module,exports){
 /**
  * Copyright (c) 2011-2014 Felix Gnass
  * Licensed under the MIT license
@@ -1587,7 +2096,7 @@ _unlock = function() {
 
 }));
 
-},{}],13:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 var cn = require('../../../lib/common/common.mod.js'),
 
 hash = require('../../../lib/hash/hash.mod.js'),
@@ -1775,7 +2284,7 @@ _initPageRange = function() {
   pageRange = [initPage, initPage];
 
 };
-},{"../../../lib/common/common.mod.js":15,"../../../lib/hash/hash.mod.js":16}],14:[function(require,module,exports){
+},{"../../../lib/common/common.mod.js":17,"../../../lib/hash/hash.mod.js":18}],16:[function(require,module,exports){
 module.exports = {
   
   // public method for encoding
@@ -1909,7 +2418,7 @@ _utf8_encode = function (string) {
 
   return utftext;
 };
-},{}],15:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 exports.addZero = function(number) {
   return (parseInt(number, 10)<10?'0':'') + number;
 };
@@ -2248,7 +2757,7 @@ exports.removeProperty = function(obj, name) {
   return obj.removeAttribute(name);
 
 };
-},{}],16:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 require('../urlStrings/urlStrings.js');
 
 var Base64 = require('../Base64/Base64.mod.js');
@@ -2291,7 +2800,254 @@ module.exports = {
 
   }
 };
-},{"../Base64/Base64.mod.js":14,"../urlStrings/urlStrings.js":18}],17:[function(require,module,exports){
+},{"../Base64/Base64.mod.js":16,"../urlStrings/urlStrings.js":21}],19:[function(require,module,exports){
+var canvasElem = false,
+  frameElem = false,
+  onClose = false,
+  beforeClose = false,
+  cn = require('../common/common.mod.js');
+
+module.exports = function(options) {
+
+  options = cn.extend({
+    classes: cn.extend({
+      canvas: 'lightboxcanvas',
+      frame: 'lightboxframe',
+      buttonBox: 'lightboxbuttons',
+      button: false
+    }, options.classes?options.classes:{}),
+    onOpen: false
+  }, options?options:{});
+
+  var defaultButtons = { ok: { label: 'Ok' } };
+
+  if (typeof options.buttons !== 'undefined') {
+    if (options.buttons === false)
+      options.buttons = {};
+    else
+      options.buttons = cn.extend(defaultButtons, options.buttons);
+  } else {
+    options.buttons = defaultButtons;
+  }
+
+  _prepare(options.classes);
+
+  if (options.html)
+    _setContent(options.html);
+  else if (options.elems)
+    _setContent(options.elems);
+  else if (options.message)
+    _setMessageContent(options.message);
+
+  if (options.buttons) _setButtons(options.classes, options.buttons);
+
+  _display();
+
+  if (options.onOpen) options.onOpen(frameElem);
+  onClose = options.onClose?options.onClose:false;
+  beforeClose = options.beforeClose?options.beforeClose:false;
+
+  return {
+    hide: _hide
+  };
+
+};
+
+
+var _prepare = function(classes) {
+
+  canvasElem?_clear():_create();
+
+  canvasElem.className = classes.canvas;
+  frameElem.className = classes.frame;
+
+},
+
+_display = function() {
+
+  canvasElem.style.display = 'block';
+
+  _positionFrame();
+
+},
+
+_create = function() {
+
+  var frontClickFlag = false;
+
+  // create canvas
+
+  canvasElem = document.createElement('div');
+
+  cn.extend(canvasElem.style, {
+    position: 'absolute',
+    top: getScrollOffsets().y + 'px',
+    height: '100%',
+    width: '100%',
+    display: 'none'
+  });
+
+  addEvent(canvasElem, 'click', function() {
+
+    if (frontClickFlag) {
+      frontClickFlag = false;
+      return;
+    }
+
+    _hide();
+
+  });
+
+  addEvent(window, 'scroll', function() {
+    canvasElem.style.top = getScrollOffsets().y + 'px';
+  });
+
+  // create frame
+
+  frameElem = document.createElement('div');
+
+  addEvent(frameElem, 'click', function() { frontClickFlag = true; });
+
+  cn.extend(frameElem.style, {
+    display: 'inline-block',
+    position: 'absolute'
+  });
+
+  canvasElem.appendChild(frameElem);
+
+  cn.el('body').appendChild(canvasElem);
+
+  addEvent(window, 'resize', _repositionFrame);
+
+},
+
+_clear = function() {
+
+  if (beforeClose) {
+    beforeClose(frameElem);
+    beforeClose = false;
+  }
+
+  while (frameElem.childNodes.length)
+    frameElem.removeChild(frameElem.childNodes[0]);
+
+  if (onClose) {
+    onClose();
+    onClose = false;
+  }
+
+},
+
+_hide = function() {
+
+  _clear();
+
+  canvasElem.style.display = 'none';
+
+},
+
+_repositionFrame = function() {
+
+  if (canvasElem.style.display == 'none') return;
+
+  _positionFrame();
+
+},
+
+_positionFrame = function() {
+
+  cn.extend(frameElem.style, {
+    display: 'inline-block',
+    left: Math.round((canvasElem.offsetWidth - frameElem.offsetWidth)/2) + 'px',
+    top: 0,
+    maxHeight: 'none',
+    overflowY: 'hidden'
+  });
+
+  if (frameElem.offsetHeight > windowInnerHeight()) {
+
+    cn.extend(frameElem.style, {
+      maxHeight: (windowInnerHeight()-20) + 'px',
+      overflowY: 'scroll'
+    });
+
+  } else {
+
+    cn.extend(frameElem.style, { top: Math.round((canvasElem.offsetHeight - frameElem.offsetHeight)/2) + 'px' });
+
+  }
+
+},
+
+_setContent = function(content) {
+
+  if (typeof content == 'string') {
+
+    var div = document.createElement('div');
+
+    div.innerHTML = content;
+
+  }
+
+  var elems = div?div.childNodes:content;
+
+  while (elems.length)
+    frameElem.appendChild(isArray(elems)?elems.shift():elems[0]);
+
+  forEach(els(frameElem,'img'), function(imgElem) {
+    addEvent(imgElem, 'load', _repositionFrame);
+  });
+
+  forEach(frameElem.getElementsByTagName('script'), function(scriptElem) {
+    eval(scriptElem.innerHTML);
+  });
+
+},
+
+_setMessageContent = function(message) {
+
+  var p = document.createElement('p');
+  p.innerHTML = message;
+  frameElem.appendChild(p);
+
+},
+
+_setButtons = function(classes, buttons) {
+
+  var div = document.createElement('div');
+  addClass(div, classes.buttonBox);
+
+  for (i in buttons) {
+
+    var button = document.createElement('button');
+    button.innerHTML = buttons[i].label;
+
+    (function(button, buttonConfig) {
+
+      addEvent(button, 'click', function(){
+
+        if (buttonConfig.onClick) buttonConfig.onClick();
+
+        if (typeof buttonConfig.hide !== 'undefined') if (!buttonConfig.hide) return;
+
+        _hide();
+
+      });
+
+    })(button, buttons[i]);
+
+    if (buttons[i].className) addClass(button, buttons[i].className);
+
+    if (classes.button) addClass(button, classes.button);
+
+    div.appendChild(button);
+
+  }
+
+  frameElem.appendChild(div);
+
+};
+},{"../common/common.mod.js":17}],20:[function(require,module,exports){
 // this guy does not include the getStack method
 module.exports = {
   get: function(url, settings, callback, ajax) {
@@ -2491,7 +3247,7 @@ module.exports = {
     return url;
   }
 };
-},{}],18:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 if (!String.prototype.getUrlParameters) String.prototype.getUrlParameters = function(){
   var map = {};
   var parts = this.replace(/[?#&]+([^=&]+)=([^&#]*)/gi, function(m,key,value) {
@@ -2529,7 +3285,7 @@ if (!String.prototype.addUrlParameter) String.prototype.addUrlParameter = functi
 
   return result;
 };
-},{}],19:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 handleNav = require('../../js/cibul/handleNav/src/handleNav.mod.js'),
@@ -2550,6 +3306,7 @@ params = {
   debug: false,
   anchor: 'list',
   itemFilter: false,       // callback used on each received values of list
+  onItemLoad: {},
   mainItem: false          // takes the first template as main by default
 };
 
@@ -2564,6 +3321,7 @@ module.exports = function(options) {
     itemFilter: params.itemFilter,
     mainItem: _getMainItem(),
     templates: params.templates,
+    scripts: params.onItemLoad,
     triggerEvents: { load: 'load', loadPrevious: 'loadPrevious', loadNext: 'loadNext' },
     triggeredEvents: { loading: 'loading', complete: 'loadComplete', success:'loadSuccess', fail: 'loadFail', lock: 'locklist', unlock: 'unlocklist' },
     anchor: params.anchor
@@ -2590,11 +3348,11 @@ var _getMainItem = function() {
     return index;
 
 };
-},{"../../js/cibul/handleList/src/handleList.mod.js":6,"../../js/cibul/handleLock/src/handleLock.mod.js":11,"../../js/cibul/handleNav/src/handleNav.mod.js":13,"../../js/lib/common/common.mod.js":15,"debug":20}],20:[function(require,module,exports){
-module.exports=require(2)
-},{}],21:[function(require,module,exports){
+},{"../../js/cibul/handleList/src/handleList.mod.js":8,"../../js/cibul/handleLock/src/handleLock.mod.js":13,"../../js/cibul/handleNav/src/handleNav.mod.js":15,"../../js/lib/common/common.mod.js":17,"debug":23}],23:[function(require,module,exports){
+module.exports=require(3)
+},{}],24:[function(require,module,exports){
 
-},{}],22:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2656,7 +3414,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],23:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -2884,4 +3642,4 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require("/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"))
-},{"/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":22}]},{},[1])
+},{"/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":25}]},{},[2])

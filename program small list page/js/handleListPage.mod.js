@@ -18,6 +18,7 @@ params = {
   debug: false,
   anchor: 'list',
   itemFilter: false,       // callback used on each received values of list
+  onItemLoad: {},
   mainItem: false          // takes the first template as main by default
 };
 
@@ -32,6 +33,7 @@ module.exports = function(options) {
     itemFilter: params.itemFilter,
     mainItem: _getMainItem(),
     templates: params.templates,
+    scripts: params.onItemLoad,
     triggerEvents: { load: 'load', loadPrevious: 'loadPrevious', loadNext: 'loadNext' },
     triggeredEvents: { loading: 'loading', complete: 'loadComplete', success:'loadSuccess', fail: 'loadFail', lock: 'locklist', unlock: 'unlocklist' },
     anchor: params.anchor

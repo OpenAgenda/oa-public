@@ -43,8 +43,20 @@
 
     run({
       url: 'http://d.cibul.net/frontend_dev.php/home/agendas',
+      res: {
+        upgrade: 'http://d.cibul.net/frontend_dev.php/cred/upgrade/uid',
+        downgrade: 'http://d.cibul.net/frontend_dev.php/cred/downgrade/uid'
+      },
       eh: sEventHandler.getInstance(),
-      debug: true
+      debug: true,
+      labels: {
+        basic: 'agenda basique',
+        custom: 'agenda spécifique',
+        upgrade: 'augmenter',
+        downgrade: 'diminuer',
+        editor: 'agenda éditeur',
+        community: 'agenda communautaire'
+      }
     });
 
   </script>

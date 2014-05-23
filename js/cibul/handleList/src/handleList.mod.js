@@ -235,7 +235,7 @@ _loadAndWriteContent = function(position){
       if (value.template == params.mainItem) receivedCount++;
 
       element = document.createElement('div');
-      
+
       element.innerHTML = ejs.render(params.templates[value.template], value);
       element = element.firstChild;
 

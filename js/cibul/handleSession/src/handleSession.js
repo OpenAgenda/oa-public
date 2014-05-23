@@ -130,7 +130,9 @@ var handleSession = function(params) {
 
   _fetch = function(callback) {
 
-    remote.get(params.url, {data: params.debug?{format: 'jsonp'}:{}}, function(responseType, data){
+    var qParams = params.debug?{format: 'jsonp', force: ''}:{};
+
+    remote.get(params.url, {data: qParams}, function(responseType, data){
       if (responseType=='success') callback(data);
     }, params.debug?false:true);
 

@@ -2,6 +2,8 @@ var cn = require('../../js/lib/common/common.mod.js'),
 
 handleListPage = require('../../program small list page/js/handleListPage.mod.js'),
 
+userCreds = require('./userCreds.js');
+
 ejs = require('ejs'),
 
 debug = require('debug'),
@@ -16,9 +18,16 @@ params = {
   selectors: {
     prev: '.js_nav_previous',
     next: '.js_nav_next',
-    list: '.js_list_content'
+    list: '.js_list_content',
+    credActions: '.sub',
+  },
+  labels: {},
+  res: {
+    upgrade: '#',
+    downgrade: '#'
   }
 };
+
 
 window.run = function(options) {
 
@@ -27,24 +36,45 @@ window.run = function(options) {
   cn.extend(params, options);
 
   params.eh.trigger('getsessiondata', function(data) {
-    log('session data fetched');
-    sessionData = data;
 
+    log('session data fetched');
+
+    sessionData = data;
     handlePage();
+
   });
 
   cn.addEvent(window, 'load', function() {
-    log('window loaded');
-    pageReady = true;
 
+    log('window loaded');
+
+    pageReady = true;
     handlePage();
+
   });
 
 };
 
+
+/**
+ * general page behavior
+ */
+
 var handlePage = function() {
 
   if (!pageReady || !sessionData) return;
+
+  userCreds.load({
+    creds: sessionData.creds,
+    selectors: {
+      credActions: params.selectors.credActions,
+      upgrade: '.upgrade',
+      downgrade: '.downgrade'
+    },
+    res: params.res,
+    labels: params.labels,
+    debug: params.debug
+  });
 
   log('all is set to load up page content');
 
@@ -65,13 +95,9 @@ var handlePage = function() {
 
       item.admin = cn.contains(sessionData.reviews.admUids, item.uid) || item.owned;
 
-      /*item.creds = {
-        editor: availableEditorCred,
-        community: availableCommunityCred
-      };*/
-
-      item.creds = false;
-
+    },
+    onItemLoad: {
+      program: userCreds.decorateAgendaItem
     },
     templates: {
       program: params.template
@@ -90,20 +116,17 @@ params.template = [
         '</a>',
         '<div class="sub">',
           '<span class="indication">',
-            '<% if (main) { %>agenda principal<% } else if (owned) { %>propriétaire<% } else if (admin) { %>administrateur<% } else { %>éditeur<% } %>',
+            '<% if (main) { %>votre agenda principal<% } else if (owned) { %>vous êtes propriétaire<% } else if (admin) { %>vous êtes administrateur<% } else { %>vous êtes éditeur<% } %>',
           '</span>',
         '</div>',
       '</div>',
       '<div class="act">',
-        '<% if (creds && (creds.editor || creds.community)) { %>',
-        '<a class="button small"><i class="icon-certificate"></i></a>',
-        '<% } %>',
         '<% if (admin) { %>',
-        '<a class="button small" href="<%= \'/frontend_dev.php/slug/admin\'.replace(\'slug\', slug) %>">',
+        '<a class="button" href="<%= \'/frontend_dev.php/slug/admin\'.replace(\'slug\', slug) %>">',
           '<i class="icon-cog"></i><span>gérer</span>',
         '</a>',
         '<% } %>',
-        '<a href="<%= \'/frontend_dev.php/slug/addevent\'.replace(\'slug\', slug) %>" class="button small">publiez un événement</a>',
+        '<a href="<%= \'/frontend_dev.php/slug/addevent\'.replace(\'slug\', slug) %>" class="button">publier un événement</a>',
       '</div>',
     '</div>',
   '</li>'
