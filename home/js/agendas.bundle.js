@@ -143,7 +143,7 @@ var handlePage = function() {
 
   if (!pageReady || !sessionData) return;
 
-  userCreds.load({
+  /*userCreds.load({
     creds: sessionData.creds,
     selectors: {
       credActions: params.selectors.credActions,
@@ -153,7 +153,7 @@ var handlePage = function() {
     res: params.res,
     labels: params.labels,
     debug: params.debug
-  });
+  });*/
 
   log('all is set to load up page content');
 
@@ -176,7 +176,7 @@ var handlePage = function() {
 
     },
     onItemLoad: {
-      program: userCreds.decorateAgendaItem
+      program: false//userCreds.decorateAgendaItem
     },
     templates: {
       program: params.template

@@ -83,7 +83,8 @@ var handleSuggestions = function(inputElem, list, key, template, options) {
 
     forEach(list, function(listItem) {
 
-      if (listItem[key].match(regex)) selection.push(listItem);
+      if (listItem[key].toLowerCase().match(regex))
+        selection.push(listItem);
 
     });
 
