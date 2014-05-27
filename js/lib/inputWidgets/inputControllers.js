@@ -59,19 +59,6 @@ var inputController = {
 
     var self = this;
 
-    // remove characters to be filtered as they are typed... 
-    
-    if (this.filteredCharsKeys.length) forEach(this.elems, function(widgetElement) {
-
-      addEvent(widgetElement, 'keyup', function() {
-
-        widgetElement.value = self._filter(widgetElement.value, true);
-
-      });
-
-    });
-    
-
     forEach(this.elems, function(widgetElement) {
       addEvent(widgetElement, self.params.events, function() {
 
@@ -104,6 +91,14 @@ var inputController = {
 
   },
   _readDom: function() {
+
+    var self = this;
+
+    if (this.filteredCharsKeys.length) forEach(this.elems, function(widgetElement) {
+
+      widgetElement.value = self._filter(widgetElement.value, true);
+
+    });
 
     this._setValue(this._read(this.elems));
 
