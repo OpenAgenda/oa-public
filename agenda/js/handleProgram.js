@@ -69,13 +69,13 @@ var runProgramBehavior = function(params) {
 
         initEdition(sessionData.uid, controlData.m?true:false, controlData, processedData[2]);
 
+        initAddEventLink(sessionData.uid, controlData.adm, controlData.e, controlData.c);
+
         _isAggregationEnabled(sessionData, _initSourceMenu);
 
       });
 
       initFollowBehavior(controlData.f);
-
-      initAddEventLink(controlData.o, processedData[2], controlData.c);
 
       // no need to pass this point if program is empty
       if (!Object.size(controlData.a)) return;
@@ -367,9 +367,9 @@ var runProgramBehavior = function(params) {
 
   },
 
-  initAddEventLink = function(owner, editors, collaborative) {
+  initAddEventLink = function(userUid, adminUids, editorUids, collaborative) {
 
-    if (collaborative || (owner==getCurrentUsername()) || (typeof editors[getCurrentUsername()] != 'undefined')) {
+    if (contains(editorUids, userUid) || contains(adminUids, userUid) || collaborative) {
 
       params.elems.mainActions.insertAdjacentHTML('afterbegin', '<li class="add-event"><a class="add-event small button green" href="' + params.links.addEvent + '">' + params.labels.addEvent + '</a></li>');
 
