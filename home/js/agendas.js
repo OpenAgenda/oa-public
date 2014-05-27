@@ -13,7 +13,7 @@ log = debug('main'),
 sessionData = false, pageReady = false,
 
 params = {
-  url: '/home/agenda',
+  url: '/home',
   template: false, // see at the bottom
   selectors: {
     prev: '.js_nav_previous',
