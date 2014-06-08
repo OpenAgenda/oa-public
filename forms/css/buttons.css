@@ -8,9 +8,6 @@ button, .button {
   background: -moz-linear-gradient(top, #FFFFFF 0%, #E8E8E8 80%, #E2E2E2 100%); /* firefox */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(80%,#E8E8E8), color-stop(100%,#E2E2E2)); 
   cursor: pointer;
-  -moz-border-radius: 4px; 
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
 }
 
 .big { font-size: 1.1em; padding: 5px 10px; }

@@ -91,9 +91,9 @@ var handlePage = function() {
 
       item.main = item.uid==sessionData.uid;
 
-      item.owned = item.oUid==sessionData.uid;
+      item.owned = (typeof item.oUid!=='undefined')&&(item.oUid==sessionData.uid);
 
-      item.admin = cn.contains(sessionData.reviews.admUids, item.uid) || item.owned;
+      item.admin = sessionData.reviews?(cn.contains(sessionData.reviews.admUids, item.uid) || item.owned):false;
 
     },
     onItemLoad: {

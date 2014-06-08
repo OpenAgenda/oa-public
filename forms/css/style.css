@@ -43,10 +43,7 @@
   border-color: #AAAAAA #CCCCCC #CCCCCC #AAAAAA; 
   border-style: solid; 
   border-width: 1px; 
-  padding: 5px; 
-  -moz-border-radius: 4px; 
-  -webkit-border-radius: 4px; 
-  border-radius: 4px; 
+  padding: 5px;
   vertical-align: middle; 
   background: transparent;
 }
