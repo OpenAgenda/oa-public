@@ -90,14 +90,16 @@ var handleHeader = function(params) {
     handleContextMenu(el('.js_profile'), el('.js_profile_menu'), new EventHandler(), { left: false });
 
     // and needs to have logged values set in fields
-    if (session.thumbnail) $('.js_user_thumb').attr('src', session.thumbnail);
+    if (session.thumbnail) $('.js_user_thumb').attr('src', session.thumbnail).removeClass('display-none');
     $('.js_full_name').html(session.fullName);
 
     $('.js_logo_link').attr('href', $('.js_logo_link').attr('href') + 'home');
 
     // messages and notifications
-    if (parseInt(session.counts.newnotifications, 10)) $('.js_new_notification_count').removeClass('display-none').html(session.counts.newnotifications);
-    if (parseInt(session.counts.newmessages,10)) $('.js_new_message_count').removeClass('display-none').html(session.counts.newmessages);
+    if (!session.basic) {
+      if (parseInt(session.counts.newnotifications, 10)) $('.js_new_notification_count').removeClass('display-none').html(session.counts.newnotifications);
+      if (parseInt(session.counts.newmessages,10)) $('.js_new_message_count').removeClass('display-none').html(session.counts.newmessages);
+    }
 
     _initUserMenu();
 
@@ -107,6 +109,8 @@ var handleHeader = function(params) {
 
     forEach(els('.js_not_logged'), function(elem) { (session.logged?addClass:removeClass)(elem, 'display-none'); });
     forEach(els('.js_logged'), function(elem) { (session.logged?removeClass:addClass)(elem, 'display-none'); });
+
+    forEach(els('.js_full_logged'), function(elem) { (session.logged&&!session.basic?removeClass:addClass)(elem, 'display-none'); });
 
   },
 

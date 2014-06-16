@@ -25,7 +25,10 @@ button i,
   vertical-align: baseline!important;
 }
 
-button:hover, .cform .button:hover { border-color: #999; }
+button:hover, .button:hover {
+  border-color: #999;
+  background: #f3f3f3;
+}
 
 .green {
   color: #ffffff;
@@ -34,4 +37,8 @@ button:hover, .cform .button:hover { border-color: #999; }
   
   border-color: #51a351 #3CAD2D #387038;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
+.green:hover {
+  background-color: #57b357;
 }

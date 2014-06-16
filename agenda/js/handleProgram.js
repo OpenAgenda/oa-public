@@ -367,13 +367,16 @@ var runProgramBehavior = function(params) {
 
   },
 
-  initAddEventLink = function(userUid, adminUids, editorUids, collaborative) {
+  initAddEventLink = function(userUid, adminUids, contributorUids, contributive) {
 
-    if (contains(editorUids, userUid) || contains(adminUids, userUid) || collaborative) {
+    // contributive types
+    // 0: not contributive
+    // 1: freely contributive
+    // 2: on invitation
+    
+    if (!contains(adminUids, userUid) && parseInt(contributive, 10)===0) return;
 
-      params.elems.mainActions.insertAdjacentHTML('afterbegin', '<li class="add-event"><a class="add-event small button green" href="' + params.links.addEvent + '">' + params.labels.addEvent + '</a></li>');
-
-    }
+    params.elems.mainActions.insertAdjacentHTML('afterbegin', '<li class="add-event"><a class="add-event small button green" href="' + params.links.addEvent + '">' + params.labels.addEvent + '</a></li>');
 
   },
 
