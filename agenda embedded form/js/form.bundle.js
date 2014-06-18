@@ -1,85 +1,528 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
-lightbox = require('../../js/lib/lightbox/lightbox.mod.js'),
-
 remote = require('../../js/lib/remote/remote.mod.js'),
 
+debug = require('debug'),
+
+log = debug('main'),
+
 params = {
-  selectors: {
-    main: 'nav',
-    langMenu: '.js_language_menu',
-    connectLink: '.js_connect',
-    externalLink: 'js_ext_link'
+  routes: {
+    new: '/addevent'
   }
-},
+};
 
-langOn = false;
+window.run = function(options) {
 
-cn.addEvent(window, 'load', function() {
+  cn.extend(params, options);
 
-  signin();
+  for (var i in params.routes)
+    params.routes[i] = params.base + params.routes[i];
 
-  connect();
-
-});
-
-// behavior of the signin link in the header
-var signin = function() {
-
-  var headElem = cn.el(params.selectors.main),
-
-  langMenuElem = cn.el(headElem, params.selectors.langMenu),
-
-  langList = cn.el(langMenuElem, 'ul');
-
-  cn.addEvent(langMenuElem, 'click', function(e) {
-
-    if (!langOn)
-      langList.style.display = 'block';
-    else
-      langList.removeAttribute('style');
-
-    langOn = !langOn;
-
-  });
-
-},
-
-// show connect lightbox
-connect = function() {
-
-  var headElem = cn.el(params.selectors.main),
-
-  connectLink = cn.el(headElem, params.selectors.connectLink);
-
-  cn.addEvent(connectLink, 'click', function(e) {
-
-    cn.preventDefault(e);
-
-    remote.getXmlHttp(connectLink.getAttribute('href'), function(responseType, data) {
-
-      // if something does not go right, load the auth page
-      if (responseType!=='success' || !data.success) {
-        
-        window.location.href = connectLink.getAttribute('href');
-
-        return;
-
-      }
-
-      lightbox({
-        html: data.partial,
-        buttons: false,
-        classes: {frame: 'wsq lightbox-frame', canvas: 'lightbox-canvas', buttonBox: 'lightbox-buttons', button: 'small button'}
-      });
-
-    });
-
-  });
+  controller(params.routes.new)
 
 };
-},{"../../js/lib/common/common.mod.js":2,"../../js/lib/lightbox/lightbox.mod.js":3,"../../js/lib/remote/remote.mod.js":4}],2:[function(require,module,exports){
+
+var controller = function(res) {
+
+  get(res, function(err, data) {
+
+    if (err) return handleErr(err);
+
+    if (data.origin) {
+
+      complete();
+
+    } else if (data.redirect) {
+
+      controller(data.redirect);
+
+    } else if (data.partial) {
+
+      refreshCanvas(data.partial);
+
+    }
+
+  });
+
+},
+
+get = function(res, callback) {
+
+  remote.getXmlHttp(res, {timeout: 3000}, function(responseType, data) {
+
+    if (responseType!=='success') return callback(responseType);
+
+    callback(null, data);
+
+  });
+
+},
+
+handleErr = function(err) {
+  console.log('error');
+  console.log(err);
+};
+},{"../../js/lib/common/common.mod.js":5,"../../js/lib/remote/remote.mod.js":6,"debug":2}],2:[function(require,module,exports){
+
+/**
+ * This is the web browser implementation of `debug()`.
+ *
+ * Expose `debug()` as the module.
+ */
+
+exports = module.exports = require('./debug');
+exports.log = log;
+exports.formatArgs = formatArgs;
+exports.save = save;
+exports.load = load;
+exports.useColors = useColors;
+
+/**
+ * Colors.
+ */
+
+exports.colors = [
+  'lightseagreen',
+  'forestgreen',
+  'goldenrod',
+  'dodgerblue',
+  'darkorchid',
+  'crimson'
+];
+
+/**
+ * Currently only WebKit-based Web Inspectors and the Firebug
+ * extension (*not* the built-in Firefox web inpector) are
+ * known to support "%c" CSS customizations.
+ *
+ * TODO: add a `localStorage` variable to explicitly enable/disable colors
+ */
+
+function useColors() {
+  // is webkit? http://stackoverflow.com/a/16459606/376773
+  return ('WebkitAppearance' in document.documentElement.style) ||
+    // is firebug? http://stackoverflow.com/a/398120/376773
+    (window.console && (console.firebug || (console.exception && console.table)));
+}
+
+/**
+ * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
+ */
+
+exports.formatters.j = function(v) {
+  return JSON.stringify(v);
+};
+
+
+/**
+ * Colorize log arguments if enabled.
+ *
+ * @api public
+ */
+
+function formatArgs() {
+  var args = arguments;
+  var useColors = this.useColors;
+
+  args[0] = (useColors ? '%c' : '')
+    + this.namespace
+    + (useColors ? '%c ' : ' ')
+    + args[0]
+    + (useColors ? '%c ' : ' ')
+    + '+' + exports.humanize(this.diff);
+
+  if (!useColors) return args
+
+  var c = 'color: ' + this.color;
+  args = [args[0], c, ''].concat(Array.prototype.slice.call(args, 1));
+
+  // the final "%c" is somewhat tricky, because there could be other
+  // arguments passed either before or after the %c, so we need to
+  // figure out the correct index to insert the CSS into
+  var index = 0;
+  var lastC = 0;
+  args[0].replace(/%[a-z%]/g, function(match) {
+    if ('%%' === match) return;
+    index++;
+    if ('%c' === match) {
+      // we only are interested in the *last* %c
+      // (the user may have provided their own)
+      lastC = index;
+    }
+  });
+
+  args.splice(lastC, 0, c);
+  return args;
+}
+
+/**
+ * Invokes `console.log()` when available.
+ * No-op when `console.log` is not a "function".
+ *
+ * @api public
+ */
+
+function log() {
+  // This hackery is required for IE8,
+  // where the `console.log` function doesn't have 'apply'
+  return 'object' == typeof console
+    && 'function' == typeof console.log
+    && Function.prototype.apply.call(console.log, console, arguments);
+}
+
+/**
+ * Save `namespaces`.
+ *
+ * @param {String} namespaces
+ * @api private
+ */
+
+function save(namespaces) {
+  try {
+    if (null == namespaces) {
+      localStorage.removeItem('debug');
+    } else {
+      localStorage.debug = namespaces;
+    }
+  } catch(e) {}
+}
+
+/**
+ * Load `namespaces`.
+ *
+ * @return {String} returns the previously persisted debug modes
+ * @api private
+ */
+
+function load() {
+  var r;
+  try {
+    r = localStorage.debug;
+  } catch(e) {}
+  return r;
+}
+
+/**
+ * Enable namespaces listed in `localStorage.debug` initially.
+ */
+
+exports.enable(load());
+
+},{"./debug":3}],3:[function(require,module,exports){
+
+/**
+ * This is the common logic for both the Node.js and web browser
+ * implementations of `debug()`.
+ *
+ * Expose `debug()` as the module.
+ */
+
+exports = module.exports = debug;
+exports.coerce = coerce;
+exports.disable = disable;
+exports.enable = enable;
+exports.enabled = enabled;
+exports.humanize = require('ms');
+
+/**
+ * The currently active debug mode names, and names to skip.
+ */
+
+exports.names = [];
+exports.skips = [];
+
+/**
+ * Map of special "%n" handling functions, for the debug "format" argument.
+ *
+ * Valid key names are a single, lowercased letter, i.e. "n".
+ */
+
+exports.formatters = {};
+
+/**
+ * Previously assigned color.
+ */
+
+var prevColor = 0;
+
+/**
+ * Previous log timestamp.
+ */
+
+var prevTime;
+
+/**
+ * Select a color.
+ *
+ * @return {Number}
+ * @api private
+ */
+
+function selectColor() {
+  return exports.colors[prevColor++ % exports.colors.length];
+}
+
+/**
+ * Create a debugger with the given `namespace`.
+ *
+ * @param {String} namespace
+ * @return {Function}
+ * @api public
+ */
+
+function debug(namespace) {
+
+  // define the `disabled` version
+  function disabled() {
+  }
+  disabled.enabled = false;
+
+  // define the `enabled` version
+  function enabled() {
+
+    var self = enabled;
+
+    // set `diff` timestamp
+    var curr = +new Date();
+    var ms = curr - (prevTime || curr);
+    self.diff = ms;
+    self.prev = prevTime;
+    self.curr = curr;
+    prevTime = curr;
+
+    // add the `color` if not set
+    if (null == self.useColors) self.useColors = exports.useColors();
+    if (null == self.color && self.useColors) self.color = selectColor();
+
+    var args = Array.prototype.slice.call(arguments);
+
+    args[0] = exports.coerce(args[0]);
+
+    if ('string' !== typeof args[0]) {
+      // anything else let's inspect with %o
+      args = ['%o'].concat(args);
+    }
+
+    // apply any `formatters` transformations
+    var index = 0;
+    args[0] = args[0].replace(/%([a-z%])/g, function(match, format) {
+      // if we encounter an escaped % then don't increase the array index
+      if (match === '%%') return match;
+      index++;
+      var formatter = exports.formatters[format];
+      if ('function' === typeof formatter) {
+        var val = args[index];
+        match = formatter.call(self, val);
+
+        // now we need to remove `args[index]` since it's inlined in the `format`
+        args.splice(index, 1);
+        index--;
+      }
+      return match;
+    });
+
+    if ('function' === typeof exports.formatArgs) {
+      args = exports.formatArgs.apply(self, args);
+    }
+    var logFn = exports.log || enabled.log || console.log.bind(console);
+    logFn.apply(self, args);
+  }
+  enabled.enabled = true;
+
+  var fn = exports.enabled(namespace) ? enabled : disabled;
+
+  fn.namespace = namespace;
+
+  return fn;
+}
+
+/**
+ * Enables a debug mode by namespaces. This can include modes
+ * separated by a colon and wildcards.
+ *
+ * @param {String} namespaces
+ * @api public
+ */
+
+function enable(namespaces) {
+  exports.save(namespaces);
+
+  var split = (namespaces || '').split(/[\s,]+/);
+  var len = split.length;
+
+  for (var i = 0; i < len; i++) {
+    if (!split[i]) continue; // ignore empty strings
+    namespaces = split[i].replace('*', '.*?');
+    if (namespaces[0] === '-') {
+      exports.skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
+    } else {
+      exports.names.push(new RegExp('^' + namespaces + '$'));
+    }
+  }
+}
+
+/**
+ * Disable debug output.
+ *
+ * @api public
+ */
+
+function disable() {
+  exports.enable('');
+}
+
+/**
+ * Returns true if the given mode name is enabled, false otherwise.
+ *
+ * @param {String} name
+ * @return {Boolean}
+ * @api public
+ */
+
+function enabled(name) {
+  var i, len;
+  for (i = 0, len = exports.skips.length; i < len; i++) {
+    if (exports.skips[i].test(name)) {
+      return false;
+    }
+  }
+  for (i = 0, len = exports.names.length; i < len; i++) {
+    if (exports.names[i].test(name)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Coerce `val`.
+ *
+ * @param {Mixed} val
+ * @return {Mixed}
+ * @api private
+ */
+
+function coerce(val) {
+  if (val instanceof Error) return val.stack || val.message;
+  return val;
+}
+
+},{"ms":4}],4:[function(require,module,exports){
+/**
+ * Helpers.
+ */
+
+var s = 1000;
+var m = s * 60;
+var h = m * 60;
+var d = h * 24;
+var y = d * 365.25;
+
+/**
+ * Parse or format the given `val`.
+ *
+ * Options:
+ *
+ *  - `long` verbose formatting [false]
+ *
+ * @param {String|Number} val
+ * @param {Object} options
+ * @return {String|Number}
+ * @api public
+ */
+
+module.exports = function(val, options){
+  options = options || {};
+  if ('string' == typeof val) return parse(val);
+  return options.long
+    ? long(val)
+    : short(val);
+};
+
+/**
+ * Parse the given `str` and return milliseconds.
+ *
+ * @param {String} str
+ * @return {Number}
+ * @api private
+ */
+
+function parse(str) {
+  var match = /^((?:\d+)?\.?\d+) *(ms|seconds?|s|minutes?|m|hours?|h|days?|d|years?|y)?$/i.exec(str);
+  if (!match) return;
+  var n = parseFloat(match[1]);
+  var type = (match[2] || 'ms').toLowerCase();
+  switch (type) {
+    case 'years':
+    case 'year':
+    case 'y':
+      return n * y;
+    case 'days':
+    case 'day':
+    case 'd':
+      return n * d;
+    case 'hours':
+    case 'hour':
+    case 'h':
+      return n * h;
+    case 'minutes':
+    case 'minute':
+    case 'm':
+      return n * m;
+    case 'seconds':
+    case 'second':
+    case 's':
+      return n * s;
+    case 'ms':
+      return n;
+  }
+}
+
+/**
+ * Short format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
+ */
+
+function short(ms) {
+  if (ms >= d) return Math.round(ms / d) + 'd';
+  if (ms >= h) return Math.round(ms / h) + 'h';
+  if (ms >= m) return Math.round(ms / m) + 'm';
+  if (ms >= s) return Math.round(ms / s) + 's';
+  return ms + 'ms';
+}
+
+/**
+ * Long format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
+ */
+
+function long(ms) {
+  return plural(ms, d, 'day')
+    || plural(ms, h, 'hour')
+    || plural(ms, m, 'minute')
+    || plural(ms, s, 'second')
+    || ms + ' ms';
+}
+
+/**
+ * Pluralization helper.
+ */
+
+function plural(ms, n, name) {
+  if (ms < n) return;
+  if (ms < n * 1.5) return Math.floor(ms / n) + ' ' + name;
+  return Math.ceil(ms / n) + ' ' + name + 's';
+}
+
+},{}],5:[function(require,module,exports){
 exports.addZero = function(number) {
   return (parseInt(number, 10)<10?'0':'') + number;
 };
@@ -418,254 +861,7 @@ exports.removeProperty = function(obj, name) {
   return obj.removeAttribute(name);
 
 };
-},{}],3:[function(require,module,exports){
-var canvasElem = false,
-  frameElem = false,
-  onClose = false,
-  beforeClose = false,
-  cn = require('../common/common.mod.js');
-
-module.exports = function(options) {
-
-  options = cn.extend({
-    classes: cn.extend({
-      canvas: 'lightboxcanvas',
-      frame: 'lightboxframe',
-      buttonBox: 'lightboxbuttons',
-      button: false
-    }, options.classes?options.classes:{}),
-    onOpen: false
-  }, options?options:{});
-
-  var defaultButtons = { ok: { label: 'Ok' } };
-
-  if (typeof options.buttons !== 'undefined') {
-    if (options.buttons === false)
-      options.buttons = {};
-    else
-      options.buttons = cn.extend(defaultButtons, options.buttons);
-  } else {
-    options.buttons = defaultButtons;
-  }
-
-  _prepare(options.classes);
-
-  if (options.html)
-    _setContent(options.html);
-  else if (options.elems)
-    _setContent(options.elems);
-  else if (options.message)
-    _setMessageContent(options.message);
-
-  if (options.buttons) _setButtons(options.classes, options.buttons);
-
-  _display();
-
-  if (options.onOpen) options.onOpen(frameElem);
-  onClose = options.onClose?options.onClose:false;
-  beforeClose = options.beforeClose?options.beforeClose:false;
-
-  return {
-    hide: _hide
-  };
-
-};
-
-
-var _prepare = function(classes) {
-
-  canvasElem?_clear():_create();
-
-  canvasElem.className = classes.canvas;
-  frameElem.className = classes.frame;
-
-},
-
-_display = function() {
-
-  canvasElem.style.display = 'block';
-
-  _positionFrame();
-
-},
-
-_create = function() {
-
-  var frontClickFlag = false;
-
-  // create canvas
-
-  canvasElem = document.createElement('div');
-
-  cn.extend(canvasElem.style, {
-    position: 'absolute',
-    top: cn.getScrollOffsets().y + 'px',
-    height: '100%',
-    width: '100%',
-    display: 'none'
-  });
-
-  cn.addEvent(canvasElem, 'click', function() {
-
-    if (frontClickFlag) {
-      frontClickFlag = false;
-      return;
-    }
-
-    _hide();
-
-  });
-
-  cn.addEvent(window, 'scroll', function() {
-    canvasElem.style.top = cn.getScrollOffsets().y + 'px';
-  });
-
-  // create frame
-
-  frameElem = document.createElement('div');
-
-  cn.addEvent(frameElem, 'click', function() { frontClickFlag = true; });
-
-  cn.extend(frameElem.style, {
-    display: 'inline-block',
-    position: 'absolute'
-  });
-
-  canvasElem.appendChild(frameElem);
-
-  cn.el('body').appendChild(canvasElem);
-
-  cn.addEvent(window, 'resize', _repositionFrame);
-
-},
-
-_clear = function() {
-
-  if (beforeClose) {
-    beforeClose(frameElem);
-    beforeClose = false;
-  }
-
-  while (frameElem.childNodes.length)
-    frameElem.removeChild(frameElem.childNodes[0]);
-
-  if (onClose) {
-    onClose();
-    onClose = false;
-  }
-
-},
-
-_hide = function() {
-
-  _clear();
-
-  canvasElem.style.display = 'none';
-
-},
-
-_repositionFrame = function() {
-
-  if (canvasElem.style.display == 'none') return;
-
-  _positionFrame();
-
-},
-
-_positionFrame = function() {
-
-  cn.extend(frameElem.style, {
-    display: 'inline-block',
-    left: Math.round((canvasElem.offsetWidth - frameElem.offsetWidth)/2) + 'px',
-    top: 0,
-    maxHeight: 'none',
-    overflowY: 'hidden'
-  });
-
-  if (frameElem.offsetHeight > cn.windowInnerHeight()) {
-
-    cn.extend(frameElem.style, {
-      maxHeight: (cn.windowInnerHeight()-20) + 'px',
-      overflowY: 'scroll'
-    });
-
-  } else {
-
-    cn.extend(frameElem.style, { top: Math.round((canvasElem.offsetHeight - frameElem.offsetHeight)/2) + 'px' });
-
-  }
-
-},
-
-_setContent = function(content) {
-
-  if (typeof content == 'string') {
-
-    var div = document.createElement('div');
-
-    div.innerHTML = content;
-
-  }
-
-  var elems = div?div.childNodes:content;
-
-  while (elems.length)
-    frameElem.appendChild(cn.isArray(elems)?elems.shift():elems[0]);
-
-  cn.forEach(cn.els(frameElem,'img'), function(imgElem) {
-    cn.addEvent(imgElem, 'load', _repositionFrame);
-  });
-
-  cn.forEach(frameElem.getElementsByTagName('script'), function(scriptElem) {
-    eval(scriptElem.innerHTML);
-  });
-
-},
-
-_setMessageContent = function(message) {
-
-  var p = document.createElement('p');
-  p.innerHTML = message;
-  frameElem.appendChild(p);
-
-},
-
-_setButtons = function(classes, buttons) {
-
-  var div = document.createElement('div');
-  cn.addClass(div, classes.buttonBox);
-
-  for (var i in buttons) {
-
-    var button = document.createElement('button');
-    button.innerHTML = buttons[i].label;
-
-    (function(button, buttonConfig) {
-
-      cn.addEvent(button, 'click', function(){
-
-        if (buttonConfig.onClick) buttonConfig.onClick();
-
-        if (typeof buttonConfig.hide !== 'undefined') if (!buttonConfig.hide) return;
-
-        _hide();
-
-      });
-
-    })(button, buttons[i]);
-
-    if (buttons[i].className) cn.addClass(button, buttons[i].className);
-
-    if (classes.button) cn.addClass(button, classes.button);
-
-    div.appendChild(button);
-
-  }
-
-  frameElem.appendChild(div);
-
-};
-},{"../common/common.mod.js":2}],4:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 // this guy does not include the getStack method
 module.exports = {
   get: function(url, settings, callback, ajax) {

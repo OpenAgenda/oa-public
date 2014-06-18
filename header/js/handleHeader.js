@@ -53,8 +53,6 @@ var handleHeader = function(params) {
 
     $('.in-field').infieldize({position: false});
 
-    apply_flash_behavior(false, params);
-
   },
 
   _runUnlogged = function() {
@@ -172,35 +170,6 @@ var handleHeader = function(params) {
   init();
 
 };
-
-var apply_flash_behavior = function(message, options){
-
-  if (message == undefined) message = false;
-
-  if (message) var flash = message;
-  else {
-
-    var flash = (options.env=='template')?false:$.getFlash(); // get flash from cookie
-    
-  }
-
-  if (flash) {
-
-    if ($.getFlashType() == 'error') {
-      $('.js_error_flash').html(flash);
-      $('.js_info_flash').html('');
-    } else {
-      $('.js_error_flash').html('');
-      $('.js_info_flash').html(flash);
-    }
-
-    $('.js_flash_bar').removeClass('display-none');
-
-    $('.js_flash_close').unbind('click').click(function(e){ e.preventDefault(); $('.js_flash_bar').addClass('display-none')});
-  }
-
-  if (!message) setTimeout("apply_firefox_fix()", 2000);
-}
 
 var apply_firefox_fix = function() {
 

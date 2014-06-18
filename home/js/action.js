@@ -21,7 +21,7 @@ params = {
 
 exports.init = function(options) {
 
-  cn.extend(params, options);
+  cn.extend(params, typeof options == 'undefined'?{}:options);
 
 };
 

@@ -10,6 +10,7 @@ var paths = {
   ee:  '../event page embedded/js/',
   ep:  '../event form/js/',
   pe:  '../agenda embedded/js/',
+  pef: '../agenda embedded form/js/',
   pf:  '../program edit menu/js/',
   pm:  '../program menu/js/',
   pa:  '../agenda admin/js/',
@@ -27,10 +28,9 @@ destPath = '../../cibul-symfony/web/js/',
 
 files = {
 
-  'global.min.js': [
-    [paths.gl, 'handleMessageLinks.js', 'handleMobileMonitor.js', 'handleGlobals.js'],
-    [paths.jsc, 'action/src/action.js'],
-    [paths.lib, 'common/common.js', 'lightbox/lightbox.js', 'EventHandler/EventHandler.js']
+  'globals.js': [
+    [paths.lib, 'EventHandler/EventHandler.js'],
+    [paths.gl, 'globals.bundle.js'],
   ],
 
   'message.min.js': [
@@ -137,6 +137,10 @@ files = {
   'review/embedLogin.min.js': [
     [paths.lib, 'common/common.js', 'Base64/Base64.js', 'iTunnel/iTunnel.js', 'urlStrings/urlStrings.js'],
     [paths.pe, 'handleLoginTunnel.js']
+  ],
+
+  'review/embedForm.js': [
+    [paths.pef, 'form.bundle.js']
   ],
 
   'header/search.min.js': [

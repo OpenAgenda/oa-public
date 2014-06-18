@@ -78,13 +78,13 @@ _create = function() {
 
   cn.extend(canvasElem.style, {
     position: 'absolute',
-    top: getScrollOffsets().y + 'px',
+    top: cn.getScrollOffsets().y + 'px',
     height: '100%',
     width: '100%',
     display: 'none'
   });
 
-  addEvent(canvasElem, 'click', function() {
+  cn.addEvent(canvasElem, 'click', function() {
 
     if (frontClickFlag) {
       frontClickFlag = false;
@@ -95,15 +95,15 @@ _create = function() {
 
   });
 
-  addEvent(window, 'scroll', function() {
-    canvasElem.style.top = getScrollOffsets().y + 'px';
+  cn.addEvent(window, 'scroll', function() {
+    canvasElem.style.top = cn.getScrollOffsets().y + 'px';
   });
 
   // create frame
 
   frameElem = document.createElement('div');
 
-  addEvent(frameElem, 'click', function() { frontClickFlag = true; });
+  cn.addEvent(frameElem, 'click', function() { frontClickFlag = true; });
 
   cn.extend(frameElem.style, {
     display: 'inline-block',
@@ -114,7 +114,7 @@ _create = function() {
 
   cn.el('body').appendChild(canvasElem);
 
-  addEvent(window, 'resize', _repositionFrame);
+  cn.addEvent(window, 'resize', _repositionFrame);
 
 },
 
@@ -161,10 +161,10 @@ _positionFrame = function() {
     overflowY: 'hidden'
   });
 
-  if (frameElem.offsetHeight > windowInnerHeight()) {
+  if (frameElem.offsetHeight > cn.windowInnerHeight()) {
 
     cn.extend(frameElem.style, {
-      maxHeight: (windowInnerHeight()-20) + 'px',
+      maxHeight: (cn.windowInnerHeight()-20) + 'px',
       overflowY: 'scroll'
     });
 
@@ -189,13 +189,13 @@ _setContent = function(content) {
   var elems = div?div.childNodes:content;
 
   while (elems.length)
-    frameElem.appendChild(isArray(elems)?elems.shift():elems[0]);
+    frameElem.appendChild(cn.isArray(elems)?elems.shift():elems[0]);
 
-  forEach(els(frameElem,'img'), function(imgElem) {
-    addEvent(imgElem, 'load', _repositionFrame);
+  cn.forEach(cn.els(frameElem,'img'), function(imgElem) {
+    cn.addEvent(imgElem, 'load', _repositionFrame);
   });
 
-  forEach(frameElem.getElementsByTagName('script'), function(scriptElem) {
+  cn.forEach(frameElem.getElementsByTagName('script'), function(scriptElem) {
     eval(scriptElem.innerHTML);
   });
 
@@ -212,16 +212,16 @@ _setMessageContent = function(message) {
 _setButtons = function(classes, buttons) {
 
   var div = document.createElement('div');
-  addClass(div, classes.buttonBox);
+  cn.addClass(div, classes.buttonBox);
 
-  for (i in buttons) {
+  for (var i in buttons) {
 
     var button = document.createElement('button');
     button.innerHTML = buttons[i].label;
 
     (function(button, buttonConfig) {
 
-      addEvent(button, 'click', function(){
+      cn.addEvent(button, 'click', function(){
 
         if (buttonConfig.onClick) buttonConfig.onClick();
 
@@ -233,9 +233,9 @@ _setButtons = function(classes, buttons) {
 
     })(button, buttons[i]);
 
-    if (buttons[i].className) addClass(button, buttons[i].className);
+    if (buttons[i].className) cn.addClass(button, buttons[i].className);
 
-    if (classes.button) addClass(button, classes.button);
+    if (classes.button) cn.addClass(button, classes.button);
 
     div.appendChild(button);
 
