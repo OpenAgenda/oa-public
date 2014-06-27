@@ -10,9 +10,9 @@
     <script type="text/javascript" src='//templates.cibul.net/js/lib/maps/osm.maps.js'></script>
     <script type="text/javascript" src='http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js'></script>
     <script type="text/javascript" src='//templates.cibul.net/js/lib/urlStrings/urlStrings.js'></script>
-    <script type="text/javascript" src='//templates.cibul.net/agenda embedded/new/js/cibulWidget.js'></script>
-    <script type="text/javascript" src='//templates.cibul.net/agenda embedded/new/js/cibulControllers.js'></script>
-    <script type="text/javascript" src='//templates.cibul.net/agenda embedded/new/js/cibulStyle.js'></script>
+    <script type="text/javascript" src='//templates.cibul.net/agenda embedded/js/cibulWidget.js'></script>
+    <script type="text/javascript" src='//templates.cibul.net/agenda embedded/js/cibulControllers.js'></script>
+    <script type="text/javascript" src='//templates.cibul.net/agenda embedded/js/cibulStyle.js'></script>
     <script type="text/javascript" src='//templates.cibul.net/js/lib/iTunnel/iTunnel.js'></script>
     <script type="text/javascript" src='//templates.cibul.net/js/vendors/ejs/src/ejs_production.js'></script>
 
@@ -26,9 +26,9 @@
         paths: { 
           ctl: 'http://d.cibul.net/frontend_dev.php/embed/{uid}/controldata',
           //form: 'http://templates.cibul.net/event form/index.html?uid={uid}'
-          form: '//d.cibul.net/frontend_dev.php/embed/{uid}/new'
+          form: '//d.cibul.net/frontend_dev.php/embed/{uid}/form'
         }
-      }
+      };
       
     </script>
     <style type="text/css">
@@ -52,11 +52,11 @@
       <!--<div class="cbpgcl cibulCalendar" data-cbctl="48959239/46744426|fr"></div>
       <script type="text/javascript" src="js/cibulCalendarWidget.js"></script>-->
 
-      <!--<div class="cbpgbtn" data-cbctl="48959239/46744426|fr|4bc1106de56674b18e6910699525dfe8"></div>
-      <script type="text/javascript" src="js/cibulFormWidget.js"></script>-->
+      <div class="cbpgbtn" data-cbctl="48959239/46744426|fr|4bc1106de56674b18e6910699525dfe8"></div>
+      <script type="text/javascript" src="js/cibulFormWidget.js"></script>
 
-      <div class="cbpgmp cibulMap" data-cbctl="48959239/46744426|fr"></div>
-      <script type="text/javascript" src="js/cibulMapWidget.js"></script>
+      <!--<div class="cbpgmp cibulMap" data-cbctl="48959239/46744426|fr"></div>
+      <script type="text/javascript" src="js/cibulMapWidget.js"></script>-->
 
       <div class="cbpgsc cibulSearch" data-cbctl="48959239/46744426|fr"></div>
       <script type="text/javascript" src="js/cibulSearchWidget.js"></script>

@@ -4,12 +4,23 @@ mobileMonitor = require('./handleMobileMonitor.js'),
 
 messageLinks = require('./handleMessageLinks.js'),
 
+debug = require('debug'),
+
+log = debug('globals'),
+
+params = {
+  env: 'prod'
+};
+
 flash = require('./handleFlashMessage.js');
 
 require('../../js/lib/EventHandler/EventHandler.js');
 
+window.handleGlobals = function(eh, options) {
 
-window.handleGlobals = function(eh) {
+  if (typeof options !== 'undefined') cn.extend(params, options);
+
+  if (params.env == 'dev') debug.enable('*');
 
   mobileMonitor(document, window, navigator, eh);
 

@@ -10,16 +10,16 @@
       standalone: true,
       scrollOffset: 100,
       resources: {
-        form: '//cibul.net/embed/{uid}/new'
+        form: '//cibul.net/embed/{uid}/form'
       },
       labels: {
         fr: {
           add: 'ajoutez un événement',
-          cancel: 'annuler'
+          cancel: 'retour à la liste'
         },
         en: {
           add: 'add an event',
-          cancel: 'cancel'
+          cancel: 'back to list',
         },
       },
       classes: {
@@ -134,7 +134,6 @@
 
       },
 
-
       /**
        * remove the form frame until it is needed again
        */
@@ -168,7 +167,7 @@
         this.frameElem.setAttribute('frameborder', 0);
         this.frameElem.setAttribute('allowtransparency', 'allowtransparency');
 
-        this.frameElem.src = (typeof cibulEnv !== 'undefined')?cibulEnv.paths.form.replace('{uid}', this.uid) + '?key=' + this.key:self.resources.form;
+        this.frameElem.src = (typeof cibulEnv !== 'undefined'?cibulEnv.paths.form:self.resources.form).replace('{uid}', this.uid) + '?key=' + this.key;
 
         addEvent(this.frameElem, 'load', function() {
 
@@ -182,7 +181,11 @@
 
             } else if (data.next) {
 
-              self.frameElem.src = data.next;
+              // unused
+
+            } else if (data.clear) {
+
+              // form content has changed and needs to be set to top
 
               var iframePos = self.findPos(self.frameElem)[1];
 

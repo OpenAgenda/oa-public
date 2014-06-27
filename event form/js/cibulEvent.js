@@ -27,7 +27,8 @@ var cibulEvent = function(params) {
       validate: 'evalidate',
       fetchEncoded: 'efetchencoded',
       languageChange: 'elanguageschange',
-      fetchLanguages: 'elanguagesfetch'
+      fetchLanguages: 'elanguagesfetch',
+      clear: 'eventclear'
     },
     descriptionFields: ['title', 'description', 'tags', 'freeText']
 
@@ -42,6 +43,8 @@ var cibulEvent = function(params) {
 
   event = params.event, onValidate = false, languages = [],
 
+  callbackIds = [], // keep track of callbacks used by event handler
+
   init = function() {
 
     if (Object.prototype.toString.call(event) === '[object Array]') event = {};
@@ -52,11 +55,11 @@ var cibulEvent = function(params) {
 
     _updateLanguages();
 
-    eh.on(params.events.log, function() {
+    _on(params.events.log, function() {
       console.log(event);
     });
 
-    eh.on(params.events.description.fetch, function(callback) {
+    _on(params.events.description.fetch, function(callback) {
 
       callback({
         title: event.title,
@@ -67,7 +70,7 @@ var cibulEvent = function(params) {
 
     });
 
-    eh.on(params.events.description.write, function(data) {
+    _on(params.events.description.write, function(data) {
 
       var error = null;
 
@@ -95,7 +98,7 @@ var cibulEvent = function(params) {
 
     });
 
-    eh.on(params.events.description.remove, function(data) {
+    _on(params.events.description.remove, function(data) {
 
       forEach(params.descriptionFields, function(fieldName) {
 
@@ -111,7 +114,7 @@ var cibulEvent = function(params) {
 
     });
 
-    eh.on(params.events.location.fetch, function(data) {
+    _on(params.events.location.fetch, function(data) {
 
       var index = data.index;
 
@@ -127,7 +130,7 @@ var cibulEvent = function(params) {
 
     });
 
-    eh.on(params.events.location.write, function(data) {
+    _on(params.events.location.write, function(data) {
 
       if (isDef(data.index)) {
 
@@ -151,7 +154,7 @@ var cibulEvent = function(params) {
 
     });
 
-    eh.on(params.events.location.remove, function(data) {
+    _on(params.events.location.remove, function(data) {
 
       if (data.index && locationMap[data.index]) delete locationMap[data.index];
 
@@ -164,7 +167,7 @@ var cibulEvent = function(params) {
 
     // get agenda information
 
-    eh.on(params.events.agenda.fetch, function(data) {
+    _on(params.events.agenda.fetch, function(data) {
 
       if (event.agendas) for (var a in event.agendas) {
 
@@ -179,7 +182,7 @@ var cibulEvent = function(params) {
 
     // write agenda information in existing or new entry
 
-    eh.on(params.events.agenda.write, function(data) {
+    _on(params.events.agenda.write, function(data) {
 
       if (!event.agendas) event.agendas = [];
 
@@ -194,13 +197,13 @@ var cibulEvent = function(params) {
 
     // update agenda information
 
-    eh.on(params.events.image.fetch, function(callback) {
+    _on(params.events.image.fetch, function(callback) {
 
       callback(event.image?{image: event.image }:false);
 
     });
 
-    eh.on(params.events.image.remove, function() {
+    _on(params.events.image.remove, function() {
 
       event.image = false;
 
@@ -208,7 +211,7 @@ var cibulEvent = function(params) {
 
     });
 
-    eh.on(params.events.image.write, function(data) {
+    _on(params.events.image.write, function(data) {
 
       if (data.image) event.image = data.image;
 
@@ -216,13 +219,13 @@ var cibulEvent = function(params) {
 
     });
 
-    eh.on(params.events.uidfetch, function(callback) {
+    _on(params.events.uidfetch, function(callback) {
 
       callback({uid: event.uid?event.uid:false, draft: event.draft?true:false });
 
     });
 
-    eh.on(params.events.validate, function(callbacks) {
+    _on(params.events.validate, function(callbacks) {
 
       onValidate = callbacks.onChange;
 
@@ -230,17 +233,32 @@ var cibulEvent = function(params) {
 
     });
 
-    eh.on(params.events.fetchEncoded, function(callback) {
+    _on(params.events.fetchEncoded, function(callback) {
 
       callback(JSON.stringify(event));
 
     });
 
-    eh.on(params.events.fetchLanguages, function(callback) {
+    _on(params.events.fetchLanguages, function(callback) {
 
       callback(languages);
 
     });
+
+    _on(params.events.clear, function() {
+
+      // unregister methods
+      forEach(callbackIds, function(id) { 
+        eh.cancel(id);
+      });
+
+    });
+
+  },
+
+  _on = function(eventName, callback) {
+
+    callbackIds.push(eh.on(eventName, callback));
 
   },
 
@@ -299,7 +317,9 @@ var cibulEvent = function(params) {
 
   _getNextLocationIndex = function(currentIndex) {
 
-    var nextIndex = false, index, currentFound = false, currentIndex = parseInt(currentIndex);
+    var nextIndex = false, index, currentFound = false;
+
+    currentIndex = parseInt(currentIndex);
 
     for (index in locationMap) {
 

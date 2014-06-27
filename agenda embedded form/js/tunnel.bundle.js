@@ -1,271 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var cn = require('../../js/lib/common/common.mod.js'),
-
-remote = require('../../js/lib/remote/remote.mod.js'),
-
-eh,
-
-debug = require('debug'),
-
-log = debug('embedded'),
-
-canvas,
-
-cover,
-
-params = {
-  routes: {
-    new: '/addevent',
-  },
-  selectors: {
-    action: '.js_action',
-    canvas: '.js_frame_canvas'
-  },
-  events: {
-    formSubmit: 'formsubmit',
-    formComplete: 'formcomplete',
-    contentClear: 'contentclear'
-  },
-  sandbox: false,
-  requestTimeout: 12000
-};
-
-window.run = function(eventHandler, options) {
-
-  if (options.debug) debug.enable('*');
-
-  cn.extend(params, options);
-
-  eh = eventHandler;
-
-  canvas = cn.el(params.selectors.canvas);
-
-  if (params.sandbox) return loadSandbox();
-
-  // listen to form submitting and receiving the response.
-  eh.on(params.events.formComplete, function(data) {
-
-    controller(null, data);
-    
-  });
-
-  eh.on(params.events.formSubmit, function(data) {
-
-    disableCanvas();
-
-  });
-
-  for (var i in params.routes)
-    params.routes[i] = params.base + params.routes[i];
-
-  log('initing the controller on %s', params.routes.new);
-
-  get(params.routes.new, controller);
-
-  return eventHandler;
-
-};
-
-var controller = function(err, data) {
-
-  log('controller');
-
-  if (err) return handleErr(err);
-
-  if (data.redirect) {
-
-    log('controller: redirecting to %s', data.redirect);
-
-    get(data.redirect, controller);
-
-  } else if (data.partial) {
-
-    log('controller: writing partial to dom');
-
-    refreshCanvas(data.partial);
-
-    eh.trigger(params.events.contentClear);
-
-  }
-
-},
-
-get = function(res, callback) {
-
-  disableCanvas();
-
-  remote.getXmlHttp(res, {timeout: params.requestTimeout}, function(responseType, data) {
-
-    if (responseType!=='success') return callback(responseType);
-
-    callback(null, data);
-
-  });
-
-},
-
-loadSandbox = function() {
-
-  get(params.sandbox, function(err, data) {
-
-    if (err) {
-      log('loadSandbox: problem loading template');
-      return;
-    }
-
-    refreshCanvas(data.partial, true);
-
-  });
-
-},
-
-refreshCanvas = function(html, disableActions) {
-
-  log('refreshCanvas: %s', 'clearing the canvas');
-
-  var child;
-
-  while (child = cn.childObject(canvas, 0))
-    canvas.removeChild(child);
-
-  log('refreshCanvas: %s', 'setting the partial content in');
-
-  canvas.innerHTML = html;
-
-  cn.forEach(cn.els(canvas, 'script'), stickScriptToHead);
-
-  cn.forEach(cn.els(canvas, params.selectors.action), function(actionElem) {
-
-    if (disableActions) {
-
-      prepareDisabledAction(actionElem);
-
-      return;
-
-    }
-
-    if (actionElem.getAttribute('type')=='submit')
-      preparePostAction(actionElem);
-    else
-      prepareGetAction(actionElem);
-
-  });
-
-  enableCanvas();
-
-},
-
-enableCanvas = function () {
-
-  if (cover) cover.style.display = 'none';
-
-},
-
-disableCanvas = function() {
-
-  if (!cover) {
-
-    cover = document.createElement('div');
-
-    cover.setAttribute('style', [
-      'position: absolute;',
-      'top: 0;',
-      'left: 0;',
-      'width: 100%;',
-      'height: 100%;',
-      'z-index: 10000;',
-      'cursor: wait;',
-    ].join(''));
-
-    cn.el('body').insertAdjacentElement('afterbegin', cover);
-
-  } else {
-
-    cover.style.display = 'block';
-
-  }
-
-},
-
-preparePostAction = function(actionElem) {
-
-  var form = cn.el(canvas, 'form'),
-
-  res = form.getAttribute('action');
-
-  addClickEvent(actionElem, function() {
-
-    log('preparePostAction: sending post to %s', res);
-
-    remote.postXmlHttp(res, {form: form, timeout: params.requestTimeout}, function(responseType, data) {
-      controller(responseType=='success'?null:responseType, data);
-    });
-
-  });
-
-},
-
-prepareGetAction = function(actionElem) {
-
-  var res = actionElem.getAttribute('href');
-
-  addClickEvent(actionElem, function() {
-
-    remote.getXmlHttp(res, {timeout: params.requestTimeout}, function(responseType, data) {
-      controller(responseType=='success'?null:responseType, data);
-    });
-
-  });
-
-},
-
-prepareDisabledAction = function(actionElem) {
-
-  addClickEvent(actionElem, function() {
-
-    log('disabled action click. nothing happens');
-
-  });
-
-},
-
-addClickEvent = function(elem, callback) {
-
-  cn.addEvent(elem, 'click', function(e) {
-
-    cn.preventDefault(e);
-
-    disableCanvas();
-
-    callback();
-
-  });
-
-},
-
-stickScriptToHead = function(scriptElem) {
-
-  var headScript = document.createElement('script'),
-
-  scriptContent = (scriptElem.text || scriptElem.textContent || scriptElem.innerHTML || "" );
-
-  try {
-    headScript.appendChild(document.createTextNode(scriptContent));      
-  } catch(e) {
-    headScript.text = scriptContent;
-  }
-
-  cn.el('head').appendChild(headScript);
-
-};
-
-handleErr = function(err) {
-
-  console.log('error');
-  console.log(err);
-
-};
-},{"../../js/lib/common/common.mod.js":5,"../../js/lib/remote/remote.mod.js":6,"debug":2}],2:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -411,7 +144,7 @@ function load() {
 
 exports.enable(load());
 
-},{"./debug":3}],3:[function(require,module,exports){
+},{"./debug":2}],2:[function(require,module,exports){
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -610,7 +343,7 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":4}],4:[function(require,module,exports){
+},{"ms":3}],3:[function(require,module,exports){
 /**
  * Helpers.
  */
@@ -723,7 +456,59 @@ function plural(ms, n, name) {
   return Math.ceil(ms / n) + ' ' + name + 's';
 }
 
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
+var cn = require('../../js/lib/common/common.mod.js'),
+
+debug = require('debug'),
+
+log = debug('embedded-tunnel'),
+
+tLib = require('../../js/lib/iTunnel/iTunnel.js'),
+
+params = {
+  events: {
+    formComplete: 'formcomplete',
+    contentClear: 'contentclear',
+    heightChange: 'heightchange'
+  }
+};
+
+window.tunnel = function(eh, options) {
+
+  if (typeof options !== 'undefined') cn.extend(params, options);
+
+  var tunnel = iTunnel({
+    onReady: function() {
+
+      eh.on(params.events.formComplete, function() {
+
+        log('complete. Doing nothing.');
+
+      });
+
+      eh.on(params.events.contentClear, function() {
+
+        log('sending form clear through tunnel');
+
+        tunnel.send({clear: true, height: cn.el('body').offsetHeight + 20 });
+
+      });
+
+      eh.on(params.events.heightChange, function() {
+
+        var newHeight = cn.el('body').offsetHeight + 20;
+
+        log('sending height change through tunnel %s', newHeight);
+
+        tunnel.send({height: newHeight});
+
+      });
+
+    }
+  });
+
+};
+},{"../../js/lib/common/common.mod.js":5,"../../js/lib/iTunnel/iTunnel.js":6,"debug":1}],5:[function(require,module,exports){
 exports.addZero = function(number) {
   return (parseInt(number, 10)<10?'0':'') + number;
 };
@@ -1063,236 +848,196 @@ exports.removeProperty = function(obj, name) {
 
 };
 },{}],6:[function(require,module,exports){
-// this guy does not include the getStack method
-module.exports = {
-  get: function(url, settings, callback, ajax) {
-    if (ajax === undefined) ajax = false;
+(function(){
 
-    if (ajax) {
-      this.getXmlHttp(url, settings, callback);
-    } else {
-      this.getJsonp(url, settings, callback);
-    }
-  },
-  postXmlHttp: function(url, settings, callback) {
+  var mTypes = {     // messages received are any of these types
+    ADDRESSED: 'a', 
+    OTHER: 'o', 
+    BROADCAST: 'b'
+  },       
+  hashCache,         // used in fallback mode (hash)
 
-    if (settings.form) 
-      settings.data = this.serialize(settings.form);    
+  iTunnel = function(params) {
 
-    this.xmlHttp(url, settings, callback, "POST");
+    var fallbackMode = false  // true when running on fallback (hash) mode
+      , id                    // id is assigned by parent
+      , isParent = false      // is parent tunnel
+      , handshaken = false
+      ,
 
-  },
-  getXmlHttp: function(url, settings, callback) {
+    params = extend({
+      target: false,          // target frame if tunnel is parent
+      onReady: false,         // called when tunnel is ready to send and receive
+      onReceive: false,       // called when message addressed to tunnel is received
+      idName: 'id',           // name of id parameter in message. When empty and is received in parent, message is broadcast
+      hashName: 't',          // used in fallback mode. name of hash parameter
+      hashCache: 'v',         // used in fallback mode. name of cache parameter
+      forceFallback: false,   // if set, forces hash method
+      tunnelNextIdName: 'iTunnelNextId' // window variable for storing next id value
+    }, typeof params == 'undefined'?{}:params),
 
-    this.xmlHttp(url, settings, callback, "GET");
+    _init = function() {
 
-  },
+      if (params.target) isParent = true;
 
-  xmlHttp: function(url, settings, callback, type) {
+      if (isParent) id = (window[params.tunnelNextIdName] == undefined)?(window[params.tunnelNextIdName] = 1)-1:window[params.tunnelNextIdName]++;
 
-    var self = this;
-
-    if (typeof settings == 'function') {
-      callback = settings;
-      settings = {};
-    }
-
-    var retries = 0;
-    if (settings.retries) retries = settings.retries;
-    if (!settings.timeout) settings.timeout = 2000;
-    if (!settings.name) settings.name = url;
-
-    var finished = false;
-
-    if (settings.logger) settings.logger.log('remote.getXmlHttp - preparing get for item ' + settings.name);
-
-    var sentUrl = type=="GET"?this.appendToUrl(url, settings.data):url;
-
-    var onSuccess = function(data){
-
-      if (finished) return;
-
-      finished = true;
-
-      if (settings.logger) settings.logger.log('remote.getXmlHttp - response received for item ' + settings.name);
-
-      callback('success', data);
-
-    };
-
-    var onTimeout = function() {
-
-      if (finished) return;
-
-      if (retries) {
-
-        if (settings.logger) settings.logger.log('remote.getXmlHttp - timeout hit, retrying for item ' + settings.name);
-        
-        sendRequest();
-
-        retries--;
-
+      if (!window['postMessage'] || params.forceFallback) {
+        fallbackMode = true;
+        _monitorHash(params.hashName, params.hashCache, _onReceive, params.target);
       } else {
-
-        finished = true;
-
-        if (settings.logger) settings.logger.log('remote.getXmlHttp - timeout hit, no retry for item ' + settings.name);
-
-        callback('timeout');
-
+        _monitorMessage(_onReceive);
       }
 
-    };
-
-    // this will call the timeout if is hit, but will call callback even if it comes after
-    var sendRequest = function(){
-
-      var timer = setTimeout(function(){
-
-        onTimeout();
-
-      }, settings.timeout);
-
-      var xhr = new XMLHttpRequest(),
-
-      response;
-
-      xhr.onreadystatechange = function(){
-
-        if (xhr.readyState==4) if (xhr.status==200) {
-
-          clearTimeout(timer);
-
-          if (xhr.responseText.substring(0,1)=='(') {
-            response = xhr.responseText.substring(1).substring(0,xhr.responseText.length-2);
-          } else {
-            response = xhr.responseText;
-          }
-            
-          onSuccess(JSON.parse(response));
-
-        }
-
-      };
-
-      xhr.open(type, sentUrl, true);
-      xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-      xhr.setRequestHeader("Content-Type", type=="POST"?"application/x-www-form-urlencoded":"text/plain;charset=UTF-8");
+      // parent send id in init message, child sends empty message
+      send();
       
-      if (type=="GET") {
+    },
+    send = function(data) {
 
-        xhr.send();
+      if (typeof data == 'undefined') data = {};
 
-      } else {
+      if (typeof id != 'undefined') data[params.idName] = id;
 
-        var body = settings.data;
-
-        if (typeof body !== 'string')
-          body = self.appendToUrl('', settings.data).substr(1);
-
-        xhr.send(body);
-
+      if (fallbackMode) {
+        var newHref = _writeHash(isParent?params.target.src:document.referrer, params.hashName, params.hashCache, data);
+        if (isParent)
+          params.target.src = newHref;
+        else
+          parent.location.href = newHref;
+          
+      }
+      else {
+        _postMessage(isParent?params.target.contentWindow:parent, isParent?params.target.src:document.referrer, data);
       }
 
-    };
+    },
+    setOnReceive = function(onReceive) {
 
-    sendRequest(onSuccess, onTimeout);
+      params.onReceive = onReceive;
 
-  },
+    },
+    _onReceive = function(data) {
 
-  getJsonp: function(url, settings, callback){
+      if (isParent)
+        switch (_messageType(params.idName, id, data)) {
+          case mTypes.BROADCAST:
 
-    var timer,
-      timeout = settings.timeout?settings.timeout:2000,
-      retries = settings.retries?settings.retries:0,
-      sentUrl = this.appendToUrl(url, settings.data),
-      callbackParam = {},
-      self = this,
-      callbackParamName = settings.callbackParamName?settings.callbackParamName:'callback';
+            // child is desperately calling for parent, call it back
+            send();
 
-    var handleResponse = function(data){
-      clearTimeout(timer);
-      callback('success', data);
-    };
+          case mTypes.OTHER:
 
-    var handleTimeout = function() {
-      if ((!window[settings.data.callback]) || !retries) return callback('timeout');
-      sendQuery();
-      retries--;
-    };
+            return;
 
-    var sendQuery = function() {
-      var callbackName = 'jsonpCb' + Math.ceil(Math.random()*100000);
+          case mTypes.ADDRESSED:
 
-      window[callbackName] = handleResponse;
-      var script = document.createElement('script');
-      if (sentUrl.indexOf(callbackParamName + '=') != -1) { // callback param is already in string
-        script.src = sentUrl.substring(0, sentUrl.indexOf(callbackParamName + '=') + 9) + callbackName + sentUrl.substring(sentUrl.indexOf(callbackParamName + '=') + 9);
-      } else {
-        callbackParam[callbackParamName] = callbackName;
-        script.src = self.appendToUrl(sentUrl, callbackParam);
-      }
-        
-      document.getElementsByTagName('head')[0].appendChild(script);
-    };
+            // at this point handshake is completed for parent
+            if (!handshaken) {
+              handshaken = true;
+              if (params.onReady) params.onReady();
+            }
+          
+        }
+      else {
 
-    sendQuery();
-    
-  },
+        // if child still doesn't know who the parent is and sees an id, it takes it and sends it back
 
-  appendToUrl: function(url, data) {
-
-    if (typeof data != 'undefined') {
-
-      if (url.indexOf('?') == -1) {
-        url = url + '?';
-      } else {
-        url = url + '&';
-      }
-
-      for (var name in data) {
-
-        if (typeof data[name] == 'object') {
-          for (var index in data[name]) {
-            url = url + name + '[]=' + encodeURIComponent(data[name][index]) + '&';
-          }
-        } else {
-
-          url = url + name + '=' + encodeURIComponent(data[name]) + '&';
-
+        if (typeof data[params.idName] != 'undefined' && (!handshaken)) {
+          handshaken = true;
+          id = data[params.idName];
+          send();
+          if (params.onReady) params.onReady();
         }
 
       }
 
-      if (url.substr(url.length-1, 1) == '&') url = url.substr(0, url.length-1);
+      // remove id value
 
-    }
+      if (typeof data[params.idName] != 'undefined') delete data[params.idName];
 
-    return url;
+      if (params.onReceive && Object.size(data)) params.onReceive(data);
+
+    };
+
+    _init();
+
+    return {
+      send: send,
+      setOnReceive: setOnReceive
+    };
+
   },
 
-  collect: function(a, f) {
-    var n = [];
-    for (var i = 0; i < a.length; i++) {
-        var v = f(a[i]);
-        if (v != null) n.push(v);
-    }
-    return n;
+  _messageType = function(idName, idValue, data) {
+
+    // if tunnel is parent and message does not contain id, its a broadcast.
+    if (typeof data[idName] == 'undefined')
+      return mTypes.BROADCAST;
+    else if (data[idName] == idValue) 
+      return mTypes.ADDRESSED;
+    else 
+      return mTypes.OTHER;
   },
 
-  serialize: function (f) {
-    function g(n) {
-        return f.getElementsByTagName(n);
-    };
-    var nv = function (e) {
-        if (e.name) return encodeURIComponent(e.name) + '=' + encodeURIComponent(e.value);
-    };
-    var i = this.collect(g('input'), function (i) {
-        if ((i.type != 'radio' && i.type != 'checkbox') || i.checked) return nv(i);
+
+  _postMessage = function(frame, targetUrl, data) {
+
+    var message = Base64.encode(''.addUrlParameters(data));
+
+    frame['postMessage'](message, targetUrl.replace(/#.*$/, ''));
+
+  },
+
+  _monitorMessage = function(callback) {
+
+    addEvent(window, 'message', function(message) {
+
+      var data = Base64.decode(message.data).getUrlParameters();
+
+      callback(data);
+
     });
-    var s = this.collect(g('select'), nv);
-    var t = this.collect(g('textarea'), nv);
-    return i.concat(s).concat(t).join('&');
-  }
-};
-},{}]},{},[1])
+
+  },
+
+
+  _monitorHash = function(hashParamName, hashCacheName, callback, target) {
+
+    if (!hashCache) hashCache = Math.ceil(Math.random(0,100000)*1000);
+
+    addEvent(window, 'hashchange', function() {
+
+      var data = Base64.decode(hash.getParam(hashParamName, '', document.location.href.substr(document.location.href.replace(/#.*$/, '').length))).getUrlParameters();
+
+      // remove hash cache value
+
+      if (typeof data[hashCacheName] != 'undefined') delete data[hashCacheName];
+
+      callback(data);
+
+    });
+
+  },
+
+
+  _writeHash = function(target, hashParamName, hashCacheName, data) {
+
+    data[hashCacheName] = hashCache++;
+
+    var hashValue = Base64.encode(''.addUrlParameters(data))
+      , targetUrl = target.replace(/#.*$/, '')
+      , targetHash = target.substr(targetUrl.length).replace('#','');
+
+    return targetUrl + '#' + hash.setParam(hashParamName, hashValue, targetHash);
+
+  };
+
+
+  if (typeof exports !== 'undefined')
+    exports.iTunnel = iTunnel;
+  else
+    window.iTunnel = iTunnel;
+
+})();
+},{}]},{},[4])

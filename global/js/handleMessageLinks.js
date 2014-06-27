@@ -2,6 +2,10 @@ var cn = require('../../js/lib/common/common.mod.js'),
 
 action = require('../../home/js/action.js'),
 
+debug = require('debug'),
+
+log = debug('handleMessageLinks'),
+
 params = {
   selectors: {
     links: '.js_message_link'
@@ -34,7 +38,7 @@ var scan = function() {
 
       cn.preventDefault(e);
 
-      action.get(linkElem.getAttribute('href'), {loadLightbox: true});
+      action.get(linkElem.getAttribute('href'), {loadLightbox: true, errorLightbox: true});
 
       linkElem.setAttribute(params.attribute, true);  
 
@@ -42,4 +46,4 @@ var scan = function() {
 
   });
 
-}
+};

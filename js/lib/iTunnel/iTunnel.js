@@ -184,6 +184,9 @@
   };
 
 
-  window.iTunnel = iTunnel;
+  if (typeof exports !== 'undefined')
+    exports.iTunnel = iTunnel;
+  else
+    window.iTunnel = iTunnel;
 
 })();

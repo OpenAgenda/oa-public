@@ -11,6 +11,9 @@ module.exports = {
   },
   postXmlHttp: function(url, settings, callback) {
 
+    if (settings.form) 
+      settings.data = this.serialize(settings.form);    
+
     this.xmlHttp(url, settings, callback, "POST");
 
   },
@@ -117,7 +120,12 @@ module.exports = {
 
       } else {
 
-        xhr.send(self.appendToUrl('', settings.data).substr(1));
+        var body = settings.data;
+
+        if (typeof body !== 'string')
+          body = self.appendToUrl('', settings.data).substr(1);
+
+        xhr.send(body);
 
       }
 
@@ -166,6 +174,7 @@ module.exports = {
     sendQuery();
     
   },
+
   appendToUrl: function(url, data) {
 
     if (typeof data != 'undefined') {
@@ -195,5 +204,29 @@ module.exports = {
     }
 
     return url;
+  },
+
+  collect: function(a, f) {
+    var n = [];
+    for (var i = 0; i < a.length; i++) {
+        var v = f(a[i]);
+        if (v != null) n.push(v);
+    }
+    return n;
+  },
+
+  serialize: function (f) {
+    function g(n) {
+        return f.getElementsByTagName(n);
+    };
+    var nv = function (e) {
+        if (e.name) return encodeURIComponent(e.name) + '=' + encodeURIComponent(e.value);
+    };
+    var i = this.collect(g('input'), function (i) {
+        if ((i.type != 'radio' && i.type != 'checkbox') || i.checked) return nv(i);
+    });
+    var s = this.collect(g('select'), nv);
+    var t = this.collect(g('textarea'), nv);
+    return i.concat(s).concat(t).join('&');
   }
 };

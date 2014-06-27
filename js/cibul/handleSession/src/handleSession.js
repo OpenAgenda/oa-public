@@ -10,7 +10,7 @@ var handleSession = function(params) {
     cookieLogged: 'logged',
     local: 'cibul_session',
     onLoaded: false,
-    events: { fetch: 'getsessiondata' }
+    events: { fetch: 'getsessiondata', clear: false }
   }, params);
 
   var stack = [],
@@ -33,10 +33,18 @@ var handleSession = function(params) {
       isReady = true;
     }
 
-    eh.on(params.events.fetch, _handleFetchRequest);
+    var cbId = eh.on(params.events.fetch, _handleFetchRequest);
+
+    if (params.events.clear) var cbIdOnClear = eh.on(params.events.clear, function() {
+
+      eh.cancel(cbId);
+      eh.cancel(cbIdOnClear);
+      stack = [];
+
+    });
 
   },
-
+  
   _handleFetchRequest = function(callback) {
 
     if (!isReady) return stack.push(callback);

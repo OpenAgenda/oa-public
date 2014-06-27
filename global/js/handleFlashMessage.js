@@ -19,13 +19,13 @@ params = {
     frame: 'wsq lightbox-frame',
     buttonBox: 'lightbox-buttons'
   }
-}
+};
 
 module.exports = function() {
 
   var c = read();
 
-  if (!c.value.length) return;
+  if (!c.value || !c.value.length) return;
 
   lightbox({
     message: c.value,
@@ -38,12 +38,16 @@ module.exports = function() {
 
 var read = function() {
 
-  cookieValues = JSON.parse(b64.decode(cookies(params.keys.cookie)));
+  var rawCookie = cookies(params.keys.cookie);
+
+  if (!rawCookie) return {value: false, type: false};
+
+  cookieValues = JSON.parse(b64.decode(rawCookie));
 
   return {
     value: cookieValues[params.keys.value],
     type: cookieValues[params.keys.type]
-  }
+  };
 
 },
 

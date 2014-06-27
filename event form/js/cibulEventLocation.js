@@ -11,7 +11,8 @@ var cibulEventLocation = function(params) {
       heightChange: 'heightchange',
       languageChange: 'elanguageschange',
       fetchLanguages: 'elanguagesfetch',
-      sessionFetch: 'getsessiondata'
+      sessionFetch: 'getsessiondata',
+      clear: 'eventclear'
     },
     templates: {
       main: '<h2><%= locationTitle %></h2><p><%= locationInfo %></p><div class="js_places"></div>',
@@ -38,18 +39,19 @@ var cibulEventLocation = function(params) {
       coords: [48.447052, 1.486754]
     },
     icon: 'images/markerIcon.png',
+    sessionData: false,
     localSelection: [] // local locations to choose from
   }, params);
 
   var eh = sEventHandler.getInstance(),
 
-  elem, addLink, locationHandlers = {}, languages, country,
+  elem, addLink, locationHandlers = {}, languages, country, callbackIds = [],
 
   init = function() {
 
     _createElement();
 
-    eh.trigger(params.events.sessionFetch, function(data) {
+    _getSessionData(function(data) {
 
       country = _findCountry(data.country);
 
@@ -70,20 +72,48 @@ var cibulEventLocation = function(params) {
 
         });
 
-        eh.on(params.events.languageChange, function(newLanguages) {
+        _on(params.events.languageChange, function(newLanguages) {
 
           languages = newLanguages;
 
           for (var index in locationHandlers) {
             locationHandlers[index].updateLanguages(languages);
           }
-            
+
+        });
+
+        _on(params.events.clear, function() {
+
+          // unregister methods
+          forEach(callbackIds, function(id) { 
+            eh.cancel(id);
+          });
 
         });
 
       });
 
     });
+
+  },
+
+  _on = function(eventName, callback) {
+
+    callbackIds.push(eh.on(eventName, callback));
+
+  },
+
+  _getSessionData = function(callback) {
+
+    if (!params.sessionData) {
+
+      eh.trigger(params.events.sessionFetch, callback);
+
+    } else {
+
+      callback(params.sessionData);
+
+    }
 
   },
 

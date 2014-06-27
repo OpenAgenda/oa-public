@@ -11,7 +11,8 @@ log = debug('action'),
 defaults = {
   onResponse: false,  // type, data
   onElemReady: false,  // form
-  loadLightbox: false
+  loadLightbox: false,
+  errorLightbox: false
 },
 
 params = {
@@ -25,9 +26,11 @@ exports.init = function(options) {
 
 };
 
-exports.get = function(res, options) {
+exports.get = function get(res, options) {
 
   log('processing get on %s', res);
+
+  if (typeof options == 'undefined') options = {};
 
   var reqParams = options.data?options.data:{};
 
@@ -45,6 +48,11 @@ exports.get = function(res, options) {
 
     }
 
+    if ((data.success===false) && data.message && options.errorLightbox) lightbox({
+      message: data.message,
+      classes: params.lightboxClasses
+    });
+
     if (data.partial && options.loadLightbox) {
 
       lightbox({
@@ -61,6 +69,8 @@ exports.get = function(res, options) {
       log('TODO: partial is loaded not to be used for lightbox');
 
     }
+
+    if (data.redirect) get(data.redirect, options);
 
     if (options.onResponse) options.onResponse(responseType, data);
 

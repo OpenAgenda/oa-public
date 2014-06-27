@@ -79,7 +79,6 @@ var cibulEventDescription = function(params) {
 
   _render = function(language) {
 
-    // fetch description data from cibulEvent
     eh.trigger(params.events.fetch, function(data) {
 
       var languages = _lib.extractLanguages(data);
@@ -111,10 +110,13 @@ var cibulEventDescription = function(params) {
 
     languageCanvas = _lib.createElement('li', params.templates.languageList);
 
-    var languageSelector = el(languageCanvas, params.selectors.languageSelector)
-      , addMenuCanvas = el(languageCanvas, params.selectors.languageAddMenu)
-      , addMenuLink = el(addMenuCanvas, 'a')
-      , addMenu = el(addMenuCanvas, 'ul');
+    var languageSelector = el(languageCanvas, params.selectors.languageSelector),
+    
+    addMenuCanvas = el(languageCanvas, params.selectors.languageAddMenu),
+    
+    addMenuLink = el(addMenuCanvas, 'a'),
+    
+    addMenu = el(addMenuCanvas, 'ul');
 
 
     var tab = _renderLanguageTabs(languageSelector, selectedLanguage, currentLanguages);
@@ -298,7 +300,7 @@ var cibulEventDescription = function(params) {
 
     _render(language);
 
-  };
+  },
 
   _removeFields = function(language) {
 

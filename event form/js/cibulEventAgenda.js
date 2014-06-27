@@ -43,9 +43,11 @@ var cibulEventAgenda = function(params) {
       callback: function(data) {
 
         if (data) {
+
           selection.category = data.category?data.category:null;
 
           selection.tags = data.tags?data.tags:[];
+
         }
 
         _createMainCanvas();

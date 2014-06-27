@@ -15,7 +15,7 @@ var paths = {
   pm:  '../program menu/js/',
   pa:  '../agenda admin/js/',
   pem: '../agenda embed menu/',
-  npem: '../agenda embedded/new/js/',
+  npem: '../agenda embedded/js/',
   gl:  '../global/js/',
   jsc: '../js/cibul/',
   lib: '../js/lib/',
@@ -84,7 +84,7 @@ files = {
     ],
   ],
 
-  'review/embedPublish.min.js': [
+  'review/embedForm.js': [
     [paths.ep,
       'cibulEvent.js',
       'cibulEventValidator.js',
@@ -127,20 +127,11 @@ files = {
       'handleSuggestions/src/handleSuggestions.js',
       'inputCountry/src/inputCountry.js',
     ],
+    [paths.pef, 'form.bundle.js', 'tunnel.bundle.js']
   ],
 
-  'review/embedComplete.min.js': [
-    [paths.lib, 'common/common.js', 'Base64/Base64.js', 'iTunnel/iTunnel.js', 'urlStrings/urlStrings.js'],
-    [paths.pe, 'handleCompleteTunnel.js']
-  ],
-
-  'review/embedLogin.min.js': [
-    [paths.lib, 'common/common.js', 'Base64/Base64.js', 'iTunnel/iTunnel.js', 'urlStrings/urlStrings.js'],
-    [paths.pe, 'handleLoginTunnel.js']
-  ],
-
-  'review/embedForm.js': [
-    [paths.pef, 'form.bundle.js']
+  'review/embedFormSandbox.js': [
+    [paths.pef, 'sandbox.bundle.js']
   ],
 
   'header/search.min.js': [

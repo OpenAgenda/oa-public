@@ -2,6 +2,7 @@ var cibulEventSubmit = function(params) {
 
   params = extend({
     ajax: false,
+    timeout: 5000,
     beforeNext: false, // in case submission is ajax, this callback can be called before the next form is loaded
     canvas: el('.js_form_canvas'),
     template: '<ul class="event-errors js_errors"></ul><div class="js_actions actions"></div>',
@@ -37,7 +38,9 @@ var cibulEventSubmit = function(params) {
       validate: 'evalidate',
       fetchEncoded: 'efetchencoded',
       heightChange: 'heightchange',
-      next: 'next'
+      complete: 'formcomplete',
+      clear: 'eventclear',
+      submit: 'formsubmit'
     }
   }, params);
 
@@ -121,15 +124,19 @@ var cibulEventSubmit = function(params) {
 
     } else {
 
-      remote.postXmlHttp(url, {data: {event: encodedEvent}}, function(responseType, data) {
+      eh.trigger(params.events.submit);
+
+      // maybe handover to the form controller here (taking err and response)
+
+      remote.postXmlHttp(url, {data: {event: encodedEvent}, timeout: params.timeout}, function(responseType, data) {
 
         if (responseType !== 'success') throw 'submission response error';
 
-        if (data.next) {
+        if (data.next || data.redirect) {
 
           _clear();
 
-          eh.trigger(params.events.next, data.next);
+          eh.trigger(params.events.complete, data);
 
         } else if (data.partial) {
 
@@ -160,6 +167,8 @@ var cibulEventSubmit = function(params) {
       el('body').removeChild(child);
 
     }
+
+    eh.trigger(params.events.clear);
 
   },
 
