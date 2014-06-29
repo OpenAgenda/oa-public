@@ -260,7 +260,15 @@ var handlePlaceFetch = function(params) {
       canvas: countryElem,
       onSelect: function(newCountry) {
 
+        var oldCountry = country;
+
         country = newCountry;
+
+        if (oldCountry !== country) {
+
+          _buildAddressSuggestions(widgets.address.get());
+
+        }
 
         el(countryElem, params.selectors.country).innerHTML = country.name;
         
