@@ -20,6 +20,10 @@
   vertical-align: top;
 }
 
+.cform label {
+  padding: 4px 4px 7px 0;
+}
+
 .cform li > input, 
 .cform li > span, 
 .cform li > select { 
@@ -83,5 +87,24 @@
 }
 
 .cform input[type="radio"],
-.cform input[type="checkbox"] { display: inline; width: auto; margin: 0.6em 0; }
-.cform .radio { display: inline; padding-right: 0.5em; }
+.cform input[type="checkbox"] {
+  display: inline-block;
+  width: auto;
+  border: 0;
+}
+.cform .radio {
+  display: inline;
+  padding-right: 0.5em;
+}
+
+.cform .line .w33 {
+  width: 33%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.cform .line .w66 {
+  width: 66%;
+  padding-left: 0;
+  padding-right: 0;
+}
