@@ -24,6 +24,10 @@
   padding: 4px 4px 7px 0;
 }
 
+.cform .line label {
+  display: inline-block;
+}
+
 .cform li > input, 
 .cform li > span, 
 .cform li > select { 
@@ -97,14 +101,28 @@
   padding-right: 0.5em;
 }
 
-.cform .line .w33 {
-  width: 33%;
+.cform .line .w25,
+.cform .line .w33,
+.cform .line .w66,
+.cform .line .w75 {
   padding-left: 0;
   padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.cform .line .w25 {
+  width: 25%;
+}
+
+.cform .line .w33 {
+  width: 33%;
 }
 
 .cform .line .w66 {
   width: 66%;
-  padding-left: 0;
-  padding-right: 0;
+}
+
+.cform .line .w75 {
+  width: 75%;
 }
