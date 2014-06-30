@@ -5,6 +5,8 @@ mobileMonitor = require('./handleMobileMonitor.js'),
 
 messageLinks = require('./handleMessageLinks.js'),
 
+loadZopim = require('./zopimLoader.js'),
+
 debug = require('debug'),
 
 log = debug('globals'),
@@ -29,12 +31,14 @@ window.handleGlobals = function(eh, options) {
 
     messageLinks(eh);
 
+    loadZopim(document, window, eh, {env: params.env});
+
     flash();
 
   });
 
 };
-},{"../../js/lib/EventHandler/EventHandler.js":11,"../../js/lib/common/common.mod.js":12,"./handleFlashMessage.js":2,"./handleMessageLinks.js":3,"./handleMobileMonitor.js":4,"debug":5}],2:[function(require,module,exports){
+},{"../../js/lib/EventHandler/EventHandler.js":12,"../../js/lib/common/common.mod.js":13,"./handleFlashMessage.js":2,"./handleMessageLinks.js":3,"./handleMobileMonitor.js":4,"./zopimLoader.js":8,"debug":5}],2:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 b64 = require('../../js/lib/Base64/Base64.mod.js'),
@@ -96,7 +100,7 @@ clear = function() {
   cookies.set(params.keys.cookie, b64.encode(JSON.stringify(cookieValues)));
 
 }
-},{"../../js/lib/Base64/Base64.mod.js":10,"../../js/lib/common/common.mod.js":12,"../../js/lib/lightbox/lightbox.mod.js":13,"../../js/vendors/Cookies-master/src/cookies.js":15}],3:[function(require,module,exports){
+},{"../../js/lib/Base64/Base64.mod.js":11,"../../js/lib/common/common.mod.js":13,"../../js/lib/lightbox/lightbox.mod.js":14,"../../js/vendors/Cookies-master/src/cookies.js":16}],3:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 action = require('../../home/js/action.js'),
@@ -146,7 +150,7 @@ var scan = function() {
   });
 
 };
-},{"../../home/js/action.js":8,"../../js/lib/common/common.mod.js":12,"debug":5}],4:[function(require,module,exports){
+},{"../../home/js/action.js":9,"../../js/lib/common/common.mod.js":13,"debug":5}],4:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 params = {
@@ -193,7 +197,7 @@ getWidth = function() {
   return d.width?d.width:w.innerWidth;
 
 };
-},{"../../js/lib/common/common.mod.js":12}],5:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":13}],5:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -652,6 +656,36 @@ function plural(ms, n, name) {
 }
 
 },{}],8:[function(require,module,exports){
+var cn = require('../../js/lib/common/common.mod.js'),
+
+params = {
+  env: 'prod',
+  events: {
+    mobileCheck: 'mobilecheck'
+  },
+  timeout: 2000
+};
+
+module.exports = function(doc, win, eh, options) {
+
+  cn.extend(params, options?options:{});
+
+  if (params.env=='dev') return;
+  
+  eh.trigger('mobilecheck', function(isMobile) {
+
+    if (isMobile) return;
+
+    setTimeout(function() {
+
+      win.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set._.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');$.src='//v2.zopim.com/?29LAxcFujTf8BFW59vPUfYdVrAG6W0cl';z.t=+new Date;$.type='text/javascript';e.parentNode.insertBefore($,e)})(doc,'script');
+
+    }, params.timeout);
+
+  });
+
+};
+},{"../../js/lib/common/common.mod.js":13}],9:[function(require,module,exports){
 var lightbox = require('../../js/lib/lightbox/lightbox.mod.js'),
 
 cn = require('../../js/lib/common/common.mod.js'),
@@ -739,7 +773,7 @@ var request =  function(res, reqParams, callback) {
   remote.get(res, {data: reqParams, timeout: 10000, retries: 1}, callback, !params.debug);
 
 };
-},{"../../js/lib/common/common.mod.js":12,"../../js/lib/lightbox/lightbox.mod.js":13,"../../js/lib/remote/remote.mod.js":14,"debug":9}],9:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":13,"../../js/lib/lightbox/lightbox.mod.js":14,"../../js/lib/remote/remote.mod.js":15,"debug":10}],10:[function(require,module,exports){
 
 /**
  * Expose `debug()` as the module.
@@ -878,7 +912,7 @@ try {
   if (window.localStorage) debug.enable(localStorage.debug);
 } catch(e){}
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 module.exports = {
   
   // public method for encoding
@@ -1012,7 +1046,7 @@ _utf8_encode = function (string) {
 
   return utftext;
 };
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 /* EventHandler v0.2 */
 (function(){
 
@@ -1103,7 +1137,7 @@ var sEventHandler = (function(){
   };
 
 })();
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 exports.addZero = function(number) {
   return (parseInt(number, 10)<10?'0':'') + number;
 };
@@ -1442,7 +1476,7 @@ exports.removeProperty = function(obj, name) {
   return obj.removeAttribute(name);
 
 };
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 var canvasElem = false,
   frameElem = false,
   onClose = false,
@@ -1689,7 +1723,7 @@ _setButtons = function(classes, buttons) {
   frameElem.appendChild(div);
 
 };
-},{"../common/common.mod.js":12}],14:[function(require,module,exports){
+},{"../common/common.mod.js":13}],15:[function(require,module,exports){
 // this guy does not include the getStack method
 module.exports = {
   get: function(url, settings, callback, ajax) {
@@ -1922,7 +1956,7 @@ module.exports = {
     return i.concat(s).concat(t).join('&');
   }
 };
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 /*!
  * Cookies.js - 0.3.1
  * Wednesday, April 24 2013 @ 2:28 AM EST

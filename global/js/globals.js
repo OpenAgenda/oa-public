@@ -4,6 +4,8 @@ mobileMonitor = require('./handleMobileMonitor.js'),
 
 messageLinks = require('./handleMessageLinks.js'),
 
+loadZopim = require('./zopimLoader.js'),
+
 debug = require('debug'),
 
 log = debug('globals'),
@@ -27,6 +29,8 @@ window.handleGlobals = function(eh, options) {
   cn.addEvent(window, 'load', function() {
 
     messageLinks(eh);
+
+    loadZopim(document, window, eh, {env: params.env});
 
     flash();
 
