@@ -12,7 +12,8 @@ log = debug('action'),
 defaults = {
   onResponse: false,  // type, data
   onElemReady: false,  // form
-  loadLightbox: false
+  loadLightbox: false,
+  errorLightbox: false
 },
 
 params = {
@@ -22,13 +23,15 @@ params = {
 
 exports.init = function(options) {
 
-  cn.extend(params, options);
+  cn.extend(params, typeof options == 'undefined'?{}:options);
 
 };
 
-exports.get = function(res, options) {
+exports.get = function get(res, options) {
 
   log('processing get on %s', res);
+
+  if (typeof options == 'undefined') options = {};
 
   var reqParams = options.data?options.data:{};
 
@@ -46,6 +49,11 @@ exports.get = function(res, options) {
 
     }
 
+    if ((data.success===false) && data.message && options.errorLightbox) lightbox({
+      message: data.message,
+      classes: params.lightboxClasses
+    });
+
     if (data.partial && options.loadLightbox) {
 
       lightbox({
@@ -62,6 +70,8 @@ exports.get = function(res, options) {
       log('TODO: partial is loaded not to be used for lightbox');
 
     }
+
+    if (data.redirect) get(data.redirect, options);
 
     if (options.onResponse) options.onResponse(responseType, data);
 
@@ -81,7 +91,7 @@ var cn = require('../../js/lib/common/common.mod.js'),
 
 handleListPage = require('../../program small list page/js/handleListPage.mod.js'),
 
-userCreds = require('./userCreds.js');
+userCreds = require('./userCreds.js'),
 
 ejs = require('ejs'),
 
@@ -173,6 +183,8 @@ var handlePage = function() {
       item.owned = (typeof item.oUid!=='undefined')&&(item.oUid==sessionData.uid);
 
       item.admin = sessionData.reviews?(cn.contains(sessionData.reviews.admUids, item.uid) || item.owned):false;
+
+      item.invited = !!item.hasInvitations;
 
     },
     onItemLoad: {
@@ -2881,13 +2893,13 @@ _create = function() {
 
   cn.extend(canvasElem.style, {
     position: 'absolute',
-    top: getScrollOffsets().y + 'px',
+    top: cn.getScrollOffsets().y + 'px',
     height: '100%',
     width: '100%',
     display: 'none'
   });
 
-  addEvent(canvasElem, 'click', function() {
+  cn.addEvent(canvasElem, 'click', function() {
 
     if (frontClickFlag) {
       frontClickFlag = false;
@@ -2898,15 +2910,15 @@ _create = function() {
 
   });
 
-  addEvent(window, 'scroll', function() {
-    canvasElem.style.top = getScrollOffsets().y + 'px';
+  cn.addEvent(window, 'scroll', function() {
+    canvasElem.style.top = cn.getScrollOffsets().y + 'px';
   });
 
   // create frame
 
   frameElem = document.createElement('div');
 
-  addEvent(frameElem, 'click', function() { frontClickFlag = true; });
+  cn.addEvent(frameElem, 'click', function() { frontClickFlag = true; });
 
   cn.extend(frameElem.style, {
     display: 'inline-block',
@@ -2917,7 +2929,7 @@ _create = function() {
 
   cn.el('body').appendChild(canvasElem);
 
-  addEvent(window, 'resize', _repositionFrame);
+  cn.addEvent(window, 'resize', _repositionFrame);
 
 },
 
@@ -2964,10 +2976,10 @@ _positionFrame = function() {
     overflowY: 'hidden'
   });
 
-  if (frameElem.offsetHeight > windowInnerHeight()) {
+  if (frameElem.offsetHeight > cn.windowInnerHeight()) {
 
     cn.extend(frameElem.style, {
-      maxHeight: (windowInnerHeight()-20) + 'px',
+      maxHeight: (cn.windowInnerHeight()-20) + 'px',
       overflowY: 'scroll'
     });
 
@@ -2992,13 +3004,13 @@ _setContent = function(content) {
   var elems = div?div.childNodes:content;
 
   while (elems.length)
-    frameElem.appendChild(isArray(elems)?elems.shift():elems[0]);
+    frameElem.appendChild(cn.isArray(elems)?elems.shift():elems[0]);
 
-  forEach(els(frameElem,'img'), function(imgElem) {
-    addEvent(imgElem, 'load', _repositionFrame);
+  cn.forEach(cn.els(frameElem,'img'), function(imgElem) {
+    cn.addEvent(imgElem, 'load', _repositionFrame);
   });
 
-  forEach(frameElem.getElementsByTagName('script'), function(scriptElem) {
+  cn.forEach(frameElem.getElementsByTagName('script'), function(scriptElem) {
     eval(scriptElem.innerHTML);
   });
 
@@ -3015,16 +3027,16 @@ _setMessageContent = function(message) {
 _setButtons = function(classes, buttons) {
 
   var div = document.createElement('div');
-  addClass(div, classes.buttonBox);
+  cn.addClass(div, classes.buttonBox);
 
-  for (i in buttons) {
+  for (var i in buttons) {
 
     var button = document.createElement('button');
     button.innerHTML = buttons[i].label;
 
     (function(button, buttonConfig) {
 
-      addEvent(button, 'click', function(){
+      cn.addEvent(button, 'click', function(){
 
         if (buttonConfig.onClick) buttonConfig.onClick();
 
@@ -3036,9 +3048,9 @@ _setButtons = function(classes, buttons) {
 
     })(button, buttons[i]);
 
-    if (buttons[i].className) addClass(button, buttons[i].className);
+    if (buttons[i].className) cn.addClass(button, buttons[i].className);
 
-    if (classes.button) addClass(button, classes.button);
+    if (classes.button) cn.addClass(button, classes.button);
 
     div.appendChild(button);
 
@@ -3060,6 +3072,9 @@ module.exports = {
     }
   },
   postXmlHttp: function(url, settings, callback) {
+
+    if (settings.form) 
+      settings.data = this.serialize(settings.form);    
 
     this.xmlHttp(url, settings, callback, "POST");
 
@@ -3167,7 +3182,12 @@ module.exports = {
 
       } else {
 
-        xhr.send(self.appendToUrl('', settings.data).substr(1));
+        var body = settings.data;
+
+        if (typeof body !== 'string')
+          body = self.appendToUrl('', settings.data).substr(1);
+
+        xhr.send(body);
 
       }
 
@@ -3216,6 +3236,7 @@ module.exports = {
     sendQuery();
     
   },
+
   appendToUrl: function(url, data) {
 
     if (typeof data != 'undefined') {
@@ -3245,6 +3266,30 @@ module.exports = {
     }
 
     return url;
+  },
+
+  collect: function(a, f) {
+    var n = [];
+    for (var i = 0; i < a.length; i++) {
+        var v = f(a[i]);
+        if (v != null) n.push(v);
+    }
+    return n;
+  },
+
+  serialize: function (f) {
+    function g(n) {
+        return f.getElementsByTagName(n);
+    };
+    var nv = function (e) {
+        if (e.name) return encodeURIComponent(e.name) + '=' + encodeURIComponent(e.value);
+    };
+    var i = this.collect(g('input'), function (i) {
+        if ((i.type != 'radio' && i.type != 'checkbox') || i.checked) return nv(i);
+    });
+    var s = this.collect(g('select'), nv);
+    var t = this.collect(g('textarea'), nv);
+    return i.concat(s).concat(t).join('&');
   }
 };
 },{}],21:[function(require,module,exports){

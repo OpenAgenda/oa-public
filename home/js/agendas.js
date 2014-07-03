@@ -95,6 +95,8 @@ var handlePage = function() {
 
       item.admin = sessionData.reviews?(cn.contains(sessionData.reviews.admUids, item.uid) || item.owned):false;
 
+      item.invited = !!item.hasInvitations;
+
     },
     onItemLoad: {
       program: false//userCreds.decorateAgendaItem
