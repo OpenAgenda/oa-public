@@ -2,7 +2,7 @@ var cn = require('../../js/lib/common/common.mod.js'),
 
 handleListPage = require('../../program small list page/js/handleListPage.mod.js'),
 
-userCreds = require('./userCreds.js');
+userCreds = require('./userCreds.js'),
 
 ejs = require('ejs'),
 
