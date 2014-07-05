@@ -47,6 +47,11 @@
   margin-right: 0.5em;
 }
 
+.cform li.line > img {
+  vertical-align: middle;
+  margin-right: 0.5em;
+}
+
 .cform input, .cform select, .cform textarea { 
   border-color: #AAAAAA #CCCCCC #CCCCCC #AAAAAA; 
   border-style: solid; 
