@@ -498,7 +498,7 @@ files = {
   /*'list.min.js': [[paths.lg, 'list.min.js']],*/
   'main28.js': [[paths.lg, 'main28.js']],
   
-  'event/calendarExportMenu.2.min.js': [[paths.lg, 'calendarExportMenu.2.min.js']],
+  'event/calendarExportMenu.js': [[paths.lg, 'calendarExportMenu.js']],
   'event/show.4.min.js': [[paths.lg, 'show.4.min.js']],
   'event/showEditors.min.js': [[paths.lg, 'showEditors.js']],
 

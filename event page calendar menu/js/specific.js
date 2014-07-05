@@ -62,7 +62,7 @@ $.fn.makeCalendarLink = function(eData, service) {
     
     case 'icalendar':
       
-      $(this).attr('href', 'http://cibul.net/ical?'
+      $(this).attr('href', '//cibul.net/ical?'
         + 'dtstart=' + eData.date.replace(/-/g, '') + 'T' + eData.startTime.replace(/:/g, '')
         + '&dtend=' + eData.endDate.replace(/-/g, '') + 'T' + eData.endTime.replace(/:/g, '')
         + '&summary=' + encodeURIComponent(eData.title)
