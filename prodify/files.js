@@ -199,7 +199,8 @@ files = {
       'handleContextMenu/src/handleContextMenu.js',
       'handleNav/src/handleNav.js',
       'handleLock/src/handleLock.js',
-      'handleAddToAgenda/src/handleAddToAgenda.bundle.js'
+      'handleAddToAgenda/src/handleAddToAgenda.bundle.js',
+      'handleAddToAgenda/src/handleEventPublish.bundle.js'
     ],
     [paths.el,
       'handleEventList.js',
