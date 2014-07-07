@@ -24,7 +24,15 @@
       months: ["gennaio", "febbraio", "Marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"],
       monthsShort: ["gen", "feb", "Mar", "apr", "mag", "giu", "lug", "ago", "sep", "ott", "nov", "dic"],
       weekMin: 'set'
-    }
+    },
+    'es': {
+      days: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"],
+      daysShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sáb"],
+      daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"],
+      months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+      monthsShort: ["JEne", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+      weekMin: 'sm'
+    },
   };
 
   if (typeof Date.prototype.verboseDate == 'undefined') Date.prototype.verboseDate = function(language) {
