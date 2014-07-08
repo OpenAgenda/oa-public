@@ -179,7 +179,10 @@ var initWhenController = function(params) {
         weekDays: {
           en: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
           fr: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
-          it: ["Do", "Lu", "Ma", "Me", "Gi", "Ve", "Sa"]
+          it: ["Do", "Lu", "Ma", "Me", "Gi", "Ve", "Sa"],
+          es: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+          de: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+          ar: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
         },
         selected: selected
       });

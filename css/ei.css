@@ -2,7 +2,16 @@
 
 .ei { margin: 4px 0 0; }
 .ei * { font-size: 1em; }
-.ei > * { display: inline-block; text-align: left; }
+
+.ei > * {
+  display: inline-block;
+  text-align: left;
+}
+
+.righttoleft .ei > * {
+  text-align: right;
+}
+
 .ei .evpic { width: 96px; max-width: 20%; vertical-align: top; }
 .ei .evpic img { width: 100%; margin: 0.35em 0 0; }
 .ei .evcnt { width: 80%; vertical-align: middle; }

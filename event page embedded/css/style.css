@@ -8,6 +8,11 @@ html { overflow: hidden; }
 #event h1 { font-size: 2em; }
 
 #event .main { margin-left: 320px; }
+
+.righttoleft #event .main {
+  text-align: right;
+}
+
 #event.noposter .main { margin-left: 0; }
 
 #event .main .section { padding: 10px; }
