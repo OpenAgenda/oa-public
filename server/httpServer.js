@@ -2,7 +2,11 @@ var http = require('http'),
 
 url = require('url'),
 
-templater = require('./templater.js');
+st = require('st'),
+
+templater = require('./templater.js')(true),
+
+mount = st({ path: __dirname + '/../css', url: '/css' });
 
 http.createServer(function(req, res) {
 
@@ -10,20 +14,22 @@ http.createServer(function(req, res) {
 
   if (!uri.length) return renderMap(req, res);
 
+  if (mount(req, res) || uri=='favicon.ico') return; // here be static file.
+
   templater(uri, function(err, render) {
 
-    // need here the data used for the render as well
-    // like load the mock data or not
-    // the requested language
-    // the css resources.. the main ones should be loaded,
-    // the specific ones should be too
-    // and given as a map to the templater
+    if (err) throw err;
+
+    respond(res, 200, render);
 
   });
 
-  respond(res, 200, 'sboom!');
-
 }).listen(3000);
+
+
+/**
+ * render a template link map
+ */
 
 var renderMap = function(req, res) {
 
@@ -36,6 +42,11 @@ var renderMap = function(req, res) {
   }).join('') + '</ul>');
 
 },
+
+
+/**
+ * respond with given body
+ */
 
 respond = function(res, code, body) {
 
