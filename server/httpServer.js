@@ -34,7 +34,9 @@ http.createServer(function(req, res) {
 var renderMap = function(req, res) {
 
   var m = [
-    'mock/presentation'
+    'mock/presentation',
+    'newsletter/event/full',
+    'newsletter/agenda/full'
   ];
 
   respond(res, 200, '<ul>' + m.map(function(uri) {
@@ -50,7 +52,7 @@ var renderMap = function(req, res) {
 
 respond = function(res, code, body) {
 
-  res.writeHead(code, {"Content-Type": "text/html"});
+  res.writeHead(code, {"Content-Type": "text/html; charset=utf-8"});
   res.write(body);
   res.end();
 

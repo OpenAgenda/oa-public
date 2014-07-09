@@ -1,0 +1,17 @@
+<% if (type=='html') {             // HTML PART               %>
+<% if (event.image) { %>
+<% include ../sections/marginlessTop %> <!-- EVENT HEAD SECTION -->
+  <img src="<%= event.image %>" style=" <%= css.headerImage %>" id="headerImage"/>
+<% include ../sections/marginlessBottom %>
+<% } %>
+<% include ../sections/top %>
+  <h1 target="_blank" style="<%= css.h1 %>"><a href="<%= event.url %>" style="<%= css.h1a %>"><%= event.title %></a></h1>
+  <h3 target="_blank" style="<%= css.h3 %>"><a href="<%= event.url %>" style="<%= css.h3a %>"><%= event.description %></a></h3>
+  <h4 target="_blank" style="<%= css.h4 %>"><a href="<%= event.url %>" style="<%= css.h4a %>"><%= event.dateRange %></a></h4>
+<% include ../sections/bottom %>
+
+<% } else {              // TEXT PART              %>
+<%= event.title %>
+<%= event.dateRange %>
+<%= event.description %>
+<% } %>
