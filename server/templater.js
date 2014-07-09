@@ -37,7 +37,10 @@ var loader = function(templateName, data, cb) {
 
     var translator = loadTranslator(labels);
 
-    cn.extend(data, {'__' : translator}, useMockData?mockData:{});
+    cn.extend(data, {
+      '__' : translator,
+      filename : '../' + templateName + '.ejs'
+    }, useMockData?mockData:{});
 
     var rendered = ejs.render(template, data, cb);
 
@@ -81,31 +84,86 @@ loadTranslator = function(labels) {
 
 loadFiles = function(templateName, cb) {
 
-  var files = [
-    '../layout/footer.layout.ejs',
-    '../layout/header.layout.ejs',
-    '../' + templateName + '.fr.json',
-    '../' + templateName + '.ejs'
-  ];
+  var baseTemplatePath = '../' + templateName;
 
-  if (useMockData) files.push('../' + templateName + '.mock.json');
+  async.waterfall([
 
-  async.parallel(files.map(function(path) {
 
-    return async.apply(fs.readFile, path, 'utf8');
+    // read template config
 
-  }),
+    function(wcb) {
 
-  function (err, results) {
+      fs.readFile(baseTemplatePath + '.config.json', function(err, data) {
 
-    if (err) return cb(err);
+        if (err) return wcb(err);
 
-    cb(null, 
-      results[1] + results[3] + results[0], 
-      JSON.parse(results[2]), 
-      useMockData?JSON.parse(results[4]):false
-    );
+        wcb(null, JSON.parse(data));
 
-  });
+      });
+
+    },
+
+
+    // define files to load
+
+    function(tConfig, wcb) {
+
+      var filesToLoad = [
+        '../' + templateName + '.fr.json',
+        '../' + templateName + '.ejs'
+      ];
+
+      if (tConfig.layout) filesToLoad.push('../' + tConfig.layout + '.ejs');
+
+      if (useMockData) filesToLoad.push('../' + templateName + '.mock.json');
+
+      wcb(null, tConfig, filesToLoad);
+
+    },
+
+
+    // load files
+    
+    function(tConfig, filesToLoad, wcb) {
+
+      async.parallel(filesToLoad.map(function(path) {
+
+        return async.apply(fs.readFile, path, 'utf8');
+
+      }), function (err, results) {
+
+        if (err) return cb(err);
+
+        wcb(null, tConfig, results);
+
+      });
+
+    },
+
+
+    // prepare template and give result callback
+    
+    function(tConfig, results, wcb) {
+
+      var template = results[1],
+
+      mockData = false,
+
+      langLabels = JSON.parse(results[0]);
+
+      if (tConfig.layout) {
+
+        template = results[2].replace('<!-- content -->', template);
+
+      }
+
+      if (useMockData) mockData = JSON.parse(results[tConfig.layout?3:2]);
+
+      cb(null, template, langLabels, mockData);
+
+    }
+
+
+  ]);
 
 };
