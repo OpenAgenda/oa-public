@@ -6,7 +6,9 @@ st = require('st'),
 
 templater = require('./templater.js')(true),
 
-mount = st({ path: __dirname + '/../css', url: '/css' });
+mountCss = st({ path: __dirname + '/../css', url: '/css' }),
+
+mountImage = st({ path: __dirname + '/../images', url: '/images'});
 
 http.createServer(function(req, res) {
 
@@ -14,7 +16,7 @@ http.createServer(function(req, res) {
 
   if (!uri.length) return renderMap(req, res);
 
-  if (mount(req, res) || uri=='favicon.ico') return; // here be static file.
+  if (mountCss(req, res) || mountImage(req, res) || uri=='favicon.ico') return; // here be static file.
 
   templater(uri, function(err, render) {
 
@@ -36,7 +38,10 @@ var renderMap = function(req, res) {
   var m = [
     'mock/presentation',
     'newsletter/event/full',
-    'newsletter/agenda/full'
+    'newsletter/agenda/full',
+    'newsletter/admin/index',
+    'newsletter/admin/campaignForm',
+    'newsletter/admin/templateForm'
   ];
 
   respond(res, 200, '<ul>' + m.map(function(uri) {
@@ -52,7 +57,11 @@ var renderMap = function(req, res) {
 
 respond = function(res, code, body) {
 
-  res.writeHead(code, {"Content-Type": "text/html; charset=utf-8"});
+  res.writeHead(code, {
+    "Content-Type": "text/html; charset=utf-8",
+    'Cache-Control': 'no-cache'
+  });
+
   res.write(body);
   res.end();
 

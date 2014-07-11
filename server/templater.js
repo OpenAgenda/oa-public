@@ -10,6 +10,8 @@ async = require('async'),
 
 debug = require('debug'),
 
+deepExtend = require('deep-extend'),
+
 log = debug('templater');
 
 module.exports = function(templateMode) {
@@ -31,7 +33,7 @@ var loader = function(templateName, data, cb) {
 
   log('loading template files for %s', templateName);
 
-  loadFiles(templateName, function(err, template, labels, mockData) {
+  loadFiles(templateName, function(err, template, layoutName, layout, labels, mockData) {
 
     log('template files loaded for %s', templateName);
 
@@ -39,14 +41,27 @@ var loader = function(templateName, data, cb) {
 
     cn.extend(data, {
       '__' : translator,
-      filename : '../' + templateName + '.ejs'
     }, useMockData?mockData:{});
 
-    var rendered = ejs.render(template, data, cb);
+    var rendered = loadTemplate(templateName, template, data);
+
+    if (layoutName) {
+
+      rendered = loadTemplate(layoutName, layout, data).replace('<!-- content -->', rendered);
+
+    }
 
     cb(null, rendered);
 
   });
+
+},
+
+loadTemplate = function(name, template, data) {
+
+  data.filename = '../' + name + '.ejs';
+
+  return ejs.render(template, data);
 
 },
 
@@ -113,9 +128,20 @@ loadFiles = function(templateName, cb) {
         '../' + templateName + '.ejs'
       ];
 
-      if (tConfig.layout) filesToLoad.push('../' + tConfig.layout + '.ejs');
+      if (tConfig.layout) {
 
-      if (useMockData) filesToLoad.push('../' + templateName + '.mock.json');
+        filesToLoad.push('../' + tConfig.layout + '.fr.json');
+        filesToLoad.push('../' + tConfig.layout + '.ejs');
+
+      }
+
+      if (useMockData) {
+
+        filesToLoad.push('../' + templateName + '.mock.json');
+
+        if (tConfig.layout) filesToLoad.push('../' + tConfig.layout + '.mock.json');
+
+      }
 
       wcb(null, tConfig, filesToLoad);
 
@@ -149,17 +175,31 @@ loadFiles = function(templateName, cb) {
 
       mockData = false,
 
-      langLabels = JSON.parse(results[0]);
+      langLabels = JSON.parse(results[0]),
+
+      layoutName = false,
+
+      layout = false;
 
       if (tConfig.layout) {
 
-        template = results[2].replace('<!-- content -->', template);
+        layout = results[3];
+
+        deepExtend(langLabels, JSON.parse(results[2]));
+
+        layoutName = tConfig.layout;
 
       }
 
-      if (useMockData) mockData = JSON.parse(results[tConfig.layout?3:2]);
+      if (useMockData) {
 
-      cb(null, template, langLabels, mockData);
+        mockData = JSON.parse(results[tConfig.layout?4:3]);
+
+        if (tConfig.layout) deepExtend(mockData, JSON.parse(results[5]));
+
+      }
+
+      cb(null, template, layoutName, layout, langLabels, mockData);
 
     }
 
