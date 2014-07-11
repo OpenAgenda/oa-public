@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "express": "*",
+    "async": "*",
+    "debug": "*",
+    "cibulModel": "git+https://kaore@bitbucket.org/cibul/cibulmodel.git"
+  }
+}
