@@ -1,0 +1,92 @@
+body > header {
+  text-align: right;
+  padding: 1em;
+  background: white;
+}
+
+body > header a {
+  display: inline-block; 
+  color: #333;
+  font-size: 1.2em;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+body > header .logo {
+  position: absolute;
+  width: 100px;
+  padding: 0;
+  top: 1em;
+  left: 1em;
+}
+
+body > header .logo img {
+  width: 100%; 
+}
+
+body > header .links {
+  display: inline-block;
+}
+
+body > header .links a:hover,
+body > header .links a:hover i {
+  color: #11bed4;
+}
+
+body > header .links li {
+  display: inline-block;
+  padding: 1em 2em 1em 0;
+  position: relative;
+}
+
+body > header .links i {
+  font-size: 1.2em;
+}
+
+body > header .language-menu ul {
+  position: absolute;
+  right: 0;
+  background: white;
+  padding: 2em 0 0;
+  display: none;
+  z-index: 3;
+}
+
+body > header .language-menu > a {
+  text-transform: uppercase;
+}
+
+body > header .language-menu ul li {
+  display: block;
+  padding: 0;
+}
+
+body > header .language-menu ul li a {
+  padding: 1em;
+  text-align: left;
+  display: block;
+}
+
+body > header .language-menu ul li a:hover {
+  background: #333;
+  color: white;
+}
+
+@media all and (max-width: 840px) {
+  body > header .page-links { display: none; }
+}
+
+@media all and (max-width: 480px) {
+
+  body > header {
+    text-align: center;
+  }
+
+  body > header .logo {
+    position: relative;
+    top: auto;
+    left: auto;
+    padding-right: 2em;
+  }
+
+}

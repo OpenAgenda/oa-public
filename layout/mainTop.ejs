@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<% for (var i in head.css) { %>
+    <link rel="stylesheet" href="<%= head.css[i] %>"/>
+<% } %>
+  </head>
+  <body>
+    <header>
+      <a class="logo" href="#"><img src="/images/biglogo.png"></a>
+      <ul class="links page-links">
+      </ul>
+      <ul class="links site-links">
+        <li><a href="#"><i class="icon-search"></i></a></li>
+      </ul>
+    </header>

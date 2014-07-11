@@ -1,0 +1,43 @@
+{
+  "tab" : "newsletter",
+  "mainClass" : "newsletter",
+  "head" : {
+    "css" : {
+      "newsletter" : "../../css/agenda/newsletterAdmin.css"
+    }
+  },
+  "campaigns" : [
+    {
+      "name" : "Une campagne automatique",
+      "type" : 1,
+      "frequencyType" : 0,
+      "list" : {
+        "name" : "Liste principale",
+        "url" : "#urlofthatlist"
+      },
+      "sendDate" : "2014-07-30T09:00:00.000Z"
+    },
+    {
+      "name" : "Ma campagne à la main",
+      "type" : 0,
+      "list" : null,
+      "sendDate" : "2014-07-15T10:30:00.000Z"
+    },
+    {
+      "name" : "Ma campagne auto désactivée",
+      "type" : 0,
+      "frequencyType" : 1,
+      "list" : {
+        "name" : "Un autre liste",
+        "url" : "urlofthislist"
+      },
+      "sendDate" : null
+    }
+  ],
+  "contactLists" : [
+  ],
+  "urls" : {
+    "newCampaign" : "#createcampaign",
+    "newContactList" : "#createcontactlist"
+  }
+}

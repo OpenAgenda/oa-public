@@ -1,0 +1,50 @@
+{
+  "Create a new campaign"
+  : "Créer une campagne",
+  "Campaign edition"
+  : "Editer une campagne",
+  "back to index"
+  : "retour à l'index",
+  "Campaign title"
+  : "Titre de la campagne",
+  "Associated list"
+  : "Liste associée",
+  "choose a list"
+  : "choisissez une liste",
+  "Campaign Type"
+  : "Type de la campagne",
+  "Automatic"
+  : "Automatique",
+  "Manual"
+  : "Manuelle",
+  "Weekly"
+  : "Hebdomadaire",
+  "Monthly"
+  : "Mensuelle",
+  "pick a day"
+  : "choix du jour",
+  "pick a date"
+  : "choix de la date",
+  "pick an hour"
+  : "horaire",
+  "monday"
+  : "lundi",
+  "tuesday"
+  : "mardi",
+  "wednesday"
+  : "mercredi",
+  "thursday"
+  : "jeudi",
+  "friday"
+  : "vendredi",
+  "saturday"
+  : "samedi",
+  "sunday"
+  : "dimanche",
+  "Write an editorial content, make a selection of events to promote and define a selection for a one off send"
+  : "Ecrivez un contenu éditoriel, faites une séléction d'événements à mettre en avant et faite une sélection pour un envoi ponctuel",
+  "schedule the campaign"
+  : "programmer la campagne",
+  "Next step"
+  : "Prochaine étape"
+}

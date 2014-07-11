@@ -1,0 +1,39 @@
+{
+  "tab" : "newsletter",
+  "mainClass" : "newsletter",
+  "head" : {
+    "css" : {
+      "newsletter" : "../../css/agenda/newsletterAdmin.css"
+    }
+  },
+  "uid" : null,
+  "urls" : {
+    "back" : "#back"
+  },
+  "contactLists" : [
+    {
+      "uid" : 897454165645,
+      "name" : "liste de contacts 1"
+    },
+    {
+      "uid" : 48946515,
+      "name" : "liste VVIP"
+    },
+    {
+      "uid" : 8815335789,
+      "name" : "liste de la plèbe"
+    },
+    {
+      "uid" : 456689,
+      "name" : "une autre liste"
+    }
+  ],
+  "values" : {
+    "frequency" : 0,
+    "weekly_day" : null,
+    "weekly_hour" : null,
+    "monthly_date" : null,
+    "monthly_hour" : null,
+    "schedule" : null
+  }
+}

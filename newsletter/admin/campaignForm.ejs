@@ -1,0 +1,121 @@
+<div class="header">
+  <h2><%= __(uid===null?"Create a new campaign":"Campaign edition") %></h2>
+  <a class="url" href="<%= urls.back %>"><%= __('back to index') %></a>
+</div>
+
+<form class="cform">
+  <section>
+    <ul>
+      <li class="w25">
+        <label><%= __('Campaign title') %></label>
+        <input type="text"/>
+      </li>
+      <li class="w25">
+        <label><%= __('Associated list') %></label>
+        <select name="list">
+          <option><%= __('choose a list') %></option>
+<% contactLists.forEach(function(list) { %>
+          <option value="<%= list.uid %>"><%= list.name %></option>
+<% }); %>
+        </select>
+      </li>
+    </ul>
+  </section>
+  <label><%= __('Campaign Type') %></label>
+  <section>
+    <ul class="line">
+      <li class="w25">
+        <input type="radio" name="type" value="1"/>
+        <label><%= __('Automatic') %></label>
+      </li><!--
+      --><li class="w75">
+        <span class="bottom-spacing"><%= __('Send periodically a selection of events of the agenda. Define how regularly the newsletter should be sent and specify event selection filters') %></span>
+        <ul class="line fieldset">
+          <li>
+            <input type="radio" name="frequency" value="0" <% if (values.frequency==0) { %>checked<% } %>/>
+            <label><%= __('Weekly') %></label>
+          </li>
+          <li>
+            <select name="weekly_day">
+              <option><%= __('pick a day') %></option>
+              <option value="1"><%= __('monday') %></option>
+              <option value="2"><%= __('tuesday') %></option>
+              <option value="3"><%= __('wednesday') %></option>
+              <option value="4"><%= __('thursday') %></option>
+              <option value="5"><%= __('friday') %></option>
+              <option value="6"><%= __('saturday') %></option>
+              <option value="0"><%= __('sunday') %></option>
+            </select>
+          </li>
+          <li>
+            <select name="weekly_hours">
+              <option><%= __('pick an hour') %></option>
+<% ['08', '09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','00'].forEach(function(hour) { %>
+              <option value="<%= hour %>" <% if (values.weekly_hour==hour) { %>selected<% }%>><%= hour %>:00</option>
+<%}); %>
+            </select>
+          </li>
+        </ul>
+        <ul class="line fieldset">
+          <li>
+            <input type="radio" name="frequency" value="1" <% if (values.frequency==1) { %>checked<% } %>/>
+            <label><%= __('Monthly') %></label>
+          </li>
+          <li>
+            <select name="monthly_date">
+              <option><%= __('pick a date') %></option>
+<% for (var i = 1; i <= 31; i++) { %>
+              <option value="<%= (i<10?'0':'') + i %>" <% if ((i<10?'0':'') + i==values.monthly_date) { %>selected<% } %> ><%= (i<10?'0':'') + i %></option>
+<% } %>
+            </select>
+          </li>
+          <li>
+            <select name="monthly_hours">
+              <option><%= __('pick an hour') %></option>
+<% ['08', '09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','00'].forEach(function(hour) { %>
+              <option value="<%= hour %>" <% if (values.monthly_hour==hour) { %>selected<% }%>><%= hour %>:00</option>
+<%}); %>
+            </select>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    
+  </section>
+  <section>
+    <ul class="line">
+      <li class="w25">
+        <input type="radio" name="type" value="0"/>
+        <label><%= __('Manual') %></label>
+      </li><!--
+      --><li class="w75">
+        <span class="bottom-spacing"><%= __('Write an editorial content, make a selection of events to promote and define a selection for a one off send') %></span>
+        <ul class="line fieldset">
+          <li>
+            <input type="checkbox" name="schedule" <% if (values.schedule) { %>checked<% } %>>
+            <label for="schedule"><%= __('schedule the campaign') %></label>
+          </li>
+          <li>
+            <select name="manual_date">
+              <option><%= __('pick a date') %></option>
+<% for (var i = 1; i <= 31; i++) { %>
+              <option value="<%= (i<10?'0':'') + i %>" <% if ((i<10?'0':'') + i==values.manual_date) { %>selected<% } %> ><%= (i<10?'0':'') + i %></option>
+<% } %>
+            </select>
+          </li>
+          <li>
+            <select name="manual_hours">
+              <option><%= __('pick an hour') %></option>
+<% ['08', '09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','00'].forEach(function(hour) { %>
+              <option value="<%= hour %>" <% if (values.manual_hour==hour) { %>selected<% }%>><%= hour %>:00</option>
+<%}); %>
+            </select>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <a class="button"><%= __('Next step') %></a>
+  </section>
+</form>

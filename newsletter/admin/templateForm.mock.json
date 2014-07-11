@@ -1,0 +1,27 @@
+{ 
+  "tab" : "newsletter",
+  "mainClass" : "newsletter",
+  "head" : {
+    "css" : {
+      "newsletter" : "../../css/agenda/newsletterAdmin.css"
+    }
+  },
+  "urls" : {
+    "back" : "#back",
+    "selectEvents" : "#select-events"
+  },
+  "categories" : [
+    {
+      "slug" : "insolite",
+      "name" : "Insolite"
+    },
+    {
+      "slug" : "concerts",
+      "name" : "Concerts"
+    },
+    {
+      "slug" : "projections",
+      "name" : "Projections"
+    }
+  ]
+}

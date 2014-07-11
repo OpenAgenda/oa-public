@@ -1,0 +1,20 @@
+{
+  "head" : {
+    "css" : {
+      "global" : "../../css/global/global.css",
+      "page" : "../../css/page structure/page.css",
+      "headings" : "../../css/headings.css",
+      "header" : "../../css/header.css",
+      "main" : "../../css/agenda/main.css",
+      "admin" : "../../css/agenda/admin.css",
+      "nav" : "../../css/nav.css",
+      "forms" : "../../css/forms.css",
+      "buttons" : "../../css/buttons.css"
+    }
+  },
+  "agenda" : {
+    "title" : "La Gargouille",
+    "url" : "https://d.cibul.net/frontend_dev.php/la-gargouille",
+    "image" : "https://cibul.s3.amazonaws.com/review_la-gargouille_00.jpg"
+  }
+}

@@ -1,0 +1,120 @@
+.menu-list.h li, .sub-menu-list li {
+  display: inline-block;
+  margin-right: 5px;
+}
+.menu-item {
+  padding: 6px 10px 6px 2px;
+  cursor: pointer;
+}
+
+.menu-item span {
+  margin-left: 2px;
+  display: inline-block;
+  font-size: 1.1em;
+}
+
+.menu-item.active {
+  font-weight: bold;
+}
+.menu-item.active * {
+  color: #11bed4;
+}
+.menu-item:hover {
+  background: none repeat scroll 0 0 #efefef;
+}
+
+.sub-menu-list li {
+  margin: 10px 5px 5px 0; 
+}
+
+.sub-menu-list .menu-item {
+  padding: 6px 10px; 
+}
+
+.sub-menu-list .menu-item * {
+  color: #666;
+  margin-left: 0;
+}
+
+.sub-menu-list .menu-item.active {
+  background: transparent;
+  border-bottom: 2px solid #53D4FF;
+}
+
+.sub-menu-list .menu-item.active *,
+.sub-menu-list .menu-item:hover * { 
+  color: #333;
+  text-shadow: none;
+}
+
+.sub-menu-list .menu-item:hover {
+  background: none;
+  border-bottom: 2px solid #ccc;
+}
+
+.sidebar-item {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.sidebar-item:last-child {
+  padding-bottom: 10px;
+  border-bottom: none;
+}
+
+.sidebar-item li {
+  display: block;
+}
+
+.sidebar-item li.title {
+  padding: 0.5em;
+}
+
+.sidebar-item li a {
+  padding: 6px; display: block;
+}
+
+.sidebar-item i.icon-notifictation {
+  font-weight: bold;
+  font-size: 1.1em;
+  line-height: 1em;
+  width: 1.15em;
+  padding-bottom: 0.1em;
+  font-weight: bold;
+}
+
+.sidebar-item .menu-list {
+  margin-bottom: 10px;
+}
+
+.sidebar-item .menu-list li {
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0 10px;
+}
+
+.sidebar-item .menu-list.sub-list {
+  padding-left: 2em;
+}
+
+.sidebar-item .menu-list.sub-list li > * {
+  display: inline-block;
+  padding: 0;
+  vertical-align: middle;
+}
+
+.sidebar-item .menu-list.sub-list img {
+  height: 18px;
+  margin-right: 0.3em;
+}
+
+@media screen and (max-width: 760px) {
+  .sidebar-item { padding: 0; border-bottom: none; display: inline; }
+  .sidebar-item:last-child { padding-bottom: 0; }
+  .sidebar-item li { display: inline-block; margin-right: 1em;}
+  .sidebar-item li.title { display: none; }
+  .sidebar-item li > a { width: 4.4em; text-align: center; padding: 0.3em 0 0.1em; }
+  .sidebar-item li.menu-section { display: block; }
+  .sidebar-item .sub-list,
+  .sidebar-item footer { display: none; }
+}

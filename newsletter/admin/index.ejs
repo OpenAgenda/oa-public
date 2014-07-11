@@ -1,0 +1,42 @@
+<div class="header">
+  <h2><%= __('Newsletter') %></h2>
+  <p><%= __('Manage the emailing campaigns of the agenda') %></p>
+</div>
+<section>
+  <div class="header">
+    <h3><%= __('Campaigns') %></h3>
+  </div>
+<% if (campaigns.length) { %>
+  <ul class="glist">
+<% campaigns.forEach(function(campaign) { %>
+    <li>
+      <a class="button"><%= __('remove') %></a>
+      <span class="title"><%= campaign.name %></span>
+      <ul class="detail">
+        <li>
+          <label><%= __('associated list') %></label>
+<% if (campaign.list !== null) { %>
+          <a class="url" href="<%= campaign.list.url %>"><%= campaign.list.name %></a>
+<% } else { %>
+          <span><%= __('no list') %></span>
+<% } %>
+        </li>
+      </ul>
+    </li>
+<% }) %>    
+  </ul>
+<% } else { %>
+  <p><%= __('You did not configure any campaigns yet') %></p>
+<% } %>
+  <a class="button" href="<%= urls.newCampaign %>"><%= __('Create a campaign') %></a>
+</section>
+<section>
+  <div class="header">
+    <h3><%= __('Contact lists') %></h3>  
+  </div>
+<% if (contactLists.length) { %>
+<% } else { %>
+  <p><%= __('You did not create any contact lists yet') %></p>
+<% } %>
+  <a class="button" href="<%= urls.newContactList %>"><%= __('Create a contact list') %></a>
+</section>

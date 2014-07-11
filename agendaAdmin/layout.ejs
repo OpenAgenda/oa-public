@@ -1,0 +1,44 @@
+<% include ../layout/mainTop %>
+<div class="program cbody center admin">
+  <div class="wsq review-page <%= mainClass %>" id="review-admin-menu">
+    <header>
+      <a href="#">
+        <img alt="La Gargouille" src="<%= agenda.image %>">
+      </a>
+      <div class="title js_edit">
+        <h1><%= agenda.title %></h1>
+        <p><%= __('Administration') %></p>
+        <a class="url" href="<%= agenda.url %>"><%= __('back') %></a>
+      </div>
+    </header>
+    <nav class="sec">
+      <ul class="sidebar-item">
+        <li class="title"><h2><%= __('Manage') %></h2></li>
+        <li><a class="menu-item<% if (tab=='events') { %> active<% } %>" href="#"><span><%= __('Events') %></span></a></li>
+        <li><a class="menu-item<% if (tab=='contributors') { %> active<% } %>" href="#"><span><%= __('Contributors') %></span></a></li>
+        <li><a class="menu-item<% if (tab=='dataviz') { %> active<% } %>" href="#"><span><%= __('Dataviz') %></span></a></li>
+        <li><a class="menu-item<% if (tab=='categories') { %> active<% } %>" href="#"><span><%= __('Categories and Tags') %></span></a></li>
+        <li><a class="menu-item<% if (tab=='sources') { %> active<% } %>" href="#"><span><%= __('Sources') %></span></a></li>
+      </ul>
+      <ul class="sidebar-item">
+        <li class="title"><h2><%= __('Export') %></h2></li>
+        <li>
+          <a class="menu-item" href="#">
+            <span><%= __('Facebook Link') %></span>
+          </a>
+        </li>
+        <li><a class="menu-item<% if (tab=='web') { %> active<% } %>" href="#"><span><%= __('Web Integration') %></span></a></li>
+        <li><a class="menu-item<% if (tab=='newsletter') { %> active<% } %>" href="#"><span><%= __('Newsletter') %></span></a></li>
+        <li><a class="menu-item<% if (tab=='xml') { %> active<% } %>" href="#"><span><%= __('Indesign - Xml') %></span></a></li>
+      </ul>
+      <ul class="sidebar-item">
+        <li class="title"><h2><%= __('Customize') %></h2></li>
+        <li><a class="menu-item<% if (tab=='administrators') { %> active<% } %>" href="#"><span><%= __('Administrators') %></span></a></li>
+        <li><a class="menu-item<% if (tab=='theme') { %> active<% } %>" href="#"><span><%= __('Theme') %></span></a></li>
+        <li><a class="menu-item<% if (tab=='parameters') { %> active<% } %>" href="#"><span><%= __('Settings') %></span></a></li>
+      </ul>
+    </nav>
+    <div class="main">
+      <!-- content -->
+    </div>
+<% include ../layout/mainBottom %>

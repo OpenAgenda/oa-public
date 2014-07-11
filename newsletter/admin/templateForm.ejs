@@ -1,0 +1,56 @@
+<div class="header">
+  <h2><%= __('Template') %></h2>
+  <p><%= __('Define the template of the campaign') %></p>
+</div>
+<div class="col w33">
+
+  <section>
+    <div class="header">
+      <h3><%= __('Edito') %></h3>
+    </div>
+    <form class="cform">
+      <textarea rows="4" name="edito"></textarea>
+    </form>
+  </section>
+
+  <section>
+    <div class="header">
+      <h3><%= __('Featured Events') %></h3>
+    </div>
+    <a class="button" href="<%= urls.selectEvents %>"><%= __('Select Events') %></a>
+  </section>
+
+  <section>
+    <div class="header">
+      <h3><%= __('Event List') %></h3>
+    </div>
+    
+    <h4><%= __('Categories') %></h4>
+
+    <form class="cform">
+      <select>
+        <option><%= __('all categories') %></option>
+<% categories.forEach(function(category) { %>
+        <option value="<%= category.slug %>"><%= category.name %></option>
+<% }); %>
+      </select>  
+    </form>
+
+    <h4><%= __('Places and Geography') %></h4>
+
+    <form class="cform">
+      
+    </form>
+
+    <h4><%= __('Segmentation') %></h4>
+
+    <form class="cform">
+      
+    </form>
+
+  </section>
+
+</div><!--
+--><div class="col w66">
+  <div style="width: 100%; height: 500px; background: yellow;"></div>
+</div>

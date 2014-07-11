@@ -1,0 +1,22 @@
+{
+  "Manage the emailing campaigns of the agenda" 
+  : "Gérez les campagnes d'emailing de votre agenda",
+  "Campaigns"
+  : "Campagnes",
+  "Contact lists"
+  : "Listes de contacts",
+  "You did not configure any campaigns yet"
+  : "Vous n'avez pas encore configuré de campagnes",
+  "You did not create any contact lists yet"
+  : "Vous n'avez pas encore crée de listes de contacts",
+  "Create a campaign"
+  : "Créer une campagne",
+  "Create a contact list"
+  : "Créer une liste de contacts",
+  "associated list"
+  : "liste associée",
+  "no list"
+  : "aucune liste",
+  "remove"
+  : "retirer"
+}
