@@ -4,6 +4,6 @@
     "async" : "*",
     "debug" : "*",
     "deep-extend" : "*",
-    "st" : "st"
+    "st" : "*"
   }
 }
