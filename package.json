@@ -1,0 +1,8 @@
+{
+  "dependencies": 
+  {
+    "async" : "*",
+    "debug" : "*",
+    "deep-extend" : "*"
+  }
+}
