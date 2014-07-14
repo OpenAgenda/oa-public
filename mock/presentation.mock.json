@@ -1,8 +1,13 @@
 {
   "head" : {
     "css" : [
-      "../css/global/global.css"
+      "/css/global/global.css",
+      "/css/page structure/page.css",
+      "//fonts.googleapis.com/css?family=Open+Sans:400,300"
     ]
   },
-  "grut" : true
+  "grut" : true,
+  "routes" : {
+    "homepage" : "//cibul.net"
+  }
 }
