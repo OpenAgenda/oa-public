@@ -1,6 +1,8 @@
 {
   "private" : true,
   "name" : "cibulTemplates",
+  "version": "0.0.1",
+  "description": "cibul templates library",
   "dependencies": 
   {
     "async" : "*",
