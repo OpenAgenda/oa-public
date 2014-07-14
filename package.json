@@ -3,6 +3,7 @@
   {
     "async" : "*",
     "debug" : "*",
-    "deep-extend" : "*"
+    "deep-extend" : "*",
+    "st" : "st"
   }
 }
