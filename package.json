@@ -9,6 +9,7 @@
     "debug" : "*",
     "deep-extend" : "*",
     "st" : "*",
-    "ejs" : "*"
+    "ejs" : "*",
+    "express" : "*"
   }
 }
