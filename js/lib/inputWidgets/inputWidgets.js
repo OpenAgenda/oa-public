@@ -109,11 +109,13 @@ var inputWidget = {
 
   },
 
-  _createInfo: function() {
+  _createInfo: function(force) {
+
+    if (typeof force == 'undefined') force = false;
 
     // is used for error reporting or info displaying. If either is required, 
 
-    if (!this.params.validator && !this.params.info) return;
+    if (!this.params.validator && !this.params.info && !force) return;
 
     this.info = document.createElement('span');
     this.info.className = this.params.classes.info;
@@ -147,6 +149,8 @@ var inputWidget = {
   },
 
   _displayError: function(message) {
+
+    if (!this.info) this._createInfo(true);
 
     addClass(this.info, this.params.classes.error);
 

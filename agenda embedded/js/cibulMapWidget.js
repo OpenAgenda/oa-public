@@ -22,6 +22,18 @@
         en: {
           mapSync: 'search when I move the map',
           events: 'events'
+        },
+        es: {
+          mapSync: 'busca cuando el mapa cambia',
+          events: 'eventos'
+        },
+        de: {
+          mapSync: 'suchen, wenn ich die Karte verschiebe',
+          events: 'veranstaltungen'
+        },
+        ar: {
+          mapSync: 'إبحت عندما أزيح الخيطة',
+          events: 'أحداث'
         }
       },
       selectors: {
@@ -607,7 +619,7 @@
     cibulControllers.loadWidget('.cbpgmp', onLoad);
   },
 
-  scripts = ['//cdn.leafletjs.com/leaflet-0.6.4/leaflet.js'];
+  scripts = ['//s3-eu-west-1.amazonaws.com/cibulstatic/leaflet-0.6.4.js'];
 
   if (typeof cibulControllers == 'undefined') scripts.push('//cibul.net/js/embed/cibulWidgetLib.js');
   

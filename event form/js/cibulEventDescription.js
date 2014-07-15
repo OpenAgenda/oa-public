@@ -169,7 +169,7 @@ var cibulEventDescription = function(params) {
         var widgetParams = {
           value: values[field.name],
           label: params.labels[field.name].label,
-          placeholder: params.labels[field.name].placeholder?params.labels[field.name].placeholder:params.labels[field.name].label,
+          placeholder: params.labels[field.name].placeholder?params.labels[field.name].placeholder:'',
           name: field.name,
           canvas: li,
           info: params.labels[field.name].info,
@@ -193,7 +193,7 @@ var cibulEventDescription = function(params) {
 
         }, params.initValidate);
 
-        counters[field.name] = inputCounter(widgets[field.name].getElements()[1], field.limit, {canvas: li, className: "info", label: params.labels.remaining });
+        counters[field.name] = inputCounter(widgets[field.name].getElements()[1], field.limit, {canvas: li, className: "info right", label: params.labels.remaining });
 
         canvas.appendChild(li);
           
