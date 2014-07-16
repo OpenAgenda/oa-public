@@ -117,18 +117,27 @@
   padding-right: 0.5em;
 }
 
+.cform .w20,
 .cform .w25,
 .cform .w33,
 .cform .w66,
 .cform .w75,
+.cform .w80,
+.cform .line .w20,
 .cform .line .w25,
 .cform .line .w33,
 .cform .line .w66,
-.cform .line .w75 {
+.cform .line .w75,
+.cform .line .w80 {
   padding-left: 0;
   padding-right: 0;
   margin-left: 0;
   margin-right: 0;
+}
+
+.cform .w20,
+.cform .line .w80 {
+  width: 20%;
 }
 
 .cform .w25,
@@ -149,4 +158,26 @@
 .cform .w75,
 .cform .line .w75 {
   width: 75%;
+}
+
+.cform .w80,
+.cform .line .w80 {
+  width: 80%;
+}
+
+
+.cform .pl10 {
+  padding-left: 10px;
+}
+
+.cform .ml10 {
+  margin-left: 10px;
+}
+
+.cform .px40 {
+  width: 40px;
+}
+
+.cform .px60 {
+  width: 60px;
 }
