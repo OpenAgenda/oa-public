@@ -59,7 +59,7 @@ var loader = function(templateName, data, cb) {
 
 loadTemplate = function(name, template, data) {
 
-  data.filename = '../' + name + '.ejs';
+  data.filename = __dirname + '/../' + name + '.ejs';
 
   return ejs.render(template, data);
 
@@ -99,10 +99,11 @@ loadTranslator = function(labels) {
 
 loadFiles = function(templateName, cb) {
 
-  var baseTemplatePath = '../' + templateName;
+  var basePath = __dirname + '/../';
+
+  var baseTemplatePath =  basePath + templateName;
 
   async.waterfall([
-
 
     // read template config
 
@@ -124,22 +125,22 @@ loadFiles = function(templateName, cb) {
     function(tConfig, wcb) {
 
       var filesToLoad = [
-        '../' + templateName + '.fr.json',
-        '../' + templateName + '.ejs'
+        baseTemplatePath + '.fr.json',
+        baseTemplatePath + '.ejs'
       ];
 
       if (tConfig.layout) {
 
-        filesToLoad.push('../' + tConfig.layout + '.fr.json');
-        filesToLoad.push('../' + tConfig.layout + '.ejs');
+        filesToLoad.push(basePath + tConfig.layout + '.fr.json');
+        filesToLoad.push(basePath + tConfig.layout + '.ejs');
 
       }
 
       if (useMockData) {
 
-        filesToLoad.push('../' + templateName + '.mock.json');
+        filesToLoad.push(baseTemplatePath + '.mock.json');
 
-        if (tConfig.layout) filesToLoad.push('../' + tConfig.layout + '.mock.json');
+        if (tConfig.layout) filesToLoad.push(basePath + tConfig.layout + '.mock.json');
 
       }
 
