@@ -92,7 +92,7 @@ exports.preventDefault = function(event) {
   event.preventDefault ? event.preventDefault() : event.returnValue = false;
 };
 
-var getElementsByClassName = function(node, classname) {
+var getElementsByClassName = exports.getElementsByClassName = function( node, classname ) {
   if (typeof node == 'string') {
     classname = node;
     node = document;
@@ -105,10 +105,9 @@ var getElementsByClassName = function(node, classname) {
   return a;
 };
 
-exports.getElementsByClassName = getElementsByClassName;
 
 
-var els = function(node, selector) {
+var els = exports.els = function( node, selector ) {
 
   if (typeof node == 'string') {
     selector = node;
@@ -133,10 +132,7 @@ var els = function(node, selector) {
 
 };
 
-exports.els = els;
-
-
-exports.el = function(node, selector) {
+exports.el = function( node, selector ) {
 
   var results = els(node, selector);
 
@@ -146,7 +142,7 @@ exports.el = function(node, selector) {
 
 
 /* previousObject, nextObject, childObject, getChildIndex v0.1 */
-var previousObject = function(elem) {
+var previousObject = function( elem ) {
   
   elem = elem.previousSibling;
 

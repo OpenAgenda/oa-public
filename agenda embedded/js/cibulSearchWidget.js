@@ -12,6 +12,7 @@
       name: 'search',
       sSelection: {},
       lang: 'en',
+      langAttribute: 'data-lang',
       offset: 0.08, // fixed to include neighboring smaller cities
       labels: {
         fr: {
@@ -20,6 +21,15 @@
         en: {
           search: 'type the name of a place or a city'
         },
+        ar: {
+          search: 'type the name of a place or a city'
+        },
+        de: {
+          search: 'type the name of a place or a city'
+        },
+        es: {
+          search: 'nombre de un lugar o una ciudad'
+        }
       },
       templates: {
         main: '<label for="geosearch"><%= labels.search %></label><input type="text" placeholder="<%= labels.search %>" name="geosearch">'
@@ -39,6 +49,12 @@
         var self = this;
 
         if (config.length > 1) this.lang = config[1];
+
+        if (this.element.hasAttribute(this.langAttribute)) {
+
+          this.lang = this.element.getAttribute(this.langAttribute);
+
+        }
 
         this.today = new Date();
 

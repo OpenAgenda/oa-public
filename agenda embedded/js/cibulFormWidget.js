@@ -6,6 +6,7 @@
     var cibulFormWidget = cibulWidget({
       name: 'form',
       lang: 'en',
+      langAttribute: 'data-lang',
       requireCtl: false,
       standalone: true,
       scrollOffset: 100,
@@ -37,6 +38,12 @@
         this.uid = config[0];
 
         this.lang = config[1];
+
+        if (this.element.hasAttribute(this.langAttribute)) {
+
+          this.lang = this.element.getAttribute(this.langAttribute);
+
+        }
 
         this.key = config[2];
 

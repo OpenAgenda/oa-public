@@ -8,6 +8,7 @@
       //                 0        1       2      3       4        5       6     7      8      9     10    11    12  13  14  15 16 17 18
       zoomToDistance: [500000, 500000, 500000, 300000, 150000, 100000, 80000, 40000, 20000, 10000, 3000, 1000, 300, 50, 25, 10, 5, 3, 2],
       lang: 'en',
+      langAttribute: 'data-lang',
       auto: false, // syncronize selection with map
       popup: false,
       tiles: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
@@ -499,6 +500,14 @@
 
         if (config.length > 1) this.lang = config[1];
 
+        // if data-lang is set, preempts config
+        
+        if (this.element.hasAttribute(this.langAttribute)) {
+
+          this.lang = this.element.getAttribute(this.langAttribute);
+
+        }
+
         if (config[2]=='google') {
 
           this._log('using google maps');
@@ -512,11 +521,13 @@
         this._log('using osm maps with tiles ' + this.tiles);
       
         if (typeof document.createStyleSheet == "undefined") {
-          el('head').insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.css">');
+
+          el('head').insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="//s3-eu-west-1.amazonaws.com/cibulstatic/leaflet-0.6.4.css">');
+
         } else {
 
-          document.createStyleSheet("//cdn.leafletjs.com/leaflet-0.6.4/leaflet.css");
-          document.createStyleSheet('"//cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css"');
+          document.createStyleSheet("//s3-eu-west-1.amazonaws.com/cibulstatic/leaflet-0.6.4.css");
+          document.createStyleSheet('"//s3-eu-west-1.amazonaws.com/cibulstatic/leaflet-0.6.4.ie.css"');
 
         }
 

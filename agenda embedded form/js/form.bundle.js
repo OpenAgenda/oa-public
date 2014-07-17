@@ -32,9 +32,15 @@ params = {
 
 window.run = function(eventHandler, options) {
 
-  if (options.debug) debug.enable('*');
-
   cn.extend(params, options);
+
+  if (options.debug) {
+
+    debug.enable('*');
+
+    params.requestTimeout = 120000; // super slow 
+
+  }
 
   eh = eventHandler;
 

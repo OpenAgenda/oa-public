@@ -6,6 +6,7 @@
       name: 'calendar',
       calendar: false,
       existingDates: [],
+      langAttribute: 'data-lang',
       selection: false,
       templates: {
         main: '<div class="calendar-canvas"></div>',
@@ -31,6 +32,12 @@
       init: function(ctl, config) {
 
         var lang = config.length>1?config[1]:'en';
+
+        if (this.element.hasAttribute(this.langAttribute)) {
+
+          lang = this.element.getAttribute(this.langAttribute);
+
+        }
 
         this._create();
 
