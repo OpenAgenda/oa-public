@@ -42,9 +42,9 @@ module.exports = function( options ) {
 
 var _updateFrameSrc = function( codeElem, lang ) {
 
-  var src = _extractCodeAttribute(codeElem, 'iframe', 'src');
+  var src = _extractCodeAttribute(codeElem, 'iframe', 'src'),
 
-  var newSrc = urlStr.addUrlParameter(src, 'lang', lang);
+  newSrc = urlStr.addUrlParameters(src, {lang: lang});
 
   _insertCodeAttribute(codeElem, 'iframe', 'src', newSrc);
 
