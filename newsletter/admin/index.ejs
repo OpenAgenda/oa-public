@@ -11,12 +11,12 @@
 <% campaigns.forEach(function(campaign) { %>
     <li>
       <a class="button"><%= __('remove') %></a>
-      <span class="title"><%= campaign.name %></span>
+      <span class="title"><%= campaign.title %></span>
       <ul class="detail">
         <li>
           <label><%= __('associated list') %></label>
 <% if (campaign.list !== null) { %>
-          <a class="url" href="<%= genUrl('contactListShow', campaign.list) %>"><%= campaign.list.name %></a>
+          <a class="url" href="<%= genUrl('contactListShow', campaign.list) %>"><%= campaign.list.title %></a>
 <% } else { %>
           <span><%= __('no list') %></span>
 <% } %>
