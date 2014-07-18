@@ -1,5 +1,7 @@
 var useMockData = false, // use data in local json file
 
+useMockGenUrl = false, // use basic url gen function
+
 ejs = require('ejs'),
 
 fs = require('fs'),
@@ -17,6 +19,8 @@ log = debug('templater');
 module.exports = function(templateMode) {
 
   useMockData = !!templateMode;
+
+  useMockGenUrl = !!templateMode;
 
   return loader;
 
@@ -39,6 +43,12 @@ var loader = function(templateName, data, cb) {
 
     var translator = loadTranslator(labels);
 
+    if (useMockGenUrl) {
+
+      data.genUrl = mockGenUrl;
+
+    }
+
     cn.extend(data, {
       '__' : translator,
     }, useMockData?mockData:{});
@@ -57,7 +67,7 @@ var loader = function(templateName, data, cb) {
 
 },
 
-loadTemplate = function(name, template, data) {
+loadTemplate = function( name, template, data ) {
 
   data.filename = __dirname + '/../' + name + '.ejs';
 
@@ -70,7 +80,7 @@ loadTemplate = function(name, template, data) {
  * prepare translator function used for template rendering
  */
 
-loadTranslator = function(labels) {
+loadTranslator = function( labels ) {
 
   return function(label, values) {
 
@@ -92,12 +102,18 @@ loadTranslator = function(labels) {
 
 },
 
+mockGenUrl = function ( name, values ) {
+
+  return '#' + name + (values?'?' + encodeURI(JSON.stringify(values)):'');
+
+},
+
 
 /**
  * load layout, template and int labels
  */
 
-loadFiles = function(templateName, cb) {
+loadFiles = function( templateName, cb ) {
 
   var basePath = __dirname + '/../';
 

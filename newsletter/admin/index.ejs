@@ -16,7 +16,7 @@
         <li>
           <label><%= __('associated list') %></label>
 <% if (campaign.list !== null) { %>
-          <a class="url" href="<%= campaign.list.url %>"><%= campaign.list.name %></a>
+          <a class="url" href="<%= genUrl('contactListShow', campaign.list) %>"><%= campaign.list.name %></a>
 <% } else { %>
           <span><%= __('no list') %></span>
 <% } %>
@@ -28,7 +28,7 @@
 <% } else { %>
   <p><%= __('You did not configure any campaigns yet') %></p>
 <% } %>
-  <a class="button" href="<%= urls.newCampaign %>"><%= __('Create a campaign') %></a>
+  <a class="button" href="<%= genUrl('campaignNew') %>"><%= __('Create a campaign') %></a>
 </section>
 <section>
   <div class="header">
@@ -38,5 +38,5 @@
 <% } else { %>
   <p><%= __('You did not create any contact lists yet') %></p>
 <% } %>
-  <a class="button" href="<%= urls.newContactList %>"><%= __('Create a contact list') %></a>
+  <a class="button" href="<%= genUrl('contactListNew') %>"><%= __('Create a contact list') %></a>
 </section>
