@@ -1,8 +1,11 @@
 {
-  "dependencies": {
-    "express": "*",
-    "async": "*",
-    "debug": "*",
-    "cibulModel": "git+https://kaore@bitbucket.org/cibul/cibulmodel.git"
+  "dependencies" : {
+    "express" : "*",
+    "async" : "*",
+    "debug" : "*",
+    "redis" : "*",
+    "cookie-parser" : "*",
+    "cibulModel" : "git+ssh://git@bitbucket.org:cibul/cibulmodel.git",
+    "cibulTemplates" : "git+ssh://git@bitbucket.org:cibul/cibul-templates.git"
   }
 }

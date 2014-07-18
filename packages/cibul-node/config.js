@@ -8,7 +8,15 @@ var all = {
     host: 'localhost',
     user: 'root',
     password: 'grut'
+  },
+  redis: {
+    host: '127.0.0.1',
+    port: 6389
+  },
+  session: {
+    cookie: 'symfony',
+    prefix: 'session:'
   }
-}
+};
 
 module.exports = all;

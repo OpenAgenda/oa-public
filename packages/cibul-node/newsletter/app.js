@@ -1,22 +1,45 @@
-/**
- * route handlings
- */
+var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2;
 
 module.exports = function(base, config) {
 
-  var get = defineGet(base),
+  var route, name;
+
+  log('loading newsletter module');
+
+  routes = {
+    index: ['get', index, '/grrruuuut'],
+    /*campaignNew: ['get', 'campaignNew', '/campaigns/new'],
+    campaignCreate: ['post', 'campaignCreate', '/campaigns'],
+    campaignRemove: ['get', 'campaignRemove', '/campaigns/:uid/remove'],
+    campaignEdit: ['get', 'campaignEdit', '/campaigns/:uid/edit'],
+    campaignUpdate: ['post', 'campaignUpdate', '/campaigns/:uid/update'],
+    contactListNew: ['get', 'contactListNew', '/contactlists/new'],
+    contactListCreate: ['post', 'contactListCreate', '/contactlists'],
+    contactListShow: ['get', 'contactListShow', '/contactlists/:uid'],
+    contactListRemove: ['get', 'contactListRemove', '/contactlists/:uid/remove'],*/
+  };
+
+  // load app dependencies
+
+  var app = express(),
 
   model = cibulModel(config.db),
 
-  mw = middlewares(model);
+  mw = mwLib(model, config);
+
+  // systematic controller checks
 
   app.param('slug', mw.loadAgenda);
 
-  get(function(req, res) {
+  app.all(base + '*', mw.basePath(base), mw.loadUrlGenerator(routes), mw.requireLogged, mw.loadSession, mw.checkCredential(model, 'newsletter'));
 
-    res.send('grut');
+  for (name in routes) {
 
-  });
+    route = routes[name];
+
+    if (route[R_CONTROLLER]) app[route[R_METHOD]](base + route[R_URI], route[R_CONTROLLER](model, mw));
+
+  }
 
   return app;
 
@@ -24,7 +47,7 @@ module.exports = function(base, config) {
 
 
 /**
- * load dependencies
+ * load libraries
  */
 
 var debug = require('debug'),
@@ -33,69 +56,146 @@ log = debug('newsletter'),
 
 express = require('express'),
 
-app = express(),
-
 cibulModel = require('cibulModel/lib/cibulModel'),
+
+mwLib = require('../middleware'),
+
+templater = require('cibulTemplates/server/templater')(),
+
+async = require('async'),
+
+lib = require('../lib.js'), 
+
+routes,
 
 
 /**
- * middleware functions
+ * controllers
  */
 
-middlewares = function(model) {
 
-  return {
+/**
+ * show the listing of campaigns and contact lists
+ */
 
-    loadAgenda: function(req, res, next, slug) {
+index = function(model, mw) {
+  
+  return function(req, res) {
 
-      model.reviews().get({slug: req.params.slug}, function(err, data) {
+    log('received index request for agenda "%s"', req.agenda.title);
 
-        if (err) return errorResponse(req, res, err);
+    var agenda = model.agendas().instance(req.agenda);
 
-        if (data===null) return unkownResponse(req, res, slug);
+    async.parallel([
 
-        req.agenda = data;
+      agenda.campaigns.list,
+      agenda.contactLists.list
 
-        next();
+    ], function(err, results) {
+
+      if (err) return mw.errorResponse(req, res, err);
+
+      var data = lib.extend({
+        campaigns: results[0],
+        contactLists: results[1],
+        urls: {
+          newCampaign : "#createcampaign",
+          newContactList : "#createcontactlist"
+        },
+        genUrl: req.genUrl
+      }, _layoutData(req.agenda));
+
+      // testing
+      var url = req.genUrl('index');
+
+      // for each item, load the instance
+
+      templater('newsletter/admin/index', {
+        "tab" : "newsletter",
+        "mainClass" : "newsletter",
+        "head" : {
+          "css" : {
+            "main" : "//d.cibul.net/css/main.min.css"
+          }
+        },
+        "agenda" : {
+          "title" : "La Gargouille",
+          "image" : "//cibul.s3.amazonaws.com/review_la-gargouille_00.jpg",
+          "description" : "L'agenda de la Gargouille"
+        },
+        "campaigns" : [
+          {
+            "name" : "Une campagne automatique",
+            "type" : 1,
+            "frequencyType" : 0,
+            "list" : {
+              "name" : "Liste principale",
+              "url" : "#urlofthatlist"
+            },
+            "sendDate" : "2014-07-30T09:00:00.000Z"
+          },
+          {
+            "name" : "Ma campagne à la main",
+            "type" : 0,
+            "list" : null,
+            "sendDate" : "2014-07-15T10:30:00.000Z"
+          },
+          {
+            "name" : "Ma campagne auto désactivée",
+            "type" : 0,
+            "frequencyType" : 1,
+            "list" : {
+              "name" : "Un autre liste",
+              "url" : "urlofthislist"
+            },
+            "sendDate" : null
+          }
+        ],
+        "contactLists" : [
+        ],
+        "urls" : {
+          "newCampaign" : "#createcampaign",
+          "newContactList" : "#createcontactlist"
+        }
+      }, function(err, render) {
+
+        if (err) throw err;
+
+        res.writeHead(200, {
+          "Content-Type": "text/html; charset=utf-8",
+          'Cache-Control': 'no-cache'
+        });
+
+        res.write(render);
+        res.end();
+
+        res.send();
 
       });
 
+    });
+
+  };
+
+},
+
+
+_layoutData = function( agenda ) {
+
+  return {
+    tab: 'newsletter',
+    mainClass: 'newsletter',
+    head: {
+      css: {
+        main: '//d.cibul.net/css/main.min.css'
+      }
+    },
+    agenda: {
+      title: agenda.title,
+      description: agenda.description,
+      url: agenda.url,
+      image: '//cibul.s3.amazonaws.com/' + agenda.image
     }
-  }
-
-},
-
-
-/**
- * utils and common handlings
- */
-
-errorResponse = function(req, res, message) {
-
-  res.send('error: ' + message);
-
-},
-
-unkownResponse = function(req, res, value) {
-
-  res.send('unknown: ' + value);
-
-},
-
-defineGet = function(base) {
-
-  return function(relPath, cb) {
-
-    if (typeof relPath == 'function') {
-
-      cb = relPath;
-
-      relPath = '';
-
-    }
-
-    app.get(base + relPath, cb);
-
   };
 
 };
