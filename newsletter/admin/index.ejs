@@ -15,8 +15,8 @@
       <ul class="detail">
         <li>
           <label><%= __('associated list') %></label>
-<% if (campaign.list !== null) { %>
-          <a class="url" href="<%= genUrl('contactListShow', campaign.list) %>"><%= campaign.list.title %></a>
+<% if (campaign.contactList !== null) { %>
+          <a class="url" href="<%= genUrl('contactListShow', campaign.list) %>"><%= campaign.contactList.title %></a>
 <% } else { %>
           <span><%= __('no list') %></span>
 <% } %>
