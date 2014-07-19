@@ -41,7 +41,9 @@ var renderMap = function(req, res) {
     'newsletter/agenda/full',
     'newsletter/admin/index',
     'newsletter/admin/campaignForm',
-    'newsletter/admin/templateForm'
+    'newsletter/admin/templateForm',
+    'newsletter/admin/contactListForm',
+    'newsletter/admin/contactListShow'
   ];
 
   respond(res, 200, '<ul>' + m.map(function(uri) {

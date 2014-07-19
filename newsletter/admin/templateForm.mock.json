@@ -23,5 +23,50 @@
       "slug" : "projections",
       "name" : "Projections"
     }
+  ],
+  "cities" : [
+    {
+      "name" : "Paris"
+    },
+    {
+      "name" : "Montreuil"
+    },
+    {
+      "name" : "Saint-Ouen"
+    },
+    {
+      "name" : "Courbevoie"
+    },
+    {
+      "name" : "Levallois"
+    }
+  ],
+  "regions" : [
+    {
+      "name" : "Ile-de-France"
+    },
+    {
+      "name" : "Centre"
+    },
+    {
+      "name" : "Picardie"
+    },
+    {
+      "name" : "Bourguogne"
+    }
+  ],
+  "departments" : [
+    {
+      "name" : "Paris"
+    },
+    {
+      "name" : "Hauts-de-Seine"
+    },
+    {
+      "name" : "Seine-Saint-Denis"
+    },
+    {
+      "name" : "Val-de-Marne"
+    }
   ]
 }

@@ -1,19 +1,48 @@
 {
-  "Adminstration" : "Administration",
-  "back" : "retour",
-  "Manage" : "Gérer",
-  "Events" : "Evénements",
-  "Contributors" : "Contributeurs",
-  "Dataviz" : "Dataviz",
-  "Categories and Tags" : "Catégories et Mots Clés",
-  "Sources" : "Sources",
-  "Export" : "Exporter",
-  "Facebook Link" : "Lien Facebook",
-  "Web Integration" : "Intégration Web",
-  "Newsletter" : "Newsletter",
-  "Indesign - Xml" : "Indesign - Xml",
-  "Customize" : "Paramétrer",
-  "Adminstrators" : "Administrateurs",
-  "Theme" : "Thème",
-  "Settings" : "Paramètres"
+  "Adminstration"
+  : "Administration",
+  "back"
+  : "retour",
+  "back to index"
+  : "retour à l'index",
+  "Manage"
+  : "Gérer",
+  "Events"
+  : "Evénements",
+  "Contributors"
+  : "Contributeurs",
+  "Dataviz"
+  : "Dataviz",
+  "Categories and Tags"
+  : "Catégories et Mots Clés",
+  "Sources"
+  : "Sources",
+  "Export"
+  : "Exporter",
+  "Facebook Link"
+  : "Lien Facebook",
+  "Web Integration"
+  : "Intégration Web",
+  "Newsletter"
+  : "Newsletter",
+  "Indesign - Xml"
+  : "Indesign - Xml",
+  "Customize"
+  : "Paramétrer",
+  "Adminstrators"
+  : "Administrateurs",
+  "Theme"
+  : "Thème",
+  "Settings"
+  : "Paramètres",
+  "Contact list title"
+  : "Titre de la liste de contacts",
+  "Add a list of emails"
+  : "Ajoutez une liste d'emails",
+  "Optional - emails should be separated by a comma, a semicolon or a new line."
+  : "Optionnel - les emails doivent être séparés soit par des virgules, point-virgules, ou des nouvelles lignes.",
+  "Create Contact List"
+  : "Créez la liste de contacts",
+  "Update Contact List"
+  : "Mettez à jour la liste de contacts"
 }

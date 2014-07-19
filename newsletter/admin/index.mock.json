@@ -8,36 +8,30 @@
   },
   "campaigns" : [
     {
-      "name" : "Une campagne automatique",
+      "title" : "Une campagne automatique",
       "type" : 1,
       "frequencyType" : 0,
-      "list" : {
-        "name" : "Liste principale",
-        "url" : "#urlofthatlist"
+      "contactList" : {
+        "title" : "Liste principale"
       },
       "sendDate" : "2014-07-30T09:00:00.000Z"
     },
     {
-      "name" : "Ma campagne à la main",
+      "title" : "Ma campagne à la main",
       "type" : 0,
-      "list" : null,
+      "contactList" : null,
       "sendDate" : "2014-07-15T10:30:00.000Z"
     },
     {
-      "name" : "Ma campagne auto désactivée",
+      "title" : "Ma campagne auto désactivée",
       "type" : 0,
       "frequencyType" : 1,
-      "list" : {
-        "name" : "Un autre liste",
-        "url" : "urlofthislist"
+      "contactList" : {
+        "title" : "Un autre liste"
       },
       "sendDate" : null
     }
   ],
   "contactLists" : [
-  ],
-  "urls" : {
-    "newCampaign" : "#createcampaign",
-    "newContactList" : "#createcontactlist"
-  }
+  ]
 }

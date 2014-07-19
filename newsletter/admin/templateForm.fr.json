@@ -1,3 +1,44 @@
 {
-  
+  "Edito"
+  : "Edito",
+  "Template"
+  : "Gabarit",
+  "Define the template of the campaign"
+  : "Définissez le gabarit de la campagne",
+  "Featured Events"
+  : "En Une",
+  "Select Events"
+  : "Selectionnez des événements",
+  "Event List"
+  : "Liste d'événements",
+  "Categories"
+  : "Catégories",
+  "all categories"
+  : "toutes les catégories",
+  "Places and Geography"
+  : "Lieux et régions",
+  "Segmentation"
+  : "Segmentation",
+  "By region"
+  : "Par région",
+  "By department"
+  : "Par département",
+  "By city"
+  : "Par ville",
+  "Choose the item you want to see your event list divided"
+  : "Choisissez une segmentation pour votre liste d'événements",
+  "no segmentation"
+  : "pas de segmentation",
+  "by category"
+  : "par catégorie",
+  "by day"
+  : "par jour",
+  "by department"
+  : "par département",
+  "by region"
+  : "par région",
+  "by city"
+  : "par ville",
+  "Create campaign"
+  : "Créer la campagne"
 }

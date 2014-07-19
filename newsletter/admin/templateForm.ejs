@@ -4,51 +4,94 @@
 </div>
 <div class="col w33">
 
-  <section>
-    <div class="header">
-      <h3><%= __('Edito') %></h3>
-    </div>
-    <form class="cform">
+  <form class="cform">
+
+    <section>
+      <div class="header">
+        <h3><%= __('Edito') %></h3>
+      </div>
       <textarea rows="4" name="edito"></textarea>
-    </form>
-  </section>
+    </section>
 
-  <section>
-    <div class="header">
-      <h3><%= __('Featured Events') %></h3>
-    </div>
-    <a class="button" href="<%= urls.selectEvents %>"><%= __('Select Events') %></a>
-  </section>
+    <section>
+      <div class="header">
+        <h3><%= __('Featured Events') %></h3>
+      </div>
+      <a class="button" href="<%= urls.selectEvents %>"><%= __('Select Events') %></a>
+    </section>
 
-  <section>
-    <div class="header">
-      <h3><%= __('Event List') %></h3>
-    </div>
-    
-    <h4><%= __('Categories') %></h4>
+    <section>
+      <div class="header">
+        <h3><%= __('Event List') %></h3>
+      </div>
+      
+      <h4><%= __('Categories') %></h4>
 
-    <form class="cform">
       <select>
         <option><%= __('all categories') %></option>
 <% categories.forEach(function(category) { %>
         <option value="<%= category.slug %>"><%= category.name %></option>
 <% }); %>
-      </select>  
-    </form>
+      </select>
 
-    <h4><%= __('Places and Geography') %></h4>
+      <h4><%= __('Places and Geography') %></h4>
 
-    <form class="cform">
-      
-    </form>
+      <ul>
+        <li class="js_subtitle"><%= __('By city') %></li>
+        <li class="js_detail">
+          <ul class="line">
+<% cities.forEach(function(city) { %>
+            <li>
+              <input type="checkbox" name="cities[<%= city.name %>]"/>
+              <label><%= city.name %></label>
+            </li>
+<% }); %>
+          </ul>
+        </li>
+        <li class="js_subtitle"><%= __('By department') %></li>
+        <li class="js_detail">
+          <ul class="line">
+<% departments.forEach(function(department) { %>
+            <li>
+              <input type="checkbox" name="departments[<%= department.name %>]"/>
+              <label><%= department.name %></label>
+            </li>
+<% }); %>
+          </ul>
+        </li>
+        <li class="js_subtitle"><%= __('By region') %></li>
+        <li class="js_detail">
+          <ul class="line">
+<% regions.forEach(function(region) { %>
+            <li>
+              <input type="checkbox" name="regions[<%= region.name %>]"/>
+              <label><%= region.name %></label>
+            </li>
+<% }); %>
+          </ul>
+        </li>
+      </ul>
 
-    <h4><%= __('Segmentation') %></h4>
+      <h4><%= __('Segmentation') %></h4>
 
-    <form class="cform">
-      
-    </form>
+      <p><%= __('Choose the item you want to see your event list divided') %></p>
 
-  </section>
+      <select name="segmentation">
+        <option><%= __('no segmentation') %></option>
+        <option value="category"><%= __('by category') %></option>
+        <option value="day"><%= __('by day') %></option>
+        <option value="department"><%= __('by department') %></option>
+        <option value="region"><%= __('by region') %></option>
+        <option value="city"><%= __('by city') %></option>
+      </select>
+
+    </section>
+
+    <section>
+      <button type="submit"><%= __('Create campaign') %>
+    </section>
+
+  </form>
 
 </div><!--
 --><div class="col w66">

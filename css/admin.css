@@ -61,8 +61,16 @@
 #review-admin-menu .sidebar-item { border-bottom: none; }
 
 
-#review-admin-menu .aei .cat i { vertical-align: middle; }
-#review-admin-menu .aei select { border: none; padding: 0; cursor: pointer; }
+#review-admin-menu .aei .cat i {
+  vertical-align: middle;
+}
+
+#review-admin-menu .aei select {
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
 #review-admin-menu .aei button { background: none; border: none; padding: 0; }
 
 #review-admin-menu .admin-section form { padding: 1em 0; }
@@ -81,6 +89,7 @@
   font-size: 1.35em;
   padding: 1em 0 0;
 }
+
 
 #review-admin-menu span.disabled { color: #999; }
 #review-admin-menu .error { vertical-align: middle; color: #801B1B; }

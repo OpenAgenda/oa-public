@@ -63,7 +63,11 @@
   margin-right: 0.5em;
 }
 
-.cform input, .cform select, .cform textarea { 
+.cform input[type="text"],
+.cform input[type="radio"],
+.cform input[type="checkbox"],
+.cform select,
+.cform textarea { 
   border-color: #AAAAAA #CCCCCC #CCCCCC #AAAAAA; 
   border-style: solid; 
   border-width: 1px; 

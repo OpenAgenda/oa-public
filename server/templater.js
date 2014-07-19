@@ -102,9 +102,21 @@ loadTranslator = function( labels ) {
 
 },
 
-mockGenUrl = function ( name, values ) {
+mockGenUrl = function ( name ) {
 
-  return '#' + name + (values?'?' + encodeURI(JSON.stringify(values)):'');
+  var values = {};
+
+  if (arguments.length > 1) {
+
+    for (var i = 1; i < arguments.length; i++) {
+
+      cn.extend(values, arguments[i])
+
+    }
+
+  }
+
+  return '#' + name + encodeURI(JSON.stringify(values));
 
 },
 
