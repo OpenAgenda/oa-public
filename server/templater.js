@@ -37,41 +37,45 @@ var loader = function(templateName, data, cb) {
 
   log('loading template files for %s', templateName);
 
-  loadFiles(templateName, function(err, template, layoutName, layout, labels, mockData) {
+  var loaders = [
+    loadTemplate(templateName),
+    loadLabels
+  ];
 
-    log('template files loaded for %s', templateName);
+  if (useMockData) loaders.push(loadMockData(data));
 
-    var translator = loadTranslator(labels);
+  async.waterfall(loaders, function(err, results) {
 
-    if (useMockGenUrl) {
+    if (err) throw err; // because fuck it.
 
-      data.genUrl = mockGenUrl;
+    var template = results.template, labels = results.labels;
+
+    if (results.mock) cn.extend(data, results.mock);
+
+    if (useMockGenUrl) data.genUrl = mockGenUrl;
+
+    data.__ = loadTranslator(labels);
+
+    var templateRender = renderTemplate(results.template, results.templateBody, data);
+
+    if (results.layout) {
+
+      templateRender = renderTemplate(results.layout, results.layoutBody, data).replace('<!-- content -->', templateRender);
 
     }
 
-    cn.extend(data, {
-      '__' : translator,
-    }, useMockData?mockData:{});
-
-    var rendered = loadTemplate(templateName, template, data);
-
-    if (layoutName) {
-
-      rendered = loadTemplate(layoutName, layout, data).replace('<!-- content -->', rendered);
-
-    }
-
-    cb(null, rendered);
+    cb(null, templateRender);
 
   });
 
 },
 
-loadTemplate = function( name, template, data ) {
 
-  data.filename = __dirname + '/../' + name + '.ejs';
+renderTemplate = function(filename, templateBody, data) {
 
-  return ejs.render(template, data);
+  data.filename = filename;
+
+  return ejs.render(templateBody, data);
 
 },
 
@@ -110,7 +114,7 @@ mockGenUrl = function ( name ) {
 
     for (var i = 1; i < arguments.length; i++) {
 
-      cn.extend(values, arguments[i])
+      cn.extend(values, arguments[i]);
 
     }
 
@@ -121,118 +125,118 @@ mockGenUrl = function ( name ) {
 },
 
 
-/**
- * load layout, template and int labels
- */
+loadTemplate = function( templateName ) {
 
-loadFiles = function( templateName, cb ) {
+  return function( cb ) {
 
-  var basePath = __dirname + '/../';
+    var baseTemplatePath = __dirname + '/../' + templateName,
 
-  var baseTemplatePath =  basePath + templateName;
+    data = {name: templateName};
 
-  async.waterfall([
+    fs.readFile(baseTemplatePath + '.config.json', 'utf-8', function (err, config) {
 
-    // read template config
+      if (err) return cb(err);
 
-    function(wcb) {
+      data.config = JSON.parse(config);
 
-      fs.readFile(baseTemplatePath + '.config.json', function(err, data) {
+      data.template = baseTemplatePath + '.ejs';
 
-        if (err) return wcb(err);
+      var files = [async.apply(fs.readFile, data.template, 'utf-8')];
 
-        wcb(null, JSON.parse(data));
+      if (data.config.layout) {
 
-      });
+        data.layout = __dirname + '/../' + data.config.layout + '.ejs';
 
-    },
-
-
-    // define files to load
-
-    function(tConfig, wcb) {
-
-      var filesToLoad = [
-        baseTemplatePath + '.fr.json',
-        baseTemplatePath + '.ejs'
-      ];
-
-      if (tConfig.layout) {
-
-        filesToLoad.push(basePath + tConfig.layout + '.fr.json');
-        filesToLoad.push(basePath + tConfig.layout + '.ejs');
+        files.push(async.apply(fs.readFile, data.layout, 'utf-8'));
 
       }
 
-      if (useMockData) {
-
-        filesToLoad.push(baseTemplatePath + '.mock.json');
-
-        if (tConfig.layout) filesToLoad.push(basePath + tConfig.layout + '.mock.json');
-
-      }
-
-      wcb(null, tConfig, filesToLoad);
-
-    },
-
-
-    // load files
-    
-    function(tConfig, filesToLoad, wcb) {
-
-      async.parallel(filesToLoad.map(function(path) {
-
-        return async.apply(fs.readFile, path, 'utf8');
-
-      }), function (err, results) {
+      async.parallel(files, function(err, results) {
 
         if (err) return cb(err);
 
-        wcb(null, tConfig, results);
+        data.templateBody = results[0];
+
+        if (data.config.layout) data.layoutBody = results[1];
+
+        cb(null, data);
 
       });
 
-    },
+    });
+
+  };
+
+},
 
 
-    // prepare template and give result callback
-    
-    function(tConfig, results, wcb) {
+loadLabels = function( data, cb ) {
 
-      var template = results[1],
+  var files = [data.name];
 
-      mockData = false,
+  if (data.config.layout) files.push(data.config.layout);
 
-      langLabels = JSON.parse(results[0]),
+  async.parallel(files.map(function ( name ) { 
 
-      layoutName = false,
+    return async.apply(fs.readFile, __dirname + '/../' + name + '.fr.json', 'utf-8'); 
 
-      layout = false;
+  }), function ( err, results ) {
 
-      if (tConfig.layout) {
+    if (err) return cb(err);
 
-        layout = results[3];
+    var labels = JSON.parse(results[0]);
 
-        deepExtend(langLabels, JSON.parse(results[2]));
+    if (results.length > 1) cn.extend(labels, JSON.parse(results[1]));
 
-        layoutName = tConfig.layout;
+    data.labels = labels;
+
+    cb(null, data);
+
+  });
+
+},
+
+
+loadMockData = function( request ) {
+
+  return function ( data, cb ) {
+
+    var files = [data.name];
+
+    if (data.config.layout) files.push(data.config.layout);
+
+    async.parallel(files.map(function(name) {
+
+      return async.apply(fs.readFile, __dirname + '/../' + name + '.mock.json', 'utf-8');
+
+    }), function (err, results) {
+
+      if (err) return cb(err);
+
+      var mockData = JSON.parse(results[0]);
+
+      if (mockData.base) { // this template uses states
+
+        // get requested state of data. else, get the first
+
+        for (var state in mockData) {
+          if (state !== 'base') break; // first is base, second is first state
+        }
+
+        if (request.state && mockData[request.state]) state = request.state;
+
+        mockData = deepExtend(mockData.base, mockData[state]);
+
+        if (data.config.layout) cn.extend(mockData, JSON.parse(results[1]));
 
       }
 
-      if (useMockData) {
+      data.mock = mockData;
 
-        mockData = JSON.parse(results[tConfig.layout?4:3]);
+      cb(null, data);
 
-        if (tConfig.layout) deepExtend(mockData, JSON.parse(results[5]));
+    });
 
-      }
-
-      cb(null, template, layoutName, layout, langLabels, mockData);
-
-    }
-
-
-  ]);
+  };
 
 };

@@ -1,0 +1,14 @@
+{
+  "Contact List Menu"
+  : "Menu de Liste de Contact",
+  "This list is currently empty. Add some emails in the field below."
+  : "Cette liste est vide. Ajoutez des emails via le champ ci-dessous.",
+  "Add contacts"
+  : "Ajouter des contacts",
+  "Emails should be separated by a comma, a semicolon or a new line."
+  : "Les emails doivent être séparés soit par des virgules, point-virgules, ou des nouvelles lignes.",
+  "Add"
+  : "Ajouter",
+  "remove"
+  : "supprimer"
+}

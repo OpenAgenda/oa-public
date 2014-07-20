@@ -1,0 +1,14 @@
+{
+  "tab" : "newsletter",
+  "mainClass" : "newsletter",
+  "head" : {
+    "css" : {
+      "newsletter" : "../../css/agenda/newsletterAdmin.css"
+    }
+  },
+  "urls" : {
+    "back" : "#back",
+    "selectEvents" : "#select-events"
+  },
+  "uid" : null
+}

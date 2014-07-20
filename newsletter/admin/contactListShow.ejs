@@ -1,0 +1,40 @@
+<div class="header">
+  <h2><%= __("Contact List Menu") %> - <%= title %></h2>
+  <a class="url" href="<%= genUrl('index') %>"><%= __('back to index') %></a>
+</div>
+
+<section>
+
+<% include pages %>
+  
+<% if (contacts.length) { %>
+<ul class="glist">
+<% contacts.forEach(function(contact) { %>
+  <li>
+    <span><%= contact.email %></span>
+    <a class="url right" href="#"><%= __('remove') %></a>
+  </li>
+<% }) %>
+</ul>  
+<% } else { %>
+  <p><%= __('This list is currently empty. Add some emails in the field below.') %></p>
+<% } %>
+
+<% include pages %>
+
+</section>
+
+<section>
+  <form class="cform">
+    <ul>
+      <li>
+        <label><%= __('Add contacts') %></label>
+        <textarea name="contacts"></textarea>
+        <span class="info"><%= __('Emails should be separated by a comma, a semicolon or a new line.') %></span>
+      </li>
+      <li>
+        <button type="submit"><%= __('Add') %></button>
+      </li>
+    </ul>
+  </form>
+</section>

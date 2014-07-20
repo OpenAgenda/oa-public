@@ -1,0 +1,11 @@
+<div class="pages">
+<% if (pager.total > pager.perPage) { %>
+<% for (var page=1; page<=pager.total/pager.perPage; page++) { %>
+<% if (pager.current==page) { %>
+  <a class="current" href="#"><%= page %></a>
+<% } else { %>
+  <a class="url" href="<%= genUrl(pager.action, pager.values, {page: page}) %>"><%= page %></a>
+<% } %>
+<% } %>
+<% } %>
+</div>

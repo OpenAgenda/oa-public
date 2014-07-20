@@ -1,0 +1,46 @@
+{
+  "tab" : "newsletter",
+  "mainClass" : "newsletter",
+  "head" : {
+    "css" : {
+      "newsletter" : "../../css/agenda/newsletterAdmin.css"
+    }
+  },
+  "title" : "La petite liste",
+  "contacts" : [
+    {
+      "email" : "bili@cibul.net"
+    },
+    {
+      "email" : "bobby@cibul.net"
+    },
+    {
+      "email" : "franky@cibul.net"
+    },
+    {
+      "email" : "zoubi@cibul.net"
+    },
+    {
+      "email" : "angalbert.de.gonfalon@cibul.net"
+    },
+    {
+      "email" : "bourvil@cibul.net"
+    },
+    {
+      "email" : "gengis.khan@cibul.net"
+    },
+    {
+      "email" : "dariusII@cibul.net"
+    },
+    {
+      "email" : "auguste@cibul.net"
+    }
+  ],
+  "pager" : {
+    "current" : 3,
+    "total" : 127,
+    "action" : "contactListShow",
+    "values" : {},
+    "perPage" : 15
+  }
+}

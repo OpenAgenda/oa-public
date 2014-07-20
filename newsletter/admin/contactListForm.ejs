@@ -1,0 +1,23 @@
+<div class="header">
+  <h2><%= __(uid===null?"Create a new Contact List":"Contact List Edition") %></h2>
+  <a class="url" href="<%= urls.back %>"><%= __('back to index') %></a>
+</div>
+
+<form class="cform" method="post" action="<%= uid===null?genUrl('contactListCreate'):genUrl('contactListUpdate', {uid : uid})  %>">
+  <section>
+    <ul>
+      <li class="w66">
+        <label><%= __('Contact list title') %></label>
+        <input name="title" type="text"/>
+      </li>
+      <li class="w66">
+        <label for="contacts"><%= __('Add a list of emails') %></label>
+        <textarea name="contacts" rows="6"></textarea>
+        <span class="info"><%= __('Optional - emails should be separated by a comma, a semicolon or a new line.') %></span>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <button type="submit"><%= __(uid===null?'Create Contact List':'Update Contact List') %></button>
+  </section>
+</form>

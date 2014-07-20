@@ -4,9 +4,9 @@ debug = require('debug'),
 
 log = debug('run'),
 
-config = require('./config.js')(),
+config = require('./server/config.js')(),
 
-templater = require('./templater.js')(),
+templater = require('./server/templater.js')(),
 
 run = function() {
 

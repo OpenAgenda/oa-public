@@ -4,21 +4,27 @@ url = require('url'),
 
 st = require('st'),
 
-templater = require('./templater.js')(true),
+templater = require('./server/templater.js')(true),
 
-mountCss = st({ path: __dirname + '/../css', url: '/css' }),
+mountCss = st({ path: __dirname + '/css', url: '/css' }),
 
-mountImage = st({ path: __dirname + '/../images', url: '/images'});
+mountImage = st({ path: __dirname + '/images', url: '/images'});
 
-http.createServer(function(req, res) {
+http.createServer(function ( req, res ) {
 
-  var uri = url.parse(req.url).pathname.substr(1);
+  var parsed = url.parse(req.url, true);
+
+  var uri = parsed.pathname.substr(1);
 
   if (!uri.length) return renderMap(req, res);
 
   if (mountCss(req, res) || mountImage(req, res) || uri=='favicon.ico') return; // here be static file.
 
-  templater(uri, function(err, render) {
+  var data = {};
+
+  if (parsed.query.state) data.state = parsed.query.state;
+
+  templater(uri, data, function(err, render) {
 
     if (err) throw err;
 
