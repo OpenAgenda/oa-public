@@ -2,7 +2,11 @@ var run = function() {
 
   debug.enable(config.logLevel);
 
+  router = require('./router');
+
   app.use(cookieParser());
+
+  router.loadGlobalRoutes(config.routes);
 
   loadApp('newsletter', '/:slug/admin/newsletter');
 
@@ -16,9 +20,11 @@ app = express(),
 
 config = require('./config'),
 
-cookieParser = require('cookie-parser'),
+debug = require('debug'),
 
-debug = require('debug');
+router,
+
+cookieParser = require('cookie-parser'),
 
 loadApp = function(name, route) {
 

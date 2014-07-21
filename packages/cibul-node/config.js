@@ -1,22 +1,52 @@
-var currentEnv = process.env.NODE_ENV || 'development';
+var currentEnv = process.env.NODE_ENV || 'development',
 
-var all = {
-  port: 8901,
-  logLevel: '*',
-  db: {
-    database: 'cibuldev',
-    host: 'localhost',
-    user: 'root',
-    password: 'grut'
+deepExtend = require('deep-extend'),
+
+config = {
+  all: {
+    port: 8901,
+    logLevel: '*',
+    db: {
+      database: 'cibuldev',
+      host: 'localhost',
+      user: 'root',
+      password: 'grut'
+    },
+    redis: {
+      host: '127.0.0.1',
+      port: 6389
+    },
+    session: {
+      cookie: 'symfony',
+      prefix: 'session:'
+    },
+    routes: {
+      globals: {
+        'agendaEmbedIndex' : {
+          method: 'get',
+          uri: '/:slug/admin/webembed'
+        },
+        'agendaAdminShow' : {
+          method: 'get',
+          uri: '/:slug/admin'
+        },
+        'agendaAdminContributors' : {
+          method: 'get',
+          uri: '/:slug/admin/contributors'
+        },
+        'agendaAdminDataviz' : {
+          method: 'get',
+          uri: '/:slug/admin/dataviz'
+        }
+      },
+      defaultGlobalsPrefix: ''
+    }
   },
-  redis: {
-    host: '127.0.0.1',
-    port: 6389
-  },
-  session: {
-    cookie: 'symfony',
-    prefix: 'session:'
+  development: {
+    routes: {
+      defaultGlobalsPrefix: '/frontend_dev.php'
+    }
   }
 };
 
-module.exports = all;
+module.exports = deepExtend(config.all, config[currentEnv]);

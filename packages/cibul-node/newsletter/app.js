@@ -1,51 +1,3 @@
-var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2;
-
-module.exports = function(base, config) {
-
-  var route, name;
-
-  log('loading newsletter module');
-
-  routes = {
-    index: ['get', index, '/grrruuuut'],
-    /*campaignNew: ['get', 'campaignNew', '/campaigns/new'],
-    campaignCreate: ['post', 'campaignCreate', '/campaigns'],
-    campaignRemove: ['get', 'campaignRemove', '/campaigns/:uid/remove'],
-    campaignEdit: ['get', 'campaignEdit', '/campaigns/:uid/edit'],
-    campaignUpdate: ['post', 'campaignUpdate', '/campaigns/:uid/update'],
-    contactListNew: ['get', 'contactListNew', '/contactlists/new'],
-    contactListCreate: ['post', 'contactListCreate', '/contactlists'],
-    contactListShow: ['get', 'contactListShow', '/contactlists/:uid'],
-    contactListRemove: ['get', 'contactListRemove', '/contactlists/:uid/remove'],*/
-  };
-
-  // load app dependencies
-
-  var app = express(),
-
-  model = cibulModel(config.db),
-
-  mw = mwLib(model, config);
-
-  // systematic controller checks
-
-  app.param('slug', mw.loadAgenda);
-
-  app.all(base + '*', mw.basePath(base), mw.loadUrlGenerator(routes), mw.requireLogged, mw.loadSession, mw.checkCredential(model, 'newsletter'));
-
-  for (name in routes) {
-
-    route = routes[name];
-
-    if (route[R_CONTROLLER]) app[route[R_METHOD]](base + route[R_URI], route[R_CONTROLLER](model, mw));
-
-  }
-
-  return app;
-
-};
-
-
 /**
  * load libraries
  */
@@ -60,124 +12,142 @@ cibulModel = require('cibulModel/lib/cibulModel'),
 
 mwLib = require('../middleware'),
 
-templater = require('cibulTemplates/server/templater')(),
-
 async = require('async'),
 
 lib = require('../lib.js'), 
 
-routes,
+router = require('../router.js');
+
+module.exports = function(base, config) {
+
+  log('loading newsletter module');
+
+  // load app dependencies
+
+  var app = express(),
+
+  model = cibulModel(config.db),
+
+  mw = mwLib(model, config),
+
+  ctl = controllers(app, model, mw);
+
+  app.set('base', base);
+
+  app.set('name', 'newsletter');
 
 
-/**
- * controllers
- */
+  // systematic module checks and loads
+
+  app.param('slug', mw.loadAgenda);
+
+  app.all(base + '*', router.loadUrlGen(app), mw.requireLogged, mw.loadSession, mw.checkCredential(model, 'newsletter'));
 
 
-/**
- * show the listing of campaigns and contact lists
- */
+  // load module controllers
 
-index = function(model, mw) {
-  
-  return function(req, res) {
+  router.loadRoutes(app, {
+    newsletterIndex: ['get', ctl.index, ''],
+    campaignNew: ['get', ctl.campaignNew, '/campaigns/new'],
+    campaignCreate: ['post', ctl.campaignCreate, '/campaigns'],
+    campaignRemove: ['get', ctl.campaignRemove, '/campaigns/:uid/remove'],
+    campaignEdit: ['get', ctl.campaignEdit, '/campaigns/:uid/edit'],
+    campaignUpdate: ['post', ctl.campaignUpdate, '/campaigns/:uid/update'],
+    contactListNew: ['get', ctl.contactListNew, '/contactlists/new'],
+    contactListCreate: ['post', ctl.contactListCreate, '/contactlists'],
+    contactListShow: ['get', ctl.contactListShow, '/contactlists/:uid'],
+    contactListRemove: ['get', ctl.contactListRemove, '/contactlists/:uid/remove']
+  });
 
-    log('received index request for agenda "%s"', req.agenda.title);
+  return app;
 
-    var agenda = model.agendas().instance(req.agenda);
+};
 
-    async.parallel([
 
-      agenda.campaigns.list,
-      agenda.contactLists.list
+var controllers = function( app, model, mw ) {
 
-    ], function(err, results) {
+  return {
 
-      if (err) return mw.errorResponse(req, res, err);
+    index: function(req, res) {
 
-      var data = lib.extend({
-        campaigns: results[0],
-        contactLists: results[1],
-        urls: {
-          newCampaign : "#createcampaign",
-          newContactList : "#createcontactlist"
-        },
-        genUrl: req.genUrl
-      }, _layoutData(req.agenda));
+      log('received index request for agenda "%s"', req.agenda.title);
 
-      // testing
-      var url = req.genUrl('index');
+      var agenda = model.agendas().instance(req.agenda);
 
-      // for each item, load the instance
+      async.parallel([
 
-      templater('newsletter/admin/index', {
-        "tab" : "newsletter",
-        "mainClass" : "newsletter",
-        "head" : {
-          "css" : {
-            "main" : "//d.cibul.net/css/main.min.css"
-          }
-        },
-        "agenda" : {
-          "title" : "La Gargouille",
-          "image" : "//cibul.s3.amazonaws.com/review_la-gargouille_00.jpg",
-          "description" : "L'agenda de la Gargouille"
-        },
-        "campaigns" : [
-          {
-            "name" : "Une campagne automatique",
-            "type" : 1,
-            "frequencyType" : 0,
-            "list" : {
-              "name" : "Liste principale",
-              "url" : "#urlofthatlist"
-            },
-            "sendDate" : "2014-07-30T09:00:00.000Z"
-          },
-          {
-            "name" : "Ma campagne à la main",
-            "type" : 0,
-            "list" : null,
-            "sendDate" : "2014-07-15T10:30:00.000Z"
-          },
-          {
-            "name" : "Ma campagne auto désactivée",
-            "type" : 0,
-            "frequencyType" : 1,
-            "list" : {
-              "name" : "Un autre liste",
-              "url" : "urlofthislist"
-            },
-            "sendDate" : null
-          }
-        ],
-        "contactLists" : [
-        ],
-        "urls" : {
-          "newCampaign" : "#createcampaign",
-          "newContactList" : "#createcontactlist"
-        }
-      }, function(err, render) {
+        agenda.campaigns.list,
+        agenda.contactLists.list
 
-        if (err) throw err;
+      ], function(err, results) {
 
-        res.writeHead(200, {
-          "Content-Type": "text/html; charset=utf-8",
-          'Cache-Control': 'no-cache'
-        });
+        if (err) return mw.errorResponse(req, res, err);
 
-        res.write(render);
-        res.end();
-
-        res.send();
+        mw.render(req, res, 'newsletter/admin/index', lib.extend({
+          campaigns: results[0],
+          contactLists: results[1],
+        }, _layoutData(req.agenda)));
 
       });
 
-    });
+    },
+
+
+    campaignNew: function( req, res ) {
+
+      
+
+    },
+
+
+    campaignCreate: function( req, res ) {
+
+    },
+
+
+    campaignRemove: function( req, res ) {
+
+    },
+
+
+    campaignEdit: function( req, res ) {
+
+    },
+
+
+    campaignUpdate: function( req, res ) {
+
+    },
+
+
+    contactListNew: function( req, res ) {
+
+    },
+
+
+    contactListCreate: function( req, res ) {
+
+    },
+
+
+    contactListShow: function( req, res ) {
+
+    },
+
+
+    contactListRemove: function( req, res ) {
+
+    }
 
   };
 
 },
+
+
+
+/**
+ * prepare form for new campaign
+ */
 
 
 _layoutData = function( agenda ) {
