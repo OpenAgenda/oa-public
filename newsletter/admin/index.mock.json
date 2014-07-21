@@ -36,5 +36,20 @@
     }
   ],
   "contactLists" : [
+    {
+      "uid" : 7878465,
+      "title" : "Les spammés",
+      "total" : 4564
+    },
+    {
+      "uid" : 789456564,
+      "title" : "Les occasionels",
+      "total" : 789
+    },
+    {
+      "uid" : 7894566,
+      "title" : "Contacts pro",
+      "total" : 467
+    }
   ]
 }

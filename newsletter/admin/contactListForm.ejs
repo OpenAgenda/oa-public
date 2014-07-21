@@ -1,6 +1,6 @@
 <div class="header">
   <h2><%= __(uid===null?"Create a new Contact List":"Contact List Edition") %></h2>
-  <a class="url" href="<%= urls.back %>"><%= __('back to index') %></a>
+  <a class="url" href="<%= genUrl('newsletterIndex') %>"><%= __('back to index') %></a>
 </div>
 
 <form class="cform" method="post" action="<%= uid===null?genUrl('contactListCreate'):genUrl('contactListUpdate', {uid : uid})  %>">
@@ -8,12 +8,18 @@
     <ul>
       <li class="w66">
         <label><%= __('Contact list title') %></label>
-        <input name="title" type="text"/>
+        <input name="title" type="text" <% if (values.title) { %>value="<%= values.title %>"<% } %>/>
+<% if (errors.title) { %>
+        <span class="error"><%= errors.title %></span>
+<% } %>
       </li>
       <li class="w66">
         <label for="contacts"><%= __('Add a list of emails') %></label>
-        <textarea name="contacts" rows="6"></textarea>
+        <textarea name="contacts" rows="6"><% if (values.contacts) { %><%= values.contacts %><% } %></textarea>
         <span class="info"><%= __('Optional - emails should be separated by a comma, a semicolon or a new line.') %></span>
+<% if (errors.contacts) { %>
+        <span class="error"><%= errors.contacts %></span>
+<% } %>
       </li>
     </ul>
   </section>

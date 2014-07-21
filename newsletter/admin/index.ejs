@@ -35,6 +35,22 @@
     <h3><%= __('Contact lists') %></h3>  
   </div>
 <% if (contactLists.length) { %>
+  <ul class="glist">
+<% contactLists.forEach(function(contactList) { %>
+    <li>
+      <a class="button" href="<%= genUrl('contactListRemove', {uid: contactList.uid}) %>"><%= __('remove') %></a>
+      <span class="title"><%= contactList.title %></span>
+      <ul class="detail">
+        <li>
+          <span><%= __('%s% contacts', { '%s%' : contactList.total}) %></span>
+        </li>
+        <li>
+          <a class="url"><%= __('display') %></a>
+        </li>
+      </ul>
+    </li>
+<% }); %>
+  </ul>
 <% } else { %>
   <p><%= __('You did not create any contact lists yet') %></p>
 <% } %>

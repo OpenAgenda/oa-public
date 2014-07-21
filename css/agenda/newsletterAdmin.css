@@ -15,6 +15,11 @@
   padding: 0 0 0.2em;
 }
 
+.newsletter .glist .detail li {
+  display: inline-block;
+  padding: 0 0.2em 0 0;
+}
+
 .newsletter .glist label {
   color: #888;
   padding-right: 0.5em;

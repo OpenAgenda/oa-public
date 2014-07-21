@@ -1,14 +1,22 @@
 {
-  "tab" : "newsletter",
-  "mainClass" : "newsletter",
-  "head" : {
-    "css" : {
-      "newsletter" : "../../css/agenda/newsletterAdmin.css"
+  "base" : {
+    "tab" : "newsletter",
+    "mainClass" : "newsletter",
+    "head" : {
+      "css" : {
+        "newsletter" : "../../css/agenda/newsletterAdmin.css"
+      }
+    },
+    "uid" : null
+  },
+  "newFullOfError" : {
+    "values" : {
+      "title" : "Et voici un titre",
+      "contacts" : "billy@cibul.net, johnny@cibul.net, franky@cibul.net, lamouche2@cibul.net"
+    },
+    "errors" : {
+      "title" : "The title should not be empty",
+      "contacts" : "some of the emails are not valid"
     }
-  },
-  "urls" : {
-    "back" : "#back",
-    "selectEvents" : "#select-events"
-  },
-  "uid" : null
+  }
 }

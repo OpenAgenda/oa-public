@@ -18,5 +18,11 @@
   "no list"
   : "aucune liste",
   "remove"
-  : "retirer"
+  : "retirer",
+  "edit"
+  : "editer",
+  "display"
+  : "afficher",
+  "%count% contacts"
+  : "%count% contacts"
 }
