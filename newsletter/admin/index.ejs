@@ -45,7 +45,7 @@
           <span><%= __('%s% contacts', { '%s%' : contactList.total}) %></span>
         </li>
         <li>
-          <a class="url"><%= __('display') %></a>
+          <a class="url" href="<%= genUrl('contactListShow', {uid: contactList.uid}) %>"><%= __('display') %></a>
         </li>
       </ul>
     </li>
