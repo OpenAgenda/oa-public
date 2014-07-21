@@ -227,9 +227,9 @@ loadMockData = function( request ) {
 
         mockData = deepExtend(mockData.base, mockData[state]);
 
-        if (data.config.layout) cn.extend(mockData, JSON.parse(results[1]));
-
       }
+
+      if (data.config.layout) deepExtend(mockData, JSON.parse(results[1]));
 
       data.mock = mockData;
 

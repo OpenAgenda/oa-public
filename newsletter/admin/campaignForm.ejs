@@ -123,9 +123,14 @@
 <%}); %>
             </select>
           </li>
-<% if (errors.monthly_hours) { %>
+<% if (errors.manual_date || errors.manual_hours) { %>
           <li>
+<% if (errors.manual_date) { %>
             <span class="error"><%= __(errors.manual_date) %></span>
+<% } %>
+<% if (errors.manual_hours) { %>
+            <span class="error"><%= __(errors.manual_hours) %></span>
+<% } %>
           </li>
 <% } %>
         </ul>

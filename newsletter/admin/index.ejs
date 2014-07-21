@@ -10,7 +10,7 @@
   <ul class="glist">
 <% campaigns.forEach(function(campaign) { %>
     <li>
-      <a class="button"><%= __('remove') %></a>
+      <a class="button" href="<%= genUrl('campaignRemove', {uid: campaign.uid}) %>"><%= __('remove') %></a>
       <span class="title"><%= campaign.title %></span>
       <ul class="detail">
         <li>
