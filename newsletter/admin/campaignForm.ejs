@@ -1,14 +1,14 @@
 <div class="header">
   <h2><%= __(uid===null?"Create a new campaign":"Campaign edition") %></h2>
-  <a class="url" href="<%= urls.back %>"><%= __('back to index') %></a>
+  <a class="url" href="<%= genUrl('newsletterIndex') %>"><%= __('back to index') %></a>
 </div>
 
-<form class="cform">
+<form class="cform" method="post" action="<%= genUrl(uid===null?'campaignCreate':'campaignUpdate') %>">
   <section>
     <ul>
       <li class="w66">
         <label><%= __('Campaign title') %></label>
-        <input name="title" type="text" value="<%= values.title %>"/>
+        <input name="title" type="text" <% if (values.title) { %>value="<%= values.title %>"<% } %>/>
 <% if (errors.title) { %>
         <span class="error"><%= __(errors.title) %></span>
 <% } %>
@@ -133,6 +133,6 @@
     </ul>
   </section>
   <section>
-    <a class="button"><%= __('Next step') %></a>
+    <button type="submit"><%= __('Next step') %></button>
   </section>
 </form>

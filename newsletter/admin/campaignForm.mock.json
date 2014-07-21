@@ -7,9 +7,6 @@
         "newsletter" : "../../css/agenda/newsletterAdmin.css"
       }
     },
-    "urls" : {
-      "back" : "#back"
-    },
     "contactLists" : [],
     "values" : {
       "type" : 0,
@@ -22,7 +19,9 @@
     }
   },
   "newCampaign" : {
-    "uid" : null
+    "uid" : null,
+    "values" : {},
+    "errors" : {}
   },
   "other" : {
     "uid" : null,
