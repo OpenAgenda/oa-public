@@ -8,7 +8,10 @@
     <ul>
       <li class="w66">
         <label><%= __('Campaign title') %></label>
-        <input type="text"/>
+        <input name="title" type="text" value="<%= values.title %>"/>
+<% if (errors.title) { %>
+        <span class="error"><%= __(errors.title) %></span>
+<% } %>
       </li>
       <li class="w66">
         <label><%= __('Associated list') %></label>
@@ -18,6 +21,9 @@
           <option value="<%= list.uid %>"><%= list.name %></option>
 <% }); %>
         </select>
+<% if (errors.list) { %>
+        <span class="error"><%= __(errors.list) %></span>
+<% } %>
       </li>
     </ul>
   </section>
@@ -25,7 +31,7 @@
   <section>
     <ul class="line">
       <li class="w25">
-        <input type="radio" name="type" value="1"/>
+        <input type="radio" name="type" value="1" <% if (values.type) { %>checked<% } %>/>
         <label><%= __('Automatic') %></label>
       </li><!--
       --><li class="w75">
@@ -38,23 +44,24 @@
           <li>
             <select name="weekly_day">
               <option><%= __('pick a day') %></option>
-              <option value="1"><%= __('monday') %></option>
-              <option value="2"><%= __('tuesday') %></option>
-              <option value="3"><%= __('wednesday') %></option>
-              <option value="4"><%= __('thursday') %></option>
-              <option value="5"><%= __('friday') %></option>
-              <option value="6"><%= __('saturday') %></option>
-              <option value="0"><%= __('sunday') %></option>
+<% var weekdays = {"1": "monday", "2": "tuesday", "3": "wednesday", "4": "thursday", "5": "friday", "6": "saturday", "0" : "sunday"}; for (var dIndex in weekdays) { %>
+              <option value="<%= dIndex %>" <% if (values.weekly_day==dIndex) { %>selected<% } %>><%= __(weekdays[dIndex]) %></option>
+ <% } %>
             </select>
           </li>
           <li>
             <select name="weekly_hours">
               <option><%= __('pick an hour') %></option>
 <% ['08', '09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','00'].forEach(function(hour) { %>
-              <option value="<%= hour %>" <% if (values.weekly_hour==hour) { %>selected<% }%>><%= hour %>:00</option>
+              <option value="<%= hour %>" <% if (values.weekly_hours==hour) { %>selected<% }%>><%= hour %>:00</option>
 <%}); %>
             </select>
           </li>
+<% if (errors.weekly_hours) { %>
+          <li>
+            <span class="error"><%= __(errors.weekly_hours) %></span>
+          </li>
+<% } %>
         </ul>
         <ul class="line fieldset">
           <li>
@@ -73,10 +80,15 @@
             <select name="monthly_hours">
               <option><%= __('pick an hour') %></option>
 <% ['08', '09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','00'].forEach(function(hour) { %>
-              <option value="<%= hour %>" <% if (values.monthly_hour==hour) { %>selected<% }%>><%= hour %>:00</option>
+              <option value="<%= hour %>" <% if (values.monthly_hours==hour) { %>selected<% }%>><%= hour %>:00</option>
 <%}); %>
             </select>
+          </li>  
+<% if (errors.monthly_hours) { %>
+          <li>
+            <span class="error"><%= __(errors.monthly_hours) %></span>
           </li>
+<% } %>
         </ul>
       </li>
     </ul>
@@ -85,7 +97,7 @@
   <section>
     <ul class="line">
       <li class="w25">
-        <input type="radio" name="type" value="0"/>
+        <input type="radio" name="type" value="0" <% if (!values.type) { %>checked<% } %>/>
         <label><%= __('Manual') %></label>
       </li><!--
       --><li class="w75">
@@ -107,10 +119,15 @@
             <select name="manual_hours">
               <option><%= __('pick an hour') %></option>
 <% ['08', '09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','00'].forEach(function(hour) { %>
-              <option value="<%= hour %>" <% if (values.manual_hour==hour) { %>selected<% }%>><%= hour %>:00</option>
+              <option value="<%= hour %>" <% if (values.manual_hours==hour) { %>selected<% }%>><%= hour %>:00</option>
 <%}); %>
             </select>
           </li>
+<% if (errors.monthly_hours) { %>
+          <li>
+            <span class="error"><%= __(errors.manual_date) %></span>
+          </li>
+<% } %>
         </ul>
       </li>
     </ul>
