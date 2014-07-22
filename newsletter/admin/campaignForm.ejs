@@ -45,7 +45,7 @@
             <select name="manual_month">
               <option value=""><%= __('month') %></option>
 <% for (var m = 0; m<12; m++) { %>
-              <option value="<%= m %>"><%= __(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][m]) %></option>
+              <option value="<%= m %>" <% if (values.manual_month==m) { %>selected<% } %>><%= __(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][m]) %></option>
 <% } %>
             </select>
           </li>

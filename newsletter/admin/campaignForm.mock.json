@@ -44,7 +44,8 @@
       "monthly_date" : "12",
       "monthly_hours" : "09",
       "manual_date" : "24",
-      "manual_hours" : "23"
+      "manual_hours" : "23",
+      "manual_month" : "3"
     },
     "errors" : {
       "title" : "this should not be empty",

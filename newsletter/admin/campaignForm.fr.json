@@ -78,5 +78,11 @@
   "November"
   : "Novembre",
   "December"
-  : "Décembre"
+  : "Décembre",
+  "a day of the month must be picked"
+  : "une journée doit être choisie",
+  "an hour must be selected"
+  : "une heure doit être choisie",
+  "a month must be picked"
+  : "un mois doit être sélectionné"
 }
