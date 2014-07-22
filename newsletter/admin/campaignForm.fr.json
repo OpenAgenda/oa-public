@@ -50,5 +50,33 @@
   "Send periodically a selection of events of the agenda. Define how regularly the newsletter should be sent and specify event selection filters"
   : "Envoyez une sélection d'événements de l'agenda de manière périodique. Définissez la fréquence d'envoi ainsi que les filtres de sélection",
   "if you pick a day, then pick a time."
-  : "si vous choisissez un jour, vous devez choisir un horaire."
+  : "si vous choisissez un jour, vous devez choisir un horaire.",
+  "day"
+  : "jour",
+  "month"
+  : "mois",
+  "January"
+  : "Janvier",
+  "February"
+  : "Février",
+  "March"
+  : "Mars",
+  "April"
+  : "Avril",
+  "May"
+  : "Mai",
+  "June"
+  : "Juin",
+  "July"
+  : "Juillet",
+  "August"
+  : "Août",
+  "September"
+  : "Septembre",
+  "October"
+  : "Octobre",
+  "November"
+  : "Novembre",
+  "December"
+  : "Décembre"
 }
