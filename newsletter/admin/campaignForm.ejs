@@ -41,14 +41,6 @@
             <input type="checkbox" name="schedule" <% if (values.schedule) { %>checked<% } %>>
             <label for="schedule"><%= __('schedule the campaign') %></label>
           </li>
-          <li>
-            <select name="manual_month">
-              <option value=""><%= __('month') %></option>
-<% for (var m = 0; m<12; m++) { %>
-              <option value="<%= m %>" <% if (values.manual_month==m) { %>selected<% } %>><%= __(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][m]) %></option>
-<% } %>
-            </select>
-          </li>
           <li>            
             <select name="manual_date">
               <option value=""><%= __('day') %></option>
@@ -58,10 +50,18 @@
             </select>
           </li>
           <li>
+            <select name="manual_month">
+              <option value=""><%= __('month') %></option>
+<% for (var m = 0; m<12; m++) { %>
+              <option value="<%= m %>" <% if (values.manual_month===m+'') { %>selected<% } %>><%= __(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][m]) %></option>
+<% } %>
+            </select>
+          </li>
+          <li>
             <select name="manual_hours">
               <option value=""><%= __('pick an hour') %></option>
 <% ['08', '09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','00'].forEach(function(hour) { %>
-              <option value="<%= hour %>" <% if (values.manual_hours==hour) { %>selected<% }%>><%= hour %>:00</option>
+              <option value="<%= hour %>:00" <% if (values.manual_hours==hour) { %>selected<% }%>><%= hour %>:00</option>
 <%}); %>
             </select>
           </li>
