@@ -61,12 +61,15 @@
             <select name="manual_hours">
               <option value=""><%= __('pick an hour') %></option>
 <% ['08', '09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','00'].forEach(function(hour) { %>
-              <option value="<%= hour %>:00" <% if (values.manual_hours==hour) { %>selected<% }%>><%= hour %>:00</option>
+              <option value="<%= hour %>:00" <% if (values.manual_hours==hour+':00') { %>selected<% }%>><%= hour %>:00</option>
 <%}); %>
             </select>
           </li>
-<% if (errors.manual_date || errors.manual_hours) { %>
+<% if (errors.manual_date || errors.manual_hours || errors.manual_month) { %>
           <li>
+<% if (errors.manual_month) { %>
+            <span class="error"><%= __(errors.manual_month) %></span>
+<% } %>
 <% if (errors.manual_date) { %>
             <span class="error"><%= __(errors.manual_date) %></span>
 <% } %>
@@ -104,13 +107,18 @@
             <select name="weekly_hours">
               <option value=""><%= __('pick an hour') %></option>
 <% ['08', '09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','00'].forEach(function(hour) { %>
-              <option value="<%= hour %>" <% if (values.weekly_hours==hour) { %>selected<% }%>><%= hour %>:00</option>
+              <option value="<%= hour %>:00" <% if (values.weekly_hours==hour+':00') { %>selected<% }%>><%= hour %>:00</option>
 <%}); %>
             </select>
           </li>
 <% if (errors.weekly_hours) { %>
           <li>
             <span class="error"><%= __(errors.weekly_hours) %></span>
+          </li>
+<% } %>
+<% if (errors.weekly_day) { %>
+          <li>
+            <span class="error"><%= __(errors.weekly_day) %></span>
           </li>
 <% } %>
         </ul>
@@ -131,7 +139,7 @@
             <select name="monthly_hours">
               <option value=""><%= __('pick an hour') %></option>
 <% ['08', '09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','00'].forEach(function(hour) { %>
-              <option value="<%= hour %>" <% if (values.monthly_hours==hour) { %>selected<% }%>><%= hour %>:00</option>
+              <option value="<%= hour %>:00" <% if (values.monthly_hours==hour+':00') { %>selected<% }%>><%= hour %>:00</option>
 <%}); %>
             </select>
           </li>  
@@ -140,7 +148,16 @@
             <span class="error"><%= __(errors.monthly_hours) %></span>
           </li>
 <% } %>
+<% if (errors.monthly_date) { %>
+          <li>
+            <span class="error"><%= __(errors.monthly_date) %></span>
+          </li>
+<% } %>
         </ul>
+
+<% if (errors.frequency) { %>
+      <div class="error"><%= __(errors.frequency) %></div>
+<% } %>
       </li>
     </ul>
     
