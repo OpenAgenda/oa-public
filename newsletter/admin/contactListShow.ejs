@@ -12,7 +12,7 @@
 <% contacts.forEach(function(contact) { %>
   <li>
     <span><%= contact.email %></span>
-    <a class="url right" href="#"><%= __('remove') %></a>
+    <a class="url right" href="<%= genUrl('contactRemove', {uid: uid, email: contact.email}) %>"><%= __('remove') %></a>
   </li>
 <% }) %>
 </ul>  
@@ -25,7 +25,7 @@
 </section>
 
 <section>
-  <form class="cform">
+  <form class="cform" method="post" action="<%= genUrl('contactsAdd', {uid: uid}) %>">
     <ul>
       <li>
         <label><%= __('Add contacts') %></label>
