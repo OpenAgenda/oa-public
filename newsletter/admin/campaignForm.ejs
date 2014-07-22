@@ -18,7 +18,7 @@
         <select name="list">
           <option value=""><%= __('choose a list') %></option>
 <% contactLists.forEach(function(list) { %>
-          <option value="<%= list.uid %>"><%= list.name %></option>
+          <option value="<%= list.uid %>"><%= list.title %></option>
 <% }); %>
         </select>
 <% if (errors.list) { %>

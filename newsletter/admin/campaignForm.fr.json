@@ -44,5 +44,11 @@
   "schedule the campaign"
   : "programmer la campagne",
   "Next step"
-  : "Prochaine étape"
+  : "Prochaine étape",
+  "title must be at least 3 characters long"
+  : "le titre doit au moins faire 3 caractères de long",
+  "Send periodically a selection of events of the agenda. Define how regularly the newsletter should be sent and specify event selection filters"
+  : "Envoyez une sélection d'événements de l'agenda de manière périodique. Définissez la fréquence d'envoi ainsi que les filtres de sélection",
+  "if you pick a day, then pick a time."
+  : "si vous choisissez un jour, vous devez choisir un horaire."
 }
