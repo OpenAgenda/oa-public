@@ -14,10 +14,10 @@
 <% } %>
       </li>
       <li class="w66">
-        <label for="contacts"><%= __('Add a list of emails') %></label>
-        <textarea name="contacts" rows="6"><% if (values.contacts) { %><%= values.contacts %><% } %></textarea>
+        <label for="emails"><%= __('Add a list of emails') %></label>
+        <textarea name="emails" rows="6"><% if (values.contacts) { %><%= values.contacts %><% } %></textarea>
         <span class="info"><%= __('Optional - emails should be separated by a comma, a semicolon or a new line.') %></span>
-<% if (errors.contacts) { %>
+<% if (errors.emails) { %>
         <span class="error"><%= errors.contacts %></span>
 <% } %>
       </li>

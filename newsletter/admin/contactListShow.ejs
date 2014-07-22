@@ -29,10 +29,10 @@
     <ul>
       <li>
         <label><%= __('Add contacts') %></label>
-        <textarea name="contacts" rows="6"><% if (values.contacts) { %><%= values.contacts %><% } %></textarea>
+        <textarea name="emails" rows="6"><% if (values.emails) { %><%= values.emails %><% } %></textarea>
         <span class="info"><%= __('Emails should be separated by a comma, a semicolon or a new line.') %></span>
-<% if (errors.contacts) { %>
-        <span class="error"><%= errors.contacts %></span>
+<% if (errors.emails) { %>
+        <span class="error"><%= errors.emails %></span>
 <% } %>
       </li>
       <li>

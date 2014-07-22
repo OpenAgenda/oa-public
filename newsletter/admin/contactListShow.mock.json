@@ -46,10 +46,10 @@
   },
   "values" : {
     "title" : "Et voici un titre",
-    "contacts" : "billy@cibul.net, johnny@cibul.net, franky@cibul.net, lamouche2@cibul.net"
+    "emails" : "billy@cibul.net, johnny@cibul.net, franky@cibul.net, lamouche2@cibul.net"
   },
   "errors" : {
     "title" : "The title should not be empty",
-    "contacts" : "some of the emails are not valid"
+    "emails" : "some of the emails are not valid"
   }
 }
