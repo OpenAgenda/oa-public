@@ -1,0 +1,22 @@
+<% if (type=='html') {             // HTML PART               %>
+<% include ../sections/top %>
+<table>
+  <tr>
+<% if (event.image) { %>
+    <td>
+      <img src="<%= event.image %>"/>
+    </td>
+<% } %>
+    <td>
+      <h1 target="_blank" style="<%= css.h1 %>"><a href="<%= genUrl('agendaEventShow', {uid: uid, eUid: event.uid}) %>" style="<%= css.h1a %>"><%= event.title %></a></h1>
+      <h3 target="_blank" style="<%= css.h3 %>"><a href="<%= genUrl('agendaEventShow', {uid: uid, eUid: event.uid}) %>" style="<%= css.h3a %>"><%= event.description %></a></h3>
+      <h4 target="_blank" style="<%= css.h4 %>"><a href="<%= genUrl('agendaEventShow', {uid: uid, eUid: event.uid}) %>" style="<%= css.h4a %>"><%= event.dateRange %></a></h4>    
+    </td>
+  </tr>
+</table>
+<% include ../sections/bottom %>
+
+<% } else {              // TEXT PART              %><%- event.title %>
+<%- event.dateRange %>
+<%- event.description %>
+<% } %>

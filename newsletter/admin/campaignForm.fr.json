@@ -81,6 +81,8 @@
   : "Décembre",
   "a day of the month must be picked"
   : "une journée doit être choisie",
+  "a day of the week must be picked"
+  : "un jour de la semaine doit être séléctionné",
   "an hour must be selected"
   : "une heure doit être choisie",
   "a month must be picked"

@@ -24,11 +24,11 @@ http.createServer(function ( req, res ) {
 
   if (parsed.query.state) data.state = parsed.query.state;
 
-  templater(uri, data, function(err, render) {
+  templater(uri, data, function(err, render) { // vow to make mockdata disappear from templater
 
     if (err) throw err;
 
-    respond(res, 200, render);
+    respond(res, 200, render, data.responseType);
 
   });
 
@@ -39,15 +39,16 @@ http.createServer(function ( req, res ) {
  * render a template link map
  */
 
-var renderMap = function(req, res) {
+var renderMap = function( req, res ) {
 
   var m = [
     'mock/presentation',
     'newsletter/event/full',
     'newsletter/agenda/full',
+    'newsletter/show',
     'newsletter/admin/index',
     'newsletter/admin/campaignForm',
-    'newsletter/admin/templateForm',
+    'newsletter/admin/campaignLayoutForm',
     'newsletter/admin/contactListForm',
     'newsletter/admin/contactListShow'
   ];
@@ -63,10 +64,12 @@ var renderMap = function(req, res) {
  * respond with given body
  */
 
-respond = function(res, code, body) {
+respond = function( res, code, body, responseType ) {
+
+  if (responseType==undefined) responseType = "text/html; charset=utf-8";
 
   res.writeHead(code, {
-    "Content-Type": "text/html; charset=utf-8",
+    "Content-Type": responseType,
     'Cache-Control': 'no-cache'
   });
 
