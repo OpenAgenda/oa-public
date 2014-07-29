@@ -4,22 +4,26 @@
 </div>
 <div class="col w33">
 
-  <form class="cform">
+  <form class="cform" target="newsletter-frame" method="post", action="<% genUrl('campaignLayoutUpdate', {uid: uid}) %>">
 
+<% if (type=="manual") { %>
     <section>
       <div class="header">
         <h3><%= __('Edito') %></h3>
       </div>
-      <textarea rows="4" name="edito"></textarea>
+      <textarea rows="4" name="edito"><%= values.edito?values.edito:"" %></textarea>
+<% if (errors.edito) { %>
+      <span class="error"><%= errors.edito %></span>
+<% } %>
     </section>
 
     <section>
       <div class="header">
         <h3><%= __('Featured Events') %></h3>
       </div>
-      <a class="button" href="<%= urls.selectEvents %>"><%= __('Select Events') %></a>
+      <a class="button" href="#"><%= __('Select Events') %></a>
     </section>
-
+<% } %>
     <section>
       <div class="header">
         <h3><%= __('Event List') %></h3>
@@ -30,7 +34,7 @@
       <select>
         <option><%= __('all categories') %></option>
 <% categories.forEach(function(category) { %>
-        <option value="<%= category.slug %>"><%= category.name %></option>
+        <option value="<%= category.slug %>" <% if (values.category==category.slug) { %>selected<% } %>><%= category.name %></option>
 <% }); %>
       </select>
 
@@ -42,7 +46,7 @@
           <ul class="line">
 <% cities.forEach(function(city) { %>
             <li>
-              <input type="checkbox" name="cities[<%= city.name %>]"/>
+              <input type="checkbox" name="cities[<%= city.name %>]" <% if (values.cities[city.name]) { %>checked<% } %>/>
               <label><%= city.name %></label>
             </li>
 <% }); %>
@@ -53,7 +57,7 @@
           <ul class="line">
 <% departments.forEach(function(department) { %>
             <li>
-              <input type="checkbox" name="departments[<%= department.name %>]"/>
+              <input type="checkbox" name="departments[<%= department.name %>]" <% if (values.departments[department.name]) { %>checked<% } %>/>
               <label><%= department.name %></label>
             </li>
 <% }); %>
@@ -64,7 +68,7 @@
           <ul class="line">
 <% regions.forEach(function(region) { %>
             <li>
-              <input type="checkbox" name="regions[<%= region.name %>]"/>
+              <input type="checkbox" name="regions[<%= region.name %>]" <% if (values.regions[region.name]) { %>checked<% } %>/>
               <label><%= region.name %></label>
             </li>
 <% }); %>

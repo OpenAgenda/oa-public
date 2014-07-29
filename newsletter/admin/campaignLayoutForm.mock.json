@@ -1,72 +1,101 @@
-{ 
-  "tab" : "newsletter",
-  "mainClass" : "newsletter",
-  "head" : {
-    "css" : {
-      "newsletter" : "../../css/agenda/newsletterAdmin.css"
+{
+  "base" : {
+    "tab" : "newsletter",
+    "mainClass" : "newsletter",
+    "head" : {
+      "css" : {
+        "newsletter" : "../../css/agenda/newsletterAdmin.css"
+      }
+    },
+    "uid" : 33328197,
+    "categories" : [
+      {
+        "slug" : "insolite",
+        "name" : "Insolite"
+      },
+      {
+        "slug" : "concerts",
+        "name" : "Concerts"
+      },
+      {
+        "slug" : "projections",
+        "name" : "Projections"
+      }
+    ],
+    "cities" : [
+      {
+        "name" : "Paris"
+      },
+      {
+        "name" : "Montreuil"
+      },
+      {
+        "name" : "Saint-Ouen"
+      },
+      {
+        "name" : "Courbevoie"
+      },
+      {
+        "name" : "Levallois"
+      }
+    ],
+    "regions" : [
+      {
+        "name" : "Ile-de-France"
+      },
+      {
+        "name" : "Centre"
+      },
+      {
+        "name" : "Picardie"
+      },
+      {
+        "name" : "Bourguogne"
+      }
+    ],
+    "departments" : [
+      {
+        "name" : "Paris"
+      },
+      {
+        "name" : "Hauts-de-Seine"
+      },
+      {
+        "name" : "Seine-Saint-Denis"
+      },
+      {
+        "name" : "Val-de-Marne"
+      }
+    ],
+    "values" : {
+      "cities" : {},
+      "regions" : {},
+      "departments" : { }
+    },
+    "errors" : {}
+  },
+  "manual" : {
+    "type" : "manual",
+    "values" : {
+      "edito" : "hey jude",
+      "category" : "concerts",
+      "cities" : {
+        "Paris" : 1,
+        "Courbevoie" : 1
+      },
+      "regions" : {
+        "Paris" : 1,
+        "Centre" : 1
+      },
+      "departments" : {
+        "Val-de-Marne" : 1
+      }
+    },
+    "errors" : {
+      "edito" : "take a sad song"
     }
   },
-  "urls" : {
-    "back" : "#back",
-    "selectEvents" : "#select-events"
-  },
-  "categories" : [
-    {
-      "slug" : "insolite",
-      "name" : "Insolite"
-    },
-    {
-      "slug" : "concerts",
-      "name" : "Concerts"
-    },
-    {
-      "slug" : "projections",
-      "name" : "Projections"
-    }
-  ],
-  "cities" : [
-    {
-      "name" : "Paris"
-    },
-    {
-      "name" : "Montreuil"
-    },
-    {
-      "name" : "Saint-Ouen"
-    },
-    {
-      "name" : "Courbevoie"
-    },
-    {
-      "name" : "Levallois"
-    }
-  ],
-  "regions" : [
-    {
-      "name" : "Ile-de-France"
-    },
-    {
-      "name" : "Centre"
-    },
-    {
-      "name" : "Picardie"
-    },
-    {
-      "name" : "Bourguogne"
-    }
-  ],
-  "departments" : [
-    {
-      "name" : "Paris"
-    },
-    {
-      "name" : "Hauts-de-Seine"
-    },
-    {
-      "name" : "Seine-Saint-Denis"
-    },
-    {
-      "name" : "Val-de-Marne"
-    }
-  ]
+  "auto" : {
+    "type" : "auto"
+  }
 }
