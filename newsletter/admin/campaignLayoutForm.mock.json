@@ -1,5 +1,8 @@
 {
   "base" : {
+    "devUrls" : {
+      "newsletterShow" : "/newsletter/show"
+    },
     "tab" : "newsletter",
     "mainClass" : "newsletter",
     "head" : {

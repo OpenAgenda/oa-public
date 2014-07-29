@@ -52,7 +52,7 @@ var loader = function(templateName, data, cb) {
 
     if (results.mock) cn.extend(data, results.mock);
 
-    if (useMockGenUrl) data.genUrl = mockGenUrl;
+    if (useMockGenUrl) data.genUrl = mockGenUrl(data);
 
     data.__ = loadTranslator(labels);
 
@@ -106,21 +106,31 @@ loadTranslator = function( labels ) {
 
 },
 
-mockGenUrl = function ( name ) {
+mockGenUrl = function( data ) {
 
-  var values = {};
+  return function ( name ) {
 
-  if (arguments.length > 1) {
+    var values = {};
 
-    for (var i = 1; i < arguments.length; i++) {
+    if (arguments.length > 1) {
 
-      cn.extend(values, arguments[i]);
+      for (var i = 1; i < arguments.length; i++) {
+
+        cn.extend(values, arguments[i]);
+
+      }
 
     }
 
-  }
+    if (data.devUrls) {
 
-  return '#' + name + encodeURI(JSON.stringify(values));
+      return data.devUrls[name] + '#' + name + encodeURI(JSON.stringify(values));
+
+    }
+
+    return '#' + name + encodeURI(JSON.stringify(values));
+
+  };
 
 },
 

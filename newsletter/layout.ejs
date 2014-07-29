@@ -233,10 +233,16 @@
       @media only screen and (max-width: <%= css.mobileWidth  %>px){
         /* /\/\/\/\/\/\/ CLIENT-SPECIFIC MOBILE STYLES /\/\/\/\/\/\/ */
         body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:none !important;} /* Prevent Webkit platforms from changing default text sizes */
-                body{width:100% !important; min-width:100% !important;} /* Prevent iOS Mail from adding padding to the body */
+        
+        body {
+          width:100% !important; 
+          min-width:100% !important;
+        } /* Prevent iOS Mail from adding padding to the body */
 
         /* /\/\/\/\/\/\/ MOBILE RESET STYLES /\/\/\/\/\/\/ */
-        #bodyCell{padding:10px !important;}
+        #bodyCell {
+          padding: 0!important;
+        }
 
         /* /\/\/\/\/\/\/ MOBILE TEMPLATE STYLES /\/\/\/\/\/\/ */
 
@@ -247,8 +253,8 @@
         * @section template width
         * @tip Make the template fluid for portrait or landscape view adaptability. If a fluid layout doesn't work for you, set the width to 300px instead.
         */
-        #templateContainer{
-          max-width:600px !important;
+        #templateContainer {
+          max-width:<%= css.mobileWidth  %>px !important;
           /*@editable*/ width:100% !important;
         }
 
@@ -257,9 +263,10 @@
         * @section heading 1
         * @tip Make the first-level headings larger in size for better readability on small screens.
         */
-        h1{
-          /*@editable*/ font-size:24px !important;
-          /*@editable*/ line-height:100% !important;
+        h1 {
+          font-size:24px !important;
+          line-height:100% !important;
+          padding: 0 10px;
         }
 
         /**
@@ -267,9 +274,12 @@
         * @section heading 2
         * @tip Make the second-level headings larger in size for better readability on small screens.
         */
-        h2{
-          /*@editable*/ font-size:20px !important;
-          /*@editable*/ line-height:100% !important;
+        h2 {
+
+          font-size:20px !important;
+          line-height:100% !important;
+          padding: 0 10px;
+
         }
 
         /**
@@ -278,8 +288,11 @@
         * @tip Make the third-level headings larger in size for better readability on small screens.
         */
         h3 {
-          font-size:18px !important;
+
+          font-size: 18px !important;
           line-height:100% !important;
+          padding: 0 10px;
+
         }
 
         /**
@@ -290,6 +303,7 @@
         h4 {
           font-size:16px !important;
           line-height:100% !important;
+          padding: 0 10px;
         }
 
         /* ======== Header Styles ======== */
@@ -303,8 +317,8 @@
         */
         #headerImage, #mapImage {
           height:auto !important;
-          /*@editable*/ max-width:600px !important;
-          /*@editable*/ width:100% !important;
+          max-width:<%= css.mobileWidth  %>px !important;
+          width:100% !important;
         }
 
         /**
@@ -324,9 +338,13 @@
         * @section body text
         * @tip Make the body content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
         */
-        .bodyContent{
-          /*@editable*/ font-size:16px !important;
-          /*@editable*/ line-height:180% !important;
+        .bodyContent {
+
+          font-size: 16px!important;
+          line-height: 180%!important;
+          padding-left: 0!important;
+          padding-right: 0!important;
+          
         }
 
         /* ======== Footer Styles ======== */
@@ -336,12 +354,14 @@
         * @section footer text
         * @tip Make the body content text larger in size for better readability on small screens.
         */
-        .footerContent{
-          /*@editable*/ font-size:14px !important;
-          /*@editable*/ line-height:115% !important;
+        .footerContent {
+          font-size:14px !important;
+          line-height:115% !important;
         }
 
-        .footerContent a{display:block !important;} /* Place footer social and utility links on their own lines, for easier access */
+        .footerContent a {
+          display:block !important;
+        } /* Place footer social and utility links on their own lines, for easier access */
       }
 
     </style>
