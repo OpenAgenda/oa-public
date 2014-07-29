@@ -11,60 +11,73 @@
     "categories" : [
       {
         "slug" : "insolite",
-        "name" : "Insolite"
+        "label" : "Insolite"
       },
       {
         "slug" : "concerts",
-        "name" : "Concerts"
+        "label" : "Concerts"
       },
       {
         "slug" : "projections",
-        "name" : "Projections"
+        "label" : "Projections"
       }
     ],
     "cities" : [
       {
-        "name" : "Paris"
+        "slug" : "Paris",
+        "label" : "Paris"
       },
       {
-        "name" : "Montreuil"
+        "slug" : "Montreuil",
+        "label" : "Montreuil"
       },
       {
-        "name" : "Saint-Ouen"
+        "slug" : "Saint-Ouen",
+        "label" : "Saint-Ouen"
       },
       {
-        "name" : "Courbevoie"
+        "slug" : "Courbevoie",
+        "label" : "Courbevoie"
       },
       {
-        "name" : "Levallois"
+        "slug" : "Levallois",
+        "label" : "Levallois"
       }
     ],
     "regions" : [
       {
-        "name" : "Ile-de-France"
+        "slug" : "Ile-de-France",
+        "label" : "Ile-de-France"
       },
       {
-        "name" : "Centre"
+        "slug" : "Centre",
+        "label" : "Centre"
       },
       {
-        "name" : "Picardie"
+        "slug" : "Picardie",
+        "label" : "Picardie"
       },
       {
-        "name" : "Bourguogne"
+        "slug" : "Bourguogne",
+        "label" : "Bourguogne"
       }
     ],
     "departments" : [
       {
-        "name" : "Paris"
+        "slug" : "Paris",
+        "label" : "Paris"
       },
       {
-        "name" : "Hauts-de-Seine"
+        "slug" : "Hauts-de-Seine",
+        "label" : "Hauts-de-Seine"
       },
       {
-        "name" : "Seine-Saint-Denis"
+        "slug" : "Seine-Saint-Denis",
+        "label" : "Seine-Saint-Denis"
       },
       {
-        "name" : "Val-de-Marne"
+        "slug" : "Val-de-Marne",
+        "label" : "Val-de-Marne"
       }
     ],
     "values" : {
