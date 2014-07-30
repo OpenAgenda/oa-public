@@ -5,9 +5,9 @@
 <% include ../sections/marginlessBottom %>
 <% } %>
 <% include ../sections/top %>
-  <h1 target="_blank" style="<%= css.h1 %>"><a href="<%= event.url %>" style="<%= css.h1a %>"><%= event.title %></a></h1>
-  <h3 target="_blank" style="<%= css.h3 %>"><a href="<%= event.url %>" style="<%= css.h3a %>"><%= event.description %></a></h3>
-  <h4 target="_blank" style="<%= css.h4 %>"><a href="<%= event.url %>" style="<%= css.h4a %>"><%= event.dateRange %></a></h4>
+  <h1 target="_blank" style="<%= css.h1 %>"><a href="<%= event.slug %>" style="<%= css.h1a %>"><%= event.title %></a></h1>
+  <h3 target="_blank" style="<%= css.h3 %>"><a href="<%= event.slug %>" style="<%= css.h3a %>"><%= event.description %></a></h3>
+  <h4 target="_blank" style="<%= css.h4 %>"><a href="<%= event.slug %>" style="<%= css.h4a %>"><%= event.dateRange %></a></h4>
 <% event.freeText.split('\n').forEach(function(freeTextLine) { %>
   <%= freeTextLine %>
   <br />

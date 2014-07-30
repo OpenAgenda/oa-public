@@ -11,12 +11,13 @@
     "edito" : "Accompagner les jeunes entrepreneurs de 18 à 30 ans, dans la construction et le développement de leur entreprise au sein d’un programme de mentorat et l’accès à un pool d’experts métiers bénévoles. - See more at: http://www.moovjee.fr/#sthash.imJLTd7g.dpuf",
     "agendaUrl": "http://www.moovjee.fr",
     "uid" : 48789456648,
+    "slug" : "moovjee",
     "image" : "https://dl.dropboxusercontent.com/u/2009989/images/moovjee.jpeg",
     "featuredEvents" : [
-
       {
         "title" : "Apéro Moovjee ça continue !",
         "uid" : 74875645313,
+        "slug" : "fdqhlfh-hfdjqsh-fjk",
         "image" : "http://cibul.s3.amazonaws.com/evfevent_apero-moovjee-ca-continue_978399.jpg",
         "description" : "Les apéros Moovjee continuent tout l'été et prend ses quartiers au Jardin des Tuileries. Le traiteur LeCointre nous accueille une fois encore au restaurant le Médicis.",
         "dateRange" : "Restaurant Le Médicis, le mardi 29 juillet à 19:30",
@@ -43,6 +44,7 @@
         "itemType" : "event",
         "title" : "Fêter l'esprit d'entreprendre avec 100 000 entrepreneurs",
         "uid" : 446587654,
+        "slug" : "fdfh-hfdjh-fjk",
         "image" : "https://cibul.s3.amazonaws.com/evtbevent_feter-l-esprit-d-entreprendre-avec-100-000-entrepreneurs_398964.jpg",
         "description" : "100 000 entrepreneurs et Banque Populaire Atlantique vous invitent à \"fêter l'esprit d'entreprendre\" Avec la participation de Fabien Héraud, acteur principal du film \"De toutes nos forces",
         "dateRange" : "Banque Populaire Atlantique, le mardi 23 septembre à 18:00"
@@ -51,6 +53,7 @@
         "itemType" : "event",
         "title" : "Ces jeunes qui entreprennent pour changer le monde",
         "uid" : 8956454,
+        "slug" : "azereaz-azer-reza",
         "image" : "http://cibul.s3.amazonaws.com/evtbevent_ces-jeunes-qui-entreprennent-pour-changer-le-monde_467189.jpg",
         "description" : "Événement organisé par Danone for Entrepreneurs avec la présence de Ticket4Change.",
         "dateRange" : "Palais des Congrès, le vendredi 5 septembre à 18:00",
@@ -64,6 +67,7 @@
         "itemType" : "event",
         "title" : "Salon Créer",
         "uid" : 4884548,
+        "slug" : "cwxcvcxw",
         "image" : "http://cibul.s3.amazonaws.com/evtbevent_salon-creer_937617.jpg",
         "description" : "3 jours de partages, de découvertes et d'échanges pour faire avancer tous vos projets de création, de reprise ou développement d'entreprises.",
         "dateRange" : "du mardi 16 septembre au jeudi 18 septembre à Lille Grand Palais "
@@ -76,6 +80,7 @@
         "itemType" : "event",
         "title" : "Postulez au comité de sélection du mentorat à Paris",
         "uid" : 4884545684,
+        "slug" : "rezrez",
         "image" : "http://cibul.s3.amazonaws.com/evtbevent_postulez-au-comite-de-selection-du-mentorat-a-paris_997047.jpg",
         "description" : "Vous avez entre 18 et 30 ans, vous êtes entrepreneur et votre société est en phase de développement. Participez au comité de sélection le 8 Septembre 2014 à Paris.",
         "dateRange" : "Paris , le lundi 8 septembre à 09:00"

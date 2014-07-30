@@ -6,8 +6,8 @@
 <% } %>
 
 <% include sections/top %>
-  <h1 style="<%= css.h1 %>"><a target="_blank" href="<%= genUrl('agendaShow', {uid: uid}) %>" style="<%= css.h1a %>"><%= title %></a></h1>
-  <h3 style="<%= css.h3 %>"><a target="_blank" href="<%= genUrl('agendaShow', {uid: uid}) %>" style="<%= css.h3a %>"><%= edito %></a></h3>
+  <h1 style="<%= css.h1 %>"><a target="_blank" href="<%= genUrl('agendaShow', { slug: slug }) %>" style="<%= css.h1a %>"><%= title %></a></h1>
+  <h3 style="<%= css.h3 %>"><a target="_blank" href="<%= genUrl('agendaShow', { slug: slug }) %>" style="<%= css.h3a %>"><%= edito %></a></h3>
 <% include sections/bottom %>
 
 <% include sections/spacer %>
