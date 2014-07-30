@@ -50,6 +50,8 @@ var loader = function(templateName, data, cb) {
 
     var template = results.template, labels = results.labels;
 
+    if (results.config.base) data = cn.extend(results.config.base, data);
+
     if (results.mock) cn.extend(data, results.mock);
 
     if (useMockGenUrl) data.genUrl = mockGenUrl(data);
