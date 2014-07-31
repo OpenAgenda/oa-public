@@ -88,5 +88,7 @@
   "a month must be picked"
   : "un mois doit être sélectionné",
   "frequency is either weekly or monthly"
-  : "la périodicité est soit mensuelle, soit hebdomadare"
+  : "la périodicité est soit mensuelle, soit hebdomadare",
+  "Edit Layout"
+  : "Editer la mise en page"
 }

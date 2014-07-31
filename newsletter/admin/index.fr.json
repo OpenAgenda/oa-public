@@ -24,5 +24,7 @@
   "display"
   : "afficher",
   "%count% contacts"
-  : "%count% contacts"
+  : "%count% contacts",
+  "edit layout"
+  : "mise en page"
 }

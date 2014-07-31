@@ -11,6 +11,7 @@
 <% campaigns.forEach(function(campaign) { %>
     <li>
       <a class="button" href="<%= genUrl('campaignRemove', { uid: campaign.uid }) %>"><%= __('remove') %></a>
+      <a class="button" href="<%= genUrl('campaignLayoutEdit', { uid: campaign.uid }) %>"><%= __('edit layout') %></a>
       <a class="hurl" href="<%= genUrl('campaignEdit', { uid: campaign.uid }) %>"><span class="title"><%= campaign.title %></span></a>
       <ul class="detail">
         <li>
