@@ -3,5 +3,6 @@
   "View this in your browser" : "Voir ceci dans le navigateur",
   "book" : "réserver",
   "Featured Events" : "Les événements à la une",
-  "The selection" : "La sélection"
+  "The selection" : "La sélection",
+  "from %start% to %finish% @ %placename%" : "du %start% au %finish% @ %placename%"
 }

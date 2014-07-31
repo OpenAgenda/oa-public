@@ -28,5 +28,8 @@
       "h4" : "color:#333 !important; display:block; font-family:Helvetica; font-size:14px; font-weight:normal; line-height:100%; letter-spacing:normal; margin-top:0; margin-right:0; margin-bottom:25px; margin-left:0; text-align:left;",
       "h4a" : "color: #333;  text-decoration: none;"
     }
+  },
+  "helpers" : {
+    "_t" : "time"
   }
 }

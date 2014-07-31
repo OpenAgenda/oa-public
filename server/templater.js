@@ -1,3 +1,14 @@
+module.exports = function( templateMode ) {
+
+  useMockData = !!templateMode;
+
+  useMockGenUrl = !!templateMode;
+
+  return loader;
+
+};
+
+
 var useMockData = false, // use data in local json file
 
 useMockGenUrl = false, // use basic url gen function
@@ -14,19 +25,11 @@ debug = require('debug'),
 
 deepExtend = require('deep-extend'),
 
-log = debug('templater');
+log = debug('templater'),
 
-module.exports = function(templateMode) {
+helpers = {},
 
-  useMockData = !!templateMode;
-
-  useMockGenUrl = !!templateMode;
-
-  return loader;
-
-};
-
-var loader = function(templateName, data, cb) {
+loader = function( templateName, data, cb ) {
 
   if (typeof data == 'function') {
 
@@ -39,7 +42,8 @@ var loader = function(templateName, data, cb) {
 
   var loaders = [
     loadTemplate(templateName),
-    loadLabels
+    loadLabels,
+    loadHelpers,
   ];
 
   if (useMockData) loaders.push(loadMockData(data));
@@ -51,6 +55,8 @@ var loader = function(templateName, data, cb) {
     var template = results.template, labels = results.labels;
 
     if (results.config.base) data = cn.extend(results.config.base, data);
+
+    if (results.helpers) cn.extend(data, results.helpers);
 
     if (results.mock) cn.extend(data, results.mock);
 
@@ -202,12 +208,33 @@ loadLabels = function( data, cb ) {
 
     data.labels = labels;
 
-    cb(null, data);
+    cb( null, data );
 
   });
 
 },
 
+loadHelpers = function( data, cb ) {
+
+  if ( !data.config.helpers ) return cb( null, data );
+
+  data.helpers = {};
+
+  for ( var name in data.config.helpers ) {
+
+    if (!helpers[name]) {
+
+      helpers[name] = require(__dirname + '/../helpers/' + data.config.helpers[name])({ lang: 'fr' });
+
+    }
+
+    data.helpers[name] = helpers[name];
+
+  }
+
+  cb( null, data );
+
+},
 
 loadMockData = function( request ) {
 

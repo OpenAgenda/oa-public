@@ -20,7 +20,7 @@
         "slug" : "fdqhlfh-hfdjqsh-fjk",
         "image" : "http://cibul.s3.amazonaws.com/evfevent_apero-moovjee-ca-continue_978399.jpg",
         "description" : "Les apéros Moovjee continuent tout l'été et prend ses quartiers au Jardin des Tuileries. Le traiteur LeCointre nous accueille une fois encore au restaurant le Médicis.",
-        "dateRange" : "Restaurant Le Médicis, le mardi 29 juillet à 19:30",
+        "timeSpaceInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14", "%placename%" : "Restaurant Le Médicis"}],
         "freeText" : "Ces apéros ont pour objectif de réunir la communauté des jeunes entrepreneurs, porteurs de projet, mentors et partenaires du Moovjee. \nCes bulles estivales sont placées sous les signes de la convivialité et de l'échange.\nDes tarifs spéciaux spécial Moovjee seront proposés.",
         "mapImage" : "http://maps.google.com/maps/api/staticmap?maptype=roadmap&sensor=false&size=600x300&markers=48.863492,2.327494&zoom=15"
       },
@@ -30,7 +30,7 @@
         "uid" : 79845421,
         "image" : "https://cibul.s3.amazonaws.com/evfevent_finale-du-concours-de-pitch-startup_433516.jpg",
         "description" : "Conférence \"Difficultés et enjeux de l'entreprise d'aujourd'hui\" et finale du concours de pitch ",
-        "dateRange" : "Théatre ADYAR, le jeudi 10 juillet à 18:00",
+        "timeSpaceInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14", "%placename%" : "Théatre ADYAR"}],
         "mapImage" : "http://maps.google.com/maps/api/staticmap?maptype=roadmap&sensor=false&size=600x300&markers=48.858543,2.301102&zoom=15"
       }
 
@@ -47,7 +47,7 @@
         "slug" : "fdfh-hfdjh-fjk",
         "image" : "https://cibul.s3.amazonaws.com/evtbevent_feter-l-esprit-d-entreprendre-avec-100-000-entrepreneurs_398964.jpg",
         "description" : "100 000 entrepreneurs et Banque Populaire Atlantique vous invitent à \"fêter l'esprit d'entreprendre\" Avec la participation de Fabien Héraud, acteur principal du film \"De toutes nos forces",
-        "dateRange" : "Banque Populaire Atlantique, le mardi 23 septembre à 18:00"
+        "timeSpaceInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14", "%placename%" : "Banque Populaire Atlantique"}]
       },
       {
         "itemType" : "event",
@@ -56,7 +56,7 @@
         "slug" : "azereaz-azer-reza",
         "image" : "http://cibul.s3.amazonaws.com/evtbevent_ces-jeunes-qui-entreprennent-pour-changer-le-monde_467189.jpg",
         "description" : "Événement organisé par Danone for Entrepreneurs avec la présence de Ticket4Change.",
-        "dateRange" : "Palais des Congrès, le vendredi 5 septembre à 18:00",
+        "timeSpaceInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14", "%placename%" : "La maison de l'orient"}],
         "ticketLink" : "https://docs.google.com/forms/d/1GjTvsXOEOEe2R0dUdkyIpXNLQYfvc5BlFGs1JnxXoNA/viewform"
       },
       {
@@ -70,7 +70,7 @@
         "slug" : "cwxcvcxw",
         "image" : "http://cibul.s3.amazonaws.com/evtbevent_salon-creer_937617.jpg",
         "description" : "3 jours de partages, de découvertes et d'échanges pour faire avancer tous vos projets de création, de reprise ou développement d'entreprises.",
-        "dateRange" : "du mardi 16 septembre au jeudi 18 septembre à Lille Grand Palais "
+        "timeSpaceInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14", "%placename%" : "Lille Grand Palais"}]
       },
       {
         "itemType" : "section",
@@ -83,7 +83,7 @@
         "slug" : "rezrez",
         "image" : "http://cibul.s3.amazonaws.com/evtbevent_postulez-au-comite-de-selection-du-mentorat-a-paris_997047.jpg",
         "description" : "Vous avez entre 18 et 30 ans, vous êtes entrepreneur et votre société est en phase de développement. Participez au comité de sélection le 8 Septembre 2014 à Paris.",
-        "dateRange" : "Paris , le lundi 8 septembre à 09:00"
+        "timeSpaceInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14", "%placename%" : "Paris"}]
       }
     ]
   },
