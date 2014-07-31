@@ -3,7 +3,7 @@
   <a class="url" href="<%= genUrl('newsletterIndex') %>"><%= __('back to index') %></a>
 </div>
 
-<form class="cform" method="post" action="<%= genUrl(uid===null?'campaignCreate':'campaignUpdate') %>">
+<form class="cform" method="post" action="<%= uid===null ? genUrl( 'campaignCreate' ) : genUrl( 'campaignUpdate', { uid: uid } ) %>">
   <section>
     <ul>
       <li class="w66">
