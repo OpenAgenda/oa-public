@@ -10,13 +10,13 @@
     <td>
       <h1 target="_blank" style="<%= css.h1 %>"><a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.h1a %>"><%= event.title %></a></h1>
       <h3 target="_blank" style="<%= css.h3 %>"><a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.h3a %>"><%= event.description %></a></h3>
-      <h4 target="_blank" style="<%= css.h4 %>"><a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.h4a %>"><%= __(event.timeSpaceInfo[0], _t(event.timeSpaceInfo[1])) %></a></h4>    
+      <h4 target="_blank" style="<%= css.h4 %>"><a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.h4a %>"><%= __(event.spaceTimeInfo[0], _t(event.spaceTimeInfo[1])) %></a></h4>    
     </td>
   </tr>
 </table>
 <% include ../sections/bottom %>
 
 <% } else {              // TEXT PART              %><%- event.title %>
-<%- __(event.timeSpaceInfo[0], _t(event.timeSpaceInfo[1])) %>
+<%- __(event.spaceTimeInfo[0], _t(event.spaceTimeInfo[1])) %>
 <%- event.description %>
 <% } %>
