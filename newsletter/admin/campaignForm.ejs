@@ -18,7 +18,7 @@
         <select name="list">
           <option value=""><%= __('choose a list') %></option>
 <% contactLists.forEach(function(list) { %>
-          <option value="<%= list.uid %>"><%= list.title %></option>
+          <option value="<%= list.uid %>" <% if ( values.list==list.uid ) { %>selected<% } %>><%= list.title %></option>
 <% }); %>
         </select>
 <% if (errors.list) { %>
@@ -44,7 +44,7 @@
           <li>            
             <select name="manual_date">
               <option value=""><%= __('day') %></option>
-<% for (var i = 1; i <= 31; i++) { %>
+<% for ( var i = 1; i <= 31; i++ ) { %>
               <option value="<%= (i<10?'0':'') + i %>" <% if ((i<10?'0':'') + i==values.manual_date) { %>selected<% } %> ><%= (i<10?'0':'') + i %></option>
 <% } %>
             </select>
