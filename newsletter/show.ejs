@@ -23,6 +23,8 @@
 
 <% } %>
 
+<% if (items && items.length) { %>
+
 <% include sections/spacer %>
 
 <% include sections/top %>
@@ -40,6 +42,8 @@
 <% } %>
 <% }); %>
 
+<% } %>
+
 <% } else {              // TEXT PART             %>
 
 <%- title.toUpperCase() %>
@@ -56,10 +60,14 @@
 
 <% } %>
 
+<% if (items && items.length) { %>
+
 <%- __('The selection').toUpperCase() %>
 
 <% items.forEach(function(item) { %>
 <% if (item.itemType=='section') { %><%- __(item.text) %><% } else { %><% var event = item; %><% include event/smallItem %><% } %>
 <% }); %>
+
+<% } %>
 
 <% } %>

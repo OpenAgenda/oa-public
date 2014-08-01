@@ -165,7 +165,7 @@
   <section>
     <button type="submit"><%= uid ? __('Update') : __('Next step') %></button>
 <% if ( uid ) { %>
-    <a href="<%= genUrl('campaignLayoutForm', { uid: uid }) %>" class="button"><%= __('Edit Layout') %></a>
+    <a href="<%= genUrl('campaignLayoutEdit', { uid: uid }) %>" class="button"><%= __('Edit Layout') %></a>
 <% } %>
   </section>
 </form>

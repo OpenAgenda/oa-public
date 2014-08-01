@@ -4,7 +4,7 @@
 </div>
 <div class="col w33">
 
-  <form class="cform" target="newsletter-frame" method="post", action="<% genUrl('campaignLayoutUpdate', {uid: uid}) %>">
+  <form class="cform" target="newsletter-frame" method="post" action="<% genUrl('campaignLayoutUpdate', {uid: uid}) %>">
 
 <% if (type=="manual") { %>
     <section>
@@ -31,8 +31,8 @@
       
       <h4><%= __('Categories') %></h4>
 
-      <select>
-        <option><%= __('all categories') %></option>
+      <select name="category">
+        <option value=""><%= __('all categories') %></option>
 <% categories.forEach(function(category) { %>
         <option value="<%= category.slug %>" <% if (values.category==category.slug) { %>selected<% } %>><%= category.label %></option>
 <% }); %>
@@ -99,5 +99,5 @@
 
 </div><!--
 --><div class="col w66">
-  <iframe style="width: 100%; height: 1000px;" src="<%= genUrl('newsletterShow', {uid: uid}) %>"></iframe>
+  <iframe name="newsletter-frame" style="width: 100%; height: 1000px;" src="<%= genUrl('newsletterShow', {uid: uid}) %>"></iframe>
 </div>
