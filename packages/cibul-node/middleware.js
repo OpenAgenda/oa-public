@@ -27,7 +27,7 @@ render = function( req, res, templatePath, data ) {
 
   data.genUrl = req.genUrl;
 
-  templater('newsletter/admin/index', data, function(err, render) {
+  templater(templatePath, data, function(err, render) {
 
     if (err) throw err;
 
@@ -44,6 +44,7 @@ render = function( req, res, templatePath, data ) {
   });
 
 },
+
 
 /**
  * lookup in redis wether session can be found
@@ -111,7 +112,7 @@ loadAgenda = function( model ) {
 
       if (data===null) return unkownResponse(req, res, slug);
 
-      req.agenda = data;
+      req.agenda = model.agendas().instance(data);
 
       next();
 
@@ -120,6 +121,8 @@ loadAgenda = function( model ) {
   };
 
 },
+
+
 
 checkCredential = function( model, name ) {
 

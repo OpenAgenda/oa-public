@@ -1,6 +1,8 @@
 {
   "dependencies" : {
     "express" : "*",
+    "body-parser" : "*",
+    "qs" : "*",
     "async" : "*",
     "debug" : "*",
     "redis" : "*",

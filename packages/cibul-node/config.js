@@ -22,6 +22,14 @@ config = {
     },
     routes: {
       globals: {
+        'agendaShow' : {
+          method: 'get',
+          uri: '/:slug'
+        },
+        'agendaEventShow' : {
+          method: 'get',
+          uri: '/:slug/events/:eSlug'
+        },
         'agendaEmbedIndex' : {
           method: 'get',
           uri: '/:slug/admin/webembed'

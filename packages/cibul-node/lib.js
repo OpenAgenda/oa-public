@@ -1,16 +1,83 @@
-exports.addZero = function(number) {
+exports.addZero = function( number ) {
+
   return (parseInt(number, 10)<10?'0':'') + number;
+
 };
 
-exports.toUnderscore = function(str){
-  return str.replace(/([A-Z])/g, function($1){return "_"+$1.toLowerCase();});
+exports.toUnderscore = function toUnderscore( input ){
+
+  if (typeof input == 'object') {
+
+    var underscored = {};
+
+    for (var key in input) {
+
+      underscored[toUnderscore(key)] = input[key];
+
+    }
+
+    return underscored;
+
+  }
+
+  return input.replace(/([A-Z])/g, function($1){return "_"+$1.toLowerCase();});
+
 };
 
-exports.toCamelCase = function(input) { 
-  return input.toLowerCase().replace(/[-_](.)/g, function(match, group1) {
-      return group1.toUpperCase();
+exports.toCamelCase = function toCamelCase( input ) {
+
+  if (typeof input == 'object') {
+
+    var camelCased = {};
+
+    for (var key in input) {
+
+      camelCased[toCamelCase(key)] = input[key];
+
+    }
+
+    return camelCased;
+
+  }
+
+  return input.replace(/[-_](.)/g, function(match, group1) {
+
+    return group1.toUpperCase();
+
   });
+
 };
+
+/* get first list item with matching attributes, or null */
+
+
+exports.getByAttr = function ( arr, matching ) {
+
+  var match;
+  
+  for (var i = 0; i < arr.length; i++) {
+
+    match = true;
+
+    for (var a in matching) {
+
+      if ( matching[a] !== arr[i][a] ) {
+
+        match = false;
+        break;
+
+      }
+
+    }
+
+    if (match) return arr[i];
+
+  }
+
+  return null;
+
+};
+
 
 /* Object.size */
 exports.size = function(obj) {

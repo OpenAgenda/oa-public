@@ -106,6 +106,8 @@ exports.loadUrlGen = function( app ) {
 
       });
 
+      log('generated %s', url);
+
       return url;
 
     };
@@ -113,6 +115,18 @@ exports.loadUrlGen = function( app ) {
     next();
 
   };
+
+};
+
+exports.redirect = function( req, res, name, values) {
+
+  if (values === undefined) values = {};
+
+  var url = req.genUrl(name, values);
+
+  log('redirecting to %s', url);
+
+  res.redirect(url);
 
 };
 
