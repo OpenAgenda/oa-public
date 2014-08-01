@@ -32,10 +32,8 @@
 <% include sections/bottom %>
 
 <% items.forEach(function(item) { %>
-<% if (item.itemType=='section') { %>
-<% include sections/top %>
-<h2><%= __(item.text) %></h2>
-<% include sections/bottom %>
+<% if (item.itemType=='segment') { %>
+<% include sections/segment %>
 <% } else { %>
 <% var event = item; %>
 <% include event/smallItem %>
@@ -65,7 +63,7 @@
 <%- __('The selection').toUpperCase() %>
 
 <% items.forEach(function(item) { %>
-<% if (item.itemType=='section') { %><%- __(item.text) %><% } else { %><% var event = item; %><% include event/smallItem %><% } %>
+<% if (item.itemType=='segment') { %><% include sections/segment %><% } else { %><% var event = item; %><% include event/smallItem %><% } %>
 <% }); %>
 
 <% } %>

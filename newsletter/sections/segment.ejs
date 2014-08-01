@@ -1,0 +1,30 @@
+<% if (type=='html') {             // HTML PART             %>
+<% include top %>
+<h2><% 
+
+  if ( item.type == 'day' ) { 
+
+%><%= _t(item.text, 'Do MMMM YYYY') %><% 
+
+  } else { 
+
+%><%= __(item.text) %><% 
+
+  } 
+
+%></h2>
+<% include bottom %>
+
+<% } else {                        // TEXT PART             
+
+  if ( item.type == 'day' ) { 
+
+%><%- _t(item.text, 'Do MMMM YYYY') %><% 
+
+  } else { 
+
+%><%- __(item.text) %><% 
+
+  } 
+
+} %>

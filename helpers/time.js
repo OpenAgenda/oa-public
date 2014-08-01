@@ -26,7 +26,7 @@ module.exports = function( config ) {
 
     } else {
 
-      return formatDate( date );
+      return formatDate( date, format );
 
     }
 
