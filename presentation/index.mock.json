@@ -1,0 +1,11 @@
+{
+  "head" : {
+    "css" : {
+      "global" : "../../css/global/global.css",
+      "page" : "../../css/page structure/page.css",
+      "headings" : "../../css/headings.css",
+      "header" : "../../css/header.css",
+      "buttons" : "../../css/buttons.css"
+    }
+  }
+}

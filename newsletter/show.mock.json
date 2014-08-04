@@ -37,7 +37,7 @@
     ],
     "items" : [
       {
-        "itemType" : "section",
+        "itemType" : "segment",
         "text" : "Mardi"
       },
       {
@@ -60,7 +60,7 @@
         "ticketLink" : "https://docs.google.com/forms/d/1GjTvsXOEOEe2R0dUdkyIpXNLQYfvc5BlFGs1JnxXoNA/viewform"
       },
       {
-        "itemType" : "section",
+        "itemType" : "segment",
         "text" : "Mercredi"
       },
       {
@@ -73,7 +73,7 @@
         "spaceTimeInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14", "%placename%" : "Lille Grand Palais"}]
       },
       {
-        "itemType" : "section",
+        "itemType" : "segment",
         "text" : "Jeudi"
       },
       {

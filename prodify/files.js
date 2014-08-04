@@ -1,6 +1,6 @@
 var paths = {
   h:   '../home/js/',
-  hv:  '../home visitor/js/',
+  hv:  '../presentation/js/',
   hs:  '../header/js/',
   p:   '../agenda/js/',
   ps:  '../program search/js/',

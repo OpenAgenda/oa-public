@@ -1,0 +1,35 @@
+<div class="header">
+  <h2><%= __('Featured Events') %></h2>
+  <p><%= __('Select the events that should feature in the first section of your newsletter') %></p>
+  <a class="url" href="<%= genUrl('campaignLayoutForm', { uid: uid }) %>"><%= __('cancel') %></a>
+</div>
+
+<section>
+
+<% include pages %>
+
+<% if (events.length) { %>
+<ul class="glist">
+<% events.forEach(function( event ) { %>
+  <li>
+    <span class="title"><%= event.title %></span>
+    <ul>
+      <li>
+<% if ( !event.featured ) { %>
+        <a class="url" href="<%= genUrl('campaignFeaturedAdd', { uid: uid, eUid: event.uid }) %>"><%= __('add') %></a>
+<% } else { %>
+        <span><%= __('event is featured') %></span>
+        <a class="url" href="<%= genUrl('campaignFeaturedRemove', { uid: uid, eUid: event.uid }) %>"><%= __('remove') %></a>
+<% } %> 
+      </li>
+    </ul>
+  </li>
+<% }); %>
+</ul>
+<% } else { %>
+  <p><%= __('Your agenda does not have any events on display.') %></p>
+<% } %>
+
+<% include pages %>
+
+</section>

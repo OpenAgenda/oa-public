@@ -42,6 +42,7 @@ http.createServer(function ( req, res ) {
 var renderMap = function( req, res ) {
 
   var m = [
+    'presentation/index',
     'mock/presentation',
     'newsletter/event/full',
     'newsletter/agenda/full',
@@ -49,6 +50,7 @@ var renderMap = function( req, res ) {
     'newsletter/admin/index',
     'newsletter/admin/campaignForm',
     'newsletter/admin/campaignLayoutForm',
+    'newsletter/admin/campaignFeaturedForm',
     'newsletter/admin/contactListForm',
     'newsletter/admin/contactListShow'
   ];
