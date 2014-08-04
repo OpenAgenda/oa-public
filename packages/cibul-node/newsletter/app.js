@@ -61,6 +61,9 @@ module.exports = function(base, config) {
     campaignUpdate: ['post', ctl.campaignUpdate, '/campaigns/:uid/update'],
     campaignLayoutEdit: ['get', ctl.campaignLayoutEdit, '/campaigns/:uid/layout'],
     campaignLayoutUpdate: ['post', ctl.campaignLayoutUpdate, '/campaigns/:uid/layout'],
+    campaignFeaturedEdit: ['get', ctl.campaignFeaturedEdit, '/campaigns/:uid/featured'],
+    campaignFeaturedAdd: ['get', ctl.campaignFeaturedAdd, '/campaigns/:uid/featured/add/:eUid'],
+    campaignFeaturedRemove: ['get', ctl.campaignFeaturedRemove, '/campaigns/:uid/featured/remove/:eUid'],
     newsletterShow: ['get', ctl.newsletterShow, '/campaigns/:uid/newsletter'],
     contactListNew: ['get', ctl.contactListNew, '/contactlists/new'],
     contactListCreate: ['post', ctl.contactListCreate, '/contactlists'],
@@ -362,12 +365,87 @@ var controllers = function( app, model, mw ) {
 
     },
 
+    campaignFeaturedEdit: function( req, res ) {
+
+      async.parallel([
+        async.apply( req.agenda.campaigns.get, { uid: req.params.uid } ),
+        async.apply( req.agenda.events.list )
+      ], function( err, results ) {
+
+        if ( err ) return mw.errorResponse( req, res, err );
+
+        var campaign = req.agenda.campaigns.instance( results[0] );
+
+        campaign.decorateWithFeatured( results[1], function( err, decoratedEventList ) {
+
+          if ( err ) return mw.errorResponse( req, res, err );
+
+          // remove international complications
+          // maybe some generic handling of this at the level of the list
+          // could be done
+
+          decoratedEventList.map(function( e ) {
+
+            var title = model.events().instance(e).getTitle();
+
+            e.title = title;
+            
+          });
+
+          mw.render( req, res, 'newsletter/admin/campaignFeaturedForm', lib.extend({
+            events: decoratedEventList,
+            uid: req.params.uid,
+          }, 
+          _pager(1,0,'campaignFeaturedEdit', {}),
+          _layoutData(req.agenda)));
+
+        });
+
+      });
+
+    },
+
+    campaignFeaturedAdd: function( req, res ) {
+
+      req.agenda.campaigns.get({ uid: req.params.uid }, function( err, campaign ) {
+
+        if ( err ) return mw.errorResponse( req, res, err );
+
+        req.agenda.campaigns.instance( campaign ).addFeaturedEvent({ uid: req.params.eUid }, true, function( err ) {
+
+          if ( err ) return mw.errorResponse( req, res, err );
+
+          return router.redirect(req, res, 'campaignFeaturedEdit', { uid: req.params.uid });
+
+        });
+
+      });
+
+    },
+
+    campaignFeaturedRemove: function( req, res ) {
+
+      req.agenda.campaigns.get({ uid: req.params.uid }, function( err, campaign ) {
+
+        if ( err ) return mw.errorResponse( req, res, err );
+
+        req.agenda.campaigns.instance( campaign ).removeFeaturedEvent({ uid: req.params.eUid }, true, function( err ) {
+
+          if ( err ) return mw.errorResponse( req, res, err );
+
+          return router.redirect(req, res, 'campaignFeaturedEdit', { uid: req.params.uid });
+
+        });
+
+      });
+
+    },
 
     newsletterShow: function( req, res ) {
 
-      req.agenda.campaigns.get({uid: req.params.uid}, function ( err, campaign ) {
+      req.agenda.campaigns.get({ uid: req.params.uid }, function ( err, campaign ) {
 
-        if (err) return mw.errorResponse(req, res, err);
+        if ( err ) return mw.errorResponse( req, res, err );
 
         campaign = req.agenda.campaigns.instance( campaign );
 
@@ -387,11 +465,11 @@ var controllers = function( app, model, mw ) {
 
     contactListNew: function( req, res ) {
 
-      mw.render(req, res, 'newsletter/admin/contactListForm', lib.extend({
+      mw.render( req, res, 'newsletter/admin/contactListForm', lib.extend({
         uid: null,
         values: {},
         errors: {}
-      }, _layoutData(req.agenda)));
+      }, _layoutData( req.agenda )));
 
     },
 

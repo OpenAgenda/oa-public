@@ -67,7 +67,30 @@ mainInfo = function( model, agenda, campaign, data, cb ) {
 
 featuredEvents = function( model, agenda, campaign, data, cb ) {
 
-  cb( null, model, agenda, campaign, data );
+  campaign.getFeaturedEvents(function( err, events ) {
+
+    if ( err ) return cb( err );
+
+    data.featuredEvents = events.map(function( event ) {
+
+      var e = model.events().instance( event );
+
+      return {
+        title: e.getTitle(),
+        description: e.getDescription(),
+        freeText: e.getFreeText(),
+        slug: e.slug,
+        image: e.image,
+        spaceTimeInfo: e.getSpaceTimeInfo()
+      };          
+
+    });
+
+    cb( null, model, agenda, campaign, data );  
+
+  });
+
+  
 
 },
 
