@@ -3,8 +3,8 @@
   : "Evénements en une" ,
   "Select the events that should feature in the first section of your newsletter"
   : "sélectionner les événements à placer en une de votre newsletter" ,
-  "cancel"
-  : "annuler" ,
+  "back"
+  : "retour" ,
   "add"
   : "ajouter" ,
   "remove"
