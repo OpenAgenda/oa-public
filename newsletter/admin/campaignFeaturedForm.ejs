@@ -6,6 +6,10 @@
 
 <section>
 
+<form method="get" action="<%= genUrl('campaignFeaturedEdit', { uid: uid }, true) %>">
+  <input type="text" name="filters[title]" value="<%= filters.title || '' %>"/>
+</form>
+
 <% include pages %>
 
 <% if (events.length) { %>
@@ -16,10 +20,10 @@
     <ul>
       <li>
 <% if ( !event.featured ) { %>
-        <a class="url" href="<%= genUrl('campaignFeaturedAdd', { uid: uid, eUid: event.uid }) %>"><%= __('add') %></a>
+        <a class="url" href="<%= genUrl('campaignFeaturedAdd', { uid: uid, eUid: event.uid }, true) %>"><%= __('add') %></a>
 <% } else { %>
         <span><%= __('event is featured') %></span>
-        <a class="url" href="<%= genUrl('campaignFeaturedRemove', { uid: uid, eUid: event.uid }) %>"><%= __('remove') %></a>
+        <a class="url" href="<%= genUrl('campaignFeaturedRemove', { uid: uid, eUid: event.uid }, true) %>"><%= __('remove') %></a>
 <% } %> 
       </li>
     </ul>
