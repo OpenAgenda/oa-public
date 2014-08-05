@@ -6,6 +6,8 @@ log = debug('router'),
 
 lib = require('./lib'),
 
+qs = require('qs'),
+
 routes = {};  // module, then action name
 
 
@@ -28,7 +30,7 @@ exports.loadGlobalRoutes = function( rConfig ) {
 
     params.uri = globalDefaultPrefix + params.uri;
 
-    registerRoute(name, params);
+    _registerRoute(name, params);
 
   }
 
@@ -54,7 +56,7 @@ exports.loadRoutes = function ( app, appRoutes ) {
 
     fullUri = app.get('base') + params.uri;
 
-    registerRoute(name, params);
+    _registerRoute(name, params);
 
     // controller only needs to be loaded in current app
 
@@ -72,15 +74,48 @@ exports.loadUrlGen = function( app ) {
 
   return function( req, res, next ) {
 
-    var base = getBasePath(app, req);
+    var base = _getBasePath(app, req);
 
-    req.genUrl = function(name, values) {
 
-      var url = routes[name].uri;
+    req.genUrl = function( name, values ) {
 
-      if (values === undefined) values = {};
+      var url = routes[name].uri,
 
-      if (routes[name].module == app.get('name')) {
+      query = {},
+
+      maintain = false;
+
+      if ( values === undefined ) values = {};
+      
+      if ( arguments.length > 2 ) {
+
+        var args = Array.prototype.slice.call(arguments, 0);
+
+        for (var i = 2; i < args.length; i++ ) {
+
+          if ( typeof args[i] == 'boolean' ) {
+
+            maintain = args[i];
+
+          } else {
+
+            lib.extend(values, args[i]);
+            
+          }
+
+        }
+
+      }
+
+
+      // if we have to maintain current req params, then there.
+
+      if ( maintain ) _maintainQuery( req, values );
+
+
+      // if we stay in current module, we use the identifiers
+
+      if (routes[name].module === app.get('name')) {
 
         url = base.path + url;
 
@@ -96,16 +131,38 @@ exports.loadUrlGen = function( app ) {
 
       }
 
+
       log('generating url of uri %s', url);
 
-      uriParamNames = routes[name].uri.match(/:[a-z|A-Z]+/g) || [];
+      uriParamNames = (routes[name].uri.match(/:[a-z|A-Z]+/g) || []).map(function(n) { return n.replace(/[:]/g,''); });
 
-      uriParamNames.map(function(n) { return n.replace(/[:]/g,''); }).forEach(function(name) {
+      uriParamNames.forEach(function(name) {
 
         url = url.replace(':' + name, values[name]);
 
+
       });
 
+      // deal with non route params
+      
+
+      for ( var key in values ) {
+
+        if ( !lib.contains( uriParamNames, key ) ) {
+
+          query[key] = values[key];
+
+        }
+
+      }
+
+      if ( lib.size(query) ) {
+
+        url += '?' + qs.stringify(query);
+
+      }
+
+      
       log('generated %s', url);
 
       return url;
@@ -118,9 +175,11 @@ exports.loadUrlGen = function( app ) {
 
 };
 
-exports.redirect = function( req, res, name, values) {
+exports.redirect = function( req, res, name, values, maintain) {
 
   if (values === undefined) values = {};
+
+  if ( maintain ) _maintainQuery( req, values );
 
   var url = req.genUrl(name, values);
 
@@ -130,7 +189,7 @@ exports.redirect = function( req, res, name, values) {
 
 };
 
-var registerRoute = function( name, params ) {
+var _registerRoute = function( name, params ) {
 
   log('registering route %s with uri "%s"', name, params.uri);
 
@@ -138,7 +197,7 @@ var registerRoute = function( name, params ) {
 
 },
 
-getBasePath = function( app, req ) {
+_getBasePath = function( app, req ) {
 
   var base = app.get('base'),
 
@@ -158,5 +217,13 @@ getBasePath = function( app, req ) {
     values: baseValues,
     path: req.path.match(basePathRegex)[0] 
   };
+
+},
+
+_maintainQuery =function( req, values ) {
+
+  if ( req.query.page && !values.page ) values.page = req.query.page;
+
+  if ( req.query.filters && !values.filters ) values.filters = req.query.filters;
 
 };

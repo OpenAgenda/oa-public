@@ -23,9 +23,16 @@ var log = require('debug')('middleware'),
 templater = require('cibulTemplates/server/templater')(),
 
 
-render = function( req, res, templatePath, data ) {
+render = function( req, res, templatePath, data, maintain ) {
 
   data.genUrl = req.genUrl;
+
+  if ( maintain ) {
+
+    data.page = req.query.page ? req.query.page : 1;
+    data.filters = req.query.filters ? req.query.filters : {};
+
+  }
 
   templater(templatePath, data, function(err, render) {
 

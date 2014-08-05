@@ -30,22 +30,24 @@ module.exports = function(base, config) {
 
   var app = express(),
 
-  model = cibulModel(config.db),
+  model = cibulModel( config.db ),
 
-  mw = mwLib(model, config),
+  mw = mwLib( model, config ),
 
-  ctl = controllers(app, model, mw);
+  ctl = controllers( app, model, mw );
 
-  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use( bodyParser.urlencoded({ extended: true }) );
 
-  app.set('base', base);
+  app.set( 'base', base );
 
-  app.set('name', 'newsletter');
+  app.set( 'name', 'newsletter' );
+
+  app.set( 'perPage', 20 );
 
 
   // systematic module checks and loads
 
-  app.param('slug', mw.loadAgenda);
+  app.param( 'slug', mw.loadAgenda );
 
   app.all(base + '*', router.loadUrlGen(app), mw.requireLogged, mw.loadSession, mw.checkCredential(model, 'newsletter'));
 
@@ -71,7 +73,7 @@ module.exports = function(base, config) {
     contactListRemove: ['get', ctl.contactListRemove, '/contactlists/:uid/remove'],
     contactsAdd: ['post', ctl.contactsAdd, '/contactlists/:uid/contacts'],
     contactRemove: ['get', ctl.contactRemove, '/contactlist/:uid/contacts/:email/remove'],
-    newsletterIndexRedirect: ['get', ctl.indexRedirect, '/campaigns'],
+    newsletterIndexRedirect: ['get', ctl.indexRedirect, '/campaigns']
   });
 
   return app;
@@ -94,7 +96,7 @@ var controllers = function( app, model, mw ) {
 
       ], function ( err, results ) {
 
-        if (err) return mw.errorResponse(req, res, err);
+        if ( err ) return mw.errorResponse( req, res, err );
 
         mw.render(req, res, 'newsletter/admin/index', lib.extend({
           campaigns: results[0],
@@ -274,6 +276,7 @@ var controllers = function( app, model, mw ) {
               departments: {},
               regions: {}
             },
+            filters: req.query.filters?req.query.filters:{},
             errors: {}
           }, _layoutData(req.agenda)));
 
@@ -367,22 +370,21 @@ var controllers = function( app, model, mw ) {
 
     campaignFeaturedEdit: function( req, res ) {
 
+      // need to know how many events answer to this filtered request
+
       async.parallel([
         async.apply( req.agenda.campaigns.get, { uid: req.params.uid } ),
-        async.apply( req.agenda.events.list )
+        async.apply( req.agenda.events.total, { filters: req.query.filters }),
+        async.apply( req.agenda.events.list, { filters: req.query.filters, page: req.query.page, limit: app.get('perPage') } )
       ], function( err, results ) {
 
         if ( err ) return mw.errorResponse( req, res, err );
 
         var campaign = req.agenda.campaigns.instance( results[0] );
 
-        campaign.decorateWithFeatured( results[1], function( err, decoratedEventList ) {
+        campaign.decorateWithFeatured( results[2], function( err, decoratedEventList ) {
 
           if ( err ) return mw.errorResponse( req, res, err );
-
-          // remove international complications
-          // maybe some generic handling of this at the level of the list
-          // could be done
 
           decoratedEventList.map(function( e ) {
 
@@ -394,12 +396,11 @@ var controllers = function( app, model, mw ) {
 
           mw.render( req, res, 'newsletter/admin/campaignFeaturedForm', lib.extend({
             events: decoratedEventList,
-            uid: req.params.uid,
+            uid: req.params.uid
           }, 
-          _pager(1,0,'campaignFeaturedEdit', {}),
-          _layoutData(req.agenda)));
-
-        });
+          _pager( req, 'campaignFeaturedEdit', app.get( 'perPage' ), results[1] ),
+          _layoutData( req.agenda )));
+        }, true);
 
       });
 
@@ -415,7 +416,7 @@ var controllers = function( app, model, mw ) {
 
           if ( err ) return mw.errorResponse( req, res, err );
 
-          return router.redirect(req, res, 'campaignFeaturedEdit', { uid: req.params.uid });
+          return router.redirect(req, res, 'campaignFeaturedEdit', { uid: req.params.uid }, true );
 
         });
 
@@ -433,7 +434,7 @@ var controllers = function( app, model, mw ) {
 
           if ( err ) return mw.errorResponse( req, res, err );
 
-          return router.redirect(req, res, 'campaignFeaturedEdit', { uid: req.params.uid });
+          return router.redirect(req, res, 'campaignFeaturedEdit', { uid: req.params.uid }, true );
 
         });
 
@@ -469,7 +470,7 @@ var controllers = function( app, model, mw ) {
         uid: null,
         values: {},
         errors: {}
-      }, _layoutData( req.agenda )));
+      }, _layoutData( req.agenda )), true );
 
     },
 
@@ -489,9 +490,10 @@ var controllers = function( app, model, mw ) {
             uid: null,
             values: values,
             errors: errors
-          }, _layoutData(req.agenda)));
+          }, _layoutData(req.agenda)), true );
 
         }
+
 
         // everything went well if we are here
 
@@ -501,13 +503,13 @@ var controllers = function( app, model, mw ) {
 
             if (err) return mw.errorResponse(req, res, err);
 
-            return router.redirect(req, res, 'newsletterIndex');
+            return router.redirect(req, res, 'newsletterIndex' );
 
           });
 
         } else {
 
-          return router.redirect(req, res, 'newsletterIndex');
+          return router.redirect(req, res, 'newsletterIndex' );
 
         }
 
@@ -517,24 +519,52 @@ var controllers = function( app, model, mw ) {
 
     contactListShow: function( req, res ) {
 
-      req.agenda.contactLists.get({uid: req.params.uid}, function ( err, contactList ) {
+      async.waterfall([
 
-        if (err) return mw.errorResponse(req, res, err);
+        async.apply( req.agenda.contactLists.get, {uid: req.params.uid } ),
 
-        req.agenda.contactLists.instance(contactList).contacts.list(function ( err, contacts ) {
+        function( contactList, wcb ) {
 
-          if (err) return mw.errorResponse(req, res, err);
+          contactList = req.agenda.contactLists.instance(contactList);
 
-          mw.render(req, res, 'newsletter/admin/contactListShow', lib.extend(contactList,{
+          contactList.contacts.total({ filters: req.query.filters },  function( err, total ) {
+
+            if ( err ) return wcb( err );
+
+            wcb( null, contactList, total );
+
+          });
+
+        },
+
+        function( contactList, total, wcb ) {
+
+          contactList.contacts.list( { filters: req.query.filters, page: req.query.page, limit: app.get('perPage') }, function( err, contacts ) {
+
+            if ( err ) return wcb( err );
+
+            wcb( null, contactList, total, contacts );
+
+          });
+
+        },
+
+        function( contactList, total, contacts, wcb ) {
+
+          mw.render(req, res, 'newsletter/admin/contactListShow', lib.extend(contactList, {
             values: {},
             errors: {},
             contacts: contacts
           },
           _layoutData(req.agenda),
-          _pager(1,0,'contactListShow', {})
-        ));
+          _pager( req, 'contactListShow', app.get( 'perPage' ), total )
+          ), true );
 
-        });
+        }
+
+      ], function( err ) {
+
+        if ( err ) mw.errorResponse(req, res, err);
 
       });
 
@@ -550,7 +580,7 @@ var controllers = function( app, model, mw ) {
 
           if (err) return mw.errorResponse(req, res, err);
 
-          return router.redirect(req, res, 'newsletterIndex');
+          return router.redirect(req, res, 'newsletterIndex', true);
 
         });
 
@@ -562,7 +592,9 @@ var controllers = function( app, model, mw ) {
 
       var values = req.body || {};
 
-      req.agenda.contactLists.get({uid: req.params.uid}, function ( err, contactList ) {
+      req.agenda.contactLists.get({uid: req.params.uid }, function ( err, contactList ) {
+
+        contactList = req.agenda.contactLists.instance(contactList);
 
         if (err) return mw.errorResponse(req, res, err);
 
@@ -576,22 +608,40 @@ var controllers = function( app, model, mw ) {
 
           } else {
 
-            req.agenda.contactLists.instance(contactList).contacts.list(function ( err, contacts ) {
+            async.series([
+
+              async.apply( contactList.contacts.list, { page: req.query.page, limit: app.get('perPage') }),
+
+              function( contacts, wcb ) {
+
+                contactList.contacts.total(function( err, total ) {
+
+                  if (err) return mw.errorResponse(req, res, err);
+
+                  wcb( null, total );
+
+                });
+
+              },
+
+              function( contacts, total ) {
+
+                mw.render(req, res, 'newsletter/admin/contactListShow', lib.extend(contactList,{
+                  values: values,
+                  errors: result.errors,
+                  contacts: contacts
+                },
+                  _layoutData(req.agenda),
+                  _pager( req, 'contactListShow', app.get( 'perPage' ), total )
+                ));
+
+              }
+
+            ], function( err ) {
 
               if (err) return mw.errorResponse(req, res, err);
 
-              mw.render(req, res, 'newsletter/admin/contactListShow', lib.extend(contactList,{
-                values: values,
-                errors: result.errors,
-                contacts: contacts
-              },
-                _layoutData(req.agenda),
-                _pager(1,0,'contactListShow', {})
-              ));
-
             });
-
-            
 
           }
 
@@ -674,10 +724,10 @@ _processCampaignSave = function( req, cb, formCb ) {
 
 },
 
+
 /**
  * prepare form for new campaign
  */
-
 
 _layoutData = function( agenda ) {
 
@@ -700,16 +750,15 @@ _layoutData = function( agenda ) {
 },
 
 
-_pager = function( currentPage, totalItems, routeName, values, itemsPerPage) {
-
-  itemsPerPage = itemsPerPage || 15;
+_pager = function( req, routeName, perPage, totalItems ) {
 
   return {
     pager: {
-      current: currentPage,
+      base: { uid: req.params.uid },
+      routeName: routeName,
+      current: req.query.page || 1,
       total: totalItems,
-      values: values,
-      perPage: itemsPerPage
+      perPage: perPage
     }
   };
 
