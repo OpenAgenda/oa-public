@@ -55,25 +55,26 @@ module.exports = function(base, config) {
   // load module controllers
 
   router.loadRoutes(app, {
-    newsletterIndex: ['get', ctl.index, ''],
-    campaignNew: ['get', ctl.campaignNew, '/campaigns/new'],
-    campaignCreate: ['post', ctl.campaignCreate, '/campaigns'],
-    campaignRemove: ['get', ctl.campaignRemove, '/campaigns/:uid/remove'],
-    campaignEdit: ['get', ctl.campaignEdit, '/campaigns/:uid/edit'],
-    campaignUpdate: ['post', ctl.campaignUpdate, '/campaigns/:uid/update'],
-    campaignLayoutEdit: ['get', ctl.campaignLayoutEdit, '/campaigns/:uid/layout'],
-    campaignLayoutUpdate: ['post', ctl.campaignLayoutUpdate, '/campaigns/:uid/layout'],
-    campaignFeaturedEdit: ['get', ctl.campaignFeaturedEdit, '/campaigns/:uid/featured'],
-    campaignFeaturedAdd: ['get', ctl.campaignFeaturedAdd, '/campaigns/:uid/featured/add/:eUid'],
-    campaignFeaturedRemove: ['get', ctl.campaignFeaturedRemove, '/campaigns/:uid/featured/remove/:eUid'],
-    newsletterShow: ['get', ctl.newsletterShow, '/campaigns/:uid/newsletter'],
-    contactListNew: ['get', ctl.contactListNew, '/contactlists/new'],
-    contactListCreate: ['post', ctl.contactListCreate, '/contactlists'],
-    contactListShow: ['get', ctl.contactListShow, '/contactlists/:uid'],
-    contactListRemove: ['get', ctl.contactListRemove, '/contactlists/:uid/remove'],
-    contactsAdd: ['post', ctl.contactsAdd, '/contactlists/:uid/contacts'],
-    contactRemove: ['get', ctl.contactRemove, '/contactlist/:uid/contacts/:email/remove'],
-    newsletterIndexRedirect: ['get', ctl.indexRedirect, '/campaigns']
+    newsletterIndex: [ 'get', ctl.index, '' ],
+    campaignNew: [ 'get', ctl.campaignNew, '/campaigns/new' ],
+    campaignCreate: [ 'post', ctl.campaignCreate, '/campaigns' ],
+    campaignRemove: [ 'get', ctl.campaignRemove, '/campaigns/:uid/remove' ],
+    campaignEdit: [ 'get', ctl.campaignEdit, '/campaigns/:uid/edit' ],
+    campaignUpdate: [ 'post', ctl.campaignUpdate, '/campaigns/:uid/update' ],
+    campaignLayoutEdit: [ 'get', ctl.campaignLayoutEdit, '/campaigns/:uid/layout' ],
+    campaignLayoutUpdate: [ 'post', ctl.campaignLayoutUpdate, '/campaigns/:uid/layout' ],
+    campaignFeaturedEdit: [ 'get', ctl.campaignFeaturedEdit, '/campaigns/:uid/featured' ],
+    campaignFeaturedAdd: [ 'get', ctl.campaignFeaturedAdd, '/campaigns/:uid/featured/add/:eUid' ],
+    campaignFeaturedRemove: [ 'get', ctl.campaignFeaturedRemove, '/campaigns/:uid/featured/remove/:eUid' ],
+    campaignComplete: [ 'post', ctl.campaignComplete, '/campaigns/:uid/complete' ],
+    newsletterShow: [ 'get', ctl.newsletterShow, '/campaigns/:uid/newsletter' ],
+    contactListNew: [ 'get', ctl.contactListNew, '/contactlists/new' ],
+    contactListCreate: [ 'post', ctl.contactListCreate, '/contactlists' ],
+    contactListShow: [ 'get', ctl.contactListShow, '/contactlists/:uid' ],
+    contactListRemove: [ 'get', ctl.contactListRemove, '/contactlists/:uid/remove' ],
+    contactsAdd: [ 'post', ctl.contactsAdd, '/contactlists/:uid/contacts' ],
+    contactRemove: [ 'get', ctl.contactRemove, '/contactlist/:uid/contacts/:email/remove' ],
+    newsletterIndexRedirect: [ 'get', ctl.indexRedirect, '/campaigns' ]
   });
 
   return app;
@@ -195,10 +196,7 @@ var controllers = function( app, model, mw ) {
 
         contactLists = results[0],
 
-        values = {
-          title: campaign.title,
-          type: campaign.type,
-        };
+        values = campaign.getFormValues();
 
         if ( campaign.contactListId ) { // form matches contact list by uid
 
@@ -208,12 +206,12 @@ var controllers = function( app, model, mw ) {
 
         // get contactList list matching the selected uid
 
-        mw.render(req, res, 'newsletter/admin/campaignForm', lib.extend({
+        mw.render( req, res, 'newsletter/admin/campaignForm', lib.extend({
           uid: req.params.uid,
           contactLists: contactLists,
           values: values,
           errors: {}
-        }, _layoutData(req.agenda)));
+        }, _layoutData( req.agenda )) );
 
       });
 
@@ -286,64 +284,15 @@ var controllers = function( app, model, mw ) {
 
     },
 
-
     campaignLayoutUpdate: function( req, res ) {
 
       req.agenda.campaigns.get( { uid: req.params.uid }, function ( err, campaign ) {
 
         if ( err ) return mw.errorResponse( req, res, err );
 
-        var values = req.body || {},
-
-        filterValues = {};
-
         campaign = req.agenda.campaigns.instance( campaign );
 
-        async.series([
-
-          async.apply(campaign.setEdito, values.edito),
-
-          async.apply(campaign.setSegmentation, values.segmentation),
-
-          function ( scb ) { // load filters
-
-            [ 'category', 'cities', 'departments', 'regions' ].forEach(function( filterName ) {
-
-              // this will need to be in its own lib
-
-              var value = values[filterName],
-
-              clean;
-
-              if ( !value ) return;
-
-              if ( typeof value == 'object' ) {
-
-                // assuming this is a check box
-
-                clean = [];
-
-                for ( var name in value ) {
-
-                  clean.push(name);
-
-                }
-
-              } else {
-
-                clean = value;
-
-              }
-
-              filterValues[filterName] = clean;
-
-            });
-
-            campaign.setFilters( filterValues, scb );
-
-          },
-
-        ], function( err ) {
+        _processCampaignLayout( campaign, req.body || {}, function( err ) {
 
           if ( err ) return mw.errorResponse( req, res, err );
 
@@ -351,7 +300,7 @@ var controllers = function( app, model, mw ) {
 
           build( model, req.agenda, campaign, function( err, newsletterData ) {
 
-            if (err) return mw.errorResponse( req, res, err );
+            if ( err ) return mw.errorResponse( req, res, err );
 
             newsletterData.type = 'html';
 
@@ -359,12 +308,9 @@ var controllers = function( app, model, mw ) {
 
           });
 
-
         });
-
         
-
-      });
+      } );
 
     },
 
@@ -435,6 +381,34 @@ var controllers = function( app, model, mw ) {
           if ( err ) return mw.errorResponse( req, res, err );
 
           return router.redirect(req, res, 'campaignFeaturedEdit', { uid: req.params.uid }, true );
+
+        });
+
+      });
+
+    },
+
+    campaignComplete: function( req, res ) {
+
+      req.agenda.campaigns.get( { uid: req.params.uid }, function ( err, campaign ) {
+
+        if ( err ) return mw.errorResponse( req, res, err );
+
+        campaign = req.agenda.campaigns.instance( campaign );
+
+        _processCampaignLayout( campaign, req.body || {}, function( err ) {
+
+          if ( err ) return mw.errorResponse( req, res, err );
+
+          campaign.refreshScheduledAt();
+
+          campaign.save(function( err, campaign) {
+
+            if ( err ) return mw.errorResponse( req, res, err );
+
+            router.redirect(req, res, 'newsletterIndex');
+
+          });
 
         });
 
@@ -698,15 +672,15 @@ _processCampaignSave = function( req, cb, formCb ) {
 
       if ( err ) return cb( err );
 
+      // associate contact list
+
+      var contactList = null;
+
       if ( !result.errors ) {
-
-        // if no contact list was associated, scram.
         
-        if (!values.list) return cb( null, result );
+        if (values.list) contactList = lib.getByAttr(contactLists, { uid: parseFloat(values.list) } );
 
-        // associate contact list
-
-        return req.agenda.campaigns.instance(result.object).setContactList( lib.getByAttr(contactLists, { uid: parseFloat(values.list) } ), function( err ) {
+        return req.agenda.campaigns.instance(result.object).setContactList( contactList, function( err ) {
 
           if ( err ) return cb( err );
 
@@ -721,6 +695,59 @@ _processCampaignSave = function( req, cb, formCb ) {
     });
 
   };
+
+},
+
+
+_processCampaignLayout = function( campaign, values, cb ) {
+
+  var filterValues = {};
+
+  async.series([
+
+    async.apply(campaign.setEdito, values.edito),
+
+    async.apply(campaign.setSegmentation, values.segmentation),
+
+    function ( scb ) { // load filters
+
+      [ 'category', 'cities', 'departments', 'regions' ].forEach(function( filterName ) {
+
+        // this will need to be in its own lib
+
+        var value = values[filterName],
+
+        clean;
+
+        if ( !value ) return;
+
+        if ( typeof value == 'object' ) {
+
+          // assuming this is a check box
+
+          clean = [];
+
+          for ( var name in value ) {
+
+            clean.push(name);
+
+          }
+
+        } else {
+
+          clean = value;
+
+        }
+
+        filterValues[filterName] = clean;
+
+      });
+
+      campaign.setFilters( filterValues, scb );
+
+    }
+
+  ], cb);
 
 },
 

@@ -50,8 +50,7 @@ exports.toCamelCase = function toCamelCase( input ) {
 
 /* get first list item with matching attributes, or null */
 
-
-exports.getByAttr = function ( arr, matching ) {
+exports.getByAttr = function( arr, matching ) {
 
   var match;
   
@@ -75,6 +74,25 @@ exports.getByAttr = function ( arr, matching ) {
   }
 
   return null;
+
+};
+
+
+/**
+ * filter object by attribute array
+ */
+
+exports.filterByAttr = function( obj, arr ) {
+
+  var newObj = {};
+
+  forEach( arr, function( name ) {
+
+    if ( obj[name] !== undefined ) newObj[name] = obj[name];
+
+  });
+
+  return newObj;
 
 };
 
