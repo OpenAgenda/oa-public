@@ -22,6 +22,12 @@
           <span><%= __('no list') %></span>
 <% } %>
         </li>
+<% if ( campaign.scheduledAt ) { %>
+        <li>
+          <label><%= __('scheduled') %></label>
+          <span><%= _t( campaign.scheduledAt, 'Do MMMM YYYY, HH:mm' ) %></span>
+        </li>
+<% } %>
       </ul>
     </li>
 <% }) %>    

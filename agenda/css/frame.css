@@ -1,0 +1,81 @@
+.ag nav {
+  height: 4em;
+  position: relative;
+  z-index: 2;
+}
+
+.ag header {
+
+  height: 36em;
+  position: relative;
+  background: #333;
+
+}
+
+.ag .canvas {
+
+  margin: 0 auto;
+  max-width: 1200px;
+  clear: both;
+  position: relative;
+
+}
+
+.ag .sidebar {
+
+  float: right;
+  width: 360px;
+  margin-top: 4em;
+  display: block;
+
+}
+
+.ag main {
+
+  margin: -4em 400px 0 0;
+  padding: 2em;
+  background: white;
+
+}
+
+.ag aside {
+
+  padding: 4em 0 0;
+
+}
+
+
+.ag footer {
+
+}
+
+@media all and (max-width: 960px) {
+
+  .ag .sidebar {
+    width: 300px;
+  }
+
+  .ag main {
+    margin-right: 340px;
+  }
+
+}
+
+@media all and (max-width: 780px) {
+
+  .ag header,
+  .ag nav {
+
+    height: auto;
+
+  }
+
+  .ag .sidebar {
+    display: none;
+  }
+
+  .ag main {
+    margin: 0;
+  }
+
+}

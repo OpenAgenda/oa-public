@@ -4,33 +4,110 @@ url = require('url'),
 
 st = require('st'),
 
-templater = require('./server/templater.js')(true),
+templater = require('./server/templater.js'),
 
-mountCss = st({ path: __dirname + '/css', url: '/css' }),
+mountStatic = st({ path: __dirname , url: '/', cache: false }),
 
-mountImage = st({ path: __dirname + '/images', url: '/images'});
+fs = require('fs'),
+
+cn = require('./js/lib/common/common.mod.js'),
+
+async = require('async'),
+
+deepExtend = require('deep-extend'),
+
+map;
 
 http.createServer(function ( req, res ) {
 
-  var parsed = url.parse(req.url, true);
+  async.waterfall([
 
-  var uri = parsed.pathname.substr(1);
+    loadMap,
 
-  if (!uri.length) return renderMap(req, res);
 
-  if (mountCss(req, res) || mountImage(req, res) || uri=='favicon.ico') return; // here be static file.
+    function( map, wcb ) { // load uri
 
-  var data = {};
+      var parsed = url.parse(req.url, true);
 
-  if (parsed.query.state) data.state = parsed.query.state;
+      var uri = parsed.pathname.substr(1);
 
-  templater(uri, data, function(err, render) { // vow to make mockdata disappear from templater
+      if (!uri.length) return renderMap(map, req, res);
 
-    if (err) throw err;
+      if ( cn.contains( ['.css', '.jpg', '.png', '.ico', '.ttf', '.svg', '.eot', '.otf'], uri.substr(-4) )
 
-    respond(res, 200, render, data.responseType);
+      || cn.contains( ['.woff'], uri.substr(-5) ) ) return mountStatic( req, res );
 
-  });
+      wcb( null, map, uri );
+
+    },
+
+
+    function( map, uri, wcb ) { // load template data
+
+      loadData( uri, function( tConf ) { 
+
+        // load css in mock data
+
+        var css = tConf.config.css;
+
+        if ( tConf.layoutConfig && tConf.layoutConfig.css ) cn.extend( css, tConf.layoutConfig.css );
+
+        if ( !tConf.data.head ) tConf.data.head = {};
+
+        tConf.data.head.css = css;
+
+
+        // load state of data
+
+        if ( tConf.data.base ) {
+
+          // get requested state of data. else, get the first
+
+          for (var state in mockData) {
+
+            if (state !== 'base') break; // first is base, second is first state
+
+          }
+
+          if (req.query.state && tConf.data[req.query.state]) state = req.query.state;
+
+          tConf.data = deepExtend( tConf.data.base, tConf.data[state] );
+
+        }
+
+        // fake url generator
+        
+        tConf.data.genUrl = genUrl( tConf.data );
+
+
+        // static image path generator 
+        
+        tConf.data._i = imagePath;
+
+
+        wcb( null, map, uri, tConf.data );
+
+      });
+
+    },
+
+    function( map, uri, data, wcb ) {
+
+      templater( uri, data, function( err, render ) {
+
+        if ( err ) return wcb( err );
+
+        respond( res, 200, render, data.responseType );
+
+      });
+
+    }
+
+  ], function( err ) {
+
+    if ( err ) return respond( res, 500, err );
+
+  });  
 
 }).listen(3000);
 
@@ -39,23 +116,9 @@ http.createServer(function ( req, res ) {
  * render a template link map
  */
 
-var renderMap = function( req, res ) {
+var renderMap = function( map, req, res ) {
 
-  var m = [
-    'presentation/index',
-    'mock/presentation',
-    'newsletter/event/full',
-    'newsletter/agenda/full',
-    'newsletter/show',
-    'newsletter/admin/index',
-    'newsletter/admin/campaignForm',
-    'newsletter/admin/campaignLayoutForm',
-    'newsletter/admin/campaignFeaturedForm',
-    'newsletter/admin/contactListForm',
-    'newsletter/admin/contactListShow'
-  ];
-
-  respond(res, 200, '<ul>' + m.map(function(uri) {
+  respond(res, 200, '<ul>' + map.map(function(uri) {
     return '<li><a href="/' + uri + '">' + uri + '</a></li>';
   }).join('') + '</ul>');
 
@@ -68,7 +131,7 @@ var renderMap = function( req, res ) {
 
 respond = function( res, code, body, responseType ) {
 
-  if (responseType==undefined) responseType = "text/html; charset=utf-8";
+  if (responseType === undefined) responseType = "text/html; charset=utf-8";
 
   res.writeHead(code, {
     "Content-Type": responseType,
@@ -77,5 +140,161 @@ respond = function( res, code, body, responseType ) {
 
   res.write(body);
   res.end();
+
+},
+
+loadMap = function( wcb ) {
+
+  readFile('map.json', function( map ) {
+
+    wcb( null, map );
+
+  });
+
+},
+
+loadData = function( templateName, cb ) {
+
+  async.waterfall([
+
+    function( wcb ) {
+
+      readFile( templateName + '.config.json', function( content ) {
+
+        wcb( null, { config: content });
+
+      });
+
+    },
+
+    function( result, wcb ) {
+
+      if ( !result.config.layout ) return wcb( null, result);
+
+      fileExists(result.config.layout + '.config.json', function( exists ) {
+
+        if ( !exists ) return wcb( null, result );
+
+        readFile(result.config.layout + '.config.json', function( content ) {
+
+          result.layoutConfig = content;
+
+          wcb( null, result );
+
+        });
+
+      });
+
+    },
+
+    function( result, wcb ) { // load template mock data
+
+      fileExists(templateName + '.mock.json', function( exists ) {
+
+        result.data = {};
+
+        if ( !exists ) return wcb( null, result);
+
+        readFile(templateName + '.mock.json', function( content ) {
+
+          result.data = content;
+
+          wcb( null, result);
+
+        });
+
+      });
+
+    },
+
+    function( result, wcb ) { // load layout mock data
+
+      if ( !result.config.layout ) return wcb( null, result );
+
+      fileExists(result.config.layout + '.mock.json', function( exists ) {
+
+        if ( !exists ) return wcb( null, result);
+
+        readFile(result.config.layout + '.mock.json', function( content ) {
+
+          result.data = deepExtend( content, result.data );
+
+          wcb( null, result);
+
+        });
+
+      });
+
+    },
+
+    function( result, wcb ) { // config and mock data is loaded
+
+      cb( result );
+
+    }
+
+  ], function( err ) {
+
+    console.log(err);
+
+    throw err;
+
+  });
+
+},
+
+genUrl = function( data ) {
+
+  return function ( name ) {
+
+    var values = {};
+
+    if (arguments.length > 1) {
+
+      for (var i = 1; i < arguments.length; i++) {
+
+        cn.extend(values, arguments[i]);
+
+      }
+
+    }
+
+    if (data.devUrls) {
+
+      return data.devUrls[name] + '#' + name + encodeURI(JSON.stringify(values));
+
+    }
+
+    return '#' + name + encodeURI(JSON.stringify(values));
+
+  };
+
+},
+
+imagePath = function( image, static ) {
+
+  if ( !static ) return '//cibulstatic.s3.amazonaws.com/' + image;
+
+  return '/images/' + image;
+
+},
+
+fileExists = function( filename, cb ) {
+
+  fs.exists( __dirname + '/' + filename, cb);  
+
+},
+
+readFile = function( filename, cb ) {
+
+  fs.readFile(__dirname + '/' + filename, 'utf-8', function( err, content ) {
+
+    if ( err ) throw err;
+
+    if ( filename.indexOf('.json') !== -1 ) return cb( JSON.parse( content ) );
+
+    cb( content );
+
+  });
 
 };

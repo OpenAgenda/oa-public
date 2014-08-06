@@ -1,11 +1,6 @@
 {
   "tab" : "newsletter",
   "mainClass" : "newsletter",
-  "head" : {
-    "css" : {
-      "newsletter" : "../../css/agenda/newsletterAdmin.css"
-    }
-  },
   "campaigns" : [
     {
       "uid" : 13456856,

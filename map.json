@@ -1,0 +1,13 @@
+[
+  "agenda/main",
+  "presentation/index",
+  "newsletter/event/full",
+  "newsletter/agenda/full",
+  "newsletter/show",
+  "newsletter/admin/index",
+  "newsletter/admin/campaignForm",
+  "newsletter/admin/campaignLayoutForm",
+  "newsletter/admin/campaignFeaturedForm",
+  "newsletter/admin/contactListForm",
+  "newsletter/admin/contactListShow"
+]

@@ -1,0 +1,74 @@
+<body class="ag">
+  <nav>
+    <div class="canvas">
+      <div class="head">
+        <img src="<%= image %>"/>
+        <div class="title">
+          <h1><%= title %></h1>
+          <p><%= description %></p>
+          <a href="<%= url %>"><%= url %></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <header>
+    <img class="bg" src="//cibul.s3.amazonaws.com/evfevent_atelier-construction-imprimantes-3d_179448.jpg"></div>
+  </header>
+  <div class="canvas">
+    <div class="sidebar">
+      <aside class="search cform">
+
+        <input type="search"/>
+        <i class="icon-search"></i>
+
+      </aside>
+
+      <aside>
+        <div class="head">
+          <i class="icon-tags"></i>
+          <span><%= __('Search by tags') %></span>
+        </div>
+
+        <ul>
+<% tags.forEach( function( tag ) { %>
+          <li><a href="#<%= tag.slug %>"><%= tag.label %></a></li>
+<% }); %>
+        </ul>
+
+      </aside>
+
+      <aside>
+
+        <div class="head">
+          <i class="icon-bookmark"></i>
+          <span><%= __('Search by category') %></span>
+        </div>
+
+        <ul>
+<% categories.forEach( function( category ) { %>
+          <li><a href="#<%= category.slug %>"><%= category.label %></a></li>
+<% }); %>
+        </ul>
+        
+      </aside>
+
+    </div>
+    <main>
+      <h2><%= __('Today') %></h2>
+<% events.forEach(function( event ) { %>
+      <article><!--
+<% if ( event.image ) { %>
+        --><a class="pic" href="#">
+          <img src="<%= event.image %>">
+        </a><!--
+<% } %>
+        --><a class="cnt" href="#">
+          <span class="title"><%= event.title %></span>
+          <span class="sti url"><%= __(event.spaceTimeInfo[0], _t(event.spaceTimeInfo[1])) %></span>
+          <span class="dsc"><%= event.description %></span>
+        </a>
+      </article>
+<% }) %>
+    </main>
+  </div>
+</body>

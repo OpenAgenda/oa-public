@@ -1,0 +1,224 @@
+.ag nav {
+  background: #333;
+}
+
+
+.ag nav .head {
+
+  padding: 2em 0;
+
+}
+
+.ag nav .head .title {
+
+  display: inline-block;
+  vertical-align: bottom;
+  padding: .5em 0;
+
+}
+
+/**
+ * .head groups the agenda title elements
+ */
+
+.ag nav .head h1,
+.ag nav .head p,
+.ag nav .head a,
+.ag nav .head img {
+
+  color: #fff;
+  padding: 3px 20px;
+
+}
+
+.ag nav .head h1 {
+
+  font-size: 2em;
+
+}
+
+.ag nav .head p {
+
+  font-size: 1.2em;
+
+}
+
+.ag nav .head a {
+
+  font-size: 1.1em;
+
+}
+
+.ag nav .head img {
+
+  max-width: 10em;
+  display: inline-block;
+  vertical-align: top;
+
+}
+
+
+.ag header .bg {
+
+  display: none;
+
+}
+
+.ag main h2 {
+
+  font-size: 1.4em;
+  padding: 1em 0;
+
+}
+
+.ag article {
+
+  padding: 1em 0;
+
+}
+
+.ag article .pic {
+
+  display: inline-block;
+  vertical-align: top;
+  max-width: 20%;
+
+}
+
+.ag article .pic img {
+
+  padding-right: 20px;
+
+}
+
+.ag article .cnt {
+
+  vertical-align: top;
+  display: inline-block;
+  max-width: 80%;
+
+}
+
+.ag article .cnt > span {
+
+    display: block;
+
+}
+
+.ag article .title {
+
+  font-weight: bold;
+  display: block;
+
+}
+
+.ag article .dsc {
+
+  display: block;
+
+}
+
+.ag article .sti {
+
+  display: block;
+
+}
+
+
+.ag aside.search {
+
+  position: relative;
+
+}
+
+.ag aside.search input {
+
+  padding: 0.8em 0.8em 0.8em 3em;
+  width: fit;
+  z-index: 3;
+  font-size: 1.1em;
+  border: 1px solid #999;
+
+}
+
+.ag aside.search i {
+
+  position: absolute;
+  left: 0.8em;
+  top: 2.2em;
+  font-size: 1.5em;
+  padding-top: 1.15em;
+  color: #999;
+
+}
+
+.ag aside .head {
+
+  padding: 0 0 1em;
+
+}
+
+.ag aside .head i {
+
+  color: #888;
+  font-size: 1.2em;
+  padding-right: 1em;
+
+}
+
+.ag aside .head span {
+
+  color: #888;
+  font-size: 1.2em;
+
+}
+
+.ag aside li {
+
+  display: inline-block;
+  font-size: 0.8em;
+  margin: 0 0.5em 0.8em 0;
+
+  padding: 0.1em 0.6em;
+  background: #fcfcfc;
+  border: 1px solid #999;
+  border-radius: 4px;
+  text-transform: uppercase;
+
+}
+
+
+
+@media all and (min-width: 780px) {
+
+  .ag header {
+
+    overflow: hidden;
+
+  }
+
+  .ag header .bg {
+
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+
+    margin: -160px 10px 10px -5px;
+
+    min-width: 100%;
+
+    max-width: 110%;
+
+    display: block;
+
+  }
+
+  .ag nav .head img {
+
+    padding: 0;
+
+  }
+
+}

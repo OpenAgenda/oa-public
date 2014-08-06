@@ -4,7 +4,7 @@
 </div>
 <div class="col w33">
 
-  <form class="cform" target="newsletter-frame" method="post" action="<% genUrl('campaignLayoutUpdate', {uid: uid}) %>">
+<form class="cform" method="post" action="<%= genUrl('campaignComplete', {uid: uid}) %>">
 
 <% if (type=="manual") { %>
     <section>
@@ -92,7 +92,7 @@
     </section>
 
     <section>
-      <button type="submit"><%= __('Create campaign') %>
+      <button type="submit"><%= __('Save') %>
     </section>
 
   </form>

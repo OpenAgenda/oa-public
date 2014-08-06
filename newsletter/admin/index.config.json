@@ -1,3 +1,9 @@
 {
-  "layout" : "agendaAdmin/layout"
+  "layout" : "agendaAdmin/layout",
+  "css" : {
+    "newsletter" : "../../css/agenda/newsletterAdmin.css"
+  },
+  "helpers" : {
+    "_t" : "time"
+  }
 }

@@ -1,37 +1,6 @@
-module.exports = function( templateMode ) {
+module.exports = function( templateName, data, cb ) {
 
-  useMockData = !!templateMode;
-
-  useMockGenUrl = !!templateMode;
-
-  return loader;
-
-};
-
-
-var useMockData = false, // use data in local json file
-
-useMockGenUrl = false, // use basic url gen function
-
-ejs = require('ejs'),
-
-fs = require('fs'),
-
-cn = require('../js/lib/common/common.mod.js'),
-
-async = require('async'),
-
-debug = require('debug'),
-
-deepExtend = require('deep-extend'),
-
-log = debug('templater'),
-
-helpers = {},
-
-loader = function( templateName, data, cb ) {
-
-  if (typeof data == 'function') {
+  if ( typeof data == 'function' ) {
 
     cb = data;
     data = {};
@@ -46,9 +15,7 @@ loader = function( templateName, data, cb ) {
     loadHelpers,
   ];
 
-  if (useMockData) loaders.push(loadMockData(data));
-
-  async.waterfall(loaders, function(err, results) {
+  async.waterfall(loaders, function( err, results ) {
 
     if (err) throw err; // because fuck it.
 
@@ -58,26 +25,38 @@ loader = function( templateName, data, cb ) {
 
     if (results.helpers) cn.extend(data, results.helpers);
 
-    if (results.mock) cn.extend(data, results.mock);
-
-    if (useMockGenUrl) data.genUrl = mockGenUrl(data);
-
     data.__ = loadTranslator(labels);
 
-    var templateRender = renderTemplate(results.template, results.templateBody, data);
+    var templateRender = renderTemplate( results.template, results.templateBody, data );
 
     if (results.layout) {
 
-      templateRender = renderTemplate(results.layout, results.layoutBody, data).replace('<!-- content -->', templateRender);
+      templateRender = renderTemplate(results.layout, results.layoutBody, data).replace( '<!-- content -->', templateRender );
 
     }
 
-    cb(null, templateRender);
+    cb( null, templateRender );
 
   });
 
-},
+};
 
+
+var ejs = require('ejs'),
+
+fs = require('fs'),
+
+cn = require('../js/lib/common/common.mod.js'),
+
+async = require('async'),
+
+debug = require('debug'),
+
+deepExtend = require('deep-extend'),
+
+log = debug('templater'),
+
+helpers = {},
 
 renderTemplate = function(filename, templateBody, data) {
 
@@ -109,34 +88,6 @@ loadTranslator = function( labels ) {
     }
 
     return translation;
-
-  };
-
-},
-
-mockGenUrl = function( data ) {
-
-  return function ( name ) {
-
-    var values = {};
-
-    if (arguments.length > 1) {
-
-      for (var i = 1; i < arguments.length; i++) {
-
-        cn.extend(values, arguments[i]);
-
-      }
-
-    }
-
-    if (data.devUrls) {
-
-      return data.devUrls[name] + '#' + name + encodeURI(JSON.stringify(values));
-
-    }
-
-    return '#' + name + encodeURI(JSON.stringify(values));
 
   };
 
@@ -233,49 +184,5 @@ loadHelpers = function( data, cb ) {
   }
 
   cb( null, data );
-
-},
-
-loadMockData = function( request ) {
-
-  return function ( data, cb ) {
-
-    var files = [data.name];
-
-    if (data.config.layout) files.push(data.config.layout);
-
-    async.parallel(files.map(function(name) {
-
-      return async.apply(fs.readFile, __dirname + '/../' + name + '.mock.json', 'utf-8');
-
-    }), function (err, results) {
-
-      if (err) return cb(err);
-
-      var mockData = JSON.parse(results[0]);
-
-      if (mockData.base) { // this template uses states
-
-        // get requested state of data. else, get the first
-
-        for (var state in mockData) {
-          if (state !== 'base') break; // first is base, second is first state
-        }
-
-        if (request.state && mockData[request.state]) state = request.state;
-
-        mockData = deepExtend(mockData.base, mockData[state]);
-
-      }
-
-      if (data.config.layout) deepExtend(mockData, JSON.parse(results[1]));
-
-      data.mock = mockData;
-
-      cb(null, data);
-
-    });
-
-  };
 
 };

@@ -1,13 +1,25 @@
 * { margin: 0; padding: 0; border: 0; font: 13px/1.5 'Helvetica Neue',Arial,Helvetica,'Liberation Sans',FreeSans,sans-serif; list-style: none outside none; color: #333; }
 article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary { display: block; }
 
-@media screen and (max-width: 600px) { * { font-size: 15px; } }
+@media screen and (max-width: 600px) {
 
-body { background: rgb(230,230,230); }
+  * { font-size: 15px; }
 
-input[type="radio"] { border: none; }
-a { text-decoration: none; cursor: pointer; outline: 0;}
+}
 
+body {
+  background: rgb(230,230,230);
+}
+
+input[type="radio"] {
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  outline: 0;
+}
 
 .wsq {
   background: white;
@@ -19,17 +31,47 @@ a { text-decoration: none; cursor: pointer; outline: 0;}
   text-align: left;
 }
 
-.center { text-align: center; }
+.center {
+  text-align: center;
+}
 
-.lightbox-canvas { background-color: rgba(100,100,100,0.1); }
-.lightbox-frame { padding: 10px 20px; z-index: 999999;}
-.lightbox-buttons { text-align: center; padding-top: 10px; }
-.lightbox-buttons button { margin: 0 5px; }
+.lightbox-canvas {
+  background-color: rgba(100,100,100,0.1);
+}
 
-.url, .url a, .url strong, .url span, .url i { color: #11BED4; word-wrap: break-word; font-size: 1em; }
+.lightbox-frame {
+  padding: 10px 20px;
+  z-index: 999999;
+}
+
+.lightbox-buttons {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.lightbox-buttons button {
+  margin: 0 5px;
+}
+
+.url, .url a, .url strong, .url span, .url i {
+  color: #11BED4;
+  word-wrap: break-word;
+  font-size: 1em;
+}
 
 
-.lockPane { position: absolute;  top: 0; background-color: rgba(255,255,255,0.5); z-index: 3; }
-.spinner { position: absolute; left: 50%; }
+.lockPane {
+  position: absolute; 
+  top: 0;
+  background-color: rgba(255,255,255,0.5);
+  z-index: 3;
+}
 
-.display-none { display: none !important; }
+.spinner {
+  position: absolute;
+  left: 50%;
+}
+
+.display-none {
+  display: none !important;
+}
