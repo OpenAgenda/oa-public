@@ -9,5 +9,7 @@
   "newsletter/admin/campaignLayoutForm",
   "newsletter/admin/campaignFeaturedForm",
   "newsletter/admin/contactListForm",
-  "newsletter/admin/contactListShow"
+  "newsletter/admin/contactListShow",
+  "newsletter/unsubscribe",
+  "newsletter/unsubscribeComplete"
 ]

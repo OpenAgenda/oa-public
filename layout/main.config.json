@@ -1,1 +1,10 @@
-{}
+{
+  "css" : {
+    "global" : "../../css/global/global.css",
+    "header" : "../../css/header.css",
+    "headings" : "../../css/headings.css",
+    "forms" : "../../css/forms.css",
+    "page" : "../../css/page structure/page.css",
+    "buttons" : "../../css/buttons.css"
+  }
+}

@@ -48,9 +48,9 @@ http.createServer(function ( req, res ) {
 
         // load css in mock data
 
-        var css = tConf.config.css;
+        var css = tConf.config.css || {};
 
-        if ( tConf.layoutConfig && tConf.layoutConfig.css ) cn.extend( css, tConf.layoutConfig.css );
+        if ( tConf.layoutConfig && tConf.layoutConfig.css ) css = cn.extend( tConf.layoutConfig.css, css );
 
         if ( !tConf.data.head ) tConf.data.head = {};
 
