@@ -73,7 +73,10 @@ module.exports = function(base, config) {
     contactListShow: [ 'get', ctl.contactListShow, '/contactlists/:uid' ],
     contactListRemove: [ 'get', ctl.contactListRemove, '/contactlists/:uid/remove' ],
     contactsAdd: [ 'post', ctl.contactsAdd, '/contactlists/:uid/contacts' ],
-    contactRemove: [ 'get', ctl.contactRemove, '/contactlist/:uid/contacts/:email/remove' ],
+    contactRemove: [ 'get', ctl.contactRemove, '/contactlists/:uid/contacts/:email/remove' ],
+    contactUnsubscribeShow: [ 'get', ctl.contactUnsubscribeShow, '/contactlists/:uid/unsubscribe' ],
+    contactUnsubscribeSubmit: [ 'post', ctl.contactUnsubscribeSubmit, '/contactlists/:uid/unsubscribe' ],
+    contactUnsubscribeComplete: [ 'get', ctl.contactUnsubscribeComplete, '/contactlists/:uid/unsubscribe/complete' ],
     newsletterIndexRedirect: [ 'get', ctl.indexRedirect, '/campaigns' ]
   });
 
@@ -127,7 +130,8 @@ var controllers = function( app, model, mw ) {
         mw.render(req, res, 'newsletter/admin/campaignForm', lib.extend({
           uid: null,
           contactLists: results[0],
-          values: {}, errors: {}
+          values: {}, errors: {},
+          isNew: true
         }, _layoutData(req.agenda)));
 
       });
@@ -148,16 +152,22 @@ var controllers = function( app, model, mw ) {
 
         router.redirect(req, res, 'campaignLayoutEdit', { uid: result.object.uid });
 
-      }, function( errors, values, contactLists ) {
+      }, function( err, result, values, errors, contactLists ) {
 
         // ... some things are missing or wrong
 
-        mw.render(req, res, 'newsletter/admin/campaignForm', lib.extend({
-          uid: null,
-          contactLists: contactLists,
-          values: values,
-          errors: errors
-        }, _layoutData(req.agenda)));
+        req.agenda.campaigns.instance(result.object).getIsNew(function( err, isNew ) {
+
+          mw.render(req, res, 'newsletter/admin/campaignForm', lib.extend({
+            isNew: isNew,
+            uid: null,
+            contactLists: contactLists,
+            values: values,
+            errors: errors,
+            isNew: true
+          }, _layoutData(req.agenda)));
+
+        });
 
       }));
 
@@ -198,20 +208,27 @@ var controllers = function( app, model, mw ) {
 
         values = campaign.getFormValues();
 
-        if ( campaign.contactListId ) { // form matches contact list by uid
+        campaign.getIsNew(function( err, isNew ) {
 
-          values.list = lib.getByAttr(results[0], { id: campaign.contactListId }).uid;
+          if (err) return mw.errorResponse(req, res, err);
 
-        }
+          if ( campaign.contactListId ) { // form matches contact list by uid
 
-        // get contactList list matching the selected uid
+            values.list = lib.getByAttr(results[0], { id: campaign.contactListId }).uid;
 
-        mw.render( req, res, 'newsletter/admin/campaignForm', lib.extend({
-          uid: req.params.uid,
-          contactLists: contactLists,
-          values: values,
-          errors: {}
-        }, _layoutData( req.agenda )) );
+          }
+
+          // get contactList list matching the selected uid
+
+          mw.render( req, res, 'newsletter/admin/campaignForm', lib.extend({
+            uid: req.params.uid,
+            contactLists: contactLists,
+            values: values,
+            errors: {},
+            isNew: isNew
+          }, _layoutData( req.agenda )) );
+
+        });
 
       });
 
@@ -229,18 +246,43 @@ var controllers = function( app, model, mw ) {
 
         if (err) return mw.errorResponse( req, res, err );
 
-        router.redirect(req, res, 'campaignEdit', { uid: result.object.uid });
+        var campaign = req.agenda.campaigns.instance(result.object);
 
-      }, function( errors, values, contactLists ) {
+        campaign.getIsNew(function( err, isNew ) {
+
+          if (err) return mw.errorResponse( req, res, err );
+
+          if ( !isNew ) {
+
+            campaign.refreshScheduledAt(function( err, scheduledAt ) {
+
+              return router.redirect(req, res, 'campaignEdit', { uid: result.object.uid });
+
+            });
+
+          } else {
+
+            return router.redirect(req, res, 'campaignLayoutEdit', { uid: result.object.uid });
+
+          }
+
+        });
+
+      }, function( err, result, values, errors, contactLists ) {
 
         // ... some things are missing or wrong
 
-        mw.render(req, res, 'newsletter/admin/campaignForm', lib.extend({
-          uid: req.params.uid,
-          contactLists: contactLists,
-          values: values,
-          errors: errors
-        }, _layoutData(req.agenda)));
+        req.agenda.campaigns.instance(result.object).getIsNew(function( err, isNew ) {
+
+          mw.render(req, res, 'newsletter/admin/campaignForm', lib.extend({
+            isNew: isNew,
+            uid: req.params.uid,
+            contactLists: contactLists,
+            values: values,
+            errors: errors
+          }, _layoutData(req.agenda)));
+
+        });
 
       }));
 
@@ -400,13 +442,21 @@ var controllers = function( app, model, mw ) {
 
           if ( err ) return mw.errorResponse( req, res, err );
 
-          campaign.refreshScheduledAt();
-
-          campaign.save(function( err, campaign) {
+          campaign.setIsNew( false, function( err ) {
 
             if ( err ) return mw.errorResponse( req, res, err );
 
-            router.redirect(req, res, 'newsletterIndex');
+            campaign.refreshScheduledAt(function( err, scheduledAt ) {
+
+              campaign.save(function( err, campaign) {
+
+                if ( err ) return mw.errorResponse( req, res, err );
+
+                router.redirect(req, res, 'newsletterIndex');
+
+              });              
+
+            });
 
           });
 
@@ -627,23 +677,62 @@ var controllers = function( app, model, mw ) {
 
     contactRemove: function( req, res ) {
 
-      req.agenda.contactLists.get({ uid: req.params.uid }, function ( err, contactList ) {
+      _processContactRemove( req.agenda, req.params.uid, req.params.email, function( err, result ){
 
         if (err) return mw.errorResponse(req, res, err);
 
-        req.agenda.contactLists.instance(contactList).contacts.get({email: req.params.email}, function ( err, contact ) {
+        return router.redirect(req, res, 'contactListShow', {uid: req.params.uid});
 
-          if (err) return mw.errorResponse(req, res, err);
+      });
 
-          req.agenda.contactLists.instance(contactList).contacts.instance(contact).remove(function ( err, result ) {
+    },
 
-            if (err) return mw.errorResponse(req, res, err);
+    contactUnsubscribeShow: function( req, res ) {
 
-            return router.redirect(req, res, 'contactListShow', {uid: req.params.uid});
+      req.agenda.contactLists.get({ uid: req.params.uid }, function ( err, contactList ) {
 
-          });
+        if (err) return mw.errorResponse( req, res, err );
 
-        });
+        mw.render(req, res, 'newsletter/unsubscribe', lib.extend(contactList, lib.extend({
+          uid: req.params.uid,
+          error: false
+        }, _minimalLayoutData())));
+
+      });
+
+    },
+
+    contactUnsubscribeSubmit: function( req, res ) {
+
+      var values = req.body || {};
+
+      _processContactRemove( req.agenda, req.params.uid, values.email, function( err, result ){
+
+        if ( err ) return mw.errorResponse( req, res, err );
+
+        return router.redirect(req, res, 'contactUnsubscribeComplete', {uid: req.params.uid});
+
+      }, function( error, contactList ) {
+
+        mw.render(req, res, 'newsletter/unsubscribe', lib.extend(contactList, lib.extend({
+          uid: req.params.uid,
+          error: error
+        }, _minimalLayoutData())));
+
+      });
+
+    },
+
+    contactUnsubscribeComplete: function( req, res ) {
+
+      req.agenda.contactLists.get({ uid: req.params.uid }, function ( err, contactList ) {
+
+        if ( err ) return mw.errorResponse( req, res, err );
+
+        mw.render(req, res, 'newsletter/unsubscribeComplete', lib.extend(contactList, lib.extend({
+          uid: req.params.uid,
+          error: false
+        }, _minimalLayoutData())));
 
       });
 
@@ -688,9 +777,11 @@ _processCampaignSave = function( req, cb, formCb ) {
 
         });
 
-      }
+      } {
 
-      formCb( lib.toUnderscore(result.errors), values, contactLists );
+        formCb(null, result, values, lib.toUnderscore(result.errors), contactLists );
+
+      }
 
     });
 
@@ -752,6 +843,29 @@ _processCampaignLayout = function( campaign, values, cb ) {
 },
 
 
+_processContactRemove = function( agenda, contactListUid, email, cb, formCb ) {
+
+  agenda.contactLists.get( contactListUid, function ( err, contactList ) {
+
+    if ( err ) return cb( err );
+
+    contactList = agenda.contactLists.instance( contactList );
+
+    contactList.contacts.get({ email: email }, function ( err, contact ) {
+
+      if ( err ) return cb( err );
+
+      if ( !contact && formCb ) return formCb( 'this email was not recognized', contactList );
+
+      contactList.contacts.instance( contact ).remove( cb );
+
+    });
+
+  });
+
+},
+
+
 /**
  * prepare form for new campaign
  */
@@ -771,6 +885,18 @@ _layoutData = function( agenda ) {
       description: agenda.description,
       url: agenda.url,
       image: '//cibul.s3.amazonaws.com/' + agenda.image
+    }
+  };
+
+},
+
+_minimalLayoutData = function() {
+
+  return {
+    head: {
+      css: {
+        main: '//d.cibul.net/css/main.min.css'
+      }
     }
   };
 

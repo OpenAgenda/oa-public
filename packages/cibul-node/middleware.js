@@ -20,7 +20,7 @@ module.exports = function( model, config ) {
 
 var log = require('debug')('middleware'),
 
-templater = require('cibulTemplates/server/templater')(),
+templater = require('cibulTemplates/server/templater'),
 
 
 render = function( req, res, templatePath, data, maintain ) {
