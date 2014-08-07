@@ -24,8 +24,7 @@
         </li>
 <% if ( campaign.scheduledAt ) { %>
         <li>
-          <label><%= __('scheduled') %></label>
-          <span><%= _t( campaign.scheduledAt, 'Do MMMM YYYY, HH:mm' ) %></span>
+          <span><%= __('scheduled on %value%', { '%value%' : _t( campaign.scheduledAt, 'Do MMMM YYYY, HH:mm' ) }) %></span>
         </li>
 <% } %>
       </ul>

@@ -26,5 +26,7 @@
   "%count% contacts"
   : "%count% contacts",
   "edit layout"
-  : "mise en page"
+  : "mise en page",
+  "scheduled on %value%"
+  : "prévu le %value%"
 }
