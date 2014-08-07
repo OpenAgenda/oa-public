@@ -3,11 +3,14 @@
 
     <h1><%= __('Unsubscribe') %></h1>
 
-    <form class="cform" method="post" action="<%= genUrl('unsubscribeSubmit', { uid : uid } ) %>">
+    <form class="cform" method="post" action="<%= genUrl('contactUnsubscribeSubmit', { uid : uid } ) %>">
       <ul>
         <li>
           <label for="email"><%= __('Type in your email to unsubscribe to the newsletter') %></label>
           <input name="email" type="text"/>
+<% if ( error ) { %>
+          <span class="error"><%= __(error) %></span>
+<% } %>
         </li>
         <li>
           <button type="submit"><%= __('Confirm') %></button>
