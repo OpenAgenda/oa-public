@@ -4,6 +4,7 @@ deepExtend = require('deep-extend'),
 
 config = {
   all: {
+    env: process.env.NODE_ENV,
     port: 8901,
     logLevel: '*',
     db: {
@@ -19,6 +20,15 @@ config = {
     session: {
       cookie: 'symfony',
       prefix: 'session:'
+    },
+    mailer: {
+      source: 'no-reply@cibul.net',
+      replyTo: 'admin@cibul.net'
+    },
+    aws: {
+      accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
+      secretAccessKey: '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',
+      region: 'eu-west-1'
     },
     routes: {
       globals: {
@@ -54,6 +64,8 @@ config = {
     routes: {
       defaultGlobalsPrefix: '/frontend_dev.php'
     }
+  },
+  testing: {
   }
 };
 

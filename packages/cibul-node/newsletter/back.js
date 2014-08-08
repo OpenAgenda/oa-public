@@ -74,9 +74,6 @@ module.exports = function(base, config) {
     contactListRemove: [ 'get', ctl.contactListRemove, '/contactlists/:uid/remove' ],
     contactsAdd: [ 'post', ctl.contactsAdd, '/contactlists/:uid/contacts' ],
     contactRemove: [ 'get', ctl.contactRemove, '/contactlists/:uid/contacts/:email/remove' ],
-    contactUnsubscribeShow: [ 'get', ctl.contactUnsubscribeShow, '/contactlists/:uid/unsubscribe' ],
-    contactUnsubscribeSubmit: [ 'post', ctl.contactUnsubscribeSubmit, '/contactlists/:uid/unsubscribe' ],
-    contactUnsubscribeComplete: [ 'get', ctl.contactUnsubscribeComplete, '/contactlists/:uid/unsubscribe/complete' ],
     newsletterIndexRedirect: [ 'get', ctl.indexRedirect, '/campaigns' ]
   });
 
@@ -86,6 +83,8 @@ module.exports = function(base, config) {
 
 
 var controllers = function( app, model, mw ) {
+
+  var generic = require('./generic')( model );
 
   return {
 
@@ -677,62 +676,11 @@ var controllers = function( app, model, mw ) {
 
     contactRemove: function( req, res ) {
 
-      _processContactRemove( req.agenda, req.params.uid, req.params.email, function( err, result ){
+      generic.contactRemove(req.agenda, req.params.uid, req.params.email, function( err, result ){
 
         if (err) return mw.errorResponse(req, res, err);
 
         return router.redirect(req, res, 'contactListShow', {uid: req.params.uid});
-
-      });
-
-    },
-
-    contactUnsubscribeShow: function( req, res ) {
-
-      req.agenda.contactLists.get({ uid: req.params.uid }, function ( err, contactList ) {
-
-        if (err) return mw.errorResponse( req, res, err );
-
-        mw.render(req, res, 'newsletter/unsubscribe', lib.extend(contactList, lib.extend({
-          uid: req.params.uid,
-          error: false
-        }, _minimalLayoutData())));
-
-      });
-
-    },
-
-    contactUnsubscribeSubmit: function( req, res ) {
-
-      var values = req.body || {};
-
-      _processContactRemove( req.agenda, req.params.uid, values.email, function( err, result ){
-
-        if ( err ) return mw.errorResponse( req, res, err );
-
-        return router.redirect(req, res, 'contactUnsubscribeComplete', {uid: req.params.uid});
-
-      }, function( error, contactList ) {
-
-        mw.render(req, res, 'newsletter/unsubscribe', lib.extend(contactList, lib.extend({
-          uid: req.params.uid,
-          error: error
-        }, _minimalLayoutData())));
-
-      });
-
-    },
-
-    contactUnsubscribeComplete: function( req, res ) {
-
-      req.agenda.contactLists.get({ uid: req.params.uid }, function ( err, contactList ) {
-
-        if ( err ) return mw.errorResponse( req, res, err );
-
-        mw.render(req, res, 'newsletter/unsubscribeComplete', lib.extend(contactList, lib.extend({
-          uid: req.params.uid,
-          error: false
-        }, _minimalLayoutData())));
 
       });
 
@@ -843,29 +791,6 @@ _processCampaignLayout = function( campaign, values, cb ) {
 },
 
 
-_processContactRemove = function( agenda, contactListUid, email, cb, formCb ) {
-
-  agenda.contactLists.get( contactListUid, function ( err, contactList ) {
-
-    if ( err ) return cb( err );
-
-    contactList = agenda.contactLists.instance( contactList );
-
-    contactList.contacts.get({ email: email }, function ( err, contact ) {
-
-      if ( err ) return cb( err );
-
-      if ( !contact && formCb ) return formCb( 'this email was not recognized', contactList );
-
-      contactList.contacts.instance( contact ).remove( cb );
-
-    });
-
-  });
-
-},
-
-
 /**
  * prepare form for new campaign
  */
@@ -875,6 +800,7 @@ _layoutData = function( agenda ) {
   return {
     tab: 'newsletter',
     mainClass: 'newsletter',
+    scriptsBase: '/js',
     head: {
       css: {
         main: '//d.cibul.net/css/main.min.css'
@@ -889,19 +815,6 @@ _layoutData = function( agenda ) {
   };
 
 },
-
-_minimalLayoutData = function() {
-
-  return {
-    head: {
-      css: {
-        main: '//d.cibul.net/css/main.min.css'
-      }
-    }
-  };
-
-},
-
 
 _pager = function( req, routeName, perPage, totalItems ) {
 
