@@ -5,6 +5,5 @@
   },
   "helpers" : {
     "_t" : "time"
-  },
-  "templateJs" : true
+  }
 }

@@ -50,18 +50,9 @@ http.createServer(function ( req, res ) {
 
     function( map, uri, wcb ) { // load template data
 
-      loadData( uri, url.parse(req.url, true).query.br !== undefined ? true : false, function( tConf ) { 
+      var reqQuery = url.parse(req.url, true).query;
 
-        if ( !tConf.data.head ) tConf.data.head = {};
-
-        // load css in mock data
-
-        var css = tConf.config.css || {};
-
-        if ( tConf.layoutConfig && tConf.layoutConfig.css ) css = cn.extend( tConf.layoutConfig.css, css );
-
-        tConf.data.head.css = css;
-
+      loadData( uri, reqQuery.br !== undefined ? true : false, function( tConf ) { 
 
         // load state of data
 
@@ -69,17 +60,32 @@ http.createServer(function ( req, res ) {
 
           // get requested state of data. else, get the first
 
-          for ( var state in mockData ) {
+          for ( var state in tConf.data ) {
 
             if ( state !== 'base' ) break; // first is base, second is first state
 
           }
 
-          if (req.query.state && tConf.data[req.query.state]) state = req.query.state;
+          if ( reqQuery.state && tConf.data[reqQuery.state]) state = reqQuery.state;
 
           tConf.data = deepExtend( tConf.data.base, tConf.data[state] );
 
         }
+
+        // append layout data
+        
+        if ( tConf.layoutData ) tConf.data = deepExtend( tConf.layoutData, tConf.data );
+
+
+        // load css in mock data
+
+        if ( !tConf.data.head ) tConf.data.head = {};
+
+        var css = tConf.config.css || {};
+
+        if ( tConf.layoutConfig && tConf.layoutConfig.css ) css = cn.extend( tConf.layoutConfig.css, css );
+
+        tConf.data.head.css = css;
 
         
         tConf.data.scriptsBase = '/js/browserified';
@@ -268,7 +274,7 @@ loadData = function( templateName, doBrowserify, cb ) {
 
         readFile(result.config.layout + '.mock.json', function( content ) {
 
-          result.data = deepExtend( content, result.data );
+          result.layoutData = content;
 
           wcb( null, result);
 
@@ -310,7 +316,7 @@ genUrl = function( data ) {
 
     }
 
-    if (data.devUrls) {
+    if ( data.devUrls && data.devUrls[name] ) {
 
       return data.devUrls[name] + '#' + name + encodeURI(JSON.stringify(values));
 
