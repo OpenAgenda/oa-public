@@ -31,6 +31,36 @@ exports.contains = function(a, obj) {
   return false;
 };
 
+
+exports.toCamelCase = function toCamelCase( input ) {
+
+  if ( typeof input == 'object' ) {
+
+    var camelCased = {};
+
+    for (var key in input) {
+
+      if ( !contains(['parse', '_typeCast'], key)) {
+
+        camelCased[toCamelCase(key)] = input[key];
+        
+      }
+
+    }
+
+    return camelCased;
+
+  }
+
+  return input.replace(/[-_](.)/g, function(match, group1) {
+
+    return group1.toUpperCase();
+
+  });
+
+};
+
+
 exports.isArray = function(obj) {
   return Object.prototype.toString.call(obj) === '[object Array]';
 };

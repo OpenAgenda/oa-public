@@ -16,6 +16,10 @@ async = require('async'),
 
 deepExtend = require('deep-extend'),
 
+url = require('url'),
+
+browserify = require('browserify'),
+
 map;
 
 http.createServer(function ( req, res ) {
@@ -33,9 +37,11 @@ http.createServer(function ( req, res ) {
 
       if (!uri.length) return renderMap(map, req, res);
 
-      if ( cn.contains( ['.css', '.jpg', '.png', '.ico', '.ttf', '.svg', '.eot', '.otf'], uri.substr(-4) )
+      if ( cn.contains( ['.js'], uri.substr(-3) ) ||
 
-      || cn.contains( ['.woff'], uri.substr(-5) ) ) return mountStatic( req, res );
+      cn.contains( ['.css', '.jpg', '.png', '.ico', '.ttf', '.svg', '.eot', '.otf'], uri.substr(-4) ) ||
+
+      cn.contains( ['.woff'], uri.substr(-5) ) ) return mountStatic( req, res );
 
       wcb( null, map, uri );
 
@@ -44,15 +50,15 @@ http.createServer(function ( req, res ) {
 
     function( map, uri, wcb ) { // load template data
 
-      loadData( uri, function( tConf ) { 
+      loadData( uri, url.parse(req.url, true).query.br !== undefined ? true : false, function( tConf ) { 
+
+        if ( !tConf.data.head ) tConf.data.head = {};
 
         // load css in mock data
 
         var css = tConf.config.css || {};
 
         if ( tConf.layoutConfig && tConf.layoutConfig.css ) css = cn.extend( tConf.layoutConfig.css, css );
-
-        if ( !tConf.data.head ) tConf.data.head = {};
 
         tConf.data.head.css = css;
 
@@ -63,9 +69,9 @@ http.createServer(function ( req, res ) {
 
           // get requested state of data. else, get the first
 
-          for (var state in mockData) {
+          for ( var state in mockData ) {
 
-            if (state !== 'base') break; // first is base, second is first state
+            if ( state !== 'base' ) break; // first is base, second is first state
 
           }
 
@@ -74,6 +80,10 @@ http.createServer(function ( req, res ) {
           tConf.data = deepExtend( tConf.data.base, tConf.data[state] );
 
         }
+
+        
+        tConf.data.scriptsBase = '/js/browserified';
+
 
         // fake url generator
         
@@ -153,7 +163,7 @@ loadMap = function( wcb ) {
 
 },
 
-loadData = function( templateName, cb ) {
+loadData = function( templateName, doBrowserify, cb ) {
 
   async.waterfall([
 
@@ -167,7 +177,48 @@ loadData = function( templateName, cb ) {
 
     },
 
-    function( result, wcb ) {
+    function( result, wcb ) { // browserify script if exists & setting set?
+
+      if ( !result.config.templateJs ) return wcb( null, result );
+
+
+      // determine name of template js file
+      
+      var templateFolder = templateName.split('/');
+
+      templateFolder[ templateFolder.length - 1 ] = 'js/' + templateFolder[ templateFolder.length - 1 ] + '.js';
+
+
+      // browserify the thing
+
+      var jsFile = templateFolder.join('/'),
+
+      destName = cn.toCamelCase( templateName.replace(/\//g, '_') ),
+
+      destFilePath = '/js/browserified/' + destName + '.js';
+
+      if ( !doBrowserify ) return wcb( null, result );
+
+
+      // run browserify
+
+      var b = browserify(),
+
+      writeStream = fs.createWriteStream( __dirname + destFilePath );
+
+      b.add( __dirname + '/' + jsFile );
+
+      b.bundle().pipe( writeStream );
+
+      writeStream.on('close', function() {   
+
+        wcb( null, result );
+
+      });
+
+    },
+
+    function( result, wcb ) { // load layout config if exists
 
       if ( !result.config.layout ) return wcb( null, result);
 

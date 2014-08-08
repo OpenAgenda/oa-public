@@ -13,6 +13,7 @@ module.exports = function( templateName, data, cb ) {
     loadTemplate(templateName),
     loadLabels,
     loadHelpers,
+    loadScripts( templateName, data.scriptsBase ),
   ];
 
   async.waterfall(loaders, function( err, results ) {
@@ -21,7 +22,10 @@ module.exports = function( templateName, data, cb ) {
 
     var template = results.template, labels = results.labels;
 
-    if (results.config.base) data = cn.extend(results.config.base, data);
+    if ( results.config.base ) data = cn.extend(results.config.base, data);
+
+
+    if ( results.config.js ) data.js = results.config.js;
 
     if (results.helpers) cn.extend(data, results.helpers);
 
@@ -184,5 +188,26 @@ loadHelpers = function( data, cb ) {
   }
 
   cb( null, data );
+
+},
+
+
+loadScripts = function( templateName, scriptsBase ) {
+
+  var basePath = scriptsBase ? scriptsBase : '';
+
+  return function( data, cb ) {
+
+    if ( !data.config.js ) data.config.js = [];
+
+    if ( data.config.templateJs ) {
+
+      data.config.js.push(basePath + '/' + cn.toCamelCase( templateName.replace(/\//g, '_') ) + '.js' );
+
+    }
+
+    cb( null, data );
+
+  };
 
 };

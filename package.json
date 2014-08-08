@@ -11,6 +11,7 @@
     "st" : "*",
     "ejs" : "*",
     "express" : "*",
-    "moment" : "*"
+    "moment" : "*",
+    "browserify" : "*"
   }
 }
