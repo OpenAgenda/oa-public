@@ -10,7 +10,18 @@
       "slug" : "fqsdfdq",
       "image" : "//cibul.s3.amazonaws.com/evtbevent_les-imams-en-france_924665.jpg",
       "description" : "Solenne Jouanneau",
-      "spaceTimeInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14", "%placename%" : "Banque Populaire Atlantique"}]
+      "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14"}],
+      "placeName" : "Quelque part",
+      "tags" : [
+        {
+          "slug" : "politique",
+          "label" : "politique"
+        }
+      ],
+      "category" : {
+        "slug" : "conference",
+        "label" : "conférence"
+      }
     },
     {
       "title" : "Europe : les états désunis (Coralie Delaume) ",
@@ -18,7 +29,22 @@
       "slug" : "fqsdfdq",
       "image" : null,
       "description" : "Coralie Delaume nous explique avec brio pourquoi l'UE ne fonctionne pas.",
-      "spaceTimeInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14", "%placename%" : "Banque Populaire Atlantique"}]
+      "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14" }],
+      "placeName" : "Centre George Pompidou",
+      "tags" : [
+        {
+          "slug" : "geolocalisation",
+          "label" : "géolocalisation"
+        },
+        {
+          "slug" : "saas",
+          "label" : "saas"
+        }
+      ],
+      "category" : {
+        "slug" : "visite",
+        "label" : "visite"
+      }
     },
     {
       "title" : "La petite noblesse de l’intelligence, une sociologie des enfants surdoués",
@@ -26,7 +52,22 @@
       "slug" : "fqsdfdq",
       "image" : "//cibul.s3.amazonaws.com/evtbevent_europe-les-etats-desunis-coralie-delaume_799281.jpg",
       "description" : "Wilfried Lignier",
-      "spaceTimeInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14", "%placename%" : "Banque Populaire Atlantique"}]
+      "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14" }],
+      "placeName" : "Creanova",
+      "tags" : [
+        {
+          "slug" : "objetsconnectes",
+          "label" : "objets connectés"
+        },
+        {
+          "slug" : "paperasse",
+          "label" : "paperasse"
+        }
+      ],
+      "category" : {
+        "slug" : "conference",
+        "label" : "conférence"
+      }
     },
     {
       "title" : "Homo spectator : voir, faire voir",
@@ -34,7 +75,12 @@
       "slug" : "fqsdfdq",
       "image" : "//cibul.s3.amazonaws.com/evtbevent_la-petite-noblesse-de-l-intelligence-une-sociologie-des-enfants-surdoues_739383.jpg",
       "description" : "Marie-José Mondzain",
-      "spaceTimeInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14", "%placename%" : "Banque Populaire Atlantique"}]
+      "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14"}],
+      "placeName" : "Banque Populaire Atlantique",
+      "category" : {
+        "slug" : "demo",
+        "label" : "démo"
+      }
     },
     {
       "title" : "La Technologisation du corps",
@@ -42,7 +88,12 @@
       "slug" : "fqsdfdq",
       "image" : "//cibul.s3.amazonaws.com/evtbevent_homo-spectator-voir-faire-voir_223470.jpg",
       "description" : "Brigitte Munier-Termime",
-      "spaceTimeInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-13", "%finish%" : "2014-10-14", "%placename%" : "Banque Populaire Atlantique"}]
+      "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-13", "%finish%" : "2014-10-14" }],
+      "placeName" : "Metro Stalingrad",
+      "category" : {
+        "slug" : "demo",
+        "label" : "démo"
+      }
     },
     {
       "title" : "Changeons d'agriculture",
@@ -50,7 +101,22 @@
       "slug" : "fqsdfdq",
       "image" : "//cibul.s3.amazonaws.com/evtbevent_changeons-d-agriculture_703516.jpg",
       "description" : "Le “modèle” agricole qui s’est imposé depuis quelques décennies est de plus en plus critiqué en raison de ses conséquences néfastes sur l’environnement, l’emploi et la santé humaine et animale...",
-      "spaceTimeInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-14", "%finish%" : "2014-10-14", "%placename%" : "Banque Populaire Atlantique"}]
+      "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-14", "%finish%" : "2014-10-14" }],
+      "placeName" : "Banque Populaire Atlantique",
+      "tags" : [
+        {
+          "label" : "business model",
+          "slug" : "business-model"
+        },
+        {
+          "label" : "découverte",
+          "slug" : "decouverte"
+        }
+      ],
+      "category" : {
+        "slug" : "conseil",
+        "label" : "conseil"
+      }
     },
     {
       "title" : "Eric Hazan",
@@ -58,7 +124,18 @@
       "slug" : "fqsdfdq",
       "image" : "//cibul.s3.amazonaws.com/evtbevent_premileres-mesures-revolutionnaires_282421.jpg",
       "description" : "Eric Hazan",
-      "spaceTimeInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-14", "%finish%" : "2014-10-16", "%placename%" : "Banque Populaire Atlantique"}]
+      "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-14", "%finish%" : "2014-10-16" }],
+      "placeName" : "Banque Impopulaire",
+      "tags" : [
+        {
+          "label" : "télécom bretagne",
+          "slug" : "telecom-bretagne"
+        }
+      ],
+      "category" : {
+        "slug" : "conference",
+        "label" : "conférence"
+      }
     }
   ],
   "tags" : [

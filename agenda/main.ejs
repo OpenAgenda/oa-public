@@ -62,11 +62,28 @@
           <img src="<%= event.image %>">
         </a><!--
 <% } %>
-        --><a class="cnt" href="#">
+        --><div class="cnt<% if ( !event.image ) { %> nopic<% } %>" href="#">
+<% if ( event.category ) { %>
+          <a class="ct mbClr" href="#<%= event.category.slug %>"><%= event.category.label %></a>
+<% } %>
           <span class="title"><%= event.title %></span>
-          <span class="sti url"><%= __(event.spaceTimeInfo[0], _t(event.spaceTimeInfo[1])) %></span>
+          <span class="sti url"><%= __(event.dateRange[0], _t(event.dateRange[1])) %></span>
           <span class="dsc"><%= event.description %></span>
-        </a>
+<% if ( event.tags ) { %>
+          <span class="tg">
+            <ul>
+<% event.tags.forEach( function( tag ) { %>
+              <li><a href="#<%= tag.slug %>"><%= tag.label %></a></li>
+<% }); %>
+            </ul>
+          </span>
+<% } %>
+          <a class="lc">
+            <i class="icon-map-marker mClr"></i>
+            <span><%= event.placeName %></span>
+          </a>
+
+        </div>
       </article>
 <% }) %>
     </main>

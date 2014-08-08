@@ -1,3 +1,12 @@
+.ag .mClr {
+  color: #c40066;
+}
+
+.ag .mbClr {
+  background-color: #c40066;
+  color: white;
+}
+
 .ag nav {
   background: #333;
 }
@@ -66,14 +75,18 @@
 
 .ag main h2 {
 
-  font-size: 1.4em;
-  padding: 1em 0;
+  font-size: 2em;
+  padding: 0 0 1em 0;
 
 }
 
 .ag article {
 
-  padding: 1em 0;
+  position: relative;
+  display: block;
+  margin: 1em 0 2em;
+  padding-bottom: 2em;
+  border-bottom: 1px solid #dfdfdf;
 
 }
 
@@ -81,13 +94,13 @@
 
   display: inline-block;
   vertical-align: top;
-  max-width: 20%;
+  width: 20%;
 
 }
 
 .ag article .pic img {
 
-  padding-right: 20px;
+  padding: 8px 20px 0 0;
 
 }
 
@@ -95,7 +108,13 @@
 
   vertical-align: top;
   display: inline-block;
-  max-width: 80%;
+  width: 80%;
+
+}
+
+.ag article .cnt.nopic {
+
+  width: 100%;
 
 }
 
@@ -107,7 +126,7 @@
 
 .ag article .title {
 
-  font-weight: bold;
+  font-size: 1.6em;
   display: block;
 
 }
@@ -115,12 +134,62 @@
 .ag article .dsc {
 
   display: block;
+  font-size: 1.2em;
+  font-weight: 100;
+  padding: 1em 0;
+  color: #666;
 
 }
 
 .ag article .sti {
 
   display: block;
+  font-size: 1.2em;
+
+}
+
+.ag article .tg li {
+ 
+  display: inline-block;
+  text-transform: uppercase;
+  background: #efefef;
+  padding: 0.1em 0.5em;
+  margin: .2em .5em .2em 0;
+
+  border: 1px solid #e0e0e0;
+
+  border-radius: 2px;
+
+}
+
+.ag article .lc {
+
+  padding: .5em 0;
+  display: block;
+
+}
+
+.ag article .lc i {
+
+  font-size: 1.3em;
+  padding-right: 0.5em;
+
+}
+.ag article .lc span {
+
+  font-size: 1.2em;
+  font-weight: 100;
+
+}
+
+.ag article .ct {
+
+  text-transform: uppercase;
+  float: right;
+
+  padding: 0.1em 0.4em;
+
+  border-radius: 2px;
 
 }
 
@@ -133,7 +202,7 @@
 
 .ag aside.search input {
 
-  padding: 0.8em 0.8em 0.8em 3em;
+  padding: 0.5em 0.8em 0.5em 3em;
   width: fit;
   z-index: 3;
   font-size: 1.1em;
@@ -144,8 +213,8 @@
 .ag aside.search i {
 
   position: absolute;
-  left: 0.8em;
-  top: 2.2em;
+  left: 0.6em;
+  top: 2em;
   font-size: 1.5em;
   padding-top: 1.15em;
   color: #999;

@@ -8,7 +8,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 }
 
 body {
-  background: rgb(230,230,230);
+  background: #efefef;
 }
 
 input[type="radio"] {
