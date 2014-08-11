@@ -2,6 +2,7 @@
   "base" : {
     "tab" : "newsletter",
     "mainClass" : "newsletter",
+    "isNew" : false,
     "head" : {
       "css" : {
         "newsletter" : "../../css/agenda/newsletterAdmin.css"

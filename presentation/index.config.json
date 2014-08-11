@@ -1,13 +1,13 @@
 {
   "layout" : "layout/main",
   "css" : {
-    "global" : "../../css/global/global.css",
-    "page" : "../../css/page structure/page.css",
-    "headings" : "../../css/headings.css",
-    "header" : "../../css/header.css",
-    "buttons" : "../../css/buttons.css",
+    "global" : "../css/global/global.css",
+    "page" : "../css/page structure/page.css",
+    "headings" : "../css/headings.css",
+    "header" : "../css/header.css",
+    "buttons" : "../css/buttons.css",
     "presentation" : "css/style.css",
-    "font-awesome" : "../../css/font-awesome/font-awesome.css",
-    "open-sans" : "//fonts.googleapis.com/css?family=Open+Sans:400,300"
+    "fontawesome" : "../css/font-awesome/font-awesome.css",
+    "opensans" : "//fonts.googleapis.com/css?family=Open+Sans:400,300"
   }
 }

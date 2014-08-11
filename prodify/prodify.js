@@ -6,6 +6,8 @@ files = require('./files.js').files, // ye olde prodify reference
 
 destPath = require('./files.js').destPath,
 
+destCssPath = require('./files.js').destCssPath,
+
 map =  JSON.parse( fs.readFileSync('../map.json', "utf8") ),
 
 cn = require('../js/lib/common/common.mod.js'),
@@ -30,13 +32,19 @@ run = function() {
 
   log = debug('prodify');
 
-  async.each(map, prodifyTemplateJs, function( err ) {
+  prodifyCss( map, function( err, cssFiles ) {
 
     if ( err ) throw err;
 
-    log('done with template based scripts');
+    async.each( map, prodifyTemplateJs, function( err ) {
 
-    //legacyProdify();
+      if ( err ) throw err;
+
+      log('done with template based scripts');
+
+      //legacyProdify();
+
+    });
 
   });
 
@@ -93,16 +101,156 @@ forEachInputFile = function( entries, callback ) {
 
 
 /**
+ * compile css files
+ */
+
+prodifyCss = function( map, cb ) {
+
+  listCss( map, function( err, cssFiles ) {
+
+    // make array
+
+    var csses = [];
+
+    for ( var c in cssFiles ) {
+
+      csses.push( cssFiles[c] );
+
+    }
+
+    // concatenate
+
+    async.reduce(csses, '', function( compiled, cssFilename, rcb ) {
+
+      if ( cssFilename.indexOf('//') !== -1 ) {
+
+        return rcb( null, compiled );
+
+      }
+
+      fs.readFile( __dirname + '/../' + cssFilename, 'utf-8', function( err, css ) {
+
+        if ( err ) return rcb( err );
+
+        rcb( null, compiled + css );
+
+      });
+
+    }, function( err, mainCss ) {
+
+      if ( err ) return cb( err );
+
+      // write it in dest css folder
+
+      fs.writeFile( destCssPath, mainCss, cb);
+
+    });
+
+  });
+
+},
+
+
+/**
+ * run through css files of templates and layouts found in map and build a complete css file list
+ */
+
+listCss = function listCss( map, cb ) {
+
+  var cssIndex = {},
+
+  parentsMap = [];
+
+  async.each( map, function( templateName, ecb ) {
+
+    readTemplateConfig( templateName, function( err, config ) {
+
+      if ( err ) return cb( err );
+
+      var offset = ( templateName.split('/').length - 1 ) * 3, 
+
+      csses = {},
+
+      templatePath = templateName.split('/');
+
+      templatePath.pop();
+
+      if ( config.css ) {
+
+        for (var c in config.css ) {
+
+          if ( config.css[c].indexOf('../') !== -1 ) {
+
+            // generic css
+
+            csses[c] = config.css[c].substr( offset );
+            
+          } else if ( config.css[c].indexOf('//') !== -1 ) {
+
+            // web path, get as is
+
+            csses[c] = config.css[c];
+
+          } else {
+
+            // relative css. add path to folder
+
+            csses[c] = templatePath + '/' + config.css[c];
+
+          }
+
+          
+
+        }
+
+        cn.extend( cssIndex, csses );
+
+      }
+
+      if ( config.layout && ( parentsMap.indexOf( config.layout ) == -1 ) ) parentsMap. push( config.layout );
+
+      ecb();
+
+    });
+
+  }, function( err ) {
+
+    if ( err ) return cb( err );
+
+    if ( parentsMap.length ) {
+
+      listCss( parentsMap, function( err, parentsCssIndex ) {
+
+        if ( err ) return cb( err );
+
+        cb( null, cn.extend( parentsCssIndex, cssIndex ) );
+
+      });
+
+    } else {
+
+      cb( null, cssIndex );
+
+    }
+
+  });
+
+  
+
+},
+
+
+
+
+/**
  * read template config, get js file if any, browserify, minify, write to prod folder
  */
 
 prodifyTemplateJs = function( templateName, cb ) {
 
-  fs.readFile(__dirname + '/../' + templateName + '.config.json', 'utf-8', function( err, content ) {
+  readTemplateConfig( templateName, function( err, config ) {
 
-    if ( err ) return cb( err );
-
-    var config = JSON.parse( content );
+    if ( err ) throw err;
 
     if ( !config.templateJs ) return cb();
 
@@ -149,6 +297,30 @@ prodifyTemplateJs = function( templateName, cb ) {
 
   });
 
+
+},
+
+readTemplateConfig = function( templateName, cb ) {
+
+  fs.readFile(__dirname + '/../' + templateName + '.config.json', 'utf-8', function( err, content ) {
+
+    var config;
+
+    if ( err ) return cb( err );
+
+    try {
+
+      config = JSON.parse( content );
+
+    } catch ( e ) {
+
+      return cb( e );
+
+    }
+
+    cb( null, config );
+
+  });
 
 };
 

@@ -26,11 +26,13 @@ var paths = {
 
 destPath = '../../cibul-symfony/web/js/',
 
+destCssPath = '../../cibul-symfony/web/css/compiled.css',
+
 files = {
 
   'globals.js': [
-    [paths.lib, 'EventHandler/EventHandler.js'],
-    [paths.gl, 'globals.bundle.js'],
+    [ paths.lib, 'EventHandler/EventHandler.js' ],
+    [ paths.gl, 'globals.bundle.js' ],
   ],
 
   'message.min.js': [
@@ -506,3 +508,4 @@ files = {
 
 exports.files = files;
 exports.destPath = destPath;
+exports.destCssPath = destCssPath;
