@@ -11,8 +11,8 @@
       <div class="header">
         <h3><%= __('Edito') %></h3>
       </div>
-      <textarea class="js_frame_reload" rows="4" name="edito"><%= values.edito?values.edito:"" %></textarea>
-<% if (errors.edito) { %>
+      <textarea class="js_frame_reload" rows="4" name="edito"><%= values.edito ? values.edito : "" %></textarea>
+<% if ( errors.edito ) { %>
       <span class="error"><%= errors.edito %></span>
 <% } %>
     </section>
@@ -34,7 +34,7 @@
       <select class="js_frame_reload" name="category">
         <option value=""><%= __('all categories') %></option>
 <% categories.forEach(function(category) { %>
-        <option value="<%= category.slug %>" <% if (values.category==category.slug) { %>selected<% } %>><%= category.label %></option>
+        <option value="<%= category.slug %>" <% if (values.filters.category==category.slug) { %>selected<% } %>><%= category.label %></option>
 <% }); %>
       </select>
 
@@ -46,7 +46,7 @@
           <ul class="line">
 <% cities.forEach(function(city) { %>
             <li>
-              <input class="js_frame_reload" type="checkbox" name="cities[<%= city.label %>]" <% if (values.cities[city.slug]) { %>checked<% } %>/>
+              <input class="js_frame_reload" type="checkbox" name="cities[<%= city.label %>]" <% if ( values.filters.cities.indexOf( city.slug ) !== -1 ) { %>checked<% } %>/>
               <label><%= city.label %></label>
             </li>
 <% }); %>
@@ -57,7 +57,7 @@
           <ul class="line">
 <% departments.forEach(function(department) { %>
             <li>
-              <input class="js_frame_reload" type="checkbox" name="departments[<%= department.slug %>]" <% if (values.departments[department.slug]) { %>checked<% } %>/>
+              <input class="js_frame_reload" type="checkbox" name="departments[<%= department.slug %>]" <% if ( values.filters.departments.indexOf( department.slug ) !== -1 ) { %>checked<% } %>/>
               <label><%= department.label %></label>
             </li>
 <% }); %>
@@ -68,7 +68,7 @@
           <ul class="line">
 <% regions.forEach(function(region) { %>
             <li>
-              <input class="js_frame_reload" type="checkbox" name="regions[<%= region.slug %>]" <% if (values.regions[region.slug]) { %>checked<% } %>/>
+              <input class="js_frame_reload" type="checkbox" name="regions[<%= region.slug %>]" <% if ( values.filters.regions.indexOf( region.slug ) !== -1 ) { %>checked<% } %>/>
               <label><%= region.label %></label>
             </li>
 <% }); %>
@@ -99,7 +99,7 @@
 
 </div><!--
 --><div class="col w66">
-  <iframe name="newsletter-frame" style="width: 100%; height: 1000px;" src="<%= genUrl('newsletterShow', {uid: uid}) %>"></iframe>
+  <iframe name="newsletter-frame" style="width: 100%; height: 1000px;" src="<%= genUrl('newsletterShow', { uid: uid }) %>"></iframe>
 </div>
 <script type="text/javascript">
   run({
