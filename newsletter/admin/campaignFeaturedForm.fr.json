@@ -20,5 +20,7 @@
   "featured"
   : "en une",
   "not featured"
-  : "autres"
+  : "autres",
+  "clear selection"
+  : "annuler la sélection"
 }

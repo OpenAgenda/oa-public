@@ -7,6 +7,7 @@
 <section>
 
 <form class="cform" method="get" action="<%= genUrl('campaignFeaturedEdit', { uid: uid }, true) %>">
+  <a href="<%= genUrl('campaignFeaturedClear', { uid: uid }) %>" class="url right"><%= __('clear selection') %></a>
   <ul class="line">
     <li>
       <input type="text" name="filters[title]" value="<%= filters.title || '' %>" placeholder="<%= __('title') %>"/>  
