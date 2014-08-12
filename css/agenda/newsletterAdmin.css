@@ -1,4 +1,4 @@
-..newsletter .glist > li {
+.newsletter .glist > li {
   padding: 1em 0;
 }
 
@@ -9,6 +9,11 @@
 .newsletter .glist > li .button {
   float: right;
   margin-left: 0.5em;
+}
+
+.newsletter .glist > li > ul > li > a,
+.newsletter .glist > li > ul > li > span {
+  padding: 0 .5em 0 0;
 }
 
 .newsletter .glist .title {
