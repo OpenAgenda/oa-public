@@ -83,7 +83,8 @@ http.createServer(function ( req, res ) {
 
         var css = tConf.config.css || {};
 
-        if ( tConf.layoutConfig && tConf.layoutConfig.css ) css = cn.extend( tConf.layoutConfig.css, css );
+
+        if ( tConf.layoutConfig && tConf.layoutConfig.css ) css = cn.extend( _absolutePath(tConf.config.layout, tConf.layoutConfig.css), _absolutePath(uri, css));
 
         tConf.data.head.css = css;
 
@@ -161,7 +162,7 @@ respond = function( res, code, body, responseType ) {
 
 loadMap = function( wcb ) {
 
-  readFile('map.json', function( map ) {
+  readFile('map.json', function( err, map ) {
 
     wcb( null, map );
 
@@ -175,7 +176,7 @@ loadData = function( templateName, doBrowserify, cb ) {
 
     function( wcb ) {
 
-      readFile( templateName + '.config.json', function( content ) {
+      readFile( templateName + '.config.json', function( err, content ) {
 
         wcb( null, { config: content });
 
@@ -208,19 +209,13 @@ loadData = function( templateName, doBrowserify, cb ) {
 
       // run browserify
 
-      var b = browserify(),
-
-      writeStream = fs.createWriteStream( __dirname + destFilePath );
+      var b = browserify();
 
       b.add( __dirname + '/' + jsFile );
 
-      b.bundle().pipe( writeStream );
+      b.bundle().pipe( fs.createWriteStream( __dirname + destFilePath ) );
 
-      writeStream.on('close', function() {   
-
-        wcb( null, result );
-
-      });
+      wcb( null, result );
 
     },
 
@@ -228,17 +223,13 @@ loadData = function( templateName, doBrowserify, cb ) {
 
       if ( !result.config.layout ) return wcb( null, result);
 
-      fileExists(result.config.layout + '.config.json', function( exists ) {
+      readFile(result.config.layout + '.config.json', function( err, content ) {
 
-        if ( !exists ) return wcb( null, result );
+        if ( err ) return wcb( null, result );
 
-        readFile(result.config.layout + '.config.json', function( content ) {
+        result.layoutConfig = content;
 
-          result.layoutConfig = content;
-
-          wcb( null, result );
-
-        });
+        wcb( null, result );
 
       });
 
@@ -246,19 +237,15 @@ loadData = function( templateName, doBrowserify, cb ) {
 
     function( result, wcb ) { // load template mock data
 
-      fileExists(templateName + '.mock.json', function( exists ) {
+      result.data = {};
 
-        result.data = {};
+      readFile(templateName + '.mock.json', function( err, content ) {
 
-        if ( !exists ) return wcb( null, result);
+        if ( err ) return wcb( null, result );
 
-        readFile(templateName + '.mock.json', function( content ) {
+        result.data = content;
 
-          result.data = content;
-
-          wcb( null, result);
-
-        });
+        wcb( null, result);
 
       });
 
@@ -268,17 +255,13 @@ loadData = function( templateName, doBrowserify, cb ) {
 
       if ( !result.config.layout ) return wcb( null, result );
 
-      fileExists(result.config.layout + '.mock.json', function( exists ) {
+      readFile(result.config.layout + '.mock.json', function( err, content ) {
 
-        if ( !exists ) return wcb( null, result);
+        if ( err ) return wcb( null, result );
 
-        readFile(result.config.layout + '.mock.json', function( content ) {
+        result.layoutData = content;
 
-          result.layoutData = content;
-
-          wcb( null, result);
-
-        });
+        wcb( null, result);
 
       });
 
@@ -346,12 +329,36 @@ readFile = function( filename, cb ) {
 
   fs.readFile(__dirname + '/' + filename, 'utf-8', function( err, content ) {
 
-    if ( err ) throw err;
+    if ( err ) return cb( err );
 
-    if ( filename.indexOf('.json') !== -1 ) return cb( JSON.parse( content ) );
+    if ( filename.indexOf('.json') !== -1 ) return cb( null, JSON.parse( content ) );
 
-    cb( content );
+    cb( null, content );
 
   });
+
+},
+
+_absolutePath = function( uri, css ) {
+
+  var templatePath = uri.split('/');
+
+  templatePath.pop();
+
+  var absCss = {};
+
+  for( var c in css ) {
+
+    var path = css[c].split('/');
+
+    while ( path[0] == '..' ) {
+      path.splice(0, 1);
+    }
+
+    absCss[c] = '/' + path.join('/');
+
+  }
+
+  return absCss;
 
 };

@@ -84,9 +84,12 @@
       }
     ],
     "values" : {
-      "cities" : {},
-      "regions" : {},
-      "departments" : { }
+      "filters" : {
+        "category" : "concerts",  
+        "cities" : [],
+        "regions" : [],
+        "departments" : []
+      }
     },
     "errors" : {}
   },

@@ -2,7 +2,7 @@ var cn = require('../common/common.mod.js');
 
 module.exports = function(headSelector, sectionHeadSelector, sectionContent, options) {
 
-  var params = extend({
+  var params = cn.extend({
     canvas: false,
     submit: false,
     wrapper: false,

@@ -74,7 +74,7 @@ _runFormOptions = function(options) {
     selectors: {
       sandbox: '.js_sandbox_frame'
     }
-  }, options)
+  }, options);
 
   window.adjustFrameHeight = function( newHeight ) {
 

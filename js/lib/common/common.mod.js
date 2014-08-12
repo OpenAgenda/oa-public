@@ -313,9 +313,14 @@ exports.getScrollOffsets = function(w){
   };
 };
 
-exports.windowInnerHeight = function() {
+exports.windowInnerHeight = function( w, d ) {
 
-  return window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
+  if ( !w ) {
+    w = window;
+    d = document;
+  }
+
+  return w.innerHeight || d.documentElement.clientHeight || d.getElementsByTagName('body')[0].clientHeight;
 
 };
 

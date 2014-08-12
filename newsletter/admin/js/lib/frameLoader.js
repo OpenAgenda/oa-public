@@ -1,6 +1,6 @@
 var cn = require('../../../../js/lib/common/common.mod.js');
 
-module.exports = function( options ) {
+module.exports = function( options, callbacks ) {
 
   var params = cn.extend({
     preview: false,    // resource for previewing newsletter based on submission
@@ -10,6 +10,8 @@ module.exports = function( options ) {
       reloaders: false // elements triggering reload
     }
   }, options);
+
+  if ( callbacks ) cn.extend( params, callbacks );
 
   instance( params );
 
@@ -32,6 +34,8 @@ var instance = function( params ) {
     baseAction = formElem.getAttribute( 'action' );
 
     cn.forEach( cn.els( params.selectors.reloaders ), changeListener( refreshFrame ) );
+
+    if ( params.onReady ) params.onReady( frameElem );
 
   },
 
@@ -65,6 +69,8 @@ var instance = function( params ) {
     formElem.removeAttribute( 'target' );
 
     formElem.setAttribute( 'action', baseAction );
+
+    if ( params.onRefresh ) params.onRefresh( frameElem );
 
   };
 

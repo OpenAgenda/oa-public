@@ -1,4 +1,4 @@
-.newsletter .glist > li {
+..newsletter .glist > li {
   padding: 1em 0;
 }
 
@@ -41,4 +41,13 @@
 
 .newsletter .col section {
   margin-right: 1em;
+}
+
+.newsletter  h4 {
+  margin-top: 1em;
+}
+
+.newsletter .subtitle {
+  padding: 1em 0 0;
+  font-size: 1.1em;
 }

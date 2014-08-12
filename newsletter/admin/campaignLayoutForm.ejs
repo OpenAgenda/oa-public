@@ -40,45 +40,48 @@
 
       <h4><%= __('Places and Geography') %></h4>
 
-      <ul>
-        <li class="js_subtitle"><%= __('By city') %></li>
-        <li class="js_detail">
-          <ul class="line">
-<% cities.forEach(function(city) { %>
-            <li>
-              <input class="js_frame_reload" type="checkbox" name="cities[<%= city.label %>]" <% if ( values.filters.cities.indexOf( city.slug ) !== -1 ) { %>checked<% } %>/>
-              <label><%= city.label %></label>
-            </li>
-<% }); %>
-          </ul>
-        </li>
-        <li class="js_subtitle"><%= __('By department') %></li>
-        <li class="js_detail">
-          <ul class="line">
-<% departments.forEach(function(department) { %>
-            <li>
-              <input class="js_frame_reload" type="checkbox" name="departments[<%= department.slug %>]" <% if ( values.filters.departments.indexOf( department.slug ) !== -1 ) { %>checked<% } %>/>
-              <label><%= department.label %></label>
-            </li>
-<% }); %>
-          </ul>
-        </li>
-        <li class="js_subtitle"><%= __('By region') %></li>
-        <li class="js_detail">
-          <ul class="line">
-<% regions.forEach(function(region) { %>
-            <li>
-              <input class="js_frame_reload" type="checkbox" name="regions[<%= region.slug %>]" <% if ( values.filters.regions.indexOf( region.slug ) !== -1 ) { %>checked<% } %>/>
-              <label><%= region.label %></label>
-            </li>
-<% }); %>
-          </ul>
-        </li>
-      </ul>
+      <div class="js_folded">
+
+        <span class="info js_title"><%= __('select a group') %></span>
+        
+        <ul>
+          <li class="subtitle js_subtitle"><%= __('By city') %></li>
+          <li class="js_detail">
+            <ul class="line">
+  <% cities.forEach(function(city) { %>
+              <li>
+                <input class="js_frame_reload" type="checkbox" name="cities[<%= city.label %>]" <% if ( values.filters.cities.indexOf( city.slug ) !== -1 ) { %>checked<% } %>/>
+                <label><%= city.label %></label>
+              </li>
+  <% }); %>
+            </ul>
+          </li>
+          <li class="subtitle js_subtitle"><%= __('By department') %></li>
+          <li class="js_detail">
+            <ul class="line">
+  <% departments.forEach(function(department) { %>
+              <li>
+                <input class="js_frame_reload" type="checkbox" name="departments[<%= department.slug %>]" <% if ( values.filters.departments.indexOf( department.slug ) !== -1 ) { %>checked<% } %>/>
+                <label><%= department.label %></label>
+              </li>
+  <% }); %>
+            </ul>
+          </li>
+          <li class="subtitle js_subtitle"><%= __('By region') %></li>
+          <li class="js_detail">
+            <ul class="line">
+  <% regions.forEach(function(region) { %>
+              <li>
+                <input class="js_frame_reload" type="checkbox" name="regions[<%= region.slug %>]" <% if ( values.filters.regions.indexOf( region.slug ) !== -1 ) { %>checked<% } %>/>
+                <label><%= region.label %></label>
+              </li>
+  <% }); %>
+            </ul>
+          </li>
+        </ul>
+      </div>
 
       <h4><%= __('Segmentation') %></h4>
-
-      <p><%= __('Choose the item you want to see your event list divided') %></p>
 
       <select class="js_frame_reload" name="segmentation">
         <option value=""><%= __('no segmentation') %></option>
@@ -88,6 +91,8 @@
         <option value="region"><%= __('by region') %></option>
         <option value="city"><%= __('by city') %></option>
       </select>
+
+      <div class="info"><%= __('Choose the item you want to see your event list divided') %></div>
 
     </section>
 
@@ -99,7 +104,7 @@
 
 </div><!--
 --><div class="col w66">
-  <iframe name="newsletter-frame" style="width: 100%; height: 1000px;" src="<%= genUrl('newsletterShow', { uid: uid }) %>"></iframe>
+  <iframe name="newsletter-frame" height="1000" style="width: 100%;" src="<%= genUrl('newsletterShow', { uid: uid }) %>"></iframe>
 </div>
 <script type="text/javascript">
   run({

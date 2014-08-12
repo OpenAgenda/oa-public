@@ -40,5 +40,7 @@
   "by city"
   : "par ville",
   "Save"
-  : "Enregistrer"
+  : "Enregistrer",
+  "select a group"
+  : "groupements géographiques"
 }
