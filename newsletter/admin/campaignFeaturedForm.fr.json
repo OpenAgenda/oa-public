@@ -12,5 +12,13 @@
   "event is featured"
   : "l'événement est en une" ,
   "Your agenda does not have any events on display."
-  : "Votre agenda n'affiche aucun événement pour le moment"
+  : "Votre agenda n'affiche aucun événement pour le moment" ,
+  "title"
+  : "titre",
+  "all"
+  : "tous",
+  "featured"
+  : "en une",
+  "not featured"
+  : "autres"
 }

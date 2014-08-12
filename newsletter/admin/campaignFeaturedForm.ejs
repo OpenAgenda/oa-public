@@ -6,8 +6,22 @@
 
 <section>
 
-<form method="get" action="<%= genUrl('campaignFeaturedEdit', { uid: uid }, true) %>">
-  <input type="text" name="filters[title]" value="<%= filters.title || '' %>"/>
+<form class="cform" method="get" action="<%= genUrl('campaignFeaturedEdit', { uid: uid }, true) %>">
+  <ul class="line">
+    <li>
+      <input type="text" name="filters[title]" value="<%= filters.title || '' %>" placeholder="<%= __('title') %>"/>  
+    </li>
+    <li>
+      <select name="filters[set]">
+        <option value="all" <% if ( filters.set=="all" ) { %>selected<% } %>><%= __('all') %></option>
+        <option value="featured" <% if ( filters.set=="featured" ) { %>selected<% } %>><%= __('featured') %></option>
+        <option value="unfeatured" <% if ( filters.set=="unfeatured" ) { %>selected<% } %>><%= __('not featured') %></option>
+      </select>
+    </li>
+    <li>
+      <button type="submit"><i class="icon-refresh"></i></button>
+    </li>
+  </ul>
 </form>
 
 <% include pages %>
