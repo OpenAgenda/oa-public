@@ -66,6 +66,7 @@ module.exports = function(base, config) {
     campaignFeaturedEdit: [ 'get', ctl.campaignFeaturedEdit, '/campaigns/:uid/featured' ],
     campaignFeaturedAdd: [ 'get', ctl.campaignFeaturedAdd, '/campaigns/:uid/featured/add/:eUid' ],
     campaignFeaturedRemove: [ 'get', ctl.campaignFeaturedRemove, '/campaigns/:uid/featured/remove/:eUid' ],
+    campaignFeaturedClear: [ 'get', ctl.campaignFeaturedClear, '/campaigns/:uid/featured/clear'],
     campaignComplete: [ 'post', ctl.campaignComplete, '/campaigns/:uid/complete' ],
     newsletterShow: [ 'get', ctl.newsletterShow, '/campaigns/:uid/newsletter' ],
     contactListNew: [ 'get', ctl.contactListNew, '/contactlists/new' ],
@@ -199,9 +200,9 @@ var controllers = function( app, model, mw ) {
 
       ], function ( err, results ) {
 
-        if (err) return mw.errorResponse(req, res, err);
+        if ( err ) return mw.errorResponse( req, res, err );
 
-        var campaign = req.agenda.campaigns.instance(results[1]),
+        var campaign = req.agenda.campaigns.instance( results[1] ),
 
         contactLists = results[0],
 
@@ -243,13 +244,13 @@ var controllers = function( app, model, mw ) {
 
         // save was successful... or crashed altogether
 
-        if (err) return mw.errorResponse( req, res, err );
+        if ( err ) return mw.errorResponse( req, res, err );
 
         var campaign = req.agenda.campaigns.instance(result.object);
 
         campaign.getIsNew(function( err, isNew ) {
 
-          if (err) return mw.errorResponse( req, res, err );
+          if ( err ) return mw.errorResponse( req, res, err );
 
           if ( !isNew ) {
 
@@ -269,17 +270,27 @@ var controllers = function( app, model, mw ) {
 
       }, function( err, result, values, errors, contactLists ) {
 
+        if ( err ) return mw.errorResponse( req, res, err );
+
         // ... some things are missing or wrong
 
-        req.agenda.campaigns.instance(result.object).getIsNew(function( err, isNew ) {
+        req.agenda.campaigns.get({ uid: req.params.uid }, function( err, campaign ) {
 
-          mw.render(req, res, 'newsletter/admin/campaignForm', lib.extend({
-            isNew: isNew,
-            uid: req.params.uid,
-            contactLists: contactLists,
-            values: values,
-            errors: errors
-          }, _layoutData(req.agenda)));
+          if ( err ) return mw.errorResponse( req, res, err );
+
+          req.agenda.campaigns.instance( campaign ).getIsNew(function( err, isNew ) {
+
+            if ( err ) return mw.errorResponse( req, res, err );
+
+            mw.render( req, res, 'newsletter/admin/campaignForm', lib.extend({
+              isNew: isNew,
+              uid: req.params.uid,
+              contactLists: contactLists,
+              values: values,
+              errors: errors
+            }, _layoutData(req.agenda)) );
+
+          });
 
         });
 
@@ -290,7 +301,7 @@ var controllers = function( app, model, mw ) {
 
     campaignLayoutEdit: function( req, res ) {
 
-      req.agenda.campaigns.get({uid: req.params.uid}, function ( err, campaign ) {
+      req.agenda.campaigns.get({ uid: req.params.uid }, function( err, campaign ) {
 
         if (err) return mw.errorResponse(req, res, err);
 
@@ -303,21 +314,21 @@ var controllers = function( app, model, mw ) {
 
           if (err) return mw.errorResponse(req, res, err);
 
-          mw.render(req, res, 'newsletter/admin/campaignLayoutForm', lib.extend({
-            uid: req.params.uid,
-            type: 'manual',
-            categories: results[0],
-            departments: results[1],
-            regions: results[2],
-            cities: results[3],
-            values: {
-              cities: {},
-              departments: {},
-              regions: {}
-            },
-            filters: req.query.filters?req.query.filters:{},
-            errors: {}
-          }, _layoutData(req.agenda)));
+          req.agenda.campaigns.instance( campaign ).getLayoutFormValues(function( err, values ) {
+
+            mw.render(req, res, 'newsletter/admin/campaignLayoutForm', lib.extend({
+              uid: req.params.uid,
+              type: 'manual',
+              categories: results[0],
+              departments: results[1],
+              regions: results[2],
+              cities: results[3],
+              values: values,
+              filters: req.query.filters?req.query.filters:{},
+              errors: {}
+            }, _layoutData(req.agenda)));
+
+          });
 
         });
 
@@ -357,37 +368,41 @@ var controllers = function( app, model, mw ) {
 
     campaignFeaturedEdit: function( req, res ) {
 
-      // need to know how many events answer to this filtered request
-
-      async.parallel([
-        async.apply( req.agenda.campaigns.get, { uid: req.params.uid } ),
-        async.apply( req.agenda.events.total, { filters: req.query.filters }),
-        async.apply( req.agenda.events.list, { filters: req.query.filters, page: req.query.page, limit: app.get('perPage') } )
-      ], function( err, results ) {
+      req.agenda.campaigns.get( { uid: req.params.uid }, function( err, campaign ) {
 
         if ( err ) return mw.errorResponse( req, res, err );
 
-        var campaign = req.agenda.campaigns.instance( results[0] );
+        campaign = req.agenda.campaigns.instance( campaign );
 
-        campaign.decorateWithFeatured( results[2], function( err, decoratedEventList ) {
+        async.parallel([
+          async.apply( campaign.events.total, { filters: req.query.filters }),
+          async.apply( campaign.events.list, { filters: req.query.filters, page: req.query.page, limit: app.get('perPage') } )
+        ], function( err, results ) {
 
           if ( err ) return mw.errorResponse( req, res, err );
 
-          decoratedEventList.map(function( e ) {
+          var total = results[0],
 
-            var title = model.events().instance(e).getTitle();
+          eventList = results[1];
+
+          eventList.map(function( e ) {
+
+            var title = model.events().instance( e ).getTitle();
 
             e.title = title;
             
           });
 
+
           mw.render( req, res, 'newsletter/admin/campaignFeaturedForm', lib.extend({
-            events: decoratedEventList,
+            filters: req.query.filters || {},
+            events: eventList,
             uid: req.params.uid
           }, 
-          _pager( req, 'campaignFeaturedEdit', app.get( 'perPage' ), results[1] ),
+          _pager( req, 'campaignFeaturedEdit', app.get( 'perPage' ), total ),
           _layoutData( req.agenda )));
-        }, true);
+
+        });
 
       });
 
@@ -418,6 +433,24 @@ var controllers = function( app, model, mw ) {
         if ( err ) return mw.errorResponse( req, res, err );
 
         req.agenda.campaigns.instance( campaign ).removeFeaturedEvent({ uid: req.params.eUid }, true, function( err ) {
+
+          if ( err ) return mw.errorResponse( req, res, err );
+
+          return router.redirect(req, res, 'campaignFeaturedEdit', { uid: req.params.uid }, true );
+
+        });
+
+      });
+
+    },
+
+    campaignFeaturedClear: function( req, res ) {
+
+      req.agenda.campaigns.get({ uid: req.params.uid }, function( err, campaign ) {
+
+        if ( err ) return mw.errorResponse( req, res, err );
+
+        req.agenda.campaigns.instance( campaign ).clearFeaturedEvents( true, function( err ) {
 
           if ( err ) return mw.errorResponse( req, res, err );
 
@@ -705,7 +738,7 @@ _processCampaignSave = function( req, cb, formCb ) {
 
     // load campaign model validators
 
-    req.agenda.campaigns[uid ? 'validateAndUpdate' : 'validateAndCreate'](values, { uid : uid }, function ( err, result ) {
+    req.agenda.campaigns[uid ? 'validateAndUpdate' : 'validateAndCreate']( values, { uid : uid }, function ( err, result ) {
 
       if ( err ) return cb( err );
 
@@ -715,7 +748,7 @@ _processCampaignSave = function( req, cb, formCb ) {
 
       if ( !result.errors ) {
         
-        if (values.list) contactList = lib.getByAttr(contactLists, { uid: parseFloat(values.list) } );
+        if ( values.list ) contactList = lib.getByAttr(contactLists, { uid: parseFloat(values.list) } );
 
         return req.agenda.campaigns.instance(result.object).setContactList( contactList, function( err ) {
 
@@ -725,7 +758,7 @@ _processCampaignSave = function( req, cb, formCb ) {
 
         });
 
-      } {
+      } else {
 
         formCb(null, result, values, lib.toUnderscore(result.errors), contactLists );
 
@@ -782,6 +815,8 @@ _processCampaignLayout = function( campaign, values, cb ) {
 
       });
 
+      console.log( filterValues );
+
       campaign.setFilters( filterValues, scb );
 
     }
@@ -803,7 +838,7 @@ _layoutData = function( agenda ) {
     scriptsBase: '/js',
     head: {
       css: {
-        main: '//d.cibul.net/css/main.min.css'
+        main: '//d.cibul.net/css/compiled.css'
       }
     },
     agenda: {

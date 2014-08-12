@@ -67,7 +67,7 @@ mainInfo = function( model, agenda, campaign, data, cb ) {
 
 featuredEvents = function( model, agenda, campaign, data, cb ) {
 
-  campaign.getFeaturedEvents(function( err, events ) {
+  campaign.events.list({ filters: { set: 'featured' }, limit: false }, function( err, events ) {
 
     if ( err ) return cb( err );
 
@@ -123,6 +123,8 @@ eventSelection = function( model, agenda, campaign, data, cb ) {
       if ( filters[filter] && filters[filter].length ) listParams[filter] = filters[filter];
 
     });
+
+    if ( filters.category ) listParams.categorySlug = filters.category;
 
     if ( segmentation ) listParams.segments = [segmentation];
 
