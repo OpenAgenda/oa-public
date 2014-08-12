@@ -1,0 +1,42 @@
+<div class="header"></div>
+<div class="canvas">
+  <div class="sidebar">
+  </div>
+  <main>
+    <ul>
+<% events.forEach(function( event ) { %>
+      <li>
+        <article><!--
+<% if ( event.image ) { %>
+          --><a class="pic" href="#">
+            <img src="<%= event.image %>">
+          </a><!--
+  <% } %>
+          --><div class="cnt<% if ( !event.image ) { %> nopic<% } %>" href="#">
+  <% if ( event.category ) { %>
+            <a class="ct mbClr" href="#<%= event.category.slug %>"><%= event.category.label %></a>
+  <% } %>
+            <span class="title"><%= event.title %></span>
+            <span class="sti url"><%= __(event.dateRange[0], _t(event.dateRange[1])) %></span>
+            <span class="dsc"><%= event.description %></span>
+  <% if ( event.tags ) { %>
+            <span class="tg">
+              <ul>
+  <% event.tags.forEach( function( tag ) { %>
+                <li><a href="#<%= tag.slug %>"><%= tag.label %></a></li>
+  <% }); %>
+              </ul>
+            </span>
+  <% } %>
+            <a class="lc">
+              <i class="icon-map-marker mClr"></i>
+              <span><%= event.placeName %></span>
+            </a>
+
+          </div>
+        </article>
+      </li>
+<% }); %>
+    </ul>
+  </main>
+</div>

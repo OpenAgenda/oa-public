@@ -1,10 +1,14 @@
 {
   "css" : {
-    "global" : "../../css/global/global.css",
-    "header" : "../../css/header.css",
-    "headings" : "../../css/headings.css",
-    "forms" : "../../css/forms.css",
-    "page" : "../../css/page structure/page.css",
-    "buttons" : "../../css/buttons.css"
+    "global" : "../css/global/global.css",
+    "header" : "../css/header.css",
+    "headings" : "../css/headings.css",
+    "forms" : "../css/forms.css",
+    "page" : "../css/page structure/page.css",
+    "buttons" : "../css/buttons.css",
+    "fontawesome" : "../css/font-awesome/font-awesome.css"
+  },
+  "base" : {
+    "pageClass" : false
   }
 }

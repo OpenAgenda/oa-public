@@ -1,18 +1,12 @@
-.ag nav {
-  height: 4em;
-  position: relative;
-  z-index: 2;
-}
-
-.ag header {
+.cb > .header {
 
   height: 36em;
   position: relative;
   background: #333;
 
-}
+} 
 
-.ag .canvas {
+.cb .canvas {
 
   margin: 0 auto;
   max-width: 1100px;
@@ -21,7 +15,7 @@
 
 }
 
-.ag .sidebar {
+.cb .sidebar {
 
   float: right;
   width: 320px;
@@ -30,7 +24,7 @@
 
 }
 
-.ag main {
+.cb main {
 
   margin: -4em 360px 0 0;
   padding: 2em;
@@ -39,24 +33,24 @@
 
 }
 
-.ag aside {
+.cb aside {
 
   padding: 4em 0 0;
 
 }
 
 
-.ag footer {
+.cb footer {
 
 }
 
 @media all and (max-width: 960px) {
 
-  .ag .sidebar {
+  .cb .sidebar {
     width: 300px;
   }
 
-  .ag main {
+  .cb main {
     margin-right: 340px;
   }
 
@@ -64,18 +58,18 @@
 
 @media all and (max-width: 780px) {
 
-  .ag header,
-  .ag nav {
+  .cb .header,
+  .cb nav {
 
     height: auto;
 
   }
 
-  .ag .sidebar {
+  .cb .sidebar {
     display: none;
   }
 
-  .ag main {
+  .cb main {
     margin: 0;
   }
 

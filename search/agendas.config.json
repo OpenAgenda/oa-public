@@ -1,0 +1,10 @@
+{
+  "layout" : "layout/main",
+  "css" : {
+    "frame" : "../css/frame.css",
+    "mainItem" : "../css/mainItem.css"
+  },
+  "base" : {
+    "pageClass" : "cb"
+  }
+}

@@ -9,5 +9,8 @@
     "nav" : "../css/nav.css",
     "forms" : "../css/forms.css",
     "buttons" : "../css/buttons.css"
+  },
+  "base" : {
+    "pageClass" : false
   }
 }

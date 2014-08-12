@@ -24,6 +24,11 @@ module.exports = function( templateName, data, cb ) {
 
     if ( results.config.base ) data = cn.extend(results.config.base, data);
 
+    if ( results.layout && results.layoutConfig.base ) {
+
+      data = cn.extend( results.layoutConfig.base, data );
+
+    }
 
     if ( results.config.js ) data.js = results.config.js;
 
@@ -33,7 +38,7 @@ module.exports = function( templateName, data, cb ) {
 
     var templateRender = renderTemplate( results.template, results.templateBody, data );
 
-    if (results.layout) {
+    if ( results.layout ) {
 
       templateRender = renderTemplate(results.layout, results.layoutBody, data).replace( '<!-- content -->', templateRender );
 
@@ -116,11 +121,13 @@ loadTemplate = function( templateName ) {
 
       var files = [async.apply(fs.readFile, data.template, 'utf-8')];
 
-      if (data.config.layout) {
+      if ( data.config.layout ) {
 
         data.layout = __dirname + '/../' + data.config.layout + '.ejs';
 
         files.push(async.apply(fs.readFile, data.layout, 'utf-8'));
+
+        files.push(async.apply(fs.readFile, data.config.layout + '.config.json', 'utf-8'));
 
       }
 
@@ -130,7 +137,13 @@ loadTemplate = function( templateName ) {
 
         data.templateBody = results[0];
 
-        if (data.config.layout) data.layoutBody = results[1];
+        if ( data.config.layout ) {
+
+          data.layoutBody = results[1];
+
+          data.layoutConfig = JSON.parse( results[2] );
+
+        }
 
         cb(null, data);
 

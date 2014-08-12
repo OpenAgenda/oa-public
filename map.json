@@ -1,6 +1,8 @@
 [
-  "agenda/main",
   "presentation/index",
+  "agenda/main",
+  "search/agendas",
+  "search/events",
   "newsletter/event/full",
   "newsletter/agenda/full",
   "newsletter/show",

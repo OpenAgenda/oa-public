@@ -2,8 +2,9 @@
   "layout" : "layout/blank",
   "css" : {
     "global" : "../css/global/global.css",
-    "frame" : "css/frame.css",
+    "frame" : "../css/frame.css",
     "agendaFrame" : "css/agendaFrame.css",
+    "mainItem" : "../css/mainItem.css",
     "forms" : "../css/forms.css",
     "fontawesome" : "../css/font-awesome/font-awesome.css"
   },

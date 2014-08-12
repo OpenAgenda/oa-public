@@ -1,3 +1,9 @@
+.ag nav {
+  height: 4em;
+  position: relative;
+  z-index: 2;
+}
+
 .ag .mClr {
   color: #c40066;
 }
@@ -67,7 +73,7 @@
 }
 
 
-.ag header .bg {
+.ag .header .bg {
 
   display: none;
 
@@ -80,107 +86,11 @@
 
 }
 
-.ag article {
 
-  position: relative;
-  display: block;
-  margin: 1em 0 2em;
-  padding-bottom: 2em;
-  border-bottom: 1px solid #dfdfdf;
 
-}
-
-.ag article .pic {
-
-  display: inline-block;
-  vertical-align: top;
-  width: 20%;
-
-}
-
-.ag article .pic img {
-
-  padding: 8px 20px 0 0;
-
-}
-
-.ag article .cnt {
-
-  vertical-align: top;
-  display: inline-block;
-  width: 80%;
-
-}
-
-.ag article .cnt.nopic {
-
-  width: 100%;
-
-}
-
-.ag article .cnt > span {
-
-    display: block;
-
-}
-
-.ag article .title {
-
-  font-size: 1.6em;
-  display: block;
-
-}
-
-.ag article .dsc {
-
-  display: block;
-  font-size: 1.2em;
-  font-weight: 100;
-  padding: 1em 0;
-  color: #666;
-
-}
-
-.ag article .sti {
-
-  display: block;
-  font-size: 1.2em;
-
-}
-
-.ag article .tg li {
- 
-  display: inline-block;
-  text-transform: uppercase;
-  background: #efefef;
-  padding: 0.1em 0.5em;
-  margin: .2em .5em .2em 0;
-
-  border: 1px solid #e0e0e0;
-
-  border-radius: 2px;
-
-}
-
-.ag article .lc {
-
-  padding: .5em 0;
-  display: block;
-
-}
-
-.ag article .lc i {
-
-  font-size: 1.3em;
-  padding-right: 0.5em;
-
-}
-.ag article .lc span {
-
-  font-size: 1.2em;
-  font-weight: 100;
-
-}
+/**
+ * main list list item
+ */
 
 .ag article .ct {
 
@@ -193,6 +103,11 @@
 
 }
 
+
+
+/**
+ * sidebar bit
+ */
 
 .ag aside.search {
 
@@ -260,13 +175,13 @@
 
 @media all and (min-width: 780px) {
 
-  .ag header {
+  .ag .header {
 
     overflow: hidden;
 
   }
 
-  .ag header .bg {
+  .ag .header .bg {
 
     filter: blur(5px);
     -webkit-filter: blur(5px);

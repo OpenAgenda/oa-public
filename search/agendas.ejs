@@ -1,0 +1,36 @@
+<div class="header"></div>
+<div class="canvas">
+  <div class="sidebar">
+  </div>
+  <main>
+    <ul>
+<% agendas.forEach(function( agenda ) { %>
+      <li>
+      <article><!--
+<% if ( agenda.image ) { %>
+        --><a class="pic" href="#">
+          <img src="<%= agenda.image %>">
+        </a><!--
+<% } %>
+        --><div class="cnt<% if ( !agenda.image ) { %> nopic<% } %>" href="#">
+          <span class="title"><%= agenda.title %></span>
+          <span class="dsc"><%= agenda.description %></span>
+<% if ( agenda.categories.length ) { %>
+          <ul class="tg">
+<% agenda.categories.forEach( function( category ) { %>
+          <li><a href="#<%= category.slug %>"><%= category.label %></a></li>
+<% }); %>
+          </ul>
+<% } %>
+          <a class="lc">
+            <i class="icon-map-marker mClr"></i>
+            <span><%= agenda.locationInfo %></span>
+          </a>
+
+        </div>
+      </article>
+      </li>
+<% }); %>
+    </ul>
+  </main>
+</div>
