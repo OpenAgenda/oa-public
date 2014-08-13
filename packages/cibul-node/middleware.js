@@ -22,7 +22,6 @@ var log = require('debug')('middleware'),
 
 templater = require('cibulTemplates/server/templater'),
 
-
 render = function( req, res, templatePath, data, maintain ) {
 
   data.genUrl = req.genUrl;

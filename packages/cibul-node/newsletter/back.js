@@ -22,7 +22,7 @@ router = require('../router.js'),
 
 build = require('./build');
 
-module.exports = function(base, config) {
+module.exports = function( base, config ) {
 
   log('loading newsletter module');
 
@@ -163,8 +163,7 @@ var controllers = function( app, model, mw ) {
             uid: null,
             contactLists: contactLists,
             values: values,
-            errors: errors,
-            isNew: true
+            errors: errors
           }, _layoutData(req.agenda)));
 
         });

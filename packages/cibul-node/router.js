@@ -74,100 +74,11 @@ exports.loadUrlGen = function( app ) {
 
   return function( req, res, next ) {
 
-    var base = _getBasePath(app, req);
-
-
-    req.genUrl = function( name, values ) {
-
-      var url = routes[name].uri,
-
-      query = {},
-
-      maintain = false;
-
-      if ( values === undefined ) values = {};
-      
-      if ( arguments.length > 2 ) {
-
-        var args = Array.prototype.slice.call(arguments, 0);
-
-        for (var i = 2; i < args.length; i++ ) {
-
-          if ( typeof args[i] == 'boolean' ) {
-
-            maintain = args[i];
-
-          } else {
-
-            lib.extend(values, args[i]);
-            
-          }
-
-        }
-
-      }
-
-
-      // if we have to maintain current req params, then there.
-
-      if ( maintain ) _maintainQuery( req, values );
-
-
-      // if we stay in current module, we use the identifiers
-
-      if (routes[name].module === app.get('name')) {
-
-        url = base.path + url;
-
-      } else if (routes[name].base) {
-
-        values = lib.extend({}, base.values, values);
-
-        url = routes[name].base + url;
-
-      } else {
-
-        values = lib.extend({}, base.values, values);
-
-      }
-
-
-      log('generating url of uri %s', url);
-
-      uriParamNames = (routes[name].uri.match(/:[a-z|A-Z]+/g) || []).map(function(n) { return n.replace(/[:]/g,''); });
-
-      uriParamNames.forEach(function(name) {
-
-        url = url.replace(':' + name, values[name]);
-
-
-      });
-
-      // deal with non route params
-      
-
-      for ( var key in values ) {
-
-        if ( !lib.contains( uriParamNames, key ) ) {
-
-          query[key] = values[key];
-
-        }
-
-      }
-
-      if ( lib.size(query) ) {
-
-        url += '?' + qs.stringify(query);
-
-      }
-
-      
-      log('generated %s', url);
-
-      return url;
-
-    };
+    req.genUrl = makeGenUrl({
+      base: _getBasePath( app, req ),
+      req: req,
+      module: app.get('name') 
+    });
 
     next();
 
@@ -177,7 +88,7 @@ exports.loadUrlGen = function( app ) {
 
 exports.redirect = function( req, res, name, values, maintain) {
 
-  if (values === undefined) values = {};
+  if ( values === undefined ) values = {};
 
   if ( maintain ) _maintainQuery( req, values );
 
@@ -189,7 +100,114 @@ exports.redirect = function( req, res, name, values, maintain) {
 
 };
 
-var _registerRoute = function( name, params ) {
+var makeGenUrl = exports.makeGenUrl = function( options ) {
+
+  var params = lib.extend({
+    root: false,
+    base: { values: {}, path: '' },
+    module: false,
+    req: false
+  }, options );
+
+  return function( name, values ) { // 'maintain as a third arg'
+
+    var url = routes[name].uri,
+
+    query = {},
+
+    maintain = false;
+
+    if ( values === undefined ) values = {};
+    
+    if ( arguments.length > 2 ) {
+
+      var args = Array.prototype.slice.call(arguments, 0);
+
+      for (var i = 2; i < args.length; i++ ) {
+
+        if ( typeof args[i] == 'boolean' ) {
+
+          maintain = args[i];
+
+        } else {
+
+          lib.extend(values, args[i]);
+          
+        }
+
+      }
+
+    }
+
+
+    // if we have to maintain current req params, then there.
+
+    if ( params.req && maintain ) _maintainQuery( params.req, values );
+
+
+    // if we stay in current module, we use the identifiers
+
+    if ( params.module && ( routes[name].module === params.module ) ) {
+
+      url = params.base.path + url;
+
+    } else if ( routes[name].base ) {
+
+      values = lib.extend({}, params.base.values, values);
+
+      url = routes[name].base + url;
+
+    } else {
+
+      values = lib.extend({}, params.base.values, values);
+
+    }
+
+
+    log('generating url of uri %s', url);
+
+    uriParamNames = (routes[name].uri.match(/:[a-z|A-Z]+/g) || []).map(function(n) { return n.replace(/[:]/g,''); });
+
+    uriParamNames.forEach(function(name) {
+
+      url = url.replace(':' + name, values[name]);
+
+    });
+
+    // deal with non route params
+    
+    for ( var key in values ) {
+
+      if ( !lib.contains( uriParamNames, key ) ) {
+
+        query[key] = values[key];
+
+      }
+
+    }
+
+    if ( lib.size( query ) ) {
+
+      url += '?' + qs.stringify( query );
+
+    }
+
+    if ( params.root ) {
+
+      url = params.root + url;
+
+    }
+
+    
+    log('generated %s', url);
+
+    return url;
+
+  };
+
+},
+
+ _registerRoute = function( name, params ) {
 
   log('registering route %s with uri "%s"', name, params.uri);
 
