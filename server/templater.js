@@ -127,7 +127,7 @@ loadTemplate = function( templateName ) {
 
         files.push(async.apply(fs.readFile, data.layout, 'utf-8'));
 
-        files.push(async.apply(fs.readFile, data.config.layout + '.config.json', 'utf-8'));
+        files.push(async.apply(fs.readFile, __dirname + '/../' + data.config.layout + '.config.json', 'utf-8'));
 
       }
 
@@ -164,7 +164,7 @@ loadLabels = function( data, cb ) {
 
   async.parallel(files.map(function ( name ) { 
 
-    return async.apply(fs.readFile, __dirname + '/../' + name + '.fr.json', 'utf-8'); 
+    return async.apply( fs.readFile, __dirname + '/../' + name + '.fr.json', 'utf-8' ); 
 
   }), function ( err, results ) {
 
@@ -192,7 +192,7 @@ loadHelpers = function( data, cb ) {
 
     if (!helpers[name]) {
 
-      helpers[name] = require(__dirname + '/../helpers/' + data.config.helpers[name])({ lang: 'fr' });
+      helpers[name] = require( __dirname + '/../helpers/' + data.config.helpers[name])({ lang: 'fr' } );
 
     }
 
@@ -215,7 +215,7 @@ loadScripts = function( templateName, scriptsBase ) {
 
     if ( data.config.templateJs ) {
 
-      data.config.js.push(basePath + '/' + cn.toCamelCase( templateName.replace(/\//g, '_') ) + '.js' );
+      data.config.js.push( basePath + '/' + cn.toCamelCase( templateName.replace(/\//g, '_') ) + '.js' );
 
     }
 
