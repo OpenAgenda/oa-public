@@ -1,8 +1,12 @@
+window.env = 'dev'
+
 var cn = require('../../../js/lib/common/common.mod.js'),
 
 selectForm = require('../../../js/lib/selectForm/selectForm.mod.js'),
 
-frameLoader = require('./lib/frameLoader');
+frameLoader = require('./lib/frameLoader'),
+
+lightboxPage = require('./lib/lightboxPage');
 
 window.run = function( options ) {
 
@@ -12,6 +16,8 @@ window.run = function( options ) {
   });
 
   _runSelectForm( options.folded );
+
+  lightboxPage( options.lightbox );
 
 };
 

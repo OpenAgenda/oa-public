@@ -4,7 +4,7 @@
 </div>
 <div class="col w33">
 
-<form class="cform" method="post" action="<%= genUrl('campaignComplete', {uid: uid}) %>">
+<form class="cform" method="post" action="<%= genUrl('campaignComplete', { uid: uid }) %>">
 
 <% if (type=="manual") { %>
     <section>
@@ -21,7 +21,7 @@
       <div class="header">
         <h3><%= __('Featured Events') %></h3>
       </div>
-      <a class="button" href="<%= genUrl('campaignFeaturedEdit', { uid: uid }) %>"><%= __('Select Events') %></a>
+      <a class="button js_lightbox_trigger" href="<%= genUrl('campaignFeaturedEdit', { uid: uid }) %>"><%= __('Select Events') %></a>
     </section>
 <% } %>
     <section>

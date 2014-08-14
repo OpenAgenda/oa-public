@@ -20,13 +20,23 @@ url = require('url'),
 
 browserify = require('browserify'),
 
+debug = require('debug'),
+
 map;
+
+debug.enable('*');
+
+var log = debug('httpServer');
+
+log('IMPORTANT: if nodemon is to be used, use it with proper exclusions');
 
 http.createServer(function ( req, res ) {
 
+  log('processing request');
+
   async.waterfall([
 
-    loadMap,
+    _loadMap,
 
 
     function( map, wcb ) { // load uri
@@ -35,7 +45,7 @@ http.createServer(function ( req, res ) {
 
       var uri = parsed.pathname.substr(1);
 
-      if (!uri.length) return renderMap(map, req, res);
+      if (!uri.length) return _renderMap(map, req, res);
 
       if ( cn.contains( ['.js'], uri.substr(-3) ) ||
 
@@ -52,7 +62,7 @@ http.createServer(function ( req, res ) {
 
       var reqQuery = url.parse(req.url, true).query;
 
-      loadData( uri, reqQuery.br !== undefined ? true : false, function( tConf ) { 
+      _loadData( uri, reqQuery.br !== undefined ? true : false, function( tConf ) { 
 
         // load state of data
 
@@ -94,7 +104,7 @@ http.createServer(function ( req, res ) {
 
         // fake url generator
         
-        tConf.data.genUrl = genUrl( tConf.data );
+        tConf.data.genUrl = _genUrl( tConf.data );
 
 
         // static image path generator 
@@ -112,9 +122,11 @@ http.createServer(function ( req, res ) {
 
       templater( uri, data, function( err, render ) {
 
+        render = _insertEnvironment( render );
+
         if ( err ) return wcb( err );
 
-        respond( res, 200, render, data.responseType );
+        _respond( res, 200, render, data.responseType );
 
       });
 
@@ -122,7 +134,7 @@ http.createServer(function ( req, res ) {
 
   ], function( err ) {
 
-    if ( err ) return respond( res, 500, err );
+    if ( err ) return _respond( res, 500, err );
 
   });  
 
@@ -133,9 +145,9 @@ http.createServer(function ( req, res ) {
  * render a template link map
  */
 
-var renderMap = function( map, req, res ) {
+var _renderMap = function( map, req, res ) {
 
-  respond(res, 200, '<ul>' + map.map(function(uri) {
+  _respond(res, 200, '<ul>' + map.map(function(uri) {
     return '<li><a href="/' + uri + '">' + uri + '</a></li>';
   }).join('') + '</ul>');
 
@@ -146,7 +158,7 @@ var renderMap = function( map, req, res ) {
  * respond with given body
  */
 
-respond = function( res, code, body, responseType ) {
+_respond = function( res, code, body, responseType ) {
 
   if (responseType === undefined) responseType = "text/html; charset=utf-8";
 
@@ -160,9 +172,9 @@ respond = function( res, code, body, responseType ) {
 
 },
 
-loadMap = function( wcb ) {
+_loadMap = function( wcb ) {
 
-  readFile('map.json', function( err, map ) {
+  _readFile('map.json', function( err, map ) {
 
     wcb( null, map );
 
@@ -170,13 +182,15 @@ loadMap = function( wcb ) {
 
 },
 
-loadData = function( templateName, doBrowserify, cb ) {
+_loadData = function( templateName, doBrowserify, cb ) {
 
   async.waterfall([
 
     function( wcb ) {
 
-      readFile( templateName + '.config.json', function( err, content ) {
+      log('loading template config');
+
+      _readFile( templateName + '.config.json', function( err, content ) {
 
         wcb( null, { config: content });
 
@@ -187,6 +201,8 @@ loadData = function( templateName, doBrowserify, cb ) {
     function( result, wcb ) { // browserify script if exists & setting set?
 
       if ( !result.config.templateJs ) return wcb( null, result );
+
+      log('template js exists');
 
 
       // determine name of template js file
@@ -207,6 +223,8 @@ loadData = function( templateName, doBrowserify, cb ) {
       if ( !doBrowserify ) return wcb( null, result );
 
 
+      log('browserify');
+
       // run browserify
 
       var b = browserify();
@@ -223,7 +241,7 @@ loadData = function( templateName, doBrowserify, cb ) {
 
       if ( !result.config.layout ) return wcb( null, result);
 
-      readFile(result.config.layout + '.config.json', function( err, content ) {
+      _readFile(result.config.layout + '.config.json', function( err, content ) {
 
         if ( err ) return wcb( null, result );
 
@@ -239,7 +257,7 @@ loadData = function( templateName, doBrowserify, cb ) {
 
       result.data = {};
 
-      readFile(templateName + '.mock.json', function( err, content ) {
+      _readFile(templateName + '.mock.json', function( err, content ) {
 
         if ( err ) return wcb( null, result );
 
@@ -255,7 +273,7 @@ loadData = function( templateName, doBrowserify, cb ) {
 
       if ( !result.config.layout ) return wcb( null, result );
 
-      readFile(result.config.layout + '.mock.json', function( err, content ) {
+      _readFile(result.config.layout + '.mock.json', function( err, content ) {
 
         if ( err ) return wcb( null, result );
 
@@ -283,7 +301,7 @@ loadData = function( templateName, doBrowserify, cb ) {
 
 },
 
-genUrl = function( data ) {
+_genUrl = function( data ) {
 
   return function ( name ) {
 
@@ -319,13 +337,7 @@ imagePath = function( image, static ) {
 
 },
 
-fileExists = function( filename, cb ) {
-
-  fs.exists( __dirname + '/' + filename, cb);  
-
-},
-
-readFile = function( filename, cb ) {
+_readFile = function( filename, cb ) {
 
   fs.readFile(__dirname + '/' + filename, 'utf-8', function( err, content ) {
 
@@ -360,5 +372,11 @@ _absolutePath = function( uri, css ) {
   }
 
   return absCss;
+
+},
+
+_insertEnvironment = function( render ) {
+
+  return render.replace( '</body>', '<script type="text/javascript">window.env="dev";</script>' );
 
 };

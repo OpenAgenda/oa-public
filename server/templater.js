@@ -107,17 +107,25 @@ loadTemplate = function( templateName ) {
 
   return function( cb ) {
 
-    var baseTemplatePath = __dirname + '/../' + templateName,
+    var baseTemplatePath = ( __dirname + '/../' + templateName ).replace('.part', ''),
 
-    data = {name: templateName};
+    isPartial = templateName.substr(-5) === '.part',
 
-    fs.readFile(baseTemplatePath + '.config.json', 'utf-8', function (err, config) {
+    data = {
+      name: templateName.replace('.part', '')
+    };
 
-      if (err) return cb(err);
+    fs.readFile(baseTemplatePath + '.config.json', 'utf-8', function( err, config ) {
 
-      data.config = JSON.parse(config);
+      data.config = JSON.parse( config );
 
-      data.template = baseTemplatePath + '.ejs';
+      data.template = baseTemplatePath + ( isPartial ? '.part' : '' ) + '.ejs';
+
+      if ( isPartial ) {
+
+        data.config.layout = false;
+
+      }
 
       var files = [async.apply(fs.readFile, data.template, 'utf-8')];
 
@@ -131,9 +139,9 @@ loadTemplate = function( templateName ) {
 
       }
 
-      async.parallel(files, function(err, results) {
+      async.parallel( files, function( err, results ) {
 
-        if (err) return cb(err);
+        if ( err ) return cb( err );
 
         data.templateBody = results[0];
 
@@ -162,7 +170,7 @@ loadLabels = function( data, cb ) {
 
   if (data.config.layout) files.push(data.config.layout);
 
-  async.parallel(files.map(function ( name ) { 
+  async.parallel( files.map( function ( name ) { 
 
     return async.apply( fs.readFile, __dirname + '/../' + name + '.fr.json', 'utf-8' ); 
 

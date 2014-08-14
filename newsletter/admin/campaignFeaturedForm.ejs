@@ -6,49 +6,6 @@
 
 <section>
 
-<form class="cform" method="get" action="<%= genUrl('campaignFeaturedEdit', { uid: uid }, true) %>">
-  <a href="<%= genUrl('campaignFeaturedClear', { uid: uid }) %>" class="url right"><%= __('clear selection') %></a>
-  <ul class="line">
-    <li>
-      <input type="text" name="filters[title]" value="<%= filters.title || '' %>" placeholder="<%= __('title') %>"/>  
-    </li>
-    <li>
-      <select name="filters[set]">
-        <option value="all" <% if ( filters.set=="all" ) { %>selected<% } %>><%= __('all') %></option>
-        <option value="featured" <% if ( filters.set=="featured" ) { %>selected<% } %>><%= __('featured') %></option>
-        <option value="unfeatured" <% if ( filters.set=="unfeatured" ) { %>selected<% } %>><%= __('not featured') %></option>
-      </select>
-    </li>
-    <li>
-      <button type="submit"><i class="icon-refresh"></i></button>
-    </li>
-  </ul>
-</form>
-
-<% include pages %>
-
-<% if (events.length) { %>
-<ul class="glist">
-<% events.forEach(function( event ) { %>
-  <li>
-    <span class="title"><%= event.title %></span>
-    <ul>
-      <li>
-<% if ( !event.featured ) { %>
-        <a class="url" href="<%= genUrl('campaignFeaturedAdd', { uid: uid, eUid: event.uid }, true) %>"><%= __('add') %></a>
-<% } else { %>
-        <span><%= __('event is featured') %></span>
-        <a class="url" href="<%= genUrl('campaignFeaturedRemove', { uid: uid, eUid: event.uid }, true) %>"><%= __('remove') %></a>
-<% } %> 
-      </li>
-    </ul>
-  </li>
-<% }); %>
-</ul>
-<% } else { %>
-  <p><%= __('Your agenda does not have any events on display.') %></p>
-<% } %>
-
-<% include pages %>
+<% include campaignFeaturedForm.part.ejs %>
 
 </section>
