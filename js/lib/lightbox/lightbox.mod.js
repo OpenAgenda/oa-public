@@ -1,6 +1,7 @@
 var canvasElem = false,
   frameElem = false,
   onClose = false,
+  onHide = false,
   beforeClose = false,
   cn = require('../common/common.mod.js');
 
@@ -27,22 +28,24 @@ module.exports = function(options) {
     options.buttons = defaultButtons;
   }
 
-  _prepare(options.classes);
+  _prepare( options.classes );
 
-  if (options.html)
-    _setContent(options.html);
-  else if (options.elems)
-    _setContent(options.elems);
-  else if (options.message)
-    _setMessageContent(options.message);
+  if ( options.html )
+    _setContent( options.html );
+  else if ( options.elems )
+    _setContent( options.elems );
+  else if ( options.message )
+    _setMessageContent( options.message );
 
-  if (options.buttons) _setButtons(options.classes, options.buttons);
+  if ( options.buttons ) _setButtons( options.classes, options.buttons );
 
   _display();
 
-  if (options.onOpen) options.onOpen(frameElem);
-  onClose = options.onClose?options.onClose:false;
-  beforeClose = options.beforeClose?options.beforeClose:false;
+  if ( options.onOpen ) options.onOpen( frameElem );
+  onClose = options.onClose ? options.onClose : false;
+  beforeClose = options.beforeClose ? options.beforeClose : false;
+
+  onHide = options.onHide ? options.onHide : false;
 
   return {
     hide: _hide
@@ -53,7 +56,7 @@ module.exports = function(options) {
 
 var _prepare = function(classes) {
 
-  canvasElem?_clear():_create();
+  canvasElem ? _clear() : _create();
 
   canvasElem.className = classes.canvas;
   frameElem.className = classes.frame;
@@ -141,6 +144,8 @@ _hide = function() {
 
   canvasElem.style.display = 'none';
 
+  if ( onHide ) onHide();
+
 },
 
 _repositionFrame = function() {
@@ -191,12 +196,12 @@ _setContent = function(content) {
   while (elems.length)
     frameElem.appendChild(cn.isArray(elems)?elems.shift():elems[0]);
 
-  cn.forEach(cn.els(frameElem,'img'), function(imgElem) {
-    cn.addEvent(imgElem, 'load', _repositionFrame);
+  cn.forEach( cn.els(frameElem,'img'), function(imgElem) {
+    cn.addEvent( imgElem, 'load', _repositionFrame );
   });
 
-  cn.forEach(frameElem.getElementsByTagName('script'), function(scriptElem) {
-    eval(scriptElem.innerHTML);
+  cn.forEach( frameElem.getElementsByTagName('script'), function( scriptElem ) {
+    eval( scriptElem.innerHTML );
   });
 
 },
@@ -212,20 +217,20 @@ _setMessageContent = function(message) {
 _setButtons = function(classes, buttons) {
 
   var div = document.createElement('div');
-  cn.addClass(div, classes.buttonBox);
+  cn.addClass( div, classes.buttonBox );
 
   for (var i in buttons) {
 
     var button = document.createElement('button');
     button.innerHTML = buttons[i].label;
 
-    (function(button, buttonConfig) {
+    (function( button, buttonConfig ) {
 
-      cn.addEvent(button, 'click', function(){
+      cn.addEvent( button, 'click', function(){
 
-        if (buttonConfig.onClick) buttonConfig.onClick();
+        if ( buttonConfig.onClick ) buttonConfig.onClick();
 
-        if (typeof buttonConfig.hide !== 'undefined') if (!buttonConfig.hide) return;
+        if (typeof buttonConfig.hide !== 'undefined') if ( !buttonConfig.hide ) return;
 
         _hide();
 

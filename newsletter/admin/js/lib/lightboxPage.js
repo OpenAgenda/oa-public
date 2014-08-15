@@ -1,8 +1,14 @@
+/**
+ * loads resource in a lightbox and takes over all links of rendered lightbox content to make ajax calls
+ */
+
 var cn = require('../../../../js/lib/common/common.mod.js'),
 
 lightbox = require('../../../../js/lib/lightbox/lightbox.mod.js'),
 
 remote = require('../../../../js/lib/remote/remote.mod.js'),
+
+formSerialize = require('form-serialize'),
 
 params = {
   selectors: {
@@ -11,7 +17,7 @@ params = {
   classes: {
     disabled: 'disabled',
     lightbox: {
-      frame: 'wsq lightbox-frame', 
+      frame: 'wsq lightbox-frame w500', 
       canvas: 'lightbox-canvas', 
       buttonBox: 'lightbox-buttons', 
       button: 'small button'
@@ -19,35 +25,55 @@ params = {
   }
 };
 
-module.exports = function( options ) {
+module.exports = function( options, cbs ) {
 
   cn.extend( params, options ? options : {} );
 
   cn.addEvent( window, 'load', function() {
 
-    cn.forEach(cn.els( params.selectors.trigger ), _handleLightbox );
+    cn.forEach( cn.els( params.selectors.trigger ), function( aElem ) {
+
+      _handleLightbox( aElem, cbs );
+
+    } );
 
   });
 
 };
 
-var _handleLightbox = function( triggerElem ) {
+var _handleLightbox = function( triggerElem, cbs ) {
 
-  var res = triggerElem.getAttribute( 'href' ),
+  var res, data = {}, form;
 
-  loaded = false;
+  if ( triggerElem.tagName == 'FORM' ) {
+
+    form = triggerElem;
+
+    triggerElem = cn.el( form, 'button' );
+
+    res = form.getAttribute( 'action' );
+
+  } else {
+
+    res = triggerElem.getAttribute( 'href' );
+
+  }
 
   cn.addEvent( triggerElem, 'click', function( e ) {
 
     cn.preventDefault( e );
 
-    if ( loaded ) return;
+    if ( _isDisabled( triggerElem ) ) return;
 
-    loaded = true;
+    _disable( triggerElem ); // disables triggering elem
 
-    _disable( triggerElem );
+    if ( form ) {
 
-    _loadPage( res, function( err, html ) {
+      data = formSerialize( form, { hash: true } );
+
+    }
+
+    _loadPage( res, data, function( err, html ) {
 
       if ( err ) return _handleError( triggerElem, err );
 
@@ -55,7 +81,20 @@ var _handleLightbox = function( triggerElem ) {
         html: html,
         buttons: false,
         classes: params.classes.lightbox,
-        onOpen: _handleLightboxContent
+        onOpen: function( frameElem ) {
+
+          _enable( triggerElem );
+
+          _handleLightboxContent( frameElem, cbs );
+          
+        },
+        onHide: function() {
+
+          cbs.onClose();
+
+          _enable( triggerElem );
+
+        }
       });
 
     });
@@ -65,19 +104,17 @@ var _handleLightbox = function( triggerElem ) {
 },
 
 
-_handleLightboxContent = function( lighboxFrameElem ) {
+_handleLightboxContent = function( lightboxFrameElem, cbs ) {
 
-  cn.forEach( cn.els( 'a', lightboxFrameElem ), function( aElem ) {
+  cn.forEach( cn.els( lightboxFrameElem, 'a' ), function( aElem ) {
 
-    cn.addEvent( aElem, 'click', function( e ) {
+    _handleLightbox( aElem, cbs );
 
-      cn.preventDefault( e );
+  } );
 
-      console.log( 'click!' );
+  var formElem = cn.el( lightboxFrameElem, 'form' );
 
-    });
-
-  });
+  if ( formElem ) _handleLightbox( formElem, cbs );
 
 },
 
@@ -86,9 +123,9 @@ _handleLightboxContent = function( lighboxFrameElem ) {
  * fetch partial from server
  */
 
-_loadPage = function( res, cb ) {
+_loadPage = function( res, data, cb ) {
 
-  remote.getXmlHttp( res, { timeout: 10000 }, function( responseType, data) {
+  remote.getXmlHttp( res, { timeout: 10000, data: data }, function( responseType, data) {
 
     if ( responseType !== 'success' ) return cb( 'unsuccessful request: ' + responseType );
 
@@ -107,14 +144,15 @@ _loadPage = function( res, cb ) {
 
 _disable = function( elem ) {
 
-  cn.forEach( cn.els( params.selectors.trigger ), function( elem ) {
-
-    cn.addClass( elem, params.classes.disabled );  
-
-  });
-
+  cn.addClass( elem, params.classes.disabled );
 
 },
+
+_isDisabled = function( elem ) {
+
+  return cn.hasClass( elem, params.classes.disabled );
+
+}
 
 
 /**
@@ -123,11 +161,7 @@ _disable = function( elem ) {
 
 _enable = function( elem ) {
 
-  cn.forEach( cn.els( params.selectors.trigger ), function( elem ) {
-
-    cn.removeClass( elem, params.classes.disabled );  
-
-  });
+  cn.removeClass( elem, params.classes.disabled ); 
 
 },
 
@@ -138,16 +172,9 @@ _enable = function( elem ) {
 
 _handleError = function( elem, err ) {
 
-  _enable( elem );
+  _enable( );
 
   console.log('aborting');
   console.log(err);
 
 };
-
-/*
-  html: data.partial,
-  buttons: false,
-  classes: params.lightboxClasses,
-  onOpen: options.onElemReady
- */

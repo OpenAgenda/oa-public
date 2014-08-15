@@ -44,6 +44,18 @@ a {
   z-index: 999999;
 }
 
+.lightbox-frame.w500 {
+  width: 500px;
+}
+
+@media all and (max-width: 500px) {
+
+  .lightbox-frame.w500 {
+    width: auto;
+  }
+
+}
+
 .lightbox-buttons {
   text-align: center;
   padding-top: 10px;

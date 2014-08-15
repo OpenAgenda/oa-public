@@ -12,6 +12,7 @@
     "ejs" : "*",
     "express" : "*",
     "moment" : "*",
-    "browserify" : "*"
+    "browserify" : "*",
+    "form-serialize" : "*"
   }
 }

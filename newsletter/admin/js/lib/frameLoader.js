@@ -1,3 +1,7 @@
+/**
+ * monitors form inputs and triggers refresh of iframe by posting updated values
+ */
+
 var cn = require('../../../../js/lib/common/common.mod.js');
 
 module.exports = function( options, callbacks ) {
@@ -13,7 +17,7 @@ module.exports = function( options, callbacks ) {
 
   if ( callbacks ) cn.extend( params, callbacks );
 
-  instance( params );
+  return instance( params );
 
 };
 
@@ -23,7 +27,7 @@ module.exports = function( options, callbacks ) {
 
 var instance = function( params ) {
 
-  var formElem, frameElem, baseAction,
+  var ready = false, formElem, frameElem, baseAction,
 
   run = function () {
 
@@ -33,7 +37,9 @@ var instance = function( params ) {
 
     baseAction = formElem.getAttribute( 'action' );
 
-    cn.forEach( cn.els( params.selectors.reloaders ), changeListener( refreshFrame ) );
+    cn.forEach( cn.els( params.selectors.reloaders ), _changeListener( refreshFrame ) );
+
+    ready = true;
 
     if ( params.onReady ) params.onReady( frameElem );
 
@@ -43,7 +49,7 @@ var instance = function( params ) {
    * listen to change and trigger callback when its detected
    */
 
-  changeListener = function( onChange ) {
+  _changeListener = function( onChange ) {
 
     return function( elem ) {
 
@@ -60,6 +66,8 @@ var instance = function( params ) {
 
   refreshFrame = function() {
 
+    if ( !ready ) return;
+
     formElem.setAttribute( 'target', frameElem.getAttribute('name') );
 
     formElem.setAttribute( 'action', params.preview );
@@ -75,5 +83,7 @@ var instance = function( params ) {
   };
 
   cn.addEvent( window, 'load', run );
+
+  return refreshFrame;
 
 };

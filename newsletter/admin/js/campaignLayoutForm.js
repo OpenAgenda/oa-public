@@ -1,4 +1,4 @@
-window.env = 'dev'
+window.env = 'dev';
 
 var cn = require('../../../js/lib/common/common.mod.js'),
 
@@ -6,18 +6,22 @@ selectForm = require('../../../js/lib/selectForm/selectForm.mod.js'),
 
 frameLoader = require('./lib/frameLoader'),
 
-lightboxPage = require('./lib/lightboxPage');
+lightboxPage = require('./lib/lightboxPage'),
+
+defaultHeight = 2000;
 
 window.run = function( options ) {
 
-  frameLoader( options, {
+  var refresh = frameLoader( options, {
     onRefresh: _frameHeightAdjust,
     onReady: _frameHeightAdjust
   });
 
   _runSelectForm( options.folded );
 
-  lightboxPage( options.lightbox );
+  lightboxPage( options.lightbox, {
+    onClose: refresh
+  });
 
 };
 
@@ -39,14 +43,13 @@ var _runSelectForm = function( options ) {
       wrapperClass: 'select-menu'
     }, options);
 
-    selectForm(params.title, params.subtitle, params.detail, {
+    selectForm( params.title, params.subtitle, params.detail, {
       canvas: cn.el(params.canvas),
       wrapper: params.wrapper, 
       wrapperClass: params.wrapperClass
     });
 
   });
-
   
 },
 
@@ -63,6 +66,10 @@ _frameHeightAdjust = function( frameElem ) {
 },
 
 _estimateFrameHeight = function() {
+
+  var frameHtml = window.frames[0].document.getElementsByTagName('html')[0];
+
+  if ( !frameHtml ) return defaultHeight;
 
   return window.frames[0].document.getElementsByTagName('html')[0].offsetHeight;
 

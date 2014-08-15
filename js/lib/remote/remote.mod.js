@@ -33,9 +33,10 @@ module.exports = {
     }
 
     var retries = 0;
-    if (settings.retries) retries = settings.retries;
-    if (!settings.timeout) settings.timeout = 2000;
-    if (!settings.name) settings.name = url;
+
+    if ( settings.retries ) retries = settings.retries;
+    if ( !settings.timeout ) settings.timeout = 2000;
+    if ( !settings.name ) settings.name = url;
 
     var finished = false;
 
@@ -177,6 +178,8 @@ module.exports = {
 
   appendToUrl: function(url, data) {
 
+    var isArray;
+
     if (typeof data != 'undefined') {
 
       if (url.indexOf('?') == -1) {
@@ -188,9 +191,13 @@ module.exports = {
       for (var name in data) {
 
         if (typeof data[name] == 'object') {
+
+          isArray = Object.prototype.toString.call( data[name] ) === '[object Array]';
+
           for (var index in data[name]) {
-            url = url + name + '[]=' + encodeURIComponent(data[name][index]) + '&';
+            url = url + name + '[' + ( isArray ? '' : index ) + ']=' + encodeURIComponent(data[name][index]) + '&';
           }
+
         } else {
 
           url = url + name + '=' + encodeURIComponent(data[name]) + '&';
