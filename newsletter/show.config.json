@@ -5,9 +5,9 @@
       "mobileWidth" : "660",
       "bgColor" : "background-color: #f4f4f4;",
       "ctColor" : "background-color: #ffffff;",
-      "bodyTable" : "background-color: #f4f4f4;",
-      "templateContainer" : "width:600px; border:1px solid #ddd; max-width: 100%;",
-      "bodyCell" : "padding:20px; border-top:4px solid #f4f4f4;",
+      "bodyTable" : "",
+      "templateContainer" : "width:600px; border:1px solid #ddd; max-width: 100%; background-color: #fff; ",
+      "bodyCell" : "padding:20px; border-top:4px solid #f4f4f4; background-color: #f0f0f0;",
       "templateHeader" : "background-color:#F4F4F4; border-top:1px solid #FFFFFF; border-bottom:1px solid #CCCCCC;",
       "templatePreheader" : "background-color:#ffffff;",
       "preheaderContent" : "color:#808080; font-family:Helvetica; font-size:10px; line-height:125%; text-align:left;",
@@ -15,16 +15,21 @@
       "headerContenta" : "color:#EB4102; font-weight:normal; text-decoration:underline;",
       "headerImage" : "height:auto; width: 600px; max-width: 100%;",
       "mapImage" : "height: auto; max-width: 600px; max-width: 100%;",
+      
       "templateBody" : "background-color:#ffffff; border-top:1px solid #FFFFFF;",
       "bodyContent" : "color:#333; font-family:Helvetica; font-size:13px; line-height:150%; padding-top:20px; padding-right:20px; padding-bottom:20px; padding-left:20px; text-align:left;",
       "bodyContenta" : "color: #11BED4; font-weight:normal; text-decoration: none; word-break: break-word;",
+
+
+      "templateSection" : "background-color:#f0f0f0; border-top:1px solid #FFFFFF; margin-top: 20px; margin-bottom: 20px;",
+      "sectionContent" : "color:#333; font-family:Helvetica; font-size:13px; line-height:150%; padding-top:12px; padding-right:20px; padding-bottom:5px; padding-left:20px; text-align:left;",
+      "h2" : "color:#999 !important; font-weight:normal; font-size:26px; display:block; font-family:Helvetica; font-style:normal; line-height:100%; letter-spacing:normal; margin-top:0; margin-right:0; margin-bottom:8px; margin-left:0; text-align:left;",
+      "h2a" : "color: #999;  text-decoration: none;",
+
       "bodyContentImg" : "display:inline; height:auto; max-width:560px;",
 
       "h1" : "color:#333 !important; display:block; font-family:Helvetica; font-size:26px; font-style:normal; font-weight:normal; line-height:100%; letter-spacing:normal; margin-top:0; margin-right:0; margin-bottom:40px; margin-left:0; text-align:left;",
       "h1a" : "color: #333; text-decoration: none;",
-
-      "h2" : "color:#333 !important; display:block; font-family:Helvetica; font-size:18px; font-style:normal; font-weight:normal; line-height:100%; letter-spacing:normal; margin-top:0; margin-right:0; margin-bottom:8px; margin-left:0; text-align:left;",
-      "h2a" : "color: #333;  text-decoration: none;",
 
       "h3" : "color:#333 !important; display:block; font-family:Helvetica; font-size:16px; font-weight:normal; line-height:100%; letter-spacing:normal; margin-top:0; margin-right:0; margin-bottom:15px; margin-left:0; text-align:left;",
       "h3a" : "color: #333;  text-decoration: none;",
@@ -32,7 +37,29 @@
       "h4a" : "color: #333;  text-decoration: none;",
 
       "edito" : "color:#333 !important; display:block; font-family:Helvetica; font-size:16px; font-weight:normal; line-height:100%; letter-spacing:normal; margin-top:0; margin-right:0; margin-bottom:15px; margin-left:0; text-align:left;",
-      "editoa" : "color: #333;  text-decoration: none;"
+      "editoa" : "color: #333;  text-decoration: none;",
+
+      "featuredTitle" : "margin-bottom: 15px; font-size:28px; color:#333 !important; display:block; font-family:Helvetica; display:block;",
+      "featuredTitlea" : "font-weight: normal; color: #333;  text-decoration: none;",
+
+      "featuredDesc" : "margin-bottom: 10px; font-size:16px; color:#333 !important; display:block; font-family:Helvetica; display:block;",
+      "featuredDesca" : "color: #666;  text-decoration: none;",
+
+      "featuredSpaceTime" : "font-size:14px; color:#333 !important; display:block; font-family:Helvetica; display:block;",
+      "featuredSpaceTimea" : "color: #333;  text-decoration: none;",
+
+      "templateImage" : "background-color:#F4F4F4; border-top:1px solid #FFFFFF;",
+      "imageContent" : "color:#505050; font-family:Helvetica; font-size:20px; font-weight:bold; line-height:100%; padding-top:0; padding-right:0; padding-bottom:0; padding-left:0; text-align:center; vertical-align:middle;",
+
+      "itemTitle" : "padding-left: 10px; padding-bottom: 5px; color:#333 !important; display:block; font-family:Helvetica; display:block;",
+      "itemTitlea" : "font-size: 18px; color: #333; text-decoration: none;",
+
+      "itemDesc" : "padding-left: 10px; padding-bottom: 10px; color:#333 !important; display:block; font-family:Helvetica; display:block;",
+      "itemDesca" : "font-size: 14px; color: #333;  text-decoration: none;",
+
+      "itemSpaceTime" : "padding-left: 10px; padding-bottom: 15px; color:#333 !important; display:block; font-family:Helvetica; display:block;",
+      "itemSpaceTimea" : "color: #666; font-size: 13px; text-decoration: none;"
+
     }
   },
   "helpers" : {

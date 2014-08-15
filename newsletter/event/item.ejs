@@ -1,17 +1,28 @@
 <% if (type=='html') {             // HTML PART               %>
-<% if (event.image) { %>
-<% include ../sections/marginlessTop %> <!-- EVENT HEAD SECTION -->
-  <img src="<%= event.image %>" style=" <%= css.headerImage %>" id="headerImage"/>
-<% include ../sections/marginlessBottom %>
-<% } %>
 <% include ../sections/top %>
-  <h1 target="_blank" style="<%= css.h1 %>"><a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.h1a %>"><%= event.title %></a></h1>
-  <h3 target="_blank" style="<%= css.h3 %>"><a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.h3a %>"><%= event.description %></a></h3>
-  <h4 target="_blank" style="<%= css.h4 %>"><a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.h4a %>"><%= __(event.spaceTimeInfo[0], _t(event.spaceTimeInfo[1])) %></a></h4>
+<table>
+  <tr>
+<% if (event.image) { %>
+    <td>
+      <img src="<%= event.image %>"/>
+    </td>
+<% } %>
+    <td>
+      <span target="_blank" style="<%= css.itemTitle %>">
+        <a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.itemTitlea %>"><%= event.title %></a>
+      </span>
+      <span target="_blank" style="<%= css.itemSpaceTime %>">
+        <a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.itemSpaceTimea %>"><%= __(event.spaceTimeInfo[0], _t(event.spaceTimeInfo[1])) %></a>
+      </span>   
+      <span target="_blank" style="<%= css.itemDesc %>">
+        <a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.itemDesca %>"><%= event.description %></a>
+      </span> 
+    </td>
+  </tr>
+</table>
 <% include ../sections/bottom %>
 
-<% } else {              // TEXT PART              %>
-<%- event.title %>
+<% } else {              // TEXT PART              %><%- event.title %>
 <%- __(event.spaceTimeInfo[0], _t(event.spaceTimeInfo[1])) %>
 <%- event.description %>
 <% } %>

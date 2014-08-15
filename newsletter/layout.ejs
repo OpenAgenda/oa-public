@@ -122,26 +122,17 @@
         /*@editable*/ text-decoration:underline;
       }
 
-      /**
-      * @tab Header
-      * @section header style
-      * @tip Set the background color and borders for your email's header area.
-      * @theme header
-      */
-      .templateHeader{ <%= css.templateHeader %> }
+      
+      .templateHeader { <%= css.templateHeader %> }
 
-      /**
-      * @tab Header
-      * @section header text
-      * @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
-      */
-      .headerContent{ <%= css.headerContent %> }
+      .headerContent { <%= css.headerContent %> }
 
-      /**
-      * @tab Header
-      * @section header link
-      * @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
-      */
+
+      .templateImage { <%= css.templateImage %> }
+
+      .imageContent { <%= css.imageContent %> }
+      
+
       .headerContent a:link, .headerContent a:visited, /* Yahoo! Mail Override */ .headerContent a .yshortcuts /* Yahoo! Mail Override */{
         <%= css.headerContenta %>
       }
@@ -150,29 +141,17 @@
 
       #mapImage { <%= css.mapImage %> }
 
+
       /* ========== Body Styles ========== */
 
-      /**
-      * @tab Body
-      * @section body style
-      * @tip Set the background color and borders for your email's body area.
-      */
+      
       .templateBody { <%= css.templateBody %> }
 
-      /**
-      * @tab Body
-      * @section body text
-      * @tip Set the styling for your email's main content text. Choose a size and color that is easy to read.
-      * @theme main
-      */
       .bodyContent { <%= css.bodyContent %> }
 
-      /**
-      * @tab Body
-      * @section body link
-      * @tip Set the styling for your email's main content links. Choose a color that helps them stand out from your text.
-      */
-      .bodyContent a:link, .bodyContent a:visited, /* Yahoo! Mail Override */ .bodyContent a .yshortcuts /* Yahoo! Mail Override */{
+      .bodyContent a:link, 
+      .bodyContent a:visited, /* Yahoo! Mail Override */ 
+      .bodyContent a .yshortcuts {
         <%= css.bodyContenta %>
       }
 
@@ -182,6 +161,15 @@
 
       .bodyContent img {
         <%= css.bodyContentImg %>
+      }
+
+
+      .templateSection {
+        <%= css.templateSection %>
+      }
+      
+      .sectionContent {
+        <%= css.sectionContent %>
       }
 
 
@@ -235,6 +223,30 @@
       .edito { <%= css.edito %> }
 
       .edito a { <%= css.editoa %> }
+
+      .featuredTitle { <%= css.featuredTitle %> }
+
+      .featuredTitle a { <%= css.featuredTitlea %> }
+
+      .featuredDesc { <%= css.featuredDesc %> }
+
+      .featuredDesc a { <%= css.featuredDesca %> }
+
+      .featuredSpaceTime { <%= css.featuredSpaceTime %> }
+
+      .featuredSpaceTime a { <%= css.featuredSpaceTimea %> }
+
+      .itemTitle { <%= css.itemTitle %> }
+
+      .itemTitle a { <%= css.itemTitlea %> }
+
+      .itemDesc { <%= css.itemDesc %> }
+
+      .itemDesc a { <%= css.itemDesca %> }
+
+      .itemSpaceTime { <%= css.itemSpaceTime %> }
+
+      .itemSpaceTime a { <%= css.itemSpaceTimea %> }
 
 
 

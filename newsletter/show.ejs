@@ -1,8 +1,8 @@
 <% if (type=='html') {             // HTML PART             %>
 <% if (image) { %>
-<% include sections/marginlessTop %>
+<% include sections/imageTop %>
   <img src="<%= image %>" style=" <%= css.headerImage %>" id="headerImage"/>
-<% include sections/marginlessBottom %>
+<% include sections/imageBottom %>
 <% } %>
 
 <% include sections/top %>
@@ -10,15 +10,13 @@
   <p class="edito" style="<%= css.edito %>"><a target="_blank" href="<%= genUrl('agendaShow') %>" style="<%= css.editoa %>"><%- _txt.nl2br(edito) %></a></h3>
 <% include sections/bottom %>
 
-<% include sections/spacer %>
-
 <% if (featuredEvents && featuredEvents.length) { %>
 
-<% include sections/top %>
+<% include sections/sectionTop %>
   <h2><%= __('Featured Events') %></h2>
-<% include sections/bottom %>
-<% featuredEvents.forEach(function(event) { %>
-  <% include event/item %>
+<% include sections/sectionBottom %>
+<% featuredEvents.forEach(function( event ) { %>
+  <% include event/featured %>
 <% }); %>
 
 <% } %>
@@ -27,16 +25,16 @@
 
 <% include sections/spacer %>
 
-<% include sections/top %>
+<% include sections/sectionTop %>
   <h2><%= __('The selection') %></h2>
-<% include sections/bottom %>
+<% include sections/sectionBottom %>
 
 <% items.forEach(function(item) { %>
 <% if (item.itemType=='segment') { %>
 <% include sections/segment %>
 <% } else { %>
 <% var event = item; %>
-<% include event/smallItem %>
+<% include event/item %>
 <% } %>
 <% }); %>
 
@@ -53,7 +51,7 @@
 <%- __('Featured Events').toUpperCase() %>
 
 <% featuredEvents.forEach(function(event) { %>
-  <% include event/item %>
+  <% include event/featured %>
 <% }); %>
 
 <% } %>
@@ -63,7 +61,7 @@
 <%- __('The selection').toUpperCase() %>
 
 <% items.forEach(function(item) { %>
-<% if (item.itemType=='segment') { %><% include sections/segment %><% } else { %><% var event = item; %><% include event/smallItem %><% } %>
+<% if (item.itemType=='segment') { %><% include sections/segment %><% } else { %><% var event = item; %><% include event/item %><% } %>
 <% }); %>
 
 <% } %>
