@@ -7,7 +7,7 @@
 
 <% include sections/top %>
   <h1 style="<%= css.h1 %>"><a target="_blank" href="<%= genUrl('agendaShow') %>" style="<%= css.h1a %>"><%= title %></a></h1>
-  <h3 style="<%= css.h3 %>"><a target="_blank" href="<%= genUrl('agendaShow') %>" style="<%= css.h3a %>"><%- _txt.nl2br(edito) %></a></h3>
+  <p class="edito" style="<%= css.edito %>"><a target="_blank" href="<%= genUrl('agendaShow') %>" style="<%= css.editoa %>"><%- _txt.nl2br(edito) %></a></h3>
 <% include sections/bottom %>
 
 <% include sections/spacer %>
@@ -15,7 +15,7 @@
 <% if (featuredEvents && featuredEvents.length) { %>
 
 <% include sections/top %>
-  <h1><%= __('Featured Events') %></h1>
+  <h2><%= __('Featured Events') %></h2>
 <% include sections/bottom %>
 <% featuredEvents.forEach(function(event) { %>
   <% include event/item %>
@@ -28,7 +28,7 @@
 <% include sections/spacer %>
 
 <% include sections/top %>
-  <h1><%= __('The selection') %></h1>
+  <h2><%= __('The selection') %></h2>
 <% include sections/bottom %>
 
 <% items.forEach(function(item) { %>

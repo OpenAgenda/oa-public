@@ -133,9 +133,9 @@ loadTemplate = function( templateName ) {
 
         data.layout = __dirname + '/../' + data.config.layout + '.ejs';
 
-        files.push(async.apply(fs.readFile, data.layout, 'utf-8'));
+        files.push( async.apply( fs.readFile, data.layout, 'utf-8') );
 
-        files.push(async.apply(fs.readFile, __dirname + '/../' + data.config.layout + '.config.json', 'utf-8'));
+        files.push( async.apply( fs.readFile, __dirname + '/../' + data.config.layout + '.config.json', 'utf-8') );
 
       }
 
