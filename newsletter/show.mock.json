@@ -6,19 +6,19 @@
       "title" : "Apéro Moovjee ça continue ! - Les apéros Moovjee continuent ...",
       "preheaderContent" : "Moovjee - La Newsletter"
     },
+    "image" : false,
     "title": "MOOVJEE",
     "description" : "Ne manquez aucun évènements de la communauté Moovjee",
     "edito" : "Accompagner les jeunes entrepreneurs de 18 à 30 ans, \n\n dans la construction et le développement de leur entreprise au sein d’un programme de mentorat et l’accès à un pool d’experts métiers bénévoles. \n\n\n See more at: http://www.moovjee.fr/#sthash.imJLTd7g.dpuf",
     "agendaUrl": "http://www.moovjee.fr",
     "uid" : 48789456648,
     "slug" : "moovjee",
-    "image" : "https://dl.dropboxusercontent.com/u/2009989/images/moovjee.jpeg",
     "featuredEvents" : [
       {
         "title" : "Apéro Moovjee ça continue !",
         "uid" : 74875645313,
         "slug" : "fdqhlfh-hfdjqsh-fjk",
-        "image" : "http://cibul.s3.amazonaws.com/evfevent_apero-moovjee-ca-continue_978399.jpg",
+        "image" : "http://dl.dropboxusercontent.com/u/2009989/images/moovjeevent.jpg",
         "description" : "Les apéros Moovjee continuent tout l'été et prend ses quartiers au Jardin des Tuileries. Le traiteur LeCointre nous accueille une fois encore au restaurant le Médicis.",
         "spaceTimeInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14", "%placename%" : "Restaurant Le Médicis"}],
         "freeText" : "Ces apéros ont pour objectif de réunir la communauté des jeunes entrepreneurs, porteurs de projet, mentors et partenaires du Moovjee. \nCes bulles estivales sont placées sous les signes de la convivialité et de l'échange.\nDes tarifs spéciaux spécial Moovjee seront proposés.",
