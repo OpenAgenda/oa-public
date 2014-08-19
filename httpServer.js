@@ -361,13 +361,16 @@ _absolutePath = function( uri, css ) {
 
   for( var c in css ) {
 
-    var path = css[c].split('/');
+    var path = css[c].split('/'),
+
+    isSub = true;
 
     while ( path[0] == '..' ) {
       path.splice(0, 1);
+      isSub = false;
     }
 
-    absCss[c] = '/' + path.join('/');
+    absCss[c] = ( isSub ? '' : '/' ) + path.join('/');
 
   }
 
