@@ -11,7 +11,6 @@
     "cibulModel" : "git+ssh://git@bitbucket.org:cibul/cibulmodel.git",
     "cibulTemplates" : "git+ssh://git@bitbucket.org:cibul/cibul-templates.git",
     "aws-sdk" : "*",
-    "when" : "*",
-    "when/node" : "*"
+    "when" : "*"
   }
 }
