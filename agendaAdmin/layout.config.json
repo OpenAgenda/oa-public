@@ -11,6 +11,8 @@
     "buttons" : "../css/buttons.css"
   },
   "base" : {
-    "pageClass" : false
+    "pageClass" : false,
+    "search" : "",
+    "searchRes" : "searchEvent"
   }
 }
