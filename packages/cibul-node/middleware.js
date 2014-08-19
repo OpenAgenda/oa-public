@@ -22,9 +22,17 @@ var log = require('debug')('middleware'),
 
 templater = require('cibulTemplates/server/templater'),
 
+
+/**
+ * render template matching path
+ */
+
 render = function( req, res, templatePath, data, maintain ) {
 
   data.genUrl = req.genUrl;
+
+
+  // maintain navigation query values
 
   if ( maintain ) {
 
@@ -33,16 +41,28 @@ render = function( req, res, templatePath, data, maintain ) {
 
   }
 
-  templater(templatePath, data, function(err, render) {
+  templater(templatePath + ( req.xhr ? '.part' : '' ), data, function(err, render) {
 
-    if (err) throw err;
+    if ( err ) throw err;
 
     res.writeHead(200, {
-      "Content-Type": "text/html; charset=utf-8",
-      'Cache-Control': 'no-cache'
+      "Content-Type" : "text/html; charset=utf-8",
+      'Cache-Control' : 'no-cache'
     });
 
-    res.write(render);
+    if ( !req.xhr ) {
+
+      res.write( render );
+
+    } else {
+
+      res.write( JSON.stringify({
+        success: true,
+        partial: render
+      }));
+
+    }
+
     res.end();
 
     res.send();
@@ -150,11 +170,13 @@ checkCredential = function( model, name ) {
 
 },
 
+
 errorResponse = function(req, res, message) {
 
   res.send('error: ' + message);
 
 },
+
 
 unkownResponse = function(req, res, value) {
 

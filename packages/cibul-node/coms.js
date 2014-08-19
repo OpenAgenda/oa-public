@@ -14,9 +14,11 @@ module.exports = function( config ) {
   redisCli = redis.createClient(config.redis.port, config.redis.host);
 
   return {
-    queue: queue,
-    consume: consume,
-    persistentConsume: persistentConsume
+    queue: queue,                            // queue message - used for mailer only for now
+    consume: consume,                        // consume queue - not really used
+    persistentConsume: persistentConsume,    // keep on consuming queue until its empty, then wait till it fills to keep on consuming - used by mailer
+    publish: publish,                        // publish message on channel
+    subscribe: subscribe                     // subscribe to channel messages
   };
 
 };
@@ -24,6 +26,10 @@ module.exports = function( config ) {
 var redisCli,  // redis client
 
 qPrefix = 'queues',
+
+logStacksPrefix = 'logstacks',
+
+sp = ':',
 
 redisConfig,
 
@@ -33,17 +39,18 @@ queue = function( queueName, values, cb ) {
 
   var encodedValues = JSON.stringify( values );
 
-  redisCli.lpush( qPrefix + ':' + queueName, encodedValues, cb);
+  redisCli.lpush( qPrefix + sp + queueName, encodedValues, cb);
 
 },
+
 
 consume = function( queueName, cb ) {
 
   log('consuming on: %s', queueName);
 
-  cli = redis.createClient( redisConfig.port, redisConfig.host );
+  var cli = redis.createClient( redisConfig.port, redisConfig.host );
 
-  cli.blpop( qPrefix + ':' + queueName, 0, function( err, data ) {
+  cli.blpop( qPrefix + sp + queueName, 0, function( err, data ) {
 
     cli.quit();
 
@@ -55,13 +62,47 @@ consume = function( queueName, cb ) {
 
   });
 
+
+
+},
+
+
+publish = function( channelName, values ) {
+
+  log( 'publishing on: %s', channelName );
+
+  var cli = redis.createClient( redisConfig.port, redisConfig.host );
+
+  cli.publish( channelName, JSON.stringify( values ) );
+
+  cli.quit();
+
+  logStack( channelName, values );
+
+},
+
+
+subscribe = function( channelName, cb ) {
+
+  log( 'subscribing to: %s', channelName );
+
+  var cli = redis.createClient( redisConfig.port, redisConfig.host );
+
+  cli.on( 'message' , function( channel, values ) {
+
+    cb( null, JSON.parse( values ) );
+
+  });
+
+  cli.subscribe( channelName );
+
 },
 
 persistentConsume = function persistentConsume( queueName, cb, cli ) {
 
   if ( !cli ) cli = redis.createClient( redisConfig.port, redisConfig.host );
 
-  cli.blpop( qPrefix + ':' + queueName, 0, function( err, data ) {
+  cli.blpop( qPrefix + sp + queueName, 0, function( err, data ) {
 
     if ( err ) return cb( err );
 
@@ -72,5 +113,18 @@ persistentConsume = function persistentConsume( queueName, cb, cli ) {
     persistentConsume( queueName, cb, cli ); 
 
   });
+
+},
+
+
+logStack = function( stackName, values ) {
+
+  var cli = redis.createClient( redisConfig.port, redisConfig.host );
+
+  values._timestamp = new Date();
+
+  cli.lpush( logStacksPrefix + sp + stackName, JSON.stringify( values ) );
+
+  // after a while, dump log stack in a file
 
 };

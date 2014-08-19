@@ -48,7 +48,7 @@ mainInfo = function( model, agenda, campaign, data, cb ) {
       title: agenda.title,
       edito : edito,
       agendaUrl: agenda.url,
-      image : agenda.image?'http://cibul.s3.amazonaws.com/' + agenda.image:false,
+      image : false,
       featuredEvents : [],
       items: []
     });

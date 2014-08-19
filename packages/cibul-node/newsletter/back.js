@@ -2,25 +2,29 @@
  * load libraries
  */
 
-var debug = require('debug'),
+var debug = require( 'debug' ),
 
-log = debug('newsletter'),
+log = debug( 'newsletter' ),
 
-express = require('express'),
+express = require( 'express' ),
 
-bodyParser = require('body-parser'),
+bodyParser = require( 'body-parser' ),
 
-cibulModel = require('cibulModel/lib/cibulModel'),
+cibulModel = require( 'cibulModel/lib/cibulModel' ),
 
-mwLib = require('../middleware'),
+mwLib = require( '../middleware' ),
 
-async = require('async'),
+async = require( 'async' ),
 
-lib = require('../lib.js'), 
+w = require( 'when' ),
 
-router = require('../router.js'),
+wn = require( 'when/node' ),
 
-build = require('./build');
+lib = require( '../lib.js' ), 
+
+router = require( '../router.js' ),
+
+build = require( './build' );
 
 module.exports = function( base, config ) {
 
@@ -30,13 +34,13 @@ module.exports = function( base, config ) {
 
   var app = express(),
 
-  model = cibulModel( config.db ),
+  model = cibulModel( config.db, config.redis ),
 
   mw = mwLib( model, config ),
 
   ctl = controllers( app, model, mw );
 
-  app.use( bodyParser.urlencoded({ extended: true }) );
+  app.use( bodyParser.urlencoded( { extended: true } ) );
 
   app.set( 'base', base );
 
@@ -49,7 +53,7 @@ module.exports = function( base, config ) {
 
   app.param( 'slug', mw.loadAgenda );
 
-  app.all(base + '*', router.loadUrlGen(app), mw.requireLogged, mw.loadSession, mw.checkCredential(model, 'newsletter'));
+  app.all(base + '*', router.loadUrlGen( app ), mw.requireLogged, mw.loadSession, mw.checkCredential( model, 'newsletter' ));
 
 
   // load module controllers
@@ -85,27 +89,33 @@ module.exports = function( base, config ) {
 
 var controllers = function( app, model, mw ) {
 
-  var generic = require('./generic')( model );
+  var generic = require( './generic' )( model );
 
   return {
 
     index: function( req, res ) {
 
-      log('received index request for agenda "%s"', req.agenda.title);
+      log( 'received index request for agenda "%s"', req.agenda.title );
 
-      async.parallel([
+      wn.call( async.parallel, [
 
         req.agenda.campaigns.list,
         req.agenda.contactLists.list
 
-      ], function ( err, results ) {
+      ])
 
-        if ( err ) return mw.errorResponse( req, res, err );
+      .spread( function( campaigns, contactLists) {
 
-        mw.render(req, res, 'newsletter/admin/index', lib.extend({
-          campaigns: results[0],
-          contactLists: results[1],
+        mw.render( req, res, 'newsletter/admin/index', lib.extend({
+          campaigns: campaigns,
+          contactLists: contactLists,
         }, _layoutData(req.agenda)));
+
+      })
+
+      .catch( function( err ) {
+
+        mw.errorResponse( req, res, err );
 
       });
 
@@ -113,7 +123,7 @@ var controllers = function( app, model, mw ) {
 
     indexRedirect: function ( req, res ) {
 
-      return router.redirect(req, res, 'newsletterIndex');
+      return router.redirect( req, res, 'newsletterIndex' );
 
     },
 
@@ -125,7 +135,7 @@ var controllers = function( app, model, mw ) {
 
       ], function ( err, results ) {
 
-        if (err) return mw.errorResponse( req, res, err );
+        if ( err ) return mw.errorResponse( req, res, err );
 
         mw.render(req, res, 'newsletter/admin/campaignForm', lib.extend({
           uid: null,
@@ -144,7 +154,7 @@ var controllers = function( app, model, mw ) {
 
         req.agenda.contactLists.list
 
-      ], _processCampaignSave(req, function( err, result) {
+      ], _processCampaignSave(req, function( err, result ) {
 
         // save was successful... or crashed altogether
 
@@ -156,9 +166,9 @@ var controllers = function( app, model, mw ) {
 
         // ... some things are missing or wrong
 
-        req.agenda.campaigns.instance(result.object).getIsNew(function( err, isNew ) {
+        req.agenda.campaigns.instance( result.object ).getIsNew(function( err, isNew ) {
 
-          mw.render(req, res, 'newsletter/admin/campaignForm', lib.extend({
+          mw.render( req, res, 'newsletter/admin/campaignForm', lib.extend({
             isNew: isNew,
             uid: null,
             contactLists: contactLists,
@@ -174,15 +184,15 @@ var controllers = function( app, model, mw ) {
 
     campaignRemove: function( req, res ) {
 
-      req.agenda.campaigns.get({uid: req.params.uid}, function ( err, result ) {
+      req.agenda.campaigns.get({ uid: req.params.uid }, function ( err, result ) {
 
-        if (err) return mw.errorResponse(req, res, err);
+        if (err) return mw.errorResponse( req, res, err );
 
         req.agenda.campaigns.instance(result).remove(function ( err, result ) {
 
-          if (err) return mw.errorResponse(req, res, err);
+          if (err) return mw.errorResponse( req, res, err );
 
-          return router.redirect(req, res, 'newsletterIndex');
+          return router.redirect( req, res, 'newsletterIndex' );
 
         });
 
@@ -192,44 +202,50 @@ var controllers = function( app, model, mw ) {
 
     campaignEdit: function( req, res ) {
 
-      async.parallel([
+      var values = {}, campaign, contactLists;
+
+      wn.call( async.parallel, [
 
         req.agenda.contactLists.list,
-        async.apply(req.agenda.campaigns.get, {uid: req.params.uid})
+        async.apply( req.agenda.campaigns.get, {uid: req.params.uid} )
 
-      ], function ( err, results ) {
+      ])
 
-        if ( err ) return mw.errorResponse( req, res, err );
+      .spread( function( cl, c ) {
 
-        var campaign = req.agenda.campaigns.instance( results[1] ),
+        campaign = req.agenda.campaigns.instance( c );
 
-        contactLists = results[0],
+        contactLists = cl;
 
         values = campaign.getFormValues();
 
-        campaign.getIsNew(function( err, isNew ) {
+        return wn.call( campaign.getIsNew );
 
-          if (err) return mw.errorResponse(req, res, err);
+      })
 
-          if ( campaign.contactListId ) { // form matches contact list by uid
+      .then( function( isNew ) {
 
-            values.list = lib.getByAttr(results[0], { id: campaign.contactListId }).uid;
+        if ( campaign.contactListId ) { // form matches contact list by uid
 
-          }
+          values.list = lib.getByAttr( contactLists, { id: campaign.contactListId }).uid;
 
-          // get contactList list matching the selected uid
+        }
 
-          mw.render( req, res, 'newsletter/admin/campaignForm', lib.extend({
-            uid: req.params.uid,
-            contactLists: contactLists,
-            values: values,
-            errors: {},
-            isNew: isNew
-          }, _layoutData( req.agenda )) );
+        mw.render( req, res, 'newsletter/admin/campaignForm', lib.extend({
+          uid: req.params.uid,
+          contactLists: contactLists,
+          values: values,
+          errors: {},
+          isNew: isNew
+        }, _layoutData( req.agenda )) );
 
-        });
+      })
 
-      });
+      .catch( function( err ) {
+
+        mw.errorResponse( req, res, err );
+
+      } );
 
     },
 
@@ -239,13 +255,13 @@ var controllers = function( app, model, mw ) {
 
         req.agenda.contactLists.list
 
-      ], _processCampaignSave(req, function( err, result) {
+      ], _processCampaignSave(req, function( err, result ) {
 
         // save was successful... or crashed altogether
 
         if ( err ) return mw.errorResponse( req, res, err );
 
-        var campaign = req.agenda.campaigns.instance(result.object);
+        var campaign = req.agenda.campaigns.instance( result.object );
 
         campaign.getIsNew(function( err, isNew ) {
 
@@ -302,20 +318,20 @@ var controllers = function( app, model, mw ) {
 
       req.agenda.campaigns.get({ uid: req.params.uid }, function( err, campaign ) {
 
-        if (err) return mw.errorResponse(req, res, err);
+        if (err) return mw.errorResponse( req, res, err );
 
         async.series([
-          async.apply(req.agenda.categories.list),
-          async.apply(req.agenda.getDepartments),
-          async.apply(req.agenda.getRegions),
-          async.apply(req.agenda.getCities)
+          async.apply( req.agenda.categories.list ),
+          async.apply( req.agenda.getDepartments ),
+          async.apply( req.agenda.getRegions ),
+          async.apply( req.agenda.getCities )
         ], function( err, results ) {
 
           if (err) return mw.errorResponse(req, res, err);
 
-          req.agenda.campaigns.instance( campaign ).getLayoutFormValues(function( err, values ) {
+          req.agenda.campaigns.instance( campaign ).getLayoutFormValues( function( err, values ) {
 
-            mw.render(req, res, 'newsletter/admin/campaignLayoutForm', lib.extend({
+            mw.render( req, res, 'newsletter/admin/campaignLayoutForm', lib.extend({
               uid: req.params.uid,
               type: 'manual',
               categories: results[0],
@@ -367,6 +383,8 @@ var controllers = function( app, model, mw ) {
 
     campaignFeaturedEdit: function( req, res ) {
 
+      var perPage = req.xhr ? 20 : app.get( 'perPage' );
+
       req.agenda.campaigns.get( { uid: req.params.uid }, function( err, campaign ) {
 
         if ( err ) return mw.errorResponse( req, res, err );
@@ -375,7 +393,7 @@ var controllers = function( app, model, mw ) {
 
         async.parallel([
           async.apply( campaign.events.total, { filters: req.query.filters }),
-          async.apply( campaign.events.list, { filters: req.query.filters, page: req.query.page, limit: app.get('perPage') } )
+          async.apply( campaign.events.list, { filters: req.query.filters, page: req.query.page, limit: perPage } )
         ], function( err, results ) {
 
           if ( err ) return mw.errorResponse( req, res, err );
@@ -398,7 +416,7 @@ var controllers = function( app, model, mw ) {
             events: eventList,
             uid: req.params.uid
           }, 
-          _pager( req, 'campaignFeaturedEdit', app.get( 'perPage' ), total ),
+          _pager( req, 'campaignFeaturedEdit', perPage, total ),
           _layoutData( req.agenda )));
 
         });
