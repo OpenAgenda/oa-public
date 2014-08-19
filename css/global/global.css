@@ -7,21 +7,30 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 
 }
 
+
+
 body {
+
   background: #efefef;
+
 }
 
 input[type="radio"] {
+
   border: none;
+
 }
 
 a {
+
   text-decoration: none;
   cursor: pointer;
   outline: 0;
+
 }
 
 .wsq {
+
   background: white;
   vertical-align: top; 
   -v-moz-box-shadow: 0 3px 4px #999999; 
@@ -29,61 +38,110 @@ a {
   -webkit-box-shadow: 0 3px 4px #999999; 
   box-shadow: 0 1px 2px #999999; 
   text-align: left;
+
 }
 
 .center {
+
   text-align: center;
+
 }
 
 .lightbox-canvas {
+
   background-color: rgba(100,100,100,0.1);
+
 }
 
 .lightbox-frame {
+
   padding: 10px 20px;
   z-index: 999999;
+
 }
 
 .lightbox-frame.w500 {
+
   width: 500px;
+
 }
 
 @media all and (max-width: 500px) {
 
   .lightbox-frame.w500 {
+
     width: auto;
+
   }
 
 }
 
 .lightbox-buttons {
+
   text-align: center;
   padding-top: 10px;
+
 }
 
 .lightbox-buttons button {
+
   margin: 0 5px;
+
 }
 
 .url, .url a, .url strong, .url span, .url i {
+
   color: #11BED4;
   word-wrap: break-word;
   font-size: 1em;
+
 }
 
 
 .lockPane {
+
   position: absolute; 
   top: 0;
   background-color: rgba(255,255,255,0.5);
   z-index: 3;
+
 }
 
 .spinner {
+
   position: absolute;
   left: 50%;
+
 }
 
 .display-none {
+
   display: none !important;
+
+}
+
+.search {
+
+  position: relative;
+
+}
+
+.search input {
+
+  padding: 0.5em 0.8em 0.5em 3em;
+  width: 100%;
+  z-index: 3;
+  font-size: 1.1em;
+  border: 1px solid #999;
+  box-sizing: border-box;
+}
+
+.search i {
+
+  position: absolute;
+  left: 0.6em;
+  font-size: 1.5em;
+  top: 0.45em;
+  color: #999;
+
 }

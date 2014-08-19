@@ -4,6 +4,7 @@
     "newsletter" : "../../css/agenda/newsletterAdmin.css"
   },
   "helpers" : {
-    "_t" : "time"
+    "_t" : "time",
+    "_i" : "image"
   }
 }

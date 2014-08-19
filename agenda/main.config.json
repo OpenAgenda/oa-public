@@ -13,7 +13,8 @@
     "leaflet" : "//cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"
   },
   "helpers" : {
-    "_t" : "time"
+    "_t" : "time",
+    "_i" : "image"
   },
   "templateJs" : true
 }

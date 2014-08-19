@@ -108,9 +108,6 @@ http.createServer(function ( req, res ) {
 
 
         // static image path generator 
-        
-        tConf.data._i = imagePath;
-
 
         wcb( null, map, uri, tConf.data );
 
@@ -326,14 +323,6 @@ _genUrl = function( data ) {
     return '#' + name + encodeURI(JSON.stringify(values));
 
   };
-
-},
-
-imagePath = function( image, static ) {
-
-  if ( !static ) return '//cibulstatic.s3.amazonaws.com/' + image;
-
-  return '/images/' + image;
 
 },
 

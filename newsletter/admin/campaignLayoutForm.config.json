@@ -3,5 +3,8 @@
   "css" : {
     "newsletter" : "../../css/agenda/newsletterAdmin.css"
   },
-  "templateJs" : true
+  "templateJs" : true,
+  "helpers" : {
+    "_i" : "image"
+  }
 }

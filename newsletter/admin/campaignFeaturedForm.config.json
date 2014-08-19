@@ -2,5 +2,8 @@
   "layout" : "agendaAdmin/layout",
   "css" : {
     "newsletter" : "../../css/agenda/newsletterAdmin.css"
+  },
+  "helpers" : {
+    "_i" : "image"
   }
 }

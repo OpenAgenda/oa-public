@@ -79,11 +79,6 @@
 
 
 
-.ag nav .head .title h1 {
-  
-  font-size: 2.6em;
-
-}
 
 /**
  * .head groups the agenda title elements
@@ -116,6 +111,7 @@
 .ag nav .head a {
 
   font-size: 1.1em;
+  text-shadow: 1px 1px 2px #FFFFFF;
 
 }
 
@@ -159,8 +155,13 @@
 
 }
 
+.ag nav .actions .button {
+  vertical-align: middle;
+}
+
 .ag nav .actions img {
 
+  padding: 1px 0;
   vertical-align: middle;
 
 }
@@ -257,32 +258,7 @@
  * sidebar bit
  */
 
-.ag aside.search {
 
-  position: relative;
-
-}
-
-.ag aside.search input {
-
-  padding: 0.5em 0.8em 0.5em 3em;
-  width: fit;
-  z-index: 3;
-  font-size: 1.1em;
-  border: 1px solid #999;
-
-}
-
-.ag aside.search i {
-
-  position: absolute;
-  left: 0.6em;
-  top: 2em;
-  font-size: 1.5em;
-  padding-top: 1.15em;
-  color: #999;
-
-}
 
 .ag aside .head {
 

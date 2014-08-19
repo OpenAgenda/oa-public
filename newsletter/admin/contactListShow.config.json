@@ -1,3 +1,6 @@
 {
-  "layout" : "agendaAdmin/layout"
+  "layout" : "agendaAdmin/layout",
+  "helpers" : {
+    "_i" : "image"
+  }
 }

@@ -11,9 +11,19 @@
   <body<% if ( pageClass ) { %> class="<%= pageClass %>"<% } %>>
     <header>
       <a class="logo" href="#"><img src="/images/biglogo.png"></a>
-      <ul class="links page-links">
-      </ul>
       <ul class="links site-links">
-        <li><a href="#"><i class="icon-search"></i></a></li>
+        <li class="language-menu js_language_menu">
+          <a>fr</a>
+          <ul class="language-menu">
+            <li><a rel="alternate" href="?lang=fr" hreflang="fr">français</a></li><!--
+            --><li><a href="?lang=en" hreflang="en">english</a></li>
+          </ul>
+        </li>
+        <li>
+          <form class="search" method="get" value="<%= search %>" action="<%= genUrl(searchRes) %>">
+            <input type="text" name="search"/>
+            <i class="fa fa-search"></i>
+          </form>
+        </li>
       </ul>
     </header>
