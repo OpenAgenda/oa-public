@@ -1,6 +1,6 @@
 <% if (type=='html') {             // HTML PART             %>
 <% include top %>
-<h2><% 
+<span class="sectionTitle" style="<%= css.sectionTitle %>"><% 
 
   if ( item.type == 'day' ) { 
 
@@ -12,7 +12,7 @@
 
   } 
 
-%></h2>
+%></span>
 <% include bottom %>
 
 <% } else {                        // TEXT PART             

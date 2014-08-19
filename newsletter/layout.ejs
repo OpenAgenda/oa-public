@@ -57,6 +57,10 @@
 
       h1:hover a { color:#11BED4!important;}
 
+      .titleImage {
+        <%= css.titleImage %>
+      }
+
       /**
       * @tab Page
       * @section heading 2
@@ -137,8 +141,6 @@
         <%= css.headerContenta %>
       }
 
-      #headerImage { <%= css.headerImage %> }
-
       #mapImage { <%= css.mapImage %> }
 
 
@@ -166,6 +168,10 @@
 
       .templateSection {
         <%= css.templateSection %>
+      }
+
+      .sectionTitle {
+        <%= css.sectionTitle %>
       }
       
       .sectionContent {
@@ -224,6 +230,10 @@
 
       .edito a { <%= css.editoa %> }
 
+      .featuredEvent { <%= css.featuredEvent %> }
+
+      .featuredImage { <%= css.featuredImage %> }
+
       .featuredTitle { <%= css.featuredTitle %> }
 
       .featuredTitle a { <%= css.featuredTitlea %> }
@@ -248,6 +258,21 @@
 
       .itemSpaceTime a { <%= css.itemSpaceTimea %> }
 
+      .itemSeparator { <%= css.itemSeparator %> }
+
+      #addEventLinkCanvas { <%= css.addEventLinkCanvas %> }
+
+      #addEventLink { <%= css.addEventLink %> }
+
+      #linksCanvas { <%= css.linksCanvas %> }
+
+      .linkItem { <%= css.linkItem %> }
+
+      .spacedLinkItem { <%= css.spacedLinkItem %> }
+
+      .logoCanvas { <%= css.logoCanvas %> }
+
+      .logo { <%= css.logo %> }
 
 
       /* /\/\/\/\/\/\/\/\/ MOBILE STYLES /\/\/\/\/\/\/\/\/ */
@@ -332,12 +357,8 @@
 
         #templatePreheader { display:none !important; } /* Hide the template preheader to save space */
 
-        /**
-        * @tab Mobile Styles
-        * @section header image
-        * @tip Make the main header image fluid for portrait or landscape view adaptability, and set the image's original width as the max-width. If a fluid setting doesn't work, set the image width to half its original size instead.
-        */
-        #headerImage, #mapImage {
+        
+        #mapImage {
           height:auto !important;
           max-width:<%= css.mobileWidth  %>px !important;
           width:100% !important;

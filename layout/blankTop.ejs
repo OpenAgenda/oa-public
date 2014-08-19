@@ -4,4 +4,7 @@
 <% for (var i in head.css) { %>
     <link rel="stylesheet" href="<%= head.css[i] %>"/>
 <% } %>
+<% for ( var i in js ) { %>
+    <script type="text/javascript" src="<%= js[i] %>"></script>
+<% } %>
   </head>

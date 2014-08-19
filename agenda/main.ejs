@@ -1,5 +1,9 @@
 <body class="ag cb">
   <nav>
+    <a class="cibul-link" href="#">
+      <span><%= __('powered by') %></span>
+      <img src="<%= _i('biglogowhite.png') %>" alt="cibul-logo"/>
+    </a>
     <div class="canvas">
       <div class="head">
         <img src="<%= image %>"/>
@@ -9,10 +13,23 @@
           <a href="<%= url %>"><%= url %></a>
         </div>
       </div>
+      <ul class="actions">
+        <li><a><i class="fa fa-envelope-o"></i><span></span></a></li>
+        <li><a><i class="fa fa-star"></i><span></span></a></li>
+        <li><a><i class="fa fa-share-square-o"></i><span></span></a></li>
+        <li><a><i class="fa fa-cog"></i><span></span></a></li>
+        <li><a class="button green">
+          <img class="aggregate" src="<%= _i('aggregate-alt.png') %>">
+          <span><%= __('re-use') %></span>
+        </a></li>
+        <li><a class="button green">
+          <i class="fa fa-plus-square"></i>
+          <span><%= __('add an event') %></span>
+        </a></li>
+      </ul>
     </div>
   </nav>
-  <div class="header">
-    <img class="bg" src="//cibul.s3.amazonaws.com/evfevent_atelier-construction-imprimantes-3d_179448.jpg"></div>
+  <div class="header js_map_widget">
   </div>
   <div class="canvas">
     <div class="sidebar">
@@ -25,11 +42,11 @@
 
       <aside>
         <div class="head">
-          <i class="icon-tags"></i>
+          <i class="fa fa-tags"></i>
           <span><%= __('Search by tags') %></span>
         </div>
 
-        <ul>
+        <ul class="tags">
 <% tags.forEach( function( tag ) { %>
           <li><a href="#<%= tag.slug %>"><%= tag.label %></a></li>
 <% }); %>
@@ -40,16 +57,22 @@
       <aside>
 
         <div class="head">
-          <i class="icon-bookmark"></i>
+          <i class="fa fa-bookmark"></i>
           <span><%= __('Search by category') %></span>
         </div>
 
-        <ul>
+        <ul class="tags">
 <% categories.forEach( function( category ) { %>
           <li><a href="#<%= category.slug %>"><%= category.label %></a></li>
 <% }); %>
         </ul>
         
+      </aside>
+
+      <aside>
+      
+        <div class="js_calendar_widget"></div>
+
       </aside>
 
     </div>
@@ -88,4 +111,5 @@
 <% }) %>
     </main>
   </div>
+  <script type="text/javascript">run();</script>
 </body>

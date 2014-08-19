@@ -1,23 +1,34 @@
 <% if (type=='html') {             // HTML PART               %>
-<% include ../sections/top %>
-  <span class="featuredTitle" target="_blank" style="<%= css.featuredTitle %>">
-    <a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.featuredTitlea %>"><%= event.title %></a>
-  </span>
-  <span target="_blank" style="<%= css.featuredSpaceTime %>">
-    <a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.featuredSpaceTimea %>"><%= __(event.spaceTimeInfo[0], _t(event.spaceTimeInfo[1])) %></a>
-  </span>
-<% include ../sections/bottom %>
+
+    <!-- BEGIN BODY // -->
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="featuredEvent" style="<%= css.featuredEvent %>">
 <% if (event.image) { %>
 <% include ../sections/imageTop %> <!-- EVENT HEAD SECTION -->
-  <img src="<%= event.image %>" style=" <%= css.headerImage %>" id="headerImage"/>
+        <img src="<%= event.image %>" style=" <%= css.featuredImage %>" class="featuredImage"/>
 <% include ../sections/imageBottom %>
 <% } %>
-<% include ../sections/top %>
-  <span target="_blank" style="<%= css.featuredDesc %>">
-    <a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.featuredDesca %>"><%= event.description %></a>
-  </span>
-<% include ../sections/bottom %>
-
+      <tr>
+        <td valign="top" class="bodyContent" style="<%= css.bodyContent %>">
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="featuredTitle" target="_blank" style="<%= css.featuredTitle %>">
+                    <a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.featuredTitlea %>"><%= event.title %></a>
+                  </span>
+                  <span target="_blank" style="<%= css.featuredSpaceTime %>">
+                    <a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.featuredSpaceTimea %>"><%= __(event.spaceTimeInfo[0], _t(event.spaceTimeInfo[1])) %></a>
+                  </span>
+                  <span target="_blank" style="<%= css.featuredDesc %>">
+                    <a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.featuredDesca %>"><%= event.description %></a>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>  
+        </td>
+      </tr>
+    </table>
 <% } else {              // TEXT PART              %>
 <%- event.title %>
 <%- __(event.spaceTimeInfo[0], _t(event.spaceTimeInfo[1])) %>

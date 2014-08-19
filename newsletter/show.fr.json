@@ -4,5 +4,13 @@
   "book" : "réserver",
   "Featured Events" : "Les événements à la une",
   "The selection" : "La sélection",
-  "from %start% to %finish% @ %placename%" : "du %start% au %finish% @ %placename%"
+  "from %start% to %finish% @ %placename%" : "du %start% au %finish% @ %placename%",
+  "The agenda of" : "L'agenda de",
+  "Add an Event" : "Ajouter un événement",
+  "Stay up to date by connecting this agenda to your favorite service" : 
+  "Suivez-nous directement dans votre service personnel",
+  "Download this agenda"
+  : "Télécharger notre programmation",
+  "Unsubscribe"
+  : "Se désabonner"
 }

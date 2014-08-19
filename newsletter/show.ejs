@@ -1,44 +1,117 @@
 <% if (type=='html') {             // HTML PART             %>
-<% if (image) { %>
-<% include sections/imageTop %>
-  <img src="<%= image %>" style=" <%= css.headerImage %>" id="headerImage"/>
-<% include sections/imageBottom %>
-<% } %>
 
 <% include sections/top %>
-  <h1 style="<%= css.h1 %>"><a target="_blank" href="<%= genUrl('agendaShow') %>" style="<%= css.h1a %>"><%= title %></a></h1>
-  <p class="edito" style="<%= css.edito %>"><a target="_blank" href="<%= genUrl('agendaShow') %>" style="<%= css.editoa %>"><%- _txt.nl2br(edito) %></a></h3>
+  <span class="sectionTitle" style="<%= css.sectionTitle %>"><%= __('The agenda of') %></span>
+<% include sections/bottom %>
+<% include sections/top %>
+  <table>
+    <tbody>
+      <tr>
+<% if ( image ) { %>
+        <td>
+          <img src="<%= image %>" style=" <%= css.titleImage %>" class="titleImage">
+        </td>
+<% } %>
+        <td>
+          <h1 style="<%= css.h1 %>">
+            <a target="_blank" href="<%= genUrl('agendaShow') %>" style="<%= css.h1a %>"><%= title %></a>
+          </h1>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="edito" style="<%= css.edito %>">
+    <a target="_blank" href="<%= genUrl('agendaShow') %>" style="<%= css.editoa %>"><%- _txt.nl2br(edito) %></a>
+  </p>
 <% include sections/bottom %>
 
 <% if (featuredEvents && featuredEvents.length) { %>
-
-<% include sections/sectionTop %>
-  <h2><%= __('Featured Events') %></h2>
-<% include sections/sectionBottom %>
 <% featuredEvents.forEach(function( event ) { %>
+<% include sections/top %>
   <% include event/featured %>
+<% include sections/bottom %>
 <% }); %>
 
 <% } %>
 
 <% if (items && items.length) { %>
+<% for ( var i = 0; i < items.length; i++ ) { 
 
-<% include sections/spacer %>
+  var item = items[i],
 
-<% include sections/sectionTop %>
-  <h2><%= __('The selection') %></h2>
-<% include sections/sectionBottom %>
+  nextIsItem = ( i !== items.length -1 ) && items[ i+1 ].itemType !== 'segment';
 
-<% items.forEach(function(item) { %>
+%>
 <% if (item.itemType=='segment') { %>
-<% include sections/segment %>
+<% include sections/top %>
+    <% include sections/segment %>
+<% include sections/bottom %>
 <% } else { %>
 <% var event = item; %>
 <% include event/item %>
 <% } %>
-<% }); %>
-
 <% } %>
+<% } %>
+
+<% include sections/spacer %>
+
+<% include sections/top %>
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody id="addEventLinkCanvas" style="<%= css.addEventLinkCanvas %>">
+      <tr>
+        <td>
+          <a id="addEventLink" href="#" target="_blank" style="<%= css.addEventLink %>"><%= __('Add an Event') %></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+<% include sections/bottom %>
+
+<% include sections/spacer %>
+
+<% include sections/top %>
+
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody id="linksCanvas" style="<%= css.linksCanvas %>">
+      <tr>
+        <td>
+          <p><%= __('Stay up to date by connecting this agenda to your favorite service') %>:</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a class="linkItem" href="#" style="<%= css.linkItem %>" target="_blank">- <%= __('Google Calendar') %></a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a class="linkItem" href="#" style="<%= css.linkItem %>" target="_blank">- <%= __('Rss') %></a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a class="spacedLinkItem" href="#" style="<%= css.spacedLinkItem %>" target="_blank"><%= __('Download this agenda') %></a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a class="spacedLinkItem" href="#" style="<%= css.spacedLinkItem %>"  target="_blank"><%= __('Unsubscribe') %></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+<% include sections/bottom %>
+
+<% include sections/spacer %>
+
+<% include sections/top %>
+
+  <div style="<%= css.logoCanvas %>" class="logoCanvas">
+    <a href="https://cibul.net" target="_blank"><img class="logo" style="<%= css.logo %>" src="<%= logo %>"></a>  
+  </div>
+
+<% include sections/bottom %>
 
 <% } else {              // TEXT PART             %>
 
@@ -48,8 +121,6 @@
 
 <% if (featuredEvents && featuredEvents.length) { %>
 
-<%- __('Featured Events').toUpperCase() %>
-
 <% featuredEvents.forEach(function(event) { %>
   <% include event/featured %>
 <% }); %>
@@ -57,8 +128,6 @@
 <% } %>
 
 <% if (items && items.length) { %>
-
-<%- __('The selection').toUpperCase() %>
 
 <% items.forEach(function(item) { %>
 <% if (item.itemType=='segment') { %><% include sections/segment %><% } else { %><% var event = item; %><% include event/item %><% } %>

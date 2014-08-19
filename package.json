@@ -13,6 +13,7 @@
     "express" : "*",
     "moment" : "*",
     "browserify" : "*",
-    "form-serialize" : "*"
+    "form-serialize" : "*",
+    "leaflet" : "*"
   }
 }

@@ -1,6 +1,6 @@
 .cb > .header {
 
-  height: 36em;
+  height: 20em;
   position: relative;
   background: #333;
 
@@ -11,7 +11,6 @@
   margin: 0 auto;
   max-width: 1100px;
   clear: both;
-  position: relative;
 
 }
 
@@ -29,8 +28,12 @@
   margin: -4em 360px 0 0;
   padding: 2em;
   background: white;
-  border: 1px solid #eee;
+  border: 1px solid #ccc;
 
+}
+
+.cb > .canvas {
+  position: relative;
 }
 
 .cb aside {

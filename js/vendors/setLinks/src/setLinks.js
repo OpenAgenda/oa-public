@@ -36,3 +36,33 @@ function setLinksElems(elems, options) {
       elems[i].innerHTML = setLinks(elems[i].innerHTML, options);
     
 }
+
+function extractLinks( inputText ) {
+
+  var patterns = [
+    /(src="|href="|">|\s>)?(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;ï\*]*[-A-Z0-9+&@#\/%=~_|ï\*]/gim,
+    /(src="|href="|">|\s>|https?:\/\/|ftp:\/\/)?www\.[-A-Z0-9+&@#\/%?=~_|!:,.;ï\*]*[-A-Z0-9+&@#\/%=~_|ï\*]/gim,
+    /([\.\w\-]+@[a-zA-Z\-]+?\.[a-zA-Z]{2,6})/gim
+  ];
+
+  var matches = [];
+
+  for ( var i in patterns ) {
+
+    var match = inputText.match( patterns[i] );
+
+    if ( match ) {
+
+      for (var j = 0; j < match.length; j++) {
+        
+        if ( matches.indexOf( match[j] ) == -1 ) matches.push( match[j] );
+
+      };
+
+    }
+
+  }
+
+  return matches;
+
+}

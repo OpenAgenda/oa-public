@@ -1,3 +1,46 @@
+
+
+
+/**
+ * powered by cibul link
+ */
+
+.ag .cibul-link {
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.4em;
+}
+
+.ag .cibul-link img {
+
+  width: 90px;
+
+}
+
+.ag .cibul-link span {
+  font-size: 0.8em;
+  color: white;
+  vertical-align: top;
+  display: none;
+}
+
+
+
+/**
+ * general page layout
+ */
+
+
+.ag nav .head .title h1,
+.ag main h2,
+.cb article .title {
+
+  font-family: 'Open Sans', sans-serif;
+
+}
+
 .ag nav {
   height: 4em;
   position: relative;
@@ -20,7 +63,8 @@
 
 .ag nav .head {
 
-  padding: 2em 0;
+  padding: 2em 0 0;
+  display: inline-block;
 
 }
 
@@ -28,7 +72,16 @@
 
   display: inline-block;
   vertical-align: bottom;
-  padding: .5em 0;
+  padding: 2.3em 0 .5em 0;
+  max-width: 600px;
+
+}
+
+
+
+.ag nav .head .title h1 {
+  
+  font-size: 2.6em;
 
 }
 
@@ -41,7 +94,7 @@
 .ag nav .head a,
 .ag nav .head img {
 
-  color: #fff;
+  color: #333;
   padding: 3px 20px;
 
 }
@@ -49,12 +102,14 @@
 .ag nav .head h1 {
 
   font-size: 2em;
+  text-shadow: 1px 1px 2px #FFFFFF;
 
 }
 
 .ag nav .head p {
 
   font-size: 1.2em;
+  text-shadow: 1px 1px 2px #FFFFFF;
 
 }
 
@@ -69,9 +124,102 @@
   max-width: 10em;
   display: inline-block;
   vertical-align: top;
+  border: 1px solid #ccc;
 
 }
 
+
+/**
+ * header actions
+ */
+
+.ag nav .actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: .7em 120px .8em;
+}
+
+.ag nav .actions li {
+
+  display: inline-block;
+  padding-right: 1em;
+
+}
+
+.ag nav .actions li:last-child {
+  padding-right: 0;
+}
+
+.ag nav .actions i {
+
+  font-size: 1.6em;
+  vertical-align: middle;
+  padding-top: 0.1em;
+
+}
+
+.ag nav .actions img {
+
+  vertical-align: middle;
+
+}
+
+.ag nav .actions span,
+.ag nav .actions i {
+
+  color: white;
+  vertical-align: middle;
+  display: inline-block;
+
+}
+
+.ag nav .actions span {
+
+  font-weight: bold;
+
+}
+
+.ag nav .actions i.fa-plus-square {
+  height: 20px;
+}
+
+
+
+@media all and (min-width: 1450px) {
+
+  .ag .cibul-link span {
+
+    display: inline-block;
+
+  }
+
+  .ag nav .canvas {
+
+    position: relative;
+
+  }
+
+  .ag nav .actions {
+
+    padding-right: 0;
+
+  }
+
+}
+
+
+
+/**
+ * end of top navigation bar layout
+ */
+
+
+
+
+.ag .header {
+  height: 30em;
+}
 
 .ag .header .bg {
 
@@ -146,7 +294,7 @@
 
   color: #888;
   font-size: 1.2em;
-  padding-right: 1em;
+  padding-right: .5em;
 
 }
 
@@ -157,7 +305,7 @@
 
 }
 
-.ag aside li {
+.ag aside .tags li {
 
   display: inline-block;
   font-size: 0.8em;
@@ -168,6 +316,29 @@
   border: 1px solid #999;
   border-radius: 4px;
   text-transform: uppercase;
+
+}
+
+
+/**
+ * calendar widget
+ */
+
+.ag aside .ccal {
+
+  background: white;
+
+}
+
+.ag aside .ccal .month {
+
+  font-size: 1.1em;
+
+}
+
+.ag aside .ccal li span {
+
+  padding: 8px 4px;
 
 }
 
