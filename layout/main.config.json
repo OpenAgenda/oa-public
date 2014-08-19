@@ -10,7 +10,7 @@
   },
   "base" : {
     "pageClass" : false,
-    "searchRes" : "eventSearch",
+    "searchRes" : "searchEvent",
     "search" : ""
   }
 }
