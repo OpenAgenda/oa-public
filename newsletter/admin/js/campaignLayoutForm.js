@@ -1,5 +1,3 @@
-window.env = 'dev';
-
 var cn = require('../../../js/lib/common/common.mod.js'),
 
 selectForm = require('../../../js/lib/selectForm/selectForm.mod.js'),
@@ -10,7 +8,7 @@ lightboxPage = require('./lib/lightboxPage'),
 
 defaultHeight = 2000;
 
-window.run = function( options ) {
+window.hook( function( options ) {
 
   var refresh = frameLoader( options, {
     onRefresh: _frameHeightAdjust,
@@ -23,7 +21,7 @@ window.run = function( options ) {
     onClose: refresh
   });
 
-};
+} );
 
 
 /**

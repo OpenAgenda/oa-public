@@ -260,11 +260,11 @@ prodifyTemplateJs = function( templateName, cb ) {
 
       if ( !config.layout ) return cb();
 
-      readTemplateConfig( config.layout, function( err, config ) {
+      readTemplateConfig( config.layout, function( err, layoutConfig ) {
 
         if ( err ) throw err;
 
-        if ( !config.templateJs ) return cb();
+        if ( !layoutConfig.templateJs ) return cb();
 
         browserifyTemplateScript( config.layout, cb );
 

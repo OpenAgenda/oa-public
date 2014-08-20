@@ -221,15 +221,15 @@ loadScripts = function( templateName, scriptsBase ) {
 
     if ( !data.config.js ) data.config.js = [];
 
-    if ( data.config.templateJs ) {
-
-      data.config.js.push( basePath + '/' + cn.toCamelCase( templateName.replace(/\//g, '_') ) + '.js' );
-
-    }
-
     if ( data.layoutConfig && data.layoutConfig.templateJs ) {
 
       data.config.js.push( basePath + '/' + cn.toCamelCase( data.config.layout.replace(/\//g, '_') ) + '.js' );
+
+    }
+
+    if ( data.config.templateJs ) {
+
+      data.config.js.push( basePath + '/' + cn.toCamelCase( templateName.replace(/\//g, '_') ) + '.js' );
 
     }
 

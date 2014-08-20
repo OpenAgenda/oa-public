@@ -14,7 +14,11 @@ flash = require('./handleFlashMessage.js'),
 
 eh = require('../../js/lib/EventHandler/EventHandler.js').sEventHandler.getInstance(),
 
-ran = false;
+ran = false,
+
+hooks = [],
+
+params = {};
 
 module.exports = window.run = function( externalEh, options ) {
 
@@ -32,6 +36,8 @@ module.exports = window.run = function( externalEh, options ) {
 
   }
 
+  cn.extend( params, options );
+
   if ( options.env == 'dev' || window.env == 'dev' ) options.enable('*');
 
   mobileMonitor( document, window, navigator, eh );
@@ -45,5 +51,19 @@ module.exports = window.run = function( externalEh, options ) {
     flash();
 
   });
+
+  cn.forEach( hooks, function( hook ) {
+
+    hook( params );
+
+  });
+
+};
+
+window.hook = function( cb ) {
+
+  if ( ran ) return cb( params );
+
+  hooks.push( cb );
 
 };

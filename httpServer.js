@@ -6,7 +6,7 @@ st = require('st'),
 
 templater = require('./server/templater.js'),
 
-mountStatic = st({ path: __dirname , url: '/', cache: false }),
+mountStatic = st( { path: __dirname , url: '/', cache: false } ),
 
 fs = require('fs'),
 
@@ -312,9 +312,11 @@ _processTemplateJs = function( name, cb ) {
 
   b.add( __dirname + '/' + jsFile );
 
-  b.bundle().pipe( fs.createWriteStream( __dirname + destFilePath ) );
+  var bundle = b.bundle();
 
-  cb();
+  bundle.pipe( fs.createWriteStream( __dirname + destFilePath ) );
+
+  bundle.on('end', cb);
 
 },
 
