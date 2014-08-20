@@ -4,8 +4,8 @@ module.exports = function( ) {
 
     if ( !static ) return '//cibulstatic.s3.amazonaws.com/' + image;
 
-    return '/images/' + image;
+    return '//cibul.s3.amazonaws.com/' + image;
 
   };
 
-}
+};

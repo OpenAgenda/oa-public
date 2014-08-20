@@ -2,12 +2,14 @@
   "layout" : "layout/main",
   "css" : {
     "frame" : "../css/frame.css",
-    "mainItem" : "../css/mainItem.css"
+    "mainItem" : "../css/mainItem.css",
+    "fontawesome410" : "../css/font-awesome-4.1.0/css/font-awesome.css"
   },
   "base" : {
     "pageClass" : "cb"
   },
   "helpers" : {
-    "_t" : "time"
+    "_t" : "time",
+    "_i" : "image"
   }
 }

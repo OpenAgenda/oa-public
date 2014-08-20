@@ -9,7 +9,7 @@
       <article><!--
 <% if ( agenda.image ) { %>
         --><a class="pic" href="#">
-          <img src="<%= agenda.image %>">
+          <img src="<%= _i( agenda.image ) %>">
         </a><!--
 <% } %>
         --><div class="cnt<% if ( !agenda.image ) { %> nopic<% } %>" href="#">

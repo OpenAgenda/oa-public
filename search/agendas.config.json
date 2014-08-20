@@ -6,5 +6,8 @@
   },
   "base" : {
     "pageClass" : "cb"
+  },
+  "helpers" : {
+    "_i" : "image"
   }
 }

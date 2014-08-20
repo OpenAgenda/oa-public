@@ -9,7 +9,7 @@
         <article><!--
 <% if ( event.image ) { %>
           --><a class="pic" href="#">
-            <img src="<%= event.image %>">
+            <img src="<%= _i( event.image ) %>">
           </a><!--
   <% } %>
           --><div class="cnt<% if ( !event.image ) { %> nopic<% } %>" href="#">
@@ -17,7 +17,7 @@
             <a class="ct mbClr" href="#<%= event.category.slug %>"><%= event.category.label %></a>
   <% } %>
             <span class="title"><%= event.title %></span>
-            <span class="sti url"><%= __(event.dateRange[0], _t(event.dateRange[1])) %></span>
+            <span class="sti url"><%= __( event.dateRange[0], _t(event.dateRange[1]) ) %></span>
             <span class="dsc"><%= event.description %></span>
   <% if ( event.tags ) { %>
             <span class="tg">
@@ -29,7 +29,7 @@
             </span>
   <% } %>
             <a class="lc">
-              <i class="icon-map-marker mClr"></i>
+              <i class="fa fa-map-marker mClr"></i>
               <span><%= event.placeName %></span>
             </a>
 
