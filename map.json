@@ -13,5 +13,7 @@
   "newsletter/admin/contactListForm",
   "newsletter/admin/contactListShow",
   "newsletter/unsubscribe",
-  "newsletter/unsubscribeComplete"
+  "newsletter/unsubscribeComplete",
+  "error/404",
+  "error/500"
 ]

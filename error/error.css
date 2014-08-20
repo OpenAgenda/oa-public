@@ -1,0 +1,18 @@
+.e404 .errorLabel,
+.e500 .errorLabel {
+  font-size: 26em;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 100;
+  color: #999;
+}
+
+@media all and ( max-width: 600px ) {
+  
+  .e404 .errorLabel,
+  .e500 .errorLabel {
+
+    font-size: 26em;  
+
+  }
+  
+}
