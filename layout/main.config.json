@@ -12,5 +12,6 @@
     "pageClass" : false,
     "searchRes" : "searchEvent",
     "search" : ""
-  }
+  },
+  "templateJs" : true
 }

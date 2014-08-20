@@ -38,7 +38,6 @@ http.createServer(function ( req, res ) {
 
     _loadMap,
 
-
     function( map, wcb ) { // load uri
 
       var parsed = url.parse(req.url, true);
@@ -197,40 +196,15 @@ _loadData = function( templateName, doBrowserify, cb ) {
 
     function( result, wcb ) { // browserify script if exists & setting set?
 
-      if ( !result.config.templateJs ) return wcb( null, result );
+      if ( !result.config.templateJs || !doBrowserify ) return wcb( null, result );
 
       log('template js exists');
 
+      _processTemplateJs( templateName, function( err ) {
 
-      // determine name of template js file
-      
-      var templateFolder = templateName.split('/');
+        return wcb( err, result );
 
-      templateFolder[ templateFolder.length - 1 ] = 'js/' + templateFolder[ templateFolder.length - 1 ] + '.js';
-
-
-      // browserify the thing
-
-      var jsFile = templateFolder.join('/'),
-
-      destName = cn.toCamelCase( templateName.replace(/\//g, '_') ),
-
-      destFilePath = '/js/browserified/' + destName + '.js';
-
-      if ( !doBrowserify ) return wcb( null, result );
-
-
-      log('browserify');
-
-      // run browserify
-
-      var b = browserify();
-
-      b.add( __dirname + '/' + jsFile );
-
-      b.bundle().pipe( fs.createWriteStream( __dirname + destFilePath ) );
-
-      wcb( null, result );
+      } );
 
     },
 
@@ -238,7 +212,7 @@ _loadData = function( templateName, doBrowserify, cb ) {
 
       if ( !result.config.layout ) return wcb( null, result);
 
-      _readFile(result.config.layout + '.config.json', function( err, content ) {
+      _readFile( result.config.layout + '.config.json', function( err, content ) {
 
         if ( err ) return wcb( null, result );
 
@@ -247,6 +221,20 @@ _loadData = function( templateName, doBrowserify, cb ) {
         wcb( null, result );
 
       });
+
+    },
+
+    function( result, wcb ) { // browserify layout script if exists
+
+      if ( !result.layoutConfig || !result.layoutConfig.templateJs || !doBrowserify ) return wcb( null, result );
+
+      log('layout js exists');
+
+      _processTemplateJs( result.config.layout, function( err ) {
+
+        return wcb( err, result );
+
+      } );
 
     },
 
@@ -270,7 +258,7 @@ _loadData = function( templateName, doBrowserify, cb ) {
 
       if ( !result.config.layout ) return wcb( null, result );
 
-      _readFile(result.config.layout + '.mock.json', function( err, content ) {
+      _readFile( result.config.layout + '.mock.json', function( err, content ) {
 
         if ( err ) return wcb( null, result );
 
@@ -290,11 +278,43 @@ _loadData = function( templateName, doBrowserify, cb ) {
 
   ], function( err ) {
 
-    console.log(err);
+    console.log( err );
 
     throw err;
 
   });
+
+},
+
+_processTemplateJs = function( name, cb ) {
+
+  log('browserificationization');
+
+  // determine name of template js file
+      
+  var folder = name.split('/');
+
+  folder[ folder.length - 1 ] = 'js/' + folder[ folder.length - 1 ] + '.js';
+
+
+  // browserify the thing
+
+  var jsFile = folder.join('/'),
+
+  destName = cn.toCamelCase( name.replace(/\//g, '_') ),
+
+  destFilePath = '/js/browserified/' + destName + '.js';
+
+
+  // run browserify
+
+  var b = browserify();
+
+  b.add( __dirname + '/' + jsFile );
+
+  b.bundle().pipe( fs.createWriteStream( __dirname + destFilePath ) );
+
+  cb();
 
 },
 

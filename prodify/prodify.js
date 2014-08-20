@@ -254,49 +254,70 @@ prodifyTemplateJs = function( templateName, cb ) {
 
     if ( !config.templateJs ) return cb();
 
+    browserifyTemplateScript( templateName, function( err ) {
 
-    // determine js file name from template name and process
+      if ( err ) throw err;
 
-    var b = browserify(),
+      if ( !config.layout ) return cb();
 
-    templateFolder = templateName.split('/');
+      readTemplateConfig( config.layout, function( err, config ) {
 
-    templateFolder[ templateFolder.length - 1 ] = 'js/' + templateFolder[ templateFolder.length - 1 ] + '.js';
+        if ( err ) throw err;
 
-    var jsFile = __dirname + '/../' + templateFolder.join('/'),
+        if ( !config.templateJs ) return cb();
 
-    destName = cn.toCamelCase( templateName.replace(/\//g, '_') ),
-
-    destFilePath = destPath + destName + '.js',
-
-    writeStream = fs.createWriteStream( destFilePath );
-
-    b.add( jsFile );
-
-    b.bundle().pipe( writeStream );
-
-    writeStream.on( 'close', function() {
-
-      // minify here
-
-      if ( !mangle ) return cb();
-
-      fs.readFile( destFilePath, 'utf-8', function( err, content ){
-
-        if ( err ) return cb( err );
-
-        var uglified = ugly.minify(content, { mangle: true, fromString: true }).code;
-
-        // done!
-
-        fs.writeFile( destFilePath, uglified, cb);
+        browserifyTemplateScript( config.layout, cb );
 
       });
+
+    } );
+
+  });
+
+
+},
+
+browserifyTemplateScript = function( name, cb ) {
+
+  // determine js file name from template name and process
+
+  var b = browserify(),
+
+  folder = name.split('/');
+
+  folder[ folder.length - 1 ] = 'js/' + folder[ folder.length - 1 ] + '.js';
+
+  var jsFile = __dirname + '/../' + folder.join('/'),
+
+  destName = cn.toCamelCase( name.replace(/\//g, '_') ),
+
+  destFilePath = destPath + destName + '.js',
+
+  writeStream = fs.createWriteStream( destFilePath );
+
+  b.add( jsFile );
+
+  b.bundle().pipe( writeStream );
+
+  writeStream.on( 'close', function() {
+
+    // minify here
+
+    if ( !mangle ) return cb();
+
+    fs.readFile( destFilePath, 'utf-8', function( err, content ){
+
+      if ( err ) return cb( err );
+
+      var uglified = ugly.minify(content, { mangle: true, fromString: true }).code;
+
+      // done!
+
+      fs.writeFile( destFilePath, uglified, cb);
 
     });
 
   });
-
 
 },
 

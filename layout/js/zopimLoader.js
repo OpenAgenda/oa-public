@@ -14,9 +14,9 @@ module.exports = function(doc, win, eh, options) {
 
   if (params.env=='dev') return;
   
-  eh.trigger('mobilecheck', function(isMobile) {
+  eh.trigger('mobilecheck', function( isMobile ) {
 
-    if (isMobile) return;
+    if ( isMobile ) return;
 
     setTimeout(function() {
 

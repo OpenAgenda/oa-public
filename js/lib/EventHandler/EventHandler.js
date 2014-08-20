@@ -1,5 +1,5 @@
 /* EventHandler v0.2 */
-(function(){
+(function( root ){
 
   var EventHandler = function(){
     this.register = {};
@@ -68,23 +68,22 @@
 
   };
 
-  if (typeof exports !== 'undefined') exports.EventHandler = EventHandler;
-  else window.EventHandler = EventHandler;
-})();
+  root.EventHandler = EventHandler;
 
-// singleton event handler
-var sEventHandler = (function(){
+  root.sEventHandler = (function() {
 
-  var instance;
+    var instance;
 
-  return {
-    getInstance: function() {
+    return {
+      getInstance: function() {
 
-      if (!instance)
-        instance = new EventHandler();
+        if (!instance)
+          instance = new EventHandler();
 
-      return instance;
-    }
-  };
+        return instance;
+      }
+    };
 
-})();
+  })();
+
+})( exports ? exports : window );

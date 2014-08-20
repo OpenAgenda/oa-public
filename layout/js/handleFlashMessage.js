@@ -42,7 +42,7 @@ var read = function() {
 
   if (!rawCookie) return {value: false, type: false};
 
-  cookieValues = JSON.parse(b64.decode(rawCookie));
+  cookieValues = JSON.parse(b64.decode( rawCookie ));
 
   return {
     value: cookieValues[params.keys.value],
@@ -53,9 +53,11 @@ var read = function() {
 
 clear = function() {
 
+  if ( !cookieValues ) return;
+
   cookieValues[params.keys.value] = false;
   cookieValues[params.keys.type] = false;
 
   cookies.set(params.keys.cookie, b64.encode(JSON.stringify(cookieValues)));
 
-}
+};

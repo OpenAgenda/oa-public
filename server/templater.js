@@ -178,9 +178,9 @@ loadLabels = function( data, cb ) {
 
     if (err) return cb(err);
 
-    var labels = JSON.parse(results[0]);
+    var labels = JSON.parse( results[0] );
 
-    if (results.length > 1) cn.extend(labels, JSON.parse(results[1]));
+    if (results.length > 1) cn.extend(labels, JSON.parse( results[1]) );
 
     data.labels = labels;
 
@@ -200,7 +200,7 @@ loadHelpers = function( data, cb ) {
 
     if (!helpers[name]) {
 
-      helpers[name] = require( __dirname + '/../helpers/' + data.config.helpers[name])({ lang: 'fr' } );
+      helpers[name] = require( __dirname + '/../helpers/' + data.config.helpers[name])( { lang: 'fr' } );
 
     }
 
@@ -224,6 +224,12 @@ loadScripts = function( templateName, scriptsBase ) {
     if ( data.config.templateJs ) {
 
       data.config.js.push( basePath + '/' + cn.toCamelCase( templateName.replace(/\//g, '_') ) + '.js' );
+
+    }
+
+    if ( data.layoutConfig && data.layoutConfig.templateJs ) {
+
+      data.config.js.push( basePath + '/' + cn.toCamelCase( data.config.layout.replace(/\//g, '_') ) + '.js' );
 
     }
 
