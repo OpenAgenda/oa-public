@@ -32,6 +32,10 @@ config = {
     },
     routes: {
       globals: {
+        'searchEvent' : {
+          method: 'get',
+          uri: '/events/search'
+        },
         'agendaShow' : {
           method: 'get',
           uri: '/:slug'

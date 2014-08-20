@@ -57,7 +57,7 @@ module.exports = function( base, config ) {
 
   // load module controllers
 
-  router.loadRoutes(app, controllers( app, model, mw ) );
+  router.loadRoutes( app, controllers( app, model, mw ) );
 
   return app;
 
@@ -82,7 +82,7 @@ var controllers = function( app, model, mw ) {
       campaignFeaturedEdit: [ 'get', campaignFeaturedEdit, '/campaigns/:uid/featured' ],
       campaignFeaturedAdd: [ 'get', campaignFeaturedAdd, '/campaigns/:uid/featured/add/:eUid' ],
       campaignFeaturedRemove: [ 'get', campaignFeaturedRemove, '/campaigns/:uid/featured/remove/:eUid' ],
-      campaignFeaturedClear: [ 'get', campaignFeaturedClear, '/campaigns/:uid/featured/clear'],
+      campaignFeaturedClear: [ 'get', campaignFeaturedClear, '/campaigns/:uid/featured/clear' ],
       campaignComplete: [ 'post', campaignComplete, '/campaigns/:uid/complete' ],
       newsletterShow: [ 'get', newsletterShow, '/campaigns/:uid/newsletter' ],
       contactListNew: [ 'get', contactListNew, '/contactlists/new' ],
@@ -108,7 +108,7 @@ var controllers = function( app, model, mw ) {
 
     ])
 
-    .spread( function( campaigns, contactLists) {
+    .spread( function( campaigns, contactLists ) {
 
       mw.render( req, res, 'newsletter/admin/index', lib.extend({
         campaigns: campaigns,
@@ -117,16 +117,12 @@ var controllers = function( app, model, mw ) {
 
     })
 
-    .catch( function( err ) {
-
-      mw.errorResponse( req, res, err );
-
-    });
+    .catch( _error( req, res ) );
 
   },
 
 
-  indexRedirect = function ( req, res ) {
+  indexRedirect = function( req, res ) {
 
     return router.redirect( req, res, 'newsletterIndex' );
 
@@ -135,22 +131,20 @@ var controllers = function( app, model, mw ) {
 
   campaignNew = function( req, res ) {
 
-    async.parallel([
+    wn.call( req.agenda.contactLists.list )
 
-      req.agenda.contactLists.list
+    .then( function( contactLists ) {
 
-    ], function ( err, results ) {
-
-      if ( err ) return mw.errorResponse( req, res, err );
-
-      mw.render(req, res, 'newsletter/admin/campaignForm', lib.extend({
+      mw.render( req, res, 'newsletter/admin/campaignForm', lib.extend({
         uid: null,
-        contactLists: results[0],
+        contactLists: contactLists,
         values: {}, errors: {},
         isNew: true
-      }, _layoutData(req.agenda)));
+      }, _layoutData(req.agenda)) );
 
-    });
+    })
+
+    .catch( _error( req, res ) );
 
   },
 
@@ -165,15 +159,19 @@ var controllers = function( app, model, mw ) {
 
       // save was successful... or crashed altogether
 
-      if (err) return mw.errorResponse( req, res, err );
+      if ( err ) return _error( req, res )( err );
 
       router.redirect(req, res, 'campaignLayoutEdit', { uid: result.object.uid });
 
     }, function( err, result, values, errors, contactLists ) {
 
+      if ( err ) return _error( req, res )( err );
+
       // ... some things are missing or wrong
 
       req.agenda.campaigns.instance( result.object ).getIsNew(function( err, isNew ) {
+
+        if ( err ) return _error( req, res )( err );
 
         mw.render( req, res, 'newsletter/admin/campaignForm', lib.extend({
           isNew: isNew,
@@ -181,7 +179,7 @@ var controllers = function( app, model, mw ) {
           contactLists: contactLists,
           values: values,
           errors: errors
-        }, _layoutData(req.agenda)));
+        }, _layoutData( req.agenda )));
 
       });
 
@@ -192,19 +190,21 @@ var controllers = function( app, model, mw ) {
 
   campaignRemove = function( req, res ) {
 
-    req.agenda.campaigns.get({ uid: req.params.uid }, function ( err, result ) {
+    wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
-      if (err) return mw.errorResponse( req, res, err );
+    .then( function( campaign ) {
 
-      req.agenda.campaigns.instance(result).remove(function ( err, result ) {
+      return wn.call( req.agenda.campaigns.instance( campaign ).remove );
 
-        if (err) return mw.errorResponse( req, res, err );
+    } )
 
-        return router.redirect( req, res, 'newsletterIndex' );
+    .then( function() {
 
-      });
+      router.redirect( req, res, 'newsletterIndex' );
 
-    });
+    } )
+
+    .catch( _error( req, res ) );
 
   },
 
@@ -216,11 +216,13 @@ var controllers = function( app, model, mw ) {
     wn.call( async.parallel, [
 
       req.agenda.contactLists.list,
-      async.apply( req.agenda.campaigns.get, {uid: req.params.uid} )
+      async.apply( req.agenda.campaigns.get, { uid: req.params.uid } )
 
     ])
 
     .spread( function( cl, c ) {
+
+      if ( !c ) throw { code: 404, message: 'campaign does not exist' };
 
       campaign = req.agenda.campaigns.instance( c );
 
@@ -250,11 +252,7 @@ var controllers = function( app, model, mw ) {
 
     })
 
-    .catch( function( err ) {
-
-      mw.errorResponse( req, res, err );
-
-    } );
+    .catch( _error( req, res ) );
 
   },
 
@@ -269,13 +267,13 @@ var controllers = function( app, model, mw ) {
 
       // save was successful... or crashed altogether
 
-      if ( err ) return mw.errorResponse( req, res, err );
+      if ( err ) return _error( req, res )( err );
 
       var campaign = req.agenda.campaigns.instance( result.object );
 
       campaign.getIsNew(function( err, isNew ) {
 
-        if ( err ) return mw.errorResponse( req, res, err );
+        if ( err ) return _error( req, res )( err );
 
         if ( !isNew ) {
 
@@ -295,17 +293,17 @@ var controllers = function( app, model, mw ) {
 
     }, function( err, result, values, errors, contactLists ) {
 
-      if ( err ) return mw.errorResponse( req, res, err );
+      if ( err ) return _error( req, res )( err );
 
       // ... some things are missing or wrong
 
       req.agenda.campaigns.get({ uid: req.params.uid }, function( err, campaign ) {
 
-        if ( err ) return mw.errorResponse( req, res, err );
+        if ( err ) return _error( req, res )( err );
 
         req.agenda.campaigns.instance( campaign ).getIsNew(function( err, isNew ) {
 
-          if ( err ) return mw.errorResponse( req, res, err );
+          if ( err ) return _error( req, res )( err );
 
           mw.render( req, res, 'newsletter/admin/campaignForm', lib.extend({
             isNew: isNew,
@@ -328,7 +326,7 @@ var controllers = function( app, model, mw ) {
 
     req.agenda.campaigns.get({ uid: req.params.uid }, function( err, campaign ) {
 
-      if (err) return mw.errorResponse( req, res, err );
+      if ( err ) return _error( req, res )( err );
 
       async.series([
         async.apply( req.agenda.categories.list ),
@@ -337,9 +335,11 @@ var controllers = function( app, model, mw ) {
         async.apply( req.agenda.getCities )
       ], function( err, results ) {
 
-        if (err) return mw.errorResponse(req, res, err);
+        if ( err ) return _error( req, res )( err );
 
         req.agenda.campaigns.instance( campaign ).getLayoutFormValues( function( err, values ) {
+
+          if ( err ) return _error( req, res )( err );
 
           mw.render( req, res, 'newsletter/admin/campaignLayoutForm', lib.extend({
             uid: req.params.uid,
@@ -364,31 +364,29 @@ var controllers = function( app, model, mw ) {
 
   campaignLayoutUpdate = function( req, res ) {
 
-    req.agenda.campaigns.get( { uid: req.params.uid }, function ( err, campaign ) {
+    wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
-      if ( err ) return mw.errorResponse( req, res, err );
+    .then( function( campaign ) {
 
-      campaign = req.agenda.campaigns.instance( campaign );
+      return wn.call( _processCampaignLayout, req.agenda.campaigns.instance( campaign ), req.body || {} );
 
-      _processCampaignLayout( campaign, req.body || {}, function( err ) {
+    })
 
-        if ( err ) return mw.errorResponse( req, res, err );
+    .then( function() {
 
-        // shove it up the newsletter object
+      return wn.call( build, model, req.agenda, campaign );
 
-        build( model, req.agenda, campaign, function( err, newsletterData ) {
+    })
 
-          if ( err ) return mw.errorResponse( req, res, err );
+    .then( function( newsletterData ) {
 
-          newsletterData.type = 'html';
+      newsletterData.type = 'html';
 
-          mw.render( req, res, 'newsletter/show', newsletterData );
+      mw.render( req, res, 'newsletter/show', newsletterData );
 
-        });
+    })
 
-      });
-      
-    } );
+    .catch( _error( req, res ) );
 
   },
 
@@ -397,160 +395,157 @@ var controllers = function( app, model, mw ) {
 
     var perPage = req.xhr ? 20 : app.get( 'perPage' );
 
-    req.agenda.campaigns.get( { uid: req.params.uid }, function( err, campaign ) {
+    wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
-      if ( err ) return mw.errorResponse( req, res, err );
+    .then( function( campaign ) {
 
       campaign = req.agenda.campaigns.instance( campaign );
 
-      async.parallel([
+      return wn.call( async.parallel, [
         async.apply( campaign.events.total, { filters: req.query.filters }),
         async.apply( campaign.events.list, { filters: req.query.filters, page: req.query.page, limit: perPage } )
-      ], function( err, results ) {
+      ] );
 
-        if ( err ) return mw.errorResponse( req, res, err );
+    })
 
-        var total = results[0],
+    .spread( function( total, eventList ) {
 
-        eventList = results[1];
+      eventList.map(function( e ) {
 
-        eventList.map(function( e ) {
+        var title = model.events().instance( e ).getTitle();
 
-          var title = model.events().instance( e ).getTitle();
-
-          e.title = title;
-          
-        });
-
-
-        mw.render( req, res, 'newsletter/admin/campaignFeaturedForm', lib.extend({
-          filters: req.query.filters || {},
-          events: eventList,
-          uid: req.params.uid
-        }, 
-        _pager( req, 'campaignFeaturedEdit', perPage, total ),
-        _layoutData( req.agenda )));
-
+        e.title = title;
+        
       });
 
-    });
+      mw.render( req, res, 'newsletter/admin/campaignFeaturedForm', lib.extend({
+        filters: req.query.filters || {},
+        events: eventList,
+        uid: req.params.uid
+      }, 
+      _pager( req, 'campaignFeaturedEdit', perPage, total ),
+      _layoutData( req.agenda )));
+
+    })
+
+    .catch( _error( req, res ));
 
   },
 
 
   campaignFeaturedAdd = function( req, res ) {
 
-    req.agenda.campaigns.get({ uid: req.params.uid }, function( err, campaign ) {
+    wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
-      if ( err ) return mw.errorResponse( req, res, err );
+    .then( function( campaign ) {
 
-      req.agenda.campaigns.instance( campaign ).addFeaturedEvent({ uid: req.params.eUid }, true, function( err ) {
+      return wn.call( req.agenda.campaigns.instance( campaign ).addFeaturedEvent, { uid: req.params.eUid }, true );
 
-        if ( err ) return mw.errorResponse( req, res, err );
+    })
 
-        return router.redirect(req, res, 'campaignFeaturedEdit', { uid: req.params.uid }, true );
+    .then( function() {
 
-      });
+      return router.redirect(req, res, 'campaignFeaturedEdit', { uid: req.params.uid }, true );
 
-    });
+    })
+
+    .catch( _error( req, res ));
 
   },
 
 
   campaignFeaturedRemove = function( req, res ) {
 
-    req.agenda.campaigns.get({ uid: req.params.uid }, function( err, campaign ) {
+    wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
-      if ( err ) return mw.errorResponse( req, res, err );
+    .then( function( campaign ) {
 
-      req.agenda.campaigns.instance( campaign ).removeFeaturedEvent({ uid: req.params.eUid }, true, function( err ) {
+      return wn.call( req.agenda.campaigns.instance( campaign ).removeFeaturedEvent, { uid: req.params.eUid }, true );
 
-        if ( err ) return mw.errorResponse( req, res, err );
+    })
 
-        return router.redirect(req, res, 'campaignFeaturedEdit', { uid: req.params.uid }, true );
+    .then( function() {
 
-      });
+      return router.redirect(req, res, 'campaignFeaturedEdit', { uid: req.params.uid }, true );
 
-    });
+    })
+
+    .catch( _error( req, res ));
 
   },
 
 
   campaignFeaturedClear = function( req, res ) {
 
-    req.agenda.campaigns.get({ uid: req.params.uid }, function( err, campaign ) {
+    wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
-      if ( err ) return mw.errorResponse( req, res, err );
+    .then( function( campaign ) {
 
-      req.agenda.campaigns.instance( campaign ).clearFeaturedEvents( true, function( err ) {
+      return wn.call( req.agenda.campaigns.instance( campaign ).clearFeaturedEvents, true );
 
-        if ( err ) return mw.errorResponse( req, res, err );
+    })
 
-        return router.redirect(req, res, 'campaignFeaturedEdit', { uid: req.params.uid }, true );
+    .then( function() {
 
-      });
+      return router.redirect(req, res, 'campaignFeaturedEdit', { uid: req.params.uid }, true );
 
-    });
+    })
+
+    .catch( _error( req, res ));
 
   },
 
 
   campaignComplete = function( req, res ) {
 
-    req.agenda.campaigns.get( { uid: req.params.uid }, function ( err, campaign ) {
+    var campaign;
 
-      if ( err ) return mw.errorResponse( req, res, err );
+    wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
-      campaign = req.agenda.campaigns.instance( campaign );
+    .then( function( campaignData ) {
 
-      _processCampaignLayout( campaign, req.body || {}, function( err ) {
+      campaign = req.agenda.campaigns.instance( campaignData );
 
-        if ( err ) return mw.errorResponse( req, res, err );
+      return wn.call( _processCampaignLayout, campaign, req.body || {} );
 
-        campaign.setIsNew( false, function( err ) {
+    })
 
-          if ( err ) return mw.errorResponse( req, res, err );
+    .then( wn.call( campaign.setIsNew, false ) )
 
-          campaign.refreshScheduledAt(function( err, scheduledAt ) {
+    .then( wn.call( campaign.refreshScheduledAt ) )
 
-            campaign.save(function( err, campaign) {
+    .then( wn.call( campaign.save ) )
 
-              if ( err ) return mw.errorResponse( req, res, err );
+    .then( function() {
 
-              router.redirect(req, res, 'newsletterIndex');
+      router.redirect(req, res, 'newsletterIndex');
 
-            });              
+    })
 
-          });
-
-        });
-
-      });
-
-    });
+    .catch( _error( req, res ) );
 
   },
 
 
   newsletterShow = function( req, res ) {
 
-    req.agenda.campaigns.get({ uid: req.params.uid }, function ( err, campaign ) {
+    wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
-      if ( err ) return mw.errorResponse( req, res, err );
+    .then(function( campaign ) {
 
-      campaign = req.agenda.campaigns.instance( campaign );
+      return wn.call( build, model, req.agenda, req.agenda.campaigns.instance( campaign ) );
 
-      build(model, req.agenda, campaign, function( err, newsletterData ) {
+    })
 
-        if (err) return mw.errorResponse(req, res, err);
+    .then(function( newsletterData ) {
 
-        newsletterData.type = 'html';
+      newsletterData.type = 'html';
 
-        mw.render(req, res, 'newsletter/show', newsletterData);
+      mw.render( req, res, 'newsletter/show', newsletterData );
 
-      });
+    })
 
-    });
+    .catch( _error( req, res ) );
 
   },
 
@@ -572,7 +567,7 @@ var controllers = function( app, model, mw ) {
 
     req.agenda.contactLists.validateAndCreate(values, function ( err, result ) {
 
-      if (err) return mw.errorResponse(req, res, err);
+      if ( err ) return _error( req, res )( err );
 
       if (result.errors) {
 
@@ -593,7 +588,7 @@ var controllers = function( app, model, mw ) {
 
         req.agenda.contactLists.instance(result.object).contacts.validateAndCreateMultiple(values, function ( err, result) {
 
-          if (err) return mw.errorResponse(req, res, err);
+          if ( err ) return _error( req, res )( err );
 
           return router.redirect(req, res, 'newsletterIndex' );
 
@@ -668,11 +663,11 @@ var controllers = function( app, model, mw ) {
 
     req.agenda.contactLists.get({uid: req.params.uid}, function ( err, result ) {
 
-      if (err) return mw.errorResponse(req, res, err);
+      if ( err ) return _error( req, res )( err );
 
       req.agenda.contactLists.instance(result).remove(function ( err, result ) {
 
-        if (err) return mw.errorResponse(req, res, err);
+        if ( err ) return _error( req, res )( err );
 
         return router.redirect(req, res, 'newsletterIndex', true);
 
@@ -687,15 +682,15 @@ var controllers = function( app, model, mw ) {
 
     var values = req.body || {};
 
-    req.agenda.contactLists.get({uid: req.params.uid }, function ( err, contactList ) {
+    req.agenda.contactLists.get( { uid: req.params.uid }, function ( err, contactList ) {
 
-      contactList = req.agenda.contactLists.instance(contactList);
+      contactList = req.agenda.contactLists.instance( contactList );
 
-      if (err) return mw.errorResponse(req, res, err);
+      if ( err ) return _error( req, res )( err );
 
-      req.agenda.contactLists.instance(contactList).contacts.validateAndCreateMultiple(values, function ( err, result ) {
+      req.agenda.contactLists.instance( contactList ).contacts.validateAndCreateMultiple( values, function ( err, result ) {
 
-        if (err) return mw.errorResponse(req, res, err);
+        if ( err ) return _error( req, res )( err );
 
         if (result.success) {
 
@@ -711,7 +706,7 @@ var controllers = function( app, model, mw ) {
 
               contactList.contacts.total(function( err, total ) {
 
-                if (err) return mw.errorResponse(req, res, err);
+                if ( err ) return _error( req, res )( err );
 
                 wcb( null, total );
 
@@ -734,7 +729,7 @@ var controllers = function( app, model, mw ) {
 
           ], function( err ) {
 
-            if (err) return mw.errorResponse(req, res, err);
+            if ( err ) return _error( req, res )( err );
 
           });
 
@@ -751,13 +746,39 @@ var controllers = function( app, model, mw ) {
 
     generic.contactRemove(req.agenda, req.params.uid, req.params.email, function( err, result ){
 
-      if (err) return mw.errorResponse(req, res, err);
+      if ( err ) return _error( req, res )( err );
 
-      return router.redirect(req, res, 'contactListShow', {uid: req.params.uid});
+      return router.redirect(req, res, 'contactListShow', { uid: req.params.uid });
 
     });
 
+  },
+
+
+  _error = function( req, res ) {
+
+    return function( err ) {
+
+      if ( typeof err === 'string' ) err = { message: err };
+
+      var link = false;
+
+      if ( req.agenda ) {
+
+        err.link = {
+          uri: 'newsletterIndex',
+          values: {},
+          label: 'go back to newsletters index'
+        };
+
+      }
+
+      mw.errorResponse( req, res, err );
+
+    };
+
   };
+
 
   return map();
 
@@ -841,7 +862,7 @@ _processCampaignLayout = function( campaign, values, cb ) {
 
           for ( var name in value ) {
 
-            clean.push(name);
+            clean.push( name );
 
           }
 
@@ -854,8 +875,6 @@ _processCampaignLayout = function( campaign, values, cb ) {
         filterValues[filterName] = clean;
 
       });
-
-      console.log( filterValues );
 
       campaign.setFilters( filterValues, scb );
 

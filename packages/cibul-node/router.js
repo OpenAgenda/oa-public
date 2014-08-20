@@ -219,15 +219,15 @@ _getBasePath = function( app, req ) {
 
   var base = app.get('base'),
 
-  basePathRegex = base.replace(/\//g, '\/');
+  basePathRegex = base.replace(/\//g, '\/'),
 
-  var baseValues = {};
+  baseValues = {};
     
-  base.match(/:([a-zA-Z])+/g).forEach(function ( paramName ) {
+  ( base.match(/:([a-zA-Z])+/g) || [] ).forEach(function ( paramName ) {
 
     baseValues[paramName.substr(1)] = req.params[paramName.substr(1)];
 
-    basePathRegex = basePathRegex.replace(paramName, '([a-zA-Z0-9-])+');
+    basePathRegex = basePathRegex.replace( paramName, '([a-zA-Z0-9-])+' );
 
   });
 

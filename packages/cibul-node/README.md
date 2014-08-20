@@ -23,7 +23,12 @@ server {
  
   root /home/kaore/Dev/www/cibul-symfony/web;
 
-  location ~ "/[^/]+(/admin/newsletters|/newsletters)" {
+  
+  # grabs root or
+  # /{agendaslug}/admin/newsletters or
+  # /{agendaslug}/newsletters
+
+  location ~ ^/($|.+/(admin/newsletters|newsletters)) {
     proxy_pass http://127.0.0.1:8901;
     proxy_set_header Host $host;
     proxy_buffering off;

@@ -156,9 +156,9 @@ checkCredential = function( model, name ) {
 
     model.agendas().instance(req.agenda).hasCredential(name, function(err, has) {
 
-      if (err) return errorResponse(req, res, err);
+      if ( err ) return errorResponse( req, res, err );
 
-      if (!has) return errorResponse(req, res, 'user does not have required creds');
+      if ( !has ) return errorResponse( req, res, 'user does not have required creds' );
 
       log('agenda has credentials "%s"', name);
 
@@ -171,9 +171,17 @@ checkCredential = function( model, name ) {
 },
 
 
-errorResponse = function(req, res, message) {
+errorResponse = function(req, res, error ) {
 
-  res.send('error: ' + message);
+  log( 'received error ');
+
+  error.head = {
+    css: {
+      main: '//d.cibul.net/css/compiled.css'
+    }
+  };
+
+  render( req, res, 'error/404', error );
 
 },
 

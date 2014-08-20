@@ -10,16 +10,26 @@ var run = function() {
 
   coms = require('./coms')( config );
 
+
+  // load module apps
+
   loadApp( 'newsletter/back', '/:slug/admin/newsletters' );
+
   loadApp( 'newsletter/front', '/:slug/newsletters' );
 
-  app.listen(config.port);
+  loadApp( 'general/front' );
+
+  loadApp( 'search/front' );
+
+
+  app.listen( config.port );
 
   loadTask( 'newsletter/task', 60000, 15 );
 
   loadTask( 'mailer/task' );
 
 },
+
 
 express = require('express'),
 
@@ -35,11 +45,15 @@ coms,
 
 cookieParser = require('cookie-parser'),
 
+
 loadApp = function(name, route) {
+
+  if ( !route ) route = '';
 
   app.use(require('./' + name)( route, config ));
 
 },
+
 
 loadTask = function( name, period, initTimeout ) {
 
