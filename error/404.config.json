@@ -9,6 +9,10 @@
     "frame" : "../css/frame.css",
     "error" : "error.css"
   },
+  "base" : {
+    "message" : false,
+    "link" : false
+  },
   "helpers" : {
     "_i" : "image"
   }
