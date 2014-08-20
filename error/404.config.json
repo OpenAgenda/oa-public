@@ -5,7 +5,7 @@
     "page" : "../css/page structure/page.css",
     "headings" : "../css/headings.css",
     "header" : "../css/header.css",
-    "opensans" : "//fonts.googleapis.com/css?family=Open+Sans:400,300",
+    "opensans" : "../css/opensans.css",
     "frame" : "../css/frame.css",
     "error" : "error.css"
   },

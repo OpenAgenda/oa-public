@@ -2,5 +2,7 @@
   "I cannot haz found"
   : "A pa trouver",
   "go back to newsletters index"
-  : "revenir à l'index des newsletters"
+  : "revenir à l'index des newsletters",
+  "campaign does not exist."
+  : "La campagne n'existe pas."
 }

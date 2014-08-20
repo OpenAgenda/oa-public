@@ -9,7 +9,7 @@
     "buttons" : "../css/buttons.css", 
     "calendar" : "../css/calendar.css",
     "fontawesome410" : "../css/font-awesome-4.1.0/css/font-awesome.css",
-    "opensans" : "//fonts.googleapis.com/css?family=Open+Sans:400,300",
+    "opensans" : "../css/opensans.css",
     "leaflet" : "//cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"
   },
   "helpers" : {
