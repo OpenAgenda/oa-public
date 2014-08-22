@@ -11,9 +11,9 @@
   <body<% if ( pageClass ) { %> class="<%= pageClass %>"<% } %>>
     <header>
       <a class="logo" href="#"><img src="/images/biglogo.png"></a>
-      <ul class="links site-links">
+      <ul class="links site-links js_header_links">
         <li class="language-menu js_language_menu">
-          <a>fr</a>
+          <a><% if ( ( typeof lang == 'undefined' ) || lang=='fr' ) { %>fr<% } else { %>en<% } %></a>
           <ul class="language-menu">
             <li><a rel="alternate" href="?lang=fr" hreflang="fr">français</a></li><!--
             --><li><a href="?lang=en" hreflang="en">english</a></li>

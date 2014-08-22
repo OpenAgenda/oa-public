@@ -1,6 +1,7 @@
 {
   "css" : {
     "global" : "../css/global/global.css",
+    "userMenu" : "../user/css/menu.css",
     "header" : "../css/header.css",
     "headings" : "../css/headings.css",
     "forms" : "../css/forms.css",

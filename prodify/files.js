@@ -26,6 +26,8 @@ var paths = {
 
 destPath = '../../cibul-symfony/web/js/',
 
+destPublicTemplatePath = '../../cibul-symfony/web/templates/',
+
 destCssPath = '../../cibul-symfony/web/css/compiled.css',
 
 files = {
@@ -509,3 +511,4 @@ files = {
 exports.files = files;
 exports.destPath = destPath;
 exports.destCssPath = destCssPath;
+exports.destPublicTemplatePath = destPublicTemplatePath;

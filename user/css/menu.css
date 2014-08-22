@@ -1,0 +1,82 @@
+body > header .user-profile {
+
+  position: relative;
+  cursor: pointer;
+
+}
+
+.user-profile img {
+
+  max-height: 35px;
+
+}
+
+.user-profile-dropdown {
+  position: absolute;
+  z-index: 4;
+  right: 0;
+}
+
+.user-profile-dropdown > div {
+  border-top: 1px #eee solid;
+  margin-top: 4px;
+}
+
+.user-profile-dropdown ul {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.user-profile-dropdown.col2 {
+  width: 350px;
+}
+
+.user-profile-dropdown.col2 ul {
+  width: 50%;
+}
+
+.user-profile-dropdown img {
+  padding-right: 5px;
+  max-width: 24px;
+  vertical-align: middle;
+}
+
+.user-profile-dropdown li {
+  cursor: initial;
+  display: block!important;
+  padding: 0.3em 0!important;
+}
+
+.user-profile-dropdown li > h3 {
+  font-size: 1.2em;
+  margin-bottom: 0;
+}
+
+.user-profile-dropdown li > * {
+  display: block;
+  padding: 6px 14px;
+}
+
+.user-profile-dropdown li > a {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.user-profile-dropdown li > a {
+  font-size: 1.1em;
+}
+
+.user-profile-dropdown li span {
+  font-size: 1em;
+}
+
+.user-profile-dropdown li > a:hover {
+  background: #666;
+  color: white!important;
+}
+
+.user-profile-dropdown li > a:hover * {
+  color: white;
+}

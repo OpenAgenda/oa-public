@@ -1,9 +1,13 @@
-var handleSession = function(params) {
+var cn = require('../../js/lib/common/common.mod.js'),
+
+remote = require('../../js/lib/remote/remote.mod.js');
+
+module.exports = function( eh, options ) {
 
   // add event support you mofo.
 
-  params = extend({
-    url: false, // required - where to get the data
+  var params = cn.extend({
+    url: '/session',
     debug: false,
     cookie: 'cibul_session',
     cookieFlag: 'refresh',
@@ -11,38 +15,38 @@ var handleSession = function(params) {
     local: 'cibul_session',
     onLoaded: false,
     events: { fetch: 'getsessiondata', clear: false }
-  }, params);
+  }, params),
 
-  var stack = [],
+  stack = [],
 
   isReady = false,
 
-  eh = sEventHandler.getInstance(),
-
   run = function() {
 
-    if ( !_hasStorage() || _flaggedCookie() || !_hasSessionData() || params.debug || _contradictingCookie() ) {
+    if ( window.env == 'dev' ) params.debug = true;
 
-      _fetch( function(data) {
+    if ( params.debug ) params.url = '//d.cibul.net/frontend_dev.php/session';
 
-        _setSessionData( data );
+    if (!_hasStorage() || _flaggedCookie() || !_hasSessionData() || params.debug || _contradictingCookie()) {
+
+      _fetch(function(data) {
+        _setSessionData(data);
         isReady = true;
         _processStack();
-
-      } );
+      });
 
     } else {
-
       isReady = true;
-
     }
 
     var cbId = eh.on(params.events.fetch, _handleFetchRequest);
 
-    if ( params.events.clear ) var cbIdOnClear = eh.on(params.events.clear, function() {
+    if (params.events.clear) var cbIdOnClear = eh.on(params.events.clear, function() {
 
       eh.cancel( cbId );
+
       eh.cancel( cbIdOnClear );
+
       stack = [];
 
     });
@@ -61,7 +65,7 @@ var handleSession = function(params) {
 
     var data = _getSessionData();
 
-    forEach(stack, function(callback) {
+    cn.forEach(stack, function(callback) {
       callback(data);
     });
 
@@ -112,8 +116,10 @@ var handleSession = function(params) {
 
   _flaggedCookie = function() {
 
+    var flagged;
+
     try {
-      var flagged = _getCookieValue(params.cookieFlag);
+      flagged = _getCookieValue(params.cookieFlag);
     } catch (e) {
       return false;
     }
@@ -126,8 +132,10 @@ var handleSession = function(params) {
 
   _contradictingCookie = function() {
 
+    var cookieValue;
+
     try {
-      var cookieValue = _getCookieValue('logged');
+      cookieValue = _getCookieValue( 'logged' );
     } catch (e) {
       return false;
     }
@@ -140,13 +148,13 @@ var handleSession = function(params) {
 
   },
 
-  _fetch = function(callback) {
+  _fetch = function( callback ) {
 
-    var qParams = params.debug?{format: 'jsonp', force: ''}:{};
+    var qParams = params.debug ? {format: 'jsonp', force: ''} : {};
 
-    remote.get(params.url, {data: qParams}, function(responseType, data){
+    remote.get(params.url, { data: qParams }, function(responseType, data){
       if (responseType=='success') callback(data);
-    }, params.debug?false:true);
+    }, params.debug ? false : true );
 
   },
 

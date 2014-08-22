@@ -6,6 +6,10 @@ messageLinks = require('./handleMessageLinks.js'),
 
 loadZopim = require('./zopimLoader.js'),
 
+handleSession = require('./handleSession'),
+
+headerProfile = require('./headerProfile'),
+
 debug = require('debug'),
 
 log = debug('globals'),
@@ -50,6 +54,20 @@ module.exports = window.run = function( externalEh, options ) {
 
     flash();
 
+    _languageMenu( options.langHeadMenu );
+
+    handleSession( eh );
+
+    headerProfile( eh, options.profile );
+
+    eh.trigger('getsessiondata', function( data ) {
+
+      
+
+      // here load profile header ejs, .json
+
+    });
+
   });
 
   cn.forEach( hooks, function( hook ) {
@@ -60,10 +78,55 @@ module.exports = window.run = function( externalEh, options ) {
 
 };
 
+
+/**
+ * provide hook for page specific script launchers
+ */
+
 window.hook = function( cb ) {
 
   if ( ran ) return cb( params );
 
   hooks.push( cb );
+
+};
+
+
+/**
+ * toggle language menu display
+ */
+
+var _languageMenu = function( options ) {
+
+  var params = cn.extend( {
+    selectors: {
+      main: 'header',
+      langMenu: '.js_language_menu',
+    }
+  }, options ? options : {} ),
+
+  langOn = false,
+
+  headElem = cn.el( params.selectors.main ),
+
+  langMenuElem = cn.el( headElem, params.selectors.langMenu ),
+
+  langList = cn.el( langMenuElem, 'ul' );
+
+  cn.addEvent( langMenuElem, 'click', function( e ) {
+
+    if ( !langOn ) {
+
+      langList.style.display = 'block';
+
+    } else {
+
+      langList.removeAttribute('style');
+
+    }
+
+    langOn = !langOn;
+
+  });
 
 };

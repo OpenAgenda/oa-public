@@ -1,0 +1,9 @@
+{
+  "layout" : "layout/blank",
+  "css": {
+    "global" : "../css/global/global.css",
+    "page" : "../css/page structure/page.css",
+    "headings" : "../css/headings.css",
+    "userMenu" : "css/menu.css"
+  }
+}

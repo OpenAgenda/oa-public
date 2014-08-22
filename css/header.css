@@ -37,6 +37,7 @@ body > header .links li {
   display: inline-block;
   padding: 0.5em 2em 0.5em 0;
   position: relative;
+  vertical-align: middle;
 }
 
 
@@ -49,7 +50,7 @@ body > header .language-menu ul {
   z-index: 3;
 }
 
-body > header .language-menu > a {
+body > header .language-menu > a {  
   text-transform: uppercase;
 }
 

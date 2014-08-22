@@ -11,7 +11,7 @@ module.exports = function( templateName, data, cb ) {
 
   var loaders = [
     loadTemplate(templateName),
-    loadLabels,
+    loadLabels( data.lang ),
     loadHelpers,
     loadScripts( templateName, data.scriptsBase ),
   ];
@@ -71,7 +71,7 @@ renderTemplate = function(filename, templateBody, data) {
 
   data.filename = filename;
 
-  return ejs.render(templateBody, data);
+  return ejs.render( templateBody, data );
 
 },
 
@@ -86,9 +86,13 @@ loadTranslator = function( labels ) {
 
     if (!values) values = {};
 
-    var translation = labels[label];
+    var translation = label;
 
-    if (translation === undefined) translation = label;
+    if ( labels && labels[label] ) {
+
+      translation = labels[label];
+
+    }
 
     for (var key in values) {
 
@@ -109,7 +113,7 @@ loadTemplate = function( templateName ) {
 
     var baseTemplatePath = ( __dirname + '/../' + templateName ).replace('.part', ''),
 
-    isPartial = templateName.substr(-5) === '.part',
+    isPartial = templateName.substr( -5 ) === '.part',
 
     data = {
       name: templateName.replace('.part', '')
@@ -164,29 +168,39 @@ loadTemplate = function( templateName ) {
 },
 
 
-loadLabels = function( data, cb ) {
+loadLabels = function( lang ) {
 
-  var files = [data.name];
+  return function( data, cb ) {
 
-  if (data.config.layout) files.push(data.config.layout);
+    var files = [ data.name ];
 
-  async.parallel( files.map( function ( name ) { 
+    if ( data.config.layout ) files.push( data.config.layout );
 
-    return async.apply( fs.readFile, __dirname + '/../' + name + '.fr.json', 'utf-8' ); 
+    if ( !lang ) lang = 'fr';
 
-  }), function ( err, results ) {
+    data.lang = lang;
 
-    if (err) return cb(err);
+    if ( lang === 'en' ) return cb( null, data );
 
-    var labels = JSON.parse( results[0] );
+    async.parallel( files.map( function ( name ) { 
 
-    if (results.length > 1) cn.extend(labels, JSON.parse( results[1]) );
+      return async.apply( fs.readFile, __dirname + '/../' + name + '.' + lang + '.json', 'utf-8' ); 
 
-    data.labels = labels;
+    }), function ( err, results ) {
 
-    cb( null, data );
+      if (err) return cb(err);
 
-  });
+      var labels = JSON.parse( results[0] );
+
+      if ( results.length > 1 ) cn.extend(labels, JSON.parse( results[1]) );
+
+      data.labels = labels;
+
+      cb( null, data );
+
+    });
+
+  };
 
 },
 

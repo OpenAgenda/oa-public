@@ -104,6 +104,8 @@ module.exports = {
           } else {
             response = xhr.responseText;
           }
+
+          if ( settings.raw ) return onSuccess( response );
             
           onSuccess(JSON.parse(response));
 

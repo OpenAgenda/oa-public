@@ -48,9 +48,9 @@ http.createServer(function ( req, res ) {
 
       if ( cn.contains( ['.js'], uri.substr(-3) ) ||
 
-      cn.contains( ['.css', '.jpg', '.png', '.ico', '.ttf', '.svg', '.eot', '.otf'], uri.substr(-4) ) ||
+      cn.contains( ['.css', '.jpg', '.png', '.ico', '.ttf', '.svg', '.eot', '.otf', '.ejs'], uri.substr(-4) ) ||
 
-      cn.contains( ['.woff'], uri.substr(-5) ) ) return mountStatic( req, res );
+      cn.contains( ['.woff', '.json'], uri.substr(-5) ) ) return mountStatic( req, res );
 
       wcb( null, map, uri );
 
@@ -106,6 +106,11 @@ http.createServer(function ( req, res ) {
         tConf.data.genUrl = _genUrl( tConf.data );
 
 
+        // language
+        
+        if ( reqQuery.lang ) tConf.data.lang = reqQuery.lang;
+
+
         // static image path generator 
 
         wcb( null, map, uri, tConf.data );
@@ -143,7 +148,10 @@ http.createServer(function ( req, res ) {
 
 var _renderMap = function( map, req, res ) {
 
-  _respond(res, 200, '<ul>' + map.map(function(uri) {
+  _respond(res, 200, '<ul>' + map.map(function( mapItem ) {
+
+    var uri = typeof mapItem == 'string' ? mapItem : mapItem.uri ;
+
     return '<li><a href="/' + uri + '">' + uri + '</a></li>';
   }).join('') + '</ul>');
 

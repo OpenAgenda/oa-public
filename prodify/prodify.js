@@ -8,7 +8,9 @@ destPath = require('./files.js').destPath,
 
 destCssPath = require('./files.js').destCssPath,
 
-map =  JSON.parse( fs.readFileSync('../map.json', "utf8") ),
+destPublicTemplatePath = require('./files.js').destPublicTemplatePath,
+
+map = JSON.parse( fs.readFileSync('../map.json', "utf8") ),
 
 cn = require('../js/lib/common/common.mod.js'),
 
@@ -32,19 +34,16 @@ run = function() {
 
   log = debug('prodify');
 
-  prodifyCss( map, function( err, cssFiles ) {
+  async.series([
+    async.apply( prodifyCss, map ),
+    async.apply( prodifyPublicTemplates, map ),
+    async.apply( async.each, map, prodifyTemplateJs ),
+    // legacyProdify
+  ], function( err ) {
 
     if ( err ) throw err;
 
-    async.each( map, prodifyTemplateJs, function( err ) {
-
-      if ( err ) throw err;
-
-      log('done with template based scripts');
-
-      //legacyProdify();
-
-    });
+    log('done.');
 
   });
 
@@ -98,6 +97,82 @@ forEachInputFile = function( entries, callback ) {
   }
 
 },
+
+
+prodifyPublicTemplates = function( map, cb ) {
+
+  // clear destination folder
+
+  async.each( map, function( mapItem, ecb ) {
+
+    if ( typeof mapItem == 'string' ) return ecb(); // do nothing
+
+    if ( ! mapItem.public ) return ecb();
+
+    async.series([
+      async.apply( checkOrCreateDir, mapItem.uri ),
+      async.apply( copyFile, '../' + mapItem.uri + '.ejs', destPublicTemplatePath + mapItem.uri + '.ejs' ),
+      async.apply( copyFile, '../' + mapItem.uri + '.fr.json', destPublicTemplatePath + mapItem.uri + '.fr.json' )
+    ], ecb );
+
+  });
+
+},
+
+checkOrCreateDir = function( uri, cb ) {
+
+  var dirs = uri.split('/');
+
+  dirs.pop();
+
+  dirs[0] =  destPublicTemplatePath + dirs[0];
+
+  for ( var i = 1; i < dirs.length; i++ ) {
+
+    dirs[i] = dirs[i-1] + '/' + dirs[i];
+
+  }
+
+  async.eachSeries( dirs, function( dir, escb ) {
+
+    fs.stat( dir, function( err ) {
+
+      if ( !err ) return escb(); // dir exists
+
+      fs.mkdir( dir, 0754, escb );
+
+    });
+
+  }, cb);
+
+},
+
+copyFile = function (source, target, cb) {
+
+  var cbCalled = false;
+
+  var rd = fs.createReadStream( source );
+  rd.on("error", function(err) {
+    done(err);
+  });
+  var wr = fs.createWriteStream( target );
+  wr.on("error", function(err) {
+    done(err);
+  });
+  wr.on("close", function(ex) {
+    done();
+  });
+  rd.pipe(wr);
+
+  function done(err) {
+    if (!cbCalled) {
+      cb(err);
+      cbCalled = true;
+    }
+  }
+
+},
+
 
 
 /**
@@ -161,7 +236,9 @@ listCss = function listCss( map, cb ) {
 
   parentsMap = [];
 
-  async.each( map, function( templateName, ecb ) {
+  async.each( map, function( mapItem, ecb ) {
+
+    var templateName = typeof mapItem == 'string' ? mapItem : mapItem.uri ;
 
     readTemplateConfig( templateName, function( err, config ) {
 
@@ -246,34 +323,41 @@ listCss = function listCss( map, cb ) {
  * read template config, get js file if any, browserify, minify, write to prod folder
  */
 
-prodifyTemplateJs = function( templateName, cb ) {
+prodifyTemplateJs = function( mapItem, cb ) {
 
-  readTemplateConfig( templateName, function( err, config ) {
+  var templateName = typeof mapItem == 'string' ? mapItem : mapItem.uri ;
 
-    if ( err ) throw err;
+  getTemplateFilesToBrowserify( templateName, function( err, toBrowserify ) {
 
-    if ( !config.templateJs ) return cb();
+    if ( err ) return cb( err );
 
-    browserifyTemplateScript( templateName, function( err ) {
-
-      if ( err ) throw err;
-
-      if ( !config.layout ) return cb();
-
-      readTemplateConfig( config.layout, function( err, layoutConfig ) {
-
-        if ( err ) throw err;
-
-        if ( !layoutConfig.templateJs ) return cb();
-
-        browserifyTemplateScript( config.layout, cb );
-
-      });
-
-    } );
+    async.eachSeries( toBrowserify, browserifyTemplateScript, cb );
 
   });
 
+},
+
+getTemplateFilesToBrowserify = function ( templateName, cb ) {
+
+  var toBrowserify = [];
+
+  readTemplateConfig( templateName, function( err, config ) {
+
+    if ( config.templateJs ) toBrowserify.push( templateName );
+
+    if ( !config.layout ) return cb( null, toBrowserify );
+
+    if ( config.layout ) readTemplateConfig( config.layout, function( err, layoutConfig ) {
+
+      if ( err ) return cb( err );
+
+      if ( layoutConfig.templateJs ) toBrowserify.push( config.layout );
+
+      cb( null, toBrowserify );
+
+    });
+
+  } );
 
 },
 

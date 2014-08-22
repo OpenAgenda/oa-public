@@ -5,6 +5,10 @@
   "search/events",
   "newsletter/event/full",
   "newsletter/agenda/full",
+  {
+    "uri" : "user/menu",
+    "public" : true
+  },
   "newsletter/show",
   "newsletter/admin/index",
   "newsletter/admin/campaignForm",
