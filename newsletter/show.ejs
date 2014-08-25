@@ -55,17 +55,21 @@
 
 <% include sections/spacer %>
 
+<% if ( contributable ) { %>
+
 <% include sections/top %>
   <table border="0" cellpadding="0" cellspacing="0" width="100%">
     <tbody id="addEventLinkCanvas" style="<%= css.addEventLinkCanvas %>">
       <tr>
         <td>
-          <a id="addEventLink" href="#" target="_blank" style="<%= css.addEventLink %>"><%= __('Add an Event') %></a>
+          <a id="addEventLink" href="<%= genUrl('agendaEventNew', { slug : slug }) %>" target="_blank" style="<%= css.addEventLink %>"><%= __('Add an Event') %></a>
         </td>
       </tr>
     </tbody>
   </table>
 <% include sections/bottom %>
+
+<% } %>
 
 <% include sections/spacer %>
 
@@ -80,24 +84,26 @@
       </tr>
       <tr>
         <td>
-          <a class="linkItem" href="#" style="<%= css.linkItem %>" target="_blank">- <%= __('Google Calendar') %></a>
+          <a class="linkItem" href="https://www.google.com/calendar/render?cid=<%= genUrl('agendaIcal', { uid: uid }) %>" style="<%= css.linkItem %>" target="_blank">- <%= __('Google Calendar') %></a>
         </td>
       </tr>
       <tr>
         <td>
-          <a class="linkItem" href="#" style="<%= css.linkItem %>" target="_blank">- <%= __('Rss') %></a>
+          <a class="linkItem" href="<%= genUrl('agendaFeed', { uid: uid }) %>" style="<%= css.linkItem %>" target="_blank">- <%= __('Rss') %></a>
         </td>
       </tr>
       <tr>
         <td>
-          <a class="spacedLinkItem" href="#" style="<%= css.spacedLinkItem %>" target="_blank"><%= __('Download this agenda') %></a>
+          <a class="spacedLinkItem" href="<%= genUrl('agendaCsv', { uid: uid }) %>" style="<%= css.spacedLinkItem %>" target="_blank"><%= __('Download this agenda') %></a>
         </td>
       </tr>
+<% if ( contactListUid ) { %>
       <tr>
         <td>
-          <a class="spacedLinkItem" href="#" style="<%= css.spacedLinkItem %>"  target="_blank"><%= __('Unsubscribe') %></a>
+          <a class="spacedLinkItem" href="<%= genUrl('contactUnsubscribeShow', { uid: contactListUid }) %>" style="<%= css.spacedLinkItem %>"  target="_blank"><%= __('Unsubscribe') %></a>
         </td>
       </tr>
+<% } %>
     </tbody>
   </table>
 
@@ -121,7 +127,7 @@
 
 <% if (featuredEvents && featuredEvents.length) { %>
 
-<% featuredEvents.forEach(function(event) { %>
+<% featuredEvents.forEach(function( event ) { %>
   <% include event/featured %>
 <% }); %>
 
@@ -134,5 +140,26 @@
 <% }); %>
 
 <% } %>
+
+<% if ( contributable ) { %>
+
+<%- __('Add an Event') %>: <%- genUrl('agendaEventNew', { slug : slug }) %>
+
+<% } %>
+
+<%- __('Stay up to date by connecting this agenda to your favorite service') %>:
+
+<%- __('Google Calendar') %>:  https://www.google.com/calendar/render?cid=<%- genUrl('agendaIcal', { uid: uid }) %>
+
+<%- __('Rss') %>: <%- genUrl('agendaFeed', { uid: uid }) %>
+
+
+
+<% if ( contactListUid ) { %>
+
+<%- __('Unsubscribe') %>: <%- genUrl('contactUnsubscribeShow', { uid: contactListUid }) %>
+
+<% } %>
+
 
 <% } %>
