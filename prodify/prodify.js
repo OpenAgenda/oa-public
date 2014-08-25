@@ -37,8 +37,8 @@ run = function() {
   async.series([
     async.apply( prodifyCss, map ),
     async.apply( prodifyPublicTemplates, map ),
-    async.apply( async.each, map, prodifyTemplateJs ),
-    // legacyProdify
+    async.apply( prodifyTemplateJs, map ),
+    legacyProdify
   ], function( err ) {
 
     if ( err ) throw err;
@@ -115,7 +115,7 @@ prodifyPublicTemplates = function( map, cb ) {
       async.apply( copyFile, '../' + mapItem.uri + '.fr.json', destPublicTemplatePath + mapItem.uri + '.fr.json' )
     ], ecb );
 
-  });
+  }, cb );
 
 },
 
@@ -323,17 +323,21 @@ listCss = function listCss( map, cb ) {
  * read template config, get js file if any, browserify, minify, write to prod folder
  */
 
-prodifyTemplateJs = function( mapItem, cb ) {
+prodifyTemplateJs = function( map, cb ) {
 
-  var templateName = typeof mapItem == 'string' ? mapItem : mapItem.uri ;
+  async.eachSeries( map, function( mapItem, scb ) {
 
-  getTemplateFilesToBrowserify( templateName, function( err, toBrowserify ) {
+    var templateName = typeof mapItem == 'string' ? mapItem : mapItem.uri ;
 
-    if ( err ) return cb( err );
+    getTemplateFilesToBrowserify( templateName, function( err, toBrowserify ) {
 
-    async.eachSeries( toBrowserify, browserifyTemplateScript, cb );
+      if ( err ) return scb( err );
 
-  });
+      async.eachSeries( toBrowserify, browserifyTemplateScript, scb );
+
+    });  
+
+  }, cb );
 
 },
 

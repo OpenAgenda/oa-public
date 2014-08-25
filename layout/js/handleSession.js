@@ -1,6 +1,10 @@
 var cn = require('../../js/lib/common/common.mod.js'),
 
-remote = require('../../js/lib/remote/remote.mod.js');
+remote = require('../../js/lib/remote/remote.mod.js'),
+
+Cookies = require('../../js/vendors/Cookies-master/src/cookies.js'),
+
+Base64 = require('../../js/lib/Base64/Base64.mod.js');
 
 module.exports = function( eh, options ) {
 

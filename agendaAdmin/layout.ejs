@@ -17,8 +17,8 @@
         <li><a class="menu-item<% if (tab=='events') { %> active<% } %>" href="<%= genUrl('agendaAdminShow') %>"><span><%= __('Events') %></span></a></li>
         <li><a class="menu-item<% if (tab=='contributors') { %> active<% } %>" href="<%= genUrl('agendaAdminContributors') %>"><span><%= __('Contributors') %></span></a></li>
         <li><a class="menu-item<% if (tab=='dataviz') { %> active<% } %>" href="<%= genUrl('agendaAdminDataviz') %>"><span><%= __('Dataviz') %></span></a></li>
-        <li><a class="menu-item<% if (tab=='categories') { %> active<% } %>" href="#"><span><%= __('Categories and Tags') %></span></a></li>
-        <li><a class="menu-item<% if (tab=='sources') { %> active<% } %>" href="#"><span><%= __('Sources') %></span></a></li>
+        <li><a class="menu-item<% if (tab=='categories') { %> active<% } %>" href="<%= genUrl('agendaAdminCategories') %>"><span><%= __('Categories and Tags') %></span></a></li>
+        <li><a class="menu-item<% if (tab=='sources') { %> active<% } %>" href="<%= genUrl('agendaAdminSources') %>"><span><%= __('Sources') %></span></a></li>
       </ul>
       <ul class="sidebar-item">
         <li class="title"><h2><%= __('Export') %></h2></li>
@@ -27,15 +27,15 @@
             <span><%= __('Facebook Link') %></span>
           </a>
         </li>
-        <li><a class="menu-item<% if (tab=='web') { %> active<% } %>" href="<%= genUrl('agendaEmbedIndex') %>"><span><%= __('Web Integration') %></span></a></li>
-        <li><a class="menu-item<% if (tab=='newsletter') { %> active<% } %>" href="#"><span><%= __('Newsletter') %></span></a></li>
-        <li><a class="menu-item<% if (tab=='xml') { %> active<% } %>" href="#"><span><%= __('Indesign - Xml') %></span></a></li>
+        <li><a class="menu-item<% if (tab=='web') { %> active<% } %>" href="<%= genUrl('agendaAdminWeb') %>"><span><%= __('Web Integration') %></span></a></li>
+        <li><a class="menu-item<% if (tab=='newsletters') { %> active<% } %>" href="<%= genUrl('newsletterIndex') %>"><span><%= __('Newsletter') %></span></a></li>
+        <li><a class="menu-item<% if (tab=='xml') { %> active<% } %>" href="<%= genUrl('agendaAdminIndesign') %>"><span><%= __('Indesign - Xml') %></span></a></li>
       </ul>
       <ul class="sidebar-item">
         <li class="title"><h2><%= __('Customize') %></h2></li>
-        <li><a class="menu-item<% if (tab=='administrators') { %> active<% } %>" href="#"><span><%= __('Administrators') %></span></a></li>
-        <li><a class="menu-item<% if (tab=='theme') { %> active<% } %>" href="#"><span><%= __('Theme') %></span></a></li>
-        <li><a class="menu-item<% if (tab=='parameters') { %> active<% } %>" href="#"><span><%= __('Settings') %></span></a></li>
+        <li><a class="menu-item<% if (tab=='administrators') { %> active<% } %>" href="<%= genUrl('agendaAdminAdministrators') %>"><span><%= __('Administrators') %></span></a></li>
+        <li><a class="menu-item<% if (tab=='theme') { %> active<% } %>" href="<%= genUrl('agendaAdminTheme') %>"><span><%= __('Theme') %></span></a></li>
+        <li><a class="menu-item<% if (tab=='parameters') { %> active<% } %>" href="<%= genUrl('agendaAdminSettings') %>"><span><%= __('Settings') %></span></a></li>
       </ul>
     </nav>
     <div class="main">

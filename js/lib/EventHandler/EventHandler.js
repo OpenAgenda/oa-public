@@ -86,4 +86,4 @@
 
   })();
 
-})( exports ? exports : window );
+})( typeof exports !== 'undefined' ? exports : window );
