@@ -10,5 +10,9 @@
   "Add"
   : "Ajouter",
   "remove"
-  : "supprimer"
+  : "supprimer",
+  "some emails were invalid or already in the contact list"
+  : "certains email sont soit invalides soit déjà présents dans la liste de contacts",
+  "The contacts were added"
+  : "Les contacts ont été ajoutés"
 }

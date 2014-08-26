@@ -28,5 +28,7 @@
   "edit layout"
   : "mise en page",
   "scheduled on %value%"
-  : "prévu le %value%"
+  : "prévu le %value%",
+  "edit"
+  : "éditer"
 }

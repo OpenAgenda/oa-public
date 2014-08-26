@@ -89,7 +89,7 @@ a {
 
 }
 
-.url, .url a, .url strong, .url span, .url i {
+.url, .url a, .url strong, .url span, .url i, .hurl:hover {
 
   color: #11BED4;
   word-wrap: break-word;

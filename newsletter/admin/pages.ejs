@@ -1,7 +1,7 @@
 <div class="pages">
 <% if ( pager.total > pager.perPage ) { %>
 <% for ( var page=1; page<=Math.ceil(pager.total/pager.perPage); page++ ) { %>
-  <a class="url<% if ( pager.current==page ) { %> current<% } %>" href="<%= genUrl(pager.routeName, pager.base, { page: page }, true) %>"><%= page %></a>
+  <a class="url<% if ( pager.current==page ) { %> current<% } %>" href="<%= genUrl(pager.routeName, [pager.base, { page: page } ], { maintain: true }) %>"><%= page %></a>
 <% } %>
 <% } %>
 </div>

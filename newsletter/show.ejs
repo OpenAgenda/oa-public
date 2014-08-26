@@ -14,14 +14,14 @@
 <% } %>
         <td>
           <h1 style="<%= css.h1 %>">
-            <a target="_blank" href="<%= genUrl('agendaShow') %>" style="<%= css.h1a %>"><%= title %></a>
+            <a target="_blank" href="<%= genUrl('agendaShow', { abs: true }) %>" style="<%= css.h1a %>"><%= title %></a>
           </h1>
         </td>
       </tr>
     </tbody>
   </table>
   <p class="edito" style="<%= css.edito %>">
-    <a target="_blank" href="<%= genUrl('agendaShow') %>" style="<%= css.editoa %>"><%- _txt.nl2br(edito) %></a>
+    <a target="_blank" href="<%= genUrl('agendaShow', { abs: true }) %>" style="<%= css.editoa %>"><%- _txt.nl2br(edito) %></a>
   </p>
 <% include sections/bottom %>
 
@@ -62,7 +62,7 @@
     <tbody id="addEventLinkCanvas" style="<%= css.addEventLinkCanvas %>">
       <tr>
         <td>
-          <a id="addEventLink" href="<%= genUrl('agendaEventNew', { slug : slug }) %>" target="_blank" style="<%= css.addEventLink %>"><%= __('Add an Event') %></a>
+          <a id="addEventLink" href="<%= genUrl('agendaEventNew', { slug : slug }, { abs: true }) %>" target="_blank" style="<%= css.addEventLink %>"><%= __('Add an Event') %></a>
         </td>
       </tr>
     </tbody>
@@ -84,23 +84,23 @@
       </tr>
       <tr>
         <td>
-          <a class="linkItem" href="https://www.google.com/calendar/render?cid=<%= genUrl('agendaIcal', { uid: uid }) %>" style="<%= css.linkItem %>" target="_blank">- <%= __('Google Calendar') %></a>
+          <a class="linkItem" href="https://www.google.com/calendar/render?cid=<%= genUrl('agendaIcal', { uid: uid }, { abs: true }) %>" style="<%= css.linkItem %>" target="_blank">- <%= __('Google Calendar') %></a>
         </td>
       </tr>
       <tr>
         <td>
-          <a class="linkItem" href="<%= genUrl('agendaFeed', { uid: uid }) %>" style="<%= css.linkItem %>" target="_blank">- <%= __('Rss') %></a>
+          <a class="linkItem" href="<%= genUrl('agendaFeed', { uid: uid }, { abs: true }) %>" style="<%= css.linkItem %>" target="_blank">- <%= __('Rss') %></a>
         </td>
       </tr>
       <tr>
         <td>
-          <a class="spacedLinkItem" href="<%= genUrl('agendaCsv', { uid: uid }) %>" style="<%= css.spacedLinkItem %>" target="_blank"><%= __('Download this agenda') %></a>
+          <a class="spacedLinkItem" href="<%= genUrl('agendaCsv', { uid: uid }, { abs: true }) %>" style="<%= css.spacedLinkItem %>" target="_blank"><%= __('Download this agenda') %></a>
         </td>
       </tr>
 <% if ( contactListUid ) { %>
       <tr>
         <td>
-          <a class="spacedLinkItem" href="<%= genUrl('contactUnsubscribeShow', { uid: contactListUid }) %>" style="<%= css.spacedLinkItem %>"  target="_blank"><%= __('Unsubscribe') %></a>
+          <a class="spacedLinkItem" href="<%= genUrl('contactUnsubscribeShow', { uid: contactListUid }, { abs: true }) %>" style="<%= css.spacedLinkItem %>"  target="_blank"><%= __('Unsubscribe') %></a>
         </td>
       </tr>
 <% } %>
@@ -143,21 +143,21 @@
 
 <% if ( contributable ) { %>
 
-<%- __('Add an Event') %>: <%- genUrl('agendaEventNew', { slug : slug }) %>
+<%- __('Add an Event') %>: <%- genUrl('agendaEventNew', { slug : slug }, { abs: true }) %>
 
 <% } %>
 
 <%- __('Stay up to date by connecting this agenda to your favorite service') %>:
 
-<%- __('Google Calendar') %>:  https://www.google.com/calendar/render?cid=<%- genUrl('agendaIcal', { uid: uid }) %>
+<%- __('Google Calendar') %>:  https://www.google.com/calendar/render?cid=<%- genUrl('agendaIcal', { uid: uid }, { abs: true }) %>
 
-<%- __('Rss') %>: <%- genUrl('agendaFeed', { uid: uid }) %>
+<%- __('Rss') %>: <%- genUrl('agendaFeed', { uid: uid }, { abs: true }) %>
 
 
 
 <% if ( contactListUid ) { %>
 
-<%- __('Unsubscribe') %>: <%- genUrl('contactUnsubscribeShow', { uid: contactListUid }) %>
+<%- __('Unsubscribe') %>: <%- genUrl('contactUnsubscribeShow', { uid: contactListUid }, { abs: true }) %>
 
 <% } %>
 

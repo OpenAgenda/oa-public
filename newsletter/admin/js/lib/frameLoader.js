@@ -9,9 +9,9 @@ module.exports = function( options, callbacks ) {
   var params = cn.extend({
     preview: false,    // resource for previewing newsletter based on submission
     selectors: {
-      form: false,     // customization controls form
-      frame: false,    // target frame for refresh
-      reloaders: false // elements triggering reload
+      form: '.js_campaign_layout_form',
+      frame: 'iframe',
+      reloaders: '.js_frame_reload'
     }
   }, options);
 

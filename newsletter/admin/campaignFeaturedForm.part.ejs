@@ -27,10 +27,10 @@
     <ul>
       <li>
 <% if ( !event.featured ) { %>
-        <a class="url" href="<%= genUrl('campaignFeaturedAdd', { uid: uid, eUid: event.uid }, true) %>"><%= __('add') %></a>
+        <a class="url" href="<%= genUrl('campaignFeaturedAdd', { uid: uid, eUid: event.uid }, { maintain: true }) %>"><%= __('add') %></a>
 <% } else { %>
         <span><%= __('event is featured') %></span>
-        <a class="url" href="<%= genUrl('campaignFeaturedRemove', { uid: uid, eUid: event.uid }, true) %>"><%= __('remove') %></a>
+        <a class="url" href="<%= genUrl('campaignFeaturedRemove', { uid: uid, eUid: event.uid }, { maintain: true }) %>"><%= __('remove') %></a>
 <% } %> 
       </li>
     </ul>

@@ -2,5 +2,7 @@
   "Create a new Contact List"
   : "Créez une nouvelle liste de contacts",
   "Contact List Edition"
-  : "Edition de liste de contacts"
+  : "Edition de liste de contacts",
+  "title must be at least 3 characters long"
+  : "le titre doit faire au moins 3 caractères"
 }

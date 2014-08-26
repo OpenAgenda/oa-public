@@ -14,13 +14,13 @@
               <tr>
                 <td>
                   <span class="featuredTitle" target="_blank" style="<%= css.featuredTitle %>">
-                    <a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.featuredTitlea %>"><%= event.title %></a>
+                    <a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }, { abs: true }) %>" style="<%= css.featuredTitlea %>"><%= event.title %></a>
                   </span>
                   <span target="_blank" style="<%= css.featuredSpaceTime %>">
-                    <a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.featuredSpaceTimea %>"><%= __(event.spaceTimeInfo[0], _t(event.spaceTimeInfo[1])) %></a>
+                    <a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }, { abs: true }) %>" style="<%= css.featuredSpaceTimea %>"><%= __(event.spaceTimeInfo[0], _t(event.spaceTimeInfo[1])) %></a>
                   </span>
                   <span target="_blank" style="<%= css.featuredDesc %>">
-                    <a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }) %>" style="<%= css.featuredDesca %>"><%= event.description %></a>
+                    <a href="<%= genUrl('agendaEventShow', { eSlug: event.slug }, { abs: true }) %>" style="<%= css.featuredDesca %>"><%= event.description %></a>
                   </span>
                 </td>
               </tr>
