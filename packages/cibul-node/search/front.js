@@ -61,7 +61,7 @@ var controllers = function( app, model, mw ) {
 
         var inst = model.events().instance( event );
 
-        // each event item is extend with whatever is required by template
+        // each event item is extend with whatever is required by tem¶plate
 
         lib.extend( event, {
           dateRange: inst.getDateRange( true ),

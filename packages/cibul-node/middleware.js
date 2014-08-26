@@ -8,8 +8,9 @@ module.exports = function( model, config ) {
 
   return {
     render: render,
-    requireLogged: requireLogged(redisCli, config.session),
+    requireLogged: requireLogged( redisCli, config.session ),
     loadSession: loadSession(redisCli, config.session),
+    flashSetter: flashSetter( config.cookie ),
     loadAgenda: loadAgenda(model),
     checkCredential: checkCredential,
     errorResponse: errorResponse,
@@ -21,6 +22,8 @@ module.exports = function( model, config ) {
 var log = require('debug')('middleware'),
 
 templater = require('cibulTemplates/server/templater'),
+
+i18n = require('./i18n/i18n.js'),
 
 
 /**
@@ -41,11 +44,13 @@ render = function( req, res, templatePath, data, maintain ) {
 
   }
 
-  templater(templatePath + ( req.xhr ? '.part' : '' ), data, function(err, render) {
+  data.lang = getLang( req );
+
+  templater( templatePath + ( req.xhr ? '.part' : '' ), data, function( err, render ) {
 
     if ( err ) throw err;
 
-    res.writeHead(200, {
+    res.writeHead( 200, {
       "Content-Type" : "text/html; charset=utf-8",
       'Cache-Control' : 'no-cache'
     });
@@ -78,17 +83,19 @@ render = function( req, res, templatePath, data, maintain ) {
 
 requireLogged = function( redisCli, sessionConfig ) {
 
+  var error = { message: 'logged required' };
+
   return function( req, res, next ) {
 
     var sessionCookie = req.cookies[sessionConfig.cookie];
 
-    if (!sessionCookie) return errorResponse(req, res, 'logged required'); // this will need to redirect to the 
+    if ( !sessionCookie ) return errorResponse(req, res, error ); // this will need to redirect to the 
 
-    redisCli.exists(sessionConfig.prefix + sessionCookie, function(err, reply) {
+    redisCli.exists( sessionConfig.prefix + sessionCookie, function( err, reply ) {
 
-      if (err) return errorResponse(req, res, err);
+      if ( err ) return errorResponse( req, res, err );
 
-      if (!reply) return errorResponse(req, res, 'logged required');
+      if ( !reply ) return errorResponse( req, res, error );
 
       next();
 
@@ -109,15 +116,46 @@ loadSession = function( redisCli, sessionConfig ) {
 
     redisCli.get(sessionConfig.prefix + req.cookies[sessionConfig.cookie], function( err, reply ) {
 
-      if (err) return errorResponse(req, res, err);
+      if ( err ) return errorResponse(req, res, err);
 
-      req.session = JSON.parse(reply);
+      req.session = JSON.parse( reply );
+
+      defineLang( req, req.session.culture );
 
       log('session is loaded');
 
       next();
 
     });
+
+  };
+
+},
+
+
+/**
+ * set flash message in response cookies
+ */
+
+flashSetter = function( cookieConfig ) {
+
+  return function( req, res, next ) {
+
+    res.setFlash = function( req, text ) {
+
+      var b = new Buffer( req.cookies[cookieConfig.name], 'base64' ),
+
+      cookieValues = JSON.parse( b.toString() );
+
+      cookieValues.flash = i18n( text, getLang( req ) );
+
+      b = new Buffer( JSON.stringify( cookieValues ) );
+
+      this.cookie( cookieConfig.name, b.toString(  'base64' ) );
+
+    };
+
+    next();
 
   };
 
@@ -147,7 +185,6 @@ loadAgenda = function( model ) {
   };
 
 },
-
 
 
 checkCredential = function( model, name ) {
@@ -181,6 +218,8 @@ errorResponse = function(req, res, error ) {
     }
   };
 
+  error.scriptsBase = '/js';
+
   render( req, res, 'error/404', error );
 
 },
@@ -189,5 +228,33 @@ errorResponse = function(req, res, error ) {
 unkownResponse = function(req, res, value) {
 
   res.send('unknown: ' + value);
+
+},
+
+
+/**
+ * explicitely define lang value for current request
+ */
+
+defineLang = function( req, lang ) {
+
+  req.lang = lang;
+
+},
+
+
+/**
+ * get current request language
+ */
+
+getLang = function( req ) {
+
+  if ( req.lang ) return req.lang;
+
+  if ( req.query.lang ) return req.query.lang;
+
+  // when in doubt, speak french
+  
+  return 'fr';
 
 };

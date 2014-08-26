@@ -7,6 +7,7 @@ config = {
     env: process.env.NODE_ENV,
     port: 8901,
     logLevel: '*',
+    root: 'https://cibul.net',
     db: {
       database: 'cibuldev',
       host: 'localhost',
@@ -20,6 +21,9 @@ config = {
     session: {
       cookie: 'symfony',
       prefix: 'session:'
+    },
+    cookie: {
+      name: 'cibul'
     },
     mailer: {
       source: 'no-reply@cibul.net',
@@ -40,9 +44,25 @@ config = {
           method: 'get',
           uri: '/:slug'
         },
+        'agendaEventNew' : {
+          method: 'get',
+          uri: '/:slug/addevent'
+        },
         'agendaEventShow' : {
           method: 'get',
           uri: '/:slug/events/:eSlug'
+        },
+        'agendaFeed' : {
+          method: 'get',
+          uri: '/agendas/:uid.atom'
+        },
+        'agendaIcal' : {
+          method: 'get',
+          uri: '/agendas/:uid.ical'
+        },
+        'agendaCsv' : {
+          method: 'get',
+          uri: '/agendas/:uid.csv'
         },
         'agendaEmbedIndex' : {
           method: 'get',
@@ -59,12 +79,45 @@ config = {
         'agendaAdminDataviz' : {
           method: 'get',
           uri: '/:slug/admin/dataviz'
+        },
+        'agendaAdminCategories' : {
+          method: 'get',
+          uri: '/:slug/admin/categories'
+        },
+        'agendaAdminSources' : {
+          method: 'get',
+          uri: '/:slug/admin/sources'
+        },
+        'agendaAdminWeb' : {
+          method: 'get',
+          uri: '/:slug/admin/webembed'
+        },
+        'agendaAdminIndesign' : {
+          method: 'get',
+          uri: '/:slug/admin/xml'
+        },
+        'agendaAdminFacebook' : {
+          mathod: 'get',
+          uri: '/:slug/admin/facebook'
+        },
+        'agendaAdminAdministrators' : {
+          method: 'get',
+          uri: '/:slug/admin/admins'
+        },
+        'agendaAdminTheme' : {
+          method: 'get',
+          uri: '/:slug/admin/edit'
+        },
+        'agendaAdminSettings' : {
+          method: 'get',
+          uri: '/:slug/admin/edit'
         }
       },
       defaultGlobalsPrefix: ''
     }
   },
   development: {
+    root: 'https://d.cibul.net',
     routes: {
       defaultGlobalsPrefix: '/frontend_dev.php'
     }

@@ -2,11 +2,12 @@ var run = function() {
 
   debug.enable(config.logLevel);
 
-  router = require('./router');
+  router = require('./router').load({
+    globals: config.routes,
+    root: config.root
+  });
 
-  app.use(cookieParser());
-
-  router.loadGlobalRoutes( config.routes );
+  app.use( cookieParser() );
 
   coms = require('./coms')( config );
 
@@ -24,9 +25,9 @@ var run = function() {
 
   app.listen( config.port );
 
-  loadTask( 'newsletter/task', 60000, 15 );
+  // loadTask( 'newsletter/task', 60000, 15 );
 
-  loadTask( 'mailer/task' );
+  // loadTask( 'mailer/task' );
 
 },
 

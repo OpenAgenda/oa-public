@@ -8,7 +8,9 @@ lib = require('./lib'),
 
 qs = require('qs'),
 
-routes = {};  // module, then action name
+routes = {},
+
+root;  // module, then action name
 
 
 /**
@@ -16,23 +18,11 @@ routes = {};  // module, then action name
  * app
  */
 
-exports.loadGlobalRoutes = function( rConfig ) {
+exports.load = function( config ) {
 
-  log('loading global routes');
+  _loadGlobalRoutes( config.globals );
 
-  globalDefaultPrefix = rConfig.defaultGlobalsPrefix || '';
-
-  globalRoutes = rConfig.globals || {};
-
-  for (var name in globalRoutes) {
-
-    var params = globalRoutes[name];
-
-    params.uri = globalDefaultPrefix + params.uri;
-
-    _registerRoute(name, params);
-
-  }
+  root = config.root;
 
 };
 
@@ -56,7 +46,7 @@ exports.loadRoutes = function ( app, appRoutes ) {
 
     fullUri = app.get('base') + params.uri;
 
-    _registerRoute(name, params);
+    _registerRoute( name, params );
 
     // controller only needs to be loaded in current app
 
@@ -86,89 +76,107 @@ exports.loadUrlGen = function( app ) {
 
 };
 
-exports.redirect = function( req, res, name, values, maintain) {
+exports.redirect = function( req, res, name, values, maintain, message ) {
 
-  if ( values === undefined ) values = {};
+  if ( arguments.length === 3 ) {
+
+    maintain = false;
+
+    values = {};
+
+  } else if ( arguments.length === 5) {
+
+    if ( typeof maintain == 'boolean') {
+
+      message = false;
+
+    } else {
+
+      message = maintain;
+
+      maintain = false;
+
+    }
+
+  }
+
 
   if ( maintain ) _maintainQuery( req, values );
 
+  if ( message ) res.setFlash( req, message );
+
   var url = req.genUrl(name, values);
 
-  log('redirecting to %s', url);
+  log( 'redirecting to %s', url );
 
-  res.redirect(url);
+  res.redirect( url );
 
 };
 
 var makeGenUrl = exports.makeGenUrl = function( options ) {
 
   var params = lib.extend({
-    root: false,
     base: { values: {}, path: '' },
     module: false,
     req: false
   }, options );
 
-  return function( name, values ) { // 'maintain as a third arg'
+  return function( name, values, options ) {
 
-    var url = routes[name].uri,
+    var uriParamNames,      // variable names in current uri
+
+    url = routes[name].uri,
 
     query = {},
 
-    maintain = false;
+    urlParams = lib.extend({
+      abs: false,           // use absolute app path
+      maintain: false,      // maintain request navigation parameters if true
+      base: false           // base parameters
+    }, params, options ? options : {} );
 
-    if ( values === undefined ) values = {};
-    
-    if ( arguments.length > 2 ) {
+    if ( typeof values == 'undefined' ) {
 
-      var args = Array.prototype.slice.call(arguments, 0);
-
-      for (var i = 2; i < args.length; i++ ) {
-
-        if ( typeof args[i] == 'boolean' ) {
-
-          maintain = args[i];
-
-        } else {
-
-          lib.extend(values, args[i]);
-          
-        }
-
-      }
+      values = {};
 
     }
 
+    if ( lib.isArray( values ) ) {
+
+      values = lib.extend.apply(lib.extend, undefined, [{}].concat( values ) );
+
+    }
 
     // if we have to maintain current req params, then there.
 
-    if ( params.req && maintain ) _maintainQuery( params.req, values );
+    if ( urlParams.req && urlParams.maintain ) _maintainQuery( urlParams.req, values );
 
 
-    // if we stay in current module, we use the identifiers
+    // if we stay in current module, we use the base identifiers
 
-    if ( params.module && ( routes[name].module === params.module ) ) {
+    if ( urlParams.module && ( routes[name].module === urlParams.module ) ) {
 
-      url = params.base.path + url;
+      url = urlParams.base.path + url;
 
     } else if ( routes[name].base ) {
 
-      values = lib.extend({}, params.base.values, values);
+      values = lib.extend({}, urlParams.base.values, values);
 
       url = routes[name].base + url;
 
     } else {
 
-      values = lib.extend({}, params.base.values, values);
+      values = lib.extend( {}, urlParams.base.values, values );
 
     }
 
 
-    log('generating url of uri %s', url);
+    log( 'generating url of uri %s', url );
 
     uriParamNames = (routes[name].uri.match(/:[a-z|A-Z]+/g) || []).map(function(n) { return n.replace(/[:]/g,''); });
 
-    uriParamNames.forEach(function(name) {
+
+    uriParamNames.forEach(function( name ) {
 
       url = url.replace(':' + name, values[name]);
 
@@ -192,14 +200,14 @@ var makeGenUrl = exports.makeGenUrl = function( options ) {
 
     }
 
-    if ( params.root ) {
+    if ( urlParams.abs ) {
 
-      url = params.root + url;
+      url = root + url;
 
     }
 
     
-    log('generated %s', url);
+    log( 'generated %s', url );
 
     return url;
 
@@ -207,9 +215,33 @@ var makeGenUrl = exports.makeGenUrl = function( options ) {
 
 },
 
+
+_loadGlobalRoutes = function( config ) {
+
+  var globalRoute = {};
+
+  log('loading global routes');
+
+  var globalDefaultPrefix = config.defaultGlobalsPrefix || '';
+
+  globalRoutes = config.globals || {};
+
+  for (var name in globalRoutes) {
+
+    globalRoute = lib.extend({}, globalRoutes[name] );
+
+    globalRoute.uri = globalDefaultPrefix + globalRoute.uri;
+
+    _registerRoute( name, globalRoute );
+
+  }
+
+};
+
+
  _registerRoute = function( name, params ) {
 
-  log('registering route %s with uri "%s"', name, params.uri);
+  log( 'registering route %s with uri "%s"', name, params.uri );
 
   routes[name] = params;
 

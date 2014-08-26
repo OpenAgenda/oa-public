@@ -11,6 +11,8 @@ module.exports = function( model, agenda, campaign, cb ) {
 
     mainInfo,         // load main info for newsletter
 
+    contactList,      // retrieved contact list uid
+
     featuredEvents,   // load featured events selection
 
     eventSelection    // load event selection based on campaign filter and segmentation settings
@@ -32,26 +34,55 @@ lib = require('../lib'),
 log = require('debug')('build'),
 
 
+
 /**
  * load campaign main info (title, edito) in newsletter data
  */
 
 mainInfo = function( model, agenda, campaign, data, cb ) {
 
-  campaign.getEdito(function( err, edito) {
+  campaign.getEdito(function( err, edito ) {
 
     lib.extend(data, {
       layout: {
         title : agenda.title,
         preheaderContent: agenda.title + ' - Newsletter'
       },
+      slug: agenda.slug,
+      uid: agenda.uid,
       title: agenda.title,
       edito : edito,
       agendaUrl: agenda.url,
       image : false,
       featuredEvents : [],
-      items: []
+      items: [],
+      contributable: agenda.contributionType !== 0
     });
+
+    cb( null, model, agenda, campaign, data );
+
+  });
+
+},
+
+
+/**
+ * retrieve contact list uid for unsubscribe link
+ */
+
+contactList = function( model, agenda, campaign, data, cb ) {
+
+  campaign.getContactList(function( err, contactList ) {
+
+    data.contactListUid = false;
+
+    if ( err ) return cb( err );
+
+    if ( contactList ) {
+
+      data.contactListUid = contactList.uid;
+
+    }
 
     cb( null, model, agenda, campaign, data );
 
@@ -71,7 +102,7 @@ featuredEvents = function( model, agenda, campaign, data, cb ) {
 
     if ( err ) return cb( err );
 
-    data.featuredEvents = events.map(function( event ) {
+    data.featuredEvents = events.map( function( event ) {
 
       var e = model.events().instance( event );
 
@@ -155,7 +186,7 @@ eventSelection = function( model, agenda, campaign, data, cb ) {
           spaceTimeInfo: e.getSpaceTimeInfo()
         });
 
-        if ( event.segments ) previousSegment = JSON.stringify(event.segments);
+        if ( event.segments ) previousSegment = JSON.stringify( event.segments );
 
       });
 

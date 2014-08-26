@@ -52,7 +52,7 @@ module.exports = function( base, config ) {
 
   app.param( 'slug', mw.loadAgenda );
 
-  app.all(base + '*', router.loadUrlGen( app ), mw.requireLogged, mw.loadSession, mw.checkCredential( model, 'newsletter' ));
+  app.all(base + '*', router.loadUrlGen( app ), mw.flashSetter, mw.requireLogged, mw.loadSession, mw.checkCredential( model, 'newsletters' ));
 
 
   // load module controllers
@@ -279,7 +279,7 @@ var controllers = function( app, model, mw ) {
 
           campaign.refreshScheduledAt(function( err, scheduledAt ) {
 
-            return router.redirect(req, res, 'campaignEdit', { uid: result.object.uid });
+            return router.redirect(req, res, 'newsletterIndex', {}, 'campaign updated' );
 
           });
 
@@ -506,15 +506,28 @@ var controllers = function( app, model, mw ) {
 
       campaign = req.agenda.campaigns.instance( campaignData );
 
+
       return wn.call( _processCampaignLayout, campaign, req.body || {} );
 
     })
 
-    .then( wn.call( campaign.setIsNew, false ) )
+    .then( function() {
 
-    .then( wn.call( campaign.refreshScheduledAt ) )
+      return wn.call( campaign.setIsNew, false );
 
-    .then( wn.call( campaign.save ) )
+    })
+
+    .then( function() {
+
+      return wn.call( campaign.refreshScheduledAt );
+
+    })
+
+    .then( function() {
+
+      return wn.call( campaign.save );
+
+    })
 
     .then( function() {
 
@@ -694,7 +707,7 @@ var controllers = function( app, model, mw ) {
 
         if (result.success) {
 
-          return router.redirect(req, res, 'contactListShow', {uid: req.params.uid});
+          return router.redirect(req, res, 'contactListShow', { uid: req.params.uid }, { message: 'The contacts were added'});
 
         } else {
 
@@ -748,7 +761,7 @@ var controllers = function( app, model, mw ) {
 
       if ( err ) return _error( req, res )( err );
 
-      return router.redirect(req, res, 'contactListShow', { uid: req.params.uid });
+      return router.redirect( req, res, 'contactListShow', { uid: req.params.uid }, 'The contact was removed' );
 
     });
 
