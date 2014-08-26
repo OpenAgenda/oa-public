@@ -1,4 +1,5 @@
 {
+  "what" : "quarter pounder with cheese",
   "events" : [
     {
       "title" : "Homo spectator : voir, faire voir",
@@ -63,5 +64,12 @@
       "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14" }],
       "placeName" : "Creanova"
     }
-  ]
+  ],
+  "pager" : {
+    "current" : 3,
+    "total" : 127,
+    "action" : "searchEvent",
+    "values" : { "what" : "whatvalues", "when" : "whenvalues", "where" : "wherevalues" },
+    "perPage" : 15
+  }
 }

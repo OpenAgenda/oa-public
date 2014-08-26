@@ -12,12 +12,12 @@
       </select>
     </li>
     <li>
-      <button type="submit"><i class="icon-refresh"></i></button>
+      <button type="submit"><i class="fa fa-refresh"></i></button>
     </li>
   </ul>
 </form>
 
-<% include pages %>
+<% include ../../general/pages %>
 
 <% if (events.length) { %>
 <ul class="glist">
@@ -41,4 +41,4 @@
   <p><%= __('Your agenda does not have any events on display.') %></p>
 <% } %>
 
-<% include pages %>
+<% include ../../general/pages %>

@@ -20,8 +20,8 @@
           </ul>
         </li>
         <li>
-          <form class="search" method="get" value="<%= search %>" action="<%= genUrl(searchRes) %>">
-            <input type="text" name="search"/>
+          <form class="search" method="get" action="<%= genUrl(searchRes) %>">
+            <input type="text" name="what" value="<%= typeof what !== 'undefined' ? what : '' %>"/>
             <i class="fa fa-search"></i>
           </form>
         </li>

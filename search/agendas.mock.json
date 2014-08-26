@@ -1,4 +1,5 @@
 {
+  "what" : "yeepeekayyay",
   "agendas" : [
     {
       "image" : "//cibul.s3.amazonaws.com/review_la-gargouille_00.jpg",
@@ -109,5 +110,12 @@
       "locationInfo" : "Monde",
       "categories" : []
     }
-  ]
+  ],
+  "pager" : {
+    "current" : 3,
+    "total" : 127,
+    "action" : "searchEvent",
+    "values" : { "what" : "whatvalues", "when" : "whenvalues", "where" : "wherevalues" },
+    "perPage" : 15
+  }
 }

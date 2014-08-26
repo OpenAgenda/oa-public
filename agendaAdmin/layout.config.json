@@ -8,7 +8,8 @@
     "admin" : "../css/agenda/admin.css",
     "nav" : "../css/nav.css",
     "forms" : "../css/forms.css",
-    "buttons" : "../css/buttons.css"
+    "buttons" : "../css/buttons.css",
+    "fontawesome410" : "../css/font-awesome-4.1.0/css/font-awesome.css"
   },
   "base" : {
     "pageClass" : false,

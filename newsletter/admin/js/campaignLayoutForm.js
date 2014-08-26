@@ -42,7 +42,7 @@ var _runSelectForm = function( options ) {
     }, options);
 
     selectForm( params.title, params.subtitle, params.detail, {
-      canvas: cn.el(params.canvas),
+      canvas: cn.el( params.canvas ),
       wrapper: params.wrapper, 
       wrapperClass: params.wrapperClass
     });
