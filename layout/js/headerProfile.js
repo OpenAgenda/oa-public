@@ -44,6 +44,7 @@ module.exports = function( eh, options ) {
       if ( err ) {
 
         console.log( err );
+        
         return;
         
       }

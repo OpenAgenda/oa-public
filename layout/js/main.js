@@ -42,7 +42,9 @@ module.exports = window.run = function( externalEh, options ) {
 
   cn.extend( params, options );
 
-  if ( options.env == 'dev' || window.env == 'dev' ) options.enable('*');
+  console.log( options );
+
+  if ( options.env == 'dev' || window.env == 'dev' ) debug.enable('*');
 
   mobileMonitor( document, window, navigator, eh );
 

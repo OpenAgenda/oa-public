@@ -2,7 +2,7 @@
   <div class="canvas center">
     <div class="errorLabel">500</div>
     <div>
-      <p><%= __('Ouch. I haz broken') %>.</p>
+      <p><%= __( typeof message !== 'undefined' ? message : 'Ouch. I haz broken' ) %>.</p>
     </div>
   </div>
 </div>

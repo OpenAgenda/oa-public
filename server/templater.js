@@ -10,10 +10,10 @@ module.exports = function( templateName, data, cb ) {
   log('loading template files for %s', templateName);
 
   var loaders = [
-    loadTemplate(templateName),
-    loadLabels( data.lang ),
-    loadHelpers,
-    loadScripts( templateName, data.scriptsBase ),
+    _loadTemplate( templateName ),
+    _loadLabels( data.lang ),
+    _loadHelpers,
+    _loadScripts( templateName, data.scriptsBase ),
   ];
 
   async.waterfall(loaders, function( err, results ) {
@@ -34,15 +34,17 @@ module.exports = function( templateName, data, cb ) {
 
     if (results.helpers) cn.extend(data, results.helpers);
 
-    data.__ = loadTranslator(labels);
+    data.__ = _loadTranslator( labels );
 
-    var templateRender = renderTemplate( results.template, results.templateBody, data );
+    var templateRender = _renderTemplate( results.template, results.templateBody, data );
 
     if ( results.layout ) {
 
-      templateRender = renderTemplate(results.layout, results.layoutBody, data).replace( '<!-- content -->', templateRender );
+      templateRender = _renderTemplate(results.layout, results.layoutBody, data).replace( '<!-- content -->', templateRender );
 
     }
+
+    if ( data.env ) templateRender = _insertEnvironment( templateRender, data.env );
 
     cb( null, templateRender );
 
@@ -67,7 +69,7 @@ log = debug('templater'),
 
 helpers = {},
 
-renderTemplate = function(filename, templateBody, data) {
+_renderTemplate = function(filename, templateBody, data) {
 
   data.filename = filename;
 
@@ -80,7 +82,7 @@ renderTemplate = function(filename, templateBody, data) {
  * prepare translator function used for template rendering
  */
 
-loadTranslator = function( labels ) {
+_loadTranslator = function( labels ) {
 
   return function(label, values) {
 
@@ -107,7 +109,7 @@ loadTranslator = function( labels ) {
 },
 
 
-loadTemplate = function( templateName ) {
+_loadTemplate = function( templateName ) {
 
   return function( cb ) {
 
@@ -131,7 +133,7 @@ loadTemplate = function( templateName ) {
 
       }
 
-      var files = [async.apply(fs.readFile, data.template, 'utf-8')];
+      var files = [async.apply(fs.readFile, data.template, 'utf-8') ];
 
       if ( data.config.layout ) {
 
@@ -168,7 +170,7 @@ loadTemplate = function( templateName ) {
 },
 
 
-loadLabels = function( lang ) {
+_loadLabels = function( lang ) {
 
   return function( data, cb ) {
 
@@ -204,7 +206,7 @@ loadLabels = function( lang ) {
 
 },
 
-loadHelpers = function( data, cb ) {
+_loadHelpers = function( data, cb ) {
 
   if ( !data.config.helpers ) return cb( null, data );
 
@@ -227,7 +229,7 @@ loadHelpers = function( data, cb ) {
 },
 
 
-loadScripts = function( templateName, scriptsBase ) {
+_loadScripts = function( templateName, scriptsBase ) {
 
   var basePath = scriptsBase ? scriptsBase : '';
 
@@ -250,5 +252,11 @@ loadScripts = function( templateName, scriptsBase ) {
     cb( null, data );
 
   };
+
+},
+
+_insertEnvironment = function( render, environment ) {
+
+  return render.replace( '<head>', '<head><script type="text/javascript">window.env="' + environment + '";</script>' );
 
 };

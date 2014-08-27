@@ -111,6 +111,11 @@ http.createServer(function ( req, res ) {
         if ( reqQuery.lang ) tConf.data.lang = reqQuery.lang;
 
 
+        // environment
+        
+        tConf.data.env = 'dev';
+
+
         // static image path generator 
 
         wcb( null, map, uri, tConf.data );
@@ -122,8 +127,6 @@ http.createServer(function ( req, res ) {
     function( map, uri, data, wcb ) {
 
       templater( uri, data, function( err, render ) {
-
-        render = _insertEnvironment( render );
 
         if ( err ) return wcb( err );
 
@@ -394,11 +397,5 @@ _absolutePath = function( uri, css ) {
   }
 
   return absCss;
-
-},
-
-_insertEnvironment = function( render ) {
-
-  return render.replace( '</body>', '<script type="text/javascript">window.env="dev";</script>' );
 
 };
