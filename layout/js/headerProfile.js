@@ -4,6 +4,7 @@ cTemplater = require('./clientTemplater'),
 
 params = {
   selectors: {
+    languageMenu: '.js_language_menu',
     headerLinks: '.js_header_links',
     profile: '.js_profile',
     dropdown: '.js_profile_dropdown'
@@ -23,6 +24,8 @@ module.exports = function( eh, options ) {
   eh.trigger('getsessiondata', function( session ) {
 
     if ( !session.logged ) return;
+
+    cn.el( params.selectors.languageMenu ).parentNode.removeChild(cn.el( params.selectors.languageMenu ));
 
     cTemplater( params.template, {
       urls: {
