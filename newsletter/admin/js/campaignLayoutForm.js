@@ -17,7 +17,17 @@ window.hook( function( options ) {
 
   _runSelectForm( options.folded );
 
-  lightboxPage( options.lightbox, {
+  lightboxPage( {
+    classes: {
+      disabled: 'disabled',
+      lightbox: {
+        frame: 'wsq lightbox-frame w500 newsletter', 
+        canvas: 'lightbox-canvas', 
+        buttonBox: 'lightbox-buttons', 
+        button: 'small button'
+      }
+    }
+  }, {
     onClose: refresh
   });
 

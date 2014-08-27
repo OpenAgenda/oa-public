@@ -165,6 +165,7 @@ module.exports = function( eh, options ) {
   _hasStorage = function() {
 
     var mod='yeepeekayyay';
+    
     try {
       localStorage.setItem(mod, mod);
       localStorage.removeItem(mod);

@@ -3,11 +3,11 @@
   "base" : {
     "logo" : "//cibulstatic.s3.amazonaws.com/biglogo.png",
     "css" : {
-      "mobileWidth" : "660",
+      "mobileWidth" : "520",
       "bgColor" : "background-color: #f4f4f4;",
       "ctColor" : "background-color: #ffffff;",
       "bodyTable" : "",
-      "templateContainer" : "width:600px; max-width: 100%;",
+      "templateContainer" : "width:520px; max-width: 100%;",
       "bodyCell" : "padding:20px; border-top:4px solid #f4f4f4; background-color: #f0f0f0;",
 
       "templateHeader" : "background-color:#F4F4F4; border-top:1px solid #FFFFFF; border-bottom:1px solid #CCCCCC;",
