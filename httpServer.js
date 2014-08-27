@@ -93,7 +93,7 @@ http.createServer(function ( req, res ) {
         var css = tConf.config.css || {};
 
 
-        if ( tConf.layoutConfig && tConf.layoutConfig.css ) css = cn.extend( _absolutePath(tConf.config.layout, tConf.layoutConfig.css), _absolutePath(uri, css));
+        if ( tConf.layoutConfig && tConf.layoutConfig.css ) css = cn.extend( _absolutePath( tConf.config.layout, tConf.layoutConfig.css ), _absolutePath( uri, css ));
 
         tConf.data.head.css = css;
 
@@ -113,7 +113,7 @@ http.createServer(function ( req, res ) {
 
         // environment
         
-        tConf.data.env = 'dev';
+        tConf.data.env = 'tpl';
 
 
         // static image path generator 
@@ -190,6 +190,8 @@ _loadMap = function( wcb ) {
 },
 
 _loadData = function( templateName, doBrowserify, cb ) {
+
+  log( 'loading data for %s', templateName );
 
   async.waterfall([
 
@@ -388,8 +390,10 @@ _absolutePath = function( uri, css ) {
     isSub = true;
 
     while ( path[0] == '..' ) {
+
       path.splice(0, 1);
       isSub = false;
+      
     }
 
     absCss[c] = ( isSub ? '' : '/' ) + path.join('/');

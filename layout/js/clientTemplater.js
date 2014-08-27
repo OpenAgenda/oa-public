@@ -20,7 +20,7 @@ module.exports = function( templateName, options, data, cb ) {
     lastUpdate: false  // what is the last udpate time for templates
   }, options);
 
-  if ( window.env == 'dev' ) routePrefix = '/';
+  if ( window.env == 'tpl' ) routePrefix = '/';
 
   loadTemplate( templateName, params, function( err, template, labels ) {
 

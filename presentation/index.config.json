@@ -11,5 +11,8 @@
   },
   "helpers" : {
     "_i" : "image"
+  },
+  "base" : {
+    "tab" : "newsletter"
   }
 }

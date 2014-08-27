@@ -12,7 +12,7 @@ module.exports = function( eh, options ) {
 
   var params = cn.extend({
     url: '/session',
-    debug: false,
+    env: false,
     cookie: 'cibul_session',
     cookieFlag: 'refresh',
     cookieLogged: 'logged',
@@ -27,9 +27,9 @@ module.exports = function( eh, options ) {
 
   run = function() {
 
-    if ( window.env == 'dev' ) params.debug = true;
+    if ( window.env ) params.env = window.env;
 
-    if ( params.debug ) params.url = '//d.cibul.net/frontend_dev.php/session';
+    if ( ( params.env == 'dev' ) || params.env == 'tpl' ) params.url = '//d.cibul.net/frontend_dev.php/session';
 
     if (!_hasStorage() || _flaggedCookie() || !_hasSessionData() || params.debug || _contradictingCookie()) {
 
@@ -154,11 +154,11 @@ module.exports = function( eh, options ) {
 
   _fetch = function( callback ) {
 
-    var qParams = params.debug ? {format: 'jsonp', force: ''} : {};
+    var qParams = params.env==='tpl' ? {format: 'jsonp', force: ''} : {};
 
     remote.get(params.url, { data: qParams }, function(responseType, data){
       if (responseType=='success') callback(data);
-    }, params.debug ? false : true );
+    }, params.env == 'tpl' ? false : true );
 
   },
 

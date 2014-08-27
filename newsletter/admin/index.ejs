@@ -12,7 +12,7 @@
     <li>
       <a class="button" href="<%= genUrl('campaignRemove', { uid: campaign.uid }) %>"><%= __('remove') %></a>
       <a class="button" href="<%= genUrl('campaignLayoutEdit', { uid: campaign.uid }) %>"><%= __('edit layout') %></a>
-      <a class="hurl" href="<%= genUrl('campaignEdit', { uid: campaign.uid }) %>"><span class="title"><%= campaign.title %></span></a>
+      <a class="hurl title" href="<%= genUrl('campaignEdit', { uid: campaign.uid }) %>"><%= campaign.title %></a>
       <ul class="detail">
         <li>
           <label><%= __('associated list') %></label>
@@ -27,7 +27,7 @@
           <span><%= __('scheduled on %value%', { '%value%' : _t( campaign.scheduledAt, 'Do MMMM YYYY, HH:mm' ) }) %></span>
         </li>
         <li>
-          <a class="url" href="<%= genUrl('campaignLayoutEdit', { uid: campaign.uid }) %>"><%= __('edit') %></a>
+          <a class="url" href="<%= genUrl('campaignEdit', { uid: campaign.uid }) %>"><%= __('edit') %></a>
         </li>
 <% } %>
       </ul>

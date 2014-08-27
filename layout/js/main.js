@@ -42,13 +42,11 @@ module.exports = window.run = function( externalEh, options ) {
 
   cn.extend( params, options );
 
-  console.log( options );
-
   if ( options.env == 'dev' || window.env == 'dev' ) debug.enable('*');
 
   mobileMonitor( document, window, navigator, eh );
 
-  cn.addEvent(window, 'load', function() {
+  cn.addEvent( window, 'load', function() {
 
     messageLinks( eh );
 
@@ -62,15 +60,7 @@ module.exports = window.run = function( externalEh, options ) {
 
     headerProfile( eh, options.profile );
 
-    eh.trigger('getsessiondata', function( data ) {
-
-      
-
-      // here load profile header ejs, .json
-
-    });
-
-  });
+  } );
 
   cn.forEach( hooks, function( hook ) {
 
