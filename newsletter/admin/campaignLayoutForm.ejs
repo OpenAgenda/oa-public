@@ -6,7 +6,7 @@
 
 <form class="cform js_campaign_layout_form" method="post" action="<%= genUrl('campaignComplete', { uid: uid }) %>">
 
-<% if (type=="manual") { %>
+<% if ( type=="manual" ) { %>
     <section>
       <div class="header">
         <h3><%= __('Edito') %></h3>
@@ -21,7 +21,7 @@
       <div class="header">
         <h3><%= __('Featured Events') %></h3>
       </div>
-      <a class="button js_lightbox_trigger" href="<%= genUrl('campaignFeaturedEdit', { uid: uid }) %>"><%= __('Select Events') %></a>
+      <a class="button js_lightbox_trigger" href="<%= genUrl( 'campaignFeaturedEdit', { uid: uid } ) %>"><%= __('Select Events') %></a>
     </section>
 <% } %>
     <section>
@@ -104,7 +104,7 @@
 
 </div><!--
 --><div class="col w66">
-  <iframe name="newsletter-frame" height="1000" style="width: 100%;" src="<%= genUrl('newsletterShow', { uid: uid }) %>"></iframe>
+  <iframe name="newsletter-frame" height="1000" style="width: 100%;" src="<%= genUrl('newsletterPreview', { uid: uid }) %>"></iframe>
 </div>
 <script type="text/javascript">
   run({

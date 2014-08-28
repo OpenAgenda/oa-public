@@ -95,5 +95,10 @@
   "text" : {
     "type" : "text",
     "responseType" : "text/plain; charset=utf-8"
+  },
+  "noimage" : {
+    "image" : false,
+    "previewLink" : false,
+    "mobileMeta" : true
   }
 }

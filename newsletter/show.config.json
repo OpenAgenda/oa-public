@@ -2,13 +2,15 @@
   "layout" : "newsletter/layout",
   "base" : {
     "logo" : "//cibulstatic.s3.amazonaws.com/biglogo.png",
+    "previewLink" : true,
+    "mobileMeta" : false,
     "css" : {
       "mobileWidth" : "520",
       "bgColor" : "background-color: #f4f4f4;",
       "ctColor" : "background-color: #ffffff;",
       "bodyTable" : "",
       "templateContainer" : "width:520px; max-width: 100%;",
-      "bodyCell" : "padding:20px; border-top:4px solid #f4f4f4; background-color: #f0f0f0;",
+      "bodyCell" : "border-top:4px solid #f4f4f4; background-color: #f0f0f0;",
 
       "templateHeader" : "background-color:#F4F4F4; border-top:1px solid #FFFFFF; border-bottom:1px solid #CCCCCC;",
       "templatePreheader" : "",
@@ -16,7 +18,7 @@
       "headerContent" : "color:#505050; font-family:Helvetica; font-size:20px; font-weight:bold; line-height:100%; padding-top:0; padding-right:0; padding-bottom:0; padding-left:0; text-align:center; vertical-align:middle;",
       "headerContenta" : "color:#EB4102; font-weight:normal; text-decoration:underline;",
 
-      "titleImage" : "width: 80px; height: auto;",
+      "titleImage" : "width: 80px; height: auto; margin-right: 20px;",
       "mapImage" : "height: auto; max-width: 600px; max-width: 100%;",
       
       "templateBody" : "",
@@ -26,7 +28,7 @@
 
       "sectionTitle" : "font-size: 50px; margin-bottom: 10px; display:block; color: #bbb;",
 
-      "h1" : "color:#333 !important; display:block; font-family:Helvetica; font-size:35px; font-style:normal; font-weight:normal; line-height:100%; letter-spacing:normal;  margin-right:0; margin-left:20px; text-align:left;",
+      "h1" : "color:#333 !important; display:block; font-family:Helvetica; font-size:35px; font-style:normal; font-weight:normal; line-height:100%; letter-spacing:normal;  margin-right:0; text-align:left;",
       "h1a" : "color: #333; text-decoration: none;",
 
 
