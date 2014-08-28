@@ -12,20 +12,30 @@ module.exports = function(options) {
       canvas: 'lightboxcanvas',
       frame: 'lightboxframe',
       buttonBox: 'lightboxbuttons',
-      button: false
+      button: false,
+      body: 'noscroll'
     }, options.classes?options.classes:{}),
     onOpen: false
   }, options?options:{});
 
   var defaultButtons = { ok: { label: 'Ok' } };
 
-  if (typeof options.buttons !== 'undefined') {
-    if (options.buttons === false)
+  if ( typeof options.buttons !== 'undefined' ) {
+
+    if ( options.buttons === false ) {
+
       options.buttons = {};
-    else
+
+    } else {
+
       options.buttons = cn.extend(defaultButtons, options.buttons);
+
+    }
+
   } else {
+
     options.buttons = defaultButtons;
+
   }
 
   _prepare( options.classes );
@@ -42,7 +52,9 @@ module.exports = function(options) {
   _display();
 
   if ( options.onOpen ) options.onOpen( frameElem );
+
   onClose = options.onClose ? options.onClose : false;
+
   beforeClose = options.beforeClose ? options.beforeClose : false;
 
   onHide = options.onHide ? options.onHide : false;
@@ -59,6 +71,7 @@ var _prepare = function(classes) {
   canvasElem ? _clear() : _create();
 
   canvasElem.className = classes.canvas;
+
   frameElem.className = classes.frame;
 
 },
@@ -68,6 +81,8 @@ _display = function() {
   canvasElem.style.display = 'block';
 
   _positionFrame();
+
+  cn.addClass( cn.el('body'), options.classes.body );
 
 },
 
@@ -123,17 +138,26 @@ _create = function() {
 
 _clear = function() {
 
-  if (beforeClose) {
-    beforeClose(frameElem);
+  if ( beforeClose ) {
+
+    beforeClose( frameElem );
     beforeClose = false;
+
   }
 
-  while (frameElem.childNodes.length)
+  while ( frameElem.childNodes.length ) {
+
     frameElem.removeChild(frameElem.childNodes[0]);
 
-  if (onClose) {
+  }
+
+  cn.removeClass( cn.el('body'), options.classes.body );
+
+  if ( onClose ) {
+
     onClose();
     onClose = false;
+
   }
 
 },
@@ -183,7 +207,7 @@ _positionFrame = function() {
 
 _setContent = function(content) {
 
-  if (typeof content == 'string') {
+  if ( typeof content == 'string' ) {
 
     var div = document.createElement('div');
 
@@ -191,17 +215,24 @@ _setContent = function(content) {
 
   }
 
-  var elems = div?div.childNodes:content;
+  var elems = div ? div.childNodes : content;
 
-  while (elems.length)
+  while ( elems.length ) {
+
     frameElem.appendChild(cn.isArray(elems)?elems.shift():elems[0]);
 
-  cn.forEach( cn.els(frameElem,'img'), function(imgElem) {
+  }
+
+  cn.forEach( cn.els( frameElem,'img' ), function(imgElem) {
+
     cn.addEvent( imgElem, 'load', _repositionFrame );
+
   });
 
   cn.forEach( frameElem.getElementsByTagName('script'), function( scriptElem ) {
+
     eval( scriptElem.innerHTML );
+
   });
 
 },

@@ -15,6 +15,14 @@ body {
 
 }
 
+body.noscroll {
+
+  position: fixed;
+  overflow: hidden;
+  width: 100%;
+
+}
+
 input[type="radio"] {
 
   border: none;
