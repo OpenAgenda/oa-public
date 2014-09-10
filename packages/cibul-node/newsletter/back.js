@@ -37,7 +37,7 @@ module.exports = function( base, config ) {
 
   model = cibulModel( config.db, config.redis ),
 
-  mw = mwLib( model, config );
+  mw = mwLib( model, router, config );
 
   app.use( bodyParser.urlencoded( { extended: true } ) );
 
@@ -52,7 +52,7 @@ module.exports = function( base, config ) {
 
   app.param( 'slug', mw.loadAgenda );
 
-  app.all(base + '*', router.loadUrlGen( app ), mw.flashSetter, mw.requireLogged, mw.loadSession, mw.checkCredential( model, 'newsletters' ));
+  app.all( base + '*', router.loadUrlGen( app ), mw.flashSetter, mw.loadSession, mw.requireLogged, mw.checkCredential( model, 'newsletters' ) );
 
 
   // load module controllers
@@ -113,7 +113,7 @@ var controllers = function( app, model, mw ) {
       mw.render( req, res, 'newsletter/admin/index', lib.extend({
         campaigns: campaigns,
         contactLists: contactLists,
-      }, _layoutData(req.agenda)));
+      }, _layoutData( req.agenda )));
 
     })
 
@@ -707,7 +707,7 @@ var controllers = function( app, model, mw ) {
 
         if (result.success) {
 
-          return router.redirect(req, res, 'contactListShow', { uid: req.params.uid }, { message: 'The contacts were added'});
+          return router.redirect(req, res, 'contactListShow', { uid: req.params.uid }, 'The contacts were added' );
 
         } else {
 
@@ -802,7 +802,7 @@ _processCampaignSave = function( req, cb, formCb ) {
 
   var values = req.body || {},
 
-  uid = req.params.uid?req.params.uid:null;
+  uid = req.params.uid ? req.params.uid : null;
 
   return function ( err, results ) {
 

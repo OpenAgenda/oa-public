@@ -26,7 +26,7 @@ module.exports = function( base, config ) {
 
   model = cibulModel( config.db ),
 
-  mw = mwLib( model, config ),
+  mw = mwLib( model, router, config ),
 
   ctl = controllers( app, model, mw );
 

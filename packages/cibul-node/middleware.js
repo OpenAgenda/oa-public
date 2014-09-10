@@ -2,16 +2,16 @@
  * general web app middleware functions
  */
 
-module.exports = function( model, config ) {
+module.exports = function( model, router, config ) {
 
   var redisCli = require('redis').createClient(config.redis.port, config.redis.host);
 
   return {
     render: render,
-    requireLogged: requireLogged( redisCli, config.session ),
-    loadSession: loadSession(redisCli, config.session),
+    requireLogged: requireLogged( redisCli, router, config.session ),
+    loadSession: loadSession( redisCli, config.session ),
     flashSetter: flashSetter( config.cookie ),
-    loadAgenda: loadAgenda(model),
+    loadAgenda: loadAgenda( model ),
     checkCredential: checkCredential,
     errorResponse: errorResponse,
     unkownResponse: unkownResponse
@@ -59,47 +59,63 @@ render = function( req, res, templatePath, data, maintain ) {
 
       res.write( render );
 
+      res.end();
+
+      res.send();
+
     } else {
 
-      res.write( JSON.stringify({
+      _renderJson( req, res, {
         success: true,
         partial: render
-      }));
+      } );
 
     }
-
-    res.end();
-
-    res.send();
 
   });
 
 },
 
+_renderJson = function( req, res, data ) {
+
+  res.write( JSON.stringify( data ) );
+
+  res.end();
+
+  res.send();
+
+},
+
 
 /**
- * lookup in redis wether session can be found
+ * verify that user is logged
  */
 
-requireLogged = function( redisCli, sessionConfig ) {
+requireLogged = function( redisCli, router, sessionConfig ) {
 
   var error = { message: 'logged required' };
 
   return function( req, res, next ) {
 
-    var sessionCookie = req.cookies[sessionConfig.cookie];
-
-    if ( !sessionCookie ) return errorResponse(req, res, error ); // this will need to redirect to the 
-
-    redisCli.exists( sessionConfig.prefix + sessionCookie, function( err, reply ) {
-
-      if ( err ) return errorResponse( req, res, err );
-
-      if ( !reply ) return errorResponse( req, res, error );
+    if ( req.session.logged ) {
 
       next();
 
-    });
+      return;
+
+    }
+
+    if ( req.xhr ) {
+
+      _renderJson( { success: false } );
+
+    } else {
+
+      var currentResource = new Buffer( req.originalUrl );
+
+      router.redirect( req, res, 'authShow', { redirect: currentResource.toString( 'base64' ) } );
+
+    }
 
   };
 
@@ -112,13 +128,27 @@ requireLogged = function( redisCli, sessionConfig ) {
 
 loadSession = function( redisCli, sessionConfig ) {
 
-  return function(req, res, next) {
+  return function( req, res, next ) {
 
-    redisCli.get(sessionConfig.prefix + req.cookies[sessionConfig.cookie], function( err, reply ) {
+    redisCli.get( sessionConfig.prefix + req.cookies[sessionConfig.cookie], function( err, reply ) {
 
-      if ( err ) return errorResponse(req, res, err);
+      if ( err || !reply ) {
 
-      req.session = JSON.parse( reply );
+        log('session not found. Assuming user is not logged');
+
+        req.session = {
+          culture: 'fr',
+          country: 'FR',
+          logged: false
+        }
+
+      } else {
+
+        log('session found and loaded');
+
+        req.session = JSON.parse( reply );
+
+      }
 
       defineLang( req, req.session.culture );
 
@@ -191,7 +221,7 @@ checkCredential = function( model, name ) {
 
   return function(req, res, next) {
 
-    model.agendas().instance(req.agenda).hasCredential(name, function(err, has) {
+    model.agendas().instance( req.agenda ).hasCredential( name, function(err, has) {
 
       if ( err ) return errorResponse( req, res, err );
 
@@ -211,6 +241,8 @@ checkCredential = function( model, name ) {
 errorResponse = function(req, res, error ) {
 
   log( 'received error ');
+
+  error = typeof error == 'string' ? { message: error } : error;
 
   error.head = {
     css: {

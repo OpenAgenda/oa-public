@@ -8,7 +8,7 @@ translations = {};
 
 } );
 
-module.exports = function(label, values, lang ) {
+module.exports = function( label, values, lang ) {
 
   var translation;
 
@@ -30,7 +30,7 @@ module.exports = function(label, values, lang ) {
 
   }
 
-  if ( lang ) {
+  if ( lang && ( lang !== 'en' ) ) {
 
     translation = translations[ lang ][ label ] || label;
 

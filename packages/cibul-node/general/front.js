@@ -20,7 +20,7 @@ module.exports = function( base, config ) {
 
   var app = express(),
 
-  mw = mwLib( null, config ); // no shit is given here.
+  mw = mwLib( null, router, config ); // no shit is given here.
 
   app.set( 'base', base );
 

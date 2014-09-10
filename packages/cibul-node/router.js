@@ -125,6 +125,8 @@ var makeGenUrl = exports.makeGenUrl = function( options ) {
 
     var uriParamNames,      // variable names in current uri
 
+    key, // loop in parameter values
+
     url = routes[name].uri,
 
     query = {},
@@ -152,13 +154,22 @@ var makeGenUrl = exports.makeGenUrl = function( options ) {
     if ( urlParams.req && urlParams.maintain ) _maintainQuery( urlParams.req, values );
 
 
-    // if we stay in current module, we use the base identifiers
+    // retrieve name of parameters which are to be set in path
+
+    uriParamNames = (routes[name].uri.match(/:[a-z|A-Z]+/g) || []).map(function(n) { return n.replace(/[:]/g,''); });
+
+
+    // specifics depending on uri type ( same module, other module, other project )
 
     if ( urlParams.module && ( routes[name].module === urlParams.module ) ) {
+
+      // if we stay in current module, we use the base identifiers
 
       url = urlParams.base.path + url;
 
     } else if ( routes[name].base ) {
+
+      // if we are in a project module, reuse base values
 
       values = lib.extend({}, urlParams.base.values, values);
 
@@ -166,15 +177,18 @@ var makeGenUrl = exports.makeGenUrl = function( options ) {
 
     } else {
 
-      values = lib.extend( {}, urlParams.base.values, values );
+      // if we are not in a project module, use only the base values which are required in the path 
+
+      for ( key in urlParams.base.values ) {
+
+        if ( uriParamNames.indexOf( key ) !== -1 ) values[key] = urlParams.base.values[key];
+
+      }
 
     }
 
 
     log( 'generating url of uri %s', url );
-
-    uriParamNames = (routes[name].uri.match(/:[a-z|A-Z]+/g) || []).map(function(n) { return n.replace(/[:]/g,''); });
-
 
     uriParamNames.forEach(function( name ) {
 
@@ -184,7 +198,7 @@ var makeGenUrl = exports.makeGenUrl = function( options ) {
 
     // deal with non route params
     
-    for ( var key in values ) {
+    for ( key in values ) {
 
       if ( !lib.contains( uriParamNames, key ) ) {
 

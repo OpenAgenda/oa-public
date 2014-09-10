@@ -36,6 +36,10 @@ config = {
     },
     routes: {
       globals: {
+        'authShow' : {
+          method: 'get',
+          uri: '/auth'
+        },
         'searchEvent' : {
           method: 'get',
           uri: '/events/search'
