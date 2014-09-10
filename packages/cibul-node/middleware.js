@@ -105,6 +105,12 @@ requireLogged = function( redisCli, router, sessionConfig ) {
 
     }
 
+
+    console.log( req.session );
+
+
+    // is not logged, redirect to login screen
+
     if ( req.xhr ) {
 
       _renderJson( { success: false } );
@@ -149,6 +155,8 @@ loadSession = function( redisCli, sessionConfig ) {
         req.session = JSON.parse( reply );
 
       }
+
+      console.log( req.session );
 
       defineLang( req, req.session.culture );
 
@@ -240,7 +248,7 @@ checkCredential = function( model, name ) {
 
 errorResponse = function(req, res, error ) {
 
-  log( 'received error ');
+  log( 'received error: %s', error.toString() );
 
   error = typeof error == 'string' ? { message: error } : error;
 

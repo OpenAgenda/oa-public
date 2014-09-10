@@ -26,6 +26,7 @@ router = require( '../router.js' ),
 
 build = require( './build' );
 
+
 module.exports = function( base, config ) {
 
   log('loading newsletter module');
@@ -84,7 +85,7 @@ var controllers = function( app, model, mw ) {
       campaignFeaturedRemove: [ 'get', campaignFeaturedRemove, '/campaigns/:uid/featured/remove/:eUid' ],
       campaignFeaturedClear: [ 'get', campaignFeaturedClear, '/campaigns/:uid/featured/clear' ],
       campaignComplete: [ 'post', campaignComplete, '/campaigns/:uid/complete' ],
-      newsletterShow: [ 'get', newsletterShow, '/campaigns/:uid/newsletter' ],
+      newsletterPreview: [ 'get', newsletterPreview, '/campaigns/:uid/preview' ],
       contactListNew: [ 'get', contactListNew, '/contactlists/new' ],
       contactListCreate: [ 'post', contactListCreate, '/contactlists' ],
       contactListShow: [ 'get', contactListShow, '/contactlists/:uid' ],
@@ -364,15 +365,21 @@ var controllers = function( app, model, mw ) {
 
   campaignLayoutUpdate = function( req, res ) {
 
+    var campaign;
+
     wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
-    .then( function( campaign ) {
+    .then( function( c ) {
 
-      return wn.call( _processCampaignLayout, req.agenda.campaigns.instance( campaign ), req.body || {} );
+      campaign = req.agenda.campaigns.instance( c );
+
+      return wn.call( _processCampaignLayout, campaign, req.body || {} );
 
     })
 
     .then( function() {
+
+      log('campaign instance updated, building newsletter data');
 
       return wn.call( build, model, req.agenda, campaign );
 
@@ -428,7 +435,7 @@ var controllers = function( app, model, mw ) {
 
     })
 
-    .catch( _error( req, res ));
+    .catch( _error( req, res ) );
 
   },
 
@@ -540,7 +547,7 @@ var controllers = function( app, model, mw ) {
   },
 
 
-  newsletterShow = function( req, res ) {
+  newsletterPreview = function( req, res ) {
 
     wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
@@ -847,6 +854,8 @@ _processCampaignSave = function( req, cb, formCb ) {
 
 _processCampaignLayout = function( campaign, values, cb ) {
 
+  log( 'validate and clean submitted campaign values' );
+
   var filterValues = {};
 
   async.series([
@@ -856,6 +865,8 @@ _processCampaignLayout = function( campaign, values, cb ) {
     async.apply(campaign.setSegmentation, values.segmentation),
 
     function ( scb ) { // load filters
+
+      log( 'load and clean filters' );
 
       [ 'category', 'cities', 'departments', 'regions' ].forEach(function( filterName ) {
 
@@ -888,6 +899,8 @@ _processCampaignLayout = function( campaign, values, cb ) {
         filterValues[filterName] = clean;
 
       });
+
+      log( 'filters clean, setting in campaign instance' );
 
       campaign.setFilters( filterValues, scb );
 

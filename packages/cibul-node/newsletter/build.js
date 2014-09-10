@@ -5,6 +5,8 @@
 
 module.exports = function( model, agenda, campaign, cb ) {
 
+  log('building newsletter data');
+
   async.waterfall([ 
 
     function( wcb ) { wcb( null, model, agenda, campaign, {} );  },
@@ -41,6 +43,8 @@ log = require('debug')('build'),
 
 mainInfo = function( model, agenda, campaign, data, cb ) {
 
+  log('generating main info');
+
   campaign.getEdito(function( err, edito ) {
 
     lib.extend(data, {
@@ -72,6 +76,8 @@ mainInfo = function( model, agenda, campaign, data, cb ) {
 
 contactList = function( model, agenda, campaign, data, cb ) {
 
+  log('retrieving contact list');
+
   campaign.getContactList(function( err, contactList ) {
 
     data.contactListUid = false;
@@ -97,6 +103,8 @@ contactList = function( model, agenda, campaign, data, cb ) {
  */
 
 featuredEvents = function( model, agenda, campaign, data, cb ) {
+
+  log('retrieving featured events');
 
   campaign.events.list({ filters: { set: 'featured' }, limit: false }, function( err, events ) {
 
@@ -131,6 +139,8 @@ featuredEvents = function( model, agenda, campaign, data, cb ) {
  */
 
 eventSelection = function( model, agenda, campaign, data, cb ) {
+
+  log('retrieving event selection');
 
   async.parallel([
 

@@ -145,7 +145,7 @@ var makeGenUrl = exports.makeGenUrl = function( options ) {
 
     if ( lib.isArray( values ) ) {
 
-      values = lib.extend.apply(lib.extend, undefined, [{}].concat( values ) );
+      values = lib.extend.apply( undefined, [{}].concat( values ) );
 
     }
 
