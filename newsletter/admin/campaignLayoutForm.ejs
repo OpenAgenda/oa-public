@@ -85,11 +85,9 @@
 
       <select class="js_frame_reload" name="segmentation">
         <option value=""><%= __('no segmentation') %></option>
-        <option value="category"><%= __('by category') %></option>
-        <option value="day"><%= __('by day') %></option>
-        <option value="department"><%= __('by department') %></option>
-        <option value="region"><%= __('by region') %></option>
-        <option value="city"><%= __('by city') %></option>
+<% segmentTypes.forEach(function( segmentType ) { %>
+        <option value="<%= segmentType.value%>"<% if ( segmentType.value===values.segmentation ) { %> selected<% } %>><%= __(segmentType.label) %></option>
+<% }) %>
       </select>
 
       <div class="info"><%= __('Choose the item you want to see your event list divided') %></div>

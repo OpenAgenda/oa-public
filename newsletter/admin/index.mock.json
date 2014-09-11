@@ -1,5 +1,4 @@
 {
-  "tab" : "newsletter",
   "mainClass" : "newsletter",
   "campaigns" : [
     {
@@ -38,7 +37,7 @@
     },
     {
       "uid" : 789456564,
-      "title" : "Les occasionels",
+      "title" : "Les occasionnels",
       "total" : 789
     },
     {

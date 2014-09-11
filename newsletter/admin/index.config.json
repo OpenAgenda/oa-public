@@ -6,5 +6,8 @@
   "helpers" : {
     "_t" : "time",
     "_i" : "image"
+  },
+  "base" : {
+  	"tab" : "newsletters"
   }
 }

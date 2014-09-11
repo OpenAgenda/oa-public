@@ -89,7 +89,8 @@
         "cities" : [],
         "regions" : [],
         "departments" : []
-      }
+      },
+      "segmentation" : "category"
     },
     "errors" : {}
   },
