@@ -10,8 +10,6 @@ module.exports = function( config ) {
 
   return function( date, format ) {
 
-    console.log( format );
-
     if ( !format ) format = 'Do MMMM YYYY';
 
     // date can be an array of dates, one date with a time

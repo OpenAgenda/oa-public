@@ -58,7 +58,7 @@
         "slug" : "azereaz-azer-reza",
         "image" : "http://cibul.s3.amazonaws.com/evtbevent_ces-jeunes-qui-entreprennent-pour-changer-le-monde_467189.jpg",
         "description" : "Événement organisé par Danone for Entrepreneurs avec la présence de Ticket4Change.",
-        "spaceTimeInfo" : ["from %start% to %finish% @ %placename%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14", "%placename%" : "La maison de l'orient"}],
+        "spaceTimeInfo" : ["%date% @ %placename%", { "%date%" : "2014-10-12T14:30:00", "%placename%" : "Chez Gudule"}, "LLL"],
         "ticketLink" : "https://docs.google.com/forms/d/1GjTvsXOEOEe2R0dUdkyIpXNLQYfvc5BlFGs1JnxXoNA/viewform"
       },
       {
