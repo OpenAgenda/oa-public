@@ -53,6 +53,7 @@ module.exports = function( base, config ) {
 var controllers = function( app, model, mw ) {
 
   var generic = require('./generic')( model ),
+  
 
   map = function() {
 
@@ -106,6 +107,7 @@ var controllers = function( app, model, mw ) {
 
   },
 
+
   contactUnsubscribeSubmit = function( req, res ) {
 
     var values = req.body || {};
@@ -127,6 +129,7 @@ var controllers = function( app, model, mw ) {
 
   },
 
+
   contactUnsubscribeComplete = function( req, res ) {
 
     req.agenda.contactLists.get({ uid: req.params.uid }, function ( err, contactList ) {
@@ -141,6 +144,7 @@ var controllers = function( app, model, mw ) {
     });
 
   },
+  
 
   _error = function( req, res ) {
 

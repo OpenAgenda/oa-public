@@ -258,6 +258,10 @@ var controllers = function( app, model, mw ) {
   },
 
 
+  /**
+   * update campaign general settings
+   */
+
   campaignUpdate = function( req, res ) {
 
     async.parallel([
@@ -610,13 +614,13 @@ var controllers = function( app, model, mw ) {
 
           if ( err ) return _error( req, res )( err );
 
-          return router.redirect(req, res, 'newsletterIndex' );
+          return router.redirect(req, res, 'newsletterIndex', {}, 'The contact list was created' );
 
         });
 
       } else {
 
-        return router.redirect(req, res, 'newsletterIndex' );
+        return router.redirect(req, res, 'newsletterIndex', {}, 'The contact list was created' );
 
       }
 
@@ -918,7 +922,7 @@ _processCampaignLayout = function( campaign, values, cb ) {
 _layoutData = function( agenda ) {
 
   return {
-    tab: 'newsletter',
+    tab: 'newsletters',
     mainClass: 'newsletter',
     scriptsBase: '/js',
     head: {

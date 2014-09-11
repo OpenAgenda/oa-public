@@ -179,7 +179,7 @@ eventSelection = function( model, agenda, campaign, data, cb ) {
 
         var e = model.events().instance( event );
 
-        if ( previousSegment !== JSON.stringify(event.segments) ) {
+        if ( previousSegment !== JSON.stringify( event.segments ) ) {
 
           // add segment item
 
@@ -212,10 +212,22 @@ getSegment = function( segments ) {
 
   for ( var s in segments ) {}  // Lets get to the bottom of this. ... AHAHHAHHAHAA.. Its friday.
 
+  var text = segments[s];
+
+  if ( !text ) {
+
+    text = false;
+
+  } else if ( typeof text !== 'string' ) {
+
+    text = text.label;
+
+  }
+
   return {
     itemType: 'segment',
     type: s,
-    text: segments[s]
+    text: text
   };
 
 };

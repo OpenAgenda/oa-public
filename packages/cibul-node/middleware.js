@@ -106,9 +106,6 @@ requireLogged = function( redisCli, router, sessionConfig ) {
     }
 
 
-    console.log( req.session );
-
-
     // is not logged, redirect to login screen
 
     if ( req.xhr ) {
@@ -156,8 +153,6 @@ loadSession = function( redisCli, sessionConfig ) {
 
       }
 
-      console.log( req.session );
-
       defineLang( req, req.session.culture );
 
       log('session is loaded');
@@ -180,6 +175,8 @@ flashSetter = function( cookieConfig ) {
   return function( req, res, next ) {
 
     res.setFlash = function( req, text ) {
+
+      log( 'setting flash to "%s"', text );
 
       var b = new Buffer( req.cookies[cookieConfig.name], 'base64' ),
 

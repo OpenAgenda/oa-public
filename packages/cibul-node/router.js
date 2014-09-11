@@ -105,7 +105,7 @@ exports.redirect = function( req, res, name, values, maintain, message ) {
 
   if ( message ) res.setFlash( req, message );
 
-  var url = req.genUrl(name, values);
+  var url = req.genUrl( name, values );
 
   log( 'redirecting to %s', url );
 
