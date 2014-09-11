@@ -33,10 +33,12 @@ module.exports = function( eh, options ) {
 
     if (!_hasStorage() || _flaggedCookie() || !_hasSessionData() || params.debug || _contradictingCookie()) {
 
-      _fetch(function(data) {
-        _setSessionData(data);
+      _fetch(function( data ) {
+
+        _setSessionData( data );
         isReady = true;
         _processStack();
+        
       });
 
     } else {

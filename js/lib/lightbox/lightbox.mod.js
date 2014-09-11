@@ -49,7 +49,7 @@ module.exports = function(options) {
 
   if ( options.buttons ) _setButtons( options.classes, options.buttons );
 
-  _display();
+  _display( options.classes );
 
   if ( options.onOpen ) options.onOpen( frameElem );
 
@@ -60,15 +60,17 @@ module.exports = function(options) {
   onHide = options.onHide ? options.onHide : false;
 
   return {
-    hide: _hide
+    hide: function() {
+      _hide( options.classes )
+    }
   };
 
 };
 
 
-var _prepare = function(classes) {
+var _prepare = function( classes ) {
 
-  canvasElem ? _clear() : _create();
+  canvasElem ? _clear( classes ) : _create( classes );
 
   canvasElem.className = classes.canvas;
 
@@ -76,17 +78,17 @@ var _prepare = function(classes) {
 
 },
 
-_display = function() {
+_display = function( classes ) {
 
   canvasElem.style.display = 'block';
 
   _positionFrame();
 
-  cn.addClass( cn.el('body'), options.classes.body );
+  cn.addClass( cn.el('body'), classes.body );
 
 },
 
-_create = function() {
+_create = function( classes ) {
 
   var frontClickFlag = false;
 
@@ -102,14 +104,14 @@ _create = function() {
     display: 'none'
   });
 
-  cn.addEvent(canvasElem, 'click', function() {
+  cn.addEvent( canvasElem, 'click', function() {
 
-    if (frontClickFlag) {
+    if ( frontClickFlag ) {
       frontClickFlag = false;
       return;
     }
 
-    _hide();
+    _hide( classes );
 
   });
 
@@ -128,15 +130,15 @@ _create = function() {
     position: 'absolute'
   });
 
-  canvasElem.appendChild(frameElem);
+  canvasElem.appendChild( frameElem );
 
-  cn.el('body').appendChild(canvasElem);
+  cn.el('body').appendChild( canvasElem );
 
   cn.addEvent(window, 'resize', _repositionFrame);
 
 },
 
-_clear = function() {
+_clear = function( classes ) {
 
   if ( beforeClose ) {
 
@@ -147,11 +149,11 @@ _clear = function() {
 
   while ( frameElem.childNodes.length ) {
 
-    frameElem.removeChild(frameElem.childNodes[0]);
+    frameElem.removeChild( frameElem.childNodes[0] );
 
   }
 
-  cn.removeClass( cn.el('body'), options.classes.body );
+  cn.removeClass( cn.el('body'), classes.body );
 
   if ( onClose ) {
 
@@ -162,9 +164,9 @@ _clear = function() {
 
 },
 
-_hide = function() {
+_hide = function( classes ) {
 
-  _clear();
+  _clear( classes );
 
   canvasElem.style.display = 'none';
 
@@ -247,10 +249,10 @@ _setMessageContent = function(message) {
 
 _setButtons = function(classes, buttons) {
 
-  var div = document.createElement('div');
+  var div = document.createElement( 'div' );
   cn.addClass( div, classes.buttonBox );
 
-  for (var i in buttons) {
+  for ( var i in buttons ) {
 
     var button = document.createElement('button');
     button.innerHTML = buttons[i].label;
@@ -263,20 +265,20 @@ _setButtons = function(classes, buttons) {
 
         if (typeof buttonConfig.hide !== 'undefined') if ( !buttonConfig.hide ) return;
 
-        _hide();
+        _hide( classes );
 
       });
 
     })(button, buttons[i]);
 
-    if (buttons[i].className) cn.addClass(button, buttons[i].className);
+    if ( buttons[i].className ) cn.addClass( button, buttons[i].className );
 
-    if (classes.button) cn.addClass(button, classes.button);
+    if ( classes.button ) cn.addClass( button, classes.button );
 
-    div.appendChild(button);
+    div.appendChild( button );
 
   }
 
-  frameElem.appendChild(div);
+  frameElem.appendChild( div );
 
 };

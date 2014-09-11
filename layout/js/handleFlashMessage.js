@@ -17,7 +17,8 @@ params = {
   classes: {
     canvas: 'lightbox-canvas',
     frame: 'wsq lightbox-frame',
-    buttonBox: 'lightbox-buttons'
+    buttonBox: 'lightbox-buttons',
+    body: 'noscroll'
   }
 };
 

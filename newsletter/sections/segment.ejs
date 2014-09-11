@@ -4,11 +4,11 @@
 
   if ( item.type == 'day' ) { 
 
-%><%= _t(item.text, 'Do MMMM YYYY') %><% 
+%><%= _t( item.text, 'Do MMMM YYYY' ) %><% 
 
-  } else { 
+  } else if ( item.text ) { 
 
-%><%= __(item.text) %><% 
+%><%= __( item.text ) %><% 
 
   } 
 
@@ -19,11 +19,11 @@
 
   if ( item.type == 'day' ) { 
 
-%><%- _t(item.text, 'Do MMMM YYYY') %><% 
+%><%- _t( item.text, 'Do MMMM YYYY' ) %><% 
 
-  } else { 
+  } else if ( item.text ) { 
 
-%><%- __(item.text) %><% 
+%><%- __( item.text ) %><% 
 
   } 
 

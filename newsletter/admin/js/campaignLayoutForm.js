@@ -24,7 +24,8 @@ window.hook( function( options ) {
         frame: 'wsq lightbox-frame w500 newsletter', 
         canvas: 'lightbox-canvas', 
         buttonBox: 'lightbox-buttons', 
-        button: 'small button'
+        button: 'small button',
+        body: 'noscroll'
       }
     }
   }, {
