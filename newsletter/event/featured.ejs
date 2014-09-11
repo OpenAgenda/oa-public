@@ -17,7 +17,7 @@
                     <a target="_blank" href="<%= genUrl('agendaEventShow', { eSlug: event.slug }, { abs: true }) %>" style="<%= css.featuredTitlea %>"><%= event.title %></a>
                   </span>
                   <span style="<%= css.featuredSpaceTime %>">
-                    <a target="_blank" href="<%= genUrl('agendaEventShow', { eSlug: event.slug }, { abs: true }) %>" style="<%= css.featuredSpaceTimea %>"><%= __(event.spaceTimeInfo[0], _t(event.spaceTimeInfo[1])) %></a>
+                    <a target="_blank" href="<%= genUrl('agendaEventShow', { eSlug: event.slug }, { abs: true }) %>" style="<%= css.featuredSpaceTimea %>"><%= __(event.spaceTimeInfo[0], _t.apply(undefined,  event.spaceTimeInfo.slice(1))) %></a>
                   </span>
                   <span style="<%= css.featuredDesc %>">
                     <a target="_blank" href="<%= genUrl('agendaEventShow', { eSlug: event.slug }, { abs: true }) %>" style="<%= css.featuredDesca %>"><%= event.description %></a>

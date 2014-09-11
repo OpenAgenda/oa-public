@@ -10,9 +10,13 @@ module.exports = function( config ) {
 
   return function( date, format ) {
 
-    if (!format) format = 'Do MMMM YYYY';
+    console.log( format );
 
-    if ( (typeof date == 'object') && !(date instanceof Date) ) {
+    if ( !format ) format = 'Do MMMM YYYY';
+
+    // date can be an array of dates, one date with a time
+
+    if ( ( typeof date == 'object' ) && !( date instanceof Date ) ) {
 
       var clean = {};
 
