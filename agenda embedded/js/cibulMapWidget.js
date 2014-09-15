@@ -288,7 +288,7 @@
 
         if (ctl.ebd && ctl.ebd.mp) mode = ctl.ebd.mp;
 
-        if ((mode == 'manual') && ctl.ebd.mc) return this.initManualBounds(ctl.ebd.mc);
+        if ( ( mode == 'manual' ) && ctl.ebd.mc && ctl.ebd.mc.neLat ) return this.initManualBounds(ctl.ebd.mc);
 
         this.initAllInclusiveBounds();
 
@@ -299,7 +299,7 @@
 
         this.initBounds = this.m.createBounds([corners.neLat, corners.neLng]);
 
-        this.m.extendBounds(this.initBounds, [corners.swLat, corners.swLng]);
+        this.m.extendBounds(this.initBounds, [ corners.swLat, corners.swLng ]);
 
       },
 
