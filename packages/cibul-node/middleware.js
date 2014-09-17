@@ -46,6 +46,8 @@ render = function( req, res, templatePath, data, maintain ) {
 
   data.lang = getLang( req );
 
+  data.env = process.env.NODE_ENV;
+
   templater( templatePath + ( req.xhr ? '.part' : '' ), data, function( err, render ) {
 
     if ( err ) throw err;
@@ -205,7 +207,7 @@ loadAgenda = function( model ) {
 
   return function( req, res, next, slug ) {
 
-    model.agendas().get({slug: req.params.slug}, function( err, data ) {
+    model.agendas().get({ slug: req.params.slug }, function( err, data ) {
 
       if (err) return errorResponse(req, res, err);
 

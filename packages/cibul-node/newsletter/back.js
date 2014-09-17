@@ -31,7 +31,6 @@ module.exports = function( base, config ) {
 
   log('loading newsletter module');
 
-
   // load app dependencies
 
   var app = express(),
@@ -63,7 +62,6 @@ module.exports = function( base, config ) {
   return app;
 
 };
-
 
 var controllers = function( app, model, mw ) {
 

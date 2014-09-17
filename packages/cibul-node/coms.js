@@ -11,14 +11,14 @@ module.exports = function( config ) {
 
   redisConfig = config.redis;
 
-  redisCli = redis.createClient(config.redis.port, config.redis.host);
+  redisCli = redis.createClient( config.redis.port, config.redis.host );
 
   return {
-    queue: queue,                            // queue message - used for mailer only for now
-    consume: consume,                        // consume queue - not really used
-    persistentConsume: persistentConsume,    // keep on consuming queue until its empty, then wait till it fills to keep on consuming - used by mailer
-    publish: publish,                        // publish message on channel
-    subscribe: subscribe                     // subscribe to channel messages
+    queue: queue,                            // (name, values, cb) queue message - used for mailer only for now
+    consume: consume,                        // (name, cb) consume queue - not really used
+    persistentConsume: persistentConsume,    // (name, cb) keep on consuming queue until its empty, then wait till it fills to keep on consuming - used by mailer
+    publish: publish,                        // (name, values) publish message on channel
+    subscribe: subscribe                     // (name, cb) subscribe to channel messages
   };
 
 };
@@ -39,7 +39,11 @@ queue = function( queueName, values, cb ) {
 
   var encodedValues = JSON.stringify( values );
 
-  redisCli.lpush( qPrefix + sp + queueName, encodedValues, cb);
+  redisCli.lpush( qPrefix + sp + queueName, encodedValues, function( err ) {
+
+    if ( cb ) cb( err );
+
+  });
 
 },
 

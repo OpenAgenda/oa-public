@@ -20,7 +20,7 @@ root;  // module, then action name
 
 exports.load = function( config ) {
 
-  _loadGlobalRoutes( config.globals );
+  loadGlobalRoutes( config.globals );
 
   root = config.root;
 
@@ -122,6 +122,14 @@ var makeGenUrl = exports.makeGenUrl = function( options ) {
   }, options );
 
   return function( name, values, options ) {
+
+    if ( !routes[name] ) {
+
+      log( 'undefined route %s', name );
+
+      return '#';
+
+    }
 
     var uriParamNames,      // variable names in current uri
 
@@ -230,7 +238,7 @@ var makeGenUrl = exports.makeGenUrl = function( options ) {
 },
 
 
-_loadGlobalRoutes = function( config ) {
+loadGlobalRoutes = exports.loadGlobalRoutes = function( config ) {
 
   var globalRoute = {};
 

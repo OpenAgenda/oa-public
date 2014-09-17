@@ -12,13 +12,13 @@ log = debug('mailer');
 
 module.exports = function( config, coms ) {
 
-  log('loading task');
+  log( 'loading task' );
 
   var running = false,
 
   _send,           // send function reference
 
-  run = function() {
+  run = function( cb ) {
 
     if ( running ) {
 
@@ -38,13 +38,17 @@ module.exports = function( config, coms ) {
 
       _send = sendFunc;
 
-      _listen();
+      _listen( cb );
 
     });
 
   },
 
-  _listen = function() {
+  /**
+   * stare at queue and call mail function when item shows up
+   */
+
+  _listen = function( cb ) {
 
     coms.consume( 'mailer', function( err, values ) {
 
@@ -63,17 +67,23 @@ module.exports = function( config, coms ) {
         subject: values.subject ? values.subject : 'Cibul',
         html: values.html,
         text: values.text
-      }, function( err, params, data ) { // ready for queue
+      }, function( err, params, data ) { // called when send is made
 
         if ( err ) return log('send error: %s', JSON.stringify( err )); // do more robust shit here
 
-        _listen();
+        log( 'send triggered' );
 
-      }, function( err, params, data ) {
+        _listen( cb );
+
+      }, function( err, params, data ) { // called when send service reply is made
 
         if ( err ) return log('send error: %s', JSON.stringify( err )); // do more robust shit here
 
-      });
+        log( 'send result received' );
+
+        if ( cb ) cb( err, params, data );
+
+      } );
 
     });
 
@@ -90,6 +100,11 @@ module.exports = function( config, coms ) {
   return run;
 
 };
+
+
+/**
+ * initialize mailing function
+ */
 
 var _sesMailer = function( config, cb ) {
 
@@ -118,7 +133,7 @@ var _sesMailer = function( config, cb ) {
 
   _init = function() {
 
-    log('initing sesMailer');
+    log( 'initing sesMailer' );
 
     lib.extend( AWS.config, awsConfig );
 
@@ -165,7 +180,7 @@ var _sesMailer = function( config, cb ) {
 
     sesParams = {
       Destination: {
-        ToAddresses: params.recipient
+        ToAddresses: typeof params.recipient == 'string' ? [ params.recipient ] : params.recipient
       },
       Message: {
         Body: {},
@@ -195,13 +210,19 @@ var _sesMailer = function( config, cb ) {
 
     _sleep( function() {
 
-      log('sending mail request');
+      log( 'sending mail request with params %s', JSON.stringify( sesParams ) );
 
-      (config.bogus ? _bogusSender : ses.sendEmail)( sesParams, function( err, data ) {
+      ses.sendEmail( sesParams, function( err, data ) {
 
         sendResultCb( err, params, data );
 
       });
+
+      /*(config.bogus ? _bogusSender : ses.sendEmail)( sesParams, function( err, data ) {
+
+        
+
+      });*/
 
       cb();
 

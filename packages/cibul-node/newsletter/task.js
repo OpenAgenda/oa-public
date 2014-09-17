@@ -29,7 +29,7 @@ module.exports = function( config, coms ) {
 
   running = false,
 
-  run = function() {
+  run = function( cb ) {
 
     if ( running ) {
 
@@ -53,9 +53,13 @@ module.exports = function( config, coms ) {
 
         running = false;
 
+        if ( cb ) cb();
+
       }, function() {
 
         running = false;
+
+        if ( cb ) cb();
 
       }));
 
@@ -102,7 +106,11 @@ module.exports = function( config, coms ) {
 
       model.contactLists().instance( contactList ).contacts.list( _e('contacts retrieved', function( contacts ) {
 
-        cb( null, contacts.map(function( contact ) { return contact.email; }) );
+        cb( null, contacts.map(function( contact ) {
+
+          return contact.email;
+
+        }) );
 
       }, cb ));
 
