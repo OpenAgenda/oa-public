@@ -1,3 +1,7 @@
+.newsletter .glist {
+  padding: 0 0 1em;
+}
+
 .newsletter .glist > li {
   padding: 1em 0;
 }

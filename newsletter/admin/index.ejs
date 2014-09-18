@@ -12,6 +12,7 @@
     <li>
       <a class="button" href="<%= genUrl('campaignRemove', { uid: campaign.uid }) %>"><%= __('remove') %></a>
       <a class="button" href="<%= genUrl('campaignLayoutEdit', { uid: campaign.uid }) %>"><%= __('edit layout') %></a>
+      <a class="button" href="<%= genUrl('campaignEdit', { uid: campaign.uid }) %>"><%= __('edit') %></a>
       <a class="hurl title" href="<%= genUrl('campaignEdit', { uid: campaign.uid }) %>"><%= campaign.title %></a>
       <ul class="detail">
         <li>
@@ -25,9 +26,6 @@
 <% if ( campaign.scheduledAt ) { %>
         <li>
           <span><%= __('scheduled on %value%', { '%value%' : _t( campaign.scheduledAt, 'Do MMMM YYYY, HH:mm' ) }) %></span>
-        </li>
-        <li>
-          <a class="url" href="<%= genUrl('campaignEdit', { uid: campaign.uid }) %>"><%= __('edit') %></a>
         </li>
 <% } %>
       </ul>
@@ -48,13 +46,11 @@
 <% contactLists.forEach(function(contactList) { %>
     <li>
       <a class="button" href="<%= genUrl('contactListRemove', { uid: contactList.uid }) %>"><%= __('remove') %></a>
+      <a class="button" href="<%= genUrl('contactListShow', { uid: contactList.uid }) %>"><%= __('edit') %></a>
       <a class="hurl title" href="<%= genUrl('contactListShow', { uid: contactList.uid }) %>"><%= contactList.title %></a>
       <ul class="detail">
         <li>
           <span><%= __('%s% contacts', { '%s%' : contactList.total}) %></span>
-        </li>
-        <li>
-          <a class="url" href="<%= genUrl('contactListShow', { uid: contactList.uid }) %>"><%= __('edit') %></a>
         </li>
       </ul>
     </li>
