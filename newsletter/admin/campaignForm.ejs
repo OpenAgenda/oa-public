@@ -4,31 +4,42 @@
 </div>
 
 <form class="cform" method="post" action="<%= uid===null ? genUrl( 'campaignCreate' ) : genUrl( 'campaignUpdate', { uid: uid } ) %>">
+  
+  <h3><%= __('Campaign title') %></h3>
   <section>
     <ul>
       <li class="w66">
-        <label><%= __('Campaign title') %></label>
-        <input name="title" type="text" <% if (values.title) { %>value="<%= values.title %>"<% } %>/>
+        <input name="title" type="text" <% if ( values.title ) { %>value="<%= values.title %>"<% } %>/>
 <% if (errors.title) { %>
         <span class="error"><%= __(errors.title) %></span>
 <% } %>
       </li>
+    </ul>
+  </section>
+  
+  <h3><%= __('Associated list') %></h3>
+  <section>
+    <ul>
       <li class="w66">
-        <label><%= __('Associated list') %></label>
+<% if ( contactLists.length ) { %>
         <select name="list">
           <option value=""><%= __('choose a list') %></option>
-<% contactLists.forEach(function(list) { %>
+<% contactLists.forEach(function( list ) { %>
           <option value="<%= list.uid %>" <% if ( values.list==list.uid ) { %>selected<% } %>><%= list.title %></option>
 <% }); %>
         </select>
+<% } else { %>
+        <span><%= __('You do not have a contact list yet.') %></span>
+        <a class="url" href="<%= genUrl('contactListNew') %>"><%= __('Create a contact list') %></a>
+<% } %>
 <% if (errors.list) { %>
         <span class="error"><%= __(errors.list) %></span>
 <% } %>
       </li>
     </ul>
   </section>
-  <label><%= __('Campaign Type') %></label>
-    <section>
+  <h3><%= __('Campaign Type') %></h3>
+  <section>
     <ul class="line">
       <li class="w25">
         <input type="radio" name="type" value="0" <% if (!values.type || (values.type=="0")) { %>checked<% } %>/>

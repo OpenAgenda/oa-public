@@ -92,5 +92,9 @@
   "Edit Layout"
   : "Editer la mise en page",
   "Update"
-  : "Mettre à jour"
+  : "Mettre à jour",
+  "You do not have a contact list yet."
+  : "Vous n'avez pas encore défini de liste de contacts",
+  "Create a contact list"
+  : "Créer une liste de contact"
 }

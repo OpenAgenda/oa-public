@@ -55,5 +55,8 @@
       "monthly_hours" : "if you pick a day, then pick a time.",
       "manual_date" : "this schedule is not valid"
     }
+  },
+  "nocontact" : {
+    "contactLists" : []
   }
 }
