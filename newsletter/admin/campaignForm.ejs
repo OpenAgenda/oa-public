@@ -70,8 +70,16 @@
           <li>
             <select name="manual_hours">
               <option value=""><%= __('pick an hour') %></option>
-<% ['08', '09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','00'].forEach(function(hour) { %>
+<% hours.forEach(function(hour) { %>
               <option value="<%= hour %>:00" <% if (values.manual_hours==hour+':00') { %>selected<% }%>><%= hour %>:00</option>
+<%}); %>
+            </select>
+          </li>
+          <li>
+            <select name="manual_timezone">
+              <option value=""><%= __('timezone') %></option>
+<% timezones.forEach(function(tz) { %>
+              <option value="<%= tz %>" <% if (values.manual_timezone==tz) { %>selected<% }%>><%= tz %></option>
 <%}); %>
             </select>
           </li>
@@ -116,8 +124,16 @@
           <li>
             <select name="weekly_hours">
               <option value=""><%= __('pick an hour') %></option>
-<% ['08', '09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','00'].forEach(function(hour) { %>
+<% hours.forEach(function(hour) { %>
               <option value="<%= hour %>:00" <% if (values.weekly_hours==hour+':00') { %>selected<% }%>><%= hour %>:00</option>
+<%}); %>
+            </select>
+          </li>
+          <li>
+            <select name="weekly_timezone">
+              <option value=""><%= __('timezone') %></option>
+<% timezones.forEach(function(tz) { %>
+              <option value="<%= tz %>" <% if (values.weekly_timezone==tz) { %>selected<% }%>><%= tz %></option>
 <%}); %>
             </select>
           </li>
@@ -148,11 +164,19 @@
           <li>
             <select name="monthly_hours">
               <option value=""><%= __('pick an hour') %></option>
-<% ['08', '09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','00'].forEach(function(hour) { %>
+<% hours.forEach(function(hour) { %>
               <option value="<%= hour %>:00" <% if (values.monthly_hours==hour+':00') { %>selected<% }%>><%= hour %>:00</option>
 <%}); %>
             </select>
-          </li>  
+          </li>
+          <li>
+            <select name="monthly_timezone">
+              <option value=""><%= __('timezone') %></option>
+<% timezones.forEach(function( tz ) { %>
+              <option value="<%= tz %>" <% if (values.monthly_timezone==tz) { %>selected<% }%>><%= tz %></option>
+<%}); %>
+            </select>
+          </li> 
 <% if (errors.monthly_hours) { %>
           <li>
             <span class="error"><%= __(errors.monthly_hours) %></span>

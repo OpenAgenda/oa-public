@@ -96,5 +96,7 @@
   "You do not have a contact list yet."
   : "Vous n'avez pas encore défini de liste de contacts",
   "Create a contact list"
-  : "Créer une liste de contact"
+  : "Créer une liste de contacts",
+  "timezone"
+  : "fuseau"
 }
