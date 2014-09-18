@@ -167,7 +167,7 @@ _layoutData = function() {
   return {
     head: {
       css: {
-        main: '//d.cibul.net/css/main.min.css'
+        main: '//d.cibul.net/css/compiled.css'
       }
     }
   };
