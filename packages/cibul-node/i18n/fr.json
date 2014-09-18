@@ -3,6 +3,10 @@
   : "campagne mise à jour",
   "The contact was removed"
   : "Le contact a été retiré",
+  "The contact list was deleted"
+  : "La liste de contact a été supprimée",
   "The contact list was created"
-  : "La liste de contacts a été créée"
+  : "La liste de contacts a été créée",
+  "The campaign was deleted"
+  : "La campagne a été supprimée"
 }

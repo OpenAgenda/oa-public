@@ -199,7 +199,7 @@ var controllers = function( app, model, mw ) {
 
     .then( function() {
 
-      router.redirect( req, res, 'newsletterIndex' );
+      router.redirect( req, res, 'newsletterIndex', {}, 'The campaign was deleted' );
 
     } )
 
@@ -691,7 +691,7 @@ var controllers = function( app, model, mw ) {
 
         if ( err ) return _error( req, res )( err );
 
-        return router.redirect(req, res, 'newsletterIndex', true);
+        return router.redirect( req, res, 'newsletterIndex', true, 'The contact list was deleted' );
 
       });
 
