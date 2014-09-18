@@ -17,8 +17,8 @@
   : "liste associée",
   "no list"
   : "aucune liste",
-  "remove"
-  : "retirer",
+  "delete"
+  : "supprimer",
   "edit"
   : "editer",
   "display"
