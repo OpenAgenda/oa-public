@@ -198,23 +198,21 @@ var makeGenUrl = exports.makeGenUrl = function( options ) {
 
     log( 'generating url of uri %s', url );
 
-    uriParamNames.forEach(function( name ) {
+    for( var name in values ) {
 
-      url = url.replace(':' + name, values[name]);
+      if ( url.match( ':' + name ) ) {
 
-    });
+        url = url.replace( ':' + name, values[name] );
 
-    // deal with non route params
-    
-    for ( key in values ) {
+      } else {
 
-      if ( !lib.contains( uriParamNames, key ) ) {
-
-        query[key] = values[key];
+        query[name] = values[name];
 
       }
 
     }
+
+    // deal with non route params
 
     if ( lib.size( query ) ) {
 

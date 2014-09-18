@@ -25,9 +25,10 @@ var run = function() {
 
   app.listen( config.port );
 
-  loadTask( 'newsletter/task', 5, 15 );
 
-  loadTask( 'mailer/task' );
+  //loadTask( 'newsletter/task', 60, 15 );
+
+  //loadTask( 'mailer/task' );
 
 },
 

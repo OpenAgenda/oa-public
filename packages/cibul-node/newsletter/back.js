@@ -241,6 +241,8 @@ var controllers = function( app, model, mw ) {
 
       }
 
+      console.log( values );
+
       mw.render( req, res, 'newsletter/admin/campaignForm', lib.extend({
         uid: req.params.uid,
         contactLists: contactLists,
