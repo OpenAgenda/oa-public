@@ -54,6 +54,7 @@ mainInfo = function( model, agenda, campaign, data, cb ) {
       },
       slug: agenda.slug,
       uid: agenda.uid,
+      campaignUid: campaign.uid,
       title: agenda.title,
       edito : edito,
       agendaUrl: agenda.url,
