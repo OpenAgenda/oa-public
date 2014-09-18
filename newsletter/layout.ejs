@@ -426,7 +426,7 @@
                       <td valign="top" class="preheaderContent" style="<% css.preheaderContent %> padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:20px;"><%= layout.preheaderContent %></td>
 <% if ( previewLink ) { %>
                       <td valign="top" width="180" class="preheaderContent" style="<% css.preheaderContent %> padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:0;">
-                        <%= __('Email not displaying correctly?') %><br /><a href="<%= genUrl('newsletterShow', { uid: uid }, { abs: true }) %>" target="_blank"><%= __('View this in your browser') %></a>.
+                        <%= __('Email not displaying correctly?') %><br /><a href="<%= genUrl('newsletterShow', { uid: campaignUid }, { abs: true }) %>" target="_blank"><%= __('View this in your browser') %></a>.
                       </td>
 <% } %>
                     </tr>

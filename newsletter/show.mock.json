@@ -13,6 +13,7 @@
     "agendaUrl": "http://www.moovjee.fr",
     "uid" : 48789456648,
     "contactListUid" : 456789456,
+    "campaignUid" : 1212313,
     "slug" : "moovjee",
     "contributable" : true,
     "featuredEvents" : [
