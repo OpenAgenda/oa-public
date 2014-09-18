@@ -49,6 +49,8 @@ module.exports = function( config, coms ) {
 
     model.campaigns().list({ scheduledAt: [ '<=', nextMinute ]  }, _e('campaigns fetched', function( campaigns ) {
 
+      log( 'campaigns to be processed: %s', campaigns.length );
+
       async.each( campaigns, _processCampaign, _e( 'campaigns processed', function() {
 
         running = false;
@@ -87,7 +89,8 @@ module.exports = function( config, coms ) {
 
       coms.queue('mailer', {
         subject: 'Here is your newsletter',
-        body: results[0],
+        html: results[0].html,
+        text: results[0].text,
         recipient: results[1]
       }, _e( function() {
 

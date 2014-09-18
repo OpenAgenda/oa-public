@@ -60,6 +60,7 @@ module.exports = function( config, coms ) {
 
       recipient = recipients.pop();
 
+
       if ( recipients.length ) _queue(lib.extend( values, { recipient : recipients }));
 
       _send({
@@ -171,7 +172,7 @@ var _sesMailer = function( config, cb ) {
 
     if ( !params.subject ) return cb( 'missing subject' );
 
-    if ( !params.text && !params.html ) return cb( 'missing text and html. use either or both');
+    if ( !params.text && !params.html ) return cb( 'missing text and html. use either or both' );
 
     if ( !mailerConfig.source ) return cb( 'missing source ');
 
@@ -212,17 +213,29 @@ var _sesMailer = function( config, cb ) {
 
       log( 'sending mail request with params %s', JSON.stringify( sesParams ) );
 
-      ses.sendEmail( sesParams, function( err, data ) {
+      if ( config.env == 'dev') {
 
-        sendResultCb( err, params, data );
-
-      });
-
-      /*(config.bogus ? _bogusSender : ses.sendEmail)( sesParams, function( err, data ) {
-
+        // in dev, send is just a log
         
+        _bogusSender( sesParams, function( err, data ) {
 
-      });*/
+          sendResultCb( err, params, data );
+
+        });
+
+
+      } else {
+
+        // in prod or in test
+
+        ses.sendEmail( sesParams, function( err, data ) {
+
+          sendResultCb( err, params, data );
+
+        });
+
+      }
+
 
       cb();
 

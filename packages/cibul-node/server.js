@@ -25,9 +25,9 @@ var run = function() {
 
   app.listen( config.port );
 
-  // loadTask( 'newsletter/task', 60000, 15 );
+  loadTask( 'newsletter/task', 5, 15 );
 
-  // loadTask( 'mailer/task' );
+  loadTask( 'mailer/task' );
 
 },
 
@@ -68,7 +68,7 @@ loadTask = function( name, period, initTimeout ) {
 
     task();
 
-    if ( period !== false ) setInterval(task, period * 1000);
+    if ( period !== false ) setInterval( task, period * 1000 );
 
   }, initTimeout * 1000);
 
