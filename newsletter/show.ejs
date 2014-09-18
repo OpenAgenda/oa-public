@@ -14,15 +14,17 @@
 <% } %>
         <td>
           <h1 style="<%= css.h1 %>">
-            <a target="_blank" href="<%= genUrl('agendaShow', { abs: true }) %>" style="<%= css.h1a %>"><%= title %></a>
+            <a target="_blank" href="<%= genUrl('agendaShow', {}, { abs: true }) %>" style="<%= css.h1a %>"><%= title %></a>
           </h1>
         </td>
       </tr>
     </tbody>
   </table>
+<% if ( edito ) { %>
   <p class="edito" style="<%= css.edito %>">
-    <a target="_blank" href="<%= genUrl('agendaShow', { abs: true }) %>" style="<%= css.editoa %>"><%- _txt.nl2br(edito) %></a>
+    <a target="_blank" href="<%= genUrl('agendaShow', {}, { abs: true }) %>" style="<%= css.editoa %>"><%- _txt.nl2br(edito) %></a>
   </p>
+<% } %>
 <% include sections/bottom %>
 
 <% if (featuredEvents && featuredEvents.length) { %>
@@ -94,7 +96,7 @@
       </tr>
       <tr>
         <td>
-          <a class="spacedLinkItem" href="<%= genUrl('agendaCsv', { uid: uid }, { abs: true }) %>" style="<%= css.spacedLinkItem %>" target="_blank"><%= __('Download this agenda') %></a>
+          <a class="spacedLinkItem" href="<%= genUrl('agendaCsv', { uid: uid }, { abs: true }) %>" style="<%= css.spacedLinkItem %>" target="_blank"><%= __('Download this agenda in csv format') %></a>
         </td>
       </tr>
 <% if ( contactListUid ) { %>
@@ -153,6 +155,8 @@
 
 <%- __('Rss') %>: <%- genUrl('agendaFeed', { uid: uid }, { abs: true }) %>
 
+
+<%- __('Download this agenda in csv format') %>: <%- genUrl('agendaCsv', { uid: uid }, { abs: true }) %>
 
 
 <% if ( contactListUid ) { %>

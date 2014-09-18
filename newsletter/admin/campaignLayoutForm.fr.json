@@ -17,8 +17,8 @@
   : "toutes les catégories",
   "Places and Geography"
   : "Lieux et régions",
-  "Segmentation"
-  : "Segmentation",
+  "Sorting"
+  : "Tri",
   "By region"
   : "Par région",
   "By department"
@@ -27,8 +27,8 @@
   : "Par ville",
   "Choose the item you want to see your event list divided"
   : "Choisissez une segmentation pour votre liste d'événements",
-  "no segmentation"
-  : "pas de segmentation",
+  "no sorting"
+  : "pas de tri",
   "by category"
   : "par catégorie",
   "by day"

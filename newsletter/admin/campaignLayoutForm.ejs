@@ -1,6 +1,7 @@
 <div class="header">
   <h2><%= __('Template') %></h2>
   <p><%= __('Define the template of the campaign') %></p>
+  <a class="url" href="<%= genUrl('newsletterIndex') %>"><%= __('back to index') %></a>
 </div>
 <div class="col w33">
 
@@ -81,10 +82,10 @@
         </ul>
       </div>
 
-      <h4><%= __('Segmentation') %></h4>
+      <h4><%= __('Sorting') %></h4>
 
       <select class="js_frame_reload" name="segmentation">
-        <option value=""><%= __('no segmentation') %></option>
+        <option value=""><%= __('no sorting') %></option>
 <% segmentTypes.forEach(function( segmentType ) { %>
         <option value="<%= segmentType.value%>"<% if ( segmentType.value===values.segmentation ) { %> selected<% } %>><%= __(segmentType.label) %></option>
 <% }) %>

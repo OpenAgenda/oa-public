@@ -100,5 +100,8 @@
     "image" : false,
     "previewLink" : false,
     "mobileMeta" : true
+  },
+  "noedito" : {
+    "edito" : null
   }
 }
