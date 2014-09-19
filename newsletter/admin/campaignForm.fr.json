@@ -1,8 +1,12 @@
 {
-  "Create a new campaign"
-  : "Créer une campagne",
-  "Campaign edition"
-  : "Editer une campagne",
+  "Campaign"
+  : "Campagne",
+  "Used in the subject field of sent emails"
+  : "Sera également l'objet du message reçu par vos destinataires" ,
+  "New campaign"
+  : "Nouvelle campagne",
+  "Edit campaign"
+  : "Editer la campagne",
   "Campaign title"
   : "Titre de la campagne",
   "Associated list"
@@ -43,8 +47,8 @@
   : "Ecrivez un contenu éditoriel, faites une séléction d'événements à mettre en avant et faite une sélection pour un envoi ponctuel",
   "schedule the campaign"
   : "programmer la campagne",
-  "Next step"
-  : "Prochaine étape",
+  "Next: define the content"
+  : "Suite: définir le contenu",
   "title must be at least 3 characters long"
   : "le titre doit au moins faire 3 caractères de long",
   "Send periodically a selection of events of the agenda. Define how regularly the newsletter should be sent and specify event selection filters"

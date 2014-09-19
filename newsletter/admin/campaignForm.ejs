@@ -1,11 +1,13 @@
 <div class="header">
-  <h2><%= __(uid===null?"Create a new campaign":"Campaign edition") %></h2>
+  <h2><%= __('Campaign') %></h2>
+  <p><%= __(isNew?"New campaign":"Edit Campaign") %></p>
   <a class="url" href="<%= genUrl('newsletterIndex') %>"><%= __('back to index') %></a>
 </div>
 
 <form class="cform" method="post" action="<%= uid===null ? genUrl( 'campaignCreate' ) : genUrl( 'campaignUpdate', { uid: uid } ) %>">
   
   <h3><%= __('Campaign title') %></h3>
+  <p class="info"><%= __('Used in the subject field of sent emails') %></p>
   <section>
     <ul>
       <li class="w66">
@@ -198,10 +200,10 @@
   </section>
   <section>
 <% if ( isNew ) { %>
-  <button type="submit"><%= __('Next step') %></button>
+  <button class="green right" type="submit"><%= __('Next: define the content') %></button>
 <% } else { %>
-  <button type="submit"><%= __('Update') %></button>
-  <a href="<%= genUrl('campaignLayoutEdit', { uid: uid }) %>" class="button"><%= __('Edit Layout') %></a>
+  <a class="button right" href="<%= genUrl('campaignLayoutEdit', { uid: uid }) %>" class="button"><%= __('Edit Layout') %></a>
+  <button class="green" type="submit"><%= __('Update') %></button>
 <% } %>
   </section>
 </form>

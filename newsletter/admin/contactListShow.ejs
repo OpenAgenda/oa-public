@@ -1,4 +1,5 @@
 <div class="header">
+  <a class="url right" href="<%= genUrl('contactListRemove', { uid: uid }) %>"><%= __('delete this list') %></a>
   <h2><%= __("Contact List Menu") %> - <%= title %></h2>
   <a class="url" href="<%= genUrl('newsletterIndex') %>"><%= __('back to index') %></a>
 </div>
@@ -11,8 +12,8 @@
 <ul class="glist">
 <% contacts.forEach(function(contact) { %>
   <li>
-    <span><%= contact.email %></span>
     <a class="url right" href="<%= genUrl('contactRemove', { uid: uid, email: contact.email }, { maintain: true }) %>"><%= __('remove') %></a>
+    <span><%= contact.email %></span>
   </li>
 <% }) %>
 </ul>  
@@ -29,15 +30,15 @@
     <ul>
       <li>
         <label><%= __('Add contacts') %></label>
+        <p class="info"><%= __('Separated by new lines, commas or semicolons') %></p>
         <textarea name="emails" rows="6"><% if (values.emails) { %><%= values.emails %><% } %></textarea>
-        <span class="info"><%= __('Emails should be separated by a comma, a semicolon or a new line.') %></span>
+      </li>
+      <li class="right">
+        <button class="green" type="submit"><%= __('Add') %></button>
+      </li>
 <% if (errors.emails) { %>
-        <span class="error"><%= __(errors.emails) %></span>
+      <span class="error"><%= __(errors.emails) %></span>
 <% } %>
-      </li>
-      <li>
-        <button type="submit"><%= __('Add') %></button>
-      </li>
     </ul>
   </form>
 </section>

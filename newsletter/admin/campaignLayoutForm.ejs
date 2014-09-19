@@ -1,36 +1,41 @@
 <div class="header">
-  <h2><%= __('Template') %></h2>
-  <p><%= __('Define the template of the campaign') %></p>
+  <h2><%= __('Campaign') %></h2>
+  <p><%= __(isNew?"New campaign":"Edit Campaign") %></p>
   <a class="url" href="<%= genUrl('newsletterIndex') %>"><%= __('back to index') %></a>
 </div>
 <div class="col w33">
 
 <form class="cform js_campaign_layout_form" method="post" action="<%= genUrl('campaignComplete', { uid: uid }) %>">
 
-<% if ( type=="manual" ) { %>
-    <section>
-      <div class="header">
-        <h3><%= __('Edito') %></h3>
-      </div>
-      <textarea class="js_frame_reload" rows="4" name="edito"><%= values.edito ? values.edito : "" %></textarea>
-<% if ( errors.edito ) { %>
-      <span class="error"><%= errors.edito %></span>
-<% } %>
-    </section>
+  <a href="<%= genUrl('campaignEdit', { uid : uid}) %>" ><h3 class="url"><%= title %></h3></a>
 
-    <section>
-      <div class="header">
-        <h3><%= __('Featured Events') %></h3>
-      </div>
-      <a class="button js_lightbox_trigger" href="<%= genUrl( 'campaignFeaturedEdit', { uid: uid } ) %>"><%= __('Select Events') %></a>
-    </section>
+<% if ( type=="manual" ) { %>
+  <section>
+    <div class="header">
+      <h3><%= __('Edito') %></h3>
+    </div>
+    <textarea class="js_frame_reload" rows="4" name="edito"><%= values.edito ? values.edito : "" %></textarea>
+<% if ( errors.edito ) { %>
+    <span class="error"><%= errors.edito %></span>
 <% } %>
-    <section>
-      <div class="header">
-        <h3><%= __('Event List') %></h3>
-      </div>
-      
-      <h4><%= __('Categories') %></h4>
+  </section>
+
+  <section>
+    <div class="header">
+      <h3><%= __('Featured Events') %></h3>
+    </div>
+    <a class="button js_lightbox_trigger" href="<%= genUrl( 'campaignFeaturedEdit', { uid: uid } ) %>"><%= __('Select Events') %></a>
+  </section>
+<% } %>
+  <section>
+    <div class="header">
+      <h3><%= __('Event List') %></h3>
+    </div>
+
+    <h4><%= __('Filters') %>
+    
+    <div>
+      <p><%= __('Categories') %></p>
 
       <select class="js_frame_reload" name="category">
         <option value=""><%= __('all categories') %></option>
@@ -38,8 +43,10 @@
         <option value="<%= category.slug %>" <% if (values.filters.category==category.slug) { %>selected<% } %>><%= category.label %></option>
 <% }); %>
       </select>
+    <div>
 
-      <h4><%= __('Places and Geography') %></h4>
+    <div>
+      <p><%= __('Places and Geography') %></p>
 
       <div class="js_folded">
 
@@ -49,57 +56,59 @@
           <li class="subtitle js_subtitle"><%= __('By city') %></li>
           <li class="js_detail">
             <ul class="line">
-  <% cities.forEach(function(city) { %>
+<% cities.forEach(function(city) { %>
               <li>
                 <input class="js_frame_reload" type="checkbox" name="cities[<%= city.label %>]" <% if ( values.filters.cities.indexOf( city.slug ) !== -1 ) { %>checked<% } %>/>
                 <label><%= city.label %></label>
               </li>
-  <% }); %>
+<% }); %>
             </ul>
           </li>
           <li class="subtitle js_subtitle"><%= __('By department') %></li>
           <li class="js_detail">
             <ul class="line">
-  <% departments.forEach(function(department) { %>
+<% departments.forEach(function(department) { %>
               <li>
                 <input class="js_frame_reload" type="checkbox" name="departments[<%= department.slug %>]" <% if ( values.filters.departments.indexOf( department.slug ) !== -1 ) { %>checked<% } %>/>
                 <label><%= department.label %></label>
               </li>
-  <% }); %>
+ <% }); %>
             </ul>
           </li>
           <li class="subtitle js_subtitle"><%= __('By region') %></li>
           <li class="js_detail">
             <ul class="line">
-  <% regions.forEach(function(region) { %>
+<% regions.forEach(function(region) { %>
               <li>
                 <input class="js_frame_reload" type="checkbox" name="regions[<%= region.slug %>]" <% if ( values.filters.regions.indexOf( region.slug ) !== -1 ) { %>checked<% } %>/>
                 <label><%= region.label %></label>
               </li>
-  <% }); %>
+<% }); %>
             </ul>
           </li>
         </ul>
       </div>
 
-      <h4><%= __('Sorting') %></h4>
+    </div>
 
-      <select class="js_frame_reload" name="segmentation">
-        <option value=""><%= __('no sorting') %></option>
+    <h4><%= __('Sorting') %></h4>
+
+    <select class="js_frame_reload" name="segmentation">
+      <option value=""><%= __('no sorting') %></option>
 <% segmentTypes.forEach(function( segmentType ) { %>
-        <option value="<%= segmentType.value%>"<% if ( segmentType.value===values.segmentation ) { %> selected<% } %>><%= __(segmentType.label) %></option>
+      <option value="<%= segmentType.value%>"<% if ( segmentType.value===values.segmentation ) { %> selected<% } %>><%= __(segmentType.label) %></option>
 <% }) %>
-      </select>
+    </select>
 
-      <div class="info"><%= __('Choose the item you want to see your event list divided') %></div>
+    <div class="info"><%= __('Choose the item you want to see your event list divided') %></div>
 
-    </section>
+  </section>
 
-    <section>
-      <button type="submit"><%= __('Save') %>
-    </section>
+  <section>
+    <button class="green" type="submit"><%= __('Save') %>
+  </section>
 
-  </form>
+</form>
 
 </div><!--
 --><div class="col w66">

@@ -1,6 +1,4 @@
 {
-  "Manage the emailing campaigns of the agenda" 
-  : "Gérez les campagnes d'emailing de votre agenda",
   "Campaigns"
   : "Campagnes",
   "Contact lists"
@@ -9,10 +7,10 @@
   : "Vous n'avez pas encore configuré de campagnes",
   "You did not create any contact lists yet"
   : "Vous n'avez pas encore crée de listes de contacts",
-  "Create a campaign"
-  : "Créer une campagne",
-  "Create a contact list"
-  : "Créer une liste de contacts",
+  "Add a campaign"
+  : "Ajouter une campagne",
+  "Add a list"
+  : "Ajouter une liste",
   "associated list"
   : "liste associée",
   "no list"

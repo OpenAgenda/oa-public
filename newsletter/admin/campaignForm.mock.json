@@ -21,6 +21,7 @@
   },
   "newCampaign" : {
     "uid" : null,
+    "isNew" : true,
     "values" : {},
     "errors" : {}
   },

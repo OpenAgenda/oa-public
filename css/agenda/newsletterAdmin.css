@@ -3,7 +3,13 @@
 }
 
 .newsletter .glist > li {
-  padding: 1em 0;
+  padding: 1em 0 2em;
+  border-bottom: 1px solid #ddd;
+  margin: 1em 0;
+}
+
+.newsletter .glist > li:last-child {
+  border-bottom: none;
 }
 
 .newsletter .glist > li > span {
@@ -62,6 +68,6 @@
   font-size: 1.1em;
 }
 
-.newsletter a.right {
+.newsletter .right {
   float: right;
 }

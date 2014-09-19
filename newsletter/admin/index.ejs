@@ -1,6 +1,5 @@
 <div class="header">
   <h2><%= __('Newsletter') %></h2>
-  <p><%= __('Manage the emailing campaigns of the agenda') %></p>
 </div>
 <section>
   <div class="header">
@@ -35,7 +34,7 @@
 <% } else { %>
   <p><%= __('You did not configure any campaigns yet') %></p>
 <% } %>
-  <a class="button" href="<%= genUrl('campaignNew') %>"><%= __('Create a campaign') %></a>
+  <a class="url" href="<%= genUrl('campaignNew') %>"><%= __('Add a campaign') %></a>
 </section>
 <section>
   <div class="header">
@@ -59,5 +58,5 @@
 <% } else { %>
   <p><%= __('You did not create any contact lists yet') %></p>
 <% } %>
-  <a class="button" href="<%= genUrl('contactListNew') %>"><%= __('Create a contact list') %></a>
+  <a class="url" href="<%= genUrl('contactListNew') %>"><%= __('Add a list') %></a>
 </section>

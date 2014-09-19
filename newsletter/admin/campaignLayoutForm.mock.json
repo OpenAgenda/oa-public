@@ -1,8 +1,6 @@
 {
   "base" : {
-    "devUrls" : {
-      "newsletterShow" : "/newsletter/show"
-    },
+    "title" : "La campagne à toto",
     "tab" : "newsletter",
     "mainClass" : "newsletter",
     "head" : {
@@ -10,6 +8,7 @@
         "newsletter" : "../../css/agenda/newsletterAdmin.css"
       }
     },
+    "isNew" : true,
     "uid" : 33328197,
     "categories" : [
       {

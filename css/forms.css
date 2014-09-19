@@ -102,6 +102,11 @@
   font-size: 0.8em;
 }
 
+.cform p.info {
+  font-size: 1em;
+  padding: 0.2em 0 0.7em 0;
+}
+
 .cform .error {
   color: red;
 }

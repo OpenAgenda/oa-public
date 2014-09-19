@@ -1,8 +1,12 @@
 {
   "Edito"
   : "Edito",
-  "Template"
-  : "Gabarit",
+  "Campaign"
+  : "Campagne",
+  "New campaign"
+  : "Nouvelle campagne",
+  "Edit campaign"
+  : "Editer la campagne",
   "Define the template of the campaign"
   : "Définissez le gabarit de la campagne",
   "Featured Events"
@@ -18,7 +22,7 @@
   "Places and Geography"
   : "Lieux et régions",
   "Sorting"
-  : "Tri",
+  : "Tris",
   "By region"
   : "Par région",
   "By department"
@@ -42,5 +46,7 @@
   "Save"
   : "Enregistrer",
   "select a group"
-  : "groupements géographiques"
+  : "groupements géographiques",
+  "Filters"
+  : "Filtres"
 }
