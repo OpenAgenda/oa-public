@@ -25,7 +25,7 @@ module.exports = function( config, coms ) {
 
   router.loadGlobalRoutes( config.routes );
 
-  var model = cibulModel( config.db ),
+  var model = cibulModel( config.db, null, { imagePath: config.aws.imageBucketPath } ),
 
   running = false,
 

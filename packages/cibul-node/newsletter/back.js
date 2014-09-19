@@ -35,7 +35,7 @@ module.exports = function( base, config ) {
 
   var app = express(),
 
-  model = cibulModel( config.db, config.redis ),
+  model = cibulModel( config.db, config.redis, { imagePath: config.aws.imageBucketPath } ),
 
   mw = mwLib( model, router, config );
 
@@ -240,8 +240,6 @@ var controllers = function( app, model, mw ) {
         values.list = lib.getByAttr( contactLists, { id: campaign.contactListId }).uid;
 
       }
-
-      console.log( values );
 
       mw.render( req, res, 'newsletter/admin/campaignForm', lib.extend({
         uid: req.params.uid,
@@ -934,7 +932,7 @@ _layoutData = function( agenda ) {
       title: agenda.title,
       description: agenda.description,
       url: agenda.url,
-      image: '//cibul.s3.amazonaws.com/' + agenda.image
+      image: agenda.getImage( true )
     }
   };
 

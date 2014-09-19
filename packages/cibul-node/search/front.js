@@ -22,7 +22,7 @@ module.exports = function( base, config ) {
 
   var app = express(),
 
-  model = cibulModel( config.db, config.redis ),
+  model = cibulModel( config.db, config.redis, { imagePath: config.aws.imageBucketPath } ),
 
   mw = mwLib( model, router, config );
 

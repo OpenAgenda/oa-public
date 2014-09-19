@@ -21,7 +21,7 @@ module.exports = function( model, agenda, campaign, cb ) {
 
   ], function( err, model, agenda, campaign, data ) {
 
-    if (err) return cb( err );
+    if ( err ) return cb( err );
 
     cb( null, data );
 
@@ -58,7 +58,7 @@ mainInfo = function( model, agenda, campaign, data, cb ) {
       title: agenda.title,
       edito : edito,
       agendaUrl: agenda.url,
-      image : false,
+      image : agenda.getImage( true ),
       featuredEvents : [],
       items: [],
       contributable: agenda.contributionType !== 0
@@ -120,7 +120,7 @@ featuredEvents = function( model, agenda, campaign, data, cb ) {
         description: e.getDescription(),
         freeText: e.getFreeText(),
         slug: e.slug,
-        image: e.image,
+        image: e.getImage( true ),
         spaceTimeInfo: e.getSpaceTimeInfo()
       };          
 
