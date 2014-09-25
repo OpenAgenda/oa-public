@@ -31,9 +31,9 @@ module.exports = function( model, agenda, campaign, cb ) {
 
 var async = require('async'),
 
-lib = require('../lib'),
+lib = require('../lib/lib'),
 
-log = require('debug')('build'),
+log = require('../lib/logger')( 'newsletter/build' ),
 
 
 

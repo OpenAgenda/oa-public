@@ -1,168 +1,178 @@
-var debug = require('debug'),
+/**
+ * load libraries and define app module routes
+ */
 
-log = debug('newsletter'),
+var appName = 'newsletter/front',
 
-express = require('express'),
+exposed = {
+  load: load
+},
 
-bodyParser = require('body-parser'),
+routes = {
+  newsletterShow: [ 'get', newsletterShow, '/:uid' ],
+  contactUnsubscribeShow: [ 'get', contactUnsubscribeShow, '/contactlists/:uid/unsubscribe' ],
+  contactUnsubscribeSubmit: [ 'post', contactUnsubscribeSubmit, '/contactlists/:uid/unsubscribe' ],
+  contactUnsubscribeComplete: [ 'get', contactUnsubscribeComplete, '/contactlists/:uid/unsubscribe/complete' ]
+},
 
-cibulModel = require('cibulModel/lib/cibulModel'),
+log = require( '../lib/logger' )( appName ),
 
-mwLib = require('../middleware'),
-
-async = require('async'),
+async = require( 'async' ),
 
 w = require( 'when' ),
 
 wn = require( 'when/node' ),
 
-lib = require('../lib.js'), 
+lib = require( '../lib/lib' ), 
 
-router = require('../router.js'),
+cmn = require( '../lib/commons-app' ),
 
-build = require('./build');
+build = require('./build'),
 
+app,
 
-module.exports = function( base, config ) {
+path,
 
-  log('loading newsletter front module');
+model = cmn.getCibulModel(),
 
-  var app = express(),
-
-  model = cibulModel( config.db, null, { imagePath: config.aws.imageBucketPath } ),
-
-  mw = mwLib( model, router, config );
-
-  app.use( bodyParser.urlencoded({ extended: true }) );
-
-  app.set( 'base', base );
-
-  app.set( 'name', 'newsletterFront' );
-
-  app.param( 'slug', mw.loadAgenda );
-
-  app.all( base + '*', router.loadUrlGen(app) );
-
-  router.loadRoutes( app, controllers( app, model, mw ));
-
-  return app;
-
-};
+generic = require( './generic' )( model );
 
 
-var controllers = function( app, model, mw ) {
+function init( p ) {
 
-  var generic = require('./generic')( model ),
-  
+  log( 'initing' );
 
-  map = function() {
+  path = p;
 
-    return {
-      newsletterShow: [ 'get', newsletterShow, '/:uid' ],
-      contactUnsubscribeShow: [ 'get', contactUnsubscribeShow, '/contactlists/:uid/unsubscribe' ],
-      contactUnsubscribeSubmit: [ 'post', contactUnsubscribeSubmit, '/contactlists/:uid/unsubscribe' ],
-      contactUnsubscribeComplete: [ 'get', contactUnsubscribeComplete, '/contactlists/:uid/unsubscribe/complete' ]
-    }
+  cmn.registerRoutes( appName, path, routes );
 
-  },
+  return exposed;
+
+}
 
 
-  newsletterShow = function( req, res ) {
 
-    wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
+function load( main ) {
 
-    .then(function( campaign ) {
+  if ( app ) {
 
-      return wn.call( build, model, req.agenda, req.agenda.campaigns.instance( campaign ) );
+    log( 'this app has already been loaded');
 
-    })
+    return;
 
-    .then(function( newsletterData ) {
+  }
 
-      mw.render( req, res, 'newsletter/show', lib.extend( newsletterData, {
-        type: 'html',
-        previewLink: false,
-        mobileMeta: true
-      } ) );
+  log( 'loading' );
 
-    })
+  app = cmn.loadApp( main, path, appName );
 
-    .catch( _error( req, res ) );
+  app.param( 'slug', cmn.loadAgenda );
 
-  },
+  cmn.loadRoutes( app, routes, [
+    cmn.urlGenSetter( appName, path )
+  ] );
 
-
-  contactUnsubscribeShow = function( req, res ) {
-
-    req.agenda.contactLists.get({ uid: req.params.uid }, function ( err, contactList ) {
-
-      if (err) return mw.errorResponse( req, res, err );
-
-      mw.render(req, res, 'newsletter/unsubscribe', lib.extend(contactList, lib.extend({
-        uid: req.params.uid,
-        error: false
-      }, _layoutData())));
-
-    });
-
-  },
+}
 
 
-  contactUnsubscribeSubmit = function( req, res ) {
 
-    var values = req.body || {};
+function newsletterShow( req, res ) {
 
-    generic.contactRemove( req.agenda, req.params.uid, values.email, function( err, result ){
+  wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
-      if ( err ) return mw.errorResponse( req, res, err );
+  .then(function( campaign ) {
 
-      return router.redirect(req, res, 'contactUnsubscribeComplete', {uid: req.params.uid});
+    return wn.call( build, model, req.agenda, req.agenda.campaigns.instance( campaign ) );
 
-    }, function( error, contactList ) {
+  })
 
-      mw.render(req, res, 'newsletter/unsubscribe', lib.extend(contactList, lib.extend({
-        uid: req.params.uid,
-        error: error
-      }, _layoutData())));
+  .then(function( newsletterData ) {
 
-    });
+    cmn.render( req, res, 'newsletter/show', lib.extend( newsletterData, {
+      type: 'html',
+      previewLink: false,
+      mobileMeta: true
+    } ) );
 
-  },
+  })
+
+  .catch( _error( req, res ) );
+
+}
 
 
-  contactUnsubscribeComplete = function( req, res ) {
 
-    req.agenda.contactLists.get({ uid: req.params.uid }, function ( err, contactList ) {
+function contactUnsubscribeShow( req, res ) {
 
-      if ( err ) return mw.errorResponse( req, res, err );
+  req.agenda.contactLists.get({ uid: req.params.uid }, function ( err, contactList ) {
 
-      mw.render(req, res, 'newsletter/unsubscribeComplete', lib.extend(contactList, lib.extend({
-        uid: req.params.uid,
-        error: false
-      }, _layoutData())));
+    if (err) return cmn.errorResponse( req, res, err );
 
-    });
+    cmn.render(req, res, 'newsletter/unsubscribe', lib.extend(contactList, lib.extend({
+      uid: req.params.uid,
+      error: false
+    }, _layoutData())));
 
-  },
-  
+  });
 
-  _error = function( req, res ) {
+}
 
-    return function( err ) {
 
-      if ( typeof err === 'string' ) err = { message: err };
 
-      mw.errorResponse( req, res, err );
+function contactUnsubscribeSubmit( req, res ) {
 
-    };
+  var values = req.body || {};
+
+  generic.contactRemove( req.agenda, req.params.uid, values.email, function( err, result ){
+
+    if ( err ) return cmn.errorResponse( req, res, err );
+
+    return router.redirect(req, res, 'contactUnsubscribeComplete', {uid: req.params.uid});
+
+  }, function( error, contactList ) {
+
+    cmn.render(req, res, 'newsletter/unsubscribe', lib.extend(contactList, lib.extend({
+      uid: req.params.uid,
+      error: error
+    }, _layoutData())));
+
+  });
+
+}
+
+
+
+function contactUnsubscribeComplete( req, res ) {
+
+  req.agenda.contactLists.get({ uid: req.params.uid }, function ( err, contactList ) {
+
+    if ( err ) return cmn.errorResponse( req, res, err );
+
+    cmn.render(req, res, 'newsletter/unsubscribeComplete', lib.extend(contactList, lib.extend({
+      uid: req.params.uid,
+      error: false
+    }, _layoutData())));
+
+  });
+
+}
+
+
+
+function _error( req, res ) {
+
+  return function( err ) {
+
+    if ( typeof err === 'string' ) err = { message: err };
+
+    cmn.errorResponse( req, res, err );
 
   };
 
-  return map();
+}
 
-},
 
-_layoutData = function() {
+function _layoutData() {
 
   return {
     head: {
@@ -173,3 +183,6 @@ _layoutData = function() {
   };
 
 };
+
+
+module.exports = init;

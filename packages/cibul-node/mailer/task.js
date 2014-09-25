@@ -4,101 +4,122 @@
  * listens to coms mailer queue
  */
 
-var debug = require('debug'),
 
-lib = require('../lib'),
+var log = require( '../lib/logger' )( 'mailer' ),
 
-log = debug('mailer');
+lib = require( '../lib/lib' ),
 
-module.exports = function( config, coms ) {
+config = require( '../config' ),
 
-  log( 'loading task' );
+/**
+ * listen to mailer queue and send any incoming mails through Amazon SES service
+ */
 
-  var running = false,
+coms = require( '../lib/coms' )( config ),
 
-  _send,           // send function reference
+cmn = require( '../lib/commons-task' ),
 
-  run = function( cb ) {
+running = false,
 
-    if ( running ) {
+_send;
 
-      log('already running');
 
-      return;
+/**
+ * exported function list
+ */
 
-    }
+exports.load = cmn.makeLoad( run );  // load task using offset and period
+exports.run = run;                   // run task
 
-    log('running');
 
-    running = true;
 
-    _sesMailer( config, function( err, sendFunc ) {
+/**
+ * execute the task
+ */
 
-      if ( err ) return log('initialisation error: %s', JSON.stringify( err ) );
+function run( cb ) {
 
-      _send = sendFunc;
+  if ( running ) {
+
+    log('already running');
+
+    return;
+
+  }
+
+  log('running');
+
+  running = true;
+
+  _sesMailer( config, function( err, sendFunc ) {
+
+    if ( err ) return log('initialisation error: %s', JSON.stringify( err ) );
+
+    _send = sendFunc;
+
+    _listen( cb );
+
+  });
+
+}
+
+
+/**
+ * stare at queue and call mail function when item shows up
+ */
+
+function _listen( cb ) {
+
+  coms.consume( 'mailer', function( err, values ) {
+
+    if ( err ) return log('consumption error: %s', JSON.stringify( err ) ); // do more robust shit here
+
+    log('consuming');
+
+    var recipients = ( typeof values.recipient == 'string' ) ? [ values.recipient ] : values.recipient,
+
+    recipient = recipients.pop();
+
+
+    if ( recipients.length ) _queue(lib.extend( values, { recipient : recipients }));
+
+    _send({
+      recipient: recipient,
+      subject: values.subject ? values.subject : 'Cibul',
+      html: values.html,
+      text: values.text
+    }, function( err, params, data ) { // called when send is made
+
+      if ( err ) return log('send error: %s', JSON.stringify( err )); // do more robust shit here
+
+      log( 'send triggered' );
 
       _listen( cb );
 
-    });
+    }, function( err, params, data ) { // called when send service reply is made
 
-  },
+      if ( err ) return log('send error: %s', JSON.stringify( err )); // do more robust shit here
 
-  /**
-   * stare at queue and call mail function when item shows up
-   */
+      log( 'send result received' );
 
-  _listen = function( cb ) {
+      if ( cb ) cb( err, params, data );
 
-    coms.consume( 'mailer', function( err, values ) {
+    } );
 
-      if ( err ) return log('consumption error: %s', JSON.stringify( err ) ); // do more robust shit here
+  });
 
-      log('consuming');
-
-      var recipients = ( typeof values.recipient == 'string' ) ? [ values.recipient ] : values.recipient,
-
-      recipient = recipients.pop();
+}
 
 
-      if ( recipients.length ) _queue(lib.extend( values, { recipient : recipients }));
+/**
+ * requeue mailing
+ */
 
-      _send({
-        recipient: recipient,
-        subject: values.subject ? values.subject : 'Cibul',
-        html: values.html,
-        text: values.text
-      }, function( err, params, data ) { // called when send is made
+function _queue( values ) {
 
-        if ( err ) return log('send error: %s', JSON.stringify( err )); // do more robust shit here
+  log( 'requeuing remaining recipients : (%s left)', values.recipient.length );
 
-        log( 'send triggered' );
-
-        _listen( cb );
-
-      }, function( err, params, data ) { // called when send service reply is made
-
-        if ( err ) return log('send error: %s', JSON.stringify( err )); // do more robust shit here
-
-        log( 'send result received' );
-
-        if ( cb ) cb( err, params, data );
-
-      } );
-
-    });
-
-  },
-
-  _queue = function( values ) {
-
-    log( 'requeuing remaining recipients : (%s left)', values.recipient.length );
-
-    coms.queue( 'mailer', values );
-
-  };
-
-  return run;
+  coms.queue( 'mailer', values );
 
 };
 
@@ -107,9 +128,9 @@ module.exports = function( config, coms ) {
  * initialize mailing function
  */
 
-var _sesMailer = function( config, cb ) {
+function _sesMailer( config, cb ) {
 
-  log('initing Amazon SES interface');
+  log( 'initing Amazon SES interface' );
 
   var minDelay,          // minimum delay between sends
 
@@ -263,9 +284,9 @@ var _sesMailer = function( config, cb ) {
 
   _init();
 
-},
+}
 
-_bogusSender = function( params, cb ) {
+function _bogusSender( params, cb ) {
 
   log('bogus sending: %s', JSON.stringify( params ));
 

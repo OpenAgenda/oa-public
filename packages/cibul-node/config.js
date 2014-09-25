@@ -7,6 +7,7 @@ config = {
     env: 'prod',
     port: 8901,
     logLevel: '*',
+    name: 'cibul-node',
     root: 'https://cibul.net',
     db: {
       database: 'cibuldev',

@@ -1,10 +1,19 @@
-var debug = require( 'debug'),
+/**
+ * site-wide event and agenda search pages
+ */
 
-log = debug( 'general' ),
+var appName = 'search/front',
 
-express = require( 'express' ),
+exposed = {
+  load: load
+},
 
-mwLib = require( '../middleware' ),
+routes = {
+  searchEvents: [ 'get', searchEvents, '/events/search' ],
+  searchAgendas: [ 'get', searchAgendas, '/agendas/search' ]
+},
+
+log = require( '../lib/logger' )( appName ),
 
 async = require( 'async' ),
 
@@ -12,114 +21,133 @@ w = require( 'when' ),
 
 wn = require( 'when/node' ),
 
-lib = require( '../lib.js' ), 
+lib = require( '../lib/lib' ),
 
-cibulModel = require( 'cibulModel/lib/cibulModel' ),
+cmn = require( '../lib/commons-app' ),
 
-router = require( '../router.js' );
+app,
 
-module.exports = function( base, config ) {
+path,
 
-  var app = express(),
+model = cmn.getCibulModel();
 
-  model = cibulModel( config.db, config.redis, { imagePath: config.aws.imageBucketPath } ),
 
-  mw = mwLib( model, router, config );
+function init( p ) {
 
-  app.set( 'base', base );
+  log( 'initing' );
 
-  app.set( 'name', 'search' );
+  path = p;
+
+  cmn.registerRoutes( appName, path, routes);
+
+  return exposed;
+
+}
+
+
+function load( main ) {
+
+  if ( app ) {
+
+    log( 'this app has already been loaded');
+
+    return;
+
+  }
+
+  log( 'loading' );
+
+  app = cmn.loadApp( main, path, appName );
 
   app.set( 'perPage', 20 );
 
-  app.all( base + '*', router.loadUrlGen( app ), mw.loadSession );
+  cmn.loadRoutes( app, routes, [
+    cmn.urlGenSetter( appName, path ),
+    cmn.loadSession
+  ] );
 
-  router.loadRoutes( app, controllers( app, model, mw ) );
+  return exposed;
 
-  return app;
+}
 
-};
 
-var controllers = function( app, model, mw ) {
+/**
+ * controllers
+ */
 
-  var map = function() {
+function searchEvents( req, res ) {
 
-    return {
-      searchEvent: [ 'get', searchEvents, '/events/search' ],
-      searchAgenda: [ 'get', searchAgendas, '/agendas/search' ]
-    };
+  wn.call( model.events().list )
 
-  },
+  .then( function( events ) {
 
-  searchEvents = function( req, res ) {
+    events.forEach( function( event ) {
 
-    wn.call( model.events().list )
+      var inst = model.events().instance( event );
 
-    .then( function( events ) {
+      // each event item is extend with whatever is required by tem¶plate
 
-      events.forEach( function( event ) {
-
-        var inst = model.events().instance( event );
-
-        // each event item is extend with whatever is required by tem¶plate
-
-        lib.extend( event, {
-          dateRange: inst.getDateRange( true ),
-          title: inst.getTitle(),
-          description: inst.getDescription(),
-          placeName: event.locations ? event.locations[0].name : false
-        });
-
+      lib.extend( event, {
+        dateRange: inst.getDateRange( true ),
+        title: inst.getTitle(),
+        description: inst.getDescription(),
+        placeName: event.locations ? event.locations[0].name : false
       });
 
-      mw.render( req, res, 'search/events', lib.extend( { events: events }, _layoutData() ));
+    });
 
-    })
+    cmn.render( req, res, 'search/events', lib.extend( { events: events }, _layoutData(), _pager( req, searchEvents, 20 ) ));
 
-    .catch( _error( req, res) );
+  })
 
-  },
+  .catch( _error( req, res) );
 
-  searchAgendas = function( req, res ) {
+}
 
-    wn.call( model.agendas().list )
 
-    .then( function( agendas ) {
+function searchAgendas( req, res ) {
 
-      agendas.forEach( function( agenda ) {
+  wn.call( model.agendas().list )
 
-        lib.extend( agenda, {
-          categories: [],
-          locationInfo: ''
-        });
+  .then( function( agendas ) {
 
+    agendas.forEach( function( agenda ) {
+
+      lib.extend( agenda, {
+        categories: [],
+        locationInfo: ''
       });
 
-      mw.render( req, res, 'search/agendas', lib.extend( { agendas: agendas }, _layoutData() ));
+    });
 
-    })
+    cmn.render( req, res, 'search/agendas', lib.extend( { agendas: agendas }, _layoutData(), _pager( req, searchAgendas, 20 ) ));
 
-    .catch( _error( req, res ) );
+  })
 
-  },
+  .catch( _error( req, res ) );
 
-  _error = function( req, res ) {
+}
 
-    return function( err ) {
 
-      if ( typeof err === 'string' ) err = { message: err };
+/**
+ * controller helpers
+ */
 
-      mw.errorResponse( req, res, err );
+function _error( req, res ) {
 
-    };
+  return function( err ) {
+
+    if ( typeof err === 'string' ) err = { message: err };
+
+    cmn.errorResponse( req, res, err );
 
   };
 
-  return map();
+}
 
-},
 
-_layoutData = function( ) {
+
+function _layoutData( ) {
 
   return {
     head: {
@@ -129,4 +157,21 @@ _layoutData = function( ) {
     }
   };
 
-};
+}
+
+function _pager( req, routeName, totalItems ) {
+
+  return {
+    pager: {
+      base: {},
+      routeName: routeName,
+      current: req.query.page || 1,
+      total: totalItems,
+      perPage: app.get('perPage')
+    }
+  };
+
+}
+
+
+module.exports = init;

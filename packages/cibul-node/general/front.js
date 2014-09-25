@@ -1,10 +1,20 @@
-var debug = require( 'debug'),
+/**
+ * general purpose controllers
+ */
 
-log = debug( 'general' ),
+var appName = 'general/front',
 
-express = require( 'express' ),
+exposed = {
+  load: load
+},
 
-mwLib = require( '../middleware' ),
+routes = {
+  presentation: [ 'get', presentation, '/' ]
+},
+
+// libraries used
+
+log = require( '../lib/logger' )( appName ),
 
 async = require( 'async' ),
 
@@ -12,49 +22,70 @@ w = require( 'when' ),
 
 wn = require( 'when/node' ),
 
-lib = require( '../lib.js' ), 
+lib = require( '../lib/lib' ),
 
-router = require( '../router.js' );
+cmn = require( '../lib/commons-app' ),
 
-module.exports = function( base, config ) {
+app,
 
-  var app = express(),
+path;
 
-  mw = mwLib( null, router, config ); // no shit is given here.
 
-  app.set( 'base', base );
+// init and load functions
 
-  app.set( 'name', 'general' );
+function init( p ) {
 
-  app.all( base + '*', router.loadUrlGen( app ), mw.loadSession );
+  log('initing');
 
-  router.loadRoutes(app, controllers( app, mw ) );
+  path = p;
 
-  return app;
+  cmn.registerRoutes( appName, path, routes );
+
+  return exposed;
+
+}
+
+
+function load( main ) {
+
+  if ( app ) {
+
+    log( 'this app has already been loaded' );
+
+    return;
+
+  }
+
+  log( 'loading' );
+
+  app = cmn.loadApp( main, path, appName );
+
+  cmn.loadRoutes( app, routes, [
+    cmn.urlGenSetter( appName, path ),
+    cmn.loadSession
+  ] );
+
+  return exposed;
+
+}
+
+
+/**
+ * controllers
+ */
+
+function presentation( req, res ) {
+
+  cmn.render( req, res, 'presentation/index', _layoutData() );
 
 };
 
-var controllers = function( app, mw ) {
 
-  var map = function() {
+/**
+ * controller helpers
+ */
 
-    return {
-      presentation: [ 'get', presentation, '' ]
-    };
-
-  },
-
-  presentation = function( req, res ) {
-
-    mw.render( req, res, 'presentation/index', _layoutData() );
-
-  };
-
-  return map();
-
-},
-
-_layoutData = function( ) {
+var _layoutData = function( ) {
 
   return {
     head: {
@@ -65,3 +96,5 @@ _layoutData = function( ) {
   };
 
 };
+
+module.exports = init;

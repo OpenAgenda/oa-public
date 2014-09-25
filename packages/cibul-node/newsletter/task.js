@@ -3,13 +3,13 @@
  * renders their newsletter and sends to the mailer through coms
  */
 
-var debug = require('debug'),
+var log = require( '../lib/logger' )( 'newsletter task' ),
 
-lib = require('../lib'),
+lib = require('../lib/lib'),
 
-log = debug('newsletter task'),
+cmn = require( '../lib/commons-task' ),
 
-cibulModel = require('cibulModel/lib/cibulModel'),
+model = cmn.getCibulModel(),
 
 async = require('async'),
 
@@ -17,146 +17,150 @@ builder = require('./build'),
 
 templater = require('cibulTemplates/server/templater'), // this renders the template layout
 
-router = require('../router.js'); // this is required for genUrl
+running = false;
 
-module.exports = function( config, coms ) {
 
-  log('loading task environment');
+/**
+ * exported function list
+ */
 
-  router.loadGlobalRoutes( config.routes );
+exports.load = cmn.makeLoad( run );  // load task using offset and period
+exports.run = run;                   // run task
 
-  var model = cibulModel( config.db, null, { imagePath: config.aws.imageBucketPath } ),
 
-  running = false,
 
-  run = function( cb ) {
+/**
+ * execute the task
+ */
 
-    if ( running ) {
+function run( cb ) {
 
-      log('already running');
+  var nextMinute;
 
-      return;
+  if ( running ) {
 
-    }
+    log( 'already running' );
 
-    log('running');
+    return;
 
-    running = true;
+  }
 
-    var nextMinute = _getNextMinute();
+  log( 'running' );
 
-    log( 'loading campaigns scheduled before %s', nextMinute );
+  running = true;
 
-    model.campaigns().list({ scheduledAt: [ '<=', nextMinute ]  }, _e('campaigns fetched', function( campaigns ) {
+  nextMinute = _getNextMinute();
 
-      log( 'campaigns to be processed: %s', campaigns.length );
+  log( 'loading campaigns scheduled before %s', nextMinute );
 
-      async.each( campaigns, _processCampaign, _e( 'campaigns processed', function() {
+  model.campaigns().list({ scheduledAt: [ '<=', nextMinute ]  }, _e('campaigns fetched', function( campaigns ) {
 
-        running = false;
+    log( 'campaigns to be processed: %s', campaigns.length );
 
-        if ( cb ) cb();
+    async.each( campaigns, _processCampaign, _e( 'campaigns processed', function() {
 
-      }, function() {
+      running = false;
 
-        running = false;
+      if ( cb ) cb();
 
-        if ( cb ) cb();
+    }, function() {
 
-      }));
+      running = false;
+
+      if ( cb ) cb();
 
     }));
 
-  },
+  }));
 
-  _e = _errorHandler(function( err ) {
+}
 
-    log('task ran into an error %s', JSON.stringify( err ));
 
-  }),
+/**
+ * render and queue campaign mails
+ */
 
-  _processCampaign = function( campaign, cb ) {
+function _processCampaign( campaign, cb ) {
 
-    var inst = model.campaigns().instance( campaign );
+  var inst = model.campaigns().instance( campaign );
 
-    async.parallel([
+  async.parallel([
 
-      async.apply( _getNewsletterBodies, inst ),
+    async.apply( _getNewsletterBodies, inst ),
 
-      async.apply( _getCampaignContacts, inst )
+    async.apply( _getCampaignContacts, inst )
 
-    ], _e( 'campaign content generated and contacts retrieved', function( results ) {
+  ], _e( 'campaign content generated and contacts retrieved', function( results ) {
 
-      coms.queue('mailer', {
-        subject: 'Here is your newsletter',
-        html: results[0].html,
-        text: results[0].text,
-        recipient: results[1]
-      }, _e( function() {
+    coms.queue('mailer', {
+      subject: 'Here is your newsletter',
+      html: results[0].html,
+      text: results[0].text,
+      recipient: results[1]
+    }, _e( function() {
 
-        inst.refreshAfterSend( true, cb );
-
-      }, cb));
+      inst.refreshAfterSend( true, cb );
 
     }, cb));
 
-    
-  },
+  }, cb));
 
-  _getCampaignContacts = function( campaign, cb ) {
+}
 
-    campaign.getContactList( _e('contact list retrieved', function( contactList ) {
 
-      model.contactLists().instance( contactList ).contacts.list( _e('contacts retrieved', function( contacts ) {
+function _getCampaignContacts( campaign, cb ) {
 
-        cb( null, contacts.map(function( contact ) {
+  campaign.getContactList( _e('contact list retrieved', function( contactList ) {
 
-          return contact.email;
+    model.contactLists().instance( contactList ).contacts.list( _e('contacts retrieved', function( contacts ) {
 
-        }) );
+      cb( null, contacts.map(function( contact ) {
+
+        return contact.email;
+
+      }) );
+
+    }, cb ));
+
+  }, cb));
+
+}
+
+
+function _getNewsletterBodies( campaign, cb ) {
+
+  campaign.getAgenda( _e( 'agenda retrieved', function( agenda ) {
+
+    builder( model, model.agendas().instance( agenda ), campaign, _e( function( data ){
+
+      data.genUrl = cmn.makeGenUrl({
+        root: '//cibul.net',
+        base: { path: '', values: { slug: agenda.slug } }
+      });
+
+      async.series([
+
+        async.apply( templater,  'newsletter/show', lib.extend({ type: 'html' }, data ) ),
+        async.apply( templater,  'newsletter/show', lib.extend({ type: 'text' }, data ) )
+
+      ], _e( 'campaign html and text content generated', function( results ) {
+
+        cb( null, {
+          html: results[0],
+          text: results[1]
+        });
 
       }, cb ));
 
     }, cb));
 
-  },
+  }, cb));
 
-  _getNewsletterBodies = function( campaign, cb ) {
+}
 
-    campaign.getAgenda( _e( 'agenda retrieved', function( agenda ) {
 
-      builder( model, model.agendas().instance( agenda ), campaign, _e( function( data ){
 
-        data.genUrl = router.makeGenUrl({
-          root: '//cibul.net',
-          base: { path: '', values: { slug: agenda.slug } }
-        });
-
-        async.series([
-
-          async.apply( templater,  'newsletter/show', lib.extend({ type: 'html' }, data ) ),
-          async.apply( templater,  'newsletter/show', lib.extend({ type: 'text' }, data ) )
-
-        ], _e( 'campaign html and text content generated', function( results ) {
-
-          cb( null, {
-            html: results[0],
-            text: results[1]
-          });
-
-        }, cb ));
-
-      }, cb));
-
-    }, cb));
-
-  };
-
-  return run;
-
-};
-
-var _getNextMinute = function() {
+function _getNextMinute() {
 
   var nm = new Date();
 
@@ -166,9 +170,14 @@ var _getNextMinute = function() {
 
   return nm;
 
-},
+}
 
-_errorHandler = function( handler ) {
+
+/**
+ * handle error. deprecate this and use promises
+ */
+
+function _e( handler ) {
 
   return function( label, f, cb ) {
 
@@ -218,4 +227,4 @@ _errorHandler = function( handler ) {
 
   };
 
-};
+}
