@@ -11,29 +11,43 @@ cmn = require( '../lib/commons-task' ),
 
 model = cmn.getCibulModel(),
 
+config = require( '../config' ),
+
 async = require('async'),
+
+w = require( 'when' ),
+
+wn = require( 'when/node' ),
 
 builder = require('./build'),
 
 templater = require('cibulTemplates/server/templater'), // this renders the template layout
 
-running = false;
+running = false,
+
+_onComplete,
+
+_onStart;
 
 
 /**
  * exported function list
  */
 
-exports.load = cmn.makeLoad( run );  // load task using offset and period
-exports.run = run;                   // run task
+exports.load = cmn.makeLoad( run );     // load task using offset and period
+exports.run = run;                      // run task
 
+// for testing
+exports.setOnStart = setOnStart;        // task is running
+exports.setOnComplete = setOnComplete;  // task has completed a run
+exports.setComs = setComs;              // set coms module
 
 
 /**
  * execute the task
  */
 
-function run( cb ) {
+function run() {
 
   var nextMinute;
 
@@ -47,31 +61,57 @@ function run( cb ) {
 
   log( 'running' );
 
+  if ( _onStart ) _onStart();
+
   running = true;
 
   nextMinute = _getNextMinute();
 
+
   log( 'loading campaigns scheduled before %s', nextMinute );
 
-  model.campaigns().list({ scheduledAt: [ '<=', nextMinute ]  }, _e('campaigns fetched', function( campaigns ) {
+  wn.call( model.campaigns().list, { scheduledAt: [ '<=', nextMinute ]  })
+
+  .then( function( campaigns ) {
 
     log( 'campaigns to be processed: %s', campaigns.length );
 
-    async.each( campaigns, _processCampaign, _e( 'campaigns processed', function() {
+    async.each( campaigns, _processCampaign, function( err ) {
+
+      log( 'campaigns processed' );
+      
+      if ( err ) log( 'something went awry.' );
 
       running = false;
 
-      if ( cb ) cb();
+      if ( _onComplete ) _onComplete();
 
-    }, function() {
+    });
 
-      running = false;
+  })
 
-      if ( cb ) cb();
+  .catch( _error );
 
-    }));
+}
 
-  }));
+
+function setOnStart( cb ) {
+
+  _onStart = cb;
+
+}
+
+
+function setOnComplete( cb ) {
+
+  _onComplete = cb;
+
+}
+
+
+function setComs( c ) {
+
+  coms = c;
 
 }
 
@@ -82,79 +122,106 @@ function run( cb ) {
 
 function _processCampaign( campaign, cb ) {
 
+  log( 'processing campaign %s', campaign.uid );
+
   var inst = model.campaigns().instance( campaign );
 
-  async.parallel([
+  wn.call( async.series, [
 
     async.apply( _getNewsletterBodies, inst ),
 
     async.apply( _getCampaignContacts, inst )
 
-  ], _e( 'campaign content generated and contacts retrieved', function( results ) {
+  ])
 
-    coms.queue('mailer', {
+  .spread( function( content, recipient ) {
+
+    log( 'campaign %s content generated and recipients fetched', campaign.uid );
+
+    return wn.call( coms.queue, 'mailer', {
       subject: 'Here is your newsletter',
-      html: results[0].html,
-      text: results[0].text,
-      recipient: results[1]
-    }, _e( function() {
+      html: content.html,
+      text: content.text,
+      recipient: recipient
+    });
 
-      inst.refreshAfterSend( true, cb );
+  })
 
-    }, cb));
+  .then( function() {
 
-  }, cb));
+    inst.refreshAfterSend( true, cb );
+
+  })
+
+  .catch( _error );
 
 }
 
 
 function _getCampaignContacts( campaign, cb ) {
 
-  campaign.getContactList( _e('contact list retrieved', function( contactList ) {
+  wn.call( campaign.getContactList )
 
-    model.contactLists().instance( contactList ).contacts.list( _e('contacts retrieved', function( contacts ) {
+  .then( function( contactList ) {
 
-      cb( null, contacts.map(function( contact ) {
+    return wn.call( model.contactLists().instance( contactList ).contacts.list );
 
-        return contact.email;
+  } )
 
-      }) );
+  .then( function( contacts ) {
 
-    }, cb ));
+    cb( null, contacts.map(function( contact ) {
 
-  }, cb));
+      return contact.email;
+
+    }) );
+
+  })
+
+  .catch( _error );
 
 }
 
 
 function _getNewsletterBodies( campaign, cb ) {
 
-  campaign.getAgenda( _e( 'agenda retrieved', function( agenda ) {
+  log( 'generating newsletter bodies' );
 
-    builder( model, model.agendas().instance( agenda ), campaign, _e( function( data ){
+  var agenda;
+
+  wn.call( campaign.getAgenda )
+
+  .then( function( a ) {
+
+    agenda = model.agendas().instance( a );
+
+    return wn.call( builder, model, agenda, campaign );
+
+  } )
+
+  .then( function( data ) {
 
       data.genUrl = cmn.makeGenUrl({
-        root: '//cibul.net',
+        root: config.root,
         base: { path: '', values: { slug: agenda.slug } }
       });
 
-      async.series([
+      return wn.call(async.series, [
 
         async.apply( templater,  'newsletter/show', lib.extend({ type: 'html' }, data ) ),
         async.apply( templater,  'newsletter/show', lib.extend({ type: 'text' }, data ) )
 
-      ], _e( 'campaign html and text content generated', function( results ) {
+      ]);
 
-        cb( null, {
-          html: results[0],
-          text: results[1]
-        });
+  } )
 
-      }, cb ));
+  .spread( function( html, text ) {
 
-    }, cb));
+    cb( null, { html: html, text: text });
 
-  }, cb));
+  } )
+
+  .catch( _error );
 
 }
 
@@ -172,59 +239,10 @@ function _getNextMinute() {
 
 }
 
+function _error( e ) {
 
-/**
- * handle error. deprecate this and use promises
- */
+  log( 'newsletter task error' );
 
-function _e( handler ) {
-
-  return function( label, f, cb ) {
-
-    if ( arguments.length == 2 ) {
-
-      if ( typeof arguments[0] == 'function' ) {
-
-        f = label;
-
-        cb = f;
-
-        label = false;
-
-      }
-
-    } else if ( arguments.length == 1 ) {
-
-      f = label;
-
-      label = false;
-
-    }
-
-    return function() {
-
-      // run by caller when is calling back with err and remaining args
-
-      if ( label ) log( label );
-
-      var args = Array.prototype.slice.call(arguments, 0);
-
-      err = args.splice( 0, 1 )[0];
-
-      if ( err ) {
-
-        if ( cb ) cb( err );
-        
-        handler( err );
-
-        return;
-
-      }
-
-      f.apply(null, args);
-
-    };
-
-  };
+  throw e;
 
 }

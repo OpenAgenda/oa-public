@@ -1,4 +1,4 @@
-process.env.NODE_ENV = 'testing';
+process.env.NODE_ENV = 'test';
 
 var config = require('../../../config'),
 

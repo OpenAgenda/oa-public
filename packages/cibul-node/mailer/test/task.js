@@ -4,54 +4,47 @@
  * ideally bounces and such should be handled by a task via sns
  */
 
-process.env.NODE_ENV = 'testing';
+process.env.NODE_ENV = 'test';
 
-var debug = require('debug'),
+
+var log = require('../../lib/logger')( 'mailer-tests' ),
 
 should = require('should'),
 
-lib = require('../../lib'),
+lib = require( '../../lib/lib' ),
 
-config = require('../../config'),
+config = require( '../../config' ),
 
-async = require('async');
+async = require('async'),
 
-debug.enable('*');
+coms = require('../../lib/coms'),
 
-var coms = require('../../coms')( config ),
+task = require('../task');
 
-log = debug('mailer-tests'),
-
-forwardedCb,
-
-task = require('../task')( config, coms )( function( err, params, data ) {
-
-  if ( forwardedCb ) forwardedCb( err, params, data );
-
-} );
 
 describe( 'mailer', function() {
 
+  var resultCb;
+
   before( function( done ) {
 
-    log('queuing mail');
+    this.timeout( 20000 );
 
-    coms.queue( 'mailer', {
-      recipient: ['success@simulator.amazonses.com', 'success@simulator.amazonses.com' ],
-      subject: 'this is a test mail',
-      html: '<p>This really is a test mail</p>',
-      text: 'This really is a test mail'
-    }, done );
+    log( 'run task' );
+
+    task.setOnReady( done );
+
+    task.run();
 
   });
 
   it( 'ses mailing is successful', function( done ) {
 
-    this.timeout( 10000 );
-
     var i = 0;
 
-    forwardedCb = function( err, params, data ) {
+    this.timeout( 10000 );
+
+    task.setOnProcessed( function( err, params, data ) {
 
       log( 'got a reply from ses' );
 
@@ -61,12 +54,34 @@ describe( 'mailer', function() {
 
       if ( i == 2 ) done();
 
-    };
+    })
+
+    log( 'queuing mail' );
+
+    coms.queue( 'mailer', {
+      recipient: [ 'success@simulator.amazonses.com', 'success@simulator.amazonses.com' ],
+      subject: 'this is a test mail',
+      html: '<p>This really is a test mail</p>',
+      text: 'This really is a test mail'
+    }, done );
 
   });
 
-  
-  before( function( done ) {
+
+  it( 'ses email bounce', function( done ) {
+
+    task.setOnProcessed( function( err, params, data ) {
+
+      log( 'got a reply from ses' );
+
+      should.not.exist( err );
+
+      done();
+
+    });
+
+
+    log( 'queuing bounce email' );
 
     coms.queue( 'mailer', {
       recipient: 'bounce@simulator.amazonses.com',
@@ -77,18 +92,9 @@ describe( 'mailer', function() {
 
   });
 
+  after( function() {
 
-  it( 'ses mail bounce', function( done ) {
-
-    forwardedCb = function( err, params, data ) {
-
-      log( 'got a reply from ses' );
-
-      should.not.exist( err );
-
-      done();
-
-    };
+    task.shutdown();
 
   });
 

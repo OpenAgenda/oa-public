@@ -2,7 +2,7 @@ var supervisor = require( './lib/supervisor' ),
 
 log = require( './lib/logger' )('server');
 
-supervisor(function( loadTasks ) {
+supervisor( function( loadTasks ) {
 
   log('running server');
 
@@ -38,7 +38,8 @@ supervisor(function( loadTasks ) {
 
   app.listen( config.port );
 
-  
+
+  // only one process runs background tasks. supervisor handles that.
 
   if ( !loadTasks ) return;
 

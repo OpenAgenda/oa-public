@@ -2,19 +2,17 @@
  * test queue and consume features
  */
 
-process.env.NODE_ENV = 'testing';
+process.env.NODE_ENV = 'test';
+
 
 var config = require('../config'),
 
-debug = require('debug'),
+log = require( '../lib/logger' )( 'coms tests' ),
 
 should = require('should'),
 
-coms = require('../coms')( config );
+coms = require('../lib/coms');
 
-debug.enable('*');
-
-var log = debug('coms-tests');
 
 describe( 'testing persistent queue', function() {
 
@@ -23,6 +21,8 @@ describe( 'testing persistent queue', function() {
     var i = 0;
 
     coms.persistentConsume( 'test', function( err, data ) {
+
+      log( 'consuming %s', i );
 
       i++;
 
@@ -36,15 +36,22 @@ describe( 'testing persistent queue', function() {
 
     });
 
+
+    log( 'queuing 1' );
+
     coms.queue( 'test', { some: 'data' });
 
     setTimeout( function() {
+
+      log( 'queuing 2' );
 
       coms.queue( 'test', { someMore: 'randomData' } );
 
     }, 100 );
 
     setTimeout( function() {
+
+      log( 'queuing 3' );
 
       coms.queue( 'test', { third: 'data' } );
 

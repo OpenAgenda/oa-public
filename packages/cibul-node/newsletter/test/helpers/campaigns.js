@@ -1,20 +1,20 @@
-process.env.NODE_ENV = 'testing';
+process.env.NODE_ENV = 'test';
 
 var config = require('../../../config'),
 
-cibulModel = require('cibulModel/lib/cibulModel'),
+cmn = require( '../../../lib/commons-task' ),
 
-model = cibulModel( config.db ),
+model = cmn.getCibulModel(),
 
-fixtures = require('cibulModel/test/fixtures/fixtures')( model ),
+fixtures = require( 'cibulModel/test/fixtures/fixtures' )( model ),
 
-async = require('async'),
+async = require( 'async' ),
 
-w = require('when'),
+w = require( 'when' ),
 
 wn = require( 'when/node' ),
 
-lib = require( '../../../lib' );
+lib = require( '../../../lib/lib' );
 
 
 /**

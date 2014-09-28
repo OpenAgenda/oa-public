@@ -15,29 +15,36 @@ config = require( '../config' ),
  * listen to mailer queue and send any incoming mails through Amazon SES service
  */
 
-coms = require( '../lib/coms' )( config ),
+coms = require( '../lib/coms' ),
 
 cmn = require( '../lib/commons-task' ),
 
 running = false,
 
-_send;
+cli, // queue client
+
+_send,
+
+_onReady,
+
+_onProcessed;
 
 
 /**
  * exported function list
  */
 
-exports.load = cmn.makeLoad( run );  // load task using offset and period
-exports.run = run;                   // run task
-
-
+exports.load = cmn.makeLoad( run );        // load task using offset and period
+exports.run = run;                         // run task
+exports.shutdown = shutdown;               // shut everything down
+exports.setOnReady = setOnReady;           // optional callback to signal that task is up an running
+exports.setOnProcessed = setOnProcessed;   // optional callback called when a mail send has been processed
 
 /**
  * execute the task
  */
 
-function run( cb ) {
+function run() {
 
   if ( running ) {
 
@@ -57,9 +64,39 @@ function run( cb ) {
 
     _send = sendFunc;
 
-    _listen( cb );
+    if ( running ) _listen();
+
+    if ( _onReady ) _onReady();
 
   });
+
+}
+
+
+/**
+ * stop listening to queue.
+ */
+
+function shutdown( ) {
+
+  log( 'shutting down' );
+
+  if ( cli ) coms.end( cli );
+
+  running = false;
+
+}
+
+
+function setOnReady( cb ) {
+
+  _onReady = cb;
+
+}
+
+function setOnProcessed( cb ) {
+
+  _onProcessed = cb;
 
 }
 
@@ -68,18 +105,19 @@ function run( cb ) {
  * stare at queue and call mail function when item shows up
  */
 
-function _listen( cb ) {
+function _listen() {
 
-  coms.consume( 'mailer', function( err, values ) {
+  log( 'listening...' );
+
+  cli = coms.consume( 'mailer', function( err, values ) {
 
     if ( err ) return log('consumption error: %s', JSON.stringify( err ) ); // do more robust shit here
 
-    log('consuming');
+    log( 'consuming' );
 
     var recipients = ( typeof values.recipient == 'string' ) ? [ values.recipient ] : values.recipient,
 
     recipient = recipients.pop();
-
 
     if ( recipients.length ) _queue(lib.extend( values, { recipient : recipients }));
 
@@ -94,7 +132,7 @@ function _listen( cb ) {
 
       log( 'send triggered' );
 
-      _listen( cb );
+      if ( running ) _listen( );
 
     }, function( err, params, data ) { // called when send service reply is made
 
@@ -102,7 +140,7 @@ function _listen( cb ) {
 
       log( 'send result received' );
 
-      if ( cb ) cb( err, params, data );
+      if ( _onProcessed ) _onProcessed( err, params, data );
 
     } );
 
@@ -167,6 +205,8 @@ function _sesMailer( config, cb ) {
 
       minDelay = ( delayMargin + 1 / data.MaxSendRate ) * 1000;
 
+      log( 'min delay established at %s', minDelay );
+
       cb( null, _mail );
 
     });
@@ -195,7 +235,7 @@ function _sesMailer( config, cb ) {
 
     if ( !params.text && !params.html ) return cb( 'missing text and html. use either or both' );
 
-    if ( !mailerConfig.source ) return cb( 'missing source ');
+    if ( !mailerConfig.source ) return cb( 'missing source' );
 
 
     // prepare SES request

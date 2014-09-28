@@ -5,7 +5,7 @@
 
 module.exports = function( model, agenda, campaign, cb ) {
 
-  log('building newsletter data');
+  log( 'building newsletter data' );
 
   async.waterfall([ 
 
@@ -77,7 +77,7 @@ mainInfo = function( model, agenda, campaign, data, cb ) {
 
 contactList = function( model, agenda, campaign, data, cb ) {
 
-  log('retrieving contact list');
+  log( 'retrieving contact list' );
 
   campaign.getContactList(function( err, contactList ) {
 

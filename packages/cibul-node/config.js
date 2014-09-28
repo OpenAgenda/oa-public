@@ -6,6 +6,7 @@ config = {
   all: {
     env: 'prod',
     port: 8901,
+    multiCore: true,
     logLevel: '*',
     name: 'cibul-node',
     root: 'https://cibul.net',
@@ -30,6 +31,7 @@ config = {
       source: 'no-reply@cibul.net',
       replyTo: 'admin@cibul.net'
     },
+    logger: 'bunyan',
     aws: {
       accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
       secretAccessKey: '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',
@@ -125,12 +127,16 @@ config = {
   dev: {
     env: 'dev',
     root: 'https://d.cibul.net',
+    logger: 'debug',
+    multiCore: false,
     routes: {
       defaultGlobalsPrefix: '/frontend_dev.php'
     }
   },
   test: {
     env: 'test',
+    logger: 'debug',
+    multiCore: false,
     db: {
       database: 'cibultest'
     },
