@@ -5,7 +5,9 @@
 
 var log = require( '../lib/logger' )( 'newsletter task' ),
 
-lib = require('../lib/lib'),
+lib = require( '../lib/lib' ),
+
+coms = require( '../lib/coms' ),
 
 cmn = require( '../lib/commons-task' ),
 

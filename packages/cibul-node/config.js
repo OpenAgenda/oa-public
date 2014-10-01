@@ -12,7 +12,8 @@ config = {
     root: 'https://cibul.net',
     db: {
       database: 'cibul',
-      host: 'localhost',
+      host: 'cibul.cjlxznnlwwtq.eu-west-1.rds.amazonaws.com',
+      port: 3306,
       user: 'root',
       password: 'V4\'&4F:,Mtji\'hzq'
     },
@@ -36,7 +37,7 @@ config = {
       accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
       secretAccessKey: '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',
       region: 'eu-west-1',
-      imageBucketPath: '//cibul.s3.amazonaws.com/'
+      imageBucketPath: 'https://cibul.s3.amazonaws.com/'
     },
     routes: {
       globals: {

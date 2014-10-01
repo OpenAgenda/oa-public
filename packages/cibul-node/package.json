@@ -11,7 +11,7 @@
     "cibulModel" : "git+ssh://git@bitbucket.org:cibul/cibulmodel.git",
     "cibulTemplates" : "git+ssh://git@bitbucket.org:cibul/cibul-templates.git",
     "aws-sdk" : "~2.0",
-    "when" : "3.4~",
+    "when" : "~3.4",
     "zombie" : "*",
     "should" : "~4.0",
     "bunyan" : "~1.0"

@@ -11,7 +11,7 @@ log = require( '../lib/logger' )( 'coms tests' ),
 
 should = require('should'),
 
-coms = require('../lib/coms');
+coms = require( '../lib/coms' );
 
 
 describe( 'testing persistent queue', function() {
@@ -26,7 +26,7 @@ describe( 'testing persistent queue', function() {
 
       i++;
 
-      if ( i==3 ) {
+      if ( i == 3 ) {
 
         data.should.have.property( 'third', 'data');
 
