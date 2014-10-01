@@ -11,10 +11,10 @@ config = {
     name: 'cibul-node',
     root: 'https://cibul.net',
     db: {
-      database: 'cibuldev',
+      database: 'cibul',
       host: 'localhost',
       user: 'root',
-      password: 'grut'
+      password: 'V4\'&4F:,Mtji\'hzq'
     },
     redis: {
       host: '127.0.0.1',
@@ -129,6 +129,12 @@ config = {
     root: 'https://d.cibul.net',
     logger: 'debug',
     multiCore: false,
+    db: {
+      database: 'cibuldev',
+      host: 'localhost',
+      user: 'root',
+      password: 'grut'
+    },
     routes: {
       defaultGlobalsPrefix: '/frontend_dev.php'
     }
@@ -140,7 +146,8 @@ config = {
     db: {
       database: 'cibultest'
     },
-  }
+  },
+  prod: {}
 };
 
 process.env.NODE_ENV = currentEnv;
