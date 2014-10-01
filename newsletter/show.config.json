@@ -1,7 +1,7 @@
 {
   "layout" : "newsletter/layout",
   "base" : {
-    "logo" : "//cibulstatic.s3.amazonaws.com/biglogo.png",
+    "logo" : "https://cibulstatic.s3.amazonaws.com/biglogo.png",
     "previewLink" : true,
     "mobileMeta" : false,
     "css" : {

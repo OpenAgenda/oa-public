@@ -12,11 +12,11 @@ destPublicTemplatePath = require('./files.js').destPublicTemplatePath,
 
 map = JSON.parse( fs.readFileSync('../map.json', "utf8") ),
 
-cn = require('../js/lib/common/common.mod.js'),
+cn = require( '../js/lib/common/common.mod.js' ),
 
-async = require('async'),
+async = require( 'async' ),
 
-debug = require('debug'),
+debug = require( 'debug' ),
 
 labels = false,
 
@@ -26,7 +26,7 @@ mangle = true,
 
 log,
 
-browserify = require('browserify'),
+browserify = require( 'browserify' ),
 
 run = function() {
 
