@@ -8,7 +8,7 @@ var inputValidators = {
 
   isTime: function(label) {
 
-    return this.regex(label?label:'Input should be a valid time written as such: hh:ss', /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/);
+    return this.regex(label?label:'Input should be a valid time written as such: hh:ss', /^([0-9]|0[0-9]|1[0-9]|2[0-3])(:|h)[0-5][0-9]$/);
 
   },
 
