@@ -121,9 +121,23 @@ _loadTemplate = function( templateName ) {
       name: templateName.replace('.part', '')
     };
 
-    fs.readFile(baseTemplatePath + '.config.json', 'utf-8', function( err, config ) {
+    log( 'reading contents of %s', baseTemplatePath + '.config.json' );
 
-      data.config = JSON.parse( config );
+    fs.readFile( baseTemplatePath + '.config.json', 'utf-8', function( err, config ) {
+
+      if ( err ) throw err;
+
+      try {
+
+        data.config = JSON.parse( config );
+        
+      } catch ( err ) {
+
+        log( 'trouble parsing config file contents: %s', config );
+
+        throw err;
+
+      }
 
       data.template = baseTemplatePath + ( isPartial ? '.part' : '' ) + '.ejs';
 
