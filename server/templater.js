@@ -126,11 +126,11 @@ _loadTemplate = function( templateName ) {
     fs.readFile( baseTemplatePath + '.config.json', 'utf-8', function( err, config ) {
 
       if ( err ) throw err;
-
+ 
       try {
 
         data.config = JSON.parse( config );
-        
+       
       } catch ( err ) {
 
         log( 'trouble parsing config file contents: %s', config );
@@ -224,13 +224,20 @@ _loadHelpers = function( data, cb ) {
 
   if ( !data.config.helpers ) return cb( null, data );
 
+  var helpersConfig = {
+    lang: data.lang ? data.lang : 'fr',
+    timezone: data.timezone ? data.timezone : '+0200'
+  }
+
   data.helpers = {};
 
   for ( var name in data.config.helpers ) {
 
-    if (!helpers[name]) {
+    if ( !helpers[ name ] ) {
 
-      helpers[name] = require( __dirname + '/../helpers/' + data.config.helpers[name])( { lang: 'fr' } );
+      // lang, timezone go here
+
+      helpers[name] = require( __dirname + '/../helpers/' + data.config.helpers[name])( helpersConfig );
 
     }
 

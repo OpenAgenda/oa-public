@@ -2,11 +2,13 @@
  * format date or objects of dates according to the given format
  */
 
-var moment = require('moment');
+var moment = require( 'moment' );
 
 module.exports = function( config ) {
 
-  moment.lang(config.lang ? config.lang : 'en');
+  var timezone = config.timezone ? config.timezone : '+0200';
+
+  moment.locale(config.lang ? config.lang : 'en');
 
   return function( date, format ) {
 
@@ -20,7 +22,7 @@ module.exports = function( config ) {
 
       for ( var k in date ) {
 
-        clean[k] = formatDate( date[k], format );
+        clean[k] = formatDate( date[k], format, timezone );
 
       }
 
@@ -28,7 +30,7 @@ module.exports = function( config ) {
 
     } else {
 
-      return formatDate( date, format );
+      return formatDate( date, format, timezone );
 
     }
 
@@ -36,7 +38,7 @@ module.exports = function( config ) {
 
 };
 
-var formatDate = function ( date, format ) {
+var formatDate = function ( date, format, timezone ) {
 
   if ( !(date instanceof Date)) {
 
@@ -44,6 +46,6 @@ var formatDate = function ( date, format ) {
 
   }
 
-  return moment(date).format( format );
+  return moment( date ).zone( timezone ).format( format );
 
 };
