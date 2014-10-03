@@ -141,7 +141,7 @@ function _processCampaign( campaign, cb ) {
     log( 'campaign %s content generated and recipients fetched', campaign.uid );
 
     return wn.call( coms.queue, 'mailer', {
-      subject: 'Here is your newsletter',
+      subject: inst.title,
       html: content.html,
       text: content.text,
       recipient: recipient

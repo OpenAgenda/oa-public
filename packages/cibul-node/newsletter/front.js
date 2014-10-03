@@ -27,7 +27,7 @@ lib = require( '../lib/lib' ),
 
 cmn = require( '../lib/commons-app' ),
 
-build = require('./build'),
+build = require( './build' ),
 
 app,
 
@@ -106,12 +106,12 @@ function contactUnsubscribeShow( req, res ) {
 
   req.agenda.contactLists.get({ uid: req.params.uid }, function ( err, contactList ) {
 
-    if (err) return cmn.errorResponse( req, res, err );
+    if ( err ) return cmn.errorResponse( req, res, err );
 
-    cmn.render(req, res, 'newsletter/unsubscribe', lib.extend(contactList, lib.extend({
+    cmn.render( req, res, 'newsletter/unsubscribe', lib.extend( contactList, lib.extend({
       uid: req.params.uid,
       error: false
-    }, _layoutData())));
+    }, _layoutData() )));
 
   });
 
@@ -127,7 +127,7 @@ function contactUnsubscribeSubmit( req, res ) {
 
     if ( err ) return cmn.errorResponse( req, res, err );
 
-    return router.redirect(req, res, 'contactUnsubscribeComplete', {uid: req.params.uid});
+    return cmn.redirect(req, res, 'contactUnsubscribeComplete', {uid: req.params.uid});
 
   }, function( error, contactList ) {
 
