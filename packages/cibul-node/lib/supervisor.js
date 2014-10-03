@@ -33,11 +33,11 @@ module.exports = function( job ) {
 
 function master() {
 
-  var total = require( 'os' ).cpus().length,
+  var total = config.multiCore ? require( 'os' ).cpus().length : 1,
 
   tasksWorker;
 
-  total = 1;
+  log( 'will run on %d workers', total );
 
   for ( var i = 0; i < total; i++ ) {
 

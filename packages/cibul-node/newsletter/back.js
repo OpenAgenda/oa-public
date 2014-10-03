@@ -120,7 +120,7 @@ function index( req, res ) {
 
     cmn.render( req, res, 'newsletter/admin/index', lib.extend({
       campaigns: campaigns,
-      contactLists: contactLists,
+      contactLists: contactLists
     }, _layoutData( req.agenda )));
 
   })

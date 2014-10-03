@@ -229,11 +229,13 @@ function render( req, res, templatePath, data, maintain ) {
 
 function loadSession( req, res, next ) {
 
-  redisCli.get( config.session.prefix + req.cookies[ config.session.cookie ], function( err, reply ) {
+  var sessionKey = config.session.prefix + req.cookies[ config.session.cookie ];
+
+  redisCli.get( sessionKey, function( err, reply ) {
 
     if ( err || !reply ) {
 
-      log('session not found. Assuming user is not logged');
+      log( 'session not found. Assuming user is not logged' );
 
       req.session = {
         culture: 'fr',
@@ -243,7 +245,7 @@ function loadSession( req, res, next ) {
 
     } else {
 
-      log('session found and loaded');
+      log( 'session found and loaded' );
 
       req.session = JSON.parse( reply );
 
@@ -251,7 +253,7 @@ function loadSession( req, res, next ) {
 
     _defineLang( req, req.session.culture );
 
-    log('session is loaded');
+    log( 'session is loaded: %s', sessionKey );
 
     next();
 
