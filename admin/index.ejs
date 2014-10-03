@@ -1,0 +1,20 @@
+<div class="body">
+	<div class="reviews">
+ 		<h2><%= __('Reviews') %></h2>
+ 		<p> <%= __('Number of reviews created %totalReviews%', {'%totalReviews%': reviews.total}) %> </p>
+ 		<p> <%= __('This week') %> <%= __( '%reviewsWeek% reviews' , {'%reviewsWeek%': reviews.totalInWeek} )  %></p>
+		<p><%= __('This month') %> <%= __( '%reviewsMonth% reviews' , {'%reviewsMonth%': reviews.totalInMonth} )  %></p>
+ 	</div>
+ 	<div class="events">
+ 		<h2><%= __('Events') %></h2>
+ 		<p> <%= __('Number of events created %totalEvents%', {'%totalEvents%': events.total} ) %>  </p>
+ 		<p><%= __('This week') %> <%= __( '%eventsWeek% events' , {'%eventsWeek%': events.totalInWeek} )  %></p>
+		<p><%= __('This month')%> <%= __( '%eventsMonth% events' , {'%eventsMonth%': events.totalInMonth} ) %></p>
+ 	</div>
+ 	<div class="users">
+ 		<h2><%= __('Users') %></h2>
+ 		<p><%= __('Number of users created %totalUsers%', {'%totalUsers%': users.total}) %> </p>
+ 		<p><%= __('This week')%> <%= __( '%usersWeek% users' , {'%usersWeek%': users.totalInWeek} )  %></p>
+		<p><%= __('This month')%> <%= __( '%usersMonth% users' , {'%usersMonth%': users.totalInMonth} ) %></p>
+ 	</div>
+ </div>

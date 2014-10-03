@@ -123,7 +123,14 @@ _loadTemplate = function( templateName ) {
 
     fs.readFile(baseTemplatePath + '.config.json', 'utf-8', function( err, config ) {
 
-      data.config = JSON.parse( config );
+      if ( err ) throw err;
+
+	try {
+	    data.config = JSON.parse( config );
+	}, catch ( err ) {
+	    log ( 'Cannot parse this %s', config);
+	    throw err;
+	}
 
       data.template = baseTemplatePath + ( isPartial ? '.part' : '' ) + '.ejs';
 

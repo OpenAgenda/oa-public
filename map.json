@@ -1,4 +1,6 @@
 [
+  "home/index",
+  "admin/index",
   "presentation/index",
   "agenda/main",
   "search/agendas",
