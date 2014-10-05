@@ -2,22 +2,23 @@
  * common web app module middleware and initialization functions
  */
 
-exports.loadApp = loadApp;                   // load module web app in main app
-exports.loadRoutes = loadRoutes;             // load module web app routes
+exports.loadApp = loadApp;                        // load module web app in main app
+exports.loadRoutes = loadRoutes;                  // load module web app routes
 
-exports.getCibulModel = getCibulModel;       // get model instance
-exports.render = render;                     // render templates. cibul-templates caller
-exports.errorResponse = errorResponse;       // render error page
+exports.getCibulModel = getCibulModel;            // get model instance
+exports.render = render;                          // render templates. cibul-templates caller
+exports.errorResponse = errorResponse;            // render error page
 
-exports.loadAgenda = loadAgenda;             // middleware. loads an agenda in the request based on its slug
-exports.requireLogged = requireLogged;       // middleware. verify if user is logged
-exports.loadSession = loadSession;           // middleware. load session data
-exports.checkCredential = checkCredential;   // middleware. check that request agenda has required credential
-exports.flashSetter = flashSetter;           // middleware. set a flash prior to redirect
+exports.loadAgenda = loadAgenda;                  // middleware. loads an agenda in the request based on its slug
+exports.requireLogged = requireLogged;            // middleware. verify if user is logged
+exports.loadSession = loadSession;                // middleware. load session data
+exports.checkCredential = checkCredential;        // middleware. check that request agenda has required credential
+exports.flashSetter = flashSetter;                // middleware. set a flash prior to redirect
+exports.checkAdministrator = checkAdministrator;  // middleware. checks that logged user is administrator of loaded agenda
 
-exports.urlGenSetter = urlGenSetter;         // router proxy function & middleware. load url generator in request
-exports.registerRoutes = registerRoutes;     // router proxy function. register app module routes in router
-exports.redirect = redirect;                 // router proxy function. do a redirect
+exports.urlGenSetter = urlGenSetter;              // router proxy function & middleware. load url generator in request
+exports.registerRoutes = registerRoutes;          // router proxy function. register app module routes in router
+exports.redirect = redirect;                      // router proxy function. do a redirect
 
 
 
@@ -143,6 +144,31 @@ function loadAgenda( req, res, next, slug ) {
 
 }
 
+
+/**
+ * middleware for checking that logged user is administrator of 
+ * agenda loaded in request
+ */
+
+function checkAdministrator( req, res, next ) {
+
+  wn.call( req.agenda.isAdministrator, { id: req.session.id } )
+
+  .then( function( isAdmin ) {
+
+    if ( !isAdmin ) throw { message : 'You do not have access to the administration of this agenda.' };
+
+    next();
+
+  } )
+
+  .catch( function( err ) {
+
+    errorResponse( req, res, err );
+
+  } );
+
+}
 
 
 /**

@@ -10,5 +10,9 @@
   "The contact list was created"
   : "La liste de contacts a été créée",
   "The campaign was deleted"
-  : "La campagne a été supprimée"
+  : "La campagne a été supprimée",
+  "You do not have access to the administration of this agenda."
+  : "Vous n'avez pas accès à l'adminstration de cet agenda.",
+  "Whoops. Could not retrieve the agenda."
+  : "Oups. L'agenda n'a pas été retrouvé."
 }

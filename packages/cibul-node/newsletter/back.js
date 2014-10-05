@@ -86,6 +86,7 @@ function load( main ) {
 
   app.use( require( 'body-parser' ).urlencoded( { extended: true } ) );
 
+  // load agenda matching route :slug in req.agenda
   app.param( 'slug', cmn.loadAgenda );
 
   cmn.loadRoutes( app, routes, [
@@ -93,7 +94,8 @@ function load( main ) {
     cmn.flashSetter,
     cmn.loadSession,
     cmn.requireLogged,
-    cmn.checkCredential( 'newsletters' )
+    cmn.checkCredential( 'newsletters' ),
+    cmn.checkAdministrator
   ] );
 
   return exposed;
@@ -421,9 +423,11 @@ function campaignFeaturedEdit( req, res ) {
 
   wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
-  .then( function( campaign ) {
+  .then( function( c ) {
 
-    campaign = req.agenda.campaigns.instance( campaign );
+    var campaign = req.agenda.campaigns.instance( c );
+
+    log( 'filters set: %s', JSON.stringify( req.query.filters ) );
 
     return wn.call( async.parallel, [
       async.apply( campaign.events.total, { filters: req.query.filters }),
@@ -805,10 +809,6 @@ function contactRemove( req, res ) {
 function _error( req, res ) {
 
   return function( err ) {
-
-    console.log( ' ==============' );
-    console.log( err );
-    console.log( ' ==============' );
 
     if ( typeof err === 'string' ) err = { message: err };
 
