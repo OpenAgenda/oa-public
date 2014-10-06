@@ -155,6 +155,16 @@ _clear = function( classes ) {
 
   cn.removeClass( cn.el('body'), classes.body );
 
+
+  if ( cn.el( 'body' ).style.marginTop !== '0px' ) {
+
+    cn.el( 'body' ).scrollTop = - cn.el( 'body' ).style.marginTop.replace( 'px','' );
+    
+    cn.el( 'body' ).style.marginTop = 0;
+
+  }
+  
+
   if ( onClose ) {
 
     onClose();
@@ -194,9 +204,13 @@ _positionFrame = function() {
 
   if (frameElem.offsetHeight > cn.windowInnerHeight()) {
 
+    // adjust body position
+    cn.el( 'body' ).style.marginTop = '-' + cn.getScrollOffsets().y + 'px';
+
     cn.extend(frameElem.style, {
       maxHeight: (cn.windowInnerHeight()-20) + 'px',
-      overflowY: 'scroll'
+      overflowY: 'scroll',
+      top: cn.getScrollOffsets().y + 'px'
     });
 
   } else {
