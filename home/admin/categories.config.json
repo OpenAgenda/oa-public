@@ -1,0 +1,10 @@
+{
+  "layout": "layout/main",
+  "css" : {
+    "home" : "../css/style.css"
+   },
+
+  "helpers" : {
+    "_t" : "time"
+  }
+}

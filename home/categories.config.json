@@ -1,0 +1,14 @@
+{
+  "layout": "layout/main",
+  "css" : {
+    "admin" : "../css/style.css"
+   },
+
+  "helpers" : {
+    "_t" : "time"
+  },
+
+  "base" : {
+    "tab" : "admin"
+  }
+}

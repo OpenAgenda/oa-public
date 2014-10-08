@@ -13,6 +13,7 @@
 
 <div>
     <h1> <%= review.title %> </h1>
+    <a href="<%= genUrl( 'categoriesGet', {slug: review.slug} ) %>"> Categories and tags </a>
 </div>
 
 <% include ../general/pages %>
@@ -21,7 +22,11 @@
 <ul class="glist">
 <% for(var key in events) { %>
   <li>
-    <span class="title"><%= events[key].title.fr %></span>
+  	<div class="event">
+      <a href="<%= genUrl( 'agendaEventShow', {slug: review.slug, eSlug: events[key].slug}, {abs: true} ) %>" ><%= events[key].title.fr %></a> <br/>
+      <p><%= events[key].description.fr %></p>
+      <br/>	
+    </div>
   </li>
 </ul>
 <% } %>
