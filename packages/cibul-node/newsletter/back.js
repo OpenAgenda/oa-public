@@ -845,7 +845,7 @@ function _processCampaignSave( req, cb, formCb ) {
 
     // load campaign model validators
 
-    req.agenda.campaigns[uid ? 'validateAndUpdate' : 'validateAndCreate']( values, { uid : uid }, function ( err, result ) {
+    req.agenda.campaigns[ uid ? 'validateAndUpdate' : 'validateAndCreate' ]( values, { uid : uid }, function ( err, result ) {
 
       if ( err ) return cb( err );
 

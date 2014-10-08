@@ -40,13 +40,13 @@ wn = require( 'when/node' ),
 
 model = require( 'cibulModel' )( config.db, config.redis, { imagePath: config.aws.imageBucketPath } ),
 
-router = require( './router'),
+router = require( './router' ),
 
-redisCli = require('redis').createClient( config.redis.port, config.redis.host ),
+redisCli = require( 'redis' ).createClient( config.redis.port, config.redis.host ),
 
 templater = require( 'cibulTemplates/server/templater' ),
 
-i18n = require('../i18n/i18n.js');
+i18n = require( '../i18n/i18n.js' );
 
 
 
