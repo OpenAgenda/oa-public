@@ -50,13 +50,15 @@ var handleList = function(elem, eventHandler, options) {
 
     parameters = options.url.getUrlParameters();
 
-    if (parameters.page == '1') delete parameters.page;
+    if ( parameters.page == '1' ) delete parameters.page;
 
-    if (elem.innerHTML) pageRange = [parseInt(_getParameter('page',1),10), parseInt(_getParameter('page',1),10)];
+    if ( elem.innerHTML ) pageRange = [parseInt(_getParameter('page',1),10), parseInt(_getParameter('page',1),10)];
 
     // load all templates and behavior functions
-    for (var index in options.templates) {
+    for ( var index in options.templates ) {
+
       templates[index] = new EJS({ text: options.templates[index] });
+
     }
 
     var aParameters = options.anchor?hash.getBase64Param(options.anchor,{}):{};
@@ -220,6 +222,7 @@ var handleList = function(elem, eventHandler, options) {
         eventHandler.trigger(options.triggeredEvents.itemReady, {element: element, data: value});
 
       };
+
 
       if (position!==BEFORE)
         for (var i = 0; i < data.data.length; i++)
