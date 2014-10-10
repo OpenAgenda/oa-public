@@ -17,7 +17,10 @@ var runProgramBehavior = function(params) {
       labels: { tags: 'Tags', aggLink: 'use as sources', currentTags: 'Current Tags', programTags: 'Program Tags', addTag: 'Add a Tag', add: 'Add', more: 'more...' }, // required
       links: { follow: false, unfollow: false, addEvent: false },
       lightboxClasses: {frame: 'wsq lightbox-frame', canvas: 'lightbox-canvas', buttonBox: 'lightbox-buttons', button: 'small button'},
-      callbacks: {}
+      callbacks: {},
+      selectors : {
+        orgItem : '.js_org'
+      }
     }, params);
 
     params.templates = extend({
@@ -28,6 +31,7 @@ var runProgramBehavior = function(params) {
       aggLink: '<a><i class="icon-share-alt"></i><span><%= label %></span></a>',
       actionsButton: '<a class="button small"><%= label %></a>'
     }, params.templates?params.templates:{});
+
 
     params.elems = extend({
       list: el('.list-items'),
@@ -202,7 +206,7 @@ var runProgramBehavior = function(params) {
         section: params.templates.section
       },
       scripts: {
-        article: function(){},
+        article: onArticleLoad,
         section: function(){}
       },
       triggerEvents: { load: 'load', loadPrevious: 'loadPrevious', loadNext: 'loadNext', getParams: 'getlistparams' },
@@ -212,9 +216,25 @@ var runProgramBehavior = function(params) {
 
   },
 
+  onArticleLoad = function( aElem, data ) {
+
+    if ( data.organization ) {
+
+      addEvent( el( aElem, params.selectors.orgItem ), 'click', function( e ) {
+
+        preventDefault( e );
+
+        eh.trigger( 'load', { org: data.organization.slug, orgLabel: data.organization.label } );
+
+      } );
+
+    }
+
+  },
+
   initPageNav = function(){
 
-    handleNav(el('.js_nav_previous'), el('.js_nav_next'), eh, {
+    handleNav( el('.js_nav_previous'), el('.js_nav_next'), eh, {
       triggerEvents: { loading: 'lhLoading', loadSuccess: 'lhSuccess', loadFail: 'lhFail'},
       triggeredEvents: { getNextPage: 'loadNext', getPreviousPage: 'loadPrevious' },
       url: params.currentUrl,

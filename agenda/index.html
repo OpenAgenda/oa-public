@@ -157,6 +157,9 @@
     </div>
     <script type="text/javascript">
 
+      // var aUid = 97216733; // la gargouille
+      var aUid = 71671864; // pepite
+
       handleSession({
         url: 'd.cibul.net/frontend_dev.php/session/fr',
         debug: true,
@@ -166,8 +169,11 @@
       // empty program
       //var programUrl = 'http://d.cibul.net/frontend_dev.php/empty/fr';
 
-      var programUrl = '//d.cibul.net/frontend_dev.php/la-gargouille/fr';
+      //var programUrl = '//d.cibul.net/frontend_dev.php/la-gargouille/fr';
+      
       //var programUrl = 'http://d.cibul.net/frontend_dev.php/festival-culture-bar-bars-2013/fr';
+
+      var programUrl = '//d.cibul.net/frontend_dev.php/pepite/fr';
 
       runProgramBehavior({
         url: programUrl,
@@ -185,9 +191,9 @@
         lang: 'fr',
         resources: {
           edit: '#edit',
-          aggList: '//d.cibul.net/frontend_dev.php/program/97216733/aggregator/sourcecontext',
-          aggAdd: '//d.cibul.net/frontend_dev.php/program/97216733/aggregator/addTo/aUid',
-          aggRemove: '//d.cibul.net/frontend_dev.php/program/97216733/aggregator/removeFrom/aUid',
+          aggList: '//d.cibul.net/frontend_dev.php/program/' + aUid + '/aggregator/sourcecontext',
+          aggAdd: '//d.cibul.net/frontend_dev.php/program/' + aUid + '/aggregator/addTo/aUid',
+          aggRemove: '//d.cibul.net/frontend_dev.php/program/' + aUid + '/aggregator/removeFrom/aUid',
           tagAdd: '//d.cibul.net/frontend_dev.php/programarticle/tagsubmit/aId',
           tagRemove: '//d.cibul.net/frontend_dev.php/programarticle/tagremove/aId',
           empty: '//d.cibul.net/frontend_dev.php/howto/newprogram/fr'
@@ -217,8 +223,8 @@
           more: 'plus...'
         },
         templates: {
-          article: '<li class="pli<% if (typeof categoryClass !== \'undefined\') { %> <%= categoryClass %><% } %>" data-euid="<%= uid %>"><!--<% if (typeof aContent !== \'undefined\') { %>--><div class="plihd">  <% if (typeof aImage !== \'undefined\') { %><a href="<%= aUrl %>" class="hdthumb"><img alt="<%= aTitle %>" src="<%= aImage %>"/></a><% } %>  <div>    <a class="pliname" href="<%= aUrl %>"><%= aTitle %></a>    <p><%= aContent %></p>  </div></div><!--<% } %>--><div class="ei<% if (typeof image == \'undefined\') { %> nopic<% } %>" data-slug="<%= slug %>"><!----><% if (typeof image !== \'undefined\') { %><a class="evpic" href="<%= url %>"><img alt="<%= title %>" src="<%= image %>"/></a><% } %><!----><div class="evcnt">    <ul>      <li class="evtitle"><a href="<%= url %>"><%= title %></a></li>      <li class="evdesc"><a href="<%= url %>"><%= description %></a></li>      <li class="evspacetime"><a href="<%= url %>"><%= spacetimeinfo %></a></li>      <% if (typeof city !== \'undefined\') { %><li class="evcity"><a href="<%= url %>"><%= city %></a></li><% } %>      <% if (typeof ticket !== \'undefined\') { %><li class="evticket"><a class="url" target="_blank" href="<%= ticket %>"><i class="icon-ticket"></i></a></li><% } %>      <% if (typeof category!==\'undefined\') { %><li class="ecat<% if (typeof categoryClass !== \'undefined\'){ %> <%= categoryClass %><% } %>"><span data-slug="<%= categorySlug %>"><%= category %></span></li><% } %><% if (typeof tags !== \'undefined\') { %><li class="etags">  <ul><% for (var i=0; i<tags.length; i++) { %><li><span class="program-tag" data-slug="<%= tags[i].slug %>"><%= tags[i].label %></span></li><% } %>  </ul></li><% } %><% if (typeof fbEventId !== \'undefined\') { %><li class="evfacebook">  <a href="https://facebook.com/<%= fbEventId %>" target="_blank" class="url"><i class="icon-facebook"></i></a></li><% } %>    </ul>  </div></div><!----></li>',
-          programItem: '<div class="rw-item srwi<% if (typeof image == \'undefined\') { %> nopic<% } %>"><% if (typeof image !== \'undefined\') { %><a class="rwi-pic" href="<%= url %>"><img alt="<%= title %>" src="<%= image %>"/></a><% } %><!----><div class="rwi-content">    <div class="rwi-title"><a href="<%= url %>"><%= title %></a></div>      </div></div>'
+          article: '<li class="pli<% if (typeof categoryClass !== \'undefined\') { %> <%= categoryClass %><% } %>" data-euid="<%= uid %>"><!--<% if ( typeof aContent !== \'undefined\' ) { %>--><div class="plihd">  <% if ( typeof aImage !== \'undefined\' ) { %><a href="<%= aUrl %>" class="hdthumb"><img alt="<%= aTitle %>" src="<%= aImage %>"/></a><% } %>  <div>    <a class="pliname" href="<%= aUrl %>"><%= aTitle %></a>    <p><%= aContent %></p>  </div></div><!--<% } %>--><div class="ei<% if (typeof image == \'undefined\') { %> nopic<% } %>" data-slug="<%= slug %>"><!----><% if (typeof image !== \'undefined\') { %><a class="evpic" href="<%= url %>"><img alt="<%= title %>" src="<%= image %>"/></a><% } %><!----><div class="evcnt">    <ul>      <li class="evtitle"><a href="<%= url %>"><%= title %></a></li>      <% if ( typeof organization !== \'undefined\' ) { %>      <li><a class="evorg js_org hurl" href="<%= url %>"><%= organization.label %></a></li>      <% } %>      <li class="evdesc"><a href="<%= url %>"><%= description %></a></li>      <li class="evspacetime"><a href="<%= url %>"><%= spacetimeinfo %></a></li>      <% if (typeof city !== \'undefined\') { %><li class="evcity"><a href="<%= url %>"><%= city %></a></li><% } %>      <% if (typeof ticket !== \'undefined\') { %><li class="evticket"><a class="url" target="_blank" href="<%= ticket %>"><i class="icon-ticket"></i></a></li><% } %>      <% if (typeof category!==\'undefined\') { %><li class="ecat<% if (typeof categoryClass !== \'undefined\'){ %> <%= categoryClass %><% } %>"><span data-slug="<%= categorySlug %>"><%= category %></span></li><% } %><% if (typeof tags !== \'undefined\') { %><li class="etags">  <ul><% for (var i=0; i<tags.length; i++) { %><li><span class="program-tag" data-slug="<%= tags[i].slug %>"><%= tags[i].label %></span></li><% } %>  </ul></li><% } %><% if (typeof fbEventId !== \'undefined\') { %><li class="evfacebook">  <a href="https://facebook.com/<%= fbEventId %>" target="_blank" class="url"><i class="icon-facebook"></i></a></li><% } %>    </ul>  </div></div><!----></li>',
+          programItem: '<div class="rw-item srwi<% if (typeof image == \'undefined\') { %> nopic<% } %>"><% if (typeof image !== \'undefined\') { %><a class="rwi-pic" href="<%= url %>"><img alt="<%= title %>" src="<%= image %>"/></a><% } %><!----><div class="rwi-content">    <div class="rwi-title"><a href="<%= url %>"><%= title %></a></div>      </div></div>',
         },
         callbacks: {
           edit: function(name, id) { 
