@@ -16,7 +16,7 @@ var addHeadFilterBehavior = function(params) {
     locations: false,
     categories: [],
     tags: [], // [{slug: tag slug, label: tag label}]
-    template: '<span class="pfilter"><i class="<%= icon %>"></i><span><%= label %></span><button class="js_remove_filter">&times;</button></span>',
+    template: '<span class="pfilter"><span><%= label %></span><button class="js_remove_filter">&times;</button></span>',
     filterTypes: {
       location: { icon: 'icon-map-marker', params: ['location'] },
       category: { icon: 'icon-bookmark', params: ['category'] },

@@ -54,6 +54,8 @@ var runProgramBehavior = function(params) {
 
     _initWidgetLink();
 
+    _initOrganization();
+
     getControlData(forEachLocationOfEachArticle, [extractLocation, extractDate, extractCurrentEditors], function(controlData, processedData) {
 
       // merge actual editors with active ones
@@ -135,6 +137,8 @@ var runProgramBehavior = function(params) {
     setLinksElems(els(el('.title'), 'p'), {targetBlank: true, className: 'url'});
 
   },
+
+
 
   _initSocialShares = function() {
 
@@ -220,15 +224,34 @@ var runProgramBehavior = function(params) {
 
     if ( data.organization ) {
 
-      addEvent( el( aElem, params.selectors.orgItem ), 'click', function( e ) {
-
-        preventDefault( e );
-
-        eh.trigger( 'load', { org: data.organization.slug, orgLabel: data.organization.label } );
-
-      } );
+      _eventifyOrganization( el( aElem, params.selectors.orgItem ), data.organization );
 
     }
+
+  },
+
+  _initOrganization = function() {
+
+    forEach( els( params.elems.list, '.js_org' ), function( elem ) {
+
+      _eventifyOrganization( elem, {
+        slug: elem.getAttribute( 'data-org-slug' ),
+        label: elem.innerHTML
+      } );
+
+    } );
+
+  },
+
+  _eventifyOrganization = function( orgElem, data ) {
+
+    addEvent( orgElem, 'click', function( e ) {
+
+      preventDefault( e );
+
+      eh.trigger( 'load', { org: data.slug, orgLabel: data.label } );
+
+    } );
 
   },
 
@@ -449,4 +472,4 @@ var runProgramBehavior = function(params) {
 
   addEvent(window, 'load', init);
 
-};
+}
