@@ -59,7 +59,7 @@ http.createServer(function ( req, res ) {
 
     function( map, uri, wcb ) { // load template data
 
-      var reqQuery = url.parse(req.url, true).query;
+      var reqQuery = url.parse( req.url, true ).query;
 
       _loadData( uri, reqQuery.br !== undefined ? true : false, function( tConf ) { 
 
@@ -142,7 +142,7 @@ http.createServer(function ( req, res ) {
 
   });  
 
-}).listen(3000);
+}).listen( 3000 );
 
 
 /**
@@ -201,6 +201,16 @@ _loadData = function( templateName, doBrowserify, cb ) {
 
       _readFile( templateName + '.config.json', function( err, content ) {
 
+        if ( err ) {
+
+          log( 'could not load config file at %s. Ignoring.', err.path );
+
+          wcb( null, { config: {} });
+
+          return;
+
+        }
+
         wcb( null, { config: content });
 
       });
@@ -209,15 +219,31 @@ _loadData = function( templateName, doBrowserify, cb ) {
 
     function( result, wcb ) { // browserify script if exists & setting set?
 
-      if ( !result.config.templateJs || !doBrowserify ) return wcb( null, result );
+      if ( (!result.config.templateJs && !result.config.js ) || !doBrowserify ) return wcb( null, result );
 
       log('template js exists');
 
-      _processTemplateJs( templateName, function( err ) {
+      if ( result.config.js ) {
 
-        return wcb( err, result );
+        var paths = result.config.js.map( _jsIncludePath( templateName ) );
 
-      } );
+        result.data = { js:  paths.map( function( path ) { return path.dest.name; } ) };
+
+        async.each( paths, _browserify, function( err ) {
+          
+          wcb( err, result );
+
+        });
+
+      } else {
+
+        _browserify( _templateJsPath( templateName ), function( err ) {
+
+          wcb( err, result );
+
+        } );
+
+      }
 
     },
 
@@ -243,7 +269,7 @@ _loadData = function( templateName, doBrowserify, cb ) {
 
       log('layout js exists');
 
-      _processTemplateJs( result.config.layout, function( err ) {
+      _browserify( _templateJsPath( result.config.layout ), function( err ) {
 
         return wcb( err, result );
 
@@ -253,13 +279,13 @@ _loadData = function( templateName, doBrowserify, cb ) {
 
     function( result, wcb ) { // load template mock data
 
-      result.data = {};
+      if ( !result.data ) result.data = {};
 
       _readFile(templateName + '.mock.json', function( err, content ) {
 
         if ( err ) return wcb( null, result );
 
-        result.data = content;
+        deepExtend( result.data, content );
 
         wcb( null, result);
 
@@ -299,37 +325,88 @@ _loadData = function( templateName, doBrowserify, cb ) {
 
 },
 
-_processTemplateJs = function( name, cb ) {
+_jsIncludePath = function( name ) {
 
-  log('browserificationization');
+  return function( jsRelativePath ) {
+
+    var paths = {
+      src: {},
+      dest: { path: '/js/browserified' }
+    },
+
+    templatePath = name.split('/'),
+
+    pathParts = jsRelativePath.split('/');
+
+    templatePath.pop();
+
+    paths.src.path = [];
+
+    pathParts.forEach( function( pathPart ) {
+
+      if ( pathPart !== '..' ) {
+
+        paths.src.path.push( pathPart );
+
+      } else {
+
+        templatePath.pop();
+
+      }
+
+    });
+
+    paths.src.path = templatePath.concat( paths.src.path );
+
+    paths.dest.name = cn.toCamelCase( paths.src.path.join('_') );
+
+    paths.src.name = paths.src.path.pop();
+
+    paths.src.path = paths.src.path.join('/');
+
+    return paths;
+
+  }
+
+}
+
+_templateJsPath = function( name ) {
+
+  var paths = {
+    src: {},
+    dest: { path: '/js/browserified' }
+  };
 
   // determine name of template js file
       
   var folder = name.split('/');
 
-  folder[ folder.length - 1 ] = 'js/' + folder[ folder.length - 1 ] + '.js';
+  paths.src.name = folder.pop() + '.js';
+
+  paths.src.path = folder.join( '/' ) + '/js';
 
 
-  // browserify the thing
+  paths.dest.name = cn.toCamelCase( name.replace(/\//g, '_') ) + '.js';
 
-  var jsFile = folder.join('/'),
+  return paths;
 
-  destName = cn.toCamelCase( name.replace(/\//g, '_') ),
+}
 
-  destFilePath = '/js/browserified/' + destName + '.js';
+_browserify = function( paths, cb ) {
 
+  log( 'browserificationization' );
 
   // run browserify
 
   var b = browserify();
 
-  b.add( __dirname + '/' + jsFile );
+  b.add( __dirname + '/' + paths.src.path + '/' + paths.src.name );
 
   var bundle = b.bundle();
 
-  bundle.pipe( fs.createWriteStream( __dirname + destFilePath ) );
+  bundle.pipe( fs.createWriteStream( __dirname + '/' + paths.dest.path + '/' + paths.dest.name ) );
 
-  bundle.on('end', cb);
+  bundle.on( 'end', cb );
 
 },
 

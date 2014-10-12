@@ -30,7 +30,15 @@ module.exports = function( templateName, data, cb ) {
 
     }
 
-    if ( results.config.js ) data.js = results.config.js;
+    if ( data.js ) {
+
+      data.js = data.js.map( function( jsName ) { return data.scriptsBase + '/' + jsName; });
+
+    } else {
+
+      if ( results.config.js ) data.js = results.config.js;
+
+    }
 
     if (results.helpers) cn.extend(data, results.helpers);
 
@@ -125,19 +133,30 @@ _loadTemplate = function( templateName ) {
 
     fs.readFile( baseTemplatePath + '.config.json', 'utf-8', function( err, config ) {
 
-      if ( err ) throw err;
- 
-      try {
+      if ( err ) {
 
-        data.config = JSON.parse( config );
-       
-      } catch ( err ) {
+        log( 'could not read file at %s. Ignoring', baseTemplatePath + '.config.json' );
 
-        log( 'trouble parsing config file contents: %s', config );
+        data.config = {};
 
-        throw err;
+      } else {
+
+        try {
+
+          data.config = JSON.parse( config );
+         
+        } catch ( err ) {
+
+          log( 'trouble parsing config file contents: %s', config );
+
+          data.config = {};
+
+        }
 
       }
+ 
+
+      log( 'reading template file' );
 
       data.template = baseTemplatePath + ( isPartial ? '.part' : '' ) + '.ejs';
 
@@ -147,7 +166,7 @@ _loadTemplate = function( templateName ) {
 
       }
 
-      var files = [async.apply(fs.readFile, data.template, 'utf-8') ];
+      var files = [async.apply( fs.readFile, data.template, 'utf-8' ) ];
 
       if ( data.config.layout ) {
 
@@ -155,13 +174,19 @@ _loadTemplate = function( templateName ) {
 
         files.push( async.apply( fs.readFile, data.layout, 'utf-8') );
 
-        files.push( async.apply( fs.readFile, __dirname + '/../' + data.config.layout + '.config.json', 'utf-8') );
+        files.push( async.apply( fs.readFile, __dirname + '/../' + data.config.layout + '.config.json', 'utf-8' ) );
 
       }
 
       async.parallel( files, function( err, results ) {
 
-        if ( err ) return cb( err );
+        if ( err ) {
+
+          log( 'Some template files could not be opened. Aborting' );
+
+          return cb( err );
+
+        }
 
         data.templateBody = results[0];
 
@@ -204,9 +229,17 @@ _loadLabels = function( lang ) {
 
     }), function ( err, results ) {
 
-      if (err) return cb(err);
+      var labels = {};
 
-      var labels = JSON.parse( results[0] );
+      if ( err ) {
+
+        log( 'File not found at %s. Ignoring.', err.path );
+
+      } else {
+
+        labels = JSON.parse( results[0] );
+
+      }
 
       if ( results.length > 1 ) cn.extend(labels, JSON.parse( results[1]) );
 

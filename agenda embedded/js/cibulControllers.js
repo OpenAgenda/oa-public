@@ -200,19 +200,23 @@ if (typeof cibulControllers == 'undefined') (function() {
 
 
     /**
-     * sweep through agenda control data to figure out which events are still within selection
-     * and which are not
+     * uses the control data ( entire agenda in jsonp format ) to determine which
+     * events are included and which are not
      */
     
     _sweep = function(reqParams) {
 
       if (typeof reqParams == 'undefined') reqParams = {};
 
+      // clear all the widgets!
       _forEachWidget('clear');
 
+      // go through each event, determine if should be included
+      // .. in which case include in widgets
       for (var i in ctl.a)
         if (_applyFilters(ctl.a[i], reqParams)) _include(ctl.a[i]);
 
+      // enable all the widgets!
       _forEachWidget('enable', reqParams);
 
     },
@@ -231,12 +235,6 @@ if (typeof cibulControllers == 'undefined') (function() {
       }
 
     },
-
-
-    /**
-     * run item through all widget filters.. this will not work as not all widgets are always used.
-     * but filtering by location is not possible if there are no location widgets
-     */
     
     _applyFilters = function(item, reqParams) {
 
@@ -324,7 +322,7 @@ if (typeof cibulControllers == 'undefined') (function() {
     if (document.readyState === "complete")
       run();
     else
-      addEvent(window, 'load', run);
+      addEvent( window, 'load', run );
 
   },
 

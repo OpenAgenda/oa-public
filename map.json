@@ -19,5 +19,9 @@
   "newsletter/unsubscribe",
   "newsletter/unsubscribeComplete",
   "error/404",
-  "error/500"
+  "error/500",
+  {
+    "uri" : "widgets/contributors/list",
+    "public" : true
+  }
 ]

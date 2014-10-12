@@ -1,4 +1,4 @@
-module.exports = function(src, callback){
+module.exports = function( src, callback ){
 
   if (typeof src == 'string') {
 
