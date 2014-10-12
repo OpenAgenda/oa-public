@@ -22,7 +22,8 @@ var addHeadFilterBehavior = function(params) {
       category: { icon: 'icon-bookmark', params: ['category'] },
       date: { icon: 'icon-calendar', params: ['from', 'to'] },
       tags: { icon: 'icon-tags', params: ['tags'] },
-      map: { icon: 'icon-map-marker', params: ['neLat', 'neLng', 'swLat', 'swLng'], label: 'mapFilter' }
+      map: { icon: 'icon-map-marker', params: ['neLat', 'neLng', 'swLat', 'swLng'], label: 'mapFilter' },
+      orgLabel: { icon: 'icon-sitemap', params: ['orgLabel', 'org'] }
     },
     labels: {
       mapFilter: 'within map boundaries'
