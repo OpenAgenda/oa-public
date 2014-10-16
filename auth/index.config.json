@@ -1,11 +1,14 @@
 {
   "layout": "layout/main",
+  "css" : {
+    "auth" : "./css/style.css"
+   },
 
   "helpers" : {
     "_t" : "time",
     "_i" : "image"
   },
   "base" : {
-        "tab" : "admin"
-  }	
+        "tab" : "auth"
+  }
 }

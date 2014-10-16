@@ -4,5 +4,7 @@
   "Review %reviexTitle%"
   : "Agenda %reviewTitle%",
   "No reviews found"
-  : "Aucun agendas trouvés"
+  : "Aucun agendas trouvés",
+  "Log Out"
+  : "Déconnexion"
 }
