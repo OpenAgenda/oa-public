@@ -37,25 +37,33 @@ exports.interface = function( name, uid, cbs ) {
     clear: isNotDefined( 'clear', name ),
     include: isNotDefined( 'include', name ),
     enable: isNotDefined( 'enable', name ),
-    disable: isNotDefined( 'disable', name )
+    disable: isNotDefined( 'disable', name ),
+    change: isNotDefined( 'change', name )
   }, cbs );
 
 }
 
 var isNotDefined = function( type, name ) {
 
-  return function() {
+  log( 'no %s function is defined for %s', type, name );
 
-    log( 'no %s function is defined for %s', type, name );
+  return function() {
 
   }
 
-}
+},
 
+readAnchorConfig = function( elem ) {
 
-var readAnchorConfig = function( elem ) {
+  if ( elem.hasAttribute( 'data-cbctl' ) ) {
 
-  return elem.getAttribute('data-cbctl').split('|');
+    return elem.getAttribute('data-cbctl').split('|');
+
+  } else if ( elem.hasAttribute( 'src') ) {
+
+    return elem.getAttribute( 'src' );
+
+  }
 
 },
 

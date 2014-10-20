@@ -1,8 +1,8 @@
-var maps = require('./maps.mod'),
+var maps = require( './maps.mod' ),
 
 cn = require( '../common/common.mod'),
 
-L = require('leaflet');
+L = require( 'leaflet' );
 
 maps.register('osm', (function(){
 

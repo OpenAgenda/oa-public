@@ -1,0 +1,14 @@
+<html>
+  <head>
+<% js.forEach( function( jsPath ) { %>
+  <script type="text/javascript" src="<%= jsPath %>"></script>
+<% }) %>
+  </head>
+  <body>
+
+    <input class="js_map_corners">
+
+    <iframe height="300" width="300" src="frame?br=1"></iframe>
+
+  </body>
+</html>

@@ -1,3 +1,12 @@
 {
-  "js" : [ "../controller/main.js" ]
+  "js" : [ 
+    "../controller/main.js", 
+    "../tags/tags.js", 
+    "../categories/categories.js",
+    "../map/map.js",
+    "../search/search.js",
+    "../calendar/calendar.js",
+    "../form/form.js",
+    "../list/list.js"
+  ]
 }

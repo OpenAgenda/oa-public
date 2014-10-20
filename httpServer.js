@@ -8,8 +8,6 @@ templater = require('./server/templater.js'),
 
 mountStatic = st( { path: __dirname , url: '/', cache: false } ),
 
-fs = require('fs'),
-
 cn = require('./js/lib/common/common.mod.js'),
 
 async = require('async'),
@@ -18,7 +16,11 @@ deepExtend = require('deep-extend'),
 
 url = require('url'),
 
-browserify = require('browserify'),
+browserify = require( 'browserify' ),
+
+stringify = require( 'stringify' ),
+
+fs = require('fs'),
 
 debug = require('debug'),
 
@@ -32,7 +34,7 @@ log('IMPORTANT: if nodemon is to be used, use it with proper exclusions');
 
 http.createServer(function ( req, res ) {
 
-  log('processing request');
+  log('processing request %s', req.url );
 
   async.waterfall([
 
@@ -50,7 +52,13 @@ http.createServer(function ( req, res ) {
 
       cn.contains( ['.css', '.jpg', '.png', '.ico', '.ttf', '.svg', '.eot', '.otf', '.ejs'], uri.substr(-4) ) ||
 
-      cn.contains( ['.woff', '.json'], uri.substr(-5) ) ) return mountStatic( req, res );
+      cn.contains( ['.woff', '.json'], uri.substr(-5) ) ) {
+
+        log( 'handling as static resource request' );
+
+        return mountStatic( req, res );
+
+      }
 
       wcb( null, map, uri );
 
@@ -368,7 +376,7 @@ _jsIncludePath = function( name ) {
 
   }
 
-}
+},
 
 _templateJsPath = function( name ) {
 
@@ -390,15 +398,17 @@ _templateJsPath = function( name ) {
 
   return paths;
 
-}
+},
 
 _browserify = function( paths, cb ) {
 
   log( 'browserificationization' );
 
-  // run browserify
+  // run browserify_browserify
 
   var b = browserify();
+
+  b.transform(stringify(['.ejs', '.css', '.html']));
 
   b.add( __dirname + '/' + paths.src.path + '/' + paths.src.name );
 

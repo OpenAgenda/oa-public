@@ -105,7 +105,7 @@
         this.calendar = new CibulCalendar(el(this.element, 'div'), {
           filter: function(date, classes) {
 
-            return self.filterCalendar(date, classes);
+            return self.filterCalendar( date, classes );
             
           },
           onSelect: function(selection) {
@@ -116,7 +116,7 @@
             });
 
           },
-          navDomContent: { prev: '<', next: '>'},
+          navDomContent: { prev: '<', next: '>' },
           lang: lang
         });
 

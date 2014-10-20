@@ -1,4 +1,4 @@
-maps.register('osm', (function(){
+maps.register( 'osm', (function(){
 
   var libOptions;
 

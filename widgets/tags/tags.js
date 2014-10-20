@@ -1,18 +1,15 @@
 var UID = 0, SUBSET = 1,
 
-cn = require( '../../js/lib/common/common.mod.js' ),
+cn = require(  '../../js/lib/common/common.mod.js' ),
 
-wLib = require( '../../lib/widgetLib' ),
+wLib = require(  '../lib/widgetLib' ),
 
 debug = require( 'debug' ),
 
 dom = require( './dom.js' );
 
-require( '../lib/controllerLoader' )( function( register ) {
+if ( window.env == 'tpl' ) debug.enable( '*' );
 
-  wLib.forEachAnchor( '.cbpgtg', { register: register }, widget );
-
-} );
 
 var widget = function( elem, options ) {
 
@@ -26,7 +23,7 @@ var widget = function( elem, options ) {
 
   selectedTag = false,
 
-  tags, tagSlugs,
+  tags = [], tagSlugs = [],
 
   requestTags = [], // tags which are in current request state
 
@@ -38,18 +35,31 @@ var widget = function( elem, options ) {
 
     log = debug( 'tag widget ' + uid );
 
+    log( 'initing' );
+
     controller = options.register( wLib.interface( 'tags', uid, {
       enable : enable,
       disable : disable,
       clear : clear,
-      include : include
+      include : include,
     } ) );
 
-    view.setOnTagSelect( _onTagSelect );
+    view.setOnSelect( _onTagSelect );
 
-    view.setOnTagUnselect( _onTagUnselect );
+    view.setOnUnselect( _onTagUnselect );
 
-    _setTags( controller, options.anchorConfig );
+    controller.getControlData( function( data ) {
+
+      log( 'fetched controller data' );
+
+      _setTags( data, options.anchorConfig );
+
+      if ( !data.ebd || data.ebd.dcss ) view.setDefaultStyle();
+
+      log( 'init complete, enable to render' );
+
+    } );
+
 
   },
 
@@ -64,25 +74,23 @@ var widget = function( elem, options ) {
     selectedTag = false;
     requestTags = [];
 
-    // there is no active filter by tag
-    if ( !reqParams.tags ) {
+    
+    if ( reqParams.tags ) {
 
-      return;
+      requestTags = ( typeof reqParams.tags == 'string' ) ? reqParams.tags.split(',') : reqParams.tags;
+
+      // find which tag has been picked
+      cn.forEach( requestTags, function( requestTag ) {
+
+        if ( !selectedTag && cn.contains( tagSlugs, requestTag ) ) {
+
+          selectedTag = requestTag;
+
+        }
+
+      });
 
     }
-
-    requestTags = ( typeof reqParams.tags == 'string' ) ? reqParams.tags.split(',') : reqParams.tags;
-
-    // find which tag has been picked
-    cn.forEach( requestTags, function( requestTag ) {
-
-      if ( !selectedTag && cn.contains( tagSlugs, requestTag ) ) {
-
-        selectedTag = requestTag;
-
-      }
-
-    });
 
     _render();
 
@@ -90,13 +98,11 @@ var widget = function( elem, options ) {
 
   clear = function() {
     
-    log( 'clearing' );
+    log( 'clearing, awaiting enable or disable to render' );
 
     activeTags = [];
     selectedTag = false;
     requestTags = false;
-
-    _render();
 
   },
 
@@ -111,7 +117,7 @@ var widget = function( elem, options ) {
 
       cn.forEach( eventItem.t, function( eventTag ) {
 
-        if ( contains( tagSlugs, eventTag ) && !contains( activeTags, eventTag ) ) {
+        if ( cn.contains( tagSlugs, eventTag ) && !cn.contains( activeTags, eventTag ) ) {
 
           activeTags.push( eventTag );
 
@@ -133,7 +139,15 @@ var widget = function( elem, options ) {
 
   _onTagSelect = function( tag ) {
 
-    if ( !cn.contains( activeTags, tag.slug ) ) return;
+    log( 'selected %s with slug %s', tag.label, tag.slug );
+
+    if ( !cn.contains( activeTags, tag.slug ) ) {
+
+      log( 'tag is not active. ignoring' );
+
+      return;
+
+    }
 
     requestTags.push( tag.slug );
 
@@ -143,6 +157,8 @@ var widget = function( elem, options ) {
 
   _onTagUnselect = function( tag ) {
 
+    log( 'unselected %s with slug %s', tag.label, tag.slug );
+
     requestTags.splice( requestTags.indexOf( tag.slug ), 1 );
 
     _update();
@@ -151,7 +167,7 @@ var widget = function( elem, options ) {
 
   _update = function() {
 
-    controller.update( { tags : requestTags.length ? requestTags : null } );
+    controller.update( 'tags', { tags : requestTags.length ? requestTags : null } );
 
   },
 
@@ -160,47 +176,47 @@ var widget = function( elem, options ) {
    * define widget tags set
    */
 
-  _setTags = function( controller, config ) {
+  _setTags = function( data, config ) {
 
-    var subset, tagSlugs = [];
+    var subset;
 
-    controller.getControlData( function( ctl ) {
+    log( 'defining widget tags' );
 
-      if ( typeof config[ SUBSET ] !== 'undefined' ) {
+    if ( typeof config[ SUBSET ] !== 'undefined' ) {
 
-        subset = config[ SUBSET ].split( ',' );
+      subset = config[ SUBSET ].split( ',' );
 
-        cn.forEach( ctl.t, function( tag ) {
+      cn.forEach( data.t, function( tag ) {
 
-          if ( cn.contains( subset, tag.s ) ) {
+        if ( cn.contains( subset, tag.s ) ) {
 
-            tags.push( tag );
-
-            tagSlugs.push( tag.s );
-
-          } 
-
-        });
-
-      } else {
-
-        cn.forEach( ctl.t, function( tag ) {
-          
-          tags.push( tag );          
+          tags.push( tag );
 
           tagSlugs.push( tag.s );
 
-        } );
+        } 
 
-      }
+      } );
 
-      log( 'widget initialized with %d tags' );
+    } else {
 
-    });
+      cn.forEach( data.t, function( tag ) {
+        
+        tags.push( tag );          
+
+        tagSlugs.push( tag.s );
+
+      } );
+
+    }
+
+    log( 'widget initialized with %d tags', tags.length );
 
   },
 
   _render = function() {
+
+    log( 'rendering a%s widget', enabled ? 'n enabled' : ' disabled' );
 
     var data = {
       enabled : enabled,
@@ -209,12 +225,12 @@ var widget = function( elem, options ) {
 
     cn.forEach( tags, function( tag ) {
 
-     data.tags.push( {
-       label : tag.t,
-       slug : tag.s,
-       active : enabled && ( lib.contains( activeTags, tag.s ) ),
-       selected : selectedTag == tag.s
-     } )
+      data.tags.push( {
+        label : tag.t,
+        slug : tag.s,
+        active : enabled && cn.contains( activeTags, tag.s ),
+        selected : selectedTag == tag.s
+      } );
 
     });
 
@@ -225,3 +241,10 @@ var widget = function( elem, options ) {
   init();
 
 };
+
+
+require( '../lib/controllerLoader' )( function( register ) {
+
+  wLib.forEachAnchor( '.cbpgtg', { register: register }, widget );
+
+} );

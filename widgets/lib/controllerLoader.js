@@ -4,13 +4,13 @@ cn = require( '../../js/lib/common/common.mod.js' ),
 
 defaults = {
   all : {
-    controllersPath : '//cibul.net/js/widgets/controllers.js'
+    controllersPath : '//cibul.net/js/embed/cibulControllers.js'
   },
   dev : {
-    controllersPath : '//d.cibul.net/js/widgets/controllers.js'
+    controllersPath : '//d.cibul.net/js/embed/cibulControllers.js'
   },
   tpl : {
-    controllersPath : '/js/browserified/something.js'
+    controllersPath : '/js/browserified/widgetsControllerMain.js'
   }
 },
 

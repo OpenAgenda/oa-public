@@ -28,6 +28,8 @@ log,
 
 browserify = require( 'browserify' ),
 
+stringify = require( 'stringify' ),
+
 run = function() {
 
   debug.enable('*');
@@ -38,6 +40,7 @@ run = function() {
     async.apply( prodifyCss, map ),
     async.apply( prodifyPublicTemplates, map ),
     async.apply( prodifyTemplateJs, map ),
+    async.apply( prodifyJs, map ), 
     legacyProdify
   ], function( err ) {
 
@@ -107,7 +110,9 @@ prodifyPublicTemplates = function( map, cb ) {
 
     if ( typeof mapItem == 'string' ) return ecb(); // do nothing
 
-    if ( ! mapItem.public ) return ecb();
+    if ( ! mapItem.public ) return ecb(); // do nothing if it is not a public template
+
+    if ( !mapItem.uri ) return ecb(); // do nothing if no uri is defined
 
     async.series([
       async.apply( checkOrCreateDir, mapItem.uri ),
@@ -329,15 +334,47 @@ prodifyTemplateJs = function( map, cb ) {
 
     var templateName = typeof mapItem == 'string' ? mapItem : mapItem.uri ;
 
+    if ( !templateName ) return scb();
+
     getTemplateFilesToBrowserify( templateName, function( err, toBrowserify ) {
 
       if ( err ) return scb( err );
 
-      async.eachSeries( toBrowserify, browserifyTemplateScript, scb );
+      async.eachSeries( toBrowserify, _browserify, scb );
 
     });  
 
   }, cb );
+
+},
+
+prodifyJs = function( map, cb ) {
+
+  async.eachSeries( map, function( mapItem, scb ) {
+
+    if ( !mapItem.js || !mapItem.prod ) {
+
+      return scb();
+
+    }
+
+    var paths = { src: { }, dest: {} },
+
+    path = mapItem.js.split( '/' );
+
+    paths.dest.path = mapItem.prod.split( '/' );
+
+    paths.src.name = path.pop();
+
+    paths.src.path = '../' + path.join( '/' );
+
+    paths.dest.name = paths.dest.path.pop();
+
+    paths.dest.path = destPath + paths.dest.path.join( '/' );
+
+    _browserify( paths, scb );
+
+  });
 
 },
 
@@ -347,7 +384,7 @@ getTemplateFilesToBrowserify = function ( templateName, cb ) {
 
   readTemplateConfig( templateName, function( err, config ) {
 
-    if ( config.templateJs ) toBrowserify.push( templateName );
+    if ( config.templateJs ) toBrowserify.push( _templateJsPath( templateName ) );
 
     if ( !config.layout ) return cb( null, toBrowserify );
 
@@ -355,13 +392,79 @@ getTemplateFilesToBrowserify = function ( templateName, cb ) {
 
       if ( err ) return cb( err );
 
-      if ( layoutConfig.templateJs ) toBrowserify.push( config.layout );
+      if ( layoutConfig.templateJs ) toBrowserify.push( _templateJsPath( config.layout ) );
 
       cb( null, toBrowserify );
 
     });
 
   } );
+
+},
+
+_browserify = function( paths, cb ) {
+
+  log( 'browserificationization' );
+
+  // run browserify_browserify
+
+  var b = browserify();
+
+  b.transform(stringify(['.ejs', '.css', '.html']));
+
+  b.add( __dirname + '/' + paths.src.path + '/' + paths.src.name );
+
+  var bundle = b.bundle(),
+
+  destFilePath = __dirname + '/' + paths.dest.path + '/' + paths.dest.name,
+
+  writeStream = fs.createWriteStream( destFilePath ); 
+
+  bundle.pipe( writeStream );
+
+  writeStream.on( 'close', function() {
+
+    // minify here
+
+    if ( !mangle ) return cb();
+
+    fs.readFile( destFilePath, 'utf-8', function( err, content ){
+
+      if ( err ) return cb( err );
+
+      var uglified = ugly.minify(content, { mangle: true, fromString: true }).code;
+
+      // done!
+
+      fs.writeFile( destFilePath, uglified, cb);
+
+    });
+
+  });
+
+
+  // handle mangle
+
+},
+
+_templateJsPath = function( name ) {
+
+  var paths = {
+    src: {},
+    dest: { path: destPath }
+  };
+
+  // determine name of template js file
+      
+  var folder = name.split('/');
+
+  paths.src.name = folder.pop() + '.js';
+
+  paths.src.path = '../' + folder.join( '/' ) + '/js';
+
+  paths.dest.name = cn.toCamelCase( name.replace(/\//g, '_') ) + '.js';
+
+  return paths;
 
 },
 
@@ -372,6 +475,8 @@ browserifyTemplateScript = function( name, cb ) {
   var b = browserify(),
 
   folder = name.split('/');
+
+  b.transform( stringify( ['.ejs', '.css', '.html'] ) );
 
   folder[ folder.length - 1 ] = 'js/' + folder[ folder.length - 1 ] + '.js';
 

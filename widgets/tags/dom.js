@@ -1,27 +1,17 @@
-// switch to require
-var templates = {
-  main : [
-    '<ul class="tags<% if ( !enabled ) { %> disabled<% } %>"></ul>'
-  ],
-  item : [
-    '<li><a class="<% if ( selected ) { %>selected<% } %><% if ( active ) { %> active<% } %>"><%= label %></a></li>'
-  ].join('')
-}
-  
-].join(''),
+var EJS = require( '../../js/lib/clientEjs/ejs' ),
 
-// switch to require file
-style = [
-  '.cibulTags ul { margin: 0; padding: 0; }',
-  '.cibulTags li { display: inline-block; cursor: pointer; padding-right: 1em; color: {{ disabledColor }}; font-size: 0.9em; }',
-  '.cibulTags li.active { color: {{ activeColor }}; }',
-  '.cibulTags li.selected { color: {{ selectedColor }}; }',
-  '.cibulTags.disabled li { cursor: wait; color: {{ disabledColor }} }'
-].join(''),
+cn = require( '../../js/lib/common/common.mod.js' ),
 
-EJS = require( '../../js/lib/clientEjs/ejs' ),
+log = require( 'debug' )( 'tag dom' ),
 
-cn = require( '../../js/lib/common/common.mod.js' );
+style = require( './style.css' ),
+
+styler = require( '../lib/widgetStyler' ),
+
+templates = {
+  main: require( './main.ejs' ),
+  item : require( './item.ejs' )
+};
 
 module.exports = function( anchorElem ) {
 
@@ -32,7 +22,8 @@ module.exports = function( anchorElem ) {
     return {
       render: render,
       setOnSelect: setOnSelect,
-      setOnUnselect: setOnUnselect
+      setOnUnselect: setOnUnselect,
+      setDefaultStyle: setDefaultStyle
     }
     
   },
@@ -53,25 +44,47 @@ module.exports = function( anchorElem ) {
 
       cn.addEvent( tagElem, 'click', function( e ) {
 
+        log( 'click' );
+
         cn.preventDefault( e );
 
-        if ( !data.enabled || !tag.active ) return;
+        if ( !data.enabled ) {
+
+          log( 'click ignored: widget is not enabled' );
+
+          return;
+
+        }
+
+        if ( !tag.active ) {
+
+          log( 'click ignored: tag not active' );
+
+          return;
+
+        }
 
         if ( tag.selected ) {
 
-          _select( tag );
+          _unselect( tag );
 
         } else {
 
-          _unselect( tag );
+          _select( tag );
 
         }
 
       });
 
-      cn.el( 'ul' ).appendChild( tagElem );
+      cn.el( anchorElem, 'ul' ).appendChild( tagElem );
 
     } );
+
+  },
+
+  setDefaultStyle = function() {
+
+    styler( style );
 
   },
 

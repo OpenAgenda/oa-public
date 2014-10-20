@@ -51,10 +51,16 @@ if (typeof cibulWidget == 'undefined') var cibulWidget = function(methods) {
 
         self._log('styling widget');
 
-        if (ctl.ebd && ctl.ebd.dcss) {
+
+        // if dcss param is set for widget, default style is applied
+        if ( ctl.ebd && ctl.ebd.dcss ) {
+
           if (ctl.ebd.dcss[self.name]) self._applyDefaultStyle();
+
         } else {
+
           self._applyDefaultStyle();
+
         }
 
         self.init(ctl, config);

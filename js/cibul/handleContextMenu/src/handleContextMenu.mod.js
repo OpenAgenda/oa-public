@@ -1,31 +1,44 @@
-module.exports = function(triggerElement, contextMenuElement, eventHandler, params){
+var cn = require( '../../../lib/common/common.mod.js' );
+
+module.exports = function( triggerElement, contextMenuElement, eventHandler, params ){
 
   var contextDisplayed = false,
     menuClicked = false,
     triggerClicked = false,
-    params = extend({
+    params = cn.extend({
       position: true, // position context element with script (no css prepositioned)
       left: true, // position context element on left. if not, its on right.
       bodyClickEvent: 'bodyclick',
       openOnClick: true,
       zIndex: 2
     }, params),
+
     init = function(){
 
     _initStyles();
 
-    if (!eventHandler.hasEvent(params.bodyClickEvent)) addEvent(el('body'), 'click', function(){
-      eventHandler.trigger(params.bodyClickEvent);
-    });
+    if (!eventHandler.hasEvent(params.bodyClickEvent)) {
+
+      cn.addEvent( cn.el('body'), 'click', function(){
+        
+        eventHandler.trigger( params.bodyClickEvent );
+
+      });
+
+    }
 
       // if body is clicked, need to check if this elem should be shown or hidden
 
-    eventHandler.on(params.bodyClickEvent, function(){
+    eventHandler.on( params.bodyClickEvent, function(){
 
-      if (triggerClicked) {
-        contextDisplayed?_hideMenu():_displayMenu();
-      } else if (!menuClicked) {
+      if ( triggerClicked ) {
+
+        contextDisplayed ? _hideMenu() : _displayMenu();
+
+      } else if ( !menuClicked ) {
+
         _hideMenu();
+
       };
 
       menuClicked = false;
@@ -33,17 +46,31 @@ module.exports = function(triggerElement, contextMenuElement, eventHandler, para
 
     });
 
-    if (params.openOnClick) addEvent(triggerElement, 'click', function(){ triggerClicked = true; });
+    if ( params.openOnClick ) {
 
-    addEvent(contextMenuElement, 'click', function(){ menuClicked = true; });
+      cn.addEvent( triggerElement, 'click', function() { 
+
+        triggerClicked = true; 
+
+      });
+
+    }
+
+    cn.addEvent( contextMenuElement, 'click', function() { 
+
+      menuClicked = true;
+
+    } );
 
   },
+
   _hideMenu = function() {
 
     contextMenuElement.style.display = 'none';
     contextDisplayed = false;
 
   },
+
   _displayMenu = function() {
 
     contextMenuElement.style.display = 'inline-block';
@@ -51,22 +78,24 @@ module.exports = function(triggerElement, contextMenuElement, eventHandler, para
     contextDisplayed = true;
 
   },
+
   _initStyles = function(){
 
     if (!params.position) return;
 
     if (!triggerElement.parentNode.style.position.length) triggerElement.parentNode.style.position = 'relative';
 
-    extend(contextMenuElement.style, {
+    cn.extend(contextMenuElement.style, {
       display: 'none',
       position: 'absolute',
       zIndex: params.zIndex
     });
 
   },
+
   _displayStyle = function() {
 
-    extend(contextMenuElement.style, {
+    cn.extend(contextMenuElement.style, {
       display: 'inline-block',
       top: triggerElement.offsetHeight?triggerElement.offsetHeight + 'px':'1em'
     });
@@ -83,4 +112,4 @@ module.exports = function(triggerElement, contextMenuElement, eventHandler, para
     hide: _hideMenu
   };
 
-}:
+}

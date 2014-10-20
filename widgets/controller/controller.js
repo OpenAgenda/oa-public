@@ -1,6 +1,6 @@
 var debug = require( 'debug' ),
 
-cn = require( '../../js/lib/common/commons.mod.js' ),
+cn = require( '../../js/lib/common/common.mod.js' ),
 
 remote = require( '../../js/lib/remote/remote.mod.js' ),
 
@@ -13,16 +13,16 @@ defaults = {
     res : '//cibul.net/embed/{uid}/controldata'
   },
   dev: {
-    res : '//d.cibul.net/embed/{uid}/controldata'
+    res : '//d.cibul.net/frontend_dev.php/embed/{uid}/controldata'
   },
   tpl: {
-    res : '//d.cibul.net/embed/{uid}/controldata'
+    res : '//d.cibul.net/frontend_dev.php/embed/{uid}/controldata'
   }
 },
 
 params = cn.extend( defaults.all, defaults[ env ] ? defaults[ env ] : {} );
 
-model.exports = function( uid ) {
+module.exports = function( uid ) {
 
   var log = debug( 'controller ' + uid ),
 
@@ -30,20 +30,43 @@ model.exports = function( uid ) {
 
   ready = false, // is server connection established
 
-  key = false,   // account key
-
   widgets = [], // collection of interfaces to widgets handled by controller
 
   sendRequest = false,  // callback given by link widget to notify of request params updates
 
   ctlRequests = [], // stack of callbacks to call when control data is available
 
+  currentRequestParams = {}, // current agenda request parameters
+
   run = function() {
 
     log( 'controller loaded in %s environment', env );
 
+    _fetchControllerData( function( err, data ) {
+
+      if ( err ) {
+
+        log( 'problem while fetching data ?', err );
+
+        return;
+
+      }
+
+      log( 'successfully fetched control data' );
+
+      ctl = data;
+
+      _processWidgetCtlRequests();
+
+      _sweep();
+
+    });
+
     return {
-      register: register
+      register: register,
+      getWidget: getWidget,
+      requestModal: requestModal,
+      releaseModal: releaseModal
     }
 
   },
@@ -58,6 +81,8 @@ model.exports = function( uid ) {
     var widgetParams = cn.extend( {
       name : false  // required. name of the widget
     }, options );
+
+    widgets.push( widgetParams );
 
      // if there is a key, this is a link
     if ( widgetParams.key ) {
@@ -83,6 +108,25 @@ model.exports = function( uid ) {
   },
 
 
+  getWidget = function( name ) {
+
+    var widgetParams = false;
+
+    cn.forEach( widgets, function( widget ) {
+
+      if ( widget.name == name ) {
+
+        widgetParams = widget;
+
+      }
+
+    });
+
+    return widgetParams;
+
+  },
+
+
   /**
    * hand over control data whhen ready.
    */
@@ -91,9 +135,13 @@ model.exports = function( uid ) {
 
     if ( ctl ) {
 
+      log( 'control data available, handing over' );
+
       cb( ctl );
 
     } else {
+
+      log( 'control data not yet available, stacking request' );
 
       ctlRequests.push( cb );
 
@@ -103,26 +151,26 @@ model.exports = function( uid ) {
 
 
   /**
+   * controller
+   * 
    * called by widget when some agenda request parameters were updated
    */
   
-  update = function( updatedParams ) {
+  update = function( originWidget, updatedParams ) {
 
-    var newParams = cn.extend( {}, aParams, updatedParams );
+    log( 'updating with %s', JSON.stringify( updatedParams ) );
+
+    var newParams = cn.extend( {}, currentRequestParams, updatedParams );
 
     if ( !_hasChanges( newParams ) ) return;
 
-    _forEachWidget( 'disable' );
+    _forEachWidget( 'change', newParams, originWidget );
 
-    if ( !sendRequest ) {
+    _forEachWidget( 'disable', originWidget );
 
-      log( 'link not established' )
+    _sweep( newParams );
 
-    } else {
-
-      sendRequest( newParams );
-
-    }
+    currentRequestParams = newParams;
 
   },
 
@@ -163,9 +211,9 @@ model.exports = function( uid ) {
 
     if ( !_hasChanges( data ) || !enabled ) return;
 
-    aParams = data;
+    currentRequestParams = data;
 
-    if ( ready ) _sweep( aParams );
+    if ( ready ) _sweep( currentRequestParams );
 
   },
 
@@ -175,6 +223,8 @@ model.exports = function( uid ) {
    */
   
   _forEachWidget = function(methodName, methodParams, except ) {
+
+    log( 'running %s for all widgets with %s except for %s', methodName, JSON.stringify( methodParams ), except ? except : 'no one' );
 
     if ( ( arguments.length == 2 ) && ( typeof methodParams == 'string' ) ) {
 
@@ -225,18 +275,24 @@ model.exports = function( uid ) {
 
       ctl = data;
 
-      var stackedCallback;
-
-      // send control data to whoever requested it during registration process
-      while ( stackedCallback = ctlRequests.pop() ) {
-
-        stackedCallback( ctl );
-
-      }
+      _processWidgetCtlRequests();
 
       _sweep();
 
     });
+
+  },
+
+  _processWidgetCtlRequests = function( ) {
+
+    var stackedCallback;
+
+    // send control data to whoever requested it during registration process
+    while ( stackedCallback = ctlRequests.pop() ) {
+
+      stackedCallback( ctl );
+
+    }
 
   },
 
@@ -249,9 +305,9 @@ model.exports = function( uid ) {
 
     // what to do if it is not successful?
     
-    var res = params.src.replace( '{uid}', uid );
+    var res = params.res.replace( '{uid}', uid );
     
-    remote.getJsonp( res, { data: { key: key } }, function( success, data ) {
+    remote.getJsonp( res, {}, function( success, data ) {
 
       if ( !success ) {
 
@@ -273,7 +329,11 @@ model.exports = function( uid ) {
   
   _sweep = function(reqParams) {
 
+    var includedCount = 0;
+
     if ( typeof reqParams == 'undefined' ) reqParams = {};
+
+    log( 'doing sweep with params %s', JSON.stringify( reqParams ) );
 
     // clear all the widgets!
     _forEachWidget( 'clear' );
@@ -282,9 +342,17 @@ model.exports = function( uid ) {
     // .. in which case include in widgets
     for ( var i in ctl.a ) {
 
-      if ( _applyFilters( ctl.a[i], reqParams ) ) _include( ctl.a[i] );
+      if ( _applyFilters( ctl.a[i], reqParams ) ) {
+
+        includedCount++;
+
+        _include( ctl.a[i] );
+
+      }
     
     }
+
+    log( 'sweep result %d out of %d', includedCount, cn.size( ctl.a ) );
 
     // enable all the widgets!
     _forEachWidget( 'enable', reqParams );
@@ -305,6 +373,7 @@ model.exports = function( uid ) {
     }
 
   },
+
   
   _applyFilters = function( item, reqParams ) {
 
@@ -316,7 +385,30 @@ model.exports = function( uid ) {
 
     return true;
 
-  }
+  },
+
+
+  /**
+   * have there been any changes in parameters?
+   */
+  
+  _hasChanges = function( data ) {
+
+    for ( var i in currentRequestParams ) {
+
+      if ( typeof data[i] == 'undefined' || data[i] !== currentRequestParams[i] ) return true;
+
+    }
+
+    for ( i in data ) {
+
+      if ( typeof currentRequestParams[i] == 'undefined' || data[i] !== currentRequestParams[i] ) return true;
+
+    }
+
+    return false;
+
+  };
 
   return run();
 
