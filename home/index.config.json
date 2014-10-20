@@ -1,7 +1,7 @@
 {
   "layout": "layout/main",
   "css" : {
-    "home" : "./css/style.css"
+    "home" : "css/style.css"
    },
 
   "helpers" : {
