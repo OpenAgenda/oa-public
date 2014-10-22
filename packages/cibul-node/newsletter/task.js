@@ -3,7 +3,11 @@
  * renders their newsletter and sends to the mailer through coms
  */
 
-var log = require( '../lib/logger' )( 'newsletter task' ),
+var TYPE_AUTOMATIC = 1,
+
+TYPE_MANUAL = 0,
+
+log = require( '../lib/logger' )( 'newsletter task' ),
 
 lib = require( '../lib/lib' ),
 
@@ -138,7 +142,21 @@ function _processCampaign( campaign, cb ) {
 
   .spread( function( content, recipient ) {
 
-    console.log( recipient );
+    if ( !recipient.length ) {
+
+      log( 'there are no recipients to send the campaign to' );
+
+      return;
+
+    }
+
+    if ( ( campaign.type == TYPE_AUTOMATIC ) && ( !content.data.items.length ) ) {
+
+      log( 'there is no event selection defined. Campaign is not to be sent' );
+
+      return;
+
+    }
 
     log( 'campaign %s content generated and recipients fetched', campaign.uid );
 
@@ -191,7 +209,7 @@ function _getNewsletterBodies( campaign, cb ) {
 
   log( 'generating newsletter bodies' );
 
-  var agenda;
+  var agenda, data;
 
   wn.call( campaign.getAgenda )
 
@@ -203,7 +221,9 @@ function _getNewsletterBodies( campaign, cb ) {
 
   } )
 
-  .then( function( data ) {
+  .then( function( d ) {
+
+      data = d;
 
       data.genUrl = cmn.makeGenUrl({
         root: config.root,
@@ -221,7 +241,7 @@ function _getNewsletterBodies( campaign, cb ) {
 
   .spread( function( html, text ) {
 
-    cb( null, { html: html, text: text });
+    cb( null, { html: html, text: text, data: data });
 
   } )
 

@@ -40,7 +40,7 @@ exports.prepare = function( options, cb ) {
 
     log( 'loading gaetan' );
 
-    return wn.call( fixtures.load, 'users', 'gaetan');
+    return wn.call( fixtures.load, 'users', 'gaetan' );
 
   } )
 

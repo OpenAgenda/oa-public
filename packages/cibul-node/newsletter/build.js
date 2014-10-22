@@ -211,7 +211,7 @@ eventSelection = function( model, agenda, campaign, data, cb ) {
 
 getSegment = function( segments ) {
 
-  for ( var s in segments ) {}  // Lets get to the bottom of this. ... AHAHHAHHAHAA.. Its friday.
+  for ( var s in segments ) {}  // Lets get to the bottom of this. ... AHAHHAHHAHAA.. It's friday.
 
   var text = segments[s];
 

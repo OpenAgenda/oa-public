@@ -63,7 +63,7 @@ describe('campaign launcher task', function() {
   });
 
 
-  it( 'recipient should matched emails set as contacts in campaign contact list', function( done ) {
+  it( 'recipient should match emails set as contacts in campaign contact list', function( done ) {
 
     task.setOnComplete( function() {
 
