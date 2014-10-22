@@ -186,6 +186,8 @@ copyFile = function (source, target, cb) {
 
 prodifyCss = function( map, cb ) {
 
+  log( 'compiling css' );
+
   listCss( map, function( err, cssFiles ) {
 
     // make array
@@ -207,6 +209,8 @@ prodifyCss = function( map, cb ) {
         return rcb( null, compiled );
 
       }
+
+      log( 'adding content of %s', __dirname + '/../' + cssFilename );
 
       fs.readFile( __dirname + '/../' + cssFilename, 'utf-8', function( err, css ) {
 
@@ -244,6 +248,12 @@ listCss = function listCss( map, cb ) {
   async.each( map, function( mapItem, ecb ) {
 
     var templateName = typeof mapItem == 'string' ? mapItem : mapItem.uri ;
+
+    if ( !templateName ) {
+
+      return ecb();
+
+    }
 
     readTemplateConfig( templateName, function( err, config ) {
 
