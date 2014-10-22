@@ -33,6 +33,13 @@ exports.tags = function( item, reqParams ) {
 
 }
 
+exports.organizations = function( item, reqParams ) {
+
+  if ( reqParams.org && ( ( !item.org ) || ( item.org.s !== reqParams.org ) ) ) return false;
+
+  return true;
+
+}
 
 exports.locations = function( item, reqParams ) {
 

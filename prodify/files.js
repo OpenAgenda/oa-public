@@ -131,12 +131,12 @@ files = {
       'handleSuggestions/src/handleSuggestions.js',
       'inputCountry/src/inputCountry.js',
     ],
-    [paths.pef, 'form.bundle.js', 'tunnel.bundle.js']
+    /*[paths.pef, 'form.bundle.js', 'tunnel.bundle.js']*/
   ],
 
-  'review/embedFormSandbox.js': [
+  /*'review/embedFormSandbox.js': [
     [paths.pef, 'sandbox.bundle.js']
-  ],
+  ],*/
 
   'header/search.min.js': [
     [paths.hs, 'common.js', 'handleHeader.js', 'handleHeaderSearch.js', 'searchLib.js', 'geocoder.js', 'queryClient.js'],

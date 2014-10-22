@@ -1,0 +1,6 @@
+{
+  "base" : {
+    "uid" : "71671864/30709190"
+  },
+  "js" : [ "../../controller/main.js", "../organizations.js" ]
+}

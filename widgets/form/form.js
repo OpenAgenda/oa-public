@@ -82,7 +82,7 @@ var widget = function( elem, options ) {
 
     }
 
-    var frameElem = _initFrame( config.sandbox + '?template=' + sandbox );
+    var frameElem = _initFrame( config.resources.sandbox + '?template=' + sandbox );
 
     elem.appendChild( frameElem );
 
@@ -208,6 +208,8 @@ var widget = function( elem, options ) {
     frameElem.className = config.classes.form;
 
     frameElem.setAttribute( 'frameborder', 0 );
+
+    frameElem.setAttribute( 'width', '100%' );
 
     frameElem.setAttribute( 'allowtransparency', 'allowtransparency' );
 

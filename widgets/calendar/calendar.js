@@ -23,11 +23,7 @@ style = require( './style.css' ),
 styler = require( '../lib/widgetStyler' );
 
 
-if ( window.env == 'tpl' ) {
-
-  debug.enable( '*' );
-
-}
+if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
 
 
 var widget = function( elem, options ) {

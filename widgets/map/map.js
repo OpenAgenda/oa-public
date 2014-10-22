@@ -23,7 +23,7 @@ style = require( './style.css' ),
 
 styler = require( '../lib/widgetStyler' );
 
-if ( window.env == 'tpl' ) debug.enable( '*' );
+if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
 
 var widget = function( elem, options ) {
 
@@ -311,7 +311,7 @@ var widget = function( elem, options ) {
 
     }
 
-    config.tiles = ctl.ebd.mt;
+    config.tiles = data.ebd.mt;
 
   },
 
@@ -412,7 +412,7 @@ var widget = function( elem, options ) {
   },
 
 
-  initManualBounds = function( corners ) {
+  _initManualBounds = function( corners ) {
 
     baseBounds = m.createBounds( [ corners.neLat, corners.neLng ] );
 
@@ -598,6 +598,8 @@ var widget = function( elem, options ) {
     cn.addEvent( cn.el( elem, config.selectors.sync ), 'change', function( e ) {
 
       config.auto = !config.auto;
+
+      log( 'sync of bounds filter with moving map: %s', config.auto ? 'on' : 'off' );
 
       if ( !selectedLocation ) {
 

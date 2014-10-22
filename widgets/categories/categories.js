@@ -8,7 +8,7 @@ debug = require( 'debug' ),
 
 dom = require( './dom.js' );
 
-if ( window.env == 'tpl' ) debug.enable( '*' );
+if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
 
 
 var widget = function( elem, options ) {

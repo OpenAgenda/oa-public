@@ -224,8 +224,6 @@ module.exports = function( uid ) {
   
   _forEachWidget = function(methodName, methodParams, except ) {
 
-    log( 'running %s for all widgets with %s except for %s', methodName, JSON.stringify( methodParams ), except ? except : 'no one' );
-
     if ( ( arguments.length == 2 ) && ( typeof methodParams == 'string' ) ) {
 
       except = methodParams;
@@ -243,6 +241,8 @@ module.exports = function( uid ) {
       except = false;
 
     }
+
+    log( 'running %s for all widgets with %s except for %s', methodName, JSON.stringify( methodParams ), except ? except : 'no one' );
 
     for ( var i = widgets.length - 1; i >= 0; i-- ) {
 

@@ -34,13 +34,13 @@ config = {
   dev: {
     resources: {
       form:    '//d.cibul.net/frontend_dev.php/embed/{uid}/form',
-      sandbox: '//d.cibul.net/frontend_dev.php/embed/{uid}/sandbox'
+      sandbox: '//d.cibul.net/frontend_dev.php/embed/{uid}/form/sandbox'
     }
   },
   tpl: {
     resources: {
       form:    '//d.cibul.net/frontend_dev.php/embed/{uid}/form',
-      sandbox: '//d.cibul.net/frontend_dev.php/embed/{uid}/sandbox'
+      sandbox: '//d.cibul.net/frontend_dev.php/embed/{uid}/form/sandbox'
     }
   }
 }

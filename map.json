@@ -41,8 +41,20 @@
     "prod" : "embed/cibulMapWidget.js"
   },
   {
+    "js" : "widgets/form/form.js",
+    "prod" : "embed/cibulFormWidget.js"
+  },
+  {
+    "js" : "widgets/list/list.js",
+    "prod" : "embed/cibulListWidget.js"
+  },
+  {
     "js" : "widgets/controller/main.js",
     "prod" : "embed/cibulControllers.js"
+  },
+  {
+    "js" : "widgets/organizations/organizations.js",
+    "prod" : "embed/cibulOrganizationsWidget.js"
   },
   {
     "js" : "widgets/map/admin/parent.js",

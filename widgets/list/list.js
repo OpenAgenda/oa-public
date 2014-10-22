@@ -16,7 +16,7 @@ config = {
   heightOffset: 40
 };
 
-if ( window.env == 'tpl' ) debug.enable( '*' );
+if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
 
 var widget = function( elem, options ) {
 
@@ -53,7 +53,7 @@ var widget = function( elem, options ) {
       'closeevent' : _onEventClose,
       'eventdateplaceselect' : _onEventDatePlaceSelect,
       'eventmapplaceunselect' : _onEventMapPlaceUnselect,
-      'success' : _onListChange
+      'success' : _onListChange,
     });
 
     cn.addEvent( document, 'scroll', _monitorScroll );
@@ -132,7 +132,7 @@ var widget = function( elem, options ) {
 
     requestParams = cn.extend({}, reqParams );
 
-    log( 'sending params to frame' );
+    log( 'change of params to "%s" - sending to frame', JSON.stringify( reqParams ) );
 
     tunnel.send(cn.extend({ event: config.events.load  }, requestParams ));
 

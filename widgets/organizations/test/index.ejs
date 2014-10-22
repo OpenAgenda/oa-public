@@ -1,0 +1,13 @@
+<html>
+  <head>
+<% js.forEach( function( jsPath ) { %>
+  <script type="text/javascript" src="<%= jsPath %>"></script>
+<% }) %>
+  </head>
+  <body>
+
+    <p>organizations widget</p>
+    <div class="cbpgor cibulOrganizations" data-cbctl="<%= uid %>"></div>
+
+  </body>
+</html>

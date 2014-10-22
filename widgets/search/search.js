@@ -20,7 +20,7 @@ handleSuggestions = require( '../../js/cibul/handleSuggestions/src/handleSuggest
 
 today = new Date();
 
-if ( window.env == 'tpl' ) debug.enable( '*' );
+if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
 
 var widget = function( elem, options ) {
 
