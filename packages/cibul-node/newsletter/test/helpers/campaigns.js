@@ -14,7 +14,10 @@ w = require( 'when' ),
 
 wn = require( 'when/node' ),
 
-lib = require( '../../../lib/lib' );
+lib = require( '../../../lib/lib' ),
+
+log = require( 'debug' )( 'campaigns helper' );
+
 
 
 /**
@@ -29,64 +32,66 @@ exports.prepare = function( options, cb ) {
 
   params = lib.extend( {
     emails: [ 'poney@cibul.net', 'bisounours@cibul.net', 'cali@cibul.net' ]
-  }, options )
+  }, options );
    
   wn.call( fixtures.clearAll )
 
   .then( function() {
 
-      return wn.call( fixtures.load, 'users', 'gaetan');
+    log( 'loading gaetan' );
 
-    } )
+    return wn.call( fixtures.load, 'users', 'gaetan');
 
-    .then( function( u ) {
+  } )
 
-      user = u;
+  .then( function( u ) {
 
-      return wn.call( fixtures.load, 'reviews', 'chez-nous', { ownerId: user.id });
+    user = u;
 
-    })
+    return wn.call( fixtures.load, 'reviews', 'chez-nous', { ownerId: user.id });
 
-    .then( function( r ) {
+  })
 
-      review = model.reviews().instance( r );
+  .then( function( r ) {
 
-      return wn.call( review.campaigns.create, {
-        title: 'whatever'
-      });
+    review = model.reviews().instance( r );
 
-    })
-
-    .then( function( c ) {
-
-      campaign = model.campaigns().instance( c );
-
-      return wn.call( review.contactLists.create, { title: 'who cares' } )
-
-    })
-
-    .then( function( ct ) {
-
-      contactList = model.contactLists().instance( ct );
-
-      return wn.call( campaign.setContactList, contactList );
-
-    })
-
-    .done( function() {
-
-      async.each( params.emails , function( email, ecb ) {
-
-        contactList.contacts.create({ email: email }, ecb );
-
-      }, function( err ) {
-
-        if ( err ) return log( err );
-
-        campaign.setScheduledAt( new Date(), true, cb );
-
-      })
-
+    return wn.call( review.campaigns.create, {
+      title: 'whatever'
     });
+
+  })
+
+  .then( function( c ) {
+
+    campaign = model.campaigns().instance( c );
+
+    return wn.call( review.contactLists.create, { title: 'who cares' } )
+
+  })
+
+  .then( function( ct ) {
+
+    contactList = model.contactLists().instance( ct );
+
+    return wn.call( campaign.setContactList, contactList );
+
+  })
+
+  .done( function() {
+
+    async.each( params.emails , function( email, ecb ) {
+
+      contactList.contacts.create({ email: email }, ecb );
+
+    }, function( err ) {
+
+      if ( err ) return log( err );
+
+      campaign.setScheduledAt( new Date(), true, cb );
+
+    })
+
+  });
 
 }

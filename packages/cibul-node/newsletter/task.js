@@ -138,6 +138,8 @@ function _processCampaign( campaign, cb ) {
 
   .spread( function( content, recipient ) {
 
+    console.log( recipient );
+
     log( 'campaign %s content generated and recipients fetched', campaign.uid );
 
     return wn.call( coms.queue, 'mailer', {

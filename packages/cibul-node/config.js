@@ -145,7 +145,10 @@ config = {
     logger: 'debug',
     multiCore: false,
     db: {
-      database: 'cibultest'
+      database: 'cibultest',
+      host: 'localhost',
+      user: 'root',
+      password: 'grut'
     },
   },
   prod: {}
