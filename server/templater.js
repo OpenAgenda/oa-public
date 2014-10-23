@@ -127,7 +127,7 @@ _loadTemplate = function( templateName ) {
 
 	try {
 	    data.config = JSON.parse( config );
-	}, catch ( err ) {
+	} catch ( err ) {
 	    log ( 'Cannot parse this %s', config);
 	    throw err;
 	}
