@@ -11,7 +11,7 @@
   },
   "base" : {
     "pageClass" : false,
-    "searchRes" : "searchEvent",
+    "searchRes" : "searchEvents",
     "search" : ""
   },
   "templateJs" : true
