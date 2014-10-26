@@ -59,7 +59,11 @@ run = function() {
 
 legacyProdify = function() {
 
+  log( 'legacy prodify' );
+
   forEachDestinationFile(function( destFile, inputEntries ) {
+
+    log( 'creating %s', destFile );
 
     var content = '';
 
@@ -384,7 +388,7 @@ prodifyJs = function( map, cb ) {
 
     _browserify( paths, scb );
 
-  });
+  }, cb);
 
 },
 

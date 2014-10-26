@@ -274,7 +274,8 @@ if (typeof cibulControllers == 'undefined') (function() {
     };
 
     return {
-      register: register
+      register: register,
+      update: update // hack
     };
 
   },
@@ -295,6 +296,16 @@ if (typeof cibulControllers == 'undefined') (function() {
     if (!isDef(controllers[params.uid])) controllers[params.uid] = controller(params.uid);
 
     return controllers[params.uid].register(name, params);
+
+  },
+
+  updateAll = function( value ) {
+
+    forEach( controllers, function( controller ) {
+
+      controller.update( value );
+
+    } );
 
   },
 
@@ -401,7 +412,8 @@ if (typeof cibulControllers == 'undefined') (function() {
 
   window.cibulControllers = {
     register: register,
-    loadWidget: loadWidget
+    loadWidget: loadWidget,
+    updateAll: updateAll
   };
 
 })();

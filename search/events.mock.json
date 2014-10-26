@@ -5,7 +5,7 @@
       "title" : "Homo spectator : voir, faire voir",
       "uid" : "748789456",
       "slug" : "fqsdfdq",
-      "image" : "//cibul.s3.amazonaws.com/evtbevent_la-petite-noblesse-de-l-intelligence-une-sociologie-des-enfants-surdoues_739383.jpg",
+      "image" : "evtbevent_la-petite-noblesse-de-l-intelligence-une-sociologie-des-enfants-surdoues_739383.jpg",
       "description" : "Marie-José Mondzain",
       "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14"}],
       "placeName" : "Banque Populaire Atlantique"
@@ -14,7 +14,7 @@
       "title" : "La Technologisation du corps",
       "uid" : "748789456",
       "slug" : "fqsdfdq",
-      "image" : "//cibul.s3.amazonaws.com/evtbevent_homo-spectator-voir-faire-voir_223470.jpg",
+      "image" : "evtbevent_homo-spectator-voir-faire-voir_223470.jpg",
       "description" : "Brigitte Munier-Termime",
       "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-13", "%finish%" : "2014-10-14" }],
       "placeName" : "Metro Stalingrad"
@@ -23,7 +23,7 @@
       "title" : "Changeons d'agriculture",
       "uid" : "4546988948",
       "slug" : "fqsdfdq",
-      "image" : "//cibul.s3.amazonaws.com/evtbevent_changeons-d-agriculture_703516.jpg",
+      "image" : "evtbevent_changeons-d-agriculture_703516.jpg",
       "description" : "Le “modèle” agricole qui s’est imposé depuis quelques décennies est de plus en plus critiqué en raison de ses conséquences néfastes sur l’environnement, l’emploi et la santé humaine et animale...",
       "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-14", "%finish%" : "2014-10-14" }],
       "placeName" : "Banque Populaire Atlantique"
@@ -32,7 +32,7 @@
       "title" : "Eric Hazan",
       "uid" : "4546988948",
       "slug" : "fqsdfdq",
-      "image" : "//cibul.s3.amazonaws.com/evtbevent_premileres-mesures-revolutionnaires_282421.jpg",
+      "image" : "evtbevent_premileres-mesures-revolutionnaires_282421.jpg",
       "description" : "Eric Hazan",
       "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-14", "%finish%" : "2014-10-16" }],
       "placeName" : "Banque Impopulaire"
@@ -41,7 +41,7 @@
       "title" : "Les imams en France",
       "uid" : "48948894",
       "slug" : "fqsdfdq",
-      "image" : "//cibul.s3.amazonaws.com/evtbevent_les-imams-en-france_924665.jpg",
+      "image" : "evtbevent_les-imams-en-france_924665.jpg",
       "description" : "Solenne Jouanneau",
       "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14"}],
       "placeName" : "Quelque part"
@@ -59,7 +59,7 @@
       "title" : "La petite noblesse de l’intelligence, une sociologie des enfants surdoués",
       "uid" : "748789456",
       "slug" : "fqsdfdq",
-      "image" : "//cibul.s3.amazonaws.com/evtbevent_europe-les-etats-desunis-coralie-delaume_799281.jpg",
+      "image" : "evtbevent_europe-les-etats-desunis-coralie-delaume_799281.jpg",
       "description" : "Wilfried Lignier",
       "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14" }],
       "placeName" : "Creanova"

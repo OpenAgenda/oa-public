@@ -1,15 +1,22 @@
-<div class="header"></div>
-<div class="canvas">
-  <div class="sidebar">
+<div class="header">
+  <div class="content">
+    <h1><%= __('Results for "%what%"', { '%what%': what } ) %></h1>
+    <ul>
+      <li><span><%= __('%count% events', { '%count%': pager.total }) %></span></li>
+      <li><a class="url" href="<%= genUrl('searchAgendas', { what: what }) %>"><%= __('see agendas') %></a></li>
+    </ul>
   </div>
+</div>
+<div class="canvas">
+  <div class="sidebar"></div>
   <main>
     <% include ../general/pages %>
     <ul>
 <% events.forEach(function( event ) { %>
       <li>
         <article><!--
-<% if ( event.image ) { %>
-          --><a class="pic" href="#">
+  <% if ( event.image ) { %>
+          --><a class="pic" href="<%= genUrl('eventShow', { slug: event.slug }) %>">
             <img src="<%= _i( event.image ) %>">
           </a><!--
   <% } %>
@@ -17,9 +24,9 @@
   <% if ( event.category ) { %>
             <a class="ct mbClr" href="#<%= event.category.slug %>"><%= event.category.label %></a>
   <% } %>
-            <span class="title"><%= event.title %></span>
-            <span class="sti url"><%= __( event.dateRange[0], _t(event.dateRange[1]) ) %></span>
-            <span class="dsc"><%= event.description %></span>
+            <a href="<%= genUrl('eventShow', { slug: event.slug }) %>"><span class="title"><%= event.title %></span></a>
+            <a href="<%= genUrl('eventShow', { slug: event.slug }) %>"><span class="sti url"><%= __( event.dateRange[0], _t(event.dateRange[1]) ) %></span></a>
+            <a href="<%= genUrl('eventShow', { slug: event.slug }) %>"><span class="dsc"><%= event.description %></span></a>
   <% if ( event.tags ) { %>
             <span class="tg">
               <ul>
@@ -29,7 +36,7 @@
               </ul>
             </span>
   <% } %>
-            <a class="lc">
+            <a class="lc" href="<%= genUrl('eventShow', { slug: event.slug }) %>">
               <i class="fa fa-map-marker mClr"></i>
               <span><%= event.placeName %></span>
             </a>

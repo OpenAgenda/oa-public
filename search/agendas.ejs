@@ -1,7 +1,14 @@
-<div class="header"></div>
-<div class="canvas">
-  <div class="sidebar">
+<div class="header">
+  <div class="content">
+    <h1><%= __('Results for "%what%"', { '%what%': what } ) %></h1>
+    <ul>
+      <li><a href="<%= genUrl('searchAgendas', { what: what }) %>" class="url"><%= __('see events') %></a></li>
+      <li><span><%= __('%count% agendas', { '%count%': pager.total }) %></span></li>
+    </ul>
   </div>
+</div>
+<div class="canvas">
+  <div class="sidebar"></div>
   <main>
     <% include ../general/pages %>
     <ul>
@@ -9,13 +16,13 @@
       <li>
       <article><!--
 <% if ( agenda.image ) { %>
-        --><a class="pic" href="#">
+        --><a class="pic" href="<%= genUrl('showAgenda', { slug: agenda.slug }) %>">
           <img src="<%= _i( agenda.image ) %>">
         </a><!--
 <% } %>
         --><div class="cnt<% if ( !agenda.image ) { %> nopic<% } %>" href="#">
-          <span class="title"><%= agenda.title %></span>
-          <span class="dsc"><%= agenda.description %></span>
+          <a href="<%= genUrl('showAgenda', { slug: agenda.slug }) %>"><span class="title"><%= agenda.title %></span></a>
+          <a href="<%= genUrl('showAgenda', { slug: agenda.slug }) %>"><span class="dsc"><%= agenda.description %></span></a>
 <% if ( agenda.categories.length ) { %>
           <ul class="tg">
 <% agenda.categories.forEach( function( category ) { %>
@@ -23,7 +30,7 @@
 <% }); %>
           </ul>
 <% } %>
-          <a class="lc">
+          <a class="lc" href="<%= genUrl('showAgenda', { slug: agenda.slug }) %>">
             <i class="icon-map-marker mClr"></i>
             <span><%= agenda.locationInfo %></span>
           </a>
