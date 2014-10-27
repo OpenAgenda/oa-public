@@ -28,11 +28,17 @@ function getLogger( namespace, type ) {
   return function( val, val2, val3 ) {
 
     if ( arguments.length == 1) {
+
       currentLogger[type]( val );
+
     } else if ( arguments.length == 2 ) {
+
       currentLogger[type]( val, val2 );
+
     } else {
+
       currentLogger[type]( val, val2, val3 );
+
     }
     
   }
