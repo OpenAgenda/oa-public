@@ -252,7 +252,7 @@ var widget = function( elem, options ) {
 
     var parts = src.split('/');
 
-    return parts.splice(parts.length-2, 2).join('/');
+    return parts.splice(parts.length-2, 2).join('/').split('?')[0];
 
   }
 
