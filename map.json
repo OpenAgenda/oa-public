@@ -65,6 +65,10 @@
     "prod" : "review/widgetMapConfigFrame.js"
   },
   {
+    "js" : "widgets/custom/custom.js",
+    "prod" : "embed/cibulCustomWidget.js"
+  },
+  {
     "js" : "agenda embed menu/js/embedMenu.js",
     "prod" : "review/embedMenu.js"
   }
