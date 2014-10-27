@@ -446,7 +446,7 @@ files = {
   'review/cibulEmbed.min.js': [
     [paths.jsc, 'cibulEmbed/src/cibulEmbed.js'],
   ],
-
+/*
   'embed/cibulWidgetLib.js': [
     [ paths.vd, 'ejs/src/ejs_production.js', 'CibulCalendar/src/CibulCalendar.js', ],
     [ paths.lib, 'common/common.js', 'remote/remote.js', 'Base64/Base64.js', 'maps/maps.js', 'maps/osm.maps.js', 'urlStrings/urlStrings.js', 'iTunnel/iTunnel.js'],
@@ -456,7 +456,7 @@ files = {
   'embed/cibulListWidget.js': [
     [ paths.npem, 'cibulListWidget.js' ]
   ],
-/*
+
   'embed/cibulMapWidget.js': [
     [paths.npem, 'cibulMapWidget.js']
   ],
@@ -475,12 +475,12 @@ files = {
 
   'embed/cibulTagsWidget.js': [
     [paths.npem, 'cibulTagsWidget.js']
-  ], */
+  ], 
 
   'embed/cibulFormWidget.js': [
     [paths.npem, 'cibulFormWidget.js']
   ],
-
+*/
 
   'cmap.js': [[paths.lg, 'cmap.js']],
   'colorpicker.min.js': [[paths.lg, 'colorpicker.min.js']],
