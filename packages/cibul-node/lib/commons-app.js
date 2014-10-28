@@ -277,7 +277,17 @@ function loadSession( req, res, next ) {
 
     }
 
-    _defineLang( req, req.session.culture );
+    if ( !req.session.logged ) {
+
+      _defineLang( req );
+
+    } else {
+
+      _defineLang( req, req.session.culture );
+
+    }
+
+    
 
     log( 'session is loaded: %s', sessionKey );
 
@@ -440,7 +450,16 @@ function _renderJson( req, res, data ) {
 
 function _defineLang( req, lang ) {
 
-  req.lang = lang;
+  if ( !lang ) {
+
+    req.lang = req.query.lang ? req.query.lang : 'fr'
+
+  } else {
+
+    req.lang = lang;
+    
+  }
+
 
 }
 

@@ -84,7 +84,7 @@ function load( main ) {
 
 function searchEvents( req, res ) {
 
-  if ( !req.query.search )  {
+  if ( !req.cleanQuery || !lib.size( req.cleanQuery ) )  {
 
     return cmn.redirect( req, res, 'latestEvents' );
 
@@ -126,7 +126,7 @@ function latestEvents( req, res ) {
 
 function searchAgendas( req, res ) {
 
-  if ( !req.query.search )  {
+  if ( !req.cleanQuery || !lib.size( req.cleanQuery ) )  {
 
     return cmn.redirect( req, res, 'latestAgendas' );
 
@@ -146,7 +146,9 @@ function searchAgendas( req, res ) {
 function latestAgendas( req, res ) {
 
   wn.call( async.parallel, [
-    async.apply( model.agendas().total ),
+    async.apply( model.agendas().total, {
+      upcoming : true
+    } ),
     async.apply( model.agendas().list, {
       page : req.query.page ? req.query.page : 1,
       limit : app.get( 'perPage' ),
@@ -271,6 +273,8 @@ function _cleanSearch( req, res, next ) {
 
   params.what = query.what || null;
 
+  if ( !query.what ) delete query.what;
+
   if ( query.lat || query.lng || query.distance )
 
     if ( query.lat && query.lng && query.distance )
@@ -368,7 +372,7 @@ function _pager( req, routeName, totalItems ) {
       routeName: routeName,
       current: req.query.page || 1,
       total: totalItems,
-      perPage: app.get('perPage')
+      perPage: app.get( 'perPage' )
     }
   };
 
