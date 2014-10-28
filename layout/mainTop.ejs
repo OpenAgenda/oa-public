@@ -23,7 +23,7 @@
         </li>
         <li>
           <form class="search" method="get" action="<%= genUrl(searchRes) %>">
-            <input type="text" name="what" value="<%= typeof what !== 'undefined' ? what : '' %>"/>
+            <input type="text" name="search[what]" value="<%= search && ( typeof search.what !== 'undefined' ) ? search.what : '' %>"/>
             <i class="fa fa-search"></i>
           </form>
         </li>

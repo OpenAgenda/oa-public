@@ -1,10 +1,10 @@
 <div class="header">
   <div class="content">
-    <h1><%= __('Results for "%what%"', { '%what%': what } ) %></h1>
-    <ul>
-      <li><span><%= __('%count% events', { '%count%': pager.total }) %></span></li>
-      <li><a class="url" href="<%= genUrl('searchAgendas', { what: what }) %>"><%= __('see agendas') %></a></li>
-    </ul>
+<% if ( pager.routeName == 'searchEvents' ) { %>
+    <% include ./searchEventsHeader %>
+<% } else { %>
+    <% include ./latestEventsHeader %>
+<% } %>
   </div>
 </div>
 <div class="canvas">
@@ -15,12 +15,12 @@
 <% events.forEach(function( event ) { %>
       <li>
         <article><!--
-  <% if ( event.image ) { %>
+  <% if ( event.thumbnail ) { %>
           --><a class="pic" href="<%= genUrl('eventShow', { slug: event.slug }) %>">
-            <img src="<%= _i( event.image ) %>">
+            <img src="<%= _i( event.thumbnail ) %>">
           </a><!--
   <% } %>
-          --><div class="cnt<% if ( !event.image ) { %> nopic<% } %>" href="#">
+          --><div class="cnt<% if ( !event.thumbnail ) { %> nopic<% } %>" href="#">
   <% if ( event.category ) { %>
             <a class="ct mbClr" href="#<%= event.category.slug %>"><%= event.category.label %></a>
   <% } %>
