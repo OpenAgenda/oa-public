@@ -3,5 +3,6 @@
   "%start% to %finish%" : "du %start% au %finish%",
   "%count% events" : "%count% événements",
   "see agendas" : "voir les agendas",
-  "Latest published events" : "Derniers événements publiés"
+  "Latest published events" : "Derniers événements publiés",
+  "see latest updated agendas" : "voir les derniers agendas mis à jour"
 }

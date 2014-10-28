@@ -10,7 +10,9 @@
   <ul>
 <% if ( !basic ) { %>
     <li><h3><%= __('General') %></h3></li>
-    <li><a href="<%= genUrl('eventNew') %>"><%= __('Publish an event') %></a></li>
+    <li>
+      <a href="<%= genUrl('homeEvents') %>"><%= __('My Events') %></a>
+    </li>
     <li><a href="<%= genUrl('settingsIndex') %>"><%= __('Settings') %></a></li>
 <% } else { %>
 <% if (reviews.edited.length) { 
@@ -26,9 +28,6 @@
     </li>
 <% }} %>
 <% } %>
-    <li>
-      <a href="<%= genUrl('homeEvents') %>"><%= __('My Events') %></a>
-    </li>
     <li>
       <a href="<%= genUrl('signout') %>" class="js_signout" ><%= __('Sign Out') %></a>
     </li>

@@ -142,14 +142,24 @@ a {
   font-size: 1.1em;
   border: 1px solid #999;
   box-sizing: border-box;
+  
+}
+
+.search button {
+
+  position: absolute;
+  left: 0.8em;
+  top: 0.65em;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  
 }
 
 .search i {
 
-  position: absolute;
-  left: 0.6em;
-  font-size: 1.5em;
-  top: 0.45em;
   color: #999;
+  font-size: 1.5em;
 
 }

@@ -418,7 +418,7 @@ getTemplateFilesToBrowserify = function ( templateName, cb ) {
 
 _browserify = function( paths, cb ) {
 
-  log( 'browserificationization' );
+  log( 'browserificationization %s', paths.dest.path + paths.dest.name );
 
   // run browserify_browserify
 

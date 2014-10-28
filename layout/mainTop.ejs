@@ -12,7 +12,7 @@
   </head>
   <body<% if ( pageClass ) { %> class="<%= pageClass %>"<% } %>>
     <header>
-      <a class="logo" href="#"><img src="/images/biglogo.png"></a>
+      <a class="logo" href="/"><img src="/images/biglogo.png"></a>
       <ul class="links site-links js_header_links">
         <li class="language-menu js_language_menu">
           <a><% if ( ( typeof lang == 'undefined' ) || lang=='fr' ) { %>fr<% } else { %>en<% } %></a>
@@ -24,7 +24,9 @@
         <li>
           <form class="search" method="get" action="<%= genUrl(searchRes) %>">
             <input type="text" name="search[what]" value="<%= search && ( typeof search.what !== 'undefined' ) ? search.what : '' %>"/>
-            <i class="fa fa-search"></i>
+            <button type="submit">
+              <i class="fa fa-search"></i>
+            </button>
           </form>
         </li>
       </ul>
