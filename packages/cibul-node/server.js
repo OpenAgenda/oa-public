@@ -8,9 +8,9 @@ supervisor( function( loadTasks ) {
 
   // load libraries
 
-  var router = require('./lib/router'),
+  var router = require( './lib/router' ),
 
-  coms = require('./lib/coms'),
+  coms = require( './lib/coms' ),
 
   express = require( 'express' ),
 
@@ -18,23 +18,18 @@ supervisor( function( loadTasks ) {
 
   config = require( './config' ),
 
-  app = express(),
-
-  webModules,
-
-  taskModules;
+  app = express();
 
   app.use( require('cookie-parser')() );
 
 
-  // all web app modules are defined here and optionally loaded
+  // all web app modules are defined here
 
-  webModules = [
-    require( './newsletter/back' )( '/:slug/admin/newsletters' ).load( app ),
-    require( './newsletter/front' )( '/:slug/newsletters' ).load( app ),
-    require( './general/front' )( '' ).load( app ),
-    require( './search/front' )( '' ).load( app )
-  ];
+  require( './newsletter/back' )( '/:slug/admin/newsletters' ).load( app );
+  require( './newsletter/front' )( '/:slug/newsletters' ).load( app );
+  require( './general/front' )( '' ).load( app );
+  require( './search/front' )( '' ).load( app );
+
 
   app.listen( config.port );
 
@@ -43,9 +38,8 @@ supervisor( function( loadTasks ) {
 
   if ( !loadTasks ) return;
 
-  taskModules = [
-    require( './newsletter/task' ).load( { period: 60000, bootOffset: 15000 } ),
-    require( './mailer/task' ).load( { bootOffset: 14909 })
-  ];
+  require( './newsletter/task' ).load( { period: 60000, bootOffset: 15000 } );
+  require( './mailer/task' ).load( { bootOffset: 14909 } );
+  require( './search/task' ).load( { bootOffset: 12483 } );
 
 });

@@ -18,8 +18,6 @@ lib = require( '../../../lib/lib' ),
 
 log = require( 'debug' )( 'campaigns helper' );
 
-
-
 /**
  * make a user, give him a review, a campaign,
  * a contact list and a bunch of contacts

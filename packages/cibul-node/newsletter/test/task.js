@@ -15,7 +15,7 @@ async = require('async'),
 
 should = require('should'),
 
-bogusComs = require('./helpers/bogusComs'),
+bogusComs = require('../../test/helpers/bogusComs'),
 
 task = require( '../task' ),
 

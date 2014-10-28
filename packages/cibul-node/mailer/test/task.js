@@ -6,20 +6,19 @@
 
 process.env.NODE_ENV = 'test';
 
+var log = require( '../../lib/logger' )( 'mailer-tests' ),
 
-var log = require('../../lib/logger')( 'mailer-tests' ),
-
-should = require('should'),
+should = require( 'should' ),
 
 lib = require( '../../lib/lib' ),
 
 config = require( '../../config' ),
 
-async = require('async'),
+async = require( 'async' ),
 
-coms = require('../../lib/coms'),
+coms = require( '../../lib/coms' ),
 
-task = require('../task');
+task = require( '../task' );
 
 
 describe( 'mailer', function() {

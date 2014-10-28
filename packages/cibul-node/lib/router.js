@@ -275,6 +275,7 @@ function _registerRoute( name, params ) {
 
 }
 
+
 function _getBasePath( path, req ) {
 
   var basePathRegex = path.replace(/\//g, '\/'),
@@ -296,10 +297,17 @@ function _getBasePath( path, req ) {
 
 }
 
+
 function _maintainQuery( req, values ) {
 
-  if ( req.query.page && !values.page ) values.page = req.query.page;
+  [ 'page', 'filters', 'search' ].forEach( function( fieldName ) {
 
-  if ( req.query.filters && !values.filters ) values.filters = req.query.filters;
+    if ( req.query[ fieldName ] && !values[ fieldName ] ) {
+
+      values[ fieldName ] = req.query[ fieldName ];
+
+    }
+
+  } );
 
 };

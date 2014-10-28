@@ -17,9 +17,15 @@ config = {
       user: 'root',
       password: 'V4\'&4F:,Mtji\'hzq'
     },
+    es: {
+      host: '10.74.132.55',
+      port : 9200,
+      indexName : 'cibul',
+      channel: 'main'
+    },
     redis: {
-      host: '127.0.0.1',
-      port: 6389
+      host: '10.74.132.55',
+      port: 6379
     },
     session: {
       cookie: 'symfony',
@@ -47,6 +53,10 @@ config = {
         'searchEvent' : {
           method: 'get',
           uri: '/events/search'
+        },
+        'eventShow' : {
+          method: 'get',
+          uri: '/event/:slug'
         },
         'agendaShow' : {
           method: 'get',
@@ -124,6 +134,7 @@ config = {
       defaultGlobalsPrefix: ''
     }
   },
+
   dev: {
     env: 'dev',
     root: 'https://d.cibul.net',
@@ -134,10 +145,21 @@ config = {
       user: 'root',
       password: 'grut'
     },
+    es: {
+      host: 'localhost',
+      port : 9200,
+      indexName : 'cibuldev',
+      channel : 'maindev'
+    },
+    redis: {
+      host: 'localhost',
+      port: 6389
+    },
     routes: {
       defaultGlobalsPrefix: '/frontend_dev.php'
     }
   },
+  
   test: {
     env: 'test',
     multiCore: false,
@@ -147,7 +169,18 @@ config = {
       user: 'root',
       password: 'grut'
     },
+    es: {
+      host: 'localhost',
+      port : 9200,
+      indexName : 'cibultest',
+      channel : 'maintest'
+    },
+    redis: {
+      host: 'localhost',
+      port: 6389
+    }
   },
+  
   prod: {}
 };
 
