@@ -139,7 +139,7 @@ files = {
   ],*/
 
   'header/search.min.js': [
-    [paths.hs, 'common.js', 'handleHeader.js', 'handleHeaderSearch.js', 'searchLib.js', 'geocoder.js', 'queryClient.js'],
+    [paths.hs, 'common.js', 'handleHeader.js', 'queryClient.js'],
     [paths.lib, 'common/common.js', 'EventHandler/EventHandler.js', 'remote/remote.js', 'Base64/Base64.js' ],
     [paths.vd,
       'CibulCalendar/src/CibulCalendar.js',

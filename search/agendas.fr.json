@@ -4,5 +4,6 @@
   "%count% agendas" : "%count% agendas",
   "see events" : "voir les événements",
   "Latest updated agendas" : "Derniers agendas mis à jour",
-  "see latest published events" : "voir les derniers événements publiés"
+  "see latest published events" : "voir les derniers événements publiés",
+  "No result available for \"%what%\"" : "Aucun résultat pour \"%what%\""
 }

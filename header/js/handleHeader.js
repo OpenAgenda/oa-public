@@ -47,12 +47,6 @@ var handleHeader = function(params) {
 
     });
 
-    var hSearch = handleHeaderSearch({resEvent: params.resEvent, resLocation: params.resLocation, env: params.env });
-
-    _applyDeployBehavior(hSearch.initMapAndSearch);
-
-    $('.in-field').infieldize({position: false});
-
   },
 
   _runUnlogged = function() {
