@@ -311,7 +311,7 @@ function _parseJob( job ) {
 
     name: data.name.split('.').pop(),
 
-    id: data.value ? data.value.id : null,
+    id: data.values ? data.values.id : null,
 
   };
 

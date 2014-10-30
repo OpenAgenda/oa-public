@@ -99,7 +99,7 @@ describe.only( 'search index sync', function() {
 
       exists.should.be.true;
 
-      bogusComs.publish( config.es.channel, { name: 'event.delete', value: { id: eventToDelete.id } } );
+      bogusComs.publish( config.es.channel, { name: 'event.delete', values: { id: eventToDelete.id } } );
 
     });
 
@@ -126,7 +126,7 @@ describe.only( 'search index sync', function() {
 
       exists.should.be.false;
 
-      bogusComs.publish( config.es.channel, { name: 'event.publish', value: { id: eventToAdd.id } })
+      bogusComs.publish( config.es.channel, { name: 'event.publish', values: { id: eventToAdd.id } })
 
     });
 
@@ -161,7 +161,7 @@ describe.only( 'search index sync', function() {
 
         if ( err ) throw err;
 
-        bogusComs.publish( config.es.channel, { name: 'event.update', value: { id: eventToChange.id } });
+        bogusComs.publish( config.es.channel, { name: 'event.update', values: { id: eventToChange.id } });
 
       });
 
@@ -190,7 +190,7 @@ describe.only( 'search index sync', function() {
 
       exists.should.be.true;
 
-      bogusComs.publish( config.es.channel, { name: 'review.delete', value: { id: reviewToDelete.id } } );
+      bogusComs.publish( config.es.channel, { name: 'review.delete', values: { id: reviewToDelete.id } } );
 
     });
 
@@ -217,7 +217,7 @@ describe.only( 'search index sync', function() {
 
       exists.should.be.false;
 
-      bogusComs.publish( config.es.channel, { name: 'review.publish', value: { id: reviewtoAdd.id } } );
+      bogusComs.publish( config.es.channel, { name: 'review.publish', values: { id: reviewtoAdd.id } } );
 
     });
 
@@ -252,7 +252,7 @@ describe.only( 'search index sync', function() {
 
         if ( err ) throw err;
 
-        bogusComs.publish( config.es.channel, { name: 'review.update', value: { id: reviewToChange.id } });
+        bogusComs.publish( config.es.channel, { name: 'review.update', values: { id: reviewToChange.id } });
 
       });
 
