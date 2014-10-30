@@ -356,7 +356,7 @@ function _layoutData( req ) {
   return {
     head: {
       css: {
-        main: '//d.cibul.net/css/compiled.css'
+        main: '/css/compiled.css'
       }
     },
     scriptsBase: '/js'

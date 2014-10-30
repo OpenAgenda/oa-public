@@ -90,7 +90,7 @@ var _layoutData = function( ) {
   return {
     head: {
       css: {
-        main: '//d.cibul.net/css/compiled.css'
+        main: '/css/compiled.css'
       }
     }
   };
