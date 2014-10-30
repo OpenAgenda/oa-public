@@ -12,23 +12,34 @@ module.exports = function( config ) {
 
   return function( date, format ) {
 
-    if ( !format ) format = 'Do MMMM YYYY';
-
     // date can be an array of dates, one date with a time
 
     if ( ( typeof date == 'object' ) && !( date instanceof Date ) ) {
 
-      var clean = {};
+      var clean = {}, assumedFormat;
 
       for ( var k in date ) {
 
-        clean[k] = formatDate( date[k], format, timezone );
+        if ( !format && ( k.indexOf('time') !== -1 ) ) {
+
+          // format is not explicited and key suggests time is required
+          assumedFormat = 'HH:mm';
+
+        } else {
+
+          assumedFormat = format ? format : 'Do MMMM YYYY';
+
+        }
+
+        clean[k] = formatDate( date[k], assumedFormat, timezone );
 
       }
 
       return clean;
 
     } else {
+
+      if ( !format ) format = 'Do MMMM YYYY';
 
       return formatDate( date, format, timezone );
 

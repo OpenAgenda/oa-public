@@ -19,7 +19,7 @@
         "slug" : "fqsdfdq",
         "image" : "evtbevent_la-petite-noblesse-de-l-intelligence-une-sociologie-des-enfants-surdoues_739383.jpg",
         "description" : "Marie-José Mondzain",
-        "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14"}],
+        "dateRange" : [ "on %start%", { "%start%" : "2014-10-12" } ],
         "placeName" : "Banque Populaire Atlantique"
       },
       {

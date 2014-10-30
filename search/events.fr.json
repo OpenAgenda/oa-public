@@ -1,6 +1,7 @@
 {
   "Results for \"%what%\"" : "Résultats pour \"%what%\"",
   "%start% to %finish%" : "du %start% au %finish%",
+  "on %start% @ %time%" : "le %start% @ %time%",
   "%count% events" : "%count% événements",
   "see agendas" : "voir les agendas",
   "Latest published events" : "Derniers événements publiés",
