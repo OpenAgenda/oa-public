@@ -14,5 +14,7 @@
   "You do not have access to the administration of this agenda."
   : "Vous n'avez pas accès à l'adminstration de cet agenda.",
   "Whoops. Could not retrieve the agenda."
-  : "Oups. L'agenda n'a pas été retrouvé."
+  : "Oups. L'agenda n'a pas été retrouvé.",
+  "You have been added to the newsletter list. Thanks!"
+  : "Vous avez été ajouté à la mailing liste. Merci!"
 }

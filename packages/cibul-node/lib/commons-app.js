@@ -11,6 +11,7 @@ exports.errorResponse = errorResponse;            // render error page
 
 exports.loadAgenda = loadAgenda;                  // middleware. loads an agenda in the request based on its slug
 exports.requireLogged = requireLogged;            // middleware. verify if user is logged
+exports.loadBaseData = loadBaseData;              // middleware. 
 exports.loadSession = loadSession;                // middleware. load session data
 exports.checkCredential = checkCredential;        // middleware. check that request agenda has required credential
 exports.flashSetter = flashSetter;                // middleware. set a flash prior to redirect
@@ -46,7 +47,9 @@ redisCli = require( 'redis' ).createClient( config.redis.port, config.redis.host
 
 templater = require( 'cibulTemplates/server/templater' ),
 
-i18n = require( '../i18n/i18n.js' );
+i18n = require( '../i18n/i18n.js' ),
+
+deepExtend = require( 'deep-extend' );
 
 
 
@@ -201,6 +204,14 @@ function errorResponse( req, res, error ) {
 
 function render( req, res, templatePath, data, maintain ) {
 
+  if ( !data ) data = {};
+
+  if ( req.baseData ) {
+
+    deepExtend( data, req.baseData );
+
+  }
+
   data.genUrl = req.genUrl;
 
 
@@ -244,6 +255,51 @@ function render( req, res, templatePath, data, maintain ) {
     }
 
   });
+
+}
+
+
+/**
+ * load static data to be used in template
+ *
+ * @param function func  -  optionnally shove in controller specific static data
+ *
+ */
+
+function loadBaseData( func ) {
+
+  return function( req, res, next ) {
+
+    var baseData = {
+      head: {
+        css: {
+          main: '/css/compiled.css'
+        },
+        js: {}
+      },
+      bottom: {
+        scripts: []
+      },
+      scriptsBase: '/js'
+    }
+
+    if ( func ) {
+
+      deepExtend( baseData, func( req, res ) );
+
+    }
+
+    if ( config.env == 'prod' ) {
+
+      baseData.bottom.scripts.push('var _gaq = _gaq || [];_gaq.push([\'_setAccount\', \'UA-9353107-11\']);_gaq.push([\'_trackPageview\']);(function() {var ga = document.createElement(\'script\'); ga.type = \'text/javascript\'; ga.async = true;ga.src = (\'https:\' == document.location.protocol ? \'https://ssl\' : \'http://www\') + \'.google-analytics.com/ga.js\';var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ga, s);})();');
+
+    }
+
+    req.baseData = baseData;
+
+    next();
+
+  }
 
 }
 

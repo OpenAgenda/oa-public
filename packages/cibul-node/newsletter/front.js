@@ -69,7 +69,8 @@ function load( main ) {
   app.param( 'slug', cmn.loadAgenda );
 
   cmn.loadRoutes( app, routes, [
-    cmn.urlGenSetter( appName, path )
+    cmn.urlGenSetter( appName, path ),
+    cmn.loadBaseData()
   ] );
 
 }
@@ -111,7 +112,7 @@ function contactUnsubscribeShow( req, res ) {
     cmn.render( req, res, 'newsletter/unsubscribe', lib.extend( contactList, lib.extend({
       uid: req.params.uid,
       error: false
-    }, _layoutData() )));
+    } )));
 
   });
 
@@ -134,7 +135,7 @@ function contactUnsubscribeSubmit( req, res ) {
     cmn.render(req, res, 'newsletter/unsubscribe', lib.extend(contactList, lib.extend({
       uid: req.params.uid,
       error: error
-    }, _layoutData())));
+    } )));
 
   });
 
@@ -151,7 +152,7 @@ function contactUnsubscribeComplete( req, res ) {
     cmn.render(req, res, 'newsletter/unsubscribeComplete', lib.extend(contactList, lib.extend({
       uid: req.params.uid,
       error: false
-    }, _layoutData())));
+    } )));
 
   });
 
@@ -170,19 +171,5 @@ function _error( req, res ) {
   };
 
 }
-
-
-function _layoutData() {
-
-  return {
-    head: {
-      css: {
-        main: '//d.cibul.net/css/compiled.css'
-      }
-    }
-  };
-
-};
-
 
 module.exports = init;

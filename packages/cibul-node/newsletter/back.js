@@ -93,6 +93,7 @@ function load( main ) {
     cmn.urlGenSetter( appName, path ),
     cmn.flashSetter,
     cmn.loadSession,
+    cmn.loadBaseData( _layoutData ),
     cmn.requireLogged,
     cmn.checkCredential( 'newsletters' ),
     cmn.checkAdministrator
@@ -120,10 +121,10 @@ function index( req, res ) {
 
   .spread( function( campaigns, contactLists ) {
 
-    cmn.render( req, res, 'newsletter/admin/index', lib.extend({
+    cmn.render( req, res, 'newsletter/admin/index', {
       campaigns: campaigns,
       contactLists: contactLists
-    }, _layoutData( req.agenda )));
+    });
 
   })
 
@@ -145,12 +146,12 @@ function campaignNew( req, res ) {
 
   .then( function( contactLists ) {
 
-    cmn.render( req, res, 'newsletter/admin/campaignForm', lib.extend({
+    cmn.render( req, res, 'newsletter/admin/campaignForm', {
       uid: null,
       contactLists: contactLists,
       values: {}, errors: {},
       isNew: true
-    }, _layoutData(req.agenda)) );
+    } );
 
   })
 
@@ -183,13 +184,13 @@ function campaignCreate( req, res ) {
 
       if ( err ) return _error( req, res )( err );
 
-      cmn.render( req, res, 'newsletter/admin/campaignForm', lib.extend({
+      cmn.render( req, res, 'newsletter/admin/campaignForm', {
         isNew: isNew,
         uid: null,
         contactLists: contactLists,
         values: values,
         errors: errors
-      }, _layoutData( req.agenda )));
+      } );
 
     });
 
@@ -252,13 +253,13 @@ function campaignEdit( req, res ) {
 
     }
 
-    cmn.render( req, res, 'newsletter/admin/campaignForm', lib.extend({
+    cmn.render( req, res, 'newsletter/admin/campaignForm', {
       uid: req.params.uid,
       contactLists: contactLists,
       values: values,
       errors: {},
       isNew: isNew
-    }, _layoutData( req.agenda )) );
+    } );
 
   })
 
@@ -319,13 +320,13 @@ function campaignUpdate( req, res ) {
 
         if ( err ) return _error( req, res )( err );
 
-        cmn.render( req, res, 'newsletter/admin/campaignForm', lib.extend({
+        cmn.render( req, res, 'newsletter/admin/campaignForm', {
           isNew: isNew,
           uid: req.params.uid,
           contactLists: contactLists,
           values: values,
           errors: errors
-        }, _layoutData(req.agenda)) );
+        } );
 
       });
 
@@ -359,7 +360,7 @@ function campaignLayoutEdit( req, res ) {
 
         if ( err ) return _error( req, res )( err );
 
-        cmn.render( req, res, 'newsletter/admin/campaignLayoutForm', lib.extend({
+        cmn.render( req, res, 'newsletter/admin/campaignLayoutForm', {
           title: campaign.title,
           uid: req.params.uid,
           isNew: campaign.getIsNew(),
@@ -371,7 +372,7 @@ function campaignLayoutEdit( req, res ) {
           values: values,
           filters: req.query.filters?req.query.filters:{},
           errors: {}
-        }, _layoutData(req.agenda)));
+        } );
 
       });
 
@@ -451,8 +452,7 @@ function campaignFeaturedEdit( req, res ) {
       events: eventList,
       uid: req.params.uid
     }, 
-    _pager( req, 'campaignFeaturedEdit', perPage, total ),
-    _layoutData( req.agenda )));
+    _pager( req, 'campaignFeaturedEdit', perPage, total )));
 
   })
 
@@ -593,11 +593,11 @@ function newsletterPreview( req, res ) {
 
 function contactListNew( req, res ) {
 
-  cmn.render( req, res, 'newsletter/admin/contactListForm', lib.extend({
+  cmn.render( req, res, 'newsletter/admin/contactListForm', {
     uid: null,
     values: {},
     errors: {}
-  }, _layoutData( req.agenda )), true );
+  }, true );
 
 }
 
@@ -614,11 +614,11 @@ function contactListCreate( req, res ) {
 
       var errors = lib.toUnderscore(result.errors);
 
-      return cmn.render(req, res, 'newsletter/admin/contactListForm', lib.extend({
+      return cmn.render(req, res, 'newsletter/admin/contactListForm', {
         uid: null,
         values: values,
         errors: errors
-      }, _layoutData(req.agenda)), true );
+      }, true );
 
     }
 
@@ -685,7 +685,6 @@ function contactListShow( req, res ) {
         errors: {},
         contacts: contacts
       },
-      _layoutData(req.agenda),
       _pager( req, 'contactListShow', app.get( 'perPage' ), total )
       ), true );
 
@@ -766,7 +765,6 @@ function contactsAdd( req, res ) {
               errors: result.errors,
               contacts: contacts
             },
-              _layoutData(req.agenda),
               _pager( req, 'contactListShow', app.get( 'perPage' ), total )
             ));
 
@@ -941,22 +939,16 @@ function _processCampaignLayout( campaign, values, cb ) {
  * prepare form for new campaign
  */
 
-function _layoutData( agenda ) {
+function _layoutData( req, res ) {
 
   return {
     tab: 'newsletters',
     mainClass: 'newsletter',
-    scriptsBase: '/js',
-    head: {
-      css: {
-        main: '/css/compiled.css'
-      }
-    },
     agenda: {
-      title: agenda.title,
-      description: agenda.description,
-      url: agenda.url,
-      image: agenda.getImage( true )
+      title: req.agenda.title,
+      description: req.agenda.description,
+      url: req.agenda.url,
+      image: req.agenda.getImage( true )
     }
   };
 

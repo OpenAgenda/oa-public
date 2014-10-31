@@ -9,7 +9,8 @@ exposed = {
 },
 
 routes = {
-  presentation: [ 'get', presentation, '/' ]
+  presentation: [ 'get', presentation, '/' ],
+  newsletterSubscribe: [ 'post', newsletterSubscribe, '/newsletter/subscribe' ]
 },
 
 // libraries used
@@ -25,6 +26,8 @@ wn = require( 'when/node' ),
 lib = require( '../lib/lib' ),
 
 cmn = require( '../lib/commons-app' ),
+
+coms = require( '../lib/coms' ),
 
 app,
 
@@ -62,7 +65,9 @@ function load( main ) {
 
   cmn.loadRoutes( app, routes, [
     cmn.urlGenSetter( appName, path ),
-    cmn.loadSession
+    cmn.flashSetter,
+    cmn.loadSession,
+    cmn.loadBaseData()
   ] );
 
   return exposed;
@@ -76,25 +81,29 @@ function load( main ) {
 
 function presentation( req, res ) {
 
-  cmn.render( req, res, 'presentation/index', _layoutData() );
+  if ( req.session.logged ) {
+
+    cmn.redirect( req, res, 'homeShow' );
+
+    return;
+
+  }
+
+  cmn.render( req, res, 'presentation/index' );
 
 };
 
 
-/**
- * controller helpers
- */
+function newsletterSubscribe( req, res ) {
 
-var _layoutData = function( ) {
+  cmn.redirect( req, res, 'presentation', {}, 'You have been added to the newsletter list. Thanks!' );
 
-  return {
-    head: {
-      css: {
-        main: '/css/compiled.css'
-      }
-    }
-  };
+  coms.queue( 'mailer', {
+    recipient: [ 'romain@cibul.net', 'kaore@cibul.net' ],
+    text: 'Hep bili, ya "' + req.body.email + '" qui veux se rajouter à notre super newsletter.'
+  } );
 
-};
+}
+
 
 module.exports = init;

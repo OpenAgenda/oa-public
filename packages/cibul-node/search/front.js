@@ -70,6 +70,7 @@ function load( main ) {
   cmn.loadRoutes( app, routes, [
     cmn.urlGenSetter( appName, path ),
     cmn.loadSession,
+    cmn.loadBaseData(),
     _cleanSearch
   ] );
 
@@ -189,7 +190,6 @@ function _renderAgendas( req, res, uri ) {
 
     cmn.render( req, res, 'search/agendas', lib.extend(
       { agendas: result.data, searchRes: 'searchAgendas', search: req.cleanQuery },
-      _layoutData( req ), 
       _pager( req, uri, result.total ) 
     ));
 
@@ -203,6 +203,8 @@ function _renderEvents( req, res, uri ) {
   return function( result ) {
 
     result.data.forEach( function( event ) {
+
+      // from db, date is loaded 
 
       var inst = model.events().instance( event );
 
@@ -220,7 +222,6 @@ function _renderEvents( req, res, uri ) {
 
     cmn.render( req, res, 'search/events', lib.extend(
       { events: result.data, searchRes: 'searchEvents', search: req.cleanQuery },
-      _layoutData( req ),
       _pager( req, uri, result.total )
     ));
 
@@ -346,21 +347,6 @@ function _cleanSearch( req, res, next ) {
   req.cleanQuery = query;
 
   next();
-
-}
-
-
-
-function _layoutData( req ) {
-
-  return {
-    head: {
-      css: {
-        main: '/css/compiled.css'
-      }
-    },
-    scriptsBase: '/js'
-  };
 
 }
 

@@ -50,6 +50,22 @@ config = {
           method: 'get',
           uri: '/auth'
         },
+        'signup' : {
+          method: 'get',
+          uri: '/signup'
+        },
+        'homeShow' : {
+          method: 'get',
+          uri: '/home'
+        },
+        'aboutShow' : {
+          method: 'get',
+          uri: '/about'
+        },
+        'termsShow' : {
+          method: 'get',
+          uri: '/termsofuse'
+        },
         'searchEvent' : {
           method: 'get',
           uri: '/events/search'
@@ -186,4 +202,4 @@ config = {
 
 process.env.NODE_ENV = currentEnv;
 
-module.exports = deepExtend(config.all, config[currentEnv]);
+module.exports = deepExtend( config.all, config[currentEnv] );
