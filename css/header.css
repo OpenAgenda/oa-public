@@ -71,7 +71,19 @@ body > header .language-menu ul li a:hover {
 }
 
 @media all and (max-width: 840px) {
-  body > header .page-links { display: none; }
+
+  body > header .logo {
+    position: relative;
+    display: block;
+    margin: 0.5em auto;
+    top: auto;
+    left: auto;
+  }
+
+  body > header .site-links {
+    text-align: center;
+    display: block;
+  }
 }
 
 @media all and (max-width: 480px) {

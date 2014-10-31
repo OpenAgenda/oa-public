@@ -12,7 +12,14 @@
   "base" : {
     "pageClass" : false,
     "searchRes" : "searchEvents",
-    "search" : ""
+    "search" : "",
+    "metas" : {
+      "title" : "Cibul - Open Agendas",
+      "description": "Communicate efficiently on your events",
+      "keywords" : "cibul, events, agendas, open data, networked",
+      "robots" : "index, follow"
+    },
+    "lang" : "fr"
   },
   "templateJs" : true
 }

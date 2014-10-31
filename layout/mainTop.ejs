@@ -3,6 +3,10 @@
   <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+    <meta name="language" content="<%= lang %>" />
+<% for ( var i in metas ) { %>
+    <meta name="<%= i %>" content="<%= __( metas[i] ) %>" />
+<% } %>
 <% for ( var i in head.css ) { %>
     <link rel="stylesheet" href="<%= head.css[i] %>"/>
 <% } %>
@@ -14,6 +18,12 @@
     <header>
       <a class="logo" href="/"><img src="/images/biglogo.png"></a>
       <ul class="links site-links js_header_links">
+<% if ( typeof links !== 'undefined' ) { %>
+<% links.forEach( function( link ) { %>
+        <li><a href="<%= link.url %>"><%= __(link.label) %></a></li>
+<% }); %>
+<% } %>
+        <li><a class="js_signin_link" href="<%= genUrl('authShow') %>"><%= __('Sign in') %></a></li>
         <li class="language-menu js_language_menu">
           <a><% if ( ( typeof lang == 'undefined' ) || lang=='fr' ) { %>fr<% } else { %>en<% } %></a>
           <ul class="language-menu">

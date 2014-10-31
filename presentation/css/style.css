@@ -489,6 +489,10 @@ button {
   display: block;
 }
 
+.front .contacts .url {
+  color: white;
+}
+
 .front .contacts .telephone {
   display: block;
 }

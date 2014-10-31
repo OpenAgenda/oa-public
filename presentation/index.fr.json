@@ -1,6 +1,10 @@
 {
+  "Solutions and Pricing"
+  : "Solutions et pricing",
+  "References"
+  : "Références",
   "Communicate efficiently on your events"
-  : "Communiquez efficacement sur vos événements" ,
+  : "Diffusez efficacement vos événements" ,
   "Publish, organize and broadcast your events on all your channels and to your media partners"
   : "Publiez, organisez et diffusez vos événements sur tous vos supports et chez vos partenaires." ,
   "Create an agenda"
@@ -15,10 +19,10 @@
   : "Communiquez efficacement grâce à un agenda réutilisable par les médias" ,
   "Unlimited number of events"
   : "Nombre d'événements illimité" ,
-  "Multimedia and multilingual content "
+  "Multimedia and multilingual content"
   : "Gestion multimédias et multilingue" ,
   "Customizable agendas, organisable in categories and tags, compatible with all screen sizes "
-  : "Agendas personnalisables, organisable en catégories et tags, compatible pour tous les écrans" ,
+  : "Agendas personnalisables, organisables en catégories et tags, compatibles pour tous les écrans" ,
   "Displayable on your website "
   : "Affichable sur votre site" ,
   "Synchronizable with your personal calendars (Outlook, Google Calendar, etc) "
@@ -45,8 +49,8 @@
   : "Essayer gratuitement" ,
   "Community"
   : "Communautaire" ,
-  "On quote 4000€/yr"
-  : "4000€/an" ,
+  "330€/month"
+  : "330€/mois" ,
   "Manage an agenda for a network of Organizers"
   : "Animez un agenda de réseau d'organisateurs" ,
   "Features of the Basic Agenda"
@@ -81,12 +85,14 @@
   : "Directeur Commercial" ,
   "Newsletter "
   : "Newsletter" ,
-  " Your email "
+  "Your email"
   : "Votre email",
-  "Cibul agendas are %opendata% and available through the %cibulapi%."
+  "Cibul agendas are %opendata% and available through the %cibulapi%"
   : "Les agendas Cibul sont %opendata% et accessibles via l'%cibulapi%",
   "The Company"
   : "L'entreprise",
   "The Team"
-  : "L'équipe"
+  : "L'équipe",
+  "Web developer"
+  : "Développeur Web"
 }

@@ -6,6 +6,7 @@ params = {
   selectors: {
     languageMenu: '.js_language_menu',
     headerLinks: '.js_header_links',
+    signinLink: '.js_signin_link',
     profile: '.js_profile',
     dropdown: '.js_profile_dropdown'
   },
@@ -25,7 +26,9 @@ module.exports = function( eh, options ) {
 
     if ( !session.logged ) return;
 
-    cn.el( params.selectors.languageMenu ).parentNode.removeChild(cn.el( params.selectors.languageMenu ));
+    cn.el( params.selectors.languageMenu ).parentNode.removeChild( cn.el( params.selectors.languageMenu ) );
+
+    cn.el( params.selectors.signinLink ).parentNode.removeChild( cn.el( params.selectors.signinLink ) );
 
     cTemplater( params.template, {
       urls: {

@@ -5,7 +5,7 @@
         <div class="box w60">
           <h1 class="title"><%= __('Communicate efficiently on your events') %></h1>
           <p><%= __('Publish, organize and broadcast your events on all your channels and to your media partners') %></p>
-          <a class="button"><%= __('Create an agenda') %></a>
+          <a href="<%= genUrl('signup') %>" class="button"><%= __('Create an agenda') %></a>
         </div>
       </div>
     </div>
@@ -64,7 +64,7 @@
                 <li><i class="fa fa-check-circle"></i><span><%= __('Automatic Newsletter') %></span></li>
                 <li><i class="fa fa-check-circle"></i><span><%= __('Multiple Administrators') %></span></li>
               </ul>
-              <a class="button"><%= __('Try it for free') %></a>
+              <a class="button" href="mailto:admin@cibul.net"><%= __('Try it for free') %></a>
             </div>
           </div>
         </li><!--
@@ -76,7 +76,7 @@
                 <div class="offer-title" id="netofferlabel">
                   <div class="text">
                     <h3><%= __('Community') %></h3>
-                    <p><%= __('On quote 4000€/yr') %></p>
+                    <p><%= __('330€/month') %></p>
                   </div>
                 </div>
               </div>
@@ -94,7 +94,7 @@
                 <li><i class="fa fa-check-circle"></i><span><%= __('Agenda aggregation') %></span></li>
                 <li><i class="fa fa-check-circle"></i><span><%= __('Statistics') %></span></li>
               </ul>
-              <a class="button"><%= __('Try it for free') %></a>
+              <a class="button" href="mailto:admin@cibul.net"><%= __('Try it for free') %></a>
             </div>
           </div>
         </li>
@@ -136,12 +136,9 @@
       </ul>
 
       <ul class="logos row">
-        <li><a target="_blank" href="http://www.bretagne.fr/"><img src="<%= _i('bretagne.jpg', true ) %>" alt="Région Bretagne"></a></li>
-        <li><a target="_blank" href="http://bar-bars.com/"><img src="<%= _i('barbars.jpg', true ) %>" alt="Collectif Culture Bar-Bars"></a></li>
-        <li><a target="_blank" href="http://www.greenpeace.org"><img src="<%= _i('greenpeace.png', true ) %>" alt="Greenpeace"></a></li>
-        <li><a target="_blank" href="http://www.education.gouv.fr/"><img src="<%= _i('ministere.jpg', true ) %>" alt="Ministère de l'Education Nationale, de l'Enseignement Supérieur et de la Recherche"></a></li>
-        <li><a target="_blank" href="http://www.fidh.org"><img src="<%= _i('fidh.jpg', true ) %>" alt="Fédération Internationale des Droits de l'Homme"></a></li>
-        <li><a target="_blank" href="http://levolume.fr/"><img src="<%= _i('levolume.jpg', true ) %>" alt="Le Volume"></a></li>
+<% refLogos.forEach( function( rl ) { %>
+        <li><a target="_blank" href="<%= rl.url %>"><img src="<%= _i(rl.src, true ) %>" alt="<% rl.alt %>"></a></li>
+<% }); %>
       </ul>
     </div>
   </section>
@@ -166,10 +163,10 @@
           </div>
           <div class="block bottom-links">
             <ul>
-              <li><a href="#"><%= __('suggestions') %></a></li>
-              <li><a href="#"><%= __('bugs') %></a></li>
-              <li><a href="#"><%= __('about') %></a></li>
-              <li><a href="#"><%= __('terms of use') %></a></li>
+              <li><a href="http://cibul.uservoice.com"><%= __('suggestions') %></a></li>
+              <li><a href="https://docs.google.com/forms/d/1La_zRvaMGZp8b7nxn9arMwy-PrHESyxtT1JMGlzfr-I/viewform"><%= __('bugs') %></a></li>
+              <li><a href="<%= genUrl('aboutShow') %>"><%= __('about') %></a></li>
+              <li><a href="<%= genUrl('termsShow') %>"><%= __('terms of use') %></a></li>
             </ul>
           </div>
         </li><!--
@@ -195,19 +192,25 @@
               <a href="//fr.linkedin.com/in/kariolafsson" target="_blank"><i class="fa fa-linkedin-sign"></i></a>
             </span>
           </div>
+          <div class="block team-member">
+            <span class="name">Younes Iddahamou</span>
+            <span class="title"><%= __('Web developer') %></span>
+            <span class="email"><i class="icon-envelope"></i><a href="mailto:younes@cibul.net">younes@cibul.net</a></span>
+          </div>
         </li><!--
         --><li class="col">
-          <h2><%= __('Newsletter ') %></h2>
+          <h2><%= __('Newsletter') %></h2>
           <div class="block newsletter">
-            <form>
+            <form method="post" action="<%= genUrl( 'newsletterSubscribe' ) %>">
               <label for="newsletter-subscribe"><%= __('Your email') %></label>
-              <input type="text" name="newsletter-subscribe" placeholder="<%= __('Your email ') %>"><!--
+              <input type="text" name="email" placeholder="<%= __('Your email') %>"><!--
               --><button type="submit"><i class="fa fa-angle-right"></i></button><!--
             --></form>
           </div>
           <h2><%= __('Medias/API') %></h2>
           <div class="block api">
-            <span><%- __('Cibul agendas are %opendata% and available through the %cibulapi%.', {'%opendata%' : '<a href="http://cibul.net/termsofuse/fr">Open Data</a>' , '%cibulapi%' : '<a href="//developers.cibul.net" target="_blank">API</a>'}) %></span>
+            <span><%- __('Cibul agendas are %opendata% and available through the %cibulapi%', {'%opendata%' : '<a href="http://cibul.net/termsofuse/fr">Open Data</a>' , '%cibulapi%' : '<a href="//developers.cibul.net" target="_blank">API</a>'}) %>: </span>
+            <a class="url" target="_blank" href="http://developers.cibul.net">developers.cibul.net</a>
           </div>
         </li>
         <li>
