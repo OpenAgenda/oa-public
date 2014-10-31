@@ -1,7 +1,7 @@
 {
   "layout": "layout/main",
   "css" : {
-    "home" : "../css/agenda/newsletterAdmin.css"
+    "auth" : "./css/style.css"
    },
 
   "helpers" : {
@@ -9,6 +9,6 @@
     "_i" : "image"
   },
   "base" : {
-        "tab" : "home"
+        "tab" : "auth"
   }
 }

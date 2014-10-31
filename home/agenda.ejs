@@ -21,18 +21,18 @@
 
 <% include ../general/pages %>
 
-<% if (events.length) { %>
-<ul class="glist">
-<% for(var key in events) { %>
-  <li>
-      <div class="event">
-      <a href="<%= genUrl( 'agendaEventShow', {slug: review.slug, eSlug: events[key].slug}, {abs: true} ) %>" ><%= events[key].title.fr %></a> <br/>
-      <p><%= events[key].description.fr %></p>
-      <br/>	
-    </div>
-  </li>
-</ul>
-<% } %>
+   <% if (events.length) { %>
+   <ul class="glist">
+   <% for(var key in events) { %>
+      <li>
+	<div class="event">
+      	     <a href="<%= genUrl( 'agendaEventShow', {slug: review.slug, eSlug: events[key].slug}, {abs: true} ) %>" ><%= events[key].title.fr %></a> <br/>
+      	     <p><%=events[key].description.fr %></p>
+	     <br/>	
+    	</div>
+       </li>
+   </ul>
+   <% } %>
 <% } else { %>
   <p><%= __('Your agenda does not have any events on display.') %></p>
 <% } %>
