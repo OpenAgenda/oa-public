@@ -44,6 +44,10 @@ config = {
       region: 'eu-west-1',
       imageBucketPath: 'https://cibul.s3.amazonaws.com/'
     },
+    mailjet: {
+      apiKey : '8c200831a70d4f391bd697fa3cbca6a3',
+      apiSecret : '6554476977a74b9cace0ddd0dc1ea657'
+    },
     routes: {
       globals: {
         'authShow' : {

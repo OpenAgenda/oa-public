@@ -17,7 +17,11 @@ routes = {
 
 log = require( '../lib/logger' )( appName ),
 
+config = require( '../config' ),
+
 async = require( 'async' ),
+
+Mailjet = require( 'mailjet' ),
 
 w = require( 'when' ),
 
@@ -96,12 +100,33 @@ function presentation( req, res ) {
 
 function newsletterSubscribe( req, res ) {
 
-  cmn.redirect( req, res, 'presentation', {}, 'You have been added to the newsletter list. Thanks!' );
+  var data = {
+    id: 595683,
+    contact: req.body.email
+  },
 
-  coms.queue( 'mailer', {
-    recipient: [ 'romain@cibul.net', 'kaore@cibul.net' ],
-    text: 'Hep bili, ya "' + req.body.email + '" qui veux se rajouter à notre super newsletter.'
-  } );
+  instance = new Mailjet( config.mailjet.apiKey, config.mailjet.apiSecret, { secure: true, output: 'json' } );
+
+  instance.sendRequest( 'listsaddContact', data, 'POST', function( err, status, result, headers ) {
+
+    if ( status === 200 ) {
+
+      cmn.redirect( req, res, 'presentation', {}, 'You have been added to the newsletter list. Thanks!' );
+
+      coms.queue( 'mailer', {
+
+        recipient: [ 'romain@cibul.net', 'kaore@cibul.net' ],
+        text: '"' + req.body.email + '" a été ajouté à la newsletter.'
+      
+      } );
+
+    } else {
+
+      cmn.redirect( req, res, 'presentation', {}, 'Either the email is invalid or the newsletter service is unavailable. Please try again later.' );
+
+    }
+
+  });
 
 }
 

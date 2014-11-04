@@ -15,6 +15,7 @@
     "when" : "~3.4",
     "zombie" : "*",
     "should" : "~4.0",
-    "bunyan" : "~1.0"
+    "bunyan" : "~1.0",
+    "mailjet" : "0.0.1"
   }
 }
