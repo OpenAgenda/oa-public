@@ -25,6 +25,8 @@ var widget = function( elem, options ) {
 
   selectedOrg = false,
 
+  selectedLabel = false,
+
   orgs = [], orgSlugs = [],
 
   activeOrgs = [],  // categories which are within current event selection
@@ -72,9 +74,21 @@ var widget = function( elem, options ) {
 
     selectedOrg = null;
 
+    selectedLabel = null;
+
     if ( reqParams.org ) {
 
       selectedOrg = reqParams.org;
+
+      cn.forEach( organizations, function( organization ) {
+
+        if ( organization.s == selectedOrg ) {
+
+          selectedLabel = organization.l;
+
+        }
+
+      });
 
     }
 
@@ -124,6 +138,8 @@ var widget = function( elem, options ) {
 
     selectedOrg = organization.slug;
 
+    selectedLabel = organization.label;
+
     _update();
 
   },
@@ -142,6 +158,8 @@ var widget = function( elem, options ) {
 
     selectedOrg = null;
 
+    selectedLabel = null;
+
     _update();
 
   },
@@ -151,7 +169,7 @@ var widget = function( elem, options ) {
 
     log( 'updating request params with org at "%s"', selectedOrg );
 
-    controller.update( 'organizations', { org : selectedOrg } );
+    controller.update( 'organizations', { org : selectedOrg, orgLabel : selectedLabel } );
 
   },
 
