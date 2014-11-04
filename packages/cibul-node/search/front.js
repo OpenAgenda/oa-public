@@ -174,12 +174,14 @@ function latestAgendas( req, res ) {
 
   wn.call( async.parallel, [
     async.apply( model.agendas().total, {
-      upcoming : true
+      upcoming : true,
+      orderBy : [ 'r.updated_at desc' ]
     } ),
     async.apply( model.agendas().list, {
       page : req.query.page ? req.query.page : 1,
       limit : app.get( 'perPage' ),
-      upcoming : true
+      upcoming : true,
+      orderBy : [ 'r.updated_at desc' ]
     } )
   ])
 
