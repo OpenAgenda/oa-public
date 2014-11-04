@@ -10,13 +10,16 @@ env = window.env ? window.env : 'prod',
 
 defaults = {
   all: {
-    res : '//cibul.net/embed/{uid}/controldata'
+    res : '//cibul.net/embed/{uid}/controldata',
+    search : '//cibul.net/widgets/{uid}/search'
   },
   dev: {
-    res : '//d.cibul.net/frontend_dev.php/embed/{uid}/controldata'
+    res : '//d.cibul.net/frontend_dev.php/embed/{uid}/controldata',
+    search : '//d.cibul.net/widgets/{uid}/search'
   },
   tpl: {
-    res : '//d.cibul.net/frontend_dev.php/embed/{uid}/controldata'
+    res : '//d.cibul.net/frontend_dev.php/embed/{uid}/controldata',
+    search : '//d.cibul.net/widgets/{uid}/search'
   }
 },
 
@@ -37,6 +40,8 @@ module.exports = function( uid ) {
   ctlRequests = [], // stack of callbacks to call when control data is available
 
   currentRequestParams = {}, // current agenda request parameters
+
+  whatUids = false,
 
   run = function() {
 
@@ -168,9 +173,33 @@ module.exports = function( uid ) {
 
     _forEachWidget( 'disable', originWidget );
 
-    _sweep( newParams );
+    whatUids = false;
 
-    currentRequestParams = newParams;
+    if ( newParams.what ) {
+
+      var res = params.search.replace( '{uid}', uid );
+
+      remote.getJsonp( res, { data: { search: newParams } }, function( responseType, data ) {
+
+        if ( responseType == 'success' ) {
+
+          whatUids = data;
+
+        }
+
+        _sweep( newParams );
+
+        currentRequestParams = newParams;
+
+      } );
+
+    } else {
+
+      _sweep( newParams );
+
+      currentRequestParams = newParams;
+
+    }
 
   },
 
@@ -379,7 +408,7 @@ module.exports = function( uid ) {
 
     for ( var i in filters ) {
 
-      if ( !filters[i]( item, reqParams ) ) return false;
+      if ( !filters[i]( item, reqParams, whatUids ) ) return false;
 
     }
 

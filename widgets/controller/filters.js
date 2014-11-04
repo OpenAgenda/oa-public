@@ -1,3 +1,19 @@
+exports.what = function( item, reqParams, whatUids ) {
+
+  if ( reqParams.what ) {
+
+    if ( whatUids.indexOf( parseInt( item.u, 10 ) ) == -1 ) {
+
+      return false;
+
+    }
+
+  }
+
+  return true;
+
+}
+
 exports.event = function( item, reqParams ) {
 
   if ( reqParams.uid && ( item.u !== reqParams.uid) ) return false;
