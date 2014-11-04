@@ -26,7 +26,7 @@ supervisor( function( loadTasks ) {
 
   app = express();
 
-  app.use( require('cookie-parser')() );
+  app.use( require( 'cookie-parser' )() );
 
 
   // run 'web' type modules
@@ -53,7 +53,7 @@ supervisor( function( loadTasks ) {
   // only one process runs background tasks. supervisor handles that.
   // only 'task' types run tasks
 
-  if ( !loadTasks || ( enabledTypes.indexOf( 'admin' ) == -1 ) ) return;
+  if ( !loadTasks || ( enabledTypes.indexOf( 'task' ) == -1 ) ) return;
 
 
   require( './newsletter/task' ).load( { period: 60000, bootOffset: 15000 } );

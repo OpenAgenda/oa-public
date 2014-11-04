@@ -7,6 +7,7 @@ exports.loadRoutes = loadRoutes;                  // load module web app routes
 
 exports.getCibulModel = getCibulModel;            // get model instance
 exports.render = render;                          // render templates. cibul-templates caller
+exports.renderJson = renderJson;                  // render json data
 exports.errorResponse = errorResponse;            // render error page
 
 exports.loadAgenda = loadAgenda;                  // middleware. loads an agenda in the request based on its slug
@@ -247,7 +248,7 @@ function render( req, res, templatePath, data, maintain ) {
 
     } else {
 
-      _renderJson( req, res, {
+      renderJson( req, res, {
         success: true,
         partial: render
       } );
@@ -378,7 +379,7 @@ function requireLogged( req, res, next ) {
 
   if ( req.xhr ) {
 
-    _renderJson( {
+    renderJson( {
       success: false
     } );
 
@@ -488,9 +489,17 @@ function redirect() {
  * set json data in response
  */
 
-function _renderJson( req, res, data ) {
+function renderJson( req, res, data ) {
 
-  res.write( JSON.stringify( data ) );
+  var body = JSON.stringify( data );
+
+  if ( req.query.callback ) {
+
+    body = req.query.callback + '(' + body + ')';
+
+  }
+
+  res.write( body );
 
   res.end();
 

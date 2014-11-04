@@ -10,6 +10,7 @@ exposed = {
 
 routes = {
   searchEvents: [ 'get', searchEvents, '/events/search' ],
+  widgetSearchEvents: [ 'get', widgetSearchEvents, '/widgets/:uid/:embedUid/search' ],
   searchAgendas: [ 'get', searchAgendas, '/agendas/search' ],
   latestEvents: [ 'get', latestEvents, '/events/latest' ],
   latestAgendas: [ 'get', latestAgendas, '/agendas/latest' ]
@@ -96,6 +97,31 @@ function searchEvents( req, res ) {
   .then( _renderEvents( req, res, 'searchEvents' ) )
 
   .catch( _error( req, res) );
+
+}
+
+
+function widgetSearchEvents( req, res ) {
+
+  wn.call( model.reviews().get, { uid: req.params.uid } )
+
+  .then( function( agenda ) {
+
+    req.searchParams.reviewId = agenda.id;
+
+    console.log( req.searchParams );
+
+    return wn.call( es.events().aggregate, req.searchParams  );
+
+  } )
+
+  .then( function( result ) {
+
+    return cmn.renderJson( req, res, result );
+
+  } )
+
+  .catch( _error( req, res ) );
 
 }
 
