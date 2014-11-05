@@ -91,7 +91,7 @@ var widget = function( elem, options ) {
 
     cn.removeEvent( inputElem, [ 'keyup', 'blur' ], _onInput );
 
-    cn.el( elem, 'input' ).setAttribute( 'value', what );
+    inputElem.value = what;
 
     cn.addEvent( inputElem, [ 'keyup', 'blur' ], _onInput );
 

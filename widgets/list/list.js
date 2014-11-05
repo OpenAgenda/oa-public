@@ -103,6 +103,7 @@ var widget = function( elem, options ) {
   _onListChange = function( data ) {
 
     delete data.event;
+    delete data.page;
 
     for( var r in requestParams ) {
 
@@ -180,6 +181,8 @@ var widget = function( elem, options ) {
       // does list have more content to load?
       
       if ( data.hasNext ) hasNext = ( data.hasNext == 'true' );
+
+      if ( data.event == 'hasNext' ) return;
 
       // callback should only be called if a load has been successful
 

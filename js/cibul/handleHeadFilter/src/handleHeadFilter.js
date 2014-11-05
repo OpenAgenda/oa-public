@@ -23,7 +23,8 @@ var addHeadFilterBehavior = function(params) {
       date: { icon: 'icon-calendar', params: ['from', 'to'] },
       tags: { icon: 'icon-tags', params: ['tags'] },
       map: { icon: 'icon-map-marker', params: ['neLat', 'neLng', 'swLat', 'swLng'], label: 'mapFilter' },
-      orgLabel: { icon: 'icon-sitemap', params: ['orgLabel', 'org'] }
+      orgLabel: { icon: 'icon-sitemap', params: ['orgLabel', 'org'] },
+      what: { icon: 'icon-sitemap', params: [ 'what' ] }
     },
     labels: {
       mapFilter: 'within map boundaries'
