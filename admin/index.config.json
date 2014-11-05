@@ -1,0 +1,11 @@
+{
+  "layout": "layout/main",
+
+  "helpers" : {
+    "_t" : "time",
+    "_i" : "image"
+  },
+  "base" : {
+        "tab" : "admin"
+  }	
+}

@@ -19,7 +19,8 @@
         "title" : "Ma campagne à la main",
         "type" : 0,
         "contactList" : null,
-        "sendDate" : "2014-07-15T10:30:00.000Z"
+        "sendDate" : "2014-07-15T10:30:00.000Z",
+        "scheduledAt" : "2014-10-15T10:30:00.000Z"
       },
       {
         "uid" : 45789546,
@@ -35,7 +36,7 @@
     "contactLists" : [
       {
         "uid" : 7878465,
-        "title" : "Les spammés",
+        "title" : "Les spammésdfdzfdfd",
         "total" : 4564
       },
       {

@@ -1,0 +1,28 @@
+<div class="signup form">
+
+     <form method="post" action="<%= genUrl( 'localSignUp', { iToken: iToken } ) %>">
+     	   <input type="email" name="email" placeholder="Email"/> <br/>
+	   <% if ( errors && errors.email ) { %>
+	   <p><%= errors.email %></p>
+	   <% } %>
+     	   <input type="password" name="password" placeholder="Password"/> <br/>
+	   <% if ( errors && errors.password ) { %>
+	   <p><%= errors.password %></p>
+	   <% } %>
+     	   <input type="password" name="confirmPassword" placeholder="Confirm password"/>
+	   <button type="submit">Sign Up ! </button> 
+     </form>
+
+<a href="<%= genUrl( 'facebookSignUp', { iToken: iToken } ) %>">Sign up with Facebook</a> <br/>
+<% if ( errors && errors.facebookUid ) { %>
+   <p> <%= errors.facebookUid %> </p>
+<% } %>
+<a href="<%= genUrl( 'twitterSignUp', { iToken: iToken } ) %>">Sign up with Twitter</a> <br/>
+<% if ( errors && errors.twitterUid ) { %>
+   <p> <%= errors.twitterUid %> </p>
+<% } %>
+<a href="<%= genUrl( 'googleSignUp', { iToken: iToken } ) %>">Sign up with Google</a> <br/>
+<% if ( errors && errors.googleUid ) { %>
+   <p> <%= errors.googleUid %> </p>
+<% } %>
+</div>

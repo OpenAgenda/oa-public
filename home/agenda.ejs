@@ -1,0 +1,40 @@
+<a href=" <%= genUrl( 'logout' ) %>"> <%= __('Log Out') %></a>
+
+
+<form method="get" action="<%= genUrl( 'home' )  %>">
+	<% if ( reviews.length ) { %>
+	  <select name="slug">
+	  <% for(var key in reviews ) { %>
+		<option value="<%= reviews[key].slug%>" <% if (reviews[key].slug == review.slug) { %>selected<% }%>><%= reviews[key].title %> </option>
+	  <% } %>
+	  </select>
+	  <button type="submit">Ok</button>
+	<% } else { %>
+	<p> <%= __('No reviews found') %> </p>
+	<% } %>
+</form>
+
+<div>
+    <h1> <%= review.title %> </h1>
+    <a href="<%= genUrl( 'categoriesGet', {slug: review.slug} ) %>"> Categories and tags </a>
+</div>
+
+<% include ../general/pages %>
+
+   <% if (events.length) { %>
+   <ul class="glist">
+   <% for(var key in events) { %>
+      <li>
+	<div class="event">
+      	     <a href="<%= genUrl( 'agendaEventShow', {slug: review.slug, eSlug: events[key].slug}, {abs: true} ) %>" ><%= events[key].title.fr %></a> <br/>
+      	     <p><%=events[key].description.fr %></p>
+	     <br/>	
+    	</div>
+       </li>
+   </ul>
+   <% } %>
+<% } else { %>
+  <p><%= __('Your agenda does not have any events on display.') %></p>
+<% } %>
+
+<% include ../general/pages %>

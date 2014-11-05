@@ -1,0 +1,19 @@
+<div class="agendas">
+     
+     <% if (agendas.length) { %>
+     <ul class="glist">
+     <% for(var key in agendas) { %>
+     	<li>
+		<div class="event">
+		<p><%= agendas[key].title %></p>
+      		<a href="<%= agendas[key].Credential===2 ? genUrl( 'agenda', {slug: agendas[key].slug } ) : genUrl( 'agendaEventNew', { slug: agendas[key].slug } ) %>" ><%= agendas[key].Credential===2 ? 'admin' : 'contrib' %></a>
+      		<br/>
+    		</div>
+  	</li>
+     </ul>
+     <% } %>
+     <% } else { %>
+     <p><%= __('You do not posess an agenda.') %></p>
+     <% } %>
+
+</div>

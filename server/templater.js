@@ -154,7 +154,6 @@ _loadTemplate = function( templateName ) {
         }
 
       }
- 
 
       log( 'reading template file' );
 

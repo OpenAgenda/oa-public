@@ -1,0 +1,27 @@
+<h1> <%= review.title %> </h1>
+
+<div class="categories">
+     <h2> Categories </h2>
+     <% if (categories.length ) {  %>
+     <% for( var key in categories ) { %>
+     <ul>
+	<li> <span > <%= categories[key].title  %>  </span> </li>
+     </ul>
+     <% } %>
+     <% } else { %>
+     <p> No categories yet </p>
+     <% } %>
+</div>
+
+<div class="tags">
+     <h2> Tags </h2>
+     <% if (tags.length ) {  %>
+     <% for( var key in tags ) { %>
+     <ul>
+	<li> <span > <%= tags[key].title  %>  </span> </li>
+     </ul>
+     <% } %>
+     <% } else { %>
+     <p> No tags yet </p>
+     <% } %>
+</div>

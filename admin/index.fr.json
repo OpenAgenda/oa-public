@@ -1,0 +1,30 @@
+{
+	"Reviews"
+	: "Agendas",
+	"Events"
+	: "Evenements",
+	"Users"
+	: "Utilisateurs",
+	"This week"
+	: "Cette semaine",
+	"This month"
+	: "Ce mois-ci",
+	"Number of reviews created %totalReviews%"
+	: "Nombre d'agenda(s) crée(s) %totalReviews%",
+	"Number of events created %totalEvents%"
+	: "Nombre d'evenement(s) crée(s) %totalEvents%",
+	"Number of users created %totalUsers%"
+	: "Nombre d'utilisateur(s) crée(s) %totalUsers%",
+	"%reviewsWeek% reviews"
+	: "%reviewsWeek% agendas",
+	"%reviewsMonth% reviews"
+	: "%reviewsMonth% agendas",
+	"%eventsWeek% events"
+	: "%eventsWeek% evenements",
+	"%eventsMonth% events"
+	: "%eventsMonth% evenements",
+	"%usersWeek% users"
+	: "%usersWeek% utilisateurs",
+	"%usersMonth% users"
+	: "%usersMonth% utilisateurs"
+}

@@ -1,0 +1,22 @@
+{
+  "Categories"
+  : "Catégories",
+  "Tags"
+  : "Mot-clés",
+  "Delete"
+  : "Supprimer",
+  "Edit"
+  : "Mettre à jour",
+  "No categories yet"
+  : "Cet agenda ne posséde pas de categories",
+  "No tags yet"
+  : "Cet agenda ne posséde pas de mot-clés",
+  "Add"
+  : "Ajouter",
+  "Add a category"
+  : "Ajoutez une categorie",
+  "Add a tag"
+  : "Ajoutez un mot-clé",
+  "Log Out"
+  : "Déconnexion"
+}
