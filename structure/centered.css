@@ -8,7 +8,7 @@
 .ct .canvas {
 
   margin: 2em;
-  padding: 1em 2em;
+  padding: 1em 0;
   text-align: left;
   display: inline-block;
 
@@ -34,9 +34,10 @@
   }
 
   .ct .canvas {
-    position: relative;
+    position: absolute;
     top: 45%;
-    transform: translateY(-45%);
+    left: 50%;
+    transform: translateY(-45%) translateX(-50%);
   }
 
 }

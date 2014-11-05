@@ -1,0 +1,42 @@
+<div class="canvas">
+<% if ( errors.global ) { %>
+      <div class="cform">
+        <span class="error"><%= __(errors.global) %></span>
+      </div>
+<% } %>
+  <form class="cform" method="post" action="<%= genUrl( 'localAuth', { redirect: redirect, iToken: iToken } ) %>" >
+    <ul>
+      <li>
+        <label for="email"><%= __('Email') %></label>
+        <input type="email" name="email" value="<%= values.email %>" />
+      </li>
+      <li>
+        <label for="password"><%= __('Password') %></label>
+      	<input type="password" name="password" value="<%= values.password %>" />
+      </li>
+      <li>
+        <button type="submit"><%= __('Sign in') %></button>
+      </li>
+    </ul>
+  </form>
+  <ul class="services">
+    <li>
+      <a class="button facebook-blue" href="<%= genUrl( 'facebookAuth', { redirect: redirect, iToken: iToken } ) %>">
+        <i class="fa fa-facebook"></i>
+        <span>Facebook</span>
+      </a>
+    </li>
+    <li>
+      <a class="button twitter-blue" href="<%= genUrl( 'twitterAuth', { redirect: redirect, iToken: iToken } ) %>">
+        <i class="fa fa-twitter"></i>
+        <span>Twitter</span>
+      </a>
+    </li>
+    <li>
+      <a class="button google-red" href="<%= genUrl( 'googleAuth', { redirect: redirect, iToken: iToken } ) %>">
+        <i class="fa fa-google-plus"></i>
+        <span>Google Plus</span>
+      </a>
+    </li>
+  </ul>
+</div>

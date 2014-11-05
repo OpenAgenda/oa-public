@@ -1,0 +1,52 @@
+.auth { 
+
+  background: white;
+
+}
+
+.auth form.cform,
+.auth .services {
+
+  display: inline-block;
+  vertical-align: top;
+  padding: 2em 3em 0 0;
+
+}
+
+.auth .services li {
+
+  padding: 1.5em 0 0.5em;
+  display: block;
+
+}
+
+.auth .services a {
+  width: 10em;
+  border: none;
+  padding-left: 1em;
+  border-width: 0;
+}
+
+.auth .services a i,
+.auth .services a span {
+  color: white;
+  font-weight: bold;
+}
+
+.auth .facebook-blue {
+
+  background-color: #3b5998;
+
+}
+
+.auth .twitter-blue {
+
+  background-color: #00aced;
+
+}
+
+.auth .google-red {
+
+  background-color: #d34836;
+  
+}

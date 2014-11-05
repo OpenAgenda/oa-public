@@ -1,4 +1,5 @@
 [
+  "auth/signin",
   "home/index",
   "home/categories",
   "presentation/index",

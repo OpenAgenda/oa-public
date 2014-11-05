@@ -64,6 +64,8 @@
 }
 
 .cform input[type="text"],
+.cform input[type="email"],
+.cform input[type="password"],
 .cform input[type="radio"],
 .cform input[type="checkbox"],
 .cform select,
