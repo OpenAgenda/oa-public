@@ -1,3 +1,7 @@
+.search-page {
+  background-color: white;
+}
+
 .search-page > .header {
   height: auto;
   background: #efefef;

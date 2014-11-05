@@ -52,7 +52,7 @@ http.createServer(function ( req, res ) {
 
       cn.contains( ['.css', '.jpg', '.png', '.ico', '.ttf', '.svg', '.eot', '.otf', '.ejs'], uri.substr(-4) ) ||
 
-      cn.contains( ['.woff', '.json'], uri.substr(-5) ) ) {
+      cn.contains( ['.woff', '.json', '.html'], uri.substr(-5) ) ) {
 
         log( 'handling as static resource request' );
 

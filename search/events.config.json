@@ -1,7 +1,7 @@
 {
   "layout" : "layout/main",
   "css" : {
-    "frame" : "../css/frame.css",
+    "frame" : "../structure/structure.css",
     "mainItem" : "../css/mainItem.css",
     "fontawesome410" : "../css/font-awesome-4.1.0/css/font-awesome.css",
     "search" : "css/style.css",
