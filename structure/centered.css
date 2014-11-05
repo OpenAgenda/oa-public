@@ -1,0 +1,42 @@
+.ct {
+
+  margin: 0 auto;
+  text-align: center;
+
+}
+
+.ct .canvas {
+
+  margin: 2em;
+  padding: 1em 2em;
+  text-align: left;
+  display: inline-block;
+
+}
+
+
+@media all and (min-width: 780px) {
+
+  .ct {
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+  }
+
+  /* center vertically on page */
+
+  .ct {
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+  }
+
+  .ct .canvas {
+    position: relative;
+    top: 45%;
+    transform: translateY(-45%);
+  }
+
+}
