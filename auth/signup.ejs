@@ -1,28 +1,62 @@
-<div class="signup form">
+<div class="canvas">
+  
+  <form class="cform" method="post" action="<%= genUrl( 'localSignUp', { iToken: iToken } ) %>">
+    <ul>
+      <li>
+        <label for="email"><%= __('Email') %></label>
+        <input type="email" name="email" value="<%= values.email %>" />
+<% if ( errors.email ) { %>
+        <span class="error"><%= __( errors.email ) %></span>
+<% } %>
+      </li>
+      <li>
+        <label for="password"><%= __('Password') %></label>
+        <input type="password" name="password" value="<%= values.password %>" />
+<% if ( errors.password ) { %>
+      <span class="error"><%= __( errors.password ) %></span>
+<% } %>
+      </li>
+     	<li>
+        <label for="confirmPassword"><%= __('Repeat Password') %></label> 
+     	  <input type="password" name="confirmPassword" value="<%= values.confirmPassword %>" />
+<% if ( errors.confirmPassword ) { %>
+        <span class="error"><%= __( errors.confirmPassword ) %></span>
+<% } %>
+      </li>
+      <li>
+        <button type="submit"><%= __('Sign Up') %></button>
+      </li>
+    </ul>
+  </form>
 
-     <form method="post" action="<%= genUrl( 'localSignUp', { iToken: iToken } ) %>">
-     	   <input type="email" name="email" placeholder="Email"/> <br/>
-	   <% if ( errors && errors.email ) { %>
-	   <p><%= errors.email %></p>
-	   <% } %>
-     	   <input type="password" name="password" placeholder="Password"/> <br/>
-	   <% if ( errors && errors.password ) { %>
-	   <p><%= errors.password %></p>
-	   <% } %>
-     	   <input type="password" name="confirmPassword" placeholder="Confirm password"/>
-	   <button type="submit">Sign Up ! </button> 
-     </form>
+  <ul class="services cform">
+    <li>
+      <a class="button facebook-blue" href="<%= genUrl( 'facebookSignUp', { iToken: iToken } ) %>">
+        <i class="fa fa-facebook"></i>
+        <span>Facebook</span>
+      </a>
+<% if ( errors.facebookUid ) { %>
+      <span class="error"><%= __( errors.facebookUid ) %></span>
+<% } %>
+    </li>
+    <li>
+      <a class="button twitter-blue" href="<%= genUrl( 'twitterSignUp', { iToken: iToken } ) %>">
+        <i class="fa fa-twitter"></i>
+        <span>Twitter</span>
+      </a>
+<% if ( errors.twitterUid ) { %>
+      <span class="error"><%= __( errors.twitterUid ) %></span>
+<% } %>
+    </li>
+    <li>
+      <a class="button google-red" href="<%= genUrl( 'googleSignUp', { iToken: iToken } ) %>">
+        <i class="fa fa-google-plus"></i>
+        <span>Google Plus</span>
+      </a>
+<% if ( errors.googleUid ) { %>
+      <span class="error"><%= __( errors.googleUid ) %></span>
+<% } %>
+    </li>
+  </ul>
 
-<a href="<%= genUrl( 'facebookSignUp', { iToken: iToken } ) %>">Sign up with Facebook</a> <br/>
-<% if ( errors && errors.facebookUid ) { %>
-   <p> <%= errors.facebookUid %> </p>
-<% } %>
-<a href="<%= genUrl( 'twitterSignUp', { iToken: iToken } ) %>">Sign up with Twitter</a> <br/>
-<% if ( errors && errors.twitterUid ) { %>
-   <p> <%= errors.twitterUid %> </p>
-<% } %>
-<a href="<%= genUrl( 'googleSignUp', { iToken: iToken } ) %>">Sign up with Google</a> <br/>
-<% if ( errors && errors.googleUid ) { %>
-   <p> <%= errors.googleUid %> </p>
-<% } %>
 </div>

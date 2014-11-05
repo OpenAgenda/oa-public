@@ -20,17 +20,21 @@
 
 }
 
-.auth .services a {
+.auth .social {
+
   width: 10em;
   border: none;
   padding-left: 1em;
   border-width: 0;
+
 }
 
-.auth .services a i,
-.auth .services a span {
+.auth .social i,
+.auth .social span {
+
   color: white;
   font-weight: bold;
+
 }
 
 .auth .facebook-blue {
@@ -49,4 +53,19 @@
 
   background-color: #d34836;
   
+}
+
+
+.auth section {
+
+  padding: 1em 0;
+
+}
+
+.auth section > .line > li {
+
+  display: inline-block;
+  vertical-align: top;
+  padding: 1em 1em 0 0;
+
 }

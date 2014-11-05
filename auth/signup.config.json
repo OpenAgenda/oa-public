@@ -1,14 +1,16 @@
 {
   "layout": "layout/main",
   "css" : {
-    "auth" : "./css/style.css"
-   },
-
+    "signin" : "css/style.css",
+    "forms" : "../css/forms.css",
+    "cStructure" : "../structure/centered.css",
+    "fontawesome410" : "../css/font-awesome-4.1.0/css/font-awesome.css"
+  },
   "helpers" : {
     "_t" : "time",
     "_i" : "image"
   },
   "base" : {
-        "tab" : "auth"
+    "pageClass" : "ct auth"
   }
 }

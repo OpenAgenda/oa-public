@@ -1,1 +1,8 @@
-{}
+{
+  "Complete the signup process by typing in your email"
+  : "Completez la procédure d'inscription en saisissant votre email",
+  "this email is invalid"
+  : "cet email est invalides",
+  "Confirm Email"
+  : "Confirmer l'Email"
+}

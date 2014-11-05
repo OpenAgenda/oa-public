@@ -1,5 +1,8 @@
 [
   "auth/signin",
+  "auth/signup",
+  "auth/emailForm",
+  "auth/activation",
   "home/index",
   "home/categories",
   "presentation/index",

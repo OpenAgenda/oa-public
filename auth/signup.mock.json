@@ -1,1 +1,20 @@
-{}
+{
+  "base" : {
+    "values" : {
+      "email" : "gaetan@cibul.net",
+      "password" : "wigglypoof",
+      "confirmPassword" : "wigglypouf"
+    },
+    "errors" : {
+      "email" : "the email is invalid",
+      "password" : "a password is required",
+      "confirmPassword" : "passwords do not match",
+      "facebookUid" : "something went wrong",
+      "twitterUid" : "something went wrong",
+      "googleUid" : "something went wrong"
+    }
+  },
+  "noinvite" : {
+    "iToken" : false
+  }
+}

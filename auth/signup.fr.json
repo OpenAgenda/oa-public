@@ -1,1 +1,16 @@
-{}
+{
+  "the email is invalid"
+  : "l'email est invalide",
+  "a password is required"
+  : "le mot de passe est requis",
+  "passwords do not match"
+  : "les mots de passe sont différents",
+  "Password"
+  : "Mot de passe",
+  "Repeat Password"
+  : "Répeter le mot de passe",
+  "Sign Up"
+  : "S'inscrire",
+  "something went wrong"
+  : "il y a eu un petit problème"
+}

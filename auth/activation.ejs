@@ -1,5 +1,41 @@
-<div>
-  <h2> Waiting validation </h2>
-  <p> We just sent a validation link for your new account blablabla, check your mails and your spams</p>
-
+<div class="canvas">
+  <h2><%= __('Check your mail for a validation link') %></h2>
+  <section>
+<% if ( resend ) { %>
+    <p><%= __('An activation email will be resent to you in a short moment. Check your email, including your spam.') %></p>
+<% } else { %>
+    <p><%= __('An email will be sent to you shortly containing the activation link for your account. Check your inbox to complete your account creation process.') %></p>
+<% } %>
+  </section>
+  <section>
+    <p><%- __('Didn\'t receive any mail? %resend%', { '%resend%' : '<a class="url" href="' + genUrl( 'newsletterSubscribe' ) + '">' +  __('Click here to resend')  + '</a>' }) %></p>
+  </section>
+  <section>
+    <h2><%= __('Stay up to date with what is going on with Cibul!') %></h2>
+    <ul class="line">
+      <li>
+        <a class="button facebook-blue social" href="<%= facebookPage %>" target="_blank">
+          <i class="fa fa-facebook"></i>
+          <span><%= __('Like us') %></span>
+        </a>
+      </li>
+      <li>
+        <a class="button twitter-blue social" href="<%= twitterPage %>" target="_blank">
+          <i class="fa fa-twitter"></i>
+          <span><%= __('Follow us') %></span>
+        </a>
+      </li>
+      <li>
+        <form method="post" action="<%= genUrl( 'newsletterSubscribe' ) %>">
+          <ul class="cform">
+            <li class="line">
+              <label for="email"><%= __('Get our newsletter') %></label>
+              <input type="text" name="email" placeholder="<%= __('Your email') %>">
+              <button type="submit"><%= __('Subscribe') %></button>
+            </li>
+          </ul>
+        </form>
+      </li>
+    </ul>
+  </section>
 </div>

@@ -6,7 +6,6 @@
     "cStructure" : "../structure/centered.css",
     "fontawesome410" : "../css/font-awesome-4.1.0/css/font-awesome.css"
    },
-
   "helpers" : {
     "_t" : "time",
     "_i" : "image"

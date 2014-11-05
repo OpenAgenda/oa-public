@@ -1,1 +1,10 @@
-{}
+{
+  "user" : "#",
+  "iToken" : false,
+  "values" : {
+    "email" : "gaetan@cibul.net"
+  },
+  "errors" : {
+    "email" : "this email is invalid"
+  }
+}

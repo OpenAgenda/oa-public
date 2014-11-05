@@ -1,10 +1,18 @@
-<div class="emailForm">
+<div class="canvas">
 
-  <form method="post" action=" <%= genUrl( 'twitterEmail', { user: user, iToken: iToken } ) %>">
+  <p><%= __('Complete the signup process by typing in your email') %></p>
 
-    <input type="email" name="email" placeholder="Email"/>
+  <form class="cform" method="post" action="<%= genUrl( 'twitterEmail', { user: user, iToken: iToken } ) %>">
+    <ul>
+      <li>
+        <label for="email"><%= __('Email') %></label>
+        <input type="email" name="email" value="<%= values.email %>" />
+<% if ( errors.email ) { %>
+        <span class="error"><%= __( errors.email ) %></span>
+<% } %>        
+      </li>
+    <button type="submit"><%= __('Confirm Email') %></button>
 
-    <button type="submit"> Confirm Email </button>
   </form>
 
 </div>
