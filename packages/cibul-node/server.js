@@ -62,4 +62,6 @@ supervisor( function( loadTasks ) {
   
   require( './search/task' ).load( { bootOffset: 12483 } );
 
+  require( './general/nominatim.task' ).load( { bootOffset: 10000, period: 60000*5 } );
+
 });

@@ -62,7 +62,11 @@ describe( 'mailer', function() {
       subject: 'this is a test mail',
       html: '<p>This really is a test mail</p>',
       text: 'This really is a test mail'
-    }, done );
+    }, function() {
+
+      log( 'message queued' );
+
+    } );
 
   });
 
@@ -77,6 +81,8 @@ describe( 'mailer', function() {
 
       done();
 
+      task.setOnProcessed( false );
+
     });
 
 
@@ -87,7 +93,11 @@ describe( 'mailer', function() {
       subject: 'please bounce me',
       html: '<p>Booing</p>',
       text: 'Booing'
-    }, done );
+    }, function() {
+
+      log( 'message queued' );
+
+    } );
 
   });
 

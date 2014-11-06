@@ -15,11 +15,11 @@ async = require('async'),
 
 should = require('should'),
 
-bogusComs = require('../../test/helpers/bogusComs'),
+bogusComs = require( '../../test/helpers/bogusComs' ),
 
 task = require( '../task' ),
 
-campaignHelpers = require('./helpers/campaigns'),
+campaignHelpers = require( './helpers/campaigns' ),
 
 emails = [ 'poney@cibul.net', 'bisounours@cibul.net', 'cali@cibul.net' ];
 

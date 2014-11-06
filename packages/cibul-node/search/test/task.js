@@ -26,7 +26,7 @@ fixtureData;
 
 task.setComs( bogusComs );
 
-describe.only( 'search index sync', function() {
+describe( 'search index sync', function() {
   
 
   before( function( done ) {
@@ -59,7 +59,7 @@ describe.only( 'search index sync', function() {
 
         result.found.should.be.true;
 
-        result.data.event_id.should.equal( requestedId );
+        result.data.eventId.should.equal( requestedId );
 
         ecb();
 
