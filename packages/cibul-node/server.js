@@ -43,7 +43,7 @@ supervisor( function( loadTasks ) {
   
   if ( enabledTypes.indexOf( 'admin' ) !== -1 ) {
 
-    log( 'no admin module is defined yet' );
+    require( './admin/back' )( '/admin' ).load( app );
 
   }
 

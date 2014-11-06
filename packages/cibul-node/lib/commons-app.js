@@ -12,6 +12,7 @@ exports.errorResponse = errorResponse;            // render error page
 
 exports.loadAgenda = loadAgenda;                  // middleware. loads an agenda in the request based on its slug
 exports.requireLogged = requireLogged;            // middleware. verify if user is logged
+exports.requireAdmin = requireAdmin;
 exports.loadBaseData = loadBaseData;              // middleware. 
 exports.loadSession = loadSession;                // middleware. load session data
 exports.checkCredential = checkCredential;        // middleware. check that request agenda has required credential
@@ -393,7 +394,23 @@ function requireLogged( req, res, next ) {
 
 }
 
+function requireAdmin( req, res, next ) {
 
+  var id = req.session.id; //req.user.id;
+
+  if ( id == 1 || id == 2 || id == 22 ) {
+
+    next();
+
+    return;
+
+  } else {
+
+    router.redirect( req, res, 'home', {}, 'You\'re not an Administrator' );
+
+  }
+
+}
 
 /**
  * check if agenda has 'name' credential
