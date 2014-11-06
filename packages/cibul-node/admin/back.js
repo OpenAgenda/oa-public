@@ -36,7 +36,7 @@ module.exports = function init( p ) {
 
   path = p;
 
-  cmn.registerRoutes( appName, path, routes);
+  cmn.registerRoutes( appName, path, routes );
 
   return exposed;
 
@@ -59,6 +59,7 @@ function load( main ) {
   log( 'app loaded' );
   cmn.loadRoutes( app, routes, [
     cmn.urlGenSetter( appName, path ),
+    cmn.flashSetter,
     cmn.loadSession,
     cmn.requireLogged,
     cmn.requireAdmin

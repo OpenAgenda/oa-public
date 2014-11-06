@@ -406,7 +406,7 @@ function requireAdmin( req, res, next ) {
 
   } else {
 
-    router.redirect( req, res, 'home', {}, 'You\'re not an Administrator' );
+    redirect( req, res, 'presentation', {}, 'You\'re not an Administrator' );
 
   }
 

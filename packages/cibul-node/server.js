@@ -24,6 +24,18 @@ supervisor( function( loadTasks ) {
 
   config = require( './config' ),
 
+  webModules = {
+    web: [ // open to the public
+      require( './newsletter/back' )( '/:slug/admin/newsletters' ),
+      require( './newsletter/front' )( '/:slug/newsletters' ),
+      require( './general/front' )( '' ),
+      require( './search/front' )( '' )
+    ],
+    admin: [ // for admins only
+      require( './admin/back' )( '/admin' )
+    ]
+  };
+
   app = express();
 
   app.use( require( 'cookie-parser' )() );
@@ -32,18 +44,23 @@ supervisor( function( loadTasks ) {
   // run 'web' type modules
   if ( enabledTypes.indexOf( 'web' ) !== -1 ) {
 
-    require( './newsletter/back' )( '/:slug/admin/newsletters' ).load( app );
-    require( './newsletter/front' )( '/:slug/newsletters' ).load( app );
-    require( './general/front' )( '' ).load( app );
-    require( './search/front' )( '' ).load( app );
-    
+    webModules.web.forEach( function( m ) {
+
+      m.load( app );
+
+    });
+
   }
 
   // run 'admin' type modules
   
   if ( enabledTypes.indexOf( 'admin' ) !== -1 ) {
 
-    require( './admin/back' )( '/admin' ).load( app );
+    webModules.admin.forEach( function( m ) {
+
+      m.load( app );
+
+    });
 
   }
 
