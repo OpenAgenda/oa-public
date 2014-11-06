@@ -39,7 +39,18 @@ module.exports.reverse = function( latitude, longitude, options, cb ) {
 
     res.on( 'end', function() {
 
-      var result = JSON.parse( body );
+      var result;
+
+      try {
+
+        result = JSON.parse( body );
+        
+      } catch( e ) {
+
+        return cb( 'could not parse response' );
+
+      }
+
 
       if ( result.error ) {
 
