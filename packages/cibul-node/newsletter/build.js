@@ -35,6 +35,8 @@ lib = require('../lib/lib'),
 
 log = require('../lib/logger')( 'newsletter/build' ),
 
+config = require( '../config' ),
+
 
 
 /**
@@ -61,7 +63,8 @@ mainInfo = function( model, agenda, campaign, data, cb ) {
       image : agenda.getImage( true ),
       featuredEvents : [],
       items: [],
-      contributable: agenda.contributionType !== 0
+      contributable: agenda.contributionType !== 0,
+      warnings: []
     });
 
     cb( null, model, agenda, campaign, data );
@@ -111,6 +114,12 @@ featuredEvents = function( model, agenda, campaign, data, cb ) {
 
     if ( err ) return cb( err );
 
+    if ( events.length > config.newsletter.featuredLimit ) {
+
+      data.warnings.push( [ 'there are currently %count% featured events in the campaign. Maximum is %max%', { '%count%' : events.length, '%max%' : config.newsletter.featuredLimit } ] );
+
+    }
+
     data.featuredEvents = events.map( function( event ) {
 
       var e = model.events().instance( event );
@@ -124,13 +133,11 @@ featuredEvents = function( model, agenda, campaign, data, cb ) {
         spaceTimeInfo: e.getSpaceTimeInfo()
       };          
 
-    });
+    }).slice( 0, config.newsletter.featuredLimit );
 
     cb( null, model, agenda, campaign, data );  
 
   });
-
-  
 
 },
 
@@ -160,7 +167,7 @@ eventSelection = function( model, agenda, campaign, data, cb ) {
 
     listParams = { upcoming: true, limit: false };
 
-    ['cities', 'regions', 'departments'].forEach(function( filter ) {
+    [ 'cities', 'regions', 'departments' ].forEach(function( filter ) {
 
       if ( filters[filter] && filters[filter].length ) listParams[filter] = filters[filter];
 
@@ -200,6 +207,14 @@ eventSelection = function( model, agenda, campaign, data, cb ) {
         if ( event.segments ) previousSegment = JSON.stringify( event.segments );
 
       });
+
+      if ( data.items.length > config.newsletter.selectionLimit ) {
+
+        data.warnings.push( [ 'there are currently %count% events in the selection. Maximum is %max%', { '%count%' : data.items.length, '%max%' : config.newsletter.selectionLimit } ] );
+
+      }
+
+      data.items = data.items.slice( 0, config.newsletter.selectionLimit );
 
       cb( null, model, agenda, campaign, data );
 

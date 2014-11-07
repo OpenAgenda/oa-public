@@ -162,39 +162,7 @@ function campaignNew( req, res ) {
 
 function campaignCreate( req, res ) {
 
-  async.parallel([
-
-    req.agenda.contactLists.list
-
-  ], _processCampaignSave(req, function( err, result ) {
-
-    // save was successful... or crashed altogether
-
-    if ( err ) return _error( req, res )( err );
-
-    cmn.redirect(req, res, 'campaignLayoutEdit', { uid: result.object.uid });
-
-  }, function( err, result, values, errors, contactLists ) {
-
-    if ( err ) return _error( req, res )( err );
-
-    // ... some things are missing or wrong
-
-    req.agenda.campaigns.instance( result.object ).getIsNew(function( err, isNew ) {
-
-      if ( err ) return _error( req, res )( err );
-
-      cmn.render( req, res, 'newsletter/admin/campaignForm', {
-        isNew: isNew,
-        uid: null,
-        contactLists: contactLists,
-        values: values,
-        errors: errors
-      } );
-
-    });
-
-  }));
+  _processCampaignSubmit( req, res, null, 'campaignLayoutEdit' );
 
 }
 
@@ -272,69 +240,13 @@ function campaignEdit( req, res ) {
  * update campaign general settings
  */
 
+
 function campaignUpdate( req, res ) {
 
-  async.parallel([
-
-    req.agenda.contactLists.list
-
-  ], _processCampaignSave(req, function( err, result ) {
-
-    // save was successful... or crashed altogether
-
-    if ( err ) return _error( req, res )( err );
-
-    var campaign = req.agenda.campaigns.instance( result.object );
-
-    campaign.getIsNew(function( err, isNew ) {
-
-      if ( err ) return _error( req, res )( err );
-
-      if ( !isNew ) {
-
-        campaign.refreshScheduledAt(function( err, scheduledAt ) {
-
-          return cmn.redirect(req, res, 'newsletterIndex', {}, 'campaign updated' );
-
-        });
-
-      } else {
-
-        return cmn.redirect(req, res, 'campaignLayoutEdit', { uid: result.object.uid });
-
-      }
-
-    });
-
-  }, function( err, result, values, errors, contactLists ) {
-
-    if ( err ) return _error( req, res )( err );
-
-    // ... some things are missing or wrong
-
-    req.agenda.campaigns.get({ uid: req.params.uid }, function( err, campaign ) {
-
-      if ( err ) return _error( req, res )( err );
-
-      req.agenda.campaigns.instance( campaign ).getIsNew(function( err, isNew ) {
-
-        if ( err ) return _error( req, res )( err );
-
-        cmn.render( req, res, 'newsletter/admin/campaignForm', {
-          isNew: isNew,
-          uid: req.params.uid,
-          contactLists: contactLists,
-          values: values,
-          errors: errors
-        } );
-
-      });
-
-    });
-
-  }));
+  _processCampaignSubmit( req, res, req.params.uid, 'campaignEdit', 'campaign updated' );
 
 }
+
 
 
 function campaignLayoutEdit( req, res ) {
@@ -524,6 +436,10 @@ function campaignFeaturedClear( req, res ) {
 }
 
 
+/**
+ * save campaign configuration with layout updates
+ */
+
 function campaignComplete( req, res ) {
 
   var campaign;
@@ -534,8 +450,19 @@ function campaignComplete( req, res ) {
 
     campaign = req.agenda.campaigns.instance( campaignData );
 
-
     return wn.call( _processCampaignLayout, campaign, req.body || {} );
+
+  })
+
+  .then(function() {
+
+    return wn.call( build, model, req.agenda, campaign );
+
+  })
+
+  .then(function( newsletterData ) {
+
+    return wn.call( campaign.setWarnings, newsletterData.warnings );
 
   })
 
@@ -829,51 +756,127 @@ function _error( req, res ) {
 }
 
 
-function _processCampaignSave( req, cb, formCb ) {
+/**
+ * associate contact list with campaign
+ */
+
+function _associateContactList( campaign, contactLists, values, cb ) {
+
+  var contactList;
+      
+  if ( values.list ) {
+
+    contactList = lib.getByAttr( contactLists, { uid: parseFloat( values.list ) } );
+
+  }
+
+  campaign.setContactList( contactList, function( err ) {
+
+    cb( err );
+
+  } );
+
+}
+
+
+
+/**
+ * process campaign submit for create or update
+ */
+
+function _processCampaignSubmit( req, res, uid, successRedirect, successMessage ) {
+
+  log( 'processing campaign submit' );
 
   var values = req.body || {},
 
-  uid = req.params.uid ? req.params.uid : null;
+  contactLists,
 
-  return function ( err, results ) {
+  campaign;
 
-    if ( err ) cb( err );
+  wn.call( req.agenda.contactLists.list )
 
-    var contactLists = results[0];
+  .then( function( cls ) {
 
-    // load campaign model validators
+    log( 'agenda contact lists are loaded, validating campaign data' );
 
-    req.agenda.campaigns[ uid ? 'validateAndUpdate' : 'validateAndCreate' ]( values, { uid : uid }, function ( err, result ) {
+    contactLists = cls;
 
-      if ( err ) return cb( err );
+    return wn.call( req.agenda.campaigns[ uid ? 'validateAndUpdate' : 'validateAndCreate' ], values, { uid : uid } );
 
-      // associate contact list
+  })
 
-      var contactList = null;
+  // if campaign was created, associate submitted list selection
 
-      if ( !result.errors ) {
-        
-        if ( values.list ) contactList = lib.getByAttr(contactLists, { uid: parseFloat(values.list) } );
+  .then( function( validationResult ) {
 
-        return req.agenda.campaigns.instance(result.object).setContactList( contactList, function( err ) {
+    if ( !validationResult.errors ) {
 
-          if ( err ) return cb( err );
+      log( 'campaign data is valid, campaign was ' + ( uid ? 'updated' : 'created' ) );
 
-          return cb( null, result );
+      campaign = req.agenda.campaigns.instance( validationResult.object );
 
-        });
+      // the campaign was valid and is now created, associate contact list
+
+      return wn.call( _associateContactList, campaign, contactLists, values );
+
+    }
+
+    log( 'campaign data is not valid.' );
+
+    return validationResult.errors;
+
+  })
+
+  .then( function( errors ) {
+
+    campaign.getIsNew( function( err, isNew ) {
+
+      if ( !errors ) {
+
+        if ( !isNew ) {
+
+          log( 'campaign is not new, schedule date needs refreshing' );
+
+          campaign.refreshScheduledAt(function( err, scheduledAt ) {
+
+            log( 'campaign scheduling was refreshed, redirecting to %s', successRedirect );
+
+            cmn.redirect( req, res, successRedirect, { uid : campaign.uid }, successMessage );
+
+          });
+
+        } else {
+
+          log( 'campaign is new, redirecting to %s', successRedirect );
+
+          cmn.redirect( req, res, successRedirect, { uid : campaign.uid }, successMessage );
+
+        }
 
       } else {
 
-        formCb(null, result, values, lib.toUnderscore(result.errors), contactLists );
+        if ( err ) throw err;
+
+        cmn.render( req, res, 'newsletter/admin/campaignForm', {
+          isNew: isNew,
+          uid: null,
+          contactLists: contactLists,
+          values: values,
+          errors: errors
+        } );
 
       }
 
     });
 
-  };
+  })
+
+  .catch( _error( req, res ) );
 
 }
+
+
 
 
 function _processCampaignLayout( campaign, values, cb ) {
@@ -884,9 +887,9 @@ function _processCampaignLayout( campaign, values, cb ) {
 
   async.series([
 
-    async.apply(campaign.setEdito, values.edito),
+    async.apply( campaign.setEdito, values.edito ),
 
-    async.apply(campaign.setSegmentation, values.segmentation),
+    async.apply( campaign.setSegmentation, values.segmentation ),
 
     function ( scb ) { // load filters
 

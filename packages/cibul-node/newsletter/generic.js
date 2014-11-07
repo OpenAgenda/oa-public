@@ -20,8 +20,8 @@ var controllers = function( model ) {
    */
   
   contactRemove = function( agenda, contactListUid, email, cb, formCb ) {
-
-    agenda.contactLists.get( contactListUid, function ( err, contactList ) {
+    
+    agenda.contactLists.get( { uid: contactListUid }, function ( err, contactList ) {
 
       if ( err ) return cb( err );
 

@@ -48,6 +48,10 @@ config = {
       apiKey : '8c200831a70d4f391bd697fa3cbca6a3',
       apiSecret : '6554476977a74b9cace0ddd0dc1ea657'
     },
+    newsletter: {
+      featuredLimit: 10,  // maximum number of featured events displayable in the same newsletter campaign
+      selectionLimit: 30  // maximum number of events displayable in the selection of a newsletter campaign
+    },
     routes: {
       globals: {
         'authShow' : {
@@ -177,6 +181,10 @@ config = {
     },
     routes: {
       defaultGlobalsPrefix: '/frontend_dev.php'
+    },
+    newsletter: {
+      featuredLimit: 3,  // maximum number of featured events displayable in the same newsletter campaign
+      selectionLimit: 5  // maximum number of events displayable in the selection of a newsletter campaign
     }
   },
   
