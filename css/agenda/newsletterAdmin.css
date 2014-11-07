@@ -71,3 +71,7 @@
 .newsletter .right {
   float: right;
 }
+
+.newsletter .warnings li {
+  font-size: 0.9em;
+}

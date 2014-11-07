@@ -12,6 +12,10 @@
         "contactList" : {
           "title" : "Liste principale"
         },
+        "warnings" : [
+          [ "there are currently %count% featured events in the campaign. Maximum is %max%", { "%count%" : 12, "%max%" : 10 } ],
+          [ "there are currently %count% events in the selection. Maximum is %max%", { "%count%" : 31, "%max%" : 30 } ]
+        ],
         "sendDate" : "2014-07-30T09:00:00.000Z"
       },
       {
@@ -20,7 +24,8 @@
         "type" : 0,
         "contactList" : null,
         "sendDate" : "2014-07-15T10:30:00.000Z",
-        "scheduledAt" : "2014-10-15T10:30:00.000Z"
+        "scheduledAt" : "2014-10-15T10:30:00.000Z",
+        "warnings" : []
       },
       {
         "uid" : 45789546,
@@ -30,6 +35,7 @@
         "contactList" : {
           "title" : "Un autre liste"
         },
+        "warnings" : [],
         "sendDate" : null
       }
     ],

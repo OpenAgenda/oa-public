@@ -28,5 +28,9 @@
   "scheduled on %value%"
   : "prévu le %value%",
   "edit"
-  : "éditer"
+  : "éditer",
+  "there are currently %count% featured events in the campaign. Maximum is %max%"
+  : "il y a actuellement %count% événements en une dans la campagne. Le maximum possible est %max%",
+  "there are currently %count% events in the selection. Maximum is %max%"
+  : "il y a actuellement %count% événements en séléction de la campagne. Le maximum possible est %max%"
 }

@@ -1,2 +1,20 @@
 {
+  "reviews" : [
+    {
+      "slug" : "la-gargouille",
+      "title" : "La Gargouille"
+    }
+  ],
+  "review" : {
+    "slug" : "le-fennec",
+    "title" : "Le Fennec"
+  },
+  "events" : [],
+  "pager" : {
+    "current" : 3,
+    "total" : 127,
+    "action" : "campaignFeaturedEdit",
+    "values" : {},
+    "perPage" : 15
+  }
 }

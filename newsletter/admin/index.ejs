@@ -28,6 +28,13 @@
         </li>
 <% } %>
       </ul>
+<% if ( campaign.warnings.length ) { %>
+      <ul class="warnings">
+<% campaign.warnings.forEach( function( warning ) { %>
+        <li class="error"><%= __.apply( null, warning ) %></li>
+<% }); %>
+      </ul>
+<% } %>
     </li>
 <% }) %>
   </ul>
