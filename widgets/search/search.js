@@ -1,4 +1,4 @@
-var UID = 0,
+var UID = 0, LANG = 1,
 
 EJS = require( '../../js/lib/clientEjs/ejs' ),
 
@@ -24,6 +24,8 @@ var widget = function( elem, options ) {
 
   var enabled = false,
 
+  lang = 'fr',
+
   config = cn.extend( {}, baseConfig ),
 
   controller,
@@ -39,6 +41,12 @@ var widget = function( elem, options ) {
   init = function() {
 
     var uid = options.anchorConfig[ UID ];
+
+    if ( options.anchorConfig[ LANG ] ) {
+
+      lang = options.anchorConfig[ LANG ];
+
+    }
 
     log = debug( 'search widget ' + uid );
 
@@ -81,7 +89,9 @@ var widget = function( elem, options ) {
 
   _createElement = function() {
 
-    elem.innerHTML = new EJS( { text : template } ).render( { labels : config.labels } );
+    styler( style );
+
+    elem.innerHTML = new EJS( { text : template } ).render( { labels : config.labels[ lang ] } );
 
     inputElem = cn.el( elem, 'input' );
 
