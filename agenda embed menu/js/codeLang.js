@@ -7,33 +7,38 @@ params = {
     select: '.js_code_lang',    // the select lang widget
     code: '.js_code',           // the widget code
     langInput: '.js_embed_lang' // embed config input field
+    preview: '.js_preview'
   },
   attributeName: 'data-lang'
 };
 
 module.exports = function( options ) {
 
-  cn.extend(params, options);
+  cn.extend( params, options );
 
-  var codeField = cn.el(params.selectors.code),
+  var codeField = cn.el( params.selectors.code ),
 
-  langField = cn.el(params.selectors.select);
+  langField = cn.el( params.selectors.select ),
 
-  var iframeMode = (codeField.value.indexOf('iframe')!==-1);
+  previewElem = cn.el( params.selectors.preview ),
 
-  _onSelectChange(langField, function(lang) {
+  iframeMode = ( codeField.value.indexOf('iframe')!==-1 );
 
-    if (iframeMode) {
+  _onSelectChange( langField, function( lang ) {
 
-      _updateFrameSrc(codeField, lang);      
+    if ( iframeMode ) {
+
+      _updateFrameSrc( codeField, lang );      
 
     } else {
 
-      _updateAttribute(codeField, lang);
+      _updateAttribute( codeField, lang );
 
     }
 
-    cn.el(params.selectors.langInput).value = lang;
+    _updatePreview( previewElem, lang );
+
+    cn.el( params.selectors.langInput ).value = lang;
 
   });
 
@@ -51,7 +56,17 @@ var _updateFrameSrc = function( codeElem, lang ) {
 
 _updateAttribute = function( codeElem, lang ) {
 
-  _insertCodeAttribute(codeElem, 'div', params.attributeName, lang);
+  _insertCodeAttribute( codeElem, 'div', params.attributeName, lang);
+
+},
+
+_updatePreview = function( previewElem, lang ) {
+
+  var src = previewElem.getAttribute( 'src' ),
+
+  newSrc = urlStr.addUrlParameters( src, { lang: lang } );
+
+  previewElem.setAttribute( 'src', newSrc );
 
 },
 
