@@ -33,7 +33,7 @@ var widget = function( elem, options ) {
 
     var uid = options.anchorConfig[ UID ];
 
-    log = debug( 'tag widget ' + uid );
+    log = debug( 'tags widget ' + uid );
 
     log( 'initing' );
 
@@ -210,7 +210,7 @@ var widget = function( elem, options ) {
 
     }
 
-    log( 'widget initialized with %d tags', tags.length );
+    log( 'widget initialized with %s tags', tags.length );
 
   },
 

@@ -14,10 +14,10 @@ exports.forEachAnchor = function( selector, options, cb ) {
   domReady( function() {
 
     cn.forEach( cn.els( selector ), function( elem ) {
-
-      options.anchorConfig = readAnchorConfig( elem );
-
-      cb( elem, options );
+      
+      cb( elem, cn.extend( {
+        anchorConfig: readAnchorConfig( elem )
+      }, options ) );
 
     } );
 
