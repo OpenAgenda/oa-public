@@ -6,7 +6,7 @@ params = {
   selectors:  {
     select: '.js_code_lang',    // the select lang widget
     code: '.js_code',           // the widget code
-    langInput: '.js_embed_lang' // embed config input field
+    langInput: '.js_embed_lang', // embed config input field
     preview: '.js_preview'
   },
   attributeName: 'data-lang'

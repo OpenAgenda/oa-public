@@ -28,7 +28,8 @@ params = {
     selectors:  {
       select: '.js_code_lang',
       code: '.js_code',
-      langInput: '.js_embed_lang'
+      langInput: '.js_embed_lang',
+      preview: '.js_preview'
     },
     attribute: false
   },

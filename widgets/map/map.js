@@ -327,6 +327,11 @@ var widget = function( elem, options ) {
 
     }
 
+    if ( elem.hasAttribute( 'data-lang' ) )
+    {
+      config.lang = elem.getAttribute( 'data-lang' );
+    }
+
     log( 'using osm with tiles %s', config.tiles );
 
     if (typeof document.createStyleSheet == "undefined") {
