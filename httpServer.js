@@ -69,7 +69,7 @@ http.createServer(function ( req, res ) {
 
       var reqQuery = url.parse( req.url, true ).query;
 
-      _loadData( uri, reqQuery.br !== undefined ? true : false, function( tConf ) { 
+      _loadData( uri, true, function( tConf ) { 
 
         // load state of data
 

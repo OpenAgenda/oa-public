@@ -6,6 +6,8 @@ frameLoader = require('./lib/frameLoader'),
 
 lightboxPage = require('./lib/lightboxPage'),
 
+selectionExclude = require( './lib/selectionExclude' ),
+
 defaultHeight = 2000;
 
 window.hook( function( options ) {
@@ -32,6 +34,8 @@ window.hook( function( options ) {
     onClose: refresh
   });
 
+  selectionExclude();
+
 } );
 
 
@@ -41,7 +45,7 @@ window.hook( function( options ) {
 
 var _runSelectForm = function( options ) {
 
-  cn.addEvent(window, 'load', function() {
+  cn.addEvent( window, 'load', function() {
 
     var params = cn.extend({
       title: '.js_title',
@@ -58,7 +62,7 @@ var _runSelectForm = function( options ) {
       wrapperClass: params.wrapperClass
     });
 
-  });
+  } );
   
 },
 
@@ -75,6 +79,12 @@ _frameHeightAdjust = function( frameElem ) {
 },
 
 _estimateFrameHeight = function() {
+
+  if ( !window.frames[0] ) {
+
+    return;
+
+  }
 
   var frameHtml = window.frames[0].document.getElementsByTagName('html')[0];
 

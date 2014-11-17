@@ -32,75 +32,85 @@
       <h3><%= __('Event List') %></h3>
     </div>
 
-    <h4><%= __('Filters') %>
-    
+<% if ( type=="manual" ) { %>
     <div>
-      <p><%= __('Categories') %></p>
+      <input class="js_exclude" type="checkbox" name="exclude_selection" <% if ( values.exclude_selection ) { %>checked="checked"<% } %> />
+      <label for="exclude_selection"><%= __('Do not use an event list') %></label>
+    </div>
+<% } %>
+    <div class="js_selection_options">
 
-      <select class="js_frame_reload" name="category">
-        <option value=""><%= __('all categories') %></option>
+      <h4><%= __('Filters') %></h4>
+      
+      <div>
+        <p><%= __('Categories') %></p>
+
+        <select class="js_frame_reload" name="category">
+          <option value=""><%= __('all categories') %></option>
 <% categories.forEach(function(category) { %>
-        <option value="<%= category.slug %>" <% if (values.filters.category==category.slug) { %>selected<% } %>><%= category.label %></option>
+          <option value="<%= category.slug %>" <% if (values.filters.category==category.slug) { %>selected<% } %>><%= category.label %></option>
 <% }); %>
-      </select>
-    <div>
-
-    <div>
-      <p><%= __('Places and Geography') %></p>
-
-      <div class="js_folded">
-
-        <span class="info js_title"><%= __('select a group') %></span>
-        
-        <ul>
-          <li class="subtitle js_subtitle"><%= __('By city') %></li>
-          <li class="js_detail">
-            <ul class="line">
-<% cities.forEach(function(city) { %>
-              <li>
-                <input class="js_frame_reload" type="checkbox" name="cities[<%= city.label %>]" <% if ( values.filters.cities.indexOf( city.slug ) !== -1 ) { %>checked<% } %>/>
-                <label><%= city.label %></label>
-              </li>
-<% }); %>
-            </ul>
-          </li>
-          <li class="subtitle js_subtitle"><%= __('By department') %></li>
-          <li class="js_detail">
-            <ul class="line">
-<% departments.forEach(function(department) { %>
-              <li>
-                <input class="js_frame_reload" type="checkbox" name="departments[<%= department.slug %>]" <% if ( values.filters.departments.indexOf( department.slug ) !== -1 ) { %>checked<% } %>/>
-                <label><%= department.label %></label>
-              </li>
- <% }); %>
-            </ul>
-          </li>
-          <li class="subtitle js_subtitle"><%= __('By region') %></li>
-          <li class="js_detail">
-            <ul class="line">
-<% regions.forEach(function(region) { %>
-              <li>
-                <input class="js_frame_reload" type="checkbox" name="regions[<%= region.slug %>]" <% if ( values.filters.regions.indexOf( region.slug ) !== -1 ) { %>checked<% } %>/>
-                <label><%= region.label %></label>
-              </li>
-<% }); %>
-            </ul>
-          </li>
-        </ul>
+        </select>
       </div>
 
-    </div>
+      <div>
+        <p><%= __('Places and Geography') %></p>
 
-    <h4><%= __('Sorting') %></h4>
+        <div class="js_folded">
 
-    <select class="js_frame_reload" name="segmentation">
-      <option value=""><%= __('no sorting') %></option>
+          <span class="info js_title"><%= __('select a group') %></span>
+          
+          <ul>
+            <li class="subtitle js_subtitle"><%= __('By city') %></li>
+            <li class="js_detail">
+              <ul class="line">
+<% cities.forEach(function(city) { %>
+                <li>
+                  <input class="js_frame_reload" type="checkbox" name="cities[<%= city.label %>]" <% if ( values.filters.cities.indexOf( city.slug ) !== -1 ) { %>checked<% } %>/>
+                  <label><%= city.label %></label>
+                </li>
+<% }); %>
+              </ul>
+            </li>
+            <li class="subtitle js_subtitle"><%= __('By department') %></li>
+            <li class="js_detail">
+               <ul class="line">
+<% departments.forEach(function(department) { %>
+                <li>
+                  <input class="js_frame_reload" type="checkbox" name="departments[<%= department.slug %>]" <% if ( values.filters.departments.indexOf( department.slug ) !== -1 ) { %>checked<% } %>/>
+                  <label><%= department.label %></label>
+                </li>
+ <% }); %>
+              </ul>
+            </li>
+            <li class="subtitle js_subtitle"><%= __('By region') %></li>
+            <li class="js_detail">
+              <ul class="line">
+<% regions.forEach(function(region) { %>
+                <li>
+                  <input class="js_frame_reload" type="checkbox" name="regions[<%= region.slug %>]" <% if ( values.filters.regions.indexOf( region.slug ) !== -1 ) { %>checked<% } %>/>
+                  <label><%= region.label %></label>
+                </li>
+<% }); %>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <h4><%= __('Sorting') %></h4>
+
+      <select class="js_frame_reload" name="segmentation">
+        <option value=""><%= __('no sorting') %></option>
 <% segmentTypes.forEach(function( segmentType ) { %>
-      <option value="<%= segmentType.value%>"<% if ( segmentType.value===values.segmentation ) { %> selected<% } %>><%= __(segmentType.label) %></option>
+        <option value="<%= segmentType.value%>"<% if ( segmentType.value===values.segmentation ) { %> selected<% } %>><%= __(segmentType.label) %></option>
 <% }) %>
-    </select>
+      </select>
 
-    <div class="info"><%= __('Choose the item you want to see your event list divided') %></div>
+      <div class="info"><%= __('Choose the item you want to see your event list divided') %></div>
+
+    </div>
 
   </section>
 
@@ -112,7 +122,7 @@
 
 </div><!--
 --><div class="col w66">
-  <iframe name="newsletter-frame" height="1000" style="width: 100%;" src="<%= genUrl('newsletterPreview', { uid: uid }) %>"></iframe>
+  <iframe name="newsletter-frame" height="1000" style="width: 100%;" src="<%= env == 'tpl' ? '/newsletter/show' : genUrl('newsletterPreview', { uid: uid }) %>"></iframe>
 </div>
 <script type="text/javascript">
   run({

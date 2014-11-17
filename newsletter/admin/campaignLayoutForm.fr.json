@@ -48,5 +48,7 @@
   "select a group"
   : "groupements géographiques",
   "Filters"
-  : "Filtres"
+  : "Filtres",
+  "Do not use an event list"
+  : "Ne pas utiliser une liste d'événements"
 }

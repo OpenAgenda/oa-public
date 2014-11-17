@@ -114,6 +114,12 @@
       "edito" : "take a sad song"
     }
   },
+  "exclude" : {
+    "type" : "manual",
+    "values" : {
+      "exclude_selection" : true
+    }
+  },
   "auto" : {
     "type" : "auto"
   }
