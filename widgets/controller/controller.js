@@ -49,13 +49,21 @@ module.exports = function( uid ) {
 
     _fetchControllerData( function( err, data ) {
 
-      if ( err ) {
+      if ( err || !data ) {
 
-        log( 'problem while fetching data ?', err );
+        log( 'problem while fetching data %s', err );
+
+        if ( !data ) {
+
+          log( 'not data could be retrieved' );
+
+        }
 
         return;
 
       }
+
+      ready = true;
 
       log( 'successfully fetched control data' );
 
@@ -89,26 +97,12 @@ module.exports = function( uid ) {
 
     widgets.push( widgetParams );
 
-     // if there is a key, this is a link
-    if ( widgetParams.key ) {
-
-      _registerLink( widgetParams );
-
-      return {
-        getControlData: getControlData,
-        onResponse: linkReady // link calls this whenever it has an update
-      };
-
-    } else {
-
-      return {
-        update: update,
-        getControlData: getControlData,
-        requestModal: requestModal,
-        releaseModal: releaseModal
-      };
-
-    }
+    return {
+      update: update,
+      getControlData: getControlData,
+      requestModal: requestModal,
+      releaseModal: releaseModal
+    };
 
   },
 
@@ -233,21 +227,6 @@ module.exports = function( uid ) {
 
 
   /**
-   * called by link when changes have been received
-   */
-  
-  linkReady = function( data ) {
-
-    if ( !_hasChanges( data ) || !enabled ) return;
-
-    currentRequestParams = data;
-
-    if ( ready ) _sweep( currentRequestParams );
-
-  },
-
-
-  /**
    * run method of each widget at the optional exception of...
    */
   
@@ -281,36 +260,6 @@ module.exports = function( uid ) {
 
   },
 
-
-  /**
-   * register a data link.
-   * a link for the controller serves as the reference for data exchanges.
-   * it indicates when requests have been processed by server
-   */
-  
-  _registerLink = function( linkParams ) {
-
-    log( 'registering link widget' );
-
-    ready = false;
-
-    key = options.key;
-
-    sendRequest = linkParams.sendRequest;
-
-    _fetchControllerData( function( err, data ) {
-
-      ready = true;
-
-      ctl = data;
-
-      _processWidgetCtlRequests();
-
-      _sweep();
-
-    });
-
-  },
 
   _processWidgetCtlRequests = function( ) {
 
@@ -361,6 +310,14 @@ module.exports = function( uid ) {
     var includedCount = 0;
 
     if ( typeof reqParams == 'undefined' ) reqParams = {};
+
+    if ( !ready ) {
+
+      log( 'controller not ready, sweep aborted' );
+
+      return;
+
+    }
 
     log( 'doing sweep with params %s', JSON.stringify( reqParams ) );
 
