@@ -37,7 +37,7 @@ function master() {
 
   tasksWorker;
 
-  log( 'info', 'will run on %d workers', total );
+  log( 'info', 'launching on %d workers', total );
 
   for ( var i = 0; i < total; i++ ) {
 

@@ -42,54 +42,49 @@ module.exports = function( namespace ) {
 
   }
 
-  var log = function( type, val, val2, val3 ) {
+  var log = function( type ) {
 
-    var types = [ 'info', 'debug', 'error' ]; 
+    var types = [ 'info', 'debug', 'error' ],
+
+    args = Array.prototype.slice.call( arguments );
 
     if ( types.indexOf( type ) === -1 ) {
 
-      val3 = val2;
-      val2 = val;
-      val = type;
       type = 'debug';
-
-    }
-
-    if ( arguments.length == 1 ) {
-
-      logger[type]( val );
-
-    } else if ( arguments.length == 2) {
-
-      logger[type]( val );
-
-    } else if ( arguments.length == 3 ) {
-
-      logger[type]( val, val2 );
 
     } else {
 
-      logger[type]( val, val2, val3 );
+      args.shift();
+
+    }
+
+    if ( args.length == 0 ) {
+
+      logger[type]();
+
+    } else if ( args.length == 1) {
+
+      logger[type]( args[0] );
+
+    } else if ( args.length == 2 ) {
+
+      logger[type]( args[0], args[1] );
+
+    } else {
+
+      logger[type]( args[0], args[1], args[2] );
 
     }
 
     if ( debugLog ) {
 
-      if ( types.indexOf( type ) !== -1 ) {
-
-        lib.extend( arguments, { '0': arguments[ '1' ], '1': arguments[ '2' ], '2': arguments[ '3' ] } );
-
-      }
-
-      debugLog.apply( null, Array.prototype.slice.call( arguments ) );
+      debugLog.apply( null, args );
 
     }
 
   },
 
   load = function( values ) {
-
-    console.log( values );
 
     logger = logger.child( lib.extend( {}, globalNamespace, values ) );
 

@@ -85,8 +85,6 @@ function load( main ) {
 
 function presentation( req, res ) {
 
-  req.log( 'info', 'request reveived for presentation page' );
-
   if ( req.session.logged ) {
 
     cmn.redirect( req, res, 'homeShow' );

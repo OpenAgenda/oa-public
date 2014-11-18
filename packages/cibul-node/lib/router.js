@@ -40,16 +40,12 @@ function registerRoutes( moduleName, modulePath, routes ) {
 
   for ( var name in routes ) {
 
-    var params = {
+    _registerRoute( name, {
       module: moduleName,
       method: routes[name][R_METHOD],
       base: modulePath,
       uri: routes[name][R_URI]
-    },
-
-    fullUri = modulePath + params.uri;
-
-    _registerRoute( name, params );
+    } );
 
   }
 
@@ -195,7 +191,7 @@ function makeGenUrl( options ) {
 
     }
 
-    log( 'debug', 'generating url of uri %s', url );
+    // log( 'debug', 'generating url of uri %s', url );
 
     for( var name in values ) {
 
@@ -225,7 +221,7 @@ function makeGenUrl( options ) {
 
     }
 
-    log( 'debug', 'generated %s', url );
+    // log( 'debug', 'generated %s', url );
 
     return url;
 

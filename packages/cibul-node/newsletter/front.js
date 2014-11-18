@@ -80,8 +80,6 @@ function load( main ) {
 
 function newsletterShow( req, res ) {
 
-  req.log( 'info', 'request received for newsletterShow with campaign uid = %d', req.params.uid );
-
   wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
   .then(function( campaign ) {
@@ -108,8 +106,6 @@ function newsletterShow( req, res ) {
 
 function contactUnsubscribeShow( req, res ) {
 
-  req.log( 'info', 'request received for contactUnsubscribeShow with contact list uid = %d', req.params.uid );
-
   req.agenda.contactLists.get({ uid: req.params.uid }, function ( err, contactList ) {
 
     if ( err ) return cmn.errorResponse( req, res, err );
@@ -126,8 +122,6 @@ function contactUnsubscribeShow( req, res ) {
 
 
 function contactUnsubscribeSubmit( req, res ) {
-
-  req.log( 'info', 'request received for contactUnsubscribeSubmit with contact email = %s and agenda: %s', req.body.email, req.agenda.title );
 
   var values = req.body || {};
 

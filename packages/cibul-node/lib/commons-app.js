@@ -11,7 +11,6 @@ exports.renderJson = renderJson;                  // render json data
 exports.errorResponse = errorResponse;            // render error page
 
 exports.loadAgenda = loadAgenda;                  // middleware. loads an agenda in the request based on its slug
-exports.loadLogger = loadLogger;                  // middleware. loads a logger in the request
 exports.requireLogged = requireLogged;            // middleware. verify if user is logged
 exports.requireAdmin = requireAdmin;
 exports.loadBaseData = loadBaseData;              // middleware. 
@@ -72,6 +71,8 @@ function loadApp( parent, path, name ) {
 
   app.set( 'path', path );
 
+  app.use( _loadLogger( name ) );
+
   parent.use( app );
 
   return app;
@@ -88,9 +89,11 @@ function loadRoutes( app, routes, middlewares ) {
 
   var path = app.get( 'path' ),
 
-  name = app.get( 'name' );
+  appName = app.get( 'name' );
 
   for ( var name in routes ) {
+
+    app.route( path + routes[name][R_URI] ).all( _logRoute( name ) );
 
     if ( middlewares ) {
 
@@ -101,6 +104,8 @@ function loadRoutes( app, routes, middlewares ) {
       });
 
     }
+
+    app.route( path + routes[name][R_URI] ).all( _logRequest );
 
     log( 'debug', 'loading route "%s" of uri "%s"', name, path + routes[name][R_URI] );
 
@@ -138,6 +143,8 @@ function loadAgenda( req, res, next, slug ) {
 
     req.agenda = model.agendas().instance( data );
 
+    req.log.load({ agenda: req.agenda.slug });
+
     next();
 
   })
@@ -150,19 +157,6 @@ function loadAgenda( req, res, next, slug ) {
 
 }
 
-/**
- * middleware for loading an logger and shoving it in the request
- */
-
-function loadLogger( req, res, next ) {
-
-  console.log( 'EH OH JSUIS LAAAAAA' );
-
-  req.log = require( './logger' )( 'req' );
-
-  next();
-
-}
 
 
 /**
@@ -262,12 +256,16 @@ function render( req, res, templatePath, data, maintain ) {
 
       res.send();
 
+      req.log( 'info', 'sent html response >>>' );
+
     } else {
 
       renderJson( req, res, {
         success: true,
         partial: render
       } );
+
+      req.log( 'info', 'sent json response >>>' );
 
     }
 
@@ -538,6 +536,51 @@ function renderJson( req, res, data ) {
   res.end();
 
   res.send();
+
+}
+
+
+/**
+ * middleware for loading an logger and shoving it in the request
+ */
+
+function _loadLogger( name ) {
+
+  return function( req, res, next ) {
+
+    req.log = require( './logger' )( 'req' );
+
+    req.log.load( {
+      module: name,
+      ip: req.ip
+    } );
+
+    next();
+
+  }
+
+}
+
+function _logRoute( name ) {
+
+  return function( req, res, next ) {
+
+    req.log.load({
+      controller: name
+    });
+
+    next();
+
+  }
+
+}
+
+
+function _logRequest( req, res, next ) {
+
+  req.log( 'info', '>>> received request' );
+
+  next();
 
 }
 
