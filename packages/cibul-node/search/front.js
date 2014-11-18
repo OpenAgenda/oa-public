@@ -113,8 +113,6 @@ function widgetSearchEvents( req, res ) {
 
     req.searchParams.reviewId = agenda.id;
 
-    console.log( req.searchParams );
-
     return wn.call( es.events().aggregate, req.searchParams  );
 
   } )
