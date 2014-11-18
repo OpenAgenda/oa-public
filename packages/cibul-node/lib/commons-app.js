@@ -566,7 +566,7 @@ function _logRoute( name ) {
 
     req.log.load({
       controller: name,
-      ip: req.ip
+      ip: req.header( 'x-forwarded-for' )
     });
 
     next();
