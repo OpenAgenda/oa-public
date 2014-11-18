@@ -53,13 +53,13 @@ function run() {
 
   if ( running ) {
 
-    log( 'alreaddy running' );
+    log( 'debug', 'alreaddy running' );
 
     return;
 
   }
 
-  log( 'running' );
+  log( 'debug', 'running' );
 
   running = true;
 
@@ -96,7 +96,7 @@ function _handleJob( err, job ) {
 
   var formatted; // for parsed job
 
-  log( 'handling job' );
+  log( 'debug', 'handling job' );
 
   if ( err ) {
 
@@ -123,7 +123,7 @@ function _handleJob( err, job ) {
 
     }
 
-    log( 'job %s was successfully done', formatted.jobName );
+    log( 'debug', 'job %s was successfully done', formatted.jobName );
 
     if ( _onComplete ) _onComplete( null, formatted );
 
@@ -151,11 +151,11 @@ function _populateES( schema ) {
 
     var loopCount = 1;
 
-    log( 'populating type %s', type );
+    log( 'debug', 'populating type %s', type );
 
     _loopThroughPages( schema, function( results, next ) {
 
-      log( 'looping %s', loopCount++ );
+      log( 'debug', 'looping %s', loopCount++ );
 
       ES[ schema ]().bulk( results, function( err, result ) {
 
@@ -176,7 +176,7 @@ function _loopThroughPages( schema, usageFunc, finishCallback ) {
 
   var fetchPage = function( offset,limit ) {
 
-    log( 'fetching data with offset %s', offset );
+    log( 'debug', 'fetching data with offset %s', offset );
 
     model[ schema ]().list({
       extended: true,
@@ -205,7 +205,7 @@ function _publish( schema ) {
 
   return function( job, cb ) {
 
-    log( 'publishing %s %s', job.type, job.id );
+    log( 'debug', 'publishing %s %s', job.type, job.id );
 
     model[ schema ]().get( { id : job.id }, function( err, obj ) {
 
@@ -224,7 +224,7 @@ function _update( schema ) {
 
   return function( job, cb ) {
 
-    log( 'updating %s %s', job.type, job.id );
+    log( 'debug', 'updating %s %s', job.type, job.id );
 
     model[ schema ]().get( { id : job.id }, function( err, obj ) {
 
@@ -243,7 +243,7 @@ function _delete( schema ) {
 
   return function( job, cb ) {
 
-    log( 'removing %s %s', job.type, job.id );
+    log( 'debug', 'removing %s %s', job.type, job.id );
 
     ES[ schema ]().remove( job.id, cb );
 

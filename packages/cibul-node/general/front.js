@@ -42,7 +42,7 @@ path;
 
 function init( p ) {
 
-  log('initing');
+  log( 'debug', 'initing');
 
   path = p;
 
@@ -57,13 +57,13 @@ function load( main ) {
 
   if ( app ) {
 
-    log( 'this app has already been loaded' );
+    log( 'debug', 'this app has already been loaded' );
 
     return;
 
   }
 
-  log( 'loading' );
+  log( 'debug', 'loading' );
 
   app = cmn.loadApp( main, path, appName );
 
@@ -84,6 +84,8 @@ function load( main ) {
  */
 
 function presentation( req, res ) {
+
+  req.log( 'info', 'request reveived for presentation page' );
 
   if ( req.session.logged ) {
 

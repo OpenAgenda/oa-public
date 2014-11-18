@@ -36,7 +36,7 @@ loadGlobalRoutes();
 
 function registerRoutes( moduleName, modulePath, routes ) {
 
-  log( 'loading routes for module %s', moduleName );
+  log( 'debug', 'loading routes for module %s', moduleName );
 
   for ( var name in routes ) {
 
@@ -58,7 +58,7 @@ function registerRoutes( moduleName, modulePath, routes ) {
 
 function loadUrlGen( name, path ) {
 
-  log('generating url builder');
+  log( 'debug', 'generating url builder' );
 
   return function( req, res, next ) {
 
@@ -106,7 +106,7 @@ function redirect( req, res, name, values, maintain, message ) {
 
   var url = req.genUrl( name, values );
 
-  log( 'redirecting to %s', url );
+  log( 'debug', 'redirecting to %s', url );
 
   res.redirect( url );
 
@@ -125,7 +125,7 @@ function makeGenUrl( options ) {
 
     if ( !routes[name] ) {
 
-      log( 'undefined route %s', name );
+      log( 'debug', 'undefined route %s', name );
 
       return '#';
 
@@ -195,8 +195,7 @@ function makeGenUrl( options ) {
 
     }
 
-
-    log( 'generating url of uri %s', url );
+    log( 'debug', 'generating url of uri %s', url );
 
     for( var name in values ) {
 
@@ -226,8 +225,7 @@ function makeGenUrl( options ) {
 
     }
 
-    
-    log( 'generated %s', url );
+    log( 'debug', 'generated %s', url );
 
     return url;
 
@@ -244,7 +242,7 @@ function loadGlobalRoutes() {
 
   var globalRoute = {};
 
-  log('loading global routes');
+  log( 'debug', 'loading global routes' );
 
   var globalDefaultPrefix = config.routes.defaultGlobalsPrefix || '';
 
@@ -269,7 +267,7 @@ function loadGlobalRoutes() {
 
 function _registerRoute( name, params ) {
 
-  log( 'registering route %s with uri "%s"', name, params.uri );
+  log( 'debug', 'registering route %s with uri "%s"', name, params.uri );
 
   routes[name] = params;
 

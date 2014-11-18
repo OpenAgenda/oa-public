@@ -48,19 +48,19 @@ function run() {
 
   if ( running ) {
 
-    log('already running');
+    log( 'debug', 'already running');
 
     return;
 
   }
 
-  log('running');
+  log( 'debug', 'running' );
 
   running = true;
 
   _sesMailer( config, function( err, sendFunc ) {
 
-    if ( err ) return log('initialisation error: %s', JSON.stringify( err ) );
+    if ( err ) return log( 'error', 'initialisation error: %s', JSON.stringify( err ) );
 
     _send = sendFunc;
 
@@ -79,7 +79,7 @@ function run() {
 
 function shutdown( ) {
 
-  log( 'shutting down' );
+  log( 'debug', 'shutting down' );
 
   if ( cli ) coms.end( cli );
 
@@ -107,13 +107,13 @@ function setOnProcessed( cb ) {
 
 function _listen() {
 
-  log( 'listening...' );
+  log( 'debug', 'listening...' );
 
   cli = coms.consume( 'mailer', function( err, values ) {
 
-    if ( err ) return log('consumption error: %s', JSON.stringify( err ) ); // do more robust shit here
+    if ( err ) return log( 'error', 'consumption error: %s', JSON.stringify( err ) ); // do more robust shit here
 
-    log( 'consuming' );
+    log( 'debug', 'consuming' );
 
     var recipients = ( typeof values.recipient == 'string' ) ? [ values.recipient ] : values.recipient,
 
@@ -128,17 +128,17 @@ function _listen() {
       text: values.text
     }, function( err, params, data ) { // called when send is made
 
-      if ( err ) return log('send error: %s', JSON.stringify( err )); // do more robust shit here
+      if ( err ) return log( 'error', 'send error: %s', JSON.stringify( err )); // do more robust shit here
 
-      log( 'send triggered' );
+      log( 'debug', 'send triggered' );
 
       if ( running ) _listen( );
 
     }, function( err, params, data ) { // called when send service reply is made
 
-      if ( err ) return log('send error: %s', JSON.stringify( err )); // do more robust shit here
+      if ( err ) return log( 'error', 'send error: %s', JSON.stringify( err )); // do more robust shit here
 
-      log( 'send result received' );
+      log( 'debug', 'send result received' );
 
       if ( _onProcessed ) _onProcessed( err, params, data );
 
@@ -155,7 +155,7 @@ function _listen() {
 
 function _queue( values ) {
 
-  log( 'requeuing remaining recipients : (%s left)', values.recipient.length );
+  log( 'debug', 'requeuing remaining recipients : (%s left)', values.recipient.length );
 
   coms.queue( 'mailer', values );
 
@@ -168,7 +168,7 @@ function _queue( values ) {
 
 function _sesMailer( config, cb ) {
 
-  log( 'initing Amazon SES interface' );
+  log( 'debug', 'initing Amazon SES interface' );
 
   var minDelay,          // minimum delay between sends
 
@@ -193,7 +193,7 @@ function _sesMailer( config, cb ) {
 
   _init = function() {
 
-    log( 'initing sesMailer' );
+    log( 'debug', 'initing sesMailer' );
 
     lib.extend( AWS.config, awsConfig );
 
@@ -205,7 +205,7 @@ function _sesMailer( config, cb ) {
 
       minDelay = ( delayMargin + 1 / data.MaxSendRate ) * 1000;
 
-      log( 'min delay established at %s', minDelay );
+      log( 'debug', 'min delay established at %s', minDelay );
 
       cb( null, _mail );
 
@@ -268,11 +268,11 @@ function _sesMailer( config, cb ) {
 
     }
 
-    log('ses params ready');
+    log( 'debug', 'ses params ready');
 
     _sleep( function() {
 
-      log( 'sending mail request with params %s', JSON.stringify( sesParams ) );
+      log( 'debug', 'sending mail request with params %s', JSON.stringify( sesParams ) );
 
       if ( config.env == 'dev') {
 
@@ -310,7 +310,7 @@ function _sesMailer( config, cb ) {
 
     sleepTime = diff > minDelay ? 0 : minDelay - diff;
 
-    log( 'need to sleep %sms before send', sleepTime );
+    log( 'debug', 'need to sleep %sms before send', sleepTime );
 
     setTimeout(function() {
 
@@ -328,7 +328,7 @@ function _sesMailer( config, cb ) {
 
 function _bogusSender( params, cb ) {
 
-  log('bogus sending: %s', JSON.stringify( params ));
+  log( 'debug', 'bogus sending: %s', JSON.stringify( params ));
 
   var responseTime = Math.random()*1000;
 

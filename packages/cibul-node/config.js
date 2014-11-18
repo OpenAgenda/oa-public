@@ -8,6 +8,8 @@ config = {
     port: 8901,
     multiCore: true,
     logPath : '/var/tmp/cibul-node.log',
+    logPathDebug : '/var/tmp/cibul-node-debug.log',
+    logPathError : '/var/tmp/cibul-node-errors.log',
     name: 'cibul-node',
     root: 'https://cibul.net',
     db: {

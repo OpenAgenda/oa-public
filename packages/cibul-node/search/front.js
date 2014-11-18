@@ -41,7 +41,7 @@ model = cmn.getCibulModel();
 
 function init( p ) {
 
-  log( 'initing' );
+  log( 'debug', 'initing' );
 
   path = p;
 
@@ -56,13 +56,13 @@ function load( main ) {
 
   if ( app ) {
 
-    log( 'this app has already been loaded');
+    log( 'debug', 'this app has already been loaded' );
 
     return;
 
   }
 
-  log( 'loading' );
+  log( 'debug', 'loading' );
 
   app = cmn.loadApp( main, path, appName );
 
@@ -88,9 +88,13 @@ function searchEvents( req, res ) {
 
   if ( !req.cleanQuery || !lib.size( req.cleanQuery ) )  {
 
+    req.log( 'info', 'request received for searchEvents with no params.' );
+
     return cmn.redirect( req, res, 'latestEvents' );
 
   }
+
+  req.log( 'info', 'request received for searchEvents with params: %s', JSON.stringify( req.searchParams ) );
 
   wn.call( es.events().search, req.searchParams )
 
@@ -128,6 +132,8 @@ function widgetSearchEvents( req, res ) {
 
 function latestEvents( req, res ) {
 
+  req.log( 'info', 'request received for latestEvents.' );
+
   wn.call( async.parallel, [
     async.apply( model.events().total ),
     async.apply( model.events().list, { 
@@ -155,11 +161,15 @@ function searchAgendas( req, res ) {
 
   if ( !req.cleanQuery || !lib.size( req.cleanQuery ) )  {
 
+    req.log( 'info', 'request received for searchAgendas with no params.' );
+
     return cmn.redirect( req, res, 'latestAgendas' );
 
   }
 
   req.searchParams.deep = true;
+
+  req.log( 'info', 'request received for searchAgendas with params: %s', JSON.stringify( req.searchParams ) );
 
   wn.call( es.reviews().search, req.searchParams )
 
@@ -171,6 +181,8 @@ function searchAgendas( req, res ) {
 
 
 function latestAgendas( req, res ) {
+
+  req.log( 'info', 'request received for searchAgendas' );
 
   wn.call( async.parallel, [
     async.apply( model.agendas().total, {

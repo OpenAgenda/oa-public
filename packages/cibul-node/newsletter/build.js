@@ -5,7 +5,7 @@
 
 module.exports = function( model, agenda, campaign, cb ) {
 
-  log( 'building newsletter data' );
+  log( 'debug', 'building newsletter data' );
 
   async.waterfall([ 
 
@@ -80,7 +80,7 @@ mainInfo = function( model, agenda, campaign, data, cb ) {
 
 contactList = function( model, agenda, campaign, data, cb ) {
 
-  log( 'retrieving contact list' );
+  log( 'debug', 'retrieving contact list' );
 
   campaign.getContactList(function( err, contactList ) {
 
@@ -108,7 +108,7 @@ contactList = function( model, agenda, campaign, data, cb ) {
 
 featuredEvents = function( model, agenda, campaign, data, cb ) {
 
-  log('retrieving featured events');
+  log( 'debug', 'retrieving featured events');
 
   campaign.events.list({ filters: { set: 'featured' }, limit: false }, function( err, events ) {
 
@@ -150,7 +150,7 @@ eventSelection = function( model, agenda, campaign, data, cb ) {
 
   if ( campaign.getSelectionEnable() ) {
 
-    log('retrieving event selection');
+    log( 'retrieving event selection');
 
     async.parallel([
 

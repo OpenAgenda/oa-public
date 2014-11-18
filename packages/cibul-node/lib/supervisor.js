@@ -37,7 +37,7 @@ function master() {
 
   tasksWorker;
 
-  log( 'will run on %d workers', total );
+  log( 'info', 'will run on %d workers', total );
 
   for ( var i = 0; i < total; i++ ) {
 
@@ -59,14 +59,14 @@ function master() {
 
     }
 
-  } )
+  } );
 
 }
 
 
 function worker( job ) {
 
-  logger.load( { workerId: cluster.worker.id } );
+  logger().globalLoad( { workerId: cluster.worker.id } );
 
   process.on('message', job );
 

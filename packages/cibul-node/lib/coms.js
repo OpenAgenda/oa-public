@@ -28,7 +28,7 @@ sp = ':';
 
 function queue( queueName, values, cb ) {
 
-  log('queueing on: %s', queueName);
+  log( 'debug', 'queueing on: %s', queueName);
 
   var encodedValues = JSON.stringify( values );
 
@@ -43,7 +43,7 @@ function queue( queueName, values, cb ) {
 
 function consume( queueName, cb ) {
 
-  log('consuming on: %s', queueName);
+  log( 'debug', 'consuming on: %s', queueName);
 
   var cli = redis.createClient( config.port, config.host );
 
@@ -71,7 +71,7 @@ function end( cli ) {
 
 function publish( channelName, values ) {
 
-  log( 'publishing on: %s', channelName );
+  log( 'debug', 'publishing on: %s', channelName );
 
   var cli = redis.createClient( config.port, config.host );
 
@@ -84,7 +84,7 @@ function publish( channelName, values ) {
 
 function subscribe( channelName, cb ) {
 
-  log( 'subscribing to: %s', channelName );
+  log( 'debug', 'subscribing to: %s', channelName );
 
   var cli = redis.createClient( config.port, config.host );
 

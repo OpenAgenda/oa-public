@@ -1,3 +1,4 @@
+
 /**
  * load libraries and define app module routes
  */
@@ -40,7 +41,7 @@ generic = require( './generic' )( model );
 
 function init( p ) {
 
-  log( 'initing' );
+  log( 'debug', 'initing' );
 
   path = p;
 
@@ -56,13 +57,13 @@ function load( main ) {
 
   if ( app ) {
 
-    log( 'this app has already been loaded');
+    log( 'debug', 'this app has already been loaded');
 
     return;
 
   }
 
-  log( 'loading' );
+  log( 'debug', 'loading' );
 
   app = cmn.loadApp( main, path, appName );
 
@@ -78,6 +79,8 @@ function load( main ) {
 
 
 function newsletterShow( req, res ) {
+
+  req.log( 'info', 'request received for newsletterShow with campaign uid = %d', req.params.uid );
 
   wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
@@ -105,6 +108,8 @@ function newsletterShow( req, res ) {
 
 function contactUnsubscribeShow( req, res ) {
 
+  req.log( 'info', 'request received for contactUnsubscribeShow with contact list uid = %d', req.params.uid );
+
   req.agenda.contactLists.get({ uid: req.params.uid }, function ( err, contactList ) {
 
     if ( err ) return cmn.errorResponse( req, res, err );
@@ -121,6 +126,8 @@ function contactUnsubscribeShow( req, res ) {
 
 
 function contactUnsubscribeSubmit( req, res ) {
+
+  req.log( 'info', 'request received for contactUnsubscribeSubmit with contact email = %s and agenda: %s', req.body.email, req.agenda.title );
 
   var values = req.body || {};
 
@@ -144,6 +151,8 @@ function contactUnsubscribeSubmit( req, res ) {
 
 
 function contactUnsubscribeComplete( req, res ) {
+
+  req.log( 'info', 'request received for contactUnsubscribeComplete with contact list uid = %d', req.params.uid );
 
   req.agenda.contactLists.get({ uid: req.params.uid }, function ( err, contactList ) {
 

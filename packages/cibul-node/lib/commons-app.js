@@ -11,6 +11,7 @@ exports.renderJson = renderJson;                  // render json data
 exports.errorResponse = errorResponse;            // render error page
 
 exports.loadAgenda = loadAgenda;                  // middleware. loads an agenda in the request based on its slug
+exports.loadLogger = loadLogger;                  // middleware. loads a logger in the request
 exports.requireLogged = requireLogged;            // middleware. verify if user is logged
 exports.requireAdmin = requireAdmin;
 exports.loadBaseData = loadBaseData;              // middleware. 
@@ -33,7 +34,7 @@ var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2,
 
 express = require( 'express' ),
 
-log = require('./logger')( 'common-apps' ),
+log = require( './logger' )( 'common-apps' ),
 
 config = require( '../config' ),
 
@@ -101,7 +102,7 @@ function loadRoutes( app, routes, middlewares ) {
 
     }
 
-    log( 'loading route "%s" of uri "%s"', name, path + routes[name][R_URI] );
+    log( 'debug', 'loading route "%s" of uri "%s"', name, path + routes[name][R_URI] );
 
     app[routes[name][R_METHOD]]( path + routes[name][R_URI], routes[name][R_CONTROLLER] );
 
@@ -149,6 +150,20 @@ function loadAgenda( req, res, next, slug ) {
 
 }
 
+/**
+ * middleware for loading an logger and shoving it in the request
+ */
+
+function loadLogger( req, res, next ) {
+
+  console.log( 'EH OH JSUIS LAAAAAA' );
+
+  req.log = require( './logger' )( 'req' );
+
+  next();
+
+}
+
 
 /**
  * middleware for checking that logged user is administrator of 
@@ -182,7 +197,7 @@ function checkAdministrator( req, res, next ) {
 
 function errorResponse( req, res, error ) {
 
-  log( 'received error: %s', error.toString() );
+  req.log( 'error', 'received error: %s', error.toString() );
 
   error = typeof error == 'string' ? { message: error } : error;
 
@@ -319,17 +334,17 @@ function loadSession( req, res, next ) {
 
     if ( err || !reply ) {
 
-      log( 'session not found. Assuming user is not logged' );
-
       req.session = {
         culture: 'fr',
         country: 'FR',
         logged: false
-      }
+      };
+
+      log( 'debug', 'session not found, assuming the user is not logged' );
 
     } else {
 
-      log( 'session found and loaded' );
+      log( 'debug', 'session found and loaded' );
 
       req.session = JSON.parse( reply );
 
@@ -337,17 +352,19 @@ function loadSession( req, res, next ) {
 
     if ( !req.session.logged ) {
 
+      req.log.load( { cookie: req.cookies[ config.session.cookie] } );
+
       _defineLang( req );
 
     } else {
 
+      req.log.load( { userId: req.session.id } );
+      
       _defineLang( req, req.session.culture );
 
     }
 
-    
-
-    log( 'session is loaded: %s', sessionKey );
+    req.log( 'debug', 'session is loaded: %s', sessionKey );
 
     next();
 
@@ -426,7 +443,7 @@ function checkCredential( name ) {
 
       if ( !has ) return errorResponse( req, res, 'user does not have required creds' );
 
-      log( 'agenda has credentials "%s"', name );
+      log( 'debug', 'agenda has credentials "%s"', name );
 
       next();
 
@@ -446,7 +463,7 @@ function flashSetter( req, res, next ) {
 
   res.setFlash = function( req, text ) {
 
-    log( 'setting flash to "%s"', text );
+    req.log( 'debug', 'setting flash to "%s"', text );
 
     var b = new Buffer( req.cookies[config.cookie.name], 'base64' ),
 

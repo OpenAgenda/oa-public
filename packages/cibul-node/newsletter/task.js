@@ -59,13 +59,13 @@ function run() {
 
   if ( running ) {
 
-    log( 'already running' );
+    log( 'debug', 'already running' );
 
     return;
 
   }
 
-  log( 'running' );
+  log( 'debug', 'running' );
 
   if ( _onStart ) _onStart();
 
@@ -74,19 +74,19 @@ function run() {
   nextMinute = _getNextMinute();
 
 
-  log( 'loading campaigns scheduled before %s', nextMinute );
+  log( 'debug', 'loading campaigns scheduled before %s', nextMinute );
 
   wn.call( model.campaigns().list, { scheduledAt: [ '<=', nextMinute ]  })
 
   .then( function( campaigns ) {
 
-    log( 'campaigns to be processed: %s', campaigns.length );
+    log( 'debug', 'campaigns to be processed: %s', campaigns.length );
 
     async.each( campaigns, _processCampaign, function( err ) {
 
-      log( 'campaigns processed' );
+      log( 'debug', 'campaigns processed' );
       
-      if ( err ) log( 'something went awry.' );
+      if ( err ) log( 'error', 'something went awry.' );
 
       running = false;
 
@@ -128,7 +128,7 @@ function setComs( c ) {
 
 function _processCampaign( campaign, cb ) {
 
-  log( 'processing campaign %s', campaign.uid );
+  log( 'debug', 'processing campaign %s', campaign.uid );
 
   var inst = model.campaigns().instance( campaign );
 
@@ -144,7 +144,7 @@ function _processCampaign( campaign, cb ) {
 
     if ( !recipient.length ) {
 
-      log( 'there are no recipients to send the campaign to' );
+      log( 'error', 'there are no recipients to send the campaign to' );
 
       return;
 
@@ -152,13 +152,13 @@ function _processCampaign( campaign, cb ) {
 
     if ( ( campaign.type == TYPE_AUTOMATIC ) && ( !content.data.items.length ) ) {
 
-      log( 'there is no event selection defined. Campaign is not to be sent' );
+      log( 'error', 'there is no event selection defined. Campaign is not to be sent' );
 
       return;
 
     }
 
-    log( 'campaign %s content generated and recipients fetched', campaign.uid );
+    log( 'debug', 'campaign %s content generated and recipients fetched', campaign.uid );
 
     return wn.call( coms.queue, 'mailer', {
       subject: inst.title,
@@ -207,7 +207,7 @@ function _getCampaignContacts( campaign, cb ) {
 
 function _getNewsletterBodies( campaign, cb ) {
 
-  log( 'generating newsletter bodies' );
+  log( 'debug', 'generating newsletter bodies' );
 
   var agenda, data;
 
@@ -265,7 +265,7 @@ function _getNextMinute() {
 
 function _error( e ) {
 
-  log( 'newsletter task error' );
+  log( 'error', 'newsletter task error' );
 
   throw e;
 

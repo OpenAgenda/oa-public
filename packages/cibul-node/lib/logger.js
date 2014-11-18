@@ -1,33 +1,32 @@
-var config = require( '../config' ),
+var globalNamespace = {},
 
-logger = require( 'bunyan' ).createLogger({
-  name : config.name,
-  streams: [{
-    type: 'rotating-file',
-    path: config.logPath,
-    period: '1d',
-    count: 3
-  }]
-}),
+config = require( '../config' ),
 
-debug = require( 'debug' );
+lib = require( './lib' ),
 
+debug = require('debug');
 
-exports = module.exports = getLogger;
-exports.load = load;
+module.exports = function( namespace ) {
+ 
+  var logger = require( 'bunyan' ).createLogger({
+    name : config.name,
+    streams: [{
+      level: "info",
+      type: 'rotating-file',
+      path: config.logPath,
+      period: '1d',
+      count: 3
+    },
+    {
+      level: "error",
+      type: 'rotating-file',
+      path: config.logPathError,
+      period: '1d',
+      count: 3    
+    }]
+  }),
 
-
-/**
- * load log function by type and namespace. Both optionaly.
- */
-
-function getLogger( namespace, type ) {
-
-  var debugLog,
-
-  currentLogger = logger;
-
-  if ( !type ) type = 'info';
+  debugLog;
 
   if ( config.env !== 'prod' ) {
 
@@ -39,44 +38,76 @@ function getLogger( namespace, type ) {
 
   if ( namespace ) {
 
-    currentLogger = logger.child({ namespace : namespace });
+    logger = logger.child( lib.extend( {}, globalNamespace, { namespace: namespace } ) );
 
   }
 
-  // hack to get around strange bunyan error
-  return function( val, val2, val3 ) {
+  var log = function( type, val, val2, val3 ) {
 
-    if ( arguments.length == 1) {
+    var types = [ 'info', 'debug', 'error' ]; 
 
-      currentLogger[type]( val );
+    if ( types.indexOf( type ) === -1 ) {
 
-    } else if ( arguments.length == 2 ) {
+      val3 = val2;
+      val2 = val;
+      val = type;
+      type = 'debug';
 
-      currentLogger[type]( val, val2 );
+    }
+
+    if ( arguments.length == 1 ) {
+
+      logger[type]( val );
+
+    } else if ( arguments.length == 2) {
+
+      logger[type]( val );
+
+    } else if ( arguments.length == 3 ) {
+
+      logger[type]( val, val2 );
 
     } else {
 
-      currentLogger[type]( val, val2, val3 );
+      logger[type]( val, val2, val3 );
 
     }
 
     if ( debugLog ) {
 
+      if ( types.indexOf( type ) !== -1 ) {
+
+        lib.extend( arguments, { '0': arguments[ '1' ], '1': arguments[ '2' ], '2': arguments[ '3' ] } );
+
+      }
+
       debugLog.apply( null, Array.prototype.slice.call( arguments ) );
 
     }
+
+  },
+
+  load = function( values ) {
+
+    console.log( values );
+
+    logger = logger.child( lib.extend( {}, globalNamespace, values ) );
+
+  },
+
+  globalLoad = function( values ) {
+
+    logger = logger.child( lib.extend( globalNamespace, values ) );
+
+  };
+
+
+  return lib.extend( log, {
     
-  }
+    load: load,
+    globalLoad: globalLoad
+  
+  });
 
-}
 
-
-/**
- * load values to be part of log throughout app
- */
-
-function load( values ) {
-
-  logger = logger.child( values );
-
-}
+};

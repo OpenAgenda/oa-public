@@ -1,6 +1,6 @@
 var supervisor = require( './lib/supervisor' ),
 
-log = require( './lib/logger' )('server'),
+log = require( './lib/logger' )( 'server' ),
 
 enabledTypes = ( process.argv ? process.argv : [] ).filter( function( argItem ) {
 
@@ -10,7 +10,7 @@ enabledTypes = ( process.argv ? process.argv : [] ).filter( function( argItem ) 
 
 supervisor( function( loadTasks ) {
 
-  log('running server');
+  log( 'debug', 'running server' );
 
   // load libraries
 
@@ -34,12 +34,13 @@ supervisor( function( loadTasks ) {
     admin: [ // for admins only
       require( './admin/back' )( '/admin' )
     ]
-  };
+  },
 
   app = express();
 
   app.use( require( 'cookie-parser' )() );
 
+  app.use( require( './lib/commons-app' ).loadLogger );
 
   // run 'web' type modules
   if ( enabledTypes.indexOf( 'web' ) !== -1 ) {
@@ -51,6 +52,7 @@ supervisor( function( loadTasks ) {
     });
 
   }
+
 
   // run 'admin' type modules
   

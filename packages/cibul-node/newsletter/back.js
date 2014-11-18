@@ -57,7 +57,7 @@ generic = require( './generic' )( model );
 
 function init( p ) {
 
-  log( 'initing' );
+  log( 'debug', 'initing' );
 
   path = p;
 
@@ -72,13 +72,13 @@ function load( main ) {
 
   if ( app ) {
 
-    log( 'this app has already been loaded');
+    log( 'debug', 'this app has already been loaded');
 
     return;
 
   }
 
-  log( 'loading' );
+  log( 'debug', 'loading' );
 
   app = cmn.loadApp( main, path, appName );
 
@@ -110,7 +110,7 @@ function load( main ) {
 
 function index( req, res ) {
 
-  log( 'received index request for agenda "%s"', req.agenda.title );
+  req.log( 'info', 'received index request for agenda "%s"', req.agenda.title );
 
   wn.call( async.parallel, [
 
@@ -142,6 +142,8 @@ function indexRedirect( req, res ) {
 
 function campaignNew( req, res ) {
 
+  req.log( 'info', 'received campaignNew request for agenda "%s"', req.agenda.title );
+
   wn.call( req.agenda.contactLists.list )
 
   .then( function( contactLists ) {
@@ -169,6 +171,8 @@ function campaignCreate( req, res ) {
 
 function campaignRemove( req, res ) {
 
+  req.log( 'info', 'received campaingnRemove request for agenda "%s"', req.agenda.title );
+
   wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
   .then( function( campaign ) {
@@ -189,6 +193,8 @@ function campaignRemove( req, res ) {
 
 
 function campaignEdit( req, res ) {
+
+  req.log( 'info', 'received campaignEdit request for agenda "%s"', req.agenda.title );
 
   var values = {}, campaign, contactLists;
 
@@ -240,7 +246,6 @@ function campaignEdit( req, res ) {
  * update campaign general settings
  */
 
-
 function campaignUpdate( req, res ) {
 
   _processCampaignSubmit( req, res, req.params.uid, 'campaignEdit', 'campaign updated' );
@@ -250,6 +255,8 @@ function campaignUpdate( req, res ) {
 
 
 function campaignLayoutEdit( req, res ) {
+
+  req.log( 'info', 'received campaignLayoutEdit request for agenda "%s"', req.agenda.title );
 
   var campaign;
 
@@ -297,6 +304,8 @@ function campaignLayoutEdit( req, res ) {
 
 function campaignLayoutUpdate( req, res ) {
 
+  req.log( 'info', 'received campaignLayoutUpdate request for agenda "%s"', req.agenda.title );
+
   var campaign;
 
   wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
@@ -311,7 +320,7 @@ function campaignLayoutUpdate( req, res ) {
 
   .then( function() {
 
-    log('campaign instance updated, building newsletter data');
+    req.log( 'debug', 'campaign instance updated, building newsletter data' );
 
     return wn.call( build, model, req.agenda, campaign );
 
@@ -332,6 +341,8 @@ function campaignLayoutUpdate( req, res ) {
 
 function campaignFeaturedEdit( req, res ) {
 
+  req.log( 'info', 'received campaignFeaturedEdit request for agenda "%s"', req.agenda.title );
+
   var perPage = req.xhr ? 20 : app.get( 'perPage' );
 
   wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
@@ -340,7 +351,7 @@ function campaignFeaturedEdit( req, res ) {
 
     var campaign = req.agenda.campaigns.instance( c );
 
-    log( 'filters set: %s', JSON.stringify( req.query.filters ) );
+    req.log( 'debug', 'filters set: %s', JSON.stringify( req.query.filters ) );
 
     return wn.call( async.parallel, [
       async.apply( campaign.events.total, { filters: req.query.filters }),
@@ -375,6 +386,8 @@ function campaignFeaturedEdit( req, res ) {
 
 function campaignFeaturedAdd( req, res ) {
 
+  req.log( 'info', 'received campaignFeaturedAdd request for agenda "%s"', req.agenda.title );
+
   wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
   .then( function( campaign ) {
@@ -396,6 +409,8 @@ function campaignFeaturedAdd( req, res ) {
 
 function campaignFeaturedRemove( req, res ) {
 
+  req.log( 'info', 'received campaignFeaturedRemove request for agenda "%s"', req.agenda.title );
+
   wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
   .then( function( campaign ) {
@@ -416,6 +431,8 @@ function campaignFeaturedRemove( req, res ) {
 
 
 function campaignFeaturedClear( req, res ) {
+
+  req.log( 'info', 'received campaignFeaturedClear request for agenda "%s"', req.agenda.title );
 
   wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
@@ -441,6 +458,8 @@ function campaignFeaturedClear( req, res ) {
  */
 
 function campaignComplete( req, res ) {
+
+  req.log( 'info', 'received campaignComplete request for agenda "%s"', req.agenda.title );
 
   var campaign;
 
@@ -497,6 +516,8 @@ function campaignComplete( req, res ) {
 
 function newsletterPreview( req, res ) {
 
+  req.log( 'info', 'received newsletterPreview request for agenda "%s"', req.agenda.title );
+
   wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
   .then(function( campaign ) {
@@ -520,6 +541,8 @@ function newsletterPreview( req, res ) {
 
 function contactListNew( req, res ) {
 
+  req.log( 'info', 'received contactListNew request for agenda "%s"', req.agenda.title );
+
   cmn.render( req, res, 'newsletter/admin/contactListForm', {
     uid: null,
     values: {},
@@ -531,6 +554,8 @@ function contactListNew( req, res ) {
 
 function contactListCreate( req, res ) {
 
+  req.log( 'info', 'received contactListCreate request for agenda "%s"', req.agenda.title );
+
   var values = req.body || {};
 
   req.agenda.contactLists.validateAndCreate(values, function ( err, result ) {
@@ -540,7 +565,7 @@ function contactListCreate( req, res ) {
     if (result.errors) {
 
       var errors = lib.toUnderscore(result.errors);
-
+      
       return cmn.render(req, res, 'newsletter/admin/contactListForm', {
         uid: null,
         values: values,
@@ -574,6 +599,8 @@ function contactListCreate( req, res ) {
 
 
 function contactListShow( req, res ) {
+
+  req.log( 'info', 'received contactListShow request for agenda "%s"', req.agenda.title );
 
   async.waterfall([
 
@@ -628,6 +655,8 @@ function contactListShow( req, res ) {
 
 function contactListRemove( req, res ) {
 
+  req.log( 'info', 'received contactListRemove request for agenda "%s"', req.agenda.title );
+
   wn.call( req.agenda.contactLists.get, { uid: req.params.uid } )
 
   .then( function( contactList ) {
@@ -650,6 +679,8 @@ function contactListRemove( req, res ) {
 
 
 function contactsAdd( req, res ) {
+
+  req.log( 'info', 'received contactsAdd request for agenda "%s"', req.agenda.title );
 
   var values = req.body || {};
 
@@ -713,6 +744,8 @@ function contactsAdd( req, res ) {
 
 
 function contactRemove( req, res ) {
+
+  req.log( 'info', 'received contactRemove request for agenda "%s"', req.agenda.title );
 
   generic.contactRemove(req.agenda, req.params.uid, req.params.email, function( err, result ){
 
@@ -909,7 +942,7 @@ function _processCampaignSubmit( req, res, uid, successRedirect, successMessage 
 
 function _processCampaignLayout( campaign, values, cb ) {
 
-  log( 'validate and clean submitted campaign values' );
+  log( 'debug', 'validate and clean submitted campaign values' );
 
   var filterValues = {};
 
@@ -960,6 +993,7 @@ function _processCampaignLayout( campaign, values, cb ) {
             clean = value;
 
           }
+
 
           filterValues[filterName] = clean;
 
