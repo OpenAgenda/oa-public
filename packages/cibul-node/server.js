@@ -38,6 +38,8 @@ supervisor( function( loadTasks ) {
 
   app = express();
 
+  app.set( 'trust proxy', 'loopback' );
+
   app.use( require( 'cookie-parser' )() );
 
   // run 'web' type modules
