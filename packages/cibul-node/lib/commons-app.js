@@ -551,8 +551,7 @@ function _loadLogger( name ) {
     req.log = require( './logger' )( 'req' );
 
     req.log.load( {
-      module: name,
-      ip: req.ip
+      module: name
     } );
 
     next();
@@ -566,7 +565,8 @@ function _logRoute( name ) {
   return function( req, res, next ) {
 
     req.log.load({
-      controller: name
+      controller: name,
+      ip: req.ip
     });
 
     next();
