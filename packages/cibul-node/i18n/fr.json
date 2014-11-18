@@ -20,5 +20,7 @@
   "Either the email is invalid or the newsletter service is unavailable. Please try again later."
   : "Soit l'email saisi est invalid, soit le service de newsletter est indisponible. Veuillez retenter l'inscription dans quelques minutes.",
   "You're not an Administrator"
-  : "Vous n'êtes pas administrateur"
+  : "Vous n'êtes pas administrateur",
+  "the campaign was updated"
+  : "la campagne a été mise à jour"
 }

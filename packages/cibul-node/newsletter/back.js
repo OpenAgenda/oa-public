@@ -486,7 +486,7 @@ function campaignComplete( req, res ) {
 
   .then( function() {
 
-    cmn.redirect( req, res, 'newsletterIndex' );
+    cmn.redirect( req, res, 'newsletterIndex', {}, 'the campaign was updated' );
 
   })
 
@@ -830,6 +830,34 @@ function _processCampaignSubmit( req, res, uid, successRedirect, successMessage 
 
   .then( function( errors ) {
 
+    // load campaign instance if not already done and available
+
+    if ( !campaign && uid ) {
+
+      return wn.call( function( cb ) {
+        
+        req.agenda.campaigns.get( { uid : uid }, function( err, c ) {
+
+          if ( err ) return cb( err );
+
+          campaign = req.agenda.campaigns.instance( c );
+
+          cb( null, errors );
+
+        });
+
+      } );
+
+    } else {
+
+      return errors;
+
+    }
+
+  })
+
+  .then( function( errors ) {
+
     campaign.getIsNew( function( err, isNew ) {
 
       if ( !errors ) {
@@ -860,7 +888,7 @@ function _processCampaignSubmit( req, res, uid, successRedirect, successMessage 
 
         cmn.render( req, res, 'newsletter/admin/campaignForm', {
           isNew: isNew,
-          uid: null,
+          uid: uid,
           contactLists: contactLists,
           values: values,
           errors: errors
@@ -891,45 +919,57 @@ function _processCampaignLayout( campaign, values, cb ) {
 
     async.apply( campaign.setSegmentation, values.segmentation ),
 
-    function ( scb ) { // load filters
+    function ( scb ) { // load filters or deactivate
 
-      log( 'load and clean filters' );
+      if ( campaign.isManual() && values.exclude_selection ) {
 
-      [ 'category', 'cities', 'departments', 'regions' ].forEach(function( filterName ) {
+        log( 'do not use selection' );
 
-        // this will need to be in its own lib
+        campaign.setSelectionEnable( false, scb );
 
-        var value = values[filterName],
+      } else {
 
-        clean;
+        campaign.setSelectionEnable( true );
 
-        if ( !value ) return;
+        log( 'load and clean filters' );
 
-        if ( typeof value == 'object' ) {
+        [ 'category', 'cities', 'departments', 'regions' ].forEach(function( filterName ) {
 
-          // assuming this is a check box
+          // this will need to be in its own lib
 
-          clean = [];
+          var value = values[filterName],
 
-          for ( var name in value ) {
+          clean;
 
-            clean.push( name );
+          if ( !value ) return;
+
+          if ( typeof value == 'object' ) {
+
+            // assuming this is a check box
+
+            clean = [];
+
+            for ( var name in value ) {
+
+              clean.push( name );
+
+            }
+
+          } else {
+
+            clean = value;
 
           }
 
-        } else {
+          filterValues[filterName] = clean;
 
-          clean = value;
+        });
 
-        }
+        log( 'filters clean, setting in campaign instance' );
 
-        filterValues[filterName] = clean;
+        campaign.setFilters( filterValues, scb );
 
-      });
-
-      log( 'filters clean, setting in campaign instance' );
-
-      campaign.setFilters( filterValues, scb );
+      }
 
     }
 

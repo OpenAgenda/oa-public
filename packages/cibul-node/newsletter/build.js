@@ -148,79 +148,89 @@ featuredEvents = function( model, agenda, campaign, data, cb ) {
 
 eventSelection = function( model, agenda, campaign, data, cb ) {
 
-  log('retrieving event selection');
+  if ( campaign.getSelectionEnable() ) {
 
-  async.parallel([
+    log('retrieving event selection');
 
-    async.apply( campaign.getFilters ),
-    async.apply( campaign.getSegmentation )
+    async.parallel([
 
-  ], function( err, results ) {
+      async.apply( campaign.getFilters ),
+      async.apply( campaign.getSegmentation )
 
-    if ( err ) return cb( err );
-
-    var filters = results[0],
-
-    segmentation = results[1],
-
-    listMethod = segmentation ? 'segmented' : 'list',
-
-    listParams = { upcoming: true, limit: false };
-
-    [ 'cities', 'regions', 'departments' ].forEach(function( filter ) {
-
-      if ( filters[filter] && filters[filter].length ) listParams[filter] = filters[filter];
-
-    });
-
-    if ( filters.category ) listParams.categorySlug = filters.category;
-
-    if ( segmentation ) listParams.segments = [segmentation];
-
-    agenda.events[listMethod]( listParams, function( err, events ) {
+    ], function( err, results ) {
 
       if ( err ) return cb( err );
 
-      var previousSegment;
+      var filters = results[0],
 
-      events.forEach(function( event ) {
+      segmentation = results[1],
 
-        var e = model.events().instance( event );
+      listMethod = segmentation ? 'segmented' : 'list',
 
-        if ( previousSegment !== JSON.stringify( event.segments ) ) {
+      listParams = { upcoming: true, limit: false };
 
-          // add segment item
+      [ 'cities', 'regions', 'departments' ].forEach(function( filter ) {
 
-          data.items.push(getSegment(event.segments));
-
-        }
-
-        data.items.push({
-          itemType: 'event',
-          title: e.getTitle(),
-          description: e.getDescription(),
-          slug: e.slug,
-          image: e.image,
-          spaceTimeInfo: e.getSpaceTimeInfo()
-        });
-
-        if ( event.segments ) previousSegment = JSON.stringify( event.segments );
+        if ( filters[filter] && filters[filter].length ) listParams[filter] = filters[filter];
 
       });
 
-      if ( data.items.length > config.newsletter.selectionLimit ) {
+      if ( filters.category ) listParams.categorySlug = filters.category;
 
-        data.warnings.push( [ 'there are currently %count% events in the selection. Maximum is %max%', { '%count%' : data.items.length, '%max%' : config.newsletter.selectionLimit } ] );
+      if ( segmentation ) listParams.segments = [segmentation];
 
-      }
+      agenda.events[listMethod]( listParams, function( err, events ) {
 
-      data.items = data.items.slice( 0, config.newsletter.selectionLimit );
+        if ( err ) return cb( err );
 
-      cb( null, model, agenda, campaign, data );
+        var previousSegment;
+
+        events.forEach(function( event ) {
+
+          var e = model.events().instance( event );
+
+          if ( previousSegment !== JSON.stringify( event.segments ) ) {
+
+            // add segment item
+
+            data.items.push(getSegment(event.segments));
+
+          }
+
+          data.items.push({
+            itemType: 'event',
+            title: e.getTitle(),
+            description: e.getDescription(),
+            slug: e.slug,
+            image: e.image,
+            spaceTimeInfo: e.getSpaceTimeInfo()
+          });
+
+          if ( event.segments ) previousSegment = JSON.stringify( event.segments );
+
+        });
+
+        if ( data.items.length > config.newsletter.selectionLimit ) {
+
+          data.warnings.push( [ 'there are currently %count% events in the selection. Maximum is %max%', { '%count%' : data.items.length, '%max%' : config.newsletter.selectionLimit } ] );
+
+        }
+
+        data.items = data.items.slice( 0, config.newsletter.selectionLimit );
+
+        cb( null, model, agenda, campaign, data );
+
+      });
 
     });
 
-  });
+  } else {
+
+    data.items = [];
+
+    cb( null, model, agenda, campaign, data );
+
+  }
 
 },
 
