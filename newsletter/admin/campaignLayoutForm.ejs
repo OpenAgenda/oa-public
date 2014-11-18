@@ -34,8 +34,8 @@
 
 <% if ( type=="manual" ) { %>
     <div>
-      <input class="js_exclude" type="checkbox" name="exclude_selection" <% if ( values.exclude_selection ) { %>checked="checked"<% } %> />
-      <label for="exclude_selection"><%= __('Do not use an event list') %></label>
+      <input class="js_exclude js_frame_reload" type="checkbox" name="exclude_selection" <% if ( values.exclude_selection ) { %>checked="checked"<% } %> />
+      <label for="exclude_selection"><%= __('do not use') %></label>
     </div>
 <% } %>
     <div class="js_selection_options">

@@ -78,7 +78,7 @@
             </select>
           </li>
           <li>
-            <select name="manual_timezone">
+            <select name="manual_timezone" class="js_timezone">
               <option value=""><%= __('timezone') %></option>
 <% timezones.forEach(function(tz) { %>
               <option value="<%= tz %>" <% if (values.manual_timezone==tz) { %>selected<% }%>><%= tz %></option>
@@ -132,24 +132,21 @@
             </select>
           </li>
           <li>
-            <select name="weekly_timezone">
+            <select name="weekly_timezone" class="js_timezone">
               <option value=""><%= __('timezone') %></option>
 <% timezones.forEach(function(tz) { %>
               <option value="<%= tz %>" <% if (values.weekly_timezone==tz) { %>selected<% }%>><%= tz %></option>
 <%}); %>
             </select>
           </li>
+        </ul>
 <% if (errors.weekly_hours) { %>
-          <li>
-            <span class="error"><%= __(errors.weekly_hours) %></span>
-          </li>
+        <div class="error"><%= __(errors.weekly_hours) %></div>
+          
 <% } %>
 <% if (errors.weekly_day) { %>
-          <li>
-            <span class="error"><%= __(errors.weekly_day) %></span>
-          </li>
+        <div class="error"><%= __(errors.weekly_day) %></div>
 <% } %>
-        </ul>
         <ul class="line fieldset">
           <li>
             <input type="radio" name="frequency" value="1" <% if (values.frequency==1) { %>checked<% } %>/>
@@ -172,24 +169,20 @@
             </select>
           </li>
           <li>
-            <select name="monthly_timezone">
+            <select name="monthly_timezone" class="js_timezone">
               <option value=""><%= __('timezone') %></option>
 <% timezones.forEach(function( tz ) { %>
               <option value="<%= tz %>" <% if (values.monthly_timezone==tz) { %>selected<% }%>><%= tz %></option>
 <%}); %>
             </select>
           </li> 
+        </ul>
 <% if (errors.monthly_hours) { %>
-          <li>
-            <span class="error"><%= __(errors.monthly_hours) %></span>
-          </li>
+      <div class="error"><%= __(errors.monthly_hours) %></div>
 <% } %>
 <% if (errors.monthly_date) { %>
-          <li>
-            <span class="error"><%= __(errors.monthly_date) %></span>
-          </li>
+      <div class="error"><%= __(errors.monthly_date) %></div>
 <% } %>
-        </ul>
 
 <% if (errors.frequency) { %>
       <div class="error"><%= __(errors.frequency) %></div>

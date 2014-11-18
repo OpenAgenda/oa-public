@@ -43,6 +43,7 @@
       "frequency" : 1,
       "weekly_day" : "3",
       "weekly_hours" : "10",
+      "weekly_timezone" : "+02:00",
       "monthly_date" : "12",
       "monthly_hours" : "09",
       "manual_date" : "24",

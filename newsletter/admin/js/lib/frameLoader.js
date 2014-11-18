@@ -45,6 +45,7 @@ var instance = function( params ) {
 
   },
 
+
   /**
    * listen to change and trigger callback when its detected
    */
