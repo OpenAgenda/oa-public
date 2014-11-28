@@ -125,3 +125,8 @@ A specific project is defined for all thinhs 'frontend' . It exposes a 'template
 ## Error handling
 
 There is a 404 and 500 page in the 'general' app module. The handling of errors is still sketchy, how the newsletter app 'back.js' proceeds with this should serve as a guideline for now. Promises (using the 'when' lib) avoid the need to control errors at each callback.
+
+
+## Misc
+
+Rules for image paths

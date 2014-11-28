@@ -4,6 +4,7 @@
 
 exports.loadApp = loadApp;                        // load module web app in main app
 exports.loadRoutes = loadRoutes;                  // load module web app routes
+exports.loadMiddlewares = loadMiddlewares;        // load specific middleware libs
 
 exports.getCibulModel = getCibulModel;            // get model instance
 exports.render = render;                          // render templates. cibul-templates caller
@@ -11,6 +12,7 @@ exports.renderJson = renderJson;                  // render json data
 exports.errorResponse = errorResponse;            // render error page
 
 exports.loadAgenda = loadAgenda;                  // middleware. loads an agenda in the request based on its slug
+exports.loadEvent = loadEvent;                    // middleware. loads an event in the request based on its slug
 exports.requireLogged = requireLogged;            // middleware. verify if user is logged
 exports.requireAdmin = requireAdmin;
 exports.loadBaseData = loadBaseData;              // middleware. 
@@ -25,11 +27,12 @@ exports.redirect = redirect;                      // router proxy function. do a
 
 
 
+
 /**
  * dependencies and constant declarations
  */
 
-var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2,
+var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2, R_MW = 3,
 
 express = require( 'express' ),
 
@@ -51,7 +54,9 @@ templater = require( 'cibulTemplates/server/templater' ),
 
 i18n = require( '../i18n/i18n.js' ),
 
-deepExtend = require( 'deep-extend' );
+deepExtend = require( 'deep-extend' ),
+
+lib = require( './lib' );
 
 
 
@@ -80,6 +85,31 @@ function loadApp( parent, path, name ) {
 }
 
 
+/**
+ * load specific middleware routes
+ */
+
+function loadMiddlewares( names ) {
+
+  if ( typeof names == 'string' ) {
+
+    names = [ names ];
+
+  }
+
+  var mw = {};
+
+  names.forEach( function( name ) {
+
+    mw[ name ] = require( './middlewares/' + name );
+
+  });
+
+  return mw;
+
+}
+
+
 
 /**
  * load app module routes and middlewares
@@ -100,6 +130,16 @@ function loadRoutes( app, routes, middlewares ) {
       middlewares.forEach( function( middleware ) {
 
         app.route( path + routes[name][R_URI] ).all( middleware );
+
+      });
+
+    }
+
+    if ( routes[ name ][ R_MW ] ) {
+
+      routes[ name ][ R_MW ].forEach( function( routeMiddleware ) {
+
+        app.use( path + routes[ name ][ R_URI ], routeMiddleware );
 
       });
 
@@ -158,6 +198,34 @@ function loadAgenda( req, res, next, slug ) {
 }
 
 
+function loadEvent( req, res, next, slug ) {
+
+  wn.call( ( req.agenda ? req.agenda.events : model.events() ).get, { slug: slug } )
+
+  .then( function( data ) {
+
+    if ( !data ) throw { message : 'Whoops. Could not retrieve the event.' };
+
+    req.event = model.events().instance( data );
+
+    req.log.load({ event: req.event.slug });
+
+    next();
+
+  })
+
+  .catch( function( err ) {
+
+    errorResponse( req, res, err );
+
+  });
+
+}
+
+
+
+
+
 
 /**
  * middleware for checking that logged user is administrator of 
@@ -198,7 +266,7 @@ function errorResponse( req, res, error ) {
   error.head = {
     css: {
       main: '//d.cibul.net/css/compiled.css'
-    }
+    },
   };
 
   error.scriptsBase = '/js';
@@ -264,8 +332,6 @@ function render( req, res, templatePath, data, maintain ) {
         success: true,
         partial: render
       } );
-
-      req.log( 'info', 'sent json response >>>' );
 
     }
 
@@ -523,6 +589,8 @@ function redirect() {
 
 function renderJson( req, res, data ) {
 
+  res.setHeader( 'Content-Type', 'application/json' );
+
   var body = JSON.stringify( data );
 
   if ( req.query.callback ) {
@@ -536,6 +604,8 @@ function renderJson( req, res, data ) {
   res.end();
 
   res.send();
+
+  req.log( 'info', 'sent json response >>>' );
 
 }
 

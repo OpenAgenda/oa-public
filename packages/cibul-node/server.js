@@ -29,7 +29,9 @@ supervisor( function( loadTasks ) {
       require( './newsletter/back' )( '/:slug/admin/newsletters' ),
       require( './newsletter/front' )( '/:slug/newsletters' ),
       require( './general/front' )( '' ),
-      require( './search/front' )( '' )
+      require( './search/front' )( '' ),
+      require( './agenda/front' )( '/temp/:slug' ),
+      require( './event/front' )( '/temp/:slug/events' )
     ],
     admin: [ // for admins only
       require( './admin/back' )( '/admin' )

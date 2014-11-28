@@ -1,0 +1,221 @@
+exports.buildEsQuery = buildEsQuery;
+exports.cleanSearch = cleanSearch;
+
+// in-controller promise functions
+exports.prepareEvents = prepareEvents;
+
+
+var lib = require( '../lib' ),
+
+cmn = require( '../commons-app' ),
+
+model = cmn.getCibulModel();
+
+
+/**
+ * clean request search parameters to make things neat and tidy for elasticsearch
+ */
+
+function cleanSearch( req, res, next ) {
+
+  if ( !req.query.search ) {
+
+    next();
+
+    return;
+
+  }
+
+  // clean request search parameters
+
+  req.cleanSearch = lib.filterByAttr( 
+    req.query.search ? req.query.search : {}, 
+    [ 'what', 'when', 'radius', 'lng', 'lat', 'type', 'page', 'order', 'passed', 'neLat', 'neLng', 'swLat', 'swLng', 'tags', 'category' ] 
+  );
+
+  if ( !req.cleanSearch.what ) {
+
+    delete req.cleanSearch.what;
+
+  }
+
+  if ( req.cleanSearch.when ) {
+
+    req.cleanSearch.when = req.cleanSearch.split( ',' );
+
+  }
+
+  if ( req.cleanSearch.tags && ( typeof req.cleanSearch.tags == 'string' ) ) {
+
+    req.cleanSearch.tags = [ req.cleanSearch.tags ];
+
+  }
+
+  if ( req.cleanSearch.order && ( [ 'proximity', 'update', 'upcoming' ].indexOf() == -1 ) ) {
+
+    delete req.cleanSearch.order;
+
+  }
+
+  next();
+
+}
+
+
+
+/**
+ * from clean search, build elasticsearch queru
+ */
+
+function buildEsQuery( limit ) {
+
+  return function( req, res, next ) {
+
+    var page, when;
+
+    req.esQuery = {
+      options : {
+        from : 0,
+        size : limit,
+        order : [ 'upcoming' ]
+      },
+      when : {
+        type : 'upcoming'
+      }
+    }
+
+    if ( !req.query.search ) {
+
+      next();
+
+      return;
+
+    }
+
+    page = req.query.page ? parseInt( req.query.page, 10 ) : 1,
+
+    req.esQuery.options.from = ( page - 1 ) * limit;
+
+    when = cleanSearch.when ? cleanSearch.when : [];
+
+    // prepare elasticsearch query, first 'what'
+
+    if ( req.cleanSearch.what ) {
+
+      req.esQuery.what = req.cleanSearch.what;
+
+    }
+
+
+    // then "when"
+
+    if ( when.length == 1 ) {
+
+      req.esQuery.when = {
+        type: 'date',
+        value: new Date( when[0] ).toJSON()
+      };
+
+    } else if ( when == 2 ) {
+
+      req.esQuery.when = {
+        type: 'period',
+        value: {
+          start: new Date( when[0] ).toJSON(),
+          end: new Date( when[1] ).toJSON()
+        }
+      };
+
+    } else if ( req.cleanSearch.passed == '1' ) {
+
+      delete req.esQuery.when;
+
+    }
+
+
+    // agenda tags
+    
+    if ( req.cleanSearch.tags ) {
+
+      req.esQuery.tags = req.cleanSearch.tags;
+
+    }
+
+
+    // agenda category
+    
+    if ( req.cleanSearch.category ) {
+
+      req.esQuery.category = req.cleanSearch.category;
+
+    }
+
+
+    // then "where"
+
+    if ( req.cleanSearch.lat && req.cleanSearch.lng && req.cleanSearch.radius ) {
+
+      req.esQuery.where = {
+        distance: query.radius + 'km',
+        value: [
+          parseFloat( req.cleanSearch.lng ),
+          parseFloat( req.cleanSearch.lat )
+        ]
+      };
+
+    } else if ( req.cleanSearch.neLat && req.cleanSearch.neLng && req.cleanSearch.swLat && req.cleanSearch.swLng ) {
+
+      req.esQuery.where = {
+        neLat: req.cleanSearch.neLat,
+        neLng: req.cleanSearch.neLng,
+        swLat: req.cleanSearch.swLat,
+        swLng: req.cleanSearch.swLng
+      }
+
+    }
+
+
+    // then "order"
+    
+    if ( req.cleanSearch.order ) {
+
+      req.esQuery.order = [ req.cleanSearch.order ];
+
+    }
+
+    next();
+
+  }
+
+}
+
+
+/**
+ * format events resulting of a search to be all prettied up for a render
+ *
+ * @param result   result of the search or query preceding this
+ */
+
+function prepareEvents( result ) {
+
+  result.data.forEach( function( event ) {
+
+    // from db, date is loaded 
+
+    var inst = model.events().instance( event );
+
+    // each event item is extend with whatever is required by tem¶plate
+
+    lib.extend( event, {
+      dateRange: inst.getDateRange( true ),
+      title: inst.getTitle(),
+      thumbnail: inst.getThumbnail( false ),
+      description: inst.getDescription(),
+      placeName: event.locations ? event.locations[0].name : false
+    });
+
+  } );
+
+  return [ result.data, result.total ];
+
+}

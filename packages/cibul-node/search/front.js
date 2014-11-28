@@ -2,18 +2,40 @@
  * site-wide event and agenda search pages
  */
 
+"use strict";
+
 var appName = 'search/front',
 
 exposed = {
   load: load
 },
 
+cmn = require( '../lib/commons-app' ),
+
+mw = cmn.loadMiddlewares( 'search' ),
+
+perPage = 20,
+
 routes = {
-  searchEvents: [ 'get', searchEvents, '/events/search' ],
-  widgetSearchEvents: [ 'get', widgetSearchEvents, '/widgets/:uid/:embedUid/search' ],
-  searchAgendas: [ 'get', searchAgendas, '/agendas/search' ],
+
+  searchEvents: [ 'get', searchEvents, '/events/search', [
+    mw.search.cleanSearch,
+    mw.search.buildEsQuery( perPage )
+  ] ],
+
+  widgetSearchEvents: [ 'get', widgetSearchEvents, '/widgets/:uid/search', [
+    mw.search.cleanSearch,
+    mw.search.buildEsQuery( perPage )
+  ] ],
+
+  searchAgendas: [ 'get', searchAgendas, '/agendas/search', [
+    mw.search.cleanSearch,
+    mw.search.buildEsQuery( perPage )
+  ] ],
+
   latestEvents: [ 'get', latestEvents, '/events/latest' ],
   latestAgendas: [ 'get', latestAgendas, '/agendas/latest' ]
+
 },
 
 log = require( '../lib/logger' )( appName ),
@@ -27,8 +49,6 @@ w = require( 'when' ),
 wn = require( 'when/node' ),
 
 lib = require( '../lib/lib' ),
-
-cmn = require( '../lib/commons-app' ),
 
 es = require( 'ES' )( config.es ),
 
@@ -45,7 +65,7 @@ function init( p ) {
 
   path = p;
 
-  cmn.registerRoutes( appName, path, routes);
+  cmn.registerRoutes( appName, path, routes );
 
   return exposed;
 
@@ -71,8 +91,7 @@ function load( main ) {
   cmn.loadRoutes( app, routes, [
     cmn.urlGenSetter( appName, path ),
     cmn.loadSession,
-    cmn.loadBaseData(),
-    _cleanSearch
+    cmn.loadBaseData()
   ] );
 
   return exposed;
@@ -85,8 +104,8 @@ function load( main ) {
  */
 
 function searchEvents( req, res ) {
-
-  if ( !req.cleanQuery || !lib.size( req.cleanQuery ) )  {
+  
+  if ( !req.cleanSearch || !lib.size( req.cleanSearch ) )  {
 
     req.log( 'info', 'request received for searchEvents with no params.' );
 
@@ -94,11 +113,20 @@ function searchEvents( req, res ) {
 
   }
 
-  req.log( 'info', 'request received for searchEvents with params: %s', JSON.stringify( req.searchParams ) );
+  req.log( 'info', 'request received for searchEvents with params: %s', JSON.stringify( req.esQuery ) );
 
-  wn.call( es.events().search, req.searchParams )
+  wn.call( es.events().search, req.esQuery )
 
-  .then( _renderEvents( req, res, 'searchEvents' ) )
+  .then( mw.search.prepareEvents )
+
+  .spread( function( events, total ) {
+
+    cmn.render( req, res, 'search/events', lib.extend({ 
+      events: events, searchRes: 'searchEvents', search: req.cleanSearch },
+      _pager( req, 'searchEvents', total )
+    ));
+
+  })
 
   .catch( _error( req, res) );
 
@@ -107,13 +135,15 @@ function searchEvents( req, res ) {
 
 function widgetSearchEvents( req, res ) {
 
-  wn.call( model.reviews().get, { uid: req.params.uid } )
+  var uid = req.params.uid.split('/')[ 0 ];
+
+  wn.call( model.reviews().get, { uid: uid } )
 
   .then( function( agenda ) {
 
-    req.searchParams.reviewId = agenda.id;
+    req.esQuery.reviewId = agenda.id;
 
-    return wn.call( es.events().aggregate, req.searchParams  );
+    return wn.call( es.events().aggregate, req.esQuery );
 
   } )
 
@@ -136,28 +166,29 @@ function latestEvents( req, res ) {
     async.apply( model.events().total ),
     async.apply( model.events().list, { 
       page : req.query.page ? req.query.page : 1, 
-      limit : app.get( 'perPage' ) 
+      limit : perPage
     } )
   ])
 
   .spread( function( total, data ) {
 
-    return {
-      total: total,
-      data: data
-    }
+    var result = mw.search.prepareEvents( { total: total, data: data } );
+
+    cmn.render( req, res, 'search/events', lib.extend({
+      events: result[0], searchRes :'latestEvents', search: req.cleanSearch },
+      _pager( req, 'latestEvents', result[1] )
+    ));
 
   } )
-
-  .then( _renderEvents( req, res, 'latestEvents' ) )
 
   .catch( _error( req, res ) );
 
 }
 
+
 function searchAgendas( req, res ) {
 
-  if ( !req.cleanQuery || !lib.size( req.cleanQuery ) )  {
+  if ( !req.cleanSearch || !lib.size( req.cleanSearch ) )  {
 
     req.log( 'info', 'request received for searchAgendas with no params.' );
 
@@ -165,11 +196,11 @@ function searchAgendas( req, res ) {
 
   }
 
-  req.searchParams.deep = true;
+  req.esQuery.deep = true;
 
-  req.log( 'info', 'request received for searchAgendas with params: %s', JSON.stringify( req.searchParams ) );
+  req.log( 'info', 'request received for searchAgendas with params: %s', JSON.stringify( req.esQuery ) );
 
-  wn.call( es.reviews().search, req.searchParams )
+  wn.call( es.reviews().search, req.esQuery )
 
   .then( _renderAgendas( req, res, 'searchAgendas' ) )
 
@@ -189,7 +220,7 @@ function latestAgendas( req, res ) {
     } ),
     async.apply( model.agendas().list, {
       page : req.query.page ? req.query.page : 1,
-      limit : app.get( 'perPage' ),
+      limit : perPage,
       upcoming : true,
       orderBy : [ 'r.updated_at desc' ]
     } )
@@ -227,43 +258,11 @@ function _renderAgendas( req, res, uri ) {
     } );
 
     cmn.render( req, res, 'search/agendas', lib.extend(
-      { agendas: result.data, searchRes: 'searchAgendas', search: req.cleanQuery },
+      { agendas: result.data, searchRes: 'searchAgendas', search: req.cleanSearch },
       _pager( req, uri, result.total ) 
     ));
 
   }
-
-}
-
-
-function _renderEvents( req, res, uri ) {
-
-  return function( result ) {
-
-    result.data.forEach( function( event ) {
-
-      // from db, date is loaded 
-
-      var inst = model.events().instance( event );
-
-      // each event item is extend with whatever is required by tem¶plate
-
-      lib.extend( event, {
-        dateRange: inst.getDateRange( true ),
-        title: inst.getTitle(),
-        thumbnail: inst.getThumbnail( false ),
-        description: inst.getDescription(),
-        placeName: event.locations ? event.locations[0].name : false
-      });
-
-    });
-
-    cmn.render( req, res, 'search/events', lib.extend(
-      { events: result.data, searchRes: 'searchEvents', search: req.cleanQuery },
-      _pager( req, uri, result.total )
-    ));
-
-  };
 
 }
 
@@ -288,106 +287,6 @@ function _error( req, res ) {
 }
 
 
-function _cleanSearch( req, res, next ) {
-
-  var possibleValues = {
-    urlParams: ['what','when', 'radius', 'lng', 'lat', 'type', 'page', 'order', 'passed'],
-    order: ['proximity', 'update', 'upcoming']
-  };
-
-  var query = req.query.search ? req.query.search : {},
-
-  page = req.query.page ? parseInt( req.query.page, 10 ) : 1,
-
-  params = {},
-
-  error = [];
-
-  lib.filterByAttr( query, possibleValues.urlParams );
-
-  params.options = {
-    from: ( page - 1 ) * app.get('perPage'),
-    size: app.get('perPage')
-  };
-
-  params.what = query.what || null;
-
-  if ( !query.what ) delete query.what;
-
-  if ( query.lat || query.lng || query.distance )
-
-    if ( query.lat && query.lng && query.distance )
-
-      params.where = {
-        distance: query.distance +'km',
-        value: [parseFloat(query.lng), parseFloat(query.lat)]
-      };
-
-    else 
-
-      error.push('request with geolocalization require "distance" param in km and also "lat" and "lon" params');  
-
-  if ( query.when ) {
-
-      var when = query.when.split( ',' );
-
-      if ( when.length > 0 && when.length < 3 ) {
-
-        if ( when.length == 1 ) {
-
-          params.when = { 
-            type: 'date',
-            value: new Date(when.shift()).toJSON()
-          };
-
-        } else {
-
-          params.when = {
-            type: 'period',
-            value: {
-              start: new Date( when.shift() ).toJSON(),
-              end: new Date( when.pop() ).toJSON()
-            }
-          }
-
-        }
-        
-      }
-  }
-
-
-  if ( !params.when && !query.passed ) {
-
-    params.when = { type:'upcoming' };
-    
-  }
-
-  
-
-  // getting Order option
-   
-  if ( query.order ) {
-
-    if ( possibleValues.order.indexOf(query.order) < 0 )
-
-      error.push('you sould specify the "order" param');
-
-    else
-
-      params.options.order = [query.order];
-
-  }
-
-  if( error.length ) return mw.errorResponse(req, res, error.join('\n'));
-
-  req.searchParams = params;
-
-  req.cleanQuery = query;
-
-  next();
-
-}
-
 function _pager( req, routeName, totalItems ) {
 
   return {
@@ -396,7 +295,7 @@ function _pager( req, routeName, totalItems ) {
       routeName: routeName,
       current: req.query.page || 1,
       total: totalItems,
-      perPage: app.get( 'perPage' )
+      perPage: perPage
     }
   };
 

@@ -2,7 +2,9 @@ var http = require('http'),
 
 templatePath = 'http://nominatim.openstreetmap.org/reverse?format=json&lat={latitude}&lon={longitude}&zoom=18&addressdetails=1&accept-language={language}',
 
-log = require( 'debug' )( 'nominatim' );
+log = require( 'debug' )( 'nominatim' ),
+
+lib = require( '../../lib/lib' );
 
 
 /**
@@ -18,14 +20,26 @@ module.exports.reverse = function( latitude, longitude, options, cb ) {
 
   }
 
+  if ( !_verifyCoords( latitude, longitude ) ) {
+
+    cb( 'location coordinates are invalid' );
+
+    return;
+
+  }
+
   var params = lib.extend({
     language: 'en'
   }, options ),
 
   path = templatePath
-    .replace('{latitude}', latitude)
-    .replace('{longitude}', longitude)
-    .replace('{language}', params.language );
+    .replace( '{latitude}', latitude)
+    .replace( '{longitude}', longitude)
+    .replace( '{language}', params.language );
+
+
+  log( 'requesting: %s', path );
+
 
   http.get( path, function( res ) {
 
@@ -112,25 +126,12 @@ module.exports.clean = function(data) {
 };
 
 
-var lib = {
-  forEach: function(array, action) {
-    for (var i = 0; i < array.length; i++)
-      action(array[i]);
-  },
-  extend: function() {
-    for(var i=1; i<arguments.length; i++)
-        for(var key in arguments[i])
-            if(arguments[i].hasOwnProperty(key))
-                arguments[0][key] = arguments[i][key];
-    return arguments[0];
-  },
-  contains: function(a, obj) {
-    var i = a.length;
-    while (i--) {
-       if (a[i] === obj) {
-           return true;
-       }
-    }
-    return false;
-  }
-};
+function _verifyCoords( lat, lng ) {
+
+  if ( !parseFloat( lat ) ) return false;
+
+  if ( !parseFloat( lng ) ) return false;
+
+  return true;
+
+}
