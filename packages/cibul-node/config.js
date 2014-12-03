@@ -80,14 +80,6 @@ config = {
           method: 'get',
           uri: '/events/search'
         },
-        'eventShow' : {
-          method: 'get',
-          uri: '/event/:slug'
-        },
-        'agendaShow' : {
-          method: 'get',
-          uri: '/:slug'
-        },
         'agendaEventNew' : {
           method: 'get',
           uri: '/:slug/addevent'
@@ -107,6 +99,10 @@ config = {
         'agendaCsv' : {
           method: 'get',
           uri: '/agendas/:uid.csv'
+        },
+        'agendaXml' : {
+          method: 'get',
+          uri: '/agendas/:uid.xml'
         },
         'agendaEmbedIndex' : {
           method: 'get',
@@ -155,6 +151,22 @@ config = {
         'agendaAdminSettings' : {
           method: 'get',
           uri: '/:slug/admin/edit'
+        },
+        'eventShare' : {
+          method: 'get',
+          uri: '/share/event/:eventSlug'
+        },
+        'eventEdit' : {
+          method: 'get',
+          uri: '/event/:eventSlug/edit'
+        },
+        'eventRemove' : {
+          method: 'get',
+          uri: '/remove/event/:eventSlug'
+        },
+        'conversationAgendaContact' : {
+          method: 'get',
+          uri: '/messages/new?type=7&aUid=:uid'
         }
       },
       defaultGlobalsPrefix: ''

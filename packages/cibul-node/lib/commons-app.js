@@ -7,8 +7,9 @@ exports.loadRoutes = loadRoutes;                  // load module web app routes
 exports.loadMiddlewares = loadMiddlewares;        // load specific middleware libs
 
 exports.getCibulModel = getCibulModel;            // get model instance
-exports.render = render;                          // render templates. cibul-templates caller
-exports.renderJson = renderJson;                  // render json data
+exports.render = render;                          // render and serve response
+exports.renderJson = renderJson;                  // render and serve json
+exports.renderTemplate = renderTemplate;            // render and serve template
 exports.errorResponse = errorResponse;            // render error page
 
 exports.loadAgenda = loadAgenda;                  // middleware. loads an agenda in the request based on its slug
@@ -198,6 +199,7 @@ function loadAgenda( req, res, next, slug ) {
 }
 
 
+
 function loadEvent( req, res, next, slug ) {
 
   wn.call( ( req.agenda ? req.agenda.events : model.events() ).get, { slug: slug } )
@@ -278,45 +280,21 @@ function errorResponse( req, res, error ) {
 
 
 /**
- * cibul-templates caller
+ * render template and send response
  */
 
 function render( req, res, templatePath, data, maintain ) {
 
-  if ( !data ) data = {};
-
-  if ( req.baseData ) {
-
-    deepExtend( data, req.baseData );
-
-  }
-
-  data.genUrl = req.genUrl;
-
-
-  // maintain navigation query values
-
-  if ( maintain ) {
-
-    data.page = req.query.page ? req.query.page : 1;
-    data.filters = req.query.filters ? req.query.filters : {};
-
-  }
-
-  data.lang = _getLang( req );
-
-  data.env = process.env.NODE_ENV;
-
-  templater( templatePath + ( req.xhr ? '.part' : '' ), data, function( err, render ) {
+  renderTemplate( req, templatePath, data, maintain, function( err, render ) {
 
     if ( err ) throw err;
 
-    res.writeHead( 200, {
-      "Content-Type" : "text/html; charset=utf-8",
-      'Cache-Control' : 'no-cache'
-    });
-
     if ( !req.xhr ) {
+
+      res.writeHead( 200, {
+        "Content-Type" : "text/html; charset=utf-8",
+        'Cache-Control' : 'no-cache'
+      });
 
       res.write( render );
 
@@ -336,6 +314,44 @@ function render( req, res, templatePath, data, maintain ) {
     }
 
   });
+
+}
+
+
+function renderTemplate( req, templatePath, data, maintain, cb ) {
+
+  if ( !data ) data = {};
+
+  if ( req.baseData ) {
+
+    deepExtend( data, req.baseData );
+
+  }
+
+  if ( !cb ) {
+
+    cb = maintain;
+
+    maintain = false;
+
+  }
+
+  data.genUrl = req.genUrl;
+
+  // maintain navigation query values
+
+  if ( maintain ) {
+
+    data.page = req.query.page ? req.query.page : 1;
+    data.filters = req.query.filters ? req.query.filters : {};
+
+  }
+
+  data.lang = _getLang( req );
+
+  data.env = process.env.NODE_ENV;
+
+  templater( templatePath + ( req.xhr ? '.part' : '' ), data, cb );
 
 }
 
@@ -589,7 +605,10 @@ function redirect() {
 
 function renderJson( req, res, data ) {
 
-  res.setHeader( 'Content-Type', 'application/json' );
+  res.writeHead( 200, {
+    "Content-Type" : "application/json; charset=utf-8",
+    'Cache-Control' : 'no-cache'
+  });
 
   var body = JSON.stringify( data );
 

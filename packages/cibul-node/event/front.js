@@ -17,7 +17,8 @@ mw = cmn.loadMiddlewares( 'search' ),
 perPage = 20,
 
 routes = {
-  show: [ 'get', show, '/:eventSlug' ]
+  agendaEventShow: [ 'get', agendaEventShow, '/:slug/events/:eventSlug' ],
+  eventShow: [ 'get', show, '/events/:eventSlug' ]
 },
 
 log = require( '../lib/logger' )( appName ),
@@ -91,9 +92,22 @@ function load( main ) {
  * controllers
  */
 
-function show( req, res ) {
+function agendaEventShow( req, res ) {
   
-  cmn.render( req, res, 'event/show', {
+  cmn.render( req, res, 'event/show', _eventData( req, res ) );
+
+}
+
+function show( req, res ) {
+
+  cmn.render( req, res, 'event/show', _eventData( req, res ) );
+
+}
+
+
+function _eventData( req, res ) {
+
+  return {
     event: {
       uid: req.event.uid,
       slug: req.event.slug,
@@ -109,7 +123,7 @@ function show( req, res ) {
       longitude: req.event.locations ? req.event.locations[0].longitude : false,
       timings: req.event.locations ? req.event.locations[0].timings : []
     }
-  } );
+  }
 
 }
 
@@ -117,12 +131,23 @@ function show( req, res ) {
 
 function _layoutData( req, res ) {
 
+  if ( !req.agenda ) {
+
+    return {
+      loner: true
+    };
+
+  }
+
   return {
+    loner: false,
     uid: req.agenda.uid,
+    slug: req.agenda.slug,
     title: req.agenda.title,
     description: req.agenda.description,
     url: req.agenda.url,
-    image: req.agenda.getImage( false )
+    image: req.agenda.getImage( false ),
+    theme: req.agenda.getTheme()
   };
 
 }

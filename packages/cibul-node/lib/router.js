@@ -207,7 +207,13 @@ function makeGenUrl( options ) {
 
     }
 
-    // deal with non route params
+    // deal with non route params ( pop 'em out from the query if still there )
+
+    for ( var bv in urlParams.base.values ) {
+
+      if ( query[ bv ] ) delete query[ bv ];
+
+    }
 
     if ( lib.size( query ) ) {
 

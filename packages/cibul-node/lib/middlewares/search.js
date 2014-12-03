@@ -30,7 +30,7 @@ function cleanSearch( req, res, next ) {
 
   req.cleanSearch = lib.filterByAttr( 
     req.query.search ? req.query.search : {}, 
-    [ 'what', 'when', 'radius', 'lng', 'lat', 'type', 'page', 'order', 'passed', 'neLat', 'neLng', 'swLat', 'swLng', 'tags', 'category' ] 
+    [ 'what', 'when', 'radius', 'lng', 'lat', 'type', 'page', 'order', 'passed', 'neLat', 'neLng', 'swLat', 'swLng', 'tags', 'category', 'location', 'org' ]
   );
 
   if ( !req.cleanSearch.what ) {
@@ -42,6 +42,16 @@ function cleanSearch( req, res, next ) {
   if ( req.cleanSearch.when ) {
 
     req.cleanSearch.when = req.cleanSearch.split( ',' );
+
+  } else if ( req.query.search.from ) {
+
+    req.cleanSearch.when = [ req.query.search.from ];
+
+    if ( req.query.search.to && ( req.query.search.to !== req.query.search.from ) ) {
+
+      req.cleanSearch.when.push( req.query.search.to );
+
+    }
 
   }
 
@@ -96,7 +106,7 @@ function buildEsQuery( limit ) {
 
     req.esQuery.options.from = ( page - 1 ) * limit;
 
-    when = cleanSearch.when ? cleanSearch.when : [];
+    when = req.cleanSearch.when ? req.cleanSearch.when : [];
 
     // prepare elasticsearch query, first 'what'
 
@@ -116,7 +126,7 @@ function buildEsQuery( limit ) {
         value: new Date( when[0] ).toJSON()
       };
 
-    } else if ( when == 2 ) {
+    } else if ( when.length == 2 ) {
 
       req.esQuery.when = {
         type: 'period',
@@ -150,13 +160,25 @@ function buildEsQuery( limit ) {
 
     }
 
+    // agenda organizer
+    
+    if ( req.cleanSearch.org ) {
+
+      req.esQuery.org = req.cleanSearch.org;
+
+    }
+
 
     // then "where"
 
-    if ( req.cleanSearch.lat && req.cleanSearch.lng && req.cleanSearch.radius ) {
+    if ( req.cleanSearch.location ) {
+
+      req.esQuery.location = req.cleanSearch.location;
+
+    } else if ( req.cleanSearch.lat && req.cleanSearch.lng && req.cleanSearch.radius ) {
 
       req.esQuery.where = {
-        distance: query.radius + 'km',
+        distance: req.cleanSearch.radius + 'km',
         value: [
           parseFloat( req.cleanSearch.lng ),
           parseFloat( req.cleanSearch.lat )
@@ -211,7 +233,8 @@ function prepareEvents( result ) {
       title: inst.getTitle(),
       thumbnail: inst.getThumbnail( false ),
       description: inst.getDescription(),
-      placeName: event.locations ? event.locations[0].name : false
+      placeName: event.locations ? event.locations[0].name : false,
+      organization: event.organization ? { slug: event.organizationSlug, label: event.organization } : false
     });
 
   } );

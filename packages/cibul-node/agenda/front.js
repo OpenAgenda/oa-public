@@ -17,7 +17,7 @@ mw = cmn.loadMiddlewares( 'search' ),
 perPage = 20,
 
 routes = {
-  show: [ 'get', show, '' ]
+  agendaShow: [ 'get', show, '' ]
 },
 
 log = require( '../lib/logger' )( appName ),
@@ -72,9 +72,8 @@ function load( main ) {
 
   app.param( 'slug', cmn.loadAgenda );
 
-  app.use( cmn.urlGenSetter( appName, path ) );
-
   cmn.loadRoutes( app, routes, [
+    cmn.urlGenSetter( appName, path ),
     cmn.flashSetter,
     cmn.loadSession,
     cmn.loadBaseData( _layoutData ),
@@ -103,10 +102,31 @@ function show( req, res ) {
 
   .spread( function( events, total ) {
 
-    cmn.render( req, res, 'agenda/show', {
+    var templateData =  lib.extend({
       events: events,
-      total: total
-    } );
+      total: total,
+      scriptParams: {
+        total: total
+      }
+    }, _pager( req, 'agenda/show', total ) );
+
+    if ( req.xhr ) {
+
+      cmn.renderTemplate( req, 'agenda/show', templateData, function( err, partial ) {
+
+        cmn.renderJson( req, res, {
+          success: true,
+          partial: partial,
+          total: total
+        } );
+
+      });
+
+    } else {
+
+      cmn.render( req, res, 'agenda/show', templateData );
+
+    }
 
   } );
 
@@ -118,13 +138,33 @@ function _layoutData( req, res ) {
 
   return {
     uid: req.agenda.uid,
+    slug: req.agenda.slug,
     title: req.agenda.title,
     description: req.agenda.description,
     url: req.agenda.url,
-    image: req.agenda.getImage( false )
+    image: req.agenda.getImage( false ),
+    theme: req.agenda.getTheme(),
+    scriptParams: {
+      perPage: perPage,
+      uid: req.agenda.uid
+    }
   };
 
 }
+
+function _pager( req, routeName, totalItems ) {
+
+  return {
+    pager: {
+      base: { slug: req.params.slug },
+      routeName: routeName,
+      current: req.query.page || 1,
+      total: totalItems,
+      perPage: perPage
+    }
+  };
+
+};
 
 
 module.exports = init;

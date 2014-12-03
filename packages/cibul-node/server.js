@@ -30,8 +30,8 @@ supervisor( function( loadTasks ) {
       require( './newsletter/front' )( '/:slug/newsletters' ),
       require( './general/front' )( '' ),
       require( './search/front' )( '' ),
-      require( './agenda/front' )( '/temp/:slug' ),
-      require( './event/front' )( '/temp/:slug/events' )
+      require( './agenda/front' )( '/:slug' ),
+      require( './event/front' )( '' )
     ],
     admin: [ // for admins only
       require( './admin/back' )( '/admin' )
