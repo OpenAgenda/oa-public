@@ -164,6 +164,7 @@ module.exports = {
 
       window[callbackName] = handleResponse;
       var script = document.createElement('script');
+      script.setAttribute('type','text/javascript');
       if (sentUrl.indexOf(callbackParamName + '=') != -1) { // callback param is already in string
         script.src = sentUrl.substring(0, sentUrl.indexOf(callbackParamName + '=') + 9) + callbackName + sentUrl.substring(sentUrl.indexOf(callbackParamName + '=') + 9);
       } else {

@@ -1,36 +1,58 @@
 {
   "title" : "Jeu de Territoire pour développer la qualité de Vie",
   "description" : "l'agenda des évènements repérés par ChezNous",
-  "image" : "//cibul.s3.amazonaws.com/review_cheznous_598_00.jpg",
+  "image" : "review_cheznous_598_00.jpg",
+  "slug" : "chez-nous",
   "url" : "http://cheznous.coop",
+  "redirect" : "quiruezrhdk",
+  "uid" : 48959239,
+  "scriptParams" : {
+    "uid" : 48959239,
+    "total" : 200,
+    "perPage" : 20
+  },
+  "theme" : {
+    "image" : "review-bg-1402924618-615.jpg",
+    "repeat" : false,
+    "anchorage" : "center",
+    "backgroundColor" : "#fafafc",
+    "canvasPosition" : "center",
+    "canvasOffset" : "120"
+  },
   "events" : [
     {
       "title" : "Les imams en France",
       "uid" : "48948894",
       "slug" : "fqsdfdq",
-      "image" : "//cibul.s3.amazonaws.com/evtbevent_les-imams-en-france_924665.jpg",
+      "thumbnail" : "evtbevent_les-imams-en-france_924665.jpg",
       "description" : "Solenne Jouanneau",
-      "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14"}],
+      "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14" }],
       "placeName" : "Quelque part",
+      "category" : {
+        "label" : "Expositions",
+        "slug" : "expositions"
+      },
+      "city" : "Paris",
       "tags" : [
         {
           "slug" : "politique",
           "label" : "politique"
         }
       ],
-      "category" : {
-        "slug" : "conference",
-        "label" : "conférence"
+      "organization" : {
+        "label" : "MegaCorp Enterprises",
+        "slug" : "megacorp-entreprises"
       }
     },
     {
-      "title" : "Europe : les états désunis (Coralie Delaume) ",
+      "title" : "Europe : les états désunis (Coralie Delaume)",
       "uid" : "45464648",
       "slug" : "fqsdfdq",
-      "image" : null,
+      "thumbnail" : null,
       "description" : "Coralie Delaume nous explique avec brio pourquoi l'UE ne fonctionne pas.",
       "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14" }],
       "placeName" : "Centre George Pompidou",
+      "city" : "Paris",
       "tags" : [
         {
           "slug" : "geolocalisation",
@@ -40,20 +62,17 @@
           "slug" : "saas",
           "label" : "saas"
         }
-      ],
-      "category" : {
-        "slug" : "visite",
-        "label" : "visite"
-      }
+      ]
     },
     {
       "title" : "La petite noblesse de l’intelligence, une sociologie des enfants surdoués",
       "uid" : "748789456",
       "slug" : "fqsdfdq",
-      "image" : "//cibul.s3.amazonaws.com/evtbevent_europe-les-etats-desunis-coralie-delaume_799281.jpg",
+      "thumbnail" : "evtbevent_premileres-mesures-revolutionnaires_282421.jpg",
       "description" : "Wilfried Lignier",
       "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14" }],
       "placeName" : "Creanova",
+      "city" : "Paris",
       "tags" : [
         {
           "slug" : "objetsconnectes",
@@ -63,43 +82,31 @@
           "slug" : "paperasse",
           "label" : "paperasse"
         }
-      ],
-      "category" : {
-        "slug" : "conference",
-        "label" : "conférence"
-      }
+      ]
     },
     {
       "title" : "Homo spectator : voir, faire voir",
       "uid" : "748789456",
       "slug" : "fqsdfdq",
-      "image" : "//cibul.s3.amazonaws.com/evtbevent_la-petite-noblesse-de-l-intelligence-une-sociologie-des-enfants-surdoues_739383.jpg",
+      "thumbnail" : "evtbevent_la-petite-noblesse-de-l-intelligence-une-sociologie-des-enfants-surdoues_739383.jpg",
       "description" : "Marie-José Mondzain",
       "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14"}],
-      "placeName" : "Banque Populaire Atlantique",
-      "category" : {
-        "slug" : "demo",
-        "label" : "démo"
-      }
+      "placeName" : "Banque Populaire Atlantique"
     },
     {
       "title" : "La Technologisation du corps",
       "uid" : "748789456",
       "slug" : "fqsdfdq",
-      "image" : "//cibul.s3.amazonaws.com/evtbevent_homo-spectator-voir-faire-voir_223470.jpg",
+      "thumbnail" : "evtbevent_homo-spectator-voir-faire-voir_223470.jpg",
       "description" : "Brigitte Munier-Termime",
       "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-13", "%finish%" : "2014-10-14" }],
-      "placeName" : "Metro Stalingrad",
-      "category" : {
-        "slug" : "demo",
-        "label" : "démo"
-      }
+      "placeName" : "Metro Stalingrad"
     },
     {
       "title" : "Changeons d'agriculture",
       "uid" : "4546988948",
       "slug" : "fqsdfdq",
-      "image" : "//cibul.s3.amazonaws.com/evtbevent_changeons-d-agriculture_703516.jpg",
+      "thumbnail" : "evtbevent_changeons-d-agriculture_703516.jpg",
       "description" : "Le “modèle” agricole qui s’est imposé depuis quelques décennies est de plus en plus critiqué en raison de ses conséquences néfastes sur l’environnement, l’emploi et la santé humaine et animale...",
       "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-14", "%finish%" : "2014-10-14" }],
       "placeName" : "Banque Populaire Atlantique",
@@ -112,17 +119,13 @@
           "label" : "découverte",
           "slug" : "decouverte"
         }
-      ],
-      "category" : {
-        "slug" : "conseil",
-        "label" : "conseil"
-      }
+      ]
     },
     {
       "title" : "Eric Hazan",
       "uid" : "4546988948",
       "slug" : "fqsdfdq",
-      "image" : "//cibul.s3.amazonaws.com/evtbevent_premileres-mesures-revolutionnaires_282421.jpg",
+      "thumbnail" : "evtbevent_premileres-mesures-revolutionnaires_282421.jpg",
       "description" : "Eric Hazan",
       "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-14", "%finish%" : "2014-10-16" }],
       "placeName" : "Banque Impopulaire",
@@ -131,87 +134,14 @@
           "label" : "télécom bretagne",
           "slug" : "telecom-bretagne"
         }
-      ],
-      "category" : {
-        "slug" : "conference",
-        "label" : "conférence"
-      }
+      ]
     }
   ],
-  "tags" : [
-    {
-      "slug" : "business-model",
-      "label" : "business model"
-    },
-    {
-      "slug" : "decouverte",
-      "label" : "découverte"
-    },
-    {
-      "slug" : "formation",
-      "label" : "formation"
-    },
-    {
-      "slug" : "telecom-bretagne",
-      "label" : "télécom bretagne"
-    },
-    {
-      "slug" : "opendata",
-      "label" : "open data"
-    },
-    {
-      "slug" : "entreprise",
-      "label" : "entreprise"
-    },
-    {
-      "slug" : "objetsconnectes",
-      "label" : "objets connectés"
-    },
-    {
-      "slug" : "paperasse",
-      "label" : "paperasse"
-    },
-    {
-      "slug" : "politique",
-      "label" : "politique"
-    },
-    {
-      "slug" : "geolocalisation",
-      "label" : "géolocalisation"
-    },
-    {
-      "slug" : "saas",
-      "label" : "saas"
-    }
-  ],
-  "categories" : [
-    {
-      "slug" : "hackaton",
-      "label" : "hackaton"
-    },
-    {
-      "slug" : "visite",
-      "label" : "visite"
-    },
-    {
-      "slug" : "conference",
-      "label" : "conférence"
-    },
-    {
-      "slug" : "conseil",
-      "label" : "conseil"
-    },
-    {
-      "slug" : "demo",
-      "label" : "démo"
-    },
-    {
-      "slug" : "recrutement",
-      "label" : "recrutement"
-    },
-    {
-      "slug" : "workshop",
-      "label" : "workshop"
-    }
-  ]
+  "pager" : {
+    "current" : 3,
+    "total" : 127,
+    "action" : "show",
+    "values" : {},
+    "perPage" : 15
+  }
 }

@@ -1,3 +1,5 @@
+exports.setOnReady = setOnReady;
+
 var UID = 0, LANG = 1, SANDBOX = 2,
 
 cn = require(  '../../js/lib/common/common.mod.js' ),
@@ -12,7 +14,9 @@ config = require( './config' ),
 
 buttonTemplate = require( './button.ejs' ),
 
-EJS = require( '../../js/lib/clientEjs/ejs' );
+EJS = require( '../../js/lib/clientEjs/ejs' ),
+
+onReady;
 
 if ( window.env == 'tpl' ) debug.enable( '*' );
 
@@ -56,6 +60,8 @@ var widget = function( elem, options ) {
       _initIntegrated();
 
     }
+
+    if ( onReady ) onReady();
 
   },
 
@@ -288,6 +294,13 @@ var widget = function( elem, options ) {
   init();
 
 };
+
+function setOnReady( cb ) {
+
+  onReady = cb;
+
+}
+
 
 require( '../lib/controllerLoader' )( function( register ) {
 

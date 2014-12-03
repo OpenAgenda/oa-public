@@ -1,3 +1,5 @@
+exports.setOnReady = setOnReady;
+
 var UID = 0,
 
 cn = require(  '../../js/lib/common/common.mod.js' ),
@@ -6,7 +8,9 @@ wLib = require(  '../lib/widgetLib' ),
 
 debug = require( 'debug' ),
 
-dom = require( './dom.js' );
+dom = require( './dom.js' ),
+
+onReady;
 
 if ( window.env == 'tpl' ) debug.enable( '*' );
 
@@ -59,6 +63,8 @@ var widget = function( elem, options ) {
       if ( !data.ebd || data.ebd.dcss ) view.setDefaultStyle();
 
       log( 'init complete, enable to render' );
+
+      if ( onReady ) onReady();
 
     });
 
@@ -178,7 +184,7 @@ var widget = function( elem, options ) {
 
     log( 'defining widget organizations' );
 
-    organizations = data.org;
+    organizations = data.org ? data.org : [];
 
     log( 'widget initialized with %d organizations', organizations.length );
 
@@ -212,6 +218,13 @@ var widget = function( elem, options ) {
   init();
 
 }
+
+function setOnReady( cb ) {
+
+  onReady = cb;
+
+}
+
 
 require( '../lib/controllerLoader' )( function( register ) {
 

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+<% if ( metas.title ) { %>
+    <title><%= __( metas.title ) %></title>
+<% } %>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
     <meta name="language" content="<%= lang %>" />
@@ -16,7 +19,7 @@
   </head>
   <body<% if ( pageClass ) { %> class="<%= pageClass %>"<% } %>>
     <header>
-      <a class="logo" href="/"><img src="/images/biglogo.png"></a>
+      <a class="logo" href="/"><img alt="<%= __('Cibul - Open Agendas') %>" src="/images/biglogo.png"></a>
       <ul class="links site-links js_header_links">
 <% if ( typeof links !== 'undefined' ) { %>
 <% links.forEach( function( link ) { %>
@@ -32,7 +35,7 @@
           </ul>
         </li>
         <li>
-          <form class="search" method="get" action="<%= genUrl(searchRes) %>">
+          <form class="cform csingle bigger" method="get" action="<%= genUrl(searchRes) %>">
             <input type="text" name="search[what]" value="<%= search && ( typeof search.what !== 'undefined' ) ? search.what : '' %>"/>
             <button type="submit">
               <i class="fa fa-search"></i>

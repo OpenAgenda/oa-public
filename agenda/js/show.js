@@ -1,0 +1,261 @@
+var controllers = require( '../../widgets/controller/main' ),
+
+qs = require( 'qs' ),
+
+debug = require( 'debug' ),
+
+cn = require( '../../js/lib/common/common.mod' ),
+
+partialLoader = require( './partialLoader' ),
+
+config = require( './config' ),
+
+pagination = require( './pagination' ),
+
+widgets = {
+  search: require( '../../widgets/search/search' ),
+  tags: require( '../../widgets/tags/tags' ),
+  categories: require( '../../widgets/categories/categories' ),
+  map: require( '../../widgets/map/map' ),
+  calendar: require( '../../widgets/calendar/calendar' ),
+  activeFilters: require( '../../widgets/activeFilters/activeFilters' ),
+  organizations: require( '../../widgets/organizations/organizations' )
+},
+
+log,
+
+params = {
+  selectors: {
+    list: '.js_list_content',
+    add: '.js_add_button',
+    admin: '.js_admin_button'
+  },
+  classes: {
+    displayNone: 'display-none'
+  }
+};
+
+if ( [ 'tpl', 'dev' ].indexOf( window.env ) !== -1 ) {
+
+  debug.enable( '*' );
+
+}
+
+window.hook( function( options ) {
+
+  var currentQueryValues = _getQueryValues( window.location.href ),
+
+  controller = window.cibul.getController( options.uid ),
+
+  loader = partialLoader( cn.extend( config.partialOptions, {
+    canvas: cn.el( params.selectors.list )
+  }));
+
+  log = debug( 'agendaPage' );
+
+  pagination.init( {
+    href: window.location.href,
+    total: options.total,
+    perPage: options.perPage,
+    loader: loader
+  } );
+
+  _handleWidgets( controller, currentQueryValues, function( newSearchValues ) {
+
+    log( 'query values changed' );
+
+    var newHref = window.location.href.split( '?' )[0];
+
+    if ( cn.size( newSearchValues ) ) {
+
+      newHref += '?' + qs.stringify( { search: newSearchValues } );
+
+    }
+
+    currentQueryValues.search = newSearchValues;
+
+    loader.replace( newHref, function( err, data ) {
+
+      pagination.reset( newHref, data.total );
+
+    } );
+
+  } );
+
+  window.getSession( function( session ) {
+
+    controller.getControlData( function( ctl ) {
+
+      _handleAddButton( session, ctl );
+
+      _handleAdminButton( session, ctl );
+
+    } );
+
+  } );
+
+  _setPassedAgendaFilter( controller, currentQueryValues );
+
+});
+
+
+function _handleWidgets( controller, queryValues, onChange ) {
+
+  var searchValues = ( typeof queryValues.search == 'undefined' ) ? {} : queryValues.search;
+
+  controller.update( searchValues );
+
+  _onWidgetLoaded( function() {
+
+    log( 'widgets are loaded and initialized' );
+
+    controller.sweep();
+
+  });
+
+  _onControllerChange( controller, onChange );
+
+}
+
+
+function _handleAdminButton( session, ctl ) {
+
+  if ( !_isLoggedAdmin( session, ctl ) ) {
+
+    return;
+
+  }
+
+  cn.removeClass( cn.el( params.selectors.admin ), params.classes.displayNone );
+
+}
+
+
+function _handleAddButton( session, ctl ) {
+
+  // if agenda is contributive in any way, add button is shown.
+
+  if ( parseInt( ctl.c, 10 ) !== 0 ) {
+
+    _displayAddButton();
+
+    return;
+
+  }
+
+
+  // agenda is not contributive from here on. user must be admin
+  
+  if ( !_isLoggedAdmin( session, ctl ) ) {
+
+    return;
+
+  }
+
+  _displayAddButton();
+
+}
+
+
+function _setPassedAgendaFilter( controller, currentQueryValues ) {
+
+  controller.getControlData( function( ctl ) {
+
+    if ( ( ctl.p === true ) && ( !cn.size( currentQueryValues ) ) ) {
+
+      log( 'initing with passed filter' );
+
+      currentQueryValues.passed = '1';
+
+      controller.update( currentQueryValues );
+
+    }
+
+  });
+
+}
+
+
+
+function _isLoggedAdmin( session, ctl ) {
+
+  if ( !session.logged ) {
+
+    return false;
+
+  }
+
+  if  ( !cn.contains( ctl.adm, session.uid ) ) {
+
+    return false;
+
+  }
+
+  return true;
+
+}
+
+
+function _onWidgetLoaded( cb ) {
+
+  log( 'setting widget ready callbacks' );
+
+  var loadCount = 0,
+
+  _onReady = function() {
+
+    loadCount++;
+
+    if ( loadCount == cn.size( widgets ) ) {
+
+      cb();
+
+    }
+
+  };
+
+  for ( var widgetName in widgets ) {
+
+    widgets[ widgetName ].setOnReady( _onReady );
+
+  }
+
+}
+
+
+function _displayAddButton() {
+
+  cn.removeClass( cn.el( params.selectors.add ), params.classes.displayNone );
+
+}
+
+
+function _onControllerChange( controller, cb ) {
+
+  controller.register( { 
+    name: 'site', 
+    change: function( newValues ) {
+
+      controller.requestModal( 'site' );
+
+      cb( newValues );
+
+    }
+  });
+
+}
+
+
+function _getQueryValues( href, key ) {
+
+  var v = href.split( '?' );
+
+  if ( v.length == 1 ) return {};
+
+  v = qs.parse( v[1].split('#').shift() );
+
+  if ( !key ) return v;
+
+  return v[key] ? v[key] : {};
+
+}

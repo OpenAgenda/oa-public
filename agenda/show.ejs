@@ -1,0 +1,76 @@
+<% include ./theme.part.ejs %>
+
+<div class="canvas right page mw920">
+  
+  <header>
+    <% include ./head.part.ejs %>
+    <ul class="actions"><!--
+      --><li class="js_add_button display-none">
+        <a href="<%= genUrl( 'agendaEventNew' ) %>" class="button green">
+          <i class="fa fa-plus-square"></i>
+          <span><%= __( 'add an event' ) %></span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="social-links">
+
+      <a class="hurl" href="<%= genUrl( 'agendaFeed', { uid: uid }) %>">rss</a>
+      <a class="hurl" href="<%= genUrl( 'agendaIcal', { uid: uid }) %>?dl=1">ical</a>
+      <a class="hurl" href="<%= genUrl( 'agendaXml', { uid: uid }) %>?dl=1">ical</a>
+      <a class="hurl" href="<%= genUrl( 'agendaCsv', { uid: uid }) %>?dl=1">csv</a>
+      <a class="hurl" href="https://www.google.com/calendar/render?cid=<%= genUrl('agendaIcal', { uid: uid }, { abs: true }) %>">google calendar</a>
+      <a class="hurl" href="<%= genUrl( 'conversationAgendaContact', { uid: uid }) %>"><%= __('contact') %></a>
+
+      <% _sl({ title: title, url: genUrl( 'agendaShow' ) }).forEach( function( shareItem ) { %>
+        <%- shareItem %>
+      <% }); %>
+
+    </div>
+  </header>
+
+  <div class="sidebar">
+  
+    <aside>
+      <div class="cbpgsc cibulSearch cform csingle" data-cbctl="<%= uid %>|fr">
+        <button><i class="fa fa-search"></i></button>
+      </div>
+    </aside>
+
+    <aside>
+      <div class="cbpgmp cibulMap" data-cbctl="<%= uid %>|fr"></div>
+    </aside>
+
+    <aside>
+      <div class="cbpgor listWidget" data-cbctl="<%= uid %>"></div>
+    </aside>
+
+    <aside>
+      <div class="cbpgcl cibulCalendar" data-cbctl="<%= uid %>|fr"></div>
+    </aside>
+
+    <aside>
+      <div class="cbpgct listWidget" data-cbctl="<%= uid %>"></div>
+    </aside>
+
+    <aside>
+      <div class="cbpgtg listWidget" data-cbctl="<%= uid %>"></div>
+    </aside>
+    
+  </div>
+  <main class="elb ela">
+
+    <div class="cbpgft" data-cbctl="<%= uid %>|<%= lang %>"></div>
+
+    <% include ../general/pages %>
+
+    <div class="js_list_content">
+      <% include ./show.part.ejs %>
+    </div>
+
+
+    <% include ../general/pages %>
+
+  </main>
+  <footer></footer>
+</div>

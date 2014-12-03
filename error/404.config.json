@@ -1,12 +1,12 @@
 {
   "layout" : "layout/main",
   "css" : {
-    "global" : "../css/global/global.css",
-    "page" : "../css/page structure/page.css",
+    "base" : "../css/base.css",
+    "site" : "../css/site.css",
+    "structure" : "../structure/css/structure.css",
     "headings" : "../css/headings.css",
     "header" : "../css/header.css",
     "opensans" : "../css/opensans.css",
-    "frame" : "../css/frame.css",
     "error" : "error.css"
   },
   "base" : {

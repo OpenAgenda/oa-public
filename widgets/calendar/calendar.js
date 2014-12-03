@@ -1,3 +1,5 @@
+exports.setOnReady = setOnReady;
+
 var UID = 0, LANG = 1,
 
 cn = require(  '../../js/lib/common/common.mod.js' ),
@@ -20,7 +22,9 @@ templates = {
 
 style = require( './style.css' ),
 
-styler = require( '../lib/widgetStyler' );
+styler = require( '../lib/widgetStyler' ),
+
+onReady;
 
 
 if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
@@ -64,7 +68,7 @@ var widget = function( elem, options ) {
 
     }
 
-    controller = options.register( wLib.interface( 'map', uid, {
+    controller = options.register( wLib.interface( 'calendar', uid, {
       enable : enable,
       disable : disable,
       clear : clear,
@@ -77,7 +81,9 @@ var widget = function( elem, options ) {
 
       _createCalendar();
 
-    })
+      if ( onReady ) onReady();
+
+    });
 
   },
 
@@ -240,6 +246,13 @@ var widget = function( elem, options ) {
   init();
 
 }
+
+function setOnReady( cb ) {
+
+  onReady = cb;
+
+}
+
 
 require( '../lib/controllerLoader' )( function( register ) {
 

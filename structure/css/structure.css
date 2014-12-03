@@ -12,16 +12,39 @@
 
 }
 
+.cb .canvas.page {
+
+  padding: 1em;
+  background: white;
+  margin: 10em auto 5em;
+
+}
+
+.cb .canvas.mw920 {
+
+  max-width: 920px;
+
+}
+
+.cb .canvas header {
+
+  position: relative;
+  padding: 1em;
+
+}
+
 .cb .canvas .sidebar {
 
   width: 320px;
   display: none;
+  padding: 1em;
 
 }
 
 .cb .canvas main {
 
-  padding: 2em;
+  display: block;
+  padding: 1em;
   margin: 0 180px 0 180px;
 
 }
@@ -29,6 +52,12 @@
 .cb .canvas.right main {
 
   margin: 0 0 0 360px;
+
+}
+
+.cb .canvas.page.right main {
+
+  padding-right: 0;
 
 }
 
@@ -69,6 +98,12 @@
 }
 
 @media all and (max-width: 780px) {
+
+  .cb .canvas.page {
+
+    margin: 0 auto;
+
+  }
 
   .cb .canvas main,
   .cb .canvas.right main,

@@ -1,0 +1,55 @@
+<% if ( typeof theme !== 'undefined' ) { %>
+<div class="ag-theme"></div>
+<style type="text/css">
+
+.ag-theme {
+
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+
+<% if ( theme.image ) { %>  
+  background-image: url('<%= _i( theme.image ) %>');
+<% } %>
+
+  background-repeat: <% if ( theme.repeat ) { %>repeat<% } else { %>no-repeat<% } %>;
+
+<% if ( theme.anchorage ) { %>
+  background-position: <%= { left: '0 0', center: '50% 0', right: '100% 0' }[ theme.anchorage ] %>;
+<% } %>
+
+<% if ( theme.backgroundColor ) { %>
+  background-color: <%= theme.backgroundColor %>;
+<% } %>
+
+}
+
+.ag .canvas {
+  
+<% if ( theme.canvasPosition == 'left' ) { %>
+  margin-left: 60px!important;
+<% } else if ( theme.canvasPosition == 'right' ) { %>
+  margin-right: 60px!important;
+<% } %>
+
+<% if ( theme.canvasOffset ) { %>
+  margin-top: <%= theme.canvasOffset %>px!important;
+<% } %>
+
+}
+
+@media all and (max-width:960px) {
+
+  .ag .canvas {
+    margin-left: auto!important;
+    margin-right: auto!important;
+    margin-top: 0!important;
+  }
+
+}
+
+</style>
+<% } %>

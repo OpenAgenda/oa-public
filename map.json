@@ -6,7 +6,8 @@
   "home/index",
   "home/categories",
   "presentation/index",
-  "agenda/main",
+  "agenda/show",
+  "event/show",
   "search/agendas",
   "search/events",
   "newsletter/event/full",
@@ -26,6 +27,8 @@
   "newsletter/unsubscribeComplete",
   "error/404",
   "error/500",
+  "eventLists/searchList",
+  "eventLists/agendaList",
   {
     "js" : "widgets/tags/tags.js",
     "prod" : "embed/cibulTagsWidget.js" 

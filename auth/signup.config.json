@@ -3,7 +3,7 @@
   "css" : {
     "signin" : "css/style.css",
     "forms" : "../css/forms.css",
-    "cStructure" : "../structure/centered.css",
+    "cStructure" : "../structure/css/centered.css",
     "fontawesome410" : "../css/font-awesome-4.1.0/css/font-awesome.css"
   },
   "helpers" : {

@@ -4,7 +4,7 @@ selectForm = require('../../../js/lib/selectForm/selectForm.mod.js'),
 
 frameLoader = require('./lib/frameLoader'),
 
-lightboxPage = require('./lib/lightboxPage'),
+lightboxPage = require( './lib/lightboxPage' ),
 
 selectionExclude = require( './lib/selectionExclude' ),
 

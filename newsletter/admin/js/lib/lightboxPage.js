@@ -1,14 +1,16 @@
 /**
- * loads resource in a lightbox and takes over all links of rendered lightbox content to make ajax calls
+ * loads resource in a lightbox and takes over 
+ * all links of rendered lightbox content 
+ * to make ajax calls
  */
 
-var cn = require('../../../../js/lib/common/common.mod.js'),
+var cn = require( '../../../../js/lib/common/common.mod.js' ),
 
-lightbox = require('../../../../js/lib/lightbox/lightbox.mod.js'),
+lightbox = require( '../../../../js/lib/lightbox/lightbox.mod.js' ),
 
-remote = require('../../../../js/lib/remote/remote.mod.js'),
+remote = require( '../../../../js/lib/remote/remote.mod.js' ),
 
-formSerialize = require('form-serialize'),
+formSerialize = require( 'form-serialize' ),
 
 params = {
   selectors: {

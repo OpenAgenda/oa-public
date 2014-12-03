@@ -21,7 +21,7 @@ module.exports = function( eh, options ) {
     events: { fetch: 'getsessiondata', clear: false }
   }, params),
 
-  stack = [],
+  stack = [], windowStack = [],
 
   isReady = false,
 
@@ -31,12 +31,14 @@ module.exports = function( eh, options ) {
 
     if ( ( params.env == 'dev' ) || params.env == 'tpl' ) params.url = '//d.cibul.net/frontend_dev.php/session';
 
-    if (!_hasStorage() || _flaggedCookie() || !_hasSessionData() || params.debug || _contradictingCookie()) {
+    if ( !_hasStorage() || _flaggedCookie() || !_hasSessionData() || params.debug || _contradictingCookie()) {
 
       _fetch(function( data ) {
 
         _setSessionData( data );
+
         isReady = true;
+
         _processStack();
         
       });
@@ -45,25 +47,19 @@ module.exports = function( eh, options ) {
       isReady = true;
     }
 
-    var cbId = eh.on(params.events.fetch, _handleFetchRequest);
-
-    if (params.events.clear) var cbIdOnClear = eh.on(params.events.clear, function() {
-
-      eh.cancel( cbId );
-
-      eh.cancel( cbIdOnClear );
-
-      stack = [];
-
-    });
+    return _handleFetchRequest;
 
   },
   
-  _handleFetchRequest = function(callback) {
+  _handleFetchRequest = function( cb ) {
 
-    if (!isReady) return stack.push(callback);
+    if ( !isReady ) {
 
-    callback(_getSessionData());
+      return stack.push( cb );
+
+    }
+
+    cb( _getSessionData() );
 
   },
 
@@ -71,8 +67,10 @@ module.exports = function( eh, options ) {
 
     var data = _getSessionData();
 
-    cn.forEach(stack, function(callback) {
-      callback(data);
+    cn.forEach( stack, function( cb ) {
+
+      cb( data );
+
     });
 
     stack = undefined;
@@ -87,13 +85,13 @@ module.exports = function( eh, options ) {
 
   _getSessionData = function() {
 
-    return JSON.parse(localStorage.getItem(params.local));
+    return JSON.parse( localStorage.getItem( params.local ) );
 
   },
 
   _setSessionData = function(data) {
 
-    return localStorage.setItem(params.local, JSON.stringify(data));
+    return localStorage.setItem( params.local, JSON.stringify(data) );
 
   },
 
@@ -178,6 +176,6 @@ module.exports = function( eh, options ) {
     
   };
 
-  run();
+  return run();
 
 };

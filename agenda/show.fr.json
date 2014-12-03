@@ -1,0 +1,11 @@
+{
+  "%start% to %finish%" : "du %start% au %finish%",
+  "Today" : "Aujourd'hui",
+  "add an event" : "ajouter un événement",
+  "re-use" : "réutiliser",
+  "Search by tags" : "Filter par thème",
+  "Search by category" : "Filtrer par catégorie",
+  "powered by" : "propulsé par",
+  "manage" : "gérer",
+  "by %name%" : "par %name%"
+}

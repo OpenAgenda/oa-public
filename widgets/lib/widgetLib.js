@@ -45,11 +45,7 @@ exports.interface = function( name, uid, cbs ) {
 
 var isNotDefined = function( type, name ) {
 
-  log( 'no %s function is defined for %s', type, name );
-
-  return function() {
-
-  }
+  return function() {}
 
 },
 

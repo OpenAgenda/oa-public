@@ -1,3 +1,5 @@
+exports.setOnReady = setOnReady;
+
 var UID = 0, LANG = 1,
 
 EJS = require( '../../js/lib/clientEjs/ejs' ),
@@ -16,7 +18,9 @@ style = require( './style.css' ),
 
 styler = require( '../lib/widgetStyler' ),
 
-today = new Date();
+today = new Date(),
+
+onReady;
 
 if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
 
@@ -59,6 +63,8 @@ var widget = function( elem, options ) {
 
     _createElement();
 
+    if ( onReady ) onReady();
+
   },
 
   enable = function( reqParams ) {
@@ -91,7 +97,7 @@ var widget = function( elem, options ) {
 
     styler( style );
 
-    elem.innerHTML = new EJS( { text : template } ).render( { labels : config.labels[ lang ] } );
+    elem.innerHTML += new EJS( { text : template } ).render( { labels : config.labels[ lang ] } );
 
     inputElem = cn.el( elem, 'input' );
 
@@ -144,6 +150,13 @@ var widget = function( elem, options ) {
   init();
 
 };
+
+function setOnReady( cb ) {
+
+  onReady = cb;
+
+}
+
 
 require( '../lib/controllerLoader' )( function( register ) {
 

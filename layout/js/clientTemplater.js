@@ -1,50 +1,95 @@
-var cn = require('../../js/lib/common/common.mod.js'),
+var cn = require( '../../js/lib/common/common.mod.js' ),
 
-EJS = require('../../js/lib/clientEjs/ejs'),
+EJS = require( '../../js/lib/clientEjs/ejs' ),
 
-remote = require('../../js/lib/remote/remote.mod.js'),
+remote = require( '../../js/lib/remote/remote.mod.js' ),
 
-store = require('store'),
+store = require( 'store' ),
 
 routePrefix = '/templates/',
 
 storePrefix = 'templates:',
 
-async = require('async');
+async = require( 'async' );
 
-module.exports = function( templateName, options, data, cb ) {
 
-  var params = cn.extend({
+/**
+ * load template from remote and render data
+ */
+
+module.exports = function( templateName, options, cb  ) {
+
+  var params = {
     urls: {},          // urls to be used by genUrl
     lang: 'fr',        // language to use
     lastUpdate: false  // what is the last udpate time for templates
-  }, options);
+  },
 
-  if ( window.env == 'tpl' ) routePrefix = '/';
+  helpers = {},
 
-  loadTemplate( templateName, params, function( err, template, labels ) {
+  template,
 
-    if ( err ) return cb( err );
+  labels,
 
-    var decorated = cn.extend({
-      __: loadTranslator( labels ),
-      genUrl: loadGenUrl( params.urls )
-    }, data );
+  init = function() {
 
-    cb( null, new EJS({ text: template }).render( decorated ));
+    if ( !cb ) {
 
-  });
+      cb = options;
+
+      options = {};
+
+    }
+
+    if ( window.env == 'tpl' ) routePrefix = '/';
+
+    cn.extend( params, options );
+
+    _loadTemplate( templateName, params, function( err, t, l ) {
+
+      if ( err ) return cb( err );
+
+      template = t;
+
+      labels = l;
+
+      helpers = {
+        __ : _loadTranslator( labels ),
+        genUrl : _loadGenUrl( params.urls )
+      };
+
+      cb( null, {
+        render: render
+      } );
+
+    });
+
+  },
+
+  render = function( data ) {
+
+    return new EJS({ text: template }).render( cn.extend( data, helpers ) );
+
+  };
+
+
+  init();
 
 };
 
 
-var loadTemplate = function( name, options, cb ) {
 
-  if ( options.lastUpdate ) checkAndClearTemplates( options.lastUpdate );
+/**
+ * load template from remote or local store
+ */
+
+function _loadTemplate( name, options, cb ) {
+
+  if ( options.lastUpdate ) _checkAndClearTemplates( options.lastUpdate );
 
   async.parallel([
-    async.apply( loadEjs, name ),
-    async.apply( loadLabels, name, options.lang )
+    async.apply( _loadEjs, name ),
+    async.apply( _loadLabels, name, options.lang )
   ], function( err, results ) {
 
     if ( err ) return cb( err );
@@ -53,9 +98,14 @@ var loadTemplate = function( name, options, cb ) {
 
   });
 
-},
+}
 
-loadLabels = function( name, lang, cb ) {
+
+/**
+ * load labels from remote or local store
+ */
+
+function _loadLabels( name, lang, cb ) {
 
   var labels = {};
 
@@ -69,11 +119,16 @@ loadLabels = function( name, lang, cb ) {
 
   }
 
-  fetchAndStore( name + '.' + lang + '.json', true, cb );
+  _fetchAndStore( name + '.' + lang + '.json', true, cb );
 
-},
+}
 
-loadEjs = function( name, cb ) {
+
+/**
+ * load ejs template
+ */
+
+function _loadEjs( name, cb ) {
 
   if ( store.enabled ) {
 
@@ -83,11 +138,16 @@ loadEjs = function( name, cb ) {
 
   }
 
-  fetchAndStore( name + '.ejs', cb );
+  _fetchAndStore( name + '.ejs', cb );
 
-},
+}
 
-fetchAndStore = function( filename, parse, cb ) {
+
+/**
+ * fetch file from remote and store content in local storage
+ */
+
+function _fetchAndStore( filename, parse, cb ) {
 
   if ( !cb ) {
 
@@ -115,9 +175,14 @@ fetchAndStore = function( filename, parse, cb ) {
 
   
 
-},
+}
 
-loadGenUrl = function( urls ) {
+
+/**
+ * load url generator
+ */
+
+function _loadGenUrl( urls ) {
 
   return function( uri, values ) {
 
@@ -127,9 +192,14 @@ loadGenUrl = function( urls ) {
 
   };
 
-},
+}
 
-loadTranslator = function( labels ) {
+
+/**
+ * load translator
+ */
+
+function _loadTranslator( labels ) {
 
   return function( label, values ) {
 
@@ -153,7 +223,7 @@ loadTranslator = function( labels ) {
 
   };
 
-},
+}
 
 
 /**
@@ -161,7 +231,7 @@ loadTranslator = function( labels ) {
  * clear all templates if outdated
  */
 
-checkAndClearTemplates = function( lastUpdate ) {
+function _checkAndClearTemplates( lastUpdate ) {
 
   if ( !store.enabled ) return;
 

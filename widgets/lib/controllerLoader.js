@@ -28,15 +28,15 @@ module.exports = function( cb ) {
 
 var getRegister = function( cb ) {
 
-  if ( window.cibulRegisterWidget ) {
+  if ( window.cibul ) {
 
-    cb( window.cibulRegisterWidget );
+    cb( window.cibul.registerWidget );
 
   } else {
 
     loadJs( params.controllersPath, function() {
 
-      cb( window.cibulRegisterWidget );
+      cb( window.cibul.registerWidget );
 
     } );
 

@@ -1,9 +1,13 @@
 {
   "%start% to %finish%" : "du %start% au %finish%",
+  "on %start% @ %time%" : "le %start% @ %time%",
   "Today" : "Aujourd'hui",
   "add an event" : "ajouter un événement",
   "re-use" : "réutiliser",
   "Search by tags" : "Filter par thème",
   "Search by category" : "Filtrer par catégorie",
-  "powered by" : "propulsé par"
+  "powered by" : "propulsé par",
+  "add to agenda" : "ajouter à un agenda",
+  "edit" : "éditer",
+  "remove" : "supprimer"
 }

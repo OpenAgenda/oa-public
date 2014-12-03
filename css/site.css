@@ -1,0 +1,110 @@
+/**
+ * base css for main website ( discrete elements displayed here and there in the site )
+ */
+
+
+body {
+
+  background: #efefef;
+
+}
+
+
+/**
+ * links
+ */
+
+.url, .url a, .url strong, .url span, .url i, .hurl:hover {
+
+  color: #11BED4;
+  word-wrap: break-word;
+
+}
+
+
+
+/**
+ * pagination
+ */
+
+.pages a {
+  padding-right: 1em;
+  font-size: 1.2em;
+}
+
+.pages a.current {
+  color: inherit;
+}
+
+
+/**
+ * hide stuff
+ */
+
+.display-none {
+  display: none!important;
+}
+
+
+/**
+ * white square with borders
+ */
+
+.wsq {
+
+  background: white;
+  vertical-align: top; 
+  -v-moz-box-shadow: 0 3px 4px #999999; 
+  -moz-box-shadow: 0 3px 4px #999999; 
+  -webkit-box-shadow: 0 3px 4px #999999; 
+  box-shadow: 0 1px 2px #999999; 
+  text-align: left;
+
+}
+
+
+/**
+ * lightbox
+ */
+
+.lightbox-canvas {
+
+  background-color: rgba(100,100,100,0.1);
+
+}
+
+.lightbox-frame {
+
+  padding: 10px 20px;
+  z-index: 999999;
+
+}
+
+.lightbox-frame.w500 {
+
+  width: 500px;
+
+}
+
+@media all and (max-width: 500px) {
+
+  .lightbox-frame.w500 {
+
+    width: auto;
+
+  }
+
+}
+
+.lightbox-buttons {
+
+  text-align: center;
+  padding-top: 10px;
+
+}
+
+.lightbox-buttons button {
+
+  margin: 0 5px;
+
+}

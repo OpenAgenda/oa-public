@@ -1,6 +1,6 @@
 var cn = require('../../js/lib/common/common.mod.js'),
 
-cTemplater = require('./clientTemplater'),
+cTemplater = require( './clientTemplater' ),
 
 params = {
   selectors: {
@@ -18,11 +18,11 @@ params = {
 
 pClicked = false;
 
-module.exports = function( eh, options ) {
+module.exports = function( options ) {
 
   params = cn.extend( params, options );
 
-  eh.trigger('getsessiondata', function( session ) {
+  window.getSession( function( session ) {
 
     if ( !session.logged ) return;
 
@@ -42,17 +42,17 @@ module.exports = function( eh, options ) {
       },
       lang: session.culture,
       lastUpdate: window.env=='dev' ? new Date() : session.lastTemplateUpdate
-    }, session, function( err, rendered ) {
+    }, function( err, template ) {
 
       if ( err ) {
-
-        console.log( err );
         
         return;
         
       }
 
-      var li = document.createElement('li');
+      var rendered = template.render( session ),
+
+      li = document.createElement( 'li' );
 
       li.innerHTML = rendered;
 
@@ -63,6 +63,7 @@ module.exports = function( eh, options ) {
       cn.el( params.selectors.headerLinks ).insertAdjacentElement( 'beforeend', li );
 
     });
+
 
   });
 

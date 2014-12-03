@@ -1,0 +1,65 @@
+<% include ../agenda/theme.part.ejs %>
+
+<div class="canvas right page mw920">
+
+<% if ( !loner ) { %>
+  <header>
+    <% include ../agenda/head.part.ejs %>
+  </header>
+<% } %>
+  
+  <div class="sidebar">
+
+<% if ( event.image ) { %>    
+    <aside>
+      <img src="<%= _i(event.image) %>"/>
+    </aside>
+<% } %>
+
+    <aside>
+      <a class="add button" href="<%= genUrl( 'eventShare', { eventSlug: event.slug }) %>"><%= __( 'add to agenda' ) %></a>
+    </aside>
+
+    <aside>
+      <span class="social-links">
+        <%- _sl.fb( { title: event.title, url: genUrl( loner ? 'eventShow' : 'agendaEventShow', { eventSlug: event.slug }, true ) } ) %>
+        <%- _sl.tw( { title: event.title, url:  genUrl( loner ? 'eventShow' : 'agendaEventShow', { eventSlug: event.slug }, true ) } ) %>
+        <%- _sl.gp( { title: event.title, url:  genUrl( loner ? 'eventShow' : 'agendaEventShow', { eventSlug: event.slug }, true ) } ) %>
+      </span>
+    </aside>
+
+    <aside>
+      <ul>
+        <li><a class="hurl" href="<%= genUrl('eventEdit', { eventSlug: event.slug }) %>"><%= __('edit') %></a></li>
+        <li><a class="hurl" href="<%= genUrl('eventRemove', { eventSlug: event.slug }) %>"><%= __('remove') %></a></li>
+      </ul>
+    </aside>
+
+  </div>
+  <main>
+    <div class="event-head">
+      <h2><%= event.title %></h2>
+      <p class="dsc"><%= event.description %></p>
+      <p class="st"><%= __( event.dateRange[0], _t(event.dateRange[1]) ) %></p>
+    </div>
+    
+    
+    <p><%- _txt.nl2br( _txt.setLinks( event.freeText, { className: 'url', target: '_blank' } ) ) %></p>
+
+    <div class="event-place">
+      <p class="placename"><%= event.placeName %></p>
+      <p class="address"><%= event.address %></p>
+      <div class="js_map map" data-coord="<%= event.latitude %>|<%= event.longitude %>"></div>
+    </div>
+
+    <ul><% var month = false; %>
+<% event.timings.forEach( function( timing ) { %>
+<% if ( month !== _t( timing.start, 'MMMM YYYY' ) ) { month = _t( timing.start, 'MMMM YYYY' ); %>
+      <li class="month"><%= _t( timing.start, 'MMMM YYYY' ) %></li>
+<% } %>
+      <li class="date"><%= _t( timing.start, 'dddd Do - HH:mm' ) %></li>
+<% }) %>
+    </ul>
+
+  </main>
+</div>

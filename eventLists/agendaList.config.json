@@ -1,0 +1,12 @@
+{
+  "layout" : "layout/blank",
+  "css" : {
+    "base" : "../css/base.css",
+    "eventListBase" : "css/base.css",
+    "eventListAgenda" : "css/agenda.css"
+  },
+  "helpers" : {
+    "_t" : "time",
+    "_i" : "image"
+  }
+}

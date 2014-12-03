@@ -111,6 +111,7 @@ button {
 }
 
 .front header .header-canvas  {
+  
   background-image: -webkit-gradient(
     linear,
     left top,
@@ -119,11 +120,13 @@ button {
     color-stop(0.70, rgba(0,0,0,0.3)),
     color-stop(1, rgba(0,0,0,0.7))
   );
+
   background-image: -o-linear-gradient(right, rgba(255,255,255,0) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.7) 100%);
   background-image: -moz-linear-gradient(right, rgba(255,255,255,0) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.7) 100%);
   background-image: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.7) 100%);
   background-image: -ms-linear-gradient(right, rgba(255,255,255,0) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.7) 100%);
   background-image: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.8) 100%);
+  
 }
 
 

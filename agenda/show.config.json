@@ -1,20 +1,24 @@
 {
-  "layout" : "layout/blank",
+  "layout" : "layout/main",
   "css" : {
-    "global" : "../css/global/global.css",
-    "frame" : "../css/frame.css",
+    "structure" : "../structure/css/structure.css",
     "agendaFrame" : "css/agendaFrame.css",
-    "mainItem" : "../css/mainItem.css",
+    "eventListBase" : "../eventLists/css/base.css",
+    "eventListAgenda" : "../eventLists/css/agenda.css",
     "forms" : "../css/forms.css",
     "buttons" : "../css/buttons.css", 
     "calendar" : "../css/calendar.css",
     "fontawesome410" : "../css/font-awesome-4.1.0/css/font-awesome.css",
     "opensans" : "../css/opensans.css",
-    "leaflet" : "//cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"
+    "leaflet" : "../css/leaflet-0.7.3.css"
   },
   "helpers" : {
     "_t" : "time",
-    "_i" : "image"
+    "_i" : "image",
+    "_sl" : "shareLinks"
+  },
+  "base" : {
+    "pageClass" : "ag cb"
   },
   "templateJs" : true
 }

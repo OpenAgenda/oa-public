@@ -1,0 +1,14 @@
+<div class="head"><% if ( image ) { %><!--
+--><img src="<%= _i( image ) %>" alt="<%= title %>"/><!--
+--><% } %><div class="title<% if ( !image ) { %> nopic<% } %>">
+    <a href="<%= genUrl('agendaShow', { slug: slug }) %>"><h1 class="hurl"><%= title %></h1></a>
+    <p><%= description %></p>
+<% if ( url ) { %>
+    <a class="url" href="<%= url %>"><%= url %></a>
+<% } %>
+    <a class="button small js_admin_button display-none" href="<%= genUrl( 'agendaAdminShow' ) %>">
+      <i class="fa fa-cog"></i>
+      <span><%= __( 'manage' ) %></span>
+    </a>
+  </div>
+</div>

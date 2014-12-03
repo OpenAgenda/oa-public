@@ -1,3 +1,5 @@
+exports.setOnReady = setOnReady;
+
 var UID = 0,
 
 cn = require(  '../../js/lib/common/common.mod.js' ),
@@ -6,7 +8,9 @@ wLib = require(  '../lib/widgetLib' ),
 
 debug = require( 'debug' ),
 
-dom = require( './dom.js' );
+dom = require( './dom.js' ),
+
+onReady;
 
 if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
 
@@ -55,6 +59,8 @@ var widget = function( elem, options ) {
       if ( !data.ebd || data.ebd.dcss ) view.setDefaultStyle();
 
       log( 'init complete, enable to render' );
+
+      if ( onReady ) onReady();
 
     });
 
@@ -190,6 +196,13 @@ var widget = function( elem, options ) {
   init();
 
 }
+
+function setOnReady( cb ) {
+
+  onReady = cb;
+
+}
+
 
 require( '../lib/controllerLoader' )( function( register ) {
 

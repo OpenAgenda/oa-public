@@ -1,0 +1,85 @@
+.ag.ev .sidebar aside > img {
+
+  width: 100%;
+
+}
+
+.ag.ev .sidebar .social-links {
+
+  text-align: left;
+  display: inline-block;
+
+}
+
+.ag.ev .sidebar .social-links i {
+
+  font-size: 1.2em;
+
+}
+
+.ag.ev .month {
+
+  padding-top: 1em;
+  font-size: 1.3em;
+  border-bottom: 1px solid #efefef;
+  margin-bottom: 5px;
+
+}
+
+.ag.ev .date {
+
+  padding: 0.2em 0;
+
+}
+
+
+.ag.ev .event-head {
+
+  padding-bottom: 1em;
+
+}
+
+.ag.ev .event-head h2 {
+
+  font-size: 1.8em;
+
+}
+
+.ag.ev .event-head .st {
+
+  font-weight: bold;
+
+}
+
+.ag.ev .event-head .dsc {
+
+  font-size: 1.2em;
+  padding: 0.5em 0;
+
+}
+
+.ag.ev .event-place {
+
+  margin: 2em 0;
+
+}
+
+.ag.ev .event-place .placename {
+
+  font-weight: bold;
+
+}
+
+.ag.ev .event-place .address {
+
+  padding: 0.2em 0;
+
+}
+
+.ag.ev .event-place .map {
+
+  height: 300px;
+  width: 100%;
+  margin: 5px 0;
+
+}

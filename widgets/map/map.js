@@ -1,3 +1,5 @@
+exports.setOnReady = setOnReady;
+
 var UID = 0,
 
 LANG = 1,
@@ -21,7 +23,9 @@ templates = {
 
 style = require( './style.css' ),
 
-styler = require( '../lib/widgetStyler' );
+styler = require( '../lib/widgetStyler' ),
+
+onReady; // cb to call when a widget is ready
 
 if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
 
@@ -97,8 +101,10 @@ var widget = function( elem, options ) {
       });
 
       _bindSync();
-            
+
       log( 'init complete, enable to render' );
+
+      if ( onReady ) onReady();
 
     } );
 
@@ -166,9 +172,13 @@ var widget = function( elem, options ) {
     }
 
     // if a location is picked, or an event, deactivate selection when map is moved around
-    if (reqParams.uid || selectedLocation) {
+    if (reqParams.uid || selectedLocation || !reqParams.neLat ) {
 
       _deactivateSync();
+
+    } else {
+
+      _activateSync();
 
     }
 
@@ -356,7 +366,7 @@ var widget = function( elem, options ) {
 
       for ( var l in data.a[a].l ) {
 
-        if (typeof locations[l] == 'undefined') {
+        if ( typeof locations[l] == 'undefined' ) {
 
           locations[ l ] = {
             placename: data.a[a].l[l].p,
@@ -632,6 +642,14 @@ var widget = function( elem, options ) {
 
   },
 
+  _activateSync = function() {
+
+    cn.el( elem, config.selectors.sync ).checked = true;
+
+    config.auto = true;
+
+  }
+
 
   _getNeighborBounds = function( location ) {
 
@@ -684,6 +702,14 @@ var widget = function( elem, options ) {
   init();
 
 };
+
+
+function setOnReady( cb ) {
+
+  onReady = cb;
+
+}
+
 
 require( '../lib/controllerLoader' )( function( register ) {
 

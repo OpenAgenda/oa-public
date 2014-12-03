@@ -15,6 +15,7 @@ body > header .user-profile {
   position: absolute;
   z-index: 4;
   right: 0;
+  background: white;
 }
 
 .user-profile-dropdown > div {

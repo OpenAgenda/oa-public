@@ -10,15 +10,18 @@ env = window.env ? window.env : 'prod',
 
 defaults = {
   all: {
-    res : '//cibul.net/embed/{uid}/controldata',
+    agenda : '//cibul.net/agendas/{uid}/controldata',
+    embed : '//cibul.net/embed/{uid}/controldata',
     search : '//cibul.net/widgets/{uid}/search'
   },
   dev: {
-    res : '//d.cibul.net/frontend_dev.php/embed/{uid}/controldata',
+    agenda : '//d.cibul.net/frontend_dev.php/agendas/{uid}/controldata',
+    embed : '//d.cibul.net/frontend_dev.php/embed/{uid}/controldata',
     search : '//d.cibul.net/widgets/{uid}/search'
   },
   tpl: {
-    res : '//d.cibul.net/frontend_dev.php/embed/{uid}/controldata',
+    agenda : '/server/testdata/controldata-pepite.json',
+    embed : '//d.cibul.net/frontend_dev.php/embed/{uid}/controldata',
     search : '//d.cibul.net/widgets/{uid}/search'
   }
 },
@@ -43,9 +46,13 @@ module.exports = function( uid ) {
 
   whatUids = false,
 
+  embedMode = ( ( uid + '' ).indexOf('/') !== -1 ), // embedMode is true if widget is for agenda embed
+
   run = function() {
 
     log( 'controller loaded in %s environment', env );
+
+    log( 'controller is configured in %s mode', embedMode ? 'embed' : 'agenda' );
 
     _fetchControllerData( function( err, data ) {
 
@@ -71,7 +78,7 @@ module.exports = function( uid ) {
 
       _processWidgetCtlRequests();
 
-      _sweep();
+      sweep();
 
     });
 
@@ -79,7 +86,10 @@ module.exports = function( uid ) {
       register: register,
       getWidget: getWidget,
       requestModal: requestModal,
-      releaseModal: releaseModal
+      releaseModal: releaseModal,
+      update : update,
+      sweep : sweep,
+      getControlData: getControlData
     }
 
   },
@@ -94,6 +104,8 @@ module.exports = function( uid ) {
     var widgetParams = cn.extend( {
       name : false  // required. name of the widget
     }, options );
+
+    log( 'registering widget %s', widgetParams.name );
 
     widgets.push( widgetParams );
 
@@ -157,23 +169,33 @@ module.exports = function( uid ) {
   
   update = function( originWidget, updatedParams ) {
 
+    if ( arguments.length == 1 ) {
+
+      updatedParams = originWidget;
+
+      originWidget = {};
+
+    }
+
     log( 'updating with %s', JSON.stringify( updatedParams ) );
 
     var newParams = cn.extend( {}, currentRequestParams, updatedParams );
 
     if ( !_hasChanges( newParams ) ) return;
 
-    _forEachWidget( 'change', newParams, originWidget );
+    currentRequestParams = _clean( newParams );
+
+    _forEachWidget( 'change', currentRequestParams, originWidget );
 
     _forEachWidget( 'disable', originWidget );
 
     whatUids = false;
 
-    if ( newParams.what ) {
+    if ( currentRequestParams.what ) {
 
       var res = params.search.replace( '{uid}', uid );
 
-      remote.getJsonp( res, { data: { search: newParams } }, function( responseType, data ) {
+      remote.getJsonp( res, { data: { search: currentRequestParams }, timeout: 10000 }, function( responseType, data ) {
 
         if ( responseType == 'success' ) {
 
@@ -181,17 +203,13 @@ module.exports = function( uid ) {
 
         }
 
-        _sweep( newParams );
-
-        currentRequestParams = newParams;
+        sweep();
 
       } );
 
     } else {
 
-      _sweep( newParams );
-
-      currentRequestParams = newParams;
+      sweep();
 
     }
 
@@ -208,7 +226,7 @@ module.exports = function( uid ) {
 
     enabled = false;
 
-    cb();
+    if ( cb ) cb();
 
   },
 
@@ -230,7 +248,7 @@ module.exports = function( uid ) {
    * run method of each widget at the optional exception of...
    */
   
-  _forEachWidget = function(methodName, methodParams, except ) {
+  _forEachWidget = function( methodName, methodParams, except ) {
 
     if ( ( arguments.length == 2 ) && ( typeof methodParams == 'string' ) ) {
 
@@ -254,7 +272,19 @@ module.exports = function( uid ) {
 
     for ( var i = widgets.length - 1; i >= 0; i-- ) {
 
-      if ( widgets[i].name !== except ) widgets[i][ methodName ]( methodParams );
+      if ( widgets[i].name !== except ) {
+
+        if ( widgets[i][ methodName ] ) {
+
+          widgets[i][ methodName ]( methodParams );
+
+        } else {
+
+          log( '%s not set for widget "%s"', methodName, widgets[i].name );
+
+        }
+
+      }
     
     }
 
@@ -282,10 +312,10 @@ module.exports = function( uid ) {
   _fetchControllerData = function( cb ) {
 
     // what to do if it is not successful?
+
+    var res = ( embedMode ? params.embed : params.agenda ).replace( '{uid}', uid );
     
-    var res = params.res.replace( '{uid}', uid );
-    
-    remote.getJsonp( res, {}, function( success, data ) {
+    remote.get( res, { timeout: 10000 }, function( success, data ) {
 
       if ( !success ) {
 
@@ -295,7 +325,7 @@ module.exports = function( uid ) {
 
       cb( null, data.data );
 
-    });
+    }, embedMode ? false : true );
 
   },
 
@@ -305,11 +335,11 @@ module.exports = function( uid ) {
    * events are included and which are not
    */
   
-  _sweep = function(reqParams) {
+  sweep = function() {
 
     var includedCount = 0;
 
-    if ( typeof reqParams == 'undefined' ) reqParams = {};
+    if ( typeof currentRequestParams == 'undefined' ) currentRequestParams = {};
 
     if ( !ready ) {
 
@@ -319,7 +349,7 @@ module.exports = function( uid ) {
 
     }
 
-    log( 'doing sweep with params %s', JSON.stringify( reqParams ) );
+    log( 'doing sweep with params %s', JSON.stringify( currentRequestParams ) );
 
     // clear all the widgets!
     _forEachWidget( 'clear' );
@@ -328,7 +358,7 @@ module.exports = function( uid ) {
     // .. in which case include in widgets
     for ( var i in ctl.a ) {
 
-      if ( _applyFilters( ctl.a[i], reqParams ) ) {
+      if ( _applyFilters( ctl.a[i], currentRequestParams ) ) {
 
         includedCount++;
 
@@ -341,7 +371,7 @@ module.exports = function( uid ) {
     log( 'sweep result %d out of %d', includedCount, cn.size( ctl.a ) );
 
     // enable all the widgets!
-    _forEachWidget( 'enable', reqParams );
+    _forEachWidget( 'enable', currentRequestParams );
 
   },
 
@@ -354,7 +384,11 @@ module.exports = function( uid ) {
 
     for ( var i = widgets.length - 1; i >= 0; i-- ) {
 
-      widgets[i].include( item );
+      if ( widgets[ i ].include ) {
+
+        widgets[i].include( item );  
+
+      }
 
     }
 
@@ -373,6 +407,23 @@ module.exports = function( uid ) {
 
   },
 
+  _clean = function( data ) {
+
+    var cleanData = {};
+
+    for ( var k in data ) {
+
+      if ( data[ k ] !== null ) {
+
+        cleanData[ k ] = data[ k ];
+
+      }
+
+    }
+
+    return cleanData;
+
+  },
 
   /**
    * have there been any changes in parameters?

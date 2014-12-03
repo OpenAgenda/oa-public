@@ -1,6 +1,7 @@
 {
   "css" : {
-    "global" : "../css/global/global.css",
+    "base" : "../css/base.css",
+    "site" : "../css/site.css",
     "userMenu" : "../user/css/menu.css",
     "header" : "../css/header.css",
     "headings" : "../css/headings.css",
@@ -9,6 +10,7 @@
     "buttons" : "../css/buttons.css",
     "fontawesome410" : "../css/font-awesome-4.1.0/css/font-awesome.css"
   },
+
   "base" : {
     "pageClass" : false,
     "searchRes" : "searchEvents",
@@ -21,5 +23,6 @@
     },
     "lang" : "fr"
   },
+  
   "templateJs" : true
 }

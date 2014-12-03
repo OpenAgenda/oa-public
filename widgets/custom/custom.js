@@ -1,10 +1,14 @@
+exports.setOnReady = setOnReady;
+
 var UID = 0, VALUES = 1, ACTIVECLASS = 2,
 
 cn = require(  '../../js/lib/common/common.mod.js' ),
 
 wLib = require(  '../lib/widgetLib' ),
 
-debug = require( 'debug' );
+debug = require( 'debug' ),
+
+onReady;
 
 if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
 
@@ -52,6 +56,8 @@ var widget = function( elem, options ) {
     } ));
 
     cn.addEvent( elem, 'click', _onClick );
+
+    if ( onReady ) onReady();
 
   },
 
@@ -104,6 +110,12 @@ var widget = function( elem, options ) {
   init();
 
 };
+
+function setOnReady( cb ) {
+
+  onReady = cb;
+
+}
 
 require( '../lib/controllerLoader' )( function( register ) {
 

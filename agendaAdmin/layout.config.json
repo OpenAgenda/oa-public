@@ -1,6 +1,7 @@
 {
   "css" : {
-    "global" : "../css/global/global.css",
+    "base" : "../css/base.css",
+    "site" : "../css/site.css",
     "page" : "../css/page structure/page.css",
     "headings" : "../css/headings.css",
     "header" : "../css/header.css",

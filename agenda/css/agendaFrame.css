@@ -2,78 +2,32 @@
 
 
 /**
- * powered by cibul link
- */
-
-.ag .cibul-link {
-
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0.4em;
-}
-
-.ag .cibul-link img {
-
-  width: 90px;
-
-}
-
-.ag .cibul-link span {
-  font-size: 0.8em;
-  color: white;
-  vertical-align: top;
-  display: none;
-}
-
-
-
-/**
  * general page layout
  */
 
 
-.ag nav .head .title h1,
-.ag main h2,
-.cb article .title {
+.ag header .head .title h1,
+.ag main h2 {
 
   font-family: 'Open Sans', sans-serif;
 
 }
 
-.ag nav {
-  height: 4em;
-  position: relative;
-  z-index: 2;
-}
-
-.ag .mClr {
-  color: #c40066;
-}
-
-.ag .mbClr {
-  background-color: #c40066;
-  color: white;
-}
-
-.ag nav {
-  background: #333;
-}
 
 
-.ag nav .head {
 
-  padding: 2em 0 0;
-  display: inline-block;
-
-}
-
-.ag nav .head .title {
+.ag header .head {
 
   display: inline-block;
-  vertical-align: bottom;
-  padding: 2.3em 0 .5em 0;
-  max-width: 600px;
+  max-width: 700px;
+
+}
+
+.ag header .head .title {
+
+  display: inline-block;
+  padding: 0 0 .5em 0;
+  max-width: 590px;
 
 }
 
@@ -84,43 +38,30 @@
  * .head groups the agenda title elements
  */
 
-.ag nav .head h1,
-.ag nav .head p,
-.ag nav .head a,
-.ag nav .head img {
 
-  color: #333;
-  padding: 3px 20px;
+.ag header .head .title > * {
+
+  margin: 0 0 10px 20px;
+  display: block;
 
 }
 
-.ag nav .head h1 {
+.ag header .head .title.nopic > * {
 
-  font-size: 2em;
-  text-shadow: 1px 1px 2px #FFFFFF;
-
-}
-
-.ag nav .head p {
-
-  font-size: 1.2em;
-  text-shadow: 1px 1px 2px #FFFFFF;
+  margin-left: 0;
 
 }
 
-.ag nav .head a {
-
-  font-size: 1.1em;
-  text-shadow: 1px 1px 2px #FFFFFF;
-
+.ag header .head .title a.url,
+.ag header .head .title .button {
+  display: inline-block;
 }
 
-.ag nav .head img {
+.ag header .head img {
 
-  max-width: 10em;
+  max-width: 110px;
   display: inline-block;
   vertical-align: top;
-  border: 1px solid #ccc;
 
 }
 
@@ -129,79 +70,56 @@
  * header actions
  */
 
-.ag nav .actions {
+.ag header .actions {
   position: absolute;
   top: 0;
   right: 0;
-  padding: .7em 120px .8em;
+  padding: .7em 0 .8em 2em;
 }
 
-.ag nav .actions li {
+.ag header .actions li {
 
   display: inline-block;
-  padding-right: 1em;
 
 }
 
-.ag nav .actions li:last-child {
+.ag header .actions li:last-child {
   padding-right: 0;
 }
 
-.ag nav .actions i {
+.ag header .actions i {
 
-  font-size: 1.6em;
+  font-size: 1.1em;
   vertical-align: middle;
   padding-top: 0.1em;
 
 }
 
-.ag nav .actions .button {
+.ag header .actions .button {
   vertical-align: middle;
 }
 
-.ag nav .actions img {
+.ag header .actions img {
 
   padding: 1px 0;
   vertical-align: middle;
 
 }
 
-.ag nav .actions span,
-.ag nav .actions i {
+.ag header .actions span,
+.ag header .actions i {
 
-  color: white;
   vertical-align: middle;
   display: inline-block;
 
 }
 
-.ag nav .actions span {
-
-  font-weight: bold;
-
-}
-
-.ag nav .actions i.fa-plus-square {
-  height: 20px;
-}
 
 
 
 @media all and (min-width: 1450px) {
 
-  .ag .cibul-link span {
-
-    display: inline-block;
-
-  }
-
-  .ag nav .canvas {
-
-    position: relative;
-
-  }
-
-  .ag nav .actions {
+  .ag header .actions {
 
     padding-right: 0;
 
@@ -217,6 +135,56 @@
 
 
 
+/**
+ * header social links
+ */
+
+.ag .social-links {
+
+  padding: 1em 0;
+  text-align: right;
+
+}
+
+.ag .social-links > * {
+
+  padding: 0 1em 0 0;
+
+}
+
+
+.ag .social-links a.fb:hover i { color: #3b5998; }
+.ag .social-links a.gp:hover i { color: #d34836; }
+.ag .social-links a.li:hover i { color: #007bb6; }
+.ag .social-links a.tw:hover i { color: #00aced; }
+.ag .social-links a.tb:hover i { color: #32506d; }
+.ag .social-links a.pt:hover i { color: #cb2027; }
+
+
+
+/**
+ * filter links
+ */
+
+.ag .active-filters li {
+  display: inline-block;
+  background: #31def4;
+  padding: 0.4em 0.6em;
+  margin: 0 0.5em 0 0;
+}
+
+.ag .active-filters li span,
+.ag .active-filters li a {
+  color: white;
+  vertical-align: middle;
+}
+
+.ag .active-filters li span {
+  margin-right: 0.2em;
+}
+
+
+
 
 .ag .header {
   height: 30em;
@@ -228,29 +196,8 @@
 
 }
 
-.ag main h2 {
-
-  font-size: 2em;
-  padding: 0 0 1em 0;
-
-}
 
 
-
-/**
- * main list list item
- */
-
-.ag article .ct {
-
-  text-transform: uppercase;
-  float: right;
-
-  padding: 0.1em 0.4em;
-
-  border-radius: 2px;
-
-}
 
 
 
@@ -258,41 +205,22 @@
  * sidebar bit
  */
 
+.ag aside {
 
-
-.ag aside .head {
-
-  padding: 0 0 1em;
+  padding: 0 0 4em;
 
 }
 
-.ag aside .head i {
-
-  color: #888;
-  font-size: 1.2em;
-  padding-right: .5em;
-
-}
-
-.ag aside .head span {
-
-  color: #888;
-  font-size: 1.2em;
-
-}
 
 .ag aside .tags li {
 
-  display: inline-block;
   font-size: 0.8em;
-  margin: 0 0.5em 0.8em 0;
+}
 
-  padding: 0.1em 0.6em;
-  background: #fcfcfc;
-  border: 1px solid #999;
-  border-radius: 4px;
+.ag aside .categories li {
+
   text-transform: uppercase;
-
+  
 }
 
 
@@ -303,6 +231,7 @@
 .ag aside .ccal {
 
   background: white;
+  width: 100%;
 
 }
 
@@ -318,6 +247,105 @@
 
 }
 
+
+
+/**
+ * basic widget
+ */
+
+.ag aside .listWidget li {
+
+  padding: 0.1em 0.6em;
+  margin: 0 0.5em 0.6em 0;
+  display: inline-block;
+
+}
+
+.ag aside .listWidget li a {
+
+  color: #aaa;
+
+}
+
+.ag aside .listWidget li.active a {
+
+  color: #333;
+
+}
+
+.ag aside .listWidget li.selected {
+
+  background: #31def4;
+
+}
+
+.ag aside .listWidget li.selected a {
+
+  color: white;
+  
+}
+
+
+/**
+ * agenda footer
+ */
+
+.ag footer {
+
+  clear: both;
+
+}
+
+
+@media all and (max-width: 940px) {
+
+  .cb .canvas.page {
+
+    margin-top: 0;
+
+  }
+
+  .ag header .actions .button span {
+    display: none;
+  }
+
+}
+
+
+@media all and (max-width: 780px ) {
+
+  .ag .canvas header .head {
+    max-width: none;
+    display: block;
+  }
+
+  .ag .canvas header .head > img {
+    display: block;
+    margin: auto;
+  }
+
+  .ag header .head > .title {
+    display: block;
+    padding: 1em 0;
+    text-align: center;
+  }
+
+  .ag header .head h1,
+  .ag header .head p,
+  .ag header .head a,
+  .ag header .head img {
+    padding: 0 0 6px;
+  }
+
+  .ag .canvas header .social-links {
+    text-align: center;
+  }
+
+  .ag .canvas.right .sidebar {
+    display: none;
+  }
+
+}
 
 
 @media all and (min-width: 780px) {
@@ -346,7 +374,7 @@
 
   }
 
-  .ag nav .head img {
+  .ag header .head img {
 
     padding: 0;
 

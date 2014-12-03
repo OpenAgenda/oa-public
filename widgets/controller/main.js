@@ -2,7 +2,7 @@
  * handle widget registration to page controllers
  */
 
-if ( window.cibulRegisterWidget ) return;
+if ( window.cibul ) return;
 
 var debug = require( 'debug' ),
 
@@ -18,11 +18,13 @@ controllers = {},
 
 getCallbacks = {};
 
+window.cibul = {};
+
 /**
  * called by a widget to register itself to the right controller
  */
 
-window.cibulRegisterWidget = function( options, cb ) {
+window.cibul.registerWidget = function( options, cb ) {
 
   var widgetParams = cn.extend( {
     name: false,      // required. name of the widget
@@ -52,6 +54,32 @@ window.cibulRegisterWidget = function( options, cb ) {
   return controllers[ widgetParams.uid ].register( widgetParams );
 
 };
+
+
+/**
+ * called for getting a handle on controller
+ */
+
+window.cibul.getController = function( uid ) {
+
+  if ( !uid ) {
+
+    throw 'agenda uid is missing';
+
+  }
+
+  if ( !controllers[ uid ] ) {
+
+    log( 'getController: controller not existing > creating.');
+
+    controllers[ uid ] = controller( uid );
+
+  }
+
+  return controllers[ uid ];
+
+}
+
 
 
 /**

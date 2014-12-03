@@ -1,4 +1,4 @@
-  <script type="text/javascript">window.run()</script>
+  <script type="text/javascript">window.run(<%- typeof scriptParams !== 'undefined' ? JSON.stringify( scriptParams ) : '' %>)</script>
 <% if ( typeof bottom !== 'undefined' ) { %>
 <% if ( bottom.scripts ) { %>
 <% bottom.scripts.forEach( function( script ) { %>

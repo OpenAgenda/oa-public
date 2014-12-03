@@ -6,9 +6,9 @@ messageLinks = require('./handleMessageLinks.js'),
 
 loadZopim = require('./zopimLoader.js'),
 
-handleSession = require('./handleSession'),
+handleSession = require( './handleSession' ),
 
-headerProfile = require('./headerProfile'),
+headerProfile = require( './headerProfile' ),
 
 debug = require('debug'),
 
@@ -42,7 +42,7 @@ module.exports = window.run = function( externalEh, options ) {
 
   cn.extend( params, options );
 
-  if ( options.env == 'dev' || window.env == 'dev' ) debug.enable('*');
+  if ( options.env == 'dev' || window.env == 'dev' ) debug.enable( '*' );
 
   mobileMonitor( document, window, navigator, eh );
 
@@ -56,9 +56,7 @@ module.exports = window.run = function( externalEh, options ) {
 
     _languageMenu( options.langHeadMenu );
 
-    handleSession( eh );
-
-    headerProfile( eh, options.profile );
+    headerProfile( options.profile );
 
   } );
 
@@ -82,6 +80,12 @@ window.hook = function( cb ) {
   hooks.push( cb );
 
 };
+
+/**
+ * provide function to retrieve session data
+ */
+
+window.getSession = handleSession();
 
 
 /**
