@@ -57,7 +57,7 @@
 <% if ( month !== _t( timing.start, 'MMMM YYYY' ) ) { month = _t( timing.start, 'MMMM YYYY' ); %>
       <li class="month"><%= _t( timing.start, 'MMMM YYYY' ) %></li>
 <% } %>
-      <li class="date"><%= _t( timing.start, 'dddd Do - HH:mm' ) %></li>
+      <li class="date"><%= _t( timing.start.setHours(timing.start.getHours()-2), 'dddd Do - HH:mm' ) %></li>
 <% }) %>
     </ul>
 
