@@ -131,15 +131,21 @@ function _eventData( req, res ) {
 
 function _layoutData( req, res ) {
 
+  var data = {
+    metas: {
+      title: req.event.getTitle()
+    }
+  };
+
   if ( !req.agenda ) {
 
-    return {
+    return lib.extend( data, {
       loner: true
-    };
+    });
 
   }
 
-  return {
+  return lib.extend( data, {
     loner: false,
     uid: req.agenda.uid,
     slug: req.agenda.slug,
@@ -148,7 +154,7 @@ function _layoutData( req, res ) {
     url: req.agenda.url,
     image: req.agenda.getImage( false ),
     theme: req.agenda.getTheme()
-  };
+  });
 
 }
 

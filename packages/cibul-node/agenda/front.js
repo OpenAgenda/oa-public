@@ -147,6 +147,9 @@ function _layoutData( req, res ) {
     scriptParams: {
       perPage: perPage,
       uid: req.agenda.uid
+    },
+    metas: {
+      title: req.agenda.title
     }
   };
 
