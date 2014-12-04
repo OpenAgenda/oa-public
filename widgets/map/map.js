@@ -48,7 +48,9 @@ var widget = function( elem, options ) {
 
   selectedLocation,
 
-  activeLocations,
+  activeLocations = [],
+
+  passedLocations = [],
 
   onBoundsChangeCallback,
 
@@ -212,6 +214,8 @@ var widget = function( elem, options ) {
 
     activeLocations = [];
 
+    passedLocations = [];
+
     if ( popup ) m.removePopup( popup );
 
     for ( var l in locations ) {
@@ -227,9 +231,17 @@ var widget = function( elem, options ) {
 
     for ( var l in eventItem.l ) {
 
-      if ( !cn.contains( activeLocations, l)) {
+      if ( cn.contains( activeLocations, l ) ) {
 
-        activeLocations.push( l );
+        return;
+
+      }
+
+      activeLocations.push( l );
+
+      if ( eventItem.passed ) {
+
+        passedLocations.push( l );
 
       }
 
@@ -243,6 +255,8 @@ var widget = function( elem, options ) {
   _setOnMarkerClick = function( location ) {
 
     m.setOnMarkerClick( location.marker, function() {
+
+      var updatedReqParams = {};
 
       log( 'clicked marker of location "%s"', location.placename );
 
@@ -265,7 +279,15 @@ var widget = function( elem, options ) {
 
       _deactivateSync();
 
-      _update({ location: location.slug, neLat: null, neLng: null, swLat: null, swLng: null });
+      updatedReqParams = { location: location.slug, neLat: null, neLng: null, swLat: null, swLng: null };
+
+      if ( cn.contains( passedLocations, location.slug ) ) {
+
+        updatedReqParams.passed = '1';
+
+      }
+
+      _update( updatedReqParams );
 
     });
   },

@@ -33,6 +33,8 @@ var widget = function( elem, options ) {
 
   activeTags = [],  // tags which are within current event selection
 
+  passedTagSlugs = [],
+
   init = function() {
 
     var uid = options.anchorConfig[ UID ];
@@ -106,6 +108,7 @@ var widget = function( elem, options ) {
     log( 'clearing, awaiting enable or disable to render' );
 
     activeTags = [];
+    passedTagSlugs = [];
     selectedTag = false;
     requestTags = false;
 
@@ -122,9 +125,21 @@ var widget = function( elem, options ) {
 
       cn.forEach( eventItem.t, function( eventTag ) {
 
-        if ( cn.contains( tagSlugs, eventTag ) && !cn.contains( activeTags, eventTag ) ) {
+        if ( !cn.contains( tagSlugs, eventTag ) ) {
+
+          return;
+
+        }
+
+        if ( !cn.contains( activeTags, eventTag ) ) {
 
           activeTags.push( eventTag );
+
+        }
+
+        if ( eventItem.passed && !cn.contains( passedTagSlugs, eventTag ) ) {
+
+          passedTagSlugs.push( eventTag );
 
         }
 
@@ -172,7 +187,27 @@ var widget = function( elem, options ) {
 
   _update = function() {
 
-    controller.update( 'tags', { tags : requestTags.length ? requestTags : null } );
+    var updatedRequestParams = { tags : requestTags.length ? requestTags : null },
+
+    passed = false;
+
+    cn.forEach( requestTags, function( reqTag ) {
+
+      if ( cn.contains( passedTagSlugs, reqTag ) ) {
+
+        passed = true;
+
+      }
+
+    });
+
+    if ( passed ) {
+
+      updatedRequestParams.passed = '1';
+
+    }
+
+    controller.update( 'tags', updatedRequestParams );
 
   },
 
@@ -217,7 +252,7 @@ var widget = function( elem, options ) {
 
     log( 'widget initialized with %s tags', tags.length );
 
-  },
+  }
 
   _render = function() {
 

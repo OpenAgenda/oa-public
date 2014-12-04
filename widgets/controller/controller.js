@@ -21,7 +21,7 @@ defaults = {
   },
   tpl: {
     agenda : '/server/testdata/controldata-pepite.json',
-    embed : '//d.cibul.net/frontend_dev.php/embed/{uid}/controldata',
+    embed : '/server/testdata/embedcontroldata-pepite.json',
     search : '//d.cibul.net/widgets/{uid}/search'
   }
 },
@@ -315,19 +315,33 @@ module.exports = function( uid ) {
 
     var res = ( embedMode ? params.embed : params.agenda ).replace( '{uid}', uid );
     
-    remote.get( res, { timeout: 10000 }, function( success, data ) {
+    remote.get( res, { timeout: 20000 }, function( responseType, data ) {
 
-      if ( !success ) {
+      if ( responseType !== 'success' ) {
 
-        log( 'attempt at fetching control data failed: %s', success );
+        log( 'attempt at fetching control data failed: %s', responseType );
+
+        return cb( responseType );
 
       }
 
       cb( null, data.data );
 
-    }, embedMode ? false : true );
+    }, _isAjax() );
 
   },
+
+  _isAjax = function() {
+
+    if ( embedMode && ( window.env !== 'tpl' ) ) {
+
+      return false;
+
+    }
+
+    return true;
+
+  }
 
 
   /**
@@ -362,6 +376,8 @@ module.exports = function( uid ) {
 
         includedCount++;
 
+        ctl.a[i].passed = _isPassed( ctl.a[i] );
+
         _include( ctl.a[i] );
 
       }
@@ -393,7 +409,6 @@ module.exports = function( uid ) {
     }
 
   },
-
   
   _applyFilters = function( item, reqParams ) {
 
@@ -444,6 +459,38 @@ module.exports = function( uid ) {
     }
 
     return false;
+
+  },
+
+  _isPassed = function( eItem ) {
+
+    var today = new Date(), l, d,
+
+    today = today.getFullYear() + '-' + _fZ( today.getMonth() + 1 ) + '-' + _fZ( today.getDate() );
+
+    for ( l in eItem.l ) {
+
+      for( d in eItem.l[ l ].d ) {
+
+        if ( eItem.l[ l ].d[ d ] >= today ) return false;
+
+      }
+
+    }
+
+    return true;
+
+  },
+
+  _fZ = function( str ) {
+
+    if ( ( str + '' ).length == 1 ) {
+
+      return '0' + str;
+
+    }
+
+    return str;
 
   };
 

@@ -22,15 +22,15 @@
 
     <aside>
       <span class="social-links">
-        <%- _sl.fb( { title: event.title, url: genUrl( loner ? 'eventShow' : 'agendaEventShow', { eventSlug: event.slug }, true ) } ) %>
-        <%- _sl.tw( { title: event.title, url:  genUrl( loner ? 'eventShow' : 'agendaEventShow', { eventSlug: event.slug }, true ) } ) %>
-        <%- _sl.gp( { title: event.title, url:  genUrl( loner ? 'eventShow' : 'agendaEventShow', { eventSlug: event.slug }, true ) } ) %>
+        <%- _sl.fb( { title: event.title, url: genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) } ) %>
+        <%- _sl.tw( { title: event.title, url:  genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) } ) %>
+        <%- _sl.gp( { title: event.title, url:  genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) } ) %>
       </span>
     </aside>
 
     <aside>
       <ul>
-        <li><a class="hurl" href="<%= genUrl('eventEdit', { eventSlug: event.slug }) %>"><%= __('edit') %></a></li>
+        <li><a class="hurl" href="<%= genUrl( loner ? 'eventEdit' : 'agendaEventEdit', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ] ) %>"><%= __('edit') %></a></li>
         <li><a class="hurl" href="<%= genUrl('eventRemove', { eventSlug: event.slug }) %>"><%= __('remove') %></a></li>
       </ul>
     </aside>

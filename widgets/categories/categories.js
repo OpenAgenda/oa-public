@@ -27,7 +27,7 @@ var widget = function( elem, options ) {
 
   selectedCategory = false,
 
-  categories = [], categorySlugs = [],
+  categories = [], passedCategorySlugs = [],
 
   activeCategories = [],  // categories which are within current event selection
   
@@ -92,15 +92,25 @@ var widget = function( elem, options ) {
 
     activeCategories = [];
 
+    passedCategorySlugs = [];
+
     selectedCategory = null;
 
   },
 
   include = function( eventItem ) {
 
-    if ( eventItem.c && !cn.contains( activeCategories, eventItem.c ) ) {
+    if ( !eventItem.c ) return;
+
+    if ( !cn.contains( activeCategories, eventItem.c ) ) {
 
       activeCategories.push( eventItem.c );
+
+    }
+
+    if ( eventItem.passed ) {
+
+      passedCategorySlugs.push( eventItem.c );
 
     }
 
@@ -153,7 +163,15 @@ var widget = function( elem, options ) {
 
   _update = function() {
 
-    controller.update( 'categories', { category : selectedCategory } );
+    var updatedRequestParams = { category : selectedCategory };
+
+    if ( cn.contains( passedCategorySlugs, selectedCategory ) ) {
+
+      updatedRequestParams.passed = '1';
+
+    }
+
+    controller.update( 'categories', updatedRequestParams );
 
   },
 
