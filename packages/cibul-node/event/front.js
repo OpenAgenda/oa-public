@@ -121,7 +121,7 @@ function _eventData( req, res ) {
       address: req.event.locations ? req.event.locations[0].address : false,
       latitude: req.event.locations ? req.event.locations[0].latitude : false,
       longitude: req.event.locations ? req.event.locations[0].longitude : false,
-      timings: req.event.locations ? req.event.locations[0].timings : []
+      timings: req.event.locations ? req.event.locations[0].timings : [],
     }
   }
 

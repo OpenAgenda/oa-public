@@ -84,6 +84,10 @@ config = {
           method: 'get',
           uri: '/:slug/addevent'
         },
+        'agendaEventEdit' : {
+          method: 'get',
+          uri: '/:slug/event/:eventSlug/edit'
+        },
         'agendaEventShow' : {
           method: 'get',
           uri: '/:slug/event/:eSlug'
