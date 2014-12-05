@@ -4,6 +4,7 @@
   "description" : "l'agenda des évènements repérés par ChezNous",
   "image" : "review_cheznous_598_00.jpg",
   "uid" : 48959239,
+  "slug" : "chez-nous",
   "url" : "http://cheznous.coop",
 
   "event" : {
