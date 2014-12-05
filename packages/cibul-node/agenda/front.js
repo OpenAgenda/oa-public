@@ -136,7 +136,9 @@ function show( req, res ) {
 
 function _layoutData( req, res ) {
 
-  return {
+  var url = req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { abs: true } );
+
+  var data = {
     uid: req.agenda.uid,
     slug: req.agenda.slug,
     title: req.agenda.title,
@@ -149,9 +151,28 @@ function _layoutData( req, res ) {
       uid: req.agenda.uid
     },
     metas: {
-      title: req.agenda.title
+      title: req.agenda.title,
+      ogSiteName: { property: 'og:site_name', content: 'Cibul' },
+      ogTitle: { property: 'og:title', content: req.agenda.title },
+      ogType: { property: 'og:type', content: 'activity' },
+      ogLanguage: { property: 'og:language', content: req.lang },
+      ogUrl: { property: 'og:url', content: url },
+      "twitter:card" : "summary",
+      "twitter:site" : config.twitter.name,
+      "twitter:title" : req.agenda.getTitle(),
+      "twitter:description" : req.agenda.description,
+      "twitter:domain" : config.domain,
+      "twitter:url" : url
     }
   };
+
+  if ( req.agenda.image ) {
+
+    data.metas["twitter:image"] = req.agenda.getImage();
+
+  }
+
+  return data;
 
 }
 

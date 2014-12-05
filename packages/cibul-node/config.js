@@ -11,6 +11,7 @@ config = {
     logPathDebug : '/var/tmp/cibul-node-debug.log',
     logPathError : '/var/tmp/cibul-node-errors.log',
     name: 'cibul-node',
+    domain: 'cibul.net',
     root: 'https://cibul.net',
     db: {
       database: 'cibul',
@@ -53,6 +54,9 @@ config = {
     newsletter: {
       featuredLimit: 10,  // maximum number of featured events displayable in the same newsletter campaign
       selectionLimit: 30  // maximum number of events displayable in the selection of a newsletter campaign
+    },
+    twitter: {
+      name: '@cibul'
     },
     routes: {
       globals: {

@@ -133,28 +133,57 @@ function _layoutData( req, res ) {
 
   var data = {
     metas: {
-      title: req.event.getTitle()
+      title: req.event.getTitle(),
+      ogSiteName: { property: 'og:site_name', content: 'Cibul' },
+      ogTitle: { property: 'og:title', content: req.event.getTitle() },
+      ogDescription: { property: 'og:description', content: req.event.getDescription() },
+      ogLocale: { property: 'og:locale', content: req.lang },
+      "twitter:card" : "summary_large_image",
+      "twitter:title" : req.event.getTitle(),
+      "twitter:description" : req.event.getDescription(),
+      "twitter:domain" : config.domain
     }
   };
 
-  if ( !req.agenda ) {
+  if ( req.event.image ) {
 
-    return lib.extend( data, {
-      loner: true
+    lib.extend( data.metas, {
+      ogImage: { property: 'og:image', content: req.event.getFullImage( true ) },
+      "twitter:image:src" : req.event.getFullImage( true )
     });
 
   }
 
-  return lib.extend( data, {
-    loner: false,
-    uid: req.agenda.uid,
-    slug: req.agenda.slug,
-    title: req.agenda.title,
-    description: req.agenda.description,
-    url: req.agenda.url,
-    image: req.agenda.getImage( false ),
-    theme: req.agenda.getTheme()
-  });
+  if ( !req.agenda ) {
+
+    data.loner = true;
+
+    data.metas.ogUrl = {
+      property: 'og:url',
+      content: req.genUrl( 'eventShow', { eventSlug: req.event.slug }, { abs: true } )
+    };
+
+    return data;
+
+  } else {
+
+    data.metas.ogUrl = {
+      property: 'og:url',
+      content: req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug }, { abs: true } )
+    };
+
+    return lib.extend( data, {
+      loner: false,
+      uid: req.agenda.uid,
+      slug: req.agenda.slug,
+      title: req.agenda.title,
+      description: req.agenda.description,
+      url: req.agenda.url,
+      image: req.agenda.getImage( false ),
+      theme: req.agenda.getTheme()
+    });
+
+  }
 
 }
 
