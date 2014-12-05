@@ -17,8 +17,10 @@
 <% } %>
 
     <aside>
-      <a class="add button" href="<%= genUrl( 'eventShare', { eventSlug: event.slug }) %>"><%= __( 'add to agenda' ) %></a>
+      <a class="add button js_message_link" href="<%= genUrl( 'eventShare', { eventSlug: event.slug }) %>"><%= __( 'add to agenda' ) %></a>
     </aside>
+
+    <a class="hurl js_message_link" href="<%= genUrl('eventEmbedEdit', { uid: event.uid }) %>"><%= __('embed') %></a>
 
     <aside>
       <span class="social-links">

@@ -16,7 +16,12 @@ defaults = {
 },
 
 params = {
-  lightboxClasses: {frame: 'wsq lightbox-frame', canvas: 'lightbox-canvas', buttonBox: 'lightbox-buttons'},
+  lightboxClasses: {
+    frame: 'wsq lightbox-frame',
+    canvas: 'lightbox-canvas', 
+    buttonBox: 'lightbox-buttons', 
+    body: 'noscroll' 
+  },
   debug: false
 };
 

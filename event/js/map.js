@@ -10,7 +10,8 @@ params = {
     coord: 'data-coord'
   },
   tiles: 'http://{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png',
-  icon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png'
+  icon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png',
+  scrollWheelZoom: false
 };
 
 module.exports = function( options ) {
@@ -27,6 +28,7 @@ module.exports = function( options ) {
 
     maps.createMap( canvas, {
       center: coords, 
+      scrollwheel: params.scrollWheelZoom,
       onReady: function( map ) {
 
         maps.createMarker( map, {

@@ -1,3 +1,5 @@
+"use strict";
+
 exports.setOnReady = setOnReady;
 
 var UID = 0, LANG = 1,

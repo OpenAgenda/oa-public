@@ -1,3 +1,5 @@
+"use strict";
+
 exports.setOnReady = setOnReady;
 
 var UID = 0, SUBSET = 1,
@@ -13,7 +15,6 @@ dom = require( './dom.js' ),
 onReady;
 
 if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
-
 
 var widget = function( elem, options ) {
 
@@ -252,7 +253,7 @@ var widget = function( elem, options ) {
 
     log( 'widget initialized with %s tags', tags.length );
 
-  }
+  },
 
   _render = function() {
 

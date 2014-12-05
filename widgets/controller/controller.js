@@ -21,7 +21,7 @@ defaults = {
   },
   tpl: {
     agenda : '/server/testdata/controldata-pepite.json',
-    embed : '/server/testdata/embedcontroldata-pepite.json',
+    embed : '/server/testdata/embedcontroldata-lagargouille.json',
     search : '//d.cibul.net/widgets/{uid}/search'
   }
 },

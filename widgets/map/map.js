@@ -62,11 +62,15 @@ var widget = function( elem, options ) {
 
   popup,
 
+  embedMode,
+
   init = function() {
 
     var uid = options.anchorConfig[ UID ];
 
     log = debug( 'map widget ' + uid );
+
+    embedMode = uid.split( '/' ).length == 2;
 
     log( 'initing' );
 
@@ -334,6 +338,14 @@ var widget = function( elem, options ) {
 
 
   _initTiles = function( data ) {
+
+    if ( !embedMode ) {
+
+      config.tiles = 'http://{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png';
+
+      return;
+
+    }
 
     if ( !data.ebd || !data.ebd.mt ) {
 
