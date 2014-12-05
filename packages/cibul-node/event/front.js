@@ -148,8 +148,8 @@ function _layoutData( req, res ) {
   if ( req.event.image ) {
 
     lib.extend( data.metas, {
-      ogImage: { property: 'og:image', content: req.event.getFullImage( true ) },
-      "twitter:image:src" : req.event.getFullImage( true )
+      ogImage: { property: 'og:image', content: req.event.getImage( true ) },
+      "twitter:image:src" : req.event.getImage( true )
     });
 
   }

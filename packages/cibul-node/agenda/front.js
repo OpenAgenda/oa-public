@@ -168,7 +168,10 @@ function _layoutData( req, res ) {
 
   if ( req.agenda.image ) {
 
-    data.metas["twitter:image"] = req.agenda.getImage();
+    lib.extend( data.metas, {
+      ogImage: { property: 'og:image', content: req.agenda.getImage( true ) },
+      "twitter:image:src" : req.agenda.getImage( true )
+    });
 
   }
 
