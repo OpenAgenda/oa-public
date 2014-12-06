@@ -12,7 +12,7 @@
 	"Number of reviews created %totalReviews%"
 	: "Nombre d'agenda(s) crée(s) %totalReviews%",
 	"Number of events created %totalEvents%"
-	: "Nombre d'evenement(s) crée(s) %totalEvents%",
+	: "Nombre d'évéement(s) crée(s) %totalEvents%",
 	"Number of users created %totalUsers%"
 	: "Nombre d'utilisateur(s) crée(s) %totalUsers%",
 	"%reviewsWeek% reviews"
@@ -26,5 +26,7 @@
 	"%usersWeek% users"
 	: "%usersWeek% utilisateurs",
 	"%usersMonth% users"
-	: "%usersMonth% utilisateurs"
+	: "%usersMonth% utilisateurs",
+	"Published events by week"
+	: "Evénements publiés par semaine"
 }

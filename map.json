@@ -4,6 +4,7 @@
   "auth/emailForm",
   "auth/activation",
   "home/index",
+  "admin/index",
   "home/categories",
   "presentation/index",
   "agenda/show",

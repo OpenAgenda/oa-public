@@ -1,11 +1,18 @@
 {
   "layout": "layout/main",
-
+  "css" : {
+    "siteAdmin" : "css/admin.css",
+    "structure" : "../structure/css/structure.css",
+    "forms" : "../css/forms.css",
+    "buttons" : "../css/buttons.css",
+    "calendar" : "../css/calendar.css"
+  },
   "helpers" : {
     "_t" : "time",
     "_i" : "image"
   },
   "base" : {
-        "tab" : "admin"
-  }	
+    "pageClass" : "cb"
+  },
+  "templateJs" : true
 }

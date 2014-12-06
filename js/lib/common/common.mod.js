@@ -20,6 +20,7 @@ exports.extend = function(){
   return arguments[0];
 };
 
+
 /*contains*/
 exports.contains = function(a, obj) {
   var i = a.length;

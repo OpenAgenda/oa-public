@@ -1,30 +1,57 @@
-<div class="admin">
-	<div class="reviews">
- 		<h2><%= __('Reviews') %></h2>
- 		<p> <%= __('Number of reviews created %totalReviews%', {'%totalReviews%': reviews.total}) %> </p>
- 		<% if ( reviews.totalInWeek ) {%><p><%= __('This week') %> <%= __( '%reviewsWeek% reviews' , {'%reviewsWeek%': reviews.totalInWeek} )  %></p>
-		<% } %>
-		<% if ( reviews.totalInMonth ) {%><p><%= __('This month')%> <%= __( '%reviewsMonth% reviews' , {'%reviewsMonth%': reviews.totalInMonth} ) %></p> <% } %>
- 	</div>
- 	<div class="events">
- 		<h2><%= __('Events') %></h2>
- 		<p> <%= __('Number of events created %totalEvents%', {'%totalEvents%': events.total} ) %>  </p>
- 		<% if ( events.totalInWeek ) {%><p><%= __('This week') %> <%= __( '%eventsWeek% events' , {'%eventsWeek%': events.totalInWeek} )  %></p>
-		<% } %>
-		<% if ( events.totalInMonth ) {%><p><%= __('This month')%> <%= __( '%eventsMonth% events' , {'%eventsMonth%': events.totalInMonth} ) %></p> <% } %>
- 	</div>
- 	<div class="users">
- 		<h2><%= __('Users') %></h2>
- 		<p><%= __('Number of users created %totalUsers%', {'%totalUsers%': users.total}) %> </p>
- 		<% if ( users.totalInWeek ) {%><p><%= __('This week') %> <%= __( '%usersWeek% users' , {'%usersWeek%': users.totalInWeek} )  %></p>
-		<% } %>
-		<% if ( users.totalInMonth ) {%><p><%= __('This month')%> <%= __( '%usersMonth% users' , {'%usersMonth%': users.totalInMonth} ) %></p> <% } %>
- 	</div>
+<div class="canvas page sadmin">
+  
+  <article>
 
-	<form method="get" action="<%= genUrl( 'adminSearch' ) %>" >
+    <h2><%= __('Totals') %></h2>
 
-	<input type="text" name="begin" placeholder="Début"/>
-	<input type="text" name="end" placeholder="Fin"/>
-	<button type="submit"><%= __( 'Search' ) %> </button>
-	</form>
+	  <section class="w33">
+	 		<h3><%= __('Reviews') %></h3>
+	 		<p> <%= __('Number of reviews created %totalReviews%', {'%totalReviews%': reviews.total}) %> </p>
+	 		<% if ( reviews.totalInWeek ) {%><p><%= __('This week') %> <%= __( '%reviewsWeek% reviews' , {'%reviewsWeek%': reviews.totalInWeek} )  %></p>
+			<% } %>
+			<% if ( reviews.totalInMonth ) {%><p><%= __('This month')%> <%= __( '%reviewsMonth% reviews' , {'%reviewsMonth%': reviews.totalInMonth} ) %></p> <% } %>
+	 	</section>
+	 	
+	 	<section class="w33">
+	 		<h3><%= __('Events') %></h3>
+	 		<p> <%= __('Number of events created %totalEvents%', {'%totalEvents%': events.total} ) %>  </p>
+	 		<% if ( events.totalInWeek ) {%><p><%= __('This week') %> <%= __( '%eventsWeek% events' , {'%eventsWeek%': events.totalInWeek} )  %></p>
+			<% } %>
+			<% if ( events.totalInMonth ) {%><p><%= __('This month')%> <%= __( '%eventsMonth% events' , {'%eventsMonth%': events.totalInMonth} ) %></p> <% } %>
+	 	</section>
+
+	 	<section class="w33">
+	 		<h3><%= __('Users') %></h3>
+	 		<p><%= __('Number of users created %totalUsers%', {'%totalUsers%': users.total}) %> </p>
+	 		<% if ( users.totalInWeek ) {%><p><%= __('This week') %> <%= __( '%usersWeek% users' , {'%usersWeek%': users.totalInWeek} )  %></p>
+			<% } %>
+			<% if ( users.totalInMonth ) {%><p><%= __('This month')%> <%= __( '%usersMonth% users' , {'%usersMonth%': users.totalInMonth} ) %></p> <% } %>
+	 	</section>
+
+	 	<form class="cform js_totals_search" method="get" action="<%= genUrl( 'adminSearch' ) %>" >
+		  <ul class="line">
+		  	<li>
+					<input type="text" name="begin" class="js_begin" placeholder="Début"/>
+				</li>
+				<li>
+					<input type="text" name="end" class="js_end" placeholder="Fin"/>
+				</li>
+				<li>
+					<button type="submit"><%= __( 'Search' ) %> </button>
+				</li>
+			</ul>
+		</form>
+
+	 </article>
+
+	 <article class="js_events_by_week">
+	   <h2><%= __('Published events by week') %></h2>
+
+	   <div class="graph">
+	     <ul>
+	     </ul>
+	   </div>
+
+	 </article>
+
  </div>

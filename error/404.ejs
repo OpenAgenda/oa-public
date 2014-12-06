@@ -2,7 +2,7 @@
   <div class="canvas center">
     <div class="errorLabel">404</div>
     <div>
-      <p><%= __(message ? message : 'I cannot haz found') %>.</p>
+      <p><%= __( message ? message : 'I cannot haz found') %>.</p>
 <% if ( link ) { %>
       <a class="url" href="<%= genUrl( link.uri, link.values ) %>"><%= __( link.label ) %></a>
 <% } %>

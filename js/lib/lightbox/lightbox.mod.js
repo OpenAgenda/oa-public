@@ -18,7 +18,14 @@ module.exports = function(options) {
     onOpen: false
   }, options?options:{});
 
-  var defaultButtons = { ok: { label: 'Ok' } };
+  var defaultButtons = { ok: { label: 'Ok' } },
+
+  exposed = {
+    hide: function() {
+      _hide( options.classes )
+    },
+    reposition: _repositionFrame
+  };
 
   if ( typeof options.buttons !== 'undefined' ) {
 
@@ -51,7 +58,7 @@ module.exports = function(options) {
 
   _display( options.classes );
 
-  if ( options.onOpen ) options.onOpen( frameElem );
+  if ( options.onOpen ) options.onOpen( frameElem, exposed );
 
   onClose = options.onClose ? options.onClose : false;
 
@@ -59,11 +66,7 @@ module.exports = function(options) {
 
   onHide = options.onHide ? options.onHide : false;
 
-  return {
-    hide: function() {
-      _hide( options.classes )
-    }
-  };
+  return exposed;
 
 };
 
