@@ -168,6 +168,10 @@ config = {
           method: 'get',
           uri: '/event/:eventSlug/edit'
         },
+        'eventEmbedEdit' : {
+          method: 'get',
+          uri: '/embed/event/:uid/edit'
+        },
         'eventRemove' : {
           method: 'get',
           uri: '/remove/event/:eventSlug'
