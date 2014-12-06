@@ -174,27 +174,43 @@ function getCibulModel() {
  * middleware for loading an agenda and shoving it in the request using app.param
  */
 
-function loadAgenda( req, res, next, slug ) {
+function loadAgenda( paramName ) {
 
-  wn.call( model.agendas().get, { slug: slug })
+  return function( req, res, next ) {
 
-  .then( function( data ) {
+    var slug;
 
-    if ( data === null ) throw { message : 'Whoops. Could not retrieve the agenda.' };
+    if ( !req.params[ paramName ] ) {
 
-    req.agenda = model.agendas().instance( data );
+      return next();
 
-    req.log.load({ agenda: req.agenda.slug });
+    } else {
 
-    next();
+      slug = req.params[ paramName ];
 
-  })
+    }
 
-  .catch( function( err ) {
+    wn.call( model.agendas().get, { slug: slug })
 
-    errorResponse( req, res, err );
+    .then( function( data ) {
 
-  } );
+      if ( data === null ) throw { message : 'Whoops. Could not retrieve the agenda.' };
+
+      req.agenda = model.agendas().instance( data );
+
+      req.log.load({ agenda: req.agenda.slug });
+
+      next();
+
+    })
+
+    .catch( function( err ) {
+
+      errorResponse( req, res, err );
+
+    } );
+
+  }
 
 }
 
@@ -261,7 +277,7 @@ function checkAdministrator( req, res, next ) {
 
 function errorResponse( req, res, error ) {
 
-  console.log( 'HEEERE' );
+  req.log.load( { errorStack: error.stack } );
 
   req.log( 'error', 'received error: %s', error.toString() );
 

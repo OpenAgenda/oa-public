@@ -70,10 +70,9 @@ function load( main ) {
 
   app.set( 'perPage', 20 );
 
-  app.param( 'slug', cmn.loadAgenda );
-
   cmn.loadRoutes( app, routes, [
     cmn.urlGenSetter( appName, path ),
+    cmn.loadAgenda( 'slug' ),
     cmn.flashSetter,
     cmn.loadSession,
     cmn.loadBaseData( _layoutData ),

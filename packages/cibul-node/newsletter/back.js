@@ -86,11 +86,9 @@ function load( main ) {
 
   app.use( require( 'body-parser' ).urlencoded( { extended: true } ) );
 
-  // load agenda matching route :slug in req.agenda
-  app.param( 'slug', cmn.loadAgenda );
-
   cmn.loadRoutes( app, routes, [
     cmn.urlGenSetter( appName, path ),
+    cmn.loadAgenda( 'slug' ),
     cmn.flashSetter,
     cmn.loadSession,
     cmn.loadBaseData( _layoutData ),

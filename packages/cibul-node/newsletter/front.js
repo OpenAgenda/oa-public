@@ -67,10 +67,9 @@ function load( main ) {
 
   app = cmn.loadApp( main, path, appName );
 
-  app.param( 'slug', cmn.loadAgenda );
-
   cmn.loadRoutes( app, routes, [
     cmn.urlGenSetter( appName, path ),
+    cmn.loadAgenda( 'slug' ),
     cmn.loadBaseData()
   ] );
 
