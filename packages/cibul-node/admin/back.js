@@ -6,7 +6,8 @@ exposed = {
 
 routes = {
   adminIndex: [ 'get', index, '' ],
-  adminSearch: [ 'get', search, '/search' ]
+  adminSearch: [ 'get', search, '/search' ],
+  eventsByWeek: [ 'get', eventsByWeek, '/eventsbyweek' ]
 },
 
 async = require( 'async' ),
@@ -16,6 +17,8 @@ log = require( '../lib/logger' )( appName ),
 lib = require( '../lib/lib' ), 
 
 cmn = require( '../lib/commons-app' ),
+
+config = require( '../config' ),
 
 moment = require( 'moment' ),
 
@@ -27,7 +30,9 @@ app,
 
 path,
 
-model = cmn.getCibulModel();
+model = cmn.getCibulModel(),
+
+aEs = require( './es' )( config.es )
 
 
 module.exports = function init( p ) {
@@ -46,7 +51,7 @@ function load( main ) {
 
   if ( app ) {
 
-    log( 'this app has already been loaded');
+    log( 'this app has already been loaded' );
 
     return;
 
@@ -57,9 +62,11 @@ function load( main ) {
   app = cmn.loadApp( main, path, appName );
 
   log( 'app loaded' );
+
   cmn.loadRoutes( app, routes, [
     cmn.urlGenSetter( appName, path ),
     cmn.flashSetter,
+    cmn.loadBaseData(),
     cmn.loadSession,
     cmn.requireLogged,
     cmn.requireAdmin
@@ -126,7 +133,7 @@ function search( req, res ) {
 
   var start = moment( req.query.begin, 'DD-MM-YYYY' ).toDate(),
 
-  end = moment( req.query.end, 'DD-MM-YYYY' ).toDate();
+  end = moment( req.query.end, 'DD-MM-YYYY' ).endOf('day').toDate();
 
   wn.call( _getFork, start, end )
 
@@ -146,9 +153,9 @@ function search( req, res ) {
       },
 
       reviews: {
-      total: r,
-      totalInWeek: null,
-      totalInMonth: null
+        total: r,
+        totalInWeek: null,
+        totalInMonth: null
       },
 
       users: {
@@ -169,15 +176,66 @@ function search( req, res ) {
 
 }
 
+
+function eventsByWeek( req, res ) {
+
+  // tap in es to fetch the data
+
+  aEs.query( 'event', {
+    query: {
+      bool: {
+        should: [ {
+          term: {
+            original_es: true
+          }
+        }, {
+          range: {
+            updatedAt: {
+              gte: "2014-01-01T00:00:00.000Z"
+            }
+          }
+        }],
+        minimum_should_match: 2
+      }
+    },
+    aggs: {
+      histogram: {
+        date_histogram: {
+          field: 'updatedAt',
+          interval: 'week'
+        }
+      }
+    }
+  }, function( err, data ) {
+ 
+    var result = data.aggregations.histogram.buckets.map( function( d ) {
+
+      return {
+        l: moment( d.key_as_string ).format( 'DD MMM' ),
+        v: d.doc_count
+      }
+
+    });
+
+    cmn.renderJson( req, res, {
+      success: true,
+      data: result
+    });
+
+  });
+
+}
+
+
 function _getFork( begin, end, cb ) {
 
   async.series( [
 
-    async.apply( model.reviews().total, { createdAt: { gt: begin, lt: end } } ),
+    async.apply( model.reviews().total, { createdAt: { gte: begin, lte: end } } ),
 
-    async.apply( model.events().total, { createdAt: { gt: begin, lt: end } } ),
+    async.apply( model.events().total, { createdAt: { gte: begin, lte: end } } ),
 
-    async.apply( model.users().total, { createdAt: { gt: begin, lt: end } } )
+    async.apply( model.users().total, { createdAt: { gte: begin, lte: end } } )
 
     ], cb );
 

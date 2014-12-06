@@ -25,6 +25,9 @@ supervisor( function( loadTasks ) {
   config = require( './config' ),
 
   webModules = {
+    admin: [ // for admins only
+      require( './admin/back' )( '/admin' )
+    ],
     web: [ // open to the public
       require( './newsletter/back' )( '/:slug/admin/newsletters' ),
       require( './newsletter/front' )( '/:slug/newsletters' ),
@@ -32,9 +35,6 @@ supervisor( function( loadTasks ) {
       require( './search/front' )( '' ),
       require( './agenda/front' )( '/:slug' ),
       require( './event/front' )( '' )
-    ],
-    admin: [ // for admins only
-      require( './admin/back' )( '/admin' )
     ]
   },
 
@@ -44,10 +44,11 @@ supervisor( function( loadTasks ) {
 
   app.use( require( 'cookie-parser' )() );
 
-  // run 'web' type modules
-  if ( enabledTypes.indexOf( 'web' ) !== -1 ) {
+  // run 'admin' type modules
+  
+  if ( enabledTypes.indexOf( 'admin' ) !== -1 ) {
 
-    webModules.web.forEach( function( m ) {
+    webModules.admin.forEach( function( m ) {
 
       m.load( app );
 
@@ -55,12 +56,10 @@ supervisor( function( loadTasks ) {
 
   }
 
+  // run 'web' type modules
+  if ( enabledTypes.indexOf( 'web' ) !== -1 ) {
 
-  // run 'admin' type modules
-  
-  if ( enabledTypes.indexOf( 'admin' ) !== -1 ) {
-
-    webModules.admin.forEach( function( m ) {
+    webModules.web.forEach( function( m ) {
 
       m.load( app );
 

@@ -261,6 +261,8 @@ function checkAdministrator( req, res, next ) {
 
 function errorResponse( req, res, error ) {
 
+  console.log( 'HEEERE' );
+
   req.log( 'error', 'received error: %s', error.toString() );
 
   error = typeof error == 'string' ? { message: error } : error;
