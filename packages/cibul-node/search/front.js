@@ -28,6 +28,11 @@ routes = {
     mw.search.buildEsQuery( perPage )
   ] ],
 
+  widgetEmbedSearchEvents: [ 'get', widgetSearchEvents, '/widgets/:uid/:embedUid/search', [
+    mw.search.cleanSearch,
+    mw.search.buildEsQuery( perPage )
+  ] ],
+
   searchAgendas: [ 'get', searchAgendas, '/agendas/search', [
     mw.search.cleanSearch,
     mw.search.buildEsQuery( perPage )
