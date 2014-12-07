@@ -658,7 +658,8 @@ function _loadLogger( name ) {
     req.log = require( './logger' )( 'req' );
 
     req.log.load( {
-      module: name
+      module: name,
+      url: req.originalUrl
     } );
 
     next();
