@@ -48,6 +48,12 @@ var widget = function( elem, options ) {
 
     var uid = options.anchorConfig[ UID ];
 
+    if ( wLib.flagged( elem ) ) {
+
+      return;
+
+    }
+
     if ( options.anchorConfig[ LANG ] ) {
 
       lang = options.anchorConfig[ LANG ];

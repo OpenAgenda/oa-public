@@ -77,7 +77,7 @@ log = debug('templater'),
 
 helpers = {},
 
-_renderTemplate = function(filename, templateBody, data) {
+_renderTemplate = function( filename, templateBody, data ) {
 
   data.filename = filename;
 

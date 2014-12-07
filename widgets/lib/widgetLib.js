@@ -43,6 +43,20 @@ exports.interface = function( name, uid, cbs ) {
 
 }
 
+exports.flagged = function( elem ) {
+
+  if ( elem.hasAttribute( 'data-flag' ) ) {
+
+    return true;
+
+  }
+
+  elem.setAttribute( 'data-flag', '1' );
+
+  return false;
+
+}
+
 var isNotDefined = function( type, name ) {
 
   return function() {}
