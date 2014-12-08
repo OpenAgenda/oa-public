@@ -58,6 +58,25 @@
 
 }
 
+.ag.ev .event-bottom {
+
+  padding-top: 2em;
+  position: absolute;
+  bottom: 0;
+
+}
+
+.ag.ev .event-bottom li {
+  display: inline-block;
+  padding-right: 1em;
+  font-size: 0.9em;
+}
+
+.ag.ev .event-bottom li a {
+  font-size: 1em;
+}
+
+
 .ag.ev .event-place {
 
   margin: 2em 0;

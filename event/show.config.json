@@ -18,7 +18,10 @@
     "_txt" : "text"
   },
   "base" : {
-    "pageClass" : "ag cb ev"
+    "pageClass" : "ag cb ev",
+    "event" : {
+      "owner": false
+    }
   },
   "templateJs" : true
 }

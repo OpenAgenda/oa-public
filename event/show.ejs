@@ -65,6 +65,13 @@
 <% }) %>
     </ul>
 
+    <ul class="event-bottom">
+<% if ( event.owner ) { %>
+      <li><%- __('published by %name%', { '%name%' : '<a class="url" href="' + genUrl('agendaShowByUid', { uid: event.owner.uid }) + '">' + event.owner.name + '</a>' }) %></li>
+<% } %>
+    </ul>
+
   </main>
-  <footer></footer>
+  <footer>
+  </footer>
 </div>
