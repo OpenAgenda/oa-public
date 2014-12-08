@@ -22,6 +22,8 @@
 
     <a class="hurl js_message_link" href="<%= genUrl('eventEmbedEdit', { uid: event.uid }) %>"><%= __('embed') %></a>
 
+    <a class="hurl" href="<%= genUrl('eventCalendarShare', { eventSlug: event.slug } ) %>"><%= __('add to my calendar') %></a>
+
     <aside>
       <span class="social-links">
         <%- _sl.fb( { title: event.title, url: genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) } ) %>
