@@ -1,7 +1,7 @@
 {
   "layout" : "agendaAdmin/layout",
   "css" : {
-    "swapcard" : "./css/agenda/newsletterAdmin.css"
+    "newsletter" : "./css/agenda/newsletterAdmin.css"
   },
   "helpers" : {
     "_i" : "image"
