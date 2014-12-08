@@ -7,6 +7,7 @@
     "_i" : "image"
   },
   "base" : {
+    "mainClass" : "swapcard",
   	"tab" : "swapcard"
   }
 }

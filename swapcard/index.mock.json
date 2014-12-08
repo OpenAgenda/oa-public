@@ -1,3 +1,10 @@
 {
-  "linked" : false
+  "base" : {
+  },
+  "unlinked" : {
+    "linked" : false
+  },
+  "linked" : {
+    "linked" : true
+  }
 }
