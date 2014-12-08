@@ -8,6 +8,7 @@
     "_i" : "image"
   },
   "base" : {
+    "mainClass" : "newsletter",
   	"tab" : "newsletters"
   }
 }

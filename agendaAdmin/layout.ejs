@@ -27,6 +27,7 @@
             <span><%= __('Facebook Link') %></span>
           </a>
         </li>
+        <li><a class="menu-item<% if (tab=='swapcard') { %> active<% } %>" href="<%= genUrl('serviceIndex', { service: 'swapcard' }) %>"><span><%= __('Swapcard') %></span></a></li>
         <li><a class="menu-item<% if (tab=='web') { %> active<% } %>" href="<%= genUrl('agendaAdminWeb') %>"><span><%= __('Web Integration') %></span></a></li>
         <li><a class="menu-item<% if (tab=='newsletters') { %> active<% } %>" href="<%= genUrl('newsletterIndex') %>"><span><%= __('Newsletter') %></span></a></li>
         <li><a class="menu-item<% if (tab=='xml') { %> active<% } %>" href="<%= genUrl('agendaAdminIndesign') %>"><span><%= __('Indesign - Xml') %></span></a></li>

@@ -1,6 +1,5 @@
 {
   "base" : {
-    "mainClass" : "newsletter"
   },
   "main" : {
     "campaigns" : [

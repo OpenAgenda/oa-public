@@ -26,6 +26,9 @@
   "newsletter/admin/contactListShow",
   "newsletter/unsubscribe",
   "newsletter/unsubscribeComplete",
+
+  "swapcard/index",
+
   "error/404",
   "error/500",
   "eventLists/searchList",
