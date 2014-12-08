@@ -13,7 +13,6 @@ exports.renderTemplate = renderTemplate;            // render and serve template
 exports.errorResponse = errorResponse;            // render error page
 
 exports.loadAgenda = loadAgenda;                  // middleware. loads an agenda in the request based on its slug
-exports.loadEvent = loadEvent;                    // middleware. loads an event in the request based on its slug
 exports.requireLogged = requireLogged;            // middleware. verify if user is logged
 exports.requireAdmin = requireAdmin;
 exports.loadBaseData = loadBaseData;              // middleware. 
@@ -211,32 +210,6 @@ function loadAgenda( paramName ) {
     } );
 
   }
-
-}
-
-
-
-function loadEvent( req, res, next, slug ) {
-
-  wn.call( ( req.agenda ? req.agenda.events : model.events() ).get, { slug: slug } )
-
-  .then( function( data ) {
-
-    if ( !data ) throw { message : 'Whoops. Could not retrieve the event.' };
-
-    req.event = model.events().instance( data );
-
-    req.log.load({ event: req.event.slug });
-
-    next();
-
-  })
-
-  .catch( function( err ) {
-
-    errorResponse( req, res, err );
-
-  });
 
 }
 

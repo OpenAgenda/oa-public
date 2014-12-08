@@ -74,12 +74,11 @@ function load( main ) {
   cmn.loadRoutes( app, routes, [
     cmn.urlGenSetter( appName, path ),
     cmn.loadAgenda( 'slug' ),
+    _loadEvent,
     cmn.flashSetter,
     cmn.loadSession,
     cmn.loadBaseData( _layoutData )
   ] );
-
-  app.param( 'eventSlug', cmn.loadEvent );
 
   return exposed;
 
@@ -92,39 +91,76 @@ function load( main ) {
 
 function agendaEventShow( req, res ) {
   
-  cmn.render( req, res, 'event/show', _eventData( req, res ) );
+  cmn.render( req, res, 'event/show', { event: req.formattedEvent } );
 
 }
 
 function show( req, res ) {
 
-  cmn.render( req, res, 'event/show', _eventData( req, res ) );
+  cmn.render( req, res, 'event/show', { event: req.formattedEvent } );
+
+}
+
+function _loadEvent( req, res, next ) {
+
+  wn.call( ( req.agenda ? req.agenda.events : model.events() ).get, { slug: req.params.eventSlug } )
+
+  .then( function( data ) {
+
+    if ( !data ) throw { message : 'Whoops. Could not retrieve the event.' };
+
+    req.event = model.events().instance( data );
+
+    req.log.load({ event: req.event.slug });
+
+    return req;
+
+  })
+
+  .then( _formatEvent )
+
+  .then( next )
+
+  .catch( function( err ) {
+
+    cmn.errorResponse( req, res, err );
+
+  });
 
 }
 
 
-function _eventData( req, res ) {
+function _formatEvent( req ) {
 
-  return {
-    event: {
-      uid: req.event.uid,
-      slug: req.event.slug,
-      title: req.event.getTitle(),
-      image: req.event.getImage( false ),
-      dateRange: req.event.getDateRange( true ),
-      description: req.event.getDescription(),
-      freeText: req.event.getFreeText(),
-      tags: req.event.getTags(),
-      placeName: req.event.locations ? req.event.locations[0].name : false,
-      address: req.event.locations ? req.event.locations[0].address : false,
-      latitude: req.event.locations ? req.event.locations[0].latitude : false,
-      longitude: req.event.locations ? req.event.locations[0].longitude : false,
-      timings: req.event.locations ? req.event.locations[0].timings : [],
-    }
-  }
+  return w.promise( function( resolve, reject ) {
+
+    req.event.getOwner(function( err, owner ) {
+
+      req.formattedEvent = {
+        uid: req.event.uid,
+        slug: req.event.slug,
+        title: req.event.getTitle(),
+        image: req.event.getImage( false ),
+        dateRange: req.event.getDateRange( true ),
+        description: req.event.getDescription(),
+        freeText: req.event.getFreeText(),
+        tags: req.event.getTags(),
+        placeName: req.event.locations ? req.event.locations[0].name : false,
+        address: req.event.locations ? req.event.locations[0].address : false,
+        latitude: req.event.locations ? req.event.locations[0].latitude : false,
+        longitude: req.event.locations ? req.event.locations[0].longitude : false,
+        timings: req.event.locations ? req.event.locations[0].timings : [],
+        owner: owner
+      };
+
+      resolve();
+      
+    });
+
+
+  } );
 
 }
-
 
 
 function _layoutData( req, res ) {

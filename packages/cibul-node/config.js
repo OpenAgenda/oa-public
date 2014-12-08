@@ -116,6 +116,10 @@ config = {
           method: 'get',
           uri: '/:slug/admin/webembed'
         },
+        'agendaShowByUid' : {
+          method: 'get',
+          uri: '/agendas/:uid'
+        },
         'agendaAdminShow' : {
           method: 'get',
           uri: '/:slug/admin'
@@ -175,6 +179,10 @@ config = {
         'eventRemove' : {
           method: 'get',
           uri: '/remove/event/:eventSlug'
+        },
+        'eventCalendarShare' : {
+          method: 'get',
+          uri : '/calendarexport/:eventSlug'
         },
         'conversationAgendaContact' : {
           method: 'get',
