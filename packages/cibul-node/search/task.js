@@ -136,8 +136,8 @@ function _rebuild( job, cb ) {
 
   async.series([
     ES.resetIndex,
-    _populateES( 'events' ),
-    _populateES( 'reviews' )
+    _populateES( 'reviews' ),
+    _populateES( 'events' )
   ], cb );
 
 }

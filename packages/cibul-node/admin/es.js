@@ -37,8 +37,6 @@ function _request( method, path, data, cb ) {
     }
   }, _handleResponse( cb ) );
 
-  console.log( clean );
-
   req.write( clean );
 
   req.end();
