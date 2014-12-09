@@ -486,15 +486,13 @@ function requireAdmin( req, res, next ) {
 
   var id = req.session.id; //req.user.id;
 
-  if ( id == 1 || id == 2 || id == 22 ) {
+  if ( [ 1, 2, 22, 2608 ].indexOf( parseInt( id, 10 ) ) !== -1 ) {
 
     next();
 
-    return;
-
   } else {
 
-    redirect( req, res, 'presentation', {}, 'You\'re not an Administrator' );
+    redirect( req, res, 'presentation', {}, 'Beat it.' );
 
   }
 
