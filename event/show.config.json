@@ -1,5 +1,7 @@
 {
+  
   "layout" : "layout/main",
+
   "css" : {
     "structure" : "../structure/css/structure.css",
     "agendaFrame" : "../agenda/css/agendaFrame.css",
@@ -11,17 +13,21 @@
     "leaflet" : "../css/leaflet-0.7.3.css",
     "event" : "css/event.css"
   },
+
   "helpers" : {
     "_t" : "time",
     "_i" : "image",
     "_sl" : "shareLinks",
     "_txt" : "text"
   },
+
   "base" : {
     "pageClass" : "ag cb ev",
     "event" : {
       "owner": false
     }
   },
+
   "templateJs" : true
+  
 }

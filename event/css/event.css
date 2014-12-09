@@ -33,6 +33,40 @@
 }
 
 
+.ag.ev .event-languages {
+
+  text-align: right;
+  
+}
+
+.ag.ev .event-languages li {
+
+  display: inline-block;
+  text-transform: uppercase;
+  padding: 0 0 1em 0.5em;
+
+}
+
+.ag.ev .event-languages a {
+
+  font-size: 1.1em;
+  color: #999;
+
+}
+
+.ag.ev .event-languages a:hover {
+
+  color: #11bed4;
+
+}
+
+.ag.ev .event-languages .current a {
+
+  color: inherit;
+
+}
+
+
 .ag.ev .event-head {
 
   padding-bottom: 1em;
