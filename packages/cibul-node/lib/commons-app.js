@@ -13,7 +13,6 @@ exports.renderTemplate = renderTemplate;            // render and serve template
 exports.errorResponse = errorResponse;            // render error page
 
 exports.loadAgenda = loadAgenda;                  // middleware. loads an agenda in the request based on its slug
-exports.loadService = loadService;
 exports.requireLogged = requireLogged;            // middleware. verify if user is logged
 exports.requireAdmin = requireAdmin;
 exports.loadBaseData = loadBaseData;              // middleware. 
@@ -213,22 +212,6 @@ function loadAgenda( paramName ) {
   }
 
 }
-
-function loadService( req, res, next, service ) {
-
-  if ( !config.bridges[ service ] ) {
-
-    return redirect( req, res, 'agendaAdminShow', { slug: req.agenda.slug }, 'This service does not exist' );
-
-  }
-
-  req.service = require( '../services/' + service + '/' + service )( model, config );
-
-  next();
-
-}
-
-
 
 
 

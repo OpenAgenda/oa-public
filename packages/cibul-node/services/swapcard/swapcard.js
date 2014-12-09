@@ -52,9 +52,9 @@ var functions = function( model, config ) {
     var stateObj = {
       slug: req.agenda.slug,
       dsjid986: 58
-    };
+    },
 
-    stateObj = JSON.stringify( stateObj );
+    stateObj = JSON.stringify( stateObj ),
 
     uncodedState = new Buffer( stateObj ).toString( 'base64' );
 
@@ -151,6 +151,8 @@ var functions = function( model, config ) {
 
   unlinkEvents = function( agenda, cb ) {
 
+    log( 'unlinking events' );
+
     var total = 40,
 
     offset = 0;
@@ -193,6 +195,8 @@ var functions = function( model, config ) {
       },
 
       function( err ) {
+
+        log( 'error', typeof err == 'string' ? err : JSON.stringify( err ) );
 
         if ( err ) return cb( err );
 
@@ -358,9 +362,11 @@ var functions = function( model, config ) {
 
       if ( err ) {
 
+        log( 'error', typeof err == 'string' ? err : JSON.stringify( err ) );
+
         if ( err.statusCode && err.statusCode != 204 ) {
 
-          log( err.message );
+          log( 'error', err.message );
 
           _handleStatusCode( { agenda: agenda, instance: instance, statusCode: err.statusCode, refresh: store.refresh }, 'update', function( error ) {
 
@@ -429,9 +435,11 @@ var functions = function( model, config ) {
 
       if ( err ) {
 
+        log( 'error', typeof err == 'string' ? err : JSON.stringify( err ) );
+
         if ( err.statusCode && err.statusCode != 204 ) {
 
-          log( err.message );
+          log( 'error', err.message );
 
           _handleStatusCode( { agenda: agenda, instance: instance, statusCode: err.statusCode, refresh: store.refresh }, 'delete', function( error ) {
 
@@ -491,7 +499,7 @@ var functions = function( model, config ) {
 
       res.on( 'error', function( e ) {
 
-        log( 'Error during the request %s', JSON.stringify( e ) );
+        log( 'error', 'Error during the request %s', JSON.stringify( e ) );
 
         return cb( e );
 
@@ -516,6 +524,8 @@ var functions = function( model, config ) {
             result = JSON.parse( response );
             
           } catch( e ) {
+
+            log( 'error', 'Invalid JSON response' );
 
             return cb( 'Invalid JSON response' );
 
@@ -559,13 +569,19 @@ var functions = function( model, config ) {
 
     } else if ( values.statusCode == 404 ) {
 
-      if ( method == 'update' ) return exposed[ 'publish' ]( { eventId: values.instance.id, agendaId: values.agenda.id, type: 'swapcard' }, cb );
+      if ( method == 'update' ) {
+       
+        return exposed[ 'publish' ]( { eventId: values.instance.id, agendaId: values.agenda.id, type: 'swapcard' }, cb );
 
-      return cb();
+      } else {
+
+        return cb();
+        
+      }
 
     } else {
 
-      return cb( null );
+      return cb();
 
     }
 

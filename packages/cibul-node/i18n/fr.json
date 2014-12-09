@@ -24,8 +24,8 @@
   : "Vous n'êtes pas administrateur",
   "the campaign was updated"
   : "la campagne a été mise à jour",
-  "Please wait a minute until all events are synchronized"
-  : "Vos événements sont en train d'être synchronisés, patientez un petit instant",
-  "Please wait a minute until your events are unsyncronized"
-  : "Vos événements sont en train d'être désynchronisés, patientez un petit instant"
+  "Your swapcard events are being updated"
+  : "Vos événements Swapcard sont en cours de mise à jour",
+  "Your swapcard events are now being unlinked"
+  : "Vos événements swapcard ne sont désormais plus liés"
 }

@@ -65,17 +65,16 @@ function load( main ) {
   app.use( require( 'body-parser' ).urlencoded( { extended: true } ) );
 
   // load agenda matching route :slug in req.agenda
-  app.param( 'slug', cmn.loadAgenda );
-
-  app.param( 'service', cmn.loadService );
 
   cmn.loadRoutes( app, routes, [
     cmn.urlGenSetter( appName, path ),
+    cmn.loadAgenda( 'slug' ),
     cmn.flashSetter,
     cmn.loadSession,
     cmn.loadBaseData( _layoutData ),
     cmn.requireLogged,
-    cmn.checkAdministrator
+    cmn.checkAdministrator,
+    _loadService
   ] );
 
   return exposed;
@@ -119,7 +118,7 @@ function serviceSynchronize( req, res ) {
 
   .then( function() {
 
-    cmn.redirect( req, res, 'serviceIndex', { service: req.params.service }, 'Please wait a minute until your events are syncronized' );
+    cmn.redirect( req, res, 'serviceIndex', { service: req.params.service }, 'Your swapcard events are being updated' );
 
     return wn.call( req.service.processEvents, req.agenda, 'publish' );
 
@@ -135,7 +134,7 @@ function serviceUnlink( req, res ) {
 
   .then( function( ) {
 
-    cmn.redirect( req, res, 'serviceIndex', { service: req.params.service }, 'Please wait a minute until your events are unsyncronized' )
+    cmn.redirect( req, res, 'serviceIndex', { service: req.params.service }, 'Your swapcard events are now being unlinked' )
 
     return wn.call( req.service.unlinkEvents, req.agenda );
 
@@ -144,6 +143,24 @@ function serviceUnlink( req, res ) {
   .catch( _error( req, res ) );
 
 }
+
+
+function _loadService( req, res, next ) {
+
+  var service = req.params.service;
+
+  if ( !config.bridges[ service ] ) {
+
+    return redirect( req, res, 'agendaAdminShow', { slug: req.agenda.slug }, 'This service does not exist' );
+
+  }
+
+  req.service = require( '../services/' + service + '/' + service )( model, config );
+
+  next();
+
+}
+
 
 function _error( req, res ) {
 
