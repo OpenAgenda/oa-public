@@ -7,6 +7,7 @@
     "async" : "~0.9",
     "debug" : "~2.0",
     "redis" : "~0.12",
+    "oauth" : "0.9.11",
     "deep-extend" : "~0.2",
     "cibulModel" : "git+ssh://git@bitbucket.org:cibul/cibulmodel.git",
     "cibulTemplates" : "git+ssh://git@bitbucket.org:cibul/cibul-templates.git",

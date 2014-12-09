@@ -10,7 +10,8 @@ exposed = {
 
 routes = {
   presentation: [ 'get', presentation, '/' ],
-  newsletterSubscribe: [ 'post', newsletterSubscribe, '/newsletter/subscribe' ]
+  newsletterSubscribe: [ 'post', newsletterSubscribe, '/newsletter/subscribe' ],
+  serviceConnectCallback: [ 'get', serviceConnectCallback, '/services/:service/connect/callback' ],
 },
 
 // libraries used
@@ -130,5 +131,31 @@ function newsletterSubscribe( req, res ) {
 
 }
 
+function serviceConnectCallback( req, res ) {
+
+  var stateObj,
+
+  tokens;
+
+  stateObj = new Buffer( req.query.state, 'base64' );
+
+  stateObj = JSON.parse( stateObj );
+
+  if ( req.query.code ) {
+
+    return cmn.redirect( req, res, 'serviceSynchronize', { slug: stateObj.slug, service: req.params.service, code: req.query.code } );
+
+  } else {
+
+    tokens = {
+      refresh: req.query.refresh_token,
+      access: req.query.access_token
+    };
+
+    return cmn.redirect( req, res, 'serviceSynchronizeResponse', { slug: stateObj.slug, service: req.params.service, refreshToken: tokens.refresh, accessToken: tokens.access } );
+  } 
+
+
+}
 
 module.exports = init;

@@ -45,11 +45,12 @@ config = {
       accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
       secretAccessKey: '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',
       region: 'eu-west-1',
-      imageBucketPath: 'https://cibul.s3.amazonaws.com/'
+      imageBucketPath: 'https://cibul.s3.amazonaws.com/',
+      staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/'
     },
     mailjet: {
-      apiKey : '8c200831a70d4f391bd697fa3cbca6a3',
-      apiSecret : '6554476977a74b9cace0ddd0dc1ea657'
+      apiKey: '8c200831a70d4f391bd697fa3cbca6a3',
+      apiSecret: '6554476977a74b9cace0ddd0dc1ea657'
     },
     newsletter: {
       featuredLimit: 10,  // maximum number of featured events displayable in the same newsletter campaign
@@ -57,6 +58,18 @@ config = {
     },
     twitter: {
       name: '@cibul'
+    },
+    bridges: {
+      swapcard: {
+        redirect: 'http://d.cibul.net/services/swapcard/connect/callback',
+        clientID: '5_2teox6oxnwg0k4cscwwk8gs84cwo0ococck0og4wkswwwc4ggc',
+        clientSecret: '4ze5s2xa5y4g48kw0wow8sg8ssc4wcg0kcc8gwks8coww4ssos',
+        token: 'ZmI4YzlhMzFlZGY3ODdkZjg3MzU3YTUxN2MxYmRjNmMwNTdmZGFkM2RlNGE5N2Q3YTBkOWU1NmY2YjI1ZWExMQ',
+        baseSite: 'https://apidev.swapcard.com',
+        authorizePath: '/oauth/v2/auth',
+        accessTokenPath: '/oauth/v2/token',
+        emptyImage: 'white300x300.jpg'
+      }
     },
     routes: {
       globals: {
@@ -194,8 +207,8 @@ config = {
   },
 
   dev: {
+    root: 'http://d.cibul.net',
     env: 'dev',
-    root: 'https://d.cibul.net',
     multiCore: false,
     db: {
       database: 'cibuldev',
@@ -219,6 +232,24 @@ config = {
     newsletter: {
       featuredLimit: 3,  // maximum number of featured events displayable in the same newsletter campaign
       selectionLimit: 5  // maximum number of events displayable in the selection of a newsletter campaign
+    },
+    aws: {
+      accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
+      secretAccessKey: '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',
+      region: 'eu-west-1',
+      imageBucketPath: 'https://cibultest.s3.amazonaws.com/',
+      staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/white300x300.jpg'
+    },
+    bridges: {
+      swapcard: {
+        redirect: 'http://d.cibul.net/services/swapcard/connect/callback',
+        clientID: '5_2teox6oxnwg0k4cscwwk8gs84cwo0ococck0og4wkswwwc4ggc',
+        clientSecret: '4ze5s2xa5y4g48kw0wow8sg8ssc4wcg0kcc8gwks8coww4ssos',
+        token: 'ZmI4YzlhMzFlZGY3ODdkZjg3MzU3YTUxN2MxYmRjNmMwNTdmZGFkM2RlNGE5N2Q3YTBkOWU1NmY2YjI1ZWExMQ',
+        baseSite: 'https://apidev.swapcard.com',
+        authorizePath: '/oauth/v2/auth',
+        accessTokenPath: '/oauth/v2/token'
+      }
     }
   },
   
@@ -240,7 +271,14 @@ config = {
     redis: {
       host: 'localhost',
       port: 6389
-    }
+    },
+    aws: {
+      accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
+      secretAccessKey: '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',
+      region: 'eu-west-1',
+      imageBucketPath: 'https://cibultest.s3.amazonaws.com/',
+      staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/white300x300.jpg'
+    },
   },
   
   prod: {}

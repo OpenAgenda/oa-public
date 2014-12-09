@@ -1,3 +1,4 @@
+
 {
   "campaign updated"
   : "campagne mise à jour",
@@ -22,5 +23,9 @@
   "You're not an Administrator"
   : "Vous n'êtes pas administrateur",
   "the campaign was updated"
-  : "la campagne a été mise à jour"
+  : "la campagne a été mise à jour",
+  "Please wait a minute until all events are synchronized"
+  : "Vos événements sont en train d'être synchronisés, patientez un petit instant",
+  "Please wait a minute until your events are unsyncronized"
+  : "Vos événements sont en train d'être désynchronisés, patientez un petit instant"
 }

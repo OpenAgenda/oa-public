@@ -34,7 +34,8 @@ supervisor( function( loadTasks ) {
       require( './general/front' )( '' ),
       require( './search/front' )( '' ),
       require( './agenda/front' )( '/:slug' ),
-      require( './event/front' )( '' )
+      require( './event/front' )( '' ),
+      require( './agenda_bridges/back' )( '/:slug/admin/services' )
     ]
   },
 
@@ -83,5 +84,9 @@ supervisor( function( loadTasks ) {
   require( './search/task' ).load( { bootOffset: 12483 } );
 
   require( './general/nominatim.task' ).load( { bootOffset: 10000, period: 60000*5 } );
+
+  require( './agenda_bridges/task' ).load( { bootOffset: 3000 } );
+
+  require( './general/jobs.task' ).load( { bootOffset: 5000 } );
 
 });

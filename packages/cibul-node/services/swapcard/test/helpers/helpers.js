@@ -1,6 +1,6 @@
-var config = require( '../../../config' ),
+var config = require( '../../../../config' ),
 
-cmn = require( '../../../lib/commons-task' ),
+cmn = require( '../../../../lib/commons-task' ),
 
 model = cmn.getCibulModel(),
 
@@ -12,11 +12,9 @@ w = require( 'when' ),
 
 wn = require( 'when/node' ),
 
-lib = require( '../../../lib/lib' ),
+lib = require( '../../../../lib/lib' ),
 
-log = require( 'debug' )( 'search test helper' ),
-
-ES = require( 'ES' )( config.es ),
+log = require( 'debug' )( 'events sync test helper' ),
 
 user, review, locations = [], events = [];
 
