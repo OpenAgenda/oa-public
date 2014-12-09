@@ -28,7 +28,8 @@ params = {
   selectors: {
     list: '.js_list_content',
     add: '.js_add_button',
-    admin: '.js_admin_button'
+    admin: '.js_admin_button',
+    org: '.js_org_widget'
   },
   classes: {
     displayNone: 'display-none'
@@ -95,6 +96,8 @@ window.hook( function( options ) {
   } );
 
   _setPassedAgendaFilter( controller, currentQueryValues );
+
+  _showOrganizationWidget( controller );
 
 });
 
@@ -168,6 +171,21 @@ function _setPassedAgendaFilter( controller, currentQueryValues ) {
       currentQueryValues.passed = '1';
 
       controller.update( currentQueryValues );
+
+    }
+
+  });
+
+}
+
+
+function _showOrganizationWidget( controller ) {
+
+  controller.getControlData( function( data ) {
+
+    if ( data.org.length ) {
+
+      cn.removeClass( cn.el( params.selectors.org ), params.classes.displayNone );
 
     }
 
