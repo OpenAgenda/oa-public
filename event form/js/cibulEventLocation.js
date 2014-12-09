@@ -66,8 +66,6 @@ var cibulEventLocation = function(params) {
           
           if (!Object.size(locationHandlers)) {
             _addLocation();
-          } else {
-            _enableAdd();
           }
 
         });
@@ -175,32 +173,12 @@ var cibulEventLocation = function(params) {
         // if this is the last location of the form, a blank form should appear
         if (!Object.size(locationHandlers)) _addLocation();
 
-        _toggleCancels();
-
-        _enableAdd();
-
       },
       onComplete: function() {
-        _enableAdd();
       },
       map: params.map,
       icon: params.icon
     });
-
-    _toggleCancels();
-
-  },
-
-  /**
-   * toggle display of cancel and remove links in location handlers
-   * if there is only one left, there shouldn't be any, if more, they should be displayed
-   */
-
-  _toggleCancels = function() {
-
-    var display = Object.size(locationHandlers)>1?true:false;
-
-    for (var i in locationHandlers) locationHandlers[i].toggleCancels(display);
 
   },
 
@@ -230,23 +208,6 @@ var cibulEventLocation = function(params) {
 
     params.canvas.appendChild(elem);
 
-    addLink = document.createElement('div');
-    addLink.className = params.classes.addPlace;
-    addLink.innerHTML = new EJS({text: params.templates.add }).render(params.labels);
-
-    addEvent(addLink, 'click', function(e) {
-
-      preventDefault(e);
-
-      _addLocation();
-
-    });
-
-    elem.appendChild(addLink);
-
-    _disableAdd();
-    _hideAdd();
-    
   },
 
   _addLocation = function() {
@@ -255,28 +216,7 @@ var cibulEventLocation = function(params) {
 
       _createLocationHandler({index: newIndex});
 
-      _hideAdd();
-
     });
-
-  },
-
-  _enableAdd = function() {
-  
-    el(addLink, params.selectors.addPlace).style.display = 'block';
-    el(addLink, params.selectors.addPlace).removeAttribute('disabled');
-
-  },
-
-  _disableAdd = function() {
-
-    el(addLink, params.selectors.addPlace).setAttribute('disabled', 'disabled');
-
-  },
-
-  _hideAdd = function() {
-
-    el(addLink, params.selectors.addPlace).style.display = 'none';
 
   },
 

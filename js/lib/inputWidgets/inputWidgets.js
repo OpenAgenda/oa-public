@@ -142,7 +142,9 @@ var inputWidget = {
 
   _displayInfo: function() {
 
-    removeClass(this.info, this.params.classes.error);
+    if ( !this.info ) return;
+
+    removeClass( this.info, this.params.classes.error );
 
     this.info.innerHTML = this.params.info?this.params.info:'';
 

@@ -4,7 +4,7 @@ var handleEventPlaceEdit = function(params) {
     canvas: false,
     country: {code: 'FR', name: 'France'},
     templates: {
-      main: '<span class="remove-action js_remove"><span class="info"><%= removeLocationInfo %></span><a class="action"><i class="icon-trash"></i></a></span><div class="js_place place"></div><div class="js_pricing pricing form-section"><h2><%= pricingTitle %></h2></div><div class="js_dates dates form-section"><h2><%= dateTitle %></h2></div><div class="separator"></div>',
+      main: '<div class="js_place place"></div><div class="js_pricing pricing form-section"><h2><%= pricingTitle %></h2></div><div class="js_dates dates form-section"><h2><%= dateTitle %></h2></div><div class="separator"></div>',
       info: '<div class="title"><%= name %></div><div class="address"><%= address %></div><a href="#" class="action js_change"><i class="icon-edit"></i><span><%= changeLabel %></span></a>',
     },
     selectors: {
@@ -25,8 +25,6 @@ var handleEventPlaceEdit = function(params) {
       pricingTitle: 'Pricing',
       dateTitle: 'Dates',
       change:'change',
-      removeLocation: 'remove',
-      removeLocationInfo: 'associated dates and pricing will be removed',
       fetchInfo: 'Type the name and address and select you location from the list',
       placename: 'Name',
       placenameInfo: 'Name of the place',
@@ -163,30 +161,6 @@ var handleEventPlaceEdit = function(params) {
 
     params.canvas.appendChild(elem);
 
-    // remove location set when remove link is clicked
-    addEvent(el(el(elem, params.selectors.remove), 'a'), 'click', function(e) {
-      preventDefault(e);
-
-      delete placeFetch;
-      delete placeSelector;
-
-      _removeElem();
-
-      if (params.onRemove) params.onRemove();
-
-    });
-
-  },
-  
-  _removeElem = function() {
-
-    if (!elem) return;
-
-    var child;
-
-    while (child = childObject(elem, 0)) elem.removeChild(child);
-
-    delete elem;
 
   },
 
@@ -367,22 +341,12 @@ var handleEventPlaceEdit = function(params) {
 
     if (pricingSelector) pricingSelector.updateLanguages(newLanguages);
 
-  },
-
-  toggleCancels = function(display) {
-
-    if (display)
-      el(elem, params.selectors.remove).style.visibility = 'visible';
-    else
-      el(elem, params.selectors.remove).style.visibility = 'hidden';
-
   };
 
   _run();
 
   return {
-    updateLanguages: updateLanguages,
-    toggleCancels: toggleCancels
+    updateLanguages: updateLanguages
   };
 
 };
