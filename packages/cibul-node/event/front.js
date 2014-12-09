@@ -109,15 +109,17 @@ function _loadEvent( req, res, next ) {
 
     if ( !data ) throw { message : 'Whoops. Could not retrieve the event.' };
 
-    req.event = model.events().instance( data );
+    req.event = model.events().instance( data ); // here a specific language should be loaded
 
     req.log.load({ event: req.event.slug });
 
-    return req;
+    return [ req, res ];
 
   })
 
-  .then( _formatEvent )
+  .spread( _selectLanguage )
+
+  .spread( _formatEvent )
 
   .then( next )
 
@@ -130,7 +132,43 @@ function _loadEvent( req, res, next ) {
 }
 
 
-function _formatEvent( req ) {
+/**
+ * load requested event language
+ */
+
+function _selectLanguage( req, res ) {
+
+  return w.promise( function( resolve, reject ) {
+
+    if ( !req.query.elang ) {
+
+      resolve( [ req, res ] );
+
+      return;
+
+    }
+
+    if ( !req.event.hasLanguage( req.query.elang ) ) {
+
+      cmn.redirect( req, res, req.agenda ? 'agendaEventShow' : 'eventShow', req.agenda ? { slug: req.agenda.slug, eventSlug: req.event.slug } : { eventSlug: req.event.slug } );
+
+      return;
+
+    }
+
+    req.event.switchLanguage( req.query.elang );
+
+    resolve( [ req, res ] );
+
+  });
+
+}
+
+/**
+ * prepare event data fitting template requirements
+ */
+
+function _formatEvent( req, res ) {
 
   return w.promise( function( resolve, reject ) {
 
@@ -150,8 +188,18 @@ function _formatEvent( req ) {
         latitude: req.event.locations ? req.event.locations[0].latitude : false,
         longitude: req.event.locations ? req.event.locations[0].longitude : false,
         timings: req.event.locations ? req.event.locations[0].timings : [],
-        owner: owner
+        owner: owner,
+        languages: false
       };
+
+      if ( req.event.getLanguages().length > 1 ) {
+
+        req.formattedEvent.languages = {
+          current: req.event.getCurrentLanguage(),
+          selection: req.event.getLanguages()
+        };
+
+      }
 
       resolve();
       
@@ -176,38 +224,19 @@ function _layoutData( req, res ) {
       "twitter:title" : req.event.getTitle(),
       "twitter:description" : req.event.getDescription(),
       "twitter:domain" : config.domain
-    }
-  };
+    },
+    loner: !req.agenda
+  },
 
-  if ( req.event.image ) {
+  uri = req.agenda ? 'agendaEventShow' : 'eventShow',
 
-    lib.extend( data.metas, {
-      ogImage: { property: 'og:image', content: req.event.getImage( true ) },
-      "twitter:image:src" : req.event.getImage( true )
-    });
+  uriParams = { eventSlug: req.event.slug };
 
-  }
+  if ( req.agenda ) {
 
-  if ( !req.agenda ) {
+    uriParams.slug = req.agenda.slug;
 
-    data.loner = true;
-
-    data.metas.ogUrl = {
-      property: 'og:url',
-      content: req.genUrl( 'eventShow', { eventSlug: req.event.slug }, { abs: true } )
-    };
-
-    return data;
-
-  } else {
-
-    data.metas.ogUrl = {
-      property: 'og:url',
-      content: req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug }, { abs: true } )
-    };
-
-    return lib.extend( data, {
-      loner: false,
+    lib.extend( data, {
       uid: req.agenda.uid,
       slug: req.agenda.slug,
       title: req.agenda.title,
@@ -218,6 +247,35 @@ function _layoutData( req, res ) {
     });
 
   }
+
+  if ( req.event.getLanguages().length > 1 ) {
+
+    if ( !data.headLinks ) data.headLinks = [];
+
+    req.event.getLanguages().forEach( function( lang ) {
+
+      data.headLinks.push({ rel: 'alternate', href: req.genUrl( uri, lib.extend( { elang: lang }, uriParams ), { abs: true } ), hreflang: lang });
+
+    });
+
+  }
+
+  if ( req.event.image ) {
+
+    lib.extend( data.metas, {
+      ogImage: { property: 'og:image', content: req.event.getImage( true ) },
+      "twitter:image:src" : req.event.getImage( true )
+    });
+
+  }
+
+  data.metas.ogUrl = {
+    property: 'og:url',
+    content: req.genUrl( uri, uriParams, { abs: true } )
+  };
+
+
+  return data;
 
 }
 
