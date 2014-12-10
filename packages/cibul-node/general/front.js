@@ -141,20 +141,7 @@ function serviceConnectCallback( req, res ) {
 
   stateObj = JSON.parse( stateObj );
 
-  if ( req.query.code ) {
-
-    return cmn.redirect( req, res, 'serviceSynchronize', { slug: stateObj.slug, service: req.params.service, code: req.query.code } );
-
-  } else {
-
-    tokens = {
-      refresh: req.query.refresh_token,
-      access: req.query.access_token
-    };
-
-    return cmn.redirect( req, res, 'serviceSynchronizeResponse', { slug: stateObj.slug, service: req.params.service, refreshToken: tokens.refresh, accessToken: tokens.access } );
-  } 
-
+  return cmn.redirect( req, res, 'serviceSynchronize', { slug: stateObj.slug, service: req.params.service, code: req.query.code } );
 
 }
 

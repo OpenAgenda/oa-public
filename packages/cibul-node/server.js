@@ -1,3 +1,5 @@
+"use strict";
+
 var supervisor = require( './lib/supervisor' ),
 
 enabledTypes = ( process.argv ? process.argv : [] ).filter( function( argItem ) {

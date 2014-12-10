@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * load libraries and define app module routes
  */

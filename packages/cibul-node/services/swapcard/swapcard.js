@@ -1,3 +1,4 @@
+"use strict";
 
 var log = require( '../../lib/logger' )( 'swapcard_service' ),
 
@@ -255,7 +256,7 @@ var functions = function( model, config ) {
 
       if ( result.statusCode == 201 ) {
 
-        log( 'Create event swapcard succeed' );
+        log( 'Create event swapcard success' );
 
         return wn.call( instance.setStore, 'swapcard', { id: result.id }, true );
 
@@ -589,7 +590,7 @@ var functions = function( model, config ) {
 
     end = eventInstance.locations[ 0 ].timings[ eventInstance.locations[ 0 ].timings.length - 1 ].end,
 
-    beginsAt = moment( strt ).format( "YYYY-MM-DD HH:mm:ss" );
+    beginsAt = moment( strt ).format( "YYYY-MM-DD HH:mm:ss" ),
 
     endsAt = moment( end ).format( "YYYY-MM-DD HH:mm:ss" );
 
@@ -597,7 +598,7 @@ var functions = function( model, config ) {
     data[ 'description' ] = eventInstance.getFreeText();
     data[ 'eventType' ] = 'PUBLIC';
     data[ 'logo' ] = {};
-    data.logo[ 'data' ] = eventInstance.getImage( true ).replace('cibultest', 'cibul') || config.aws.staticBucketPath + config.bridges.swapcard.emptyImage;
+    data.logo[ 'data' ] = ( eventInstance.getImage( true ) || config.aws.staticBucketPath + config.bridges.swapcard.emptyImage ).replace('cibultest', 'cibul');
     data[ 'latitude' ] = eventInstance.locations[ 0 ].latitude;
     data[ 'longitude' ] = eventInstance.locations[ 0 ].longitude;
     data[ 'beginsAt' ] = beginsAt;
