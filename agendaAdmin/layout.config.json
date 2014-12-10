@@ -25,5 +25,8 @@
     },
     "lang" : "fr"
   },
+  "helpers" : {
+    "_i" : "image"
+  },
   "templateJs" : true
 }

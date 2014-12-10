@@ -2,9 +2,11 @@
 <div class="program cbody center admin">
   <div class="wsq review-page <%= mainClass %>" id="review-admin-menu">
     <header>
-      <a href="#">
-        <img alt="La Gargouille" src="<%= agenda.image %>">
+<% if ( agenda.image ) {%>
+      <a href="<%= genUrl('agendaShow') %>">
+        <img alt="<%= agenda.title %>" src="<%= _i(agenda.image) %>">
       </a>
+<% } %>
       <div class="title js_edit">
         <h1><%= agenda.title %></h1>
         <p><%= __('Administration') %></p>
