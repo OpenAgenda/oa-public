@@ -197,7 +197,7 @@ function _layoutData( req, res ) {
       title: req.agenda.title,
       description: req.agenda.description,
       url: req.agenda.url,
-      image: req.agenda.getImage( true )
+      image: req.agenda.getImage( false )
     }
   };
 }
