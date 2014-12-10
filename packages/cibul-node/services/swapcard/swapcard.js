@@ -404,7 +404,7 @@ var functions = function( model, config ) {
 
     .then( function( e ) {
 
-      var swapcardStore = JSON.parse( e.store.store.swapcard );
+      var swapcardStore = e.store.store.swapcard;
 
       store = agenda.getStore( 'swapcard', null );
 
@@ -595,7 +595,8 @@ var functions = function( model, config ) {
     endsAt = moment( end ).format( "YYYY-MM-DD HH:mm:ss" );
 
     data[ 'name' ] = eventInstance.getTitle();
-    data[ 'description' ] = eventInstance.getFreeText();
+    data[ 'description' ] = eventInstance.getDescription() + '\n\n' + eventInstance.getFreeText();
+    data[ 'place' ] = eventInstance.locations[ 0 ].name + ' - ' + eventInstance.locations[ 0 ].address;
     data[ 'eventType' ] = 'PUBLIC';
     data[ 'logo' ] = {};
     data.logo[ 'data' ] = ( eventInstance.getImage( true ) || config.aws.staticBucketPath + config.bridges.swapcard.emptyImage ).replace('cibultest', 'cibul');
