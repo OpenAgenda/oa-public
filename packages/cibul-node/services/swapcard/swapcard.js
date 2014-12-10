@@ -243,7 +243,7 @@ var functions = function( model, config ) {
 
     .then( function( eventSwapcard ) {
 
-      store = JSON.parse( agenda.getStore( 'swapcard', null ) );
+      store = agenda.getStore( 'swapcard', null );
 
       data = JSON.stringify( eventSwapcard );
 
@@ -255,13 +255,9 @@ var functions = function( model, config ) {
 
       if ( result.statusCode == 201 ) {
 
-        var swapData;
-
         log( 'Create event swapcard succeed' );
 
-        swapData = JSON.stringify( { id: result.id } );
-
-        return wn.call( instance.setStore, 'swapcard', swapData, true );
+        return wn.call( instance.setStore, 'swapcard', { id: result.id }, true );
 
       } else throw result;
 
@@ -325,7 +321,7 @@ var functions = function( model, config ) {
 
       instance = model.events().instance( e );
 
-      store = JSON.parse( agenda.getStore( 'swapcard', null ) );
+      store = agenda.getStore( 'swapcard', null );
 
       bearer = 'Bearer ' + store.access;
 
@@ -339,8 +335,6 @@ var functions = function( model, config ) {
       var swapcardStore = instance.getStore( 'swapcard', {} );
 
       data = JSON.stringify( eventSwapcard );
-
-      swapcardStore = JSON.parse( swapcardStore );
 
       return wn.call( _request, 'PATCH', config.bridges.swapcard.baseSite + '/v1/events/' + swapcardStore.id, { 'Content-Type': 'application/json', 'Authorization': bearer, 'Accept-Language': 'fr,eng' }, data, null );
 
@@ -411,7 +405,7 @@ var functions = function( model, config ) {
 
       var swapcardStore = JSON.parse( e.store.store.swapcard );
 
-      store = JSON.parse( agenda.getStore( 'swapcard', null ) );
+      store = agenda.getStore( 'swapcard', null );
 
       bearer = 'Bearer ' + store.access;
 
@@ -557,7 +551,7 @@ var functions = function( model, config ) {
 
         if ( err ) return cb( err );
 
-        values.agenda.setStore( 'swapcard', JSON.stringify( { access: a, refresh: r } ), true, function( err ) {
+        values.agenda.setStore( 'swapcard', { access: a, refresh: r }, true, function( err ) {
           
           if ( err ) return cb( err );
 

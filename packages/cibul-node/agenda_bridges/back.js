@@ -112,7 +112,7 @@ function serviceSynchronize( req, res ) {
       refresh: refresh
     };
 
-    return wn.call( req.agenda.setStore, req.params.service, JSON.stringify( tokens ), true );
+    return wn.call( req.agenda.setStore, req.params.service, tokens, true );
 
   } )
 
