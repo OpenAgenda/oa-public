@@ -7,6 +7,7 @@ config = {
     env: 'prod',
     port: 8901,
     multiCore: true,
+    mainChannel: 'main',
     logPath : '/var/tmp/cibul-node.log',
     logPathDebug : '/var/tmp/cibul-node-debug.log',
     logPathError : '/var/tmp/cibul-node-errors.log',
@@ -210,6 +211,7 @@ config = {
     root: 'http://d.cibul.net',
     env: 'dev',
     multiCore: false,
+    mainChannel: 'maindev',
     db: {
       database: 'cibuldev',
       host: 'localhost',
@@ -250,6 +252,7 @@ config = {
   test: {
     env: 'test',
     multiCore: false,
+    mainChannel: 'maintest',
     db: {
       database: 'cibultest',
       host: 'localhost',

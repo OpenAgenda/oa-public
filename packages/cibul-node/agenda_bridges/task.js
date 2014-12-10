@@ -64,7 +64,7 @@ function run() {
 
   shutdownRequested = false;
 
-  coms.subscribe( 'main', _handleJob );
+  coms.subscribe( config.mainChannel, _handleJob );
 
 }
 
