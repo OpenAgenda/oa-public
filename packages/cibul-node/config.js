@@ -61,7 +61,7 @@ config = {
     },
     bridges: {
       swapcard: {
-        redirect: 'http://d.cibul.net/services/swapcard/connect/callback',
+        redirect: 'http://cibul.net/services/swapcard/connect/callback',
         clientID: '5_2teox6oxnwg0k4cscwwk8gs84cwo0ococck0og4wkswwwc4ggc',
         clientSecret: '4ze5s2xa5y4g48kw0wow8sg8ssc4wcg0kcc8gwks8coww4ssos',
         token: 'ZmI4YzlhMzFlZGY3ODdkZjg3MzU3YTUxN2MxYmRjNmMwNTdmZGFkM2RlNGE5N2Q3YTBkOWU1NmY2YjI1ZWExMQ',
