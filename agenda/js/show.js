@@ -183,7 +183,7 @@ function _showOrganizationWidget( controller ) {
 
   controller.getControlData( function( data ) {
 
-    if ( data.org.length ) {
+    if ( ( typeof data.org !== 'undefined' ) && data.org.length ) {
 
       cn.removeClass( cn.el( params.selectors.org ), params.classes.displayNone );
 
