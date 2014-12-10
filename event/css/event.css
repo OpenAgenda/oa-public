@@ -7,13 +7,18 @@
 .ag.ev .sidebar .social-links {
 
   text-align: left;
-  display: inline-block;
 
 }
 
 .ag.ev .sidebar .social-links i {
 
   font-size: 1.2em;
+
+}
+
+.ag.ev .sidebar aside ul li {
+
+  padding: 0.5em 0;
 
 }
 

@@ -17,19 +17,18 @@
 <% } %>
 
     <aside>
-      <a class="add button js_message_link" href="<%= genUrl( 'eventShare', { eventSlug: event.slug }) %>"><%= __( 'add to agenda' ) %></a>
-    </aside>
+      
+      <ul>
+        <li><a class="add button js_message_link" href="<%= genUrl( 'eventShare', { eventSlug: event.slug }) %>"><%= __( 'add to agenda' ) %></a></li>
+        <li class="social-links">
+          <%- _sl.fb( { title: event.title, url: genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) } ) %>
+          <%- _sl.tw( { title: event.title, url:  genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) } ) %>
+          <%- _sl.gp( { title: event.title, url:  genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) } ) %>
+        </li>
+        <li><a class="url js_message_link" href="<%= genUrl('eventEmbedEdit', { uid: event.uid }) %>"><%= __('embed') %></a></li>
+        <li><a class="url" href="<%= genUrl('eventCalendarShare', { eventSlug: event.slug } ) %>"><%= __('add to my calendar') %></a></li>
+      </ul>
 
-    <a class="hurl js_message_link" href="<%= genUrl('eventEmbedEdit', { uid: event.uid }) %>"><%= __('embed') %></a>
-
-    <a class="hurl" href="<%= genUrl('eventCalendarShare', { eventSlug: event.slug } ) %>"><%= __('add to my calendar') %></a>
-
-    <aside>
-      <span class="social-links">
-        <%- _sl.fb( { title: event.title, url: genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) } ) %>
-        <%- _sl.tw( { title: event.title, url:  genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) } ) %>
-        <%- _sl.gp( { title: event.title, url:  genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) } ) %>
-      </span>
     </aside>
 
     <aside>
