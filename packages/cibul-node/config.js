@@ -238,17 +238,11 @@ config = {
       secretAccessKey: 'HXK3zbccKFRWrJtpK/Kkqgz1+HNP57f3icQq9GwG',
       region: 'eu-west-1',
       imageBucketPath: 'https://cibultest.s3.amazonaws.com/',
-      staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/white300x300.jpg'
+      staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/'
     },
     bridges: {
       swapcard: {
-        redirect: 'http://d.cibul.net/services/swapcard/connect/callback',
-        clientID: '5_2teox6oxnwg0k4cscwwk8gs84cwo0ococck0og4wkswwwc4ggc',
-        clientSecret: '4ze5s2xa5y4g48kw0wow8sg8ssc4wcg0kcc8gwks8coww4ssos',
-        token: 'ZmI4YzlhMzFlZGY3ODdkZjg3MzU3YTUxN2MxYmRjNmMwNTdmZGFkM2RlNGE5N2Q3YTBkOWU1NmY2YjI1ZWExMQ',
-        baseSite: 'https://apidev.swapcard.com',
-        authorizePath: '/oauth/v2/auth',
-        accessTokenPath: '/oauth/v2/token'
+        redirect: 'http://d.cibul.net/services/swapcard/connect/callback'
       }
     }
   },
@@ -277,7 +271,7 @@ config = {
       secretAccessKey: 'HXK3zbccKFRWrJtpK/Kkqgz1+HNP57f3icQq9GwG',
       region: 'eu-west-1',
       imageBucketPath: 'https://cibultest.s3.amazonaws.com/',
-      staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/white300x300.jpg'
+      staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/'
     },
   },
   
