@@ -73,6 +73,27 @@
           "start" : "2014-09-15T19:30:00.000Z",
           "end" : "2014-09-15T21:30:00.000Z"
         }
+      ],
+
+      "agendaReferences" : [
+        {
+          "uid" : 7967967,
+          "title" : "La genda",
+          "slug" : "lagenda",
+          "thumbnail" : "rwtbreview_concours-et-appels-a-projet-entrepreneuriat-etudiant_00.jpg"
+        },
+        {
+          "uid" : 67967969,
+          "title" : "La sélection de Gaetan",
+          "slug" : "la-sel-gaetan",
+          "thumbnail" : "rwtbreview_vous-avez-dit-moli-re_02.jpg"
+        },
+        {
+          "uid" : 739269,
+          "title" : "L'agenda au titre le plus long du template en 2015 avec du texte à rallonge",
+          "slug" : "lfjdslqhfjdsl",
+          "thumbnail" : "rwtbreview_transition-touraine_00.jpg"
+        }
       ]
     }
   },

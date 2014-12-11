@@ -12,5 +12,7 @@
   "remove" : "supprimer",
   "embed" : "intégrer",
   "add to my calendar" : "ajouter à mon calendrier",
-  "published by %name%" : "publié par %name%"
+  "published by %name%" : "publié par %name%",
+  "Referring agendas" : "Agendas référents",
+  "Other referring agendas" : "Autres agendas référents"
 }

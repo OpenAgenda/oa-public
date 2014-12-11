@@ -38,6 +38,26 @@
       </ul>
     </aside>
 
+<% if ( event.agendaReferences.length ) { %>
+    <aside class="agenda-references">
+      <h3><%= __( loner ? 'Referring agendas' : 'Other referring agendas' ) %></h3>
+      <ul>
+<% event.agendaReferences.forEach( function( ref ) { %>
+<% if ( !loner && ( ref.slug !== slug ) ) { %>
+        <li>
+          <a href="<%= genUrl( 'agendaShow', { slug: ref.slug } ) %>"><!--
+<% if ( ref.thumbnail ) { %>
+            --><img alt="<%= ref.title %>" src="<%= _i( ref.thumbnail ) %>"/><!--
+<% } %>
+            --><span><%= ref.title %></span>
+          </a>
+        </li>
+<% } %>
+<% }); %>
+      </ul>
+    </aside>
+<% } %>
+
   </div>
   <main>
 <% if ( event.languages ) { %>

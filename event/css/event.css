@@ -139,3 +139,25 @@
   margin: 5px 0;
 
 }
+
+
+/**
+ * agenda references
+ */
+
+.ag.ev .agenda-references li img {
+
+  width: 2em;
+  max-width: 20%;
+  padding-right: 2%;
+  vertical-align: middle;
+
+}
+
+.ag.ev .agenda-references li span {
+
+  display: inline-block;
+  max-width: 78%;
+  vertical-align: middle;
+
+}
