@@ -479,7 +479,7 @@ var widget = function( elem, options ) {
 
       log( 'adjusting map to base bounds' );
 
-      m.fitBounds( map, baseBounds );
+      _fitBounds( baseBounds );
 
       return;
 
@@ -573,7 +573,11 @@ var widget = function( elem, options ) {
 
     _update( cn.extend({ location: null }, selectedBounds ) );
 
-    if ( updateMap ) m.fitBounds( map, bounds );
+    if ( updateMap ) {
+
+      _fitBounds( bounds, true );
+
+    }
 
   },
 
@@ -612,7 +616,7 @@ var widget = function( elem, options ) {
 
     config.auto = false;
 
-    m.fitBounds( map, bounds );
+    _fitBounds( bounds, true );
 
     // takes a while for map to adjust
     
@@ -629,12 +633,24 @@ var widget = function( elem, options ) {
   _setMapToBaseBounds = function() {
 
     log( 'setting map to base bounds' );
+    
+    _fitBounds( baseBounds );
 
-    m.fitBounds( map, baseBounds );
+  },
+
+  _fitBounds = function( bounds, ignoreZoomLimit ) {
+
+    if ( typeof ignoreZoomLimit == 'undefined' ) {
+
+      ignoreZoomLimit = false;
+
+    }
+
+    m.fitBounds( map, bounds );
 
     log( 'prevent map to exceed min zoom' );
 
-    if ( m.getZoom( map ) < config.minZoom ) {
+    if ( !ignoreZoomLimit && ( m.getZoom( map ) < config.minZoom ) ) {
 
       m.setZoom( map, config.minZoom );
 
