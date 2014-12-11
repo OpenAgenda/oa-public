@@ -31,19 +31,12 @@
 
     </aside>
 
-    <aside>
-      <ul>
-        <li><a class="hurl" href="<%= genUrl( loner ? 'eventEdit' : 'agendaEventEdit', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ] ) %>"><%= __('edit') %></a></li>
-        <li><a class="hurl" href="<%= genUrl('eventRemove', { eventSlug: event.slug }) %>"><%= __('remove') %></a></li>
-      </ul>
-    </aside>
-
-<% if ( event.agendaReferences.length ) { %>
+<% if ( event.agendaReferences.length > ( loner ? 1 : 0 ) ) { %>
     <aside class="agenda-references">
       <h3><%= __( loner ? 'Referring agendas' : 'Other referring agendas' ) %></h3>
       <ul>
 <% event.agendaReferences.forEach( function( ref ) { %>
-<% if ( !loner && ( ref.slug !== slug ) ) { %>
+<% if ( loner || ( ref.slug !== slug ) ) { %>
         <li>
           <a href="<%= genUrl( 'agendaShow', { slug: ref.slug } ) %>"><!--
 <% if ( ref.thumbnail ) { %>
@@ -57,6 +50,13 @@
       </ul>
     </aside>
 <% } %>
+
+    <aside>
+      <ul>
+        <li><a class="hurl" href="<%= genUrl( loner ? 'eventEdit' : 'agendaEventEdit', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ] ) %>"><%= __('edit') %></a></li>
+        <li><a class="hurl" href="<%= genUrl('eventRemove', { eventSlug: event.slug }) %>"><%= __('remove') %></a></li>
+      </ul>
+    </aside>
 
   </div>
   <main>
