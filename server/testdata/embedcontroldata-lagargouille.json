@@ -6859,6 +6859,44 @@
                }
             }
          },
+         "99999":{
+            "a" : "kaore-olafsson",
+            "u" : "67967967",
+            "l" : {
+               "seattle" : {
+                  "lt":"47.614848",
+                  "lg":"-122.3359059",
+                  "p":"Seattle",
+                  "a":"far west address",
+                  "d":[
+                    "2015-10-01"
+                  ],
+                  "pc": null,
+                  "dp": "do not know",
+                  "rg": "Seattle Region",
+                  "cn": "US"
+               }
+            }
+         },
+         "999990":{
+            "a" : "kaore-olafsson",
+            "u" : "679679670",
+            "l" : {
+               "singapore" : {
+                  "lt":"1.3146631",
+                  "lg":"103.8454093",
+                  "p":"Singapore",
+                  "a":"far east address",
+                  "d":[
+                    "2015-10-01"
+                  ],
+                  "pc": null,
+                  "dp": "do not know",
+                  "rg": "Singapore Region",
+                  "cn": "SG"
+               }
+            }
+         },
          "16941":{
             "a":"kaore-olafsson",
             "u":"48074231",

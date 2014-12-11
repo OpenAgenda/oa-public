@@ -5,7 +5,8 @@ module.exports = {
   langAttribute: 'data-lang',
   auto: false, // syncronize selection with map
   popup: false,
-  tiles: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
+  tiles: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png',
+  minZoom: 2,
   onBoundsChangeCallback: false,
   zooming: false,
   labels: {

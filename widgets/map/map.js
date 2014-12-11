@@ -339,14 +339,6 @@ var widget = function( elem, options ) {
 
   _initTiles = function( data ) {
 
-    if ( !embedMode ) {
-
-      config.tiles = 'http://{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png';
-
-      return;
-
-    }
-
     if ( !data.ebd || !data.ebd.mt ) {
 
       log( 'tiles configuration not set' );
@@ -639,6 +631,14 @@ var widget = function( elem, options ) {
     log( 'setting map to base bounds' );
 
     m.fitBounds( map, baseBounds );
+
+    log( 'prevent map to exceed min zoom' );
+
+    if ( m.getZoom( map ) < config.minZoom ) {
+
+      m.setZoom( map, config.minZoom );
+
+    }
 
   },
 
