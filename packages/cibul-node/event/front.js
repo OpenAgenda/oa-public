@@ -172,7 +172,24 @@ function _formatEvent( req, res ) {
 
   return w.promise( function( resolve, reject ) {
 
-    req.event.getOwner(function( err, owner ) {
+    async.series([
+      req.event.getOwner,
+      req.event.getAgendaReferences
+    ], function( err, results ) {
+
+      var owner, agendaReferences;
+
+      if ( err ) {
+
+        reject( err );
+
+        return;
+
+      }
+
+      owner = results[ 0 ];
+
+      agendaReferences = results[ 1 ];
 
       req.formattedEvent = {
         uid: req.event.uid,
@@ -189,7 +206,8 @@ function _formatEvent( req, res ) {
         longitude: req.event.locations ? req.event.locations[0].longitude : false,
         timings: req.event.locations ? req.event.locations[0].timings : [],
         owner: owner,
-        languages: false
+        languages: false,
+        agendaReferences: agendaReferences
       };
 
       if ( req.event.getLanguages().length > 1 ) {
@@ -202,11 +220,11 @@ function _formatEvent( req, res ) {
       }
 
       resolve();
-      
+
+
     });
 
-
-  } );
+  });
 
 }
 
