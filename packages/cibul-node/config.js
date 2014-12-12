@@ -201,6 +201,14 @@ config = {
         'conversationAgendaContact' : {
           method: 'get',
           uri: '/messages/new?type=7&aUid=:uid'
+        },
+        'conversationEventClaim' : {
+          method: 'get',
+          uri: '/messages/new?type=2&slug=:eventSlug'
+        },
+        'conversationEventSignal' : {
+          method: 'get',
+          uri: '/messages/new?type=4&slug=:eventSlug'
         }
       },
       defaultGlobalsPrefix: ''
