@@ -98,7 +98,11 @@
     <ul class="event-bottom">
 <% if ( event.owner ) { %>
       <li><%- __('published by %name%', { '%name%' : '<a class="url" href="' + genUrl('agendaShowByUid', { uid: event.owner.uid }) + '">' + event.owner.name + '</a>' }) %></li>
+      <li> - </li>
+      <li><a class="url js_message_link" href="<%= genUrl( 'conversationAgendaContact', { uid: event.owner.uid, slug: event.slug }) %>"><%= __( 'contact' ) %></a></li>
 <% } %>
+      <li><a class="url js_message_link" href="<%= genUrl( 'conversationEventClaim', { eventSlug: event.slug }) %>"><%= __( 'claim' ) %></a></li>
+      <li><a class="url js_message_link" href="<%= genUrl( 'conversationEventSignal', { eventSlug: event.slug }) %>"><%= __( 'signal' ) %></a></li>
     </ul>
 
   </main>

@@ -25,7 +25,8 @@
 
       "owner" : {
         "name" : "Billy Bob",
-        "uid" : 783697896
+        "uid" : 783697896,
+        "slug" : "billy-bob"
       },
 
       "placeName" : "O2 Academy Brixton",
