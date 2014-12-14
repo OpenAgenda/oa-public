@@ -92,7 +92,7 @@ window.getSession = handleSession();
  * toggle language menu display
  */
 
-var _languageMenu = function( options ) {
+function _languageMenu( options ) {
 
   var params = cn.extend( {
     selectors: {
@@ -125,4 +125,4 @@ var _languageMenu = function( options ) {
 
   });
 
-};
+}

@@ -2,7 +2,7 @@ var d3 = require( 'd3' ),
 
 cn = require( '../../js/lib/common/common.mod.js' ),
 
-remote = require( '../../js/lib/remote/remote.mod.js' ),
+fetch = require( './fetch' ),
 
 params = {
   selectors: {
@@ -18,11 +18,11 @@ res = typeof params.res[ window.env ] !== 'undefined' ? params.res[ window.env ]
 
 module.exports = function() {
 
-  _fetch( function( err, data ) {
+  fetch( res, function( err, data ) {
 
     if ( err ) return console.log( err );
 
-    _render( data );
+    _render( data.data );
 
   });
 
@@ -46,27 +46,5 @@ function _render( data ) {
   .text( function( d ) { return d.l; } )
   .insert( 'span' )
   .text( function( d ) { return d.v; } );
-
-}
-
-function _fetch( cb ) {
-
-  remote.get( res, { timeout: 10000 }, function( resultType, data ) {
-
-    if ( resultType !== 'success' ) {
-
-      return cb( resultType );
-
-    }
-
-    if ( !data.success ) {
-
-      return cb( data.message );
-
-    }
-
-    cb( null, data.data );
-
-  }, true );
 
 }

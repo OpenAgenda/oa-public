@@ -1,17 +1,26 @@
-var cn = require('../../js/lib/common/common.mod.js'),
+"use strict";
 
-remote = require('../../js/lib/remote/remote.mod.js'),
+var cn = require( '../../js/lib/common/common.mod.js' ),
 
-Cookies = require('../../js/vendors/Cookies-master/src/cookies.js'),
+remote = require( '../../js/lib/remote/remote.mod.js' ),
 
-Base64 = require('../../js/lib/Base64/Base64.mod.js');
+Cookies = require( '../../js/vendors/Cookies-master/src/cookies.js' ),
+
+Base64 = require( '../../js/lib/Base64/Base64.mod.js' );
 
 module.exports = function( eh, options ) {
 
   // add event support you mofo.
 
   var params = cn.extend({
-    url: '/session',
+    url: {
+      prod: '/session',
+      dev: '/frontend_dev.php/session',
+      tpl: {
+        logged: '/server/testdata/opensession.json',
+        unlogged: '/server/testdata/closedsession.json'
+      }
+    },
     env: false,
     cookie: 'cibul_session',
     cookieFlag: 'refresh',
@@ -21,6 +30,8 @@ module.exports = function( eh, options ) {
     events: { fetch: 'getsessiondata', clear: false }
   }, params),
 
+  url,
+
   stack = [], windowStack = [],
 
   isReady = false,
@@ -29,7 +40,7 @@ module.exports = function( eh, options ) {
 
     if ( window.env ) params.env = window.env;
 
-    if ( ( params.env == 'dev' ) || params.env == 'tpl' ) params.url = '//d.cibul.net/frontend_dev.php/session';
+    url = _defineUrl();
 
     if ( !_hasStorage() || _flaggedCookie() || !_hasSessionData() || params.debug || _contradictingCookie()) {
 
@@ -63,6 +74,22 @@ module.exports = function( eh, options ) {
 
   },
 
+  _defineUrl = function() {
+
+    var env = window.env ? window.env : 'all',
+
+    url = params.url[ env ];
+
+    if ( typeof url !== 'string' ) {
+
+      url = url[ window.location.href.indexOf( 'logged=' ) == -1 ? 'unlogged' : 'logged' ];
+
+    }
+
+    return url;
+
+  },
+
   _processStack = function() {
 
     var data = _getSessionData();
@@ -78,6 +105,12 @@ module.exports = function( eh, options ) {
   },
 
   _hasSessionData = function() {
+
+    if ( window.env == 'tpl' ) {
+
+      return false;
+
+    }
 
     return (null !== localStorage.getItem(params.local));
 
@@ -152,13 +185,13 @@ module.exports = function( eh, options ) {
 
   },
 
-  _fetch = function( callback ) {
+  _fetch = function( cb ) {
 
-    var qParams = params.env==='tpl' ? {format: 'jsonp', force: ''} : {};
+    remote.get( url, {}, function( responseType, data ){
 
-    remote.get(params.url, { data: qParams }, function(responseType, data){
-      if (responseType=='success') callback(data);
-    }, params.env == 'tpl' ? false : true );
+      if ( responseType == 'success' ) cb( data );
+
+    }, true );
 
   },
 

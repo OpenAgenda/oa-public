@@ -14,7 +14,7 @@ body {
  * links
  */
 
-.url, .url a, .url strong, .url span, .url i, .hurl:hover {
+.url, .url a, .url strong, .url span, .url i, .hurl:hover, .hurl:hover a, .hurl:hover span, .hurl:hover i {
 
   color: #11BED4;
   word-wrap: break-word;

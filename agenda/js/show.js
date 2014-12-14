@@ -8,6 +8,8 @@ cn = require( '../../js/lib/common/common.mod' ),
 
 partialLoader = require( './partialLoader' ),
 
+handleSourceMenu = require( './handleSourceMenu' ),
+
 config = require( './config' ),
 
 pagination = require( './pagination' ),
@@ -29,12 +31,15 @@ params = {
     list: '.js_list_content',
     add: '.js_add_button',
     admin: '.js_admin_button',
-    org: '.js_org_widget'
+    org: '.js_org_widget',
+    titleSection: '.js_agenda_title'
   },
   classes: {
     displayNone: 'display-none'
   }
-};
+},
+
+uid;
 
 if ( [ 'tpl', 'dev' ].indexOf( window.env ) !== -1 ) {
 
@@ -51,6 +56,8 @@ window.hook( function( options ) {
   loader = partialLoader( cn.extend( config.partialOptions, {
     canvas: cn.el( params.selectors.list )
   }));
+
+  uid = options.uid;
 
   log = debug( 'agendaPage' );
 
@@ -93,6 +100,8 @@ window.hook( function( options ) {
 
     } );
 
+    _handleAddToSource( session );
+
   } );
 
   _setPassedAgendaFilter( controller, currentQueryValues );
@@ -101,6 +110,41 @@ window.hook( function( options ) {
 
 });
 
+
+
+/**
+ * toggle display of "add to source" link
+ */
+
+function _handleAddToSource( session ) {
+
+  if ( !session.logged ) {
+
+    return;
+
+  }
+
+  if ( typeof session.aggregator == 'undefined' ) {
+
+    return;
+
+  }
+
+  if ( !session.aggregator ) {
+
+    return;
+
+  }
+
+  handleSourceMenu( uid, cn.el( params.selectors.titleSection ), session );
+
+}
+
+
+
+/**
+ * load widgets callback when the controller state changes
+ */
 
 function _handleWidgets( controller, queryValues, onChange ) {
 
@@ -121,6 +165,10 @@ function _handleWidgets( controller, queryValues, onChange ) {
 }
 
 
+/**
+ * toggle display of admin button
+ */
+
 function _handleAdminButton( session, ctl ) {
 
   if ( !_isLoggedAdmin( session, ctl ) ) {
@@ -133,6 +181,10 @@ function _handleAdminButton( session, ctl ) {
 
 }
 
+
+/**
+ * toggle display of add button
+ */
 
 function _handleAddButton( session, ctl ) {
 
@@ -192,7 +244,6 @@ function _showOrganizationWidget( controller ) {
   });
 
 }
-
 
 
 function _isLoggedAdmin( session, ctl ) {

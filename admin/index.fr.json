@@ -28,5 +28,7 @@
 	"%usersMonth% users"
 	: "%usersMonth% utilisateurs",
 	"Published events by week"
-	: "Evénements publiés par semaine"
+	: "Evénements publiés par semaine",
+	"Diff between primary db and Elasticsearch"
+	: "Diff entre bdd et elasticsearch"
 }

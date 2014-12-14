@@ -1,3 +1,5 @@
+"use strict";
+
 var cn = require( '../../js/lib/common/common.mod' ),
 
 remote = require( '../../js/lib/remote/remote.mod' ),
@@ -8,7 +10,8 @@ params = {
   loader: false, // content loader
   selectors: {
     pager: '.js_pages',
-    list: '.js_list_content'
+    list: '.js_list_content',
+    previous: '.js_previous_page'
   },
   classes: {
     displayNone: 'display-none'
@@ -17,7 +20,9 @@ params = {
 
 page = 1,
 
-loading = false;
+loading = false,
+
+prevPageExists = true;
 
 exports.init = function( options ) {
 
@@ -26,6 +31,8 @@ exports.init = function( options ) {
   _readPage( params.href );
 
   _hidePager();
+
+  _initPrevPage( params.href );
 
   _onHitBottom( _loadNext );
 
@@ -37,6 +44,8 @@ exports.reset = function( newHref, total ) {
   params.total = total;
 
   params.href = newHref;
+
+  _removePrevPage();
 
   page = 1;
 
@@ -63,7 +72,7 @@ function _loadNext() {
 
   }
 
-  newHref = _updateHrefPage( params.href, page + 1 );
+  newHref = _setHrefPage( params.href, page + 1 );
   
 
   params.loader.after( newHref, function( err, data ) {
@@ -79,7 +88,7 @@ function _loadNext() {
 
 function _onHitBottom( cb ) {
 
-  var offset
+  var offset,
 
   body = cn.el( 'body' );
 
@@ -113,7 +122,7 @@ function _hidePager() {
 }
 
 
-function _updateHrefPage( href, newPage ) {
+function _setHrefPage( href, newPage ) {
 
   var parts = href.split( '?' ),
 
@@ -124,6 +133,55 @@ function _updateHrefPage( href, newPage ) {
   query.page = newPage;
 
   return parts[0] + '?' + qs.stringify( query );
+
+}
+
+
+function _initPrevPage( href ) {
+
+  var firstPage = page;
+
+  if ( firstPage > 1 ) {
+
+    cn.addEvent( cn.el( params.selectors.previous ), 'click', function( ) {
+
+      params.loader.before( _setHrefPage( href, firstPage - 1 ), function( err, data ) {
+
+        loading = false;
+
+        firstPage -= 1;
+
+        if ( firstPage == 1 ) {
+
+          _removePrevPage();
+
+        }
+
+      } );
+
+    } );
+
+    cn.removeClass( cn.el( params.selectors.previous ), params.classes.displayNone );    
+
+  } else {
+
+    _removePrevPage();
+
+  }
+
+
+}
+
+
+function _removePrevPage() {
+
+  if ( prevPageExists ) {
+
+    cn.el( params.selectors.previous ).parentNode.removeChild( cn.el( params.selectors.previous ) );
+
+    prevPageExists = false;
+
+  }
 
 }
 

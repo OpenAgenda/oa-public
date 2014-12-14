@@ -79,7 +79,9 @@
 
 .ag header .actions li {
 
-  display: inline-block;
+  display: block;
+
+  padding-bottom: 0.2em;
 
 }
 
@@ -250,6 +252,20 @@
 
 
 /**
+ * previous page link
+ */
+
+.ag .previous-page {
+
+  position: absolute;
+  right: 0;
+
+}
+
+
+
+
+/**
  * basic widget
  */
 
@@ -284,6 +300,49 @@
   color: white;
   
 }
+
+
+
+/**
+ * add to sources menu
+ */
+
+.ag .agg-menu label {
+
+  font-weight: bold;
+  padding-bottom: 0.5em;
+  display: block;
+
+}
+
+.ag .agg-menu .agg-remove .fa-close {
+  display: none;
+  font-weight: bold;
+}
+
+.ag .agg-menu li {
+
+  padding: 0.4em 0;
+
+}
+
+.ag .agg-menu li span {
+
+  padding-right: 0.5em;
+  vertical-align: middle;
+  display: inline-block;
+
+}
+
+
+.ag .agg-menu li:hover .agg-remove .fa-close {
+  display: inline-block;
+}
+
+.ag .agg-menu li:hover .agg-remove .fa-check {
+  display: none;
+}
+
 
 
 /**

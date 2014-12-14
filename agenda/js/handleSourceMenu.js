@@ -1,140 +1,158 @@
-var handleSourceMenu = function(params) {
+var cn = require( '../../js/lib/common/common.mod' ),
 
-  params = extend({
-    debug: false,
-    classes: {},
-    label: 'use as source'
-  }, params);
+remote = require( '../../js/lib/remote/remote.mod' ),
 
-  params.classes = extend({ isSource: 'js_is', isNotSource: 'js_is_not', contextMenu: 'wsq context-menu', aggregatorListItem: 'agg'}, params.classes);
+deepExtend = require( 'deep-extend' ),
 
-  var reqParams = {},
+lightbox = require( '../../js/lib/lightbox/lightbox.mod' ),
 
-  listItems, // where retrieved aggregator list is stored and updated
+debug = require( 'debug' ),
 
-  init = function() {
+defaults = {
+  all: {
+    resources: {
+      list: '//cibul.net/agenda/{{uid}}/aggregator/sourcecontext',
+      add: '//cibul.net/agenda/{{uid}}/aggregator/addTo/{{aUid}}',
+      remove: '//cibul.net/agenda/{{uid}}/aggregator/removeFrom/{{aUid}}'
+    },
+    classes: {
+      menu: 'agg-menu',
+      item: 'hurl',
+      lightbox: {
+        frame: 'wsq lightbox-frame',
+        canvas: 'lightbox-canvas', 
+        buttonBox: 'lightbox-buttons', 
+        body: 'noscroll'
+      }
+    },
+    templates: {
+      unpicked: '<a><span class="agg-add"><i class="fa fa-plus"></i></span><span>{{title}}</span></a>',
+      picked: '<a><span class="agg-remove"><i class="fa fa-check"></i><i class="fa fa-close">&times;</i></span><span>{{title}}</span></a>',
+      aggLink: '<a class="url"><i class="icon-share-alt"></i><span>{{ label }}</span></a>',
+      menu: '<label>{{label}}</label><ul></ul>'
+    },
+    label: {
+      link: {
+        en: 'use as source',
+        fr: 'utiliser comme source'
+      },
+      menuTitle: {
+        en: 'select an agenda to which add this agenda as a source',
+        fr: 'choisissez un agenda auquel ajouter l\'agenda courant comme source' 
+      }
+    }
+  },
+  prod: {},
+  dev: {
+    resources: {
+      list: '//d.cibul.net/frontend_dev.php/agenda/{{uid}}/aggregator/sourcecontext',
+      add: '//d.cibul.net/frontend_dev.php/agenda/{{uid}}/aggregator/addTo/{{aUid}}',
+      remove: '//d.cibul.net/frontend_dev.php/agenda/{{uid}}/aggregator/removeFrom/{{aUid}}'
+    }
+  },
+  tpl: {
+    resources: {
+      list: '/server/testdata/sourcecontext.json',
+      add: '/server/testdata/sourceaddresult.json',
+      remove: '/server/testdata/sourceremoveresult.json'
+    }
+  }
+},
 
-    if (params.debug) reqParams.format = 'jsonp';
+params = deepExtend( defaults.all, typeof window.env == 'undefined' ? {} : defaults[ window.env ]),
 
-    // fetch agg list from remote
+lang,
 
-    remote.get(params.resources.list, {retries: 0, timeout: 10000, data: reqParams}, function(responseType, data) {
+log,
 
-      if (!_checkResponse(responseType, data)) return;
+uid;
 
-      listItems = data.data;
+module.exports = function( agendaUid, anchor, session ) {
 
-      _makeDomMenu({
-        onAddClick: function(item) {
+  log = debug( 'sources' );
 
-          _hideIcons(item);
+  lang = session.culture;
 
-          sendGetMessage({
-            url: params.resources.add.replace('aUid', item.p.uid),
-            button: item.dom.childNodes[0],
-            data: reqParams,
-            debug: params.debug,
-            success: function(data) {
-              if (data.success) item.l = true;
-              _updateDisplay(item);
-            }
-          });
+  uid = agendaUid;
 
-        },
-        onRemoveClick: function(item) {
+  log( 'adding sources link' );
 
-          _hideIcons(item);
+  _addLink( anchor, { onClick: function( e ) {
 
-          sendGetMessage({
-            url: params.resources.remove.replace('aUid', item.p.uid),
-            button: item.dom.childNodes[0],
-            data: reqParams,
-            debug: params.debug,
-            success: function(data) {
-              item.l = false;
-              _updateDisplay(item);
-            }
-          });
-        }
+    remote.get( _format( params.resources.list, { uid: uid } ), { retries: 0, timeout: 10000 }, function( responseType, data ) {
+
+      lightbox({
+        elems: [ _buildMenu( data.data ) ],
+        classes: params.classes.lightbox,
+        buttons: false
       });
 
-    }, !params.debug);
+    }, true );
 
-  },
+  } } );
 
-  _checkResponse = function(responseType, data) {
+};
 
-    if (responseType !== 'success') {
-      console.log('aggregator list could not be fetched, request was not successful: ' + responseType);
-      return false;
-    }
+function _addLink( anchor, options ) {
 
-    if (!data.success) {
-      console.log('Aggregator: ' + data.message);
-      return false;
-    }
+  var div = document.createElement( 'div' ),
 
-    return true;
+  link;
 
-  },
+  div.innerHTML = _format( params.templates.aggLink, { label: params.label.link[ lang ] } );
 
-  _makeDomMenu = function(callbacks) {
+  link = cn.childObject( div, 0 );
 
-    var programItemEjs = new EJS({text: params.templates.programItem}),
-      aggItemEjs = new EJS({text: params.templates.aggItem}),
-      aggLinkEjs = new EJS({text: params.templates.aggLink});
+  cn.addEvent( link, 'click', options.onClick );
 
-    // create link
-    
-    var link = document.createElement('li');
-    link.innerHTML = aggLinkEjs.render({ label: params.label });
+  anchor.insertAdjacentElement( 'beforeend', link );
 
-    params.anchor.appendChild(link);
+}
 
-    // create context menu
 
-    var cMenu = document.createElement('div');
-    cMenu.className = params.classes.contextMenu;
-    cMenu.style.display = 'none';
-    cMenu.innerHTML = '<ul></ul>';
+function _buildMenu( data ) {
 
-    link.appendChild(cMenu);
+  var menu = document.createElement( 'div' );
 
-    handleContextMenu(link.childNodes[0], cMenu, sEventHandler.getInstance(), {zIndex: 3});
+  menu.innerHTML = _format( params.templates.menu, { label: params.label.menuTitle[ lang ] } );
 
-    // add aggregator items to context menu
+  menu.className = params.classes.menu;
 
-    forEach(listItems, function(listItem) {
+  cn.forEach( data, function( item ) {
 
-      listItem.dom = document.createElement('li');
+    var li = document.createElement( 'li' );
 
-      listItem.dom.className = params.classes.aggregatorListItem;
+    li.className = params.classes.item;
 
-      listItem.dom.innerHTML = aggItemEjs.render({programItem: programItemEjs.render(listItem.p) });
+    li.innerHTML = _format( params.templates[ item.l ? 'picked' : 'unpicked' ], item.p );
 
-      addEvent(listItem.dom, 'click', function(e) {
-        preventDefault(e);
-        listItem.l?callbacks.onRemoveClick(listItem):callbacks.onAddClick(listItem);
-      });
+    cn.addEvent( li, 'click', function( e ) {
 
-      cMenu.getElementsByTagName('ul')[0].appendChild(listItem.dom);
+      cn.preventDefault( e );
 
-      _updateDisplay(listItem);
+      remote.get( _format( params.resources[ item.l ? 'remove' : 'add' ], { uid: uid, aUid: item.p.uid } ), {}, function( responseType, data ) {
+
+        lightbox({
+          message: data.message,
+          classes: params.classes.lightbox
+        });
+
+      }, true );
 
     });
 
-  },
+    cn.el( menu, 'ul' ).appendChild( li );
 
-  _hideIcons = function(listItem) {
-    getElementsByClassName(listItem.dom, params.classes.isSource)[0].style.display = 'none';
-    getElementsByClassName(listItem.dom, params.classes.isNotSource)[0].style.display = 'none';
-  },
+  } );
 
-  _updateDisplay = function(listItem) {
-    getElementsByClassName(listItem.dom, params.classes.isSource)[0].style.display = listItem.l?'inline-block':'none';
-    getElementsByClassName(listItem.dom, params.classes.isNotSource)[0].style.display = listItem.l?'none':'inline-block';
-  };
+  return menu;
 
-  init();
+}
 
-};
+function _format( tpl, ctx ) {
+  
+  return tpl.replace(/\{\{([a-zA-Z ]*)\}\}/g, function(m, g) {
+      return ctx[g.replace(/^\s+|\s+$/g, '')] || '';
+  });
+
+}

@@ -126,9 +126,9 @@ _create = function( classes ) {
 
   frameElem = document.createElement('div');
 
-  cn.addEvent(frameElem, 'click', function() { frontClickFlag = true; });
+  cn.addEvent( frameElem, 'click', function() { frontClickFlag = true; });
 
-  cn.extend(frameElem.style, {
+  cn.extend( frameElem.style, {
     display: 'inline-block',
     position: 'absolute'
   });
