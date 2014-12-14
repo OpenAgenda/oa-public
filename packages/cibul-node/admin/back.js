@@ -1,3 +1,5 @@
+"use strict";
+
 var appName = 'admin/back',
 
 exposed = {
@@ -7,7 +9,8 @@ exposed = {
 routes = {
   adminIndex: [ 'get', index, '' ],
   adminSearch: [ 'get', search, '/search' ],
-  eventsByWeek: [ 'get', eventsByWeek, '/eventsbyweek' ]
+  eventsByWeek: [ 'get', eventsByWeek, '/eventsbyweek' ],
+  eventsDiff: [ 'get', eventsDiff, '/eventsdiff' ]
 },
 
 async = require( 'async' ),
@@ -32,8 +35,7 @@ path,
 
 model = cmn.getCibulModel(),
 
-aEs = require( './es' )( config.es )
-
+adminSvc = require( '../services/admin/admin' );
 
 module.exports = function init( p ) {
 
@@ -179,43 +181,9 @@ function search( req, res ) {
 
 function eventsByWeek( req, res ) {
 
-  // tap in es to fetch the data
+  adminSvc.getIndexedEventsByWeek( function( err, result ) {
 
-  aEs.query( 'event', {
-    query: {
-      bool: {
-        should: [ {
-          term: {
-            original_es: true
-          }
-        }, {
-          range: {
-            updatedAt: {
-              gte: "2014-01-01T00:00:00.000Z"
-            }
-          }
-        }],
-        minimum_should_match: 2
-      }
-    },
-    aggs: {
-      histogram: {
-        date_histogram: {
-          field: 'updatedAt',
-          interval: 'week'
-        }
-      }
-    }
-  }, function( err, data ) {
- 
-    var result = data.aggregations.histogram.buckets.map( function( d ) {
-
-      return {
-        l: moment( d.key_as_string ).format( 'DD MMM' ),
-        v: d.doc_count
-      }
-
-    });
+    if ( err ) return cmn.errorResponse( req, res, err );
 
     cmn.renderJson( req, res, {
       success: true,
@@ -223,6 +191,22 @@ function eventsByWeek( req, res ) {
     });
 
   });
+
+}
+
+
+function eventsDiff( req, res ) {
+
+  adminSvc.getIndexDiff( function( err, diff ) {
+
+    if ( err ) return cmn.errorResponse( req, res, err );
+
+    cmn.renderJson( req, res, {
+      success: true,
+      diff: diff
+    } );
+
+  } )
 
 }
 
