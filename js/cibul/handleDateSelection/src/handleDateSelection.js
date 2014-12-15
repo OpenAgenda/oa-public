@@ -27,7 +27,7 @@ var handleDateSelection = function(params) {
     lang: 'en'
   }, params);
 
-  var dateAdd, datesList, addLink, clearLink, elem,
+  var dateAdd, datesList, addLink, clearLink, elem, dateFormDisplay = false,
 
   _run = function() {
 
@@ -59,9 +59,17 @@ var handleDateSelection = function(params) {
 
   showAdd = function() {
 
+    if ( dateFormDisplay ) {
+
+      return;
+
+    }
+
     _hideAddLink();
 
     dateAdd.create();
+
+    dateFormDisplay = true;
 
     if (params.onHeightChange) params.onHeightChange();
 
@@ -70,6 +78,8 @@ var handleDateSelection = function(params) {
   hideAdd = function() {
 
     dateAdd.remove();
+
+    dateFormDisplay = false;
 
     _showAddLink();
 
@@ -155,9 +165,11 @@ var handleDateSelection = function(params) {
     addLink.innerHTML = new EJS({text: params.templates.addLink }).render(params.labels);
 
     addEvent(addLink, 'click', function(e) {
+
       preventDefault(e);
-      dateAdd.create();
-      _hideAddLink();
+
+      showAdd();
+
     });
 
     el(elem, params.selectors.addDatesLinkCanvas).appendChild(addLink);
@@ -190,7 +202,7 @@ var handleDateSelection = function(params) {
 
     });
 
-    el(elem, params.selectors.clearDatesLinkCanvas).appendChild(clearLink);
+    el(elem, params.selectors.clearDatesLinkCanvas).appendChild( clearLink );
 
     if (params.onHeightChange) params.onHeightChange();
 
@@ -200,7 +212,7 @@ var handleDateSelection = function(params) {
 
     if (!isDef(clearLink)) return;
 
-    el(elem, params.selectors.clearDatesLinkCanvas).removeChild(clearLink);
+    el(elem, params.selectors.clearDatesLinkCanvas).removeChild( clearLink );
 
     if (params.onHeightChange) params.onHeightChange();
 

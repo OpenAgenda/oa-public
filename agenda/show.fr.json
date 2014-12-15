@@ -8,5 +8,7 @@
   "powered by" : "propulsé par",
   "manage" : "gérer",
   "by %name%" : "par %name%",
-  "on %start% @ %time%" : "le %start% @ %time%"
+  "on %start% @ %time%" : "le %start% @ %time%",
+  "This agenda hasn't published any events yet." : 
+  "Cet agenda n'a pas encore publié d'événements."
 }

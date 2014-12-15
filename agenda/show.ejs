@@ -1,6 +1,6 @@
 <% include ./theme.part.ejs %>
 
-<div class="canvas right page mw920">
+<div class="canvas page mw920<% if ( !isEmpty ) { %> right<% } %>">
   
   <header>
     <% include ./head.part.ejs %>
@@ -29,8 +29,10 @@
     </div>
   </header>
 
+<% if ( !isEmpty ) { %>
+
   <div class="sidebar">
-  
+
     <aside>
       <div class="cbpgsc cibulSearch cform csingle" data-cbctl="<%= uid %>|fr">
         <button><i class="fa fa-search"></i></button>
@@ -56,9 +58,11 @@
     <aside>
       <div class="cbpgtg listWidget" data-cbctl="<%= uid %>"></div>
     </aside>
+
     
   </div>
   <main class="elb ela">
+
     <div class="js_previous_page previous-page"><a class="url"><i class="fa fa-arrow-up"></i></a></div>
     <div class="cbpgft" data-cbctl="<%= uid %>|<%= lang %>"></div>
 
@@ -71,5 +75,11 @@
     <% include ../general/pages %>
 
   </main>
+
+<% } else { %>
+  <main>
+    <p class="empty"><%= __( 'This agenda hasn\'t published any events yet.' ) %></p>
+  </main>
+<% } %>
   <footer></footer>
 </div>

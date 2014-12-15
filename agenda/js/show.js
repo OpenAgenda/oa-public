@@ -53,42 +53,11 @@ window.hook( function( options ) {
 
   controller = window.cibul.getController( options.uid ),
 
-  loader = partialLoader( cn.extend( config.partialOptions, {
-    canvas: cn.el( params.selectors.list )
-  }));
+  loader,
 
   uid = options.uid;
 
   log = debug( 'agendaPage' );
-
-  pagination.init( {
-    href: window.location.href,
-    total: options.total,
-    perPage: options.perPage,
-    loader: loader
-  } );
-
-  _handleWidgets( controller, currentQueryValues, function( newSearchValues ) {
-
-    log( 'query values changed' );
-
-    var newHref = window.location.href.split( '?' )[0];
-
-    if ( cn.size( newSearchValues ) ) {
-
-      newHref += '?' + qs.stringify( { search: newSearchValues } );
-
-    }
-
-    currentQueryValues.search = newSearchValues;
-
-    loader.replace( newHref, function( err, data ) {
-
-      pagination.reset( newHref, data.total );
-
-    } );
-
-  } );
 
   window.getSession( function( session ) {
 
@@ -104,9 +73,46 @@ window.hook( function( options ) {
 
   } );
 
-  _setPassedAgendaFilter( controller, currentQueryValues );
+  if ( !options.empty ) {
 
-  _showOrganizationWidget( controller );
+    loader = partialLoader( cn.extend( config.partialOptions, {
+      canvas: cn.el( params.selectors.list )
+    }));
+
+    pagination.init( {
+      href: window.location.href,
+      total: options.total,
+      perPage: options.perPage,
+      loader: loader
+    } );
+
+    _handleWidgets( controller, currentQueryValues, function( newSearchValues ) {
+
+      log( 'query values changed' );
+
+      var newHref = window.location.href.split( '?' )[0];
+
+      if ( cn.size( newSearchValues ) ) {
+
+        newHref += '?' + qs.stringify( { search: newSearchValues } );
+
+      }
+
+      currentQueryValues.search = newSearchValues;
+
+      loader.replace( newHref, function( err, data ) {
+
+        pagination.reset( newHref, data.total );
+
+      } );
+
+    } );
+
+    _setPassedAgendaFilter( controller, currentQueryValues );
+
+    _showOrganizationWidget( controller );
+
+  }
 
 });
 

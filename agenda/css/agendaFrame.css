@@ -16,6 +16,7 @@
 
 
 
+
 .ag header .head {
 
   display: inline-block;
@@ -32,7 +33,15 @@
 }
 
 
+/* used for empty page */
 
+.ag .empty {
+
+  text-align: center;
+  font-weight: bold;
+  padding: 2em 0;
+
+}
 
 /**
  * .head groups the agenda title elements
