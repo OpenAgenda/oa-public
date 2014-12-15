@@ -91,21 +91,41 @@ function load( main ) {
 
 function show( req, res ) {
 
+  var isEmpty = false;
+
   req.esQuery.reviewId = req.agenda.id;
 
   req.esQuery.order = [ 'upcoming' ];
 
-  wn.call( es.events().search, req.esQuery )
+  wn.call( req.agenda.hasPublishedEvents )
+
+  .then( function( hasPublishedEvents ) {
+
+    if ( !hasPublishedEvents ) {
+
+      isEmpty = true;
+
+      return { data: [], total: 0 };
+
+    } else {
+
+      return wn.call( es.events().search, req.esQuery )
+
+    }
+
+  })
 
   .then( mw.search.prepareEvents )
 
   .spread( function( events, total ) {
 
     var templateData =  lib.extend({
+      isEmpty: isEmpty,
       events: events,
       total: total,
       scriptParams: {
-        total: total
+        total: total,
+        empty: isEmpty
       }
     }, _pager( req, 'agenda/show', total ) );
 
