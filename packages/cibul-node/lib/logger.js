@@ -28,7 +28,7 @@ module.exports = function( namespace ) {
 
   debugLog;
 
-  if ( config.env !== 'prod' ) {
+  if ( config.env == 'dev' ) {
 
     debug.enable( '*' );
 

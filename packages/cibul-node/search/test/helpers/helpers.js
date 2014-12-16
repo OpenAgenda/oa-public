@@ -1,3 +1,5 @@
+"use strict";
+
 var config = require( '../../../config' ),
 
 cmn = require( '../../../lib/commons-task' ),
@@ -18,10 +20,15 @@ log = require( 'debug' )( 'search test helper' ),
 
 ES = require( 'ES' )( config.es ),
 
-user, review, locations = [], events = [];
+user, review, locations = [], events = [], unpublishedEvent;
 
 
-exports.prepare = prepare;
+module.exports = {
+  prepare: prepare,
+  reviewExistsInIndex: reviewExistsInIndex,
+  eventExistsInIndex: eventExistsInIndex
+}
+
 
 function prepare( cb ) {
 
@@ -101,13 +108,32 @@ function prepare( cb ) {
 
   })
 
+  .then( function() { return w.promise( function( resolve, reject ) {
+
+
+    fixtures.load( 'events', 'veille-de-noel', { 
+      ownerId: user.id, 
+      locations: [ { uid: locations[ 0 ].uid } ]
+    }, function( err, data ) {
+
+      if ( err ) return reject( err );
+
+      unpublishedEvent = data;
+
+      review.addEvent( data, user, { publish: false }, resolve );
+
+    } );
+
+  }) })
+
   .done( function() {
 
     cb( null, {
       reviews: [ review ],
       events: events,
       users: [ user ],
-      locations: locations
+      locations: locations,
+      unpublishedEvent: unpublishedEvent
     });
 
   } );

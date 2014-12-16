@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * test syncing of elasticsearch
  */
@@ -21,6 +23,8 @@ helpers = require( './helpers/helpers' ),
 cmn = require( '../../lib/commons-task' ),
 
 async = require( 'async' ),
+
+model = require( 'cibulModel' )( config.db ),
 
 fixtureData;
 
@@ -118,6 +122,30 @@ describe( 'search index sync', function() {
   } );
 
 
+  it( 'unpublished event should not be added to index', function( done ) {
+
+    var unpublishedEvent = fixtureData.unpublishedEvent;
+
+    task.setOnComplete( function() {
+
+      helpers.eventExistsInIndex( unpublishedEvent.id + '@' + fixtureData.reviews[0].id, function( exists ) {
+
+        exists.should.be.false;
+
+        done();
+
+      } );
+
+    });
+
+    bogusComs.publish( config.es.channel, { 
+      name: 'event.publish', 
+      values: { id: unpublishedEvent.id } 
+    });
+
+  });
+
+
   it( 'event should be added to index', function( done ) {
 
     var eventToAdd = fixtureData.events[ fixtureData.events.length - 1 ];
@@ -149,7 +177,7 @@ describe( 'search index sync', function() {
 
     var eventToChange = fixtureData.events[0],
 
-    oldTitle = eventToChange.title.fr;
+    oldTitle = eventToChange.title.fr,
 
     newTitle = 'Prenez un chewing gum Emile';
 
@@ -240,7 +268,7 @@ describe( 'search index sync', function() {
 
     var reviewToChange = fixtureData.reviews[0],
 
-    oldTitle = reviewToChange.title;
+    oldTitle = reviewToChange.title,
 
     newTitle = 'Mon shaman vit à L.A.';
 

@@ -6,9 +6,9 @@ log = require( '../lib/logger' )( 'homepage tests' ),
 
 should = require( 'should' );
 
-describe.only( 'whatever', function() {
+describe( 'empty test', function() {
 
-  it( '#one', function( done ) {
+  it( '#empty', function( done ) {
 
     done();	
 
