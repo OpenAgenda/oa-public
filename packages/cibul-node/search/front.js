@@ -96,7 +96,7 @@ function load( main ) {
   cmn.loadRoutes( app, routes, [
     cmn.urlGenSetter( appName, path ),
     cmn.loadSession,
-    cmn.loadBaseData()
+    cmn.loadBaseData( _layoutData )
   ] );
 
   return exposed;
@@ -271,7 +271,13 @@ function _renderAgendas( req, res, uri ) {
 
 }
 
+function _layoutData( req, res ) {
 
+  return {
+    queryLang: req.query.lang ? req.query.lang : false
+  }
+
+}
 
 
 

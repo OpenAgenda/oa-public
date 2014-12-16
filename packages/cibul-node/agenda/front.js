@@ -165,6 +165,7 @@ function _layoutData( req, res ) {
     url: req.agenda.url,
     image: req.agenda.getImage( false ),
     theme: req.agenda.getTheme(),
+    queryLang: req.query.lang ? req.query.lang : false,
     scriptParams: {
       perPage: perPage,
       uid: req.agenda.uid
