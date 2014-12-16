@@ -2,13 +2,18 @@
  * format date or objects of dates according to the given format
  */
 
-var moment = require( 'moment' );
+var moment = require( 'moment' ),
 
-module.exports = function( config ) {
+deepExtend = require( 'deep-extend' );
 
-  var timezone = config.timezone ? config.timezone : '+0200';
+module.exports = function( options ) {
 
-  moment.locale(config.lang ? config.lang : 'en');
+  var params = deepExtend({
+    lang: 'en',
+    utc: true
+  }, options );
+
+  moment.locale( params.lang );
 
   return function( date, format ) {
 
@@ -31,7 +36,7 @@ module.exports = function( config ) {
 
         }
 
-        clean[k] = formatDate( date[k], assumedFormat, timezone );
+        clean[k] = formatDate( date[k], assumedFormat );
 
       }
 
@@ -41,7 +46,7 @@ module.exports = function( config ) {
 
       if ( !format ) format = 'Do MMMM YYYY';
 
-      return formatDate( date, format, timezone );
+      return formatDate( date, format );
 
     }
 
@@ -49,7 +54,7 @@ module.exports = function( config ) {
 
 };
 
-var formatDate = function ( date, format, timezone ) {
+var formatDate = function ( date, format ) {
 
   if ( !(date instanceof Date)) {
 
@@ -57,6 +62,6 @@ var formatDate = function ( date, format, timezone ) {
 
   }
 
-  return moment( date ).zone( timezone ).format( format );
+  return moment( date ).utc().format( format );
 
 };
