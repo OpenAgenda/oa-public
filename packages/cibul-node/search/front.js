@@ -180,7 +180,7 @@ function latestEvents( req, res ) {
     var result = mw.search.prepareEvents( { total: total, data: data } );
 
     cmn.render( req, res, 'search/events', lib.extend({
-      events: result[0], searchRes :'latestEvents', search: req.cleanSearch },
+      events: result[0], searchRes :'searchEvents', search: req.cleanSearch },
       _pager( req, 'latestEvents', result[1] )
     ));
 
