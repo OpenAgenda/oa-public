@@ -66,8 +66,14 @@ function master() {
 
 function worker( job ) {
 
+  logger().setPaths( 
+    config.logPath.replace( 'log', cluster.worker.id + '.log' ),
+    config.logPathError.replace( 'log', cluster.worker.id + '.log' )
+  );
+
   logger().globalLoad( { workerId: cluster.worker.id } );
 
-  process.on('message', job );
+
+  process.on( 'message', job );
 
 }

@@ -4,7 +4,11 @@ config = require( '../config' ),
 
 lib = require( './lib' ),
 
-debug = require('debug');
+debug = require('debug'),
+
+path = config.logPath,
+
+errorPath = config.logPathError;
 
 module.exports = function( namespace ) {
  
@@ -13,14 +17,14 @@ module.exports = function( namespace ) {
     streams: [{
       level: "info",
       type: 'rotating-file',
-      path: config.logPath,
+      path: path,
       period: '1d',
       count: 3
     },
     {
       level: "error",
       type: 'rotating-file',
-      path: config.logPathError,
+      path: errorPath,
       period: '1d',
       count: 3    
     }]
@@ -94,13 +98,22 @@ module.exports = function( namespace ) {
 
     logger = logger.child( lib.extend( globalNamespace, values ) );
 
+  },
+
+  setPaths = function( newPath, newErrorPath ) {
+
+    path = newPath;
+
+    errorPath = newErrorPath;
+
   };
 
 
   return lib.extend( log, {
     
     load: load,
-    globalLoad: globalLoad
+    globalLoad: globalLoad,
+    setPaths: setPaths
   
   });
 
