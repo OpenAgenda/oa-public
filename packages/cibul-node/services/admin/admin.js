@@ -99,7 +99,7 @@ function getIndexDiff( cb ) {
   unreferencedQuery = [
     'select count( * ) as unref_count from( ',
       'select e.id',
-      'from event as e left join review_article as ra on ra.event_id=e.id',
+      'from event as e left join review_article as ra on ra.event_id=e.id and ra.is_published=1',
       'where e.is_published = 1 and e.is_new = 0',
       'group by e.id having count( ra.id ) = 0',
     ') as x' 
