@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * sync events with services linked to their agenda
  * 

@@ -91,4 +91,6 @@ supervisor( function( loadTasks ) {
 
   require( './general/jobs.task' ).load( { bootOffset: 5000 } );
 
+  require( './general/mainLogger.task').load();
+
 });
