@@ -63,6 +63,8 @@ function load( main ) {
 
   app = cmn.loadApp( main, path, appName );
 
+  moment.locale( 'fr' );
+
   log( 'app loaded' );
 
   cmn.loadRoutes( app, routes, [
