@@ -18,7 +18,8 @@
     "_sl" : "shareLinks"
   },
   "base" : {
-    "pageClass" : "ag cb"
+    "pageClass" : "ag cb",
+    "queryLang" : false
   },
   "templateJs" : true
 }

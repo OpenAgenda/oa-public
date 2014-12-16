@@ -8,9 +8,9 @@
 <% if ( event.category ) { %>
     <a class="ct mbClr" href="#<%= event.category.slug %>"><%= event.category.label %></a>
 <% } %>
-    <a href="<%= genUrl('eventShow', { eventSlug: event.slug }) %>"><span class="title"><%= event.title %></span></a>
-    <a href="<%= genUrl('eventShow', { eventSlug: event.slug }) %>"><span class="sti url"><%= __( event.dateRange[0], _t(event.dateRange[1]) ) %></span></a>
-    <a href="<%= genUrl('eventShow', { eventSlug: event.slug }) %>"><span class="dsc"><%= event.description %></span></a>
+    <a href="<%= genUrl( 'eventShow', [ { eventSlug: event.slug }, queryLang ? { lang: queryLang } : {} ] ) %>"><span class="title"><%= event.title %></span></a>
+    <a href="<%= genUrl( 'eventShow', [ { eventSlug: event.slug }, queryLang ? { lang: queryLang } : {} ] ) %>"><span class="sti url"><%= __( event.dateRange[0], _t(event.dateRange[1]) ) %></span></a>
+    <a href="<%= genUrl( 'eventShow', [ { eventSlug: event.slug }, queryLang ? { lang: queryLang } : {}] ) %>"><span class="dsc"><%= event.description %></span></a>
 <% if ( event.tags ) { %>
     <span class="tg">
       <ul>

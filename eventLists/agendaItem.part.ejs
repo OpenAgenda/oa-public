@@ -5,13 +5,13 @@
   </a><!--
 <% } %>
   --><div class="cnt<% if ( !event.thumbnail ) { %> nopic<% } %>">
-    <a href="<%= genUrl('agendaEventShow', { eventSlug: event.slug }) %>">
+    <a href="<%= genUrl('agendaEventShow', [ { eventSlug: event.slug }, queryLang ? { lang: queryLang } : {} ]) %>">
       <span class="title"><%= event.title %></span>
     </a>
-    <a href="<%= genUrl('agendaEventShow', { eventSlug: event.slug }) %>">
+    <a href="<%= genUrl('agendaEventShow', [ { eventSlug: event.slug }, queryLang ? { lang: queryLang } : {} ]) %>">
       <span class="dsc"><%= event.description %></span>
     </a>
-    <a href="<%= genUrl('agendaEventShow', { eventSlug: event.slug }) %>">
+    <a href="<%= genUrl('agendaEventShow', [ { eventSlug: event.slug }, queryLang ? { lang: queryLang } : {} ]) %>">
       <span class="sti url"><%= __( event.dateRange[0], _t(event.dateRange[1]) ) %></span>
       <span class="url">@ <%= event.placeName %></span>
 <% if ( event.organization ) { %>

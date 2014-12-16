@@ -9,7 +9,8 @@
     "opensans" : "../css/opensans.css"
   },
   "base" : {
-    "pageClass" : "cb search-page"
+    "pageClass" : "cb search-page",
+    "queryLang" : false
   },
   "helpers" : {
     "_t" : "time",
