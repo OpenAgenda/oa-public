@@ -7,25 +7,25 @@
 	  <section class="w33">
 	 		<h3><%= __('Reviews') %></h3>
 	 		<p> <%= __('Number of reviews created %totalReviews%', {'%totalReviews%': reviews.total}) %> </p>
-	 		<% if ( reviews.totalInWeek ) {%><p><%= __('This week') %> <%= __( '%reviewsWeek% reviews' , {'%reviewsWeek%': reviews.totalInWeek} )  %></p>
+	 		<% if ( reviews.totalInWeek ) {%><p><%= __('Last week') %> <%= __( '%reviewsWeek% reviews' , {'%reviewsWeek%': reviews.totalInWeek} )  %></p>
 			<% } %>
-			<% if ( reviews.totalInMonth ) {%><p><%= __('This month')%> <%= __( '%reviewsMonth% reviews' , {'%reviewsMonth%': reviews.totalInMonth} ) %></p> <% } %>
+			<% if ( reviews.totalInMonth ) {%><p><%= __('Last month')%> <%= __( '%reviewsMonth% reviews' , {'%reviewsMonth%': reviews.totalInMonth} ) %></p> <% } %>
 	 	</section>
 	 	
 	 	<section class="w33">
 	 		<h3><%= __('Events') %></h3>
 	 		<p> <%= __('Number of events created %totalEvents%', {'%totalEvents%': events.total} ) %>  </p>
-	 		<% if ( events.totalInWeek ) {%><p><%= __('This week') %> <%= __( '%eventsWeek% events' , {'%eventsWeek%': events.totalInWeek} )  %></p>
+	 		<% if ( events.totalInWeek ) {%><p><%= __('Last week') %> <%= __( '%eventsWeek% events' , {'%eventsWeek%': events.totalInWeek} )  %></p>
 			<% } %>
-			<% if ( events.totalInMonth ) {%><p><%= __('This month')%> <%= __( '%eventsMonth% events' , {'%eventsMonth%': events.totalInMonth} ) %></p> <% } %>
+			<% if ( events.totalInMonth ) {%><p><%= __('Last month')%> <%= __( '%eventsMonth% events' , {'%eventsMonth%': events.totalInMonth} ) %></p> <% } %>
 	 	</section>
 
 	 	<section class="w33">
 	 		<h3><%= __('Users') %></h3>
 	 		<p><%= __('Number of users created %totalUsers%', {'%totalUsers%': users.total}) %> </p>
-	 		<% if ( users.totalInWeek ) {%><p><%= __('This week') %> <%= __( '%usersWeek% users' , {'%usersWeek%': users.totalInWeek} )  %></p>
+	 		<% if ( users.totalInWeek ) {%><p><%= __('Last week') %> <%= __( '%usersWeek% users' , {'%usersWeek%': users.totalInWeek} )  %></p>
 			<% } %>
-			<% if ( users.totalInMonth ) {%><p><%= __('This month')%> <%= __( '%usersMonth% users' , {'%usersMonth%': users.totalInMonth} ) %></p> <% } %>
+			<% if ( users.totalInMonth ) {%><p><%= __('Last month')%> <%= __( '%usersMonth% users' , {'%usersMonth%': users.totalInMonth} ) %></p> <% } %>
 	 	</section>
 
 	 	<form class="cform js_totals_search" method="get" action="<%= genUrl( 'adminSearch' ) %>" >

@@ -5,10 +5,10 @@
 	: "Evenements",
 	"Users"
 	: "Utilisateurs",
-	"This week"
-	: "Cette semaine",
-	"This month"
-	: "Ce mois-ci",
+	"Last week"
+	: "La semaine dernière",
+	"Last month"
+	: "Le mois dernier",
 	"Number of reviews created %totalReviews%"
 	: "Nombre d'agenda(s) crée(s) %totalReviews%",
 	"Number of events created %totalEvents%"
