@@ -267,13 +267,11 @@ _loadHelpers = function( data, cb ) {
 
     if ( !helpers[ name ] ) {
 
-      // lang, timezone go here
-
-      helpers[name] = require( __dirname + '/../helpers/' + data.config.helpers[name])( helpersConfig );
+      helpers[name] = require( __dirname + '/../helpers/' + data.config.helpers[name] );
 
     }
 
-    data.helpers[name] = helpers[name];
+    data.helpers[name] = helpers[name]( helpersConfig );
 
   }
 
