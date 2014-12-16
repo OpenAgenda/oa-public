@@ -9,7 +9,7 @@ params = {
   attributes: {
     coord: 'data-coord'
   },
-  tiles: 'http://{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png',
+  tiles: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png',
   icon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png',
   scrollWheelZoom: false
 };
