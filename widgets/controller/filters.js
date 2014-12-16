@@ -1,4 +1,15 @@
-exports.what = function( item, reqParams, whatUids ) {
+module.exports = {
+  what: what,
+  //passed: passed,
+  event: event,
+  categories: categories,
+  tags: tags,
+  organizations: organizations,
+  locations: locations
+}
+
+
+function what( item, reqParams, whatUids ) {
 
   if ( reqParams.what ) {
 
@@ -14,7 +25,39 @@ exports.what = function( item, reqParams, whatUids ) {
 
 }
 
-exports.event = function( item, reqParams ) {
+
+function passed( item, reqParams ) {
+
+  var today = new Date();
+
+  today = today.getFullYear() + '-' + _fZ( today.getMonth() + 1 ) + '-' + _fZ( today.getDate() );
+
+  if ( !reqParams.passed ) {
+
+    for ( var i in item.l ) {
+
+      for ( var j in item.l[i].d ) {
+
+        if ( item.l[i].d[j] >= today ) {
+
+          return true;
+
+        }
+
+      }
+
+    }
+
+    return false;
+
+  }
+
+  return true;
+
+}
+
+
+function event( item, reqParams ) {
 
   if ( reqParams.uid && ( item.u !== reqParams.uid ) ) return false;
 
@@ -22,7 +65,8 @@ exports.event = function( item, reqParams ) {
 
 }
 
-exports.categories = function( item, reqParams ) {
+
+function categories( item, reqParams ) {
 
   if ( reqParams.category && ( item.c !== reqParams.category ) ) return false;
 
@@ -31,7 +75,7 @@ exports.categories = function( item, reqParams ) {
 }
 
 
-exports.tags = function( item, reqParams ) {
+function tags( item, reqParams ) {
 
   if ( reqParams.tags ) {
 
@@ -49,7 +93,8 @@ exports.tags = function( item, reqParams ) {
 
 }
 
-exports.organizations = function( item, reqParams ) {
+
+function organizations( item, reqParams ) {
 
   if ( reqParams.org && ( ( !item.org ) || ( item.org.s !== reqParams.org ) ) ) return false;
 
@@ -57,7 +102,8 @@ exports.organizations = function( item, reqParams ) {
 
 }
 
-exports.locations = function( item, reqParams ) {
+
+function locations( item, reqParams ) {
 
   if ( reqParams.location && ( typeof item.l[reqParams.location] == 'undefined' ) ) {
 
@@ -92,3 +138,7 @@ exports.locations = function( item, reqParams ) {
   return true;
 
 }
+
+function _fZ( n ) {
+  return (n>9?'':'0') + n;
+};

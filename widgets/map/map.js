@@ -388,6 +388,10 @@ var widget = function( elem, options ) {
 
   _initLocations = function( data ) {
 
+    var today = new Date();
+
+    today = today.getFullYear() + '-' + _fZ( today.getMonth() + 1 ) + '-' + _fZ( today.getDate() );
+
     for ( var a in data.a ) {
 
       for ( var l in data.a[a].l ) {
@@ -399,8 +403,25 @@ var widget = function( elem, options ) {
             city: data.a[a].l[l].ct,
             address: data.a[a].l[l].a,
             slug: l,
-            coords: [ data.a[a].l[l].lt, data.a[a].l[l].lg ]
+            coords: [ data.a[a].l[l].lt, data.a[a].l[l].lg ],
+            passed: true
           };
+
+        }
+
+        if ( !data.passed ) {
+
+          for( var d in data.a[ a ].l[ l ].d ) {
+
+            if ( data.a[ a ].l[ l ].d[ d ] >= today ) {
+
+              locations[ l ].passed = false;
+
+              break;              
+
+            }
+
+          }
 
         }
 
@@ -446,7 +467,7 @@ var widget = function( elem, options ) {
 
     } else {
 
-      _initAllInclusiveBounds();
+      _initAllInclusiveBounds( data.passed );
 
     }
 
@@ -463,9 +484,10 @@ var widget = function( elem, options ) {
 
 
   
-  // define initial bounds to have them include all markers
+  // define initial bounds to have them include all upcoming
+  // markers. Or all markers if agenda is fully passed
 
-  _initAllInclusiveBounds = function() {
+  _initAllInclusiveBounds = function( isPassed ) {
 
     if ( !cn.size( locations ) ) {
 
@@ -485,16 +507,36 @@ var widget = function( elem, options ) {
 
     }
 
+    // include all locations in base bounds
 
     log( 'defining base bounds' );
 
-    for ( var l in locations ) break;
+    for ( var l in locations ) {
 
-    baseBounds = m.createBounds( locations[l].coords );
+      if ( isPassed || !locations[ l ].passed ) {
 
-    for ( l in locations ) {
+        if ( typeof baseBounds == 'undefined' ) {
 
-      m.extendBounds( baseBounds, locations[l].coords );
+          baseBounds = m.createBounds( locations[l].coords );
+
+        } else {
+
+          m.extendBounds( baseBounds, locations[l].coords );
+
+        }
+
+      }
+
+    }
+
+
+    // if bounds is still not defined, just pick first location
+    
+    if ( typeof baseBounds == 'undefined' ) {
+
+      for ( l in locations ) break;
+
+      baseBounds = m.createBounds( locations[l].coords );
 
     }
 
@@ -598,7 +640,13 @@ var widget = function( elem, options ) {
 
     if ( sendCount > 0 ) return;
 
-    if ( !reqParams.neLat ) return;
+    if ( !reqParams.neLat ) {
+
+      _deactivateSync();
+
+      return;
+      
+    }
 
     if ( _getBoundParams().neLat == reqParams.neLat ) {
 
@@ -751,6 +799,10 @@ var widget = function( elem, options ) {
 
   init();
 
+};
+
+function _fZ( n ) {
+  return (n>9?'':'0') + n;
 };
 
 
