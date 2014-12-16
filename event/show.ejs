@@ -31,7 +31,7 @@
 
     </aside>
 
-<% if ( event.agendaReferences.length > ( loner ? 1 : 0 ) ) { %>
+<% if ( event.agendaReferences.length > ( loner ? 0 : 1 ) ) { %>
     <aside class="agenda-references">
       <h3><%= __( loner ? 'Referring agendas' : 'Other referring agendas' ) %></h3>
       <ul>
