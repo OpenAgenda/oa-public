@@ -62,11 +62,11 @@ config = {
     },
     bridges: {
       swapcard: {
-        redirect: 'http://cibul.net/services/swapcard/connect/callback',
-        clientID: '5_2teox6oxnwg0k4cscwwk8gs84cwo0ococck0og4wkswwwc4ggc',
-        clientSecret: '4ze5s2xa5y4g48kw0wow8sg8ssc4wcg0kcc8gwks8coww4ssos',
-        token: 'ZmI4YzlhMzFlZGY3ODdkZjg3MzU3YTUxN2MxYmRjNmMwNTdmZGFkM2RlNGE5N2Q3YTBkOWU1NmY2YjI1ZWExMQ',
-        baseSite: 'https://apidev.swapcard.com',
+        redirect: 'https://cibul.net/services/swapcard/connect/callback',
+        clientID: '5_55ktc1a47zgogwg4gw8k8s4gg4kk4848s800gwggkswsc4so4o',
+        clientSecret: 'mox19rhegg0wc0wkg0gsksoscowk0wss8k0wkcwgkg800woks',
+        token: 'MGE5NmZlNzhhNTc2MDBkMDQzZWIzNzVmMzdjODJkOGNmMjFjMTFlOTAwYTM5ZWExYWRjNTg2ZjUxNDlkOWNkNg',
+        baseSite: 'https://api.swapcard.com',
         authorizePath: '/oauth/v2/auth',
         accessTokenPath: '/oauth/v2/token',
         emptyImage: 'white300x300.jpg'
@@ -252,7 +252,11 @@ config = {
     },
     bridges: {
       swapcard: {
-        redirect: 'http://d.cibul.net/services/swapcard/connect/callback'
+        redirect: 'http://d.cibul.net/services/swapcard/connect/callback',
+        clientID: '5_2teox6oxnwg0k4cscwwk8gs84cwo0ococck0og4wkswwwc4ggc',
+        clientSecret: '4ze5s2xa5y4g48kw0wow8sg8ssc4wcg0kcc8gwks8coww4ssos',
+        token: 'ZmI4YzlhMzFlZGY3ODdkZjg3MzU3YTUxN2MxYmRjNmMwNTdmZGFkM2RlNGE5N2Q3YTBkOWU1NmY2YjI1ZWExMQ',
+        baseSite: 'https://apidev.swapcard.com'
       }
     }
   },

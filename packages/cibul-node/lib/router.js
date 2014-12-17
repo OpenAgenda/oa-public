@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * the overall app router
  */
@@ -246,7 +248,7 @@ function loadGlobalRoutes() {
 
   log( 'debug', 'loading global routes' );
 
-  var globalDefaultPrefix = config.routes.defaultGlobalsPrefix || '';
+  var globalDefaultPrefix = config.routes.defaultGlobalsPrefix || '',
 
   globalRoutes = config.routes.globals || {};
 
@@ -278,9 +280,11 @@ function _registerRoute( name, params ) {
 
 function _getBasePath( path, req ) {
 
-  var basePathRegex = path.replace(/\//g, '\/'),
+  var basePathRegex = path.replace( /\//g, '\/' ),
 
-  baseValues = {};
+  baseValues = {},
+
+  matchResult;
     
   ( path.match(/:([a-zA-Z])+/g) || [] ).forEach(function ( paramName ) {
 
@@ -290,9 +294,11 @@ function _getBasePath( path, req ) {
 
   });
 
+  matchResult = req.path.match( basePathRegex );
+
   return {
     values: baseValues,
-    path: req.path.match(basePathRegex)[0] 
+    path: matchResult===null ? '' : matchResult[0] 
   };
 
 }
