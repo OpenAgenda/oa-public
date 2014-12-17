@@ -161,16 +161,27 @@ function _processJob( job, cb ) {
 
   } else {
 
+    if ( job.id === undefined ) {
+
+      return cb( 'job ' + job.jobName + ' id is not defined' );
+
+    }
+
     model.events().get( { id: job.id }, function( err, obj ) {
 
-      if ( err ) return cb( err );
+      if ( err ) {
+
+        return cb( err );
+
+      }
+
+      if ( obj === undefined ) {
+
+        return cb( 'event of id ' + job.id + ' was not found' );
+
+      }
 
       log( 'processing job of type %s', job.name );
-
-      // @younes
-      // là nous faisons du spécifique 'event' dans un module
-      // qui dépile et forwarde des taches. C'est une dépendance non nécéssaire
-      // c'est le service qui charge ce dont il a besoin
       
       obj = model.events().instance( obj );
 

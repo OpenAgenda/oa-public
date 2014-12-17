@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * task that syncs elasticsearch index 
  * as events and reviews are modified/added/deleted
@@ -207,9 +209,25 @@ function _publish( schema ) {
 
     log( 'debug', 'publishing %s %s', job.type, job.id );
 
+    if ( job.id === undefined ) {
+
+      return cb( 'job ' + job.jobName + ' id is not defined' );
+
+    }
+
     model[ schema ]().get( { id : job.id }, function( err, obj ) {
 
-      if ( err ) return cb( err );
+      if ( err ) {
+
+        return cb( err );
+
+      }
+
+      if ( obj === undefined ) {
+
+        return cb( 'event of id ' + job.id + ' was not found' );
+
+      }
 
       ES[ schema ]().insert( obj, cb );
 
@@ -259,6 +277,8 @@ function _delete( schema ) {
 function _handleError() {
 
   var args = Array.prototype.slice.call( arguments );
+
+  args.splice( 0, 0, 'error' );
 
   log.apply( null, args );
 

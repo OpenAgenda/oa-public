@@ -1,21 +1,25 @@
+"use strict";
+
 /**
  * handles communication between application modules through stacked workflows and publish / subscribe
  * difference between stacks and publish / subscribe is that stacks persist the publish ( )
  */
 
-exports.queue = queue;                            // (name, values, cb) queue message - used for mailer only for no
-exports.consume = consume;                        // (name, cb) consume queue - not really used
-exports.persistentConsume = persistentConsume;    // (name, cb) keep on consuming queue until its empty, then wait till it fills to keep on consuming - used by mailer
-exports.publish = publish;                        // (name, values) publish message on channel
-exports.subscribe = subscribe;                    // (name, cb) subscribe to channel messages
-exports.end = end;
+module.exports = {
+  queue: queue,                             // (name, values, cb) queue message - used for mailer only for no
+  consume: consume,                         // (name, cb) consume queue - not really used
+  persistentConsume: persistentConsume,     // (name, cb) keep on consuming queue until its empty, then wait till it fills to keep on consuming - used by mailer
+  publish: publish,                         // (name, values) publish message on channel
+  subscribe: subscribe,
+  end: end                                  // (name, cb) subscribe to channel messages
+}
 
 
 var redis = require( 'redis' ),
 
 config = require( '../config' ).redis,
 
-log = require( './logger' )('coms'),
+log = require( './logger' )( 'coms' ),
 
 redisCli = redis.createClient( config.port, config.host ),
 
@@ -90,7 +94,23 @@ function subscribe( channelName, cb ) {
 
   cli.on( 'message' , function( channel, values ) {
 
-    cb( null, JSON.parse( values ) );
+    var parsedMessage;
+
+    try {
+
+      parsedMessage = JSON.parse( values );
+
+    } catch( e ) {
+
+      log( 'error', 'subscribe receive: Invalid JSON: %s', values );
+
+    }
+
+    if ( parsedMessage ) {
+
+      cb( null, parsedMessage );
+
+    }
 
   });
 
