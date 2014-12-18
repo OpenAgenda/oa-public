@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * task that syncs services' events 
  * as Cibul events are modified/added/deleted

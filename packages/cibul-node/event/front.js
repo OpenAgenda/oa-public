@@ -174,10 +174,11 @@ function _formatEvent( req, res ) {
 
     async.series([
       req.event.getOwner,
-      req.event.getAgendaReferences
+      req.event.getAgendaReferences,
+      req.event.getAdminAgendas
     ], function( err, results ) {
 
-      var owner, agendaReferences;
+      var owner, agendaReferences, adminAgendas;
 
       if ( err ) {
 
@@ -190,6 +191,8 @@ function _formatEvent( req, res ) {
       owner = results[ 0 ];
 
       agendaReferences = results[ 1 ];
+
+      adminAgendas = results[ 2 ];
 
       req.formattedEvent = {
         uid: req.event.uid,
@@ -206,6 +209,7 @@ function _formatEvent( req, res ) {
         longitude: req.event.locations ? req.event.locations[0].longitude : false,
         timings: req.event.locations ? req.event.locations[0].timings : [],
         owner: owner,
+        adminAgendas: adminAgendas,
         languages: false,
         agendaReferences: agendaReferences
       };
@@ -292,6 +296,10 @@ function _layoutData( req, res ) {
     content: req.genUrl( uri, uriParams, { abs: true } )
   };
 
+  data.scriptParams = {
+    ownerUid: req.formattedEvent.owner.uid,
+    adminAgendaUids: req.formattedEvent.adminAgendas ? req.formattedEvent.adminAgendas.map( function( a ) { return a.uid; } ) : []
+  };
 
   return data;
 
