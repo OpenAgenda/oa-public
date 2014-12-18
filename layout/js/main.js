@@ -4,6 +4,8 @@ mobileMonitor = require('./handleMobileMonitor.js'),
 
 messageLinks = require('./handleMessageLinks.js'),
 
+confirmMessage = require( './confirmMessage' ),
+
 loadZopim = require('./zopimLoader.js'),
 
 handleSession = require( './handleSession' ),
@@ -49,6 +51,8 @@ module.exports = window.run = function( externalEh, options ) {
   cn.addEvent( window, 'load', function() {
 
     messageLinks( eh );
+
+    confirmMessage();
 
     loadZopim( document, window, eh, { env: window.env } );
 

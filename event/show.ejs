@@ -51,10 +51,10 @@
     </aside>
 <% } %>
 
-    <aside>
+    <aside class="admin-controls js_admin_controls">
       <ul>
-        <li><a class="hurl" href="<%= genUrl( loner ? 'eventEdit' : 'agendaEventEdit', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ] ) %>"><%= __('edit') %></a></li>
-        <li><a class="hurl" href="<%= genUrl('eventRemove', { eventSlug: event.slug }) %>"><%= __('remove') %></a></li>
+        <li><a class="small button" href="<%= genUrl( loner ? 'eventEdit' : 'agendaEventEdit', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ] ) %>"><%= __('edit') %></a></li>
+        <li><a class="small button js_message_confirm" data-confirm="<%= __('Are you sure you want to delete this event?') %>" data-ok="<%= __( 'Confirm' ) %>" data-cancel="<%= __( 'Cancel' ) %>" href="<%= genUrl('eventRemove', { eventSlug: event.slug }) %>"><%= __('remove') %></a></li>
       </ul>
     </aside>
 

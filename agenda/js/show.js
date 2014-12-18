@@ -1,3 +1,5 @@
+"use strict";
+
 var controllers = require( '../../widgets/controller/main' ),
 
 qs = require( 'qs' ),
@@ -69,7 +71,7 @@ window.hook( function( options ) {
 
     } );
 
-    _handleAddToSource( session );
+    _handleAddToSource( uid, session );
 
   } );
 
@@ -122,7 +124,7 @@ window.hook( function( options ) {
  * toggle display of "add to source" link
  */
 
-function _handleAddToSource( session ) {
+function _handleAddToSource( uid, session ) {
 
   if ( !session.logged ) {
 

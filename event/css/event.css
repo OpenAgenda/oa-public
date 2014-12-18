@@ -22,6 +22,13 @@
 
 }
 
+.ag.ev aside.admin-controls ul li {
+
+  display: inline-block;
+  padding-right: 1em;
+
+}
+
 .ag.ev .month {
 
   padding-top: 1em;

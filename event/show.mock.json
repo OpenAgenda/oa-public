@@ -96,6 +96,13 @@
           "thumbnail" : "rwtbreview_transition-touraine_00.jpg"
         }
       ]
+
+    },
+
+    "scriptParams" : {
+      "lang" : "fr",
+      "ownerUid" : 743739984789,
+      "adminAgendaUids" : [ 67815685, 34634634, 89067892, 34667890, 28021981 ]
     }
   },
   "default" : {},

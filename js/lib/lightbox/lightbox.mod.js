@@ -271,28 +271,33 @@ _setButtons = function(classes, buttons) {
 
   for ( var i in buttons ) {
 
-    var button = document.createElement('button');
-    button.innerHTML = buttons[i].label;
+    if ( buttons[ i ] ) {
 
-    (function( button, buttonConfig ) {
+      var button = document.createElement( 'button' );
 
-      cn.addEvent( button, 'click', function(){
+      button.innerHTML = buttons[i].label;
 
-        if ( buttonConfig.onClick ) buttonConfig.onClick();
+      (function( button, buttonConfig ) {
 
-        if (typeof buttonConfig.hide !== 'undefined') if ( !buttonConfig.hide ) return;
+        cn.addEvent( button, 'click', function(){
 
-        _hide( classes );
+          if ( buttonConfig.onClick ) buttonConfig.onClick();
 
-      });
+          if ( typeof buttonConfig.hide !== 'undefined' ) if ( !buttonConfig.hide ) return;
 
-    })(button, buttons[i]);
+          _hide( classes );
 
-    if ( buttons[i].className ) cn.addClass( button, buttons[i].className );
+        });
 
-    if ( classes.button ) cn.addClass( button, classes.button );
+      })(button, buttons[i]);
 
-    div.appendChild( button );
+      if ( buttons[i].className ) cn.addClass( button, buttons[i].className );
+
+      if ( classes.button ) cn.addClass( button, classes.button );
+
+      div.appendChild( button );
+
+    }
 
   }
 
