@@ -32,7 +32,6 @@ module.exports = function( options ) {
 
     cTemplater( params.template, {
       urls: {
-        eventNew: '/events/new',
         settingsIndex: '/settings',
         homeEvents: '/home/events',
         homeAgendas: '/home',
