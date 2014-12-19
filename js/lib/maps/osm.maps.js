@@ -20,10 +20,13 @@ maps.register( 'osm', (function(){
         draggable: true,
         scrollwheel: true,
         keyboard: true,
-        onReady: false
+        onReady: false,
+        tiles: false,
       }, options);
 
-      var map = L.map(mapElt, {
+      var tiles = libOptions.url;
+
+      map = L.map(mapElt, {
         dragging: options.draggable,
         scrollWheelZoom: options.scrollwheel,
         keyboard: options.keyboard
@@ -33,9 +36,15 @@ maps.register( 'osm', (function(){
         options.onReady(map);
       });
 
+      if ( options.tiles ) {
+
+        tiles = options.tiles;
+
+      }
+
       map.setView(options.center, options.zoom);
 
-      L.tileLayer(libOptions.url, { minZoom: 2, maxZoom: 18, attribution: libOptions.attr }).addTo(map);
+      L.tileLayer( tiles, { minZoom: 2, maxZoom: 18, attribution: libOptions.attr }).addTo(map);
 
       return map;
     },

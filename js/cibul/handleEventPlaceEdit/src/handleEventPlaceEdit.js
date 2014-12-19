@@ -54,7 +54,7 @@ var handleEventPlaceEdit = function(params) {
     lang: 'en',
     map: {
       type: 'osm',
-      init: {url: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'},
+      init: {url: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png'},
       coords: [48.447052, 1.486754]
     },
     icon: 'images/markerIcon.png'

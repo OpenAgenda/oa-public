@@ -21,7 +21,7 @@ var handlePlaceSelectionMap = function(params) {
     onSelect: false,
     map: {
       type: 'osm',
-      init: { url: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg' },
+      init: { url: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png' },
       coords: [48.447052, 1.486754]
     },
     icon: 'images/markerIcon.png',
@@ -104,7 +104,9 @@ var handlePlaceSelectionMap = function(params) {
   },
 
   _createMap = function() {
-    map = mapLib.createMap(mapElem, { center: params.map.coords });
+
+    map = mapLib.createMap(mapElem, { center: params.map.coords, tiles: params.map.init.url } );
+
   },
 
   _clearMarkers = function() {
