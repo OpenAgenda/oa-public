@@ -39,7 +39,9 @@ app,
 
 path,
 
-model = cmn.getCibulModel();
+model = cmn.getCibulModel(),
+
+deepExtend = require( 'deep-extend' );
 
 
 function init( p ) {
@@ -178,8 +180,6 @@ function _formatEvent( req, res ) {
       req.event.getAdminAgendas
     ], function( err, results ) {
 
-      var owner, agendaReferences, adminAgendas;
-
       if ( err ) {
 
         reject( err );
@@ -188,11 +188,7 @@ function _formatEvent( req, res ) {
 
       }
 
-      owner = results[ 0 ];
-
-      agendaReferences = results[ 1 ];
-
-      adminAgendas = results[ 2 ];
+      var owner, agendaReferences, adminAgendas, location = false;
 
       req.formattedEvent = {
         uid: req.event.uid,
@@ -203,16 +199,35 @@ function _formatEvent( req, res ) {
         description: req.event.getDescription(),
         freeText: req.event.getFreeText(),
         tags: req.event.getTags(),
-        placeName: req.event.locations ? req.event.locations[0].name : false,
-        address: req.event.locations ? req.event.locations[0].address : false,
-        latitude: req.event.locations ? req.event.locations[0].latitude : false,
-        longitude: req.event.locations ? req.event.locations[0].longitude : false,
-        timings: req.event.locations ? req.event.locations[0].timings : [],
-        owner: owner,
-        adminAgendas: adminAgendas,
-        languages: false,
-        agendaReferences: agendaReferences
+        placeName: false,
+        address: false,
+        latitude: false,
+        longitude: false,
+        timings: [],
+        owner: results[ 0 ],
+        agendaReferences: results[ 1 ],
+        adminAgendas: results[ 2 ],
+        languages: false
       };
+
+
+      if ( req.event.locations.length ) {
+
+        location = req.event.locations[ 0 ];
+
+        deepExtend( req.formattedEvent, {
+          placeName: location.placeName,
+          address: location.address,
+          latitude: location.latitude,
+          longitude: location.longitude,
+          timings: location.timings,
+          region: location.region,
+          city: location.city,
+          postalCode: location.postcode
+        } );
+        
+      }
+
 
       if ( req.event.getLanguages().length > 1 ) {
 

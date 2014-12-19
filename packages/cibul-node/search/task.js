@@ -64,9 +64,7 @@ function run() {
   log( 'debug', 'running' );
 
   running = true;
-
-  shutdownRequested = false;
-
+  
   coms.subscribe( config.es.channel, _handleJob );
 
 }
