@@ -15,7 +15,7 @@ module.exports = function( options ) {
 
   moment.locale( params.lang );
 
-  return function( date, format ) {
+  var process = function( date, format ) {
 
     // date can be an array of dates, one date with a time
 
@@ -51,6 +51,38 @@ module.exports = function( options ) {
     }
 
   };
+
+  process.diff = function( d1, d2 ) {
+
+    var buffer, duration;
+
+    if ( typeof d1 == 'string' ) {
+
+      d1 = new Date( d1 );
+
+    }
+
+    if ( typeof d2 == 'string' ) {
+
+      d2 = new Date( d2 );
+
+    }
+
+    if ( d2 < d1 ) {
+
+      buffer = d1;
+
+      d1 = d2;
+
+      d2 = buffer;
+
+    }
+
+    return moment.duration( d2.getTime() - d1.getTime() );
+
+  };
+
+  return process;
 
 };
 

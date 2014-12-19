@@ -91,6 +91,12 @@
 
 }
 
+.ag.ev .event-head h2 a {
+
+  font-size: 1em;
+
+}
+
 .ag.ev .event-head .st {
 
   font-weight: bold;

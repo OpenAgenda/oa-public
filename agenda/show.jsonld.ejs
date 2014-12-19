@@ -1,0 +1,14 @@
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type" : "Thing",
+  "name" : "<%= title %>",
+<% if ( image ) { %>
+  "image" : "<%= _i( image ) %>",
+<% } %>
+<% if ( url ) { %>
+  "url" : "<%= url %>",
+<% } %>
+  "description" : "<%= description %>"
+}
+</script>

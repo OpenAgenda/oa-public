@@ -77,7 +77,6 @@
       <p class="st"><%= __( event.dateRange[0], _t(event.dateRange[1]) ) %></p>
     </div>
     
-    
     <p><%- _txt.nl2br( _txt.setLinks( event.freeText, { className: 'url', target: '_blank' } ) ) %></p>
 
     <div class="event-place">
@@ -106,6 +105,6 @@
     </ul>
 
   </main>
-  <footer>
-  </footer>
+  <footer></footer>
+  <% include show.jsonld.ejs %>
 </div>

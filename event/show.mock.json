@@ -31,6 +31,9 @@
 
       "placeName" : "O2 Academy Brixton",
       "address" : "211 Stockwell Road, SW9 9 London",
+      "city" : "London",
+      "region" : "Nom de la région",
+      "postalCode" : "12345",
       "latitude" : 51.464980,
       "longitude" : -0.114850,
       "timings" : [
