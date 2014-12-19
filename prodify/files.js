@@ -61,8 +61,9 @@ files = {
       'urlStrings/urlStrings.js', 'verboseDate/verboseDate.js',
       'EventHandler/EventHandler.js', 'remote/remote.js',
       'inputWidgets/inputControllers.js', 'inputWidgets/inputWidgets.js',
-      'inputWidgets/inputValidators.js', 'maps/maps.js', 'maps/google.maps.js',
-      'lightbox/lightbox.js', 'inputCounter/inputCounter.js'
+      'inputWidgets/inputValidators.js',
+      'lightbox/lightbox.js', 'inputCounter/inputCounter.js',
+      'maps/leaflet.js', 'maps/maps.js', 'maps/osm.maps.js'
     ],
     [paths.vd,
       'spin/src/spin.min.js',
