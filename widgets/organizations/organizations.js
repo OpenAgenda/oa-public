@@ -1,3 +1,5 @@
+"use strict";
+
 exports.setOnReady = setOnReady;
 
 var UID = 0,
@@ -31,7 +33,11 @@ var widget = function( elem, options ) {
 
   selectedLabel = false,
 
-  orgs = [], orgSlugs = [],
+  organizations = [],
+
+  orgsInTime,
+
+  selectedContributor = null,
 
   activeOrgs = [],  // categories which are within current event selection
   
@@ -136,9 +142,7 @@ var widget = function( elem, options ) {
 
     if ( !cn.contains( activeOrgs, organization.slug ) ) {
 
-      log( 'organization is not active. ignoring' );
-
-      return;
+      log( 'organization is not active. Running it anyways' );
 
     }
 
@@ -173,18 +177,75 @@ var widget = function( elem, options ) {
 
   _update = function() {
 
+    var updatedParams = { org : selectedOrg, orgLabel : selectedLabel };
+
+    if ( orgsInTime[ selectedOrg ] ) {
+
+      updatedParams.passed = '1';
+
+    }
+
     log( 'updating request params with org at "%s"', selectedOrg );
 
-    controller.update( 'organizations', { org : selectedOrg, orgLabel : selectedLabel } );
+    controller.update( 'organizations', updatedParams );
 
   },
 
 
   _setOrganizations = function( data ) {
 
+    var today = new Date();
+
+    orgsInTime = {}; // org indexed by slug, with bool passed
+
+    today = today.getFullYear() + '-' + _fZ( today.getMonth() + 1 ) + '-' + _fZ( today.getDate() ),
+
+
     log( 'defining widget organizations' );
 
+    for( var a in data.a ) {
+
+      if ( typeof data.a[ a ].org !== 'undefined' ) {
+
+        if ( typeof orgsInTime[ data.a[ a ].org.s ] == 'undefined' ) {
+
+          orgsInTime[ data.a[ a ].org.s ] = true;
+
+        }
+
+      }
+
+      for( var l in data.a[ a ].l ) {
+
+        for( var d in data.a[ a ].l[ l ].d ) {
+
+          if ( data.a[ a ].l[ l ].d[ d ] >= today ) {
+
+            orgsInTime[ data.a[ a ].org.s ] = false;
+
+            break;
+            break;
+
+          }
+          
+        }
+
+      }
+
+    }
+
+    
     organizations = data.org ? data.org : [];
+
+    cn.forEach( organizations, function( org ) {
+
+      if ( typeof orgsInTime[ org.s ] == 'undefined' ) {
+
+        orgsInTime[ org.s ] = true;
+
+      }
+
+    });
 
     log( 'widget initialized with %d organizations', organizations.length );
 
@@ -223,6 +284,10 @@ function setOnReady( cb ) {
 
   onReady = cb;
 
+}
+
+function _fZ( n ) {
+  return (n>9?'':'0') + n;
 }
 
 

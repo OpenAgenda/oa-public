@@ -58,9 +58,7 @@ module.exports = function( anchorElem ) {
 
         if ( !org.active ) {
 
-          log( 'click ignored: organization not active' );
-
-          return;
+          log( 'organization not active. running anyways' );
 
         }
 

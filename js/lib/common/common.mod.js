@@ -252,6 +252,34 @@ exports.asymDiff = function(a, b) {
   return diff;
 };
 
+exports.arrDiff = function( a, b ) {
+
+  var diff = [];
+
+  for( var i = 0; i < a.length; i++ ) {
+
+    if ( b.indexOf( a[ i ] ) == -1 ) {
+
+      diff.push( a[ i ] );
+
+    }
+
+  }
+
+  for( i = 0; i < b.length; i++ ) {
+
+    if ( a.indexOf( b[ i ] ) == -1 ) {
+
+      diff.push( b[ i ] );
+
+    }
+
+  }
+
+  return diff;
+
+}
+
 
 /* HTMLElement.prototype.insertAdjacentElement (for FF) */
 if (typeof HTMLElement != "undefined" && !HTMLElement.prototype.insertAdjacentElement) {

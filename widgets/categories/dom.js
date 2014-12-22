@@ -58,9 +58,7 @@ module.exports = function( anchorElem ) {
 
         if ( !category.active ) {
 
-          log( 'click ignored: category not active' );
-
-          return;
+          log( 'category not active' );
 
         }
 

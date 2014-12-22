@@ -164,15 +164,31 @@ var widget = function( elem, options ) {
 
     if ( !cn.contains( activeTags, tag.slug ) ) {
 
-      log( 'tag is not active. ignoring' );
-
-      return;
+      log( 'tag is not active. running it anyways' );
 
     }
+
+    _clearWidgetRequestTags();
 
     requestTags.push( tag.slug );
 
     _update();
+
+  },
+
+  _clearWidgetRequestTags = function() {
+
+    cn.forEach( tags, function( tag ) {
+
+      var i = requestTags.indexOf( tag.s );
+
+      if ( i !== -1 ) {
+
+        requestTags.splice( i, 1 );
+
+      }
+
+    } );
 
   },
 
@@ -188,7 +204,7 @@ var widget = function( elem, options ) {
 
   _update = function() {
 
-    var updatedRequestParams = { tags : requestTags.length ? requestTags : null },
+    var updatedRequestParams = { tags : requestTags.length ? requestTags.slice() : null },
 
     passed = false;
 

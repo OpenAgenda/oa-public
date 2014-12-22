@@ -21,7 +21,7 @@ defaults = {
   },
   tpl: {
     agenda : '/server/testdata/controldata-pepite.json',
-    embed : '/server/testdata/embedcontroldata-lagargouille.json',
+    embed : '/server/testdata/embedcontroldata-pepite.json',
     search : '//d.cibul.net/widgets/{uid}/search'
   }
 },
@@ -454,7 +454,9 @@ module.exports = function( uid ) {
 
     for ( i in data ) {
 
-      if ( typeof currentRequestParams[i] == 'undefined' || data[i] !== currentRequestParams[i] ) return true;
+      if ( typeof currentRequestParams[i] == 'undefined' ) return true;
+
+      if ( data[i] !== currentRequestParams[i] ) return true;
 
     }
 

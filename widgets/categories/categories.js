@@ -130,9 +130,7 @@ var widget = function( elem, options ) {
 
     if ( !cn.contains( activeCategories, category.slug ) ) {
 
-      log( 'category is not active. ignoring' );
-
-      return;
+      log( 'category is not active. using anyways' );
 
     }
 

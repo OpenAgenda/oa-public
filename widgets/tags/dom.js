@@ -58,9 +58,7 @@ module.exports = function( anchorElem ) {
 
         if ( !tag.active ) {
 
-          log( 'click ignored: tag not active' );
-
-          return;
+          log( 'tag not active' );
 
         }
 
