@@ -216,7 +216,7 @@ function _formatEvent( req, res ) {
         location = req.event.locations[ 0 ];
 
         deepExtend( req.formattedEvent, {
-          placeName: location.placeName,
+          placeName: location.name,
           address: location.address,
           latitude: location.latitude,
           longitude: location.longitude,
