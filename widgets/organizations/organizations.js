@@ -49,7 +49,7 @@ var widget = function( elem, options ) {
 
     log( 'initing' );
 
-    controller = options.register( wLib.interface( 'organzations', uid, {
+    controller = options.register( wLib.interface( 'organizations', uid, {
       enable : enable,
       disable : disable,
       clear : clear,
