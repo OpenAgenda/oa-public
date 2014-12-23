@@ -14,8 +14,11 @@ cmn = require( '../lib/commons-task' ),
 
 running = false;
 
-exports.load = cmn.makeLoad( run );
-exports.run = run;
+module.exports = {
+  load: cmn.makeLoad( run ),
+  run: run
+}
+
 
 function run() {
 

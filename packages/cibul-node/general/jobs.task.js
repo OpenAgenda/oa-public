@@ -93,6 +93,14 @@ function _listen( ) {
 
   coms.consume( 'jobs', function( err, values ) {
 
+    var servicePath = values.type;
+
+    if ( values.type.indexOf( '/' ) == -1 ) {
+
+      servicePath += '/' + servicePath;
+
+    }
+
     require( '../services/' + values.type + '/' + values.type )( model, config )[ values.action ]( values, function( err ) {
 
       if ( err ) log( 'consumption error: %s', JSON.stringify( err ) );

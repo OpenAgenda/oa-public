@@ -118,6 +118,7 @@ function subscribe( channelName, cb ) {
 
 }
 
+
 function persistentConsume( queueName, cb, cli ) {
 
   if ( !cli ) cli = redis.createClient( config.port, config.host );

@@ -610,14 +610,14 @@ var functions = function( model, config ) {
   };
 
   var exposed = {
-      connectService: connectService,
-      getAccessToken: getAccessToken,
-      processEvents: processEvents,
-      unlinkEvents: unlinkEvents,
-      addJob: addJob,
-      publish: create,
-      update: patch,
-      delete: remove
+    connectService: connectService,
+    getAccessToken: getAccessToken,
+    processEvents: processEvents,
+    unlinkEvents: unlinkEvents,
+    addJob: addJob,
+    publish: create,
+    update: patch,
+    delete: remove
   };
 
   return exposed;
