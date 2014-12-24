@@ -110,6 +110,16 @@
 
 }
 
+
+/**
+ * oembed youtube iframe is wrapped in a div
+ */
+.ag.ev .event-body > div {
+
+  margin: 2em 0;
+
+}
+
 .ag.ev .event-bottom {
 
   padding-top: 2em;

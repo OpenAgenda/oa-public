@@ -77,7 +77,7 @@
       <p class="st"><%= __( event.dateRange[0], _t(event.dateRange[1]) ) %></p>
     </div>
     
-    <p><%- _txt.nl2br( _txt.setLinks( event.freeText, { className: 'url', target: '_blank' } ) ) %></p>
+    <div class="event-body"><%- _txt.nl2br( event.freeText ) %></div>
 
     <div class="event-place">
       <p class="placename"><%= event.placeName %></p>
