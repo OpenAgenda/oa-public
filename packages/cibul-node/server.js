@@ -93,4 +93,6 @@ supervisor( function( loadTasks ) {
 
   require( './general/mainLogger.task').load();
 
+  require( './event/oembed.task').load();
+
 });

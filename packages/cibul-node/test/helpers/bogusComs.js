@@ -24,7 +24,7 @@ exports.consume = function( queueName, cb ) {
 
   if ( !bogusQueues[queueName] || !bogusQueues[queueName].length ) return cb( 'nothing was bogus queued' );
 
-  cb( null, bogusQueues[queueName].shift() );
+  cb( null, JSON.parse( bogusQueues[queueName].shift() ) );
 
 }
 

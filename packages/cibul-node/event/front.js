@@ -197,7 +197,7 @@ function _formatEvent( req, res ) {
         image: req.event.getImage( false ),
         dateRange: req.event.getDateRange( true ),
         description: req.event.getDescription(),
-        freeText: req.event.getFreeText(),
+        freeText: req.event.getEnrichedFreeText(),
         tags: req.event.getTags(),
         placeName: false,
         address: false,

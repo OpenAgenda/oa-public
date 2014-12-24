@@ -59,10 +59,40 @@ function run() {
 
 }
 
+function _listen() {
 
-/**
- * stop listening to queue.
- */
+  log( 'listening' );
+
+  coms.consume( config.jobsQueue, function( err, values ) {
+
+    var servicePath = '../services/' + values.type,
+
+    service;
+
+    if ( values.type.indexOf( '/' ) == -1 ) {
+
+      servicePath += '/' + values.type;
+
+    }
+
+    service = require( servicePath );
+
+    ( typeof service !== 'function' ? service : service( model, config ) )[ values.action ]( values, function( err ) {
+
+      if ( err ) {
+
+        log( 'error', 'consumption error: %s', err );
+
+      }
+
+      if ( running ) _listen();
+
+    });
+
+  } );
+
+}
+
 
 function shutdown( ) {
 
@@ -74,7 +104,6 @@ function shutdown( ) {
 
 }
 
-
 function setOnReady( cb ) {
 
   _onReady = cb;
@@ -84,31 +113,5 @@ function setOnReady( cb ) {
 function setOnProcessed( cb ) {
 
   _onProcessed = cb;
-
-}
-
-function _listen( ) {
-
-  log( 'listening' );
-
-  coms.consume( 'jobs', function( err, values ) {
-
-    var servicePath = values.type;
-
-    if ( values.type.indexOf( '/' ) == -1 ) {
-
-      servicePath += '/' + servicePath;
-
-    }
-
-    require( '../services/' + values.type + '/' + values.type )( model, config )[ values.action ]( values, function( err ) {
-
-      if ( err ) log( 'consumption error: %s', JSON.stringify( err ) );
-
-      if ( running ) _listen();
-
-    } );
-
-  } );
 
 }

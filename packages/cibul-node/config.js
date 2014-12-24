@@ -8,6 +8,7 @@ config = {
     port: 8901,
     multiCore: true,
     mainChannel: 'main',
+    jobsQueue: 'jobs',
     logPath : '/var/tmp/cibul-node.log',
     logPathDebug : '/var/tmp/cibul-node-debug.log',
     logPathError : '/var/tmp/cibul-node-errors.log',
@@ -52,6 +53,16 @@ config = {
     mailjet: {
       apiKey: '8c200831a70d4f391bd697fa3cbca6a3',
       apiSecret: '6554476977a74b9cace0ddd0dc1ea657'
+    },
+    oembed: {
+      res: 'https://iframe.ly/api/oembed',
+      key: '044c4cbd91d65eab056738',
+      platforms: [ 
+        'youtube', 'dailymotion', 'vimeo', 
+        'soundcloud', 'twitter', 'flickr', 
+        'instagram', 'tumblr', 'prezi', 
+        'google', 'yahoo', 'ted' 
+      ]
     },
     newsletter: {
       featuredLimit: 10,  // maximum number of featured events displayable in the same newsletter campaign

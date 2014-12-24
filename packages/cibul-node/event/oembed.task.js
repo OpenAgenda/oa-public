@@ -12,13 +12,20 @@ coms = require( '../lib/coms' ),
 
 cmn = require( '../lib/commons-task' ),
 
-oembedSvc = require( '../services/event/' ),
+oembedSvc = require( '../services/event/oembed' ),
 
-running = false;
+running = false,
+
+_onStart,
+
+_onComplete;
 
 module.exports = {
-  load: cmn.makeLoad( run );
-  run: run
+  load: cmn.makeLoad( run ),
+  run: run,
+  setOnStart: setOnStart,
+  setOnComplete: setOnComplete,
+  setComs: setComs
 }
 
 function run() {
@@ -43,8 +50,35 @@ function run() {
 
     }
 
-    oembedSvc.addJob( action.values );
+    oembedSvc.addJob( action.values.id , function() {
+
+      if ( _onComplete ) _onComplete();
+
+    } );
 
   });
+
+}
+
+
+function setOnStart( cb ) {
+
+  _onStart = cb;
+
+}
+
+
+function setOnComplete( cb ) {
+
+  _onComplete = cb;
+
+}
+
+
+function setComs( c ) {
+
+  coms = c;
+
+  oembedSvc.setComs( c );
 
 }
