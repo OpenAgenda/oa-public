@@ -64,6 +64,14 @@ var widget = function( elem, options ) {
 
       log( 'fetched agenda control data' );
 
+      if ( !data.org ) {
+
+        log( 'aborting widget init: no organizations are set for this agenda' );
+
+        return;
+
+      }
+
       _setOrganizations( data );
 
       if ( !data.ebd || data.ebd.dcss ) view.setDefaultStyle();
