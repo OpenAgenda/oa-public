@@ -224,6 +224,15 @@ function buildEsQuery( limit ) {
 
 function prepareEvents( result ) {
 
+  if ( lib.isArray( result ) ) {
+
+    result = {
+      data: result[0],
+      total: result[1]
+    };
+
+  }
+
   return w.promise( function( resolve, reject ) {
 
     async.eachSeries( result.data, function( event, ecb ) {

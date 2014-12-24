@@ -168,20 +168,20 @@ function latestEvents( req, res ) {
   req.log( 'info', 'request received for latestEvents.' );
 
   wn.call( async.parallel, [
-    async.apply( model.events().total ),
     async.apply( model.events().list, { 
       page : req.query.page ? req.query.page : 1, 
       limit : perPage
-    } )
+    } ),
+    async.apply( model.events().total )
   ])
 
-  .spread( function( total, data ) {
+  .then( mw.search.prepareEvents )
 
-    var result = mw.search.prepareEvents( { total: total, data: data } );
+  .spread( function( events, total ) {
 
     cmn.render( req, res, 'search/events', lib.extend({
-      events: result[0], searchRes :'searchEvents', search: req.cleanSearch },
-      _pager( req, 'latestEvents', result[1] )
+      events: events, searchRes :'searchEvents', search: req.cleanSearch },
+      _pager( req, 'latestEvents', total )
     ));
 
   } )
