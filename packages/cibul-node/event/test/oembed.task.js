@@ -40,7 +40,7 @@ describe( 'oembed task - job creation', function( ) {
 
         values.id.should.equal( eInst.id );  
         
-        done();     
+        done();
 
       } );
 
@@ -48,7 +48,12 @@ describe( 'oembed task - job creation', function( ) {
 
     task.run();
 
-    bogusComs.publish( config.mainChannel, { name: 'event.publish', values: { id: eInst.id } });
+    bogusComs.publish( config.mainChannel, {
+      name: 'event.publish', 
+      values: { 
+        id: eInst.id 
+      } 
+    });
 
   });
   

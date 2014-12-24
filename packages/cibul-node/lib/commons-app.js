@@ -250,7 +250,7 @@ function errorResponse( req, res, error ) {
 
   req.log.load( { errorStack: error.stack } );
 
-  req.log( 'error', 'received error: %s', error.toString() );
+  req.log( 'error', 'received error: %s', JSON.stringify( error ) );
 
   error = typeof error == 'string' ? { message: error } : error;
 

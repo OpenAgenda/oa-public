@@ -9,7 +9,11 @@ var lib = require( '../lib' ),
 
 cmn = require( '../commons-app' ),
 
-model = cmn.getCibulModel();
+model = cmn.getCibulModel(),
+
+w = require( 'when' ),
+
+async = require( 'async' );
 
 
 /**
@@ -220,25 +224,54 @@ function buildEsQuery( limit ) {
 
 function prepareEvents( result ) {
 
-  result.data.forEach( function( event ) {
+  return w.promise( function( resolve, reject ) {
 
-    // from db, date is loaded 
+    async.eachSeries( result.data, function( event, ecb ) {
 
-    var inst = model.events().instance( event );
+      var inst = model.events().instance( event );
 
-    // each event item is extend with whatever is required by tem¶plate
+      if ( inst.reviewId ) {
 
-    lib.extend( event, {
-      dateRange: inst.getDateRange( true ),
-      title: inst.getTitle(),
-      thumbnail: inst.getThumbnail( false ),
-      description: inst.getDescription(),
-      placeName: event.locations ? event.locations[0].name : false,
-      organization: event.organization ? { slug: event.organizationSlug, label: event.organization } : false
+        inst.getAgendaTags( function( err, tags ) {
+
+          if ( err ) return ecb( err );
+
+          _prepareEventItem( event, inst, tags, ecb );
+
+        } );
+
+      } else {
+
+        _prepareEventItem( event, inst, false, ecb );
+
+      }
+      
+
+    }, function( err ) {
+
+      if ( err ) return reject( err );
+
+      resolve( [ result.data, result.total ] );
+
     });
 
-  } );
+  });
+      
+}
 
-  return [ result.data, result.total ];
+function _prepareEventItem( event, inst, tags, ecb ) {
+
+  lib.extend( event, {
+    dateRange: inst.getDateRange( true ),
+    title: inst.getTitle(),
+    thumbnail: inst.getThumbnail( false ),
+    description: inst.getDescription(),
+    placeName: event.locations ? event.locations[0].name : false,
+    organization: event.organization ? { slug: event.organizationSlug, label: event.organization } : false
+  });
+
+  event.tags = tags ? tags : [];
+
+  ecb();
 
 }
