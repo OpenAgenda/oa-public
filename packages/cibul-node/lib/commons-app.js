@@ -9,8 +9,9 @@ exports.loadMiddlewares = loadMiddlewares;        // load specific middleware li
 exports.getCibulModel = getCibulModel;            // get model instance
 exports.render = render;                          // render and serve response
 exports.renderJson = renderJson;                  // render and serve json
-exports.renderTemplate = renderTemplate;            // render and serve template
+exports.renderTemplate = renderTemplate;          // render and serve template
 exports.errorResponse = errorResponse;            // render error page
+exports.catchError = catchError;                  // the heir of standard error handling
 
 exports.loadAgenda = loadAgenda;                  // middleware. loads an agenda in the request based on its slug
 exports.requireLogged = requireLogged;            // middleware. verify if user is logged
@@ -193,7 +194,7 @@ function loadAgenda( paramName ) {
 
     .then( function( data ) {
 
-      if ( data === null ) throw { message : 'Whoops. Could not retrieve the agenda.' };
+      if ( !data ) throw { code: 404 };
 
       req.agenda = model.agendas().instance( data );
 
@@ -203,11 +204,7 @@ function loadAgenda( paramName ) {
 
     })
 
-    .catch( function( err ) {
-
-      errorResponse( req, res, err );
-
-    } );
+    .catch( catchError( req, res ) );
 
   }
 
@@ -248,21 +245,51 @@ function checkAdministrator( req, res, next ) {
 
 function errorResponse( req, res, error ) {
 
-  req.log.load( { errorStack: error.stack } );
+  if ( error.code !== 404 ) {
 
-  req.log( 'error', 'received error: %s', JSON.stringify( error ) );
+    req.log.load( { errorStack: error.stack } );
+
+    req.log( 'error', 'received error: %s', JSON.stringify( error ) );
+
+  }
 
   error = typeof error == 'string' ? { message: error } : error;
 
-  error.head = {
-    css: {
-      main: '//d.cibul.net/css/compiled.css'
-    },
-  };
+  if ( req.baseData ) {
 
-  error.scriptsBase = '/js';
+    render( req, res, 'error/404', error );
+    
+  } else {
 
-  render( req, res, 'error/404', error );
+    loadBaseData()( req, res, function() {
+
+      render( req, res, 'error/404', error );
+
+    });
+
+  }
+
+}
+
+function catchError( req, res ) {
+
+  return function( err ) {
+
+    if ( err.code == 404 ) {
+
+      if ( !err.message ) err.message = 'The page you requested does not exist';
+
+      req.log.load( { code: 404 } );
+
+      res.code = 404;
+
+      req.log( 'info', err.message );
+
+    }
+
+    errorResponse( req, res, err );
+
+  }
 
 }
 
@@ -280,7 +307,7 @@ function render( req, res, templatePath, data, maintain ) {
 
     if ( !req.xhr ) {
 
-      res.writeHead( 200, {
+      res.writeHead( res.code ? res.code : 200, {
         "Content-Type" : "text/html; charset=utf-8",
         'Cache-Control' : 'no-cache'
       });

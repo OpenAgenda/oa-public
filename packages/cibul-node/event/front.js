@@ -109,7 +109,7 @@ function _loadEvent( req, res, next ) {
 
   .then( function( data ) {
 
-    if ( !data ) throw { message : 'Whoops. Could not retrieve the event.' };
+    if ( !data ) throw { code: 404 };
 
     req.event = model.events().instance( data ); // here a specific language should be loaded
 
@@ -125,11 +125,7 @@ function _loadEvent( req, res, next ) {
 
   .then( next )
 
-  .catch( function( err ) {
-
-    cmn.errorResponse( req, res, err );
-
-  });
+  .catch( cmn.catchError( req, res ) );
 
 }
 
