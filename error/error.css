@@ -11,6 +11,19 @@
   color: #999;
 }
 
+.e404 .search,
+.e500 .search {
+  padding: 2em 0;
+  text-align: center;
+  display: inline-block;
+}
+
+.e404 form,
+.e505 form {
+  max-width: 400px;
+  background: white;
+}
+
 @media all and ( max-width: 600px ) {
   
   .e404 .errorLabel,
