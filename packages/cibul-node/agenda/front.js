@@ -1,8 +1,8 @@
+"use strict";
+
 /**
  * search agenda content to public
  */
-
-"use strict";
 
 var appName = 'agenda/front',
 
