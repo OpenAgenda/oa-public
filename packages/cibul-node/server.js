@@ -35,7 +35,7 @@ supervisor( function( loadTasks ) {
       require( './newsletter/front' )( '/:slug/newsletters' ),
       require( './general/front' )( '' ),
       require( './search/front' )( '' ),
-      require( './agenda/front' )( '/:slug' ),
+      require( './agenda/front' )( '' ),
       require( './event/front' )( '' ),
       require( './agenda_bridges/back' )( '/:slug/admin/services' )
     ]

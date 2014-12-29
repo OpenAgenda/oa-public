@@ -17,7 +17,8 @@ mw = cmn.loadMiddlewares( 'search' ),
 perPage = 20,
 
 routes = {
-  agendaShow: [ 'get', show, '' ]
+  controlData: [ 'get', controlData, '/agendas/:uid/controldata', [ _loadAgendaByUid( ) ] ],
+  agendaShow: [ 'get', show, '/:slug', [ cmn.loadAgenda( 'slug' ) ] ]
 },
 
 log = require( '../lib/logger' )( appName ),
@@ -72,13 +73,13 @@ function load( main ) {
 
   cmn.loadRoutes( app, routes, [
     cmn.urlGenSetter( appName, path ),
-    cmn.loadAgenda( 'slug' ),
     cmn.flashSetter,
     cmn.loadSession,
-    cmn.loadBaseData( _layoutData ),
     mw.search.cleanSearch,
     mw.search.buildEsQuery( app.get( 'perPage' ) )
   ] );
+
+  app.use( cmn.loadBaseData( _layoutData ) );
 
   return exposed;
 
@@ -151,7 +152,30 @@ function show( req, res ) {
 
 }
 
+function controlData( req, res ) {
 
+  wn.call( req.agenda.getControlData )
+
+  .then( function( controlData ) {
+
+    cmn.renderJson( req, res, {
+      success: true,
+      code: 200,
+      data: controlData
+    });
+
+  } )
+
+  .catch( function( err ) {
+    
+    cmn.renderJson( req, res, {
+      success: false,
+      error: err
+    });
+
+  } );
+
+}
 
 function _layoutData( req, res ) {
 
@@ -196,6 +220,66 @@ function _layoutData( req, res ) {
   }
 
   return data;
+
+}
+
+function _loadAgendaByUid() {
+
+  return function( req, res, next ) {
+
+    var uid;
+
+    if ( !req.params[ 'uid' ] ) {
+
+      return next();
+
+    } else {
+
+      uid = req.params[ 'uid' ];
+
+    }
+
+    wn.call( model.agendas().get, { uid: uid } )
+
+    .then( function( data ) {
+
+      if ( data === null ) throw { message : 'Whoops. Could not retrieve the agenda.' };
+
+      req.agenda = model.agendas().instance( data );
+
+      req.log.load({ agenda: req.agenda.slug });
+
+      next();
+
+    })
+
+    .catch( _error( req, res ) );
+
+  }
+
+} 
+
+function _error( req, res ) {
+
+  return function( err ) {
+
+    if ( typeof err === 'string' ) err = { message: err };
+
+    var link = false;
+
+    if ( req.agenda ) {
+
+      err.link = {
+        uri: 'homeShow',
+        values: {},
+        label: 'go back to home'
+      };
+
+    }
+
+    cmn.errorResponse( req, res, err );
+
+  };
 
 }
 
