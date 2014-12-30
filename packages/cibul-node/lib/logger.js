@@ -6,28 +6,26 @@ lib = require( './lib' ),
 
 debug = require('debug'),
 
-path = config.logPath,
+fs = require( 'fs' );
 
-errorPath = config.logPathError;
+var writeStreams = {
+  info: fs.createWriteStream( config.logPath ),
+  error: fs.createWriteStream( config.logPathError )
+};
 
 module.exports = function( namespace ) {
  
   var logger = require( 'bunyan' ).createLogger({
     name : config.name,
-    streams: [{
+    streams: [ {
       level: "info",
-      type: 'rotating-file',
-      path: path,
-      period: '1d',
-      count: 3
-    },
-    {
+      type: "stream",
+      stream: writeStreams.info
+    }, {
       level: "error",
-      type: 'rotating-file',
-      path: errorPath,
-      period: '1d',
-      count: 3    
-    }]
+      type: 'stream',
+      stream: writeStreams.error
+    } ]
   }),
 
   debugLog;
@@ -46,7 +44,15 @@ module.exports = function( namespace ) {
 
   }
 
-  var log = function( type ) {
+  return lib.extend( log, {
+    
+    load: load,
+    globalLoad: globalLoad,
+    setPaths: setPaths
+  
+  });
+
+  function log( type ) {
 
     var types = [ 'info', 'debug', 'error' ],
 
@@ -86,36 +92,27 @@ module.exports = function( namespace ) {
 
     }
 
-  },
+  }
 
-  load = function( values ) {
+  function load( values ) {
 
     logger = logger.child( lib.extend( {}, globalNamespace, values ) );
 
-  },
+  }
 
-  globalLoad = function( values ) {
+  function globalLoad( values ) {
 
     logger = logger.child( lib.extend( globalNamespace, values ) );
 
-  },
+  }
 
-  setPaths = function( newPath, newErrorPath ) {
+  function setPaths( newPath, newErrorPath ) {
 
     path = newPath;
 
     errorPath = newErrorPath;
 
-  };
-
-
-  return lib.extend( log, {
-    
-    load: load,
-    globalLoad: globalLoad,
-    setPaths: setPaths
-  
-  });
+  }
 
 
 };

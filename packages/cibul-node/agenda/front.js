@@ -17,8 +17,8 @@ mw = cmn.loadMiddlewares( 'search' ),
 perPage = 20,
 
 routes = {
-  controlData: [ 'get', controlData, '/agendas/:uid/controldata', [ _loadAgendaByUid( ) ] ],
-  agendaShow: [ 'get', show, '/:slug', [ cmn.loadAgenda( 'slug' ) ] ]
+  controlData: [ 'get', controlData, '/agendas/:uid/controldata', [ _loadAgendaByUid ] ],
+  agendaShow: [ 'get', show, '/:slug', [ cmn.loadAgenda( 'slug' ), cmn.loadBaseData( _layoutData ) ] ]
 },
 
 log = require( '../lib/logger' )( appName ),
@@ -78,8 +78,6 @@ function load( main ) {
     mw.search.cleanSearch,
     mw.search.buildEsQuery( app.get( 'perPage' ) )
   ] );
-
-  app.use( cmn.loadBaseData( _layoutData ) );
 
   return exposed;
 
@@ -223,39 +221,35 @@ function _layoutData( req, res ) {
 
 }
 
-function _loadAgendaByUid() {
+function _loadAgendaByUid( req, res, next ) {
 
-  return function( req, res, next ) {
+  var uid;
 
-    var uid;
+  if ( !req.params[ 'uid' ] ) {
 
-    if ( !req.params[ 'uid' ] ) {
+    return next();
 
-      return next();
+  } else {
 
-    } else {
-
-      uid = req.params[ 'uid' ];
-
-    }
-
-    wn.call( model.agendas().get, { uid: uid } )
-
-    .then( function( data ) {
-
-      if ( data === null ) throw { message : 'Whoops. Could not retrieve the agenda.' };
-
-      req.agenda = model.agendas().instance( data );
-
-      req.log.load({ agenda: req.agenda.slug });
-
-      next();
-
-    })
-
-    .catch( _error( req, res ) );
+    uid = req.params[ 'uid' ];
 
   }
+
+  wn.call( model.agendas().get, { uid: uid } )
+
+  .then( function( data ) {
+
+    if ( !data ) throw { code: 404 };
+
+    req.agenda = model.agendas().instance( data );
+
+    req.log.load({ agenda: req.agenda.slug });
+
+    next();
+
+  })
+
+  .catch( cmn.catchError( req, res, true ) );
 
 } 
 

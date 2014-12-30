@@ -245,7 +245,7 @@ function checkAdministrator( req, res, next ) {
  * what to do with errors... make a redirect
  */
 
-function errorResponse( req, res, error ) {
+function errorResponse( req, res, error, jsonResponse ) {
 
   if ( error.code !== 404 ) {
 
@@ -256,6 +256,17 @@ function errorResponse( req, res, error ) {
   }
 
   error = typeof error == 'string' ? { message: error } : error;
+
+  if ( jsonResponse ) {
+
+    renderJson( req, res, {
+      success: false,
+      message: error.message ? error.message : 'There was a problem during the handling of the request'
+    });
+
+    return;
+
+  }
 
   if ( req.baseData ) {
 
@@ -273,7 +284,7 @@ function errorResponse( req, res, error ) {
 
 }
 
-function catchError( req, res ) {
+function catchError( req, res, jsonResponse ) {
 
   return function( err ) {
 
@@ -289,7 +300,7 @@ function catchError( req, res ) {
 
     }
 
-    errorResponse( req, res, err );
+    errorResponse( req, res, err, jsonResponse );  
 
   }
 
