@@ -15,7 +15,7 @@ defaults = {
     search : '//cibul.net/widgets/{uid}/search'
   },
   dev: {
-    agenda : '//d.cibul.net/frontend_dev.php/agendas/{uid}/controldata',
+    agenda : '//d.cibul.net/agendas/{uid}/controldata',
     embed : '//d.cibul.net/frontend_dev.php/embed/{uid}/controldata',
     search : '//d.cibul.net/widgets/{uid}/search'
   },

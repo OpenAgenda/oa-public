@@ -262,7 +262,7 @@ function _isLoggedAdmin( session, ctl ) {
 
   }
 
-  if  ( !cn.contains( ctl.adm, session.uid ) ) {
+  if  ( !cn.contains( ctl.adm, parseInt( session.uid, 10 ) ) ) {
 
     return false;
 

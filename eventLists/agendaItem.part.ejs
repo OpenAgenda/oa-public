@@ -1,30 +1,30 @@
 <article><!--
   <% if ( event.thumbnail ) { %>
-  --><a class="pic" href="<%= genUrl('agendaEventShow', { eventSlug: event.slug }) %>">
+  --><a class="pic" href="<%= genUrl('agendaEventShow', { slug: slug, eventSlug: event.slug }) %>">
     <img src="<%= _i( event.thumbnail ) %>" alt="<%= event.title %>">
   </a><!--
 <% } %>
   --><div class="cnt<% if ( !event.thumbnail ) { %> nopic<% } %>">
-    <a href="<%= genUrl('agendaEventShow', [ { eventSlug: event.slug }, queryLang ? { lang: queryLang } : {} ]) %>">
+    <a href="<%= genUrl('agendaEventShow', [ { slug: slug, eventSlug: event.slug }, queryLang ? { lang: queryLang } : {} ]) %>">
       <span class="title"><%= event.title %></span>
     </a>
-    <a href="<%= genUrl('agendaEventShow', [ { eventSlug: event.slug }, queryLang ? { lang: queryLang } : {} ]) %>">
+    <a href="<%= genUrl('agendaEventShow', [ { slug: slug, eventSlug: event.slug }, queryLang ? { lang: queryLang } : {} ]) %>">
       <span class="dsc"><%= event.description %></span>
     </a>
-    <a href="<%= genUrl('agendaEventShow', [ { eventSlug: event.slug }, queryLang ? { lang: queryLang } : {} ]) %>">
-      <span class="sti url"><%= __( event.dateRange[0], _t(event.dateRange[1]) ) %></span>
+    <a href="<%= genUrl('agendaEventShow', [ { slug: slug, eventSlug: event.slug }, queryLang ? { lang: queryLang } : {} ]) %>">
+      <span class="sti url"><%= __( event.dateRange[0], _t( event.dateRange[1] ) ) %></span>
       <span class="url">@ <%= event.placeName %></span>
 <% if ( event.organization ) { %>
       <span class="org" data-slug="<%= event.organization.slug %>"><%= __( 'by %name%', { '%name%' : event.organization.label } ) %></span>
 <% } %>
     </a>
 <% if ( event.city ) { %>
-    <a class="cty" href="<%= genUrl( 'agendaEventShow', { eventSlug: event.slug } ) %>">
+    <a class="cty" href="<%= genUrl( 'agendaEventShow', { slug: slug, eventSlug: event.slug } ) %>">
       <span><%= event.city %></span>
     </a>
 <% } %>
 <% if ( event.category ) { %>
-    <a class="ct" href="<%= genUrl( 'agendaEventShow', { eventSlug: event.slug } ) %>">
+    <a class="ct" href="<%= genUrl( 'agendaEventShow', { slug: slug, eventSlug: event.slug } ) %>">
       <span><%= event.category.label %></span>
     </a>
 <% } %>
