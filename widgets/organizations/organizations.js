@@ -66,17 +66,17 @@ var widget = function( elem, options ) {
 
       if ( !data.org ) {
 
-        log( 'aborting widget init: no organizations are set for this agenda' );
+        log( 'no organizations are set for this agenda' );
 
-        return;
+      } else {
 
+        _setOrganizations( data );
+
+        if ( !data.ebd || data.ebd.dcss ) view.setDefaultStyle();
+
+        log( 'init complete, enable to render' );
+        
       }
-
-      _setOrganizations( data );
-
-      if ( !data.ebd || data.ebd.dcss ) view.setDefaultStyle();
-
-      log( 'init complete, enable to render' );
 
       if ( onReady ) onReady();
 

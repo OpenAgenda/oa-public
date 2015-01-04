@@ -467,7 +467,7 @@ var widget = function( elem, options ) {
 
     } else {
 
-      _initAllInclusiveBounds( data.passed );
+      _initAllInclusiveBounds( data.p );
 
     }
 
