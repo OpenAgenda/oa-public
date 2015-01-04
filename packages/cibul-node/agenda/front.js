@@ -17,6 +17,7 @@ mw = cmn.loadMiddlewares( 'search' ),
 perPage = 20,
 
 routes = {
+  embedControlData: [ 'get', controlData, '/agendas/:uid/embeds/:embedUid/controldata', [ _loadAgendaByUid, _loadEmbedByUid ] ],
   controlData: [ 'get', controlData, '/agendas/:uid/controldata', [ _loadAgendaByUid ] ],
   agendaShow: [ 'get', show, '/:slug', [ cmn.loadAgenda( 'slug' ), cmn.loadBaseData( _layoutData ) ] ]
 },
@@ -152,7 +153,7 @@ function show( req, res ) {
 
 function controlData( req, res ) {
 
-  wn.call( req.agenda.getControlData )
+  wn.call( ( req.embed ? req.embed : req.agenda ).getControlData )
 
   .then( function( controlData ) {
 
@@ -174,6 +175,7 @@ function controlData( req, res ) {
   } );
 
 }
+
 
 function _layoutData( req, res ) {
 
@@ -251,7 +253,31 @@ function _loadAgendaByUid( req, res, next ) {
 
   .catch( cmn.catchError( req, res, true ) );
 
-} 
+}
+
+
+function _loadEmbedByUid( req, res, next ) {
+
+  var embedUid = req.params[ 'embedUid' ];
+
+  wn.call( req.agenda.embeds.get, { uid: embedUid } )
+
+  .then( function( data ) {
+
+    if ( !data ) throw { code: 404 };
+
+    req.embed = model.reviewEmbeds().instance( data );
+
+    req.log.load({ embed: req.embed.uid });
+
+    next();
+
+  })
+
+  .catch( cmn.catchError( req, res, true ) );
+
+}
+
 
 function _error( req, res ) {
 
