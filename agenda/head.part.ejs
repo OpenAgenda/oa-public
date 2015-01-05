@@ -6,7 +6,7 @@
 <% if ( url ) { %>
     <a class="url" href="<%= url %>"><%= url %></a>
 <% } %>
-    <a class="button small js_admin_button display-none" href="<%= genUrl( 'agendaAdminShow' ) %>">
+    <a class="button small js_admin_button display-none" href="<%= genUrl( 'agendaAdminShow', { slug: slug } ) %>">
       <i class="fa fa-cog"></i>
       <span><%= __( 'manage' ) %></span>
     </a>
