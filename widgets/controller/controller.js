@@ -11,12 +11,12 @@ env = window.env ? window.env : 'prod',
 defaults = {
   all: {
     agenda : '//cibul.net/agendas/{uid}/controldata',
-    embed : '//cibul.net/embed/{uid}/controldata',
+    embed : '//cibul.net/agendas/{uid}/embeds/{embedUid}/controldata',
     search : '//cibul.net/widgets/{uid}/search'
   },
   dev: {
     agenda : '//d.cibul.net/agendas/{uid}/controldata',
-    embed : '//d.cibul.net/frontend_dev.php/embed/{uid}/controldata',
+    embed : '//d.cibul.net/agendas/{uid}/embeds/{embedUid}/controldata',
     search : '//d.cibul.net/widgets/{uid}/search'
   },
   tpl: {
@@ -311,10 +311,20 @@ module.exports = function( uid ) {
   
   _fetchControllerData = function( cb ) {
 
-    // what to do if it is not successful?
+    var res;
 
-    var res = ( embedMode ? params.embed : params.agenda ).replace( '{uid}', uid );
+    if ( embedMode ) {
+
+      uid = uid.split( '/' );
+
+      res = params.embed.replace( '{uid}', uid[ 0 ] ).replace( '{embedUid}', uid[ 1 ] );
+
+    } else {
+
+      res = params.agenda.replace( '{uid}', uid );
     
+    }
+
     remote.get( res, { timeout: 20000 }, function( responseType, data ) {
 
       if ( responseType !== 'success' ) {
