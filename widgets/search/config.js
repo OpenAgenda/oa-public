@@ -2,19 +2,19 @@ module.exports = {
   langAttribute: 'data-lang',
   labels: {
     fr: {
-      search: 'saisissez un lieu ou un mot clé'
+      search: 'rechercher'
     },
     en: {
-      search: 'type the name of a place or any keyword'
+      search: 'search'
     },
     ar: {
-      search: 'type the name of a place or any keyword'
+      search: 'search'
     },
     de: {
-      search: 'type the name of a place or any keyword'
+      search: 'suchen'
     },
     es: {
-      search: 'nombre de un lugar o cualquier palabra'
+      search: 'buscar'
     }
   },
   delay: 2000
