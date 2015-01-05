@@ -55,7 +55,7 @@ function run() {
 
   if ( running ) {
 
-    log( 'debug', 'alreaddy running' );
+    log( 'debug', 'already running' );
 
     return;
 
@@ -205,7 +205,7 @@ function _publish( schema ) {
 
   return function( job, cb ) {
 
-    log( 'debug', 'publishing %s %s', job.type, job.id );
+    log( 'info', 'publishing %s %s', job.type, job.id );
 
     if ( job.id === undefined ) {
 
