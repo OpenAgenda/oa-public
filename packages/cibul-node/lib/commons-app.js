@@ -247,6 +247,8 @@ function checkAdministrator( req, res, next ) {
 
 function errorResponse( req, res, error, jsonResponse ) {
 
+  req.log( 'preparing error response' );
+
   if ( error.code !== 404 ) {
 
     req.log.load( { errorStack: error.stack } );

@@ -72,8 +72,9 @@ function load( main ) {
 
   app.set( 'perPage', 20 );
 
+  app.use( cmn.urlGenSetter( appName, path ) );
+
   cmn.loadRoutes( app, routes, [
-    cmn.urlGenSetter( appName, path ),
     cmn.flashSetter,
     cmn.loadSession,
     mw.search.cleanSearch,

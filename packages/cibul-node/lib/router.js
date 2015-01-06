@@ -56,7 +56,7 @@ function registerRoutes( moduleName, modulePath, routes ) {
 
 function loadUrlGen( name, path ) {
 
-  log( 'debug', 'generating url builder' );
+  log( 'generating url builder' );
 
   return function( req, res, next ) {
 
