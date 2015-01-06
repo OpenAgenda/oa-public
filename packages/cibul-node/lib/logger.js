@@ -32,9 +32,9 @@ module.exports = function( namespace ) {
 
   if ( config.env == 'dev' ) {
 
-    debug.enable( '*' );
+    debug.enable( config.logNameSpaces );
 
-    debugLog = debug( namespace );
+    debugLog = debug( 'oa:' + namespace );
 
   }
 

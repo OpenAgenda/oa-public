@@ -12,6 +12,7 @@ config = {
     logPath : '/var/tmp/cibul-node.log',
     logPathDebug : '/var/tmp/cibul-node-debug.log',
     logPathError : '/var/tmp/cibul-node-errors.log',
+    logNameSpaces: 'oa:*',
     name: 'cibul-node',
     domain: 'cibul.net',
     root: 'https://cibul.net',

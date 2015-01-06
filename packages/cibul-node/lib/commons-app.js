@@ -180,6 +180,7 @@ function loadAgenda( paramName ) {
 
   return function( req, res, next ) {
 
+
     var slug;
 
     if ( !req.params[ paramName ] ) {
@@ -682,6 +683,8 @@ function _loadLogger( name ) {
 function _logRoute( name ) {
 
   return function( req, res, next ) {
+
+    log( 'request %s goes to controller %s', req.originalUrl, name );
 
     req.log.load({
       controller: name,

@@ -2,6 +2,8 @@
 
 var supervisor = require( './lib/supervisor' ),
 
+cmn = require( './lib/commons-app' ),
+
 enabledTypes = ( process.argv ? process.argv : [] ).filter( function( argItem ) {
 
   return [ 'web', 'admin', 'task' ].indexOf( argItem ) !== -1;
@@ -69,6 +71,14 @@ supervisor( function( loadTasks ) {
     });
 
   }
+
+
+  app.use(function( req, res, next ){
+
+    cmn.catchError( req, res )( { code: 404 } );
+
+  });
+ 
 
   app.listen( config.port );
 
