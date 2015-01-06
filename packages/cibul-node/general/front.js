@@ -11,7 +11,7 @@ exposed = {
 routes = {
   presentation: [ 'get', presentation, '/' ],
   newsletterSubscribe: [ 'post', newsletterSubscribe, '/newsletter/subscribe' ],
-  serviceConnectCallback: [ 'get', serviceConnectCallback, '/services/:service/connect/callback' ],
+  serviceConnectCallback: [ 'get', serviceConnectCallback, '/services/:service/connect/callback' ]
 },
 
 // libraries used
