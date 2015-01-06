@@ -9,7 +9,9 @@ config = require( '../config' ),
 
 model = require( 'cibulModel' )( config.db, config.redis, { imagePath: config.aws.imageBucketPath } ),
 
-router = require( './router' );
+router = require( './router' ),
+
+log = require( './logger' )( 'commons-task' );
 
 
 /**

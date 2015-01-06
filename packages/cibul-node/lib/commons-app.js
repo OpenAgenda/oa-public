@@ -39,7 +39,7 @@ var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2, R_MW = 3,
 
 express = require( 'express' ),
 
-log = require( './logger' )( 'common-apps' ),
+log = require( './logger' )( 'commons-app' ),
 
 config = require( '../config' ),
 
