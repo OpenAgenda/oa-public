@@ -311,7 +311,7 @@ config = {
 
 var currentConfig = _loadEnv( process.env.NODE_ENV || 'dev' );
 
-currentConfig.env = _loadEnv;
+currentConfig.loadEnv = _loadEnv;
 
 module.exports = currentConfig;
 
