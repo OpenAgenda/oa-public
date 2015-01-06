@@ -27,6 +27,14 @@ function makeLoad( run ) {
 
     lib.extend( params, options );
 
+    if ( params.period == 'daily' ) {
+
+      params.period = 60000*60*24;
+
+      params.bootOffset = _setBootOffset( params.time );
+
+    }
+
     setTimeout( function() {
 
       run();
@@ -36,6 +44,28 @@ function makeLoad( run ) {
     }, params.bootOffset );
 
   }
+
+}
+
+function _setBootOffset( time ) {
+
+  var now = new Date(),
+
+  timeParts = time.split( ':' ),
+
+  bootTime = new Date();
+
+  bootTime.setHours( timeParts[ 0 ] );
+
+  bootTime.setMinutes( timeParts[ 1 ] );
+
+  if ( bootTime < now ) {
+
+    bootTime.setHours( bootTime.getHours() + 24 );
+
+  }
+
+  return bootTime.getTime() - now.getTime();
 
 }
 

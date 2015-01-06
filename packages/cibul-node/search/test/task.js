@@ -20,8 +20,6 @@ task = require( '../task' ),
 
 helpers = require( './helpers/helpers' ),
 
-cmn = require( '../../lib/commons-task' ),
-
 async = require( 'async' ),
 
 model = require( 'cibulModel' )( config.db ),
@@ -32,7 +30,6 @@ task.setComs( bogusComs );
 
 describe( 'search index sync', function() {
   
-
   before( function( done ) {
 
     // prepare db test data ( one review & 3 events )

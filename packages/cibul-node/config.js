@@ -1,6 +1,4 @@
-var currentEnv = process.env.NODE_ENV || 'dev',
-
-deepExtend = require('deep-extend'),
+var deepExtend = require('deep-extend'),
 
 config = {
   all: {
@@ -43,6 +41,12 @@ config = {
     mailer: {
       source: 'no-reply@cibul.net',
       replyTo: 'admin@cibul.net'
+    },
+    api: {
+      redis: {
+        prefix: 'apiKeySet:',
+        publishCount: 'event/new/dayCount'
+      }
     },
     aws: {
       accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
@@ -305,6 +309,14 @@ config = {
   prod: {}
 };
 
-process.env.NODE_ENV = currentEnv;
+var currentConfig = _loadEnv( process.env.NODE_ENV || 'dev' );
 
-module.exports = deepExtend( config.all, config[currentEnv] );
+currentConfig.env = _loadEnv;
+
+module.exports = currentConfig;
+
+function _loadEnv( env ) {
+
+  return deepExtend( currentConfig ? currentConfig : {}, config.all, config[env] )
+
+}

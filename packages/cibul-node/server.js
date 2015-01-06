@@ -101,6 +101,8 @@ supervisor( function( loadTasks ) {
 
   require( './general/jobs.task' ).load( { bootOffset: 5000 } );
 
+  require( './general/resetApiCounters.task' ).load( { period: 'daily', time: '00:00' } );
+
   require( './general/mainLogger.task').load();
 
   require( './event/oembed.task').load();
