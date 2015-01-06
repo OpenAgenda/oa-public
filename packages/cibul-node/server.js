@@ -1,5 +1,7 @@
 "use strict";
 
+process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
+
 var supervisor = require( './lib/supervisor' ),
 
 cmn = require( './lib/commons-app' ),
