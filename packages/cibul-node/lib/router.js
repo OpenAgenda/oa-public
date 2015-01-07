@@ -137,11 +137,16 @@ function makeGenUrl( options ) {
 
     query = {},
 
+    abs,
+
     urlParams = lib.extend({
+      protocol: false,      // use '' or 'http' or 'https' - forces abs to true
       abs: false,           // use absolute app path
       maintain: false,      // maintain request navigation parameters if true
       base: false           // base parameters
     }, params, options ? options : {} );
+
+    abs = urlParams.abs || ( !!urlParams.protocol );
 
     if ( typeof values == 'undefined' ) {
 
@@ -223,9 +228,15 @@ function makeGenUrl( options ) {
 
     }
 
-    if ( urlParams.abs ) {
+    if ( abs ) {
 
       url = root + url;
+
+    }
+
+    if ( params.protocol ) {
+
+      url.replace( /^(\/\/|http:\/\/|https:\/\/)/, params.protocol + ( params.protocol.length ? ':' : '' ) + '//' );
 
     }
 
