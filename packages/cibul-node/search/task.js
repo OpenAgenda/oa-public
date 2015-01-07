@@ -227,7 +227,21 @@ function _publish( schema ) {
 
       }
 
-      ES[ schema ]().insert( obj, cb );
+      ES[ schema ]().insert( obj, function( err, result ) {
+
+        if ( err ) {
+
+          cb( err );
+
+        } else {
+
+          log( 'info', 'search lib indexed event returning result: ' + JSON.stringify( result ) );
+
+          cb();
+
+        }
+
+      } );
 
     } );
 
