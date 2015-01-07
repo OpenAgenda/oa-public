@@ -1,5 +1,6 @@
 {
   "Password" : "Mot de passe",
   "Email" : "Email",
-  "the email or password is incorrect" : "l'email ou le mot de passe sont incorrects"
+  "the email or password is incorrect" : "l'email ou le mot de passe sont incorrects",
+  "Connection" : "Connexion"
 }

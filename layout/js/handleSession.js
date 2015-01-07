@@ -36,6 +36,8 @@ module.exports = function( eh, options ) {
 
   isReady = false,
 
+  sessionData,
+
   run = function() {
 
     if ( window.env ) params.env = window.env;
@@ -118,11 +120,19 @@ module.exports = function( eh, options ) {
 
   _getSessionData = function() {
 
-    return JSON.parse( localStorage.getItem( params.local ) );
+    if ( !sessionData ) {
+
+      sessionData = JSON.parse( localStorage.getItem( params.local ) );
+
+    }
+
+    return sessionData;
 
   },
 
   _setSessionData = function(data) {
+
+    sessionData = null;
 
     return localStorage.setItem( params.local, JSON.stringify(data) );
 

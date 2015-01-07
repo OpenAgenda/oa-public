@@ -47,3 +47,8 @@ button:hover, .button:hover {
 .green span {
   color: #fff;
 }
+
+.button.fit,
+button.fit {
+  display: block;
+}

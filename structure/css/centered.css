@@ -14,6 +14,13 @@
 
 }
 
+.ct .canvas.page {
+
+  background: white;
+  padding: 2em;
+  
+}
+
 
 @media all and (min-width: 780px) {
 

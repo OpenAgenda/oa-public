@@ -1,10 +1,4 @@
-.auth { 
-
-  background: white;
-
-}
-
-.auth form.cform,
+.auth .canvas form.cform,
 .auth .services {
 
   display: inline-block;
@@ -20,7 +14,7 @@
 
 }
 
-.auth .social {
+.auth .services {
 
   width: 10em;
   border: none;
@@ -29,11 +23,17 @@
 
 }
 
-.auth .social i,
-.auth .social span {
+.auth .services i,
+.auth .services span {
 
   color: white;
   font-weight: bold;
+
+}
+
+.auth .services .button {
+
+  border: none;
 
 }
 

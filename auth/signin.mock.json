@@ -1,10 +1,8 @@
 {
   "base" : {
     "redirect" : "#",
-    "values" : {
-      "email" : "fouine@cibul.org",
-      "password" : "fouinemdp"
-    },
+    "email" : "fouine@cibul.org",
+    "password" : "fouinemdp",
     "errors" : {
       "global" : "the email or password is incorrect"
     }
