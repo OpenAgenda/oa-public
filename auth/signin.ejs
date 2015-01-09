@@ -1,11 +1,19 @@
 <div class="canvas page">
   <h1><%= __('Connection') %></h1>
-<% if ( errors.global ) { %>
+<% if ( typeof message !== 'undefined' || typeof errors.email !== 'undefined' || typeof errors.password !== 'undefined' ) { %>
       <div class="cform">
-        <span class="error"><%= __(errors.global) %></span>
+<% if ( typeof message !== 'undefined' ) { %>
+        <span class="error"><%= __( message ) %></span>
+<% } %>
+<% if ( typeof errors.email !== 'undefined' ) { %>
+        <span class="error"><%= __( errors.email ) %></span>
+<% } %>
+<% if ( typeof errors.password !== 'undefined' ) { %>
+        <span class="error"><%= __( errors.password ) %></span>
+<% } %>
       </div>
 <% } %>
-  <form class="cform" method="post" action="<%= genUrl( 'localAuth', { redirect: redirect, iToken: iToken } ) %>" >
+  <form class="cform" method="post">
     <ul>
       <li>
         <label for="email"><%= __('Email') %></label>
@@ -23,7 +31,7 @@
   
   <ul class="services">
     <li>
-      <a class="button facebook-blue fit big" href="<%= genUrl( 'facebookAuth', { redirect: redirect, iToken: iToken } ) %>">
+      <a class="button facebook-blue fit big" href="<%= genUrl( 'facebookSignin', { redirect: redirect, iToken: iToken } ) %>">
         <i class="fa fa-facebook"></i>
         <span>Facebook</span>
       </a>

@@ -3,8 +3,9 @@
     "redirect" : "#",
     "email" : "fouine@cibul.org",
     "password" : "fouinemdp",
+    "message" : "Woopidoo",
     "errors" : {
-      "global" : "the email or password is incorrect"
+      "email" : "the email is not known"
     }
   },
   "noinvites" : {

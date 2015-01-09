@@ -1,4 +1,6 @@
 {
+  "Create an account"
+  : "Créez un compte",
   "the email is invalid"
   : "l'email est invalide",
   "a password is required"
@@ -12,5 +14,11 @@
   "Sign Up"
   : "S'inscrire",
   "something went wrong"
-  : "il y a eu un petit problème"
+  : "il y a eu un petit problème",
+  "By creating an account you agree to the %terms%." :
+  "En créant un compte vous acceptez les %terms%.",
+  "Terms of Use" :
+  "Conditions d'Utilisation",
+  "I already have an account" :
+  "J'ai déjà un compte"
 }

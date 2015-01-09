@@ -19,7 +19,7 @@
       <a class="hurl" href="<%= genUrl( 'agendaIcal', { uid: uid }) %>?dl=1">ical</a>
       <a class="hurl" href="<%= genUrl( 'agendaXml', { uid: uid }) %>?dl=1">xml</a>
       <a class="hurl" href="<%= genUrl( 'agendaCsv', { uid: uid }) %>?dl=1">csv</a>
-      <a class="hurl" href="https://www.google.com/calendar/render?cid=<%= genUrl( 'agendaIcal', { uid: uid }, { abs: true } ) %>">google calendar</a>
+      <a class="hurl" href="https://www.google.com/calendar/render?cid=<%= genUrl( 'agendaIcal', { uid: uid }, { protocol: 'http' } ) %>">google calendar</a>
       <a class="hurl" href="<%= genUrl( 'conversationAgendaContact', { uid: uid }) %>"><%= __('contact') %></a>
 
       <% _sl({ title: title, url: genUrl( 'agendaShow' ) }).forEach( function( shareItem ) { %>
