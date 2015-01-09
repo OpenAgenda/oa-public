@@ -2,7 +2,7 @@
 --><img src="<%= _i( image ) %>" alt="<%= title %>"/><!--
 --><% } %><div class="title js_agenda_title<% if ( !image ) { %> nopic<% } %>">
     <a href="<%= genUrl('agendaShow', { slug: slug }) %>"><h1 class="hurl"><%= title %></h1></a>
-    <p><%= description %></p>
+    <p><%- _txt.setLinks( description, { className: 'url' } ) %></p>
 <% if ( url ) { %>
     <a class="url" href="<%= url %>"><%= url %></a>
 <% } %>
