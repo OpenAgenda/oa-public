@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '../lib/logger' )( 'daily task' ),
+var log = require( '../lib/logger' )( 'clear model cache' ),
 
 config = require( '../config' ),
 
@@ -48,27 +48,11 @@ function run() {
 
   running = true;
 
-  offset = 0;
-
   cli = redis.createClient( config.redis.port, config.redis.host );
 
-  model.lib.eachQuery( 'select id from api_key_set', function( row, qcb ) {
+  model.lib.eachQuery( 'select id from review', function( row, qcb ) {
 
-    cli.hget( config.api.redis.prefix + row.id, config.api.redis.publishCount, function( err, count ) {
-
-      if ( err ) return qcb( err );
-
-      log( 'info', { message: 'api counter' , keySetId: row.id , count: count });
-
-      if ( !count ) {
-
-        return qcb();
-
-      }
-
-      cli.hset( config.api.redis.prefix + row.id, config.api.redis.publishCount, 0, qcb );
-
-    } );
+    cli.del( 'modelcache:reviews:' + row.id, qcb );
 
   }, function( err ) {
 
@@ -79,6 +63,8 @@ function run() {
       log( 'error', err );
 
     }
+
+    log( 'done' );
 
     if ( _onComplete ) _onComplete();
 
