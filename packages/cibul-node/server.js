@@ -109,6 +109,6 @@ supervisor( function( loadTasks ) {
 
   require( './event/oembed.task').load();
 
-  require( './general/clearModelCache.task' ).load( { bootOffset: 50 } );
+  require( './general/clearModelCache.task' ).load( { period: 'daily', time: '00:01' } );
 
 });
