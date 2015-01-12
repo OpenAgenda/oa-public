@@ -48,8 +48,6 @@ function run() {
 
   running = true;
 
-  offset = 0;
-
   cli = redis.createClient( config.redis.port, config.redis.host );
 
   model.lib.eachQuery( 'select id from api_key_set', function( row, qcb ) {
