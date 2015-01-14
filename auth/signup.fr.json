@@ -20,5 +20,13 @@
   "Terms of Use" :
   "Conditions d'Utilisation",
   "I already have an account" :
-  "J'ai déjà un compte"
+  "J'ai déjà un compte",
+  "The two passwords must be the same" :
+  "Les deux mots de passe doivent êtres identiques",
+  "this field cannot be empty"  
+  : "ce champ ne doit pas être vide",
+  "the email is not valid"
+  : "l'email n'est pas valide",
+  "this email is already in use"
+  : "cet email est déjà utilisé"
 }

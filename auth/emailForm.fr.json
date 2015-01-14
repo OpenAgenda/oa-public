@@ -1,8 +1,10 @@
 {
+  "Create an account"
+  : "Créez un compte",
   "Complete the signup process by typing in your email"
   : "Completez la procédure d'inscription en saisissant votre email",
   "this email is invalid"
-  : "cet email est invalides",
+  : "cet email n'est pas valide",
   "Confirm Email"
   : "Confirmer l'Email"
 }

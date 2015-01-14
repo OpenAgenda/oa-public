@@ -1,12 +1,14 @@
-<div class="canvas">
+<div class="canvas page">
 
-  <p><%= __('Complete the signup process by typing in your email') %></p>
+  <h1><%= __('Create an account') %></h1>
 
-  <form class="cform" method="post" action="<%= genUrl( 'twitterEmail', { user: user, iToken: iToken } ) %>">
+  <p><%= __( 'Complete the signup process by typing in your email' ) %></p>
+
+  <form class="cform" method="get" action="<%= genUrl( uri, { iToken: iToken } ) %>">
     <ul>
       <li>
         <label for="email"><%= __('Email') %></label>
-        <input type="email" name="email" value="<%= values.email %>" />
+        <input type="email" name="email" value="<%= email %>" />
 <% if ( errors.email ) { %>
         <span class="error"><%= __( errors.email ) %></span>
 <% } %>        

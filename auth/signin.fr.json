@@ -6,5 +6,9 @@
   "You must type in an email and a password" : "Vous devez saisir un email et un mot de passe",
   "This email does not match any existing account" : "Cet email ne correspond à aucun compte existant",
   "The account matching this email is not activated" : "Le compte correspondant à cet email n'est pas activé",
-  "This authorization code has expired." : "Le code d'autorisation a expiré"
+  "This authorization code has expired." : "Le code d'autorisation a expiré",
+  "An account with your email already exists. Please sign in using your email and password"
+  : "Un compte utilisant votre email existe déjà. Connectez vous en utilisant votre email et mot de passe",
+  "This authorization code has been used."
+  : "Ce code d'autorisation à déjà servi."
 }

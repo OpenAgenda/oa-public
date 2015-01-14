@@ -1,26 +1,26 @@
 <div class="canvas page">
   <h1><%= __('Create an account') %></h1>
-  <form class="cform" method="post" action="<%= genUrl( 'localSignUp', { iToken: iToken } ) %>">
+  <form class="cform" method="post">
     <ul>
       <li>
         <label for="email"><%= __('Email') %></label>
-        <input type="email" name="email" value="<%= values.email %>" />
+        <input type="email" name="email" value="<%= email %>" />
 <% if ( errors.email ) { %>
         <span class="error"><%= __( errors.email ) %></span>
 <% } %>
       </li>
       <li>
         <label for="password"><%= __('Password') %></label>
-        <input type="password" name="password" value="<%= values.password %>" />
+        <input type="password" name="password" value="<%= password %>" />
 <% if ( errors.password ) { %>
       <span class="error"><%= __( errors.password ) %></span>
 <% } %>
       </li>
      	<li>
-        <label for="confirmPassword"><%= __('Repeat Password') %></label> 
-     	  <input type="password" name="confirmPassword" value="<%= values.confirmPassword %>" />
-<% if ( errors.confirmPassword ) { %>
-        <span class="error"><%= __( errors.confirmPassword ) %></span>
+        <label for="repeat"><%= __('Repeat Password') %></label> 
+     	  <input type="password" name="repeat" value="<%= repeat %>" />
+<% if ( errors.repeat ) { %>
+        <span class="error"><%= __( errors.repeat ) %></span>
 <% } %>
       </li>
       <li>
@@ -31,7 +31,7 @@
 
   <ul class="services cform">
     <li>
-      <a class="button facebook-blue fit big" href="<%= genUrl( 'facebookSignUp', { iToken: iToken } ) %>">
+      <a class="button facebook-blue fit big" href="<%= genUrl( 'facebookSignup', { iToken: iToken } ) %>">
         <i class="fa fa-facebook"></i>
         <span>Facebook</span>
       </a>
@@ -40,7 +40,7 @@
 <% } %>
     </li>
     <li>
-      <a class="button twitter-blue fit big" href="<%= genUrl( 'twitterSignUp', { iToken: iToken } ) %>">
+      <a class="button twitter-blue fit big" href="<%= genUrl( 'twitterSignup', { iToken: iToken } ) %>">
         <i class="fa fa-twitter"></i>
         <span>Twitter</span>
       </a>
