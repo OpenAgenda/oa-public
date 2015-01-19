@@ -211,7 +211,7 @@ var functions = function( model, config ) {
 
   create = function( values, cb ) {
 
-    log( 'creating event with values : %s', JSON.stringify( values ) );
+    log( 'info', 'creating event with values : %s', JSON.stringify( values ) );
 
     var instance,
 
@@ -227,6 +227,8 @@ var functions = function( model, config ) {
 
     .then( function( review ) {
 
+      log( 'info', 'loaded agenda %s', review.id );
+
       agenda = model.reviews().instance( review );
 
       return wn.call( model.events().get, { id: values.eventId } );
@@ -234,6 +236,8 @@ var functions = function( model, config ) {
     } )
 
     .then( function( e ) {
+
+      log( 'info', 'loaded event %s', e.id );
 
       instance = model.events().instance( e );
 
@@ -243,6 +247,8 @@ var functions = function( model, config ) {
     } )
 
     .then( function( eventSwapcard ) {
+
+      log( 'info', 'successfully parsed event' );
 
       store = agenda.getStore( 'swapcard', null );
 
@@ -272,11 +278,13 @@ var functions = function( model, config ) {
 
     .catch( function( err ) {
 
+      log( 'error', JSON.stringify( err ) );
+
       if ( err ) {
 
         if ( err.statusCode && err.statusCode != 201 ) {
 
-          log( err.message );
+          log( 'error', err.message );
 
           _handleStatusCode( { agenda: agenda, instance: instance, statusCode: err.statusCode, refresh: store.refresh }, 'publish', function( err ) {
 
