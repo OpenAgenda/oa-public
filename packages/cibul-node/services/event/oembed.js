@@ -106,7 +106,7 @@ function _processLink( links ) {
 
       log( 'code is already in hand, bypassing request');
 
-      return cb;
+      return cb();
 
     }
 
