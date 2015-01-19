@@ -239,12 +239,13 @@ var functions = function( model, config ) {
 
     .then( function( e ) {
 
+      if ( !e ) throw 'event was not found';
+
       log( 'info', 'loaded event %s', e.id );
 
       instance = model.events().instance( e );
 
       return wn.call( _getEventData, instance );
-
 
     } )
 
@@ -390,7 +391,7 @@ var functions = function( model, config ) {
 
   remove = function( values, cb ) {
 
-    log( 'removing event with values : %s', JSON.stringify( values ) );
+    log( 'info', 'removing event with values : %s', JSON.stringify( values ) );
 
     var instance,
 
@@ -406,6 +407,8 @@ var functions = function( model, config ) {
 
     .then( function( review ) {
 
+      log( 'info', 'got agenda %s', JSON.stringify( review ) );
+
       agenda = model.reviews().instance( review );
 
       return wn.call( model.events().getDeleted, { id: values.eventId } );
@@ -413,6 +416,8 @@ var functions = function( model, config ) {
     } )
 
     .then( function( e ) {
+
+      log( 'info', 'loaded deleted event data %s', JSON.stringify( e ) );
 
       var swapcardStore = e.store.store.swapcard;
 
