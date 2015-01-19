@@ -79,6 +79,8 @@ function _listen() {
 
       service = require( servicePath );
 
+      log( 'info', 'sending values %s to service %s', JSON.stringify( values ), service );
+
       ( typeof service !== 'function' ? service : service( model, config ) )[ values.action ]( values, function( err ) {
 
         if ( err ) {
