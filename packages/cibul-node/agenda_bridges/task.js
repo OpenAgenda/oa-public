@@ -54,13 +54,13 @@ function run() {
 
   if ( running ) {
 
-    log( 'already running' );
+    log( 'info', 'already running' );
 
     return;
 
   }
 
-  log( 'running' );
+  log( 'info', 'running' );
 
   running = true;
 
@@ -95,7 +95,7 @@ function _handleJob( err, job ) {
 
   var formatted; // for parsed job
 
-  log( 'handling job' );
+  log( 'info', 'handling job %s', JSON.stringify( job ) );
 
   if ( err ) {
 
@@ -181,7 +181,7 @@ function _processJob( job, cb ) {
 
       }
 
-      log( 'processing job of type %s', job.name );
+      log( 'info', 'processing job of type %s', job.name );
       
       obj = model.events().instance( obj );
 
@@ -207,7 +207,7 @@ function _handleError() {
 
   var args = Array.prototype.slice.call( arguments );
 
-  log.apply( null, args );
+  log.apply( null, ['error'].concat( args ) );
 
   if ( _onComplete ) _onComplete( 'error' );
 
@@ -272,7 +272,7 @@ function _checkServices( job, obj ) {
 
       if ( err ) return cb( err );
 
-      log( 'checking services for agenda %s', agenda.title );
+      log( 'info', 'checking services for agenda %s', agenda.title );
 
       if ( !agenda ) return cb( 'Not a valid agenda' );
 
@@ -282,13 +282,13 @@ function _checkServices( job, obj ) {
 
         if ( agenda.getStore( services[ key ], null ) ) {
 
-          log( 'adding to queue service of type %s and action %s', services[ key ], job.name );
+          log( 'info', 'adding to queue service of type %s and action %s', services[ key ], job.name );
 
           if ( job.name != 'delete' ) job.name = ( !obj.getStore( services[ key ], null ) ) ? 'publish' : 'update';
 
 	        require( '../services/' + services[ key ] + '/' + services[ key ] )( model, config )[ 'addJob' ]( job.id, agenda.id, job.name );
 
-        } else log( 'nothing to do with the service %s', services[ key ] );
+        } else log( 'info', 'nothing to do with the service %s', services[ key ] );
 
       }
 
