@@ -101,7 +101,7 @@ supervisor( function( loadTasks ) {
 
   require( './agenda_bridges/task' ).load( { bootOffset: 3000 } );
 
-  require( './general/jobs.task' ).load( { bootOffset: 5000 } );
+  require( './general/jobs.task' ).load( { bootOffset: 10 } );
 
   require( './general/resetApiCounters.task' ).load( { period: 'daily', time: '00:00' } );
 

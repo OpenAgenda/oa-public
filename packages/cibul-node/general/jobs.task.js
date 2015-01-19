@@ -65,6 +65,8 @@ function _listen() {
 
   coms.consume( config.jobsQueue, function( err, values ) {
 
+    log( 'info', 'received %s', JSON.stringify( values ) );
+
     var servicePath = '../services/' + values.type,
 
     service;
