@@ -29,7 +29,11 @@ function process( values, cb ) {
 
   if ( processing ) {
 
+    // requeue
+
     setTimeout( function() { addJob( values ); }, 1000 );
+
+    cb();
 
     return;
 
@@ -41,11 +45,11 @@ function process( values, cb ) {
 
     if ( err || !event ) {
 
-      log( 'error', err || 'not event could be loaded' );
+      log( 'error', err || 'no event could be loaded' );
 
       processing = false;
 
-      return;
+      cb( err || 'not event could be loaded' );
 
     }
 
