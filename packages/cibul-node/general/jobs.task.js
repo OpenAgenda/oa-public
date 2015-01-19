@@ -61,7 +61,7 @@ function run() {
 
 function _listen() {
 
-  log( 'listening' );
+  log( 'info', 'listening' );
 
   coms.consume( config.jobsQueue, function( err, values ) {
 
