@@ -49,7 +49,9 @@ function process( values, cb ) {
 
       processing = false;
 
-      cb( err || 'not event could be loaded' );
+      cb( err || 'no event could be loaded' );
+
+      return;
 
     }
 
