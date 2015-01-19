@@ -431,6 +431,8 @@ var functions = function( model, config ) {
 
     .then( function( result ) {
 
+      log( 'info', 'swapcard request returned %s', JSON.stringify( result ) );
+
       if ( result.statusCode == 204 ) {
 
         log( 'delete succeed' );

@@ -79,6 +79,14 @@ function _listen() {
 
       service = require( servicePath );
 
+    } catch( e ) {
+
+      log( 'error', 'trouble processing service %s', servicePath );
+
+    }
+
+    if ( service ) {
+
       log( 'info', 'sending values %s to service %s', JSON.stringify( values ), servicePath );
 
       ( typeof service !== 'function' ? service : service( model, config ) )[ values.action ]( values, function( err ) {
@@ -92,15 +100,12 @@ function _listen() {
         if ( running ) _listen();
 
       });
-
-    } catch( e ) {
-
-      log( 'error', 'trouble processing service %s', servicePath );
+    
+    } else {
 
       if ( running ) _listen();
-
+      
     }
-
 
   } );
 

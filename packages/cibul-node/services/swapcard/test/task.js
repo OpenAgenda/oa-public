@@ -33,7 +33,6 @@ tokens = {
 
 describe( 'events services sync', function() {
   
-
   before( function( done ) {
 
     this.timeout( 5000 );
