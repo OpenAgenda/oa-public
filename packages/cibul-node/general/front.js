@@ -137,9 +137,18 @@ function serviceConnectCallback( req, res ) {
 
   tokens;
 
-  stateObj = new Buffer( req.query.state, 'base64' );
+  try {
 
-  stateObj = JSON.parse( stateObj );
+    stateObj = new Buffer( req.query.state, 'base64' );
+
+    stateObj = JSON.parse( stateObj );
+    
+  } catch( e ) {
+
+    return cmn.catchError( req, res )( { code: 500, message: 'invalid parameters' } );
+
+  }
+
 
   return cmn.redirect( req, res, 'serviceSynchronize', { slug: stateObj.slug, service: req.params.service, code: req.query.code } );
 

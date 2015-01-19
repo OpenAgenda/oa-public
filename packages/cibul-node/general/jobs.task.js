@@ -75,19 +75,30 @@ function _listen() {
 
     }
 
-    service = require( servicePath );
+    try {
 
-    ( typeof service !== 'function' ? service : service( model, config ) )[ values.action ]( values, function( err ) {
+      service = require( servicePath );
 
-      if ( err ) {
+      ( typeof service !== 'function' ? service : service( model, config ) )[ values.action ]( values, function( err ) {
 
-        log( 'error', 'consumption error: %s', err );
+        if ( err ) {
 
-      }
+          log( 'error', 'consumption error: %s', err );
+
+        }
+
+        if ( running ) _listen();
+
+      });
+
+    } catch( e ) {
+
+      log( 'error', 'trouble processing service %s', servicePath );
 
       if ( running ) _listen();
 
-    });
+    }
+
 
   } );
 
