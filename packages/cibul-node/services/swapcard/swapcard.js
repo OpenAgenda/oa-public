@@ -227,9 +227,11 @@ var functions = function( model, config ) {
 
     .then( function( review ) {
 
-      log( 'info', 'loaded agenda %s', review.id );
+      log( 'info', 'loaded agenda %s', JSON.stringify( review.id ) );
 
       agenda = model.reviews().instance( review );
+
+      log( 'info', 'loaded agenda instance, loading event with id %s', values.eventId );
 
       return wn.call( model.events().get, { id: values.eventId } );
 
@@ -278,7 +280,7 @@ var functions = function( model, config ) {
 
     .catch( function( err ) {
 
-      log( 'error', JSON.stringify( err ) );
+      log( 'error', err );
 
       if ( err ) {
 
