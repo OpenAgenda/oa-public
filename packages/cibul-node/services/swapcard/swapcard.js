@@ -74,7 +74,7 @@ var functions = function( model, config ) {
 
   getAccessToken = function( slug, code, type, cb ) {
 
-    log( 'info', 'getting access token of grant_type %s' type );
+    log( 'info', 'getting access token of grant_type %s', type );
 
     var stateObj = JSON.stringify( {
       slug: slug,
