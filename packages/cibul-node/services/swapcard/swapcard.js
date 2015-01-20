@@ -305,7 +305,7 @@ var functions = function( model, config ) {
 
   patch = function( values, cb ) {
 
-    log( 'patching event with values : %s', JSON.stringify( values ) );
+    log( 'info', 'patching event with values : %s', JSON.stringify( values ) );
 
     var instance,
 
@@ -354,7 +354,7 @@ var functions = function( model, config ) {
 
       if ( result.statusCode == 204 ) {
 
-        log( 'patch succeed' );
+        log( 'info', 'patch successful' );
 
         return cb();
 
