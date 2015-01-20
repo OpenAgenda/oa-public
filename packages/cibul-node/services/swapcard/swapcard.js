@@ -74,26 +74,24 @@ var functions = function( model, config ) {
 
   getAccessToken = function( slug, code, type, cb ) {
 
-    log( 'info', 'getting access token' );
+    log( 'info', 'getting access token of grant_type %s' type );
 
-    var stateObj = {
+    var stateObj = JSON.stringify( {
       slug: slug,
       djncdkc: 32
-    };
+    } ),
 
-    stateObj = JSON.stringify( stateObj );
-
-    var uncodedState = new Buffer( stateObj ).toString( 'base64' );
-
-    var params = {
+    params = {
       grant_type: type === 'authorization_code' ? 'authorization_code' : 'refresh_token',
       redirect_uri: config.bridges.swapcard.redirect,
-      state: uncodedState
+      state: new Buffer( stateObj ).toString( 'base64' )
     };
 
     oauth2.getOAuthAccessToken( code, params, function( err, access, refresh, result ) {
 
       if ( err ) return cb( err );
+
+      log( 'info', 'oauth response successful' );
 
       cb( null, access, refresh );
 
@@ -563,11 +561,15 @@ var functions = function( model, config ) {
 
     if ( values.statusCode == 401 ) {
 
+      log( 'info', 'access token is expired' );
+
       getAccessToken( values.agenda.slug, values.refresh, 'refresh_token', function( err, a, r ) {
 
         if ( err && err.statusCode == 400 ) notification.addJob( lib.extend( values, { number: 30, action: 'process' } ) );
 
         if ( err ) return cb( err );
+
+        log( 'info', 'successfully refreshed access token' );
 
         values.agenda.setStore( 'swapcard', { access: a, refresh: r }, true, function( err ) {
           

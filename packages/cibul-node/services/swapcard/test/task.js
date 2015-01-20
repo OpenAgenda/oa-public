@@ -2,6 +2,9 @@
  * test syncing of services
  */
 
+// admin@cibul.net
+// 
+
 process.env.NODE_ENV = 'test';
 
 var config = require( '../../../config' ),
