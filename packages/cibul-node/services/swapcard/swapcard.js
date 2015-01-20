@@ -249,11 +249,11 @@ var functions = function( model, config ) {
 
     .then( function( eventSwapcard ) {
 
-      log( 'info', 'successfully parsed event' );
+      data = JSON.stringify( eventSwapcard );
+
+      log( 'info', 'formatted event: %s', data );
 
       store = agenda.getStore( 'swapcard', null );
-
-      data = JSON.stringify( eventSwapcard );
 
       return wn.call( _request, 'POST', config.bridges.swapcard.baseSite + '/v1/events', { 'Authorization': 'Bearer ' + store.access, 'Content-Type': 'application/json', 'Accept-Language': 'fr,eng' }, data, null );
 
@@ -271,13 +271,11 @@ var functions = function( model, config ) {
 
     } )
 
-    .then( function( ) {
+    .done( function( ) {
 
       return cb();
 
-    } )
-
-    .catch( function( err ) {
+    }, function( err ) {
 
       log( 'error', err );
 
@@ -287,15 +285,13 @@ var functions = function( model, config ) {
 
           log( 'error', err.message );
 
-          _handleStatusCode( { agenda: agenda, instance: instance, statusCode: err.statusCode, refresh: store.refresh }, 'publish', function( err ) {
+          _handleStatusCode( { agenda: agenda, instance: instance, statusCode: err.statusCode, refresh: store.refresh }, 'publish', cb );
 
-            if ( err ) return cb( err );
+        } else {
 
-            return cb();
+          return cb( err );
 
-          } );
-
-        } else return cb( err );
+        }
 
       }
 
@@ -572,8 +568,10 @@ var functions = function( model, config ) {
         log( 'info', 'successfully refreshed access token' );
 
         values.agenda.setStore( 'swapcard', { access: a, refresh: r }, true, function( err ) {
-          
+
           if ( err ) return cb( err );
+
+          log( 'info', 'updated agenda %s store with new access & refresh values', values.agenda.id );
 
           exposed[ method ]( { eventId: values.instance.id, agendaId: values.agenda.id, type: 'swapcard' }, cb );
 
