@@ -1,9 +1,7 @@
 <div class="canvas page">
 
-  <h1><%= __('Create an account') %></h1>
-
+  <h1><%= __( typeof title == 'undefined' ? 'Create an account' : title ) %></h1>
   <p><%= __( 'Complete the signup process by typing in your email' ) %></p>
-
   <form class="cform" method="get" action="<%= genUrl( uri, { iToken: iToken } ) %>">
     <ul>
       <li>

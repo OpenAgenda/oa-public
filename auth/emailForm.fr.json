@@ -6,5 +6,11 @@
   "this email is invalid"
   : "cet email n'est pas valide",
   "Confirm Email"
-  : "Confirmer l'Email"
+  : "Confirmer l'Email",
+  "Resend activation mail"
+  : "Ré-envoyer le mail d'activation",
+  "no account matches this email"
+  : "aucun compte ne correspond à cet email",
+  "the account is already activated"
+  : "le compte est déjà activé"
 }

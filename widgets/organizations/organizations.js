@@ -221,21 +221,21 @@ var widget = function( elem, options ) {
 
         }
 
-      }
+        for( var l in data.a[ a ].l ) {
 
-      for( var l in data.a[ a ].l ) {
+          for( var d in data.a[ a ].l[ l ].d ) {
 
-        for( var d in data.a[ a ].l[ l ].d ) {
+            if ( data.a[ a ].l[ l ].d[ d ] >= today ) {
 
-          if ( data.a[ a ].l[ l ].d[ d ] >= today ) {
+              orgsInTime[ data.a[ a ].org.s ] = false;
 
-            orgsInTime[ data.a[ a ].org.s ] = false;
+              break;
+              break;
 
-            break;
-            break;
-
+            }
+            
           }
-          
+
         }
 
       }

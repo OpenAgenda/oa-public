@@ -1,6 +1,6 @@
 <div class="canvas page">
   <h1><%= __('Create an account') %></h1>
-  <form class="cform" method="post">
+  <form class="cform" method="post" action="<%= genUrl( false, optionals ) %>>
     <ul>
       <li>
         <label for="email"><%= __('Email') %></label>
@@ -24,14 +24,14 @@
 <% } %>
       </li>
       <li>
-        <button type="submit"><%= __('Sign Up') %></button>
+        <button name="signup" type="submit"><%= __('Sign Up') %></button>
       </li>
     </ul>
   </form>
 
   <ul class="services cform">
     <li>
-      <a class="button facebook-blue fit big" href="<%= genUrl( 'facebookSignup', { iToken: iToken } ) %>">
+      <a class="button facebook-blue fit big" href="<%= genUrl( 'facebookSignup', optionals ) %>">
         <i class="fa fa-facebook"></i>
         <span>Facebook</span>
       </a>
@@ -40,7 +40,7 @@
 <% } %>
     </li>
     <li>
-      <a class="button twitter-blue fit big" href="<%= genUrl( 'twitterSignup', { iToken: iToken } ) %>">
+      <a class="button twitter-blue fit big" href="<%= genUrl( 'twitterSignup', optionals ) %>">
         <i class="fa fa-twitter"></i>
         <span>Twitter</span>
       </a>
@@ -49,7 +49,7 @@
 <% } %>
     </li>
     <li>
-      <a class="button google-red fit big" href="<%= genUrl( 'googleSignUp', { iToken: iToken } ) %>">
+      <a class="button google-red fit big" href="<%= genUrl( 'googleSignUp', optionals ) %>">
         <i class="fa fa-google-plus"></i>
         <span>Google Plus</span>
       </a>
@@ -60,7 +60,7 @@
   </ul>
   <footer>
     <ul>
-      <li><a class="url" href="<%= genUrl( 'signin' ) %>"><%= __('I already have an account') %></a></li>
+      <li><a class="url" href="<%= genUrl( 'signin', optionals ) %>"><%= __('I already have an account') %></a></li>
       <li><%- __( 'By creating an account you agree to the %terms%.', { '%terms%' : '<a class="url" href="' + genUrl( 'termsShow' ) + '">' + __('Terms of Use') + '</a>' }) %></li>
     </ul>
   </footer>

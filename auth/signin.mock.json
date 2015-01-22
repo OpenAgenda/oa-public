@@ -1,6 +1,8 @@
 {
   "base" : {
-    "redirect" : "#",
+    "optionals" : {
+      "redirect" : "#"
+    },
     "email" : "fouine@cibul.org",
     "password" : "fouinemdp",
     "message" : "Woopidoo",
@@ -9,6 +11,8 @@
     }
   },
   "noinvites" : {
-    "iToken" : false
+    "optionals" : {
+      "iToken" : false
+    }
   }
 }

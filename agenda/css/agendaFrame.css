@@ -384,12 +384,17 @@
 
   .ag .canvas header .head {
     max-width: none;
-    display: block;
+    display: inline-block;
+    text-align: center;
   }
 
   .ag .canvas header .head > img {
     display: block;
     margin: auto;
+  }
+
+  .ag header .head .title > * {
+    margin: 0 0 10px 0;
   }
 
   .ag header .head > .title {

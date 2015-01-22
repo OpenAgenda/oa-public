@@ -13,7 +13,7 @@
 <% } %>
       </div>
 <% } %>
-  <form class="cform" method="post">
+  <form class="cform" method="post" action="<%= genUrl( false, optionals ) %>">
     <ul>
       <li>
         <label for="email"><%= __('Email') %></label>
@@ -24,29 +24,34 @@
       	<input type="password" name="password" value="<%= password %>" />
       </li>
       <li>
-        <button type="submit"><%= __('Sign in') %></button>
+        <button name="signin" type="submit"><%= __('Sign in') %></button>
       </li>
     </ul>
   </form>
   
   <ul class="services">
     <li>
-      <a class="button facebook-blue fit big" href="<%= genUrl( 'facebookSignin', { redirect: redirect, iToken: iToken } ) %>">
+      <a class="button facebook-blue fit big" href="<%= genUrl( 'facebookSignin', optionals ) %>">
         <i class="fa fa-facebook"></i>
         <span>Facebook</span>
       </a>
     </li>
     <li>
-      <a class="button twitter-blue fit big" href="<%= genUrl( 'twitterSignin', { redirect: redirect, iToken: iToken } ) %>">
+      <a class="button twitter-blue fit big" href="<%= genUrl( 'twitterSignin', optionals ) %>">
         <i class="fa fa-twitter"></i>
         <span>Twitter</span>
       </a>
     </li>
     <li>
-      <a class="button google-red fit big" href="<%= genUrl( 'googleAuth', { redirect: redirect, iToken: iToken } ) %>">
+      <a class="button google-red fit big" href="<%= genUrl( 'googleAuth', optionals ) %>">
         <i class="fa fa-google-plus"></i>
         <span>Google Plus</span>
       </a>
     </li>
   </ul>
+
+  <footer>
+    <p><%= __( 'Don\'t have an account yet?' ) %> <a class="url" href="<%= genUrl( 'signup', optionals ) %>"><%= __('Create one!') %></a></p>
+  </footer>
+
 </div>
