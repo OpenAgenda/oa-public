@@ -16,5 +16,11 @@
   "Create one!"
   : "Créez-en un!",
   "This password is incorrect"
-  : "Ce mot de passe est erroné"
+  : "Ce mot de passe est erroné",
+  "I lost my password"
+  : "J'ai perdu mon mot de passe",
+  "No account matching this email was found"
+  : "Aucun compte ne correspond à cet email",
+  "The account matching this email is not yet activated"
+  : "Le compte correspondant à cet email n'a pas été activé"
 }

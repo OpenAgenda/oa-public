@@ -51,29 +51,7 @@ var handleHeader = function(params) {
 
   _runUnlogged = function() {
 
-    var redirect = window.location.href.replace(/#[A-z0-9&=]+$/, '');
-
-    if (redirect.replace(/\/frontend_dev.php|http(|s):\/\/(d.|)|\/$/g, '')=='cibul.net') redirect = '//' + (params.env!=='prod'?'d.cibul.net/frontend_dev.php':'cibul.net') + '/home';
-
-    forEach(els('.js_page_redirect'), function(linkElem) {
-      linkElem.setAttribute('href', linkElem.getAttribute('href') + '?redirect=' + redirect);
-    });
-
-    $('.js_language').poppit({ target: '.js_language_list', at: 'right bottom', my: 'right top' });
-
-    $('.js_signin_form').attr('action', $('.js_signin_form').attr('action') + '?redirect=' + $.base64Encode(redirect));
-
-    // submit signin
-    $('a', '.js_signin_form').click(function(e){
-      e.preventDefault();
-      $('.js_signin_form').submit();
-    });
-
-    $('input', '.js_signin_form').keyup(function(e){
-      if (e.keyCode==13) $('.js_signin_form').submit();
-    });
-
-    handleContextMenu(getElementsByClassName(document, 'js_connect_link')[0], nextObject(getElementsByClassName(document, 'js_connect_link')[0]), new EventHandler());
+    $('.js_signin_link').attr( 'href', $('.js_signin_link').attr( 'href' ) + '?redirect=' + $.base64Encode( window.location.href ) );
 
   },
 
@@ -82,8 +60,14 @@ var handleHeader = function(params) {
     handleContextMenu(el('.js_profile'), el('.js_profile_menu'), new EventHandler(), { left: false });
 
     // and needs to have logged values set in fields
-    if (session.thumbnail) $('.js_user_thumb').attr('src', session.thumbnail).removeClass('display-none');
-    $('.js_full_name').html(session.fullName);
+    if (session.thumbnail) {
+      $('.js_user_thumb').attr('src', session.thumbnail).removeClass('display-none');
+    } else {
+
+      el( '.js_user_thumb' ).insertAdjacentHTML( 'afterend', '<label>' + ( session.culture == 'fr' ? 'Mon Profil' : 'My Profile' ) + '</label>' );
+
+      $('.js_user_thumb').remove();
+    }
 
     $('.js_logo_link').attr('href', $('.js_logo_link').attr('href') + 'home');
 
@@ -127,31 +111,6 @@ var handleHeader = function(params) {
 
   },
 
-  _applyDeployBehavior = function(onDeployCallback) {
-
-    if (params.deployed) {
-
-      $('.js_deployable').removeClass('h0');
-
-      onDeployCallback();
-
-    } else {
-
-      $('.js_deploy').bind('focus.deploy',function(e){
-
-        onDeployCallback();
-
-        var self=this;
-
-        $('.js_deployable').animate({'height': $('.js_map').height()}, function(){ window.scrollTo(0, $(self).offset().top - $(window).height() + 50); });
-      
-        $(this).unbind('focus.deploy');
-      
-      });
-
-    }
-
-  },
 
   _initUserMenu = function() {
 

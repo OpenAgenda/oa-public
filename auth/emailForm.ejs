@@ -2,7 +2,7 @@
 
   <h1><%= __( typeof title == 'undefined' ? 'Create an account' : title ) %></h1>
   <p><%= __( 'Complete the signup process by typing in your email' ) %></p>
-  <form class="cform" method="get" action="<%= genUrl( uri, { iToken: iToken } ) %>">
+  <form class="cform" method="get" action="<%= genUrl( uri, optionals ) %>">
     <ul>
       <li>
         <label for="email"><%= __('Email') %></label>
@@ -11,7 +11,7 @@
         <span class="error"><%= __( errors.email ) %></span>
 <% } %>        
       </li>
-    <button type="submit"><%= __('Confirm Email') %></button>
+    <button name="submit-email" type="submit"><%= __('Confirm Email') %></button>
 
   </form>
 

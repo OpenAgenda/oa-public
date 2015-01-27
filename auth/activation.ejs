@@ -4,7 +4,7 @@
     <p><%= __('An email will be sent to you shortly containing the activation link for your account. Check your inbox to complete your account creation process.') %></p>
   </section>
   <section>
-    <p><%- __('Didn\'t receive any mail? %resend%', { '%resend%' : '<a class="url" href="' + genUrl( 'activateResend', email ? { email: email } : {} ) + '">' +  __('Click here to resend')  + '</a>' }) %></p>
+    <p><%- __('Didn\'t receive any mail? %resend%', { '%resend%' : '<a class="url" href="' + genUrl( 'activateResend', resendQuery ) + '">' +  __('Click here to resend')  + '</a>' }) %></p>
   </section>
   <section>
     <h2><%= __('Stay up to date with what is going on with Cibul!') %></h2>

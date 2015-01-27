@@ -1,6 +1,8 @@
-var cn = require('../../js/lib/common/common.mod.js'),
+var cn = require( '../../js/lib/common/common.mod.js' ),
 
 cTemplater = require( './clientTemplater' ),
+
+b64 = require( '../../js/lib/Base64/Base64.mod.js' ),
 
 params = {
   selectors: {
@@ -24,7 +26,13 @@ module.exports = function( options ) {
 
   window.getSession( function( session ) {
 
-    if ( !session.logged ) return;
+    if ( !session.logged ) {
+
+      _addSigninLinkRedirect( cn.el( params.selectors.signinLink ) );
+
+      return;
+
+    }
 
     cn.el( params.selectors.languageMenu ).parentNode.removeChild( cn.el( params.selectors.languageMenu ) );
 
@@ -67,6 +75,12 @@ module.exports = function( options ) {
   });
 
 };
+
+function _addSigninLinkRedirect( elem ) {
+
+  elem.setAttribute( 'href', elem.getAttribute( 'href' ) + '?redirect=' + b64.encode( window.location.href ) );
+
+}
 
 var _behave = function( li ) {
 

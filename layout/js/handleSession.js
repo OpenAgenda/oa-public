@@ -16,6 +16,7 @@ module.exports = function( eh, options ) {
     url: {
       prod: '/session',
       dev: '/frontend_dev.php/session',
+      test: '/frontend_dev.php/session',
       tpl: {
         logged: '/server/testdata/opensession.json',
         unlogged: '/server/testdata/closedsession.json'

@@ -5,7 +5,7 @@ var handleSession = function(params) {
   params = extend({
     url: false, // required - where to get the data
     debug: false,
-    cookie: 'cibul_session',
+    cookie: 'cibul',
     cookieFlag: 'refresh',
     cookieLogged: 'logged',
     local: 'cibul_session',
@@ -127,7 +127,7 @@ var handleSession = function(params) {
   _contradictingCookie = function() {
 
     try {
-      var cookieValue = _getCookieValue('logged');
+      var cookieValue = _getCookieValue( params.cookieLogged );
     } catch (e) {
       return false;
     }

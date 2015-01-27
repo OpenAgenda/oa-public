@@ -1,6 +1,6 @@
 <div class="canvas page">
   <h1><%= __('Create an account') %></h1>
-  <form class="cform" method="post" action="<%= genUrl( false, optionals ) %>>
+  <form class="cform" method="post" action="<%= genUrl( false, optionals ) %>">
     <ul>
       <li>
         <label for="email"><%= __('Email') %></label>
@@ -31,7 +31,7 @@
 
   <ul class="services cform">
     <li>
-      <a class="button facebook-blue fit big" href="<%= genUrl( 'facebookSignup', optionals ) %>">
+      <a id="facebook-signup" class="button facebook-blue fit big" href="<%= genUrl( 'facebookSignup', optionals ) %>">
         <i class="fa fa-facebook"></i>
         <span>Facebook</span>
       </a>
@@ -40,7 +40,7 @@
 <% } %>
     </li>
     <li>
-      <a class="button twitter-blue fit big" href="<%= genUrl( 'twitterSignup', optionals ) %>">
+      <a id="twitter-signup" class="button twitter-blue fit big" href="<%= genUrl( 'twitterSignup', optionals ) %>">
         <i class="fa fa-twitter"></i>
         <span>Twitter</span>
       </a>
@@ -49,7 +49,7 @@
 <% } %>
     </li>
     <li>
-      <a class="button google-red fit big" href="<%= genUrl( 'googleSignUp', optionals ) %>">
+      <a id="google-signup" class="button google-red fit big" href="<%= genUrl( 'googleSignup', optionals ) %>">
         <i class="fa fa-google-plus"></i>
         <span>Google Plus</span>
       </a>

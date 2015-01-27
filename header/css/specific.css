@@ -76,7 +76,7 @@ header .header-dropdown li > a:hover * { color: white; }
 
 
 header .visitor { text-align: right; margin: 5px 0 5px 5px; display: inline; }
-header .visitor .sub-block { display: inline-block; vertical-align: middle; }
+header .visitor .sub-block { display: inline-block; vertical-align: middle; padding: 0.5em;}
 header .visitor .lang-link { margin-right: 20px; vertical-align: top; margin-top: 12px; }
 header .visitor .lang-link div { display: inline-block; overflow: hidden; }
 

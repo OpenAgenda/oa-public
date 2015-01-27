@@ -2,7 +2,7 @@
 <% if ( thumbnail ) { %>
   <img class="user-profile-link" alt="user thumbnail" src="<%= thumbnail.replace('cibultest.', 'cibul.') %>">
 <% } else { %>
-  <div class="full-name"><%= fullName %></div>
+  <div class="full-name"><%= __('My profile') %></div>
 <% } %>
   <span class="small-black-down-arrow-css"></span>
 </div>
@@ -29,7 +29,7 @@
 <% }} %>
 <% } %>
     <li>
-      <a href="<%= genUrl('signout') %>" class="js_signout" ><%= __('Sign Out') %></a>
+      <a href="<%= genUrl('signout') %>"><%= __('Sign Out') %></a>
     </li>
   </ul><!--
 <% if ( !basic ) { %>

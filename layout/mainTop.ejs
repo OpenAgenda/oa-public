@@ -22,7 +22,7 @@
     <script type="text/javascript" src="<%= js[i] %>"></script>
 <% } %>
   </head>
-  <body<% if ( pageClass ) { %> class="<%= pageClass %>"<% } %>>
+  <body<% if ( pageClass ) { %> class="<%= pageClass %>"<% } %> onload="window.run(<%- typeof scriptParams !== 'undefined' ? JSON.stringify( scriptParams ) : '' %>);">
     <header>
       <a class="logo" href="/"><img alt="<%= __('Cibul - Open Agendas') %>" src="/images/biglogo.png"></a>
       <ul class="links site-links js_header_links">
@@ -31,7 +31,7 @@
         <li><a href="<%= link.url %>"><%= __(link.label) %></a></li>
 <% }); %>
 <% } %>
-        <li><a class="js_signin_link" href="<%= genUrl('authShow') %>"><%= __('Sign in') %></a></li>
+        <li><a class="js_signin_link" href="<%= genUrl('signin') %>"><%= __('Sign in') %></a></li>
         <li class="language-menu js_language_menu">
           <a><% if ( ( typeof lang == 'undefined' ) || lang=='fr' ) { %>fr<% } else { %>en<% } %></a>
           <ul class="language-menu">

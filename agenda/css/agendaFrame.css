@@ -384,7 +384,7 @@
 
   .ag .canvas header .head {
     max-width: none;
-    display: inline-block;
+    display: block;
     text-align: center;
   }
 

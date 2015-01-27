@@ -3,6 +3,8 @@
   "auth/signup",
   "auth/emailForm",
   "auth/activation",
+  "auth/lostPassword",
+  "auth/resetPassword",
   "home/index",
   "admin/index",
   "home/categories",

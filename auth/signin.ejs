@@ -31,19 +31,19 @@
   
   <ul class="services">
     <li>
-      <a class="button facebook-blue fit big" href="<%= genUrl( 'facebookSignin', optionals ) %>">
+      <a id="facebook-signin" class="button facebook-blue fit big" href="<%= genUrl( 'facebookSignin', optionals ) %>">
         <i class="fa fa-facebook"></i>
         <span>Facebook</span>
       </a>
     </li>
     <li>
-      <a class="button twitter-blue fit big" href="<%= genUrl( 'twitterSignin', optionals ) %>">
+      <a id="twitter-signin" class="button twitter-blue fit big" href="<%= genUrl( 'twitterSignin', optionals ) %>">
         <i class="fa fa-twitter"></i>
         <span>Twitter</span>
       </a>
     </li>
     <li>
-      <a class="button google-red fit big" href="<%= genUrl( 'googleAuth', optionals ) %>">
+      <a id="google-signin" class="button google-red fit big" href="<%= genUrl( 'googleSignin', optionals ) %>">
         <i class="fa fa-google-plus"></i>
         <span>Google Plus</span>
       </a>
@@ -52,6 +52,7 @@
 
   <footer>
     <p><%= __( 'Don\'t have an account yet?' ) %> <a class="url" href="<%= genUrl( 'signup', optionals ) %>"><%= __('Create one!') %></a></p>
+    <p><a id="lost-password" href="<%= genUrl( 'lostPassword' ) %>" class="url"><%= __( 'I lost my password' ) %></a></p>
   </footer>
 
 </div>
