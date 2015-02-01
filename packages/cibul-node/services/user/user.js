@@ -206,8 +206,6 @@ function _createProcess( createData, options ) {
 
 function onActivation( values ) {
 
-  log( 'onActivation %s', JSON.stringify( values ) );
-
   // on activation, invitations must be processed
 
   return invitationSvc.processUser( values );

@@ -205,7 +205,7 @@ function activateResend( req, res ) {
 
 function activate( req, res ) {
 
-  userSvc.activation.activateByToken( req.params.token, function( err, user ) {
+  userSvc.activation.activateByToken( req.params.token, auth.loadOptionals( req ), function( err, user ) {
 
     if ( err ) {
 

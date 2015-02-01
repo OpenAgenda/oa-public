@@ -167,7 +167,7 @@ describe( 'invitation processing', function() {
 
   it( 'process user invitations', function( done ) {
 
-    svc.processUser( { user: users[ 0 ], token: 789 }, function( err, result ) {
+    svc.processUser( { user: users[ 0 ], iToken: 789 }, function( err, result ) {
 
       cbm.lib.query( 'select * from reviewer where user_id = ?', [ users[ 0 ].id ], function( err, rows ) {
 

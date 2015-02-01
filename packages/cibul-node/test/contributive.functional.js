@@ -188,6 +188,79 @@ describe( 'contributive agenda', function() {
   });
 
 
+  it( 'user becomes contributor on activation of account', function( done ) {
+
+    this.timeout( 10000 );
+
+    var iToken;
+
+    _sendInvitation( browser, agenda, { email: 'newguy@cibul.net' } )
+
+    .then( _visit( browser, '/signout' ) )
+
+    .then( function() {
+
+      return wn.call( t.model.invitations().get );
+
+    })
+
+    .then( function( i ) {
+
+      iToken = i.token;
+
+      return browser.visit( '/signup?iToken=' + iToken );
+
+    })
+
+    .then( function() {
+
+      browser.fill( 'full_name', 'new guy' );
+
+      browser.fill( 'email', 'whateveremail@cibul.net' );
+
+      browser.fill( 'password', 'pwd');
+
+      browser.fill( 'repeat', 'pwd' );
+
+      return browser.pressButton( 'signup' );
+
+    })
+
+    .then( function() {
+
+      return wn.call( t.model.tokens().get );
+
+    })
+
+    .then( function( token ) {
+
+      return browser.visit( '/activate/' + token.token + '?iToken=' + iToken)
+
+    })
+
+    .then( null, function() {
+
+      return w.promise( function( resolve ) {
+
+        // user should be a contributor of agenda now
+
+        t.model.lib.query( 'select * from reviewer', function( err, rows ) {
+
+          rows.length.should.equal( 1 );
+
+          resolve();
+
+        })  
+
+      });
+
+    })
+
+    .done( done, _err );
+
+  })
+
+
   it( 'processed invited user is led to form', function( done ) {
 
     this.timeout( 10000 );

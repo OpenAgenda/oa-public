@@ -70,7 +70,15 @@ function createAndSend( values ) {
  * give user as successful result
  */
 
-function activateByToken( token, cb ) {
+function activateByToken( token, options, cb ) {
+
+  if ( !cb ) {
+
+    cb = options;
+
+    options = {};
+
+  }
 
   model.tokens().getActivation( { token: token }, function( err, tokenObj ) {
 
@@ -118,7 +126,9 @@ function activateByToken( token, cb ) {
 
             if ( err ) return cb( err );
 
-            userSvc.onActivation( { user: user }).then( function() {
+            user.isActivated = true;
+
+            userSvc.onActivation( lib.extend( { user: user }, options ) ).then( function() {
 
               cb( null, user );
 

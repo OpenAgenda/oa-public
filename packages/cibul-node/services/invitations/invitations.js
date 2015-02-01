@@ -98,6 +98,8 @@ function processUser( values, cb ) {
 
   .then( function( invitations ) {
 
+
+
     return w.promise( function( resolve, reject ) {
 
       async.eachSeries( invitations, function( invitation, ecs ) {
@@ -174,8 +176,6 @@ function preprocessUser( values, cb ) {
               log( 'activated user' );
 
               values.user.isActivated = true;
-
-              console.log( values.user );
 
               resolve( values );
 
