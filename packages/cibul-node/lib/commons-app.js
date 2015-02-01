@@ -725,7 +725,7 @@ function clearCookie( req, res, key ) {
 
   delete cookieValues[ key ];
 
-  _saveCookie( res, cookieValues );
+  _saveCookie( req, res, cookieValues );
 
 }
 
@@ -749,15 +749,20 @@ function writeToCookie( req, res, key, value ) {
 
   cookieValues[ key ] = value;
 
-  _saveCookie( res, cookieValues );
+  _saveCookie( req, res, cookieValues );
 
 }
 
-function _saveCookie( res, cookieValues ) {
+function _saveCookie( req, res, cookieValues ) {
+
+  var encodedCookieValues = ( new Buffer( JSON.stringify( cookieValues ) ) ).toString( 'base64' );
+
+  // do this both in req and res.
+  req.cookies[ config.cookie.name ] = encodedCookieValues;
 
   res.cookie( 
     config.cookie.name, 
-    ( new Buffer( JSON.stringify( cookieValues ) ) ).toString( 'base64' ),
+    encodedCookieValues,
     { maxAge: 5*60*1000 }
   );
 
