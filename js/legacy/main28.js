@@ -632,7 +632,7 @@ $.getSessionCookie = function(force) {
 
   $.sCookie = new Array();
   
-  var s_cookie = $.cookie('cibul_session');
+  var s_cookie = $.cookie('cibul');
   
   if (s_cookie != null) $.sCookie = $.evalJSON($.base64Decode(s_cookie));
   

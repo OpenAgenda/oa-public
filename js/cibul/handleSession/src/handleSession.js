@@ -8,7 +8,7 @@ var handleSession = function(params) {
     cookie: 'cibul',
     cookieFlag: 'refresh',
     cookieLogged: 'logged',
-    local: 'cibul_session',
+    local: 'cibul',
     onLoaded: false,
     events: { fetch: 'getsessiondata', clear: false }
   }, params);
