@@ -22,7 +22,9 @@ styler = require( '../lib/widgetStyler' ),
 
 today = new Date(),
 
-onReady;
+onReady,
+
+oneWidgetReady = false;
 
 if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
 
@@ -70,6 +72,8 @@ var widget = function( elem, options ) {
     } ) );
 
     _createElement();
+
+    oneWidgetReady = true;
 
     if ( onReady ) onReady();
 
@@ -160,6 +164,12 @@ var widget = function( elem, options ) {
 };
 
 function setOnReady( cb ) {
+
+  if ( oneWidgetReady ) {
+
+    cb();
+
+  }
 
   onReady = cb;
 

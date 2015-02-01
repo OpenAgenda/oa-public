@@ -64,7 +64,9 @@ var handleHeader = function(params) {
       $('.js_user_thumb').attr('src', session.thumbnail).removeClass('display-none');
     } else {
 
-      el( '.js_user_thumb' ).insertAdjacentHTML( 'afterend', '<label>' + ( session.culture == 'fr' ? 'Mon Profil' : 'My Profile' ) + '</label>' );
+      var fullName = session.fullName ? session.fullName : ( session.culture == 'fr' ? 'Mon Profil' : 'My Profile' );
+
+      el( '.js_user_thumb' ).insertAdjacentHTML( 'afterend', '<label>' + fullName + '</label>' );
 
       $('.js_user_thumb').remove();
     }

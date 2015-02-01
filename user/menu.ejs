@@ -1,6 +1,8 @@
 <div class="user-profile js_profile">
 <% if ( thumbnail ) { %>
   <img class="user-profile-link" alt="user thumbnail" src="<%= thumbnail.replace('cibultest.', 'cibul.') %>">
+<% } else if ( fullName ) { %>
+  <div class="full-name"><%= fullName %></div>
 <% } else { %>
   <div class="full-name"><%= __('My profile') %></div>
 <% } %>

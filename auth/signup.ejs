@@ -1,7 +1,14 @@
-<div class="canvas page">
+<div class="canvas page signup">
   <h1><%= __('Create an account') %></h1>
   <form class="cform" method="post" action="<%= genUrl( false, optionals ) %>">
     <ul>
+      <li>
+        <label for="full_name"><%= __('Your name') %></label>
+        <input type="text" name="full_name" value="<%= name %>"/>
+<% if ( errors.full_name ) { %>
+        <span class="error"><%= __( errors.full_name ) %></span>
+<% } %>
+      </li>
       <li>
         <label for="email"><%= __('Email') %></label>
         <input type="email" name="email" value="<%= email %>" />
@@ -23,6 +30,16 @@
         <span class="error"><%= __( errors.repeat ) %></span>
 <% } %>
       </li>
+<% if ( useCaptcha ) { %>
+      <li>
+        <div class="captcha">
+          <div class="g-recaptcha" data-sitekey="<%= captchaKey %>"></div>
+        </div>
+<% if ( errors.captcha ) { %>
+        <span class="error"><%= __( errors.captcha ) %></span>
+<% } %> 
+      </li>
+<% } %>
       <li>
         <button name="signup" type="submit"><%= __('Sign Up') %></button>
       </li>

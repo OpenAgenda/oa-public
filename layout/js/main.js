@@ -26,43 +26,33 @@ hooks = [],
 
 params = {};
 
-module.exports = window.run = function( externalEh, options ) {
+cn.addEvent( window, 'load', function() {
 
-  if ( ran ) return;
-
-  ran = true;
-
-  if ( !options ) {
-
-    options = externalEh || {};
-
-  } else {
-
-    if ( externalEh ) eh = externalEh;
-
-  }
+  var options = _getOptions( 'body' );
 
   cn.extend( params, options );
+
+  if ( typeof window.eh !== 'undefined' ) eh = window.eh;
 
   if ( options.env == 'dev' || window.env == 'dev' ) debug.enable( '*' );
 
   mobileMonitor( document, window, navigator, eh );
 
-  cn.addEvent( window, 'load', function() {
+  messageLinks( eh );
 
-    messageLinks( eh );
+  confirmMessage();
 
-    confirmMessage();
+  if ( window.env !== 'test' ) {
 
     loadZopim( document, window, eh, { env: window.env } );
 
-    flash();
+  }
 
-    _languageMenu( options.langHeadMenu );
+  flash();
 
-    headerProfile( options.profile );
+  _languageMenu( options.langHeadMenu );
 
-  } );
+  headerProfile( options.profile );
 
   cn.forEach( hooks, function( hook ) {
 
@@ -70,7 +60,7 @@ module.exports = window.run = function( externalEh, options ) {
 
   });
 
-};
+} );
 
 
 /**
@@ -92,6 +82,30 @@ window.hook = function( cb ) {
 window.getSession = handleSession();
 
 
+
+function _getOptions( selector ) {
+
+  var options = {}, 
+
+  stringified = cn.el( selector ).getAttribute( 'data-options' );
+
+  if ( !stringified ) return options;
+
+  try {
+
+    options = JSON.parse( stringified );
+
+  } catch( e ) {
+
+    log( 'could not parse options' );
+
+  }
+
+  return options;
+
+}
+
+
 /**
  * toggle language menu display
  */
@@ -109,9 +123,11 @@ function _languageMenu( options ) {
 
   headElem = cn.el( params.selectors.main ),
 
-  langMenuElem = cn.el( headElem, params.selectors.langMenu ),
+  langMenuElem = cn.el( headElem, params.selectors.langMenu );
 
-  langList = cn.el( langMenuElem, 'ul' );
+  if ( !langMenuElem ) return;
+
+  var langList = cn.el( langMenuElem, 'ul' );
 
   cn.addEvent( langMenuElem, 'click', function( e ) {
 

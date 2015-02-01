@@ -19,6 +19,11 @@ defaults = {
     embed : '//d.cibul.net/agendas/{uid}/embeds/{embedUid}/controldata',
     search : '//d.cibul.net/widgets/{uid}/search'
   },
+  test: {
+    agenda : '//d.cibul.net/agendas/{uid}/controldata',
+    embed : '//d.cibul.net/agendas/{uid}/embeds/{embedUid}/controldata',
+    search : '//d.cibul.net/widgets/{uid}/search'
+  },
   tpl: {
     agenda : '/server/testdata/controldata-pepite.json',
     embed : '/server/testdata/embedcontroldata-pepite.json',
@@ -70,16 +75,16 @@ module.exports = function( uid ) {
 
       }
 
-      ready = true;
-
       log( 'successfully fetched control data' );
 
       ctl = data;
 
       _processWidgetCtlRequests();
 
+      ready = true;
+      
       sweep();
-
+      
     });
 
     return {
@@ -139,7 +144,7 @@ module.exports = function( uid ) {
 
 
   /**
-   * hand over control data whhen ready.
+   * hand over control data when ready.
    */
   
   getControlData = function( cb ) {
@@ -184,6 +189,14 @@ module.exports = function( uid ) {
     if ( !_hasChanges( newParams ) ) return;
 
     currentRequestParams = _clean( newParams );
+
+    if ( !ready ) {
+
+      log( 'control data not yet received' );
+
+      return;
+
+    }
 
     _forEachWidget( 'change', currentRequestParams, originWidget );
 
@@ -244,6 +257,13 @@ module.exports = function( uid ) {
   },
 
 
+  _hasControlData = function() {
+
+    return !!ctl;
+
+  },
+
+
   /**
    * run method of each widget at the optional exception of...
    */
@@ -291,7 +311,9 @@ module.exports = function( uid ) {
   },
 
 
-  _processWidgetCtlRequests = function( ) {
+  _processWidgetCtlRequests = function() {
+
+    var toProcess = ctlRequests.length;
 
     var stackedCallback;
 

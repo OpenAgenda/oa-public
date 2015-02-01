@@ -50,6 +50,13 @@ defaults = {
       remove: '//d.cibul.net/frontend_dev.php/agenda/{{uid}}/aggregator/removeFrom/{{aUid}}'
     }
   },
+  test: {
+    resources: {
+      list: '//d.cibul.net/frontend_test.php/agenda/{{uid}}/aggregator/sourcecontext',
+      add: '//d.cibul.net/frontend_test.php/agenda/{{uid}}/aggregator/addTo/{{aUid}}',
+      remove: '//d.cibul.net/frontend_test.php/agenda/{{uid}}/aggregator/removeFrom/{{aUid}}'
+    }
+  },
   tpl: {
     resources: {
       list: '/server/testdata/sourcecontext.json',

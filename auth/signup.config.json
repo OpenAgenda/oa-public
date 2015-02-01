@@ -11,6 +11,8 @@
     "_i" : "image"
   },
   "base" : {
-    "pageClass" : "ct auth"
+    "pageClass" : "ct auth",
+    "optionals" : {},
+    "useCaptcha" : false
   }
 }

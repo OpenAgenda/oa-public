@@ -8,18 +8,13 @@ adminControls = require( './adminControls' );
 
 window.hook( function( options ) {
 
-  cn.addEvent( window, 'load', function( ) {
+  adminControls.hide();
 
-    adminControls.hide();
+  window.getSession( function( session ) {
 
-    window.getSession( function( session ) {
+    adminControls( session, options );
 
-      adminControls( session, options );
-
-    });
-
-
-  } );
+  });
   
   eventMap();
 

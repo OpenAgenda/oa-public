@@ -50,6 +50,7 @@ if ( [ 'tpl', 'dev' ].indexOf( window.env ) !== -1 ) {
 }
 
 window.hook( function( options ) {
+  
 
   var currentQueryValues = _getQueryValues( window.location.href ),
 
@@ -60,6 +61,7 @@ window.hook( function( options ) {
   uid = options.uid;
 
   log = debug( 'agendaPage' );
+
 
   window.getSession( function( session ) {
 
@@ -87,6 +89,7 @@ window.hook( function( options ) {
       perPage: options.perPage,
       loader: loader
     } );
+
 
     _handleWidgets( controller, currentQueryValues, function( newSearchValues ) {
 
@@ -158,11 +161,11 @@ function _handleWidgets( controller, queryValues, onChange ) {
 
   var searchValues = ( typeof queryValues.search == 'undefined' ) ? {} : queryValues.search;
 
-  controller.update( searchValues );
-
   _onWidgetLoaded( function() {
-
+    
     log( 'widgets are loaded and initialized' );
+
+    controller.update( searchValues )
 
     controller.sweep();
 

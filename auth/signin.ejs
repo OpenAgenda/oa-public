@@ -1,4 +1,4 @@
-<div class="canvas page">
+<div class="canvas page signin">
   <h1><%= __('Connection') %></h1>
 <% if ( typeof message !== 'undefined' || typeof errors.email !== 'undefined' || typeof errors.password !== 'undefined' ) { %>
       <div class="cform">
@@ -51,7 +51,7 @@
   </ul>
 
   <footer>
-    <p><%= __( 'Don\'t have an account yet?' ) %> <a class="url" href="<%= genUrl( 'signup', optionals ) %>"><%= __('Create one!') %></a></p>
+    <p><%= __( 'Don\'t have an account yet?' ) %> <a id="signup" class="url" href="<%= genUrl( 'signup', optionals ) %>"><%= __('Create one!') %></a></p>
     <p><a id="lost-password" href="<%= genUrl( 'lostPassword' ) %>" class="url"><%= __( 'I lost my password' ) %></a></p>
   </footer>
 

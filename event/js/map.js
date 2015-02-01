@@ -18,29 +18,25 @@ module.exports = function( options ) {
 
   cn.extend( params, options ? options : {} );
 
-  cn.addEvent( window, 'load', function() {
+  var canvas = cn.el( params.selectors.canvas ),
 
-    var canvas = cn.el( params.selectors.canvas ),
+  coords = _readCoords( canvas ),
 
-    coords = _readCoords( canvas ),
+  maps = mapLib({ url: params.tiles });
 
-    maps = mapLib({ url: params.tiles });
+  maps.createMap( canvas, {
+    center: coords, 
+    scrollwheel: params.scrollWheelZoom,
+    onReady: function( map ) {
 
-    maps.createMap( canvas, {
-      center: coords, 
-      scrollwheel: params.scrollWheelZoom,
-      onReady: function( map ) {
+      maps.createMarker( map, {
+        position: coords,
+        icon: params.icon
+      });
 
-        maps.createMarker( map, {
-          position: coords,
-          icon: params.icon
-        });
-
-      },
-      zoom: 14
-    } );
-
-  });
+    },
+    zoom: 14
+  } );
 
 }
 

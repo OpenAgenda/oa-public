@@ -24,6 +24,13 @@ module.exports = function( options ) {
 
   params = cn.extend( params, options );
 
+  var languageMenu = cn.el( params.selectors.languageMenu ),
+
+  signinLink = cn.el( params.selectors.signinLink );
+
+  // tmp hack to avoid execution on legacy project
+  if ( !languageMenu ) return;
+
   window.getSession( function( session ) {
 
     if ( !session.logged ) {
@@ -34,9 +41,9 @@ module.exports = function( options ) {
 
     }
 
-    cn.el( params.selectors.languageMenu ).parentNode.removeChild( cn.el( params.selectors.languageMenu ) );
+    languageMenu.parentNode.removeChild( languageMenu );
 
-    cn.el( params.selectors.signinLink ).parentNode.removeChild( cn.el( params.selectors.signinLink ) );
+    signinLink.parentNode.removeChild( signinLink );
 
     cTemplater( params.template, {
       urls: {
@@ -47,6 +54,8 @@ module.exports = function( options ) {
         agendaNew: '/agendas/new',
         searchAgendas: '/agendas/search'
       },
+      fullName: session.fullName,
+      thumbnail: session.thumbnail,
       lang: session.culture,
       lastUpdate: window.env=='dev' ? new Date() : session.lastTemplateUpdate
     }, function( err, template ) {

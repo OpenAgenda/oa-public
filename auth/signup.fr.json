@@ -1,4 +1,6 @@
 {
+  "Your name"
+  : "Votre nom",
   "Create an account"
   : "Créez un compte",
   "the email is invalid"
@@ -28,5 +30,7 @@
   "the email is not valid"
   : "l'email n'est pas valide",
   "this email is already in use"
-  : "cet email est déjà utilisé"
+  : "cet email est déjà utilisé",
+  "Try this again"
+  : "Ré-essayez"
 }

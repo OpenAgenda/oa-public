@@ -1,10 +1,20 @@
 {
   "base" : {
-    "values" : {
-      "email" : "gaetan@cibul.net",
-      "password" : "wigglypoof",
-      "confirmPassword" : "wigglypouf"
+    "head": { 
+      "js": {
+        "captcha": {
+          "src": "https://www.google.com/recaptcha/api.js?hl=fr",
+          "async": true,
+          "defer": true
+        }
+      }
     },
+    "useCaptcha": true,
+    "captchaKey": "6Lco3f0SAAAAAC6JqFdBM5zQzIBwSXXPoySYQxCp",
+    "name" : "Gaetan Latouche",
+    "email" : "gaetan@cibul.net",
+    "password" : "wigglypoof",
+    "repeat" : "wigglypouf",
     "errors" : {
       "email" : "the email is invalid",
       "password" : "a password is required",

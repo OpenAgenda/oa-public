@@ -220,6 +220,8 @@ var widget = function( elem, options ) {
 
   _refresh = function() {
 
+    if ( !calendar ) return;
+
     calendar.setSelected( selection, false );
 
     // TWEAK - to force refresh on selection - this should be corrected at the calendar level

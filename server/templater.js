@@ -44,6 +44,8 @@ module.exports = function( templateName, data, cb ) {
 
     data.__ = _loadTranslator( labels );
 
+    data._esc = _escape;
+
     var templateRender = _renderTemplate( results.template, results.templateBody, data );
 
     if ( results.layout ) {
@@ -308,6 +310,17 @@ _loadScripts = function( templateName, scriptsBase ) {
 
 _insertEnvironment = function( render, environment ) {
 
-  return render.replace( '<head>', '<head><script type="text/javascript">window.env="' + environment + '";</script>' );
+  return render.replace( '<head>', '<head><script type="text/javascript">window.env="' + environment + '"</script>' );
+
+},
+
+_escape = function( html ) {
+
+  return String(html)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/'/g, '&#39;')
+    .replace(/"/g, '&quot;');
 
 };

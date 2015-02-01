@@ -83,7 +83,7 @@ var widget = function( elem, options ) {
     } ) );
 
     controller.getControlData( function( data ) {
-
+      
       log( 'control data fetched' );
 
       if ( !data.ebd || data.ebd.dcss ) styler( style );
@@ -98,19 +98,20 @@ var widget = function( elem, options ) {
 
       _defineBaseBounds( data );
 
+      _bindSync();
+
+      log( 'init complete, enable to render' );
+
       _createMap( function() {
 
         _setMapToBaseBounds();
 
         _initMarkers();
 
+        if ( onReady ) onReady();
+
       });
 
-      _bindSync();
-
-      log( 'init complete, enable to render' );
-
-      if ( onReady ) onReady();
 
     } );
 
@@ -372,7 +373,11 @@ var widget = function( elem, options ) {
 
     if (typeof document.createStyleSheet == "undefined") {
 
-      cn.el('head').insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="//s3-eu-west-1.amazonaws.com/cibulstatic/leaflet-0.6.4.css">');
+      var link = document.createElement( 'link' );
+      
+      link.setAttribute( 'rel', 'stylesheet' );
+      link.setAttribute( 'type', 'text/css' );
+      link.setAttribute( 'href', '//s3-eu-west-1.amazonaws.com/cibulstatic/leaflet-0.6.4.css');
 
     } else {
 

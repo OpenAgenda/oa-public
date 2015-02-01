@@ -16,17 +16,17 @@ module.exports = function( eh, options ) {
     url: {
       prod: '/session',
       dev: '/frontend_dev.php/session',
-      test: '/frontend_dev.php/session',
+      test: '/frontend_test.php/session',
       tpl: {
         logged: '/server/testdata/opensession.json',
         unlogged: '/server/testdata/closedsession.json'
       }
     },
     env: false,
-    cookie: 'cibul_session',
+    cookie: 'cibul',
     cookieFlag: 'refresh',
     cookieLogged: 'logged',
-    local: 'cibul_session',
+    local: 'cibul',
     onLoaded: false,
     events: { fetch: 'getsessiondata', clear: false }
   }, params),

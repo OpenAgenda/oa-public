@@ -11,15 +11,17 @@
 
   padding: 1.5em 0 0.5em;
   display: block;
+  text-align: center;
 
 }
 
 .auth .services {
 
-  width: 10em;
+  width: 14em;
   border: none;
-  padding-left: 1em;
+  padding-left: 2em;
   border-width: 0;
+  padding-right: 0;
 
 }
 
@@ -28,6 +30,12 @@
 
   color: white;
   font-weight: bold;
+
+}
+
+.auth .services span {
+
+  padding: 0 5px;
 
 }
 
@@ -72,4 +80,42 @@
 
 .auth footer {
   padding: 1em 0;
+}
+
+
+.auth .signin,
+.auth .signup {
+  width: 465px;
+}
+
+.captcha {
+  position: relative;
+  overflow: hidden;
+  height: 3em;
+  width: 16em;
+}
+
+.g-recaptcha {
+  overflow: hidden;
+  position: absolute;
+  top: -18px;
+  left: -10px;
+}
+
+
+
+@media all and (max-width: 600px) { 
+
+  .auth .signin,
+  .auth .signup {
+    width: auto;
+  }
+
+  .auth .canvas form.cform, 
+  .auth .services {
+    display: block;
+    padding-left: 0;
+    width: 100%;
+  }
+
 }
