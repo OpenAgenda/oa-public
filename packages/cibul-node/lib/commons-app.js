@@ -17,6 +17,7 @@ exports.catchError = catchError;                  // the heir of standard error 
 
 exports.loadAgenda = loadAgenda;                  // middleware. loads an agenda in the request based on its slug
 exports.requireLogged = requireLogged;            // middleware. verify if user is logged
+exports.requireUnlogged = requireUnlogged;
 exports.requireAdmin = requireAdmin;
 exports.loadBaseData = loadBaseData;              // middleware. 
 exports.loadSession = loadSession;                // middleware. load session data
@@ -25,11 +26,13 @@ exports.flashSetter = flashSetter;                // middleware. set a flash pri
 exports.checkAdministrator = checkAdministrator;  // middleware. checks that logged user is administrator of loaded agenda
 
 exports.urlGenSetter = urlGenSetter;              // router proxy function & middleware. load url generator in request
+exports.makeGenUrl = makeGenUrl;
 exports.registerRoutes = registerRoutes;          // router proxy function. register app module routes in router
 exports.redirect = redirect;                      // router proxy function. do a redirect
 
-
-
+exports.writeToCookie = writeToCookie;
+exports.clearCookie = clearCookie
+exports.readCookie = readCookie
 
 /**
  * dependencies and constant declarations
@@ -223,7 +226,7 @@ function loadAgenda( paramName ) {
 
 function checkAdministrator( req, res, next ) {
 
-  wn.call( req.agenda.isAdministrator, { id: req.session.id } )
+  wn.call( req.agenda.isAdministrator, { id: req.session.userId } )
 
   .then( function( isAdmin ) {
 
@@ -301,6 +304,10 @@ function catchError( req, res, jsonResponse ) {
 
       req.log( 'info', err.message );
 
+    } else {
+
+      req.log( 'error', err );
+
     }
 
     errorResponse( req, res, err, jsonResponse );  
@@ -352,13 +359,10 @@ function render( req, res, templatePath, data, maintain ) {
 
 function renderTemplate( req, templatePath, data, maintain, cb ) {
 
-  if ( !data ) data = {};
-
-  if ( req.baseData ) {
-
-    deepExtend( data, req.baseData );
-
-  }
+  var compiledData = deepExtend( {}, 
+    req.baseData ? req.baseData : {},
+    data ? data : {}
+  );
 
   if ( !cb ) {
 
@@ -368,22 +372,22 @@ function renderTemplate( req, templatePath, data, maintain, cb ) {
 
   }
 
-  data.genUrl = req.genUrl;
+  compiledData.genUrl = req.genUrl;
 
   // maintain navigation query values
 
   if ( maintain ) {
 
-    data.page = req.query.page ? req.query.page : 1;
-    data.filters = req.query.filters ? req.query.filters : {};
+    compiledData.page = req.query.page ? req.query.page : 1;
+    compiledData.filters = req.query.filters ? req.query.filters : {};
 
   }
 
-  data.lang = _getLang( req );
+  compiledData.lang = _getLang( req );
 
-  data.env = process.env.NODE_ENV;
+  compiledData.env = process.env.NODE_ENV;
 
-  templater( templatePath + ( req.xhr ? '.part' : '' ), data, cb );
+  templater( templatePath + ( req.xhr ? '.part' : '' ), compiledData, cb );
 
 }
 
@@ -424,7 +428,7 @@ function loadBaseData( func ) {
 
     }
 
-    req.baseData = baseData;
+    req.baseData = deepExtend( req.baseData ? req.baseData : {}, baseData );
 
     next();
 
@@ -440,49 +444,36 @@ function loadBaseData( func ) {
 
 function loadSession( req, res, next ) {
 
-  var sessionKey = config.session.prefix + req.cookies[ config.session.cookie ];
+  log( 'loading session' );
 
-  redisCli.get( sessionKey, function( err, reply ) {
 
-    if ( err || !reply ) {
+  if ( req.session && req.session.userId ) {
 
-      req.session = {
-        culture: 'fr',
-        country: 'FR',
-        logged: false
-      };
+    log( 'session found' );
 
-      log( 'debug', 'session not found, assuming the user is not logged' );
+    req.session.logged = true;
 
-    } else {
+    var user = {};
 
-      log( 'debug', 'session found and loaded' );
+    user.id = req.session.userId;
 
-      req.session = JSON.parse( reply );
+    req.user = user;
 
-    }
+  } else {
 
-    if ( !req.session.logged ) {
+    // super basic init
+    if ( !req.session ) req.session = {};
 
-      req.log.load( { cookie: req.cookies[ config.session.cookie] } );
+    req.session.logged = false;
 
-      _defineLang( req );
+  }
 
-    } else {
+  _defineLang( req );
 
-      req.log.load( { userId: req.session.id } );
-      
-      _defineLang( req, req.session.culture );
-
-    }
-
-    req.log( 'debug', 'session is loaded: %s', sessionKey );
-
-    next();
-
-  });
+  next();
 
 }
+
 
 
 
@@ -493,8 +484,6 @@ function loadSession( req, res, next ) {
  */
 
 function requireLogged( req, res, next ) {
-
-  var error = { message: 'logged required' };
 
   if ( req.session.logged ) {
 
@@ -518,6 +507,30 @@ function requireLogged( req, res, next ) {
     var currentResource = new Buffer( req.originalUrl );
 
     router.redirect( req, res, 'authShow', { redirect: currentResource.toString( 'base64' ) } );
+
+  }
+
+}
+
+function requireUnlogged( req, res, next ) {
+
+  if ( !req.session.logged ) {
+
+    next();
+
+    return;
+
+  }
+
+  if ( req.xhr ) {
+
+    renderJson( {
+      success: false
+    } );
+
+  } else {
+
+    router.redirect( req, res, 'homeShow' );
 
   }
 
@@ -571,19 +584,13 @@ function checkCredential( name ) {
 
 function flashSetter( req, res, next ) {
 
-  res.setFlash = function( req, text ) {
+  res.setFlash = function( req, text, values ) {
+
+    if ( !values ) values = {};
 
     req.log( 'debug', 'setting flash to "%s"', text );
 
-    var b = new Buffer( req.cookies[config.cookie.name], 'base64' ),
-
-    cookieValues = JSON.parse( b.toString() );
-
-    cookieValues.flash = i18n( text, _getLang( req ) );
-
-    b = new Buffer( JSON.stringify( cookieValues ) );
-
-    this.cookie( config.cookie.name, b.toString(  'base64' ) );
+    writeToCookie( req, res, 'flash', i18n( text, values, _getLang( req ) ) );
 
   };
 
@@ -600,6 +607,12 @@ function flashSetter( req, res, next ) {
 function urlGenSetter( name, path ) {
 
   return router.loadUrlGen( name, path );
+
+}
+
+function makeGenUrl( options ) {
+
+  return router.makeGenUrl( options );
 
 }
 
@@ -698,9 +711,90 @@ function _logRoute( name ) {
 }
 
 
+function clearCookie( req, res, key ) {
+
+  var cookieValues = _decodeCookie( req );
+
+  if ( cookieValues[ key ] === undefined ) {
+
+    log( 'info', 'cookie value to be cleared is not set', key );
+
+    return;
+
+  }
+
+  delete cookieValues[ key ];
+
+  _saveCookie( res, cookieValues );
+
+}
+
+function readCookie( req, res, key, clearOnRead ) {
+
+  var cookieValues = _decodeCookie( req );
+
+  if ( clearOnRead ) {
+
+    clearCookie( req, res, key );
+
+  }
+
+  return cookieValues[ key ];
+
+}
+
+function writeToCookie( req, res, key, value ) {
+
+  var cookieValues = _decodeCookie( req );
+
+  cookieValues[ key ] = value;
+
+  _saveCookie( res, cookieValues );
+
+}
+
+function _saveCookie( res, cookieValues ) {
+
+  res.cookie( 
+    config.cookie.name, 
+    ( new Buffer( JSON.stringify( cookieValues ) ) ).toString( 'base64' ),
+    { maxAge: 5*60*1000 }
+  );
+
+}
+
+function _decodeCookie( req ) {
+
+  var encodedCookie = req.cookies[ config.cookie.name ],
+
+  cookieValues = {};
+
+  if ( encodedCookie ) {
+
+    try {
+
+      cookieValues = JSON.parse( 
+        ( new Buffer( encodedCookie, 'base64' ) ).toString()
+      );
+
+      return cookieValues;
+      
+    } catch( e ) {
+
+      log( 'error', 'could not decode cookie' );
+
+    }
+
+  }
+
+  return {};
+
+}
+
+
 function _logRequest( req, res, next ) {
 
-  req.log( 'info', '>>> received request' );
+  req.log( 'info', '>>> received request: %s', req.originalUrl );
 
   next();
 
@@ -737,10 +831,11 @@ function _getLang( req ) {
 
   if ( req.lang ) return req.lang;
 
-  if ( req.query.lang ) return req.query.lang;
+  if ( req.query && req.query.lang ) return req.query.lang;
 
   // when in doubt, speak french
-  
+  log( 'did not detect any language' );
+
   return 'fr';
 
 }

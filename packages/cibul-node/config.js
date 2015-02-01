@@ -10,8 +10,7 @@ config = {
     logPath : '/var/tmp/cibul-node.log',
     logPathDebug : '/var/tmp/cibul-node-debug.log',
     logPathError : '/var/tmp/cibul-node-errors.log',
-    //logNameSpaces: 'oa:*',
-    logNameSpaces: '*',
+    logNameSpaces: false,
     name: 'cibul-node',
     domain: 'cibul.net',
     root: 'https://cibul.net',
@@ -21,6 +20,26 @@ config = {
       port: 3306,
       user: 'root',
       password: 'V4\'&4F:,Mtji\'hzq'
+    },
+    auth: {
+      local: {
+        useCaptcha: true,
+        captchaKey: '6Lcn3P0SAAAAACcdP3CL9uk-LRaVvikvvcLrdJf0',
+        captchaSecret: '6Lcn3P0SAAAAAGpJgh6u5GAgxtk2Ye-bcB_-xWm7',
+        captchaVerify: 'https://www.google.com/recaptcha/api/siteverify'
+      },
+      facebook: {
+        id: '218055591568337',
+        secret: '444c327ed38e220805f23a40110475b4'
+      },
+      twitter: {
+        key: 'U6TZ7AMQzbtuUEyQKmShTQ',
+        secret: 'e6kB4iMssc6T54JqGtVgIqA7FbYnhGsn6YCuAfRFs'
+      },
+      google : {
+        id: '168621602257-al70gdmimj8sj4c1d1pqt8nrfr33srjc.apps.googleusercontent.com',
+        secret: 'tCAMVQ3SLe71CWAc-K5AOnpg'
+      }
     },
     es: {
       host: '10.74.132.55',
@@ -33,8 +52,10 @@ config = {
       port: 6379
     },
     session: {
-      cookie: 'symfony',
-      prefix: 'session:'
+      name: 'oas',
+      secret: 'yeepeekayaymadafaka',
+      storePrefix: 'session:',
+      sfName: 'symfony'
     },
     cookie: {
       name: 'cibul'
@@ -233,15 +254,35 @@ config = {
   },
 
   dev: {
-    root: 'http://d.cibul.net',
+    root: 'https://d.cibul.net',
     env: 'dev',
     multiCore: false,
     mainChannel: 'maindev',
+    logNameSpaces: 'oa:*',
     db: {
       database: 'cibuldev',
       host: 'localhost',
       user: 'root',
       password: 'grut'
+    },
+    auth: {
+      local: {
+        useCaptcha: true,
+        captchaKey: '6Lco3f0SAAAAAC6JqFdBM5zQzIBwSXXPoySYQxCp',
+        captchaSecret: '6Lco3f0SAAAAAHOjq4t9c4_aImMQ-k-SwN6JHOMU'
+      },
+      facebook: {
+        id: '160151044018305',
+        secret: '12f736eeec5b1be1ee3bf5705e65aa7a'
+      },
+      twitter: {
+        key: 'hMcfdN7tfpzdfvTAeGUQ',
+        secret: 'TgyJQUQTNORR3RSARNznICg9xYIs7eAWr7ONNs70nc'
+      },
+      google : {
+        id: '493901398908-njdc3qepd1j08arb37ptb8okhm6klu05.apps.googleusercontent.com',
+        secret: 'VmmU8IWHXKT_BGXghqrvFyXI'
+      }
     },
     es: {
       host: 'localhost',
@@ -282,17 +323,54 @@ config = {
     env: 'test',
     multiCore: false,
     mainChannel: 'maintest',
+    logNameSpaces: false,
+    //logNameSpaces: 'oa:*',
+    root: 'https://d.cibul.net',
     db: {
       database: 'cibultest',
       host: 'localhost',
       user: 'root',
       password: 'grut'
     },
+    auth: {
+      local: {
+        useCaptcha: false
+      },
+      facebook: {
+        id: '160151044018305',
+        secret: '12f736eeec5b1be1ee3bf5705e65aa7a',
+        testAccount: {
+          email: 'gaetan@cibul.net',
+          password: 'cibulon'
+        }
+      },
+      twitter: {
+        key: 'hMcfdN7tfpzdfvTAeGUQ',
+        secret: 'TgyJQUQTNORR3RSARNznICg9xYIs7eAWr7ONNs70nc',
+        testAccount: {
+          email: 'gaetan@cibul.net',
+          password: 'cibulon',
+          id: 341470576
+        }
+      },
+      google : {
+        id: '493901398908-njdc3qepd1j08arb37ptb8okhm6klu05.apps.googleusercontent.com',
+        secret: 'VmmU8IWHXKT_BGXghqrvFyXI',
+        testAccount: {
+          email: 'gaetanlatouche79@gmail.com',
+          password: 'cibulon79',
+          id: 110557384511109386749
+        }
+      }
+    },
     es: {
       host: 'localhost',
       port : 9200,
       indexName : 'cibultest',
       channel : 'maintest'
+    },
+    routes: {
+      defaultGlobalsPrefix: '/frontend_test.php'
     },
     redis: {
       host: 'localhost',

@@ -6,89 +6,357 @@ lib = require( '../../lib/lib' ),
 
 config = require( '../../config' ),
 
-model = require( 'cibulModel' )( config.db );
+model = require( 'cibulModel' )( config.db ),
+
+activation = require( './lib/activation' ),
+
+lostPassword = require( './lib/lostPassword' ),
+
+invitationSvc = require( '../invitations/invitations' ),
+
+async = require( 'async' ),
+
+w = require( 'when' );
 
 module.exports = {
-  auth: {
-    email: authenticate
-  }
+  get: get,
+  auth: authenticate,
+  create: create,
+  onActivation: onActivation,
+  updateTwitterId: updateTwitterId // tmp method required as long as there are twitter accounts with screen_name ref only
 }
+
+module.exports.activation = activation( module.exports );
+
+module.exports.lostPassword = lostPassword( module.exports );
+
+
+authenticate.facebook = _serviceAuthenticate( 'facebookUid' );
+authenticate.twitter = _serviceAuthenticate( 'twitterId' );
+authenticate.google = _serviceAuthenticate( 'googleId' );
+authenticate.twitterScreenName = _serviceAuthenticate( 'twitterScreenName' );
+
+create.facebook = _serviceCreate( 'facebookUid', true );
+create.twitter = _serviceCreate( 'twitterId' );
+create.google = _serviceCreate( 'googleId', true );
 
 function authenticate( email, password, cb ) {
 
-  async.waterfall([
-    
-    _findUserByEmail,
-    _verifyActivation,
-    _verifyUserPassword,
-    
-    function( user ) {
+  w( { email: email, password: password } )
 
-      cb( null, user );
+  .then( _loadUser )
 
-    }
-  ]);
+  .then( activation.verify )
 
-  return;
+  .then( _verifyPassword )
 
-  function _findUserByEmail( wcb ) {
+  .done( function( values ) {
 
-    model.users().get( { email: email }, function( err, user ) {
+    cb( null, values.user, values );
 
-      if ( err ) return cb( err );
+  }, cb );
 
-      if ( !user ) {
+}
 
-        cb( null, false, { 
-          errors: { 
-            email: 'This email does not match any known account' 
-          } 
-        } );
+function get( params, cb ) {
 
-      } else {
+  if ( !params || !lib.size( params ) ) {
 
-        wcb( null, user );
-
-      }
-
-    });
+    return cb( null, false );
 
   }
 
-  function _verifyActivation( user, wcb ) {
+  log( 'getting user %s', JSON.stringify( params ) );
 
-    if ( !user.isActivated ) {
+  model.users().get( params, cb );
 
-      cb( null, false, { 
-        errors: {
-          global: 'The account matching this email is not activated'
-        } 
-      });
+}
+
+function _serviceAuthenticate( serviceFieldName ) {
+
+  return function( id, options, cb ) {
+
+    if ( !cb ) {
+
+      cb = options;
+
+      options = {};
+
+    }
+
+    w( { fieldName: serviceFieldName, id: id } )
+
+    .then( _findUserByServiceId )
+
+    .then( activation.verify )
+
+    .done( function( values ) {
+
+      cb( null, values.user, values );
+
+    }, cb );
+
+  }
+
+}
+
+
+function create( data, options, cb ){
+
+  if ( !cb ) {
+
+    cb = options;
+
+    options = {};
+
+  }
+
+  _createProcess( data, options )
+
+  .done( function( values ) {
+
+    cb( null, values.user, values );
+
+  }, cb );
+
+}
+
+
+function updateTwitterId( user, profile ) {
+
+  if ( !user || !profile ) {
+
+    return cb( 'user or profile is missing' );
+
+  }
+
+  model.users().update( { id: user.id }, { twitterId: profile.id }, function( err, result ) {
+
+    if ( err ) {
+
+      log( 'error', 'had trouble updating twitterId: %s', JSON.stringify( err ) );
 
     } else {
 
-      wcb( null, user );
+      log( 'twitter id has been fetched and saved for user %s: %s', user.id, JSON.stringify( result ) );
+      
+    }
+
+  } );
+
+}
+
+
+function _serviceCreate( serviceFieldName, activate ) {
+
+  return function( data, options, cb ) {
+
+    if ( !cb ) {
+
+      cb = options;
+
+      options = {};
 
     }
 
+    var createData = {
+      email: data.email,
+      fullName: data.fullName,
+      culture: data.culture ? data.culture : 'fr'
+    },
+
+    serviceData = {};
+
+    serviceData[ serviceFieldName ] = data.id;
+
+    _createProcess( lib.extend( {}, createData, serviceData, { isActivated: !!activate } ), options )
+
+    .done( function( values ) {
+
+      values.service = serviceData;
+
+      cb( null, values.user, values );
+
+    }, cb );
+
+
   }
 
-  function _verifyUserPassword( user, wcb ) {
+}
 
-    model.users().validateEmailAndPassword( email, password, function( err, ok ) {
 
-      if( !ok ) {
+function _createProcess( createData, options ) {
 
-        cb( null, false, { errors: { password: 'This password is incorrect' } });
+  return w( lib.extend( { createData: createData }, options ? options : {} ) )
 
-      } else {
+  .then( _validateAndCreate )
 
-        wcb( null, user );
+  .then( _isLoaded( 'user', invitationSvc.preprocessUser ) )
+
+  .then( _isLoaded( 'user', _ifIsActivated( true, onActivation ) ) )
+
+  .then( _isLoaded( 'user', _ifIsActivated( false, activation.createAndSend ) ) )
+
+}
+
+
+/**
+ * there will be stuff to do on activation of a user account. Do it here
+ */
+
+function onActivation( values ) {
+
+  log( 'onActivation %s', JSON.stringify( values ) );
+
+  // on activation, invitations must be processed
+
+  return invitationSvc.processUser( values );
+
+}
+
+
+function _validateAndCreate( values ) {
+
+  return w.promise( function( resolve, reject ) {
+
+    log( 'validating and creating user with %s', JSON.stringify( values.createData ) );
+
+    model.users().validateAndCreate( values.createData, function( err, user, result ) {
+
+      if ( err ) return reject( err );
+
+      if ( result ) lib.extend( values, result );
+
+      if ( user ) {
+
+        log( 'user successfully created' );
+
+        values.user = user;
 
       }
 
-    });  
+      resolve( values );
 
+    });
+
+  });
+
+}
+
+
+function _isLoaded( field, func ) {
+
+  return function( values ) {
+    
+    if ( !values[ field ] ) return w( values );
+
+    return func( values );
+    
   }
+
+}
+
+function _ifIsActivated( expected, func ) {
+
+  return function( values ) {
+    
+    if ( values.user.isActivated !== expected ) return w( values );
+  
+    if ( !func ) return values;
+
+    return func( values );
+
+  };
+
+}
+
+
+function _loadUser( values ) {
+
+  return w.promise( function( resolve, reject ) {
+
+    model.users().get( { email: values.email }, function( err, user ) {
+
+      if ( err ) return reject( err );
+
+      if ( !user ) {
+
+        if ( !values.errors ) values.errors = {};
+
+        values.errors.email = 'This email does not match any existing account';
+
+      } else {
+
+        values.user = user;
+
+      }
+
+      resolve( values );
+
+    } );
+
+  });
+
+}
+
+
+function _findUserByServiceId( values ) {
+
+  return w.promise( function( resolve, reject ) {
+
+    var getData = {};
+
+    getData[ values.fieldName ] = values.id;
+
+    model.users().get( getData, function( err, user ) {
+
+      if ( err ) return reject( err );
+
+      if ( user ) {
+
+        values.user = user;
+
+      } else {
+
+        if ( !values.errors ) values.errors = {};
+
+        values.errors.service = 'This user does not exist';
+
+      }
+
+      resolve( values );
+
+    });
+
+  } );
+
+}
+
+
+function _verifyPassword( values ) {
+
+  if ( !values.user ) return values;
+
+  return w.promise( function( resolve, reject ) {
+
+    model.users().validateEmailAndPassword( values.user.email, values.password, function( err, ok ) {
+
+      if ( err ) return reject( err );
+
+      if ( !ok ) {
+
+        if ( !values.errors ) values.errors = {};
+
+        values.errors.password = 'This password is incorrect';
+
+        values.user = null;
+
+      }
+
+      resolve( values );
+
+    });
+
+  });
 
 }

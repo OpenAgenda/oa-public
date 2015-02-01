@@ -1,4 +1,3 @@
-
 {
   "campaign updated"
   : "campagne mise à jour",
@@ -27,5 +26,51 @@
   "Your swapcard events are being updated"
   : "Vos événements Swapcard sont en cours de mise à jour",
   "Your swapcard events are now being unlinked"
-  : "Vos événements swapcard ne sont désormais plus liés"
+  : "Vos événements swapcard ne sont désormais plus liés",
+  "Your account has been created, you can now login"
+  : "Votre compte a été crée, vous pouvez vous connecter",
+  "Activate your Cibul Account"
+  : "Activez votre compte Cibul",
+  "Congratulations!, You just created your Cibul account. Click on the following link to activate it \n %link%"
+  : "Félicitations! Vous venez de créer votre compte Cibul. Cliquez sur le lien suivant pour l'activer et commencer à utiliser votre agenda \n %link%",
+  "The activation email is being sent again"
+  : "Le mail d'activation est en cours d'envoi",
+  "Done"
+  : "Ok",
+  "Something went wrong. We will fix this shortly."
+  : "Quelque chose ne s'est pas correctement déroulé. Nous corrigeons ça rapidement.",
+  "No new invitation was sent"
+  : "Aucune nouvelle invitation a été envoyée",
+  "Sent invitations: %s"
+  : "Invitations envoyées: %s",
+  "You are now a contributor of agenda %agenda%"
+  : "Vous êtes désormais contributeur de l'agenda %agenda%",
+  "You have been invited to become contributor of the agenda %agenda%"
+  : "Vous avez été invité à contribuer à l'agenda %agenda%",
+  "Click here to start contributing to the agenda %agenda%"
+  : "Cliquez ici pour commencer a contribuer à l'agenda %agenda%",
+  "You are already a contributor"
+  : "Vous êtes déjà contributeur",
+  "You have been invited to become contributor of the agenda %agenda%"
+  : "Vous avez été invité à devenir contributeur de l'agenda %agenda%",
+  "Click here to start contributing to the agenda %agenda%"
+  : "Cliquez ici pour commencez à contribuer à l'agenda %agenda%",
+  "Follow this link to reset your password: %link%"
+  : "Suivez ce lien pour réinitialiser votre mot de passe: %link%",
+  "Reset your password"
+  : "Réinitialisez votre mot de passe",
+  "A password reset link is being sent to your email"
+  : "Un lien de réinitialisation de mot de passe est en cours d'envoi à votre adresse",
+  "The link is outdated. Try again."
+  : "Le lien n'est plus à jour. Veuillez ré-essayer.",
+  "Your password has been updated."
+  : "Votre mot de passe a été mis à jour.",
+  "A password reset is being sent to your email"
+  : "Un mot de passe est en cours d'envoi vers votre email",
+  "Something went wrong. We will fix this shortly."
+  : "Quelque chose ne s'est pas bien passé. Nous réglerons ceci d'ici peu",
+  "Invitation could not be sent"
+  : "L'invitation n'a pas pu être envoyée",
+  "The invitation is being resent"
+  : "L'invitation est en cours d'envoi"
 }

@@ -4,17 +4,6 @@
  * the overall app router
  */
 
-exports.registerRoutes = registerRoutes;   // register list of app routes
-exports.loadUrlGen = loadUrlGen;           // create middleware for sticking genUrl function to request object
-exports.redirect = redirect;               // that.
-exports.makeGenUrl = makeGenUrl;           // create genUrl function
-
-
-
-/**
- * load libs and declare constants
- */
-
 var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2,
 
 log = require('./logger')( 'router' ),
@@ -29,7 +18,12 @@ config = require( '../config' ),
 
 root = config.root;  // module, then action name
 
-loadGlobalRoutes();
+module.exports = lib.extend( loadGlobalRoutes, {
+  registerRoutes: registerRoutes,
+  loadUrlGen: loadUrlGen,
+  redirect: redirect,
+  makeGenUrl: makeGenUrl
+} );
 
 
 /**
@@ -56,7 +50,7 @@ function registerRoutes( moduleName, modulePath, routes ) {
 
 function loadUrlGen( name, path ) {
 
-  log( 'generating url builder' );
+  log( 'generating url builder for %s at %s', name, path );
 
   return function( req, res, next ) {
 
@@ -121,7 +115,7 @@ function makeGenUrl( options ) {
 
   return function( name, values, options ) {
 
-    if ( !routes[name] ) {
+    if ( ( name !== false ) && ( !routes[name] ) ) {
 
       log( 'debug', 'undefined route %s', name );
 
@@ -129,11 +123,11 @@ function makeGenUrl( options ) {
 
     }
 
-    var uriParamNames,      // variable names in current uri
+    var uriParamNames = {},      // variable names in current uri
 
     key, // loop in parameter values
 
-    url = routes[name].uri,
+    url = name === false ? '' : routes[name].uri,
 
     query = {},
 
@@ -167,24 +161,29 @@ function makeGenUrl( options ) {
 
     // retrieve name of parameters which are to be set in path
 
-    uriParamNames = (routes[name].uri.match(/:[a-z|A-Z]+/g) || []).map(function(n) { return n.replace(/[:]/g,''); });
+    if ( name ) {
+
+      uriParamNames = (routes[name].uri.match(/:[a-z|A-Z]+/g) || []).map(function(n) { return n.replace(/[:]/g,''); });
+      
+    }
+
 
 
     // specifics depending on uri type ( same module, other module, other project )
 
-    if ( urlParams.module && ( routes[name].module === urlParams.module ) ) {
+    if ( name && urlParams.module && ( routes[name].module === urlParams.module ) ) {
 
       // if we stay in current module, we use the base identifiers
 
       url = urlParams.base.path + url;
 
-    } else if ( routes[name].base ) {
+    } else if ( name && routes[name].base ) {
 
       // if we are in a project module, reuse base values
 
       values = lib.extend({}, urlParams.base.values, values);
 
-      url = routes[name].base + url;
+      if ( name ) url = routes[name].base + url;
 
     } else {
 
@@ -200,15 +199,15 @@ function makeGenUrl( options ) {
 
     // log( 'debug', 'generating url of uri %s', url );
 
-    for( var name in values ) {
+    for( var v in values ) {
 
-      if ( url.match( ':' + name ) ) {
+      if ( url.match( ':' + v ) ) {
 
-        url = url.replace( ':' + name, values[name] );
+        url = url.replace( ':' + v, values[ v ] );
 
       } else {
 
-        query[name] = values[name];
+        query[ v ] = values[ v ];
 
       }
 

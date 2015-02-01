@@ -14,6 +14,13 @@ log = logger( 'supervisor' );
 
 module.exports = function( job ) {
 
+  // mocha does not handle clusters well
+  if ( process.env.NODE_ENV == 'test' ) {
+    
+    return job( true );
+
+  }
+
   if ( cluster.isMaster ) {
 
     master();
@@ -64,7 +71,7 @@ function master() {
 }
 
 
-function worker( job ) {
+function worker( job, cb ) {
 
   logger().setPaths( 
     config.logPath.replace( 'log', cluster.worker.id + '.log' ),
@@ -72,7 +79,6 @@ function worker( job ) {
   );
 
   logger().globalLoad( { workerId: cluster.worker.id } );
-
 
   process.on( 'message', job );
 

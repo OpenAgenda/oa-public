@@ -3,6 +3,7 @@
     "express" : "~4.9",
     "body-parser" : "1.8.2",
     "cookie-parser" : "~1.3",
+    "cookie-session" : "1.1.0",
     "qs" : "~2.2",
     "async" : "~0.9",
     "debug" : "~2.0",
@@ -18,6 +19,11 @@
     "should" : "~4.0",
     "bunyan" : "~1.0",
     "mailjet" : "0.0.1",
-    "moment" : "2.8.3"
+    "moment" : "2.8.3",
+    "passport" : "0.2.1",
+    "passport-local" : "1.0.0",
+    "passport-facebook" : "1.0.3",
+    "passport-twitter" : "1.0.2",
+    "passport-google-oauth" : "0.1.5"
   }
 }

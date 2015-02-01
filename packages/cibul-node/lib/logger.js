@@ -30,7 +30,7 @@ module.exports = function( namespace ) {
 
   debugLog;
 
-  if ( config.env == 'dev' ) {
+  if ( config.logNameSpaces ) {
 
     debug.enable( config.logNameSpaces );
 

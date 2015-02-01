@@ -274,7 +274,7 @@ function _sesMailer( config, cb ) {
 
       log( 'debug', 'sending mail request with params %s', JSON.stringify( sesParams ) );
 
-      if ( config.env == 'dev') {
+      if ( [ 'dev', 'test' ].indexOf( config.env ) !== -1 ) {
 
         // in dev, send is just a log
         
@@ -283,7 +283,6 @@ function _sesMailer( config, cb ) {
           sendResultCb( err, params, data );
 
         });
-
 
       } else {
 
