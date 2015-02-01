@@ -645,7 +645,7 @@ $.setSessionCookie = function(s_cookie) {
 
   $.sCookie = s_cookie;
 
-  $.cookie('cibul_session', $.base64Encode($.toJSON(s_cookie)), {path: '/'});
+  $.cookie('cibul', $.base64Encode($.toJSON(s_cookie)), {path: '/'});
 }
 
 // switch from yyyy-mm-dd to dd-mm-yyyy
