@@ -51,7 +51,6 @@ if ( [ 'tpl', 'dev' ].indexOf( window.env ) !== -1 ) {
 
 window.hook( function( options ) {
   
-
   var currentQueryValues = _getQueryValues( window.location.href ),
 
   controller = window.cibul.getController( options.uid ),
@@ -225,7 +224,7 @@ function _handleAddButton( session, ctl ) {
 
 function _setPassedAgendaFilter( controller, currentQueryValues ) {
 
-  controller.getControlData( function( ctl ) {
+  controller.getControlData( true, function( ctl ) {
 
     if ( ( ctl.p === true ) && ( !cn.size( currentQueryValues ) ) ) {
 

@@ -79,9 +79,13 @@ module.exports = function( uid ) {
 
       ctl = data;
 
-      _processWidgetCtlRequests();
+      _processWidgetCtlRequests( false );
 
       ready = true;
+
+      // hack to allow some widgets to run getControlData callback once all
+      // is declared ready
+      _processWidgetCtlRequests( true );
       
       sweep();
       
@@ -147,7 +151,15 @@ module.exports = function( uid ) {
    * hand over control data when ready.
    */
   
-  getControlData = function( cb ) {
+  getControlData = function( postReady, cb ) {
+
+    if ( !cb ) {
+
+      cb = postReady;
+
+      postReady = false;
+
+    }
 
     if ( ctl ) {
 
@@ -159,7 +171,7 @@ module.exports = function( uid ) {
 
       log( 'control data not yet available, stacking request' );
 
-      ctlRequests.push( cb );
+      ctlRequests.push( [ postReady, cb ] );
 
     }
 
@@ -311,18 +323,28 @@ module.exports = function( uid ) {
   },
 
 
-  _processWidgetCtlRequests = function() {
+  _processWidgetCtlRequests = function( postReady ) {
 
     var toProcess = ctlRequests.length;
 
-    var stackedCallback;
+    var stackedCallback, restacked = [];
 
     // send control data to whoever requested it during registration process
     while ( stackedCallback = ctlRequests.pop() ) {
 
-      stackedCallback( ctl );
+      if ( stackedCallback[ 0 ] === postReady ) {
+
+        stackedCallback[ 1 ]( ctl );
+
+      } else {
+
+        restacked.push( stackedCallback );
+
+      }
 
     }
+
+    ctlRequests = restacked;
 
   },
 
