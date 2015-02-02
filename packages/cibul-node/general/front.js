@@ -11,7 +11,7 @@ exposed = {
 cmn = require( '../lib/commons-app' ),
 
 routes = {
-  presentation: [ 'get', presentation, '/', [ cmn.https ] ],
+  presentation: [ 'get', presentation, '/' ], // problem: applying mw here applies it everywhere
   newsletterSubscribe: [ 'post', newsletterSubscribe, '/newsletter/subscribe' ],
   serviceConnectCallback: [ 'get', serviceConnectCallback, '/services/:service/connect/callback' ]
 },
@@ -87,15 +87,19 @@ function load( main ) {
 
 function presentation( req, res ) {
 
-  if ( req.session.logged ) {
+  cmn.https( req, res, function() {
 
-    cmn.redirect( req, res, 'homeShow' );
+    if ( req.session.logged ) {
 
-    return;
+      cmn.redirect( req, res, 'homeShow' );
 
-  }
+      return;
 
-  cmn.render( req, res, 'presentation/index' );
+    }
+
+    cmn.render( req, res, 'presentation/index' );
+
+  } )
 
 };
 
