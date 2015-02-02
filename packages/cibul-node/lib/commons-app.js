@@ -561,9 +561,9 @@ function https( req, res, next ) {
 
 function requireAdmin( req, res, next ) {
 
-  var id = req.session.id; //req.user.id;
+  var id = req.user.id;
 
-  if ( [ 1, 2, 22, 2608 ].indexOf( parseInt( id, 10 ) ) !== -1 ) {
+  if ( [ 1, 2, 2608 ].indexOf( parseInt( id, 10 ) ) !== -1 ) {
 
     next();
 

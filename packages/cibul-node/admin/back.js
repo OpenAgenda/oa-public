@@ -279,11 +279,6 @@ function _getTotalsMonth( cb ) {
 var _layoutData = function( totals, totalsWeek, totalsMonth ) {
 
   return {
-    head: {
-      css: {
-        main: '//d.cibul.net/css/compiled.css'
-      }
-    },
 
     events: {
       total: totals.events,
