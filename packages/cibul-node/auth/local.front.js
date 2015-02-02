@@ -80,6 +80,7 @@ function load( main ) {
   app.use( cmn.urlGenSetter( appName, path ) );
 
   cmn.loadRoutes( app, routes, [
+    cmn.https,
     cmn.flashSetter,
     cmn.loadBaseData( auth.layoutData ),
     cmn.loadSession

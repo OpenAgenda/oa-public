@@ -18,6 +18,7 @@ exports.catchError = catchError;                  // the heir of standard error 
 exports.loadAgenda = loadAgenda;                  // middleware. loads an agenda in the request based on its slug
 exports.requireLogged = requireLogged;            // middleware. verify if user is logged
 exports.requireUnlogged = requireUnlogged;
+exports.https = https;                            // middleware. force https ( redirect to when not )
 exports.requireAdmin = requireAdmin;
 exports.loadBaseData = loadBaseData;              // middleware. 
 exports.loadSession = loadSession;                // middleware. load session data
@@ -535,6 +536,28 @@ function requireUnlogged( req, res, next ) {
   }
 
 }
+
+
+function https( req, res, next ) {
+
+  var redirectTo;
+
+  if ( req.headers['x-forwarded-proto'] == 'https' ) {
+
+    next();
+
+    return;
+
+  }
+
+  redirectTo = 'https://' + req.hostname + req.originalUrl;
+
+  req.log( 'forcing https: redirecting to %s', redirectTo );
+
+  res.redirect( 301, redirectTo );
+
+}
+
 
 function requireAdmin( req, res, next ) {
 

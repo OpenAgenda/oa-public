@@ -8,8 +8,10 @@ exposed = {
   load: load
 },
 
+cmn = require( '../lib/commons-app' ),
+
 routes = {
-  presentation: [ 'get', presentation, '/' ],
+  presentation: [ 'get', presentation, '/', [ cmn.https ] ],
   newsletterSubscribe: [ 'post', newsletterSubscribe, '/newsletter/subscribe' ],
   serviceConnectCallback: [ 'get', serviceConnectCallback, '/services/:service/connect/callback' ]
 },
@@ -30,7 +32,6 @@ wn = require( 'when/node' ),
 
 lib = require( '../lib/lib' ),
 
-cmn = require( '../lib/commons-app' ),
 
 coms = require( '../lib/coms' ),
 
