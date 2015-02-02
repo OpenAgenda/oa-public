@@ -46,7 +46,7 @@ exposed.renderSignin = _render( 'auth/signin', {
 
 exposed.renderSignup = _render( 'auth/signup', {
   optionals: {},
-  name: '',
+  full_name: '',
   email: '',
   password: '',
   repeat: '',
