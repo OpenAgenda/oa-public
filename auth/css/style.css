@@ -88,6 +88,11 @@
   width: 465px;
 }
 
+.auth .signin li,
+.auth .signup li {
+  max-width: 16em;
+}
+
 .captcha {
   position: relative;
   overflow: hidden;
@@ -109,6 +114,11 @@
   .auth .signin,
   .auth .signup {
     width: auto;
+  }
+
+  .auth .signin li,
+  .auth .signup li {
+    max-width: none;
   }
 
   .auth .canvas form.cform, 
