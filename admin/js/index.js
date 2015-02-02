@@ -7,16 +7,11 @@ eventsByWeek = require( './eventsByWeek' ),
 eventsDiff = require( './eventsDiff' );
 
 window.hook( function( ) {
-  
-  cn.addEvent( window, 'load', function() {
 
-    totalsSection();
+  totalsSection();
 
-    eventsByWeek();
+  eventsByWeek();
 
-    eventsDiff();
-
-  } );
-
+  eventsDiff();
 
 });
