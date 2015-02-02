@@ -129,7 +129,7 @@ describe( 'contributive agenda', function() {
 
     .then( _p( browser, 'clickLink', '#add-event' ) )
 
-    .then( null, function() {
+    .then( function() {
 
       browser.fill( 'request[message]', 'a descriptive message' );
       
