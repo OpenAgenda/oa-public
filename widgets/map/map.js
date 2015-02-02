@@ -379,6 +379,8 @@ var widget = function( elem, options ) {
       link.setAttribute( 'type', 'text/css' );
       link.setAttribute( 'href', '//s3-eu-west-1.amazonaws.com/cibulstatic/leaflet-0.6.4.css');
 
+      cn.el( 'head' ).appendChild( link );
+
     } else {
 
       document.createStyleSheet( config.leafletCss );

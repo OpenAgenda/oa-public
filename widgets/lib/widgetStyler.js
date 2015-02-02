@@ -28,6 +28,7 @@ styler = function( styleToAppend, styleVars, w, d ) {
 
   if (sheet.styleSheet) {
 
+
     sheet.styleSheet.cssText = style;
 
   } else {
@@ -52,7 +53,7 @@ _createSheet = function( w, d ) {
 
   } else {
 
-    cn. addEvent( w, 'load', function() {
+    cn.addEvent( w, 'load', function() {
 
       _stickSheet( d );
 
