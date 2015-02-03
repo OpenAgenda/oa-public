@@ -76,7 +76,7 @@ describe( 'invitation creation', function() {
       bogusComs.consume( 'jobs', function( err, job ) {
 
         job.should.eql({
-          type: 'invitations', 
+          type: 'invitation', 
           invitationId: invitations[ 0 ].id,
           lang: 'fr',
           action: 'processInvitation' 

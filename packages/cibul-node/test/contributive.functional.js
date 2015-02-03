@@ -6,9 +6,7 @@ w = require( 'when' ),
 
 wn = require( 'when/node' ),
 
-coms = require( '../lib/coms' ),
-
-userSvc = require( '../services/invitations/invitations' );
+userSvc = require( '../services/invitation/invitation' );
 
 describe( 'contributive agenda', function() {
 
@@ -251,6 +249,22 @@ describe( 'contributive agenda', function() {
           resolve();
 
         })  
+
+      });
+
+    })
+
+    .then( function() {
+
+      return w.promise( function( resolve ) {
+
+        t.coms.consume( 'jobs', function( err, values ) {
+
+          values.type.should.equal( 'notification' );
+
+          resolve();
+
+        });
 
       });
 

@@ -10,6 +10,8 @@ router = require( '../../lib/router' ),
 
 config = require( '../../config' ),
 
+notification = require( '../notification/notification'),
+
 async = require( 'async' ),
 
 w = require( 'when' ),
@@ -188,6 +190,11 @@ function agendaInvitations( agenda ) {
           agenda.setContributor( values.user, function( err ) {
 
             if ( err ) return reject( err );
+
+            notification.notify.newContributor( {
+              agendaId: agenda.id,
+              ownerId: values.user.id
+            } );
 
             values.message = i18n( 'You are now a contributor of agenda %agenda%', { '%agenda%' : agenda.title } , values.lang );
 

@@ -1,3 +1,19 @@
+"use strict";
+
+/**
+ * service handles queuing and processing notification-related jobs
+ *
+ * service is responsible for determining how many notifications to
+ * be created for each notification creation event.
+ *
+ * service is also responsible for sending mailer jobs when required
+ *
+ * notification model validates and creates notifications one by one in db
+ *
+ * example: a new contributor in an agenda generates one notification
+ * for each administrator of the agenda.
+ * 
+ */
 
 var log = require( '../../lib/logger' )( 'notification-service' ),
 
@@ -7,87 +23,174 @@ async = require( 'async' ),
 
 w = require( 'when' ),
 
+config = require( '../../config' ),
+
+model = require( 'cibulModel' )( config.db ),
+
 coms = require( '../../lib/coms' ),
 
 wn = require( 'when/node' ),
 
-lib = require( '../../lib/lib' );
+lib = require( '../../lib/lib' ),
 
-module.exports = function ( m, c ) {
+TYPES = model.notifications().TYPES;
 
-  return functions( m, c );
-
+module.exports = {
+  notify: {
+    newContributor: _notify( TYPES.AGENDA.NEWCONTRIBUTOR ),
+    expiredSwapcard: _notify( TYPES.AGENDA.EXPIREDSWAPCARD )
+  },
+  process: process,
+  setComs: setComs
 };
 
-var functions = function( model, config ) {
+function process( data, cb ) {
 
-  var exposed = function() {
+  var values = data.values,
 
-  	return {
-  	  process: process,
-      addJob: addJob
-  	};
+  type = values.type;
 
-  },
+  if ([
+    TYPES.AGENDA.NEWCONTRIBUTOR,
+    TYPES.AGENDA.EXPIREDSWAPCARD
+  ].indexOf( type ) !== -1 ) {
 
-  process = function( values, cb ) {
+    return _createAdminNotifications( type, values, cb );
 
-  	log( 'processing notification of type %d', values.number );
+  }
 
-  	_handleType( values, function( err ) {
+  log( 'error', 'unhandled type %s', type );
 
-  	  if ( err ) return cb( err );
+  cb();
 
-  	  return cb( null );
+}
 
-  	} );
 
-  },
+function setComs( c ) {
 
-  addJob = function( values ) {
+  coms = c;
 
-    coms.queue( 'jobs', lib.extend( values, { type: 'notification' } ) );
+}
 
-  },
 
-  _handleType = function( values, cb ) {
+function _createAdminNotifications( type, data, cb ) {
 
-    var agenda;
+  w( { entry: data } )
 
-  	wn.call( model.reviews().get, { id: values.agendaId } )
+  .then( _loadAgendaAdministrators )
 
-  	.then( function( review ) {
+  .done( function( values ) {
 
-  	  if ( !review ) return null;
+    async.each( values.administrators, function( admin, ecb ) {
 
-      agenda = review;
+      model.notifications().create[ TYPES.AGENDA.NEWCONTRIBUTOR ]( lib.extend( values.entry, {
+        userId: admin.id
+      } ), function( err, result ) {
 
-  	  return wn.call( model.notifications().get, { reviewId: values.agendaId, type: values.number } );
-  	
-  	} )
+        if ( err ) return ecb( err );
 
-  	.then( function( notification ) {
+        if ( !result.notification ) log( 'error', 'could not create notification: %s', JSON.stringify( result ) );
 
-  	  if ( !notification ) return wn.call( model.notifications().create, { reviewId: agenda.id, eventId: values.eventId, object: null, ownerId: null, userId: agenda.ownerId, type: 30 } );
+        ecb();
 
-  	  return wn.call( model.notifications().update, notification, {} );
+      } );
 
-  	} )
+    }, cb );
 
-  	.catch( function( err ) {
+  }, function( err ) {
 
-  	  if ( err ) return cb( err );
+    log( 'error', 'could not create notifications %s', JSON.stringify( data ) );
 
-  	} )
+  } );
 
-  	.done( function() {
+}
 
-  	  return cb();
 
-  	} );
+function _loadAgendaAdministrators( values ) {
 
-  };
+  return wn.call( model.reviews().get, { id: values.entry.reviewId || values.entry.agendaId } )
 
-  return exposed();
+  .then( function( agenda ) {
 
-};
+    if ( !agenda ) throw 'no agenda found for id ' + values.reviewId;
+
+    values.agenda = model.reviews().instance( agenda );
+
+    return wn.call( values.agenda.getAdministrators );
+
+  })
+
+  .then( function( administrators ) {
+
+    values.administrators = administrators;
+
+    return values;
+
+  });
+}
+
+
+function _notify( type ) {
+
+  return function( data, cb ) {
+
+    data.userId = false; // userId is set after enqueuing
+
+    // so this would not work.
+    model.notifications().cleanAndValidate[ type ]( data, false, function( err, result ) {
+
+      if ( !_isValid( type, err, result ) ) return cb ? cb( err ) : null;
+
+      _queue( type, result.clean, cb );
+
+    } );
+
+  }
+
+}
+
+
+function _queue( type, data, cb ) {
+
+  log( 'queueing %s, %s', type, JSON.stringify( data ) );
+
+  coms.queue( 'jobs', {
+    type: 'notification',
+    action: 'process',
+    values: lib.extend({}, data, { type: type } )
+  }, function( err ) {
+
+    if ( err ) log( 'error', 'got an error while queuing type %s and data %s', type, JSON.stringify( data ) );
+
+    if ( cb ) cb( err );
+
+  } );
+
+}
+
+
+/**
+ * handle an invalid notification queuing request
+ */
+
+function _isValid( type, err, result ) {
+
+  if ( err ) {
+
+    log( 'error', 'notification validation error: %s', JSON.stringify( err ) );
+
+    return false;
+
+  }
+
+  if ( !result.clean ) {
+
+    log( 'error', 'data submitted for notification type %s is not valid: %s', type, JSON.stringify( result ) );
+
+    return false;
+
+  }
+
+  return true;
+
+}

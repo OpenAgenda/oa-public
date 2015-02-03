@@ -13,7 +13,7 @@ log = require( '../lib/logger' )( appName ),
 
 path,
 
-invitationSvc = require( '../services/invitations/invitations.js' );
+invitationSvc = require( '../services/invitation/invitation.js' );
 
 module.exports = init;
 

@@ -33,14 +33,14 @@ module.exports = function ( m, c ) {
 var functions = function( model, config ) {
 
   var oauth2 = new OAuth2( config.bridges.swapcard.clientID, 
-        config.bridges.swapcard.clientSecret,
-        config.bridges.swapcard.baseSite,
-        config.bridges.swapcard.authorizePath,
-        config.bridges.swapcard.accessTokenPath,
-        null
-    ),
+    config.bridges.swapcard.clientSecret,
+    config.bridges.swapcard.baseSite,
+    config.bridges.swapcard.authorizePath,
+    config.bridges.swapcard.accessTokenPath,
+    null
+  ),
 
-  notification = require( '../notification/notification' )( model, config );
+  notification = require( '../notification/notification' );
 
   moment.lang( 'fr' );
 
@@ -561,7 +561,11 @@ var functions = function( model, config ) {
 
       getAccessToken( values.agenda.slug, values.refresh, 'refresh_token', function( err, a, r ) {
 
-        if ( err && err.statusCode == 400 ) notification.addJob( lib.extend( values, { number: 30, action: 'process' } ) );
+        if ( err && err.statusCode == 400 ) {
+
+          notification.notify.expiredSwapcard( { agendaId: values.agenda.id } );
+
+        }
 
         if ( err ) return cb( err );
 

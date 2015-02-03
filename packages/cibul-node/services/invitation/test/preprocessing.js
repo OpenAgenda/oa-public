@@ -8,7 +8,7 @@ var should = require( 'should' ),
 
 async = require( 'async' ),
 
-config = require( ';./../../config' ),
+config = require( '../../../config' ),
 
 cbm = require( 'cibulModel' )( config.db ),
 
