@@ -19,7 +19,8 @@ perPage = 20,
 routes = {
   embedControlData: [ 'get', controlData, '/agendas/:uid/embeds/:embedUid/controldata', [ _loadAgendaByUid, _loadEmbedByUid ] ],
   controlData: [ 'get', controlData, '/agendas/:uid/controldata', [ _loadAgendaByUid ] ],
-  agendaShow: [ 'get', show, '/:slug', [ cmn.loadAgenda( 'slug' ), cmn.loadBaseData( _layoutData ) ] ]
+  embedShow: [ 'get', show( 'agenda/embedShow' ), '/agendas/:uid/embed', [ _loadAgendaByUid, cmn.loadBaseData( _layoutData ) ] ],
+  agendaShow: [ 'get', show( 'agenda/show' ), '/:slug', [ cmn.loadAgenda( 'slug' ), cmn.loadBaseData( _layoutData ) ] ],
 },
 
 log = require( '../lib/logger' )( appName ),
@@ -90,67 +91,72 @@ function load( main ) {
  * controllers
  */
 
-function show( req, res ) {
+function show( template ) {
 
-  var isEmpty = false;
+  return function( req, res ) {
 
-  req.esQuery.reviewId = req.agenda.id;
+    var isEmpty = false;
 
-  req.esQuery.order = [ 'upcoming' ];
+    req.esQuery.reviewId = req.agenda.id;
 
-  wn.call( req.agenda.hasPublishedEvents )
+    req.esQuery.order = [ 'upcoming' ];
 
-  .then( function( hasPublishedEvents ) {
+    wn.call( req.agenda.hasPublishedEvents )
 
-    if ( !hasPublishedEvents ) {
+    .then( function( hasPublishedEvents ) {
 
-      isEmpty = true;
+      if ( !hasPublishedEvents ) {
 
-      return { data: [], total: 0 };
+        isEmpty = true;
 
-    } else {
+        return { data: [], total: 0 };
 
-      return wn.call( es.events().search, req.esQuery )
+      } else {
 
-    }
+        return wn.call( es.events().search, req.esQuery )
 
-  })
-
-  .then( mw.search.prepareEvents )
-
-  .spread( function( events, total ) {
-
-    var templateData =  lib.extend({
-      isEmpty: isEmpty,
-      events: events,
-      total: total,
-      scriptParams: {
-        total: total,
-        empty: isEmpty
       }
-    }, _pager( req, 'agenda/show', total ) );
 
-    if ( req.xhr ) {
+    })
 
-      cmn.renderTemplate( req, 'agenda/show', templateData, function( err, partial ) {
+    .then( mw.search.prepareEvents )
 
-        cmn.renderJson( req, res, {
-          success: true,
-          partial: partial,
-          total: total
-        } );
+    .spread( function( events, total ) {
 
-      });
+      var templateData =  lib.extend({
+        isEmpty: isEmpty,
+        events: events,
+        total: total,
+        scriptParams: {
+          total: total,
+          empty: isEmpty
+        }
+      }, _pager( req, template, total ) );
 
-    } else {
+      if ( req.xhr ) {
 
-      cmn.render( req, res, 'agenda/show', templateData );
+        cmn.renderTemplate( req, template, templateData, function( err, partial ) {
 
-    }
+          cmn.renderJson( req, res, {
+            success: true,
+            partial: partial,
+            total: total
+          } );
 
-  } );
+        });
+
+      } else {
+
+        cmn.render( req, res, template, templateData );
+
+      }
+
+    } );
+
+  }
 
 }
+
 
 function controlData( req, res ) {
 
