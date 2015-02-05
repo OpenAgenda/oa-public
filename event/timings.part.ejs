@@ -1,0 +1,8 @@
+<ul><% var month = false; %>
+<% event.timings.forEach( function( timing ) { %>
+<% if ( month !== _t( timing.start, 'MMMM YYYY' ) ) { month = _t( timing.start, 'MMMM YYYY' ); %>
+  <li class="month"><%= _t( timing.start, 'MMMM YYYY' ) %></li>
+<% } %>
+  <li class="date"><%= _t( timing.start, 'dddd Do - HH:mm' ) %></li>
+<% }) %>
+</ul>

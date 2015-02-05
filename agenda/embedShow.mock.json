@@ -1,8 +1,35 @@
 {
   "base" : {
-    "slug" : "chez-nous"
+    "title" : "Jeu de Territoire pour développer la qualité de Vie",
+    "description" : "l'agenda des évènements repérés par ChezNous",
+    "image" : "review_cheznous_598_00.jpg",
+    "slug" : "chez-nous",
+    "url" : "http://cheznous.coop",
+    "redirect" : "quiruezrhdk",
+    "uid" : 48959239,
+    "scriptParams" : {
+      "uid" : 48959239,
+      "total" : 200,
+      "perPage" : 20
+    },
+    "theme" : {
+      "image" : "review-bg-1402924618-615.jpg",
+      "repeat" : false,
+      "anchorage" : "center",
+      "backgroundColor" : "#fafafc",
+      "canvasPosition" : "center",
+      "canvasOffset" : "120"
+    },
+    "pager" : {
+      "current" : 3,
+      "total" : 127,
+      "action" : "show",
+      "values" : {},
+      "perPage" : 15
+    }
   },
   "standard" : {
+    "isEmpty" : false,
     "events" : [
       {
         "title" : "Les imams en France",
@@ -120,6 +147,16 @@
           }
         ]
       }
-    ]
+    ],
+    "scriptParams" : {
+      "empty" : false
+    }
+  },
+  "empty" : {
+    "isEmpty" : true,
+    "events" : [],
+    "scriptParams" : {
+      "empty" : true
+    }
   }
 }

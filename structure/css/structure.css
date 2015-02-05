@@ -26,6 +26,12 @@
 
 }
 
+.cb .canvas.mw720 {
+
+  max-width: 720px;
+
+}
+
 .cb .canvas header {
 
   position: relative;

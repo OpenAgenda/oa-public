@@ -14,6 +14,8 @@ headerProfile = require( './headerProfile' ),
 
 debug = require('debug'),
 
+layout = require( './layout' ),
+
 log = debug('globals'),
 
 flash = require('./handleFlashMessage.js'),
@@ -28,7 +30,7 @@ params = {};
 
 cn.addEvent( window, 'load', function() {
 
-  var options = _getOptions( 'body' );
+  var options = layout.getOptions( 'body' );
 
   cn.extend( params, options );
 
@@ -81,29 +83,6 @@ window.hook = function( cb ) {
 
 window.getSession = handleSession();
 
-
-
-function _getOptions( selector ) {
-
-  var options = {}, 
-
-  stringified = cn.el( selector ).getAttribute( 'data-options' );
-
-  if ( !stringified ) return options;
-
-  try {
-
-    options = JSON.parse( stringified );
-
-  } catch( e ) {
-
-    log( 'could not parse options' );
-
-  }
-
-  return options;
-
-}
 
 
 /**

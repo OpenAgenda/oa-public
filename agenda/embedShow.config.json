@@ -1,0 +1,18 @@
+{
+  "layout" : "embedLayout/main",
+
+  "embedCss" : {},
+
+  "helpers" : {
+    "_t" : "time",
+    "_i" : "image",
+    "_sl" : "shareLinks",
+    "_txt" : "text"
+  },
+
+  "base" : {
+    "queryLang" : false
+  },
+
+  "templateJs" : true
+}

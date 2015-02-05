@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<% if ( metas.title ) { %>
+    <title><%= __( metas.title ) %></title>
+<% } %>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+    <meta name="language" content="<%= lang %>" />
+<% for ( var i in metas ) { %><% if ( typeof metas[i] == 'string' ) { %>
+    <meta name="<%= i %>" content="<%= __( metas[i] ) %>" />
+<% } else { %>
+    <meta <% for ( var j in metas[i] ) { %> <%- j %>="<%- metas[i][j] %>"<% } %> />
+<% } %><% } %>
+<% for ( var i in head.css ) { %>
+    <link rel="stylesheet" href="<%= head.css[i] %>"/>
+<% } %>
+<% if ( typeof headLinks !== 'undefined' ) { %><% headLinks.forEach( function( link ) { %>
+    <link <% for ( var i in link ) { %><%= i %>="<%= link[ i ] %>" <% } %>/>
+<% }) %><% } %>
+<% if ( head.js ) { %>
+<% for ( var i in head.js ) { %>
+<% if ( typeof head.js[i] == 'string' ) { %>
+    <script type="text/javascript" src="<%= head.js[i] %>"></script>
+<% } else { %>
+    <script type="text/javascript"<% for ( var a in head.js[i] ) { %> <%= a %><% if ( head.js[i][a]!==true) { %>="<%= head.js[i][a] %>"<% } %><% } %>></script>
+<% } %>
+<% } %>
+<% } %>
+<% for ( var i in js ) { %>
+    <script type="text/javascript" src="<%= js[i] %>"></script>
+<% } %>
+  </head>
+  <body<% if ( pageClass ) { %> class="<%= pageClass %>"<% } %> data-options="<%- typeof scriptParams !== 'undefined' ? _esc( JSON.stringify( scriptParams ) ) : '' %>">

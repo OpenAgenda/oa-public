@@ -242,7 +242,9 @@ _loadLabels = function( lang ) {
 
       }
 
-      if ( results.length > 1 ) cn.extend(labels, JSON.parse( results[1]) );
+      console.log( results );
+
+      if ( results.length > 1 ) cn.extend(labels, JSON.parse( results[1] ) );
 
       data.labels = labels;
 

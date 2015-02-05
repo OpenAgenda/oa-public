@@ -1,0 +1,18 @@
+<% if ( event.languages ) { %>
+<ul class="event-languages">
+<% event.languages.selection.forEach( function( lang ) { %>
+<% if ( lang.label==event.languages.current ) { %>
+  <li class="current"><a><%= lang.label %></a></li>
+<% } else { %>
+  <li><a hreflang="<%= lang %>" href="<%= lang.link %>"><%= lang.label %></a></li>
+<% } %>
+<% }); %>
+</ul>
+<% } %>
+<div class="event-head">
+  <h2><%= event.title %></h2>
+  <p class="dsc"><%= event.description %></p>
+  <p class="st"><%= __( event.dateRange[0], _t(event.dateRange[1]) ) %></p>
+</div>
+
+<div class="event-body"><%- _txt.nl2br( event.freeText ) %></div>

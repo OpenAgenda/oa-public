@@ -8,6 +8,8 @@ destPath = require('./files.js').destPath,
 
 destCssPath = require('./files.js').destCssPath,
 
+destEmbedCssPath = require( './files.js' ).destEmbedCssPath,
+
 destPublicTemplatePath = require('./files.js').destPublicTemplatePath,
 
 map = JSON.parse( fs.readFileSync('../map.json', "utf8") ),
@@ -37,7 +39,8 @@ run = function() {
   log = debug('prodify');
 
   async.series([
-    async.apply( prodifyCss, map ),
+    async.apply( prodifyCss, map, 'css', destCssPath ),
+    async.apply( prodifyCss, map, 'embedCss', destEmbedCssPath ),
     async.apply( prodifyPublicTemplates, map ),
     async.apply( prodifyTemplateJs, map ),
     async.apply( prodifyJs, map ), 
@@ -188,11 +191,11 @@ copyFile = function (source, target, cb) {
  * compile css files
  */
 
-prodifyCss = function( map, cb ) {
+prodifyCss = function( map, cssKey, destFile, cb ) {
 
-  log( 'compiling css' );
+  log( 'compiling css %s to %s', cssKey, destFile );
 
-  listCss( map, function( err, cssFiles ) {
+  listCss( map, cssKey, function( err, cssFiles ) {
 
     // make array
 
@@ -230,7 +233,7 @@ prodifyCss = function( map, cb ) {
 
       // write it in dest css folder
 
-      fs.writeFile( destCssPath, mainCss, cb);
+      fs.writeFile( destFile, mainCss, cb);
 
     });
 
@@ -243,11 +246,19 @@ prodifyCss = function( map, cb ) {
  * run through css files of templates and layouts found in map and build a complete css file list
  */
 
-listCss = function listCss( map, cb ) {
+listCss = function listCss( map, cssKey, cb ) {
 
   var cssIndex = {},
 
   parentsMap = [];
+
+  if ( !cb ) {
+
+    cb = cssKey;
+
+    cssKey = 'css';
+
+  }
 
   async.each( map, function( mapItem, ecb ) {
 
@@ -263,39 +274,37 @@ listCss = function listCss( map, cb ) {
 
       if ( err ) return cb( err );
 
-      var offset = ( templateName.split('/').length - 1 ) * 3, 
+      var offset = ( templateName.split( '/' ).length - 1 ) * 3, 
 
       csses = {},
 
-      templatePath = templateName.split('/');
+      templatePath = templateName.split( '/' );
 
       templatePath.pop();
 
-      if ( config.css ) {
+      if ( config[cssKey] ) {
 
-        for (var c in config.css ) {
+        for (var c in config[cssKey] ) {
 
-          if ( config.css[c].indexOf('../') !== -1 ) {
+          if ( config[cssKey][c].indexOf( '../' ) !== -1 ) {
 
             // generic css
 
-            csses[c] = config.css[c].substr( offset );
+            csses[c] = config[cssKey][c].substr( offset );
             
-          } else if ( config.css[c].indexOf('//') !== -1 ) {
+          } else if ( config[cssKey][c].indexOf( '//' ) !== -1 ) {
 
             // web path, get as is
 
-            csses[c] = config.css[c];
+            csses[c] = config[cssKey][c];
 
           } else {
 
             // relative css. add path to folder
 
-            csses[c] = templatePath + '/' + config.css[c];
+            csses[c] = templatePath + '/' + config[cssKey][c];
 
           }
-
-          
 
         }
 
@@ -315,7 +324,7 @@ listCss = function listCss( map, cb ) {
 
     if ( parentsMap.length ) {
 
-      listCss( parentsMap, function( err, parentsCssIndex ) {
+      listCss( parentsMap, cssKey, function( err, parentsCssIndex ) {
 
         if ( err ) return cb( err );
 

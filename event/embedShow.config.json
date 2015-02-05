@@ -1,0 +1,21 @@
+{
+  "layout" : "embedLayout/main",
+  
+  "css" : {
+  },
+
+  "helpers" : {
+    "_t" : "time",
+    "_i" : "image",
+    "_sl" : "shareLinks",
+    "_txt" : "text"
+  },
+
+  "base" : {
+    "event" : {
+      "owner": false
+    }
+  },
+
+  "templateJs" : true
+}
