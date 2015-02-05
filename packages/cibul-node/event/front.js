@@ -17,8 +17,9 @@ mw = cmn.loadMiddlewares( 'search' ),
 perPage = 20,
 
 routes = {
-  agendaEventShow: [ 'get', agendaEventShow, '/:slug/events/:eventSlug' ],
-  eventShow: [ 'get', show, '/events/:eventSlug' ]
+  agendaEventShow: [ 'get', agendaEventShow, '/:slug/events/:eventSlug', [ cmn.loadAgenda( 'slug' ), _loadEvent( 'eventSlug', 'slug' ), cmn.loadBaseData( _layoutData ) ] ],
+  agendaEmbedEventShow: [ 'get', agendaEmbedEventShow, '/agendas/:uid/embed/events/:eventUid', [ cmn.loadAgenda( 'uid' ), _loadEvent( 'eventUid', 'uid' ) ] ],
+  eventShow: [ 'get', show, '/events/:eventSlug', [ _loadEvent( 'eventSlug', 'slug' ), cmn.loadBaseData( _layoutData ) ] ]
 },
 
 log = require( '../lib/logger' )( appName ),
@@ -75,11 +76,8 @@ function load( main ) {
 
   cmn.loadRoutes( app, routes, [
     cmn.urlGenSetter( appName, path ),
-    cmn.loadAgenda( 'slug' ),
-    _loadEvent,
     cmn.flashSetter,
-    cmn.loadSession,
-    cmn.loadBaseData( _layoutData )
+    cmn.loadSession
   ] );
 
   return exposed;
@@ -92,42 +90,91 @@ function load( main ) {
  */
 
 function agendaEventShow( req, res ) {
+
+  _addLanguageLinks( req, 'agendaEventShow', {
+    slug: req.params.slug,
+    eventSlug: req.params.eventSlug
+  } );
   
   cmn.render( req, res, 'event/show', { event: req.formattedEvent } );
 
 }
 
+function agendaEmbedEventShow( req, res ) {
+
+  _addLanguageLinks( req, 'agendaEmbedEventShow', { 
+    uid: req.params.uid,
+    eventUid: req.params.eventUid
+  } );
+
+  cmn.render( req, res, 'event/embedShow', { event: req.formattedEvent } );
+
+}
+
 function show( req, res ) {
+
+  _addLanguageLinks( req, 'eventShow', {
+    eventSlug: req.params.eventSlug
+  } );
 
   cmn.render( req, res, 'event/show', { event: req.formattedEvent } );
 
 }
 
-function _loadEvent( req, res, next ) {
+function _addLanguageLinks( req, uri, uriParams ) {
 
-  wn.call( ( req.agenda ? req.agenda.events : model.events() ).get, { slug: req.params.eventSlug } )
+  var linkedLanguages = [];
 
-  .then( function( data ) {
+  if ( !req.formattedEvent.languages ) return;
 
-    if ( !data ) throw { code: 404 };
+  req.formattedEvent.languages.selection.forEach( function( lang ) {
 
-    req.event = model.events().instance( data ); // here a specific language should be loaded
+    linkedLanguages.push({
+      label: lang,
+      link: req.genUrl( uri, lib.extend( {}, uriParams, { elang: lang } ) )
+    });
 
-    req.log.load({ event: req.event.slug });
+  });
 
-    return [ req, res ];
-
-  })
-
-  .spread( _selectLanguage )
-
-  .spread( _formatEvent )
-
-  .then( next )
-
-  .catch( cmn.catchError( req, res ) );
+  req.formattedEvent.languages.selection = linkedLanguages;
 
 }
+
+
+function _loadEvent( queryParam, fieldName ) {
+
+  return function( req, res, next ) {
+
+    var eventGetParams = {};
+
+    eventGetParams[ fieldName ] = req.params[ queryParam ];
+
+    wn.call( ( req.agenda ? req.agenda.events : model.events() ).get, eventGetParams )
+
+    .then( function( data ) {
+
+      if ( !data ) throw { code: 404 };
+
+      req.event = model.events().instance( data ); // here a specific language should be loaded
+
+      req.log.load({ event: req.event.slug });
+
+      return [ req, res ];
+
+    })
+
+    .spread( _selectLanguage )
+
+    .spread( _formatEvent )
+
+    .then( next )
+
+    .catch( cmn.catchError( req, res ) );
+
+  }
+
+}
+
 
 
 /**

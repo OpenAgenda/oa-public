@@ -184,8 +184,7 @@ function loadAgenda( paramName ) {
 
   return function( req, res, next ) {
 
-
-    var slug;
+    var identifiers = {};
 
     if ( !req.params[ paramName ] ) {
 
@@ -193,11 +192,11 @@ function loadAgenda( paramName ) {
 
     } else {
 
-      slug = req.params[ paramName ];
+      identifiers[ paramName ] = req.params[ paramName ];
 
     }
 
-    wn.call( model.agendas().get, { slug: slug })
+    wn.call( model.agendas().get, identifiers )
 
     .then( function( data ) {
 

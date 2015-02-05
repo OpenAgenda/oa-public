@@ -17,9 +17,9 @@ mw = cmn.loadMiddlewares( 'search' ),
 perPage = 20,
 
 routes = {
-  embedControlData: [ 'get', controlData, '/agendas/:uid/embeds/:embedUid/controldata', [ _loadAgendaByUid, _loadEmbedByUid ] ],
-  controlData: [ 'get', controlData, '/agendas/:uid/controldata', [ _loadAgendaByUid ] ],
-  embedShow: [ 'get', show( 'agenda/embedShow' ), '/agendas/:uid/embed', [ _loadAgendaByUid, cmn.loadBaseData( _layoutData ) ] ],
+  embedControlData: [ 'get', controlData, '/agendas/:uid/embeds/:embedUid/controldata', [ cmn.loadAgenda( 'uid' ), _loadEmbedByUid ] ],
+  controlData: [ 'get', controlData, '/agendas/:uid/controldata', [ cmn.loadAgenda( 'uid' ) ] ],
+  embedShow: [ 'get', show( 'agenda/embedShow' ), '/agendas/:uid/embed/events', [ cmn.loadAgenda( 'uid' ), cmn.loadBaseData( _layoutData ) ] ],
   agendaShow: [ 'get', show( 'agenda/show' ), '/:slug', [ cmn.loadAgenda( 'slug' ), cmn.loadBaseData( _layoutData ) ] ],
 },
 
@@ -227,38 +227,6 @@ function _layoutData( req, res ) {
   }
 
   return data;
-
-}
-
-function _loadAgendaByUid( req, res, next ) {
-
-  var uid;
-
-  if ( !req.params[ 'uid' ] ) {
-
-    return next();
-
-  } else {
-
-    uid = req.params[ 'uid' ];
-
-  }
-
-  wn.call( model.agendas().get, { uid: uid } )
-
-  .then( function( data ) {
-
-    if ( !data ) throw { code: 404 };
-
-    req.agenda = model.agendas().instance( data );
-
-    req.log.load({ agenda: req.agenda.slug });
-
-    next();
-
-  })
-
-  .catch( cmn.catchError( req, res, true ) );
 
 }
 
