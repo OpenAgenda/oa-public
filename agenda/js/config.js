@@ -2,9 +2,7 @@ var deepExtend = require( 'deep-extend' ),
 
 config = {
   all: {
-    partialOptions: {
-      updateLocation: true // update url of browser
-    }
+    partialOptions: {}
   },
   tpl : {
     partialOptions: {

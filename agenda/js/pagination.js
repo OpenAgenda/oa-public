@@ -4,10 +4,14 @@ var cn = require( '../../js/lib/common/common.mod' ),
 
 remote = require( '../../js/lib/remote/remote.mod' ),
 
+debug = require( 'debug' ), log,
+
 qs = require( 'qs' ),
 
 params = {
-  loader: false, // content loader
+  loadNext: false, // cb to get next page content
+  loadPrev: false, // cb to get previous page content
+  auto: true,      // loads next page on bottom hit
   selectors: {
     pager: '.js_pages',
     list: '.js_list_content',
@@ -24,9 +28,19 @@ loading = false,
 
 prevPageExists = true;
 
-exports.init = function( options ) {
+module.exports = {
+  init: init,
+  reset: reset,
+  loadNext: loadNext
+}
+
+function init( options ) {
+
+  log = debug( 'pagination' );
 
   cn.extend( params, options );
+
+  log( 'initing with params %s', JSON.stringify( options ) );
 
   _readPage( params.href );
 
@@ -34,12 +48,15 @@ exports.init = function( options ) {
 
   _initPrevPage( params.href );
 
-  _onHitBottom( _loadNext );
+  if ( params.auto ) {
+
+    _onHitBottom( loadNext );
+
+  }
 
 }
 
-
-exports.reset = function( newHref, total ) {
+function reset( newHref, total ) {
 
   params.total = total;
 
@@ -53,14 +70,17 @@ exports.reset = function( newHref, total ) {
 
 }
 
+function loadNext( cb ) {
 
-function _loadNext() {
+  log( 'loading next' );
 
   var newHref;
 
   if ( loading ) {
 
-    return;
+    log( 'already loading' );
+
+    return cb ? cb( 'already loading' ) : null;
 
   }
 
@@ -68,18 +88,22 @@ function _loadNext() {
 
   if ( page * params.perPage >= params.total ) {
 
-    return;
+    log( 'last page already reached: %s', page );
+
+    return cb ? cb( 'last page already reached' ) : null;
 
   }
 
   newHref = _setHrefPage( params.href, page + 1 );
   
 
-  params.loader.after( newHref, function( err, data ) {
+  params.loadNext( newHref, function( err, data ) {
 
     loading = false;
 
     page += 1;
+
+    if ( cb ) cb( err );
 
   } );
 
@@ -145,7 +169,7 @@ function _initPrevPage( href ) {
 
     cn.addEvent( cn.el( params.selectors.previous ), 'click', function( ) {
 
-      params.loader.before( _setHrefPage( href, firstPage - 1 ), function( err, data ) {
+      params.loadPrev( _setHrefPage( href, firstPage - 1 ), function( err, data ) {
 
         loading = false;
 

@@ -8,13 +8,11 @@ debug = require( 'debug' ),
 
 cn = require( '../../js/lib/common/common.mod' ),
 
-partialLoader = require( './partialLoader' ),
+list = require( './list' ),
 
 handleSourceMenu = require( './handleSourceMenu' ),
 
 config = require( './config' ),
-
-pagination = require( './pagination' ),
 
 widgets = {
   search: require( '../../widgets/search/search' ),
@@ -78,37 +76,18 @@ window.hook( function( options ) {
 
   if ( !options.empty ) {
 
-    loader = partialLoader( cn.extend( config.partialOptions, {
-      canvas: cn.el( params.selectors.list )
-    }));
-
-    pagination.init( {
-      href: window.location.href,
+    list.init( {
       total: options.total,
-      perPage: options.perPage,
-      loader: loader
+      perPage: options.perPage
     } );
-
 
     _handleWidgets( controller, currentQueryValues, function( newSearchValues ) {
 
       log( 'query values changed' );
 
-      var newHref = window.location.href.split( '?' )[0];
-
-      if ( cn.size( newSearchValues ) ) {
-
-        newHref += '?' + qs.stringify( { search: newSearchValues } );
-
-      }
-
       currentQueryValues.search = newSearchValues;
 
-      loader.replace( newHref, function( err, data ) {
-
-        pagination.reset( newHref, data.total );
-
-      } );
+      list.reset( _getHref( newSearchValues ) );
 
     } );
 
@@ -336,5 +315,20 @@ function _getQueryValues( href, key ) {
   if ( !key ) return v;
 
   return v[key] ? v[key] : {};
+
+}
+
+
+function _getHref( values ) {
+
+  var href = window.location.href.split( '?' )[0];
+
+  if ( cn.size( values ) ) {
+
+    href += '?' + qs.stringify( { search: values } );
+
+  }
+
+  return href;
 
 }

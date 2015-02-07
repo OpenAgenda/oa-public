@@ -1,4 +1,21 @@
 <div class="canvas elb ela mw720">
-  <a href="/event/embedShow">show link</a>
-  <% include ./show.part.ejs %>
+  
+<% if ( !isEmpty ) { %>
+
+  <div class="js_previous_page previous-page"><a class="url"><i class="fa fa-arrow-up"></i></a></div>
+
+  <% include ../general/pages %>
+
+  <div class="js_list_content">
+    <% include ./show.part.ejs %>
+  </div>
+
+  <% include ../general/pages %>
+
+<% } else { %>
+  <main>
+    <p class="empty"><%= __( 'This agenda hasn\'t published any events yet.' ) %></p>
+  </main>
+<% } %>
+
 </div>

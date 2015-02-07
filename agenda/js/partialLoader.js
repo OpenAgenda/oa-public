@@ -22,6 +22,8 @@ module.exports = function( options ) {
 
   init = function() {
 
+    log( 'initing' );
+
     return {
       replace: _action( 'replace' ),
       after: _action( 'after' ),
@@ -162,7 +164,7 @@ function _templateHref( href ) {
 
   var parts = href.split( '?' );
 
-  return parts[0] + '.part' + ( parts.length == 2 ? '?' + parts[1] : '' );
+  return parts[0].replace('embedS', 's' ) + '.part' + ( parts.length == 2 ? '?' + parts[1] : '' );
 
 }
 

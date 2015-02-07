@@ -1,0 +1,73 @@
+"use strict";
+
+var debug = require( 'debug' ), log,
+
+pagination = require( './pagination' ),
+
+partialLoader = require( './partialLoader' ),
+
+cn = require( '../../js/lib/common/common.mod' ),
+
+config = require( './config' ),
+
+params = {
+  empty: false,                 // true if agenda is empty
+  total: false,                 // total items
+  perPager: false,              // items per page
+  updateBrowserLocation: true,  
+  selectors: {
+    list: '.js_list_content'
+  }
+},
+
+loader, pagination;
+
+module.exports = {
+  init: init,
+  reset: reset,
+  loadNext: loadNext
+}
+
+
+function init( options ) {
+
+  log = debug( 'agenda list' );
+
+  log( 'initing' );
+  
+  cn.extend( params, options );
+
+  if ( options.empty ) return;
+
+  loader = partialLoader( cn.extend( config.partialOptions, {
+    canvas: cn.el( params.selectors.list ),
+    updateLocation: params.updateBrowserLocation
+  }));
+
+  pagination.init( {
+    href: window.location.href,
+    total: options.total,
+    perPage: options.perPage,
+    loadNext: loader.after,
+    loadPrev: loader.before
+  } );
+
+}
+
+function loadNext( cb ) {
+
+  log( 'load next' );
+
+  pagination.loadNext( cb );
+
+}
+
+function reset( newHref ) {
+
+  loader.replace( newHref, function( err, data ) {
+
+    pagination.reset( newHref, data.total );
+
+  });
+
+}

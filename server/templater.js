@@ -18,7 +18,7 @@ module.exports = function( templateName, data, cb ) {
 
   async.waterfall(loaders, function( err, results ) {
 
-    if (err) throw err; // because fuck it.
+    if ( err ) throw err;
 
     var template = results.template, labels = results.labels;
 
@@ -65,7 +65,7 @@ module.exports = function( templateName, data, cb ) {
 
 var ejs = require('ejs'),
 
-fs = require('fs'),
+readFile = require( './cachedFs' ).readFile,
 
 cn = require('../js/lib/common/common.mod.js'),
 
@@ -73,9 +73,9 @@ async = require('async'),
 
 debug = require('debug'),
 
-deepExtend = require('deep-extend'),
+deepExtend = require( 'deep-extend' ),
 
-log = debug('templater'),
+log = debug( 'templater' ),
 
 helpers = {},
 
@@ -133,7 +133,7 @@ _loadTemplate = function( templateName ) {
 
     log( 'reading contents of %s', baseTemplatePath + '.config.json' );
 
-    fs.readFile( baseTemplatePath + '.config.json', 'utf-8', function( err, config ) {
+    readFile( baseTemplatePath + '.config.json', function( err, config ) {
 
       if ( err ) {
 
@@ -167,15 +167,15 @@ _loadTemplate = function( templateName ) {
 
       }
 
-      var files = [async.apply( fs.readFile, data.template, 'utf-8' ) ];
+      var files = [async.apply( readFile, data.template ) ];
 
       if ( data.config.layout ) {
 
         data.layout = __dirname + '/../' + data.config.layout + '.ejs';
 
-        files.push( async.apply( fs.readFile, data.layout, 'utf-8') );
+        files.push( async.apply( readFile, data.layout) );
 
-        files.push( async.apply( fs.readFile, __dirname + '/../' + data.config.layout + '.config.json', 'utf-8' ) );
+        files.push( async.apply( readFile, __dirname + '/../' + data.config.layout + '.config.json' ) );
 
       }
 
@@ -226,7 +226,7 @@ _loadLabels = function( lang ) {
 
     async.parallel( files.map( function ( name ) { 
 
-      return async.apply( fs.readFile, __dirname + '/../' + name + '.' + lang + '.json', 'utf-8' ); 
+      return async.apply( readFile, __dirname + '/../' + name + '.' + lang + '.json' ); 
 
     }), function ( err, results ) {
 
@@ -241,8 +241,6 @@ _loadLabels = function( lang ) {
         labels = JSON.parse( results[0] );
 
       }
-
-      console.log( results );
 
       if ( results.length > 1 ) cn.extend(labels, JSON.parse( results[1] ) );
 

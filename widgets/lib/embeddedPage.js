@@ -2,17 +2,33 @@
 
 var frameLink = require( './frameLink' ).frame,
 
+debug = require( 'debug' ), log,
+
 cn = require( '../../js/lib/common/common.mod.js' ),
+
+pageHeight = require( './pageHeight' ),
 
 linkClickController = false;
 
 module.exports = function( pageOptions ) {
 
+  log = debug( 'embedded' );
+
+  log( 'initing' );
+
   _catchLinkEvents();
 
   frameLink( function( sendFunc ) {
 
-    _onHeightChange( sendFunc );
+    log( 'linked with parent' );
+
+    pageHeight.setOnChange( function( height ) {
+
+      sendFunc( { height: height } );
+
+    });
+
+    pageHeight.check();
 
     linkClickController = function( href ) {
       sendFunc( { load: href } );
@@ -22,30 +38,15 @@ module.exports = function( pageOptions ) {
 
   }, function( parentMessage ) {
 
+    if ( pageOptions.onReceive ) pageOptions.onReceive( parentMessage );
+
     // console.log( parentMessage );
 
   });
 
-}
-
-
-function _onHeightChange( cb ) {
-
-  var height = _getHeight();
-
-  cn.addEvent( window, 'resize', function() {
-
-    var newHeight = _getHeight();
-
-    if ( newHeight == height ) return;
-
-    height = newHeight;
-
-    cb( { height: height } );
-
-  } );
-
-  cb( { height: height } );
+  return {
+    checkHeight: pageHeight.check
+  }
 
 }
 
@@ -65,12 +66,5 @@ function _catchLinkEvents() {
     });
 
   });
-
-}
-
-function _getHeight() {
-  
-  // for IE8, html tag returns wrong height. Taking body height is needed for a cross browser solution.
-  return document.getElementsByTagName('body')[0].offsetHeight;
 
 }
