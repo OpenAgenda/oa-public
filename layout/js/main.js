@@ -44,7 +44,7 @@ cn.addEvent( window, 'load', function() {
 
   confirmMessage();
 
-  if ( window.env !== 'test' ) {
+  if ( [ 'test', 'tpl' ].indexOf( window.env ) == -1 ) {
 
     loadZopim( document, window, eh, { env: window.env } );
 

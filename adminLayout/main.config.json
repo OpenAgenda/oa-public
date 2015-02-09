@@ -1,0 +1,11 @@
+{
+  "css" : {
+    "bootstrap" : "../css/bootstrap332/bootstrap.min.css"
+  },
+
+  "base" : {    
+    "lang" : "fr"
+  },
+
+  "templateJs" : true
+}

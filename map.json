@@ -7,6 +7,7 @@
   "auth/resetPassword",
   "home/index",
   "admin/index",
+  "admin/users",
   "home/categories",
   "presentation/index",
   "agenda/show",

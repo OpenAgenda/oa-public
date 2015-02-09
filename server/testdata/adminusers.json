@@ -1,0 +1,18 @@
+{
+  "total" : 45,
+  "perPage" : 10,
+  "page": 2,
+  "users" : [
+    { "uid": 1, "fullName": "Billy Bob", "email": "bob@cibul.net" },
+    { "uid": 2, "fullName": "Jordy Jon", "email": "jon@cibul.net" },
+    { "uid": 3, "fullName": "Franky Sly", "email": "sly@cibul.net" }
+  ],
+  "user" : {
+    "uid" : 1,
+    "fullName" : "Billy Bob",
+    "email" : "bob@cibul.net",
+    "isActivated" : false,
+    "createdAt" : "2014-01-01T01:01:00",
+    "updatedAt" : "2015-01-01T01:02:00"
+  }
+}

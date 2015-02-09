@@ -32,6 +32,8 @@ browserify = require( 'browserify' ),
 
 stringify = require( 'stringify' ),
 
+reactify = require( 'reactify' ),
+
 run = function() {
 
   debug.enable('*');
@@ -434,6 +436,8 @@ _browserify = function( paths, cb ) {
   var b = browserify();
 
   b.transform(stringify(['.ejs', '.css', '.html']));
+
+  b.transform( reactify );
 
   b.add( __dirname + '/' + paths.src.path + '/' + paths.src.name );
 
