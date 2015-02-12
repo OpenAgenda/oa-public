@@ -98,11 +98,15 @@ var widget = function( elem, options ) {
 
       _defineBaseBounds( data );
 
-      _bindSync();
-
       log( 'init complete, enable to render' );
 
       _createMap( function() {
+
+        log( 'created map' );
+
+        _bindSync();
+
+        _boundsChangeBehavior();
 
         _setMapToBaseBounds();
 
@@ -110,7 +114,7 @@ var widget = function( elem, options ) {
 
         if ( onReady ) onReady();
 
-      });
+      } );
 
 
     } );
@@ -139,67 +143,71 @@ var widget = function( elem, options ) {
 
   enable = function( reqParams ) {
 
+    log( 'enabling map' );
+
     enabled = true;
 
-    _updateBounds( reqParams );
+    _updateBounds( reqParams, function() {
 
-    if ( !reqParams.location ) {
+      if ( !reqParams.location ) {
 
-      log( 'no location is set in request' );
+        log( 'no location is set in request' );
 
-      selectedLocation = false;
-
-    }
-
-    // widget has active selection on bounds, its not set in received params
-    if ( !reqParams.neLat && selectedBounds ) {
-
-      log( 'bounds are not specified in request, keeping current bounds.' );
-
-      selectedBounds = false;
-
-      if ( !selectedLocation && !reqParams.uid ) {
-
-        _setMapToBaseBounds();
+        selectedLocation = false;
 
       }
 
-    }
+      // widget has active selection on bounds, its not set in received params
+      if ( !reqParams.neLat && selectedBounds ) {
 
-    // received params have bounds defined but not map widget
-    if ( reqParams.neLat && !selectedBounds ) {
+        log( 'bounds are not specified in request, keeping current bounds.' );
 
-      selectedBounds = {
-        neLat: reqParams.neLat,
-        neLng: reqParams.neLng,
-        swLat: reqParams.swLat,
-        swLng: reqParams.swLng
-      };
+        selectedBounds = false;
 
-    }
+        if ( !selectedLocation && !reqParams.uid ) {
 
-    // if a location is picked, or an event, deactivate selection when map is moved around
-    if (reqParams.uid || selectedLocation || !reqParams.neLat ) {
+          _setMapToBaseBounds();
 
-      _deactivateSync();
+        }
 
-    } else {
+      }
 
-      _activateSync();
+      // received params have bounds defined but not map widget
+      if ( reqParams.neLat && !selectedBounds ) {
 
-    }
+        selectedBounds = {
+          neLat: reqParams.neLat,
+          neLng: reqParams.neLng,
+          swLat: reqParams.swLat,
+          swLng: reqParams.swLng
+        };
 
-    if ( reqParams.location ) {
+      }
 
-      selectedLocation = locations[ reqParams.location ];
+      // if a location is picked, or an event, deactivate selection when map is moved around
+      if ( reqParams.uid || selectedLocation || !reqParams.neLat ) {
 
-      popup = m.createPopup( map, new EJS({ text: templates.popup }).render( cn.extend({labels: config.labels[ config.lang ]}, selectedLocation )), { marker: selectedLocation.marker });
+        _deactivateSync();
 
-    }
+      } else {
 
-    if ( sendCount ) sendCount--;
+        _activateSync();
 
-    _refresh();
+      }
+
+      if ( reqParams.location ) {
+
+        selectedLocation = locations[ reqParams.location ];
+
+        popup = m.createPopup( map, new EJS({ text: templates.popup }).render( cn.extend({labels: config.labels[ config.lang ]}, selectedLocation )), { marker: selectedLocation.marker });
+
+      }
+
+      if ( sendCount ) sendCount--;
+
+      _refresh();
+
+    } );
 
   },
 
@@ -420,7 +428,7 @@ var widget = function( elem, options ) {
 
           for( var d in data.a[ a ].l[ l ].d ) {
 
-            if ( data.a[ a ].l[ l ].d[ d ] >= today ) {
+            if ( data.a[ a ].l[ l ].d[ d ] >= today ) {
 
               locations[ l ].passed = false;
 
@@ -572,27 +580,31 @@ var widget = function( elem, options ) {
 
       cb();
 
-      m.setOnBoundsChangeEnd( map, function() {
-
-        log( 'bounds changed, automatic marker selection is %s', config.auto ? 'on' : 'off' );
-
-        if ( enabled && config.auto && !selectedLocation) {
-
-          _selectBounds();
-
-        }
-
-        if ( onBoundsChangeCallback ) {
-
-          log( 'giving bounds to onChangeCallback' );
-
-          onBoundsChangeCallback( _getBoundParams() );
-
-        }
-
-      });
-
     }});
+
+  },
+
+  _boundsChangeBehavior = function() {
+
+    m.setOnBoundsChangeEnd( map, function() {
+
+      log( 'bounds changed, automatic marker selection is %s and widget is %s', config.auto ? 'on' : 'off', enabled ? 'enabled' : 'disabled' );
+
+      if ( enabled && config.auto && !selectedLocation) {
+
+        _selectBounds();
+
+      }
+
+      if ( onBoundsChangeCallback ) {
+
+        log( 'giving bounds to onChangeCallback' );
+
+        onBoundsChangeCallback( _getBoundParams() );
+
+      }
+
+    });
 
   },
 
@@ -641,17 +653,17 @@ var widget = function( elem, options ) {
 
   // update map bounds
 
-  _updateBounds = function( reqParams ) {
+  _updateBounds = function( reqParams, cb ) {
 
-    log( 'updating map bounds' );
+    log( 'updating map bounds to %s', JSON.stringify( reqParams ) );
 
-    if ( sendCount > 0 ) return;
+    if ( sendCount > 0 ) return cb ? cb() : null;
 
     if ( !reqParams.neLat ) {
 
       _deactivateSync();
 
-      return;
+      return cb ? cb() : null;
       
     }
 
@@ -659,7 +671,7 @@ var widget = function( elem, options ) {
 
       log( 'bounds are already set at request value' );
 
-      return;
+      return cb ? cb() : null;
 
     }
 
@@ -671,15 +683,22 @@ var widget = function( elem, options ) {
 
     config.auto = false;
 
-    _fitBounds( bounds, true );
+    // the leaflet api pretends things are synchronous. They are not.
+    setTimeout( function() {
 
-    // takes a while for map to adjust
-    
-    setTimeout(function() {
+      _fitBounds( bounds, true );
 
-      config.auto = auto;
+      // takes a while for map to adjust
+      
+      setTimeout(function() {
 
-    }, 500);
+        config.auto = auto;
+
+        return cb ? cb() : null;
+
+      }, 500);
+
+    }, 100 );
 
   },
 
@@ -687,7 +706,7 @@ var widget = function( elem, options ) {
   
   _setMapToBaseBounds = function() {
 
-    log( 'setting map to base bounds' );
+    log( 'setting map to base bounds: %s', JSON.stringify( baseBounds ) );
     
     _fitBounds( baseBounds );
 

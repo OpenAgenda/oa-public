@@ -1,4 +1,8 @@
-var debug = require( 'debug' );
+"use strict";
+
+var debug = require( 'debug' ),
+
+cn = require( '../../js/lib/common/common.mod.js' );
 
 module.exports = {
   frame: parentLink, // link with parent window
@@ -7,7 +11,7 @@ module.exports = {
 
 function parentLink( onLinkEstablished, onParentMessage ) {
 
-  var log = debug( 'parentLink' ),
+  var log = debug( 'parentLink ( frame script )' ),
 
   handShakeComplete = false;
 
@@ -17,11 +21,13 @@ function parentLink( onLinkEstablished, onParentMessage ) {
 
       log( 'received hanshake request from parent' );
 
-      window.parent.postMessage( true, e.origin );
+      window.parent.postMessage( { href: window.location.href }, e.origin );
 
       handShakeComplete = true;
 
       onLinkEstablished( function( message ) {
+
+        log( 'sending message to parent: ', JSON.stringify( message ) );
 
         window.parent.postMessage( JSON.stringify( message ), e.origin );
 
@@ -40,24 +46,28 @@ function parentLink( onLinkEstablished, onParentMessage ) {
 }
 
 
-function frameLink( elem, onLinkEstablished, onReceive, src ) {
+function frameLink( elem, onLinkEstablished, onReceive ) {
 
-  var log = debug( 'frameLink' );
+  var log = debug( 'frameLink ( parent script )' ),
 
-  frameSrc = src ? src : elem.getAttribute( 'src' ),
+  frameSrc, handShakeComplete = false;
 
-  handShakeComplete = false;
+  cn.addEvent( elem, 'load', function() {
+    
+    _stop();
 
-  start();
+    _start();
 
-  return {
-    start: start,
-    stop: stop,
-    resetSrc: resetSrc
-  }
+  });
+
+  _start();
+
+  return;
   
 
-  function start() {
+  function _start() {
+
+    frameSrc = _appendProtocol( elem.getAttribute( 'src' ) );
 
     log( 'establishing link on frame with %s', frameSrc );
 
@@ -69,25 +79,21 @@ function frameLink( elem, onLinkEstablished, onReceive, src ) {
 
   }
 
-  function stop() {
+
+  function _stop() {
 
     window.removeEventListener( 'message' );
 
   }
 
-  function resetSrc( src ) {
-
-    frameSrc = src;
-
-  }
 
   function _onFrameMessageReceived( e ) {
 
     if ( !handShakeComplete ) {
 
       log( 'link with frame established' );
-
-      onLinkEstablished( function( message ) {
+      
+      onLinkEstablished( e.data.href, function( message ) {
 
         elem.contentWindow.postMessage( JSON.stringify( message ), frameSrc );
 
@@ -97,11 +103,23 @@ function frameLink( elem, onLinkEstablished, onReceive, src ) {
 
     } else {
 
-      log( 'receiving message from frame' );
+      log( 'receiving message from frame: %s', e.data );
 
       onReceive( JSON.parse( e.data ) );
 
     }
+
+  }
+
+  function _appendProtocol( href ) {
+
+    if ( href.substr( 0, 2 ) == '//' ) {
+
+      return window.location.href.split('//')[0] + href;
+
+    }
+
+    return href;
 
   }
 

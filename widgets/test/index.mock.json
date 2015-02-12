@@ -1,0 +1,13 @@
+{
+  "base" : {
+    "controlData" : "embedcontroldata-lagargouille.json",
+    "newList" : false
+  },
+  "default" : {},
+  "nohrefupdate" : {
+    "controlData" : "embedcontroldata-pepite.json"
+  },
+  "newlist" : {
+    "newList" : true
+  }
+}

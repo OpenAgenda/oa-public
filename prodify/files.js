@@ -32,6 +32,8 @@ destCssPath = '../../cibul-symfony/web/css/compiled.css',
 
 destEmbedCssPath = '../../cibul-symfony/web/css/embedDefault.css',
 
+destAdminCssPath = '../../cibul-symfony/web/css/compiledAdmin.css'
+
 files = {
 
   'globals.js': [
@@ -515,4 +517,5 @@ exports.files = files;
 exports.destPath = destPath;
 exports.destCssPath = destCssPath;
 exports.destEmbedCssPath = destEmbedCssPath;
+exports.destAdminCssPath = destAdminCssPath;
 exports.destPublicTemplatePath = destPublicTemplatePath;

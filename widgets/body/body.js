@@ -12,6 +12,8 @@ bottomHit = require( '../lib/bottomHit' ),
 
 debug = require( 'debug' ),
 
+qs = require( 'qs' ),
+
 config = {
   all: {
     heightOffset: 40,
@@ -26,8 +28,8 @@ config = {
     res: {  
       agenda: '//d.cibul.net/agendas/:uid/embed/events',
       customAgenda: '//d.cibul.net/agendas/:uid/embeds/:embedUid/events',
-      event: '//cibul.net/agendas/:uid/embed/events/:eventUid',
-      customEvent: '//cibul.net/agendas/:uid/embeds/:embedUid/events/:eventUid'
+      event: '//d.cibul.net/agendas/:uid/embed/events/:eventUid',
+      customEvent: '//d.cibul.net/agendas/:uid/embeds/:embedUid/events/:eventUid'
     }
   },
   tpl: {
@@ -78,35 +80,110 @@ function widget( elem, options ) {
 
   ( function() {
 
-    _loadRes( options.anchorConfig );
+    log( 'initing' );
+    
+    var uid = _loadRes( options.anchorConfig );
 
-    _frameLink( function( sendFunc ) {
+    controller = options.register( wLib.interface( 'body', uid, {
+      change: change 
+    } ));
 
-      bottomHit.enable( elem, function() {
+    controller.getControlData( function( data ) {
 
-        sendFunc( { bottom: true } );
+      _initSrc( controller.getCurrentQuery() );
 
-      });
+      _frameLink( function( href, sendFunc ) {
+        
+        _update( href );
 
-    }, function( frameMessage ) {
+        bottomHit.enable( elem, function() {
 
-      if ( frameMessage.height ) _adjustFrameHeight( frameMessage.height );
+          sendFunc( { bottom: true } );
 
-    } );
+        });
+
+      }, function( frameMessage ) {
+
+        if ( frameMessage.height ) _adjustFrameHeight( frameMessage.height );
+
+        if ( frameMessage.update ) {
+
+          log( 'received update from frame: %s', JSON.stringify( frameMessage.update ) );
+
+          controller.update( 'body', frameMessage.update );
+
+        }
+
+      } );
+      
+    });
+
 
   } )();
 
 
+  function change( reqParams ) {
+
+    log( 'change notification received with %s', JSON.stringify( reqParams ) );
+
+    var res;
+
+    if ( reqParams.uid ) {
+
+      res = _getEventRes( reqParams.uid );
+
+    } else {
+
+      res = _getAgendaRes( reqParams );
+      
+    }
+
+    elem.setAttribute( 'src', res );
+
+  }
+
+
+  function _update( href ) {
+
+    var values = {};
+
+    if ( _isEventLink( href ) ) {
+
+      // extract actual uid here
+      values.uid = _getEventUid( href );
+
+    } else if ( _isAgendaLink( href ) ) {
+
+      values.uid = null;
+
+    }
+
+    log( 'updating request params "%s"', JSON.stringify( values ) );
+
+    controller.update( 'body', values );
+
+  }
+
+
   function _frameLink( onReady, onMessage ) {
 
-    // for first page load
-    var handler = frameLink( elem, onReady, function( message ) {
+    frameLink( elem, onReady, function( message ) {
 
       if ( message.load ) {
 
-        if ( _isFrameLink( message.load ) ) {
+        if ( _isEventLink( message.load ) ) {
 
-          _resetLink( handler, _clean( message.load ) );
+          elem.setAttribute( 'src', _clean( message.load ) );
+
+          _goToFrameTop();
+
+        } else if ( _isAgendaLink( message.load ) ) {
+
+          var currentQuery = controller.getCurrentQuery();
+
+          delete currentQuery.uid;
+
+          elem.setAttribute( 'src', _clean( message.load + '?' + qs.stringify( { search: currentQuery } ) ) );
 
         } else {
 
@@ -122,23 +199,95 @@ function widget( elem, options ) {
 
     }, agendaRes );
 
-    // for subsequent frame loads
-    cn.addEvent( elem, 'load', function() {
+  }
 
-      handler.start();
 
-    });
+  function _getEventRes( uid ) {
+
+    if ( window.env == 'tpl' ) {
+
+      return eventRes + '#uid=' + uid;
+
+    }
+
+    return eventRes.replace( ':eventUid', uid );
+
+  }
+  
+
+  function _getEventUid( href ) {
+
+    var uids;
+
+    if ( window.env == 'tpl' ) {
+
+      return 88888888;
+
+    }
+
+    uids = href.replace( eventRes.replace( ':eventUid', '' ), '' ).match( /[0-9]+/g );
+
+    if ( !uids || !uids.length ) {
+
+      log( 'could not retrieve event uid' );
+
+      return;
+
+    }
+
+    return uids[ 0 ];
 
   }
 
 
-  function _isFrameLink( href ) {
+  function _isEventLink( href ) {
 
-    var stripped = href.split( /\?|#/ )[ 0 ];
+    var stripped;
 
-    return stripped.match( agendaRes ) || stripped.match( eventRes );
+    if ( window.env == 'tpl' ) {
+
+      return !! href.match(/#agendaEventShow|\/event\/embedShow/g);
+
+    }
+
+    stripped = href.replace(/http(s|):/, '').split( /\?|#/ )[ 0 ];
+
+    return stripped.match( eventRes.replace( ':eventUid', '[0-9]+') );
 
   }
+
+
+  function _getAgendaRes( reqParams ) {
+
+    var query = qs.stringify( { search: reqParams } );
+
+    if ( window.env == 'tpl' ) {
+
+      return agendaRes + '#query=' + query;
+
+    }
+
+    return agendaRes + '?' + query;
+
+  }
+
+
+  function _isAgendaLink( href ) {
+
+    var stripped;
+
+    if ( window.env == 'tpl' ) {
+
+      return !!href.match( /#embedShow|\/agenda\/embedShow($|^#)/g );
+
+    }
+
+    stripped = href.replace(/http(s|):/, '').split( /\?|#/ )[ 0 ];
+
+    return stripped.match( agendaRes );
+
+  }
+
 
   function _clean( href ) {
 
@@ -148,7 +297,7 @@ function widget( elem, options ) {
 
       return eventRes;
 
-    } else if ( href.split( '#' )[1].match( 'agendaShow' ) ) {
+    } else if ( href.split( '#' )[1].match( 'embedShow' ) ) {
 
       return agendaRes;
 
@@ -159,34 +308,36 @@ function widget( elem, options ) {
   }
 
 
-  function _resetLink( handler, src ) {
+  function _initSrc( query ) {
 
-    handler.stop();
+    if ( cn.size( query ) ) {
 
-    elem.setAttribute( 'src', src );
+      change( query );
 
-    handler.resetSrc( src );
-
-    handler.start();
+    }
 
   }
 
 
   function _loadRes( src ) {
 
-    var uids = src.match( /[0-9]+/g );
+    var uids = window.env=='tpl' ? [ 123456 ] : src.match( /\/[0-9]+\//g ).map( function( uid ) {
+
+      return uid.substr( 1, uid.length - 2 );
+
+    });
 
     if ( uids && uids.length >= 1 ) {
 
-      agendaRes = config.res.agenda.replace( ':uid', uids[ 0 ] );
+      agendaRes = config.res[ uids.length == 2 ? 'customAgenda' : 'agenda' ].replace( ':uid', uids[ 0 ] );
 
-      eventRes = config.res.event.replace( ':uid', uids[ 0 ] );
+      eventRes = config.res[ uids.length == 2 ? 'customEvent' : 'event' ].replace( ':uid', uids[ 0 ] );
 
       if ( uids.length == 2 ) {
 
-        agendaRes = config.res.agenda.replace( ':embedUid', uids[ 1 ] );
+        agendaRes = agendaRes.replace( ':embedUid', uids[ 1 ] );
 
-        eventRes = config.res.event.replace( ':embedUid', uids[ 0 ] );
+        eventRes = eventRes.replace( ':embedUid', uids[ 1 ] );
 
       }
 
@@ -198,7 +349,9 @@ function widget( elem, options ) {
 
       eventRes = config.res.event;
 
-    } 
+    }
+    
+    return uids.join('/');
 
   }
 
@@ -208,6 +361,12 @@ function widget( elem, options ) {
     log( 'adjusting frame height to %s', newHeight );
 
     elem.setAttribute( 'height', newHeight + config.heightOffset );
+
+  }
+
+  function _goToFrameTop() {
+
+    window.scrollTo( 0, elem.offsetTop );  
 
   }
 

@@ -28,7 +28,6 @@ styler = function( styleToAppend, styleVars, w, d ) {
 
   if (sheet.styleSheet) {
 
-
     sheet.styleSheet.cssText = style;
 
   } else {

@@ -1,8 +1,11 @@
+<% include customEmbedStyles.part.ejs %>
 <div class="canvas elb ela mw720">
   
 <% if ( !isEmpty ) { %>
 
   <div class="js_previous_page previous-page"><a class="url"><i class="fa fa-arrow-up"></i></a></div>
+
+  <div class="cbpgft" data-cbctl="<%= uid %>|<%= lang %>"></div>
 
   <% include ../general/pages %>
 

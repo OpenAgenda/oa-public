@@ -67,6 +67,10 @@
     "prod" : "embed/cibulListWidget.js"
   },
   {
+    "js" : "widgets/body/body.js",
+    "prod" : "embed/cibulBodyWidget.js"
+  },
+  {
     "js" : "widgets/controller/main.js",
     "prod" : "embed/cibulControllers.js"
   },

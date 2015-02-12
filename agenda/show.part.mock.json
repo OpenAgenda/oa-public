@@ -3,10 +3,13 @@
     "slug" : "chez-nous"
   },
   "standard" : {
+    "eventUri" : "eventShow",
+    "eventBaseQuery" : { "slug" : "chez-nous" },
     "events" : [
       {
         "title" : "Les imams en France",
         "uid" : "48948894",
+        "query" : { "eventSlug" : "fqsdfdq" },
         "slug" : "fqsdfdq",
         "thumbnail" : "evtbevent_les-imams-en-france_924665.jpg",
         "description" : "Solenne Jouanneau",
@@ -31,6 +34,7 @@
       {
         "title" : "Europe : les états désunis (Coralie Delaume)",
         "uid" : "45464648",
+        "query" : { "eventSlug" : "fqsdfdq" },
         "slug" : "fqsdfdq",
         "thumbnail" : null,
         "description" : "Coralie Delaume nous explique avec brio pourquoi l'UE ne fonctionne pas.",
@@ -51,6 +55,7 @@
       {
         "title" : "La petite noblesse de l’intelligence, une sociologie des enfants surdoués",
         "uid" : "748789456",
+        "query" : { "eventSlug" : "fqsdfdq" },
         "slug" : "fqsdfdq",
         "thumbnail" : "evtbevent_premileres-mesures-revolutionnaires_282421.jpg",
         "description" : "Wilfried Lignier",
@@ -71,6 +76,7 @@
       {
         "title" : "Homo spectator : voir, faire voir",
         "uid" : "748789456",
+        "query" : { "eventSlug" : "fqsdfdq" },
         "slug" : "fqsdfdq",
         "thumbnail" : "evtbevent_la-petite-noblesse-de-l-intelligence-une-sociologie-des-enfants-surdoues_739383.jpg",
         "description" : "Marie-José Mondzain",
@@ -80,6 +86,7 @@
       {
         "title" : "La Technologisation du corps",
         "uid" : "748789456",
+        "query" : { "eventSlug" : "fqsdfdq" },
         "slug" : "fqsdfdq",
         "thumbnail" : "evtbevent_homo-spectator-voir-faire-voir_223470.jpg",
         "description" : "Brigitte Munier-Termime",
@@ -89,6 +96,7 @@
       {
         "title" : "Changeons d'agriculture",
         "uid" : "4546988948",
+        "query" : { "eventSlug" : "fqsdfdq" },
         "slug" : "fqsdfdq",
         "thumbnail" : "evtbevent_changeons-d-agriculture_703516.jpg",
         "description" : "Le “modèle” agricole qui s’est imposé depuis quelques décennies est de plus en plus critiqué en raison de ses conséquences néfastes sur l’environnement, l’emploi et la santé humaine et animale...",
@@ -108,6 +116,7 @@
       {
         "title" : "Eric Hazan",
         "uid" : "4546988948",
+        "query" : { "eventSlug" : "fqsdfdq" },
         "slug" : "fqsdfdq",
         "thumbnail" : "evtbevent_premileres-mesures-revolutionnaires_282421.jpg",
         "description" : "Eric Hazan",

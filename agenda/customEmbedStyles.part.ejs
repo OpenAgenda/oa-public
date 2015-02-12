@@ -1,0 +1,8 @@
+<style type="text/css">
+<% if ( ( typeof useDefaultCss !== 'undefined' ) && !useDefaultCss.list ) { %>
+html { overflow-y: hidden; }
+<% } %>
+<% if ( ( typeof customCss !== 'undefined' ) ) { %>
+<%- customCss %>
+<% } %>
+</style>

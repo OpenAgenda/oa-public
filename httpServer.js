@@ -71,9 +71,17 @@ http.createServer(function ( req, res ) {
 
       var reqQuery = url.parse( req.url, true ).query;
 
-      _loadData( uri, true, function( tConf ) { 
+      _loadData( uri, true, function( tConf ) {
 
         // load state of data
+
+        if ( tConf.data.js ) {
+
+          tConf.data.base = cn.extend( tConf.data.base ? tConf.data.base : {}, { js: tConf.data.js } );
+
+          tConf.data.js = undefined;
+
+        }
 
         if ( tConf.data.base ) {
 

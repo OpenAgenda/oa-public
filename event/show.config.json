@@ -18,7 +18,8 @@
     "_t" : "time",
     "_i" : "image",
     "_sl" : "shareLinks",
-    "_txt" : "text"
+    "_txt" : "text",
+    "_r" : "redirect"
   },
 
   "base" : {

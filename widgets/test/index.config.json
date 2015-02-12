@@ -7,6 +7,7 @@
     "../search/search.js",
     "../calendar/calendar.js",
     "../form/form.js",
-    "../list/list.js"
+    "../list/list.js",
+    "../body/body.js"
   ]
 }

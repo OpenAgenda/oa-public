@@ -1,5 +1,5 @@
 {
-  "css" : {
+  "adminCss" : {
     "bootstrap" : "../css/bootstrap332/bootstrap.min.css"
   },
 

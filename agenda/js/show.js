@@ -48,10 +48,8 @@ if ( [ 'tpl', 'dev' ].indexOf( window.env ) !== -1 ) {
 }
 
 window.hook( function( options ) {
-  
-  var currentQueryValues = _getQueryValues( window.location.href ),
 
-  controller = window.cibul.getController( options.uid ),
+  var controller = window.cibul.getController( options.uid ),
 
   loader,
 
@@ -81,17 +79,19 @@ window.hook( function( options ) {
       perPage: options.perPage
     } );
 
-    _handleWidgets( controller, currentQueryValues, function( newSearchValues ) {
+    _onWidgetLoaded( function() {
+    
+      log( 'widgets are loaded and initialized' );
+
+    });
+
+    _onControllerChange( controller, function( newSearchValues ) {
 
       log( 'query values changed' );
-
-      currentQueryValues.search = newSearchValues;
 
       list.reset( _getHref( newSearchValues ) );
 
     } );
-
-    _setPassedAgendaFilter( controller, currentQueryValues );
 
     _showOrganizationWidget( controller );
 
@@ -130,28 +130,6 @@ function _handleAddToSource( uid, session ) {
 }
 
 
-
-/**
- * load widgets callback when the controller state changes
- */
-
-function _handleWidgets( controller, queryValues, onChange ) {
-
-  var searchValues = ( typeof queryValues.search == 'undefined' ) ? {} : queryValues.search;
-
-  _onWidgetLoaded( function() {
-    
-    log( 'widgets are loaded and initialized' );
-
-    controller.update( searchValues )
-
-    controller.sweep();
-
-  });
-
-  _onControllerChange( controller, onChange );
-
-}
 
 
 /**
@@ -201,23 +179,7 @@ function _handleAddButton( session, ctl ) {
 }
 
 
-function _setPassedAgendaFilter( controller, currentQueryValues ) {
 
-  controller.getControlData( true, function( ctl ) {
-
-    if ( ( ctl.p === true ) && ( !cn.size( currentQueryValues ) ) ) {
-
-      log( 'initing with passed filter' );
-
-      currentQueryValues.passed = '1';
-
-      controller.update( currentQueryValues );
-
-    }
-
-  });
-
-}
 
 
 function _showOrganizationWidget( controller ) {
@@ -290,11 +252,11 @@ function _displayAddButton() {
 
 function _onControllerChange( controller, cb ) {
 
+  log( 'registering page list as widget' );
+
   controller.register( { 
     name: 'site', 
-    change: function( newValues ) {
-
-      controller.requestModal( 'site' );
+    enable: function( newValues ) {
 
       cb( newValues );
 

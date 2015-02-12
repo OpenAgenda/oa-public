@@ -7,6 +7,9 @@
     "slug" : "chez-nous",
     "url" : "http://cheznous.coop",
 
+    "backUri" : "#",
+    "backQuery" : { "uid" : 123, "embedUid" : 456 },
+
     "event" : {
 
       "languages" : false,

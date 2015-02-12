@@ -1,17 +1,17 @@
 <article><!--
   <% if ( event.thumbnail ) { %>
-  --><a class="pic" href="<%= genUrl('agendaEventShow', { slug: slug, eventSlug: event.slug }) %>">
+  --><a class="pic" href="<%= genUrl(eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ] ) %>">
     <img src="<%= _i( event.thumbnail ) %>" alt="<%= event.title %>">
   </a><!--
 <% } %>
   --><div class="cnt<% if ( !event.thumbnail ) { %> nopic<% } %>">
-    <a href="<%= genUrl('agendaEventShow', [ { slug: slug, eventSlug: event.slug }, queryLang ? { lang: queryLang } : {} ]) %>">
+    <a href="<%= genUrl(eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ]) %>">
       <span class="title"><%= event.title %></span>
     </a>
-    <a href="<%= genUrl('agendaEventShow', [ { slug: slug, eventSlug: event.slug }, queryLang ? { lang: queryLang } : {} ]) %>">
+    <a href="<%= genUrl(eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ]) %>">
       <span class="dsc"><%= event.description %></span>
     </a>
-    <a href="<%= genUrl('agendaEventShow', [ { slug: slug, eventSlug: event.slug }, queryLang ? { lang: queryLang } : {} ]) %>">
+    <a href="<%= genUrl(eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ]) %>">
       <span class="sti url"><%= __( event.dateRange[0], _t( event.dateRange[1] ) ) %></span>
       <span class="url">@ <%= event.placeName %></span>
 <% if ( event.organization ) { %>
@@ -19,12 +19,12 @@
 <% } %>
     </a>
 <% if ( event.city ) { %>
-    <a class="cty" href="<%= genUrl( 'agendaEventShow', { slug: slug, eventSlug: event.slug } ) %>">
+    <a class="cty" href="<%= genUrl( eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ] ) %>">
       <span><%= event.city %></span>
     </a>
 <% } %>
 <% if ( event.category ) { %>
-    <a class="ct" href="<%= genUrl( 'agendaEventShow', { slug: slug, eventSlug: event.slug } ) %>">
+    <a class="ct" href="<%= genUrl( eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ] ) %>">
       <span><%= event.category.label %></span>
     </a>
 <% } %>

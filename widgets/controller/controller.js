@@ -1,3 +1,5 @@
+"use strict";
+
 var debug = require( 'debug' ),
 
 cn = require( '../../js/lib/common/common.mod.js' ),
@@ -5,6 +7,8 @@ cn = require( '../../js/lib/common/common.mod.js' ),
 remote = require( '../../js/lib/remote/remote.mod.js' ),
 
 filters = require( './filters' ),
+
+qs = require( 'qs' ),
 
 env = window.env ? window.env : 'prod',
 
@@ -26,7 +30,7 @@ defaults = {
   },
   tpl: {
     agenda : '/server/testdata/controldata-pepite.json',
-    embed : '/server/testdata/embedcontroldata-pepite.json',
+    embed : '/server/testdata/' + ( window.testControlData ? window.testControlData : 'embedcontroldata-pepite.json' ),
     search : '//d.cibul.net/widgets/{uid}/search'
   }
 },
@@ -51,9 +55,13 @@ module.exports = function( uid ) {
 
   whatUids = false,
 
+  enabled = false,
+
   embedMode = ( ( uid + '' ).indexOf('/') !== -1 ), // embedMode is true if widget is for agenda embed
 
-  run = function() {
+  proxy = false;
+
+  return (function() {
 
     log( 'controller loaded in %s environment', env );
 
@@ -79,14 +87,18 @@ module.exports = function( uid ) {
 
       ctl = data;
 
+      _initCurrentRequestParams();
+
       _processWidgetCtlRequests( false );
 
       ready = true;
 
       // hack to allow some widgets to run getControlData callback once all
-      // is declared ready
+      // is declared ready, 
       _processWidgetCtlRequests( true );
-      
+
+      log( 'controller will sync with href ? %s', ctl.sh ? 'yes' : 'no' );
+
       sweep();
       
     });
@@ -98,17 +110,19 @@ module.exports = function( uid ) {
       releaseModal: releaseModal,
       update : update,
       sweep : sweep,
-      getControlData: getControlData
+      getControlData: getControlData,
+      getCurrentQuery: getCurrentQuery,
+      setProxy: setProxy,
     }
 
-  },
+  })();
 
 
   /**
    * register a widget - run by widget to establish link with controller
    */
 
-  register = function( options ) {
+  function register( options ) {
 
     var widgetParams = cn.extend( {
       name : false  // required. name of the widget
@@ -122,13 +136,14 @@ module.exports = function( uid ) {
       update: update,
       getControlData: getControlData,
       requestModal: requestModal,
-      releaseModal: releaseModal
+      releaseModal: releaseModal,
+      getCurrentQuery: getCurrentQuery
     };
 
-  },
+  }
 
 
-  getWidget = function( name ) {
+  function getWidget( name ) {
 
     var widgetParams = false;
 
@@ -144,14 +159,14 @@ module.exports = function( uid ) {
 
     return widgetParams;
 
-  },
+  }
 
 
   /**
    * hand over control data when ready.
    */
   
-  getControlData = function( postReady, cb ) {
+  function getControlData( postReady, cb ) {
 
     if ( !cb ) {
 
@@ -175,7 +190,21 @@ module.exports = function( uid ) {
 
     }
 
-  },
+  }
+
+
+  function getCurrentQuery() {
+
+    return cn.extend( {}, currentRequestParams );
+
+  }
+
+
+  function setProxy( p ) {
+
+    proxy = p;
+
+  }
 
 
   /**
@@ -184,7 +213,7 @@ module.exports = function( uid ) {
    * called by widget when some agenda request parameters were updated
    */
   
-  update = function( originWidget, updatedParams ) {
+  function update( originWidget, updatedParams ) {
 
     if ( arguments.length == 1 ) {
 
@@ -207,6 +236,14 @@ module.exports = function( uid ) {
       log( 'control data not yet received' );
 
       return;
+
+    }
+
+    if ( proxy && proxy.update ) proxy.update( updatedParams );
+
+    if ( ctl.sh ) {
+
+      _updateHrefQuery( currentRequestParams );
 
     }
 
@@ -238,14 +275,14 @@ module.exports = function( uid ) {
 
     }
 
-  },
+  }
 
 
   /**
    * disable all widgets except caller
    */
   
-  requestModal = function( name, cb ) {
+  function requestModal( name, cb ) {
 
     _forEachWidget( 'disable', name );
 
@@ -253,34 +290,54 @@ module.exports = function( uid ) {
 
     if ( cb ) cb();
 
-  },
+  }
 
 
   /**
    * re-enables all widgets
    */
   
-  releaseModal = function() {
+  function releaseModal() {
 
     _forEachWidget( 'enable' );
 
     enabled = true;
 
-  },
+  }
 
 
-  _hasControlData = function() {
+  function _initCurrentRequestParams() {
+
+    if ( ctl.sh ) {
+
+      currentRequestParams = _readHrefQuery( 'search' );
+
+    }
+
+    if ( !cn.size( currentRequestParams ) && ctl.p ) {
+
+      currentRequestParams.passed = 1;
+
+      if ( ctl.sh ) _updateHrefQuery( currentRequestParams );
+
+    }
+
+  }
+
+
+
+  function _hasControlData() {
 
     return !!ctl;
 
-  },
+  }
 
 
   /**
    * run method of each widget at the optional exception of...
    */
   
-  _forEachWidget = function( methodName, methodParams, except ) {
+  function _forEachWidget( methodName, methodParams, except ) {
 
     if ( ( arguments.length == 2 ) && ( typeof methodParams == 'string' ) ) {
 
@@ -320,10 +377,10 @@ module.exports = function( uid ) {
     
     }
 
-  },
+  }
 
 
-  _processWidgetCtlRequests = function( postReady ) {
+  function _processWidgetCtlRequests( postReady ) {
 
     var toProcess = ctlRequests.length;
 
@@ -346,14 +403,14 @@ module.exports = function( uid ) {
 
     ctlRequests = restacked;
 
-  },
+  }
 
 
   /**
    * get agenda control data
    */
   
-  _fetchControllerData = function( cb ) {
+  function _fetchControllerData( cb ) {
 
     var res;
 
@@ -383,9 +440,10 @@ module.exports = function( uid ) {
 
     }, _isAjax() );
 
-  },
+  }
 
-  _isAjax = function() {
+
+  function _isAjax() {
 
     if ( embedMode && ( window.env !== 'tpl' ) ) {
 
@@ -403,7 +461,7 @@ module.exports = function( uid ) {
    * events are included and which are not
    */
   
-  sweep = function() {
+  function sweep() {
 
     var includedCount = 0;
 
@@ -443,14 +501,14 @@ module.exports = function( uid ) {
     // enable all the widgets!
     _forEachWidget( 'enable', currentRequestParams );
 
-  },
+  }
 
 
   /**
    * as part of sweep, tell widgets event item passed through filters
    */
   
-  _include = function( item ) {
+  function _include( item ) {
 
     for ( var i = widgets.length - 1; i >= 0; i-- ) {
 
@@ -462,9 +520,10 @@ module.exports = function( uid ) {
 
     }
 
-  },
+  }
+
   
-  _applyFilters = function( item, reqParams ) {
+  function _applyFilters( item, reqParams ) {
 
     for ( var i in filters ) {
 
@@ -474,9 +533,10 @@ module.exports = function( uid ) {
 
     return true;
 
-  },
+  }
 
-  _clean = function( data ) {
+
+  function _clean( data ) {
 
     var cleanData = {};
 
@@ -492,13 +552,13 @@ module.exports = function( uid ) {
 
     return cleanData;
 
-  },
+  }
 
   /**
    * have there been any changes in parameters?
    */
   
-  _hasChanges = function( data ) {
+  function _hasChanges( data ) {
 
     for ( var i in currentRequestParams ) {
 
@@ -516,9 +576,9 @@ module.exports = function( uid ) {
 
     return false;
 
-  },
+  }
 
-  _isPassed = function( eItem ) {
+  function _isPassed( eItem ) {
 
     var today = new Date(), l, d,
 
@@ -536,9 +596,86 @@ module.exports = function( uid ) {
 
     return true;
 
-  },
+  }
 
-  _fZ = function( str ) {
+  function _updateHrefQuery( updatedQuery ) {
+
+    log( 'attempting to update href query' );
+
+    var href = window.location.href, dashPart = false, query = false, queryPart;
+
+    if ( href.split( '#' ).length > 1 ) {
+
+      dashPart = href.split( '#' )[ 0 ];
+
+    }
+
+    href = href.split( '?' )[ 0 ];
+
+    if ( !window.history ) {
+
+      log( 'window.history is not available' );
+
+    } else {
+
+      query = _readHrefQuery();
+      
+      if ( cn.size( updatedQuery ) ) {
+
+        query.search = updatedQuery;
+
+      } else {
+
+        delete query.search;
+
+      }
+
+      if ( cn.size( query ) ) {
+
+        href = href + '?' + qs.stringify( query );
+
+      }
+
+      if ( dashPart ) {
+
+        href = href + '#' + dashPart;
+
+      }
+
+      window.history.pushState( updatedQuery, null, href );
+      
+    }
+
+  }
+
+  function _readHrefQuery( key ) {
+
+    var query = {}, queryParts;
+
+    try {
+
+      queryParts = window.location.href.split('#')[0].split( '?' ).slice( 1 );
+
+      if ( queryParts.length ) {
+
+        query = qs.parse( queryParts[ 0 ] );
+
+      }
+
+      return key ? ( query[ key ] ? query[ key ] : {} ) : query;
+
+    } catch( e ) {
+
+      log( 'had some trouble reading href query: %s', e );
+
+    }
+
+    return {};
+
+  }
+
+
+  function _fZ( str ) {
 
     if ( ( str + '' ).length == 1 ) {
 
@@ -548,8 +685,6 @@ module.exports = function( uid ) {
 
     return str;
 
-  };
-
-  return run();
+  }
 
 }

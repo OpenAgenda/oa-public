@@ -124,12 +124,6 @@ module.exports = function( options ) {
 
       }
 
-      if ( params.updateLocation ) {
-
-        _updateLocation( href );
-
-      }
-
       cb( null, response );
 
     });
@@ -165,38 +159,5 @@ function _templateHref( href ) {
   var parts = href.split( '?' );
 
   return parts[0].replace('embedS', 's' ) + '.part' + ( parts.length == 2 ? '?' + parts[1] : '' );
-
-}
-
-
-/**
- * update url 
- */
-
-function _updateLocation( href ) {
-
-  if ( typeof window.history == 'undefined' ) {
-
-    return;
-
-  }
-
-  var parts = href.split('?'), 
-
-  newState = {};
-
-  if ( window.env == 'tpl' ) {
-
-    href = href.replace( '.part', '' );
-
-  }
-
-  if ( parts.length > 1 ) {
-
-    newState = qs.parse( parts[ 1 ] );
-
-  }
-
-  window.history.pushState( newState, null, href );
 
 }

@@ -1,10 +1,18 @@
 "use strict";
 
-var embedded = require( '../../widgets/lib/embeddedPage' ),
+var controllers = require( '../../widgets/controller/main' ),
+
+embedded = require( '../../widgets/lib/embeddedPage' ),
+
+debug = require( 'debug' ), log,
+
+activeFilters = require( '../../widgets/activeFilters/activeFilters' ),
 
 list = require( './list' );
 
 window.hook( function( options ) {
+
+  log = debug( 'embedded agenda show' );
 
   var handler = embedded( {
     onReceive: function( message ) {
@@ -13,7 +21,7 @@ window.hook( function( options ) {
 
         list.loadNext( function( err ) {
 
-          handler.checkHeight();
+          handler.contentChange();
           
         });
         
@@ -21,6 +29,16 @@ window.hook( function( options ) {
 
     }
   }, options );
+
+  window.cibul.getController( options.uid ).setProxy( { 
+    update: function( newValues ) {
+
+      log( 'change in iframe %s', JSON.stringify( newValues ) );
+
+      handler.send( { update: newValues } );
+
+    }
+  });
 
   list.init( {
     total: options.total,

@@ -1,34 +1,64 @@
 <html>
   <head>
+  <script type="text/javascript">
+    window.testControlData='<%= controlData %>';
+  </script>
 <% js.forEach( function( jsPath ) { %>
   <script type="text/javascript" src="<%= jsPath %>"></script>
 <% }) %>
+    <style>
+
+      * { padding: 0; margin: 0; }
+
+      main, section {
+        display: inline-block;
+        vertical-align: top;
+        width: 50%;
+      }
+
+    </style>
   </head>
   <body>
-    <p>tags widget</p>
-    <div class="cbpgtg cibulTags" data-cbctl="48959239/46744426"></div>
 
-    <div class="cbpgtg cibulTags" data-cbctl="48959239/46744426|la-bellevilloise,printemps-arabe,photo"></div>
+    <header>
+      <a href="/widgets/test/index">with href</a> - 
+      <a href="/widgets/test/index?state=nohrefupdate">without href</a>
+      <a href="/widgets/test/index?state=newlist">nodejs list</a>
+    </header>
 
-    <p>categories widget</p>
-    <div class="cbpgct cibulCategories" data-cbctl="48959239/46744426"></div>
+    <main>
 
-    <p>map widget</p>
-    <div class="cbpgmp cibulMap" data-cbctl="48959239/46744426|fr"></div>
+      <p>list widget</p>
+<% if ( !newList ) { %>
+      <iframe frameborder="0" allowtransparency="allowtransparency" class="cibulFrame cbpglst" src="//d.cibul.net/frontend_dev.php/embed/48959239/46744426"></iframe>
+<% } else { %>
+      <iframe frameborder="0" allowtransparency="allowtransparency" class="cibulFrame cbpgbdy" src="/agenda/embedShow" width="100%"></iframe>
+<% } %>
+    </main><!--
 
-    <p>calendar widget</p>
-    <div class="cbpgcl cibulCalendar" data-cbctl="48959239/46744426|fr"></div>
+    --><section>
 
-    <p>search widget</p>
-    <div class="cbpgsc cibulSearch" data-cbctl="48959239/46744426|fr"></div>
+      <p>tags widget</p>
+      <div class="cbpgtg cibulTags" data-cbctl="48959239/46744426"></div>
 
-    <p>form widget</p>
-    <div class="cbpgbtn" data-cbctl="48959239/46744426|fr"></div>
+      <div class="cbpgtg cibulTags" data-cbctl="48959239/46744426|la-bellevilloise,printemps-arabe,photo"></div>
 
-    <p>list widget</p>
-    <iframe frameborder="0" allowtransparency="allowtransparency" class="cibulFrame cbpglst" src="//d.cibul.net/frontend_dev.php/embed/48959239/46744426"></iframe>
+      <p>categories widget</p>
+      <div class="cbpgct cibulCategories" data-cbctl="48959239/46744426"></div>
+
+      <p>map widget</p>
+      <div class="cbpgmp cibulMap" data-cbctl="48959239/46744426|fr"></div>
+
+      <p>calendar widget</p>
+      <div class="cbpgcl cibulCalendar" data-cbctl="48959239/46744426|fr"></div>
+
+      <p>search widget</p>
+      <div class="cbpgsc cibulSearch" data-cbctl="48959239/46744426|fr"></div>
+      
+      <!--<p>organizers widget</p>
+      <div class="cbpgog cibulOrganizers" data-cbctl="48959239/46744426"></div>-->
+
+    </section>
     
-    <!--<p>organizers widget</p>
-    <div class="cbpgog cibulOrganizers" data-cbctl="48959239/46744426"></div>-->
   </body>
 </html>
