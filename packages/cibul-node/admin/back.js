@@ -9,6 +9,8 @@ exposed = {
 routes = {
   adminIndex: [ 'get', index, '' ],
   adminSearch: [ 'get', search, '/search' ],
+  adminUsers: [ 'get', users, '/users' ],
+  adminUserActivate: [ 'get', userActivate, '/users/activate' ],
   eventsByWeek: [ 'get', eventsByWeek, '/eventsbyweek' ],
   eventsDiff: [ 'get', eventsDiff, '/eventsdiff' ]
 },
@@ -35,7 +37,9 @@ path,
 
 model = cmn.getCibulModel(),
 
-adminSvc = require( '../services/admin/admin' );
+adminSvc = require( '../services/admin/admin' ),
+
+userSvc = require( '../services/user/user' );
 
 module.exports = function init( p ) {
 
@@ -133,6 +137,7 @@ function index( req, res ) {
 
 }
 
+
 function search( req, res ) {
 
   var start = moment( req.query.begin, 'DD-MM-YYYY' ).toDate(),
@@ -146,7 +151,7 @@ function search( req, res ) {
     cmn.render( req, res, 'admin/index', {
       head: {
         css: {
-          main: '//d.cibul.net/css/compiled.css'
+          main: '//d.cibul.net/css/compiledAdmin.css'
         }
       },
 
@@ -177,6 +182,109 @@ function search( req, res ) {
     log( err.message );
 
   });
+
+}
+
+
+function users( req, res ) {
+
+  if ( req.xhr ) {
+
+    if ( req.query.uid ) {
+
+      return _loadUser( req, res );
+
+    } else {
+
+      return _searchUsers( req, res );
+
+    }
+
+  }
+
+  cmn.render( req, res, 'admin/users' );
+
+}
+
+
+function userActivate( req, res ) {
+
+  if ( !req.query.uid ) return cmn.renderJson( req, res, { success: false, message: 'user uid is missing' } );
+
+  model.users().get( { uid: req.query.uid }, function( err, user ) {
+
+    console.log( user );
+
+    if ( err || !user ) return cmn.catchError( req, res )( err || 'user was not found' );
+
+    userSvc.activation.activate( user, function( err, result ) {
+
+      if ( err ) return cmn.catchError( req, res )( err );
+
+      return cmn.renderJson( req, res, { success: true } );
+
+    });
+
+  });
+
+}
+
+
+function _loadUser( req, res ) {
+
+  var uid = req.query.uid;
+
+  model.users().get({ uid: uid }, function( err, result ) {
+
+    if ( err ) return cmn.catchError( req, res )( err );
+
+    cmn.renderJson( req, res, {
+      user: lib.filterByAttr( result, [ 'uid', 'fullName', 'email', 'isActivated', 'createdAt', 'updatedAt' ] )
+    });
+
+  });
+
+}
+
+function _searchUsers( req, res ) {
+
+  var perPage = 40, page = req.query.page ? parseInt( req.query.page, 10 ) : 1,
+
+  where = '',
+
+  total = 0;
+
+  if ( req.query.search ) {
+
+    where += ' where email like \'%' + req.query.search +'%\''
+          +  ' or full_name like \'%' + req.query.search +'%\'';
+
+  }
+
+  model.lib.query( 'select count(id) as total from user' + where, function( err, rows ) {
+
+    if ( err ) return cmn.catchError( req, res )( err );
+
+    total = rows[ 0 ].total;
+
+    model.lib.query( 'select * from user' + where + ' order by created_at desc limit ' + (page-1)*perPage + ', ' + perPage, function( err, rows ) {
+
+      if ( err ) return cmn.catchError( req, res )( err );
+
+      cmn.renderJson( req, res, {
+        users: rows.map( function( row ) {
+
+          return { uid: row.uid, fullName: row.full_name, email: row.email };
+
+        }),
+        page: page,
+        total: total,
+        perPage: perPage
+      } )
+
+    } );
+
+  } );
 
 }
 

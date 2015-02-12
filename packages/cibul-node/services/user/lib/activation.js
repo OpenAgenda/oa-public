@@ -27,7 +27,8 @@ function init( svc ) {
 module.exports = lib.extend( init, {
   verify: verify,
   createAndSend: createAndSend,
-  activateByToken: activateByToken
+  activateByToken: activateByToken,
+  activate: activate
 } );
 
 
@@ -104,41 +105,9 @@ function activateByToken( token, options, cb ) {
 
       }
 
-      if ( user.isActivated ) {
+      options.tokenObj = tokenObj;
 
-        log( 'info', 'user matching token was already activated: %s', token );
-
-        model.tokens().removeActivation( tokenObj, function( err ) {
-
-          if ( err ) return cb( err );
-
-          cb( null, user );
-
-        } )
-
-      } else {
-
-        model.users().update( user, { isActivated: true }, function( err ) {
-
-          if ( err ) return cb( err );
-
-          model.tokens().removeActivation( tokenObj, function( err ) {
-
-            if ( err ) return cb( err );
-
-            user.isActivated = true;
-
-            userSvc.onActivation( lib.extend( { user: user }, options ) ).then( function() {
-
-              cb( null, user );
-
-            }, cb );
-
-          });
-
-        });
-
-      }
+      activate( user, options, cb );
 
     } );
 
@@ -146,6 +115,68 @@ function activateByToken( token, options, cb ) {
 
 }
 
+
+function activate( user, options, cb ) {
+
+  if ( !cb ) {
+
+    cb = options;
+
+    options = {}
+
+  };
+
+  if ( user.isActivated ) {
+
+    log( 'info', 'user was already activated: %s', token );
+
+    if ( !options.tokenObj ) return cb( null, user );
+
+    model.tokens().removeActivation( options.tokenObj, function( err ) {
+
+      if ( err ) return cb( err );
+
+      cb( null, user );
+
+    } );
+
+  } else {
+
+    model.users().update( user, { isActivated: true }, function( err ) {
+
+      if ( err ) return cb( err );
+
+      user.isActivated = true;
+
+      if ( !options.tokenObj ) {
+
+        userSvc.onActivation( lib.extend( { user: user }, options ) ).then( function() {
+
+          cb( null, user );
+
+        }, cb );
+
+      } else {
+
+        model.tokens().removeActivation( options.tokenObj, function( err ) {
+
+          if ( err ) return cb( err );
+
+          userSvc.onActivation( lib.extend( { user: user }, options ) ).then( function() {
+
+            cb( null, user );
+
+          }, cb );
+
+        });
+
+      }
+
+    });
+
+  }
+
+} 
 
 
 /**

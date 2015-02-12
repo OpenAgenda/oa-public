@@ -18,7 +18,8 @@ perPage = 20,
 
 routes = {
   agendaEventShow: [ 'get', agendaEventShow, '/:slug/events/:eventSlug', [ cmn.loadAgenda( 'slug' ), _loadEvent( 'eventSlug', 'slug' ), cmn.loadBaseData( _layoutData ) ] ],
-  agendaEmbedEventShow: [ 'get', agendaEmbedEventShow, '/agendas/:uid/embed/events/:eventUid', [ cmn.loadAgenda( 'uid' ), _loadEvent( 'eventUid', 'uid' ) ] ],
+  agendaEmbedEventShow: [ 'get', agendaEmbedEventShow, '/agendas/:uid/embed/events/:eventUid', [ cmn.loadAgenda( 'uid' ), _loadEvent( 'eventUid', 'uid' ), cmn.loadBaseData( _layoutData, 'embedDefault.css' ) ] ],
+  agendaCustomEmbedEventShow: [ 'get', agendaCustomEmbedEventShow, '/agendas/:uid/embeds/:embedUid/events/:eventUid', [ cmn.loadAgenda( 'uid' ), _loadEvent( 'eventUid', 'uid' ), cmn.loadBaseData( _layoutData, 'embedDefault.css' ) ] ],
   eventShow: [ 'get', show, '/events/:eventSlug', [ _loadEvent( 'eventSlug', 'slug' ), cmn.loadBaseData( _layoutData ) ] ]
 },
 
@@ -100,6 +101,7 @@ function agendaEventShow( req, res ) {
 
 }
 
+
 function agendaEmbedEventShow( req, res ) {
 
   _addLanguageLinks( req, 'agendaEmbedEventShow', { 
@@ -107,9 +109,31 @@ function agendaEmbedEventShow( req, res ) {
     eventUid: req.params.eventUid
   } );
 
-  cmn.render( req, res, 'event/embedShow', { event: req.formattedEvent } );
+  cmn.render( req, res, 'event/embedShow', {
+    event: req.formattedEvent,
+    backUri: 'embedShow',
+    backQuery: { uid: req.params.uid }
+  } );
 
 }
+
+
+function agendaCustomEmbedEventShow( req, res ) {
+
+  _addLanguageLinks( req, 'agendaCustomEmbedEventShow', {
+    uid: req.params.uid,
+    embedUid: req.params.embedUid,
+    eventUid: req.params.eventUid
+  } );
+
+  cmn.render( req, res, 'event/embedShow', { 
+    event: req.formattedEvent, 
+    backUri: 'customEmbedShow',
+    backQuery: { uid: req.params.uid, embedUid: req.params.embedUid }
+  } );
+
+}
+
 
 function show( req, res ) {
 
@@ -120,6 +144,7 @@ function show( req, res ) {
   cmn.render( req, res, 'event/show', { event: req.formattedEvent } );
 
 }
+
 
 function _addLanguageLinks( req, uri, uriParams ) {
 
@@ -208,6 +233,7 @@ function _selectLanguage( req, res ) {
   });
 
 }
+
 
 /**
  * prepare event data fitting template requirements

@@ -156,6 +156,12 @@ function loadRoutes( app, routes, middlewares ) {
 
     log( 'debug', 'loading route "%s" of uri "%s"', name, path + routes[name][R_URI] );
 
+    if ( typeof routes[name][R_CONTROLLER] == 'undefined' ) {
+
+      throw 'no controller is defined for route ' + name;
+
+    }
+
     app[routes[name][R_METHOD]]( path + routes[name][R_URI], routes[name][R_CONTROLLER] );
 
   }
@@ -396,17 +402,18 @@ function renderTemplate( req, templatePath, data, maintain, cb ) {
  * load static data to be used in template
  *
  * @param function func  -  optionnally shove in controller specific static data
- *
  */
 
-function loadBaseData( func ) {
+function loadBaseData( func, cssFile ) {
+
+  if ( !cssFile ) cssFile = 'compiled.css';
 
   return function( req, res, next ) {
 
     var baseData = {
       head: {
         css: {
-          main: '/css/compiled.css'
+          main: '/css/' + cssFile
         },
         js: {}
       },

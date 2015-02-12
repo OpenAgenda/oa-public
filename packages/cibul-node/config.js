@@ -236,6 +236,10 @@ config = {
           method: 'get',
           uri : '/calendarexport/:eventSlug'
         },
+        'conversationDiscussion' : {
+          method: 'get',
+          uri: '/messages/new?uid=:uid'
+        },
         'conversationAgendaContact' : {
           method: 'get',
           uri: '/messages/new?type=7&aUid=:uid'

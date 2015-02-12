@@ -223,7 +223,7 @@ function makeGenUrl( options ) {
 
     if ( lib.size( query ) ) {
 
-      url += '?' + qs.stringify( query );
+      url += ( url.indexOf('?')==-1 ? '?' : '&' ) + qs.stringify( query );
 
     }
 

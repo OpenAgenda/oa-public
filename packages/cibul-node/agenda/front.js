@@ -16,11 +16,66 @@ mw = cmn.loadMiddlewares( 'search' ),
 
 perPage = 20,
 
+modes = {
+  show: {
+    template: 'agenda/show',
+    uri: 'agendaShow',
+    eventUri: 'agendaEventShow',
+    base: [ 'slug' ],
+    eventQuery: { eventSlug: 'slug' }
+  },
+  embed: {
+    template: 'agenda/embedShow',
+    uri: 'agendaEmbedShow',
+    eventUri: 'agendaEmbedEventShow',
+    base: [ 'uid' ],
+    eventQuery: { eventUid: 'uid' }
+  },
+  customEmbed: {
+    template: 'agenda/embedShow',
+    uri: 'agendaCustomEmbedShow',
+    eventUri: 'agendaCustomEmbedEventShow',
+    base: [ 'uid', 'embedUid' ],
+    eventQuery: { eventUid: 'uid' }
+  }
+},
+
 routes = {
-  embedControlData: [ 'get', controlData, '/agendas/:uid/embeds/:embedUid/controldata', [ cmn.loadAgenda( 'uid' ), _loadEmbedByUid ] ],
-  controlData: [ 'get', controlData, '/agendas/:uid/controldata', [ cmn.loadAgenda( 'uid' ) ] ],
-  embedShow: [ 'get', show( 'agenda/embedShow' ), '/agendas/:uid/embed/events', [ cmn.loadAgenda( 'uid' ), cmn.loadBaseData( _layoutData ) ] ],
-  agendaShow: [ 'get', show( 'agenda/show' ), '/:slug', [ cmn.loadAgenda( 'slug' ), cmn.loadBaseData( _layoutData ) ] ],
+  
+  embedControlData: [ 'get', controlData, '/agendas/:uid/embeds/:embedUid/controldata', [ 
+    cmn.loadAgenda( 'uid' ), _loadEmbed( 'embedUid', 'uid' ) 
+  ] ],
+  
+  controlData: [ 'get', controlData, '/agendas/:uid/controldata', [ 
+    cmn.loadAgenda( 'uid' ) 
+  ] ],
+  
+  embedShow: [ 'get', show, '/agendas/:uid/embed/events', [
+    cmn.loadAgenda( 'uid' ),
+    _formatAgendaData( 'embed' ),
+    _loadEvents,
+    _loadTemplateUris,
+    cmn.loadBaseData( _layoutData, 'embedDefault.css' )
+  ] ],
+  
+  customEmbedShow: [ 'get', show, '/agendas/:uid/embeds/:embedUid/events', [ 
+    cmn.loadAgenda( 'uid' ), 
+    _loadEmbed( 'embedUid', 'uid' ),
+    _formatAgendaData( 'customEmbed' ),
+    _formatEmbedData,
+    _loadEvents,
+    _loadTemplateUris,
+    cmn.loadBaseData( _layoutData, 'embedDefault.css' ),
+    _loadCustomLayoutData
+  ] ],
+  
+  agendaShow: [ 'get', show, '/:slug', [ 
+    cmn.loadAgenda( 'slug' ), 
+    _formatAgendaData( 'show' ),
+    _loadEvents, 
+    _loadTemplateUris,
+    cmn.loadBaseData( _layoutData )
+  ] ],
 },
 
 log = require( '../lib/logger' )( appName ),
@@ -87,71 +142,173 @@ function load( main ) {
 }
 
 
+function _loadEmbed( queryName, fieldName ) {
+
+  return function( req, res, next ) {
+
+    var getParams = {};
+
+    getParams[ fieldName ] = req.params[ queryName ];
+
+    model.reviewEmbeds().get( getParams, function( err, obj ) {
+
+      if ( err ) return cmn.catchError( req, res )( err );
+
+      if ( !obj ) return cmn.catchError( req, res )( 'embed not found' );
+
+      req.reviewEmbed = model.reviewEmbeds().instance( obj );
+
+      next();
+
+    } );
+
+  }
+
+}
+
+
+function _formatAgendaData( mode ) {
+
+  return function( req, res, next ) {
+
+    req.mode = mode;
+
+    req.template = modes[ mode ].template;
+
+    req.templateData = {
+      uid: req.agenda.uid,
+      slug: req.agenda.slug,
+      title: req.agenda.title,
+      description: req.agenda.description,
+      url: req.agenda.url,
+      image: req.agenda.getImage( false )
+    };
+
+    if ( req.params.embedUid ) {
+
+      req.templateData.embedUid = req.params.embedUid;
+
+    }
+
+    next();
+
+  }
+
+}
+
+
+function _formatEmbedData( req, res, next ) {
+
+  req.templateData.customCss = req.reviewEmbed.getCustomCss();
+
+  req.templateData.linkCss = req.reviewEmbed.getLinkCss();
+
+  req.templateData.useDefaultCss = req.reviewEmbed.getUseDefaultCss();
+
+  next();
+
+}
+
+
+function _loadTemplateUris( req, res, next ) {
+
+  req.templateData.eventUri = modes[ req.mode ].eventUri;
+
+  req.templateData.base = {};
+
+  modes[ req.mode ].base.forEach( function( name ) {
+
+    req.templateData.base[ name ] = req.templateData[ name ];
+
+  });
+
+  req.templateData.events.forEach( function( e ) {
+
+    e.query = {};
+
+    for ( var i in modes[ req.mode ].eventQuery ) {
+
+      e.query[ i ] = e[ modes[ req.mode ].eventQuery[ i ] ]
+
+    }
+
+  } );
+
+  next();
+
+}
+
+function _loadEvents( req, res, next ) {
+
+  var isEmpty = false;
+
+  req.esQuery.reviewId = req.agenda.id;
+
+  req.esQuery.order = [ 'upcoming' ];
+
+  wn.call( req.agenda.hasPublishedEvents )
+
+  .then( function( hasPublishedEvents ) {
+
+    if ( !hasPublishedEvents ) {
+
+      isEmpty = true;
+
+      return { data: [], total: 0 };
+
+    } else {
+
+      return wn.call( es.events().search, req.esQuery )
+
+    }
+
+  })
+
+  .then( mw.search.prepareEvents )
+
+  .spread( function( events, total ) {
+
+    req.templateData = lib.extend( req.templateData, {
+      isEmpty: isEmpty,
+      events: events,
+      total: total,
+      scriptParams: {
+        total: total,
+        empty: isEmpty
+      }
+    }, _pager( req, total ) );
+
+    next();
+
+  } );
+
+}
+
+
 /**
  * controllers
  */
 
-function show( template ) {
+function show( req, res ) {
 
-  return function( req, res ) {
+  if ( req.xhr ) {
 
-    var isEmpty = false;
+    // there is no embed partial
+    req.template = 'agenda/show';
 
-    req.esQuery.reviewId = req.agenda.id;
+    cmn.renderTemplate( req, req.template, req.templateData, function( err, partial ) {
 
-    req.esQuery.order = [ 'upcoming' ];
+      cmn.renderJson( req, res, {
+        success: true,
+        partial: partial,
+        total: req.templateData.scriptParams.total
+      } );
 
-    wn.call( req.agenda.hasPublishedEvents )
+    });
 
-    .then( function( hasPublishedEvents ) {
+  } else {
 
-      if ( !hasPublishedEvents ) {
-
-        isEmpty = true;
-
-        return { data: [], total: 0 };
-
-      } else {
-
-        return wn.call( es.events().search, req.esQuery )
-
-      }
-
-    })
-
-    .then( mw.search.prepareEvents )
-
-    .spread( function( events, total ) {
-
-      var templateData =  lib.extend({
-        isEmpty: isEmpty,
-        events: events,
-        total: total,
-        scriptParams: {
-          total: total,
-          empty: isEmpty
-        }
-      }, _pager( req, template, total ) );
-
-      if ( req.xhr ) {
-
-        cmn.renderTemplate( req, template, templateData, function( err, partial ) {
-
-          cmn.renderJson( req, res, {
-            success: true,
-            partial: partial,
-            total: total
-          } );
-
-        });
-
-      } else {
-
-        cmn.render( req, res, template, templateData );
-
-      }
-
-    } );
+    cmn.render( req, res, req.template, req.templateData );
 
   }
 
@@ -183,18 +340,11 @@ function controlData( req, res ) {
 
 }
 
-
 function _layoutData( req, res ) {
 
   var url = req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { abs: true } );
 
   var data = {
-    uid: req.agenda.uid,
-    slug: req.agenda.slug,
-    title: req.agenda.title,
-    description: req.agenda.description,
-    url: req.agenda.url,
-    image: req.agenda.getImage( false ),
     theme: req.agenda.getTheme(),
     queryLang: req.query.lang ? req.query.lang : false,
     scriptParams: {
@@ -227,6 +377,29 @@ function _layoutData( req, res ) {
   }
 
   return data;
+
+}
+
+
+/**
+ * remove embed css
+ */
+
+function _loadCustomLayoutData( req, res, next ) {
+
+  if ( !req.templateData.useDefaultCss.list ) {
+
+    delete req.baseData.head.css.main;
+
+  }
+
+  if ( req.templateData.linkCss ) {
+
+    req.baseData.head.css.embedLink = req.templateData.linkCss;
+
+  }
+
+  next();
 
 }
 
@@ -278,12 +451,12 @@ function _error( req, res ) {
 
 }
 
-function _pager( req, routeName, totalItems ) {
+function _pager( req, totalItems ) {
 
   return {
     pager: {
-      base: { slug: req.params.slug },
-      routeName: routeName,
+      base: req.templateData.base,
+      routeName: modes[ req.mode ].uri,
       current: req.query.page || 1,
       total: totalItems,
       perPage: perPage
