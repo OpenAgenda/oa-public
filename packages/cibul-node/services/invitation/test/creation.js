@@ -12,7 +12,7 @@ fixtures = require( 'cibulModel/test/fixtures/fixtures' )( cbm ),
 
 sets = require( 'cibulModel/test/fixtures/sets' )( cbm ),
 
-svc = require( '../invitations' ),
+svc = require( '../invitation' ),
 
 bogusComs = require( '../../../test/helpers/bogusComs' );
 

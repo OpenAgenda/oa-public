@@ -49,8 +49,8 @@ module.exports = function( enabledTypes, cb ) {
         require( './auth/twitter.front' )( '/twitter' ),
         require( './auth/google.front' )( '/google' ),
         require( './auth/reset.front' )( '/password' ),
-        require( './agenda/front' )( '' ),
         require( './agenda/contributors.back' )( '/:slug/admin/contributors' ),
+        require( './agenda/front' )( '' ),
         require( './agenda_bridges/back' )( '/:slug/admin/services' )
       ]
     },

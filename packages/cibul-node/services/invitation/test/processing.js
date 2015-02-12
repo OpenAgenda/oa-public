@@ -16,7 +16,7 @@ fixtures = require( 'cibulModel/test/fixtures/fixtures' )( cbm ),
 
 sets = require( 'cibulModel/test/fixtures/sets' )( cbm ),
 
-svc = require( '../invitations' ),
+svc = require( '../invitation' ),
 
 bogusComs = require( '../../../test/helpers/bogusComs' );
 
@@ -151,7 +151,7 @@ describe( 'invitation processing', function() {
           mail.should.eql( { 
             recipient: 'random@oa.com',
             subject: 'Vous avez été invité à devenir contributeur de l\'agenda Fete de la bretagne',
-            text: 'Cliquez ici pour commencez à contribuer à l\'agenda Fete de la bretagne\n#' 
+            text: 'Cliquez ici pour commencer à contribuer à l\'agenda Fete de la bretagne\n#' 
           } );
 
           done();

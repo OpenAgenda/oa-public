@@ -16,7 +16,7 @@ fixtures = require( 'cibulModel/test/fixtures/fixtures' )( cbm ),
 
 sets = require( 'cibulModel/test/fixtures/sets' )( cbm ),
 
-svc = require( '../invitations' );
+svc = require( '../invitation' );
 
 describe( 'invitation preprocessing', function() {
 
