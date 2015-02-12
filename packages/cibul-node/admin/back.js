@@ -149,11 +149,6 @@ function search( req, res ) {
   .spread( function( r, e, u ) {
 
     cmn.render( req, res, 'admin/index', {
-      head: {
-        css: {
-          main: '//d.cibul.net/css/compiledAdmin.css'
-        }
-      },
 
       events: {
         total: e,
@@ -202,7 +197,13 @@ function users( req, res ) {
 
   }
 
-  cmn.render( req, res, 'admin/users' );
+  cmn.render( req, res, 'admin/users', {
+    head: {
+      css: {
+        main: '/css/compiledAdmin.css'
+      }
+    }
+  } );
 
 }
 
@@ -212,8 +213,6 @@ function userActivate( req, res ) {
   if ( !req.query.uid ) return cmn.renderJson( req, res, { success: false, message: 'user uid is missing' } );
 
   model.users().get( { uid: req.query.uid }, function( err, user ) {
-
-    console.log( user );
 
     if ( err || !user ) return cmn.catchError( req, res )( err || 'user was not found' );
 
