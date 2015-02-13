@@ -269,6 +269,16 @@ function errorResponse( req, res, error, jsonResponse ) {
 
   error = typeof error == 'string' ? { message: error } : error;
 
+  if ( !req.genUrl ) {
+
+    req.genUrl = makeGenUrl({
+      root: config.root,
+      base: { path: '' }
+    });
+
+  }
+
+
   if ( jsonResponse ) {
 
     renderJson( req, res, {
@@ -279,6 +289,7 @@ function errorResponse( req, res, error, jsonResponse ) {
     return;
 
   }
+
 
   if ( req.baseData ) {
 
