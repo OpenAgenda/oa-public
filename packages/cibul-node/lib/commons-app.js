@@ -146,7 +146,7 @@ function loadRoutes( app, routes, middlewares ) {
 
       routes[ name ][ R_MW ].forEach( function( routeMiddleware ) {
 
-        app.use( path + routes[ name ][ R_URI ], routeMiddleware );
+        app.route( path + routes[ name ][ R_URI ] ).all( routeMiddleware );
 
       });
 
@@ -310,6 +310,8 @@ function errorResponse( req, res, error, jsonResponse ) {
 function catchError( req, res, jsonResponse ) {
 
   return function( err ) {
+
+    log( 'caught error', JSON.stringify( err ) );
 
     if ( err.code == 404 ) {
 
