@@ -55,7 +55,9 @@ module.exports = function( enabledTypes, cb ) {
       ]
     },
 
-    app = express();
+    app = express(),
+
+    server;
 
     app.set( 'trust proxy', 'loopback' );
 
@@ -101,7 +103,7 @@ module.exports = function( enabledTypes, cb ) {
     });
    
 
-    app.listen( config.port );
+    server = app.listen( config.port );
 
 
     // only one process runs background tasks. supervisor handles that.
@@ -129,7 +131,7 @@ module.exports = function( enabledTypes, cb ) {
 
     }
 
-    if ( cb ) cb();
+    if ( cb ) cb( null, server );
 
   } );
 

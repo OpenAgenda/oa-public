@@ -35,6 +35,8 @@ describe( 'signin', function() {
 
   });
 
+  after( testLib.shutdown );
+
   it( 'page loads', function( done ) {
 
     browser.visit( '/signin', function( err ) {

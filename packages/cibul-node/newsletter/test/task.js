@@ -69,7 +69,7 @@ describe('campaign launcher task', function() {
 
       bogusComs.consume( 'mailer', function( err, data ) {
 
-        var recipients = JSON.parse( data ).recipient;
+        var recipients = data.recipient;
 
         recipients.should.eql( emails );
 
@@ -90,7 +90,7 @@ describe('campaign launcher task', function() {
 
       bogusComs.consume( 'mailer', function( err, data ) {
 
-        var decoded = JSON.parse( data );
+        var decoded = data;
 
         decoded.should.have.property( 'subject' );
 

@@ -6,7 +6,7 @@ should = require( 'should' );
 
 describe( 'lost password functional', function() {
 
-  var browser, user = {};
+  var browser, user = {}, a;
 
   before( function( done ) {
 
@@ -27,6 +27,8 @@ describe( 'lost password functional', function() {
     })
 
   });
+
+  after( t.shutdown );
 
 
   it( 'signin link leads to lost password form', function( done ) {

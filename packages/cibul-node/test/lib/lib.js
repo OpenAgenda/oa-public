@@ -18,10 +18,13 @@ fixtures = require( 'cibulModel/test/fixtures/fixtures' )( model ),
 
 sets = require( 'cibulModel/test/fixtures/sets' )( model ),
 
-coms = require( '../../lib/coms' );
+coms = require( '../../lib/coms' ),
+
+server;
 
 module.exports = {
   boot: boot,
+  shutdown: shutdown,
   loadBrowser: loadBrowser,
   model: model,
   sets: sets,
@@ -45,9 +48,11 @@ function boot( startApp, cb ) {
 
   clearAll( function() {
 
-    if ( startApp ) {
+    if ( startApp && !server ) {
 
-      require( '../../app.js' )( function() {
+      require( '../../app.js' )( function( err, s ) {
+
+        server = s;
 
         _initZombie( cb );
 
@@ -60,6 +65,12 @@ function boot( startApp, cb ) {
     }
 
   });
+
+}
+
+function shutdown( cb ) {
+
+  cb();
 
 }
 
@@ -78,7 +89,7 @@ function _initZombie( cb ) {
 
   Browser.localhost( 'https://d.cibul.net', 443 );
 
-  cb();
+  cb( );
 
 }
 

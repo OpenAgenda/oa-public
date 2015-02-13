@@ -285,6 +285,8 @@ describe( 'search index sync', function() {
 
     task.setOnComplete( function() {
 
+      task.unsetOnComplete();
+
       ES.reviews().get( reviewToChange.id, function( err, result ) {
 
         result.data.title.should.equal( newTitle );

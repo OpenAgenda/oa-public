@@ -48,6 +48,7 @@ exports.run = run;
 // for testing
 exports.setOnStart = setOnStart;
 exports.setOnComplete = setOnComplete;
+exports.unsetOnComplete = unsetOnComplete;
 exports.setComs = setComs;
 
 
@@ -79,6 +80,13 @@ function setOnStart( cb ) {
 function setOnComplete( cb ) {
 
   _onComplete = cb;
+
+}
+
+
+function unsetOnComplete() {
+
+  _onComplete = false;
 
 }
 

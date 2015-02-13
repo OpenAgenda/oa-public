@@ -28,6 +28,8 @@ describe( 'signup', function() {
 
   beforeEach( t.clearAll );
 
+  after( t.shutdown );
+
   it( 'page loads', function( done ) {
 
     browser.visit( '/signup', function( err ) {

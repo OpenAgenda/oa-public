@@ -30,6 +30,8 @@ describe( 'participative agenda', function() {
 
   });
 
+  after( t.shutdown );
+
   before( t.sets.prepareOneAgendaInstance( agenda, 'participative' ) );
 
   before( function( done ) {
