@@ -8,6 +8,7 @@
     "redirect" : "quiruezrhdk",
     "uid" : 48959239,
     "eventUri" : "agendaEmbedShow",
+    "embedUid" : 3283883,
     "base" : { "uid" : 48959239 },
     "scriptParams" : {
       "uid" : 48959239,
