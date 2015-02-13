@@ -82,6 +82,8 @@ log = require( '../lib/logger' )( appName ),
 
 async = require( 'async' ),
 
+deepExtend = require( 'deep-extend' ),
+
 config = require( '../config' ),
 
 w = require( 'when' ),
@@ -156,7 +158,7 @@ function _loadEmbed( queryName, fieldName ) {
 
       if ( !obj ) return cmn.catchError( req, res )( 'embed not found' );
 
-      req.reviewEmbed = model.reviewEmbeds().instance( obj );
+      req.embed = model.reviewEmbeds().instance( obj );
 
       next();
 
@@ -188,6 +190,10 @@ function _formatAgendaData( mode ) {
 
       req.templateData.embedUid = req.params.embedUid;
 
+      req.templateData.scriptParams = { 
+        uid: req.params.uid + '/' + req.params.embedUid
+      }
+
     }
 
     next();
@@ -199,11 +205,11 @@ function _formatAgendaData( mode ) {
 
 function _formatEmbedData( req, res, next ) {
 
-  req.templateData.customCss = req.reviewEmbed.getCustomCss();
+  req.templateData.customCss = req.embed.getCustomCss();
 
-  req.templateData.linkCss = req.reviewEmbed.getLinkCss();
+  req.templateData.linkCss = req.embed.getLinkCss();
 
-  req.templateData.useDefaultCss = req.reviewEmbed.getUseDefaultCss();
+  req.templateData.useDefaultCss = req.embed.getUseDefaultCss();
 
   next();
 
@@ -268,7 +274,7 @@ function _loadEvents( req, res, next ) {
 
   .spread( function( events, total ) {
 
-    req.templateData = lib.extend( req.templateData, {
+    req.templateData = deepExtend( req.templateData, {
       isEmpty: isEmpty,
       events: events,
       total: total,
@@ -403,28 +409,6 @@ function _loadCustomLayoutData( req, res, next ) {
 
 }
 
-
-function _loadEmbedByUid( req, res, next ) {
-
-  var embedUid = req.params[ 'embedUid' ];
-
-  wn.call( req.agenda.embeds.get, { uid: embedUid } )
-
-  .then( function( data ) {
-
-    if ( !data ) throw { code: 404 };
-
-    req.embed = model.reviewEmbeds().instance( data );
-
-    req.log.load({ embed: req.embed.uid });
-
-    next();
-
-  })
-
-  .catch( cmn.catchError( req, res, true ) );
-
-}
 
 
 function _error( req, res ) {

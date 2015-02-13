@@ -7,7 +7,7 @@ var lib = require( './lib' ),
 
 config = require( '../config' ),
 
-model = require( 'cibulModel' )( config.db, config.redis, { imagePath: config.aws.imageBucketPath } ),
+model = require( 'cibulModel' )( config.db, config.redis, { imagePath: config.aws.imageBucketPath, useCache: config.db.cache } ),
 
 router = require( './router' ),
 
