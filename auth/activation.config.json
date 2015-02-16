@@ -12,7 +12,7 @@
   },
   "base" : {
     "pageClass" : "ct auth",
-    "facebookPage" : "//facebook.com/cibul.net",
+    "facebookPage" : "//facebook.com/openagenda.com",
     "twitterPage" : "//twitter.com/cibul"
   }
 }

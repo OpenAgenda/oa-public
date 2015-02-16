@@ -18,18 +18,18 @@ config = {
   all: {
     heightOffset: 40,
     res: {  
-      agenda: '//cibul.net/agendas/:uid/embed/events',
-      customAgenda: '//cibul.net/agendas/:uid/embeds/:embedUid/events',
-      event: '//cibul.net/agendas/:uid/embed/events/:eventUid',
-      customEvent: '//cibul.net/agendas/:uid/embeds/:embedUid/events/:eventUid'
+      agenda: '//openagenda.com/agendas/:uid/embed/events',
+      customAgenda: '//openagenda.com/agendas/:uid/embeds/:embedUid/events',
+      event: '//openagenda.com/agendas/:uid/embed/events/:eventUid',
+      customEvent: '//openagenda.com/agendas/:uid/embeds/:embedUid/events/:eventUid'
     }
   },
   dev: {
     res: {  
-      agenda: '//d.cibul.net/agendas/:uid/embed/events',
-      customAgenda: '//d.cibul.net/agendas/:uid/embeds/:embedUid/events',
-      event: '//d.cibul.net/agendas/:uid/embed/events/:eventUid',
-      customEvent: '//d.cibul.net/agendas/:uid/embeds/:embedUid/events/:eventUid'
+      agenda: '//d.openagenda.com/agendas/:uid/embed/events',
+      customAgenda: '//d.openagenda.com/agendas/:uid/embeds/:embedUid/events',
+      event: '//d.openagenda.com/agendas/:uid/embed/events/:eventUid',
+      customEvent: '//d.openagenda.com/agendas/:uid/embeds/:embedUid/events/:eventUid'
     }
   },
   tpl: {

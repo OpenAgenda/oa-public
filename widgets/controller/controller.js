@@ -14,24 +14,24 @@ env = window.env ? window.env : 'prod',
 
 defaults = {
   all: {
-    agenda : '//cibul.net/agendas/{uid}/controldata',
-    embed : '//cibul.net/agendas/{uid}/embeds/{embedUid}/controldata',
-    search : '//cibul.net/widgets/{uid}/search'
+    agenda : '//openagenda.com/agendas/{uid}/controldata',
+    embed : '//openagenda.com/agendas/{uid}/embeds/{embedUid}/controldata',
+    search : '//openagenda.com/widgets/{uid}/search'
   },
   dev: {
-    agenda : '//d.cibul.net/agendas/{uid}/controldata',
-    embed : '//d.cibul.net/agendas/{uid}/embeds/{embedUid}/controldata',
-    search : '//d.cibul.net/widgets/{uid}/search'
+    agenda : '//d.openagenda.com/agendas/{uid}/controldata',
+    embed : '//d.openagenda.com/agendas/{uid}/embeds/{embedUid}/controldata',
+    search : '//d.openagenda.com/widgets/{uid}/search'
   },
   test: {
-    agenda : '//d.cibul.net/agendas/{uid}/controldata',
-    embed : '//d.cibul.net/agendas/{uid}/embeds/{embedUid}/controldata',
-    search : '//d.cibul.net/widgets/{uid}/search'
+    agenda : '//d.openagenda.com/agendas/{uid}/controldata',
+    embed : '//d.openagenda.com/agendas/{uid}/embeds/{embedUid}/controldata',
+    search : '//d.openagenda.com/widgets/{uid}/search'
   },
   tpl: {
     agenda : '/server/testdata/controldata-pepite.json',
     embed : '/server/testdata/' + ( window.testControlData ? window.testControlData : 'embedcontroldata-pepite.json' ),
-    search : '//d.cibul.net/widgets/{uid}/search'
+    search : '//d.openagenda.com/widgets/{uid}/search'
   }
 },
 

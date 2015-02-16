@@ -4,10 +4,10 @@ cn = require( '../../js/lib/common/common.mod.js' ),
 
 defaults = {
   all : {
-    controllersPath : '//cibul.net/js/embed/cibulControllers.js'
+    controllersPath : '//openagenda.com/js/embed/cibulControllers.js'
   },
   dev : {
-    controllersPath : '//d.cibul.net/js/embed/cibulControllers.js'
+    controllersPath : '//d.openagenda.com/js/embed/cibulControllers.js'
   },
   tpl : {
     controllersPath : '/js/browserified/widgetsControllerMain.js'

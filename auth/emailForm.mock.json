@@ -1,7 +1,7 @@
 {
   "user" : "#",
   "iToken" : false,
-  "email" : "gaetan@cibul.net",
+  "email" : "gaetan@openagenda.com",
   "errors" : {
     "email" : "this email is invalid"
   }

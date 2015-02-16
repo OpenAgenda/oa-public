@@ -305,8 +305,8 @@
       var link = jQuery('a.cibul-pw-link', this.elem).eq(index).attr('href');
 
       if (link.indexOf('/program/')==-1) {
-        if (link.indexOf('/cibul.net/')==-1) return;
-        var offset = link.indexOf('/cibul.net/') + '/cibul.net/'.length;
+        if (link.indexOf('/openagenda.com/')==-1) return;
+        var offset = link.indexOf('/openagenda.com/') + '/openagenda.com/'.length;
       } else {
         var offset = link.indexOf('/program/') + '/program/'.length;
       }
@@ -372,7 +372,7 @@
 
         html = html + this.htmlizer.getHtml();
 
-        html = html + '<div class="cibul-footer"><a href="http://cibul.net">powered by <img alt="cibul" src="https://s3-eu-west-1.amazonaws.com/cibulstatic/verysmalllogo.png"/></a></div>';
+        html = html + '<div class="cibul-footer"><a href="http://openagenda.com">powered by <img alt="cibul" src="https://s3-eu-west-1.amazonaws.com/cibulstatic/verysmalllogo.png"/></a></div>';
 
         html = html.replace(/<a/g,'<a target="_blank" ');
 
@@ -424,8 +424,8 @@
 
     this.options = jQuery.extend({
       test: false,
-      link: 'http://cibul.net/api/programwidget',
-      testLink: 'http://d.cibul.net/frontend_dev.php/api/programwidget',
+      link: 'http://openagenda.com/api/programwidget',
+      testLink: 'http://d.openagenda.com/frontend_dev.php/api/programwidget',
       defaultClass: 'cibul-program-widget',
       defaultCssPath: 'http://s3-eu-west-1.amazonaws.com/cibulstatic/cibul-program-widget.css',
       defaultTestCssPath: 'cibul-program-widget.css'

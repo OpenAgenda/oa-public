@@ -10,8 +10,8 @@ config = {
     standalone: true,
     scrollOffset: 100,
     resources: {
-      form: '//cibul.net/embed/{uid}/form',
-      sandbox: '//cibul.net/embed/{uid}/form/sandbox'
+      form: '//openagenda.com/embed/{uid}/form',
+      sandbox: '//openagenda.com/embed/{uid}/form/sandbox'
     },
     labels: {
       fr: {
@@ -33,14 +33,14 @@ config = {
   prod: {},
   dev: {
     resources: {
-      form:    '//d.cibul.net/frontend_dev.php/embed/{uid}/form',
-      sandbox: '//d.cibul.net/frontend_dev.php/embed/{uid}/form/sandbox'
+      form:    '//d.openagenda.com/frontend_dev.php/embed/{uid}/form',
+      sandbox: '//d.openagenda.com/frontend_dev.php/embed/{uid}/form/sandbox'
     }
   },
   tpl: {
     resources: {
-      form:    '//d.cibul.net/frontend_dev.php/embed/{uid}/form',
-      sandbox: '//d.cibul.net/frontend_dev.php/embed/{uid}/form/sandbox'
+      form:    '//d.openagenda.com/frontend_dev.php/embed/{uid}/form',
+      sandbox: '//d.openagenda.com/frontend_dev.php/embed/{uid}/form/sandbox'
     }
   }
 }

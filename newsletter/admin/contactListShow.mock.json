@@ -4,31 +4,31 @@
   "title" : "La petite liste",
   "contacts" : [
     {
-      "email" : "bili@cibul.net"
+      "email" : "bili@openagenda.com"
     },
     {
-      "email" : "bobby@cibul.net"
+      "email" : "bobby@openagenda.com"
     },
     {
-      "email" : "franky@cibul.net"
+      "email" : "franky@openagenda.com"
     },
     {
-      "email" : "zoubi@cibul.net"
+      "email" : "zoubi@openagenda.com"
     },
     {
-      "email" : "angalbert.de.gonfalon@cibul.net"
+      "email" : "angalbert.de.gonfalon@openagenda.com"
     },
     {
-      "email" : "bourvil@cibul.net"
+      "email" : "bourvil@openagenda.com"
     },
     {
-      "email" : "gengis.khan@cibul.net"
+      "email" : "gengis.khan@openagenda.com"
     },
     {
-      "email" : "dariusII@cibul.net"
+      "email" : "dariusII@openagenda.com"
     },
     {
-      "email" : "auguste@cibul.net"
+      "email" : "auguste@openagenda.com"
     }
   ],
   "uid" : 8979456,
@@ -41,7 +41,7 @@
   },
   "values" : {
     "title" : "Et voici un titre",
-    "emails" : "billy@cibul.net, johnny@cibul.net, franky@cibul.net, lamouche2@cibul.net"
+    "emails" : "billy@openagenda.com, johnny@openagenda.com, franky@openagenda.com, lamouche2@openagenda.com"
   },
   "errors" : {
     "title" : "The title should not be empty",

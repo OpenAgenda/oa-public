@@ -11,9 +11,9 @@ debug = require( 'debug' ),
 defaults = {
   all: {
     resources: {
-      list: '//cibul.net/agenda/{{uid}}/aggregator/sourcecontext',
-      add: '//cibul.net/agenda/{{uid}}/aggregator/addTo/{{aUid}}',
-      remove: '//cibul.net/agenda/{{uid}}/aggregator/removeFrom/{{aUid}}'
+      list: '//openagenda.com/agenda/{{uid}}/aggregator/sourcecontext',
+      add: '//openagenda.com/agenda/{{uid}}/aggregator/addTo/{{aUid}}',
+      remove: '//openagenda.com/agenda/{{uid}}/aggregator/removeFrom/{{aUid}}'
     },
     classes: {
       menu: 'agg-menu',
@@ -45,16 +45,16 @@ defaults = {
   prod: {},
   dev: {
     resources: {
-      list: '//d.cibul.net/frontend_dev.php/agenda/{{uid}}/aggregator/sourcecontext',
-      add: '//d.cibul.net/frontend_dev.php/agenda/{{uid}}/aggregator/addTo/{{aUid}}',
-      remove: '//d.cibul.net/frontend_dev.php/agenda/{{uid}}/aggregator/removeFrom/{{aUid}}'
+      list: '//d.openagenda.com/frontend_dev.php/agenda/{{uid}}/aggregator/sourcecontext',
+      add: '//d.openagenda.com/frontend_dev.php/agenda/{{uid}}/aggregator/addTo/{{aUid}}',
+      remove: '//d.openagenda.com/frontend_dev.php/agenda/{{uid}}/aggregator/removeFrom/{{aUid}}'
     }
   },
   test: {
     resources: {
-      list: '//d.cibul.net/frontend_test.php/agenda/{{uid}}/aggregator/sourcecontext',
-      add: '//d.cibul.net/frontend_test.php/agenda/{{uid}}/aggregator/addTo/{{aUid}}',
-      remove: '//d.cibul.net/frontend_test.php/agenda/{{uid}}/aggregator/removeFrom/{{aUid}}'
+      list: '//d.openagenda.com/frontend_test.php/agenda/{{uid}}/aggregator/sourcecontext',
+      add: '//d.openagenda.com/frontend_test.php/agenda/{{uid}}/aggregator/addTo/{{aUid}}',
+      remove: '//d.openagenda.com/frontend_test.php/agenda/{{uid}}/aggregator/removeFrom/{{aUid}}'
     }
   },
   tpl: {
