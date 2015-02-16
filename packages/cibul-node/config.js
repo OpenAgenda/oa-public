@@ -12,10 +12,10 @@ config = {
     logPathError : '/var/tmp/cibul-node-errors.log',
     logNameSpaces: false,
     name: 'cibul-node',
-    domain: 'cibul.net',
-    root: 'https://cibul.net',
+    domain: 'pre.openagenda.com',
+    root: 'https://pre.openagenda.com',
     db: {
-      database: 'cibul',
+      database: 'oa',
       host: 'cibul.cjlxznnlwwtq.eu-west-1.rds.amazonaws.com',
       port: 3306,
       user: 'root',
@@ -259,7 +259,7 @@ config = {
   },
 
   dev: {
-    root: 'https://d.cibul.net',
+    root: 'https://d.openagenda.com',
     env: 'dev',
     multiCore: false,
     mainChannel: 'maindev',
