@@ -1,0 +1,18 @@
+{
+  "layout" : "bsLayout/main",
+  "css" : {
+    "leaflet" : "../css/leaflet-0.7.3.css"
+  },
+  "helpers" : {
+    "_t" : "time",
+    "_i" : "image",
+    "_sl" : "shareLinks",
+    "_txt" : "text",
+    "_r" : "redirect"
+  },
+  "base" : {
+    "pageId" : "agenda",
+    "queryLang" : false
+  },
+  "templateJs" : true
+}

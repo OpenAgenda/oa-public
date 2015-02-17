@@ -2,15 +2,18 @@
 
 var fs = require('fs'),
 
-cached = {};
+cached = {},
+
+enabled = true;
 
 module.exports = {
-  readFile: readFile
+  readFile: readFile,
+  disable: disable
 };
 
 function readFile( path, cb ) {
 
-  if ( cached[ path ] ) {
+  if ( enabled && cached[ path ] ) {
 
     cb( null, cached[ path ] );
 
@@ -22,10 +25,16 @@ function readFile( path, cb ) {
 
     if ( err ) return cb( err );
 
-    cached[ path ] = content;
+    if ( enabled ) cached[ path ] = content;
 
     cb( null, content );
 
   });
+
+}
+
+function disable() {
+
+  enabled = false;
 
 }

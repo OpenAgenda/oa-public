@@ -1,0 +1,25 @@
+<header id="header" <% if ( typeof theme !== 'undefined' && theme.image ) { %> style="background-image:url(<%= _i( theme.image ) %>)" <% } %>>
+  <div class="layer"></div>
+  <div class="container profile">
+    <div class="row">
+<% if ( image ) { %>
+      <div class="col-sm-2 avatar-container">
+        <img class="avatar" src="<%= _i( image ) %>" alt="<%= title %>">
+      </div><!--
+<% } %>
+      --><div class="col-sm-6 title-container">
+        <h1><%= title %></h1>
+        <p><%- _txt.setLinks( description ) %></p>
+        <p><a href="<%= url %>"><%= url %></a></p>
+      </div><div class="col-sm-4 col-aside action-container">
+        <p><a class="btn btn-success" href="#"><i class="fa fa-plus-circle"></i> <%= __('Import / Add to my Agenda') %></a></p>
+        <p class="share"><%= __('Share') %>&nbsp;:
+          <%- _sl.fb( { title: title, url: genUrl( 'agendaShow', { slug: slug }, { abs: true } ) } ) %>
+          <%- _sl.tw( { title: title, url: genUrl( 'agendaShow', { slug: slug }, { abs: true } ) } ) %>
+          <%- _sl.gp( { title: title, url: genUrl( 'agendaShow', { slug: slug }, { abs: true } ) } ) %>
+          <%- _sl.li( { title: title, url: genUrl( 'agendaShow', { slug: slug }, { abs: true } ) } ) %>
+        </p>
+      </div>
+    </div>
+  </div>
+</header>

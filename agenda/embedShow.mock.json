@@ -7,7 +7,7 @@
     "url" : "http://cheznous.coop",
     "redirect" : "quiruezrhdk",
     "uid" : 48959239,
-    "eventUri" : "agendaEmbedShow",
+    "eventUri" : "agendaEmbedEventShow",
     "embedUid" : 3283883,
     "base" : { "uid" : 48959239 },
     "scriptParams" : {

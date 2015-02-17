@@ -1,31 +1,109 @@
 body > header {
-  text-align: right;
-  padding: 1em;
   background: white;
+  text-align: center;
 }
+
+body > header .links li.nomobile { display: none; }
+
+body > header .container {
+  margin: 0 auto;
+  text-align: left;
+  position: relative;
+}
+
+@media (min-width: 480px) {
+
+  body > header .container {
+    width: auto;
+  }
+
+  body > header .links {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+}
+
+@media (min-width: 768px) {
+
+  body > header .container {
+    width: 750px;
+  }
+
+}
+
+@media (min-width: 992px) {
+
+  body > header .container {
+    width: 970px;
+  }
+
+  body > header .links li.nomobile { 
+    display: inline-block; 
+  }
+  
+}
+
+@media (min-width: 1200px) {
+
+  body > header .container {
+    width: 1170px;
+  }
+
+}
+
 
 body > header a {
   display: inline-block; 
-  color: #333;
-  font-size: 1.2em;
   vertical-align: middle;
   cursor: pointer;
 }
 
 body > header .logo {
+  width: 125px;
+  padding: 14px 15px 10px;
+  line-height: 20px;
+}
+
+body > header form {
+  display: inline-block;
+  position: relative;
+}
+
+body > header form.cform input[type="text"] {
+  border: 1px solid #eee;
+  border-color: #eee;
+  width: 150px;
+  line-height: 40px;
+  padding-right: 2em;
+  font-size: 15px;
+}
+
+body > header form.cform button {
+
   position: absolute;
-  width: 100px;
-  padding: 0;
-  top: 1em;
-  left: 1em;
+  top: 0;
+  right: 0;
+  border: none;
+  background: transparent;
+  margin: 1em 0.8em;
+
+}
+
+body > header form.cform button i {
+
+  color: gray;
+
 }
 
 body > header .logo img {
   width: 100%; 
 }
 
-body > header .links {
-  display: inline-block;
+body > header .links a {
+  padding: 20px 10px;
+  color: #777;
 }
 
 body > header .links a:hover,
@@ -35,7 +113,6 @@ body > header .links a:hover i {
 
 body > header .links li {
   display: inline-block;
-  padding: 0.5em 2em 0.5em 0;
   position: relative;
   vertical-align: middle;
 }
@@ -70,21 +147,7 @@ body > header .language-menu ul li a:hover {
   color: white;
 }
 
-@media all and (max-width: 840px) {
 
-  body > header .logo {
-    position: relative;
-    display: block;
-    margin: 0.5em auto;
-    top: auto;
-    left: auto;
-  }
-
-  body > header .site-links {
-    text-align: center;
-    display: block;
-  }
-}
 
 @media all and (max-width: 480px) {
 

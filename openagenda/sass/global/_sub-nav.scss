@@ -1,0 +1,45 @@
+#sub-nav {
+  background: $oa-gray-light;
+  font-weight: 300;
+  position: relative;
+  z-index: 100;
+
+  a {
+    border: none;
+    color: $oa-gray;
+    padding: 18px 20px 12px;
+
+    &:hover, &:focus {
+      background: transparent;
+      color: $oa-blue;
+    }
+  }
+
+  .add-event {
+    display: block;
+    line-height: 50px;
+    padding: 0;
+    text-decoration: none;
+  }
+
+  .active a {
+    background: $gray-lighter;
+    border-color: $gray-lighter;
+    border-radius: 0;
+    color: $oa-black;
+  }
+
+  .nav-tabs {
+    border: 0;
+  }
+
+  .col-aside {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .col-aside {
+      display: block;
+    }
+  }
+}

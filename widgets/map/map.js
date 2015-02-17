@@ -560,9 +560,21 @@ var widget = function( elem, options ) {
 
   _createMap = function( cb ) {
 
-    elem.innerHTML = new EJS( {text: templates.main } ).render( {
+    var div = document.createElement( 'div' );
+
+    div.innerHTML = new EJS( {text: templates.main } ).render( {
       labels : config.labels[ config.lang ]
     } );
+
+    if ( cn.el( elem, config.selectors.syncSection ) ) {
+
+      div.removeChild( cn.el( div, config.selectors.syncSection ) );
+
+      div.appendChild( cn.el( elem, config.selectors.syncSection ) );
+
+    }
+
+    elem.innerHTML = div.innerHTML;
 
     var center = [ 48.8705187,2.3821144 ];
 

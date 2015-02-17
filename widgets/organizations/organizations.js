@@ -2,7 +2,7 @@
 
 exports.setOnReady = setOnReady;
 
-var UID = 0,
+var UID = 0, MODE = 1,
 
 cn = require(  '../../js/lib/common/common.mod.js' ),
 
@@ -56,6 +56,12 @@ var widget = function( elem, options ) {
       include : include
     } ) );
 
+    if ( options.anchorConfig[ MODE ] ) {
+
+      view.setMode( options.anchorConfig[ MODE ] );
+
+    }
+
     view.setOnSelect( _onSelect );
 
     view.setOnUnselect( _onUnselect );
@@ -80,7 +86,7 @@ var widget = function( elem, options ) {
 
       if ( onReady ) onReady();
 
-    });
+    } );
 
   },
 

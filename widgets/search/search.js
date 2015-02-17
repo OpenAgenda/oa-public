@@ -109,7 +109,11 @@ var widget = function( elem, options ) {
 
     styler( style );
 
-    elem.innerHTML += new EJS( { text : template } ).render( { labels : config.labels[ lang ] } );
+    if ( !cn.el( elem, 'input' ) ) {
+
+      elem.innerHTML += new EJS( { text : template } ).render( { labels : config.labels[ lang ] } );
+      
+    }
 
     inputElem = cn.el( elem, 'input' );
 

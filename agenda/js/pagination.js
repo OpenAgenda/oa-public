@@ -199,7 +199,7 @@ function _initPrevPage( href ) {
 
 function _removePrevPage() {
 
-  if ( prevPageExists ) {
+  if ( prevPageExists && cn.el( params.selectors.previous ) ) {
 
     cn.el( params.selectors.previous ).parentNode.removeChild( cn.el( params.selectors.previous ) );
 

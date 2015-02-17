@@ -1,0 +1,6 @@
+<% for ( var i in head.css ) { %>
+    <link rel="stylesheet" href="<%= head.css[i] %>"/>
+<% } %>
+<% if ( typeof headLinks !== 'undefined' ) { %><% headLinks.forEach( function( link ) { %>
+    <link <% for ( var i in link ) { %><%= i %>="<%= link[ i ] %>" <% } %>/>
+<% }) %><% } %>

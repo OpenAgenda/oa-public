@@ -1,0 +1,65 @@
+// Main navigation bar
+
+.collapse {
+  display: none;
+  visibility: hidden;
+
+  &.in {
+    display: block;
+    visibility: visible;
+  }
+}
+
+.navbar-toggle {
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  margin-right: 10px;
+  padding: 0;
+  line-height: 50px;
+  width: 50px;
+
+  i {
+    color: $oa-black;
+    font-size: 21px;
+    vertical-align: middle;
+  }
+}
+
+.navbar-nav>li, .navbar-nav {
+  float: left !important;
+  margin: 0;
+}
+
+.navbar-right {
+  float: right !important;
+}
+
+.navbar-nav > li > a {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+#nav {
+  margin: 0;
+
+  .navbar-header {
+    padding-left: 10px;
+  }
+
+  .search-form {
+    float: left;
+    margin: 0;
+
+    .search-input {
+      background: $oa-white;
+      width: 150px;
+
+      &:focus {
+        background: rgba(65, 172, 221, 0.025);
+        border-top: 0;
+        border-bottom: 0;
+      }
+    }
+  }
+}

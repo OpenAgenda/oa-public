@@ -62,6 +62,8 @@ module.exports = function( templateName, data, cb ) {
 
 };
 
+module.exports.disableFileCache = require( './cachedFs' ).disable;
+
 
 var ejs = require('ejs'),
 

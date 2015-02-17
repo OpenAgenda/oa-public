@@ -2,7 +2,7 @@
 
 exports.setOnReady = setOnReady;
 
-var UID = 0, SUBSET = 1,
+var UID = 0, SUBSET = 1, MODE = 2,
 
 cn = require(  '../../js/lib/common/common.mod.js' ),
 
@@ -50,6 +50,12 @@ var widget = function( elem, options ) {
       clear : clear,
       include : include,
     } ) );
+
+    if ( options.anchorConfig[ MODE ] ) {
+
+      view.setMode( options.anchorConfig[ MODE ] );
+
+    }
 
     view.setOnSelect( _onTagSelect );
 
@@ -239,7 +245,7 @@ var widget = function( elem, options ) {
 
     log( 'defining widget tags' );
 
-    if ( typeof config[ SUBSET ] !== 'undefined' ) {
+    if ( ( typeof config[ SUBSET ] !== 'undefined' ) && config[ SUBSET ].length ) {
 
       subset = config[ SUBSET ].split( ',' );
 

@@ -10,17 +10,24 @@ styler = require( '../lib/widgetStyler' ),
 
 templates = {
   main: require( './main.ejs' ),
-  item : require( './item.ejs' )
+  item : require( './item.ejs' ),
+  bsMain: require( './bsMain.ejs' ),
+  bsItem: require( './bsItem.ejs' )
 };
 
 module.exports = function( anchorElem ) {
 
   var _onSelect = false, _onUnselect = false,
 
+  mainTemplate = templates.main,
+
+  itemTemplate = templates.item,
+
   init = function() {
 
     return {
       render: render,
+      setMode: setMode,
       setOnSelect: setOnSelect,
       setOnUnselect: setOnUnselect,
       setDefaultStyle: setDefaultStyle
@@ -28,9 +35,21 @@ module.exports = function( anchorElem ) {
     
   },
 
+  setMode = function( mode ) {
+
+    if ( mode == 'bs' ) {
+
+      mainTemplate = templates.bsMain;
+
+      itemTemplate = templates.bsItem;
+
+    }
+
+  },
+
   render = function( data ) {
 
-    anchorElem.innerHTML = new EJS( { text: templates.main } ).render( data );
+    anchorElem.innerHTML = new EJS( { text: mainTemplate } ).render( data );
 
     cn.forEach( data.categories, function( category ) {
 
@@ -38,7 +57,7 @@ module.exports = function( anchorElem ) {
 
       catElem;
 
-      catWrapper.innerHTML = new EJS( { text: templates.item } ).render( category );
+      catWrapper.innerHTML = new EJS( { text: itemTemplate } ).render( category );
 
       catElem = cn.el( catWrapper, 'li' );
 

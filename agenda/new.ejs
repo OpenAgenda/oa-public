@@ -1,0 +1,83 @@
+<% include ./newHead.part.ejs %>
+<div id="sub-nav">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-2">
+        <ul class="nav nav-tabs">
+        </ul>
+      </div>
+      <div class="col-sm-4 col-aside display-none js_add_button">
+        <a class="add-event" href="#"><%= __('Add an event') %></a>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="content">
+  <div class="container">
+    <div class="row">
+      <section class="col-sm-8 main-content js_list_content">
+        <% include ./new.part.ejs %>
+      </section>
+      <aside class="col-sm-4 col-aside sidebar">
+
+        <section class="side-item side-search">
+          <h3 class="mobile-only">
+            <i class="fa fa-search side-icon"></i><span class="side-title"><%= __('Search in the agenda') %></span>
+          </h3>
+          <div class="side-content">
+            <form class="search-form cbpgsc" data-cbctl="<%= uid %>|<%= lang %>">
+              <input type="text" placeholder="<%= __('Search in the agenda') %>" class="search-input"><div class="search-button">
+                <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="side-item side-map">
+          <h3 class="mobile-only">
+            <i class="fa fa-map-marker side-icon"></i><span class="side-title">Carte</span>
+          </h3>
+          <div class="side-content cbpgmp agenda-map" data-cbctl="<%= uid %>|<%= lang %>">
+            <div class="map-sync js_map_sync">
+              <input type="checkbox" id="map-sync" class="js_sync_checkbox">
+              <label for="map-sync">Rechercher quand je déplace la carte</label>
+            </div>
+          </div>
+        </section>
+
+        <section class="side-item side-calendar">
+          <h3 class="mobile-only">
+            <i class="fa fa-calendar-o side-icon"></i><span class="side-title">Choisissez une date</span>
+          </h3>
+          <div class="side-content">
+            <div class="cbpgcl cibulCalendar" data-cbctl="<%= uid %>|<%= lang %>"></div>
+          </div>
+        </section>
+
+        <section class="side-item side-categories">
+          <h3>
+            <i class="fa fa-tag side-icon"></i>
+            <span class="side-title"><%= __('Category') %></span>
+          </h3>
+          <div class="side-content cbpgct" data-cbctl="<%= uid %>|bs"></div>
+        </section>
+
+        <section class="side-item side-tags">
+          <h3>
+            <i class="fa fa-tags side-icon"></i>
+            <span class="side-title"><%= __( 'Tags' ) %></span>
+          </h3>
+          <div class="side-content cbpgtg" data-cbctl="<%= uid %>||bs"></div>
+        </section>
+
+        <section class="side-item display-none js_org_widget">
+          <h3>
+            <i class="fa fa-institution side-icon"></i><span class="side-title"><%= __('Organization') %></span>
+          </h3>
+          <div class="side-content cbpgor" data-cbctl="<%= uid %>|bs"></div>
+        </section>
+
+      </aside>
+    </div>
+  </div>
+</div>

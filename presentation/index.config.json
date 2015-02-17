@@ -18,15 +18,18 @@
     "links" : [
       {
         "url" : "#solutions",
-        "label" : "Solutions and Pricing"
+        "label" : "Solutions and Pricing",
+        "className" : "nomobile"
       },
       {
         "url" : "#references",
-        "label" : "References"
+        "label" : "References",
+        "className" : "nomobile"
       },
       {
         "url" : "#contact",
-        "label" : "Contact"
+        "label" : "Contact",
+        "className" : "nomobile"
       }
     ],
     "refLogos" : [

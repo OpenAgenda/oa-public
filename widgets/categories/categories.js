@@ -1,6 +1,8 @@
+"use strict";
+
 exports.setOnReady = setOnReady;
 
-var UID = 0,
+var UID = 0, MODE = 1,
 
 cn = require(  '../../js/lib/common/common.mod.js' ),
 
@@ -30,10 +32,16 @@ var widget = function( elem, options ) {
   categories = [], passedCategorySlugs = [],
 
   activeCategories = [],  // categories which are within current event selection
-  
+
   init = function() {
 
     var uid = options.anchorConfig[ UID ];
+
+    if ( options.anchorConfig[ MODE ] ) {
+
+      view.setMode( options.anchorConfig[ MODE ] )
+
+    }
 
     log = debug( 'categories widget ' + uid );
 
@@ -56,7 +64,7 @@ var widget = function( elem, options ) {
 
       _setCategories( data );
 
-      if ( !data.ebd || data.ebd.dcss ) view.setDefaultStyle();
+      if ( data.ebd && data.ebd.dcss ) view.setDefaultStyle();
 
       log( 'init complete, enable to render' );
 

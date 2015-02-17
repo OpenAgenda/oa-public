@@ -1,9 +1,10 @@
 {
   "base" : {
-    "slug" : "chez-nous"
+    "slug" : "chez-nous",
+    "eventUri" : "eventShow",
+    "base" : { "slug" : "chez-nous" }
   },
   "standard" : {
-    "eventUri" : "eventShow",
     "eventBaseQuery" : { "slug" : "chez-nous" },
     "events" : [
       {

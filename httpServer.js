@@ -30,6 +30,8 @@ map;
 
 debug.enable('*');
 
+templater.disableFileCache();
+
 var log = debug('httpServer');
 
 log('IMPORTANT: if nodemon is to be used, use it with proper exclusions');
@@ -53,6 +55,8 @@ http.createServer(function ( req, res ) {
       if ( cn.contains( ['.js'], uri.substr(-3) ) ||
 
       cn.contains( ['.css', '.jpg', '.png', '.ico', '.ttf', '.svg', '.eot', '.otf', '.ejs'], uri.substr(-4) ) ||
+
+      cn.contains( ['.woff2'], uri.substr(-6) ) ||
 
       cn.contains( ['.woff', '.json', '.html'], uri.substr(-5) ) ) {
 

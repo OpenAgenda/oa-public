@@ -1,0 +1,22 @@
+{
+  "css" : {
+    "openagenda" : "../openagenda/css/openagenda.css",
+    "tmp" : "../css/temporary.css"
+  },
+
+  "base" : {
+    "pageClass" : false,
+    "pageId" : false,
+    "searchRes" : "searchEvents",
+    "search" : "",
+    "metas" : {
+      "title" : "Cibul - Open Agendas",
+      "description": "Communicate efficiently on your events",
+      "keywords" : "cibul, events, agendas, open data, networked",
+      "robots" : "index, follow"
+    },
+    "lang" : "fr"
+  },
+
+  "templateJs" : true
+}

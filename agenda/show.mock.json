@@ -7,6 +7,8 @@
     "url" : "http://cheznous.coop",
     "redirect" : "quiruezrhdk",
     "uid" : 48959239,
+    "eventUri" : "eventShow",
+    "base" : { "slug" : "chez-nous" },
     "scriptParams" : {
       "uid" : 48959239,
       "total" : 200,

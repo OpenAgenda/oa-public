@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="language" content="<%= lang %>" />
+<% if ( metas.title ) { %>
+    <title><%= __( metas.title ) %></title>
+<% } %>
+    <% include ../layout/metas.part.ejs %>
+    <% include ../layout/css.part.ejs %>
+    <% include ../layout/js.part.ejs %>
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body<% if ( pageClass ) { %> class="<%= pageClass %>"<% } %> <% if ( pageId ) { %> id="<%= pageId %>"<% } %> data-options="<%- typeof scriptParams !== 'undefined' ? _esc( JSON.stringify( scriptParams ) ) : '' %>">
+    <nav class="navbar navbar-default navbar-static-top" id="nav">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse">
+            <i class="fa fa-bars"></i>
+          </button>
+          <a class="navbar-brand" href="#">
+              <img src="/images/openagenda.png" alt="Open Agenda" width="125" alt="">
+            </a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <form class="navbar-left search-form" role="search">
+            <input class="search-input" placeholder="Rechercher" type="text"><div class="search-button">
+              <button class="search-submit" type="submit"><i class="fa fa-search"></i></button>
+            </div>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">FR</a></li>
+            <li><a href="#">Se connecter</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>

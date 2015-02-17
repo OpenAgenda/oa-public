@@ -32,6 +32,7 @@ module.exports = {
     }
   },
   selectors: {
+    syncSection: '.js_map_sync',
     sync: '.js_sync_checkbox'
   },
   selectedLocation: false,

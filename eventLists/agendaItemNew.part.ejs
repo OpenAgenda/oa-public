@@ -1,0 +1,25 @@
+<article class="row">
+  <aside class="col-sm-3 event-aside">
+    <span class="time-count"></span>
+  </aside>
+  <section class="col-sm-9">
+    <a class="event-card" href="<%= genUrl(eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ] ) %>">
+<% if ( event.thumbnail ) { %>    
+      <div class="event-img">
+        <img  class="img-responsive" src="<%= _i( event.thumbnail ) %>" width="568" height="213">
+      </div>
+<% } %>
+      <div class="event-text">
+        <h3 class="event-title"><%= event.title %></h3>
+        <p><%= event.description %></p>
+        <ul class="metas">
+          <li><i class="fa fa-clock-o"></i> <%= __( event.dateRange[0], _t( event.dateRange[1] ) ) %></li>
+          <li><i class="fa fa-map-marker"></i> <%= event.placeName %></li>
+        </ul>
+        <button class="event-action" type="button">
+          <i class="fa fa-plus-circle"></i> <%= __('Add to my agenda') %>
+        </button>
+      </div>
+    </a>
+  </section>
+</article>

@@ -77,7 +77,7 @@ var widget = function( elem, options ) {
 
     controller.getControlData( function( data ) {
 
-      if ( !data.ebd || data.ebd.dcss ) styler( style );
+      if ( data.ebd && data.ebd.dcss ) styler( style );
 
       _createCalendar();
 

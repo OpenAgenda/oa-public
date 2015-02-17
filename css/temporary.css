@@ -1,0 +1,9 @@
+/**
+ * need a class to hide stuff
+ */
+.display-none { display: none!important; }
+
+/**
+ * map widget needs to have a set height
+ */
+.map-canvas { height: 280px; }

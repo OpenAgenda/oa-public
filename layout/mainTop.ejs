@@ -7,54 +7,34 @@
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
     <meta name="language" content="<%= lang %>" />
-<% for ( var i in metas ) { %><% if ( typeof metas[i] == 'string' ) { %>
-    <meta name="<%= i %>" content="<%= __( metas[i] ) %>" />
-<% } else { %>
-    <meta <% for ( var j in metas[i] ) { %> <%- j %>="<%- metas[i][j] %>"<% } %> />
-<% } %><% } %>
-<% for ( var i in head.css ) { %>
-    <link rel="stylesheet" href="<%= head.css[i] %>"/>
-<% } %>
-<% if ( typeof headLinks !== 'undefined' ) { %><% headLinks.forEach( function( link ) { %>
-    <link <% for ( var i in link ) { %><%= i %>="<%= link[ i ] %>" <% } %>/>
-<% }) %><% } %>
-<% if ( head.js ) { %>
-<% for ( var i in head.js ) { %>
-<% if ( typeof head.js[i] == 'string' ) { %>
-    <script type="text/javascript" src="<%= head.js[i] %>"></script>
-<% } else { %>
-    <script type="text/javascript"<% for ( var a in head.js[i] ) { %> <%= a %><% if ( head.js[i][a]!==true) { %>="<%= head.js[i][a] %>"<% } %><% } %>></script>
-<% } %>
-<% } %>
-<% } %>
-<% for ( var i in js ) { %>
-    <script type="text/javascript" src="<%= js[i] %>"></script>
-<% } %>
+    <% include ./metas.part.ejs %>
+    <% include ./css.part.ejs %>
+    <% include ./js.part.ejs %>
   </head>
   <body<% if ( pageClass ) { %> class="<%= pageClass %>"<% } %> data-options="<%- typeof scriptParams !== 'undefined' ? _esc( JSON.stringify( scriptParams ) ) : '' %>">
     <header>
-      <a class="logo" href="/"><img alt="<%= __('Cibul - Open Agendas') %>" src="/images/biglogo.png"></a>
-      <ul class="links site-links js_header_links">
+      <div class="container">
+        <a class="logo" href="/"><img alt="<%= __('Cibul - Open Agendas') %>" src="/images/openagenda.png"></a>
+        <form class="cform bigger" method="get" action="<%= genUrl( searchRes ) %>">
+          <input type="text" name="search[what]" value="<%= search && ( typeof search.what !== 'undefined' ) ? search.what : '' %>" placeholder="<%= __('Search') %>"/>
+          <button type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </form>
+        <ul class="links site-links js_header_links">
 <% if ( typeof links !== 'undefined' ) { %>
 <% links.forEach( function( link ) { %>
-        <li><a href="<%= link.url %>"><%= __(link.label) %></a></li>
+          <li <% if ( typeof link.className !== 'undefined') { %>class="<%= link.className %>"<% } %>><a href="<%= link.url %>"><%= __(link.label) %></a></li>
 <% }); %>
 <% } %>
-        <li><a class="js_signin_link" href="<%= genUrl('signin') %>"><%= __('Sign in') %></a></li>
-        <li class="language-menu js_language_menu">
-          <a><% if ( ( typeof lang == 'undefined' ) || lang=='fr' ) { %>fr<% } else { %>en<% } %></a>
-          <ul class="language-menu">
-            <li><a rel="alternate" href="?lang=fr" hreflang="fr">français</a></li><!--
-            --><li><a href="?lang=en" hreflang="en">english</a></li>
-          </ul>
-        </li>
-        <li>
-          <form class="cform csingle bigger" method="get" action="<%= genUrl( searchRes ) %>">
-            <input type="text" name="search[what]" value="<%= search && ( typeof search.what !== 'undefined' ) ? search.what : '' %>"/>
-            <button type="submit">
-              <i class="fa fa-search"></i>
-            </button>
-          </form>
-        </li>
-      </ul>
+          <li><a class="js_signin_link" href="<%= genUrl('signin') %>"><%= __('Sign in') %></a></li>
+          <li class="language-menu js_language_menu">
+            <a><% if ( ( typeof lang == 'undefined' ) || lang=='fr' ) { %>fr<% } else { %>en<% } %></a>
+            <ul class="language-menu">
+              <li><a rel="alternate" href="?lang=fr" hreflang="fr">français</a></li><!--
+              --><li><a href="?lang=en" hreflang="en">english</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </header>
