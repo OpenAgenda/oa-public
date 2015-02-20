@@ -18,7 +18,7 @@ perPage = 20,
 
 modes = {
   show: {
-    template: 'agenda/show',
+    template: 'agenda/new',
     uri: 'agendaShow',
     eventUri: 'agendaEventShow',
     base: [ 'slug' ],
@@ -74,8 +74,12 @@ routes = {
     _formatAgendaData( 'show' ),
     _loadEvents, 
     _loadTemplateUris,
-    cmn.loadBaseData( _layoutData )
+    cmn.loadBaseData( _layoutData, 'oa.css' )
   ] ],
+
+  agendaActionShow: [ 'get', actionShow, '/:slug/action', [
+    cmn.loadAgenda( 'slug' )
+  ] ]
 },
 
 log = require( '../lib/logger' )( appName ),
@@ -185,6 +189,8 @@ function _formatAgendaData( mode ) {
       url: req.agenda.url,
       image: req.agenda.getImage( false )
     };
+
+    req.templateData.importUri = req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } );
 
     if ( req.params.embedUid ) {
 
@@ -300,7 +306,7 @@ function show( req, res ) {
   if ( req.xhr ) {
 
     // there is no embed partial
-    req.template = 'agenda/show';
+    req.template = req.template == 'agenda/embedShow' ? 'agenda/show' : 'agenda/new';
 
     cmn.renderTemplate( req, req.template, req.templateData, function( err, partial ) {
 
@@ -315,6 +321,29 @@ function show( req, res ) {
   } else {
 
     cmn.render( req, res, req.template, req.templateData );
+
+  }
+
+}
+
+
+function actionShow( req, res ) {
+
+  var renderParams = [ req, res, 'agenda/action', {
+    uid: req.agenda.uid
+  }];
+
+  if ( req.xhr ) {
+
+    cmn.render.apply( null, renderParams );
+
+  } else {
+
+    cmn.loadBaseData( _layoutData, 'oa.css' )( req, res, function() {
+
+      cmn.render.apply( null, renderParams );
+
+    } );
 
   }
 

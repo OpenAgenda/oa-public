@@ -273,6 +273,7 @@ function _prepareEventItem( event, inst, tags, ecb ) {
   lib.extend( event, {
     dateRange: inst.getDateRange( true ),
     title: inst.getTitle(),
+    image: inst.getImage( false ),
     thumbnail: inst.getThumbnail( false ),
     description: inst.getDescription(),
     placeName: event.locations ? event.locations[0].name : false,

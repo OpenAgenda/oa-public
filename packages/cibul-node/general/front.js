@@ -97,7 +97,7 @@ function presentation( req, res ) {
 
     }
 
-    cmn.render( req, res, 'presentation/index' );
+    cmn.render( req, res, 'presentation/new' );
 
   } )
 
