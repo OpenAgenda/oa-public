@@ -15,6 +15,9 @@
 <div id="content">
   <div class="container">
     <div class="row">
+      <section class="col-sm-8 main-content">
+        <div class="row filters cbpgft" data-cbctl="<%= uid %>|<%= lang %>|bs"></div>
+      </section>
       <section class="col-sm-8 main-content js_list_content">
         <% include ./new.part.ejs %>
       </section>
@@ -54,7 +57,7 @@
           </div>
         </section>
 
-        <section class="side-item side-categories">
+        <section class="side-item side-categories display-none js_category_widget">
           <h3>
             <i class="fa fa-tag side-icon"></i>
             <span class="side-title"><%= __('Category') %></span>
@@ -62,7 +65,7 @@
           <div class="side-content cbpgct" data-cbctl="<%= uid %>|bs"></div>
         </section>
 
-        <section class="side-item side-tags">
+        <section class="side-item side-tags display-none js_tags_widget">
           <h3>
             <i class="fa fa-tags side-icon"></i>
             <span class="side-title"><%= __( 'Tags' ) %></span>

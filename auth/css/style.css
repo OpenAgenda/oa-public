@@ -82,6 +82,10 @@
   padding: 1em 0;
 }
 
+.auth footer p {
+  padding: 1em 0 0;
+}
+
 
 .auth .signin,
 .auth .signup {
@@ -97,7 +101,7 @@
   position: relative;
   overflow: hidden;
   height: 3em;
-  width: 16em;
+  width: 190px;
 }
 
 .g-recaptcha {

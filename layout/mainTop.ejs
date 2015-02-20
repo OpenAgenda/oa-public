@@ -14,7 +14,7 @@
   <body<% if ( pageClass ) { %> class="<%= pageClass %>"<% } %> data-options="<%- typeof scriptParams !== 'undefined' ? _esc( JSON.stringify( scriptParams ) ) : '' %>">
     <header>
       <div class="container">
-        <a class="logo" href="/"><img alt="<%= __('Cibul - Open Agendas') %>" src="/images/openagenda.png"></a>
+        <a class="logo" href="/"><img alt="OpenAgenda" src="/images/openagenda.png"></a>
         <form class="cform bigger" method="get" action="<%= genUrl( searchRes ) %>">
           <input type="text" name="search[what]" value="<%= search && ( typeof search.what !== 'undefined' ) ? search.what : '' %>" placeholder="<%= __('Search') %>"/>
           <button type="submit">

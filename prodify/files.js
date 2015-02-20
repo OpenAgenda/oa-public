@@ -32,7 +32,9 @@ destCssPath = '../../cibul-symfony/web/css/compiled.css',
 
 destEmbedCssPath = '../../cibul-symfony/web/css/embedDefault.css',
 
-destAdminCssPath = '../../cibul-symfony/web/css/compiledAdmin.css'
+destAdminCssPath = '../../cibul-symfony/web/css/compiledAdmin.css',
+
+destOACssPath = '../../cibul-symfony/web/css/oa.css',
 
 files = {
 
@@ -518,4 +520,5 @@ exports.destPath = destPath;
 exports.destCssPath = destCssPath;
 exports.destEmbedCssPath = destEmbedCssPath;
 exports.destAdminCssPath = destAdminCssPath;
+exports.destOACssPath = destOACssPath;
 exports.destPublicTemplatePath = destPublicTemplatePath;

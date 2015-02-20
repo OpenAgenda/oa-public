@@ -1,6 +1,6 @@
 exports.setOnReady = setOnReady;
 
-var UID = 0, LANG = 1,
+var UID = 0, LANG = 1, MODE = 2,
 
 cn = require(  '../../js/lib/common/common.mod.js' ),
 
@@ -49,6 +49,12 @@ var widget = function( elem, options ) {
     lang = options.anchorConfig[ LANG ],
 
     log = debug( 'activeFilters widget ' + uid );
+
+    if ( options.anchorConfig[ MODE ] ) {
+
+      dom.setMode( options.anchorConfig[ MODE ] );
+
+    }
 
     dom.setOnRemove( _onFilterRemove );
 

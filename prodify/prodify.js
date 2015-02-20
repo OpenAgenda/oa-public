@@ -12,6 +12,8 @@ destEmbedCssPath = require( './files.js' ).destEmbedCssPath,
 
 destAdminCssPath = require( './files.js' ).destAdminCssPath,
 
+destOACssPath = require( './files.js' ).destOACssPath,
+
 destPublicTemplatePath = require('./files.js').destPublicTemplatePath,
 
 map = JSON.parse( fs.readFileSync('../map.json', "utf8") ),
@@ -46,6 +48,7 @@ run = function() {
     async.apply( prodifyCss, map, 'css', destCssPath ),
     async.apply( prodifyCss, map, 'embedCss', destEmbedCssPath ),
     async.apply( prodifyCss, map, 'adminCss', destAdminCssPath ),
+    async.apply( prodifyCss, map, 'oaCss', destOACssPath ),
     async.apply( prodifyPublicTemplates, map ),
     async.apply( prodifyTemplateJs, map ),
     async.apply( prodifyJs, map ), 

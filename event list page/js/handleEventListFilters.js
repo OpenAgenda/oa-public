@@ -2,8 +2,8 @@ var handleEventListFilters = function(params) {
 
   params = extend({
     canvas: false, // where the filters fit
-    template: '<label><i class="icon-filter"></i></label><span class="js_filter_fields"></span><button><i class="icon-refresh"></i></button>',
-    className: 'list-filters',
+    template: '<label><i class="fa fa-filter"></i></label><span class="js_filter_fields"></span><button><i class="fa fa-refresh"></i></button>',
+    className: 'list-filters cform',
     selectors: {
       fields: '.js_filter_fields',
       button: 'button'

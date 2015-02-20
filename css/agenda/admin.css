@@ -1,9 +1,18 @@
-#review-admin-menu header .title { width: auto; }
-
-
-#review-admin-menu .sec {
-  width: 210px;
+#review-admin-menu header {
+  padding: 40px 40px 0;
 }
+
+#review-admin-menu header .title {
+  display: inline-block;
+  vertical-align: top;
+  width: auto;
+}
+
+#review-admin-menu header img {
+  max-width: 90px;
+  padding-right: 10px;
+}
+
 
 #review-admin-menu textarea {
   width: 100%;
@@ -11,16 +20,6 @@
 
 #review-admin-menu p {
   padding-bottom: 0.5em;
-}
-
-#review-admin-menu .main {
-  width: 800px;
-}
-
-@media (max-width: 1050px) {
-  #review-admin-menu .main {
-    width: 500px!important;
-  }
 }
 
 #review-admin-menu .main section {
@@ -33,7 +32,6 @@
 
 #review-admin-menu .aei > ul { padding-bottom: 1.1em; margin-bottom: 1.4em; border-bottom: 1px solid #ccc; }
 
-#review-admin-menu li.title { display: block; }
 #review-admin-menu li.title span { font-weight: bold; }
 #review-admin-menu li.title i { margin-left: 0.5em; color: #aaa; vertical-align: middle; }
 #review-admin-menu li.desc * { color: #999; }

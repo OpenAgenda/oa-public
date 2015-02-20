@@ -1,0 +1,14 @@
+{
+  "layout" : "bsLayout/main",
+
+  "bsCss" : {},
+
+  "helpers" : {
+    "_t" : "time",
+    "_i" : "image",
+    "_sl" : "shareLinks",
+    "_txt" : "text"
+  },
+
+  "base" : {}
+}

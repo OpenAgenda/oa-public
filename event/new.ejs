@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12 agenda-container">
-<% if ( image ) { %>
+<% if ( !loner && image ) { %>
         <a href="<%= genUrl('agendaShow', { slug: slug }) %>"><img class="avatar" src="<%= _i( image ) %>" alt="<%= title %>"><%= title %></a>
 <% } %>
       </div>
@@ -29,7 +29,7 @@
 
         <div class="meta-container">
           <p>
-            <a class="btn btn-success event-action" href="#">
+            <a class="btn btn-success event-action js_import_action" href="<%= event.importUri %>">
               <i class="fa fa-plus-circle"></i><%= __('Add to my agenda') %>
             </a>
           </p>

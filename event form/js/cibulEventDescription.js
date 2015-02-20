@@ -41,7 +41,7 @@ var cibulEventDescription = function(params) {
     activeClass: 'active',
     defaultLanguage: 'en',
     classes: {
-      description: 'description form-section',
+      description: 'description form-section cform',
       field: 'input-fields',
       languageTab: 'action'
     },

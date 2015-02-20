@@ -12,8 +12,14 @@ params = {
 
 templates = {
   main : require( './main.ejs' ),
-  item : require( './item.ejs' )
-};
+  bsMain : require( './bsMain.ejs' ),
+  item : require( './item.ejs' ),
+  bsItem: require( './bsItem.ejs' )
+},
+
+mainTemplate = templates.main,
+
+itemTemplate = templates.item;
 
 module.exports = function( anchorElem ) {
 
@@ -23,7 +29,8 @@ module.exports = function( anchorElem ) {
 
     return {
       render: render,
-      setOnRemove: setOnRemove // set callback to call when remove request is set
+      setOnRemove: setOnRemove, // set callback to call when remove request is set
+      setMode: setMode
     }
 
   },
@@ -42,7 +49,7 @@ module.exports = function( anchorElem ) {
 
     }
 
-    wrapper.innerHTML = new EJS( { text: templates.main } ).render( data );
+    wrapper.innerHTML = new EJS( { text: mainTemplate } ).render( data );
 
     itemsCanvas = cn.el( wrapper, params.selectors.itemsCanvas );
 
@@ -62,13 +69,25 @@ module.exports = function( anchorElem ) {
 
   },
 
+  setMode = function( mode ) {
+
+    if ( mode == 'bs' ) {
+
+      mainTemplate = templates.bsMain;
+
+      itemTemplate = templates.bsItem;
+
+    }
+
+  },
+
   _createFilterItem = function( filter ) {
 
     var itemWrapper = document.createElement( 'ul' ),
 
     filterElem;
 
-    itemWrapper.innerHTML = new EJS( { text: templates.item }).render( filter );
+    itemWrapper.innerHTML = new EJS( { text: itemTemplate }).render( filter );
 
     filterElem = cn.el( itemWrapper, 'li' );
 

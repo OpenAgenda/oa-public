@@ -4,7 +4,9 @@ var eventMap = require( './map' ),
 
 cn = require( '../../js/lib/common/common.mod' ),
 
-adminControls = require( './adminControls' );
+adminControls = require( './adminControls' ),
+
+modalPartial = require( '../../bsLayout/js/modalPartial' );
 
 window.hook( function( options ) {
 
@@ -17,5 +19,7 @@ window.hook( function( options ) {
   });
   
   eventMap();
+
+  modalPartial( cn.el( '.js_import_action' ) );
 
 });

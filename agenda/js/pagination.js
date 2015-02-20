@@ -124,7 +124,7 @@ function _onHitBottom( cb ) {
 
     windowHeight = cn.windowInnerHeight();
 
-    if ( pageBottom - windowHeight < scrollPos ) {
+    if ( pageBottom - windowHeight <= scrollPos ) {
 
       cb();
 

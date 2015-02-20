@@ -27,8 +27,8 @@ var handleEventList = function(params) {
   params.templates = extend({
     event: false,
     order: '<li class="mlis"><h2><%= values.order %></h2></li>',
-    pastLink: '<div class="past-link"><a><i class="icon-time"></i><span><%= includePast %></span></a><a><i class="icon-remove"></i><span><%= excludePast %></span></a>',
-    orderSelect: '<div class="js_select order"><i class="icon-sort-by-attributes"></i><span><%= label %>: <span class="js_chosen"></span></div><ul class="order-list js_menu wsq"><% for (index in orders) { %><li data-order="<%= index %>"><%= orders[index].label %></li><% } %></ul>'
+    pastLink: '<div class="past-link"><a><i class="fa fa-clock-o"></i><span><%= includePast %></span></a><a><i class="fa fa-remove"></i><span><%= excludePast %></span></a>',
+    orderSelect: '<div class="js_select order"><i class="fa fa-sort-amount-desc"></i><span><%= label %>: <span class="js_chosen"></span></div><ul class="order-list js_menu wsq"><% for (index in orders) { %><li data-order="<%= index %>"><%= orders[index].label %></li><% } %></ul>'
   }, params.templates?params.templates:{});
 
   var run = function() {

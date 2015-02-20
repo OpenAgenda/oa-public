@@ -5,7 +5,7 @@ var handleDatesAdd = function(params) {
     onAdd: false,
     onValidChange: false,
     templates: {
-      main: '<p><%= addTitle %></p><div class="info"><%= addInfo %></div><div class="js_dates date-select"></div><div class="timing-select"><div class="js_timings input-fields"></div><button><%= addDate %></button><div class="error js_error"></div></div>'
+      main: '<p><%= addTitle %></p><div class="info"><%= addInfo %></div><div class="js_dates date-select"></div><div class="timing-select cform"><div class="js_timings input-fields"></div><button><%= addDate %></button><div class="error js_error"></div></div>'
     },
     selectors: {
       dates: '.js_dates',

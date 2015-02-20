@@ -1,5 +1,5 @@
 {
-  "css" : {
+  "oaCss" : {
     "openagenda" : "../openagenda/css/openagenda.css",
     "tmp" : "../css/temporary.css"
   },

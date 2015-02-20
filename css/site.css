@@ -5,7 +5,7 @@
 
 body {
 
-  background: #efefef;
+  background: #eee;
 
 }
 
@@ -16,7 +16,7 @@ body {
 
 .url, .url a, .url strong, .url span, .url i, .hurl:hover, .hurl:hover a, .hurl:hover span, .hurl:hover i {
 
-  color: #11BED4;
+  color: #41acdd;
   word-wrap: break-word;
 
 }
@@ -53,12 +53,12 @@ body {
 .wsq {
 
   background: white;
-  vertical-align: top; 
-  -v-moz-box-shadow: 0 3px 4px #999999; 
-  -moz-box-shadow: 0 3px 4px #999999; 
-  -webkit-box-shadow: 0 3px 4px #999999; 
-  box-shadow: 0 1px 2px #999999; 
+  vertical-align: top;
   text-align: left;
+
+  -webkit-border-radius: 3px; 
+  -moz-border-radius: 3px; 
+  border-radius: 3px;
 
 }
 

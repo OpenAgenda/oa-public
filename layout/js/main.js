@@ -1,6 +1,10 @@
+"use strict";
+
 var cn = require('../../js/lib/common/common.mod.js'),
 
 mobileMonitor = require('./handleMobileMonitor.js'),
+
+mobileMenu = require( './mobileMenu' ),
 
 messageLinks = require('./handleMessageLinks.js'),
 
@@ -39,6 +43,8 @@ cn.addEvent( window, 'load', function() {
   if ( options.env == 'dev' || window.env == 'dev' ) debug.enable( '*' );
 
   mobileMonitor( document, window, navigator, eh );
+
+  mobileMenu();
 
   messageLinks( eh );
 

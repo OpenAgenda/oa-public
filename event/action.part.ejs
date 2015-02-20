@@ -1,0 +1,16 @@
+<div class="popup-overlay js_close_popup">
+  <section>
+    <header class="popup-title">
+      <h2><%= __('Add to an agenda') %></h2>
+      <a class="close-link" href=""><i class="fa fa-times fa-lg"></i></a>
+    </header>
+    <form class="js_popup_content">
+      <p class="popup-legend"><%= __('Import in OpenAgenda') %></p>
+      <div class="btn-adds">
+<% agendas.forEach( function( agenda ) { %>
+        <a class="btn btn-default" href="#"><%= agenda.title %></a>
+<% }); %>
+      </div>
+    </form>
+  </section>
+</div>

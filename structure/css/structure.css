@@ -18,6 +18,10 @@
   background: white;
   margin: 10em auto 5em;
 
+  -webkit-border-radius: 3px; 
+  -moz-border-radius: 3px; 
+  border-radius: 3px;
+
 }
 
 .cb .canvas.mw920 {
@@ -125,3 +129,6 @@
   }
 
 }
+
+
+

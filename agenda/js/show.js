@@ -12,6 +12,8 @@ list = require( './list' ),
 
 handleSourceMenu = require( './handleSourceMenu' ),
 
+modalPartial = require( '../../bsLayout/js/modalPartial' ),
+
 config = require( './config' ),
 
 widgets = {
@@ -57,6 +59,7 @@ window.hook( function( options ) {
 
   log = debug( 'agendaPage' );
 
+  _handleImportButton();
 
   window.getSession( function( session ) {
 
@@ -71,6 +74,7 @@ window.hook( function( options ) {
     _handleAddToSource( uid, session );
 
   } );
+
 
   if ( !options.empty ) {
 
@@ -93,7 +97,7 @@ window.hook( function( options ) {
 
     } );
 
-    _showOrganizationWidget( controller );
+    _showOptionalWidgets( controller );
 
   }
 
@@ -144,6 +148,14 @@ function _handleAdminButton( session, ctl ) {
 
   }
 
+  if ( !cn.el( params.selectors.admin ) ) {
+
+    log( 'admin button not available' );
+
+    return;
+
+  }
+
   cn.removeClass( cn.el( params.selectors.admin ), params.classes.displayNone );
 
 }
@@ -179,18 +191,33 @@ function _handleAddButton( session, ctl ) {
 }
 
 
+function _handleImportButton() {
+
+  modalPartial( cn.el( '.js_import_action' ) );
+
+}
 
 
 
-function _showOrganizationWidget( controller ) {
+function _showOptionalWidgets( controller ) {
 
   controller.getControlData( function( data ) {
 
-    if ( ( typeof data.org !== 'undefined' ) && data.org.length ) {
+    cn.forEach( [ {
+      sel: '.js_category_widget', key: 'ct'
+    }, {
+      sel: '.js_tags_widget', key: 'tg'
+    }, {
+      sel: '.js_org_widget', key: 'org'
+    } ], function( cfg ) {
 
-      cn.removeClass( cn.el( params.selectors.org ), params.classes.displayNone );
+      if ( ( typeof data[ cfg.key ] !== 'undefined' ) && data[ cfg.key ].length ) {
 
-    }
+        cn.removeClass( cn.el( cfg.sel ), params.classes.displayNone );
+
+      }
+
+    } );
 
   });
 

@@ -78,6 +78,14 @@ module.exports = function( agendaUid, anchor, session ) {
 
   log = debug( 'sources' );
 
+  if ( !anchor ) {
+
+    log( 'anchor element of source menu was not found' );
+
+    return;
+
+  }
+
   lang = session.culture;
 
   uid = agendaUid;

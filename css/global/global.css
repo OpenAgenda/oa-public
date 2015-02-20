@@ -1,4 +1,4 @@
-* { margin: 0; padding: 0; border: 0; font: 13px/1.5 'Helvetica Neue',Arial,Helvetica,'Liberation Sans',FreeSans,sans-serif; list-style: none outside none; color: #333; }
+* { margin: 0; padding: 0; border: 0;  list-style: none outside none; color: #333; }
 article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary { display: block; }
 
 @media screen and (max-width: 600px) {
@@ -11,7 +11,9 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 
 body {
 
-  background: #efefef;
+  font-size: 14px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  background: #eee;
 
 }
 
@@ -41,11 +43,11 @@ a {
 
   background: white;
   vertical-align: top; 
-  -v-moz-box-shadow: 0 3px 4px #999999; 
-  -moz-box-shadow: 0 3px 4px #999999; 
-  -webkit-box-shadow: 0 3px 4px #999999; 
-  box-shadow: 0 1px 2px #999999; 
   text-align: left;
+
+  -webkit-border-radius: 3px; 
+  -moz-border-radius: 3px; 
+  border-radius: 3px;
 
 }
 

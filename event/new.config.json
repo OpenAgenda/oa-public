@@ -2,7 +2,7 @@
   
   "layout" : "bsLayout/main",
 
-  "css" : {
+  "oaCss" : {
     "leaflet" : "../css/leaflet-0.7.3.css"
   },
 

@@ -11,7 +11,7 @@
     },
     "useCaptcha": true,
     "captchaKey": "6Lco3f0SAAAAAC6JqFdBM5zQzIBwSXXPoySYQxCp",
-    "name" : "Gaetan Latouche",
+    "full_name" : "Gaetan Latouche",
     "email" : "gaetan@openagenda.com",
     "password" : "wigglypoof",
     "repeat" : "wigglypouf",

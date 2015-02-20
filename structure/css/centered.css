@@ -7,7 +7,7 @@
 
 .ct .canvas {
 
-  margin: 2em;
+  margin: 2em 0;
   padding: 1em 0;
   text-align: left;
   display: inline-block;
@@ -18,6 +18,10 @@
 
   background: white;
   padding: 2em;
+
+  -webkit-border-radius: 3px; 
+  -moz-border-radius: 3px; 
+  border-radius: 3px;
   
 }
 

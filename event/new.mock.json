@@ -8,8 +8,10 @@
     "slug" : "chez-nous",
     "url" : "http://cheznous.coop",
 
+
     "event" : {
 
+      "importUri" : "/event/action.part",
       "languages" : false,
       
       "uid" : 47088340,

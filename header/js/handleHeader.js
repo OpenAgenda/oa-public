@@ -61,14 +61,19 @@ var handleHeader = function(params) {
 
     // and needs to have logged values set in fields
     if (session.thumbnail) {
-      $('.js_user_thumb').attr('src', session.thumbnail).removeClass('display-none');
-    } else {
 
-      var fullName = session.fullName ? session.fullName : ( session.culture == 'fr' ? 'Mon Profil' : 'My Profile' );
+      $('.js_user_thumb').attr('src', session.thumbnail.replace('cibultest', 'cibul') ).removeClass('display-none');
+      
+    }
 
-      el( '.js_user_thumb' ).insertAdjacentHTML( 'afterend', '<label>' + fullName + '</label>' );
+    var fullName = session.fullName ? session.fullName : ( session.culture == 'fr' ? 'Mon Profil' : 'My Profile' );
+
+    el( '.js_user_thumb' ).insertAdjacentHTML( 'afterend', '<label>' + fullName + '</label>' );
+
+    if ( !session.thumbnail ) {
 
       $('.js_user_thumb').remove();
+
     }
 
     $('.js_logo_link').attr('href', $('.js_logo_link').attr('href') + 'home');

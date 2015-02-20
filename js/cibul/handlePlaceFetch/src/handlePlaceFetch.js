@@ -26,7 +26,7 @@ var handlePlaceFetch = function(params) {
     },
     spinner: { lines: 7, length: 1, width: 2, radius: 3, corners: 0, rotate: 0},
     classes: {
-      main: 'place-fetch input-fields',
+      main: 'place-fetch input-fields cform',
       country: 'country action',
       contextMenu: 'context-menu',
       addressGuide: 'info',

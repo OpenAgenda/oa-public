@@ -4,7 +4,7 @@ var handleEventPlaceEdit = function(params) {
     canvas: false,
     country: {code: 'FR', name: 'France'},
     templates: {
-      main: '<div class="js_place place"></div><div class="js_pricing pricing form-section"><h2><%= pricingTitle %></h2></div><div class="js_dates dates form-section"><h2><%= dateTitle %></h2></div><div class="separator"></div>',
+      main: '<div class="js_place place"></div><div class="js_pricing pricing form-section cform"><h2><%= pricingTitle %></h2></div><div class="js_dates dates form-section"><h2><%= dateTitle %></h2></div><div class="separator"></div>',
       info: '<div class="title"><%= name %></div><div class="address"><%= address %></div><a href="#" class="action js_change"><i class="icon-edit"></i><span><%= changeLabel %></span></a>',
     },
     selectors: {

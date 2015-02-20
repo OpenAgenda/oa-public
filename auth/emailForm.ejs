@@ -3,15 +3,14 @@
   <h1><%= __( typeof title == 'undefined' ? 'Create an account' : title ) %></h1>
   <p><%= __( 'Complete the signup process by typing in your email' ) %></p>
   <form class="cform" method="get" action="<%= genUrl( uri, optionals ) %>">
-    <ul>
+    <ul class="line">
       <li>
-        <label for="email"><%= __('Email') %></label>
-        <input type="email" name="email" value="<%= email %>" />
+        <input type="email" name="email" placeholder="<%= __('Email') %>" value="<%= email %>" />
 <% if ( errors.email ) { %>
         <span class="error"><%= __( errors.email ) %></span>
 <% } %>        
       </li>
-    <button name="submit-email" type="submit"><%= __('Confirm Email') %></button>
+    <button class="blue" name="submit-email" type="submit"><%= __('Confirm Email') %></button>
 
   </form>
 

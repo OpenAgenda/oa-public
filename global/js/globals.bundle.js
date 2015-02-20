@@ -4,7 +4,7 @@ var debug = require('debug'),
 log = debug('globals');
 
 window.handleGlobals = require('../../layout/js/main');
-},{"../../layout/js/main":21,"debug":2}],2:[function(require,module,exports){
+},{"../../layout/js/main":22,"debug":2}],2:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -2762,7 +2762,7 @@ function _checkAndClearTemplates( lastUpdate ) {
   store.set('lastTemplateUpdate', lastUpdate );
 
 };
-},{"../../js/lib/clientEjs/ejs":9,"../../js/lib/common/common.mod.js":10,"../../js/lib/remote/remote.mod.js":12,"async":23,"store":27}],15:[function(require,module,exports){
+},{"../../js/lib/clientEjs/ejs":9,"../../js/lib/common/common.mod.js":10,"../../js/lib/remote/remote.mod.js":12,"async":25,"store":29}],15:[function(require,module,exports){
 var cn = require( '../../js/lib/common/common.mod.js' ),
 
 debug = require('debug'),
@@ -2823,7 +2823,7 @@ module.exports = function() {
   } );
 
 }
-},{"../../js/lib/common/common.mod.js":10,"../../js/lib/lightbox/lightbox.mod":11,"debug":24}],16:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":10,"../../js/lib/lightbox/lightbox.mod":11,"debug":26}],16:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 b64 = require('../../js/lib/Base64/Base64.mod.js'),
@@ -2938,7 +2938,7 @@ var scan = function() {
   });
 
 };
-},{"../../home/js/action.js":5,"../../js/lib/common/common.mod.js":10,"debug":24}],18:[function(require,module,exports){
+},{"../../home/js/action.js":5,"../../js/lib/common/common.mod.js":10,"debug":26}],18:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 params = {
@@ -3347,9 +3347,41 @@ _hide = function( li ) {
 
 };
 },{"../../js/lib/Base64/Base64.mod.js":7,"../../js/lib/common/common.mod.js":10,"./clientTemplater":14}],21:[function(require,module,exports){
+"use strict";
+
+var cn = require( '../../js/lib/common/common.mod.js' );
+
+module.exports = {
+  getOptions: getOptions
+}
+
+function getOptions( selector ) {
+
+  var options = {}, 
+
+  stringified = cn.el( selector ).getAttribute( 'data-options' );
+
+  if ( !stringified ) return options;
+
+  try {
+
+    options = JSON.parse( stringified );
+
+  } catch( e ) {
+
+    log( 'could not parse options' );
+
+  }
+
+  return options;
+
+}
+},{"../../js/lib/common/common.mod.js":10}],22:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 mobileMonitor = require('./handleMobileMonitor.js'),
+
+mobileMenu = require( './mobileMenu' ),
 
 messageLinks = require('./handleMessageLinks.js'),
 
@@ -3362,6 +3394,8 @@ handleSession = require( './handleSession' ),
 headerProfile = require( './headerProfile' ),
 
 debug = require('debug'),
+
+layout = require( './layout' ),
 
 log = debug('globals'),
 
@@ -3377,7 +3411,7 @@ params = {};
 
 cn.addEvent( window, 'load', function() {
 
-  var options = _getOptions( 'body' );
+  var options = layout.getOptions( 'body' );
 
   cn.extend( params, options );
 
@@ -3387,11 +3421,13 @@ cn.addEvent( window, 'load', function() {
 
   mobileMonitor( document, window, navigator, eh );
 
+  mobileMenu();
+
   messageLinks( eh );
 
   confirmMessage();
 
-  if ( window.env !== 'test' ) {
+  if ( [ 'test', 'tpl' ].indexOf( window.env ) == -1 ) {
 
     loadZopim( document, window, eh, { env: window.env } );
 
@@ -3430,29 +3466,6 @@ window.hook = function( cb ) {
 
 window.getSession = handleSession();
 
-
-
-function _getOptions( selector ) {
-
-  var options = {}, 
-
-  stringified = cn.el( selector ).getAttribute( 'data-options' );
-
-  if ( !stringified ) return options;
-
-  try {
-
-    options = JSON.parse( stringified );
-
-  } catch( e ) {
-
-    log( 'could not parse options' );
-
-  }
-
-  return options;
-
-}
 
 
 /**
@@ -3495,7 +3508,47 @@ function _languageMenu( options ) {
   });
 
 }
-},{"../../js/lib/EventHandler/EventHandler.js":8,"../../js/lib/common/common.mod.js":10,"./confirmMessage":15,"./handleFlashMessage.js":16,"./handleMessageLinks.js":17,"./handleMobileMonitor.js":18,"./handleSession":19,"./headerProfile":20,"./zopimLoader.js":22,"debug":24}],22:[function(require,module,exports){
+},{"../../js/lib/EventHandler/EventHandler.js":8,"../../js/lib/common/common.mod.js":10,"./confirmMessage":15,"./handleFlashMessage.js":16,"./handleMessageLinks.js":17,"./handleMobileMonitor.js":18,"./handleSession":19,"./headerProfile":20,"./layout":21,"./mobileMenu":23,"./zopimLoader.js":24,"debug":26}],23:[function(require,module,exports){
+"use strict";
+
+var cn = require( '../../js/lib/common/common.mod.js' ),
+
+params = {
+  selectors: {
+    link: '.js_menu_button',
+    items: '.js_menu_item'
+  },
+  classes: {
+    active: 'active'
+  }
+}
+
+/**
+ * handle the sidebar menu in mobile mode
+ */
+
+module.exports = function() {
+
+  var visible = false,
+
+  linkElem = cn.el( params.selectors.link );
+
+  cn.addEvent( linkElem, 'click', function() {
+
+    cn.forEach( cn.els( params.selectors.items ), function( item ) {
+
+      item.setAttribute( 'style', visible ? 'display: none;' : 'display: block;' );
+
+    } );
+
+    visible = !visible;
+
+    ( visible ? cn.addClass : cn.removeClass )( linkElem, params.classes.active );
+
+  } )
+
+}
+},{"../../js/lib/common/common.mod.js":10}],24:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 params = {
@@ -3525,7 +3578,7 @@ module.exports = function(doc, win, eh, options) {
   });
 
 };
-},{"../../js/lib/common/common.mod.js":10}],23:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":10}],25:[function(require,module,exports){
 (function (process){
 /*!
  * async
@@ -4652,7 +4705,7 @@ module.exports = function(doc, win, eh, options) {
 }());
 
 }).call(this,require('_process'))
-},{"_process":28}],24:[function(require,module,exports){
+},{"_process":30}],26:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -4801,7 +4854,7 @@ function load() {
 
 exports.enable(load());
 
-},{"./debug":25}],25:[function(require,module,exports){
+},{"./debug":27}],27:[function(require,module,exports){
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -5000,9 +5053,9 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":26}],26:[function(require,module,exports){
+},{"ms":28}],28:[function(require,module,exports){
 module.exports=require(4)
-},{"/home/kaore/Dev/www/cibul-templates/global/js/node_modules/debug/node_modules/ms/index.js":4}],27:[function(require,module,exports){
+},{"/home/kaore/Dev/www/cibul-templates/global/js/node_modules/debug/node_modules/ms/index.js":4}],29:[function(require,module,exports){
 ;(function(win){
 	var store = {},
 		doc = win.document,
@@ -5179,7 +5232,7 @@ module.exports=require(4)
 
 })(Function('return this')());
 
-},{}],28:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};

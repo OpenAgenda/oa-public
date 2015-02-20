@@ -72,12 +72,15 @@ body > header form {
 }
 
 body > header form.cform input[type="text"] {
-  border: 1px solid #eee;
+  border-right: 1px solid #eee;
+  border-left: 1px solid #eee;
   border-color: #eee;
   width: 150px;
-  line-height: 40px;
-  padding-right: 2em;
-  font-size: 15px;
+  line-height: 30px;
+  padding: 10px 20px 10px 18px;
+  height: auto;
+  border-radius: 0;
+  background: transparent;
 }
 
 body > header form.cform button {
@@ -87,7 +90,7 @@ body > header form.cform button {
   right: 0;
   border: none;
   background: transparent;
-  margin: 1em 0.8em;
+  margin: 8px 5px;
 
 }
 

@@ -1,0 +1,19 @@
+{
+  "layout" : "layout/main",
+  "css" : {
+    "base" : "../css/base.css",
+    "site" : "../css/site.css",
+    "centered" : "../structure/css/centered.css",
+    "headings" : "../css/headings.css",
+    "header" : "../css/header.css",
+    "buttons" : "../css/buttons.css",
+    "presentation" : "css/style.css",
+    "opensans" : "../css/opensans.css"
+  },
+  "helpers" : {
+    "_i" : "image"
+  },
+  "base" : {
+    "pageClass" : "ct"
+  }
+}
