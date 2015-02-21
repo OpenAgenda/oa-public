@@ -43,13 +43,13 @@ config = {
       }
     },
     es: {
-      host: '10.74.132.55',
+      host: '54.74.48.195',
       port : 9200,
       indexName : 'cibul',
       channel: 'main'
     },
     redis: {
-      host: '10.74.132.55',
+      host: '54.74.48.195',
       port: 6379
     },
     session: {
