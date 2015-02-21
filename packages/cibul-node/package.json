@@ -11,7 +11,7 @@
     "oauth" : "0.9.11",
     "deep-extend" : "~0.2",
     "cibulModel" : "git+ssh://git@bitbucket.org:cibul/cibulmodel.git",
-    "cibulTemplates" : "git+ssh://git@bitbucket.org:cibul/cibul-templates.git",
+    "cibulTemplates" : "git+ssh://git@bitbucket.org:cibul/cibul-templates.git#oa",
     "ES" : "git+ssh://git@bitbucket.org:cibul/es-node.git",
     "aws-sdk" : "~2.0",
     "when" : "~3.4",
