@@ -18,10 +18,10 @@ config = {
   all: {
     heightOffset: 40,
     res: {  
-      agenda: '//openagenda.com/agendas/:uid/embed/events',
-      customAgenda: '//openagenda.com/agendas/:uid/embeds/:embedUid/events',
-      event: '//openagenda.com/agendas/:uid/embed/events/:eventUid',
-      customEvent: '//openagenda.com/agendas/:uid/embeds/:embedUid/events/:eventUid'
+      agenda: '//pre.openagenda.com/agendas/:uid/embed/events',
+      customAgenda: '//pre.openagenda.com/agendas/:uid/embeds/:embedUid/events',
+      event: '//pre.openagenda.com/agendas/:uid/embed/events/:eventUid',
+      customEvent: '//pre.openagenda.com/agendas/:uid/embeds/:embedUid/events/:eventUid'
     }
   },
   dev: {

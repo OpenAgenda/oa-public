@@ -372,7 +372,7 @@
 
         html = html + this.htmlizer.getHtml();
 
-        html = html + '<div class="cibul-footer"><a href="http://openagenda.com">powered by <img alt="cibul" src="https://s3-eu-west-1.amazonaws.com/cibulstatic/verysmalllogo.png"/></a></div>';
+        html = html + '<div class="cibul-footer"><a href="http://pre.openagenda.com">powered by <img alt="cibul" src="https://s3-eu-west-1.amazonaws.com/cibulstatic/verysmalllogo.png"/></a></div>';
 
         html = html.replace(/<a/g,'<a target="_blank" ');
 
@@ -424,7 +424,7 @@
 
     this.options = jQuery.extend({
       test: false,
-      link: 'http://openagenda.com/api/programwidget',
+      link: 'http://pre.openagenda.com/api/programwidget',
       testLink: 'http://d.openagenda.com/frontend_dev.php/api/programwidget',
       defaultClass: 'cibul-program-widget',
       defaultCssPath: 'http://s3-eu-west-1.amazonaws.com/cibulstatic/cibul-program-widget.css',

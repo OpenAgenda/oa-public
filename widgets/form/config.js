@@ -10,8 +10,8 @@ config = {
     standalone: true,
     scrollOffset: 100,
     resources: {
-      form: '//openagenda.com/embed/{uid}/form',
-      sandbox: '//openagenda.com/embed/{uid}/form/sandbox'
+      form: '//pre.openagenda.com/embed/{uid}/form',
+      sandbox: '//pre.openagenda.com/embed/{uid}/form/sandbox'
     },
     labels: {
       fr: {

@@ -14,9 +14,9 @@ env = window.env ? window.env : 'prod',
 
 defaults = {
   all: {
-    agenda : '//openagenda.com/agendas/{uid}/controldata',
-    embed : '//openagenda.com/agendas/{uid}/embeds/{embedUid}/controldata',
-    search : '//openagenda.com/widgets/{uid}/search'
+    agenda : '//pre.openagenda.com/agendas/{uid}/controldata',
+    embed : '//pre.openagenda.com/agendas/{uid}/embeds/{embedUid}/controldata',
+    search : '//pre.openagenda.com/widgets/{uid}/search'
   },
   dev: {
     agenda : '//d.openagenda.com/agendas/{uid}/controldata',
