@@ -43,13 +43,13 @@ config = {
       }
     },
     es: {
-      host: '10.74.177.209',
+      host: 'ec2-54-74-48-195.eu-west-1.compute.amazonaws.com',
       port : 9200,
       indexName : 'cibul',
       channel: 'main'
     },
     redis: {
-      host: '10.74.177.209',
+      host: 'ec2-54-74-48-195.eu-west-1.compute.amazonaws.com',
       port: 6379
     },
     session: {
@@ -63,7 +63,8 @@ config = {
     },
     mailer: {
       source: 'no-reply@cibul.net',
-      replyTo: 'admin@cibul.net'
+      replyTo: 'admin@cibul.net',
+      simulated: true
     },
     api: {
       redis: {
@@ -300,6 +301,9 @@ config = {
       host: 'localhost',
       port: 6389
     },
+    mailer: {
+      simulated: true
+    },
     routes: {
       defaultGlobalsPrefix: '/frontend_dev.php'
     },
@@ -381,6 +385,9 @@ config = {
     redis: {
       host: 'localhost',
       port: 6389
+    },
+    mailer: {
+      simulated: true
     },
     aws: {
       accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
