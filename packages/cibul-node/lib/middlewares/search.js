@@ -272,6 +272,7 @@ function _prepareEventItem( event, inst, tags, ecb ) {
 
   lib.extend( event, {
     dateRange: inst.getDateRange( true ),
+    closestDate: inst.getClosestDate(),
     title: inst.getTitle(),
     image: inst.getImage( false ),
     thumbnail: inst.getThumbnail( false ),
