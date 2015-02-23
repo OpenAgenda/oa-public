@@ -52,21 +52,6 @@ module.exports = function( options ) {
 
   };
 
-  process.relative = function( date, format ) {
-
-    if ( ( moment( date ) > moment().startOf( 'day' ) )
-
-    &&  ( moment( date ) < moment().endOf( 'day' ) ) ) {
-
-      return { en: 'today', fr: 'aujourd\'hui' };
-
-    }
-
-    return moment( date, format ? format : 'YYYYMMDD' ).from( moment() );
-
-
-  };
-
   process.diff = function( d1, d2 ) {
 
     var buffer, duration;
