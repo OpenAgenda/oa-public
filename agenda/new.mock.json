@@ -169,6 +169,11 @@
       "empty" : false
     }
   },
+  "noimage" : {
+    "image": false,
+    "isEmpty" : true,
+    "events" : []
+  },
   "empty" : {
     "isEmpty" : true,
     "events" : [],
