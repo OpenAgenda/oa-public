@@ -13,10 +13,35 @@ defaults = {
   selectors: {
     close: '.js_close_popup',
     inner: '.js_popup_content'
+  },
+  attributes: {
+    flag: 'data-flagged'
   }
 };
 
-module.exports = function( linkElem, options ) {
+module.exports = processItem;
+
+module.exports.multiple = multiple;
+
+
+function multiple( linkElems, options ) {
+
+  var params = cn.extend( {}, defaults, options ? options : {} );
+
+  cn.forEach( linkElems, function( linkElem ) {
+
+    if ( linkElem.hasAttribute( params.attributes.flag ) ) return;
+
+    linkElem.setAttribute( params.attributes.flag, 1 );
+
+    processItem( linkElem, params );
+
+  } );
+
+}
+
+
+function processItem( linkElem, options ) {
 
   var params = cn.extend( {}, defaults, options ? options : {} ),
 

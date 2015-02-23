@@ -78,9 +78,16 @@ window.hook( function( options ) {
 
   if ( !options.empty ) {
 
+    modalPartial.multiple( cn.els( '.js_event_action' ) );
+
     list.init( {
       total: options.total,
-      perPage: options.perPage
+      perPage: options.perPage,
+      onLoad: function() {
+
+        modalPartial.multiple( cn.els( '.js_event_action' ) );
+
+      }
     } );
 
     _onWidgetLoaded( function() {

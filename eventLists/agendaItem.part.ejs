@@ -1,17 +1,17 @@
 <article><!--
   <% if ( event.thumbnail ) { %>
-  --><a class="pic" href="<%= genUrl(eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ] ) %>">
+  --><a class="pic" href="<%= genUrl( eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ] ) %>">
     <img src="<%= _i( event.thumbnail ) %>" alt="<%= event.title %>">
   </a><!--
 <% } %>
   --><div class="cnt<% if ( !event.thumbnail ) { %> nopic<% } %>">
-    <a href="<%= genUrl(eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ]) %>">
+    <a href="<%= genUrl( eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ] ) %>">
       <span class="title"><%= event.title %></span>
     </a>
-    <a href="<%= genUrl(eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ]) %>">
+    <a href="<%= genUrl( eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ] ) %>">
       <span class="dsc"><%= event.description %></span>
     </a>
-    <a href="<%= genUrl(eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ]) %>">
+    <a href="<%= genUrl( eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ] ) %>">
       <span class="sti url"><%= __( event.dateRange[0], _t( event.dateRange[1] ) ) %></span>
       <span class="url">@ <%= event.placeName %></span>
 <% if ( event.organization ) { %>

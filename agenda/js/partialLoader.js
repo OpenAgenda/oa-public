@@ -9,10 +9,10 @@ qs = require( 'qs' ),
 defaults = {
   canvas: false, // canvas elem where content is loaded
   href: false, // this is the href loaded
-  updateLocation: false, // page url should be updated
   raw: false,   // response should be considered as raw data
   decorate: {},  // response should be decorated with this
-  preventBrowserCache: true
+  preventBrowserCache: true,
+  onLoad: false
 };
 
 
@@ -47,6 +47,8 @@ module.exports = function( options ) {
         _dom[ name ]( data );
 
         if ( cb ) cb( null, data );
+
+        if ( params.onLoad ) params.onLoad( null, data );
 
       });
 

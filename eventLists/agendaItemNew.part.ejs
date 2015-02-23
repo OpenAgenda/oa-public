@@ -16,9 +16,9 @@
           <li><i class="fa fa-clock-o"></i> <%= __( event.dateRange[0], _t( event.dateRange[1] ) ) %></li>
           <li><i class="fa fa-map-marker"></i> <%= event.placeName %></li>
         </ul>
-        <button class="event-action" type="button">
+        <a class="event-action js_event_action" type="button" href="<%= event.importUri %>">
           <i class="fa fa-plus-circle"></i> <%= __('Add to my agenda') %>
-        </button>
+        </a>
       </div>
     </a>
   </section>

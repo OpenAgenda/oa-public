@@ -14,7 +14,7 @@ params = {
   empty: false,                 // true if agenda is empty
   total: false,                 // total items
   perPager: false,              // items per page
-  updateBrowserLocation: true,  
+  onLoad: false,
   selectors: {
     list: '.js_list_content'
   }
@@ -41,7 +41,7 @@ function init( options ) {
 
   loader = partialLoader( cn.extend( config.partialOptions, {
     canvas: cn.el( params.selectors.list ),
-    updateLocation: params.updateBrowserLocation
+    onLoad: params.onLoad
   }));
 
   pagination.init( {

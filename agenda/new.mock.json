@@ -37,6 +37,7 @@
       {
         "title" : "Les imams en France",
         "uid" : "48948894",
+        "importUri" : "/event/action.part",
         "slug" : "fqsdfdq",
         "image" : "event_les-imams-en-france_924665.jpg",
         "thumbnail" : "evtbevent_les-imams-en-france_924665.jpg",
@@ -62,6 +63,7 @@
       {
         "title" : "Europe : les états désunis (Coralie Delaume)",
         "uid" : "45464648",
+        "importUri" : "/event/action.part",
         "slug" : "fqsdfdq",
         "thumbnail" : null,
         "thumbnail" : null,
@@ -83,6 +85,7 @@
       {
         "title" : "La petite noblesse de l’intelligence, une sociologie des enfants surdoués",
         "uid" : "748789456",
+        "importUri" : "/event/action.part",
         "slug" : "fqsdfdq",
         "image" : "event_premileres-mesures-revolutionnaires_282421.jpg",
         "thumbnail" : "evtbevent_premileres-mesures-revolutionnaires_282421.jpg",
@@ -104,6 +107,7 @@
       {
         "title" : "Homo spectator : voir, faire voir",
         "uid" : "748789456",
+        "importUri" : "/event/action.part",
         "slug" : "fqsdfdq",
         "image" : "event_la-petite-noblesse-de-l-intelligence-une-sociologie-des-enfants-surdoues_739383.jpg",
         "thumbnail" : "evtbevent_la-petite-noblesse-de-l-intelligence-une-sociologie-des-enfants-surdoues_739383.jpg",
@@ -114,6 +118,7 @@
       {
         "title" : "La Technologisation du corps",
         "uid" : "748789456",
+        "importUri" : "/event/action.part",
         "slug" : "fqsdfdq",
         "image" : "event_homo-spectator-voir-faire-voir_223470.jpg",
         "thumbnail" : "evtbevent_homo-spectator-voir-faire-voir_223470.jpg",
@@ -124,6 +129,7 @@
       {
         "title" : "Changeons d'agriculture",
         "uid" : "4546988948",
+        "importUri" : "/event/action.part",
         "slug" : "fqsdfdq",
         "image" : "event_changeons-d-agriculture_703516.jpg",
         "thumbnail" : "evtbevent_changeons-d-agriculture_703516.jpg",
@@ -144,6 +150,7 @@
       {
         "title" : "Eric Hazan",
         "uid" : "4546988948",
+        "importUri" : "/event/action.part",
         "slug" : "fqsdfdq",
         "image" : "event_premileres-mesures-revolutionnaires_282421.jpg",
         "thumbnail" : "evtbevent_premileres-mesures-revolutionnaires_282421.jpg",
