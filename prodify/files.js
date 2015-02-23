@@ -14,7 +14,6 @@ var paths = {
   pf:  '../program edit menu/js/',
   pm:  '../program menu/js/',
   pa:  '../agenda admin/js/',
-  pem: '../agenda embed menu/',
   npem: '../agenda embedded/js/',
   gl:  '../global/js/',
   jsc: '../js/cibul/',
@@ -137,13 +136,8 @@ files = {
       'handleSession/src/handleSession.js',
       'handleSuggestions/src/handleSuggestions.js',
       'inputCountry/src/inputCountry.js',
-    ],
-    /*[paths.pef, 'form.bundle.js', 'tunnel.bundle.js']*/
+    ]
   ],
-
-  /*'review/embedFormSandbox.js': [
-    [paths.pef, 'sandbox.bundle.js']
-  ],*/
 
   'header/search.min.js': [
     [paths.hs, 'common.js', 'handleHeader.js', 'queryClient.js'],
@@ -165,33 +159,6 @@ files = {
     [paths.hv, 'header.bundle.js']
   ],
 
-  'event/event.min.js': [
-    [paths.jsc,
-      'handleEventPlaces/src/handleEventPlaces.js',
-      'handleEventDates/src/handleEventDates.js',
-      'handleLanguages/src/handleLanguages.js',
-      'handleOEmbed/src/handleOEmbed.js',
-      'handleEvent/src/handleEvent.js',
-      'handleShares/src/handleShares.js',
-      'mapHandler/src/mapHandler.js',
-      'handleContextMenu/src/handleContextMenu.js',
-      'action/src/action.js'
-    ],
-    [paths.lib,
-      'Base64/Base64.js', 'common/common.js', 'remote/remote.js',
-      'loadJs/loadJs.js', 'lightbox/lightbox.js',
-      'urlStrings/urlStrings.js', 'EventHandler/EventHandler.js',
-      'tabs/tabs.js', 'linkToImage/linkToImage.js',
-      'maps/maps.js', 'maps/google.maps.js', 'lineNav/lineNav.js',
-    ],
-    [paths.vd,
-      'setLinks/src/setLinks.js',
-      'ejs/src/ejs_production.js',
-      'ejs/src/ejs_production.js',
-      'Cookies-master/src/cookies.js'
-    ],
-    [paths.e, 'handleEventAdmin.js']
-  ],
 
   'event/list.min.js': [
     [paths.lib,
@@ -416,20 +383,6 @@ files = {
     [paths.pm, 'specific.js', 'handleEditorsMenu.js', 'handleSourcesMenu.js']
   ],
 
-  /*'review/embedMenu.js': [
-    [paths.pem, 'js/embedMenu.bundle.js']
-  ],
-
-  'review/embedMenuLib.min.js': [
-    [paths.vd, 'ejs/src/ejs_production.js', 'CibulCalendar/src/CibulCalendar.js'],
-    [paths.lib, 'common/common.js', 'remote/remote.js', 'maps/maps.js', 'maps/osm.maps.js', 'selectForm/selectForm.js', 'lightbox/lightbox.js'],
-    [paths.npem, 'cibulSimpleController.js', 'cibulWidget.js', 'cibulStyle.js', 'cibulCategoriesWidget.js', 'cibulMapWidget.js', 'cibulTagsWidget.js', 'cibulCalendarWidget.js', 'cibulSearchWidget.js', 'widgetSandbox.js', 'mapWidgetConfig.js']
-  ],
-
-  'embed/mapWidgetConfig.js': [
-    [paths.lib, 'common/common.js'],
-    [paths.npem, 'mapWidgetConfig.js']
-  ], */
 
   'review/embedMap.min.js': [
     [paths.vd, 'ejs/src/ejs_production.js' ],
@@ -453,41 +406,7 @@ files = {
   'review/cibulEmbed.min.js': [
     [paths.jsc, 'cibulEmbed/src/cibulEmbed.js'],
   ],
-/*
-  'embed/cibulWidgetLib.js': [
-    [ paths.vd, 'ejs/src/ejs_production.js', 'CibulCalendar/src/CibulCalendar.js', ],
-    [ paths.lib, 'common/common.js', 'remote/remote.js', 'Base64/Base64.js', 'maps/maps.js', 'maps/osm.maps.js', 'urlStrings/urlStrings.js', 'iTunnel/iTunnel.js'],
-    [ paths.npem, 'cibulControllers.js', 'cibulWidget.js', 'cibulStyle.js', 'cibulCategoriesWidget.js'],
-  ],
 
-  'embed/cibulListWidget.js': [
-    [ paths.npem, 'cibulListWidget.js' ]
-  ],
-
-  'embed/cibulMapWidget.js': [
-    [paths.npem, 'cibulMapWidget.js']
-  ],
-
-  'embed/cibulCalendarWidget.js': [
-    [paths.npem, 'cibulCalendarWidget.js']
-  ],
-
-  'embed/cibulSearchWidget.js': [
-    [paths.npem, 'cibulSearchWidget.js']
-  ],
-
-  'embed/cibulCategoriesWidget.js': [
-    [paths.npem, 'cibulCategoriesWidget.js']
-  ],
-
-  'embed/cibulTagsWidget.js': [
-    [paths.npem, 'cibulTagsWidget.js']
-  ], 
-
-  'embed/cibulFormWidget.js': [
-    [paths.npem, 'cibulFormWidget.js']
-  ],
-*/
 
   'cmap.js': [[paths.lg, 'cmap.js']],
   'colorpicker.min.js': [[paths.lg, 'colorpicker.min.js']],

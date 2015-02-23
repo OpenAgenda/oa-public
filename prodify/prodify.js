@@ -38,6 +38,8 @@ stringify = require( 'stringify' ),
 
 reactify = require( 'reactify' ),
 
+browserified = [],
+
 run = function() {
 
   debug.enable('*');
@@ -435,7 +437,16 @@ getTemplateFilesToBrowserify = function ( templateName, cb ) {
 
 _browserify = function( paths, cb ) {
 
+  if ( browserified.indexOf( paths.dest.path + paths.dest.name ) !== -1 ) {
+
+    return cb();
+
+  }
+
+  browserified.push( paths.dest.path + paths.dest.name );
+
   log( 'browserificationization %s', paths.dest.path + paths.dest.name );
+
 
   // run browserify_browserify
 
