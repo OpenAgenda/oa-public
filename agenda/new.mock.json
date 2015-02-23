@@ -43,6 +43,7 @@
         "thumbnail" : "evtbevent_les-imams-en-france_924665.jpg",
         "description" : "Solenne Jouanneau",
         "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14" }],
+        "closestDate" : "2015-03-22T18:00:00.000Z",
         "placeName" : "Quelque part",
         "category" : {
           "label" : "Expositions",
@@ -69,6 +70,7 @@
         "thumbnail" : null,
         "description" : "Coralie Delaume nous explique avec brio pourquoi l'UE ne fonctionne pas.",
         "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14" }],
+        "closestDate" : "2015-03-22T18:00:00.000Z",
         "placeName" : "Centre George Pompidou",
         "city" : "Paris",
         "tags" : [
@@ -91,6 +93,7 @@
         "thumbnail" : "evtbevent_premileres-mesures-revolutionnaires_282421.jpg",
         "description" : "Wilfried Lignier",
         "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14" }],
+        "closestDate" : "2015-03-22T18:00:00.000Z",
         "placeName" : "Creanova",
         "city" : "Paris",
         "tags" : [
@@ -113,6 +116,7 @@
         "thumbnail" : "evtbevent_la-petite-noblesse-de-l-intelligence-une-sociologie-des-enfants-surdoues_739383.jpg",
         "description" : "Marie-José Mondzain",
         "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14"}],
+        "closestDate" : "2015-03-22T18:00:00.000Z",
         "placeName" : "Banque Populaire Atlantique"
       },
       {
@@ -124,6 +128,7 @@
         "thumbnail" : "evtbevent_homo-spectator-voir-faire-voir_223470.jpg",
         "description" : "Brigitte Munier-Termime",
         "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-13", "%finish%" : "2014-10-14" }],
+        "closestDate" : "2015-03-22T18:00:00.000Z",
         "placeName" : "Metro Stalingrad"
       },
       {
@@ -135,6 +140,7 @@
         "thumbnail" : "evtbevent_changeons-d-agriculture_703516.jpg",
         "description" : "Le “modèle” agricole qui s’est imposé depuis quelques décennies est de plus en plus critiqué en raison de ses conséquences néfastes sur l’environnement, l’emploi et la santé humaine et animale...",
         "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-14", "%finish%" : "2014-10-14" }],
+        "closestDate" : "2015-03-22T18:00:00.000Z",
         "placeName" : "Banque Populaire Atlantique",
         "tags" : [
           {
@@ -156,6 +162,7 @@
         "thumbnail" : "evtbevent_premileres-mesures-revolutionnaires_282421.jpg",
         "description" : "Eric Hazan",
         "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-14", "%finish%" : "2014-10-16" }],
+        "closestDate" : "2015-03-22T18:00:00.000Z",
         "placeName" : "Banque Impopulaire",
         "tags" : [
           {
