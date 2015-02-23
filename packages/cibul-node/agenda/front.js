@@ -240,7 +240,9 @@ function _loadTemplateUris( req, res, next ) {
 
     for ( var i in modes[ req.mode ].eventQuery ) {
 
-      e.query[ i ] = e[ modes[ req.mode ].eventQuery[ i ] ]
+      e.query[ i ] = e[ modes[ req.mode ].eventQuery[ i ] ];
+
+      e.importUri = req.genUrl( 'eventActionShow', { eventSlug: e.slug });
 
     }
 
