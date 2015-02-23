@@ -125,7 +125,7 @@ body > header .language-menu ul {
   position: absolute;
   right: 0;
   background: white;
-  padding: 2em 0 0;
+  padding: 0;
   display: none;
   z-index: 3;
 }

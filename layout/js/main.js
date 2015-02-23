@@ -99,7 +99,7 @@ function _languageMenu( options ) {
 
   var params = cn.extend( {
     selectors: {
-      main: 'header',
+      main: '.js_top_nav',
       langMenu: '.js_language_menu',
     }
   }, options ? options : {} ),
@@ -115,6 +115,8 @@ function _languageMenu( options ) {
   var langList = cn.el( langMenuElem, 'ul' );
 
   cn.addEvent( langMenuElem, 'click', function( e ) {
+
+    cn.preventDefault( e );
 
     if ( !langOn ) {
 

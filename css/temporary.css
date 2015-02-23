@@ -1,9 +1,53 @@
 /**
  * need a class to hide stuff
  */
-.display-none { display: none!important; }
+.display-none {
+  display: none!important;
+}
 
 /**
  * map widget needs to have a set height
  */
-.map-canvas { height: 280px; }
+.map-canvas {
+  height: 280px;
+}
+
+
+/**
+ * language menu list should be hidden
+ */
+
+#nav .language-menu ul {
+  position: absolute;
+  right: 0;
+  background: white;
+  padding: 2em 0 0;
+  display: none;
+  z-index: 3;
+}
+
+#nav .language-menu > a {
+  text-transform: uppercase;
+}
+
+
+/**
+ * calendar elements must not be selectable
+ */
+
+.ccal * {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;  
+}
+
+.ccal li.preselected {
+  background: #41acdd;
+  opacity: 0.8;
+}
+
+.ccal li.preselected span {
+  color: white;
+}

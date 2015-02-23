@@ -17,7 +17,7 @@
     <![endif]-->
   </head>
   <body<% if ( pageClass ) { %> class="<%= pageClass %>"<% } %> <% if ( pageId ) { %> id="<%= pageId %>"<% } %> data-options="<%- typeof scriptParams !== 'undefined' ? _esc( JSON.stringify( scriptParams ) ) : '' %>">
-    <nav class="navbar navbar-default navbar-static-top" id="nav">
+    <nav class="navbar navbar-default navbar-static-top js_top_nav" id="nav">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse">
@@ -34,8 +34,16 @@
             </div>
           </form>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">FR</a></li>
-            <li><a href="#">Se connecter</a></li>
+            <li class="js_language_menu language-menu">
+              <a href="#"><% if ( ( typeof lang == 'undefined' ) || lang=='fr' ) { %>fr<% } else { %>en<% } %></a></a>
+              <ul>
+                <li><a rel="alternate" href="?lang=fr" hreflang="fr">français</a></li><!--
+                --><li><a href="?lang=en" hreflang="en">english</a></li>
+              </ul>
+            </li>
+            <li>
+              <a class="js_signin_link" href="<%= genUrl('signin') %>"><%= __('Sign in') %></a>
+            </li>
           </ul>
         </div>
       </div>
