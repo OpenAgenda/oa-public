@@ -6,12 +6,16 @@
     <div class="row"><!--
       --><div class="col-sm-2 avatar-container">
 <% if ( image ) { %>
+      <a href="<%= genUrl( 'agendaShow', { slug: slug } ) %>">
         <img class="avatar" src="<%= _i( image ) %>" alt="<%= title %>">
+      </a>
 <% } %>
       </div><!--
       --><div class="col-sm-6 title-container">
-        <h1><%= title %></h1>
-        <p><%- _txt.setLinks( description ) %></p>
+        <a href="<%= genUrl( 'agendaShow', { slug: slug } ) %>">
+          <h1><%= title %></h1>
+          <p><%- _txt.setLinks( description ) %></p>
+        </a>
 <% if ( url ) { %>
         <p><a href="<%= url %>"><%= url %></a></p>
 <% } %>

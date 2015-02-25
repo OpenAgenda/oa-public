@@ -66,6 +66,7 @@
   }
 
   .event-card {
+
     background: white;
     border: 1px solid $gray-lighter;
     color: $oa-black;
@@ -80,16 +81,14 @@
     }
 
     &:hover {
+
       border-color: $oa-blue;
       border-radius: 3px;
 
-      .event-title {
-        color: $oa-blue;
+      .metas li {
+        color: $oa-gray;
       }
 
-      .event-text {
-        background: rgba(65, 172, 221, 0.025);
-      }
     }
   }
 
@@ -119,7 +118,7 @@
       border-radius: 2px 0 0 0;
       bottom: 0;
       position: absolute;
-      right: 0;
+      right: 15px;
       width: auto;
     }
   }
@@ -212,9 +211,14 @@
     list-style: none;
 
     li {
-      display: inline-block;
       color: $oa-silver;
-      margin-right: 20px;
+      margin: 0 0 5px 0;
+
+      i {
+        width: 1em;
+        text-align: center;
+      }
+
     }
   }
 

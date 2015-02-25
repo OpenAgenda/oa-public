@@ -14,12 +14,15 @@
         <p><%= event.description %></p>
         <ul class="metas">
           <li><i class="fa fa-clock-o"></i> <%= __( event.dateRange[0], _t( event.dateRange[1] ) ) %></li>
-          <li><i class="fa fa-map-marker"></i> <%= event.placeName %></li>
+          <li>
+            <i class="fa fa-map-marker"></i>
+              <%= event.placeName %><% if ( typeof event.city !== 'undefined' ) { %>, <%= event.city %><% } %>
+            </li>
         </ul>
-        <a class="event-action js_event_action" type="button" href="<%= event.importUri %>">
-          <i class="fa fa-plus-circle"></i> <%= __('Add to my agenda') %>
-        </a>
       </div>
+    </a>
+    <a class="event-action js_event_action" type="button" href="<%= event.importUri %>">
+      <i class="fa fa-plus-circle"></i> <%= __('Add to my agenda') %>
     </a>
   </section>
 </article>
