@@ -60,55 +60,6 @@ Page for displaying event datas
       </div><!-- /.container -->
     </nav><!-- /#nav -->
 
-    <div id="admin-bar">
-      <ul class="admin-list">
-        <li class="admin-item tooltip"><!-- Add open class to display list-group -->
-          <span class="admin-selected">Brouillon
-          </span>
-          <ul class="list-group">
-            <li class="list-group-item">
-              <a href="#" class="item active">Brouillon</a>
-            </li>
-            <li class="list-group-item">
-              <span class="item">Public</span>
-            </li>
-            <li class="list-group-item">
-              <span class="item">Privé</span>
-            </li>
-            <li class="list-group-item">
-              <button href="#" class="item">Secret</button>
-            </li>
-          </ul>
-          <span class="tooltip-text">Statut et visibilité</span>
-        </li><li class="admin-item tooltip"><!-- Add open class to display list-group -->
-          <span class="admin-selected">Conférence
-          </span>
-          <ul class="list-group">
-            <li class="list-group-item">
-              <a href="#" class="item">Théâtre</a>
-            </li>
-            <li class="list-group-item">
-              <span class="item">Enfant</span>
-            </li>
-            <li class="list-group-item">
-              <span class="item active">Conférence</span>
-            </li>
-          </ul>
-          <span class="tooltip-text">Catégorie</span>
-        </li><li class="admin-item tooltip">
-          <a class="admin-link" href="#">Modifier<span class="score"><small>Score</small><b>9 / 10</b></span></a>
-          <span class="tooltip-text long right">Complétez votre évènement en ajoutant&nbsp;:<br>- horaire (obligatoire)<br>- image (recommandé)</span>
-        </li><li class="admin-item tooltip">
-          <!-- If starified -->
-          <a class="admin-link starify active" href="#">Mis en une<i class="fa fa-star-o"></i><i class="fa fa-star"></i></a>
-          <!-- else -->
-          <a class="admin-link starify" href="#">Mettre en une<i class="fa fa-star-o"></i><i class="fa fa-star"></i></a>
-          <!-- endif -->
-          <span class="tooltip-text">Cliquer pour changer le statut</span>
-        </li>
-      </ul>
-    </div>
-
     <header id="header">
       <div class="container">
         <div class="row">
@@ -218,11 +169,9 @@ Page for displaying event datas
               </div><!-- /.langs-->
               <img  class="img-responsive" src="img/events/sample2.jpg" width="800" height="300">
               <div class="description">
-                <h3 class="title">Description longue</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in venenatis mi. Nullam pretium risus et velit porttitor, eget commodo sapien ullamcorper. Ut gravida aliquam est, id ornare nibh congue eget.</p><p>Sed leo lorem, placerat non dignissim pellentesque, vehicula pharetra sapien. In <strong>mollis felis</strong> vel ex sodales, vitae dapibus tellus porttitor. Donec vehicula dolor vitae dolor ultrices vehicula. Pellentesque nec gravida quam, vitae aliquam felis. Vivamus dignissim tortor lectus, eget interdum <em>lectus aliquam</em> ut. Vestibulum tincidunt quis risus quis laoreet. Phasellus <a href="#">scelerisque</a> tristique leo eget maximus. In lacinia feugiat eros ut porta. Quisque non tellus nec mauris suscipit placerat.</p>
               </div>
               <section class="dates">
-                <h3 class="title">Détail des dates</h3>
                 <ul>
                   <li class="past">lundi 1<sup>er</sup> mars, de 9 h à 18 h</li>
                   <li class="past">mardi 2 mars, de 9 h à 18 h</li>
@@ -241,6 +190,57 @@ Page for displaying event datas
           </section>
         </div><!-- /.row -->
       </div><!-- /.events.container -->
+
+      <div id="admin-bar">
+        <ul class="admin-list">
+          <!--<li class="admin-item tooltip open">
+            <span class="admin-selected">Brouillon</span>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <a href="#" class="item active">Brouillon</a>
+              </li>
+              <li class="list-group-item">
+                <span class="item">Public</span>
+              </li>
+              <li class="list-group-item">
+                <span class="item">Privé</span>
+              </li>
+              <li class="list-group-item">
+                <button href="#" class="item">Secret</button>
+              </li>
+            </ul>
+            <span class="tooltip-text">Statut et visibilité</span>
+          </li><li class="admin-item tooltip">
+            <span class="admin-selected">Conférence</span>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <a href="#" class="item">Théâtre</a>
+              </li>
+              <li class="list-group-item">
+                <span class="item">Enfant</span>
+              </li>
+              <li class="list-group-item">
+                <span class="item active">Conférence</span>
+              </li>
+            </ul>
+            <span class="tooltip-text">Catégorie</span>
+          </li><li class="admin-item tooltip">
+            <a class="admin-link" href="#">Modifier<span class="score"><small>Score</small><b>9 / 10</b></span></a>
+            <span class="tooltip-text long right">Complétez votre évènement en ajoutant&nbsp;:<br>- horaire (obligatoire)<br>- image (recommandé)</span>
+          </li><li class="admin-item tooltip">
+            <a class="admin-link starify active" href="#">Mis en une<i class="fa fa-star-o"></i><i class="fa fa-star"></i></a>
+            <a class="admin-link starify" href="#">Mettre en une<i class="fa fa-star-o"></i><i class="fa fa-star"></i></a>
+            <span class="tooltip-text">Cliquer pour changer le statut</span>
+          </li>-->
+          <li class="admin-item">
+            <a class="admin-link" href="#">Modifier</a>
+          </li><!--
+          --><li class="admin-item">
+            <a class="admin-link" href="#">Supprimer</a>
+          </li>
+        </ul>
+      </div>
+
     </div><!-- /#content -->
 
     <div id="event-nav">
@@ -261,6 +261,8 @@ Page for displaying event datas
         </div>
       </div>
     </div>
+
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

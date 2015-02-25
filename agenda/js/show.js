@@ -14,6 +14,8 @@ handleSourceMenu = require( './handleSourceMenu' ),
 
 modalPartial = require( '../../bsLayout/js/modalPartial' ),
 
+adminControls = require( '../../user/js/adminControls' ),
+
 config = require( './config' ),
 
 widgets = {
@@ -59,6 +61,8 @@ window.hook( function( options ) {
 
   log = debug( 'agendaPage' );
 
+  adminControls.init();
+
   _handleImportButton();
 
   window.getSession( function( session ) {
@@ -67,11 +71,14 @@ window.hook( function( options ) {
 
       _handleAddButton( session, ctl );
 
-      _handleAdminButton( session, ctl );
+      adminControls( session, {
+        testFunc: _isAdmin( ctl )
+      } );
 
     } );
 
     _handleAddToSource( uid, session );
+
 
   } );
 
@@ -167,6 +174,29 @@ function _handleAdminButton( session, ctl ) {
 
 }
 
+function _isAdmin( ctl ) {
+
+  return function( session ) {
+
+    if ( !session.logged ) {
+
+      return false;
+
+    }
+
+    if  ( !cn.contains( ctl.adm, parseInt( session.uid, 10 ) ) ) {
+
+      return false;
+
+    }
+
+    return true;
+
+  }
+
+}
+
+
 
 /**
  * toggle display of add button
@@ -227,25 +257,6 @@ function _showOptionalWidgets( controller ) {
     } );
 
   });
-
-}
-
-
-function _isLoggedAdmin( session, ctl ) {
-
-  if ( !session.logged ) {
-
-    return false;
-
-  }
-
-  if  ( !cn.contains( ctl.adm, parseInt( session.uid, 10 ) ) ) {
-
-    return false;
-
-  }
-
-  return true;
 
 }
 

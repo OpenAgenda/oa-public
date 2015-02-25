@@ -29,25 +29,3 @@
 #nav .language-menu > a {
   text-transform: uppercase;
 }
-
-
-/**
- * calendar elements must not be selectable
- */
-
-.ccal * {
-  -moz-user-select: -moz-none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;  
-}
-
-.ccal li.preselected {
-  background: #41acdd;
-  opacity: 0.8;
-}
-
-.ccal li.preselected span {
-  color: white;
-}

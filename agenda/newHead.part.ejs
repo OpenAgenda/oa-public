@@ -1,6 +1,8 @@
-<header id="header" <% if ( typeof theme !== 'undefined' && theme.image ) { %> style="background-image:url(<%= _i( theme.image ) %>)" <% } %>>
+<header id="header" <% if ( theme ) { %> style="background-image:url(<%= _i( theme.image ) %>)" <% } %>>
+<% if ( theme ) { %>
   <div class="layer"></div>
-  <div class="container profile">
+<% } %>
+  <div class="container profile<% if ( !theme ) { %> notheme <% } %>">
     <div class="row"><!--
       --><div class="col-sm-2 avatar-container">
 <% if ( image ) { %>

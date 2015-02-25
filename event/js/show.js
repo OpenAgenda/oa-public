@@ -4,13 +4,13 @@ var eventMap = require( './map' ),
 
 cn = require( '../../js/lib/common/common.mod' ),
 
-adminControls = require( './adminControls' ),
+adminControls = require( '../../user/js/adminControls' ),
 
 modalPartial = require( '../../bsLayout/js/modalPartial' );
 
 window.hook( function( options ) {
 
-  adminControls.hide();
+  adminControls.init();
 
   window.getSession( function( session ) {
 

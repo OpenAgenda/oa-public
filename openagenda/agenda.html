@@ -118,9 +118,7 @@ Page for displaying agenda datas and its events
               </li>
             </ul>
           </div>
-          <div class="col-sm-4 col-aside">
-            <a class="add-event" href="#">Ajouter un évènement</a>
-          </div>
+          <div class="col-sm-4 col-aside"><a class="add-event" href="#">Ajouter un évènement</a></div>
         </div><!-- /.row -->
       </div><!-- /.container -->
     </div><!-- /#sub-nav -->
@@ -144,9 +142,7 @@ Page for displaying agenda datas and its events
             </div>
             <!-- event item pinned to top -->
             <article class="row">
-              <header class="col-sm-9 col-sm-offset-3">
-                <h4 class="event-header"><i class="fa fa-star"><!-- fa-star is to be coherent with admin-bar but you may prefer fa-bull-horn or fa-thumb-tack --></i> À la une</h4>
-              </header>
+              
               <aside class="col-sm-3 event-aside">
                 <!--<span class="pin">
                   <i class="fa fa-bullhorn"></i> À la une
@@ -155,6 +151,9 @@ Page for displaying agenda datas and its events
               </aside>
               <section class="col-sm-9">
                 <a class="event-card" href="#">
+                  <header>
+                    <h4 class="event-header"><i class="fa fa-star"><!-- fa-star is to be coherent with admin-bar but you may prefer fa-bull-horn or fa-thumb-tack --></i> À la une</h4>
+                  </header>
                   <div class="event-img">
                     <!-- proportionnal image of the 800x300 event image -->
                     <img  class="img-responsive" src="img/events/sample2.jpg" width="568" height="213">
@@ -320,10 +319,24 @@ Page for displaying agenda datas and its events
               <p><a href="#">Open Agenda</a> · <a href="#">À propos</a> · <a href="#">Aide</a> · <a href="#">Conditions</a></p>
             </footer><!-- /#footer -->
           </aside>
+
           <!-- / aside content -->
+          
         </div><!-- /.row -->
+
       </div><!-- /.events.container -->
     </div><!-- /#content -->
+
+    <div id="admin-bar">
+      <ul class="admin-list">
+        <li class="admin-item">
+          <a class="admin-link" href="#">Modifier</a>
+        </li><!--
+        --><li class="admin-item">
+          <a class="admin-link" href="#">Supprimer</a>
+        </li>
+      </ul>
+    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

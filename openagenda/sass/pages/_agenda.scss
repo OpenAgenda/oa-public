@@ -446,6 +446,25 @@
       }
     }
 
+    .ccal {
+
+      * {
+        user-select: none;
+      }
+
+      .preselected {
+        
+        background: $oa-blue;
+        opacity: 0.8;
+
+        span {
+          color: $oa-white;
+        }
+
+      }
+
+    }
+
     .calbody {
       li:hover {
         box-shadow: 0 0 0 1px $oa-blue inset;

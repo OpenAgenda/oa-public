@@ -11,6 +11,7 @@
     "_r" : "redirect"
   },
   "base" : {
+    "theme" : false,
     "pageId" : "agenda",
     "queryLang" : false
   },
