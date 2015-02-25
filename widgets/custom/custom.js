@@ -67,7 +67,7 @@ var widget = function( elem, options ) {
 
     for ( var v in values ) {
 
-      if ( ( typeof reqParams[v] !== 'undefined' ) && ( reqParams[v] !== values[v] ) ) {
+      if ( ( typeof reqParams[v] == 'undefined' ) || ( reqParams[v] !== values[v] ) ) {
 
         same = false;
 
