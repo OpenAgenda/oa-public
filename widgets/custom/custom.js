@@ -75,7 +75,7 @@ var widget = function( elem, options ) {
 
     }
 
-    cn.addClass( elem, activeClass );
+    if ( same ) cn.addClass( elem, activeClass );
 
     enabled = true;
 
