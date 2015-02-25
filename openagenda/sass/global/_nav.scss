@@ -56,11 +56,13 @@
     .search-input {
       background: $oa-white;
       width: 150px;
+      
+      border-top: 0;
+      border-bottom: 0;
 
       &:focus {
         background: rgba(65, 172, 221, 0.025);
-        border-top: 0;
-        border-bottom: 0;
+        outline: 0;
       }
     }
   }
