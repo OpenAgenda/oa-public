@@ -193,9 +193,9 @@
   padding: 0;
 
   .item {
+    color: $oa-gray;
     background: transparent;
     border: none;
-    color: $oa-black;
     cursor: pointer;
     display: block;
     padding: 10px 45px 10px 30px;
@@ -219,7 +219,7 @@
       width: 20px;
     }
 
-    &:hover {
+    &.active:hover {
       color: $oa-blue;
 
       &:after {
@@ -227,8 +227,8 @@
         border: 5px solid $oa-white;
       }
     }
-
-    &.active {
+    
+    &.active.selected {
       color: $oa-blue;
 
       &:after {
@@ -239,6 +239,10 @@
       &:hover:after {
         color: $oa-blue;
       }
+    }
+
+    &.active {
+      color: $oa-black;
     }
   }
 }

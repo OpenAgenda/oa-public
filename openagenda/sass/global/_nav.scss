@@ -41,7 +41,9 @@
 }
 
 #nav {
+
   margin: 0;
+  z-index: 1002;
 
   .navbar-header {
     padding-left: 10px;
@@ -62,4 +64,5 @@
       }
     }
   }
+
 }

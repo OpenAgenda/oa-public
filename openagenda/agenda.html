@@ -54,9 +54,26 @@ Page for displaying agenda datas and its events
               <button class="search-submit" type="submit"><i class="fa fa-search"></i></button>
             </div>
           </form>
+          
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">FR</a></li>
+            <li>
+              <a href="#" data-toggle="dropdown" aria-expanded="false" >FR</a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">FR</a></li>
+                <li><a href="#">EN</a></li>
+              </ul>
+            </li>
             <li><a href="#">Se connecter</a></li>
+            <li>
+              <a  href="#" data-toggle="dropdown" aria-expanded="false">Action</span>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div><!-- /.container -->
@@ -257,13 +274,13 @@ Page for displaying agenda datas and its events
                     <span class="item">Toutes</span>
                   </li>
                   <li class="list-group-item">
-                    <span class="item">Concert</span>
+                    <span class="item active">Concert</span>
                   </li>
                   <li class="list-group-item">
-                    <a class="item active" href="#" >Théâtre</a>
+                    <span class="item active selected">Théâtre</span>
                   </li>
                   <li class="list-group-item">
-                    <button class="item" href="#" >Exposition</button>
+                    <span class="item active">Exposition</span>
                   </li>
                 </ul>
               </div>
@@ -278,13 +295,13 @@ Page for displaying agenda datas and its events
                     <span class="item active">Tous</span>
                   </li>
                   <li class="list-group-item">
-                    <span class="item">La Bellevilloise</span>
+                    <span class="item active">La Bellevilloise</span>
                   </li>
                   <li class="list-group-item">
-                    <a class="item" href="#">Le théâtre de la Reine Blanche</a>
+                    <span class="item active selected">Le théâtre de la Reine Blanche</span>
                   </li>
                   <li class="list-group-item">
-                    <button class="item" href="#">Université de la Sorbonne</button>
+                    <span class="item">Université de la Sorbonne</span>
                   </li>
                 </ul>
               </div>
@@ -311,6 +328,6 @@ Page for displaying agenda datas and its events
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.js"></script>
   </body>
 </html>
