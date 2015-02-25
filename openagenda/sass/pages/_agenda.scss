@@ -53,7 +53,7 @@
 
   // main content
   .main-content {
-    padding-right: 50px;
+    //padding-right: 50px;
 
     article {
       position: relative;
@@ -127,7 +127,6 @@
   .event-aside {
     text-align: center;
     position: relative;
-    left: 20px;
     bottom: 8px;
 
     .pin {
@@ -151,6 +150,16 @@
       display: block;
       margin-top: 27px;
       text-align: left;
+    }
+
+    @media (min-width: 768px) {
+      
+      .event-aside {
+    
+        left: 20px;
+
+      }
+
     }
 
     @media (min-width: 1200px) {
@@ -211,6 +220,7 @@
 
   // aside content
   .sidebar {
+    display: none;
     background: $gray-lighter;
     bottom: 0;
     padding: 0;
@@ -227,6 +237,7 @@
     }
 
     @media (min-width: 768px) {
+      display: block;
       padding-left: 15px;
       padding-right: 15px;
       padding-top: 0 !important;

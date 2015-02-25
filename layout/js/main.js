@@ -16,6 +16,8 @@ handleSession = require( './handleSession' ),
 
 headerProfile = require( './headerProfile' ),
 
+toggle = require( './toggle' ),
+
 debug = require('debug'),
 
 layout = require( './layout' ),
@@ -49,6 +51,8 @@ cn.addEvent( window, 'load', function() {
   messageLinks( eh );
 
   confirmMessage();
+
+  toggle();
 
   if ( [ 'test', 'tpl' ].indexOf( window.env ) == -1 ) {
 
