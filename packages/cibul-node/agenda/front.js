@@ -315,7 +315,7 @@ function show( req, res ) {
       cmn.renderJson( req, res, {
         success: true,
         partial: partial,
-        total: req.templateData.scriptParams.total
+        total: req.templateData.total
       } );
 
     });
@@ -390,7 +390,7 @@ function _layoutData( req, res ) {
     },
     metas: {
       title: req.agenda.title,
-      ogSiteName: { property: 'og:site_name', content: 'Cibul' },
+      ogSiteName: { property: 'og:site_name', content: 'OpenAgenda' },
       ogTitle: { property: 'og:title', content: req.agenda.title },
       ogType: { property: 'og:type', content: 'activity' },
       ogLanguage: { property: 'og:language', content: req.lang },
