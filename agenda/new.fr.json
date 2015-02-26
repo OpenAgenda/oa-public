@@ -9,10 +9,10 @@
   : "du %start% au %finish%",
   "Add to my agenda"
   : "Ajouter à mon agenda",
-  "Search in the agenda"
-  : "Rechercher dans l'agenda",
-  "Category"
-  : "Catégorie",
+  "Search in this agenda"
+  : "Rechercher dans cet agenda",
+  "Categories"
+  : "Catégories",
   "Organization"
   : "Organisation",
   "About"
@@ -22,5 +22,19 @@
   "Terms of use"
   : "Conditions d'utilisation",
   "Manage"
-  : "Gérer"
+  : "Gérer",
+  "%start%, %time%"
+  : "%start%, %time%",
+  "Search when I move the map"
+  : "Rechercher quand je déplace la carte",
+  "Map"
+  : "Carte",
+  "Select dates"
+  : "Choisissez une date",
+  "There are no results for this search"
+  : "Pas de résultat pour cette recherche",
+  "There are no results for this search. You can make a site-wide search from the page header, or %page%"
+  : "Pas de résultat pour cette recherche. Vous pouvez effectuer une recherche sur l’ensemble du site en haut de page, ou %page%",
+  "reload this page"
+  : "recharger la page agenda"
 }

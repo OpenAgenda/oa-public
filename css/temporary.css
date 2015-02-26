@@ -12,6 +12,24 @@
   height: 280px;
 }
 
+.map-location {
+  padding: 10px;
+}
+
+.map-location .count {
+  display: none;
+}
+
+.map-location span > span,
+.map-location span > p {
+  margin: 0;
+  padding: 0 0 5px 0;
+}
+
+.map-location span > p {
+  font-weight: bold;
+}
+
 
 /**
  * language menu list should be hidden

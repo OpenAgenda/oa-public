@@ -25,32 +25,32 @@
 
         <section class="side-item side-search">
           <h3 class="mobile-only">
-            <i class="fa fa-search side-icon"></i><span class="side-title"><%= __('Search in the agenda') %></span>
+            <i class="fa fa-search side-icon"></i><span class="side-title"><%= __('Search in this agenda') %></span>
           </h3>
           <div class="side-content">
-            <form class="search-form cbpgsc" data-cbctl="<%= uid %>|<%= lang %>">
-              <input type="text" placeholder="<%= __('Search in the agenda') %>" class="search-input"><div class="search-button">
+            <div class="search-form cbpgsc" data-cbctl="<%= uid %>|<%= lang %>">
+              <input type="text" placeholder="<%= __('Search in this agenda') %>" class="search-input"><div class="search-button">
                 <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
               </div>
-            </form>
+            </div>
           </div>
         </section>
 
         <section class="side-item side-map">
           <h3 class="mobile-only">
-            <i class="fa fa-map-marker side-icon"></i><span class="side-title">Carte</span>
+            <i class="fa fa-map-marker side-icon"></i><span class="side-title"><%= __('Map') %></span>
           </h3>
           <div class="side-content cbpgmp agenda-map" data-cbctl="<%= uid %>|<%= lang %>">
             <div class="map-sync js_map_sync">
               <input type="checkbox" id="map-sync" class="js_sync_checkbox">
-              <label for="map-sync">Rechercher quand je déplace la carte</label>
+              <label for="map-sync"><%= __('Search when I move the map') %></label>
             </div>
           </div>
         </section>
 
         <section class="side-item side-calendar">
           <h3 class="mobile-only">
-            <i class="fa fa-calendar-o side-icon"></i><span class="side-title">Choisissez une date</span>
+            <i class="fa fa-calendar-o side-icon"></i><span class="side-title"><%= __('Select dates') %></span>
           </h3>
           <div class="side-content">
             <div class="cbpgcl cibulCalendar" data-cbctl="<%= uid %>|<%= lang %>"></div>
@@ -60,7 +60,7 @@
         <section class="side-item side-categories display-none js_category_widget">
           <h3>
             <i class="fa fa-tag side-icon"></i>
-            <span class="side-title"><%= __('Category') %></span>
+            <span class="side-title"><%= __('Categories') %></span>
           </h3>
           <div class="side-content cbpgct" data-cbctl="<%= uid %>|bs"></div>
         </section>

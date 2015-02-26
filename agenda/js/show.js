@@ -105,7 +105,7 @@ window.hook( function( options ) {
 
     _onControllerChange( controller, function( newSearchValues ) {
 
-      log( 'query values changed' );
+      log( 'query values changed to %s', JSON.stringify( newSearchValues ) );
 
       list.reset( _getHref( newSearchValues ) );
 
@@ -297,11 +297,21 @@ function _displayAddButton() {
 
 function _onControllerChange( controller, cb ) {
 
+  var currentSearchValues = controller.getCurrentQuery();
+
   log( 'registering page list as widget' );
 
   controller.register( { 
     name: 'site', 
     enable: function( newValues ) {
+
+      if ( !controller.isDifferent( currentSearchValues ) ) {
+
+        return;
+
+      }
+
+      currentSearchValues = cn.extend( {}, newValues );
 
       cb( newValues );
 

@@ -28,5 +28,7 @@
   "Description available in"
   : "Description disponible en",
   "Date details"
-  : "Détail des dates"
+  : "Détail des dates",
+  "Published by %owner%"
+  : "Publié par %owner%"
 }

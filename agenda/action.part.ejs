@@ -5,7 +5,7 @@
       <a class="close-link" href=""><i class="fa fa-times fa-lg"></i></a>
     </header>
     <form class="js_popup_content">
-      <p class="popup-legend"><%= __( 'Automatically import in your personal agenda' ) %></p>
+      <p class="popup-legend"><%= __( 'Automatically import all dates of this agenda in your personal agenda' ) %></p>
       <div class="btn-adds">
         <a class="btn btn-default" href="https://www.google.com/calendar/render?cid=<%= genUrl( 'agendaIcal', { uid: uid }, { protocol: 'http' } ) %>"><%= __('Google Agenda') %></a>
         <a class="btn btn-default" href="<%= genUrl( 'agendaIcal', { uid: uid }) %>?dl=1">iCal</a>

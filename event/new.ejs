@@ -2,8 +2,13 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12 agenda-container">
-<% if ( !loner && image ) { %>
-        <a href="<%= genUrl('agendaShow', { slug: slug }) %>"><img class="avatar" src="<%= _i( image ) %>" alt="<%= title %>"><%= title %></a>
+<% if ( !loner ) { %>
+        <a href="<%= genUrl('agendaShow', { slug: slug }) %>">
+<% if ( image ) { %>
+          <img class="avatar" src="<%= _i( image ) %>" alt="<%= title %>">
+<% } %>
+          <%= title %>
+        </a>
 <% } %>
       </div>
       <div class="col-sm-12 event-container">
@@ -106,6 +111,7 @@
             <%- _txt.nl2br( event.freeText ) %>
           </div>
 
+<% if ( event.timings.length > 1 ) { %>
           <section class="dates">
             <h3 class="title"><%= __('Date details') %></h3>
             <ul>
@@ -114,6 +120,7 @@
 <% }) %>
             </ul>
           </section>
+<% } %>
 
         </div>
 <% if ( event.owner ) { %>  

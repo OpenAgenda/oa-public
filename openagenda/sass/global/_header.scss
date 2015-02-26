@@ -88,19 +88,15 @@
     text-align: center;
 
     &.notheme {
-      min-height: inherit;
+      min-height: 180px;
     }
 
     &.notheme .row {
-      position: relative;
       bottom: inherit;
-      padding: 20px 0 10px;
+      padding-top: 20px;
+      padding-bottom: 10px;
     }
 
-  }
-
-  .profile.container.notheme {
-    min-height: auto;
   }
 
   @media (min-width: 768px) {

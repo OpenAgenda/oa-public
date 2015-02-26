@@ -1,8 +1,8 @@
 { 
   "Import / Add to my agenda"
   : "Importer / Ajouter à mon agenda" ,
-  "Automatically import in your personal agenda"
-  : "Importez automatiquement dans votre agenda personnel" ,
+  "Automatically import all dates of this agenda in your personal agenda"
+  : "Importez toutes les dates de cet agenda dans votre agenda personnel" ,
   "Google Agenda"
   : "Google Calendar" ,
   "Import in OpenAgenda"

@@ -13,7 +13,8 @@
   "base" : {
     "theme" : false,
     "pageId" : "agenda",
-    "queryLang" : false
+    "queryLang" : false,
+    "isEmbed" : false
   },
   "templateJs" : true
 }

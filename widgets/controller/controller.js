@@ -112,6 +112,7 @@ module.exports = function( uid ) {
       sweep : sweep,
       getControlData: getControlData,
       getCurrentQuery: getCurrentQuery,
+      isDifferent: isDifferent,
       setProxy: setProxy,
     }
 
@@ -137,7 +138,8 @@ module.exports = function( uid ) {
       getControlData: getControlData,
       requestModal: requestModal,
       releaseModal: releaseModal,
-      getCurrentQuery: getCurrentQuery
+      getCurrentQuery: getCurrentQuery,
+      isDifferent: isDifferent
     };
 
   }
@@ -227,7 +229,7 @@ module.exports = function( uid ) {
 
     var newParams = cn.extend( {}, currentRequestParams, updatedParams );
 
-    if ( !_hasChanges( newParams ) ) return;
+    if ( !isDifferent( newParams ) ) return;
 
     currentRequestParams = _clean( newParams );
 
@@ -505,6 +507,31 @@ module.exports = function( uid ) {
 
 
   /**
+   * have there been any changes in parameters?
+   */
+  
+  function isDifferent( data ) {
+
+    for ( var i in currentRequestParams ) {
+
+      if ( typeof data[i] == 'undefined' || data[i] !== currentRequestParams[i] ) return true;
+
+    }
+
+    for ( i in data ) {
+
+      if ( typeof currentRequestParams[i] == 'undefined' ) return true;
+
+      if ( data[i] !== currentRequestParams[i] ) return true;
+
+    }
+
+    return false;
+
+  }
+
+
+  /**
    * as part of sweep, tell widgets event item passed through filters
    */
   
@@ -554,29 +581,6 @@ module.exports = function( uid ) {
 
   }
 
-  /**
-   * have there been any changes in parameters?
-   */
-  
-  function _hasChanges( data ) {
-
-    for ( var i in currentRequestParams ) {
-
-      if ( typeof data[i] == 'undefined' || data[i] !== currentRequestParams[i] ) return true;
-
-    }
-
-    for ( i in data ) {
-
-      if ( typeof currentRequestParams[i] == 'undefined' ) return true;
-
-      if ( data[i] !== currentRequestParams[i] ) return true;
-
-    }
-
-    return false;
-
-  }
 
   function _isPassed( eItem ) {
 

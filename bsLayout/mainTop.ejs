@@ -28,8 +28,8 @@
             </a>
         </div>
         <div class="collapse navbar-collapse">
-          <form class="navbar-left search-form" role="search">
-            <input class="search-input" placeholder="Rechercher" type="text"><div class="search-button">
+          <form class="navbar-left search-form" role="search" action="<%= genUrl( searchRes ) %>">
+            <input class="search-input" placeholder="Rechercher" type="text" name="search[what]" value="<%= search && ( typeof search.what !== 'undefined' ) ? search.what : '' %>"><div class="search-button">
               <button class="search-submit" type="submit"><i class="fa fa-search"></i></button>
             </div>
           </form>
