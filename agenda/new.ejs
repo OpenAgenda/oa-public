@@ -83,6 +83,12 @@
           <div class="side-content cbpgor" data-cbctl="<%= uid %>|bs"></div>
         </section>
 
+        <section class="side-item">
+          <div class="side-content">
+            <p><a href="<%= genUrl( 'conversationAgendaContact', { uid: uid, redirect: _r({ module: 'review', action: 'show', 'slug': slug }) }) %>"><%= __('Contact the administrator of this agenda') %></a></p>
+          </div>
+        </section>
+
         <% include ./footer.part.ejs %>
       </aside>
     </div>
@@ -106,3 +112,4 @@
     </li>
   </ul>
 </div>
+<% include show.jsonld.ejs %>

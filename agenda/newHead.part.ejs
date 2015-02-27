@@ -19,8 +19,9 @@
 <% if ( url ) { %>
         <p><a href="<%= url %>"><%= url %></a></p>
 <% } %>
-      </div><div class="col-sm-4 col-aside action-container">
+      </div><!--
 <% if ( !isEmpty ) { %>        
+      --><div class="col-sm-4 col-aside action-container">
         <p>
           <a class="btn btn-success js_import_action" href="<%= importUri %>">
             <i class="fa fa-plus-circle"></i>
@@ -33,8 +34,12 @@
           <%- _sl.gp( { title: title, url: genUrl( 'agendaShow', { slug: slug }, { abs: true } ) } ) %>
           <%- _sl.li( { title: title, url: genUrl( 'agendaShow', { slug: slug }, { abs: true } ) } ) %>
         </p>
+      </div><!--
+<% } else { %>
+      --><div class="col-sm-4 action-container">
+        <p><a href="<%= genUrl( 'conversationAgendaContact', { uid: uid, redirect: _r({ module: 'review', action: 'show', 'slug': slug }) }) %>"><%= __('Contact the administrator of this agenda') %></a></p>
+      </div><!--
 <% } %>
-      </div>
-    </div>
+    --></div>
   </div>
 </header>

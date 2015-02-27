@@ -38,5 +38,7 @@
   "reload this page"
   : "recharger la page agenda",
   "This agenda does not contain any events"
-  : "Cet agenda ne compte aucun événement"
+  : "Cet agenda ne compte aucun événement",
+  "Contact the administrator of this agenda"
+  : "Contacter l'administrateur de l'agenda"
 }
