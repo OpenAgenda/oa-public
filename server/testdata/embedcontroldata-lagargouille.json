@@ -7346,39 +7346,48 @@
       "ct":[
          {
             "s":"concerts",
-            "c":"Concerts"
+            "c":"Concerts",
+            "cl":"concerts"
          },
          {
             "s":"expositions",
-            "c":"Expositions"
+            "c":"Expositions",
+            "cl":"expositions"
          },
          {
             "s":"insolite",
-            "c":"Insolite"
+            "c":"Insolite",
+            "cl":"insolite"
          },
          {
             "s":"cinema",
-            "c":"Cin\u00e9ma"
+            "c":"Cin\u00e9ma",
+            "cl":"cinema"
          },
          {
             "s":"clubbing",
-            "c":"Clubbing"
+            "c":"Clubbing",
+            "cl":"clubbing"
          },
          {
             "s":"conferences",
-            "c":"Conf\u00e9rences"
+            "c":"Conf\u00e9rences",
+            "cl":"conferences"
          },
          {
             "s":"theatre",
-            "c":"Th\u00e9\u00e2tre"
+            "c":"Th\u00e9\u00e2tre",
+            "cl":"theatre"
          },
          {
             "s":"militant",
-            "c":"Militant"
+            "c":"Militant",
+            "cl":"militant"
          },
          {
             "s":"ateliers",
-            "c":"Ateliers"
+            "c":"Ateliers",
+            "cl":"ateliers"
          }
       ],
       "t":[

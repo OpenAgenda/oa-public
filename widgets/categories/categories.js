@@ -1,3 +1,5 @@
+"use strict";
+
 exports.setOnReady = setOnReady;
 
 var UID = 0,
@@ -199,8 +201,8 @@ var widget = function( elem, options ) {
         label : category.c,
         slug : category.s,
         active : enabled && cn.contains( activeCategories, category.s ),
-        selected : selectedCategory == category.s,
-        className : undefined
+        className : category.cl,
+        selected : selectedCategory == category.s
       } );
 
     });
