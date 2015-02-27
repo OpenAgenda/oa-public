@@ -2,12 +2,12 @@
 
 #agenda {
   // agenda without events
-  &.no-event {
-    #content {
-      padding: 175px 15px;
-      text-align: center;
-    }
+
+  #content.no-event {
+    padding: 175px 15px;
+    text-align: center;
   }
+
 
   // selected filters
   .filters {

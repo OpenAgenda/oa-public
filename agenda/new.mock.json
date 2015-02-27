@@ -10,6 +10,7 @@
     "eventUri" : "eventShow",
     "importUri" : "/agenda/action.part",
     "base" : { "slug" : "chez-nous" },
+    "total" : 200,
     "scriptParams" : {
       "uid" : 48959239,
       "total" : 200,

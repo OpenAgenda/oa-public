@@ -2,7 +2,8 @@
   "base" : {
     "slug" : "chez-nous",
     "eventUri" : "eventShow",
-    "base" : { "slug" : "chez-nous" }
+    "base" : { "slug" : "chez-nous" },
+    "total" : 200
   },
   "standard" : {
     "eventBaseQuery" : { "slug" : "chez-nous" },

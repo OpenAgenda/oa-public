@@ -20,6 +20,7 @@
         <p><a href="<%= url %>"><%= url %></a></p>
 <% } %>
       </div><div class="col-sm-4 col-aside action-container">
+<% if ( !isEmpty ) { %>        
         <p>
           <a class="btn btn-success js_import_action" href="<%= importUri %>">
             <i class="fa fa-plus-circle"></i>
@@ -32,6 +33,7 @@
           <%- _sl.gp( { title: title, url: genUrl( 'agendaShow', { slug: slug }, { abs: true } ) } ) %>
           <%- _sl.li( { title: title, url: genUrl( 'agendaShow', { slug: slug }, { abs: true } ) } ) %>
         </p>
+<% } %>
       </div>
     </div>
   </div>

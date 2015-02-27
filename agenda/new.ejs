@@ -6,12 +6,15 @@
         <ul class="nav nav-tabs">
         </ul>
       </div>
+<% if ( !isEmpty ) { %>
       <div class="col-sm-4 col-aside display-none js_add_button">
         <a class="add-event" href="<%= genUrl( 'agendaEventNew', { slug: slug } ) %>"><%= __('Add an event') %></a>
       </div>
+<% } %>
     </div>
   </div>
 </div>
+<% if ( !isEmpty ) { %>
 <div id="content">
   <div class="container">
     <div class="row">
@@ -81,11 +84,21 @@
         </section>
 
         <% include ./footer.part.ejs %>
-
       </aside>
     </div>
   </div>
 </div>
+<% } else { %>
+<div id="content" class="no-event">
+  <div class="container">
+    <p class="display-none js_add_button">
+      <a class="btn btn-success btn-lg" href="<%= genUrl( 'agendaEventNew', { slug: slug } ) %>"><%= __('Add an event') %></a>
+    </p>
+    <p><%= __('This agenda does not contain any events') %></p>
+  </div>
+</div>
+<% include ./footer.part.ejs %>
+<% } %>
 <div id="admin-bar" class="js_admin_controls">
   <ul class="admin-list">
     <li class="admin-item">

@@ -36,5 +36,7 @@
   "There are no results for this search. You can make a site-wide search from the page header, or %page%"
   : "Pas de résultat pour cette recherche. Vous pouvez effectuer une recherche sur l’ensemble du site en haut de page, ou %page%",
   "reload this page"
-  : "recharger la page agenda"
+  : "recharger la page agenda",
+  "This agenda does not contain any events"
+  : "Cet agenda ne compte aucun événement"
 }
