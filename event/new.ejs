@@ -35,6 +35,13 @@
             <%- _sl.gp( { title: event.title, url:  genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) } ) %>
             <%- _sl.li( { title: event.title, url:  genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) } ) %>
           </p>
+<% if ( !event.isUpcoming ) { %>
+          <p>
+            <span class="event-action disabled">
+              <i class="fa fa-history"></i> <%= __('Past event') %>
+            </span>
+          </p>
+<% } %>
         </div>
 
         <div class="event-infos">

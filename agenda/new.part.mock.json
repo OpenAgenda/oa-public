@@ -3,7 +3,8 @@
     "slug" : "chez-nous",
     "eventUri" : "eventShow",
     "base" : { "slug" : "chez-nous" },
-    "total" : 200
+    "total" : 200,
+    "lang" : "fr"
   },
   "standard" : {
     "eventBaseQuery" : { "slug" : "chez-nous" },
@@ -16,7 +17,7 @@
         "slug" : "fqsdfdq",
         "thumbnail" : "event_les-imams-en-france_924665.jpg",
         "description" : "Solenne Jouanneau",
-        "dateRange" : ["%start%, %time%", { "%start%" : "2014-10-12", "%time%" : "18:00:00" }],
+        "dateRange" : ["%start%, %time%", { "%start%" : "2014-10-12", "%time%" : "18:00" }],
         "closestDate" : "2015-02-23T18:00:00.000Z",
         "placeName" : "Quelque part",
         "category" : {

@@ -16,8 +16,13 @@
           <li><i class="fa fa-clock-o"></i> <%= __( event.dateRange[0], _t( event.dateRange[1] ) ).replace( ':', lang=='fr' ? 'h' : ':' ) %></li>
           <li>
             <i class="fa fa-map-marker"></i>
-              <%= event.placeName %><% if ( typeof event.city !== 'undefined' ) { %>, <%= event.city %><% } %>
-            </li>
+            <%= event.placeName %><% if ( typeof event.city !== 'undefined' ) { %>, <%= event.city %><% } %>
+          </li>
+<% if ( event.organization ) { %>
+          <li data-slug="<%= event.organization.slug %>" class="org">
+            <%= event.organization.label %>
+          </li>
+<% } %>
         </ul>
       </div>
     </a>

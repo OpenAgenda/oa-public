@@ -40,5 +40,6 @@
   "This agenda does not contain any events"
   : "Cet agenda ne compte aucun événement",
   "Contact the administrator of this agenda"
-  : "Contacter l'administrateur de l'agenda"
+  : "Contacter l'administrateur de l'agenda",
+  "by %name%" : "par %name%"
 }

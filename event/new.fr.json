@@ -30,5 +30,7 @@
   "Date details"
   : "Détail des dates",
   "Published by %owner%"
-  : "Publié par %owner%"
+  : "Publié par %owner%",
+  "Past event"
+  : "Événement passé"
 }
