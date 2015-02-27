@@ -299,6 +299,7 @@ function _formatEvent( req, res ) {
         title: req.event.getTitle(),
         image: req.event.getImage( false ),
         dateRange: req.event.getDateRange( true ),
+        isUpcoming: req.event.isUpcoming(),
         description: req.event.getDescription(),
         freeText: req.event.getEnrichedFreeText(),
         tags: req.event.getTags(),
