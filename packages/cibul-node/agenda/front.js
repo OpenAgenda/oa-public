@@ -386,7 +386,8 @@ function _layoutData( req, res ) {
     queryLang: req.query.lang ? req.query.lang : false,
     scriptParams: {
       perPage: perPage,
-      uid: req.agenda.uid
+      uid: req.agenda.uid,
+      lang: req.lang
     },
     metas: {
       title: req.agenda.title,
