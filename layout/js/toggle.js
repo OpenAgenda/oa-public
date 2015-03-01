@@ -26,8 +26,6 @@ module.exports = function( options ) {
 
   cn.forEach( cn.els( params.selectors.toggler ), function( togglerElem ) {
 
-    console.log( togglerElem );
-
     _handleToggler( togglerElem, params );
 
   });

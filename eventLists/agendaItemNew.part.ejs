@@ -1,6 +1,6 @@
 <article class="row">
   <aside class="col-sm-3 event-aside">
-    <span class="time-count"></span>
+    <span class="time-count js_relative_time" data-relative-time="<%= event.closestDate %>"></span>
   </aside>
   <section class="col-sm-9">
     <a class="event-card" href="<%= genUrl(eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ] ) %>">

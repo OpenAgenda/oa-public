@@ -10,6 +10,8 @@ cn = require( '../../js/lib/common/common.mod' ),
 
 list = require( './list' ),
 
+timeliner = require( './timeliner' ),
+
 handleSourceMenu = require( './handleSourceMenu' ),
 
 modalPartial = require( '../../bsLayout/js/modalPartial' ),
@@ -57,13 +59,16 @@ window.hook( function( options ) {
 
   loader,
 
-  uid = options.uid;
+  uid = options.uid,
 
+  timeline = timeliner( options.lang );
+  
   log = debug( 'agendaPage' );
 
   adminControls.init();
 
   _handleImportButton();
+
 
   window.getSession( function( session ) {
 
@@ -93,6 +98,8 @@ window.hook( function( options ) {
       onLoad: function() {
 
         modalPartial.multiple( cn.els( '.js_event_action' ) );
+
+        timeline.dom();
 
       }
     } );

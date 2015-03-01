@@ -10,6 +10,8 @@ routePrefix = '/templates/',
 
 storePrefix = 'templates:',
 
+i18n = require( './i18n' ),
+
 async = require( 'async' );
 
 
@@ -54,7 +56,7 @@ module.exports = function( templateName, options, cb  ) {
       labels = l;
 
       helpers = {
-        __ : _loadTranslator( labels ),
+        __ : i18n( labels ),
         genUrl : _loadGenUrl( params.urls )
       };
 
@@ -194,36 +196,6 @@ function _loadGenUrl( urls ) {
 
 }
 
-
-/**
- * load translator
- */
-
-function _loadTranslator( labels ) {
-
-  return function( label, values ) {
-
-    if ( !values ) values = {};
-
-    var translation = label;
-
-    if ( labels && labels[label] ) {
-
-      translation = labels[label];
-
-    }
-
-    for (var key in values) {
-
-      translation = translation.replace(key, values[key]);
-
-    }
-
-    return translation;
-
-  };
-
-}
 
 
 /**

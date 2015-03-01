@@ -15,7 +15,8 @@
     "scriptParams" : {
       "uid" : 48959239,
       "total" : 200,
-      "perPage" : 20
+      "perPage" : 20,
+      "lang" : "fr"
     },
     "theme" : {
       "image" : "review-bg-1402924618-615.jpg",
