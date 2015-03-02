@@ -47,7 +47,6 @@ run = function() {
   log = debug('prodify');
 
   async.series([
-    async.apply( createDestFiles, [ destCssPath, destEmbedCssPath, destAdminCssPath ] ),
     async.apply( prodifyCss, map, 'css', destCssPath ),
     async.apply( prodifyCss, map, 'embedCss', destEmbedCssPath ),
     async.apply( prodifyCss, map, 'adminCss', destAdminCssPath ),
@@ -193,22 +192,6 @@ copyFile = function (source, target, cb) {
       cbCalled = true;
     }
   }
-
-},
-
-createDestFiles = function( destFiles, cb ) {
-
-  async.eachSeries( destFiles, function( destFile, ecb ) {
-
-    fs.exists( destFile, function( exists ) {
-
-      if ( exists ) return ecb();
-
-      fs.writeFile( destFile, '', ecb );
-
-    });
-    
-  }, cb );
 
 },
 
