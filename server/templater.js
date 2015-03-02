@@ -18,7 +18,7 @@ module.exports = function( templateName, data, cb ) {
 
   async.waterfall(loaders, function( err, results ) {
 
-    if ( err ) throw err;
+    if ( err ) return cb( err );
 
     var template = results.template, labels = results.labels;
 
