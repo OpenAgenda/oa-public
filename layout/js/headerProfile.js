@@ -1,8 +1,12 @@
+"use strict";
+
 var cn = require( '../../js/lib/common/common.mod.js' ),
 
 cTemplater = require( './clientTemplater' ),
 
 b64 = require( '../../js/lib/Base64/Base64.mod.js' ),
+
+toggle = require( './toggle' ),
 
 params = {
   selectors: {
@@ -30,6 +34,9 @@ module.exports = function( options ) {
 
   // tmp hack to avoid execution on legacy project
   if ( !languageMenu ) return;
+
+  // tmp hack to know which user template to load
+  if ( window.templates == 'bs' ) params.template = 'user/bsMenu';
 
   window.getSession( function( session ) {
 
@@ -68,15 +75,17 @@ module.exports = function( options ) {
 
       var rendered = template.render( session ),
 
-      li = document.createElement( 'li' );
+      ul = document.createElement( 'ul' ),
 
-      li.innerHTML = rendered;
+      li;
 
-      _hide( li );
+      ul.innerHTML = rendered;
 
-      _behave( li );
+      li = cn.el( ul, 'li' );
 
       cn.el( params.selectors.headerLinks ).insertAdjacentElement( 'beforeend', li );
+
+      toggle( li );
 
     });
 

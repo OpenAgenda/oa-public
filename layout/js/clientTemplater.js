@@ -6,6 +6,8 @@ remote = require( '../../js/lib/remote/remote.mod.js' ),
 
 store = require( 'store' ),
 
+useCache = true,
+
 routePrefix = '/templates/',
 
 storePrefix = 'templates:',
@@ -43,7 +45,13 @@ module.exports = function( templateName, options, cb  ) {
 
     }
 
-    if ( window.env == 'tpl' ) routePrefix = '/';
+    if ( window.env == 'tpl' ) {
+
+      routePrefix = '/';
+
+      useCache = false;
+
+    }
 
     cn.extend( params, options );
 
@@ -113,7 +121,7 @@ function _loadLabels( name, lang, cb ) {
 
   if ( lang == 'en' ) return cb( null, labels );
 
-  if ( store.enabled ) {
+  if ( store.enabled && useCache ) {
 
     labels = store.get( storePrefix + name + '.' + lang + '.json');
 
@@ -132,7 +140,7 @@ function _loadLabels( name, lang, cb ) {
 
 function _loadEjs( name, cb ) {
 
-  if ( store.enabled ) {
+  if ( store.enabled && useCache ) {
 
     labels = store.get( storePrefix + name + '.ejs');
 
@@ -165,7 +173,7 @@ function _fetchAndStore( filename, parse, cb ) {
 
     if ( parse ) content = JSON.parse( content );
 
-    if ( store.enabled ) {
+    if ( store.enabled && useCache ) {
 
       store.set( storePrefix + filename, content );
 

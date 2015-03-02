@@ -43,7 +43,7 @@
 #nav {
 
   margin: 0;
-  z-index: 1002;
+  z-index: 2002;
 
   .navbar-header {
     padding-left: 10px;
@@ -65,6 +65,60 @@
         outline: 0;
       }
     }
+  }
+
+  .profile {
+
+    &>a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    &>a img {
+      width: 30px;
+    }
+
+    .dropdown-menu {
+    
+      min-width: 400px;
+      margin: 0;
+      padding: 0;
+
+      .row {
+
+        
+
+        li {
+
+          padding: 0 10px;
+
+          img {
+            width: 24px;
+          }
+
+          a {
+            color: #333;
+            padding: 10px 0;
+            display: block;
+          }
+
+          &:hover {
+
+            background: #f5f5f5;
+
+            a {
+              text-decoration: none;
+            }
+          }
+
+        }
+
+      }
+
+    }
+
   }
 
 }

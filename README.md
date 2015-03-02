@@ -18,6 +18,15 @@ css/site.css - base css for main website ( discrete elements displayed here and 
 user/css/menu.css - user dropdown menu ( preloaded by main layout )
 
 
+Template address params
+-------------------
+
+?state=<nameofstate>  - for when you want to load a different dataset than the base one. check the mock file for options ( first one is base )
+
+?logged= - for when you want to run the page as a logged user
+
+
+
 Misc
 ----
 
@@ -43,6 +52,15 @@ Pagination
 There is a partial for that. Use it: /general/pages. Use cases can be found for example in agenda/show ( where it is overriden by an ajax scroll down load ) or in newsletter/admin/contactListShow
 
 
+Frontend javascript
+-------------------
+
+He who does not follow these guidelines shall surely be put to death:
+
+- use browserify
+- start every js file with "use strict";
+- three environments are to be considered: prod, dev and tpl
+- for dom manipulations, use functions exposed by common.mod.js
 
 
 test data ( for scripts ):

@@ -20,11 +20,25 @@ defaults = {
   }
 };
 
-module.exports = function( options ) {
+module.exports = function( elem, options ) {
 
-  var params = cn.extend( {}, defaults, options ? options : {} );
+  var els = [], params;
 
-  cn.forEach( cn.els( params.selectors.toggler ), function( togglerElem ) {
+  if ( cn.isElement( elem ) ) {
+
+    els = [ elem ];
+
+  } else {
+
+    options = elem;
+
+  }
+  
+  params = cn.extend( {}, defaults, options ? options : {} );
+
+  els = els.concat( cn.els( params.selectors.toggler ) );
+
+  cn.forEach( els, function( togglerElem ) {
 
     _handleToggler( togglerElem, params );
 
@@ -34,9 +48,18 @@ module.exports = function( options ) {
 
 function _handleToggler( elem, params ) {
 
-  var displaying = false,
 
-  targets = cn.els( '.' + elem.getAttribute( params.attributes.toggle ) );
+  var attr = elem.getAttribute( params.attributes.toggle ),
+
+  displaying = false,
+
+  targets;
+
+  if ( !attr ) return;
+
+  elem.removeAttribute( params.attributes.toggle );
+
+  targets = cn.els( elem, '.' + attr );
 
   cn.addEvent( elem, 'click', function( e ) {
 
@@ -46,10 +69,66 @@ function _handleToggler( elem, params ) {
 
     cn.forEach( targets, function( targetElem ) {
 
-      ( displaying ? cn.addClass : cn.removeClass )( targetElem, params.classes.display );
+      ( displaying ? _show : _hide )( targetElem, params );
 
     });
 
   });
+
+  _controlHide( [ elem].concat( targets ), params, function() {
+
+    displaying = false;
+
+  } );
+
+}
+
+function _controlHide( targets, params, onHide ) {
+
+  var clicked = false;
+
+  cn.forEach( targets, function( targetElem ) {
+
+    cn.addEvent( targetElem, 'click', function() {
+
+      clicked = true;
+
+      setTimeout( function() {
+
+        clicked = false;
+
+      }, false );
+
+    });
+
+  } );
+
+  cn.addEvent( cn.el( 'body'), 'click', function( e ) {
+
+    if ( !clicked ) {
+
+      cn.forEach( targets, function( targetElem ) {
+
+        _hide( targetElem, params );
+
+      } );
+
+      onHide();
+
+    }
+
+  } );
+
+}
+
+function _show( elem, params ) {
+
+  cn.addClass( elem, params.classes.display );
+
+}
+
+function _hide( elem, params ) {
+
+  cn.removeClass( elem, params.classes.display );
 
 }
