@@ -16,7 +16,8 @@ defaults = {
   all: {
     res: {
       users: '/admin/users',
-      activate: '/admin/users/activate'
+      activate: '/admin/users/activate',
+      signin: '/admin/users/signin'
     }
   },
   tpl: {
@@ -124,6 +125,24 @@ UserApp = React.createClass({
 
   },
 
+  handleUserSignin: function( e ) {
+
+    var self = this;
+
+    e.preventDefault();
+
+    remote.getXmlHttp( config.res.signin, { data: { uid: this.state.user.uid } }, function( responseType, data ) {
+
+      if ( !responseType == 'success' ) return alert( 'schplof.' );
+
+      if ( !data.success ) return alert( data.message );
+
+      window.location.href = '/home';
+
+    } );
+
+  },
+
   render: function() {
 
     return (
@@ -140,7 +159,7 @@ UserApp = React.createClass({
             <UserList users={this.state.users} onUserClick={this.get} />
           </div>
           <div className="col-md-8">
-            <UserShow user={this.state.user} onUserActivation={this.handleUserActivation} />
+            <UserShow user={this.state.user} onUserActivation={this.handleUserActivation} onUserSignin={this.handleUserSignin} />
           </div>
         </div>
       </div>
