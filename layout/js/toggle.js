@@ -65,8 +65,6 @@ function _handleToggler( elem, params ) {
 
     displaying = !displaying;
 
-    cn.preventDefault( e );
-
     cn.forEach( targets, function( targetElem ) {
 
       ( displaying ? _show : _hide )( targetElem, params );

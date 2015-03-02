@@ -22,6 +22,10 @@
     "uri" : "user/menu",
     "public" : true
   },
+  {
+    "uri" : "user/bsMenu",
+    "public" : true
+  },
   "newsletter/show",
   "newsletter/admin/index",
   "newsletter/admin/campaignForm",
