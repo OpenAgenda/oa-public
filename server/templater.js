@@ -240,9 +240,10 @@ _loadLabels = function( lang ) {
 
         labels = JSON.parse( results[0] );
 
+        if ( results.length > 1 ) cn.extend(labels, JSON.parse( results[1] ) );
+        
       }
 
-      if ( results.length > 1 ) cn.extend(labels, JSON.parse( results[1] ) );
 
       data.labels = labels;
 
