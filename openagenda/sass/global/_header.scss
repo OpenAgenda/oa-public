@@ -102,12 +102,19 @@
     .avatar-container, .action-container, .title-container {
       display: inline-block;
       float: none;
+    }
+
+    .title-container {
+      vertical-align: middle;
+    }
+
+    .action-container {
       vertical-align: bottom;
     }
 
     .avatar-container {
       margin: 0;
-      vertical-align: top;
+      vertical-align: middle;
 
       img {
         margin: 0;
