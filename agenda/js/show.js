@@ -157,29 +157,6 @@ function _handleAddToSource( uid, session ) {
 
 
 
-/**
- * toggle display of admin button
- */
-
-function _handleAdminButton( session, ctl ) {
-
-  if ( !_isLoggedAdmin( session, ctl ) ) {
-
-    return;
-
-  }
-
-  if ( !cn.el( params.selectors.admin ) ) {
-
-    log( 'admin button not available' );
-
-    return;
-
-  }
-
-  cn.removeClass( cn.el( params.selectors.admin ), params.classes.displayNone );
-
-}
 
 function _isAdmin( ctl ) {
 
@@ -224,7 +201,7 @@ function _handleAddButton( session, ctl ) {
 
   // agenda is not contributive from here on. user must be admin
   
-  if ( !_isLoggedAdmin( session, ctl ) ) {
+  if ( !_isAdmin( ctl )( session ) ) {
 
     return;
 
