@@ -15,7 +15,11 @@
       "keywords" : "cibul, events, agendas, open data, networked",
       "robots" : "index, follow"
     },
-    "lang" : "fr"
+    "lang" : "fr",
+    "langLabels" : {
+      "fr" : "français",
+      "en" : "english"
+    }
   },
 
   "templateJs" : true

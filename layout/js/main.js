@@ -62,7 +62,7 @@ cn.addEvent( window, 'load', function() {
 
   flash();
 
-  _languageMenu( options.langHeadMenu );
+  //_languageMenu( options.langHeadMenu );
 
   headerProfile( options.profile );
 
@@ -128,7 +128,7 @@ function _languageMenu( options ) {
 
     } else {
 
-      langList.removeAttribute('style');
+      langList.removeAttribute( 'style' );
 
     }
 

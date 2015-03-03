@@ -11,6 +11,7 @@
 }
 
 .navbar-toggle {
+
   border: none;
   border-radius: 0;
   margin: 0;
@@ -24,15 +25,11 @@
     font-size: 21px;
     vertical-align: middle;
   }
+
 }
 
 .navbar-nav>li, .navbar-nav {
-  float: left !important;
   margin: 0;
-}
-
-.navbar-right {
-  float: right !important;
 }
 
 .navbar-nav > li > a {
@@ -49,13 +46,48 @@
     padding-left: 10px;
   }
 
+  .navbar-collapse {
+    padding: 0;
+  }
+
+  @media (min-width: 768px) {
+
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .navbar-nav>li, .navbar-nav {
+      float: left !important;
+    }
+
+    .navbar-right {
+      float: right !important;
+    }
+
+  }
+
+
+  .language-menu {
+
+    &>a {
+      text-transform: uppercase;
+    }
+
+    .selected {
+      color: $oa-blue;
+    }
+
+  }
+
   .search-form {
-    float: left;
+    
     margin: 0;
+    float: left;
 
     .search-input {
-      background: $oa-white;
+
       width: 150px;
+
+      background: $oa-white;
       
       border-top: 0;
       border-bottom: 0;
@@ -65,6 +97,7 @@
         outline: 0;
       }
     }
+
   }
 
   .profile {
@@ -87,8 +120,6 @@
       padding: 0;
 
       .row {
-
-        
 
         li {
 
@@ -117,6 +148,75 @@
 
       }
 
+    }
+
+
+  }
+
+
+  /**
+   * mobile menu adjustments - hack over bootstrap, isolated from the rest.
+   */
+
+  @media (max-width: 768px) {
+
+    .dropdown-menu {
+      display: block;
+      position: relative;
+      visibility: visible;
+      width: 100%;
+      border: none;
+      box-shadow: none;
+    }
+
+    .language-menu {
+
+      display: block;
+      float: none!important;
+
+      &>a {
+        display: none;
+      }
+
+      .dropdown-menu li {
+        display: inline-block;
+      }
+
+    }
+
+    .search-form {
+
+      float: none;
+
+      .search-input {
+        width: 100%;
+      }
+
+    }
+
+    .profile {
+
+      &>a {
+        display: none;
+      }
+
+      .dropdown-menu {
+
+        display: block;
+        position: relative;
+        visibility: visible;
+
+        .row {
+          margin: 0;
+        }
+
+      }
+
+    }
+
+    .signin {
+      float: left;
+      padding-left: 5px;
     }
 
   }

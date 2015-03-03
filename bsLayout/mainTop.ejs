@@ -17,11 +17,11 @@
     <![endif]-->
     <script type="text/javascript">window.templates='bs';</script>
   </head>
-  <body<% if ( pageClass ) { %> class="<%= pageClass %>"<% } %> <% if ( pageId ) { %> id="<%= pageId %>"<% } %> data-options="<%- typeof scriptParams !== 'undefined' ? _esc( JSON.stringify( scriptParams ) ) : '' %>">
+  <body <% if ( pageId ) { %> id="<%= pageId %>"<% } %> class="<% if ( pageClass ) { %><%= pageClass %> <% } %>js_toggle" data-toggle="collapse"  data-options="<%- typeof scriptParams !== 'undefined' ? _esc( JSON.stringify( scriptParams ) ) : '' %>">
     <nav class="navbar navbar-default navbar-static-top js_top_nav" id="nav">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed js_toggle" data-toggle="collapse">
+          <button type="button" class="navbar-toggle collapsed js_toggle_trigger">
             <i class="fa fa-bars"></i>
           </button>
           <a class="navbar-brand" href="/">
@@ -35,14 +35,19 @@
             </div>
           </form>
           <ul class="nav navbar-nav navbar-right js_header_links">
-            <li class="js_language_menu language-menu js_not_logged">
-              <a href="#"><% if ( ( typeof lang == 'undefined' ) || lang=='fr' ) { %>fr<% } else { %>en<% } %></a></a>
-              <ul>
-                <li><a rel="alternate" href="?lang=fr" hreflang="fr">français</a></li><!--
-                --><li><a href="?lang=en" hreflang="en">english</a></li>
+            <li class="js_toggle language-menu js_not_logged" data-toggle="js_languages_menu">
+              <a href="#"><% if ( lang=='fr' ) { %>fr<% } else { %>en<% } %></a>
+              <ul class="dropdown-menu js_languages_menu collapse">
+<% [ 'fr', 'en' ].forEach( function( l ) { %>
+<% if ( lang==l ) { %>
+                <li><a rel="alternate" href="?lang=<%= l %>" hreflang="<%= l %>" class="selected"><%= langLabels[ l ] %></a></li>
+<% } else { %>
+                <li><a href="?lang=<%= l %>" hreflang="<%= l %>"><%= langLabels[ l ] %></a></li>
+<% } %>
+<% }); %>
               </ul>
             </li>
-            <li class="js_not_logged">
+            <li class="js_not_logged signin">
               <a class="js_signin_link" href="<%= genUrl('signin') %>"><%= __('Sign in') %></a>
             </li>
           </ul>

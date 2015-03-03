@@ -10,7 +10,8 @@ var cn = require('../../js/lib/common/common.mod.js'),
 
 defaults = {
   selectors: {
-    toggler: '.js_toggle'
+    toggler: '.js_toggle',
+    toggleTrigger: '.js_toggle_trigger' // optional
   },
   classes: {
     display: 'in'
@@ -48,12 +49,13 @@ module.exports = function( elem, options ) {
 
 function _handleToggler( elem, params ) {
 
-
   var attr = elem.getAttribute( params.attributes.toggle ),
 
   displaying = false,
 
-  targets;
+  targets,
+
+  trigger;
 
   if ( !attr ) return;
 
@@ -61,7 +63,11 @@ function _handleToggler( elem, params ) {
 
   targets = cn.els( elem, '.' + attr );
 
-  cn.addEvent( elem, 'click', function( e ) {
+  trigger = cn.el( elem, params.selectors.toggleTrigger );
+
+  if ( !trigger ) trigger = elem; 
+
+  cn.addEvent( trigger, 'click', function( e ) {
 
     displaying = !displaying;
 
@@ -73,7 +79,7 @@ function _handleToggler( elem, params ) {
 
   });
 
-  _controlHide( [ elem].concat( targets ), params, function() {
+  _controlHide( [ elem ].concat( targets ), params, function() {
 
     displaying = false;
 
@@ -85,6 +91,7 @@ function _controlHide( targets, params, onHide ) {
 
   var clicked = false;
 
+
   cn.forEach( targets, function( targetElem ) {
 
     cn.addEvent( targetElem, 'click', function() {
@@ -95,7 +102,7 @@ function _controlHide( targets, params, onHide ) {
 
         clicked = false;
 
-      }, false );
+      }, 10 );
 
     });
 
