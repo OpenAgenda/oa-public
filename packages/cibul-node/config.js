@@ -14,6 +14,7 @@ config = {
     name: 'cibul-node',
     domain: 'pre.openagenda.com',
     root: 'https://pre.openagenda.com',
+    googleAnalyticsId: 'UA-60305866-1',
     db: {
       database: 'oa',
       host: 'cibul.cjlxznnlwwtq.eu-west-1.rds.amazonaws.com',
