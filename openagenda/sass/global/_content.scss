@@ -15,7 +15,7 @@
   width: 100%;
   z-index: 3000;
 
-  form {
+  .popup-content {
     padding: 1em 2em 2em;
   }
 
@@ -38,6 +38,7 @@
 
   .btn-adds {
   	margin: 0 -5px;
+    padding: 5px 0 10px;
 
   	.btn {
 	  	background: $oa-gray-light;
@@ -45,11 +46,10 @@
 	  	color: $oa-gray;
 	  	display: inline-block;
 	  	margin: 5px;
-	  	padding: 5px 8px;
 
 	  	&:hover {
 	  		background: $oa-blue;
-	  		border-color: $oa-blue;
+	  		
 	  		color: $oa-white;
 	  	}
 	  }

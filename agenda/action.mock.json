@@ -1,3 +1,38 @@
 {
-  "uid" : 6789687969
+  "base" : {
+    "uid" : 6789687969,
+    "hasAggregator" : false
+  },
+  "standard" : {
+    "hasAggregator" : false
+  },
+  "aggregator" : {
+    "hasAggregator" : true,
+    "agendas" : [
+      {
+        "title" : "Agenda 1",
+        "aggregates" : true,
+        "aggUid" : 10203
+      },
+      {
+        "title" : "Agenda 22",
+        "aggregates" : false,
+        "aggUid" : 40506
+      },
+      {
+        "title" : "Un agenda",
+        "aggregates" : false,
+        "aggUid" : 70809
+      },
+      {
+        "title" : "Wigglipoof",
+        "aggregates" : true,
+        "aggUid" : 101112
+      }
+    ]
+  },
+  "emptyaggregator" : {
+    "hasAggregator" : true,
+    "agendas" : []
+  }
 }
