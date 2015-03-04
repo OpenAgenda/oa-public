@@ -331,23 +331,105 @@ function show( req, res ) {
 
 function actionShow( req, res ) {
 
-  var renderParams = [ req, res, 'agenda/action', {
-    uid: req.agenda.uid
-  }];
+  w( {
+    uid: req.agenda.uid,
+    hasAggregator: false,
+    agendas: []
+  } )
 
-  if ( req.xhr ) {
+  .then( function( values ) {
 
-    cmn.render.apply( null, renderParams );
+    if ( !req.session.logged ) return values;
 
-  } else {
+    return w.promise( function( resolve, reject ) {
 
-    cmn.loadBaseData( _layoutData, 'oa.css' )( req, res, function() {
+      // list agendas which have the aggregator feature and of which user is admin
+
+      model.reviews().list( { aggregator: true, adminId: req.session.userId }, function( err, agendas ) {
+
+        if ( err ) return reject( err );
+
+        values.agendas = agendas.map( function( a ) {
+
+          return {
+            id: a.id,
+            title: a.title,
+            aggUid: a.uid,
+            aggregates: false
+          }
+
+        }).filter( function( a ) {
+
+          return a.id !== req.agenda.id;
+
+        });
+
+        if ( values.agendas.length ) values.hasAggregator = true;
+
+        resolve( values );
+
+      });
+
+    });    
+
+  })
+
+  .then( function( values ) {
+
+    if ( !req.session.logged ) return values;
+
+    // get current aggregating agendas
+    // and cross reference with users admined agendas
+
+    return w.promise( function( resolve, reject ) {
+
+      req.agenda.getAggregators( function( err, result ) {
+
+        var aggAgendasIds = result.map( function( a ) {
+
+          return a.id;
+
+        });
+
+        values.agendas.map( function( a ) {
+
+          if ( aggAgendasIds.indexOf( a.id ) !== -1 ) {
+
+            a.aggregates = true;
+
+          }
+
+          return a;
+
+        });
+
+        resolve( values );
+
+      })
+
+    });
+
+  })
+
+  .done( function( values ) {
+
+    var renderParams = [ req, res, 'agenda/action', values ];
+
+    if ( req.xhr ) {
 
       cmn.render.apply( null, renderParams );
 
-    } );
+    } else {
 
-  }
+      cmn.loadBaseData( _layoutData, 'oa.css' )( req, res, function() {
+
+        cmn.render.apply( null, renderParams );
+
+      } );
+
+    }
+    
+  }, cmn.catchError( req, res ) );
 
 }
 

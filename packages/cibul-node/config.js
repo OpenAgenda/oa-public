@@ -139,6 +139,10 @@ config = {
           method: 'get',
           uri: '/events/search'
         },
+        'agendaNew' : {
+          method: 'get',
+          uri: '/new'
+        },
         'agendaEventNew' : {
           method: 'get',
           uri: '/:slug/addevent'
@@ -171,10 +175,21 @@ config = {
           method: 'get',
           uri: '/:slug/admin/webembed'
         },
+        'agendaAddAsSource' : {
+          method: 'get',
+          uri: '/agenda/:uid/aggregator/addTo/:aggUid'
+        },
+        'agendaRemoveAsSource' : {
+          method: 'get',
+          uri: '/agenda/:uid/aggregator/removeFrom/:aggUid'
+        },
+
         'agendaShowByUid' : {
           method: 'get',
           uri: '/agendas/:uid'
         },
+
+
         'agendaAdminShow' : {
           method: 'get',
           uri: '/:slug/admin'
