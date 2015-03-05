@@ -41,8 +41,6 @@ var handleHeader = function(params) {
 
       session.logged?_runLogged():_runUnlogged();
 
-      _mobileSetup(session.logged);
-
       _toggleDisplayedElements();
 
     });
@@ -97,26 +95,6 @@ var handleHeader = function(params) {
 
   },
 
-
-  /**
-   * switch to mobile behavior if is mobile
-   */
-  
-  _mobileSetup = function(logged) {
-
-    sEventHandler.getInstance().trigger(params.events.mobile, function(isMobile) {
-
-      if (!isMobile) return;
-
-      if (!logged) el(params.selectors.mobileAnchor).insertAdjacentElement('afterend', handleDisplayButton(params.templates.mobileConnect, el(params.selectors.connect), {event: 'headerbuttontapped' }));
-
-      el(params.selectors.mobileAnchor).insertAdjacentElement('afterend', handleDisplayButton(params.templates.mobileSearch, el(params.selectors.searchMenu), {event: 'headerbuttontapped'}));
-
-      addClass(el(params.selectors.header), params.classes.mobile);
-
-    });
-
-  },
 
 
   _initUserMenu = function() {

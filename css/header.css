@@ -3,6 +3,13 @@ body > header {
   text-align: center;
 }
 
+body > header .links {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+}
+
 body > header .links li.nomobile { display: none; }
 
 body > header .container {
@@ -17,11 +24,6 @@ body > header .container {
     width: auto;
   }
 
-  body > header .links {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
 
 }
 

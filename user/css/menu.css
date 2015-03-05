@@ -2,12 +2,14 @@ body > header .user-profile {
 
   position: relative;
   cursor: pointer;
+  height: 50px;
 
 }
 
 .user-profile img {
 
-  max-height: 35px;
+  max-height: 30px;
+  margin: 10px 0;
 
 }
 
