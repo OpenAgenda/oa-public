@@ -53,6 +53,7 @@ routes = {
   embedShow: [ 'get', show, '/agendas/:uid/embed/events', [
     cmn.loadAgenda( 'uid' ),
     _formatAgendaData( 'embed' ),
+    _loadIsPassed,
     _loadEvents,
     _loadTemplateUris,
     cmn.loadBaseData( _layoutData, 'embedDefault.css' )
@@ -62,6 +63,7 @@ routes = {
     cmn.loadAgenda( 'uid' ), 
     _loadEmbed( 'embedUid', 'uid' ),
     _formatAgendaData( 'customEmbed' ),
+    _loadIsPassed,
     _formatEmbedData,
     _loadEvents,
     _loadTemplateUris,
@@ -72,6 +74,7 @@ routes = {
   agendaShow: [ 'get', show, '/:slug', [ 
     cmn.loadAgenda( 'slug' ), 
     _formatAgendaData( 'show' ),
+    _loadIsPassed,
     _loadEvents, 
     _loadTemplateUris,
     cmn.loadBaseData( _layoutData, 'oa.css' )
@@ -169,6 +172,21 @@ function _loadEmbed( queryName, fieldName ) {
     } );
 
   }
+
+}
+
+
+function _loadIsPassed( req, res, next ) {
+
+  var now = new Date();
+
+  req.agenda.getLastOccurrence( function( err, lastOccurrence ) {
+
+    req.templateData.passed = now > lastOccurrence.end;
+
+    next();
+
+  });
 
 }
 
