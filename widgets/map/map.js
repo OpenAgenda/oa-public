@@ -1,3 +1,5 @@
+"use strict";
+
 exports.setOnReady = setOnReady;
 
 var UID = 0,
@@ -29,7 +31,7 @@ onReady; // cb to call when a widget is ready
 
 if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
 
-var widget = function( elem, options ) {
+function widget( elem, options ) {
 
   var log,
 
@@ -64,7 +66,9 @@ var widget = function( elem, options ) {
 
   embedMode,
 
-  init = function() {
+  useClusters = false;
+
+  return ( function() {
 
     var uid = options.anchorConfig[ UID ];
 
@@ -120,28 +124,43 @@ var widget = function( elem, options ) {
     } );
 
     
-  },
+  } )();
 
-  _initMarkers = function() {
+
+  function _initMarkers() {
+
+    var markers = [], clusterGroup;
+
+    useClusters = cn.size( locations ) > config.clusterThreshold;
 
     for ( var l in locations ) {
 
       var location = locations[l];
 
-      location.marker = m.createMarker( map, {
+      location.marker = m.createMarker( useClusters ? false : map, {
         position: location.coords,
         icon: config.icons.inactive.icon,
         anchor: config.icons.inactive.anchor
       } );
 
+      markers.push( location.marker );
+
       _setOnMarkerClick( location );
 
       _refreshMarker( location );
+
     }
 
-  },
+    if ( useClusters ) {
 
-  enable = function( reqParams ) {
+      m.createCluster( map, markers );
+
+    }
+
+  }
+
+
+  function enable( reqParams ) {
 
     log( 'enabling map' );
 
@@ -209,10 +228,10 @@ var widget = function( elem, options ) {
 
     } );
 
-  },
+  }
 
 
-  disable = function() {
+  function disable() {
 
     log( 'disabling' );
 
@@ -220,10 +239,10 @@ var widget = function( elem, options ) {
 
     _refresh();
 
-  },
+  }
 
 
-  clear = function() {
+  function clear() {
 
     activeLocations = [];
 
@@ -237,10 +256,10 @@ var widget = function( elem, options ) {
     
     }
 
-  },
+  }
 
 
-  include = function( eventItem ) {
+  function include( eventItem ) {
 
     for ( var l in eventItem.l ) {
 
@@ -262,10 +281,10 @@ var widget = function( elem, options ) {
 
     }
 
-  },
+  }
 
 
-  _setOnMarkerClick = function( location ) {
+  function _setOnMarkerClick( location ) {
 
     m.setOnMarkerClick( location.marker, function() {
 
@@ -273,14 +292,18 @@ var widget = function( elem, options ) {
 
       log( 'clicked marker of location "%s"', location.placename );
 
-      // if there are neighbors, redefine bounds
+      if ( !useClusters ) {
 
-      var neighborhoodBounds = _getNeighborBounds( location );
+        // if there are neighbors, redefine bounds
+
+        var neighborhoodBounds = _getNeighborBounds( location );
 
 
-      if ( neighborhoodBounds ) {
+        if ( neighborhoodBounds ) {
 
-        return _selectBounds( neighborhoodBounds, true );
+          return _selectBounds( neighborhoodBounds, true );
+
+        }
 
       }
 
@@ -292,7 +315,13 @@ var widget = function( elem, options ) {
 
       _deactivateSync();
 
-      updatedReqParams = { location: location.slug, neLat: null, neLng: null, swLat: null, swLng: null };
+      updatedReqParams = {
+        location: location.slug, 
+        neLat: null,
+        neLng: null,
+        swLat: null,
+        swLng: null
+      };
 
       if ( cn.contains( passedLocations, location.slug ) ) {
 
@@ -303,9 +332,10 @@ var widget = function( elem, options ) {
       _update( updatedReqParams );
 
     });
-  },
+  }
 
-  _refresh = function() {
+
+  function _refresh() {
 
     log( 'refreshing map: %s', enabled ? 'enabled' : 'not enabled' );
 
@@ -323,19 +353,19 @@ var widget = function( elem, options ) {
     
     }
 
-  },
+  }
 
 
-  setOnBoundsChange = function( cb ) {
+  function setOnBoundsChange( cb ) {
 
     log( 'setting onboundschange callback' );
         
     onBoundsChangeCallback = cb;
 
-  },
+  }
 
 
-  _refreshMarker = function( location ) {
+  function _refreshMarker( location ) {
 
     var active = ( enabled && cn.contains( activeLocations, location.slug ) );
 
@@ -343,10 +373,10 @@ var widget = function( elem, options ) {
 
     m.setMarkerZIndex( location.marker, active ? 1000 : -1000 );
 
-  },
+  }
 
 
-  _initTiles = function( data ) {
+  function _initTiles( data ) {
 
     if ( !data.ebd || !data.ebd.mt ) {
 
@@ -358,13 +388,13 @@ var widget = function( elem, options ) {
 
     config.tiles = data.ebd.mt;
 
-  },
+  }
 
 
 
    // initialize map object
 
-  _initSettings = function( anchorConfig ) {
+  function _initSettings( anchorConfig ) {
 
     if ( anchorConfig.length > 1 ) {
 
@@ -398,10 +428,10 @@ var widget = function( elem, options ) {
 
     m = mapLib( { url: config.tiles });
 
-  },
+  }
 
 
-  _initLocations = function( data ) {
+  function _initLocations( data ) {
 
     var today = new Date();
 
@@ -444,10 +474,10 @@ var widget = function( elem, options ) {
 
     }
 
-  },
+  }
 
 
-  _initIcons = function( data ) {
+  function _initIcons( data ) {
 
     if ( !data.ebd || !data.ebd.mi ) return;
 
@@ -467,10 +497,10 @@ var widget = function( elem, options ) {
 
     }
 
-  },
+  }
 
 
-  _defineBaseBounds = function( data ) {
+  function _defineBaseBounds( data ) {
 
     var mode = 'all';
 
@@ -486,23 +516,23 @@ var widget = function( elem, options ) {
 
     }
 
-  },
+  }
 
 
-  _initManualBounds = function( corners ) {
+  function _initManualBounds( corners ) {
 
     baseBounds = m.createBounds( [ corners.neLat, corners.neLng ] );
 
     m.extendBounds( baseBounds, [ corners.swLat, corners.swLng ] );
 
-  },
+  }
 
 
   
   // define initial bounds to have them include all upcoming
   // markers. Or all markers if agenda is fully passed
 
-  _initAllInclusiveBounds = function( isPassed ) {
+  function _initAllInclusiveBounds( isPassed ) {
 
     if ( !cn.size( locations ) ) {
 
@@ -555,10 +585,10 @@ var widget = function( elem, options ) {
 
     }
 
-  },
+  }
 
 
-  _createMap = function( cb ) {
+  function _createMap( cb ) {
 
     var div = document.createElement( 'div' );
 
@@ -594,9 +624,10 @@ var widget = function( elem, options ) {
 
     }});
 
-  },
+  }
 
-  _boundsChangeBehavior = function() {
+
+  function _boundsChangeBehavior() {
 
     m.setOnBoundsChangeEnd( map, function() {
 
@@ -618,9 +649,10 @@ var widget = function( elem, options ) {
 
     });
 
-  },
+  }
 
-  _getBoundParams = function( bounds ) {
+
+  function _getBoundParams( bounds ) {
 
     if ( typeof bounds == 'undefined' ) {
 
@@ -634,9 +666,10 @@ var widget = function( elem, options ) {
 
     return { neLat: ne[0], neLng: ne[1], swLat: sw[0], swLng: sw[1] };
 
-  },
+  }
 
-  _selectBounds = function( bounds, updateMap ) {
+
+  function _selectBounds( bounds, updateMap ) {
 
     log( 'selecting bounds' );
 
@@ -652,20 +685,21 @@ var widget = function( elem, options ) {
 
     }
 
-  },
+  }
 
-  _update = function( params ) {
+
+  function _update( params ) {
 
     sendCount++;
 
     controller.update( 'map', params );
 
-  },
+  }
 
 
   // update map bounds
 
-  _updateBounds = function( reqParams, cb ) {
+  function _updateBounds( reqParams, cb ) {
 
     log( 'updating map bounds to %s', JSON.stringify( reqParams ) );
 
@@ -712,19 +746,20 @@ var widget = function( elem, options ) {
 
     }, 100 );
 
-  },
+  }
 
-  // default bounds encapsulate all the locations
   
-  _setMapToBaseBounds = function() {
+  // default bounds encapsulate all the locations
+  function _setMapToBaseBounds() {
 
     log( 'setting map to base bounds: %s', JSON.stringify( baseBounds ) );
     
     _fitBounds( baseBounds );
 
-  },
+  }
 
-  _fitBounds = function( bounds, ignoreZoomLimit ) {
+
+  function _fitBounds( bounds, ignoreZoomLimit ) {
 
     if ( typeof ignoreZoomLimit == 'undefined' ) {
 
@@ -742,9 +777,10 @@ var widget = function( elem, options ) {
 
     }
 
-  },
+  }
 
-  _bindSync = function() {
+
+  function _bindSync() {
 
     cn.addEvent( cn.el( elem, config.selectors.sync ), 'change', function( e ) {
 
@@ -768,17 +804,19 @@ var widget = function( elem, options ) {
 
     });
 
-  },
+  }
 
-  _deactivateSync = function() {
+
+  function _deactivateSync() {
 
     config.auto = false;
 
     cn.el( elem, config.selectors.sync ).checked = false;
 
-  },
+  }
 
-  _activateSync = function() {
+
+  function _activateSync() {
 
     cn.el( elem, config.selectors.sync ).checked = true;
 
@@ -787,7 +825,7 @@ var widget = function( elem, options ) {
   }
 
 
-  _getNeighborBounds = function( location ) {
+  function _getNeighborBounds( location ) {
 
     log( 'defining neighborhood bounds of location %s', location.placename );
 
@@ -816,10 +854,10 @@ var widget = function( elem, options ) {
 
     return bounds;
     
-  },
+  }
 
 
-  _distance = function( lat1, lon1, lat2, lon2 ) {
+  function _distance( lat1, lon1, lat2, lon2 ) {
   
     var radlat1 = Math.PI * lat1 / 180,
     
@@ -834,8 +872,6 @@ var widget = function( elem, options ) {
     return 60 * 1.1515 * 1609.344 * 180/Math.PI * Math.acos(Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta));
 
   };
-
-  init();
 
 };
 

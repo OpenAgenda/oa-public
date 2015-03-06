@@ -4,6 +4,8 @@ cn = require( '../common/common.mod'),
 
 L = require( 'leaflet' );
 
+require( 'leaflet.markercluster' );
+
 maps.register('osm', (function(){
 
   var libOptions;
@@ -32,7 +34,8 @@ maps.register('osm', (function(){
       var map = L.map(mapElt, {
         dragging: options.draggable,
         scrollWheelZoom: options.scrollwheel,
-        keyboard: options.keyboard
+        keyboard: options.keyboard,
+        maxZoom: 18
       });
 
       if (options.onReady) map.on('load', function() {
@@ -48,7 +51,17 @@ maps.register('osm', (function(){
 
     createMarker: function(map, options) {
 
-      var icon = {};
+      if ( arguments.length == 1 ) {
+
+        options = map;
+
+        map = false;
+
+      }
+
+      var icon = {},
+
+      marker;
 
       if (options.icon) {
         
@@ -64,16 +77,26 @@ maps.register('osm', (function(){
 
       }
 
-      return L.marker(options.position, {
+      marker = L.marker(options.position, {
         title: options.title,
         icon: icon,
         draggable: options.draggable?options.draggable:false
-      }).addTo(map);
+      })
+
+      if ( map ) {
+
+        marker.addTo(map);
+        
+      }
+
+      return marker;
 
     },
 
     setOnMarkerClick: function(marker, callback) {
+
       marker.on('click', callback);
+
     },
 
     setOnBoundsChangeEnd: function(map, callback) {
@@ -176,7 +199,7 @@ maps.register('osm', (function(){
 
     createPopup: function(map, content, options) {
 
-      if (!map.getSize().x) return;
+      if ( !map.getSize().x ) return;
 
       options = cn.extend({
         marker: false
@@ -190,13 +213,27 @@ maps.register('osm', (function(){
 
     },
 
+    createCluster: function( map, markers ) {
+
+      clusterGroup = L.markerClusterGroup({
+        showCoverageOnHover: false
+      });
+
+      clusterGroup.addLayers( markers );
+
+      map.addLayer( clusterGroup );
+
+      return clusterGroup;
+
+    },
+
     removePopup: function(reference) {
 
       reference.closePopup();
       
     },
 
-    getPosition: function(marker) {
+    getPosition: function( marker ) {
 
       var pos = marker.getLatLng();
 
