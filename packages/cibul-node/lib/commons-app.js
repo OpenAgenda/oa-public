@@ -16,6 +16,7 @@ exports.errorResponse = errorResponse;            // render error page
 exports.catchError = catchError;                  // the heir of standard error handling
 
 exports.loadAgenda = loadAgenda;                  // middleware. loads an agenda in the request based on its slug
+exports.isLogged = isLogged;                      // this guy speaks for himself.
 exports.requireLogged = requireLogged;            // middleware. verify if user is logged
 exports.requireUnlogged = requireUnlogged;
 exports.https = https;                            // middleware. force https ( redirect to when not )
@@ -495,7 +496,11 @@ function loadSession( req, res, next ) {
 }
 
 
+function isLogged( req ) {
 
+  return !!req.session.logged;
+
+}
 
 /**
  * requiring logged client
@@ -505,7 +510,7 @@ function loadSession( req, res, next ) {
 
 function requireLogged( req, res, next ) {
 
-  if ( req.session.logged ) {
+  if ( isLogged( req ) ) {
 
     next();
 
@@ -534,7 +539,7 @@ function requireLogged( req, res, next ) {
 
 function requireUnlogged( req, res, next ) {
 
-  if ( !req.session.logged ) {
+  if ( !isLogged( req ) ) {
 
     next();
 

@@ -14,10 +14,12 @@ deepExtend = require( 'deep-extend' ),
 
 auth = require( './lib/auth' ),
 
+session = require( './lib/session' ),
+
 https = require( 'https' ),
 
 routes = {
-  signin: [ 'get', auth.renderSignin, '/signin', [ cmn.requireUnlogged ] ],
+  signin: [ 'get', auth.renderSignin, '/signin', [ _checkUnloggedAndUpdateRedis ] ],
   signinSubmit: [ 'post', signinSubmit, '/signin', [ cmn.requireUnlogged ] ],
   signout: [ 'get', signout, '/signout', [ cmn.requireLogged ] ],
   signup: [ 'get', auth.renderSignup, '/signup', [ cmn.requireUnlogged, _loadCaptcha ] ],
@@ -230,6 +232,21 @@ function activate( req, res ) {
 function _handleSigninRequest( req, email, password, done ) {
 
   userSvc.auth( email, password, done );
+
+}
+
+
+/**
+ * check that user is logged and update redis either way
+ */
+
+function _checkUnloggedAndUpdateRedis( req, res, next ) {
+
+  session.syncRedis( req, res, function( err ) {
+
+    cmn.requireUnlogged( req, res, next );
+
+  } );
 
 }
 

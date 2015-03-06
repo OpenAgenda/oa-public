@@ -10,7 +10,8 @@ log = require( '../../lib/logger' )( 'session' );
 
 module.exports = {
   set: set,
-  unset: unset
+  unset: unset,
+  syncRedis: syncRedis
 }
 
 function set( req, res, user, cb ) {
@@ -49,6 +50,32 @@ function _removeSymfonyCookie( res ) {
 
 }
 
+function syncRedis( req, res, cb ) {
+
+  if ( cmn.isLogged( req ) ) {
+
+    cmn.getCibulModel().users().get( { id: req.session.userId }, function( err, user ) {
+
+      if ( err ) {
+
+        log( 'failed to sync redis' );
+
+        if ( cb ) return cb( err );
+
+      }
+
+      _updateRedisSession( req, res, user, cb );
+
+    } );
+
+  } else {
+
+    _clearRedisSession( req, res, cb );
+
+  }
+
+}
+
 function _updateRedisSession( req, res, user, cb ) {
 
   var cli = redis.createClient( config.redis.port, config.redis.host ),
@@ -72,7 +99,7 @@ function _updateRedisSession( req, res, user, cb ) {
 
     cli.quit();
 
-    cb( err );
+    if ( cb ) cb( err );
 
   } );
 
@@ -88,7 +115,7 @@ function _clearRedisSession( req, res, cb ) {
 
     cli.quit();
 
-    cb( err );
+    if ( cb ) cb( err );
 
   });
 
