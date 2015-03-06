@@ -308,9 +308,18 @@ module.exports = function( uid ) {
 
   function _initCurrentRequestParams() {
 
+    var today = new Date();
+
     if ( ctl.sh ) {
 
       currentRequestParams = _readHrefQuery( 'search' );
+
+    }
+
+    if ( ctl.lo ) {
+
+      // bit of a transitional hack (2015-03-06) - remove ctl.p in other widgets before anything here
+      ctl.p = today > new Date( ctl.lo.end );
 
     }
 
