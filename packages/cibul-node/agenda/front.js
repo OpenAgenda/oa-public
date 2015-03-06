@@ -180,9 +180,11 @@ function _loadIsPassed( req, res, next ) {
 
   var now = new Date();
 
+  console.log( now );
+
   req.agenda.getLastOccurrence( function( err, lastOccurrence ) {
 
-    req.templateData.passed = now > lastOccurrence.end;
+    req.templateData.passed = now > new Date( lastOccurrence.end );
 
     next();
 
@@ -209,6 +211,9 @@ function _formatAgendaData( mode ) {
     };
 
     req.templateData.importUri = req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } );
+
+    req.templateData.hasSearchQuery = !!lib.size( req.query.search );
+
 
     if ( req.params.embedUid ) {
 
