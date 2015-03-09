@@ -118,7 +118,7 @@ function dates( item, reqParams ) {
 
     for ( var j in item.l[ i ].d ) {
 
-      if ( ( item.l[ i ].d[ j ] >= reqParams.from ) && ( item.l[ i ].d[ j ] <= reqParams.to ) ) {
+      if ( ( item.l[ i ].d[ j ] >= period[ 0 ] ) && ( item.l[ i ].d[ j ] <= period[ 1 ] ) ) {
 
         return true;
 
