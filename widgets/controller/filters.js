@@ -5,7 +5,8 @@ module.exports = {
   categories: categories,
   tags: tags,
   organizations: organizations,
-  locations: locations
+  locations: locations,
+  dates: dates
 }
 
 
@@ -32,7 +33,7 @@ function passed( item, reqParams ) {
 
   today = today.getFullYear() + '-' + _fZ( today.getMonth() + 1 ) + '-' + _fZ( today.getDate() );
 
-  if ( !reqParams.passed ) {
+  if ( !reqParams.passed && !reqParams.from ) {
 
     for ( var i in item.l ) {
 
@@ -99,6 +100,35 @@ function organizations( item, reqParams ) {
   if ( reqParams.org && ( ( !item.org ) || ( item.org.s !== reqParams.org ) ) ) return false;
 
   return true;
+
+}
+
+
+function dates( item, reqParams ) {
+
+  if ( !reqParams.from ) {
+
+    return true;
+
+  }
+
+  var period = [ reqParams.from, reqParams.to ? reqParams.to : reqParams.from ];
+
+  for ( var i in item.l ) {
+
+    for ( var j in item.l[ i ].d ) {
+
+      if ( ( item.l[ i ].d[ j ] >= reqParams.from ) && ( item.l[ i ].d[ j ] <= reqParams.to ) ) {
+
+        return true;
+
+      }
+
+    }
+
+  }
+
+  return false;
 
 }
 

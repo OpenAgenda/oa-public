@@ -128,7 +128,7 @@ _loadTemplate = function( templateName ) {
     isPartial = templateName.substr( -5 ) === '.part',
 
     data = {
-      name: templateName.replace('.part', '')
+      name: templateName.replace( '.part', '' )
     };
 
     log( 'reading contents of %s', baseTemplatePath + '.config.json' );
