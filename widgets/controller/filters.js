@@ -59,8 +59,12 @@ function passed( item, reqParams ) {
 
 
 function event( item, reqParams ) {
+  
+  if ( reqParams.uid ) {
 
-  if ( reqParams.uid && ( item.u !== reqParams.uid ) ) return false;
+    return (item.u + '') == (reqParams.uid + '');
+
+  };
 
   return true;
 
