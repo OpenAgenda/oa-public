@@ -1,0 +1,174 @@
+// specific corporate pages design
+#corpo {
+	h1 {
+		line-height: 1.5;
+		margin: 2em 0;
+		text-align: center;
+	}
+
+	section {
+		h2 {
+			font-size: 24px;
+			text-align: center;
+		}
+	}
+
+	#content {
+		padding-bottom: 0;
+
+		img {
+			border-radius: 3px;
+		}
+
+		p {
+			font-size: 18px;
+			font-weight: 200;
+			line-height: 1.6;
+		}
+	}
+
+	.nav-pills {
+		border-bottom: 1px solid $oa-white;
+		padding-bottom: 25px;
+	}
+
+	.action-container {
+		margin-top: 25px;
+		text-align: center;
+
+		small {
+			color: $oa-gray;
+		}
+
+		.btn {
+			font-size: 18px;
+		}
+	}
+
+	.partners {
+		background: $oa-white;
+		margin: 100px 0 50px;
+	    padding: 25px;
+	    text-align: center;
+
+		ul {
+			list-style: none;
+			margin: 25px;
+			padding: 0;
+		}
+
+		li {
+			display: inline-block;
+			padding: 10px;
+			vertical-align: middle;
+			width: 9.09%; //100 / 11 logos
+
+			&:first-child {
+				padding-left: 0;
+			}
+
+			&:last-child {
+				padding-right: 0;
+			}
+
+			img {
+				display: block;
+				filter: grayscale(100%);
+			    margin: auto;
+			    max-height: 60px;
+			    opacity: 0.62;
+			    width: auto;
+			}
+
+			&:hover img {
+				filter: none;
+				opacity: 1;
+			}
+		}
+	}
+
+	.follow-us {
+		text-align: center;
+		padding: 25px;
+		padding-bottom: 50px;
+		padding-top: 0;
+
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		li {
+			display: inline-block;
+			padding: 10px;
+			vertical-align: middle;
+		}
+
+		a {
+			display: block;
+			font-size: 32px;
+
+			&:hover {
+				opacity: 0.9;
+			}
+		}
+
+		.facebook a {
+			color: $facebook-color; 
+		}
+
+		.twitter a {
+			color: $twitter-color; 
+		}
+
+
+		.linkedin a {
+			color: $linkedin-color; 
+		}
+
+	}
+
+	.features {
+		background: $oa-white;
+	}
+
+	.feature {
+		border-bottom: 1px solid $oa-silver;
+		padding-bottom: 50px;
+		padding-top: 50px;
+
+		i {
+			color: $oa-blue;
+			display: block;
+			font-size: 128px;
+			padding-bottom: 10%;
+		}
+
+		header {
+			p {
+				font-style: italic;
+				color: $oa-gray;
+			}
+		}
+
+		h2 {
+			text-align: left;
+
+			strong {
+				color: $oa-blue;
+				font-weight: normal;
+			}
+		}
+
+		ul {
+			font-size: 18px;
+			font-weight: 200;
+		}
+
+		.icon-container {
+			padding-top: 5%;
+			text-align: center;
+		}
+	}
+}
