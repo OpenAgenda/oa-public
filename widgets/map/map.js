@@ -280,11 +280,12 @@ var widget = function( elem, options ) {
 
       if ( neighborhoodBounds ) {
 
-        return _selectBounds( neighborhoodBounds, true );
+        return ( config.auto ? _selectBounds : _fitBounds )( neighborhoodBounds, true );
 
       }
 
-      // there are no neighbords. select location as new filter
+
+      // there are no neighbors. select location as new filter
 
       if ( !selectedLocation && !cn.contains( activeLocations, location.slug ) ) return;
 
@@ -292,7 +293,15 @@ var widget = function( elem, options ) {
 
       _deactivateSync();
 
-      updatedReqParams = { location: location.slug, neLat: null, neLng: null, swLat: null, swLng: null };
+      if ( selectedLocation && ( selectedLocation.slug == location.slug ) ) {
+
+        updatedReqParams = _unsetLocationParams();
+
+      } else {
+
+        updatedReqParams = _setLocationParams( location.slug );
+
+      }
 
       if ( cn.contains( passedLocations, location.slug ) ) {
 
@@ -303,6 +312,18 @@ var widget = function( elem, options ) {
       _update( updatedReqParams );
 
     });
+  },
+
+  _unsetLocationParams = function() {
+
+    return { location: null, neLat: null, neLng: null, swLat: null, swLng: null };
+
+  },
+
+  _setLocationParams = function( slug ) {
+
+    return { location: slug, neLat: null, neLng: null, swLat: null, swLng: null };
+
   },
 
   _refresh = function() {

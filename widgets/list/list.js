@@ -102,12 +102,11 @@ var widget = function( elem, options ) {
 
   _onListChange = function( data ) {
 
-    delete data.event;
-    delete data.page;
+    var clean = _clean( data );
 
     for( var r in requestParams ) {
 
-      if ( typeof data[r] == 'undefined' ) {
+      if ( typeof clean[r] == 'undefined' ) { // active unset params
 
         requestParams[r] = null;
 
@@ -115,11 +114,11 @@ var widget = function( elem, options ) {
 
     }
 
-    for( var r in data ) {
+    for( var r in clean ) {
 
       if ( typeof requestParams[r] == 'undefined' ) {
 
-        requestParams[r] = data[r];
+        requestParams[r] = clean[r];
 
       }
 
@@ -129,9 +128,34 @@ var widget = function( elem, options ) {
 
   },
 
+  _clean = function( data ) {
+
+    var clean = {};
+
+    for( var i in data ) {
+
+      if ( [ 'count', 'next', 'prev', 'reset', 'event', 'page' ].indexOf( i ) == -1 ) {
+
+        clean[ i ] = data[ i ];
+
+      }
+
+    }
+
+    return clean;
+
+  },
+
   change = function( reqParams ) {
 
-    requestParams = cn.extend({}, reqParams );
+    requestParams = cn.extend({
+      location: null,
+      tags: null,
+      category: null,
+      from: null,
+      to: null,
+      what: null
+    }, reqParams );
 
     log( 'change of params to "%s" - sending to frame', JSON.stringify( reqParams ) );
 
