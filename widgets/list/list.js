@@ -116,11 +116,7 @@ var widget = function( elem, options ) {
 
     for( var r in clean ) {
 
-      if ( typeof requestParams[r] == 'undefined' ) {
-
-        requestParams[r] = clean[r];
-
-      }
+      requestParams[r] = clean[r];
 
     }
 
@@ -154,7 +150,8 @@ var widget = function( elem, options ) {
       category: null,
       from: null,
       to: null,
-      what: null
+      what: null,
+      uid: null
     }, reqParams );
 
     log( 'change of params to "%s" - sending to frame', JSON.stringify( reqParams ) );

@@ -99,6 +99,12 @@ module.exports = function( uid ) {
 
       log( 'controller will sync with href ? %s', ctl.sh ? 'yes' : 'no' );
 
+      if ( ctl.sh ) {
+
+        _forEachWidget( 'change', currentRequestParams );
+
+      }
+
       sweep();
       
     });
