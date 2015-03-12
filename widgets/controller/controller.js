@@ -231,7 +231,9 @@ module.exports = function( uid ) {
 
     log( 'updating with %s', JSON.stringify( updatedParams ) );
 
-    var newParams = cn.extend( {}, currentRequestParams, updatedParams );
+    var newParams = cn.extend( {}, currentRequestParams, { 
+      uid: null
+    }, updatedParams );
 
     if ( !_hasChanges( newParams ) ) return;
 
