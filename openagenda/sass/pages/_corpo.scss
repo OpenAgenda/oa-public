@@ -1,174 +1,256 @@
 // specific corporate pages design
 #corpo {
-	h1 {
-		line-height: 1.5;
-		margin: 2em 0;
-		text-align: center;
-	}
+  h1 {
+    line-height: 1.5;
+    margin: 2em 0;
+    text-align: center;
+  }
 
-	section {
-		h2 {
-			font-size: 24px;
-			text-align: center;
-		}
-	}
+  header {
+    p {
+      font-style: italic;
+      color: $oa-gray;
+    }
 
-	#content {
-		padding-bottom: 0;
+    h1 + p {
+      margin-bottom: 3em;
+      margin-top: -3em;
+    }
+  }
 
-		img {
-			border-radius: 3px;
-		}
+  iframe {
+    display: block;
+    margin: auto;
+  }
 
-		p {
-			font-size: 18px;
-			font-weight: 200;
-			line-height: 1.6;
-		}
-	}
+  section {
+    h2 {
+      font-size: 24px;
+      text-align: center;
+    }
+  }
 
-	.nav-pills {
-		border-bottom: 1px solid $oa-white;
-		padding-bottom: 25px;
-	}
+  #content {
+    padding-bottom: 0;
 
-	.action-container {
-		margin-top: 25px;
-		text-align: center;
+    img {
+      border-radius: 3px;
+    }
 
-		small {
-			color: $oa-gray;
-		}
+    p {
+      font-size: 18px;
+      font-weight: 200;
+      line-height: 1.6;
+    }
+  }
 
-		.btn {
-			font-size: 18px;
-		}
-	}
+  .about {
+    background: $oa-white;
+    padding-bottom: 1em;
+  }
 
-	.partners {
-		background: $oa-white;
-		margin: 100px 0 50px;
-	    padding: 25px;
-	    text-align: center;
+  .action-container {
+    margin-top: 25px;
+    text-align: center;
 
-		ul {
-			list-style: none;
-			margin: 25px;
-			padding: 0;
-		}
+    small {
+      color: $oa-gray;
+    }
 
-		li {
-			display: inline-block;
-			padding: 10px;
-			vertical-align: middle;
-			width: 9.09%; //100 / 11 logos
+    .btn {
+      font-size: 18px;
+    }
+  }
 
-			&:first-child {
-				padding-left: 0;
-			}
+  .contact-us {
+    padding: 5%;
+    margin-top: auto;
+    text-align: center;
 
-			&:last-child {
-				padding-right: 0;
-			}
+    p {
+      margin-bottom: 2em;
+    }
+  }
 
-			img {
-				display: block;
-				filter: grayscale(100%);
-			    margin: auto;
-			    max-height: 60px;
-			    opacity: 0.62;
-			    width: auto;
-			}
+  .nav-pills {
+    border-bottom: 1px solid $oa-white;
+    padding-bottom: 25px;
+  }
 
-			&:hover img {
-				filter: none;
-				opacity: 1;
-			}
-		}
-	}
+  .feature {
+    border-bottom: 1px solid $oa-gray-light;
+    padding-bottom: 50px;
+    padding-top: 50px;
 
-	.follow-us {
-		text-align: center;
-		padding: 25px;
-		padding-bottom: 50px;
-		padding-top: 0;
+    i {
+      color: $oa-blue;
+      display: block;
+      font-size: 128px;
+      padding-bottom: 10%;
+    }
 
-		ul {
-			list-style: none;
-			margin: 0;
-			padding: 0;
-		}
+    h2 {
+      text-align: left;
 
-		li {
-			display: inline-block;
-			padding: 10px;
-			vertical-align: middle;
-		}
+      strong {
+        color: $oa-blue;
+        font-weight: normal;
+      }
+    }
 
-		a {
-			display: block;
-			font-size: 32px;
+    ul {
+      font-size: 18px;
+      font-weight: 200;
+    }
 
-			&:hover {
-				opacity: 0.9;
-			}
-		}
-
-		.facebook a {
-			color: $facebook-color; 
-		}
-
-		.twitter a {
-			color: $twitter-color; 
-		}
+    .icon-container {
+      padding-top: 5%;
+      text-align: center;
+    }
+  }
 
 
-		.linkedin a {
-			color: $linkedin-color; 
-		}
+  .follow-us {
+    text-align: center;
+    padding: 25px;
+    padding-bottom: 50px;
+    padding-top: 0;
 
-	}
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
 
-	.features {
-		background: $oa-white;
-	}
+    li {
+      display: inline-block;
+      padding: 10px;
+      vertical-align: middle;
+    }
 
-	.feature {
-		border-bottom: 1px solid $oa-silver;
-		padding-bottom: 50px;
-		padding-top: 50px;
+    a {
+      display: block;
+      font-size: 32px;
 
-		i {
-			color: $oa-blue;
-			display: block;
-			font-size: 128px;
-			padding-bottom: 10%;
-		}
+      &:hover {
+        opacity: 0.9;
+      }
+    }
 
-		header {
-			p {
-				font-style: italic;
-				color: $oa-gray;
-			}
-		}
+    .facebook a {
+      color: $facebook-color; 
+    }
 
-		h2 {
-			text-align: left;
+    .twitter a {
+      color: $twitter-color; 
+    }
 
-			strong {
-				color: $oa-blue;
-				font-weight: normal;
-			}
-		}
+    .linkedin a {
+      color: $linkedin-color; 
+    }
+  }
 
-		ul {
-			font-size: 18px;
-			font-weight: 200;
-		}
+  .founders {
+    background: #eee;
+    text-align: center;
+    margin-top: 50px;
+    padding: 25px;
 
-		.icon-container {
-			padding-top: 5%;
-			text-align: center;
-		}
-	}
+    img {
+      border: 3px solid $oa-white;
+      border-radius: 100px;
+    }
+
+    h2 {
+      margin-bottom: 25px;
+    }
+
+    small {
+      display: block;
+      margin-top: 1em;
+    }
+
+    ul {
+      list-style: none;
+      margin: 1em 0;
+      padding: 0;
+    }
+  }
+
+  .partners {
+      background: $oa-white;
+      margin: 100px 0 50px;
+      padding: 25px;
+      text-align: center;
+
+    ul {
+      list-style: none;
+      margin: 25px;
+      padding: 0;
+    }
+
+    li {
+      display: inline-block;
+      padding: 10px;
+      vertical-align: middle;
+      width: 9.09%; //100 / 11 logos
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+
+      img {
+        display: block;
+        filter: grayscale(100%);
+          margin: auto;
+          max-height: 60px;
+          opacity: 0.62;
+          width: auto;
+      }
+
+      &:hover img {
+        filter: none;
+        opacity: 1;
+      }
+    }
+  }
+
+  .text {
+    text-align: center;
+
+    em {
+      color: $oa-gray;
+    }
+
+    strong {
+      color: $oa-blue;
+      font-weight: 300;
+    }
+
+    li {
+      color: $oa-gray;
+      display: inline-block;
+      padding: 1em;
+      vertical-align: top;
+      width: 25%;
+
+      i {
+        color: $oa-blue;
+        display: block;
+        font-size: 48px;
+      }
+    }
+
+    ul {
+      font-size: 18px;
+      font-weight: 200;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
 }
