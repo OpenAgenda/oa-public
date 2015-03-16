@@ -2,13 +2,12 @@
 #corpo {
   h1 {
     line-height: 1.5;
-    margin: 2em 0;
+    margin: 1.5em 0;
     text-align: center;
   }
 
   header {
     p {
-      font-style: italic;
       color: $oa-gray;
     }
 
@@ -30,8 +29,15 @@
     }
   }
 
+  .col-sm-6 {
+    display: inline-block;
+    float: none;
+    padding: 15px;
+    vertical-align: middle;
+  }
+
   #content {
-    padding-bottom: 0;
+    padding: 0;
 
     img {
       border-radius: 3px;
@@ -54,7 +60,8 @@
     text-align: center;
 
     small {
-      color: $oa-gray;
+      font-size: 100%;
+      font-weight: 200;
     }
 
     .btn {
@@ -67,14 +74,34 @@
     margin-top: auto;
     text-align: center;
 
-    p {
-      margin-bottom: 2em;
+    h2 {
+      line-height: 1.5;
+      margin-bottom: 20px;
     }
   }
 
   .nav-pills {
     border-bottom: 1px solid $oa-white;
-    padding-bottom: 25px;
+
+    li {
+      margin: 0 10px;
+
+      a {
+        color: $oa-gray;
+        line-height: 30px;
+        padding: 10px;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      &.active a {
+        background: none;
+        color: $oa-black;
+        font-weight: bold;
+      }
+    } 
   }
 
   .feature {
@@ -101,11 +128,22 @@
     ul {
       font-size: 18px;
       font-weight: 200;
+      list-style-type: circle;
+    }
+
+    .btn-primary {
+      font-size: 18px;
+      font-weight: 200;
+      margin-top: 1em;
     }
 
     .icon-container {
       padding-top: 5%;
       text-align: center;
+    }
+
+    &.first {
+      padding-top: 0;
     }
   }
 
