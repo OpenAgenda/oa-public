@@ -2,15 +2,17 @@
 
 var appName = 'agenda/actions',
 
-exposed = {
-  load: load
-},
-
 app,
 
 path,
 
 cmn = require( '../lib/commons-app' ),
+
+w = require( 'when' ),
+
+model = cmn.getCibulModel(),
+
+log = require( '../lib/logger' )( appName ),
 
 routes = {
 
@@ -29,7 +31,7 @@ routes = {
 };
 
 
-function init( p ) {
+module.exports = function( p ) {
 
   path = p;
 
@@ -160,6 +162,7 @@ function actionShow( req, res ) {
 }
 
 
+
 function eventAdd( req, res ) {
 
   req.agenda.addEvent( req.event, req.user, function( err ) {
@@ -197,11 +200,9 @@ function eventRemove( req, res ) {
 
     }
 
-
   });
 
 }
-
 
 function _redirectOnActionComplete( req, res, message ) {
 

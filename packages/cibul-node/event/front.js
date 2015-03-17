@@ -43,6 +43,14 @@ routes = {
   
   eventActionShow: [ 'get', actionShow, '/events/:eventSlug/action', [
     _loadEvent( 'eventSlug', 'slug' ),
+    _loadUris,
+    _extractAgendasSharing,
+    _conditionalLayout( _layoutData, 'oa.css' )
+  ] ],
+  
+  eventActionDatesShow: [ 'get', actionDatesShow, '/events/:eventSlug/action/dates', [
+    _loadEvent( 'eventSlug', 'slug' ),
+    _loadUris,
     _conditionalLayout( _layoutData, 'oa.css' )
   ] ]
 },
@@ -60,6 +68,8 @@ wn = require( 'when/node' ),
 lib = require( '../lib/lib' ),
 
 es = require( 'ES' )( config.es ),
+
+shareSvc = require( '../services/event/share' ),
 
 app,
 
@@ -174,11 +184,37 @@ function actionShow( req, res ) {
 
   var templateData = {
     event: {
-      title: req.event.getTitle()
+      uid: req.event.uid,
+      title: req.event.getTitle(),
+      imports: []
     },
     logged: req.session.logged,
     agendas: []
-  }
+  },
+
+  timings = req.event.getTimings(),
+
+  multipleTimings = timings.length > 1;
+
+  shareSvc.addCalendarLinks( req.event, req.genUrl( req.eventUri, req.eventUriParams, { abs: true } ) );
+
+  templateData.event.imports = [
+    { 
+      label: 'Google Calendar',
+      uri: multipleTimings ? req.genUrl( 'eventActionDatesShow', [ req.eventUriParams, { service: 'google' } ] ) : timings[ 0 ].calendarLinks.google,
+
+    },
+    { 
+      label: 'Yahoo! Calendar',
+      uri: multipleTimings ? req.genUrl( 'eventActionDatesShow', [ req.eventUriParams, { service: 'yahoo' } ] ) : timings[ 0 ].calendarLinks.yahoo,
+    },
+    { 
+      label: 'Windows Live',
+      uri: multipleTimings ? req.genUrl( 'eventActionDatesShow', [ req.eventUriParams, { service: 'live' } ] ) : timings[ 0 ].calendarLinks.live
+    }
+  ];
+
+  templateData.event.multipleTimings = multipleTimings;
 
   if ( !req.session.logged ) return cmn.render( req, res, 'event/action', templateData );
 
@@ -191,7 +227,8 @@ function actionShow( req, res ) {
       return {
         uid: a.uid,
         slug: a.slug,
-        title: a.title
+        title: a.title,
+        sharing: req.agendasSharing.indexOf( a.id ) !== -1
       };
 
     });
@@ -199,6 +236,29 @@ function actionShow( req, res ) {
     return cmn.render( req, res, 'event/action', templateData );
 
   } );
+
+}
+
+
+function actionDatesShow( req, res ) {
+
+  var service = [ 'google', 'yahoo', 'live' ].indexOf( req.query.service ) !== -1 ? req.query.service : 'google';
+
+  shareSvc.addCalendarLinks( req.event, req.genUrl( req.eventUri, req.eventUriParams, { abs: true } ) );
+
+  return cmn.render( req, res, 'event/actionDates', {
+    event: {
+      timings: req.event.locations[0].timings.map( function( timing ) {
+
+        return {
+          date: timing.date,
+          start: timing.start,
+          link: timing.calendarLinks[ service ]
+        }
+
+      })
+    }
+  });
 
 }
 
@@ -402,6 +462,43 @@ function _conditionalLayout( func, css ) {
   }
 
 } 
+
+
+function _loadUris( req, res, next ) {
+
+  req.eventUri = req.agenda ? 'agendaEventShow' : 'eventShow';
+
+  req.eventUriParams = { eventSlug: req.event.slug };
+
+  if ( req.agenda ) {
+
+    req.eventUriParams.slug = req.agenda.slug;
+
+  }
+
+  next();
+
+}
+
+
+/**
+ * load agendas sharing the event
+ */
+function _extractAgendasSharing( req, res, next ) {
+
+  req.agendasSharing = req.event.articles.filter( function( a ) {
+
+    return a.isPublished;
+
+  } ).map( function( a ) {
+
+    return a.review.id;
+
+  });
+
+  next();
+
+}
 
 
 function _layoutData( req, res ) {

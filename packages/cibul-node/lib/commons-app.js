@@ -240,7 +240,7 @@ function loadEvent( paramName, fieldName ) {
 
     } else {
 
-      identifiers[ paramName ] = req.params[ paramName ];
+      identifiers[ fieldName ] = req.params[ paramName ];
 
     }
 

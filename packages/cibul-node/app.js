@@ -51,6 +51,7 @@ module.exports = function( enabledTypes, cb ) {
         require( './auth/reset.front' )( '/password' ),
         require( './agenda/contributors.back' )( '/:slug/admin/contributors' ),
         require( './agenda/front' )( '' ),
+        require( './agenda/actions.front' )( '/:slug/actions' ),
         require( './agenda_bridges/back' )( '/:slug/admin/services' )
       ]
     },

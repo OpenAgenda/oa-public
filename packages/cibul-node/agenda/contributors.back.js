@@ -1,6 +1,6 @@
 "use strict";
 
-var appName = 'agenda/admin.contributors.js', app,
+var appName = 'agenda/contributors', app,
 
 cmn = require( '../lib/commons-app' ),
 
