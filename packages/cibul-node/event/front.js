@@ -17,10 +17,30 @@ mw = cmn.loadMiddlewares( 'search' ),
 perPage = 20,
 
 routes = {
-  agendaEventShow: [ 'get', agendaEventShow, '/:slug/events/:eventSlug', [ cmn.loadAgenda( 'slug' ), _loadEvent( 'eventSlug', 'slug' ), cmn.loadBaseData( _layoutData, 'oa.css' ) ] ],
-  agendaEmbedEventShow: [ 'get', agendaEmbedEventShow, '/agendas/:uid/embed/events/:eventUid', [ cmn.loadAgenda( 'uid' ), _loadEvent( 'eventUid', 'uid' ), cmn.loadBaseData( _layoutData, 'embedDefault.css' ) ] ],
-  agendaCustomEmbedEventShow: [ 'get', agendaCustomEmbedEventShow, '/agendas/:uid/embeds/:embedUid/events/:eventUid', [ cmn.loadAgenda( 'uid' ), _loadEvent( 'eventUid', 'uid' ), cmn.loadBaseData( _layoutData, 'embedDefault.css' ) ] ],
-  eventShow: [ 'get', show, '/events/:eventSlug', [ _loadEvent( 'eventSlug', 'slug' ), cmn.loadBaseData( _layoutData, 'oa.css' ) ] ],
+
+  agendaEventShow: [ 'get', agendaEventShow, '/:slug/events/:eventSlug', [
+    cmn.loadAgenda( 'slug' ), 
+    _loadEvent( 'eventSlug', 'slug' ), 
+    cmn.loadBaseData( _layoutData, 'oa.css' ) 
+  ] ],
+
+  agendaEmbedEventShow: [ 'get', agendaEmbedEventShow, '/agendas/:uid/embed/events/:eventUid', [
+    cmn.loadAgenda( 'uid' ),
+    _loadEvent( 'eventUid', 'uid' ),
+    cmn.loadBaseData( _layoutData, 'embedDefault.css' ) 
+  ] ],
+
+  agendaCustomEmbedEventShow: [ 'get', agendaCustomEmbedEventShow, '/agendas/:uid/embeds/:embedUid/events/:eventUid', [
+    cmn.loadAgenda( 'uid' ),
+    _loadEvent( 'eventUid', 'uid' ),
+    cmn.loadBaseData( _layoutData, 'embedDefault.css' ) 
+  ] ],
+
+  eventShow: [ 'get', show, '/events/:eventSlug', [ 
+    _loadEvent( 'eventSlug', 'slug' ), 
+    cmn.loadBaseData( _layoutData, 'oa.css' ) 
+  ] ],
+  
   eventActionShow: [ 'get', actionShow, '/events/:eventSlug/action', [
     _loadEvent( 'eventSlug', 'slug' ),
     _conditionalLayout( _layoutData, 'oa.css' )
@@ -153,6 +173,9 @@ function show( req, res ) {
 function actionShow( req, res ) {
 
   var templateData = {
+    event: {
+      title: req.event.getTitle()
+    },
     logged: req.session.logged,
     agendas: []
   }

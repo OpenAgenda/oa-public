@@ -16,6 +16,7 @@ exports.errorResponse = errorResponse;            // render error page
 exports.catchError = catchError;                  // the heir of standard error handling
 
 exports.loadAgenda = loadAgenda;                  // middleware. loads an agenda in the request based on its slug
+exports.loadEvent = loadEvent;                    // middleware. loads an event in the request
 exports.isLogged = isLogged;                      // this guy speaks for himself.
 exports.requireLogged = requireLogged;            // middleware. verify if user is logged
 exports.requireUnlogged = requireUnlogged;
@@ -31,6 +32,7 @@ exports.urlGenSetter = urlGenSetter;              // router proxy function & mid
 exports.makeGenUrl = makeGenUrl;
 exports.registerRoutes = registerRoutes;          // router proxy function. register app module routes in router
 exports.redirect = redirect;                      // router proxy function. do a redirect
+exports.getRedirect = getRedirect;                // get redirect
 
 exports.writeToCookie = writeToCookie;
 exports.clearCookie = clearCookie
@@ -64,7 +66,9 @@ i18n = require( '../i18n/i18n.js' ),
 
 deepExtend = require( 'deep-extend' ),
 
-lib = require( './lib' );
+lib = require( './lib' ),
+
+agendaSvc = require( '../services/agenda/agenda' );
 
 
 
@@ -203,13 +207,13 @@ function loadAgenda( paramName ) {
 
     }
 
-    wn.call( model.agendas().get, identifiers )
+    wn.call( agendaSvc.get, identifiers )
 
-    .then( function( data ) {
+    .then( function( agenda ) {
 
-      if ( !data ) throw { code: 404 };
+      if ( !agenda ) throw { code: 404 };
 
-      req.agenda = model.agendas().instance( data );
+      req.agenda = agenda;
 
       req.log.load({ agenda: req.agenda.slug });
 
@@ -220,6 +224,43 @@ function loadAgenda( paramName ) {
     .catch( catchError( req, res ) );
 
   }
+
+}
+
+
+function loadEvent( paramName, fieldName ) {
+
+  return function( req, res, next ) {
+
+    var identifiers = {};
+
+    if ( !req.params[ paramName ] ) {
+
+      return next();
+
+    } else {
+
+      identifiers[ paramName ] = req.params[ paramName ];
+
+    }
+
+    wn.call( model.events().get, identifiers )
+
+    .then( function( data ) {
+
+      if ( !data ) throw { code: 404 };
+
+      req.event = model.events().instance( data );
+
+      req.log.load({ event: req.event.slug });
+
+      next();
+
+    })
+
+    .catch( catchError( req, res ) );
+
+  } 
 
 }
 
@@ -684,6 +725,36 @@ function redirect() {
   var args = Array.prototype.slice.call( arguments );
 
   return router.redirect.apply( null, args );
+
+}
+
+function getRedirect( req, paramName ) {
+
+  var redirectValue;
+
+  if ( !paramName ) {
+
+    paramName = 'redirect';
+
+  }
+
+  if ( !req.query[ paramName ] ) {
+
+    return false;
+    
+  } 
+
+  try {
+  
+    redirectValue = ( new Buffer( req.query[ paramName ], 'base64' ) ).toString()
+    
+  } catch( e ) {
+
+    log( 'error', 'invalid redirect value in request: %s', req.query[ paramName ] );
+
+  }
+
+  return redirectValue;
 
 }
 

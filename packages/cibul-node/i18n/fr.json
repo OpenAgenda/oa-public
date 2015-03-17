@@ -72,5 +72,13 @@
   "Invitation could not be sent"
   : "L'invitation n'a pas pu être envoyée",
   "The invitation is being resent"
-  : "L'invitation est en cours d'envoi"
+  : "L'invitation est en cours d'envoi",
+  "the event could not be added"
+  : "l'événement n'a pas pu être ajouté à l'agenda",
+  "the event was added to the agenda"
+  : "l'événement a été ajouté à l'agenda",
+  "the event could not be removed"
+  : "l'événement n'a pas pu être retiré de l'agenda",
+  "the event was removed from the agenda"
+  : "l'événement a été retiré de l'agenda"
 }
