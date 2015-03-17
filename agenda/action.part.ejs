@@ -1,16 +1,16 @@
-<div class="popup-overlay js_close_popup">
+<div class="popup-overlay js_close_popup share-menu">
   <section>
     <header class="popup-title">
       <h2><%= __('Import / Add to my agenda') %></h2>
       <a class="close-link" href=""><i class="fa fa-times fa-lg"></i></a>
     </header>
     <div class="js_popup_content popup-content">
-      <p class="popup-legend"><%= __( 'Automatically import all dates of this agenda in your personal agenda' ) %></p>
+      <p class="legend"><%= __( 'Automatically import all dates of this agenda in your personal agenda' ) %></p>
       <div class="btn-adds">
         <a class="btn btn-default" href="https://www.google.com/calendar/render?cid=<%= genUrl( 'agendaIcal', { uid: uid }, { protocol: 'http' } ) %>"><%= __('Google Agenda') %></a>
         <a class="btn btn-default" href="<%= genUrl( 'agendaIcal', { uid: uid }) %>?dl=1">iCal</a>
       </div>
-      <p class="popup-legend"><%= __('Download') %></p>
+      <p class="legend"><%= __('Download') %></p>
       <div class="btn-adds">
         <a class="btn btn-default" href="<%= genUrl( 'agendaFeed', { uid: uid }) %>">RSS</a>
         <a class="btn btn-default" href="<%= genUrl( 'agendaIcal', { uid: uid }) %>?dl=1">ICS</a>
@@ -18,7 +18,7 @@
         <a class="btn btn-default" href="<%= genUrl( 'agendaXml', { uid: uid }) %>?dl=1">XML</a>
       </div>
 <% if ( hasAggregator ) { %>
-      <p class="popup-legend"><%= __('Add the events of this agenda to your agenda OpenAgenda') %></p>
+      <p class="legend"><%= __('Add the events of this agenda to your agenda OpenAgenda') %></p>
       <div class="btn-adds">
 <% if ( agendas.length ) { %>
 <% agendas.forEach( function( agenda ) { %>

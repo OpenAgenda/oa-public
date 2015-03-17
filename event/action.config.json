@@ -8,5 +8,7 @@
     "_sl" : "shareLinks"
   },
 
-  "base" : {}
+  "base" : {},
+
+  "templateJs" : true
 }

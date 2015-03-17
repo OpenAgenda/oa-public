@@ -5,6 +5,33 @@
   position: relative;
 }
 
+
+// share menus
+
+.share-menu {
+  
+  .btn-adds {
+    margin: 0 -5px;
+    padding: 5px 0 10px;
+
+    .btn {
+      background: $oa-gray-light;
+      border-color: transparent;
+      color: $oa-gray;
+      display: inline-block;
+      margin: 5px;
+
+      &:hover {
+        background: $oa-blue;
+        
+        color: $oa-white;
+      }
+    }
+  }
+
+}
+
+
 // pop-up
 .popup-overlay {
   background: rgba(0, 0, 0, 0.62);
@@ -36,30 +63,11 @@
     resize: vertical;
   }
 
-  .btn-adds {
-  	margin: 0 -5px;
-    padding: 5px 0 10px;
-
-  	.btn {
-	  	background: $oa-gray-light;
-	  	border-color: transparent;
-	  	color: $oa-gray;
-	  	display: inline-block;
-	  	margin: 5px;
-
-	  	&:hover {
-	  		background: $oa-blue;
-	  		
-	  		color: $oa-white;
-	  	}
-	  }
-  }
-
   .btn-submit {
     width: 100%;
   }
 
-  .popup-legend {
+  .legend {
   	margin: 10px 0 5px;
   }
 

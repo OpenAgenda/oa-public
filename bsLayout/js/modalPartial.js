@@ -15,7 +15,8 @@ defaults = {
     inner: '.js_popup_content'
   },
   attributes: {
-    flag: 'data-flagged'
+    flag: 'data-flagged',
+    modal: 'data-modal' // if content has links to be opened in modals, selector class is specified here.
   }
 };
 
@@ -50,6 +51,22 @@ function processItem( linkElem, options ) {
   log = debug( 'modalPartial' ),
 
   innerClick = false;
+
+  if ( !cn.isElement( linkElem ) ) {
+
+    if ( cn.isArray( linkElem ) && linkElem.length && cn.isElement( linkElem[ 0 ] ) ) {
+
+      multiple( linkElem, options );
+
+    } else {
+
+      log( 'invalid arguments' );
+
+    }
+
+    return;
+
+  }
 
   cn.addEvent( linkElem, 'click', function( e ) {
 
@@ -100,6 +117,8 @@ function processItem( linkElem, options ) {
 
       cn.el( 'body' ).appendChild( modalElem );
 
+      _processSubmodals( modalElem, _close );
+
       onComplete();
 
     }, true );
@@ -125,6 +144,33 @@ function processItem( linkElem, options ) {
     innerClick = true;
 
     setTimeout( function() { innerClick = false; }, 10 );
+
+  }
+
+}
+
+
+function _processSubmodals( elem, close ) {
+
+  var child = cn.childObject( elem, 0 );
+
+  if ( !child ) return;
+
+  if ( child.hasAttribute( defaults.attributes.modal ) ) {
+
+    cn.forEach( cn.els( child, '.' + child.getAttribute( defaults.attributes.modal ) ), function( submodalTrigger ) {
+
+      processItem( submodalTrigger );
+
+      // close parent modal to prevent pileup
+      cn.addEvent( submodalTrigger, 'click', function( e ) {
+
+        close();
+
+      });
+
+    });
+
 
   }
 

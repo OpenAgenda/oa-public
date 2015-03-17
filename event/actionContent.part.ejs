@@ -1,0 +1,31 @@
+<p class="legend"><%= __('Import in a personal calendar') %></p>
+
+<div class="btn-adds">
+
+<% event.imports.forEach( function( i ) { %> 
+<a class="btn btn-default<% if ( event.multipleTimings ) { %> js_modal <% } %>" href="<%= i.uri %>" <% if ( !event.multipleTimings ) { %>target="_blank"<% } %>><%= i.label %></a>
+<% }) %>
+
+</div>
+
+<p class="legend"><%= __('Import in OpenAgenda') %></p>
+<% if ( logged ) { %>
+
+<div class="btn-adds">
+<% agendas.forEach( function( agenda ) { %>
+<% if ( agenda.sharing ) { %>
+  <a class="btn btn-default checked uncheckable" href="<%= genUrl('agendaEventRemove', { slug: agenda.slug, eventUid: event.uid } ) %>"><%= agenda.title %></a>
+<% } else { %>
+  <a class="btn btn-default" href="<%= genUrl( 'agendaEventAdd', { slug: agenda.slug, eventUid: event.uid } ) %>"><%= agenda.title %></a>
+<% } %>
+<% }); %>
+</div>
+
+<% } else { %>
+
+<div>
+  <p><%= __('You need to sign in to your account to add this event to your agendas') %></p>
+  <a class="btn green" href="<%= genUrl( 'signin' ) %>"><%= __( 'Sign In' ) %></a>
+</div>
+
+<% } %>

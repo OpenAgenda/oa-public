@@ -20,6 +20,4 @@ window.hook( function( options ) {
   
   eventMap();
 
-  modalPartial( cn.el( '.js_import_action' ) );
-
 });

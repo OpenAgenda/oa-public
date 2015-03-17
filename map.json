@@ -13,6 +13,7 @@
   "agenda/new",
   "agenda/embedShow",
   "event/new",
+  "event/action",
   "event/embedShow",
   "search/agendas",
   "search/events",

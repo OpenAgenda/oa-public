@@ -1,8 +1,17 @@
 {
-  "uid" : 79969887,
+  "logged" : true,
+  "event" : {
+    "uid" : 79969887,
+    "title" : "Un weekend à la ferme",
+    "imports" : [
+      { "uri" : "#", "label": "Google Calendar" },
+      { "uri" : "#", "label": "Yahoo" },
+      { "uri" : "#", "label": "Live" }
+    ]
+  },
   "agendas" : [
-    { "title" : "La Gargouille" },
-    { "title" : "Bibi" },
-    { "title" : "L'agenda de Zorglub" }
+    { "title" : "La Gargouille", "uid" : 898989, "sharing" : false },
+    { "title" : "Bibi", "uid" : 7872837, "sharing" : false },
+    { "title" : "L'agenda de Zorglub", "uid" : 1983928, "sharing" : true }
   ]
 }

@@ -1,16 +1,11 @@
-<div class="popup-overlay js_close_popup">
+<div class="popup-overlay js_close_popup" data-modal="js_modal">
   <section>
     <header class="popup-title">
       <h2><%= __('Add to an agenda') %></h2>
       <a class="close-link" href=""><i class="fa fa-times fa-lg"></i></a>
     </header>
-    <div class="js_popup_content popup-content">
-      <p class="popup-legend"><%= __('Import in OpenAgenda') %></p>
-      <div class="btn-adds">
-<% agendas.forEach( function( agenda ) { %>
-        <a class="btn btn-default" href="#"><%= agenda.title %></a>
-<% }); %>
-      </div>
+    <div class="js_popup_content popup-content share-menu">
+      <% include ./actionContent.part.ejs %>
     </div>
   </section>
 </div>

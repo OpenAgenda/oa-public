@@ -1,6 +1,12 @@
 {
   "Add to an agenda"
   : "Ajouter à un agenda",
+  "Import in a personal calendar"
+  : "Importer dans un agenda personnel",
   "Import in OpenAgenda"
-  : "Importer dans OpenAgenda"
+  : "Importer dans OpenAgenda",
+  "You need to sign in to your account to add this event to your agendas"
+  : "Vous devez vous connecter à votre compte pour ajouter cet événement à vos agendas",
+  "Sign In"
+  : "Connexion"
 }
