@@ -12,6 +12,8 @@ domLib = require( './dom' ),
 
 config = require( './config' ),
 
+dateLabels = require( './dateLabels' ),
+
 onReady;
 
 if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) {
@@ -49,6 +51,8 @@ var widget = function( elem, options ) {
     lang = options.anchorConfig[ LANG ],
 
     log = debug( 'activeFilters widget ' + uid );
+
+    dateLabels.setLang( lang );
 
     if ( options.anchorConfig[ MODE ] ) {
 
@@ -105,14 +109,14 @@ var widget = function( elem, options ) {
       if ( reqParams.to && ( reqParams.to !== reqParams.from )) {
 
         newFilters.push({
-          label: _label( 'dateRange', reqParams ),
+          label: dateLabels( reqParams.from, reqParams.to ),
           keys: [ 'from', 'to' ]
         });
 
       } else {
 
         newFilters.push({
-          label: reqParams.from,
+          label: dateLabels( reqParams.from ),
           keys: [ 'from', 'to' ]
         });
 
