@@ -77,7 +77,7 @@
       <li> - </li>
       <li>
         <a class="url js_message_link" href="<%= genUrl( 'conversationDiscussion', { 
-          uid: event.owner.uid, 
+          uuid: event.owner.uid, 
           title: event.title, 
           redirect: _r( loner ? { module: 'event', action: 'show', slug: event.slug } : { module: 'event', action: 'showInReview', slug: slug, event_slug: event.slug })
         }) %>"><%= __( 'contact' ) %></a>
