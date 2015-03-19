@@ -1,0 +1,12 @@
+
+<% if ( tab == 'home' ) { %>
+<% include home.part.ejs %>
+<% } else if ( tab == 'features' ) { %>
+<% include features.part.ejs %>
+<% } else if ( tab == 'pricing' ) { %>
+<% include pricing.part.ejs %>
+<% } else if ( tab == 'about' ) { %>
+<% include about.part.ejs %>
+<% } %>
+<% var centeredFooter = true; %>
+<% include ../bsLayout/footer.part.ejs %>

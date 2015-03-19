@@ -88,8 +88,7 @@
             <p><a href="<%= genUrl( 'conversationAgendaContact', { uid: uid, redirect: _r({ module: 'review', action: 'show', 'slug': slug }) }) %>"><%= __('Contact the administrator of this agenda') %></a></p>
           </div>
         </section>
-
-        <% include ./footer.part.ejs %>
+        <% include ../bsLayout/footer.part.ejs %>
       </aside>
     </div>
   </div>
@@ -103,7 +102,8 @@
     <p><%= __('This agenda does not contain any events') %></p>
   </div>
 </div>
-<% include ./footer.part.ejs %>
+<% var centeredFooter = true; %>
+<% include ../bsLayout/footer.part.ejs %>
 <% } %>
 <div id="admin-bar" class="js_admin_controls">
   <ul class="admin-list">

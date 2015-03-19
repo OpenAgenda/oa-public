@@ -155,10 +155,6 @@ files = {
     ]
   ],
 
-  'home/visitor.js': [
-    [paths.hv, 'header.bundle.js']
-  ],
-
 
   'event/list.min.js': [
     [paths.lib,

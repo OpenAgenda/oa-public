@@ -1,0 +1,157 @@
+{
+  "Home"
+  : "Accueil",
+  "Features"
+  : "Fonctions",
+  "Pricing"
+  : "Tarifs",
+  "About us"
+  : "À propos",
+  "Import, export, broadcast %youragendas% has never been this easy"
+  : "Importer, exporter, diffuser %youragendas% n'a jamais été aussi simple",
+  "your agendas"
+  : "vos agendas",
+  "agenda with a map"
+  : "agenda avec carte",
+  "Geolocated, participative, multimedia, multilingual, downloadable, exportable, OpenData, API-accessible. Anything is possible."
+  : "Géolocalisé, participatif, multimédia, multiligue, téléchargeable, exportable, OpenData, pilotable par API. Tout est possible.",
+  "Create an agenda"
+  : "Créer un agenda",
+  "It's free"
+  : "C'est gratuit",
+  "They trust us"
+  : "Ils nous font confiance",
+  "Follow us!"
+  : "Suivez-nous!",
+  "Terms of use"
+  : "Conditions d'utilisation",
+  "Help"
+  : "Aide",
+  "About"
+  : "A propos",
+  "Features of your agenda"
+  : "Les fonctions de votre agenda",
+  "%uniqueentry% for multiple formats"
+  : "%uniqueentry% pour de multiples supports",
+  "A unique entry"
+  : "Une seule saisie",
+  "For the organizer: time gained, exportable data on all websites and formats"
+  : "Pour l'organisateur: un gain de temps important, des données exportables sur tous sites et supports.",
+  "Broadcast your agendas and events on"
+  : "Diffusez vos agendas et événements sur",
+  "websites"
+  : "sites web",
+  "Facebook pages" 
+  : "des pages Facebook",
+  "newsletters" 
+  : "newsletters" ,
+  "print" 
+  : "impression papier" ,
+  "personal calendars (google, yahoo, etc.)" 
+  : "vos agendas personels (google, yahoo, etc.)" ,
+  "downloadable formats" 
+  : "formats téléchargeables" ,
+  "third party apps" 
+  : "des applications tierces" ,
+  "Broadcast your content beyond your own website. Adopt the latest best practices today." 
+  : "Diffusez vos contenus au-delà de votre propre site web. Adoptez les meilleurs pratiques du web d’aujourd’hui." ,
+  "OpenAgenda enables you to publish your events in a reusable format, making it easier for partners and medias to relay your information." 
+  : "OpenAgenda permet de publier sa programmation selon un cadre simplifiant la réutilisation par des médias ou partenaires.",
+  "Publication standards" 
+  : "Standard de publication",
+  "OBDL License" 
+  : "Licence ODBL",
+  "Unrestricted download" 
+  : "Téléchargement illimité",
+  "Participative <strong>Agenda</strong>" 
+  : "<strong>Agenda</strong> participatif",
+  "Mutualize your content production resources to meet your and your partners needs" 
+  : "Mutualisez vos moyens de production pour répondre à vos besoins et à ceux de vos partenaires.",
+  "You organize an event requiring a significant coordination effort between a multitude of organizaers ? OpenAgenda will allow your to create in a few steps a participative agenda." 
+  : "Vous organisez un événement faisant intervenir de nombreux organisateurs ? Open Agenda permet de créer en quelques clics un agenda participatif.",
+  "Our features" 
+  : "Nos fonctionnalités",
+  "Unlimited number of contributors" 
+  : "Nombre de contributeurs illimité",
+  "Moderation and management of edition rights" 
+  : "Modération et gestion des droits d’écriture",
+  "Content statistics" 
+  : "Statistiques de contenu",
+  "<strong>Agenda</strong> agregation" 
+  : "<strong>Agrégateur</strong> d'agendas",
+  "Do you manage a territory or a network of organizers?"
+  : "Vous animez un territoire ou un réseau d'organisateurs?",
+  "Invite them to create their agendas and automatically import their events"
+  : "Invitez-les à créer leurs agendas et importez automatiquement leurs événements.",
+  "See big and create <em>networks of networks</em>!"
+  : "Voyez grand et créez des <em>réseaux de réseaux</em>!",
+  "Invite federations to deply their networks and import their events."
+  : "Invitez des fédérations à déployer leur réseau, puis importez leurs événements.",
+  "An <strong>API</strong> for importing and exporting data"
+  : "<strong>API</strong> pour import et export automatique",
+  "The API allows you to automatically syncronize your agendas and to fetch content from the entire database."
+  : "L’API vous permet d’alimenter vos agendas automatiquement et d’utiliser l’ensemble de la base de données.",
+  "An API that suits all your needs"
+  : "Une API complète et puissante pour tous vos besoins",
+  "Import your event data archives"
+  : "Importer vos archives de données événementielles",
+  "Reuse the public data of OpenAgenda on your websites or applications"
+  : "Réutiliser des données OpenAgenda sur vos sites ou applications",
+  "Publish on OpenAgenda form a third-party database"
+  : "Publier sur OpenAgenda à partir d’une base tierce",
+  "Private <strong>events</strong>"
+  : "<strong>Évènements</strong> privés",
+  "Private events = events not visible by the public"
+  : "Événements privés = événements non visibles du public.",
+  "Would you like having a powerful tool at your disposal to manage your private events (internal agendas, seminars, etc.) ?"
+  : "Vous souhaitez disposer d’un outil puissant pour gérer vos événements privés (agendas internes, séminaires, etc.) ?",
+  "Do you use the same interface and the same data formats for both your private and public events?"
+  : "Vous utilisez la même interface et les mêmes formats pour vos événements publics et vos événements privés?",
+  "OpenAgenda offers secure ways to simplify your public/private content management needs. Contact us for a quote."
+  : "OpenAgenda propose des fonctions sécurisées pour simplifier la gestion de vos besoins internes / externes. Nous contacter pour un devis.",
+
+  "OpenAgenda is free for all public events"  
+  : "Open Agenda est gratuit pour les événements publics.",
+  "And will stay that way"
+  : "Et le restera.",
+  "Do you wish to manage private events? Do you wish to manage specific data?"
+  : "Vous souhaitez gérer des évènements privés? Vous souhaitez gérer des données spécifiques?",
+  "Our team is also at your disposal for"
+  : "Notre équipe est aussi à votre disposition pour",
+  "Audits and data certification"
+  : "Audit et certification de données",
+  "Deployment solutions"
+  : "Solutions de déploiement",
+  "Tailored agendas"
+  : "Agendas sur-mesure",
+  "Training"
+  : "Formation",
+  "For any question or pricing request"
+  : "Pour toutes questions ou demandes de tarif",
+  "Please contact Romain Lange: +33612016842 <br>or fill in the form here below"
+  : "Merci de contacter Romain Lange au 0612016842<br>ou de remplir le formulaire ci-dessous",
+  "Our philosophy"
+  : "Notre philosophie",
+  "agendas open for everyone"
+  : "des agendas ouverts pour tous",
+  "Launched in Paris in december 2015, OpenAgenda offers both a free platform and tailored services"
+  : "Lancé à Paris en décembre 2015, Open Agenda propose à la fois une plateforme technique gratuite et des services d'accompagnement sur mesure.",
+  "OpenAgenda was born from a simple observation: the creation and management of agendas is often costly, difficult, redundant, requiring repetitive manual entries by organizers, and not allowing an easy flow of information."
+  : "OpenAgenda est parti d'un constat simple: la création et la gestion d'agendas est souvent coûteuse, redondante, peu intuitive, nécessitant des saisies manuelles à répétition par les organisateurs, et ne permettant pas une circulation fluide de l'information.",
+  "OpenAgenda offers a complete tool, promotes an open standard, from a unique entry and mutualizes information between thousands of agendas."
+  : "OpenAgenda propose un outil complet, promeut un standard ouvert, permet une saisie unique et une mutualisation de l'information entre des milliers d'agendas.",
+  "Because OpenAgenda defends free information accessible to all, our engagements"
+  : "Parce qu'Open Agenda défend une information ouverte et accessible à tous, nos engagements",
+  "The service is free and it will stay that way"
+  : "Le service est gratuit, et le restera",
+  "The data belongs to you"
+  : "Vos données vous appartiennent",
+  "you can export it, edit it, delete it when you wish"
+  : "vous pouvez les exporter, les éditer, les supprimer quand vous le souhaitez",
+  "The OpenAgenda standard is documented and the data is reusable by all"
+  : "Le standard Open Agenda est documenté et les données sont réutilisables par tous",
+  "Only private events (not visible by the public) is the object of a specific pricing. For advanced professional requirements, OpenAgenda offers a range of tailored services."
+  : "Seuls les évènements privés (non visibles du public) font l'objet d'une tarification spécifique. Pour les besoins professionnels avancés, OpenAgenda fournit une gamme de services sur mesure.",
+  "The founders"
+  : "Les fondateurs"
+}

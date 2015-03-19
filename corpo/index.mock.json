@@ -1,0 +1,7 @@
+{
+  "base" : {},
+  "index" : { "tab" : "home" },
+  "features" : { "tab" : "features" },
+  "pricing" : { "tab" : "pricing" },
+  "about" : { "tab" : "about" }
+}

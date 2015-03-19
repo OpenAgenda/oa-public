@@ -1,0 +1,24 @@
+{
+  "layout" : "bsLayout/main",
+  "oaCss" : {},
+  "helpers" : {
+    "_i" : "image"
+  },
+  "base" : {
+    "pageClass" : "ct",
+    "pageId" : "corpo",
+    "references" : [
+      { "src": "barbars.jpg", "alt" : "Collectif Culture Bar-Bars" },
+      { "src": "bretagne.jpg", "alt" : "Région Bretagne" },
+      { "src": "cnnum.jpg", "alt" : "Conseil National du Numérique" },
+      { "src": "educationnationale.jpg", "alt" : "Région Bretagne" },
+      { "src": "fidh.jpg", "alt" : "FIDH" },
+      { "src": "idf.jpg", "alt" : "Île-de-France" },
+      { "src": "investinfrance.jpg", "alt" : "Invest in France" },
+      { "src": "lafrenchtech.jpg", "alt" : "La French Tech" },
+      { "src": "ministereculture.png", "alt" : "Ministère de la culture" },
+      { "src": "numa.png", "alt" : "Numa" },
+      { "src": "paris.png", "alt" : "Mairie de Paris" }
+    ]
+  }
+}
