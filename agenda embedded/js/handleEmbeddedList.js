@@ -67,6 +67,7 @@ var handleEmbeddedList = function(options) {
     tunnel,
     eventDisplayPending = false,
     displayedEvent = false,
+    firstLoad = true,
 
   _init = function() {
 
@@ -114,6 +115,14 @@ var handleEmbeddedList = function(options) {
     });
 
     eh.on(options.events.loadSuccess, function() {
+
+      if ( firstLoad ) {
+
+        firstLoad = false;
+
+        return;
+
+      }
 
       if (!displayedEvent) return;
 
