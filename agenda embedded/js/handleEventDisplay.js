@@ -142,7 +142,7 @@ function handleEventDisplay(eventUid, options) {
 
             shareOptions.items.fb = false;
             shareOptions.fbAppId = data.fba;
-            shareOptions.items.fbf = options.ctl.ebd.sh.fbf?{}:false;
+            shareOptions.items.fbf = options.ctl.ebd.sh.fb?{}:false;
 
           } else {
 
