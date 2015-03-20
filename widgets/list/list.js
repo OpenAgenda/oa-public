@@ -48,6 +48,14 @@ var widget = function( elem, options ) {
       change : change
     } ));
 
+    controller.getControlData( function( data ) {
+
+      autoscroll = !!data.ebd.sc;
+
+      cn.addEvent( document, 'scroll', _monitorScroll );
+
+    } );
+
     _initTunnel({
       'eventopensuccess' : _onEventOpen,
       'closeevent' : _onEventClose,
@@ -55,8 +63,6 @@ var widget = function( elem, options ) {
       'eventmapplaceunselect' : _onEventMapPlaceUnselect,
       'success' : _onListChange,
     });
-
-    cn.addEvent( document, 'scroll', _monitorScroll );
 
   },
 
