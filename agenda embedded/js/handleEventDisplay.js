@@ -136,20 +136,26 @@ function handleEventDisplay(eventUid, options) {
 
         // little fb tweak for using fb feed if appId is given
          
-        if ( ( i == 'fb' ) && data.fba ) {
-          
-          shareOptions.fbAppId = data.fba;
+        if ( i == 'fb' ) {
 
-          shareOptions.items.fbf = options.ctl.ebd.sh[i]?{}:false;
+          if ( data.fba ) {
 
-          shareOptions.items.fb = false;
+            shareOptions.items.fb = false;
+            shareOptions.fbAppId = data.fba;
+            shareOptions.items.fbf = options.ctl.ebd.sh.fbf?{}:false;
+
+          } else {
+
+            shareOptions.items.fb = options.ctl.ebd.sh.fb?{}:false; 
+            shareOptions.items.fbf = false;
+
+          }
 
         } else {
 
           shareOptions.items[i] = options.ctl.ebd.sh[i]?{}:false;
 
         }
-
 
       }
 
