@@ -107,6 +107,7 @@ function handleEventDisplay(eventUid, options) {
       url: data.u,
       siteUrl: '//cibul.net',
       canvas: el(options.elems.event, options.selectors.social),
+      spacetime: data.st
     };
 
     if (typeof data.t[lang] == 'undefined') for (var l in data.t) {
@@ -121,7 +122,11 @@ function handleEventDisplay(eventUid, options) {
 
     shareOptions.description = data.d[lang];
 
-    if (typeof data.i !== 'undefined') shareOptions.imageUrl = data.i;
+    if (typeof data.i !== 'undefined') {
+
+      shareOptions.imageUrl = data.i.replace( /^\/\//, 'https://' );
+
+    }
 
     if (options.ctl.ebd && options.ctl.ebd.sh) {
 
@@ -129,7 +134,22 @@ function handleEventDisplay(eventUid, options) {
 
       for (var i in options.ctl.ebd.sh) {
 
-        shareOptions.items[i] = options.ctl.ebd.sh[i]?{}:false;
+        // little fb tweak for using fb feed if appId is given
+         
+        if ( ( i == 'fb' ) && data.fba ) {
+          
+          shareOptions.fbAppId = data.fba;
+
+          shareOptions.items.fbf = options.ctl.ebd.sh[i]?{}:false;
+
+          shareOptions.items.fb = false;
+
+        } else {
+
+          shareOptions.items[i] = options.ctl.ebd.sh[i]?{}:false;
+
+        }
+
 
       }
 
