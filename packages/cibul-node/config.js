@@ -26,8 +26,8 @@ config = {
     auth: {
       local: {
         useCaptcha: true,
-        captchaKey: '6Lcn3P0SAAAAACcdP3CL9uk-LRaVvikvvcLrdJf0',
-        captchaSecret: '6Lcn3P0SAAAAAGpJgh6u5GAgxtk2Ye-bcB_-xWm7',
+        captchaKey: '6LeO0AMTAAAAAGGzr5naEkY_VCM5xILpOp2j_1qY',
+        captchaSecret: '6LeO0AMTAAAAADtTdp2ShTEp-nVFktIyzPqkXr22',
         captchaVerify: 'https://www.google.com/recaptcha/api/siteverify'
       },
       facebook: {
@@ -291,8 +291,8 @@ config = {
     auth: {
       local: {
         useCaptcha: true,
-        captchaKey: '6Lco3f0SAAAAAC6JqFdBM5zQzIBwSXXPoySYQxCp',
-        captchaSecret: '6Lco3f0SAAAAAHOjq4t9c4_aImMQ-k-SwN6JHOMU'
+        captchaKey: '6Lee0QMTAAAAAI0t5qoDO_Iduxe-4-oJe3HhggcR',
+        captchaSecret: '6Lee0QMTAAAAAGtqf0sUO8LNVNboDVZ9pQBN5cFA'
       },
       facebook: {
         id: '160151044018305',

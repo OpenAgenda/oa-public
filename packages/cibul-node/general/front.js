@@ -125,7 +125,7 @@ function newsletterSubscribe( req, res ) {
 
     if ( status === 200 ) {
 
-      cmn.redirect( req, res, 'presentation', {}, 'You have been added to the newsletter list. Thanks!' );
+      cmn.redirect( req, res, 'corpoHome', {}, 'You have been added to the newsletter list. Thanks!' );
 
       coms.queue( 'mailer', {
 
@@ -136,7 +136,7 @@ function newsletterSubscribe( req, res ) {
 
     } else {
 
-      cmn.redirect( req, res, 'presentation', {}, 'Either the email is invalid or the newsletter service is unavailable. Please try again later.' );
+      cmn.redirect( req, res, 'corpoHome', {}, 'Either the email is invalid or the newsletter service is unavailable. Please try again later.' );
 
     }
 
