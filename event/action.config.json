@@ -8,7 +8,9 @@
     "_sl" : "shareLinks"
   },
 
-  "base" : {},
+  "base" : {
+    "centeredFooter" : true
+  },
 
   "templateJs" : true
 }

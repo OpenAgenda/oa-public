@@ -1,13 +1,13 @@
 {
+  "logged" : true,
   "event" : {
     "uid" : 79969887,
     "title" : "Un weekend à la ferme",
-    "importUris" : {
-      "google" : "/event/actionDates.part",
-      "ical" : "/event/actionDates.part",
-      "yahoo" : "/event/actionDates.part",
-      "outlook" : "/event/actionDates.part"
-    }
+    "imports" : [
+      { "uri" : "#", "label": "Google Calendar" },
+      { "uri" : "#", "label": "Yahoo" },
+      { "uri" : "#", "label": "Live" }
+    ]
   },
   "agendas" : [
     { "title" : "La Gargouille", "slug" : "la-gargouille" },

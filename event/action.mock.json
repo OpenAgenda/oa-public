@@ -1,17 +1,28 @@
 {
-  "logged" : true,
-  "event" : {
-    "uid" : 79969887,
-    "title" : "Un weekend à la ferme",
-    "imports" : [
-      { "uri" : "#", "label": "Google Calendar" },
-      { "uri" : "#", "label": "Yahoo" },
-      { "uri" : "#", "label": "Live" }
+  "base" : {
+    "logged" : true,
+    "event" : {
+      "uid" : 79969887,
+      "title" : "Un weekend à la ferme",
+      "imports" : [
+        { "uri" : "#", "label": "Google Calendar" },
+        { "uri" : "#", "label": "Yahoo" },
+        { "uri" : "#", "label": "Live" }
+      ]
+    },
+    "agendas" : []
+  },
+  "standard" : {
+    "agendas" : [
+      { "title" : "La Gargouille", "uid" : 898989, "sharing" : false },
+      { "title" : "Bibi", "uid" : 7872837, "sharing" : false },
+      { "title" : "L'agenda de Zorglub", "uid" : 1983928, "sharing" : true }
     ]
   },
-  "agendas" : [
-    { "title" : "La Gargouille", "uid" : 898989, "sharing" : false },
-    { "title" : "Bibi", "uid" : 7872837, "sharing" : false },
-    { "title" : "L'agenda de Zorglub", "uid" : 1983928, "sharing" : true }
-  ]
+  "unlogged" : {
+    "logged" : false
+  },
+  "noagendas" : {
+    "agendas" : []
+  }
 }

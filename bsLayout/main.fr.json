@@ -2,5 +2,11 @@
   "Sign in"
   : "Se connecter",
   "Search"
-  : "Rechercher"
+  : "Rechercher",
+  "About"
+  : "À propos",
+  "Help"
+  : "Aide",
+  "Terms of use"
+  : "Conditions d'utilisation"
 }

@@ -8,5 +8,9 @@
   "You need to sign in to your account to add this event to your agendas"
   : "Vous devez vous connecter à votre compte pour ajouter cet événement à vos agendas",
   "Sign In"
-  : "Connexion"
+  : "Connexion",
+  "You do not own any OpenAgenda yet"
+  : "Vous n'avez pas encore d'agenda OpenAgenda",
+  "Create an agenda"
+  : "Créez-un agenda"
 }
