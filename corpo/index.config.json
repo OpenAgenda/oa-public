@@ -8,17 +8,56 @@
     "pageClass" : "ct",
     "pageId" : "corpo",
     "references" : [
-      { "src": "barbars.jpg", "alt" : "Collectif Culture Bar-Bars" },
-      { "src": "bretagne.jpg", "alt" : "Région Bretagne" },
-      { "src": "cnnum.jpg", "alt" : "Conseil National du Numérique" },
-      { "src": "educationnationale.jpg", "alt" : "Région Bretagne" },
-      { "src": "fidh.jpg", "alt" : "FIDH" },
-      { "src": "idf.jpg", "alt" : "Île-de-France" },
-      { "src": "investinfrance.jpg", "alt" : "Invest in France" },
-      { "src": "lafrenchtech.jpg", "alt" : "La French Tech" },
-      { "src": "ministereculture.png", "alt" : "Ministère de la culture" },
-      { "src": "numa.png", "alt" : "Numa" },
-      { "src": "paris.png", "alt" : "Mairie de Paris" }
+      { 
+        "src": "bretagne.jpg", 
+        "alt" : "Région Bretagne",
+        "href" : "http://fetedelabretagne.com"
+      },
+      {
+        "src": "cnnum.jpg",
+        "alt" : "Conseil National du Numérique",
+        "href" : "http://www.cnnumerique.fr"
+      },
+      { 
+        "src": "ministere.jpg", 
+        "alt" : "Ministère de l'éducation nationale, de l'enseignement supérieur et de la recherche",
+        "href" : "http://journee-arts-culture-sup.fr"
+      },
+      {
+        "src": "fidh.jpg",
+        "alt" : "FIDH",
+        "href" : "https://www.fidh.org"
+      },
+      {
+        "src": "idf.jpg",
+        "alt" : "Île-de-France",
+        "href" : "http://www.iledefrance.fr"
+      },
+      {
+        "src": "investinfrance.jpg",
+        "alt" : "Invest in France",
+        "href" : "http://www.invest-in-france.org"
+      },
+      {
+        "src": "lafrenchtech.jpg", 
+        "alt" : "La French Tech",
+        "href" : "http://www.lafrenchtech.com"
+      },
+      {
+        "src": "ministereculture.png",
+        "alt" : "Ministère de la culture",
+        "href" : "http://www.culturecommunication.gouv.fr"
+      },
+      { 
+        "src": "numa.png", 
+        "alt" : "Numa",
+        "href" : "https://www.numa.paris"
+      },
+      {
+        "src": "paris.png",
+        "alt" : "Mairie de Paris",
+        "href" : "http://www.paris.fr"
+      }
     ]
   }
 }

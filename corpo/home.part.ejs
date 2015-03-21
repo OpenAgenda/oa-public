@@ -12,38 +12,40 @@
         <img class="img-responsive" src="<%= _i( 'journeedesarts.jpg', true ) %>" alt="<%= __('agenda with a map') %>" />
       </div><div class="col-sm-6">
         <p><%= __('Geolocated, participative, multimedia, multilingual, downloadable, exportable, OpenData, API-accessible. Anything is possible.') %></p>
-        <p class="action-container"><a class="btn btn-primary btn-block" href=""><%= __('Create an agenda') %> <small>(<%= __('It\'s free') %>)</small></a></p>
+        <p class="action-container"><a class="btn btn-primary btn-block" href="<%= genUrl('signup') %>"><%= __('Create an agenda') %> <small>(<%= __('It\'s free') %>)</small></a></p>
       </div>
     </div>
   </div><!-- /.container -->
 
   <section class="partners">
-    <h2><%= __('') %><%= __('They trust us') %></h2>
+    <h2><%= __('They trust us') %></h2>
     <ul>
   <% references.forEach( function( r ) { %>
       <li>
-        <img class="img-responsive" src="<%= _i( r.src, true ) %>" alt="<%= r.alt %>">
+        <a href="<%= r.href %>" target="_blank">
+          <img class="img-responsive" src="<%= _i( r.src, true ) %>" alt="<%= r.alt %>">
+        </a>
       </li>
-  <% }) %>
+  <% }); %>
     </ul>
   </section>
 
   <section class="follow-us">
-    <h2><%= __('') %><%= __('Follow us!') %></h2>
+    <h2><%= __('Follow us!') %></h2>
     <ul>
       <li class="facebook">
-        <a href="#"><i class="fa fa-facebook-official"></i></a>
+        <a href="//facebook.com/openagenda" target="_blank"><i class="fa fa-facebook-official"></i></a>
       </li><li class="twitter">
-        <a href="#"><i class="fa fa-twitter"></i></a>
-      </li><li class="linkedin">
-        <a href="#"><i class="fa fa-linkedin-square"></i></a>
+        <a href="//twitter.com/openagenda" target="_blank"><i class="fa fa-twitter"></i></a>
       </li><li class="newsletter">
-        <div class="input-group">
-          <input type="email" class="form-control" placeholder="Votre adresse email">
-          <span class="input-group-btn">
-            <button class="btn btn-primary" type="button"><%= __('') %>S'abonner à la newsletter</button>
-          </span>
-        </div><!-- /input-group -->
+        <form method="post" action="<%= genUrl('newsletterSubscribe') %>">
+          <div class="input-group">
+            <input type="email" class="form-control" placeholder="<%= __( 'Your email address' ) %>" name="email">
+            <span class="input-group-btn">
+              <button class="btn btn-primary" type="submit"><%= __('Subscribe to the newsletter') %></button>
+            </span>
+          </div>
+        </form>
       </li>
     </ul>
   </section>
