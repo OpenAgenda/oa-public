@@ -34,6 +34,10 @@ module.exports = function( enabledTypes, cb ) {
 
     config = require( './config' ),
 
+    genUrl = require( './lib/genUrl' )( {
+      domain: config.domain
+    }),
+
     webModules = {
       admin: [ // for admins only
         require( './admin/back' )( '/admin' )
@@ -41,7 +45,7 @@ module.exports = function( enabledTypes, cb ) {
       web: [ // open to the public
         require( './newsletter/back' )( '/:slug/admin/newsletters' ),
         require( './newsletter/front' )( '/:slug/newsletters' ),
-        require( './general/front' )( '' ),
+        //require( './general/front' )( '' ),
         require( './search/front' )( '' ),
         require( './event/front' )( '' ),
         require( './auth/local.front' )( '' ),
@@ -66,11 +70,28 @@ module.exports = function( enabledTypes, cb ) {
 
     app.use( cookieSession( config.session ) );
 
+
+    //===========================================
+    /** test module for new navigation**/
+
+    // load gen url everywhere
     app.use( function( req, res, next ) {
+
+      req.genUrl = genUrl;
 
       next();
 
     });
+
+    cmn.loadLegacyRoutes( genUrl );
+
+    var testModule = require( './general/test' )( '' );
+
+    // this is how this guy should function.
+    genUrl.load( testModule.paths );
+
+    testModule.load( app );
+    //============================================
 
 
     // run 'admin' type modules

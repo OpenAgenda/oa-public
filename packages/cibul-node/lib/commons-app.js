@@ -1,4 +1,4 @@
-
+"use strict";
 
 /**
  * common web app module middleware and initialization functions
@@ -7,6 +7,7 @@
 exports.loadApp = loadApp;                        // load module web app in main app
 exports.loadRoutes = loadRoutes;                  // load module web app routes
 exports.loadMiddlewares = loadMiddlewares;        // load specific middleware libs
+exports.loadLogger = loadLogger;
 
 exports.getCibulModel = getCibulModel;            // get model instance
 exports.render = render;                          // render and serve response
@@ -35,8 +36,10 @@ exports.redirect = redirect;                      // router proxy function. do a
 exports.getRedirect = getRedirect;                // get redirect
 
 exports.writeToCookie = writeToCookie;
-exports.clearCookie = clearCookie
-exports.readCookie = readCookie
+exports.clearCookie = clearCookie;
+exports.readCookie = readCookie;
+
+exports.loadLegacyRoutes = loadLegacyRoutes;
 
 /**
  * dependencies and constant declarations
@@ -88,7 +91,7 @@ function loadApp( parent, path, name ) {
 
   app.set( 'path', path );
 
-  app.use( _loadLogger( name ) );
+  app.use( loadLogger( name ) );
 
   parent.use( app );
 
@@ -794,7 +797,7 @@ function renderJson( req, res, data ) {
  * middleware for loading an logger and shoving it in the request
  */
 
-function _loadLogger( name ) {
+function loadLogger( name ) {
 
   return function( req, res, next ) {
 
@@ -960,5 +963,20 @@ function _getLang( req ) {
   log( 'did not detect any language' );
 
   return 'fr';
+
+}
+
+
+function loadLegacyRoutes( genUrl ) {
+
+  var legacyRoutes = config.routes.globals;
+
+  for( var name in legacyRoutes ) {
+
+    legacyRoutes[ name ] = config.routes.defaultGlobalsPrefix + legacyRoutes[ name ].uri;
+
+  }
+
+  genUrl.load( legacyRoutes );
 
 }
