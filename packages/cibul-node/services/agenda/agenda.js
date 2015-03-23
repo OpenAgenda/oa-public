@@ -1,6 +1,5 @@
 "use strict";
 
-
 var log = require( '../../lib/logger' )( 'agenda service' ),
 
 config = require( '../../config' ),

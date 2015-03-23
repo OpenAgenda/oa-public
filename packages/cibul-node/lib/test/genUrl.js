@@ -71,4 +71,22 @@ describe( 'genUrl', function() {
 
   });
 
+  it( 'additional parameters go in the query', function() {
+
+    genUrl( 'sayHi', { name: 'super', surname: 'staringsson', title: 'boss' } )
+
+    .should.equal( '/hi/super?surname=staringsson&title=boss' );
+
+  } );
+
+  it( 'route with ? can have additional query values', function() {
+
+    genUrl.load( { quiz: '/this/:already?has=:aquestionmark' } );
+
+    genUrl( 'quiz', { already: 'onealready', aquestionmark: 'this', additional: 'extra' } )
+
+    .should.equal( '/this/onealready?has=this&additional=extra' );
+
+  });
+
 } );

@@ -1,85 +1,43 @@
-/**
- * general purpose controllers
- */
+"use strict";
 
-var appName = 'general/front',
-
-exposed = {
-  load: load
-},
+var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
-routes = {
-  corpoHome: [ 'get', index( 'home' ), '/' ], // problem: applying mw here applies it everywhere
-  corpoFeatures: [ 'get', index( 'features' ), '/features' ],
-  corpoPricing: [ 'get', index( 'pricing' ), '/pricing' ],
-  corpoAbout: [ 'get', index( 'about' ), '/about' ],
-  newsletterSubscribe: [ 'post', newsletterSubscribe, '/newsletter/subscribe' ],
-  serviceConnectCallback: [ 'get', serviceConnectCallback, '/services/:service/connect/callback' ]
-},
-
-// libraries used
-
-log = require( '../lib/logger' )( appName ),
-
 config = require( '../config' ),
-
-async = require( 'async' ),
 
 Mailjet = require( 'mailjet' ),
 
-w = require( 'when' ),
-
-wn = require( 'when/node' ),
-
-lib = require( '../lib/lib' ),
-
+path,
 
 coms = require( '../lib/coms' ),
 
-app,
+routes = {
+  corpoHome: [ 'get', '/', index( 'home' ) ],
+  corpoFeatures: [ 'get', '/features', index( 'features' ) ],
+  corpoPricing: [ 'get', '/pricing', index( 'pricing' ) ],
+  corpoAbout: [ 'get', '/about', index( 'about' ) ],
+  newsletterSubscribe: [ 'post', '/newsletter/subscribe', newsletterSubscribe ],
+  serviceConnectCallback: [ 'get', '/services/:service/connect/callback', serviceConnectCallback ]
+};
 
-path;
-
-
-// init and load functions
-
-function init( p ) {
-
-  log( 'debug', 'initing');
+module.exports = function( p ) {
 
   path = p;
 
-  cmn.registerRoutes( appName, path, routes );
+  var router = modLib.Router( routes );
 
-  return exposed;
-
-}
-
-
-function load( main ) {
-
-  if ( app ) {
-
-    log( 'debug', 'this app has already been loaded' );
-
-    return;
-
-  }
-
-  log( 'debug', 'loading' );
-
-  app = cmn.loadApp( main, path, appName );
-
-  cmn.loadRoutes( app, routes, [
-    cmn.urlGenSetter( appName, path ),
+  router.pre([
+    cmn.loadLogger( 'general' ),
     cmn.flashSetter,
     cmn.loadSession,
-    cmn.loadBaseData( function() {}, 'oa.css')
-  ] );
+    cmn.loadBaseData( function() {}, 'oa.css' )
+  ]);
 
-  return exposed;
+  return {
+    load: router.load( path ),
+    paths: modLib.getPaths( path, routes )
+  }
 
 }
 
@@ -166,5 +124,3 @@ function serviceConnectCallback( req, res ) {
   return cmn.redirect( req, res, 'serviceSynchronize', { slug: stateObj.slug, service: req.params.service, code: req.query.code } );
 
 }
-
-module.exports = init;

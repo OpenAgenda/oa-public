@@ -177,8 +177,6 @@ function _loadIsPassed( req, res, next ) {
 
   var now = new Date();
 
-  console.log( now );
-
   req.agenda.getLastOccurrence( function( err, lastOccurrence ) {
 
     req.templateData.passed = now > new Date( lastOccurrence.end );

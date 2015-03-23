@@ -2,7 +2,9 @@
 
 var supervisor = require( './lib/supervisor' ),
 
-cmn = require( './lib/commons-app' );
+cmn = require( './lib/commons-app' ),
+
+lib = require( './lib/lib' );
 
 
 
@@ -45,8 +47,8 @@ module.exports = function( enabledTypes, cb ) {
       web: [ // open to the public
         require( './newsletter/back' )( '/:slug/admin/newsletters' ),
         require( './newsletter/front' )( '/:slug/newsletters' ),
-        //require( './general/front' )( '' ),
-        require( './search/front' )( '' ),
+        [ require( './general/front' )( '' ) ],
+        [ require( './search/new' )( '' ) ],
         require( './event/front' )( '' ),
         require( './auth/local.front' )( '' ),
         require( './auth/facebook.front' )( '/facebook' ),
@@ -57,8 +59,13 @@ module.exports = function( enabledTypes, cb ) {
         require( './agenda/front' )( '' ),
         require( './agenda/actions.front' )( '/:slug/actions' ),
         require( './agenda_bridges/back' )( '/:slug/admin/services' )
+      ],
+      newWeb: [
+        require( './general/front' )( '' ),
+        require( './search/new' )( '' )
       ]
     },
+
 
     app = express(),
 
@@ -72,7 +79,7 @@ module.exports = function( enabledTypes, cb ) {
 
 
     //===========================================
-    /** test module for new navigation**/
+    /** url generator **/
 
     // load gen url everywhere
     app.use( function( req, res, next ) {
@@ -85,12 +92,8 @@ module.exports = function( enabledTypes, cb ) {
 
     cmn.loadLegacyRoutes( genUrl );
 
-    var testModule = require( './general/test' )( '' );
+    cmn.loadDeprecatedRoutes( genUrl );
 
-    // this is how this guy should function.
-    genUrl.load( testModule.paths );
-
-    testModule.load( app );
     //============================================
 
 
@@ -109,9 +112,27 @@ module.exports = function( enabledTypes, cb ) {
     // run 'web' type modules
     if ( enabledTypes.indexOf( 'web' ) !== -1 ) {
 
+      // deprecate these types...
       webModules.web.forEach( function( m ) {
 
-        m.load( app );
+        if ( lib.isArray( m ) ) {
+
+          // tis a new type module
+          
+          // load paths in genUrl
+          genUrl.load( m[ 0 ].paths );
+
+          // load paths in deprecated router
+          cmn.loadInDeprecatedRouter( m[ 0 ].paths );
+
+          m[ 0 ].load( app );
+
+        } else {
+
+          m.load( app );
+          
+        }
+
 
       });
 

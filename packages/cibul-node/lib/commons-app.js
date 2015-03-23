@@ -40,6 +40,8 @@ exports.clearCookie = clearCookie;
 exports.readCookie = readCookie;
 
 exports.loadLegacyRoutes = loadLegacyRoutes;
+exports.loadDeprecatedRoutes = loadDeprecatedRoutes;
+exports.loadInDeprecatedRouter = loadInDeprecatedRouter;
 
 /**
  * dependencies and constant declarations
@@ -1004,5 +1006,29 @@ function loadLegacyRoutes( genUrl ) {
   }
 
   genUrl.load( legacyRoutes );
+
+}
+
+function loadDeprecatedRoutes( genUrl ) {
+
+  var deprecatedRouter = require( './router' );
+
+  var routes = {};
+
+  for ( var i in deprecatedRouter ) {
+
+    routes[ i ] = deprecatedRouter[ i ].uri;
+
+  }
+
+  genUrl.load( routes );
+
+}
+
+function loadInDeprecatedRouter( paths ) {
+
+  var deprecatedRouter = require( './router' );
+
+  deprecatedRouter.registerPaths( paths );
 
 }

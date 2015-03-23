@@ -2,7 +2,9 @@
 
 var deepExtend = require( 'deep-extend' ),
 
-log = require( 'debug' )( 'genUrl' );
+log = require( 'debug' )( 'genUrl' ),
+
+qs = require( 'qs' );
 
 module.exports = function( options ) {
 
@@ -34,6 +36,8 @@ function instanciate( options ) {
     paramNames = [],
 
     cleanValues = {},
+
+    query = {},
 
     relativeUrl,
 
@@ -69,8 +73,6 @@ function instanciate( options ) {
 
     }
 
-    console.log( relativeUrl );
-
     if ( genParams.abs ) {
 
       url = genParams.protocol + genParams.domain + relativeUrl;
@@ -78,6 +80,14 @@ function instanciate( options ) {
     } else {
 
       url = relativeUrl;
+
+    }
+
+    query = _loadQueryValues( uri, cleanValues );
+
+    if ( query ) {
+
+      url += ( url.indexOf( '?' ) == -1 ? '?' : '&' ) + qs.stringify( query );
 
     }
 
@@ -100,13 +110,9 @@ function instanciate( options ) {
 
 function _loadParamValues( uri, values ) {
 
-  var url = uri,
+  var url = uri;
 
-  // param names start with :, 
-  // are smallcase and contain only letters from a to z
-  paramNames = uri.match( /\:[a-z]+/g ) || [];
-
-  paramNames.forEach( function( paramName ) {
+  _getUriParamNames( uri ).forEach( function( paramName ) {
 
     if ( values[ paramName.replace( ':', '' ) ] === undefined ) {
 
@@ -119,6 +125,49 @@ function _loadParamValues( uri, values ) {
   } );
 
   return url;
+
+}
+
+
+/**
+ * extract values which are not params of uri
+ * and place them in a query object
+ */
+
+function _loadQueryValues( uri, values ) {
+
+  var queryValues = {},
+
+  paramNames = _getUriParamNames( uri, true );
+
+  for( var v in values ) {
+
+    if ( paramNames.indexOf( v ) == -1 ) {
+
+      queryValues[ v ] = values[ v ];
+
+    }
+
+  }
+
+  return size( queryValues ) ? queryValues : false;
+
+}
+
+
+/**
+ * extract names from uri
+ */
+
+function _getUriParamNames( uri, stripped ) {
+
+  // param names start with :, 
+  // are smallcase and contain only letters from a to z
+  return ( uri.match( /\:[a-z]+/g ) || [] ).map( function( name ) {
+
+    return stripped ? name.replace( ':', '' ) : name;
+
+  });
 
 }
 
@@ -157,3 +206,13 @@ function isArray( obj ) {
   return Object.prototype.toString.call(obj) === '[object Array]';
 
 }
+
+function size( obj ) {
+
+  var size = 0, key;
+  for (key in obj) {
+      if (obj.hasOwnProperty(key)) size++;
+  }
+  return size;
+
+};

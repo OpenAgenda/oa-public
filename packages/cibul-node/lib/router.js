@@ -22,7 +22,9 @@ module.exports = lib.extend( loadGlobalRoutes, {
   registerRoutes: registerRoutes,
   loadUrlGen: loadUrlGen,
   redirect: redirect,
-  makeGenUrl: makeGenUrl
+  makeGenUrl: makeGenUrl,
+  getAllRoutes: getAllRoutes,
+  registerPaths: registerPaths
 } );
 
 
@@ -42,6 +44,16 @@ function registerRoutes( moduleName, modulePath, routes ) {
       base: modulePath,
       uri: routes[name][R_URI]
     } );
+
+  }
+
+}
+
+function registerPaths( paths ) {
+
+  for ( var p in paths ) {
+
+    _registerRoute( p, { uri: paths[ p ] } );
 
   }
 
@@ -271,6 +283,12 @@ function loadGlobalRoutes() {
     _registerRoute( name, globalRoute );
 
   }
+
+}
+
+function getAllRoutes() {
+
+  return routes;
 
 }
 
