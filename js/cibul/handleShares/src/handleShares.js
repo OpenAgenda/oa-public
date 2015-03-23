@@ -14,6 +14,20 @@ var handleShares = function(params) {
         res: 'https://www.facebook.com/sharer.php',
         params: {u: 'url'}
       },
+      fbf: {
+        content: '<i class="icon-facebook"></i>',
+        res: 'https://www.facebook.com/dialog/feed',
+        className: 'fb',
+        params: { 
+          display: 'popup',
+          app_id: 'fbAppId',
+          link: 'url',
+          redirect_uri: 'url',
+          name: 'title',
+          picture: 'imageUrl',
+          caption: 'spacetime'
+        }
+      },
       tw: {
         content: '<i class="icon-twitter"></i>',
         className: 'tw',

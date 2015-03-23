@@ -301,41 +301,59 @@ function widget( elem, options ) {
 
         if ( neighborhoodBounds ) {
 
-          return _selectBounds( neighborhoodBounds, true );
+          return ( config.auto ? _selectBounds : _fitBounds )( neighborhoodBounds, true );
 
         }
 
+
+        // there are no neighbors. select location as new filter
+
+        if ( !selectedLocation && !cn.contains( activeLocations, location.slug ) ) return;
+
+        selectedBounds = false;
+
+        _deactivateSync();
+
+
+        if ( selectedLocation && ( selectedLocation.slug == location.slug ) ) {
+
+          updatedReqParams = _unsetLocationParams();
+
+        } else {
+
+          updatedReqParams = _setLocationParams( location.slug );
+
+        }
+
+
+        if ( cn.contains( passedLocations, location.slug ) ) {
+
+          updatedReqParams.passed = '1';
+
+        }
+
+        _update( updatedReqParams );
+
       }
-
-      // there are no neighbords. select location as new filter
-
-      if ( !selectedLocation && !cn.contains( activeLocations, location.slug ) ) return;
-
-      selectedBounds = false;
-
-      _deactivateSync();
-
-      updatedReqParams = {
-        location: location.slug, 
-        neLat: null,
-        neLng: null,
-        swLat: null,
-        swLng: null
-      };
-
-      if ( cn.contains( passedLocations, location.slug ) ) {
-
-        updatedReqParams.passed = '1';
-
-      }
-
-      _update( updatedReqParams );
 
     });
-  }
+
+  },
 
 
-  function _refresh() {
+  _unsetLocationParams = function() {
+
+    return { location: null, neLat: null, neLng: null, swLat: null, swLng: null };
+
+  },
+
+  _setLocationParams = function( slug ) {
+
+    return { location: slug, neLat: null, neLng: null, swLat: null, swLng: null };
+
+  },
+
+  _refresh = function() {
 
     log( 'refreshing map: %s', enabled ? 'enabled' : 'not enabled' );
 

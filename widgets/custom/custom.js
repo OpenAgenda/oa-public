@@ -67,7 +67,7 @@ var widget = function( elem, options ) {
 
     for ( var v in values ) {
 
-      if ( ( typeof reqParams[v] !== 'undefined' ) && ( reqParams[v] !== values[v] ) ) {
+      if ( ( typeof reqParams[v] == 'undefined' ) || ( reqParams[v] !== values[v] ) ) {
 
         same = false;
 
@@ -75,7 +75,15 @@ var widget = function( elem, options ) {
 
     }
 
-    cn.addClass( elem, activeClass );
+    if ( same ) {
+
+      cn.addClass( elem, activeClass );
+
+    } else {
+
+      cn.removeClass( elem, activeClass );
+
+    }
 
     enabled = true;
 

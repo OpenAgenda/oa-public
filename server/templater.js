@@ -18,7 +18,7 @@ module.exports = function( templateName, data, cb ) {
 
   async.waterfall(loaders, function( err, results ) {
 
-    if ( err ) throw err;
+    if ( err ) return cb( err );
 
     var template = results.template, labels = results.labels;
 
@@ -130,7 +130,7 @@ _loadTemplate = function( templateName ) {
     isPartial = templateName.substr( -5 ) === '.part',
 
     data = {
-      name: templateName.replace('.part', '')
+      name: templateName.replace( '.part', '' )
     };
 
     log( 'reading contents of %s', baseTemplatePath + '.config.json' );
@@ -242,9 +242,10 @@ _loadLabels = function( lang ) {
 
         labels = JSON.parse( results[0] );
 
+        if ( results.length > 1 ) cn.extend(labels, JSON.parse( results[1] ) );
+        
       }
 
-      if ( results.length > 1 ) cn.extend(labels, JSON.parse( results[1] ) );
 
       data.labels = labels;
 

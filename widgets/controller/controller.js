@@ -99,6 +99,12 @@ module.exports = function( uid ) {
 
       log( 'controller will sync with href ? %s', ctl.sh ? 'yes' : 'no' );
 
+      if ( ctl.sh ) {
+
+        _forEachWidget( 'change', currentRequestParams );
+
+      }
+
       sweep();
       
     });
@@ -227,7 +233,9 @@ module.exports = function( uid ) {
 
     log( 'updating with %s', JSON.stringify( updatedParams ) );
 
-    var newParams = cn.extend( {}, currentRequestParams, updatedParams );
+    var newParams = cn.extend( {}, currentRequestParams, { 
+      uid: null
+    }, updatedParams );
 
     if ( !isDifferent( newParams ) ) return;
 
@@ -310,9 +318,18 @@ module.exports = function( uid ) {
 
   function _initCurrentRequestParams() {
 
+    var today = new Date();
+
     if ( ctl.sh ) {
 
       currentRequestParams = _readHrefQuery( 'search' );
+
+    }
+
+    if ( ctl.lo ) {
+
+      // bit of a transitional hack (2015-03-06) - remove ctl.p in other widgets before anything here
+      ctl.p = today > new Date( ctl.lo.end );
 
     }
 

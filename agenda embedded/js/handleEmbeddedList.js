@@ -67,6 +67,7 @@ var handleEmbeddedList = function(options) {
     tunnel,
     eventDisplayPending = false,
     displayedEvent = false,
+    firstLoad = true,
 
   _init = function() {
 
@@ -100,9 +101,32 @@ var handleEmbeddedList = function(options) {
     // handle event open
     eh.on(options.events.openEvent, _handleEventOpen);
 
+    // handle event open from params
+    eh.on( options.events.load, function( data ) {
+
+      if ( data.uid ) {
+
+        eh.trigger(options.events.openEvent, data.uid, {
+          elems: { program: options.elems.program, event: options.elems.event }
+        });
+
+      }
+
+    });
+
     eh.on(options.events.loadSuccess, function() {
 
+      if ( firstLoad ) {
+
+        firstLoad = false;
+
+        return;
+
+      }
+
       if (!displayedEvent) return;
+
+      
 
       displayedEvent.close();
 
