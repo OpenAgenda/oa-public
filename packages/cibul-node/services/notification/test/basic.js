@@ -16,13 +16,17 @@ sets = require( 'cibulModel/test/fixtures/sets' )( cbm ),
 
 notificationSvc = require( '../notification' ),
 
-bogusComs = require( '../../../test/helpers/bogusComs' );
-
-notificationSvc.setComs( bogusComs );
+coms = require( '../../../lib/coms' );
 
 describe( 'notification - basic', function() {
 
   var agenda = {}, user = {}, admins = [];
+
+  before( function( done ) {
+
+    coms.clearQueue( 'jobs', done );
+
+  });
 
   // create an agenda
   before( sets.prepareOneAgendaInstance( agenda, 'la-gargouille' ) );
@@ -62,7 +66,7 @@ describe( 'notification - basic', function() {
       ownerId: user.id
     }, function( err ) {
 
-      bogusComs.consume( 'jobs', function( err, values ) {
+      coms.consume( 'jobs', function( err, values ) {
         
         values.should.eql( { 
           type: 'notification',
@@ -88,7 +92,7 @@ describe( 'notification - basic', function() {
       agendaId: agenda.id
     }, function( err ) {
 
-      bogusComs.consume( 'jobs', function( err, values ) {
+      coms.consume( 'jobs', function( err, values ) {
 
         values.should.eql( { 
           type: 'notification',

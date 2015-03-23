@@ -24,6 +24,9 @@
     "passport-local" : "1.0.0",
     "passport-facebook" : "1.0.3",
     "passport-twitter" : "1.0.2",
-    "passport-google-oauth" : "0.1.5"
+    "passport-google-oauth" : "0.1.5",
+    "fast-levenshtein" : "1.0.6",
+    "gm" : "1.17.0",
+    "s3" : "4.4.0"
   }
 }

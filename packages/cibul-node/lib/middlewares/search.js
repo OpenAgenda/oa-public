@@ -98,6 +98,10 @@ function buildEsQuery( limit ) {
       }
     }
 
+    page = req.query.page ? parseInt( req.query.page, 10 ) : 1;
+
+    req.esQuery.options.from = ( page - 1 ) * limit;
+
     if ( !req.query.search ) {
 
       next();
@@ -105,10 +109,6 @@ function buildEsQuery( limit ) {
       return;
 
     }
-
-    page = req.query.page ? parseInt( req.query.page, 10 ) : 1,
-
-    req.esQuery.options.from = ( page - 1 ) * limit;
 
     when = req.cleanSearch.when ? req.cleanSearch.when : [];
 

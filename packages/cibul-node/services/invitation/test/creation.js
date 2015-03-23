@@ -14,7 +14,7 @@ sets = require( 'cibulModel/test/fixtures/sets' )( cbm ),
 
 svc = require( '../invitation' ),
 
-bogusComs = require( '../../../test/helpers/bogusComs' );
+coms = require( '../../../lib/coms' );
 
 describe( 'invitation creation', function() {
 
@@ -33,6 +33,12 @@ describe( 'invitation creation', function() {
     } );
 
   } );
+
+  beforeEach( function( done ) {
+
+    coms.clearQueue( 'jobs', done );
+
+  });
 
   it( 'successful creation of an invitation to contribute', function( done ) {
 
@@ -69,11 +75,9 @@ describe( 'invitation creation', function() {
 
   it( 'successful creation of an invitation creates a job for its processing', function( done ) {
 
-    svc.setComs( bogusComs );
-
     svc.agenda( agenda ).inviteContributors( [ user.email, 'other@email.com' ], 'fr', function( err, invitations, result ) {
 
-      bogusComs.consume( 'jobs', function( err, job ) {
+      coms.consume( 'jobs', function( err, job ) {
 
         job.should.eql({
           type: 'invitation', 
@@ -84,7 +88,7 @@ describe( 'invitation creation', function() {
 
       });
 
-      bogusComs.consume( 'jobs', function( err, jobs ) {
+      coms.consume( 'jobs', function( err, jobs ) {
 
         jobs.invitationId.should.equal( invitations[ 1 ].id );
 

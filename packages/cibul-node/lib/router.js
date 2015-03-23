@@ -233,9 +233,9 @@ function makeGenUrl( options ) {
 
     }
 
-    if ( params.protocol ) {
+    if ( urlParams.protocol ) {
 
-      url.replace( /^(\/\/|http:\/\/|https:\/\/)/, params.protocol + ( params.protocol.length ? ':' : '' ) + '//' );
+      url = url.replace( /^(\/\/|http(s|):\/\/)/, urlParams.protocol + ( urlParams.protocol.length ? ':' : '' ) + '//' );
 
     }
 

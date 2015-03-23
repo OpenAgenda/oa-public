@@ -335,6 +335,8 @@ function _verifyPassword( values ) {
 
   if ( !values.user ) return values;
 
+  if ( values.inactive ) return values;
+
   return w.promise( function( resolve, reject ) {
 
     model.users().validateEmailAndPassword( values.user.email, values.password, function( err, ok ) {

@@ -123,6 +123,12 @@ module.exports = function( enabledTypes, cb ) {
       cmn.catchError( req, res )( { code: 404 } );
 
     });
+
+    app.use( function( err, req, res, next ) {
+
+      cmn.catchError( req, res )( err );
+
+    });
    
 
     server = app.listen( config.port );
@@ -154,6 +160,18 @@ module.exports = function( enabledTypes, cb ) {
     }
 
     if ( cb ) cb( null, server );
+
+    process.on( 'uncaughtException', function (err) {
+
+      log( 'error', 'uncaughtException: %s', err.message );
+
+      console.error( (new Date).toUTCString(), 'uncaught: %s', err.message );
+
+      console.error( err.stack );
+
+      process.exit( 1 )
+
+    } );
 
   } );
 

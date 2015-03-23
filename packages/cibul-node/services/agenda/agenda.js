@@ -1,7 +1,7 @@
 "use strict";
 
 
-var log = require( '../../lib/logger' )( 'event service' ),
+var log = require( '../../lib/logger' )( 'agenda service' ),
 
 config = require( '../../config' ),
 
@@ -77,6 +77,7 @@ function instanciate( data ) {
         cb();
 
       });
+
 
     } );
 

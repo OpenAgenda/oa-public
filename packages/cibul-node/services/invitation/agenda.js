@@ -18,7 +18,12 @@ w = require( 'when' ),
 
 model = require( 'cibulModel' )( config.db ),
 
-invitationsService;
+invitationsService,
+
+TYPES = {
+  AGENDACONTRIBUTOR: 1,
+  AGENDAADMIN: 2
+};
 
 
 module.exports = agendaInvitations;
@@ -39,7 +44,8 @@ function agendaInvitations( agenda ) {
   return {
     inviteContributors: inviteContributors,
     inviteContributor: inviteContributor,
-    processContributorInvitation: processContributorInvitation
+    processContributorInvitation: _processStakeholder( TYPES.AGENDACONTRIBUTOR ),
+    processAdministratorInvitation: _processStakeholder( TYPES.AGENDAADMIN )
   }
 
   function inviteContributor( email, lang, cb ) {
@@ -108,31 +114,35 @@ function agendaInvitations( agenda ) {
 
   }
   
-  function processContributorInvitation( values ) {
+  function _processStakeholder( type ) {
 
-    log( 'processing contributor invitation' );
+    return function( values ) {
 
-    // if user exists and is activated, process, else send invite.
-    
-    return _attemptLoadUser( values )
+      log( 'processing %s invitation', type == TYPES.AGENDACONTRIBUTOR ? 'contributor' : 'administrator' );
 
-    .then( function( values ) {
+      // if user exists and is activated, process, else send invite.
+      
+      return _attemptLoadUser( values )
 
-      if ( !values.user || !values.user.isActivated ) {
+      .then( function( values ) {
 
-        return _sendInvitation( values );
+        if ( !values.user || !values.user.isActivated ) {
 
-      } else {
+          return _sendInvitation( type, values );
 
-        return _createContributor( values );
+        } else {
 
-      }
+          return _createStakeholder( type, values );
 
-    });
+        }
+
+      });
+
+    }
 
   }
   
-  function _sendInvitation( values ) {
+  function _sendInvitation( type, values ) {
 
     return w.promise( function( resolve, reject ) {
 
@@ -144,16 +154,16 @@ function agendaInvitations( agenda ) {
 
         var link = _genUrl( 'signin', { iToken: values.invitation.token } ),
 
-        title = 'You have been invited to become contributor of the agenda %agenda%',
+        title = 'You have been invited to become %stakeholder% of the agenda %agenda%',
 
-        text = 'Click here to start contributing to the agenda %agenda%';
+        text = 'Click here to start %stakeholderaction% the agenda %agenda%';
 
         // owner invitation language sounds good
 
         invitationsService.getComs().queue( 'mailer', {
           recipient: values.invitation.email,
-          subject: i18n( title, { '%agenda%' : agenda.title }, lang ? lang : 'en' ),
-          text: i18n( text, { '%agenda%' : agenda.title }, lang ? lang : 'en' ) + "\n" + link
+          subject: i18n( title, { '%agenda%' : agenda.title, '%stakeholder%' : i18n( type == TYPES.AGENDAADMIN ? 'administrator' : 'contributor', lang ? lang : 'en' ) }, lang ? lang : 'en' ),
+          text: i18n( text, { '%agenda%' : agenda.title, '%stakeholderaction%' : i18n( type ==TYPES.AGENDAADMIN ? 'administering' : 'contributing to',  lang ? lang : 'en' ) }, lang ? lang : 'en' ) + "\n" + link
         }, function( err ) {
 
           if ( err ) return reject( err );
@@ -169,17 +179,19 @@ function agendaInvitations( agenda ) {
 
   }
 
-  function _createContributor( values ) {
+  function _createStakeholder( type, values ) {
 
     return w.promise( function( resolve, reject ) {
 
-      agenda.isContributor( values.user, function( err, is ) {
+      agenda[ type==TYPES.AGENDAADMIN ? 'isAdministrator' : 'isContributor' ]( values.user, function( err, is ) {
         
         if ( err ) return reject( err );
 
         if ( is ) {
 
-          values.message = i18n( 'You are already a contributor', values.lang );
+          values.message = i18n( 'You are already %astakeholder%', { 
+            '%astakeholder%' : i18n( type==TYPES.AGENDAADMIN ? 'an administrator' : 'a contributor', values.lang ) 
+          }, values.lang );
 
           values.resolved = true;
 
@@ -187,16 +199,19 @@ function agendaInvitations( agenda ) {
 
         } else {
 
-          agenda.setContributor( values.user, function( err ) {
+          agenda[ type==TYPES.AGENDAADMIN ? 'setAdministrator' : 'setContributor' ]( values.user, function( err ) {
 
             if ( err ) return reject( err );
 
-            notification.notify.newContributor( {
+            notification.notify[ type==TYPES.AGENDAADMIN ? 'newAdministrator' : 'newContributor' ]( {
               agendaId: agenda.id,
               ownerId: values.user.id
             } );
 
-            values.message = i18n( 'You are now a contributor of agenda %agenda%', { '%agenda%' : agenda.title } , values.lang );
+            values.message = i18n( 'You are now %astakeholder% of agenda %agenda%', { 
+              '%astakeholder%' : i18n( type==TYPES.AGENDAADMIN ? 'an administrator' : 'a contributor', values.lang ),
+              '%agenda%' : agenda.title 
+            } , values.lang );
 
             values.resolved = true;
 

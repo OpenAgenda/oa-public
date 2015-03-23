@@ -4,7 +4,9 @@ logger = require( './logger' ),
 
 config = require( '../config' ),
 
-log = logger( 'supervisor' );
+log = logger( 'supervisor' ),
+
+lastCrashTime;
 
 
 /**
@@ -67,6 +69,32 @@ function master() {
     }
 
   } );
+
+  cluster.on( 'exit', function( worker ) {
+
+    var now = new Date;
+
+    log( 'error', 'worker crashed!' );
+
+    if ( worker.id == tasksWorker ) {
+
+      tasksWorker = false;
+
+    }
+
+    if ( lastCrashTime - now < 1000 ) {
+
+      log( 'error', 'workers chain crashing!' );
+
+      return;
+
+    }
+
+    lastCrashTime = new Date();
+
+    cluster.fork();
+
+  });
 
 }
 

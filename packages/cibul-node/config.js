@@ -7,6 +7,7 @@ config = {
     multiCore: true,
     mainChannel: 'main',
     jobsQueue: 'jobs',
+    tmpFolderPath: '/var/tmp/',
     logPath : '/var/tmp/cibul-node.log',
     logPathDebug : '/var/tmp/cibul-node-debug.log',
     logPathError : '/var/tmp/cibul-node-errors.log',
@@ -78,7 +79,8 @@ config = {
       secretAccessKey: 'HXK3zbccKFRWrJtpK/Kkqgz1+HNP57f3icQq9GwG',
       region: 'eu-west-1',
       imageBucketPath: 'https://cibul.s3.amazonaws.com/',
-      staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/'
+      staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/',
+      bucket: 'cibul'
     },
     mailjet: {
       apiKey: '8c200831a70d4f391bd697fa3cbca6a3',
@@ -91,7 +93,7 @@ config = {
         'youtube', 'dailymotion', 'vimeo', 
         'soundcloud', 'twitter', 'flickr', 
         'instagram', 'tumblr', 'prezi', 
-        'google', 'yahoo', 'ted' 
+        'google', 'ted'
       ]
     },
     newsletter: {
@@ -161,7 +163,7 @@ config = {
         },
         'agendaIcal' : {
           method: 'get',
-          uri: '/agendas/:uid.ical'
+          uri: '/agendas/:uid.ics'
         },
         'agendaCsv' : {
           method: 'get',
@@ -331,8 +333,9 @@ config = {
       accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
       secretAccessKey: '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',
       region: 'eu-west-1',
-      imageBucketPath: 'https://cibultest.s3.amazonaws.com/',
-      staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/'
+      imageBucketPath: 'https://cibuldev.s3.amazonaws.com/',
+      staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/',
+      bucket: 'cibuldev'
     },
     bridges: {
       swapcard: {
@@ -410,7 +413,8 @@ config = {
       secretAccessKey: 'HXK3zbccKFRWrJtpK/Kkqgz1+HNP57f3icQq9GwG',
       region: 'eu-west-1',
       imageBucketPath: 'https://cibultest.s3.amazonaws.com/',
-      staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/'
+      staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/',
+      bucket: 'cibultest'
     },
   },
   

@@ -22,7 +22,6 @@ TYPES = {
 module.exports = {
   agenda: agendaInvitations,
   addJob: addJob,
-  setComs: setComs,
   processUser: processUser,
   preprocessUser: preprocessUser,
   processInvitation: processInvitation,
@@ -57,6 +56,10 @@ function processInvitation( values, cb ) {
 
       return agendaInvitations( values.agenda ).processContributorInvitation( values );
       
+    } else if ( values.invitation.type == TYPES.AGENDAADMIN ) {
+
+      return agendaInvitations( values.agenda ).processAdministratorInvitation( values );
+
     }
 
     throw 'This invitation type is unknown';
@@ -204,11 +207,7 @@ function preprocessUser( values, cb ) {
 
 }
 
-function setComs( c ) {
 
-  coms = c;
-
-}
 
 function getComs() {
 

@@ -43,18 +43,26 @@
   : "Aucune nouvelle invitation a été envoyée",
   "Sent invitations: %s"
   : "Invitations envoyées: %s",
-  "You are now a contributor of agenda %agenda%"
-  : "Vous êtes désormais contributeur de l'agenda %agenda%",
-  "You have been invited to become contributor of the agenda %agenda%"
-  : "Vous avez été invité à contribuer à l'agenda %agenda%",
-  "Click here to start contributing to the agenda %agenda%"
-  : "Cliquez ici pour commencer a contribuer à l'agenda %agenda%",
-  "You are already a contributor"
-  : "Vous êtes déjà contributeur",
-  "You have been invited to become contributor of the agenda %agenda%"
-  : "Vous avez été invité à devenir contributeur de l'agenda %agenda%",
-  "Click here to start contributing to the agenda %agenda%"
-  : "Cliquez ici pour commencer à contribuer à l'agenda %agenda%",
+  "You are now %astakeholder% of agenda %agenda%"
+  : "Vous êtes désormais %astakeholder% de l'agenda %agenda%",
+  "Click here to start %stakeholderaction% the agenda %agenda%"
+  : "Cliquez ici pour commencer à %stakeholderaction% l'agenda %agenda%",
+  "You are already %stakeholder%"
+  : "Vous êtes déjà %stakeholder",
+  "a contributor"
+  : "contributeur",
+  "an administrator"
+  : "administrateur",
+  "You have been invited to become %stakeholder% of the agenda %agenda%"
+  : "Vous avez été invité à devenir %stakeholder% de l'agenda %agenda%",
+  "contributor"
+  : "contributeur",
+  "administrator"
+  : "administrateur",
+  "contributing to"
+  : "contribuer à",
+  "administering"
+  : "administrer",
   "Follow this link to reset your password: %link%"
   : "Suivez ce lien pour réinitialiser votre mot de passe: %link%",
   "Reset your password"

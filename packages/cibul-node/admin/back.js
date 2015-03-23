@@ -2,6 +2,8 @@
 
 var appName = 'admin/back',
 
+session = require( '../auth/lib/session' ),
+
 exposed = {
   load: load
 },
@@ -10,7 +12,8 @@ routes = {
   adminIndex: [ 'get', index, '' ],
   adminSearch: [ 'get', search, '/search' ],
   adminUsers: [ 'get', users, '/users' ],
-  adminUserActivate: [ 'get', userActivate, '/users/activate' ],
+  adminUserSignInAs: [ 'get', userSignin, '/users/signin', [ _loadUser ] ],
+  adminUserActivate: [ 'get', userActivate, '/users/activate', [ _loadUser ] ],
   eventsByWeek: [ 'get', eventsByWeek, '/eventsbyweek' ],
   eventsDiff: [ 'get', eventsDiff, '/eventsdiff' ]
 },
@@ -187,7 +190,13 @@ function users( req, res ) {
 
     if ( req.query.uid ) {
 
-      return _loadUser( req, res );
+      return _loadUser( req, res, function() {
+
+        cmn.renderJson( req, res, {
+          user: lib.filterByAttr( req.loadedUser, [ 'uid', 'fullName', 'email', 'isActivated', 'createdAt', 'updatedAt' ] )
+        });
+
+      });
 
     } else {
 
@@ -210,26 +219,31 @@ function users( req, res ) {
 
 function userActivate( req, res ) {
 
-  if ( !req.query.uid ) return cmn.renderJson( req, res, { success: false, message: 'user uid is missing' } );
+  userSvc.activation.activate( req.loadedUser, function( err, result ) {
 
-  model.users().get( { uid: req.query.uid }, function( err, user ) {
+    if ( err ) return cmn.catchError( req, res )( err );
 
-    if ( err || !user ) return cmn.catchError( req, res )( err || 'user was not found' );
-
-    userSvc.activation.activate( user, function( err, result ) {
-
-      if ( err ) return cmn.catchError( req, res )( err );
-
-      return cmn.renderJson( req, res, { success: true } );
-
-    });
+    return cmn.renderJson( req, res, { success: true } );
 
   });
 
 }
 
 
-function _loadUser( req, res ) {
+function userSignin( req, res ) {
+
+  session.set( req, res, req.loadedUser, function() {
+
+    return cmn.renderJson( req, res, { success: true } );
+
+  });
+
+}
+
+
+function _loadUser( req, res, next ) {
+
+  if ( !req.query.uid ) return cmn.renderJson( req, res, { success: false, message: 'user uid is missing' } );
 
   var uid = req.query.uid;
 
@@ -237,9 +251,9 @@ function _loadUser( req, res ) {
 
     if ( err ) return cmn.catchError( req, res )( err );
 
-    cmn.renderJson( req, res, {
-      user: lib.filterByAttr( result, [ 'uid', 'fullName', 'email', 'isActivated', 'createdAt', 'updatedAt' ] )
-    });
+    req.loadedUser = result;
+
+    next();    
 
   });
 

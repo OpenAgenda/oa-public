@@ -26,6 +26,12 @@ describe( 'contributive agenda', function() {
 
   beforeEach( function( done ) {
 
+    t.coms.clearQueue( 'jobs', done ); 
+
+  } );
+
+  beforeEach( function( done ) {
+
     t.loadBrowser( function( err, b ) {
 
       browser = b;
@@ -198,7 +204,21 @@ describe( 'contributive agenda', function() {
 
     .then( function() {
 
-      return wn.call( t.model.invitations().get );
+      return w.promise( function( rs, rj ) {
+
+        t.coms.consume( 'jobs', function( err, values ) {
+
+          values.type.should.equal( 'invitation' );
+
+          t.model.invitations().get( { id: values.invitationId }, function( err, i ) {
+
+            rs( i );
+
+          });
+
+        });
+        
+      } );
 
     })
 

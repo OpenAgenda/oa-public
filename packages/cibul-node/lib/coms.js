@@ -11,7 +11,8 @@ module.exports = {
   persistentConsume: persistentConsume,     // (name, cb) keep on consuming queue until its empty, then wait till it fills to keep on consuming - used by mailer
   publish: publish,                         // (name, values) publish message on channel
   subscribe: subscribe,
-  end: end                                  // (name, cb) subscribe to channel messages
+  end: end,                                 // (name, cb) subscribe to channel messages
+  clearQueue: clearQueue                    // (name, cb) clears the queue
 }
 
 
@@ -27,16 +28,16 @@ qPrefix = 'queues',
 
 logStacksPrefix = 'logstacks',
 
+consumers = {},
+
 sp = ':';
 
 
 function queue( queueName, values, cb ) {
 
-  log( 'debug', 'queueing on: %s', queueName);
-
   var encodedValues = JSON.stringify( values );
 
-  redisCli.lpush( qPrefix + sp + queueName, encodedValues, function( err ) {
+  redisCli.rpush( qPrefix + sp + queueName, encodedValues, function( err ) {
 
     if ( cb ) cb( err );
 
@@ -45,23 +46,45 @@ function queue( queueName, values, cb ) {
 };
 
 
-function consume( queueName, cb ) {
+/**
+ * consume what is on queue. There can only be one consumer for each queue
+ **/
 
-  log( 'debug', 'consuming on: %s', queueName);
+function consume( queueName, nonBlocking, cb ) {
+
+  if ( !cb ) {
+
+    cb = nonBlocking;
+
+    nonBlocking = false;
+
+  }
 
   var cli = redis.createClient( config.port, config.host );
 
-  cli.blpop( qPrefix + sp + queueName, 0, function( err, data ) {
+  if ( nonBlocking ) {
+
+    cli.lpop( qPrefix + sp + queueName, onReceive );
+
+  } else {
+
+    cli.blpop( qPrefix + sp + queueName, 0, onReceive );
+
+  }
+
+  return cli;
+  
+  function onReceive( err, data ) {
 
     cli.quit();
 
     if ( err ) return cb( err );
 
-    var decodedData = JSON.parse( data[1] ); // first element is name of queue
+    var decodedData = JSON.parse( nonBlocking ? data : data[ 1 ] );
 
     cb( null, decodedData );
 
-  });
+  }
 
 }
 
@@ -75,7 +98,7 @@ function end( cli ) {
 
 function publish( channelName, values ) {
 
-  log( 'debug', 'publishing on: %s', channelName );
+  log( 'publishing on: %s', channelName );
 
   var cli = redis.createClient( config.port, config.host );
 
@@ -88,7 +111,7 @@ function publish( channelName, values ) {
 
 function subscribe( channelName, cb ) {
 
-  log( 'debug', 'subscribing to: %s', channelName );
+  log( 'subscribing to: %s', channelName );
 
   var cli = redis.createClient( config.port, config.host );
 
@@ -115,6 +138,22 @@ function subscribe( channelName, cb ) {
   });
 
   cli.subscribe( channelName );
+
+}
+
+function clearQueue( queueName, cb ) {
+
+  log( 'clearing queue: %s', queueName );
+
+  redis.createClient( config.port, config.host )
+
+  .del( qPrefix + sp + queueName, function( err ) {
+
+    if ( err ) return cb( err );
+
+    cb();
+
+  } )
 
 }
 

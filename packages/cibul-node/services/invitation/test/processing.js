@@ -18,7 +18,7 @@ sets = require( 'cibulModel/test/fixtures/sets' )( cbm ),
 
 svc = require( '../invitation' ),
 
-bogusComs = require( '../../../test/helpers/bogusComs' );
+coms = require( '../../../lib/coms' );
 
 
 describe( 'invitation processing', function() {
@@ -31,7 +31,7 @@ describe( 'invitation processing', function() {
   // load additional users
   before( function( done ) {
 
-    async.eachSeries( [ 'freddy', 'cindy', 'jenny' ], function( fx, ecb ) {
+    async.eachSeries( [ 'freddy', 'cindy', 'jenny', 'teddy', 'lenny' ], function( fx, ecb ) {
 
       fixtures.load( 'users', fx, function( err, user ) {
 
@@ -65,21 +65,31 @@ describe( 'invitation processing', function() {
   // load invitations
   beforeEach( function( done ) {
 
-    async.eachSeries( [ 
-      { type: 1, userId: users[ 0 ].id, token: 123, reviewId: agendas[ 0 ].id },
-      { type: 1, email: users[ 0 ].email, token: 456, reviewId: agendas[ 1 ].id },
-      { type: 1, email: 'random@oa.com', token: 789, reviewId: agendas[ 2 ].id } 
-    ], function( data, ecb ) {
+    cbm.invitations().clear( function() {
 
-      cbm.lib.insert( 'invitations', data, function( err, result ) {
+      invitations = [];
 
-        invitations.push( { id: result.insertId } );
+      async.eachSeries( [ 
+        { type: 1, userId: users[ 0 ].id, token: 123, reviewId: agendas[ 0 ].id },
+        { type: 1, email: users[ 0 ].email, token: 456, reviewId: agendas[ 1 ].id },
+        { type: 1, email: 'random@oa.com', token: 789, reviewId: agendas[ 2 ].id } ,
+        { type: 2, userId: users[ 3 ].id, token: 101112, reviewId: agendas[ 0 ].id },
+        { type: 2, email: users[ 3 ].email, token: 131415, reviewId: agendas[ 1 ].id },
+        { type: 2, email: 'otherrandom@oa.com', token: 161718, reviewId: agendas[ 2 ].id }
+      ], function( data, ecb ) {
 
-        ecb();
+        cbm.lib.insert( 'invitations', data, function( err, result ) {
 
-      } );
+          invitations.push( { id: result.insertId } );
 
-    }, done );
+          ecb();
+
+        } );
+
+      }, done );
+
+    });
+
 
   });
 
@@ -87,6 +97,12 @@ describe( 'invitation processing', function() {
   beforeEach( function( done ) {
 
     cbm.lib.clear( 'reviewers', done );
+
+  });
+
+  beforeEach( function( done ) {
+
+    coms.clearQueue( 'mailer', done );
 
   });
 
@@ -136,23 +152,19 @@ describe( 'invitation processing', function() {
   } );
 
 
-  it( 'invitation should trigger a mail send', function( done ) {
-
-    svc.setComs( bogusComs );
+  it( 'contributor invitation should trigger a mail send', function( done ) {
 
     svc.processInvitation( { invitationId: invitations[ 2 ].id }, function( err ) {
 
-      cbm.lib.query( 'select id from invitation where id = ?', [ invitations[ 2 ].id ], function( err, rows ) {
+      cbm.lib.query( 'select * from invitation where id = ?', [ invitations[ 2 ].id ], function( err, rows ) {
 
         rows.length.should.equal( 1 );
 
-        bogusComs.consume( 'mailer', function( err, mail ) {
+        coms.consume( 'mailer', true, function( err, mail ) {
 
-          mail.should.eql( { 
-            recipient: 'random@oa.com',
-            subject: 'Vous avez été invité à devenir contributeur de l\'agenda Fete de la bretagne',
-            text: 'Cliquez ici pour commencer à contribuer à l\'agenda Fete de la bretagne\n#' 
-          } );
+          mail.recipient.should.equal( 'random@oa.com' );
+          mail.subject.should.equal( 'Vous avez été invité à devenir contributeur de l\'agenda Fete de la bretagne' );
+          mail.text.indexOf().should.not.equal( 'Cliquez ici pour commencer à contribuer à l\'agenda Fete de la bretagne' );
 
           done();
 
@@ -161,6 +173,80 @@ describe( 'invitation processing', function() {
       } );
 
     });
+
+  });
+  
+
+  it( 'invitation should create an administrator from user id', function( done ) {
+
+    svc.processInvitation( { invitationId: invitations[ 3 ].id }, function( err ) {
+
+      agendas[ 0 ].isAdministrator( { id: users[ 3 ].id }, function( err, is ) {
+
+        is.should.equal( true );
+
+        cbm.lib.query( 'select id from invitation where id = ?', [ invitations[ 3 ].id ], function( err, rows ) {
+
+          rows.length.should.equal( 0 );
+
+          done();
+
+        } );
+
+      });
+
+    } );
+
+  } );
+
+
+  it( 'invitation should create an administrator from user email', function( done ) {
+
+    svc.processInvitation( { invitationId: invitations[ 4 ].id }, function( err ) {
+
+      agendas[ 1 ].isAdministrator( { id: users[ 3 ].id }, function( err, is ) {
+
+        is.should.equal( true );
+
+        cbm.lib.query( 'select id from invitation where id = ?', [ invitations[ 4 ].id ], function( err, rows ) {
+
+          rows.length.should.equal( 0 );
+
+          done();
+
+        } );
+
+      });
+
+    } );
+
+  } );
+
+
+  it( 'administrator invitation should trigger a mail send', function( done ) {
+
+    svc.processInvitation( { invitationId: invitations[ 5 ].id }, function( err ) {
+
+      cbm.lib.query( 'select id from invitation where id = ?', [ invitations[ 5 ].id ], function( err, rows ) {
+
+        rows.length.should.equal( 1 );
+
+        coms.consume( 'mailer', true, function( err, mail ) {
+
+          mail.recipient.should.equal( 'otherrandom@oa.com' );
+
+          mail.subject.should.equal( 'Vous avez été invité à devenir administrateur de l\'agenda Fete de la bretagne' );
+
+          mail.text.indexOf( 'Cliquez ici pour commencer à administrer l\'agenda Fete de la bretagne' ).should.not.equal( -1 );
+
+          done();
+
+        });
+
+      } );
+
+    });
+
 
   });
 

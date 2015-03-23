@@ -302,6 +302,8 @@ function checkAdministrator( req, res, next ) {
 
 function errorResponse( req, res, error, jsonResponse ) {
 
+  var errorTemplate;
+
   req.log( 'preparing error response' );
 
   if ( error.code !== 404 ) {
@@ -309,6 +311,20 @@ function errorResponse( req, res, error, jsonResponse ) {
     req.log.load( { errorStack: error.stack } );
 
     req.log( 'error', 'received error: %s', JSON.stringify( error ) );
+
+    console.error( (new Date).toUTCString(), 'uncaught: %s', JSON.stringify( error ) );
+
+    console.error( error.stack ? error.stack : 'no stack' );
+
+    errorTemplate = 'error/500';
+
+    res.status( 500 );
+
+  } else {
+
+    errorTemplate = 'error/404';
+
+    res.status( 404 );
 
   }
 
@@ -338,13 +354,13 @@ function errorResponse( req, res, error, jsonResponse ) {
 
   if ( req.baseData ) {
 
-    render( req, res, 'error/404', error );
+    render( req, res, errorTemplate, error );
     
   } else {
 
     loadBaseData()( req, res, function() {
 
-      render( req, res, 'error/404', error );
+      render( req, res, errorTemplate, error );
 
     });
 
@@ -356,7 +372,7 @@ function catchError( req, res, jsonResponse ) {
 
   return function( err ) {
 
-    log( 'caught error', JSON.stringify( err ) );
+    log( 'error', 'caught error: %s', JSON.stringify( err ) );
 
     if ( err.code == 404 ) {
 
@@ -367,10 +383,6 @@ function catchError( req, res, jsonResponse ) {
       res.code = 404;
 
       req.log( 'info', err.message );
-
-    } else {
-
-      req.log( 'error', err );
 
     }
 
@@ -389,6 +401,8 @@ function catchError( req, res, jsonResponse ) {
 function render( req, res, templatePath, data, maintain ) {
 
   renderTemplate( req, templatePath, data, maintain, function( err, render ) {
+
+    if ( err ) return catchError( req, res )( err );
 
     if ( err ) throw err;
 
@@ -451,7 +465,19 @@ function renderTemplate( req, templatePath, data, maintain, cb ) {
 
   compiledData.env = process.env.NODE_ENV;
 
-  templater( templatePath + ( req.xhr ? '.part' : '' ), compiledData, cb );
+  templater( templatePath + ( req.xhr ? '.part' : '' ), compiledData, function( err, result ) {
+
+    if ( err && req.xhr ) { // xhr request has no corresponding partial
+
+      templater( templatePath, compiledData, cb );
+
+      return;
+
+    }
+
+    cb( err, result );
+
+  } );
 
 }
 

@@ -38,10 +38,10 @@ TYPES = model.notifications().TYPES;
 module.exports = {
   notify: {
     newContributor: _notify( TYPES.AGENDA.NEWCONTRIBUTOR ),
+    newAdministrator: _notify( TYPES.AGENDA.NEWADMINISTRATOR ),
     expiredSwapcard: _notify( TYPES.AGENDA.EXPIREDSWAPCARD )
   },
-  process: process,
-  setComs: setComs
+  process: process
 };
 
 function process( data, cb ) {
@@ -52,7 +52,8 @@ function process( data, cb ) {
 
   if ([
     TYPES.AGENDA.NEWCONTRIBUTOR,
-    TYPES.AGENDA.EXPIREDSWAPCARD
+    TYPES.AGENDA.EXPIREDSWAPCARD,
+    TYPES.AGENDA.NEWADMINISTRATOR
   ].indexOf( type ) !== -1 ) {
 
     return _createAdminNotifications( type, values, cb );
@@ -62,13 +63,6 @@ function process( data, cb ) {
   log( 'error', 'unhandled type %s', type );
 
   cb();
-
-}
-
-
-function setComs( c ) {
-
-  coms = c;
 
 }
 
@@ -83,7 +77,7 @@ function _createAdminNotifications( type, data, cb ) {
 
     async.each( values.administrators, function( admin, ecb ) {
 
-      model.notifications().create[ TYPES.AGENDA.NEWCONTRIBUTOR ]( lib.extend( values.entry, {
+      model.notifications().create[ type ]( lib.extend( values.entry, {
         userId: admin.id
       } ), function( err, result ) {
 
