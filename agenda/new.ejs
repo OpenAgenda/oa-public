@@ -8,7 +8,7 @@
       </div>
 <% if ( !isEmpty ) { %>
       <div class="col-sm-4 col-aside display-none js_add_button">
-        <a class="add-event" href="<%= genUrl( 'agendaEventNew', { slug: slug } ) %>"><%= __('Add an event') %></a>
+        <a id="add-event" class="add-event" href="<%= genUrl( 'agendaEventNew', { slug: slug } ) %>"><%= __('Add an event') %></a>
       </div>
 <% } %>
     </div>
