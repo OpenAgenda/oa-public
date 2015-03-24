@@ -1,4 +1,4 @@
-var EJS = require( '../../js/lib/clientEjs/ejs' ),
+var ejs = require( '../../js/lib/clientEjs/ejs.secured' ),
 
 cn = require( '../../js/lib/common/common.mod.js' ),
 
@@ -42,7 +42,7 @@ module.exports = function( anchorElem ) {
 
     }
 
-    wrapper.innerHTML = new EJS( { text: templates.main } ).render( data );
+    wrapper.innerHTML = ejs.render( templates.main, data );
 
     itemsCanvas = cn.el( wrapper, params.selectors.itemsCanvas );
 
@@ -68,7 +68,7 @@ module.exports = function( anchorElem ) {
 
     filterElem;
 
-    itemWrapper.innerHTML = new EJS( { text: templates.item }).render( filter );
+    itemWrapper.innerHTML = ejs.render( templates.item, filter );
 
     filterElem = cn.el( itemWrapper, 'li' );
 

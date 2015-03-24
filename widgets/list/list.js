@@ -50,7 +50,13 @@ var widget = function( elem, options ) {
 
     controller.getControlData( function( data ) {
 
-      autoscroll = !!data.ebd.sc;
+      autoscroll = true;
+
+      if ( data.ebd && !data.ebd.sc ) {
+
+        autoscroll = false;
+
+      }
 
       cn.addEvent( document, 'scroll', _monitorScroll );
 
