@@ -665,7 +665,7 @@ function requireAdmin( req, res, next ) {
 
   } else {
 
-    redirect( req, res, 'presentation', {}, 'Beat it.' );
+    redirect( req, res, 'corpoHome', {}, 'Beat it.' );
 
   }
 
@@ -1011,13 +1011,15 @@ function loadLegacyRoutes( genUrl ) {
 
 function loadDeprecatedRoutes( genUrl ) {
 
-  var deprecatedRouter = require( './router' );
+  var deprecatedRouter = require( './router' ),
 
-  var routes = {};
+  deprecatedRoutes = deprecatedRouter.getAllRoutes(),
 
-  for ( var i in deprecatedRouter ) {
+  routes = {};
 
-    routes[ i ] = deprecatedRouter[ i ].uri;
+  for ( var i in deprecatedRoutes ) {
+
+    routes[ i ] = deprecatedRoutes[ i ].uri;
 
   }
 

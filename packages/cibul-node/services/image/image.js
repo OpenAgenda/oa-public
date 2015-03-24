@@ -138,11 +138,13 @@ function _clearOrigin( values ) {
 
   return w.promise( function( rs, rj ) {
 
+    log( 'removing file at %s', values.path );
+
     fs.unlink( values.path, function( err ) {
 
       if ( err ) {
 
-        log( 'error', 'could not delete file at %s', path );
+        log( 'error', 'could not delete file at %s', values.path );
 
         return rj( err );
 

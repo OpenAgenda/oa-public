@@ -60,11 +60,21 @@ function syncRedis( req, res, cb ) {
 
         log( 'failed to sync redis' );
 
-        if ( cb ) return cb( err );
+        if ( cb ) cb( err );
+
+        return;
 
       }
 
-      _updateRedisSession( req, res, user, cb );
+      if ( !user ) {
+
+        _clearRedisSession( req, res, cb );
+
+      } else {
+
+        _updateRedisSession( req, res, user, cb );
+
+      }
 
     } );
 

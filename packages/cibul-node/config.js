@@ -356,7 +356,7 @@ config = {
     //logNameSpaces: 'oa:*',
     root: 'https://d.cibul.net',
     db: {
-      database: 'cibultest',
+      database: 'oatest',
       host: 'localhost',
       user: 'root',
       password: 'grut'

@@ -1,61 +1,60 @@
-/**
- * search agenda content to public
- */
-
-"use strict";
-
-var appName = 'event/front',
-
-exposed = {
-  load: load
-},
+var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
-mw = cmn.loadMiddlewares( 'search' ),
+config = require( '../config' ),
 
-perPage = 20,
+lib = require( '../lib/lib' ),
+
+path,
 
 routes = {
 
-  agendaEventShow: [ 'get', agendaEventShow, '/:slug/events/:eventSlug', [
+  agendaEventShow: [ 'get', '/:slug/events/:eventSlug', [
     cmn.loadAgenda( 'slug' ), 
     _loadEvent( 'eventSlug', 'slug' ), 
-    cmn.loadBaseData( _layoutData, 'oa.css' ) 
+    cmn.loadBaseData( _layoutData, 'oa.css' ),
+    agendaEventShow
   ] ],
 
-  agendaEmbedEventShow: [ 'get', agendaEmbedEventShow, '/agendas/:uid/embed/events/:eventUid', [
+  agendaEmbedEventShow: [ 'get', '/agendas/:uid/embed/events/:eventUid', [
     cmn.loadAgenda( 'uid' ),
     _loadEvent( 'eventUid', 'uid' ),
-    cmn.loadBaseData( _layoutData, 'embedDefault.css' ) 
+    cmn.loadBaseData( _layoutData, 'embedDefault.css' ),
+    agendaEmbedEventShow
   ] ],
 
-  agendaCustomEmbedEventShow: [ 'get', agendaCustomEmbedEventShow, '/agendas/:uid/embeds/:embedUid/events/:eventUid', [
+  agendaCustomEmbedEventShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events/:eventUid', [
     cmn.loadAgenda( 'uid' ),
     _loadEvent( 'eventUid', 'uid' ),
-    cmn.loadBaseData( _layoutData, 'embedDefault.css' ) 
+    cmn.loadBaseData( _layoutData, 'embedDefault.css' ),
+    agendaCustomEmbedEventShow 
   ] ],
 
-  eventShow: [ 'get', show, '/events/:eventSlug', [ 
+  eventShow: [ 'get', '/events/:eventSlug', [ 
     _loadEvent( 'eventSlug', 'slug' ), 
-    cmn.loadBaseData( _layoutData, 'oa.css' ) 
+    cmn.loadBaseData( _layoutData, 'oa.css' ),
+    show
   ] ],
   
-  eventActionShow: [ 'get', actionShow, '/events/:eventSlug/action', [
+  eventActionShow: [ 'get', '/events/:eventSlug/action', [
     _loadEvent( 'eventSlug', 'slug' ),
     _loadUris,
     _extractAgendasSharing,
-    _conditionalLayout( _layoutData, 'oa.css' )
+    _conditionalLayout( _layoutData, 'oa.css' ),
+    actionShow
   ] ],
   
-  eventActionDatesShow: [ 'get', actionDatesShow, '/events/:eventSlug/action/dates', [
+  eventActionDatesShow: [ 'get', '/events/:eventSlug/action/dates', [
     _loadEvent( 'eventSlug', 'slug' ),
     _loadUris,
-    _conditionalLayout( _layoutData, 'oa.css' )
+    _conditionalLayout( _layoutData, 'oa.css' ),
+    actionDatesShow
   ] ]
+
 },
 
-log = require( '../lib/logger' )( appName ),
+log = require( '../lib/logger' )( 'event front' ),
 
 async = require( 'async' ),
 
@@ -71,51 +70,25 @@ es = require( 'ES' )( config.es ),
 
 shareSvc = require( '../services/event/share' ),
 
-app,
-
-path,
-
 model = cmn.getCibulModel(),
 
 deepExtend = require( 'deep-extend' );
 
+module.exports = function( p ) {
 
-function init( p ) {
+  path = p;
 
-  log( 'debug', 'initing' );
+  var router = modLib.Router( routes );
 
-  path = p,
-
-  cmn.registerRoutes( appName, path, routes );
-
-  return exposed;
-
-}
-
-
-function load( main ) {
-
-  if ( app ) {
-
-    log( 'debug', 'this app has already been loaded' );
-
-    return;
-
-  }
-
-  log( 'debug', 'loading' );
-
-  app = cmn.loadApp( main, path, appName );
-
-  app.set( 'perPage', 20 );
-
-  cmn.loadRoutes( app, routes, [
-    cmn.urlGenSetter( appName, path ),
+  router.pre( [
     cmn.flashSetter,
     cmn.loadSession
   ] );
 
-  return exposed;
+  return {
+    load: router.load( path ),
+    paths: modLib.getPaths( path, routes )
+  }
 
 }
 
@@ -572,6 +545,3 @@ function _layoutData( req, res ) {
   return data;
 
 }
-
-
-module.exports = init;

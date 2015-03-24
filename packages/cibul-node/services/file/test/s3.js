@@ -8,11 +8,27 @@ var should = require( 'should' ),
 
 s3Svc = require( '../s3' ),
 
+fs = require( 'fs' ),
+
 filePath = __dirname + '/testfiletoupload.txt',
 
-filePath2 = __dirname + '/testfiletoupload2.txt';
+filePath2 = __dirname + '/testfiletoupload2.txt',
+
+srcPath = __dirname + '/src1.txt',
+
+srcPath2 = __dirname + '/src2.txt';
 
 describe( 's3 store', function() {
+
+  beforeEach( function( done ) {
+
+    fs.createReadStream( srcPath ).pipe( fs.createWriteStream( filePath ) );
+
+    fs.createReadStream( srcPath2 ).pipe( fs.createWriteStream( filePath2 ) );
+
+    done();
+
+  });
 
   beforeEach( function( done ) {
 
@@ -39,7 +55,7 @@ describe( 's3 store', function() {
 
   });
 
-  it ( 'should upload without trouble', function( done ) {
+  it( 'should upload without trouble', function( done ) {
 
     s3Svc.store( filePath, function( err ) {
 
@@ -50,6 +66,38 @@ describe( 's3 store', function() {
         done();
 
       } );
+
+    });
+
+  } );
+
+  it( 'should delete origin once stored', function( done ) {
+
+    s3Svc.store( filePath, function( err ) {
+
+      fs.exists( filePath, function( localExists ) {
+
+        localExists.should.equal( false );
+
+        done();
+
+      });
+
+    });
+
+  } );
+
+  it( 'should not delete origin once stored', function( done ) {
+
+    s3Svc.store( filePath, { clearOrigin: false }, function( err ) {
+
+      fs.exists( filePath, function( localExists ) {
+
+        localExists.should.equal( true );
+
+        done();
+
+      });
 
     });
 

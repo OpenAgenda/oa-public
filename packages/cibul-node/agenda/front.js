@@ -1,20 +1,26 @@
-"use strict";
-
-/**
- * search agenda content to public
- */
-
-var appName = 'agenda/front',
-
-exposed = {
-  load: load
-},
+var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
+
+config = require( '../config' ),
+
+lib = require( '../lib/lib' ),
+
+path,
 
 mw = cmn.loadMiddlewares( 'search' ),
 
 perPage = 20,
+
+log = require( '../lib/logger' )( 'agenda front' ),
+
+deepExtend = require( 'deep-extend' ),
+
+wn = require( 'when/node' ),
+
+es = require( 'ES' )( config.es ),
+
+model = cmn.getCibulModel(),
 
 modes = {
   show: {
@@ -40,26 +46,31 @@ modes = {
   }
 },
 
+
 routes = {
-  
-  embedControlData: [ 'get', controlData, '/agendas/:uid/embeds/:embedUid/controldata', [ 
-    cmn.loadAgenda( 'uid' ), _loadEmbed( 'embedUid', 'uid' ) 
+
+  embedControlData: [ 'get', '/agendas/:uid/embeds/:embedUid/controldata', [ 
+    cmn.loadAgenda( 'uid' ),
+    _loadEmbed( 'embedUid', 'uid' ),
+    controlData
   ] ],
   
-  controlData: [ 'get', controlData, '/agendas/:uid/controldata', [ 
-    cmn.loadAgenda( 'uid' ) 
+  controlData: [ 'get', '/agendas/:uid/controldata', [ 
+    cmn.loadAgenda( 'uid' ),
+    controlData
   ] ],
   
-  embedShow: [ 'get', show, '/agendas/:uid/embed/events', [
+  embedShow: [ 'get', '/agendas/:uid/embed/events', [
     cmn.loadAgenda( 'uid' ),
     _formatAgendaData( 'embed' ),
     _loadIsPassed,
     _loadEvents,
     _loadTemplateUris,
-    cmn.loadBaseData( _layoutData, 'embedDefault.css' )
+    cmn.loadBaseData( _layoutData, 'embedDefault.css' ),
+    show
   ] ],
   
-  customEmbedShow: [ 'get', show, '/agendas/:uid/embeds/:embedUid/events', [ 
+  customEmbedShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events', [ 
     cmn.loadAgenda( 'uid' ), 
     _loadEmbed( 'embedUid', 'uid' ),
     _formatAgendaData( 'customEmbed' ),
@@ -68,82 +79,97 @@ routes = {
     _loadEvents,
     _loadTemplateUris,
     cmn.loadBaseData( _layoutData, 'embedDefault.css' ),
-    _loadCustomLayoutData
+    _loadCustomLayoutData,
+    show
   ] ],
   
-  agendaShow: [ 'get', show, '/:slug', [ 
+  agendaShow: [ 'get', '/:slug', [ 
     cmn.loadAgenda( 'slug' ), 
     _formatAgendaData( 'show' ),
     _loadIsPassed,
     _loadEvents, 
     _loadTemplateUris,
-    cmn.loadBaseData( _layoutData, 'oa.css' )
+    cmn.loadBaseData( _layoutData, 'oa.css' ),
+    show
   ] ]
-  
-},
 
-log = require( '../lib/logger' )( appName ),
+};
 
-async = require( 'async' ),
+module.exports = function( p ) {
 
-deepExtend = require( 'deep-extend' ),
+  path = p;
 
-config = require( '../config' ),
+  var router = modLib.Router( routes );
 
-w = require( 'when' ),
+  router.pre( [
+    cmn.flashSetter,
+    cmn.loadSession,
+    mw.search.cleanSearch,
+    mw.search.buildEsQuery( perPage )
+  ] );
 
-wn = require( 'when/node' ),
-
-lib = require( '../lib/lib' ),
-
-es = require( 'ES' )( config.es ),
-
-app,
-
-path,
-
-model = cmn.getCibulModel();
-
-
-function init( p ) {
-
-  log( 'debug', 'initing' );
-
-  path = p,
-
-  cmn.registerRoutes( appName, path, routes );
-
-  return exposed;
+  return {
+    load: router.load( path ),
+    paths: modLib.getPaths( path, routes )
+  }
 
 }
 
 
-function load( main ) {
 
-  if ( app ) {
+/**
+ * controllers
+ */
 
-    log( 'debug', 'this app has already been loaded' );
+function show( req, res ) {
 
-    return;
+  if ( req.xhr ) {
+
+    // there is no embed partial
+    req.template = req.template == 'agenda/embedShow' ? 'agenda/show' : 'agenda/new';
+
+    cmn.renderTemplate( req, req.template, req.templateData, function( err, partial ) {
+
+      cmn.renderJson( req, res, {
+        success: true,
+        partial: partial,
+        total: req.templateData.total
+      } );
+
+    });
+
+  } else {
+
+    cmn.render( req, res, req.template, req.templateData );
 
   }
 
-  log( 'debug', 'loading' );
+}
 
-  app = cmn.loadApp( main, path, appName );
 
-  app.set( 'perPage', 20 );
 
-  app.use( cmn.urlGenSetter( appName, path ) );
+function controlData( req, res ) {
 
-  cmn.loadRoutes( app, routes, [
-    cmn.flashSetter,
-    cmn.loadSession,
-    mw.search.cleanSearch,
-    mw.search.buildEsQuery( app.get( 'perPage' ) )
-  ] );
+  wn.call( ( req.embed ? req.embed : req.agenda ).getControlData )
 
-  return exposed;
+  .then( function( controlData ) {
+
+    cmn.renderJson( req, res, {
+      success: true,
+      code: 200,
+      data: controlData
+    });
+
+  } )
+
+  .catch( function( err ) {
+    
+    cmn.renderJson( req, res, {
+      success: false,
+      error: err
+    });
+
+  } );
 
 }
 
@@ -317,62 +343,6 @@ function _loadEvents( req, res, next ) {
 }
 
 
-/**
- * controllers
- */
-
-function show( req, res ) {
-
-  if ( req.xhr ) {
-
-    // there is no embed partial
-    req.template = req.template == 'agenda/embedShow' ? 'agenda/show' : 'agenda/new';
-
-    cmn.renderTemplate( req, req.template, req.templateData, function( err, partial ) {
-
-      cmn.renderJson( req, res, {
-        success: true,
-        partial: partial,
-        total: req.templateData.total
-      } );
-
-    });
-
-  } else {
-
-    cmn.render( req, res, req.template, req.templateData );
-
-  }
-
-}
-
-
-
-function controlData( req, res ) {
-
-  wn.call( ( req.embed ? req.embed : req.agenda ).getControlData )
-
-  .then( function( controlData ) {
-
-    cmn.renderJson( req, res, {
-      success: true,
-      code: 200,
-      data: controlData
-    });
-
-  } )
-
-  .catch( function( err ) {
-    
-    cmn.renderJson( req, res, {
-      success: false,
-      error: err
-    });
-
-  } );
-
-}
-
 function _layoutData( req, res ) {
 
   var url = req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { abs: true } );
@@ -476,6 +446,3 @@ function _pager( req, totalItems ) {
   };
 
 };
-
-
-module.exports = init;

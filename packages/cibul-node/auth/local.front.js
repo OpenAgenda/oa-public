@@ -101,7 +101,7 @@ function signout( req, res ) {
 
   auth.unsetSession( req, res, function() {
 
-    cmn.redirect( req, res, 'presentation' );
+    cmn.redirect( req, res, 'corpoHome' );
 
   } );
 

@@ -413,7 +413,7 @@ function _sendInvitation( browser, agenda, user, requireInfo ) {
 
   .then( null, _p( browser, 'visit', '/frontend_test.php/' + agenda.slug + '/admin/contributors' ) )
 
-  .then( _p( browser, 'pressButton', '#save-contribution-settings' ) )
+  .then( null, _p( browser, 'pressButton', '#save-contribution-settings' ) )
 
   .then( requireInfo ? function() {
 

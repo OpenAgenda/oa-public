@@ -87,7 +87,7 @@ function _initZombie( cb ) {
 
   Browser = require( 'zombie' );
 
-  Browser.localhost( 'https://d.cibul.net', 443 );
+  Browser.localhost( 'https://d.openagenda.com', 443 );
 
   cb( );
 

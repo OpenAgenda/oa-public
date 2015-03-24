@@ -90,7 +90,7 @@ describe( 'participative agenda', function() {
 
       _b64Decode(browser.location.href.split( '?redirect=' )[ 1 ] )
 
-      .should.equal( 'https://d.cibul.net/frontend_test.php/a-participative-agenda/addevent' );
+      .should.equal( 'https://d.openagenda.com/frontend_test.php/a-participative-agenda/addevent' );
 
     })
 

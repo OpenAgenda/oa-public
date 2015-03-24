@@ -1,105 +1,78 @@
-/**
- * site-wide event and agenda search pages
- */
-
 "use strict";
 
-var appName = 'search/front',
-
-exposed = {
-  load: load
-},
+var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
-mw = cmn.loadMiddlewares( 'search' ),
+config = require( '../config' ),
 
 perPage = 20,
 
-routes = {
-
-  searchEvents: [ 'get', searchEvents, '/events/search', [
-    mw.search.cleanSearch,
-    mw.search.buildEsQuery( perPage )
-  ] ],
-
-  widgetSearchEvents: [ 'get', widgetSearchEvents, '/widgets/:uid/search', [
-    mw.search.cleanSearch,
-    mw.search.buildEsQuery( perPage )
-  ] ],
-
-  widgetEmbedSearchEvents: [ 'get', widgetSearchEvents, '/widgets/:uid/:embedUid/search', [
-    mw.search.cleanSearch,
-    mw.search.buildEsQuery( perPage )
-  ] ],
-
-  searchAgendas: [ 'get', searchAgendas, '/agendas/search', [
-    mw.search.cleanSearch,
-    mw.search.buildEsQuery( perPage )
-  ] ],
-
-  latestEvents: [ 'get', latestEvents, '/events/latest' ],
-  latestAgendas: [ 'get', latestAgendas, '/agendas/latest' ]
-
-},
-
-log = require( '../lib/logger' )( appName ),
-
-async = require( 'async' ),
-
-config = require( '../config' ),
-
-w = require( 'when' ),
-
-wn = require( 'when/node' ),
+mw = cmn.loadMiddlewares( 'search' ),
 
 lib = require( '../lib/lib' ),
 
-es = require( 'ES' )( config.es ),
+wn = require( 'when/node' ),
 
-app,
+async = require( 'async' ),
+
+model = cmn.getCibulModel(),
+
+es = require( 'ES' )( config.es ),
 
 path,
 
-model = cmn.getCibulModel();
+routes = {
 
+  searchEvents: [ 'get', '/events/search', [
+    mw.search.cleanSearch,
+    mw.search.buildEsQuery( perPage ),
+    searchEvents
+  ] ],
 
-function init( p ) {
+  widgetSearchEvents: [ 'get', '/widgets/:uid/search', [
+    mw.search.cleanSearch,
+    mw.search.buildEsQuery( perPage ),
+    widgetSearchEvents
+  ] ],
 
-  log( 'debug', 'initing' );
+  widgetEmbedSearchEvents: [ 'get', '/widgets/:uid/:embedUid/search', [
+    mw.search.cleanSearch,
+    mw.search.buildEsQuery( perPage ),
+    widgetSearchEvents
+  ] ],
+
+  searchAgendas: [ 'get', '/agendas/search', [
+    mw.search.cleanSearch,
+    mw.search.buildEsQuery( perPage ),
+    searchAgendas
+  ] ],
+
+  latestEvents: [ 'get', '/events/latest', [
+    latestEvents
+  ] ],
+
+  latestAgendas: [ 'get', '/agendas/latest', [
+    latestAgendas
+  ] ]
+};
+
+module.exports = function( p ) {
 
   path = p;
 
-  cmn.registerRoutes( appName, path, routes );
+  var router = modLib.Router( routes );
 
-  return exposed;
-
-}
-
-
-function load( main ) {
-
-  if ( app ) {
-
-    log( 'debug', 'this app has already been loaded' );
-
-    return;
-
-  }
-
-  log( 'debug', 'loading' );
-
-  app = cmn.loadApp( main, path, appName );
-
-  app.set( 'perPage', 20 );
-
-  cmn.loadRoutes( app, routes, [
-    cmn.urlGenSetter( appName, path ),
+  router.pre( [
     cmn.loadSession,
+    _maintain( [ 'page', 'search' ] ),
     cmn.loadBaseData( _layoutData )
   ] );
 
-  return exposed;
+  return {
+    load: router.load( path ),
+    paths: modLib.getPaths( path, routes )
+  }
 
 }
 
@@ -114,7 +87,7 @@ function searchEvents( req, res ) {
 
     req.log( 'info', 'request received for searchEvents with no params.' );
 
-    return cmn.redirect( req, res, 'latestEvents' );
+    return res.redirect( 302, req.genUrl( 'latestEvents' ) );
 
   }
 
@@ -126,8 +99,9 @@ function searchEvents( req, res ) {
 
   .spread( function( events, total ) {
 
-    cmn.render( req, res, 'search/events', lib.extend({ 
-      events: events, searchRes: 'searchEvents', search: req.cleanSearch },
+    cmn.render( req, res, 'search/events', lib.extend( 
+      req.templateData ? req.templateData : {},
+      { events: events, searchRes: 'searchEvents', search: req.cleanSearch },
       _pager( req, 'searchEvents', total )
     ));
 
@@ -179,8 +153,9 @@ function latestEvents( req, res ) {
 
   .spread( function( events, total ) {
 
-    cmn.render( req, res, 'search/events', lib.extend({
-      events: events, searchRes :'searchEvents', search: req.cleanSearch },
+    cmn.render( req, res, 'search/events', lib.extend(
+      req.templateData ? req.templateData : {},
+      { events: events, searchRes :'searchEvents', search: req.cleanSearch },
       _pager( req, 'latestEvents', total )
     ));
 
@@ -197,7 +172,7 @@ function searchAgendas( req, res ) {
 
     req.log( 'info', 'request received for searchAgendas with no params.' );
 
-    return cmn.redirect( req, res, 'latestAgendas' );
+    return res.redirect( 302, req.genUrl( 'latestAgendas' ) );
 
   }
 
@@ -263,6 +238,7 @@ function _renderAgendas( req, res, uri ) {
     } );
 
     cmn.render( req, res, 'search/agendas', lib.extend(
+      req.templateData ? req.templateData : {},
       { agendas: result.data, searchRes: 'searchAgendas', search: req.cleanSearch },
       _pager( req, uri, result.total ) 
     ));
@@ -279,6 +255,29 @@ function _layoutData( req, res ) {
 
 }
 
+function _maintain( queryNames ) {
+
+  return function( req, res, next ) {
+
+    req.templateData  = req.templateData || {};
+
+    req.templateData.maintain = req.templateData.maintain || {};
+
+    queryNames.forEach( function( queryName ) {
+
+      if ( req.query[ queryName ] ) {
+
+        req.templateData.maintain[ queryName ] = req.query[ queryName ];
+
+      }
+
+    });
+
+    next();
+
+  };
+
+}
 
 
 /**
@@ -311,6 +310,3 @@ function _pager( req, routeName, totalItems ) {
   };
 
 }
-
-
-module.exports = init;

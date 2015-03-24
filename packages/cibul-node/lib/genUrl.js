@@ -24,6 +24,8 @@ function instanciate( options ) {
 
   genUrl.load = load;
 
+  genUrl.getPaths = getPaths;
+
   return genUrl;
 
   
@@ -101,6 +103,12 @@ function instanciate( options ) {
 
   }
 
+  function getPaths() {
+
+    return paths;
+
+  }
+
 }
 
 
@@ -163,7 +171,7 @@ function _getUriParamNames( uri, stripped ) {
 
   // param names start with :, 
   // are smallcase and contain only letters from a to z
-  return ( uri.match( /\:[a-z]+/g ) || [] ).map( function( name ) {
+  return ( uri.match( /\:([a-z]|[A-Z])+/g ) || [] ).map( function( name ) {
 
     return stripped ? name.replace( ':', '' ) : name;
 

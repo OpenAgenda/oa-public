@@ -1,61 +1,58 @@
 "use strict";
 
-var appName = 'agenda/actions',
-
-app,
-
-path,
+var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
+
+path,
 
 w = require( 'when' ),
 
 model = cmn.getCibulModel(),
 
-log = require( '../lib/logger' )( appName ),
+log = require( '../lib/logger' )( 'agenda actions' ),
 
 routes = {
 
-  agendaActionShow: [ 'get', actionShow, '/' ],
+  agendaActionShow: [ 'get', '/', actionShow ],
 
-  agendaEventAdd: [ 'get', eventAdd, '/add/:eventUid', [
+  agendaEventAdd: [ 'get', '/add/:eventUid', [
     cmn.requireLogged,
-    cmn.loadEvent( 'eventUid', 'uid' )
+    cmn.loadEvent( 'eventUid', 'uid' ),
+    eventAdd
   ] ],
 
-  agendaEventRemove: [ 'get', eventRemove, '/remove/:eventUid', [
+  agendaEventRemove: [ 'get', '/remove/:eventUid', [
     cmn.requireLogged,
-    cmn.loadEvent( 'eventUid', 'uid' )
+    cmn.loadEvent( 'eventUid', 'uid' ),
+    eventRemove
   ] ]
 
 };
-
 
 module.exports = function( p ) {
 
   path = p;
 
-  cmn.registerRoutes( appName, path, routes );
+  var router = modLib.Router( routes );
 
-  return {
-    load: load
-  }
-
-}
-
-
-function load( main ) {
-
-  app = cmn.loadApp( main, path, appName );
-
-  cmn.loadRoutes( app, routes, [
+  router.pre( [
     cmn.flashSetter,
     cmn.loadSession,
     cmn.loadAgenda( 'slug' )
-  ]);
+  ] );
+
+  return {
+    load: router.load( path ),
+    paths: modLib.getPaths( path, routes )
+  };
 
 }
 
+
+/**
+ * controllers
+ */
 
 function actionShow( req, res ) {
 

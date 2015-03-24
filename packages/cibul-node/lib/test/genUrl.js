@@ -89,4 +89,14 @@ describe( 'genUrl', function() {
 
   });
 
+  it( 'route with variables in camel case is valid', function() {
+
+    genUrl.load( { camel: '/this/:camelCaseVar/yep' } );
+
+    genUrl( 'camel', { camelCaseVar: 'camelcased' } )
+
+    .should.equal( '/this/camelcased/yep' );
+
+  });
+
 } );

@@ -48,21 +48,17 @@ module.exports = function( enabledTypes, cb ) {
         require( './newsletter/back' )( '/:slug/admin/newsletters' ),
         require( './newsletter/front' )( '/:slug/newsletters' ),
         [ require( './general/front' )( '' ) ],
-        [ require( './search/new' )( '' ) ],
-        require( './event/front' )( '' ),
+        [ require( './search/front' )( '' ) ],
+        [ require( './event/front' )( '' ) ],
         require( './auth/local.front' )( '' ),
         require( './auth/facebook.front' )( '/facebook' ),
         require( './auth/twitter.front' )( '/twitter' ),
         require( './auth/google.front' )( '/google' ),
         require( './auth/reset.front' )( '/password' ),
         require( './agenda/contributors.back' )( '/:slug/admin/contributors' ),
-        require( './agenda/front' )( '' ),
-        require( './agenda/actions.front' )( '/:slug/actions' ),
+        [ require( './agenda/front' )( '' ) ],
+        [ require( './agenda/actions.front' )( '/:slug/actions' ) ],
         require( './agenda_bridges/back' )( '/:slug/admin/services' )
-      ],
-      newWeb: [
-        require( './general/front' )( '' ),
-        require( './search/new' )( '' )
       ]
     },
 
@@ -78,9 +74,6 @@ module.exports = function( enabledTypes, cb ) {
     app.use( cookieSession( config.session ) );
 
 
-    //===========================================
-    /** url generator **/
-
     // load gen url everywhere
     app.use( function( req, res, next ) {
 
@@ -92,10 +85,7 @@ module.exports = function( enabledTypes, cb ) {
 
     cmn.loadLegacyRoutes( genUrl );
 
-    cmn.loadDeprecatedRoutes( genUrl );
-
-    //============================================
-
+    
 
     // run 'admin' type modules
     
@@ -112,10 +102,9 @@ module.exports = function( enabledTypes, cb ) {
     // run 'web' type modules
     if ( enabledTypes.indexOf( 'web' ) !== -1 ) {
 
-      // deprecate these types...
       webModules.web.forEach( function( m ) {
 
-        if ( lib.isArray( m ) ) {
+        if ( lib.isArray( m ) ) { // new
 
           // tis a new type module
           
@@ -127,7 +116,7 @@ module.exports = function( enabledTypes, cb ) {
 
           m[ 0 ].load( app );
 
-        } else {
+        } else { // deprecated
 
           m.load( app );
           
@@ -135,6 +124,8 @@ module.exports = function( enabledTypes, cb ) {
 
 
       });
+
+      cmn.loadDeprecatedRoutes( genUrl );
 
     }
 

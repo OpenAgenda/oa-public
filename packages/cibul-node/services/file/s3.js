@@ -8,6 +8,8 @@ lib = require( '../../lib/lib' ),
 
 s3 = require( 's3' ),
 
+fs = require( 'fs' ),
+
 http = require( 'http' ),
 
 async = require( 'async' );
@@ -40,6 +42,10 @@ function store( file, options, cb ) {
 
   } else {
 
+    params = lib.extend({
+      clearOrigin: true
+    }, options ? options : {} );
+
     client = _getClient();
 
     uploader = client.uploadFile({
@@ -59,9 +65,27 @@ function store( file, options, cb ) {
 
     });
 
-    uploader.on('end', function() {
-    
-      if ( !error ) cb();
+    uploader.on( 'end', function() {
+
+      if ( !error ) {
+
+        if ( !params.clearOrigin ) {
+
+          cb();
+
+        } else {
+
+          fs.unlink( file, function( err ) {
+
+            if ( err ) log( 'error', 'could not delete file %s', file );
+
+            cb();
+
+          } );
+
+        }
+
+      }
 
     });
 
