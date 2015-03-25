@@ -338,22 +338,22 @@ function widget( elem, options ) {
 
     });
 
-  },
+  }
 
 
-  _unsetLocationParams = function() {
+  function _unsetLocationParams() {
 
     return { location: null, neLat: null, neLng: null, swLat: null, swLng: null };
 
-  },
+  }
 
-  _setLocationParams = function( slug ) {
+  function _setLocationParams( slug ) {
 
     return { location: slug, neLat: null, neLng: null, swLat: null, swLng: null };
 
-  },
+  }
 
-  _refresh = function() {
+  function _refresh() {
 
     log( 'refreshing map: %s', enabled ? 'enabled' : 'not enabled' );
 
