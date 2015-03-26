@@ -180,7 +180,7 @@ var widget = function( elem, options ) {
 
     cn.forEach( tags, function( tag ) {
 
-      var i = requestTags.indexOf( tag.s );
+      var i = _findIndex( requestTags, tag );
 
       if ( i !== -1 ) {
 
@@ -192,11 +192,30 @@ var widget = function( elem, options ) {
 
   },
 
+  _findIndex = function( arr, val ) {
+
+    var index = -1;
+
+    for ( var i = 0; i<arr.length; i++ ) {
+
+      if ( arr[ i ] === val ) {
+        
+        index = i;
+        break;
+        
+      }
+
+    }
+
+    return index;
+
+  },
+
   _onTagUnselect = function( tag ) {
 
     log( 'unselected %s with slug %s', tag.label, tag.slug );
 
-    requestTags.splice( requestTags.indexOf( tag.slug ), 1 );
+    requestTags.splice( _findIndex( requestTags, tag.slug ), 1 );
 
     _update();
 

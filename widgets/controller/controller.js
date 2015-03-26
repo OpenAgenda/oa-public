@@ -629,7 +629,7 @@ module.exports = function( uid ) {
 
     href = href.split( '?' )[ 0 ];
 
-    if ( typeof window.history == 'undefined' ) {
+    if ( ( typeof window.history == 'undefined' ) || ( typeof window.history.pushState == 'undefined' ) ) {
 
       log( 'window.history is not available' );
 
