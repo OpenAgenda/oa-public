@@ -142,7 +142,7 @@ var widget = function( elem, options ) {
 
     for( var i in data ) {
 
-      if ( [ 'count', 'next', 'prev', 'reset', 'event', 'page' ].indexOf( i ) == -1 ) {
+      if ( !cn.contains( [ 'count', 'next', 'prev', 'reset', 'event', 'page' ],  i ) ) {
 
         clean[ i ] = data[ i ];
 

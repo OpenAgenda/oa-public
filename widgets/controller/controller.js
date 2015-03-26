@@ -629,7 +629,7 @@ module.exports = function( uid ) {
 
     href = href.split( '?' )[ 0 ];
 
-    if ( !window.history ) {
+    if ( typeof window.history == 'undefined' ) {
 
       log( 'window.history is not available' );
 
@@ -659,7 +659,12 @@ module.exports = function( uid ) {
 
       }
 
-      window.history.pushState( updatedQuery, null, href );
+      if ( ( typeof window.history !== 'undefined' ) && ( typeof window.history.pushState !== 'undefined' ) ) {
+
+        window.history.pushState( updatedQuery, null, href );
+        
+      }
+
       
     }
 
