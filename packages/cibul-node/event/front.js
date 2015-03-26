@@ -104,7 +104,7 @@ function agendaEventShow( req, res ) {
     eventSlug: req.params.eventSlug
   } );
   
-  cmn.render( req, res, 'event/new', { event: req.formattedEvent } );
+  cmn.render( req, res, 'event/show', { event: req.formattedEvent } );
 
 }
 
@@ -148,7 +148,7 @@ function show( req, res ) {
     eventSlug: req.params.eventSlug
   } );
 
-  cmn.render( req, res, 'event/new', { event: req.formattedEvent } );
+  cmn.render( req, res, 'event/show', { event: req.formattedEvent } );
 
 }
 

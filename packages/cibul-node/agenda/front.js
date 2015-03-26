@@ -6,6 +6,10 @@ config = require( '../config' ),
 
 lib = require( '../lib/lib' ),
 
+agendaSvc = require( '../services/agenda/agenda' ),
+
+embedSvc = require( '../services/embed/embed' ),
+
 path,
 
 mw = cmn.loadMiddlewares( 'search' ),
@@ -24,7 +28,7 @@ model = cmn.getCibulModel(),
 
 modes = {
   show: {
-    template: 'agenda/new',
+    template: 'agenda/show',
     uri: 'agendaShow',
     eventUri: 'agendaEventShow',
     base: [ 'slug' ],
@@ -49,19 +53,27 @@ modes = {
 
 routes = {
 
+  dev: [ 'get', '/agendas/:uid/embeds/:embedUid', [ 
+    agendaSvc.mw.load( 'uid' ),
+    embedSvc.mw.load( 'embedUid', 'uid' ),
+    _loadEvents,
+    embedSvc.mw.render,
+    dev
+  ] ],
+
   embedControlData: [ 'get', '/agendas/:uid/embeds/:embedUid/controldata', [ 
-    cmn.loadAgenda( 'uid' ),
-    _loadEmbed( 'embedUid', 'uid' ),
+    agendaSvc.mw.load( 'uid' ),
+    embedSvc.mw.load( 'embedUid', 'uid' ),
     controlData
   ] ],
   
   controlData: [ 'get', '/agendas/:uid/controldata', [ 
-    cmn.loadAgenda( 'uid' ),
+    agendaSvc.mw.load( 'uid' ),
     controlData
   ] ],
   
   embedShow: [ 'get', '/agendas/:uid/embed/events', [
-    cmn.loadAgenda( 'uid' ),
+    agendaSvc.mw.load( 'uid' ),
     _formatAgendaData( 'embed' ),
     _loadIsPassed,
     _loadEvents,
@@ -71,8 +83,8 @@ routes = {
   ] ],
   
   customEmbedShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events', [ 
-    cmn.loadAgenda( 'uid' ), 
-    _loadEmbed( 'embedUid', 'uid' ),
+    agendaSvc.mw.load( 'uid' ),
+    embedSvc.mw.load( 'embedUid', 'uid' ),
     _formatAgendaData( 'customEmbed' ),
     _loadIsPassed,
     _formatEmbedData,
@@ -84,7 +96,7 @@ routes = {
   ] ],
   
   agendaShow: [ 'get', '/:slug', [ 
-    cmn.loadAgenda( 'slug' ), 
+    agendaSvc.mw.load( 'slug' ),
     _formatAgendaData( 'show' ),
     _loadIsPassed,
     _loadEvents, 
@@ -121,12 +133,19 @@ module.exports = function( p ) {
  * controllers
  */
 
+
+function dev( req, res ) {
+
+  res.send( 'grut' );
+
+}
+
 function show( req, res ) {
 
   if ( req.xhr ) {
 
     // there is no embed partial
-    req.template = req.template == 'agenda/embedShow' ? 'agenda/show' : 'agenda/new';
+    req.template = 'agenda/show';
 
     cmn.renderTemplate( req, req.template, req.templateData, function( err, partial ) {
 
@@ -145,7 +164,6 @@ function show( req, res ) {
   }
 
 }
-
 
 
 function controlData( req, res ) {
@@ -170,31 +188,6 @@ function controlData( req, res ) {
     });
 
   } );
-
-}
-
-
-function _loadEmbed( queryName, fieldName ) {
-
-  return function( req, res, next ) {
-
-    var getParams = {};
-
-    getParams[ fieldName ] = req.params[ queryName ];
-
-    model.reviewEmbeds().get( getParams, function( err, obj ) {
-
-      if ( err ) return cmn.catchError( req, res )( err );
-
-      if ( !obj ) return cmn.catchError( req, res )( 'embed not found' );
-
-      req.embed = model.reviewEmbeds().instance( obj );
-
-      next();
-
-    } );
-
-  }
 
 }
 

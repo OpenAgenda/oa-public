@@ -14,6 +14,8 @@ module.exports = {
   get: get
 }
 
+module.exports.mw = require( './middleware' )( module.exports );
+
 function get( params, cb ) {
 
   model.agendas().get( params, function( err, result ) {
@@ -34,7 +36,6 @@ function instanciate( data ) {
     addEvent: addEvent,
     removeEvent: removeEvent
   });
-
 
   function addEvent( event, stakeholder, cb ) {
 
