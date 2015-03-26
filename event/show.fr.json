@@ -1,24 +1,36 @@
 {
-  "%start% to %finish%" : "du %start% au %finish%",
-  "on %start% @ %time%" : "le %start% @ %time%",
-  "Today" : "Aujourd'hui",
-  "add an event" : "ajouter un événement",
-  "re-use" : "réutiliser",
-  "Search by tags" : "Filter par thème",
-  "Search by category" : "Filtrer par catégorie",
-  "powered by" : "propulsé par",
-  "add to agenda" : "ajouter à un agenda",
-  "edit" : "éditer",
-  "remove" : "supprimer",
-  "embed" : "intégrer",
-  "add to my calendar" : "ajouter à mon calendrier",
-  "published by %name%" : "publié par %name%",
-  "Referring agendas" : "Agendas référents",
-  "Other referring agendas" : "Autres agendas référents",
-  "contact" : "contact",
-  "claim" : "revendiquer",
-  "signal" : "signaler un abus",
-  "Are you sure you want to delete this event?" : "Etes-vous sûr de vouloir supprimer cet événement?",
-  "Confirm" : "Confirmer",
-  "Cancel" : "Annuler"
+  "Add to my agenda"
+  : "Ajouter à mon agenda",
+  "Share"
+  : "Partager",
+  "Ticketing link"
+  : "Lien d'inscription",
+  "%start% to %finish%"
+  : "du %start% au %finish%",
+  "on %start% @ %time%"
+  : "le %start% @ %time%",
+  "Draft"
+  : "Brouillon",
+  "Published"
+  : "Publié",
+  "Private"
+  : "Privé",
+  "Edit"
+  : "Modifier",
+  "Delete"
+  : "Supprimer",
+  "About"
+  : "À propos",
+  "Help"
+  : "Aide",
+  "Terms of use"
+  : "Conditions d'utilisation",
+  "Description available in"
+  : "Description disponible en",
+  "Date details"
+  : "Détail des dates",
+  "Published by %owner%"
+  : "Publié par %owner%",
+  "Past event"
+  : "Événement passé"
 }

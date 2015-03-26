@@ -8,14 +8,17 @@
     "slug" : "chez-nous",
     "url" : "http://cheznous.coop",
 
+
     "event" : {
 
+      "importUri" : "/event/action.part",
       "languages" : false,
       
       "uid" : 47088340,
       "slug" : "concert-de-sion-russel-jones-thomas-kahn-le-18-12-11",
       "image" : "event_mastodon-big-business-krokodil_512724.jpg",
       "dateRange" : [ "%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14" } ],
+      "isUpcoming" : true,
       "pricingInfo" : "28,12 £",
       "ticketLink" : "http://www.ticketweb.co.uk/event/WDH2811X?brand=o2academybrixton&camefrom=AMG_BRIXTON_MASTODON",
       "title" : "Mastodon + Big Business + Krokodil",
@@ -127,6 +130,11 @@
           "link" : "#"
         } ]
       }
+    }
+  },
+  "passed" : {
+    "event" : {
+      "isUpcoming" : false
     }
   }
 }

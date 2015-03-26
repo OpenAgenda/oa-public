@@ -1,17 +1,9 @@
 {
   
-  "layout" : "layout/main",
+  "layout" : "bsLayout/main",
 
-  "css" : {
-    "structure" : "../structure/css/structure.css",
-    "agendaFrame" : "../agenda/css/agendaFrame.css",
-    "forms" : "../css/forms.css",
-    "buttons" : "../css/buttons.css", 
-    "calendar" : "../css/calendar.css",
-    "fontawesome410" : "../css/font-awesome-4.1.0/css/font-awesome.css",
-    "opensans" : "../css/opensans.css",
-    "leaflet" : "../css/leaflet-0.7.3.css",
-    "event" : "css/event.css"
+  "oaCss" : {
+    "leaflet" : "../css/leaflet-0.7.3.css"
   },
 
   "helpers" : {
@@ -23,12 +15,11 @@
   },
 
   "base" : {
-    "pageClass" : "ag cb ev",
+    "pageId" : "event",
     "event" : {
       "owner": false
     }
   },
-
-  "templateJs" : true
   
+  "templateJs" : true
 }

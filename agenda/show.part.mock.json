@@ -2,7 +2,9 @@
   "base" : {
     "slug" : "chez-nous",
     "eventUri" : "eventShow",
-    "base" : { "slug" : "chez-nous" }
+    "base" : { "slug" : "chez-nous" },
+    "total" : 200,
+    "lang" : "fr"
   },
   "standard" : {
     "eventBaseQuery" : { "slug" : "chez-nous" },
@@ -10,11 +12,13 @@
       {
         "title" : "Les imams en France",
         "uid" : "48948894",
+        "importUri" : "/event/action.part",
         "query" : { "eventSlug" : "fqsdfdq" },
         "slug" : "fqsdfdq",
-        "thumbnail" : "evtbevent_les-imams-en-france_924665.jpg",
+        "thumbnail" : "event_les-imams-en-france_924665.jpg",
         "description" : "Solenne Jouanneau",
-        "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14" }],
+        "dateRange" : ["%start%, %time%", { "%start%" : "2014-10-12", "%time%" : "18:00" }],
+        "closestDate" : "2015-02-23T18:00:00.000Z",
         "placeName" : "Quelque part",
         "category" : {
           "label" : "Expositions",
@@ -35,11 +39,13 @@
       {
         "title" : "Europe : les états désunis (Coralie Delaume)",
         "uid" : "45464648",
+        "importUri" : "/event/action.part",
         "query" : { "eventSlug" : "fqsdfdq" },
         "slug" : "fqsdfdq",
         "thumbnail" : null,
         "description" : "Coralie Delaume nous explique avec brio pourquoi l'UE ne fonctionne pas.",
         "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14" }],
+        "closestDate" : "2015-02-22T22:00:00.000Z",
         "placeName" : "Centre George Pompidou",
         "city" : "Paris",
         "tags" : [
@@ -56,11 +62,13 @@
       {
         "title" : "La petite noblesse de l’intelligence, une sociologie des enfants surdoués",
         "uid" : "748789456",
+        "importUri" : "/event/action.part",
         "query" : { "eventSlug" : "fqsdfdq" },
         "slug" : "fqsdfdq",
-        "thumbnail" : "evtbevent_premileres-mesures-revolutionnaires_282421.jpg",
+        "thumbnail" : "event_premileres-mesures-revolutionnaires_282421.jpg",
         "description" : "Wilfried Lignier",
         "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14" }],
+        "closestDate" : "2015-03-25T18:00:00.000Z",
         "placeName" : "Creanova",
         "city" : "Paris",
         "tags" : [
@@ -77,31 +85,37 @@
       {
         "title" : "Homo spectator : voir, faire voir",
         "uid" : "748789456",
+        "importUri" : "/event/action.part",
         "query" : { "eventSlug" : "fqsdfdq" },
         "slug" : "fqsdfdq",
-        "thumbnail" : "evtbevent_la-petite-noblesse-de-l-intelligence-une-sociologie-des-enfants-surdoues_739383.jpg",
+        "thumbnail" : "event_la-petite-noblesse-de-l-intelligence-une-sociologie-des-enfants-surdoues_739383.jpg",
         "description" : "Marie-José Mondzain",
         "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-12", "%finish%" : "2014-10-14"}],
+        "closestDate" : "2015-03-22T18:00:00.000Z",
         "placeName" : "Banque Populaire Atlantique"
       },
       {
         "title" : "La Technologisation du corps",
         "uid" : "748789456",
+        "importUri" : "/event/action.part",
         "query" : { "eventSlug" : "fqsdfdq" },
         "slug" : "fqsdfdq",
-        "thumbnail" : "evtbevent_homo-spectator-voir-faire-voir_223470.jpg",
+        "thumbnail" : "event_homo-spectator-voir-faire-voir_223470.jpg",
         "description" : "Brigitte Munier-Termime",
         "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-13", "%finish%" : "2014-10-14" }],
+        "closestDate" : "2015-02-22T22:00:00.000Z",
         "placeName" : "Metro Stalingrad"
       },
       {
         "title" : "Changeons d'agriculture",
         "uid" : "4546988948",
+        "importUri" : "/event/action.part",
         "query" : { "eventSlug" : "fqsdfdq" },
         "slug" : "fqsdfdq",
-        "thumbnail" : "evtbevent_changeons-d-agriculture_703516.jpg",
+        "thumbnail" : "event_changeons-d-agriculture_703516.jpg",
         "description" : "Le “modèle” agricole qui s’est imposé depuis quelques décennies est de plus en plus critiqué en raison de ses conséquences néfastes sur l’environnement, l’emploi et la santé humaine et animale...",
         "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-14", "%finish%" : "2014-10-14" }],
+        "closestDate" : "2015-02-22T18:00:00.000Z",
         "placeName" : "Banque Populaire Atlantique",
         "tags" : [
           {
@@ -117,11 +131,13 @@
       {
         "title" : "Eric Hazan",
         "uid" : "4546988948",
+        "importUri" : "/event/action.part",
         "query" : { "eventSlug" : "fqsdfdq" },
         "slug" : "fqsdfdq",
-        "thumbnail" : "evtbevent_premileres-mesures-revolutionnaires_282421.jpg",
+        "thumbnail" : "event_premileres-mesures-revolutionnaires_282421.jpg",
         "description" : "Eric Hazan",
         "dateRange" : ["%start% to %finish%", { "%start%" : "2014-10-14", "%finish%" : "2014-10-16" }],
+        "closestDate" : "2015-03-22T18:00:00.000Z",
         "placeName" : "Banque Impopulaire",
         "tags" : [
           {
