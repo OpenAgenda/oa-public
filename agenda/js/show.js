@@ -41,7 +41,7 @@ params = {
 
 uid;
 
-if ( [ 'tpl', 'dev' ].indexOf( window.env ) !== -1 ) {
+if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) {
 
   debug.enable( '*' );
 

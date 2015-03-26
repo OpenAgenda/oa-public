@@ -26,7 +26,7 @@ onReady,
 
 oneWidgetReady = false;
 
-if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
+if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) debug.enable( '*' );
 
 var widget = function( elem, options ) {
 
