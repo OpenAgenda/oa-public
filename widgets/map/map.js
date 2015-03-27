@@ -44,11 +44,15 @@ var widget = function( elem, options ) {
   // when map position bounds are reset, they are reset to this
   baseBounds,
 
-  selectedBounds,
-
   selectedLocation,
 
+  selectedEvent,
+
   activeLocations = [],
+
+  activeBounds,
+
+  currentBounds,
 
   passedLocations = [],
 
@@ -57,8 +61,6 @@ var widget = function( elem, options ) {
   enabled = false,
 
   map,
-
-  sendCount = 0,
 
   popup,
 
@@ -78,6 +80,7 @@ var widget = function( elem, options ) {
       enable : enable,
       disable : disable,
       clear : clear,
+      change : change,
       include : include,
       setOnBoundsChange : setOnBoundsChange
     } ) );
@@ -147,7 +150,17 @@ var widget = function( elem, options ) {
 
     enabled = true;
 
-    _updateBounds( reqParams, function() {
+    if ( !reqParams.neLat ) {
+
+      _deactivateSync();
+      
+    } else {
+
+      _activateSync();
+
+    }
+
+    _updateBounds( reqParams, function( ) {
 
       if ( !reqParams.location ) {
 
@@ -155,55 +168,27 @@ var widget = function( elem, options ) {
 
         selectedLocation = false;
 
-      }
+        if ( popup ) {
 
-      // widget has active selection on bounds, its not set in received params
-      if ( !reqParams.neLat && selectedBounds ) {
-
-        log( 'bounds are not specified in request, keeping current bounds.' );
-
-        selectedBounds = false;
-
-        if ( !selectedLocation && !reqParams.uid ) {
-
-          _setMapToBaseBounds();
+          m.removePopup( popup );
 
         }
 
       }
 
-      // received params have bounds defined but not map widget
-      if ( reqParams.neLat && !selectedBounds ) {
+      selectedEvent = reqParams.uid ? reqParams.uid : false;
 
-        selectedBounds = {
-          neLat: reqParams.neLat,
-          neLng: reqParams.neLng,
-          swLat: reqParams.swLat,
-          swLng: reqParams.swLng
-        };
+      if ( selectedEvent && activeLocations.length ) {
 
-      }
+        _openPopup( locations[ activeLocations[ 0 ] ] );
 
-      // if a location is picked, or an event, deactivate selection when map is moved around
-      if ( reqParams.uid || selectedLocation || !reqParams.neLat ) {
-
-        _deactivateSync();
-
-      } else {
-
-        _activateSync();
-
-      }
-
-      if ( reqParams.location ) {
+      } else if ( reqParams.location ) {
 
         selectedLocation = locations[ reqParams.location ];
 
-        popup = m.createPopup( map, new EJS({ text: templates.popup }).render( cn.extend({labels: config.labels[ config.lang ]}, selectedLocation )), { marker: selectedLocation.marker });
+        _openPopup( selectedLocation );
 
       }
-
-      if ( sendCount ) sendCount--;
 
       _refresh();
 
@@ -211,6 +196,25 @@ var widget = function( elem, options ) {
 
   },
 
+  _openPopup = function( l ) {
+
+    _closePopup();
+
+    popup = m.createPopup( map, new EJS({ text: templates.popup }).render( cn.extend({labels: config.labels[ config.lang ]}, l )), { marker: l.marker });
+
+  },
+
+  _closePopup = function() {
+
+    if ( popup ) {
+
+      m.removePopup( popup );
+
+      popup = false;
+
+    }
+
+  },
 
   disable = function() {
 
@@ -222,12 +226,13 @@ var widget = function( elem, options ) {
 
   },
 
-
   clear = function() {
 
     activeLocations = [];
 
     passedLocations = [];
+
+    activeBounds = false;
 
     if ( popup ) m.removePopup( popup );
 
@@ -240,9 +245,22 @@ var widget = function( elem, options ) {
   },
 
 
-  include = function( eventItem ) {
+  /**
+   * other widget is changing things,
+   * clear own bounds
+   */
+
+  change = function() {
+
+    currentBounds = false;
+
+  },
+
+
+  include = function( eventItem, reqParams ) {
 
     for ( var l in eventItem.l ) {
+
 
       if ( cn.contains( activeLocations, l ) ) {
 
@@ -250,20 +268,41 @@ var widget = function( elem, options ) {
 
       }
 
-      activeLocations.push( l );
+      // testing from reqParams is needed only because
+      // of multiple locations per event.
+      if ( !reqParams.neLat || _isIn( locations[ l ], reqParams ) ) {
 
-      if ( eventItem.passed ) {
+        activeLocations.push( l );
 
-        passedLocations.push( l );
+        if ( eventItem.passed ) {
+
+          passedLocations.push( l );
+
+        }
+
+        locations[l].count += 1;
+
+        _includeInActiveBounds( locations[l] );
 
       }
-
-      locations[l].count += 1;
 
     }
 
   },
 
+  _includeInActiveBounds = function( location ) {
+
+    if ( !activeBounds ) {
+
+      activeBounds = m.createBounds( location.coords );
+
+    } else {
+
+      m.extendBounds( activeBounds, location.coords );
+
+    }
+
+  },
 
   _setOnMarkerClick = function( location ) {
 
@@ -284,20 +323,25 @@ var widget = function( elem, options ) {
 
       }
 
+      
+      if ( !selectedLocation && !cn.contains( activeLocations, location.slug ) ) {
 
-      // there are no neighbors. select location as new filter
+        // if location is not in active locactions,
+        // clicking it will cancel current selection
 
-      if ( !selectedLocation && !cn.contains( activeLocations, location.slug ) ) return;
+        updatedReqParams = _setLocationParams( location.slug, true );
 
-      selectedBounds = false;
+      } else if ( selectedLocation && ( selectedLocation.slug == location.slug ) ) {
 
-      _deactivateSync();
-
-      if ( selectedLocation && ( selectedLocation.slug == location.slug ) ) {
+        // if location is in part of current selection,
+        // clicking it will remove it
 
         updatedReqParams = _unsetLocationParams();
 
       } else {
+
+        // if location is not selected,
+        // add it to current selection
 
         updatedReqParams = _setLocationParams( location.slug );
 
@@ -320,9 +364,29 @@ var widget = function( elem, options ) {
 
   },
 
-  _setLocationParams = function( slug ) {
+  _setLocationParams = function( slug, clear ) {
 
-    return { location: slug, neLat: null, neLng: null, swLat: null, swLng: null };
+    var updateValues = {
+      neLat: null,
+      neLng: null,
+      swLat: null,
+      swLng: null,
+      location: slug
+    }
+
+    if ( clear ) {
+
+      cn.extend( updateValues, {
+        from: null,
+        to: null,
+        what: null,
+        categories: null,
+        tags: null
+      });
+
+    }
+
+    return updateValues;
 
   },
 
@@ -609,6 +673,10 @@ var widget = function( elem, options ) {
 
     m.setOnBoundsChangeEnd( map, function() {
 
+      if ( selectedEvent ) return;
+
+      if ( selectedLocation ) return;
+
       log( 'bounds changed, automatic marker selection is %s and widget is %s', config.auto ? 'on' : 'off', enabled ? 'enabled' : 'disabled' );
 
       if ( enabled && config.auto && !selectedLocation) {
@@ -651,9 +719,7 @@ var widget = function( elem, options ) {
 
     if ( typeof updateMap == 'undefined' ) updateMap = false;
 
-    selectedBounds = _getBoundParams( bounds );
-
-    _update( cn.extend({ location: null }, selectedBounds ) );
+    _update( cn.extend({ location: null }, _getBoundParams( bounds ) ) );
 
     if ( updateMap ) {
 
@@ -665,42 +731,50 @@ var widget = function( elem, options ) {
 
   _update = function( params ) {
 
-    sendCount++;
-
     controller.update( 'map', params );
 
   },
 
 
-  // update map bounds
-
   _updateBounds = function( reqParams, cb ) {
-
-    log( 'updating map bounds to %s', JSON.stringify( reqParams ) );
-
-    if ( sendCount > 0 ) return cb ? cb() : null;
-
-    if ( !reqParams.neLat ) {
-
-      _deactivateSync();
-
-      return cb ? cb() : null;
-      
-    }
-
-    if ( _getBoundParams().neLat == reqParams.neLat ) {
-
-      log( 'bounds are already set at request value' );
-
-      return cb ? cb() : null;
-
-    }
 
     var auto = config.auto,
 
-    bounds = m.createBounds( [ reqParams.neLat, reqParams.neLng ] );
+    bounds;
 
-    m.extendBounds( bounds, [ reqParams.swLat, reqParams.swLng ] );
+
+    if ( currentBounds ) {
+
+      return cb();
+
+    }
+
+    if ( !cn.size( reqParams ) ) {
+
+      bounds = baseBounds;
+
+    }
+
+    if ( !bounds && ( ( cn.size( reqParams ) == 1 ) && reqParams.passed ) ) {
+
+      bounds = baseBounds
+
+    }
+
+    if ( !bounds ) { 
+
+      bounds = activeBounds;
+
+    }
+
+    if ( !bounds ) {
+
+      bounds = baseBounds;
+
+    }
+
+
+    // carry out the repositionning
 
     config.auto = false;
 
@@ -728,6 +802,8 @@ var widget = function( elem, options ) {
   _setMapToBaseBounds = function() {
 
     log( 'setting map to base bounds: %s', JSON.stringify( baseBounds ) );
+
+    baseBounds;
     
     _fitBounds( baseBounds );
 
@@ -742,6 +818,8 @@ var widget = function( elem, options ) {
     }
 
     m.fitBounds( map, bounds );
+
+    currentBounds = bounds;
 
     log( 'prevent map to exceed min zoom' );
 
@@ -761,19 +839,16 @@ var widget = function( elem, options ) {
 
       log( 'sync of bounds filter with moving map: %s', config.auto ? 'on' : 'off' );
 
-      if ( !selectedLocation ) {
+      if ( config.auto ) {
 
-        if ( config.auto ) {
+        _selectBounds();
 
-          _selectBounds();
+      } else {
 
-        } else {
-
-          _update({ neLat: null, neLng: null, swLat: null, swLng: null, location: null });
-
-        }
+        _update({ neLat: null, neLng: null, swLat: null, swLng: null, location: null });
 
       }
+
 
     });
 
@@ -847,6 +922,34 @@ var widget = function( elem, options ) {
   init();
 
 };
+
+function _isIn( l, reqParams ) {
+
+  if ( reqParams.neLat && reqParams.neLng && reqParams.swLat && reqParams.swLng ) {
+
+    var ne = [ parseFloat(reqParams.neLat), parseFloat(reqParams.neLng) ], 
+
+    sw = [parseFloat(reqParams.swLat), parseFloat(reqParams.swLng)],
+
+    lt = parseFloat( l.coords[ 0 ] ),
+
+    lg = parseFloat( l.coords[ 1 ] );
+
+    if ( (lt <= ne[0] ) &&
+
+      ( lg <= ne[1] ) &&
+
+      ( lt >= sw[0] ) &&
+
+      ( lg >= sw[1]) ) return true;
+
+    return false;
+
+  }
+
+  return true;
+
+}
 
 function _fZ( n ) {
   return (n>9?'':'0') + n;

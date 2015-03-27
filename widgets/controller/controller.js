@@ -320,7 +320,7 @@ module.exports = function( uid ) {
 
     if ( ctl.sh ) {
 
-      currentRequestParams = _readHrefQuery( 'search' );
+      currentRequestParams = _cleanSearch( _readHrefQuery( 'search' ) );
 
     }
 
@@ -507,7 +507,7 @@ module.exports = function( uid ) {
 
         ctl.a[i].passed = _isPassed( ctl.a[i] );
 
-        _include( ctl.a[i] );
+        _include( ctl.a[i], currentRequestParams );
 
       }
     
@@ -525,13 +525,13 @@ module.exports = function( uid ) {
    * as part of sweep, tell widgets event item passed through filters
    */
   
-  function _include( item ) {
+  function _include( item, p ) {
 
     for ( var i = widgets.length - 1; i >= 0; i-- ) {
 
       if ( widgets[ i ].include ) {
 
-        widgets[i].include( item );  
+        widgets[i].include( item, p );  
 
       }
 
@@ -693,6 +693,20 @@ module.exports = function( uid ) {
     }
 
     return {};
+
+  }
+
+  function _cleanSearch( search ) {
+
+    if ( !search ) return;
+
+    [ 'neLat', 'neLng', 'swLat', 'swLng' ].forEach( function( f ) {
+
+      if ( search[ f ] ) search[ f ] = parseFloat( search[ f ] );
+
+    });
+
+    return search;
 
   }
 
