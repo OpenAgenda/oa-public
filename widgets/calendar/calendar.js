@@ -376,7 +376,7 @@ function _getAllDates( data ) {
 
 function _dStringify( d ) {
 
-  return [ d.getFullYear(), _fZ( d.getMonth() + 1), d.getDate() ].join( '-' );
+  return [ d.getFullYear(), _fZ( d.getMonth() + 1), _fZ( d.getDate() ) ].join( '-' );
 
 }
 
