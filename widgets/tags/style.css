@@ -3,3 +3,4 @@
 .cibulTags li.active { color: {{ activeColor }}; }
 .cibulTags li.selected { color: {{ selectedColor }}; }
 .cibulTags.disabled li { cursor: wait; color: {{ disabledColor }} }
+.cibulTags li .count { display: none; }

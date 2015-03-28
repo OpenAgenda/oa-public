@@ -32,7 +32,7 @@ var widget = function( elem, options ) {
 
   requestTags = [], // tags which are in current request state
 
-  activeTags = [],  // tags which are within current event selection
+  activeTags = {},  // tags which are within current event selection
 
   passedTagSlugs = [],
 
@@ -108,7 +108,7 @@ var widget = function( elem, options ) {
     
     log( 'clearing, awaiting enable or disable to render' );
 
-    activeTags = [];
+    activeTags = {};
     passedTagSlugs = [];
     selectedTag = false;
     requestTags = false;
@@ -132,11 +132,13 @@ var widget = function( elem, options ) {
 
         }
 
-        if ( !cn.contains( activeTags, eventTag ) ) {
+        if ( typeof activeTags[ eventTag ] == 'undefined' ) {
 
-          activeTags.push( eventTag );
+          activeTags[ eventTag ] = 0;
 
         }
+
+        activeTags[ eventTag ]++;
 
         if ( eventItem.passed && !cn.contains( passedTagSlugs, eventTag ) ) {
 
@@ -161,12 +163,6 @@ var widget = function( elem, options ) {
   _onTagSelect = function( tag ) {
 
     log( 'selected %s with slug %s', tag.label, tag.slug );
-
-    if ( !cn.contains( activeTags, tag.slug ) ) {
-
-      log( 'tag is not active. running it anyways' );
-
-    }
 
     _clearWidgetRequestTags();
 
@@ -301,11 +297,14 @@ var widget = function( elem, options ) {
 
     cn.forEach( tags, function( tag ) {
 
+      var count = ( typeof activeTags[ tag.s ] == 'undefined' ? 0 : activeTags[ tag.s ] );
+
       data.tags.push( {
         label : tag.t,
         slug : tag.s,
-        active : enabled && cn.contains( activeTags, tag.s ),
-        selected : selectedTag == tag.s
+        active : enabled && count,
+        selected : selectedTag == tag.s,
+        count: count
       } );
 
     });

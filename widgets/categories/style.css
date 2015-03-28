@@ -3,3 +3,4 @@
 .cibulCategories li.active { color: {{ activeColor }}; }
 .cibulCategories li.selected { color: {{ selectedColor }}; }
 .cibulCategories.disabled li { cursor: wait; color: {{ disabledColor }}; }
+.cibulCategories li .count { display: none; }
