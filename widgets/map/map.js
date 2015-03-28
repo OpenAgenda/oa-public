@@ -768,7 +768,7 @@ var widget = function( elem, options ) {
 
     }
 
-    if ( !bounds ) {
+    if ( !bounds && !reqParams.location ) {
 
       bounds = baseBounds;
 

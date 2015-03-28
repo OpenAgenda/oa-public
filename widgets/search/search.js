@@ -101,7 +101,15 @@ var widget = function( elem, options ) {
 
     log( 'updating with "%s"', what );
 
-    controller.update( 'search', { what: what });
+    if ( what ) {
+
+      controller.update( 'search', { what: what, location: null } );
+
+    } else {
+
+      controller.update( 'search', { what: null } );
+
+    }
 
   },
 
