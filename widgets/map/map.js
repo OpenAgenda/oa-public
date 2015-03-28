@@ -115,6 +115,8 @@ var widget = function( elem, options ) {
 
         _initMarkers();
 
+        _initAutoSync( data );
+
         if ( onReady ) onReady();
 
       } );
@@ -150,16 +152,7 @@ var widget = function( elem, options ) {
 
     enabled = true;
 
-    if ( !reqParams.neLat ) {
-
-      _deactivateSync();
-      
-    } else {
-
-      _activateSync();
-
-    }
-
+  
     _updateBounds( reqParams, function( ) {
 
       if ( !reqParams.location ) {
@@ -260,7 +253,6 @@ var widget = function( elem, options ) {
   include = function( eventItem, reqParams ) {
 
     for ( var l in eventItem.l ) {
-
 
       if ( cn.contains( activeLocations, l ) ) {
 
@@ -573,6 +565,17 @@ var widget = function( elem, options ) {
 
   },
 
+  _initAutoSync = function( data ) {
+
+    var auto = false;
+
+    if ( data.ebd && data.ebd.ma ) auto = data.ebd.ma;
+
+    config.auto = auto;
+
+    if ( config.auto ) _activateSync();
+
+  },
 
   _initManualBounds = function( corners ) {
 
@@ -675,11 +678,9 @@ var widget = function( elem, options ) {
 
       if ( selectedEvent ) return;
 
-      if ( selectedLocation ) return;
-
       log( 'bounds changed, automatic marker selection is %s and widget is %s', config.auto ? 'on' : 'off', enabled ? 'enabled' : 'disabled' );
 
-      if ( enabled && config.auto && !selectedLocation) {
+      if ( enabled && config.auto ) {
 
         _selectBounds();
 
@@ -845,7 +846,13 @@ var widget = function( elem, options ) {
 
       } else {
 
-        _update({ neLat: null, neLng: null, swLat: null, swLng: null, location: null });
+        _update({
+          neLat: null,
+          neLng: null,
+          swLat: null,
+          swLng: null,
+          location: null
+        });
 
       }
 
@@ -952,7 +959,9 @@ function _isIn( l, reqParams ) {
 }
 
 function _fZ( n ) {
-  return (n>9?'':'0') + n;
+
+  return ( n>9?'':'0' ) + n;
+
 };
 
 

@@ -7499,6 +7499,49 @@
             "s":"clubbing",
             "t":"clubbing"
          }
-      ]
+      ],
+      "ebd": {
+        "classes": {
+          "concerts": "concerts",
+          "expositions": "expositions",
+          "insolite": "insolite",
+          "cinema": "cinema",
+          "clubbing": "clubbing",
+          "conferences": "conferences",
+          "theatre": "theatre",
+          "militant": "militant",
+          "ateliers": "ateliers"
+        },
+        "mi": {
+          "a": false,
+          "i": false
+        },
+        "ms": {
+          "a": [ 50, 50 ],
+          "i": false
+        },
+        "sh": {
+          "fb": true,
+          "tw": true,
+          "gp": true,
+          "li": true,
+          "tu": true,
+          "pi": true
+        },
+        "href": false,
+        "dcss": {
+          "list": true,
+          "map": true,
+          "search": true,
+          "categories": true,
+          "tags": true,
+          "calendar": true,
+          "form": true
+        },
+        "sc": true,
+        "mp": "all",
+        "mc": false,
+        "ma" : true
+      }
    }
 }
