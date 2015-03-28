@@ -187,7 +187,7 @@ var widget = function( elem, options ) {
 
     var filteredValues = cn.extend( {}, values );
 
-    [ 'neLat', 'neLng', 'swLat', 'swLng' ].forEach( function( f ) {
+    cn.forEach( [ 'neLat', 'neLng', 'swLat', 'swLng' ], function( f ) {
 
       if ( filteredValues[ f ] ) delete filteredValues[ f ];
 
@@ -217,7 +217,7 @@ var widget = function( elem, options ) {
 
     }
 
-    [ 'neLat', 'neLng', 'swLat', 'swLng' ].forEach( function( f ) {
+    cn.forEach( [ 'neLat', 'neLng', 'swLat', 'swLng' ], function( f ) {
 
       if ( clean[ f ] ) clean[ f ] = parseFloat( clean[ f ] );
 

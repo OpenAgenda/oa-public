@@ -66,6 +66,14 @@ function reset( newHref ) {
 
   loader.replace( newHref, function( err, data ) {
 
+    if ( err ) {
+
+      console.log( err );
+
+      return;
+
+    }
+
     pagination.reset( newHref, data.total );
 
   });

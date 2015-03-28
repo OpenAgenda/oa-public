@@ -700,7 +700,7 @@ module.exports = function( uid ) {
 
     if ( !search ) return;
 
-    [ 'neLat', 'neLng', 'swLat', 'swLng' ].forEach( function( f ) {
+    cn.forEach( [ 'neLat', 'neLng', 'swLat', 'swLng' ], function( f ) {
 
       if ( search[ f ] ) search[ f ] = parseFloat( search[ f ] );
 
