@@ -1,5 +1,5 @@
 /*!
- * CibulCalendar v0.2.6 ~ Copyright (c) 2013 Kari Olafsson, http://tech.cibul.net
+ * CibulCalendar v0.2.7 ~ Copyright (c) 2013 Kari Olafsson, http://tech.cibul.net
  * Released under MIT license, http://opensource.org/licenses/mit-license.php
  */
 
@@ -15,7 +15,7 @@
 
   } else { // Browser global
 
-    var objs = factory()
+    var objs = factory();
 
     root.CibulCalendar = objs.CibulCalendar;
 
@@ -145,7 +145,7 @@
 
         if ( this.selection && updateMonth ) {
 
-          this._setDisplayedMonth( new Date( this.selection.begin.getTime() ) );
+          this.setDisplayedMonth( new Date( this.selection.begin.getTime() ) );
 
         } else {
 
@@ -160,6 +160,14 @@
         this._clearSelectionRender();
 
       }
+
+    },
+
+    setDisplayedMonth: function( date ) {
+
+      this.displayedMonth = date;
+
+      this._renderCalendar();
 
     },
 
@@ -412,7 +420,7 @@
 
       displayedMonth.setMonth( displayedMonth.getMonth()+1 );
 
-      this._setDisplayedMonth( displayedMonth );
+      this.setDisplayedMonth( displayedMonth );
 
     },
 
@@ -422,15 +430,7 @@
 
       displayedMonth.setMonth( displayedMonth.getMonth()-1 );
 
-      this._setDisplayedMonth( displayedMonth );
-
-    },
-
-    _setDisplayedMonth: function( date ) {
-
-      this.displayedMonth = date;
-
-      this._renderCalendar();
+      this.setDisplayedMonth( displayedMonth );
 
     },
 
