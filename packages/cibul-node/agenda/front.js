@@ -27,6 +27,7 @@ es = require( 'ES' )( config.es ),
 model = cmn.getCibulModel(),
 
 modes = {
+
   show: {
     template: 'agenda/show',
     uri: 'agendaShow',
@@ -34,6 +35,7 @@ modes = {
     base: [ 'slug' ],
     eventQuery: { eventSlug: 'slug' }
   },
+
   embed: {
     template: 'agenda/embedShow',
     uri: 'agendaEmbedShow',
@@ -41,41 +43,34 @@ modes = {
     base: [ 'uid' ],
     eventQuery: { eventUid: 'uid' }
   },
+
   customEmbed: {
-    template: 'agenda/embedShow',
+    template: 'agenda/newEmbedShow',
     uri: 'agendaCustomEmbedShow',
     eventUri: 'agendaCustomEmbedEventShow',
     base: [ 'uid', 'embedUid' ],
     eventQuery: { eventUid: 'uid' }
   }
+
 },
 
 
 routes = {
 
-  dev: [ 'get', '/agendas/:uid/embeds/:embedUid', [ 
-    agendaSvc.mw.load( 'uid' ),
-    embedSvc.mw.load( 'embedUid', 'uid' ),
-    _loadEvents,
-    embedSvc.mw.renderList,
-    dev
-  ] ],
-
   embedControlData: [ 'get', '/agendas/:uid/embeds/:embedUid/controldata', [ 
-    agendaSvc.mw.load( 'uid' ),
+    agendaSvc.mw.load( 'uid', 'uid', true ),
     embedSvc.mw.load( 'embedUid', 'uid' ),
     controlData
   ] ],
   
   controlData: [ 'get', '/agendas/:uid/controldata', [ 
-    agendaSvc.mw.load( 'uid' ),
+    agendaSvc.mw.load( 'uid', 'uid', true ),
     controlData
   ] ],
   
   embedShow: [ 'get', '/agendas/:uid/embed/events', [
     agendaSvc.mw.load( 'uid' ),
     _formatAgendaData( 'embed' ),
-    _loadIsPassed,
     _loadEvents,
     _loadTemplateUris,
     cmn.loadBaseData( _layoutData, 'embedDefault.css' ),
@@ -86,19 +81,20 @@ routes = {
     agendaSvc.mw.load( 'uid' ),
     embedSvc.mw.load( 'embedUid', 'uid' ),
     _formatAgendaData( 'customEmbed' ),
-    _loadIsPassed,
     _formatEmbedData,
     _loadEvents,
     _loadTemplateUris,
     cmn.loadBaseData( _layoutData, 'embedDefault.css' ),
     _loadCustomLayoutData,
+    embedSvc.mw.renderEventItems,
     show
   ] ],
   
   agendaShow: [ 'get', '/:slug', [ 
     agendaSvc.mw.load( 'slug' ),
-    _formatAgendaData( 'show' ),
-    _loadIsPassed,
+    agendaSvc.mw.format,
+
+    
     _loadEvents, 
     _loadTemplateUris,
     cmn.loadBaseData( _layoutData, 'oa.css' ),
@@ -202,20 +198,6 @@ function controlData( req, res ) {
 }
 
 
-function _loadIsPassed( req, res, next ) {
-
-  var now = new Date();
-
-  req.agenda.getLastOccurrence( function( err, lastOccurrence ) {
-
-    req.templateData.passed = now > new Date( lastOccurrence.end );
-
-    next();
-
-  });
-
-}
-
 
 function _formatAgendaData( mode ) {
 
@@ -231,7 +213,8 @@ function _formatAgendaData( mode ) {
       title: req.agenda.title,
       description: req.agenda.description,
       url: req.agenda.url,
-      image: req.agenda.getImage( false )
+      image: req.agenda.getImage( false ),
+      passed: req.agenda.passed
     };
 
     req.templateData.importUri = req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } );

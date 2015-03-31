@@ -32,7 +32,7 @@ function get( params, cb ) {
 
 function instanciate( data ) {
 
-  var instance = model.agendas().instance( data );
+  var instance = model.reviewEmbeds().instance( data );
 
   return lib.extend( {}, instance, {
   });

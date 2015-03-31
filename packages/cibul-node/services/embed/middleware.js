@@ -10,7 +10,7 @@ module.exports = function( embedService ) {
 
   return {
     load: loadEmbed,
-    renderList: renderList
+    renderEventItems: renderEventItems
   }
 
 }
@@ -21,7 +21,11 @@ module.exports = function( embedService ) {
  * shove result in req.embed.renders.list
  */
 
-function renderList( req, res, next ) {
+function renderEventItems( req, res, next ) {
+
+  if ( !req.renders ) req.renders = {};
+
+  req.renders.eventItems = [];
 
   var eventItemParser = parserLib({
     attributes: [
@@ -40,12 +44,13 @@ function renderList( req, res, next ) {
     ]
   });
 
-  req.rendered = '<ul>';
+  // what to do for links?
+  // should be fed as variable ( eventLink )
 
   eventItemParser.load( [
     '<li>',
       '<div>{Title}</div>',
-      '<p>{Description}</div>',
+      '<p>{Description}</p>',
       '{block:Locations}',
         '<p>{Name}</p><span>{City}</span>',
       '{/block:Locations}',
@@ -54,13 +59,11 @@ function renderList( req, res, next ) {
 
   req.templateData.events.forEach( function( e ) {
 
-    console.log( e );
-
-    req.rendered += eventItemParser.render( e );
+    req.renders.eventItems.push( eventItemParser.render( e ) );
 
   });
 
-  req.rendered += '</ul>';
+  req.templateData.renders = req.renders;
 
   next();
 
