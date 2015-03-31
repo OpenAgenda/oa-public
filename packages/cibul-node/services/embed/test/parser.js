@@ -64,42 +64,51 @@ describe( 'simple parser', function() {
 describe( 'parser with children', function() {
 
   var p = parser( {
+    name: 'Top',
     attributes: [
       { name: 'Title', mapTo: 'title' },
       { name: 'Description', mapTo: 'description' }
     ],
     children: [{ 
-      name: 'Child', 
-      mapTo: 'child',
+      name: 'Posts', 
+      mapTo: 'posts',
       attributes: [
-        { name: 'Name', mapTo: 'name' },
-        { name: 'Surname', mapTo: 'surname' }
+        { name: 'Title', mapTo: 'title' },
+        { name: 'Author', mapTo: 'author' },
+        { name: 'Content', mapTo: 'content' }
       ]
     }]
   });
 
+  it( 'should populate children properly', function() {
+
+    p.load( [
+      '<h1>{Title}</h1>',
+      '<p>{Description}</p>',
+      '{block:Posts}',
+        '<h2>{Title}</h2>',
+        '<span>{Author}</span>',
+        '<p>{Content}</p>',
+      '{/block:Posts}' ].join( '' )
+    );
+
+    p.render({
+      title: 'Un titre de blog',
+      description: 'La description du blog',
+      posts: [{
+        title: 'Le premier article',
+        author: 'Moi',
+        content: 'Bla bla blaargh.'
+      }, {
+        title: 'Le deuxième article',
+        author: 'Billy Bob Boy',
+        content: 'Blaargh'
+      }]
+    })
+
+    .should.equal( '<h1>Un titre de blog</h1><p>La description du blog</p><h2>Le premier article</h2><span>Moi</span><p>Bla bla blaargh.</p><h2>Le deuxième article</h2><span>Billy Bob Boy</span><p>Blaargh</p>' );
+
+  });
 
 
 });
-
-/*
-p = parser( {
-  attributes: [ {
-    { name: 'Title', mapTo: 'title' },
-    { name: 'Description', mapTo: 'description' }
-  } ],
-  children: [{ 
-    name: 'Event', 
-    mapTo: 'events'
-    // this is recursively processed
-    attributes: [
-      { name: 'Title', mapTo: 'title' },
-      { name: 'Description', mapTo: 'description' },
-      { name: 'FreeText', mapTo: 'freeText' }
-    ]
-  }]
-} );
-
-p.load( 'the template' );
-
-p.render( { the data }); */

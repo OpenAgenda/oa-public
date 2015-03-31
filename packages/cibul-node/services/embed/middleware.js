@@ -1,6 +1,8 @@
 "use strict";
 
-var svc;
+var svc,
+
+parserLib = require( './parser' );
 
 module.exports = function( embedService ) {
 
@@ -21,19 +23,46 @@ module.exports = function( embedService ) {
 
 function renderList( req, res, next ) {
 
-  // assuming the embed is loaded at this point
-  
-  req.embed.renderList( req.events, function( err, render ) {
+  var eventItemParser = parserLib({
+    attributes: [
+      { name: 'Title', mapTo: 'title' },
+      { name: 'Description', mapTo: 'description' }
+    ],
+    children: [
+      { 
+        name: 'Locations',
+        mapTo: 'locations',
+        attributes: [
+          { name: 'Name', mapTo: 'name' },
+          { name: 'City', mapTo: 'city' }
+        ]
+      }
+    ]
+  });
 
-    if ( err ) return next( err );
+  req.rendered = '<ul>';
 
-    req.embed.renders = req.embed.renders ? req.embed.renders : {};
+  eventItemParser.load( [
+    '<li>',
+      '<div>{Title}</div>',
+      '<p>{Description}</div>',
+      '{block:Locations}',
+        '<p>{Name}</p><span>{City}</span>',
+      '{/block:Locations}',
+    '</li>'
+  ].join('') );
 
-    req.embed.renders.list = render;
+  req.templateData.events.forEach( function( e ) {
 
-    next();
+    console.log( e );
+
+    req.rendered += eventItemParser.render( e );
 
   });
+
+  req.rendered += '</ul>';
+
+  next();
 
 }
 

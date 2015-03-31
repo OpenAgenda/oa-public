@@ -1,8 +1,14 @@
 "use strict";
 
+var debug = require( 'debug' ),
+
+log = debug( 'parser' );
+
 module.exports = parser;
 
 function parser( struct ) {
+
+  var log = debug( 'parser ' + struct.name );
 
   if ( !struct ) throw 'parser structure missing';
 
@@ -10,11 +16,17 @@ function parser( struct ) {
 
   template,
 
-  templateAttributes,
-
-  childrenParsers = _createChildrenParsers( struct.children ),
+  templateAttributes, // attributes which are in template
 
   templateAttributeBlocks; // attributes which are in template
+
+  if ( struct.children ) {
+
+    log( 'children' );
+
+    _createChildrenParsers( struct.children );
+
+  }
 
   return {
     load: load,
@@ -27,6 +39,19 @@ function parser( struct ) {
 
   function load( tpl ) {
 
+    // cut bits down to hand over to children
+    if ( struct.children ) {
+
+      struct.children.forEach( function( child ) {
+
+        log( 'loading template in child' );
+
+        tpl = _childLoadAndSlice( child, tpl );
+
+      });
+
+    } 
+
     // spot blocks and variables. any unknown throws errors
     templateAttributes = _extractTemplateAttributes( attributes, tpl );
 
@@ -36,9 +61,10 @@ function parser( struct ) {
 
   }
 
+
   function render( data ) {
 
-    var clean = _mergeExpected( data, templateAttributes );
+    var clean = _mergeExpected( data, templateAttributes, struct.children );
 
     if ( !template ) throw 'template is undefined';
 
@@ -46,7 +72,14 @@ function parser( struct ) {
 
     for( var i in clean ) {
 
-      // process the children-blocks
+      // process the children blocks
+      
+      if ( _isArray( clean[ i ] ) ) {
+
+        // find child and process
+        rendered = _renderChild( i, clean[ i ], struct.children, rendered );
+
+      }
       
       // process the attribute blocks
 
@@ -79,17 +112,60 @@ function parser( struct ) {
 }
 
 
-function _createChildrenParsers( children ) {
+/**
+ * creates a parser for each
+ * child of current parser
+ */
 
-  var parsers = {};
+function _createChildrenParsers( children ) {
 
   children.forEach( function( child ) {
 
-    // slightly more complicated here as we
-    // are dealing with lists
-    parsers[ child.mapTo ] = parser( parser( child ) )
+    child.parser = parser( child );
 
   });
+
+}
+
+/**
+ * from given template, extract bit relevent to
+ * given child and return stripped template
+ */
+
+function _childLoadAndSlice( child, tpl ) {
+
+  var indexes = _findBlockIndexes( tpl, child.name );
+
+  var childTemplate = tpl.substr( indexes[ 2 ], indexes[ 1 ] - indexes[ 2 ] );
+
+  child.parser.load( childTemplate );
+
+  return tpl.replace( childTemplate, '' );
+
+}
+
+
+function _renderChild( key, arr, children, rendered ) {
+
+  var child = children.filter( function( child ) { 
+    return child.mapTo == key 
+  } )[ 0 ],
+
+  indexes = _findBlockIndexes( rendered, child.name ),
+
+  childRender = '';
+
+  arr.forEach( function( childData ) {
+
+    childRender += child.parser.render( childData );
+
+  } );
+
+  return rendered.substr( 0, indexes[ 0 ] )
+
+  + childRender
+
+  + rendered.substr( indexes[ 3 ] );
 
 }
 
@@ -106,23 +182,40 @@ function _extractTemplateAttributeBlocks( attributes, template ) {
 
   attributes.forEach( function( attr ) {
 
-    var opening, closing;
+    try {
 
-    opening = filteredTpl.indexOf( '{block:' + attr.name + '}' );
+      _findBlockIndexes( filteredTpl, attr.name );
+      
+      attributeBlocks[ attr.mapTo ] = attr.name;
 
-    if ( opening == -1 ) return;
-
-    closing = filteredTpl.indexOf( '{/block:' + attr.name + '}');
-
-    if ( closing == -1 ) throw 'closing block statement not found: ' + '{/block:' + attr.name + '}';
-
-    if ( closing < opening ) throw 'closing block statement should come after opening block statement: ' + '{block:' + attr.name + '}';
-
-    attributeBlocks[ attr.mapTo ] = attr.name;
+    } catch( e ) {};
 
   });
 
   return attributeBlocks;
+
+}
+
+
+function _findBlockIndexes( tpl, blockName ) {
+
+  var openingStatement = '{block:' + blockName + '}',
+
+  closingStatement = '{/block:' + blockName + '}',
+
+  opening, closing;
+
+  opening = tpl.indexOf( openingStatement );
+
+  if ( opening == -1 ) throw 'opening block statement not found';
+
+  closing = tpl.indexOf( closingStatement );
+
+  if ( closing == -1 ) throw 'closing block statement not found: ' + '{/block:' + blockName + '}';
+
+  if ( closing < opening ) throw 'closing block statement should come after opening block statement: ' + '{block:' + attr.name + '}';
+
+  return [ opening, closing, opening + openingStatement.length, closing + closingStatement.length ];
 
 }
 
@@ -214,7 +307,7 @@ function _removeBlockStatement( tpl, name ) {
 
 }
 
-function _mergeExpected( data, tplAttributes ) {
+function _mergeExpected( data, tplAttributes, children ) {
 
   var clean = {};
 
@@ -222,13 +315,26 @@ function _mergeExpected( data, tplAttributes ) {
 
     clean[ i ] = null;
 
+    if ( typeof data[ i ] !== 'undefined' ) {
+
+      clean[ i ] = data[ i ];
+
+    }
+
   }
 
-  for( i in data ) {
+  if ( children ) children.forEach( function( child ) {
 
-    clean[ i ] = data[ i ];
+    clean[ child.mapTo ] = [];
 
-  }
+    if ( typeof data[ child.mapTo ] !== 'undefined' ) {
+
+      clean[ child.mapTo ] = data[ child.mapTo ];
+
+    }
+
+  });
+
 
   return clean;
 
@@ -240,8 +346,8 @@ function _removeRemainingStatements( tpl ) {
 
 }
 
-function isArray( obj ) {
+function _isArray( obj ) {
 
   return Object.prototype.toString.call(obj) === '[object Array]';
 
-};
+}

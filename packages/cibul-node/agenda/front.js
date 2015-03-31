@@ -57,7 +57,7 @@ routes = {
     agendaSvc.mw.load( 'uid' ),
     embedSvc.mw.load( 'embedUid', 'uid' ),
     _loadEvents,
-    embedSvc.mw.render,
+    embedSvc.mw.renderList,
     dev
   ] ],
 
@@ -136,7 +136,17 @@ module.exports = function( p ) {
 
 function dev( req, res ) {
 
-  res.send( 'grut' );
+  var html = [
+    '<!DOCTYPE html>',
+    '<html>',
+      '<head></head>',
+      '<body>',
+        req.rendered,
+      '</body>',
+    '</html>'
+  ].join( '' )
+
+  res.send( html );
 
 }
 
@@ -431,7 +441,7 @@ function _pager( req, totalItems ) {
   return {
     pager: {
       base: req.templateData.base,
-      routeName: modes[ req.mode ].uri,
+      routeName: req.mode ? modes[ req.mode ].uri : false,
       current: req.query.page || 1,
       total: totalItems,
       perPage: perPage

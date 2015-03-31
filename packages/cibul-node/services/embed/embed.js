@@ -8,7 +8,9 @@ model = require( 'cibulModel' )( config.db ),
 
 lib = require( '../../lib/lib' ),
 
-coms = require( '../../lib/coms' );
+coms = require( '../../lib/coms' ),
+
+parserLib = require( './parser' );
 
 module.exports = {
   get: get
@@ -30,26 +32,9 @@ function get( params, cb ) {
 
 function instanciate( data ) {
 
-  var instance = model.agendas().instance( data )
+  var instance = model.agendas().instance( data );
 
   return lib.extend( {}, instance, {
-    render: render
   });
-
-  // languages go where now ? where does rendered data go?
-
-  function render( data, cb ) {
-
-    var parser = tumblrParser( {
-      // options here include allowed children & values & elements?
-    });
-
-    parser.load( '' ) // load template
-
-    render = parser.render( data );
-
-    cb( null, render );
-
-  }
 
 }
