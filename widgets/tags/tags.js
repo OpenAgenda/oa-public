@@ -176,7 +176,7 @@ var widget = function( elem, options ) {
 
     cn.forEach( tags, function( tag ) {
 
-      var i = _findIndex( requestTags, tag );
+      var i = _findIndex( requestTags, tag.s );
 
       if ( i !== -1 ) {
 
