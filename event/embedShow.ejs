@@ -1,14 +1,9 @@
-<div class="canvas elb ela mw720">
-
-  <a href="<%= genUrl( backUri, backQuery ) %>"><%= __('back') %></a>
-  
-  <%= include ./text.part.ejs %>
-
-  <div class="event-place">
-    <p class="placename"><%= event.placeName %></p>
-    <a class="address hurl" target="_blank" href="http://maps.google.com/?q=<%= event.latitude %>,<%= event.longitude %>"><%= event.address %></a>
-  </div>
-
-  <%= include ./timings.part.ejs %>
-
+<% include ../agenda/customEmbedStyles.part.ejs %>
+<div id="content">
+  <div class="container">
+    <div class="row">
+      <section class="col-sm-offset-3 col-sm-6">
+        <%- eventRender %>
+      </section>
+    </div>
 </div>

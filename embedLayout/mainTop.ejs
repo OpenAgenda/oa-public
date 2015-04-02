@@ -31,4 +31,4 @@
     <script type="text/javascript" src="<%= js[i] %>"></script>
 <% } %>
   </head>
-  <body<% if ( pageClass ) { %> class="<%= pageClass %>"<% } %> data-options="<%- typeof scriptParams !== 'undefined' ? _esc( JSON.stringify( scriptParams ) ) : '' %>">
+  <body <% if ( pageId ) { %> id="<%= pageId %>" <% } %><% if ( pageClass ) { %> class="<%= pageClass %>"<% } %> data-options="<%- typeof scriptParams !== 'undefined' ? _esc( JSON.stringify( scriptParams ) ) : '' %>">

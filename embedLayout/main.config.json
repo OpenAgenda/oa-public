@@ -16,7 +16,8 @@
       "robots" : "index, follow"
     },
     "lang" : "fr",
-    "pageClass" : "cb"
+    "pageClass" : "cb",
+    "pageId" : false
   },
   
   "templateJs" : true

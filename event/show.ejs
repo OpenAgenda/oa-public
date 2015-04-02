@@ -115,7 +115,7 @@
           <img  class="img-responsive" src="<%= _i( event.image ) %>">
 <% } %>
           <div class="description">
-            <%- _txt.nl2br( event.freeText ) %>
+            <%- event.freeText %>
           </div>
 
 <% if ( event.timings.length > 1 ) { %>
@@ -123,7 +123,7 @@
             <h3 class="title"><%= __('Date details') %></h3>
             <ul>
 <% event.timings.forEach( function( timing ) { %>
-              <li class="date"><%= _t( timing.start, 'dddd Do - HH:mm' ) %></li>
+              <li class="date"><%= timing.label %></li>
 <% }) %>
             </ul>
           </section>

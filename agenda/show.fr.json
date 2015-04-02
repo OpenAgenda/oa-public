@@ -7,6 +7,8 @@
   : "Ajouter un événement",
   "%start% to %finish%"
   : "du %start% au %finish%",
+  "%start%, %time%"
+  : "%start%, %time%",
   "Add to my agenda"
   : "Ajouter à mon agenda",
   "Search in this agenda"
@@ -23,8 +25,6 @@
   : "Conditions d'utilisation",
   "Manage"
   : "Gérer",
-  "%start%, %time%"
-  : "%start%, %time%",
   "Search when I move the map"
   : "Rechercher quand je déplace la carte",
   "Map"

@@ -11,7 +11,8 @@
   },
 
   "base" : {
-    "queryLang" : false
+    "queryLang" : false,
+    "pageId" : "agenda"
   },
 
   "templateJs" : true

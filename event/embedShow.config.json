@@ -2,6 +2,7 @@
   "layout" : "embedLayout/main",
   
   "css" : {
+    
   },
 
   "helpers" : {
@@ -12,6 +13,7 @@
   },
 
   "base" : {
+    "pageId" : "event"
   },
 
   "templateJs" : true
