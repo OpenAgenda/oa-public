@@ -1,6 +1,8 @@
 "use strict";
 
-var svc;
+var svc,
+
+es = require( '../es/es' );
 
 module.exports = function( agendaService ) {
 
@@ -8,14 +10,10 @@ module.exports = function( agendaService ) {
 
   return {
     load: loadAgenda,
-    format: formatTemplateData,
-    loadEvents: loadEvents
+    search: searchEvents
   }
 
 }
-
-
-
 
 
 
@@ -56,7 +54,7 @@ function loadAgenda( paramName, fieldName, basicLoad ) {
 
           if ( err ) return next( err );
 
-          req.agenda.hasPublishedEvents = has;
+          req.agenda.isEmpty = !has;
 
           next();
 
@@ -94,49 +92,23 @@ function formatTemplateData( req, res, next ) {
 }
 
 
-function loadEvents( req, res, next ) {
+function searchEvents( limit ) {
 
-  var isEmpty = false;
+  return function( req, res, next ) {
 
-  req.esQuery.reviewId = req.agenda.id;
+    es.agendas( req.agenda ).search( req.query.search, { limit: limit, page: req.query.page }, function( err, data ) {
 
-  req.esQuery.order = [ 'upcoming' ];
+      if ( err ) return next( err );
 
-  wn.call( req.agenda.hasPublishedEvents )
+      req.events = data.events;
 
-  .then( function( hasPublishedEvents ) {
+      req.total = data.total;
 
-    if ( !hasPublishedEvents ) {
+      next();
 
-      isEmpty = true;
+    });
 
-      return { data: [], total: 0 };
-
-    } else {
-
-      return wn.call( es.events().search, req.esQuery )
-
-    }
-
-  })
-
-  .then( mw.search.prepareEvents )
-
-  .spread( function( events, total ) {
-
-    req.templateData = deepExtend( req.templateData, {
-      isEmpty: isEmpty,
-      events: events,
-      total: total,
-      scriptParams: {
-        total: total,
-        empty: isEmpty
-      }
-    }, _pager( req, total ) );
-
-    next();
-
-  } );
+  }
 
 }
 

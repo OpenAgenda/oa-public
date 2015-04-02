@@ -2,7 +2,16 @@
 
 var svc,
 
-parserLib = require( './parser' );
+parserLib = require( './parser' ),
+
+fs = require( 'fs' ),
+
+tblr = {
+  eventItem: fs.readFileSync( __dirname + '/templates/eventItem.tblr' ).toString(),
+  eventItemMapping: JSON.parse( fs.readFileSync( __dirname + '/templates/eventItem.map.json' ).toString() ),
+  event: fs.readFileSync( __dirname + '/templates/event.tblr' ).toString(),
+  eventMapping: JSON.parse( fs.readFileSync( __dirname + '/templates/event.map.json' ).toString() )
+};
 
 module.exports = function( embedService ) {
 
@@ -10,7 +19,8 @@ module.exports = function( embedService ) {
 
   return {
     load: loadEmbed,
-    renderEventItems: renderEventItems
+    renderEventItems: renderEventItems,
+    renderEvent: renderEvent
   }
 
 }
@@ -27,47 +37,34 @@ function renderEventItems( req, res, next ) {
 
   req.renders.eventItems = [];
 
-  var eventItemParser = parserLib({
-    attributes: [
-      { name: 'Title', mapTo: 'title' },
-      { name: 'Description', mapTo: 'description' }
-    ],
-    children: [
-      { 
-        name: 'Locations',
-        mapTo: 'locations',
-        attributes: [
-          { name: 'Name', mapTo: 'name' },
-          { name: 'City', mapTo: 'city' }
-        ]
-      }
-    ]
-  });
+  var eventItemParser = parserLib( tblr.eventItemMapping );
 
-  // what to do for links?
-  // should be fed as variable ( eventLink )
+  eventItemParser.load( tblr.eventItem );
 
-  eventItemParser.load( [
-    '<li>',
-      '<div>{Title}</div>',
-      '<p>{Description}</p>',
-      '{block:Locations}',
-        '<p>{Name}</p><span>{City}</span>',
-      '{/block:Locations}',
-    '</li>'
-  ].join('') );
-
-  req.templateData.events.forEach( function( e ) {
+  req.events.forEach( function( e ) {
 
     req.renders.eventItems.push( eventItemParser.render( e ) );
 
   });
 
-  req.templateData.renders = req.renders;
+  req.renders = req.renders;
 
   next();
 
 }
+
+function renderEvent( req, res, next ) {
+
+  var eventParser = parserLib( tblr.eventMapping );
+
+  eventParser.load( tblr.event );
+
+  req.render = eventParser.render( req.event );
+
+  next();
+
+}
+
 
 function loadEmbed( paramName, fieldName ) {
 

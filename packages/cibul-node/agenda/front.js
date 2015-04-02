@@ -24,17 +24,13 @@ wn = require( 'when/node' ),
 
 es = require( 'ES' )( config.es ),
 
+i18n = require( '../i18n/i18n' ),
+
+timeHelper = require( 'cibulTemplates' ).helpers.time,
+
 model = cmn.getCibulModel(),
 
 modes = {
-
-  show: {
-    template: 'agenda/show',
-    uri: 'agendaShow',
-    eventUri: 'agendaEventShow',
-    base: [ 'slug' ],
-    eventQuery: { eventSlug: 'slug' }
-  },
 
   embed: {
     template: 'agenda/embedShow',
@@ -70,11 +66,13 @@ routes = {
   
   embedShow: [ 'get', '/agendas/:uid/embed/events', [
     agendaSvc.mw.load( 'uid' ),
-    _formatAgendaData( 'embed' ),
-    _loadEvents,
-    _loadTemplateUris,
-    cmn.loadBaseData( _layoutData, 'embedDefault.css' ),
-    show
+    agendaSvc.mw.search( perPage ),
+    _format,
+    _formatEmbedLinks,
+    embedSvc.mw.renderEventItems,
+    showXhr( 'agenda/show' ),
+    cmn.loadBaseData( _layoutData, 'oa.css' ),
+    embedShow
   ] ],
   
   customEmbedShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events', [ 
@@ -92,11 +90,10 @@ routes = {
   
   agendaShow: [ 'get', '/:slug', [ 
     agendaSvc.mw.load( 'slug' ),
-    agendaSvc.mw.format,
-
-    
-    _loadEvents, 
-    _loadTemplateUris,
+    agendaSvc.mw.search( perPage ),
+    _format,
+    _formatShowLinks,
+    showXhr( 'agenda/show' ),
     cmn.loadBaseData( _layoutData, 'oa.css' ),
     show
   ] ]
@@ -130,44 +127,60 @@ module.exports = function( p ) {
  */
 
 
-function dev( req, res ) {
+function showXhr( template ) {
 
-  var html = [
-    '<!DOCTYPE html>',
-    '<html>',
-      '<head></head>',
-      '<body>',
-        req.rendered,
-      '</body>',
-    '</html>'
-  ].join( '' )
+  return function ( req, res, next ) {
 
-  res.send( html );
+    if ( !req.xhr ) return next();
 
-}
-
-function show( req, res ) {
-
-  if ( req.xhr ) {
-
-    // there is no embed partial
-    req.template = 'agenda/show';
-
-    cmn.renderTemplate( req, req.template, req.templateData, function( err, partial ) {
+    cmn.renderTemplate( req, template, req.templateData, function( err, partial ) {
 
       cmn.renderJson( req, res, {
         success: true,
         partial: partial,
         total: req.templateData.total
-      } );
+      });
 
     });
 
-  } else {
-
-    cmn.render( req, res, req.template, req.templateData );
-
   }
+
+}
+
+
+function show( req, res ) {
+
+  lib.extend( req.templateData, {
+    uid: req.agenda.uid,
+    slug: req.agenda.slug,
+    title: req.agenda.title,
+    description: req.agenda.description,
+    url: req.agenda.url,
+    image: req.agenda.getImage( false ),
+    importUri: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } ),
+    isEmpty: req.agenda.isEmpty
+  } );
+
+  cmn.render( req, res, 'agenda/show', req.templateData );
+
+}
+
+
+function embedShow( req, res ) {
+
+  lib.extend( req.templateData, {
+    uid: req.agenda.uid,
+    isEmpty: req.agenda.isEmpty,
+    pager: {
+      base: { uid: req.agenda.uid },
+      routeName: 'agendaEmbedShow',
+      current: req.query.page || 1,
+      total: req.total,
+      perPage: perPage
+    }
+  } );
+
+  cmn.render( req, res, 'agenda/embedShow', req.templateData );
 
 }
 
@@ -194,6 +207,88 @@ function controlData( req, res ) {
     });
 
   } );
+
+}
+
+
+/**
+ * format data to template requirements
+ */
+
+function _format( req, res, next ) {
+
+  var _t = timeHelper( { lang: req.lang } );
+
+  req.templateData = {
+    events: req.events.map( function( e ) { 
+
+      return _formatEvent( e, _t, req.lang );
+      
+    } ),
+    hasSearchQuery: !!lib.size( req.query.search ),
+    passed: req.agenda.passed,
+    total: req.total
+  };
+
+  next();
+
+}
+
+
+function _formatEvent( event, _t, lang ) {
+
+  var inst = model.events().instance( event ),
+
+  img = inst.getImage( true ),
+
+  dateRange = inst.getDateRange( true );
+
+  return lib.extend( inst, {
+    dateRange: i18n( dateRange[ 0 ], _t( dateRange[1] ), lang ).replace( ':', lang=='fr' ? 'h' : ':' ),
+    closestDate: inst.getClosestDate(),
+    title: inst.getTitle(),
+    image: img.replace( 'cibuldev', 'cibul' ),
+    thumbnail: inst.getThumbnail( false ),
+    description: inst.getDescription(),
+    placeName: inst.getLocationName(),
+    organization: event.organization ? { slug: event.organizationSlug, label: event.organization } : false
+  } );
+
+}
+
+
+function _formatShowLinks( req, res, next ) {
+
+  req.templateData.events.forEach( function( e ) {
+
+    e.link = req.genUrl( 'agendaEventShow', { 
+      slug: req.agenda.slug,
+      eventSlug : e.slug,
+      lang : req.lang 
+    } );
+
+    e.importUri = req.genUrl( 'eventActionShow', { eventSlug: e.slug } );
+
+  });
+
+  next();
+
+}
+
+
+function _formatEmbedLinks( req, res, next ) {
+
+  req.templateData.events.forEach( function( e ) {
+
+    e.link = req.genUrl( 'agendaEmbedEventShow', { 
+      uid: req.agenda.uid,
+      eventUid: e.uid,
+      lang: req.lang
+    });
+
+  } );
+
+  next();
 
 }
 
@@ -254,6 +349,7 @@ function _formatEmbedData( req, res, next ) {
 
 function _loadTemplateUris( req, res, next ) {
 
+  // only used for event item render
   req.templateData.eventUri = modes[ req.mode ].eventUri;
 
   req.templateData.base = {};

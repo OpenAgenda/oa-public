@@ -1,0 +1,22 @@
+<h1>{Title}</h1>
+<div class="event-content">
+  
+  <p class="short-description">{Description}</p>
+
+  {block:Image}
+  <img class="img-responsive" src="{Image}" alt="{Title}"/>
+  {/block:Image}
+
+  <div class="description">
+  {FreeText}
+  </div>
+
+  <section class="dates">
+    <ul>
+    {block:Timings}
+      <li>{Timing}</li>
+    {/block:Timings}
+    </ul>
+  </section>
+
+</div>

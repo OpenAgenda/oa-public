@@ -112,3 +112,20 @@ describe( 'parser with children', function() {
 
 
 });
+
+
+describe( 'something', function( ) {
+
+  var p = parser( {
+    attributes : [
+      { name: 'Title', mapTo: 'title' }
+    ]
+  });
+
+  p.load( '<h1>{Title}</h1>' );
+
+  // this test should check when strcuture has children
+  // but no children are listed in template
+  // this right now does not work
+
+} );

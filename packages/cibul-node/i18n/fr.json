@@ -88,5 +88,9 @@
   "the event could not be removed"
   : "l'événement n'a pas pu être retiré de l'agenda",
   "the event was removed from the agenda"
-  : "l'événement a été retiré de l'agenda"
+  : "l'événement a été retiré de l'agenda",
+  "%start% to %finish%"
+  : "du %start% au %finish%",
+  "%start%, %time%"
+  : "%start%, %time%"
 }

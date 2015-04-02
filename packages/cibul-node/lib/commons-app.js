@@ -65,7 +65,7 @@ router = require( './router' ),
 
 redisCli = require( 'redis' ).createClient( config.redis.port, config.redis.host ),
 
-templater = require( 'cibulTemplates/server/templater' ),
+templater = require( 'cibulTemplates' ),
 
 i18n = require( '../i18n/i18n.js' ),
 

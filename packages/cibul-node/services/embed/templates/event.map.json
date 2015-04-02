@@ -1,0 +1,23 @@
+{
+  "attributes" : [ { 
+    "name" : "Title", 
+    "mapTo" : "title" 
+  }, {
+    "name" : "Description",
+    "mapTo" : "description"
+  }, {
+    "name" : "FreeText",
+    "mapTo" : "freeText"
+  }, {
+    "name" : "Image",
+    "mapTo" : "image"
+  } ],
+  "children" : [ {
+    "name" : "Timings",
+    "mapTo" : "timings",
+    "attributes" : [ {
+      "name" : "Timing",
+      "mapTo" : "label"
+    } ]
+  } ]
+}

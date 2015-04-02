@@ -6,13 +6,20 @@ config = require( '../config' ),
 
 lib = require( '../lib/lib' ),
 
+embedSvc = require( '../services/embed/embed' ),
+
+timeHelper = require( 'cibulTemplates' ).helpers.time,
+
+textHelper = require( 'cibulTemplates' ).helpers.text(),
+
 path,
 
 routes = {
 
   agendaEventShow: [ 'get', '/:slug/events/:eventSlug', [
     cmn.loadAgenda( 'slug' ), 
-    _loadEvent( 'eventSlug', 'slug' ), 
+    _loadEvent( 'eventSlug', 'slug' ),
+    _format,
     cmn.loadBaseData( _layoutData, 'oa.css' ),
     agendaEventShow
   ] ],
@@ -20,7 +27,9 @@ routes = {
   agendaEmbedEventShow: [ 'get', '/agendas/:uid/embed/events/:eventUid', [
     cmn.loadAgenda( 'uid' ),
     _loadEvent( 'eventUid', 'uid' ),
-    cmn.loadBaseData( _layoutData, 'embedDefault.css' ),
+    _format,
+    embedSvc.mw.renderEvent,
+    cmn.loadBaseData( _layoutData, 'oa.css' ),
     agendaEmbedEventShow
   ] ],
 
@@ -111,15 +120,11 @@ function agendaEventShow( req, res ) {
 
 function agendaEmbedEventShow( req, res ) {
 
-  _addLanguageLinks( req, 'agendaEmbedEventShow', { 
-    uid: req.params.uid,
-    eventUid: req.params.eventUid
-  } );
+  // backUri: 'embedShow',
+  // backQuery: { uid: req.params.uid }
 
   cmn.render( req, res, 'event/embedShow', {
-    event: req.formattedEvent,
-    backUri: 'embedShow',
-    backQuery: { uid: req.params.uid }
+    eventRender: req.render
   } );
 
 }
@@ -256,6 +261,8 @@ function _addLanguageLinks( req, uri, uriParams ) {
 }
 
 
+
+// move this to service as in agenda front controller
 function _loadEvent( queryParam, fieldName ) {
 
   return function( req, res, next ) {
@@ -328,6 +335,97 @@ function _selectLanguage( req, res ) {
 /**
  * prepare event data fitting template requirements
  */
+
+function _format( req, res, next ) {
+
+  var formatted = {},
+
+  _t = timeHelper( { lang: req.lang } );
+
+  async.series([
+    req.event.getOwner,
+    req.event.getAgendaReferences,
+    req.event.getAdminAgendas
+  ], function( err, results ) {
+
+    if ( err ) return next( err );
+
+    formatted = {
+      uid: req.event.uid,
+      slug: req.event.slug,
+      title: req.event.getTitle(),
+      image: req.event.getImage( true ).replace('cibuldev', 'cibul'),
+      dateRange: req.event.getDateRange( true ),
+      isUpcoming: req.event.isUpcoming(),
+      description: req.event.getDescription(),
+      freeText: textHelper.nl2br( req.event.getEnrichedFreeText() ),
+      tags: req.event.getTags(),
+      placeName: false,
+      address: false,
+      latitude: false,
+      longitude: false,
+      timings: [],
+      owner: results[ 0 ],
+      agendaReferences: results[ 1 ],
+      adminAgendas: results[ 2 ],
+      languages: false
+    };
+
+    if ( req.event.locations.length ) {
+
+      location = req.event.locations[ 0 ];
+
+      deepExtend( formatted, {
+        placeName: location.name,
+        address: location.address,
+        latitude: location.latitude,
+        longitude: location.longitude,
+        timings: location.timings,
+        region: location.region,
+        city: location.city,
+        postalCode: location.postcode,
+        ticketLink: false
+      } );
+
+      if ( location.ticketLink ) {
+
+        formatted.ticketLink = location.ticketLink;
+
+      }
+
+      if ( location.pricingInfo ) {
+
+        formatted.pricingInfo = location.pricingInfo[ req.event.getCurrentLanguage() ];
+        
+      }
+      
+    }
+
+    if ( req.event.getLanguages().length > 1 ) {
+
+      formatted.languages = {
+        current: req.event.getCurrentLanguage(),
+        selection: req.event.getLanguages()
+      };
+
+    }
+
+    formatted.timings.forEach( function( timing ) {
+
+      timing.label = _t( timing.start, 'dddd Do - HH:mm' );
+
+    });
+
+    formatted.importUri = req.genUrl( 'eventActionShow', { eventSlug: req.event.slug } );
+
+    req.event = formatted;
+
+    next();
+
+  } );
+
+}
+
 
 function _formatEvent( req, res ) {
 
@@ -411,11 +509,9 @@ function _formatEvent( req, res ) {
 
       }
 
-
       req.formattedEvent.importUri = req.genUrl( 'eventActionShow', { eventSlug: req.event.slug } );
 
       resolve();
-
 
     });
 
@@ -478,14 +574,14 @@ function _layoutData( req, res ) {
 
   var data = {
     metas: {
-      title: req.event.getTitle(),
+      title: req.event.title,
       ogSiteName: { property: 'og:site_name', content: 'Cibul' },
-      ogTitle: { property: 'og:title', content: req.event.getTitle() },
-      ogDescription: { property: 'og:description', content: req.event.getDescription() },
+      ogTitle: { property: 'og:title', content: req.event.title },
+      ogDescription: { property: 'og:description', content: req.event.description },
       ogLocale: { property: 'og:locale', content: req.lang },
       "twitter:card" : "summary_large_image",
-      "twitter:title" : req.event.getTitle(),
-      "twitter:description" : req.event.getDescription(),
+      "twitter:title" : req.event.title,
+      "twitter:description" : req.event.description,
       "twitter:domain" : config.domain
     },
     loner: !req.agenda
@@ -511,7 +607,7 @@ function _layoutData( req, res ) {
 
   }
 
-  if ( req.event.getLanguages().length > 1 ) {
+  if ( req.event.getLanguages && req.event.getLanguages().length > 1 ) {
 
     if ( !data.headLinks ) data.headLinks = [];
 
@@ -526,8 +622,8 @@ function _layoutData( req, res ) {
   if ( req.event.image ) {
 
     lib.extend( data.metas, {
-      ogImage: { property: 'og:image', content: req.event.getImage( true ) },
-      "twitter:image:src" : req.event.getImage( true )
+      ogImage: { property: 'og:image', content: req.event.image},
+      "twitter:image:src" : req.event.image
     });
 
   }
@@ -538,8 +634,8 @@ function _layoutData( req, res ) {
   };
 
   data.scriptParams = {
-    ownerUid: req.formattedEvent.owner.uid,
-    adminAgendaUids: req.formattedEvent.adminAgendas ? req.formattedEvent.adminAgendas.map( function( a ) { return a.uid; } ) : []
+    ownerUid: req.event.owner.uid,
+    adminAgendaUids: req.event.adminAgendas ? req.event.adminAgendas.map( function( a ) { return a.uid; } ) : []
   };
 
   return data;
