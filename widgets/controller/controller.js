@@ -8,6 +8,8 @@ remote = require( '../../js/lib/remote/remote.mod.js' ),
 
 filters = require( './filters' ),
 
+geoLib = require( './geolocate' ),
+
 qs = require( 'qs' ),
 
 env = window.env ? window.env : 'prod',
@@ -87,25 +89,27 @@ module.exports = function( uid ) {
 
       ctl = data;
 
-      _initCurrentRequestParams();
+      if ( typeof _readHrefQuery().geolocate !== 'undefined' ) {
 
-      _processWidgetCtlRequests( false );
+        geoLib( ctl, _readHrefQuery( 'geolocate' ), function( err, cornerParams ) {
 
-      ready = true;
+          if ( err ) {
 
-      // hack to allow some widgets to run getControlData callback once all
-      // is declared ready, 
-      _processWidgetCtlRequests( true );
+            _init();
 
-      log( 'controller will sync with href ? %s', ctl.sh ? 'yes' : 'no' );
+          } else {
 
-      if ( ctl.sh ) {
+            _init( cornerParams );
 
-        _forEachWidget( 'change', currentRequestParams );
+          }
+
+        } );
+
+      } else {
+
+        _init();
 
       }
-
-      sweep();
       
     });
 
@@ -122,6 +126,31 @@ module.exports = function( uid ) {
     }
 
   })();
+
+
+  function _init( initParams ) {
+
+    _initCurrentRequestParams( initParams );
+
+    _processWidgetCtlRequests( false );
+
+    ready = true;
+
+    // hack to allow some widgets to run getControlData callback once all
+    // is declared ready, 
+    _processWidgetCtlRequests( true );
+
+    log( 'controller will sync with href ? %s', ctl.sh ? 'yes' : 'no' );
+
+    if ( ctl.sh ) {
+
+      _forEachWidget( 'change', currentRequestParams );
+
+    }
+
+    sweep();
+
+  }
 
 
   /**
@@ -314,9 +343,20 @@ module.exports = function( uid ) {
   }
 
 
-  function _initCurrentRequestParams() {
+  function _initCurrentRequestParams( overridingParams ) {
 
     var today = new Date();
+
+    if ( typeof overridingParams !== 'undefined' ) {
+
+      currentRequestParams = overridingParams;
+
+      if ( ctl.sh ) _updateHrefQuery( currentRequestParams );
+
+      return;
+
+    }
+
 
     if ( ctl.sh ) {
 
