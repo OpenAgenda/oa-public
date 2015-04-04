@@ -77,49 +77,6 @@
     width: 50px;
   }
 
-  // Search select disabled
-  // .search-select {
-  //   margin: 0;
-  //   overflow: hidden;
-  //   padding: 0;
-  //   padding-right: 10px;
-  //   position: relative;
-
-  //   select {
-  //     background-color: transparent;
-  //     border: 0;
-  //     box-shadow: none;
-  //     color: $oa-gray;
-  //     height: 100%;
-  //     padding: 0 10px;
-  //     position: relative;
-  //     width: 130%;
-  //     z-index: 1;
-
-  //     &:focus {
-  //       background: rgba(65, 172, 221, 0.025);
-  //       outline: none;
-
-  //       &:-moz-focusring {
-  //         color: rgba(0,0,0,0);
-  //         text-shadow: 0 0 0 #000;
-  //       }
-  //     }
-  //   }
-
-  //   .caret {
-  //     color: $oa-silver;
-  //     position: absolute;
-  //     top: 25px;
-  //     right: 10px;
-  //   }
-
-  //   &:hover {
-  //     .caret {
-  //       color: $oa-blue;
-  //     }
-  //   }
-  // }
 }
 
 .avatar-container {

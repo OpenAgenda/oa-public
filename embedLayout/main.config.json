@@ -1,12 +1,7 @@
 {
-  "embedCss" : {
-    "base" : "../css/base.css",
-    "global" : "../css/global/embed.css",
-    "structure" : "../structure/css/structure.css",
-    "baseList" : "../eventLists/css/base.css",
-    "agendaList" : "../eventLists/css/agenda.css"
+  "oaeCss" : {
+    "openagendaembed" : "../openagenda/css/openagendaembed.css"
   },
-
 
   "base" : {
     "metas" : {

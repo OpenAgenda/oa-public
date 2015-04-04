@@ -1,8 +1,10 @@
 {
   "layout" : "bsLayout/main",
+
   "oaCss" : {
     "leaflet" : "../css/leaflet-0.7.3.css"
   },
+  
   "helpers" : {
     "_t" : "time",
     "_i" : "image",
