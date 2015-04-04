@@ -11,7 +11,14 @@
   }, {
     "name" : "Image",
     "mapTo" : "image"
+  }, {
+    "name" : "BackLink",
+    "mapTo" : "backLink"
+  }, {
+    "name" : "BackLabel",
+    "mapTo" : "backLabel"
   } ],
+
   "children" : [ {
     "name" : "Timings",
     "mapTo" : "timings",

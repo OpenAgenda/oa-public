@@ -284,7 +284,7 @@ config = {
     mainChannel: 'maindev',
     logNameSpaces: 'oa:*',
     db: {
-      database: 'cibuldev',
+      database: 'oadev',
       host: 'localhost',
       user: 'root',
       password: 'grut',

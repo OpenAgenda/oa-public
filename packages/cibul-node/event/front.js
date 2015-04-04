@@ -6,11 +6,15 @@ config = require( '../config' ),
 
 lib = require( '../lib/lib' ),
 
+agendaSvc = require( '../services/agenda/agenda' ),
+
 embedSvc = require( '../services/embed/embed' ),
 
 timeHelper = require( 'cibulTemplates' ).helpers.time,
 
 textHelper = require( 'cibulTemplates' ).helpers.text(),
+
+i18n = require( '../i18n/i18n' ),
 
 path,
 
@@ -18,6 +22,7 @@ routes = {
 
   agendaEventShow: [ 'get', '/:slug/events/:eventSlug', [
     cmn.loadAgenda( 'slug' ), 
+    agendaSvc.mw.load( 'slug' ),
     _loadEvent( 'eventSlug', 'slug' ),
     _format,
     cmn.loadBaseData( _layoutData, 'oa.css' ),
@@ -25,19 +30,24 @@ routes = {
   ] ],
 
   agendaEmbedEventShow: [ 'get', '/agendas/:uid/embed/events/:eventUid', [
-    cmn.loadAgenda( 'uid' ),
+    agendaSvc.mw.load( 'uid' ),
     _loadEvent( 'eventUid', 'uid' ),
     _format,
+    _formatEmbedLinks,
     embedSvc.mw.renderEvent,
-    cmn.loadBaseData( _layoutData, 'oa.css' ),
+    cmn.loadBaseData( _layoutData, 'oae.css' ),
     agendaEmbedEventShow
   ] ],
 
   agendaCustomEmbedEventShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events/:eventUid', [
-    cmn.loadAgenda( 'uid' ),
+    agendaSvc.mw.load( 'uid' ),
+    embedSvc.mw.load( 'embedUid', 'uid' ),
     _loadEvent( 'eventUid', 'uid' ),
-    cmn.loadBaseData( _layoutData, 'embedDefault.css' ),
-    agendaCustomEmbedEventShow 
+    _format,
+    _formatCustomEmbedLinks,
+    embedSvc.mw.renderEvent,
+    cmn.loadBaseData( _layoutData, 'oae.css' ),
+    agendaEmbedEventShow 
   ] ],
 
   eventShow: [ 'get', '/events/:eventSlug', [ 
@@ -137,6 +147,8 @@ function agendaCustomEmbedEventShow( req, res ) {
     embedUid: req.params.embedUid,
     eventUid: req.params.eventUid
   } );
+
+  // back link needs to
 
   cmn.render( req, res, 'event/embedShow', { 
     event: req.formattedEvent, 
@@ -423,6 +435,33 @@ function _format( req, res, next ) {
     next();
 
   } );
+
+}
+
+
+function _formatCustomEmbedLinks( req, res, next ) {
+
+  req.event.backLink = req.genUrl( 'customEmbedShow', { 
+    uid: req.params.uid, 
+    embedUid: req.params.embedUid
+  } );
+
+  req.event.backLabel = i18n( 'back', req.lang );
+
+  next();
+
+}
+
+
+function _formatEmbedLinks( req, res, next ) {
+
+  req.event.backLink = req.genUrl( 'embedShow', {
+    uid: req.params.uid
+  } );
+
+  req.event.backLabel = i18n( 'back', req.lang );
+
+  next();
 
 }
 

@@ -33,13 +33,21 @@ module.exports = function( embedService ) {
 
 function renderEventItems( req, res, next ) {
 
+  var template = tblr.eventItem;
+
+  if ( req.embed ) {
+
+    template = req.embed.getTemplate( 'eventitem' ) || template;
+
+  }
+
   if ( !req.renders ) req.renders = {};
 
   req.renders.eventItems = [];
 
   var eventItemParser = parserLib( tblr.eventItemMapping );
 
-  eventItemParser.load( tblr.eventItem );
+  eventItemParser.load( template );
 
   req.events.forEach( function( e ) {
 
@@ -55,9 +63,17 @@ function renderEventItems( req, res, next ) {
 
 function renderEvent( req, res, next ) {
 
-  var eventParser = parserLib( tblr.eventMapping );
+  var eventParser = parserLib( tblr.eventMapping ),
 
-  eventParser.load( tblr.event );
+  template = tblr.event;
+
+  if ( req.embed ) {
+
+    template = req.embed.getTemplate( 'event' ) || template;
+
+  }
+
+  eventParser.load( template );
 
   req.render = eventParser.render( req.event );
 

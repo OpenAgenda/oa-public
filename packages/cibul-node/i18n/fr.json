@@ -92,5 +92,7 @@
   "%start% to %finish%"
   : "du %start% au %finish%",
   "%start%, %time%"
-  : "%start%, %time%"
+  : "%start%, %time%",
+  "back"
+  : "retour"
 }

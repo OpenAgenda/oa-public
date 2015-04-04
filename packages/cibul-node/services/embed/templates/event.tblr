@@ -1,3 +1,4 @@
+<a href="{BackLink}">{BackLabel}</a>
 <h1>{Title}</h1>
 <div class="event-content">
   
@@ -13,9 +14,9 @@
 
   <section class="dates">
     <ul>
-    {block:Timings}
+{block:Timings}
       <li>{Timing}</li>
-    {/block:Timings}
+{/block:Timings}
     </ul>
   </section>
 

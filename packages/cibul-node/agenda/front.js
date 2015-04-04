@@ -70,22 +70,23 @@ routes = {
     _format,
     _formatEmbedLinks,
     embedSvc.mw.renderEventItems,
-    showXhr( 'agenda/show' ),
-    cmn.loadBaseData( _layoutData, 'oa.css' ),
+    showXhr( 'agenda/show' ), // this needs to change
+    cmn.loadBaseData( _layoutData, 'oae.css' ),  // this needs to switch to embed base css ( can be deactivated )
     embedShow
   ] ],
   
   customEmbedShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events', [ 
     agendaSvc.mw.load( 'uid' ),
     embedSvc.mw.load( 'embedUid', 'uid' ),
-    _formatAgendaData( 'customEmbed' ),
+    agendaSvc.mw.search( perPage ),
+    _format,
     _formatEmbedData,
-    _loadEvents,
-    _loadTemplateUris,
-    cmn.loadBaseData( _layoutData, 'embedDefault.css' ),
-    _loadCustomLayoutData,
+    _formatCustomEmbedLinks,
     embedSvc.mw.renderEventItems,
-    show
+    showXhr( 'agenda/show'),
+    cmn.loadBaseData( _layoutData, 'oae.css' ),
+    _loadCustomLayoutData,
+    embedShow
   ] ],
   
   agendaShow: [ 'get', '/:slug', [ 
@@ -171,6 +172,7 @@ function embedShow( req, res ) {
   lib.extend( req.templateData, {
     uid: req.agenda.uid,
     isEmpty: req.agenda.isEmpty,
+    renders: req.renders,
     pager: {
       base: { uid: req.agenda.uid },
       routeName: 'agendaEmbedShow',
@@ -217,18 +219,22 @@ function controlData( req, res ) {
 
 function _format( req, res, next ) {
 
-  var _t = timeHelper( { lang: req.lang } );
+  var _t = timeHelper( { lang: req.lang } ),
+
+  formattedEvents = req.events.map( function( e ) { 
+
+    return _formatEvent( e, _t, req.lang );
+    
+  } );
 
   req.templateData = {
-    events: req.events.map( function( e ) { 
-
-      return _formatEvent( e, _t, req.lang );
-      
-    } ),
+    events: formattedEvents,
     hasSearchQuery: !!lib.size( req.query.search ),
     passed: req.agenda.passed,
     total: req.total
   };
+
+  req.events = formattedEvents;
 
   next();
 
@@ -282,6 +288,23 @@ function _formatEmbedLinks( req, res, next ) {
 
     e.link = req.genUrl( 'agendaEmbedEventShow', { 
       uid: req.agenda.uid,
+      eventUid: e.uid,
+      lang: req.lang
+    });
+
+  } );
+
+  next();
+
+}
+
+function _formatCustomEmbedLinks( req, res, next ) {
+
+  req.templateData.events.forEach( function( e ) {
+
+    e.link = req.genUrl( 'agendaCustomEmbedEventShow', {
+      uid: req.agenda.uid,
+      embedUid: req.embed.uid,
       eventUid: e.uid,
       lang: req.lang
     });

@@ -20,7 +20,7 @@ module.exports.mw = require( './middleware' )( module.exports );
 
 function get( params, cb ) {
 
-  model.agendas().get( params, function( err, result ) {
+  model.reviewEmbeds().get( params, function( err, result ) {
 
     if ( err ) return cb( err );
 
@@ -34,7 +34,6 @@ function instanciate( data ) {
 
   var instance = model.reviewEmbeds().instance( data );
 
-  return lib.extend( {}, instance, {
-  });
+  return lib.extend( {}, instance );
 
 }
