@@ -614,14 +614,14 @@ function _layoutData( req, res ) {
 
   var data = {
     metas: {
-      title: req.event.title,
+      title: req.formatted.title,
       ogSiteName: { property: 'og:site_name', content: 'Cibul' },
-      ogTitle: { property: 'og:title', content: req.event.title },
-      ogDescription: { property: 'og:description', content: req.event.description },
+      ogTitle: { property: 'og:title', content: req.formatted.title },
+      ogDescription: { property: 'og:description', content: req.formatted.description },
       ogLocale: { property: 'og:locale', content: req.lang },
       "twitter:card" : "summary_large_image",
-      "twitter:title" : req.event.title,
-      "twitter:description" : req.event.description,
+      "twitter:title" : req.formatted.title,
+      "twitter:description" : req.formatted.description,
       "twitter:domain" : config.domain
     },
     loner: !req.agenda
