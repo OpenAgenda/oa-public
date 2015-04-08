@@ -51,7 +51,8 @@ routes = {
   ] ],
 
   eventShow: [ 'get', '/events/:eventSlug', [ 
-    _loadEvent( 'eventSlug', 'slug' ), 
+    _loadEvent( 'eventSlug', 'slug' ),
+    _format,
     cmn.loadBaseData( _layoutData, 'oa.css' ),
     show
   ] ],
