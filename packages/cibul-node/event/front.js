@@ -123,7 +123,7 @@ function agendaEventShow( req, res ) {
     eventSlug: req.params.eventSlug
   } );
   
-  cmn.render( req, res, 'event/show', { event: req.event } );
+  cmn.render( req, res, 'event/show', { event: req.formatted } );
 
 }
 
@@ -151,7 +151,7 @@ function agendaCustomEmbedEventShow( req, res ) {
   // back link needs to
 
   cmn.render( req, res, 'event/embedShow', { 
-    event: req.formattedEvent, 
+    event: req.formatted, 
     backUri: 'customEmbedShow',
     backQuery: { uid: req.params.uid, embedUid: req.params.embedUid }
   } );
@@ -165,7 +165,7 @@ function show( req, res ) {
     eventSlug: req.params.eventSlug
   } );
 
-  cmn.render( req, res, 'event/show', { event: req.formattedEvent } );
+  cmn.render( req, res, 'event/show', { event: req.formatted } );
 
 }
 
@@ -259,7 +259,7 @@ function _addLanguageLinks( req, uri, uriParams ) {
 
   if ( !req.formattedEvent.languages ) return;
 
-  req.formattedEvent.languages.selection.forEach( function( lang ) {
+  req.formatted.languages.selection.forEach( function( lang ) {
 
     linkedLanguages.push({
       label: lang,
@@ -268,7 +268,7 @@ function _addLanguageLinks( req, uri, uriParams ) {
 
   });
 
-  req.formattedEvent.languages.selection = linkedLanguages;
+  req.formatted.languages.selection = linkedLanguages;
 
 }
 
@@ -430,7 +430,7 @@ function _format( req, res, next ) {
 
     formatted.importUri = req.genUrl( 'eventActionShow', { eventSlug: req.event.slug } );
 
-    req.event = formatted;
+    req.formatted = formatted;
 
     next();
 
@@ -441,12 +441,12 @@ function _format( req, res, next ) {
 
 function _formatCustomEmbedLinks( req, res, next ) {
 
-  req.event.backLink = req.genUrl( 'customEmbedShow', { 
+  req.formatted.backLink = req.genUrl( 'customEmbedShow', { 
     uid: req.params.uid, 
     embedUid: req.params.embedUid
   } );
 
-  req.event.backLabel = i18n( 'back', req.lang );
+  req.formatted.backLabel = i18n( 'back', req.lang );
 
   next();
 
@@ -455,11 +455,11 @@ function _formatCustomEmbedLinks( req, res, next ) {
 
 function _formatEmbedLinks( req, res, next ) {
 
-  req.event.backLink = req.genUrl( 'embedShow', {
+  req.formatted.backLink = req.genUrl( 'embedShow', {
     uid: req.params.uid
   } );
 
-  req.event.backLabel = i18n( 'back', req.lang );
+  req.formatted.backLabel = i18n( 'back', req.lang );
 
   next();
 

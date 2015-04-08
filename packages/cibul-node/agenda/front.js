@@ -253,7 +253,7 @@ function _formatEvent( event, _t, lang ) {
     dateRange: i18n( dateRange[ 0 ], _t( dateRange[1] ), lang ).replace( ':', lang=='fr' ? 'h' : ':' ),
     closestDate: inst.getClosestDate(),
     title: inst.getTitle(),
-    image: img.replace( 'cibuldev', 'cibul' ),
+    image: img ? img.replace( 'cibuldev', 'cibul' ) : false,
     thumbnail: inst.getThumbnail( false ),
     description: inst.getDescription(),
     placeName: inst.getLocationName(),

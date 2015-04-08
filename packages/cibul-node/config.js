@@ -283,6 +283,7 @@ config = {
     multiCore: false,
     mainChannel: 'maindev',
     logNameSpaces: 'oa:*',
+    //logNameSpaces: '*',
     db: {
       database: 'oadev',
       host: 'localhost',

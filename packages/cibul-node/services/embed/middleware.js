@@ -63,21 +63,51 @@ function renderEventItems( req, res, next ) {
 
 function renderEvent( req, res, next ) {
 
-  var eventParser = parserLib( tblr.eventMapping ),
+  var mapping = tblr.eventMapping, 
 
-  template = tblr.event;
+  template = tblr.event,
+
+  eventParser;
 
   if ( req.embed ) {
+
+    mapping = req.embed.getMapping( 'event' ) || mapping;
 
     template = req.embed.getTemplate( 'event' ) || template;
 
   }
 
+  eventParser = parserLib( mapping );
+
   eventParser.load( template );
 
-  req.render = eventParser.render( req.event );
 
-  next();
+  if ( req.embed.getMapping( 'event' ) ) {
+
+    req.event.loadStoreValues( true, function( err, values ) {
+
+      if ( err ) return next( err );
+
+      for( var i in values ) {
+
+        req.formatted[ i ] = values[ i ];
+
+      }
+
+      req.render = eventParser.render( req.formatted );
+
+      next();
+
+    });  
+
+  } else {
+
+    req.render = eventParser.render( req.formatted );
+
+    next();
+    
+  }
+
 
 }
 
