@@ -79,7 +79,7 @@ module.exports = function( eh, options ) {
 
   _defineUrl = function() {
 
-    var env = window.env ? window.env : 'all',
+    var env = window.env ? window.env : 'prod',
 
     url = params.url[ env ];
 
@@ -145,7 +145,7 @@ module.exports = function( eh, options ) {
 
     if (!Cookies.get(params.cookie)) throw 'no cookie';
 
-    var values = JSON.parse(Base64.decode(Cookies.get(params.cookie)));
+    var values = JSON.parse( Base64.decode(Cookies.get(params.cookie)) );
 
     return (typeof values[name] == 'undefined')?defaultValue:values[name];
   },
