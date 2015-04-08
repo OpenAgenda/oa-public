@@ -1,5 +1,5 @@
-var debug = require('debug'),
+var debug = require( 'debug' ),
 
-log = debug('globals');
+log = debug( 'globals' );
 
 window.handleGlobals = require('../../layout/js/main');

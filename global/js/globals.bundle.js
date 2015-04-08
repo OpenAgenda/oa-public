@@ -1,10 +1,10 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var debug = require('debug'),
+var debug = require( 'debug' ),
 
-log = debug('globals');
+log = debug( 'globals' );
 
 window.handleGlobals = require('../../layout/js/main');
-},{"../../layout/js/main":22,"debug":2}],2:[function(require,module,exports){
+},{"../../layout/js/main":23,"debug":2}],2:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -2522,9 +2522,13 @@ remote = require( '../../js/lib/remote/remote.mod.js' ),
 
 store = require( 'store' ),
 
+useCache = true,
+
 routePrefix = '/templates/',
 
 storePrefix = 'templates:',
+
+i18n = require( './i18n' ),
 
 async = require( 'async' );
 
@@ -2557,7 +2561,13 @@ module.exports = function( templateName, options, cb  ) {
 
     }
 
-    if ( window.env == 'tpl' ) routePrefix = '/';
+    if ( window.env == 'tpl' ) {
+
+      routePrefix = '/';
+
+      useCache = false;
+
+    }
 
     cn.extend( params, options );
 
@@ -2570,7 +2580,7 @@ module.exports = function( templateName, options, cb  ) {
       labels = l;
 
       helpers = {
-        __ : _loadTranslator( labels ),
+        __ : i18n( labels ),
         genUrl : _loadGenUrl( params.urls )
       };
 
@@ -2627,7 +2637,7 @@ function _loadLabels( name, lang, cb ) {
 
   if ( lang == 'en' ) return cb( null, labels );
 
-  if ( store.enabled ) {
+  if ( store.enabled && useCache ) {
 
     labels = store.get( storePrefix + name + '.' + lang + '.json');
 
@@ -2646,7 +2656,7 @@ function _loadLabels( name, lang, cb ) {
 
 function _loadEjs( name, cb ) {
 
-  if ( store.enabled ) {
+  if ( store.enabled && useCache ) {
 
     labels = store.get( storePrefix + name + '.ejs');
 
@@ -2679,7 +2689,7 @@ function _fetchAndStore( filename, parse, cb ) {
 
     if ( parse ) content = JSON.parse( content );
 
-    if ( store.enabled ) {
+    if ( store.enabled && useCache ) {
 
       store.set( storePrefix + filename, content );
 
@@ -2711,36 +2721,6 @@ function _loadGenUrl( urls ) {
 }
 
 
-/**
- * load translator
- */
-
-function _loadTranslator( labels ) {
-
-  return function( label, values ) {
-
-    if ( !values ) values = {};
-
-    var translation = label;
-
-    if ( labels && labels[label] ) {
-
-      translation = labels[label];
-
-    }
-
-    for (var key in values) {
-
-      translation = translation.replace(key, values[key]);
-
-    }
-
-    return translation;
-
-  };
-
-}
-
 
 /**
  * check against lastUpdate value in store
@@ -2762,7 +2742,7 @@ function _checkAndClearTemplates( lastUpdate ) {
   store.set('lastTemplateUpdate', lastUpdate );
 
 };
-},{"../../js/lib/clientEjs/ejs":9,"../../js/lib/common/common.mod.js":10,"../../js/lib/remote/remote.mod.js":12,"async":25,"store":29}],15:[function(require,module,exports){
+},{"../../js/lib/clientEjs/ejs":9,"../../js/lib/common/common.mod.js":10,"../../js/lib/remote/remote.mod.js":12,"./i18n":21,"async":27,"store":31}],15:[function(require,module,exports){
 var cn = require( '../../js/lib/common/common.mod.js' ),
 
 debug = require('debug'),
@@ -2823,7 +2803,7 @@ module.exports = function() {
   } );
 
 }
-},{"../../js/lib/common/common.mod.js":10,"../../js/lib/lightbox/lightbox.mod":11,"debug":26}],16:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":10,"../../js/lib/lightbox/lightbox.mod":11,"debug":28}],16:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 b64 = require('../../js/lib/Base64/Base64.mod.js'),
@@ -2938,7 +2918,7 @@ var scan = function() {
   });
 
 };
-},{"../../home/js/action.js":5,"../../js/lib/common/common.mod.js":10,"debug":26}],18:[function(require,module,exports){
+},{"../../home/js/action.js":5,"../../js/lib/common/common.mod.js":10,"debug":28}],18:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 params = {
@@ -3067,7 +3047,7 @@ module.exports = function( eh, options ) {
 
   _defineUrl = function() {
 
-    var env = window.env ? window.env : 'all',
+    var env = window.env ? window.env : 'prod',
 
     url = params.url[ env ];
 
@@ -3133,7 +3113,7 @@ module.exports = function( eh, options ) {
 
     if (!Cookies.get(params.cookie)) throw 'no cookie';
 
-    var values = JSON.parse(Base64.decode(Cookies.get(params.cookie)));
+    var values = JSON.parse( Base64.decode(Cookies.get(params.cookie)) );
 
     return (typeof values[name] == 'undefined')?defaultValue:values[name];
   },
@@ -3212,11 +3192,15 @@ module.exports = function( eh, options ) {
 
 };
 },{"../../js/lib/Base64/Base64.mod.js":7,"../../js/lib/common/common.mod.js":10,"../../js/lib/remote/remote.mod.js":12,"../../js/vendors/Cookies-master/src/cookies.js":13}],20:[function(require,module,exports){
+"use strict";
+
 var cn = require( '../../js/lib/common/common.mod.js' ),
 
 cTemplater = require( './clientTemplater' ),
 
 b64 = require( '../../js/lib/Base64/Base64.mod.js' ),
+
+toggle = require( './toggle' ),
 
 params = {
   selectors: {
@@ -3244,6 +3228,9 @@ module.exports = function( options ) {
 
   // tmp hack to avoid execution on legacy project
   if ( !languageMenu ) return;
+
+  // tmp hack to know which user template to load
+  if ( window.templates == 'bs' ) params.template = 'user/bsMenu';
 
   window.getSession( function( session ) {
 
@@ -3282,15 +3269,17 @@ module.exports = function( options ) {
 
       var rendered = template.render( session ),
 
-      li = document.createElement( 'li' );
+      ul = document.createElement( 'ul' ),
 
-      li.innerHTML = rendered;
+      li;
 
-      _hide( li );
+      ul.innerHTML = rendered;
 
-      _behave( li );
+      li = cn.el( ul, 'li' );
 
       cn.el( params.selectors.headerLinks ).insertAdjacentElement( 'beforeend', li );
+
+      toggle( li );
 
     });
 
@@ -3346,7 +3335,35 @@ _hide = function( li ) {
   cn.addClass( cn.el( li, params.selectors.dropdown ), params.classes.displayNone );
 
 };
-},{"../../js/lib/Base64/Base64.mod.js":7,"../../js/lib/common/common.mod.js":10,"./clientTemplater":14}],21:[function(require,module,exports){
+},{"../../js/lib/Base64/Base64.mod.js":7,"../../js/lib/common/common.mod.js":10,"./clientTemplater":14,"./toggle":25}],21:[function(require,module,exports){
+"use strict";
+
+module.exports = function( labelSet ) {
+
+  return function( label, values ) {
+
+    if ( !values ) values = {};
+
+    var translation = label;
+
+    if ( labelSet && labelSet[ label ] ) {
+
+      translation = labelSet[ label ];
+
+    }
+
+    for (var key in values) {
+
+      translation = translation.replace( key, values[key] );
+
+    }
+
+    return translation;
+
+  };
+
+}
+},{}],22:[function(require,module,exports){
 "use strict";
 
 var cn = require( '../../js/lib/common/common.mod.js' );
@@ -3376,7 +3393,9 @@ function getOptions( selector ) {
   return options;
 
 }
-},{"../../js/lib/common/common.mod.js":10}],22:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":10}],23:[function(require,module,exports){
+"use strict";
+
 var cn = require('../../js/lib/common/common.mod.js'),
 
 mobileMonitor = require('./handleMobileMonitor.js'),
@@ -3392,6 +3411,8 @@ loadZopim = require('./zopimLoader.js'),
 handleSession = require( './handleSession' ),
 
 headerProfile = require( './headerProfile' ),
+
+toggle = require( './toggle' ),
 
 debug = require('debug'),
 
@@ -3427,6 +3448,8 @@ cn.addEvent( window, 'load', function() {
 
   confirmMessage();
 
+  toggle();
+
   if ( [ 'test', 'tpl' ].indexOf( window.env ) == -1 ) {
 
     loadZopim( document, window, eh, { env: window.env } );
@@ -3435,7 +3458,7 @@ cn.addEvent( window, 'load', function() {
 
   flash();
 
-  _languageMenu( options.langHeadMenu );
+  //_languageMenu( options.langHeadMenu );
 
   headerProfile( options.profile );
 
@@ -3476,7 +3499,7 @@ function _languageMenu( options ) {
 
   var params = cn.extend( {
     selectors: {
-      main: 'header',
+      main: '.js_top_nav',
       langMenu: '.js_language_menu',
     }
   }, options ? options : {} ),
@@ -3493,13 +3516,15 @@ function _languageMenu( options ) {
 
   cn.addEvent( langMenuElem, 'click', function( e ) {
 
+    cn.preventDefault( e );
+
     if ( !langOn ) {
 
       langList.style.display = 'block';
 
     } else {
 
-      langList.removeAttribute('style');
+      langList.removeAttribute( 'style' );
 
     }
 
@@ -3508,7 +3533,7 @@ function _languageMenu( options ) {
   });
 
 }
-},{"../../js/lib/EventHandler/EventHandler.js":8,"../../js/lib/common/common.mod.js":10,"./confirmMessage":15,"./handleFlashMessage.js":16,"./handleMessageLinks.js":17,"./handleMobileMonitor.js":18,"./handleSession":19,"./headerProfile":20,"./layout":21,"./mobileMenu":23,"./zopimLoader.js":24,"debug":26}],23:[function(require,module,exports){
+},{"../../js/lib/EventHandler/EventHandler.js":8,"../../js/lib/common/common.mod.js":10,"./confirmMessage":15,"./handleFlashMessage.js":16,"./handleMessageLinks.js":17,"./handleMobileMonitor.js":18,"./handleSession":19,"./headerProfile":20,"./layout":22,"./mobileMenu":24,"./toggle":25,"./zopimLoader.js":26,"debug":28}],24:[function(require,module,exports){
 "use strict";
 
 var cn = require( '../../js/lib/common/common.mod.js' ),
@@ -3548,7 +3573,147 @@ module.exports = function() {
   } )
 
 }
-},{"../../js/lib/common/common.mod.js":10}],24:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":10}],25:[function(require,module,exports){
+"use strict";
+
+/**
+ * handling of bootstrap collapsed menus
+ *
+ * run once per page
+ */
+
+var cn = require('../../js/lib/common/common.mod.js'),
+
+defaults = {
+  selectors: {
+    toggler: '.js_toggle',
+    toggleTrigger: '.js_toggle_trigger' // optional
+  },
+  classes: {
+    display: 'in'
+  },
+  attributes: {
+    toggle: 'data-toggle'
+  }
+};
+
+module.exports = function( elem, options ) {
+
+  var els = [], params;
+
+  if ( cn.isElement( elem ) ) {
+
+    els = [ elem ];
+
+  } else {
+
+    options = elem;
+
+  }
+  
+  params = cn.extend( {}, defaults, options ? options : {} );
+
+  els = els.concat( cn.els( params.selectors.toggler ) );
+
+  cn.forEach( els, function( togglerElem ) {
+
+    _handleToggler( togglerElem, params );
+
+  });
+
+}
+
+function _handleToggler( elem, params ) {
+
+  var attr = elem.getAttribute( params.attributes.toggle ),
+
+  displaying = false,
+
+  targets,
+
+  trigger;
+
+  if ( !attr ) return;
+
+  elem.removeAttribute( params.attributes.toggle );
+
+  targets = cn.els( elem, '.' + attr );
+
+  trigger = cn.el( elem, params.selectors.toggleTrigger );
+
+  if ( !trigger ) trigger = elem; 
+
+  cn.addEvent( trigger, 'click', function( e ) {
+
+    displaying = !displaying;
+
+    cn.forEach( targets, function( targetElem ) {
+
+      ( displaying ? _show : _hide )( targetElem, params );
+
+    });
+
+  });
+
+  _controlHide( [ elem ].concat( targets ), params, function() {
+
+    displaying = false;
+
+  } );
+
+}
+
+function _controlHide( targets, params, onHide ) {
+
+  var clicked = false;
+
+
+  cn.forEach( targets, function( targetElem ) {
+
+    cn.addEvent( targetElem, 'click', function() {
+
+      clicked = true;
+
+      setTimeout( function() {
+
+        clicked = false;
+
+      }, 10 );
+
+    });
+
+  } );
+
+  cn.addEvent( cn.el( 'body'), 'click', function( e ) {
+
+    if ( !clicked ) {
+
+      cn.forEach( targets, function( targetElem ) {
+
+        _hide( targetElem, params );
+
+      } );
+
+      onHide();
+
+    }
+
+  } );
+
+}
+
+function _show( elem, params ) {
+
+  cn.addClass( elem, params.classes.display );
+
+}
+
+function _hide( elem, params ) {
+
+  cn.removeClass( elem, params.classes.display );
+
+}
+},{"../../js/lib/common/common.mod.js":10}],26:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 params = {
@@ -3578,7 +3743,7 @@ module.exports = function(doc, win, eh, options) {
   });
 
 };
-},{"../../js/lib/common/common.mod.js":10}],25:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":10}],27:[function(require,module,exports){
 (function (process){
 /*!
  * async
@@ -4705,7 +4870,7 @@ module.exports = function(doc, win, eh, options) {
 }());
 
 }).call(this,require('_process'))
-},{"_process":30}],26:[function(require,module,exports){
+},{"_process":32}],28:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -4854,7 +5019,7 @@ function load() {
 
 exports.enable(load());
 
-},{"./debug":27}],27:[function(require,module,exports){
+},{"./debug":29}],29:[function(require,module,exports){
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -5053,9 +5218,9 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":28}],28:[function(require,module,exports){
+},{"ms":30}],30:[function(require,module,exports){
 module.exports=require(4)
-},{"/home/kaore/Dev/www/cibul-templates/global/js/node_modules/debug/node_modules/ms/index.js":4}],29:[function(require,module,exports){
+},{"/home/kaore/Dev/www/cibul-templates/global/js/node_modules/debug/node_modules/ms/index.js":4}],31:[function(require,module,exports){
 ;(function(win){
 	var store = {},
 		doc = win.document,
@@ -5232,7 +5397,7 @@ module.exports=require(4)
 
 })(Function('return this')());
 
-},{}],30:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
