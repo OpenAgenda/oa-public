@@ -14,7 +14,7 @@ dom = require( './dom.js' ),
 
 onReady;
 
-if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
+if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) debug.enable( '*' );
 
 var widget = function( elem, options ) {
 
@@ -32,7 +32,7 @@ var widget = function( elem, options ) {
 
   requestTags = [], // tags which are in current request state
 
-  activeTags = [],  // tags which are within current event selection
+  activeTags = {},  // tags which are within current event selection
 
   passedTagSlugs = [],
 
@@ -114,7 +114,7 @@ var widget = function( elem, options ) {
     
     log( 'clearing, awaiting enable or disable to render' );
 
-    activeTags = [];
+    activeTags = {};
     passedTagSlugs = [];
     selectedTag = false;
     requestTags = false;
@@ -138,11 +138,13 @@ var widget = function( elem, options ) {
 
         }
 
-        if ( !cn.contains( activeTags, eventTag ) ) {
+        if ( typeof activeTags[ eventTag ] == 'undefined' ) {
 
-          activeTags.push( eventTag );
+          activeTags[ eventTag ] = 0;
 
         }
+
+        activeTags[ eventTag ]++;
 
         if ( eventItem.passed && !cn.contains( passedTagSlugs, eventTag ) ) {
 
@@ -168,12 +170,6 @@ var widget = function( elem, options ) {
 
     log( 'selected %s with slug %s', tag.label, tag.slug );
 
-    if ( !cn.contains( activeTags, tag.slug ) ) {
-
-      log( 'tag is not active. running it anyways' );
-
-    }
-
     _clearWidgetRequestTags();
 
     requestTags.push( tag.slug );
@@ -186,7 +182,7 @@ var widget = function( elem, options ) {
 
     cn.forEach( tags, function( tag ) {
 
-      var i = requestTags.indexOf( tag.s );
+      var i = _findIndex( requestTags, tag.s );
 
       if ( i !== -1 ) {
 
@@ -198,11 +194,30 @@ var widget = function( elem, options ) {
 
   },
 
+  _findIndex = function( arr, val ) {
+
+    var index = -1;
+
+    for ( var i = 0; i<arr.length; i++ ) {
+
+      if ( arr[ i ] === val ) {
+        
+        index = i;
+        break;
+        
+      }
+
+    }
+
+    return index;
+
+  },
+
   _onTagUnselect = function( tag ) {
 
     log( 'unselected %s with slug %s', tag.label, tag.slug );
 
-    requestTags.splice( requestTags.indexOf( tag.slug ), 1 );
+    requestTags.splice( _findIndex( requestTags, tag.slug ), 1 );
 
     _update();
 
@@ -288,11 +303,14 @@ var widget = function( elem, options ) {
 
     cn.forEach( tags, function( tag ) {
 
+      var count = ( typeof activeTags[ tag.s ] == 'undefined' ? 0 : activeTags[ tag.s ] );
+
       data.tags.push( {
         label : tag.t,
         slug : tag.s,
-        active : enabled && cn.contains( activeTags, tag.s ),
-        selected : selectedTag == tag.s
+        active : enabled && count,
+        selected : selectedTag == tag.s,
+        count: count
       } );
 
     });

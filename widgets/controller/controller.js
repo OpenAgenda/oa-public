@@ -8,6 +8,8 @@ remote = require( '../../js/lib/remote/remote.mod.js' ),
 
 filters = require( './filters' ),
 
+geoLib = require( './geolocate' ),
+
 qs = require( 'qs' ),
 
 env = window.env ? window.env : 'prod',
@@ -87,25 +89,27 @@ module.exports = function( uid ) {
 
       ctl = data;
 
-      _initCurrentRequestParams();
+      if ( typeof _readHrefQuery().geolocate !== 'undefined' ) {
 
-      _processWidgetCtlRequests( false );
+        geoLib( ctl, _readHrefQuery( 'geolocate' ), function( err, cornerParams ) {
 
-      ready = true;
+          if ( err ) {
 
-      // hack to allow some widgets to run getControlData callback once all
-      // is declared ready, 
-      _processWidgetCtlRequests( true );
+            _init();
 
-      log( 'controller will sync with href ? %s', ctl.sh ? 'yes' : 'no' );
+          } else {
 
-      if ( ctl.sh ) {
+            _init( cornerParams );
 
-        _forEachWidget( 'change', currentRequestParams );
+          }
+
+        } );
+
+      } else {
+
+        _init();
 
       }
-
-      sweep();
       
     });
 
@@ -123,6 +127,31 @@ module.exports = function( uid ) {
     }
 
   })();
+
+
+  function _init( initParams ) {
+
+    _initCurrentRequestParams( initParams );
+
+    _processWidgetCtlRequests( false );
+
+    ready = true;
+
+    // hack to allow some widgets to run getControlData callback once all
+    // is declared ready, 
+    _processWidgetCtlRequests( true );
+
+    log( 'controller will sync with href ? %s', ctl.sh ? 'yes' : 'no' );
+
+    if ( ctl.sh ) {
+
+      _forEachWidget( 'change', currentRequestParams );
+
+    }
+
+    sweep();
+
+  }
 
 
   /**
@@ -316,13 +345,24 @@ module.exports = function( uid ) {
   }
 
 
-  function _initCurrentRequestParams() {
+  function _initCurrentRequestParams( overridingParams ) {
 
     var today = new Date();
 
+    if ( typeof overridingParams !== 'undefined' ) {
+
+      currentRequestParams = overridingParams;
+
+      if ( ctl.sh ) _updateHrefQuery( currentRequestParams );
+
+      return;
+
+    }
+
+
     if ( ctl.sh ) {
 
-      currentRequestParams = _readHrefQuery( 'search' );
+      currentRequestParams = _cleanSearch( _readHrefQuery( 'search' ) );
 
     }
 
@@ -509,7 +549,7 @@ module.exports = function( uid ) {
 
         ctl.a[i].passed = _isPassed( ctl.a[i] );
 
-        _include( ctl.a[i] );
+        _include( ctl.a[i], currentRequestParams );
 
       }
     
@@ -552,13 +592,13 @@ module.exports = function( uid ) {
    * as part of sweep, tell widgets event item passed through filters
    */
   
-  function _include( item ) {
+  function _include( item, p ) {
 
     for ( var i = widgets.length - 1; i >= 0; i-- ) {
 
       if ( widgets[ i ].include ) {
 
-        widgets[i].include( item );  
+        widgets[i].include( item, p );  
 
       }
 
@@ -633,7 +673,7 @@ module.exports = function( uid ) {
 
     href = href.split( '?' )[ 0 ];
 
-    if ( !window.history ) {
+    if ( ( typeof window.history == 'undefined' ) || ( typeof window.history.pushState == 'undefined' ) ) {
 
       log( 'window.history is not available' );
 
@@ -663,7 +703,12 @@ module.exports = function( uid ) {
 
       }
 
-      window.history.pushState( updatedQuery, null, href );
+      if ( ( typeof window.history !== 'undefined' ) && ( typeof window.history.pushState !== 'undefined' ) ) {
+
+        window.history.pushState( updatedQuery, null, href );
+        
+      }
+
       
     }
 
@@ -692,6 +737,20 @@ module.exports = function( uid ) {
     }
 
     return {};
+
+  }
+
+  function _cleanSearch( search ) {
+
+    if ( !search ) return;
+
+    cn.forEach( [ 'neLat', 'neLng', 'swLat', 'swLng' ], function( f ) {
+
+      if ( search[ f ] ) search[ f ] = parseFloat( search[ f ] );
+
+    });
+
+    return search;
 
   }
 

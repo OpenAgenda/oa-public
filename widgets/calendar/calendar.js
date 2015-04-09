@@ -1,3 +1,5 @@
+"use strict";
+
 exports.setOnReady = setOnReady;
 
 var UID = 0, LANG = 1,
@@ -27,7 +29,7 @@ styler = require( '../lib/widgetStyler' ),
 onReady;
 
 
-if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
+if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) debug.enable( '*' );
 
 
 var widget = function( elem, options ) {
@@ -42,11 +44,17 @@ var widget = function( elem, options ) {
 
   calendar,
 
+  activeDates = [],
+
   existingDates = [],
 
   selection = false,
 
-  init = function() {
+  firstEnable = true;
+
+  // init settings, register widget, fetch control data, create calendar
+
+  ( function() {
 
     var uid = options.anchorConfig[ UID ];
 
@@ -79,15 +87,26 @@ var widget = function( elem, options ) {
 
       if ( data.ebd && data.ebd.dcss ) styler( style );
 
+      existingDates = _getAllDates( data );
+
       _createCalendar();
 
       if ( onReady ) onReady();
 
     });
 
-  },
+  } )();
 
-  enable = function( reqParams ) {
+
+  function enable( reqParams ) {
+
+    if ( firstEnable ) {
+
+      _setCalendarPosition();
+
+    }
+
+    firstEnable = false;
 
     selection = false;
 
@@ -114,25 +133,27 @@ var widget = function( elem, options ) {
 
     _refresh();
 
-  },
+  }
 
-  clear = function() {
 
-    existingDates = [];
+  function clear() {
+
+    activeDates = [];
 
     if ( calendar ) calendar.setSelected( false );
 
-  },
+  }
 
-  include = function( eventItem ) {
+
+  function include( eventItem ) {
 
     for ( var i in eventItem.l ) {
 
       for ( var j = eventItem.l[ i ].d.length - 1; j >= 0; j-- ) {
 
-        if ( !cn.contains( existingDates, eventItem.l[i].d[j]) ) {
+        if ( !cn.contains( activeDates, eventItem.l[i].d[j]) ) {
 
-          existingDates.push( eventItem.l[i].d[j] );
+          activeDates.push( eventItem.l[i].d[j] );
 
         }
 
@@ -140,9 +161,10 @@ var widget = function( elem, options ) {
 
     }
 
-  },
+  }
 
-  disable = function() {
+
+  function disable() {
 
     log( 'disabling calendar' );
 
@@ -150,36 +172,61 @@ var widget = function( elem, options ) {
 
     _refresh();
 
-  },
+  }
 
-  _update = function( selection ) {
 
-     log( 'updating request parameters' );
+  function _onSelect( newSelection ) {
 
-      controller.update( 'calendar', {
+    // filter out unique date selection only
+    
+    var newRange = {
+      from: _dStringify( newSelection.begin ),
+      to: _dStringify( newSelection.end )
+    },
 
-        from: [
-          selection.begin.getFullYear(),
-          ( selection.begin.getMonth() < 9 ? '0' : '' ) + ( selection.begin.getMonth() + 1 ),
-          ( selection.begin.getDate() < 10 ? '0' : '' ) + selection.begin.getDate()
-        ].join( '-' ),
+    isRelevent = false;
 
-        to: [
-          selection.end.getFullYear(),
-          ( selection.end.getMonth() < 9 ? '0' : '' ) + ( selection.end.getMonth() + 1 ),
-          ( selection.end.getDate() < 10 ? '0' : '' ) + selection.end.getDate()
-        ].join( '-' )
+    for ( var i = 0; i < existingDates.length; i++ ) {
 
-      } );
+      if ( ( existingDates[ i ] <= newRange.to )
 
-  },
+      && ( existingDates[ i ] >= newRange.from ) ) {
+
+        isRelevent = true;
+
+        break;
+
+      }
+
+    }
+
+    if ( !isRelevent ) {
+
+      calendar.setSelected( selection );
+
+    } else {
+
+      _update( newRange );
+
+    }
+
+  }
+
+
+  function _update( range ) {
+
+    log( 'updating request parameters' );
+
+    controller.update( 'calendar', range );
+
+  }
 
 
   /**
    * create calendar
    */
 
-  _createCalendar = function() {
+  function _createCalendar() {
 
     elem.innerHTML = new EJS( { text: templates.main } ).render( {} );
 
@@ -189,14 +236,65 @@ var widget = function( elem, options ) {
         return _filterCalendar( date, classes );
         
       },
-      onSelect: _update,
+      onSelect: _onSelect,
       navDomContent: { prev: '<', next: '>'},
       lang: lang
     } );
 
-  },
+  }
 
-  _filterCalendar = function( date, classes ) {
+
+  function _setCalendarPosition() {
+
+    var now = new Date(),
+
+    closestDates = [ false, false ],
+
+    refDate;
+
+    now = now.getFullYear() + '-' + _fZ( now.getMonth() + 1 ) + '-' + _fZ( now.getDate() ),
+
+    cn.forEach( activeDates, function( d ) {
+
+      if ( d >= now ) {
+
+        if ( !closestDates[ 1 ] || ( d < closestDates[ 1 ] ) ) {
+
+          closestDates[ 1 ] = d;
+
+        }
+
+      } else {
+
+        if ( !closestDates[ 0 ] || ( d > closestDates[ 0 ] ) ) {
+
+          closestDates[ 0 ] = d;
+
+        }
+
+      }
+
+    } );
+
+    refDate = closestDates[ 1 ] ? closestDates[ 1 ] : closestDates[ 0 ];
+
+    if ( !refDate ) return;
+
+    if ( refDate.substr( 0, 7 ) == now.substr( 0, 7 ) ) {
+
+      return;
+
+    }
+
+    // reference date is different from current month.
+
+    calendar.setDisplayedMonth( new Date( refDate ) );
+
+
+  }
+
+
+  function _filterCalendar( date, classes ) {
 
     var formattedDate = [ 
 
@@ -208,7 +306,7 @@ var widget = function( elem, options ) {
 
     ].join( '-' );
 
-    if ( cn.contains( existingDates, formattedDate ) ) {
+    if ( cn.contains( activeDates, formattedDate ) ) {
 
       classes.push( 'hasdates' );
 
@@ -216,9 +314,10 @@ var widget = function( elem, options ) {
 
     return classes;
 
-  },
+  }
 
-  _refresh = function() {
+
+  function _refresh() {
 
     if ( !calendar ) return;
 
@@ -245,9 +344,47 @@ var widget = function( elem, options ) {
 
   };
 
-  init();
+}
+
+function _getAllDates( data ) {
+
+  var dates = {}, datesArr = [];
+
+  for ( var i in data.a ) {
+
+    for( var l in data.a[ i ].l ) {
+
+      cn.forEach( data.a[ i ].l[ l ].d, function( d ) {
+
+        dates[ d ] = 1;
+
+      } );
+
+    }
+
+  }
+
+  for ( var d in dates ) {
+
+    datesArr.push( d );
+
+  }
+
+  return datesArr;
 
 }
+
+function _dStringify( d ) {
+
+  return [ d.getFullYear(), _fZ( d.getMonth() + 1), _fZ( d.getDate() ) ].join( '-' );
+
+}
+
+function _fZ( n ) {
+
+  return (n>9?'':'0') + n;
+
+};
 
 function setOnReady( cb ) {
 

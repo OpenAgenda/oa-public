@@ -292,6 +292,12 @@
 
 }
 
+.ag aside .listWidget li a .count {
+
+  display: none;
+
+}
+
 .ag aside .listWidget li.active a {
 
   color: #333;

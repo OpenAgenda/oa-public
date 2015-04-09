@@ -26,7 +26,7 @@ onReady,
 
 oneWidgetReady = false;
 
-if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
+if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) debug.enable( '*' );
 
 var widget = function( elem, options ) {
 
@@ -101,7 +101,15 @@ var widget = function( elem, options ) {
 
     log( 'updating with "%s"', what );
 
-    controller.update( 'search', { what: what });
+    if ( what ) {
+
+      controller.update( 'search', { what: what, location: null } );
+
+    } else {
+
+      controller.update( 'search', { what: null } );
+
+    }
 
   },
 

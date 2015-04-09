@@ -14,7 +14,7 @@ dom = require( './dom.js' ),
 
 onReady;
 
-if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
+if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) debug.enable( '*' );
 
 
 var widget = function( elem, options ) {
@@ -31,9 +31,10 @@ var widget = function( elem, options ) {
 
   categories = [], passedCategorySlugs = [],
 
-  activeCategories = [],  // categories which are within current event selection
+  activeCategories = {};  // categories which are within current event selection
+  
 
-  init = function() {
+  function init() {
 
     var uid = options.anchorConfig[ UID ];
 
@@ -72,9 +73,10 @@ var widget = function( elem, options ) {
 
     });
 
-  },
+  }
 
-  enable = function( reqParams ) {
+
+  function enable( reqParams ) {
 
     enabled = true;
 
@@ -92,29 +94,33 @@ var widget = function( elem, options ) {
 
     _render();
 
-  },
+  }
 
-  clear = function() {
+
+  function clear() {
 
     log( 'clearing, awaiting enable or disable to render' );
 
-    activeCategories = [];
+    activeCategories = {};
 
     passedCategorySlugs = [];
 
     selectedCategory = null;
 
-  },
+  }
 
-  include = function( eventItem ) {
+
+  function include( eventItem ) {
 
     if ( !eventItem.c ) return;
 
-    if ( !cn.contains( activeCategories, eventItem.c ) ) {
+    if ( typeof activeCategories[ eventItem.c ] == 'undefined' ) {
 
-      activeCategories.push( eventItem.c );
+      activeCategories[ eventItem.c ] = 0;
 
     }
+
+    activeCategories[ eventItem.c ]++;
 
     if ( eventItem.passed ) {
 
@@ -122,33 +128,30 @@ var widget = function( elem, options ) {
 
     }
 
-  },
+  }
 
-  disable = function() {
+
+  function disable() {
 
     enabled = false;
 
     _render();
 
-  },
+  }
 
-  _onCategorySelect = function( category ) {
+
+  function _onCategorySelect( category ) {
 
     log( 'selected %s with slug %s', category.label, category.slug );
-
-    if ( !cn.contains( activeCategories, category.slug ) ) {
-
-      log( 'category is not active. using anyways' );
-
-    }
 
     selectedCategory = category.slug;
 
     _update();
 
-  },
+  }
 
-  _onCategoryUnselect = function( category ) {
+
+  function _onCategoryUnselect( category ) {
 
     log( 'unselect %s with slug %s', category.label, category.slug );
 
@@ -164,10 +167,10 @@ var widget = function( elem, options ) {
 
     _update();
 
-  },
+  }
 
 
-  _update = function() {
+  function _update() {
 
     var updatedRequestParams = { category : selectedCategory };
 
@@ -179,10 +182,10 @@ var widget = function( elem, options ) {
 
     controller.update( 'categories', updatedRequestParams );
 
-  },
+  }
 
 
-  _setCategories = function( data ) {
+  function _setCategories( data ) {
 
     log( 'defining widget categories' );
 
@@ -190,9 +193,10 @@ var widget = function( elem, options ) {
 
     log( 'widget initialized with %d categories', categories.length );
 
-  },
+  }
 
-  _render = function() {
+
+  function _render() {
 
     log( 'rendering as %s', enabled ? 'enabled' : 'disabled' );
 
@@ -203,19 +207,22 @@ var widget = function( elem, options ) {
 
     cn.forEach( categories, function( category ) {
 
+      var count = ( typeof activeCategories[ category.s ] !== 'undefined' ? activeCategories[ category.s ] : 0 );
+
       data.categories.push( {
         label : category.c,
         slug : category.s,
-        active : enabled && cn.contains( activeCategories, category.s ),
+        active : enabled && count,
         className : category.cl,
-        selected : selectedCategory == category.s
+        selected : selectedCategory == category.s,
+        count : count
       } );
 
     });
 
     view.render( data );
 
-  };
+  }
 
   init();
 

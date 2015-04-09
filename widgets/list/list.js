@@ -16,7 +16,7 @@ config = {
   heightOffset: 40
 };
 
-if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) debug.enable( '*' );
+if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) debug.enable( '*' );
 
 var widget = function( elem, options ) {
 
@@ -32,7 +32,11 @@ var widget = function( elem, options ) {
 
   listPos = false,
 
-  requestParams = {}, // current know state of request params
+  initing = true,
+
+  sync, syncTimeout, queued, pending,
+
+  currentListParams = {}, // current know state of request params
 
   tunnel, // link to inside of iframe
 
@@ -50,7 +54,13 @@ var widget = function( elem, options ) {
 
     controller.getControlData( function( data ) {
 
-      autoscroll = !!data.ebd.sc;
+      autoscroll = true;
+
+      if ( data.ebd && !data.ebd.sc ) {
+
+        autoscroll = false;
+
+      }
 
       cn.addEvent( document, 'scroll', _monitorScroll );
 
@@ -106,27 +116,84 @@ var widget = function( elem, options ) {
 
   },
 
+  _isSame = function( o1, o2 ) {
+
+    return JSON.stringify( o1 ) == JSON.stringify( o2 );
+
+  }
+
   _onListChange = function( data ) {
+
+    log( 'received data from tunnel' );
+
+    pending = false;
 
     var clean = _clean( data );
 
-    for( var r in requestParams ) {
+    if ( !sync ) {
+
+      if ( _isSame( clean, currentListParams ) ) {
+
+        sync = true;
+
+        log( 'list is in sync' );
+
+      }
+
+      return _processQueued();
+
+    }
+
+    for( var r in currentListParams ) {
 
       if ( typeof clean[r] == 'undefined' ) { // active unset params
 
-        requestParams[r] = null;
+        currentListParams[r] = null;
 
       }
 
     }
 
-    for( var r in clean ) {
+    /**
+     * any value not expected to be changed by embed
+     * is filtered out before values are copied
+     */
 
-      requestParams[r] = clean[r];
+    for( var r in _filtered( clean ) ) {
+
+      currentListParams[r] = clean[r];
 
     }
 
-    _update( requestParams );
+    _update( currentListParams );
+
+    _processQueued();
+
+  },
+
+  _processQueued = function() {
+
+    if ( queued ) {
+
+      _send( queued );
+
+      queued = false;
+
+    }
+
+  },
+
+  _filtered = function( values ) {
+
+    var filteredValues = cn.extend( {}, values );
+
+    cn.forEach( [ 'neLat', 'neLng', 'swLat', 'swLng' ], function( f ) {
+
+      if ( filteredValues[ f ] ) delete filteredValues[ f ];
+
+    });
+
+    return filteredValues;
 
   },
 
@@ -136,7 +203,7 @@ var widget = function( elem, options ) {
 
     for( var i in data ) {
 
-      if ( [ 'count', 'next', 'prev', 'reset', 'event', 'page' ].indexOf( i ) == -1 ) {
+      if ( !cn.contains( [ 'count', 'next', 'prev', 'reset', 'event', 'page' ],  i ) ) {
 
         clean[ i ] = data[ i ];
 
@@ -144,25 +211,82 @@ var widget = function( elem, options ) {
 
     }
 
+    if ( clean.tags ) {
+
+      clean.tags = clean.tags.split( ',' );
+
+    }
+
+    cn.forEach( [ 'neLat', 'neLng', 'swLat', 'swLng' ], function( f ) {
+
+      if ( clean[ f ] ) clean[ f ] = parseFloat( clean[ f ] );
+
+    });
+
     return clean;
 
   },
 
   change = function( reqParams ) {
 
-    requestParams = cn.extend({
+    currentListParams = cn.extend({}, reqParams );
+
+    var sentParams = cn.extend({
       location: null,
       tags: null,
       category: null,
       from: null,
       to: null,
       what: null,
-      uid: null
+      uid: null,
+      neLat: null,
+      neLng: null,
+      swLat: null,
+      swLng: null,
+      event: config.events.load
     }, reqParams );
 
-    log( 'change of params to "%s" - sending to frame', JSON.stringify( reqParams ) );
+    log( 'change of params to "%s" - sending to frame', JSON.stringify( sentParams ) );
 
-    tunnel.send(cn.extend({ event: config.events.load  }, requestParams ));
+    if ( pending ) {
+
+      log( 'list is pending response, queuing' );
+
+      queued = sentParams;
+
+    } else {
+
+      _send( sentParams );
+
+    }
+
+  },
+
+  _send = function( data ) {
+
+    log( 'sending to frame' );
+
+    _setUnsynced();
+
+    pending = true;
+
+    tunnel.send( data );
+
+  },
+
+  _setUnsynced = function() {
+
+    if ( syncTimeout ) {
+
+      clearTimeout( syncTimeout );
+
+      syncTimeout = false;
+
+    }
+
+    sync = false;
+
+    syncTimeout = setTimeout( function() { sync = true; syncTimeout = false; }, 6000 );
 
   },
 
