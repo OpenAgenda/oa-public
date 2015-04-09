@@ -308,7 +308,7 @@ function errorResponse( req, res, error, jsonResponse ) {
 
   req.log( 'preparing error response' );
 
-  if ( error.code !== 404 ) {
+  if ( [ 401, 403, 404 ].indexOf( error.code ) == -1 ) {
 
     req.log.load( { errorStack: error.stack } );
 
@@ -318,15 +318,15 @@ function errorResponse( req, res, error, jsonResponse ) {
 
     console.error( error.stack ? error.stack : 'no stack' );
 
-    errorTemplate = 'error/500';
+    errorTemplate = 'error/show';
 
-    res.status( 500 );
+    res.code = 500;
 
   } else {
 
-    errorTemplate = 'error/404';
+    errorTemplate = 'error/show';
 
-    res.status( 404 );
+    res.code = error.code;
 
   }
 

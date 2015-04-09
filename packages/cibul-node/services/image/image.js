@@ -9,6 +9,7 @@ module.exports.test = {
   _loadImageStream: _loadImageStream,
   _crop: _crop,
   _resize: _resize,
+  _checkSize: _checkSize,
   _setConfig: _setConfig
 }
 
@@ -106,6 +107,7 @@ function processImage( options, cb ) {
     path: false, // either url or this is required
     name: false, // required
     format: false,  // if not set, keep original format
+    sizeLimits: [ 2000, 10000000 ],
     clear: true // if true, deletes origin file in tmp dir
   }, options ) )
 
@@ -114,6 +116,8 @@ function processImage( options, cb ) {
   .then( p.ifLoaded( 'path', false, p.interrupt( 'image could not be retrieved' ) ) )
 
   .then( _loadImageStream )
+
+  .then( _checkSize )
 
   .then( _clearExif )
 
@@ -164,6 +168,39 @@ function _clearExif( values ) {
   values.image.noProfile();
 
   return values;
+
+}
+
+
+function _checkSize( values ) {
+
+  return w.promise( function( rs, rj ) {
+
+    var imageBytes;
+
+    if ( values.image.data.Filesize.indexOf( 'MB' ) !== -1 ) {
+
+      imageBytes = parseInt( values.image.data.Filesize.replace( /(\.[0-9]+|)MB/, '000000' ), 10 );
+
+    } else {
+
+      imageBytes = parseInt( values.image.data.Filesize.replace( /(\.[0-9]+|)KB/, '000' ), 10 );
+
+    }
+
+    if ( imageBytes < values.sizeLimits[ 0 ] ) {
+
+      return rj( 'image is too small: ' + imageBytes );
+
+    } else if ( imageBytes > values.sizeLimits[ 1 ] ) {
+
+      return rj( 'image is too big: ' + imageBytes );
+
+    }
+
+    rs( values );
+
+  } );
 
 }
 

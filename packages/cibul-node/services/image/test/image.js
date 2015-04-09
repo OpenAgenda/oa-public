@@ -153,8 +153,104 @@ describe( 'image service - loading stream', function() {
 
 });
 
+describe( 'image service - check image size', function() {
+
+  var path, image;
+
+  before( function( done ) {
+
+    imageSvc.test._download( { url: imageSrc } ).done( function( values ) {
+
+      path = values.path;
+
+      imageSvc.test._loadImageStream( { path: values.path } ).done( function( values ) {
+
+        image = values.image;
+
+        done();
+
+      });
+
+    } );
+
+  });
+
+
+  it( 'verify that image within size limit bounds passes check', function( done ) {
+
+    imageSvc.test._checkSize( { 
+      image: image,
+      sizeLimits: [ 2000, 10000000 ]
+    }).then( function( values ) {
+
+      'ok'.should.equal( 'ok' );
+
+      done();
+
+    }).catch( function( e ) {
+
+      'image is caught'.should.not.equal( 'image is caught' );
+
+      done();
+
+    });
+
+  });
+
+  it( 'verify that image below size limit bounds fails check', function( done ) {
+
+    imageSvc.test._checkSize( { 
+      image: image,
+      sizeLimits: [ 300000, 10000000 ]
+    }).then( function( values ) {
+
+      'ok'.should.not.equal( 'ok' );
+
+      done();
+
+    }).catch( function( e ) {
+
+      e.should.equal( 'image is too small' );
+
+      done();
+
+    });
+
+  });
+
+  it( 'verify that image above size limit bounds fails check', function( done ) {
+
+    imageSvc.test._checkSize( { 
+      image: image,
+      sizeLimits: [ 100000, 200000 ]
+    }).then( function( values ) {
+
+      'ok'.should.not.equal( 'ok' );
+
+      done();
+
+    }).catch( function( e ) {
+
+      e.should.equal( 'image is too big' );
+
+      done();
+
+    });
+
+  });
+
+
+  after( function() {
+
+    fs.unlinkSync( path );
+
+  });
+
+});
 
 describe( 'image service - crop', function() {
+
+  this.timeout( 10000 );
 
   var path, image, info;
 

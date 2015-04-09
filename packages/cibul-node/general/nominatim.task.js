@@ -8,9 +8,9 @@ model = cmn.getCibulModel(),
 
 async = require( 'async' ),
 
-france = require( './nominatim/franceCleaner' ),
+france = require( '../services/nominatim/franceCleaner' ),
 
-nom = require( './nominatim/nominatim' ),
+nom = require( '../services/nominatim/nominatim' ),
 
 running = false,
 

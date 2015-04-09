@@ -78,6 +78,8 @@ function agendaInvitations( agenda ) {
 
     async.eachSeries( _splitEmails( emails ), function( email, ecb ) {
 
+      log( 'processing email %s', email );
+
       agenda.getContributorInvite( { email: email }, true, function( err, invitation, data ) {
 
         if ( err ) return ecb( err );

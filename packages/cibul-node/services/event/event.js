@@ -13,11 +13,12 @@ coms = require( '../../lib/coms' ),
 
 imageSvc = require( '../image/image' ),
 
-s3Svc = require( '../file/s3' );
+s3Svc = require( '../file/s3' ),
+
+fileSvc = require( '../file/file' );
 
 module.exports = {
   get: get,
-  update: update,
   create: create
 }
 
@@ -43,7 +44,7 @@ function create( data, cb ) {
 
     coms.publish( config.mainChannel, { name: 'event.publish', values: { id: created.id } } );
 
-    cb( null, instanciate( created ) );
+    get( { id: created.id }, cb );
 
   } );
 
@@ -76,6 +77,8 @@ function instanciate( data ) {
 
       s3Svc.store( imagePaths, function( err ) {
 
+        fileSvc.remove( imagePaths );
+
         if ( err ) return cb( err );
 
         instance.setImage( name + '.jpg', function( err ) {
@@ -107,6 +110,3 @@ function instanciate( data ) {
   }
 
 }
-
-
-function update( data, cb ) {}

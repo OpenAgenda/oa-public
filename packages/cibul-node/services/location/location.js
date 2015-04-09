@@ -9,13 +9,20 @@ model = require( 'cibulModel' )( config.db ),
 
 levenshtein = require( 'fast-levenshtein' ),
 
-lib = require( '../../lib/lib' );
+lib = require( '../../lib/lib' ),
+
+imageSvc = require( '../image/image' ),
+
+s3Svc = require( '../file/s3' ),
+
+fileSvc = require( '../file/file' );
+
 
 module.exports = {
   list: model.locations().list,
   update: model.locations().update,
-  get: model.locations().get,
-  create: model.locations().create,
+  get: get,
+  create: create,
   listSimilar: listSimilar, // take name, lat, lng.
 }
 
@@ -57,5 +64,66 @@ function listSimilar( name, latitude, longitude, options, cb ) {
     } ) );
 
   });  
+
+}
+
+function get( params, cb ) {
+
+  model.locations().get( params, function( err, result ) {
+
+    if ( err ) return cb( err );
+
+    cb( null, result ? instanciate( result ) : null );
+
+  });
+
+}
+
+function create( params, cb ) {
+
+  model.locations().create( params, function( err, result ) {
+
+    if ( err ) return cb( err );
+
+    get( { id: result.id }, cb );
+
+  });
+
+}
+
+function instanciate( data ) {
+
+  var instance = model.locations().instance( data );
+
+  return lib.extend( {}, instance, {
+    setImage: setImage
+  });
+
+  function setImage( url, cb ) {
+
+    // assuming event is created
+    var name = 'location' + instance.uid;
+
+    imageSvc.multi( {
+      url: url
+    }, [
+      { name: name, format: { width: 300 } },
+    ], function( err, imagePaths ) {
+
+      if ( err ) return cb( err );
+
+      s3Svc.store( imagePaths, function( err ) {
+
+        fileSvc.remove( imagePaths );
+
+        if ( err ) return cb( err );
+
+        instance.setImage( name + '.jpg', true, cb );
+
+      });
+
+    } );
+
+  }
 
 }

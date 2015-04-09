@@ -292,11 +292,11 @@ function _loadEvent( queryParam, fieldName ) {
 
       req.event = model.events().instance( data ); // here a specific language should be loaded
 
-      req.log.load({ event: req.event.slug });
-
       return [ req, res ];
 
     })
+
+    .spread( _checkPublishedState )
 
     .spread( _selectLanguage )
 
@@ -310,6 +310,30 @@ function _loadEvent( queryParam, fieldName ) {
 
 }
 
+
+function _checkPublishedState( req, res ) {
+
+  if ( !req.agenda ) return [ req, res ];
+
+  if ( req.event.isPublishedOn( req.agenda ) ) return [ req, res ];
+
+  if ( !req.session.logged ) throw { code: 401 };
+  
+  return w.promise( function( rs, rj ) {
+
+    req.agenda.isAdministrator( { id: req.session.userId }, function( err, isAdmin ) {
+
+      if ( err ) return rs( err );
+
+      if ( !isAdmin ) rj( { code: 403 } );
+
+      rs( [ req, res ] );
+
+    } );
+
+  });
+
+}
 
 
 /**
