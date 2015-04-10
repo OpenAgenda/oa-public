@@ -2742,7 +2742,7 @@ function _checkAndClearTemplates( lastUpdate ) {
   store.set('lastTemplateUpdate', lastUpdate );
 
 };
-},{"../../js/lib/clientEjs/ejs":9,"../../js/lib/common/common.mod.js":10,"../../js/lib/remote/remote.mod.js":12,"./i18n":21,"async":27,"store":31}],15:[function(require,module,exports){
+},{"../../js/lib/clientEjs/ejs":9,"../../js/lib/common/common.mod.js":10,"../../js/lib/remote/remote.mod.js":12,"./i18n":21,"async":26,"store":30}],15:[function(require,module,exports){
 var cn = require( '../../js/lib/common/common.mod.js' ),
 
 debug = require('debug'),
@@ -2803,7 +2803,7 @@ module.exports = function() {
   } );
 
 }
-},{"../../js/lib/common/common.mod.js":10,"../../js/lib/lightbox/lightbox.mod":11,"debug":28}],16:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":10,"../../js/lib/lightbox/lightbox.mod":11,"debug":27}],16:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 b64 = require('../../js/lib/Base64/Base64.mod.js'),
@@ -2918,7 +2918,7 @@ var scan = function() {
   });
 
 };
-},{"../../home/js/action.js":5,"../../js/lib/common/common.mod.js":10,"debug":28}],18:[function(require,module,exports){
+},{"../../home/js/action.js":5,"../../js/lib/common/common.mod.js":10,"debug":27}],18:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 params = {
@@ -3406,8 +3406,6 @@ messageLinks = require('./handleMessageLinks.js'),
 
 confirmMessage = require( './confirmMessage' ),
 
-loadZopim = require('./zopimLoader.js'),
-
 handleSession = require( './handleSession' ),
 
 headerProfile = require( './headerProfile' ),
@@ -3449,12 +3447,6 @@ cn.addEvent( window, 'load', function() {
   confirmMessage();
 
   toggle();
-
-  if ( [ 'test', 'tpl' ].indexOf( window.env ) == -1 ) {
-
-    loadZopim( document, window, eh, { env: window.env } );
-
-  }
 
   flash();
 
@@ -3533,7 +3525,7 @@ function _languageMenu( options ) {
   });
 
 }
-},{"../../js/lib/EventHandler/EventHandler.js":8,"../../js/lib/common/common.mod.js":10,"./confirmMessage":15,"./handleFlashMessage.js":16,"./handleMessageLinks.js":17,"./handleMobileMonitor.js":18,"./handleSession":19,"./headerProfile":20,"./layout":22,"./mobileMenu":24,"./toggle":25,"./zopimLoader.js":26,"debug":28}],24:[function(require,module,exports){
+},{"../../js/lib/EventHandler/EventHandler.js":8,"../../js/lib/common/common.mod.js":10,"./confirmMessage":15,"./handleFlashMessage.js":16,"./handleMessageLinks.js":17,"./handleMobileMonitor.js":18,"./handleSession":19,"./headerProfile":20,"./layout":22,"./mobileMenu":24,"./toggle":25,"debug":27}],24:[function(require,module,exports){
 "use strict";
 
 var cn = require( '../../js/lib/common/common.mod.js' ),
@@ -3714,36 +3706,6 @@ function _hide( elem, params ) {
 
 }
 },{"../../js/lib/common/common.mod.js":10}],26:[function(require,module,exports){
-var cn = require('../../js/lib/common/common.mod.js'),
-
-params = {
-  env: 'prod',
-  events: {
-    mobileCheck: 'mobilecheck'
-  },
-  timeout: 2000
-};
-
-module.exports = function(doc, win, eh, options) {
-
-  cn.extend(params, options?options:{});
-
-  //if (params.env=='dev') return;
-  
-  eh.trigger('mobilecheck', function( isMobile ) {
-
-    if ( isMobile ) return;
-  
-    setTimeout(function() {
-
-      window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(c){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var o=this.createElement("script");n&&(this.domain=n),o.id="js-iframe-async",o.src=e,this.t=+new Date,this.zendeskHost=t,this.zEQueue=a,this.body.appendChild(o)},o.write('<body onload="document._l();">'),o.close()}("//assets.zendesk.com/embeddable_framework/main.js","cibul.zendesk.com");
-
-    }, params.timeout);
-
-  });
-
-};
-},{"../../js/lib/common/common.mod.js":10}],27:[function(require,module,exports){
 (function (process){
 /*!
  * async
@@ -4870,7 +4832,7 @@ module.exports = function(doc, win, eh, options) {
 }());
 
 }).call(this,require('_process'))
-},{"_process":32}],28:[function(require,module,exports){
+},{"_process":31}],27:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -5019,7 +4981,7 @@ function load() {
 
 exports.enable(load());
 
-},{"./debug":29}],29:[function(require,module,exports){
+},{"./debug":28}],28:[function(require,module,exports){
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -5218,9 +5180,9 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":30}],30:[function(require,module,exports){
+},{"ms":29}],29:[function(require,module,exports){
 module.exports=require(4)
-},{"/home/kaore/Dev/www/cibul-templates/global/js/node_modules/debug/node_modules/ms/index.js":4}],31:[function(require,module,exports){
+},{"/home/kaore/Dev/www/cibul-templates/global/js/node_modules/debug/node_modules/ms/index.js":4}],30:[function(require,module,exports){
 ;(function(win){
 	var store = {},
 		doc = win.document,
@@ -5397,7 +5359,7 @@ module.exports=require(4)
 
 })(Function('return this')());
 
-},{}],32:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};

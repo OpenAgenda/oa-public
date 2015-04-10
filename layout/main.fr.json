@@ -8,5 +8,7 @@
   "cibul, events, agendas, open data, networked"
   : "cibul, événements, agendas, open data, réseau",
   "Search"
-  : "Rechercher"
+  : "Rechercher",
+  "Help"
+  : "Aide"
 }

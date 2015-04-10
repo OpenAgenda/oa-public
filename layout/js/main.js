@@ -10,8 +10,6 @@ messageLinks = require('./handleMessageLinks.js'),
 
 confirmMessage = require( './confirmMessage' ),
 
-loadZopim = require('./zopimLoader.js'),
-
 handleSession = require( './handleSession' ),
 
 headerProfile = require( './headerProfile' ),
@@ -53,12 +51,6 @@ cn.addEvent( window, 'load', function() {
   confirmMessage();
 
   toggle();
-
-  if ( [ 'test', 'tpl' ].indexOf( window.env ) == -1 ) {
-
-    loadZopim( document, window, eh, { env: window.env } );
-
-  }
 
   flash();
 

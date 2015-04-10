@@ -22,6 +22,7 @@
           </button>
         </form>
         <ul class="links site-links js_header_links">
+          <li><a target="_blank" href="//cibul.zendesk.com"><%= __('Help') %></a></li>
 <% if ( typeof links !== 'undefined' ) { %>
 <% links.forEach( function( link ) { %>
           <li <% if ( typeof link.className !== 'undefined') { %>class="<%= link.className %>"<% } %>><a href="<%= link.url %>"><%= __(link.label) %></a></li>
