@@ -141,7 +141,7 @@
 #event-edit .upload-image { padding: 1em 0;}
 #event-edit .upload-image > * { display: inline-block; margin-right: 0.2em; }
 
-#event-edit .pricing-info > div { display: inline-block; min-width: 120px; padding: 0 0 10px 0; }
+#event-edit .pricing-info > div { min-width: 120px; padding: 0 0 10px 0; }
 #event-edit .pricing-info > div span { display: block; }
 
 #event-edit .submit { padding-bottom: 60px; }

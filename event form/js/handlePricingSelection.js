@@ -90,10 +90,10 @@ var handlePricingSelection = function(params) {
 
     pricingWidgets[lang] = new inputWidgets.text({
       value: value,
-      placeholder: params.labels.languages[lang],
+      placeholder: params.labels.pricingInfoInfo,
       name: 'pricingInfo[' + lang + ']',
       canvas: pricingInfoElems[lang],
-      info: params.labels.pricingInfoInfo + ' - ' + params.labels.languages[lang],
+      info: params.labels.languages[lang],
       onUpdate: function(value) {
 
         pricingInfo[lang] = value; // validation?
