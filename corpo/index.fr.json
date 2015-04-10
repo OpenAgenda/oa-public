@@ -11,8 +11,8 @@
   : "Importer, exporter, diffuser %youragendas% n'a jamais été aussi simple",
   "your agendas"
   : "vos agendas",
-  "agenda with a map"
-  : "agenda avec carte",
+  "agenda views"
+  : "vues d'agendas",
   "Geolocated, participative, multimedia, multilingual, downloadable, exportable, OpenData, API-accessible. Anything is possible."
   : "Géolocalisé, participatif, multimédia, multiligue, téléchargeable, exportable, OpenData, pilotable par API. Tout est possible.",
   "Create an agenda"
@@ -157,5 +157,7 @@
   "Only private events (not visible by the public) is the object of a specific pricing. For advanced professional requirements, OpenAgenda offers a range of tailored services."
   : "Seuls les évènements privés (non visibles du public) font l'objet d'une tarification spécifique. Pour les besoins professionnels avancés, OpenAgenda fournit une gamme de services sur mesure.",
   "The founders"
-  : "Les fondateurs"
+  : "Les fondateurs",
+  "Loading..."
+  : "Chargement en cours..."
 }

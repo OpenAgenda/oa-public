@@ -1,7 +1,6 @@
 <div id="content">
-  <div class="container">
-
   <% include nav.part.ejs %>
+  <div class="container">
 
     <header class="text">
       <h1><%- __('Import, export, broadcast %youragendas% has never been this easy', { '%youragendas%' : '<strong>' + __('your agendas') + '</strong>' }) %></h1>
@@ -9,10 +8,10 @@
 
     <div class="row">
       <div class="col-sm-6">
-        <img class="img-responsive" src="<%= _i( 'journeedesarts.jpg', true ) %>" alt="<%= __('agenda with a map') %>" />
-      </div><div class="col-sm-6">
+        <img class="img-responsive" src="<%= _i( 'screens.png', true ) %>" alt="<%= __('agenda views') %>" />
+      </div><div class="col-sm-6 text-center">
         <p><%= __('Geolocated, participative, multimedia, multilingual, downloadable, exportable, OpenData, API-accessible. Anything is possible.') %></p>
-        <p class="action-container"><a class="btn btn-primary btn-block" href="<%= genUrl('signup') %>"><%= __('Create an agenda') %> <small>(<%= __('It\'s free') %>)</small></a></p>
+        <p class="action-container"><a class="btn btn-primary" href="<%= genUrl('signup') %>"><%= __('Create an agenda') %> <small>(<%= __('It\'s free') %>)</small></a></p>
       </div>
     </div>
   </div><!-- /.container -->

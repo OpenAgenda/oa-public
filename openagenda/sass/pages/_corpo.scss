@@ -38,6 +38,7 @@
 
   #content {
     padding: 0;
+    background: $oa-white;
 
     img {
       border-radius: 3px;
@@ -80,8 +81,16 @@
     }
   }
 
+  .nav-section {
+
+    background: $oa-gray-light;
+    border-top: 1px solid $gray-lighter;
+    border-bottom: 1px solid $gray-lighter;
+    
+  }
+
   .nav-pills {
-    border-bottom: 1px solid $oa-white;
+
 
     li {
       margin: 0 10px;
@@ -101,10 +110,12 @@
         color: $oa-black;
         font-weight: bold;
       }
-    } 
+    }
+
   }
 
   .feature {
+
     border-bottom: 1px solid $oa-gray-light;
     padding-bottom: 50px;
     padding-top: 50px;
@@ -194,6 +205,7 @@
   }
 
   .founders {
+
     background: #eee;
     text-align: center;
     margin-top: 50px;
@@ -221,10 +233,14 @@
   }
 
   .partners {
-      background: $oa-white;
-      margin: 100px 0 50px;
-      padding: 25px;
-      text-align: center;
+
+    background: $oa-gray-light;
+    border-top: 1px solid $gray-lighter;
+    border-bottom: 1px solid $gray-lighter;
+
+    margin: 100px 0 50px;
+    padding: 25px;
+    text-align: center;
 
     ul {
       list-style: none;
