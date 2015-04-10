@@ -42,9 +42,9 @@ var widget = function( elem, options ) {
 
   organizations = {},
 
-  controller,
+  controller;
 
-  init = function() {
+  return ( function() {
 
     var uid = options.anchorConfig[ UID ],
 
@@ -79,17 +79,17 @@ var widget = function( elem, options ) {
 
     });
 
-  },
+  } )();
 
-  disable = function( ) {
+  function disable() {
 
     enabled = false;
 
     _render();
 
-  },
+  }
 
-  enable = function( reqParams ) {
+  function enable( reqParams ) {
 
     var newFilters = [], reqTags, tagLabels;
 
@@ -192,31 +192,31 @@ var widget = function( elem, options ) {
 
     _render();
 
-  },
+  }
 
-  _render = function() {
+  function _render() {
 
     dom.render({ filters: activeFilters, enabled: enabled });
 
-  },
+  }
 
-  _label = function( type, values ) {
+  function _label( type, values ) {
 
     if ( typeof values == 'undefined' ) values = {};
 
     return _format( config.labels[ lang ][ type ], values );
 
-  },
+  }
 
-  _format = function(tpl, ctx) {
+  function _format(tpl, ctx) {
 
     return tpl.replace(/\{\{([a-zA-Z ]*)\}\}/g, function(m, g) {
         return ctx[g.trim()] || '';
     });
 
-  },
+  }
 
-  _indexLabels = function( data ) {
+  function _indexLabels( data ) {
 
     for ( var a in data.a ) {
 
@@ -250,9 +250,9 @@ var widget = function( elem, options ) {
 
     }
 
-  },
+  }
 
-  _onFilterRemove = function( filter ) {
+  function _onFilterRemove( filter ) {
 
     var keysToRemove = {};
 
@@ -272,9 +272,7 @@ var widget = function( elem, options ) {
 
     controller.update( 'activeFilters', keysToRemove );
 
-  };
-
-  init();
+  }
 
 }
 

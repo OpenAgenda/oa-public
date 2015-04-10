@@ -1,4 +1,4 @@
-#event-edit .ccal { width: 20em; font-size: 0.8em; margin-bottom: 5px; max-width: 100%; }
+#event-edit .ccal { width: 22em; font-size: 0.9em; margin-bottom: 5px; max-width: 100%; }
 #event-edit .ccal ul { margin: 0; padding: 0!important; text-align: center; }
 #event-edit .ccal li { list-style-type: none; display: inline-block; width: 13.2%; cursor: pointer; text-align: center; margin:0; }
 #event-edit .ccal li span { display: inline-block; line-height: 1.8em; }

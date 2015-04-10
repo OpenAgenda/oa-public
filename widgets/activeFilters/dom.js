@@ -23,19 +23,15 @@ itemTemplate = templates.item;
 
 module.exports = function( anchorElem ) {
 
-  var onRemove, // callback
+  var onRemove; // callback
 
-  init = function() {
+  return {
+    render: render,
+    setOnRemove: setOnRemove, // set callback to call when remove request is set
+    setMode: setMode
+  };
 
-    return {
-      render: render,
-      setOnRemove: setOnRemove, // set callback to call when remove request is set
-      setMode: setMode
-    }
-
-  },
-
-  render = function( data ) {
+  function render( data ) {
 
     var wrapper = document.createElement( 'div' ), 
 
@@ -49,8 +45,7 @@ module.exports = function( anchorElem ) {
 
     }
 
-    wrapper.innerHTML = ejs.render( templates.main, data );
-
+    wrapper.innerHTML = ejs.render( mainTemplate, data );
 
     itemsCanvas = cn.el( wrapper, params.selectors.itemsCanvas );
 
@@ -62,15 +57,17 @@ module.exports = function( anchorElem ) {
 
     anchorElem.appendChild( cn.childObject( wrapper, 0 ) );
 
-  },
+  }
 
-  setOnRemove = function( cb ) {
+  
+  function setOnRemove( cb ) {
 
     onRemove = cb;
 
-  },
+  }
 
-  setMode = function( mode ) {
+
+  function setMode( mode ) {
 
     if ( mode == 'bs' ) {
 
@@ -80,15 +77,16 @@ module.exports = function( anchorElem ) {
 
     }
 
-  },
+  }
 
-  _createFilterItem = function( filter ) {
+
+  function _createFilterItem( filter ) {
 
     var itemWrapper = document.createElement( 'ul' ),
 
     filterElem;
 
-    itemWrapper.innerHTML = ejs.render( templates.item, filter );
+    itemWrapper.innerHTML = ejs.render( itemTemplate, filter );
 
     filterElem = cn.el( itemWrapper, 'li' );
 
@@ -104,9 +102,10 @@ module.exports = function( anchorElem ) {
 
     return filterElem;
 
-  },
+  }
 
-  _clear = function() {
+
+  function _clear() {
 
     var child;
 
@@ -117,7 +116,5 @@ module.exports = function( anchorElem ) {
     }
 
   }
-
-  return init();
 
 }
