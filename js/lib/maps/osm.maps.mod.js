@@ -49,7 +49,7 @@ maps.register('osm', (function(){
       return map;
     },
 
-    createMarker: function(map, options) {
+    createMarker: function( map, options ) {
 
       if ( arguments.length == 1 ) {
 
@@ -61,7 +61,9 @@ maps.register('osm', (function(){
 
       var icon = {},
 
-      marker;
+      marker,
+
+      count = typeof options.count == 'undefined' ? 1 : options.count;
 
       if (options.icon) {
         
@@ -80,7 +82,8 @@ maps.register('osm', (function(){
       marker = L.marker(options.position, {
         title: options.title,
         icon: icon,
-        draggable: options.draggable?options.draggable:false
+        draggable: options.draggable?options.draggable:false,
+        count: count
       })
 
       if ( map ) {
@@ -219,11 +222,23 @@ maps.register('osm', (function(){
         showCoverageOnHover: false
       });
 
-      clusterGroup.addLayers( markers );
+      if ( markers ) clusterGroup.addLayers( markers );
 
       map.addLayer( clusterGroup );
 
       return clusterGroup;
+
+    },
+
+    clearClusterLayers: function( cluster ) {
+
+      cluster.clearLayers();
+
+    },
+
+    addClusterLayers: function( cluster, markers ) {
+
+      cluster.addLayers( markers );
 
     },
 

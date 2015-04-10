@@ -1,3 +1,5 @@
+"use strict";
+
 var EJS = require( '../../js/lib/clientEjs/ejs' ),
 
 cn = require( '../../js/lib/common/common.mod.js' ),
@@ -17,21 +19,21 @@ templates = {
 
 module.exports = function( anchorElem ) {
 
-  var _onSelect = false, _onUnselect = false,
+  var _onSelect = false, _onUnselect = false, 
 
-  init = function() {
+  mainTemplate = templates.main, 
 
-    return {
-      render: render,
-      setOnSelect: setOnSelect,
-      setOnUnselect: setOnUnselect,
-      setDefaultStyle: setDefaultStyle,
-      setMode: setMode
-    }
-    
-  },
+  itemTemplate = templates.item;
 
-  setMode = function( mode ) {
+  return {
+    render: render,
+    setOnSelect: setOnSelect,
+    setOnUnselect: setOnUnselect,
+    setDefaultStyle: setDefaultStyle,
+    setMode: setMode
+  }; 
+
+  function setMode( mode ) {
 
     if ( mode == 'bs' ) {
 
@@ -41,9 +43,9 @@ module.exports = function( anchorElem ) {
 
     }
 
-  },
+  }
 
-  render = function( data ) {
+  function render( data ) {
 
     anchorElem.innerHTML = new EJS( { text: mainTemplate } ).render( data );
 
@@ -93,42 +95,40 @@ module.exports = function( anchorElem ) {
 
     } );
 
-  },
+  }
 
-  setDefaultStyle = function() {
+  function setDefaultStyle() {
 
     styler( style );
 
-  },
+  }
 
-  setOnSelect = function( cb ) {
+  function setOnSelect( cb ) {
 
     _onSelect = cb;
 
-  },
+  }
 
-  setOnUnselect = function( cb ) {
+  function setOnUnselect( cb ) {
 
     _onUnselect = cb;
 
-  },
+  }
 
-  _select = function( tag ) {
+  function _select( tag ) {
 
     log( 'tag %s is selected', tag.label );
 
     if ( _onSelect ) _onSelect( tag );
 
-  },
+  }
 
-  _unselect = function( tag ) {
+  function _unselect( tag ) {
 
     log( 'tag %s is unselected', tag.label );
 
     if ( _onUnselect ) _onUnselect( tag );
 
-  };
-
-  return init();
+  }
 
 }

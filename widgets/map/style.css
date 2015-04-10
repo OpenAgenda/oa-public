@@ -19,6 +19,15 @@
   transition: transform 0.3s ease-out, opacity 0.3s ease-in;
 }
 
+
+.marker-cluster-zero {
+  background-color: rgba(200, 200, 200, 0.6);
+}
+
+.marker-cluster-zero div {
+  background-color: rgba(200, 200, 200, 0.6);
+}
+
 .marker-cluster-small {
   background-color: rgba(181, 226, 140, 0.6);
 }

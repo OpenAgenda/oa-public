@@ -68,7 +68,9 @@ function widget( elem, options ) {
 
   embedMode,
 
-  useClusters = false;
+  useClusters = false,
+
+  clusterGroup = false;
 
   return ( function() {
 
@@ -134,7 +136,7 @@ function widget( elem, options ) {
 
   function _initMarkers() {
 
-    var markers = [], clusterGroup;
+    var markers = [];
 
     useClusters = cn.size( locations ) > config.clusterThreshold;
 
@@ -158,7 +160,7 @@ function widget( elem, options ) {
 
     if ( useClusters ) {
 
-      m.createCluster( map, markers );
+      clusterGroup = m.createCluster( map, markers );
 
     }
 
@@ -337,7 +339,9 @@ function widget( elem, options ) {
 
           return ( config.auto ? _selectBounds : _fitBounds )( neighborhoodBounds, true );
 
+        }
 
+      }
       
       if ( !selectedLocation && !cn.contains( activeLocations, location.slug ) ) {
 
@@ -348,29 +352,28 @@ function widget( elem, options ) {
 
       } else if ( selectedLocation && ( selectedLocation.slug == location.slug ) ) {
 
-        // if location is in part of current selection,
-        // clicking it will remove it
+      // if location is in part of current selection,
+      // clicking it will remove it
 
-        if ( selectedLocation && ( selectedLocation.slug == location.slug ) ) {
+        updatedReqParams = _unsetLocationParams();
 
-          updatedReqParams = _setLocationParams( location.slug );
+      } else {
 
-        } else {
+        // if location is not selected,
+        // add it to current selection
 
-          updatedReqParams = _setLocationParams( location.slug );
-
-        }
-
-
-        if ( cn.contains( passedLocations, location.slug ) ) {
-
-          updatedReqParams.passed = '1';
-
-        }
-
-        _update( updatedReqParams );
+        updatedReqParams = _setLocationParams( location.slug );
 
       }
+
+
+      if ( cn.contains( passedLocations, location.slug ) ) {
+
+        updatedReqParams.passed = '1';
+
+      }
+
+      _update( updatedReqParams );
 
     });
 
@@ -379,7 +382,13 @@ function widget( elem, options ) {
 
   function _unsetLocationParams() {
 
-    return { location: null, neLat: null, neLng: null, swLat: null, swLng: null };
+    return {
+      location: null,
+      neLat: null,
+      neLng: null,
+      swLat: null,
+      swLng: null
+    };
 
   }
 
@@ -413,6 +422,8 @@ function widget( elem, options ) {
 
   function _refresh() {
 
+    var markers = [];
+
     log( 'refreshing map: %s', enabled ? 'enabled' : 'not enabled' );
 
     if ( selectedLocation ) {
@@ -423,10 +434,22 @@ function widget( elem, options ) {
 
     }
 
+    if ( useClusters && clusterGroup ) {
+
+      m.clearClusterLayers( clusterGroup );
+
+    }
+
     for ( var l in locations ) {
       
-      _refreshMarker( locations[ l ] );
+      markers.push( _refreshMarker( locations[ l ] ) );
     
+    }
+
+    if ( useClusters && clusterGroup ) {
+
+      m.addClusterLayers( clusterGroup, markers );
+
     }
 
   }
@@ -448,6 +471,11 @@ function widget( elem, options ) {
     m.setMarkerIcon( location.marker, config.icons[ active ? 'active' : 'inactive' ] );
 
     m.setMarkerZIndex( location.marker, active ? 1000 : -1000 );
+
+    // for count display of marker cluster
+    location.marker.options.count = active ? 1 : 0;
+
+    return location.marker;
 
   }
 
@@ -478,9 +506,10 @@ function widget( elem, options ) {
 
     }
 
-    if ( elem.hasAttribute( 'data-lang' ) )
-    {
+    if ( elem.hasAttribute( 'data-lang' ) ) {
+
       config.lang = elem.getAttribute( 'data-lang' );
+
     }
 
     log( 'using osm with tiles %s', config.tiles );
@@ -755,7 +784,12 @@ function widget( elem, options ) {
 
     sw = m.getBoundsSouthWest( bounds );
 
-    return { neLat: ne[0], neLng: ne[1], swLat: sw[0], swLng: sw[1] };
+    return {
+      neLat: ne[0],
+      neLng: ne[1],
+      swLat: sw[0],
+      swLng: sw[1]
+    };
 
   }
 
