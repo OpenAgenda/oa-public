@@ -243,6 +243,8 @@ function widget( elem, options ) {
 
   function clear() {
 
+    log( 'clearing' );
+
     activeLocations = [];
 
     passedLocations = [];
