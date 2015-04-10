@@ -11,9 +11,6 @@
         </a>
 <% } %>
       </div>
-      <div class="col-sm-12 event-container">
-        <h1><%= event.title %></h1>
-      </div>
     </div>
   </div>
 </header>
@@ -44,32 +41,32 @@
 <% } %>
         </div>
 
-        <div class="event-infos">
+        
 <% if ( event.ticketLink || event.pricingInfo ) { %>
-          <section class="event-side">
-            <h3><i class="fa fa-ticket"></i></h3>
+        <section class="event-side">
+          <h3><i class="fa fa-ticket"></i></h3>
 <% if ( event.pricingInfo ) { %>
-            <p><%= event.pricingInfo %></p>
+          <p><%= event.pricingInfo %></p>
 <% } %>
 <% if ( event.ticketLink ) { %>
-            <p><a href="<%= event.ticketLink %>"><%= __('Ticketing link') %></a></p>
+          <p><a href="<%= event.ticketLink %>"><%= __('Ticketing link') %></a></p>
 <% } %>
-          </section>
+        </section>
 <% } %>
-          <section class="event-side">
-            <h3><i class="fa fa-clock-o"></i></h3>
-            <p><%= __( event.dateRange[0], _t(event.dateRange[1]) ) %></p>
-          </section>
+        <section class="event-side">
+          <h3><i class="fa fa-clock-o"></i></h3>
+          <p><%= __( event.dateRange[0], _t(event.dateRange[1]) ) %></p>
+        </section>
 
-          <section class="event-side">
-            <h3><i class="fa fa-map-marker"></i></h3>
-            <p><%= event.placeName %></p>
-            <p><%= event.address %></p>
-          </section>
-
+        <section class="event-side">
+          <h3><i class="fa fa-map-marker"></i></h3>
+          <p><%= event.placeName %></p>
+          <p><%= event.address %></p>
           <div class="event-map js_map" data-coord="<%= event.latitude %>|<%= event.longitude %>"></div>
+        </section>
+
           
-        </div>
+        
 <% if ( event.agendaReferences.length > ( loner ? 0 : 1 ) ) { %>
         <div class="sharers">
           <ul><!--
@@ -96,6 +93,7 @@
       <section class="col-sm-7 col-sm-offset-1">
         
         <div class="event-content">
+          <h1><%= event.title %></h1>
           <p class="short-description"><%= event.description %></p>
 <% if ( event.languages ) { %>
           <div class="langs">
