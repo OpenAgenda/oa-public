@@ -13,8 +13,8 @@ config = {
     logPathError : '/var/tmp/cibul-node-errors.log',
     logNameSpaces: false,
     name: 'cibul-node',
-    domain: 'pre.openagenda.com',
-    root: 'https://pre.openagenda.com',
+    domain: 'openagenda.com',
+    root: 'https://openagenda.com',
     googleAnalyticsId: 'UA-60305866-1',
     db: {
       database: 'oa',
@@ -64,8 +64,8 @@ config = {
       name: 'cibul'
     },
     mailer: {
-      source: 'no-reply@cibul.net',
-      replyTo: 'admin@cibul.net',
+      source: 'no-reply@openagenda.com',
+      replyTo: 'admin@openagenda.com',
       simulated: true
     },
     api: {
@@ -105,7 +105,7 @@ config = {
     },
     bridges: {
       swapcard: {
-        redirect: 'https://cibul.net/services/swapcard/connect/callback',
+        redirect: 'https://openagenda.com/services/swapcard/connect/callback',
         clientID: '5_55ktc1a47zgogwg4gw8k8s4gg4kk4848s800gwggkswsc4so4o',
         clientSecret: 'mox19rhegg0wc0wkg0gsksoscowk0wss8k0wkcwgkg800woks',
         token: 'MGE5NmZlNzhhNTc2MDBkMDQzZWIzNzVmMzdjODJkOGNmMjFjMTFlOTAwYTM5ZWExYWRjNTg2ZjUxNDlkOWNkNg',
@@ -340,7 +340,7 @@ config = {
     },
     bridges: {
       swapcard: {
-        redirect: 'http://d.cibul.net/services/swapcard/connect/callback',
+        redirect: 'http://d.openagenda.com/services/swapcard/connect/callback',
         clientID: '5_2teox6oxnwg0k4cscwwk8gs84cwo0ococck0og4wkswwwc4ggc',
         clientSecret: '4ze5s2xa5y4g48kw0wow8sg8ssc4wcg0kcc8gwks8coww4ssos',
         token: 'ZmI4YzlhMzFlZGY3ODdkZjg3MzU3YTUxN2MxYmRjNmMwNTdmZGFkM2RlNGE5N2Q3YTBkOWU1NmY2YjI1ZWExMQ',
@@ -355,7 +355,7 @@ config = {
     mainChannel: 'maintest',
     logNameSpaces: false,
     //logNameSpaces: 'oa:*',
-    root: 'https://d.cibul.net',
+    root: 'https://d.openagenda.com',
     db: {
       database: 'oatest',
       host: 'localhost',
