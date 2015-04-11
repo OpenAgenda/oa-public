@@ -11,9 +11,9 @@ debug = require( 'debug' ),
 defaults = {
   all: {
     resources: {
-      list: '//pre.openagenda.com/agenda/{{uid}}/aggregator/sourcecontext',
-      add: '//pre.openagenda.com/agenda/{{uid}}/aggregator/addTo/{{aUid}}',
-      remove: '//pre.openagenda.com/agenda/{{uid}}/aggregator/removeFrom/{{aUid}}'
+      list: '//openagenda.com/agenda/{{uid}}/aggregator/sourcecontext',
+      add: '//openagenda.com/agenda/{{uid}}/aggregator/addTo/{{aUid}}',
+      remove: '//openagenda.com/agenda/{{uid}}/aggregator/removeFrom/{{aUid}}'
     },
     classes: {
       menu: 'agg-menu',

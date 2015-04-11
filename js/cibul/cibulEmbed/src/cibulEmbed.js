@@ -10,7 +10,7 @@ if (!window.cibulEmbedWidget) window.cibulEmbedWidget = (function(){
       { className: 'cbpgcl', name: 'calendar'},
       { className: 'cbpgae', name: 'addButton'}
     ],
-    controlResource: 'https://pre.openagenda.com/embed/{uid}/controldata',
+    controlResource: 'https://openagenda.com/embed/{uid}/controldata',
     filterName: 'filter'
   },
 

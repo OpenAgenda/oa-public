@@ -3,8 +3,8 @@ var handleHeader = function(params) {
   params = extend({
     deployed: false,
     logged: false,
-    resEvent: '//pre.openagenda.com/ajax/event',
-    resLocation: '//pre.openagenda.com/getsearch/location',
+    resEvent: '//openagenda.com/ajax/event',
+    resLocation: '//openagenda.com/getsearch/location',
     env: 'prod',
     selectors: {
       header: 'header',

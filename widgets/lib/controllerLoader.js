@@ -4,7 +4,7 @@ cn = require( '../../js/lib/common/common.mod.js' ),
 
 defaults = {
   all : {
-    controllersPath : '//pre.openagenda.com/js/embed/cibulControllers.js'
+    controllersPath : '//openagenda.com/js/embed/cibulControllers.js'
   },
   dev : {
     controllersPath : '//d.openagenda.com/js/embed/cibulControllers.js'
