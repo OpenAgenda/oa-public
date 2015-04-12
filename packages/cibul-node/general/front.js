@@ -15,7 +15,7 @@ coms = require( '../lib/coms' ),
 routes = {
   corpoHome: [ 'get', '/', index( 'home' ) ],
   corpoFeatures: [ 'get', '/features', index( 'features' ) ],
-  corpoPricing: [ 'get', '/pricing', index( 'pricing' ) ],
+  corpoPricing: [ 'get', '/services', index( 'pricing' ) ],
   corpoAbout: [ 'get', '/about', index( 'about' ) ],
   newsletterSubscribe: [ 'post', '/newsletter/subscribe', newsletterSubscribe ],
   serviceConnectCallback: [ 'get', '/services/:service/connect/callback', serviceConnectCallback ]

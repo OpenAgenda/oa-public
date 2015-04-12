@@ -639,7 +639,7 @@ function _layoutData( req, res ) {
   var data = {
     metas: {
       title: req.formatted.title,
-      ogSiteName: { property: 'og:site_name', content: 'Cibul' },
+      ogSiteName: { property: 'og:site_name', content: 'OpenAgenda' },
       ogTitle: { property: 'og:title', content: req.formatted.title },
       ogDescription: { property: 'og:description', content: req.formatted.description },
       ogLocale: { property: 'og:locale', content: req.lang },

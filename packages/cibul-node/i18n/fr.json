@@ -29,10 +29,10 @@
   : "Vos événements swapcard ne sont désormais plus liés",
   "Your account has been created, you can now login"
   : "Votre compte a été crée, vous pouvez vous connecter",
-  "Activate your Cibul Account"
-  : "Activez votre compte Cibul",
-  "Congratulations!, You just created your Cibul account. Click on the following link to activate it \n %link%"
-  : "Félicitations! Vous venez de créer votre compte Cibul. Cliquez sur le lien suivant pour l'activer et commencer à utiliser votre agenda \n %link%",
+  "Activate your OpenAgenda Account"
+  : "Activez votre compte OpenAgenda",
+  "Congratulations!, You just created your OpenAgenda account. Click on the following link to activate it \n %link%"
+  : "Félicitations! Vous venez de créer votre compte OpenAgenda. Cliquez sur le lien suivant pour l'activer et commencer à utiliser votre agenda \n %link%",
   "The activation email is being sent again"
   : "Le mail d'activation est en cours d'envoi",
   "Done"

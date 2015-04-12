@@ -276,13 +276,13 @@ function _sendToken( values ) {
 
   var link = mailer.genUrl( 'activate', linkParams ),
 
-  text = "Congratulations!, You just created your Cibul account. Click on the following link to activate it \n %link%";
+  text = "Congratulations!, You just created your OpenAgenda account. Click on the following link to activate it \n %link%";
 
   values.link = link;
 
   return wn.call( mailer.queueMail, {
     recipient: values.user.email,
-    subject: 'Activate your Cibul Account',
+    subject: 'Activate your OpenAgenda Account',
     text: [ text, { '%link%' : link } ],
     lang: values.user.culture
   } ).then( function( result ) {

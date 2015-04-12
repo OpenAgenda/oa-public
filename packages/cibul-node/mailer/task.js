@@ -123,7 +123,7 @@ function _listen() {
 
     _send({
       recipient: recipient,
-      subject: values.subject ? values.subject : 'Cibul',
+      subject: values.subject ? values.subject : 'OpenAgenda',
       html: values.html,
       text: values.text
     }, function( err, params, data ) { // called when send is made
