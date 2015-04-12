@@ -10,9 +10,9 @@
     "searchRes" : "searchEvents",
     "search" : "",
     "metas" : {
-      "title" : "Cibul - Open Agendas",
+      "title" : "OpenAgenda",
       "description": "Communicate efficiently on your events",
-      "keywords" : "cibul, events, agendas, open data, networked",
+      "keywords" : "openagenda, events, agendas, open data, networked",
       "robots" : "index, follow"
     },
     "lang" : "fr",

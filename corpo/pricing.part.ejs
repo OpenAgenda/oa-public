@@ -26,7 +26,6 @@
 
   <div class="container contact-us">
     <p><%= __( 'For any question or pricing request' ) %></p>
-    <h2><%- __( 'Please contact Romain Lange: +33612016842 <br>or fill in the form here below' ) %>:</h2>
-    <iframe src="https://docs.google.com/forms/d/1IF_aSREyVqn9ahBEN0Xt02xuTyV6Yu7dNXK22l7aCpQ/viewform?embedded=true" width="680" height="480" frameborder="0" marginheight="0" marginwidth="0"><%= __('Loading...') %></iframe>
+    <h2><%- __( 'Please contact us at %email%', { '%email%' : '<a href="mailto:contact@openagenda.com">contact@openagenda.com</a>'} ) %></h2>
   </div>
 </div>

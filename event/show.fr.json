@@ -32,5 +32,7 @@
   "Published by %owner%"
   : "Publié par %owner%",
   "Past event"
-  : "Événement passé"
+  : "Événement passé",
+  "see all the events"
+  : "voir tous les événements"
 }

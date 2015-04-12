@@ -1,13 +1,14 @@
 <header id="header">
   <div class="container">
     <div class="row">
-      <div class="col-sm-12 agenda-container">
+      <div class="col-sm-10 col-sm-offset-1 agenda-container">
 <% if ( !loner ) { %>
         <a href="<%= genUrl('agendaShow', { slug: slug }) %>">
 <% if ( image ) { %>
           <img class="avatar" src="<%= _i( image ) %>" alt="<%= title %>">
 <% } %>
-          <%= title %>
+          <strong><%= title %></strong>
+          <span>(<%= __('see all the events') %>)</span>
         </a>
 <% } %>
       </div>

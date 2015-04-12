@@ -5,9 +5,9 @@
 
   "base" : {
     "metas" : {
-      "title" : "Cibul - Open Agendas",
+      "title" : "OpenAgenda",
       "description": "Agendas",
-      "keywords" : "cibul, events, agendas, open data, networked",
+      "keywords" : "openagenda, events, agendas, open data, networked",
       "robots" : "index, follow"
     },
     "lang" : "fr",

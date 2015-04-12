@@ -2,7 +2,7 @@
 #corpo {
   h1 {
     line-height: 1.5;
-    margin: 1.5em 0;
+    margin: 1.5em 0 1em;
     text-align: center;
   }
 
@@ -12,8 +12,8 @@
     }
 
     h1 + p {
-      margin-bottom: 3em;
-      margin-top: -3em;
+      margin-bottom: 2em;
+      margin-top: -1.5em;
     }
   }
 
@@ -49,6 +49,11 @@
       font-weight: 200;
       line-height: 1.6;
     }
+
+    p.strong {
+      font-weight: bold;
+    }
+
   }
 
   .about {
@@ -149,7 +154,7 @@
     }
 
     .icon-container {
-      padding-top: 5%;
+      padding-top: 10px;
       text-align: center;
     }
 
@@ -238,7 +243,7 @@
     border-top: 1px solid $gray-lighter;
     border-bottom: 1px solid $gray-lighter;
 
-    margin: 100px 0 50px;
+    margin: 80px 0 50px;
     padding: 25px;
     text-align: center;
 

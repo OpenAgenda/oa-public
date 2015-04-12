@@ -3,8 +3,8 @@
   : "Accueil",
   "Features"
   : "Fonctions",
-  "Pricing"
-  : "Tarifs",
+  "Services"
+  : "Services",
   "About us"
   : "À propos",
   "Import, export, broadcast %youragendas% has never been this easy"
@@ -17,8 +17,8 @@
   : "Géolocalisé, participatif, multimédia, multiligue, téléchargeable, exportable, OpenData, pilotable par API. Tout est possible.",
   "Create an agenda"
   : "Créer un agenda",
-  "It's free"
-  : "C'est gratuit",
+  "free"
+  : "gratuit",
   "They trust us"
   : "Ils nous font confiance",
   "Follow us!"
@@ -132,20 +132,22 @@
   : "Formation",
   "For any question or pricing request"
   : "Pour toutes questions ou demandes de tarif",
-  "Please contact Romain Lange: +33612016842 <br>or fill in the form here below"
-  : "Merci de contacter Romain Lange au 0612016842<br>ou de remplir le formulaire ci-dessous",
+  "Please contact us at %email%"
+  : "Contactez-nous en nous écrivant à %email%",
   "Our philosophy"
   : "Notre philosophie",
   "agendas open for everyone"
   : "des agendas ouverts pour tous",
-  "Launched in Paris in december 2015, OpenAgenda offers both a free platform and tailored services"
-  : "Lancé à Paris en décembre 2015, Open Agenda propose à la fois une plateforme technique gratuite et des services d'accompagnement sur mesure.",
+  "Launched in Paris in april 2015, OpenAgenda offers both a free platform"
+  : "Lancé à Paris en avril 2015, OpenAgenda propose à la fois une plateforme technique gratuite",
+  "and services tailored to your needs."
+  : "et des services d'accompagnement sur mesure.",
   "OpenAgenda was born from a simple observation: the creation and management of agendas is often costly, difficult, redundant, requiring repetitive manual entries by organizers, and not allowing an easy flow of information."
   : "OpenAgenda est parti d'un constat simple: la création et la gestion d'agendas est souvent coûteuse, redondante, peu intuitive, nécessitant des saisies manuelles à répétition par les organisateurs, et ne permettant pas une circulation fluide de l'information.",
   "OpenAgenda offers a complete tool, promotes an open standard, from a unique entry and mutualizes information between thousands of agendas."
   : "OpenAgenda propose un outil complet, promeut un standard ouvert, permet une saisie unique et une mutualisation de l'information entre des milliers d'agendas.",
   "Because OpenAgenda defends free information accessible to all, our engagements"
-  : "Parce qu'Open Agenda défend une information ouverte et accessible à tous, nos engagements",
+  : "Parce qu'OpenAgenda défend une information ouverte et accessible à tous, nos engagements",
   "The service is free and it will stay that way"
   : "Le service est gratuit, et le restera",
   "The data belongs to you"
@@ -153,7 +155,7 @@
   "you can export it, edit it, delete it when you wish"
   : "vous pouvez les exporter, les éditer, les supprimer quand vous le souhaitez",
   "The OpenAgenda standard is documented and the data is reusable by all"
-  : "Le standard Open Agenda est documenté et les données sont réutilisables par tous",
+  : "Le standard OpenAgenda est documenté et les données sont réutilisables par tous",
   "Only private events (not visible by the public) is the object of a specific pricing. For advanced professional requirements, OpenAgenda offers a range of tailored services."
   : "Seuls les évènements privés (non visibles du public) font l'objet d'une tarification spécifique. Pour les besoins professionnels avancés, OpenAgenda fournit une gamme de services sur mesure.",
   "The founders"

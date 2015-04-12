@@ -28,10 +28,17 @@
   }
 
   .agenda-container {
-    margin: 20px auto;
+
+    text-align: center;
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    strong {
+      display: block;
+    }
 
     a {
-      font-size: 18px;
       font-weight: 300;
 
       &:hover .avatar {
@@ -39,11 +46,16 @@
       }
     }
 
+    strong {
+      margin-right: 1em;
+    }
+
     .avatar {
       border-width: 2px;
       margin-right: 10px;
-      max-width: 70px;
+      max-width: 56px;
     }
+
   }
 
   .event-container {
@@ -102,6 +114,15 @@
     .avatar-container, .action-container, .title-container {
       display: inline-block;
       float: none;
+    }
+
+    .agenda-container {
+      text-align: left;
+
+      strong {
+        display: inline;
+      }
+
     }
 
     .title-container {
