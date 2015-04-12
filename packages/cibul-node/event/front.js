@@ -671,9 +671,9 @@ function _layoutData( req, res ) {
 
   }
 
+  if ( !data.headLinks ) data.headLinks = [];
+  
   if ( req.event.getLanguages && req.event.getLanguages().length > 1 ) {
-
-    if ( !data.headLinks ) data.headLinks = [];
 
     req.event.getLanguages().forEach( function( lang ) {
 
@@ -682,6 +682,11 @@ function _layoutData( req, res ) {
     });
 
   }
+
+  data.headLinks.push({
+    rel: 'canonical',
+    href: req.genUrl( 'eventShow', { eventSlug: req.event.slug }, { abs: true, protocol: 'https://' } )
+  });
 
   if ( req.event.image ) {
 
