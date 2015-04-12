@@ -80,12 +80,12 @@
 
   .search-form {
     
-    margin: 0;
+    margin: 0 0 0 1em;
     float: left;
 
     .search-input {
 
-      width: 150px;
+      width: 210px;
 
       background: $oa-white;
       
@@ -187,6 +187,7 @@
     .search-form {
 
       float: none;
+      margin: 0;
 
       .search-input {
         width: 100%;
