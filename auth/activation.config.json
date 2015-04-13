@@ -12,7 +12,7 @@
   },
   "base" : {
     "pageClass" : "ct auth",
-    "facebookPage" : "//facebook.com/openagenda.com",
-    "twitterPage" : "//twitter.com/cibul"
+    "facebookPage" : "//facebook.com/getopenagenda",
+    "twitterPage" : "//twitter.com/OpenAgendaFR"
   }
 }
