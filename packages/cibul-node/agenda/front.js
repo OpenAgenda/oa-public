@@ -134,6 +134,10 @@ function showXhr( template ) {
 
     if ( !req.xhr ) return next();
 
+    lib.extend( req.templateData, {
+      slug: req.agenda.slug
+    } );
+
     cmn.renderTemplate( req, template, req.templateData, function( err, partial ) {
 
       cmn.renderJson( req, res, {
