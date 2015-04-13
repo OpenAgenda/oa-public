@@ -121,7 +121,7 @@ function _loadIsPassed( agenda, cb ) {
 
     if ( err ) return cb( err );
 
-    agenda.passed = now > new Date( lastOccurrence.end );
+    agenda.passed = lastOccurrence ? ( now > new Date( lastOccurrence.end ) ) : false;
 
     cb();
 

@@ -114,8 +114,6 @@ function instanciate( data ) {
 
       s3Svc.store( imagePaths, function( err ) {
 
-        fileSvc.remove( imagePaths );
-
         if ( err ) return cb( err );
 
         instance.setImage( name + '.jpg', true, cb );

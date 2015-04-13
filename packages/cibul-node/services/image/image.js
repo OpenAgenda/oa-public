@@ -48,6 +48,8 @@ cfg = {
 
 function processImageMulti( srcOptions, destOptions, cb ) {
 
+  log( 'processing multiple images' );
+
   var srcParams = lib.extend( {
     url: false,
     path: false
@@ -101,6 +103,8 @@ function processImageMulti( srcOptions, destOptions, cb ) {
  */
 
 function processImage( options, cb ) {
+
+  log( 'processing single image' );
 
   w( lib.extend( {
     url: false,
@@ -224,6 +228,8 @@ function _save( values ) {
     values.image.write( dstPath, function( err ) {
 
       if ( err ) return rj( err );
+
+      log( 'successful image save at %s', dstPath );
 
       values.dstPath = dstPath;
 
@@ -384,6 +390,8 @@ function _download( values ) {
 
       if ( res.statusCode != 200 ) {
 
+        log( 'download attempt returned a code %s for path %s', req.statusCode, src );
+
         return cb( 'status code: ' + res.statusCode );
 
       }
@@ -409,6 +417,8 @@ function _download( values ) {
         if ( aborted ) return;
 
         values.path = path;
+
+        log( 'download successful at %s', path );
 
         rs( values );
 
