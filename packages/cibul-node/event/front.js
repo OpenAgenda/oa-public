@@ -391,7 +391,7 @@ function _format( req, res, next ) {
       uid: req.event.uid,
       slug: req.event.slug,
       title: req.event.getTitle(),
-      image: req.event.getImage( true ).replace('cibuldev', 'cibul'),
+      image: req.event.getImage( true ),
       dateRange: req.event.getDateRange( true ),
       isUpcoming: req.event.isUpcoming(),
       description: req.event.getDescription(),
@@ -407,6 +407,12 @@ function _format( req, res, next ) {
       adminAgendas: results[ 2 ],
       languages: false
     };
+
+    if ( formatted.image ) {
+
+      formatted.image = formatted.image.replace( 'cibuldev', 'cibul' );
+
+    }
 
     if ( req.event.locations.length ) {
 
