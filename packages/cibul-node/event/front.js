@@ -59,6 +59,7 @@ routes = {
   
   eventActionShow: [ 'get', '/events/:eventSlug/action', [
     _loadEvent( 'eventSlug', 'slug' ),
+    _format,
     _loadUris,
     _extractAgendasSharing,
     _conditionalLayout( _layoutData, 'oa.css' ),
@@ -67,6 +68,7 @@ routes = {
   
   eventActionDatesShow: [ 'get', '/events/:eventSlug/action/dates', [
     _loadEvent( 'eventSlug', 'slug' ),
+    _format,
     _loadUris,
     _conditionalLayout( _layoutData, 'oa.css' ),
     actionDatesShow
@@ -177,7 +179,9 @@ function actionShow( req, res ) {
     event: {
       uid: req.event.uid,
       title: req.event.getTitle(),
-      imports: []
+      imports: [],
+      uri: req.eventUri,
+      params: req.eventUriParams
     },
     logged: req.session.logged,
     agendas: []
@@ -239,6 +243,8 @@ function actionDatesShow( req, res ) {
 
   return cmn.render( req, res, 'event/actionDates', {
     event: {
+      uri: req.eventUri,
+      params: req.eventUriParams,
       timings: req.event.locations[0].timings.map( function( timing ) {
 
         return {
