@@ -98,11 +98,13 @@ function end( cli ) {
 
 function publish( channelName, values ) {
 
-  log( 'publishing on: %s', channelName );
+  var stringified = JSON.stringify( values ),
 
-  var cli = redis.createClient( config.port, config.host );
+  cli = redis.createClient( config.port, config.host );
 
-  cli.publish( channelName, JSON.stringify( values ) );
+  log( 'publishing on: %s values: %s', channelName, stringified );
+
+  cli.publish( channelName, stringified );
 
   cli.quit();
 
