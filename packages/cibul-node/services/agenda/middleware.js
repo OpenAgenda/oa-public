@@ -37,7 +37,19 @@ function loadAgenda( paramName, fieldName, basicLoad ) {
 
     svc.get( getParams, function( err, a ) {
 
-      if ( err ) return next( 'agenda service error' );
+      if ( err ) {
+
+        if ( err == 'agenda not found' ) {
+
+          return next( { code: 404 } );
+
+        } else {
+
+          return next( 'agenda service error' );
+
+        }
+
+      }
 
       req.agenda = a;
 

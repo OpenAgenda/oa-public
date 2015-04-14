@@ -22,6 +22,8 @@ function get( params, cb ) {
 
     if ( err ) return cb( err );
 
+    if ( !result ) return cb( 'agenda not found' );
+
     cb( null, instanciate( result ) );
 
   });
