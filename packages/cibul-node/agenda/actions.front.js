@@ -146,7 +146,7 @@ function actionShow( req, res ) {
 
     } else {
 
-      cmn.loadBaseData( _layoutData, 'oa.css' )( req, res, function() {
+      cmn.loadBaseData( 'oa.css' )( req, res, function() {
 
         cmn.render.apply( null, renderParams );
 

@@ -492,7 +492,17 @@ function renderTemplate( req, templatePath, data, maintain, cb ) {
 
 function loadBaseData( func, cssFile ) {
 
-  if ( !cssFile ) cssFile = 'compiled.css';
+  if ( typeof func == 'string' ) {
+
+    cssFile = func;
+
+    func = false;
+
+  } else if ( !cssFile ) {
+
+    cssFile = 'compiled.css';
+
+  }
 
   return function( req, res, next ) {
 
