@@ -108,10 +108,9 @@ module.exports = function( p ) {
   var router = modLib.Router( routes );
 
   router.pre( [
+    cmn.loadLogger( 'agenda front' ),
     cmn.flashSetter,
-    cmn.loadSession,
-    mw.search.cleanSearch,
-    mw.search.buildEsQuery( perPage )
+    cmn.loadSession
   ] );
 
   return {
@@ -405,54 +404,10 @@ function _loadTemplateUris( req, res, next ) {
 
 }
 
-function _loadEvents( req, res, next ) {
-
-  var isEmpty = false;
-
-  req.esQuery.reviewId = req.agenda.id;
-
-  req.esQuery.order = [ 'upcoming' ];
-
-  wn.call( req.agenda.hasPublishedEvents )
-
-  .then( function( hasPublishedEvents ) {
-
-    if ( !hasPublishedEvents ) {
-
-      isEmpty = true;
-
-      return { data: [], total: 0 };
-
-    } else {
-
-      return wn.call( es.events().search, req.esQuery )
-
-    }
-
-  })
-
-  .then( mw.search.prepareEvents )
-
-  .spread( function( events, total ) {
-
-    req.templateData = deepExtend( req.templateData, {
-      isEmpty: isEmpty,
-      events: events,
-      total: total,
-      scriptParams: {
-        total: total,
-        empty: isEmpty
-      }
-    }, _pager( req, total ) );
-
-    next();
-
-  } );
-
-}
-
 
 function _layoutData( req, res ) {
+
+  req.log( 'loading layout data' );
 
   var url = req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { abs: true } );
 
@@ -488,6 +443,13 @@ function _layoutData( req, res ) {
     });
 
   }
+
+  if ( !data.headLinks ) data.headLinks = [];
+
+  data.headLinks.push({
+    rel: 'canonical',
+    href: req.genUrl( 'agendaShow', {slug: req.agenda.slug }, { abs: true, protocol: 'https://' } )
+  });
 
   return data;
 

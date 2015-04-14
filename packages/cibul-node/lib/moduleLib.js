@@ -16,7 +16,9 @@ function Router( routes ) {
 
   var router = express.Router( {
     mergeParams: true
-  } );
+  } ),
+
+  preMiddlewares = [];
 
   return {
     pre: pre,  // load middleware to be executed before main controllers
@@ -25,7 +27,7 @@ function Router( routes ) {
 
   function pre( middlewares ) {
 
-    router.use.apply( router, middlewares );
+    preMiddlewares = middlewares;
 
   }
 
@@ -33,7 +35,7 @@ function Router( routes ) {
 
     for ( var r in routes ) {
 
-      router[ routes[ r ][ 0 ] ]( routes[ r ][ 1 ], routes[ r ][ 2 ] );
+      router[ routes[ r ][ 0 ] ]( routes[ r ][ 1 ], preMiddlewares.concat( routes[ r ][ 2 ] ) );
 
     }
 

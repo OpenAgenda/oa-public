@@ -66,11 +66,15 @@ function loadUrlGen( name, path ) {
 
   return function( req, res, next ) {
 
-    req.genUrl = makeGenUrl({
-      base: _getBasePath( path, req ),
-      req: req,
-      module: name
-    });
+    if ( !req.genUrl ) {
+
+      req.genUrl = makeGenUrl({
+        base: _getBasePath( path, req ),
+        req: req,
+        module: name
+      });
+
+    }
 
     next();
 

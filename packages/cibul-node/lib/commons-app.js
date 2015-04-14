@@ -506,6 +506,8 @@ function loadBaseData( func, cssFile ) {
 
   return function( req, res, next ) {
 
+    req.log( 'loading base data' );
+
     var baseData = {
       head: {
         css: {
