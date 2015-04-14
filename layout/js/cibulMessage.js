@@ -38,6 +38,8 @@ function _print( render ) {
 
   cn.addEvent( d, 'click', function( e ) {
 
+    cn.preventDefault( e );
+
     cn.el( 'body' ).removeChild( d );
 
   });
