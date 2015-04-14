@@ -10,6 +10,8 @@ messageLinks = require('./handleMessageLinks.js'),
 
 confirmMessage = require( './confirmMessage' ),
 
+cibulMessage = require( './cibulMessage' ),
+
 handleSession = require( './handleSession' ),
 
 headerProfile = require( './headerProfile' ),
@@ -53,6 +55,8 @@ cn.addEvent( window, 'load', function() {
   toggle();
 
   flash();
+
+  cibulMessage();
 
   //_languageMenu( options.langHeadMenu );
 

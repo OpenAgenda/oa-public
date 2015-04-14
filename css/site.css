@@ -95,6 +95,7 @@ body.noscroll {
 
 }
 
+
 @media all and (max-width: 500px) {
 
   .lightbox-frame.w500 {
@@ -116,4 +117,90 @@ body.noscroll {
 
   margin: 0 5px;
 
+}
+
+
+
+
+
+.popup-overlay {
+  background: rgba(0,0,0,0.62);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3000;
+}
+
+
+.popup-overlay section {
+  background: #eee;
+  margin: 0 auto;
+  max-width: 500px;
+  position: relative;
+  width: 100%;
+}
+
+
+@media (min-width: 768px) {
+
+  .popup-overlay section {
+    border-radius: 3px;
+    margin-top: 12%;
+    width: 38.2%;
+  }
+
+}
+
+
+.popup-overlay .popup-title {
+  background-color: #41acdd;
+  border-radius: 3px 3px 0 0;
+  color: #fff;
+  display: block;
+  
+  text-align: left;
+  width: 100%;
+}
+
+.popup-overlay .popup-title h2 {
+  font-size: 16px;
+  line-height: 20px;
+  margin: 0;
+  padding: 10px 2em;
+  color: white;
+}
+
+.popup-overlay h1 {
+  font-size: 36px;
+  font-weight: normal;
+}
+
+.popup-overlay p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  line-height: 1.42857143;
+}
+
+.popup-overlay i {
+  color: white;
+}
+
+.popup-overlay .text-center {
+  text-align: center;
+}
+
+.popup-overlay .popup-title .close-link {
+  color: #fff;
+  line-height: 40px;
+  padding: 0 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  vertical-align: middle;
+}
+
+.popup-overlay .popup-content {
+  padding: 1em 2em 2em;
 }

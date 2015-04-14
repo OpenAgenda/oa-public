@@ -4,7 +4,7 @@ var debug = require( 'debug' ),
 log = debug( 'globals' );
 
 window.handleGlobals = require('../../layout/js/main');
-},{"../../layout/js/main":23,"debug":2}],2:[function(require,module,exports){
+},{"../../layout/js/main":24,"debug":2}],2:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -2514,6 +2514,52 @@ module.exports = {
     }
 })();
 },{}],14:[function(require,module,exports){
+"use strict";
+
+var cn = require( '../../js/lib/common/common.mod.js' ),
+
+cTemplater = require( './clientTemplater' ),
+
+tpl = 'user/transferMessage';
+
+module.exports = function() {
+
+  if ( !_show() ) return;
+
+  cTemplater( tpl, {}, function( err, template ) {
+
+    _print( template.render( {} ) );
+
+  } );
+
+}
+
+function _show() {
+
+  var query = window.location.href.split('?');
+
+  return query.indexOf( 'cibul=' ) !==-1;
+
+}
+
+function _print( render ) {
+
+  var d = document.createElement( 'div' );
+
+  d.innerHTML = render;
+
+  d.className = 'popup-overlay share-menu';
+
+  cn.el( 'body' ).insertAdjacentElement( 'beforeend', d );
+
+  cn.addEvent( d, 'click', function( e ) {
+
+    cn.el( 'body' ).removeChild( d );
+
+  });
+
+}
+},{"../../js/lib/common/common.mod.js":10,"./clientTemplater":15}],15:[function(require,module,exports){
 var cn = require( '../../js/lib/common/common.mod.js' ),
 
 EJS = require( '../../js/lib/clientEjs/ejs' ),
@@ -2742,7 +2788,7 @@ function _checkAndClearTemplates( lastUpdate ) {
   store.set('lastTemplateUpdate', lastUpdate );
 
 };
-},{"../../js/lib/clientEjs/ejs":9,"../../js/lib/common/common.mod.js":10,"../../js/lib/remote/remote.mod.js":12,"./i18n":21,"async":26,"store":30}],15:[function(require,module,exports){
+},{"../../js/lib/clientEjs/ejs":9,"../../js/lib/common/common.mod.js":10,"../../js/lib/remote/remote.mod.js":12,"./i18n":22,"async":27,"store":31}],16:[function(require,module,exports){
 var cn = require( '../../js/lib/common/common.mod.js' ),
 
 debug = require('debug'),
@@ -2803,7 +2849,7 @@ module.exports = function() {
   } );
 
 }
-},{"../../js/lib/common/common.mod.js":10,"../../js/lib/lightbox/lightbox.mod":11,"debug":27}],16:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":10,"../../js/lib/lightbox/lightbox.mod":11,"debug":28}],17:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 b64 = require('../../js/lib/Base64/Base64.mod.js'),
@@ -2868,7 +2914,7 @@ clear = function() {
   cookies.set(params.keys.cookie, b64.encode(JSON.stringify(cookieValues)));
 
 };
-},{"../../js/lib/Base64/Base64.mod.js":7,"../../js/lib/common/common.mod.js":10,"../../js/lib/lightbox/lightbox.mod.js":11,"../../js/vendors/Cookies-master/src/cookies.js":13}],17:[function(require,module,exports){
+},{"../../js/lib/Base64/Base64.mod.js":7,"../../js/lib/common/common.mod.js":10,"../../js/lib/lightbox/lightbox.mod.js":11,"../../js/vendors/Cookies-master/src/cookies.js":13}],18:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 action = require('../../home/js/action.js'),
@@ -2918,7 +2964,7 @@ var scan = function() {
   });
 
 };
-},{"../../home/js/action.js":5,"../../js/lib/common/common.mod.js":10,"debug":27}],18:[function(require,module,exports){
+},{"../../home/js/action.js":5,"../../js/lib/common/common.mod.js":10,"debug":28}],19:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 params = {
@@ -2965,7 +3011,7 @@ getWidth = function() {
   return d.width?d.width:w.innerWidth;
 
 };
-},{"../../js/lib/common/common.mod.js":10}],19:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":10}],20:[function(require,module,exports){
 "use strict";
 
 var cn = require( '../../js/lib/common/common.mod.js' ),
@@ -3191,7 +3237,7 @@ module.exports = function( eh, options ) {
   return run();
 
 };
-},{"../../js/lib/Base64/Base64.mod.js":7,"../../js/lib/common/common.mod.js":10,"../../js/lib/remote/remote.mod.js":12,"../../js/vendors/Cookies-master/src/cookies.js":13}],20:[function(require,module,exports){
+},{"../../js/lib/Base64/Base64.mod.js":7,"../../js/lib/common/common.mod.js":10,"../../js/lib/remote/remote.mod.js":12,"../../js/vendors/Cookies-master/src/cookies.js":13}],21:[function(require,module,exports){
 "use strict";
 
 var cn = require( '../../js/lib/common/common.mod.js' ),
@@ -3335,7 +3381,7 @@ _hide = function( li ) {
   cn.addClass( cn.el( li, params.selectors.dropdown ), params.classes.displayNone );
 
 };
-},{"../../js/lib/Base64/Base64.mod.js":7,"../../js/lib/common/common.mod.js":10,"./clientTemplater":14,"./toggle":25}],21:[function(require,module,exports){
+},{"../../js/lib/Base64/Base64.mod.js":7,"../../js/lib/common/common.mod.js":10,"./clientTemplater":15,"./toggle":26}],22:[function(require,module,exports){
 "use strict";
 
 module.exports = function( labelSet ) {
@@ -3363,7 +3409,7 @@ module.exports = function( labelSet ) {
   };
 
 }
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 "use strict";
 
 var cn = require( '../../js/lib/common/common.mod.js' );
@@ -3393,7 +3439,7 @@ function getOptions( selector ) {
   return options;
 
 }
-},{"../../js/lib/common/common.mod.js":10}],23:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":10}],24:[function(require,module,exports){
 "use strict";
 
 var cn = require('../../js/lib/common/common.mod.js'),
@@ -3405,6 +3451,8 @@ mobileMenu = require( './mobileMenu' ),
 messageLinks = require('./handleMessageLinks.js'),
 
 confirmMessage = require( './confirmMessage' ),
+
+cibulMessage = require( './cibulMessage' ),
 
 handleSession = require( './handleSession' ),
 
@@ -3449,6 +3497,8 @@ cn.addEvent( window, 'load', function() {
   toggle();
 
   flash();
+
+  cibulMessage();
 
   //_languageMenu( options.langHeadMenu );
 
@@ -3525,7 +3575,7 @@ function _languageMenu( options ) {
   });
 
 }
-},{"../../js/lib/EventHandler/EventHandler.js":8,"../../js/lib/common/common.mod.js":10,"./confirmMessage":15,"./handleFlashMessage.js":16,"./handleMessageLinks.js":17,"./handleMobileMonitor.js":18,"./handleSession":19,"./headerProfile":20,"./layout":22,"./mobileMenu":24,"./toggle":25,"debug":27}],24:[function(require,module,exports){
+},{"../../js/lib/EventHandler/EventHandler.js":8,"../../js/lib/common/common.mod.js":10,"./cibulMessage":14,"./confirmMessage":16,"./handleFlashMessage.js":17,"./handleMessageLinks.js":18,"./handleMobileMonitor.js":19,"./handleSession":20,"./headerProfile":21,"./layout":23,"./mobileMenu":25,"./toggle":26,"debug":28}],25:[function(require,module,exports){
 "use strict";
 
 var cn = require( '../../js/lib/common/common.mod.js' ),
@@ -3565,7 +3615,7 @@ module.exports = function() {
   } )
 
 }
-},{"../../js/lib/common/common.mod.js":10}],25:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":10}],26:[function(require,module,exports){
 "use strict";
 
 /**
@@ -3705,7 +3755,7 @@ function _hide( elem, params ) {
   cn.removeClass( elem, params.classes.display );
 
 }
-},{"../../js/lib/common/common.mod.js":10}],26:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":10}],27:[function(require,module,exports){
 (function (process){
 /*!
  * async
@@ -4832,7 +4882,7 @@ function _hide( elem, params ) {
 }());
 
 }).call(this,require('_process'))
-},{"_process":31}],27:[function(require,module,exports){
+},{"_process":32}],28:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -4981,7 +5031,7 @@ function load() {
 
 exports.enable(load());
 
-},{"./debug":28}],28:[function(require,module,exports){
+},{"./debug":29}],29:[function(require,module,exports){
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -5180,9 +5230,9 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":29}],29:[function(require,module,exports){
+},{"ms":30}],30:[function(require,module,exports){
 module.exports=require(4)
-},{"/home/kaore/Dev/www/cibul-templates/global/js/node_modules/debug/node_modules/ms/index.js":4}],30:[function(require,module,exports){
+},{"/home/kaore/Dev/www/cibul-templates/global/js/node_modules/debug/node_modules/ms/index.js":4}],31:[function(require,module,exports){
 ;(function(win){
 	var store = {},
 		doc = win.document,
@@ -5359,7 +5409,7 @@ module.exports=require(4)
 
 })(Function('return this')());
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
