@@ -60,9 +60,15 @@ function processInvitation( values, cb ) {
 
       return agendaInvitations( values.agenda ).processAdministratorInvitation( values );
 
-    }
+    } else {
 
-    throw 'This invitation type is unknown';
+      log( 'error', 'invitation type unknown: %s', JSON.stringify( values.invitation ) );
+
+      values.resolved = true;
+
+      return values;
+
+    }
 
   } )
 

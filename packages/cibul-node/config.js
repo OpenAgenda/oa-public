@@ -66,7 +66,7 @@ config = {
     mailer: {
       source: 'no-reply@openagenda.com',
       replyTo: 'admin@openagenda.com',
-      simulated: true
+      simulated: false
     },
     api: {
       redis: {
