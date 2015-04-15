@@ -487,7 +487,13 @@ module.exports = function( uid ) {
     
     }
 
-    remote.get( res + '?callback=cb' + splitUid.join( '' ), { timeout: 20000 }, function( responseType, data ) {
+    if ( !_isAjax() ) {
+
+      res += '?callback=cb' + splitUid.join( '' );
+
+    }
+
+    remote.get( res, { timeout: 20000 }, function( responseType, data ) {
 
       if ( responseType !== 'success' ) {
 
