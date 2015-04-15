@@ -14,6 +14,8 @@ window.hook( function( options ) {
 
   log = debug( 'embedded agenda show' );
 
+  log( 'initing with options %s', JSON.stringify( options ) );
+
   var handler = embedded( {
     onReceive: function( message ) {
 
