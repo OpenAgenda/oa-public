@@ -2,6 +2,7 @@
 
 module.exports = {
   check: check,
+  force: force,
   setOnChange: setOnChange
 }
 
@@ -13,15 +14,23 @@ onChangeCb = false;
 
 cn.addEvent( window, 'resize', check );
 
-function check() {
+function check( force ) {
 
   var current = _getHeight();
 
-  if ( height == current ) return;
+  if ( typeof force == 'undefined' ) force = false;
+
+  if ( !force && ( height == current ) ) return;
 
   height = current;
 
   if ( onChangeCb ) onChangeCb( height );
+
+}
+
+function force() {
+
+  check( true );
 
 }
 

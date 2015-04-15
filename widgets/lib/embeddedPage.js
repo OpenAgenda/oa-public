@@ -32,7 +32,7 @@ module.exports = function( pageOptions ) {
         
     });
 
-    pageHeight.check();
+    pageHeight.force();
 
     linkClickController = function( href ) {
       sendFunc( { load: href } );
