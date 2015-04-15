@@ -171,7 +171,7 @@ function show( req, res ) {
 function embedShow( req, res ) {
 
   lib.extend( req.templateData, {
-    uid: req.agenda.uid,
+    uid: req.agenda.uid + ( req.embed ? '/' + req.embed.uid : '' ),
     isEmpty: req.agenda.isEmpty,
     renders: req.renders,
     pager: {
@@ -410,7 +410,7 @@ function _layoutData( req, res ) {
     queryLang: req.query.lang ? req.query.lang : false,
     scriptParams: {
       perPage: perPage,
-      uid: req.agenda.uid,
+      uid: req.agenda.uid + ( req.embed ? '/' + req.embed.uid : '' ),
       lang: req.lang
     },
     metas: {

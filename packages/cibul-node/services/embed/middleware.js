@@ -159,7 +159,7 @@ function loadCustomLayoutData( req, res, next ) {
 
   if ( linkCss ) {
 
-    req.baseData.head.css.embedLink = req.templateData.linkCss;
+    req.baseData.head.css.embedLink = linkCss;
 
   }
 
