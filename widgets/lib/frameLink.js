@@ -82,7 +82,7 @@ function frameLink( elem, onLinkEstablished, onReceive ) {
 
   function _stop() {
 
-    window.removeEventListener( 'message' );
+    window.removeEventListener( 'message', _onFrameMessageReceived );
 
   }
 
