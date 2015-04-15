@@ -471,21 +471,23 @@ module.exports = function( uid ) {
   
   function _fetchControllerData( cb ) {
 
-    var res;
+    var res, splitUid;
 
     if ( embedMode ) {
 
-      uid = uid.split( '/' );
+      splitUid = uid.split( '/' );
 
-      res = params.embed.replace( '{uid}', uid[ 0 ] ).replace( '{embedUid}', uid[ 1 ] );
+      res = params.embed.replace( '{uid}', splitUid[ 0 ] ).replace( '{embedUid}', splitUid[ 1 ] );
 
     } else {
+
+      splitUid = [ uid ];
 
       res = params.agenda.replace( '{uid}', uid );
     
     }
 
-    remote.get( res, { timeout: 20000 }, function( responseType, data ) {
+    remote.get( res + '?callback=cb' + splitUid.join( '' ), { timeout: 20000 }, function( responseType, data ) {
 
       if ( responseType !== 'success' ) {
 
