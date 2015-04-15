@@ -3,7 +3,21 @@
 var log = require( '../../lib/logger' )( 'event share service' );
 
 module.exports = {
-  addCalendarLinks: addCalendarLinks
+  addCalendarLinks: addCalendarLinks,
+  getSocialLinks: getSocialLinks
+}
+
+
+function getSocialLinks( event, eventUrl ) {
+
+  // this generates and loads links in event
+  // controller passes event to embed svc for rendering
+  // 
+  // when a site url is used, the event url is the search query with uid of the event
+  // 
+  // base url is given by embed configuration.
+  // 
+
 }
 
 function addCalendarLinks( event, eventUrl ) {

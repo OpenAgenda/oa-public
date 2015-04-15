@@ -83,7 +83,7 @@ routes = {
     embedSvc.mw.renderEventItems,
     showXhr( 'agenda/show'),
     cmn.loadBaseData( _layoutData, 'oae.css' ),
-    _loadCustomLayoutData,
+    embedSvc.mw.loadCustomLayoutData,
     embedShow
   ] ],
   
@@ -362,12 +362,6 @@ function _formatAgendaData( mode ) {
 
 function _formatEmbedData( req, res, next ) {
 
-  req.templateData.customCss = req.embed.getCustomCss();
-
-  req.templateData.linkCss = req.embed.getLinkCss();
-
-  req.templateData.useDefaultCss = req.embed.getUseDefaultCss();
-
   next();
 
 }
@@ -452,29 +446,6 @@ function _layoutData( req, res ) {
   });
 
   return data;
-
-}
-
-
-/**
- * remove embed css
- */
-
-function _loadCustomLayoutData( req, res, next ) {
-
-  if ( !req.templateData.useDefaultCss.list ) {
-
-    delete req.baseData.head.css.main;
-
-  }
-
-  if ( req.templateData.linkCss ) {
-
-    req.baseData.head.css.embedLink = req.templateData.linkCss;
-
-  }
-
-  next();
 
 }
 

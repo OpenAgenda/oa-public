@@ -47,6 +47,7 @@ routes = {
     _formatCustomEmbedLinks,
     embedSvc.mw.renderEvent,
     cmn.loadBaseData( _layoutData, 'oae.css' ),
+    embedSvc.mw.loadCustomLayoutData,
     agendaEmbedEventShow 
   ] ],
 
@@ -135,6 +136,7 @@ function agendaEmbedEventShow( req, res ) {
 
   // backUri: 'embedShow',
   // backQuery: { uid: req.params.uid }
+  // 
 
   cmn.render( req, res, 'event/embedShow', {
     eventRender: req.render
@@ -481,6 +483,11 @@ function _format( req, res, next ) {
 
 
 function _formatCustomEmbedLinks( req, res, next ) {
+
+  // get base url here if exists from embed
+  // pass it to event share service 'addSocialLinks'
+
+  //eventSvc.shares.getSocialLinks( req.event, req.embed.get )
 
   req.formatted.backLink = req.genUrl( 'customEmbedShow', { 
     uid: req.params.uid, 

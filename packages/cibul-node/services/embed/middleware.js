@@ -19,6 +19,7 @@ module.exports = function( embedService ) {
 
   return {
     load: loadEmbed,
+    loadCustomLayoutData: loadCustomLayoutData,
     renderEventItems: renderEventItems,
     renderEvent: renderEvent
   }
@@ -138,5 +139,37 @@ function loadEmbed( paramName, fieldName ) {
     } );
 
   }
+
+}
+
+
+
+function loadCustomLayoutData( req, res, next ) {
+
+  var customCss = req.embed.getCustomCss(),
+
+  linkCss = req.embed.getLinkCss(),
+
+  useDefaultCss = req.embed.getUseDefaultCss();
+
+  if ( !useDefaultCss.list ) {
+
+    delete req.baseData.head.css.main;
+
+  }
+
+  if ( linkCss ) {
+
+    req.baseData.head.css.embedLink = req.templateData.linkCss;
+
+  }
+
+  if ( customCss ) {
+
+    req.baseData.customCss = customCss;
+
+  }
+
+  next();
 
 }
