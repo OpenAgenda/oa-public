@@ -9,7 +9,8 @@ describe( 'simple parser', function() {
   var p = parser( {
     attributes: [
       { name: 'Title', mapTo: 'title' },
-      { name: 'Description', mapTo: 'description' }
+      { name: 'Description', mapTo: 'description' },
+      { name: 'Image', mapTo: 'image' }
     ]
   });
 
@@ -30,6 +31,16 @@ describe( 'simple parser', function() {
     p.render( { title: 'Yeay!' } )
 
     .should.equal( '<div>Yeay!</div>' );
+
+  });
+
+  it( 'rendering the same element multiple times', function() {
+
+    p.load( '<div>{Title}</div> Ladida <p>{Title}</p>');
+
+    p.render( { title: 'Yeay?' } )
+
+    .should.equal( '<div>Yeay?</div> Ladida <p>Yeay?</p>' );
 
   });
 
@@ -55,6 +66,54 @@ describe( 'simple parser', function() {
     .should.equal( '<div>Yeay!</div>ignored<div>Woopidoo</div>' )
 
     // with and without
+
+  } );
+
+  
+  it( 'render the same conditional attribute block multiple times', function() {
+
+    p.load( [
+      '<div>{Title}</div>',
+      '{block:Ignore}ignored{/block:Ignore}',
+      '{block:Description}',
+        '<div>{Description}</div>',
+      '{/block:Description}',
+      ' something else here ',
+      '{block:Description}',
+        '<p>{Description}</p>',
+      '{/block:Description}',
+    ].join( '' ));
+
+    p.render( {
+      title: 'Shakalaka',
+      description: 'boom'
+    } ).should.equal( '<div>Shakalaka</div>ignored<div>boom</div> something else here <p>boom</p>' );
+
+  } );
+
+
+  it( 'null, undefined, false all count as false in a conditional statement', function() {
+
+    p.load( [
+      '<div>three falses</div>',
+      '{block:Title}',
+        '<h1>{Title}</h1>',
+      '{/block:Title}',
+      '-',
+      '{block:Description}',
+        '<p>{Description}</p>',
+      '{/block:Description}',
+      '-',
+      '{block:Image}',
+        '<img src="{Image}"/>',
+      '{/block:Image}',
+    ].join( '' ) );
+
+    p.render( {
+      Title: false,
+      Description: undefined,
+      Image: null
+    }).should.equal( '<div>three falses</div>--' );
 
   } );
 
