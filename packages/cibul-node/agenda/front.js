@@ -22,8 +22,6 @@ deepExtend = require( 'deep-extend' ),
 
 wn = require( 'when/node' ),
 
-es = require( 'ES' )( config.es ),
-
 i18n = require( '../i18n/i18n' ),
 
 timeHelper = require( 'cibulTemplates' ).helpers.time,
@@ -226,7 +224,7 @@ function _format( req, res, next ) {
 
   formattedEvents = req.events.map( function( e ) { 
 
-    return _formatEvent( e, _t, req.lang );
+    return _formatEventItem( e, _t, req.lang );
     
   } );
 
@@ -244,7 +242,7 @@ function _format( req, res, next ) {
 }
 
 
-function _formatEvent( event, _t, lang ) {
+function _formatEventItem( event, _t, lang ) {
 
   var inst = model.events().instance( event ),
 
@@ -260,6 +258,8 @@ function _formatEvent( event, _t, lang ) {
     thumbnail: inst.getThumbnail( false ),
     description: inst.getDescription(),
     placeName: inst.getLocationName(),
+    placeNameLabel: inst.getLocationName().label,
+    city: inst.getCity().label,
     organization: event.organization ? { slug: event.organizationSlug, label: event.organization } : false
   } );
 

@@ -381,7 +381,11 @@ function _selectLanguage( req, res ) {
 
 function _format( req, res, next ) {
 
-  var formatted = {},
+  var formatted = {}, 
+
+  img = req.event.getImage( true ),
+
+  dateRange = req.event.getDateRange( true );
 
   _t = timeHelper( { lang: req.lang } );
 
@@ -397,8 +401,8 @@ function _format( req, res, next ) {
       uid: req.event.uid,
       slug: req.event.slug,
       title: req.event.getTitle(),
-      image: req.event.getImage( true ),
-      dateRange: req.event.getDateRange( true ),
+      image: img ? img.replace( 'cibuldev', 'cibul' ) : false,
+      dateRange: i18n( dateRange[ 0 ], _t( dateRange[1] ), req.lang ).replace( ':', req.lang=='fr' ? 'h' : ':' ),
       isUpcoming: req.event.isUpcoming(),
       description: req.event.getDescription(),
       freeText: textHelper.nl2br( req.event.getEnrichedFreeText() ),

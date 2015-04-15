@@ -9,7 +9,7 @@
     "name" : "FreeText",
     "mapTo" : "freeText"
   }, {
-    "name" : "Image",
+    "name" : "ImageUrl",
     "mapTo" : "image"
   }, {
     "name" : "BackLink",
@@ -17,6 +17,9 @@
   }, {
     "name" : "BackLabel",
     "mapTo" : "backLabel"
+  }, {
+    "name": "DateRange", 
+    "mapTo": "dateRange" 
   } ],
 
   "children" : [ {

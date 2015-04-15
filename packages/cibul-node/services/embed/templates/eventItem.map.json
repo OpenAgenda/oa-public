@@ -1,19 +1,11 @@
 {
   "attributes": [
-    { "name": "Title", "mapTo": "title" },
-    { "name": "Description", "mapTo": "description" },
-    { "name": "Link", "mapTo": "link" },
-    { "name": "Image", "mapTo": "image" },
+    { "name" : "Title", "mapTo": "title" },
+    { "name" : "Description", "mapTo": "description" },
+    { "name" : "Link", "mapTo": "link" },
+    { "name" : "ImageUrl", "mapTo": "image" },
+    { "name" : "LocationName", "mapTo": "placeNameLabel" },
+    { "name" : "City", "mapTo" : "city" },
     { "name": "DateRange", "mapTo": "dateRange" }
-  ],
-  "children": [
-    { 
-      "name": "Locations",
-      "mapTo": "locations",
-      "attributes": [
-        { "name": "Name", "mapTo": "name" },
-        { "name": "City", "mapTo": "city" }
-      ]
-    }
   ]
 }

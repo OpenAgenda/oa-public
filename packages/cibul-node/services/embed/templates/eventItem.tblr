@@ -2,22 +2,16 @@
   <section>
     <a class="event-card" href="{Link}">
       <h3 class="event-title">{Title}</h3>
-{block:Image}
+{block:ImageUrl}
       <div class="event-img">
-        <img class="img-responsive" src="{Image}" alt="{Title}"/>
+        <img class="img-responsive" src="{ImageUrl}" alt="{Title}"/>
       </div>
-{/block:Image}
+{/block:ImageUrl}
       <div class="event-text">
         <p>{Description}</p>
         <ul class="metas">
-          {block:Locations}
-          <li>
-            {Name}
-          </li>
-          {/block:Locations}
-          <li>
-            {DateRange}
-          </li>
+          <li>{LocationName}<!-- or City --></li>
+          <li>{DateRange}</li>
         </ul>
       </div>
     </a>

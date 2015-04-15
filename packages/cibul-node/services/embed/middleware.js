@@ -84,6 +84,7 @@ function renderEvent( req, res, next ) {
 
   if ( req.embed.getMapping( 'event' ) ) {
 
+    // load event optional values if any
     req.event.loadStoreValues( true, function( err, values ) {
 
       if ( err ) return next( err );

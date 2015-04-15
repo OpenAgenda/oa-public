@@ -4,9 +4,9 @@
   
   <p class="short-description">{Description}</p>
 
-  {block:Image}
-  <img class="img-responsive" src="{Image}" alt="{Title}"/>
-  {/block:Image}
+  {block:ImageUrl}
+  <img class="img-responsive" src="{ImageUrl}" alt="{Title}"/>
+  {/block:ImageUrl}
 
   <div class="description">
   {FreeText}
