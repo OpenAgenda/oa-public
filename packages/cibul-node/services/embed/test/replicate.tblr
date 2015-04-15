@@ -1,0 +1,26 @@
+<div class="background-image">
+  {block:Image}
+fdsfsfd
+  {/block:Image}
+</div>
+
+<a href="{BackLink}">{BackLabel}</a>
+
+<div class="event-page">
+
+  {block:Image}
+  <div class="event-image">
+fqdsfqs
+  </div>
+  {/block:Image}
+
+  <div class="main-box"> 
+    
+    {block:Image}
+    <img class="img-responsive" src="{Image}" alt="{Title}"/>
+    {/block:Image}
+    <h1>{Title}</h1>
+    
+  </div>
+
+</div>

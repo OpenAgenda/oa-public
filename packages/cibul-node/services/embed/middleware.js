@@ -48,7 +48,7 @@ function renderEventItems( req, res, next ) {
   var eventItemParser = parserLib( tblr.eventItemMapping );
 
   eventItemParser.load( template );
-
+  
   req.events.forEach( function( e ) {
 
     req.renders.eventItems.push( eventItemParser.render( e ) );

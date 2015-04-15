@@ -134,9 +134,21 @@ function _createChildrenParsers( children ) {
 
 function _childLoadAndSlice( child, tpl ) {
 
-  var indexes = _findBlockIndexes( tpl, child.name );
+  var indexes, childTemplate;
 
-  var childTemplate = tpl.substr( indexes[ 2 ], indexes[ 1 ] - indexes[ 2 ] );
+  try {
+
+    indexes = _findBlockIndexes( tpl, child.name );
+
+  } catch( e ) {
+
+    log( 'child %s is undefined in template', child.name );
+
+    return tpl;
+
+  }
+
+  childTemplate = tpl.substr( indexes[ 2 ], indexes[ 1 ] - indexes[ 2 ] );
 
   child.parser.load( childTemplate );
 
@@ -147,13 +159,25 @@ function _childLoadAndSlice( child, tpl ) {
 
 function _renderChild( key, arr, children, rendered ) {
 
-  var child = children.filter( function( child ) { 
-    return child.mapTo == key 
+  var child = children.filter( function( child ) {
+
+    return child.mapTo == key;
+  
   } )[ 0 ],
 
-  indexes = _findBlockIndexes( rendered, child.name ),
+  indexes, childRender = '';
 
-  childRender = '';
+  try {
+
+     indexes = _findBlockIndexes( rendered, child.name );
+
+  } catch( e ) {
+
+    log( 'child %s is not used in template', child.name );
+
+    return rendered;
+
+  }
 
   arr.forEach( function( childData ) {
 
@@ -228,7 +252,7 @@ function _findBlockIndexes( tpl, blockName ) {
 function _extractTemplateAttributes( attributes, template ) {
 
   // strip template of blocks which are not attribute blocks
-  
+
   var filteredTpl = _removeBlocks( attributes, template ),
 
   templateAttributes = {};
@@ -277,26 +301,61 @@ function _removeBlocks( attributes, template ) {
 
 }
 
+
+/**
+ * remove block from template
+ */
+
 function _removeBlock( tpl, name ) {
 
-  var o = '{block:' + name + '}', cl,
+  var stripped = tpl, sub;
+
+  while( sub = _extractBlock( stripped, name ) ) {
+
+    stripped = stripped.replace( sub, '' );
+
+  }
+
+  return stripped;
+
+}
+
+
+/**
+ * return first occurrence
+ * of block content in given template
+ */
+
+function _extractBlock( tpl, name ) {
+
+  var o = '{block:' + name + '}', 
+
+  cl = o.replace(/^{/, '{/'), clIndex,
+
+  sub, oIndex = tpl.indexOf( o );
+
+  if ( oIndex == -1 ) {
+
+    return false;
+
+  }
 
   // start from where the opening block is
-  sub = tpl.substr( tpl.indexOf( o ) );
+  sub = tpl.substr( oIndex );
 
   // find closing index
-  cl = sub.indexOf( o.replace(/^{/, '{/') );
+  clIndex = sub.indexOf( cl );
 
-  if ( cl == -1 ) {
+  if ( clIndex == -1 ) {
 
-    throw 'closing statement of block not found: ' + o.replace(/^{/, '{/');
+    throw 'closing statement of block not found: ' + cl;
 
   }
 
   // remove the bit after the closing index
-  sub = sub.substr( 0, cl + o.replace( /^{/, '{/' ).length );
+  sub = sub.substr( 0, clIndex + cl.length );
 
-  return tpl.replace( sub, '' );
+  return sub;
 
 }
 

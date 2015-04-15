@@ -2,7 +2,9 @@
 
 var parser = require( '../parser' ),
 
-should = require( 'should' );
+should = require( 'should' ),
+
+fs = require( 'fs' );
 
 describe( 'simple parser', function() {
 
@@ -63,9 +65,7 @@ describe( 'simple parser', function() {
       description: 'Woopidoo'
     } )
 
-    .should.equal( '<div>Yeay!</div>ignored<div>Woopidoo</div>' )
-
-    // with and without
+    .should.equal( '<div>Yeay!</div>ignored<div>Woopidoo</div>' );
 
   } );
 
@@ -90,6 +90,28 @@ describe( 'simple parser', function() {
     } ).should.equal( '<div>Shakalaka</div>ignored<div>boom</div> something else here <p>boom</p>' );
 
   } );
+
+
+  it( 'render the same conditional attribute block multiple times with false value', function() {
+
+    p.load( [
+      '<div>{Title}</div>',
+      '{block:Ignore}ignored{/block:Ignore}',
+      '{block:Description}',
+        '<div>{Description}</div>',
+      '{/block:Description}',
+      ' something else here ',
+      '{block:Description}',
+        '<p>{Description}</p>',
+      '{/block:Description}',
+    ].join( '' ));
+
+    p.render( {
+      title: 'Shakalaka',
+      description: false
+    } ).should.equal( '<div>Shakalaka</div>ignored something else here ' );
+
+  });
 
 
   it( 'null, undefined, false all count as false in a conditional statement', function() {
@@ -166,6 +188,32 @@ describe( 'parser with children', function() {
     })
 
     .should.equal( '<h1>Un titre de blog</h1><p>La description du blog</p><h2>Le premier article</h2><span>Moi</span><p>Bla bla blaargh.</p><h2>Le deuxième article</h2><span>Billy Bob Boy</span><p>Blaargh</p>' );
+
+  });
+
+
+  it( 'should ignore children blocks when template does not include them', function() {
+
+    p.load( [
+      '<h1>{Title}</h1>',
+      '<p>{Description}</p>' ]
+    .join( '' ) );
+
+    p.render({
+      title: 'Un titre de blog',
+      description: 'La description du blog',
+      posts: [{
+        title: 'Le premier article',
+        author: 'Moi',
+        content: 'Bla bla blaargh.'
+      }, {
+        title: 'Le deuxième article',
+        author: 'Billy Bob Boy',
+        content: 'Blaargh'
+      }]
+    })
+
+    .should.equal( '<h1>Un titre de blog</h1><p>La description du blog</p>' );
 
   });
 

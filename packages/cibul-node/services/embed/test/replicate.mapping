@@ -1,0 +1,12 @@
+{
+  "attributes" : [ { 
+    "name" : "Title", 
+    "mapTo" : "title" 
+  }, {
+    "name" : "Description",
+    "mapTo" : "description"
+  }, {
+    "name" : "Image",
+    "mapTo" : "image"
+  } ]
+}

@@ -1,0 +1,201 @@
+<div class="background-image">
+  {block:Image}
+fdsfsfd
+  {/block:Image}
+</div>
+
+<a href="{BackLink}">{BackLabel}</a>
+
+<div class="event-page">
+
+
+  {block:Image}
+  <div class="event-image">
+fqdsfqs
+  </div>
+  {/block:Image}
+
+  <div class="main-box"> 
+    
+    {block:Image}
+    <img class="img-responsive" src="{Image}" alt="{Title}"/>
+    {/block:Image}
+    <h1>{Title}</h1>
+    
+    <div class="short-description">{Description}</div>
+
+    <div class="description">
+      <h2>Description</2>
+      <div>{FreeText}</div>
+    </div>
+    
+    <div class="produits-et-services">
+      <h2>Produits et services</h2>
+      <div>
+      Bijouterie fantaisie et créateurs, haute couture et licences, argent, or, montres, acessoires de mode.
+      </div>
+    </div>
+    
+    <div class="profils-des-visiteurs">
+      <h2>Profil des visiteurs</h2>
+      <div>
+      Professionnels de la distribution française et internationale (grossites, chaînes, détaillants, grands magasins, bureaux d\'achats).
+      </div>
+    </div>
+    
+    <div class="chiffres-cles">
+      <h2>Chiffres clés<span>(certifiés OJS</span></h2>
+      <ul>
+        <li>
+          <div class="label">Edition</div>
+          <div class="valeur">15</div>
+        </li>
+        <li>
+          <div class="label">Nombre de visiteurs</div>
+          <div class="valeur">20748</div>
+        </li>
+        <li>
+          <div class="label">Nombre d\'exposants</div>
+          <div class="valeur">491</div>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="organisation">
+      <h2>Organisation</h2>
+      <div>Reed Exposition France</div>
+    </div>
+    
+  </div>
+    
+  <div class="side-box">
+  
+    <div class="social links">
+      <div>Nous suivre</div>
+      <ul>
+        <li>
+          <a href="/">
+            <i class="icon-facebook"></i>
+          </a>
+        </li>
+        <li>
+          <a href="/">
+            <i class="icon-twitter"></i>
+          </a>
+        </li>
+        <li>
+          <a href="/">
+            <i class="icon-youtube"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="event-logo">
+      <img src="https://dl.dropboxusercontent.com/u/2010070/LOGOBIJORHCA.jpg" alt="{Title}">
+    </div>
+    
+    <div class="Daterange">
+    {DateRange}
+    {block:Timings}  {/block:Timings} 
+    </div>  
+    
+    <div class="LocationName">
+      Paris Expo Porte de Versailles
+    </div>  
+    
+    <div class="Audience">
+      Salon grand public
+    </div>  
+    
+     
+    
+    <div class="periodicity">
+      Annuel
+    </div>      
+
+    <div class="category">
+      Mode
+    </div>  
+
+    <div class="website">
+      www.bijorhca.com
+    </div>      
+    
+    <div class="email">
+      info@bijorhca.com
+    </div>  
+    
+    <div class="exposer">
+      <h2>Exposer</h2>
+      <a mailto="info@bijorhca.com">Contactez-moi</a>
+    </div>  
+    
+    <div class="visiter">
+      <h2>Visiter</h2>
+      <a href="bijorhca.com">Je m\'enregistre</a>
+      <div>Partager:</div>
+      <ul>
+        <li>
+          <a href="/">
+            <i class="icon-linkedin"></i>
+          </a>
+        </li>
+        <li>
+          <a href="/">
+            <i class="icon-twitter"></i>
+          </a>
+        </li>
+        <li>
+          <a href="/">
+            <i class="icon-facebook"></i>
+          </a>
+        </li>
+      </ul>
+    </div>  
+    
+    <div class="suggestions">
+      <ul>
+        <li>
+          <a href="/">
+            Lien salon 1
+          </a>
+        </li>
+        <li>
+          <a href="/">
+            Lien salon 2
+          </a>
+        </li>
+        <li>
+          <a href="/">
+            Lien salon 3
+          </a>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="download">
+      <ul>
+        <li class="yahoo-download">
+          <a href="http://calendar.yahoo.com/?v=60&TITLE=Entretien%20avec%20Mme%20Jane%20HARTLEY%2C%20Ambassadeur%20des%20Etats-Unis%20en%20France%20et%20une%20dizaine%20de%20femmes%20leaders%20dans%20le%20num%C3%A9rique%20&ST=20150414T123000Z&DUR=2&in_loc=Ambassade%20des%20Etats-Unis%20-%208e%20Arrondissement%2C%20Paris%2C%20France&DESC=Entretien%20avec%20Mme%20Jane%20HARTLEY%2C%20Ambassadeur%20des%20Etats-Unis%20en%20France%20et%20une%20dizaine%20de%20femmes%20leaders%20dans%20le%20num%C3%A9rique%20%20-%20http%3A%2F%2Fopenagenda.com%2Fevents%2Fentretien-avec-mme-jane-hartley-ambassadeur-des-etats-unis-en-france-et-une-dizaine-de-femmes-leaders-dans-le-numerique&URL=http://openagenda.com/events/entretien-avec-mme-jane-hartley-ambassadeur-des-etats-unis-en-france-et-une-dizaine-de-femmes-leaders-dans-le-numerique">
+            
+          </a>
+        </li>
+        <li class="windows-download">
+          <a href="http://calendar.live.com/calendar/calendar.aspx?rru=addevent&summary=Entretien%20avec%20Mme%20Jane%20HARTLEY%2C%20Ambassadeur%20des%20Etats-Unis%20en%20France%20et%20une%20dizaine%20de%20femmes%20leaders%20dans%20le%20num%C3%A9rique%20&location=Ambassade%20des%20Etats-Unis%20-%208e%20Arrondissement%2C%20Paris%2C%20France&dtstart=20150414T123000Z&dtend=20150414T143000Z&description=Entretien%20avec%20Mme%20Jane%20HARTLEY%2C%20Ambassadeur%20des%20Etats-Unis%20en%20France%20et%20une%20dizaine%20de%20femmes%20leaders%20dans%20le%20num%C3%A9rique%20%20-%20http%3A%2F%2Fopenagenda.com%2Fevents%2Fentretien-avec-mme-jane-hartley-ambassadeur-des-etats-unis-en-france-et-une-dizaine-de-femmes-leaders-dans-le-numerique">
+            
+          </a>
+        </li>
+        <li class="gcal-download">
+          <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=Entretien%20avec%20Mme%20Jane%20HARTLEY%2C%20Ambassadeur%20des%20Etats-Unis%20en%20France%20et%20une%20dizaine%20de%20femmes%20leaders%20dans%20le%20num%C3%A9rique%20&dates=20150414T123000Z/20150414T143000Z&sprop=website:http://openagenda.com/events/entretien-avec-mme-jane-hartley-ambassadeur-des-etats-unis-en-france-et-une-dizaine-de-femmes-leaders-dans-le-numerique&details=Entretien%20avec%20Mme%20Jane%20HARTLEY%2C%20Ambassadeur%20des%20Etats-Unis%20en%20France%20et%20une%20dizaine%20de%20femmes%20leaders%20dans%20le%20num%C3%A9rique%20%20-%20http%3A%2F%2Fopenagenda.com%2Fevents%2Fentretien-avec-mme-jane-hartley-ambassadeur-des-etats-unis-en-france-et-une-dizaine-de-femmes-leaders-dans-le-numerique&location=Ambassade%20des%20Etats-Unis%20-%208e%20Arrondissement%2C%20Paris%2C%20France">
+            
+          </a>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="corner-block">
+    </div>
+  </div>
+
+</div>
