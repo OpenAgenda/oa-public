@@ -20,6 +20,18 @@
   }, {
     "name": "DateRange", 
     "mapTo": "dateRange" 
+  }, {
+    "name": "LocationName", 
+    "mapTo": "placeName" 
+  }, {
+    "name": "Address", 
+    "mapTo": "address" 
+  }, {
+    "name": "Latitude", 
+    "mapTo": "latitude" 
+  }, {
+    "name": "Longitude", 
+    "mapTo": "longitude" 
   } ],
 
   "children" : [ {

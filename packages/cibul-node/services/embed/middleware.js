@@ -82,7 +82,6 @@ function renderEvent( req, res, next ) {
 
   eventParser.load( template );
 
-
   if ( req.embed.getMapping( 'event' ) ) {
 
     // load event optional values if any
