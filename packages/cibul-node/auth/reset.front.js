@@ -1,68 +1,40 @@
 "use strict";
 
-var appName = 'auth/reset',
-
-exposed = {
-  load: load
-},
+var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
-w = require( 'when' ),
-
-routes = {
-  lostPassword: [ 'get', lostPassword, '/lost' ],
-  lostPasswordSubmit: [ 'post', lostPasswordSubmit, '/lost' ],
-  resetPassword: [ 'get', resetPassword, '/reset/:token' ],
-  resetPasswordSubmit: [ 'post', resetPasswordSubmit, '/reset/:token' ]
-},
-
-log = require( '../lib/logger' )( appName ),
-
 config = require( '../config' ),
 
-app,
+w = require( 'when' ),
 
-path,
+userSvc = require( '../services/user/user' ),
 
-userSvc = require( '../services/user/user' );
+log = require( '../lib/logger' )( 'auth reset' ),
 
-module.exports = function( p ) {
+routes = {
+  lostPassword: [ 'get', '/lost', lostPassword ],
+  lostPasswordSubmit: [ 'post', '/lost', lostPasswordSubmit ],
+  resetPassword: [ 'get', '/reset/:token', resetPassword ],
+  resetPasswordSubmit: [ 'post', '/reset/:token', resetPasswordSubmit ]
+};
 
-  log( 'initing' );
 
-  path = p;
+module.exports = function( path ) {
 
-  cmn.registerRoutes( appName, path, routes );
+  var router = modLib.Router( routes );
 
-  return exposed;
-
-}
-
-function load( main ) {
-
-  if ( app ) {
-
-    log( 'this app was already loaded' );
-
-    return;
-
-  }
-
-  log( 'loading' );
-
-  app = cmn.loadApp( main, path, appName );
-
-  app.use( cmn.urlGenSetter( appName, path ) );
-
-  cmn.loadRoutes( app, routes, [
+  router.pre( [
     cmn.flashSetter,
     cmn.loadBaseData(),
     cmn.loadSession,
     cmn.requireUnlogged
   ] );
 
-  return exposed;
+  return {
+    load: router.load( path ),
+    paths: modLib.getPaths( path, routes )
+  }
 
 }
 

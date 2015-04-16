@@ -1,3 +1,5 @@
+"use strict";
+
 var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
@@ -17,8 +19,6 @@ timeHelper = require( 'cibulTemplates' ).helpers.time,
 textHelper = require( 'cibulTemplates' ).helpers.text(),
 
 i18n = require( '../i18n/i18n' ),
-
-path,
 
 routes = {
 
@@ -101,9 +101,7 @@ model = cmn.getCibulModel(),
 
 deepExtend = require( 'deep-extend' );
 
-module.exports = function( p ) {
-
-  path = p;
+module.exports = function( path ) {
 
   var router = modLib.Router( routes );
 
@@ -297,9 +295,11 @@ function _format( req, res, next ) {
 
   img = req.event.getImage( true ),
 
-  dateRange = req.event.getDateRange( true );
+  dateRange = req.event.getDateRange( true ),
 
-  _t = timeHelper( { lang: req.lang } );
+  _t = timeHelper( { lang: req.lang } ),
+
+  location;
 
   async.series([
     req.event.getOwner,

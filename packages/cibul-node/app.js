@@ -54,7 +54,7 @@ module.exports = function( enabledTypes, cb ) {
         require( './auth/facebook.front' )( '/facebook' ),
         require( './auth/twitter.front' )( '/twitter' ),
         require( './auth/google.front' )( '/google' ),
-        require( './auth/reset.front' )( '/password' ),
+        [ require( './auth/reset.front' )( '/password' ) ],
         require( './agenda/contributors.back' )( '/:slug/admin/contributors' ),
         [ require( './agenda/front' )( '' ) ],
         [ require( './agenda/actions.front' )( '/:slug/actions' ) ],
