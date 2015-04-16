@@ -1,8 +1,8 @@
+<% if ( !loner ) { %>
 <header id="header">
   <div class="container">
     <div class="row">
       <div class="col-sm-10 col-sm-offset-1 agenda-container">
-<% if ( !loner ) { %>
         <a href="<%= genUrl('agendaShow', { slug: slug }) %>">
 <% if ( image ) { %>
           <img class="avatar" src="<%= _i( image ) %>" alt="<%= title %>">
@@ -10,11 +10,11 @@
           <strong><%= title %></strong>
           <span>(<%= __('see all the events') %>)</span>
         </a>
-<% } %>
       </div>
     </div>
   </div>
 </header>
+<% } %>
 <div id="content" class="js_page_body">
   <div class="container">
     <div class="row">
@@ -28,10 +28,10 @@
           </p>
           <p class="share">
             <%= __('Share') %>&nbsp;:
-            <%- _sl.fb( { title: event.title, url: genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) } ) %>
-            <%- _sl.tw( { title: event.title, url:  genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) } ) %>
-            <%- _sl.gp( { title: event.title, url:  genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) } ) %>
-            <%- _sl.li( { title: event.title, url:  genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) } ) %>
+            <a href="<%= event.facebookShare %>" target="_blank" class="fb"><i class="fa fa-facebook"></i></a>
+            <a href="<%= event.twitterShare %>" target="_blank" class="tw"><i class="fa fa-twitter"></i></a>
+            <a href="<%= event.googleShare %>" target="_blank" class="gp"><i class="fa fa-google-plus"></i></a>
+            <a href="<%= event.linkedInShare %>" target="_blank" class="li"><i class="fa fa-linkedin"></i></a>
           </p>
 <% if ( !event.isUpcoming ) { %>
           <p>
