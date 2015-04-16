@@ -10,7 +10,9 @@ var height,
 
 cn = require( '../../js/lib/common/common.mod' ),
 
-onChangeCb = false;
+onChangeCb = false,
+
+firstChildPaddings = false;
 
 cn.addEvent( window, 'resize', check );
 
@@ -18,7 +20,7 @@ function check( force ) {
 
   var current = _getHeight();
 
-  if ( typeof force == 'undefined' ) force = false;
+  if ( typeof force !== 'boolean' ) force = false;
 
   if ( !force && ( height == current ) ) return;
 
@@ -43,6 +45,43 @@ function setOnChange( cb ) {
 function _getHeight() {
   
   // for IE8, html tag returns wrong height. Taking body height is needed for a cross browser solution.
-  return document.getElementsByTagName('body')[0].offsetHeight;
+  return document.getElementsByTagName('body')[0].offsetHeight - _getFirstChildPaddingSum();
+
+}
+
+function _getFirstChildPaddingSum() {
+
+  var firstElemIndex = 0, firstChild;
+
+  if ( firstChildPaddings ) return firstChildPaddings[ 0 ] + firstChildPaddings[ 1 ]; // they screw up height estimation
+
+  firstChild = cn.childObject( cn.el( 'body' ), 0 );
+
+  if ( firstChild && ( firstChild.tagName == 'STYLE' ) ) {
+
+    firstChild = cn.childObject( cn.el( 'body' ), 1 );
+
+  }
+
+  if ( !firstChild ) {
+
+    firstChildPaddings = [ 0, 0 ];
+
+  } else {
+
+    firstChildPaddings = [
+      _getStyleValue( firstChild, 'paddingTop' ),
+      _getStyleValue( firstChild, 'paddingBottom' )
+    ];
+
+  }
+
+  return firstChildPaddings[ 0 ] + firstChildPaddings[ 1 ];
+
+}
+
+function _getStyleValue( elem, name ) {
+
+  return parseInt( ( window.getComputedStyle ? window.getComputedStyle( elem ) : elem.currentStyle )[ name ], 10 );
 
 }
