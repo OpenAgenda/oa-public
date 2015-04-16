@@ -32,6 +32,24 @@
   }, {
     "name": "Longitude", 
     "mapTo": "longitude" 
+  }, {
+    "name" : "FacebookShareUrl",
+    "mapTo" : "facebookShare"
+  }, {
+    "name" : "TwitterShareUrl",
+    "mapTo" : "twitterShare"
+  }, {
+    "name" : "GoogleShareUrl",
+    "mapTo" : "googleShare"
+  }, {
+    "name" : "LinkedInShareUrl",
+    "mapTo" : "linkedInShare"
+  }, {
+    "name" : "TumblrShareUrl",
+    "mapTo" : "tumblrShare"
+  }, {
+    "name" : "PinterestShareUrl",
+    "mapTo" : "pinterestShare"
   } ],
 
   "children" : [ {

@@ -5,7 +5,7 @@ var log = require( '../../lib/logger' )( 'event service' ),
 
 config = require( '../../config' ),
 
-model = require( 'cibulModel' )( config.db ),
+model = require( 'cibulModel' )( config.db, config.redis, { imagePath: config.aws.imageBucketPath, useCache: config.db.cache } ),
 
 lib = require( '../../lib/lib' ),
 
@@ -19,8 +19,11 @@ fileSvc = require( '../file/file' );
 
 module.exports = {
   get: get,
-  create: create
+  create: create,
+  share: require( './share' )
 }
+
+module.exports.mw = require( './middleware' )( module.exports );
 
 
 function get( params, cb ) {

@@ -1,23 +1,54 @@
 "use strict";
 
-var log = require( '../../lib/logger' )( 'event share service' );
+var log = require( '../../lib/logger' )( 'event share service' ),
+
+config = require( '../../config' );
 
 module.exports = {
   addCalendarLinks: addCalendarLinks,
-  getSocialLinks: getSocialLinks
+  getSocialLinks: getSocialLinks,
+  getFacebookFeedLink: getFacebookFeedLink
+};
+
+function getFacebookFeedLink( event, eventUrl, appId ) {
+
+  var link = 'https://www.facebook.com/dialog/feed?display=popup&link=' + eventUrl
+
+  + '&redirect_uri=' + encodeURIComponent( eventUrl )
+
+  + '&name=' + encodeURIComponent( event.title )
+
+  + '&caption=' + encodeURIComponent( event.dateRange )
+
+  + '&app_id=' + appId;
+
+  if ( event.image ) {
+
+    link += '&picture=' + encodeURIComponent( event.image );
+
+  }
+
+  return link;
+  
 }
 
+function getSocialLinks( event, eventUrl, siteUrl ) {
 
-function getSocialLinks( event, eventUrl ) {
+  if ( !siteUrl ) {
 
-  // this generates and loads links in event
-  // controller passes event to embed svc for rendering
-  // 
-  // when a site url is used, the event url is the search query with uid of the event
-  // 
-  // base url is given by embed configuration.
-  // 
+    siteUrl = config.root;
 
+  }
+  
+  return {
+    facebookShare: _facebookShare( event, eventUrl ),
+    twitterShare: _twitterShare( event, eventUrl ),
+    linkedInShare: _linkedInShare( event, eventUrl, siteUrl ),
+    googleShare: _googleShare( event, eventUrl ),
+    pinterestShare: _pinterestShare( event, eventUrl ),
+    tumblrShare: _tumblrShare( event, eventUrl )
+  }
+  
 }
 
 function addCalendarLinks( event, eventUrl ) {
@@ -81,6 +112,66 @@ function _liveLink( event, timing, eventUrl ) {
   ].join('');
 
 }
+
+
+function _facebookShare( event, eventUrl ) {
+
+  return 'https://www.facebook.com/sharer.php?u=' + encodeURIComponent( eventUrl );
+
+}
+
+function _twitterShare( event, eventUrl ) {
+
+  return 'https://twitter.com/share?url=' + encodeURIComponent( eventUrl )
+
+  + '&text=' + encodeURIComponent( event.getTitle() );
+
+}
+
+function _linkedInShare( event, eventUrl, siteUrl ) {
+
+  return 'http://www.linkedin.com/shareArticle?url=' + encodeURIComponent( eventUrl )
+
+  + '&title=' + encodeURIComponent( event.getTitle() )
+
+  + '&source=' + encodeURIComponent( siteUrl );
+
+}
+
+function _googleShare( event, eventUrl ) {
+
+  return 'https://plus.google.com/share?url=' + encodeURIComponent( eventUrl );
+
+}
+
+function _pinterestShare( event, eventUrl ) {
+
+  var shareLink = 'http://pinterest.com/pin/create/button/'
+                + '?url=' + encodeURIComponent( eventUrl )
+                + '&description=' + encodeURIComponent( event.getDescription() ),
+
+  image = event.getImage( true );
+
+  if ( image ) {
+
+    shareLink += '&imageUrl=' + encodeURIComponent( image );
+
+  }
+
+  return shareLink;
+
+}
+
+function _tumblrShare( event, eventUrl ) {
+
+  return 'http://tumblr.com/share?s=&v=3&u=' 
+
+  + encodeURIComponent( eventUrl )
+
+  + '&title=' + encodeURIComponent( event.getTitle() );
+
+}
+
 
 
 function _linkifyTime( time ) {

@@ -68,7 +68,9 @@ function renderEvent( req, res, next ) {
 
   template = tblr.event,
 
-  eventParser;
+  eventParser,
+
+  shareOptions = false;
 
   if ( req.embed ) {
 
@@ -76,13 +78,15 @@ function renderEvent( req, res, next ) {
 
     template = req.embed.getTemplate( 'event' ) || template;
 
+    _setActiveShares( req.formatted, req.embed );
+
   }
 
   eventParser = parserLib( mapping );
 
   eventParser.load( template );
 
-  if ( req.embed.getMapping( 'event' ) ) {
+  if ( req.embed && req.embed.getMapping( 'event' ) ) {
 
     // load event optional values if any
     req.event.loadStoreValues( true, function( err, values ) {
@@ -170,5 +174,31 @@ function loadCustomLayoutData( req, res, next ) {
   }
 
   next();
+
+}
+
+
+function _setActiveShares( formatted, embed ) {
+
+  var map = {
+    fb: 'facebookShare',
+    tw: 'twitterShare',
+    gp: 'googleShare',
+    li: 'linkedInShare',
+    tu: 'tumblrShare',
+    pi: 'pinterestShare'
+  },
+
+  shares = embed.getShares();
+
+  for ( var i in map ) {
+
+    if ( !shares[ i ] ) {
+
+      formatted[ map[ i ] ] = false;
+
+    }
+
+  }
 
 }

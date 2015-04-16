@@ -10,6 +10,8 @@ agendaSvc = require( '../services/agenda/agenda' ),
 
 embedSvc = require( '../services/embed/embed' ),
 
+eventSvc = require( '../services/event/event' ),
+
 timeHelper = require( 'cibulTemplates' ).helpers.time,
 
 textHelper = require( 'cibulTemplates' ).helpers.text(),
@@ -23,17 +25,19 @@ routes = {
   agendaEventShow: [ 'get', '/:slug/events/:eventSlug', [
     cmn.loadAgenda( 'slug' ), 
     agendaSvc.mw.load( 'slug' ),
-    _loadEvent( 'eventSlug', 'slug' ),
+    eventSvc.mw.loadAgendaEvent( 'eventSlug', 'slug' ),
     _format,
+    _formatSocialLinks,
     cmn.loadBaseData( _layoutData, 'oa.css' ),
     agendaEventShow
   ] ],
 
   agendaEmbedEventShow: [ 'get', '/agendas/:uid/embed/events/:eventUid', [
     agendaSvc.mw.load( 'uid' ),
-    _loadEvent( 'eventUid', 'uid' ),
+    eventSvc.mw.loadAgendaEvent( 'eventUid', 'uid' ),
     _format,
     _formatEmbedLinks,
+    _formatSocialLinks,
     embedSvc.mw.renderEvent,
     cmn.loadBaseData( _layoutData, 'oae.css' ),
     agendaEmbedEventShow
@@ -42,24 +46,26 @@ routes = {
   agendaCustomEmbedEventShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events/:eventUid', [
     agendaSvc.mw.load( 'uid' ),
     embedSvc.mw.load( 'embedUid', 'uid' ),
-    _loadEvent( 'eventUid', 'uid' ),
+    eventSvc.mw.loadAgendaEvent( 'eventUid', 'uid' ),
     _format,
     _formatCustomEmbedLinks,
+    _formatSocialLinks,
     embedSvc.mw.renderEvent,
     cmn.loadBaseData( _layoutData, 'oae.css' ),
     embedSvc.mw.loadCustomLayoutData,
     agendaEmbedEventShow 
   ] ],
 
-  eventShow: [ 'get', '/events/:eventSlug', [ 
-    _loadEvent( 'eventSlug', 'slug' ),
+  eventShow: [ 'get', '/events/:eventSlug', [
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
     _format,
+    _formatSocialLinks,
     cmn.loadBaseData( _layoutData, 'oa.css' ),
     show
   ] ],
   
   eventActionShow: [ 'get', '/events/:eventSlug/action', [
-    _loadEvent( 'eventSlug', 'slug' ),
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
     _format,
     _loadUris,
     _extractAgendasSharing,
@@ -68,7 +74,7 @@ routes = {
   ] ],
   
   eventActionDatesShow: [ 'get', '/events/:eventSlug/action/dates', [
-    _loadEvent( 'eventSlug', 'slug' ),
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
     _format,
     _loadUris,
     _conditionalLayout( _layoutData, 'oa.css' ),
@@ -89,9 +95,7 @@ wn = require( 'when/node' ),
 
 lib = require( '../lib/lib' ),
 
-es = require( 'ES' )( config.es ),
-
-shareSvc = require( '../services/event/share' ),
+eventSvc = require( '../services/event/event' ),
 
 model = cmn.getCibulModel(),
 
@@ -193,7 +197,7 @@ function actionShow( req, res ) {
 
   multipleTimings = timings.length > 1;
 
-  shareSvc.addCalendarLinks( req.event, req.genUrl( req.eventUri, req.eventUriParams, { abs: true } ) );
+  eventSvc.share.addCalendarLinks( req.event, req.genUrl( req.eventUri, req.eventUriParams, { abs: true } ) );
 
   templateData.event.imports = [
     { 
@@ -241,7 +245,7 @@ function actionDatesShow( req, res ) {
 
   var service = [ 'google', 'yahoo', 'live' ].indexOf( req.query.service ) !== -1 ? req.query.service : 'google';
 
-  shareSvc.addCalendarLinks( req.event, req.genUrl( req.eventUri, req.eventUriParams, { abs: true } ) );
+  eventSvc.share.addCalendarLinks( req.event, req.genUrl( req.eventUri, req.eventUriParams, { abs: true } ) );
 
   return cmn.render( req, res, 'event/actionDates', {
     event: {
@@ -266,7 +270,7 @@ function _addLanguageLinks( req, uri, uriParams ) {
 
   var linkedLanguages = [];
 
-  if ( !req.formattedEvent.languages ) return;
+  if ( !req.formatted.languages ) return;
 
   req.formatted.languages.selection.forEach( function( lang ) {
 
@@ -281,100 +285,6 @@ function _addLanguageLinks( req, uri, uriParams ) {
 
 }
 
-
-
-// move this to service as in agenda front controller
-function _loadEvent( queryParam, fieldName ) {
-
-  return function( req, res, next ) {
-
-    var eventGetParams = {};
-
-    eventGetParams[ fieldName ] = req.params[ queryParam ];
-
-    wn.call( ( req.agenda ? req.agenda.events : model.events() ).get, eventGetParams )
-
-    .then( function( data ) {
-
-      if ( !data ) throw { code: 404 };
-
-      req.event = model.events().instance( data ); // here a specific language should be loaded
-
-      return [ req, res ];
-
-    })
-
-    .spread( _checkPublishedState )
-
-    .spread( _selectLanguage )
-
-    .spread( _formatEvent )
-
-    .then( next )
-
-    .catch( cmn.catchError( req, res ) );
-
-  }
-
-}
-
-
-function _checkPublishedState( req, res ) {
-
-  if ( !req.agenda ) return [ req, res ];
-
-  if ( req.event.isPublishedOn( req.agenda ) ) return [ req, res ];
-
-  if ( !req.session.logged ) throw { code: 401 };
-  
-  return w.promise( function( rs, rj ) {
-
-    req.agenda.isAdministrator( { id: req.session.userId }, function( err, isAdmin ) {
-
-      if ( err ) return rs( err );
-
-      if ( !isAdmin ) rj( { code: 403 } );
-
-      rs( [ req, res ] );
-
-    } );
-
-  });
-
-}
-
-
-/**
- * load requested event language
- */
-
-function _selectLanguage( req, res ) {
-
-  return w.promise( function( resolve, reject ) {
-
-    if ( !req.query.elang ) {
-
-      resolve( [ req, res ] );
-
-      return;
-
-    }
-
-    if ( !req.event.hasLanguage( req.query.elang ) ) {
-
-      cmn.redirect( req, res, req.agenda ? 'agendaEventShow' : 'eventShow', req.agenda ? { slug: req.agenda.slug, eventSlug: req.event.slug } : { eventSlug: req.event.slug } );
-
-      return;
-
-    }
-
-    req.event.switchLanguage( req.query.elang );
-
-    resolve( [ req, res ] );
-
-  });
-
-}
 
 
 /**
@@ -420,11 +330,6 @@ function _format( req, res, next ) {
       languages: false
     };
 
-    if ( formatted.image ) {
-
-      formatted.image = formatted.image.replace( 'cibuldev', 'cibul' );
-
-    }
 
     if ( req.event.locations.length ) {
 
@@ -482,24 +387,9 @@ function _format( req, res, next ) {
 }
 
 
-function _formatCustomEmbedLinks( req, res, next ) {
-
-  // get base url here if exists from embed
-  // pass it to event share service 'addSocialLinks'
-
-  //eventSvc.shares.getSocialLinks( req.event, req.embed.get )
-
-  req.formatted.backLink = req.genUrl( 'customEmbedShow', { 
-    uid: req.params.uid, 
-    embedUid: req.params.embedUid
-  } );
-
-  req.formatted.backLabel = i18n( 'back', req.lang );
-
-  next();
-
-}
-
+/**
+ * append 'back to agenda' link and event social share links to event data
+ */
 
 function _formatEmbedLinks( req, res, next ) {
 
@@ -514,97 +404,67 @@ function _formatEmbedLinks( req, res, next ) {
 }
 
 
-function _formatEvent( req, res ) {
+/**
+ * append 'back to agenda' link and event social share links to event data
+ */
 
-  return w.promise( function( resolve, reject ) {
+function _formatCustomEmbedLinks( req, res, next ) {
 
-    async.series([
-      req.event.getOwner,
-      req.event.getAgendaReferences,
-      req.event.getAdminAgendas
-    ], function( err, results ) {
+  req.formatted.backLink = req.genUrl( 'customEmbedShow', { 
+    uid: req.params.uid, 
+    embedUid: req.params.embedUid
+  } );
 
-      if ( err ) {
+  req.formatted.backLabel = i18n( 'back', req.lang );
 
-        reject( err );
-
-        return;
-
-      }
-
-      var owner, agendaReferences, adminAgendas, location = false;
-
-      req.formattedEvent = {
-        uid: req.event.uid,
-        slug: req.event.slug,
-        title: req.event.getTitle(),
-        image: req.event.getImage( false ),
-        dateRange: req.event.getDateRange( true ),
-        isUpcoming: req.event.isUpcoming(),
-        description: req.event.getDescription(),
-        freeText: req.event.getEnrichedFreeText(),
-        tags: req.event.getTags(),
-        placeName: false,
-        address: false,
-        latitude: false,
-        longitude: false,
-        timings: [],
-        owner: results[ 0 ],
-        agendaReferences: results[ 1 ],
-        adminAgendas: results[ 2 ],
-        languages: false
-      };
-
-
-      if ( req.event.locations.length ) {
-
-        location = req.event.locations[ 0 ];
-
-        deepExtend( req.formattedEvent, {
-          placeName: location.name,
-          address: location.address,
-          latitude: location.latitude,
-          longitude: location.longitude,
-          timings: location.timings,
-          region: location.region,
-          city: location.city,
-          postalCode: location.postcode,
-          ticketLink: false
-        } );
-
-        if ( location.ticketLink ) {
-
-          req.formattedEvent.ticketLink = location.ticketLink;
-
-        }
-
-        if ( location.pricingInfo ) {
-
-          req.formattedEvent.pricingInfo = location.pricingInfo[ req.event.getCurrentLanguage() ];
-          
-        }
-        
-      }
-
-
-      if ( req.event.getLanguages().length > 1 ) {
-
-        req.formattedEvent.languages = {
-          current: req.event.getCurrentLanguage(),
-          selection: req.event.getLanguages()
-        };
-
-      }
-
-      req.formattedEvent.importUri = req.genUrl( 'eventActionShow', { eventSlug: req.event.slug } );
-
-      resolve();
-
-    });
-
-  });
+  next();
 
 }
+
+
+function _formatSocialLinks( req, res, next ) {
+
+  var siteUrl = false, eventUrl, fbAppId;
+
+  if ( req.agenda ) {
+
+    eventUrl = req.genUrl( 'agendaEventShow', {
+      slug: req.agenda.slug,
+      eventSlug: req.event.slug 
+    }, { protocol: 'https://' } );
+
+  } else {
+
+    eventUrl = req.genUrl( 'eventShow', {
+      eventSlug: req.event.slug 
+    }, { protocol: 'https://' } );
+
+  }
+
+  if ( req.embed ) {
+
+    siteUrl = req.embed.getSiteUrl();
+
+    eventUrl = siteUrl + '?search[uid]=' + req.event.uid;
+
+    fbAppId = req.embed.getFacebookAppId();
+
+  }
+
+  deepExtend( req.formatted, eventSvc.share.getSocialLinks( req.event, eventUrl, siteUrl ) );
+
+  if ( fbAppId ) {
+
+    req.formatted.facebookShare = eventSvc.share.getFacebookFeedLink( req.formatted, eventUrl, fbAppId );
+
+  }
+
+  next();
+
+}
+
+
+
 
 
 function _conditionalLayout( func, css ) {
@@ -726,8 +586,8 @@ function _layoutData( req, res ) {
   };
 
   data.scriptParams = {
-    ownerUid: req.event.owner.uid,
-    adminAgendaUids: req.event.adminAgendas ? req.event.adminAgendas.map( function( a ) { return a.uid; } ) : []
+    ownerUid: req.formatted.owner.uid,
+    adminAgendaUids: req.formatted.adminAgendas ? req.formatted.adminAgendas.map( function( a ) { return a.uid; } ) : []
   };
 
   return data;
