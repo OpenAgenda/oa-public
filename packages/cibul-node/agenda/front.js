@@ -1,3 +1,5 @@
+"use strict";
+
 var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
@@ -9,8 +11,6 @@ lib = require( '../lib/lib' ),
 agendaSvc = require( '../services/agenda/agenda' ),
 
 embedSvc = require( '../services/embed/embed' ),
-
-path,
 
 mw = cmn.loadMiddlewares( 'search' ),
 
@@ -99,9 +99,7 @@ routes = {
 
 };
 
-module.exports = function( p ) {
-
-  path = p;
+module.exports = function( path ) {
 
   var router = modLib.Router( routes );
 

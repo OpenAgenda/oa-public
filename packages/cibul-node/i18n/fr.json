@@ -94,5 +94,7 @@
   "%start%, %time%"
   : "%start%, %time%",
   "back"
-  : "retour"
+  : "retour",
+  "The info has been updated"
+  : "L'info a été mise à jour"
 }

@@ -1,50 +1,72 @@
 "use strict";
 
-var appName = 'agenda/contributors', app,
+var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
+log = require( '../lib/logger' )( 'agenda/contributors' ),
+
+invitationSvc = require( '../services/invitation/invitation.js' ),
+
 routes = {
-  contributorsInvite:  [ 'post', invite, '/invite' ],
-  contributorInviteResend: [ 'get', inviteResend, '/resend' ]
-},
+  contributorsInvite:  [ 'post', '/invite', invite ],
+  contributorInviteResend: [ 'get', '/resend', inviteResend ],
+  contributorsInfo: [ 'get', '/info', [ 
+    cmn.loadBaseData( _layoutData ),
+    info
+  ] ],
+  contributorsInfoSubmit: [ 'post', '/info', [
+    cmn.loadBaseData( _layoutData ),
+    infoSubmit
+  ] ]
+};
 
-log = require( '../lib/logger' )( appName ),
+module.exports = function( path ) {
 
-path,
+  var router = modLib.Router( routes );
 
-invitationSvc = require( '../services/invitation/invitation.js' );
-
-module.exports = init;
-
-function init( p ) {
-
-  path = p;
-
-  cmn.registerRoutes( appName, path, routes );
-
-  return {
-    load: load
-  }
-
-}
-
-function load( main ) {
-
-  if ( app ) return;
-
-  log( 'loading' );
-
-  app = cmn.loadApp( main, path, appName );
-
-  cmn.loadRoutes( app, routes, [
+  router.pre( [
     cmn.flashSetter,
     cmn.loadSession,
     cmn.loadAgenda( 'slug' ),
     cmn.checkAdministrator
   ] );
 
+  return {
+    load: router.load( path ),
+    paths: modLib.getPaths( path, routes )
+  }
+
 }
+
+
+function info( req, res ) {
+
+  req.agenda.getContributionInfo( function( err, info ) {
+
+    cmn.render( req, res, 'contributors/info', {
+      info: info
+    } );
+
+  });
+
+}
+
+
+function infoSubmit( req, res ) {
+
+  req.agenda.setContributionInfo( req.body.info, true, function( err ) {
+
+    if ( err ) return next( err );
+
+    res.setFlash( req, 'The info has been updated' );
+
+    res.redirect( req.genUrl( 'contributorsInfo', { slug: req.agenda.slug } ) );
+
+  });
+
+}
+
 
 function invite( req, res ) {
 
@@ -66,13 +88,13 @@ function invite( req, res ) {
 
       }
 
-      cmn.redirect(req, res, 'agendaAdminContributors', { slug: req.agenda.slug } );
+      cmn.redirect( req, res, 'agendaAdminContributors', { slug: req.agenda.slug } );
 
     });
     
   } else {
 
-    cmn.redirect(req, res, 'agendaAdminContributors', { slug: req.agenda.slug } );
+    cmn.redirect( req, res, 'agendaAdminContributors', { slug: req.agenda.slug } );
 
   }
 
@@ -109,5 +131,20 @@ function inviteResend( req, res ) {
     cmn.redirect(req, res, 'agendaAdminContributors', { slug: req.agenda.slug } );
 
   } );
+
+}
+
+
+function _layoutData( req, res ) {
+
+  return {
+    agenda: {
+      slug: req.agenda.slug,
+      title: req.agenda.title,
+      description: req.agenda.description,
+      url: req.agenda.url,
+      image: req.agenda.getImage( false )
+    }
+  };
 
 }
