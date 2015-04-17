@@ -100,6 +100,8 @@ var remote = {
           } else {
             response = xhr.responseText;
           }
+
+          if ( settings.raw ) return onSuccess( response );
             
           onSuccess(JSON.parse(response));
 
@@ -133,7 +135,6 @@ var remote = {
       timeout = settings.timeout?settings.timeout:2000,
       retries = settings.retries?settings.retries:0,
       sentUrl = this.appendToUrl(url, settings.data),
-      callbackParam = {},
       self = this,
       callbackParamName = settings.callbackParamName?settings.callbackParamName:'callback';
 
@@ -149,23 +150,43 @@ var remote = {
     };
 
     var sendQuery = function() {
-      var callbackName = 'jsonpCb' + Math.ceil(Math.random()*100000);
 
-      window[callbackName] = handleResponse;
-      var script = document.createElement('script');
-      if (sentUrl.indexOf(callbackParamName + '=') != -1) { // callback param is already in string
-        script.src = sentUrl.substring(0, sentUrl.indexOf(callbackParamName + '=') + 9) + callbackName + sentUrl.substring(sentUrl.indexOf(callbackParamName + '=') + 9);
+      var callbackName,
+
+      callbackParam = {},
+
+      script = document.createElement('script'),
+
+      urlCbNameIndex = sentUrl.indexOf( callbackParamName + '=' );
+
+      script.setAttribute( 'type','text/javascript' );
+
+      if ( urlCbNameIndex !== -1 ) {
+
+        callbackName = sentUrl.substr( urlCbNameIndex + callbackParamName.length + 1 );
+
+        script.src = sentUrl;
+
       } else {
-        callbackParam[callbackParamName] = callbackName;
-        script.src = self.appendToUrl(sentUrl, callbackParam);
+
+        callbackName = 'jsonpCb' + Math.ceil( Math.random()*100000 );
+
+        callbackParam[ callbackParamName ] = callbackName;
+
+        script.src = self.appendToUrl( sentUrl, callbackParam );
+
       }
+
+      window[ callbackName ] = handleResponse;
         
       document.getElementsByTagName('head')[0].appendChild(script);
+
     };
 
     sendQuery();
     
   },
+  
   getStack: function(params) {
 
     var self = this;
