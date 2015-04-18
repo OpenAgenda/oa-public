@@ -30,7 +30,7 @@ module.exports = function( label, values, lang ) {
 
   }
 
-  if ( lang && ( lang !== 'en' ) ) {
+  if ( lang && ( lang !== 'en' ) && translations[ lang ] ) {
 
     translation = translations[ lang ][ label ] || label;
 

@@ -44,7 +44,7 @@ function master() {
 
   var total = config.multiCore ? require( 'os' ).cpus().length : 1,
 
-  tasksWorker;
+  tasksWorker, crashCount = 0;
 
   log( 'info', 'launching on %d workers', total );
 
@@ -82,11 +82,27 @@ function master() {
 
     }
 
-    if ( lastCrashTime - now < 1000 ) {
+    // let the worker crash a couple of times before
+    // stopping everything indefinitely
+    if ( now - lastCrashTime < 1000 ) {
 
-      log( 'error', 'workers chain crashing!' );
+      if ( crashCount < 10 ) {
 
-      return;
+        log( 'error', 'crashed %s times in a row', crashCount );
+
+        crashCount++;
+
+      } else {
+
+        log( 'error', 'workers chain crashing!' );
+
+        return;
+
+      }
+
+    } else {
+
+      crashCount = 0;
 
     }
 
