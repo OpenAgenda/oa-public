@@ -1,10 +1,6 @@
 "use strict";
 
-var appName = 'auth/local',
-
-exposed = {
-  load: load
-},
+var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
@@ -18,79 +14,91 @@ session = require( './lib/session' ),
 
 https = require( 'https' ),
 
+log = require( '../lib/logger' )( 'auth/local' ),
+
+config = require( '../config' ),
+
+lib = require( '../lib/lib' ),
+
+userSvc = require( '../services/user/user' ),
+
+pLib = require( './lib/passport' ),
+
 routes = {
-  signin: [ 'get', auth.renderSignin, '/signin', [ _checkUnloggedAndUpdateRedis ] ],
-  signinSubmit: [ 'post', signinSubmit, '/signin', [ cmn.requireUnlogged ] ],
-  signout: [ 'get', signout, '/signout', [ cmn.requireLogged ] ],
-  signup: [ 'get', auth.renderSignup, '/signup', [ cmn.requireUnlogged, _loadCaptcha ] ],
-  signupSubmit: [ 'post', signupSubmit, '/signup', [ cmn.requireUnlogged ] ],
-  signupComplete: [ 'get', signupComplete, '/signup/complete', [ cmn.requireUnlogged ] ],
-  activateResend: [ 'get', activateResend, '/activate/resend', [ cmn.requireUnlogged ] ],
-  activate: [ 'get', activate, '/activate/:token', [ cmn.requireUnlogged ] ]
+
+  signin: [ 'get', '/signin', [ 
+    _checkUnloggedAndUpdateRedis, auth.renderSignin 
+  ] ],
+
+  signinSubmit: [ 'post', '/signin', [ 
+    cmn.requireUnlogged, 
+    signinSubmit
+  ] ],
+
+  signout: [ 'get', '/signout', [
+    cmn.requireLogged,
+    signout
+  ] ],
+  signup: [ 'get', '/signup', [ 
+    cmn.requireUnlogged,
+    _loadCaptcha,
+    auth.renderSignup
+  ] ],
+
+  signupSubmit: [ 'post', '/signup', [
+    cmn.requireUnlogged,
+    signupSubmit
+  ] ],
+
+  signupComplete: [ 'get', '/signup/complete', [
+    cmn.requireUnlogged,
+    signupComplete
+  ] ],
+
+  activateResend: [ 'get', '/activate/resend', [
+    cmn.requireUnlogged,
+    activateResend
+  ] ],
+
+  activate: [ 'get', '/activate/:token', [
+    cmn.requireUnlogged,
+    activate
+  ] ]
+
 },
 
 useOptions = {
   usernameField: 'email',
   passwordField: 'password',
   passReqToCallback: true
-},
+};
 
-log = require( '../lib/logger' )( appName ),
 
-config = require( '../config' ),
+module.exports = function( path ) {
 
-lib = require( '../lib/lib' ),
-
-app,
-
-path,
-
-userSvc = require( '../services/user/user' ),
-
-pLib = require( './lib/passport' );
-
-function init( p ) {
+  var router = modLib.Router( routes );
 
   log( 'initing' );
-
-  path = p;
-
-  cmn.registerRoutes( appName, path, routes );
 
   pLib.loadStrategy( 'local', 'passport-local' );
 
   pLib.use( 'local-signin', 'local', useOptions, _handleSigninRequest );
 
-  return exposed;
-
-}
-
-function load( main ) {
-
-  if ( app ) {
-
-    log( 'this app has already been loaded' );
-
-    return;
-
-  }
-
-  log( 'loading' );
-
-  app = cmn.loadApp( main, path, appName );
-
-  app.use( cmn.urlGenSetter( appName, path ) );
-
-  cmn.loadRoutes( app, routes, [
+  router.pre( [
     cmn.https,
     cmn.flashSetter,
     cmn.loadBaseData( auth.layoutData ),
     cmn.loadSession
   ] );
 
-  return exposed;
+  return {
+    load: router.load( path ),
+    paths: modLib.getPaths( path, routes )
+  }
 
 }
+
+
 
 
 /**
@@ -410,5 +418,3 @@ function _getAndParse( url, cb ) {
   } );
 
 }
-
-module.exports = init;

@@ -1,31 +1,14 @@
 "use strict";
 
-module.exports = init;
-
-var appName = 'auth/twitter',
-
-exposed = {
-  load: load
-},
+var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
-routes = {
-  twitterSignin: [ 'get', signin, '/signin' ],
-  twitterSigninCallback: [ 'get', signinCallback, '/signin/callback' ],
-  twitterSignup: [ 'get', signup, '/signup' ],
-  twitterSignupCallback: [ 'get', signupCallback, '/signup/callback' ]
-},
-
-log = require( '../lib/logger' )( appName ),
+log = require( '../lib/logger' )( 'auth/twitter' ),
 
 config = require( '../config' ),
 
 lib = require( '../lib/lib' ),
-
-app,
-
-path,
 
 userSvc = require( '../services/user/user' ),
 
@@ -35,11 +18,21 @@ auth = require( './lib/auth' )( 'twitter' ),
 
 deepExtend = require( 'deep-extend' ),
 
-w = require( 'when' );
+w = require( 'when' ),
 
-function init( p ) {
+routes = {
+  twitterSignin: [ 'get', '/signin', signin ],
+  twitterSigninCallback: [ 'get', '/signin/callback', signinCallback ],
+  twitterSignup: [ 'get', '/signup', signup ],
+  twitterSignupCallback: [ 'get', '/signup/callback', signupCallback ]
+};
 
-  var twitterOptions = {
+
+module.exports = function( path ) {
+
+  var router = modLib.Router( routes ),
+
+  twitterOptions = {
     consumerKey: config.auth.twitter.key,
     consumerSecret: config.auth.twitter.secret,
     passReqToCallback: true,
@@ -47,10 +40,6 @@ function init( p ) {
   };
 
   log( 'initing' );
-
-  path = p;
-
-  cmn.registerRoutes( appName, path, routes );
 
   pLib.loadStrategy( 'twitter', 'passport-twitter' );
 
@@ -62,34 +51,17 @@ function init( p ) {
     callbackURL: auth.genUrl( 'twitterSignupCallback' )
   }, twitterOptions ), _loadTwitterProfile );
 
-  return exposed;
-
-}
-
-function load( main ) {
-
-  if ( app ) {
-
-    log( 'this app has already been loaded' );
-
-    return;
-
-  }
-
-  log( 'loading' );
-
-  app = cmn.loadApp( main, path, appName );
-
-  app.use( cmn.urlGenSetter( appName, path ) );
-
-  cmn.loadRoutes( app, routes, [
+  router.pre( [
     cmn.flashSetter,
     cmn.loadBaseData( auth.layoutData ),
     cmn.loadSession,
     cmn.requireUnlogged
   ] );
 
-  return exposed;
+  return {
+    load: router.load( path ),
+    paths: modLib.getPaths( path, routes )
+  }
 
 }
 

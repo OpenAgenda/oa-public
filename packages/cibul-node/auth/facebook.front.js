@@ -1,39 +1,33 @@
 "use strict";
 
-module.exports = init;
-
-var appName = 'auth/facebook',
-
-exposed = {
-  load: load
-},
+var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
-
-routes = {
-  facebookSignin: [ 'get', signin, '/signin' ],
-  facebookSigninCallback: [ 'get', signinCallback, '/signin/callback' ],
-  facebookSignup: [ 'get', signup, '/signup' ],
-  facebookSignupCallback: [ 'get', signupCallback, '/signup/callback' ]
-},
-
-log = require( '../lib/logger' )( appName ),
 
 config = require( '../config' ),
 
 lib = require( '../lib/lib' ),
 
-app,
-
-path,
-
 pLib = require( './lib/passport' ),
 
 auth = require( './lib/auth' )( 'facebook' ),
 
-w = require( 'when' );
+w = require( 'when' ),
 
-function init( p ) {
+log = require( '../lib/logger' )( 'auth/facebook' ),
+
+routes = {
+  facebookSignin: [ 'get', '/signin', signin ],
+  facebookSigninCallback: [ 'get', '/signin/callback', signinCallback ],
+  facebookSignup: [ 'get', '/signup', signup ],
+  facebookSignupCallback: [ 'get', '/signup/callback', signupCallback ]
+};
+
+module.exports = function( path ) {
+
+  var router = modLib.Router( routes );
+
+  log( 'initing' );
 
   var facebookOptions = {
     clientID: config.auth.facebook.id,
@@ -42,11 +36,6 @@ function init( p ) {
     authorizationURL: "https://www.facebook.com/v2.0/dialog/oauth"
   };
 
-  log( 'initing' );
-
-  path = p;
-
-  cmn.registerRoutes( appName, path, routes );
 
   pLib.loadStrategy( 'facebook', 'passport-facebook' );
   
@@ -58,37 +47,19 @@ function init( p ) {
     callbackURL: auth.genUrl( 'facebookSignupCallback' )
   }, facebookOptions ), _loadFacebookProfile );
 
-  return exposed;
-
-}
-
-function load( main ) {
-
-  if ( app ) {
-
-    log( 'this app has already been loaded' );
-
-    return;
-
-  }
-
-  log( 'loading' );
-
-  app = cmn.loadApp( main, path, appName );
-
-  app.use( cmn.urlGenSetter( appName, path ) );
-
-  cmn.loadRoutes( app, routes, [
+  router.pre( [
     cmn.flashSetter,
     cmn.loadBaseData( auth.layoutData ),
     cmn.loadSession,
     cmn.requireUnlogged
   ] );
 
-  return exposed;
-
+  return {
+    load: router.load( path ),
+    paths: modLib.getPaths( path, routes )
+  }
+  
 }
-
 
 
 /**

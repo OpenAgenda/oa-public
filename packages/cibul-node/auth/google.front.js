@@ -1,51 +1,39 @@
 "use strict";
 
-module.exports = init;
-
-var appName = 'auth/google',
-
-exposed = {
-  load: load
-},
+var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
-routes = {
-  googleSignin: [ 'get', signin, '/signin' ],
-  googleSigninCallback: [ 'get', signinCallback, '/signin/callback' ],
-  googleSignup: [ 'get', signup, '/signup' ],
-  googleSignupCallback: [ 'get', signupCallback, '/signup/callback' ]
-},
-
-log = require( '../lib/logger' )( appName ),
+log = require( '../lib/logger' )( 'auth/google' ),
 
 config = require( '../config' ),
 
 lib = require( '../lib/lib' ),
 
-app,
-
-path,
-
 pLib = require( './lib/passport' ),
 
 auth = require( './lib/auth' )( 'google' ),
 
-w = require( 'when' );
+w = require( 'when' ),
 
-function init( p ) {
+routes = {
+  googleSignin: [ 'get', '/signin', signin ],
+  googleSigninCallback: [ 'get', '/signin/callback', signinCallback ],
+  googleSignup: [ 'get', '/signup', signup ],
+  googleSignupCallback: [ 'get', '/signup/callback', signupCallback ]
+};
 
-  var googleOptions = {
+module.exports = function( path ) {
+
+  var router = modLib.Router( routes ),
+
+  googleOptions = {
     clientID: config.auth.google.id,
     clientSecret: config.auth.google.secret,
     passReqToCallback: true
   };
 
   log( 'initing' );
-
-  path = p;
-
-  cmn.registerRoutes( appName, path, routes );
 
   pLib.loadStrategy( 'google', 'passport-google-oauth', 'OAuth2Strategy' );
   
@@ -57,36 +45,21 @@ function init( p ) {
     callbackURL: auth.genUrl( 'googleSignupCallback' )
   }, googleOptions ), _loadGoogleProfile );
 
-  return exposed;
-
-}
-
-function load( main ) {
-
-  if ( app ) {
-
-    log( 'this app has already been loaded' );
-
-    return;
-
-  }
-
-  log( 'loading' );
-
-  app = cmn.loadApp( main, path, appName );
-
-  app.use( cmn.urlGenSetter( appName, path ) );
-
-  cmn.loadRoutes( app, routes, [
+  router.pre( [
     cmn.flashSetter,
     cmn.loadBaseData( auth.layoutData ),
     cmn.loadSession,
     cmn.requireUnlogged
   ] );
 
-  return exposed;
+  return {
+    load: router.load( path ),
+    paths: modLib.getPaths( path, routes )
+  }
 
 }
+
+
 
 
 
