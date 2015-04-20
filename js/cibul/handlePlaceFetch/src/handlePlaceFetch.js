@@ -52,7 +52,7 @@ var handlePlaceFetch = function(params) {
     // a widget for creating the name
 
     widgets.placename = new inputWidgets.text({
-      label: params.labels.placename,
+      label: params.labels.placename + ' (*)',
       placeholder: params.labels.placename,
       name: 'placename', 
       canvas: el(elem, 'div'), 
@@ -64,7 +64,7 @@ var handlePlaceFetch = function(params) {
     // keep address widget disabled as long as place name has not been typed
 
     widgets.address = new inputWidgets.text({
-      label: params.labels.address,
+      label: params.labels.address + ' (*)',
       placeholder: params.labels.address, 
       name: 'address', 
       canvas: el(elem, 'div'), 

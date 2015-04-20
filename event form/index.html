@@ -49,7 +49,7 @@
     <script type="text/javascript" src="js/cibulEventValidator.js"></script>
     <script type="text/javascript" src="js/cibulEventDescription.js"></script>
     <script type="text/javascript" src="js/cibulEventLocation.js"></script>
-    <script type="text/javascript" src="js/cibulEventFormTunnel.js"></script>
+    <script type="text/javascript" src="js/cibulEventCustomFields.bundle.js"></script>
     <script type="text/javascript" src="js/cibulEventImage.js"></script>
     <script type="text/javascript" src="js/cibulEventAgenda.js"></script>
     <script type="text/javascript" src="js/cibulEventSubmit.js"></script>
@@ -123,7 +123,7 @@
 
     // to be used for embedded form - create session handler
     handleSession({
-      url: 'http://d.cibul.net/frontend_dev.php/session',
+      url: 'http://d.openagenda.com/frontend_dev.php/session',
       debug: true,
       events: { fetch: 'getsessiondata' }
     });
@@ -259,6 +259,11 @@
         icon: '../images/markerIcon.png',
       });
 
+      cibulEventCustomFields({
+        lang: 'fr',
+        fields: '[{"name":"somestat","fieldType":"integer","label":{"fr":"Une stat quelconque","en":"Some statistic"},"value":34},{"name":"somesmalltext","fieldType":"text", "optional": true, "label":{"fr":"Ceci est un petit texte","en":"This is a small text"},"value":"small text content"},{"name":"somelongtext","fieldType":"textarea","label":{"fr":"Ceci est un long texte","en":"This is a long text"}} ]'
+      });
+
       addNote(el('.js_form_canvas'), 'ta mere en slip au prisunic');
 
       cibulEventSubmit({
@@ -281,9 +286,6 @@
       });
 
     });
-
-    // to be used for embedded form
-    cibulEventFormTunnel();
 
     // to be used for sandbox form
     function setCustomCss(css) {

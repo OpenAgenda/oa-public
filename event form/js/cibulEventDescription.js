@@ -8,16 +8,16 @@ var cibulEventDescription = function(params) {
       heightChange: 'heightchange'
     },
     templates: {
-      languageList: '<div class="languages action"><ul class="language-list js_language_select"></ul><div class="add-language js_language_add"><a><i class="icon-plus"></i></a><div class="menu"><ul></ul></div></div></div>',
+      languageList: '<div class="languages action"><ul class="language-list js_language_select"></ul><div class="add-language js_language_add"><a><i class="fa fa-plus"></i></a><div class="menu"><ul></ul></div></div></div>',
       languageItem: '<li><span><%= language %></span></li>',
       languageRemoveItem: '<a href="#">&#215;</a>',
       canvas: '<h2><%= label %></h2><ul></ul><div class="separator"></div>',
     },
     fields: [
-      { name: 'title', type: 'text', limit: 140 },
-      { name: 'description', type: 'textarea', limit: 200, rows: 2 },
-      { name: 'tags', type: 'text', limit: 255 },
-      { name: 'freeText', type: 'textarea', limit: 10000, rows: 6 }
+      { name: 'title', type: 'text', limit: 140, optional: false },
+      { name: 'description', type: 'textarea', limit: 200, rows: 2, optional: false },
+      { name: 'tags', type: 'text', limit: 255, optional: true },
+      { name: 'freeText', type: 'textarea', limit: 10000, rows: 6, optional: true }
     ],
     labels: {
       sectionTitle: 'Description',
@@ -158,7 +158,7 @@ var cibulEventDescription = function(params) {
 
       if (typeof language == 'undefined') language = _lib.extractLanguages(data)[0];
 
-      forEach(params.fields, function(field) {
+      forEach(params.fields, function( field ) {
 
         var li = document.createElement('li');
 
@@ -168,7 +168,7 @@ var cibulEventDescription = function(params) {
 
         var widgetParams = {
           value: values[field.name],
-          label: params.labels[field.name].label,
+          label: params.labels[field.name].label + ( !field.optional ? ' (*)' : '' ),
           placeholder: params.labels[field.name].placeholder?params.labels[field.name].placeholder:'',
           name: field.name,
           canvas: li,

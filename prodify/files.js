@@ -60,6 +60,7 @@ files = {
       'cibulEventAgenda.js',
       'cibulEventSubmit.js',
       'cibulEventFormTunnel.js',
+      'cibulEventCustomFields.bundle.js',
       'handlePricingSelection.js',
       'addNote.js'
     ],

@@ -52,7 +52,7 @@ var handleDatesAdd = function(params) {
     widgets.timeBegin = new inputWidgets.text({
       name: 'begin',
       placeholder: params.labels.begin,
-      label: params.labels.begin,
+      label: params.labels.begin + ' (*)',
       canvas: el(elem, params.selectors.timings),
       info: params.labels.timingInfo,
       events: ['keyup', 'change'],
@@ -74,7 +74,7 @@ var handleDatesAdd = function(params) {
     widgets.timeEnd = new inputWidgets.text({
       name: 'end',
       placeholder: params.labels.end,
-      label: params.labels.end,
+      label: params.labels.end + ' (*)',
       canvas: el(elem, params.selectors.timings),
       info: params.labels.timingInfo,
       events: ['keyup', 'change'],

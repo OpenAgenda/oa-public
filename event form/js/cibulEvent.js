@@ -23,6 +23,9 @@ var cibulEvent = function(params) {
         fetch: 'eagendafetch',
         write: 'eagendawrite'
       },
+      customfields: {
+        write: 'ecustomfieldssend'
+      },
       uidfetch: 'euidfetch',
       validate: 'evalidate',
       fetchEncoded: 'efetchencoded',
@@ -40,6 +43,8 @@ var cibulEvent = function(params) {
 
   nextLocationIndex = 0,
   locationMap = {},
+
+  currentErrors = {},
 
   event = params.event, onValidate = false, languages = [],
 
@@ -219,6 +224,30 @@ var cibulEvent = function(params) {
 
     });
 
+    _on(params.events.customfields.write, function(data) {
+
+      var errors;
+
+      if ( data ) {
+
+        event.customFields = _extract( 'value', data );
+
+        errors = {};
+
+        for( var d in data ) {
+
+          errors[ d ] = data[ d ].error ? data[ d ].label + ': ' + data[ d ].error : false;
+
+        }
+
+        _setCurrentErrors( errors )
+
+        _evaluate();
+
+      }
+
+    });
+
     _on(params.events.uidfetch, function(callback) {
 
       callback({uid: event.uid?event.uid:false, draft: event.draft?true:false });
@@ -348,21 +377,75 @@ var cibulEvent = function(params) {
 
   _evaluate = function(onSuccess) {
 
-    if (onValidate || onSuccess) _validateEvent(function(success, errors) {
+    if (onValidate || onSuccess) _validateEvent( _getCurrentErrors(), function(success, errors ) {
 
       if (success && onSuccess) onSuccess();
 
-      if (onValidate) onValidate(success, errors);
+      if (onValidate) onValidate(success, errors );
 
     });
 
   },
 
-  _validateEvent = function(callback) {
+  _getCurrentErrors = function() {
 
-    var errors = validator.processFull(event);
+    var errs = [];
 
-    callback(errors.length?false:true, errors);
+    for ( var i in currentErrors ) {
+
+      errs.push( currentErrors[ i ] );
+
+    }
+
+    return errs;
+
+  },
+
+  _setCurrentErrors = function( newErrors ) {
+
+    for ( var i in newErrors ) {
+
+      if ( !newErrors[ i ] ) {
+
+        delete currentErrors[ i ];
+
+      } else {
+
+        currentErrors[ i ] = newErrors[ i ];
+
+      }
+
+    }
+
+  },
+
+  _extract = function( attr, obj, filterIfFalse ) {
+
+    var extract = {};
+
+    if ( typeof filterIfFalse == 'undefined' ) filterIfFalse = false;
+
+    for( var i in obj ) {
+
+      if ( !filterIfFalse || ( obj[ i ][ attr ] !== false ) ) {
+
+        extract[ i ] = obj[ i ][ attr ];
+
+      }
+
+    }
+
+    return extract;
+
+  },
+
+  _validateEvent = function(preErrors, callback) {
+
+    var errors = validator.processFull(event),
+
+    concatenated = preErrors.concat( errors );
+
+    callback(concatenated.length?false:true, concatenated );
 
   },
 
