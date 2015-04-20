@@ -29,8 +29,8 @@
 <% }); %>
 <% } %>
           <li><a class="js_signin_link" href="<%= genUrl('signin') %>"><%= __('Sign in') %></a></li>
-          <li class="language-menu js_language_menu">
-            <a><% if ( ( typeof lang == 'undefined' ) || lang=='fr' ) { %>fr<% } else { %>en<% } %></a>
+          <li class="language-menu js_language_menu js_toggle" data-toggle="language-menu">
+            <a class="js_toggle_trigger"><% if ( ( typeof lang == 'undefined' ) || lang=='fr' ) { %>fr<% } else { %>en<% } %></a>
             <ul class="language-menu">
               <li><a rel="alternate" href="?lang=fr" hreflang="fr">français</a></li><!--
               --><li><a href="?lang=en" hreflang="en">english</a></li>
