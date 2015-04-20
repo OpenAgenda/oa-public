@@ -37,8 +37,8 @@
   : "Pas de résultat pour cette recherche. Vous pouvez effectuer une recherche sur l’ensemble du site en haut de page, ou %page%",
   "reload this page"
   : "recharger la page agenda",
-  "This agenda does not contain any events"
-  : "Cet agenda ne compte aucun événement",
+  "This agenda has not published any events yet"
+  : "Cet agenda n'a pas encore publié d'événements",
   "Contact the administrator of this agenda"
   : "Contacter l'administrateur de l'agenda",
   "by %name%" : "par %name%",

@@ -58,7 +58,7 @@ module.exports = function( options ) {
         homeEvents: '/home/events',
         homeAgendas: '/home',
         signout: '/signout',
-        agendaNew: '/agendas/new',
+        agendaNew: '/new',
         searchAgendas: '/agendas/search'
       },
       fullName: session.fullName,
