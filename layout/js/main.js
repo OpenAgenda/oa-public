@@ -16,6 +16,8 @@ handleSession = require( './handleSession' ),
 
 headerProfile = require( './headerProfile' ),
 
+outdated = require( 'outdated-browser-rework' ),
+
 toggle = require( './toggle' ),
 
 debug = require('debug'),
@@ -33,6 +35,16 @@ ran = false,
 hooks = [],
 
 params = {};
+
+outdated( {
+  browserSupport: {
+    'Chrome': 33,
+    'IE': 9,
+    'Safari': 5,
+    'Mobile Safari': 5,
+    'Firefox':  25
+  }
+});
 
 cn.addEvent( window, 'load', function() {
 
