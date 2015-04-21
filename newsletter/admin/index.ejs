@@ -9,15 +9,15 @@
   <ul class="glist">
 <% campaigns.forEach(function(campaign) { %>
     <li>
-      <a class="button" href="<%= genUrl('campaignRemove', { uid: campaign.uid }) %>"><%= __('delete') %></a>
-      <a class="button" href="<%= genUrl('campaignLayoutEdit', { uid: campaign.uid }) %>"><%= __('edit layout') %></a>
-      <a class="button" href="<%= genUrl('campaignEdit', { uid: campaign.uid }) %>"><%= __('edit') %></a>
-      <a class="hurl title" href="<%= genUrl('campaignEdit', { uid: campaign.uid }) %>"><%= campaign.title %></a>
+      <a class="button" href="<%= genUrl('campaignRemove', { slug: agenda.slug, uid: campaign.uid }) %>"><%= __('delete') %></a>
+      <a class="button" href="<%= genUrl('campaignLayoutEdit', { slug: agenda.slug, uid: campaign.uid }) %>"><%= __('edit layout') %></a>
+      <a class="button" href="<%= genUrl('campaignEdit', { slug: agenda.slug, uid: campaign.uid }) %>"><%= __('edit') %></a>
+      <a class="hurl title" href="<%= genUrl('campaignEdit', { slug: agenda.slug, uid: campaign.uid }) %>"><%= campaign.title %></a>
       <ul class="detail">
         <li>
           <label><%= __('associated list') %></label>
 <% if (campaign.contactList !== null) { %>
-          <a class="url" href="<%= genUrl('contactListShow', { uid: campaign.contactList.uid }) %>"><%= campaign.contactList.title %></a>
+          <a class="url" href="<%= genUrl('contactListShow', { slug: agenda.slug, uid: campaign.contactList.uid }) %>"><%= campaign.contactList.title %></a>
 <% } else { %>
           <span><%= __('no list') %></span>
 <% } %>
@@ -51,9 +51,9 @@
   <ul class="glist">
 <% contactLists.forEach(function(contactList) { %>
     <li>
-      <a class="button" href="<%= genUrl('contactListRemove', { uid: contactList.uid }) %>"><%= __('delete') %></a>
-      <a class="button" href="<%= genUrl('contactListShow', { uid: contactList.uid }) %>"><%= __('edit') %></a>
-      <a class="hurl title" href="<%= genUrl('contactListShow', { uid: contactList.uid }) %>"><%= contactList.title %></a>
+      <a class="button" href="<%= genUrl('contactListRemove', { slug: agenda.slug, uid: contactList.uid }) %>"><%= __('delete') %></a>
+      <a class="button" href="<%= genUrl('contactListShow', { slug: agenda.slug, uid: contactList.uid }) %>"><%= __('edit') %></a>
+      <a class="hurl title" href="<%= genUrl('contactListShow', { slug: agenda.slug, uid: contactList.uid }) %>"><%= contactList.title %></a>
       <ul class="detail">
         <li>
           <span><%= __('%s% contacts', { '%s%' : contactList.total}) %></span>

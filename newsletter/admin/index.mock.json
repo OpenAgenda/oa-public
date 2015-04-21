@@ -1,5 +1,6 @@
 {
   "base" : {
+    "slug" : "agenda-slug"
   },
   "main" : {
     "campaigns" : [
