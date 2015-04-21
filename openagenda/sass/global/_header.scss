@@ -106,6 +106,12 @@
     &.notheme .row {
       padding-top: 20px;
       padding-bottom: 10px;
+      position: relative;
+      display: inline;
+    }
+
+    &.notheme .title-container {
+      padding: 20px 0 0;
     }
 
   }

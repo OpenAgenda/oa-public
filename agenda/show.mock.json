@@ -1,8 +1,9 @@
 {
   "base" : {
-    "title" : "Jeu de Territoire pour développer la qualité de Vie",
+    "title" : "Jeu de Territoire pour développer la qualité de Vie et la température de l'eau",
     "description" : "l'agenda des évènements repérés par ChezNous",
     "image" : "review_cheznous_598_00.jpg",
+    "isEmpty" : false,
     "slug" : "chez-nous",
     "url" : "http://cheznous.coop",
     "redirect" : "quiruezrhdk",
@@ -18,14 +19,7 @@
       "perPage" : 20,
       "lang" : "fr"
     },
-    "theme" : {
-      "image" : "review-bg-1402924618-615.jpg",
-      "repeat" : false,
-      "anchorage" : "center",
-      "backgroundColor" : "#fafafc",
-      "canvasPosition" : "center",
-      "canvasOffset" : "120"
-    },
+    "theme" : false,
     "pager" : {
       "current" : 3,
       "total" : 127,
@@ -175,6 +169,17 @@
   "noimage" : {
     "image": false,
     "isEmpty" : true,
+    "events" : []
+  },
+  "themed" : {
+    "theme" : {
+      "image" : "review-bg-1402924618-615.jpg",
+      "repeat" : false,
+      "anchorage" : "center",
+      "backgroundColor" : "#fafafc",
+      "canvasPosition" : "center",
+      "canvasOffset" : "120"
+    },
     "events" : []
   },
   "empty" : {
