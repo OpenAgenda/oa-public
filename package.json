@@ -21,6 +21,7 @@
     "qs" : "2.3.3",
     "d3" : "3.4.13",
     "react" : "0.12.2",
-    "reactify" : "1.0.0"
+    "reactify" : "1.0.0",
+    "outdated-browser-rework" : "0.1.1"
   }
 }
