@@ -1,10 +1,10 @@
 <div class="header">
   <h2><%= __('Campaign') %></h2>
   <p><%= __(isNew?"New campaign":"Edit campaign") %></p>
-  <a class="url" href="<%= genUrl('newsletterIndex') %>"><%= __('back to index') %></a>
+  <a class="url" href="<%= genUrl('newsletterIndex', { slug: agenda.slug }) %>"><%= __('back to index') %></a>
 </div>
 
-<form class="cform" method="post" action="<%= uid===null ? genUrl( 'campaignCreate' ) : genUrl( 'campaignUpdate', { uid: uid } ) %>">
+<form class="cform" method="post" action="<%= uid===null ? genUrl( 'campaignCreate', { slug: agenda.slug } ) : genUrl( 'campaignUpdate', { slug: agenda.slug, uid: uid } ) %>">
   
   <h3><%= __('Campaign title') %></h3>
   <p class="info"><%= __('Used in the subject field of sent emails') %></p>
@@ -32,7 +32,7 @@
         </select>
 <% } else { %>
         <span><%= __('You do not have a contact list yet.') %></span>
-        <a class="url" href="<%= genUrl('contactListNew') %>"><%= __('Create a contact list') %></a>
+        <a class="url" href="<%= genUrl('contactListNew', { slug: agenda.slug } ) %>"><%= __('Create a contact list') %></a>
 <% } %>
 <% if (errors.list) { %>
         <span class="error"><%= __(errors.list) %></span>
@@ -195,7 +195,7 @@
 <% if ( isNew ) { %>
   <button class="green right" type="submit"><%= __('Next: define the content') %></button>
 <% } else { %>
-  <a class="button right" href="<%= genUrl('campaignLayoutEdit', { uid: uid }) %>" class="button"><%= __('Edit Layout') %></a>
+  <a class="button right" href="<%= genUrl('campaignLayoutEdit', { slug: agenda.slug, uid: uid }) %>" class="button"><%= __('Edit Layout') %></a>
   <button class="green" type="submit"><%= __('Update') %></button>
 <% } %>
   </section>

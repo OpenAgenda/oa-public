@@ -5,9 +5,9 @@
 </div>
 <div class="col w33">
 
-<form class="cform js_campaign_layout_form" method="post" action="<%= genUrl('campaignComplete', { uid: uid }) %>">
+<form class="cform js_campaign_layout_form" method="post" action="<%= genUrl('campaignComplete', { slug: agenda.slug, uid: uid }) %>">
 
-  <a href="<%= genUrl('campaignEdit', { uid : uid}) %>" ><h3 class="url"><%= title %></h3></a>
+  <a href="<%= genUrl('campaignEdit', { slug: agenda.slug, uid : uid}) %>" ><h3 class="url"><%= title %></h3></a>
 
 <% if ( type=="manual" ) { %>
   <section>
@@ -24,7 +24,7 @@
     <div class="header">
       <h3><%= __('Featured Events') %></h3>
     </div>
-    <a class="button js_lightbox_trigger" href="<%= genUrl( 'campaignFeaturedEdit', { uid: uid } ) %>"><%= __('Select Events') %></a>
+    <a class="button js_lightbox_trigger" href="<%= genUrl( 'campaignFeaturedEdit', { slug: agenda.slug, uid : uid } ) %>"><%= __('Select Events') %></a>
   </section>
 <% } %>
   <section>
@@ -122,10 +122,10 @@
 
 </div><!--
 --><div class="col w66">
-  <iframe name="newsletter-frame" height="1000" style="width: 100%;" src="<%= env == 'tpl' ? '/newsletter/show' : genUrl('newsletterPreview', { uid: uid }) %>"></iframe>
+  <iframe name="newsletter-frame" height="1000" style="width: 100%;" src="<%= env == 'tpl' ? '/newsletter/show' : genUrl('newsletterPreview', { slug: agenda.slug, uid: uid }) %>"></iframe>
 </div>
 <script type="text/javascript">
   run({
-    preview: '<%= genUrl('campaignLayoutUpdate', { uid: uid }) %>'
+    preview: '<%= genUrl('campaignLayoutUpdate', { slug: agenda.slug, uid: uid }) %>'
   });
 </script>

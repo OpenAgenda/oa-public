@@ -1,5 +1,6 @@
 {
   "agenda" : {
+    "slug" : "slug",
     "title" : "La Gargouille",
     "url" : "https://d.openagenda.com/frontend_dev.php/la-gargouille",
     "image" : "review_la-gargouille_00.jpg"
