@@ -89,14 +89,6 @@ async = require( 'async' ),
 
 config = require( '../config' ),
 
-w = require( 'when' ),
-
-wn = require( 'when/node' ),
-
-lib = require( '../lib/lib' ),
-
-eventSvc = require( '../services/event/event' ),
-
 model = cmn.getCibulModel(),
 
 deepExtend = require( 'deep-extend' );
@@ -115,7 +107,7 @@ module.exports = function( path ) {
     paths: modLib.getPaths( path, routes )
   }
 
-}
+};
 
 
 /**

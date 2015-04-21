@@ -1,22 +1,8 @@
+"use strict";
 
-/**
- * load libraries and define app module routes
- */
+var modLib = require( '../lib/moduleLib' ),
 
-var appName = 'newsletter/front',
-
-exposed = {
-  load: load
-},
-
-routes = {
-  newsletterShow: [ 'get', newsletterShow, '/:uid' ],
-  contactUnsubscribeShow: [ 'get', contactUnsubscribeShow, '/contactlists/:uid/unsubscribe' ],
-  contactUnsubscribeSubmit: [ 'post', contactUnsubscribeSubmit, '/contactlists/:uid/unsubscribe' ],
-  contactUnsubscribeComplete: [ 'get', contactUnsubscribeComplete, '/contactlists/:uid/unsubscribe/complete' ]
-},
-
-log = require( '../lib/logger' )( appName ),
+log = require( '../lib/logger' )( 'newsletter/front' ),
 
 async = require( 'async' ),
 
@@ -30,52 +16,36 @@ cmn = require( '../lib/commons-app' ),
 
 build = require( './build' ),
 
-app,
-
-path,
-
 model = cmn.getCibulModel(),
 
-generic = require( './generic' )( model );
+generic = require( './generic' )( model ),
+
+agendaSvc = require( '../services/agenda/agenda' ),
+
+routes = {
+  newsletterShow: [ 'get', '/:uid', newsletterShow ],
+  contactUnsubscribeShow: [ 'get', '/contactlists/:uid/unsubscribe', contactUnsubscribeShow ],
+  contactUnsubscribeSubmit: [ 'post', '/contactlists/:uid/unsubscribe', contactUnsubscribeSubmit ],
+  contactUnsubscribeComplete: [ 'get', '/contactlists/:uid/unsubscribe/complete', contactUnsubscribeComplete ]
+};
 
 
-function init( p ) {
+module.exports = function( path ) {
 
-  log( 'debug', 'initing' );
+  var router = modLib.Router( routes );
 
-  path = p;
-
-  cmn.registerRoutes( appName, path, routes );
-
-  return exposed;
-
-}
-
-
-
-function load( main ) {
-
-  if ( app ) {
-
-    log( 'debug', 'this app has already been loaded');
-
-    return;
-
-  }
-
-  log( 'debug', 'loading' );
-
-  app = cmn.loadApp( main, path, appName );
-
-  cmn.loadRoutes( app, routes, [
-    cmn.urlGenSetter( appName, path ),
-    cmn.loadAgenda( 'slug' ),
+  router.pre( [
+    cmn.flashSetter,
+    agendaSvc.mw.load( 'slug' ),
     cmn.loadBaseData()
   ] );
 
-}
+  return {
+    load: router.load( path ),
+    paths: modLib.getPaths( path, routes )
+  }
 
-
+};
 
 function newsletterShow( req, res ) {
 
@@ -173,5 +143,3 @@ function _error( req, res ) {
   };
 
 }
-
-module.exports = init;

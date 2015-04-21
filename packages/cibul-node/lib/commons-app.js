@@ -844,7 +844,7 @@ function loadLogger( name ) {
     req.log = require( './logger' )( 'req' );
 
     req.log.load( {
-      module: name,
+      module: name ? name : 'unkown',
       url: req.originalUrl
     } );
 

@@ -45,8 +45,8 @@ module.exports = function( enabledTypes, cb ) {
         require( './admin/back' )( '/admin' )
       ],
       web: [ // open to the public
-        require( './newsletter/back' )( '/:slug/admin/newsletters' ),
-        require( './newsletter/front' )( '/:slug/newsletters' ),
+        [ require( './newsletter/back' )( '/:slug/admin/newsletters' ) ],
+        [ require( './newsletter/front' )( '/:slug/newsletters' ) ],
         [ require( './general/front' )( '' ) ],
         [ require( './search/front' )( '' ) ],
         [ require( './event/front' )( '' ) ],
@@ -58,7 +58,7 @@ module.exports = function( enabledTypes, cb ) {
         [ require( './agenda/contributors.back' )( '/:slug/admin/contributors' ) ],
         [ require( './agenda/front' )( '' ) ],
         [ require( './agenda/actions.front' )( '/:slug/actions' ) ],
-        require( './agenda_bridges/back' )( '/:slug/admin/services' )
+        [ require( './agenda_bridges/back' )( '/:slug/admin/services' ) ]
       ]
     },
 
@@ -71,6 +71,8 @@ module.exports = function( enabledTypes, cb ) {
 
     app.use( require( 'cookie-parser' )() );
 
+    app.use( require( 'body-parser' ).urlencoded( { extended: true } ) );
+
     app.use( cookieSession( config.session ) );
 
 
@@ -78,6 +80,16 @@ module.exports = function( enabledTypes, cb ) {
     app.use( function( req, res, next ) {
 
       req.genUrl = genUrl;
+
+      next();
+
+    });
+
+    app.use( function( req, res, next ) {
+
+      req.log = require( './lib/logger' )( 'req' );
+
+      req.log.load( { url: req.originalUrl } );
 
       next();
 

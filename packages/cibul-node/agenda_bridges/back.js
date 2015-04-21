@@ -1,23 +1,8 @@
 "use strict";
 
-/**
- * load libraries and define app module routes
- */
+var modLib = require( '../lib/moduleLib' ),
 
-var appName = 'agenda_bridges/back',
-
-exposed = {
-  load: load
-},
-
-routes = {
-  serviceIndex: [ 'get', serviceIndex, '/:service' ],
-  connectService: [ 'get', connectService, '/:service/connect' ],
-  serviceSynchronize: [ 'get', serviceSynchronize, '/:service/synchronize' ],
-  serviceUnlink: [ 'get', serviceUnlink, '/:service/unlink' ]
-},
-
-log = require( '../lib/logger' )( appName ),
+log = require( '../lib/logger' )( 'agenda_bridges/back' ),
 
 async = require( 'async' ),
 
@@ -29,49 +14,26 @@ lib = require( '../lib/lib' ),
 
 cmn = require( '../lib/commons-app' ),
 
+agendaSvc = require( '../services/agenda/agenda' ),
+
 config = require( '../config' ),
 
-app,
+model = cmn.getCibulModel(),
 
-path,
+routes = {
+  serviceIndex: [ 'get', '/:service', serviceIndex ],
+  connectService: [ 'get', '/:service/connect', connectService ],
+  serviceSynchronize: [ 'get', '/:service/synchronize', serviceSynchronize ],
+  serviceUnlink: [ 'get', '/:service/unlink', serviceUnlink ]
+};
 
-model = cmn.getCibulModel();
+module.exports = function( path ) {
 
-module.exports = function( p ) {
+  var router = modLib.Router( routes );
 
-  log( 'initing' );
-
-  path = p;
-
-  cmn.registerRoutes( appName, path, routes);
-
-  return exposed;
-
-}
-
-
-function load( main ) {
-
-  if ( app ) {
-
-    log( 'this app has already been loaded');
-
-    return;
-
-  }
-
-  log( 'loading' );
-
-  app = cmn.loadApp( main, path, appName );
-
-  app.use( require( 'body-parser' ).urlencoded( { extended: true } ) );
-
-  // load agenda matching route :slug in req.agenda
-
-  cmn.loadRoutes( app, routes, [
-    cmn.urlGenSetter( appName, path ),
-    cmn.loadAgenda( 'slug' ),
+  router.pre( [
     cmn.flashSetter,
+    agendaSvc.mw.load( 'slug' ),
     cmn.loadSession,
     cmn.loadBaseData( _layoutData ),
     cmn.requireLogged,
@@ -79,7 +41,10 @@ function load( main ) {
     _loadService
   ] );
 
-  return exposed;
+  return {
+    load: router.load( path ),
+    paths: modLib.getPaths( path, routes )
+  }
 
 }
 

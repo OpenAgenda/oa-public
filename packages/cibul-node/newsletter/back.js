@@ -1,38 +1,8 @@
-/**
- * load libraries and define app module routes
- */
+"use strict";
 
-var appName = 'newsletter/back',
+var modLib = require( '../lib/moduleLib' ),
 
-exposed = {
-  load: load
-},
-
-routes = {
-  newsletterIndex: [ 'get', index, '' ],
-  campaignNew: [ 'get', campaignNew, '/campaigns/new' ],
-  campaignCreate: [ 'post', campaignCreate, '/campaigns' ],
-  campaignRemove: [ 'get', campaignRemove, '/campaigns/:uid/remove' ],
-  campaignEdit: [ 'get', campaignEdit, '/campaigns/:uid/edit' ],
-  campaignUpdate: [ 'post', campaignUpdate, '/campaigns/:uid/update' ],
-  campaignLayoutEdit: [ 'get', campaignLayoutEdit, '/campaigns/:uid/layout' ],
-  campaignLayoutUpdate: [ 'post', campaignLayoutUpdate, '/campaigns/:uid/layout' ],
-  campaignFeaturedEdit: [ 'get', campaignFeaturedEdit, '/campaigns/:uid/featured' ],
-  campaignFeaturedAdd: [ 'get', campaignFeaturedAdd, '/campaigns/:uid/featured/add/:eUid' ],
-  campaignFeaturedRemove: [ 'get', campaignFeaturedRemove, '/campaigns/:uid/featured/remove/:eUid' ],
-  campaignFeaturedClear: [ 'get', campaignFeaturedClear, '/campaigns/:uid/featured/clear' ],
-  campaignComplete: [ 'post', campaignComplete, '/campaigns/:uid/complete' ],
-  newsletterPreview: [ 'get', newsletterPreview, '/campaigns/:uid/preview' ],
-  contactListNew: [ 'get', contactListNew, '/contactlists/new' ],
-  contactListCreate: [ 'post', contactListCreate, '/contactlists' ],
-  contactListShow: [ 'get', contactListShow, '/contactlists/:uid' ],
-  contactListRemove: [ 'get', contactListRemove, '/contactlists/:uid/remove' ],
-  contactsAdd: [ 'post', contactsAdd, '/contactlists/:uid/contacts' ],
-  contactRemove: [ 'get', contactRemove, '/contactlists/:uid/contacts/:email/remove' ],
-  newsletterIndexRedirect: [ 'get', indexRedirect, '/campaigns' ]
-},
-
-log = require( '../lib/logger' )( appName ),
+log = require( '../lib/logger' )( 'newsletter/back' ),
 
 async = require( 'async' ),
 
@@ -46,49 +16,43 @@ cmn = require( '../lib/commons-app' ),
 
 build = require( './build' ),
 
-app,
-
-path,
-
 model = cmn.getCibulModel(),
 
-generic = require( './generic' )( model );
+generic = require( './generic' )( model ),
+
+agendaSvc = require( '../services/agenda/agenda' ),
+
+routes = {
+  newsletterIndex: [ 'get', '', index ],
+  campaignNew: [ 'get', '/campaigns/new', campaignNew ],
+  campaignCreate: [ 'post', '/campaigns', campaignCreate ],
+  campaignRemove: [ 'get', '/campaigns/:uid/remove', campaignRemove ],
+  campaignEdit: [ 'get', '/campaigns/:uid/edit', campaignEdit ],
+  campaignUpdate: [ 'post', '/campaigns/:uid/update', campaignUpdate ],
+  campaignLayoutEdit: [ 'get', '/campaigns/:uid/layout', campaignLayoutEdit ],
+  campaignLayoutUpdate: [ 'post', '/campaigns/:uid/layout', campaignLayoutUpdate ],
+  campaignFeaturedEdit: [ 'get', '/campaigns/:uid/featured', campaignFeaturedEdit ],
+  campaignFeaturedAdd: [ 'get', '/campaigns/:uid/featured/add/:eUid', campaignFeaturedAdd ],
+  campaignFeaturedRemove: [ 'get', '/campaigns/:uid/featured/remove/:eUid', campaignFeaturedRemove ],
+  campaignFeaturedClear: [ 'get', '/campaigns/:uid/featured/clear', campaignFeaturedClear ],
+  campaignComplete: [ 'post', '/campaigns/:uid/complete', campaignComplete ],
+  newsletterPreview: [ 'get', '/campaigns/:uid/preview', newsletterPreview ],
+  contactListNew: [ 'get', '/contactlists/new', contactListNew ],
+  contactListCreate: [ 'post', '/contactlists', contactListCreate ],
+  contactListShow: [ 'get', '/contactlists/:uid', contactListShow ],
+  contactListRemove: [ 'get', '/contactlists/:uid/remove', contactListRemove ],
+  contactsAdd: [ 'post', '/contactlists/:uid/contacts', contactsAdd ],
+  contactRemove: [ 'get', '/contactlists/:uid/contacts/:email/remove', contactRemove ],
+  newsletterIndexRedirect: [ 'get', '/campaigns', indexRedirect ]
+};
 
 
-function init( p ) {
+module.exports = function( path ) {
 
-  log( 'debug', 'initing' );
+  var router = modLib.Router( routes );
 
-  path = p;
-
-  cmn.registerRoutes( appName, path, routes);
-
-  return exposed;
-
-}
-
-
-function load( main ) {
-
-  if ( app ) {
-
-    log( 'debug', 'this app has already been loaded');
-
-    return;
-
-  }
-
-  log( 'debug', 'loading' );
-
-  app = cmn.loadApp( main, path, appName );
-
-  app.set( 'perPage', 20 );
-
-  app.use( require( 'body-parser' ).urlencoded( { extended: true } ) );
-
-  cmn.loadRoutes( app, routes, [
-    cmn.urlGenSetter( appName, path ),
-    cmn.loadAgenda( 'slug' ),
+  router.pre( [
+    agendaSvc.mw.load( 'slug' ),
     cmn.flashSetter,
     cmn.loadSession,
     cmn.loadBaseData( _layoutData ),
@@ -97,9 +61,12 @@ function load( main ) {
     cmn.checkAdministrator
   ] );
 
-  return exposed;
+  return {
+    load: router.load( path ),
+    paths: modLib.getPaths( path, routes )
+  }
 
-}
+};
 
 
 /**
@@ -327,7 +294,7 @@ function campaignLayoutUpdate( req, res ) {
 
 function campaignFeaturedEdit( req, res ) {
 
-  var perPage = req.xhr ? 20 : app.get( 'perPage' );
+  var perPage = req.xhr ? 20 : perPage;
 
   wn.call( req.agenda.campaigns.get, { uid: req.params.uid } )
 
@@ -590,7 +557,7 @@ function contactListShow( req, res ) {
 
     function( contactList, total, wcb ) {
 
-      contactList.contacts.list( { filters: req.query.filters, page: req.query.page, limit: app.get('perPage') }, function( err, contacts ) {
+      contactList.contacts.list( { filters: req.query.filters, page: req.query.page, limit: perPage }, function( err, contacts ) {
 
         if ( err ) return wcb( err );
 
@@ -607,7 +574,7 @@ function contactListShow( req, res ) {
         errors: {},
         contacts: contacts
       },
-      _pager( req, 'contactListShow', app.get( 'perPage' ), total )
+      _pager( req, 'contactListShow', perPage, total )
       ), true );
 
     }
@@ -666,7 +633,7 @@ function contactsAdd( req, res ) {
 
         async.series([
 
-          async.apply( contactList.contacts.list, { page: req.query.page, limit: app.get('perPage') }),
+          async.apply( contactList.contacts.list, { page: req.query.page, limit: perPage }),
 
           function( contacts, wcb ) {
 
@@ -687,7 +654,7 @@ function contactsAdd( req, res ) {
               errors: result.errors,
               contacts: contacts
             },
-              _pager( req, 'contactListShow', app.get( 'perPage' ), total )
+              _pager( req, 'contactListShow', perPage, total )
             ));
 
           }
@@ -1007,5 +974,3 @@ function _pager( req, routeName, perPage, totalItems ) {
   };
 
 };
-
-module.exports = init;
