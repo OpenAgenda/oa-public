@@ -13,9 +13,6 @@ defaults = {
   events: {
     get: 'ecustomfieldsfetch',
     send: 'ecustomfieldssend'
-  },
-  classes: {
-    canvas: 'cform'
   }
 },
 
@@ -37,7 +34,7 @@ module.exports = function( options ) {
 
   React.render(
     <CustomFields fields={fields} lang={params.lang} update={ _update } />,
-    _createReactCanvas( cn.el( params.canvas ), params.classes.canvas ) 
+    _createReactCanvas( cn.el( params.canvas ) ) 
   );
 
 }
@@ -135,8 +132,8 @@ var CustomFields = React.createClass({
 
     return (
       <div>
-        <p>This is the custom fields part</p>
-        <ul>{this.props.fields.map( createField )}</ul>
+        <ul className="cform">{this.props.fields.map( createField )}</ul>
+        <div className="separator"></div>
       </div>
     );
 
@@ -144,13 +141,11 @@ var CustomFields = React.createClass({
 
 });
 
-function _createReactCanvas( parent, className ) {
+function _createReactCanvas( parent ) {
 
   var div = document.createElement( 'div' );
 
-  div.className = className;
-
-  parent.insertAdjacentElement( 'afterbegin', div );
+  parent.appendChild( div );
 
   return div;
 

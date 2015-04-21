@@ -195,6 +195,13 @@
         initValidate: false // true if action is submit
       });
 
+  
+      cibulEventCustomFields({
+        lang: 'fr',
+        fields: '[{"name":"somestat","fieldType":"integer","label":{"fr":"Une stat quelconque","en":"Some statistic"},"value":34},{"name":"somesmalltext","fieldType":"text", "optional": true, "label":{"fr":"Ceci est un petit texte","en":"This is a small text"},"value":"small text content"},{"name":"somelongtext","fieldType":"textarea","label":{"fr":"Ceci est un long texte","en":"This is a long text"}} ]'
+      });
+
+
       cibulEventLocation({
         canvas: el('.js_form_canvas'),
         get: getFunc,
@@ -257,11 +264,6 @@
           coords: [48.447052, 1.486754]
         },
         icon: '../images/markerIcon.png',
-      });
-
-      cibulEventCustomFields({
-        lang: 'fr',
-        fields: '[{"name":"somestat","fieldType":"integer","label":{"fr":"Une stat quelconque","en":"Some statistic"},"value":34},{"name":"somesmalltext","fieldType":"text", "optional": true, "label":{"fr":"Ceci est un petit texte","en":"This is a small text"},"value":"small text content"},{"name":"somelongtext","fieldType":"textarea","label":{"fr":"Ceci est un long texte","en":"This is a long text"}} ]'
       });
 
       addNote(el('.js_form_canvas'), 'ta mere en slip au prisunic');
