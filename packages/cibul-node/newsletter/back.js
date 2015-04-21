@@ -951,6 +951,7 @@ function _layoutData( req, res ) {
     tab: 'newsletters',
     mainClass: 'newsletter',
     agenda: {
+      slug: req.agenda.slug,
       title: req.agenda.title,
       description: req.agenda.description,
       url: req.agenda.url,
