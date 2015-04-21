@@ -2,7 +2,7 @@ var handleOEmbed = function(options) {
 
 	var options = extend({
 		elements: {link: false, embed: false},
-		jqueryUrl: 'http://code.jquery.com/jquery-1.9.1.min.js',
+		jqueryUrl: '//code.jquery.com/jquery-1.9.1.min.js',
 		oembedUrl: 'js/jquery.oembed.min.js',
     heightChange: 'heightchange',
 		linkClasses: 'url',

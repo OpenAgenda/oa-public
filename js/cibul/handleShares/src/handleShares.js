@@ -9,13 +9,13 @@ var handleShares = function(params) {
     links: false,
     items: {
       fb: {
-        content: '<i class="icon-facebook"></i>',
+        content: '<i class="fa fa-facebook"></i>',
         className: 'fb',
         res: 'https://www.facebook.com/sharer.php',
         params: {u: 'url'}
       },
       fbf: {
-        content: '<i class="icon-facebook"></i>',
+        content: '<i class="fa fa-facebook"></i>',
         res: 'https://www.facebook.com/dialog/feed',
         className: 'fb',
         params: { 
@@ -29,31 +29,31 @@ var handleShares = function(params) {
         }
       },
       tw: {
-        content: '<i class="icon-twitter"></i>',
+        content: '<i class="fa fa-twitter"></i>',
         className: 'tw',
         res: 'https://twitter.com/share',
         params: {url: 'url', text: 'title'}
       },
       gp: {
-        content: '<i class="icon-google-plus"></i>',
+        content: '<i class="fa fa-google-plus"></i>',
         className: 'gp',
         res: 'https://plus.google.com/share',
         params: {url: 'url'}
       },
       li: {
-        content: '<i class="icon-linkedin"></i>',
+        content: '<i class="fa fa-linkedin"></i>',
         className: 'li',
         res: 'http://www.linkedin.com/shareArticle',
         params: { url: 'url', title: 'title', source: 'siteUrl' }
       },
       tu: {
-        content: '<i class="icon-tumblr"></i>',
+        content: '<i class="fa fa-tumblr"></i>',
         className: 'tb',
         res: 'http://tumblr.com/share',
         params: { s: '', v: '3', u: 'url', t: 'title' }
       },
       pi: {
-        content: '<i class="icon-pinterest"></i>',
+        content: '<i class="fa fa-pinterest"></i>',
         className: 'pt',
         res: 'http://pinterest.com/pin/create/button/',
         params: { url: 'url', media: 'imageUrl', description: 'description' }
