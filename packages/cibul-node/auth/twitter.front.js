@@ -30,26 +30,7 @@ routes = {
 
 module.exports = function( path ) {
 
-  var router = modLib.Router( routes ),
-
-  twitterOptions = {
-    consumerKey: config.auth.twitter.key,
-    consumerSecret: config.auth.twitter.secret,
-    passReqToCallback: true,
-    skipExtendedUserProfile: true
-  };
-
-  log( 'initing' );
-
-  pLib.loadStrategy( 'twitter', 'passport-twitter' );
-
-  pLib.use( 'twitter-signin', 'twitter', lib.extend( {
-    callbackURL: auth.genUrl( 'twitterSigninCallback' )
-  }, twitterOptions ), _loadTwitterProfile );
-
-  pLib.use( 'twitter-signup', 'twitter', lib.extend({
-    callbackURL: auth.genUrl( 'twitterSignupCallback' )
-  }, twitterOptions ), _loadTwitterProfile );
+  var router = modLib.Router( routes );
 
   router.pre( [
     cmn.flashSetter,
@@ -59,8 +40,36 @@ module.exports = function( path ) {
   ] );
 
   return {
-    load: router.load( path ),
+    load: load( router, path ),
     paths: modLib.getPaths( path, routes )
+  }
+
+}
+
+
+function load( router, path ) {
+
+  var twitterOptions = {
+    consumerKey: config.auth.twitter.key,
+    consumerSecret: config.auth.twitter.secret,
+    passReqToCallback: true,
+    skipExtendedUserProfile: true
+  };
+
+  return function( app ) {
+
+    pLib.loadStrategy( 'twitter', 'passport-twitter' );
+
+    pLib.use( 'twitter-signin', 'twitter', lib.extend( {
+      callbackURL: auth.genUrl( 'twitterSigninCallback' )
+    }, twitterOptions ), _loadTwitterProfile );
+
+    pLib.use( 'twitter-signup', 'twitter', lib.extend({
+      callbackURL: auth.genUrl( 'twitterSignupCallback' )
+    }, twitterOptions ), _loadTwitterProfile );
+
+    return router.load( path )( app );
+
   }
 
 }

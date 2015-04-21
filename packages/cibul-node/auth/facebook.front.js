@@ -29,24 +29,6 @@ module.exports = function( path ) {
 
   log( 'initing' );
 
-  var facebookOptions = {
-    clientID: config.auth.facebook.id,
-    clientSecret: config.auth.facebook.secret,
-    passReqToCallback: true,
-    authorizationURL: "https://www.facebook.com/v2.0/dialog/oauth"
-  };
-
-
-  pLib.loadStrategy( 'facebook', 'passport-facebook' );
-  
-  pLib.use( 'facebook-signin', 'facebook', lib.extend( {
-    callbackURL: auth.genUrl( 'facebookSigninCallback' )
-  }, facebookOptions ), _loadFacebookProfile );
-
-  pLib.use( 'facebook-signup', 'facebook', lib.extend( {
-    callbackURL: auth.genUrl( 'facebookSignupCallback' )
-  }, facebookOptions ), _loadFacebookProfile );
-
   router.pre( [
     cmn.flashSetter,
     cmn.loadBaseData( auth.layoutData ),
@@ -55,10 +37,38 @@ module.exports = function( path ) {
   ] );
 
   return {
-    load: router.load( path ),
+    load: load( router, path ),
     paths: modLib.getPaths( path, routes )
   }
   
+}
+
+
+function load( router, path ) {
+
+  var facebookOptions = {
+    clientID: config.auth.facebook.id,
+    clientSecret: config.auth.facebook.secret,
+    passReqToCallback: true,
+    authorizationURL: "https://www.facebook.com/v2.0/dialog/oauth"
+  };
+
+  return function( app ) {
+
+    pLib.loadStrategy( 'facebook', 'passport-facebook' );
+
+    pLib.use( 'facebook-signin', 'facebook', lib.extend( {
+      callbackURL: auth.genUrl( 'facebookSigninCallback' )
+    }, facebookOptions ), _loadFacebookProfile );
+
+    pLib.use( 'facebook-signup', 'facebook', lib.extend( {
+      callbackURL: auth.genUrl( 'facebookSignupCallback' )
+    }, facebookOptions ), _loadFacebookProfile );
+
+    return router.load( path )( app );
+
+  }
+
 }
 
 

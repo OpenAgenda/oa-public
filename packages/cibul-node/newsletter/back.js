@@ -98,7 +98,7 @@ function index( req, res ) {
 
 function indexRedirect( req, res ) {
 
-  return cmn.redirect( req, res, 'newsletterIndex' );
+  return cmn.redirect( req, res, 'newsletterIndex', { slug: req.agenda.slug } );
 
 }
 
@@ -142,7 +142,7 @@ function campaignRemove( req, res ) {
 
   .then( function() {
 
-    cmn.redirect( req, res, 'newsletterIndex', {}, 'The campaign was deleted' );
+    cmn.redirect( req, res, 'newsletterIndex', { slug: req.agenda.slug }, 'The campaign was deleted' );
 
   } )
 
@@ -347,7 +347,7 @@ function campaignFeaturedAdd( req, res ) {
 
   .then( function() {
 
-    return cmn.redirect(req, res, 'campaignFeaturedEdit', { uid: req.params.uid }, true );
+    return cmn.redirect(req, res, 'campaignFeaturedEdit', { slug: req.agenda.slug, uid: req.params.uid }, true );
 
   })
 
@@ -368,7 +368,7 @@ function campaignFeaturedRemove( req, res ) {
 
   .then( function() {
 
-    return cmn.redirect(req, res, 'campaignFeaturedEdit', { uid: req.params.uid }, true );
+    return cmn.redirect(req, res, 'campaignFeaturedEdit', { slug: req.agenda.slug, uid: req.params.uid }, true );
 
   })
 
@@ -389,7 +389,7 @@ function campaignFeaturedClear( req, res ) {
 
   .then( function() {
 
-    return cmn.redirect(req, res, 'campaignFeaturedEdit', { uid: req.params.uid }, true );
+    return cmn.redirect(req, res, 'campaignFeaturedEdit', { slug: req.agenda.slug, uid: req.params.uid }, true );
 
   })
 
@@ -448,7 +448,7 @@ function campaignComplete( req, res ) {
 
   .then( function() {
 
-    cmn.redirect( req, res, 'newsletterIndex', {}, 'the campaign was updated' );
+    cmn.redirect( req, res, 'newsletterIndex', { slug: req.agenda.slug }, 'the campaign was updated' );
 
   })
 
@@ -520,13 +520,13 @@ function contactListCreate( req, res ) {
 
         if ( err ) return _error( req, res )( err );
 
-        return cmn.redirect(req, res, 'newsletterIndex', {}, 'The contact list was created' );
+        return cmn.redirect(req, res, 'newsletterIndex', { slug: req.agenda.slug }, 'The contact list was created' );
 
       });
 
     } else {
 
-      return cmn.redirect(req, res, 'newsletterIndex', {}, 'The contact list was created' );
+      return cmn.redirect(req, res, 'newsletterIndex', { slug: req.agenda.slug }, 'The contact list was created' );
 
     }
 
@@ -602,7 +602,7 @@ function contactListRemove( req, res ) {
 
   .then( function() {
 
-    return cmn.redirect( req, res, 'newsletterIndex', true, 'The contact list was deleted' );
+    return cmn.redirect( req, res, 'newsletterIndex', { slug: req.agenda.slug }, 'The contact list was deleted' );
 
   })
 
@@ -627,7 +627,7 @@ function contactsAdd( req, res ) {
 
       if (result.success) {
 
-        return cmn.redirect(req, res, 'contactListShow', { uid: req.params.uid }, 'The contacts were added' );
+        return cmn.redirect(req, res, 'contactListShow', {  slug: req.agenda.slug, uid: req.params.uid }, 'The contacts were added' );
 
       } else {
 
@@ -680,7 +680,7 @@ function contactRemove( req, res ) {
 
     if ( err ) return _error( req, res )( err );
 
-    return cmn.redirect( req, res, 'contactListShow', { uid: req.params.uid }, 'The contact was removed' );
+    return cmn.redirect( req, res, 'contactListShow', { slug: req.agenda.slug, uid: req.params.uid }, 'The contact was removed' );
 
   });
 
@@ -832,7 +832,7 @@ function _processCampaignSubmit( req, res, uid, successRedirect, successMessage 
 
             log( 'campaign scheduling was refreshed, redirecting to %s', successRedirect );
 
-            cmn.redirect( req, res, successRedirect, { uid : campaign.uid }, successMessage );
+            cmn.redirect( req, res, successRedirect, { slug: req.agenda.slug, uid : campaign.uid }, successMessage );
 
           });
 
@@ -840,7 +840,7 @@ function _processCampaignSubmit( req, res, uid, successRedirect, successMessage 
 
           log( 'campaign is new, redirecting to %s', successRedirect );
 
-          cmn.redirect( req, res, successRedirect, { uid : campaign.uid }, successMessage );
+          cmn.redirect( req, res, successRedirect, { slug: req.agenda.slug, uid : campaign.uid }, successMessage );
 
         }
 

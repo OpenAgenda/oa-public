@@ -278,6 +278,7 @@ config = {
   },
 
   dev: {
+    domain: 'd.openagenda.com',
     root: 'https://d.openagenda.com',
     env: 'dev',
     multiCore: false,
@@ -298,8 +299,8 @@ config = {
         captchaSecret: '6Lee0QMTAAAAAGtqf0sUO8LNVNboDVZ9pQBN5cFA'
       },
       facebook: {
-        id: '160151044018305',
-        secret: '12f736eeec5b1be1ee3bf5705e65aa7a'
+        id: '218055591568337',
+        secret: '444c327ed38e220805f23a40110475b4'
       },
       twitter: {
         key: 'hMcfdN7tfpzdfvTAeGUQ',
@@ -356,6 +357,7 @@ config = {
     logNameSpaces: false,
     //logNameSpaces: 'oa:*',
     root: 'https://d.openagenda.com',
+    domain: 'd.openagenda.com',
     db: {
       database: 'oatest',
       host: 'localhost',

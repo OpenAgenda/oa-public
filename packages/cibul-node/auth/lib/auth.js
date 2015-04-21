@@ -258,10 +258,12 @@ function _render( template, defaults ) {
 
 function genUrl( uri, query ) {
 
-  return cmn.makeGenUrl({
-    root: config.root,
-    base: { path: '' }
-  })( uri, query ? query : {}, { abs: true, protocol: 'https' });
+  var generatedUrl = cmn.getGenUrl()( uri, query ? query : {}, {
+    abs: true, 
+    protocol: 'https://'
+  });
+
+  return generatedUrl;
 
 }
 

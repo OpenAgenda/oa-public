@@ -25,25 +25,9 @@ routes = {
 
 module.exports = function( path ) {
 
-  var router = modLib.Router( routes ),
-
-  googleOptions = {
-    clientID: config.auth.google.id,
-    clientSecret: config.auth.google.secret,
-    passReqToCallback: true
-  };
+  var router = modLib.Router( routes );
 
   log( 'initing' );
-
-  pLib.loadStrategy( 'google', 'passport-google-oauth', 'OAuth2Strategy' );
-  
-  pLib.use( 'google-signin', 'google', lib.extend( {
-    callbackURL: auth.genUrl( 'googleSigninCallback' )
-  }, googleOptions ), _loadGoogleProfile );
-
-  pLib.use( 'google-signup', 'google', lib.extend( {
-    callbackURL: auth.genUrl( 'googleSignupCallback' )
-  }, googleOptions ), _loadGoogleProfile );
 
   router.pre( [
     cmn.flashSetter,
@@ -53,8 +37,34 @@ module.exports = function( path ) {
   ] );
 
   return {
-    load: router.load( path ),
+    load: load( router, path ),
     paths: modLib.getPaths( path, routes )
+  }
+
+}
+
+function load( router, path ) {
+
+  var googleOptions = {
+    clientID: config.auth.google.id,
+    clientSecret: config.auth.google.secret,
+    passReqToCallback: true
+  };
+
+  return function( app ) {
+
+    pLib.loadStrategy( 'google', 'passport-google-oauth', 'OAuth2Strategy' );
+    
+    pLib.use( 'google-signin', 'google', lib.extend( {
+      callbackURL: auth.genUrl( 'googleSigninCallback' )
+    }, googleOptions ), _loadGoogleProfile );
+
+    pLib.use( 'google-signup', 'google', lib.extend( {
+      callbackURL: auth.genUrl( 'googleSignupCallback' )
+    }, googleOptions ), _loadGoogleProfile );
+
+    return router.load( path )( app );
+
   }
 
 }

@@ -40,32 +40,35 @@ module.exports = function( enabledTypes, cb ) {
       domain: config.domain
     }),
 
+    webModules,
+
+    app = express(),
+
+    server;
+
+    cmn.loadGenUrl( genUrl );
+
     webModules = {
       admin: [ // for admins only
         require( './admin/back' )( '/admin' )
       ],
       web: [ // open to the public
-        [ require( './newsletter/back' )( '/:slug/admin/newsletters' ) ],
-        [ require( './newsletter/front' )( '/:slug/newsletters' ) ],
-        [ require( './general/front' )( '' ) ],
-        [ require( './search/front' )( '' ) ],
-        [ require( './event/front' )( '' ) ],
-        [ require( './auth/local.front' )( '' ) ],
-        [ require( './auth/facebook.front' )( '/facebook' ) ],
-        [ require( './auth/twitter.front' )( '/twitter' ) ],
-        [ require( './auth/google.front' )( '/google' ) ],
-        [ require( './auth/reset.front' )( '/password' ) ],
-        [ require( './agenda/contributors.back' )( '/:slug/admin/contributors' ) ],
-        [ require( './agenda/front' )( '' ) ],
-        [ require( './agenda/actions.front' )( '/:slug/actions' ) ],
-        [ require( './agenda_bridges/back' )( '/:slug/admin/services' ) ]
+        require( './newsletter/back' )( '/:slug/admin/newsletters' ),
+        require( './newsletter/front' )( '/:slug/newsletters' ),
+        require( './general/front' )( '' ),
+        require( './search/front' )( '' ),
+        require( './event/front' )( '' ),
+        require( './auth/local.front' )( '' ),
+        require( './auth/facebook.front' )( '/facebook' ),
+        require( './auth/twitter.front' )( '/twitter' ),
+        require( './auth/google.front' )( '/google' ),
+        require( './auth/reset.front' )( '/password' ),
+        require( './agenda/contributors.back' )( '/:slug/admin/contributors' ),
+        require( './agenda/front' )( '' ),
+        require( './agenda/actions.front' )( '/:slug/actions' ),
+        require( './agenda_bridges/back' )( '/:slug/admin/services')
       ]
-    },
-
-
-    app = express(),
-
-    server;
+    };
 
     app.set( 'trust proxy', 'loopback' );
 
@@ -116,24 +119,13 @@ module.exports = function( enabledTypes, cb ) {
 
       webModules.web.forEach( function( m ) {
 
-        if ( lib.isArray( m ) ) { // new
+        // load paths in genUrl
+        genUrl.load( m.paths );
 
-          // tis a new type module
-          
-          // load paths in genUrl
-          genUrl.load( m[ 0 ].paths );
+        // load paths in deprecated router
+        cmn.loadInDeprecatedRouter( m.paths );
 
-          // load paths in deprecated router
-          cmn.loadInDeprecatedRouter( m[ 0 ].paths );
-
-          m[ 0 ].load( app );
-
-        } else { // deprecated
-
-          m.load( app );
-          
-        }
-
+        m.load( app );
 
       });
 

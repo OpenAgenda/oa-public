@@ -31,6 +31,8 @@ exports.checkAdministrator = checkAdministrator;  // middleware. checks that log
 
 exports.urlGenSetter = urlGenSetter;              // router proxy function & middleware. load url generator in request
 exports.makeGenUrl = makeGenUrl;
+exports.loadGenUrl = loadGenUrl;
+exports.getGenUrl = getGenUrl;
 exports.registerRoutes = registerRoutes;          // router proxy function. register app module routes in router
 exports.redirect = redirect;                      // router proxy function. do a redirect
 exports.getRedirect = getRedirect;                // get redirect
@@ -73,7 +75,9 @@ deepExtend = require( 'deep-extend' ),
 
 lib = require( './lib' ),
 
-agendaSvc = require( '../services/agenda/agenda' );
+agendaSvc = require( '../services/agenda/agenda' ),
+
+genUrl;
 
 
 
@@ -744,6 +748,18 @@ function urlGenSetter( name, path ) {
 function makeGenUrl( options ) {
 
   return router.makeGenUrl( options );
+
+}
+
+function loadGenUrl( g ) {
+
+  genUrl = g;
+
+}
+
+function getGenUrl() {
+
+  return genUrl;
 
 }
 
