@@ -401,9 +401,9 @@ function _layoutData( req, res ) {
 
   req.log( 'loading layout data' );
 
-  var url = req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { abs: true } );
+  var url = req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { abs: true } ),
 
-  var data = {
+  data = {
     theme: req.agenda.getTheme(),
     queryLang: req.query.lang ? req.query.lang : false,
     scriptParams: {
