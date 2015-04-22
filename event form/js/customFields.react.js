@@ -4,6 +4,10 @@ var React = require( 'react' ),
 
 TextField = require( './textField.react.js' ),
 
+CheckboxField = require( './checkboxField.react.js' ),
+
+RadioFields = require( './radioFields.react.js' ),
+
 cn = require( '../../js/lib/common/common.mod' ),
 
 defaults = {
@@ -25,8 +29,6 @@ module.exports = function( options ) {
   fields = typeof params.fields == 'string' ? JSON.parse( params.fields ) : params.fields,
 
   _update = function( v ) {
-
-    //console.log( 'updating with %s', JSON.stringify( v ) );
 
     window.sEventHandler.getInstance().trigger( params.events.send, v );
 
@@ -53,7 +55,7 @@ var CustomFields = React.createClass({
         value: this.props.fields[ i ].value,
         error: this.props.fields[ i ].error,
         label: this.props.fields[ i ].label
-      }
+      };
 
     }
     
@@ -124,9 +126,24 @@ var CustomFields = React.createClass({
           error= { self.state[ field.name ].error } 
           handleUpdate= { self.fieldValueUpdater( field.name ) } />;
 
-      }
+      } else if ( field.fieldType == 'checkbox' ) {
 
-      return <li>field</li>;
+        return <CheckboxField
+          field= { field } 
+          lang= { self.props.lang } 
+          value= { self.state[ field.name ].value }
+          handleUpdate= { self.fieldValueUpdater( field.name ) } />;
+
+      } else if ( field.fieldType == 'radio' ) {
+
+        return <RadioFields
+          field= { field }
+          lang= { self.props.lang }
+          value= { self.state[ field.name ].value }
+          error= { self.state[ field.name ].error }
+          handleUpdate= { self.fieldValueUpdater( field.name ) } />;
+
+      }
 
     };
 

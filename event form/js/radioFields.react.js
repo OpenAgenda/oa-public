@@ -5,7 +5,6 @@ var React = require( 'react' ),
 validators = require( './validators' ),
 
 ERR = {
-  NOTINT: 0,
   NOTEMPTY: 1
 }
 
@@ -25,11 +24,11 @@ module.exports = React.createClass({
 
   },
 
-  onChange: function( e ) {
+  onChange: function( value ) {
 
     this.setState( { userHasTyped: true } );
 
-    this.update( e.target.value );
+    this.update( value );
 
   },
 
@@ -42,26 +41,23 @@ module.exports = React.createClass({
 
   },
 
-  renderField: function() {
-
-    if ( [ 'integer', 'text' ].indexOf( this.props.type ) !== -1 ) {
-
-      return <input type="text" value={this.props.value} onChange={this.onChange}/>;
-
-    } else {
-
-      return <textarea value={this.props.value} onChange={this.onChange}/>
-
-    }
-
-  },
-
   render: function() {
+
+    var self = this,
+
+    renderOption = function( option ) {
+
+      return <li>
+        <input type="radio" name={self.props.field.name} checked={option.value==self.props.value} onChange={self.onChange.bind( self, option.value )} />
+        <label>{option.label[self.props.lang]}</label>
+      </li>;
+
+    };
 
     return ( 
       <li>
         <label>{this.props.field.label[this.props.lang]}{this.props.field.optional ? '' : ' (*)'}</label>
-        {this.renderField()}
+        <ul>{this.props.field.options.map( renderOption )}</ul>
         { this.props.error && this.state.userHasTyped ? <span className="error">{this.props.error}</span> : '' }
       </li>
     );
@@ -78,13 +74,6 @@ module.exports = React.createClass({
 
     }
 
-    // validate integer type
-    if ( ( this.props.type == 'integer' ) && !validators.isInteger( value ) ) {
-
-      return this.message( ERR.NOTINT )
-
-    }
-
     return false;
 
   },
@@ -92,11 +81,6 @@ module.exports = React.createClass({
   message: function( code ) {
 
     var messages = {};
-
-    messages[ ERR.NOTINT ] = {
-      en: 'the value must be an integer',
-      fr: 'la valeur doit être un entier'
-    };
 
     messages[ ERR.NOTEMPTY ] = {
       en: 'this field cannot be empty',
