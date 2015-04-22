@@ -12,13 +12,17 @@ cn = require( '../../js/lib/common/common.mod' ),
 
 onChangeCb = false,
 
-firstChildPaddings = false;
+firstChildPaddings = false,
+
+enabled = true, enableTimeout;
 
 cn.addEvent( window, 'resize', check );
 
 function check( force ) {
 
   var current = _getHeight();
+
+  if ( _isDisabled() ) return;
 
   if ( typeof force !== 'boolean' ) force = false;
 
@@ -27,6 +31,10 @@ function check( force ) {
   height = current;
 
   if ( onChangeCb ) onChangeCb( height );
+
+  _disable();
+
+  _enable( 100 );
 
 }
 
@@ -39,6 +47,30 @@ function force() {
 function setOnChange( cb ) {
 
   onChangeCb = cb;
+
+}
+
+function _isDisabled() { 
+
+  return !enabled;
+
+}
+
+function _disable() { 
+
+  enabled = false;
+
+}
+
+function _enable( delay ) { 
+
+  if ( enableTimeout ) clearTimeout( enableTimeout );
+
+  enableTimeout = setTimeout( function() {
+
+    enabled = true;
+
+  }, typeof delay !== 'undefined' ? delay : 0 );
 
 }
 
