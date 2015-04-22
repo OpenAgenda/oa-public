@@ -65,7 +65,7 @@ module.exports = React.createClass({
         <label>{this.props.field.label[this.props.lang]}{this.props.field.optional ? '' : ' (*)'}</label>
         {this.renderField()}
         { this.props.error && this.state.userHasTyped ? <span className="error">{this.props.error}</span> : '' }
-        { this.props.field.info && !( this.props.error && this.state.userHasTyped ) ? <span className="info">{this.props.field.info}</span> : '' }
+        { this.props.field.info && !( this.props.error && this.state.userHasTyped ) ? <span className="info">{this.props.field.info[this.props.lang]}</span> : '' }
       </li>
     );
 

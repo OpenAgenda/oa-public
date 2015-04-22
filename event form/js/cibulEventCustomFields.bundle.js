@@ -374,7 +374,7 @@ module.exports = React.createClass({displayName: "exports",
         React.createElement("label", null, this.props.field.label[this.props.lang], this.props.field.optional ? '' : ' (*)'), 
         this.renderField(), 
          this.props.error && this.state.userHasTyped ? React.createElement("span", {className: "error"}, this.props.error) : '', 
-         this.props.field.info && !( this.props.error && this.state.userHasTyped ) ? React.createElement("span", {className: "info"}, this.props.field.info) : ''
+         this.props.field.info && !( this.props.error && this.state.userHasTyped ) ? React.createElement("span", {className: "info"}, this.props.field.info[this.props.lang]) : ''
       )
     );
 
