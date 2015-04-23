@@ -76,7 +76,7 @@ module.exports = React.createClass({
 
     if ( value === undefined ) value = '';
 
-    console.log( value );
+    if ( ( value === null ) ) value = '';
 
     if ( !this.props.optional && !( value + '').length ) {
 
