@@ -32,6 +32,7 @@ window.hook( function( options ) {
     }
   }, options );
 
+  // pass on frame search/query changes to parent window
   window.cibul.getController( options.uid ).setProxy( { 
     update: function( newValues ) {
 
@@ -41,6 +42,9 @@ window.hook( function( options ) {
 
     }
   });
+
+  //do not manipulate href from inside frame
+  window.cibul.getController( options.uid ).disableSyncHref();
 
   list.init( {
     total: options.total,

@@ -61,7 +61,9 @@ module.exports = function( uid ) {
 
   embedMode = ( ( uid + '' ).indexOf('/') !== -1 ), // embedMode is true if widget is for agenda embed
 
-  proxy = false;
+  proxy = false,
+
+  syncHref = false;
 
   return (function() {
 
@@ -88,6 +90,8 @@ module.exports = function( uid ) {
       log( 'successfully fetched control data' );
 
       ctl = data;
+
+      syncHref = !!ctl.sh;
 
       if ( typeof _readHrefQuery().geolocate !== 'undefined' ) {
 
@@ -124,6 +128,7 @@ module.exports = function( uid ) {
       getCurrentQuery: getCurrentQuery,
       isDifferent: isDifferent,
       setProxy: setProxy,
+      disableSyncHref: disableSyncHref
     }
 
   })();
@@ -141,15 +146,25 @@ module.exports = function( uid ) {
     // is declared ready, 
     _processWidgetCtlRequests( true );
 
-    log( 'controller will sync with href ? %s', ctl.sh ? 'yes' : 'no' );
+    log( 'controller will sync with href ? %s', syncHref ? 'yes' : 'no' );
 
-    if ( ctl.sh ) {
+    if ( syncHref ) {
 
       _forEachWidget( 'change', currentRequestParams );
+
+      cn.addEvent( window, 'popstate', _handlePop );
 
     }
 
     sweep();
+
+  }
+
+  function _handlePop() {
+
+    if ( !syncHref ) return;
+
+    update( _readHrefQuery( 'search' ) );
 
   }
 
@@ -243,6 +258,12 @@ module.exports = function( uid ) {
 
   }
 
+  function disableSyncHref() {
+
+    syncHref = false;
+
+  }
+
 
   /**
    * controller
@@ -280,7 +301,7 @@ module.exports = function( uid ) {
 
     if ( proxy && proxy.update ) proxy.update( updatedParams );
 
-    if ( ctl.sh ) {
+    if ( syncHref ) {
 
       _updateHrefQuery( currentRequestParams );
 
@@ -353,14 +374,14 @@ module.exports = function( uid ) {
 
       currentRequestParams = overridingParams;
 
-      if ( ctl.sh ) _updateHrefQuery( currentRequestParams );
+      if ( syncHref ) _updateHrefQuery( currentRequestParams );
 
       return;
 
     }
 
 
-    if ( ctl.sh ) {
+    if ( syncHref ) {
 
       currentRequestParams = _cleanSearch( _readHrefQuery( 'search' ) );
 
@@ -377,7 +398,7 @@ module.exports = function( uid ) {
 
       currentRequestParams.passed = 1;
 
-      if ( ctl.sh ) _updateHrefQuery( currentRequestParams );
+      if ( syncHref ) _updateHrefQuery( currentRequestParams );
 
     }
 
