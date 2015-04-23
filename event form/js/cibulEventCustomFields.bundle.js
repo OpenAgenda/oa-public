@@ -158,7 +158,7 @@ var CustomFields = React.createClass({displayName: "CustomFields",
 
     createField = function( field ) {
 
-      if ( [ 'integer', 'text', 'textarea' ].indexOf( field.fieldType ) !== -1 ) {
+      if ( [ 'integer', 'text', 'textarea', 'number' ].indexOf( field.fieldType ) !== -1 ) {
 
         return React.createElement(TextField, {
           field: field, 
@@ -317,7 +317,8 @@ ERR = {
   NOTINT: 0,
   NOTEMPTY: 1,
   TOOLONG: 2,
-  TOOSHORT: 3
+  TOOSHORT: 3,
+  NOTNUM: 4
 };
 
 module.exports = React.createClass({displayName: "exports",
@@ -355,7 +356,7 @@ module.exports = React.createClass({displayName: "exports",
 
   renderField: function() {
 
-    if ( [ 'integer', 'text' ].indexOf( this.props.type ) !== -1 ) {
+    if ( [ 'integer', 'text', 'number' ].indexOf( this.props.type ) !== -1 ) {
 
       return React.createElement("input", {type: "text", value: this.props.value, onChange: this.onChange});
 
@@ -384,6 +385,8 @@ module.exports = React.createClass({displayName: "exports",
 
     if ( value === undefined ) value = '';
 
+    console.log( value );
+
     if ( !this.props.optional && !( value + '').length ) {
 
       return this.message( ERR.NOTEMPTY );
@@ -406,7 +409,14 @@ module.exports = React.createClass({displayName: "exports",
     // validate integer type
     if ( ( this.props.type == 'integer' ) && !validators.isInteger( value ) ) {
 
-      return this.message( ERR.NOTINT )
+      return this.message( ERR.NOTINT );
+
+    }
+
+    // validate number
+    if ( ( this.props.type == 'number' ) && !validators.isNumber( value ) ) {
+
+      return this.message( ERR.NOTNUM );
 
     }
 
@@ -431,12 +441,17 @@ module.exports = React.createClass({displayName: "exports",
     messages[ ERR.TOOLONG ] = {
       en: 'this value cannot exceed %s characters',
       fr: 'cette valeur ne doit pas exceder %s caractères'
-    }
+    };
 
     messages[ ERR.TOOSHORT ] = {
       en: 'this value should be at least %s characters long',
       fr: 'cette valeur doit au minimum avoir %s caractères'
-    }
+    };
+
+    messages[ ERR.NOTNUM ] = {
+      en: 'this value must be a number',
+      fr: 'cette valeur doit être un nombre'
+    };
 
     message = messages[ code ][ this.props.lang ];
 
@@ -456,13 +471,26 @@ module.exports = React.createClass({displayName: "exports",
 "use strict";
 
 module.exports = {
-  isInteger: isInteger
+  isInteger: isInteger,
+  isNumber: isNumber
 }
 
 function isInteger( v ) {
 
   return v == parseInt(v, 10);
   
+}
+
+function isNumber( v ) {
+
+  return !_isArray( v ) && ( v - parseFloat( v ) + 1 ) >= 0;
+
+}
+
+function _isArray( v ) {
+
+  return Object.prototype.toString.call( v ) === '[object Array]';
+
 }
 
 },{}],7:[function(require,module,exports){

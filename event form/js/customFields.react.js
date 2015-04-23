@@ -116,7 +116,7 @@ var CustomFields = React.createClass({
 
     createField = function( field ) {
 
-      if ( [ 'integer', 'text', 'textarea' ].indexOf( field.fieldType ) !== -1 ) {
+      if ( [ 'integer', 'text', 'textarea', 'number' ].indexOf( field.fieldType ) !== -1 ) {
 
         return <TextField 
           field= { field } 

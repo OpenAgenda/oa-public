@@ -8,7 +8,8 @@ ERR = {
   NOTINT: 0,
   NOTEMPTY: 1,
   TOOLONG: 2,
-  TOOSHORT: 3
+  TOOSHORT: 3,
+  NOTNUM: 4
 };
 
 module.exports = React.createClass({
@@ -46,7 +47,7 @@ module.exports = React.createClass({
 
   renderField: function() {
 
-    if ( [ 'integer', 'text' ].indexOf( this.props.type ) !== -1 ) {
+    if ( [ 'integer', 'text', 'number' ].indexOf( this.props.type ) !== -1 ) {
 
       return <input type="text" value={this.props.value} onChange={this.onChange}/>;
 
@@ -75,6 +76,8 @@ module.exports = React.createClass({
 
     if ( value === undefined ) value = '';
 
+    console.log( value );
+
     if ( !this.props.optional && !( value + '').length ) {
 
       return this.message( ERR.NOTEMPTY );
@@ -97,7 +100,14 @@ module.exports = React.createClass({
     // validate integer type
     if ( ( this.props.type == 'integer' ) && !validators.isInteger( value ) ) {
 
-      return this.message( ERR.NOTINT )
+      return this.message( ERR.NOTINT );
+
+    }
+
+    // validate number
+    if ( ( this.props.type == 'number' ) && !validators.isNumber( value ) ) {
+
+      return this.message( ERR.NOTNUM );
 
     }
 
@@ -122,12 +132,17 @@ module.exports = React.createClass({
     messages[ ERR.TOOLONG ] = {
       en: 'this value cannot exceed %s characters',
       fr: 'cette valeur ne doit pas exceder %s caractères'
-    }
+    };
 
     messages[ ERR.TOOSHORT ] = {
       en: 'this value should be at least %s characters long',
       fr: 'cette valeur doit au minimum avoir %s caractères'
-    }
+    };
+
+    messages[ ERR.NOTNUM ] = {
+      en: 'this value must be a number',
+      fr: 'cette valeur doit être un nombre'
+    };
 
     message = messages[ code ][ this.props.lang ];
 
