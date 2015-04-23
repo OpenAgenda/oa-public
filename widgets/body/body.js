@@ -112,6 +112,8 @@ function widget( elem, options ) {
 
           controller.update( 'body', frameMessage.update );
 
+          change( controller.getCurrentQuery() );
+
         }
 
       } );
