@@ -68,7 +68,7 @@ routes = {
     _format,
     _formatEmbedLinks,
     embedSvc.mw.renderEventItems,
-    showXhr( 'agenda/show' ), // this needs to change
+    showXhr( 'agenda/embedShow' ), 
     cmn.loadBaseData( _layoutData, 'oae.css' ),  // this needs to switch to embed base css ( can be deactivated )
     embedShow
   ] ],
@@ -81,7 +81,7 @@ routes = {
     _formatEmbedData,
     _formatCustomEmbedLinks,
     embedSvc.mw.renderEventItems,
-    showXhr( 'agenda/show'),
+    showXhr( 'agenda/embedShow' ),
     cmn.loadBaseData( _layoutData, 'oae.css' ),
     embedSvc.mw.loadCustomLayoutData,
     embedShow
@@ -132,6 +132,8 @@ function showXhr( template ) {
     lib.extend( req.templateData, {
       slug: req.agenda.slug
     } );
+
+    if ( req.renders ) req.templateData.renders = req.renders;
 
     cmn.renderTemplate( req, template, req.templateData, function( err, partial ) {
 
@@ -407,6 +409,7 @@ function _layoutData( req, res ) {
     theme: req.agenda.getTheme(),
     queryLang: req.query.lang ? req.query.lang : false,
     scriptParams: {
+      total: req.total,
       perPage: perPage,
       uid: req.agenda.uid + ( req.embed ? '/' + req.embed.uid : '' ),
       lang: req.lang

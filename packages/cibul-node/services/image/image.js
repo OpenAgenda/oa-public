@@ -392,7 +392,7 @@ function _download( values ) {
 
         log( 'download attempt returned a code %s for path %s', req.statusCode, src );
 
-        return cb( 'status code: ' + res.statusCode );
+        return rj( 'status code: ' + res.statusCode );
 
       }
 
