@@ -10,9 +10,10 @@
     "eventUri" : "agendaEmbedEventShow",
     "embedUid" : 3283883,
     "base" : { "uid" : 48959239 },
+    "total" : 30,
     "scriptParams" : {
       "uid" : 48959239,
-      "total" : 200,
+      "total" : 30,
       "perPage" : 20
     },
     "theme" : {

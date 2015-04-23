@@ -18,7 +18,8 @@ params = {
   selectors: {
     list: '.js_list_content'
   },
-  autoLoadNext: true
+  autoLoadNext: true,
+  onLastPage: false
 },
 
 loader, pagination;
@@ -51,7 +52,8 @@ function init( options ) {
     perPage: params.perPage,
     loadNext: loader.after,
     loadPrev: loader.before,
-    auto: params.autoLoadNext
+    auto: params.autoLoadNext,
+    onLastPage: params.onLastPage 
   } );
 
 }

@@ -57,7 +57,8 @@ window.hook( function( options ) {
   list.init( {
     total: params.total,
     perPage: params.perPage,
-    autoLoadNext: false
+    autoLoadNext: false,
+    onLastPage: _hideTrigger( params.selectors.loadNext )
   } );
 
   _handleLoadNextElements( params.selectors.loadNext );
@@ -89,5 +90,19 @@ function _loadNext() {
     handler.contentChange();
     
   });
+
+}
+
+function _hideTrigger( selector ) {
+
+  return function() {
+
+    cn.forEach( cn.els( selector ), function( elem ) {
+
+      elem.style.display = 'none';
+
+    } );
+
+  }
 
 }

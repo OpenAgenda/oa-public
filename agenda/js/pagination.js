@@ -19,7 +19,8 @@ params = {
   },
   classes: {
     displayNone: 'display-none'
-  }
+  },
+  onLastPage: false
 },
 
 page = 1,
@@ -68,6 +69,8 @@ function reset( newHref, total ) {
 
   loading = false;
 
+  if ( !_hasNext() && params.onLastPage ) params.onLastPage();
+
 }
 
 function loadNext( cb ) {
@@ -86,13 +89,16 @@ function loadNext( cb ) {
 
   loading = true;
 
-  if ( page * params.perPage >= params.total ) {
+  if ( !_hasNext() ) {
 
     log( 'last page already reached: %s', page );
+
+    if ( params.onLastPage ) params.onLastPage();
 
     return cb ? cb( 'last page already reached' ) : null;
 
   }
+
 
   newHref = _setHrefPage( params.href, page + 1 );
   
@@ -103,11 +109,14 @@ function loadNext( cb ) {
 
     page += 1;
 
+    if ( !_hasNext() && params.onLastPage ) params.onLastPage();
+
     if ( cb ) cb( err );
 
   } );
 
 }
+
 
 
 function _onHitBottom( cb ) {
@@ -235,5 +244,11 @@ function _readPage( href ) {
     page = 1;
 
   }
+
+}
+
+function _hasNext() {
+
+  return page * params.perPage < params.total;
 
 }
