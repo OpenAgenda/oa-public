@@ -385,7 +385,7 @@ module.exports = React.createClass({displayName: "exports",
 
     if ( value === undefined ) value = '';
 
-    console.log( value );
+    if ( ( value === null ) ) value = '';
 
     if ( !this.props.optional && !( value + '').length ) {
 
