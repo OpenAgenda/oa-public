@@ -112,12 +112,13 @@ http.createServer(function ( req, res ) {
 
         if ( !tConf.data.head ) tConf.data.head = {};
 
-        var css = tConf.config.css || tConf.config.embedCss || tConf.config.oaCss || {};
+        var css = tConf.config.css || tConf.config.embedCss || tConf.config.oaCss || tConf.config.oaeCss || {};
 
 
         if ( tConf.layoutConfig && tConf.layoutConfig.css ) css = cn.extend( _absolutePath( tConf.config.layout, tConf.layoutConfig.css ), _absolutePath( uri, css ));
         if ( tConf.layoutConfig && tConf.layoutConfig.embedCss ) css = cn.extend( _absolutePath( tConf.config.layout, tConf.layoutConfig.embedCss ), _absolutePath( uri, css ));
         if ( tConf.layoutConfig && tConf.layoutConfig.oaCss ) css = cn.extend( _absolutePath( tConf.config.layout, tConf.layoutConfig.oaCss ), _absolutePath( uri, css ));
+        if ( tConf.layoutConfig && tConf.layoutConfig.oaeCss ) css = cn.extend( _absolutePath( tConf.config.layout, tConf.layoutConfig.oaeCss ), _absolutePath( uri, css ));
 
         tConf.data.head.css = css;
 

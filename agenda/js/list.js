@@ -17,7 +17,8 @@ params = {
   onLoad: false,
   selectors: {
     list: '.js_list_content'
-  }
+  },
+  autoLoadNext: true
 },
 
 loader, pagination;
@@ -46,10 +47,11 @@ function init( options ) {
 
   pagination.init( {
     href: window.location.href,
-    total: options.total,
-    perPage: options.perPage,
+    total: params.total,
+    perPage: params.perPage,
     loadNext: loader.after,
-    loadPrev: loader.before
+    loadPrev: loader.before,
+    auto: params.autoLoadNext
   } );
 
 }

@@ -8,32 +8,40 @@ debug = require( 'debug' ), log,
 
 activeFilters = require( '../../widgets/activeFilters/activeFilters' ),
 
-list = require( './list' );
+list = require( './list' ),
+
+cn = require( '../../js/lib/common/common.mod' ),
+
+handler,
+
+defaults = {
+  selectors: {
+    loadNext: '.js_load_next'
+  }
+};
 
 window.hook( function( options ) {
 
   log = debug( 'embedded agenda show' );
 
-  log( 'initing with options %s', JSON.stringify( options ) );
+  var params = cn.extend( {}, defaults, options );
 
-  var handler = embedded( {
+  log( 'initing with options %s', JSON.stringify( params ) );
+
+  handler = embedded( {
     onReceive: function( message ) {
 
       if ( message.bottom ) {
 
-        list.loadNext( function( err ) {
+        _loadNext();
 
-          handler.contentChange();
-          
-        });
-        
       }
 
     }
-  }, options );
+  }, params );
 
   // pass on frame search/query changes to parent window
-  window.cibul.getController( options.uid ).setProxy( { 
+  window.cibul.getController( params.uid ).setProxy( { 
     update: function( newValues ) {
 
       log( 'change in iframe %s', JSON.stringify( newValues ) );
@@ -44,11 +52,42 @@ window.hook( function( options ) {
   });
 
   //do not manipulate href from inside frame
-  window.cibul.getController( options.uid ).disableSyncHref();
+  window.cibul.getController( params.uid ).disableSyncHref();
 
   list.init( {
-    total: options.total,
-    perPage: options.perPage
+    total: params.total,
+    perPage: params.perPage,
+    autoLoadNext: false
   } );
 
+  _handleLoadNextElements( params.selectors.loadNext );
+
 });
+
+function _handleLoadNextElements( selector ) {
+
+  cn.forEach( cn.els( selector ), function( elem ) {
+
+    cn.addEvent( elem, 'click', function( e ) {
+
+      cn.preventDefault( e );
+
+      _loadNext();
+
+    });
+
+  } );
+
+}
+
+function _loadNext() {
+
+  if ( !handler ) return;
+
+  list.loadNext( function( err ) {
+
+    handler.contentChange();
+    
+  });
+
+}

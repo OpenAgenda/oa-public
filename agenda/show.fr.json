@@ -45,5 +45,7 @@
   "There are no upcoming events published in this agenda."
   : "Il n'y a pas d'événements publiés à venir dans cet agenda.",
   "here"
-  : "ici"
+  : "ici",
+  "load more"
+  : "voir plus"
 }
