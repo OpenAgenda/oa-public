@@ -3,7 +3,7 @@ var handleEventImage = function(params) {
   params = extend({
     canvas: false,
     templates: {
-      main: '<div class="form-section"><div class="js_remove remove-action"><a class="action" href="#"><i class="icon-trash"></i></a><span class="js_remove_loader"></span><span class="js_remove_message info error"></span></div><h2><%= imageSection %></h2><div class="upload-image"><button><%= upload %></button><span class="js_loader loader"></span><span class="js_message info"></span></div><div class="canvas js_image_canvas"></div><div class="separator"></div></div>',
+      main: '<div class="form-section"><div class="js_remove remove-action"><a class="action" href="#"><i class="fa fa-trash"></i></a><span class="js_remove_loader"></span><span class="js_remove_message info error"></span></div><h2><%= imageSection %></h2><div class="upload-image"><button><%= upload %></button><span class="js_loader loader"></span><span class="js_message info"></span></div><div class="canvas js_image_canvas"></div><div class="separator"></div></div>',
       empty: '<div><%= noImage %></div>'
     },
     classes: {
