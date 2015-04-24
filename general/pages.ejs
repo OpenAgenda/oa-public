@@ -5,18 +5,19 @@
   current = parseInt( pager.current, 10 ),
 
   range = [ Math.max(1, current - 5 ), Math.min( maxPages, parseInt( current, 10 ) + 5 ) ];
-  
+
 %>
 <% if ( range[0] > 1 ) { %>
-  <a class="url" href="<%= genUrl(pager.routeName, [pager.base, { page: 1 }, typeof maintain == 'undefined' ? [] : maintain ], { maintain: true }) %>"><<</a>
+  <a class="url" href="<%= genUrl(pager.routeName, [pager.base, typeof maintain == 'undefined' ? [] : maintain, { page: 1 } ], { maintain: true }) %>"><<</a>
   <a class="url" href="<%= genUrl(pager.routeName, [pager.base, { page: current - 1 }, typeof maintain == 'undefined' ? [] : maintain ], { maintain: true }) %>"><</a>
 <% } %>
 <% for ( var page = range[0]; page <= range[1]; page++ ) { %>
-  <a class="url<% if ( pager.current==page ) { %> current<% } %>" href="<%= genUrl(pager.routeName, [pager.base, { page: page }, typeof maintain == 'undefined' ? [] : maintain ], { maintain: true }) %>"><%= page %></a>
+<% console.log( maintain ) %>
+  <a class="url<% if ( pager.current==page ) { %> current<% } %>" href="<%= genUrl(pager.routeName, [pager.base, typeof maintain == 'undefined' ? [] : maintain, { page: page } ], { maintain: true }) %>"><%= page %></a>
 <% } %>
 <% if ( range[1] < maxPages ) { %>
-  <a class="url" href="<%= genUrl(pager.routeName, [pager.base, { page: current + 1 }, typeof maintain == 'undefined' ? [] : maintain ], { maintain: true }) %>">></a>
-  <a class="url" href="<%= genUrl(pager.routeName, [pager.base, { page: maxPages }, typeof maintain == 'undefined' ? [] : maintain ], { maintain: true }) %>">>></a>
+  <a class="url" href="<%= genUrl(pager.routeName, [pager.base, typeof maintain == 'undefined' ? [] : maintain, { page: current + 1 } ], { maintain: true }) %>">></a>
+  <a class="url" href="<%= genUrl(pager.routeName, [pager.base, typeof maintain == 'undefined' ? [] : maintain, { page: maxPages } ], { maintain: true }) %>">>></a>
 <% } %>
 <% } %>
 </div>
