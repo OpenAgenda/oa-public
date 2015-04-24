@@ -12,7 +12,9 @@ var cibulEventSubmit = function(params) {
       error: 'error',
       lightboxFrame: 'lightbox-frame wsq',
       lightboxCanvas: 'lightbox-canvas',
-      lightboxButtons: 'lightbox-buttons'
+      lightboxButtons: 'lightbox-buttons',
+      create: 'green',
+      update: 'green'
     },
     selectors: {
       actions: '.js_actions',

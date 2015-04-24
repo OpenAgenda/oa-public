@@ -9,7 +9,16 @@ ERR = {
   NOTEMPTY: 1,
   TOOLONG: 2,
   TOOSHORT: 3,
-  NOTNUM: 4
+  NOTNUM: 4,
+  NOTURL: 5,
+  NOTEMAIL: 6
+},
+
+typeValidators = {
+  integer: { func: validators.isInteger, error: ERR.NOTINT },
+  number: { func: validators.isNumber, error: ERR.NOTNUM },
+  email: { func: validators.isEmail, error: ERR.NOTEMAIL },
+  url: { func: validators.isUrl, error: ERR.NOTURL }
 };
 
 module.exports = React.createClass({
@@ -47,7 +56,7 @@ module.exports = React.createClass({
 
   renderField: function() {
 
-    if ( [ 'integer', 'text', 'number' ].indexOf( this.props.type ) !== -1 ) {
+    if ( [ 'integer', 'text', 'number', 'email', 'url' ].indexOf( this.props.type ) !== -1 ) {
 
       return <input type="text" value={this.props.value} onChange={this.onChange}/>;
 
@@ -96,18 +105,9 @@ module.exports = React.createClass({
 
     }
 
+    if ( typeValidators[ this.props.type ] && !typeValidators[ this.props.type ].func( value ) ) {
 
-    // validate integer type
-    if ( ( this.props.type == 'integer' ) && !validators.isInteger( value ) ) {
-
-      return this.message( ERR.NOTINT );
-
-    }
-
-    // validate number
-    if ( ( this.props.type == 'number' ) && !validators.isNumber( value ) ) {
-
-      return this.message( ERR.NOTNUM );
+      return this.message( typeValidators[ this.props.type ].error );
 
     }
 
@@ -142,6 +142,16 @@ module.exports = React.createClass({
     messages[ ERR.NOTNUM ] = {
       en: 'this value must be a number',
       fr: 'cette valeur doit être un nombre'
+    };
+
+    messages[ ERR.NOTEMAIL ] = {
+      en: 'this value must be an email address',
+      fr: 'cette valeur doit être une adresse email'
+    };
+
+    messages[ ERR.NOTURL ] = {
+      en: 'this value must be an url ( starting with http or https )',
+      fr: 'cette valeur doit être une url ( commençant par http ou https )'
     };
 
     message = messages[ code ][ this.props.lang ];
