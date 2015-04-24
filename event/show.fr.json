@@ -34,5 +34,11 @@
   "Past event"
   : "Événement passé",
   "see all the events"
-  : "voir tous les événements"
+  : "voir tous les événements",
+  "Are you sure you want to delete this event?"
+  : "Etes-vous sûr de vouloir supprimer cet événement?",
+  "Confirm"
+  : "Confirmer",
+  "Cancel"
+  : "Annuler"
 }
