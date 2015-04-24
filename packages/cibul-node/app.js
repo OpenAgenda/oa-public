@@ -108,6 +108,12 @@ module.exports = function( enabledTypes, cb ) {
 
       webModules.admin.forEach( function( m ) {
 
+        // load paths in genUrl
+        genUrl.load( m.paths );
+
+        // load paths in deprecated router
+        cmn.loadInDeprecatedRouter( m.paths );
+
         m.load( app );
 
       });

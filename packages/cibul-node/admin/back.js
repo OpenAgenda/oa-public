@@ -1,28 +1,6 @@
 "use strict";
 
-var appName = 'admin/back',
-
-session = require( '../auth/lib/session' ),
-
-exposed = {
-  load: load
-},
-
-routes = {
-  adminIndex: [ 'get', index, '' ],
-  adminSearch: [ 'get', search, '/search' ],
-  adminUsers: [ 'get', users, '/users' ],
-  adminUserSignInAs: [ 'get', userSignin, '/users/signin', [ _loadUser ] ],
-  adminUserActivate: [ 'get', userActivate, '/users/activate', [ _loadUser ] ],
-  eventsByWeek: [ 'get', eventsByWeek, '/eventsbyweek' ],
-  eventsDiff: [ 'get', eventsDiff, '/eventsdiff' ]
-},
-
-async = require( 'async' ),
-
-log = require( '../lib/logger' )( appName ),
-
-lib = require( '../lib/lib' ), 
+var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
@@ -34,48 +12,44 @@ w = require( 'when' ),
 
 wn = require( 'when/node' ),
 
-app,
+session = require( '../auth/lib/session' ),
 
-path,
+async = require( 'async' ),
+
+log = require( '../lib/logger' )( 'admin/back' ),
+
+lib = require( '../lib/lib' ), 
 
 model = cmn.getCibulModel(),
 
 adminSvc = require( '../services/admin/admin' ),
 
-userSvc = require( '../services/user/user' );
+userSvc = require( '../services/user/user' ),
 
-module.exports = function init( p ) {
+routes = {
+  adminIndex: [ 'get', '/', index ],
+  adminSearch: [ 'get', '/search', search ],
+  adminUsers: [ 'get', '/users', users ],
+  adminUserSignInAs: [ 'get', '/users/signin', [ 
+    _loadUser,
+    userSignin
+  ] ],
+  adminUserActivate: [ 'get', '/users/activate', [
+    _loadUser,
+    userActivate
+  ] ],
+  eventsByWeek: [ 'get', '/eventsbyweek', eventsByWeek ],
+  eventsDiff: [ 'get', '/eventsdiff', eventsDiff ]
+};
 
-  log( 'initing' );
 
-  path = p;
+module.exports = function( path ) {
 
-  cmn.registerRoutes( appName, path, routes );
-
-  return exposed;
-
-}
-
-function load( main ) {
-
-  if ( app ) {
-
-    log( 'this app has already been loaded' );
-
-    return;
-
-  }
-
-  log( 'loading' );
-
-  app = cmn.loadApp( main, path, appName );
+  var router = modLib.Router( routes );
 
   moment.locale( 'fr' );
 
-  log( 'app loaded' );
-
-  cmn.loadRoutes( app, routes, [
-    cmn.urlGenSetter( appName, path ),
+  router.pre( [
     cmn.flashSetter,
     cmn.loadBaseData(),
     cmn.loadSession,
@@ -83,11 +57,13 @@ function load( main ) {
     cmn.requireAdmin
   ] );
 
-  log( 'loaded' );
+  return {
+    load: router.load( path ),
+    paths: modLib.getPaths( path, routes )
+  }
 
-  return exposed;
+};
 
-}
 
 function index( req, res ) {
 
