@@ -63,7 +63,9 @@ module.exports = function( uid ) {
 
   proxy = false,
 
-  syncHref = false;
+  syncHref = false,
+
+  passedAutoLoad = true;
 
   return (function() {
 
@@ -128,7 +130,8 @@ module.exports = function( uid ) {
       getCurrentQuery: getCurrentQuery,
       isDifferent: isDifferent,
       setProxy: setProxy,
-      disableSyncHref: disableSyncHref
+      disableSyncHref: disableSyncHref,
+      disablePassedAutoLoad: disablePassedAutoLoad
     }
 
   })();
@@ -264,6 +267,12 @@ module.exports = function( uid ) {
 
   }
 
+  function disablePassedAutoLoad() {
+
+    passedAutoLoad = false;
+
+  }
+
 
   /**
    * controller
@@ -394,7 +403,7 @@ module.exports = function( uid ) {
 
     }
 
-    if ( !cn.size( currentRequestParams ) && ctl.p ) {
+    if ( !cn.size( currentRequestParams ) && ctl.p && passedAutoLoad ) {
 
       currentRequestParams.passed = 1;
 

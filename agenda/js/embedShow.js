@@ -41,7 +41,7 @@ window.hook( function( options ) {
   }, params );
 
   // pass on frame search/query changes to parent window
-  window.cibul.getController( params.uid ).setProxy( { 
+  window.cibul.getController( params.uid ).setProxy( {
     update: function( newValues ) {
 
       log( 'change in iframe %s', JSON.stringify( newValues ) );
@@ -49,10 +49,12 @@ window.hook( function( options ) {
       handler.send( { update: newValues } );
 
     }
-  });
+  } );
 
   //do not manipulate href from inside frame
   window.cibul.getController( params.uid ).disableSyncHref();
+
+  window.cibul.getController( params.uid ).disablePassedAutoLoad();
 
   list.init( {
     total: params.total,

@@ -66,6 +66,8 @@ function widget( elem, options ) {
 
   popup,
 
+  frozenAuto = false,
+
   embedMode,
 
   useClusters = false,
@@ -755,7 +757,7 @@ function widget( elem, options ) {
 
       log( 'bounds changed, automatic marker selection is %s and widget is %s', config.auto ? 'on' : 'off', enabled ? 'enabled' : 'disabled' );
 
-      if ( enabled && config.auto ) {
+      if ( enabled && config.auto && !frozenAuto ) {
 
         _selectBounds();
 
@@ -822,10 +824,7 @@ function widget( elem, options ) {
 
   function _updateBounds( reqParams, cb ) {
 
-    var auto = config.auto,
-
-    bounds;
-
+    var bounds;
 
     if ( currentBounds ) {
 
@@ -860,7 +859,7 @@ function widget( elem, options ) {
 
     // carry out the repositionning
 
-    config.auto = false;
+    _freezeAuto();
 
     // the leaflet api pretends things are synchronous. They are not.
     setTimeout( function() {
@@ -871,7 +870,7 @@ function widget( elem, options ) {
       
       setTimeout(function() {
 
-        config.auto = auto;
+        _unfreezeAuto();
 
         return cb ? cb() : null;
 
@@ -890,6 +889,24 @@ function widget( elem, options ) {
     baseBounds;
     
     _fitBounds( baseBounds );
+
+  }
+
+
+  /**
+   * avoid auto panning sync issues
+   * by temporarily preventing it during updates
+   */
+  
+  function _freezeAuto() {
+
+    frozenAuto = true;
+
+  }
+
+  function _unfreezeAuto() {
+
+    frozenAuto = false;
 
   }
 

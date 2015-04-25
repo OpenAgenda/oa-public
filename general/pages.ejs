@@ -12,7 +12,6 @@
   <a class="url" href="<%= genUrl(pager.routeName, [pager.base, { page: current - 1 }, typeof maintain == 'undefined' ? [] : maintain ], { maintain: true }) %>"><</a>
 <% } %>
 <% for ( var page = range[0]; page <= range[1]; page++ ) { %>
-<% console.log( maintain ) %>
   <a class="url<% if ( pager.current==page ) { %> current<% } %>" href="<%= genUrl(pager.routeName, [pager.base, typeof maintain == 'undefined' ? [] : maintain, { page: page } ], { maintain: true }) %>"><%= page %></a>
 <% } %>
 <% if ( range[1] < maxPages ) { %>

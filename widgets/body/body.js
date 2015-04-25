@@ -147,18 +147,22 @@ function widget( elem, options ) {
 
   function _update( href ) {
 
-    var values = {};
+    var values = {},
+
+    currentQueryValues = controller.getCurrentQuery();
 
     if ( _isEventLink( href ) ) {
 
       // extract actual uid here
       values.uid = _getEventUid( href );
 
-    } else if ( _isAgendaLink( href ) ) {
+    } else if ( _isAgendaLink( href ) && currentQueryValues.uid ) {
 
       values.uid = null;
 
     }
+
+    if ( !cn.size( values ) ) return;
 
     log( 'updating request params "%s"', JSON.stringify( values ) );
 

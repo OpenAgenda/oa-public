@@ -55,6 +55,8 @@ function init( options ) {
 
   }
 
+  if ( !_hasNext() && params.onLastPage ) params.onLastPage();
+
 }
 
 function reset( newHref, total ) {
