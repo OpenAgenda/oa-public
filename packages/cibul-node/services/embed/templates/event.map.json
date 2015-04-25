@@ -12,6 +12,12 @@
     "name" : "ImageUrl",
     "mapTo" : "image"
   }, {
+    "name" : "PricingInfo",
+    "mapTo" : "pricingInfo"
+  }, {
+    "name" : "TicketUrl",
+    "mapTo" : "ticketLink"
+  }, {
     "name" : "BackLink",
     "mapTo" : "backLink"
   }, {
