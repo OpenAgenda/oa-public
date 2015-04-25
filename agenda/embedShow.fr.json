@@ -2,5 +2,7 @@
   "load more" 
   : "charger plus",
   "There are no upcoming events published in this agenda." 
-  : "Il n'y a pas d'événements à venir dans cet agenda."
+  : "Il n'y a pas d'événements à venir dans cet agenda.",
+  "There are no results for this search"
+  : "Il n'y a pas de résultats pour cette recherche"
 }
