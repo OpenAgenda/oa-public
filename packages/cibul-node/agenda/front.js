@@ -260,6 +260,8 @@ function _formatEventItem( event, _t, lang ) {
     placeName: inst.getLocationName(),
     placeNameLabel: inst.getLocationName().label,
     city: inst.getCity().label,
+    pricingInfo: inst.getPricingInfo(),
+    ticketLink: inst.getTicketLink(),
     organization: event.organization ? { slug: event.organizationSlug, label: event.organization } : false
   } );
 

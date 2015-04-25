@@ -6,6 +6,8 @@
     { "name" : "ImageUrl", "mapTo": "image" },
     { "name" : "LocationName", "mapTo": "placeNameLabel" },
     { "name" : "City", "mapTo" : "city" },
-    { "name": "DateRange", "mapTo": "dateRange" }
+    { "name" : "DateRange", "mapTo": "dateRange" },
+    { "name" : "PricingInfo", "mapTo" : "pricingInfo" },
+    { "name" : "TicketUrl", "mapTo" : "ticketLink" }
   ]
 }

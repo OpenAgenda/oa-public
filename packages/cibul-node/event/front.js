@@ -316,6 +316,8 @@ function _format( req, res, next ) {
       latitude: false,
       longitude: false,
       timings: [],
+      pricingInfo: req.event.getPricingInfo(),
+      ticketLink: req.event.getTicketLink(),
       owner: results[ 0 ],
       agendaReferences: results[ 1 ],
       adminAgendas: results[ 2 ],
@@ -338,18 +340,6 @@ function _format( req, res, next ) {
         postalCode: location.postcode,
         ticketLink: false
       } );
-
-      if ( location.ticketLink ) {
-
-        formatted.ticketLink = location.ticketLink;
-
-      }
-
-      if ( location.pricingInfo ) {
-
-        formatted.pricingInfo = location.pricingInfo[ req.event.getCurrentLanguage() ];
-        
-      }
       
     }
 
