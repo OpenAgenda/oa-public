@@ -10,7 +10,8 @@ module.exports = function( agendaService ) {
 
   return {
     load: loadAgenda,
-    search: searchEvents
+    search: searchEvents,
+    browserCache: browserCache
   }
 
 }
@@ -125,6 +126,31 @@ function searchEvents( limit ) {
 }
 
 
+function browserCache( req, res, next ) {
+
+  var lastUpdate = req.agenda.updatedAt;
+
+  if ( _hasQueryOtherThan( req, 'callback' ) ) {
+
+    return next();
+
+  }
+
+  if ( req.headers[ 'if-modified-since' ] === lastUpdate.toString() ) {
+
+    res.status(304).end();
+
+    return;
+
+  }
+
+  res.set( 'Last-Modified', req.agenda.updatedAt );
+
+  next();
+
+}
+
+
 function _loadIsPassed( agenda, cb ) {
 
   var now = new Date();
@@ -138,5 +164,22 @@ function _loadIsPassed( agenda, cb ) {
     cb();
 
   });
+
+}
+
+
+function _hasQueryOtherThan( req, exceptions ) {
+
+  if ( typeof exceptions == 'string' ) exceptions = [ exceptions ];
+
+  if ( !exceptions ) exceptions = [];
+
+  for( var q in req.query ) {
+
+    if ( exceptions.indexOf( q ) == -1 ) return true;
+
+  }
+
+  return false;
 
 }

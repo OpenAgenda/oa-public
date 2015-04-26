@@ -54,16 +54,19 @@ routes = {
   embedControlData: [ 'get', '/agendas/:uid/embeds/:embedUid/controldata', [ 
     agendaSvc.mw.load( 'uid', 'uid', true ),
     embedSvc.mw.load( 'embedUid', 'uid' ),
+    agendaSvc.mw.browserCache,
     controlData
   ] ],
   
   controlData: [ 'get', '/agendas/:uid/controldata', [ 
     agendaSvc.mw.load( 'uid', 'uid', true ),
+    agendaSvc.mw.browserCache,
     controlData
   ] ],
   
   embedShow: [ 'get', '/agendas/:uid/embed/events', [
     agendaSvc.mw.load( 'uid' ),
+    agendaSvc.mw.browserCache,
     agendaSvc.mw.search( perPage ),
     _format,
     _formatEmbedLinks,
@@ -75,6 +78,7 @@ routes = {
   
   customEmbedShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events', [ 
     agendaSvc.mw.load( 'uid' ),
+    agendaSvc.mw.browserCache,
     embedSvc.mw.load( 'embedUid', 'uid' ),
     agendaSvc.mw.search( perPage ),
     _format,
@@ -89,6 +93,7 @@ routes = {
   
   agendaShow: [ 'get', '/:slug', [ 
     agendaSvc.mw.load( 'slug' ),
+    agendaSvc.mw.browserCache,
     agendaSvc.mw.search( perPage ),
     _format,
     _formatShowLinks,
@@ -190,6 +195,8 @@ function embedShow( req, res ) {
 
 function controlData( req, res ) {
 
+  req.log( 'retrieving %s control data', req.embed ? 'embed' : 'agenda' );
+
   wn.call( ( req.embed ? req.embed : req.agenda ).getControlData )
 
   .then( function( controlData ) {
@@ -203,6 +210,10 @@ function controlData( req, res ) {
   } )
 
   .catch( function( err ) {
+
+    req.log( 'error', err );
+
+    if ( res.headersSent ) return;
     
     cmn.renderJson( req, res, {
       success: false,

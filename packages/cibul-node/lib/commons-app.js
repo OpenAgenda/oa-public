@@ -423,8 +423,6 @@ function render( req, res, templatePath, data, maintain ) {
 
       res.end();
 
-      res.send();
-
       req.log( 'info', 'sent html response >>>' );
 
     } else {
@@ -554,7 +552,6 @@ function loadBaseData( func, cssFile ) {
 function loadSession( req, res, next ) {
 
   log( 'loading session' );
-
 
   if ( req.session && req.session.userId ) {
 
@@ -825,10 +822,14 @@ function getRedirect( req, paramName ) {
 
 function renderJson( req, res, data ) {
 
-  res.writeHead( 200, {
-    "Content-Type" : "application/json; charset=utf-8",
-    'Cache-Control' : 'no-cache'
-  });
+
+  res.set( 'Content-Type', 'application/json; charset=utf-8' );
+
+  if ( !res.get( 'Last-Modified' ) ) {
+
+    res.set( 'Cache-Control', 'no-cache' );
+
+  }
 
   var body = JSON.stringify( data );
 
@@ -841,8 +842,6 @@ function renderJson( req, res, data ) {
   res.write( body );
 
   res.end();
-
-  res.send();
 
   req.log( 'info', 'sent json response >>>' );
 
