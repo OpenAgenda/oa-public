@@ -1,3 +1,5 @@
+"use strict";
+
 exports.setOnReady = setOnReady;
 
 var UID = 0, VALUES = 1, ACTIVECLASS = 2,
@@ -35,15 +37,23 @@ var widget = function( elem, options ) {
 
     log( 'initing' );
 
+    unselectedValues = {}; 
+
     try {
 
-      values = JSON.parse( options.anchorConfig[ VALUES ] );  
+      values = JSON.parse( options.anchorConfig[ VALUES ] ); 
 
     } catch( e ) {
 
       log( 'could not parse values' );
 
       return;
+
+    }
+
+    for ( var v in values ) {
+
+      unselectedValues[ v ] = null;
 
     }
 
@@ -63,19 +73,20 @@ var widget = function( elem, options ) {
 
   enable = function( reqParams ) {
 
-    var same = true;
+    selected = true;
 
     for ( var v in values ) {
 
       if ( ( typeof reqParams[v] == 'undefined' ) || ( reqParams[v] !== values[v] ) ) {
 
-        same = false;
+        selected = false;
 
       }
 
     }
 
-    if ( same ) {
+
+    if ( selected ) {
 
       cn.addClass( elem, activeClass );
 
@@ -111,7 +122,7 @@ var widget = function( elem, options ) {
 
     }
 
-    controller.update( 'custom', values );
+    controller.update( 'custom', selected ? unselectedValues : values );
 
   }
 
