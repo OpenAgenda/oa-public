@@ -87,9 +87,15 @@ module.exports = React.createClass({
 
     if ( ( value === null ) ) value = '';
 
-    if ( !this.props.optional && !( value + '').length ) {
+    if ( !( value + '').length ) {
 
-      return this.message( ERR.NOTEMPTY );
+      if ( !this.props.field.optional ) {
+
+        return this.message( ERR.NOTEMPTY );
+
+      }
+
+      return false;
 
     }
 
