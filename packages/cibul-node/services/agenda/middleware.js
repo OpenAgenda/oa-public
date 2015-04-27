@@ -138,7 +138,7 @@ function browserCache( req, res, next ) {
 
   if ( req.headers[ 'if-modified-since' ] === lastUpdate.toString() ) {
 
-    res.status(304).end();
+    res.status( 304 ).end();
 
     return;
 
