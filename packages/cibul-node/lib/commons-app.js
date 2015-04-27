@@ -28,6 +28,7 @@ exports.loadSession = loadSession;                // middleware. load session da
 exports.checkCredential = checkCredential;        // middleware. check that request agenda has required credential
 exports.flashSetter = flashSetter;                // middleware. set a flash prior to redirect
 exports.checkAdministrator = checkAdministrator;  // middleware. checks that logged user is administrator of loaded agenda
+exports.checkModerator = checkModerator;
 
 exports.urlGenSetter = urlGenSetter;              // router proxy function & middleware. load url generator in request
 exports.makeGenUrl = makeGenUrl;
@@ -287,7 +288,28 @@ function checkAdministrator( req, res, next ) {
 
   .then( function( isAdmin ) {
 
-    if ( !isAdmin ) throw { message : 'You do not have access to the administration of this agenda.' };
+    if ( !isAdmin ) throw { message : 'You do not have access to the administration of this agenda.', code: 403 };
+
+    next();
+
+  } )
+
+  .catch( function( err ) {
+
+    errorResponse( req, res, err );
+
+  } );
+
+}
+
+
+function checkModerator( req, res, next ) {
+
+  wn.call( req.agenda.isModerator, { id: req.session.userId } )
+
+  .then( function( isAdmin ) {
+
+    if ( !isAdmin ) throw { message : 'You do not have access to the moderation of this agenda.', code: 403 };
 
     next();
 

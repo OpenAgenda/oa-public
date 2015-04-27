@@ -22,7 +22,8 @@ invitationsService,
 
 TYPES = {
   AGENDACONTRIBUTOR: 1,
-  AGENDAADMIN: 2
+  AGENDAADMIN: 2,
+  AGENDAMODERATOR: 3
 };
 
 
@@ -45,7 +46,8 @@ function agendaInvitations( agenda ) {
     inviteContributors: inviteContributors,
     inviteContributor: inviteContributor,
     processContributorInvitation: _processStakeholder( TYPES.AGENDACONTRIBUTOR ),
-    processAdministratorInvitation: _processStakeholder( TYPES.AGENDAADMIN )
+    processAdministratorInvitation: _processStakeholder( TYPES.AGENDAADMIN ),
+    processModeratorInvitation: _processStakeholder( TYPES.AGENDAMODERATOR )
   }
 
   function inviteContributor( email, lang, cb ) {
@@ -120,7 +122,7 @@ function agendaInvitations( agenda ) {
 
     return function( values ) {
 
-      log( 'processing %s invitation', type == TYPES.AGENDACONTRIBUTOR ? 'contributor' : 'administrator' );
+      log( 'processing %s invitation', _equivalent( 'contributor', type )  );
 
       // if user exists and is activated, process, else send invite.
       
@@ -164,8 +166,8 @@ function agendaInvitations( agenda ) {
 
         invitationsService.getComs().queue( 'mailer', {
           recipient: values.invitation.email,
-          subject: i18n( title, { '%agenda%' : agenda.title, '%stakeholder%' : i18n( type == TYPES.AGENDAADMIN ? 'administrator' : 'contributor', lang ? lang : 'en' ) }, lang ? lang : 'en' ),
-          text: i18n( text, { '%agenda%' : agenda.title, '%stakeholderaction%' : i18n( type ==TYPES.AGENDAADMIN ? 'administering' : 'contributing to',  lang ? lang : 'en' ) }, lang ? lang : 'en' ) + "\n" + link
+          subject: i18n( title, { '%agenda%' : agenda.title, '%stakeholder%' : i18n( _equivalent( 'contributor', type ), lang ? lang : 'en' ) }, lang ? lang : 'en' ),
+          text: i18n( text, { '%agenda%' : agenda.title, '%stakeholderaction%' : i18n( _equivalent( 'contributing to', type ),  lang ? lang : 'en' ) }, lang ? lang : 'en' ) + "\n" + link
         }, function( err ) {
 
           if ( err ) return reject( err );
@@ -183,16 +185,43 @@ function agendaInvitations( agenda ) {
 
   function _createStakeholder( type, values ) {
 
+    var types = {};
+
+    types[ TYPES.AGENDACONTRIBUTOR ] = {
+      label: 'a contributor',
+      is: 'isContributor',
+      set: 'setContributor',
+      new: 'newContributor'
+    };
+
+    types[ TYPES.AGENDAMODERATOR ] = {
+      label: 'a moderator',
+      is: 'isModerator',
+      set: 'setModerator',
+      new: 'newModerator'
+    };
+
+    types[ TYPES.AGENDAADMIN ] = {
+      label: 'an administrator',
+      is: 'isAdmistrator',
+      set: 'setAdministrator',
+      new: 'newAdministrator'
+    };
+
+
+
     return w.promise( function( resolve, reject ) {
 
-      agenda[ type==TYPES.AGENDAADMIN ? 'isAdministrator' : 'isContributor' ]( values.user, function( err, is ) {
+      var t = types[ type ];
+
+      agenda[ t.is ]( values.user, function( err, is ) {
         
         if ( err ) return reject( err );
 
         if ( is ) {
 
           values.message = i18n( 'You are already %astakeholder%', { 
-            '%astakeholder%' : i18n( type==TYPES.AGENDAADMIN ? 'an administrator' : 'a contributor', values.lang ) 
+            '%astakeholder%' : i18n( t.label, values.lang ) 
           }, values.lang );
 
           values.resolved = true;
@@ -201,17 +230,17 @@ function agendaInvitations( agenda ) {
 
         } else {
 
-          agenda[ type==TYPES.AGENDAADMIN ? 'setAdministrator' : 'setContributor' ]( values.user, function( err ) {
+          agenda[ t.set ]( values.user, function( err ) {
 
             if ( err ) return reject( err );
 
-            notification.notify[ type==TYPES.AGENDAADMIN ? 'newAdministrator' : 'newContributor' ]( {
+            notification.notify[ t.new ]( {
               agendaId: agenda.id,
               ownerId: values.user.id
             } );
 
             values.message = i18n( 'You are now %astakeholder% of agenda %agenda%', { 
-              '%astakeholder%' : i18n( type==TYPES.AGENDAADMIN ? 'an administrator' : 'a contributor', values.lang ),
+              '%astakeholder%' : i18n( t.label, values.lang ),
               '%agenda%' : agenda.title 
             } , values.lang );
 
@@ -284,5 +313,28 @@ function _splitEmails( emails ) {
     return !!email.trim().length;
 
   });
+
+}
+
+
+/**
+ * administrator contributor moderator... involve slight variations in labels
+ */
+function _equivalent( message, type ) {
+
+  var messages = {};
+
+  messages[ 'contributor' ] = {};
+  messages[ 'contributing to' ] = {};
+
+  messages[ 'contributor' ][ TYPES.AGENDACONTRIBUTOR ] = 'contributor';
+  messages[ 'contributor' ][ TYPES.AGENDAADMIN ] = 'administrator';
+  messages[ 'contributor' ][ TYPES.AGENDAMODERATOR ] = 'moderator';
+
+  messages[ 'contributing to' ][ TYPES.AGENDACONTRIBUTOR ] = 'contributor';
+  messages[ 'contributing to' ][ TYPES.AGENDAADMIN ] = 'administering';
+  messages[ 'contributing to' ][ TYPES.AGENDAMODERATOR ] = 'moderating';
+
+  return messages[ message ][ type ];
 
 }

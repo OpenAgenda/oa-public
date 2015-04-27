@@ -39,6 +39,7 @@ module.exports = {
   notify: {
     newContributor: _notify( TYPES.AGENDA.NEWCONTRIBUTOR ),
     newAdministrator: _notify( TYPES.AGENDA.NEWADMINISTRATOR ),
+    newModerator: _notify( TYPES.AGENDA.NEWMODERATOR ),
     expiredSwapcard: _notify( TYPES.AGENDA.EXPIREDSWAPCARD )
   },
   process: process
@@ -53,7 +54,8 @@ function process( data, cb ) {
   if ([
     TYPES.AGENDA.NEWCONTRIBUTOR,
     TYPES.AGENDA.EXPIREDSWAPCARD,
-    TYPES.AGENDA.NEWADMINISTRATOR
+    TYPES.AGENDA.NEWADMINISTRATOR,
+    TYPES.AGENDA.NEWMODERATOR
   ].indexOf( type ) !== -1 ) {
 
     return _createAdminNotifications( type, values, cb );

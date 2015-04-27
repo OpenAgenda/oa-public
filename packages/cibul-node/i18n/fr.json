@@ -12,7 +12,7 @@
   "The campaign was deleted"
   : "La campagne a été supprimée",
   "You do not have access to the administration of this agenda."
-  : "Vous n'avez pas accès à l'adminstration de cet agenda.",
+  : "Vous n'avez pas accès à l'administration de cet agenda.",
   "Whoops. Could not retrieve the agenda."
   : "Oups. L'agenda n'a pas été retrouvé.",
   "You have been added to the newsletter list. Thanks!"
@@ -53,16 +53,22 @@
   : "contributeur",
   "an administrator"
   : "administrateur",
+  "a moderator"
+  : "un modérateur",
   "You have been invited to become %stakeholder% of the agenda %agenda%"
   : "Vous avez été invité à devenir %stakeholder% de l'agenda %agenda%",
   "contributor"
   : "contributeur",
   "administrator"
   : "administrateur",
+  "moderator"
+  : "modérateur",
   "contributing to"
   : "contribuer à",
   "administering"
   : "administrer",
+  "contributing"
+  : "contribuer",
   "Follow this link to reset your password: %link%"
   : "Suivez ce lien pour réinitialiser votre mot de passe: %link%",
   "Reset your password"

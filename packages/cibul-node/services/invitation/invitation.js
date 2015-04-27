@@ -16,7 +16,8 @@ w = require( 'when' ),
 
 TYPES = {
   AGENDACONTRIBUTOR: 1,
-  AGENDAADMIN: 2
+  AGENDAADMIN: 2,
+  AGENDAMODERATOR: 3
 };
 
 module.exports = {
@@ -59,6 +60,10 @@ function processInvitation( values, cb ) {
     } else if ( values.invitation.type == TYPES.AGENDAADMIN ) {
 
       return agendaInvitations( values.agenda ).processAdministratorInvitation( values );
+
+    } else if ( values.invitation.type == TYPES.AGENDAMODERATOR ) {
+
+      return agendaInvitations( values.agenda ).processModeratorInvitation( values );
 
     } else {
 
@@ -150,7 +155,7 @@ function preprocessUser( values, cb ) {
 
   } else {
 
-    p = _loadInvitations( values, [ TYPES.AGENDACONTRIBUTOR, TYPES.AGENDAADMIN ] )
+    p = _loadInvitations( values, [ TYPES.AGENDACONTRIBUTOR, TYPES.AGENDAADMIN, TYPES.AGENDAMODERATOR ] )
 
     .then( _loadInvitationAgendas )
 

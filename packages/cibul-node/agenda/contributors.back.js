@@ -9,13 +9,21 @@ log = require( '../lib/logger' )( 'agenda/contributors' ),
 invitationSvc = require( '../services/invitation/invitation.js' ),
 
 routes = {
-  contributorsInvite:  [ 'post', '/invite', invite ],
-  contributorInviteResend: [ 'get', '/resend', inviteResend ],
+  contributorsInvite:  [ 'post', '/invite', [ 
+    cmn.checkModerator,
+    invite 
+  ] ],
+  contributorInviteResend: [ 'get', '/resend', [ 
+    cmn.checkModerator,
+    inviteResend
+  ] ],
   contributorsInfo: [ 'get', '/info', [ 
+    cmn.checkAdministrator,
     cmn.loadBaseData( _layoutData ),
     info
   ] ],
   contributorsInfoSubmit: [ 'post', '/info', [
+    cmn.checkAdministrator,
     cmn.loadBaseData( _layoutData ),
     infoSubmit
   ] ]
@@ -28,8 +36,7 @@ module.exports = function( path ) {
   router.pre( [
     cmn.flashSetter,
     cmn.loadSession,
-    cmn.loadAgenda( 'slug' ),
-    cmn.checkAdministrator
+    cmn.loadAgenda( 'slug' )
   ] );
 
   return {

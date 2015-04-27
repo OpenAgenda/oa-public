@@ -99,7 +99,7 @@ function _selectLanguage( v ) {
 
 /**
  * if event is not published, check that user
- * has access
+ * has access ( either admin or moderator )
  */
 
 function _checkUserAccess( v ) {
@@ -114,9 +114,19 @@ function _checkUserAccess( v ) {
 
       if ( err ) return rj( err );
 
-      if ( !isAdmin ) return rj( { code: 403 } );
+      if ( !isAdmin ) v.req.agenda.isModerator( { id: v.req.session.userId }, function( err, isModerator ) {
 
-      rs( v );
+        if ( err ) return rj( err );
+
+        if ( !isModerator ) {
+
+          return rj( { code: 403 } );
+
+        }
+
+        rs( v );
+
+      } );
 
     } );
 
