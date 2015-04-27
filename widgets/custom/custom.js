@@ -29,6 +29,8 @@ var widget = function( elem, options ) {
 
   values,
 
+  unselectedValues,
+
   init = function() {
 
     var uid = options.anchorConfig[ UID ];

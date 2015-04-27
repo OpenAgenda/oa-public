@@ -168,7 +168,9 @@ function _isAdmin( ctl ) {
 
     }
 
-    if  ( !cn.contains( ctl.adm, parseInt( session.uid, 10 ) ) ) {
+    if ( !cn.contains( ctl.adm, parseInt( session.uid, 10 ) )
+
+    && !cn.contains( ctl.mod, parseInt( session.uid, 10 ) ) ) {
 
       return false;
 
