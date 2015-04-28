@@ -55,7 +55,7 @@ module.exports = function( uid ) {
 
   currentRequestParams = {}, // current agenda request parameters
 
-  whatUids = false,
+  whatUids = false, what,
 
   enabled = false,
 
@@ -159,7 +159,11 @@ module.exports = function( uid ) {
 
     }
 
-    sweep();
+    _fetchWhatUids( function() {
+
+      sweep();
+
+    });
 
   }
 
@@ -320,29 +324,39 @@ module.exports = function( uid ) {
 
     _forEachWidget( 'disable', originWidget );
 
-    whatUids = false;
-
-    if ( currentRequestParams.what ) {
-
-      var res = params.search.replace( '{uid}', uid );
-
-      remote.getJsonp( res, { data: { search: currentRequestParams }, timeout: 10000 }, function( responseType, data ) {
-
-        if ( responseType == 'success' ) {
-
-          whatUids = data;
-
-        }
-
-        sweep();
-
-      } );
-
-    } else {
+    _fetchWhatUids( function() {
 
       sweep();
 
-    }
+    });
+
+  }
+
+
+  function _fetchWhatUids( cb ) {
+
+    if ( what === currentRequestParams.what ) return cb();
+
+    whatUids = false;
+
+    what = currentRequestParams.what;
+
+    if ( !what ) return cb();
+
+    remote.getJsonp( params.search.replace( '{uid}', uid ), { 
+      data: { search: { what: what } }, 
+      timeout: 10000 
+    }, function( responseType, data ) {
+
+      if ( responseType == 'success' ) {
+
+        whatUids = data;
+
+      }
+
+      cb();
+
+    } );
 
   }
 

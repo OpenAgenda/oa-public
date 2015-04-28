@@ -72,7 +72,7 @@ if ( !window.cibul ) {
 
     if ( !controllers[ uid ] ) {
 
-      log( 'getController: controller not existing > creating.');
+      log( 'getController: controller not existing > creating: %s', uid );
 
       controllers[ uid ] = controller( uid );
 
