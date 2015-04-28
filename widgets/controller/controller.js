@@ -802,6 +802,27 @@ module.exports = function( uid ) {
 
     });
 
+
+    if ( ( typeof search.tags !== 'undefined' ) && cn.isArray( search.tags ) ) {
+
+      cn.forEach( search.tags, function( tag ) {
+
+        if ( tag.length ) cleanTags.push( tag );
+
+      });
+
+      if ( !cleanTags.length ) {
+
+        delete search.tags;
+
+      } else {
+
+        search.tags = cleanTags;
+
+      }
+
+    }
+
     return search;
 
   }
