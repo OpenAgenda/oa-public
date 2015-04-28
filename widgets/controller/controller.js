@@ -794,6 +794,8 @@ module.exports = function( uid ) {
 
   function _cleanSearch( search ) {
 
+    var cleanTags = [];
+
     if ( !search ) return;
 
     cn.forEach( [ 'neLat', 'neLng', 'swLat', 'swLng' ], function( f ) {
