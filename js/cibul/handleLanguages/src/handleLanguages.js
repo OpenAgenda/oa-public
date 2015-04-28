@@ -17,6 +17,8 @@ var handleLanguages = function(options) {
 
 		});
 
+		if ( typeof options.defaultLang !== 'undefined' ) _toggleContentDisplay( options.defaultLang );
+
 		handleContextMenu(getElementsByClassName(document, 'js_lang_select')[0], getElementsByClassName(document, 'js_language_menu')[0], sEventHandler.getInstance());
 	},
 

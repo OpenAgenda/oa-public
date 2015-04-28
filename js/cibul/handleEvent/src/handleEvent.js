@@ -86,6 +86,7 @@ var handleEvent = function(controlData, options) {
   handleLanguages({
     tabsElem: el('.js_event_language_list'),
     contentElems: els('.js_lang'),
+    defaultLang: options.culture,
     template: '<div><div class="js_lang_select language-select"><span><i class="fa fa-flag url"></i></span><i class="fa fa-caret-down url"></i></div><ul class="js_language_menu wsq language-menu"><% for (index in tabs) { %><li <% if (tabs[index].active) {%>class="active"<% } %>><%= tabs[index].label %></li><% } %></ul></div>',
     labels: options.cultureLabels,
     onClick: function() {
