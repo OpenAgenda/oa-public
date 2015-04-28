@@ -21,7 +21,8 @@ module.exports = function( embedService ) {
     load: loadEmbed,
     loadCustomLayoutData: loadCustomLayoutData,
     renderEventItems: renderEventItems,
-    renderEvent: renderEvent
+    renderEvent: renderEvent,
+    browserCache: browserCache
   }
 
 }
@@ -178,6 +179,37 @@ function loadCustomLayoutData( req, res, next ) {
 }
 
 
+function browserCache( req, res, next ) {
+
+  var lastUpdate = req.agenda.updatedAt;
+
+  if ( req.embed.updatedAt > lastUpdate ) {
+
+    lastUpdate = req.embed.updatedAt;
+
+  }
+
+  if ( _hasQueryOtherThan( req, 'callback' ) ) {
+
+    return next();
+
+  }
+
+  if ( req.headers[ 'if-modified-since' ] === lastUpdate.toString() ) {
+
+    res.status( 304 ).end();
+
+    return;
+
+  }
+
+  res.set( 'Last-Modified', req.agenda.updatedAt );
+
+  next();
+
+}
+
+
 function _setActiveShares( formatted, embed ) {
 
   var map = {
@@ -200,5 +232,21 @@ function _setActiveShares( formatted, embed ) {
     }
 
   }
+
+}
+
+function _hasQueryOtherThan( req, exceptions ) {
+
+  if ( typeof exceptions == 'string' ) exceptions = [ exceptions ];
+
+  if ( !exceptions ) exceptions = [];
+
+  for( var q in req.query ) {
+
+    if ( exceptions.indexOf( q ) == -1 ) return true;
+
+  }
+
+  return false;
 
 }

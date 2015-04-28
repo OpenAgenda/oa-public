@@ -54,7 +54,7 @@ routes = {
   embedControlData: [ 'get', '/agendas/:uid/embeds/:embedUid/controldata', [ 
     agendaSvc.mw.load( 'uid', 'uid', true ),
     embedSvc.mw.load( 'embedUid', 'uid' ),
-    agendaSvc.mw.browserCache,
+    embedSvc.mw.browserCache,
     controlData
   ] ],
   
@@ -78,8 +78,8 @@ routes = {
   
   customEmbedShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events', [ 
     agendaSvc.mw.load( 'uid' ),
-    agendaSvc.mw.browserCache,
     embedSvc.mw.load( 'embedUid', 'uid' ),
+    embedSvc.mw.browserCache,
     agendaSvc.mw.search( perPage ),
     _format,
     _formatEmbedData,
