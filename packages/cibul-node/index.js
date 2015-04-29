@@ -11,6 +11,6 @@ module.exports = {
     agenda: require( './services/agenda/agenda' ),
     nominatim: require( './services/nominatim/nominatim' )
   },
-  config: require( './config' ),
-  modelLib: modelLib
+  config: config,
+  modelLib: modelLib( config.db )
 };

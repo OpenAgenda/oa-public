@@ -59,7 +59,8 @@ function instanciate( data ) {
 
   return lib.extend( {}, instance, {
     setImage: setImage,
-    save: save
+    save: save,
+    remove: remove
   });
 
   // assuming for now that input is url
@@ -103,6 +104,20 @@ function instanciate( data ) {
       if ( err ) return cb( err );
 
       coms.publish( config.mainChannel, { name: 'event.update', values: { id: instance.id } } );
+
+      cb();
+
+    });
+
+  }
+
+  function remove( cb ) {
+
+    instance.remove( function( err ) {
+
+      if ( err ) return cb( err );
+
+      coms.publish( config.mainChannel, { name: 'event.delete', values: { id: instance.id } } );
 
       cb();
 
