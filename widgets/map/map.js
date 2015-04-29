@@ -175,8 +175,9 @@ function widget( elem, options ) {
 
     enabled = true;
 
-  
     _updateBounds( reqParams, function( ) {
+
+      var popupLocation = false;
 
       if ( !reqParams.location ) {
 
@@ -196,17 +197,17 @@ function widget( elem, options ) {
 
       if ( selectedEvent && activeLocations.length ) {
 
-        _openPopup( locations[ activeLocations[ 0 ] ] );
+        popupLocation = locations[ activeLocations[ 0 ] ];
 
       } else if ( reqParams.location ) {
 
-        selectedLocation = locations[ reqParams.location ];
-
-        _openPopup( selectedLocation );
+        popupLocation = selectedLocation = locations[ reqParams.location ];
 
       }
 
       _refresh();
+
+      if ( popupLocation ) _openPopup( popupLocation );
 
     } );
 
