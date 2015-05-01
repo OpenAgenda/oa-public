@@ -229,7 +229,7 @@ function _showOptionalWidgets( controller ) {
     cn.forEach( [ {
       sel: '.js_category_widget', key: 'ct'
     }, {
-      sel: '.js_tags_widget', key: 'tg'
+      sel: '.js_tags_widget', key: 't'
     }, {
       sel: '.js_org_widget', key: 'org'
     } ], function( cfg ) {
