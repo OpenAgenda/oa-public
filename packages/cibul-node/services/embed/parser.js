@@ -72,6 +72,7 @@ function parser( struct ) {
 
     for( var i in clean ) {
 
+      
       // process the children blocks
       
       if ( _isArray( clean[ i ] ) ) {
@@ -84,7 +85,7 @@ function parser( struct ) {
       // process the attribute blocks
 
       if ( templateAttributeBlocks[ i ] !== undefined ) {
-
+      
         if ( !data[ i ] ) {
 
           rendered = _removeBlock( rendered, templateAttributeBlocks[ i ] );
@@ -209,7 +210,7 @@ function _extractTemplateAttributeBlocks( attributes, template ) {
     try {
 
       _findBlockIndexes( filteredTpl, attr.name );
-      
+          
       attributeBlocks[ attr.mapTo ] = attr.name;
 
     } catch( e ) {};

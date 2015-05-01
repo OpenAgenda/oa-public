@@ -158,6 +158,8 @@ function _buildESQuery( query, limit, agendaId ) {
 
 function _clean( query, page ) {
 
+  if ( page === undefined ) page = 1;
+
   var clean = {
     when: [],
     page: parseInt( page, 10 )
@@ -186,6 +188,10 @@ function _clean( query, page ) {
   if ( query.tags && ( typeof query.tags == 'string' ) ) {
 
     clean.tags = [ query.tags ];
+
+  } else if ( query.tags ) {
+
+    clean.tags = query.tags;
 
   }
 

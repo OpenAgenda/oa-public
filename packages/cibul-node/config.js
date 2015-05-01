@@ -57,6 +57,7 @@ config = {
     session: {
       name: 'oas',
       secret: 'yeepeekayaymadafaka',
+      maxAge: 1000*60*60*48,
       storePrefix: 'session:',
       sfName: 'symfony'
     },

@@ -83,6 +83,12 @@ function instanciate( data ) {
 
         if ( err ) return cb( err );
 
+        if ( instance.getImage() === name + '.jpg' ) {
+
+          return cb();
+
+        }
+
         instance.setImage( name + '.jpg', function( err ) {
 
           if ( err ) return cb( err );
