@@ -2,6 +2,8 @@
 
 module.exports = function( ctlData, initValues, cb ) {
 
+  var requestTimeout;
+
   if ( initValues.lat && initValues.lng ) return cb( null, [ initValues.lat, initValues.lng ] );
 
   if ( !_hasFeature() ) return cb( 'navigator cannot geolocate' );
@@ -10,7 +12,13 @@ module.exports = function( ctlData, initValues, cb ) {
 
   initValues.count = Math.min( initValues.count, 50 );
 
+  requestTimeout = setTimeout( function() {
+    cb( 'user did not respond to geolocate' );
+  }, 5000 );
+
   _requestGeolocation( function( err, coords ) {
+
+    clearTimeout( requestTimeout );
 
     if ( err ) return cb( err );
 
