@@ -57,9 +57,10 @@ function instanciate( data ) {
 
   var instance = model.events().instance( data );
 
+  instance.onSave = onSave;
+
   return lib.extend( {}, instance, {
     setImage: setImage,
-    save: save,
     remove: remove
   });
 
@@ -93,7 +94,7 @@ function instanciate( data ) {
 
           if ( err ) return cb( err );
 
-          save( { image: name + '.jpg' }, cb );
+          instance.save( { image: name + '.jpg' }, cb );
 
         } );
 
@@ -103,17 +104,9 @@ function instanciate( data ) {
 
   }
 
-  function save( values, cb ) {
+  function onSave() {
 
-    instance.save( values, function( err ) {
-
-      if ( err ) return cb( err );
-
-      coms.publish( config.mainChannel, { name: 'event.update', values: { id: instance.id } } );
-
-      cb();
-
-    });
+    coms.publish( config.mainChannel, { name: 'event.update', values: { id: instance.id } } );
 
   }
 
