@@ -6,12 +6,6 @@
 <% } %>
 <% } else { %>
 
-<% if ( page == 1 ) { %>
-<div class="row total-count text-center">
-  <p><%= __( '%total% events', { '%total%' : total } ) %></p>
-</div>
-<% } %>
-
 <% renders.eventItems.forEach(function( eventRender ) { %>
     <%- eventRender %>
 <% } ); %>

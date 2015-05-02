@@ -4,6 +4,9 @@
     <div class="row">
       <section class="col-sm-offset-3 col-sm-6 col-xs-offset-2 col-xs-8 main-content">
         <div class="row filters cbpgft" data-cbctl="<%= uid %><% if (typeof embedUid !== 'undefined') { %>/<%= embedUid %><% } %>|<%= lang %>"></div>
+<% if ( total > 0 ) { %>
+        <p class="total-count text-center"><%= __( '%total% events', { '%total%' : total } ) %></p>
+<% } %>
       </section>
       <section class="col-sm-offset-3 col-sm-6 col-xs-offset-2 col-xs-8 main-content js_list_content">
         <% include ./embedShow.part.ejs %>
