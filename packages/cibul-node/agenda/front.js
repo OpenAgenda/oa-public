@@ -145,7 +145,8 @@ function showXhr( template ) {
       cmn.renderJson( req, res, {
         success: true,
         partial: partial,
-        total: req.templateData.total
+        total: req.templateData.total,
+        page: req.templateData.page
       });
 
     });
@@ -182,7 +183,7 @@ function embedShow( req, res ) {
     pager: {
       base: { uid: req.agenda.uid },
       routeName: 'agendaEmbedShow',
-      current: req.query.page || 1,
+      current: req.templateData.page,
       total: req.total,
       perPage: perPage
     }
@@ -365,6 +366,8 @@ function _formatAgendaData( mode ) {
       }
 
     }
+
+    req.templateData.page = req.query.page || 1;
 
     next();
 
