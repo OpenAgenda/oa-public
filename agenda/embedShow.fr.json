@@ -3,8 +3,8 @@
   : "charger plus",
   "There are no upcoming events published in this agenda." 
   : "Il n'y a pas d'événements à venir dans cet agenda.",
-  "There are no results for this search"
-  : "Il n'y a pas de résultats pour cette recherche",
+  "There are no matching events. Please widen your search."
+  : "Aucun événement trouvé. Veuillez élargir votre recherche.",
   "%total% events"
   : "%total% événements"
 }
