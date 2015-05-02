@@ -244,7 +244,8 @@ function _format( req, res, next ) {
     events: formattedEvents,
     hasSearchQuery: !!lib.size( req.query.search ),
     passed: req.agenda.passed,
-    total: req.total
+    total: req.total,
+    page: req.query.page || 1
   };
 
   req.events = formattedEvents;
