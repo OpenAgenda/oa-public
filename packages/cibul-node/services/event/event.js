@@ -20,7 +20,9 @@ fileSvc = require( '../file/file' );
 module.exports = {
   get: get,
   create: create,
-  share: require( './share' )
+  share: require( './share' ),
+  instanciate: instanciate,
+  list: model.events().list
 }
 
 module.exports.mw = require( './middleware' )( module.exports );
@@ -53,6 +55,7 @@ function create( data, cb ) {
 
 }
 
+
 function instanciate( data ) {
 
   var instance = model.events().instance( data );
@@ -61,6 +64,9 @@ function instanciate( data ) {
 
   return lib.extend( {}, instance, {
     setImage: setImage,
+    getImage: _imageGetter( 'getImage' ),
+    getThumbnail: _imageGetter( 'getThumbnail' ),
+    getFullImage: _imageGetter( 'getFullImage' ),
     remove: remove
   });
 
@@ -121,6 +127,20 @@ function instanciate( data ) {
       cb();
 
     });
+
+  }
+
+  function _imageGetter( method ) {
+
+    return function() {
+
+      var image = instance[ method ]();
+
+      if ( !image ) return image;
+
+      return config.aws.imageBucketPath + image;
+
+    }
 
   }
 

@@ -1,0 +1,52 @@
+"use strict";
+
+module.exports = {
+  extend: extend,
+  filterByAttr: filterByAttr,
+  forEach: forEach, // for some older browsers
+};
+
+
+function filterByAttr( obj, arr ) {
+
+  var newObj = {};
+
+  forEach( arr, function( name ) {
+
+    if ( obj[name] !== undefined ) newObj[name] = obj[name];
+
+  });
+
+  return newObj;
+
+};
+
+function forEach( array, action ) {
+
+  for ( var i = 0; i < array.length; i++ ) {
+
+    action( array[i] );
+
+  }
+
+};
+
+function extend() {
+
+  for ( var i=1; i<arguments.length; i++ ) {
+
+    for ( var key in arguments[i] ) {
+
+      if ( arguments[i].hasOwnProperty( key ) ) {
+
+        arguments[ 0 ][ key ] = arguments[ i ][ key ];
+
+      }
+
+    }
+
+  }
+        
+  return arguments[ 0 ];
+
+};

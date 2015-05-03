@@ -842,8 +842,7 @@ function getRedirect( req, paramName ) {
  * set json data in response
  */
 
-function renderJson( req, res, data ) {
-
+function renderJson( req, res, data, options ) {
 
   res.set( 'Content-Type', 'application/json; charset=utf-8' );
 
