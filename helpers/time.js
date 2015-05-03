@@ -13,9 +13,9 @@ module.exports = function( options ) {
     utc: true
   }, options );
 
-  moment.locale( params.lang );
-
   var process = function( date, format ) {
+
+    moment.locale( params.lang );
 
     // date can be an array of dates, one date with a time
 
