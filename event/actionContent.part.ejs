@@ -1,10 +1,13 @@
 <p class="legend"><%= __('Import in a personal calendar') %></p>
 
 <div class="btn-adds">
-
+<% if ( event.imports.length ) { %>
 <% event.imports.forEach( function( i ) { %> 
 <a class="btn btn-default<% if ( event.multipleTimings ) { %> js_modal <% } %>" href="<%= i.uri %>" <% if ( !event.multipleTimings ) { %>target="_blank"<% } %>><%= i.label %></a>
 <% }) %>
+<% } else { %>
+<p class="text-center"><%= __('There are no timings available for this event') %></p>
+<% } %>
 
 </div>
 
@@ -16,7 +19,7 @@
 
 <% agendas.forEach( function( agenda ) { %>
 <% if ( agenda.sharing ) { %>
-  <a class="btn btn-default checked uncheckable" href="<%= genUrl('agendaEventRemove', { slug: agenda.slug, eventUid: event.uid } ) %>"><%= agenda.title %></a>
+  <a class="btn btn-default checked uncheckable" href="<%= genUrl( 'agendaEventRemove', { slug: agenda.slug, eventUid: event.uid } ) %>"><%= agenda.title %></a>
 <% } else { %>
   <a class="btn btn-default" href="<%= genUrl( 'agendaEventAdd', { slug: agenda.slug, eventUid: event.uid } ) %>"><%= agenda.title %></a>
 <% } %>
