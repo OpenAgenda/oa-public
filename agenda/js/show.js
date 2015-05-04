@@ -234,7 +234,7 @@ function _showOptionalWidgets( controller ) {
       sel: '.js_org_widget', key: 'org'
     } ], function( cfg ) {
 
-      if ( ( typeof data[ cfg.key ] !== 'undefined' ) && data[ cfg.key ].length ) {
+      if ( ( typeof data[ cfg.key ] !== 'undefined' ) && data[ cfg.key ].length && cn.el( cfg.sel ) ) {
 
         cn.removeClass( cn.el( cfg.sel ), params.classes.displayNone );
 
