@@ -14,11 +14,11 @@
 
   <p> <%= __( 'You can link this agenda to your Swapcard account' ) %> </p>
 
-  <p> <a class="url" href="<%= genUrl( 'connectService', { service: 'swapcard' } ) %>"> <%= __( 'Click here' ) %> </a> <span> <%= __( ' to sync your agenda' ) %> </span> </p>
+  <p> <a class="url" href="<%= genUrl( 'connectService', { slug: agenda.slug, service: 'swapcard' } ) %>"> <%= __( 'Click here' ) %> </a> <span> <%= __( ' to sync your agenda' ) %> </span> </p>
 
   <% } else { %>
 
-   <p> <span> <%= __( 'If something went wrong you can re-sync your events by clicking ' ) %> </span> <a class="url" href="<%= genUrl( 'connectService', { service: 'swapcard' } ) %>"> <%= __( 'here' ) %> </a> </p>
+   <p> <span> <%= __( 'If something went wrong you can re-sync your events by clicking ' ) %> </span> <a class="url" href="<%= genUrl( 'connectService', { slug: agenda.slug, service: 'swapcard' } ) %>"> <%= __( 'here' ) %> </a> </p>
 
   <% } %>
 
@@ -36,7 +36,7 @@
 
     <p> <%= __( 'By unlinking this agenda and your Swapcard account, your events will be not syncronized anymore. Your Swapcard events are not deleted by the way. If you intend to resync this agenda with the same Swapcard account, the events will be created again' ) %> </p>
 
-    <a class="button" href=" <%= genUrl( 'serviceUnlink', { service: 'swapcard' } ) %>" > <%= __( 'Unlink' ) %> </a>
+    <a class="button" href=" <%= genUrl( 'serviceUnlink', { slug: agenda.slug, service: 'swapcard' } ) %>" > <%= __( 'Unlink' ) %> </a>
 
   </section>
 
