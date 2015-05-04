@@ -266,15 +266,17 @@ var widget = function( elem, options ) {
 
       cn.forEach( data.t, function( tag ) {
 
-        if ( cn.contains( subset, tag.s ) ) {
-
-          tags.push( tag );
-
-          tagSlugs.push( tag.s );
-
-        } 
+        if ( cn.contains( subset, tag.s ) ) tags.push( tag );
 
       } );
+
+      tags = _order( tags, subset );
+
+      cn.forEach( tags, function( t ) {
+
+        tagSlugs.push( t.s );
+
+      })
 
     } else {
 
@@ -326,6 +328,24 @@ var widget = function( elem, options ) {
 function setOnReady( cb ) {
 
   onReady = cb;
+
+}
+
+function _order( tags, orderedSlugs ) {
+
+  var ordered = [];
+
+  orderedSlugs.forEach( function( s ) {
+
+    tags.forEach( function( t ) {
+
+      if ( t.s == s ) ordered.push( t );
+
+    });
+
+  });
+
+  return ordered;
 
 }
 
