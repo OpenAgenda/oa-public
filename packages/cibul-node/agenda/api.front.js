@@ -43,7 +43,10 @@ module.exports = function( path ) {
 
 function events( req, res ) {
 
-  cmn.renderJson( req, res, req.formatted );
+  cmn.renderJson( req, res, {
+    events: req.formatted,
+    total: req.total
+  } );
 
 }
 
