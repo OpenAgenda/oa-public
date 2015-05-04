@@ -189,7 +189,7 @@ function actionShow( req, res ) {
 
   eventSvc.share.addCalendarLinks( req.event, req.genUrl( req.eventUri, req.eventUriParams, { abs: true } ) );
 
-  templateData.event.imports = [
+  templateData.event.imports = timings.length ? [
     { 
       label: 'Google Calendar',
       uri: multipleTimings ? req.genUrl( 'eventActionDatesShow', [ req.eventUriParams, { service: 'google' } ] ) : timings[ 0 ].calendarLinks.google,
@@ -203,7 +203,7 @@ function actionShow( req, res ) {
       label: 'Windows Live',
       uri: multipleTimings ? req.genUrl( 'eventActionDatesShow', [ req.eventUriParams, { service: 'live' } ] ) : timings[ 0 ].calendarLinks.live
     }
-  ];
+  ] : [];
 
   templateData.event.multipleTimings = multipleTimings;
 
