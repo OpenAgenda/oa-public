@@ -27,11 +27,11 @@ var widget = function( elem, options ) {
 
   activeClass,
 
-  values,
+  values, selectionValues,
 
-  unselectedValues,
+  unselectedValues;
 
-  init = function() {
+  (function () {
 
     var uid = options.anchorConfig[ UID ];
 
@@ -53,12 +53,6 @@ var widget = function( elem, options ) {
 
     }
 
-    for ( var v in values ) {
-
-      unselectedValues[ v ] = null;
-
-    }
-
     activeClass = ( typeof options.anchorConfig[ ACTIVECLASS ] !== 'undefined' ) ?  options.anchorConfig[ ACTIVECLASS ] : 'active';
 
     controller = options.register( wLib.interface( 'custom', uid, {
@@ -71,15 +65,20 @@ var widget = function( elem, options ) {
 
     if ( onReady ) onReady();
 
-  },
+  } )();
 
-  enable = function( reqParams ) {
+
+  function enable( reqParams ) {
 
     selected = true;
 
-    for ( var v in values ) {
+    unselectedValues = _defineUnselected( reqParams, values );
 
-      if ( ( typeof reqParams[v] == 'undefined' ) || ( reqParams[v] !== values[v] ) ) {
+    selectionValues = _defineSelected( reqParams, values );
+
+    for ( var v in selectionValues ) {
+
+      if ( ( typeof reqParams[v] == 'undefined' ) || _isDifferent( reqParams[ v ], selectionValues[v] ) ) {
 
         selected = false;
 
@@ -100,21 +99,21 @@ var widget = function( elem, options ) {
 
     enabled = true;
 
-  },
+  }
 
-  disable = function( ) {
-
-    cn.removeClass( elem, activeClass );
-
-  },
-
-  clear = function( ) {
+  function disable( ) {
 
     cn.removeClass( elem, activeClass );
 
-  },
+  }
 
-  _onClick = function() {
+  function clear( ) {
+
+    cn.removeClass( elem, activeClass );
+
+  }
+
+  function _onClick() {
 
     if ( !enabled ) {
 
@@ -124,13 +123,112 @@ var widget = function( elem, options ) {
 
     }
 
-    controller.update( 'custom', selected ? unselectedValues : values );
+    controller.update( 'custom', selected ? unselectedValues : selectionValues );
 
   }
 
-  init();
-
 };
+
+function _defineUnselected( reqParams, selectionValues ) {
+
+  var unselectedValues = {};
+
+  for ( var v in selectionValues ) {
+
+    if ( ( v == 'tags' ) && reqParams.tags ) {
+
+      unselectedValues[ v ] = _popTag( reqParams.tags, selectionValues[ v ] );
+
+    } else {
+
+      unselectedValues[ v ] = null;
+
+    }
+
+  }
+
+  return unselectedValues;
+
+}
+
+function _defineSelected( reqParams, baseValues ) {
+
+  var values = {};
+
+  for( var v in baseValues ) {
+
+    if ( v == 'tags' ) {
+
+      // tags should include all tags of current request + baseValue tag
+      values[ v ] = _appendTags( baseValues[ v ], reqParams.tags );
+
+    } else {
+
+      values[ v ] = baseValues[ v ];
+
+    }
+
+  }
+
+  return values;
+
+}
+
+function _appendTags( tags, tagsToAppend ) {
+
+  if ( typeof tags == 'string' ) tags = [ tags ];
+
+  if ( typeof tagsToAppend == 'string' ) tagsToAppend = [ tagsToAppend ];
+
+  cn.forEach( tagsToAppend ? tagsToAppend : [], function( t ) {
+
+    if ( tags.indexOf( t ) == -1 ) tags.push( t );
+
+  });
+
+  return tags;
+
+}
+
+function _popTag( tags, tag ) {
+
+  if ( typeof tags == 'string' ) tags = [ tags ];
+
+  var kept = [];
+
+  cn.forEach( tags ? tags : [], function( t ) {
+
+    if ( t !== tag ) kept.push( t );
+
+  });
+
+  return kept;
+
+}
+
+function _isDifferent( v1, v2 ) {
+
+  if ( !cn.isArray( v1 ) || !cn.isArray( v2 ) ) {
+
+    return v1 !== v2;
+
+  }
+
+  for ( var i = v1.length - 1; i >= 0; i-- ) {
+    
+    if ( !cn.contains( v2, v1[ i ] ) ) return true;
+
+  };
+
+  for ( i = v2.length - 1; i >= 0; i-- ) {
+    
+    if ( !cn.contains( v1, v2[ i ] ) ) return true;
+    
+  };
+
+  return false;
+
+}
 
 function setOnReady( cb ) {
 
