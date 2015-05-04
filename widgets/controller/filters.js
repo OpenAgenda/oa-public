@@ -1,3 +1,8 @@
+"use strict";
+
+var cn = require( '../../js/lib/common/common.mod' );
+
+
 module.exports = {
   what: what,
   //passed: passed,
@@ -82,15 +87,19 @@ function categories( item, reqParams ) {
 
 function tags( item, reqParams ) {
 
-  if ( reqParams.tags ) {
+  var reqTags;
 
-    if ( item.t ) for ( var i = item.t.length - 1; i >= 0; i-- ) {
+  if ( !reqParams.tags ) return true;
 
-      if ( reqParams.tags == item.t[i] ) return true;
+  reqTags = typeof reqParams.tags == 'string' ? [ reqParams.tags ] : reqParams.tags;
 
-    }
+  if ( !reqTags.length ) return true;
 
-    return false;
+  if ( !item.t ) return false;
+
+  for ( var i = reqTags.length - 1; i >= 0; i-- ) {
+
+    if ( !cn.contains( item.t, reqTags[ i ] ) ) return false;
 
   }
 
