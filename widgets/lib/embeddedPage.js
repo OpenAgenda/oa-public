@@ -34,8 +34,8 @@ module.exports = function( pageOptions ) {
 
     pageHeight.force();
 
-    linkClickController = function( href ) {
-      sendFunc( { load: href } );
+    linkClickController = function( href, target ) {
+      sendFunc( { load: href, target: target } );
     };
 
 
@@ -87,7 +87,7 @@ function _catchLinkEvents() {
 
       if ( !linkClickController ) return;
 
-      linkClickController( linkElem.href );
+      linkClickController( linkElem.href, linkElem.hasAttribute( 'target' ) ? linkElem.getAttribute( 'target' ) : false );
 
     });
 

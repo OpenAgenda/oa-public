@@ -193,7 +193,15 @@ function widget( elem, options ) {
 
         } else {
 
-          window.location.href = message.load;
+          if ( ( typeof message.target !== 'undefined' ) && ( message.target == '_blank' ) ) {
+
+            window.open( message.load, '_blank' );
+
+          } else {
+
+            window.location.href = message.load;
+
+          }
 
         }
 
