@@ -67,7 +67,7 @@ function _apiAgendaEventsClean( req, res, next ) {
 
     });
 
-    eventSvc.list( { ids: ids }, function( err, events ) {
+    eventSvc.list( { ids: ids, reviewId: req.agenda.id }, function( err, events ) {
 
       var custom = {}, i = 0;
 
@@ -75,17 +75,57 @@ function _apiAgendaEventsClean( req, res, next ) {
 
       async.eachSeries( events, function( event, ecb ) {
 
-        req.agenda.getEventPublicCustomFields( event, function( err, values ) {
+        var eInst = eventSvc.instanciate( event );
 
-          if ( err ) return ecb( err );
+        async.waterfall( [
+          function( wcb ) {
 
-          req.formatted[ i ].custom = values;
+            req.agenda.getEventPublicCustomFields( eInst, function( err, values ) {
+
+              if ( err ) return wcb( err );
+
+              req.formatted[ i ].custom = values;
+
+              wcb();
+
+            });
+
+          },
+          function( wcb ) {
+
+            eInst.getAgendaCategory( req.agenda.id, function( err, category ) {
+
+              if ( err ) return wcb( err );
+
+              req.formatted[ i ].category = category || null;
+
+              wcb();
+
+            });
+
+          },
+          function( wcb ) {
+
+            eInst.getAgendaTags( req.agenda.id, function( err, tags ) {
+
+              if ( err ) return wcb( err );
+
+              req.formatted[ i ].tags = tags;
+
+              wcb();
+
+            });
+
+          }
+        ], function( err ) {
 
           i++;
 
           ecb();
 
-        })
+        } );
+
+        
 
       }, next );
 
