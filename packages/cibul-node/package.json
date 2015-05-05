@@ -15,7 +15,7 @@
     "ES" : "git+ssh://git@bitbucket.org:cibul/es-node.git",
     "aws-sdk" : "~2.0",
     "when" : "~3.4",
-    "zombie" : "*",
+    "zombie" : "2.5.0",
     "should" : "~4.0",
     "bunyan" : "~1.0",
     "mailjet" : "0.0.1",
