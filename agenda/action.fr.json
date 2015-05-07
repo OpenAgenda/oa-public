@@ -14,5 +14,7 @@
   "You do not own any OpenAgenda yet"
   : "Vous n'avez pas encore d'agenda OpenAgenda",
   "Create an agenda"
-  : "Créez-un agenda"
+  : "Créez-un agenda",
+  "The data structure of this export may change."
+  : "La structure de donnée de cet export peut évoluer."
 }

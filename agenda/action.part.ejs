@@ -14,8 +14,9 @@
       <div class="btn-adds">
         <a class="btn btn-default" href="<%= genUrl( 'agendaFeed', { uid: uid }) %>">RSS</a>
         <a class="btn btn-default" href="<%= genUrl( 'agendaIcal', { uid: uid }) %>?dl=1">ICS</a>
-        <a class="btn btn-default "href="<%= genUrl( 'agendaCsv', { uid: uid }) %>?dl=1">CSV</a>
+        <a class="btn btn-default "href="<%= genUrl( 'agendaCsvEvents', { uid: uid }) %>">CSV *</a>
         <a class="btn btn-default" href="<%= genUrl( 'agendaXml', { uid: uid }) %>?dl=1">XML</a>
+        <a class="btn btn-default" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: uid, page: 1, search: { passed: 1 } } ) %>">JSON *</a>
       </div>
 <% if ( hasAggregator ) { %>
       <p class="legend"><%= __('Add the events of this agenda to your agenda OpenAgenda') %></p>
@@ -36,7 +37,12 @@
 <% } %>
       </div>
 <% } %>
+
+      <div>
+        <p>* <%= __( 'The data structure of this export may change.') %></p>
+      </div>
+
     </div>
-    
+
   </section>
 </div>
