@@ -4,7 +4,9 @@ var svc,
 
 es = require( '../es/es' ),
 
-svcCsv = require( '../csv/csv' );
+svcCsv = require( '../csv/csv' ),
+
+utils = require( '../../lib/utils' );
 
 module.exports = function( agendaService ) {
 
@@ -103,7 +105,7 @@ function formatTemplateData( req, res, next ) {
 
   req.templateData.importUri = req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } );
 
-  req.templateData.hasSearchQuery = !!lib.size( req.query.search );
+  req.templateData.hasSearchQuery = !!utils.size( req.query.search );
 
   next();
 
@@ -217,7 +219,12 @@ function buildCsv( includePrivateData ) {
     if ( !res.headersSent ) {
 
       res.writeHead( 200, {
-        'Content-Type': 'text/csv'
+        'Content-Type': 'text/csv',
+        'content-disposition': [
+          'attachment; filename=\'',
+          req.agenda.title,
+          '.', _stringifiedNow(),
+          '.csv\'' ].join('')
       } );
 
     }
@@ -288,5 +295,20 @@ function _hasQueryOtherThan( req, exceptions ) {
   }
 
   return false;
+
+}
+
+
+function _stringifiedNow() {
+
+  var now = new Date();
+
+  return _fZ( now.getMonth() + 1 ) + _fZ( now.getDate() );
+
+}
+
+function _fZ( n ) {
+
+  return ( n>9 ? '' : '0' ) + n;
 
 }

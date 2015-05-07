@@ -4,6 +4,7 @@ module.exports = {
   extend: extend,
   filterByAttr: filterByAttr,
   isArray: isArray,
+  size: size,
   forEach: forEach, // for some older browsers
 };
 
@@ -11,6 +12,20 @@ module.exports = {
 function isArray( obj ) {
 
   return Object.prototype.toString.call( obj ) === '[object Array]';
+
+}
+
+function size( obj ) {
+
+  var size = 0, key;
+
+  for ( key in obj ) {
+
+    if ( obj.hasOwnProperty( key ) ) size++;
+
+  }
+
+  return size;
 
 }
 
