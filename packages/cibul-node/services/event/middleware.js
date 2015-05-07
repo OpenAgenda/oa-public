@@ -10,7 +10,9 @@ module.exports = function( eventService ) {
 
   return {
     load: loadEvent(),
-    loadAgendaEvent: loadEvent( true )
+    loadAgendaEvent: loadEvent( true ),
+    cleanEvents: cleanEvents,
+    search: search
   }
 
 }
@@ -69,6 +71,42 @@ function loadEvent( fromAgenda ) {
     }
 
   }
+
+}
+
+function search( limit ) {
+
+  return function( req, res, next ) {
+
+    es.search( req.query.search, {
+      limit: limit,
+      page: req.query.page
+    }, function( err, data ) {
+
+      if ( err ) return next( err );
+
+      req.events = data.events;
+
+      req.total = data.total;
+
+      next();
+
+    });
+
+  }
+
+}
+
+
+function cleanEvents( req, res, next ) {
+
+  var clean = svc.exports.cleanEvents( req.events, {
+    genUrl: req.genUrl
+  });
+  
+  req.formatted = clean;
+
+  next();
 
 }
 

@@ -15,7 +15,9 @@ imageSvc = require( '../image/image' ),
 
 s3Svc = require( '../file/s3' ),
 
-fileSvc = require( '../file/file' );
+fileSvc = require( '../file/file' ),
+
+exportLib = require( './exportLib' );
 
 module.exports = {
   get: get,
@@ -26,6 +28,8 @@ module.exports = {
 }
 
 module.exports.mw = require( './middleware' )( module.exports );
+
+module.exports.exports = require( './exportLib' )( module.exports );
 
 
 function get( params, cb ) {

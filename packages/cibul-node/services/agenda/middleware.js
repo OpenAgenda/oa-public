@@ -2,7 +2,9 @@
 
 var svc,
 
-es = require( '../es/es' );
+es = require( '../es/es' ),
+
+svcCsv = require( '../csv/csv' );
 
 module.exports = function( agendaService ) {
 
@@ -11,7 +13,10 @@ module.exports = function( agendaService ) {
   return {
     load: loadAgenda,
     search: searchEvents,
-    browserCache: browserCache
+    browserCache: browserCache,
+    decorateEvents: decorateEvents,
+    buildCsv: buildCsv,
+    renderCsv: renderCsv
   }
 
 }
@@ -105,11 +110,15 @@ function formatTemplateData( req, res, next ) {
 }
 
 
-function searchEvents( limit ) {
+function searchEvents( limit, showAll ) {
 
   return function( req, res, next ) {
 
-    es.agendas( req.agenda ).search( req.query.search, { limit: limit, page: req.query.page }, function( err, data ) {
+    es.agendas( req.agenda ).search( req.query.search, {
+      limit: limit,
+      page: req.query.page, 
+      showAll: showAll
+    }, function( err, data ) {
 
       if ( err ) return next( err );
 
@@ -147,6 +156,104 @@ function browserCache( req, res, next ) {
   res.set( 'Last-Modified', req.agenda.updatedAt );
 
   next();
+
+}
+
+function decorateEvents( includePrivateData ) {
+
+  return function( req, res, next ) {
+
+    svc.exports.decorateEvents( req.agenda, req.events, req.formatted, {
+      genUrl: req.genUrl,
+      includePrivateData: !!includePrivateData
+    }, next );
+
+  }
+
+}
+
+
+function buildCsv( includePrivateData ) {
+
+  var baseMapping = [
+    'uid',
+    'title',
+    'description',
+    'longDescription',
+    'image',
+    'thumbnail',
+    'originalImage',
+    'updatedAt',
+    'range',
+    'conditions',
+    'registrationUrl',
+    'locationName',
+    'locationUid',
+    'address',
+    'postalCode',
+    'city',
+    'district',
+    'department',
+    'region',
+    'latitude',
+    'longitude'
+  ];
+
+  return function( req, res, next ) {
+
+    var mapping;
+
+    if ( !res.csv ) {
+
+      mapping = _appendMapping( req.agenda, baseMapping, includePrivateData );
+
+      res.csv = svcCsv( res, {
+        sourceField: 'formatted',
+        mapping: mapping
+      } );
+
+    }
+
+    if ( !res.headersSent ) {
+
+      res.writeHead( 200, {
+        'Content-Type': 'text/csv'
+      } );
+
+    }
+
+    res.csv.write( req );
+
+    next();
+
+  }
+
+}
+
+
+function renderCsv( req, res, next ) {
+
+  res.csv.end();
+  
+}
+
+function _appendMapping( agenda, baseMapping, includePrivateData ) {
+
+  var mapping = baseMapping.concat( includePrivateData ? [ 'isDraft', 'isPublished' ] : [] ),
+
+  customFields = agenda.getCustomFieldsConfig();
+
+  customFields.forEach( function( cField ) {
+
+    if ( includePrivateData || ( cField.type !== 'private' ) ) {
+
+      mapping.push( [ cField.name, 'custom.' + cField.name ] );
+
+    }
+
+  });
+
+  return mapping;
 
 }
 

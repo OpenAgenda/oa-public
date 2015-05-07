@@ -16,6 +16,8 @@ module.exports = {
 
 module.exports.mw = require( './middleware' )( module.exports );
 
+module.exports.exports = require( './exportLib' )( module.exports ); 
+
 function get( params, cb ) {
 
   model.agendas().get( params, function( err, result ) {

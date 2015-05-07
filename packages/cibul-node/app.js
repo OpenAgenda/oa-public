@@ -67,7 +67,8 @@ module.exports = function( enabledTypes, cb ) {
         require( './agenda/front' )( '' ),
         require( './agenda/actions.front' )( '/:slug/actions' ),
         require( './agenda_bridges/back' )( '/:slug/admin/services'),
-        require( './agenda/api.front' )( '/agendas/:uid/events.:format' )
+        require( './agenda/exports.front' )( '/agendas/:uid' ),
+        require( './agenda/exports.back' )( '/agendas/:uid/admin' ),
       ]
     };
 

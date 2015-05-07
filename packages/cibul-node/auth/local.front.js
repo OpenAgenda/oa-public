@@ -39,6 +39,7 @@ routes = {
     cmn.requireLogged,
     signout
   ] ],
+  
   signup: [ 'get', '/signup', [ 
     cmn.requireUnlogged,
     _loadCaptcha,

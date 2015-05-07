@@ -12,8 +12,6 @@ agendaSvc = require( '../services/agenda/agenda' ),
 
 embedSvc = require( '../services/embed/embed' ),
 
-mw = cmn.loadMiddlewares( 'search' ),
-
 perPage = 20,
 
 log = require( '../lib/logger' )( 'agenda front' ),

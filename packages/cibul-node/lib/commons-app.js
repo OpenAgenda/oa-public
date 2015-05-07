@@ -5,8 +5,6 @@
  */
 
 exports.loadApp = loadApp;                        // load module web app in main app
-exports.loadRoutes = loadRoutes;                  // load module web app routes
-exports.loadMiddlewares = loadMiddlewares;        // load specific middleware libs
 exports.loadLogger = loadLogger;
 
 exports.getCibulModel = getCibulModel;            // get model instance
@@ -30,7 +28,6 @@ exports.flashSetter = flashSetter;                // middleware. set a flash pri
 exports.checkAdministrator = checkAdministrator;  // middleware. checks that logged user is administrator of loaded agenda
 exports.checkModerator = checkModerator;
 
-exports.urlGenSetter = urlGenSetter;              // router proxy function & middleware. load url generator in request
 exports.makeGenUrl = makeGenUrl;
 exports.loadGenUrl = loadGenUrl;
 exports.getGenUrl = getGenUrl;
@@ -45,6 +42,8 @@ exports.readCookie = readCookie;
 exports.loadLegacyRoutes = loadLegacyRoutes;
 exports.loadDeprecatedRoutes = loadDeprecatedRoutes;
 exports.loadInDeprecatedRouter = loadInDeprecatedRouter;
+
+exports.loopThrough = loopThrough; // loop through a paginated ressource and apply listed middlewares
 
 /**
  * dependencies and constant declarations
@@ -78,6 +77,8 @@ lib = require( './lib' ),
 
 agendaSvc = require( '../services/agenda/agenda' ),
 
+async = require( 'async' ),
+
 genUrl;
 
 
@@ -105,84 +106,6 @@ function loadApp( parent, path, name ) {
   return app;
 
 }
-
-
-/**
- * load specific middleware routes
- */
-
-function loadMiddlewares( names ) {
-
-  if ( typeof names == 'string' ) {
-
-    names = [ names ];
-
-  }
-
-  var mw = {};
-
-  names.forEach( function( name ) {
-
-    mw[ name ] = require( './middlewares/' + name );
-
-  });
-
-  return mw;
-
-}
-
-
-
-/**
- * load app module routes and middlewares
- */
-
-function loadRoutes( app, routes, middlewares ) {
-
-  var path = app.get( 'path' ),
-
-  appName = app.get( 'name' );
-
-  for ( var name in routes ) {
-
-    app.route( path + routes[name][R_URI] ).all( _logRoute( name ) );
-
-    if ( middlewares ) {
-
-      middlewares.forEach( function( middleware ) {
-
-        app.route( path + routes[name][R_URI] ).all( middleware );
-
-      });
-
-    }
-
-    if ( routes[ name ][ R_MW ] ) {
-
-      routes[ name ][ R_MW ].forEach( function( routeMiddleware ) {
-
-        app.route( path + routes[ name ][ R_URI ] ).all( routeMiddleware );
-
-      });
-
-    }
-
-    app.route( path + routes[name][R_URI] ).all( _logRequest );
-
-    log( 'debug', 'loading route "%s" of uri "%s"', name, path + routes[name][R_URI] );
-
-    if ( typeof routes[name][R_CONTROLLER] == 'undefined' ) {
-
-      throw 'no controller is defined for route ' + name;
-
-    }
-
-    app[routes[name][R_METHOD]]( path + routes[name][R_URI], routes[name][R_CONTROLLER] );
-
-  }
-
-}
-
 
 
 /**
@@ -758,11 +681,6 @@ function flashSetter( req, res, next ) {
  * router proxy function - set url generator
  */
 
-function urlGenSetter( name, path ) {
-
-  return router.loadUrlGen( name, path );
-
-}
 
 function makeGenUrl( options ) {
 
@@ -1079,5 +997,47 @@ function loadInDeprecatedRouter( paths ) {
   var deprecatedRouter = require( './router' );
 
   deprecatedRouter.registerPaths( paths );
+
+}
+
+
+
+function loopThrough( queryParam, middlewares, finalMiddleware ) {
+
+  return function( req, res, next ) {
+
+    var paramValue = 1, hasMore = true;
+
+    req.query[ queryParam ] = 0;
+
+    async.doWhilst( function( wcb ) {
+
+      req.query[ queryParam ]++;
+
+      _runMiddlewares( middlewares, req, res, wcb );
+
+    }, function() {
+
+      return req.events.length > 0;
+
+    }, function( err ) {
+
+      if ( err ) return next( err );
+
+      finalMiddleware( req, res, next );
+
+    } );
+
+  }
+
+}
+
+function _runMiddlewares( middlewares, req, res, next ) {
+
+  async.eachSeries( middlewares, function( mw, ecb ) {
+
+    mw( req, res, ecb );
+
+  }, next );
 
 }

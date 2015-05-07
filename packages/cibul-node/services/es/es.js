@@ -7,16 +7,17 @@ legacyLib = require( 'ES' )( config.es ),
 lib = require( '../../lib/lib' );
 
 module.exports = {
-  agendas: agendas
+  agendas: agendas,
+  search: search
 }
 
 function agendas( agenda ) {
 
   return {
-    search: search
+    search: agendaSearch
   }
 
-  function search( query, options, cb ) {
+  function agendaSearch( query, options, cb ) {
 
     if ( !cb ) {
 
@@ -26,7 +27,7 @@ function agendas( agenda ) {
 
     }
 
-    _search( query, lib.extend( {
+    search( query, lib.extend( {
       agendaId: agenda.id
     }, options ), cb );
 
@@ -35,18 +36,20 @@ function agendas( agenda ) {
 }
 
 
-function _search( query, options, cb ) {
+function search( query, options, cb ) {
 
   var params = lib.extend( { 
     page: 1,
     limit: 20,
-    agendaIs: false
+    agendaId: false,
+    showAll: false
   }, options ),
 
   esQuery = _buildESQuery(
     _clean( query, params.page ),
     params.limit, 
-    params.agendaId 
+    params.agendaId,
+    params.showAll
   );
 
   legacyLib.events().search( esQuery, function( err, result ) {
@@ -63,7 +66,7 @@ function _search( query, options, cb ) {
 }
 
 
-function _buildESQuery( query, limit, agendaId ) {
+function _buildESQuery( query, limit, agendaId, showAll ) {
 
   var page, when,
 
@@ -145,6 +148,10 @@ function _buildESQuery( query, limit, agendaId ) {
     esQuery.order = [ query.order ];
 
   }
+
+  // show all events or not
+  
+  esQuery.showAll = !!showAll;
 
   return esQuery;
 

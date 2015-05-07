@@ -29,6 +29,7 @@ _onComplete,
 jobHandlers = {
   'index.rebuild' : _rebuild,
   'event.publish' : _publish( 'events' ),
+  'event.create' : _publish( 'events' ),
   'event.delete' : _delete( 'events' ),
   'event.update' : _update( 'events' ),
   'review.publish' : _publish( 'reviews' ),
@@ -213,7 +214,7 @@ function _publish( schema ) {
 
   return function( job, cb ) {
 
-    log( 'info', 'publishing %s %s', job.type, job.id );
+    log( 'info', 'publishing/creating %s %s', job.type, job.id );
 
     if ( job.id === undefined ) {
 

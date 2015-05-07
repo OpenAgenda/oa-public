@@ -8,7 +8,9 @@ config = require( '../config' ),
 
 perPage = 20,
 
-mw = cmn.loadMiddlewares( 'search' ),
+mw = {
+  search: require( '../lib/middlewares/search' )
+},
 
 lib = require( '../lib/lib' ),
 
@@ -25,6 +27,7 @@ path,
 routes = {
 
   searchEvents: [ 'get', '/events/search', [
+
     mw.search.cleanSearch,
     mw.search.buildEsQuery( perPage ),
     searchEvents

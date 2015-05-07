@@ -3,8 +3,16 @@
 module.exports = {
   extend: extend,
   filterByAttr: filterByAttr,
+  isArray: isArray,
   forEach: forEach, // for some older browsers
 };
+
+
+function isArray( obj ) {
+
+  return Object.prototype.toString.call( obj ) === '[object Array]';
+
+}
 
 
 function filterByAttr( obj, arr ) {
