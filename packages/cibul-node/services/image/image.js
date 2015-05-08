@@ -115,9 +115,9 @@ function processImage( options, cb ) {
     clear: true // if true, deletes origin file in tmp dir
   }, options ) )
 
-  .then( p.ifLoaded( 'url', true, _download ) )
+  .then( p.ifl( 'url', true, _download ) )
 
-  .then( p.ifLoaded( 'path', false, p.interrupt( 'image could not be retrieved' ) ) )
+  .then( p.ifl( 'path', false, p.interrupt( 'image could not be retrieved' ) ) )
 
   .then( _loadImageStream )
 
@@ -125,13 +125,13 @@ function processImage( options, cb ) {
 
   .then( _clearExif )
 
-  .then( p.ifLoaded( 'format', true, _crop ) )
+  .then( p.ifl( 'format', true, _crop ) )
 
-  .then( p.ifLoaded( 'format', true, _resize ) )
+  .then( p.ifl( 'format', true, _resize ) )
 
   .then( _save )
 
-  .then( p.ifIs( 'clear', true, _clearOrigin ) )
+  .then( p.ife( 'clear', true, _clearOrigin ) )
 
   .done( function( values ) {
 

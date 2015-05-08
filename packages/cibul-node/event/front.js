@@ -25,7 +25,7 @@ routes = {
   agendaEventShow: [ 'get', '/:slug/events/:eventSlug', [
     cmn.loadAgenda( 'slug' ), 
     agendaSvc.mw.load( 'slug' ),
-    eventSvc.mw.loadAgendaEvent( 'eventSlug', 'slug' ),
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
     _format,
     _formatSocialLinks,
     cmn.loadBaseData( _layoutData, 'oa.css' ),
@@ -34,7 +34,7 @@ routes = {
 
   agendaEmbedEventShow: [ 'get', '/agendas/:uid/embed/events/:eventUid', [
     agendaSvc.mw.load( 'uid' ),
-    eventSvc.mw.loadAgendaEvent( 'eventUid', 'uid' ),
+    eventSvc.mw.load( 'eventUid', 'uid' ),
     _format,
     _formatEmbedLinks,
     _formatSocialLinks,
@@ -46,7 +46,7 @@ routes = {
   agendaCustomEmbedEventShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events/:eventUid', [
     agendaSvc.mw.load( 'uid' ),
     embedSvc.mw.load( 'embedUid', 'uid' ),
-    eventSvc.mw.loadAgendaEvent( 'eventUid', 'uid' ),
+    eventSvc.mw.load( 'eventUid', 'uid' ),
     _format,
     _formatCustomEmbedLinks,
     _formatSocialLinks,

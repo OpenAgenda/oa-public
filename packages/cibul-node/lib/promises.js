@@ -5,37 +5,89 @@ wn = require( 'when/node' );
 module.exports = {
   w: w,
   wn: wn,
-  ifLoaded: ifLoaded,
-  ifIs: ifIs,
-  interrupt: interrupt
+  interrupt: interrupt,
+  ife: ifEqual( _isEqual ),
+  ifl: ifEqual( _isLoaded )
 }
 
 
-function ifLoaded( field, loaded, func ) {
 
-  return function( values ) {
+function ifEqual( compareFunc ) {
 
-    if ( (!!values[ field ]) == loaded ) return func( values );
+  return function ( requirements, func ) {
 
-    return values;
+    return function( values ) {
+
+      var matches = true;
+
+      for( var r in requirements ) {
+
+        if ( !compareFunc( r, requirements[ r ], values ) ) {
+
+          matches = false;
+
+          break;
+
+        }
+
+      }
+
+      if ( matches ) return func( values );
+
+      return values;
+
+    }
 
   }
 
 }
 
 
-function ifIs( field, expected, func ) {
+function _isEqual( key, requiredValue, values ) {
 
-  return function( values ) {
+  var compared = _retrieveValue( key, values );
 
-    if ( values[ field ] == expected ) return func( values );
-
-    return values;
-
-  }
+  return compared === requiredValue;
 
 }
 
+function _isLoaded( key, requiredValue, values ) {
+
+  var compared = _retrieveValue( key, values );
+
+  return !!compared === !!requiredValue;
+
+}
+
+function _retrieveValue( key, values ) {
+
+  var compared = values, 
+
+  keyParts = key.split( '.' ),
+
+  empty = false;
+
+  keyParts.forEach( function( keyPart ) {
+
+    if ( empty ) return;
+
+    if ( compared[ keyPart ] === undefined ) {
+
+      empty = true;
+
+    } else {
+
+      compared = compared[ keyPart ];
+
+    }
+
+  } );
+
+  if ( empty ) return;
+
+  return compared;
+
+}
 
 function interrupt( message ) {
 
