@@ -10,7 +10,7 @@ config = require( '../../config' ),
 
 async = require( 'async' ),
 
-cbm = require( 'cibulModel' )( config.db ),
+cbm = require( '../model' ),
 
 https = require( 'https' ),
 

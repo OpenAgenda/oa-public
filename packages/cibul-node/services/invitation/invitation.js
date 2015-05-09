@@ -8,7 +8,7 @@ coms = require( '../../lib/coms' ),
 
 config = require( '../../config' ),
 
-model = require( 'cibulModel' )( config.db ),
+model = require( '../model' ),
 
 async = require( 'async' ),
 
@@ -42,6 +42,11 @@ function addJob( invitation, lang, cb ) {
   coms.queue( 'jobs', { type: 'invitation', invitationId: invitation.id, action: 'processInvitation', lang: lang }, cb );
 
 }
+
+
+/**
+ * load, then dispatch invitation according to its type
+ */
 
 function processInvitation( values, cb ) {
 

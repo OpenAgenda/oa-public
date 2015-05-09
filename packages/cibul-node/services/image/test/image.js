@@ -210,7 +210,7 @@ describe( 'image service - check image size', function() {
 
     }).catch( function( e ) {
 
-      e.should.equal( 'image is too small' );
+      e.should.equal( 'image is too small: 271000' );
 
       done();
 
@@ -231,7 +231,7 @@ describe( 'image service - check image size', function() {
 
     }).catch( function( e ) {
 
-      e.should.equal( 'image is too big' );
+      e.should.equal( 'image is too big: 271000' );
 
       done();
 

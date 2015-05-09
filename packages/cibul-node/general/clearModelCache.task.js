@@ -6,7 +6,7 @@ config = require( '../config' ),
 
 cmn = require( '../lib/commons-task' ),
 
-model = cmn.getCibulModel(),
+model = require( '../services/model' ),
 
 redis = require( 'redis' ),
 
@@ -52,7 +52,7 @@ function run() {
 
   model.lib.eachQuery( 'select id from review', function( row, qcb ) {
 
-    cli.del( 'modelcache:reviews:' + row.id, qcb );
+    cli.del( 'cache:reviews:' + row.id, qcb );
 
   }, function( err ) {
 

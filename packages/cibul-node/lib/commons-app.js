@@ -61,7 +61,7 @@ w = require( 'when' ),
 
 wn = require( 'when/node' ),
 
-model = require( 'cibulModel' )( config.db, config.redis, { imagePath: config.aws.imageBucketPath, useCache: config.db.cache } ),
+model = require( '../services/model' ),
 
 router = require( './router' ),
 

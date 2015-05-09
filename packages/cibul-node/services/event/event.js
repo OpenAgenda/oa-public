@@ -5,7 +5,7 @@ var log = require( '../../lib/logger' )( 'event service' ),
 
 config = require( '../../config' ),
 
-model = require( 'cibulModel' )( config.db, config.redis, { imagePath: config.aws.imageBucketPath, useCache: config.db.cache } ),
+model = require( '../model' ),
 
 lib = require( '../../lib/lib' ),
 

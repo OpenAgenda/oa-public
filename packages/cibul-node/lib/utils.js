@@ -5,6 +5,7 @@ module.exports = {
   filterByAttr: filterByAttr,
   isArray: isArray,
   size: size,
+  fZ: fZ,
   forEach: forEach, // for some older browsers
 };
 
@@ -72,4 +73,15 @@ function extend() {
         
   return arguments[ 0 ];
 
-};
+}
+
+function fZ( n, size ) {
+
+  if ( !size ) size = 2;
+
+  var s = n + '';
+
+  while ( s.length < size ) s = '0' + s;
+
+  return s; 
+}

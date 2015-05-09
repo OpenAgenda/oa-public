@@ -42,7 +42,7 @@ describe( 'admin service', function() {
 
     adminSvc.getIndexedEventsByWeek( { year: '2014' }, function( err, result ) {
 
-      var expectedRanges = [ '13 Oct', '10 Nov', '08 Dec' ], i;
+      var expectedRanges = [ '13 oct.', '10 nov.', '08 déc.' ], i;
 
       result.length.should.equal( 3 );
 

@@ -12,6 +12,8 @@ async = require( 'async' );
 
 describe( 'signin', function() {
 
+  this.timeout( 10000 );
+
   var browser, user = {};
 
   before( function( done ) {

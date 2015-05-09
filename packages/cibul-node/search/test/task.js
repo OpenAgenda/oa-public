@@ -119,7 +119,7 @@ describe( 'search index sync', function() {
   } );
 
 
-  it( 'unpublished event should not be added to index', function( done ) {
+  it( 'unpublished event should be added to index', function( done ) {
 
     var unpublishedEvent = fixtureData.unpublishedEvent;
 
@@ -127,7 +127,7 @@ describe( 'search index sync', function() {
 
       helpers.eventExistsInIndex( unpublishedEvent.id + '@' + fixtureData.reviews[0].id, function( exists ) {
 
-        exists.should.be.false;
+        exists.should.be.true;
 
         done();
 

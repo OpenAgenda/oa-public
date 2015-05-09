@@ -10,6 +10,8 @@ userSvc = require( '../services/invitation/invitation' );
 
 describe( 'contributive agenda', function() {
 
+  this.timeout( 10000 );
+
   var browser,
 
   agenda = {},
@@ -72,7 +74,7 @@ describe( 'contributive agenda', function() {
 
     browser.visit( '/' + agenda.slug )
 
-    .then( function() {
+    .then( null, function() {
 
       browser.assert.style( '#add-event', 'display', '' );
 
@@ -103,8 +105,6 @@ describe( 'contributive agenda', function() {
 
 
   it( 'uninvited user is led to request an invitation form', function( done ) {
-
-    this.timeout( 10000 );
 
     _signin( browser, { email: user.email, password: 'bisounoursjaunedevant' } )
 

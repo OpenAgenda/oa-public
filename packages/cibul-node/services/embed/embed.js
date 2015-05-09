@@ -2,13 +2,13 @@
 
 var log = require( '../../lib/logger' )( 'embed service' ),
 
-config = require( '../../config' ),
-
-model = require( 'cibulModel' )( config.db, config.redis, { imagePath: config.aws.imageBucketPath, useCache: config.db.cache } ),
+model = require( '../model' ),
 
 lib = require( '../../lib/lib' ),
 
 coms = require( '../../lib/coms' ),
+
+agendaSvc = require( '../agenda/agenda' ),
 
 parserLib = require( './parser' );
 
@@ -32,8 +32,42 @@ function get( params, cb ) {
 
 function instanciate( data ) {
 
-  var instance = model.reviewEmbeds().instance( data );
+  var instance = model.reviewEmbeds().instance( data ),
 
-  return lib.extend( {}, instance );
+  agenda;
+
+  return lib.extend( {}, instance, {
+    getControlData: getControlData
+  } );
+
+  function getControlData( cb ) {
+
+    getAgenda( function( err, a ) {
+
+      a.getControlData( function( err, ctlData ) {
+
+        instance.decorateAgendaControlData( ctlData, cb ); 
+
+      } );
+
+    } );
+
+  }
+
+  function getAgenda( cb ) {
+
+    if ( agenda ) return cb( null, agenda );
+
+    instance.getAgenda( function( err, a ) {
+
+      if ( err ) cb( err );
+
+      agenda = agendaSvc.instanciate( a );
+
+      cb( null, agenda );
+
+    });
+
+  }
 
 }

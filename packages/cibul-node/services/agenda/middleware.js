@@ -2,8 +2,6 @@
 
 var svc,
 
-es = require( '../es/es' ),
-
 svcCsv = require( '../csv/csv' ),
 
 utils = require( '../../lib/utils' );
@@ -116,9 +114,9 @@ function searchEvents( limit, showAll ) {
 
   return function( req, res, next ) {
 
-    es.agendas( req.agenda ).search( req.query.search, {
+    req.agenda.search( req.query.search, {
       limit: limit,
-      page: req.query.page, 
+      page: req.query.page,
       showAll: showAll
     }, function( err, data ) {
 
@@ -130,7 +128,7 @@ function searchEvents( limit, showAll ) {
 
       next();
 
-    });
+    } );
 
   }
 

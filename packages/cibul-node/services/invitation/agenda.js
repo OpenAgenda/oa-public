@@ -16,7 +16,7 @@ async = require( 'async' ),
 
 w = require( 'when' ),
 
-model = require( 'cibulModel' )( config.db ),
+model = require( '../model' ),
 
 invitationsService,
 
@@ -118,6 +118,11 @@ function agendaInvitations( agenda ) {
 
   }
   
+
+  /**
+   * process stakeholder invitaiton ( admin, moderator or contributor )
+   */
+
   function _processStakeholder( type ) {
 
     return function( values ) {
@@ -183,6 +188,15 @@ function agendaInvitations( agenda ) {
 
   }
 
+
+  /**
+   * create stakeholder
+   *
+   * @param type          type of the stakeholder to be created
+   * @param values.user
+   * @param values.lang
+   */
+
   function _createStakeholder( type, values ) {
 
     var types = {};
@@ -203,19 +217,17 @@ function agendaInvitations( agenda ) {
 
     types[ TYPES.AGENDAADMIN ] = {
       label: 'an administrator',
-      is: 'isAdmistrator',
+      is: 'isAdministrator',
       set: 'setAdministrator',
       new: 'newAdministrator'
     };
-
-
 
     return w.promise( function( resolve, reject ) {
 
       var t = types[ type ];
 
       agenda[ t.is ]( values.user, function( err, is ) {
-        
+
         if ( err ) return reject( err );
 
         if ( is ) {

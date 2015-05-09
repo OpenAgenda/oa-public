@@ -10,7 +10,7 @@ moment = require( 'moment' ),
 
 async = require( 'async' ),
 
-model = require( 'cibulModel' )( config.db );
+model = require( '../model' );
 
 module.exports = {
   getIndexedEventsByWeek: getIndexedEventsByWeek,
