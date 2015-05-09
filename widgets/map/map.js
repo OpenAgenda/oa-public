@@ -865,7 +865,7 @@ function widget( elem, options ) {
     // the leaflet api pretends things are synchronous. They are not.
     setTimeout( function() {
 
-      _fitBounds( bounds, true );
+      if ( bounds ) _fitBounds( bounds, true );
 
       // takes a while for map to adjust
       
@@ -887,7 +887,7 @@ function widget( elem, options ) {
 
     log( 'setting map to base bounds: %s', JSON.stringify( baseBounds ) );
 
-    baseBounds;
+    if ( !baseBounds ) return;
     
     _fitBounds( baseBounds );
 
