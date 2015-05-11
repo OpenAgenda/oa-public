@@ -9,52 +9,46 @@
   <% } %>
   </a>
   <ul class="dropdown-menu js_dropdown_menu collapse" role="menu">
-  <li>
-    <div class="row">
-      <ul class="list-unstyled col-md-6">
-        <li>
-          <h3><%= __('General') %></h3>
-        </li>
-        <li>
-          <a href="<%= genUrl('homeEvents') %>"><%= __('My Events') %></a>
-        </li>
-        <li>
-          <a href="<%= genUrl('settingsIndex') %>"><%= __('Settings') %></a>
-        </li>
-        <li>
-          <a href="<%= genUrl('signout') %>"><%= __('Sign Out') %></a>
-        </li>
-      </ul>
-      <ul class="list-unstyled col-md-6">
-        <li><h3><%= __('Agendas') %></h3></li>
-        <li><a href="<%= genUrl('searchAgendas') %>"><%= __('Search agenda') %></a></li>
-        <li><a href="<%= genUrl('agendaNew') %>"><%= __('Create an agenda') %></a></li>
+    <li>
+      <div class="row">
+        <ul class="list-unstyled col-md-6">
+          <li>
+            <h3><%= __('General') %></h3>
+          </li>
+          <li>
+            <a href="<%= genUrl('homeEvents') %>"><%= __('My Events') %></a>
+          </li>
+          <li>
+            <a href="<%= genUrl('settingsIndex') %>"><%= __('Settings') %></a>
+          </li>
+          <li>
+            <a href="<%= genUrl('signout') %>"><%= __('Sign Out') %></a>
+          </li>
+        </ul>
+        <ul class="list-unstyled col-md-6">
+          <li><h3><%= __('Agendas') %></h3></li>
+          <li><a href="<%= genUrl('searchAgendas') %>"><%= __('Search agenda') %></a></li>
+          <li><a href="<%= genUrl('agendaNew') %>"><%= __('Create an agenda') %></a></li>
 <% if ( reviews.edited.length ) { %>
 <% for (var i=0; i<Math.min(5, reviews.edited.length); i++) { %>
-        <li>
-          <a href="<%= reviews.edited[i].url %>">
+          <li>
+            <a href="<%= reviews.edited[i].url %>">
 <% if ( reviews.edited[i].image ) { %>
-            <img src="<%= reviews.edited[i].image.replace('cibultest.', 'cibul.') %>"/>
+              <img src="<%= reviews.edited[i].image.replace('cibultest.', 'cibul.') %>"/>
 <% } %>
-            <span><%= reviews.edited[i].title %></span>
-          </a>
-        </li>
+              <span><%= reviews.edited[i].title %></span>
+            </a>
+          </li>
 <% } %>
 <% if ( reviews.edited.length >= 5 ) { %>
-        <li>
-          <a href="<%= genUrl('homeAgendas') %>"><%= __('View all') %></a>
-        </li>
+          <li>
+            <a href="<%= genUrl('homeAgendas') %>"><%= __('View all') %></a>
+          </li>
 <% } %>
 <% } %>
-      </ul>
-    </div>
-</li>
-</ul>
-  <!--<ul class="dropdown-menu js_dropdown_menu collapse" role="menu">
-    <li><a href="#">Action</a></li>
-    <li><a href="#">Another action</a></li>
-    <li><a href="#">Something else here</a></li>
-    <li class="divider"></li>
-    <li><a href="#">Separated link</a></li>
-  </ul>-->
+        </ul>
+      </div>
+    </li>
+  </ul>
+  
 </li>

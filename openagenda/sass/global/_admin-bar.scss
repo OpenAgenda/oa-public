@@ -9,19 +9,10 @@
     vertical-align: top;
     width: 100%;
 
-    &.open {
-      .list-group {
-        display: block;
-      }
-
-      .tooltip-text {
-        display: none;
-      }
-
-      .admin-selected:after {
-        opacity: 1;
-      }
+    .list-group.in {
+      display: block;
     }
+
   }
 
   .admin-info, .admin-link, .admin-selected {
@@ -162,6 +153,10 @@
       border-bottom: none;
       border-right: 1px solid rgba(255,255,255,0.38);
       width: 50%;
+    }
+
+    .admin-item.w33 {
+      width: 33%;
     }
 
     .list-group {

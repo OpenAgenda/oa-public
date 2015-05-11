@@ -32,6 +32,8 @@
         "slug" : "billy-bob"
       },
 
+      "currentState" : "draft",
+
       "placeName" : "O2 Academy Brixton",
       "address" : "211 Stockwell Road, SW9 9 London",
       "city" : "London",
@@ -108,10 +110,35 @@
     "scriptParams" : {
       "lang" : "fr",
       "ownerUid" : 743739984789,
-      "adminAgendaUids" : [ 67815685, 34634634, 89067892, 34667890, 28021981 ]
+      "agendaUid" : false,
+      "adminAgendaUids" : []
     }
   },
   "default" : {},
+  "owned" : {
+    "scriptParams" : {
+      "ownerUid" : 36234263
+    }
+  },
+  "editored" : {
+    "scriptParams" : {
+      "ownerUid" : 29229292,
+      "agendaUid" : 84653177,
+      "adminAgendaUids" : [ 84653177 ]
+    }
+  },
+  "moderated" : {
+    "scriptParams" : {
+      "ownerUid" : 1111111,
+      "agendaUid" : 87878787
+    }
+  },
+  "admined" : {
+    "scriptParams" : {
+      "ownerUid" : 11234,
+      "agendaUid" : 93761158
+    }
+  },
   "multilingual" : {
     "event" : {
       "languages" : {

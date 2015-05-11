@@ -18,6 +18,33 @@
     "pageId" : "event",
     "event" : {
       "owner": false
+    },
+    "states" : {
+      "draft" : {
+        "label" : "Draft",
+        "type" : null,
+        "agendaOnly" : false,
+        "hideAction" : true,
+        "classNames" : "js_role_event_editor js_role_agenda_moderator js_role_agenda_admin"
+      },
+      "tocontrol" : {
+        "label" : "Validation required ( not published )",
+        "type" : 0,
+        "agendaOnly" : true,
+        "classNames" : "js_role_agenda_admin"
+      },
+      "controlled" : {
+        "label" : "Validated ( not published )",
+        "type" : 1,
+        "agendaOnly" : true,
+        "classNames" : "js_role_agenda_admin"
+      },
+      "published" : {
+        "label" : "Published",
+        "type" : 2,
+        "agendaOnly" : false,
+        "classNames" : "js_role_event_editor js_role_agenda_admin"
+      }
     }
   },
   

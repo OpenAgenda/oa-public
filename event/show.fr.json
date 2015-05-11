@@ -40,5 +40,17 @@
   "Confirm"
   : "Confirmer",
   "Cancel"
-  : "Annuler"
+  : "Annuler",
+  "Event state"
+  : "Etat de l'événement",
+  "Draft"
+  : "Brouillon",
+  "Validation required ( not published )"
+  : "Contrôle requis ( non publié )",
+  "Validated ( not published )"
+  : "Validé ( non publié )",
+  "Published"
+  : "Publié",
+  "Unpublished"
+  : "Non publié"
 }

@@ -13,8 +13,10 @@ params = {
   adminAgendaUids: [],
   selectors: {
     topNav: '.js_top_nav',
-    controls: '.js_admin_controls'
+    controls: '.js_admin_controls',
+    item: '.js_admin_item'
   },
+  displaySelectors: false,
   classes: {
     displayNone: 'display-none'
   },
@@ -42,7 +44,11 @@ function process( session, options ) {
 
     _display();
 
+    return true;
+
   };
+
+  return false;
     
 }
 
@@ -52,6 +58,12 @@ function hide() {
   if (typeof log !== 'undefined') log( 'hiding' );
 
   cn.addClass( cn.el( params.selectors.controls ), params.classes.displayNone );
+
+  cn.forEach( cn.els( params.selectors.item ), function( item ) {
+
+    cn.addClass( item, params.classes.displayNone );
+
+  } );
 
 }
 
@@ -92,6 +104,22 @@ function _test( session ) {
 }
 
 function _display() {
+
+  if ( !params.displaySelectors ) { 
+
+    params.displaySelectors = [ params.selectors.item ];
+
+  }
+
+  cn.forEach( params.displaySelectors ? params.displaySelectors : [ params.selectors.item ], function( selector ) {
+
+    cn.forEach( cn.els( selector ), function( item ) {
+
+      cn.removeClass( item, params.classes.displayNone );
+
+    });
+
+  });
 
   cn.removeClass( cn.el( params.selectors.controls ), params.classes.displayNone );
 
