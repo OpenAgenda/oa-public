@@ -45,12 +45,14 @@
   : "Etat de l'événement",
   "Draft"
   : "Brouillon",
-  "Validation required ( not published )"
-  : "Contrôle requis ( non publié )",
-  "Validated ( not published )"
-  : "Validé ( non publié )",
+  "To complete"
+  : "A compléter",
+  "Ready for publishing"
+  : "Prêt à publier",
   "Published"
   : "Publié",
   "Unpublished"
-  : "Non publié"
+  : "Non publié",
+  "back to list"
+  : "retour à la liste"
 }
