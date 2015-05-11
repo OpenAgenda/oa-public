@@ -286,6 +286,7 @@ config = {
     multiCore: false,
     mainChannel: 'maindev',
     logNameSpaces: 'oa:*',
+    //useCache: false,
     //logNameSpaces: '*',
     db: {
       database: 'oadev',

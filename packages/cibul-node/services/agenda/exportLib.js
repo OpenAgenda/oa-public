@@ -34,14 +34,23 @@ function decorateEvents( agenda, events, toDecorate, options, cb ) {
       eventSlug: event.slug
     }, { protocol: 'https://' } );
 
-    if ( params.includePrivateData ) {
-
-      toDecorate[ i ].isPublished = event.isPublished;
-      toDecorate[ i ].isDraft = event.isDraft;
-
-    }
-
     async.waterfall( [
+
+      function( wcb ) {
+
+        if ( !params.includePrivateData ) return wcb();
+
+        event.getState( function( err, state ) {
+
+          if ( err ) return wcb( err );
+
+          toDecorate[ i ].state = state;
+
+          wcb();
+
+        });
+
+      },
 
       function( wcb ) {
 

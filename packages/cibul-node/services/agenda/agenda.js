@@ -177,6 +177,15 @@ function instanciate( data ) {
 
     });
 
+    eInst.getOrganization( instance.id, function( err, org ) {
+
+      if ( org ) parsed.org = {
+        l: org.label,
+        s: org.slug
+      }
+
+    });
+
     if ( eInst.hasValidLocation() ) {
 
       parsed.l[ eInst.getLocationName().slug ] = {

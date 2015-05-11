@@ -2,7 +2,7 @@
 
 var svc,
 
-svcCsv = require( '../csv/csv' ),
+svcCsv = require( '../csv' ),
 
 utils = require( '../../lib/utils' );
 
@@ -244,7 +244,7 @@ function renderCsv( req, res, next ) {
 
 function _appendMapping( agenda, baseMapping, includePrivateData ) {
 
-  var mapping = baseMapping.concat( includePrivateData ? [ 'isDraft', 'isPublished' ] : [] ),
+  var mapping = baseMapping.concat( includePrivateData ? [ 'state' ] : [] ),
 
   customFields = agenda.getCustomFieldsConfig();
 

@@ -47,6 +47,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
   }
 
+
   function _labelize( state ) {
 
     var labels = {};
@@ -58,6 +59,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
     return labels[ state ];
 
   }
+
 
   function setState( newState, cb ) {
 
@@ -96,7 +98,8 @@ function _publish( instance, cb ) {
 
   async.series( [
     async.apply( instance.undraft, true ),
-    async.apply( instance.setPublished, true )
+    async.apply( instance.setPublished, true ),
+    async.apply( instance.setValidated, true )
   ], cb );
 
 }

@@ -82,6 +82,10 @@ function _writeRow( stream, values, mapping ) {
 
       });
 
+    } else if ( typeof value === 'boolean' ) {
+
+      csvRow[ dstField ] = value ? '1' : '';
+
     } else {
 
       csvRow[ dstField ] = value ? value : '';

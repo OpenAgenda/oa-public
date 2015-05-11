@@ -38,7 +38,7 @@ function instanceCache( type, instance, methods, clearers ) {
       clear: function() {}
     }});
 
-    return;
+    return instance;
 
   }
 
