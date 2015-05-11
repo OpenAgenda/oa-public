@@ -1,78 +1,35 @@
 "use strict";
 
+var model = require( '../../model' ),
 
-var log = require( '../../lib/logger' )( 'event service' ),
+state = require( './state' ),
 
-config = require( '../../config' ),
+utils = require( '../../../lib/utils' ),
 
-model = require( '../model' ),
+coms = require( '../../../lib/coms' ),
 
-lib = require( '../../lib/lib' ),
+config = require( '../../../config' );
 
-coms = require( '../../lib/coms' ),
-
-imageSvc = require( '../image/image' ),
-
-s3Svc = require( '../file/s3' ),
-
-fileSvc = require( '../file/file' ),
-
-exportLib = require( './exportLib' );
-
-module.exports = {
-  get: get,
-  create: create,
-  share: require( './share' ),
-  instanciate: instanciate,
-  list: model.events().list
-}
-
-module.exports.mw = require( './middleware' )( module.exports );
-
-module.exports.exports = require( './exportLib' )( module.exports );
-
-
-function get( params, cb ) {
-
-  model.events().get( params, function( err, result ) {
-
-    if ( err ) return cb( err );
-
-    cb( null, result ? instanciate( result ) : null );
-
-  });
-
-}
-
-
-function create( data, cb ) {
-
-  model.events().create( data, function( err, created ) {
-
-    if ( err ) return cb( err )
-
-    coms.publish( config.mainChannel, { name: 'event.publish', values: { id: created.id } } );
-
-    get( { id: created.id }, cb );
-
-  } );
-
-}
-
-
-function instanciate( data ) {
+module.exports = function( data ) {
 
   var instance = model.events().instance( data );
 
   instance.onSave = onSave;
 
-  return lib.extend( {}, instance, {
+  var svcInstance = utils.extend( {}, instance, {
     setImage: setImage,
     getImage: _imageGetter( 'getImage' ),
     getThumbnail: _imageGetter( 'getThumbnail' ),
     getFullImage: _imageGetter( 'getFullImage' ),
     remove: remove
   });
+
+  state( svcInstance, instance, [
+    'setState',
+    'getState'
+  ] );
+
+  return svcInstance;
 
   // assuming for now that input is url
   function setImage( url, cb ) {

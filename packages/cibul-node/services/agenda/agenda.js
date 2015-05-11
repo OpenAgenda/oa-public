@@ -14,7 +14,7 @@ es = require( '../es/es' ),
 
 async = require( 'async' ),
 
-eventSvc = require( '../event/event' ),
+eventSvc = require( '../event' ),
 
 cache = require( '../cache' ),
 

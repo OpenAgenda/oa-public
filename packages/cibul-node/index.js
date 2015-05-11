@@ -3,7 +3,7 @@
 module.exports = {
   services: {
     location: require( './services/location/location' ),
-    event: require( './services/event/event' ),
+    event: require( './services/event' ),
     agenda: require( './services/agenda/agenda' ),
     embed: require( './services/embed/embed' ),
     nominatim: require( './services/nominatim/nominatim' )

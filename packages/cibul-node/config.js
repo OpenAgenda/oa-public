@@ -103,7 +103,7 @@ config = {
       selectionLimit: 30  // maximum number of events displayable in the selection of a newsletter campaign
     },
     twitter: {
-      name: '@cibul'
+      name: '@OpenAgendaFR'
     },
     bridges: {
       swapcard: {

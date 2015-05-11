@@ -12,7 +12,7 @@ agendaSvc = require( '../services/agenda/agenda' ),
 
 embedSvc = require( '../services/embed/embed' ),
 
-eventSvc = require( '../services/event/event' ),
+eventSvc = require( '../services/event' ),
 
 timeHelper = require( 'cibulTemplates' ).helpers.time,
 
@@ -296,7 +296,8 @@ function _format( req, res, next ) {
   async.series([
     req.event.getOwner,
     req.event.getAgendaReferences,
-    req.event.getAdminAgendas
+    req.event.getAdminAgendas,
+    req.event.getState
   ], function( err, results ) {
 
     if ( err ) return next( err );
@@ -320,10 +321,11 @@ function _format( req, res, next ) {
       ticketLink: req.event.getTicketLink(),
       owner: results[ 0 ],
       agendaReferences: results[ 1 ],
+      allAgendaReferences: results[ 1 ],
       adminAgendas: results[ 2 ],
-      languages: false
+      languages: false,
+      currentState: results[ 3 ]
     };
-
 
     if ( req.event.locations.length ) {
 
@@ -568,6 +570,7 @@ function _layoutData( req, res ) {
   };
 
   data.scriptParams = {
+    agendaUid: req.agenda ? req.agenda.uid : false,
     ownerUid: req.formatted.owner.uid,
     adminAgendaUids: req.formatted.adminAgendas ? req.formatted.adminAgendas.map( function( a ) { return a.uid; } ) : []
   };

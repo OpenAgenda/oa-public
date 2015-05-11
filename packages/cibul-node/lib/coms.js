@@ -141,6 +141,8 @@ function subscribe( channelName, cb ) {
 
   cli.subscribe( channelName );
 
+  return cli;
+
 }
 
 function clearQueue( queueName, cb ) {

@@ -6,7 +6,7 @@ agendaSvc = require( '../services/agenda/agenda' ),
 
 cmn = require( '../lib/commons-app' ),
 
-eventSvc = require( '../services/event/event' ),
+eventSvc = require( '../services/event' ),
 
 log = require( '../lib/logger' )( 'agenda exports front' ),
 

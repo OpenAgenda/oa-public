@@ -2,7 +2,9 @@
 
 var svc,
 
-p = require( '../../lib/promises' ), w = p.w;
+p = require( '../../lib/promises' ), w = p.w,
+
+log = require( '../../lib/logger' )( 'event middleware' );
 
 module.exports = function( eventService ) {
 
@@ -11,7 +13,8 @@ module.exports = function( eventService ) {
   return {
     load: loadEvent,
     cleanEvents: cleanEvents,
-    search: search
+    search: search,
+    checkEventEditor: checkEventEditor
   }
 
 }
@@ -29,19 +32,19 @@ function loadEvent( paramName, fieldName ) {
 
     .then( _get( paramName, fieldName ) )
 
-    .then( p.ifl( { event: true }, _selectLanguage ) )
+    .then( _selectLanguage )
 
     .then( _loadAccessRequired )
 
-    .then( p.ife( { 'req.agenda': true, accessRequired: true }, _loadUserAgendaCreds ) )
+    .then( p.ifl( { 'req.agenda' : true }, _loadAgendaContext ) )
+
+    .then( p.ifl( { 'req.agenda': true, accessRequired: true }, _loadUserAgendaCreds ) )
 
     .then( p.ifl( { accessRequired: true, hasCreds: false }, _loadOwnershipCreds ) )
 
-    .then( p.ifl( { accessRequired: true, hasCreds: false, 'event.isDraft': false }, _redirectToCanonical ) )
+    .then( p.ifl( { accessRequired: true, hasCreds: false }, _redirectToCanonicalIfNotDraft ) )
 
     .done( function( v ) {
-
-      if ( !v.event ) return next( { code: 404 } );
 
       if ( v.redirect ) return res.redirect( v.redirect.code, v.redirect.to );
 
@@ -51,7 +54,7 @@ function loadEvent( paramName, fieldName ) {
 
       next();
 
-    });
+    }, next );
 
   }
 
@@ -95,12 +98,54 @@ function cleanEvents( req, res, next ) {
 }
 
 
-function _redirectToCanonical( v ) {
+function checkEventEditor( req, res, next ) {
 
-  v.redirect = {
-    code: 301,
-    to: v.req.genUrl( 'eventShow', { eventSlug: v.event.slug } )
-  };
+  if ( req.session.userId == req.event.ownerId ) return next();
+
+  req.event.getAdminAgendas( function( err, admins ) {
+
+    if ( err ) return next( err );
+
+    if ( admins.filter( function( a ) {
+
+      return req.agenda.id == a.id;
+
+    }).length ) return next();
+
+    next( { code: 403 } );
+
+  });
+
+}
+
+
+function _loadAgendaContext( v ) {
+
+  return w.promise( function( rs, rj ) {
+
+    v.event.loadAgendaContext( v.req.agenda.id, function( err ) {
+
+      if ( err ) return rj( err );
+
+      rs( v );
+
+    });
+
+  });
+
+}
+
+
+function _redirectToCanonicalIfNotDraft( v ) {
+
+  if ( !v.event.getIsDraft() ) {
+
+    v.redirect = {
+      code: 301,
+      to: v.req.genUrl( 'eventShow', { eventSlug: v.event.slug } )
+    };
+
+  }
 
   return v;
 
@@ -131,9 +176,11 @@ function _selectLanguage( v ) {
 
 function _loadOwnershipCreds( v ) {
 
-  if ( !v.req.session.logged ) return rs( v );
+  if ( !v.req.session.logged ) return v;
 
   if ( v.event.ownerId == v.req.session.userId ) {
+
+    log( 'user is owner' );
 
     v.hasCreds = true;
 
@@ -187,7 +234,7 @@ function _setHasCreds( v ) {
 
 function _loadAccessRequired( v ) {
 
-  v.accessRequired = ( v.req.agenda && !v.event.isPublishedOn( v.req.agenda ) ) || v.event.isDraft;
+  v.accessRequired = ( v.req.agenda && !v.event.isPublishedOn( v.req.agenda ) ) || v.event.getIsDraft();
 
   return v;
 
@@ -216,11 +263,19 @@ function _get( paramName, fieldName ) {
 
       if ( v.req.agenda ) getParams.reviewId = v.req.agenda.id;
 
+      v.req.log( 'getting event with params %s', JSON.stringify( getParams ) );
+
       svc.get( getParams, function( err, e ) {
 
         if ( err ) return rj( err );
 
-        if ( !e ) return rj( { code: 404 } );
+        if ( !e ) {
+
+          v.req.log( 'did not find event' );
+
+          return rj( { code: 404 } );
+
+        }
 
         v.event = e;
 

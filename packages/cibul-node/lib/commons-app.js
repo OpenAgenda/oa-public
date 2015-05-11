@@ -27,6 +27,7 @@ exports.checkCredential = checkCredential;        // middleware. check that requ
 exports.flashSetter = flashSetter;                // middleware. set a flash prior to redirect
 exports.checkAdministrator = checkAdministrator;  // middleware. checks that logged user is administrator of loaded agenda
 exports.checkModerator = checkModerator;
+exports.checkAdminOrModerator = checkAdminOrModerator;
 
 exports.makeGenUrl = makeGenUrl;
 exports.loadGenUrl = loadGenUrl;
@@ -243,6 +244,24 @@ function checkModerator( req, res, next ) {
     errorResponse( req, res, err );
 
   } );
+
+}
+
+
+function checkAdminOrModerator( req, res, next ) {
+
+  async.parallel( [
+    async.apply( req.agenda.isAdministrator, { id: req.session.userId } ),
+    async.apply( req.agenda.isModerator, { id: req.session.userId } )
+  ], function( err, results ) {
+
+    if ( err ) return next( err );
+
+    if ( !results[ 0 ] && !results[ 1 ] ) return next( { code: 403 } );
+
+    next();
+
+  })
 
 }
 

@@ -58,6 +58,7 @@ module.exports = function( enabledTypes, cb ) {
         require( './general/front' )( '' ),
         require( './search/front' )( '' ),
         require( './event/front' )( '' ),
+        require( './event/back' )( '' ),
         require( './auth/local.front' )( '' ),
         require( './auth/facebook.front' )( '/facebook' ),
         require( './auth/twitter.front' )( '/twitter' ),

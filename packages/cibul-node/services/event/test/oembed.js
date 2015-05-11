@@ -4,9 +4,7 @@ process.env.NODE_ENV = 'test';
 
 var oembedSvc = require( '../oembed' ),
 
-config = require( '../../../config' ),
-
-cbm = require( 'cibulModel' )( config.db ),
+cbm = require( '../../model' ),
 
 should = require( 'should' ),
 
@@ -14,13 +12,13 @@ fixtureSets = require( 'cibulModel/test/fixtures/sets' )( cbm );
 
 describe( 'oembed service', function() {
 
+  this.timeout( 10000 );
+
   var eInst = {};
 
   before( fixtureSets.prepareOneEventInstance( eInst, 'evenement-multimedia' ) );
 
   it( 'oembed codes are retrieved', function( done ) {
-
-    this.timeout( 4000 );
 
     oembedSvc.process( { id: eInst.id }, function( err ) {
 

@@ -19,6 +19,7 @@ routes = {
   agendaEventAdd: [ 'get', '/add/:eventUid', [
     cmn.requireLogged,
     cmn.loadEvent( 'eventUid', 'uid' ),
+    _verifyAlreadyAdded,
     eventAdd
   ] ],
 
@@ -39,7 +40,8 @@ module.exports = function( p ) {
   router.pre( [
     cmn.flashSetter,
     cmn.loadSession,
-    cmn.loadAgenda( 'slug' )
+    cmn.loadAgenda( 'slug' ),
+    cmn.checkAdminOrModerator
   ] );
 
   return {
@@ -200,6 +202,28 @@ function eventRemove( req, res ) {
   });
 
 }
+
+
+function _verifyAlreadyAdded( req, res, next ) {
+
+  req.agenda.hasEvent( req.event, function( err, has ) {
+
+    if ( has ) {
+
+      res.setFlash( req, 'event is already part of agenda' );
+
+      res.redirect( req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } ) );
+
+      return;
+
+    }
+
+    next();
+
+  } );
+
+}
+
 
 function _redirectOnActionComplete( req, res, message ) {
 

@@ -102,5 +102,7 @@
   "back"
   : "retour",
   "The info has been updated"
-  : "L'info a été mise à jour"
+  : "L'info a été mise à jour",
+  "The event state has changed"
+  : "L'état de l'événement a changé"
 }
