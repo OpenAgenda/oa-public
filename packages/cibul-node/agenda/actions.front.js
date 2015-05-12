@@ -19,6 +19,7 @@ routes = {
   agendaEventAdd: [ 'get', '/add/:eventUid', [
     cmn.requireLogged,
     cmn.loadEvent( 'eventUid', 'uid' ),
+    cmn.checkAdminOrModerator,
     _verifyAlreadyAdded,
     eventAdd
   ] ],
@@ -26,6 +27,7 @@ routes = {
   agendaEventRemove: [ 'get', '/remove/:eventUid', [
     cmn.requireLogged,
     cmn.loadEvent( 'eventUid', 'uid' ),
+    cmn.checkAdminOrModerator,
     eventRemove
   ] ]
 
@@ -40,8 +42,7 @@ module.exports = function( p ) {
   router.pre( [
     cmn.flashSetter,
     cmn.loadSession,
-    cmn.loadAgenda( 'slug' ),
-    cmn.checkAdminOrModerator
+    cmn.loadAgenda( 'slug' )
   ] );
 
   return {
