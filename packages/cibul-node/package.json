@@ -1,5 +1,8 @@
 {
   "name" : "cibulNode",
+  "version" : "0.0.1",
+  "private" : true,
+  "description" : "OpenAgenda main app",
   "dependencies" : {
     "express" : "~4.9",
     "body-parser" : "1.8.2",
