@@ -17,6 +17,7 @@ config = {
     root: 'https://openagenda.com',
     googleAnalyticsId: 'UA-60305866-1',
     useCache: true,
+    adminEmail: 'kaore@openagenda.com',
     db: {
       database: 'oa',
       host: 'cibul.cjlxznnlwwtq.eu-west-1.rds.amazonaws.com',

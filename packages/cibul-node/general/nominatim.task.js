@@ -2,6 +2,8 @@ var log = require( '../lib/logger' )( 'nominatim task' ),
 
 lib = require( '../lib/lib' ),
 
+config = require( '../config' ),
+
 cmn = require( '../lib/commons-task' ),
 
 model = cmn.getCibulModel(),
@@ -88,7 +90,10 @@ function run() {
 
         log( 'processing location %s', l.id );
 
-        nom.reverse( l.latitude, l.longitude, { language: 'fr' }, function( err, result ) {
+        nom.reverse( l.latitude, l.longitude, {
+          language: 'fr',
+          email: config.adminEmail
+        }, function( err, result ) {
           
           var updates = { store: l.store };
 

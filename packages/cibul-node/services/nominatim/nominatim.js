@@ -1,10 +1,10 @@
-var http = require('http'),
+var https = require('https'),
 
 host = 'nominatim.openstreetmap.org',
 
 geocodePath = '/search/{address}?format=json&addressdetails=1&limit=1&accept-language={language}'
 
-reversePath = '/reverse?format=json&lat={latitude}&lon={longitude}&zoom=18&addressdetails=1&accept-language={language}',
+reversePath = '/reverse?format=json&lat={latitude}&lon={longitude}&zoom=18&addressdetails=1&accept-language={language}&email={email}',
 
 log = require( 'debug' )( 'nominatim' ),
 
@@ -25,12 +25,14 @@ module.exports.geocode = function( address, options, cb ) {
   }
 
   var params = lib.extend({
-    language: 'en'
+    language: 'en',
+    email: ''
   }, options ),
 
   path = geocodePath
     .replace( '{address}', encodeURIComponent( address ) )
-    .replace( '{language}', params.language );
+    .replace( '{language}', params.language )
+    .replace( '{email}', params.email )
 
   log( 'requesting: %s', path );
 
@@ -117,10 +119,9 @@ module.exports.clean = function(data) {
 
 function _get( path, cb ) {
 
-  http.get( {
+  https.get( {
     host: host,
-    path: path,
-    'User-Agent': 'OpenAgenda'
+    path: path
   }, function( res ) {
 
     var body = '';
