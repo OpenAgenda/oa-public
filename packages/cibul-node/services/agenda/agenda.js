@@ -158,7 +158,7 @@ function instanciate( data ) {
   function _parseAndAppendEvent( eIndex, event ) {
 
     var parsed = {
-      uid: event.uid,
+      u: event.uid,
       l: {}
     },
 
