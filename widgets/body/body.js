@@ -149,16 +149,22 @@ function widget( elem, options ) {
 
     var values = {},
 
-    currentQueryValues = controller.getCurrentQuery();
+    currentQueryValues = controller.getCurrentQuery(),
+
+    hrefQuery = ( href.indexOf( '?') === -1 ? {} : qs.parse( href.substr( href.indexOf( '?' ) + 1 ) ) ).search || {};
 
     if ( _isEventLink( href ) ) {
 
       // extract actual uid here
       values.uid = _getEventUid( href );
 
-    } else if ( _isAgendaLink( href ) && currentQueryValues.uid ) {
+    } else if ( _isAgendaLink( href ) ) {
 
-      values.uid = null;
+      // specific rules for updating navigation filter
+
+      if ( currentQueryValues.uid ) values.uid = null;
+
+      if ( hrefQuery && hrefQuery.location ) values.location = hrefQuery.location;
 
     }
 
@@ -185,11 +191,31 @@ function widget( elem, options ) {
 
         } else if ( _isAgendaLink( message.load ) ) {
 
-          var currentQuery = controller.getCurrentQuery();
+          var currentQuery = controller.getCurrentQuery(),
 
-          delete currentQuery.uid;
+          newSrc, queryChangeRequest;
 
-          elem.setAttribute( 'src', _clean( message.load + '?' + qs.stringify( { search: currentQuery } ) ) );
+          if ( message.load.indexOf( '?' ) === -1 ) {
+
+            // agenda link has no associated filter
+
+            delete currentQuery.uid;
+
+            newSrc = _clean( message.load + '?' + qs.stringify( { search: currentQuery } ) );
+
+          } else {
+
+            // frame is requesting a change in filter
+
+            queryChangeRequest = ( qs.parse( message.load.substr( message.load.indexOf( '?' ) + 1 ) ) || {} ).search;
+
+            if ( currentQuery.passed ) queryChangeRequest.passed = 1;
+
+            newSrc = _clean( message.load.substr( 0, message.load.indexOf( '?' ) + 1 ) + qs.stringify( { search: queryChangeRequest } ) );
+
+          }
+
+          elem.setAttribute( 'src', newSrc );
 
         } else {
 
