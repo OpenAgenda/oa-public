@@ -164,7 +164,19 @@ function widget( elem, options ) {
 
       if ( currentQueryValues.uid ) values.uid = null;
 
-      if ( hrefQuery && hrefQuery.location ) values.location = hrefQuery.location;
+      if ( cn.size( hrefQuery ) ) {
+
+        // force clear
+        for( var n in currentQueryValues ) {
+
+          values[ n ] = null;
+
+        }
+
+        // put requested new values
+        cn.extend( values, hrefQuery );
+
+      }
 
     }
 
