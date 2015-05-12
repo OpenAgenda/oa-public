@@ -170,7 +170,7 @@ module.exports = function( enabledTypes, cb ) {
       
       require( './search/task' ).load( { bootOffset: 12483 } );
 
-      // require( './general/nominatim.task' ).load( { bootOffset: 10000, period: 60000*5 } );
+      require( './general/nominatim.task' ).load( { bootOffset: 10000, period: 60000*5 } );
 
       require( './agenda_bridges/task' ).load( { bootOffset: 3000 } );
 
