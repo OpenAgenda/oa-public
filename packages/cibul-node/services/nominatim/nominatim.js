@@ -135,7 +135,7 @@ function _get( path, cb ) {
         
       } catch( e ) {
 
-        return cb( 'could not parse response' );
+        return cb( 'could not parse response: ' + body );
 
       }
 

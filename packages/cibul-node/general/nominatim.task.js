@@ -18,7 +18,7 @@ _onComplete,
 
 _onStart,
 
-requestInterval = 2000,
+requestInterval = 4000,
 
 
 // map of db fields by nominatim fields
@@ -90,7 +90,7 @@ function run() {
 
         nom.reverse( l.latitude, l.longitude, { language: 'fr' }, function( err, result ) {
           
-          var updates = { store:{} };
+          var updates = { store: l.store };
 
           if ( err ) {
 
