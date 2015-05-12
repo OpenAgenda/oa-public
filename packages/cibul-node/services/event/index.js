@@ -11,12 +11,6 @@ lib = require( '../../lib/lib' ),
 
 coms = require( '../../lib/coms' ),
 
-imageSvc = require( '../image/image' ),
-
-s3Svc = require( '../file/s3' ),
-
-fileSvc = require( '../file/file' ),
-
 exportLib = require( './exportLib' );
 
 module.exports = {

@@ -8,7 +8,13 @@ utils = require( '../../../lib/utils' ),
 
 coms = require( '../../../lib/coms' ),
 
-config = require( '../../../config' );
+config = require( '../../../config' ),
+
+imageSvc = require( '../../image/image' ),
+
+s3Svc = require( '../../file/s3' ),
+
+fileSvc = require( '../../file/file' );
 
 module.exports = function( data ) {
 
