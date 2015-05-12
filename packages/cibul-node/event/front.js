@@ -381,6 +381,13 @@ function _formatEmbedLinks( req, res, next ) {
     uid: req.params.uid
   } );
 
+  req.formatted.locationLink = req.genUrl( 'embedShow', {
+    uid: req.params.uid,
+    search: {
+      location: req.event.getLocationName().slug
+    }
+  });
+
   req.formatted.backLabel = i18n( 'back', req.lang );
 
   next();
@@ -398,6 +405,14 @@ function _formatCustomEmbedLinks( req, res, next ) {
     uid: req.params.uid, 
     embedUid: req.params.embedUid
   } );
+
+  req.formatted.locationLink = req.genUrl( 'customEmbedShow', {
+    uid: req.params.uid,
+    embedUid: req.params.embedUid,
+    search: {
+      location: req.event.getLocationName().slug
+    }
+  });
 
   req.formatted.backLabel = i18n( 'back', req.lang );
 

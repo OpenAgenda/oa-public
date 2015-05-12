@@ -24,6 +24,9 @@
     "name" : "BackLabel",
     "mapTo" : "backLabel"
   }, {
+    "name" : "LocationLink",
+    "mapTo" : "locationLink"
+  }, {
     "name": "DateRange", 
     "mapTo": "dateRange" 
   }, {

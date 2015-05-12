@@ -80,7 +80,6 @@ routes = {
     embedSvc.mw.browserCache,
     agendaSvc.mw.search( perPage ),
     _format,
-    _formatEmbedData,
     _formatCustomEmbedLinks,
     embedSvc.mw.renderEventItems,
     showXhr( 'agenda/embedShow' ),
@@ -374,12 +373,6 @@ function _formatAgendaData( mode ) {
 
 }
 
-
-function _formatEmbedData( req, res, next ) {
-
-  next();
-
-}
 
 
 function _loadTemplateUris( req, res, next ) {

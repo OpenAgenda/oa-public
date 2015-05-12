@@ -33,6 +33,10 @@
   {FreeText}
   </div>
 
+  <div class="location">
+    <a href="{LocationLink}">{LocationName}</a>
+  </div>
+
   <section class="dates">
     <ul>
 {block:Timings}
