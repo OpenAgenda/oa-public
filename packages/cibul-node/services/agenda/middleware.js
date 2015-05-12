@@ -219,10 +219,10 @@ function buildCsv( includePrivateData ) {
       res.writeHead( 200, {
         'Content-Type': 'text/csv',
         'content-disposition': [
-          'attachment; filename=\'',
+          'attachment; filename=\"',
           req.agenda.title,
           '.', _stringifiedNow(),
-          '.csv\'' ].join('')
+          '.csv\"' ].join('')
       } );
 
     }
