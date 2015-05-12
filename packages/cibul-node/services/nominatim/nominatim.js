@@ -1,8 +1,10 @@
 var http = require('http'),
 
-geocodePath = 'http://nominatim.openstreetmap.org/search/{address}?format=json&addressdetails=1&limit=1&accept-language={language}'
+host = 'nominatim.openstreetmap.org',
 
-reversePath = 'http://nominatim.openstreetmap.org/reverse?format=json&lat={latitude}&lon={longitude}&zoom=18&addressdetails=1&accept-language={language}',
+geocodePath = '/search/{address}?format=json&addressdetails=1&limit=1&accept-language={language}'
+
+reversePath = '/reverse?format=json&lat={latitude}&lon={longitude}&zoom=18&addressdetails=1&accept-language={language}',
 
 log = require( 'debug' )( 'nominatim' ),
 
@@ -115,7 +117,11 @@ module.exports.clean = function(data) {
 
 function _get( path, cb ) {
 
-  http.get( path, function( res ) {
+  http.get( {
+    host: host,
+    path: path,
+    'User-Agent': 'OpenAgenda'
+  }, function( res ) {
 
     var body = '';
 
