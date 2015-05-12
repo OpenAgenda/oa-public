@@ -42,7 +42,7 @@ var widget = function( elem, options ) {
 
   what = null,
 
-  inputElem,
+  inputElem, buttonElem,
 
   waiting = false, // buffer input to limit server request frequency
 
@@ -123,6 +123,8 @@ var widget = function( elem, options ) {
       
     }
 
+    buttonElem = cn.el( elem, 'button' );
+
     inputElem = cn.el( elem, 'input' );
 
   },
@@ -131,9 +133,21 @@ var widget = function( elem, options ) {
 
     cn.removeEvent( inputElem, [ 'keyup', 'blur' ], _onInput );
 
+    if ( buttonElem ) cn.removeEvent( buttonElem, 'click', _onClick );
+
     inputElem.value = what;
 
     cn.addEvent( inputElem, [ 'keyup', 'blur' ], _onInput );
+
+    if ( buttonElem ) cn.addEvent( buttonElem, 'click', _onClick );
+
+  },
+
+  _onClick = function( e ) {
+
+    cn.preventDefault( e );
+
+    _processInput();
 
   },
 
