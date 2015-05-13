@@ -11,6 +11,10 @@ module.exports = {
   onBoundsChangeCallback: false,
   zooming: false,
   labels: {
+    it: {
+      mapSync: 'ricerca quando muovo la carta',
+      events: 'eventi'
+    },
     fr: {
       mapSync: 'rechercher quand je déplace la carte',
       events: 'événements'

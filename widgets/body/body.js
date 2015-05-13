@@ -76,7 +76,7 @@ function widget( elem, options ) {
 
   controller,
 
-  agendaRes, eventRes;
+  agendaRes, eventRes, lang;
 
   ( function() {
 
@@ -140,7 +140,7 @@ function widget( elem, options ) {
       
     }
 
-    elem.setAttribute( 'src', res );
+    _setSrc( res );
 
   }
 
@@ -151,7 +151,7 @@ function widget( elem, options ) {
 
     currentQueryValues = controller.getCurrentQuery(),
 
-    hrefQuery = ( href.indexOf( '?') === -1 ? {} : qs.parse( href.substr( href.indexOf( '?' ) + 1 ) ) ).search || {};
+    hrefQuery = _readQueryPart( href, 'search', {} );
 
     if ( _isEventLink( href ) ) {
 
@@ -197,7 +197,7 @@ function widget( elem, options ) {
 
         if ( _isEventLink( message.load ) ) {
 
-          elem.setAttribute( 'src', _clean( message.load ) );
+          _setSrc( _clean( message.load ) );
 
           _goToFrameTop();
 
@@ -227,7 +227,7 @@ function widget( elem, options ) {
 
           }
 
-          elem.setAttribute( 'src', newSrc );
+          _setSrc( newSrc );
 
         } else {
 
@@ -291,6 +291,21 @@ function widget( elem, options ) {
 
   }
 
+  function _setSrc( href ) {
+
+    var parts = href.split( '?' ),
+
+    path = parts[ 0 ], 
+
+    query = qs.parse( parts.length > 1 ? parts[ 1 ] : {} );
+
+    // insert language
+    if ( lang ) query.lang = lang;
+
+    elem.setAttribute( 'src', path + '?' + qs.stringify( query ) );
+
+  }
+
 
   function _isEventLink( href ) {
 
@@ -304,7 +319,7 @@ function widget( elem, options ) {
 
     stripped = href.replace(/http(s|):/, '').split( /\?|#/ )[ 0 ];
 
-    return stripped.match( eventRes.replace( ':eventUid', '[0-9]+') );
+    return stripped.match( eventRes.replace( ':eventUid', '[0-9]+').split( '?' )[ 0 ] );
 
   }
 
@@ -319,7 +334,7 @@ function widget( elem, options ) {
 
     }
 
-    return agendaRes + '?' + query;
+    return agendaRes + ( agendaRes.indexOf( '?' ) == -1 ? '?' : '&' ) + query;
 
   }
 
@@ -336,7 +351,7 @@ function widget( elem, options ) {
 
     stripped = href.replace(/http(s|):/, '').split( /\?|#/ )[ 0 ];
 
-    return stripped.match( agendaRes );
+    return stripped.match( agendaRes.split( '?' )[ 0 ] );
 
   }
 
@@ -373,7 +388,11 @@ function widget( elem, options ) {
 
   function _loadRes( src ) {
 
-    var uids = window.env=='tpl' ? [ 123456 ] : src.match( /\/[0-9]+\//g ).map( function( uid ) {
+    var uids = [];
+
+    lang = _readQueryPart( elem.getAttribute( 'src' ), 'lang', false );
+
+    uids = window.env=='tpl' ? [ 123456 ] : src.match( /\/[0-9]+\//g ).map( function( uid ) {
 
       return uid.substr( 1, uid.length - 2 );
 
@@ -421,5 +440,11 @@ function widget( elem, options ) {
     window.scrollTo( 0, elem.offsetTop );  
 
   }
+
+}
+
+function _readQueryPart( res, key, defaultValue ) {
+
+   return ( res.indexOf( '?') === -1 ? {} : qs.parse( res.substr( res.indexOf( '?' ) + 1 ) ) )[ key ] || defaultValue;
 
 }
