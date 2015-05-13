@@ -157,7 +157,7 @@ function _loadFacebookProfile( req, token, refreshToken, profile, done ) {
 
   var extracted = {
     id: profile.id,
-    fullName: profile.name
+    fullName: profile.name.givenName + ' ' + profile.name.familyName
   };
 
   if ( profile.emails && profile.emails.length > 0 ) {
