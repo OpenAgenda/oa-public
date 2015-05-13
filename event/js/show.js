@@ -66,7 +66,7 @@ function _defineRoles( params, session ) {
 
   } else if ( params.adminAgendaUids.filter( function( uid ) {
 
-    return session.reviews.admUids.concat( session.reviews.modUids ).indexOf( uid + '' ) !== 1;
+    return session.reviews.admUids.concat( session.reviews.modUids ).indexOf( uid + '' ) !== -1;
 
   }).length ) {
 
