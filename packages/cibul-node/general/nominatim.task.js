@@ -22,6 +22,8 @@ _onStart,
 
 requestInterval = 4000,
 
+requestIntervalAfterFail = 120000,
+
 
 // map of db fields by nominatim fields
 map = {
@@ -95,13 +97,17 @@ function run() {
           email: config.adminEmail
         }, function( err, result ) {
           
-          var updates = { store: l.store };
+          var updates = { store: l.store }, 
+
+          interval = requestInterval;
 
           if ( err ) {
 
-            log( 'got an error while processing location %s: %s', l.id, err );
+            log( 'error', 'got an error while processing location %s: %s', l.id, err );
 
             updates.store.nomimatErr = err;
+
+            interval = requestIntervalAfterFail;
 
           } else {
 
@@ -128,9 +134,9 @@ function run() {
 
           model.locations().update( { id: l.id } , updates, function( err ) {
 
-            log( 'location %s updated, waiting %s seconds to process next', l.id, requestInterval );
+            log( 'location %s updated, waiting %s seconds to process next', l.id, interval );
 
-            setTimeout( function() { escb(); }, requestInterval );
+            setTimeout( function() { escb(); }, interval );
 
           });
 
