@@ -16,9 +16,11 @@ fixtures = require( 'cibulModel/test/fixtures/fixtures' )( cbm ),
 
 sets = require( 'cibulModel/test/fixtures/sets' )( cbm ),
 
-svc = require( '../invitation' ),
+svc = require( '../' ),
 
 coms = require( '../../../lib/coms' );
+
+svc.agenda.loadGenUrl( function() { return '#testurl'; } );
 
 
 describe( 'invitation processing', function() {

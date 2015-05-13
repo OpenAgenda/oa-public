@@ -22,6 +22,8 @@ tmpTestFile = '/var/tmp/testfile';
 
 describe( 'image service - download', function() {
 
+  this.timeout( 20000 );
+
   afterEach( function() {
 
     imageSvc.test._setConfig({
@@ -48,8 +50,6 @@ describe( 'image service - download', function() {
 
 
   it( 'should send max size error', function( done ) {
-
-    this.timeout( 10000 );
 
     imageSvc.test._setConfig( { maxSize: 10 } );
 
@@ -89,7 +89,7 @@ describe( 'image service - download', function() {
 
 describe( 'image service - loading stream', function() {
 
-  this.timeout( 10000 );
+  this.timeout( 20000 );
 
   var path, notImagePath;
 
@@ -154,6 +154,8 @@ describe( 'image service - loading stream', function() {
 });
 
 describe( 'image service - check image size', function() {
+
+  this.timeout( 20000 );
 
   var path, image;
 
@@ -250,7 +252,7 @@ describe( 'image service - check image size', function() {
 
 describe( 'image service - crop', function() {
 
-  this.timeout( 10000 );
+  this.timeout( 20000 );
 
   var path, image, info;
 
@@ -342,6 +344,8 @@ describe( 'image service - crop', function() {
 });
 
 describe( 'image service - resize', function() {
+
+  this.timeout( 20000 );
 
   var path, image, info;
 
@@ -439,7 +443,7 @@ describe( 'image service - resize', function() {
 
 describe( 'complete process', function() {
 
-  this.timeout( 10000 );
+  this.timeout( 20000 );
 
   var files = [];
 

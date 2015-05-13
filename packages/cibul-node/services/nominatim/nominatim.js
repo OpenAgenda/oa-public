@@ -2,7 +2,7 @@ var https = require('https'),
 
 host = 'nominatim.openstreetmap.org',
 
-geocodePath = '/search/{address}?format=json&addressdetails=1&limit=1&accept-language={language}'
+geocodePath = '/search/{address}?format=json&addressdetails=1&limit=1&accept-language={language}&email={email}'
 
 reversePath = '/reverse?format=json&lat={latitude}&lon={longitude}&zoom=18&addressdetails=1&accept-language={language}&email={email}',
 
@@ -63,13 +63,15 @@ module.exports.reverse = function( latitude, longitude, options, cb ) {
   }
 
   var params = lib.extend({
-    language: 'en'
+    language: 'en',
+    email: ''
   }, options ),
 
   path = reversePath
     .replace( '{latitude}', latitude)
     .replace( '{longitude}', longitude)
-    .replace( '{language}', params.language );
+    .replace( '{language}', params.language )
+    .replace( '{email}', params.email );
 
 
   log( 'requesting: %s', path );

@@ -36,7 +36,7 @@ describe( 'nominatim', function() {
 
   it( 'task should geocode properly', function( done ) {
 
-    this.timeout( 18000 );
+    this.timeout( 60000 );
 
     task.setOnComplete( function() {
 

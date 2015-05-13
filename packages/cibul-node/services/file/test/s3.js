@@ -20,6 +20,8 @@ srcPath2 = __dirname + '/src2.txt';
 
 describe( 's3 store', function() {
 
+  this.timeout( 30000 );
+
   beforeEach( function( done ) {
 
     fs.createReadStream( srcPath ).pipe( fs.createWriteStream( filePath ) );

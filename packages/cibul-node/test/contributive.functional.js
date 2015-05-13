@@ -208,7 +208,7 @@ describe( 'contributive agenda', function() {
 
         t.coms.consume( 'jobs', function( err, values ) {
 
-          values.type.should.equal( 'invitation' );
+          values.type.should.equal( 'invitation/index' );
 
           t.model.invitations().get( { id: values.invitationId }, function( err, i ) {
 

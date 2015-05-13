@@ -12,7 +12,7 @@ router = require( '../../lib/router' ),
 
 config = require( '../../config' ),
 
-notification = require( '../notification/notification'),
+notification = require( '../notification/notification' ),
 
 async = require( 'async' ),
 
@@ -20,7 +20,9 @@ w = require( 'when' ),
 
 model = require( '../model' ),
 
-genUrl = require( '../../lib/commons-app' ).getGenUrl(),
+cmn = require( '../../lib/commons-app' ),
+
+genUrl,
 
 invitationsService,
 
@@ -30,8 +32,8 @@ TYPES = {
   AGENDAMODERATOR: 3
 };
 
-
 module.exports = agendaInvitations;
+module.exports.loadGenUrl = loadGenUrl;
 
 agendaInvitations.process = process;
 
@@ -40,7 +42,15 @@ agendaInvitations.init = init;
 
 function init( svc ) {
 
+  loadGenUrl( require( '../../lib/commons-app' ).getGenUrl() )
+
   invitationsService = svc;
+
+}
+
+function loadGenUrl( g ) {
+
+  genUrl = g;
 
 }
 

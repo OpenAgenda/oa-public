@@ -61,7 +61,9 @@ config = {
       secret: 'yeepeekayaymadafaka',
       maxAge: 1000*60*60*48,
       storePrefix: 'session:',
-      sfName: 'symfony'
+      sfName: 'symfony',
+      signed: true,
+      secure: false
     },
     cookie: {
       name: 'cibul'

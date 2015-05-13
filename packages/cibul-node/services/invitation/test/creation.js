@@ -12,7 +12,7 @@ fixtures = require( 'cibulModel/test/fixtures/fixtures' )( cbm ),
 
 sets = require( 'cibulModel/test/fixtures/sets' )( cbm ),
 
-svc = require( '../invitation' ),
+svc = require( '../' ),
 
 coms = require( '../../../lib/coms' );
 
@@ -80,7 +80,7 @@ describe( 'invitation creation', function() {
       coms.consume( 'jobs', function( err, job ) {
 
         job.should.eql({
-          type: 'invitation', 
+          type: 'invitation/index', 
           invitationId: invitations[ 0 ].id,
           lang: 'fr',
           action: 'processInvitation' 

@@ -1,5 +1,7 @@
 "use strict";
 
+require( 'debug' ).enable( '*' );
+
 var nom = require( '../nominatim' ),
 
 config = require( '../../../config' );

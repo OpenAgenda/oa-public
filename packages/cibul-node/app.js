@@ -101,7 +101,13 @@ module.exports = function( enabledTypes, cb ) {
 
     cmn.loadLegacyRoutes( genUrl );
 
-    
+    webModules.web.concat( webModules.admin ).forEach( function( m ) {
+
+      genUrl.load( m.paths );
+
+      cmn.loadInDeprecatedRouter( m.paths );
+
+    } );
 
     // run 'admin' type modules
     
@@ -109,28 +115,19 @@ module.exports = function( enabledTypes, cb ) {
 
       webModules.admin.forEach( function( m ) {
 
-        // load paths in genUrl
-        genUrl.load( m.paths );
-
-        // load paths in deprecated router
-        cmn.loadInDeprecatedRouter( m.paths );
-
         m.load( app );
 
       });
 
     }
 
+    // load paths in genUrl
+
+
     // run 'web' type modules
     if ( enabledTypes.indexOf( 'web' ) !== -1 ) {
 
       webModules.web.forEach( function( m ) {
-
-        // load paths in genUrl
-        genUrl.load( m.paths );
-
-        // load paths in deprecated router
-        cmn.loadInDeprecatedRouter( m.paths );
 
         m.load( app );
 
@@ -154,7 +151,11 @@ module.exports = function( enabledTypes, cb ) {
     });
    
 
-    server = app.listen( config.port );
+    if ( enabledTypes.indexOf( 'web' ) !== -1 || enabledTypes.indexOf( 'admin' ) !== -1 ) {
+
+      server = app.listen( config.port );
+
+    }
 
 
     // only one process runs background tasks. supervisor handles that.
