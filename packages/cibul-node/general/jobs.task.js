@@ -79,7 +79,7 @@ function _listen() {
 
     try {
 
-      service = require( servicePath );
+      service = require( servicePath.replace( '/index', '' ) );
 
     } catch( e ) {
 

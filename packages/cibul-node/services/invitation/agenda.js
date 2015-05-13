@@ -4,9 +4,11 @@ var log = require( '../../lib/logger' )( 'invitation svc - agenda' ),
 
 lib = require( '../../lib/lib' ),
 
+utils = require( '../../lib/utils' ),
+
 i18n = require( '../../i18n/i18n' ),
 
-router = require( '../../lib/router' ),
+router = require( '../../lib/router' ), 
 
 config = require( '../../config' ),
 
@@ -17,6 +19,8 @@ async = require( 'async' ),
 w = require( 'when' ),
 
 model = require( '../model' ),
+
+genUrl = require( '../../lib/commons-app' ).getGenUrl(),
 
 invitationsService,
 
@@ -161,7 +165,7 @@ function agendaInvitations( agenda ) {
 
         if ( err ) return reject( err );
 
-        var link = _genUrl( 'signin', { iToken: values.invitation.token } ),
+        var link = genUrl( 'signin', { iToken: values.invitation.token }, { protocol: 'https://' } ),
 
         title = 'You have been invited to become %stakeholder% of the agenda %agenda%',
 
@@ -269,16 +273,6 @@ function agendaInvitations( agenda ) {
     });
 
   }
-
-}
-
-
-function _genUrl( uri, query ) {
-
-  return router.makeGenUrl({
-    root: config.root,
-    base: { path: '' }
-  })( uri, query , { abs: true, protocol: 'https' });
 
 }
 

@@ -6,7 +6,7 @@ cmn = require( '../lib/commons-app' ),
 
 log = require( '../lib/logger' )( 'agenda/contributors' ),
 
-invitationSvc = require( '../services/invitation/invitation.js' ),
+invitationSvc = require( '../services/invitation' ),
 
 routes = {
   contributorsInvite:  [ 'post', '/invite', [ 

@@ -12,7 +12,7 @@ activation = require( './lib/activation' ),
 
 lostPassword = require( './lib/lostPassword' ),
 
-invitationSvc = require( '../invitation/invitation' ),
+invitationSvc = require( '../invitation' ),
 
 async = require( 'async' ),
 

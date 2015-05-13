@@ -2,11 +2,7 @@
 
 var supervisor = require( './lib/supervisor' ),
 
-cmn = require( './lib/commons-app' ),
-
 lib = require( './lib/lib' );
-
-
 
 module.exports = function( enabledTypes, cb ) {
 
@@ -27,6 +23,8 @@ module.exports = function( enabledTypes, cb ) {
     // load libraries
 
     var router = require( './lib/router' )(),
+
+    cmn = require( './lib/commons-app' ),
 
     coms = require( './lib/coms' ),
 

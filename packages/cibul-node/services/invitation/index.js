@@ -39,7 +39,12 @@ function addJob( invitation, lang, cb ) {
 
   log( 'queuing job for invitation %s', JSON.stringify( invitation ) );
 
-  coms.queue( 'jobs', { type: 'invitation', invitationId: invitation.id, action: 'processInvitation', lang: lang }, cb );
+  coms.queue( 'jobs', { 
+    type: 'invitation/index',
+    invitationId: invitation.id, 
+    action: 'processInvitation', 
+    lang: lang
+  }, cb );
 
 }
 

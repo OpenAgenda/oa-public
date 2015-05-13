@@ -6,7 +6,7 @@ w = require( 'when' ),
 
 wn = require( 'when/node' ),
 
-userSvc = require( '../services/invitation/invitation' );
+userSvc = require( '../services/invitation' );
 
 describe( 'contributive agenda', function() {
 
