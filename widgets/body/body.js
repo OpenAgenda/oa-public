@@ -170,18 +170,17 @@ function widget( elem, options ) {
 
       // specific rules for updating navigation filter
 
-      if ( currentQueryValues.uid ) values.uid = null;
+      if ( currentQueryValues.uid ) {
 
-      if ( cn.size( hrefQuery ) ) {
+        // we are coming from an event, the event sets
+        // the new selection values
 
-        // force clear
-        for( var n in currentQueryValues ) {
+        for( var i in currentQueryValues ) {
 
-          values[ n ] = null;
+          values[ i ] = null;
 
         }
 
-        // put requested new values
         cn.extend( values, hrefQuery );
 
       }
