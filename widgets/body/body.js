@@ -147,6 +147,14 @@ function widget( elem, options ) {
 
   function _update( href ) {
 
+    if ( typeof href === 'undefined' ) {
+
+      log( 'cannot update frame with undefined href' );
+
+      return;
+
+    }
+
     var values = {},
 
     currentQueryValues = controller.getCurrentQuery(),
