@@ -33,11 +33,15 @@
     <h2><%= __('Follow us!') %></h2>
     <ul>
       <li class="facebook">
-        <a href="https://www.facebook.com/oagenda" target="_blank"><i class="fa fa-facebook-official"></i></a>
+        <a href="https://www.facebook.com/oagenda" target="_blank">
+          <i class="fa fa-facebook-official"></i><span class="display-none">facebook</span>
+        </a>
       </li><li class="twitter">
-        <a href="https://twitter.com/OpenAgendaFR" target="_blank"><i class="fa fa-twitter"></i></a>
+        <a href="https://twitter.com/OpenAgendaFR" target="_blank">
+          <i class="fa fa-twitter"></i><span class="display-none">twitter</span>
+        </a>
       </li><li class="newsletter">
-        <form method="post" action="<%= genUrl('newsletterSubscribe') %>">
+        <form method="post" action="<%= genUrl( 'newsletterSubscribe' ) %>">
           <div class="input-group">
             <input type="email" class="form-control" placeholder="<%= __( 'Your email address' ) %>" name="email">
             <span class="input-group-btn">
