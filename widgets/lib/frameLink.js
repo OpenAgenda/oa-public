@@ -105,7 +105,7 @@ function frameLink( elem, onLinkEstablished, onReceive ) {
 
       log( 'receiving message from frame: %s', e.data );
 
-      onReceive( JSON.parse( e.data ) );
+      onReceive( typeof e.data == 'string' ? JSON.parse( e.data ) : e.data );
 
     }
 
