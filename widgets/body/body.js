@@ -398,7 +398,15 @@ function widget( elem, options ) {
 
     var uids = [];
 
-    lang = _readQueryPart( elem.getAttribute( 'src' ), 'lang', false );
+    if ( elem.hasAttribute( 'data-lang' ) ) {
+
+      lang = elem.getAttribute( 'data-lang' );
+
+    } else {
+
+      lang = _readQueryPart( elem.getAttribute( 'src' ), 'lang', false );
+
+    }
 
     uids = window.env=='tpl' ? [ 123456 ] : src.match( /\/[0-9]+\//g ).map( function( uid ) {
 
