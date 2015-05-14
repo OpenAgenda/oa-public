@@ -35,6 +35,7 @@ routes = {
   agendaEmbedEventShow: [ 'get', '/agendas/:uid/embed/events/:eventUid', [
     agendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
+    _switchEmbedLang,
     _format,
     _formatEmbedLinks,
     _formatSocialLinks,
@@ -47,6 +48,7 @@ routes = {
     agendaSvc.mw.load( 'uid' ),
     embedSvc.mw.load( 'embedUid', 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
+    _switchEmbedLang,
     _format,
     _formatCustomEmbedLinks,
     _formatSocialLinks,
@@ -275,6 +277,15 @@ function _addLanguageLinks( req, uri, uriParams ) {
 
 }
 
+
+
+function _switchEmbedLang( req, res, next ) {
+
+  req.event.switchLanguage( req.lang );
+
+  next();
+
+}
 
 
 /**
