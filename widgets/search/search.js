@@ -137,9 +137,17 @@ var widget = function( elem, options ) {
 
     inputElem.value = what;
 
-    cn.addEvent( inputElem, [ 'keyup', 'blur' ], _onInput );
+    if ( buttonElem ) {
 
-    if ( buttonElem ) cn.addEvent( buttonElem, 'click', _onClick );
+      cn.addEvent( buttonElem, 'click', _onClick );
+
+      cn.addEvent( inputElem, 'keyup', _onEnter );
+
+    } else {
+
+      cn.addEvent( inputElem, [ 'keyup', 'blur' ], _onInput );
+
+    }
 
   },
 
@@ -148,6 +156,16 @@ var widget = function( elem, options ) {
     cn.preventDefault( e );
 
     _processInput();
+
+  },
+
+  _onEnter = function( e ) {
+
+     if ( e.keyCode == 13 ) {
+
+      _processInput();
+
+    }
 
   },
 
