@@ -38,6 +38,14 @@ var widget = function( elem, options ) {
 
   init = function() {
 
+    if ( typeof options.anchorConfig === 'undefined' ) {
+
+      log( 'widget configuration not found' );
+
+      return;
+
+    }
+
     var uid = options.anchorConfig[ UID ];
 
     log = debug( 'tags widget ' + uid );
