@@ -40,7 +40,7 @@ var widget = function( elem, options ) {
 
     if ( typeof options.anchorConfig === 'undefined' ) {
 
-      log( 'widget configuration not found' );
+      console.log( 'tags widget configuration not found.' );
 
       return;
 
