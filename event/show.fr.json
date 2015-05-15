@@ -54,5 +54,13 @@
   "Unpublished"
   : "Non publié",
   "back to list"
-  : "retour à la liste"
+  : "retour à la liste",
+  "Click here to change the featured state"
+  : "Cliquez ici pour changer l'état 'En une'",
+  "Add to featured"
+  : "Mettre en une",
+  "Remove from featured"
+  : "Retirer de la une",
+  "Featured"
+  : "Mis en une"
 }

@@ -136,44 +136,6 @@
     </div>
   </div>
 
-  <div id="admin-bar" class="js_admin_controls">
-    <ul class="admin-list"><!--
-<% if ( !loner ) { %>
-      --><li class="admin-item w25 js_role_agenda_admin js_role_event_editor">
-        <a class="admin-link" href="<%= genUrl( 'agendaAdminShow', { slug: slug } ) %>">
-          <i class="fa fa-list"></i>
-          <span><%= __( 'back to list' ) %></span>
-        </a>
-      </li><!--
-<% } %>
-      --><li class="admin-item tooltip js_toggle w25" data-toggle="js_dropdown_menu">
-        <span class="admin-selected"><%= __( states[ event.currentState ].label ) %></span>
-        <ul class="list-group js_dropdown_menu">
-<% for( var i in states ) { %>
-<% if ( !states[ i ].hideAction ) { %>
-<% if ( loner ) { %>
-<% if ( !states[ i ].agendaOnly ) { %>
-          <li class="list-group-item js_admin_item <%= states[ i ].classNames %>">
-            <a href="<%= states[ i ].type !== null ? genUrl( 'eventChangeState', { eventSlug: event.slug, type: states[ i ].type } ) : '#' %>" class="item<% if ( i !== event.currentState ) { %> active<% } %>"><%= __( states[ i ].label ) %></a>
-          </li>
-<% } %>
-<% } else { %>
-          <li class="list-group-item js_admin_item <%= states[ i ].classNames %>">
-            <a href="<%= states[ i ].type !== null ? genUrl( 'agendaEventChangeState', { slug: slug, eventSlug: event.slug, type: states[ i ].type } ) : '#' %>" class="item<% if ( i !== event.currentState ) { %> active<% } %>"><%= __( states[ i ].label ) %></a>
-          </li>
-<% } %>
-<% } %>
-<% } %>
-        </ul>
-        <span class="tooltip-text"><%= __('Event state') %></span>
-      </li><!--
-      --><li class="admin-item js_admin_item js_role_event_editor w25">
-        <a class="admin-link" href="<%= genUrl( loner ? 'eventEdit' : 'agendaEventEdit', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ] ) %>"><%= __('Edit') %></a>
-      </li><!--
-      --><li class="admin-item js_admin_item js_role_event_editor w25">
-        <a class="admin-link js_message_confirm" data-confirm="<%= __('Are you sure you want to delete this event?') %>" data-ok="<%= __( 'Confirm' ) %>" data-cancel="<%= __( 'Cancel' ) %>" href="<%= genUrl('eventRemove', { eventSlug: event.slug }) %>" href=""><%= __('Delete') %></a>
-      </li>
-    </ul>
-  </div>
+  <% include ./adminBar.part.ejs %>
 
 </div>

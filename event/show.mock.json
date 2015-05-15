@@ -33,6 +33,7 @@
       },
 
       "currentState" : "draft",
+      "featured" : false,
 
       "placeName" : "O2 Academy Brixton",
       "address" : "211 Stockwell Road, SW9 9 London",
@@ -134,6 +135,15 @@
     }
   },
   "admined" : {
+    "scriptParams" : {
+      "ownerUid" : 11234,
+      "agendaUid" : 93761158
+    }
+  },
+  "featured" : {
+    "event" : {
+      "featured" : true
+    },
     "scriptParams" : {
       "ownerUid" : 11234,
       "agendaUid" : 93761158

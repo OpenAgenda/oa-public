@@ -61,11 +61,20 @@
       }
 
       &.active {
+
         .fa-star {
           display: block;
         }
 
         .fa-star-o {
+          display: none;
+        }
+
+        span {
+          display: inline;
+        }
+
+        span.hovered {
           display: none;
         }
 
@@ -77,6 +86,16 @@
           .fa-star {
             display: none;
           }
+
+          span {
+            display: none;
+          }
+
+          span.hovered {
+            display: inline;
+          }
+
+          span {}
         }
       }
     }
@@ -162,6 +181,10 @@
 
     .admin-item.w25 {
       width: 25%;
+    }
+
+    .admin-item.w20 {
+      width: 20%;
     }
 
     .list-group {
