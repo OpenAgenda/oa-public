@@ -47,13 +47,13 @@ config = {
       }
     },
     es: {
-      host: 'ec2-54-74-48-195.eu-west-1.compute.amazonaws.com',
+      host: 'ec2-54-195-243-94.eu-west-1.compute.amazonaws.com',
       port : 9200,
       indexName : 'cibul',
       channel: 'main'
     },
     redis: {
-      host: 'ec2-54-74-48-195.eu-west-1.compute.amazonaws.com',
+      host: 'ec2-54-195-243-94.eu-west-1.compute.amazonaws.com',
       port: 6379
     },
     session: {
