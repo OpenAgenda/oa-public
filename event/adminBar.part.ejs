@@ -31,9 +31,9 @@
     </li><!--
     --><li class="admin-item js_admin_item js_role_agenda_admin w20">
 <% if ( event.featured ) { %>
-      <a class="admin-link starify active" href="#"><span><%= __( 'Featured' ) %></span><span class="hovered"><%= __('Remove from featured') %></span><i class="fa fa-star-o"></i><i class="fa fa-star"></i></a>
+      <a class="admin-link starify active" href="<%= genUrl( 'agendaEventChangeFeatured', { slug: slug, eventSlug: event.slug, type: 'notfeatured' } ) %>"><span><%= __( 'Featured' ) %></span><span class="hovered"><%= __('Remove from featured') %></span><i class="fa fa-star-o"></i><i class="fa fa-star"></i></a>
 <% } else { %>
-      <a class="admin-link starify" href="#"><%= __('Add to featured') %><i class="fa fa-star-o"></i><i class="fa fa-star"></i></a>
+      <a class="admin-link starify" href="<%= genUrl( 'agendaEventChangeFeatured', { slug: slug, eventSlug: event.slug, type: 'featured' } ) %>"><%= __('Add to featured') %><i class="fa fa-star-o"></i><i class="fa fa-star"></i></a>
 <% } %>
     </li><!--
     --><li class="admin-item js_admin_item js_role_event_editor w20">
