@@ -361,7 +361,7 @@ config = {
     multiCore: false,
     mainChannel: 'maintest',
     logNameSpaces: false,
-    logNameSpaces: 'oa:*',
+    //logNameSpaces: 'oa:*',
     root: 'https://d.openagenda.com',
     domain: 'd.openagenda.com',
     db: {
