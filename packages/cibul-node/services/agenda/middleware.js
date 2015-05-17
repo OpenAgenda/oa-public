@@ -244,21 +244,29 @@ function renderCsv( req, res, next ) {
 
 function _appendMapping( agenda, baseMapping, includePrivateData ) {
 
-  var mapping = baseMapping.concat( includePrivateData ? [ 'state' ] : [] ),
+  var amendment = [ { 
+    sourceField: 'category',
+    fn: function( c ) { return c.label }
+  }, { 
+    sourceField: 'tags',
+    fn: function( t ) { return t ? t.map( function( t ) { return t.label } ).join( ', ') : '' }
+  } ],
 
   customFields = agenda.getCustomFieldsConfig();
+
+  if ( includePrivateData ) amendment.push( 'state' );
 
   customFields.forEach( function( cField ) {
 
     if ( includePrivateData || ( cField.type !== 'private' ) ) {
 
-      mapping.push( [ cField.name, 'custom.' + cField.name ] );
+      amendment.push( [ cField.name, 'custom.' + cField.name ] );
 
     }
 
   });
 
-  return mapping;
+  return baseMapping.concat( amendment );
 
 }
 

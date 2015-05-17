@@ -59,12 +59,20 @@ function _writeRow( stream, values, mapping ) {
 
   mapping.forEach( function( m ) {
 
-    var srcField, dstField, value;
+    var srcField, dstField, value, 
+
+    fn = function( v ) { return v; };
 
     if ( utils.isArray( m ) ) {
 
       srcField = m[ 1 ];
       dstField = m[ 0 ];
+
+    } else if ( typeof m === 'object' ) {
+
+      fn = m.fn;
+      srcField = m.sourceField;
+      dstField = m.destField ? m.destField : m.sourceField
 
     } else {
 
@@ -72,23 +80,25 @@ function _writeRow( stream, values, mapping ) {
 
     }
 
+    console.log( srcField );
+
     value = _extractValue( values, srcField );
 
     if ( _isMultilingual( value ) ) {
 
       _extractLanguages( value ).forEach( function( lang ) {
 
-        csvRow[ dstField + '_' + lang ] = value[ lang ];
+        csvRow[ dstField + '_' + lang ] = fn( value[ lang ] );
 
       });
 
     } else if ( typeof value === 'boolean' ) {
 
-      csvRow[ dstField ] = value ? '1' : '';
+      csvRow[ dstField ] = fn( value ? '1' : '' );
 
     } else {
 
-      csvRow[ dstField ] = value ? value : '';
+      csvRow[ dstField ] = fn( value ? value : '' );
 
     }
 
