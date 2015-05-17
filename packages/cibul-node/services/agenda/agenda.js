@@ -21,6 +21,7 @@ cache = require( '../cache' ),
 utils = require( '../../lib/utils' );
 
 module.exports = {
+  list: model.agendas().list,
   get: get,
   instanciate: instanciate
 }

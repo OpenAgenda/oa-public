@@ -24,7 +24,7 @@ function run() {
 
   if ( running ) {
 
-    return; 
+    return;
 
   }
 

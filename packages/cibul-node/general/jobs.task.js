@@ -14,7 +14,7 @@ lib = require( '../lib/lib' ),
 config = require( '../config' ),
 
 /**
- * listen to service queue and sync any uncoming events linked to a service
+ * listen to service queue and sync any incoming events linked to a service
  */
 
 coms = require( '../lib/coms' ),

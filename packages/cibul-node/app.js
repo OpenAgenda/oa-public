@@ -179,7 +179,9 @@ module.exports = function( enabledTypes, cb ) {
 
       require( './general/mainLogger.task').load();
 
-      require( './event/oembed.task').load();
+      require( './event/oembed.task' ).load();
+
+      require( './services/agenda/task' ).load();
 
     }
 
