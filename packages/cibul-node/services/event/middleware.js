@@ -38,21 +38,23 @@ function loadEvent( paramName, fieldName ) {
 
     .then( p.ifl( { 'req.agenda' : true }, _loadAgendaContext ) )
 
+    .then( p.ifl( { 'req.agenda' : true, accessRequired: true }, _loadUserAgendaCreds ) )
+
     .then( p.ifl( { accessRequired: true }, _loadUserCreds ) )
 
-    .then( p.ifl( { accessRequired: true, hasCreds: false }, _redirectToCanonicalIfNotDraft ) )
+    .then( p.ifl( { 'req.agenda' : true, accessRequired: true, hasAgendaCreds: false }, _redirectToCanonicalIfNotDraft ) )
 
     .done( function( v ) {
 
       if ( v.redirect ) return res.redirect( v.redirect.code, v.redirect.to );
+
+      req.event = v.event;
 
       if ( v.accessRequired && !v.hasCreds ) {
 
         return next( { code: req.session.logged ? 403 : 401 } );
 
       }
-
-      req.event = v.event;
 
       next();
 
@@ -135,7 +137,7 @@ function _redirectToCanonicalIfNotDraft( v ) {
   if ( !v.event.getIsDraft() ) {
 
     v.redirect = {
-      code: 301,
+      code: 302,
       to: v.req.genUrl( 'eventShow', { eventSlug: v.event.slug } )
     };
 
@@ -153,7 +155,7 @@ function _selectLanguage( v ) {
   if ( !v.event.hasLanguage( v.req.query.elang ) ) {
 
     v.redirect = {
-      code: 301,
+      code: 302,
       to: v.req.genUrl( v.req.agenda ? 'agendaEventShow' : 'eventShow', req.agenda ? { slug: req.agenda.slug, eventSlug: v.event.slug } : { eventSlug: v.event.slug } )
     };
 
@@ -185,15 +187,53 @@ function _loadOwnershipCreds( v ) {
 }
 
 
+function _loadUserAgendaCreds( v ) {
+
+  if ( !v.req.session.logged ) return v;
+
+  var user = { id: v.req.session.userId };
+
+  return w.promise( function( rs, rj ) {
+
+    v.req.agenda.isAdministrator( user , function( err, is ) {
+
+      if ( err ) return rj( err );
+
+      if ( is ) {
+
+        v.hasAgendaCreds = true;
+
+        return rs( v );
+
+      };
+
+      v.req.agenda.isModerator( user, function( err, is ) {
+
+        if ( err ) return rj( err );
+
+        if ( is ) v.hasAgendaCreds = true;
+
+        return rs( v );
+
+      });
+
+    } )
+
+  });
+
+}
+
+
 function _loadUserCreds( v ) {
 
   if ( !v.req.session.logged ) return v;
 
   return w.promise( function( rs, rj ) {
 
-    v.event.isEditor( v.req.session.userId, function( err, is ) {
+    // I just need to be able to see it if it is not draft.
+    // if it is draft
 
-      console.log( arguments );
+    v.event.isEditor( v.req.session.userId, function( err, is ) {
 
       if ( err ) return rj( err );
 
@@ -214,7 +254,9 @@ function _loadUserCreds( v ) {
 
 function _loadAccessRequired( v ) {
 
-  v.accessRequired = ( v.req.agenda && !v.event.isPublishedOn( v.req.agenda ) ) || v.event.getIsDraft();
+  v.isDraft = v.event.getIsDraft();
+
+  v.accessRequired = ( v.req.agenda && !v.event.isPublishedOn( v.req.agenda ) ) || v.isDraft;
 
   return v;
 

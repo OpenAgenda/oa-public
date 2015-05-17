@@ -80,8 +80,6 @@ function _writeRow( stream, values, mapping ) {
 
     }
 
-    console.log( srcField );
-
     value = _extractValue( values, srcField );
 
     if ( _isMultilingual( value ) ) {
