@@ -33,7 +33,11 @@ module.exports = {
   clearAll: clearAll,
   clearStore: clearStore,
   coms: coms,
-  should: require( 'should' )
+  should: require( 'should' ),
+  utils: require( '../../lib/utils' ),
+  do: {
+    signin: signin
+  }
 };
 
 function boot( startApp, cb ) {
@@ -112,5 +116,30 @@ function clearStore( cb ) {
   var cli = redis.createClient( config.redis.port, config.redis.host );
 
   cli.flushdb( cb );
+
+}
+
+function signin( browser, user, nextUrl ) {
+
+  return browser.visit( '/signin' )
+
+  .then( function() {
+
+    browser.fill( 'email', user.email );
+
+    browser.fill( 'password', user.password );
+
+    return browser.pressButton( 'signin' );
+
+  } )
+
+  // js errors on php gen page causes zombie error
+  .then( null, function() {
+
+    if ( !nextUrl ) return;
+
+    return browser.visit( nextUrl );
+
+  });
 
 }

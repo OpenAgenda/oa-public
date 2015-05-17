@@ -37,6 +37,7 @@ module.exports = function( data ) {
 
   return svcInstance;
 
+
   // assuming for now that input is url
   function setImage( url, cb ) {
 

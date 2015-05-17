@@ -38,9 +38,7 @@ function loadEvent( paramName, fieldName ) {
 
     .then( p.ifl( { 'req.agenda' : true }, _loadAgendaContext ) )
 
-    .then( p.ifl( { 'req.agenda': true, accessRequired: true }, _loadUserAgendaCreds ) )
-
-    .then( p.ifl( { accessRequired: true, hasCreds: false }, _loadOwnershipCreds ) )
+    .then( p.ifl( { accessRequired: true }, _loadUserCreds ) )
 
     .then( p.ifl( { accessRequired: true, hasCreds: false }, _redirectToCanonicalIfNotDraft ) )
 
@@ -48,7 +46,11 @@ function loadEvent( paramName, fieldName ) {
 
       if ( v.redirect ) return res.redirect( v.redirect.code, v.redirect.to );
 
-      if ( v.accessRequired && !v.hasCreds ) return next( { code: 401 } );
+      if ( v.accessRequired && !v.hasCreds ) {
+
+        return next( { code: req.session.logged ? 403 : 401 } );
+
+      }
 
       req.event = v.event;
 
@@ -100,21 +102,13 @@ function cleanEvents( req, res, next ) {
 
 function checkEventEditor( req, res, next ) {
 
-  if ( req.session.userId == req.event.ownerId ) return next();
+  req.event.isEditor( req.session.userId, function( err, is ) {
 
-  req.event.getAdminAgendas( function( err, admins ) {
+    if ( err || !is ) return next( err || { code: 403 } );
 
-    if ( err ) return next( err );
+    next();
 
-    if ( admins.filter( function( a ) {
-
-      return req.agenda.id == a.id;
-
-    }).length ) return next();
-
-    next( { code: 403 } );
-
-  });
+  } );
 
 }
 
@@ -191,39 +185,25 @@ function _loadOwnershipCreds( v ) {
 }
 
 
-function _loadUserAgendaCreds( v ) {
+function _loadUserCreds( v ) {
 
-  if ( !v.req.session.logged ) return rs( v );
+  if ( !v.req.session.logged ) return v;
 
   return w.promise( function( rs, rj ) {
 
-    v.req.agenda.isAdministrator( { id: v.req.session.userId }, function( err, isAdmin ) {
+    v.event.isEditor( v.req.session.userId, function( err, is ) {
+
+      console.log( arguments );
 
       if ( err ) return rj( err );
 
-      if ( isAdmin ) return rs( _setHasCreds( v ) );
+      if ( is ) v.hasCreds = true;
 
-      v.req.agenda.isModerator( { id: v.req.session.userId }, function( err, isModerator ) {
+      rs( v );
 
-        if ( err ) return rj( err );
-
-        if ( isModerator ) _setHasCreds( v );
-
-        rs( v );
-
-      });
-
-    } );
+    });
 
   });
-
-}
-
-function _setHasCreds( v ) {
-
-  v.hasCreds = true;
-
-  return v;
 
 }
 
