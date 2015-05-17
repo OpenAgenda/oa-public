@@ -50,7 +50,7 @@ function loadEvent( paramName, fieldName ) {
 
       req.event = v.event;
 
-      if ( v.accessRequired && !v.hasCreds ) {
+      if ( v.accessRequired && ( !v.hasCreds && !v.hasAgendaCreds ) ) {
 
         return next( { code: req.session.logged ? 403 : 401 } );
 

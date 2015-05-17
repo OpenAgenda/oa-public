@@ -16,7 +16,7 @@ describe( 'event display', function() {
 
   before( function( done ) {
 
-    testLib.boot( false, done );
+    testLib.boot( true, done );
 
   } );
 
