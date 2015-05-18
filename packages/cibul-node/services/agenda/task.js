@@ -42,6 +42,8 @@ function _clearTimestamps( eventId ) {
 
       async.eachSeries( agendas.map( svc.instanciate ), function( agenda, ecb ) {
 
+        log( 'refreshing timestamp of agenda %s', agenda.slug );
+
         agenda.save( { updatedAt: new Date() }, ecb );
 
       } );

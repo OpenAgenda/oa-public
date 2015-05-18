@@ -137,7 +137,7 @@ function _checkAuthorizedChanges( authorizedTypes ) {
 
     var type = req.params.type;
 
-    if ( type === parseInt( type, 10 ) ) {
+    if ( type == parseInt( type, 10 ) ) {
 
       type = parseInt( type, 10 );
 
