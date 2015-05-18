@@ -13,6 +13,7 @@
         "title" : "Les imams en France",
         "uid" : "48948894",
         "importUri" : "/event/action.part",
+        "featured" : true,
         "query" : { "eventSlug" : "fqsdfdq" },
         "slug" : "fqsdfdq",
         "image" : "//cibul.s3.amazonaws.com/event_les-imams-en-france_924665.jpg",
