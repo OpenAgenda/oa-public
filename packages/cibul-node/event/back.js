@@ -10,7 +10,7 @@ eventSvc = require( '../services/event' ),
 
 agendaSvc = require( '../services/agenda/agenda' ),
 
-TYPES = require( '../services/model' ).events().STATETYPES,
+STATETYPES = require( '../services/model' ).events().STATETYPES,
 
 routes = {
 
@@ -18,7 +18,7 @@ routes = {
     cmn.loadAgenda( 'slug' ), 
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.checkEventEditor,
-    _checkAuthorizedChanges( [ TYPES.PUBLISHED ] ),
+    _checkAuthorizedChanges( [ STATETYPES.PUBLISHED ] ),
     _changeState,
     _redirect
   ] ],
@@ -27,8 +27,17 @@ routes = {
     agendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     cmn.checkAdministrator,
-    _checkAuthorizedChanges( [ TYPES.VALIDATED, TYPES.NOTVALIDATED, TYPES.PUBLISHED ] ),
+    _checkAuthorizedChanges( [ STATETYPES.VALIDATED, STATETYPES.NOTVALIDATED, STATETYPES.PUBLISHED ] ),
     _changeState,
+    _redirect
+  ] ],
+
+  agendaEventChangeFeatured: [ 'get', '/:slug/events/:eventSlug/featured/:type', [
+    agendaSvc.mw.load( 'slug' ),
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    cmn.checkAdministrator,
+    _checkAuthorizedChanges( [ 'featured', 'notfeatured' ] ),
+    _changeFeatured,
     _redirect
   ] ]
 
@@ -96,11 +105,45 @@ function _changeState( req, res, next ) {
 }
 
 
+function _changeFeatured( req, res, next ) {
+
+  var funcs = {
+    'featured' : req.event.setFeatured,
+    'notfeatured' : req.event.setUnfeatured
+  };
+
+  req.log( 'updating featured to %s', req.params.type );
+
+  funcs[ req.params.type ]( true, function( err ) {
+
+    if ( err ) {
+
+      return next( { code: 500 } );
+
+    }
+
+    res.setFlash( req, req.params.type === 'featured' ? 'The event is now featured' : 'The event is no longer featured' );
+
+    next();
+
+  });
+
+}
+
+
 function _checkAuthorizedChanges( authorizedTypes ) {
 
   return function( req, res, next ) {
 
-    if ( authorizedTypes.indexOf( parseInt( req.params.type, 10 ) ) == -1 ) {
+    var type = req.params.type;
+
+    if ( type === parseInt( type, 10 ) ) {
+
+      type = parseInt( type, 10 );
+
+    }
+
+    if ( authorizedTypes.indexOf( type ) == -1 ) {
 
       req.log( 'type is not authorized: %s', req.params.type );
 

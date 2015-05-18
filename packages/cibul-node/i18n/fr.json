@@ -104,5 +104,9 @@
   "The info has been updated"
   : "L'info a été mise à jour",
   "The event state has changed"
-  : "L'état de l'événement a changé"
+  : "L'état de l'événement a changé",
+  "The event is no longer featured"
+  : "L'événement n'est plus en une",
+  "The event is now featured"
+  : "L'événement est désormais en une"
 }

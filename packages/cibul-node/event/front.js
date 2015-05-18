@@ -122,17 +122,21 @@ function agendaEventShow( req, res ) {
     slug: req.params.slug,
     eventSlug: req.params.eventSlug
   } );
-  
-  cmn.render( req, res, 'event/show', { event: req.formatted } );
+
+  req.event.getFeatured( function( err, featured ) {
+
+    if ( err ) return next( err );
+
+    req.formatted.featured = featured;
+
+    cmn.render( req, res, 'event/show', { event: req.formatted } );
+
+  });
 
 }
 
 
 function agendaEmbedEventShow( req, res ) {
-
-  // backUri: 'embedShow',
-  // backQuery: { uid: req.params.uid }
-  // 
 
   cmn.render( req, res, 'event/embedShow', {
     eventRender: req.render
@@ -380,6 +384,7 @@ function _format( req, res, next ) {
   } );
 
 }
+
 
 
 /**

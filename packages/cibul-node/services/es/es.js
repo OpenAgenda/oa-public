@@ -81,7 +81,13 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
     }
   };
 
-  if ( agendaId ) esQuery.reviewId = agendaId;
+  if ( agendaId ) {
+
+    esQuery.reviewId = agendaId;
+
+    esQuery.options.order = [ 'featured', 'upcoming' ];
+
+  }
 
   [ 'tags', 'category', 'org', 'what' ].forEach( function( name ) {
 
