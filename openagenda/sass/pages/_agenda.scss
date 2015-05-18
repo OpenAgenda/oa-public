@@ -131,7 +131,7 @@
 
     &> div {
       text-align: left;
-      margin-top: 27px;
+      margin-top: 17px;
       position: relative;
     }
 
@@ -145,6 +145,8 @@
       clear: right;
       padding-left: 3px;
     }
+
+
 
     .featured {
       position: absolute;
@@ -171,23 +173,18 @@
 
       .featured {
         position: relative;
-        padding: 10px 0 0;
       }
 
-
+      .time-count {
+        margin-top: 10px;
+      }
 
     }
 
     @media (min-width: 1200px) {
 
-      right: 0;
-      bottom: 0;
-
-      .time-count {
-        
-      }
-
     }
+
   }
 
   .event-header {
