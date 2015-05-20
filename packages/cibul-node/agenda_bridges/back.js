@@ -85,7 +85,9 @@ function serviceSynchronize( req, res ) {
 
   .then( function() {
 
-    cmn.redirect( req, res, 'serviceIndex', { service: req.params.service }, 'Your swapcard events are being updated' );
+    res.setFlash( req, 'Your swapcard events are being updated' );
+
+    res.redirect( 302, req.genUrl( 'serviceIndex', { service: req.params.service } ) );
 
     return wn.call( req.service.processEvents, req.agenda, 'publish' );
 

@@ -57,13 +57,13 @@ var functions = function( model, config ) {
 
     stateObj = JSON.stringify( stateObj ),
 
-    uncodedState = new Buffer( stateObj ).toString( 'base64' );
+    decodedState = new Buffer( stateObj ).toString( 'base64' );
 
     var params = {
       redirect_uri: config.bridges.swapcard.redirect,
       scope: 'scope_event_rw',
       response_type: 'code',
-      state: uncodedState
+      state: decodedState
     };
 
   	var url = oauth2.getAuthorizeUrl( params );
