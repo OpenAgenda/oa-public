@@ -50,9 +50,13 @@ function loadEvent( paramName, fieldName ) {
 
       req.event = v.event;
 
-      if ( v.accessRequired && ( !v.hasCreds && !v.hasAgendaCreds ) ) {
+      if ( v.accessRequired ) {
 
-        return next( { code: req.session.logged ? 403 : 401 } );
+        if ( !req.session.logged ) return next( { code: 401 } );
+
+        if ( req.agenda && !v.hasAgendaCreds ) return next( { code: 403 } );
+
+        if ( !v.hasCreds ) return next( { code: 403 } );
 
       }
 
@@ -189,13 +193,23 @@ function _loadOwnershipCreds( v ) {
 
 function _loadUserAgendaCreds( v ) {
 
-  if ( !v.req.session.logged ) return v;
+  v.req.log( 'loading user agenda creds' );
+
+  if ( !v.req.session.logged ) {
+
+    v.req.log( 'user is not logged' );
+
+    return v;
+
+  }
 
   var user = { id: v.req.session.userId };
 
   return w.promise( function( rs, rj ) {
 
     v.req.agenda.isAdministrator( user , function( err, is ) {
+
+      v.req.log( 'user %s administrator', is ? 'is' : 'is not' );
 
       if ( err ) return rj( err );
 
@@ -226,7 +240,15 @@ function _loadUserAgendaCreds( v ) {
 
 function _loadUserCreds( v ) {
 
-  if ( !v.req.session.logged ) return v;
+  v.req.log( 'checking user creds' );
+
+  if ( !v.req.session.logged ) {
+
+    v.req.log( 'user is not logged' );
+
+    return v;
+
+  }
 
   return w.promise( function( rs, rj ) {
 
@@ -234,6 +256,8 @@ function _loadUserCreds( v ) {
     // if it is draft
 
     v.event.isEditor( v.req.session.userId, function( err, is ) {
+
+      v.req.log( 'user is editor' );
 
       if ( err ) return rj( err );
 

@@ -134,12 +134,14 @@ function signin( browser, user, nextUrl ) {
   } )
 
   // js errors on php gen page causes zombie error
-  .then( null, function() {
+  .then( done, done );
+
+  function done() {
 
     if ( !nextUrl ) return;
 
     return browser.visit( nextUrl );
 
-  });
+  }
 
 }

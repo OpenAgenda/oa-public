@@ -29,6 +29,8 @@ fixtureData;
 task.setComs( bogusComs );
 
 describe( 'search index sync', function() {
+
+  this.timeout( 10000 );
   
   before( function( done ) {
 
