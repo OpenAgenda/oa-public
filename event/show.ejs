@@ -121,8 +121,13 @@
           <section class="dates">
             <h3 class="title"><%= __('Date details') %></h3>
             <ul>
-<% event.timings.forEach( function( timing ) { %>
-              <li class="date"><%= timing.label %></li>
+<% event.dates.forEach( function( date ) { %>
+              <li class="date">
+                <%= date.label %> -
+<%= date.timings.map( function( t ) {
+          return __( '%from% to %to%', { '%from%' : t.startLabel, '%to%' : t.endLabel } );
+}).join( ',' ) %>
+              </li>
 <% }) %>
             </ul>
           </section>

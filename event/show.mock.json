@@ -42,6 +42,45 @@
       "postalCode" : "12345",
       "latitude" : 51.464980,
       "longitude" : -0.114850,
+      "dates" : [{
+        "date":"2015-06-05T00:00:00.000Z",
+        "timings":[
+           {
+              "start":"2015-06-05T11:15:00.000Z",
+              "end":"2015-06-05T19:00:00.000Z",
+              "label":"vendredi 5 - 11:15",
+              "startLabel":"11:15",
+              "endLabel":"19:00"
+           }
+        ],
+        "label":"vendredi 5 juin"
+      },
+      {
+        "date":"2015-06-06T00:00:00.000Z",
+        "timings":[
+           {
+              "start":"2015-06-06T11:15:00.000Z",
+              "end":"2015-06-06T19:00:00.000Z",
+              "label":"samedi 6 - 11:15",
+              "startLabel":"11:15",
+              "endLabel":"19:00"
+           }
+        ],
+        "label":"samedi 6 juin"
+      },
+      {
+        "date":"2015-06-07T00:00:00.000Z",
+        "timings":[
+           {
+              "start":"2015-06-07T11:15:00.000Z",
+              "end":"2015-06-07T19:00:00.000Z",
+              "label":"dimanche 7 - 11:15",
+              "startLabel":"11:15",
+              "endLabel":"19:00"
+           }
+        ],
+        "label":"dimanche 7 juin"
+      }],
       "timings" : [
         {
           "start" : "2014-07-29T19:30:00.000Z",

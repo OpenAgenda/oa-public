@@ -62,5 +62,7 @@
   "Remove from featured"
   : "Retirer de la une",
   "Featured"
-  : "Mis en une"
+  : "Mis en une",
+  "%from% to %to%"
+  : "%from% à %to%"
 }
