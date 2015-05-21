@@ -6,8 +6,24 @@ module.exports = {
   isArray: isArray,
   size: size,
   fZ: fZ,
+  unique: unique,
   forEach: forEach, // for some older browsers
 };
+
+
+function unique( arr ) {
+
+  var u = [];
+
+  arr.forEach( function( a ) {
+
+    if ( u.indexOf( a ) === -1 ) u.push( a );
+
+  });
+
+  return u;
+
+}
 
 
 function isArray( obj ) {

@@ -12,7 +12,11 @@ async = require( 'async' ),
 
 coms = require( '../lib/coms' ),
 
+utils = require( '../lib/utils' ),
+
 cmn = require( '../lib/commons-task' ),
+
+agendaSvc = require( '../services/agenda/agenda' ),
 
 config = require( '../config' ),
 
@@ -34,7 +38,8 @@ jobHandlers = {
   'event.update' : _update( 'events' ),
   'review.publish' : _publish( 'reviews' ),
   'review.delete' : _delete( 'reviews' ),
-  'review.update' : _update( 'reviews' )
+  'review.update' : _update( 'reviews' ),
+  'review.sync': _sync
 };
 
 
@@ -140,6 +145,80 @@ function _handleJob( err, job ) {
 
 }
 
+function _sync( job, cb ) {
+
+  var hasMore = true, limit = 20, offset = 0;
+
+  agendaSvc.get( job.values, function( err, agenda ) {
+
+    // retrieve indexed events
+
+    var hasMore = true, offset = 0, eIds = [];
+
+    async.whilst( function() { return hasMore; }, function( wcb ) {
+
+      agenda.search( { passed: 1 }, { offset: offset, limit: limit }, function( err, data ) {
+
+        eIds = eIds.concat( data.events.map( function( e ) { return parseInt( e.id.split( '@' )[0], 10 ); } ) );
+
+        offset += limit;
+
+        hasMore = !!data.events.length;
+
+        wcb();
+
+      });
+
+    }, function( err ) {
+
+      if ( err ) return cb( err );
+
+      // retrieve db events
+
+      hasMore = true;
+
+      offset = 0;
+
+      async.whilst( function() { return hasMore; }, function( wcb ) {
+
+        agenda.events.list( { offset: offset, limit: 1 }, function( err, events ) {
+
+          if ( err ) return cb( err );
+
+          if ( events.length && eIds.indexOf( events[ 0 ].id ) == -1 ) {
+
+            eIds.push( events[ 0 ].id );
+
+          }
+
+          offset += 1;
+
+          hasMore = !!events.length;
+
+          wcb();
+
+        });
+
+      }, function( err ) {
+
+        if ( err ) return cb( err );
+
+        eIds.forEach( function( id ) {
+
+          coms.publish( config.mainChannel, { name: 'event.update', values: { id: id } } );
+
+        });
+
+        cb();
+
+      } );
+
+    } )
+
+  } );
+
+}
+
 
 function _rebuild( job, cb ) {
 
@@ -181,7 +260,17 @@ function _populateES( schema ) {
 }
 
 
-function _loopThroughPages( schema, usageFunc, finishCallback ) {
+function _loopThroughPages( schema, params, usageFunc, finishCallback ) {
+
+  if ( arguments.length === 3 ) {
+
+    finishCallback = usageFunc;
+
+    usageFunc = params;
+
+    params = {};
+
+  }
 
   var fetchPage = function( offset,limit ) {
 
@@ -353,6 +442,8 @@ function _parseJob( job ) {
     name: data.name.split('.').pop(),
 
     id: data.values ? data.values.id : null,
+
+    values: data.values
 
   };
 

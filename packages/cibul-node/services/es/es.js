@@ -4,7 +4,9 @@ var config = require( '../../config' ),
 
 legacyLib = require( 'ES' )( config.es ),
 
-lib = require( '../../lib/lib' );
+lib = require( '../../lib/lib' ),
+
+LIMIT = 20;
 
 module.exports = {
   agendas: agendas,
@@ -39,14 +41,13 @@ function agendas( agenda ) {
 function search( query, options, cb ) {
 
   var params = lib.extend( { 
-    page: 1,
-    limit: 20,
+    limit: LIMIT,
     agendaId: false,
     showAll: false
   }, options ),
 
   esQuery = _buildESQuery(
-    _clean( query, params.page ),
+    _clean( query, params ),
     params.limit, 
     params.agendaId,
     params.showAll
@@ -68,11 +69,11 @@ function search( query, options, cb ) {
 
 function _buildESQuery( query, limit, agendaId, showAll ) {
 
-  var page, when,
+  var when,
 
   esQuery = {
     options : {
-      from : ( query.page - 1 ) * limit,
+      from : query.offset,
       size : limit,
       order : [ 'upcoming' ]
     },
@@ -169,13 +170,17 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
  * to building es query
  */
 
-function _clean( query, page ) {
+function _clean( query, params ) {
 
-  if ( page === undefined ) page = 1;
+  if ( params.offset === undefined ) {
+
+    params.offset = ( parseInt( params.page ? params.page : 1, 10 ) - 1 ) * params.limit;
+
+  }
 
   var clean = {
     when: [],
-    page: parseInt( page, 10 )
+    offset: params.offset
   };
 
   if ( !query ) return clean;

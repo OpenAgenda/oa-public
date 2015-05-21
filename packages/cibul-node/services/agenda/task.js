@@ -38,6 +38,8 @@ function _clearTimestamps( eventId ) {
 
     if ( err ) return log( 'error', err );
 
+    if ( !event ) return log( 'no event of id %s found', eventId );
+
     event.getAgendaReferences( { isPublished: null }, function( err, agendas ) {
 
       async.eachSeries( agendas.map( svc.instanciate ), function( agenda, ecb ) {

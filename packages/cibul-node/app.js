@@ -167,13 +167,13 @@ module.exports = function( enabledTypes, cb ) {
       
       require( './mailer/task' ).load( { bootOffset: 14909 } );
       
-      require( './search/task' ).load( { bootOffset: 12483 } );
+      require( './search/task' ).load( { bootOffset: 1000 } );
 
       require( './general/nominatim.task' ).load( { bootOffset: 10000, period: 60000*5 } );
 
       require( './agenda_bridges/task' ).load( { bootOffset: 3000 } );
 
-      require( './general/jobs.task' ).load( { bootOffset: 5000 } );
+      require( './general/jobs.task' ).load( { bootOffset: 1000 } );
 
       require( './general/resetApiCounters.task' ).load( { period: 'daily', time: '00:00' } );
 
