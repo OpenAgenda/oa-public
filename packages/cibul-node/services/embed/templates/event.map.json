@@ -71,5 +71,23 @@
       "name" : "Timing",
       "mapTo" : "label"
     } ]
+  }, {
+    "name" : "Dates",
+    "mapTo" : "dates",
+    "attributes" : [ {
+      "name" : "Date",
+      "mapTo" : "label"
+    } ],
+    "children" : [ {
+      "name" : "Timings",
+      "mapTo" : "timings",
+      "attributes" : [ {
+        "name" : "Start",
+        "mapTo" : "startLabel"
+      }, {
+        "name" : "End",
+        "mapTo" : "endLabel"
+      }]
+    } ]
   } ]
 }

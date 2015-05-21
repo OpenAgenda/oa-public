@@ -12,7 +12,7 @@ function parser( struct ) {
 
   if ( !struct ) throw 'parser structure missing';
 
-  var attributes = struct.attributes,
+  var attributes = _validateAttributes( struct.attributes ),
 
   template,
 
@@ -24,7 +24,7 @@ function parser( struct ) {
 
     log( 'children' );
 
-    _createChildrenParsers( struct.children );
+    struct.children = _createChildrenParsers( struct.children );
 
   }
 
@@ -44,8 +44,6 @@ function parser( struct ) {
 
       struct.children.forEach( function( child ) {
 
-        log( 'loading template in child' );
-
         tpl = _childLoadAndSlice( child, tpl );
 
       });
@@ -53,6 +51,7 @@ function parser( struct ) {
     } 
 
     // spot blocks and variables. any unknown throws errors
+
     templateAttributes = _extractTemplateAttributes( attributes, tpl );
 
     templateAttributeBlocks = _extractTemplateAttributeBlocks( attributes, tpl );
@@ -72,7 +71,6 @@ function parser( struct ) {
 
     for( var i in clean ) {
 
-      
       // process the children blocks
       
       if ( _isArray( clean[ i ] ) ) {
@@ -113,6 +111,24 @@ function parser( struct ) {
 }
 
 
+
+function _validateAttributes( attributes ) {
+
+  attributes.forEach( function( attr ) {
+
+    if ( attr.mapTo === undefined || attr.name === undefined ) {
+
+      throw new Error( 'both mapTo and name must be defined in attribute' );
+
+    }
+
+  });
+
+  return attributes;
+
+}
+
+
 /**
  * creates a parser for each
  * child of current parser
@@ -122,9 +138,44 @@ function _createChildrenParsers( children ) {
 
   children.forEach( function( child ) {
 
+    _defineDepth( child );
+
     child.parser = parser( child );
 
   });
+
+  // deeper children must be processed first
+  return children.sort( function( a, b ) {
+
+    return a.depth < b.depth;
+
+  } );
+
+}
+
+function _defineDepth( node ) {
+
+  var maxDepth = 0;
+
+  if ( node.depth !== undefined ) return node.depth;
+
+  node.depth = 0;
+
+  if ( node.children !== undefined ) {
+
+    node.children.forEach( function( child ) {
+
+      var childDepth = _defineDepth( child );
+
+      if ( childDepth > maxDepth ) maxDepth = childDepth;
+
+    });
+
+    node.depth = maxDepth + 1;
+
+  }
+
+  return node.depth;
 
 }
 

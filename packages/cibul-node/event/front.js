@@ -298,7 +298,7 @@ function _switchEmbedLang( req, res, next ) {
 
 function _format( req, res, next ) {
 
-  var formatted = {}, 
+  var formatted = {}, dates = [], timingsByDate = {},
 
   img = req.event.getImage( true ),
 
@@ -327,11 +327,15 @@ function _format( req, res, next ) {
       description: req.event.getDescription(),
       freeText: textHelper.nl2br( req.event.getEnrichedFreeText() ),
       tags: req.event.getTags(),
-      placeName: false,
-      address: false,
-      latitude: false,
-      longitude: false,
-      timings: [],
+      placeName: req.event.getLocationName(),
+      address: req.event.getAddress(),
+      region: req.event.getRegion(),
+      city: req.event.getCity(),
+      postalCode: req.event.getPostalCode(),
+      latitude: req.event.getLatitude(),
+      longitude: req.event.getLongitude(),
+      timings: req.event.getTimings(),
+      dates: req.event.getDates(),
       pricingInfo: req.event.getPricingInfo(),
       ticketLink: req.event.getTicketLink(),
       owner: results[ 0 ],
@@ -342,24 +346,6 @@ function _format( req, res, next ) {
       currentState: results[ 3 ]
     };
 
-    if ( req.event.locations.length ) {
-
-      location = req.event.locations[ 0 ];
-
-      deepExtend( formatted, {
-        placeName: location.name,
-        address: location.address,
-        latitude: location.latitude,
-        longitude: location.longitude,
-        timings: location.timings,
-        region: location.region,
-        city: location.city,
-        postalCode: location.postcode,
-        ticketLink: false
-      } );
-      
-    }
-
     if ( req.event.getLanguages().length > 1 ) {
 
       formatted.languages = {
@@ -369,13 +355,30 @@ function _format( req, res, next ) {
 
     }
 
+    // deprecate this in favor of .dates
     formatted.timings.forEach( function( timing ) {
 
       timing.label = _t( timing.start, 'dddd Do - HH:mm' );
 
     });
 
-    formatted.importUri = req.genUrl( 'eventActionShow', { eventSlug: req.event.slug } );
+    formatted.dates.forEach( function( date ) {
+
+      date.label = _t( date.date, 'dddd Do MMM' );
+
+      date.timings.forEach( function( t ) {
+
+        t.startLabel = _t( t.start, 'HH:mm' );
+
+        t.endLabel = _t( t.end, 'HH:mm' );
+
+      });
+
+    });
+
+    formatted.importUri = req.genUrl( 'eventActionShow', { 
+      eventSlug: req.event.slug
+    } );
 
     req.formatted = formatted;
 

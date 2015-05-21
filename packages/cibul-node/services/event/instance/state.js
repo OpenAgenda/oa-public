@@ -17,15 +17,9 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
   function getState( cb ) {
 
-    if ( instance.getIsDraft() ) {
-
-      return cb( null, 'draft' );
-
-    }
-
     if ( !instance.isInAgendaContext() ) { 
 
-      return cb( null, _labelize( TYPES.PUBLISHED ) );
+      return cb( null, instance.getIsDraft() ? 'draft' : _labelize( TYPES.PUBLISHED )  );
 
     }
 
@@ -37,7 +31,15 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
         if ( err ) return cb( err );
 
-        if ( isPublished ) state = TYPES.PUBLISHED;
+        if ( isPublished ) {
+
+          state = TYPES.PUBLISHED;
+
+        } else if ( state === null ) {
+
+          state = 'draft';
+
+        }
 
         cb( null, _labelize( state ) );
 

@@ -221,18 +221,78 @@ describe( 'parser with children', function() {
 });
 
 
-describe( 'something', function( ) {
+describe( 'parser with children - mix ups', function() {
 
-  var p = parser( {
-    attributes : [
-      { name: 'Title', mapTo: 'title' }
-    ]
+  it( 'children with similar names but in different branches do not interfere', function() {
+
+    var p = parser( {
+      attributes: [ {
+        name: 'Title',
+        mapTo: 'title'
+      } ],
+      children: [{
+        name: 'Timings',
+        mapTo: 'timings',
+        attributes: [ {
+          name: 'Timing',
+          mapTo: 'timing'
+        } ]
+      }, {
+        name: 'Dates',
+        mapTo: 'dates',
+        attributes: [],
+        children: [ {      // same name as child of other branch
+          name: 'Timings',
+          mapTo: 'timings',
+          attributes: [ {
+            name: 'Start',
+            mapTo: 'startLabel'
+          } ]
+        } ]
+      }]
+    });
+
+    p.load( [
+      '<h1>{Title}</h1>',
+      '{block:Dates}',
+        '{block:Timings}',
+          '{Start}',
+        '{/block:Timings}',
+      '{/block:Dates}'
+    ].join('') );
+
+    p.render( {
+      title: 'Habla de tus penas',
+      dates: [{
+        timings: [{
+          startLabel: 'this is the start'
+        }]
+      }]
+    }).should.equal( '<h1>Habla de tus penas</h1>this is the start' );
+
   });
 
-  p.load( '<h1>{Title}</h1>' );
+} );
 
-  // this test should check when strcuture has children
-  // but no children are listed in template
-  // this right now does not work
+
+describe( 'parsing errors', function( ) {
+
+  it( 'mapTo not set in mapping throws exception', function() {
+
+    try {
+
+      var p = parser( {
+        attributes: [
+          { name: 'Title', mapto: 'title' },
+        ]
+      });
+
+    } catch( e ) {
+
+      e.message.should.equal( 'both mapTo and name must be defined in attribute' );
+
+    }
+
+  } );
 
 } );

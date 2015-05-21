@@ -39,9 +39,14 @@
 
   <section class="dates">
     <ul>
+{block:Dates}
+      <li>
+        {Date}
 {block:Timings}
-      <li>{Timing}</li>
+  - {Start} > {End}
 {/block:Timings}
+      </li>
+{/block:Dates}
     </ul>
   </section>
 
