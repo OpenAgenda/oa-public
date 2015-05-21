@@ -196,7 +196,8 @@ function buildCsv( includePrivateData ) {
     'department',
     'region',
     'latitude',
-    'longitude'
+    'longitude',
+    'featured'
   ];
 
   return function( req, res, next ) {

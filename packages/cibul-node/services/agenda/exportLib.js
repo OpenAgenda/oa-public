@@ -54,6 +54,20 @@ function decorateEvents( agenda, events, toDecorate, options, cb ) {
 
       function( wcb ) {
 
+        event.getFeatured( function( err, isFeatured ) {
+
+          if ( err ) return wcb( err );
+
+          toDecorate[ i ].featured = isFeatured;
+
+          wcb();
+
+        });
+
+      },
+
+      function( wcb ) {
+
         var customFieldsGetter = agenda.getEventPublicCustomFields;
 
         if ( params.includePrivateData ) {
@@ -73,7 +87,7 @@ function decorateEvents( agenda, events, toDecorate, options, cb ) {
         } );
 
       },
-      
+
       function( wcb ) {
 
         event.getAgendaCategory( agenda.id, function( err, category ) {
