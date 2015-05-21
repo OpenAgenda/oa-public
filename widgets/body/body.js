@@ -14,6 +14,10 @@ debug = require( 'debug' ),
 
 qs = require( 'qs' ),
 
+style = require( './style.css' ),
+
+styler = require( '../lib/widgetStyler' ),
+
 config = {
   all: {
     heightOffset: 40,
@@ -87,6 +91,8 @@ function widget( elem, options ) {
     controller = options.register( wLib.interface( 'body', uid, {
       change: change 
     } ));
+
+    styler( style );
 
     controller.getControlData( function( data ) {
 
