@@ -151,6 +151,8 @@ function _sync( job, cb ) {
 
   agendaSvc.get( job.values, function( err, agenda ) {
 
+    log( 'syncing agenda %s', agenda.slug );
+
     // retrieve indexed events
 
     var hasMore = true, offset = 0, eIds = [];
@@ -159,7 +161,11 @@ function _sync( job, cb ) {
 
       agenda.search( { passed: 1 }, { offset: offset, limit: limit }, function( err, data ) {
 
-        eIds = eIds.concat( data.events.map( function( e ) { return parseInt( e.id.split( '@' )[0], 10 ); } ) );
+        eIds = utils.unique( eIds.concat( data.events.map( function( e ) { return parseInt( e.id.split( '@' )[0], 10 ); } ) ) );
+
+        console.log('===========');
+        console.log(eIds.length);
+        console.log(typeof eIds[ 0 ]);
 
         offset += limit;
 
@@ -172,6 +178,8 @@ function _sync( job, cb ) {
     }, function( err ) {
 
       if ( err ) return cb( err );
+
+      log( 'will update %s indexed events for agenda %s', eIds.length, agenda.slug );
 
       // retrieve db events
 
@@ -189,6 +197,8 @@ function _sync( job, cb ) {
 
             eIds.push( events[ 0 ].id );
 
+            log( 'added event %s to be indexed for agenda %s. %s events to be indexed', events[ 0 ].id, agenda.slug, eIds.length );
+
           }
 
           offset += 1;
@@ -202,6 +212,8 @@ function _sync( job, cb ) {
       }, function( err ) {
 
         if ( err ) return cb( err );
+
+        log( 'syncing %s events for agenda %s', eIds.length, agenda.slug );
 
         eIds.forEach( function( id ) {
 
