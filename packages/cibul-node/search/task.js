@@ -163,10 +163,6 @@ function _sync( job, cb ) {
 
         eIds = utils.unique( eIds.concat( data.events.map( function( e ) { return parseInt( e.id.split( '@' )[0], 10 ); } ) ) );
 
-        console.log('===========');
-        console.log(eIds.length);
-        console.log(typeof eIds[ 0 ]);
-
         offset += limit;
 
         hasMore = !!data.events.length;
