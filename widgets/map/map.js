@@ -219,7 +219,9 @@ function widget( elem, options ) {
 
       } else if ( reqParams.location ) {
 
-        popupLocation = selectedLocation = locations[ reqParams.location ];
+        log( 'location is specified in request: %s', reqParams.location );
+
+        popupLocation = selectedLocation = locations[ parseInt( reqParams.location, 10 ) ];
 
       }
 
@@ -234,9 +236,17 @@ function widget( elem, options ) {
 
   function _openPopup( l ) {
 
-    _closePopup();
+    _fetchLocationInfo( location, function( err, location ) {
 
-    popup = m.createPopup( map, new EJS({ text: templates.popup }).render( cn.extend({labels: config.labels[ config.lang ]}, l )), { marker: l.marker });
+      var popupData = cn.extend({
+        labels: config.labels[ config.lang ]
+      }, l );
+
+      _closePopup();
+
+      popup = m.createPopup( map, new EJS({ text: templates.popup }).render( popupData ), { marker: l.marker });
+
+    } );
 
   }
 
@@ -330,6 +340,41 @@ function widget( elem, options ) {
 
   }
 
+  function _fetchLocationInfo( location, cb ) {
+
+    if ( location.slug ) return cb( null, location );
+
+    remote.get( res.location.replace( '{uid}', location.uid ), {}, function( responseType, data ) {
+
+      if ( responseType !== 'success' ) {
+
+        log( 'could not fetch location detail' );
+
+        return;
+
+      }
+
+      cn.extend( location, data, { uid: location.uid /* for template testing */} );
+
+      cb( null, location );
+
+    }, _isAjax() );
+
+  }
+
+
+  function _isAjax() {
+
+    if ( embedMode && ( window.env !== 'tpl' ) ) {
+
+      return false;
+
+    }
+
+    return true;
+
+  }
+
 
   function _setOnMarkerClick( location ) {
 
@@ -337,7 +382,7 @@ function widget( elem, options ) {
 
       var updatedReqParams = {};
 
-      log( 'clicked marker of location "%s"', location.placename );
+      log( 'clicked marker of location "%s"', location.uid );
 
       if ( !useClusters ) {
 
@@ -354,14 +399,14 @@ function widget( elem, options ) {
 
       }
       
-      if ( !selectedLocation && !cn.contains( activeLocations, location.slug ) ) {
+      if ( !selectedLocation && !cn.contains( activeLocations, location.uid ) ) {
 
         // if location is not in active locactions,
         // clicking it will cancel current selection
 
-        updatedReqParams = _setLocationParams( location.slug, true );
+        updatedReqParams = _setLocationParams( location, true );
 
-      } else if ( selectedLocation && ( selectedLocation.slug == location.slug ) ) {
+      } else if ( selectedLocation && ( selectedLocation.uid == location.uid ) ) {
 
       // if location is in part of current selection,
       // clicking it will remove it
@@ -373,12 +418,12 @@ function widget( elem, options ) {
         // if location is not selected,
         // add it to current selection
 
-        updatedReqParams = _setLocationParams( location.slug );
+        updatedReqParams = _setLocationParams( location );
 
       }
 
 
-      if ( cn.contains( passedLocations, location.slug ) ) {
+      if ( cn.contains( passedLocations, location.uid ) ) {
 
         updatedReqParams.passed = '1';
 
@@ -404,14 +449,16 @@ function widget( elem, options ) {
   }
 
 
-  function _setLocationParams( slug, clear ) {
+  function _setLocationParams( location, clear ) {
+
+    log( 'setting location to %s', location.uid );
 
     var updateValues = {
       neLat: null,
       neLng: null,
       swLat: null,
       swLng: null,
-      location: slug
+      location: location.uid
     }
 
     if ( clear ) {
@@ -439,7 +486,7 @@ function widget( elem, options ) {
 
     if ( selectedLocation ) {
           
-      activeLocations = [ selectedLocation.slug ];
+      activeLocations = [ selectedLocation.uid ];
 
       m.setCenter( map, selectedLocation.coords );
 

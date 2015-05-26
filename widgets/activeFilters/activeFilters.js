@@ -38,8 +38,6 @@ var widget = function( elem, options ) {
 
   tags = {},
 
-  locations = {},
-
   organizations = {},
 
   controller;
@@ -164,7 +162,7 @@ var widget = function( elem, options ) {
     if ( reqParams.location ) {
 
       newFilters.push({
-        label: locations[ reqParams.location ],
+        label: config.labels[ lang ].location,
         keys: [ 'location' ]
       });
 
@@ -217,16 +215,6 @@ var widget = function( elem, options ) {
   }
 
   function _indexLabels( data ) {
-
-    for ( var a in data.a ) {
-
-      for ( var l in data.a[a].l ) {
-
-        locations[ l ] = data.a[ a ].l[ l ].p;
-
-      }
-
-    }
 
     cn.forEach( data.ct, function( c ) {
 
