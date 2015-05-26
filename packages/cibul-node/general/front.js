@@ -16,6 +16,7 @@ routes = {
   corpoHome: [ 'get', '/', index( 'home' ) ],
   corpoFeatures: [ 'get', '/features', index( 'features' ) ],
   corpoPricing: [ 'get', '/services', index( 'pricing' ) ],
+  corpoApi: [ 'get', '/interface', index( 'api' ) ],
   corpoAbout: [ 'get', '/about', index( 'about' ) ],
   newsletterSubscribe: [ 'post', '/newsletter/subscribe', newsletterSubscribe ],
   serviceConnectCallback: [ 'get', '/services/:service/connect/callback', serviceConnectCallback ]
