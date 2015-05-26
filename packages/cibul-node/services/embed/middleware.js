@@ -6,6 +6,10 @@ parserLib = require( './parser' ),
 
 fs = require( 'fs' ),
 
+async = require( 'async' ),
+
+utils = require( '../../lib/utils' ),
+
 tblr = {
   eventItem: fs.readFileSync( __dirname + '/templates/eventItem.tblr' ).toString(),
   eventItemMapping: JSON.parse( fs.readFileSync( __dirname + '/templates/eventItem.map.json' ).toString() ),
@@ -35,9 +39,11 @@ module.exports = function( embedService ) {
 
 function renderEventItems( req, res, next ) {
 
-  var template = tblr.eventItem;
+  var template = tblr.eventItem, mapping = tblr.eventItemMapping;
 
   if ( req.embed ) {
+
+    mapping = req.embed.getMapping( 'eventitem' ) || mapping;
 
     template = req.embed.getTemplate( 'eventitem' ) || template;
 
@@ -47,21 +53,26 @@ function renderEventItems( req, res, next ) {
 
   req.renders.eventItems = [];
 
-  var eventItemParser = parserLib( tblr.eventItemMapping );
+  var eventItemParser = parserLib( mapping );
 
   eventItemParser.load( template );
-  
-  req.events.forEach( function( e ) {
 
-    req.renders.eventItems.push( eventItemParser.render( e ) );
+  async.each( req.events, function( e, ecb ) {
 
-  });
+    _getCustomFields( req, e, 'eventitem', function( err, values ) {
 
-  req.renders = req.renders;
+      if ( err ) return ecb( err );
 
-  next();
+      req.renders.eventItems.push( eventItemParser.render( utils.extend( e, values ) ) );
+
+      ecb();
+
+    });
+
+  }, next );
 
 }
+
 
 function renderEvent( req, res, next ) {
 
@@ -87,33 +98,17 @@ function renderEvent( req, res, next ) {
 
   eventParser.load( template );
 
-  if ( req.embed && req.embed.getMapping( 'event' ) ) {
+  _getCustomFields( req, req.event, 'event', function( err, values ) {
 
-    // load event optional values if any
-    req.event.getCustomFields( req.lang, true, function( err, values ) {
+    if ( err ) return next( err );
 
-      if ( err ) return next( err );
-
-      for( var i in values ) {
-
-        req.formatted[ i ] = values[ i ];
-
-      }
-
-      req.render = eventParser.render( req.formatted );
-
-      next();
-
-    });  
-
-  } else {
+    utils.extend( req.formatted, values );
 
     req.render = eventParser.render( req.formatted );
 
     next();
-    
-  }
 
+  } );
 
 }
 
@@ -248,5 +243,13 @@ function _hasQueryOtherThan( req, exceptions ) {
   }
 
   return false;
+
+}
+
+function _getCustomFields( req, e, mapping, cb ) {
+
+  if ( !req.embed || !req.embed.getMapping( mapping ) ) return cb( null, {} );
+
+  e.getCustomFields( req.lang, true, cb );
 
 }
