@@ -161,5 +161,17 @@
   "The founders"
   : "Les fondateurs",
   "Loading..."
-  : "Chargement en cours..."
+  : "Chargement en cours...",
+  "Read and publish event data through the API"
+  : "L'interface de programmation (API) est disponible en lecture et écriture",
+  "Multiple use cases are possible"
+  : "De nombreux usages sont possibles",
+  "Publish your events on your agendas"
+  : "Publier automatiquement vos événements sur vos agendas",
+  "Export agenda contents to be used in other platforms ( print, mobile apps, newsletters )"
+  : "Exporter le contenu de vos agendas vers d'autres supports de communication (maquette InDesign, application mobile, écrans connectés, newsletters, etc.)",
+  "Search for event content"
+  : "Récupérer tous les événements de la plateforme liés à un thème ou à territoire.",
+  "Check the documentation"
+  : "Voir la documentation"
 }
