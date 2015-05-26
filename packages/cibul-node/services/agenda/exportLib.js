@@ -1,6 +1,6 @@
 "use strict";
 
-var svc, middlewares,
+var svc,
 
 utils = require( '../../lib/utils' ),
 
@@ -11,8 +11,7 @@ module.exports = function( service ) {
   svc = service;
 
   return {
-    decorateEvents: decorateEvents,
-    mw: middlewares
+    decorateEvents: decorateEvents
   }
 
 }
@@ -35,6 +34,41 @@ function decorateEvents( agenda, events, toDecorate, options, cb ) {
     }, { protocol: 'https://' } );
 
     async.waterfall( [
+
+      function( wcb ) {
+
+        event.getTimings( function( err, timings ) {
+
+          if ( err ) return wcb( err );
+
+          var t;
+
+          utils.extend( toDecorate[ i ], {
+            firstDate: null,
+            firstTimeStart: null,
+            firstTimeEnd: null
+          } );
+
+          if ( timings.length ) {
+
+            t = {
+              start: new Date( timings[ 0 ].start ),
+              end: new Date( timings[ 0 ].end )
+            };
+
+            utils.extend( toDecorate[ i ], {
+              firstDate: _stringifyDate( t.start ),
+              firstTimeStart: _fZ( t.start.getUTCHours() ) + ':' + _fZ( t.start.getMinutes() ),
+              firstTimeEnd: _fZ( t.end.getUTCHours() ) + ':' + _fZ( t.end.getMinutes() )
+            });
+
+          }
+
+          wcb();
+
+        });
+
+      },
 
       function( wcb ) {
 
@@ -125,3 +159,18 @@ function decorateEvents( agenda, events, toDecorate, options, cb ) {
   }, cb );
 
 }
+
+
+function _stringifyDate( d ) {
+
+  if ( typeof d == 'string' ) d = new Date( d );
+
+  return [ d.getFullYear(), _fZ( d.getMonth() + 1 ), _fZ( d.getDate() ) ].join( '-' );
+
+}
+
+function _fZ( n ) {
+
+  return (n>9?'':'0') + n;
+
+};
