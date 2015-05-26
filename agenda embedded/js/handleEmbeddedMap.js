@@ -8,7 +8,7 @@ var handleEmbeddedMap = function(options) {
     search: false,
     iconRoot: 'images/',
     enabled: false,
-    tiles: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'
+    tiles: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png'
   }, options);
 
   options.events = extend({
