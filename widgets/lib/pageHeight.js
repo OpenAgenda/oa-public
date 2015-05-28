@@ -1,5 +1,7 @@
 "use strict";
 
+var imagesLoaded = require( 'imagesloaded' );
+
 module.exports = {
   check: check,
   force: force,
@@ -10,6 +12,8 @@ var height,
 
 cn = require( '../../js/lib/common/common.mod' ),
 
+
+
 onChangeCb = false,
 
 firstChildPaddings = false,
@@ -17,6 +21,12 @@ firstChildPaddings = false,
 enabled = true, enableTimeout;
 
 cn.addEvent( window, 'resize', check );
+
+cn.addEvent( window, 'load', function() {
+
+  imagesLoaded( cn.el( 'body' ), check );
+
+});
 
 function check( force ) {
 
