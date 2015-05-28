@@ -8,7 +8,7 @@ config = require( '../../../config' ),
 
 model = require( 'cibulModel' )( config.db ),
 
-mailer = require( '../../mailer/mailer' ),
+mailer = require( '../../mailer' ),
 
 w = require( 'when' ),
 

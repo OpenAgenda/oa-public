@@ -18,6 +18,7 @@ config = {
     googleAnalyticsId: 'UA-60305866-1',
     useCache: true,
     adminEmail: 'kaore@openagenda.com',
+    mapboxAccessToken: 'pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
     db: {
       database: 'oa',
       host: 'cibul.cjlxznnlwwtq.eu-west-1.rds.amazonaws.com',

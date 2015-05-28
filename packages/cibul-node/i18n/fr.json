@@ -108,5 +108,7 @@
   "The event is no longer featured"
   : "L'événement n'est plus en une",
   "The event is now featured"
-  : "L'événement est désormais en une"
+  : "L'événement est désormais en une",
+  "The event is being sent to %count% emails"
+  : "L'événement est en cours d'envoi à %count% adresses mail"
 }

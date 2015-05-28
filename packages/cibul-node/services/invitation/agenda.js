@@ -20,6 +20,8 @@ w = require( 'when' ),
 
 model = require( '../model' ),
 
+mailer = require( '../mailer' ),
+
 cmn = require( '../../lib/commons-app' ),
 
 genUrl,
@@ -92,7 +94,7 @@ function agendaInvitations( agenda ) {
 
     invitations = [];
 
-    async.eachSeries( _splitEmails( emails ), function( email, ecb ) {
+    async.eachSeries( mailer.extractEmails( emails ), function( email, ecb ) {
 
       log( 'processing email %s', email );
 
@@ -106,7 +108,10 @@ function agendaInvitations( agenda ) {
 
         } else {
 
-          result.errors.push( { email: email, errors: data.errors } );
+          result.errors.push( {
+            email: email, 
+            errors: data.errors
+          } );
 
         }
 
@@ -314,19 +319,6 @@ function _attemptLoadUser( values ) {
       resolve( values );
 
     } );
-
-  });
-
-}
-
-
-function _splitEmails( emails ) {
-
-  if ( typeof emails !== 'string' ) return emails;
-
-  return emails.split(/[\s;,]+/).filter( function( email ) {
-
-    return !!email.trim().length;
 
   });
 

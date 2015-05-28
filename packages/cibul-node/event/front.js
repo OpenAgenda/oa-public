@@ -14,6 +14,10 @@ embedSvc = require( '../services/embed/embed' ),
 
 eventSvc = require( '../services/event' ),
 
+mailer = require( '../services/mailer' ),
+
+model = require( '../services/model' ),
+
 timeHelper = require( 'cibulTemplates' ).helpers.time,
 
 textHelper = require( 'cibulTemplates' ).helpers.text(),
@@ -23,7 +27,6 @@ i18n = require( '../i18n/i18n' ),
 routes = {
 
   agendaEventShow: [ 'get', '/:slug/events/:eventSlug', [
-    cmn.loadAgenda( 'slug' ), 
     agendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     _format,
@@ -81,6 +84,40 @@ routes = {
     _loadUris,
     _conditionalLayout( _layoutData, 'oa.css' ),
     actionDatesShow
+  ] ],
+
+  agendaEventActionShow: [ 'get', '/:slug/events/:eventSlug/action', [
+    agendaSvc.mw.load( 'slug' ),
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    _format,
+    _loadUris,
+    _extractAgendasSharing,
+    _conditionalLayout( _layoutData, 'oa.css' ),
+    actionShow
+  ]],
+
+  agendaEventActionDatesShow: [ 'get', '/:slug/events/:eventSlug/action/dates', [
+    agendaSvc.mw.load( 'slug' ),
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    _format,
+    _loadUris,
+    _conditionalLayout( _layoutData, 'oa.css' ),
+    actionDatesShow
+  ] ],
+
+  agendaEventMailSend: [ 'post', '/:slug/events/:eventSlug/email', [
+    agendaSvc.mw.load( 'slug' ),
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    _format,
+    _loadUris,
+    eventMailSend
+  ] ],
+
+  eventMailSend: [ 'post', '/events/:eventSlug/email', [
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    _format,
+    _loadUris,
+    eventMailSend
   ] ]
 
 },
@@ -178,6 +215,7 @@ function show( req, res ) {
 function actionShow( req, res ) {
 
   var templateData = {
+    mailSendUri: req.genUrl( 'eventMailSend', { eventSlug: req.event.slug } ),
     event: {
       uid: req.event.uid,
       title: req.event.getTitle(),
@@ -185,6 +223,7 @@ function actionShow( req, res ) {
       uri: req.eventUri,
       params: req.eventUriParams
     },
+    agenda: req.agenda ? req.agenda : false,
     logged: req.session.logged,
     agendas: []
   },
@@ -257,6 +296,69 @@ function actionDatesShow( req, res ) {
 
       })
     }
+  });
+
+}
+
+
+function eventMailSend( req, res, next ) {
+
+  var emails = mailer.extractEmails( req.body.mailsend );
+
+  req.formatted.uri = req.eventUri;
+  req.formatted.uriParams = req.eventUriParams;
+
+  model.unsubscribed().filter( emails, function( err, emails ) {
+
+    log( 'will send event as email to %s', emails.join(', ') );
+
+    var renders = {};
+
+    async.each( [ 'html', 'text' ], function( type, ecb ) {
+
+      cmn.renderTemplate( req, 'event/email', { 
+        type: type,
+        layout: {
+          title: req.event.getTitle(),
+          preheaderContent: req.event.getTitle()
+        },
+        event: req.formatted,
+        agenda: req.agenda ? req.agenda : false,
+        map: {
+          name: req.formatted.placeName,
+          lat: req.formatted.latitude,
+          lng: req.formatted.longitude,
+          zoom: 16,
+          accessToken: config.mapboxAccessToken
+        }
+      }, function( err, render ) {
+
+        if ( err ) return ecb( err );
+
+        renders[ type ] = render;
+
+        ecb();
+
+      } );
+
+    }, function( err ) {
+
+      if ( err ) next( err );
+
+      // here we send the mail.
+
+      mailer.queueMail( {
+        recipient: emails,
+        subject: req.event.getTitle(),
+        text: renders.text,
+        html: renders.html
+      } );
+
+      res.setFlash( req, 'The event is being sent to %count% emails', { '%count%' : emails.length } );
+      res.redirect( 302, req.genUrl( req.eventUri, req.eventUriParams ) );
+
+    } );
+
   });
 
 }
@@ -376,9 +478,21 @@ function _format( req, res, next ) {
 
     });
 
-    formatted.importUri = req.genUrl( 'eventActionShow', { 
-      eventSlug: req.event.slug
-    } );
+    if ( req.agenda ) {
+
+      formatted.importUri = req.genUrl( 'agendaEventActionShow', {
+        slug: req.agenda.slug,
+        eventSlug: req.event.slug
+      });
+
+    } else {
+
+      formatted.importUri = req.genUrl( 'eventActionShow', { 
+        eventSlug: req.event.slug
+      } );
+
+    }
+
 
     req.formatted = formatted;
 

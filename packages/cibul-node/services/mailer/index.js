@@ -8,11 +8,14 @@ router = require( '../../lib/router' ),
 
 config = require( '../../config' ),
 
-lib = require( '../../lib/lib' );
+utils = require( '../../lib/utils' ),
+
+validator = require( 'validator' );
 
 module.exports = {
   genUrl: genUrl,
-  queueMail: queueMail
+  queueMail: queueMail,
+  extractEmails: extractEmails
 }
 
 
@@ -22,10 +25,11 @@ function queueMail( options, cb ) {
     recipient: false, // compulsory
     subject: false,   // compulsory. text or array
     text: false,      // compulsory. text or array
+    html: false,      // optional.
     lang: false       // optional. use translation lib if set
   };
 
-  lib.extend( params, options );
+  utils.extend( params, options );
 
   if ( !params.recipient || !params.subject || !params.text ) {
 
@@ -36,7 +40,8 @@ function queueMail( options, cb ) {
   coms.queue( 'mailer', {
     recipient: params.recipient,
     subject: _prepareText( params.subject, params.lang ),
-    text: _prepareText( params.text, params.lang )
+    text: _prepareText( params.text, params.lang ),
+    html: params.html
   }, cb );
 
 }
@@ -49,6 +54,15 @@ function genUrl( uri, query ) {
   })( uri, query , { abs: true, protocol: 'https' });
 
 }
+
+function extractEmails( emails ) {
+
+  if ( typeof emails !== 'string' ) throw 'arg must be a string containing emails';
+
+  return emails.split( /[\s;,\n\r]+/ ).filter( validator.isEmail );
+
+}
+
 
 function _prepareText( text, lang ) {
 

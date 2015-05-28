@@ -45,6 +45,9 @@
     "name": "Longitude", 
     "mapTo": "longitude" 
   }, {
+    "name" : "City",
+    "mapTo" : "city"
+  }, {  
     "name" : "FacebookShareUrl",
     "mapTo" : "facebookShare"
   }, {
