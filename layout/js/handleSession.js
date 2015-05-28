@@ -6,66 +6,73 @@ remote = require( '../../js/lib/remote/remote.mod.js' ),
 
 Cookies = require( '../../js/vendors/Cookies-master/src/cookies.js' ),
 
-Base64 = require( '../../js/lib/Base64/Base64.mod.js' );
+Base64 = require( '../../js/lib/Base64/Base64.mod.js' ),
+
+debug = require( 'debug' ), log,
+
+store = require( 'store' ),
+
+defaults = {
+  url: {
+    prod: '/session',
+    dev: '/frontend_dev.php/session',
+    test: '/frontend_test.php/session',
+    tpl: {
+      logged: '/server/testdata/opensession.json',
+      unlogged: '/server/testdata/closedsession.json'
+    }
+  },
+  env: false,
+  cookie: 'cibul',
+  cookieFlag: 'refresh',
+  cookieLogged: 'logged',
+  local: 'cibul',
+  onLoaded: false,
+  events: { fetch: 'getsessiondata', clear: false },
+  lifetime: 60*60*1000
+};
 
 module.exports = function( eh, options ) {
 
-  // add event support you mofo.
-
-  var params = cn.extend({
-    url: {
-      prod: '/session',
-      dev: '/frontend_dev.php/session',
-      test: '/frontend_test.php/session',
-      tpl: {
-        logged: '/server/testdata/opensession.json',
-        unlogged: '/server/testdata/closedsession.json'
-      }
-    },
-    env: false,
-    cookie: 'cibul',
-    cookieFlag: 'refresh',
-    cookieLogged: 'logged',
-    local: 'cibul',
-    onLoaded: false,
-    events: { fetch: 'getsessiondata', clear: false }
-  }, params),
-
-  url,
+  var params = cn.extend( {}, defaults, options ), url,
 
   stack = [], windowStack = [],
 
   isReady = false,
 
-  sessionData,
+  sessionData;
 
-  run = function() {
+  if ( window.env ) params.env = window.env;
 
-    if ( window.env ) params.env = window.env;
+  if ( window.env !== 'prod' ) debug.enable( '*' );
 
-    url = _defineUrl();
+  log = debug( 'handleSession' );
 
-    if ( !_hasStorage() || _flaggedCookie() || !_hasSessionData() || params.debug || _contradictingCookie()) {
+  url = _defineUrl();
 
-      _fetch(function( data ) {
+  if ( _flaggedCookie() || !_hasSessionData() || _contradictingCookie()) {
 
-        _setSessionData( data );
+    _fetch( url, function( data ) {
 
-        isReady = true;
+      log( 'fetched session data, setting in local storage' );
 
-        _processStack();
-        
-      });
+      _setSessionData( data );
 
-    } else {
       isReady = true;
-    }
 
-    return _handleFetchRequest;
+      _processStack();
+      
+    });
 
-  },
-  
-  _handleFetchRequest = function( cb ) {
+  } else {
+
+    log( 'local storage is valid and can be used' );
+
+    isReady = true;
+
+  }
+
+  return function( cb ) {
 
     if ( !isReady ) {
 
@@ -75,9 +82,9 @@ module.exports = function( eh, options ) {
 
     cb( _getSessionData() );
 
-  },
+  }
 
-  _defineUrl = function() {
+  function _defineUrl() {
 
     var env = window.env ? window.env : 'prod',
 
@@ -91,9 +98,9 @@ module.exports = function( eh, options ) {
 
     return url;
 
-  },
+  }
 
-  _processStack = function() {
+  function _processStack() {
 
     var data = _getSessionData();
 
@@ -105,9 +112,13 @@ module.exports = function( eh, options ) {
 
     stack = undefined;
 
-  },
+  }
 
-  _hasSessionData = function() {
+  function _hasSessionData() {
+
+    var data = _getSessionData( true ),
+
+    now = new Date().getTime();
 
     if ( window.env == 'tpl' ) {
 
@@ -115,31 +126,78 @@ module.exports = function( eh, options ) {
 
     }
 
-    return (null !== localStorage.getItem(params.local));
+    if ( !data ) {
 
-  },
+      log( 'has no session data' );
 
-  _getSessionData = function() {
+      return false;
 
-    if ( !sessionData ) {
+    }
 
-      sessionData = JSON.parse( localStorage.getItem( params.local ) );
+    if ( !data.timestamp ) {
+
+      log( 'timestamp is not set' );
+
+      return false;
+
+    }
+
+    if ( data.timestamp + params.lifetime < now ) {
+
+      log( 'localStorage is too old' );
+
+      return false;
+
+    }
+
+    log( 'has valid local storage - expires in %s', ( ( params.lifetime - ( now - data.timestamp ) ) / 1000 ) + 's'  );
+
+    return true;
+
+  }
+
+  function _getSessionData( force ) {
+
+    if ( !sessionData || force ) {
+
+      log( 'parsing session data from local storage' );
+
+      try {
+
+        sessionData = JSON.parse( store.get( params.local ) );
+        
+      } catch( e ) {
+
+        return false;
+
+      }
+
 
     }
 
     return sessionData;
 
-  },
+  }
 
-  _setSessionData = function(data) {
+
+  function _setSessionData( data ) {
+
+    var result;
+
+    log( 'setting session data in local storage' );
 
     sessionData = null;
 
-    return localStorage.setItem( params.local, JSON.stringify(data) );
+    data.timestamp = new Date().getTime();
 
-  },
+    result = store.set( params.local, JSON.stringify( data ) );
 
-  _getCookieValue = function(name, defaultValue) {
+    return result;
+
+  }
+
+  
+  function _getCookieValue( name, defaultValue ) {
 
     if (typeof defaultValue == 'undefined') defaultValue = false;
 
@@ -148,9 +206,10 @@ module.exports = function( eh, options ) {
     var values = JSON.parse( Base64.decode(Cookies.get(params.cookie)) );
 
     return (typeof values[name] == 'undefined')?defaultValue:values[name];
-  },
+  }
 
-  _setCookieValue = function(name, value) {
+  
+  function _setCookieValue( name, value ) {
 
     if (!Cookies.get(params.cookie)) throw 'no cookie';
 
@@ -160,66 +219,77 @@ module.exports = function( eh, options ) {
 
     Cookies.set(params.cookie, Base64.encode(JSON.stringify(values)));
 
-  },
+  }
 
-  _flaggedCookie = function() {
+  
+  function _flaggedCookie() {
 
     var flagged;
 
     try {
+
       flagged = _getCookieValue(params.cookieFlag);
+
     } catch (e) {
+
+      log( 'could not read cookie' );
+
       return false;
+
     }
+
+    log( 'cookie is %s', flagged ? 'flagged' : 'not flagged' );
 
     _setCookieValue(params.cookieFlag, false);
 
     return flagged;
 
-  },
+  }
 
-  _contradictingCookie = function() {
+
+  function _contradictingCookie() {
 
     var cookieValue;
 
     try {
+
       cookieValue = _getCookieValue( 'logged' );
+
     } catch (e) {
+
+      log( 'could not retrieved logged cookie value' );
+
       return false;
+
     }
 
     var logged = _getSessionData().logged;
 
-    if (logged !== cookieValue) return true;
+    if (logged !== cookieValue) {
+
+      log( 'logged cookie value is different from local storage' );
+
+      return true;
+
+    }
+
+    log( 'logged cookie matches local storage state' );
 
     return false;
 
-  },
+  }
 
-  _fetch = function( cb ) {
+}
 
-    remote.get( url, {}, function( responseType, data ){
 
-      if ( responseType == 'success' ) cb( data );
+function _fetch( url, cb ) {
 
-    }, true );
+  log( 'fetching %s', url );
 
-  },
+  remote.get( url, {}, function( responseType, data ){
 
-  _hasStorage = function() {
+    if ( responseType == 'success' ) cb( data );
 
-    var mod='yeepeekayyay';
-    
-    try {
-      localStorage.setItem(mod, mod);
-      localStorage.removeItem(mod);
-      return true;
-    } catch(e) {
-      return false;
-    }
-    
-  };
+  }, true );
 
-  return run();
-
-};
+}

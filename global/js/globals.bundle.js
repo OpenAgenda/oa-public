@@ -2274,7 +2274,6 @@ module.exports = {
       timeout = settings.timeout?settings.timeout:2000,
       retries = settings.retries?settings.retries:0,
       sentUrl = this.appendToUrl(url, settings.data),
-      callbackParam = {},
       self = this,
       callbackParamName = settings.callbackParamName?settings.callbackParamName:'callback';
 
@@ -2290,20 +2289,37 @@ module.exports = {
     };
 
     var sendQuery = function() {
-      var callbackName = 'jsonpCb' + Math.ceil(Math.random()*100000);
 
-      window[callbackName] = handleResponse;
-      var script = document.createElement('script');
-      script.setAttribute('type','text/javascript');
+      var callbackName,
 
-      if (sentUrl.indexOf(callbackParamName + '=') != -1) { // callback param is already in string
-        script.src = sentUrl.substring(0, sentUrl.indexOf(callbackParamName + '=') + 9) + callbackName + sentUrl.substring(sentUrl.indexOf(callbackParamName + '=') + 9);
+      callbackParam = {},
+
+      script = document.createElement('script'),
+
+      urlCbNameIndex = sentUrl.indexOf( callbackParamName + '=' );
+
+      script.setAttribute( 'type','text/javascript' );
+
+      if ( urlCbNameIndex !== -1 ) {
+
+        callbackName = sentUrl.substr( urlCbNameIndex + callbackParamName.length + 1 );
+
+        script.src = sentUrl;
+
       } else {
-        callbackParam[callbackParamName] = callbackName;
-        script.src = self.appendToUrl(sentUrl, callbackParam);
+
+        callbackName = 'jsonpCb' + Math.ceil( Math.random()*100000 );
+
+        callbackParam[ callbackParamName ] = callbackName;
+
+        script.src = self.appendToUrl( sentUrl, callbackParam );
+
       }
+
+      window[ callbackName ] = handleResponse;
         
       document.getElementsByTagName('head')[0].appendChild(script);
+
     };
 
     sendQuery();
@@ -2554,6 +2570,8 @@ function _print( render ) {
 
   cn.addEvent( d, 'click', function( e ) {
 
+    cn.preventDefault( e );
+
     cn.el( 'body' ).removeChild( d );
 
   });
@@ -2788,7 +2806,7 @@ function _checkAndClearTemplates( lastUpdate ) {
   store.set('lastTemplateUpdate', lastUpdate );
 
 };
-},{"../../js/lib/clientEjs/ejs":9,"../../js/lib/common/common.mod.js":10,"../../js/lib/remote/remote.mod.js":12,"./i18n":22,"async":27,"store":31}],16:[function(require,module,exports){
+},{"../../js/lib/clientEjs/ejs":9,"../../js/lib/common/common.mod.js":10,"../../js/lib/remote/remote.mod.js":12,"./i18n":22,"async":27,"store":33}],16:[function(require,module,exports){
 var cn = require( '../../js/lib/common/common.mod.js' ),
 
 debug = require('debug'),
@@ -3020,66 +3038,73 @@ remote = require( '../../js/lib/remote/remote.mod.js' ),
 
 Cookies = require( '../../js/vendors/Cookies-master/src/cookies.js' ),
 
-Base64 = require( '../../js/lib/Base64/Base64.mod.js' );
+Base64 = require( '../../js/lib/Base64/Base64.mod.js' ),
+
+debug = require( 'debug' ), log,
+
+store = require( 'store' ),
+
+defaults = {
+  url: {
+    prod: '/session',
+    dev: '/frontend_dev.php/session',
+    test: '/frontend_test.php/session',
+    tpl: {
+      logged: '/server/testdata/opensession.json',
+      unlogged: '/server/testdata/closedsession.json'
+    }
+  },
+  env: false,
+  cookie: 'cibul',
+  cookieFlag: 'refresh',
+  cookieLogged: 'logged',
+  local: 'cibul',
+  onLoaded: false,
+  events: { fetch: 'getsessiondata', clear: false },
+  lifetime: 60*60*1000
+};
 
 module.exports = function( eh, options ) {
 
-  // add event support you mofo.
-
-  var params = cn.extend({
-    url: {
-      prod: '/session',
-      dev: '/frontend_dev.php/session',
-      test: '/frontend_test.php/session',
-      tpl: {
-        logged: '/server/testdata/opensession.json',
-        unlogged: '/server/testdata/closedsession.json'
-      }
-    },
-    env: false,
-    cookie: 'cibul',
-    cookieFlag: 'refresh',
-    cookieLogged: 'logged',
-    local: 'cibul',
-    onLoaded: false,
-    events: { fetch: 'getsessiondata', clear: false }
-  }, params),
-
-  url,
+  var params = cn.extend( {}, defaults, options ), url,
 
   stack = [], windowStack = [],
 
   isReady = false,
 
-  sessionData,
+  sessionData;
 
-  run = function() {
+  if ( window.env ) params.env = window.env;
 
-    if ( window.env ) params.env = window.env;
+  if ( window.env !== 'prod' ) debug.enable( '*' );
 
-    url = _defineUrl();
+  log = debug( 'handleSession' );
 
-    if ( !_hasStorage() || _flaggedCookie() || !_hasSessionData() || params.debug || _contradictingCookie()) {
+  url = _defineUrl();
 
-      _fetch(function( data ) {
+  if ( _flaggedCookie() || !_hasSessionData() || _contradictingCookie()) {
 
-        _setSessionData( data );
+    _fetch( url, function( data ) {
 
-        isReady = true;
+      log( 'fetched session data, setting in local storage' );
 
-        _processStack();
-        
-      });
+      _setSessionData( data );
 
-    } else {
       isReady = true;
-    }
 
-    return _handleFetchRequest;
+      _processStack();
+      
+    });
 
-  },
-  
-  _handleFetchRequest = function( cb ) {
+  } else {
+
+    log( 'local storage is valid and can be used' );
+
+    isReady = true;
+
+  }
+
+  return function( cb ) {
 
     if ( !isReady ) {
 
@@ -3089,9 +3114,9 @@ module.exports = function( eh, options ) {
 
     cb( _getSessionData() );
 
-  },
+  }
 
-  _defineUrl = function() {
+  function _defineUrl() {
 
     var env = window.env ? window.env : 'prod',
 
@@ -3105,9 +3130,9 @@ module.exports = function( eh, options ) {
 
     return url;
 
-  },
+  }
 
-  _processStack = function() {
+  function _processStack() {
 
     var data = _getSessionData();
 
@@ -3119,9 +3144,13 @@ module.exports = function( eh, options ) {
 
     stack = undefined;
 
-  },
+  }
 
-  _hasSessionData = function() {
+  function _hasSessionData() {
+
+    var data = _getSessionData( true ),
+
+    now = new Date().getTime();
 
     if ( window.env == 'tpl' ) {
 
@@ -3129,31 +3158,78 @@ module.exports = function( eh, options ) {
 
     }
 
-    return (null !== localStorage.getItem(params.local));
+    if ( !data ) {
 
-  },
+      log( 'has no session data' );
 
-  _getSessionData = function() {
+      return false;
 
-    if ( !sessionData ) {
+    }
 
-      sessionData = JSON.parse( localStorage.getItem( params.local ) );
+    if ( !data.timestamp ) {
+
+      log( 'timestamp is not set' );
+
+      return false;
+
+    }
+
+    if ( data.timestamp + params.lifetime < now ) {
+
+      log( 'localStorage is too old' );
+
+      return false;
+
+    }
+
+    log( 'has valid local storage - expires in %s', ( ( params.lifetime - ( now - data.timestamp ) ) / 1000 ) + 's'  );
+
+    return true;
+
+  }
+
+  function _getSessionData( force ) {
+
+    if ( !sessionData || force ) {
+
+      log( 'parsing session data from local storage' );
+
+      try {
+
+        sessionData = JSON.parse( store.get( params.local ) );
+        
+      } catch( e ) {
+
+        return false;
+
+      }
+
 
     }
 
     return sessionData;
 
-  },
+  }
 
-  _setSessionData = function(data) {
+
+  function _setSessionData( data ) {
+
+    var result;
+
+    log( 'setting session data in local storage' );
 
     sessionData = null;
 
-    return localStorage.setItem( params.local, JSON.stringify(data) );
+    data.timestamp = new Date().getTime();
 
-  },
+    result = store.set( params.local, JSON.stringify( data ) );
 
-  _getCookieValue = function(name, defaultValue) {
+    return result;
+
+  }
+
+  
+  function _getCookieValue( name, defaultValue ) {
 
     if (typeof defaultValue == 'undefined') defaultValue = false;
 
@@ -3162,9 +3238,10 @@ module.exports = function( eh, options ) {
     var values = JSON.parse( Base64.decode(Cookies.get(params.cookie)) );
 
     return (typeof values[name] == 'undefined')?defaultValue:values[name];
-  },
+  }
 
-  _setCookieValue = function(name, value) {
+  
+  function _setCookieValue( name, value ) {
 
     if (!Cookies.get(params.cookie)) throw 'no cookie';
 
@@ -3174,70 +3251,81 @@ module.exports = function( eh, options ) {
 
     Cookies.set(params.cookie, Base64.encode(JSON.stringify(values)));
 
-  },
+  }
 
-  _flaggedCookie = function() {
+  
+  function _flaggedCookie() {
 
     var flagged;
 
     try {
+
       flagged = _getCookieValue(params.cookieFlag);
+
     } catch (e) {
+
+      log( 'could not read cookie' );
+
       return false;
+
     }
+
+    log( 'cookie is %s', flagged ? 'flagged' : 'not flagged' );
 
     _setCookieValue(params.cookieFlag, false);
 
     return flagged;
 
-  },
+  }
 
-  _contradictingCookie = function() {
+
+  function _contradictingCookie() {
 
     var cookieValue;
 
     try {
+
       cookieValue = _getCookieValue( 'logged' );
+
     } catch (e) {
+
+      log( 'could not retrieved logged cookie value' );
+
       return false;
+
     }
 
     var logged = _getSessionData().logged;
 
-    if (logged !== cookieValue) return true;
+    if (logged !== cookieValue) {
+
+      log( 'logged cookie value is different from local storage' );
+
+      return true;
+
+    }
+
+    log( 'logged cookie matches local storage state' );
 
     return false;
 
-  },
+  }
 
-  _fetch = function( cb ) {
+}
 
-    remote.get( url, {}, function( responseType, data ){
 
-      if ( responseType == 'success' ) cb( data );
+function _fetch( url, cb ) {
 
-    }, true );
+  log( 'fetching %s', url );
 
-  },
+  remote.get( url, {}, function( responseType, data ){
 
-  _hasStorage = function() {
+    if ( responseType == 'success' ) cb( data );
 
-    var mod='yeepeekayyay';
-    
-    try {
-      localStorage.setItem(mod, mod);
-      localStorage.removeItem(mod);
-      return true;
-    } catch(e) {
-      return false;
-    }
-    
-  };
+  }, true );
 
-  return run();
-
-};
-},{"../../js/lib/Base64/Base64.mod.js":7,"../../js/lib/common/common.mod.js":10,"../../js/lib/remote/remote.mod.js":12,"../../js/vendors/Cookies-master/src/cookies.js":13}],21:[function(require,module,exports){
+}
+},{"../../js/lib/Base64/Base64.mod.js":7,"../../js/lib/common/common.mod.js":10,"../../js/lib/remote/remote.mod.js":12,"../../js/vendors/Cookies-master/src/cookies.js":13,"debug":28,"store":33}],21:[function(require,module,exports){
 "use strict";
 
 var cn = require( '../../js/lib/common/common.mod.js' ),
@@ -3298,7 +3386,7 @@ module.exports = function( options ) {
         homeEvents: '/home/events',
         homeAgendas: '/home',
         signout: '/signout',
-        agendaNew: '/agendas/new',
+        agendaNew: '/new',
         searchAgendas: '/agendas/search'
       },
       fullName: session.fullName,
@@ -3458,6 +3546,8 @@ handleSession = require( './handleSession' ),
 
 headerProfile = require( './headerProfile' ),
 
+outdated = require( 'outdated-browser-rework' ),
+
 toggle = require( './toggle' ),
 
 debug = require('debug'),
@@ -3475,6 +3565,16 @@ ran = false,
 hooks = [],
 
 params = {};
+
+outdated( {
+  browserSupport: {
+    'Chrome': 33,
+    'IE': 9,
+    'Safari': 5,
+    'Mobile Safari': 5,
+    'Firefox':  25
+  }
+});
 
 cn.addEvent( window, 'load', function() {
 
@@ -3499,8 +3599,6 @@ cn.addEvent( window, 'load', function() {
   flash();
 
   cibulMessage();
-
-  //_languageMenu( options.langHeadMenu );
 
   headerProfile( options.profile );
 
@@ -3530,52 +3628,7 @@ window.hook = function( cb ) {
  */
 
 window.getSession = handleSession();
-
-
-
-/**
- * toggle language menu display
- */
-
-function _languageMenu( options ) {
-
-  var params = cn.extend( {
-    selectors: {
-      main: '.js_top_nav',
-      langMenu: '.js_language_menu',
-    }
-  }, options ? options : {} ),
-
-  langOn = false,
-
-  headElem = cn.el( params.selectors.main ),
-
-  langMenuElem = cn.el( headElem, params.selectors.langMenu );
-
-  if ( !langMenuElem ) return;
-
-  var langList = cn.el( langMenuElem, 'ul' );
-
-  cn.addEvent( langMenuElem, 'click', function( e ) {
-
-    cn.preventDefault( e );
-
-    if ( !langOn ) {
-
-      langList.style.display = 'block';
-
-    } else {
-
-      langList.removeAttribute( 'style' );
-
-    }
-
-    langOn = !langOn;
-
-  });
-
-}
-},{"../../js/lib/EventHandler/EventHandler.js":8,"../../js/lib/common/common.mod.js":10,"./cibulMessage":14,"./confirmMessage":16,"./handleFlashMessage.js":17,"./handleMessageLinks.js":18,"./handleMobileMonitor.js":19,"./handleSession":20,"./headerProfile":21,"./layout":23,"./mobileMenu":25,"./toggle":26,"debug":28}],25:[function(require,module,exports){
+},{"../../js/lib/EventHandler/EventHandler.js":8,"../../js/lib/common/common.mod.js":10,"./cibulMessage":14,"./confirmMessage":16,"./handleFlashMessage.js":17,"./handleMessageLinks.js":18,"./handleMobileMonitor.js":19,"./handleSession":20,"./headerProfile":21,"./layout":23,"./mobileMenu":25,"./toggle":26,"debug":28,"outdated-browser-rework":31}],25:[function(require,module,exports){
 "use strict";
 
 var cn = require( '../../js/lib/common/common.mod.js' ),
@@ -4882,7 +4935,7 @@ function _hide( elem, params ) {
 }());
 
 }).call(this,require('_process'))
-},{"_process":32}],28:[function(require,module,exports){
+},{"_process":34}],28:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -5233,6 +5286,934 @@ function coerce(val) {
 },{"ms":30}],30:[function(require,module,exports){
 module.exports=require(4)
 },{"/home/kaore/Dev/www/cibul-templates/global/js/node_modules/debug/node_modules/ms/index.js":4}],31:[function(require,module,exports){
+var UserAgentParser = require('user-agent-parser');
+var languageMessages = {
+	"br":{
+		"outOfDate":"O seu navegador est&aacute; desatualizado!",
+		"update":{
+			"web":"Atualize o seu navegador para ter uma melhor experi&ecirc;ncia e visualiza&ccedil;&atilde;o deste site. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/br",
+		"callToAction":"Atualize o seu navegador agora",
+		"close":"Fechar"
+	},
+	"cn":{
+		"outOfDate":"您的浏览器已过时",
+		"update":{
+			"web":"要正常浏览本网站请升级您的浏览器。",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/cn",
+		"callToAction":"现在升级",
+		"close":"关闭"
+	},
+	"cz":{
+		"outOfDate":"Váš prohlížeč je zastaralý!",
+		"update":{
+			"web":"Pro správné zobrazení těchto stránek aktualizujte svůj prohlížeč. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/cz",
+		"callToAction":"Aktualizovat nyní svůj prohlížeč",
+		"close":"Zavřít"
+	},
+	"de":{
+		"outOfDate":"Ihr Browser ist veraltet!",
+		"update":{
+			"web":"Bitte aktualisieren Sie Ihren Browser, um diese Website korrekt darzustelcount. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/de",
+		"callToAction":"Den Browser jetzt aktualisieren ",
+		"close":"Schließen"
+	},
+	"ee":{
+		"outOfDate":"Sinu veebilehitseja on vananenud!",
+		"update":{
+			"web":"Palun uuenda oma veebilehitsejat, et näha lehekülge korrektselt. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/ee",
+		"callToAction":"Uuenda oma veebilehitsejat kohe",
+		"close":"Sulge"
+	},
+	"en":{
+		"outOfDate":"Your browser is out-of-date!",
+		"update":{
+			"web":"Update your browser to view this website correctly. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/",
+		"callToAction":"Update my browser now",
+		"close":"Close"
+	},
+	"es":{
+		"outOfDate":"¡Tu navegador está anticuado!",
+		"update":{
+			"web":"Actualiza tu navegador para ver esta página correctamente. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/es",
+		"callToAction":"Actualizar mi navegador ahora",
+		"close":"Cerrar"
+	},
+	"fa":{
+		"rightToLeft":true,
+		"outOfDate":"مرورگر شما منسوخ شده است!",
+		"update":{
+			"web":"جهت مشاهده صحیح این وبسایت، مرورگرتان را بروز رسانی نمایید. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/",
+		"callToAction":"همین حالا مرورگرم را بروز کن",
+		"close":"Close"
+	},
+	"fi":{
+		"outOfDate":"Selaimesi on vanhentunut!",
+		"update":{
+			"web":"Lataa ajantasainen selain n&auml;hd&auml;ksesi t&auml;m&auml;n sivun oikein. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/",
+		"callToAction":"P&auml;ivit&auml; selaimeni nyt ",
+		"close":"Sulje"
+	},
+	"fr":{
+		"outOfDate":"Votre navigateur est désuet!",
+		"update":{
+			"web":"Mettez à jour votre navigateur pour afficher correctement ce site Web. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/fr",
+		"callToAction":"Mettre à jour maintenant ",
+		"close":"Fermer"
+	},
+	"hu":{
+		"outOfDate":"A böngészője elavult!",
+		"update":{
+			"web":"Firssítse vagy cserélje le a böngészőjét. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/hu",
+		"callToAction":"A böngészőm frissítése ",
+		"close":"Close"
+	},
+	"id":{
+		"outOfDate":"Browser yang Anda gunakan sudah ketinggalan zaman!",
+		"update":{
+			"web":"Perbaharuilah browser Anda agar bisa menjelajahi website ini dengan nyaman. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/",
+		"callToAction":"Perbaharui browser sekarang ",
+		"close":"Close"
+	},
+	"it":{
+		"outOfDate":"Il tuo browser non &egrave; aggiornato!",
+		"update":{
+			"web":"Aggiornalo per vedere questo sito correttamente. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/it",
+		"callToAction":"Aggiorna ora",
+		"close":"Chiudi"
+	},
+	"lt":{
+		"outOfDate":"Jūsų naršyklės versija yra pasenusi!",
+		"update":{
+			"web":"Atnaujinkite savo naršyklę, kad galėtumėte peržiūrėti šią svetainę tinkamai. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/",
+		"callToAction":"Atnaujinti naršyklę ",
+		"close":"Close"
+	},
+	"nl":{
+		"outOfDate":"Je gebruikt een oude browser!",
+		"update":{
+			"web":"Update je browser om deze website correct te bekijken. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/nl",
+		"callToAction":"Update mijn browser nu ",
+		"close":"Sluiten"
+	},
+	"pl":{
+		"outOfDate":"Twoja przeglądarka jest przestarzała!",
+		"update":{
+			"web":"Zaktualizuj swoją przeglądarkę, aby poprawnie wyświetlić tę stronę. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/pl",
+		"callToAction":"Zaktualizuj przeglądarkę już teraz",
+		"close":"Close"
+	},
+	"pt":{
+		"outOfDate":"O seu browser est&aacute; desatualizado!",
+		"update":{
+			"web":"Atualize o seu browser para ter uma melhor experi&ecirc;ncia e visualiza&ccedil;&atilde;o deste site. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/pt",
+		"callToAction":"Atualize o seu browser agora",
+		"close":"Fechar"
+	},
+	"ro":{
+		"outOfDate":"Browserul este învechit!",
+		"update":{
+			"web":"Actualizați browserul pentru a vizualiza corect acest site. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/",
+		"callToAction":"Actualizați browserul acum!",
+		"close":"Close"
+	},
+	"ru":{
+		"outOfDate":"Ваш браузер устарел!",
+		"update":{
+			"web":"Обновите ваш браузер для правильного отображения этого сайта. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/ru",
+		"callToAction":"Обновить мой браузер ",
+		"close":"Close"
+	},
+	"si":{
+		"outOfDate":"Vaš brskalnik je zastarel!",
+		"update":{
+			"web":"Za pravicount prikaz spletne strani posodobite vaš brskalnik. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/si",
+		"callToAction":"Posodobi brskalnik ",
+		"close":"Zapri"
+	},
+	"ua":{
+		"outOfDate":"Ваш браузер застарів!",
+		"update":{
+			"web":"Оновіть ваш браузер для правильного відображення цього сайта. ",
+			"googlePlay":"Please install Chrome from Google Play",
+			"appStore":"Please update iOS from the Settings App"
+		},
+		"url":"http://outdatedbrowser.com/ua",
+		"callToAction":"Оновити мій браузер ",
+		"close":"Close"
+	}
+};
+
+module.exports = function(options) {
+
+	var main = function(){
+
+		// Despite the docs, UA needs to be provided to constructor explicitly:
+		// https://github.com/faisalman/ua-parser-js/issues/90
+		var parsedUserAgent = new UserAgentParser(window.navigator.userAgent).getResult();
+
+		// Variable definition (before ajax)
+		var outdatedUI = document.getElementById("outdated");
+
+		options = options || {};
+
+		var browserLocale = window.navigator.language || window.navigator.userLanguage ; // Everyone else, IE
+
+		// Set default options
+		var browserSupport = options.browserSupport || {
+				'Chrome': 37,
+				'IE': 10,
+				'Safari': 7,
+				'Mobile Safari': 7,
+				'Firefox':  32
+			},
+			requiredCssProperty = options.requiredCssProperty || false, // CSS property to check for. You may also like 'borderSpacing', 'boxShadow', 'transform', 'borderImage';
+			backgroundColor = options.backgroundColor || '#f25648', // Salmon
+			textColor = options.textColor || 'white',
+			language = options.language || browserLocale.slice(0, 2); // Language code
+
+		var updateSource = 'web'; // Other possible values are 'googlePlay' or 'appStore'. Determines where we tell users to go for upgrades.
+
+		// Chrome mobile is still Chrome (unlike Safari which is 'Mobile Safari')
+		var isAndroid = parsedUserAgent.os.name === "Android";
+		if ( isAndroid ) {
+			updateSource = 'googlePlay';
+		}
+
+		var isAndroidButNotChrome;
+		if ( options.requireChromeOnAndroid ) {
+			isAndroidButNotChrome = ( isAndroid ) && ( parsedUserAgent.browser.name !== "Chrome");
+		}
+
+		if ( parsedUserAgent.os.name === 'iOS' ) {
+			updateSource = 'appStore';
+		}
+
+		// TODO: done what????
+		var done = true;
+
+		var changeOpacity = function(opacityValue) {
+			outdatedUI.style.opacity = opacityValue / 100;
+			outdatedUI.style.filter = 'alpha(opacity=' + opacityValue + ')';
+		};
+
+		var fadeIn = function(opacityValue) {
+			changeOpacity(opacityValue);
+			if (opacityValue == 1) {
+				outdatedUI.style.display = 'block';
+			}
+			if (opacityValue == 100) {
+				done = true;
+			}
+		};
+
+		var isBrowserOutOfDate = function(){
+			var browserName = parsedUserAgent.browser.name;
+			var browserMajorVersion = parsedUserAgent.browser.major;
+			var isOutOfDate = false;
+			if ( browserSupport[browserName] ) {
+				if ( browserMajorVersion < browserSupport[browserName] ) {
+					isOutOfDate = true;
+				}
+			}
+			return isOutOfDate;
+		};
+
+		// Returns true if a browser supports a css3 property
+		var isPropertySupported = function(prop) {
+			if ( ! prop ) {
+				return true;
+			}
+			var div = document.createElement('div'),
+				vendorPrefixes = 'Khtml Ms O Moz Webkit'.split(' '),
+				count = vendorPrefixes.length;
+
+			if ( div.style[prop] ) return true;
+
+			prop = prop.replace(/^[a-z]/, function(val) {
+				return val.toUpperCase();
+			});
+
+			while (count--) {
+				if ( div.style[vendorPrefixes[count]+prop] ) {
+					return true;
+				}
+			}
+			return false;
+		};
+
+		var makeFadeInFunction = function(x) {
+			return function () {
+				fadeIn(x);
+			};
+		};
+
+		// Style element explicitly - TODO: investigate and delete if not needed
+		var startStylesAndEvents = function(){
+			var buttonClose = document.getElementById("buttonCloseUpdateBrowser");
+			var buttonUpdate = document.getElementById("buttonUpdateBrowser");
+
+			//check settings attributes
+			outdatedUI.style.backgroundColor = backgroundColor;
+			//way too hard to put !important on IE6
+			outdatedUI.style.color = textColor;
+			outdatedUI.children[0].style.color = textColor;
+			outdatedUI.children[1].style.color = textColor;
+
+			// Update button is desktop only
+			if ( buttonUpdate ) {
+				buttonUpdate.style.color = textColor;
+				if (buttonUpdate.style.borderColor) {
+					buttonUpdate.style.borderColor = textColor;
+				}
+
+				// Override the update button color to match the background color
+				buttonUpdate.onmouseover = function() {
+					this.style.color = backgroundColor;
+					this.style.backgroundColor = textColor;
+				};
+
+				buttonUpdate.onmouseout = function() {
+					this.style.color = textColor;
+					this.style.backgroundColor = backgroundColor;
+				};
+			}
+
+			buttonClose.style.color = textColor;
+
+			buttonClose.onmousedown = function() {
+				outdatedUI.style.display = 'none';
+				return false;
+			};
+		};
+
+		var getmessage = function(language){
+			var messages = languageMessages[language];
+
+			var updateMessages = {
+				'web': '<p>'+messages.update.web+'<a id="buttonUpdateBrowser" href="'+messages.url+'">'+messages.callToAction+'</a></p>',
+				'googlePlay': '<p>'+messages.update.googlePlay+'<a id="buttonUpdateBrowser" href="https://play.google.com/store/apps/details?id=com.android.chrome">'+messages.callToAction+'</a></p>',
+				'appStore':'<p>'+messages.update[updateSource]+'</p>'
+			};
+
+			var updateMessage = updateMessages[updateSource];
+
+			// TODO: button used for nothing
+			return '<h6>'+messages.outOfDate+'</h6>'+updateMessage+'<p class="last"><a href="#" id="buttonCloseUpdateBrowser" title="'+messages.close+'">×</a></p>';
+		};
+
+		// Check if browser is supported
+		if ( isBrowserOutOfDate() || ! isPropertySupported(requiredCssProperty) || isAndroidButNotChrome ) {
+
+			// This is an outdated browser
+			if (done && outdatedUI.style.opacity !== '1') {
+				done = false;
+
+				for (var i = 1; i <= 100; i++) {
+					setTimeout(makeFadeInFunction(i), i * 8);
+				}
+			}
+
+			var insertContentHere = document.getElementById("outdated");
+			insertContentHere.innerHTML = getmessage(language);
+			startStylesAndEvents();
+		}
+	};
+
+	// Load main when DOM ready.
+	var oldOnload = window.onload;
+	if (typeof window.onload !== 'function') {
+		window.onload = main;
+	} else {
+		window.onload = function() {
+			if (oldOnload) {
+				oldOnload();
+			}
+			main();
+		};
+	}
+};
+
+
+
+
+
+
+
+
+
+},{"user-agent-parser":32}],32:[function(require,module,exports){
+// UAParser.js v0.6.0
+// Lightweight JavaScript-based User-Agent string parser
+// https://github.com/faisalman/ua-parser-js
+//
+// Copyright © 2012-2013 Faisalman <fyzlman@gmail.com>
+// Dual licensed under GPLv2 & MIT
+
+(function (window, undefined) {
+
+    'use strict';
+
+    //////////////
+    // Constants
+    /////////////
+
+
+    var EMPTY       = '',
+        UNKNOWN     = '?',
+        FUNC_TYPE   = 'function',
+        UNDEF_TYPE  = 'undefined',
+        OBJ_TYPE    = 'object',
+        MAJOR       = 'major',
+        MODEL       = 'model',
+        NAME        = 'name',
+        TYPE        = 'type',
+        VENDOR      = 'vendor',
+        VERSION     = 'version',
+        ARCHITECTURE= 'architecture',
+        CONSOLE     = 'console',
+        MOBILE      = 'mobile',
+        TABLET      = 'tablet';
+
+
+    ///////////
+    // Helper
+    //////////
+
+
+    var util = {
+        has : function (str1, str2) {
+            return str2.toLowerCase().indexOf(str1.toLowerCase()) !== -1;
+        },
+        lowerize : function (str) {
+            return str.toLowerCase();
+        }
+    };
+
+
+    ///////////////
+    // Map helper
+    //////////////
+
+
+    var mapper = {
+
+        rgx : function () {
+
+            // loop through all regexes maps
+            for (var result, i = 0, j, k, p, q, matches, match, args = arguments; i < args.length; i += 2) {
+
+                var regex = args[i],       // even sequence (0,2,4,..)
+                    props = args[i + 1];   // odd sequence (1,3,5,..)
+
+                // construct object barebones
+                if (typeof(result) === UNDEF_TYPE) {
+                    result = {};
+                    for (p in props) {
+                        q = props[p];
+                        if (typeof(q) === OBJ_TYPE) {
+                            result[q[0]] = undefined;
+                        } else {
+                            result[q] = undefined;
+                        }
+                    }
+                }
+
+                // try matching uastring with regexes
+                for (j = k = 0; j < regex.length; j++) {
+                    matches = regex[j].exec(this.getUA());
+                    if (!!matches) {
+                        for (p in props) {
+                            match = matches[++k];
+                            q = props[p];
+                            // check if given property is actually array
+                            if (typeof(q) === OBJ_TYPE && q.length > 0) {
+                                if (q.length == 2) {
+                                    if (typeof(q[1]) == FUNC_TYPE) {
+                                        // assign modified match
+                                        result[q[0]] = q[1].call(this, match);
+                                    } else {
+                                        // assign given value, ignore regex match
+                                        result[q[0]] = q[1];
+                                    }
+                                } else if (q.length == 3) {
+                                    // check whether function or regex
+                                    if (typeof(q[1]) === FUNC_TYPE && !(q[1].exec && q[1].test)) {
+                                        // call function (usually string mapper)
+                                        result[q[0]] = match ? q[1].call(this, match, q[2]) : undefined;
+                                    } else {
+                                        // sanitize match using given regex
+                                        result[q[0]] = match ? match.replace(q[1], q[2]) : undefined;
+                                    }
+                                } else if (q.length == 4) {
+                                        result[q[0]] = match ? q[3].call(this, match.replace(q[1], q[2])) : undefined;
+                                }
+                            } else {
+                                result[q] = match ? match : undefined;
+                            }
+                        }
+                        break;
+                    }
+                }
+
+                if(!!matches) break; // break the loop immediately if match found
+            }
+            return result;
+        },
+
+        str : function (str, map) {
+
+            for (var i in map) {
+                // check if array
+                if (typeof(map[i]) === OBJ_TYPE && map[i].length > 0) {
+                    for (var j in map[i]) {
+                        if (util.has(map[i][j], str)) {
+                            return (i === UNKNOWN) ? undefined : i;
+                        }
+                    }
+                } else if (util.has(map[i], str)) {
+                    return (i === UNKNOWN) ? undefined : i;
+                }
+            }
+            return str;
+        }
+    };
+
+
+    ///////////////
+    // String map
+    //////////////
+
+
+    var maps = {
+
+        browser : {
+            oldsafari : {
+                major : {
+                    '1' : ['/8', '/1', '/3'],
+                    '2' : '/4',
+                    '?' : '/'
+                },
+                version : {
+                    '1.0'   : '/8',
+                    '1.2'   : '/1',
+                    '1.3'   : '/3',
+                    '2.0'   : '/412',
+                    '2.0.2' : '/416',
+                    '2.0.3' : '/417',
+                    '2.0.4' : '/419',
+                    '?'     : '/'
+                }
+            }
+        },
+
+        device : {
+            sprint : {
+                model : {
+                    'Evo Shift 4G' : '7373KT'
+                },
+                vendor : {
+                    'HTC'       : 'APA',
+                    'Sprint'    : 'Sprint'
+                }
+            }
+        },
+
+        os : {
+            windows : {
+                version : {
+                    'ME'        : '4.90',
+                    'NT 3.11'   : 'NT3.51',
+                    'NT 4.0'    : 'NT4.0',
+                    '2000'      : 'NT 5.0',
+                    'XP'        : ['NT 5.1', 'NT 5.2'],
+                    'Vista'     : 'NT 6.0',
+                    '7'         : 'NT 6.1',
+                    '8'         : 'NT 6.2',
+                    'RT'        : 'ARM'
+                }
+            }
+        }
+    };
+
+
+    //////////////
+    // Regex map
+    /////////////
+
+
+    var regexes = {
+
+        browser : [[
+
+            // Presto based
+            /(opera\smini)\/((\d+)?[\w\.-]+)/i,                                 // Opera Mini
+            /(opera\s[mobiletab]+).+version\/((\d+)?[\w\.-]+)/i,                // Opera Mobi/Tablet
+            /(opera).+version\/((\d+)?[\w\.]+)/i,                               // Opera > 9.80
+            /(opera)[\/\s]+((\d+)?[\w\.]+)/i                                    // Opera < 9.80
+
+            ], [NAME, VERSION, MAJOR], [
+
+            /\s(opr)\/((\d+)?[\w\.]+)/i                                         // Opera Webkit
+            ], [[NAME, 'Opera'], VERSION, MAJOR], [
+
+            // Mixed
+            /(kindle)\/((\d+)?[\w\.]+)/i,                                       // Kindle
+            /(lunascape|maxthon|netfront|jasmine|blazer)[\/\s]?((\d+)?[\w\.]+)*/i,
+                                                                                // Lunascape/Maxthon/Netfront/Jasmine/Blazer
+
+            // Trident based
+            /(avant\s|iemobile|slim|baidu)(?:browser)?[\/\s]?((\d+)?[\w\.]*)/i,
+                                                                                // Avant/IEMobile/SlimBrowser/Baidu
+            /(?:ms|\()(ie)\s((\d+)?[\w\.]+)/i,                                  // Internet Explorer
+
+            // Webkit/KHTML based
+            /(rekonq)((?:\/)[\w\.]+)*/i,                                        // Rekonq
+            /(chromium|flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt)\/((\d+)?[\w\.-]+)/i
+                                                                                // Chromium/Flock/RockMelt/Midori/Epiphany/Silk/Skyfire/Bolt
+            ], [NAME, VERSION, MAJOR], [
+
+            /(yabrowser)\/((\d+)?[\w\.]+)/i                                     // Yandex
+            ], [[NAME, 'Yandex'], VERSION, MAJOR], [
+
+            /(comodo_dragon)\/((\d+)?[\w\.]+)/i                                 // Comodo Dragon
+            ], [[NAME, /_/g, ' '], VERSION, MAJOR], [
+
+            /(chrome|omniweb|arora|[tizenoka]{5}\s?browser)\/v?((\d+)?[\w\.]+)/i
+                                                                                // Chrome/OmniWeb/Arora/Tizen/Nokia
+            ], [NAME, VERSION, MAJOR], [
+
+            /(dolfin)\/((\d+)?[\w\.]+)/i                                        // Dolphin
+            ], [[NAME, 'Dolphin'], VERSION, MAJOR], [
+
+            /((?:android.+)crmo|crios)\/((\d+)?[\w\.]+)/i                       // Chrome for Android/iOS
+            ], [[NAME, 'Chrome'], VERSION, MAJOR], [
+
+            /version\/((\d+)?[\w\.]+).+?mobile\/\w+\s(safari)/i                 // Mobile Safari
+            ], [VERSION, MAJOR, [NAME, 'Mobile Safari']], [
+
+            /version\/((\d+)?[\w\.]+).+?(mobile\s?safari|safari)/i              // Safari & Safari Mobile
+            ], [VERSION, MAJOR, NAME], [
+
+            /webkit.+?(mobile\s?safari|safari)((\/[\w\.]+))/i                   // Safari < 3.0
+            ], [NAME, [MAJOR, mapper.str, maps.browser.oldsafari.major], [VERSION, mapper.str, maps.browser.oldsafari.version]], [
+
+            /(konqueror)\/((\d+)?[\w\.]+)/i,                                    // Konqueror
+            /(webkit|khtml)\/((\d+)?[\w\.]+)/i
+            ], [NAME, VERSION, MAJOR], [
+
+            // Gecko based
+            /(navigator|netscape)\/((\d+)?[\w\.-]+)/i                           // Netscape
+            ], [[NAME, 'Netscape'], VERSION, MAJOR], [
+            /(swiftfox)/i,                                                      // Swiftfox
+            /(iceweasel|camino|chimera|fennec|maemo\sbrowser|minimo|conkeror)[\/\s]?((\d+)?[\w\.\+]+)/i,
+                                                                                // Iceweasel/Camino/Chimera/Fennec/Maemo/Minimo/Conkeror
+            /(firefox|seamonkey|k-meleon|icecat|iceape|firebird|phoenix)\/((\d+)?[\w\.-]+)/i,
+                                                                                // Firefox/SeaMonkey/K-Meleon/IceCat/IceApe/Firebird/Phoenix
+            /(mozilla)\/((\d+)?[\w\.]+).+rv\:.+gecko\/\d+/i,                    // Mozilla
+
+            // Other
+            /(uc\s?browser|polaris|lynx|dillo|icab|doris|amaya|w3m|netsurf)[\/\s]?((\d+)?[\w\.]+)/i,
+                                                                                // UCBrowser/Polaris/Lynx/Dillo/iCab/Doris/Amaya/w3m/NetSurf
+            /(links)\s\(((\d+)?[\w\.]+)/i,                                      // Links
+            /(gobrowser)\/?((\d+)?[\w\.]+)*/i,                                  // GoBrowser
+            /(ice\s?browser)\/v?((\d+)?[\w\._]+)/i,                             // ICE Browser
+            /(mosaic)[\/\s]((\d+)?[\w\.]+)/i                                    // Mosaic
+            ], [NAME, VERSION, MAJOR]
+        ],
+
+        cpu : [[
+
+            /(?:(amd|x(?:(?:86|64)[_-])?|wow|win)64)[;\)]/i                     // AMD64
+            ], [[ARCHITECTURE, 'amd64']], [
+
+            /((?:i[346]|x)86)[;\)]/i                                            // IA32
+            ], [[ARCHITECTURE, 'ia32']], [
+
+            /((?:ppc|powerpc)(?:64)?)(?:\smac|;|\))/i                           // PowerPC
+            ], [[ARCHITECTURE, /ower/, '', util.lowerize]], [
+
+            /(sun4\w)[;\)]/i                                                    // SPARC
+            ], [[ARCHITECTURE, 'sparc']], [
+
+            /(ia64(?=;)|68k(?=\))|arm(?=v\d+;)|(?:irix|mips|sparc)(?:64)?(?=;)|pa-risc)/i
+                                                                                // IA64, 68K, ARM, IRIX, MIPS, SPARC, PA-RISC
+            ], [ARCHITECTURE, util.lowerize]
+        ],
+
+        device : [[
+
+            /\((ipad|playbook);[\w\s\);-]+(rim|apple)/i                         // iPad/PlayBook
+            ], [MODEL, VENDOR, [TYPE, TABLET]], [
+
+            /(hp).+(touchpad)/i,                                                // HP TouchPad
+            /(kindle)\/([\w\.]+)/i,                                             // Kindle
+            /\s(nook)[\w\s]+build\/(\w+)/i,                                     // Nook
+            /(dell)\s(strea[kpr\s\d]*[\dko])/i                                  // Dell Streak
+            ], [VENDOR, MODEL, [TYPE, TABLET]], [
+
+            /\((ip[honed]+);.+(apple)/i                                         // iPod/iPhone
+            ], [MODEL, VENDOR, [TYPE, MOBILE]], [
+
+            /(blackberry)[\s-]?(\w+)/i,                                         // BlackBerry
+            /(blackberry|benq|palm(?=\-)|sonyericsson|acer|asus|dell|huawei|meizu|motorola)[\s_-]?([\w-]+)*/i,
+                                                                                // BenQ/Palm/Sony-Ericsson/Acer/Asus/Dell/Huawei/Meizu/Motorola
+            /(hp)\s([\w\s]+\w)/i,                                               // HP iPAQ
+            /(asus)-?(\w+)/i                                                    // Asus
+            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+            /\((bb10);\s(\w+)/i                                                 // BlackBerry 10
+            ], [[VENDOR, 'BlackBerry'], MODEL, [TYPE, MOBILE]], [
+
+            /android.+((transfo[prime\s]{4,10}\s\w+|eeepc|slider\s\w+))/i       // Asus Tablets
+            ], [[VENDOR, 'Asus'], MODEL, [TYPE, TABLET]], [
+
+            /(sony)\s(tablet\s[ps])/i                                           // Sony Tablets
+            ], [VENDOR, MODEL, [TYPE, TABLET]], [
+
+            /(nintendo)\s([wids3u]+)/i                                          // Nintendo
+            ], [VENDOR, MODEL, [TYPE, CONSOLE]], [
+
+            /((playstation)\s[3portablevi]+)/i                                  // Playstation
+            ], [[VENDOR, 'Sony'], MODEL, [TYPE, CONSOLE]], [
+
+            /(sprint\s(\w+))/i                                                  // Sprint Phones
+            ], [[VENDOR, mapper.str, maps.device.sprint.vendor], [MODEL, mapper.str, maps.device.sprint.model], [TYPE, MOBILE]], [
+
+            /(htc)[;_\s-]+([\w\s]+(?=\))|\w+)*/i,                               // HTC
+            /(zte)-(\w+)*/i,                                                    // ZTE
+            /(alcatel|geeksphone|huawei|lenovo|nexian|panasonic|(?=;\s)sony)[_\s-]?([\w-]+)*/i
+                                                                                // Alcatel/GeeksPhone/Huawei/Lenovo/Nexian/Panasonic/Sony
+            ], [VENDOR, [MODEL, /_/g, ' '], [TYPE, MOBILE]], [
+
+            /\s((milestone|droid[2x]?))[globa\s]*\sbuild\//i,                   // Motorola
+            /(mot)[\s-]?(\w+)*/i
+            ], [[VENDOR, 'Motorola'], MODEL, [TYPE, MOBILE]], [
+            /android.+\s((mz60\d|xoom[\s2]{0,2}))\sbuild\//i
+            ], [[VENDOR, 'Motorola'], MODEL, [TYPE, TABLET]], [
+
+            /android.+((sch-i[89]0\d|shw-m380s|gt-p\d{4}|gt-n8000|sgh-t8[56]9))/i
+            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, TABLET]], [                  // Samsung
+            /((s[cgp]h-\w+|gt-\w+|galaxy\snexus))/i,
+            /(sam[sung]*)[\s-]*(\w+-?[\w-]*)*/i,
+            /sec-((sgh\w+))/i
+            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, MOBILE]], [
+            /(sie)-(\w+)*/i                                                     // Siemens
+            ], [[VENDOR, 'Siemens'], MODEL, [TYPE, MOBILE]], [
+
+            /(maemo|nokia).*(n900|lumia\s\d+)/i,                                // Nokia
+            /(nokia)[\s_-]?([\w-]+)*/i
+            ], [[VENDOR, 'Nokia'], MODEL, [TYPE, MOBILE]], [
+
+            /android\s3\.[\s\w-;]{10}((a\d{3}))/i                               // Acer
+            ], [[VENDOR, 'Acer'], MODEL, [TYPE, TABLET]], [
+
+            /android\s3\.[\s\w-;]{10}(lg?)-([06cv9]{3,4})/i                     // LG
+            ], [[VENDOR, 'LG'], MODEL, [TYPE, TABLET]], [
+            /((nexus\s4))/i,
+            /(lg)[e;\s-\/]+(\w+)*/i
+            ], [[VENDOR, 'LG'], MODEL, [TYPE, MOBILE]], [
+
+            /(mobile|tablet);.+rv\:.+gecko\//i                                  // Unidentifiable
+            ], [TYPE, VENDOR, MODEL]
+        ],
+
+        engine : [[
+
+            /(presto)\/([\w\.]+)/i,                                             // Presto
+            /(webkit|trident|netfront|netsurf|amaya|lynx|w3m)\/([\w\.]+)/i,     // WebKit/Trident/NetFront/NetSurf/Amaya/Lynx/w3m
+            /(khtml|tasman|links)[\/\s]\(?([\w\.]+)/i,                          // KHTML/Tasman/Links
+            /(icab)[\/\s]([23]\.[\d\.]+)/i                                      // iCab
+            ], [NAME, VERSION], [
+
+            /rv\:([\w\.]+).*(gecko)/i                                           // Gecko
+            ], [VERSION, NAME]
+        ],
+
+        os : [[
+
+            // Windows based
+            /(windows)\snt\s6\.2;\s(arm)/i,                                     // Windows RT
+            /(windows\sphone(?:\sos)*|windows\smobile|windows)[\s\/]?([ntce\d\.\s]+\w)/i
+            ], [NAME, [VERSION, mapper.str, maps.os.windows.version]], [
+            /(win(?=3|9|n)|win\s9x\s)([nt\d\.]+)/i
+            ], [[NAME, 'Windows'], [VERSION, mapper.str, maps.os.windows.version]], [
+
+            // Mobile/Embedded OS
+            /\((bb)(10);/i                                                      // BlackBerry 10
+            ], [[NAME, 'BlackBerry'], VERSION], [
+            /(blackberry)\w*\/?([\w\.]+)*/i,                                    // Blackberry
+            /(tizen)\/([\w\.]+)/i,                                              // Tizen
+            /(android|webos|palm\os|qnx|bada|rim\stablet\sos|meego)[\/\s-]?([\w\.]+)*/i
+                                                                                // Android/WebOS/Palm/QNX/Bada/RIM/MeeGo
+            ], [NAME, VERSION], [
+            /(symbian\s?os|symbos|s60(?=;))[\/\s-]?([\w\.]+)*/i                 // Symbian
+            ], [[NAME, 'Symbian'], VERSION],[
+            /mozilla.+\(mobile;.+gecko.+firefox/i                               // Firefox OS
+            ], [[NAME, 'Firefox OS'], VERSION], [
+
+            // Console
+            /(nintendo|playstation)\s([wids3portablevu]+)/i,                    // Nintendo/Playstation
+
+            // GNU/Linux based
+            /(mint)[\/\s\(]?(\w+)*/i,                                           // Mint
+            /(joli|[kxln]?ubuntu|debian|[open]*suse|gentoo|arch|slackware|fedora|mandriva|centos|pclinuxos|redhat|zenwalk)[\/\s-]?([\w\.-]+)*/i,
+                                                                                // Joli/Ubuntu/Debian/SUSE/Gentoo/Arch/Slackware
+                                                                                // Fedora/Mandriva/CentOS/PCLinuxOS/RedHat/Zenwalk
+            /(hurd|linux)\s?([\w\.]+)*/i,                                       // Hurd/Linux
+            /(gnu)\s?([\w\.]+)*/i                                               // GNU
+            ], [NAME, VERSION], [
+
+            /(cros)\s[\w]+\s([\w\.]+\w)/i                                       // Chromium OS
+            ], [[NAME, 'Chromium OS'], VERSION],[
+
+            // Solaris
+            /(sunos)\s?([\w\.]+\d)*/i                                           // Solaris
+            ], [[NAME, 'Solaris'], VERSION], [
+
+            // BSD based
+            /\s([frentopc-]{0,4}bsd|dragonfly)\s?([\w\.]+)*/i                   // FreeBSD/NetBSD/OpenBSD/PC-BSD/DragonFly
+            ], [NAME, VERSION],[
+
+            /(ip[honead]+)(?:.*os\s*([\w]+)*\slike\smac|;\sopera)/i             // iOS
+            ], [[NAME, 'iOS'], [VERSION, /_/g, '.']], [
+
+            /(mac\sos\sx)\s?([\w\s\.]+\w)*/i                                    // Mac OS
+            ], [NAME, [VERSION, /_/g, '.']], [
+
+            // Other
+            /(haiku)\s(\w+)/i,                                                  // Haiku
+            /(aix)\s((\d)(?=\.|\)|\s)[\w\.]*)*/i,                               // AIX
+            /(macintosh|mac(?=_powerpc)|plan\s9|minix|beos|os\/2|amigaos|morphos|risc\sos)/i,
+                                                                                // Plan9/Minix/BeOS/OS2/AmigaOS/MorphOS/RISCOS
+            /(unix)\s?([\w\.]+)*/i                                              // UNIX
+            ], [NAME, VERSION]
+        ]
+    };
+
+    var UAParser = function UAParser (uastring) {
+        if (!(this instanceof UAParser)) return new UAParser(uastring).getResult();
+
+        var ua = uastring || ((window && window.navigator && window.navigator.userAgent) ? window.navigator.userAgent : EMPTY);
+
+        if (!(this instanceof UAParser)) {
+            return new UAParser(uastring).getResult();
+        }
+        this.getBrowser = function () {
+            return mapper.rgx.apply(this, regexes.browser);
+        };
+        this.getCPU = function () {
+            return mapper.rgx.apply(this, regexes.cpu);
+        };
+        this.getDevice = function () {
+            return mapper.rgx.apply(this, regexes.device);
+        };
+        this.getEngine = function () {
+            return mapper.rgx.apply(this, regexes.engine);
+        };
+        this.getOS = function () {
+            return mapper.rgx.apply(this, regexes.os);
+        };
+        this.getResult = function() {
+            return {
+                browser : this.getBrowser(),
+                engine  : this.getEngine(),
+                os      : this.getOS(),
+                device  : this.getDevice(),
+                cpu     : this.getCPU()
+            };
+        };
+        this.getUA = function () {
+            return ua;
+        };
+        this.setUA = function (uastring) {
+            ua = uastring;
+            return this;
+        };
+        this.setUA(ua);
+    };
+
+    module.exports = UAParser;
+})(this);
+
+},{}],33:[function(require,module,exports){
 ;(function(win){
 	var store = {},
 		doc = win.document,
@@ -5409,7 +6390,7 @@ module.exports=require(4)
 
 })(Function('return this')());
 
-},{}],32:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};

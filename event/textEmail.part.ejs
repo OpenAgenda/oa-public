@@ -16,3 +16,5 @@
 <% event.freeText.split('\n').forEach(function(freeTextLine) { %>
 <%- freeTextLine %>
 <% }); %>
+
+<%= __( 'I do not wish to receive events by email any longer' ) %> - <%= __( 'unsubscribe' ) %>: <%= genUrl( 'emailUnsubscribe', {}, { protocol: 'https://' } ) %>

@@ -58,4 +58,5 @@
 <% } %>
 
 <br/>
+<p class="smallprint" style="<%= css.smallprint %>"><%= __( 'I do not wish to receive events by email any longer' ) %> - <a style="<%= css.smallprinta %>" href="<%= genUrl( 'emailUnsubscribe', {}, { protocol: 'https://' } ) %>" target="_blank"><%= __( 'unsubscribe' ) %></a></p>
 <% include ../newsletter/sections/bottom %>

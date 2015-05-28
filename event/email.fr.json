@@ -4,5 +4,9 @@
   "%from% to %to%"
   : "%from% à %to%",
   "book"
-  : "réserver"
+  : "réserver",
+  "I do not wish to receive events by email any longer"
+  : "Je ne souhaite pas recevoir d'événements dans ma boite",
+  "unsubscribe"
+  : "désinscription"
 }
