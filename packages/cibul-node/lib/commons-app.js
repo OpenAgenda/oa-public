@@ -231,9 +231,9 @@ function checkModerator( req, res, next ) {
 
   wn.call( req.agenda.isModerator, { id: req.session.userId } )
 
-  .then( function( isAdmin ) {
+  .then( function( isModerator ) {
 
-    if ( !isAdmin ) throw { message : 'You do not have access to the moderation of this agenda.', code: 403 };
+    if ( !isModerator ) throw { message : 'You do not have access to the moderation of this agenda.', code: 403 };
 
     next();
 

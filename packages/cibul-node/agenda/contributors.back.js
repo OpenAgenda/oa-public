@@ -10,11 +10,11 @@ invitationSvc = require( '../services/invitation' ),
 
 routes = {
   contributorsInvite:  [ 'post', '/invite', [ 
-    cmn.checkModerator,
+    cmn.checkAdminOrModerator,
     invite 
   ] ],
   contributorInviteResend: [ 'get', '/resend', [ 
-    cmn.checkModerator,
+    cmn.checkAdminOrModerator,
     inviteResend
   ] ],
   contributorsInfo: [ 'get', '/info', [ 
@@ -131,7 +131,7 @@ function inviteResend( req, res ) {
 
     } else {
 
-      res.setFlash( req, 'The invitation is being resent' )
+      res.setFlash( req, 'The invitation is being resent' );
 
     }
 
