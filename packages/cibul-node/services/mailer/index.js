@@ -56,11 +56,13 @@ function genUrl( uri, query ) {
 
 }
 
-function extractEmails( emails ) {
+function extractEmails( emails, filterInvalids ) {
+
+  if ( typeof filterInvalids === 'undefined' ) filterInvalids = true;
 
   if ( typeof emails !== 'string' ) throw 'arg must be a string containing emails';
 
-  return emails.split( /[\s;,\n\r]+/ ).filter( validator.isEmail );
+  return emails.split( /[\s;,\n\r]+/ ).filter( filterInvalids ? validator.isEmail : function( v ) { return true; } );
 
 }
 

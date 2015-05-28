@@ -42,7 +42,7 @@ describe( 'invitation creation', function() {
 
   it( 'successful creation of an invitation to contribute', function( done ) {
 
-    svc.agenda( agenda ).inviteContributors( [ user.email ], 'fr', function( err, invitations, result ) {
+    svc.agenda( agenda ).inviteContributors( user.email, 'fr', function( err, invitations, result ) {
 
       result.errors.length.should.equal( 0 );
 
@@ -58,7 +58,7 @@ describe( 'invitation creation', function() {
 
   it( 'error on bad email', function( done ) {
 
-    svc.agenda( agenda ).inviteContributors( [ 'fdqfdsq' ], 'fr', function( err, invitations, result ) {
+    svc.agenda( agenda ).inviteContributors( 'fdqfdsq', 'fr', function( err, invitations, result ) {
 
       invitations.length.should.equal( 0 );
 
@@ -75,7 +75,7 @@ describe( 'invitation creation', function() {
 
   it( 'successful creation of an invitation creates a job for its processing', function( done ) {
 
-    svc.agenda( agenda ).inviteContributors( [ user.email, 'other@email.com' ], 'fr', function( err, invitations, result ) {
+    svc.agenda( agenda ).inviteContributors( user.email + ' other@email.com', 'fr', function( err, invitations, result ) {
 
       coms.consume( 'jobs', function( err, job ) {
 

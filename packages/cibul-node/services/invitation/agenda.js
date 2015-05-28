@@ -94,7 +94,7 @@ function agendaInvitations( agenda ) {
 
     invitations = [];
 
-    async.eachSeries( mailer.extractEmails( emails ), function( email, ecb ) {
+    async.eachSeries( mailer.extractEmails( emails, false ), function( email, ecb ) {
 
       log( 'processing email %s', email );
 
