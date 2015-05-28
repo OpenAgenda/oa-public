@@ -166,9 +166,11 @@ function agendaEventShow( req, res ) {
 
     req.formatted.featured = featured;
 
-    cmn.render( req, res, 'event/show', { event: req.formatted } );
+    cmn.render( req, res, 'event/show', {
+      event: req.formatted
+    } );
 
-  });
+  } );
 
 }
 
@@ -355,6 +357,7 @@ function eventMailSend( req, res, next ) {
       } );
 
       res.setFlash( req, 'The event is being sent to %count% emails', { '%count%' : emails.length } );
+      
       res.redirect( 302, req.genUrl( req.eventUri, req.eventUriParams ) );
 
     } );

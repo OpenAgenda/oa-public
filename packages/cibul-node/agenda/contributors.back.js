@@ -9,24 +9,29 @@ log = require( '../lib/logger' )( 'agenda/contributors' ),
 invitationSvc = require( '../services/invitation' ),
 
 routes = {
+
   contributorsInvite:  [ 'post', '/invite', [ 
     cmn.checkAdminOrModerator,
     invite 
   ] ],
+
   contributorInviteResend: [ 'get', '/resend', [ 
     cmn.checkAdminOrModerator,
     inviteResend
   ] ],
+
   contributorsInfo: [ 'get', '/info', [ 
     cmn.checkAdministrator,
     cmn.loadBaseData( _layoutData ),
     info
   ] ],
+
   contributorsInfoSubmit: [ 'post', '/info', [
     cmn.checkAdministrator,
     cmn.loadBaseData( _layoutData ),
     infoSubmit
   ] ]
+  
 };
 
 module.exports = function( path ) {

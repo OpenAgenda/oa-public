@@ -15,7 +15,8 @@ validator = require( 'validator' );
 module.exports = {
   genUrl: genUrl,
   queueMail: queueMail,
-  extractEmails: extractEmails
+  extractEmails: extractEmails,
+  isEmail: validator.isEmail
 }
 
 
