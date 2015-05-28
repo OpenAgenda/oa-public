@@ -1,8 +1,8 @@
 <% if (type=='html') {             // HTML PART             %>
 <% if (event.image) { %>
-<% include ../sections/marginlessTop %> <!-- EVENT HEAD SECTION -->
+<% include ../sections/sectionTop %> <!-- EVENT HEAD SECTION -->
   <img src="<%= event.image %>" style=" <%= css.headerImage %>" id="headerImage"/>
-<% include ../sections/marginlessBottom %>
+<% include ../sections/sectionBottom %>
 <% } %>
 <% include ../sections/top %>
   <h1 target="_blank" style="<%= css.h1 %>"><a href="<%= event.slug %>" style="<%= css.h1a %>"><%= event.title %></a></h1>
@@ -14,9 +14,9 @@
 <% }); %>
 <% include ../sections/bottom %>
 
-<% include ../sections/marginlessTop %><!-- MAP SECTION -->
+<% include ../sections/sectionTop %><!-- MAP SECTION -->
   <img src="<%= event.mapImage %>" style="<%= css.mapImage %>" id="mapImage"/>
-<% include ../sections/marginlessBottom %>
+<% include ../sections/sectionBottom %>
 
 <% include ../sections/top %><!-- TIMING DETAILS SECTION -->
 <% event.locations.forEach(function(location) { %>

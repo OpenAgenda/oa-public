@@ -1,6 +1,7 @@
 {
   "base" : {
     "logged" : true,
+    "agenda" : false,
     "event" : {
       "uid" : 79969887,
       "title" : "Un weekend à la ferme",
@@ -10,7 +11,8 @@
         { "uri" : "#", "label": "Live" }
       ]
     },
-    "agendas" : []
+    "agendas" : [],
+    "mailSendUri" : "#mailsend"
   },
   "standard" : {
     "agendas" : [
@@ -24,5 +26,13 @@
   },
   "noagendas" : {
     "agendas" : []
+  },
+  "agenda" : {
+    "agenda" : {
+      "title" : "La Gargouille",
+      "description" : "Evénements à Paris",
+      "slug" : "la-gargouille",
+      "image" : "review_cheznous_598_00.jpg"
+    }
   }
 }

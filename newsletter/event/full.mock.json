@@ -1,5 +1,7 @@
 {
   "type" : "html",
+  "mobileMeta" : false,
+  "previewLink" : false,
   "layout" : {
     "url" : "#",
     "title" : "Apéro Moovjee ça continue ! - Les apéros Moovjee continuent ...",

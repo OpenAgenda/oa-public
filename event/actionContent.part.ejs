@@ -44,3 +44,20 @@
 </div>
 
 <% } %>
+
+<p class="legend"><%= __( 'Send to email addresses' ) %></p>
+
+<form method="post" action="<%= mailSendUri %>">
+  <div class="form-group">
+    <textarea
+      name="mailsend"
+      class="form-control" 
+      rows="3"
+    ></textarea>
+    <label for="mailsend"><%= __( 'Type in the emails you want to send the event to' )  %></label>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn green"><%= __( 'Send' ) %></button>
+  </div>
+  
+</form>

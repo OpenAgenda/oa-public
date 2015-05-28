@@ -1,12 +1,29 @@
-<div id="content">
-  <div class="container text-center share-page">
+<% if ( agenda ) { %>
+<header id="header">
+  <div class="container">
     <div class="row">
-      <div class="col-sm-offset-2 col-sm-8">
+      <div class="col-sm-6 col-sm-offset-3 agenda-container">
+        <a href="<%= genUrl('agendaShow', { slug: agenda.slug }) %>">
+<% if ( agenda.image ) { %>
+          <img class="avatar" src="<%= _i( agenda.image ) %>" alt="<%= agenda.title %>">
+<% } %>
+          <strong><%= agenda.title %></strong>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+<% } %>
+<div id="content">
+  <div class="container share-page">
+    <div class="row">
+      <div class="col-sm-offset-3 col-sm-6 text-center">
         <h1><a href="<%= genUrl( event.uri, event.params ) %>"><%= event.title %></a></h1>
+        <a href="<%= genUrl( event.uri, event.params ) %>"><%= __('go back to the event page' ) %></a>
       </div>
     </div>
     <div class="row text-left">
-      <div class="col-sm-offset-2 col-sm-8 share-menu">
+      <div class="col-sm-offset-3 col-sm-6 share-menu">
         <% include ./actionContent.part.ejs %>
       </div>
     </div>

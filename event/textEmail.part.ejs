@@ -1,0 +1,18 @@
+<% if ( agenda ) { %>
+<%= agenda.title %>
+<% } %>
+
+<%= event.title %>
+<%= event.dateRange %>
+<% if ( event.pricingInfo ) { %>
+  <%= event.pricingInfo %>
+<% } %>
+<% if ( event.ticketLink ) { %>
+<%= __( 'book' ) %>: <%= event.ticketLink %>
+<% } %>
+
+<%= event.description %>
+
+<% event.freeText.split('\n').forEach(function(freeTextLine) { %>
+<%- freeTextLine %>
+<% }); %>

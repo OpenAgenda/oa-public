@@ -14,5 +14,13 @@
   "You do not own any OpenAgenda yet"
   : "Vous n'avez pas encore d'agenda OpenAgenda",
   "Create an agenda"
-  : "Créez-un agenda"
+  : "Créez-un agenda",
+  "Send to email addresses"
+  : "Envoyer à des adresses mail",
+  "Type in the emails you want to send the event to"
+  : "Saisissez les adresses email auxquelles vous souhaitez envoyer l'événement",
+  "Send"
+  : "Envoyer",
+  "go back to the event page"
+  : "revenir à la page événement"
 }
