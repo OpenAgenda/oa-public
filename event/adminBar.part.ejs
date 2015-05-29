@@ -4,7 +4,7 @@
     --><li class="admin-item w25 js_role_agenda_admin js_role_event_editor">
       <a class="admin-link" href="<%= genUrl( 'agendaAdminShow', { slug: slug } ) %>">
         <i class="fa fa-list"></i>
-        <span><%= __( 'back to list' ) %></span>
+        <span><%= __( 'Manage agenda' ) %></span>
       </a>
     </li><!--
 <% } %>
@@ -40,7 +40,7 @@
 <% if ( event.featured ) { %>
           <a class="admin-link starify active" href="<%= genUrl( 'agendaEventChangeFeatured', { slug: slug, eventSlug: event.slug, type: 'notfeatured' } ) %>"><span><%= __( 'Featured' ) %></span><span class="hovered"><%= __('Remove from featured') %></span><i class="fa fa-star-o"></i><i class="fa fa-star"></i></a>
 <% } else { %>
-          <a class="admin-link starify" href="<%= genUrl( 'agendaEventChangeFeatured', { slug: slug, eventSlug: event.slug, type: 'featured' } ) %>"><%= __('Add to featured') %><i class="fa fa-star-o"></i><i class="fa fa-star"></i></a>
+          <a class="item starify" href="<%= genUrl( 'agendaEventChangeFeatured', { slug: slug, eventSlug: event.slug, type: 'featured' } ) %>"><%= __('Add to featured') %><i class="fa fa-star-o"></i><i class="fa fa-star"></i></a>
 <% } %>      
         </li>
 <% } %>

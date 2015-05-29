@@ -46,60 +46,6 @@
       }
     }
 
-    &.starify {
-      .fa-star {
-        display: none;
-      }
-
-      &:hover {
-        .fa-star-o {
-          display: none;
-        }
-
-        .fa-star {
-          display: block;
-        }
-      }
-
-      &.active {
-
-        .fa-star {
-          display: block;
-        }
-
-        .fa-star-o {
-          display: none;
-        }
-
-        span {
-          display: inline;
-        }
-
-        span.hovered {
-          display: none;
-        }
-
-        &:hover {
-          .fa-star-o {
-            display: block;
-          }
-
-          .fa-star {
-            display: none;
-          }
-
-          span {
-            display: none;
-          }
-
-          span.hovered {
-            display: inline;
-          }
-
-          span {}
-        }
-      }
-    }
   }
 
   .admin-list {
@@ -137,12 +83,88 @@
 
   .list-group-item {
     .item {
+
       padding-left: 20px;
 
       &.bullet:after {
         box-shadow: 0 0 0 1px silver;
       }
+
+      &.starify {
+
+        i {
+          font-size: 20px;
+          line-height: 40px;
+          opacity: 0.62;
+          position: absolute;
+          right: 20px;
+          top: 0;
+        }
+
+        &:hover {
+          i {
+            opacity: 1;
+          }
+        }
+
+        .fa-star {
+          display: none;
+        }
+
+        &:hover {
+          .fa-star-o {
+            display: none;
+          }
+
+          .fa-star {
+            display: block;
+          }
+        }
+
+        &.active {
+
+          .fa-star {
+            display: block;
+          }
+
+          .fa-star-o {
+            display: none;
+          }
+
+          span {
+            display: inline;
+          }
+
+          span.hovered {
+            display: none;
+          }
+
+          &:hover {
+            .fa-star-o {
+              display: block;
+            }
+
+            .fa-star {
+              display: none;
+            }
+
+            span {
+              display: none;
+            }
+
+            span.hovered {
+              display: inline;
+            }
+
+            span {}
+          }
+        }
+
+      }
+
     }
+
+
   }
 
   .score {

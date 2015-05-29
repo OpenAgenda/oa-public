@@ -164,7 +164,7 @@
     white-space: nowrap;
     width: 100%;
 
-    &:after {
+    &.bullet:after {
       background: white;
       border-radius: 30px;
       color: $gray-lighter;
