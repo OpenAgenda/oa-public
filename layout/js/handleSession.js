@@ -44,7 +44,7 @@ module.exports = function( eh, options ) {
 
   if ( window.env ) params.env = window.env;
 
-  if ( cn.contains( [ 'dev', 'tpl' ], params.env ) debug.enable( '*' );
+  if ( cn.contains( [ 'dev', 'tpl' ], params.env ) ) debug.enable( '*' );
 
   log = debug( 'handleSession' );
 
