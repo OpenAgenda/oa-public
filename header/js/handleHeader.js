@@ -1,10 +1,8 @@
-var handleHeader = function(params) {
+var handleHeader = function( params ) {
 
   params = extend({
     deployed: false,
     logged: false,
-    resEvent: '//openagenda.com/ajax/event',
-    resLocation: '//openagenda.com/getsearch/location',
     env: 'prod',
     selectors: {
       header: 'header',
@@ -29,13 +27,13 @@ var handleHeader = function(params) {
     userMenu: false, // this is the logged user menu
     mobileSearch: '<i class="icon-search head-icon"></i>',
     mobileConnect: '<i class="icon-signin head-icon"></i>'
-  }, params.templates?params.templates:{});
+  }, params.templates ? params.templates : {} );
   
   var session = {},
 
   init = function() {
 
-    sEventHandler.getInstance().trigger('getsessiondata', function(data) {
+    window.getSession( function(data) {
       
       session = data;
 
@@ -43,7 +41,7 @@ var handleHeader = function(params) {
 
       _toggleDisplayedElements();
 
-    });
+    } );
 
   },
 

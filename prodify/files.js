@@ -153,7 +153,7 @@ files = {
     ],
     [paths.jsc,
       'handleContextMenu/src/handleContextMenu.js',
-      'handleSession/src/handleSession.js',
+      //'handleSession/src/handleSession.js',
       'handleDisplayButton/src/handleDisplayButton.js'
     ]
   ],

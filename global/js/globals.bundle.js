@@ -3064,7 +3064,7 @@ defaults = {
   lifetime: 60*60*1000
 };
 
-module.exports = function( eh, options ) {
+module.exports = window.handleSession = function( options ) {
 
   var params = cn.extend( {}, defaults, options ), url,
 

@@ -129,7 +129,7 @@ window.run = function(options) {
 
   cn.extend(params, options);
 
-  params.eh.trigger('getsessiondata', function(data) {
+  window.getSession( function(data) {
 
     log('session data fetched');
 
