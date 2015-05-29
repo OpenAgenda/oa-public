@@ -51,26 +51,26 @@ var cibulEventLocation = function(params) {
 
     _createElement();
 
-    _getSessionData(function(data) {
+    window.getSession( function( data ) {
 
-      country = _findCountry(data.country);
+      country = _findCountry( data.country );
 
-      eh.trigger(params.events.fetchLanguages, function(newLanguages) {
+      eh.trigger( params.events.fetchLanguages, function( newLanguages ) {
 
         // languages are required for pricing info which are linked to locations
         languages = newLanguages;
 
         // loop through existing locations and create forms.
 
-        _createLocationHandlers(function() {
+        _createLocationHandlers( function() {
           
-          if (!Object.size(locationHandlers)) {
+          if ( !Object.size( locationHandlers ) ) {
             _addLocation();
           }
 
-        });
+        } );
 
-        _on(params.events.languageChange, function(newLanguages) {
+        _on( params.events.languageChange, function( newLanguages ) {
 
           languages = newLanguages;
 
@@ -91,27 +91,13 @@ var cibulEventLocation = function(params) {
 
       });
 
-    });
+    } );
 
   },
 
   _on = function(eventName, callback) {
 
     callbackIds.push(eh.on(eventName, callback));
-
-  },
-
-  _getSessionData = function(callback) {
-
-    if (!params.sessionData) {
-
-      eh.trigger(params.events.sessionFetch, callback);
-
-    } else {
-
-      callback(params.sessionData);
-
-    }
 
   },
 

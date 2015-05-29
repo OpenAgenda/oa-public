@@ -64,5 +64,7 @@
   "Featured"
   : "Mis en une",
   "%from% to %to%"
-  : "%from% à %to%"
+  : "%from% à %to%",
+  "Duplicate"
+  : "Dupliquer"
 }

@@ -3,6 +3,7 @@
   margin-top: -1px;
 
   .admin-item {
+
     border-bottom: 1px solid rgba(255,255,255,0.38);
     display: inline-block;
     position: relative;
@@ -138,7 +139,7 @@
     .item {
       padding-left: 20px;
 
-      &:after {
+      &.bullet:after {
         box-shadow: 0 0 0 1px silver;
       }
     }

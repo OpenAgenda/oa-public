@@ -180,7 +180,7 @@
     &.active:hover {
       color: $oa-blue;
 
-      &:after {
+      &.bullet:after {
         background: $oa-silver;
         border: 5px solid $oa-white;
       }

@@ -91,7 +91,6 @@ files = {
       'handlePlaceFetch/src/handlePlaceFetch.js',
       'handleEventPlaceEdit/src/handleEventPlaceEdit.js',
       'handleContextMenu/src/handleContextMenu.js',
-      'handleSession/src/handleSession.js',
       'handleSuggestions/src/handleSuggestions.js',
       'inputCountry/src/inputCountry.js',
     ],
