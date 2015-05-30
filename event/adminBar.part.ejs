@@ -38,7 +38,7 @@
 <% if ( !loner ) { %>
         <li class="list-group-item js_admin_item js_role_agenda_admin">
 <% if ( event.featured ) { %>
-          <a class="admin-link starify active" href="<%= genUrl( 'agendaEventChangeFeatured', { slug: slug, eventSlug: event.slug, type: 'notfeatured' } ) %>"><span><%= __( 'Featured' ) %></span><span class="hovered"><%= __('Remove from featured') %></span><i class="fa fa-star-o"></i><i class="fa fa-star"></i></a>
+          <a class="item starify active" href="<%= genUrl( 'agendaEventChangeFeatured', { slug: slug, eventSlug: event.slug, type: 'notfeatured' } ) %>"><span><%= __( 'Featured' ) %></span><span class="hovered"><%= __('Remove from featured') %></span><i class="fa fa-star-o"></i><i class="fa fa-star"></i></a>
 <% } else { %>
           <a class="item starify" href="<%= genUrl( 'agendaEventChangeFeatured', { slug: slug, eventSlug: event.slug, type: 'featured' } ) %>"><%= __('Add to featured') %><i class="fa fa-star-o"></i><i class="fa fa-star"></i></a>
 <% } %>      
