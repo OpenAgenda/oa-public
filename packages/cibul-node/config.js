@@ -159,6 +159,10 @@ config = {
           method: 'get',
           uri: '/:slug/event/:eventSlug/edit'
         },
+        'agendaEventDuplicate' : {
+          method: 'get',
+          uri: '/:slug/event/:eventSlug/duplicate'
+        },
         'agendaEventShow' : {
           method: 'get',
           uri: '/:slug/event/:eSlug'
@@ -191,13 +195,10 @@ config = {
           method: 'get',
           uri: '/agenda/:uid/aggregator/removeFrom/:aggUid'
         },
-
         'agendaShowByUid' : {
           method: 'get',
           uri: '/agendas/:uid'
         },
-
-
         'agendaAdminShow' : {
           method: 'get',
           uri: '/:slug/admin'
@@ -249,6 +250,10 @@ config = {
         'eventEdit' : {
           method: 'get',
           uri: '/event/:eventSlug/edit'
+        },
+        'eventDuplicate' : {
+          method: 'get',
+          uri: '/event/:eventSlug/duplicate'
         },
         'eventEmbedEdit' : {
           method: 'get',
