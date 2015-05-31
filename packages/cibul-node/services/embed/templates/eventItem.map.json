@@ -4,6 +4,7 @@
     { "name" : "Description", "mapTo": "description" },
     { "name" : "Link", "mapTo": "link" },
     { "name" : "ImageUrl", "mapTo": "image" },
+    { "name" : "ThumbnailUrl", "mapTo" : "thumbnail" },
     { "name" : "LocationName", "mapTo": "placeNameLabel" },
     { "name" : "City", "mapTo" : "city" },
     { "name" : "DateRange", "mapTo": "dateRange" },
