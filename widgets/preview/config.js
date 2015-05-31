@@ -11,20 +11,18 @@ module.exports = {
   res: {
     all: {
       json: '//openagenda.com/agendas/{uid}/events.json',
-      page: '//openagenda.com/agendas/{uid}',
-      eventPart: '/events/{slug}',
+      eventPart: '/events/{uid}',
       embedEventPart: '?search[uid]={uid}'
     },
     dev: {
       json: '//d.openagenda.com/agendas/{uid}/events.json',
-      page: '//d.openagenda.com/agendas/{uid}',
-      eventPart: '/events/{slug}',
+      eventPart: '/events/{uid}',
       embedEventPart: '?search[uid]={uid}'
     },
     tpl: {
       json: '/server/testdata/previewwidgetres.json',
       page: '#page',
-      eventPart: '#/events/{slug}',
+      eventPart: '#/events/{uid}',
       embedEventPart: '#?search[uid]={uid}'
     }
   }

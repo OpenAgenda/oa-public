@@ -57,12 +57,12 @@ function widget( elem, options ) {
       eventPart: params.eventPart,
       count: params.count
     } );
-    
+
     if ( !events.length ) return log( 'there are no upcoming events' );
 
     styler( style );
 
-    elem.removeChild( cn.el( elem, 'a' ) );
+    elem.innerHTML = '';
 
     elem.insertAdjacentElement( 'afterbegin', _render( wTpl, { events: events } ) );
 
@@ -131,7 +131,7 @@ function _defineEventLink( event, e, options ) {
 
   eventPart = options.eventPart;
 
-  e.link = link + eventPart.replace( '{uid}', event.uid ).replace( '{slug}', event.slug );
+  e.link = link + eventPart.replace( '{uid}', event.uid );
 
 }
 
@@ -191,16 +191,16 @@ function _init() {
 
     var arr = elem.getAttribute( config.attributes.config ).split( '|' ),
 
-    link = cn.el( elem, 'a' ).getAttribute( 'href' ),
-
     lang = elem.hasAttribute( config.attributes.lang ) ? elem.getAttribute( config.attributes.lang ) : config.defaultLang,
 
-    count = elem.hasAttribute( config.attributes.count ) ? parseInt( elem.getAttribute( config.attributes.count ), 10 ) : 3;
+    count = elem.hasAttribute( config.attributes.count ) ? parseInt( elem.getAttribute( config.attributes.count ), 10 ) : 3,
+
+    link = cn.el( elem, 'a' ).getAttribute( 'href' );
 
     widget( elem, {
       uid: arr[ UID ],
-      link: ( link ? link.replace( '{uid}', arr[ UID ] ) : res.page ),
-      eventPart: link ? res.eventPart : res.embedEventPart,
+      link: link,
+      eventPart: link.indexOf( 'openagenda.com' ) !== -1 ? res.eventPart : res.embedEventPart,
       useStyle: !elem.hasAttribute( config.attributes.noDefaultStyle ),
       count: count
     } );
