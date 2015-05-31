@@ -35,6 +35,12 @@ routes = {
     agendaEventShow
   ] ],
 
+  agendaEventRedirect: [ 'get', '/agendas/:uid/events/:eventUid', [
+    agendaSvc.mw.load( 'uid' ),
+    eventSvc.mw.load( 'eventUid', 'uid' ),
+    redirect
+  ]],
+
   agendaEmbedEventShow: [ 'get', '/agendas/:uid/embed/events/:eventUid', [
     agendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
@@ -171,6 +177,14 @@ function agendaEventShow( req, res ) {
     } );
 
   } );
+
+}
+
+function redirect( req, res ) {
+
+  if ( !req.agenda || !req.event ) return next( { code: 404 } );
+
+  res.redirect( 301, req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug }, { protocol: 'https://' } ) );
 
 }
 

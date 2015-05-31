@@ -87,6 +87,11 @@ routes = {
     embedSvc.mw.loadCustomLayoutData,
     embedShow
   ] ],
+
+  agendaRedirect: [ 'get', '/agendas/:uid', [
+    agendaSvc.mw.load( 'uid' ),
+    redirect
+  ] ],
   
   agendaShow: [ 'get', '/:slug', [ 
     agendaSvc.mw.load( 'slug' ),
@@ -171,6 +176,13 @@ function show( req, res ) {
 }
 
 
+function redirect( req, res ) {
+
+  return res.redirect( 301, req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { protocol: 'https://' } ) );
+
+}
+
+
 function embedShow( req, res ) {
 
   lib.extend( req.templateData, {
@@ -221,6 +233,7 @@ function controlData( req, res ) {
   } );
 
 }
+
 
 
 /**
