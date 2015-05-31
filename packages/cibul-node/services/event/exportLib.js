@@ -56,6 +56,7 @@ function cleanEvents( events, options ) {
 
     c = {
       uid: e.uid,
+      slug: e.slug,
       canonicalUrl: params.genUrl( 'eventShow', { eventSlug: e.slug }, { protocol: 'https://' } ),
       title: e.title,
       description: e.description,

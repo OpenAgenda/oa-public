@@ -2,7 +2,7 @@
 
 var svc,
 
-parserLib = require( './parser' ),
+parserLib = require( 'tumblrParser' ),
 
 fs = require( 'fs' ),
 

@@ -8,9 +8,7 @@ lib = require( '../../lib/lib' ),
 
 coms = require( '../../lib/coms' ),
 
-agendaSvc = require( '../agenda/agenda' ),
-
-parserLib = require( './parser' );
+agendaSvc = require( '../agenda/agenda' );
 
 module.exports = {
   get: get
