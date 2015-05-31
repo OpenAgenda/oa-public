@@ -56,15 +56,15 @@ function widget( elem, options ) {
       link: params.link,
       eventPart: params.eventPart,
       count: params.count
-    } ),
-
-    renderedWidget = _render( wTpl, { events: events } );
+    } );
+    
+    if ( !events.length ) return log( 'there are no upcoming events' );
 
     styler( style );
 
     elem.removeChild( cn.el( elem, 'a' ) );
 
-    elem.insertAdjacentElement( 'afterbegin', renderedWidget );
+    elem.insertAdjacentElement( 'afterbegin', _render( wTpl, { events: events } ) );
 
   } );
 
