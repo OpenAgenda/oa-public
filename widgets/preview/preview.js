@@ -140,9 +140,11 @@ function _flattenMultilinguals( event, e, lang ) {
 
   cn.forEach( [ 'title', 'description', 'longDescription', 'range' ], function( field ) {
       
-    for( var l in event[ field ] ) break;
+    var l = false;
 
-    if ( typeof event[ field ][ lang ] !== 'undefined' ) {
+    for( l in event[ field ] ) break;
+
+    if ( event[ field] && typeof event[ field ][ lang ] !== 'undefined' ) {
 
       l = lang;
 
