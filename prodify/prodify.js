@@ -454,7 +454,7 @@ _browserify = function( paths, cb ) {
 
   var b = browserify();
 
-  b.transform(stringify(['.ejs', '.css', '.html']));
+  b.transform(stringify(['.ejs', '.css', '.html', '.json', '.tblr' ]));
 
   b.transform( reactify );
 

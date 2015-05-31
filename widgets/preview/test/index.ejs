@@ -1,0 +1,106 @@
+<html>
+  <head>
+<% js.forEach( function( jsPath ) { %>
+    <script type="text/javascript" src="<%= jsPath %>"></script>
+<% }) %>
+    <style type="text/css">
+
+      .separator {
+
+        margin: 4em 0;
+        border-top: 1px solid black;
+
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <style>
+
+      .gni ul {
+
+        list-style-type: none;
+        padding: 0;
+        max-width: 300px;
+
+      }
+
+      .gni li {
+
+        padding-bottom: 1em;
+
+      }
+
+      .gni span {
+
+        display: block;
+
+      }
+
+      .gni a {
+
+        color: inherit;
+        text-decoration: inherit;
+
+      }
+
+      .gni .title {
+
+        text-transform: uppercase;
+
+      }
+
+      .gni img {
+
+        display: block;
+        max-width: 100%;
+
+      }
+
+      .gni .place {
+
+        font-weight: bold;
+
+      }
+
+    </style>
+
+    <p>preview widget with custom template:</p>
+    <div class="gni cbpgpr" data-cbctl="<%= uid %>">
+      <a href="#here">Voir l'agenda</a>
+      <!-- 
+        <ul>
+          {block:Events}
+          <li>
+            <a href="{Link}">
+              <span class="title">{Title}</span>
+              {block:ImageUrl}
+              <img src="{ImageUrl}"/>
+              {/block:ImageUrl}
+              <span class="desc">{Description}</span>
+              <span class="range">{DateRange}</span>
+              <span class="place">{LocationName}</span>
+            </a>
+          </li>
+          {/block:Events}
+        </ul>
+      -->
+    </div>
+
+    <div class="separator"></div>
+
+    <p>preview widget with default style:</p>
+    <div class="cbpgpr oa-preview" data-cbctl="<%= uid %>">
+      <a href="#here">Voir l'agenda</a>
+    </div>
+
+    <div class="separator"></div>
+
+    <p>preview widget without default style, with more items:</p>
+    <div class="cbpgpr" data-cbctl="<%= uid %>" data-count="10">
+      <a href="#here">Voir l'agenda</a>
+    </div>
+
+  </body>
+</html>

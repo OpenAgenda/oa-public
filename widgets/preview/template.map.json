@@ -1,0 +1,48 @@
+{
+  "children" : [ {
+    "name" : "Events",
+    "mapTo" : "events",
+    "attributes" : [ 
+      { 
+        "name" : "Title", 
+        "mapTo": "title" 
+      },
+      { 
+        "name" : "Description", 
+        "mapTo": "description" 
+      },
+      { 
+        "name" : "Link", 
+        "mapTo": "link" 
+      },
+      { 
+        "name" : "ImageUrl", 
+        "mapTo": "image" 
+      },
+      { 
+        "name" : "ThumbnailUrl", 
+        "mapTo" : "thumbnail" 
+      },
+      { 
+        "name" : "LocationName", 
+        "mapTo": "locationName" 
+      },
+      { 
+        "name" : "City", 
+        "mapTo" : "city" 
+      },
+      { 
+        "name" : "DateRange", 
+        "mapTo": "range"
+      },
+      { 
+        "name" : "PricingInfo", 
+        "mapTo" : "pricingInfo"
+      },
+      { 
+        "name" : "TicketUrl",
+        "mapTo" : "ticketLink" 
+      } 
+    ]
+  } ]
+}
