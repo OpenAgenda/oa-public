@@ -16,6 +16,8 @@ module.exports = function( enabledTypes, cb ) {
 
   supervisor( function( loadTasks ) {
 
+    require( 'newrelic' );
+
     var log = require( './lib/logger' )( 'app' );
 
     log( 'info', 'running server' );

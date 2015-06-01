@@ -235,6 +235,10 @@ config = {
           method: 'get',
           uri: '/:slug/admin/admins'
         },
+        'agendaAdminModerators' : {
+          method: 'get',
+          uri: '/:slug/admin/moderators'
+        },
         'agendaAdminTheme' : {
           method: 'get',
           uri: '/:slug/admin/edit'

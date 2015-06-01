@@ -22,6 +22,11 @@ routes = {
     invite( { inviteMethod: 'inviteAdministrators', redirect: 'agendaAdminAdministrators' } )
   ]],
 
+  moderatorsInvite: [ 'post', '/moderators/invite', [
+    cmn.checkAdministrator,
+    invite( { inviteMethod: 'inviteModerators', redirect: 'agendaAdminModerators' } )
+  ]],
+
   contributorInviteResend: [ 'get', '/contributors/resend', [ 
     cmn.checkAdminOrModerator,
     inviteResend()
@@ -29,7 +34,12 @@ routes = {
 
   administratorInviteResend: [ 'get', '/admins/resend', [
     cmn.checkAdministrator,
-    inviteResend( { postParam: 'admins', inviteMethod: 'inviteAdministrators', redirect: 'agendaAdminAdministrators' } )
+    inviteResend( { inviteMethod: 'inviteAdministrators', redirect: 'agendaAdminAdministrators' } )
+  ] ],
+
+  moderatorsInviteResend: [ 'get', '/moderators/resend', [
+    cmn.checkAdministrator,
+    inviteResend( { inviteMethod: 'inviteModerators', redirect: 'agendaAdminModerators' })
   ] ],
 
   contributorsInfo: [ 'get', '/contributos/info', [ 
@@ -136,7 +146,6 @@ function invite( options ) {
 function inviteResend( options ) {
 
   var params = utils.extend( {
-    postParam: 'editors',
     inviteMethod: 'inviteContributors',
     redirect: 'agendaAdminContributors'
   }, options ? options : {} );
