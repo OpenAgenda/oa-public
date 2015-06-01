@@ -12,7 +12,7 @@ env = window.env ? window.env : 'prod',
 
 tpl = require( './preview.tblr' ),
 
-tplMap = JSON.parse( require( './template.map.json' ) ),
+tplMap = require( './template.map.json' ),
 
 remote = require( '../../js/lib/remote/remote.mod.js' ),
 
