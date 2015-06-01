@@ -30,5 +30,6 @@
 <% for ( var i in js ) { %>
     <script type="text/javascript" src="<%= js[i] %>"></script>
 <% } %>
+<% if ( typeof head.customHead !== 'undefined' ) { %><%- head.customHead %><% } %>
   </head>
   <body <% if ( pageId ) { %> id="<%= pageId %>" <% } %><% if ( pageClass ) { %> class="<%= pageClass %>"<% } %> data-options="<%- typeof scriptParams !== 'undefined' ? _esc( JSON.stringify( scriptParams ) ) : '' %>">
