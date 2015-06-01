@@ -32,7 +32,13 @@ TYPES = {
   AGENDACONTRIBUTOR: 1,
   AGENDAADMIN: 2,
   AGENDAMODERATOR: 3
-};
+},
+
+inviteMethods = {};
+
+inviteMethods[ TYPES.AGENDACONTRIBUTOR ] = 'getContributorInvite';
+inviteMethods[ TYPES.AGENDAADMIN ] = 'getAdministratorInvite';
+inviteMethods[ TYPES.AGENDAMODERATOR ] = 'getModeratorInvite';
 
 module.exports = agendaInvitations;
 module.exports.loadGenUrl = loadGenUrl;
@@ -59,81 +65,95 @@ function loadGenUrl( g ) {
 function agendaInvitations( agenda ) {
 
   return {
-    inviteContributors: inviteContributors,
-    inviteContributor: inviteContributor,
+    inviteContributors: _inviteStakeholders( TYPES.AGENDACONTRIBUTOR ),
+    inviteAdministrators: _inviteStakeholders( TYPES.AGENDAADMIN ),
+    inviteModerators: _inviteStakeholders( TYPES.AGENDAMODERATOR ),
+    inviteContributor: _inviteStakeholder( TYPES.AGENDACONTRIBUTOR ),
+    inviteAdministrator: _inviteStakeholder( TYPES.AGENDAADMIN ),
+    inviteModerator: _inviteStakeholder( TYPES.AGENDAMODERATOR ),
     processContributorInvitation: _processStakeholder( TYPES.AGENDACONTRIBUTOR ),
     processAdministratorInvitation: _processStakeholder( TYPES.AGENDAADMIN ),
     processModeratorInvitation: _processStakeholder( TYPES.AGENDAMODERATOR )
   }
 
-  function inviteContributor( email, lang, cb ) {
 
-    agenda.getContributorInvite( { email: email }, true, function( err, invitation ) {
+  function _inviteStakeholder( type ) {
 
-      if ( err ) return cb( err );
+    return function( email, lang, cb ) {
 
-      if ( invitation ) {
+      agenda[ inviteMethods[ type ] ]( { email: email }, true, function( err, invitation ) {
 
-        invitationsService.addJob( invitation, lang, cb );
+        if ( err ) return cb( err );
 
-      } else {
-
-        cb( null, null, data );
-
-      }
-
-    });
-
-  }
-
-  function inviteContributors( emails, lang, cb ) {
-
-    var result = {
-      errors: []
-    },
-
-    invitations = [];
-
-    async.eachSeries( mailer.extractEmails( emails, false ), function( email, ecb ) {
-
-      log( 'processing email %s', email );
-
-      agenda.getContributorInvite( { email: email }, true, function( err, invitation, data ) {
-
-        if ( err ) return ecb( err );
-        
         if ( invitation ) {
 
-          invitations.push( invitation );
+          invitationsService.addJob( invitation, lang, cb );
 
         } else {
 
-          result.errors.push( {
-            email: email, 
-            errors: data.errors
-          } );
+          cb( null, null, data );
 
         }
 
-        ecb();
-
       });
 
-    }, function( err ) {
+    }
 
-      if ( err ) cb( err );
+  }
 
-      async.each( invitations, function( invitation, ecb ) {
 
-        invitationsService.addJob( invitation, lang, ecb );
+  function _inviteStakeholders( type ) {
+
+    return function( emails, lang, cb ) {
+
+      var result = {
+        errors: []
+      },
+
+      invitations = [];
+
+      async.eachSeries( mailer.extractEmails( emails, false ), function( email, ecb ) {
+
+        log( 'processing email %s', email );
+
+        agenda[ inviteMethods[ type ] ]( { email: email }, true, function( err, invitation, data ) {
+
+          if ( err ) return ecb( err );
+          
+          if ( invitation ) {
+
+            invitations.push( invitation );
+
+          } else {
+
+            result.errors.push( {
+              email: email, 
+              errors: data.errors
+            } );
+
+          }
+
+          ecb();
+
+        });
 
       }, function( err ) {
 
-        cb( err, invitations, result );  
+        if ( err ) cb( err );
 
-      });
+        async.each( invitations, function( invitation, ecb ) {
 
-    } );
+          invitationsService.addJob( invitation, lang, ecb );
+
+        }, function( err ) {
+
+          cb( err, invitations, result );  
+
+        });
+
+      } );
+
+    }
 
   }
   
