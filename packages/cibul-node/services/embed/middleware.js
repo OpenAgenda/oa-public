@@ -150,7 +150,7 @@ function loadCustomLayoutData( req, res, next ) {
   linkCss = req.embed.getLinkCss(),
 
   useDefaultCss = req.embed.getUseDefaultCss();
-
+  
   if ( !useDefaultCss.list ) {
 
     delete req.baseData.head.css.main;
@@ -168,6 +168,8 @@ function loadCustomLayoutData( req, res, next ) {
     req.baseData.customCss = customCss;
 
   }
+
+  req.baseData.head.customHead = req.embed.getHead();
 
   next();
 
