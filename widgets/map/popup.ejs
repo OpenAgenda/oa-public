@@ -9,9 +9,9 @@
   <span>
     <p><%= name %></p>
     <span class="map-address"><%= address %></span>
-    <span class="map-postalcode"><%= postalCode %></span>
-    <span class="map-city"><%= city %></span>
-    <span class="map-department"><%= department %></span>
-    <span class="map-region"><%= region %></span>
+    <% if ( postalCode ) { %><span class="map-postalcode"><%= postalCode %></span><% } %>
+    <% if ( city ) { %><span class="map-city"><%= city %></span><% } %>
+    <% if ( department ) { %><span class="map-department"><%= department %></span><% } %>
+    <% if ( region ) { %><span class="map-region"><%= region %></span><% } %>
   </span>
 </div>
