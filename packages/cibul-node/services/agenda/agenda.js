@@ -120,7 +120,7 @@ function instanciate( data ) {
 
   function _appendEvents( ctlData, cb ) {
 
-    var hasMore = true, page = 1, eIndex = ctlData.a;
+    var hasMore = true, page = 1, eIndex = [], eUids =[], lIndex = [], lUids = [];
 
     async.doWhilst( function( wcb ) {
 
@@ -130,9 +130,33 @@ function instanciate( data ) {
 
         result.events.forEach( function( event ) {
 
-          _parseAndAppendEvent( eIndex, event );
+          var eInst = eventSvc.instanciate( event ),
+
+          l = _extractLocation( eInst ),
+
+          e = _extractEvent( eInst );
+
+          if ( eUids.indexOf( e.u ) == -1 ) {
+
+            eUids.push( e.u );
+
+            eIndex.push( e );
+
+          }
+
+          if ( l && lUids.indexOf( l.u ) == -1 ) {
+
+            lUids.push( l.u );
+
+            lIndex.push( l );
+
+          }
 
         });
+
+        ctlData.l = lIndex;
+
+        ctlData.ev = eIndex;
 
         hasMore = !!result.events.length;
 
@@ -155,6 +179,58 @@ function instanciate( data ) {
     } );
 
   }
+
+  function _extractLocation( event ) {
+
+    if ( !event.hasValidLocation() ) return false;
+
+    return {
+      u: event.getLocationUid(),
+      lt: event.getLatitude(),
+      lg: event.getLongitude()
+    };
+
+  }
+
+  function _extractEvent( event ) {
+
+    var parsed = {
+      u: event.uid,
+      l: event.getLocationUid()
+    };
+
+    // this is syncronous
+    event.getAgendaTags( instance.id, function( err, tags ) {
+
+      parsed.t = tags.map( function( t ) { return t.slug; } );
+
+    } );
+
+    event.getAgendaCategory( instance.id, function( err, category ) {
+
+      if ( category ) parsed.c = category.slug;
+
+    });
+
+    event.getOrganization( instance.id, function( err, org ) {
+
+      if ( org ) parsed.org = {
+        l: org.label,
+        s: org.slug
+      }
+
+    });
+
+    parsed.d = utils.unique( event.getTimings().map( function( t ) {
+
+      return _getTimingDate( t );
+
+    }) );
+
+    return parsed;
+
+  }
+
 
   function _parseAndAppendEvent( eIndex, event ) {
 
@@ -187,19 +263,7 @@ function instanciate( data ) {
 
     });
 
-    if ( eInst.hasValidLocation() ) {
-
-      parsed.l[ eInst.getLocationName().slug ] = {
-        p: eInst.getLocationName().label,
-        a: eInst.getAddress().label,
-        ct: eInst.getCity().label,
-        d: eInst.getTimings().map( _getTimingDate ),
-        pc: eInst.getPostalCode().label,
-        lt: eInst.getLatitude(),
-        lg: eInst.getLongitude()
-      };
-
-    }
+    
 
     eIndex[ event.uid ] = parsed;
 

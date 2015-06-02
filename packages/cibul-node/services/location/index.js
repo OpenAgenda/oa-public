@@ -1,6 +1,5 @@
 "use strict";
 
-
 var log = require( '../../lib/logger' )( 'location service' ),
 
 config = require( '../../config' ),
@@ -25,6 +24,8 @@ module.exports = {
   create: create,
   listSimilar: listSimilar, // take name, lat, lng.
 }
+
+module.exports.mw = require( './middleware' )( module.exports );
 
 
 /**

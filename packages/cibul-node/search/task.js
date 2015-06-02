@@ -189,7 +189,7 @@ function _sync( job, cb ) {
 
           if ( err ) return cb( err );
 
-          if ( events.length && eIds.indexOf( events[ 0 ].id ) == -1 ) {
+          if ( events.length && ( eIds.indexOf( events[ 0 ].id ) == -1 ) ) {
 
             eIds.push( events[ 0 ].id );
 
@@ -360,13 +360,22 @@ function _update( schema ) {
 
   return function( job, cb ) {
 
-    log( 'debug', 'updating %s %s', job.type, job.id );
+    log( 'updating %s %s', job.type, job.id );
 
     model[ schema ]().get( { id : job.id }, function( err, obj ) {
 
       if ( err ) return cb( err );
 
-      ES[ schema ]().update( obj, cb );
+      if ( obj ) {
+
+        ES[ schema ]().update( obj, cb );
+
+      } else {
+
+        _delete( schema )( job, cb );
+
+      }
+
 
     });
 

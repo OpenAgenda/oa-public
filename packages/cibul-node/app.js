@@ -65,6 +65,7 @@ module.exports = function( enabledTypes, cb ) {
         require( './auth/google.front' )( '/google' ),
         require( './auth/reset.front' )( '/password' ),
         require( './agenda/stakeholders.back' )( '/:slug/admin' ),
+        require( './location/front' )( '/locations' ),
         require( './agenda/front' )( '' ),
         require( './agenda/actions.front' )( '/:slug/actions' ),
         require( './agenda_bridges/back' )( '/:slug/admin/services'),

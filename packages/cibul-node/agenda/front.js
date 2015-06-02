@@ -24,7 +24,7 @@ i18n = require( '../i18n/i18n' ),
 
 timeHelper = require( 'cibulTemplates' ).helpers.time,
 
-model = cmn.getCibulModel(),
+model = require( '../services/model' ),
 
 modes = {
 
