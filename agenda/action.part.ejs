@@ -2,7 +2,7 @@
   <section>
     <header class="popup-title">
       <h2><%= __('Import / Add to my agenda') %></h2>
-      <a class="close-link" href=""><i class="fa fa-times fa-lg"></i></a>
+      <a class="close-link" <% if ( !xhr ) { %>href="<%= genUrl('agendaRedirect', { uid: uid } ) %>"<% } %>><i class="fa fa-times fa-lg"></i></a>
     </header>
     <div class="js_popup_content popup-content">
       <p class="legend"><%= __( 'Automatically import all dates of this agenda in your personal agenda' ) %></p>

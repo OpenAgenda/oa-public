@@ -10,5 +10,7 @@
     "_txt" : "text"
   },
 
-  "base" : {}
+  "base" : {
+    "xhr" : false
+  }
 }
