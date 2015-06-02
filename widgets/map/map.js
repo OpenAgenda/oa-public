@@ -236,7 +236,7 @@ function widget( elem, options ) {
 
   function _openPopup( l ) {
 
-    _fetchLocationInfo( location, function( err, location ) {
+    _fetchLocationInfo( l, function( err, location ) {
 
       var popupData = cn.extend({
         labels: config.labels[ config.lang ]
