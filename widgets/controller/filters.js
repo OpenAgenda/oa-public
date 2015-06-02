@@ -40,15 +40,11 @@ function passed( item, reqParams ) {
 
   if ( !reqParams.passed && !reqParams.from ) {
 
-    for ( var i in item.l ) {
+    for ( var i in item.d ) {
 
-      for ( var j in item.l[i].d ) {
+      if ( item.d[ i ] >= today ) {
 
-        if ( item.l[i].d[j] >= today ) {
-
-          return true;
-
-        }
+        return true;
 
       }
 
@@ -127,15 +123,11 @@ function dates( item, reqParams ) {
 
   var period = [ reqParams.from, reqParams.to ? reqParams.to : reqParams.from ];
 
-  for ( var i in item.l ) {
+  for ( var i in item.d ) {
 
-    for ( var j in item.l[ i ].d ) {
+    if ( ( item.d[ i ] >= period[ 0 ] ) && ( item.d[ i ] <= period[ 1 ] ) ) {
 
-      if ( ( item.l[ i ].d[ j ] >= period[ 0 ] ) && ( item.l[ i ].d[ j ] <= period[ 1 ] ) ) {
-
-        return true;
-
-      }
+      return true;
 
     }
 
@@ -148,7 +140,7 @@ function dates( item, reqParams ) {
 
 function locations( item, reqParams ) {
 
-  if ( reqParams.location && ( typeof item.l[reqParams.location] == 'undefined' ) ) {
+  if ( reqParams.location && ( typeof item.lt == 'undefined' || typeof item.lg == 'undefined' ) ) {
 
     return false;
 
@@ -162,17 +154,13 @@ function locations( item, reqParams ) {
 
     sw = [parseFloat(reqParams.swLat), parseFloat(reqParams.swLng)];
 
-    for ( var i in item.l ) {
+    if ( (item.lt <= ne[0] ) &&
 
-      if ( (item.l[i].lt <= ne[0] ) &&
+    ( item.lg <= ne[1] ) &&
 
-      ( item.l[i].lg <= ne[1] ) &&
+    ( item.lt >= sw[0] ) &&
 
-      ( item.l[i].lt >= sw[0] ) &&
-
-      ( item.l[i].lg >= sw[1]) ) return true;
-
-    }
+    ( item.lg >= sw[1]) ) return true;
 
     return false;
 

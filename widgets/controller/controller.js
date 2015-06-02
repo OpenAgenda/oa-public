@@ -91,7 +91,7 @@ module.exports = function( uid ) {
 
       log( 'successfully fetched control data' );
 
-      ctl = data;
+      ctl = _initControlData( data );
 
       syncHref = !!ctl.sh;
 
@@ -509,6 +509,56 @@ module.exports = function( uid ) {
   }
 
 
+  function _initControlData( data ) {
+
+    // distribute location data throughout events
+
+    var locations = {},
+
+    today = _stringifyDate();
+
+    cn.forEach( data.l, function( l ) {
+
+      locations[ l.u ] = { lt: l.lt, lg: l.lg };
+
+    });
+
+    cn.forEach( data.ev, function( e ) {
+
+      if ( e.l ) {
+
+        e.lt = locations[ e.l ].lt;
+
+        e.lg = locations[ e.l ].lg;
+
+      }
+
+      // append is passed info
+
+      e.p = true;
+      
+      for (var i = e.d.length - 1; i >= 0; i--) {
+
+        if ( e.d[ i ] >= today ) {
+
+          e.p = false;
+
+          break;
+
+        }
+
+      };
+
+    });
+
+    locations = undefined;
+
+    return data;
+
+  }
+
+
+
   /**
    * get agenda control data
    */
@@ -593,15 +643,15 @@ module.exports = function( uid ) {
 
     // go through each event, determine if should be included
     // .. in which case include in widgets
-    for ( var i in ctl.a ) {
+    for ( var i in ctl.ev ) {
 
-      if ( _applyFilters( ctl.a[i], currentRequestParams ) ) {
+      if ( _applyFilters( ctl.ev[i], currentRequestParams ) ) {
 
         includedCount++;
 
-        ctl.a[i].passed = _isPassed( ctl.a[i] );
+        ctl.ev[i].passed = _isPassed( ctl.ev[i] );
 
-        _include( ctl.a[i], currentRequestParams );
+        _include( ctl.ev[i], currentRequestParams );
 
       }
     
@@ -829,6 +879,13 @@ module.exports = function( uid ) {
 
   }
 
+  function _stringifyDate( d ) {
+
+    if ( !d ) d = new Date();
+
+    return [ d.getFullYear(), _fZ( d.getMonth() + 1 ), _fZ( d.getDate() ) ].join( '-' );
+
+  }
 
   function _fZ( str ) {
 

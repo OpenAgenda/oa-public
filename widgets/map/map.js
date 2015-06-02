@@ -8,6 +8,8 @@ LANG = 1,
 
 cn = require(  '../../js/lib/common/common.mod.js' ),
 
+remote = require( '../../js/lib/remote/remote.mod.js' ),
+
 EJS = require( '../../js/lib/clientEjs/ejs' ),
 
 wLib = require(  '../lib/widgetLib' ),
@@ -23,13 +25,29 @@ templates = {
   popup: require( './popup.ejs' )
 },
 
+env = window.env ? window.env : 'prod',
+
+res = {
+  all: {
+    location: '//openagenda.com/locations/{uid}.json'
+  },
+  dev: {
+    location: '//d.openagenda.com/locations/{uid}.json'
+  },
+  tpl: {
+    location: '/server/testdata/location.json'
+  }
+},
+
 style = require( './style.css' ),
 
 styler = require( '../lib/widgetStyler' ),
 
 onReady; // cb to call when a widget is ready
 
-if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) debug.enable( '*' );
+if ( cn.contains( [ 'tpl', 'dev' ], env ) ) debug.enable( '*' );
+
+res = cn.extend( res.all, res[ env ] ? res[ env ] : {} );
 
 function widget( elem, options ) {
 
@@ -144,7 +162,7 @@ function widget( elem, options ) {
 
     for ( var l in locations ) {
 
-      var location = locations[l];
+      var location = locations[ l ];
 
       location.marker = m.createMarker( useClusters ? false : map, {
         position: location.coords,
@@ -201,7 +219,9 @@ function widget( elem, options ) {
 
       } else if ( reqParams.location ) {
 
-        popupLocation = selectedLocation = locations[ reqParams.location ];
+        log( 'location is specified in request: %s', reqParams.location );
+
+        popupLocation = selectedLocation = locations[ parseInt( reqParams.location, 10 ) ];
 
       }
 
@@ -216,9 +236,17 @@ function widget( elem, options ) {
 
   function _openPopup( l ) {
 
-    _closePopup();
+    _fetchLocationInfo( l, function( err, location ) {
 
-    popup = m.createPopup( map, new EJS({ text: templates.popup }).render( cn.extend({labels: config.labels[ config.lang ]}, l )), { marker: l.marker });
+      var popupData = cn.extend({
+        labels: config.labels[ config.lang ]
+      }, l );
+
+      _closePopup();
+
+      popup = m.createPopup( map, new EJS({ text: templates.popup }).render( popupData ), { marker: l.marker });
+
+    } );
 
   }
 
@@ -258,7 +286,7 @@ function widget( elem, options ) {
 
     for ( var l in locations ) {
 
-      locations[l].count = 0;
+      locations[ l ].count = 0;
     
     }
 
@@ -279,33 +307,21 @@ function widget( elem, options ) {
 
   function include( eventItem, reqParams ) {
 
-    for ( var l in eventItem.l ) {
+    if ( cn.contains( activeLocations,  eventItem.l ) ) return;
 
-      if ( cn.contains( activeLocations, l ) ) {
+    if ( !eventItem.l ) return;
 
-        return;
+    activeLocations.push(  eventItem.l );
 
-      }
+    if ( eventItem.passed ) {
 
-      // testing from reqParams is needed only because
-      // of multiple locations per event.
-      if ( !reqParams.neLat || _isIn( locations[ l ], reqParams ) ) {
-
-        activeLocations.push( l );
-
-        if ( eventItem.passed ) {
-
-          passedLocations.push( l );
-
-        }
-
-        locations[l].count += 1;
-
-        _includeInActiveBounds( locations[l] );
-
-      }
+      passedLocations.push(  eventItem.l );
 
     }
+
+    locations[ eventItem.l ].count += 1;
+
+    _includeInActiveBounds( locations[ eventItem.l ] );
 
   }
 
@@ -324,6 +340,41 @@ function widget( elem, options ) {
 
   }
 
+  function _fetchLocationInfo( location, cb ) {
+
+    if ( location.slug ) return cb( null, location );
+
+    remote.get( res.location.replace( '{uid}', location.uid ), {}, function( responseType, data ) {
+
+      if ( responseType !== 'success' ) {
+
+        log( 'could not fetch location detail' );
+
+        return;
+
+      }
+
+      cn.extend( location, data, { uid: location.uid /* for template testing */} );
+
+      cb( null, location );
+
+    }, _isAjax() );
+
+  }
+
+
+  function _isAjax() {
+
+    if ( embedMode && ( window.env !== 'tpl' ) ) {
+
+      return false;
+
+    }
+
+    return true;
+
+  }
+
 
   function _setOnMarkerClick( location ) {
 
@@ -331,7 +382,7 @@ function widget( elem, options ) {
 
       var updatedReqParams = {};
 
-      log( 'clicked marker of location "%s"', location.placename );
+      log( 'clicked marker of location "%s"', location.uid );
 
       if ( !useClusters ) {
 
@@ -348,14 +399,14 @@ function widget( elem, options ) {
 
       }
       
-      if ( !selectedLocation && !cn.contains( activeLocations, location.slug ) ) {
+      if ( !selectedLocation && !cn.contains( activeLocations, location.uid ) ) {
 
         // if location is not in active locactions,
         // clicking it will cancel current selection
 
-        updatedReqParams = _setLocationParams( location.slug, true );
+        updatedReqParams = _setLocationParams( location, true );
 
-      } else if ( selectedLocation && ( selectedLocation.slug == location.slug ) ) {
+      } else if ( selectedLocation && ( selectedLocation.uid == location.uid ) ) {
 
       // if location is in part of current selection,
       // clicking it will remove it
@@ -367,12 +418,12 @@ function widget( elem, options ) {
         // if location is not selected,
         // add it to current selection
 
-        updatedReqParams = _setLocationParams( location.slug );
+        updatedReqParams = _setLocationParams( location );
 
       }
 
 
-      if ( cn.contains( passedLocations, location.slug ) ) {
+      if ( cn.contains( passedLocations, location.uid ) ) {
 
         updatedReqParams.passed = '1';
 
@@ -398,14 +449,16 @@ function widget( elem, options ) {
   }
 
 
-  function _setLocationParams( slug, clear ) {
+  function _setLocationParams( location, clear ) {
+
+    log( 'setting location to %s', location.uid );
 
     var updateValues = {
       neLat: null,
       neLng: null,
       swLat: null,
       swLng: null,
-      location: slug
+      location: location.uid
     }
 
     if ( clear ) {
@@ -433,7 +486,7 @@ function widget( elem, options ) {
 
     if ( selectedLocation ) {
           
-      activeLocations = [ selectedLocation.slug ];
+      activeLocations = [ selectedLocation.uid ];
 
       m.setCenter( map, selectedLocation.coords );
 
@@ -481,7 +534,7 @@ function widget( elem, options ) {
 
   function _refreshMarker( location ) {
 
-    var active = ( enabled && cn.contains( activeLocations, location.slug ) );
+    var active = ( enabled && cn.contains( activeLocations, location.uid ) );
 
     m.setMarkerIcon( location.marker, config.icons[ active ? 'active' : 'inactive' ] );
 
@@ -553,46 +606,17 @@ function widget( elem, options ) {
 
   function _initLocations( data ) {
 
-    var today = new Date();
+    cn.forEach( data.ev, function( ev ) {
 
-    today = today.getFullYear() + '-' + _fZ( today.getMonth() + 1 ) + '-' + _fZ( today.getDate() );
+      if ( !ev.l ) return;
 
-    for ( var a in data.a ) {
-
-      for ( var l in data.a[a].l ) {
-
-        if ( typeof locations[l] == 'undefined' ) {
-
-          locations[ l ] = {
-            placename: data.a[a].l[l].p,
-            city: data.a[a].l[l].ct,
-            address: data.a[a].l[l].a,
-            slug: l,
-            coords: [ data.a[a].l[l].lt, data.a[a].l[l].lg ],
-            passed: true
-          };
-
-        }
-
-        if ( !data.passed ) {
-
-          for( var d in data.a[ a ].l[ l ].d ) {
-
-            if ( data.a[ a ].l[ l ].d[ d ] >= today ) {
-
-              locations[ l ].passed = false;
-
-              break;              
-
-            }
-
-          }
-
-        }
-
+      locations[ ev.l ] = {
+        uid: ev.l,
+        coords: [ ev.lt, ev.lg ],
+        passed: ev.p
       }
 
-    }
+    });
 
   }
 
@@ -695,11 +719,11 @@ function widget( elem, options ) {
 
         if ( typeof baseBounds == 'undefined' ) {
 
-          baseBounds = m.createBounds( locations[l].coords );
+          baseBounds = m.createBounds( locations[ l ].coords );
 
         } else {
 
-          m.extendBounds( baseBounds, locations[l].coords );
+          m.extendBounds( baseBounds, locations[ l ].coords );
 
         }
 
@@ -739,7 +763,7 @@ function widget( elem, options ) {
 
     elem.innerHTML = div.innerHTML;
 
-    var center = [ 48.8705187,2.3821144 ];
+    var center = [ 48.8705187, 2.3821144 ];
 
     if ( cn.size( locations ) ) {
       
@@ -969,7 +993,6 @@ function widget( elem, options ) {
 
       }
 
-
     });
 
   }
@@ -995,7 +1018,7 @@ function widget( elem, options ) {
 
   function _getNeighborBounds( location ) {
 
-    log( 'defining neighborhood bounds of location %s', location.placename );
+    log( 'defining neighborhood bounds of location %s', location.u );
 
     var bounds = false, nCount = 0,
 
@@ -1006,7 +1029,7 @@ function widget( elem, options ) {
     for ( var l in locations ) {
 
       // is this is a neighbor?
-      if ( ( l !== location.slug ) && _distance( locations[l].coords[0], locations[l].coords[1], location.coords[0], location.coords[1]) < distanceThreshold ) {
+      if ( ( l !== location.l ) && _distance( locations[ l ].coords[0], locations[ l ].coords[1], location.coords[0], location.coords[1]) < distanceThreshold ) {
 
         nCount++;
 
