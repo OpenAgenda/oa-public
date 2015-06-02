@@ -6,6 +6,8 @@ should = require( 'should' );
 
 describe( 'signup', function() {
 
+  this.timeout( 10000 );
+
   var browser;
 
   before( function( done ) {
