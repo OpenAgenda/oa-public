@@ -62,7 +62,8 @@ function actionShow( req, res ) {
   w( {
     uid: req.agenda.uid,
     hasAggregator: false,
-    agendas: []
+    agendas: [],
+    xhr: req.xhr
   } )
 
   .then( function( values ) {
