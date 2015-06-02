@@ -2,6 +2,8 @@ var log = require( '../lib/logger' )( 'nominatim task' ),
 
 lib = require( '../lib/lib' ),
 
+coms = require( '../lib/coms' ),
+
 config = require( '../config' ),
 
 cmn = require( '../lib/commons-task' ),
@@ -126,15 +128,28 @@ function run() {
             if (parsedData.cityDistrict) updates.cityDistrict = parsedData.cityDistrict;
 
             if (parsedData.postalCode) updates.postalCode = parsedData.postalCode;
-
-            updates.processedAt = new Date();
             
           }
+
+          updates.processedAt = new Date();
 
 
           model.locations().update( { id: l.id } , updates, function( err ) {
 
             log( 'location %s updated, waiting %s seconds to process next', l.id, interval );
+
+            // update related events - it is quite unlikely that at the time of nominatim processes
+            // the location there will more than a handful of events associated to it
+            // so I am skipping the thorough request loop
+            model.locations().instance( { id: l.id } ).events.list( function( err, events ) {
+
+              events.forEach( function( e ) {
+
+                coms.publish( config.mainChannel, { name: 'event.update', values: { id: e.id } } );
+
+              } );
+
+            } );
 
             setTimeout( function() { escb(); }, interval );
 
