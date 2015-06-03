@@ -159,7 +159,7 @@ function _sync( job, cb ) {
 
     async.whilst( function() { return hasMore; }, function( wcb ) {
 
-      agenda.search( { passed: 1 }, { offset: offset, limit: limit }, function( err, data ) {
+      agenda.search( { passed: 1, showAll: true }, { offset: offset, limit: limit }, function( err, data ) {
 
         eIds = utils.unique( eIds.concat( data.events.map( function( e ) { return parseInt( e.id.split( '@' )[0], 10 ); } ) ) );
 
@@ -185,7 +185,7 @@ function _sync( job, cb ) {
 
       async.whilst( function() { return hasMore; }, function( wcb ) {
 
-        agenda.events.list( { offset: offset, limit: 1 }, function( err, events ) {
+        agenda.events.list( { offset: offset, limit: 1, isPublished: null }, function( err, events ) {
 
           if ( err ) return cb( err );
 
@@ -243,13 +243,15 @@ function _populateES( schema ) {
 
   var type = ( schema == 'events' ? 'event' : 'review' );
 
+  var params = schema == 'events' ? { isPublished: null } : {};
+
   return function( cb ) {
 
     var loopCount = 1;
 
     log( 'debug', 'populating type %s', type );
 
-    _loopThroughPages( schema, function( results, next ) {
+    _loopThroughPages( schema, params, function( results, next ) {
 
       log( 'debug', 'looping %s', loopCount++ );
 
