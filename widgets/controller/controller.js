@@ -527,11 +527,21 @@ module.exports = function( uid ) {
 
       if ( e.l ) {
 
-        e.lt = locations[ e.l ].lt;
+        if ( typeof locations[ e.l ] !== 'undefined' ) {
 
-        e.lg = locations[ e.l ].lg;
+          e.lt = locations[ e.l ].lt;
+
+          e.lg = locations[ e.l ].lg;
+
+        } else {
+
+          console.log( 'invalid location for event' );
+          console.log( e );
+
+        }
 
       }
+
 
       // append is passed info
 

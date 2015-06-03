@@ -610,6 +610,12 @@ function widget( elem, options ) {
 
       if ( !ev.l ) return;
 
+      if ( !ev.lt || !ev.lg ) {
+
+        return;
+
+      }
+
       locations[ ev.l ] = {
         uid: ev.l,
         coords: [ ev.lt, ev.lg ],
