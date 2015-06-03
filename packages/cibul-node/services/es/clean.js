@@ -8,8 +8,6 @@ module.exports = function( data ) {
 
   _what( clean, input );
 
-  _
-
 }
 
 

@@ -136,7 +136,7 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
       ]
     };
 
-  } else if ( query.neLat && query.neLng && query.swLat && query.swLng ) {
+  } else if ( _validLatitude( query.neLat ) && _validLongitude( query.neLng ) && _validLatitude( query.swLat ) && _validLongitude( query.swLng ) ) {
 
     esQuery.where = {
       neLat: query.neLat,
@@ -226,5 +226,44 @@ function _clean( query, params ) {
   });
 
   return clean;
+
+}
+
+
+function _validLatitude( lat ) {
+
+  if ( !_validCoord( lat ) ) return false;
+
+  if ( parseFloat( lat ) > 90 ) return false;
+
+  if ( parseFloat( lat ) < -90 ) return false;
+
+  return true;
+
+}
+
+function _validLongitude( lng ) {
+
+  if ( !_validCoord( lng ) ) return false;
+
+  if ( parseFloat( lng ) > 180 ) return false;
+
+  if ( parseFloat( lng ) < -180 ) return false;
+
+  return true;
+  
+}
+
+function _validCoord( coord ) {
+
+  if ( typeof coord == 'undefined' ) return false;
+
+  if ( !coord ) return false;
+
+  if ( /,/.test( coord ) ) return false;
+
+  if ( isNaN( coord ) ) return false;
+
+  return true;
 
 }
