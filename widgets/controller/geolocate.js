@@ -24,7 +24,7 @@ module.exports = function( ctlData, initValues, cb ) {
 
     // find distance from point encompassing the count locations
     
-    var closest = _extractClosest( ctlData.a, coords, initValues.count ),
+    var closest = _extractClosest( ctlData.l, coords, initValues.count ),
 
     boundParams = _determineBounds( closest );
 
@@ -83,9 +83,9 @@ function _determineBounds( locations ) {
  * given a lat/lng pair and a list of locations, find the 'count' first locations
  */
 
-function _extractClosest( events, coords, count, cb ) {
+function _extractClosest( locations, coords, count, cb ) {
 
-  var currentEvent, currentLocation, currentDistance,
+  var currentLocation, currentDistance,
 
   furthestDistance = false, closestDistances = [], newFurthest = false,
 
@@ -93,69 +93,63 @@ function _extractClosest( events, coords, count, cb ) {
 
   processed = {};
 
-  for( var e in events ) {
+  for (var i = locations.length - 1; i >= 0; i--) {
 
-    currentEvent = events[ e ];
+    currentLocation = locations[ i ];
 
-    for( var l in currentEvent.l ) {
+    if ( typeof processed[ currentLocation.u ] == 'undefined' ) {
 
-      if ( typeof processed[l] == 'undefined' ) {
+      currentDistance = parseInt( _distance( currentLocation.lt, currentLocation.lg, coords[ 0 ], coords[ 1 ] ), 10 );
 
-        currentLocation = currentEvent.l[ l ],
+      if ( ( closestDistances.length >= count ) && ( currentDistance < furthestDistance ) ) {
 
-        currentDistance = parseInt( _distance( currentLocation.lt, currentLocation.lg, coords[ 0 ], coords[ 1 ] ), 10 );
+        // one needs to go and be replaced
 
-        if ( ( closestDistances.length >= count ) && ( currentDistance < furthestDistance ) ) {
-
-          // one needs to go and be replaced
-
-          newFurthest = currentDistance; // furthest is once again unknown
+        newFurthest = currentDistance; // furthest is once again unknown
 
 
-          for( var c in closestDistances ) {
+        for( var c in closestDistances ) {
 
-            if ( closestDistances[ c ] == furthestDistance ) {
+          if ( closestDistances[ c ] == furthestDistance ) {
 
-              // the furthest is out and replaced
-              closestDistances[ c ] = currentDistance;
-              closestLocations[ c ] = currentLocation;
+            // the furthest is out and replaced
+            closestDistances[ c ] = currentDistance;
+            closestLocations[ c ] = currentLocation;
 
-            } else {
+          } else {
 
-              if ( closestDistances[ c ] > newFurthest ) {
+            if ( closestDistances[ c ] > newFurthest ) {
 
-                // new furthest is found
-                newFurthest = closestDistances[ c ];
-
-              }
+              // new furthest is found
+              newFurthest = closestDistances[ c ];
 
             }
 
           }
 
-          furthestDistance = newFurthest;
+        }
 
-        } else if ( closestDistances.length < count ) {
-            
-          closestDistances.push( currentDistance );
+        furthestDistance = newFurthest;
 
-          closestLocations[ closestDistances.length - 1 ] = currentLocation;
+      } else if ( closestDistances.length < count ) {
+          
+        closestDistances.push( currentDistance );
 
-          if ( !furthestDistance || ( currentDistance > furthestDistance ) ) {
+        closestLocations[ closestDistances.length - 1 ] = currentLocation;
 
-            furthestDistance = currentDistance;
+        if ( !furthestDistance || ( currentDistance > furthestDistance ) ) {
 
-          }
+          furthestDistance = currentDistance;
 
         }
 
-        processed[ l ] = true;
-
       }
+
+      processed[ currentLocation.u ] = true;
 
     }
 
-  }
+  };
 
   return closestLocations;
   
