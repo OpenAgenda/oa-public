@@ -309,7 +309,7 @@ function widget( elem, options ) {
 
     if ( cn.contains( activeLocations,  eventItem.l ) ) return;
 
-    if ( !eventItem.l ) return;
+    if ( !eventItem.l || !locations[ eventItem.l ] ) return;
 
     activeLocations.push(  eventItem.l );
 
