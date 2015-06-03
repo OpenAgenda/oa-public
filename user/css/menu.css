@@ -15,6 +15,7 @@ body > header .user-profile {
 
 .user-profile-dropdown {
 
+  min-width: 380px;
   display: none;
   position: absolute;
   z-index: 4;
@@ -48,18 +49,13 @@ body > header .user-profile {
 
 }
 
-.user-profile-dropdown.col2 {
-  width: 350px;
-}
-
 .user-profile-dropdown.col2 ul {
   width: 50%;
 }
 
 .user-profile-dropdown img {
-  padding-right: 5px;
+  position: absolute;
   max-width: 24px;
-  vertical-align: middle;
 }
 
 .user-profile-dropdown li {
@@ -79,10 +75,9 @@ body > header .user-profile {
 }
 
 .user-profile-dropdown li > a {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  
   cursor: pointer;
+
 }
 
 .user-profile-dropdown li > a {
@@ -91,6 +86,12 @@ body > header .user-profile {
 
 .user-profile-dropdown li span {
   font-size: 1em;
+  display: inline-block;
+  margin-left: 2.4em;
+}
+
+.user-profile-dropdown li span.nopic {
+  margin-left: 0;
 }
 
 .user-profile-dropdown li > a:hover {

@@ -22,17 +22,17 @@
 
         <div class="meta-container">
           <p>
-            <a class="btn btn-success event-action js_import_action" href="<%= event.importUri %>">
+            <a rel="nofollow" class="btn btn-success event-action js_import_action" href="<%= event.importUri %>">
               <i class="fa fa-plus-circle"></i><%= __('Add to my agenda') %>
             </a>
           </p>
           <p class="share">
             <%= __('Share') %>&nbsp;:
-            <a href="<%= event.facebookShare %>" target="_blank" class="fb"><i class="fa fa-facebook"></i></a>
-            <a href="<%= event.twitterShare %>" target="_blank" class="tw"><i class="fa fa-twitter"></i></a>
-            <a href="<%= event.googleShare %>" target="_blank" class="gp"><i class="fa fa-google-plus"></i></a>
-            <a href="<%= event.linkedInShare %>" target="_blank" class="li"><i class="fa fa-linkedin"></i></a>
-            <a href="<%= event.importUri %>" class="li"><i class="fa fa-envelope-o"></i></a>
+            <a href="<%= event.facebookShare %>" target="_blank" class="fb" rel="nofollow"><i class="fa fa-facebook"></i></a>
+            <a href="<%= event.twitterShare %>" target="_blank" class="tw" rel="nofollow"><i class="fa fa-twitter"></i></a>
+            <a href="<%= event.googleShare %>" target="_blank" class="gp" rel="nofollow"><i class="fa fa-google-plus"></i></a>
+            <a href="<%= event.linkedInShare %>" target="_blank" class="li" rel="nofollow"><i class="fa fa-linkedin"></i></a>
+            <a href="<%= event.importUri %>" rel="nofollow"><i class="fa fa-envelope-o"></i></a>
             
           </p>
 <% if ( !event.isUpcoming ) { %>

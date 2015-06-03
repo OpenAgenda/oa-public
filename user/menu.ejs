@@ -8,7 +8,7 @@
     <div class="full-name"><%= __('My profile') %></div>
   <% } %>
   </div>
-  <div class="user-profile-dropdown wsq<% if (!basic) { %> col2<% } %> js_dropdown_menu">
+  <div class="user-profile-dropdown wsq col2 js_dropdown_menu">
     <ul>
       <li><h3><%= __('General') %></h3></li>
       <li>
@@ -21,7 +21,6 @@
         <a href="<%= genUrl('signout') %>"><%= __('Sign Out') %></a>
       </li>
     </ul><!--
-  <% if ( !basic ) { %>
     --><ul>
       <li><h3><%= __('Agendas') %></h3></li>
       <li><a href="<%= genUrl('searchAgendas') %>"><%= __('Search agenda') %></a></li>
@@ -33,7 +32,7 @@
   <% if ( reviews.edited[i].image ) { %>
           <img src="<%= reviews.edited[i].image.replace('cibultest.', 'cibul.') %>"/>
   <% } %>
-          <span><%= reviews.edited[i].title %></span>
+          <span <% if ( !reviews.edited[i].image ) { %>class="nopic"<% } %>><%= reviews.edited[i].title %></span>
         </a>
       </li>
   <% } %>
@@ -43,7 +42,6 @@
       </li>
   <% } %>
   <% } %>
-    </ul><!--
-  <% } %>
-  --></div>
+    </ul>
+  </div>
 </li>

@@ -8,7 +8,7 @@
       </div>
 <% if ( !isEmpty ) { %>
       <div class="col-sm-4 col-aside display-none js_add_button">
-        <a id="add-event" class="add-event" href="<%= genUrl( 'agendaEventNew', { slug: slug } ) %>"><%= __('Add an event') %></a>
+        <a id="add-event" class="add-event" href="<%= genUrl( 'agendaEventNew', { slug: slug } ) %>" rel="nofollow"><%= __('Add an event') %></a>
       </div>
 <% } %>
     </div>
@@ -85,7 +85,7 @@
 
         <section class="side-item">
           <div class="side-content">
-            <p><a href="<%= genUrl( 'conversationAgendaContact', { uid: uid, redirect: _r({ module: 'review', action: 'show', 'slug': slug }) }) %>"><%= __('Contact the administrator of this agenda') %></a></p>
+            <p><a href="<%= genUrl( 'conversationAgendaContact', { uid: uid, redirect: _r({ module: 'review', action: 'show', 'slug': slug }) }) %>" rel="nofollow"><%= __('Contact the administrator of this agenda') %></a></p>
           </div>
         </section>
         <% include ../bsLayout/footer.part.ejs %>
@@ -97,7 +97,7 @@
 <div id="content" class="no-event">
   <div class="container">
     <p class="display-none js_add_button">
-      <a class="btn btn-success btn-lg" href="<%= genUrl( 'agendaEventNew', { slug: slug } ) %>"><%= __('Add an event') %></a>
+      <a class="btn btn-success btn-lg" href="<%= genUrl( 'agendaEventNew', { slug: slug } ) %>" rel="nofollow"><%= __('Add an event') %></a>
     </p>
     <p><%= __('This agenda has not published any events yet') %></p>
   </div>
@@ -108,7 +108,7 @@
 <div id="admin-bar" class="js_admin_controls">
   <ul class="admin-list">
     <li class="admin-item">
-      <a class="admin-link" href="<%= genUrl( 'agendaAdminShow', { slug: slug } ) %>"><%= __('Manage') %></a>
+      <a class="admin-link" href="<%= genUrl( 'agendaAdminShow', { slug: slug } ) %>" rel="nofollow"><%= __('Manage') %></a>
     </li>
   </ul>
 </div>
