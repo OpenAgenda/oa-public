@@ -174,15 +174,15 @@ var handleEventPlaceEdit = function(params) {
     if (!placeFetch) {
 
       placeFetch = handlePlaceFetch({
-        canvas: el(elem, params.selectors.placeForm),
+        canvas: el( elem, params.selectors.placeForm ),
         countries: params.countries,
         country: params.country,
         get: params.get,
         locations: params.locations,
         labels: params.labels,
-        onFetched: function(suggestions) {
+        onFetched: function( suggestions ) {
           
-          if (placeSelector) placeSelector.set(suggestions);
+          if ( placeSelector ) placeSelector.set( suggestions );
 
         },
         onChange: function(values) {

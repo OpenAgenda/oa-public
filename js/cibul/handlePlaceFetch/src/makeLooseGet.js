@@ -10,10 +10,10 @@ var makeLooseGet = function(params) {
 
   get = function(query, onResponse) {
 
-    if (pending)
-      _queue(query, onResponse);
+    if ( pending )
+      _queue( query, onResponse );
     else
-      _send(query, onResponse);
+      _send( query, onResponse );
 
   },
 
@@ -27,7 +27,7 @@ var makeLooseGet = function(params) {
 
     //if (params.debug) console.log(count);
 
-    remote.get(params.url, {data: query}, function(success, data) {
+    remote.get( params.url, { data: query, timeout: 10000 }, function(success, data) {
 
       pending = false;
 
