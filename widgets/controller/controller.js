@@ -753,19 +753,13 @@ module.exports = function( uid ) {
 
   function _isPassed( eItem ) {
 
-    var today = new Date(), l, d,
+    var today = _stringifyDate( new Date() );
 
-    today = today.getFullYear() + '-' + _fZ( today.getMonth() + 1 ) + '-' + _fZ( today.getDate() );
+    for ( var i = eItem.d.length - 1; i >= 0; i-- ) {
+      
+      if ( eItem.d[ i ] >= today ) return false;
 
-    for ( l in eItem.l ) {
-
-      for( d in eItem.l[ l ].d ) {
-
-        if ( eItem.l[ l ].d[ d ] >= today ) return false;
-
-      }
-
-    }
+    };
 
     return true;
 
