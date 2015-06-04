@@ -59,7 +59,7 @@ function _writeRow( stream, values, mapping ) {
 
   mapping.forEach( function( m ) {
 
-    var srcField, dstField, value, 
+    var srcField, dstField, value, suffixes = false,
 
     fn = function( v ) { return v; };
 
@@ -67,6 +67,7 @@ function _writeRow( stream, values, mapping ) {
 
       srcField = m[ 1 ];
       dstField = m[ 0 ];
+      suffixes = m.length == 3 ? m[ 2 ] : false;
 
     } else if ( typeof m === 'object' ) {
 
@@ -77,6 +78,20 @@ function _writeRow( stream, values, mapping ) {
     } else {
 
       srcField = dstField = m;
+
+    }
+
+    if ( suffixes ) {
+
+      suffixes.forEach( function( s ) {
+
+        csvRow[ dstField + '_' + s ] = '';
+
+      });
+
+    } else {
+
+      csvRow[ dstField ] = '';
 
     }
 
@@ -94,7 +109,7 @@ function _writeRow( stream, values, mapping ) {
 
       csvRow[ dstField ] = fn( value ? '1' : '' );
 
-    } else {
+    } else if ( value !== null ) {
 
       csvRow[ dstField ] = fn( value ? value : '' );
 

@@ -286,11 +286,11 @@ function _loopThroughPages( schema, params, usageFunc, finishCallback ) {
 
     log( 'debug', 'fetching data with offset %s', offset );
 
-    model[ schema ]().list({
+    model[ schema ]().list( utils.extend( {
       extended: true,
       offset: offset,
       limit : limit
-    }, function( err, result ) {
+    }, params ), function( err, result ) {
 
       if ( err || !result || !result.length ) return finishCallback( err );
 

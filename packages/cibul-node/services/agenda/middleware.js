@@ -175,50 +175,46 @@ function decorateEvents( includePrivateData ) {
 
 function buildCsv( includePrivateData ) {
 
-  var baseMapping = [
-    'uid',
-    'title',
-    'description',
-    'longDescription',
-    'image',
-    'thumbnail',
-    'originalImage',
-    'updatedAt',
-    'range',
-    'firstDate',
-    'firstTimeStart',
-    'firstTimeEnd',
-    'conditions',
-    'registrationUrl',
-    'locationName',
-    'locationUid',
-    'address',
-    'postalCode',
-    'city',
-    'district',
-    'department',
-    'region',
-    'latitude',
-    'longitude',
-    'featured'
-  ];
-
   return function( req, res, next ) {
 
-    var mapping;
+    if ( res.csv ) {
 
-    if ( !res.csv ) {
+      res.csv.write( req );
 
-      mapping = _appendMapping( req.agenda, baseMapping, includePrivateData );
-
-      res.csv = svcCsv( res, {
-        sourceField: 'formatted',
-        mapping: mapping
-      } );
+      return next();
 
     }
 
-    if ( !res.headersSent ) {
+    req.agenda.getLanguages( function( err, languages ) {
+
+      res.csv = svcCsv( res, {
+        sourceField: 'formatted',
+        mapping: [ 'uid' ].concat(
+          _textFields( [ 'title', 'description', 'longDescription', 'conditions' ], languages ), 
+          [
+            'image',
+            'thumbnail',
+            'originalImage',
+            'updatedAt',
+            [ 'range', 'range', [ 'fr', 'en' ] ],
+            'firstDate',
+            'firstTimeStart',
+            'firstTimeEnd',
+            'registrationUrl',
+            'locationName',
+            'locationUid',
+            'address',
+            'postalCode',
+            'city',
+            'district',
+            'department',
+            'region',
+            'latitude',
+            'longitude',
+            'featured' 
+          ],
+          _extendMapping( req.agenda, includePrivateData )
+      ) } );
 
       res.writeHead( 200, {
         'Content-Type': 'text/csv',
@@ -229,11 +225,11 @@ function buildCsv( includePrivateData ) {
           '.csv\"' ].join('')
       } );
 
-    }
+      res.csv.write( req );
 
-    res.csv.write( req );
+      next();
 
-    next();
+    } );
 
   }
 
@@ -246,7 +242,22 @@ function renderCsv( req, res, next ) {
   
 }
 
-function _appendMapping( agenda, baseMapping, includePrivateData ) {
+
+function _textFields( fields, languages ) {
+
+  var languageFields = [];
+
+  fields.forEach( function( f ) {
+
+    languageFields.push( [ f, f, languages ] );
+
+  });
+
+  return languageFields;
+
+}
+
+function _extendMapping( agenda, includePrivateData ) {
 
   var amendment = [ { 
     sourceField: 'category',
@@ -270,7 +281,7 @@ function _appendMapping( agenda, baseMapping, includePrivateData ) {
 
   });
 
-  return baseMapping.concat( amendment );
+  return amendment;
 
 }
 

@@ -244,7 +244,7 @@ function _parseJob( job ) {
 
   if ( !jobHandlers[ data.name ] ) {
 
-    _handleError( 'received unhandled job "%s"', data.name );
+    log( 'info', 'received unhandled job "%s"', data.name );
 
     return false;
 
