@@ -135,9 +135,12 @@ body.noscroll {
   position:absolute;
   right:40px;
   top:15px;
-  width:20px;
+  width:100px;
 }
-#outdated .last[dir=rtl]{left:25px !important;right:auto !important}
+#outdated .last[dir=rtl]{
+  left:25px !important;
+  right:auto !important;
+}
 #outdated #buttonCloseUpdateBrowser{color:#fff;display:block;font-size:36px;height:100%;line-height:36px;position:relative;text-decoration:none;width:100%}
 
 
