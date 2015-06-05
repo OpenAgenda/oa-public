@@ -42,7 +42,7 @@ routes = {
     inviteResend( { inviteMethod: 'inviteModerators', redirect: 'agendaAdminModerators' })
   ] ],
 
-  contributorsInfo: [ 'get', '/contributos/info', [ 
+  contributorsInfo: [ 'get', '/contributors/info', [ 
     cmn.checkAdministrator,
     cmn.loadBaseData( _layoutData ),
     info
