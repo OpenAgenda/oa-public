@@ -140,9 +140,9 @@ function dates( item, reqParams ) {
 
 function locations( item, reqParams ) {
 
-  if ( reqParams.location && ( typeof item.lt == 'undefined' || typeof item.lg == 'undefined' ) ) {
+  if ( reqParams.location ) {
 
-    return false;
+    return parseInt( reqParams.location, 10 ) == item.l;
 
   }
 
