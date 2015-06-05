@@ -560,7 +560,7 @@ function _formatCustomEmbedLinks( req, res, next ) {
     uid: req.params.uid,
     embedUid: req.params.embedUid,
     search: {
-      location: req.event.getLocationName().slug
+      location: req.event.getLocationUid()
     }
   });
 
