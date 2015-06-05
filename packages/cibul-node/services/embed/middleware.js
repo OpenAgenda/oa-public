@@ -65,6 +65,7 @@ function renderEventItems( req, res, next ) {
 
       req.renders.eventItems.push( eventItemParser.render( utils.extend( e, values ) ) );
 
+
       ecb();
 
     });

@@ -244,7 +244,7 @@ function _format( req, res, next ) {
 
   var _t = timeHelper( { lang: req.lang } ),
 
-  formattedEvents = req.events.map( function( e ) { 
+  formattedEvents = req.events.map( function( e ) {
 
     return _formatEventItem( e, _t, req.lang );
     
@@ -269,7 +269,11 @@ function _formatEventItem( event, _t, lang ) {
 
   var inst = model.events().instance( event ),
 
-  img = inst.getImage( true ),
+  img, dateRange;
+
+  inst.switchLanguage( lang );
+
+  img = inst.getImage( true );
 
   dateRange = inst.getDateRange( true );
 
