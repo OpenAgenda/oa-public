@@ -14,5 +14,5 @@
   "base" : {
     "pageClass" : "cb"
   },
-  "templateJs" : true
+  "js" : true
 }

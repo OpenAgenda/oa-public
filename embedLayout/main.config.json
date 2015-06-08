@@ -15,5 +15,5 @@
     "pageId" : false
   },
   
-  "templateJs" : true
+  "js" : true
 }

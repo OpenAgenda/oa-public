@@ -22,5 +22,5 @@
     }
   },
 
-  "templateJs" : true
+  "js" : true
 }

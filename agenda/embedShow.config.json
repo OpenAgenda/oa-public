@@ -15,5 +15,5 @@
     "pageId" : "agenda"
   },
 
-  "templateJs" : true
+  "js" : true
 }

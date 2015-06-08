@@ -6,15 +6,15 @@ st = require('st'),
 
 templater = require('./server/templater.js'),
 
+p = require( './server/promises' ),
+
 mountStatic = st( { path: __dirname , url: '/', cache: false } ),
 
 cn = require('./js/lib/common/common.mod.js'),
 
-async = require('async'),
+async = require( 'async' ),
 
-deepExtend = require('deep-extend'),
-
-url = require('url'),
+deepExtend = require( 'deep-extend' ),
 
 browserify = require( 'browserify' ),
 
@@ -22,335 +22,414 @@ stringify = require( 'stringify' ),
 
 reactify = require( 'reactify' ),
 
-fs = require('fs'),
+fs = require( 'fs' ),
 
-debug = require('debug'),
+debug = require( 'debug' ),
 
-map;
+map = JSON.parse( fs.readFileSync( __dirname + '/map.json', 'utf-8' ) );
 
-debug.enable('*');
+debug.enable( '*' );
 
 templater.disableFileCache();
 
-var log = debug('httpServer');
+var log = debug( 'httpServer' );
 
-log('IMPORTANT: if nodemon is to be used, use it with proper exclusions');
 
-http.createServer(function ( req, res ) {
+http.createServer( function ( req, res ) {
 
   log('processing request %s', req.url );
 
-  async.waterfall([
+  p.w( { req: req, res: res, data: {} } )
 
-    _loadMap,
+  .then( _loadUri )
 
-    function( map, wcb ) { // load uri
+  .then( p.ife( { uri: false }, _renderMap ) )
 
-      var parsed = url.parse(req.url, true);
+  .then( p.ifl( { responded: false }, _checkStatic ) )
 
-      var uri = parsed.pathname.substr(1);
+  .done( function( v ) {
 
-      if (!uri.length) return _renderMap(map, req, res);
+    if ( !v.responded ) _prepareRender( v );
 
-      if ( cn.contains( ['.js'], uri.substr(-3) ) ||
+  });
 
-      cn.contains( ['.css', '.jpg', '.png', '.ico', '.ttf', '.svg', '.eot', '.otf', '.ejs'], uri.substr(-4) ) ||
+} ).listen( 3000 );
 
-      cn.contains( ['.woff2'], uri.substr(-6) ) ||
 
-      cn.contains( ['.woff', '.json', '.html'], uri.substr(-5) ) ) {
+function _prepareRender( v ) {
 
-        log( 'handling as static resource request' );
+  p.w( v )
 
-        return mountStatic( req, res );
+  // load config file
+  .then( _load( 'config', 'uri', '.config.json' ) )
 
+  // load layout config file
+  .then( p.ifl( { 'config.layout' : true }, _load( 'layoutConfig', 'config.layout', '.config.json' ) ) )
+
+  // load mock data
+  .then( _load( 'data', 'uri', '.mock.json' ) )
+
+  // load layout mock data
+  .then( p.ifl( { 'config.layout' : true }, _load( 'layoutData', 'config.layout', '.mock.json' ) ) )
+
+  // browserify js data
+  .then( p.ifl( { 'config.js' : true }, _browserifyFiles( 'uri', 'config.js' ) ) )
+
+  // browserify layout js data
+  .then( p.ifl( { 'layoutConfig.js' : true }, _browserifyFiles( 'config.layout', 'layoutConfig.js' ) ) )
+
+  // compile template data
+  .then( _compileTemplateData )
+
+  // append css links
+  .then( _compileCss )
+
+  // define js files root
+  .then( _jsRoot )
+
+  // define url generator
+  .then( _fakeGenUrl )
+
+  // language
+  .then( _defineLanguage )
+
+  // environment
+  .then( _defineEnvironment )
+
+  // render template
+  .then( _render )
+
+  .done( function( v ) {
+
+    _respond( v.res, 200, v.render );
+
+  }, function( err ) {
+
+    _respond( v.res, 500, err );
+
+  });
+
+}
+
+
+function _loadUri( v ) {
+
+  log( 'loading uri' );
+
+  var parsed = url.parse( v.req.url, true ),
+
+  uri = parsed.pathname.substr(1);
+
+  v.uri = uri.length ? uri : false;
+
+  return v;
+
+}
+
+function _checkStatic( v ) {
+
+  log( 'checking static file' );
+
+  if ( cn.contains( ['.js'], v.uri.substr( -3 ) ) ||
+
+  cn.contains( ['.css', '.jpg', '.png', '.ico', '.ttf', '.svg', '.eot', '.otf', '.ejs'], v.uri.substr( -4 ) ) ||
+
+  cn.contains( ['.woff2'], v.uri.substr( -6 ) ) ||
+
+  cn.contains( ['.woff', '.json', '.html'], v.uri.substr( -5 ) ) ) {
+
+    log( 'handling as static resource request' );
+
+    mountStatic( v.req, v.res );
+
+    v.responded = true;
+
+  }
+
+  return v;
+
+}
+
+log( 'IMPORTANT: if nodemon is to be used, use it with proper exclusions' );
+
+function _load( key, pathKey, suffix, throwError ) {
+
+  return function( v ) {
+
+    return p.w.promise( function( rs, rj ) {
+
+      fs.readFile( __dirname + '/' + p.getSubObject( pathKey, v ) + suffix, 'utf-8', function( err, content ) {
+
+        if ( err ) {
+
+          log( 'could not read file %s', __dirname + '/' + p.getSubObject( pathKey, v ) + suffix );
+
+          if ( throwError ) return rj( err );
+
+          rs( v );
+
+          return;
+
+        }
+
+        v[ key ] = ( p.getSubObject( pathKey, v ) + suffix ).indexOf( '.json' ) !== -1 ? JSON.parse( content ) : content;
+
+        rs( v );
+
+      });
+
+    });
+
+  }
+
+}
+
+
+function _jsIncludeMainPath( uri ) {
+
+  var parts = uri.split( '/' ),
+
+  name = parts.pop();
+
+  parts.push( 'js' );
+
+  return {
+    src: { 
+      path: parts.join('/'), 
+      name: name 
+    },
+    dest: { 
+      path: '/js/browserified', 
+      name: cn.toCamelCase( uri.replace('/', '_' ) ) + '.js' 
+    }
+  };
+
+}
+
+
+function _browserifyFiles( pathKey, fileObjPath ) {
+
+  return function( v ) {
+
+    return p.w.promise( function( rs, rj ) {
+
+      var jsPaths,
+
+      jsFiles = v, 
+
+      mainPath;
+
+      fileObjPath.split( '.' ).forEach( function( part ) {
+
+        jsFiles = jsFiles[ part ];
+
+      });
+
+      if ( jsFiles === true ) {
+
+        jsPaths = [ _jsIncludeMainPath( p.getSubObject( pathKey, v ) ) ];
+
+      } else {
+
+        jsPaths = jsFiles.map( _jsIncludePath( p.getSubObject( pathKey, v ) ) );
+        
       }
 
-      wcb( null, map, uri );
+      if ( !v.js ) v.js = [];
 
-    },
+      v.js = jsPaths.map( function( path ) { return path.dest.name; } ).concat( v.js );
 
+      async.each( jsPaths, _browserify, function( err ) {
 
-    function( map, uri, wcb ) { // load template data
-
-      var reqQuery = url.parse( req.url, true ).query;
-
-      _loadData( uri, true, function( tConf ) {
-
-        // load state of data
-
-        if ( tConf.data.js ) {
-
-          tConf.data.base = cn.extend( tConf.data.base ? tConf.data.base : {}, { js: tConf.data.js } );
-
-          tConf.data.js = undefined;
-
-        }
-
-        if ( tConf.data.base ) {
-
-          // get requested state of data. else, get the first
-
-          for ( var state in tConf.data ) {
-
-            if ( state !== 'base' ) break; // first is base, second is first state
-
-          }
-
-          if ( reqQuery.state && tConf.data[reqQuery.state]) state = reqQuery.state;
-
-          tConf.data = deepExtend( tConf.data.base, tConf.data[state] );
-
-        }
-
-        // append layout data
+        if ( err ) return rj( err );
         
-        if ( tConf.layoutData ) tConf.data = deepExtend( tConf.layoutData, tConf.data );
-
-
-        // load css in mock data
-
-        if ( !tConf.data.head ) tConf.data.head = {};
-
-        var css = tConf.config.css || tConf.config.embedCss || tConf.config.oaCss || tConf.config.oaeCss || {};
-
-
-        if ( tConf.layoutConfig && tConf.layoutConfig.css ) css = cn.extend( _absolutePath( tConf.config.layout, tConf.layoutConfig.css ), _absolutePath( uri, css ));
-        if ( tConf.layoutConfig && tConf.layoutConfig.embedCss ) css = cn.extend( _absolutePath( tConf.config.layout, tConf.layoutConfig.embedCss ), _absolutePath( uri, css ));
-        if ( tConf.layoutConfig && tConf.layoutConfig.oaCss ) css = cn.extend( _absolutePath( tConf.config.layout, tConf.layoutConfig.oaCss ), _absolutePath( uri, css ));
-        if ( tConf.layoutConfig && tConf.layoutConfig.oaeCss ) css = cn.extend( _absolutePath( tConf.config.layout, tConf.layoutConfig.oaeCss ), _absolutePath( uri, css ));
-
-        tConf.data.head.css = css;
-
-        
-        tConf.data.scriptsBase = '/js/browserified';
-
-
-        // fake url generator
-        
-        tConf.data.genUrl = _genUrl( tConf.data );
-
-
-        // language
-        
-        if ( reqQuery.lang ) tConf.data.lang = reqQuery.lang;
-
-
-        // environment
-        
-        tConf.data.env = 'tpl';
-
-
-        // static image path generator 
-
-        wcb( null, map, uri, tConf.data );
+        rs( v );
 
       });
 
-    },
+    });
 
-    function( map, uri, data, wcb ) {
+  }
 
-      templater( uri, data, function( err, render ) {
+}
 
-        if ( err ) return wcb( err );
 
-        _respond( res, 200, render, data.responseType );
+function _compileTemplateData( v ) {
 
-      });
+  var base = v.data.base ? v.data.base : {},
+
+  state = v.req.query ? v.req.query.state  : false;
+
+  if ( v.js ) {
+
+    cn.extend( base, { js: v.js } )
+
+  }
+
+  if ( state && v.data[ state ] ) {
+
+    state = v.req.query.state;
+
+  } else {
+
+    for( var state in v.data ) {
+
+      if ( state !== 'base' ) break;
 
     }
 
-  ], function( err ) {
+  }
 
-    if ( err ) return _respond( res, 500, err );
+  if ( state ) {
 
-  });  
+    deepExtend( base, v.data[ state ] );
 
-}).listen( 3000 );
+  }
+
+  if ( v.layoutData ) {
+
+    base = deepExtend( v.layoutData, base );
+
+  }
+
+  v.compiled = base;
+
+  return v;
+
+}
+
+
+function _compileCss( v ) {
+
+  if ( !v.compiled.head ) v.compiled.head = {};
+
+  var css;
+
+  [ 'css', 'embedCss', 'oaCss', 'oaeCss' ].filter( function( c ) { return !!v.config[ c ] } ).forEach( function( c ) {
+
+    css = v.config[ c ];
+
+    if ( v.layoutConfig && v.layoutConfig[ c ] ) {
+
+      css = cn.extend( _absolutePath( v.config.layout, v.layoutConfig[ c ] ), _absolutePath( v.uri, css ) );
+
+    }
+
+  } );
+
+  v.compiled.head.css = css;
+
+  return v;
+
+}
+
+
+function _jsRoot( v ) {
+
+  v.compiled.scriptsBase = '/js/browserified';
+
+  return v;
+
+}
+
+
+function _fakeGenUrl( v ) {
+
+  v.compiled.genUrl = _genUrl( v.compiled );
+
+  return v;
+
+}
+
+
+function _defineLanguage( v ) {
+
+  if ( !v.req.query || !v.req.query.lang ) {
+
+    v.compiled.lang = 'fr';
+
+  } else {
+
+    v.compiled.lang = v.req.query.lang
+
+  }
+
+  return v;
+
+}
+
+
+function _defineEnvironment( v ) {
+
+  v.compiled.env = 'tpl';
+
+  return v;
+
+}
+
+
+function _render( v ) {
+
+  return p.w.promise( function( rs, rj ) {
+
+    templater( v.uri, v.compiled, function( err, render ) {
+
+      if ( err ) return rj( err );
+
+      v.render = render;
+
+      rs( v );
+
+    });
+
+  });
+
+}
 
 
 /**
  * render a template link map
  */
 
-var _renderMap = function( map, req, res ) {
+function _renderMap( v ) {
 
-  _respond(res, 200, '<ul>' + map.map(function( mapItem ) {
+  log( 'rendering map' );
+
+  _respond( v.res, 200, '<ul>' + map.map( function( mapItem ) {
 
     var uri = typeof mapItem == 'string' ? mapItem : mapItem.uri ;
 
     return '<li><a href="/' + uri + '">' + uri + '</a></li>';
-  }).join('') + '</ul>');
 
-},
+  } ).join('') + '</ul>' );
+
+  v.responded = true;
+
+  return v;
+
+}
 
 
 /**
  * respond with given body
  */
 
-_respond = function( res, code, body, responseType ) {
+function _respond( res, code, body, responseType ) {
 
-  if (responseType === undefined) responseType = "text/html; charset=utf-8";
+  if ( responseType === undefined ) responseType = "text/html; charset=utf-8";
 
   res.writeHead(code, {
     "Content-Type": responseType,
     'Cache-Control': 'no-cache'
   });
 
-  res.write(body);
+  res.write( body );
   res.end();
 
-},
+}
 
-_loadMap = function( wcb ) {
 
-  _readFile('map.json', function( err, map ) {
-
-    wcb( null, map );
-
-  });
-
-},
-
-_loadData = function( templateName, doBrowserify, cb ) {
-
-  log( 'loading data for %s', templateName );
-
-  async.waterfall([
-
-    function( wcb ) {
-
-      log('loading template config');
-
-      _readFile( templateName + '.config.json', function( err, content ) {
-
-        if ( err ) {
-
-          log( 'could not load config file at %s. Ignoring.', err.path );
-
-          wcb( null, { config: {} });
-
-          return;
-
-        }
-
-        wcb( null, { config: content });
-
-      });
-
-    },
-
-    function( result, wcb ) { // browserify script if exists & setting set?
-
-      if ( (!result.config.templateJs && !result.config.js ) || !doBrowserify ) return wcb( null, result );
-
-      log('template js exists');
-
-      if ( result.config.js ) {
-
-        var paths = result.config.js.map( _jsIncludePath( templateName ) );
-
-        result.data = { js:  paths.map( function( path ) { return path.dest.name; } ) };
-
-        async.each( paths, _browserify, function( err ) {
-          
-          wcb( err, result );
-
-        });
-
-      } else {
-
-        _browserify( _templateJsPath( templateName ), function( err ) {
-
-          wcb( err, result );
-
-        } );
-
-      }
-
-    },
-
-    function( result, wcb ) { // load layout config if exists
-
-      if ( !result.config.layout ) return wcb( null, result);
-
-      _readFile( result.config.layout + '.config.json', function( err, content ) {
-
-        if ( err ) return wcb( null, result );
-
-        result.layoutConfig = content;
-
-        wcb( null, result );
-
-      });
-
-    },
-
-    function( result, wcb ) { // browserify layout script if exists
-
-      if ( !result.layoutConfig || !result.layoutConfig.templateJs || !doBrowserify ) return wcb( null, result );
-
-      log('layout js exists');
-
-      _browserify( _templateJsPath( result.config.layout ), function( err ) {
-
-        return wcb( err, result );
-
-      } );
-
-    },
-
-    function( result, wcb ) { // load template mock data
-
-      if ( !result.data ) result.data = {};
-
-      _readFile(templateName + '.mock.json', function( err, content ) {
-
-        if ( err ) return wcb( null, result );
-
-        deepExtend( result.data, content );
-
-        wcb( null, result);
-
-      });
-
-    },
-
-    function( result, wcb ) { // load layout mock data
-
-      if ( !result.config.layout ) return wcb( null, result );
-
-      _readFile( result.config.layout + '.mock.json', function( err, content ) {
-
-        if ( err ) return wcb( null, result );
-
-        result.layoutData = content;
-
-        wcb( null, result);
-
-      });
-
-    },
-
-    function( result, wcb ) { // config and mock data is loaded
-
-      cb( result );
-
-    }
-
-  ], function( err ) {
-
-    console.log( err );
-
-    throw err;
-
-  });
-
-},
-
-_jsIncludePath = function( name ) {
+function _jsIncludePath( name ) {
 
   return function( jsRelativePath ) {
 
@@ -393,31 +472,10 @@ _jsIncludePath = function( name ) {
 
   }
 
-},
-
-_templateJsPath = function( name ) {
-
-  var paths = {
-    src: {},
-    dest: { path: '/js/browserified' }
-  };
-
-  // determine name of template js file
-      
-  var folder = name.split('/');
-
-  paths.src.name = folder.pop() + '.js';
-
-  paths.src.path = folder.join( '/' ) + '/js';
+}
 
 
-  paths.dest.name = cn.toCamelCase( name.replace(/\//g, '_') ) + '.js';
-
-  return paths;
-
-},
-
-_browserify = function( paths, cb ) {
+function _browserify( paths, cb ) {
 
   log( 'browserificationization' );
 
@@ -437,9 +495,10 @@ _browserify = function( paths, cb ) {
 
   bundle.on( 'end', cb );
 
-},
+}
 
-_genUrl = function( data ) {
+
+function _genUrl( data ) {
 
   return function ( name ) {
 
@@ -465,9 +524,9 @@ _genUrl = function( data ) {
 
   };
 
-},
+}
 
-_readFile = function( filename, cb ) {
+function _readFile( filename, cb ) {
 
   fs.readFile(__dirname + '/' + filename, 'utf-8', function( err, content ) {
 
@@ -479,9 +538,13 @@ _readFile = function( filename, cb ) {
 
   });
 
-},
+}
 
-_absolutePath = function( uri, css ) {
+/**
+ * define the absolute path of the css file
+ */
+
+function _absolutePath( uri, css ) {
 
   var templatePath = uri.split('/');
 

@@ -29,5 +29,5 @@
   "helpers" : {
     "_i" : "image"
   },
-  "templateJs" : true
+  "js" : true
 }

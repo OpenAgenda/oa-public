@@ -19,5 +19,5 @@
     "isEmbed" : false,
     "hasSearchQuery" : false
   },
-  "templateJs" : true
+  "js" : true
 }

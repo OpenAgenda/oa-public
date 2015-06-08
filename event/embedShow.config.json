@@ -14,5 +14,5 @@
     "pageId" : "event"
   },
 
-  "templateJs" : true
+  "js" : true
 }

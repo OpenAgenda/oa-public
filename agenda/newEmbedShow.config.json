@@ -14,5 +14,5 @@
     "queryLang" : false
   },
 
-  "templateJs" : true
+  "js" : true
 }

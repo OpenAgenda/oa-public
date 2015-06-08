@@ -293,13 +293,13 @@ _loadScripts = function( templateName, scriptsBase ) {
 
     if ( !data.config.js ) data.config.js = [];
 
-    if ( data.layoutConfig && data.layoutConfig.templateJs ) {
+    if ( data.layoutConfig && data.layoutConfig.js === true ) {
 
       data.config.js.push( basePath + '/' + cn.toCamelCase( data.config.layout.replace(/\//g, '_') ) + '.js' );
 
     }
 
-    if ( data.config.templateJs ) {
+    if ( data.config.js === true ) {
 
       data.config.js.push( basePath + '/' + cn.toCamelCase( templateName.replace(/\//g, '_') ) + '.js' );
 

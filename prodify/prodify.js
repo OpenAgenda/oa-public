@@ -419,7 +419,7 @@ getTemplateFilesToBrowserify = function ( templateName, cb ) {
 
   readTemplateConfig( templateName, function( err, config ) {
 
-    if ( config.templateJs ) toBrowserify.push( _templateJsPath( templateName ) );
+    if ( config.js === true ) toBrowserify.push( _templateJsPath( templateName ) );
 
     if ( !config.layout ) return cb( null, toBrowserify );
 
@@ -427,7 +427,7 @@ getTemplateFilesToBrowserify = function ( templateName, cb ) {
 
       if ( err ) return cb( err );
 
-      if ( layoutConfig.templateJs ) toBrowserify.push( _templateJsPath( config.layout ) );
+      if ( layoutConfig.js === true ) toBrowserify.push( _templateJsPath( config.layout ) );
 
       cb( null, toBrowserify );
 

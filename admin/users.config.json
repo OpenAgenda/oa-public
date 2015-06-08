@@ -8,5 +8,5 @@
   },
   "base" : {
   },
-  "templateJs" : true
+  "js" : true
 }
