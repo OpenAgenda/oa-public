@@ -350,17 +350,13 @@ function _getAllDates( data ) {
 
   var dates = {}, datesArr = [];
 
-  for ( var i in data.a ) {
+  for ( var i in data.ev ) {
 
-    for( var l in data.a[ i ].l ) {
+    cn.forEach( data.ev[ i ].d, function( d ) {
 
-      cn.forEach( data.a[ i ].l[ l ].d, function( d ) {
+      dates[ d ] = 1;
 
-        dates[ d ] = 1;
-
-      } );
-
-    }
+    } );
 
   }
 
