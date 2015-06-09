@@ -63,8 +63,8 @@
   : "Retirer de la une",
   "Featured"
   : "Mis en une",
-  "%from% to %to%"
-  : "%from% à %to%",
+  "from %from% to %to%"
+  : "de %from% à %to%",
   "Duplicate"
   : "Dupliquer"
 }
