@@ -291,7 +291,9 @@ _loadScripts = function( templateName, scriptsBase ) {
 
   return function( data, cb ) {
 
-    if ( !data.config.js ) data.config.js = [];
+    var isTemplateJs = data.config.js === true;
+
+    if ( !data.config.js || data.config.js === true ) data.config.js = [];
 
     if ( data.layoutConfig && data.layoutConfig.js === true ) {
 
@@ -299,7 +301,7 @@ _loadScripts = function( templateName, scriptsBase ) {
 
     }
 
-    if ( data.config.js === true ) {
+    if ( isTemplateJs ) {
 
       data.config.js.push( basePath + '/' + cn.toCamelCase( templateName.replace(/\//g, '_') ) + '.js' );
 
