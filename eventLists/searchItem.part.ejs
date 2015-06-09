@@ -1,7 +1,7 @@
 <article><!--
   <% if ( event.thumbnail ) { %>
   --><a class="pic" href="<%= genUrl('eventShow', { eventSlug: event.slug }) %>">
-    <img src="<%= _i( event.thumbnail ) %>">
+    <img src="<%= _i( event.thumbnail ) %>" alt="<%= event.title %>">
   </a><!--
 <% } %>
   --><div class="cnt<% if ( !event.thumbnail ) { %> nopic<% } %>" href="#">

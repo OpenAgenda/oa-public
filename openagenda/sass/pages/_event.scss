@@ -183,6 +183,7 @@
           color: $twitter-color;
         }
       }
+
     }
 
     i {
@@ -191,6 +192,8 @@
       text-align: center;
       width: 20px;
     }
+
+    span { display: none; }
   }
 
   // aside section

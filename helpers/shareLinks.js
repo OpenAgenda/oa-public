@@ -7,37 +7,37 @@ var defaults = {
   links: false,
   services: {
     fb: {
-      content: '<i class="fa fa-facebook"></i>',
+      content: '<i class="fa fa-facebook"></i><span>facebook</span>',
       className: 'fb',
       res: 'https://www.facebook.com/sharer.php',
       params: {u: 'url'}
     },
     tw: {
-      content: '<i class="fa fa-twitter"></i>',
+      content: '<i class="fa fa-twitter"></i><span>twitter</span>',
       className: 'tw',
       res: 'https://twitter.com/share',
       params: {url: 'url', text: 'title'}
     },
     gp: {
-      content: '<i class="fa fa-google-plus"></i>',
+      content: '<i class="fa fa-google-plus"></i><span>google plus</span>',
       className: 'gp',
       res: 'https://plus.google.com/share',
       params: {url: 'url'}
     },
     li: {
-      content: '<i class="fa fa-linkedin"></i>',
+      content: '<i class="fa fa-linkedin"></i><span>linkedin</span>',
       className: 'li',
       res: 'http://www.linkedin.com/shareArticle',
       params: { url: 'url', title: 'title', source: 'siteUrl' }
     },
     tu: {
-      content: '<i class="fa fa-tumblr"></i>',
+      content: '<i class="fa fa-tumblr"></i><span>tumblr</span>',
       className: 'tb',
       res: 'http://tumblr.com/share',
       params: { s: '', v: '3', u: 'url', t: 'title' }
     },
     pi: {
-      content: '<i class="fa fa-pinterest"></i>',
+      content: '<i class="fa fa-pinterest"></i><span>pinterest</span>',
       className: 'pt',
       res: 'http://pinterest.com/pin/create/button/',
       params: { url: 'url', media: 'imageUrl', description: 'description' }

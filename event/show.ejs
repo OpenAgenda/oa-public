@@ -125,7 +125,7 @@
             <ul>
 <% event.dates.forEach( function( date ) { %>
               <li class="date">
-                <%= date.label %> :
+                <%= date.label %>:
 <%= date.timings.map( function( t ) {
           return __( 'from %from% to %to%', { '%from%' : t.startLabel, '%to%' : t.endLabel } );
 }).join( ',' ) %>

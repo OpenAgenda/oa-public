@@ -17,7 +17,7 @@
       <article><!--
 <% if ( agenda.image ) { %>
         --><a class="pic" href="<%= genUrl('agendaShow', { slug: agenda.slug }) %>">
-          <img src="<%= _i( agenda.image ) %>">
+          <img src="<%= _i( agenda.image ) %>" alt="<%= agenda.title %>">
         </a><!--
 <% } %>
         --><div class="cnt<% if ( !agenda.image ) { %> nopic<% } %>" href="#">
@@ -30,10 +30,6 @@
 <% }); %>
           </ul>
 <% } %>
-          <a class="lc" href="<%= genUrl('agendaShow', { slug: agenda.slug }) %>">
-            <i class="icon-map-marker mClr"></i>
-            <span><%= agenda.locationInfo %></span>
-          </a>
 
         </div>
       </article>
