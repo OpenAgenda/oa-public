@@ -147,15 +147,11 @@ var widget = function( elem, options ) {
 
   function include( eventItem ) {
 
-    for ( var i in eventItem.l ) {
+    for ( var i = eventItem.d.length - 1; i >= 0; i-- ) {
+      
+      if ( !cn.contains( activeDates, eventItem.d[ i ]) ) {
 
-      for ( var j = eventItem.l[ i ].d.length - 1; j >= 0; j-- ) {
-
-        if ( !cn.contains( activeDates, eventItem.l[i].d[j]) ) {
-
-          activeDates.push( eventItem.l[i].d[j] );
-
-        }
+        activeDates.push( eventItem.d[ i ] );
 
       }
 
