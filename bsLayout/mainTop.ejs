@@ -25,13 +25,16 @@
           <button type="button" class="navbar-toggle collapsed js_toggle_trigger">
             <i class="fa fa-bars"></i>
           </button>
-          <a class="navbar-brand" href="/">
+          <a class="navbar-brand" href="<%= genUrl( 'corpoHome' ) %>">
             <img src="/images/openagenda.png" width="125" alt="OpenAgenda">
           </a>
         </div>
         <div class="collapse navbar-collapse">
           <form class="navbar-left search-form" role="search" action="<%= genUrl( searchRes ) %>">
             <input class="search-input" placeholder="<%= __('Search') %>" type="text" name="search[what]" value="<%= search && ( typeof search.what !== 'undefined' ) ? search.what : '' %>">
+<% if ( typeof lang !== 'undefined' && lang !== 'fr' ) { %>
+            <input type="hidden" name="lang" value="<%= lang %>"/>
+<% } %>
             <div class="search-button">
               <button class="search-submit" type="submit"><i class="fa fa-search"></i></button>
             </div>

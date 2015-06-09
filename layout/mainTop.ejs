@@ -15,9 +15,12 @@
   <body<% if ( pageClass ) { %> class="<%= pageClass %>"<% } %> data-options="<%- typeof scriptParams !== 'undefined' ? _esc( JSON.stringify( scriptParams ) ) : '' %>">
     <header class="js_top_nav">
       <div class="container">
-        <a class="logo" href="/"><img alt="OpenAgenda" src="/images/openagenda.png"></a>
+        <a class="logo" href="<%= genUrl( 'corpoHome' ) %>"><img alt="OpenAgenda" src="/images/openagenda.png"></a>
         <form class="cform bigger" method="get" action="<%= genUrl( searchRes ) %>">
           <input type="text" name="search[what]" value="<%= search && ( typeof search.what !== 'undefined' ) ? search.what : '' %>" placeholder="<%= __('Search') %>"/>
+<% if ( typeof lang !== 'undefined' && lang !== 'fr' ) { %>
+          <input type="hidden" name="lang" value="<%= lang %>"/>
+<% } %>
           <button type="submit">
             <i class="fa fa-search"></i>
           </button>
