@@ -957,6 +957,12 @@ function _defineLang( req, lang ) {
     
   }
 
+  if ( req.lang !== 'fr' ) {
+
+    req.genUrl.preload( { lang: req.lang } );
+
+  }
+
 }
 
 

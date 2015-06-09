@@ -27,7 +27,6 @@ path,
 routes = {
 
   searchEvents: [ 'get', '/events/search', [
-
     mw.search.cleanSearch,
     mw.search.buildEsQuery( perPage ),
     searchEvents
@@ -85,7 +84,7 @@ module.exports = function( p ) {
  */
 
 function searchEvents( req, res ) {
-  
+
   if ( !req.cleanSearch || !lib.size( req.cleanSearch ) )  {
 
     req.log( 'info', 'request received for searchEvents with no params.' );

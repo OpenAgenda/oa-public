@@ -14,17 +14,25 @@ module.exports = function( options ) {
 
 function instanciate( options ) {
 
-  var paths = {},
-
-  defaults = deepExtend( {
+  var defaults = deepExtend( {
     domain: false, // required ( for absolute urls )
     protocol: 'http://', // or https:// or //
-    abs: false
-  }, options ? options : {} );
+    abs: false,
+    paths: {},
+    preloaded: {}
+  }, options ? options : {} ),
+
+  paths = defaults.paths,
+
+  preloaded = deepExtend( {}, defaults.preloaded );
 
   genUrl.load = load;
 
   genUrl.getPaths = getPaths;
+
+  genUrl.copy = copy;
+
+  genUrl.preload = preload;
 
   return genUrl;
 
@@ -61,7 +69,7 @@ function instanciate( options ) {
 
     }
 
-    cleanValues = _clean( values );
+    cleanValues = deepExtend( {}, preloaded, _clean( values ) );
 
     try {
 
@@ -106,6 +114,23 @@ function instanciate( options ) {
   function getPaths() {
 
     return paths;
+
+  }
+
+  function copy() {
+
+    var copyOptions = deepExtend( {}, options ? options : {}, {
+      paths: paths,
+      preloaded: preloaded 
+    });
+
+    return instanciate( copyOptions );
+
+  }
+
+  function preload( values ) {
+
+    deepExtend( preloaded, values );
 
   }
 

@@ -99,4 +99,21 @@ describe( 'genUrl', function() {
 
   });
 
+
+  it( 'copy with preloaded values preloads them', function() {
+
+    var copy = genUrl.copy();
+
+    copy.preload( { lang: 'fr' } );
+
+    copy( 'sayHi', { name: 'chad', surname: 'vader', title: 'lord' } )
+
+    .should.equal( '/hi/chad?lang=fr&surname=vader&title=lord' );
+
+    genUrl( 'sayHi', { name: 'chad', surname: 'vader', title: 'lord' } )
+
+    .should.equal( '/hi/chad?surname=vader&title=lord' );
+
+  })
+
 } );

@@ -37,8 +37,8 @@ module.exports = function( enabledTypes, cb ) {
     config = require( './config' ),
 
     genUrl = require( './lib/genUrl' )( {
-      domain: config.domain
-    }),
+      domain: config.domain,
+    } ),
 
     webModules,
 
@@ -86,7 +86,7 @@ module.exports = function( enabledTypes, cb ) {
     // load gen url everywhere
     app.use( function( req, res, next ) {
 
-      req.genUrl = genUrl;
+      req.genUrl = genUrl.copy(); // need genUrl only for request lifecycle
 
       next();
 
