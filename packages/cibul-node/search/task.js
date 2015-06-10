@@ -217,6 +217,8 @@ function _sync( job, cb ) {
 
           try {
 
+            log( 'sending event.update for event %s', id );
+
             coms.publish( config.mainChannel, {
               name: 'event.update', 
               values: { id: id } 
