@@ -22,6 +22,79 @@ module.exports.init = function( config ) {
 
 }
 
+module.exports.func = functionCache;
+
+// cache from get and an identifying param
+
+function functionCache( namespace, name, func, expire ) {
+
+  if ( !_enabled() ) {
+
+    utils.extend( func, { cache: {
+      clear: function() {}
+    }});
+
+    return func;
+
+  }
+
+  return utils.extend( wrapper, { cache: {
+    clear: clear
+  } } );
+
+  function wrapper() {
+
+    var args = Array.prototype.slice.call( arguments ),
+
+    cb = args.pop(),
+
+    cacheLoaderArgs = args;
+
+    // this thing should just cache in with an expiry and a clear.
+
+    _getCache( __key(), JSON.stringify( args ), function( err, data ) {
+
+      if ( !data ) {
+
+        var cacheLoaderArgs = [ __key(), JSON.stringify( args ), func, false ].concat( args );
+
+        cacheLoaderArgs.push( cb );
+
+        return _loadCache.apply( null, cacheLoaderArgs );
+
+      }
+
+      cb( null, data );
+
+    } );
+
+  }
+
+  function clear( cb ) {
+
+    __log( 'clearing' );
+
+    cli.del( __key(), cb );
+
+  }
+
+
+  function __log( method, message, args ) {
+
+    _log( __key(), method, message, args );
+
+  }
+
+  function __key() {
+
+    var key = [ 'cache', namespace, name ];
+
+    return key.join( ':' );
+
+  }
+
+}
+
 
 /**
  * @param { string }    type       type of the instance ( ex user, agenda, event )
@@ -117,25 +190,25 @@ function instanceCache( type, instance, methods, clearers ) {
 
       }
 
-      _log( methodName, 'is cacheable' );
+      __log( methodName, 'is cacheable' ); 
 
       _validTimestamp( function( err, isValid ) {
 
         if ( isValid ) {
 
-          _log( methodName, 'cache timestamp is valid' );
+          __log( methodName, 'cache timestamp is valid' );
 
-          _getCache( methodName, function( err, data ) {
+          _getCache( __key(), methodName, function( err, data ) {
 
             if ( !data ) {
 
-              _log( methodName, 'no cached data was retrieved' );
+              __log( methodName, 'no cached data was retrieved' );
 
-              return _loadCache( methodName, method, cb );
+              return _loadCache( __key(), methodName, method, false, cb );
 
             } else {
 
-              _log( methodName, 'cached data was retrieved' );
+              __log( methodName, 'cached data was retrieved' );
 
               cb( null, data );
 
@@ -145,13 +218,13 @@ function instanceCache( type, instance, methods, clearers ) {
 
         } else {
 
-          _log( methodName, 'cache timestamp is not valid' );
+          __log( methodName, 'cache timestamp is not valid' );
 
           clear( function( err ) {
 
             if ( err ) return cb( err );
 
-            _loadCache( methodName, method, cb );
+            _loadCache( __key(), methodName, method, false, cb );
 
           } );
 
@@ -173,30 +246,6 @@ function instanceCache( type, instance, methods, clearers ) {
 
   }
 
-  function _getCache( methodName, cb ) {
-
-    var cachedData;
-
-    cli.hget( _key(), methodName, function( err, data ) {
-
-      try {
-
-        cachedData = JSON.parse( data );
-
-      } catch( e ) {
-
-        cb( 'Invalid cached data' );
-
-        return;
-
-      }
-
-      cb( null, cachedData );
-
-    } );
-
-  }
-
   function getTimestamp( cb ) {
 
     if ( cacheTimestamp ) {
@@ -205,39 +254,23 @@ function instanceCache( type, instance, methods, clearers ) {
 
     } else {
 
-      cli.hget( _key(), 'timestamp', cb );
+      cli.hget( __key(), 'timestamp', cb );
 
     }
 
   }
 
-  function _loadCache( methodName, method, cb ) {
-
-    method( function( err, data ) {
-
-      cli.hset( _key(), methodName, JSON.stringify( data ), function( err, result ) {
-
-        if ( err ) return cb( err );
-
-        cb( null, data );
-
-      } );
-
-    });
-
-  }
-
   function clear( cb ) {
 
-    _log( 'clearing' );
+    __log( 'clearing' );
 
-    cli.del( _key(), function( err ) {
+    cli.del( __key(), function( err ) {
 
       if ( err ) return cb( err );
 
       cacheTimestamp = instance.updatedAt;
 
-      cli.hset( _key(), 'timestamp', cacheTimestamp, function( err ) {
+      cli.hset( __key(), 'timestamp', cacheTimestamp, function( err ) {
 
         if ( cb ) cb( err );
 
@@ -247,15 +280,15 @@ function instanceCache( type, instance, methods, clearers ) {
 
   }
 
-  function _log( method, message, args ) {
+  function __log( method, message, args ) {
 
-    log.apply( null, [ '%s.%s - ' + message, _key(), method ].concat( args ? args : [] ) );
+    _log( __key(), method, message, args );
 
   }
 
-  function _key() {
+  function __key() {
 
-    var key = [ 'cache', type, instance.id ];
+    var key = [ 'cache', 'instance', type, instance.id ];
 
     return key.join( ':' );
 
@@ -264,6 +297,58 @@ function instanceCache( type, instance, methods, clearers ) {
 }
 
 
+function _getCache( key, subKey, cb ) {
+
+  var cachedData;
+
+  cli.hget( key, subKey, function( err, data ) {
+
+    try {
+
+      cachedData = JSON.parse( data );
+
+    } catch( e ) {
+
+      cb( 'Invalid cached data' );
+
+      return;
+
+    }
+
+    cb( null, cachedData );
+
+  } );
+
+}
+
+
+function _loadCache( key, subKey, method, expire, args, cb ) {
+
+  var args = Array.prototype.slice.call( arguments ),
+
+  cb = args.pop();
+
+  args.splice( 0, 4 );
+
+
+  args.push( function( err, data ) {
+
+    cli.hset( key, subKey, JSON.stringify( data ), function( err, result ) {
+
+      // if expire is set, define it here
+      if ( expire ) cli.expire( key, expire / 1000 );
+
+      if ( err ) return cb( err );
+
+      cb( null, data );
+
+    } );
+
+  } );
+
+  method.apply( null, args );
+
+}
 
 
 function _enabled() {
@@ -275,5 +360,12 @@ function _enabled() {
   }
 
   return true;
+
+}
+
+
+function _log( key, method, message, args ) {
+
+  log.apply( null, [ '%s.%s - ' + message, key, method ].concat( args ? args : [] ) );
 
 }

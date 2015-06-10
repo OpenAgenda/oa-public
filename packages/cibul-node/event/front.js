@@ -270,7 +270,7 @@ function actionShow( req, res ) {
 
   if ( !req.session.logged ) return cmn.render( req, res, 'event/action', templateData );
 
-  model.reviews().list( { stakeholderId: req.user.id }, function( err, agendas ) {
+  model.reviews().list( { stakeholderId: req.user.id, limit: 200 }, function( err, agendas ) {
 
     if ( err ) return cmn.catchError( req, res )( err );
 

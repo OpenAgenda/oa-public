@@ -33,11 +33,25 @@ consumers = {},
 sp = ':';
 
 
-function queue( queueName, values, cb ) {
+function queue( queueName, values, options, cb ) {
 
-  var encodedValues = JSON.stringify( values );
+  if ( typeof options == 'function' ) {
 
-  redisCli.rpush( qPrefix + sp + queueName, encodedValues, function( err ) {
+    cb = options;
+
+    options = {};
+
+  }
+
+  if ( !options ) options = {};
+
+  var encodedValues = options.raw ? values : JSON.stringify( values ),
+
+  queueName = options.raw ? queueName : qPrefix + sp + queueName;
+
+  log( 'queuing on: %s values: %s', queueName, encodedValues );
+
+  redisCli.rpush( queueName, encodedValues, function( err ) {
 
     if ( cb ) cb( err );
 

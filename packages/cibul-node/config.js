@@ -7,6 +7,7 @@ config = {
     multiCore: true,
     mainChannel: 'main',
     jobsQueue: 'jobs',
+    legacyQueue: 'bgestack',
     tmpFolderPath: '/var/tmp/',
     logPath : '/var/tmp/cibul-node.log',
     logPathDebug : '/var/tmp/cibul-node-debug.log',

@@ -73,7 +73,16 @@ function instanciate( data ) {
 
         if ( err ) return cb( err );
         
-        coms.publish( config.mainChannel, { name: 'event.update', values: { id: event.id } } );
+        coms.publish( config.mainChannel, { 
+          name: 'event.update', 
+          values: { id: event.id } 
+        } );
+
+        // legacy aggregator
+        coms.queue( config.legacyQueue, JSON.stringify( { name: 'review.article_display', values: {
+          event_id: event.id, 
+          review_id:  instance.id
+        } } ), { raw: true } );
 
         cb();
 
@@ -97,6 +106,12 @@ function instanciate( data ) {
         if ( err ) return cb( err );
 
         coms.publish( config.mainChannel, { name: 'event.update', values: { id: event.id } } );
+
+        // legacy aggregator
+        coms.queue( config.legacyQueue, JSON.stringify( { name: 'review.article_hide', values: {
+          event_id: event.id, 
+          review_id:  instance.id
+        } } ), { raw: true } );
 
         cb();
 

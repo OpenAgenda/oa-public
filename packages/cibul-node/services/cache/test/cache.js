@@ -8,6 +8,8 @@ config = require( '../../../config' ),
 
 cache = require( '../' ),
 
+utils = require( '../../../lib/utils' ),
+
 cli = require( 'redis' ).createClient( 
   config.redis.port, 
   config.redis.host
@@ -33,26 +35,83 @@ testInstance = {
 
 cache.init( config.redis );
 
-describe( 'cache', function() {
+
+describe( 'cache - function', function() {
+
+  var testFunc = function( param, cb ) {
+
+    cb( null, 'here: ' + param );
+
+  }
+
+  beforeEach( function( done ) {
+
+    _funcDel( 'namespace', 'testFunc', done );
+
+  });
+
+  it( 'first func call triggers caching', function( done ) {
+
+    var wrapped = cache.func( 'namespace', 'testFunc', testFunc );
+
+    wrapped( 'yeaay', function( err, result ) {
+
+      _hFuncGet( 'namespace', 'testFunc', 'yeaay', function( err, result ) {
+
+        result.should.equal( JSON.stringify( 'here: yeaay' ) );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
+  it( 'cache clearer function removes the cache value', function( done ) {
+
+    var wrapped = cache.func( 'namespace', 'testFunc', testFunc );
+
+    wrapped( 'yeaay', function( err, result ) {
+
+      wrapped.cache.clear( function( err ) {
+
+        _hFuncGet( 'namespace', 'testFunc', 'yeaay', function( err, result ) {
+
+          should( result ).equal( null );
+
+          done();
+
+        } );
+
+      });
+
+    } );
+
+  });
+
+});
+
+describe( 'cache - instance', function() {
 
   before( function( done ) {
 
     cache( 'agenda', testInstance, [ 'test', 'test2' ], [ 'test4' ] );
 
-    _del( done );
+    _instanceDel( done );
 
   });
 
 
   it( '1st method call triggers caching', function( done ) {
 
-    _hget( 'test', function( err, redisData ) {
+    _hInstanceGet( 'test', function( err, redisData ) {
 
       should.equal( redisData, null );
 
       testInstance.test( function( err, data ) {
 
-        _hget( 'test', function( err, redisData ) {
+        _hInstanceGet( 'test', function( err, redisData ) {
 
           JSON.parse( redisData ).should.eql( data );
 
@@ -71,13 +130,13 @@ describe( 'cache', function() {
 
     testInstance.test( function( err, data ) {
 
-      _hget( 'test', function( err, redisData ) {
+      _hInstanceGet( 'test', function( err, redisData ) {
 
         JSON.parse( redisData ).should.eql( data );
 
         testInstance.save( { random: 'newData' }, function() {
 
-          _hget( 'test', function( err, redisData ) {
+          _hInstanceGet( 'test', function( err, redisData ) {
 
             should.equal( redisData, null );
 
@@ -98,7 +157,7 @@ describe( 'cache', function() {
 
     testInstance.test2( function( err, data ) {
 
-      _hget( 'test2', function( err, redisData ) {
+      _hInstanceGet( 'test2', function( err, redisData ) {
 
         JSON.parse( redisData ).should.eql( data );
 
@@ -106,7 +165,7 @@ describe( 'cache', function() {
 
         testInstance.test( function( err, irreleventHere ) {
 
-          _hget( 'test2', function( err, redisData ) {
+          _hInstanceGet( 'test2', function( err, redisData ) {
 
             should.equal( redisData, null );
 
@@ -127,7 +186,7 @@ describe( 'cache', function() {
 
     testInstance.test2( function( err, data ) {
 
-      _hget( 'test2', function( err, redisData ) {
+      _hInstanceGet( 'test2', function( err, redisData ) {
 
         JSON.parse( redisData ).should.eql( data );
 
@@ -135,7 +194,7 @@ describe( 'cache', function() {
         testInstance.test4( function( err, yayawhatever ) {
 
           // is this still cached?
-          _hget( 'test2', function( err, redisData ) {
+          _hInstanceGet( 'test2', function( err, redisData ) {
 
             should.equal( redisData, null );
 
@@ -156,7 +215,7 @@ describe( 'cache', function() {
 
     testInstance.test3( function( err, nobodyCares ) {
 
-      _hget( 'test3', function( err, redisData ) {
+      _hInstanceGet( 'test3', function( err, redisData ) {
 
         should.equal( redisData, null );
 
@@ -171,15 +230,30 @@ describe( 'cache', function() {
 } );
 
 
-function _hget( name, cb ) {
 
-  cli.hget( 'cache:agenda:' + testInstance.id, name, cb );
+function _hFuncGet( namespace, name, key, cb ) {
+
+  if ( !utils.isArray( key ) ) key = [ key ];
+
+  cli.hget( 'cache:' + namespace + ':' + name, JSON.stringify( key ), cb );
 
 }
 
-function _del( cb ) {
+function _hInstanceGet( name, cb ) {
 
-  cli.del( 'cache:agenda:' + testInstance.id, cb );
+  cli.hget( 'cache:instance:agenda:' + testInstance.id, name, cb );
+
+}
+
+function _funcDel( namespace, name, cb ) {
+
+  cli.del( 'cache:' + namespace + ':' + name, cb );
+
+}
+
+function _instanceDel( cb ) {
+
+  cli.del( 'cache:instance:agenda:' + testInstance.id, cb );
 
 }
 
