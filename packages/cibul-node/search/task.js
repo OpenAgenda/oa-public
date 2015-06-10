@@ -153,7 +153,7 @@ function _sync( job, cb ) {
 
     if ( err ) return cb( err );
 
-    log( 'syncing agenda %s', agenda.slug );
+    log( 'info', 'syncing agenda %s', agenda.slug );
 
     // retrieve indexed events
 
@@ -177,7 +177,7 @@ function _sync( job, cb ) {
 
       if ( err ) return cb( err );
 
-      log( 'will update %s indexed events for agenda %s', eIds.length, agenda.slug );
+      log( 'info', 'will update %s indexed events for agenda %s', eIds.length, agenda.slug );
 
       // retrieve db events
 
@@ -195,7 +195,7 @@ function _sync( job, cb ) {
 
             eIds.push( events[ 0 ].id );
 
-            log( 'added event %s to be indexed for agenda %s. %s events to be indexed', events[ 0 ].id, agenda.slug, eIds.length );
+            log( 'info', 'added event %s to be indexed for agenda %s. %s events to be indexed', events[ 0 ].id, agenda.slug, eIds.length );
 
           }
 
@@ -211,13 +211,13 @@ function _sync( job, cb ) {
 
         if ( err ) return cb( err );
 
-        log( 'syncing %s events for agenda %s', eIds.length, agenda.slug );
+        log( 'info', 'syncing %s events for agenda %s', eIds.length, agenda.slug );
 
         async.eachSeries( eIds, function( id, ecb ) {
 
           try {
 
-            log( 'sending event.update for event %s', id );
+            log( 'info', 'sending event.update for event %s', id );
 
             coms.publish( config.mainChannel, {
               name: 'event.update', 
