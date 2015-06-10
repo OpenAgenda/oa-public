@@ -151,6 +151,8 @@ function _sync( job, cb ) {
 
   agendaSvc.get( job.values, function( err, agenda ) {
 
+    if ( err ) return cb( err );
+
     log( 'syncing agenda %s', agenda.slug );
 
     // retrieve indexed events
@@ -211,13 +213,25 @@ function _sync( job, cb ) {
 
         log( 'syncing %s events for agenda %s', eIds.length, agenda.slug );
 
-        eIds.forEach( function( id ) {
+        async.eachSeries( eIds, function( id, ecb ) {
 
-          coms.publish( config.mainChannel, { name: 'event.update', values: { id: id } } );
+          try {
 
-        });
+            coms.publish( config.mainChannel, {
+              name: 'event.update', 
+              values: { id: id } 
+            } );
+            
+          } catch( e ) {
 
-        cb();
+            log( 'error', e );
+
+          }
+
+          // because redis will crash eventually
+          setTimeout( function() { ecb() }, 100 );
+
+        }, cb );
 
       } );
 
