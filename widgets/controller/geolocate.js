@@ -8,7 +8,7 @@ module.exports = function( ctlData, initValues, cb ) {
 
   if ( !_hasFeature() ) return cb( 'navigator cannot geolocate' );
 
-  if ( !initValues.count ) initValues.count = 5;
+  if ( !initValues.count ) initValues.count = 10;
 
   initValues.count = Math.min( initValues.count, 50 );
 

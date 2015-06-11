@@ -3,6 +3,8 @@ module.exports = {
   zoomToDistance: [ 500000, 500000, 500000, 300000, 150000, 100000, 80000, 40000, 20000, 10000, 3000, 1000, 300, 50, 25, 10, 5, 3, 2 ],
   lang: 'en',
   langAttribute: 'data-lang',
+  coordAttribute: 'data-coords',
+  tilesAttribute: 'data-tiles',
   auto: false, // syncronize selection with map
   popup: false,
   tiles: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png',

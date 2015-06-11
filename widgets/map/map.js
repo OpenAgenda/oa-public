@@ -94,9 +94,13 @@ function widget( elem, options ) {
 
   return ( function() {
 
-    var uid = options.anchorConfig[ UID ];
+    var uid = options.anchorConfig[ UID ],
+
+    mapAttributes;
 
     log = debug( 'map widget ' + uid );
+
+    mapAttributes = _getMapInitAttributes();
 
     embedMode = uid.split( '/' ).length == 2;
 
@@ -111,15 +115,27 @@ function widget( elem, options ) {
       setOnBoundsChange : setOnBoundsChange
     } ) );
 
+    _initSettings( options.anchorConfig );
+
+    if ( mapAttributes ) {
+
+      // init map config is loaded in elem,
+      // map can be initialized before control
+      // data is in hand
+
+      _initMapLib( mapAttributes.tiles );
+
+      _createMap( mapAttributes );
+
+    }
+
     controller.getControlData( function( data ) {
       
       log( 'control data fetched' );
 
+      if ( !m ) _initMapLib( data.ebd && data.ebd.mt ? data.ebd.mt : config.tiles );
+
       if ( !data.ebd || data.ebd.dcss ) styler( style );
-
-      _initTiles( data );
-
-      _initSettings( options.anchorConfig );
 
       _initLocations( data );
 
@@ -129,9 +145,9 @@ function widget( elem, options ) {
 
       log( 'init complete, enable to render' );
 
-      _createMap( function() {
-
-        log( 'created map' );
+      _createMap( {
+        center: _defaultCenter()
+      }, function() {
 
         _bindSync();
 
@@ -152,6 +168,45 @@ function widget( elem, options ) {
 
     
   } )();
+
+
+  /**
+   * extract optional map init data
+   * 
+   * if tiles & coords are set as widget attributes
+   * they can be used for initing the map
+   * before the control data is available
+   */
+
+  function _getMapInitAttributes() {
+
+    var coords, zoom = 15, tiles;
+
+    if ( !elem.hasAttribute( config.coordAttribute ) || !elem.hasAttribute( config.tilesAttribute ) ) {
+
+      log( 'map attributes not set in widget elem. waiting for control data' );
+
+      return false;
+
+    }
+
+    tiles = elem.getAttribute( config.tilesAttribute );
+
+    coords = elem.getAttribute( config.coordAttribute ).split( '|' );
+
+    if ( coords.length == 3 ) {
+
+      zoom = parseInt( coords.pop(), 10 );
+
+    }
+
+    return {
+      center: coords.map( function( c ) { return parseFloat( c ); } ),
+      zoom: zoom,
+      tiles: tiles
+    };
+
+  }
 
 
   function _initMarkers() {
@@ -550,9 +605,17 @@ function widget( elem, options ) {
 
   function _initTiles( data ) {
 
+    if ( data.tiles ) {
+
+      config.tiles = data.tiles;
+
+      return;
+
+    }
+
     if ( !data.ebd || !data.ebd.mt ) {
 
-      log( 'tiles configuration not set' );
+      log( 'using default tiles' );
 
       return;
 
@@ -580,8 +643,6 @@ function widget( elem, options ) {
 
     }
 
-    log( 'using osm with tiles %s', config.tiles );
-
     if (typeof document.createStyleSheet == "undefined") {
 
       var link = document.createElement( 'link' );
@@ -598,8 +659,6 @@ function widget( elem, options ) {
       document.createStyleSheet( config.leafletCssIE );
 
     }
-
-    m = mapLib( { url: config.tiles });
 
   }
 
@@ -750,8 +809,36 @@ function widget( elem, options ) {
 
   }
 
+  function _initMapLib( tiles ) {
 
-  function _createMap( cb ) {
+    if ( m ) return;
+
+    if ( !tiles ) tiles = config.tiles;
+
+    log( 'using osm with tiles %s', tiles );
+
+    m = mapLib( { url: tiles });
+
+  }
+
+
+  function _createMap( options, cb ) {
+
+    var mapParams = cn.extend( {
+      tiles: config.tiles,
+      center: false, // needed
+      zoom: 15
+    }, options );
+
+    if ( map ) {
+
+      log( 'map is already created' );
+
+      if ( cb ) cb();
+
+      return;
+
+    }
 
     var div = document.createElement( 'div' );
 
@@ -769,9 +856,23 @@ function widget( elem, options ) {
 
     elem.innerHTML = div.innerHTML;
 
+    m.createMap( cn.el( elem, 'div'), { center: mapParams.center, zoom: mapParams.zoom, onReady: function( newMap ) {
+
+      map = newMap;
+
+      log( 'created map' );
+
+      if ( cb ) cb();
+
+    }});
+
+  }
+
+  function _defaultCenter() {
+
     var center = [ 48.8705187, 2.3821144 ];
 
-    if ( cn.size( locations ) ) {
+    if ( locations && cn.size( locations ) ) {
       
       for ( var s in locations ) break;
 
@@ -779,13 +880,7 @@ function widget( elem, options ) {
 
     }
 
-    m.createMap( cn.el( elem, 'div'), { center: center, onReady: function( newMap ) {
-
-      map = newMap;
-
-      cb();
-
-    }});
+    return center;
 
   }
 
