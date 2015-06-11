@@ -36,6 +36,8 @@ var handlePricingSelection = function(params) {
 
     var clean = {};
 
+    if ( typeof p == 'undefined' ) p = {};
+
     forEach( languages, function( l ) {
 
       clean[ l ] = p[ l ] ? p[ l ] : '';
