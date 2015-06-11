@@ -114,11 +114,22 @@ function searchEvents( limit, showAll ) {
 
   return function( req, res, next ) {
 
-    req.agenda.search( req.query.search, {
-      limit: limit,
-      page: req.query.page,
+    var pagination = {};
+
+    if ( req.query.offset ) {
+
+      pagination.offset = parseInt( req.query.offset, 10 );
+
+    } else {
+
+      pagination.page = parseInt( req.query.page, 10 );
+
+    }
+
+    req.agenda.search( req.query.search, utils.extend( {
+      limit: Math.min( parseInt( req.query.limit ? req.query.limit : limit, 10 ), 300 ),
       showAll: showAll
-    }, function( err, data ) {
+    }, pagination ), function( err, data ) {
 
       if ( err ) return next( err );
 

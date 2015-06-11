@@ -5,6 +5,7 @@ require( '../newsletter/test/task' );
 require( '../mailer/test/task' );
 require( '../general/test/nominatim' );
 require( '../services/event/test/oembed' );
+require( '../services/event/test/state' );
 require( '../event/test/oembed.task' );
 require( '../services/file/test/s3' );
 require( '../services/image/test/image' );
