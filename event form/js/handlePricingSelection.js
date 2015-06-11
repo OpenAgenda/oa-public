@@ -23,11 +23,26 @@ var handlePricingSelection = function(params) {
   _run = function() {
 
     ticketLink = params.location.ticketLink?params.location.ticketLink:{};
-    pricingInfo = params.location.pricingInfo?params.location.pricingInfo:{};
+    
+    pricingInfo = _initPricingInfo( params.location.pricingInfo, params.languages );
 
     _createElement();
 
     _createFields();
+
+  },
+
+  _initPricingInfo = function( p, languages ) {
+
+    var clean = {};
+
+    forEach( languages, function( l ) {
+
+      clean[ l ] = p[ l ] ? p[ l ] : '';
+
+    });
+
+    return clean;
 
   },
 
