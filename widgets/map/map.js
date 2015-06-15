@@ -90,7 +90,11 @@ function widget( elem, options ) {
 
   useClusters = false,
 
-  clusterGroup = false;
+  clusterGroup = false,
+
+  boundsQueue = [],
+
+  processingQueue = false;
 
   return ( function() {
 
@@ -992,7 +996,6 @@ function widget( elem, options ) {
 
     }
 
-
     // carry out the repositionning
 
     _freezeAuto();
@@ -1049,6 +1052,34 @@ function widget( elem, options ) {
 
   function _fitBounds( bounds, ignoreZoomLimit ) {
 
+    boundsQueue.splice( 0, 0, [ bounds, ignoreZoomLimit ] );
+
+    if ( !processingQueue ) _fitBoundsQueueProcess();
+
+  }
+
+
+  /**
+   * if two bound changes happen too fast, the last change is
+   * not taken into account. This queuing system resolves this.
+   */
+
+  function _fitBoundsQueueProcess() {
+
+    if ( !boundsQueue.length ) {
+
+      processingQueue = false;
+
+      return;
+
+    }
+
+    processingQueue = true;
+
+    var popped = boundsQueue.pop(),
+
+    bounds = popped[ 0 ], ignoreZoomLimit = popped[ 1 ];
+
     if ( typeof ignoreZoomLimit == 'undefined' ) {
 
       ignoreZoomLimit = false;
@@ -1066,6 +1097,8 @@ function widget( elem, options ) {
       m.setZoom( map, config.minZoom );
 
     }
+
+    setTimeout( _fitBoundsQueueProcess, 1000 );
 
   }
 
