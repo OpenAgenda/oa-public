@@ -8,7 +8,7 @@ log = require( '../lib/logger' )( 'event/back' ),
 
 eventSvc = require( '../services/event' ),
 
-agendaSvc = require( '../services/agenda/agenda' ),
+agendaSvc = require( '../services/agenda' ),
 
 STATETYPES = require( '../services/model' ).events().STATETYPES,
 

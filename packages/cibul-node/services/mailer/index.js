@@ -13,7 +13,6 @@ utils = require( '../../lib/utils' ),
 validator = require( 'validator' );
 
 module.exports = {
-  genUrl: genUrl,
   queueMail: queueMail,
   extractEmails: extractEmails,
   isEmail: validator.isEmail
@@ -44,15 +43,6 @@ function queueMail( options, cb ) {
     text: _prepareText( params.text, params.lang ),
     html: params.html
   }, cb );
-
-}
-
-function genUrl( uri, query ) {
-
-  return router.makeGenUrl({
-    root: config.root,
-    base: { path: '' }
-  })( uri, query , { abs: true, protocol: 'https' });
 
 }
 

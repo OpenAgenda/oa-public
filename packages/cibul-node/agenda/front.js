@@ -8,7 +8,7 @@ config = require( '../config' ),
 
 lib = require( '../lib/lib' ),
 
-agendaSvc = require( '../services/agenda/agenda' ),
+agendaSvc = require( '../services/agenda' ),
 
 embedSvc = require( '../services/embed/embed' ),
 
@@ -50,20 +50,20 @@ modes = {
 routes = {
 
   embedControlData: [ 'get', '/agendas/:uid/embeds/:embedUid/controldata', [ 
-    agendaSvc.mw.load( 'uid', 'uid', true ),
+    agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
     embedSvc.mw.load( 'embedUid', 'uid' ),
     embedSvc.mw.browserCache,
     controlData
   ] ],
   
   controlData: [ 'get', '/agendas/:uid/controldata', [ 
-    agendaSvc.mw.load( 'uid', 'uid', true ),
+    agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
     agendaSvc.mw.browserCache,
     controlData
   ] ],
   
   embedShow: [ 'get', '/agendas/:uid/embed/events', [
-    agendaSvc.mw.load( 'uid' ),
+    agendaSvc.mw.load( 'uid', { cache: true } ),
     agendaSvc.mw.browserCache,
     agendaSvc.mw.search( perPage ),
     _format,
@@ -75,7 +75,7 @@ routes = {
   ] ],
   
   customEmbedShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events', [ 
-    agendaSvc.mw.load( 'uid' ),
+    agendaSvc.mw.load( 'uid', { cache: true } ),
     embedSvc.mw.load( 'embedUid', 'uid' ),
     embedSvc.mw.browserCache,
     agendaSvc.mw.search( perPage ),
@@ -89,12 +89,12 @@ routes = {
   ] ],
 
   agendaRedirect: [ 'get', '/agendas/:uid', [
-    agendaSvc.mw.load( 'uid' ),
+    agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
     redirect
   ] ],
   
   agendaShow: [ 'get', '/:slug', [ 
-    agendaSvc.mw.load( 'slug' ),
+    agendaSvc.mw.load( 'slug', { cache: true } ),
     agendaSvc.mw.browserCache,
     agendaSvc.mw.search( perPage ),
     _format,

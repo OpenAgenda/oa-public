@@ -10,6 +10,8 @@ mailer = require( '../../mailer' ),
 
 model = require( 'cibulModel' )( config.db ),
 
+genUrl = require( '../../genUrl' ),
+
 w = require( 'when' ),
 
 wn = require( 'when/node' ),
@@ -274,7 +276,7 @@ function _sendToken( values ) {
 
   if ( values.redirect ) linkParams.redirect = values.redirect;
 
-  var link = mailer.genUrl( 'activate', linkParams ),
+  var link = genUrl.abs( 'activate', linkParams ),
 
   text = "Congratulations!, You just created your OpenAgenda account. Click on the following link to activate it \n %link%";
 

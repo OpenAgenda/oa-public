@@ -8,7 +8,7 @@ config = require( '../config' ),
 
 lib = require( '../lib/lib' ),
 
-agendaSvc = require( '../services/agenda/agenda' ),
+agendaSvc = require( '../services/agenda' ),
 
 embedSvc = require( '../services/embed/embed' ),
 

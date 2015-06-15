@@ -29,9 +29,6 @@ exports.checkAdministrator = checkAdministrator;  // middleware. checks that log
 exports.checkModerator = checkModerator;
 exports.checkAdminOrModerator = checkAdminOrModerator;
 
-exports.makeGenUrl = makeGenUrl;
-exports.loadGenUrl = loadGenUrl;
-exports.getGenUrl = getGenUrl;
 exports.registerRoutes = registerRoutes;          // router proxy function. register app module routes in router
 exports.redirect = redirect;                      // router proxy function. do a redirect
 exports.getRedirect = getRedirect;                // get redirect
@@ -76,11 +73,11 @@ deepExtend = require( 'deep-extend' ),
 
 lib = require( './lib' ),
 
-agendaSvc = require( '../services/agenda/agenda' ),
+agendaSvc = require( '../services/agenda' ),
 
 async = require( 'async' ),
 
-genUrl;
+genUrl = require( '../services/genUrl' );
 
 
 
@@ -302,10 +299,7 @@ function errorResponse( req, res, error, jsonResponse ) {
 
   if ( !req.genUrl ) {
 
-    req.genUrl = makeGenUrl({
-      root: config.root,
-      base: { path: '' }
-    });
+    req.genUrl = genUrl;
 
   }
 
@@ -707,17 +701,7 @@ function makeGenUrl( options ) {
 
 }
 
-function loadGenUrl( g ) {
 
-  genUrl = g;
-
-}
-
-function getGenUrl() {
-
-  return genUrl;
-
-}
 
 
 /**

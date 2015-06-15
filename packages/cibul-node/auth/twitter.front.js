@@ -18,6 +18,8 @@ auth = require( './lib/auth' )( 'twitter' ),
 
 deepExtend = require( 'deep-extend' ),
 
+genUrl = require( '../services/genUrl' ),
+
 w = require( 'when' ),
 
 routes = {
@@ -61,11 +63,11 @@ function load( router, path ) {
     pLib.loadStrategy( 'twitter', 'passport-twitter' );
 
     pLib.use( 'twitter-signin', 'twitter', lib.extend( {
-      callbackURL: auth.genUrl( 'twitterSigninCallback' )
+      callbackURL: genUrl.abs( 'twitterSigninCallback' )
     }, twitterOptions ), _loadTwitterProfile );
 
     pLib.use( 'twitter-signup', 'twitter', lib.extend({
-      callbackURL: auth.genUrl( 'twitterSignupCallback' )
+      callbackURL: genUrl.abs( 'twitterSignupCallback' )
     }, twitterOptions ), _loadTwitterProfile );
 
     return router.load( path )( app );
@@ -84,7 +86,7 @@ function signin( req, res, next ) {
   auth.saveOptionals( req, res );
 
   pLib.authenticate( 'twitter-signin', {
-    callbackURL: auth.genUrl( 'twitterSigninCallback' )
+    callbackURL: genUrl.abs( 'twitterSigninCallback' )
   } )( req, res, next );
 
 }
@@ -98,7 +100,7 @@ function signup( req, res, next ) {
     auth.saveOptionals( req, res, { email: req.query.email } );
 
     pLib.authenticate( 'twitter-signup', {
-      callbackURL: auth.genUrl( 'twitterSignupCallback' )
+      callbackURL: genUrl.abs( 'twitterSignupCallback' )
     })( req, res, next );
 
   } else {

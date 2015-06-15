@@ -20,7 +20,7 @@ model = cmn.getCibulModel(),
 
 generic = require( './generic' )( model ),
 
-agendaSvc = require( '../services/agenda/agenda' ),
+agendaSvc = require( '../services/agenda' ),
 
 routes = {
   newsletterIndex: [ 'get', '', index ],

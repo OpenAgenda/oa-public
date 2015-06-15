@@ -24,7 +24,7 @@ mailer = require( '../mailer' ),
 
 cmn = require( '../../lib/commons-app' ),
 
-genUrl,
+genUrl = require( '../genUrl' ),
 
 invitationsService,
 
@@ -41,7 +41,6 @@ inviteMethods[ TYPES.AGENDAADMIN ] = 'getAdministratorInvite';
 inviteMethods[ TYPES.AGENDAMODERATOR ] = 'getModeratorInvite';
 
 module.exports = agendaInvitations;
-module.exports.loadGenUrl = loadGenUrl;
 
 agendaInvitations.process = process;
 
@@ -50,15 +49,7 @@ agendaInvitations.init = init;
 
 function init( svc ) {
 
-  loadGenUrl( require( '../../lib/commons-app' ).getGenUrl() )
-
   invitationsService = svc;
-
-}
-
-function loadGenUrl( g ) {
-
-  genUrl = g;
 
 }
 

@@ -1,9 +1,9 @@
 
-require( '../lib/test/genUrl' );
 require( '../search/test/task' );
 require( '../newsletter/test/task' );
 require( '../mailer/test/task' );
 require( '../general/test/nominatim' );
+require( '../services/genUrl/test/genUrl' );
 require( '../services/event/test/oembed' );
 require( '../services/event/test/state' );
 require( '../event/test/oembed.task' );

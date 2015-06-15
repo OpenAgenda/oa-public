@@ -27,7 +27,15 @@ module.exports = function( agendaService ) {
  * load agenda instance and set it in req.agenda
  */
 
-function loadAgenda( paramName, fieldName, basicLoad ) {
+function loadAgenda( paramName, fieldName, options ) {
+
+  if ( arguments.length === 2 && typeof fieldName == 'object' ) {
+
+    options = fieldName;
+
+    fieldName = undefined;
+
+  }
 
   if ( typeof fieldName == 'undefined' ) {
 
@@ -35,13 +43,15 @@ function loadAgenda( paramName, fieldName, basicLoad ) {
 
   }
 
+  if ( !options ) options = {};
+
   return function( req, res, next ) {
 
     var getParams = {};
 
     getParams[ fieldName ] = req.params[ paramName ];
 
-    svc.get( getParams, function( err, a ) {
+    svc.get( getParams, options, function( err, a ) {
 
       if ( err ) {
 
@@ -59,7 +69,7 @@ function loadAgenda( paramName, fieldName, basicLoad ) {
 
       req.agenda = a;
 
-      if ( basicLoad ) return next();
+      if ( options.basicLoad ) return next();
 
       // if full load ( default )
       // is requested, more info is fetched

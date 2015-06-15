@@ -1,8 +1,5 @@
 exports.makeLoad = makeLoad;
 exports.getCibulModel = getCibulModel;       // get model instance
-exports.makeGenUrl = makeGenUrl;             // proxy for router url generating function
-exports.loadGenUrl = loadGenUrl;
-exports.getGenUrl = getGenUrl;
 
 var lib = require( './lib' ),
 
@@ -12,9 +9,7 @@ model = require( 'cibulModel' )( config.db, config.redis, { imagePath: config.aw
 
 router = require( './router' ),
 
-log = require( './logger' )( 'commons-task' ),
-
-genUrl;
+log = require( './logger' )( 'commons-task' );
 
 
 /**
@@ -82,30 +77,5 @@ function _setBootOffset( time ) {
 function getCibulModel() {
 
   return model;
-
-}
-
-
-/**
- * proxy for router function of same name
- */
-
-function makeGenUrl() {
-
-  var args = Array.prototype.slice.call( arguments );
-
-  return router.makeGenUrl.apply( null, args );
-
-}
-
-function loadGenUrl( g ) {
-
-  genUrl = g;
-
-}
-
-function getGenUrl() {
-
-  return genUrl;
 
 }

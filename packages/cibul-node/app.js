@@ -1,8 +1,6 @@
 "use strict";
 
-var supervisor = require( './lib/supervisor' ),
-
-lib = require( './lib/lib' );
+var supervisor = require( './lib/supervisor' );
 
 module.exports = function( enabledTypes, cb ) {
 
@@ -36,7 +34,7 @@ module.exports = function( enabledTypes, cb ) {
 
     config = require( './config' ),
 
-    genUrl = require( './lib/genUrl' )( {
+    genUrl = require( './services/genUrl' ).init( {
       domain: config.domain,
     } ),
 
@@ -45,8 +43,6 @@ module.exports = function( enabledTypes, cb ) {
     app = express(),
 
     server;
-
-    cmn.loadGenUrl( genUrl );
 
     webModules = {
       admin: [ // for admins only

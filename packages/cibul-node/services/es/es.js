@@ -90,7 +90,7 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
 
   }
 
-  [ 'tags', 'category', 'org', 'what' ].forEach( function( name ) {
+  [ 'tags', 'category', 'org', 'what', 'countryCode' ].forEach( function( name ) {
 
     if ( query[ name ] ) esQuery[ name ] = query[ name ];
 
@@ -219,7 +219,11 @@ function _clean( query, params ) {
 
   }
 
-  [ 'neLat', 'neLng', 'swLat', 'swLng', 'category', 'location', 'org' ].forEach( function( name ) {
+  [ 
+    'neLat', 'neLng', 'swLat', 'swLng', 
+    'category', 'location', 'org', 
+    'countryCode'
+  ].forEach( function( name ) {
 
     if ( query[ name ] ) clean[ name ] = query[ name ];
 

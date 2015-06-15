@@ -10,6 +10,8 @@ model = require( 'cibulModel' )( config.db ),
 
 mailer = require( '../../mailer' ),
 
+genUrl = require( '../../genUrl' ),
+
 w = require( 'when' ),
 
 wn = require( 'when/node' ),
@@ -88,7 +90,7 @@ function _sendToken( values ) {
 
   log( 'sending lost password token %s', JSON.stringify( values ) );
 
-  var link = mailer.genUrl( 'resetPassword', { token: values.token.token } ),
+  var link = genUrl.abs( 'resetPassword', { token: values.token.token } ),
 
   text = "Follow this link to reset your password: %link%";
 

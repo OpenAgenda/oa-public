@@ -74,7 +74,7 @@ describe( 'cache - function', function() {
 
     wrapped( 'yeaay', function( err, result ) {
 
-      wrapped.cache.clear( function( err ) {
+      wrapped.cache.clear( 'yeaay', function( err ) {
 
         _hFuncGet( 'namespace', 'testFunc', 'yeaay', function( err, result ) {
 
@@ -87,6 +87,34 @@ describe( 'cache - function', function() {
       });
 
     } );
+
+  });
+
+  it( 'expire does not expire early, nor does it expire late. It expires exactly when it means to.', function( done ) {
+
+    var wrapped = cache.func( 'namespace', 'testFunc', testFunc, 1000 );
+
+    wrapped( 'yeaay', function( err, result ) {
+
+      _hFuncGet( 'namespace', 'testFunc', 'yeaay', function( err, result ) {
+
+        result.should.equal( JSON.stringify( 'here: yeaay' ) );
+
+        setTimeout( function() {
+
+          _hFuncGet( 'namespace', 'testFunc', 'yeaay', function( err, result ) {
+
+            should( result ).equal( null );
+
+            done();
+
+          });
+
+        }, 1100 );
+
+      });
+
+    });
 
   });
 
@@ -235,7 +263,7 @@ function _hFuncGet( namespace, name, key, cb ) {
 
   if ( !utils.isArray( key ) ) key = [ key ];
 
-  cli.hget( 'cache:' + namespace + ':' + name, JSON.stringify( key ), cb );
+  cli.get( 'cache:' + namespace + ':' + name + ':' + JSON.stringify( key ), cb );
 
 }
 

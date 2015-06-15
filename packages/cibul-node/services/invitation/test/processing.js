@@ -20,8 +20,6 @@ svc = require( '../' ),
 
 coms = require( '../../../lib/coms' );
 
-svc.agenda.loadGenUrl( function() { return '#testurl'; } );
-
 
 describe( 'invitation processing', function() {
 

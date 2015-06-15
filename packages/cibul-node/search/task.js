@@ -16,7 +16,7 @@ utils = require( '../lib/utils' ),
 
 cmn = require( '../lib/commons-task' ),
 
-agendaSvc = require( '../services/agenda/agenda' ),
+agendaSvc = require( '../services/agenda' ),
 
 config = require( '../config' ),
 

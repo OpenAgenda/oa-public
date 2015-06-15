@@ -1,6 +1,6 @@
 var log = require( '../../lib/logger' )( 'agenda task' ),
 
-svc = require( './agenda' ),
+svc = require( './' ),
 
 eventSvc = require( '../event' ),
 

@@ -2,7 +2,7 @@
 
 var modLib = require( '../lib/moduleLib' ),
 
-agendaSvc = require( '../services/agenda/agenda' ),
+agendaSvc = require( '../services/agenda' ),
 
 cmn = require( '../lib/commons-app' ),
 

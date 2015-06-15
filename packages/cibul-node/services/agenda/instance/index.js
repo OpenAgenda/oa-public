@@ -1,54 +1,26 @@
 "use strict";
 
-var log = require( '../../lib/logger' )( 'agenda service' ),
+var model = require( '../../model' ),
 
-config = require( '../../config' ),
+utils = require( '../../../lib/utils' ),
 
-model = require( '../model' ),
+config = require( '../../../config' ),
 
-lib = require( '../../lib/lib' ),
+coms = require( '../../../lib/coms' ),
 
-coms = require( '../../lib/coms' ),
+eventSvc = require( '../../event' ),
 
-es = require( '../es/es' ),
+es = require( '../../es/es' ),
 
 async = require( 'async' ),
 
-eventSvc = require( '../event' ),
+cache = require( '../../cache' );
 
-cache = require( '../cache' ),
-
-utils = require( '../../lib/utils' );
-
-module.exports = {
-  list: model.agendas().list,
-  get: get,
-  instanciate: instanciate
-}
-
-module.exports.mw = require( './middleware' )( module.exports );
-
-module.exports.exports = require( './exportLib' )( module.exports ); 
-
-function get( params, cb ) {
-
-  model.agendas().get( params, function( err, result ) {
-
-    if ( err ) return cb( err );
-
-    if ( !result ) return cb( 'agenda not found' );
-
-    cb( null, instanciate( result ) );
-
-  });
-
-}
-
-function instanciate( data ) {
+module.exports = function( data ) {
 
   var instance = model.agendas().instance( data )
 
-  return cache( 'agenda', lib.extend( {}, instance, {
+  return cache( 'agenda', utils.extend( {}, instance, {
     addEvent: addEvent,
     removeEvent: removeEvent,
     getControlData: getControlData,
@@ -297,4 +269,3 @@ function _getTimingDate( t ) {
   ].join( '-' );
 
 }
-

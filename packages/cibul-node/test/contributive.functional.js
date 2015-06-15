@@ -89,7 +89,7 @@ describe( 'contributive agenda', function() {
 
     this.timeout( 10000 );
 
-    _sendInvitation( browser, agenda, user )
+    _sendInvitation( browser, agenda, user, true )
 
     .then(function( i ) {
 
@@ -419,7 +419,7 @@ function _sendInvitation( browser, agenda, user, requireInfo ) {
 
     browser.check( 'fields[organization]' );
 
-  }: null )
+  } : null )
 
   .then( _p( browser, 'pressButton', '#save-contributor-info' ) )
 

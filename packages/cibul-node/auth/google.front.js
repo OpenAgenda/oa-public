@@ -14,6 +14,8 @@ pLib = require( './lib/passport' ),
 
 auth = require( './lib/auth' )( 'google' ),
 
+genUrl = require( '../services/genUrl' ),
+
 w = require( 'when' ),
 
 routes = {
@@ -56,11 +58,11 @@ function load( router, path ) {
     pLib.loadStrategy( 'google', 'passport-google-oauth', 'OAuth2Strategy' );
     
     pLib.use( 'google-signin', 'google', lib.extend( {
-      callbackURL: auth.genUrl( 'googleSigninCallback' )
+      callbackURL: genUrl.abs( 'googleSigninCallback' )
     }, googleOptions ), _loadGoogleProfile );
 
     pLib.use( 'google-signup', 'google', lib.extend( {
-      callbackURL: auth.genUrl( 'googleSignupCallback' )
+      callbackURL: genUrl.abs( 'googleSignupCallback' )
     }, googleOptions ), _loadGoogleProfile );
 
     return router.load( path )( app );
@@ -83,7 +85,7 @@ function signin( req, res, next ) {
 
   pLib.authenticate( 'google-signin', {
     scope: 'email', 
-    callbackURL: auth.genUrl( 'googleSigninCallback' )
+    callbackURL: genUrl.abs( 'googleSigninCallback' )
   } )( req, res, next );
 
 }
@@ -94,7 +96,7 @@ function signup( req, res, next ) {
 
   pLib.authenticate( 'google-signup', {
     scope: 'email', 
-    callbackURL: auth.genUrl( 'googleSignupCallback' )
+    callbackURL: genUrl.abs( 'googleSignupCallback' )
   } )( req, res, next );
 
 }

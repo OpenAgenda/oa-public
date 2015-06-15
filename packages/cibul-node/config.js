@@ -18,6 +18,7 @@ config = {
     root: 'https://openagenda.com',
     googleAnalyticsId: 'UA-60305866-1',
     useCache: true,
+    agendaCacheExpire: 30*1000,
     adminEmail: 'kaore@openagenda.com',
     mapboxAccessToken: 'pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
     db: {
@@ -299,9 +300,8 @@ config = {
     env: 'dev',
     multiCore: false,
     mainChannel: 'maindev',
-    logNameSpaces: 'oa:*',
+    logNameSpaces: 'oa:*,model',
     //useCache: false,
-    //logNameSpaces: '*',
     db: {
       database: 'oadev',
       host: 'localhost',
@@ -336,7 +336,7 @@ config = {
     },
     redis: {
       host: 'localhost',
-      port: 6389
+      port: 6379
     },
     mailer: {
       simulated: true
@@ -423,7 +423,7 @@ config = {
     },
     redis: {
       host: 'localhost',
-      port: 6389
+      port: 6379
     },
     mailer: {
       simulated: true

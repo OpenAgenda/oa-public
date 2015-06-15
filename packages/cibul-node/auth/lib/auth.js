@@ -20,7 +20,6 @@ exposed = {
   setSession: session.set,
   unsetSession: session.unset,
   signin: signin,
-  genUrl: genUrl,
   layoutData: layoutData,
   ifUserLoaded: ifUserLoaded,
   ifUserActivated: ifUserActivated,
@@ -252,18 +251,6 @@ function _render( template, defaults ) {
     return values;
 
   }
-
-}
-
-
-function genUrl( uri, query ) {
-
-  var generatedUrl = cmn.getGenUrl()( uri, query ? query : {}, {
-    abs: true, 
-    protocol: 'https://'
-  });
-
-  return generatedUrl;
 
 }
 

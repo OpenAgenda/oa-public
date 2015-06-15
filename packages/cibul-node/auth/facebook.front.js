@@ -16,6 +16,8 @@ w = require( 'when' ),
 
 log = require( '../lib/logger' )( 'auth/facebook' ),
 
+genUrl = require( '../services/genUrl' ),
+
 routes = {
   facebookSignin: [ 'get', '/signin', signin ],
   facebookSigninCallback: [ 'get', '/signin/callback', signinCallback ],
@@ -58,11 +60,11 @@ function load( router, path ) {
     pLib.loadStrategy( 'facebook', 'passport-facebook' );
 
     pLib.use( 'facebook-signin', 'facebook', lib.extend( {
-      callbackURL: auth.genUrl( 'facebookSigninCallback' )
+      callbackURL: genUrl.abs( 'facebookSigninCallback' )
     }, facebookOptions ), _loadFacebookProfile );
 
     pLib.use( 'facebook-signup', 'facebook', lib.extend( {
-      callbackURL: auth.genUrl( 'facebookSignupCallback' )
+      callbackURL: genUrl.abs( 'facebookSignupCallback' )
     }, facebookOptions ), _loadFacebookProfile );
 
     return router.load( path )( app );
@@ -82,7 +84,7 @@ function signin( req, res, next ) {
 
   pLib.authenticate( 'facebook-signin', {
     scope: 'email', 
-    callbackURL: auth.genUrl( 'facebookSigninCallback' )
+    callbackURL: genUrl.abs( 'facebookSigninCallback' )
   } )( req, res, next );
 
 }
@@ -93,7 +95,7 @@ function signup( req, res, next ) {
 
   pLib.authenticate( 'facebook-signup', {
     scope: 'email', 
-    callbackURL: auth.genUrl( 'facebookSignupCallback' )
+    callbackURL: genUrl.abs( 'facebookSignupCallback' )
   } )( req, res, next );
 
 }

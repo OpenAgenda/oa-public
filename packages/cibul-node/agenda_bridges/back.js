@@ -14,7 +14,7 @@ lib = require( '../lib/lib' ),
 
 cmn = require( '../lib/commons-app' ),
 
-agendaSvc = require( '../services/agenda/agenda' ),
+agendaSvc = require( '../services/agenda' ),
 
 config = require( '../config' ),
 

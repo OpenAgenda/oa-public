@@ -27,6 +27,8 @@ wn = require( 'when/node' ),
 
 builder = require('./build'),
 
+genUrl = require( '../services/genUrl' ),
+
 templater = require('cibulTemplates/server/templater'), // this renders the template layout
 
 running = false,
@@ -225,10 +227,7 @@ function _getNewsletterBodies( campaign, cb ) {
 
       data = d;
 
-      data.genUrl = cmn.makeGenUrl({
-        root: config.root,
-        base: { path: '', values: { slug: agenda.slug } }
-      });
+      data.genUrl = genUrl;
 
       return wn.call(async.series, [
 
