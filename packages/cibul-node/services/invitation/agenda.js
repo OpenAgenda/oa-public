@@ -66,7 +66,7 @@ function agendaInvitations( agenda ) {
     processAdministratorInvitation: _processStakeholder( TYPES.AGENDAADMIN ),
     processModeratorInvitation: _processStakeholder( TYPES.AGENDAMODERATOR )
   }
-
+  
 
   function _inviteStakeholder( type ) {
 
@@ -196,6 +196,7 @@ function agendaInvitations( agenda ) {
         title = 'You have been invited to become %stakeholder% of the agenda %agenda%',
 
         text = 'Click here to start %stakeholderaction% the agenda %agenda%';
+
 
         // owner invitation language sounds good
 

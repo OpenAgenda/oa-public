@@ -6,7 +6,7 @@ singleton;
 
 module.exports = function() {
 
-  return singleton;
+  return singleton.apply( null, Array.prototype.slice.call( arguments ) );
 
 }
 
