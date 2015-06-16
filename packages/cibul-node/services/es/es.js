@@ -152,7 +152,7 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
   
   if ( query.order ) {
 
-    esQuery.order = [ query.order ];
+    esQuery.options.order = [ query.order ];
 
   }
 
