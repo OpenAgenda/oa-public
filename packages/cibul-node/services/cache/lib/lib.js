@@ -73,6 +73,13 @@ function load( keys, method, expire, args, cb ) {
 
   args.push( function( err, data ) {
 
+    if ( err || data === undefined || data === null ) {
+
+      // redis does not take those.
+      return cb( err, data );
+
+    }
+
     if ( utils.isArray( keys ) ) {
 
       cli.hset( keys[ 0 ], keys[ 1 ], JSON.stringify( data ), onRedisResponse );
