@@ -523,6 +523,8 @@ module.exports = function( uid ) {
 
     });
 
+    data.geolocate = typeof _readHrefQuery().geolocate !== 'undefined';
+
     cn.forEach( data.ev, function( e ) {
 
       if ( e.l ) {

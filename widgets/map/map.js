@@ -131,6 +131,8 @@ function widget( elem, options ) {
 
       _createMap( mapAttributes );
 
+      baseBounds = m.getBounds( map );
+
     }
 
     controller.getControlData( function( data ) {
@@ -145,7 +147,9 @@ function widget( elem, options ) {
 
       _initIcons( data );
 
-      _defineBaseBounds( data );
+      // base bounds has been defined if config is set in
+      // widget attributes
+      if ( typeof baseBounds === 'undefined' ) _defineBaseBounds( data );
 
       log( 'init complete, enable to render' );
 
@@ -738,6 +742,10 @@ function widget( elem, options ) {
 
     if ( data.ebd && data.ebd.ma ) auto = data.ebd.ma;
 
+    // if geolocation is used, controller sets it to true
+    // and preempts default config
+    if ( data.geolocate ) auto = true;
+
     config.auto = auto;
 
     if ( config.auto ) _activateSync();
@@ -1052,34 +1060,6 @@ function widget( elem, options ) {
 
   function _fitBounds( bounds, ignoreZoomLimit ) {
 
-    boundsQueue.splice( 0, 0, [ bounds, ignoreZoomLimit ] );
-
-    if ( !processingQueue ) _fitBoundsQueueProcess();
-
-  }
-
-
-  /**
-   * if two bound changes happen too fast, the last change is
-   * not taken into account. This queuing system resolves this.
-   */
-
-  function _fitBoundsQueueProcess() {
-
-    if ( !boundsQueue.length ) {
-
-      processingQueue = false;
-
-      return;
-
-    }
-
-    processingQueue = true;
-
-    var popped = boundsQueue.pop(),
-
-    bounds = popped[ 0 ], ignoreZoomLimit = popped[ 1 ];
-
     if ( typeof ignoreZoomLimit == 'undefined' ) {
 
       ignoreZoomLimit = false;
@@ -1097,8 +1077,6 @@ function widget( elem, options ) {
       m.setZoom( map, config.minZoom );
 
     }
-
-    setTimeout( _fitBoundsQueueProcess, 1000 );
 
   }
 
