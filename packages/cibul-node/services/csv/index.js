@@ -6,7 +6,11 @@ utils = require( '../../lib/utils' ),
 
 possibleLanguages = [ 'fr', 'en', 'es', 'de', 'it' ];
 
-module.exports = function( writeableStream, options ) {
+module.exports = stream;
+
+module.exports.getRow = getRow;
+
+function stream( writeableStream, options ) {
 
   var params = utils.extend( {
     sourceField: 'events',
@@ -39,7 +43,7 @@ module.exports = function( writeableStream, options ) {
 
     values.forEach( function( v ) {
 
-      _writeRow( stream, v, params.mapping );
+      _writeStreamRow( stream, v, params.mapping );
 
     });
 
@@ -53,7 +57,7 @@ module.exports = function( writeableStream, options ) {
 
 }
 
-function _writeRow( stream, values, mapping ) {
+function getRow( values, mapping ) {
 
   var csvRow = {};
 
@@ -117,7 +121,13 @@ function _writeRow( stream, values, mapping ) {
 
   });
 
-  stream.write( csvRow );
+return csvRow;
+
+}
+
+function _writeStreamRow( stream, values, mapping ) {
+
+  stream.write( getRow( values, mapping ) );
 
 }
 
