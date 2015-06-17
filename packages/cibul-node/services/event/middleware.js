@@ -160,7 +160,7 @@ function _selectLanguage( v ) {
 
     v.redirect = {
       code: 302,
-      to: v.req.genUrl( v.req.agenda ? 'agendaEventShow' : 'eventShow', req.agenda ? { slug: req.agenda.slug, eventSlug: v.event.slug } : { eventSlug: v.event.slug } )
+      to: v.req.genUrl( v.req.agenda ? 'agendaEventShow' : 'eventShow', v.req.agenda ? { slug: v.req.agenda.slug, eventSlug: v.event.slug } : { eventSlug: v.event.slug } )
     };
 
   } else {
