@@ -96,7 +96,8 @@ config = {
     },
     oembed: {
       res: 'https://iframe.ly/api/oembed',
-      key: '044c4cbd91d65eab056738',
+      //key: '044c4cbd91d65eab056738',
+      key: '32d62d210e9dcf24c0134e',
       platforms: [ 
         'youtube', 'dailymotion', 'vimeo', 
         'soundcloud', 'twitter', 'flickr', 
