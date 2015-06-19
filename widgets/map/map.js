@@ -18,6 +18,8 @@ debug = require( 'debug' ),
 
 baseConfig = require( './config.js' ),
 
+history = require( './history' ),
+
 mapLib = require( '../../js/lib/maps/osm.maps.mod' ),
 
 templates = {
@@ -72,7 +74,7 @@ function widget( elem, options ) {
 
   activeBounds,
 
-  currentBounds,
+  navHistory = history(),
 
   passedLocations = [],
 
@@ -355,18 +357,7 @@ function widget( elem, options ) {
 
   }
 
-
-  /**
-   * other widget is changing things,
-   * clear own bounds
-   */
-
-  function change() {
-
-    currentBounds = false;
-
-  }
-
+  function change() {}
 
   function include( eventItem, reqParams ) {
 
@@ -901,6 +892,8 @@ function widget( elem, options ) {
 
     m.setOnBoundsChangeEnd( map, function() {
 
+      navHistory.sync( m.getBounds( map ) );
+
       if ( selectedEvent ) return;
 
       log( 'bounds changed, automatic marker selection is %s and widget is %s', config.auto ? 'on' : 'off', enabled ? 'enabled' : 'disabled' );
@@ -972,35 +965,21 @@ function widget( elem, options ) {
 
   function _updateBounds( reqParams, cb ) {
 
-    var bounds;
+    var bounds = false;
 
-    if ( currentBounds ) {
+    if ( navHistory.matchCurrent( reqParams ) ) {
 
-      return cb();
+      bounds = false;
 
-    }
+    } else if ( navHistory.matchPrev( reqParams ) ) {
 
-    if ( !cn.size( reqParams ) ) {
+      bounds = navHistory.back();
 
-      bounds = baseBounds;
-
-    }
-
-    if ( !bounds && ( ( cn.size( reqParams ) == 1 ) && reqParams.passed ) ) {
-
-      bounds = baseBounds
-
-    }
-
-    if ( !bounds ) { 
+    } else if ( activeBounds ) {
 
       bounds = activeBounds;
 
-    }
-
-    if ( !bounds && !reqParams.location ) {
-
-      bounds = baseBounds;
+      navHistory.add( reqParams, bounds );
 
     }
 
@@ -1067,8 +1046,6 @@ function widget( elem, options ) {
     }
 
     m.fitBounds( map, bounds );
-
-    currentBounds = bounds;
 
     log( 'prevent map to exceed min zoom' );
 
