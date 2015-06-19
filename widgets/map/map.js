@@ -975,6 +975,10 @@ function widget( elem, options ) {
 
       bounds = navHistory.back();
 
+    } else if ( reqParams.neLat && navHistory.current() ) {
+
+      bounds = false;
+
     } else if ( activeBounds ) {
 
       bounds = activeBounds;
@@ -1054,6 +1058,26 @@ function widget( elem, options ) {
       m.setZoom( map, config.minZoom );
 
     }
+
+  }
+
+
+  function _maxBoundDiff( bounds ) {
+
+    var mapBounds = m.getBounds( map ),
+
+    mapNE = m.getBoundsNorthEast( mapBounds ),
+
+    mapSW = m.getBoundsSouthWest( mapBounds ),
+
+    boundsNE = m.getBoundsNorthEast( bounds ),
+
+    boundsSW = m.getBoundsSouthWest( bounds );
+
+    return Math.max(
+      _distance( mapNE[ 0 ], mapNE[ 1 ], boundsNE[ 0 ], boundsNE[ 1 ] ),
+      _distance( mapSW[ 0 ], mapSW[ 1 ], boundsSW[ 0 ], boundsSW[ 1 ] )
+    );
 
   }
 
