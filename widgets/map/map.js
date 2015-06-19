@@ -1049,7 +1049,22 @@ function widget( elem, options ) {
 
     }
 
-    m.fitBounds( map, bounds );
+    try {
+
+      m.fitBounds( map, bounds );
+
+    } catch( e ) {
+
+      console.log( 'caught error while fitting bounds. waiting a tiny bit before trying again' );
+      console.log( e );
+
+      setTimeout( function() {
+
+        _fitBounds( bounds, ignoreZoomLimit );
+        
+      }, 500 );
+
+    }
 
     log( 'prevent map to exceed min zoom' );
 
