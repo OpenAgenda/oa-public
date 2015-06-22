@@ -3,14 +3,14 @@
   <div class="wsq container <%= mainClass %>" id="review-admin-menu">
     <header>
 <% if ( agenda.image ) {%>
-      <a href="<%= genUrl('agendaShow') %>">
-        <img alt="<%= agenda.title %>" src="<%= _i(agenda.image) %>">
+      <a href="<%= genUrl( 'agendaShow', { slug: agenda.slug } ) %>">
+        <img alt="<%= agenda.title %>" src="<%= _i( agenda.image ) %>">
       </a>
 <% } %>
       <div class="title js_edit">
         <h1><%= agenda.title %></h1>
         <p><%= __('Administration') %></p>
-        <a class="url" href="<%= genUrl('agendaShow') %>"><%= __('back') %></a>
+        <a class="url" href="<%= genUrl( 'agendaShow') %>"><%= __('back') %></a>
       </div>
     </header>
     <nav class="sec">
@@ -20,30 +20,25 @@
             <i class="fa fa-list"></i>
           </a>
         </li>
-        <li class="menu-item js_menu_item title"><h2><%= __('Manage') %></h2></li>
-        <li class="menu-item js_menu_item"><a class="<% if (tab=='events') { %> active<% } %>" href="<%= genUrl('agendaAdminShow') %>"><span><%= __('Events') %></span></a></li>
-        <li class="menu-item js_menu_item"><a class="<% if (tab=='contributors') { %> active<% } %>" href="<%= genUrl('agendaAdminContributors') %>"><span><%= __('Contributors') %></span></a></li>
-        <li class="menu-item js_menu_item"><a class="<% if (tab=='dataviz') { %> active<% } %>" href="<%= genUrl('agendaAdminDataviz') %>"><span><%= __('Dataviz') %></span></a></li>
-        <li class="menu-item js_menu_item"><a class="<% if (tab=='categories') { %> active<% } %>" href="<%= genUrl('agendaAdminCategories') %>"><span><%= __('Categories and Tags') %></span></a></li>
-        <li class="menu-item js_menu_item"><a class="<% if (tab=='sources') { %> active<% } %>" href="<%= genUrl('agendaAdminSources') %>"><span><%= __('Sources') %></span></a></li>
-      </ul>
-      <ul class="sidebar-item">
-        <li class="menu-item title js_menu_item"><h2><%= __('Export') %></h2></li>
-        <li class="menu-item js_menu_item">
-          <a href="<%= genUrl('agendaAdminFacebook' ) %>">
-            <span><%= __('Facebook Link') %></span>
-          </a>
+        <li class="menu-item js_menu_item title">
+          <h2><%= __('Manage') %></h2>
         </li>
-        <li class="menu-item js_menu_item"><a class="<% if (tab=='swapcard') { %> active<% } %>" href="<%= genUrl('serviceIndex', { service: 'swapcard' }) %>"><span><%= __('Swapcard') %></span></a></li>
-        <li class="menu-item js_menu_item"><a class="<% if (tab=='web') { %> active<% } %>" href="<%= genUrl('agendaAdminWeb') %>"><span><%= __('Web Integration') %></span></a></li>
-        <li class="menu-item js_menu_item"><a class="<% if (tab=='newsletters') { %> active<% } %>" href="<%= genUrl('newsletterIndex') %>"><span><%= __('Newsletter') %></span></a></li>
-        <li class="menu-item js_menu_item"><a class="<% if (tab=='xml') { %> active<% } %>" href="<%= genUrl('agendaAdminIndesign') %>"><span><%= __('Indesign - Xml') %></span></a></li>
+<% tabs.filter( function( t ) { return t.section === 'manage' } ).forEach( function( t ) { %>
+      <% include ./tab.part.ejs %>
+<% }); %>
+      <ul class="sidebar-item">
+        <li class="menu-item title js_menu_item">
+          <h2><%= __('Export') %></h2>
+        </li>
+<% tabs.filter( function( t ) { return t.section == 'export' } ).forEach( function( t ) { %>
+      <% include ./tab.part.ejs %>
+<% }) %>
       </ul>
       <ul class="sidebar-item">
         <li class="menu-item title js_menu_item"><h2><%= __('Customize') %></h2></li>
-        <li class="menu-item js_menu_item"><a class="<% if (tab=='administrators') { %> active<% } %>" href="<%= genUrl('agendaAdminAdministrators') %>"><span><%= __('Administrators') %></span></a></li>
-        <li class="menu-item js_menu_item"><a class="<% if (tab=='theme') { %> active<% } %>" href="<%= genUrl('agendaAdminTheme') %>"><span><%= __('Theme') %></span></a></li>
-        <li class="menu-item js_menu_item"><a class="<% if (tab=='parameters') { %> active<% } %>" href="<%= genUrl('agendaAdminSettings') %>"><span><%= __('Settings') %></span></a></li>
+<% tabs.filter( function( t ) { return t.section == 'settings' } ).forEach( function( t ) { %>
+      <% include ./tab.part.ejs %>
+<% }) %>
       </ul>
     </nav><!--
     --><div class="main">

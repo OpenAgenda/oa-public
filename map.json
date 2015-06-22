@@ -41,6 +41,8 @@
   "newsletter/unsubscribe",
   "newsletter/unsubscribeComplete",
 
+  "emailstrategie/index",
+
   "swapcard/index",
 
   "error/show",
