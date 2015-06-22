@@ -8,6 +8,8 @@ log = require( '../lib/logger' )( 'agenda/stakeholders' ),
 
 invitationSvc = require( '../services/invitation' ),
 
+agendaSvc = require( '../services/agenda/agenda' ),
+
 utils = require( '../lib/utils' ),
 
 routes = {
@@ -44,13 +46,15 @@ routes = {
 
   contributorsInfo: [ 'get', '/contributors/info', [ 
     cmn.checkAdministrator,
-    cmn.loadBaseData( _layoutData ),
+    agendaSvc.mw.loadAdminLayout,
+    cmn.loadBaseData(),
     info
   ] ],
 
   contributorsInfoSubmit: [ 'post', '/contributors/info', [
     cmn.checkAdministrator,
-    cmn.loadBaseData( _layoutData ),
+    agendaSvc.mw.loadAdminLayout,
+    cmn.loadBaseData(),
     infoSubmit
   ] ]
   
@@ -183,22 +187,5 @@ function inviteResend( options ) {
     } );
 
   }
-
-}
-
-
-
-
-function _layoutData( req, res ) {
-
-  return {
-    agenda: {
-      slug: req.agenda.slug,
-      title: req.agenda.title,
-      description: req.agenda.description,
-      url: req.agenda.url,
-      image: req.agenda.getImage( false )
-    }
-  };
 
 }

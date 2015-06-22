@@ -4,7 +4,9 @@ var svc,
 
 svcCsv = require( '../csv' ),
 
-utils = require( '../../lib/utils' );
+utils = require( '../../lib/utils' ),
+
+svcConfig = require( './config' );
 
 module.exports = function( agendaService ) {
 
@@ -12,6 +14,7 @@ module.exports = function( agendaService ) {
 
   return {
     load: loadAgenda,
+    loadAdminLayout: loadAdminLayout,
     search: searchEvents,
     browserCache: browserCache,
     decorateEvents: decorateEvents,
@@ -93,6 +96,43 @@ function loadAgenda( paramName, fieldName, options ) {
     } );
 
   }
+
+}
+
+
+/**
+ *  load data required for an agenda administration page
+ */
+
+function loadAdminLayout( req, res, next ) {
+
+  req.layoutData = {
+    agenda: {
+      slug: req.agenda.slug,
+      title: req.agenda.title,
+      description: req.agenda.description,
+      url: req.agenda.url,
+      image: req.agenda.getImage( false )
+    }
+  }
+
+  req.agenda.getCredentialList( function( err, credentials ) {
+
+    if ( err ) return next( err );
+
+    // filter tabs where agenda does not have required creds
+
+    req.layoutData.tabs = svcConfig.adminTabs.filter( function( tab ) {
+
+      if ( typeof tab.requireCred == 'undefined' ) return true;
+
+      return credentials.indexOf( tab.requireCred ) !== -1;
+
+    } );
+
+    next();
+
+  });
 
 }
 
