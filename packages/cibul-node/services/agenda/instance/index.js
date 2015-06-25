@@ -10,28 +10,37 @@ coms = require( '../../../lib/coms' ),
 
 eventSvc = require( '../../event' ),
 
-es = require( '../../es/es' ),
+search = require( './search' ),
 
 async = require( 'async' ),
 
-cache = require( '../../cache' );
+cache = require( '../../cache' ),
+
+flattener = require( './flattener' ),
+
+emailStrategie = require( './emailStrategie' );
 
 module.exports = function( data ) {
 
-  var instance = model.agendas().instance( data )
+  var instance = model.agendas().instance( data ),
 
-  return cache( 'agenda', utils.extend( {}, instance, {
+  svcInstance = utils.extend( {}, instance, {
     addEvent: addEvent,
     removeEvent: removeEvent,
-    getControlData: getControlData,
-    search: search
-  }), [ 'getControlData' ], [ 'addEvent', 'removeEvent' ] );
+    getControlData: getControlData
+  });
 
-  function search( query, options, cb ) {
+  search( svcInstance, instance, [
+    'search',
+    'searchStream'
+  ]);
 
-    es.agendas( instance ).search( query, options, cb );
+  flattener( svcInstance, instance, [ 'flattener' ] );
 
-  }
+  emailStrategie( svcInstance, instance, [ 'emailStrategie' ] );
+
+  return cache( 'agenda', svcInstance, [ 'getControlData' ], [ 'addEvent', 'removeEvent' ] );
+
 
   function addEvent( event, stakeholder, cb ) {
 
@@ -111,7 +120,7 @@ module.exports = function( data ) {
 
     async.doWhilst( function( wcb ) {
 
-      search( { passed: 1 }, { limit: 40, page: page }, function( err, result ) {
+      svcInstance.search( { passed: 1 }, { limit: 40, page: page }, function( err, result ) {
 
         if ( err ) return wcb( err );
 

@@ -2,11 +2,13 @@
 
 var svc,
 
-svcCsv = require( '../csv' ),
+csv = require( 'fast-csv' ),
 
 utils = require( '../../lib/utils' ),
 
-svcConfig = require( './config' );
+svcConfig = require( './config' ),
+
+eventSvc = require( '../event' );
 
 module.exports = function( agendaService ) {
 
@@ -18,8 +20,7 @@ module.exports = function( agendaService ) {
     search: searchEvents,
     browserCache: browserCache,
     decorateEvents: decorateEvents,
-    buildCsv: buildCsv,
-    renderCsv: renderCsv
+    buildCsv: buildCsv
   }
 
 }
@@ -124,9 +125,9 @@ function loadAdminLayout( req, res, next ) {
 
     req.layoutData.tabs = svcConfig.adminTabs.filter( function( tab ) {
 
-      if ( typeof tab.requireCred == 'undefined' ) return true;
+      if ( tab.requiredCred === undefined ) return true;
 
-      return credentials.indexOf( tab.requireCred ) !== -1;
+      return credentials.indexOf( tab.requiredCred ) !== -1;
 
     } );
 
@@ -196,6 +197,7 @@ function searchEvents( limit, showAll ) {
 }
 
 
+
 function browserCache( req, res, next ) {
 
   var lastUpdate = req.agenda.updatedAt;
@@ -225,7 +227,6 @@ function decorateEvents( includePrivateData ) {
   return function( req, res, next ) {
 
     svc.exports.decorateEvents( req.agenda, req.events, req.formatted, {
-      genUrl: req.genUrl,
       includePrivateData: !!includePrivateData
     }, next );
 
@@ -238,44 +239,31 @@ function buildCsv( includePrivateData ) {
 
   return function( req, res, next ) {
 
-    if ( res.csv ) {
+    req.agenda.flattener( includePrivateData, function( err, f ) {
 
-      res.csv.write( req );
+      if ( err ) return next( err );
 
-      return next();
+      var stream = req.agenda.searchStream( req.query.search, {
+        showAll: includePrivateData 
+      } ),
 
-    }
+      csvStream = csv.createWriteStream( {
+        headers: true,
+        delimiter: ';',
+        quote: '"',
+        escape: '"'
+      } ),
 
-    req.agenda.getLanguages( function( err, languages ) {
+      defaultRow = {}, processing = 0, end;
 
-      res.csv = svcCsv( res, {
-        sourceField: 'formatted',
-        mapping: [ 'uid' ].concat(
-          _textFields( [ 'title', 'description', 'longDescription', 'conditions' ], languages ), 
-          [
-            'image',
-            'thumbnail',
-            'originalImage',
-            'updatedAt',
-            [ 'range', 'range', [ 'fr', 'en' ] ],
-            'firstDate',
-            'firstTimeStart',
-            'firstTimeEnd',
-            'registrationUrl',
-            'locationName',
-            'locationUid',
-            'address',
-            'postalCode',
-            'city',
-            'district',
-            'department',
-            'region',
-            'latitude',
-            'longitude',
-            'featured' 
-          ],
-          _extendMapping( req.agenda, includePrivateData )
-      ) } );
+      // csv must have all column filled with empty values
+      f.getFieldNames().forEach( function( n ) {
+
+        defaultRow[ n ] = '';
+
+      });
+
+      csvStream.pipe( res );
 
       res.writeHead( 200, {
         'Content-Type': 'text/csv',
@@ -286,9 +274,48 @@ function buildCsv( includePrivateData ) {
           '.csv\"' ].join('')
       } );
 
-      res.csv.write( req );
+      stream.on( 'data', function( eventData ) {
 
-      next();
+        processing++;
+
+        // instanciate
+        var eInst = eventSvc.instanciate( eventData ),
+
+        // clean event
+        clean = eventSvc.exports.clean( eInst );
+
+        // decorate with agenda related data
+        svc.exports.decorateEvent( req.agenda, eInst, clean, {
+          includePrivateData: !!includePrivateData
+        }, function( err, clean ) {
+
+          if ( err ) {
+
+            req.log( 'error', err );
+
+            return;
+
+          }
+
+          processing--;
+
+          csvStream.write( utils.extend( {}, defaultRow, f.flatten( clean ) ) );
+
+          if ( !processing && end ) {
+
+            csvStream.end();
+
+          }
+
+        } );
+
+      } );
+
+      stream.on( 'end', function() {
+
+        end = true;
+
+      });
 
     } );
 
@@ -297,54 +324,6 @@ function buildCsv( includePrivateData ) {
 }
 
 
-function renderCsv( req, res, next ) {
-
-  res.csv.end();
-  
-}
-
-
-function _textFields( fields, languages ) {
-
-  var languageFields = [];
-
-  fields.forEach( function( f ) {
-
-    languageFields.push( [ f, f, languages ] );
-
-  });
-
-  return languageFields;
-
-}
-
-function _extendMapping( agenda, includePrivateData ) {
-
-  var amendment = [ { 
-    sourceField: 'category',
-    fn: function( c ) { return c.label }
-  }, { 
-    sourceField: 'tags',
-    fn: function( t ) { return t ? t.map( function( t ) { return t.label } ).join( ', ') : '' }
-  } ],
-
-  customFields = agenda.getCustomFieldsConfig();
-
-  if ( includePrivateData ) amendment.push( 'state' );
-
-  customFields.forEach( function( cField ) {
-
-    if ( includePrivateData || ( cField.type !== 'private' ) ) {
-
-      amendment.push( [ cField.name, 'custom.' + cField.name ] );
-
-    }
-
-  });
-
-  return amendment;
-
-}
 
 
 function _loadIsPassed( agenda, cb ) {

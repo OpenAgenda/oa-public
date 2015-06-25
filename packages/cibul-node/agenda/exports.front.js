@@ -22,13 +22,10 @@ routes = {
     json
   ] ],
 
-  agendaCsvEvents: [ 'get', '/events.csv', cmn.loopThrough( 'page', [
+  agendaCsvEvents: [ 'get', '/events.csv', [
     agendaSvc.mw.load( 'uid' ),
-    agendaSvc.mw.search( perPage ),
-    eventSvc.mw.cleanEvents,
-    agendaSvc.mw.decorateEvents( false ),
     agendaSvc.mw.buildCsv( false )
-  ], agendaSvc.mw.renderCsv ) ]
+  ] ]
 
 };
 

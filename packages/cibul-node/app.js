@@ -44,6 +44,11 @@ module.exports = function( enabledTypes, cb ) {
 
     server;
 
+    require( 'emailStrategie' ).init( {
+      database: config.emailStrategieDb,
+      redis: config.redis
+    } );
+
     webModules = {
       admin: [ // for admins only
         require( './admin/back' )( '/admin' )
@@ -61,6 +66,7 @@ module.exports = function( enabledTypes, cb ) {
         require( './auth/google.front' )( '/google' ),
         require( './auth/reset.front' )( '/password' ),
         require( './agenda/stakeholders.back' )( '/:slug/admin' ),
+        require( './agenda/emailstrategie.back' )( '/:slug/admin/emailstrategie' ),
         require( './location/front' )( '/locations' ),
         require( './agenda/front' )( '' ),
         require( './agenda/actions.front' )( '/:slug/actions' ),

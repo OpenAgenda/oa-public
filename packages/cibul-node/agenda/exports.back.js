@@ -14,12 +14,10 @@ perPage = 20,
 
 routes = {
 
-  agendaAdminCsvEvents: [ 'get', '/events.csv', cmn.loopThrough( 'page', [
-    agendaSvc.mw.search( perPage, true ),
-    eventSvc.mw.cleanEvents,
-    agendaSvc.mw.decorateEvents( true ),
+  agendaAdminCsvEvents: [ 'get', '/events.csv', [
+    agendaSvc.mw.load( 'uid' ),
     agendaSvc.mw.buildCsv( true )
-  ], agendaSvc.mw.renderCsv ) ]
+  ] ]
 
 };
 

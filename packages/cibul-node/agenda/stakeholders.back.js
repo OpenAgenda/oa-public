@@ -8,7 +8,7 @@ log = require( '../lib/logger' )( 'agenda/stakeholders' ),
 
 invitationSvc = require( '../services/invitation' ),
 
-agendaSvc = require( '../services/agenda/agenda' ),
+agendaSvc = require( '../services/agenda' ),
 
 utils = require( '../lib/utils' ),
 

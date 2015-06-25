@@ -95,11 +95,7 @@ function search( limit ) {
 
 function cleanEvents( req, res, next ) {
 
-  var clean = svc.exports.cleanEvents( req.events, {
-    genUrl: req.genUrl
-  });
-  
-  req.formatted = clean;
+  req.formatted = svc.exports.cleanEvents( req.events );
 
   next();
 

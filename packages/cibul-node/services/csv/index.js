@@ -10,12 +10,7 @@ module.exports = stream;
 
 module.exports.getRow = getRow;
 
-function stream( writeableStream, options ) {
-
-  var params = utils.extend( {
-    sourceField: 'events',
-    mapping: []
-  }, options );
+function stream( writeableStream, mapping ) {
 
   var stream = csv.createWriteStream( {
     headers: true,
@@ -31,9 +26,7 @@ function stream( writeableStream, options ) {
     end: end
   };
 
-  function write( req ) {
-
-    var values = req[ params.sourceField ];
+  function write( values ) {
 
     if ( !utils.isArray( values ) ) {
 
@@ -43,7 +36,7 @@ function stream( writeableStream, options ) {
 
     values.forEach( function( v ) {
 
-      _writeStreamRow( stream, v, params.mapping );
+      _writeStreamRow( stream, v, mapping );
 
     });
 

@@ -446,6 +446,15 @@ var currentConfig = _loadEnv( process.env.NODE_ENV || 'dev' );
 
 currentConfig.loadEnv = _loadEnv;
 
+
+/**
+ * emailstrategie database configuration
+ */
+
+currentConfig.emailStrategieDb = deepExtend( {}, currentConfig.db, {
+  database: 'emailStrategie' + ( process.env.NODE_ENV !== 'prod' ? process.env.NODE_ENV : '' )
+} );
+
 module.exports = currentConfig;
 
 function _loadEnv( env ) {

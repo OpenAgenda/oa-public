@@ -41,8 +41,6 @@ exports.loadLegacyRoutes = loadLegacyRoutes;
 exports.loadDeprecatedRoutes = loadDeprecatedRoutes;
 exports.loadInDeprecatedRouter = loadInDeprecatedRouter;
 
-exports.loopThrough = loopThrough; // loop through a paginated ressource and apply listed middlewares
-
 /**
  * dependencies and constant declarations
  */
@@ -1012,47 +1010,5 @@ function loadInDeprecatedRouter( paths ) {
   var deprecatedRouter = require( './router' );
 
   deprecatedRouter.registerPaths( paths );
-
-}
-
-
-
-function loopThrough( queryParam, middlewares, finalMiddleware ) {
-
-  return function( req, res, next ) {
-
-    var paramValue = 1, hasMore = true;
-
-    req.query[ queryParam ] = 0;
-
-    async.doWhilst( function( wcb ) {
-
-      req.query[ queryParam ]++;
-
-      _runMiddlewares( middlewares, req, res, wcb );
-
-    }, function() {
-
-      return req.events.length > 0;
-
-    }, function( err ) {
-
-      if ( err ) return next( err );
-
-      finalMiddleware( req, res, next );
-
-    } );
-
-  }
-
-}
-
-function _runMiddlewares( middlewares, req, res, next ) {
-
-  async.eachSeries( middlewares, function( mw, ecb ) {
-
-    mw( req, res, ecb );
-
-  }, next );
 
 }
