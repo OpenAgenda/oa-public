@@ -1,0 +1,13 @@
+{
+  "name" : "emailstrategie",
+  "version" : "0.0.1",
+  "private" : true,
+  "description" : "interface to EmailStrategie emailing service",
+  "dependencies" : {
+    "redis" : "~0.12",
+    "should" : "~4.0",
+    "xml2js" : "0.4.9",
+    "mysql" : "2.6.2",
+    "utils" : "git+ssh://git@bitbucket.org:openagenda/utils.git"
+  }
+}
