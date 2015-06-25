@@ -1,6 +1,6 @@
 {
-  "name" : "emailstrategie",
-  "version" : "0.0.1",
+  "name" : "emailStrategie",
+  "version" : "0.0.2",
   "private" : true,
   "description" : "interface to EmailStrategie emailing service",
   "dependencies" : {
