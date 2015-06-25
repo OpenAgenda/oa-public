@@ -1,7 +1,6 @@
 "use strict";
 
-var login = 'APIEstEnsemble',
-password = '236656',
+var creds = require( './lib/creds'),
 
 should = require( 'should' ),
 
@@ -28,11 +27,11 @@ describe( 'GenerateAuthentification', function() {
 
   });
 
-  it.only( 'should authenticate', function( done ) {
+  it( 'should authenticate', function( done ) {
 
     ifc.GenerateAuthentification( {
-      login: login,
-      password: password
+      login: creds.login,
+      password: creds.password
     }, function( err, result ) {
 
       should( err ).equal( null );
@@ -54,8 +53,8 @@ describe( 'authenticate, create and delete lists', function() {
   before( function( done ) {
 
     ifc.GenerateAuthentification( {
-      login: login, 
-      password: password 
+      login: creds.login, 
+      password: creds.password 
     }, function( err, result ) {
 
       token = result.token;
@@ -116,8 +115,8 @@ describe( 'get list, handle content', function() {
   before( function( done ) {
 
     ifc.GenerateAuthentification( {
-      login: login, 
-      password: password 
+      login: creds.login, 
+      password: creds.password 
     }, function( err, result ) {
 
       token = result.token;

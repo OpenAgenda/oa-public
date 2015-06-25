@@ -10,7 +10,7 @@ dbConfig = {
   host: 'localhost',
   user: 'root',
   password: 'grut',
-  database: 'emailstrategie'
+  database: 'emailstrategietest'
 }
 
 describe( 'setting up', function() {
@@ -25,7 +25,7 @@ describe( 'setting up', function() {
 
       var cli = mysql.createConnection( dbConfig );
 
-      cli.query( 'select 1 from emailstrategie limit 1', function( err, rows ) {
+      cli.query( 'select 1 from account limit 1', function( err, rows ) {
 
         should( err ).equal( null );
 
@@ -52,14 +52,14 @@ describe( 'get and set', function() {
     store.set( {
       login: 'gruut',
       password: 'enbrug',
-      listIds: []
+      lists: []
     }, function( err, result ) {
 
       should( err ).equal( null );
 
       var con = mysql.createConnection( dbConfig );
 
-      con.query( 'select * from emailstrategie', function( err, rows ) {
+      con.query( 'select * from account', function( err, rows ) {
 
         rows.length.should.equal( 1 );
 
@@ -75,7 +75,7 @@ describe( 'get and set', function() {
 
   it( 'set updates when id is specified', function( done ) {
 
-    var data = { login: 'yippi', password: 'kay', listIds: [ 'yeay' ] };
+    var data = { login: 'yippi', password: 'kay', lists: [ 'yeay' ] };
 
     store.set( data, function( err, id ) {
 
@@ -87,7 +87,7 @@ describe( 'get and set', function() {
 
         var con = mysql.createConnection( dbConfig );
 
-        con.query( 'select * from emailstrategie', function( err, rows ) {
+        con.query( 'select * from account', function( err, rows ) {
 
           con.end();
 
@@ -95,7 +95,7 @@ describe( 'get and set', function() {
 
           rows[ 0 ].id.should.equal( id );
 
-          rows[ 0 ].list_ids.should.equal( JSON.stringify( [ 'yeay' ] ) );
+          rows[ 0 ].lists.should.equal( JSON.stringify( [ 'yeay' ] ) );
 
           rows[ 0 ].login.should.equal( 'Yipi' );
 

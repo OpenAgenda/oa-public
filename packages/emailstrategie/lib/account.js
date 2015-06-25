@@ -15,8 +15,35 @@ module.exports = function( data ) {
   return utils.extend( {
     update: update,
     createList: createList,
-    getList: getList
+    getList: getList,
+    unlink: unlink
   }, data );
+
+  function unlink( cb ) {
+
+    getList( function( err, list ) {
+
+      if ( err ) return cb( err );
+
+      if ( list ) {
+
+        list.remove( function( err ) {
+
+          if ( err ) return cb( err );
+
+          _del( cb );
+
+        } );
+
+      } else {
+
+        _del( cb );
+
+      }
+
+    } );
+
+  }
 
   function update( toUpdate, cb ) {
 
@@ -40,7 +67,7 @@ module.exports = function( data ) {
 
   }
 
-  function createList( fields, cb ) {
+  function createList( name, fields, cb ) {
 
     _getToken( data.login, data.password, function( err, token ) {
 
@@ -48,19 +75,26 @@ module.exports = function( data ) {
 
       if ( fields[ 0 ] !== 'id' ) fields.splice( 0, 0, 'id' );
 
-      esInt.SaveList( 'OpenAgenda', fields, function( err, id ) {
+      esInt.SaveList( {
+        token: token,
+        listVO: {
+          name: name,
+          fieldList: fields
+        }
+      }, function( err, id ) {
 
         if ( err ) return cb( err );
 
-        data.listIds.push( id );
+        data.lists.push( { id: id, name: name } );
 
         store.set( data, function( err ) {
 
           if ( err ) return cb( err );
 
           cb( null, list( { 
-            id: listId, 
+            id: id, 
             accountId: data.id,
+            name: name,
             token: token
           } ) );
 
@@ -74,9 +108,9 @@ module.exports = function( data ) {
 
   function getList( cb ) {
 
-    var listId = data.listIds.length ? data.listIds[ 0 ] : false;
+    var listId = data.lists.length ? data.lists[ 0 ].id : false;
 
-    if ( !listId ) return cb( 'account has no list' );
+    if ( !listId ) return cb( null, null );
 
     _getToken( function( err, token ) {
 
@@ -84,6 +118,7 @@ module.exports = function( data ) {
 
       cb( null, list( {
         id: listId,
+        name: data.lists[ 0 ].name,
         accountId: data.id,
         token: token
       } ) );
@@ -124,5 +159,13 @@ module.exports = function( data ) {
       cb( null, result.token );
 
     } );
+
+  }
+
+  function _del( cb ) {
+
+    store.del( data.id, cb );
+
+  }
 
 }

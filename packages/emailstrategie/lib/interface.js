@@ -188,11 +188,21 @@ function _request( name, method, data, cb ) {
 
         try {
 
-          parsed = result[ 'soap:Envelope' ][ 'soap:Body' ][ 0 ][ name + 'Response' ][ 0 ][ name + 'Result' ][ 0 ];
+          parsed = result[ 'soap:Envelope' ][ 'soap:Body' ][ 0 ][ name + 'Response' ][ 0 ][ name + 'Result' ];
 
-          for( i in parsed ) {
+          if ( parsed === undefined ) {
 
-            parsed[ i ] = parsed[ i ][ 0 ];
+            parsed = null;
+
+          } else {
+
+            parsed = parsed[ 0 ];
+
+            for( i in parsed ) {
+
+              parsed[ i ] = parsed[ i ][ 0 ];
+
+            }
 
           }
 

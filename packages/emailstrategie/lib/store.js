@@ -9,12 +9,13 @@ mysql = require( 'mysql' );
 module.exports = {
   init: init,
   get: get,
-  set: set
+  set: set,
+  del: del
 }
 
 function init( config, cb ) {
 
-  if ( arguments.length == 1 ) {
+  if ( arguments.length == 1 && typeof config == 'function' ) {
 
     cb = config;
 
@@ -25,16 +26,18 @@ function init( config, cb ) {
       user: 'root',
       password: false,
       database: 'emailstrategie',
-      table: 'emailstrategie'
+      table: 'account'
     }, config );
 
-  }
+    _checkSchema( cb );
 
-  _checkSchema( cb );
+  }
 
 }
 
 function set( values, cb ) {
+
+  if ( !dbConfig ) return cb( 'store has not been initialized' );
 
   if ( !values.id ) {
 
@@ -50,9 +53,11 @@ function set( values, cb ) {
 
 function get( id, cb ) {
 
+  if ( !dbConfig ) return cb( 'store has not been initialized' );
+
   var con = _createConnection();
 
-  con.query( 'select login, password, list_ids from ' + dbConfig.table + ' where id = ?', function( err, rows ) {
+  con.query( 'select login, password, lists from ' + dbConfig.table + ' where id = ?', id, function( err, rows ) {
 
     if ( err ) return cb( err );
 
@@ -62,31 +67,46 @@ function get( id, cb ) {
       id: id,
       login: rows[ 0 ].login,
       password: rows[ 0 ].password,
-      listIds: rows[ 0 ].list_ids ? JSON.parse( rows[ 0 ].list_ids ) : []
+      lists: rows[ 0 ].lists ? JSON.parse( rows[ 0 ].lists ) : []
     } );
 
   });
   
 }
 
+function del( id, cb ) {
+
+  if ( !dbConfig ) return cb( 'store has not been initialized' );
+
+  var con = _createConnection();
+
+  con.query( 'delete from ' + dbConfig.table + ' where id = ?', id, cb );
+
+}
+
 function _update( id, data, cb ) {
+
+  if ( !dbConfig ) return cb( 'store has not been initialized' );
 
   var clean = utils.extend( {
     login: null,
     password: null,
-    listIds: null
+    lists: null
   }, data ),
 
   con = _createConnection(),
 
-  query = 'update ' + dbConfig.table + ' set';
+  query = 'update ' + dbConfig.table + ' set ',
 
-  if ( clean.login !== null ) query += ' login = ' + con.escape( clean.login );
-  if ( clean.password !== null ) query += ' password = ' + con.escape( clean.password );
+  set = [];
 
-  if ( clean.listIds !== null ) query += ' list_ids = ' + JSON.stringify( clean.listIds );
+  if ( clean.login !== null ) set.push( 'login = ' + con.escape( clean.login ) );
+  if ( clean.password !== null ) set.push( 'password = ' + con.escape( clean.password ) );
+  if ( clean.lists !== null ) set.push( 'lists = ' + con.escape( JSON.stringify( clean.lists ) ) );
 
-  query += ' where id = ' + id;
+
+
+  query += set.join( ', ' ) + ' where id = ' + id;
 
   con.query( query, function( err, result ) {
 
@@ -102,17 +122,19 @@ function _update( id, data, cb ) {
 
 function _create( data, cb ) {
 
+  if ( !dbConfig ) return cb( 'store has not been initialized' );
+
   var clean = utils.extend( {
     login: '',
     password: '',
-    listIds: []
+    lists: []
   }, data ),
 
   con = _createConnection();
 
   con.query( 
-    'insert into ' + dbConfig.table + ' ( login, password, list_ids ) values ( ?, ?, ? )',
-    [ clean.login, clean.password, JSON.stringify( clean.listIds ) ],
+    'insert into ' + dbConfig.table + ' ( login, password, lists ) values ( ?, ?, ? )',
+    [ clean.login, clean.password, JSON.stringify( clean.lists ) ],
     function( err, result ) {
 
       con.end();
@@ -142,7 +164,7 @@ function _checkSchema( cb ) {
       'id bigint auto_increment,',
       'login varchar(100),',
       'password varchar(100),',
-      'list_ids varchar(1000),',
+      'lists varchar(1000),',
       'unique index id_idx (id),',
       'primary key(id)',
       ') default character set utf8 collate utf8_general_ci engine = innodb'
@@ -150,11 +172,12 @@ function _checkSchema( cb ) {
 
       con.end();
 
-      cb( err );
+      if ( cb ) cb( err );
 
     } );
 
   });
+
 
 }
 

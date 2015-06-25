@@ -15,15 +15,25 @@ module.exports = function( data ) {
   return utils.extend( {
     clear: clear,
     removeItem: removeItem,
-    setItem: setItem
+    setItem: setItem,
+    remove: remove
   }, data );
 
   function clear( cb ) {
 
     esInt.DeleteListContent( {
-      token: token
+      token: token,
       listID: id
     }, cb )
+
+  }
+
+  function remove( cb ) {
+
+    esInt.DeleteListByID( {
+      token: token,
+      listID: id
+    }, cb );
 
   }
 

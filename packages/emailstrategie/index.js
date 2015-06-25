@@ -12,9 +12,10 @@ account = require( './lib/account' ),
 esInt = require( './lib/interface' );
 
 module.exports = {
-  init: init
+  init: init,
   linkAccount: linkAccount,
-  getAccount: getAccount
+  getAccount: getAccount,
+  getAccountList: getAccountList
 }
 
 function init( c ) {
@@ -32,7 +33,9 @@ function linkAccount( login, password, cb ) {
     password: password
   }, function( err, result ) {
 
-    if ( err || result.status !== 'SUCCESS' ) return cb( err, 'could not authenticate' );
+    if ( err ) return cb( err );
+
+    if ( result.status !== 'SUCCESS' ) return cb( null, false );
 
     store.set( { login: login, password: password }, function( err, id ) {
 
@@ -41,6 +44,35 @@ function linkAccount( login, password, cb ) {
       getAccount( id, cb );
 
     } );
+
+  });
+
+}
+
+function getAccountList( id, cb ) {
+
+  if ( !config ) {
+
+    return cb( 'module has not been initialized' );
+
+  }
+
+  getAccount( id, function( err, account ) {
+
+    if ( err ) return cb( err );
+
+    if ( !account ) return cb( null, null );
+
+    account.getList( function( err, list ) {
+
+      if ( err ) return cb( err );
+
+      return cb( null, {
+        account: account,
+        list: list
+      } );
+
+    });
 
   });
 
