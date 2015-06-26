@@ -1,0 +1,15 @@
+{
+  "base" : {
+    "agenda" : {
+      "slug" : "la-gargouille"
+    },
+    "values" : {
+      "login" : "Est-Ensemble",
+      "password" : "fdsqfdsqfd"
+    }
+  },
+  "nothing" : {},
+  "error" : {
+    "error" : "Authentication attempt failed"
+  }
+}

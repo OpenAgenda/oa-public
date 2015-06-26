@@ -1,0 +1,10 @@
+{
+  "The agenda is linked with the EmailStrategie list %list% on the account %account%"
+  : "L'agenda est lié avec la list EmailStrategie %list% sur le compte %account%",
+  "State"
+  : "Etat",
+  "Force Sync"
+  : "Forcer la syncro",
+  "Unlink"
+  : "Délier"
+}

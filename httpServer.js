@@ -39,6 +39,8 @@ http.createServer( function ( req, res ) {
 
   log('processing request %s', req.url );
 
+  req.query = url.parse(req.url, true ).query;
+
   p.w( { req: req, res: res, data: {} } )
 
   .then( _loadUri )
@@ -258,7 +260,7 @@ function _compileTemplateData( v ) {
 
   var base = v.data.base ? v.data.base : {},
 
-  state = v.req.query ? v.req.query.state  : false;
+  state = v.req.query ? v.req.query.state : false;
 
   if ( v.js ) {
 

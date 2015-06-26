@@ -1,0 +1,33 @@
+<div class="header">
+  <h2>EmailStrategie</h2>
+</div>
+<section>
+  
+  <p><%- __( 'The agenda is linked with the EmailStrategie list %list% on the account %account%', { 
+    '%list%' : '<strong>' + listName + '</strong>', 
+    '%account%': '<strong>' + accountName + '</strong>' 
+  } ) %></p>
+</section>
+
+<section>
+  <label><%= __( 'State' ) %>:</label>
+  <span><strong><%= state %></strong></span> 
+<% if ( error ) { %>
+  <span class="error"><%= error %></span>
+<% } %>
+</section>
+
+<section>
+
+  <div class="cform">
+    <ul class="line">
+      <li>
+        <a class="button"><%= __( 'Force Sync' ) %></a>
+      </li>
+      <li style="float:right;">
+        <a href="<%= genUrl( 'emailStrategieUnlink', { slug: agenda.slug } ) %>" class="button red"><%= __( 'Unlink' ) %></a>
+      </li>
+    </ul>
+  </div>
+
+</section>
