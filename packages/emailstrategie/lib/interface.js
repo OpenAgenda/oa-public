@@ -12,6 +12,7 @@ module.exports = {
   GenerateAuthentification: GenerateAuthentification,
   GetListByID: GetListByID,
   SaveList: SaveList,
+  InsertListContent: InsertListContent,
   DeleteListContent: DeleteListContent,
   DeleteListByID: DeleteListByID,
   SaveListItem: SaveListItem, // first item serves as key
@@ -36,12 +37,31 @@ function DeleteListByID( data, cb ) {
 
 }
 
+function InsertListContent( data, cb ) {
+
+  var clean = utils.extend( {
+    token: false,  // required
+    listID: false, // required
+    listContent: false, // required
+  }, data );
+
+  clean.listContent = _wrapList( clean.listContent, 'string' );
+
+  _request( 'InsertListContent', 'post', clean, cb );
+
+}
+
 function DeleteListContent( data, cb ) {
 
-  _request( 'DeleteListContent', 'post', utils.extend( {
-    token: false, // required
-    listID: false // required
-  }));
+  var clean = utils.extend( {
+    token: false,   // required
+    listID: false,  // required
+    listContent: false // required. list of semicolon separated values 
+  }, data );
+
+  clean.listContent = _wrapList( clean.listContent, 'string' );
+
+  _request( 'DeleteListContent', 'post', clean, cb );
 
 }
 
@@ -62,11 +82,11 @@ function SaveListItem( data, cb ) {
 
 function DeleteListItemByKey( data, cb ) {
 
-  _request( 'DeleteListItemByKey', 'post', {
+  _request( 'DeleteListItemByKey', 'post', utils.extend( {
     token: false,
     listID: false,
     itemKey: false
-  }, cb );
+  }, data ), cb );
 
 }
 
@@ -80,11 +100,6 @@ function SaveList( data, cb ) {
       fieldList: []
     }
   }, data );
-
-  clean.listVO.fieldList = _wrapList( clean.listVO.fieldList, 'DynamicContentListHeaderVO', {
-    fieldName: false, // required
-    fieldLabel: false // required
-  });
 
   _request( 'SaveList', 'post', clean, function( err, result ) {
 
@@ -228,13 +243,13 @@ function _request( name, method, data, cb ) {
 
 }
 
-function _parse( key, item ) {
+function _parse( key, item, leaf ) {
 
   if ( utils.isArray( item ) ) {
 
     return _parse( key, item[ 1 ].map( function( child ) {
 
-      return _parse( item[ 0 ], child );
+      return _parse( item[ 0 ], child, typeof item[ 0 ] == 'string' );
 
     } ).join( '' ) );
 
@@ -244,7 +259,7 @@ function _parse( key, item ) {
 
     for( var i in item ) {
 
-      compiled.push( _parse( i, item[ i ] ) );
+      compiled.push( _parse( i, item[ i ], true ) );
 
     }
 
@@ -252,7 +267,21 @@ function _parse( key, item ) {
 
   } else {
 
-    return '<' + key + '>' + item + '</' + key + '>';
+    var clean = item;
+
+    if ( leaf && typeof item == 'string' ) {
+
+      if ( item.indexOf( '\'' ) !== -1 ) {
+
+        clean = clean.replace( '\'', '’' );
+
+      }
+
+      clean = '<![CDATA[' + clean + ']]>';
+
+    }
+
+    return '<' + key + '>' + clean + '</' + key + '>';
 
   }
 

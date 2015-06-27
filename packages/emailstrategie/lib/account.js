@@ -6,18 +6,21 @@ list = require( './list' ),
 
 store = require( './store' ),
 
-esInt = require( './interface' );
+ifc = require( './interface' );
 
 module.exports = function( data ) {
 
-  var token;
+  var token,
 
-  return utils.extend( {
+  account = utils.extend( {
     update: update,
     createList: createList,
+    removeList: removeList,
     getList: getList,
     unlink: unlink
   }, data );
+
+  return account;
 
   function unlink( cb ) {
 
@@ -25,23 +28,59 @@ module.exports = function( data ) {
 
       if ( err ) return cb( err );
 
-      if ( list ) {
+      removeList( function( err ) {
 
-        list.remove( function( err ) {
-
-          if ( err ) return cb( err );
-
-          _del( cb );
-
-        } );
-
-      } else {
+        if ( err ) return cb( err );
 
         _del( cb );
 
-      }
+      });
 
     } );
+
+  }
+
+  function removeList( listId, cb ) {
+
+    if ( arguments.length == 1 ) {
+
+      cb = listId;
+
+      listId = account.lists.length ? account.lists[ 0 ].id : false;
+
+    }
+
+    getList( listId, function( err, list ) {
+
+      if ( err ) return cb( err );
+
+      if ( !list ) {
+
+        return cb( null, false );
+
+      }
+
+      list.remove( function( err, deletedId ) {
+
+        if ( err ) return cb( err );
+
+        var lists = account.lists.filter( function( l ) {
+
+          return l.id !== deletedId;
+
+        });
+
+        update( { lists: lists }, function( err ) {
+
+          if ( err ) return cb( err );
+
+          cb( null, deletedId );
+
+        } );
+
+      });
+
+    });
 
   }
 
@@ -60,7 +99,7 @@ module.exports = function( data ) {
       utils.extend( data, updated );
 
       store.set( utils.extend( {
-        id: data.id
+        id: account.id
       }, toUpdate ), cb );
 
     } );
@@ -73,30 +112,44 @@ module.exports = function( data ) {
 
       if ( err ) return cb( err );
 
-      if ( fields[ 0 ] !== 'id' ) fields.splice( 0, 0, 'id' );
-
-      esInt.SaveList( {
+      ifc.SaveList( {
         token: token,
         listVO: {
-          name: name,
-          fieldList: fields
+          name: name
         }
       }, function( err, id ) {
 
         if ( err ) return cb( err );
 
-        data.lists.push( { id: id, name: name } );
+        if ( fields[ 0 ] !== 'id' ) fields.splice( 0, 0, 'id' );
 
-        store.set( data, function( err ) {
+        ifc.InsertListContent( {
+          listID: id,
+          token: token,
+          listContent: [ fields.join( ';' ) ]
+        }, function( err ) {
 
           if ( err ) return cb( err );
 
-          cb( null, list( { 
+          data.lists.push( { 
             id: id, 
-            accountId: data.id,
             name: name,
-            token: token
-          } ) );
+            fields: fields
+          } );
+
+          store.set( data, function( err ) {
+
+            if ( err ) return cb( err );
+
+            cb( null, list( { 
+              id: id, 
+              account: account,
+              name: name,
+              token: token,
+              fields: fields
+            } ) );
+
+          } );
 
         } );
 
@@ -106,11 +159,25 @@ module.exports = function( data ) {
 
   }
 
-  function getList( cb ) {
+  function getList( listId, cb ) {
 
-    var listId = data.lists.length ? data.lists[ 0 ].id : false;
+    var l;
+
+    if ( arguments.length == 1 ) {
+
+      cb = listId;
+
+      listId = data.lists.length ? data.lists[ 0 ].id : false;
+
+    }
 
     if ( !listId ) return cb( null, null );
+
+    l = account.lists.filter( function( l ) {
+
+      return l.id == listId;
+
+    } )[ 0 ];
 
     _getToken( function( err, token ) {
 
@@ -118,9 +185,10 @@ module.exports = function( data ) {
 
       cb( null, list( {
         id: listId,
-        name: data.lists[ 0 ].name,
-        accountId: data.id,
-        token: token
+        name: l.name,
+        account: account,
+        token: token,
+        fields: l.fields
       } ) );
 
     });
@@ -129,13 +197,13 @@ module.exports = function( data ) {
 
   function _getToken( cb ) {
 
-     var login, password;
+    var login, password;
 
     if ( arguments.length == 1 ) {
 
-      login = data.login;
+      login = account.login;
 
-      password = data.password;
+      password = account.password;
 
     } else {
 
@@ -147,7 +215,7 @@ module.exports = function( data ) {
 
     }
 
-    esInt.GenerateAuthentification( {
+    ifc.GenerateAuthentification( {
       login: login,
       password: password
     }, function( err, result ) {
@@ -164,7 +232,7 @@ module.exports = function( data ) {
 
   function _del( cb ) {
 
-    store.del( data.id, cb );
+    store.del( account.id, cb );
 
   }
 

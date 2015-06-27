@@ -9,9 +9,12 @@ store = require( './lib/store' ),
 
 account = require( './lib/account' ),
 
-esInt = require( './lib/interface' );
+esInt = require( './lib/interface' ),
+
+task = require( './lib/task' );
 
 module.exports = {
+  task: task,
   init: init,
   linkAccount: linkAccount,
   getAccount: getAccount,
@@ -23,6 +26,8 @@ function init( c ) {
   config = c;
 
   store.init( config.database );
+
+  task.init( config.redis, getAccount );
 
 }
 

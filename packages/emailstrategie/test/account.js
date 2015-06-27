@@ -15,9 +15,11 @@ dbConfig = {
 
 lib = require( '../' ),
 
-itf = require( '../lib/interface' );
+itf = require( '../lib/interface' ),
 
-describe( 'create & delete account', function() {
+async = require( 'async' );
+
+describe( 'Create & delete account', function() {
 
   var account;
 
@@ -69,7 +71,9 @@ describe( 'create & delete account', function() {
 });
 
 
-describe( 'create and remove list', function() {
+describe( 'Create, clear and remove list', function() {
+
+  this.timeout( 10000 );
 
   var account;
 
@@ -150,8 +154,197 @@ describe( 'create and remove list', function() {
 
   });
 
+  it( 'clear list', function( done ) {
+
+    account.createList( 'test list', [ 't1', 't2', 't3' ], function( err, list ) {
+
+      var listId = list.id;
+
+      list.clear( function( err ) {
+
+        should( err ).equal( null );
+
+        list.getCount( function( err, count ) {
+
+          count.should.equal( 0 );
+
+          done();
+
+        });
+
+      });
+
+    });
+
+  });
 
 } );
+
+
+describe( 'add and remove items to a list', function() {
+
+  this.timeout( 10000 );
+
+  var account, list;
+
+  beforeEach( _dropDb );
+
+  beforeEach( function( done ) {
+
+    lib.init( {
+      database: dbConfig,
+      redis: {} // defaults
+    } );
+
+    lib.linkAccount( creds.login, creds.password, function( err, a ) {
+
+      account = a;
+
+      done();
+
+    } );
+
+  });
+
+  beforeEach( function( done ) {
+
+    account.createList( 'test list', [ 't1', 't2', 't3' ], function( err, l ) {
+
+      list = l;
+
+      done();
+
+    } );
+
+  });
+
+  afterEach( function( done ) {
+
+    account.unlink( done );
+
+  });
+
+
+  it( 'should add an item to the list', function( done ) {
+
+    var itemId = 23;
+
+    list.setItem( itemId, {
+      t1: 'huff',
+      t2: 'and',
+      t3: 'puff'
+    }, function( err, result ) {
+
+      should( err ).equal( null );
+
+      result.should.equal( itemId );
+
+      list.getCount( function( err, count ) {
+
+        should( err ).equal( null );
+
+        count.should.equal( 1 );
+
+        done();
+
+      });
+
+    });
+
+  });
+
+  it( 'add an item with apostrophe', function( done ) {
+
+    var itemId = 23;
+
+    list.setItem( itemId, {
+      t1: 'hûff',
+      t2: 'l\'est',
+      t3: 'puff'
+    }, function( err, result ) {
+
+      should( err ).equal( null );
+
+      result.should.equal( itemId );
+
+      list.getCount( function( err, count ) {
+
+        should( err ).equal( null );
+
+        count.should.equal( 1 );
+
+        done();
+
+      });
+
+    });
+
+  });
+
+  it( 'should add two items to the list', function( done ) {
+
+    var idInc = 1;
+
+    async.eachSeries([
+      { t1: 'lest', t2: 'pas', t3: 'communiste' },
+      { t1: 'lest', t2: 'pas', t3: 'anti-communiste' },
+      { t1: 'lest', t2: 'pas', t3: 'anarchiste' }
+    ], function( entry, ecb ) {
+
+      list.setItem( idInc++, entry, function( err, result ) {
+
+        ecb();
+
+      } );
+
+    }, function( err ) {
+
+      should( err ).equal( null );
+
+      list.getCount( function( err, count ) {
+
+        should( err ).equal( null );
+
+        count.should.equal( 3 );
+
+        done();
+
+      });
+
+    });
+
+  });
+
+  it( 'removes an item from the list', function( done ) {
+
+    var itemId = 24;
+
+    list.setItem( itemId, {
+      t1: 'ziggy',
+      t2: 'played',
+      t3: 'guitar'
+    }, function( err, result ) {
+
+      list.removeItem( itemId, function( err, result ) {
+
+        list.getCount( function( err, count ) {
+
+          should( err ).equal( null );
+
+          count.should.equal( 0 );
+
+          done();
+
+        });
+
+      });
+
+    });
+
+  });
+
+
+});
 
 
 function _dropDb( cb ) {
