@@ -75,7 +75,7 @@ describe( 'Create, clear and remove list', function() {
 
   this.timeout( 10000 );
 
-  var account;
+  var account, list;
 
   beforeEach( _dropDb );
 
@@ -98,13 +98,23 @@ describe( 'Create, clear and remove list', function() {
 
   afterEach( function( done ) {
 
+    if ( !list ) return done();
+
+    list.remove( done );
+
+  });
+
+  afterEach( function( done ) {
+
     account.unlink( done );
 
   });
 
   it( 'create list', function( done ) {
 
-    account.createList( 'test list', [ 't1', 't2', 't3' ], function( err, list ) {
+    account.createList( 'test list', [ 't1', 't2', 't3' ], function( err, l ) {
+
+      list = l;
 
       should( err ).equal( null );
 
@@ -127,7 +137,9 @@ describe( 'Create, clear and remove list', function() {
 
   it( 'remove list', function( done ) {
 
-    account.createList( 'test list', [ 't1', 't2', 't3' ], function( err, list ) {
+    account.createList( 'test list', [ 't1', 't2', 't3' ], function( err, l ) {
+
+      list = l;
 
       var listId = list.id;
 
@@ -144,6 +156,8 @@ describe( 'Create, clear and remove list', function() {
 
           should( result ).equal( null );
 
+          list = false;
+
           done();
 
         } );
@@ -156,7 +170,9 @@ describe( 'Create, clear and remove list', function() {
 
   it( 'clear list', function( done ) {
 
-    account.createList( 'test list', [ 't1', 't2', 't3' ], function( err, list ) {
+    account.createList( 'test list', [ 't1', 't2', 't3' ], function( err, l ) {
+
+      list = l;
 
       var listId = list.id;
 

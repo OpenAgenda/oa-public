@@ -270,6 +270,8 @@ describe( 'queued items are processed', function() {
 
     lib.task.setOnProcessed( function( err, obj ) {
 
+      list = obj;
+
       i--;
 
       if ( !i ) obj.getCount( function( err, count ) {
@@ -288,7 +290,6 @@ describe( 'queued items are processed', function() {
     list.clear();
 
   });
-
 
 } );
 
