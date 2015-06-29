@@ -11,15 +11,18 @@
 
 <section>
   <p>
-    <label><%= __( 'State' ) %>:</label> 
-<% if ( error ) { %>
-    <span><strong class="red">NOK</strong></span> 
-<% } else { %>
-    <span>OK</span>
+    <label><%= __( 'State' ) %>:</label>
+    <span><strong><%= __( state ) %></strong></span>
+<% if ( state !== 'OK' ) { %> 
+    - <a class="url" href="<%= genUrl( 'emailStrategieShow', { slug: agenda.slug } ) %>"><%= __( 'refresh' ) %></a>
 <% } %>
   </p>
-  <p><%- __( 'Total events published in agenda: %count%', { '%count%' : '<strong>' + agendaCount + '</strong>' } ) %></p>
-  <p><%- __( 'Total events in EmailStrategie list: %count%', { '%count%' : '<strong>' + emailStrategieCount + '</strong>' } ) %></p>
+  <p><%- __( 'Total events published in agenda: %count%', { 
+    '%count%' : '<strong>' + agendaCount + '</strong>' 
+  } ) %></p>
+  <p><%- __( 'Total events in EmailStrategie list: %count%', {
+    '%count%' : '<strong>' + emailStrategieCount + '</strong>' 
+  } ) %></p>
 <% if ( error ) { %>
   <span class="error"><%= __( error ) %></span>
 <% } %>

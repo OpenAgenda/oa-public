@@ -12,5 +12,9 @@
   "Total events in EmailStrategie list: %count%"
   : "Total des événements publiés sur la liste EmailStrategie: %count%",
   "EmailStrategie is not in sync with agenda"
-  : "EmailStrategie n'est pas synchronisé avec l'agenda"
+  : "EmailStrategie n'est pas synchronisé avec l'agenda",
+  "syncing"
+  : "en cours de synchronisation",
+  "refresh"
+  : "rafraîchir"
 }
