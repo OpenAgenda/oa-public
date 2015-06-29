@@ -42,7 +42,8 @@
   "newsletter/unsubscribe",
   "newsletter/unsubscribeComplete",
 
-  "emailstrategie/index",
+  "emailStrategie/index",
+  "emailStrategie/new",
 
   "swapcard/index",
 
