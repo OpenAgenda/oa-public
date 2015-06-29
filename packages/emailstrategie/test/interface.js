@@ -215,6 +215,38 @@ describe( 'get list, handle content', function() {
 
   });
 
+  it.only( 'SaveListItem special character', function( done ) {
+
+    async.each( [
+      [ 1, 'La bête \t humaine', 'groar' ],
+      [ 2, 'The Dynasties \n of China', 'rhhz' ],
+      [ 3, 'La muraille \r\n de lave', 'glauque' ],
+      [ 4, 'Les Matins de l\'emploi', 'Les métiers de l\'hotellerie : venez rencontrer des professionnels, partager expérience et points de vue.  ' ],
+      [ 5, '\'\'  . \n\n      de l’hôtelle', 'Test' ]
+    ], function( entry, ecb ) {
+
+      ifc.SaveListItem( {
+        listID: listId,
+        token: token,
+        item: entry
+      }, ecb );
+
+    }, function( err ) {
+
+      should( err ).equal( null );
+
+      ifc.GetListByID( { listID: listId, token: token }, function( err, response ) {
+
+        response.totalRecords.should.eql( 1 );
+
+        done();
+
+      } );
+
+    } );
+
+  });
+
   it( 'DeleteListItemByKey', function( done ) {
 
     ifc.SaveListItem( {

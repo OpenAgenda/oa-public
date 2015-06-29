@@ -273,7 +273,7 @@ function _parse( key, item, leaf ) {
 
       if ( item.indexOf( '\'' ) !== -1 ) {
 
-        clean = clean.replace( '\'', '’' );
+        clean = clean.replace( /\'/g, '’' );
 
       }
 

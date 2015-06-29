@@ -59,15 +59,29 @@ function get( id, cb ) {
 
   con.query( 'select login, password, lists from ' + dbConfig.table + ' where id = ?', id, function( err, rows ) {
 
+    var parsedLists = [];
+
+    con.end();
+
     if ( err ) return cb( err );
 
     if ( !rows.length ) return cb( null, null );
+
+    try {
+
+      parsedLists = rows[ 0 ].lists ? JSON.parse( rows[ 0 ].lists ) : [];
+
+    } catch( e ) {
+
+      console.log( 'error', 'could not parse list: %s', rows[ 0 ].lists );
+
+    }
 
     cb( null, {
       id: id,
       login: rows[ 0 ].login,
       password: rows[ 0 ].password,
-      lists: rows[ 0 ].lists ? JSON.parse( rows[ 0 ].lists ) : []
+      lists: parsedLists
     } );
 
   });
@@ -80,7 +94,13 @@ function del( id, cb ) {
 
   var con = _createConnection();
 
-  con.query( 'delete from ' + dbConfig.table + ' where id = ?', id, cb );
+  con.query( 'delete from ' + dbConfig.table + ' where id = ?', id, function( err, result ) {
+
+    con.end();
+
+    return cb( err, result );
+
+  } );
 
 }
 
@@ -103,8 +123,6 @@ function _update( id, data, cb ) {
   if ( clean.login !== null ) set.push( 'login = ' + con.escape( clean.login ) );
   if ( clean.password !== null ) set.push( 'password = ' + con.escape( clean.password ) );
   if ( clean.lists !== null ) set.push( 'lists = ' + con.escape( JSON.stringify( clean.lists ) ) );
-
-
 
   query += set.join( ', ' ) + ' where id = ' + id;
 
@@ -154,9 +172,9 @@ function _checkSchema( cb ) {
 
   con.query( 'create database if not exists ' + dbConfig.database, function( err ) {
 
-    if ( err ) return cb( err );
-
     con.end();
+
+    if ( err ) return cb( err );
 
     con = _createConnection();
 
@@ -164,7 +182,7 @@ function _checkSchema( cb ) {
       'id bigint auto_increment,',
       'login varchar(100),',
       'password varchar(100),',
-      'lists varchar(1000),',
+      'lists text,',
       'unique index id_idx (id),',
       'primary key(id)',
       ') default character set utf8 collate utf8_general_ci engine = innodb'

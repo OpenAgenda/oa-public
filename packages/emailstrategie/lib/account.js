@@ -6,7 +6,9 @@ list = require( './list' ),
 
 store = require( './store' ),
 
-ifc = require( './interface' );
+ifc = require( './interface' ),
+
+log = require( './logger' )( 'account' );
 
 module.exports = function( data ) {
 
@@ -24,6 +26,8 @@ module.exports = function( data ) {
 
   function unlink( cb ) {
 
+    log( 'unlink - %s', account.id );
+
     getList( function( err, list ) {
 
       if ( err ) return cb( err );
@@ -31,6 +35,8 @@ module.exports = function( data ) {
       removeList( function( err ) {
 
         if ( err ) return cb( err );
+
+        log( 'unlink - %s: removing from store', account.id );
 
         _del( cb );
 
@@ -50,31 +56,37 @@ module.exports = function( data ) {
 
     }
 
+    log( 'removeList - %s', listId );
+
     getList( listId, function( err, list ) {
 
       if ( err ) return cb( err );
 
       if ( !list ) {
 
+        log( 'removeList - %s: no list was retrieved', listId );
+
         return cb( null, false );
 
       }
 
-      list.remove( function( err, deletedId ) {
+      list.remove( function( err, result ) {
 
         if ( err ) return cb( err );
 
+        log( 'removeList - deleted %s', result );
+
         var lists = account.lists.filter( function( l ) {
 
-          return l.id !== deletedId;
+          return l.id !== listId;
 
         });
-
+        
         update( { lists: lists }, function( err ) {
 
           if ( err ) return cb( err );
 
-          cb( null, deletedId );
+          cb( null, listId );
 
         } );
 
@@ -108,6 +120,8 @@ module.exports = function( data ) {
 
   function createList( name, fields, cb ) {
 
+    log( 'createList - creating list %s', name );
+
     _getToken( data.login, data.password, function( err, token ) {
 
       if ( err ) return cb( err );
@@ -123,6 +137,8 @@ module.exports = function( data ) {
 
         if ( fields[ 0 ] !== 'id' ) fields.splice( 0, 0, 'id' );
 
+        log( 'createList - initializing header %s', fields );
+
         ifc.InsertListContent( {
           listID: id,
           token: token,
@@ -131,6 +147,8 @@ module.exports = function( data ) {
 
           if ( err ) return cb( err );
 
+          log( 'createList - headers created' );
+
           data.lists.push( { 
             id: id, 
             name: name,
@@ -138,6 +156,8 @@ module.exports = function( data ) {
           } );
 
           store.set( data, function( err ) {
+
+            log( 'createList - list stored with id %s in account %s', id, account.id );
 
             if ( err ) return cb( err );
 
@@ -178,6 +198,12 @@ module.exports = function( data ) {
       return l.id == listId;
 
     } )[ 0 ];
+
+    if ( !l ) {
+
+      return cb( null, null );
+
+    }
 
     _getToken( function( err, token ) {
 

@@ -28,6 +28,7 @@ describe( 'Create & delete account', function() {
   beforeEach( function( done ) {
 
     lib.init( {
+      logger: false,
       database: dbConfig,
       redis: {} // defaults
     } );
@@ -197,7 +198,7 @@ describe( 'Create, clear and remove list', function() {
 } );
 
 
-describe( 'add and remove items to a list', function() {
+describe( 'Add and remove items to a list', function() {
 
   this.timeout( 10000 );
 
@@ -241,7 +242,7 @@ describe( 'add and remove items to a list', function() {
   });
 
 
-  it( 'should add an item to the list', function( done ) {
+  it.only( 'should add an item to the list', function( done ) {
 
     var itemId = 23;
 
@@ -358,7 +359,6 @@ describe( 'add and remove items to a list', function() {
     });
 
   });
-
 
 });
 

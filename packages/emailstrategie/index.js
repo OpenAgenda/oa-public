@@ -11,19 +11,24 @@ account = require( './lib/account' ),
 
 esInt = require( './lib/interface' ),
 
-task = require( './lib/task' );
+task = require( './lib/task' ),
+
+loggerLib = require( './lib/logger' );
 
 module.exports = {
   task: task,
   init: init,
   linkAccount: linkAccount,
   getAccount: getAccount,
-  getAccountList: getAccountList
+  getAccountList: getAccountList,
+  setLogger: loggerLib.setLogger
 }
 
 function init( c ) {
 
   config = c;
+
+  if ( config.logger ) loggerLib.setLogger( config.logger );
 
   store.init( config.database );
 

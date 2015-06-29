@@ -4,7 +4,9 @@ var utils = require( 'utils' ),
 
 ifc = require( './interface' ),
 
-task = require( './task' );
+task = require( './task' ),
+
+log = require( './logger' )( 'list' );
 
 module.exports = function( data ) {
 
@@ -27,6 +29,8 @@ module.exports = function( data ) {
 
     if ( !cb ) {
 
+      log( 'clear - no callback defined, queuing' );
+
       return task.queue( {
         name: 'clear',
         accountId: list.account.id,
@@ -35,13 +39,19 @@ module.exports = function( data ) {
 
     }
 
+    log( 'clear' );
+
     list.account.removeList( list.id, function( err ) {
 
       if ( err ) return cb( err );
 
+      log( 'clear - list %s removed', list.id );
+
       list.account.createList( list.name, list.fields, function( err, newList ) {
 
         if ( err ) return cb( err );
+
+        log( 'clear - list %s created', newList.id );
 
         list.id = newList.id;
 
@@ -94,6 +104,8 @@ module.exports = function( data ) {
 
       if ( err ) return cb( err );
 
+      if ( !data ) return cb( null, null );
+
       cb( null, parseInt( data.totalRecords, 10 ) );
 
     });
@@ -103,6 +115,8 @@ module.exports = function( data ) {
   function setItem( id, data, cb ) {
 
     if ( !cb ) {
+
+      log( 'setItem - callback not defined, queuing for list %s', list.id );
 
       return task.queue( {
         name: 'setItem',
@@ -114,6 +128,8 @@ module.exports = function( data ) {
 
     }
 
+    log( 'setItem' );
+
     var clean = utils.extend( { id: id }, data ),
 
     entry = list.fields.map( function( f ) {
@@ -122,15 +138,31 @@ module.exports = function( data ) {
 
     });
 
+    log( 'setItem - saving in list %s entry %s', list.id, entry );
+
     ifc.SaveListItem( {
       listID: list.id,
       token: list.token,
       item: entry
     }, function( err, result ) {
 
-      if ( err ) return cb( err );
+      if ( err ) {
 
-      if ( result !== 'SUCCESS' ) return cb( null, false );
+        log( 'setItem - error %s', err );
+
+        return cb( err );
+
+      }
+
+      if ( result !== 'SUCCESS' ) {
+
+        log( 'setItem - not successful %s', result );
+
+        return cb( null, false );
+
+      }
+
+      log( 'setItem - ok' );
 
       return cb( null, id );
 

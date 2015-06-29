@@ -6,6 +6,8 @@ utils = require( 'utils' ),
 
 getAccount,
 
+log = require( './logger' )( 'task' ),
+
 onProcessed = false; // for testing
 
 module.exports = launch;
@@ -74,7 +76,13 @@ function process( data, cb ) {
 
       if ( err ) return cb( err );
 
-      if ( !list ) return cb( 'no list could be loaded' );
+      if ( !list ) {
+
+        log( 'no list could be loaded' )
+
+        return cb();
+
+      }
 
       if ( data.name == 'setItem' ) {
 
