@@ -10,10 +10,18 @@
 </section>
 
 <section>
-  <label><%= __( 'State' ) %>:</label>
-  <span><strong><%= state %></strong></span> 
+  <p>
+    <label><%= __( 'State' ) %>:</label> 
 <% if ( error ) { %>
-  <span class="error"><%= error %></span>
+    <span><strong class="red">NOK</strong></span> 
+<% } else { %>
+    <span>OK</span>
+<% } %>
+  </p>
+  <p><%- __( 'Total events published in agenda: %count%', { '%count%' : '<strong>' + agendaCount + '</strong>' } ) %></p>
+  <p><%- __( 'Total events in EmailStrategie list: %count%', { '%count%' : '<strong>' + emailStrategieCount + '</strong>' } ) %></p>
+<% if ( error ) { %>
+  <span class="error"><%= __( error ) %></span>
 <% } %>
 </section>
 
@@ -22,7 +30,7 @@
   <div class="cform">
     <ul class="line">
       <li>
-        <a class="button"><%= __( 'Force Sync' ) %></a>
+        <a href="<%= genUrl( 'emailStrategieSync', { slug: agenda.slug }) %>" class="button blue"><%= __( 'Force Sync' ) %></a>
       </li>
       <li style="float:right;">
         <a href="<%= genUrl( 'emailStrategieUnlink', { slug: agenda.slug } ) %>" class="button red"><%= __( 'Unlink' ) %></a>

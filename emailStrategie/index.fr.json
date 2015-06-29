@@ -6,5 +6,11 @@
   "Force Sync"
   : "Forcer la syncro",
   "Unlink"
-  : "Délier"
+  : "Délier",
+  "Total events published in agenda: %count%"
+  : "Total des événements publiés dans l'agenda: %count%",
+  "Total events in EmailStrategie list: %count%"
+  : "Total des événements publiés sur la liste EmailStrategie: %count%",
+  "EmailStrategie is not in sync with agenda"
+  : "EmailStrategie n'est pas synchronisé avec l'agenda"
 }

@@ -3,6 +3,8 @@
     "accountName" : "Est-Ensemble",
     "listName" : "Temps libres",
     "state" : "Ok",
-    "error" : false
+    "error" : false,
+    "agendaCount" : 340,
+    "emailStrategieCount" : 340
   }
 }
