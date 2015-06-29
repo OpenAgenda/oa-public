@@ -43,7 +43,8 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
       list: false,
       emailStrategieCount: 0,
       agendaCount: 0,
-      error: false
+      error: false,
+      state: false
     } )
 
     // get account & list
@@ -62,6 +63,8 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
             cb( null, obj );
 
           } else {
+
+            obj.state = obj.list.state;
 
             rs( obj );
 
@@ -113,7 +116,9 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     .then( function( obj ) {
 
-      if ( obj.emailStrategieCount !== obj.agendaCount ) {
+      if ( obj.emailStrategieCount !== obj.agendaCount && !obj.state ) {
+
+        obj.state = 'NOK';
 
         obj.error = 'EmailStrategie is not in sync with agenda';
 
@@ -124,6 +129,8 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
     })
 
     .done( function( obj ) {
+
+      if ( !obj.state ) obj.state = 'OK';
 
       cb( null, obj );
 
@@ -217,16 +224,19 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
             if ( err ) return cb( err );
 
-            syncEvents( false, function( err, syncCount ) {
+            list.setState( 'syncing', function( err ) {
 
-              cb( null, {
-                account: account,
-                list: list,
-                syncCount: syncCount
-              } );
+              syncEvents( false, function( err, syncCount ) {
+
+                cb( null, {
+                  account: account,
+                  list: list,
+                  syncCount: syncCount
+                } );
+
+              });
 
             });
-
 
           } );
           
@@ -305,53 +315,63 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
         log( 'debug', 'sync request - %s - queuing clear', loaded.uid );
 
-        list.clear( function( err ) {
+        list.clear( 'syncing', function( err ) {
 
           if ( err ) return cb( err );
 
-          syncEvents( false, cb );
+          _streamEvents( list, cb );
 
-        } );
+        });
 
-        return;
+      } else {
+
+        _streamEvents( list, cb );
 
       }
 
-      loaded.flattener( false, function( err, f ) {
+      function _streamEvents( list, cb ) {
 
-        var stream = loaded.searchStream( searchDefaultQuery ),
+        loaded.flattener( false, function( err, f ) {
 
-        count = 0;
+          var stream = loaded.searchStream( searchDefaultQuery ),
 
-        log( 'info', 'sync request - %s - loaded event stream', loaded.uid );
+          count = 0;
 
-        stream.on( 'data', function( eventItem ) {
+          log( 'info', 'sync request - %s - loaded event stream', loaded.uid );
 
-          var eInst = eventSvc.instanciate( eventItem );
+          stream.on( 'data', function( eventItem ) {
 
-          stream.pause();
+            var eInst = eventSvc.instanciate( eventItem );
 
-          eventSvc.exports.clean( eInst, function( err, clean ) {
+            stream.pause();
 
-            log( 'debug', 'sync request - %s - queueing event %s', loaded.uid, eventItem.uid );
+            eventSvc.exports.clean( eInst, function( err, clean ) {
 
-            list.setItem( eventItem.uid, f.flatten( clean ) );
+              log( 'debug', 'sync request - %s - queueing event %s for list %s', loaded.uid, eventItem.uid, list.id );
 
-            stream.resume();
+              list.setItem( eventItem.uid, f.flatten( clean ) );
+
+              count++;
+
+              stream.resume();
+
+            } );
+
+          } );
+
+          stream.on( 'end', function() {
+
+            log( 'debug', 'sync request - %s - done. processed %s events', loaded.slug, count );
+
+            list.setState( false );
+
+            cb();
 
           } );
 
         } );
 
-        stream.on( 'end', function() {
-
-          log( 'debug', 'sync request - %s - done. processed %s events', loaded.slug, count );
-
-          cb();
-
-        } );
-
-      } );
+      }
 
     });
 

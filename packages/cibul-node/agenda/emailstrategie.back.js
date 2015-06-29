@@ -61,8 +61,8 @@ function newShow( req, res, next ) {
 
     cmn.render( req, res, 'emailStrategie/new', {
       values: {
-        login: '',
-        password: ''
+        login: 'APIEstEnsemble',
+        password: '236656'
       }
     });
 
@@ -122,10 +122,10 @@ function show( req, res, next ) {
     cmn.render( req, res, 'emailStrategie/index', {
       accountName : obj.account.login,
       listName : obj.list.name,
-      state : "Ok",
+      state : obj.state,
       error : obj.error,
       agendaCount: obj.agendaCount,
-      emailStrategieCount: obj.emailStrategieCount
+      emailStrategieCount: obj.emailStrategieCount,
     } );
 
   });
