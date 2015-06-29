@@ -4,6 +4,8 @@ var svc,
 
 utils = require( '../../lib/utils' ),
 
+async = require( 'async' ),
+
 i18n = require( '../../i18n/i18n' ),
 
 genUrl = require( '../genUrl' ),
@@ -42,7 +44,7 @@ module.exports = function( service ) {
 
 }
 
-function cleanEvent( eInst ) {
+function cleanEvent( eInst, cb ) {
 
   var dateRange = eInst.getDateRange( true ),
 
@@ -81,19 +83,61 @@ function cleanEvent( eInst ) {
 
   }
 
-  return c;
+  eInst.getTimings( function( err, timings ) {
+
+    if ( err ) return cb( err );
+
+    var t;
+
+    utils.extend( c, {
+      firstDate: null,
+      firstTimeStart: null,
+      firstTimeEnd: null
+    } );
+
+    if ( timings.length ) {
+
+      t = {
+        start: new Date( timings[ 0 ].start ),
+        end: new Date( timings[ 0 ].end )
+      };
+
+      utils.extend( c, {
+        firstDate: _stringifyDate( t.start ),
+        firstTimeStart: _fZ( t.start.getUTCHours() ) + ':' + _fZ( t.start.getMinutes() ),
+        firstTimeEnd: _fZ( t.end.getUTCHours() ) + ':' + _fZ( t.end.getMinutes() )
+      });
+
+    }
+
+    cb( null, c );
+
+  });
 
 }
 
 
-function cleanEvents( events, options ) {
+function cleanEvents( events, cb ) {
 
-  var params = utils.extend( {}, options ? options : {} );
+  async.map( events, function( e, mcb ) {
 
-  return events.map( function( e ) {
+    cleanEvent( svc.instanciate( e ), mcb );
 
-    return cleanEvent( svc.instanciate( e ) );
+  }, cb );
 
-  } );
+}
+
+
+function _stringifyDate( d ) {
+
+  if ( typeof d == 'string' ) d = new Date( d );
+
+  return [ d.getFullYear(), _fZ( d.getMonth() + 1 ), _fZ( d.getDate() ) ].join( '-' );
+
+}
+
+function _fZ( n ) {
+
+  return (n>9?'':'0') + n;
 
 }

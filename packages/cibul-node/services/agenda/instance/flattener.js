@@ -203,10 +203,10 @@ function _extendMapping( agenda, includePrivateData ) {
 
   var amendment = [ { 
     sourceField: 'category',
-    fn: function( c ) { return c.label }
-  }, { 
+    fn: _extractCategory
+  }, {
     sourceField: 'tags',
-    fn: function( t ) { return t ? t.map( function( t ) { return t.label } ).join( ', ') : '' }
+    fn: _extractTags
   } ],
 
   customFields = agenda.getCustomFieldsConfig();
@@ -266,5 +266,47 @@ function _extractLanguages( values ) {
   }
 
   return extractedLanguages;
+
+}
+
+
+function _extractCategory( c ) {
+
+  return c.label;
+
+}
+
+
+
+/**
+ * event tags are annoying. either they come from
+ * the event itself and are multilingual,
+ * either they come from the agenda and are an array
+ * of labeled objects
+ */
+
+function _extractTags( t ) {
+
+  if ( utils.isArray( t ) ) {
+
+    return t.map( function( t ) { return t.label } ).join( ', ');
+
+  } else if( typeof t == 'object' ) {
+
+    var tArr = [];
+
+    for ( var i in t ) {
+
+      tArr.push( t[ i ] );
+
+    }
+
+    return t.join( ', ' );
+
+  } else {
+
+    return t;
+
+  }
 
 }

@@ -4,12 +4,22 @@ var log = require( '../../../lib/logger' )( 'EmailStrategie' ),
 
 emailStrat = require( 'emailStrategie' ),
 
-storeKey = 'emailstrategie';
+eventSvc = require( '../../event' ),
+
+w = require( 'when' ),
+
+utils = require( 'utils' ),
+
+storeKey = 'emailstrategie',
+
+searchDefaultQuery = { passed: 1 };
 
 module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
 
   return {
     emailStrategie: {
+      getState: getState,
+      isLinked: isLinked,
       getAccount: getAccount,
       removeAccount: removeAccount,
       getAccountList: getAccountList,
@@ -20,6 +30,106 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
       removeEvent: removeEvent
     }
   };
+
+
+  /**
+   * load general link info
+   */
+
+  function getState( cb ) {
+
+    w( {
+      account: false,
+      list: false,
+      emailStrategieCount: 0,
+      agendaCount: 0,
+      error: false
+    } )
+
+    // get account & list
+    .then( function( obj ) {
+
+      return w.promise( function( rs, rj ) {
+
+        getAccountList( function( err, o ) {
+
+          if ( err ) return rj( err );
+
+          utils.extend( obj, o );
+
+          if ( !obj || !obj.account || !obj.list ) {
+
+            cb( null, obj );
+
+          } else {
+
+            rs( obj );
+
+          }
+
+        });
+
+      })
+
+    })
+
+    .then( function( obj ) {
+
+      // load agenda published count
+      
+      return w.promise( function( rs, rj ) {
+
+        loaded.search( searchDefaultQuery, function( err, result ) {
+
+          if ( err ) return rj( err );
+
+          obj.agendaCount = result.total;
+
+          rs( obj );
+
+        } );
+
+      });
+
+    })
+
+    .then( function( obj ) {
+
+      return w.promise(function( rs, rj ) {
+
+        obj.list.getCount( function( err, count ) {
+
+          if ( err ) rj( err );
+
+          obj.emailStrategieCount = count;
+
+          rs( obj );            
+
+        });
+
+      } );
+
+    })
+
+    .then( function( obj ) {
+
+      if ( obj.emailStrategieCount !== obj.agendaCount ) {
+
+        obj.error = 'EmailStrategie is not in sync with agenda';
+
+      }
+
+      return obj;
+
+    })
+
+    .done( function( obj ) {
+
+      cb( null, obj );
+
+    }, cb );
+
+  }
 
   function getAccount( cb ) {
 
@@ -34,6 +144,8 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
   }
 
   function removeAccount( cb ) {
+
+    log( 'removing account for agenda %s', loaded.slug );
 
     getAccount( function( err, account ) {
 
@@ -105,10 +217,16 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
             if ( err ) return cb( err );
 
-            cb( null, {
-              account: account,
-              list: list 
-            } );
+            syncEvents( false, function( err, syncCount ) {
+
+              cb( null, {
+                account: account,
+                list: list,
+                syncCount: syncCount
+              } );
+
+            });
+
 
           } );
           
@@ -120,7 +238,10 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
           if ( err ) return cb( err );
 
-          cb( null, { account: account, list: list } );
+          cb( null, {
+            account: account,
+            list: list
+          } );
 
         });
 
@@ -162,7 +283,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
       if ( err ) return cb( err );
 
-      instance.flattener( false, function( err, f ) {
+      loaded.flattener( false, function( err, f ) {
 
         cb( err, list, f );
 
@@ -172,29 +293,63 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
   }
 
-  function syncEvents( cb ) {
+  function syncEvents( clear, cb ) {
+
+    log( 'info', 'received event sync request for agenda %s', loaded.uid );
 
     _getList( function( err, list ) {
 
       if ( err ) return cb( err );
 
-      // no callback is given -> queued on redis
-      list.clear();
+      if ( clear ) {
 
-      instance.flattener( false, function( err, f ) {
+        log( 'debug', 'sync request - %s - queuing clear', loaded.uid );
 
-        instance.searchStream( { passed: 1 }, function( err, stream ) {
+        list.clear( function( err ) {
 
-          stream.on( 'data', function( eventItem ) {
+          if ( err ) return cb( err );
 
-            // no callback is given -> queued on redis
-            list.setItem( eventItem.uid, f.flatten( eventItem ) );
+          syncEvents( false, cb );
+
+        } );
+
+        return;
+
+      }
+
+      loaded.flattener( false, function( err, f ) {
+
+        var stream = loaded.searchStream( searchDefaultQuery ),
+
+        count = 0;
+
+        log( 'info', 'sync request - %s - loaded event stream', loaded.uid );
+
+        stream.on( 'data', function( eventItem ) {
+
+          var eInst = eventSvc.instanciate( eventItem );
+
+          stream.pause();
+
+          eventSvc.exports.clean( eInst, function( err, clean ) {
+
+            log( 'debug', 'sync request - %s - queueing event %s', loaded.uid, eventItem.uid );
+
+            list.setItem( eventItem.uid, f.flatten( clean ) );
+
+            stream.resume();
 
           } );
 
-          stream.on( 'end', cb );
+        } );
 
-        });
+        stream.on( 'end', function() {
+
+          log( 'debug', 'sync request - %s - done. processed %s events', loaded.slug, count );
+
+          cb();
+
+        } );
 
       } );
 
@@ -259,7 +414,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
         if ( list ) return cb( null, list );
 
-        instance.flattener( false, function( err, f ) {
+        loaded.flattener( false, function( err, f ) {
 
           account.createList( f.getFieldNames(), cb );
 
@@ -271,6 +426,18 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
   }
 
+
+  function isLinked( cb ) {
+
+    _getStore( function( err, id ) {
+
+      if ( err ) return cb( err );
+
+      cb( null, id );
+
+    });
+
+  }
 
 
   function _getStore( cb ) {

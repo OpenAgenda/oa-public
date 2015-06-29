@@ -16,7 +16,9 @@ module.exports = function( enabledTypes, cb ) {
 
     require( 'newrelic' );
 
-    var log = require( './lib/logger' )( 'app' );
+    var emailStrategie = require( 'emailStrategie' ),
+
+    log = require( './lib/logger' )( 'app' );
 
     log( 'info', 'running server' );
 
@@ -44,7 +46,7 @@ module.exports = function( enabledTypes, cb ) {
 
     server;
 
-    require( 'emailStrategie' ).init( {
+    emailStrategie.init( {
       database: config.emailStrategieDb,
       redis: config.redis
     } );
@@ -187,6 +189,8 @@ module.exports = function( enabledTypes, cb ) {
       require( './event/oembed.task' ).load();
 
       require( './services/agenda/task' ).load();
+
+      emailStrategie.task();
 
     }
 

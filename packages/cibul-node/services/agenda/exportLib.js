@@ -35,41 +35,6 @@ function decorateEvent( agenda, event, clean, options, cb ) {
 
     function( wcb ) {
 
-      event.getTimings( function( err, timings ) {
-
-        if ( err ) return wcb( err );
-
-        var t;
-
-        utils.extend( clean, {
-          firstDate: null,
-          firstTimeStart: null,
-          firstTimeEnd: null
-        } );
-
-        if ( timings.length ) {
-
-          t = {
-            start: new Date( timings[ 0 ].start ),
-            end: new Date( timings[ 0 ].end )
-          };
-
-          utils.extend( clean, {
-            firstDate: _stringifyDate( t.start ),
-            firstTimeStart: _fZ( t.start.getUTCHours() ) + ':' + _fZ( t.start.getMinutes() ),
-            firstTimeEnd: _fZ( t.end.getUTCHours() ) + ':' + _fZ( t.end.getMinutes() )
-          });
-
-        }
-
-        wcb();
-
-      });
-
-    },
-
-    function( wcb ) {
-
       if ( !params.includePrivateData ) return wcb();
 
       event.getState( function( err, state ) {
@@ -169,18 +134,3 @@ function decorateEvents( agenda, events, toDecorate, options, cb ) {
   }, cb );
 
 }
-
-
-function _stringifyDate( d ) {
-
-  if ( typeof d == 'string' ) d = new Date( d );
-
-  return [ d.getFullYear(), _fZ( d.getMonth() + 1 ), _fZ( d.getDate() ) ].join( '-' );
-
-}
-
-function _fZ( n ) {
-
-  return (n>9?'':'0') + n;
-
-};

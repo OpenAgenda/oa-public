@@ -14,6 +14,7 @@ routes = {
   emailStrategieNew: [ 'get', '/new', newShow ],
   emailStrategieNewSubmit: [ 'post', '/new', newSubmit ],
   emailStrategieShow: [ 'get', '/', show ],
+  emailStrategieSync: [ 'get', '/sync', sync ],
   emailStrategieUnlink: [ 'get', '/unlink', unlink ]
 };
 
@@ -35,6 +36,18 @@ module.exports = function( path ) {
     load: router.load( path ),
     paths: modLib.getPaths( path, routes )
   }
+
+}
+
+function sync( req, res, next ) {
+
+  req.agenda.emailStrategie.syncEvents( true, function( err ) {
+
+    if ( err ) return next( err );
+
+    res.redirect( 302, req.genUrl( 'emailStrategieShow', { slug: req.agenda.slug } ) );
+
+  });
 
 }
 
@@ -88,13 +101,21 @@ function newSubmit( req, res, next ) {
 
 function show( req, res, next ) {
 
-  req.agenda.emailStrategie.getAccountList( function( err, obj ) {
+  req.agenda.emailStrategie.getState( function( err, obj ) {
 
     if ( err ) return next( err );
 
-    if ( !obj || !obj.account || !obj.list ) {
+    if ( !obj || !obj.account ) {
 
       return res.redirect( 302, req.genUrl( 'emailStrategieNew', { slug: req.agenda.slug } ) );
+
+    }
+
+    if ( !obj.list ) {
+
+      req.log( 'info', 'did not retrieve any list reference. Redirecting to unlink' );
+
+      return res.redirect( 302, req.genUrl( 'emailStrategieUnlink', { slug: req.agenda.slug } ) );      
 
     }
 
@@ -102,7 +123,9 @@ function show( req, res, next ) {
       accountName : obj.account.login,
       listName : obj.list.name,
       state : "Ok",
-      error : false
+      error : obj.error,
+      agendaCount: obj.agendaCount,
+      emailStrategieCount: obj.emailStrategieCount
     } );
 
   });
@@ -111,7 +134,9 @@ function show( req, res, next ) {
 
 function unlink( req, res, next ) {
 
-  req.agenda.emailStrategie.removeAccount( function( err, account ) {
+  req.log( 'info', 'unlinking account for agenda %s', req.agenda.slug );
+
+  req.agenda.emailStrategie.removeAccount( function( err ) {
 
     if ( err ) return next( err );
 

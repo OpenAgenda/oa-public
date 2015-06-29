@@ -119,6 +119,8 @@ function loadAdminLayout( req, res, next ) {
 
   req.agenda.getCredentialList( function( err, credentials ) {
 
+    req.log( 'loaded credentials %s', credentials );
+
     if ( err ) return next( err );
 
     // filter tabs where agenda does not have required creds
@@ -276,38 +278,45 @@ function buildCsv( includePrivateData ) {
 
       stream.on( 'data', function( eventData ) {
 
+        stream.pause();
+
         processing++;
 
         // instanciate
-        var eInst = eventSvc.instanciate( eventData ),
+        var eInst = eventSvc.instanciate( eventData );
 
         // clean event
-        clean = eventSvc.exports.clean( eInst );
+        eventSvc.exports.clean( eInst, function( err, clean ) {
 
-        // decorate with agenda related data
-        svc.exports.decorateEvent( req.agenda, eInst, clean, {
-          includePrivateData: !!includePrivateData
-        }, function( err, clean ) {
+          // decorate with agenda related data
+          svc.exports.decorateEvent( req.agenda, eInst, clean, {
+            includePrivateData: !!includePrivateData
+          }, function( err, clean ) {
 
-          if ( err ) {
+            if ( err ) {
 
-            req.log( 'error', err );
+              req.log( 'error', err );
 
-            return;
+              return stream.resume();
 
-          }
+            }
 
-          processing--;
+            processing--;
 
-          csvStream.write( utils.extend( {}, defaultRow, f.flatten( clean ) ) );
+            csvStream.write( utils.extend( {}, defaultRow, f.flatten( clean ) ) );
 
-          if ( !processing && end ) {
+            stream.resume();
 
-            csvStream.end();
+            if ( !processing && end ) {
 
-          }
+              csvStream.end();
+
+            }
+
+          } );
 
         } );
+
 
       } );
 

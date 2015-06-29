@@ -95,9 +95,15 @@ function search( limit ) {
 
 function cleanEvents( req, res, next ) {
 
-  req.formatted = svc.exports.cleanEvents( req.events );
+  svc.exports.cleanEvents( req.events, function( err, clean ) {
 
-  next();
+    if ( err ) return next( err );
+
+    req.formatted = clean;
+
+    next();
+
+  } );
 
 }
 
