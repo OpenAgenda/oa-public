@@ -198,6 +198,72 @@ describe( 'Create, clear and remove list', function() {
 } );
 
 
+describe( 'Change list state', function() {
+
+  this.timeout( 10000 );
+
+  var account, list;
+
+  beforeEach( _dropDb );
+
+  beforeEach( function( done ) {
+
+    lib.init( {
+      database: dbConfig,
+      redis: {} // defaults
+    } );
+
+    lib.linkAccount( creds.login, creds.password, function( err, a ) {
+
+      account = a;
+
+      done();
+
+    } );
+
+  });
+
+  beforeEach( function( done ) {
+
+    account.createList( 'test list', [ 't1', 't2', 't3' ], function( err, l ) {
+
+      list = l;
+
+      done();
+
+    } );
+
+  });
+
+  afterEach( function( done ) {
+
+    account.unlink( done );
+
+  });
+
+  it( 'setState', function( done ) {
+
+    list.setState( 'syncing', function( err ) {
+
+      var cli = _cli();
+
+      cli.query( 'select lists from account where id = ?', account.id, function( err, rows ) {
+
+        cli.end();
+
+        JSON.parse( rows[ 0 ].lists )[ 0 ].state.should.equal( 'syncing' );
+
+        done();
+
+      } );
+
+    });
+
+  } );
+
+} );
+
+
 describe( 'Add and remove items to a list', function() {
 
   this.timeout( 10000 );
@@ -242,7 +308,7 @@ describe( 'Add and remove items to a list', function() {
   });
 
 
-  it.only( 'should add an item to the list', function( done ) {
+  it( 'should add an item to the list', function( done ) {
 
     var itemId = 23;
 
@@ -265,7 +331,6 @@ describe( 'Add and remove items to a list', function() {
         done();
 
       });
-
     });
 
   });

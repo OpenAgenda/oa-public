@@ -12,6 +12,8 @@ module.exports = function( data ) {
 
   var list = utils.extend( {
     clear: clear,
+    setState: setState,
+    getState: getState,
     removeItem: removeItem,
     setItem: setItem,
     remove: remove,
@@ -25,7 +27,19 @@ module.exports = function( data ) {
    * list is deleted and re-created
    */
   
-  function clear( cb ) {
+  function clear( newState, cb ) {
+
+    if ( arguments.length == 1 && typeof arguments[ 0 ] == 'function' ) {
+
+      cb = newState;
+
+      newState = false;
+
+    } else if ( arguments.length == 0 ) {
+
+      newState = false;
+
+    }
 
     if ( !cb ) {
 
@@ -34,7 +48,8 @@ module.exports = function( data ) {
       return task.queue( {
         name: 'clear',
         accountId: list.account.id,
-        listId: list.id
+        listId: list.id,
+        state: newState
       } );
 
     }
@@ -55,15 +70,44 @@ module.exports = function( data ) {
 
         list.id = newList.id;
 
-        cb( null );
+        setState( newState, cb );
 
-      })
+      });
 
     });
 
   }
 
+  function getState() {
+
+    return list.state;
+
+  }
+
+  function setState( state, cb ) {
+
+    if ( !cb ) {
+
+      task.queue( {
+        name: 'setState',
+        accountId: list.account.id,
+        listId: list.id,
+        state: state
+      } );
+
+      return;
+
+    }
+
+    log( 'setState - setting list %s state to %s', list.id, state );
+
+    list.account.updateList( list.id, { state: state }, cb );
+
+  }
+
   function remove( cb ) {
+
+    log( 'remove - list %s with token %s', list.id, list.token );
 
     ifc.DeleteListByID( {
       token: list.token,

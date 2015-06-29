@@ -16,6 +16,7 @@ module.exports = function( data ) {
 
   account = utils.extend( {
     update: update,
+    updateList: updateList,
     createList: createList,
     removeList: removeList,
     getList: getList,
@@ -98,23 +99,46 @@ module.exports = function( data ) {
 
   function update( toUpdate, cb ) {
 
-    var updated = utils.extend( 
-      {}, 
-      data,
-      toUpdate
-    );
+    var updated = utils.extend({}, account, toUpdate );
 
     _getToken( updated.login, updated.password, function( err, token ) {
 
       if ( err ) return cb( err );
 
-      utils.extend( data, updated );
+      utils.extend( account, updated );
 
-      store.set( utils.extend( {
-        id: account.id
-      }, toUpdate ), cb );
+      _storeSet( cb );
 
     } );
+
+  }
+
+  function _storeSet( cb ) {
+
+    store.set( {
+      id: account.id,
+      login: account.login,
+      password: account.password,
+      lists: account.lists
+    }, cb );
+
+  }
+
+  function updateList( id, data, cb ) {
+
+    account.lists.forEach( function( list, i ) {
+
+      if ( list.id == id ) {
+
+        utils.extend( account.lists[ i ], data );
+
+      }
+
+    } );
+
+    update( {
+      lists: account.lists
+    }, cb );
 
   }
 
@@ -122,7 +146,7 @@ module.exports = function( data ) {
 
     log( 'createList - creating list %s', name );
 
-    _getToken( data.login, data.password, function( err, token ) {
+    _getToken( account.login, account.password, function( err, token ) {
 
       if ( err ) return cb( err );
 
@@ -149,17 +173,17 @@ module.exports = function( data ) {
 
           log( 'createList - headers created' );
 
-          data.lists.push( { 
+          account.lists.push( { 
             id: id, 
             name: name,
             fields: fields
           } );
 
-          store.set( data, function( err ) {
-
-            log( 'createList - list stored with id %s in account %s', id, account.id );
+          _storeSet( function( err ) {
 
             if ( err ) return cb( err );
+
+            log( 'createList - list stored with id %s in account %s', id, account.id );
 
             cb( null, list( { 
               id: id, 
@@ -187,7 +211,7 @@ module.exports = function( data ) {
 
       cb = listId;
 
-      listId = data.lists.length ? data.lists[ 0 ].id : false;
+      listId = account.lists.length ? account.lists[ 0 ].id : false;
 
     }
 
@@ -212,6 +236,7 @@ module.exports = function( data ) {
       cb( null, list( {
         id: listId,
         name: l.name,
+        state: l.state,
         account: account,
         token: token,
         fields: l.fields

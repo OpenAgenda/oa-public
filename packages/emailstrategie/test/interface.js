@@ -215,7 +215,7 @@ describe( 'get list, handle content', function() {
 
   });
 
-  it.only( 'SaveListItem special character', function( done ) {
+  it( 'SaveListItem special character', function( done ) {
 
     async.each( [
       [ 1, 'La bête \t humaine', 'groar' ],
@@ -237,7 +237,7 @@ describe( 'get list, handle content', function() {
 
       ifc.GetListByID( { listID: listId, token: token }, function( err, response ) {
 
-        response.totalRecords.should.eql( 1 );
+        response.totalRecords.should.eql( 5 );
 
         done();
 

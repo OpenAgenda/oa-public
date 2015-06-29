@@ -133,7 +133,8 @@ describe( 'queued setItem, removeItem and clear', function() {
       response[ 1 ].should.eql( JSON.stringify( {
         name: 'clear',
         accountId: 1,
-        listId: list.id
+        listId: list.id,
+        state: false
       } ) );
 
       done();

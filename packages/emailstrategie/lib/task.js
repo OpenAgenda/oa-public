@@ -56,7 +56,7 @@ function queue( data, cb ) {
 
 function process( data, cb ) {
 
-  if ( [ 'setItem', 'removeItem', 'clear' ].indexOf( data.name ) == -1 ) {
+  if ( [ 'setItem', 'removeItem', 'clear', 'setState' ].indexOf( data.name ) == -1 ) {
 
     return cb( 'unknown task' );
 
@@ -95,6 +95,10 @@ function process( data, cb ) {
       } else if ( data.name == 'clear' ) {
 
         list.clear( _complete( list, 'clear', cb ) );
+
+      } else if ( data.name == 'setState' ) {
+
+        list.setState( data.state, _complete( list, 'setState', cb ) );
 
       } else {
 
