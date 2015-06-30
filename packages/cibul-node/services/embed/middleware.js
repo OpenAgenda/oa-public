@@ -172,6 +172,8 @@ function loadCustomLayoutData( req, res, next ) {
 
   req.baseData.head.customHead = req.embed.getHead();
 
+  req.baseData.scriptParams.cascading = req.embed.getCascadingMode();
+
   next();
 
 }

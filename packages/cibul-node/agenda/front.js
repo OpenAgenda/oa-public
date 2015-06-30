@@ -371,7 +371,6 @@ function _formatAgendaData( mode ) {
 
     req.templateData.hasSearchQuery = !!lib.size( req.query.search );
 
-
     if ( req.params.embedUid ) {
 
       req.templateData.embedUid = req.params.embedUid;
