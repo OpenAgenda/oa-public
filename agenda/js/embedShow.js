@@ -14,10 +14,16 @@ cn = require( '../../js/lib/common/common.mod' ),
 
 handler,
 
+Masonry = require( 'masonry-layout' ), 
+
+msnry = false,
+
 defaults = {
   selectors: {
+    listContent: '.js_list_content',
     loadNext: '.js_load_next'
-  }
+  },
+  cascading: false
 };
 
 window.hook( function( options ) {
@@ -56,6 +62,14 @@ window.hook( function( options ) {
 
   window.cibul.getController( params.uid ).disablePassedAutoLoad();
 
+  if ( params.cascading ) {
+
+    log( 'cascading mode on' );
+
+    msnry = _masonry( params.selectors.listContent );
+
+  }
+
   list.init( {
     total: params.total,
     perPage: params.perPage,
@@ -90,6 +104,8 @@ function _loadNext() {
   list.loadNext( function( err ) {
 
     handler.contentChange();
+
+    if ( msnry ) msnry.reset();
     
   });
 
@@ -104,6 +120,30 @@ function _hideTrigger( selector ) {
       elem.style.display = 'none';
 
     } );
+
+  }
+
+}
+
+
+function _masonry( listSelector ) {
+
+  var m = _start();
+
+  return {
+    reset: function() {
+
+      m.destroy();
+
+      _start();
+
+    },
+    start: _start
+  }
+
+  function _start() {
+
+    return new Masonry( listSelector );
 
   }
 

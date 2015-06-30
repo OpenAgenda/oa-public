@@ -28,14 +28,21 @@ module.exports = function( pageOptions ) {
 
     pageHeight.setOnChange( function( height ) {
 
-      sendFunc( { height: height } );
+      sendFunc( {
+        height: height
+      } );
         
     });
 
     pageHeight.force();
 
     linkClickController = function( href, target ) {
-      sendFunc( { load: href, target: target } );
+
+      sendFunc( {
+        load: href,
+        target: target
+      } );
+
     };
 
 
