@@ -20,6 +20,8 @@ deepExtend = require( 'deep-extend' ),
 
 wn = require( 'when/node' ),
 
+async = require( 'async' ),
+
 i18n = require( '../i18n/i18n' ),
 
 timeHelper = require( 'cibulTemplates' ).helpers.time,
@@ -242,30 +244,34 @@ function controlData( req, res ) {
 
 function _format( req, res, next ) {
 
-  var _t = timeHelper( { lang: req.lang } ),
+  var _t = timeHelper( { lang: req.lang } );
 
-  formattedEvents = req.events.map( function( e ) {
+  async.map( req.events, function( e, mcb ) {
 
-    return _formatEventItem( e, _t, req.lang );
-    
-  } );
+    _formatEventItem( e, _t, req.lang, mcb );
 
-  req.templateData = {
-    events: formattedEvents,
-    hasSearchQuery: !!lib.size( req.query.search ),
-    passed: req.agenda.passed,
-    total: req.total,
-    page: req.query.page || 1
-  };
+  }, function( err, formattedEvents ) {
 
-  req.events = formattedEvents;
+    if ( err ) return cb( err );
 
-  next();
+    req.templateData = {
+      events: formattedEvents,
+      hasSearchQuery: !!lib.size( req.query.search ),
+      passed: req.agenda.passed,
+      total: req.total,
+      page: req.query.page || 1
+    };
+
+    req.events = formattedEvents;
+
+    next();
+
+  });
 
 }
 
 
-function _formatEventItem( event, _t, lang ) {
+function _formatEventItem( event, _t, lang, cb ) {
 
   var inst = model.events().instance( event ),
 
@@ -277,7 +283,7 @@ function _formatEventItem( event, _t, lang ) {
 
   dateRange = inst.getDateRange( true );
 
-  return lib.extend( inst, {
+  var formatted = lib.extend( inst, {
     dateRange: i18n( dateRange[ 0 ], _t( dateRange[1] ), lang ).replace( ':', lang=='fr' ? 'h' : ':' ),
     closestDate: inst.getClosestDate(),
     title: inst.getTitle(),
@@ -289,8 +295,21 @@ function _formatEventItem( event, _t, lang ) {
     city: inst.getCity().label,
     pricingInfo: inst.getPricingInfo(),
     ticketLink: inst.getTicketLink(),
-    organization: event.organization ? { slug: event.organizationSlug, label: event.organization } : false
+    organization: event.organization ? { slug: event.organizationSlug, label: event.organization } : false,
+    category: false
   } );
+
+  inst.getAgendaCategory( function( err, c ) {
+
+    if ( err || !c ) return cb( err, formatted );
+
+    formatted.category = c.label;
+
+    formatted.categorySlug = c.slug;
+
+    cb( null, formatted );
+
+  });
 
 }
 
@@ -324,6 +343,13 @@ function _formatEmbedLinks( req, res, next ) {
       lang: req.lang
     });
 
+    if ( e.categorySlug ) e.categoryLink = req.genUrl( 'agendaEmbedShow', {
+      uid: req.params.uid,
+      search: {
+        category: e.categorySlug
+      }
+    });
+
   } );
 
   next();
@@ -341,80 +367,14 @@ function _formatCustomEmbedLinks( req, res, next ) {
       lang: req.lang
     });
 
-  } );
-
-  next();
-
-}
-
-
-
-function _formatAgendaData( mode ) {
-
-  return function( req, res, next ) {
-
-    req.mode = mode;
-
-    req.template = modes[ mode ].template;
-
-    req.templateData = {
-      uid: req.agenda.uid,
-      slug: req.agenda.slug,
-      title: req.agenda.title,
-      description: req.agenda.description,
-      url: req.agenda.url,
-      image: req.agenda.getImage( false ),
-      passed: req.agenda.passed
-    };
-
-    req.templateData.importUri = req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } );
-
-    req.templateData.hasSearchQuery = !!lib.size( req.query.search );
-
-    if ( req.params.embedUid ) {
-
-      req.templateData.embedUid = req.params.embedUid;
-
-      req.templateData.scriptParams = { 
-        uid: req.params.uid + '/' + req.params.embedUid
-      }
-
-    }
-
-    req.templateData.page = req.query.page || 1;
-
-    next();
-
-  }
-
-}
-
-
-
-function _loadTemplateUris( req, res, next ) {
-
-  // only used for event item render
-  req.templateData.eventUri = modes[ req.mode ].eventUri;
-
-  req.templateData.base = {};
-
-  modes[ req.mode ].base.forEach( function( name ) {
-
-    req.templateData.base[ name ] = req.templateData[ name ];
-
-  });
-
-  req.templateData.events.forEach( function( e ) {
-
-    e.query = {};
-
-    for ( var i in modes[ req.mode ].eventQuery ) {
-
-      e.query[ i ] = e[ modes[ req.mode ].eventQuery[ i ] ];
-
-      e.importUri = req.genUrl( 'eventActionShow', { eventSlug: e.slug });
-
-    }
+    if ( e.categorySlug ) e.categoryLink = req.genUrl( 'customEmbedShow', {
+      uid: req.params.uid,
+      embedUid: req.embed.uid,
+      search: {
+        category: e.categorySlug
+      },
+      lang: req.lang
+    });
 
   } );
 
@@ -467,7 +427,7 @@ function _layoutData( req, res ) {
 
   data.headLinks.push({
     rel: 'canonical',
-    href: req.genUrl( 'agendaShow', {slug: req.agenda.slug }, { abs: true, protocol: 'https://' } )
+    href: req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { abs: true, protocol: 'https://' } )
   });
 
   return data;

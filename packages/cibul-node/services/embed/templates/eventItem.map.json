@@ -9,6 +9,8 @@
     { "name" : "City", "mapTo" : "city" },
     { "name" : "DateRange", "mapTo": "dateRange" },
     { "name" : "PricingInfo", "mapTo" : "pricingInfo" },
-    { "name" : "TicketUrl", "mapTo" : "ticketLink" }
+    { "name" : "TicketUrl", "mapTo" : "ticketLink" },
+    { "name" : "Category", "mapTo" : "category" },
+    { "name" : "CategoryLink", "mapTo" : "categoryLink" }
   ]
 }

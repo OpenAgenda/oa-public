@@ -425,14 +425,18 @@ function _format( req, res, next ) {
 
   _t = timeHelper( { lang: req.lang } ),
 
-  location;
+  location,
 
-  async.series([
+  getters = [
     req.event.getOwner,
     req.event.getAgendaReferences,
     req.event.getAdminAgendas,
     req.event.getState
-  ], function( err, results ) {
+  ];
+
+  if ( req.agenda ) getters.push( req.event.getAgendaCategory );
+
+  async.series( getters, function( err, results ) {
 
     if ( err ) return next( err );
 
@@ -502,6 +506,10 @@ function _format( req, res, next ) {
         eventSlug: req.event.slug
       });
 
+      formatted.category = results[ 4 ] ? results[ 4 ].label : false;
+
+      formatted.categorySlug = results[ 4 ] ? results[ 4 ].slug : false;
+
     } else {
 
       formatted.importUri = req.genUrl( 'eventActionShow', { 
@@ -538,6 +546,19 @@ function _formatEmbedLinks( req, res, next ) {
     }
   });
 
+  req.formatted.categoryLink = false;
+
+  if ( req.formatted.categorySlug ) {
+
+    req.formatted.categoryLink = req.genUrl( 'embedShow', {
+      uid: req.params.uid,
+      search: {
+        category: req.formatted.categorySlug
+      }
+    });
+
+  }
+
   req.formatted.backLabel = i18n( 'back', req.lang );
 
   next();
@@ -553,7 +574,8 @@ function _formatCustomEmbedLinks( req, res, next ) {
 
   req.formatted.backLink = req.genUrl( 'customEmbedShow', { 
     uid: req.params.uid, 
-    embedUid: req.params.embedUid
+    embedUid: req.params.embedUid,
+    lang: req.lang
   } );
 
   req.formatted.locationLink = req.genUrl( 'customEmbedShow', {
@@ -561,8 +583,24 @@ function _formatCustomEmbedLinks( req, res, next ) {
     embedUid: req.params.embedUid,
     search: {
       location: req.event.getLocationUid()
-    }
+    },
+    lang: req.lang
   });
+
+  req.formatted.categoryLink = false;
+
+  if ( req.formatted.categorySlug ) {
+
+    req.formatted.categoryLink = req.genUrl( 'customEmbedShow', {
+      uid: req.params.uid,
+      embedUid: req.params.embedUid,
+      search: {
+        category: req.formatted.categorySlug
+      },
+      lang: req.lang
+    });
+
+  }
 
   req.formatted.backLabel = i18n( 'back', req.lang );
 

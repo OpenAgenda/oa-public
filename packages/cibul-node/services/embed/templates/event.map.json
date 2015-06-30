@@ -65,6 +65,12 @@
   }, {
     "name" : "PinterestShareUrl",
     "mapTo" : "pinterestShare"
+  },{ 
+    "name" : "Category",
+    "mapTo" : "category"
+  },{ 
+    "name" : "CategoryLink",
+    "mapTo" : "categoryLink"
   } ],
 
   "children" : [ {
