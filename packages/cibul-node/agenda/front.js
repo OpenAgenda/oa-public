@@ -291,6 +291,7 @@ function _formatEventItem( event, _t, lang, cb ) {
     thumbnail: inst.getThumbnail( false ),
     description: inst.getDescription(),
     placeName: inst.getLocationName(),
+    address: inst.getAddress().label,
     placeNameLabel: inst.getLocationName().label,
     city: inst.getCity().label,
     pricingInfo: inst.getPricingInfo(),
