@@ -147,8 +147,12 @@
 
     },
 
+    "customValueLabels" : false,
+
     "scriptParams" : {
       "lang" : "fr",
+      "uid" : 83797892,
+      "hasCustomFields" : false,
       "ownerUid" : 743739984789,
       "agendaUid" : false,
       "adminAgendaUids" : []
@@ -176,7 +180,8 @@
   "admined" : {
     "scriptParams" : {
       "ownerUid" : 11234,
-      "agendaUid" : 93761158
+      "agendaUid" : 93761158,
+      "hasCustomFields" : true
     }
   },
   "featured" : {
@@ -186,6 +191,60 @@
     "scriptParams" : {
       "ownerUid" : 11234,
       "agendaUid" : 93761158
+    }
+  },
+  "custom" : {
+    "event": {
+      "custom" : [{
+        "name":"periodicity",
+        "value":"biannual",
+        "label":"Bi-Annuel (deux fois par an)",
+        "fieldType":"radio"
+      }, {
+        "name":"visitortypes",
+        "value":"professionalsonly",
+        "label":"Réservé aux professionnels",
+        "fieldType":"radio"
+      },{
+        "name":"year",
+        "value":null,
+        "label":null,
+        "fieldType":"integer"
+      },{"name":"siteurl","value":"http://www.bijorhca.com","label":"http://www.bijorhca.com","fieldType":"url"},{"name":"organizeremail","value":"info@bijorhca.com","label":"info@bijorhca.com","fieldType":"email"},{"name":"salesemail","value":"contact.bijorhca@reedexpo.fr","label":"contact.bijorhca@reedexpo.fr","fieldType":"email"},{"name":"nomenclature","value":"Bijouterie Fantaisie et Créateurs, Haute couture et Licences, Argent, Or, Montres, Accessoires de mode\n","label":"Bijouterie Fantaisie et Créateurs, Haute couture et Licences, Argent, Or, Montres, Accessoires de mode\n","fieldType":"textarea"},{"name":"visitorprofiles","value":"Professionnels de la distribution française et internationale (grossistes, chaînes, détaillants, grands magasins, bureaux d'achats)","label":"Professionnels de la distribution française et internationale (grossistes, chaînes, détaillants, grands magasins, bureaux d'achats)","fieldType":"textarea"},{"name":"totalnumberofvisitors","value":"8147","label":"8147","fieldType":"integer"},{"name":"totalnumberexhibitors","value":"491","label":"491","fieldType":"integer"},{"name":"partners","value":null,"label":null,"fieldType":"text"},{"name":"organizername","value":"Reed Expositions France","label":"Reed Expositions France","fieldType":"text"},{"name":"organizerurl","value":"http://www.reedexpo.fr/","label":"http://www.reedexpo.fr/","fieldType":"url"},{"name":"facebookurl","value":"https://www.facebook.com/bijorhca?fref=ts","label":"https://www.facebook.com/bijorhca?fref=ts","fieldType":"url"},{"name":"twitterurl","value":"https://twitter.com/bijorhca","label":"https://twitter.com/bijorhca","fieldType":"url"},{"name":"flickrurl","value":null,"label":null,"fieldType":"text"},{"name":"instagramurl","value":null,"label":null,"fieldType":"url"},{"name":"dailymotionurl","value":null,"label":null,"fieldType":"url"},{"name":"youtubeurl","value":null,"label":null,"fieldType":"url"},{"name":"testimony","value":null,"label":null,"fieldType":"textarea"},{"name":"imagetestimony","value":null,"label":null,"fieldType":"text"},{"name":"authortestimony","value":null,"label":null,"fieldType":"text"},{"name":"illustrationurl","value":"https://s3-eu-west-1.amazonaws.com/cibulstatic/Reed/Bijorhca.jpg","label":"https://s3-eu-west-1.amazonaws.com/cibulstatic/Reed/Bijorhca.jpg","fieldType":"url"}],
+      "customLabels": {
+        "periodicity": "Périodicité",
+        "visitortypes": "Type de visiteurs",
+        "year": "Edition",
+        "siteurl": "Url du site web",
+        "organizeremail": "Email de l'organisateur",
+        "salesemail": "Email contact commercial",
+        "nomenclature": "Produits et services",
+        "visitorprofiles": "Profils des visiteurs",
+        "numberofvisitorsnationals": "Année dernière - Nombre de visiteurs nationaux",
+        "numberofvisitorsforeign": "Année dernière - Nombre de visiteurs étrangers",
+        "totalnumberofvisitors": "Année dernière - Nombre total de visiteurs",
+        "numberofnationalexhibitors": "Année dernière - Nombre d'exposants nationaux",
+        "numberofforeignexhibitors": "Année dernière - Nombre d'exposants étrangers",
+        "totalnumberexhibitors": "Année dernière - Nombre total d'exposants",
+        "partners": "Partenaires ( fédérations/syndicats... )",
+        "organizername": "Nom de la société organisatrice",
+        "organizerurl": "Url de l'organisateur",
+        "directorname": "Nom du directeur",
+        "financialdirectorname": "Nom du directeur financier",
+        "netsurface": "Année dernière - Surface nette (m2)",
+        "emptysurfaceprice": "Prix du m2 nu",
+        "equippedsurfaceprice": "Prix du m2 équipé",
+        "facebookurl": "Lien page Facebook",
+        "twitterurl": "Lien compte Twitter",
+        "flickrurl": "Galerie Flickr",
+        "instagramurl": "Instagram",
+        "dailymotionurl": "Dailymotion",
+        "youtubeurl": "Youtube",
+        "testimony": "Témoignage",
+        "imagetestimony": "Url image témoignages",
+        "authortestimony": "Auteur du témoignage",
+        "illustrationurl": "Photo d'illustration"
+      }
     }
   },
   "multilingual" : {

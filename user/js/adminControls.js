@@ -1,6 +1,8 @@
 module.exports = process;
 
-process.init = init;
+module.exports.init = init;
+
+module.exports.ifAdmin = ifAdmin;
 
 var debug = require( 'debug' ),
 
@@ -21,7 +23,9 @@ params = {
     displayNone: 'display-none'
   },
   testFunc: _test // optional function for substituting to test
-};
+},
+
+ifAdminCallbacks = [];
 
 
 function init() {
@@ -29,6 +33,12 @@ function init() {
   hide();
 
   _move();
+
+}
+
+function ifAdmin( cb ) {
+
+  ifAdminCallbacks.push( cb );
 
 }
 
@@ -43,6 +53,12 @@ function process( session, options ) {
   if ( params.testFunc( session ) ) {
 
     _display();
+
+    cn.forEach( ifAdminCallbacks, function( cb ) {
+
+      cb();
+
+    } );
 
     return true;
 

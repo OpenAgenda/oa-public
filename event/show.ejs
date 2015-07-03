@@ -119,6 +119,13 @@
             <%- event.freeText %>
           </div>
 
+          <div class="custom js_custom">
+<% if ( event.custom ) { %>
+<% var custom = event.custom, labels = event.customLabels; %>
+            <%= include ./custom.part.ejs %>
+<% } %>
+          </div>
+
 <% if ( event.timings.length > 1 ) { %>
           <section class="dates">
             <h3 class="title"><%= __('Date details') %></h3>

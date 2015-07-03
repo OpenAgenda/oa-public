@@ -8,6 +8,8 @@ adminControls = require( '../../user/js/adminControls' ),
 
 modalPartial = require( '../../bsLayout/js/modalPartial' ),
 
+customData = require( './customData' ),
+
 debug = require( 'debug' ), log,
 
 ROLES = {
@@ -31,7 +33,9 @@ if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) debug.enable( '*' );
 
 window.hook( function( options ) {
 
-  var params = cn.extend( {}, defaults, options );
+  var params = cn.extend( {
+    hasCustomFields: false
+  }, defaults, options );
 
   log = debug( 'event' );
 
@@ -41,10 +45,25 @@ window.hook( function( options ) {
 
     var roles = _defineRoles( params, session ),
 
+    showControls;
+
+    if ( params.hasCustomFields ) {
+
+      adminControls.ifAdmin( function() {
+
+        log( 'user is admin' );
+
+        customData().load( params.agendaUid, params.uid );
+
+      } );
+
+    }
+
     showControls = adminControls( session, {
       testFunc: function() { return roles.length; },
       displaySelectors: roles.map( function( r ) { return params.selectors[ r ]; } )
     } );
+
 
   });
   

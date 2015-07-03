@@ -1,0 +1,17 @@
+{
+  "custom" : [{
+    "name":"periodicity",
+    "value":"biannual",
+    "label":"Bi-Annuel (deux fois par an)",
+    "fieldType":"radio"
+  }, {
+    "name":"visitortypes",
+    "value":"professionalsonly",
+    "label":"Réservé aux professionnels",
+    "fieldType":"radio"
+  }],
+  "labels" : {
+    "periodicity": "Périodicité",
+    "visitortypes": "Type de visiteurs"
+  }
+}
