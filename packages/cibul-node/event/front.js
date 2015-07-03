@@ -30,8 +30,10 @@ routes = {
     agendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     _format,
+    agendaSvc.mw.decorateEvent( false ),
     _formatSocialLinks,
     cmn.loadBaseData( _layoutData, 'oa.css' ),
+    _log,
     agendaEventShow
   ] ],
 
@@ -184,7 +186,12 @@ function redirect( req, res ) {
 
   if ( !req.agenda || !req.event ) return next( { code: 404 } );
 
-  res.redirect( 301, req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug }, { protocol: 'https://' } ) );
+  res.redirect( 301, req.genUrl( 'agendaEventShow', {
+    slug: req.agenda.slug, 
+    eventSlug: req.event.slug
+  }, {
+    protocol: 'https://'
+  } ) );
 
 }
 
@@ -703,6 +710,14 @@ function _extractAgendasSharing( req, res, next ) {
 
 }
 
+function _log( req, res, next ) {
+
+  console.log( JSON.stringify( req.formatted.custom ) );
+
+  next();
+
+}
+
 
 function _layoutData( req, res ) {
 
@@ -773,9 +788,11 @@ function _layoutData( req, res ) {
   };
 
   data.scriptParams = {
+    uid: req.formatted.uid,
     agendaUid: req.agenda ? req.agenda.uid : false,
     ownerUid: req.formatted.owner.uid,
-    adminAgendaUids: req.formatted.adminAgendas ? req.formatted.adminAgendas.map( function( a ) { return a.uid; } ) : []
+    adminAgendaUids: req.formatted.adminAgendas ? req.formatted.adminAgendas.map( function( a ) { return a.uid; } ) : [],
+    hasCustomFields: !req.formatted.custom || !!req.formatted.custom.length
   };
 
   return data;

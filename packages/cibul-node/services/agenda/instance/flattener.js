@@ -217,7 +217,7 @@ function _extendMapping( agenda, includePrivateData ) {
 
     if ( includePrivateData || ( cField.type !== 'private' ) ) {
 
-      amendment.push( [ cField.name, 'custom.' + cField.name ] );
+      amendment.push( [ cField.name, 'customValues.' + cField.name ] );
 
     }
 

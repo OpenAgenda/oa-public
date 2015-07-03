@@ -39,6 +39,13 @@ routes = {
     _checkAuthorizedChanges( [ 'featured', 'notfeatured' ] ),
     _changeFeatured,
     _redirect
+  ] ],
+
+  agendaEventPrivateCustomData: [ 'get', '/agendas/:uid/events/:eventUid/custom/private', [
+    agendaSvc.mw.load( 'uid' ),
+    eventSvc.mw.load( 'eventUid', 'uid' ),
+    cmn.checkAdministrator,
+    privateCustomData
   ] ]
 
 };
@@ -56,6 +63,23 @@ module.exports = function( path ) {
     load: router.load( path ),
     paths: modLib.getPaths( path, routes )
   }
+
+}
+
+function privateCustomData( req, res, next ) {
+
+  req.agenda.getEventPrivateCustomData( req.event, function( err, custom ) {
+
+    if ( err ) return next( err );
+
+    var labels = req.agenda.getCustomFieldsLabels( req.event.getCurrentLanguage() );
+
+    cmn.renderJson( req, res, {
+      custom: custom,
+      labels: labels
+    });
+
+  });
 
 }
 

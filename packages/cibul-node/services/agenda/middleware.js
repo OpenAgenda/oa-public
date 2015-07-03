@@ -20,6 +20,7 @@ module.exports = function( agendaService ) {
     search: searchEvents,
     browserCache: browserCache,
     decorateEvents: decorateEvents,
+    decorateEvent: decorateEvent,
     buildCsv: buildCsv
   }
 
@@ -232,6 +233,18 @@ function decorateEvents( includePrivateData ) {
 
     svc.exports.decorateEvents( req.agenda, instanciated, req.formatted, {
       includePrivateData: !!includePrivateData
+    }, next );
+
+  }
+
+}
+
+function decorateEvent( includePrivateData ) {
+
+  return function( req, res, next ) {
+
+    svc.exports.decorateEvent( req.agenda, req.event, req.formatted, {
+      includePrivateData: false
     }, next );
 
   }

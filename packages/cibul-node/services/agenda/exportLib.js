@@ -20,13 +20,13 @@ module.exports = function( service ) {
 }
 
 
-function decorateEvent( agenda, event, clean, options, cb ) {
+function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
   var params = utils.extend( {
     includePrivateData: false
   }, options );
 
-  clean.canonicalUrl = genUrl( 'agendaEventShow', { 
+  toDecorate.canonicalUrl = genUrl( 'agendaEventShow', { 
     slug: agenda.slug,
     eventSlug: event.slug
   }, { protocol: 'https://' } );
@@ -41,7 +41,7 @@ function decorateEvent( agenda, event, clean, options, cb ) {
 
         if ( err ) return wcb( err );
 
-        clean.state = state;
+        toDecorate.state = state;
 
         wcb();
 
@@ -55,7 +55,7 @@ function decorateEvent( agenda, event, clean, options, cb ) {
 
         if ( err ) return wcb( err );
 
-        clean.featured = isFeatured;
+        toDecorate.featured = isFeatured;
 
         wcb();
 
@@ -65,19 +65,29 @@ function decorateEvent( agenda, event, clean, options, cb ) {
 
     function( wcb ) {
 
-      var customFieldsGetter = agenda.getEventPublicCustomFields;
+      var customFieldsGetter = agenda.getEventPublicCustomData;
 
       if ( params.includePrivateData ) {
 
-        customFieldsGetter = agenda.getEventCustomFields;
+        customFieldsGetter = agenda.getEventCustomData;
 
       }
 
-      customFieldsGetter( event, function( err, values ) {
+      customFieldsGetter( event, function( err, custom ) {
 
         if ( err ) return wcb( err );
 
-        clean.custom = values;
+        toDecorate.customValues = {};
+
+        custom.forEach( function( v ) {
+
+          toDecorate.customValues[ v.name ] = v.value;
+
+        });
+
+        toDecorate.custom = custom;
+
+        toDecorate.customLabels = agenda.getCustomFieldsLabels( event.getCurrentLanguage() );
 
         wcb();
 
@@ -91,7 +101,7 @@ function decorateEvent( agenda, event, clean, options, cb ) {
 
         if ( err ) return wcb( err );
 
-        clean.category = category || null;
+        toDecorate.category = category || null;
 
         wcb();
 
@@ -105,7 +115,7 @@ function decorateEvent( agenda, event, clean, options, cb ) {
 
         if ( err ) return wcb( err );
 
-        clean.tags = tags;
+        toDecorate.tags = tags;
 
         wcb();
 
@@ -117,7 +127,7 @@ function decorateEvent( agenda, event, clean, options, cb ) {
 
     if ( err ) return cb( err );
 
-    cb( null, clean );
+    cb( null, toDecorate );
 
   });
 
