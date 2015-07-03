@@ -14,6 +14,7 @@ module.exports = function( data ) {
     clear: clear,
     setState: setState,
     getState: getState,
+    getFields: getFields,
     removeItem: removeItem,
     setItem: setItem,
     remove: remove,
@@ -81,6 +82,12 @@ module.exports = function( data ) {
   function getState() {
 
     return list.state;
+
+  }
+
+  function getFields() {
+
+    return list.fields;
 
   }
 
