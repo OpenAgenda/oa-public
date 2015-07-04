@@ -21,6 +21,7 @@ module.exports = function( agendaService ) {
     browserCache: browserCache,
     decorateEvents: decorateEvents,
     decorateEvent: decorateEvent,
+    cleanJson: cleanJson,
     buildCsv: buildCsv
   }
 
@@ -248,6 +249,26 @@ function decorateEvent( includePrivateData ) {
     }, next );
 
   }
+
+}
+
+function cleanJson( req, res, next ) {
+
+  req.formatted.forEach( function( f ) {
+
+    if ( f.customValues ) {
+
+      f.custom = f.customValues;
+
+      delete f.customValues;
+
+      delete f.customLabels;
+
+    }
+
+  });
+
+  next();
 
 }
 

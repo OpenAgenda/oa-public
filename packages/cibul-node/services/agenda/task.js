@@ -48,7 +48,7 @@ function run() {
 
         _clearTimestamp( agenda );
         
-        _emailStrategie( agenda, agendaEvent );
+        // _emailStrategie( agenda, agendaEvent );
 
         ecb();
 

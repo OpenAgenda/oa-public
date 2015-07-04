@@ -26,10 +26,11 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
       setAccountList: setAccountList,
       setAccount: setAccount,
       syncEvents: syncEvents,
+      pushEvents: pushEvents,
       setEvent: setEvent,
       removeEvent: removeEvent
     }
-  };
+  }
 
 
   /**
@@ -41,6 +42,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
     w( {
       account: false,
       list: false,
+      fields: [],
       emailStrategieCount: 0,
       agendaCount: 0,
       error: false,
@@ -58,13 +60,13 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
           utils.extend( obj, o );
 
-          if ( !obj || !obj.account || !obj.list ) {
+          if ( !obj || !obj.account ) {
 
             cb( null, obj );
 
           } else {
 
-            obj.state = obj.list.state;
+            obj.state = obj.list ? obj.list.state : false;
 
             rs( obj );
 
@@ -76,33 +78,18 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     })
 
+    // load email strategie list count
     .then( function( obj ) {
 
-      // load agenda published count
-      
+      obj.emailStrategieCount = false;
+
+      if ( !obj.list ) return obj;
+
       return w.promise( function( rs, rj ) {
-
-        loaded.search( searchDefaultQuery, function( err, result ) {
-
-          if ( err ) return rj( err );
-
-          obj.agendaCount = result.total;
-
-          rs( obj );
-
-        } );
-
-      });
-
-    })
-
-    .then( function( obj ) {
-
-      return w.promise(function( rs, rj ) {
 
         obj.list.getCount( function( err, count ) {
 
-          if ( err ) rj( err );
+          if ( err ) return rj( err );
 
           obj.emailStrategieCount = count;
 
@@ -114,23 +101,39 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     })
 
+    // get fields in state
     .then( function( obj ) {
 
-      if ( obj.emailStrategieCount !== obj.agendaCount && !obj.state ) {
+      return w.promise( function( rs, rj ) {
 
-        obj.state = 'NOK';
+        loaded.flattener( false, function( err, f ) {
 
-        obj.error = 'EmailStrategie is not in sync with agenda';
+          if ( err ) return rj( err );
 
-      }
+          var listFields = obj.list ? obj.list.getFields() : [];
 
-      return obj;
+          obj.fields = f.getFieldNames().map( function( fName ) {
 
-    })
+            return {
+              name: fName,
+              checked: listFields.indexOf( fName ) !== -1
+            }
+
+          } ). filter( function( f ) {
+
+            return f.name !== 'uid';
+
+          });
+
+          rs( obj );
+
+        } );
+
+      });
+
+    } )
 
     .done( function( obj ) {
-
-      if ( !obj.state ) obj.state = 'OK';
 
       cb( null, obj );
 
@@ -224,7 +227,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
             if ( err ) return cb( err );
 
-            list.setState( 'syncing', function( err ) {
+            list.setState( 'sending', function( err ) {
 
               syncEvents( false, function( err, syncCount ) {
 
@@ -303,6 +306,44 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
   }
 
+  function pushEvents( fields, cb ) {
+
+    fields.splice( 0, 0, 'uid' );
+
+    _getList( function( err, list, account ) {
+
+      if ( err ) return cb( err );
+
+      if ( !list ) {
+
+        account.createList( instance.getTitle(), fields, function( err, list ) {
+
+          if ( err ) return cb( err );
+
+          list.setState( 'sending', function( err ) {
+
+            _streamEvents( 'sending', list, cb );
+
+          } );
+
+        } );
+
+      } else {
+
+        list.clear( fields, function( err ) {
+
+          if ( err ) return cb( err );
+
+          _streamEvents( 'sending', list, cb );
+
+        });
+
+      }
+
+    } );
+
+  }
+
   function syncEvents( clear, cb ) {
 
     log( 'info', 'received event sync request for agenda %s', loaded.uid );
@@ -315,7 +356,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
         log( 'debug', 'sync request - %s - queuing clear', loaded.uid );
 
-        list.clear( 'syncing', function( err ) {
+        list.clear( 'sending', function( err ) {
 
           if ( err ) return cb( err );
 
@@ -325,55 +366,99 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
       } else {
 
-        _streamEvents( list, cb );
+        _streamEvents( 'sending', list, cb );
 
       }
 
-      function _streamEvents( list, cb ) {
+    });
 
-        loaded.flattener( false, function( err, f ) {
+  }
 
-          var stream = loaded.searchStream( searchDefaultQuery ),
+  function _streamEvents( newState, list, cb ) {
 
-          count = 0;
+    if ( arguments.length == 2 ) {
 
-          log( 'info', 'sync request - %s - loaded event stream', loaded.uid );
+      cb = list;
 
-          stream.on( 'data', function( eventItem ) {
+      list = newState;
 
-            var eInst = eventSvc.instanciate( eventItem );
+      newState = list.state;
 
-            stream.pause();
+    }
 
-            eventSvc.exports.clean( eInst, function( err, clean ) {
+    list.setState( newState, function( err ) {
 
-              log( 'debug', 'sync request - %s - queueing event %s for list %s', loaded.uid, eventItem.uid, list.id );
+      if ( err ) return cb( err );
 
-              list.setItem( eventItem.uid, f.flatten( clean ) );
+      loaded.flattener( false, function( err, f ) {
 
-              count++;
+        var stream = loaded.searchStream( searchDefaultQuery ),
 
-              stream.resume();
+        count = 0;
 
-            } );
+        log( 'info', 'sync request - %s - loaded event stream', loaded.uid );
 
-          } );
+        stream.on( 'data', function( eventItem ) {
 
-          stream.on( 'end', function() {
+          var eInst = eventSvc.instanciate( eventItem );
 
-            log( 'debug', 'sync request - %s - done. processed %s events', loaded.slug, count );
+          stream.pause();
 
-            list.setState( false );
+          eventSvc.exports.clean( eInst, function( err, clean ) {
 
-            cb();
+            log( 'debug', 'sync request - %s - queueing event %s for list %s', loaded.uid, eventItem.uid, list.id );
+
+            list.setItem( eventItem.uid, f.flatten( clean ) );
+
+            count++;
+
+            stream.resume();
 
           } );
 
         } );
 
-      }
+        stream.on( 'end', function() {
 
-    });
+          log( 'debug', 'sync request - %s - done. processed %s events', loaded.slug, count );
+
+          list.setState( false );
+
+          cb();
+
+        } );
+
+      } );
+      
+    } );
+
+  }
+
+  function _getAccountAndRemoveList( cb ) {
+
+    getAccount( function( err, account ) {
+
+      if ( err ) return cb( err );
+
+      if ( !account ) return cb( 'link is not set' );
+
+      account.getList( function( err, list ) {
+
+        if ( err ) return cb( err );
+
+        if ( !list ) return cb( null, account );
+
+        list.remove( function( err ) {
+
+          if ( err ) return cb( err );
+
+          cb( null, account );
+
+        } );
+
+      });
+
+    } );
 
   }
 
@@ -432,13 +517,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
         if ( err ) return cb( err );
 
-        if ( list ) return cb( null, list );
-
-        loaded.flattener( false, function( err, f ) {
-
-          account.createList( f.getFieldNames(), cb );
-
-        } );
+        cb( null, list, account );
 
       } );
 

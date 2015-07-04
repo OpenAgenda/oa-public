@@ -19,6 +19,7 @@ routes = {
     agendaSvc.mw.search( perPage ),
     eventSvc.mw.cleanEvents,
     agendaSvc.mw.decorateEvents(),
+    agendaSvc.mw.cleanJson,
     json
   ] ],
 

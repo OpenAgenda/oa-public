@@ -14,7 +14,7 @@ routes = {
   emailStrategieNew: [ 'get', '/new', newShow ],
   emailStrategieNewSubmit: [ 'post', '/new', newSubmit ],
   emailStrategieShow: [ 'get', '/', show ],
-  emailStrategieSync: [ 'get', '/sync', sync ],
+  emailStrategieSync: [ 'post', '/sync', sync ],
   emailStrategieUnlink: [ 'get', '/unlink', unlink ]
 };
 
@@ -41,7 +41,15 @@ module.exports = function( path ) {
 
 function sync( req, res, next ) {
 
-  req.agenda.emailStrategie.syncEvents( true, function( err ) {
+  var fields = [];
+
+  for( var i in req.body.fields ) {
+
+    fields.push( i );
+
+  }
+
+  req.agenda.emailStrategie.pushEvents( fields, function( err ) {
 
     if ( err ) return next( err );
 
@@ -61,8 +69,8 @@ function newShow( req, res, next ) {
 
     cmn.render( req, res, 'emailStrategie/new', {
       values: {
-        login: '',
-        password: ''
+        login: 'APIEstEnsemble',
+        password: '236656'
       }
     });
 
@@ -72,7 +80,7 @@ function newShow( req, res, next ) {
 
 function newSubmit( req, res, next ) {
 
-  req.agenda.emailStrategie.setAccountList(
+  req.agenda.emailStrategie.setAccount(
     req.body.login,
     req.body.password,
     function( err, result ) {
@@ -91,7 +99,9 @@ function newSubmit( req, res, next ) {
 
       } else {
 
-        res.redirect( 302, req.genUrl( 'emailStrategieShow', { slug: req.agenda.slug } ) );
+        res.redirect( 302, req.genUrl( 'emailStrategieShow', { 
+          slug: req.agenda.slug
+        } ) );
 
       }
 
@@ -111,18 +121,11 @@ function show( req, res, next ) {
 
     }
 
-    if ( !obj.list ) {
-
-      req.log( 'info', 'did not retrieve any list reference. Redirecting to unlink' );
-
-      return res.redirect( 302, req.genUrl( 'emailStrategieUnlink', { slug: req.agenda.slug } ) );      
-
-    }
-
     cmn.render( req, res, 'emailStrategie/index', {
       accountName : obj.account.login,
-      listName : obj.list.name,
+      list : obj.list || false,
       state : obj.state,
+      fields: obj.fields,
       error : obj.error,
       agendaCount: obj.agendaCount,
       emailStrategieCount: obj.emailStrategieCount,
