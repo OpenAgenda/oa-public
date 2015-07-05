@@ -11,6 +11,7 @@
         { "uri" : "#", "label": "Live" }
       ]
     },
+    "actions" : [],
     "agendas" : [],
     "mailSendUri" : "#mailsend"
   },
@@ -19,7 +20,8 @@
       { "title" : "La Gargouille", "uid" : 898989, "sharing" : false },
       { "title" : "Bibi", "uid" : 7872837, "sharing" : false },
       { "title" : "L'agenda de Zorglub", "uid" : 1983928, "sharing" : true }
-    ]
+    ],
+    "actions" : [ "calendars", "agendas", "email" ]
   },
   "unlogged" : {
     "logged" : false
