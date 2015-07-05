@@ -2,7 +2,9 @@
 
 var log = require( '../../lib/logger' )( 'event share service' ),
 
-config = require( '../../config' );
+config = require( '../../config' ),
+
+genUrl = require( '../genUrl' ).abs;
 
 module.exports = {
   addCalendarLinks: addCalendarLinks,
@@ -46,7 +48,8 @@ function getSocialLinks( event, eventUrl, siteUrl ) {
     linkedInShare: _linkedInShare( event, eventUrl, siteUrl ),
     googleShare: _googleShare( event, eventUrl ),
     pinterestShare: _pinterestShare( event, eventUrl ),
-    tumblrShare: _tumblrShare( event, eventUrl )
+    tumblrShare: _tumblrShare( event, eventUrl ),
+    emailShare: _emailShare( event )
   }
   
 }
@@ -169,6 +172,30 @@ function _tumblrShare( event, eventUrl ) {
   + encodeURIComponent( eventUrl )
 
   + '&title=' + encodeURIComponent( event.getTitle() );
+
+}
+
+function _emailShare( event ) {
+
+  if ( event.isInAgendaContext() ) {
+
+    var agenda = event.getAgendaContext();
+
+    return genUrl( 'agendaEventActionShow', {
+      slug: agenda.slug,
+      eventSlug: event.slug,
+      action: 'email'
+    });
+
+  } else {
+
+    return genUrl( 'eventActionShow', {
+      eventSlug: event.slug,
+      action: 'email'
+    } );
+
+  }
+
 
 }
 

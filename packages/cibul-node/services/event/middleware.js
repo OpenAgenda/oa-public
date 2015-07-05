@@ -4,7 +4,19 @@ var svc,
 
 p = require( '../../lib/promises' ), w = p.w,
 
-log = require( '../../lib/logger' )( 'event middleware' );
+log = require( '../../lib/logger' )( 'event middleware' ),
+
+utils = require( 'utils' ),
+
+async = require( 'async' ),
+
+config = require( '../../config' ),
+
+i18n = require( '../../i18n/i18n' ),
+
+timeHelper = require( 'cibulTemplates' ).helpers.time,
+
+textHelper = require( 'cibulTemplates' ).helpers.text();
 
 module.exports = function( eventService ) {
 
@@ -12,9 +24,12 @@ module.exports = function( eventService ) {
 
   return {
     load: loadEvent,
+    loadUris: loadUris,
+    format: format,
     cleanEvents: cleanEvents,
     search: search,
-    checkEventEditor: checkEventEditor
+    checkEventEditor: checkEventEditor,
+    layoutData: layoutData
   }
 
 }
@@ -68,6 +83,22 @@ function loadEvent( paramName, fieldName ) {
 
 }
 
+function loadUris( req, res, next ) {
+
+  req.eventUri = req.agenda ? 'agendaEventShow' : 'eventShow';
+
+  req.eventUriParams = { eventSlug: req.event.slug };
+
+  if ( req.agenda ) {
+
+    req.eventUriParams.slug = req.agenda.slug;
+
+  }
+
+  next();
+
+}
+
 
 function search( limit ) {
 
@@ -117,6 +148,199 @@ function checkEventEditor( req, res, next ) {
     next();
 
   } );
+
+}
+
+
+function format( req, res, next ) {
+
+  var formatted = {}, dates = [], timingsByDate = {},
+
+  img = req.event.getImage( true ),
+
+  dateRange = req.event.getDateRange( true ),
+
+  _t = timeHelper( { lang: req.lang } ),
+
+  location,
+
+  getters = [
+    req.event.getOwner,
+    req.event.getAgendaReferences,
+    req.event.getAdminAgendas,
+    req.event.getState
+  ];
+
+  if ( req.agenda ) getters.push( req.event.getAgendaCategory );
+
+  async.series( getters, function( err, results ) {
+
+    if ( err ) return next( err );
+
+    formatted = {
+      uid: req.event.uid,
+      slug: req.event.slug,
+      title: req.event.getTitle(),
+      image: img ? img.replace( 'cibuldev', 'cibul' ) : false,
+      dateRange: i18n( dateRange[ 0 ], _t( dateRange[1] ), req.lang ).replace( ':', req.lang=='fr' ? 'h' : ':' ),
+      isUpcoming: req.event.isUpcoming(),
+      description: req.event.getDescription(),
+      freeText: textHelper.nl2br( req.event.getEnrichedFreeText() ),
+      tags: req.event.getTags(),
+      placeName: req.event.getLocationName(),
+      address: req.event.getAddress(),
+      region: req.event.getRegion(),
+      city: req.event.getCity(),
+      postalCode: req.event.getPostalCode(),
+      latitude: req.event.getLatitude(),
+      longitude: req.event.getLongitude(),
+      timings: req.event.getTimings(),
+      dates: req.event.getDates(),
+      pricingInfo: req.event.getPricingInfo(),
+      ticketLink: req.event.getTicketLink(),
+      owner: results[ 0 ],
+      agendaReferences: results[ 1 ],
+      allAgendaReferences: results[ 1 ],
+      adminAgendas: results[ 2 ],
+      languages: false,
+      currentState: results[ 3 ]
+    };
+
+    if ( req.event.getLanguages().length > 1 ) {
+
+      formatted.languages = {
+        current: req.event.getCurrentLanguage(),
+        selection: req.event.getLanguages()
+      };
+
+    }
+
+    // deprecate this in favor of .dates
+    formatted.timings.forEach( function( timing ) {
+
+      timing.label = _t( timing.start, 'dddd Do - HH:mm' );
+
+    });
+
+    formatted.dates.forEach( function( date ) {
+
+      date.label = _t( date.date, 'dddd Do MMM' );
+
+      date.timings.forEach( function( t ) {
+
+        t.startLabel = _t( t.start, 'HH:mm' );
+
+        t.endLabel = _t( t.end, 'HH:mm' );
+
+      });
+
+    });
+
+    if ( req.agenda ) {
+
+      formatted.importUri = req.genUrl( 'agendaEventActionShow', {
+        slug: req.agenda.slug,
+        eventSlug: req.event.slug
+      });
+
+      formatted.category = results[ 4 ] ? results[ 4 ].label : false;
+
+      formatted.categorySlug = results[ 4 ] ? results[ 4 ].slug : false;
+
+    } else {
+
+      formatted.importUri = req.genUrl( 'eventActionShow', { 
+        eventSlug: req.event.slug
+      } );
+
+    }
+
+
+    req.formatted = formatted;
+
+    next();
+
+  } );
+
+}
+
+function layoutData( req, res ) {
+
+  var data = {
+    metas: {
+      title: req.formatted.title,
+      ogSiteName: { property: 'og:site_name', content: 'OpenAgenda' },
+      ogTitle: { property: 'og:title', content: req.formatted.title },
+      ogDescription: { property: 'og:description', content: req.formatted.description },
+      ogLocale: { property: 'og:locale', content: req.lang },
+      "twitter:card" : "summary_large_image",
+      "twitter:title" : req.formatted.title,
+      "twitter:description" : req.formatted.description,
+      "twitter:domain" : config.domain
+    },
+    loner: !req.agenda
+  },
+
+  uri = req.agenda ? 'agendaEventShow' : 'eventShow',
+
+  uriParams = { eventSlug: req.event.slug };
+
+  if ( req.agenda ) {
+
+    uriParams.slug = req.agenda.slug;
+
+    utils.extend( data, {
+      uid: req.agenda.uid,
+      slug: req.agenda.slug,
+      title: req.agenda.title,
+      description: req.agenda.description,
+      url: req.agenda.url,
+      image: req.agenda.getImage( false ),
+      theme: req.agenda.getTheme()
+    });
+
+  }
+
+  if ( !data.headLinks ) data.headLinks = [];
+  
+  if ( req.event.getLanguages && req.event.getLanguages().length > 1 ) {
+
+    req.event.getLanguages().forEach( function( lang ) {
+
+      data.headLinks.push({ rel: 'alternate', href: req.genUrl( uri, utils.extend( { elang: lang }, uriParams ), { abs: true } ), hreflang: lang });
+
+    });
+
+  }
+
+  data.headLinks.push({
+    rel: 'canonical',
+    href: req.genUrl( 'eventShow', { eventSlug: req.event.slug }, { abs: true, protocol: 'https://' } )
+  });
+
+  if ( req.event.image ) {
+
+    utils.extend( data.metas, {
+      ogImage: { property: 'og:image', content: req.event.image},
+      "twitter:image:src" : req.event.image
+    });
+
+  }
+
+  data.metas.ogUrl = {
+    property: 'og:url',
+    content: req.genUrl( uri, uriParams, { abs: true } )
+  };
+
+  data.scriptParams = {
+    uid: req.formatted.uid,
+    agendaUid: req.agenda ? req.agenda.uid : false,
+    ownerUid: req.formatted.owner.uid,
+    adminAgendaUids: req.formatted.adminAgendas ? req.formatted.adminAgendas.map( function( a ) { return a.uid; } ) : [],
+    hasCustomFields: !req.formatted.custom || !!req.formatted.custom.length
+  };
+
+  return data;
 
 }
 

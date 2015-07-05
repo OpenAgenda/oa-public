@@ -23,6 +23,9 @@
 {block:PinterestShareUrl}
     <a href="{PinterestShareUrl}"><i class="fa fa-pinterest-square"></i></a>
 {/block:PinterestShareUrl}
+{block:EmailShareUrl}
+    <a target="_blank" href="{EmailShareUrl}"><i class="fa fa-envelope"></i></a>
+{/block:EmailShareUrl}
   </div>
 
   {block:ImageUrl}

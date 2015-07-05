@@ -65,7 +65,10 @@
   }, {
     "name" : "PinterestShareUrl",
     "mapTo" : "pinterestShare"
-  },{ 
+  },{
+    "name" : "EmailShareUrl",
+    "mapTo" : "emailShare" 
+  },{
     "name" : "Category",
     "mapTo" : "category"
   },{ 
