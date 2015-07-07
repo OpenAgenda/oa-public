@@ -6,6 +6,8 @@ should = require( 'should' );
 
 describe( 'lost password functional', function() {
 
+  this.timeout( 10000 );
+
   var browser, user = {}, a;
 
   before( function( done ) {
