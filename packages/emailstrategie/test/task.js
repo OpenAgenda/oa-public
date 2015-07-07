@@ -122,29 +122,6 @@ describe( 'queued setItem, removeItem and clear', function() {
 
   } );
 
-  it( 'queues clear when no callback', function( done ) {
-
-    var cli = _redisCli();
-
-    cli.blpop( 'emailstrategie', 0, function( err, response ) {
-
-      should( err ).equal( null );
-
-      response[ 1 ].should.eql( JSON.stringify( {
-        name: 'clear',
-        accountId: 1,
-        listId: list.id,
-        state: false
-      } ) );
-
-      done();
-
-    });
-
-    list.clear();
-
-  } );
-
 } );
 
 

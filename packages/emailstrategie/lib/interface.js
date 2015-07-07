@@ -145,6 +145,7 @@ function _request( name, method, data, cb ) {
     },
     '1.2' : {
       elem : 'soap12',
+      //elem: 'soapenv',
       headers : {
         'Content-Type' : 'application/soap+xml; charset=utf-8',
       },
@@ -194,9 +195,12 @@ function _request( name, method, data, cb ) {
     });
 
     res.on( 'end', function() {
+      
+      console.log('GETTING');
+      console.log( response );
 
       parseString( response, function ( err, result ) {
-          
+
         var parsed;
 
         if ( err ) return cb( err );
@@ -236,6 +240,9 @@ function _request( name, method, data, cb ) {
     });
 
   } );
+
+  console.log('WRITING');
+  console.log( soapData );
 
   req.write( soapData );
 
@@ -277,10 +284,11 @@ function _parse( key, item, leaf ) {
 
       }
 
-      clean = '<![CDATA[' + clean + ']]>';
+      //clean = '<![CDATA[' + clean + ']]>';
 
     }
 
+    //return '<dyn:' + key + '>' + clean + '</dyn:' + key + '>';
     return '<' + key + '>' + clean + '</' + key + '>';
 
   }

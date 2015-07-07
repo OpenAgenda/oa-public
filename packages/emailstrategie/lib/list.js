@@ -28,30 +28,35 @@ module.exports = function( data ) {
    * list is deleted and re-created
    */
   
-  function clear( newState, cb ) {
+  function clear( newState, fields, cb ) {
 
-    if ( arguments.length == 1 && typeof arguments[ 0 ] == 'function' ) {
+    if ( arguments.length == 2 && utils.isArray( arguments[ 0 ] ) ) {
+
+      cb = fields;
+
+      fields = newState;
+
+      newState = false;
+
+    } else if ( arguments.length == 2 ) {
+
+      cb = fields;
+
+      fields = list.fields;
+
+    } else if ( arguments.length == 1 && typeof arguments[ 0 ] == 'function' ) {
 
       cb = newState;
 
       newState = false;
 
+      fields = list.fields;
+
     } else if ( arguments.length == 0 ) {
 
       newState = false;
 
-    }
-
-    if ( !cb ) {
-
-      log( 'clear - no callback defined, queuing' );
-
-      return task.queue( {
-        name: 'clear',
-        accountId: list.account.id,
-        listId: list.id,
-        state: newState
-      } );
+      fields = list.fields;
 
     }
 
@@ -63,13 +68,14 @@ module.exports = function( data ) {
 
       log( 'clear - list %s removed', list.id );
 
-      list.account.createList( list.name, list.fields, function( err, newList ) {
+      list.account.createList( list.name, fields, function( err, newList ) {
 
         if ( err ) return cb( err );
 
         log( 'clear - list %s created', newList.id );
 
         list.id = newList.id;
+        list.fields = newList.fields;
 
         setState( newState, cb );
 

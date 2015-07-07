@@ -158,6 +158,8 @@ describe( 'get list, handle content', function() {
 
   afterEach( function( done ) {
 
+    return done();
+
     ifc.DeleteListByID( {
       listID: listId,
       token: token
@@ -169,7 +171,7 @@ describe( 'get list, handle content', function() {
 
   });
 
-  it( 'GetListByID', function( done ) {
+  it.only( 'GetListByID', function( done ) {
 
     ifc.GetListByID( { listID: listId, token: token }, function( err, response ) {
 
