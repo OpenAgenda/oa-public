@@ -46,8 +46,11 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
       emailStrategieCount: 0,
       agendaCount: 0,
       error: false,
-      state: false
+      state: false,
+      url: loaded.getUrl()
     } )
+
+    
 
     // get account & list
     .then( function( obj ) {
@@ -306,7 +309,14 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
   }
 
-  function pushEvents( fields, cb ) {
+  function pushEvents( options, cb ) {
+
+    var params = utils.extend( {
+      fields: [], // fields to export
+      useExternalUrl: false // use embed url system with url from agenda url field
+    }, options ),
+
+    fields = params.fields;
 
     fields.splice( 0, 0, 'uid' );
 
@@ -320,11 +330,12 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
           if ( err ) return cb( err );
 
-          list.setState( 'sending', function( err ) {
-
-            _streamEvents( 'sending', list, cb );
-
-          } );
+          // here stream should be given params
+          _streamEvents( {
+            state: 'sending', 
+            list: list,
+            useExternalUrl: params.useExternalUrl
+          }, cb );
 
         } );
 
@@ -334,7 +345,11 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
           if ( err ) return cb( err );
 
-          _streamEvents( 'sending', list, cb );
+          _streamEvents( {
+            state: 'sending',
+            list: list,
+            useExternalUrl: params.useExternalUrl
+          }, cb );
 
         });
 
@@ -360,13 +375,18 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
           if ( err ) return cb( err );
 
-          _streamEvents( list, cb );
+          _streamEvents( {
+            list: list
+          }, cb );
 
         });
 
       } else {
 
-        _streamEvents( 'sending', list, cb );
+        _streamEvents( {
+          state: 'sending', 
+          list: list
+        }, cb );
 
       }
 
@@ -374,19 +394,23 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
   }
 
-  function _streamEvents( newState, list, cb ) {
+  function _streamEvents( options, cb ) {
 
-    if ( arguments.length == 2 ) {
+    var params = utils.extend( {
+      list: false, // needed
+      state: false,
+      useExternalUrl: false
+    }, options ),
 
-      cb = list;
+    list = params.list,
 
-      list = newState;
+    externalUrl = params.useExternalUrl ? loaded.getUrl() : false,
 
-      newState = list.state;
+    state = params.state ? params.state : list.state;
 
-    }
+    if ( !params.state ) params.state = list.state;
 
-    list.setState( newState, function( err ) {
+    list.setState( state, function( err ) {
 
       if ( err ) return cb( err );
 
@@ -404,11 +428,23 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
           stream.pause();
 
+          // here params should be used to modify ( 'clean' ) event link
           eventSvc.exports.clean( eInst, function( err, clean ) {
 
             log( 'debug', 'sync request - %s - queueing event %s for list %s', loaded.uid, eventItem.uid, list.id );
 
-            list.setItem( eventItem.uid, f.flatten( clean ) );
+            var flat = f.flatten( clean );
+
+            if ( externalUrl ) {
+
+              flat.link = externalUrl + '?search[uid]=' + clean.uid;
+
+            }
+
+            console.log('*************');
+            console.log( flat );
+
+            list.setItem( eventItem.uid, flat );
 
             count++;
 

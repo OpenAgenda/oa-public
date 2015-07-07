@@ -2,6 +2,8 @@
 
 var utils = require( 'utils' ),
 
+genUrl = require( '../../genUrl' ).abs,
+
 possibleLanguages = [ 'fr', 'en', 'es', 'de', 'it' ];
 
 module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
@@ -158,7 +160,12 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
         'region',
         'latitude',
         'longitude',
-        'featured' 
+        'featured',
+        { 
+          sourceField: 'slug',
+          destField: 'link',
+          fn: _defineEventUrl( instance )
+        }
       ], _extendMapping( instance, includePrivateFields ) );
 
     }
@@ -266,6 +273,22 @@ function _extractLanguages( values ) {
   }
 
   return extractedLanguages;
+
+}
+
+
+
+
+function _defineEventUrl( instance ) {
+
+  return function( slug ) {
+
+    return genUrl( 'agendaEventShow', { 
+      slug: instance.slug, 
+      eventSlug: slug 
+    } );
+
+  }
 
 }
 

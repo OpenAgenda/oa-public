@@ -49,7 +49,10 @@ function sync( req, res, next ) {
 
   }
 
-  req.agenda.emailStrategie.pushEvents( fields, function( err ) {
+  req.agenda.emailStrategie.pushEvents( {
+    fields: fields,
+    useExternalUrl: !!req.body.url
+  }, function( err ) {
 
     if ( err ) return next( err );
 
@@ -129,6 +132,7 @@ function show( req, res, next ) {
       error : obj.error,
       agendaCount: obj.agendaCount,
       emailStrategieCount: obj.emailStrategieCount,
+      url: obj.url
     } );
 
   });
