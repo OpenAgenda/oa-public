@@ -240,35 +240,6 @@ describe( 'queued items are processed', function() {
 
   });
 
-  it( 'clear is processed through queue', function( done ) {
-
-    var data = { t1: 'is', t2: 'there', t3: 'anybody' },
-
-    i = 4;
-
-    lib.task.setOnProcessed( function( err, obj ) {
-
-      list = obj;
-
-      i--;
-
-      if ( !i ) obj.getCount( function( err, count ) {
-
-        count.should.equal( 0 );
-
-        done();
-
-      });
-
-    });
-
-    list.setItem( 1, data );
-    list.setItem( 2, data );
-    list.setItem( 3, data );
-    list.clear();
-
-  });
-
 } );
 
 

@@ -196,8 +196,8 @@ function _request( name, method, data, cb ) {
 
     res.on( 'end', function() {
       
-      console.log('GETTING');
-      console.log( response );
+      //console.log('GETTING');
+      //console.log( response );
 
       parseString( response, function ( err, result ) {
 
@@ -241,8 +241,8 @@ function _request( name, method, data, cb ) {
 
   } );
 
-  console.log('WRITING');
-  console.log( soapData );
+  //console.log('WRITING');
+  //console.log( soapData );
 
   req.write( soapData );
 
