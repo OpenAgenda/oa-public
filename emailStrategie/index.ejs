@@ -34,7 +34,14 @@
 <% }) %>
       </ul></li>
       <li>
-        <label for="fields"><strong>2. <%= __( 'Send your selection to EmailStrategie') %></strong></label>
+        <label><strong>2. <%= __( 'Define to which site event links should lead') %></strong></label>
+      </li>
+      <li>
+        <input type="checkbox" name="url" <% if ( !url ) { %>disabled<% } %> value="<%= url %>">
+        <label for="url"><%= __( 'Check this if links should point to the url associated with your agenda' ) %></label>
+      </li>
+      <li>
+        <label for="fields"><strong>3. <%= __( 'Send your selection to EmailStrategie') %></strong></label>
       </li>
       <li><ul class="line">
         <li>

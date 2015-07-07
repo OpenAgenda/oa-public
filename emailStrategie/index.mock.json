@@ -130,6 +130,7 @@
         "checked":true
       }
     ],
+    "url" : "",
     "state" : false,
     "error" : false,
     "agendaCount" : 340,

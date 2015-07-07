@@ -16,5 +16,9 @@
   "Select the fields to include in the export"
   : "Selectionnez les champs à inclure dans l'export",
   "Send your selection to EmailStrategie"
-  : "Exportez votre sélection vers EmailStrategie"
+  : "Exportez votre sélection vers EmailStrategie",
+  "Define to which site event links should lead"
+  : "Définissez vers où les liens événement doivent pointer",
+  "Check this if links should point to the url associated with your agenda"
+  : "Cochez la case si les liens doivent pointer vers l'url associé à votre agenda"
 }
