@@ -20,7 +20,7 @@
 
 <section>
 
-  <form class="cform" method="post" action="<%= genUrl( 'emailStrategieSync', { slug: agenda.slug }) %>">
+  <form class="cform" method="post" action="<%= genUrl( 'emailStrategiePush', { slug: agenda.slug }) %>">
     <ul>
       <li>
         <label for="fields"><strong>1. <%= __( 'Select the fields to include in the export') %></strong></label>
@@ -34,11 +34,22 @@
 <% }) %>
       </ul></li>
       <li>
-        <label><strong>2. <%= __( 'Define to which site event links should lead') %></strong></label>
+        <label><strong>2. <%= __( 'Define the filters to apply on the export' ) %></strong></label>
+      </li>
+      <li>
+        <input type="checkbox" name="filters[featured]" />
+        <label for="filters[featured]"><%= __( 'Export featured events only' ) %></label>
+      </li>
+      <li>
+        <input type="checkbox" name="filters[passed]"/>
+        <label for="filters[passed]"><%= __( 'Include passed events' ) %></label>
+      </li>
+      <li>
+        <label><strong>3. <%= __( 'Define to which site event links should lead') %></strong></label>
       </li>
       <li>
         <input type="checkbox" name="url" <% if ( !url ) { %>disabled<% } %> value="<%= url %>">
-        <label for="url"><%= __( 'Check this if links should point to the url associated with your agenda' ) %></label>
+        <label for="url"><%= __( 'Links go to your website ( yourwebsiteagendapage.com ) rather than on your openagenda.com agenda page' ) %></label>
       </li>
       <li>
         <label for="fields"><strong>3. <%= __( 'Send your selection to EmailStrategie') %></strong></label>

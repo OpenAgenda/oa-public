@@ -17,8 +17,14 @@
   : "Selectionnez les champs à inclure dans l'export",
   "Send your selection to EmailStrategie"
   : "Exportez votre sélection vers EmailStrategie",
+  "Define the filters to apply on the export"
+  : "Définissez les filtres à appliquer sur l'export",
   "Define to which site event links should lead"
   : "Définissez vers où les liens événement doivent pointer",
-  "Check this if links should point to the url associated with your agenda"
-  : "Cochez la case si les liens doivent pointer vers l'url associé à votre agenda"
+  "Links go to your website ( yourwebsiteagendapage.com ) rather than on your openagenda.com agenda page"
+  : "Les liens renvoient vers votre site web ( lesiteweb.com ) plutôt que sur votre page agenda openagenda.com",
+  "Export featured events only"
+  : "Exporter les événements en une uniquement",
+  "Include passed events"
+  : "Inclure les événements passés"
 }
