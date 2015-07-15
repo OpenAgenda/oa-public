@@ -69,7 +69,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
       if ( params.includePrivateData ) {
 
-        customFieldsGetter = agenda.getEventCustomData;
+        customFieldsGetter = agenda.getEventCustom;
 
       }
 
