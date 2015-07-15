@@ -96,6 +96,14 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
 
   });
 
+
+  if ( query.featured !== undefined ) {
+
+    esQuery.featured = !!query.featured;
+
+  }
+
+
   if ( query.when.length == 1 ) {
 
     esQuery.when = {
@@ -200,6 +208,18 @@ function _clean( query, params ) {
   } else if ( query.passed ) {
 
     clean.passed = true;
+
+  }
+
+  if ( query.featured !== undefined ) {
+
+    clean.featured = parseInt( query.featured, 10 );
+
+    if ( isNaN( clean.featured ) ) {
+
+      delete clean.featured;
+
+    }
 
   }
 

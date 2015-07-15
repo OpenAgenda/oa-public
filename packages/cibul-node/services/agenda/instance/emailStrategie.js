@@ -12,7 +12,7 @@ utils = require( 'utils' ),
 
 storeKey = 'emailstrategie',
 
-searchDefaultQuery = { passed: 1 };
+searchDefaultQuery = {};
 
 module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
 
@@ -313,7 +313,8 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     var params = utils.extend( {
       fields: [], // fields to export
-      useExternalUrl: false // use embed url system with url from agenda url field
+      useExternalUrl: false, // use embed url system with url from agenda url field
+      filters: []
     }, options ),
 
     fields = params.fields;
@@ -334,7 +335,8 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
           _streamEvents( {
             state: 'sending', 
             list: list,
-            useExternalUrl: params.useExternalUrl
+            useExternalUrl: params.useExternalUrl,
+            filters: params.filters
           }, cb );
 
         } );
@@ -348,7 +350,8 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
           _streamEvents( {
             state: 'sending',
             list: list,
-            useExternalUrl: params.useExternalUrl
+            useExternalUrl: params.useExternalUrl,
+            filters: params.filters
           }, cb );
 
         });
@@ -399,14 +402,29 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
     var params = utils.extend( {
       list: false, // needed
       state: false,
-      useExternalUrl: false
+      useExternalUrl: false,
+      filters: []
     }, options ),
 
     list = params.list,
 
     externalUrl = params.useExternalUrl ? loaded.getUrl() : false,
 
-    state = params.state ? params.state : list.state;
+    state = params.state ? params.state : list.state,
+
+    searchQuery = utils.extend( {}, searchDefaultQuery );
+
+    if ( params.filters.indexOf( 'passed' ) !== -1 ) {
+
+      searchQuery.passed = 1;
+
+    }
+
+    if ( params.filters.indexOf( 'featured' ) !== -1 ) {
+
+      searchQuery.featured = 1;
+
+    }
 
     if ( !params.state ) params.state = list.state;
 
@@ -416,7 +434,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
       loaded.flattener( false, function( err, f ) {
 
-        var stream = loaded.searchStream( searchDefaultQuery ),
+        var stream = loaded.searchStream( searchQuery ),
 
         count = 0;
 
@@ -440,9 +458,6 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
               flat.link = externalUrl + '?search[uid]=' + clean.uid;
 
             }
-
-            console.log('*************');
-            console.log( flat );
 
             list.setItem( eventItem.uid, flat );
 

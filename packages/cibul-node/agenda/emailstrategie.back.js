@@ -14,7 +14,7 @@ routes = {
   emailStrategieNew: [ 'get', '/new', newShow ],
   emailStrategieNewSubmit: [ 'post', '/new', newSubmit ],
   emailStrategieShow: [ 'get', '/', show ],
-  emailStrategieSync: [ 'post', '/sync', sync ],
+  emailStrategiePush: [ 'post', '/push', push ],
   emailStrategieUnlink: [ 'get', '/unlink', unlink ]
 };
 
@@ -39,9 +39,11 @@ module.exports = function( path ) {
 
 }
 
-function sync( req, res, next ) {
+function push( req, res, next ) {
 
-  var fields = [];
+  var fields = [],
+
+  filters = [];
 
   for( var i in req.body.fields ) {
 
@@ -49,8 +51,15 @@ function sync( req, res, next ) {
 
   }
 
+  for( i in req.body.filters ? req.body.filters : {} ) {
+
+    filters.push( i );
+
+  }
+
   req.agenda.emailStrategie.pushEvents( {
     fields: fields,
+    filters: filters,
     useExternalUrl: !!req.body.url
   }, function( err ) {
 
