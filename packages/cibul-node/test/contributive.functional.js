@@ -10,7 +10,7 @@ userSvc = require( '../services/invitation' );
 
 describe( 'contributive agenda', function() {
 
-  this.timeout( 10000 );
+  this.timeout( 20000 );
 
   var browser,
 
@@ -194,8 +194,6 @@ describe( 'contributive agenda', function() {
 
   it( 'user becomes contributor on activation of account', function( done ) {
 
-    this.timeout( 10000 );
-
     var iToken;
 
     _sendInvitation( browser, agenda, { email: 'newguy@cibul.net' } )
@@ -297,8 +295,6 @@ describe( 'contributive agenda', function() {
 
   it( 'processed invited user is led to form', function( done ) {
 
-    this.timeout( 10000 );
-
     _sendInvitation( browser, agenda, user )
 
     .then(function( i ) {
@@ -331,8 +327,6 @@ describe( 'contributive agenda', function() {
 
 
   it( 'agenda requiring additional contributor info leads new invited user to info form', function( done ) {
-
-    this.timeout( 10000 );
 
     _sendInvitation( browser, agenda, user, true )
 
