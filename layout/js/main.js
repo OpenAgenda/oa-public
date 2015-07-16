@@ -42,7 +42,7 @@ outdated( {
     'IE': 9,
     'Safari': 5,
     'Mobile Safari': 5,
-    'Firefox':  25
+    'Firefox':  24
   }
 });
 
