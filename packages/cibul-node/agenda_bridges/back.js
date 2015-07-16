@@ -35,6 +35,7 @@ module.exports = function( path ) {
     cmn.flashSetter,
     agendaSvc.mw.load( 'slug' ),
     cmn.loadSession,
+    agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData( _layoutData ),
     cmn.requireLogged,
     cmn.checkAdministrator,
@@ -159,13 +160,7 @@ function _layoutData( req, res ) {
   
   return {
     tab: req.params.service,
-    mainClass: req.params.service,
-    agenda: {
-      slug: req.agenda.slug,
-      title: req.agenda.title,
-      description: req.agenda.description,
-      url: req.agenda.url,
-      image: req.agenda.getImage( false )
-    }
+    mainClass: req.params.service
   };
+
 }
