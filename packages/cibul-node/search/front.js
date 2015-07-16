@@ -179,6 +179,7 @@ function searchAgendas( req, res ) {
   }
 
   req.esQuery.deep = true;
+  req.esQuery.when = false;
 
   req.log( 'info', 'request received for searchAgendas with params: %s', JSON.stringify( req.esQuery ) );
 
