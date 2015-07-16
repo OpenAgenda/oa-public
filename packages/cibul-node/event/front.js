@@ -23,7 +23,6 @@ routes = {
     agendaSvc.mw.decorateEvent( false ),
     _formatSocialLinks,
     cmn.loadBaseData( eventSvc.mw.layoutData, 'oa.css' ),
-    _log,
     agendaEventShow
   ] ],
 
@@ -317,14 +316,6 @@ function _formatSocialLinks( req, res, next ) {
     req.formatted.facebookShare = eventSvc.share.getFacebookFeedLink( req.formatted, eventUrl, fbAppId );
 
   }
-
-  next();
-
-}
-
-function _log( req, res, next ) {
-
-  console.log( JSON.stringify( req.formatted.custom ) );
 
   next();
 
