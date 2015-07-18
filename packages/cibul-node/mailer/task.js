@@ -128,9 +128,15 @@ function _listen() {
       text: values.text
     }, function( err, params, data ) { // called when send is made
 
-      if ( err ) return log( 'error', 'send error: %s', JSON.stringify( err )); // do more robust shit here
+      if ( err ) {
 
-      log( 'debug', 'send triggered' );
+        log( 'error', 'send error: %s', JSON.stringify( err )); // do more robust shit here
+
+      } else {
+
+        log( 'debug', 'send triggered' );
+
+      }
 
       if ( running ) _listen( );
 
