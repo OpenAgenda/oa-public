@@ -145,8 +145,10 @@ var cibulEventDescription = function(params) {
     // clear field elements from the form
 
     for (var name in widgets) {
-      widgets[name].remove();
-      counters[name].remove();
+
+      widgets[name].remove( true );
+      counters[name].remove( true );
+
     }
       
 

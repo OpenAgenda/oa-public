@@ -63,8 +63,8 @@ var inputWidget = {
       disable: function() {
         self.controller.disable();
       },
-      remove: function() {
-        self.remove();
+      remove: function( removeCanvas ) {
+        self.remove( removeCanvas );
       },
       setError: function(error) {
         self._onValidationChange(error);
@@ -99,13 +99,29 @@ var inputWidget = {
     return this.elems;
   },
 
-  remove: function() {
+  remove: function( removeCanvas ) {
 
-    var child;
+    var child, canvas = false;
 
-    while (child = this.elems.pop())
-      if (child.parentNode)
+    if ( typeof removeCanvas == 'undefined' ) removeCanvas = false;
+
+    while (child = this.elems.pop()) {
+
+      if ( child.parentNode ) {
+
+        canvas = child.parentNode;
+
         child.parentNode.removeChild(child);
+
+      }
+
+    }
+
+    if ( removeCanvas && canvas ) {
+
+      canvas.parentNode.removeChild( canvas );
+
+    }
 
   },
 
