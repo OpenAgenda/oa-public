@@ -117,7 +117,7 @@ var inputWidget = {
 
     }
 
-    if ( removeCanvas && canvas ) {
+    if ( removeCanvas && canvas && canvas.parentNode ) {
 
       canvas.parentNode.removeChild( canvas );
 
