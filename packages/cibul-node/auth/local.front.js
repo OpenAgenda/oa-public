@@ -158,6 +158,8 @@ function signupSubmit( req, res ) {
 
   .then( auth.ifUserLoaded( true, auth.ifUserActivated( true, auth.signin ) ) )
 
+  .then( auth.ifUnresolved( _pLoadCaptcha ) )
+
   .then( auth.ifUnresolved( auth.renderSignup ) )
 
   .done( auth.done , cmn.catchError( req, res ) );
@@ -269,6 +271,21 @@ function _ifHasErrors( has, func ) {
     return func( values );
 
   }
+
+}
+
+
+function _pLoadCaptcha( v ) {
+
+  return w.promise( function( rs, rj ) {
+
+    _loadCaptcha( v.req, v.res, function() {
+
+      rs( v );
+
+    });
+
+  } );
 
 }
 
