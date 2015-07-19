@@ -30,9 +30,9 @@ flash = require('./handleFlashMessage.js'),
 
 eh = require('../../js/lib/EventHandler/EventHandler.js').sEventHandler.getInstance(),
 
-ran = false,
+ran = false, asapRan = false,
 
-hooks = [],
+hooks = [], asaps = [],
 
 params = {};
 
@@ -46,15 +46,29 @@ outdated( {
   }
 });
 
+
+_onAsapReady( function() {
+
+  _init();
+
+  cn.forEach( asaps, function( asapHook ) {
+
+    asapHook( params );
+
+  });
+
+  asapRan = true;
+
+} );
+
+
 cn.addEvent( window, 'load', function() {
 
-  var options = layout.getOptions( 'body' );
-
-  cn.extend( params, options );
+  _init();
 
   if ( typeof window.eh !== 'undefined' ) eh = window.eh;
 
-  if ( options.env == 'dev' || window.env == 'dev' ) debug.enable( '*' );
+  if ( params.env == 'dev' || window.env == 'dev' ) debug.enable( '*' );
 
   mobileMonitor( document, window, navigator, eh );
 
@@ -70,7 +84,7 @@ cn.addEvent( window, 'load', function() {
 
   cibulMessage();
 
-  headerProfile( options.profile );
+  headerProfile( params.profile );
 
   cn.forEach( hooks, function( hook ) {
 
@@ -78,11 +92,14 @@ cn.addEvent( window, 'load', function() {
 
   });
 
+  ran = true;
+
 } );
 
 
 /**
  * provide hook for page specific script launchers
+ * which are to be called when page is ready
  */
 
 window.hook = function( cb ) {
@@ -93,8 +110,62 @@ window.hook = function( cb ) {
 
 };
 
+
+/**
+ * same as hook, but ready as soon as options are
+ * available
+ */
+
+window.asap = function( cb ) {
+
+  if ( asapRan ) return cb( params );
+
+  asaps.push( cb )
+
+}
+
 /**
  * provide function to retrieve session data
  */
 
 window.getSession = handleSession();
+
+
+
+function _init() {
+
+  // if there is stuff there already, this are inited.
+  if ( cn.size( params ) ) return;
+
+  var options = layout.getOptions( 'body' );
+
+  cn.extend( params, options );
+
+  return options;
+
+}
+
+
+/**
+ * callsback when body elem is loaded
+ */
+
+function _onAsapReady( timeout, cb ) {
+
+  if ( arguments.length == 1 ) {
+
+    cb = timeout;
+
+    timeout = 0;
+
+  }
+
+  if ( cn.el( 'body' ) ) return cb();
+
+  setTimeout( function() {
+
+    _onAsapReady( Math.max( ( timeout + 10 ) * 2, 10000 ), cb );
+
+  }, timeout );
+
+}

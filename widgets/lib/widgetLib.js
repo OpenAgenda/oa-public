@@ -11,7 +11,7 @@ log = require( 'debug' )( 'widgetLib' );
 
 exports.forEachAnchor = function( selector, options, cb ) {
 
-  domReady( function() {
+  _onAsapReady( function() {
 
     cn.forEach( cn.els( selector ), function( elem ) {
       
@@ -57,13 +57,13 @@ exports.flagged = function( elem ) {
 
 }
 
-var isNotDefined = function( type, name ) {
+function isNotDefined( type, name ) {
 
   return function() {}
 
-},
+}
 
-readAnchorConfig = function( elem ) {
+function readAnchorConfig( elem ) {
 
   if ( elem.hasAttribute( 'data-cbctl' ) ) {
 
@@ -75,9 +75,9 @@ readAnchorConfig = function( elem ) {
 
   }
 
-},
+}
 
-domReady = function( cb ) {
+function _domReady( cb ) {
 
   if (document.readyState === "complete") {
 
@@ -88,5 +88,25 @@ domReady = function( cb ) {
     cn.addEvent( window, 'load', cb );
 
   }
+
+}
+
+function _onAsapReady( timeout, cb ) {
+
+  if ( arguments.length == 1 ) {
+
+    cb = timeout;
+
+    timeout = 0;
+
+  }
+
+  if ( cn.el( 'body' ) ) return cb();
+
+  setTimeout( function() {
+
+    _onAsapReady( Math.max( ( timeout + 10 ) * 2, 10000 ), cb );
+
+  }, timeout );
 
 }

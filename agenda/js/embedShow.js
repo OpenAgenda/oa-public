@@ -26,11 +26,11 @@ defaults = {
   cascading: false
 };
 
-window.hook( function( options ) {
-
-  log = debug( 'embedded agenda show' );
+window.asap( function( options ) {
 
   var params = cn.extend( {}, defaults, options );
+
+  log = debug( 'embedded agenda show' );
 
   log( 'initing with options %s', JSON.stringify( params ) );
 

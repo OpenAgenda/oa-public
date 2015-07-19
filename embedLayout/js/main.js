@@ -6,25 +6,39 @@ log = debug( 'main' ),
 
 layout = require( '../../layout/js/layout' ),
 
-ran = false,
+ran = false, asapRan = false,
 
 params = {},
 
-hooks = [];
+hooks = [], asaps = [];
+
+_onAsapReady( function() {
+
+  _init();
+
+  cn.forEach( asaps, function( asapHook ) {
+
+    asapHook( params );
+
+  });
+
+  asapRan = true;
+
+} );
 
 cn.addEvent( window, 'load', function() {
 
-  var options = layout.getOptions( 'body' );
+  _init();
 
-  cn.extend( params, options );
-
-  if ( options.env == 'dev' || window.env == 'dev' ) debug.enable( '*' );
+  if ( params.env == 'dev' || window.env == 'dev' ) debug.enable( '*' );
 
   cn.forEach( hooks, function( hook ) {
 
-    hook( params )
+    hook( params );
 
   });
+
+  ran = true;
 
 } );
 
@@ -35,3 +49,55 @@ window.hook = function( cb ) {
   hooks.push( cb );
 
 };
+
+/**
+ * same as hook, but ready as soon as options are
+ * available
+ */
+
+window.asap = function( cb ) {
+
+  if ( asapRan ) return cb( params );
+
+  asaps.push( cb )
+
+}
+
+
+function _init() {
+
+  // if there is stuff there already, this are inited.
+  if ( cn.size( params ) ) return;
+
+  var options = layout.getOptions( 'body' );
+
+  cn.extend( params, options );
+
+  return options;
+
+}
+
+
+/**
+ * callsback when body elem is loaded
+ */
+
+function _onAsapReady( timeout, cb ) {
+
+  if ( arguments.length == 1 ) {
+
+    cb = timeout;
+
+    timeout = 0;
+
+  }
+
+  if ( cn.el( 'body' ) ) return cb();
+
+  setTimeout( function() {
+
+    _onAsapReady( Math.max( ( timeout + 10 ) * 2, 10000 ), cb );
+
+  }, timeout );
+
+}
