@@ -26,6 +26,12 @@ var cibulEvent = function(params) {
       customfields: {
         write: 'ecustomfieldssend'
       },
+      ageFields: {
+        write: 'eagesend'
+      },
+      accessibilityFields: {
+        write: 'eaccessibilitysend'
+      },
       uidfetch: 'euidfetch',
       validate: 'evalidate',
       fetchEncoded: 'efetchencoded',
@@ -221,6 +227,20 @@ var cibulEvent = function(params) {
       if (data.image) event.image = data.image;
 
       _evaluate();
+
+    });
+
+    _on(params.events.ageFields.write, function(data) {
+
+      console.log( 'received age data' );
+      console.log( data );
+
+    });
+
+    _on(params.events.accessibilityFields.write, function(data) {
+
+      console.log( 'received accessibility data' );
+      console.log( data );
 
     });
 

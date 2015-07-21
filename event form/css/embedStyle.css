@@ -1,9 +1,4 @@
-#event-edit input,
-#event-edit textarea {
-  border: 1px solid #ddd;
-  padding: 0.2em;
-  margin: 0.2em 0;
-}
+
 
 #event-edit button,
 #event-edit .button {

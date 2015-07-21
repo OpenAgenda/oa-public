@@ -49,7 +49,9 @@
     <script type="text/javascript" src="js/cibulEventValidator.js"></script>
     <script type="text/javascript" src="js/cibulEventDescription.js"></script>
     <script type="text/javascript" src="js/cibulEventLocation.js"></script>
+    <script type="text/javascript" src="js/cibulEventFormReact.bundle.js"></script>
     <script type="text/javascript" src="js/cibulEventCustomFields.bundle.js"></script>
+    <script type="text/javascript" src="js/cibulEventAgeFields.bundle.js"></script>
     <script type="text/javascript" src="js/cibulEventImage.js"></script>
     <script type="text/javascript" src="js/cibulEventAgenda.js"></script>
     <script type="text/javascript" src="js/cibulEventSubmit.js"></script>
@@ -61,9 +63,12 @@
     <link rel="stylesheet" href="../css/font-awesome-4.3.0/css/font-awesome.css" />
     
     <link rel="stylesheet" href="../css/embedMain.css" />
+    <link rel="stylesheet" type="text/css" href="../css/forms.css">
     
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/embedStyle.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/reactSelect.css" />
     <!--<link rel="stylesheet" href="css/mainStyle.css" />-->
     
 
@@ -140,6 +145,16 @@
           placename: 'Le nom du lieu',
           noDates: 'Il doit y avoir au moins un horaire de défini par lieu'
         }
+      });
+
+      cibulEventAccessibilityFields({
+        lang: 'fr',
+        values: [ 'hi', 'sl' ]
+      });
+
+      cibulEventAgeFields({
+        lang: 'fr',
+        values: '{"min":0, "max":66}'
       });
 
       cibulEventCustomFields({

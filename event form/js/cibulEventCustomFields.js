@@ -1,1 +1,0 @@
-window.cibulEventCustomFields = require( './customFields.react.js' );

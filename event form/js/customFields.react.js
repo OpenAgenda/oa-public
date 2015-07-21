@@ -8,7 +8,7 @@ CheckboxField = require( './checkboxField.react.js' ),
 
 RadioFields = require( './radioFields.react.js' ),
 
-cn = require( '../../js/lib/common/common.mod' ),
+rUtils = require( './reactUtils' ),
 
 defaults = {
   canvas: '.js_form_canvas',
@@ -18,25 +18,17 @@ defaults = {
     get: 'ecustomfieldsfetch',
     send: 'ecustomfieldssend'
   }
-},
-
-eh;
+};
 
 module.exports = function( options ) {
 
-  var params = cn.extend( {}, defaults, options ),
+  var params = rUtils.extend( {}, defaults, options ),
 
-  fields = typeof params.fields == 'string' ? JSON.parse( params.fields ) : params.fields,
-
-  _update = function( v ) {
-
-    window.sEventHandler.getInstance().trigger( params.events.send, v );
-
-  };
+  fields = typeof params.fields == 'string' ? JSON.parse( params.fields ) : params.fields;
 
   React.render(
-    <CustomFields fields={fields} lang={params.lang} update={ _update } />,
-    _createReactCanvas( cn.el( params.canvas ) ) 
+    <CustomFields fields={fields} lang={params.lang} update={ rUtils.ehUpdate( params.events.send ) } />,
+    rUtils.createCanvas( rUtils.el( params.canvas ) ) 
   );
 
 }
@@ -65,7 +57,7 @@ var CustomFields = React.createClass({
 
   componentDidUpdate: function() {
 
-    var update = cn.extend( {}, this.state );
+    var update = rUtils.extend( {}, this.state );
 
     for ( var i in this.props.fields ) {
 
@@ -129,7 +121,7 @@ var CustomFields = React.createClass({
       } else if ( field.fieldType == 'checkbox' ) {
 
         return <CheckboxField
-          field= { field } 
+          field= { field }
           lang= { self.props.lang } 
           value= { self.state[ field.name ].value }
           handleUpdate= { self.fieldValueUpdater( field.name ) } />;
@@ -157,13 +149,3 @@ var CustomFields = React.createClass({
   }
 
 });
-
-function _createReactCanvas( parent ) {
-
-  var div = document.createElement( 'div' );
-
-  parent.appendChild( div );
-
-  return div;
-
-}
