@@ -29,6 +29,9 @@ var cibulEvent = function(params) {
       ageFields: {
         write: 'eagesend'
       },
+      typeField: {
+        write: 'etypesend'
+      },
       accessibilityFields: {
         write: 'eaccessibilitysend'
       },
@@ -230,17 +233,21 @@ var cibulEvent = function(params) {
 
     });
 
-    _on(params.events.ageFields.write, function(data) {
+    _on( params.events.typeField.write, function( data ) {
 
-      console.log( 'received age data' );
-      console.log( data );
+      event.type = data;
+
+    });
+
+    _on( params.events.ageFields.write, function( data ) {
+
+      event.age = data;
 
     });
 
     _on(params.events.accessibilityFields.write, function(data) {
 
-      console.log( 'received accessibility data' );
-      console.log( data );
+      event.accessibility = data;
 
     });
 

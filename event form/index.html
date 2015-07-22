@@ -50,8 +50,6 @@
     <script type="text/javascript" src="js/cibulEventDescription.js"></script>
     <script type="text/javascript" src="js/cibulEventLocation.js"></script>
     <script type="text/javascript" src="js/cibulEventFormReact.bundle.js"></script>
-    <script type="text/javascript" src="js/cibulEventCustomFields.bundle.js"></script>
-    <script type="text/javascript" src="js/cibulEventAgeFields.bundle.js"></script>
     <script type="text/javascript" src="js/cibulEventImage.js"></script>
     <script type="text/javascript" src="js/cibulEventAgenda.js"></script>
     <script type="text/javascript" src="js/cibulEventSubmit.js"></script>
@@ -145,6 +143,11 @@
           placename: 'Le nom du lieu',
           noDates: 'Il doit y avoir au moins un horaire de défini par lieu'
         }
+      });
+
+      cibulEventTypeField({
+        lang: 'fr',
+        code: false
       });
 
       cibulEventAccessibilityFields({
