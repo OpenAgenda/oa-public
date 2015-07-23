@@ -100,16 +100,20 @@ var TypeField = React.createClass({
   render: function() {
 
     return (
-      <div className="cform">
-        <label for="type">{this.labels.label[ this.props.lang ]}</label>
-        <Select
-          name="type"
-          value={this.state.type}
-          options={this.getSelectOptions()}
-          clearable={false}
-          onChange={this.onChange}
-        />
-      </div>
+      <ul className="cform">
+        <li>
+          <label for="type">{this.labels.label[ this.props.lang ]}</label>
+          <div>
+            <Select
+              name="type"
+              value={this.state.type}
+              options={this.getSelectOptions()}
+              clearable={false}
+              onChange={this.onChange}
+            />
+          </div>
+        </li>
+      </ul>
     )
 
   }

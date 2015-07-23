@@ -245,7 +245,15 @@ function widget( elem, options ) {
 
     if ( useClusters ) {
 
-      clusterGroup = m.createCluster( map, markers );
+      try {
+
+        clusterGroup = m.createCluster( map, markers );
+
+      } catch( e ) {
+
+        console.error( 'markercluster lib crashed at cluster creation' );
+
+      }
 
     }
 
@@ -570,7 +578,15 @@ function widget( elem, options ) {
 
     if ( useClusters && clusterGroup ) {
 
-      m.addClusterLayers( clusterGroup, markers );
+      try {
+        
+        m.addClusterLayers( clusterGroup, markers );
+
+      } catch( e ) {
+
+        console.error( 'cluster lib crash: %s', e );
+
+      }
 
     }
 

@@ -149,68 +149,51 @@ var AgeFields = React.createClass({
 
   },
 
-
   render: function() {
 
     return ( 
-      <ul className="cform">
-        <li>
-          <label>{this.labels.title[this.props.lang]}</label>
-        </li>
-        <li>
-          <ul className="line">
-            <li>
-              <input type="radio" name="age_mode" value="onlyMin" checked={this.state.onlyMin} onChange={this.onModeChange} />
-            </li>
-            <li>
-              <label for="age">{this.labels.min[this.props.lang]}</label>
-            </li>
-            <li>
-              <Select
-                name="age"
-                value={this.state.onlyMin ? this.state.min : ''}
-                options={this.getSelectOptions()}
-                clearable={false}
-                onChange={ this.onChange( 'min' ) }
-                disabled={ !this.state.onlyMin }
-              />
-            </li>
-          </ul>
-        </li>
-        <li>
-          <ul className="line">
-            <li>
-              <input type="radio" name="age_mode" checked={!this.state.onlyMin} onChange={this.onModeChange} />
-            </li>
-            <li>
-              <label for="minage">{this.labels.min[this.props.lang]}</label>
-              <Select
-                name="minage"
-                value={this.state.onlyMin ? '' : this.state.min}
-                options={this.getSelectOptions()}
-                clearable={false}
-                onChange={ this.onChange( 'min' ) }
-                disabled={this.state.onlyMin}
-              />
-            </li>
-            <li>
-              <label for="maxage">{this.labels.max[this.props.lang]}</label>
-              <Select
-                name="maxage"
-                value={this.state.onlyMin ? '' : this.state.max}
-                options={this.getSelectOptions( this.state.min )}
-                clearable={false}
-                onChange={ this.onChange( 'max') }
-                disabled={this.state.onlyMin}
-              />
-            </li>
-            <li>
-              
-            </li>
-          </ul>
+      <div className="cform">
+        <label>{this.labels.title[this.props.lang]}</label>
+        <ul>
+          <li className="line">
+            
+            <input type="radio" name="age_mode" value="onlyMin" checked={this.state.onlyMin} onChange={this.onModeChange} />
+            <label for="age">{this.labels.min[this.props.lang]}</label>
+            <Select
+              name="age"
+              value={this.state.onlyMin ? this.state.min : ''}
+              options={this.getSelectOptions()}
+              clearable={false}
+              onChange={ this.onChange( 'min' ) }
+              disabled={ !this.state.onlyMin }
+            />
+            
+          </li>
+          <li className="line">
+
+            <input type="radio" name="age_mode" checked={!this.state.onlyMin} onChange={this.onModeChange} />
+            <label for="minage">{this.labels.min[this.props.lang]}</label>
+            <Select
+              name="minage"
+              value={this.state.onlyMin ? '' : this.state.min}
+              options={this.getSelectOptions()}
+              clearable={false}
+              onChange={ this.onChange( 'min' ) }
+              disabled={this.state.onlyMin}
+            />
+            <label for="maxage">{this.labels.max[this.props.lang]}</label>
+            <Select
+              name="maxage"
+              value={this.state.onlyMin ? '' : this.state.max}
+              options={this.getSelectOptions( this.state.min )}
+              clearable={false}
+              onChange={ this.onChange( 'max') }
+              disabled={this.state.onlyMin}
+            />
+          </li>
           
-        </li>
-      </ul>
+        </ul>
+      </div>
     );
 
   }

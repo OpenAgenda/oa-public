@@ -145,7 +145,7 @@ AccessibilityItem = React.createClass({displayName: "AccessibilityItem",
   render: function(){
 
     return (
-      React.createElement("li", null, 
+      React.createElement("li", {className: "line"}, 
         React.createElement("input", {
           type: "checkbox", 
           value: this.props.code, 
@@ -312,63 +312,46 @@ var AgeFields = React.createClass({displayName: "AgeFields",
 
   },
 
-
   render: function() {
 
     return ( 
-      React.createElement("ul", {className: "cform"}, 
-        React.createElement("li", null, 
-          React.createElement("label", null, this.labels.title[this.props.lang])
-        ), 
-        React.createElement("li", null, 
-          React.createElement("ul", {className: "line"}, 
-            React.createElement("li", null, 
-              React.createElement("input", {type: "radio", name: "age_mode", value: "onlyMin", checked: this.state.onlyMin, onChange: this.onModeChange})
-            ), 
-            React.createElement("li", null, 
-              React.createElement("label", {for: "age"}, this.labels.min[this.props.lang])
-            ), 
-            React.createElement("li", null, 
-              React.createElement(Select, {
-                name: "age", 
-                value: this.state.onlyMin ? this.state.min : '', 
-                options: this.getSelectOptions(), 
-                clearable: false, 
-                onChange:  this.onChange( 'min'), 
-                disabled:  !this.state.onlyMin}
-              )
+      React.createElement("div", {className: "cform"}, 
+        React.createElement("label", null, this.labels.title[this.props.lang]), 
+        React.createElement("ul", null, 
+          React.createElement("li", {className: "line"}, 
+            
+            React.createElement("input", {type: "radio", name: "age_mode", value: "onlyMin", checked: this.state.onlyMin, onChange: this.onModeChange}), 
+            React.createElement("label", {for: "age"}, this.labels.min[this.props.lang]), 
+            React.createElement(Select, {
+              name: "age", 
+              value: this.state.onlyMin ? this.state.min : '', 
+              options: this.getSelectOptions(), 
+              clearable: false, 
+              onChange:  this.onChange( 'min'), 
+              disabled:  !this.state.onlyMin}
             )
-          )
-        ), 
-        React.createElement("li", null, 
-          React.createElement("ul", {className: "line"}, 
-            React.createElement("li", null, 
-              React.createElement("input", {type: "radio", name: "age_mode", checked: !this.state.onlyMin, onChange: this.onModeChange})
+            
+          ), 
+          React.createElement("li", {className: "line"}, 
+
+            React.createElement("input", {type: "radio", name: "age_mode", checked: !this.state.onlyMin, onChange: this.onModeChange}), 
+            React.createElement("label", {for: "minage"}, this.labels.min[this.props.lang]), 
+            React.createElement(Select, {
+              name: "minage", 
+              value: this.state.onlyMin ? '' : this.state.min, 
+              options: this.getSelectOptions(), 
+              clearable: false, 
+              onChange:  this.onChange( 'min'), 
+              disabled: this.state.onlyMin}
             ), 
-            React.createElement("li", null, 
-              React.createElement("label", {for: "minage"}, this.labels.min[this.props.lang]), 
-              React.createElement(Select, {
-                name: "minage", 
-                value: this.state.onlyMin ? '' : this.state.min, 
-                options: this.getSelectOptions(), 
-                clearable: false, 
-                onChange:  this.onChange( 'min'), 
-                disabled: this.state.onlyMin}
-              )
-            ), 
-            React.createElement("li", null, 
-              React.createElement("label", {for: "maxage"}, this.labels.max[this.props.lang]), 
-              React.createElement(Select, {
-                name: "maxage", 
-                value: this.state.onlyMin ? '' : this.state.max, 
-                options: this.getSelectOptions( this.state.min), 
-                clearable: false, 
-                onChange:  this.onChange( 'max'), 
-                disabled: this.state.onlyMin}
-              )
-            ), 
-            React.createElement("li", null
-              
+            React.createElement("label", {for: "maxage"}, this.labels.max[this.props.lang]), 
+            React.createElement(Select, {
+              name: "maxage", 
+              value: this.state.onlyMin ? '' : this.state.max, 
+              options: this.getSelectOptions( this.state.min), 
+              clearable: false, 
+              onChange:  this.onChange( 'max'), 
+              disabled: this.state.onlyMin}
             )
           )
           
@@ -992,14 +975,18 @@ var TypeField = React.createClass({displayName: "TypeField",
   render: function() {
 
     return (
-      React.createElement("div", {className: "cform"}, 
-        React.createElement("label", {for: "type"}, this.labels.label[ this.props.lang]), 
-        React.createElement(Select, {
-          name: "type", 
-          value: this.state.type, 
-          options: this.getSelectOptions(), 
-          clearable: false, 
-          onChange: this.onChange}
+      React.createElement("ul", {className: "cform"}, 
+        React.createElement("li", null, 
+          React.createElement("label", {for: "type"}, this.labels.label[ this.props.lang]), 
+          React.createElement("div", null, 
+            React.createElement(Select, {
+              name: "type", 
+              value: this.state.type, 
+              options: this.getSelectOptions(), 
+              clearable: false, 
+              onChange: this.onChange}
+            )
+          )
         )
       )
     )

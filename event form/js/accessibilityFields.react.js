@@ -144,12 +144,12 @@ AccessibilityItem = React.createClass({
   render: function(){
 
     return (
-      <li>
+      <li className="line">
         <input 
           type="checkbox"
           value={this.props.code} 
           checked={this.props.checked}
-          onChange={this.props.onChange} 
+          onChange={this.props.onChange}
         />
         <label>{this.props.label}</label>
       </li>

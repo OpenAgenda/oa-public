@@ -92,7 +92,8 @@
 .cform input[type="password"],
 .cform input[type="radio"],
 .cform input[type="checkbox"],
-.cform select {
+.cform select,
+.cform .Select-control {
 
   height: 34px;
 
