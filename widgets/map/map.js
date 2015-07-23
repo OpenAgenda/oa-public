@@ -556,7 +556,6 @@ function widget( elem, options ) {
 
     if ( useClusters && clusterGroup ) {
 
-
       try { // try - mitigate ie10 exception
 
         m.clearClusterLayers( clusterGroup );

@@ -417,7 +417,7 @@ module.exports = function( uid ) {
 
     }
 
-    if ( !cn.size( currentRequestParams ) && ctl.p && passedAutoLoad ) {
+    if ( ctl.p && passedAutoLoad && typeof currentRequestParams.passed == 'undefined' ) {
 
       currentRequestParams.passed = 1;
 
