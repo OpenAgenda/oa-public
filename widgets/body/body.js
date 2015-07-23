@@ -234,6 +234,12 @@ function widget( elem, options ) {
 
             queryChangeRequest = ( qs.parse( message.load.substr( message.load.indexOf( '?' ) + 1 ) ) || {} ).search;
 
+            if ( typeof queryChangeRequest == 'undefined' ) {
+
+              queryChangeRequest = {};
+
+            }
+
             if ( currentQuery.passed ) queryChangeRequest.passed = 1;
 
             newSrc = _clean( message.load.substr( 0, message.load.indexOf( '?' ) + 1 ) + qs.stringify( { search: queryChangeRequest } ) );
