@@ -260,13 +260,52 @@ function widget( elem, options ) {
   }
 
 
+  function _nonMapQueryChange( reqParams ) {
+
+    var keys = [], change = false,
+
+    current = navHistory.get();
+
+    for( var i in reqParams ) {
+
+      keys.push( i );
+
+    }
+
+    for( i in current ) {
+
+      keys.push( i );
+
+    }
+
+    cn.forEach( keys, function( k ) {
+
+      if ( [ 'neLat', 'neLng', 'swLat', 'swLng' ].indexOf( k ) == -1 ) {
+
+        if ( JSON.stringify( reqParams[ k ] ) !== JSON.stringify( current[ k ] ) ) {
+
+          change = true;
+
+        }
+
+      }
+
+    });
+
+    return change;
+
+  }
+
+
   function enable( reqParams ) {
 
     log( 'enabling map' );
 
     enabled = true;
 
-    _updateBounds( reqParams, function( ) {
+    var resetCluster = _nonMapQueryChange( reqParams );
+
+    _updateBounds( reqParams, function() {
 
       var popupLocation = false;
 
@@ -298,7 +337,7 @@ function widget( elem, options ) {
 
       }
 
-      _refresh();
+      _refresh( resetCluster );
 
       if ( popupLocation ) _openPopup( popupLocation );
 
@@ -341,7 +380,7 @@ function widget( elem, options ) {
 
     enabled = false;
 
-    _refresh();
+    _refresh( false );
 
   }
 
@@ -540,9 +579,11 @@ function widget( elem, options ) {
   }
 
 
-  function _refresh() {
+  function _refresh( resetCluster ) {
 
     var markers = [];
+
+    resetCluster = typeof resetCluster == 'undefined' ? false : resetCluster;
 
     log( 'refreshing map: %s', enabled ? 'enabled' : 'not enabled' );
 
@@ -554,7 +595,7 @@ function widget( elem, options ) {
 
     }
 
-    if ( useClusters && clusterGroup ) {
+    if ( useClusters && clusterGroup && resetCluster ) {
 
       try { // try - mitigate ie10 exception
 
@@ -575,7 +616,7 @@ function widget( elem, options ) {
     
     }
 
-    if ( useClusters && clusterGroup ) {
+    if ( useClusters && clusterGroup && resetCluster ) {
 
       try {
         
@@ -984,18 +1025,28 @@ function widget( elem, options ) {
 
     if ( navHistory.matchCurrent( reqParams ) ) {
 
+      // nothing changed, no need to update
+
       bounds = false;
 
     } else if ( navHistory.matchPrev( reqParams ) ) {
+
+      // query params match previous state. Bounds should
+      // go back to previous state
 
       bounds = navHistory.back();
 
     } else if ( reqParams.neLat && navHistory.current() ) {
 
+      // query params have changed and contain geographical
+      // parts. bounds should stay put as they have been
+      // defined by user
       bounds = false;
 
     } else if ( activeBounds ) {
 
+      // query params have changed and DO NOT contain geographical
+      // parts. bounds should be that of the active markers
       bounds = activeBounds;
 
       navHistory.add( reqParams, bounds );
@@ -1017,7 +1068,7 @@ function widget( elem, options ) {
 
         _unfreezeAuto();
 
-        return cb ? cb() : null;
+        return cb ? cb( bounds ) : null;
 
       }, 500);
 

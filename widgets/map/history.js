@@ -6,6 +6,7 @@ module.exports = function() {
 
   return {
     add: add,
+    get: get,
     sync: sync,
     matchCurrent: matchCurrent,
     matchPrev: matchPrev,
@@ -55,6 +56,18 @@ module.exports = function() {
     if ( history.length <= 1 ) return false;
 
     return _match( reqParams, -2 );
+  }
+
+  function get( index ) {
+
+    if ( typeof index == 'undefined' ) index = -1;
+
+    var i = history.length + index;
+
+    if ( i < 0 ) return false;
+
+    return JSON.parse( history[ i ].k );
+
   }
 
   function _match( reqParams, invIndex ) {
