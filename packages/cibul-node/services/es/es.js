@@ -6,6 +6,8 @@ legacyLib = require( 'ES' )( config.es ),
 
 lib = require( '../../lib/lib' ),
 
+c = require( './clean' ),
+
 LIMIT = 20;
 
 module.exports = {
@@ -90,7 +92,16 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
 
   }
 
-  [ 'tags', 'category', 'org', 'what', 'countryCode' ].forEach( function( name ) {
+  [ 
+    'tags',
+    'category',
+    'org',
+    'what',
+    'countryCode',
+    'type',
+    'accessibility',
+    'age'
+  ].forEach( function( name ) {
 
     if ( query[ name ] ) esQuery[ name ] = query[ name ];
 
@@ -193,7 +204,13 @@ function _clean( query, params ) {
 
   if ( !query ) return clean;
 
-  if ( query.what ) clean.what = query.what;
+  [ 'what', 'type', 'age' ].forEach( function( k ) {
+
+    if ( !query[ k ] ) return;
+
+    clean[ k ] = query[ k ];
+
+  }); 
 
   if ( query.from ) {
 
@@ -223,15 +240,15 @@ function _clean( query, params ) {
 
   }
 
-  if ( query.tags && ( typeof query.tags == 'string' ) ) {
 
-    clean.tags = [ query.tags ];
+  [ 'tags', 'accessibility' ].forEach( function( k ) {
 
-  } else if ( query.tags ) {
+    if ( !query[ k ] ) return;
 
-    clean.tags = query.tags;
+    clean[ k ] = c.parseQueryList( query[ k ] );
 
-  }
+  });
+
 
   if ( [ 'proximity', 'update', 'upcoming' ].indexOf( query.order ) !== -1 ) {
 
