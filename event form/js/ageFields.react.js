@@ -55,9 +55,9 @@ var AgeFields = React.createClass({
   getInitialState: function() {
 
     return {
-      onlyMin: !this.props.initMax,
-      min: this.props.initMin,
-      max: this.props.initMax
+      enabled: this.props.initMin || this.props.initMax,
+      min: this.props.initMin===null ? '' : this.props.initMin,
+      max: this.props.initMax===null ? '' : this.props.initMax
     }
 
   },
@@ -74,14 +74,41 @@ var AgeFields = React.createClass({
 
   },
 
-  onModeChange: function( e ) {
+  onEnabled: function() {
 
-    var onlyMin = e.target.value == 'onlyMin';
+    var self = this;
 
-    this.updateState( {
-      onlyMin: onlyMin,
-      max: onlyMin ? null : this.state.max
-    } );
+    return function( enable ) {
+
+      if ( typeof enable == 'undefined' ) {
+
+        enable = !self.state.enabled;
+
+      }
+
+      var min = self.state.min, 
+
+      max = self.state.max;
+
+      if ( enable && min.length == 0 ) {
+
+        min = 0;
+
+      }
+
+      if ( enable && max.length == 0 ) {
+
+        max = 99;
+
+      }
+
+      self.updateState( {
+        enabled: enable,
+        min: min,
+        max: max
+      } );
+
+    }
 
   },
 
@@ -101,7 +128,7 @@ var AgeFields = React.createClass({
 
     if ( changes.min && changes.min > this.state.max ) {
 
-      changes.max = null;
+      changes.max = changes.min;
 
     }
 
@@ -112,8 +139,8 @@ var AgeFields = React.createClass({
   componentDidUpdate: function() {
 
     this.props.onChange( {
-      min: this.state.min,
-      max: this.state.max
+      min: this.state.enabled ? this.state.min : null,
+      max: this.state.enabled ? this.state.max : null
     } );
 
   },
@@ -153,45 +180,30 @@ var AgeFields = React.createClass({
 
     return ( 
       <div className="cform">
-        <label>{this.labels.title[this.props.lang]}</label>
+        
         <ul>
           <li className="line">
-            
-            <input type="radio" name="age_mode" value="onlyMin" checked={this.state.onlyMin} onChange={this.onModeChange} />
-            <label for="age">{this.labels.min[this.props.lang]}</label>
-            <Select
-              name="age"
-              value={this.state.onlyMin ? this.state.min : ''}
-              options={this.getSelectOptions()}
-              clearable={false}
-              onChange={ this.onChange( 'min' ) }
-              disabled={ !this.state.onlyMin }
-            />
-            
-          </li>
-          <li className="line">
-
-            <input type="radio" name="age_mode" checked={!this.state.onlyMin} onChange={this.onModeChange} />
-            <label for="minage">{this.labels.min[this.props.lang]}</label>
+            <input type="checkbox" name="age" value="1" checked={this.state.enabled} onClick={this.onEnabled()} />
+            <label onClick={this.onEnabled()}>{this.labels.title[this.props.lang]}</label> - 
+            <label onClick={this.onEnabled()} for="minage">{this.labels.min[this.props.lang]}</label>
             <Select
               name="minage"
-              value={this.state.onlyMin ? '' : this.state.min}
+              value={this.state.enabled ? this.state.min + '' : ''}
               options={this.getSelectOptions()}
               clearable={false}
               onChange={ this.onChange( 'min' ) }
-              disabled={this.state.onlyMin}
+              onFocus={this.onEnabled(true)}
             />
             <label for="maxage">{this.labels.max[this.props.lang]}</label>
             <Select
               name="maxage"
-              value={this.state.onlyMin ? '' : this.state.max}
+              value={this.state.enabled ? this.state.max + '' : ''}
               options={this.getSelectOptions( this.state.min )}
               clearable={false}
               onChange={ this.onChange( 'max') }
-              disabled={this.state.onlyMin}
+              onFocus={this.onEnabled(true)}
             />
           </li>
-          
         </ul>
       </div>
     );

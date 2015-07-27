@@ -71,37 +71,48 @@ var AccessibilityFields = React.createClass({displayName: "AccessibilityFields",
 
   getInitialState: function() {
 
+    var init = this.props.init ? this.props.init : [];
+
     return {
-      checked: this.props.init ? this.props.init : []
+      enabled: !!init.length,
+      checked: init
     }
 
   },
 
-  onChange: function( e ) {
+  onEnabled: function( e ) {
 
-    this.updateState( e.target.value, e.target.checked );
+    this.setState( {
+      enabled: !this.state.enabled
+    } );
 
   },
 
-  updateState: function( code, checked ) {
+  onClick: function( type ) {
 
-    var current = this.state.checked;
+    var self = this;
 
-    if ( checked ) {
+    return function() {
 
-      if ( current.indexOf( code ) == -1 ) {
+      self.toggleState( type.code );
 
-        current.push( code );
+    }
 
-      }
+  },
+
+  toggleState: function( code ) {
+
+    var current = this.state.checked,
+
+    codeIndex = current.indexOf( code );
+
+    if ( codeIndex == -1 ) {
+
+      current.push( code );
 
     } else {
 
-      current = current.filter( function( c ) {
-
-        return c !== code;
-
-      });
+      current.splice( codeIndex, 1 );
 
     }
 
@@ -111,7 +122,11 @@ var AccessibilityFields = React.createClass({displayName: "AccessibilityFields",
 
   componentDidUpdate: function() {
 
-    this.props.onChange( this.state.checked );
+    var checkedItems = this.state.enabled ? this.state.checked : [];
+
+
+
+    this.props.onChange( checkedItems );
 
   },
 
@@ -120,19 +135,25 @@ var AccessibilityFields = React.createClass({displayName: "AccessibilityFields",
     var self = this;
 
     return (
-      React.createElement("ul", {className: "cform"}, 
-        React.createElement("li", null, 
-          React.createElement("label", null, this.labels.title[this.props.lang])
+      React.createElement("div", {className: "cform"}, 
+        React.createElement("ul", null, 
+          React.createElement("li", {className: "line", onClick: self.onEnabled}, 
+            React.createElement("input", {type: "checkbox", name: "accessibility", checked: self.state.enabled}), 
+            React.createElement("label", null, this.labels.title[this.props.lang])
+          )
         ), 
-        this.types.map(function(type, idx){
-          return React.createElement(AccessibilityItem, {
-            key: idx, 
-            label: type.label[self.props.lang], 
-            checked: self.state.checked.indexOf(type.code)!==-1, 
-            code: type.code, 
-            onChange: self.onChange}
-          );
-        })
+        React.createElement("ul", {className: "acc"}, 
+          this.types.map(function(type, idx){
+            return React.createElement(AccessibilityItem, {
+              key: idx, 
+              label: type.label[self.props.lang], 
+              checked: self.state.checked.indexOf(type.code)!==-1, 
+              code: type.code, 
+              onClick: self.onClick( type), 
+              enabled: self.state.enabled}
+            );
+          })
+        )
       )
     );
 
@@ -145,13 +166,13 @@ AccessibilityItem = React.createClass({displayName: "AccessibilityItem",
   render: function(){
 
     return (
-      React.createElement("li", {className: "line"}, 
+      React.createElement("li", {className: this.props.enabled ? 'line' : 'display-none', onClick: this.props.onClick}, 
         React.createElement("input", {
           type: "checkbox", 
           value: this.props.code, 
-          checked: this.props.checked, 
-          onChange: this.props.onChange}
+          checked: this.props.checked}
         ), 
+        React.createElement("div", {className: 'ill ' + this.props.code}), 
         React.createElement("label", null, this.props.label)
       )
     );
@@ -218,9 +239,9 @@ var AgeFields = React.createClass({displayName: "AgeFields",
   getInitialState: function() {
 
     return {
-      onlyMin: !this.props.initMax,
-      min: this.props.initMin,
-      max: this.props.initMax
+      enabled: this.props.initMin || this.props.initMax,
+      min: this.props.initMin===null ? '' : this.props.initMin,
+      max: this.props.initMax===null ? '' : this.props.initMax
     }
 
   },
@@ -237,14 +258,41 @@ var AgeFields = React.createClass({displayName: "AgeFields",
 
   },
 
-  onModeChange: function( e ) {
+  onEnabled: function() {
 
-    var onlyMin = e.target.value == 'onlyMin';
+    var self = this;
 
-    this.updateState( {
-      onlyMin: onlyMin,
-      max: onlyMin ? null : this.state.max
-    } );
+    return function( enable ) {
+
+      if ( typeof enable == 'undefined' ) {
+
+        enable = !self.state.enabled;
+
+      }
+
+      var min = self.state.min, 
+
+      max = self.state.max;
+
+      if ( enable && min.length == 0 ) {
+
+        min = 0;
+
+      }
+
+      if ( enable && max.length == 0 ) {
+
+        max = 99;
+
+      }
+
+      self.updateState( {
+        enabled: enable,
+        min: min,
+        max: max
+      } );
+
+    }
 
   },
 
@@ -264,7 +312,7 @@ var AgeFields = React.createClass({displayName: "AgeFields",
 
     if ( changes.min && changes.min > this.state.max ) {
 
-      changes.max = null;
+      changes.max = changes.min;
 
     }
 
@@ -275,8 +323,8 @@ var AgeFields = React.createClass({displayName: "AgeFields",
   componentDidUpdate: function() {
 
     this.props.onChange( {
-      min: this.state.min,
-      max: this.state.max
+      min: this.state.enabled ? this.state.min : null,
+      max: this.state.enabled ? this.state.max : null
     } );
 
   },
@@ -316,45 +364,30 @@ var AgeFields = React.createClass({displayName: "AgeFields",
 
     return ( 
       React.createElement("div", {className: "cform"}, 
-        React.createElement("label", null, this.labels.title[this.props.lang]), 
+        
         React.createElement("ul", null, 
           React.createElement("li", {className: "line"}, 
-            
-            React.createElement("input", {type: "radio", name: "age_mode", value: "onlyMin", checked: this.state.onlyMin, onChange: this.onModeChange}), 
-            React.createElement("label", {for: "age"}, this.labels.min[this.props.lang]), 
-            React.createElement(Select, {
-              name: "age", 
-              value: this.state.onlyMin ? this.state.min : '', 
-              options: this.getSelectOptions(), 
-              clearable: false, 
-              onChange:  this.onChange( 'min'), 
-              disabled:  !this.state.onlyMin}
-            )
-            
-          ), 
-          React.createElement("li", {className: "line"}, 
-
-            React.createElement("input", {type: "radio", name: "age_mode", checked: !this.state.onlyMin, onChange: this.onModeChange}), 
-            React.createElement("label", {for: "minage"}, this.labels.min[this.props.lang]), 
+            React.createElement("input", {type: "checkbox", name: "age", value: "1", checked: this.state.enabled, onClick: this.onEnabled()}), 
+            React.createElement("label", {onClick: this.onEnabled()}, this.labels.title[this.props.lang]), " -",  
+            React.createElement("label", {onClick: this.onEnabled(), for: "minage"}, this.labels.min[this.props.lang]), 
             React.createElement(Select, {
               name: "minage", 
-              value: this.state.onlyMin ? '' : this.state.min, 
+              value: this.state.enabled ? this.state.min + '' : '', 
               options: this.getSelectOptions(), 
               clearable: false, 
               onChange:  this.onChange( 'min'), 
-              disabled: this.state.onlyMin}
+              onFocus: this.onEnabled(true)}
             ), 
             React.createElement("label", {for: "maxage"}, this.labels.max[this.props.lang]), 
             React.createElement(Select, {
               name: "maxage", 
-              value: this.state.onlyMin ? '' : this.state.max, 
+              value: this.state.enabled ? this.state.max + '' : '', 
               options: this.getSelectOptions( this.state.min), 
               clearable: false, 
               onChange:  this.onChange( 'max'), 
-              disabled: this.state.onlyMin}
+              onFocus: this.onEnabled(true)}
             )
           )
-          
         )
       )
     );

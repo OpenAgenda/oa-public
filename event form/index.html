@@ -67,6 +67,7 @@
     <link rel="stylesheet" href="css/embedStyle.css" />
 
     <link rel="stylesheet" type="text/css" href="css/reactSelect.css" />
+    <link rel="stylesheet" type="text/css" href="css/accessibility.css" />
     <!--<link rel="stylesheet" href="css/mainStyle.css" />-->
     
 
@@ -152,12 +153,14 @@
       
       cibulEventAccessibilityFields({
         lang: 'fr',
-        values: [ 'hi', 'sl' ]
+        //values: [ 'hi', 'sl' ]
+        values: []
       });
 
       cibulEventAgeFields({
         lang: 'fr',
-        values: '{"min":0, "max":66}'
+        //values: '{"min":0, "max":66}'
+        values: '{"min" : null, "max" : null}'
       });
 
       cibulEventCustomFields({

@@ -247,6 +247,8 @@ var cibulEvent = function(params) {
 
     _on(params.events.accessibilityFields.write, function(data) {
 
+      console.log( data );
+
       event.accessibility = data;
 
     });
