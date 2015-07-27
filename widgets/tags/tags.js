@@ -16,7 +16,7 @@ onReady;
 
 if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) debug.enable( '*' );
 
-var widget = function( elem, options ) {
+function widget( elem, options ) {
 
   var log,
 
@@ -34,9 +34,9 @@ var widget = function( elem, options ) {
 
   activeTags = {},  // tags which are within current event selection
 
-  passedTagSlugs = [],
+  passedTagSlugs = [];
 
-  init = function() {
+  ( function() {
 
     if ( typeof options.anchorConfig === 'undefined' ) {
 
@@ -84,9 +84,9 @@ var widget = function( elem, options ) {
     } );
 
 
-  },
+  } )()
 
-  enable = function( reqParams ) {
+  function enable( reqParams ) {
 
     enabled = true;
 
@@ -116,9 +116,9 @@ var widget = function( elem, options ) {
 
     _render();
 
-  },
+  }
 
-  clear = function() {
+  function clear() {
     
     log( 'clearing, awaiting enable or disable to render' );
 
@@ -127,14 +127,14 @@ var widget = function( elem, options ) {
     selectedTag = false;
     requestTags = false;
 
-  },
+  }
 
 
   /**
    * include event tags in active tag set
    */
   
-  include = function( eventItem ) {
+  function include( eventItem ) {
 
     if ( eventItem.t && eventItem.t.length ) {
 
@@ -164,17 +164,17 @@ var widget = function( elem, options ) {
 
     }
 
-  },
+  }
 
-  disable = function() {
+  function disable() {
 
     enabled = false;
 
     _render();
 
-  },
+  }
 
-  _onTagSelect = function( tag ) {
+  function _onTagSelect( tag ) {
 
     log( 'selected %s with slug %s', tag.label, tag.slug );
 
@@ -184,9 +184,9 @@ var widget = function( elem, options ) {
 
     _update();
 
-  },
+  }
 
-  _clearWidgetRequestTags = function() {
+  function _clearWidgetRequestTags() {
 
     cn.forEach( tags, function( tag ) {
 
@@ -200,9 +200,9 @@ var widget = function( elem, options ) {
 
     } );
 
-  },
+  }
 
-  _findIndex = function( arr, val ) {
+  function _findIndex( arr, val ) {
 
     var index = -1;
 
@@ -219,9 +219,9 @@ var widget = function( elem, options ) {
 
     return index;
 
-  },
+  }
 
-  _onTagUnselect = function( tag ) {
+  function _onTagUnselect( tag ) {
 
     log( 'unselected %s with slug %s', tag.label, tag.slug );
 
@@ -229,9 +229,9 @@ var widget = function( elem, options ) {
 
     _update();
 
-  },
+  }
 
-  _update = function() {
+  function _update() {
 
     var updatedRequestParams = { tags : requestTags.length ? requestTags.slice() : null },
 
@@ -255,14 +255,14 @@ var widget = function( elem, options ) {
 
     controller.update( 'tags', updatedRequestParams );
 
-  },
+  }
 
 
   /**
    * define widget tags set
    */
 
-  _setTags = function( data, config ) {
+  function _setTags( data, config ) {
 
     var subset;
 
@@ -300,9 +300,9 @@ var widget = function( elem, options ) {
 
     log( 'widget initialized with %s tags', tags.length );
 
-  },
+  }
 
-  _render = function() {
+  function _render() {
 
     log( 'rendering a%s widget', enabled ? 'n enabled' : ' disabled' );
 
@@ -327,11 +327,9 @@ var widget = function( elem, options ) {
 
     view.render( data );
 
-  };
+  }
 
-  init();
-
-};
+}
 
 function setOnReady( cb ) {
 

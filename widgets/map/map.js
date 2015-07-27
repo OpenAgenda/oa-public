@@ -53,6 +53,8 @@ res = cn.extend( res.all, res[ env ] ? res[ env ] : {} );
 
 function widget( elem, options ) {
 
+  if ( wLib.flagged( elem ) ) return;
+
   var log,
 
   m,
@@ -93,6 +95,8 @@ function widget( elem, options ) {
   useClusters = false,
 
   clusterGroup = false,
+
+  initCluster = false, // for clearing cluster at first enable
 
   boundsQueue = [],
 
@@ -299,13 +303,46 @@ function widget( elem, options ) {
 
   function enable( reqParams ) {
 
+    var resetCluster = _nonMapQueryChange( reqParams ) || !initCluster,
+
+    bounds = false, initCluster = true;
+
     log( 'enabling map' );
 
     enabled = true;
 
-    var resetCluster = _nonMapQueryChange( reqParams );
+    if ( navHistory.matchCurrent( reqParams ) ) {
 
-    _updateBounds( reqParams, function() {
+      // nothing changed, no need to update
+      bounds = false;
+
+    } else if ( navHistory.matchPrev( reqParams ) ) {
+
+      // query params match previous state. Bounds should
+      // go back to previous state
+
+      bounds = navHistory.back();
+
+    } else if ( reqParams.neLat && navHistory.current() ) {
+
+      // query params have changed and contain geographical
+      // parts. bounds should stay put as they have been
+      // defined by user
+      bounds = false;
+
+      navHistory.add( reqParams, navHistory.current() );
+
+    } else if ( activeBounds ) {
+
+      // query params have changed and DO NOT contain geographical
+      // parts. bounds should be that of the active markers
+      bounds = activeBounds;
+
+      navHistory.add( reqParams, bounds );
+
+    }
+
+    _updateBounds( bounds, function() {
 
       var popupLocation = false;
 
@@ -540,11 +577,7 @@ function widget( elem, options ) {
   function _unsetLocationParams() {
 
     return {
-      location: null,
-      neLat: null,
-      neLng: null,
-      swLat: null,
-      swLng: null
+      location: null
     };
 
   }
@@ -555,10 +588,10 @@ function widget( elem, options ) {
     log( 'setting location to %s', location.uid );
 
     var updateValues = {
-      neLat: null,
+      /*neLat: null,
       neLng: null,
       swLat: null,
-      swLng: null,
+      swLng: null,*/
       location: location.uid
     }
 
@@ -983,14 +1016,16 @@ function widget( elem, options ) {
 
     var ne = m.getBoundsNorthEast( bounds ),
 
-    sw = m.getBoundsSouthWest( bounds );
+    sw = m.getBoundsSouthWest( bounds ),
 
-    return {
+    boundParams = {
       neLat: ne[0],
       neLng: ne[1],
       swLat: sw[0],
       swLng: sw[1]
     };
+
+    return boundParams;
 
   }
 
@@ -1019,39 +1054,7 @@ function widget( elem, options ) {
   }
 
 
-  function _updateBounds( reqParams, cb ) {
-
-    var bounds = false;
-
-    if ( navHistory.matchCurrent( reqParams ) ) {
-
-      // nothing changed, no need to update
-
-      bounds = false;
-
-    } else if ( navHistory.matchPrev( reqParams ) ) {
-
-      // query params match previous state. Bounds should
-      // go back to previous state
-
-      bounds = navHistory.back();
-
-    } else if ( reqParams.neLat && navHistory.current() ) {
-
-      // query params have changed and contain geographical
-      // parts. bounds should stay put as they have been
-      // defined by user
-      bounds = false;
-
-    } else if ( activeBounds ) {
-
-      // query params have changed and DO NOT contain geographical
-      // parts. bounds should be that of the active markers
-      bounds = activeBounds;
-
-      navHistory.add( reqParams, bounds );
-
-    }
+  function _updateBounds( bounds, cb ) {
 
     // carry out the repositionning
 

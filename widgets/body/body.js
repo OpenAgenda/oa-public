@@ -161,43 +161,19 @@ function widget( elem, options ) {
 
     }
 
-    var values = {},
-
-    currentQueryValues = controller.getCurrentQuery(),
-
-    hrefQuery = _readQueryPart( href, 'search', {} );
+    var hrefQuery = _readQueryPart( href, 'search', {} );
 
     if ( _isEventLink( href ) ) {
 
       // extract actual uid here
-      values.uid = _getEventUid( href );
-
-    } else if ( _isAgendaLink( href ) ) {
-
-      // specific rules for updating navigation filter
-
-      if ( currentQueryValues.uid ) {
-
-        // we are coming from an event, the event sets
-        // the new selection values
-
-        for( var i in currentQueryValues ) {
-
-          values[ i ] = null;
-
-        }
-
-        cn.extend( values, hrefQuery );
-
-      }
+      hrefQuery.uid = _getEventUid( href );
 
     }
 
-    if ( !cn.size( values ) ) return;
 
-    log( 'updating request params "%s"', JSON.stringify( values ) );
+    log( 'updating request params "%s"', JSON.stringify( hrefQuery ) );
 
-    controller.update( 'body', values );
+    controller.update( 'body', hrefQuery );
 
   }
 
