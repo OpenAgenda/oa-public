@@ -319,11 +319,15 @@ function _formatShowLinks( req, res, next ) {
 
   req.templateData.events.forEach( function( e ) {
 
-    e.link = req.genUrl( 'agendaEventShow', { 
+    var params = { 
       slug: req.agenda.slug,
       eventSlug : e.slug,
       lang : req.lang 
-    } );
+    };
+
+    if ( req.query.search ) params.search = req.query.search;
+
+    e.link = req.genUrl( 'agendaEventShow', params );
 
     e.importUri = req.genUrl( 'eventActionShow', { eventSlug: e.slug } );
 
@@ -338,11 +342,15 @@ function _formatEmbedLinks( req, res, next ) {
 
   req.templateData.events.forEach( function( e ) {
 
-    e.link = req.genUrl( 'agendaEmbedEventShow', { 
+    var params = { 
       uid: req.agenda.uid,
       eventUid: e.uid,
       lang: req.lang
-    });
+    };
+
+    if ( req.query.search ) params.search = req.query.search;
+
+    e.link = req.genUrl( 'agendaEmbedEventShow', params );
 
     if ( e.categorySlug ) e.categoryLink = req.genUrl( 'agendaEmbedShow', {
       uid: req.params.uid,
@@ -361,21 +369,30 @@ function _formatCustomEmbedLinks( req, res, next ) {
 
   req.templateData.events.forEach( function( e ) {
 
-    e.link = req.genUrl( 'agendaCustomEmbedEventShow', {
+    var params = {
       uid: req.agenda.uid,
       embedUid: req.embed.uid,
       eventUid: e.uid,
       lang: req.lang
-    });
+    };
 
-    if ( e.categorySlug ) e.categoryLink = req.genUrl( 'customEmbedShow', {
-      uid: req.params.uid,
-      embedUid: req.embed.uid,
-      search: {
-        category: e.categorySlug
-      },
-      lang: req.lang
-    });
+    if ( req.query.search ) params.search = req.query.search;
+
+    e.link = req.genUrl( 'agendaCustomEmbedEventShow', params );
+
+    if ( e.categorySlug ) {
+
+      e.categoryLink = req.genUrl( 'customEmbedShow', {
+        uid: req.params.uid,
+        embedUid: req.embed.uid,
+        search: {
+          category: e.categorySlug,
+          passed: req.query.passed
+        },
+        lang: req.lang
+      });
+
+    }
 
   } );
 

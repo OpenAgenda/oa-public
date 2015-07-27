@@ -20,6 +20,7 @@ routes = {
     agendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.format,
+    _formatAgendaLinks( 'agendaShow', [ 'slug' ] ),
     agendaSvc.mw.decorateEvent( false ),
     _formatSocialLinks,
     cmn.loadBaseData( eventSvc.mw.layoutData, 'oa.css' ),
@@ -37,7 +38,7 @@ routes = {
     eventSvc.mw.load( 'eventUid', 'uid' ),
     _switchEmbedLang,
     eventSvc.mw.format,
-    _formatEmbedLinks,
+    _formatAgendaLinks( 'embedShow', [ 'uid' ] ),
     _formatSocialLinks,
     embedSvc.mw.renderEvent,
     cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
@@ -50,7 +51,7 @@ routes = {
     eventSvc.mw.load( 'eventUid', 'uid' ),
     _switchEmbedLang,
     eventSvc.mw.format,
-    _formatCustomEmbedLinks,
+    _formatAgendaLinks( 'customEmbedShow', [ 'uid', 'embedUid' ] ),
     _formatSocialLinks,
     embedSvc.mw.renderEvent,
     cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
@@ -197,7 +198,70 @@ function _switchEmbedLang( req, res, next ) {
 }
 
 
+function _formatAgendaLinks( uri, keys ) {
 
+  return function( req, res, next ) {
+
+    var routeValues = _getRouteValues( req, keys ),
+
+    baseSearchQuery = {}
+
+    if ( req.query.search && req.query.search.passed !== undefined ) {
+
+      baseSearchQuery.passed = req.query.search.passed;
+
+    }
+
+    // link to go back to the agenda
+    req.formatted.backLink = req.genUrl( uri, [ 
+      routeValues, 
+      req.query.search ? { search: req.query.search } : {},
+      { lang: req.lang }
+    ] );
+
+    req.formatted.backLabel = i18n( 'back', req.lang );
+
+    // link to results for event location in agenda
+    req.formatted.locationLink = req.genUrl( uri, [
+      routeValues,
+      { search: utils.extend( { location: req.event.getLocationUid() }, baseSearchQuery ) },
+      { lang: req.lang }
+    ] );
+
+    // link to results for same category in agenda
+    req.formatted.categoryLink = false;
+
+    if ( req.formatted.categorySlug ) {
+
+      req.formatted.categoryLink = req.genUrl( uri, [
+        routeValues,
+        { search: utils.extend( { category: req.formatted.categorySlug }, baseSearchQuery ) },
+        { lang: req.lang }
+      ] );
+
+    }
+
+    next();
+
+  }
+
+}
+
+function _getRouteValues( req, keys ) {
+
+  var routeValues = [];
+
+  if ( typeof keys == 'string' ) keys = [ keys ];
+
+  keys.forEach( function( k ) {
+
+    routeValues[ k ] = req.params[ k ];
+
+  });
+
+  return routeValues;
+
+}
 
 
 /**
@@ -207,14 +271,16 @@ function _switchEmbedLang( req, res, next ) {
 function _formatEmbedLinks( req, res, next ) {
 
   req.formatted.backLink = req.genUrl( 'embedShow', {
-    uid: req.params.uid
+    uid: req.params.uid,
+    lang: req.lang
   } );
 
   req.formatted.locationLink = req.genUrl( 'embedShow', {
     uid: req.params.uid,
     search: {
-      location: req.event.getLocationName().slug
-    }
+      location: req.event.getLocationUid()
+    },
+    lang: req.lang
   });
 
   req.formatted.categoryLink = false;
