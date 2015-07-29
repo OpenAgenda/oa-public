@@ -150,9 +150,18 @@ function loadCustomLayoutData( req, res, next ) {
 
   linkCss = req.embed.getLinkCss(),
 
-  useDefaultCss = req.embed.getUseDefaultCss();
+  useDefaultCss = req.embed.getUseDefaultCss(),
+
+  layoutMode = req.embed.getLayoutMode(),
+
+  modes = {
+    standard: 'oae.css',
+    tiled: 'oaet.css',
+    cascading: 'oaet.css',
+    nocss: false
+  };
   
-  if ( !useDefaultCss.list ) {
+  if ( !useDefaultCss.list || layoutMode == 'nocss' ) {
 
     delete req.baseData.head.css.main;
 
@@ -172,7 +181,21 @@ function loadCustomLayoutData( req, res, next ) {
 
   req.baseData.head.customHead = req.embed.getHead();
 
-  req.baseData.scriptParams.cascading = req.embed.getCascadingMode();
+  if ( layoutMode === false ) {
+
+    req.baseData.scriptParams.cascading = req.embed.getCascadingMode();
+
+  } else {
+
+    req.baseData.scriptParams.cascading = layoutMode === 'cascading';
+
+  }
+
+  if ( modes[ layoutMode ] ) {
+
+    req.baseData.head.css.main = '/css/' + modes[ layoutMode ];
+
+  }
 
   next();
 

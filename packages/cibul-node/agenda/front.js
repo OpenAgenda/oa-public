@@ -28,27 +28,6 @@ timeHelper = require( 'cibulTemplates' ).helpers.time,
 
 model = require( '../services/model' ),
 
-modes = {
-
-  embed: {
-    template: 'agenda/embedShow',
-    uri: 'agendaEmbedShow',
-    eventUri: 'agendaEmbedEventShow',
-    base: [ 'uid' ],
-    eventQuery: { eventUid: 'uid' }
-  },
-
-  customEmbed: {
-    template: 'agenda/newEmbedShow',
-    uri: 'agendaCustomEmbedShow',
-    eventUri: 'agendaCustomEmbedEventShow',
-    base: [ 'uid', 'embedUid' ],
-    eventQuery: { eventUid: 'uid' }
-  }
-
-},
-
-
 routes = {
 
   embedControlData: [ 'get', '/agendas/:uid/embeds/:embedUid/controldata', [ 
@@ -85,7 +64,7 @@ routes = {
     _formatCustomEmbedLinks,
     embedSvc.mw.renderEventItems,
     showXhr( 'agenda/embedShow' ),
-    cmn.loadBaseData( _layoutData, 'oae.css' ),
+    cmn.loadBaseData( _layoutData ),
     embedSvc.mw.loadCustomLayoutData,
     embedShow
   ] ],
@@ -477,17 +456,3 @@ function _error( req, res ) {
   };
 
 }
-
-function _pager( req, totalItems ) {
-
-  return {
-    pager: {
-      base: req.templateData.base,
-      routeName: req.mode ? modes[ req.mode ].uri : false,
-      current: req.query.page || 1,
-      total: totalItems,
-      perPage: perPage
-    }
-  };
-
-};
