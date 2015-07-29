@@ -75,7 +75,7 @@ function widget( elem, options ) {
 
       _setTags( data, options.anchorConfig );
 
-      if ( !data.ebd || data.ebd.dcss ) view.setDefaultStyle();
+      if ( !data.ebd || data.ebd.dcss.tags ) view.setDefaultStyle();
 
       log( 'init complete, enable to render' );
 

@@ -42,6 +42,8 @@ var widget = function( elem, options ) {
 
   what = null,
 
+  scope = null,
+
   inputElem, buttonElem,
 
   waiting = false, // buffer input to limit server request frequency
@@ -59,6 +61,12 @@ var widget = function( elem, options ) {
     if ( options.anchorConfig[ LANG ] ) {
 
       lang = options.anchorConfig[ LANG ];
+
+    }
+
+    if ( elem.hasAttribute( 'data-scope' ) ) {
+
+      scope = elem.getAttribute( 'data-scope' ).split( '|' )
 
     }
 
@@ -103,11 +111,11 @@ var widget = function( elem, options ) {
 
     if ( what ) {
 
-      controller.update( 'search', { what: what, location: null } );
+      controller.update( 'search', { what: what, location: null, scope: scope } );
 
     } else {
 
-      controller.update( 'search', { what: null } );
+      controller.update( 'search', { what: null, scope: null } );
 
     }
 

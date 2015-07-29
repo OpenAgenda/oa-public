@@ -49,7 +49,7 @@ module.exports = function( uid ) {
 
   currentRequestParams = {}, // current agenda request parameters
 
-  whatUids = false, what,
+  whatUids = false, what, scope,
 
   enabled = false,
 
@@ -333,16 +333,20 @@ module.exports = function( uid ) {
 
   function _fetchWhatUids( cb ) {
 
-    if ( what === currentRequestParams.what ) return cb();
+    if ( what === currentRequestParams.what 
+
+    && scope === currentRequestParams.scope ) return cb();
 
     whatUids = false;
 
     what = currentRequestParams.what;
 
+    scope = currentRequestParams.scope;
+
     if ( !what ) return cb();
 
     remote.getJsonp( params.search.replace( '{uid}', uid ), { 
-      data: { search: { what: what } }, 
+      data: { search: { what: what, scope: scope } }, 
       timeout: 10000 
     }, function( responseType, data ) {
 

@@ -147,7 +147,7 @@ function widget( elem, options ) {
 
       if ( !m ) _initMapLib( data.ebd && data.ebd.mt ? data.ebd.mt : config.tiles );
 
-      if ( !data.ebd || data.ebd.dcss ) styler( style );
+      if ( !data.ebd || data.ebd.dcss.map ) styler( style );
 
       _initLocations( data );
 
