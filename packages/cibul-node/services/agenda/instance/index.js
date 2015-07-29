@@ -32,7 +32,8 @@ module.exports = function( data ) {
 
   search( svcInstance, instance, [
     'search',
-    'searchStream'
+    'searchStream',
+    'aggregate'
   ]);
 
   flattener( svcInstance, instance, [ 'flattener' ] );

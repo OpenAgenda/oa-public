@@ -1,11 +1,12 @@
 "use strict";
 
-
 var log = require( '../../lib/logger' )( 'event service' ),
 
 config = require( '../../config' ),
 
 model = require( '../model' ),
+
+es = require( '../es/es' ),
 
 lib = require( '../../lib/lib' ),
 
@@ -15,6 +16,7 @@ exportLib = require( './exportLib' );
 
 module.exports = {
   get: get,
+  search: es.search,
   create: create,
   share: require( './share' ),
   list: model.events().list,
@@ -24,6 +26,7 @@ module.exports = {
 module.exports.mw = require( './middleware' )( module.exports );
 
 module.exports.exports = require( './exportLib' )( module.exports );
+
 
 function get( params, cb ) {
 

@@ -14,7 +14,14 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
   return {
     search: search,
-    searchStream: searchStream
+    searchStream: searchStream,
+    aggregate: aggregate
+  }
+
+  function aggregate( query, options, cb ) {
+
+    es.agendas( instance ).aggregate( query, options, cb );
+
   }
 
   function search( query, options, cb ) {

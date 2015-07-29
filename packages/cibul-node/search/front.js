@@ -4,13 +4,7 @@ var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
-config = require( '../config' ),
-
 perPage = 20,
-
-mw = {
-  search: require( '../lib/middlewares/search' )
-},
 
 lib = require( '../lib/lib' ),
 
@@ -18,35 +12,31 @@ wn = require( 'when/node' ),
 
 async = require( 'async' ),
 
-model = cmn.getCibulModel(),
+model = require( '../services/model' ),
 
-es = require( 'ES' )( config.es ),
+agendaSvc = require( '../services/agenda' ),
 
-path,
+eventSvc = require( '../services/event' ),
 
 routes = {
 
   searchEvents: [ 'get', '/events/search', [
-    mw.search.cleanSearch,
-    mw.search.buildEsQuery( perPage ),
     searchEvents
   ] ],
 
   widgetSearchEvents: [ 'get', '/widgets/:uid/search', [
-    mw.search.cleanSearch,
-    mw.search.buildEsQuery( perPage ),
+    agendaSvc.mw.load( 'uid', { cache: true } ),
+    agendaSvc.mw.browserCache,
     widgetSearchEvents
   ] ],
 
   widgetEmbedSearchEvents: [ 'get', '/widgets/:uid/:embedUid/search', [
-    mw.search.cleanSearch,
-    mw.search.buildEsQuery( perPage ),
+    agendaSvc.mw.load( 'uid', { cache: true } ),
+    agendaSvc.mw.browserCache,
     widgetSearchEvents
   ] ],
 
   searchAgendas: [ 'get', '/agendas/search', [
-    mw.search.cleanSearch,
-    mw.search.buildEsQuery( perPage ),
     searchAgendas
   ] ],
 
@@ -61,8 +51,6 @@ routes = {
 
 module.exports = function( p ) {
 
-  path = p;
-
   var router = modLib.Router( routes );
 
   router.pre( [
@@ -72,8 +60,8 @@ module.exports = function( p ) {
   ] );
 
   return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
+    load: router.load( p ),
+    paths: modLib.getPaths( p, routes )
   }
 
 }
@@ -83,9 +71,9 @@ module.exports = function( p ) {
  * controllers
  */
 
-function searchEvents( req, res ) {
+function searchEvents( req, res, next ) {
 
-  if ( !req.cleanSearch || !lib.size( req.cleanSearch ) )  {
+  if ( !req.query.search ) {
 
     req.log( 'info', 'request received for searchEvents with no params.' );
 
@@ -93,48 +81,34 @@ function searchEvents( req, res ) {
 
   }
 
-  req.log( 'info', 'request received for searchEvents with params: %s', JSON.stringify( req.esQuery ) );
+  req.log( 'info', 'request received for searchEvents with query: %s', JSON.stringify( req.query.search ) );
+  
+  eventSvc.search( req.query.search, { page: req.query.page }, function( err, result ) {
 
-  wn.call( es.events().search, req.esQuery )
-
-  .then( mw.search.prepareEvents )
-
-  .spread( function( events, total ) {
+    if ( err ) return next( err );
 
     cmn.render( req, res, 'search/events', lib.extend( 
-      req.templateData ? req.templateData : {},
-      { events: events, searchRes: 'searchEvents', search: req.cleanSearch },
-      _pager( req, 'searchEvents', total )
+      req.templateData ? req.templateData : {}, { 
+        events: _cleanEvents( result.events ),
+        searchRes: 'searchEvents', 
+        search: req.query.search 
+      }, _pager( req, 'searchEvents', result.total )
     ));
 
-  })
-
-  .catch( _error( req, res) );
+  } );
 
 }
 
 
 function widgetSearchEvents( req, res ) {
 
-  var uid = req.params.uid.split('/')[ 0 ];
-
-  wn.call( model.reviews().get, { uid: uid } )
-
-  .then( function( agenda ) {
-
-    req.esQuery.reviewId = agenda.id;
-
-    return wn.call( es.events().aggregate, req.esQuery );
-
-  } )
-
-  .then( function( result ) {
+  req.agenda.aggregate( req.query.search, {
+    showAll: false
+  }, function( err, result ) {
 
     return cmn.renderJson( req, res, result );
 
-  } )
-
-  .catch( _error( req, res ) );
+  });
 
 }
 
@@ -151,13 +125,15 @@ function latestEvents( req, res ) {
     async.apply( model.events().total )
   ])
 
-  .then( mw.search.prepareEvents )
-
   .spread( function( events, total ) {
 
     cmn.render( req, res, 'search/events', lib.extend(
       req.templateData ? req.templateData : {},
-      { events: events, searchRes :'searchEvents', search: req.cleanSearch },
+      {
+        events: _cleanEvents( events ),
+        searchRes :'searchEvents',
+        search: req.cleanSearch
+      },
       _pager( req, 'latestEvents', total )
     ));
 
@@ -170,7 +146,9 @@ function latestEvents( req, res ) {
 
 function searchAgendas( req, res ) {
 
-  if ( !req.cleanSearch || !lib.size( req.cleanSearch ) )  {
+  req.cleanSearch = req.query.search;
+
+  if ( !req.query.search ) {
 
     req.log( 'info', 'request received for searchAgendas with no params.' );
 
@@ -178,12 +156,7 @@ function searchAgendas( req, res ) {
 
   }
 
-  req.esQuery.deep = true;
-  req.esQuery.when = false;
-
-  req.log( 'info', 'request received for searchAgendas with params: %s', JSON.stringify( req.esQuery ) );
-
-  wn.call( es.reviews().search, req.esQuery )
+  wn.call( agendaSvc.search, req.query.search, { page: req.query.page } )
 
   .then( _renderAgendas( req, res, 'searchAgendas' ) )
 
@@ -242,7 +215,9 @@ function _renderAgendas( req, res, uri ) {
 
     cmn.render( req, res, 'search/agendas', lib.extend(
       req.templateData ? req.templateData : {},
-      { agendas: result.data, searchRes: 'searchAgendas', search: req.cleanSearch },
+      { agendas: result.data, 
+        searchRes: 'searchAgendas', 
+        search: req.cleanSearch },
       _pager( req, uri, result.total ) 
     ));
 
@@ -311,5 +286,25 @@ function _pager( req, routeName, totalItems ) {
       perPage: perPage
     }
   };
+
+}
+
+
+function _cleanEvents( events ) {
+
+  return events.map( function( e ) {
+
+    var inst = eventSvc.instanciate( e );
+
+    return {
+      slug: e.slug,
+      title: inst.getTitle(),
+      description: inst.getDescription(),
+      dateRange: inst.getDateRange( true ),
+      thumbnail: inst.getThumbnail( false ),
+      placeName: inst.getLocationName().label
+    }
+
+  });
 
 }

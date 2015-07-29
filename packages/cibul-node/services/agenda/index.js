@@ -6,10 +6,13 @@ model = require( '../model' ),
 
 cache = require( '../cache' ),
 
-config = require( '../../config' );
+config = require( '../../config' ),
+
+es = require( '../es/es' );
 
 module.exports = {
   list: model.agendas().list,
+  search: search,
   get: get,
   instanciate: require( './instance' )
 }
@@ -17,6 +20,14 @@ module.exports = {
 module.exports.mw = require( './middleware' )( module.exports );
 
 module.exports.exports = require( './exportLib' )( module.exports ); 
+
+
+function search( query, options, cb ) {
+
+  es.searchAgendas( query, options, cb );
+
+}
+
 
 function get( queryParams, options, cb ) {
 

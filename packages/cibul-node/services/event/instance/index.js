@@ -98,6 +98,7 @@ module.exports = function( data ) {
 
   }
 
+
   function _imageGetter( method ) {
 
     return function() {

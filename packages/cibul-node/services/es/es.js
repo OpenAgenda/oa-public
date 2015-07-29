@@ -12,16 +12,18 @@ LIMIT = 20;
 
 module.exports = {
   agendas: agendas,
-  search: search
+  search: search,
+  searchAgendas: searchAgendas
 }
 
 function agendas( agenda ) {
 
   return {
-    search: agendaSearch
+    search: _search,
+    aggregate: _aggregate
   }
 
-  function agendaSearch( query, options, cb ) {
+  function _search( query, options, cb ) {
 
     if ( !cb ) {
 
@@ -37,10 +39,95 @@ function agendas( agenda ) {
 
   }
 
+  function _aggregate( query, options, cb ) {
+
+    if ( !cb ) {
+
+      cb = options;
+
+      options = {}
+
+    }
+
+    aggregate( query, lib.extend( {
+      agendaId: agenda.id
+    }, options ), cb );
+
+  }
+
+}
+
+
+function searchAgendas( query, options, cb ) {
+
+  if ( arguments.length == 2 ) {
+
+    cb = options;
+
+    options = {};
+
+  }
+
+  _prepare( query, options, function( params, esQuery ) {
+
+    esQuery.deep = true;
+    esQuery.when = false;
+
+    legacyLib.reviews().search( esQuery, cb );
+
+  });
+
+}
+
+
+function aggregate( query, options, cb ) {
+
+  if ( arguments.length == 2 ) {
+
+    cb = options;
+
+    options = {};
+
+  }
+
+  _prepare( query, options, function( params, esQuery ) {
+
+    legacyLib.events().aggregate( esQuery, cb );
+
+  });
+
 }
 
 
 function search( query, options, cb ) {
+
+  if ( arguments.length == 2 ) {
+
+    cb = options;
+
+    options = {};
+
+  }
+
+  _prepare( query, options, function( params, esQuery ) {
+
+    legacyLib.events().search( esQuery, function( err, result ) {
+
+      if ( err ) return cb( err );
+
+      cb( null, { 
+        total: result.total, 
+        events: result.data 
+      } );
+
+    } );
+
+  });
+
+}
+
+
+function _prepare( query, options, cb ) {
 
   var params = lib.extend( { 
     limit: LIMIT,
@@ -55,16 +142,7 @@ function search( query, options, cb ) {
     params.showAll
   );
 
-  legacyLib.events().search( esQuery, function( err, result ) {
-
-    if ( err ) return cb( err );
-
-    cb( null, { 
-      total: result.total, 
-      events: result.data 
-    } );
-
-  } );
+  cb( params, esQuery );
 
 }
 
@@ -97,6 +175,7 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
     'category',
     'org',
     'what',
+    'scope',
     'countryCode',
     'type',
     'accessibility',
@@ -204,7 +283,7 @@ function _clean( query, params ) {
 
   if ( !query ) return clean;
 
-  [ 'what', 'type', 'age' ].forEach( function( k ) {
+  [ 'what', 'type', 'age', 'scope' ].forEach( function( k ) {
 
     if ( !query[ k ] ) return;
 
