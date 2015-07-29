@@ -12,7 +12,8 @@
 
   "base" : {
     "queryLang" : false,
-    "pageId" : "agenda"
+    "pageId" : "agenda",
+    "layoutMode" : "standard"
   },
 
   "js" : true

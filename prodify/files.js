@@ -37,6 +37,8 @@ destOACssPath = '../../cibul-symfony/web/css/oa.css',
 
 destOAECssPath = '../../cibul-symfony/web/css/oae.css',
 
+destOAETCssPath = '../../cibul-symfony/web/css/oaet.css',
+
 files = {
 
   'globals.js': [
@@ -439,4 +441,5 @@ exports.destEmbedCssPath = destEmbedCssPath;
 exports.destAdminCssPath = destAdminCssPath;
 exports.destOACssPath = destOACssPath;
 exports.destOAECssPath = destOAECssPath;
+exports.destOAETCssPath = destOAETCssPath;
 exports.destPublicTemplatePath = destPublicTemplatePath;

@@ -1,5 +1,7 @@
 var cn = require('../../js/lib/common/common.mod.js'),
 
+controlDataFetch = require( '../../js/lib/controlDataFetch/controlDataFetch' ),
+
 total,
 
 selectedSlugs = [],
@@ -18,7 +20,8 @@ params = {
   },
   elem: false, // where to put dom stuff
   codeElem: false,
-  ctl: false,
+  uid: false,
+  embedUid: false,
   attributes: {
     slug: 'data-slug',
     config: 'data-cbctl'
@@ -35,25 +38,34 @@ params = {
 
 module.exports = function(options) {
 
-  cn.extend(params, options);
+  cn.extend( params, options );
 
-  var tags = params.ctl.t;
+  controlDataFetch( {
+    uid: params.uid,
+    embedUid: params.embedUid 
+  }, function( err, ctl ) {
 
-  total = tags.length;
+      if ( err ) return console.error( 'could not fetch control data' );
 
-  if (params.onSelectionChange) _onSelectionChange = params.onSelectionChange;
+      var tags = ctl.t;
 
-  if (!total) return;
+      total = tags.length;
 
-  _createCanvas();
+      if (params.onSelectionChange) _onSelectionChange = params.onSelectionChange;
 
-  cn.forEach(tags, function(tag) {
+      if (!total) return;
 
-    selectedSlugs.push(tag.s);
+      _createCanvas();
 
-    _createOption(tag);
+      cn.forEach(tags, function(tag) {
 
-  });
+        selectedSlugs.push(tag.s);
+
+        _createOption(tag);
+
+      });
+      
+    });
 
 },
 

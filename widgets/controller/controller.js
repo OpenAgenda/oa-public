@@ -10,29 +10,23 @@ filters = require( './filters' ),
 
 geoLib = require( './geolocate' ),
 
+controlDataFetch = require( '../../js/lib/controlDataFetch/controlDataFetch' ),
+
 qs = require( 'qs' ),
 
 env = window.env ? window.env : 'prod',
 
 defaults = {
   all: {
-    agenda : '//openagenda.com/agendas/{uid}/controldata',
-    embed : '//openagenda.com/agendas/{uid}/embeds/{embedUid}/controldata',
     search : '//openagenda.com/widgets/{uid}/search'
   },
   dev: {
-    agenda : '//d.openagenda.com/agendas/{uid}/controldata',
-    embed : '//d.openagenda.com/agendas/{uid}/embeds/{embedUid}/controldata',
     search : '//d.openagenda.com/widgets/{uid}/search'
   },
   test: {
-    agenda : '//d.openagenda.com/agendas/{uid}/controldata',
-    embed : '//d.openagenda.com/agendas/{uid}/embeds/{embedUid}/controldata',
     search : '//d.openagenda.com/widgets/{uid}/search'
   },
   tpl: {
-    agenda : '/server/testdata/controldata-pepite.json',
-    embed : '/server/testdata/' + ( window.testControlData ? window.testControlData : 'embedcontroldata-pepite.json' ),
     search : '//d.openagenda.com/widgets/{uid}/search'
   }
 },
@@ -73,7 +67,11 @@ module.exports = function( uid ) {
 
     log( 'controller is configured in %s mode', embedMode ? 'embed' : 'agenda' );
 
-    _fetchControllerData( function( err, data ) {
+    controlDataFetch( {
+      jsonp: !_isAjax(),
+      uid: uid.split( '/' )[ 0 ],
+      embedUid: embedMode ? uid.split( '/' )[ 1 ] : false
+    }, function( err, data ) {
 
       if ( err || !data ) {
 
@@ -566,52 +564,6 @@ module.exports = function( uid ) {
     locations = undefined;
 
     return data;
-
-  }
-
-
-
-  /**
-   * get agenda control data
-   */
-  
-  function _fetchControllerData( cb ) {
-
-    var res, splitUid;
-
-    if ( embedMode ) {
-
-      splitUid = uid.split( '/' );
-
-      res = params.embed.replace( '{uid}', splitUid[ 0 ] ).replace( '{embedUid}', splitUid[ 1 ] );
-
-    } else {
-
-      splitUid = [ uid ];
-
-      res = params.agenda.replace( '{uid}', uid );
-    
-    }
-
-    if ( !_isAjax() ) {
-
-      res += '?callback=cb' + splitUid.join( '' );
-
-    }
-
-    remote.get( res, { timeout: 20000 }, function( responseType, data ) {
-
-      if ( responseType !== 'success' ) {
-
-        log( 'attempt at fetching control data failed: %s', responseType );
-
-        return cb( responseType );
-
-      }
-
-      cb( null, data.data );
-
-    }, _isAjax() );
 
   }
 

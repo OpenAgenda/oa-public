@@ -3,6 +3,10 @@
     "openagendaembed" : "../openagenda/css/openagendaembed.css"
   },
 
+  "oaetCss" : {
+    "openagendaembedtiled" : "../openagenda/css/openagendaembedtiled.css"
+  },
+
   "base" : {
     "metas" : {
       "title" : "OpenAgenda",

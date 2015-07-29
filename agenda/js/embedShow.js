@@ -66,7 +66,12 @@ window.asap( function( options ) {
 
     log( 'cascading mode on' );
 
-    msnry = _masonry( params.selectors.listContent );
+    _onPageReady( function() {
+
+      msnry = _masonry( params.selectors.listContent );
+
+    });
+
 
   }
 
@@ -144,6 +149,20 @@ function _masonry( listSelector ) {
   function _start() {
 
     return new Masonry( listSelector );
+
+  }
+
+}
+
+function _onPageReady( cb ) {
+
+  if (document.readyState === "complete") {
+
+    cb();
+
+  } else {
+
+    cn.addEvent( window, 'load', cb );
 
   }
 
