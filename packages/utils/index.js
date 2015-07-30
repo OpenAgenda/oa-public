@@ -8,8 +8,53 @@ module.exports = {
   fZ: fZ,
   unique: unique,
   forEach: forEach, // for some older browsers
+  toCamelCase: toCamelCase,
+  toUnderscore: toUnderscore
 };
 
+function toCamelCase( input ) {
+
+  if ( typeof input == 'object' ) {
+
+    var camelCased = {};
+
+    for ( var key in input ) {
+
+      camelCased[ toCamelCase(key) ] = input[ key ];
+
+    }
+
+    return camelCased;
+
+  }
+
+  return input.replace( /[-_](.)/g, function( match, group1 ) {
+
+    return group1.toUpperCase();
+
+  });
+
+}
+
+function toUnderscore( input ) {
+
+  if (typeof input == 'object') {
+
+    var underscored = {};
+
+    for (var key in input) {
+
+      underscored[toUnderscore(key)] = input[key];
+
+    }
+
+    return underscored;
+
+  }
+
+  return input.replace(/([A-Z])/g, function($1){return "_"+$1.toLowerCase();});
+
+}
 
 function unique( arr ) {
 
