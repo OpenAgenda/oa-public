@@ -233,17 +233,12 @@ function _formatAgendaLinks( uri, keys ) {
 
     }
 
-    console.log( uri );
-    console.log( routeValues );
-
     // link to go back to the agenda
     req.formatted.backLink = req.genUrl( uri, [ 
       routeValues, 
       req.query.search ? { search: req.query.search } : {},
       { lang: req.lang }
     ] );
-
-    console.log(req.formatted.backLink);
 
     req.formatted.backLabel = i18n( 'back', req.lang );
 
