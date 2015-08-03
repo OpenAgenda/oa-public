@@ -112,5 +112,7 @@
   "The event is being sent to %count% emails"
   : "L'événement est en cours d'envoi à %count% adresses mail",
   "You will from now on no longer receive event emails at the address %email%"
-  : "Vous ne recevrez désormais plus d'événements à l'adresse %email%"
+  : "Vous ne recevrez désormais plus d'événements à l'adresse %email%",
+  "The agenda tab was added to your page"
+  : "L'onglet agenda a été ajouté à votre page"
 }

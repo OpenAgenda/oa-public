@@ -35,6 +35,11 @@ module.exports = {
     requiredCred: "aggregator"
   }, {
     section : "export",
+    key : "facebook",
+    label: "Facebook",
+    uri: "facebookShow"
+  }, {
+    section : "export",
     key : "swapcard",
     label : "Swapcard",
     uri : "serviceIndex",

@@ -46,6 +46,14 @@ module.exports = function( enabledTypes, cb ) {
 
     server;
 
+    require( 'facebook' ).init( {
+      app: config.auth.facebook,
+      routes: {
+        tabRedirect: config.root + '/facebook/tab/create/:state'
+      },
+      db: config.db
+    }, function( err ) { if ( err ) log( 'error', err ); } );
+
     emailStrategie.init( {
       database: config.emailStrategieDb,
       redis: config.redis
@@ -72,6 +80,7 @@ module.exports = function( enabledTypes, cb ) {
         require( './agenda/emailstrategie.back' )( '/:slug/admin/emailstrategie' ),
         require( './location/front' )( '/locations' ),
         require( './agenda/front' )( '' ),
+        require( './agenda/facebook.back' )( '' ),
         require( './agenda/actions.front' )( '/:slug/actions' ),
         require( './agenda_bridges/back' )( '/:slug/admin/services'),
         require( './agenda/exports.front' )( '/agendas/:uid' ),

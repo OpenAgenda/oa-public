@@ -112,6 +112,7 @@ function loadAdminLayout( req, res, next ) {
   req.layoutData = {
     agenda: {
       slug: req.agenda.slug,
+      uid: req.agenda.uid,
       title: req.agenda.title,
       description: req.agenda.description,
       url: req.agenda.url,

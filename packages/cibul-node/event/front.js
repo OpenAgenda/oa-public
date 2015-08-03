@@ -4,6 +4,8 @@ var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
+config = require( '../config' ),
+
 utils = require( 'utils' ),
 
 agendaSvc = require( '../services/agenda' ),
@@ -38,10 +40,11 @@ routes = {
     eventSvc.mw.load( 'eventUid', 'uid' ),
     _switchEmbedLang,
     eventSvc.mw.format,
-    _formatAgendaLinks( 'embedShow', [ 'uid' ] ),
+    _formatAgendaLinks( 'agendaEmbedShow', [ 'uid' ] ),
     _formatSocialLinks,
     embedSvc.mw.renderEvent,
     cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
+    _appendFacebookParams,
     agendaEmbedEventShow
   ] ],
 
@@ -168,6 +171,22 @@ function show( req, res ) {
 }
 
 
+function _appendFacebookParams( req, res, next ) {
+
+  if ( !req.query.fb ) return next();
+
+  // to add 'fb' class to layout html
+  req.baseData.facebook = true;
+
+  req.baseData.scriptParams.facebook = true;
+
+  req.baseData.scriptParams.fbAppId = config.auth.facebook.id;
+
+  next();
+
+}
+
+
 function _addLanguageLinks( req, uri, uriParams ) {
 
   var linkedLanguages = [];
@@ -204,7 +223,9 @@ function _formatAgendaLinks( uri, keys ) {
 
     var routeValues = _getRouteValues( req, keys ),
 
-    baseSearchQuery = {}
+    baseSearchQuery = {};
+
+    if ( req.query.fb ) routeValues.fb = 1;
 
     if ( req.query.search && req.query.search.passed !== undefined ) {
 
@@ -212,12 +233,17 @@ function _formatAgendaLinks( uri, keys ) {
 
     }
 
+    console.log( uri );
+    console.log( routeValues );
+
     // link to go back to the agenda
     req.formatted.backLink = req.genUrl( uri, [ 
       routeValues, 
       req.query.search ? { search: req.query.search } : {},
       { lang: req.lang }
     ] );
+
+    console.log(req.formatted.backLink);
 
     req.formatted.backLabel = i18n( 'back', req.lang );
 
@@ -270,12 +296,12 @@ function _getRouteValues( req, keys ) {
 
 function _formatEmbedLinks( req, res, next ) {
 
-  req.formatted.backLink = req.genUrl( 'embedShow', {
+  req.formatted.backLink = req.genUrl( 'agendaEmbedShow', {
     uid: req.params.uid,
     lang: req.lang
   } );
 
-  req.formatted.locationLink = req.genUrl( 'embedShow', {
+  req.formatted.locationLink = req.genUrl( 'agendaEmbedShow', {
     uid: req.params.uid,
     search: {
       location: req.event.getLocationUid()
@@ -287,7 +313,7 @@ function _formatEmbedLinks( req, res, next ) {
 
   if ( req.formatted.categorySlug ) {
 
-    req.formatted.categoryLink = req.genUrl( 'embedShow', {
+    req.formatted.categoryLink = req.genUrl( 'agendaEmbedShow', {
       uid: req.params.uid,
       search: {
         category: req.formatted.categorySlug

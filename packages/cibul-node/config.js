@@ -317,8 +317,8 @@ config = {
         captchaSecret: '6Lee0QMTAAAAAGtqf0sUO8LNVNboDVZ9pQBN5cFA'
       },
       facebook: {
-        id: '218055591568337',
-        secret: '444c327ed38e220805f23a40110475b4'
+        id: '1008853945821827',
+        secret: '243737ef67adf832bf1c25c54717ed41'
       },
       twitter: {
         key: 'hMcfdN7tfpzdfvTAeGUQ',

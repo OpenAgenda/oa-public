@@ -8,7 +8,7 @@ log = require( '../lib/logger' )( 'agenda/emailstrategie' ),
 
 agendaSvc = require( '../services/agenda' ),
 
-utils = require( '../lib/utils' ),
+utils = require( 'utils' ),
 
 routes = {
   emailStrategieNew: [ 'get', '/new', newShow ],
@@ -29,7 +29,7 @@ module.exports = function( path ) {
     cmn.checkAdministrator,
     cmn.checkCredential( 'emailstrategie' ),
     agendaSvc.mw.loadAdminLayout,
-    cmn.loadBaseData(),
+    cmn.loadBaseData()
   ]);
 
   return {

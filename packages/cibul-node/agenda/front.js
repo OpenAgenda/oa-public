@@ -26,6 +26,8 @@ i18n = require( '../i18n/i18n' ),
 
 timeHelper = require( 'cibulTemplates' ).helpers.time,
 
+fb = require( 'facebook' ),
+
 model = require( '../services/model' ),
 
 routes = {
@@ -42,12 +44,19 @@ routes = {
     agendaSvc.mw.browserCache,
     controlData
   ] ],
+
+  agendaFacebook: [ 'post', '/facebook/tab', [
+    fb.tab.loadAgendaId,
+    _loadAgendaByAgendaId,
+    _redirectToEmbed
+  ]],
   
-  embedShow: [ 'get', '/agendas/:uid/embed/events', [
+  agendaEmbedShow: [ 'get', '/agendas/:uid/embed/events', [
     agendaSvc.mw.load( 'uid', { cache: true } ),
     agendaSvc.mw.browserCache,
     agendaSvc.mw.search( perPage ),
     _format,
+    _appendFacebookParams,
     _formatEmbedLinks,
     embedSvc.mw.renderEventItems,
     showXhr( 'agenda/embedShow' ), 
@@ -249,6 +258,45 @@ function _format( req, res, next ) {
 
 }
 
+function _appendFacebookParams( req, res, next ) {
+
+  if ( !req.query.fb ) return next();
+
+  req.templateData.fb = true;
+
+  req.templateData.scriptParams = {
+    facebook: true,
+    fbAppId: config.auth.facebook.id
+  }
+  
+  next();
+
+}
+
+function _redirectToEmbed( req, res, next ) {
+
+  res.redirect( 303, req.genUrl( 'agendaEmbedShow', { uid: req.agenda.uid, fb: 1 } ) );
+
+}
+
+function _loadAgendaByAgendaId( req, res, next ) {
+
+  if ( !req.agendaId ) return next( 'agenda identifier missing' );
+
+  agendaSvc.get( { id: req.agendaId }, function( err, agenda ) {
+
+    if ( err ) return next( err );
+
+    if ( !agenda ) return next( { code: 404 } );
+
+    req.agenda = agenda;
+
+    next();
+
+  });
+
+}
+
 
 function _formatEventItem( event, _t, lang, cb ) {
 
@@ -327,9 +375,11 @@ function _formatEmbedLinks( req, res, next ) {
       lang: req.lang
     };
 
+    if ( req.query.fb ) params.fb = 1;
+
     if ( req.query.search ) params.search = req.query.search;
 
-    e.link = req.genUrl( 'agendaEmbedEventShow', params );
+    e.link = req.genUrl(  'agendaEmbedEventShow', params );
 
     if ( e.categorySlug ) e.categoryLink = req.genUrl( 'agendaEmbedShow', {
       uid: req.params.uid,
@@ -343,6 +393,7 @@ function _formatEmbedLinks( req, res, next ) {
   next();
 
 }
+
 
 function _formatCustomEmbedLinks( req, res, next ) {
 
