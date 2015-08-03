@@ -2,16 +2,16 @@
 <div id="content">
   <div class="container">
     <div class="row">
-      <section class="col-sm-offset-3 col-sm-6 col-xs-offset-2 col-xs-8 main-content">
-        <div class="row filters cbpgft" data-cbctl="<%= uid %><% if (typeof embedUid !== 'undefined') { %>/<%= embedUid %><% } %>|<%= lang %>"></div>
+      <section class="col-sm-offset-2 col-sm-8 col-xs-offset-2 col-xs-8 main-content">
+        <div class="row filters cbpgft" data-cbctl="<%= uid %><% if (typeof embedUid !== 'undefined') { %>/<%= embedUid %><% } %>|<%= lang %><%- fb ? '|bs' : '' %>"></div>
 <% if ( total > 0 ) { %>
         <p class="total-count text-center"><%= __( '%total% events', { '%total%' : total } ) %></p>
 <% } %>
       </section>
-      <section class="col-sm-offset-3 col-sm-6 col-xs-offset-2 col-xs-8 main-content js_list_content">
+      <section class="col-sm-offset-2 col-sm-8 col-xs-offset-2 col-xs-8 main-content js_list_content">
         <% include ./embedShow.part.ejs %>
       </section>
-      <section class="col-sm-offset-3 col-sm-6 col-xs-offset-2 col-xs-8 main-content text-center">
+      <section class="col-sm-offset-2 col-sm-8 col-xs-offset-2 col-xs-8 main-content text-center">
         <span class="load-next js_load_next"><%= __( 'load more' ) %></span>
       </section>
     </div>

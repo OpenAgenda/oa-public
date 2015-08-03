@@ -45,6 +45,8 @@
   "emailStrategie/index",
   "emailStrategie/new",
 
+  "facebook/index",
+
   "swapcard/index",
 
   "error/show",

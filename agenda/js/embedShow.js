@@ -4,6 +4,10 @@ var controllers = require( '../../widgets/controller/main' ),
 
 embedded = require( '../../widgets/lib/embeddedPage' ),
 
+domUtils = require( '../../js/lib/domUtils' ),
+
+facebookEmbedded = require( '../../widgets/lib/facebookPage' ),
+
 debug = require( 'debug' ), log,
 
 activeFilters = require( '../../widgets/activeFilters/activeFilters' ),
@@ -34,7 +38,69 @@ window.asap( function( options ) {
 
   log( 'initing with options %s', JSON.stringify( params ) );
 
-  handler = embedded( {
+  if ( params.facebook ) {
+
+    handler = _initFacebook( params, list );
+
+  } else {
+
+    handler = _initEmbedded( params );
+
+  }
+
+  if ( params.cascading ) {
+
+    log( 'cascading mode on' );
+
+    domUtils.whenReady( function() {
+
+      msnry = _masonry( params.selectors.listContent );
+
+    } );
+
+  }
+
+  list.init( {
+    total: params.total,
+    perPage: params.perPage,
+    autoLoadNext: false,
+    onLastPage: _hideTrigger( params.selectors.loadNext )
+  } );
+
+  _handleLoadNextElements( params.selectors.loadNext );
+
+});
+
+function _initFacebook( params, list ) {
+
+  var handler = facebookEmbedded( params );
+
+  // reset list with controller values when there is a change
+  window.cibul.getController( params.uid ).setProxy( {
+    update: function( newValues ) {
+
+      log( 'change in iframe %s', JSON.stringify( newValues ) );
+
+      for( var i in newValues ) {
+
+        if ( newValues[ i ] === null ) delete newValues[ i ];
+
+      }
+
+      window.location.href = domUtils.loadInLocation( { 
+        search: newValues,
+        fb: 1
+      } );
+
+    }
+  } );
+
+  return handler;
+}
+
+function _initEmbedded( params ) {
+
+  var handler = embedded( {
     onReceive: function( message ) {
 
       if ( message.bottom ) {
@@ -62,29 +128,10 @@ window.asap( function( options ) {
 
   window.cibul.getController( params.uid ).disablePassedAutoLoad();
 
-  if ( params.cascading ) {
+  return handler;
 
-    log( 'cascading mode on' );
+}
 
-    _onPageReady( function() {
-
-      msnry = _masonry( params.selectors.listContent );
-
-    });
-
-
-  }
-
-  list.init( {
-    total: params.total,
-    perPage: params.perPage,
-    autoLoadNext: false,
-    onLastPage: _hideTrigger( params.selectors.loadNext )
-  } );
-
-  _handleLoadNextElements( params.selectors.loadNext );
-
-});
 
 function _handleLoadNextElements( selector ) {
 
@@ -149,20 +196,6 @@ function _masonry( listSelector ) {
   function _start() {
 
     return new Masonry( listSelector );
-
-  }
-
-}
-
-function _onPageReady( cb ) {
-
-  if (document.readyState === "complete") {
-
-    cb();
-
-  } else {
-
-    cn.addEvent( window, 'load', cb );
 
   }
 

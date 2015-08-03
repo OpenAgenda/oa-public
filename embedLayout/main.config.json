@@ -16,7 +16,8 @@
     },
     "lang" : "fr",
     "pageClass" : "cb",
-    "pageId" : false
+    "pageId" : false,
+    "fb" : false
   },
   
   "js" : true

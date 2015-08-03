@@ -48,6 +48,12 @@
       "empty" : false
     }
   },
+  "facebook" : {
+    "scriptParams" : {
+      "facebook" : true,
+      "fbAppId" : 1008853945821827
+    }
+  },
   "empty" : {
     "isEmpty" : true,
     "events" : [],
