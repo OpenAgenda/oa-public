@@ -9,7 +9,7 @@
     "forms" : "../css/forms.css",
     "page" : "../css/page structure/page.css",
     "buttons" : "../css/buttons.css",
-    "fontawesome410" : "../css/font-awesome-4.1.0/css/font-awesome.css"
+    "fontawesome430" : "../css/font-awesome-4.3.0/css/font-awesome.css"
   },
 
   "base" : {

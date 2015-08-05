@@ -1,3 +1,5 @@
 {
-  "resendQuery" : false
+  "base" : {
+    "resendQuery" : false
+  }
 }
