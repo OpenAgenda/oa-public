@@ -208,7 +208,7 @@ function _jsIncludeMainPath( uri ) {
       name: name 
     },
     dest: { 
-      path: '/js/browserified', 
+      path: '/build/browserified', 
       name: cn.toCamelCase( uri.replace('/', '_' ) ) + '.js' 
     }
   };

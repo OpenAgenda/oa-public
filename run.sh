@@ -1,1 +1,1 @@
-nodemon httpServer --ignore js/browserified/
+nodemon app --ignore build/
