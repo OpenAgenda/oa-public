@@ -30,6 +30,7 @@
     "tumblrParser" : "git+ssh://git@bitbucket.org:openagenda/tumblrparser.git",
     "when" : "~3.4",
     "masonry-layout" : "3.3.0",
-    "react-select" : "*"
+    "react-select" : "*",
+    "uglify-js" : "2.4.24"
   }
 }
