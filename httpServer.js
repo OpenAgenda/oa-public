@@ -59,7 +59,7 @@ http.createServer( function ( req, res ) {
 
   });
 
-} ).listen( 3000 );
+} ).listen( process.env.PORT, process.env.IP );
 
 
 function _prepareRender( v ) {
