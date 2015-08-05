@@ -1,7 +1,16 @@
 {
   "layout" : "embedLayout/main",
 
-  "oaeCss" : {},
+  "oaeCss" : {
+    "agenda-base" : "css/base.scss",
+    "agenda-embed" : "css/embed-style.scss"
+  },
+
+  "oaetCss" : {
+    "agenda-base" : "css/base.scss",
+    "agenda-embed" : "css/embed-style.scss",
+    "agenda-embed-tiled" : "css/embed-tiled-style.scss"
+  },
 
   "helpers" : {
     "_t" : "time",

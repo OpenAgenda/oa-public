@@ -186,51 +186,6 @@ files = {
     ],
   ],
 
-  'review/program.min.js': [
-    [paths.lib,
-      'Base64/Base64.js', 'hash/hash.js', 'common/common.js',
-      'urlStrings/urlStrings.js', 'remote/remote.js',
-      'loadJs/loadJs.js', 'maps/maps.js', 'maps/google.maps.js', 'lightbox/lightbox.js'
-    ],
-    [paths.vd,
-      'setLinks/src/setLinks.js',
-      'ejs/src/ejs_production.js',
-      'CibulCalendar/src/CibulCalendar.js',
-      'iscroll/src/iscroll.js',
-      'spin/src/spin.min.js',
-      'Cookies-master/src/cookies.js'
-    ],
-    [paths.jsc,
-      'handleShares/src/handleShares.js',
-      'handleList/src/handleList.js',
-      'mapHandler/src/mapHandler.js',
-      'mapHandler/src/mapSearchHandler.js',
-      'handleCalendar/src/handleCalendar.js',
-      'handleContextMenu/src/handleContextMenu.js',
-      'handleNav/src/handleNav.js',
-      'extractLocation/src/extractLocation.js',
-      'handleSectionRemove/src/handleSectionRemove.js',
-      'handleHeadFilter/src/handleHeadFilter.js',
-      'handleLock/src/handleLock.js',
-      'handleProgramControlData/src/handleProgramControlData.js',
-      'action/src/action.js',
-      'sendGetMessage/src/sendGetMessage.js',
-      'handleSuggestions/src/handleSuggestions.js',
-      'handleCategories/src/handleCategories.js',
-      'handleDisplayButton/src/handleDisplayButton.js',
-      'handleAddToAgenda/src/handleAddToAgenda.bundle.js'
-    ],
-    [paths.p,
-      'handleCibulFollow.js',
-      'handleEdition.js',
-      'handleMobile.js',
-      'handleProgram.js',
-      'handleEmptyProgram.js',
-      'handleTags.js',
-      'handleSourceMenu.js'
-    ]
-  ],
-
   'list.min.js': [
     [paths.lib,
       'Base64/Base64.js', 'hash/hash.js', 'common/common.js',

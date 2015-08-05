@@ -1,7 +1,10 @@
 {
   "layout" : "bsLayout/main",
 
-  "bsCss" : {},
+  "oaCss" : {
+    "share-page" : "css/share-page.scss",
+    "share-menu" : "../agenda/css/share-menu.scss"
+  },
 
   "helpers" : {
     "_t" : "time",

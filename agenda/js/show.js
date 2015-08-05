@@ -12,11 +12,11 @@ list = require( './list' ),
 
 timeliner = require( './timeliner' ),
 
-handleSourceMenu = require( './handleSourceMenu' ),
-
 modalPartial = require( '../../bsLayout/js/modalPartial' ),
 
 adminControls = require( '../../user/js/adminControls' ),
+
+domUtils = require( '../../js/lib/domUtils' ),
 
 config = require( './config' ),
 
@@ -82,9 +82,6 @@ window.hook( function( options ) {
 
     } );
 
-    _handleAddToSource( uid, session );
-
-
   } );
 
 
@@ -114,7 +111,7 @@ window.hook( function( options ) {
 
       log( 'query values changed to %s', JSON.stringify( newSearchValues ) );
 
-      list.reset( _getHref( newSearchValues ) );
+      list.reset( domUtils.loadInLocation( newSearchValues ) );
 
     } );
 
@@ -123,38 +120,6 @@ window.hook( function( options ) {
   }
 
 });
-
-
-
-/**
- * toggle display of "add to source" link
- */
-
-function _handleAddToSource( uid, session ) {
-
-  if ( !session.logged ) {
-
-    return;
-
-  }
-
-  if ( typeof session.aggregator == 'undefined' ) {
-
-    return;
-
-  }
-
-  if ( !session.aggregator ) {
-
-    return;
-
-  }
-
-  handleSourceMenu( uid, cn.el( params.selectors.titleSection ), session );
-
-}
-
-
 
 
 
@@ -318,20 +283,5 @@ function _getQueryValues( href, key ) {
   if ( !key ) return v;
 
   return v[key] ? v[key] : {};
-
-}
-
-
-function _getHref( values ) {
-
-  var href = window.location.href.split( '?' )[0];
-
-  if ( cn.size( values ) ) {
-
-    href += '?' + qs.stringify( { search: values } );
-
-  }
-
-  return href;
 
 }

@@ -1,7 +1,7 @@
 {
   "layout" : "layout/main",
   "css" : {
-    "base" : "../css/base.css",
+    "base" : "../css/base.scss",
     "site" : "../css/site.css",
     "structure" : "../structure/css/structure.css",
     "headings" : "../css/headings.css",

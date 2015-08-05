@@ -1,6 +1,6 @@
 {
   "adminCss" : {
-    "bootstrap" : "../css/bootstrap332/bootstrap.min.css"
+    "bootstrap" : "../bootstrap/custom-bootstrap.css"
   },
 
   "base" : {    

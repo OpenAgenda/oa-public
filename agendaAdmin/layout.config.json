@@ -1,6 +1,6 @@
 {
   "css" : {
-    "base" : "../css/base.css",
+    "base" : "../css/base.scss",
     "site" : "../css/site.css",
     "page" : "../css/page structure/page.css",
     "container" : "../structure/css/container.css",

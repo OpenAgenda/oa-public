@@ -1,7 +1,9 @@
 {
   "layout" : "embedLayout/main",
   
-  "oaeCss" : {},
+  "oaeCss" : {
+    "event-embed" : "css/embed-style.scss"
+  },
 
   "helpers" : {
     "_t" : "time",

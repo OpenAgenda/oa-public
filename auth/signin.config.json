@@ -1,11 +1,11 @@
 {
   "layout": "layout/main",
   "css" : {
-    "signin" : "css/style.css",
+    "signin" : "css/style.scss",
     "forms" : "../css/forms.css",
     "cStructure" : "../structure/css/centered.css",
-    "fontawesome410" : "../css/font-awesome-4.1.0/css/font-awesome.css"
-   },
+    "fontawesome430" : "../css/font-awesome-4.3.0/css/font-awesome.css"
+  },
   "helpers" : {
     "_t" : "time",
     "_i" : "image"

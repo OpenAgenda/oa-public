@@ -1,10 +1,14 @@
-var http = require('http'),
+var http = require( 'http' ),
 
-url = require('url'),
+url = require( 'url' ),
 
-st = require('st'),
+st = require( 'st' ),
 
-templater = require('./server/templater.js'),
+sass = require( 'node-sass' ),
+
+sassDestFile = '/build/sass/tmp.css',
+
+templater = require( './server/templater.js' ),
 
 p = require( './server/promises' ),
 
@@ -84,7 +88,10 @@ function _prepareRender( v ) {
   .then( _compileTemplateData )
 
   // append css links
-  .then( _compileCss )
+  .then( _listCssFiles )
+
+  // compile it all
+  .then( _compileSass )
 
   // define js files root
   .then( _jsRoot )
@@ -301,27 +308,188 @@ function _compileTemplateData( v ) {
 }
 
 
-function _compileCss( v ) {
+function _oldCompileSass( v ) {
+
+  // what if you integrate sass with the current system.
+  // like for live compile, you squeeze the whole thing
+  // into one css file either way
+  // and process sass where it needs to be processed only
+  // better
+
+  
 
   if ( !v.compiled.head ) v.compiled.head = {};
 
-  var css;
+  return p.w.promise( function( rs, rj ) {
 
-  [ 'css', 'embedCss', 'oaCss', 'oaeCss' ].filter( function( c ) { return !!v.config[ c ] } ).forEach( function( c ) {
+    var scss, // collection of file to compile
 
-    css = v.config[ c ];
+    content = '',
 
-    if ( v.layoutConfig && v.layoutConfig[ c ] ) {
+    paths = [];
 
-      css = cn.extend( _absolutePath( v.config.layout, v.layoutConfig[ c ] ), _absolutePath( v.uri, css ) );
+    for ( var c in v.config ) {
+
+      if ( [ 'scss' ].indexOf( c ) !== -1 ) break;
 
     }
 
-  } );
+    scss = _absolutePath( v.uri, v.config[ c ] );
 
-  v.compiled.head.css = css;
+    // add layout stuff if it exists
+    if ( v.layoutConfig && v.layoutConfig[ c ] ) {
+
+      scss = cn.extend( 
+        _absolutePath( v.config.layout, v.layoutConfig[ c ] ), 
+        scss
+      );
+
+    }
+
+    // compile the files
+
+    for ( var i in scss ) {
+
+      content += fs.readFileSync( __dirname + scss[ i ], 'utf-8' );
+
+    }
+
+    sass.render( { data: content }, function( err, result ) {
+
+      fs.writeFile( __dirname + sassDestFile, result.css.toString(), function( err ) {
+
+        deepExtend( v.compiled, {
+          head: {
+            css: { 
+              processedSass: sassDestFile
+            }
+          }
+        } );
+
+        rs( v );
+
+      } );
+
+    });
+
+  });
+
+}
+
+
+function _listCssFiles( v ) {
+
+  if ( !v.compiled.head ) v.compiled.head = {};
+
+  var c, ccs;
+
+  [ 'css', 'embedCss', 'oaCss', 'oaeCss' ].forEach( function( name ) {
+
+    if ( v.config[ name ] ) {
+
+      css = v.config[ name ];
+
+      c = name;
+
+    }
+
+  });
+
+  if ( v.layoutConfig && v.layoutConfig[ c ] ) {
+
+    css = cn.extend( 
+      _absolutePath( v.config.layout, v.layoutConfig[ c ] ), 
+      _absolutePath( v.uri, css )
+    );
+
+  }
+
+  v.css = css;
 
   return v;
+
+}
+
+function _compileSass( v ) {
+
+  return p.w.promise( function( rs, rj ) {
+
+    var aggregated = '', cssArr = [];
+
+    for ( var i in v.css ) {
+
+      cssArr.push( v.css[ i ] );
+
+    }
+
+    async.eachSeries( cssArr, function( cssFile, ecb ) {
+
+      fs.readFile( __dirname + cssFile, 'utf-8', function( err, content ) {
+
+        content = _fixFontAwesomeRelativePath( cssFile, content );
+
+        if ( err ) {
+
+          log( 'could not read file %s' + cssFile );
+
+          return ecb( err );
+
+        }
+
+        aggregated += content;
+
+        ecb();
+
+      } );
+
+    }, function( err ) {
+
+      if ( err ) return rj( err );
+
+      sass.render( { data: aggregated }, function( err, result ) {
+
+        if ( err ) {
+
+          console.log( 'could not process sass: %s', err );
+
+          return rj( err );
+
+        }
+
+        fs.writeFile( __dirname + sassDestFile, result.css.toString(), function( err ) {
+
+          if ( err ) {
+
+            console.log( 'could not write file %s', __dirname + sassDestFile );
+
+            return rj( err );
+
+          }
+
+          v.compiled.head.css = {
+            aggregated: sassDestFile
+          }
+
+          rs( v );
+
+        });
+
+      });
+
+    } );
+
+  });
+
+}
+
+
+function _fixFontAwesomeRelativePath( filename, content ) {
+
+  var version = '4.3.0';
+
+  if ( filename.indexOf( 'font-awesome-' + version ) == -1 ) return content;
+
+  return content.replace( /..\/fonts\//g, '/css/font-awesome-' + version + '/fonts/' );
 
 }
 
@@ -558,16 +726,17 @@ function _absolutePath( uri, css ) {
 
     var path = css[c].split('/'),
 
-    isSub = true;
+    isSub = true; // if is a subfolder of current uri
 
     while ( path[0] == '..' ) {
 
-      path.splice(0, 1);
+      path.splice( 0, 1 );
+
       isSub = false;
       
     }
 
-    absCss[c] = ( isSub ? '' : '/' ) + path.join('/');
+    absCss[c] = ( isSub ? '/' + templatePath : '' ) + '/' + path.join('/');
 
   }
 

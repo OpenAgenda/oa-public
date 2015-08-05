@@ -3,6 +3,10 @@
   "layout" : "bsLayout/main",
 
   "oaCss" : {
+    "agenda-header" : "../agenda/css/header.scss",
+    "agenda-admin-bar" : "../agenda/css/admin-bar.scss",
+    "event-base" : "css/base.scss",
+    "event" : "css/style.scss",
     "leaflet" : "../css/leaflet-0.7.3.css"
   },
 

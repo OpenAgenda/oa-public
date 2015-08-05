@@ -1,0 +1,12 @@
+{
+  "base" : {
+    "subtitle" : "this is the sandbox page",
+    "text" : "overloaded by standard"
+  },
+  "standard" : {
+    "text" : "This is mock data. Normally, data would come from the app using the template project"
+  },
+  "state1" : {
+    "text" : "If you type ?state=state1, you will see this text instead of the one specified in the standard state"
+  }
+}

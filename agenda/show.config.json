@@ -2,6 +2,11 @@
   "layout" : "bsLayout/main",
 
   "oaCss" : {
+    "agenda-base" : "css/base.scss",
+    "agenda-header" : "css/header.scss",
+    "agenda-admin-bar" : "css/admin-bar.scss",
+    "agenda-subnav" : "css/subnav.scss",
+    "agenda" : "css/style.scss",
     "leaflet" : "../css/leaflet-0.7.3.css"
   },
   

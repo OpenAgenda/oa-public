@@ -1,0 +1,4 @@
+{
+  "the current text is not translated. add ?lang=fr to the url to see this in french"
+  : "le texte est traduit. pour revenir à la langue de base ( l'anglais ), precisez ?lang=en"
+}

@@ -1,7 +1,10 @@
 {
   "layout" : "bsLayout/main",
 
-  "bsCss" : {},
+  "oaCss" : {
+    "share-menu" : "css/share-menu.scss",
+    "popup-overlay" : "css/popup-overlay.scss"
+  },
 
   "helpers" : {
     "_t" : "time",

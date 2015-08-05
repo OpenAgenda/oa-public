@@ -1,6 +1,7 @@
 {
   "css" : {
-    "base" : "../css/base.css",
+    "variables" : "../css/variables.scss",
+    "base" : "../css/base.scss",
     "site" : "../css/site.css",
     "userMenu" : "../user/css/menu.css",
     "header" : "../css/header.css",

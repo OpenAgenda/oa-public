@@ -20,6 +20,8 @@ destOAETCssPath = require( './files.js' ).destOAETCssPath,
 
 destPublicTemplatePath = require('./files.js').destPublicTemplatePath,
 
+sass = require( 'node-sass' ),
+
 map = JSON.parse( fs.readFileSync('../map.json', "utf8") ),
 
 cn = require( '../js/lib/common/common.mod.js' ),
@@ -46,9 +48,9 @@ browserified = [],
 
 run = function() {
 
-  debug.enable('*');
+  debug.enable( '*' );
 
-  log = debug('prodify');
+  log = debug( 'prodify' );
 
   async.series([
     async.apply( prodifyCss, map, 'css', destCssPath ),
@@ -248,7 +250,13 @@ prodifyCss = function( map, cssKey, destFile, cb ) {
 
       // write it in dest css folder
 
-      fs.writeFile( destFile, mainCss, cb);
+      if ( !mainCss.length ) return cb();
+
+      sass.render( { data: mainCss }, function( err, result ) {
+
+        fs.writeFile( destFile, result.css.toString(), cb );
+
+      } );
 
     });
 
