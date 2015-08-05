@@ -3,5 +3,5 @@ agenda admin/js/node_modules/*
 server/node_modules/*
 node_modules/*
 openagenda/.sass-cache/*
-build/browserfied/*
+build/browserified/*
 build/sass/*
