@@ -1,5 +1,6 @@
 {
   "css" : {
+    "variables" : "../css/variables.scss",
     "base" : "../css/base.scss",
     "site" : "../css/site.css",
     "page" : "../css/page structure/page.css",

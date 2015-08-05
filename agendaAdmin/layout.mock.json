@@ -44,6 +44,11 @@
     "uri" : "agendaAdminWeb"
   }, {
     "section" : "export",
+    "key" : "facebook",
+    "label" : "Facebook",
+    "uri" : "facebookShow"
+  }, {
+    "section" : "export",
     "key" : "newsletters",
     "label" : "Newsetters",
     "uri" : "newsletterIndex"

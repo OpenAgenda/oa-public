@@ -1,8 +1,10 @@
 {
-  "user" : "#",
-  "email" : "gaetan@openagenda.com",
-  "optionals" : false,
-  "errors" : {
-    "email" : "this email is invalid"
+  "base" : {
+    "user" : "#",
+    "email" : "gaetan@openagenda.com",
+    "optionals" : false,
+    "errors" : {
+      "email" : "this email is invalid"
+    }
   }
 }
