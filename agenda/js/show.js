@@ -111,7 +111,7 @@ window.hook( function( options ) {
 
       log( 'query values changed to %s', JSON.stringify( newSearchValues ) );
 
-      list.reset( domUtils.loadInLocation( newSearchValues ) );
+      list.reset( domUtils.loadInLocation( { search: newSearchValues } ) );
 
     } );
 
