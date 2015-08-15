@@ -1,5 +1,6 @@
 {
   "name" : "logger",
+  "version" : "0.0.1",
   "dependencies" : {
     "le_node" : "1.0.14",
     "should" : "7.0.4",

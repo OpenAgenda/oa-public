@@ -83,4 +83,6 @@ module.exports.init = function( c ) {
 
   });
 
+  debug.enable( c.debugEnable );
+
 }
