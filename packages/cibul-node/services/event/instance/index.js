@@ -4,9 +4,9 @@ var model = require( '../../model' ),
 
 state = require( './state' ),
 
-utils = require( '../../../lib/utils' ),
+dispatcher = require( './dispatcher' ),
 
-coms = require( '../../../lib/coms' ),
+utils = require( '../../../lib/utils' ),
 
 config = require( '../../../config' ),
 
@@ -18,22 +18,29 @@ fileSvc = require( '../../file/file' );
 
 module.exports = function( data ) {
 
-  var instance = model.events().instance( data );
+  var instance = model.events().instance( data ),
 
-  instance.onSave = onSave;
-
-  var svcInstance = utils.extend( {}, instance, {
+  svcInstance = utils.extend( {}, instance, {
     setImage: setImage,
     getImage: _imageGetter( 'getImage' ),
     getThumbnail: _imageGetter( 'getThumbnail' ),
     getFullImage: _imageGetter( 'getFullImage' ),
     remove: remove
-  });
+  }),
+
+  dsp = dispatcher( svcInstance, instance );
 
   state( svcInstance, instance, [
     'setState',
-    'getState'
+    'getState',
+    'setOnStateChange'
   ] );
+
+  svcInstance.setOnStateChange( dsp.stateChange );
+
+  instance.onSave = dsp.onSave;
+
+
 
   return svcInstance;
 
@@ -78,11 +85,6 @@ module.exports = function( data ) {
 
   }
 
-  function onSave() {
-
-    coms.publish( config.mainChannel, { name: 'event.update', values: { id: instance.id } } );
-
-  }
 
   function remove( cb ) {
 
@@ -90,7 +92,7 @@ module.exports = function( data ) {
 
       if ( err ) return cb( err );
 
-      coms.publish( config.mainChannel, { name: 'event.delete', values: { id: instance.id } } );
+      dispatcher.onRemove();
 
       cb();
 

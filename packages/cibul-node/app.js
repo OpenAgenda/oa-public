@@ -14,8 +14,6 @@ module.exports = function( enabledTypes, cb ) {
 
   supervisor( function( loadTasks ) {
 
-    require( 'newrelic' );
-
     var emailStrategie = require( 'emailStrategie' ),
 
     log = require( './lib/logger' )( 'app' );
@@ -85,6 +83,7 @@ module.exports = function( enabledTypes, cb ) {
         require( './agenda_bridges/back' )( '/:slug/admin/services'),
         require( './agenda/exports.front' )( '/agendas/:uid' ),
         require( './agenda/exports.back' )( '/agendas/:uid/admin' ),
+        require( './agenda/groupActions.back' )( '/agendas/:uid/admin' )
       ]
     };
 
@@ -199,6 +198,8 @@ module.exports = function( enabledTypes, cb ) {
       require( './event/oembed.task' ).load();
 
       require( './services/agenda/task' ).load();
+
+      require( './services/aggregator' ).task();
 
       emailStrategie.task();
 

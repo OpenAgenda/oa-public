@@ -26,7 +26,7 @@ module.exports = function( path ) {
     cmn.flashSetter,
     cmn.loadSession,
     cmn.loadAgenda( 'slug' ),
-    cmn.checkAdministrator,
+    cmn.checkAdministrator(),
     cmn.checkCredential( 'emailstrategie' ),
     agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData()

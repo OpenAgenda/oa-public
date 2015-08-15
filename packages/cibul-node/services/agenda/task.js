@@ -12,13 +12,17 @@ cmn = require( '../../lib/commons-task' ),
 
 async = require( 'async' ),
 
-config = require( '../../config' );
+config = require( '../../config' ),
+
+groupActions = require( './tasks/groupActions' );
 
 module.exports = {
   load: cmn.makeLoad( run )
 }
 
 function run() {
+
+  groupActions();
 
   coms.subscribe( config.mainChannel, function( err, action ) {
 

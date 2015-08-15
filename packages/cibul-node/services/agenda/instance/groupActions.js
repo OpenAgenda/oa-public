@@ -1,0 +1,44 @@
+"use strict";
+
+var log = require( '../../../lib/logger' )( 'groupactions - intance' ),
+
+utils = require( 'utils' ),
+
+config = require( '../../../config' ),
+
+q = require( 'queue' )( config.queues.groupActions, { redis: config.redis } ),
+
+eventSvc = require( '../../event' );
+
+module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
+
+  return {
+    changeEventStates: changeEventStates
+  }
+
+  function changeEventStates( newState, cb ) {
+
+    var types = [];
+
+    for ( var t in eventSvc.STATETYPES ) {
+
+      types.push( eventSvc.STATETYPES[ t ] );
+
+    }
+
+    if ( types.indexOf( newState ) == -1 ) {
+
+      return cb( 'state is unknown' );
+
+    }
+
+    q( {
+      args: [ instance.id, newState ],
+      method: 'dispatchChangeEventStates'
+    } );
+
+    cb();
+
+  }
+
+} );

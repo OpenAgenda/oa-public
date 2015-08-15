@@ -43,7 +43,11 @@ function loadEvent( paramName, fieldName ) {
 
   return function( req, res, next ) {
 
-    w( { req: req, res: res, event: false } )
+    w( { 
+      req: req,
+      res: res,
+      event: false 
+    } )
 
     .then( _get( paramName, fieldName ) )
 
@@ -69,9 +73,21 @@ function loadEvent( paramName, fieldName ) {
 
         if ( !req.session.logged ) return next( { code: 401 } );
 
-        if ( req.agenda && !v.hasAgendaCreds ) return next( { code: 403 } );
+        if ( req.agenda && !v.hasAgendaCreds ){
 
-        if ( !v.hasCreds ) return next( { code: 403 } );
+          req.log( 'user does not have required agenda credentials' );
+
+          return next( { code: 403 } );
+
+        }
+
+        if ( v.isDraft && !v.hasCreds ) {
+
+          req.log( 'user does not have required credentials' );
+
+          return next( { code: 403 } );
+
+        }
 
       }
 

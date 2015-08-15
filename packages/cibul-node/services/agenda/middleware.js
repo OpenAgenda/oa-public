@@ -35,6 +35,10 @@ module.exports = function( agendaService ) {
 
 function loadAgenda( paramName, fieldName, options ) {
 
+  var loadOptions = {
+    name: 'agenda'
+  }; // options used for function, not for get
+
   if ( arguments.length === 2 && typeof fieldName == 'object' ) {
 
     options = fieldName;
@@ -50,6 +54,17 @@ function loadAgenda( paramName, fieldName, options ) {
   }
 
   if ( !options ) options = {};
+
+  // extract options for function
+  [ 'name' ].forEach( function( k ) {
+
+    if ( options[ k ] === undefined ) return;
+
+    loadOptions[ k ] = options[ k ];
+
+    delete options[ k ];
+
+  });
 
   return function( req, res, next ) {
 
@@ -73,18 +88,18 @@ function loadAgenda( paramName, fieldName, options ) {
 
       }
 
-      req.agenda = a;
+      req[ loadOptions.name ] = a;
 
       if ( options.basicLoad ) return next();
 
       // if full load ( default )
       // is requested, more info is fetched
 
-      _loadIsPassed( req.agenda, function( err ) {
+      _loadIsPassed( req[ loadOptions.name ], function( err ) {
 
         if ( err ) return next( err );
 
-        req.agenda.hasPublishedEvents( function( err, has ) {
+        req[ loadOptions.name ].hasPublishedEvents( function( err, has ) {
 
           if ( err ) return next( err );
 

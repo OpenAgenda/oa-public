@@ -10,9 +10,12 @@ TYPES = model.events().STATETYPES;
 
 module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
 
+  var onStateChange;
+
   return {
     setState: setState,
-    getState: getState
+    getState: getState,
+    setOnStateChange: setOnStateChange
   }
 
   function getState( cb ) {
@@ -37,7 +40,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
         } else if ( state === null ) {
 
-          state = 'draft';
+          return cb( null, 'draft' );
 
         }
 
@@ -65,26 +68,46 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
   function setState( newState, cb ) {
 
-    log( 'setting event %s state to %s', instance.id, newState );
+    getState( function( err, oldState ) {
 
-    var stateModifiers = {};
+      log( 'setting event %s state to %s', instance.id, newState );
 
-    stateModifiers[ TYPES.PUBLISHED ] = _publish;
-    stateModifiers[ TYPES.VALIDATED ] = _validate;
-    stateModifiers[ TYPES.NOTVALIDATED ] = _unvalidate;
+      var stateModifiers = {};
 
-    if ( [ TYPES.NOTVALIDATED, TYPES.VALIDATED, TYPES.PUBLISHED ].indexOf( parseInt( newState, 10 ) ) == -1 ) {
+      stateModifiers[ TYPES.PUBLISHED ] = _publish;
+      stateModifiers[ TYPES.VALIDATED ] = _validate;
+      stateModifiers[ TYPES.NOTVALIDATED ] = _unvalidate;
 
-      cb( 'this state is unknown' );
+      if ( [ TYPES.NOTVALIDATED, TYPES.VALIDATED, TYPES.PUBLISHED ].indexOf( parseInt( newState, 10 ) ) == -1 ) {
 
-    }
+        cb( 'this state is unknown' );
 
-    stateModifiers[ newState ]( instance, cb );
+      }
+
+      stateModifiers[ newState ]( instance, function( err, result ) {
+
+        if ( err ) return cb( err );
+
+        if ( onStateChange ) onStateChange( oldState, _labelize( newState ) );
+
+        cb( null, result );
+
+      } );
+
+    } );
+
+  }
+
+
+  function setOnStateChange( cb ) {
+
+    onStateChange = cb;
 
   }
 
 
 } );
+
 
 function _publish( instance, cb ) {
 

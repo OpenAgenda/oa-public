@@ -172,11 +172,11 @@ function eventAdd( req, res ) {
 
       log( 'error', 'eventAdd: %s', err );
 
-      _redirectOnActionComplete( req, res, 'the event could not be added' );
+      _onActionComplete( req, res, false, 'the event could not be added' );
 
     } else {
 
-      _redirectOnActionComplete( req, res, 'the event was added to the agenda' );
+      _onActionComplete( req, res, true, 'the event was added to the agenda' );
 
     }
 
@@ -193,11 +193,11 @@ function eventRemove( req, res ) {
 
       log( 'error', 'eventRemove: %s', err );
 
-      _redirectOnActionComplete( req, res, 'the event could not be removed' );
+      _onActionComplete( req, res, false, 'the event could not be removed' );
 
     } else {
 
-      _redirectOnActionComplete( req, res, 'the event was removed from the agenda' );
+      _onActionComplete( req, res, true, 'the event was removed from the agenda' );
 
     }
 
@@ -227,15 +227,26 @@ function _verifyAlreadyAdded( req, res, next ) {
 }
 
 
-function _redirectOnActionComplete( req, res, message ) {
+function _onActionComplete( req, res, success, message ) {
 
   var rd = cmn.getRedirect( req );
+
+  if ( req.xhr ) {
+
+    cmn.renderJson( {
+      success: success,
+      message: message
+    } );
+
+    return;
+
+  }
 
   res.setFlash( req, message );
 
   if ( rd ) {
 
-    res.redirect( rd );
+    res.redirect( 302, rd );
 
     return;
 

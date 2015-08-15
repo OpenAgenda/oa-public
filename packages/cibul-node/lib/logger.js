@@ -36,6 +36,10 @@ module.exports = function( namespace ) {
 
     debugLog = debug( 'oa:' + namespace );
 
+  } else {
+
+    debug.disable();
+
   }
 
   if ( namespace ) {

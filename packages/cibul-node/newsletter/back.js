@@ -58,7 +58,7 @@ module.exports = function( path ) {
     cmn.loadBaseData( _layoutData ),
     cmn.requireLogged,
     cmn.checkCredential( 'newsletters' ),
-    cmn.checkAdministrator
+    cmn.checkAdministrator()
   ] );
 
   return {

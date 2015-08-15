@@ -20,7 +20,8 @@ module.exports = {
   create: create,
   share: require( './share' ),
   list: model.events().list,
-  instanciate: require( './instance' )
+  instanciate: require( './instance' ),
+  STATETYPES: model.events().STATETYPES
 }
 
 module.exports.mw = require( './middleware' )( module.exports );

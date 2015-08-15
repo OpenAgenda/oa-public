@@ -20,12 +20,12 @@ routes = {
   ] ],
 
   administratorsInvite: [ 'post', '/admins/invite', [
-    cmn.checkAdministrator,
+    cmn.checkAdministrator(),
     invite( { inviteMethod: 'inviteAdministrators', redirect: 'agendaAdminAdministrators' } )
   ]],
 
   moderatorsInvite: [ 'post', '/moderators/invite', [
-    cmn.checkAdministrator,
+    cmn.checkAdministrator(),
     invite( { inviteMethod: 'inviteModerators', redirect: 'agendaAdminModerators' } )
   ]],
 
@@ -35,24 +35,24 @@ routes = {
   ] ],
 
   administratorInviteResend: [ 'get', '/admins/resend', [
-    cmn.checkAdministrator,
+    cmn.checkAdministrator(),
     inviteResend( { inviteMethod: 'inviteAdministrators', redirect: 'agendaAdminAdministrators' } )
   ] ],
 
   moderatorsInviteResend: [ 'get', '/moderators/resend', [
-    cmn.checkAdministrator,
+    cmn.checkAdministrator(),
     inviteResend( { inviteMethod: 'inviteModerators', redirect: 'agendaAdminModerators' })
   ] ],
 
   contributorsInfo: [ 'get', '/contributors/info', [ 
-    cmn.checkAdministrator,
+    cmn.checkAdministrator(),
     agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData(),
     info
   ] ],
 
   contributorsInfoSubmit: [ 'post', '/contributors/info', [
-    cmn.checkAdministrator,
+    cmn.checkAdministrator(),
     agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData(),
     infoSubmit

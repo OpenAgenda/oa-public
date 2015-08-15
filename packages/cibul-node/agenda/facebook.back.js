@@ -20,7 +20,7 @@ routes = {
 
   facebookShow: [ 'get', '/:slug/admin/facebook', [
     agendaSvc.mw.load( 'slug' ),
-    cmn.checkAdministrator,
+    cmn.checkAdministrator(),
     agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData(),
     show
@@ -28,7 +28,7 @@ routes = {
 
   facebookTabLink: [ 'get', '/agendas/:uid/facebook/tab/link', [
     agendaSvc.mw.load( 'uid' ),
-    cmn.checkAdministrator,
+    cmn.checkAdministrator(),
     fb.tab.create
   ] ],
 

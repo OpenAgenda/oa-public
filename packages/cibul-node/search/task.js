@@ -24,6 +24,8 @@ model = cmn.getCibulModel(),
 
 ES = require( 'ES' )( config.es ),
 
+esSvc = require( '../services/es/es' ),
+
 running = false,
 
 _onStart,
@@ -145,6 +147,16 @@ function _handleJob( err, job ) {
 
 }
 
+function _rebuild( job, cb ) {
+
+  esSvc.rebuild( function( ) {
+
+    cb();
+
+  });
+
+}
+
 function _sync( job, cb ) {
 
   var hasMore = true, limit = 20, offset = 0;
@@ -240,87 +252,6 @@ function _sync( job, cb ) {
     } )
 
   } );
-
-}
-
-
-function _rebuild( job, cb ) {
-
-  async.series([
-    ES.resetIndex,
-    _populateES( 'reviews' ),
-    _populateES( 'events' )
-  ], cb );
-
-}
-
-
-function _populateES( schema ) {
-
-  var type = ( schema == 'events' ? 'event' : 'review' );
-
-  var params = schema == 'events' ? { isPublished: null } : {};
-
-  return function( cb ) {
-
-    var loopCount = 1;
-
-    log( 'debug', 'populating type %s', type );
-
-    _loopThroughPages( schema, params, function( results, next ) {
-
-      log( 'debug', 'looping %s', loopCount++ );
-
-      ES[ schema ]().bulk( results, function( err, result ) {
-
-        if ( err ) return cb( err );
-
-        next();
-
-      });
-
-    }, cb );
-
-  };
-
-}
-
-
-function _loopThroughPages( schema, params, usageFunc, finishCallback ) {
-
-  if ( arguments.length === 3 ) {
-
-    finishCallback = usageFunc;
-
-    usageFunc = params;
-
-    params = {};
-
-  }
-
-  var fetchPage = function( offset,limit ) {
-
-    log( 'debug', 'fetching data with offset %s', offset );
-
-    model[ schema ]().list( utils.extend( {
-      extended: true,
-      offset: offset,
-      limit : limit
-    }, params ), function( err, result ) {
-
-      if ( err || !result || !result.length ) return finishCallback( err );
-
-      usageFunc( result, function() {
-        
-        fetchPage( offset + limit, limit );
-
-      });
-
-    });
-
-  };
-
-  fetchPage( 0, 40 );
 
 }
 

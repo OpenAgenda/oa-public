@@ -14,3 +14,8 @@ require( '../services/invitation/test/preprocessing' );
 require( '../services/invitation/test/creation' );
 require( '../services/notification/test/basic' );
 require( '../services/admin/test/admin' );
+require( '../services/aggregator/test/notify' );
+require( '../services/aggregator/test/evaluate' );
+require( '../services/aggregator/test/task' );
+require( '../services/agenda/instance/test/groupActions' );
+require( '../services/agenda/tasks/test/groupActions' );

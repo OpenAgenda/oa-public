@@ -26,16 +26,17 @@ routes = {
   agendaEventChangeState: [ 'get', '/:slug/events/:eventSlug/state/:type', [
     agendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
-    cmn.checkAdministrator,
+    cmn.checkAdministrator(),
     _checkAuthorizedChanges( [ STATETYPES.VALIDATED, STATETYPES.NOTVALIDATED, STATETYPES.PUBLISHED ] ),
     _changeState,
+    _xhrResponse,
     _redirect
   ] ],
 
   agendaEventChangeFeatured: [ 'get', '/:slug/events/:eventSlug/featured/:type', [
     agendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
-    cmn.checkAdministrator,
+    cmn.checkAdministrator(),
     _checkAuthorizedChanges( [ 'featured', 'notfeatured' ] ),
     _changeFeatured,
     _redirect
@@ -44,7 +45,7 @@ routes = {
   agendaEventPrivateCustomData: [ 'get', '/agendas/:uid/events/:eventUid/custom/private', [
     agendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
-    cmn.checkAdministrator,
+    cmn.checkAdministrator(),
     privateCustomData
   ] ]
 
@@ -80,6 +81,20 @@ function privateCustomData( req, res, next ) {
     });
 
   });
+
+}
+
+function _xhrResponse( req, res, next ) {
+
+  if ( req.xhr ) {
+
+    cmn.renderJson( req, res, { success: true } );
+
+  } else {
+
+    next();
+
+  }
 
 }
 
@@ -120,7 +135,7 @@ function _changeState( req, res, next ) {
 
     }
 
-    res.setFlash( req, 'The event state has changed', {} );
+    if ( !req.xhr ) res.setFlash( req, 'The event state has changed', {} );
 
     next();
 
@@ -159,6 +174,8 @@ function _checkAuthorizedChanges( authorizedTypes ) {
 
   return function( req, res, next ) {
 
+    req.log( 'checking authorized changes for type %s', req.params.type );
+
     var type = req.params.type;
 
     if ( type == parseInt( type, 10 ) ) {
@@ -174,6 +191,8 @@ function _checkAuthorizedChanges( authorizedTypes ) {
       return next( { code: 403 } );
 
     }
+
+    req.log( 'type is authorized: %s', req.params.type );
 
     next();
 

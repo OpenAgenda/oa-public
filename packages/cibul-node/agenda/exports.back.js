@@ -28,7 +28,7 @@ module.exports = function( path ) {
   router.pre( [
     agendaSvc.mw.load( 'uid' ),
     cmn.loadSession,
-    cmn.checkAdministrator
+    cmn.checkAdministrator()
   ] );
 
   return {

@@ -7,6 +7,10 @@ config = {
     multiCore: true,
     mainChannel: 'main',
     jobsQueue: 'jobs',
+    queues: {
+      aggregator: 'aggregator',
+      groupActions: 'groupactions'
+    },
     legacyQueue: 'bgestack',
     tmpFolderPath: '/var/tmp/',
     logPath : '/var/tmp/cibul-node.log',
@@ -301,7 +305,7 @@ config = {
     env: 'dev',
     multiCore: false,
     mainChannel: 'maindev',
-    logNameSpaces: 'oa:*,model',
+    logNameSpaces: 'oa:*',
     //useCache: false,
     db: {
       database: 'oadev',

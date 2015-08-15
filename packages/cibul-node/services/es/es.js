@@ -6,14 +6,19 @@ legacyLib = require( 'ES' )( config.es ),
 
 lib = require( '../../lib/lib' ),
 
-c = require( './clean' ),
+c = require( './lib/clean' ),
+
+rebuild = require( './lib/rebuild' ),
 
 LIMIT = 20;
+
+rebuild.set( legacyLib );
 
 module.exports = {
   agendas: agendas,
   search: search,
-  searchAgendas: searchAgendas
+  searchAgendas: searchAgendas,
+  rebuild: rebuild
 }
 
 function agendas( agenda ) {

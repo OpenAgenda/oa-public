@@ -38,7 +38,7 @@ module.exports = function( path ) {
     agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData( _layoutData ),
     cmn.requireLogged,
-    cmn.checkAdministrator,
+    cmn.checkAdministrator(),
     _loadService
   ] );
 

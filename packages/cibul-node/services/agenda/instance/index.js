@@ -4,13 +4,11 @@ var model = require( '../../model' ),
 
 utils = require( '../../../lib/utils' ),
 
-config = require( '../../../config' ),
-
-coms = require( '../../../lib/coms' ),
-
 eventSvc = require( '../../event' ),
 
 search = require( './search' ),
+
+sources = require( './sources' ),
 
 async = require( 'async' ),
 
@@ -18,7 +16,13 @@ cache = require( '../../cache' ),
 
 flattener = require( './flattener' ),
 
-emailStrategie = require( './emailStrategie' );
+aggregator = require( '../../aggregator' ),
+
+emailStrategie = require( './emailStrategie' ),
+
+groupActions = require( './groupActions' ),
+
+dispatcher = require( './dispatcher' );
 
 module.exports = function( data ) {
 
@@ -28,7 +32,9 @@ module.exports = function( data ) {
     addEvent: addEvent,
     removeEvent: removeEvent,
     getControlData: getControlData
-  });
+  }),
+
+  dsp = dispatcher( svcInstance, instance );
 
   search( svcInstance, instance, [
     'search',
@@ -36,9 +42,22 @@ module.exports = function( data ) {
     'aggregate'
   ]);
 
-  flattener( svcInstance, instance, [ 'flattener' ] );
+  sources( svcInstance, instance, [
+    'sources.add',
+    'sources.remove'
+  ]);
 
-  emailStrategie( svcInstance, instance, [ 'emailStrategie' ] );
+  flattener( svcInstance, instance, [
+    'flattener'
+  ] );
+
+  emailStrategie( svcInstance, instance, [ 
+    'emailStrategie'
+  ] );
+
+  groupActions( svcInstance, instance, [
+    'changeEventStates'
+  ] );
 
   return cache( 'agenda', svcInstance, [ 'getControlData' ], [ 'addEvent', 'removeEvent' ] );
 
@@ -54,18 +73,9 @@ module.exports = function( data ) {
       instance.addEvent( event, stakeholder, function( err, result ) {
 
         if ( err ) return cb( err );
+
+        dsp.onAddEvent( event.id );
         
-        coms.publish( config.mainChannel, { 
-          name: 'event.update', 
-          values: { id: event.id } 
-        } );
-
-        // legacy aggregator
-        coms.queue( config.legacyQueue, JSON.stringify( { name: 'review.article_display', values: {
-          event_id: event.id, 
-          review_id:  instance.id
-        } } ), { raw: true } );
-
         cb();
 
       } );
@@ -77,29 +87,31 @@ module.exports = function( data ) {
 
   function removeEvent( event, stakeholder, cb ) {
 
-    instance.isStakeholder( stakeholder, function( err, is ) {
+    if ( arguments.length == 3 ) {
 
-      if ( err ) return cb( err );
-
-      if ( !is ) return cb( 'you cannot contribute to this agenda' );
-
-      instance.removeEvent( event, function( err, count ) {
+      return instance.isStakeholder( stakeholder, function( err, is ) {
 
         if ( err ) return cb( err );
 
-        coms.publish( config.mainChannel, { name: 'event.update', values: { id: event.id } } );
+        if ( !is ) return cb( 'you cannot contribute to this agenda' );
 
-        // legacy aggregator
-        coms.queue( config.legacyQueue, JSON.stringify( { name: 'review.article_hide', values: {
-          event_id: event.id, 
-          review_id:  instance.id
-        } } ), { raw: true } );
+        removeEvent( event, cb );
 
-        cb();
+      } );
 
-      });
+    }
 
-    } );
+    cb = stakeholder;
+
+    instance.removeEvent( event, function( err, count ) {
+
+      if ( err ) return cb( err );
+
+      dsp.onRemoveEvent( event.id );
+
+      cb();
+
+    });
 
   }
 

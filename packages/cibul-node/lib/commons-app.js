@@ -69,7 +69,7 @@ i18n = require( '../i18n/i18n.js' ),
 
 deepExtend = require( 'deep-extend' ),
 
-lib = require( './lib' ),
+utils = require( 'utils' ),
 
 agendaSvc = require( '../services/agenda' ),
 
@@ -201,26 +201,33 @@ function loadEvent( paramName, fieldName ) {
  * agenda loaded in request
  */
 
-function checkAdministrator( req, res, next ) {
+function checkAdministrator( options ) {
 
-  wn.call( req.agenda.isAdministrator, { id: req.session.userId } )
+  var params = utils.extend( {
+    name: 'agenda'
+  }, options ? options : {} );
 
-  .then( function( isAdmin ) {
+  return function( req, res, next ) {
 
-    if ( !isAdmin ) throw { message : 'You do not have access to the administration of this agenda.', code: 403 };
+    wn.call( req[ params.name ].isAdministrator, { id: req.session.userId } )
 
-    next();
+    .then( function( isAdmin ) {
 
-  } )
+      if ( !isAdmin ) throw { message : 'You do not have access to the administration of this agenda.', code: 403 };
 
-  .catch( function( err ) {
+      next();
 
-    errorResponse( req, res, err );
+    } )
 
-  } );
+    .catch( function( err ) {
+
+      errorResponse( req, res, err );
+
+    } );
+
+  }
 
 }
-
 
 function checkModerator( req, res, next ) {
 
@@ -650,11 +657,17 @@ function requireAdmin( req, res, next ) {
  * check if agenda has 'name' credential
  */
 
-function checkCredential( name ) {
+function checkCredential( name, options ) {
+
+  var params = utils.extend( {
+    name: 'agenda'
+  }, options ? options: {} );
+
+  if ( !options ) options = {};
 
   return function( req, res, next ) {
 
-    model.agendas().instance( req.agenda ).hasCredential( name, function( err, has ) {
+    model.agendas().instance( req[ params.name ] ).hasCredential( name, function( err, has ) {
 
       if ( err ) return errorResponse( req, res, err );
 

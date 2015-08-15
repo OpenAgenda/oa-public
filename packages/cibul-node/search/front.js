@@ -73,7 +73,7 @@ module.exports = function( p ) {
 
 function searchEvents( req, res, next ) {
 
-  if ( !req.query.search ) {
+  if ( !req.query.search || !req.query.search.what.length ) {
 
     req.log( 'info', 'request received for searchEvents with no params.' );
 
@@ -148,7 +148,7 @@ function searchAgendas( req, res ) {
 
   req.cleanSearch = req.query.search;
 
-  if ( !req.query.search ) {
+  if ( !req.query.search || !req.query.search.what.length ) {
 
     req.log( 'info', 'request received for searchAgendas with no params.' );
 
