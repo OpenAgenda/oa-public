@@ -92,7 +92,7 @@ module.exports.clean = function(data) {
     address: data.display_name,
     city: data.address.city,
     country: data.address.country,
-    countryCode: data.address.country_code.toUpperCase(),
+    countryCode: data.address.country_code ? data.address.country_code.toUpperCase() : '',
     county: data.address.county,
     pieces: []
   };
