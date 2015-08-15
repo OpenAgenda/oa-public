@@ -4,6 +4,7 @@ var handleAdminEventList = function(params) {
     selectors: {
       listItem: '.js_event_item',
       ajaxLink: '.js_ajax',
+      publishLink: '.js_publish',
       actions: '.js_actions',
       organizeLink: '.js_organize_link',
       organize: '.js_organize',
@@ -66,6 +67,9 @@ var handleAdminEventList = function(params) {
     if (item.hasAttribute(params.flags.organizeShow)) return;
 
     // display organize link, hide tags and categories sub menus
+    
+    if ( !el(item, params.selectors.organize) ) return;
+    if ( !el(item, params.selectors.organizeLink) ) return;
 
     addClass(el(item, params.selectors.organize), params.classes.displayNone);
     removeClass(el(item, params.selectors.organizeLink), params.classes.displayNone);
@@ -97,6 +101,40 @@ var handleAdminEventList = function(params) {
 
     });
 
+    forEach( els( item, params.selectors.publishLink ), function( linkItem ) {
+
+      addEvent( linkItem, 'click', function( e ) {
+
+        preventDefault( e );
+
+        _processRequest( item, linkItem, linkItem.getAttribute( 'href' ), function( err, responseType, data ) {
+
+          if ( responseType !== 'success' || !data.success ) return;
+
+          if ( linkItem.getAttribute( 'data-state' ) == 1 ) {
+
+            linkItem.innerHTML = linkItem.getAttribute( 'data-unpublish-label' );
+
+            linkItem.setAttribute( 'href', linkItem.getAttribute( 'data-unpublish-route' ) );
+
+            linkItem.setAttribute( 'data-state', 2 );
+
+          } else {
+
+            linkItem.innerHTML = linkItem.getAttribute( 'data-publish-label');
+
+            linkItem.setAttribute( 'href', linkItem.getAttribute( 'data-publish-route' ) );
+
+            linkItem.setAttribute( 'data-state', 1 );
+
+          }
+
+        });
+
+      })
+
+    });
+
   },
 
   // when the link is clicked, send the request
@@ -104,11 +142,11 @@ var handleAdminEventList = function(params) {
 
     addEvent(linkItem, 'click', function(e) {
 
-        preventDefault(e);
+      preventDefault(e);
 
-        _processRequest(item, linkItem, linkItem.getAttribute('href'));
+      _processRequest(item, linkItem, linkItem.getAttribute('href'));
 
-      });
+    });
 
   },
 
@@ -134,7 +172,7 @@ var handleAdminEventList = function(params) {
   },
 
   // process request and response
-  _processRequest = function(item, linkItem, resource) {
+  _processRequest = function( item, linkItem, resource, cb ) {
 
     _spin(linkItem);
 
@@ -146,12 +184,16 @@ var handleAdminEventList = function(params) {
 
         _applyItemBehavior(_replaceItem(item, data.partial));
 
-      } else {
+      } else if ( data.message ) {
 
-        if (data.message) lightbox({
+        lightbox({
           message: data.message,
           classes: { frame: params.classes.lightboxFrame, canvas: params.classes.lightboxCanvas, buttonBox: params.classes.lightboxButtonBox }
         });
+
+      } else if ( cb ) {
+
+        cb( null, type, data );
 
       }
       

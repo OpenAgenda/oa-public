@@ -1,6 +1,8 @@
 "use strict";
 
-var qs = require( 'qs' );
+var qs = require( 'qs' ),
+
+utils = require( 'utils' );
 
 module.exports = {
   el: el,
@@ -80,9 +82,9 @@ function whenReady( cb ) {
 
 function loadInLocation( values ) {
 
-  var href = window.location.href.split( '?' )[0];
+  var href = window.location.href.split( '?' )[ 0 ];
 
-  if ( cn.size( values ) ) {
+  if ( utils.size( values ) ) {
 
     href += '?' + qs.stringify( values );
 
