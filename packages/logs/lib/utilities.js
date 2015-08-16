@@ -24,13 +24,31 @@ function compileMessage() {
 
   var compiled = args.shift();
 
-  args.forEach( function( arg ) {
+  if ( typeof compiled == 'object' ) {
 
-    compiled = compiled.replace( '%s', arg );
+    if ( compiled.message ) {
 
-  });
+      compiled = compiled.message;
 
-  return compiled
+    } else {
+
+      compiled = false;
+
+    }
+
+  }
+
+  if ( compiled ) {
+
+    args.forEach( function( arg ) {
+
+      compiled = compiled.replace( '%s', arg );
+
+    });
+
+  }
+
+  return compiled;
 
 }
 

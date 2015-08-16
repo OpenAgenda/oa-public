@@ -8,6 +8,8 @@ describe( 'logger', function() {
 
   it( 'requires initialization before first use', function() {
 
+    logger.init( false );
+
     var log = logger( 'tests' ),
 
     result = log( 'this will not do anything' );
@@ -34,6 +36,14 @@ describe( 'logger', function() {
       level: 'info',
       namespace: 'tests',
       message: 'this is sparta',
+      reference: 300
+    } );
+
+    log( 'info', { code: 200, message: 'yeepeekayyay %s' }, 'motherfucker' ).should.eql( {
+      level: 'info',
+      namespace: 'tests',
+      message: 'yeepeekayyay motherfucker',
+      code: 200,
       reference: 300
     } );
 

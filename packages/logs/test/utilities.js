@@ -8,9 +8,9 @@ describe( 'logger utilities', function() {
 
   it( 'getLogType', function() {
 
-    u.getLogType( 'info' ).should.equal( 'info' );
+    u.getLogLevel( 'info' ).should.equal( 'info' );
 
-    u.getLogType( 'not a log type' ).should.equal( 'debug' );
+    u.getLogLevel( 'not a log type' ).should.equal( 'debug' );
 
   });
 

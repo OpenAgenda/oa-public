@@ -34,16 +34,20 @@ module.exports = function( namespace ) {
 
     message,
 
-    entry;
+    entry,
+
+    obj = {};
 
     if ( args[ 0 ] == level ) args.shift();
 
     message = u.compileMessage.apply( null, args );
 
-    entry = u.extend( {
+    if ( typeof args[ 0 ] == 'object' ) obj = args[ 0 ];
+
+    entry = u.extend( {}, baseLogVars, logVars, obj, {
       level: level,
       message: message
-    }, baseLogVars, logVars );
+    } );
 
     if ( logger ) logger.log( entry );
 
