@@ -22,6 +22,8 @@ describe( 'logger utilities', function() {
 
     u.compileMessage( 'this %s a %s', 'ate', 'horse' ).should.equal( 'this ate a horse' );
 
+    u.compileMessage( { code: 300 } ).should.equal( false );
+
   });
 
 });

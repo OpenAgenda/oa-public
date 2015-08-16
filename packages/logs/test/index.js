@@ -47,6 +47,13 @@ describe( 'logger', function() {
       reference: 300
     } );
 
+    log( 'info', { code: 404 } ).should.eql( {
+      level: 'info',
+      namespace: 'tests',
+      code: 404,
+      reference: 300
+    } );
+
   } );
 
 });

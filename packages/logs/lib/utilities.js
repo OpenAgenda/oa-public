@@ -18,11 +18,9 @@ function getLogLevel( type ) {
 
 function compileMessage() {
 
-  var args = Array.prototype.slice.call( arguments );
+  var args = Array.prototype.slice.call( arguments ),
 
-  if ( args.length < 2 ) return args[ 0 ];
-
-  var compiled = args.shift();
+  compiled = args.shift();
 
   if ( typeof compiled == 'object' ) {
 
