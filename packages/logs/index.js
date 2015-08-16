@@ -45,7 +45,7 @@ module.exports = function( namespace ) {
       message: message
     }, baseLogVars, logVars );
 
-    logger.log( entry );
+    if ( logger ) logger.log( entry );
 
     debugLog( message );
 
@@ -67,7 +67,7 @@ module.exports.init = function( c ) {
 
   config = c;
 
-  logger = new LE( { 
+  if ( c.token ) logger = new LE( { 
     token: c.token
   } );
 
@@ -77,7 +77,7 @@ module.exports.init = function( c ) {
 
   }
 
-  logger.on( 'error', function( error ) {
+  if ( logger ) logger.on( 'error', function( error ) {
 
     console.log( 'logentries error: %s', error );
 
