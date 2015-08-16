@@ -4,7 +4,11 @@ var dbConfig,
 
 utils = require( 'utils' ),
 
-mysql = require( 'mysql' );
+mysql = require( 'mysql' ),
+
+logger = require( './logger' ),
+
+log;
 
 module.exports = {
   init: init,
@@ -14,6 +18,8 @@ module.exports = {
 }
 
 function init( config, cb ) {
+
+  log = logger( 'store' );
 
   if ( arguments.length == 1 && typeof config == 'function' ) {
 
@@ -73,7 +79,7 @@ function get( id, cb ) {
 
     } catch( e ) {
 
-      console.log( 'error', 'could not parse list: %s', rows[ 0 ].lists );
+      log( 'error', 'could not parse list: %s', rows[ 0 ].lists );
 
     }
 

@@ -6,7 +6,7 @@ utils = require( 'utils' ),
 
 getAccount,
 
-log = require( './logger' )( 'task' ),
+logger = require( './logger' ), log,
 
 onProcessed = false; // for testing
 
@@ -21,6 +21,8 @@ utils.extend( module.exports, {
 
 
 function launch() {
+
+  log = logger( 'task' );
 
   if ( !q ) return _err( 'emailstrategie has not been initialized' );
 
@@ -78,7 +80,7 @@ function process( data, cb ) {
 
       if ( !list ) {
 
-        log( 'no list could be loaded' )
+        log( 'error', 'no list could be loaded' );
 
         return cb();
 

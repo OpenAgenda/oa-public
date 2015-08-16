@@ -8,7 +8,7 @@ store = require( './store' ),
 
 ifc = require( './interface' ),
 
-log = require( './logger' )( 'account' );
+logger = require( './logger' ), log;
 
 module.exports = function( data ) {
 
@@ -22,6 +22,8 @@ module.exports = function( data ) {
     getList: getList,
     unlink: unlink
   }, data );
+
+  log = logger( 'account' );
 
   return account;
 

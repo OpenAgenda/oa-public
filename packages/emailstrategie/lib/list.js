@@ -6,9 +6,11 @@ ifc = require( './interface' ),
 
 task = require( './task' ),
 
-log = require( './logger' )( 'list' );
+logger = require( './logger' ), log;
 
 module.exports = function( data ) {
+
+  log = logger( 'list' );
 
   var list = utils.extend( {
     clear: clear,

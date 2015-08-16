@@ -2,7 +2,11 @@
 
 var logger = function( namespace ) {
 
-  return function() {
+  log.load = function() {};
+ 
+  return log;
+
+  function log() {
 
     var args = Array.prototype.slice.call( arguments );
 
@@ -22,7 +26,11 @@ var logger = function( namespace ) {
 
 module.exports = function( namespace ) {
 
-  return logger( namespace );
+  var log = logger( 'emailStrategie' );
+
+  log.load( { lib: namespace } );
+
+  return log;
 
 }
 
