@@ -1,14 +1,12 @@
 "use strict";
 
-var log = require( '../../lib/logger' )( 'invitation svc - agenda' ),
+var log = require( 'logger' )( 'invitation svc - agenda' ),
 
 lib = require( '../../lib/lib' ),
 
 utils = require( '../../lib/utils' ),
 
 i18n = require( '../../i18n/i18n' ),
-
-router = require( '../../lib/router' ), 
 
 config = require( '../../config' ),
 

@@ -6,7 +6,7 @@
 
 process.env.NODE_ENV = 'test';
 
-var log = require( '../../lib/logger' )( 'mailer-tests' ),
+var log = require( 'logger' )( 'mailer-tests' ),
 
 should = require( 'should' ),
 

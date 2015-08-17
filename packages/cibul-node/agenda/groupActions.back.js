@@ -12,8 +12,6 @@ agendaSvc = require( '../services/agenda' ),
 
 eventSvc = require( '../services/event' ),
 
-log = require( '../lib/logger' )( 'agenda group actions' ),
-
 routes = {
 
   agendaChangeEventStates: [ 'post', '/events/states', [

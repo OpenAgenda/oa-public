@@ -1,4 +1,4 @@
-var deepExtend = require('deep-extend'),
+var deepExtend = require( 'deep-extend' ),
 
 config = {
   all: {
@@ -17,6 +17,7 @@ config = {
     logPathDebug : '/var/tmp/cibul-node-debug.log',
     logPathError : '/var/tmp/cibul-node-errors.log',
     logNameSpaces: false,
+    logEntriesToken: '1cdd4c11-fe29-4144-ae18-e4fb8392c282',
     name: 'cibul-node',
     domain: 'openagenda.com',
     root: 'https://openagenda.com',
@@ -306,6 +307,7 @@ config = {
     multiCore: false,
     mainChannel: 'maindev',
     logNameSpaces: 'oa:*',
+    logEntriesToken: 'a2923436-55dc-4eba-8668-44824d11c089',
     //useCache: false,
     db: {
       database: 'oadev',
@@ -377,6 +379,7 @@ config = {
     multiCore: false,
     mainChannel: 'maintest',
     logNameSpaces: false,
+    logEntriesToken: false,
     //logNameSpaces: 'oa:*',
     root: 'https://d.openagenda.com',
     domain: 'd.openagenda.com',

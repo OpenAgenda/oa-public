@@ -4,9 +4,7 @@
  * task that looks at event publishings and updates and adds the corresponding jobs
  */
 
-var log = require( '../lib/logger' )( 'oembed task' ),
-
-config = require( '../config' ),
+var config = require( '../config' ),
 
 coms = require( '../lib/coms' ),
 

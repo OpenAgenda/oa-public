@@ -7,7 +7,7 @@ var TYPE_AUTOMATIC = 1,
 
 TYPE_MANUAL = 0,
 
-log = require( '../lib/logger' )( 'newsletter task' ),
+log = require( 'logger' )( 'newsletter task' ),
 
 lib = require( '../lib/lib' ),
 

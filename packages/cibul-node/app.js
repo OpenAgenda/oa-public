@@ -16,23 +16,29 @@ module.exports = function( enabledTypes, cb ) {
 
     var emailStrategie = require( 'emailStrategie' ),
 
-    log = require( './lib/logger' )( 'app' );
+    logger = require( 'logger' ),
+
+    log = logger( 'app' ),
+
+    config = require( './config' );
+
+    logger.init( {
+      debug: {
+        prefix: 'oa:',
+        enable: config.logNameSpaces
+      },
+      token: config.logEntriesToken
+    } );
 
     log( 'info', 'running server' );
 
     // load libraries
 
-    var router = require( './lib/router' )(),
-
-    cmn = require( './lib/commons-app' ),
-
-    coms = require( './lib/coms' ),
+    var cmn = require( './lib/commons-app' ),
 
     express = require( 'express' ),
 
     cookieSession = require( 'cookie-session' ),
-
-    config = require( './config' ),
 
     genUrl = require( './services/genUrl' ).init( {
       domain: config.domain,
@@ -54,7 +60,8 @@ module.exports = function( enabledTypes, cb ) {
 
     emailStrategie.init( {
       database: config.emailStrategieDb,
-      redis: config.redis
+      redis: config.redis,
+      logger: logger
     } );
 
     webModules = {
@@ -107,7 +114,7 @@ module.exports = function( enabledTypes, cb ) {
 
     app.use( function( req, res, next ) {
 
-      req.log = require( './lib/logger' )( 'req' );
+      req.log = logger( 'req' );
 
       req.log.load( { url: req.originalUrl } );
 
@@ -120,8 +127,6 @@ module.exports = function( enabledTypes, cb ) {
     webModules.web.concat( webModules.admin ).forEach( function( m ) {
 
       genUrl.load( m.paths );
-
-      cmn.loadInDeprecatedRouter( m.paths );
 
     } );
 
@@ -148,8 +153,6 @@ module.exports = function( enabledTypes, cb ) {
         m.load( app );
 
       });
-
-      cmn.loadDeprecatedRoutes( genUrl );
 
     }
 
@@ -207,7 +210,7 @@ module.exports = function( enabledTypes, cb ) {
 
     if ( cb ) cb( null, server );
 
-    process.on( 'uncaughtException', function (err) {
+    process.on( 'uncaughtException', function ( err ) {
 
       log( 'error', 'uncaughtException: %s', err.message );
 

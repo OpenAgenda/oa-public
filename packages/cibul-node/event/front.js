@@ -72,8 +72,6 @@ routes = {
 
 },
 
-log = require( '../lib/logger' )( 'event front' ),
-
 deepExtend = require( 'deep-extend' );
 
 module.exports = function( path ) {

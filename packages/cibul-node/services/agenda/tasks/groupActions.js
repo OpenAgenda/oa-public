@@ -10,7 +10,7 @@ eventSvc = require( '../../event' ),
 
 utils = require( 'utils' ),
 
-log = require( '../../../lib/logger' )( 'groupactions - tasks' );
+log = require( 'logger' )( 'groupactions - tasks' );
 
 q.setConsumer( process );
 

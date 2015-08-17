@@ -8,7 +8,7 @@ process.env.NODE_ENV = 'test';
 
 var config = require( '../../config' ),
 
-log = require( '../../lib/logger' )( 'resetApiCounter tests' ),
+log = require( 'logger' )( 'resetApiCounter tests' ),
 
 should = require( 'should' ),
 

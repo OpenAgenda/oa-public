@@ -4,8 +4,6 @@ var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
-log = require( '../lib/logger' )( 'auth/google' ),
-
 config = require( '../config' ),
 
 lib = require( '../lib/lib' ),
@@ -28,8 +26,6 @@ routes = {
 module.exports = function( path ) {
 
   var router = modLib.Router( routes );
-
-  log( 'initing' );
 
   router.pre( [
     cmn.flashSetter,

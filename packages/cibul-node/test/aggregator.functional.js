@@ -82,7 +82,7 @@ describe( 'agenda aggregator actions', function() {
 
           f.method.should.equal( 'notify.unpublish' );
 
-          f.args[ 0 ].should.equal( events[ 0 ].id );
+          events.map( function( e ) { return e.id; } ).indexOf( f.args[ 0 ] ).should.not.equal( -1 );
 
           f.args[ 1 ].should.equal( sourceAgenda.id );
 
@@ -110,7 +110,7 @@ describe( 'agenda aggregator actions', function() {
 
         f.method.should.equal( 'notify.publish' );
 
-        f.args[ 0 ].should.equal( events[ 0 ].id );
+        events.map( function( e ) { return e.id; } ).indexOf( f.args[ 0 ] ).should.not.equal( -1 );
 
         f.args[ 1 ].should.equal( sourceAgenda.id );
 

@@ -8,8 +8,6 @@ cmn = require( '../lib/commons-app' ),
 
 eventSvc = require( '../services/event' ),
 
-log = require( '../lib/logger' )( 'agenda exports front' ),
-
 perPage = 20,
 
 routes = {

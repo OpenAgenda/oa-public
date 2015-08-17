@@ -5,7 +5,7 @@
  */
 
 
-var log = require( '../lib/logger' )( 'mailer' ),
+var log = require( 'logger' )( 'mailer' ),
 
 lib = require( '../lib/lib' ),
 

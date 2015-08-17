@@ -8,7 +8,7 @@ model = require( '../../model' ),
 
 utils = require( 'utils' ),
 
-log = require( '../../../lib/logger' )( 'es svc rebuild' );
+log = require( 'logger' )( 'es svc rebuild' );
 
 module.exports = function( cb ) {
 

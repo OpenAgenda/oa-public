@@ -14,8 +14,6 @@ auth = require( './lib/auth' )( 'facebook' ),
 
 w = require( 'when' ),
 
-log = require( '../lib/logger' )( 'auth/facebook' ),
-
 genUrl = require( '../services/genUrl' ),
 
 routes = {
@@ -28,8 +26,6 @@ routes = {
 module.exports = function( path ) {
 
   var router = modLib.Router( routes );
-
-  log( 'initing' );
 
   router.pre( [
     cmn.flashSetter,

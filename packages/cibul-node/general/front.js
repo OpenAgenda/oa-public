@@ -63,7 +63,7 @@ function index( view ) {
 
       if ( req.session.logged ) {
 
-        cmn.redirect( req, res, 'homeShow' );
+        res.redirect( 302, req.genUrl( 'homeShow' ) );
 
         return;
 
@@ -92,7 +92,9 @@ function newsletterSubscribe( req, res ) {
 
     if ( status === 200 ) {
 
-      cmn.redirect( req, res, 'corpoHome', {}, 'You have been added to the newsletter list. Thanks!' );
+      res.setFlash( req, 'You have been added to the newsletter list. Thanks!' );
+
+      res.redirect( 302, req.genUrl( 'corpoHome' ) );
 
       mailer.queueMail( {
         recipient: [ 'romain@cibul.net', 'kaore@cibul.net' ],
@@ -101,7 +103,9 @@ function newsletterSubscribe( req, res ) {
 
     } else {
 
-      cmn.redirect( req, res, 'corpoHome', {}, 'Either the email is invalid or the newsletter service is unavailable. Please try again later.' );
+      res.setFlash( req, 'Either the email is invalid or the newsletter service is unavailable. Please try again later.' );
+
+      res.redirect( 302, req.genUrl( 'corpoHome' ) );
 
     }
 
@@ -162,6 +166,6 @@ function serviceConnectCallback( req, res ) {
   }
 
 
-  return cmn.redirect( req, res, 'serviceSynchronize', { slug: stateObj.slug, service: req.params.service, code: req.query.code } );
+  res.redirect( 302, req.genUrl( 'serviceSynchronize', { slug: stateObj.slug, service: req.params.service, code: req.query.code } ) );
 
 }

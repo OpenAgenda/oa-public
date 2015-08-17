@@ -15,7 +15,7 @@
  * 
  */
 
-var log = require( '../../lib/logger' )( 'notification-service' ),
+var log = require( 'logger' )( 'notification-service' ),
 
 coms = require( '../../lib/coms' ),
 

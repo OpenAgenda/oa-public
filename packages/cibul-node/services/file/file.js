@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '../../lib/logger' )( 'local file service' ),
+var log = require( 'logger' )( 'local file service' ),
 
 lib = require( '../../lib/lib' ),
 

@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '../../../lib/logger' )( 'agenda sources' ),
+var log = require( 'logger' )( 'agenda sources' ),
 
 util = require( 'util' ),
 

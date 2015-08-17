@@ -4,9 +4,7 @@ var redis = require( 'redis' ),
 
 config = require( '../../config' ),
 
-cmn = require( '../../lib/commons-app' ),
-
-log = require( '../../lib/logger' )( 'session' );
+cmn = require( '../../lib/commons-app' );
 
 module.exports = {
   set: set,
@@ -58,7 +56,7 @@ function syncRedis( req, res, cb ) {
 
       if ( err ) {
 
-        log( 'failed to sync redis' );
+        req.log( 'failed to sync redis' );
 
         if ( cb ) cb( err );
 
@@ -100,7 +98,7 @@ function _updateRedisSession( req, res, user, cb ) {
 
   key = config.session.storePrefix + sessionCookieValue;
 
-  log( 'registering session in redis at key %s for user %s', key, user.id );
+  req.log( 'registering session in redis at key %s for user %s', key, user.id );
 
   cli.set( config.session.storePrefix + sessionCookieValue, JSON.stringify( {
     id: user.id,

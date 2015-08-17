@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '../../lib/logger' )( 'swapcard_service' ),
+var log = require( 'logger' )( 'swapcard_service' ),
 
 https = require( 'https' ),
 

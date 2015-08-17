@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '../../lib/logger' )( 'embed service' ),
+var log = require( 'logger' )( 'embed service' ),
 
 model = require( '../model' ),
 

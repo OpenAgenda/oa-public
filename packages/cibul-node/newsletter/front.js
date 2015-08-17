@@ -2,7 +2,7 @@
 
 var modLib = require( '../lib/moduleLib' ),
 
-log = require( '../lib/logger' )( 'newsletter/front' ),
+log = require( 'logger' )( 'newsletter/front' ),
 
 async = require( 'async' ),
 
@@ -98,7 +98,7 @@ function contactUnsubscribeSubmit( req, res ) {
 
     if ( err ) return cmn.errorResponse( req, res, err );
 
-    return cmn.redirect(req, res, 'contactUnsubscribeComplete', {uid: req.params.uid});
+    return res.redirect( 302, req.genUrl( 'contactUnsubscribeComplete', { uid: req.params.uid } ) );
 
   }, function( error, contactList ) {
 

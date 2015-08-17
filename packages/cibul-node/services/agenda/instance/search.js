@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '../../../lib/logger' )( 'agenda event search' ),
+var log = require( 'logger' )( 'agenda event search' ),
 
 es = require( '../../es/es' ),
 

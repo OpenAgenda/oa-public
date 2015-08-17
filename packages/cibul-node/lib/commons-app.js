@@ -4,7 +4,7 @@
  * common web app module middleware and initialization functions
  */
 
-exports.loadApp = loadApp;                        // load module web app in main app
+
 exports.loadLogger = loadLogger;
 
 exports.getCibulModel = getCibulModel;            // get model instance
@@ -29,8 +29,7 @@ exports.checkAdministrator = checkAdministrator;  // middleware. checks that log
 exports.checkModerator = checkModerator;
 exports.checkAdminOrModerator = checkAdminOrModerator;
 
-exports.registerRoutes = registerRoutes;          // router proxy function. register app module routes in router
-exports.redirect = redirect;                      // router proxy function. do a redirect
+
 exports.getRedirect = getRedirect;                // get redirect
 
 exports.writeToCookie = writeToCookie;
@@ -38,8 +37,6 @@ exports.clearCookie = clearCookie;
 exports.readCookie = readCookie;
 
 exports.loadLegacyRoutes = loadLegacyRoutes;
-exports.loadDeprecatedRoutes = loadDeprecatedRoutes;
-exports.loadInDeprecatedRouter = loadInDeprecatedRouter;
 
 /**
  * dependencies and constant declarations
@@ -49,7 +46,9 @@ var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2, R_MW = 3,
 
 express = require( 'express' ),
 
-log = require( './logger' )( 'commons-app' ),
+logger = require( 'logger' ),
+
+log = logger( 'commons-app' ),
 
 config = require( '../config' ),
 
@@ -58,8 +57,6 @@ w = require( 'when' ),
 wn = require( 'when/node' ),
 
 model = require( '../services/model' ),
-
-router = require( './router' ),
 
 redisCli = require( 'redis' ).createClient( config.redis.port, config.redis.host ),
 
@@ -78,30 +75,6 @@ async = require( 'async' ),
 genUrl = require( '../services/genUrl' );
 
 
-
-/**
- * common app load handlings:
- *   - create express app
- *   - name app
- *   - handover to parent
- *   - load routes
- */
-
-function loadApp( parent, path, name ) {
-
-  var app = express();
-
-  app.set( 'name', name );
-
-  app.set( 'path', path );
-
-  app.use( loadLogger( name ) );
-
-  parent.use( app );
-
-  return app;
-
-}
 
 
 /**
@@ -347,11 +320,9 @@ function catchError( req, res, jsonResponse ) {
 
       if ( !err.message ) err.message = 'The page you requested does not exist';
 
-      req.log.load( { code: 404 } );
-
       res.code = 404;
 
-      req.log( 'info', err.message );
+      req.log( 'error', err.message );
 
     }
 
@@ -375,9 +346,11 @@ function render( req, res, templatePath, data, maintain ) {
 
     if ( err ) throw err;
 
+    var statusCode = res.code ? res.code : 200;
+
     if ( !req.xhr ) {
 
-      res.writeHead( res.code ? res.code : 200, {
+      res.writeHead( statusCode, {
         "Content-Type" : "text/html; charset=utf-8",
         'Cache-Control' : 'no-cache'
       });
@@ -386,7 +359,7 @@ function render( req, res, templatePath, data, maintain ) {
 
       res.end();
 
-      req.log( 'info', 'sent html response >>>' );
+      req.log( 'info', { code: statusCode, message: 'response sent' } );
 
     } else {
 
@@ -520,11 +493,7 @@ function loadBaseData( func, cssFile ) {
 
 function loadSession( req, res, next ) {
 
-  log( 'loading session' );
-
   if ( req.session && req.session.userId ) {
-
-    log( 'session found' );
 
     req.session.logged = true;
 
@@ -534,12 +503,16 @@ function loadSession( req, res, next ) {
 
     req.user = user;
 
+    req.log.load( { userId: user.id } );
+
   } else {
 
     // super basic init
     if ( !req.session ) req.session = {};
 
     req.session.logged = false;
+
+    req.log.load( { userId: false } );
 
   }
 
@@ -585,7 +558,7 @@ function requireLogged( req, res, next ) {
 
     var currentResource = new Buffer( req.originalUrl );
 
-    router.redirect( req, res, 'authShow', { redirect: currentResource.toString( 'base64' ) } );
+    res.redirect( 302, req.genUrl( 'authShow', { redirect: currentResource.toString( 'base64' ) } ) );
 
   }
 
@@ -609,7 +582,7 @@ function requireUnlogged( req, res, next ) {
 
   } else {
 
-    router.redirect( req, res, 'homeShow' );
+    res.redirect( 302, req.genUrl( 'homeShow' ) );
 
   }
 
@@ -647,7 +620,9 @@ function requireAdmin( req, res, next ) {
 
   } else {
 
-    redirect( req, res, 'corpoHome', {}, 'Beat it.' );
+    res.setFlash( req, 'Beat it.' );
+
+    res.redirect( 302, req.genUrl( 'corpoHome' ) );
 
   }
 
@@ -707,42 +682,6 @@ function flashSetter( req, res, next ) {
 
 
 
-/**
- * router proxy function - set url generator
- */
-
-
-function makeGenUrl( options ) {
-
-  return router.makeGenUrl( options );
-
-}
-
-
-
-
-/**
- * router proxy function - register app routes
- */
-
-function registerRoutes( name, path, routes ) {
-
-  return router.registerRoutes( name, path, routes );
-
-}
-
-
-/**
- * router proxy function - redirections
- */
-
-function redirect() {
-
-  var args = Array.prototype.slice.call( arguments );
-
-  return router.redirect.apply( null, args );
-
-}
 
 function getRedirect( req, paramName ) {
 
@@ -815,7 +754,7 @@ function loadLogger( name ) {
 
   return function( req, res, next ) {
 
-    req.log = require( './logger' )( 'req' );
+    req.log = logger( 'req' );
 
     req.log.load( {
       module: name ? name : 'unkown',
@@ -964,6 +903,8 @@ function _defineLang( req, lang ) {
 
   }
 
+  req.log.load( { lang: req.lang } );
+
 }
 
 
@@ -997,31 +938,5 @@ function loadLegacyRoutes( genUrl ) {
   }
 
   genUrl.load( legacyRoutes );
-
-}
-
-function loadDeprecatedRoutes( genUrl ) {
-
-  var deprecatedRouter = require( './router' ),
-
-  deprecatedRoutes = deprecatedRouter.getAllRoutes(),
-
-  routes = {};
-
-  for ( var i in deprecatedRoutes ) {
-
-    routes[ i ] = deprecatedRoutes[ i ].uri;
-
-  }
-
-  genUrl.load( routes );
-
-}
-
-function loadInDeprecatedRouter( paths ) {
-
-  var deprecatedRouter = require( './router' );
-
-  deprecatedRouter.registerPaths( paths );
 
 }

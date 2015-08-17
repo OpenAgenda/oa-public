@@ -4,8 +4,6 @@ var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
-log = require( '../lib/logger' )( 'auth/twitter' ),
-
 config = require( '../config' ),
 
 lib = require( '../lib/lib' ),
@@ -95,7 +93,7 @@ function signup( req, res, next ) {
 
   if ( req.query.email ) {
 
-    log( 'retrieved email %s', req.query.email );
+    req.log( 'retrieved email %s', req.query.email );
 
     auth.saveOptionals( req, res, { email: req.query.email } );
 
@@ -137,7 +135,7 @@ function signinCallback( req, res, next ) {
 
     .done( function( values ) {
 
-      log( 'signinCallback controller complete' );
+      req.log( 'signinCallback controller complete' );
 
     }, cmn.catchError( req, res ) );
 

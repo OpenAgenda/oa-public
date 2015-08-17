@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '../../../lib/logger' )( 'groupactions - intance' ),
+var log = require( 'logger' )( 'groupactions - intance' ),
 
 utils = require( 'utils' ),
 

@@ -16,7 +16,7 @@ session = require( '../auth/lib/session' ),
 
 async = require( 'async' ),
 
-log = require( '../lib/logger' )( 'admin/back' ),
+log = require( 'logger' )( 'admin/back' ),
 
 lib = require( '../lib/lib' ), 
 

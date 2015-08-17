@@ -9,7 +9,7 @@ process.env.NODE_ENV = 'test';
 
 var config = require( '../../../config' ),
 
-log = require( '../../../lib/logger' )( 'events sync tests' ),
+log = require( 'logger' )( 'events sync tests' ),
 
 should = require( 'should' ),
 

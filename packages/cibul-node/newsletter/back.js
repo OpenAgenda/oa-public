@@ -2,7 +2,7 @@
 
 var modLib = require( '../lib/moduleLib' ),
 
-log = require( '../lib/logger' )( 'newsletter/back' ),
+log = require( 'logger' )( 'newsletter/back' ),
 
 async = require( 'async' ),
 
@@ -98,7 +98,7 @@ function index( req, res ) {
 
 function indexRedirect( req, res ) {
 
-  return cmn.redirect( req, res, 'newsletterIndex', { slug: req.agenda.slug } );
+  return res.redirect( 302, req.genUrl( 'newsletterIndex', { slug: req.agenda.slug } ) );
 
 }
 
@@ -142,7 +142,9 @@ function campaignRemove( req, res ) {
 
   .then( function() {
 
-    cmn.redirect( req, res, 'newsletterIndex', { slug: req.agenda.slug }, 'The campaign was deleted' );
+    res.setFlash( req, 'The campaign was deleted' );
+
+    res.redirect( 302, req.genUrl( 'newsletterIndex', { slug: req.agenda.slug } ) );
 
   } )
 
@@ -347,7 +349,7 @@ function campaignFeaturedAdd( req, res ) {
 
   .then( function() {
 
-    return cmn.redirect(req, res, 'campaignFeaturedEdit', { slug: req.agenda.slug, uid: req.params.uid }, true );
+    res.redirect( 302, req.genUrl( 'campaignFeaturedEdit', { slug: req.agenda.slug, uid: req.params.uid }, true ) );
 
   })
 
@@ -368,7 +370,7 @@ function campaignFeaturedRemove( req, res ) {
 
   .then( function() {
 
-    return cmn.redirect(req, res, 'campaignFeaturedEdit', { slug: req.agenda.slug, uid: req.params.uid }, true );
+    res.redirect( 302, req.genUrl( 'campaignFeaturedEdit', { slug: req.agenda.slug, uid: req.params.uid }, true ) );
 
   })
 
@@ -389,7 +391,7 @@ function campaignFeaturedClear( req, res ) {
 
   .then( function() {
 
-    return cmn.redirect(req, res, 'campaignFeaturedEdit', { slug: req.agenda.slug, uid: req.params.uid }, true );
+    return res.redirect( 302, req.genUrl( 'campaignFeaturedEdit', { slug: req.agenda.slug, uid: req.params.uid }, true ) );
 
   })
 
@@ -448,7 +450,9 @@ function campaignComplete( req, res ) {
 
   .then( function() {
 
-    cmn.redirect( req, res, 'newsletterIndex', { slug: req.agenda.slug }, 'the campaign was updated' );
+    res.setFlash( req, 'the campaign was updated' );
+
+    res.redirect( 302, req.genUrl( 'newsletterIndex', { slug: req.agenda.slug } ) );
 
   })
 
@@ -520,13 +524,17 @@ function contactListCreate( req, res ) {
 
         if ( err ) return _error( req, res )( err );
 
-        return cmn.redirect(req, res, 'newsletterIndex', { slug: req.agenda.slug }, 'The contact list was created' );
+        res.setFlash( req, 'The contact list was created' );
+
+        return res.redirect( 302, req.genUrl( 'newsletterIndex', { slug: req.agenda.slug } ) );
 
       });
 
     } else {
 
-      return cmn.redirect(req, res, 'newsletterIndex', { slug: req.agenda.slug }, 'The contact list was created' );
+      res.setFlash( req, 'The contact list was created' );
+
+      return res.redirect( 302, req.genUrl( 'newsletterIndex', { slug: req.agenda.slug } ) );
 
     }
 
@@ -602,7 +610,9 @@ function contactListRemove( req, res ) {
 
   .then( function() {
 
-    return cmn.redirect( req, res, 'newsletterIndex', { slug: req.agenda.slug }, 'The contact list was deleted' );
+    res.setFlash( req, 'The contact list was deleted' );
+
+    res.redirect( 302, req.genUrl( 'newsletterIndex', { slug: req.agenda.slug } ) );
 
   })
 
@@ -627,7 +637,9 @@ function contactsAdd( req, res ) {
 
       if (result.success) {
 
-        return cmn.redirect(req, res, 'contactListShow', {  slug: req.agenda.slug, uid: req.params.uid }, 'The contacts were added' );
+        res.setFlash( req, 'The contacts were added' );
+
+        return res.redirect( 302, req.genUrl( 'contactListShow', {  slug: req.agenda.slug, uid: req.params.uid } ) );
 
       } else {
 
@@ -680,7 +692,9 @@ function contactRemove( req, res ) {
 
     if ( err ) return _error( req, res )( err );
 
-    return cmn.redirect( req, res, 'contactListShow', { slug: req.agenda.slug, uid: req.params.uid }, 'The contact was removed' );
+    res.setFlash( req, 'The contact was removed' );
+
+    return res.redirect( 302, req.genUrl( 'contactListShow', { slug: req.agenda.slug, uid: req.params.uid } ) );
 
   });
 
@@ -832,7 +846,9 @@ function _processCampaignSubmit( req, res, uid, successRedirect, successMessage 
 
             log( 'campaign scheduling was refreshed, redirecting to %s', successRedirect );
 
-            cmn.redirect( req, res, successRedirect, { slug: req.agenda.slug, uid : campaign.uid }, successMessage );
+            res.setFlash( req, successMessage );
+
+            res.redirect( 302, req.genUrl( successRedirect, { slug: req.agenda.slug, uid : campaign.uid } ) );
 
           });
 
@@ -840,7 +856,9 @@ function _processCampaignSubmit( req, res, uid, successRedirect, successMessage 
 
           log( 'campaign is new, redirecting to %s', successRedirect );
 
-          cmn.redirect( req, res, successRedirect, { slug: req.agenda.slug, uid : campaign.uid }, successMessage );
+          res.setFlash( req, successMessage );
+
+          res.redirect( 302, req.genUrl( successRedirect, { slug: req.agenda.slug, uid : campaign.uid } ) );
 
         }
 

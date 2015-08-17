@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '../lib/logger' )( 'daily task' ),
+var log = require( 'logger' )( 'daily task' ),
 
 config = require( '../config' ),
 

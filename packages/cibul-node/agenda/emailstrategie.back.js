@@ -4,8 +4,6 @@ var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
-log = require( '../lib/logger' )( 'agenda/emailstrategie' ),
-
 agendaSvc = require( '../services/agenda' ),
 
 utils = require( 'utils' ),

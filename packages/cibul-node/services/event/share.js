@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '../../lib/logger' )( 'event share service' ),
+var log = require( 'logger' )( 'event share service' ),
 
 config = require( '../../config' ),
 

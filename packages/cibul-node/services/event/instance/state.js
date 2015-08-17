@@ -4,7 +4,7 @@ var model = require( '../../model' ),
 
 async = require( 'async' ),
 
-log = require( '../../../lib/logger' )( 'event state' ),
+log = require( 'logger' )( 'event state' ),
 
 TYPES = model.events().STATETYPES;
 

@@ -4,8 +4,6 @@ var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
-log = require( '../lib/logger' )( 'agenda/stakeholders' ),
-
 invitationSvc = require( '../services/invitation' ),
 
 agendaSvc = require( '../services/agenda' ),
@@ -132,13 +130,13 @@ function invite( options ) {
 
         }
 
-        cmn.redirect( req, res, params.redirect, { slug: req.agenda.slug } );
+        res.redirect( 302, req.genUrl( params.redirect, { slug: req.agenda.slug } ) )
 
       });
       
     } else {
 
-      cmn.redirect( req, res, params.redirect, { slug: req.agenda.slug } );
+      res.redirect( 302, req.genUrl( params.redirect, { slug: req.agenda.slug } ) )
 
     }
 
@@ -158,7 +156,7 @@ function inviteResend( options ) {
 
     if ( !req.query.email ) {
 
-      cmn.redirect(req, res, params.redirect, { slug: req.agenda.slug } );
+      res.redirect( 302, params.redirect, { slug: req.agenda.slug } );
 
       return;
 
@@ -172,7 +170,7 @@ function inviteResend( options ) {
 
       } else if ( !invitation ) {
 
-        log( 'error', JSON.stringify( result ) );
+        req.log( 'error', JSON.stringify( result ) );
 
         res.setFlash( req, 'Invitation could not be sent' );
 
@@ -182,7 +180,7 @@ function inviteResend( options ) {
 
       }
 
-      cmn.redirect(req, res, params.redirect, { slug: req.agenda.slug } );
+      res.redirect( 302, req.genUrl( params.redirect, { slug: req.agenda.slug } ) );
 
     } );
 

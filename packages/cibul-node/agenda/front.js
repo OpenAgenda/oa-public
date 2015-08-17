@@ -14,8 +14,6 @@ embedSvc = require( '../services/embed/embed' ),
 
 perPage = 20,
 
-log = require( '../lib/logger' )( 'agenda front' ),
-
 deepExtend = require( 'deep-extend' ),
 
 wn = require( 'when/node' ),

@@ -21,7 +21,7 @@ w = p.w,
 
 wn = p.wn,
 
-log = require( '../../lib/logger' )( 'image service' ),
+log = require( 'logger' )( 'image service' ),
 
 config = require( '../../config' ),
 

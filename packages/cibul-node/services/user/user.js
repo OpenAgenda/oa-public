@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '../../lib/logger' )( 'user service' ),
+var log = require( 'logger' )( 'user service' ),
 
 lib = require( '../../lib/lib' ),
 

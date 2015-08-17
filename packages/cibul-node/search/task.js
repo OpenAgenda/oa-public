@@ -6,7 +6,7 @@
  */
 
 
-var log = require( '../lib/logger' )( 'search task' ),
+var log = require( 'logger' )( 'search task' ),
 
 async = require( 'async' ),
 

@@ -22,6 +22,7 @@
     "emailStrategie" : "git+ssh://git@bitbucket.org:openagenda/emailStrategie.git",
     "facebook" : "git+ssh://git@bitbucket.org:openagenda/facebook.git",
     "queue" : "git+ssh://git@bitbucket.org:openagenda/queue.git",
+    "logger" : "git+ssh://git@bitbucket.org:openagenda/logger.git",
     "aws-sdk" : "~2.0",
     "when" : "~3.4",
     "zombie" : "2.5.0",

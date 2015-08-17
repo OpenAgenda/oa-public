@@ -4,7 +4,7 @@
 
 "use strict";
 
-var log = require( '../lib/logger')( 'main' ),
+var log = require( 'logger')( 'main' ),
 
 config = require( '../config' ),
 

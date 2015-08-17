@@ -6,7 +6,7 @@ process.env.NODE_ENV = 'test';
 
 var config = require('../config'),
 
-log = require( '../lib/logger' )( 'coms tests' ),
+log = require( 'logger' )( 'coms tests' ),
 
 should = require( 'should' ),
 

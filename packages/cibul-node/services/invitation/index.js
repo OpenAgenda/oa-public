@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '../../lib/logger' )( 'invitation svc' ),
+var log = require( 'logger' )( 'invitation svc' ),
 
 agendaInvitations = require( './agenda' ),
 

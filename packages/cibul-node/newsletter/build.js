@@ -29,11 +29,11 @@ module.exports = function( model, agenda, campaign, cb ) {
 
 };
 
-var async = require('async'),
+var async = require( 'async' ),
 
-lib = require('../lib/lib'),
+lib = require( '../lib/lib' ),
 
-log = require('../lib/logger')( 'newsletter/build' ),
+log = require( 'logger' )( 'newsletter/build' ),
 
 config = require( '../config' ),
 
@@ -45,7 +45,7 @@ config = require( '../config' ),
 
 mainInfo = function( model, agenda, campaign, data, cb ) {
 
-  log('generating main info');
+  log( 'generating main info' );
 
   campaign.getEdito(function( err, edito ) {
 

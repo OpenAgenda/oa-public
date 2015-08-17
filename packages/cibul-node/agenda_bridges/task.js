@@ -6,7 +6,7 @@
  */
 
 
-var log = require( '../lib/logger' )( 'agenda_bridges task' ),
+var log = require( 'logger' )( 'agenda_bridges task' ),
 
 async = require( 'async' ),
 

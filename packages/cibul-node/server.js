@@ -8,8 +8,6 @@ var enabledTypes = ( process.argv ? process.argv : [] ).filter( function( argIte
 
   return [ 'web', 'admin', 'task' ].indexOf( argItem ) !== -1;
 
-}),
-
-log = require( './lib/logger' )( 'server' );
+});
 
 require( './app' )( enabledTypes );

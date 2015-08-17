@@ -14,7 +14,7 @@ session = require( './lib/session' ),
 
 https = require( 'https' ),
 
-log = require( '../lib/logger' )( 'auth/local' ),
+log = require( 'logger' )( 'auth/local' ),
 
 config = require( '../config' ),
 
@@ -110,7 +110,7 @@ function signout( req, res ) {
 
   auth.unsetSession( req, res, function() {
 
-    cmn.redirect( req, res, 'corpoHome' );
+    res.redirect( 302, req.genUrl( 'corpoHome' ) );
 
   } );
 

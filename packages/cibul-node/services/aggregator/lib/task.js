@@ -10,7 +10,7 @@ libs = {
   sources: require( './sources' )
 },
 
-log = require( '../../../lib/logger' )( 'aggregator task' ),
+log = require( 'logger' )( 'aggregator task' ),
 
 onProcessed; // for testing
 

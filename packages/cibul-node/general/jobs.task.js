@@ -7,7 +7,7 @@
  */
 
 
-var log = require( '../lib/logger' )( 'jobs' ),
+var log = require( 'logger' )( 'jobs' ),
 
 lib = require( '../lib/lib' ),
 

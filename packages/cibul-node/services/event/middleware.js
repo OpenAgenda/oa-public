@@ -4,7 +4,7 @@ var svc,
 
 p = require( '../../lib/promises' ), w = p.w,
 
-log = require( '../../lib/logger' )( 'event middleware' ),
+log = require( 'logger' )( 'event middleware' ),
 
 utils = require( 'utils' ),
 

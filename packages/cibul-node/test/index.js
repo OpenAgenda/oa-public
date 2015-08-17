@@ -19,3 +19,5 @@ require( '../services/aggregator/test/evaluate' );
 require( '../services/aggregator/test/task' );
 require( '../services/agenda/instance/test/groupActions' );
 require( '../services/agenda/tasks/test/groupActions' );
+require( '../node_modules/logger/test/index' );
+require( '../node_modules/logger/test/utilities' );

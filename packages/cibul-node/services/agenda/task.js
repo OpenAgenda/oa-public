@@ -1,4 +1,4 @@
-var log = require( '../../lib/logger' )( 'agenda task' ),
+var log = require( 'logger' )( 'agenda task' ),
 
 svc = require( './' ),
 

@@ -20,7 +20,7 @@ var redis = require( 'redis' ),
 
 config = require( '../config' ).redis,
 
-log = require( './logger' )( 'coms' ),
+log = require( 'logger' )( 'coms' ),
 
 redisCli = redis.createClient( config.port, config.host ),
 

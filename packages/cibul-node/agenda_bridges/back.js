@@ -2,8 +2,6 @@
 
 var modLib = require( '../lib/moduleLib' ),
 
-log = require( '../lib/logger' )( 'agenda_bridges/back' ),
-
 async = require( 'async' ),
 
 w = require( 'when' ),
@@ -18,7 +16,7 @@ agendaSvc = require( '../services/agenda' ),
 
 config = require( '../config' ),
 
-model = cmn.getCibulModel(),
+model = require( '../services/model' ),
 
 routes = {
   serviceIndex: [ 'get', '/:service', serviceIndex ],
@@ -61,7 +59,7 @@ function serviceIndex( req, res ) {
 
 function connectService( req, res ) {
 
-  log( 'request received for controller linkService with %s service', req.params.service );
+  req.log( 'request received for controller linkService with %s service', req.params.service );
 
   return req.service.connectService( req, res );
 
@@ -104,7 +102,9 @@ function serviceUnlink( req, res ) {
 
   .then( function( ) {
 
-    cmn.redirect( req, res, 'serviceIndex', { service: req.params.service }, 'Your swapcard events are now being unlinked' )
+    res.setFlash( req, 'Your swapcard events are now being unlinked' );
+
+    res.redirect( 302, req.genUrl( 'serviceIndex', { service: req.params.service } ) );
 
     return wn.call( req.service.unlinkEvents, req.agenda );
 

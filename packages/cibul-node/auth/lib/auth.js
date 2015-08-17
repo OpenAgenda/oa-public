@@ -6,8 +6,6 @@ lib = require( '../../lib/lib' ),
 
 config = require( '../../config' ),
 
-log = require( '../../lib/logger' )( 'auth' ),
-
 w = require( 'when' ),
 
 deepExtend = require( 'deep-extend' ),
@@ -70,11 +68,11 @@ function init( service ) {
 
   function attemptAuth( values ) {
 
-    log( 'attempting authentication for %s with %s', service, JSON.stringify( values.profile ) );
+    values.req.log( 'attempting authentication for %s with %s', service, JSON.stringify( values.profile ) );
 
     if ( values.resolved ) {
 
-      log( 'already resolved, returning values' );
+      values.req.log( 'already resolved, returning values' );
 
       return values;
 
@@ -117,7 +115,7 @@ function init( service ) {
 
   function attemptCreate( values ) {
 
-    log( '%s attempting account creation with %s', service, JSON.stringify( values.profile ) );
+    values.req.log( '%s attempting account creation with %s', service, JSON.stringify( values.profile ) );
 
     return w.promise( function( resolve, reject ) {
 
@@ -144,7 +142,7 @@ function init( service ) {
 
         } else {
 
-          log( 'no account was created' );
+          values.req.log( 'no account was created' );
 
         }
 
@@ -154,7 +152,7 @@ function init( service ) {
 
         }
 
-        log( 'creation attempt completed with user %s and data %s', JSON.stringify( values.user ), JSON.stringify( values.data ) );
+        values.req.log( 'creation attempt completed with user %s and data %s', JSON.stringify( values.user ), JSON.stringify( values.data ) );
 
         resolve( values );
 
@@ -179,7 +177,7 @@ function signin( values ) {
 
   values.resolved = true;
 
-  log( 'signing in user %s', user.email );
+  values.req.log( 'signing in user %s', user.email );
 
   return w.promise( function( resolve, reject ) {
 
@@ -195,13 +193,13 @@ function signin( values ) {
 
         } catch ( e ) {
 
-          log( 'error', 'could not decode redirect %s', req.query.redirect );
+          req.log( 'error', 'could not decode redirect %s', req.query.redirect );
 
         }
 
         if ( redirectUrl ) {
 
-          log( 'info', 'signin in successful, redirecting to %s', redirectUrl );
+          req.log( 'info', 'signin in successful, redirecting to %s', redirectUrl );
 
           res.redirect( redirectUrl );
 
@@ -213,7 +211,7 @@ function signin( values ) {
 
       }
 
-      cmn.redirect( req, res, 'homeShow' );
+      res.redirect( 302, req.genUrl( 'homeShow' ) );
 
       resolve( values );
 
@@ -312,7 +310,7 @@ function errorDefaultMessage( values ) {
 
   if ( values.resolved ) return values;
 
-  log( 'loading default error message' );
+  values.req.log( 'loading default error message' );
 
   if ( !values.err ) values.err = {};
 
@@ -331,11 +329,11 @@ function errorExistingEmail( values ) {
 
   if ( values.resolved ) return values;
 
-  log( 'checking if account with same email exists' );
+  values.req.log( 'checking if account with same email exists' );
 
   if ( values.data && values.data.errors && values.data.errors.email ) {
 
-    log( 'an account exists with email: %s', JSON.stringify( values.profile ) );
+    values.req.log( 'an account exists with email: %s', JSON.stringify( values.profile ) );
 
     delete values.data.errors.email;
 
@@ -363,7 +361,7 @@ function redirectToComplete( values ) {
 
   var uri = values.resend? 'activateResend' : 'signupComplete';
 
-  cmn.redirect( values.req, values.res, uri, lib.extend( loadOptionals( values.req ), { email: values.user.email } ) );
+  values.res.redirect( 302, values.req.genUrl( uri, lib.extend( loadOptionals( values.req ), { email: values.user.email } ) ) );
 
   values.resolved = true;
 
@@ -402,7 +400,7 @@ function loadOptionals( req ) {
 
 function done( values ) {
 
-  log( 'done' );
+  values.req.log( 'done' );
 
 } 
 

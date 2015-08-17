@@ -4,8 +4,6 @@ var coms = require( '../../lib/coms' ),
 
 i18n = require( '../../i18n/i18n' ),
 
-router = require( '../../lib/router' ),
-
 config = require( '../../config' ),
 
 utils = require( '../../lib/utils' ),

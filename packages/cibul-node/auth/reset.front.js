@@ -10,8 +10,6 @@ w = require( 'when' ),
 
 userSvc = require( '../services/user/user' ),
 
-log = require( '../lib/logger' )( 'auth reset' ),
-
 routes = {
   lostPassword: [ 'get', '/lost', lostPassword ],
   lostPasswordSubmit: [ 'post', '/lost', lostPasswordSubmit ],
@@ -57,7 +55,7 @@ function lostPasswordSubmit( req, res ) {
 
   .then( _ifValueIsNot( 'sent', true, _render( req, res, 'auth/lostPassword' ) ) )
 
-  .done( _done, cmn.catchError( req, res ) );
+  .done( function() { req.log( 'done' ); }, cmn.catchError( req, res ) );
 
 }
 
@@ -69,7 +67,7 @@ function resetPassword( req, res ) {
 
   .then( _ifValueIsNot( 'resolved', true, _redirectToSignin( req, res, 'The link is outdated. Try again.') ) )
 
-  .done( _done, cmn.catchError( req, res ) );
+  .done( function() { req.log( 'done' ); }, cmn.catchError( req, res ) );
 
 }
 
@@ -85,7 +83,7 @@ function resetPasswordSubmit( req, res ) {
 
   .then( _ifValueIsNot( 'resolved', true, _render( req, res, 'auth/resetPassword' ) ) )
 
-  .done( _done, cmn.catchError( req, res ) );
+  .done( function() { req.log( 'done' ); }, cmn.catchError( req, res ) );
 
 }
 
@@ -114,12 +112,6 @@ function _ifValueIsNot( name, expected, func ) {
 
 }
 
-function _done( values ) {
-
-  log( 'done.');
-
-}
-
 
 function _render( req, res, uri, data ) {
 
@@ -140,7 +132,9 @@ function _redirectToSignin( req, res, message ) {
 
   return function( values ) {
 
-    cmn.redirect( req, res, 'signin', {}, message );
+    res.setFlash( req, message );
+
+    res.redirect( 302, req.genUrl( 'signin' ) );
 
     values.resolved = true;
 

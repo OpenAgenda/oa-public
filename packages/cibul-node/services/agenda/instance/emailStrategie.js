@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '../../../lib/logger' )( 'EmailStrategie' ),
+var log = require( 'logger' )( 'EmailStrategie' ),
 
 emailStrat = require( 'emailStrategie' ),
 

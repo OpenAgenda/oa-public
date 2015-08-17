@@ -2,7 +2,7 @@
 
 var aggregator, // loaded through require
 
-logger = require( '../../../lib/logger' ),
+logger = require( 'logger' ),
 
 coms = require( '../../../lib/coms' ),
 

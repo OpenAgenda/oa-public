@@ -1,6 +1,6 @@
 var cluster = require( 'cluster' ),
 
-logger = require( './logger' ),
+logger = require( 'logger' ),
 
 config = require( '../config' ),
 
@@ -116,13 +116,6 @@ function master() {
 
 
 function worker( job, cb ) {
-
-  logger().setPaths( 
-    config.logPath.replace( 'log', cluster.worker.id + '.log' ),
-    config.logPathError.replace( 'log', cluster.worker.id + '.log' )
-  );
-
-  logger().globalLoad( { workerId: cluster.worker.id } );
 
   process.on( 'message', job );
 

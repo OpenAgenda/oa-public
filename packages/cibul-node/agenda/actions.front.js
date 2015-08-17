@@ -10,8 +10,6 @@ w = require( 'when' ),
 
 model = cmn.getCibulModel(),
 
-log = require( '../lib/logger' )( 'agenda actions' ),
-
 routes = {
 
   agendaActionShow: [ 'get', '/', actionShow ],
@@ -170,7 +168,7 @@ function eventAdd( req, res ) {
 
     if ( err ) {
 
-      log( 'error', 'eventAdd: %s', err );
+      req.log( 'error', 'eventAdd: %s', err );
 
       _onActionComplete( req, res, false, 'the event could not be added' );
 
@@ -191,7 +189,7 @@ function eventRemove( req, res ) {
 
     if ( err ) {
 
-      log( 'error', 'eventRemove: %s', err );
+      req.log( 'error', 'eventRemove: %s', err );
 
       _onActionComplete( req, res, false, 'the event could not be removed' );
 
@@ -252,6 +250,6 @@ function _onActionComplete( req, res, success, message ) {
 
   }
 
-  cmn.redirect(req, res, 'eventShow', { eventSlug: req.event.slug } );
+  res.redirect( 302, req.genUrl( 'eventShow', { eventSlug: req.event.slug } ) );
 
 }

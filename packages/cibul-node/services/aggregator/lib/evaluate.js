@@ -6,7 +6,7 @@ p = require( '../../../lib/promises' ),
 
 aggUtils = require( './aggUtils' ),
 
-log = require( '../../../lib/logger' )( 'aggregator evaluate' );
+log = require( 'logger' )( 'aggregator evaluate' );
 
 module.exports = {
   publish: publish,

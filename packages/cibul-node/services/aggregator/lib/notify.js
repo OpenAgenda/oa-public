@@ -6,7 +6,7 @@ aggUtils = require( './aggUtils' ),
 
 q,
 
-log = require( '../../../lib/logger' )( 'aggregator notify' );
+log = require( 'logger' )( 'aggregator notify' );
 
 /**
  * create jobs to evaluate addition of event in each

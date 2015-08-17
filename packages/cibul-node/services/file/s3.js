@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '../../lib/logger' )( 's3 service' ),
+var log = require( 'logger' )( 's3 service' ),
 
 config = require( '../../config' ),
 

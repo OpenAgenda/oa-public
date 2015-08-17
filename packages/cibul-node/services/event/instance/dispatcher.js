@@ -4,7 +4,7 @@ var coms = require( '../../../lib/coms' ),
 
 aggregator,
 
-logger = require( '../../../lib/logger' ),
+logger = require( 'logger' ),
 
 config = require( '../../../config' );
 
