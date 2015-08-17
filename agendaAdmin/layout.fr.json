@@ -29,8 +29,10 @@
   : "Indesign - Xml",
   "Customize"
   : "Paramétrer",
-  "Adminstrators"
+  "Administrators"
   : "Administrateurs",
+  "Moderators"
+  : "Modérateurs",
   "Theme"
   : "Thème",
   "Settings"
