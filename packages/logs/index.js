@@ -10,6 +10,8 @@ logger,
 
 baseLogVars = {},
 
+debugPrefix = '',
+
 debug = require( 'debug' );
 
 module.exports = function( namespace ) {
@@ -18,7 +20,7 @@ module.exports = function( namespace ) {
     namespace: namespace
   },
 
-  debugLog = debug( namespace );
+  debugLog = debug( debugPrefix + namespace );
 
   log.load = load;
 
@@ -87,6 +89,12 @@ module.exports.init = function( c ) {
 
   });
 
-  debug.enable( c.debugEnable );
+  if ( c.debug ) {
+
+    debugPrefix = c.debug.prefix ? c.debug.prefix : '';
+
+    debug.enable( c.debug.enable );
+
+  }
 
 }
