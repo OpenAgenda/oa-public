@@ -16,7 +16,8 @@ module.exports = {
     section : "manage",
     key : "moderators",
     label : "Moderators",
-    uri : "agendaAdminModerators"
+    uri : "agendaAdminModerators",
+    requiredCred: 'moderators'
   }, {
     section : "manage",
     key : "dataviz",

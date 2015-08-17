@@ -128,5 +128,7 @@
   "Your action is being processed. The state of your events will shortly be changed to %newstate%."
   : "Votre action est en cours de traitement. L'état de vos événements sera changé à %newstate% dans un court instant.",
   "Select an action to execute before pressing the button"
-  : "Selectionnez une action à executer avant de cliquer sur le bouton"
+  : "Selectionnez une action à executer avant de cliquer sur le bouton",
+  "You can now configure and use the latest embed codes on your website"
+  : "Vous pouvez désormais configurer et utiliser la dernière version des codes d'agendas integrés"
 }

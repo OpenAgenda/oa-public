@@ -83,6 +83,7 @@ module.exports = function( enabledTypes, cb ) {
         require( './auth/reset.front' )( '/password' ),
         require( './agenda/stakeholders.back' )( '/:slug/admin' ),
         require( './agenda/emailstrategie.back' )( '/:slug/admin/emailstrategie' ),
+        require( './agenda/embeds.back' )( '/:slug/admin/embeds' ),
         require( './location/front' )( '/locations' ),
         require( './agenda/front' )( '' ),
         require( './agenda/facebook.back' )( '' ),
