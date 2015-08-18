@@ -33,13 +33,13 @@ routes = {
   embedControlData: [ 'get', '/agendas/:uid/embeds/:embedUid/controldata', [ 
     agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
     embedSvc.mw.load( 'embedUid', 'uid' ),
-    embedSvc.mw.browserCache,
+    embedSvc.mw.browserCacheControlData,
     controlData
   ] ],
   
   controlData: [ 'get', '/agendas/:uid/controldata', [ 
     agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
-    agendaSvc.mw.browserCache,
+    agendaSvc.mw.browserCacheControlData,
     controlData
   ] ],
 

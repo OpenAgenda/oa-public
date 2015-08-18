@@ -207,6 +207,8 @@ module.exports = function( enabledTypes, cb ) {
 
       emailStrategie.task();
 
+      require( './services/agenda/instance/controlData' ).task();
+
     }
 
     if ( cb ) cb( null, server );

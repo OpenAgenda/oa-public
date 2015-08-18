@@ -2,6 +2,8 @@
 
 var aggregator, // loaded through require
 
+controlData,
+
 logger = require( 'logger' ),
 
 coms = require( '../../../lib/coms' ),
@@ -39,6 +41,8 @@ module.exports = function( loaded, instance ) {
       values: { id: eventId } 
     } );
 
+    controlData.queue( instance );
+
   }
 
 }
@@ -47,5 +51,7 @@ module.exports = function( loaded, instance ) {
 function _requires() { // me no liky circular dependency
 
   if ( !aggregator ) aggregator = require( '../../aggregator' );
+
+  if ( !controlData ) controlData = require( './controlData' );
 
 }

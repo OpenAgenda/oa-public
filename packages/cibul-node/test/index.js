@@ -21,3 +21,5 @@ require( '../services/agenda/instance/test/groupActions' );
 require( '../services/agenda/tasks/test/groupActions' );
 require( '../node_modules/logger/test/index' );
 require( '../node_modules/logger/test/utilities' );
+require( '../services/agenda/instance/controlData/test/getter' );
+require( '../services/agenda/instance/controlData/test/task' );

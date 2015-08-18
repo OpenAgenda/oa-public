@@ -9,7 +9,8 @@ config = {
     jobsQueue: 'jobs',
     queues: {
       aggregator: 'aggregator',
-      groupActions: 'groupactions'
+      groupActions: 'groupactions',
+      controlData: 'agendaControlDataQueue'
     },
     legacyQueue: 'bgestack',
     tmpFolderPath: '/var/tmp/',

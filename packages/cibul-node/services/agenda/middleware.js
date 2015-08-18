@@ -8,7 +8,9 @@ utils = require( '../../lib/utils' ),
 
 svcConfig = require( './config' ),
 
-eventSvc = require( '../event' );
+eventSvc = require( '../event' ),
+
+mwh = require( '../lib/middlewareHelpers' );
 
 module.exports = function( agendaService ) {
 
@@ -19,6 +21,7 @@ module.exports = function( agendaService ) {
     loadAdminLayout: loadAdminLayout,
     search: searchEvents,
     browserCache: browserCache,
+    browserCacheControlData: browserCacheControlData,
     decorateEvents: decorateEvents,
     decorateEvent: decorateEvent,
     cleanJson: cleanJson,
@@ -217,10 +220,19 @@ function searchEvents( limit, showAll ) {
 }
 
 
+function browserCacheControlData( req, res, next ) {
+
+  req.agenda.getControlDataTimestamp( function( err, t ) {
+
+    if ( err ) next( err );
+
+    mwh.compareModifiedSince( t, req, res, next );
+
+  });
+
+}
 
 function browserCache( req, res, next ) {
-
-  var lastUpdate = req.agenda.updatedAt;
 
   if ( _hasQueryOtherThan( req, 'callback' ) ) {
 
@@ -228,19 +240,10 @@ function browserCache( req, res, next ) {
 
   }
 
-  if ( req.headers[ 'if-modified-since' ] === lastUpdate.toString() ) {
-
-    res.status( 304 ).end();
-
-    return;
-
-  }
-
-  res.set( 'Last-Modified', req.agenda.updatedAt );
-
-  next();
+  mwh.compareModifiedSince( req.agenda.updatedAt, req, res, next )
 
 }
+
 
 function decorateEvents( includePrivateData ) {
 

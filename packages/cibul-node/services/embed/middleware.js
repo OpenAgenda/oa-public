@@ -10,6 +10,8 @@ async = require( 'async' ),
 
 utils = require( '../../lib/utils' ),
 
+mwh = require( '../lib/middlewareHelpers' ),
+
 tblr = {
   eventItem: fs.readFileSync( __dirname + '/templates/eventItem.tblr' ).toString(),
   eventItemMapping: JSON.parse( fs.readFileSync( __dirname + '/templates/eventItem.map.json' ).toString() ),
@@ -26,7 +28,8 @@ module.exports = function( embedService ) {
     loadCustomLayoutData: loadCustomLayoutData,
     renderEventItems: renderEventItems,
     renderEvent: renderEvent,
-    browserCache: browserCache
+    browserCache: browserCache,
+    browserCacheControlData: browserCacheControlData
   }
 
 }
@@ -202,6 +205,25 @@ function loadCustomLayoutData( req, res, next ) {
 }
 
 
+function browserCacheControlData( req, res, next ) {
+
+  req.agenda.getControlDataTimestamp( function( err, lastUpdate ) {
+
+    if ( err ) return next( err );
+
+    if ( req.embed.updatedAt > lastUpdate ) {
+
+      lastUpdate = req.embedUpdatedAt;
+
+    }
+
+    mwh.compareModifiedSince( lastUpdate, req, res, next );
+
+  });
+
+}
+
+
 function browserCache( req, res, next ) {
 
   var lastUpdate = req.agenda.updatedAt;
@@ -218,17 +240,7 @@ function browserCache( req, res, next ) {
 
   }
 
-  if ( req.headers[ 'if-modified-since' ] === lastUpdate.toString() ) {
-
-    res.status( 304 ).end();
-
-    return;
-
-  }
-
-  res.set( 'Last-Modified', req.agenda.updatedAt );
-
-  next();
+  mwh.compareModifiedSince( lastUpdate, req, res, next );
 
 }
 
