@@ -2,7 +2,7 @@
   <ul class="admin-list"><!--
 <% if ( !loner ) { %>
     --><li class="admin-item w25 js_role_agenda_admin js_role_event_editor">
-      <a class="admin-link" href="<%= genUrl( 'agendaAdminShow', { slug: slug } ) %>" rel="nofollow">
+      <a class="admin-link" data-href="<%= genUrl( 'agendaAdminShow', { slug: slug } ) %>" rel="nofollow">
         <i class="fa fa-list"></i>
         <span><%= __( 'Manage agenda' ) %></span>
       </a>
@@ -16,12 +16,12 @@
 <% if ( loner ) { %>
 <% if ( !states[ i ].agendaOnly ) { %>
         <li class="list-group-item js_admin_item <%= states[ i ].classNames %>">
-          <a href="<%= states[ i ].type !== null ? genUrl( 'eventChangeState', { eventSlug: event.slug, type: states[ i ].type } ) : '#' %>" class="item bullet js_change_state_to_<%- states[ i ].type %><% if ( i !== event.currentState ) { %> active<% } %>" rel="nofollow"><%= __( states[ i ].label ) %></a>
+          <a data-href="<%= states[ i ].type !== null ? genUrl( 'eventChangeState', { eventSlug: event.slug, type: states[ i ].type } ) : '#' %>" class="item bullet js_change_state_to_<%- states[ i ].type %><% if ( i !== event.currentState ) { %> active<% } %>" rel="nofollow"><%= __( states[ i ].label ) %></a>
         </li>
 <% } %>
 <% } else { %>
         <li class="list-group-item js_admin_item <%= states[ i ].classNames %>">
-          <a href="<%= states[ i ].type !== null ? genUrl( 'agendaEventChangeState', { slug: slug, eventSlug: event.slug, type: states[ i ].type } ) : '#' %>" class="item bullet js_change_state_to_<%- states[ i ].type %><% if ( i !== event.currentState ) { %> active<% } %>" rel="nofollow"><%= __( states[ i ].label ) %></a>
+          <a data-href="<%= states[ i ].type !== null ? genUrl( 'agendaEventChangeState', { slug: slug, eventSlug: event.slug, type: states[ i ].type } ) : '#' %>" class="item bullet js_change_state_to_<%- states[ i ].type %><% if ( i !== event.currentState ) { %> active<% } %>" rel="nofollow"><%= __( states[ i ].label ) %></a>
         </li>
 <% } %>
 <% } %>

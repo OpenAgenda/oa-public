@@ -9,7 +9,35 @@ module.exports = {
   els: els,
   addEvent: addEvent,     // add an event to an element 
   whenReady: whenReady, // executes callback when dom is ready or if dom is ready
-  loadInLocation: loadInLocation
+  loadInLocation: loadInLocation,
+  hasClass: hasClass,
+  addClass: addClass,
+  removeClass: removeClass
+}
+
+
+function hasClass( element, cls ) {
+
+  return ( ' ' + element.className + ' ').indexOf(' ' + cls + ' ' ) > -1; 
+
+}
+
+function addClass( element, className ) {
+
+  if (!hasClass(element, className)) element.className = element.className + ' ' + className; 
+
+}
+
+function removeClass( element, cls ) {
+
+  if ( hasClass( element, cls ) ) {
+
+    var regex = new RegExp(cls, 'g');
+
+    element.className = element.className.replace(regex,'');
+
+  } 
+
 }
 
 
@@ -132,5 +160,34 @@ function forEach( array, action ) {
     action( array[ i ] );
 
   }
+
+}
+
+function getElementsByClassName( node, className ) {
+
+  if ( typeof node == 'string' ) {
+
+    className = node;
+    node = document;
+
+  }
+
+  var a = [],
+
+  re = new RegExp( '(^| )' + className + '( |$)' ),
+
+  els = node.getElementsByTagName( '*' );
+
+  for( var i=0, j=els.length; i<j; i++ ) {
+
+    if ( re.test( els[i].className ) ) {
+
+      a.push( els[i] );
+
+    }
+
+  }
+
+  return a;
 
 }

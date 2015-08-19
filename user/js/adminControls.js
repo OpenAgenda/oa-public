@@ -6,7 +6,9 @@ module.exports.ifAdmin = ifAdmin;
 
 var debug = require( 'debug' ),
 
-cn = require( '../../js/lib/common/common.mod' ),
+u = require( 'utils' ),
+
+du = require( '../../js/lib/domUtils' ),
 
 log,
 
@@ -46,7 +48,7 @@ function process( session, options ) {
 
   var i;
 
-  cn.extend( params, options );
+  u.extend( params, options );
 
   log = debug( 'adminControls' );
 
@@ -54,7 +56,7 @@ function process( session, options ) {
 
     _display();
 
-    cn.forEach( ifAdminCallbacks, function( cb ) {
+    u.forEach( ifAdminCallbacks, function( cb ) {
 
       cb();
 
@@ -73,11 +75,11 @@ function hide() {
 
   if (typeof log !== 'undefined') log( 'hiding' );
 
-  cn.addClass( cn.el( params.selectors.controls ), params.classes.displayNone );
+  du.addClass( du.el( params.selectors.controls ), params.classes.displayNone );
 
-  cn.forEach( cn.els( params.selectors.item ), function( item ) {
+  u.forEach( du.els( params.selectors.item ), function( item ) {
 
-    cn.addClass( item, params.classes.displayNone );
+    du.addClass( item, params.classes.displayNone );
 
   } );
 
@@ -121,30 +123,44 @@ function _test( session ) {
 
 function _display() {
 
+  var controlsElem = du.el( params.selectors.controls );
+
   if ( !params.displaySelectors ) { 
 
     params.displaySelectors = [ params.selectors.item ];
 
   }
 
-  cn.forEach( params.displaySelectors ? params.displaySelectors : [ params.selectors.item ], function( selector ) {
+  u.forEach( params.displaySelectors ? params.displaySelectors : [ params.selectors.item ], function( selector ) {
 
-    cn.forEach( cn.els( selector ), function( item ) {
+    u.forEach( du.els( selector ), function( item ) {
 
-      cn.removeClass( item, params.classes.displayNone );
+      du.removeClass( item, params.classes.displayNone );
 
     });
 
   });
 
-  cn.removeClass( cn.el( params.selectors.controls ), params.classes.displayNone );
+  du.removeClass( controlsElem, params.classes.displayNone );
+
+  u.forEach( du.els( 'a', controlsElem ), function( a ) {
+
+    if ( a.hasAttribute( 'data-href' ) ) {
+
+      a.setAttribute( 'href', a.getAttribute( 'data-href' ) );
+
+      a.removeAttribute( 'data-href' );
+
+    }
+
+  } );
 
 }
 
 function _move() {
 
-  var elem = cn.el( params.selectors.controls );
+  var elem = du.el( params.selectors.controls );
 
-  cn.el( params.selectors.topNav ).insertAdjacentElement( 'afterend', elem );
+  du.el( params.selectors.topNav ).insertAdjacentElement( 'afterend', elem );
 
 }
