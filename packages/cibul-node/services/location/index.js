@@ -97,8 +97,15 @@ function instanciate( data ) {
   var instance = model.locations().instance( data );
 
   return lib.extend( {}, instance, {
-    setImage: setImage
+    setImage: setImage,
+    unsetImage: unsetImage
   });
+
+  function unsetImage( cb ) {
+
+    instance.setImage( null, true, cb );
+
+  }
 
   function setImage( url, cb ) {
 
