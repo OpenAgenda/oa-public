@@ -258,11 +258,11 @@ var AgeFields = React.createClass({displayName: "AgeFields",
 
   },
 
-  onEnabled: function() {
+  onEnabled: function( enable ) {
 
     var self = this;
 
-    return function( enable ) {
+    return function() {
 
       if ( typeof enable == 'undefined' ) {
 
@@ -367,7 +367,7 @@ var AgeFields = React.createClass({displayName: "AgeFields",
         
         React.createElement("ul", null, 
           React.createElement("li", {className: "line"}, 
-            React.createElement("input", {type: "checkbox", name: "age", value: "1", checked: this.state.enabled, onClick: this.onEnabled()}), 
+            React.createElement("input", {type: "checkbox", name: "age", value: "1", checked: this.state.enabled, onClick: this.onEnabled(!this.state.enabled)}), 
             React.createElement("label", {onClick: this.onEnabled()}, this.labels.title[this.props.lang]), " -",  
             React.createElement("label", {onClick: this.onEnabled(), for: "minage"}, this.labels.min[this.props.lang]), 
             React.createElement(Select, {
