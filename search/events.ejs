@@ -17,7 +17,7 @@
         <article><!--
   <% if ( event.thumbnail ) { %>
           --><a class="pic" href="<%= genUrl('eventShow', [ { eventSlug: event.slug }, queryLang ? { lang: queryLang } : {} ]) %>">
-            <img src="<%= _i( event.thumbnail ) %>" alt="<%= event.title %>">
+            <img src="<%= event.thumbnail %>" alt="<%= event.title %>">
           </a><!--
   <% } %>
           --><div class="cnt<% if ( !event.thumbnail ) { %> nopic<% } %>" href="#">
