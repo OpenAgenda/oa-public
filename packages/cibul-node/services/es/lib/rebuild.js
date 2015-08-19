@@ -49,7 +49,13 @@ function _populate( schema ) {
 
       lib[ schema ]().bulk( results, function( err, result ) {
 
-        if ( err ) return cb( err );
+        if ( err ) {
+
+          log( 'error', err );
+
+          return cb( err );
+
+        }
 
         next();
 
