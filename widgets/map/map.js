@@ -305,7 +305,9 @@ function widget( elem, options ) {
 
     var resetCluster = _nonMapQueryChange( reqParams ) || !initCluster,
 
-    bounds = false, initCluster = true;
+    bounds = false;
+
+    initCluster = true;
 
     log( 'enabling map' );
 
@@ -628,7 +630,9 @@ function widget( elem, options ) {
 
     }
 
-    if ( useClusters && clusterGroup && resetCluster ) {
+    if ( enabled && useClusters && clusterGroup && resetCluster ) {
+
+      log( 'resetting cluster' );
 
       try { // try - mitigate ie10 exception
 
@@ -649,7 +653,7 @@ function widget( elem, options ) {
     
     }
 
-    if ( useClusters && clusterGroup && resetCluster ) {
+    if ( enabled && useClusters && clusterGroup && resetCluster ) {
 
       try {
         

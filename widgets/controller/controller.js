@@ -294,13 +294,13 @@ module.exports = function( uid ) {
 
     log( 'updating with %s', JSON.stringify( updatedParams ) );
 
-    var newParams = cn.extend( {}, currentRequestParams, { 
+    var newParams = _clean( cn.extend( {}, currentRequestParams, { 
       uid: null
-    }, updatedParams );
+    }, updatedParams ) );
 
     if ( !isDifferent( newParams ) ) return;
 
-    currentRequestParams = _clean( newParams );
+    currentRequestParams = newParams;
 
     if ( !ready ) {
 
@@ -408,7 +408,7 @@ module.exports = function( uid ) {
 
     if ( syncHref ) {
 
-      currentRequestParams = _cleanSearch( _readHrefQuery( 'search' ) );
+      currentRequestParams = _clean( _readHrefQuery( 'search' ) );
 
     }
 
@@ -698,7 +698,23 @@ module.exports = function( uid ) {
 
       if ( data[ k ] !== null ) {
 
-        cleanData[ k ] = data[ k ];
+        if ( [ 'neLat', 'neLng', 'swLat', 'swLng' ].indexOf( k ) !== -1 ) {
+
+          cleanData[ k ] = parseFloat( data[ k ] );
+
+        } else if ( k == 'tags' ) {
+
+          if ( cn.isArray( data[ k ] ) && data[ k ].length ) {
+
+            cleanData[ k ].tags = data[ k ];
+
+          }
+
+        } else {
+
+          cleanData[ k ] = data[ k ];
+
+        }
 
       }
 
@@ -801,43 +817,6 @@ module.exports = function( uid ) {
     }
 
     return {};
-
-  }
-
-  function _cleanSearch( search ) {
-
-    var cleanTags = [];
-
-    if ( !search ) return;
-
-    cn.forEach( [ 'neLat', 'neLng', 'swLat', 'swLng' ], function( f ) {
-
-      if ( search[ f ] ) search[ f ] = parseFloat( search[ f ] );
-
-    });
-
-
-    if ( ( typeof search.tags !== 'undefined' ) && cn.isArray( search.tags ) ) {
-
-      cn.forEach( search.tags, function( tag ) {
-
-        if ( tag.length ) cleanTags.push( tag );
-
-      });
-
-      if ( !cleanTags.length ) {
-
-        delete search.tags;
-
-      } else {
-
-        search.tags = cleanTags;
-
-      }
-
-    }
-
-    return search;
 
   }
 

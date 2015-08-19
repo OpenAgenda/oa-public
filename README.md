@@ -1,69 +1,11 @@
-Cibul Templates project readme
-==============================
+# OA templates
 
+## Layouts
 
-CSS rules
----------
+Layouts wrap pages with whatever you put in them. They are specified in your templateName.config.json file. They are built in much of the same way as a regular template. Examples of layouts and templates where they are used:
 
-### Page structure
+* layout/main : this is the legacy base layout for the website. It adds the header and any general page script ( session loader, header scripts .. ).
 
-Page structure css is shown and located in the 'structure' folder. All page required page structure are described and tested there.
+* bsLayout : this is the bootstrap version of the main website layout. An example of use is the agenda/show or event/show templates.
 
-
-CSS files
----------
-
-css/base.css - bootstrap css to use everywhere ( embed and site )
-css/site.css - base css for main website ( discrete elements displayed here and there in the site )
-user/css/menu.css - user dropdown menu ( preloaded by main layout )
-
-
-Template address params
--------------------
-
-?state=<nameofstate>  - for when you want to load a different dataset than the base one. check the mock file for options ( first one is base )
-
-?logged= - for when you want to run the page as a logged user
-
-
-
-Misc
-----
-
-partials:
-templates which are not meant to be rendered in full web page
-they are suffixed with .part.ejs
-
-never run nodemon in parallel in two different terminals on two different projects
-
-
-
-Environments ( for scripts ):
------------------------------
-
-prod: everything live and online
-dev:  full running project in dev mode. This is for when templates are used in conjunction with full project in dev mode
-tpl: standalone templates
-
-
-Pagination
-----------
-
-There is a partial for that. Use it: /general/pages. Use cases can be found for example in agenda/show ( where it is overriden by an ajax scroll down load ) or in newsletter/admin/contactListShow
-
-
-Frontend javascript
--------------------
-
-He who does not follow these guidelines shall surely be put to death:
-
-- use browserify
-- start every js file with "use strict";
-- three environments are to be considered: prod, dev and tpl
-- for dom manipulations, use functions exposed by common.mod.js
-
-
-test data ( for scripts ):
---------------------------
-
-whenever requests are made to the server, static files should be  fetched by whatever script is running ( environment should be set to 'tpl' ). These files, in json are stored in the server/testdata folder. The content should be fetchable by ajax (not jsonp).
+* embedLayout : layout used for any website-embedded view. It is a bare-bone layout that loads only the necessary for making embedded view. Used in agenda/embedShow
