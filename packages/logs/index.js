@@ -14,7 +14,7 @@ debugPrefix = '',
 
 debug = require( 'debug' );
 
-module.exports = function( namespace ) {
+module.exports = function( namespace, preloaded ) {
 
   var logVars = {
     namespace: namespace
@@ -24,11 +24,11 @@ module.exports = function( namespace ) {
 
   log.load = load;
 
+  if ( preloaded ) load( preloaded );
+
   return log;
 
   function log( level, message, args ) {
-
-    if ( !config ) return null;
 
     var args = Array.prototype.slice.call( arguments ),
 
@@ -55,7 +55,7 @@ module.exports = function( namespace ) {
 
     debugLog( message );
 
-    return entry;
+    return config ? entry : null;
 
   }
 
