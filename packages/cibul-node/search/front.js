@@ -117,29 +117,19 @@ function latestEvents( req, res ) {
 
   req.log( 'info', 'request received for latestEvents.' );
 
-  wn.call( async.parallel, [
-    async.apply( model.events().list, { 
-      page : req.query.page ? req.query.page : 1, 
-      limit : perPage
-    } ),
-    async.apply( model.events().total )
-  ])
+  eventSvc.search( { order: 'update' }, { page: req.query.page }, function( err, result ) {
 
-  .spread( function( events, total ) {
+    if ( err ) return next( err );
 
-    cmn.render( req, res, 'search/events', lib.extend(
-      req.templateData ? req.templateData : {},
-      {
-        events: _cleanEvents( events ),
-        searchRes :'searchEvents',
-        search: req.cleanSearch
-      },
-      _pager( req, 'latestEvents', total )
+    cmn.render( req, res, 'search/events', lib.extend( 
+      req.templateData ? req.templateData : {}, { 
+        events: _cleanEvents( result.events ),
+        searchRes: 'searchEvents', 
+        search: req.query.search 
+      }, _pager( req, 'latestEvents', result.total )
     ));
 
-  } )
-
-  .catch( _error( req, res ) );
+  } );
 
 }
 
@@ -167,29 +157,9 @@ function searchAgendas( req, res ) {
 
 function latestAgendas( req, res ) {
 
-  req.log( 'info', 'request received for searchAgendas' );
+  req.log( 'info', 'request received for latestAgendas' );
 
-  wn.call( async.parallel, [
-    async.apply( model.agendas().total, {
-      upcoming : true,
-      orderBy : [ 'r.updated_at desc' ]
-    } ),
-    async.apply( model.agendas().list, {
-      page : req.query.page ? req.query.page : 1,
-      limit : perPage,
-      upcoming : true,
-      orderBy : [ 'r.updated_at desc' ]
-    } )
-  ])
-
-  .spread( function( total, data ) {
-
-    return {
-      total: total,
-      data: data
-    }
-
-  } )
+  wn.call( agendaSvc.search, { order: 'update' }, { page: req.query.page } )
 
   .then( _renderAgendas( req, res, 'latestAgendas' ) )
 
