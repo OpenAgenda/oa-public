@@ -53,7 +53,11 @@ if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) {
 
 }
 
-window.hook( function( options ) {
+window.asap( function( options ) {
+
+  log = debug( 'agendaPage' );
+
+  log( 'initing' );
 
   var controller = window.cibul.getController( options.uid ),
 
@@ -63,8 +67,6 @@ window.hook( function( options ) {
 
   timeline = timeliner( options.lang );
   
-  log = debug( 'agendaPage' );
-
   adminControls.init();
 
   _handleImportButton();
