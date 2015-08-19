@@ -13,7 +13,7 @@ function compareModifiedSince( timestamp, req, res, next ) {
 
   }
 
-  if ( req.headers[ 'if-modified-since' ] === timestamp ) {
+  if ( timestamp && ( req.headers[ 'if-modified-since' ] === timestamp ) ) {
 
     req.log( 'marked as not modifed' );
 
