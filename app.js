@@ -427,7 +427,7 @@ function _fixFontAwesomeRelativePath( filename, content ) {
 
 function _jsRoot( v ) {
 
-  v.compiled.scriptsBase = '/js/browserified';
+  v.compiled.scriptsBase = '/build/browserified';
 
   return v;
 
