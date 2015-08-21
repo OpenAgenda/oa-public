@@ -22,6 +22,8 @@ function get( params, cb ) {
 
     if ( err ) return cb( err );
 
+    if ( !result ) return cb( 'embed configuration not found' );
+
     cb( null, instanciate( result ) );
 
   });
@@ -41,6 +43,8 @@ function instanciate( data ) {
   function getControlData( cb ) {
 
     getAgenda( function( err, a ) {
+
+      if ( err ) return cb( err );
 
       a.getControlData( function( err, ctlData ) {
 

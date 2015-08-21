@@ -133,7 +133,7 @@ function loadEmbed( paramName, fieldName ) {
 
     svc.get( getParams, function( err, e ) {
 
-      if ( err ) return next( 'embed service error' );
+      if ( err ) return next( { code: 404, message: 'embed configuration not found' } );
 
       req.embed = e;
 

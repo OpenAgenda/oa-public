@@ -281,6 +281,12 @@ function errorResponse( req, res, error, jsonResponse ) {
 
   }
 
+  if ( error.message ) {
+
+    error.message = i18n( error.message, {}, req.lang );
+
+  }
+
 
   if ( jsonResponse ) {
 
