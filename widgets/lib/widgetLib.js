@@ -11,19 +11,34 @@ log = require( 'debug' )( 'widgetLib' );
 
 exports.forEachAnchor = function( selector, options, cb ) {
 
-  _onAsapReady( function() {
+  // do it asap
+  _onAsapReady( _load( selector, options, cb ) );
+
+  // at latest, do it if dom is ready
+  _domReady( _load( selector, options, cb ) );
+
+};
+
+function _load( selector, options, cb ) {
+
+  return function() {
 
     cn.forEach( cn.els( selector ), function( elem ) {
       
-      cb( elem, cn.extend( {
-        anchorConfig: readAnchorConfig( elem )
-      }, options ) );
+      if ( !_flagged( elem ) ) {
+
+        cb( elem, cn.extend( {
+          anchorConfig: readAnchorConfig( elem )
+        }, options ) );
+
+      }
 
     } );
 
-  });
+  }
 
-};
+
+}
 
 /**
  * bootstrap widget with default controller interface functions
@@ -43,7 +58,7 @@ exports.interface = function( name, uid, cbs ) {
 
 }
 
-exports.flagged = function( elem ) {
+function _flagged( elem ) {
 
   if ( elem.hasAttribute( 'data-flag' ) ) {
 

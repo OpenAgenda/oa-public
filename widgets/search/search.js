@@ -46,17 +46,11 @@ var widget = function( elem, options ) {
 
   inputElem, buttonElem,
 
-  waiting = false, // buffer input to limit server request frequency
+  waiting = false; // buffer input to limit server request frequency
 
-  init = function() {
+  ( function() {
 
     var uid = options.anchorConfig[ UID ];
-
-    if ( wLib.flagged( elem ) ) {
-
-      return;
-
-    }
 
     if ( options.anchorConfig[ LANG ] ) {
 
@@ -85,9 +79,9 @@ var widget = function( elem, options ) {
 
     if ( onReady ) onReady();
 
-  },
+  } )();
 
-  enable = function( reqParams ) {
+  function enable( reqParams ) {
 
     enabled = true;
 
@@ -95,15 +89,15 @@ var widget = function( elem, options ) {
 
     _refreshElement();
 
-  },
+  }
 
-  disable = function() {
+  function disable() {
 
     enabled = false;
 
-  },
+  }
 
-  _update = function( value ) {
+  function _update( value ) {
 
     what = value.length ? value : null;
 
@@ -119,9 +113,9 @@ var widget = function( elem, options ) {
 
     }
 
-  },
+  }
 
-  _createElement = function() {
+  function _createElement() {
 
     styler( style );
 
@@ -135,9 +129,9 @@ var widget = function( elem, options ) {
 
     inputElem = cn.el( elem, 'input' );
 
-  },
+  }
 
-  _refreshElement = function() {
+  function _refreshElement() {
 
     cn.removeEvent( inputElem, [ 'keyup', 'blur' ], _onInput );
 
@@ -157,17 +151,17 @@ var widget = function( elem, options ) {
 
     }
 
-  },
+  }
 
-  _onClick = function( e ) {
+  function _onClick( e ) {
 
     cn.preventDefault( e );
 
     _processInput();
 
-  },
+  }
 
-  _onEnter = function( e ) {
+  function _onEnter( e ) {
 
      if ( e.keyCode == 13 ) {
 
@@ -175,9 +169,9 @@ var widget = function( elem, options ) {
 
     }
 
-  },
+  }
 
-  _onInput = function( e ) {
+  function _onInput( e ) {
 
     if ( waiting ) {
 
@@ -195,9 +189,9 @@ var widget = function( elem, options ) {
 
     }
 
-  },
+  }
 
-  _processInput = function() {
+  function _processInput() {
 
     var newValue = inputElem.value;
 
@@ -210,8 +204,6 @@ var widget = function( elem, options ) {
     waiting = false;
 
   };
-
-  init();
 
 };
 

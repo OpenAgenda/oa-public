@@ -188,6 +188,8 @@ module.exports = function( uid ) {
 
     widgets.push( widgetParams );
 
+    if ( enabled ) widgetParams.enable( currentRequestParams );
+
     return {
       update: update,
       getControlData: getControlData,
@@ -625,6 +627,8 @@ module.exports = function( uid ) {
     
     }
 
+    enabled = true;
+
     log( 'sweep result %d out of %d', includedCount, cn.size( ctl.a ) );
 
     // enable all the widgets!
@@ -706,7 +710,7 @@ module.exports = function( uid ) {
 
           if ( cn.isArray( data[ k ] ) && data[ k ].length ) {
 
-            cleanData[ k ].tags = data[ k ];
+            cleanData[ k ] = data[ k ];
 
           }
 

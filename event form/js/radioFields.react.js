@@ -49,14 +49,14 @@ module.exports = React.createClass({
 
       return <li>
         <input type="radio" name={self.props.field.name} checked={option.value==self.props.value} onChange={self.onChange.bind( self, option.value )} />
-        <label>{option.label[self.props.lang]}</label>
+        <label>{option.label[self.props.labelsLang]}</label>
       </li>;
 
     };
 
     return ( 
       <li>
-        <label>{this.props.field.label[this.props.lang]}{this.props.field.optional ? '' : ' (*)'}</label>
+        <label>{this.props.field.label[this.props.labelsLang]}{this.props.field.optional ? '' : ' (*)'}</label>
         <ul>{this.props.field.options.map( renderOption )}</ul>
         { this.props.error && this.state.userHasTyped ? <span className="error">{this.props.error}</span> : '' }
       </li>

@@ -251,7 +251,7 @@ var cibulEvent = function(params) {
 
     });
 
-    _on(params.events.customfields.write, function(data) {
+    _on( params.events.customfields.write, function( data ) {
 
       var errors;
 
@@ -261,7 +261,7 @@ var cibulEvent = function(params) {
 
         errors = {};
 
-        for( var d in data ) {
+        for ( var d in data ) {
 
           errors[ d ] = data[ d ].error ? data[ d ].label + ': ' + data[ d ].error : false;
 
@@ -273,7 +273,7 @@ var cibulEvent = function(params) {
 
       }
 
-    });
+    } );
 
     _on(params.events.uidfetch, function(callback) {
 

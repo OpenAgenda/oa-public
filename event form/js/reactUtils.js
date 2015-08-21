@@ -7,7 +7,9 @@ module.exports = {
   extend: cn.extend,
   el: cn.el,
   ehUpdate: ehUpdate,
-  loadReact: loadReact
+  ehSubscriber: ehSubscriber,
+  loadReact: loadReact,
+  eh: window.sEventHandler.getInstance()
 }
 
 function loadReact() {
@@ -21,6 +23,17 @@ function ehUpdate( eventName ) {
   return function( v ) {
 
     window.sEventHandler.getInstance().trigger( eventName, v );
+
+  }
+
+}
+
+
+function ehSubscriber( eventName ) {
+
+  return function( cb ) {
+
+    window.sEventHandler.getInstance().on( eventName, cb );
 
   }
 

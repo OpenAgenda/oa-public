@@ -4,6 +4,8 @@ var React = require( 'react' ),
 
 validators = require( './validators' ),
 
+utils = require( 'utils' ),
+
 ERR = {
   NOTINT: 0,
   NOTEMPTY: 1,
@@ -47,10 +49,79 @@ module.exports = React.createClass({
 
   update: function( value ) {
 
-    this.props.handleUpdate( 
-      value, 
-      this.validate( value )
+    if ( this.props.field.multilingual ) {
+
+      this.updateMultilingual( value );
+
+    } else {
+
+      this.props.handleUpdate( 
+        value, 
+        this.validate( value )
+      );
+
+    }
+
+  },
+
+  updateMultilingual: function( value ) {
+
+    var valueSet = utils.extend( {}, this.props.value );
+
+    if ( typeof valueSet !== 'object' ) {
+
+      valueSet = {};
+
+    }
+
+    // set current language value
+
+    if ( typeof value == 'object' ) {
+
+      utils.extend( valueSet, value );
+
+    } else {
+
+      valueSet[ this.props.currentLanguage ] = value;
+
+    }
+
+    this.props.handleUpdate(
+      valueSet,
+      this[ this.props.multilingual ? 'validateMultilingual' : 'validate' ]( value )
     );
+
+  },
+
+  extractFieldValue: function() {
+
+    if ( !this.props.field.multilingual ) {
+
+      return this.props.value;
+
+    } else {
+
+      return this.extractMultilingualFieldValue();
+
+    }
+
+  },
+
+  extractMultilingualFieldValue: function() {
+
+    if ( typeof this.props.value !== 'object' ) {
+
+      return this.props.value;
+
+    }
+
+    if ( typeof this.props.value[ this.props.currentLanguage ] === 'undefined' ) {
+
+      return '';
+
+    }
+
+    return this.props.value[ this.props.currentLanguage ];
 
   },
 
@@ -58,11 +129,11 @@ module.exports = React.createClass({
 
     if ( [ 'integer', 'text', 'number', 'email', 'url' ].indexOf( this.props.type ) !== -1 ) {
 
-      return <input type="text" value={this.props.value} onChange={this.onChange}/>;
+      return <input type="text" value={this.extractFieldValue()} onChange={this.onChange}/>;
 
     } else {
 
-      return <textarea value={this.props.value} onChange={this.onChange}/>
+      return <textarea value={this.extractFieldValue()} onChange={this.onChange}/>
 
     }
 
@@ -72,12 +143,38 @@ module.exports = React.createClass({
 
     return ( 
       <li>
-        <label>{this.props.field.label[this.props.lang]}{this.props.field.optional ? '' : ' (*)'}</label>
+        <label>{this.props.field.label[this.props.labelsLang]}{ this.props.field.optional ? '' : ' (*)' }</label>
         {this.renderField()}
         { this.props.error && this.state.userHasTyped ? <span className="error">{this.props.error}</span> : '' }
-        { this.props.field.info && !( this.props.error && this.state.userHasTyped ) ? <span className="info">{this.props.field.info[this.props.lang]}</span> : '' }
+        { this.props.field.info && !( this.props.error && this.state.userHasTyped ) ? <span className="info">{this.props.field.info[this.props.labelsLang]}</span> : '' }
       </li>
     );
+
+  },
+
+  validateMultilingual: function( value ) {
+
+    var messages = {},
+
+    self = this,
+
+    has = false;
+
+    this.props.languages.forEach( function( l ) {
+
+      var message = self.validate( value[ l ] );
+
+      if ( message ) {
+
+        messages[ l ] = message;
+
+        has = true;
+
+      }
+
+    });
+
+    return has ? messages : false;
 
   },
 
@@ -160,7 +257,7 @@ module.exports = React.createClass({
       fr: 'cette valeur doit être une url ( commençant par http ou https )'
     };
 
-    message = messages[ code ][ this.props.lang ];
+    message = messages[ code ][ this.props.labelsLang ];
 
     if ( value !== undefined ) {
 

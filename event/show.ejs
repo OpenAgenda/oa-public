@@ -102,11 +102,11 @@
           <div class="langs">
             <p><%= __('Description available in') %>&nbsp;</p>
             <ul>
-<% event.languages.selection.forEach( function( lang ) { %>
-<% if ( lang.label==event.languages.current ) { %>
-              <li class="current"><a><%= lang.label %></a></li>
+<% event.languages.selection.forEach( function( l ) { %>
+<% if ( l.label==event.languages.current ) { %>
+              <li class="current"><a><%= l.label %></a></li>
 <% } else { %>
-              <li><a hreflang="<%= lang %>" href="<%= lang.link %>"><%= lang.label %></a></li>
+              <li><a hreflang="<%= lang %>" href="<%= lang.link %>"><%= l.label %></a></li>
 <% } %>
 <% }); %>
             </ul>

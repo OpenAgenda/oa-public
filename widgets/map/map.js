@@ -53,8 +53,6 @@ res = cn.extend( res.all, res[ env ] ? res[ env ] : {} );
 
 function widget( elem, options ) {
 
-  if ( wLib.flagged( elem ) ) return;
-
   var log,
 
   m,

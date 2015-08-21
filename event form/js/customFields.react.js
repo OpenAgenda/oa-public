@@ -13,10 +13,12 @@ rUtils = require( './reactUtils' ),
 defaults = {
   canvas: '.js_form_canvas',
   fields: [],
-  lang: 'fr',
+  labelsLang: 'fr',
   events: {
     get: 'ecustomfieldsfetch',
-    send: 'ecustomfieldssend'
+    send: 'ecustomfieldssend',
+    languageChange: 'languagechange',
+    fetchLanguages: 'languagesfetch'
   }
 };
 
@@ -26,17 +28,29 @@ module.exports = function( options ) {
 
   fields = typeof params.fields == 'string' ? JSON.parse( params.fields ) : params.fields;
 
-  React.render(
-    <CustomFields fields={fields} lang={params.lang} update={ rUtils.ehUpdate( params.events.send ) } />,
+  React.render( <CustomFields
+    fields={ fields }
+    labelsLang={ params.labelsLang }
+    update={ rUtils.ehUpdate( params.events.send ) }
+    defaultLanguage= { params.defaultLanguage }
+    languageChange={ rUtils.ehSubscriber( params.events.languageChange ) } />,
     rUtils.createCanvas( rUtils.el( params.canvas ) ) 
   );
+
+  // for init using legacy event form, languages are fetched through eh
+  rUtils.eh.trigger( params.events.fetchLanguages, function( err, languages ) {
+
+    rUtils.eh.trigger( params.events.languageChange, {
+      set: languages,
+      selected: params.defaultLanguage
+    });
+
+  } );
 
 }
 
 var CustomFields = React.createClass({
 
-  // state is basically just the value of each field,
-  // indexed by field name
   getInitialState: function() {
 
     var fieldValues = {};
@@ -50,18 +64,104 @@ var CustomFields = React.createClass({
       };
 
     }
-    
-    return fieldValues;
+
+
+    this.languageChanges();
+
+    return {
+      languages: [ this.props.defaultLanguage ],
+      currentLanguage: this.props.defaultLanguage,
+      fields: fieldValues
+    }
+
+  },
+
+  languageChanges: function() {
+
+    var self = this;
+
+    this.props.languageChange( function( data ) {
+
+      var fields = rUtils.extend( {}, self.state.fields );
+
+      self.props.fields.filter( function( f ) {
+
+        return !!f.multilingual;
+
+      } ).forEach( function( f ) {
+
+        self.cleanMultilingual( fields[ f.name ] );
+
+        self.popRemovedLanguages( fields[ f.name ], data.set );
+
+        self.appendNewLanguages( fields[ f.name ], data.set );
+
+      } );
+
+      self.setState( {
+        currentLanguage: data.selected,
+        fields: fields
+      } );
+
+    });
+
+  },
+
+  cleanMultilingual: function( field ) {
+
+    if ( typeof field.value == 'object' ) return;
+
+    var value = {};
+
+    value[ this.state.currentLanguage ] = field.value;
+
+    field.value = value;
+
+  },
+
+  popRemovedLanguages: function( field, newLanguages ) {
+
+    var currentFieldLanguages = [];
+
+    for( var i in field.value ) {
+
+      currentFieldLanguages.push( i );
+
+    }
+
+    currentFieldLanguages.forEach( function( c ) {
+
+      if ( newLanguages.indexOf( c ) == -1 ) {
+
+        delete field.value[ c ];
+
+      }
+
+    });
+
+  },
+
+  appendNewLanguages: function( field, newLanguages ) {
+
+    newLanguages.forEach( function( l ) {
+
+      if ( field.value[ l ] === undefined ) {
+
+        field.value[ l ] = '';
+
+      }
+
+    } );
 
   },
 
   componentDidUpdate: function() {
 
-    var update = rUtils.extend( {}, this.state );
+    var update = rUtils.extend( {}, this.state.fields );
 
     for ( var i in this.props.fields ) {
 
-      update[ this.props.fields[ i ].name ].label = this.props.fields[ i ].label[ this.props.lang ];
+      update[ this.props.fields[ i ].name ].label = this.props.fields[ i ].label[ this.props.labelsLang ];
     
     }
 
@@ -75,14 +175,16 @@ var CustomFields = React.createClass({
 
     return function( value, error ) {
 
-      var obj = {};
+      var fields = self.state.fields;
 
-      obj[ field ] = {
+      fields[ field ] = {
         value: value,
         error: error
       }
 
-      self.setState( obj );
+      self.setState( {
+        fields: fields
+      } );
 
     }
 
@@ -112,27 +214,29 @@ var CustomFields = React.createClass({
 
         return <TextField 
           field= { field } 
-          lang= { self.props.lang } 
+          labelsLang= { self.props.labelsLang } 
           type= { field.fieldType } 
-          value= { self.state[ field.name ].value } 
-          error= { self.state[ field.name ].error } 
+          value= { self.state.fields[ field.name ].value } 
+          error= { self.state.fields[ field.name ].error }
+          languages= { self.state.languages }
+          currentLanguage= { self.state.currentLanguage }
           handleUpdate= { self.fieldValueUpdater( field.name ) } />;
 
       } else if ( field.fieldType == 'checkbox' ) {
 
         return <CheckboxField
           field= { field }
-          lang= { self.props.lang } 
-          value= { self.state[ field.name ].value }
+          labelsLang= { self.props.labelsLang } 
+          value= { self.state.fields[ field.name ].value }
           handleUpdate= { self.fieldValueUpdater( field.name ) } />;
 
       } else if ( field.fieldType == 'radio' ) {
 
         return <RadioFields
           field= { field }
-          lang= { self.props.lang }
-          value= { self.state[ field.name ].value }
-          error= { self.state[ field.name ].error }
+          labelsLang= { self.props.labelsLang }
+          value= { self.state.fields[ field.name ].value }
+          error= { self.state.fields[ field.name ].error }
           handleUpdate= { self.fieldValueUpdater( field.name ) } />;
 
       }

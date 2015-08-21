@@ -5,7 +5,9 @@ var cibulEventDescription = function(params) {
       fetch: 'edescriptionfetch',
       send: 'edescriptionfieldsend',
       remove: 'edescriptionfieldremove',
-      heightChange: 'heightchange'
+      heightChange: 'heightchange',
+      languageChange: 'languagechange',
+      fetchLanguages: 'languagesfetch' // this script is the authority for languages
     },
     templates: {
       languageList: '<div class="languages action"><ul class="language-list js_language_select"></ul><div class="add-language js_language_add"><a><i class="fa fa-plus"></i></a><div class="menu"><ul></ul></div></div></div>',
@@ -63,6 +65,16 @@ var cibulEventDescription = function(params) {
 
     _render();
 
+    eh.on( params.events.fetchLanguages, function( cb ) {
+
+      eh.trigger(params.events.fetch, function( data ) {
+
+        cb( null, _lib.extractLanguages( data ) );
+
+      } );
+
+    });
+
   },
 
   _initCanvas = function() {
@@ -79,19 +91,30 @@ var cibulEventDescription = function(params) {
 
   _render = function(language) {
 
-    eh.trigger(params.events.fetch, function(data) {
+    eh.trigger(params.events.fetch, function( data ) {
 
-      var languages = _lib.extractLanguages(data);
+      var languages = _lib.extractLanguages( data );
 
-      if (!languages.length) return _addField(params.defaultLanguage);
+      if ( !languages.length ) return _addField( params.defaultLanguage );
 
       if (typeof language == 'undefined') language = languages[0];
 
       var tab = _renderLanguageCanvas(language, languages);
 
+      _onLanguageChange( languages, language );
+
       _renderFields(language, tab);
 
     });
+
+  },
+
+  _onLanguageChange = function( languages, language ) {
+
+    eh.trigger( params.events.languageChange, { 
+      set: languages, 
+      selected: language 
+    } );
 
   },
 
@@ -104,13 +127,13 @@ var cibulEventDescription = function(params) {
     fields = {};
   },
 
-  _renderLanguageCanvas = function(selectedLanguage, currentLanguages) {
+  _renderLanguageCanvas = function( selectedLanguage, currentLanguages ) {
 
     // if there is only one, don't display it. 
 
-    languageCanvas = _lib.createElement('li', params.templates.languageList);
+    languageCanvas = _lib.createElement( 'li', params.templates.languageList );
 
-    var languageSelector = el(languageCanvas, params.selectors.languageSelector),
+    var languageSelector = el( languageCanvas, params.selectors.languageSelector ),
     
     addMenuCanvas = el(languageCanvas, params.selectors.languageAddMenu),
     
@@ -121,11 +144,11 @@ var cibulEventDescription = function(params) {
 
     var tab = _renderLanguageTabs(languageSelector, selectedLanguage, currentLanguages);
     
-    _renderSelectionMenu(addMenu, currentLanguages);
+    _renderSelectionMenu( addMenu, currentLanguages );
 
-    canvas.insertAdjacentElement('afterbegin', languageCanvas);
+    canvas.insertAdjacentElement( 'afterbegin', languageCanvas );
 
-    handleContextMenu(addMenuLink, addMenu, sEventHandler.getInstance(), {left: false});
+    handleContextMenu( addMenuLink, addMenu, sEventHandler.getInstance(), {left: false} );
 
     return tab;
 
@@ -237,11 +260,13 @@ var cibulEventDescription = function(params) {
 
       if (language == selectedLanguage) activeTab = tab;
 
-      addEvent(tab.childNodes[0], 'click', function(e) {
+      addEvent( tab.childNodes[0], 'click', function( e ) {
 
-        _renderFields(language, tab);
+        _onLanguageChange( languages, language );
 
-      });
+        _renderFields( language, tab );
+
+      } );
 
       // display remove only if more than one language is displayed
 
@@ -251,9 +276,11 @@ var cibulEventDescription = function(params) {
 
         tab.appendChild(remove);
 
-        addEvent(remove, 'click', function() {
-          _removeFields(language);
-        });
+        addEvent( remove, 'click', function() {
+
+          _removeFields( language );
+
+        } );
 
       }
 
@@ -304,9 +331,9 @@ var cibulEventDescription = function(params) {
 
   },
 
-  _removeFields = function(language) {
+  _removeFields = function( language ) {
 
-    eh.trigger(params.events.remove, {language: language});
+    eh.trigger( params.events.remove, { language: language } );
 
     _clear();
 
