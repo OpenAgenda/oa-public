@@ -2,63 +2,87 @@
 
 process.env.NODE_ENV = 'test';
 
-// require( 'debug' ).enable( 'controlData' );
+//require( 'debug' ).enable( 'controlData' );
 
-var controlData = require( '../' ),
+var should = require( 'should' ),
 
-es = require( '../../../../es/es' ),
-
-model = require( '../../../../model' ),
-
-should = require( 'should' ),
+task = require( '../lib/task' ),
 
 store = require( '../lib/store' ),
 
-config = require( '../../../../../config' );
+lock = require( '../lib/lock' ),
+
+config = require( '../../../../../config' ),
+
+q = require( 'queue' )( 'testtaskqueue:queue', { redis: config.redis } );
 
 store.init( {
   redis: config.redis,
-  namespace: 'testControlData'
+  namespace: 'teststore'
+});
+
+task.init( {
+  redis: config.redis,
+  queuesNamespace: 'testtaskqueue'
 } );
 
+lock.init( {
+  redis: config.redis,
+  namespace: 'testlock'
+});
 
-describe( 'controlData task', function() {
+task.test.setInterval( 100 );
 
-  var a = {}, events = [];
+describe( 'controlData - task', function() {
 
-  beforeEach( model.fixtureSets.prepareOneAgendaInstance( a, 'la-gargouille' ) );
+  beforeEach( lock.test.clear );
 
-  beforeEach( function( done ) {
+  this.timeout( 10000 );
 
-    a.events.list( {}, function( err, e ) {
+  it( 'queued id gets processed by build', function( done ) {
 
-      events = e;
+    /**
+     * item queued goes first in buffer, 
+     */
+
+    task.test.setBuild( function( data, cb ) {
+
+      data.id.should.equal( 1 );
 
       done();
 
     });
 
+    task();
+
+    q( { id: 1 } );
+
   });
 
-  beforeEach( es.rebuild );
+  it( 'queued three times same id should still be processed only once', function( done ) {
 
-  it( 'should generate and store control data containing the events of the agenda', function( done ) {
+    var count = 0;
 
-    controlData.task.test.process( { id: a.id }, function() {
+    task.test.setBuild( function( data, cb ) {
 
-      // data should be stored now
-      store.get( a.uid, function( err, ctlData ) {
-
-        should( err ).equal( null );
-
-        ctlData.ev.length.should.equal( events.length )
-
-        done();
-
-      });
+      count++;
 
     });
 
+    task();
+
+    q( { id: 12 } );
+    q( { id: 12 } );
+    q( { id: 12 } );
+
+    setTimeout( function() {
+
+      count.should.equal( 1 );
+
+      done();
+
+    }, 200 );
+
   });
 
-});
+} );

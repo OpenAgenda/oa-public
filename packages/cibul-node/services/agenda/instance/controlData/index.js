@@ -10,15 +10,25 @@ config = require( '../../../../config' ),
 
 log = require( 'logger' )( 'controlData', { lib: 'index' } ),
 
-q = require( 'queue' )( config.queues.controlData, { redis: config.redis } );
+q = require( 'queue' )( config.queues.controlData + ':queue', { redis: config.redis } ),
+
+lock = require( './lib/lock' ),
+
+namespace = 'agendaControlData';
 
 store.init( {
   redis: config.redis,
-  namespace: 'agendaControlData'
+  namespace: namespace
 } );
 
 task.init( {
-  queue: q
+  redis: config.redis,
+  queuesNamespace: config.queues.controlData
+});
+
+lock.init( {
+  redis: config.redis,
+  namespace: namespace
 });
 
 module.exports = getter;

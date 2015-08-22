@@ -308,7 +308,6 @@ config = {
     multiCore: false,
     mainChannel: 'maindev',
     logNameSpaces: 'oa:*',
-    //logNameSpaces: '*',
     logEntriesToken: 'a2923436-55dc-4eba-8668-44824d11c089',
     //useCache: false,
     db: {

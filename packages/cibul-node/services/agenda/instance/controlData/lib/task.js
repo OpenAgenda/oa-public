@@ -6,22 +6,56 @@ utils = require( 'utils' ),
 
 build = require( './build' ),
 
-log = require( 'logger' )( 'controlData', { lib: 'task' } );
+log = require( 'logger' )( 'controlData', { lib: 'task' } ),
+
+queue = require( 'queue' ),
+
+store = require( './store' ),
+
+async = require( 'async' ),
+
+lock = require( './lock' ),
+
+flushInterval = 1000 * 5,
+
+q, filteredQueue;
 
 module.exports = launch;
 
 utils.extend( module.exports, {
   init: init,
   test: {
-    process: process
+    setBuild: setBuild,
+    setInterval: setInterval
   }
 });
 
 function launch() {
 
-  q.setConsumer( process );
+  q.setConsumer( buffer );
 
   q.launch();
+
+  filteredQueue.setConsumer( build );
+
+  filteredQueue.launch();
+
+  log( 'setting flush interval at %s', flushInterval );
+
+  _flushLoop();
+
+}
+
+
+/**
+ * filter requests coming in series before processing
+ */
+
+function buffer( data, cb ) {
+
+  log( 'buffering %s', data.id );
+
+  store.buffer.add( data.id, cb );
 
 }
 
@@ -35,6 +69,89 @@ function process( data, cb ) {
 
 function init( cfg ) {
 
-  q = cfg.queue;
+  q = queue( cfg.queuesNamespace + ':queue', { redis: cfg.redis } );
+
+  filteredQueue = queue( cfg.queuesNamespace + ':filtered', { redis: cfg.redis } );
+
+}
+
+
+function setBuild( b ) {
+
+  build = b; // to test task
+
+}
+
+function setInterval( t ) {
+
+  flushInterval = t;
+
+}
+
+
+/**
+ * flush buffer and stack agenda ids in filter queue
+ */
+
+function _flushLoop() {
+
+  log( 'running flush buffer' );
+
+  function _next() {
+
+    setTimeout( _flushLoop, flushInterval );
+
+  }
+
+  // lock or forget about it till next time
+  lock( function( err, unlock ) {
+
+    if ( err ) {
+
+      log( 'error', err );
+
+      _next();
+
+      return;
+
+    }
+
+    log( 'lock aquired' );
+
+    store.buffer.flush( function( err, ids ) {
+
+      if ( err ) {
+
+        log( 'error', 'flush error received: %s', err );
+
+        unlock();
+
+        _next();
+
+        return;
+
+      }
+
+      log( 'flushed %s', JSON.stringify( ids ) );
+
+      async.eachSeries( ids, function( id, ecb ) {
+
+        log( 'queuing %s in filtered queue', id );
+
+        filteredQueue( { id: id }, ecb );
+
+      }, function( err ) {
+
+        if ( err ) log( 'error', 'filter queueing error: %s', err );
+
+        unlock();
+
+        _next();
+
+      });
+
+    });
+
+  });
 
 }

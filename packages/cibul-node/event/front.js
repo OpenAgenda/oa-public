@@ -195,7 +195,7 @@ function _addLanguageLinks( req, uri, uriParams ) {
 
     linkedLanguages.push({
       label: lang,
-      link: req.genUrl( uri, utils.extend( {}, uriParams, { elang: lang } ) )
+      link: req.genUrl( uri, utils.extend( {}, uriParams, { lang: lang } ) )
     });
 
   });

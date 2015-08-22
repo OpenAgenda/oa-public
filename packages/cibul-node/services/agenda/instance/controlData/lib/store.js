@@ -13,16 +13,58 @@ redisConfig,
 
 log = require( 'logger' )( 'controlData', { lib: 'store' } ),
 
-namespace;
+namespace, bufferNamespace;
 
 module.exports = {
   get: get,
   getTimestamp: getTimestamp,
   set: set,
+  buffer: buffer(),
   init: init,
   test: {
     clear: clear
   }
+}
+
+function buffer() {
+
+  return {
+    add: add,
+    flush: flush
+  }
+
+  function add( id, cb ) {
+
+    var cli = _createClient( cb );
+
+    if ( !cli ) return;
+
+    cli.hincrby( bufferNamespace, id, 1, cb );
+
+  }
+
+  function flush( cb ) {
+
+    var cli = _createClient( cb );
+
+    if ( !cli ) return;
+
+    cli.hkeys( bufferNamespace, function( err, ids ) {
+
+      if ( err ) return cb( err );
+
+      cli.del( bufferNamespace, function( err ) {
+
+        if ( err ) return cb( err );
+
+        cb( null, ids.map( function( i ) { return parseInt( i, 10 ); } ) );
+
+      } );
+
+    });
+
+  }
+
 }
 
 function clear( cb ) {
@@ -100,6 +142,8 @@ function init( c ) {
   redisConfig = c.redis;
 
   namespace = c.namespace;
+
+  bufferNamespace = c.namespace + ':buffer';
 
 }
 

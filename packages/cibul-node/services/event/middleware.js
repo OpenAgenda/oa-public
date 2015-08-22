@@ -323,7 +323,11 @@ function layoutData( req, res ) {
 
     req.event.getLanguages().forEach( function( lang ) {
 
-      data.headLinks.push({ rel: 'alternate', href: req.genUrl( uri, utils.extend( { elang: lang }, uriParams ), { abs: true } ), hreflang: lang });
+      data.headLinks.push({
+        rel: 'alternate',
+        href: req.genUrl( uri, utils.extend( {}, uriParams, { lang: lang } ), { abs: true } ), 
+        hreflang: lang 
+      });
 
     });
 
@@ -396,9 +400,9 @@ function _redirectToCanonicalIfNotDraft( v ) {
 
 function _selectLanguage( v ) {
 
-  if ( !v.req.query.elang ) return v;
+  if ( !v.req.query.lang ) return v;
 
-  if ( !v.event.hasLanguage( v.req.query.elang ) ) {
+  if ( !v.event.hasLanguage( v.req.query.lang ) ) {
 
     v.redirect = {
       code: 302,
@@ -407,7 +411,7 @@ function _selectLanguage( v ) {
 
   } else {
 
-    v.event.switchLanguage( v.req.query.elang );
+    v.event.switchLanguage( v.req.query.lang );
 
   }
 

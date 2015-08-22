@@ -23,7 +23,8 @@ module.exports = function( service ) {
 function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
   var params = utils.extend( {
-    includePrivateData: false
+    includePrivateData: false,
+    lang: false
   }, options );
 
   toDecorate.canonicalUrl = genUrl( 'agendaEventShow', { 
@@ -73,7 +74,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
       }
 
-      customFieldsGetter( event, function( err, custom ) {
+      customFieldsGetter( event, params.lang, function( err, custom ) {
 
         if ( err ) return wcb( err );
 

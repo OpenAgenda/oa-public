@@ -23,3 +23,5 @@ require( '../node_modules/logger/test/index' );
 require( '../node_modules/logger/test/utilities' );
 require( '../services/agenda/instance/controlData/test/getter' );
 require( '../services/agenda/instance/controlData/test/task' );
+require( '../services/agenda/instance/controlData/test/lock' );
+require( '../services/agenda/instance/controlData/test/build' );

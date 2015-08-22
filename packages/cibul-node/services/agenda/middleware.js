@@ -252,7 +252,8 @@ function decorateEvents( includePrivateData ) {
     var instanciated = req.events.map( eventSvc.instanciate )
 
     svc.exports.decorateEvents( req.agenda, instanciated, req.formatted, {
-      includePrivateData: !!includePrivateData
+      includePrivateData: !!includePrivateData,
+      lang: req.lang
     }, next );
 
   }
@@ -264,7 +265,8 @@ function decorateEvent( includePrivateData ) {
   return function( req, res, next ) {
 
     svc.exports.decorateEvent( req.agenda, req.event, req.formatted, {
-      includePrivateData: false
+      includePrivateData: false,
+      lang: req.lang
     }, next );
 
   }
