@@ -1,6 +1,6 @@
 "use strict";
 
-var TYPES = [ 'debug', 'info', 'notice', 'warning', 'err', 'crit', 'alert', 'emerg.']
+var TYPES = [ 'debug', 'info', 'notice', 'warning', 'error', 'crit', 'alert', 'emerg.']
 
 module.exports = {
   extend: extend,
