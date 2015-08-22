@@ -16,7 +16,7 @@ async = require( 'async' ),
 
 lock = require( './lock' ),
 
-flushInterval = 1000 * 5,
+flushInterval = 1000 * 10,
 
 q, filteredQueue;
 
@@ -132,8 +132,6 @@ function _flushLoop() {
 
       }
 
-      log( 'flushed %s', JSON.stringify( ids ) );
-
       async.eachSeries( ids, function( id, ecb ) {
 
         log( 'queuing %s in filtered queue', id );
@@ -142,7 +140,15 @@ function _flushLoop() {
 
       }, function( err ) {
 
-        if ( err ) log( 'error', 'filter queueing error: %s', err );
+        if ( err ) {
+
+          log( 'error', 'filter queueing error: %s', err );
+
+        } else {
+
+          if ( ids.length ) log( 'flushed %s', JSON.stringify( ids ) );
+
+        }
 
         unlock();
 
