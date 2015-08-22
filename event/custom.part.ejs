@@ -7,10 +7,8 @@
     <a target="_blank" href="<%= custom[ i ].value %>"><%= custom[ i ].value %></a>
 <% } else if ( custom[ i ].fieldType == 'email' ) { %>
     <a href="mailto:<%= custom[ i ].value %>"><%= custom[ i ].value %></a>
-<% } else if ( [ 'radio', 'checkbox' ].indexOf( custom[ i ].fieltType ) !== -1 ) { %>
+<% } else if ( [ 'radio', 'checkbox' ].indexOf( custom[ i ].fieldType ) !== -1 ) { %>
     <span><%= custom[ i ].label %></span>
-<% } else if ( custom[ i ].multilingual ) { %>
-    <span><%= custom[ i ].value[ lang ] ? custom[ i ].value[ lang ] : '' %></span>
 <% } else { %>
     <span><%= custom[ i ].value %></span>
 <% } %>

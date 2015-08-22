@@ -109,7 +109,7 @@ module.exports = React.createClass({
 
   extractMultilingualFieldValue: function() {
 
-    if ( typeof this.props.value !== 'object' ) {
+    if ( this.props.value === null || typeof this.props.value !== 'object' ) {
 
       return this.props.value;
 

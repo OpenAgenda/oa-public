@@ -106,7 +106,7 @@
 <% if ( l.label==event.languages.current ) { %>
               <li class="current"><a><%= l.label %></a></li>
 <% } else { %>
-              <li><a hreflang="<%= lang %>" href="<%= lang.link %>"><%= l.label %></a></li>
+              <li><a hreflang="<%= l %>" href="<%= l.link %>"><%= l.label %></a></li>
 <% } %>
 <% }); %>
             </ul>
