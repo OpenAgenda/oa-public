@@ -351,8 +351,10 @@ module.exports = function( uid ) {
 
     if ( scope ) searchQuery.scope = scope;
 
-    remote.getJsonp( params.search.replace( '{uid}', uid ), { 
-      data: { search: searchQuery }, 
+    remote.getJsonp( 
+      params.search.replace( '{uid}', uid ) +
+      '?' + qs.stringify( { search: searchQuery } ), { 
+      data: {}, 
       timeout: 10000 
     }, function( responseType, data ) {
 
