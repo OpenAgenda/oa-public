@@ -6,15 +6,15 @@ var controlData = require( '../' ),
 
 should = require( 'should' ),
 
-es = require( '../../../../es/es' ),
+es = require( '../../../es/es' ),
 
-model = require( '../../../../model' ),
+model = require( '../../../model' ),
 
 redis = require( 'redis' ),
 
-config = require( '../../../../../config' ),
+config = require( '../../../../config' ),
 
-agendaSvc = require( '../../../' ),
+agendaSvc = require( '../../' ),
 
 getter = require( '../lib/getter' ),
 

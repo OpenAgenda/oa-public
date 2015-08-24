@@ -52,6 +52,6 @@ function _requires() { // me no liky circular dependency
 
   if ( !aggregator ) aggregator = require( '../../aggregator' );
 
-  if ( !controlData ) controlData = require( './controlData' );
+  if ( !controlData ) controlData = require( '../controlData' );
 
 }

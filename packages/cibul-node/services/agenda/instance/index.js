@@ -22,7 +22,7 @@ emailStrategie = require( './emailStrategie' ),
 
 groupActions = require( './groupActions' ),
 
-controlData = require( './controlData' ),
+controlData = require( '../controlData' ),
 
 dispatcher = require( './dispatcher' );
 

@@ -4,7 +4,7 @@ var should = require( 'should' ),
 
 store = require( '../lib/store' ),
 
-config = require( '../../../../../config' ),
+config = require( '../../../../config' ),
 
 async = require( 'async' ),
 

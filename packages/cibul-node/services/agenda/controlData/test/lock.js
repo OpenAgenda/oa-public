@@ -4,7 +4,7 @@ var should = require( 'should' ),
 
 lock = require( '../lib/lock' ),
 
-config = require( '../../../../../config' ),
+config = require( '../../../../config' ),
 
 async = require( 'async' );
 

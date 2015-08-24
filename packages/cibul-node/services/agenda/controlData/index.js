@@ -6,7 +6,7 @@ store = require( './lib/store' ),
 
 task = require( './lib/task' ),
 
-config = require( '../../../../config' ),
+config = require( '../../../config' ),
 
 log = require( 'logger' )( 'controlData', { lib: 'index' } ),
 

@@ -4,6 +4,8 @@ var coms = require( '../../../lib/coms' ),
 
 aggregator,
 
+controlData = require( '../../agenda/controlData' ),
+
 logger = require( 'logger' ),
 
 config = require( '../../../config' );
@@ -42,9 +44,13 @@ module.exports = function( loaded, instance ) {
 
       aggregator.notifyPublish( instance.id, instance.agenda.id );
 
+      controlData.queue( instance.agenda );
+
     } else if ( oldState == 'published' ) {
 
       aggregator.notifyUnpublish( instance.id, instance.agenda.id );
+
+      controlData.queue( instance.agenda );
 
     }
 

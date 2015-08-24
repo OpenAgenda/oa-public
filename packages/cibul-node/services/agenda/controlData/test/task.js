@@ -12,7 +12,7 @@ store = require( '../lib/store' ),
 
 lock = require( '../lib/lock' ),
 
-config = require( '../../../../../config' ),
+config = require( '../../../../config' ),
 
 q = require( 'queue' )( 'testtaskqueue:queue', { redis: config.redis } );
 

@@ -10,7 +10,7 @@ log = require( 'logger' )( 'controlData', { lib: 'build' } ),
 
 async = require( 'async' ),
 
-model = require( '../../../../model' ),
+model = require( '../../../model' ),
 
 svc, eventSvc;
 
@@ -261,8 +261,8 @@ function _extractEvent( agenda, event ) {
 
 function loadServices() {
 
-  svc = require( '../../../' );
+  svc = require( '../../' );
 
-  eventSvc = require( '../../../../event' );
+  eventSvc = require( '../../../event' );
 
 }

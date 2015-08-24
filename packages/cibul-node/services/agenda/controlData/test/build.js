@@ -6,13 +6,13 @@ var should = require( 'should' ),
 
 build = require( '../lib/build' ),
 
-es = require( '../../../../es/es' ),
+es = require( '../../../es/es' ),
 
-model = require( '../../../../model' ),
+model = require( '../../../model' ),
 
 store = require( '../lib/store' ),
 
-config = require( '../../../../../config' );
+config = require( '../../../../config' );
 
 store.init( {
   redis: config.redis,
