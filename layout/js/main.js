@@ -164,7 +164,7 @@ function _onAsapReady( timeout, cb ) {
 
   setTimeout( function() {
 
-    _onAsapReady( Math.max( ( timeout + 10 ) * 2, 10000 ), cb );
+    _onAsapReady( Math.min( ( timeout + 10 ) * 2, 10000 ), cb );
 
   }, timeout );
 
