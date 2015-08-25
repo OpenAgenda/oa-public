@@ -282,7 +282,7 @@ function widget( elem, options ) {
 
     cn.forEach( keys, function( k ) {
 
-      if ( [ 'neLat', 'neLng', 'swLat', 'swLng' ].indexOf( k ) == -1 ) {
+      if ( [ 'neLat', 'neLng', 'swLat', 'swLng', 'uid', 'location' ].indexOf( k ) == -1 ) {
 
         if ( JSON.stringify( reqParams[ k ] ) !== JSON.stringify( current[ k ] ) ) {
 

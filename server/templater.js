@@ -84,6 +84,7 @@ helpers = {},
 _renderTemplate = function( filename, templateBody, data ) {
 
   data.filename = filename;
+  data.cache = true;
 
   return ejs.render( templateBody, data );
 
