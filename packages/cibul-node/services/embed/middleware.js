@@ -66,7 +66,7 @@ function renderEventItems( req, res, next ) {
 
       if ( err ) {
 
-        req.log( 'error', 'could not retrieved custom data of event %s: %s', e.id, err );
+        req.log( 'error', 'could not retrieve custom data of event %s: %s', e.id, err );
 
       } else {
 
