@@ -137,7 +137,7 @@ module.exports = function( uid ) {
 
   function _init( initParams ) {
 
-    _initCurrentRequestParams( initParams );
+    var change = _initCurrentRequestParams( initParams );
 
     _processWidgetCtlRequests( false );
 
@@ -151,7 +151,7 @@ module.exports = function( uid ) {
 
     if ( syncHref ) {
 
-      _forEachWidget( 'change', currentRequestParams );
+      if ( change ) _forEachWidget( 'change', currentRequestParams );
 
       cn.addEvent( window, 'popstate', _handlePop );
 
@@ -401,7 +401,7 @@ module.exports = function( uid ) {
 
   function _initCurrentRequestParams( overridingParams ) {
 
-    var today = new Date();
+    var today = new Date(), hrefParams, change = false;
 
     if ( typeof overridingParams !== 'undefined' ) {
 
@@ -409,14 +409,24 @@ module.exports = function( uid ) {
 
       if ( syncHref ) _updateHrefQuery( currentRequestParams );
 
-      return;
+      change = true;
+
+      return change;
 
     }
 
 
     if ( syncHref ) {
 
-      currentRequestParams = _clean( _readHrefQuery( 'search' ) );
+      hrefParams = _clean( _readHrefQuery( 'search' ) );
+
+      if ( isDifferent( hrefParams ) ) {
+
+        currentRequestParams = hrefParams;
+
+        change = true;
+
+      }
 
     }
 
@@ -429,11 +439,15 @@ module.exports = function( uid ) {
 
     if ( ctl.p && passedAutoLoad && typeof currentRequestParams.passed == 'undefined' ) {
 
+      change = true;
+
       currentRequestParams.passed = 1;
 
       if ( syncHref ) _updateHrefQuery( currentRequestParams );
 
     }
+
+    return change;
 
   }
 
