@@ -64,10 +64,15 @@ function renderEventItems( req, res, next ) {
 
     _getCustomFields( req, e, 'eventitem', function( err, values ) {
 
-      if ( err ) return ecb( err );
+      if ( err ) {
 
-      req.renders.eventItems.push( eventItemParser.render( utils.extend( e, values ) ) );
+        req.log( 'error', 'could not retrieved custom data of event %s: %s', e.id, err );
 
+      } else {
+
+        req.renders.eventItems.push( eventItemParser.render( utils.extend( e, values ) ) );
+
+      }
 
       ecb();
 

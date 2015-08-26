@@ -92,7 +92,7 @@ module.exports = function( data ) {
 
       if ( err ) return cb( err );
 
-      dispatcher.onRemove();
+      dsp.onRemove();
 
       cb();
 
