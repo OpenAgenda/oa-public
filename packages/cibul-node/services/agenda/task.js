@@ -28,41 +28,74 @@ function run() {
 
     if ( err ) return;
 
-    if ( [ 'event.create', 'event.update' ].indexOf( action.name ) == -1 ) return;
+    if ( [ 'event.create', 'event.update' ].indexOf( action.name ) !== -1 ) {
 
-    eventSvc.get( { id: action.values.id }, function( err, event ) {
+      _onEventActivity( action );
+
+    }
+
+    // legacy php project change on agenda
+    if ( action.name == 'review.update' ) {
+
+      _onAgendaActivity( action );
+
+    }
+
+  } );
+
+}
+
+
+function _onAgendaActivity( action ) {
+
+  svc.get( { id: action.values.id }, function( err, agenda ) {
+
+    if ( err ) {
+
+      log( 'error', 'could not fetch agenda %s', agenda.id );
+
+      return;
+
+    }
+
+    _clearTimestamp( agenda );
+
+  });
+
+}
+
+
+function _onEventActivity( action ) {
+
+  eventSvc.get( { id: action.values.id }, function( err, event ) {
+
+    if ( err ) {
+
+      log( 'error', 'could not fetch event %s', event.id );
+
+      return;
+
+    }
+
+    _forEachRelatedAgenda( event, function( err, agenda, agendaEvent, ecb ) {
 
       if ( err ) {
 
-        log( 'error', 'could not fetch event %s', event.id );
+        log( 'error', 'could not fetch event %s in agenda context: %s', action.id, err );
 
-        return;
+        return ecb();
 
       }
 
-      _forEachRelatedAgenda( event, function( err, agenda, agendaEvent, ecb ) {
+      _clearTimestamp( agenda );
 
-        if ( err ) {
+      ecb();
 
-          log( 'error', 'could not fetch event %s in agenda context: %s', action.id, err );
+    }, function() {
 
-          return ecb();
+      log( 'info', 'processed agenda references on event %s action %s', event.uid, action.name );
 
-        }
-
-        _clearTimestamp( agenda );
-        
-        // _emailStrategie( agenda, agendaEvent );
-
-        ecb();
-
-      }, function() {
-
-        log( 'info', 'processed agenda references on event %s action %s', event.uid, action.name );
-
-      });
-
-    } );
+    });
 
   } );
 

@@ -37,6 +37,8 @@ module.exports = function( data ) {
 
   dsp = dispatcher( svcInstance, instance );
 
+  instance.onSave = dsp.onSave;
+
   search( svcInstance, instance, [
     'search',
     'searchStream',

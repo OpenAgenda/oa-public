@@ -18,7 +18,14 @@ module.exports = function( loaded, instance ) {
 
   return {
     onAddEvent: onAddEvent,
-    onRemoveEvent: onRemoveEvent
+    onRemoveEvent: onRemoveEvent,
+    onSave: onSave
+  }
+
+  function onSave() {
+
+    controlData.queue( instance );
+
   }
 
   function onAddEvent( eventId ) {
