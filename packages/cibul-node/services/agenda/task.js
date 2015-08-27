@@ -133,7 +133,7 @@ function _emailStrategie( agenda, event ) {
 
 function _forEachRelatedAgenda( event, eachCb, cb ) {
 
-  event.getAgendaReferences( { isPublished: null }, function( err, agendas ) {
+  event.getAgendaReferences( { isPublished: null, internal: true }, function( err, agendas ) {
 
     async.eachSeries( agendas, function( a, ecb ) {
 

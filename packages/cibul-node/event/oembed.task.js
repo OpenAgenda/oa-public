@@ -42,7 +42,7 @@ function run() {
 
     if ( _onStart ) _onStart();
 
-    if ( [ 'event.update', 'event.publish' ].indexOf( action.name ) == -1 ) {
+    if ( [ 'event.update', 'event.publish', 'event.create' ].indexOf( action.name ) == -1 ) {
 
       return;
 
