@@ -716,7 +716,7 @@ module.exports = function( uid ) {
 
   function _clean( data ) {
 
-    var cleanData = {};
+    var cleanData = {}, tags;
 
     for ( var k in data ) {
 
@@ -730,7 +730,13 @@ module.exports = function( uid ) {
 
           if ( cn.isArray( data[ k ] ) && data[ k ].length ) {
 
-            cleanData[ k ] = data[ k ];
+            tags = data[ k ].filter( function( t ) {
+
+              return t.length;
+
+            });
+
+            if ( tags.length ) cleanData[ k ] = tags;
 
           }
 
