@@ -175,6 +175,8 @@ function loadCustomLayoutData( req, res, next ) {
 
   }
 
+  req.baseData.layoutMode = layoutMode;
+
   if ( linkCss ) {
 
     req.baseData.head.css.embedLink = linkCss;

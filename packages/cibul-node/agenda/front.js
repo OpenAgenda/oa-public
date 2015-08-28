@@ -76,6 +76,21 @@ routes = {
     embedShow
   ] ],
 
+  customEmbedShowPreview: [ 'get', '/agendas/:uid/previewEmbeds/:embedUid/events', [
+    function( req, res, next ) { req.preview = true; next() },
+    agendaSvc.mw.load( 'uid', { cache: true } ),
+    cmn.checkAdministrator(),
+    embedSvc.mw.load( 'embedUid', 'uid' ),
+    agendaSvc.mw.search( perPage, true ),
+    _format,
+    _formatCustomEmbedLinks,
+    embedSvc.mw.renderEventItems,
+    showXhr( 'agenda/embedShow' ),
+    cmn.loadBaseData( _layoutData ),
+    embedSvc.mw.loadCustomLayoutData,
+    embedShow
+  ] ],
+
   agendaRedirect: [ 'get', '/agendas/:uid', [
     agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
     redirect
@@ -406,11 +421,11 @@ function _formatCustomEmbedLinks( req, res, next ) {
 
     if ( req.query.search ) params.search = req.query.search;
 
-    e.link = req.genUrl( 'agendaCustomEmbedEventShow', params );
+    e.link = req.genUrl( req.preview ? 'agendaCustomEmbedEventShowPreview' : 'agendaCustomEmbedEventShow', params );
 
     if ( e.categorySlug ) {
 
-      e.categoryLink = req.genUrl( 'customEmbedShow', {
+      e.categoryLink = req.genUrl( req.preview ? 'customEmbedShowPreview' : 'customEmbedShow', {
         uid: req.params.uid,
         embedUid: req.embed.uid,
         search: {

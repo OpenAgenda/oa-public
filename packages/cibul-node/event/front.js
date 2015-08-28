@@ -62,6 +62,21 @@ routes = {
     agendaEmbedEventShow 
   ] ],
 
+  agendaCustomEmbedEventShowPreview: [ 'get', '/agendas/:uid/previewEmbeds/:embedUid/events/:eventUid', [
+    agendaSvc.mw.load( 'uid' ),
+    cmn.checkAdministrator(),
+    embedSvc.mw.load( 'embedUid', 'uid' ),
+    eventSvc.mw.load( 'eventUid', 'uid' ),
+    _switchEmbedLang,
+    eventSvc.mw.format,
+    _formatAgendaLinks( 'customEmbedShowPreview', [ 'uid', 'embedUid' ] ),
+    _formatSocialLinks,
+    embedSvc.mw.renderEvent,
+    cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
+    embedSvc.mw.loadCustomLayoutData,
+    agendaEmbedEventShow 
+  ]],
+
   eventShow: [ 'get', '/events/:eventSlug', [
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.format,

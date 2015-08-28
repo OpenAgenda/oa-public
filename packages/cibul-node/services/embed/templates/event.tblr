@@ -38,6 +38,7 @@
 
   <div class="location">
     <a href="{LocationLink}">{LocationName}</a>
+    <p>{Address}</p>
   </div>
 
   <section class="dates">
