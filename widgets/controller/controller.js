@@ -322,11 +322,9 @@ module.exports = function( uid ) {
 
     _forEachWidget( 'change', currentRequestParams, originWidget );
 
-    _forEachWidget( 'disable', originWidget );
-
     _fetchWhatUids( function() {
 
-      sweep();
+      sweep( originWidget );
 
     });
 
@@ -612,7 +610,7 @@ module.exports = function( uid ) {
    * events are included and which are not
    */
   
-  function sweep() {
+  function sweep( originWidget ) {
 
     var includedCount = 0;
 
@@ -631,28 +629,35 @@ module.exports = function( uid ) {
     // clear all the widgets!
     _forEachWidget( 'clear' );
 
-    // go through each event, determine if should be included
-    // .. in which case include in widgets
-    for ( var i in ctl.ev ) {
+    _forEachWidget( 'disable', originWidget );
 
-      if ( _applyFilters( ctl.ev[i], currentRequestParams ) ) {
+    // let clear & disable happen
+    setTimeout( function() {
 
-        includedCount++;
+      // go through each event, determine if should be included
+      // .. in which case include in widgets
+      for ( var i in ctl.ev ) {
 
-        ctl.ev[i].passed = _isPassed( ctl.ev[i] );
+        if ( _applyFilters( ctl.ev[i], currentRequestParams ) ) {
 
-        _include( ctl.ev[i], currentRequestParams );
+          includedCount++;
 
+          ctl.ev[i].passed = _isPassed( ctl.ev[i] );
+
+          _include( ctl.ev[i], currentRequestParams );
+
+        }
+      
       }
-    
-    }
 
-    enabled = true;
+      enabled = true;
 
-    log( 'sweep result %d out of %d', includedCount, cn.size( ctl.a ) );
+      log( 'sweep result %d out of %d', includedCount, cn.size( ctl.a ) );
 
-    // enable all the widgets!
-    _forEachWidget( 'enable', currentRequestParams );
+      // enable all the widgets!
+      _forEachWidget( 'enable', currentRequestParams );
+
+    }, 10 );
 
   }
 

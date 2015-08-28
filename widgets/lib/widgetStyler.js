@@ -1,4 +1,6 @@
-var cn = require( '../../js/lib/common/common.mod.js' ),
+var du = require( '../../js/lib/domUtils' ),
+
+utils = require( 'utils' ),
 
 defaults = {
   styles: {
@@ -22,7 +24,7 @@ styler = function( styleToAppend, styleVars, w, d ) {
 
   if ( !sheet ) _createSheet( w, d );
 
-  styles = cn.extend( {}, defaults.styles, styleVars ? styleVars : {} );
+  styles = utils.extend( {}, defaults.styles, styleVars ? styleVars : {} );
 
   style += _format( styleToAppend, styles );
 
@@ -46,18 +48,11 @@ _createSheet = function( w, d ) {
 
   sheet.media = 'all';
 
-  if ( d.readyState === "complete" ) {
+  du.asapReady( function() {
 
     _stickSheet( d );
 
-  } else {
-
-    cn.addEvent( w, 'load', function() {
-
-      _stickSheet( d );
-
-    } );
-  }
+  } );
 
 },
 

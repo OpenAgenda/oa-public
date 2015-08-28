@@ -1,4 +1,6 @@
-var cn = require( '../../js/lib/common/common.mod.js' ),
+var utils = require( 'utils' ),
+
+du = require( '../../js/lib/domUtils' ),
 
 debug = require( 'debug' ),
 
@@ -12,11 +14,11 @@ params = {},
 
 hooks = [], asaps = [];
 
-_onAsapReady( function() {
+du.asapReady( function() {
 
   _init();
 
-  cn.forEach( asaps, function( asapHook ) {
+  du.forEach( asaps, function( asapHook ) {
 
     asapHook( params );
 
@@ -26,13 +28,13 @@ _onAsapReady( function() {
 
 } );
 
-cn.addEvent( window, 'load', function() {
+du.addEvent( window, 'load', function() {
 
   _init();
 
   if ( params.env == 'dev' || window.env == 'dev' ) debug.enable( '*' );
 
-  cn.forEach( hooks, function( hook ) {
+  du.forEach( hooks, function( hook ) {
 
     hook( params );
 
@@ -67,37 +69,12 @@ window.asap = function( cb ) {
 function _init() {
 
   // if there is stuff there already, this are inited.
-  if ( cn.size( params ) ) return;
+  if ( utils.size( params ) ) return;
 
   var options = layout.getOptions( 'body' );
 
-  cn.extend( params, options );
+  utils.extend( params, options );
 
   return options;
-
-}
-
-
-/**
- * callsback when body elem is loaded
- */
-
-function _onAsapReady( timeout, cb ) {
-
-  if ( arguments.length == 1 ) {
-
-    cb = timeout;
-
-    timeout = 0;
-
-  }
-
-  if ( cn.el( 'body' ) ) return cb();
-
-  setTimeout( function() {
-
-    _onAsapReady( Math.min( ( timeout + 10 ) * 2, 10000 ), cb );
-
-  }, timeout );
 
 }

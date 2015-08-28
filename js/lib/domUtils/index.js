@@ -9,10 +9,12 @@ module.exports = {
   els: els,
   addEvent: addEvent,     // add an event to an element 
   whenReady: whenReady, // executes callback when dom is ready or if dom is ready
+  asapReady: asapReady, // executes cb as soon as elem targetted by elem ( or body by default ) exists.
   loadInLocation: loadInLocation,
   hasClass: hasClass,
   addClass: addClass,
-  removeClass: removeClass
+  removeClass: removeClass,
+  forEach: forEach
 }
 
 
@@ -104,6 +106,34 @@ function whenReady( cb ) {
     addEvent( window, 'load', cb );
 
   }
+
+}
+
+function asapReady( selector, timeout, cb ) {
+
+  if ( arguments.length == 1 ) {
+
+    cb = selector;
+
+    timeout = 0;
+
+    selector = 'body'
+
+  } else if ( arguments.length == 2 ) {
+
+    cb = timeout;
+
+    timeout = 0;
+
+  }
+
+  if ( el( selector ) ) return cb();
+
+  setTimeout( function() {
+
+    asapReady( selector, Math.min( ( timeout + 10 ) * 2, 10000 ), cb );
+
+  }, timeout );
 
 }
 

@@ -53,6 +53,12 @@
   
   "eventLists/searchList",
   "eventLists/agendaList",
+
+  {
+    "js" : "widgets/spinner/spinner.js",
+    "prod" : "embed/oaSpinnerWidget.js"
+  },
+
   {
     "js" : "widgets/preview/preview.js",
     "prod" : "embed/oaPreviewWidget.js"
