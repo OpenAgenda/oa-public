@@ -36,6 +36,14 @@ config = {
       customEvent: '//d.openagenda.com/agendas/:uid/embeds/:embedUid/events/:eventUid'
     }
   },
+  preview: {
+    res: {
+      agenda: '/agendas/:uid/embed/events',
+      customAgenda: '/agendas/:uid/previewEmbeds/:embedUid/events',
+      event: '/agendas/:uid/embed/previewEmbeds/:eventUid',
+      customEvent: '/agendas/:uid/previewEmbeds/:embedUid/events/:eventUid'
+    }
+  },
   tpl: {
     res: {  
       agenda: 'http://localhost:3000/agenda/embedShow',
@@ -45,18 +53,6 @@ config = {
     }
   }
 };
-
-if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) {
-
-  debug.enable( '*' );
-
-  config = cn.extend( config.all, config[ window.env ] );
-
-} else {
-
-  config = config.all;
-
-}
 
 
 /**
@@ -75,6 +71,20 @@ require( '../lib/controllerLoader' )( function( register ) {
  */
 
 function widget( elem, options ) {
+
+  var env = elem.hasAttribute( 'data-preview' ) ? 'preview' : window.env;
+
+  if ( ['tpl', 'dev', 'preview' ].indexOf( env ) !== -1 ) {
+
+    debug.enable( '*' );
+
+    config = cn.extend( config.all, config[ env ] );
+
+  } else {
+
+    config = config.all;
+
+  }
 
   var log = debug( 'body' ),
 

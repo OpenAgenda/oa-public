@@ -38,6 +38,36 @@
 
     }
 
+    .location {
+
+      padding: 1.5em 0 1em;
+
+      a {
+
+        font-weight: bold;
+        font-size: 1.1em;
+
+      }
+
+    }
+
+    .dates {
+
+      ul {
+
+        padding: 0;
+
+      }
+
+      li {
+
+        list-style-type: none;
+        padding: 0.5em 0;
+
+      }
+
+    }
+
   }
 
 }

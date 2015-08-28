@@ -5,6 +5,10 @@
     "event-embed" : "css/embed-style.scss"
   },
 
+  "oaetCss" : {
+    "event-embed" : "css/embed-style.scss"
+  },
+
   "helpers" : {
     "_t" : "time",
     "_i" : "image",
