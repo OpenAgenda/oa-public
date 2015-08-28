@@ -82,7 +82,7 @@ function index( view ) {
 function newsletterSubscribe( req, res ) {
 
   var data = {
-    id: 595683,
+    id: 595683, // random?
     contact: req.body.email
   },
 
@@ -97,11 +97,14 @@ function newsletterSubscribe( req, res ) {
       res.redirect( 302, req.genUrl( 'corpoHome' ) );
 
       mailer.queueMail( {
+        subject: 'Nouvel inscrit à la newsletter',
         recipient: [ 'romain@cibul.net', 'kaore@cibul.net' ],
         text: '"' + req.body.email + '" a été ajouté à la newsletter.'
       } );
 
     } else {
+
+      req.log( 'error', { service: 'mailjet', message: JSON.stringify( result ), error: '' + err } );
 
       res.setFlash( req, 'Either the email is invalid or the newsletter service is unavailable. Please try again later.' );
 
