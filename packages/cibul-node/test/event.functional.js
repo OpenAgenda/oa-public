@@ -206,7 +206,6 @@ describe( 'draft in agenda', function() {
 
   } );
 
-
   it( 'draft is not accessible to event owner through agenda path', function( done ) {
 
     user.password = 'wigglypoof';
@@ -224,6 +223,29 @@ describe( 'draft in agenda', function() {
     });
 
   } );
+
+
+  it( 'draft is accessible to event owner through agenda path if he is contributor', function( done ) {
+
+    agenda.setContributor( user, function() {
+
+      user.password = 'wigglypoof';
+
+      testLib.do.signin( browser, user, eventUrl )
+
+      .then( function() {
+
+        browser.location.pathname.should.equal( eventUrl );
+
+        browser.statusCode.should.equal( 200 );
+
+        done();
+
+      });
+
+    });
+
+  });
 
 
   it( 'draft is accessible to event editor ( agenda admin ) through agenda path', function( done ) {

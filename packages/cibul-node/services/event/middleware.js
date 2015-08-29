@@ -57,9 +57,9 @@ function loadEvent( paramName, fieldName ) {
 
     .then( p.ifl( { 'req.agenda' : true }, _loadAgendaContext ) )
 
-    .then( p.ifl( { 'req.agenda' : true, accessRequired: true }, _loadUserAgendaCreds ) )
-
     .then( p.ifl( { accessRequired: true }, _loadUserCreds ) )
+
+    .then( p.ifl( { 'req.agenda' : true, accessRequired: true }, _loadUserAgendaCreds ) )
 
     .then( p.ifl( { 'req.agenda' : true, accessRequired: true, hasAgendaCreds: false }, _redirectToCanonicalIfNotDraft ) )
 
@@ -471,9 +471,21 @@ function _loadUserAgendaCreds( v ) {
 
         if ( err ) return rj( err );
 
-        if ( is ) v.hasAgendaCreds = true;
+        if ( is ) {
 
-        return rs( v );
+          v.hasAgendaCreds = true;
+
+          return rs( v );
+
+        }
+
+        v.req.agenda.isContributor( user, function( err, is ) {
+
+          v.hasAgendaCreds = v.hasCreds && is;
+
+          rs( v );
+
+        } );
 
       });
 
