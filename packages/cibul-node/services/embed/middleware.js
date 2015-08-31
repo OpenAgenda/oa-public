@@ -138,7 +138,14 @@ function loadEmbed( paramName, fieldName ) {
 
     svc.get( getParams, function( err, e ) {
 
-      if ( err ) return next( { code: 404, message: 'embed configuration not found' } );
+      if ( err ) {
+
+        return next( {
+          code: 404, 
+          message: 'embed configuration not found for embed ' + req.params[ paramName ]
+        } );
+
+      }
 
       req.embed = e;
 
