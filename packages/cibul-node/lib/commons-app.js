@@ -58,8 +58,6 @@ wn = require( 'when/node' ),
 
 model = require( '../services/model' ),
 
-redisCli = require( 'redis' ).createClient( config.redis.port, config.redis.host ),
-
 templater = require( 'cibulTemplates' ),
 
 i18n = require( '../i18n/i18n.js' ),
@@ -499,9 +497,13 @@ function loadBaseData( func, cssFile ) {
 
 function loadSession( req, res, next ) {
 
-  req.log.load( {
-    session: req.cookies[ config.cookie.name ].substr( 0, 10 )
-  } );
+  if ( req.cookies[ config.cookie.name ] ) {
+
+    req.log.load( {
+      session: req.cookies[ config.cookie.name ].substr( 0, 10 )
+    } );
+    
+  }
 
   if ( req.session && req.session.userId ) {
 

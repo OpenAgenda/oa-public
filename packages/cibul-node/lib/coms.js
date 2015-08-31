@@ -22,8 +22,6 @@ config = require( '../config' ).redis,
 
 log = require( 'logger' )( 'coms' ),
 
-redisCli = redis.createClient( config.port, config.host ),
-
 qPrefix = 'queues',
 
 logStacksPrefix = 'logstacks',
@@ -34,6 +32,8 @@ sp = ':';
 
 
 function queue( queueName, values, options, cb ) {
+
+  var cli = redis.createClient( config.port, config.host );
 
   if ( typeof options == 'function' ) {
 
@@ -51,7 +51,9 @@ function queue( queueName, values, options, cb ) {
 
   log( 'queuing on: %s values: %s', queueName, encodedValues );
 
-  redisCli.rpush( queueName, encodedValues, function( err ) {
+  cli.rpush( queueName, encodedValues, function( err ) {
+
+    cli.quit();
 
     if ( cb ) cb( err );
 
@@ -163,9 +165,11 @@ function clearQueue( queueName, cb ) {
 
   log( 'clearing queue: %s', queueName );
 
-  redis.createClient( config.port, config.host )
+  var cli = redis.createClient( config.port, config.host );
 
-  .del( qPrefix + sp + queueName, function( err ) {
+  cli.del( qPrefix + sp + queueName, function( err ) {
+
+    cli.quit();
 
     if ( err ) return cb( err );
 

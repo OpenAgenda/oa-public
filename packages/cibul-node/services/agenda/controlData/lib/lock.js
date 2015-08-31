@@ -8,7 +8,7 @@ var redis = require( 'redis' ),
 
 warlock = require( 'node-redis-warlock' ),
 
-redisConfig, namespace, globalUnlock;
+namespace, globalUnlock, cli;
 
 module.exports = lock;
 
@@ -20,9 +20,9 @@ module.exports.test = {
 
 function lock( cb ) {
 
-  if ( !redisConfig ) return cb( 'lock: redis config not available' );
+  if ( !cli ) return cb( 'lock: redis config not available' );
 
-  var w = warlock( redis.createClient( redisConfig.port, redisConfig.host ) );
+  var w = warlock( cli );
 
   w.lock( namespace, 10000, function( err, unlock ) {
 
@@ -40,7 +40,7 @@ function lock( cb ) {
 
 function init( cfg ) {
 
-  redisConfig = cfg.redis;
+  cli = redis.createClient( cfg.redis.port, cfg.redis.host );
 
   namespace = cfg.namespace;
 
@@ -48,11 +48,7 @@ function init( cfg ) {
 
 function clear( cb ) {
 
-  var cli = redis.createClient( redisConfig.port, redisConfig.host );
-
   cli.del( namespace + ':lock', function() {
-
-    cli.end();
 
     cb();
 

@@ -22,7 +22,7 @@ should = require( 'should' ),
 
 fixtureSets = require( 'cibulModel/test/fixtures/sets' )( cbm ),
 
-cli = require( 'redis' ).createClient( config.redis.port, config.redis.host ),
+cli,
 
 debug = require( 'debug' ),
 
@@ -35,6 +35,18 @@ describe( 'resetApiCounter', function() {
   //debug.enable( '*' );
 
   log = debug( 'resetApiCounters tests' );
+
+  beforeEach( function() {
+
+    cli = require( 'redis' ).createClient( config.redis.port, config.redis.host )
+
+  });
+
+  afterEach( function() {
+
+    cli.quit();
+
+  });
 
   before( fixtureSets.prepareOneUser( user, 'freddy' ) );
 

@@ -70,6 +70,8 @@ function run() {
 
   }, function( err ) {
 
+    cli.quit();
+
     running = false;
 
     if ( err ) {

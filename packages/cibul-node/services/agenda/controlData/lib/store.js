@@ -39,7 +39,13 @@ function buffer() {
 
     if ( !cli ) return;
 
-    cli.hincrby( bufferNamespace, id, 1, cb );
+    cli.hincrby( bufferNamespace, id, 1, function( err, result ) {
+
+      cli.quit();
+
+      cb( err, result );
+
+    } );
 
   }
 
@@ -51,11 +57,23 @@ function buffer() {
 
     cli.hkeys( bufferNamespace, function( err, ids ) {
 
-      if ( err ) return cb( err );
+      if ( err ) {
+
+        cli.quit();
+
+        return cb( err );
+
+      }
 
       cli.del( bufferNamespace, function( err ) {
 
-        if ( err ) return cb( err );
+        cli.quit();
+
+        if ( err ) {
+
+          return cb( err );
+
+        }
 
         cb( null, ids.map( function( i ) { return parseInt( i, 10 ); } ) );
 
@@ -75,11 +93,25 @@ function clear( cb ) {
 
   cli.keys( namespace + '*', function( err, keys ) {
 
+    if ( err ) {
+
+      cli.quit();
+
+      return cb( err );
+
+    }
+
     async.eachSeries( keys, function( key, ecb ) {
 
       cli.del( key, ecb );
 
-    }, cb );
+    }, function( err ) {
+
+      cli.quit();
+
+      cb( err );
+
+    } );
 
   });
 
@@ -95,9 +127,21 @@ function set( uid, data, cb ) {
 
   cli.set( namespace + ':' + uid, JSON.stringify( data ), function( err ) {
 
-    if ( err ) return cb( err );
+    if ( err ) {
 
-    cli.set( namespace + ':' + uid + ':timestamp', JSON.parse( JSON.stringify( new Date ) ), cb );
+      cli.quit();
+
+      return cb( err );
+
+    }
+
+    cli.set( namespace + ':' + uid + ':timestamp', JSON.parse( JSON.stringify( new Date ) ), function( err ) {
+
+      cli.quit();
+
+      cb( err );
+
+    } );
 
   } );
 
@@ -111,7 +155,13 @@ function get( uid, cb ) {
 
   cli.get( namespace + ':' + uid, function( err, data ) {
 
-    if ( err ) return cb( err );
+    cli.quit();
+
+    if ( err ) {
+
+      return cb( err );
+
+    }
 
     cb( null, JSON.parse( data ) );
 
@@ -126,6 +176,8 @@ function getTimestamp( uid, cb ) {
   if ( !cli ) return;
 
   cli.get( namespace + ':' + uid + ':timestamp', function( err, timestamp ) {
+
+    cli.quit();
 
     if ( err ) return cb( err );
 
