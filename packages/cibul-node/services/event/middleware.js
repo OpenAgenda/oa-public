@@ -219,7 +219,9 @@ function format( req, res, next ) {
       allAgendaReferences: results[ 1 ],
       adminAgendas: results[ 2 ],
       languages: false,
-      currentState: results[ 3 ]
+      currentState: results[ 3 ],
+      accessibility: req.event.getAccessibility(),
+      age: req.event.getAge()
     };
 
     if ( req.event.getLanguages().length > 1 ) {
