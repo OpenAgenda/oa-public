@@ -1,0 +1,45 @@
+#event {
+
+  .detail-item {
+
+    padding: 10px 0 15px;
+    position: relative;
+
+    h3 {
+
+      margin: 0 10px 0 0;
+      vertical-align: middle;
+      text-align: center;
+      width: 30px;
+      display: inline-block;
+
+      i {
+        color: $oa-silver;
+        font-size: 31px;
+      }
+
+    }
+
+    .detail-item-content {
+
+      display: inline-block;
+      max-width: 80%;
+      vertical-align: middle;
+      margin: 0;
+
+    }
+
+    .info {
+      color: $oa-silver;
+    }
+
+    i {
+      color: $oa-silver;
+    }
+
+    p {
+      margin: 5px 0;
+    }
+  }
+
+}

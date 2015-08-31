@@ -159,7 +159,6 @@
   .meta-container {
 
     text-align: center;
-    padding: 0 0 20px;
 
     .event-action {
       line-height: 30px;
@@ -212,41 +211,6 @@
     }
 
     span { display: none; }
-  }
-
-  // aside section
-  .event-side {
-
-    padding: 10px 0 30px;
-    position: relative;
-
-    h3 {
-      margin: 0;
-
-      i {
-        color: $oa-silver;
-        font-size: 31px;
-        left: 0;
-        position: absolute;
-        text-align: center;
-        top: 5px;
-        width: 35px;
-      }
-
-    }
-
-    p {
-      margin-bottom: 5px;
-      padding-left: 50px;
-    }
-
-    .info {
-      color: $oa-silver;
-    }
-
-    i {
-      color: $oa-silver;
-    }
   }
 
 

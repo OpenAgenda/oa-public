@@ -7,6 +7,7 @@
     "agenda-admin-bar" : "../agenda/css/admin-bar.scss",
     "event-base" : "css/base.scss",
     "event" : "css/style.scss",
+    "event-details" : "css/details.scss",
     "leaflet" : "../css/leaflet-0.7.3.css"
   },
 
@@ -22,6 +23,13 @@
     "pageId" : "event",
     "event" : {
       "owner": false
+    },
+    "impairments" : {
+      "hi" : "hearing impairment",
+      "pi" : "mental impairment",
+      "mi" : "motor impairment",
+      "vi" : "visual impairment",
+      "sl" : "sign language"
     },
     "states" : {
       "draft" : {

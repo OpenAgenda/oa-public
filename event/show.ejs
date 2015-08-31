@@ -46,25 +46,47 @@
 
         
 <% if ( event.ticketLink || event.pricingInfo ) { %>
-        <section class="event-side">
+        <section class="detail-item">
           <h3><i class="fa fa-ticket"></i></h3>
+          <div class="detail-item-content">
 <% if ( event.pricingInfo ) { %>
-          <p><%= event.pricingInfo %></p>
+            <p><%= event.pricingInfo %></p>
 <% } %>
 <% if ( event.ticketLink ) { %>
-          <p><a href="<%= event.ticketLink %>"><%= __('Ticketing link') %></a></p>
+            <p><a href="<%= event.ticketLink %>"><%= __('Ticketing link') %></a></p>
 <% } %>
+          </div>
         </section>
 <% } %>
-        <section class="event-side">
+        <section class="detail-item">
           <h3><i class="fa fa-clock-o"></i></h3>
-          <p><%= event.dateRange %></p>
+          <p class="detail-item-content"><%= event.dateRange %></p>
         </section>
 
-        <section class="event-side">
+<% if ( event.accessibility && event.accessibility.length ) { %>
+        <section class="detail-item">
+          <h3><i class="fa fa-wheelchair"></i></h3>
+          <p class="detail-item-content"><%= __( 'Accessibility: %impairments%', { '%impairments%' : event.accessibility.map( function( i ) { 
+            return __( impairments[ i ] );
+          } ).join( ', ' ) } ) %></p>
+        </section>
+<% } %><% if ( event.age ) { %>
+        <section class="detail-item">
+          <h3><i class="fa fa-child"></i></h3>
+<% if ( !event.age.max ) { %> 
+          <p class="detail-item-content"><%= __( 'starting at %min% years old', { '%min%' : event.age.min } ) %></p>
+<% } else { %>
+          <p class="detail-item-content"><%= __( '%min% to %max% years old', { '%min%' : event.age.min, '%max%' : event.age.max } ) %></p>
+<% } %>
+        </section>
+<% } %>
+
+        <section class="detail-item">
           <h3><i class="fa fa-map-marker"></i></h3>
-          <p><a href="<%= event.locationLink %>"><%= event.placeName %></a></p>
-          <p><%= event.address %></p>
+          <div class="detail-item-content">
+            <p><a href="<%= event.locationLink %>"><%= event.placeName %></a></p>
+            <p><%= event.address %></p>
+          </div>
           <div class="event-map js_map" data-coord="<%= event.latitude %>|<%= event.longitude %>"></div>
         </section>
 

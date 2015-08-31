@@ -66,5 +66,21 @@
   "from %from% to %to%"
   : "de %from% à %to%",
   "Duplicate"
-  : "Dupliquer"
+  : "Dupliquer",
+  "starting at %min% years old"
+  : "A partir de %min% ans",
+  "%min% to %max% years old"
+  : "De %min% à %max% ans",
+  "hearing impairment"
+  : "handicap auditif",
+  "mental impairment"
+  : "handicap psychique",
+  "motor impairment"
+  : "handicap moteur",
+  "visual impairment"
+  : "handicap visuel",
+  "sign language"
+  : "language des signes",
+  "Accessibility: %impairments%"
+  : "Accessibilité: %impairments%"
 }
