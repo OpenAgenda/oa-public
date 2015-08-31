@@ -328,7 +328,7 @@ function catchError( req, res, jsonResponse ) {
 
       res.code = 404;
 
-      req.log( 'error', err.message );
+      req.log( 'error', err );
 
     }
 
