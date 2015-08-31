@@ -499,6 +499,10 @@ function loadBaseData( func, cssFile ) {
 
 function loadSession( req, res, next ) {
 
+  req.log.load( {
+    session: req.cookies[ config.cookie.name ].substr( 0, 10 )
+  } );
+
   if ( req.session && req.session.userId ) {
 
     req.session.logged = true;
