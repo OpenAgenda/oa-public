@@ -71,9 +71,9 @@ readFile = require( './cachedFs' ).readFile,
 
 cn = require('../js/lib/common/common.mod.js'),
 
-async = require('async'),
+async = require( 'async' ),
 
-debug = require('debug'),
+debug = require( 'debug' ),
 
 deepExtend = require( 'deep-extend' ),
 
