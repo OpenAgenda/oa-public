@@ -53,7 +53,7 @@
             <p><%= event.pricingInfo %></p>
 <% } %>
 <% if ( event.ticketLink ) { %>
-            <p><a href="<%= event.ticketLink %>"><%= __('Ticketing link') %></a></p>
+            <p><a rel="external" href="<%= event.ticketLink %>"><%= __('Ticketing link') %></a></p>
 <% } %>
           </div>
         </section>
