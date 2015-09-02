@@ -103,6 +103,14 @@ module.exports = function( enabledTypes, cb ) {
 
     app.use( cookieSession( config.session ) );
 
+    app.use( function ( req, res, next ) {
+
+      res.removeHeader( 'X-Powered-By' );
+      
+      next();
+
+    } );
+
 
     // load gen url everywhere
     app.use( function( req, res, next ) {

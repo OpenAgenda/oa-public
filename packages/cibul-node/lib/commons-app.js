@@ -70,7 +70,9 @@ agendaSvc = require( '../services/agenda' ),
 
 async = require( 'async' ),
 
-genUrl = require( '../services/genUrl' );
+genUrl = require( '../services/genUrl' ),
+
+languages = require( 'languages' );
 
 
 
@@ -897,17 +899,9 @@ function _logRequest( req, res, next ) {
  * explicitely define lang value for current request
  */
 
-function _defineLang( req, lang ) {
+function _defineLang( req ) {
 
-  if ( !lang ) {
-
-    req.lang = req.query.lang ? req.query.lang : 'fr'
-
-  } else {
-
-    req.lang = lang;
-    
-  }
+  req.lang = _cleanLang( req.query.lang )
 
   if ( req.lang !== 'fr' ) {
 
@@ -920,19 +914,19 @@ function _defineLang( req, lang ) {
 }
 
 
-
 /**
  * get current request language
  */
 
 function _getLang( req ) {
 
-  if ( req.lang ) return req.lang;
+  return req.lang || _cleanLang( req.query ? req.query.lang : 'fr' );
 
-  if ( req.query && req.query.lang ) return req.query.lang;
+}
 
-  // when in doubt, speak french
-  log( 'did not detect any language' );
+function _cleanLang( dirtyLang ) {
+
+  if ( languages.isValid( dirtyLang ) ) return dirtyLang;
 
   return 'fr';
 

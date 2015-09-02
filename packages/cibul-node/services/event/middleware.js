@@ -286,14 +286,14 @@ function layoutData( req, res ) {
 
   var data = {
     metas: {
-      title: req.formatted.title,
+      title: utils.escape( req.formatted.title ),
       ogSiteName: { property: 'og:site_name', content: 'OpenAgenda' },
-      ogTitle: { property: 'og:title', content: req.formatted.title },
-      ogDescription: { property: 'og:description', content: req.formatted.description },
+      ogTitle: { property: 'og:title', content: utils.escape( req.formatted.title ) },
+      ogDescription: { property: 'og:description', content: utils.escape( req.formatted.description ) },
       ogLocale: { property: 'og:locale', content: req.lang },
       "twitter:card" : "summary_large_image",
-      "twitter:title" : req.formatted.title,
-      "twitter:description" : req.formatted.description,
+      "twitter:title" : utils.escape( req.formatted.title ),
+      "twitter:description" : utils.escape( req.formatted.description ),
       "twitter:domain" : config.domain
     },
     loner: !req.agenda

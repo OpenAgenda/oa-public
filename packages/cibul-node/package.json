@@ -42,6 +42,7 @@
     "fast-csv" : "0.6.0",
     "newrelic" : "*",
     "soap" : "0.9.1",
-    "node-redis-warlock" : "0.1.2"
+    "node-redis-warlock" : "0.1.2",
+    "languages" : "0.1.3"
   }
 }
