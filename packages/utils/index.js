@@ -27,8 +27,6 @@ function escape( html ) {
   
   .replace( /"/g, '&quot;' );
 
-};
-
 }
 
 function toCamelCase( input ) {
