@@ -31,6 +31,8 @@ testData = {};
 
 describe( 'admin service', function() {
 
+  this.timeout( 20000 );
+
   before( function( done ) {
 
     async.series( [ _loadTestEvents, _indexTestEvents ], done );

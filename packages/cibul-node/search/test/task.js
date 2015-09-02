@@ -30,7 +30,7 @@ task.setComs( bogusComs );
 
 describe( 'search index sync', function() {
 
-  this.timeout( 10000 );
+  this.timeout( 20000 );
   
   before( function( done ) {
 

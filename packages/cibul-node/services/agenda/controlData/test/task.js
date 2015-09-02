@@ -37,6 +37,8 @@ describe( 'controlData - task', function() {
 
   beforeEach( lock.test.clear );
 
+  beforeEach( q.test.clear );
+
   this.timeout( 10000 );
 
   it( 'queued id gets processed by build', function( done ) {
