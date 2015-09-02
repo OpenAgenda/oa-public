@@ -59,6 +59,8 @@ module.exports = function( uid ) {
 
   syncHref = false,
 
+  modalTaken = false,
+
   passedAutoLoad = true;
 
   return (function() {
@@ -375,6 +377,8 @@ module.exports = function( uid ) {
   
   function requestModal( name, cb ) {
 
+    modalTaken = true;
+
     _forEachWidget( 'disable', name );
 
     enabled = false;
@@ -389,6 +393,8 @@ module.exports = function( uid ) {
    */
   
   function releaseModal() {
+
+    modalTaken = false;
 
     _forEachWidget( 'enable' );
 
@@ -654,8 +660,12 @@ module.exports = function( uid ) {
 
       log( 'sweep result %d out of %d', includedCount, cn.size( ctl.a ) );
 
-      // enable all the widgets!
-      _forEachWidget( 'enable', currentRequestParams );
+      // enable all the widgets ( if modal is not taken )
+      if ( !modalTaken ) {
+
+        _forEachWidget( 'enable', currentRequestParams );
+
+      }
 
     }, 10 );
 

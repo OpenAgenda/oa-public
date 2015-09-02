@@ -104,11 +104,15 @@ function widget( elem, options ) {
 
     styler( style );
 
+    controller.requestModal( 'body' );
+
     controller.getControlData( function( data ) {
 
       _initSrc( controller.getCurrentQuery() );
 
       _frameLink( function( href, sendFunc ) {
+
+        controller.releaseModal();
         
         _update( href );
 
@@ -308,6 +312,8 @@ function widget( elem, options ) {
     if ( lang ) query.lang = lang;
 
     elem.setAttribute( 'src', path + '?' + qs.stringify( query ) );
+
+    controller.requestModal( 'body' );
 
   }
 
