@@ -9,8 +9,27 @@ module.exports = {
   unique: unique,
   forEach: forEach, // for some older browsers
   toCamelCase: toCamelCase,
-  toUnderscore: toUnderscore
+  toUnderscore: toUnderscore,
+  escape: escape
 };
+
+function escape( html ) {
+
+  return String( html )
+  
+  .replace( /&/g, '&amp;' )
+  
+  .replace( /</g, '&lt;' )
+  
+  .replace( />/g, '&gt;' )
+  
+  .replace( /'/g, '&#39;' )
+  
+  .replace( /"/g, '&quot;' );
+
+};
+
+}
 
 function toCamelCase( input ) {
 
