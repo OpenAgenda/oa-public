@@ -1,0 +1,537 @@
+var utils = require( 'utils' ),
+
+rUtils = require( './reactUtils' ),
+
+eventValidator = require( './eventValidator' );
+
+module.exports = function( params ) {
+
+  params = utils.extend({
+    event: {},
+    events: {
+      log: 'log',
+      fetch: 'eventfetch',
+      description: {
+        fetch: 'edescriptionfetch',
+        write: 'edescriptionfieldsend',
+        remove: 'edescriptionfieldremove'
+      },
+      location: {
+        fetch: 'elocationfetch',
+        remove: 'elocationremove',
+        write: 'elocationsend',
+      },
+      image: {
+        fetch: 'eimagefetch',
+        remove: 'eimageremove',
+        write: 'eimagesend'
+      },
+      agenda: {
+        fetch: 'eagendafetch',
+        write: 'eagendawrite'
+      },
+      customfields: {
+        write: 'ecustomfieldssend'
+      },
+      ageFields: {
+        write: 'eagesend'
+      },
+      typeField: {
+        write: 'etypesend'
+      },
+      accessibilityFields: {
+        write: 'eaccessibilitysend'
+      },
+      uidfetch: 'euidfetch',
+      validate: 'evalidate',
+      fetchEncoded: 'efetchencoded',
+      languageChange: 'elanguageschange',
+      fetchLanguages: 'elanguagesfetch',
+      clear: 'eventclear'
+    },
+    descriptionFields: ['title', 'description', 'tags', 'freeText']
+
+  }, params);
+
+  var eh = rUtils.eh;
+
+  validator = eventValidator({labels: params.labels}),
+
+  nextLocationIndex = 0,
+  locationMap = {},
+
+  currentErrors = {},
+
+  event = params.event, onValidate = false, languages = [],
+
+  callbackIds = [], // keep track of callbacks used by event handler
+
+  init = function() {
+
+    if (Object.prototype.toString.call(event) === '[object Array]') event = {};
+
+    if (!event.locations) event.locations = [];
+
+    _mapLocations();
+
+    _updateLanguages();
+
+    _on(params.events.log, function() {
+      console.log(event);
+    });
+
+    _on( params.events.fetch, function( cb ) {
+
+      cb( JSON.parse( JSON.stringify( event ) ) );
+
+    } );
+
+    _on(params.events.description.fetch, function(callback) {
+
+      callback({
+        title: event.title,
+        description: event.description,
+        tags: event.tags,
+        freeText: event.freeText
+      });
+
+    });
+
+    _on(params.events.description.write, function(data) {
+
+      var error = null;
+
+      try {
+
+        for ( var lang in data.value ) {
+
+          _validate( data.name, data.value[ lang ] );
+
+        }
+
+      } catch (e) {
+
+        error = e;
+
+      }
+
+      if (!event[data.name]) event[data.name] = {};
+
+      event[data.name] = data.value;
+
+      if (data.callback) data.callback(error);
+
+      _evaluate();
+
+      _updateLanguages();
+
+    });
+
+    _on(params.events.location.fetch, function(data) {
+
+      var index = data.index;
+
+      if (typeof index == 'undefined') index = _getFirstLocationIndex();
+
+      if (index === false) return data.callback(false);
+
+      data.callback({
+        location: locationMap[index],
+        index: index,
+        nextIndex: _getNextLocationIndex(index)
+      });
+
+    });
+
+    _on(params.events.location.write, function(data) {
+
+      if (isDef(data.index)) {
+
+        locationMap[parseInt(data.index,10)] = data.location;
+
+      } else {
+
+        var newLocation = data.location;
+
+        event.locations.push(newLocation);
+
+        var newIndex = _mapLocation(newLocation);
+
+        if (data.callback) data.callback(newIndex);
+
+      }
+
+      _printLocationMap();
+
+      _evaluate();
+
+    });
+
+    _on(params.events.location.remove, function(data) {
+
+      if (data.index && locationMap[data.index]) delete locationMap[data.index];
+
+      _printLocationMap();
+
+      _evaluate();
+
+    });
+
+
+    // get agenda information
+
+    _on(params.events.agenda.fetch, function(data) {
+
+      if (event.agendas) for (var a in event.agendas) {
+
+        if (event.agendas[a].uid == data.uid) return data.callback(event.agendas[a]);
+
+      }
+
+      data.callback(false);
+
+    });
+
+
+    // write agenda information in existing or new entry
+
+    _on(params.events.agenda.write, function(data) {
+
+      if (!event.agendas) event.agendas = [];
+
+      for (var i = event.agendas.length - 1; i >= 0; i--) {
+        if (event.agendas[i].uid == data.uid) return event.agendas[i] = data;
+      }
+
+      event.agendas.push(data);
+
+    });
+
+
+    // update agenda information
+
+    _on(params.events.image.fetch, function(callback) {
+
+      callback(event.image?{image: event.image }:false);
+
+    });
+
+    _on(params.events.image.remove, function() {
+
+      event.image = false;
+
+      _evaluate();
+
+    });
+
+    _on(params.events.image.write, function(data) {
+
+      if (data.image) event.image = data.image;
+
+      _evaluate();
+
+    });
+
+    _on( params.events.typeField.write, function( data ) {
+
+      event.type = data;
+
+    });
+
+    _on( params.events.ageFields.write, function( data ) {
+
+      event.age = data;
+
+    });
+
+    _on(params.events.accessibilityFields.write, function(data) {
+
+      event.accessibility = data;
+
+    });
+
+    _on( params.events.customfields.write, function( data ) {
+
+      var errors;
+
+      if ( data ) {
+
+        event.customFields = _extract( 'value', data );
+
+        errors = {};
+
+        for ( var d in data ) {
+
+          errors[ d ] = data[ d ].error ? data[ d ].label + ': ' + data[ d ].error : false;
+
+        }
+
+        _setCurrentErrors( errors )
+
+        _evaluate();
+
+      }
+
+    } );
+
+    _on(params.events.uidfetch, function(callback) {
+
+      callback({uid: event.uid?event.uid:false, draft: event.draft?true:false });
+
+    });
+
+    _on(params.events.validate, function(callbacks) {
+
+      onValidate = callbacks.onChange;
+
+      _evaluate(callbacks.onSuccess);
+
+    });
+
+    _on(params.events.fetchEncoded, function(callback) {
+
+      callback(JSON.stringify(event));
+
+    });
+
+    _on(params.events.fetchLanguages, function(callback) {
+
+      callback(languages);
+
+    });
+
+    _on(params.events.clear, function() {
+
+      // unregister methods
+      utils.forEach(callbackIds, function(id) { 
+        eh.cancel(id);
+      });
+
+    });
+
+  },
+
+  _on = function(eventName, callback) {
+
+    callbackIds.push(eh.on(eventName, callback));
+
+  },
+
+  _printLocationMap = function() {
+
+    while (event.locations.length) {
+      event.locations.pop();
+    }
+      
+    var index;
+
+    for (index in locationMap) {
+
+      event.locations.push(locationMap[index]);
+
+    }
+
+  },
+
+  /**
+   * map event locations to indexes that will be used to fetch them
+   **/
+
+  _mapLocations = function() {
+
+    utils.forEach(event.locations, function(location) {
+
+      _mapLocation(location);
+
+    });
+
+  },
+
+  _mapLocation = function(location) {
+
+    var index = nextLocationIndex;
+
+    locationMap[nextLocationIndex] = location;
+
+    nextLocationIndex++;
+
+    return index;
+
+  },
+
+  _getFirstLocationIndex = function() {
+
+    var index;
+
+    for (index in locationMap)
+      return index;
+
+    return false;
+
+  },
+
+  _getNextLocationIndex = function(currentIndex) {
+
+    var nextIndex = false, index, currentFound = false;
+
+    currentIndex = parseInt(currentIndex);
+
+    for (index in locationMap) {
+
+      if (currentFound) {
+
+        nextIndex = index;
+        break;
+
+      } else if (index == currentIndex) {
+
+        currentFound = true;
+
+      }
+
+    }
+
+    return nextIndex;
+
+  },
+
+  _validate = function(field, value) {
+
+    validator.process(field, value);
+
+  },
+
+  _evaluate = function(onSuccess) {
+
+    if (onValidate || onSuccess) _validateEvent( _getCurrentErrors(), function(success, errors ) {
+
+      if (success && onSuccess) onSuccess();
+
+      if (onValidate) onValidate(success, errors );
+
+    });
+
+  },
+
+  _getCurrentErrors = function() {
+
+    var errs = [];
+
+    for ( var i in currentErrors ) {
+
+      errs.push( currentErrors[ i ] );
+
+    }
+
+    return errs;
+
+  },
+
+  _setCurrentErrors = function( newErrors ) {
+
+    for ( var i in newErrors ) {
+
+      if ( !newErrors[ i ] ) {
+
+        delete currentErrors[ i ];
+
+      } else {
+
+        currentErrors[ i ] = newErrors[ i ];
+
+      }
+
+    }
+
+  },
+
+  _extract = function( attr, obj, filterIfFalse ) {
+
+    var extract = {};
+
+    if ( typeof filterIfFalse == 'undefined' ) filterIfFalse = false;
+
+    for( var i in obj ) {
+
+      if ( !filterIfFalse || ( obj[ i ][ attr ] !== false ) ) {
+
+        extract[ i ] = obj[ i ][ attr ];
+
+      }
+
+    }
+
+    return extract;
+
+  },
+
+  _validateEvent = function(preErrors, callback) {
+
+    var errors = validator.processFull(event),
+
+    concatenated = preErrors.concat( errors );
+
+    callback(concatenated.length?false:true, concatenated );
+
+  },
+
+  _updateLanguages = function() {
+
+    var newLanguages = [];
+
+    utils.forEach(params.descriptionFields, function(fieldName) {
+
+      if ( typeof event[fieldName] == 'undefined' ) return;
+      
+      for ( var lang in event[ fieldName ] ) {
+
+        if ( newLanguages.indexOf( lang ) == -1 ) {
+
+          newLanguages.push( lang );
+
+        }
+
+      }
+
+    });
+
+    // compare with existing
+
+    if (!_compareArrays(newLanguages, languages)) {
+      
+      // they are different
+      languages = newLanguages;
+
+      eh.trigger(params.events.languageChange, languages);
+
+    }
+
+  },
+
+  //http://stackoverflow.com/questions/7837456/comparing-two-arrays-in-javascript
+  _compareArrays = function(a, b) {
+
+    // if the other array is a falsy value, return
+    if (!a) return false;
+
+    // compare lengths - can save a lot of time
+    if (b.length != a.length) return false;
+
+    for (var i = 0; i < b.length; i++) {
+      // Check if we have nested arrays
+      if (b[i] instanceof Array && a[i] instanceof Array) {
+        // recurse into the nested arrays
+        if (!b[i].compare(a[i]))
+          return false;
+      }
+      else if (b[i] != a[i]) {
+        // Warning - two different object instances will never be equal: {x:20} != {x:20}
+        return false;
+      }
+    }
+    return true;
+  };
+
+  init();
+
+};

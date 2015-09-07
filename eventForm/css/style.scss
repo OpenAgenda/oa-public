@@ -1,0 +1,35 @@
+.ef {
+
+  &.canvas main {
+
+    margin-top: 60px!important;
+
+  }
+  
+  .lang-unit {
+
+    > label {
+
+      display: inline-block;
+      width: 2em;
+      text-transform: uppercase;
+      position: absolute;
+      padding: 9px;
+
+      &.off32 {
+
+        padding-top: 3.2em;
+
+      }
+
+    }
+
+    > div {
+
+      margin-left: 3em;
+
+    }
+
+  }
+
+}

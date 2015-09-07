@@ -1,0 +1,42 @@
+<div class="canvas ef">
+  <main class="js_form_canvas wsq">
+  </main>
+</div>
+<script type="text/javascript" src="testdata.js"></script>
+<script type="text/javascript" src="/js/legacy/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+
+  oaEvent({
+    event: testevent,
+    labels: {
+      title: 'Le titre',
+      description: 'La description',
+      tags: 'Les mots clés',
+      freeText: 'Le champ de texte libre',
+      empty: '%noun% ne peux pas être vide',
+      max: '%noun% ne doit pas excéder %max% caractères',
+      address: 'L\'adresse',
+      placename: 'Le nom du lieu',
+      noDates: 'Il doit y avoir au moins un horaire de défini par lieu'
+    }
+  });
+
+  /*
+   [{"name":"somenmber","type":"public","fieldType":"number","label":{"fr":"Un nombre","en":"A number"}},{"name":"somestat","type":"private","fieldType":"integer","label":{"fr":"Une stat quelconque","en":"Some statistic"}},{"name":"somesmalltext","type":"private","fieldType":"text","max":200,"min":20,"optional":true,"multilingual":true, "label":{"fr":"Ceci est un petit texte","en":"This is a small text"}},{"name":"somelongtext","type":"public","fieldType":"textarea","value":"dude!","label":{"fr":"Ceci est un long texte","en":"This is a long text"},"info":{"fr":"Vous devez saisir quelque chose ici","en":"You should type in something here"}},{"name":"someurl","type":"public","fieldType":"url","label":{"fr":"ceci est une url","en":"this is an url"}},{"name":"someemail","type":"public","fieldType":"email","label":{"fr":"ceci est un email","en":"this is an email"}},{"name":"checkboxfield","type":"private","fieldType":"checkbox","value":true,"label":{"fr":"Ceci est un champ checkbox","en":"This is a checkbox field"}},{"name":"radiofields","type":"public","fieldType":"radio","options":[{"label":{"fr":"oui","en":"yes"},"value":"1"},{"label":{"fr":"non","en":"no"},"value":"0"},{"label":{"fr":"peut-être","en":"maybe"},"value":"2"}],"value":"2","label":{"fr":"Etes-vous d\'accord?","en":"Do you agree"}},{"name":"testimony","type":"public","fieldType":"textarea","multilingual":true,"optional":true,"label":{"fr":"T\\u00e9moignage","en":"Testimony"},"value":{"fr":"J\'ai adoré!","en":"I loved it!"}}]
+   */
+  
+  oaEventForm( {
+    labels: {
+      title: 'Titre',
+      description: 'Description',
+      addLanguage: 'ajouter une langue',
+      keywords: 'Mots clés',
+      keywordPlaceholder: 'Ajouter un mot clé',
+      longDescription: 'Description Longue',
+      conditions: 'Conditions',
+      ticketLink: 'Lien de réservation'
+    },
+    custom: '[{"name":"somenmber","type":"public","fieldType":"number","label":{"fr":"Un nombre","en":"A number"}}]'
+  } );
+
+</script>

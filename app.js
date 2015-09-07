@@ -67,16 +67,16 @@ function _prepareRender( v ) {
   p.w( v )
 
   // load config file
-  .then( _load( 'config', 'uri', '.config.json' ) )
+  .then( _load( 'config', 'uri', '.config.json', true ) )
 
   // load layout config file
-  .then( p.ifl( { 'config.layout' : true }, _load( 'layoutConfig', 'config.layout', '.config.json' ) ) )
+  .then( p.ifl( { 'config.layout' : true }, _load( 'layoutConfig', 'config.layout', '.config.json', true ) ) )
 
   // load mock data
-  .then( _load( 'data', 'uri', '.mock.json' ) )
+  .then( _load( 'data', 'uri', '.mock.json', true ) )
 
   // load layout mock data
-  .then( p.ifl( { 'config.layout' : true }, _load( 'layoutData', 'config.layout', '.mock.json' ) ) )
+  .then( p.ifl( { 'config.layout' : true }, _load( 'layoutData', 'config.layout', '.mock.json', true ) ) )
 
   // browserify js data
   .then( p.ifl( { 'config.js' : true }, _browserifyFiles( 'uri', 'config.js' ) ) )
@@ -114,7 +114,7 @@ function _prepareRender( v ) {
 
   }, function( err ) {
 
-    _respond( v.res, 500, err );
+    _respond( v.res, 500, 'There was a problem while loading the template: ' + err );
 
   });
 
@@ -171,9 +171,11 @@ function _load( key, pathKey, suffix, throwError ) {
 
         if ( err ) {
 
-          log( 'could not read file %s', __dirname + '/' + p.getSubObject( pathKey, v ) + suffix );
+          var errorMessage = 'could not read file ' + __dirname + '/' + p.getSubObject( pathKey, v ) + suffix;
 
-          if ( throwError ) return rj( err );
+          log( errorMessage );
+
+          if ( throwError ) return rj( errorMessage + err );
 
           rs( v );
 
@@ -361,9 +363,7 @@ function _compileSass( v ) {
 
         if ( err ) {
 
-          log( 'could not read file %s' + cssFile );
-
-          return ecb( err );
+          return ecb( 'could not read file %s' + cssFile );
 
         }
 

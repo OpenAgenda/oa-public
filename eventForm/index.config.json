@@ -1,0 +1,17 @@
+{
+  "layout" : "layout/main",
+  "css" : {
+    "style" : "css/style.scss",
+    "forms" : "../css/forms.css",
+    "cStructure" : "../structure/css/centered.css",
+    "fontawesome430" : "../css/font-awesome-4.3.0/css/font-awesome.css",
+    "efReactSelect" : "css/reactSelect.css",
+    "efLanguageBar" : "css/languageBar.scss",
+    "efKeywords" : "css/tags.scss",
+    "efTinyMCE" : "css/tinyMCE.scss"
+  },
+  "base" : {
+    "pageClass" : "cb"
+  },
+  "js" : true
+}

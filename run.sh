@@ -1,1 +1,1 @@
-nodemon app --ignore build/
+nodemon --ignore build/ --ignore node_modules/ app
