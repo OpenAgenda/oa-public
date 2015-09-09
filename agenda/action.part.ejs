@@ -7,7 +7,7 @@
     <div class="js_popup_content popup-content">
       <p class="legend"><%= __( 'Automatically import all dates of this agenda in your personal agenda' ) %></p>
       <div class="btn-adds">
-        <a class="btn btn-default" href="https://www.google.com/calendar/render?cid=<%= genUrl( 'agendaIcal', { uid: uid }, { protocol: 'http' } ) %>"><%= __('Google Agenda') %></a>
+        <a class="btn btn-default" href="https://www.google.com/calendar/render?cid=<%= genUrl( 'agendaIcal', { uid: uid }, { protocol: 'http://' } ) %>"><%= __('Google Agenda') %></a>
         <a class="btn btn-default" href="<%= genUrl( 'agendaIcal', { uid: uid }) %>?dl=1">iCal</a>
       </div>
       <p class="legend"><%= __('Download') %></p>
