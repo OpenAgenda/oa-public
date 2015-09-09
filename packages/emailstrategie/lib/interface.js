@@ -284,7 +284,7 @@ function _parse( key, item, leaf ) {
       // emailStrategie does not like &
       clean = clean.replace( /\&/g, '&amp;' );
 
-      //clean = '<![CDATA[' + clean + ']]>';
+      clean = '<![CDATA[' + clean + ']]>';
 
     }
 
