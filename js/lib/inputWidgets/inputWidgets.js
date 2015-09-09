@@ -1,5 +1,23 @@
 // this here allows the creation of the element and the appending of a controller
 
+if ( typeof extend === 'undefined' ) {
+
+  var utils = require( 'utils' ),
+
+  du = require( '../domUtils' ),
+
+  extend = utils.extend,
+
+  addClass = du.addClass,
+
+  removeClass = du.removeClass,
+
+  forEach = utils.forEach,
+
+  inputControllers = require( './inputControllers' );
+
+}
+
 var inputWidget = {
 
   _init: function(params) {
@@ -296,3 +314,6 @@ inputWidgets.textarea.prototype = extend({
   }
 
 }, inputWidget);
+
+
+if ( module ) module.exports = inputWidgets;

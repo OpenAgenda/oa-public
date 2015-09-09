@@ -1,9 +1,13 @@
-var makeLooseGet = function(params) {
+var utils = require( 'utils' ),
 
-  params = extend({
+remote = require( '../../../js/lib/remote/remote.mod' );
+
+module.exports = function( params ) {
+
+  params = utils.extend({
     url: false,
     onResponse: false,
-    debug: false
+    debug: [ 'dev', 'tpl' ].indexOf( window.env ) !== -1
   }, params);
 
   var pending = false, queued = false, count = 0,

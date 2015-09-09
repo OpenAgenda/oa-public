@@ -1,6 +1,16 @@
-var handleDatesList = function(params) {
+"use strict";
 
-  params = extend({
+var utils = require( 'utils' ),
+
+du = require( '../../../js/lib/domUtils' ),
+
+EJS = require( '../../../js/lib/clientEjs/ejs' );
+
+require( '../../../js/lib/verboseDate/verboseDate' );
+
+module.exports = function(params) {
+
+  params = utils.extend({
     canvas: false,
     onChange: false, // callback called when the internal date selection was changed
     templates: {
@@ -22,7 +32,7 @@ var handleDatesList = function(params) {
 
     elem.innerHTML = new EJS({text: params.templates.main}).render();
 
-    listElem = el(elem, 'ul');
+    listElem = du.el(elem, 'ul');
 
     if (selection) _renderSelection(selection);
 
@@ -53,7 +63,7 @@ var handleDatesList = function(params) {
 
     var selectionList = _revert(selection);
 
-    forEach(newItems, function(newItem) {
+    du.forEach(newItems, function(newItem) {
       selectionList.push(newItem);
     });
 
@@ -80,9 +90,13 @@ var handleDatesList = function(params) {
 
     var dates = [], unorderedSelection = {}, orderedSelection = {};
 
-    forEach(listSelection, function(listItem) {
+    du.forEach( listSelection, function( listItem ) {
 
-      if (!contains(dates, listItem.date)) dates.push(listItem.date);
+      if ( dates.indexOf( listItem.date ) == -1 ) {
+
+        dates.push(listItem.date);
+
+      }
 
       if (typeof unorderedSelection[listItem.date] == 'undefined') unorderedSelection[listItem.date] = [];
 
@@ -98,17 +112,25 @@ var handleDatesList = function(params) {
 
     var oSelection = {};
 
-    forEach(dates, function(date) {
+    du.forEach(dates, function(date) {
 
       var dateItem = unorderedSelection[date],
 
       beginTimes = [], timings = {}, orderedTimings = [];
 
-      forEach(dateItem, function(timing) {
+      du.forEach(dateItem, function(timing) {
 
-        if (!contains(beginTimes, timing.begin)) beginTimes.push(timing.begin);
+        if ( beginTimes.indexOf( timing.begin ) == -1 ) {
 
-        if (typeof timings[timing.begin] == 'undefined') timings[timing.begin] = [];
+          beginTimes.push(timing.begin);
+
+        }
+
+        if ( typeof timings[timing.begin] == 'undefined' ) {
+
+          timings[timing.begin] = [];
+
+        }
 
         timings[timing.begin].push(timing);
 
@@ -116,15 +138,13 @@ var handleDatesList = function(params) {
 
       beginTimes.sort();
 
-      forEach(beginTimes, function(beginTime) {
-        forEach(timings[beginTime], function(timing) {
+      du.forEach(beginTimes, function(beginTime) {
+        du.forEach(timings[beginTime], function(timing) {
 
           orderedTimings.push(timing);
 
         });
       });
-
-      //console.log(oSelection[date])
 
       if (typeof oSelection[date] == 'string') oSelection[date] = [];
 
@@ -134,11 +154,11 @@ var handleDatesList = function(params) {
 
     var orderedList = [];
 
-    for (date in oSelection) {
+    for ( var d in oSelection) {
 
       orderedList.push({
-        date: date,
-        timings: oSelection[date]
+        date: d,
+        timings: oSelection[ d ]
       });
 
     }
@@ -154,9 +174,9 @@ var handleDatesList = function(params) {
 
     var listSelection = [];
 
-    forEach(orderedList, function(orderedListItem) {
+    du.forEach(orderedList, function(orderedListItem) {
 
-      forEach(orderedListItem.timings, function(timingItem) {
+      du.forEach(orderedListItem.timings, function(timingItem) {
 
         var listItem = { date: orderedListItem.date, begin: timingItem.begin, end: timingItem.end };
 
@@ -180,7 +200,7 @@ var handleDatesList = function(params) {
 
       var dateElem = document.createElement('div');
 
-      dateElem.innerHTML = new EJS({text: params.templates.dateItem }).render(extend({lang: params.lang}, selection[dateIndex]));
+      dateElem.innerHTML = new EJS({text: params.templates.dateItem }).render(utils.extend({lang: params.lang}, selection[dateIndex]));
 
       dateElem = dateElem.childNodes[0];
 
@@ -196,9 +216,9 @@ var handleDatesList = function(params) {
 
         (function(dateIndex, timingIndex) {
 
-          addEvent(el(timingElem, params.selectors.remove), 'click', function(e) {
+          du.addEvent(du.el(timingElem, params.selectors.remove), 'click', function(e) {
 
-            preventDefault(e);
+            du.preventDefault(e);
 
             _removeTiming(dateIndex, timingIndex);
 
@@ -206,7 +226,7 @@ var handleDatesList = function(params) {
 
         })(dateIndex, timingIndex);
 
-        el(dateElem, 'ul').appendChild(timingElem);
+        du.el(dateElem, 'ul').appendChild(timingElem);
 
       }
 
@@ -236,7 +256,7 @@ var handleDatesList = function(params) {
 
     var child;
 
-    while (child = childObject(listElem, 0)) listElem.removeChild(child);
+    while (child = du.childObject(listElem, 0)) listElem.removeChild(child);
 
   };
 

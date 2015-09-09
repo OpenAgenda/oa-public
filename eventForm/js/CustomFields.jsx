@@ -12,58 +12,21 @@ RadioFields = require( './RadioFields.jsx' );
 
 module.exports = React.createClass({
 
-  getInitialState: function() {
-
-    var fieldValues = {};
-
-    for ( var i in this.props.fields ) {
-
-      fieldValues[ this.props.fields[ i ].name ] = {
-        value: this.props.fields[ i ].value,
-        error: this.props.fields[ i ].error,
-        label: this.props.fields[ i ].label
-      };
-
-    }
-
-    return {
-      languages: [ this.props.defaultLanguage ],
-      currentLanguage: this.props.defaultLanguage,
-      fields: fieldValues
-    }
-
-  },
-
-  componentDidUpdate: function() {
-
-    var update = JSON.parse( JSON.stringify( this.state.fields ) );
-
-    for ( var i in this.props.fields ) {
-
-      update[ this.props.fields[ i ].name ].label = this.props.fields[ i ].label[ this.props.labelsLang ];
-    
-    }
-
-    this.props.onChange( update );
-
-  },
-
-  fieldValueUpdater: function( field ) {
+  onChange: function( field ) {
 
     var self = this;
 
     return function( value, error ) {
 
-      var fields = self.state.fields;
+      var values = JSON.parse( JSON.stringify( self.props.values ) ),
 
-      fields[ field ] = {
-        value: value,
-        error: error
-      }
+      errors = JSON.parse( JSON.stringify( self.props.errors ) );
 
-      self.setState( {
-        fields: fields
-      } );
+      values[ field ] = value;
+
+      errors[ field ] = error;
+
+      self.props.onChange( values, errors );
 
     }
 
@@ -94,27 +57,29 @@ module.exports = React.createClass({
         if ( field.multilingual ) {
 
           return <MultilingualTextField
-            field= { field } 
+            constraints= { field } 
             label= { field.label }
             info= { field.info }
+            optional= { field.optional }
             labelsLang= { self.props.labelsLang } 
             type= { field.fieldType } 
-            value= { self.state.fields[ field.name ].value } 
-            error= { self.state.fields[ field.name ].error }
-            languages= { self.state.languages }
-            onChange= { self.fieldValueUpdater( field.name ) }/>;
+            value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : {} }
+            error= { self.props.errors[ field.name ] || false }
+            languages= { self.props.languages }
+            onChange= { self.onChange( field.name ) }/>;
 
         } else {
 
           return <TextField 
-            field= { field } 
+            constraints= { field }
             label= { field.label }
             info= { field.info } 
+            optional= { field.optional }
             labelsLang= { self.props.labelsLang } 
             type= { field.fieldType } 
-            value= { self.state.fields[ field.name ].value } 
-            error= { self.state.fields[ field.name ].error }
-            handleUpdate= { self.fieldValueUpdater( field.name ) } />;
+            value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
+            error= { self.props.errors[ field.name ] || false }
+            onChange= { self.onChange( field.name ) } />;
 
         }
 
@@ -123,17 +88,17 @@ module.exports = React.createClass({
         return <CheckboxField
           field= { field }
           labelsLang= { self.props.labelsLang } 
-          value= { self.state.fields[ field.name ].value }
-          handleUpdate= { self.fieldValueUpdater( field.name ) } />;
+          value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
+          handleUpdate= { self.onChange( field.name ) } />;
 
       } else if ( field.fieldType == 'radio' ) {
 
         return <RadioFields
           field= { field }
           labelsLang= { self.props.labelsLang }
-          value= { self.state.fields[ field.name ].value }
-          error= { self.state.fields[ field.name ].error }
-          handleUpdate= { self.fieldValueUpdater( field.name ) } />;
+          value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
+          error= { self.props.errors[ field.name ] || false }
+          handleUpdate= { self.onChange( field.name ) } />;
 
       }
 

@@ -1,0 +1,215 @@
+.ef {
+
+  .place {
+
+    margin: 1em 0;
+    clear: both;
+
+    .title {
+
+      font-weight: bold;
+      padding-bottom: 0.5em;
+
+    }
+
+    .address {
+
+      color: $oa-gray;
+      font-size: 0.9em;
+      line-height: 1em;
+
+    }
+
+    .button {
+
+      float: right;
+
+    }
+
+  }
+
+  .place-fetch, 
+  .place-selection { width: 50%; display: inline-block; vertical-align: top; }
+
+
+  .place-fetch > div label,
+  .place-fetch > div input,  
+  .place-fetch > div .info { display: block; }
+
+  .place-fetch .highlight { color: #333; font-weight: 800; }
+
+  .place-suggestion-tabs { float: left; width: 2em;}
+  .place-suggestion-tabs li { text-align: center; }
+  .place-suggestion-tabs i { font-size: 1.1em; color: #ccc; }
+  .place-suggestion-tabs .active i { color: #333; }
+  .place-suggestions { margin-left: 3em; }
+
+  .place-suggestions .empty-message { padding: 5em 0; }
+
+  .selection-map { min-height: 200px; }
+
+  .place .suggestion > span { display: block; }
+
+
+  .place ul .suggestion { margin-bottom: 0.5em; cursor: pointer; }
+  .place ul .suggestion.active { padding-left: 0.5em; border-left: 1px solid #ddd; }
+  .place ul .suggestion .address { margin-bottom: -0.2em; }
+
+  .manual-link > * { padding-right: 0.4em;}
+
+
+
+  .date {
+    margin-top: 0.5em;
+    display: inline-block;
+    width: 33%;
+    vertical-align: top;
+  }
+
+
+
+  .timing > * { font-size: 0.9em; }
+  .timing a { margin-left: 0.4em; }
+
+  .add-dates {
+
+    .date-select, .timing-select {
+
+      display: inline-block;
+      vertical-align: top;
+      padding: 1em 0 0 0;
+      width: 50%;
+
+      input, label, .info { display: block; }
+
+    }
+
+  }
+
+
+  .add-dates .date-select,
+  .add-dates .timing-select {
+    
+  }
+
+  .add-dates button {
+    margin-top: 3em;
+  }
+
+  .dates {
+
+    position: relative;
+
+    .date-actions {
+
+      padding-top: 2em;
+
+    }
+
+    .action {
+
+      margin-right: 1em;
+
+    }
+
+    .remove-action {
+
+      float: right;
+
+    }
+
+    .date-list {
+
+      margin-top: 2em;
+
+    }
+
+  }
+
+
+  .loader { padding: 0 0.5em 0 0.5em; vertical-align: middle; margin: 0.5em 0; }
+
+  .ccal {
+
+    width: 22em;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    max-width: 100%;
+
+    * { 
+      -moz-user-select: -moz-none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0!important;
+      text-align: center;
+    }
+
+    li {
+
+      list-style-type: none;
+      display: inline-block;
+      width: 13.2%;
+      cursor: pointer;
+      text-align: center; 
+      margin:0;
+
+      &.selected {
+
+        span {
+
+          color: white;
+
+        }
+
+        background: $oa-blue;
+
+      }
+
+      &.calmonth {
+
+        width: 66%;
+
+      }
+
+      span {
+
+        display: inline-block;
+        line-height: 1.8em;
+        padding: 0.1em 0.05em; 
+        display: block;
+
+      }
+
+      &.calprev, &.calnext {
+
+        span {
+
+          color: $oa-gray;
+
+        }
+
+      }
+
+    }
+
+    .calbody li.preselected span { 
+
+      background: #f0f0f0;
+
+    }
+      
+    .today { 
+
+      font-weight: bold;
+
+    }
+
+  }
+
+}

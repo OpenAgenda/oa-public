@@ -18,6 +18,11 @@ var testevent = {
     lat: 48.892698, 
     lng: 2.23595
   },
+  accessibility: [ 'sl', 'hi' ],
+  age: {
+    min: 10,
+    max: 90
+  },
   timings: [
     { date: '2010-01-01', begin: '10:00', end: '15:00' },
     { date: '2010-10-10', begin: '13:00', end: '20:00' },

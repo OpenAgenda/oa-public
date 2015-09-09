@@ -1,5 +1,16 @@
 .ef {
 
+  .info {
+    color: $oa-gray;
+    padding: 0.2em 0 1em;
+  }
+
+  .form-section {
+
+    padding: 1em 0 2em;
+
+  }
+
   &.canvas main {
 
     margin-top: 60px!important;

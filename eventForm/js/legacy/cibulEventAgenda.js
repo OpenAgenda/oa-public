@@ -1,9 +1,19 @@
-var cibulEventAgenda = function(params) {
+"use strict";
 
-  params = extend({
+var utils = require( 'utils' ),
+
+rUtils = require( '../reactUtils' ),
+
+du = require( '../../../js/lib/domUtils' ),
+
+EJS = require( '../../../js/lib/clientEjs/ejs' );
+
+module.exports = function(params) {
+
+  params = utils.extend({
     uid: false,
     selectors: {
-      canvas: '.js_form_canvas'
+      canvas: '.js_form_canvas_above'
     },
     classes: {
       active: 'selected',
@@ -32,11 +42,13 @@ var cibulEventAgenda = function(params) {
     categories: false
   }, params);
 
-  var eh = sEventHandler.getInstance(), tagCanvas, catCanvas, selection = {tags: [], category: false, uid: params.uid }, mCanvas,
+  var eh = rUtils.eh, 
+
+  tagCanvas, catCanvas, selection = {tags: [], category: false, uid: params.uid }, mCanvas,
 
   init = function() {
 
-    if (!Object.size(params.categories) && !Object.size(params.tags)) return; // nothing to do here
+    if ( !utils.size( params.categories ) && !utils.size( params.tags )) return; // nothing to do here
 
     eh.trigger(params.events.fetch, {
       uid: params.uid,
@@ -52,19 +64,19 @@ var cibulEventAgenda = function(params) {
 
         _createMainCanvas();
 
-        if (Object.size(params.tags)) {
+        if ( utils.size( params.tags ) ) {
 
-          tagCanvas = _createCanvas('tags');
+          tagCanvas = _createCanvas( 'tags' );
 
-          forEach(params.tags, _addTagItem);
+          utils.forEach( params.tags, _addTagItem );
 
         }
 
-        if (Object.size(params.categories)) {
+        if ( utils.size( params.categories ) ) {
 
           catCanvas = _createCanvas('categories');
 
-          forEach(params.categories, _addCategoryItem);
+          utils.forEach( params.categories, _addCategoryItem );
 
         }
 
@@ -77,40 +89,48 @@ var cibulEventAgenda = function(params) {
 
     var li = document.createElement('li');
 
-    li.innerHTML = new EJS({text: params.templates.tag }).render({label: item.label });
+    li.innerHTML = new EJS({ text: params.templates.tag }).render({label: item.label });
 
-    if (contains(selection.tags, item.slug)) addClass(li, params.classes.active);
+    if ( selection.tags.indexOf( item.slug ) !== -1 ) {
 
-    addEvent(li, 'click', function(e) {
+      du.addClass( li, params.classes.active );
+
+    }
+
+    du.addEvent( li, 'click', function(e) {
 
       var tagIndex = -1;
 
-      for (var i = selection.tags.length - 1; i >= 0; i--) {
-        if (selection.tags[i]==item.slug) {
+      for ( var i = selection.tags.length - 1; i >= 0; i-- ) {
+
+        if ( selection.tags[i]==item.slug ) {
+
           tagIndex = i;
           break;
+
         }
+
       }
 
-      if (tagIndex == -1) { // add tag to selection
+      if ( tagIndex == -1 ) { // add tag to selection
         
         selection.tags.push(item.slug);
 
-        addClass(li, params.classes.active);
+        du.addClass( li, params.classes.active );
         
       } else { // remove tag from selection
 
         selection.tags.splice(tagIndex, 1);
 
-        removeClass(li, params.classes.active);
+        du.removeClass( li, params.classes.active );
 
       }
 
-      eh.trigger(params.events.send, selection);
+      eh.trigger( params.events.send, selection );
 
     });
 
-    el(tagCanvas, 'ul').appendChild(li);
+    du.el(tagCanvas, 'ul').appendChild(li);
 
   },
 
@@ -120,9 +140,13 @@ var cibulEventAgenda = function(params) {
 
     li.innerHTML = new EJS({text: params.templates.category }).render({ label: item.label });
 
-    if (item.slug==selection.category) addClass(li, params.classes.active);
+    if (item.slug==selection.category) {
 
-    addEvent(li, 'click', function(e) {
+      du.addClass(li, params.classes.active);
+
+    }
+
+    du.addEvent(li, 'click', function(e) {
 
       // remove current active item
       if (selection.category) {
@@ -130,7 +154,7 @@ var cibulEventAgenda = function(params) {
         for (var i = params.categories.length - 1; i >= 0; i--) {
           if (params.categories[i].slug==selection.category) {
             
-            removeClass(els(catCanvas, 'li')[i], params.classes.active);
+            du.removeClass(du.els(catCanvas, 'li')[i], params.classes.active);
             break;
 
           }
@@ -146,7 +170,7 @@ var cibulEventAgenda = function(params) {
 
         selection.category = item.slug;
 
-        addClass(li, params.classes.active);
+        du.addClass(li, params.classes.active);
 
       }
 
@@ -154,7 +178,7 @@ var cibulEventAgenda = function(params) {
 
     });
 
-    el(catCanvas, 'ul').appendChild(li);
+    du.el(catCanvas, 'ul').appendChild(li);
 
   },
 
@@ -164,7 +188,7 @@ var cibulEventAgenda = function(params) {
 
     mCanvas.innerHTML = new EJS({text: params.templates.main}).render();
 
-    el(params.selectors.canvas).appendChild(mCanvas);
+    du.el(params.selectors.canvas).appendChild(mCanvas);
 
   },
 
@@ -174,7 +198,7 @@ var cibulEventAgenda = function(params) {
 
     canvas.innerHTML = new EJS({text: params.templates[obj]}).render({ categories: params.categories, tags: params.tags, label: params.labels[obj=='tags'?'tagInfo':'categoryInfo'], title: params.labels[obj=='tags'?'tagTitle':'categoryTitle'] });
 
-    addClass(canvas, params.classes[obj]);
+    du.addClass(canvas, params.classes[obj]);
 
     mCanvas.appendChild(canvas);
 

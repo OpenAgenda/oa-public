@@ -1,13 +1,25 @@
-var handleDateSelection = function(params) {
+"use strict";
 
-  params = extend({
+var utils = require( 'utils' ),
+
+du = require( '../../../js/lib/domUtils' ),
+
+EJS = require( '../../../js/lib/clientEjs/ejs' ),
+
+handleDatesAdd = require( './handleDatesAdd' ),
+
+handleDatesList = require( './handleDatesList' );
+
+module.exports = function(params) {
+
+  params = utils.extend({
     canvas: false, // required
     onChange: false,
     onHeightChange: false,
     templates: {
-      main: '<div class="js_add_dates js_add_dates_link js_clear_dates_link"></div><div class="js_date_list"></div>',
-      addLink: '<i class="icon-plus"></i><span><%= addLabel %></span>',
-      clearLink: '<span>&#215; </span><span><%= clearLabel %></span>',
+      main: '<div class="date-actions js_add_dates js_add_dates_link js_clear_dates_link"></div><div class="js_date_list date-list"></div>',
+      addLink: '<button class="blue button date-action"><i class="fa fa-plus"></i><span><%= addLabel %></span></button>',
+      clearLink: '<button class="red button date-action"><span>&#215; </span><span><%= clearLabel %></span></button>',
     },
     selectors: {
       addDatesCanvas: '.js_add_dates',
@@ -17,9 +29,9 @@ var handleDateSelection = function(params) {
     },
     labels: {
       addLabel: 'add dates',
-      clearLabel: 'clear dates'
+      clearLabel: 'clear all dates'
     },
-    dates: [], // initial list of dates
+    timings: [], // initial list of timings
     classes: {
       link: 'action',
       remove: 'remove-action'
@@ -27,33 +39,35 @@ var handleDateSelection = function(params) {
     lang: 'en'
   }, params);
 
-  var dateAdd, datesList, addLink, clearLink, elem, dateFormDisplay = false,
+  var dateAdd, timingsList, addLink, clearLink, elem, dateFormDisplay = false,
 
   _run = function() {
 
     _createElem();
 
-    if (params.dates.length) _displayClear();
+    if ( params.timings.length ) _displayClear();
 
     dateAdd = handleDatesAdd({
       labels: params.labels,
-      canvas: el(elem, params.selectors.addDatesCanvas),
+      canvas: du.el(elem, params.selectors.addDatesCanvas),
       onValidChange: _updatePreselection,
       onAdd: _addDates,
       lang: params.lang
     });
 
-    datesList = handleDatesList({
-      canvas: el(elem, params.selectors.dateListCanvas),
+    timingsList = handleDatesList({
+      canvas: du.el(elem, params.selectors.dateListCanvas),
       lang: params.lang
-    }).set(params.dates);
+    }).set(params.timings);
 
-    datesList.setOnChange(function(newDates) {
+    timingsList.setOnChange(function(newDates) {
+
       params.onChange(newDates);
       if (newDates.length) _displayClear();
+
     });
 
-    datesList.create();
+    timingsList.create();
 
   },
 
@@ -91,11 +105,11 @@ var handleDateSelection = function(params) {
    * when there are no confirmed selections, preselected dates are sent back
    */
 
-  _updatePreselection = function(newDates) {
+  _updatePreselection = function( newTimings ) {
 
-    if (datesList.length) return;
+    if (timingsList.length) return;
 
-    params.onChange(_parseNewDates(newDates));
+    params.onChange(_parseNewTimings( newTimings ));
 
   },
 
@@ -103,9 +117,9 @@ var handleDateSelection = function(params) {
    * parses new dates selection, adds it to date selection, hides add menu
    */
   
-  _addDates = function(newDates) {
+  _addDates = function( newTimings ) {
 
-    datesList.add(_parseNewDates(newDates));
+    timingsList.add(_parseNewTimings( newTimings ));
 
     hideAdd();
 
@@ -116,9 +130,9 @@ var handleDateSelection = function(params) {
    * parses new dates selection to be included in current dates list
    */
   
-  _parseNewDates = function(newDates) {
+  _parseNewTimings = function(newDates) {
 
-    var newDateList = [],
+    var newTimings = [],
 
     dateCursor = newDates.dates.begin,
 
@@ -126,7 +140,7 @@ var handleDateSelection = function(params) {
 
     while (dateCursor <= newDates.dates.end) {
 
-      newDateList.push({
+      newTimings.push({
         date: dateCursor.getFullYear() + '-' + _fZ(dateCursor.getMonth() + 1) + '-' + _fZ(dateCursor.getDate()),
         begin: newDates.timings.begin,
         end: newDates.timings.end
@@ -136,7 +150,7 @@ var handleDateSelection = function(params) {
 
     }
 
-    return newDateList;
+    return newTimings;
 
   },
 
@@ -164,15 +178,15 @@ var handleDateSelection = function(params) {
 
     addLink.innerHTML = new EJS({text: params.templates.addLink }).render(params.labels);
 
-    addEvent(addLink, 'click', function(e) {
+    du.addEvent(addLink, 'click', function(e) {
 
-      preventDefault(e);
+      du.preventDefault( e );
 
       showAdd();
 
     });
 
-    el(elem, params.selectors.addDatesLinkCanvas).appendChild(addLink);
+    du.el(elem, params.selectors.addDatesLinkCanvas).appendChild(addLink);
 
     if (params.onHeightChange) params.onHeightChange();
 
@@ -180,7 +194,7 @@ var handleDateSelection = function(params) {
 
   _displayClear = function() {
 
-    if (isDef(clearLink)) return;
+    if ( typeof clearLink !== 'undefined' ) return;
 
     clearLink = document.createElement('a');
 
@@ -190,11 +204,11 @@ var handleDateSelection = function(params) {
 
     clearLink.innerHTML = new EJS({ text: params.templates.clearLink }).render(params.labels);
 
-    addEvent(clearLink, 'click', function(e) {
+    du.addEvent(clearLink, 'click', function(e) {
       
-      preventDefault(e);
+      du.preventDefault( e );
 
-      datesList.set([]);
+      timingsList.set([]);
 
       showAdd();
 
@@ -202,7 +216,7 @@ var handleDateSelection = function(params) {
 
     });
 
-    el(elem, params.selectors.clearDatesLinkCanvas).appendChild( clearLink );
+    du.el(elem, params.selectors.clearDatesLinkCanvas).appendChild( clearLink );
 
     if (params.onHeightChange) params.onHeightChange();
 
@@ -210,9 +224,9 @@ var handleDateSelection = function(params) {
 
   _removeClear = function() {
 
-    if (!isDef(clearLink)) return;
+    if ( typeof clearLink !== 'undefined' ) return;
 
-    el(elem, params.selectors.clearDatesLinkCanvas).removeChild( clearLink );
+    du.el(elem, params.selectors.clearDatesLinkCanvas).removeChild( clearLink );
 
     if (params.onHeightChange) params.onHeightChange();
 

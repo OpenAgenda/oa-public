@@ -25,32 +25,19 @@ module.exports = React.createClass({
 
   },
 
-  componentDidMount: function() {
-
-    this.update( this.props.value );
-
-  },
-
   onChange: function( e ) {
+
+    var value = e.target.value;
 
     this.setState( { userHasTyped: true } );
 
-    this.update( e.target.value );
-
-  },
-
-  update: function( value ) {
-
-    this.props.handleUpdate( 
-      value, 
-      this.validate( value )
-    );
+    this.props.onChange( value, this.validate( value ) );
 
   },
 
   renderField: function() {
 
-    if ( [ 'integer', 'text', 'number', 'email', 'url' ].indexOf( this.props.type ) !== -1 ) {
+    if ( this.props.type !== 'textarea' ) {
 
       return <input type="text" value={this.props.value ? this.props.value : ''} onChange={this.onChange}/>;
 
@@ -66,7 +53,7 @@ module.exports = React.createClass({
 
     return <ul className="cform">
       <li>
-        <label>{this.props.label[this.props.labelsLang]}{ this.props.field.optional ? '' : ' (*)' }</label>
+        <label>{this.props.label[this.props.labelsLang]}{ this.props.optional ? '' : ' (*)' }</label>
         { this.props.info?<span className="info">{ this.props.info[ this.props.labelsLang ] }</span>:'' }
       </li>
       <li>
@@ -79,7 +66,9 @@ module.exports = React.createClass({
 
   validate: function( value ) {
 
-    var messages = errors.messages( this.props.labelsLang );
+    var messages = errors.messages( this.props.labelsLang ),
+
+    constraints = this.props.constraints || {};
 
     if ( value === undefined ) value = '';
 
@@ -87,7 +76,7 @@ module.exports = React.createClass({
 
     if ( !( value + '').length ) {
 
-      if ( !this.props.field.optional ) {
+      if ( !this.props.optional ) {
 
         return messages.notEmpty();
 
@@ -97,15 +86,15 @@ module.exports = React.createClass({
 
     }
 
-    if ( ( this.props.field.max !== undefined ) && ( value.length > this.props.field.max ) ) {
+    if ( ( constraints.max !== undefined ) && ( value.length > constraints.max ) ) {
 
-      return messages.tooLong( this.props.field.max );
+      return messages.tooLong( constraints.max );
 
     }
 
-    if ( ( this.props.field.min !== undefined ) && ( value.length < this.props.field.min ) ) {
+    if ( ( constraints.min !== undefined ) && ( value.length < constraints.min ) ) {
 
-      return messages.tooShort( this.props.field.min );
+      return messages.tooShort( constraints.min );
 
     }
 

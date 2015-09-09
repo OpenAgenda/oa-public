@@ -11,30 +11,7 @@ defaults = {
   }
 };
 
-module.exports = function( options ) {
-
-  var params = rUtils.extend( {
-    values: []
-  }, defaults, options );
-
-  React.render(
-    <AccessibilityFields 
-      init={params.values}
-      lang={params.lang}
-      onChange={rUtils.ehUpdate( params.events.send )} />,
-    rUtils.createCanvas( rUtils.el( params.canvas ) )
-  );
-
-}
-
-var AccessibilityFields = React.createClass({
-
-  labels: {
-    title: {
-      en: 'Particular accessibility',
-      fr: 'Accessibilité particulière'
-    }
-  },
+module.exports = React.createClass({
 
   types: [{
     code: 'mi',
@@ -70,19 +47,20 @@ var AccessibilityFields = React.createClass({
 
   getInitialState: function() {
 
-    var init = this.props.init ? this.props.init : [];
-
     return {
-      enabled: !!init.length,
-      checked: init
+      enabled: !!this.props.value.length
     }
 
   },
 
   onEnabled: function( e ) {
 
+    var enabled = !this.state.enabled;
+
+    if ( !enabled ) this.props.onChange( [] );
+
     this.setState( {
-      enabled: !this.state.enabled
+      enabled: enabled
     } );
 
   },
@@ -101,7 +79,7 @@ var AccessibilityFields = React.createClass({
 
   toggleState: function( code ) {
 
-    var current = this.state.checked,
+    var current = this.props.value.slice(),
 
     codeIndex = current.indexOf( code );
 
@@ -115,17 +93,7 @@ var AccessibilityFields = React.createClass({
 
     }
 
-    this.setState( { checked: current } );
-
-  },
-
-  componentDidUpdate: function() {
-
-    var checkedItems = this.state.enabled ? this.state.checked : [];
-
-
-
-    this.props.onChange( checkedItems );
+    this.props.onChange( current );
 
   },
 
@@ -138,15 +106,15 @@ var AccessibilityFields = React.createClass({
         <ul>
           <li className="line" onClick={self.onEnabled}>
             <input type="checkbox" name="accessibility" checked={self.state.enabled} />
-            <label>{this.labels.title[this.props.lang]}</label>
+            <label>{this.props.label[ this.props.labelsLang ]}</label>
           </li>
         </ul>
         <ul className="acc">
           {this.types.map(function(type, idx){
             return <AccessibilityItem 
               key={idx}
-              label={type.label[self.props.lang]}
-              checked={self.state.checked.indexOf(type.code)!==-1}
+              label={type.label[self.props.labelsLang]}
+              checked={self.props.value.indexOf(type.code)!==-1}
               code={type.code}
               onClick={self.onClick( type )}
               enabled={self.state.enabled}
@@ -158,20 +126,23 @@ var AccessibilityFields = React.createClass({
 
   }
 
-}),
+});
 
-AccessibilityItem = React.createClass({
+var AccessibilityItem = React.createClass({
+
+  onClick: function() {
+
+    this.props.onClick( this.props.code );
+
+  },
 
   render: function(){
 
     return (
-      <li className={this.props.enabled ? 'line' : 'display-none'} onClick={this.props.onClick}>
-        <input 
-          type="checkbox"
-          value={this.props.code} 
-          checked={this.props.checked}
-        />
-        <div className={'ill ' + this.props.code}></div>
+      <li className={this.props.enabled ? 'line' : 'display-none'} onClick={this.onClick}>
+        <div className={ 'box' + ( this.props.checked ? ' checked' : '' ) }>
+          <div className={'ill ' + this.props.code }></div>
+        </div>
         <label>{this.props.label}</label>
       </li>
     );

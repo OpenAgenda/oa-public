@@ -18,46 +18,21 @@ module.exports = React.createClass({
 
   },
 
-  componentDidMount: function() {
+  onChange: function( l ) {
 
-    this.update( this.props.value );
+    var self = this;
 
-  },
+    return function( e ) {
 
-  onChange: function( e ) {
+      var value = JSON.parse( JSON.stringify( self.props.value ) );
 
-    this.setState( { userHasTyped: true } );
+      value[ l ] = e.target.value;
 
-    this.update( e.target.value );
+      self.setState( { userHasTyped: true } );
 
-  },
-
-  update: function( value ) {
-
-    var valueSet = utils.extend( {}, this.props.value );
-
-    if ( typeof valueSet !== 'object' ) {
-
-      valueSet = {};
+      self.props.onChange( value, self.validate( value ) );
 
     }
-
-    // set current language value
-
-    if ( typeof value == 'object' ) {
-
-      utils.extend( valueSet, value );
-
-    } else {
-
-      valueSet[ this.props.currentLanguage ] = value;
-
-    }
-
-    this.props.handleUpdate(
-      valueSet,
-      validate( value )
-    );
 
   },
 
@@ -74,10 +49,11 @@ module.exports = React.createClass({
       return <li className={count>1?'lang-unit':''}>
         {count>1?<label>{l}</label>:''}
         <div>
-          { self.props.type == 'textarea' ?
-            <input type="text" value={ value } onChange={ self.onChange }/>
-            : <textarea value={ value } onChange={ self.onChange }/>
+          { self.props.type !== 'textarea' ?
+            <input type="text" value={ value } onChange={ self.onChange( l ) }/>
+            : <textarea value={ value } onChange={ self.onChange( l ) }/>
           }
+          { self.props.error && self.props.error[ l ] && self.state.userHasTyped ? <span className="error">{ self.props.error[ l ] }</span> : '' }
         </div>
       </li>
 
@@ -86,14 +62,12 @@ module.exports = React.createClass({
     return ( 
       <ul className="cform">
         <li>
-          <label>{this.props.label[this.props.labelsLang]}{ this.props.field.optional ? '' : ' (*)' }</label>
-          { this.props.field.info && !( this.props.error && this.state.userHasTyped ) ? <span className="info">{this.props.field.info[this.props.labelsLang]}</span> : '' }
+          <label>{this.props.label[this.props.labelsLang]}{ this.props.optional ? '' : ' (*)' }</label>
+          { this.props.info && !( this.props.error && self.state.userHasTyped ) ? <span className="info">{this.props.info[this.props.labelsLang]}</span> : '' }
         </li>
         {this.props.languages.map(renderField)}
       </ul>
     );
-
-    //{ this.props.error && this.state.userHasTyped ? <span className="error">{this.props.error}</span> : '' }
     
   },
 
@@ -101,7 +75,7 @@ module.exports = React.createClass({
 
     var currentMessages = {},
 
-    messages = errors.messages( this.props.labelsLang );
+    messages = errors.messages( this.props.labelsLang ),
 
     self = this,
 
@@ -109,29 +83,21 @@ module.exports = React.createClass({
 
     this.props.languages.forEach( function( l ) {
 
-      var v = value[ l ],
+      var v = value[ l ] || '',
 
       message;
 
-      if ( !( v + '').length ) {
+      if ( !v.length && self.props.optional===false ) {
 
-        if ( !this.props.field.optional ) {
+        message = messages.notEmpty();
 
-          return messages.notEmpty();
+      } else if ( ( self.props.constraints.max !== undefined ) && ( v.length > self.props.constraints.max ) ) {
 
-        }
+        message = messages.tooLong( self.props.constraints.max );
 
-        return false;
+      } else if ( ( self.props.constraints.min !== undefined ) && ( v.length < self.props.constraints.min ) ) {
 
-      }
-
-      if ( ( this.props.field.max !== undefined ) && ( v.length > this.props.field.max ) ) {
-
-        currentMessages[ l ] = messages.tooLong( this.props.field.max );
-
-      } else if ( ( this.props.field.min !== undefined ) && ( v.length < this.props.field.min ) ) {
-
-        currentMessages[ l ] = messages.tooShort( this.props.field.min );
+        message = messages.tooShort( self.props.constraints.min );
 
       }
 

@@ -22,7 +22,11 @@ defaults = {
   custom: false
 };
 
-window.oaEvent = require( './cibulEvent' );
+// legacy
+window.oaEvent = require( './legacy/cibulEvent' );
+window.oaEventAgenda = require( './legacy/cibulEventAgenda' );
+window.oaEventLocation = require( './legacy/cibulEventLocation' );
+
 
 // the form page is loaded by sf.
 window.oaEventForm = function( options ) {
@@ -53,9 +57,12 @@ window.oaEventForm = function( options ) {
 
   }
 
-  function onCustomChange( data ) {
+  function onCustomChange( values, errors ) {
 
-    rUtils.eh.trigger( params.events.customFields, data );
+    rUtils.eh.trigger( params.events.customFields, {
+      values: values,
+      errors: errors
+    } );
 
   }
 

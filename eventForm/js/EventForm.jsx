@@ -4,13 +4,21 @@ var React = require( 'react' ),
 
 LanguageBar = require( './LanguageBar.jsx' ),
 
-EventTextField = require( './EventTextField.jsx' ),
+TextField = require( './TextField.jsx' ),
+
+MultilingualTextField = require( './MultilingualTextField.jsx' ),
 
 EventKeywordsField = require( './EventKeywordsField.jsx' ),
 
 WysiwygMarkdown = require( './WysiwygMarkdown.jsx' ),
 
-CustomFields = require( './CustomFields.jsx' );
+CustomFields = require( './CustomFields.jsx' ),
+
+AccessibilityFields = require( './AccessibilityFields.jsx' ),
+
+AgeFields = require( './AgeFields.jsx' ),
+
+utils = require( 'utils' );
 
 module.exports = React.createClass( {
 
@@ -18,20 +26,34 @@ module.exports = React.createClass( {
 
     var state = this.props.initData;
 
+    state.errors = state.errors || {};
+
     state.languages = this.props.initialLanguages;
 
     return state;
   },
 
-  changeText: function( field ) {
+  onChange: function( field ) {
 
     var self = this;
 
-    return function( value ) {
+    return function( value, errors ) {
 
       var updated = {};
 
       updated[ field ] = value;
+
+      updated.errors = JSON.parse( JSON.stringify( self.state.errors ) );
+
+      if ( errors ) {
+
+        updated.errors[ field ] = errors;
+
+      } else if ( updated.errors[ field ] ) {
+
+        delete updated.errors[ field ];
+
+      }
 
       self.props.onTextChange( field, value );
 
@@ -41,13 +63,16 @@ module.exports = React.createClass( {
 
   },
 
-  changeCustom: function( value ) {
+  changeCustom: function( values, errors ) {
 
-    console.log( value );
+    var updatedErrors = utils.extend( JSON.parse( JSON.stringify( this.state.errors ) ), errors );
 
-    this.props.onCustomChange( value );
+    this.props.onCustomChange( values, updatedErrors );
 
-    //this.setState( { custom: value } );
+    this.setState( {
+      custom: values,
+      errors: updatedErrors
+    } );
 
   },
 
@@ -64,19 +89,9 @@ module.exports = React.createClass( {
     return <div>
 
       <LanguageBar 
-        languages={this.state.languages} 
-        onChangeLanguages={this.changeLanguages}
-        labels={this.props.labels} />
-
-      { this.props.custom ? <CustomFields
-        fields={ JSON.parse( this.props.custom )}
-        values={this.state.custom}
-        languages={this.state.languages}
-        onChange={this.changeCustom}
-        label={this.props.labels}
-        labelsLang='fr' />
-      : '' }
-
+        languages={ this.state.languages } 
+        onChangeLanguages={ this.changeLanguages }
+        labels={ this.props.labels } />
 
     </div>;
 

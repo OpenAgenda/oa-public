@@ -1,87 +1,119 @@
-var handleEventPlaceEdit = function(params) {
+"use strict";
 
-  params = extend({
-    canvas: false,
-    country: {code: 'FR', name: 'France'},
-    templates: {
-      main: '<div class="js_place place"></div><div class="js_pricing pricing form-section cform"><h2><%= pricingTitle %></h2></div><div class="js_dates dates form-section"><h2><%= dateTitle %></h2></div><div class="separator"></div>',
-      info: '<div class="title"><%= name %></div><div class="address"><%= address %></div><a href="#" class="action js_change"><i class="icon-edit"></i><span><%= changeLabel %></span></a>',
-    },
-    selectors: {
-      info: '.js_place',
-      placeForm: '.js_place',
-      dates: '.js_dates',
-      pricing: '.js_pricing',
-      change: '.js_change',
-      remove: '.js_remove'
-    },
-    classes: {
-      edit: 'embed-menu form-section'
-    },
-    locationData: false,
-    labels: {
-      locationTitle: 'Place',
-      locationInfo: false,
-      pricingTitle: 'Pricing',
-      dateTitle: 'Dates',
-      change:'change',
-      fetchInfo: 'Type the name and address and select you location from the list',
-      placename: 'Name',
-      placenameInfo: 'Name of the place',
-      address: 'Address',
-      addressInfo: 'street number, street name, city, country',
-      noPlaceName: 'The name is missing.',
-      noAddress: 'The address is missing.',
-      noLatLng: 'Geographical data is missing. Please reselect a location from the list.',
-      incompletePlace: 'The place information is incomplete.',
-      languages: {
-        en: 'english',
-        fr: 'français',
-        es: 'espanol',
-        it: 'italiano'
-      },
-      countryField: 'country name',
-      countryFieldInfo: 'type in a country name and click or press enter'
-    },
-    get: false, // remote get function to use
-    locations: [], // locally available location data
-    onRemove: false,
-    onChange: false,
-    onHeightChange: false, // callback for when the height of the element changes
-    onComplete: false,
-    languages: [],
-    initLocationCount: 5,
-    lang: 'en',
-    map: {
-      type: 'osm',
-      init: {url: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png'},
-      coords: [48.447052, 1.486754]
-    },
-    icon: 'images/markerIcon.png'
-  }, params);
+var utils = require( 'utils' ),
 
-  var location = {}, // this is the current location handled by this script
+du = require( '../../../js/lib/domUtils' ),
 
-  dates = [], elem, infoElem, placeSelector, pricingSelector, placeFetch, dateSelector, languages = params.languages,
+handlePlaceFetch = require( './handlePlaceFetch' ),
+
+handlePlaceSelection = require( './handlePlaceSelection' ),
+
+EJS = require( '../../../js/lib/clientEjs/ejs' ),
+
+handleDateSelection = require( './handleDateSelection' ),
+
+defaults = {
+  canvas: false,
+  country: {code: 'FR', name: 'France'},
+  templates: {
+    main: [ 
+      '<div class="js_place place"></div>',
+      '<div class="js_dates dates form-section">',
+        '<h2><%= dateTitle %></h2>',
+      '</div>',
+      '<div class="separator"></div>'
+    ].join( '' ),
+    info: [
+      '<a href="#" class="action js_change button blue">',
+        '<%= changeLabel %>',
+      '</a>',
+      '<div class="title"><%= name %></div>',
+      '<div class="address"><%= address %></div>'
+    ].join( '' )
+  },
+  selectors: {
+    info: '.js_place',
+    placeForm: '.js_place',
+    timings: '.js_dates',
+    pricing: '.js_pricing',
+    change: '.js_change',
+    remove: '.js_remove'
+  },
+  classes: {
+    edit: 'embed-menu form-section'
+  },
+  locationData: false,
+  labels: {
+    locationTitle: 'Place',
+    locationInfo: false,
+    pricingTitle: 'Pricing',
+    dateTitle: 'Dates',
+    change:'change',
+    fetchInfo: 'Type the name and address and select you location from the list',
+    placename: 'Name',
+    placenameInfo: 'Name of the place',
+    address: 'Address',
+    addressInfo: 'street number, street name, city, country',
+    noPlaceName: 'The name is missing.',
+    noAddress: 'The address is missing.',
+    noLatLng: 'Geographical data is missing. Please reselect a location from the list.',
+    incompletePlace: 'The place information is incomplete.',
+    languages: {
+      en: 'english',
+      fr: 'français',
+      es: 'espanol',
+      it: 'italiano'
+    },
+    countryField: 'country name',
+    countryFieldInfo: 'type in a country name and click or press enter'
+  },
+  get: false, // remote get function to use
+  locations: [], // locally available location data
+  onRemove: false,
+  onChange: false,
+  onHeightChange: false, // callback for when the height of the element changes
+  onComplete: false,
+  languages: [],
+  initLocationCount: 5,
+  lang: 'en',
+  map: {
+    type: 'osm',
+    init: {url: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png'},
+    coords: [48.447052, 1.486754]
+  },
+  icon: 'images/markerIcon.png'
+}
+
+module.exports = function( options ) {
+
+  var params = utils.extend( {}, defaults, options ),
+
+  location = {}, // this is the current location handled by this script
+
+  timings = [], elem, infoElem, placeSelector, pricingSelector, placeFetch, dateSelector, languages = params.languages,
 
   _run = function() {
 
-    if (params.locationData) {
+    if ( params.locationData ) {
+
       location = params.locationData;
-      dates = params.locationData.dates?params.locationData.dates:[];
+      timings = params.locationData.timings ? params.locationData.timings : [];
+
     }
 
     _createElem();
 
     // if there is location data, show the info menu. Else show the selection menu.
 
-    if (Object.size(location)) {
-      _updateInfo(location);
-    } else {
-      _showPlaceSelection();
-    }
+    if ( utils.size(location) ) {
 
-    _showPricingSelection(location);
+      _updateInfo(location);
+
+    } else {
+
+      _showPlaceSelection();
+      
+    }
 
     _showDateSelection();
 
@@ -93,21 +125,21 @@ var handleEventPlaceEdit = function(params) {
 
       infoElem = document.createElement('div');
 
-      el(elem, params.selectors.info).appendChild(infoElem);
+      du.el(elem, params.selectors.info).appendChild(infoElem);
 
     }
 
     var child;
 
-    while (child = childObject(infoElem, 0)) infoElem.removeChild(child);
+    while ( child = du.childObject(infoElem, 0)) infoElem.removeChild(child);
 
-    infoElem.innerHTML = new EJS({text: params.templates.info }).render(extend({changeLabel: params.labels.change }, locationInfo));
+    infoElem.innerHTML = new EJS({text: params.templates.info }).render(utils.extend({changeLabel: params.labels.change }, locationInfo));
 
     infoElem.style.display = 'block';
 
-    addEvent(el(infoElem, params.selectors.change), 'click', function(e) {
+    du.addEvent(du.el(infoElem, params.selectors.change), 'click', function(e) {
 
-      preventDefault(e);
+      du.preventDefault(e);
 
       _hideInfo();
 
@@ -115,7 +147,7 @@ var handleEventPlaceEdit = function(params) {
 
     });
 
-    removeClass(el(elem, params.selectors.placeForm), params.classes.edit);
+    du.removeClass(du.el(elem, params.selectors.placeForm), params.classes.edit);
 
     if (params.onHeightChange) params.onHeightChange();
 
@@ -128,13 +160,13 @@ var handleEventPlaceEdit = function(params) {
 
   _onChange = function() {
 
-    extend(location, {dates: dates});
+    utils.extend( location, { timings: timings } );
 
     if (params.onChange) params.onChange(location);
 
     _controlLocation(function(success) {
 
-      if (success && dates.length && params.onComplete) params.onComplete(location);
+      if (success && timings.length && params.onComplete) params.onComplete( location );
 
     });
 
@@ -174,7 +206,7 @@ var handleEventPlaceEdit = function(params) {
     if (!placeFetch) {
 
       placeFetch = handlePlaceFetch({
-        canvas: el( elem, params.selectors.placeForm ),
+        canvas: du.el( elem, params.selectors.placeForm ),
         countries: params.countries,
         country: params.country,
         get: params.get,
@@ -187,7 +219,7 @@ var handleEventPlaceEdit = function(params) {
         },
         onChange: function(values) {
 
-          extend(location, values);
+          utils.extend(location, values);
 
           _onChange();
           
@@ -203,7 +235,7 @@ var handleEventPlaceEdit = function(params) {
     if (!placeSelector) {
 
       placeSelector = handlePlaceSelection({
-        canvas: el(elem, params.selectors.placeForm),
+        canvas: du.el(elem, params.selectors.placeForm),
         labels: params.labels,
         map: params.map,
         icon: params.icon,
@@ -255,27 +287,7 @@ var handleEventPlaceEdit = function(params) {
 
     }
 
-    addClass(el(elem, params.selectors.placeForm), params.classes.edit);
-
-  },
-
-
-
-  _showPricingSelection = function(location) {
-
-    pricingSelector = handlePricingSelection({
-      canvas: el(elem, params.selectors.pricing),
-      location: location,
-      labels: params.labels,
-      languages: languages,
-      onChange: function(ticketLink, pricingInfo) {
-
-        location.ticketLink = ticketLink;
-        location.pricingInfo = pricingInfo;
-
-        _onChange();
-      }
-    });
+    du.addClass(du.el(elem, params.selectors.placeForm), params.classes.edit);
 
   },
 
@@ -287,13 +299,13 @@ var handleEventPlaceEdit = function(params) {
   _showDateSelection = function() {
 
     var dateSelector = handleDateSelection({
-      canvas: el(elem, params.selectors.dates),
-      dates: dates,
+      canvas: du.el( elem, params.selectors.timings ),
+      timings: timings,
       labels: params.labels,
       lang: params.lang,
-      onChange: function(newDates) {
+      onChange: function(newTimings) {
         
-        dates = newDates;
+        timings = newTimings;
 
         _onChange();
 
@@ -301,7 +313,7 @@ var handleEventPlaceEdit = function(params) {
       onHeightChange: params.onHeightChange
     });
 
-    if (!dates.length) dateSelector.showAdd();
+    if (!timings.length) dateSelector.showAdd();
 
   },
 
@@ -329,7 +341,7 @@ var handleEventPlaceEdit = function(params) {
 
     if (location && location.uid) delete location.uid;
 
-    location = extend(location?location:{}, item);
+    location = utils.extend(location?location:{}, item);
 
   },
 

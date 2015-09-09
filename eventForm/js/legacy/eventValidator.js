@@ -51,13 +51,11 @@ module.exports = function( params ) {
 
     });
 
-    utils.forEach(event.locations, function(location) {
+    
 
-      try { process('placename', location.name) } catch(e) { if (!contains(errors, e)) errors.push(e); }
-      try { process('address', location.address) } catch(e) { if (!contains(errors, e)) errors.push(e); }
-      try { process('dates', location.dates) } catch(e) { if (!contains(errors, e)) errors.push(e); }
-
-    });
+    try { process('placename', event.location.name) } catch(e) { if (!contains(errors, e)) errors.push(e); }
+    try { process('address', event.location.address) } catch(e) { if (!contains(errors, e)) errors.push(e); }
+    try { process('dates', event.location.dates) } catch(e) { if (!contains(errors, e)) errors.push(e); }
 
     return errors;
 

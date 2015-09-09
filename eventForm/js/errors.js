@@ -63,7 +63,7 @@ module.exports.messages = function( lang ) {
     return _message( lang, {
       en: 'this value should be at least %s characters long',
       fr: 'cette valeur doit au minimum avoir %s caractères'
-    } );
+    }, min );
 
   }
 
@@ -72,7 +72,7 @@ module.exports.messages = function( lang ) {
     return _message( lang, {
       en: 'this value cannot exceed %s characters',
       fr: 'cette valeur ne doit pas exceder %s caractères'
-    } );
+    }, max );
 
   }
 

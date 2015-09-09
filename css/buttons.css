@@ -19,7 +19,11 @@ button, .button {
 }
 
 .big { font-size: 1.1em; padding: 5px 10px; }
-.small { padding: 1px 4px; }
+
+.small {
+  padding: 1px 4px;
+  line-height: inherit;
+}
 
 button > span,
 .button > span {

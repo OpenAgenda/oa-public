@@ -14,7 +14,36 @@ module.exports = {
   hasClass: hasClass,
   addClass: addClass,
   removeClass: removeClass,
-  forEach: forEach
+  forEach: forEach,
+  childObject: childObject,
+  preventDefault: preventDefault
+}
+
+function preventDefault( event ) {
+
+  event.preventDefault ? event.preventDefault() : event.returnValue = false;
+
+};
+
+function childObject(elem, index) {
+
+  var i = 0, realI = 0;
+
+  while (elem.childNodes[i]) {
+
+    if (elem.childNodes[i].nodeType == 1) {
+
+      if (realI==index) return elem.childNodes[i];
+
+      realI++;
+    }
+
+    i++;
+
+  }
+
+  return false;
+
 }
 
 

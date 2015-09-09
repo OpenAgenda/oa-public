@@ -1,11 +1,33 @@
-var handleDatesAdd = function(params) {
+"use strict";
 
-  params = extend({
+var utils = require( 'utils' ),
+
+du = require( '../../../js/lib/domUtils' ),
+
+EJS = require( '../../../js/lib/clientEjs/ejs' ),
+
+inputWidgets = require( '../../../js/lib/inputWidgets/inputWidgets' ),
+
+inputValidators = require( '../../../js/lib/inputWidgets/inputValidators' ),
+
+cLib = require( '../../../js/vendors/CibulCalendar/src/CibulCalendar' );
+
+module.exports = function(params) {
+
+  params = utils.extend({
     canvas: false,
     onAdd: false,
     onValidChange: false,
     templates: {
-      main: '<p><%= addTitle %></p><div class="info"><%= addInfo %></div><div class="js_dates date-select"></div><div class="timing-select cform"><div class="js_timings input-fields"></div><button><%= addDate %></button><div class="error js_error"></div></div>'
+      main: [
+        '<p><%= addTitle %></p>',
+        '<div class="info"><%= addInfo %></div>',
+        '<div class="js_dates date-select"></div>',
+        '<div class="timing-select cform">',
+          '<div class="js_timings"></div>',
+          '<button class="blue"><%= addDate %></button>',
+          '<div class="error js_error"></div>',
+        '</div>' ].join('')
     },
     selectors: {
       dates: '.js_dates',
@@ -53,13 +75,14 @@ var handleDatesAdd = function(params) {
       name: 'begin',
       placeholder: params.labels.begin,
       label: params.labels.begin + ' (*)',
-      canvas: el(elem, params.selectors.timings),
+      canvas: du.el(elem, params.selectors.timings),
       info: params.labels.timingInfo,
       events: ['keyup', 'change'],
       onUpdate: function(begin) {
         timings.begin = begin;
         
         _evaluateSelection();
+
       },
       onValidChange: function(err) {
 
@@ -75,7 +98,7 @@ var handleDatesAdd = function(params) {
       name: 'end',
       placeholder: params.labels.end,
       label: params.labels.end + ' (*)',
-      canvas: el(elem, params.selectors.timings),
+      canvas: du.el(elem, params.selectors.timings),
       info: params.labels.timingInfo,
       events: ['keyup', 'change'],
       onUpdate: function(end) {
@@ -98,14 +121,15 @@ var handleDatesAdd = function(params) {
 
     // calendar widget
 
-    widgets.calendar = new CibulCalendar(el(elem, params.selectors.dates), {
+    widgets.calendar = new cLib.CibulCalendar(du.el(elem, params.selectors.dates), {
       lang: params.lang,
       onSelect: function(selected) {
 
         dates = selected;
-        el(elem, params.selectors.error).innerHTML = '';
+        du.el(elem, params.selectors.error).innerHTML = '';
         
         _evaluateSelection();
+        
       }
     });
 
@@ -113,7 +137,7 @@ var handleDatesAdd = function(params) {
 
     params.canvas.appendChild(elem);
 
-    addEvent(el(elem, params.selectors.add), 'click', function() {
+    du.addEvent(du.el(elem, params.selectors.add), 'click', function() {
 
       var validTimings = widgets.timeEnd.validate();
 
@@ -122,9 +146,9 @@ var handleDatesAdd = function(params) {
       // display errors
 
       if (!dates.begin)
-        el(elem, params.selectors.error).innerHTML = params.labels.dateError;
+        du.el(elem, params.selectors.error).innerHTML = params.labels.dateError;
       else if (!validTimings)
-        el(elem, params.selectors.error).innerHTML = params.labels.timingGeneralError;
+        du.el(elem, params.selectors.error).innerHTML = params.labels.timingGeneralError;
 
 
       // if button is enable, callback
@@ -167,10 +191,14 @@ var handleDatesAdd = function(params) {
 
     var valid = true;
 
-    forEach([dates, timings], function(set) {
-      forEach(['begin', 'end'], function(item) {
+    du.forEach([dates, timings], function( set ) {
+
+      du.forEach(['begin', 'end'], function( item ) {
+
         if (!set[item]) valid = false;
+
       });
+
     });
 
     return valid;
@@ -182,9 +210,9 @@ var handleDatesAdd = function(params) {
     addEnabled = enable;
 
     if (enable)
-      removeClass(el(elem, 'button'), params.classes.disabled);
+      du.removeClass(du.el(elem, 'button'), params.classes.disabled);
     else
-      addClass(el(elem, 'button'), params.classes.disabled);
+      du.addClass(du.el(elem, 'button'), params.classes.disabled);
 
     return enable;
 

@@ -1,6 +1,6 @@
 var utils = require( 'utils' ),
 
-rUtils = require( './reactUtils' ),
+rUtils = require( '../reactUtils' ),
 
 eventValidator = require( './eventValidator' );
 
@@ -58,7 +58,6 @@ module.exports = function( params ) {
   validator = eventValidator({labels: params.labels}),
 
   nextLocationIndex = 0,
-  locationMap = {},
 
   currentErrors = {},
 
@@ -69,10 +68,6 @@ module.exports = function( params ) {
   init = function() {
 
     if (Object.prototype.toString.call(event) === '[object Array]') event = {};
-
-    if (!event.locations) event.locations = [];
-
-    _mapLocations();
 
     _updateLanguages();
 
@@ -127,56 +122,19 @@ module.exports = function( params ) {
 
     });
 
-    _on(params.events.location.fetch, function(data) {
+    _on( params.events.location.fetch, function(cb) {
 
-      var index = data.index;
-
-      if (typeof index == 'undefined') index = _getFirstLocationIndex();
-
-      if (index === false) return data.callback(false);
-
-      data.callback({
-        location: locationMap[index],
-        index: index,
-        nextIndex: _getNextLocationIndex(index)
-      });
+      cb( event.location, event.timings );
 
     });
 
-    _on(params.events.location.write, function(data) {
+    _on(params.events.location.write, function( location ) {
 
-      if (isDef(data.index)) {
-
-        locationMap[parseInt(data.index,10)] = data.location;
-
-      } else {
-
-        var newLocation = data.location;
-
-        event.locations.push(newLocation);
-
-        var newIndex = _mapLocation(newLocation);
-
-        if (data.callback) data.callback(newIndex);
-
-      }
-
-      _printLocationMap();
+      event.location = location;
 
       _evaluate();
 
     });
-
-    _on(params.events.location.remove, function(data) {
-
-      if (data.index && locationMap[data.index]) delete locationMap[data.index];
-
-      _printLocationMap();
-
-      _evaluate();
-
-    });
-
 
     // get agenda information
 
@@ -195,7 +153,7 @@ module.exports = function( params ) {
 
     // write agenda information in existing or new entry
 
-    _on(params.events.agenda.write, function(data) {
+    _on(params.events.agenda.write, function( data ) {
 
       if (!event.agendas) event.agendas = [];
 
@@ -250,27 +208,13 @@ module.exports = function( params ) {
 
     });
 
-    _on( params.events.customfields.write, function( data ) {
+    _on( params.events.customfields.write, function( values, errors ) {
 
-      var errors;
+      event.custom = values;
 
-      if ( data ) {
+      _setCurrentErrors( errors )
 
-        event.customFields = _extract( 'value', data );
-
-        errors = {};
-
-        for ( var d in data ) {
-
-          errors[ d ] = data[ d ].error ? data[ d ].label + ': ' + data[ d ].error : false;
-
-        }
-
-        _setCurrentErrors( errors )
-
-        _evaluate();
-
-      }
+      _evaluate();
 
     } );
 
@@ -314,84 +258,6 @@ module.exports = function( params ) {
   _on = function(eventName, callback) {
 
     callbackIds.push(eh.on(eventName, callback));
-
-  },
-
-  _printLocationMap = function() {
-
-    while (event.locations.length) {
-      event.locations.pop();
-    }
-      
-    var index;
-
-    for (index in locationMap) {
-
-      event.locations.push(locationMap[index]);
-
-    }
-
-  },
-
-  /**
-   * map event locations to indexes that will be used to fetch them
-   **/
-
-  _mapLocations = function() {
-
-    utils.forEach(event.locations, function(location) {
-
-      _mapLocation(location);
-
-    });
-
-  },
-
-  _mapLocation = function(location) {
-
-    var index = nextLocationIndex;
-
-    locationMap[nextLocationIndex] = location;
-
-    nextLocationIndex++;
-
-    return index;
-
-  },
-
-  _getFirstLocationIndex = function() {
-
-    var index;
-
-    for (index in locationMap)
-      return index;
-
-    return false;
-
-  },
-
-  _getNextLocationIndex = function(currentIndex) {
-
-    var nextIndex = false, index, currentFound = false;
-
-    currentIndex = parseInt(currentIndex);
-
-    for (index in locationMap) {
-
-      if (currentFound) {
-
-        nextIndex = index;
-        break;
-
-      } else if (index == currentIndex) {
-
-        currentFound = true;
-
-      }
-
-    }
-
-    return nextIndex;
 
   },
 
