@@ -54,7 +54,7 @@ describe( 'authenticate, create and delete lists', function() {
 
   var token;
 
-  this.timeout( 10000 );
+  this.timeout( 20000 );
 
   before( function( done ) {
 
@@ -158,6 +158,8 @@ describe( 'get list, handle content', function() {
 
   afterEach( function( done ) {
 
+    return done();
+
     ifc.DeleteListByID( {
       listID: listId,
       token: token
@@ -214,6 +216,33 @@ describe( 'get list, handle content', function() {
     } );
 
   });
+
+  it( 'SaveListItem slash (/)', function( done ) {
+
+    ifc.SaveListItem( {
+      listID: listId,
+      token: token,
+      item: [ 1, 'This is a / slash', 'Here is an url http://openagenda.com' ]
+    }, function( err, response ) {
+
+      should( err ).equal( null );
+
+      ifc.SelectListContentByListID( {
+        listID: listId,
+        token: token
+      }, function( err, result ) {
+
+        should( err ).equal( null );
+
+        result.string[ 1 ].split( ';' )[ 1 ].should.equal( 'This is a / slash' );
+
+        done();
+
+      });
+
+    });
+
+  })
 
   it( 'SaveListItem special character', function( done ) {
 

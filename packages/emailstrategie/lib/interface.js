@@ -14,6 +14,7 @@ module.exports = {
   SaveList: SaveList,
   InsertListContent: InsertListContent,
   DeleteListContent: DeleteListContent,
+  SelectListContentByListID: SelectListContentByListID,
   DeleteListByID: DeleteListByID,
   SaveListItem: SaveListItem, // first item serves as key
   DeleteListItemByKey: DeleteListItemByKey
@@ -62,6 +63,17 @@ function DeleteListContent( data, cb ) {
   clean.listContent = _wrapList( clean.listContent, 'string' );
 
   _request( 'DeleteListContent', 'post', clean, cb );
+
+}
+
+function SelectListContentByListID( data, cb ) {
+
+  _request( 'SelectListContentByListID', 'post', utils.extend( {
+    token: false, // required
+    listID: false, // required
+    pageIndex: 0,
+    pageSize: 25
+  }, data ), cb );
 
 }
 
@@ -219,7 +231,7 @@ function _request( name, method, data, cb ) {
 
             for( i in parsed ) {
 
-              parsed[ i ] = parsed[ i ][ 0 ];
+              parsed[ i ] = parsed[ i ].length == 1 ? parsed[ i ][ 0 ] : parsed[ i ];
 
             }
 
@@ -284,11 +296,11 @@ function _parse( key, item, leaf ) {
       // emailStrategie does not like &
       clean = clean.replace( /\&/g, '&amp;' );
 
-      clean = '<![CDATA[' + clean + ']]>';
+      // removed on request of EmailStrategie (JF Detalle)
+      //clean = '<![CDATA[' + clean + ']]>';
 
     }
 
-    //return '<dyn:' + key + '>' + clean + '</dyn:' + key + '>';
     return '<' + key + '>' + clean + '</' + key + '>';
 
   }
