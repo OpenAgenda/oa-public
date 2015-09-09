@@ -145,7 +145,7 @@ function _retrieveAgendaIdsFromSources( v ) {
 
       refs.forEach( function( r ) {
 
-        if ( r.sourceIds.indexOf( v.agendaId ) !== -1 ) {
+        if ( r.sourceIds && r.sourceIds.indexOf( v.agendaId ) !== -1 ) {
 
           v.aggregatorAgendaIds.push( r.id );
 
