@@ -20,7 +20,12 @@ module.exports = function( params ) {
     onDefaultSelect: false, // required. whenever a location selection can be deduced
     onHeightChange: false,
     templates: {
-      main: '<ul class="place-suggestion-tabs js_suggestion_tabs"><li class="js_tab active"><a href="#"><i class="icon-list"></i></a></li><li class="js_tab"><a href="#"><i class="icon-map-marker"></i></a></li></ul><div class="js_suggestions place-suggestions"></div>',
+      main: [
+        '<ul class="place-suggestion-tabs js_suggestion_tabs">',
+          '<li class="js_tab active"><a href="#"><i class="icon-list"></i></a></li>',
+          '<li class="js_tab"><a href="#"><i class="icon-map-marker"></i></a></li>',
+        '</ul>',
+        '<div class="js_suggestions place-suggestions"></div>' ].join(''),
       empty: '<span class="info empty-message"><%= empty %></span>',
       dragLink: '<a class="manual-link" href="#"><i class="icon-screenshot"></i><span><%= manualMark %></span></a>',
       dragTab: '<li class="js_tab"><a href="#"><i class="icon-screenshot"></i></a></li>'

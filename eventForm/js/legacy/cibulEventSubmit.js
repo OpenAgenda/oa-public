@@ -1,11 +1,21 @@
-var cibulEventSubmit = function(params) {
+"use strict";
 
-  params = extend({
+var utils = require( 'utils' ),
+
+rUtils = require( '../reactUtils' ),
+
+du = require( '../../../js/lib/domUtils' ),
+
+EJS = require( '../../../js/lib/clientEjs/ejs' );
+
+module.exports = function( params ) {
+
+  params = utils.extend({
     ajax: false,
     timeout: 5000,
     beforeNext: false, // in case submission is ajax, this callback can be called before the next form is loaded
-    canvas: el('.js_form_canvas'),
-    template: '<ul class="event-errors js_errors"></ul><div class="js_actions actions"></div>',
+    canvas: '.js_form_canvas_below',
+    template: '<ul class="event-errors js_errors"></ul><div class="js_actions submit-actions"></div>',
     allowDraft: false,
     classes: {
       main: 'submit',
@@ -14,7 +24,8 @@ var cibulEventSubmit = function(params) {
       lightboxCanvas: 'lightbox-canvas',
       lightboxButtons: 'lightbox-buttons',
       create: 'green',
-      update: 'green'
+      update: 'green',
+      remove: 'red'
     },
     selectors: {
       actions: '.js_actions',
@@ -48,7 +59,7 @@ var cibulEventSubmit = function(params) {
 
   var elem,
 
-  eh = sEventHandler.getInstance(), uid = false, draft = true,
+  eh = rUtils.eh, uid = false, draft = true,
 
   run = function() {
 
@@ -84,7 +95,7 @@ var cibulEventSubmit = function(params) {
 
     if (params.classes[name]) button.className = params.classes[name];
 
-    addEvent(button, 'click', function(e) {
+    du.addEvent(button, 'click', function(e) {
 
       preventDefault(e);
 
@@ -101,7 +112,7 @@ var cibulEventSubmit = function(params) {
 
     });
 
-    el(elem, params.selectors.actions).appendChild(button);
+    du.el(elem, params.selectors.actions).appendChild(button);
 
   },
 
@@ -120,7 +131,7 @@ var cibulEventSubmit = function(params) {
       form.appendChild(field);
 
       form.style.display = 'none'; //IE8
-      el('body').appendChild(form); //IE8
+      du.el('body').appendChild(form); //IE8
 
       form.submit();
 
@@ -156,7 +167,7 @@ var cibulEventSubmit = function(params) {
 
     _clear();
 
-    el('body').innerHTML = newContent;
+    du.el('body').innerHTML = newContent;
 
   },
 
@@ -164,9 +175,9 @@ var cibulEventSubmit = function(params) {
 
     var child;
 
-    while (child = childObject(el('body'))) {
+    while (child = childObject(du.el('body'))) {
 
-      el('body').removeChild(child);
+      du.el('body').removeChild(child);
 
     }
 
@@ -217,11 +228,11 @@ var cibulEventSubmit = function(params) {
 
   _displayErrors = function(success, errors) {
 
-    el(elem, params.selectors.errors).innerHTML = '';
+    du.el(elem, params.selectors.errors).innerHTML = '';
 
     if (success) return;
 
-    forEach(errors, function(error) {
+    du.forEach(errors, function(error) {
 
       var er = document.createElement('li');
 
@@ -229,7 +240,7 @@ var cibulEventSubmit = function(params) {
 
       er.className = params.classes.error;
 
-      el(elem, params.selectors.errors).appendChild(er);
+      du.el(elem, params.selectors.errors).appendChild(er);
 
     });
 
@@ -245,7 +256,7 @@ var cibulEventSubmit = function(params) {
 
     elem.innerHTML = new EJS({text: params.template }).render(params.labels);
 
-    params.canvas.appendChild(elem);
+    du.el( params.canvas ).appendChild(elem);
 
   };
 

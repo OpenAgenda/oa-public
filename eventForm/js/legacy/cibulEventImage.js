@@ -1,7 +1,19 @@
-var cibulEventImage = function(params) {
+"use strict";
 
-  params = extend({
-    canvas: false,
+var utils = require( 'utils' ),
+
+rUtils = require( '../reactUtils' ),
+
+du = require( '../../../js/lib/domUtils' ),
+
+EJS = require( '../../../js/lib/clientEjs/ejs' ),
+
+handleEventImage = require( './handleEventImage' );
+
+module.exports = function( params ) {
+
+  params = utils.extend({
+    canvas: '.js_form_canvas_above',
     upload: false, // required. resource to upload image
     remove: false, // required. resource to remove image
     events: {
@@ -15,7 +27,7 @@ var cibulEventImage = function(params) {
     path: false // path where uploaded images are accessible
   }, params);
 
-  var eh = sEventHandler.getInstance(),
+  var eh = rUtils.eh,
 
   run = function() {
 

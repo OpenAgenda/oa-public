@@ -93,6 +93,82 @@ module.exports = React.createClass( {
         onChangeLanguages={ this.changeLanguages }
         labels={ this.props.labels } />
 
+      <MultilingualTextField
+        constraints={{max: 140}}
+        optional={false}
+        label={this.props.labels.title}
+        type='text'
+        value={this.state.title}
+        error={this.state.errors.title }
+        languages={this.state.languages}
+        onChange={this.onChange( 'title' )}
+        labelsLang={this.props.language} />
+
+      <MultilingualTextField
+        constraints={{max: 200}}
+        optional={false}
+        label={this.props.labels.description}
+        type='text'
+        value={this.state.description}
+        error={this.state.errors.description }
+        languages={this.state.languages}
+        onChange={this.onChange( 'description' )}
+        labelsLang={this.props.language} /> 
+
+      <EventKeywordsField
+        tags={this.state.tags}
+        languages={this.state.languages}
+        onChange={this.onChange( 'tags' )}
+        labels={this.props.labels} />
+
+      <WysiwygMarkdown
+        markdown={this.state.freeText}
+        languages={this.state.languages}
+        onChange={this.onChange( 'freeText' )}
+        labels={this.props.labels} />
+
+      <MultilingualTextField
+        constraints={{max: 255}}
+        label={this.props.labels.conditions}
+        type='text'
+        optional={true}
+        value={this.state.conditions}
+        error={this.state.errors.conditions }
+        languages={this.state.languages}
+        onChange={this.onChange( 'conditions' )}
+        labelsLang={this.props.language} />  
+
+      <TextField 
+        label={this.props.labels.ticketLink}
+        type="url"
+        optional={true}
+        value={this.state.ticketLink}
+        error={this.state.errors.ticketLink}
+        onChange={this.onChange( 'ticketLink' )}
+        labelsLang={this.props.language} />
+
+      <AccessibilityFields 
+        value={this.state.accessibility || []}
+        label={this.props.labels.accessibility}
+        onChange={this.onChange( 'accessibility' )} 
+        labelsLang={this.props.language} />
+
+      <AgeFields
+        value={ this.state.age || {} }
+        label={ this.props.labels.age }
+        onChange={ this.onChange( 'age' ) }
+        labelsLang={ this.props.language } />
+
+      { this.props.custom ? <CustomFields
+        fields={ JSON.parse( this.props.custom ) }
+        values={this.state.custom || {} }
+        errors={ this.state.errors || {} }
+        languages={this.state.languages}
+        onChange={this.changeCustom}
+        label={this.props.labels}
+        labelsLang={this.props.language} />
+      : '' }
+
     </div>;
 
   }

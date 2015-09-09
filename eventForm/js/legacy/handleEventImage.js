@@ -1,9 +1,36 @@
-var handleEventImage = function(params) {
+"use strict";
 
-  params = extend({
+var utils = require( 'utils' ),
+
+rUtils = require( '../reactUtils' ),
+
+du = require( '../../../js/lib/domUtils' ),
+
+EJS = require( '../../../js/lib/clientEjs/ejs' ),
+
+Spinner = require( 'spin.js' );
+
+module.exports = function( params ) {
+
+  params = utils.extend({
     canvas: false,
     templates: {
-      main: '<div class="form-section"><div class="js_remove remove-action"><a class="action" href="#"><i class="fa fa-trash"></i></a><span class="js_remove_loader"></span><span class="js_remove_message info error"></span></div><h2><%= imageSection %></h2><div class="upload-image"><button><%= upload %></button><span class="js_loader loader"></span><span class="js_message info"></span></div><div class="canvas js_image_canvas"></div><div class="separator"></div></div>',
+      main: [
+        '<div class="form-section">',
+          '<h2><%= imageSection %></h2>',
+          '<div class="upload-image">',
+            '<button><%= upload %></button>',
+            '<span class="js_loader loader"></span>',
+            '<span class="js_message info"></span>',
+          '</div>',
+          '<div class="canvas js_image_canvas"></div>',
+          '<div class="js_remove remove-action">',
+            '<a class="button small red" href="#"><%= removeImage %></a>',
+            '<span class="js_remove_loader"></span>',
+            '<span class="js_remove_message info error"></span>',
+          '</div>',
+          '<div class="separator"></div>',
+        '</div>' ].join(''),
       empty: '<div><%= noImage %></div>'
     },
     classes: {
@@ -82,22 +109,22 @@ var handleEventImage = function(params) {
     fileInput.setAttribute('type', 'file');
     fileInput.setAttribute('name', 'image');
 
-    addEvent(fileInput, 'change', _fileChosen);
+    du.addEvent(fileInput, 'change', _fileChosen);
 
-    addEvent(fileInput, 'click', function(e) {
-      if (locked) preventDefault(e);
+    du.addEvent(fileInput, 'click', function(e) {
+      if (locked) du.preventDefault(e);
     });
 
     form.appendChild(fileInput);
 
-    extend(form.style, {
-      width: el(elem, params.selectors.button).offsetWidth + 'px',
-      height: el(elem, params.selectors.button).offsetHeight + 'px',
+    utils.extend(form.style, {
+      width: du.el(elem, params.selectors.button).offsetWidth + 'px',
+      height: du.el(elem, params.selectors.button).offsetHeight + 'px',
       position: 'absolute',
       overflow: 'hidden'
     });
 
-    extend(fileInput.style, {
+    utils.extend(fileInput.style, {
       opacity: 0,
       filter: 'alpha(opacity=0)',
       cursor: 'pointer',
@@ -105,7 +132,7 @@ var handleEventImage = function(params) {
       right: 0
     });
 
-    el(elem, params.selectors.button).insertAdjacentElement('beforebegin', form);
+    du.el(elem, params.selectors.button).insertAdjacentElement('beforebegin', form);
 
   },
 
@@ -157,7 +184,7 @@ var handleEventImage = function(params) {
 
   _displayImage = function(name) {
 
-    el(elem, params.selectors.imageCanvas).innerHTML = '';
+    du.el(elem, params.selectors.imageCanvas).innerHTML = '';
 
     if (!name) return _displayEmptyMessage();
 
@@ -165,17 +192,17 @@ var handleEventImage = function(params) {
 
     img.setAttribute('src', params.path + params.prefix + name + '?' + Math.random());
 
-    addEvent(img, 'load', function(){
+    du.addEvent(img, 'load', function(){
       params.onImageLoad();
     });
 
-    el(elem, params.selectors.imageCanvas).appendChild(img);
+    du.el(elem, params.selectors.imageCanvas).appendChild(img);
 
   },
 
   _displayEmptyMessage = function() {
 
-    el(elem, params.selectors.imageCanvas).innerHTML = new EJS({text: params.templates.empty}).render(params.labels);
+    du.el(elem, params.selectors.imageCanvas).innerHTML = new EJS({text: params.templates.empty}).render(params.labels);
 
   },
 
@@ -189,15 +216,15 @@ var handleEventImage = function(params) {
       else
         message = params.labels.info;
 
-    var infoElem = el(elem, params.selectors.info);
+    var infoElem = du.el(elem, params.selectors.info);
 
-    removeClass(infoElem, params.classes.error);
-    removeClass(infoElem, params.classes.success);
+    du.removeClass(infoElem, params.classes.error);
+    du.removeClass(infoElem, params.classes.success);
 
     if (type == 'error')
-      addClass(infoElem, params.classes.error);
+      du.addClass(infoElem, params.classes.error);
     else if (type == 'success')
-      addClass(infoElem, params.classes.success);
+      du.addClass(infoElem, params.classes.success);
 
     infoElem.innerHTML = message;
 
@@ -207,10 +234,11 @@ var handleEventImage = function(params) {
 
     if (!removeElem) {
 
-      removeElem = el(elem, params.selectors.remove);
+      removeElem = du.el(elem, params.selectors.remove);
 
-      addEvent(el(removeElem, 'a'), 'click', function(e) {
-        preventDefault(e);
+      du.addEvent(du.el(removeElem, 'a'), 'click', function(e) {
+
+        du.preventDefault(e);
 
         if (locked) return;
 
@@ -224,7 +252,7 @@ var handleEventImage = function(params) {
 
           if (!data.success) {
 
-            el(elem, params.selectors.removeMessage).innerHTML = data.message?data.message:params.labels.removeError;
+            du.el(elem, params.selectors.removeMessage).innerHTML = data.message?data.message:params.labels.removeError;
 
             return;
           }
@@ -243,7 +271,7 @@ var handleEventImage = function(params) {
 
     }
 
-    el(elem, params.selectors.removeMessage).innerHTML = '';
+    du.el(elem, params.selectors.removeMessage).innerHTML = '';
 
     removeElem.style.display = imageLoaded?'block':'none';
 
@@ -261,15 +289,15 @@ var handleEventImage = function(params) {
 
     locked = true;
 
-    el(elem, params.selectors.button).setAttribute('disabled', 'disabled');
+    du.el(elem, params.selectors.button).setAttribute('disabled', 'disabled');
 
-    addClass(el(elem, params.selectors.remove), params.classes.disabled);
+    du.addClass(du.el(elem, params.selectors.remove), params.classes.disabled);
 
     if (!spinner) spinner = new Spinner(params.spinner);
 
     spinner.spin();
 
-    el(elem, selector).appendChild(spinner.el);
+    du.el(elem, selector).appendChild(spinner.el);
 
   },
 
@@ -277,9 +305,9 @@ var handleEventImage = function(params) {
 
     locked = false;
 
-    el(elem, params.selectors.button).removeAttribute('disabled');
+    du.el(elem, params.selectors.button).removeAttribute('disabled');
 
-    removeClass(el(elem, params.selectors.remove), params.classes.disabled);
+    du.removeClass(du.el(elem, params.selectors.remove), params.classes.disabled);
 
     spinner.stop();
 
@@ -289,7 +317,7 @@ var handleEventImage = function(params) {
 
     if (elem === null || elem === undefined) return;
     if (typeof types == 'string') types = [types];
-    forEach(types, function(type){
+    du.forEach(types, function(type){
       if ("fireEvent" in elem) {
         elem.fireEvent('on' + type);
       } else {
@@ -308,7 +336,7 @@ var handleEventImage = function(params) {
 
     elem.innerHTML = new EJS({text: params.templates.main }).render(params.labels);
 
-    params.canvas.appendChild(elem);
+    du.el( params.canvas ).appendChild(elem);
 
   };
 

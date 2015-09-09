@@ -1,5 +1,5 @@
 <div class="canvas ef">
-  <main class="js_form_canvas wsq">
+  <main class="wsq">
     <div class="js_form_canvas_above"></div>
     <div class="js_form_canvas"></div>
     <div class="js_form_canvas_below"></div>
@@ -38,7 +38,7 @@
     }
   });
 
-  /*oaEventAgenda({
+  oaEventAgenda({
     uid: 84735921,
     tags: JSON.parse('[{"slug":"la-bellevilloise","label":"la bellevilloise"},{"slug":"59-rivoli","label":"59 rivoli"},{"slug":"la-java","label":"la java"},{"slug":"comedie-de-paris","label":"com\\u00e9die de paris"},{"slug":"jazz","label":"jazz"},{"slug":"espace-jemmapes","label":"espace jemmapes"},{"slug":"theatre-du-chatelet","label":"th\\u00e9\\u00e2tre du ch\\u00e2telet"},{"slug":"printemps-arabe","label":"printemps arabe"},{"slug":"festival-nemo","label":"festival n\\u00e9mo"},{"slug":"exposition","label":"exposition"},{"slug":"dessins","label":"dessins"},{"slug":"ecologie","label":"\\u00e9cologie"},{"slug":"l-entrepot","label":"l\'entrep\\u00f4t"},{"slug":"vente","label":"vente"},{"slug":"reine-blanche","label":"reine blanche"},{"slug":"peinture","label":"peinture"},{"slug":"photo","label":"photo"},{"slug":"photographie","label":"photographie"},{"slug":"concert","label":"concert"},{"slug":"art","label":"art"},{"slug":"palais-des-glaces","label":"palais des glaces"},{"slug":"reggae","label":"reggae"},{"slug":"punk","label":"punk"},{"slug":"alhambra","label":"alhambra"},{"slug":"science","label":"science"}]' ),
     categories: JSON.parse( '[{"slug":"concerts","label":"Concerts"},{"slug":"expositions","label":"Expositions"},{"slug":"insolite","label":"Insolite"},{"slug":"cinema","label":"Cin\\u00e9ma"},{"slug":"clubbing","label":"Clubbing"},{"slug":"conferences","label":"Conf\\u00e9rences"},{"slug":"theatre","label":"Th\\u00e9\\u00e2tre"},{"slug":"militant","label":"Militant"},{"slug":"ateliers","label":"Ateliers"}]' ),
@@ -48,7 +48,24 @@
       tagInfo: 'Séléctionnez un ou plusieurs mots clés',
       categoryInfo: 'Séléctionnez une catégorie'
     }
-  }); */
+  });
+
+
+  oaEventImage({
+    upload: 'http://templates.cibul.net/event form/server/index.php',
+    remove: 'http://templates.cibul.net/event form/server/remove.php',
+    path: 'http://templates.cibul.net/event form/server/uploaded/',
+    labels: {
+      upload: 'charger une image',
+      info: 'l\'image doit au moins avoir 300 pixels de largeur',
+      error: 'Un problème est survenu lors du chargement de l\'image. Rechargez le formulaire et retentez',
+      success: 'L\'image a été chargée avec succès',
+      imageSection: 'Image',
+      removeImage: 'retirer l\'image',
+      removeMessage: 'Un problème est survenu lors de la tentative de suppression de l\'image. Rechargez le formulaire et retentez',
+      noImage: 'Aucune image n\'est encore associée à cet événement'
+    }
+  });
 
 
   oaEventLocation({
@@ -118,6 +135,25 @@
    [{"name":"somenmber","type":"public","fieldType":"number","label":{"fr":"Un nombre","en":"A number"}},{"name":"somestat","type":"private","fieldType":"integer","label":{"fr":"Une stat quelconque","en":"Some statistic"}},{"name":"somesmalltext","type":"private","fieldType":"text","max":200,"min":20,"optional":true,"multilingual":true, "label":{"fr":"Ceci est un petit texte","en":"This is a small text"}},{"name":"somelongtext","type":"public","fieldType":"textarea","value":"dude!","label":{"fr":"Ceci est un long texte","en":"This is a long text"},"info":{"fr":"Vous devez saisir quelque chose ici","en":"You should type in something here"}},{"name":"someurl","type":"public","fieldType":"url","label":{"fr":"ceci est une url","en":"this is an url"}},{"name":"someemail","type":"public","fieldType":"email","label":{"fr":"ceci est un email","en":"this is an email"}},{"name":"checkboxfield","type":"private","fieldType":"checkbox","value":true,"label":{"fr":"Ceci est un champ checkbox","en":"This is a checkbox field"}},{"name":"radiofields","type":"public","fieldType":"radio","options":[{"label":{"fr":"oui","en":"yes"},"value":"1"},{"label":{"fr":"non","en":"no"},"value":"0"},{"label":{"fr":"peut-être","en":"maybe"},"value":"2"}],"value":"2","label":{"fr":"Etes-vous d\'accord?","en":"Do you agree"}},{"name":"testimony","type":"public","fieldType":"textarea","multilingual":true,"optional":true,"label":{"fr":"T\\u00e9moignage","en":"Testimony"},"value":{"fr":"J\'ai adoré!","en":"I loved it!"}}]
    */
   
+  oaEventSubmit( {
+    canvas: '.js_form_canvas_below',
+    allowDraft: true,
+    publish: '#publish',
+    update: '#update{uid}',
+    nopublish: '#nopublish',
+    remove: '#remove/{uid}',
+    labels: {
+      update: 'Appliquer les changements',
+      publish: 'Publier',
+      create: 'Publier',
+      createdraft: 'Créer sans publier',
+      remove: 'Supprimer l\'événement',
+      removeMessage: 'Are you sure you want to delete this event?',
+      removeYes: 'Yes',
+      removeNo: 'Cancel'
+    } 
+  });
+
   oaEventForm( {
     language: 'fr',
     labels: {
@@ -132,41 +168,7 @@
       keywords: 'Mots clés',
       keywordPlaceholder: 'Ajouter un mot clé'
     },
-    custom: '[{"name":"somenmber","type":"public","fieldType":"number","label":{"fr":"Un nombre","en":"A number"}},{"name":"somesmalltext","type":"private","fieldType":"text","max":50,"min":20,"optional":true,"multilingual":true, "label":{"fr":"Ceci est un petit texte","en":"This is a small text"}},{"name":"somelongtext","type":"public","fieldType":"textarea","value":"dude!","label":{"fr":"Ceci est un long texte","en":"This is a long text"},"info":{"fr":"Vous devez saisir quelque chose ici","en":"You should type in something here"}, "max": 20}]',
-    /*image: {
-      upload: 'http://templates.cibul.net/event form/server/index.php',
-      remove: 'http://templates.cibul.net/event form/server/remove.php',
-      canvas: el('.js_form_canvas'),
-      path: 'http://templates.cibul.net/event form/server/uploaded/',
-      labels: {
-        upload: 'charger une image',
-        info: 'l\'image doit au moins avoir 300 pixels de largeur',
-        error: 'Un problème est survenu lors du chargement de l\'image. Rechargez le formulaire et retentez',
-        success: 'L\'image a été chargée avec succès',
-        imageSection: 'Image',
-        removeImage: 'retirer l\'image',
-        removeMessage: 'Un problème est survenu lors de la tentative de suppression de l\'image. Rechargez le formulaire et retentez',
-        noImage: 'Aucune image n\'est encore associée à cet événement'
-      }
-    },
-    submit: {
-      canvas: el('.js_form_canvas'),
-      allowDraft: true,
-      publish: '#publish',
-      update: '#update{uid}',
-      nopublish: '#nopublish',
-      remove: '#remove/{uid}',
-      labels: {
-        update: 'Appliquer les changements',
-        publish: 'Publier',
-        create: 'Publier',
-        createdraft: 'Créer sans publier',
-        remove: 'Supprimer l\'événement',
-        removeMessage: 'Are you sure you want to delete this event?',
-        removeYes: 'Yes',
-        removeNo: 'Cancel'
-      }
-    }*/
+    custom: '[{"name":"somenmber","type":"public","fieldType":"number","label":{"fr":"Un nombre","en":"A number"}},{"name":"somesmalltext","type":"private","fieldType":"text","max":50,"min":20,"optional":true,"multilingual":true, "label":{"fr":"Ceci est un petit texte","en":"This is a small text"}},{"name":"somelongtext","type":"public","fieldType":"textarea","value":"dude!","label":{"fr":"Ceci est un long texte","en":"This is a long text"},"info":{"fr":"Vous devez saisir quelque chose ici","en":"You should type in something here"}, "max": 20}]'
   } );
 
 </script>

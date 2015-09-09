@@ -1,5 +1,15 @@
 .ef {
 
+  .event-image .form-section {
+
+    & > div {
+
+      padding: 1em 0 0;
+
+    }
+
+  }
+
   .place {
 
     margin: 1em 0;
@@ -38,22 +48,72 @@
 
   .place-fetch .highlight { color: #333; font-weight: 800; }
 
-  .place-suggestion-tabs { float: left; width: 2em;}
+  .place-suggestion-tabs { 
+
+    float: left;
+
+    width: 2em;
+
+  }
+
   .place-suggestion-tabs li { text-align: center; }
   .place-suggestion-tabs i { font-size: 1.1em; color: #ccc; }
   .place-suggestion-tabs .active i { color: #333; }
-  .place-suggestions { margin-left: 3em; }
 
-  .place-suggestions .empty-message { padding: 5em 0; }
+  .submit-actions {
+
+    .red { float: right; }
+
+  }
+
+
+  .place-suggestions {
+
+    margin-left: 3em;
+
+    .empty-message {
+
+      padding: 5em 0;
+
+    }
+
+    .suggestion {
+
+      margin-bottom: 1em;
+
+      cursor: pointer;
+
+      &.active {
+
+        border-right: 3px solid $oa-blue;
+
+      }
+
+      span {
+
+        display: block;
+
+      }
+
+      .button {
+
+        float: none;
+        margin-right: 1em;
+
+      }
+
+      .address {
+
+        margin-bottom: 0.2em;
+
+      }
+
+    }
+
+  }
 
   .selection-map { min-height: 200px; }
 
-  .place .suggestion > span { display: block; }
-
-
-  .place ul .suggestion { margin-bottom: 0.5em; cursor: pointer; }
-  .place ul .suggestion.active { padding-left: 0.5em; border-left: 1px solid #ddd; }
-  .place ul .suggestion .address { margin-bottom: -0.2em; }
 
   .manual-link > * { padding-right: 0.4em;}
 
@@ -86,11 +146,6 @@
 
   }
 
-
-  .add-dates .date-select,
-  .add-dates .timing-select {
-    
-  }
 
   .add-dates button {
     margin-top: 3em;

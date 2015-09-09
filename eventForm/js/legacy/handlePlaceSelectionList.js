@@ -12,8 +12,15 @@ module.exports = function( params ) {
     canvas: false, // required; 
     templates: {
       main: '<ul></ul>',
-      item: '<li class="suggestion js_suggestion"><span class="name"><%= name %></span><span <% if (name) { %>class="address"<% } %>><%= address %><span class="actions"></span></span></li>',
-      action: '<a href="#" class="action"><% if (icon) { %><i class="<%= icon %>"></i><% } %><% if (label) { %><span><%= label %></span><% } %></a>'
+      item: [
+        '<li class="suggestion js_suggestion">',
+          '<span class="name"><%= name %></span>',
+          '<span <% if (name) { %>class="address"<% } %>><%= address %><span class="actions"></span></span>',
+        '</li>' ].join(''),
+      action: [
+        '<a href="#" class="action button small <%= className %>">',
+          '<span><%= label %></span>',
+        '</a>' ].join('')
     },
     labels: {
       seeMap: 'see map',
@@ -23,8 +30,8 @@ module.exports = function( params ) {
       item: '.js_suggestion'
     },
     actions: [
-      { name: 'map', icon: 'icon-map-marker', label: 'seeMap' },
-      { name: 'select', icon: 'icon-arrow-right', label: 'select' }
+      { name: 'map', label: 'seeMap', className: '' },
+      { name: 'select', label: 'select', className: 'blue' }
     ],
     classes: {
       active: 'active'

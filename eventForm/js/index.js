@@ -26,6 +26,8 @@ defaults = {
 window.oaEvent = require( './legacy/cibulEvent' );
 window.oaEventAgenda = require( './legacy/cibulEventAgenda' );
 window.oaEventLocation = require( './legacy/cibulEventLocation' );
+window.oaEventSubmit = require( './legacy/cibulEventSubmit' );
+window.oaEventImage = require( './legacy/cibulEventImage' );
 
 
 // the form page is loaded by sf.
@@ -43,7 +45,7 @@ window.oaEventForm = function( options ) {
       onCustomChange= {onCustomChange}
       custom= {params.custom}
       labels= {params.labels} />, 
-      rUtils.createCanvas( rUtils.el( params.canvas ) )
+      rUtils.el( params.canvas )
     );
 
   });
