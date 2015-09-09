@@ -79,8 +79,8 @@ function newShow( req, res, next ) {
 
     cmn.render( req, res, 'emailStrategie/new', {
       values: {
-        login: 'APIEstEnsemble',
-        password: '236656'
+        login: '',
+        password: ''
       }
     });
 
