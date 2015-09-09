@@ -109,7 +109,7 @@ describe( 'authenticate, create and delete lists', function() {
 
 describe( 'get list, handle content', function() {
 
-  this.timeout( 10000 );
+  this.timeout( 20000 );
 
   var token, listId;
 
@@ -173,7 +173,7 @@ describe( 'get list, handle content', function() {
 
     ifc.GetListByID( { listID: listId, token: token }, function( err, response ) {
 
-      response.totalRecords.should.eql( 0 );
+      response.totalRecords.should.eql( '0' );
 
       response.fieldList.DynamicContentListHeaderVO.map( function( f ) { 
 
@@ -183,7 +183,7 @@ describe( 'get list, handle content', function() {
 
       .should.eql( [ 'id', 'title', 'description' ] );
 
-      response.dynamicContentListsID.should.eql( listId );
+      response.dynamicContentListsID.should.eql( listId + '' );
 
       done();
 
@@ -222,7 +222,8 @@ describe( 'get list, handle content', function() {
       [ 2, 'The Dynasties \n of China', 'rhhz' ],
       [ 3, 'La muraille \r\n de lave', 'glauque' ],
       [ 4, 'Les Matins de l\'emploi', 'Les métiers de l\'hotellerie : venez rencontrer des professionnels, partager expérience et points de vue.  ' ],
-      [ 5, '\'\'  . \n\n      de l’hôtelle', 'Test' ]
+      [ 5, '\'\'  . \n\n      de l’hôtelle', 'Test' ],
+      [ 6, '&', 'why use &' ]
     ], function( entry, ecb ) {
 
       ifc.SaveListItem( {
@@ -237,7 +238,7 @@ describe( 'get list, handle content', function() {
 
       ifc.GetListByID( { listID: listId, token: token }, function( err, response ) {
 
-        response.totalRecords.should.eql( 5 );
+        response.totalRecords.should.eql( 6 );
 
         done();
 

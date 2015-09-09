@@ -227,7 +227,7 @@ function _request( name, method, data, cb ) {
 
         } catch( e ) {
 
-          cb( 'could not extract result: ' + response );
+          cb( 'could not extract result: ' + response + ' / error received: ' + e );
 
           return;
 
@@ -278,11 +278,11 @@ function _parse( key, item, leaf ) {
 
     if ( leaf && typeof item == 'string' ) {
 
-      if ( item.indexOf( '\'' ) !== -1 ) {
+      // emailStrategie does not like apostrophe
+      clean = clean.replace( /\'/g, '’' );
 
-        clean = clean.replace( /\'/g, '’' );
-
-      }
+      // emailStrategie does not like &
+      clean = clean.replace( /\&/g, '&amp;' );
 
       //clean = '<![CDATA[' + clean + ']]>';
 

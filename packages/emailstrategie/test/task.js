@@ -89,6 +89,8 @@ describe( 'queued setItem, removeItem and clear', function() {
         data: data
       } ) );
 
+      cli.quit();
+
       done();
 
     });
@@ -113,6 +115,8 @@ describe( 'queued setItem, removeItem and clear', function() {
         listId: list.id,
         id: 1
       } ) );
+
+      cli.quit();
 
       done();
 
@@ -255,7 +259,7 @@ function _clearRedis( cb ) {
 
   cli.del( 'emailstrategie', function() {
 
-    cli.end();
+    cli.quit();
 
     cb();
 

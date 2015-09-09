@@ -126,7 +126,7 @@ describe( 'Create, clear and remove list', function() {
 
         result.name.should.equal( list.name );
 
-        result.dynamicContentListsID.should.eql( list.id );
+        result.dynamicContentListsID.should.eql( list.id + '' );
 
         done();
 
