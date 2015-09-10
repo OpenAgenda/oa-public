@@ -6,7 +6,9 @@ var UID = 0,
 
 LANG = 1,
 
-cn = require(  '../../js/lib/common/common.mod.js' ),
+du = require( '../../js/lib/domUtils' ),
+
+utils = require( 'utils' ),
 
 remote = require( '../../js/lib/remote/remote.mod.js' ),
 
@@ -21,6 +23,8 @@ baseConfig = require( './config.js' ),
 history = require( './history' ),
 
 mapLib = require( '../../js/lib/maps/osm.maps.mod' ),
+
+utils = require( 'utils' ),
 
 templates = {
   main: require( './main.ejs' ),
@@ -47,9 +51,9 @@ styler = require( '../lib/widgetStyler' ),
 
 onReady; // cb to call when a widget is ready
 
-if ( cn.contains( [ 'tpl', 'dev' ], env ) ) debug.enable( '*' );
+if ( [ 'tpl', 'dev' ].indexOf( env ) !== -1 ) debug.enable( '*' );
 
-res = cn.extend( res.all, res[ env ] ? res[ env ] : {} );
+res = utils.extend( res.all, res[ env ] ? res[ env ] : {} );
 
 function widget( elem, options ) {
 
@@ -57,7 +61,7 @@ function widget( elem, options ) {
 
   m,
 
-  config = cn.extend( {}, baseConfig ),
+  config = utils.extend( {}, baseConfig ),
 
   controller,
 
@@ -225,7 +229,7 @@ function widget( elem, options ) {
 
     var markers = [];
 
-    useClusters = cn.size( locations ) > config.clusterThreshold;
+    useClusters = utils.size( locations ) > config.clusterThreshold;
 
     for ( var l in locations ) {
 
@@ -280,7 +284,7 @@ function widget( elem, options ) {
 
     }
 
-    cn.forEach( keys, function( k ) {
+    utils.forEach( keys, function( k ) {
 
       if ( [ 'neLat', 'neLng', 'swLat', 'swLng', 'uid', 'location' ].indexOf( k ) == -1 ) {
 
@@ -331,6 +335,10 @@ function widget( elem, options ) {
       bounds = false;
 
       navHistory.add( reqParams, navHistory.current() );
+
+    } else if ( navHistory.isFresh() && !utils.size( reqParams ) ) {
+
+      bounds = baseBounds;
 
     } else if ( activeBounds ) {
 
@@ -387,7 +395,7 @@ function widget( elem, options ) {
 
     _fetchLocationInfo( l, function( err, location ) {
 
-      var popupData = cn.extend({
+      var popupData = utils.extend({
         labels: config.labels[ config.lang ]
       }, l );
 
@@ -445,7 +453,7 @@ function widget( elem, options ) {
 
   function include( eventItem, reqParams ) {
 
-    if ( cn.contains( activeLocations,  eventItem.l ) ) return;
+    if ( activeLocations.indexOf( eventItem.l ) !== -1 ) return;
 
     if ( !eventItem.l || !locations[ eventItem.l ] ) return;
 
@@ -492,7 +500,7 @@ function widget( elem, options ) {
 
       }
 
-      cn.extend( location, data, { uid: location.uid /* for template testing */} );
+      utils.extend( location, data, { uid: location.uid /* for template testing */} );
 
       cb( null, location );
 
@@ -537,7 +545,7 @@ function widget( elem, options ) {
 
       }
       
-      if ( !selectedLocation && !cn.contains( activeLocations, location.uid ) ) {
+      if ( !selectedLocation && ( activeLocations.indexOf( location.uid ) == -1 ) ) {
 
         // if location is not in active locactions,
         // clicking it will cancel current selection
@@ -560,8 +568,7 @@ function widget( elem, options ) {
 
       }
 
-
-      if ( cn.contains( passedLocations, location.uid ) ) {
+      if ( passedLocations.indexOf( location.uid ) !== -1 ) {
 
         updatedReqParams.passed = '1';
 
@@ -597,7 +604,7 @@ function widget( elem, options ) {
 
     if ( clear ) {
 
-      cn.extend( updateValues, {
+      utils.extend( updateValues, {
         from: null,
         to: null,
         what: null,
@@ -679,7 +686,7 @@ function widget( elem, options ) {
 
   function _refreshMarker( location ) {
 
-    var active = ( enabled && cn.contains( activeLocations, location.uid ) );
+    var active = ( enabled && ( activeLocations.indexOf( location.uid ) !== -1 ) );
 
     m.setMarkerIcon( location.marker, config.icons[ active ? 'active' : 'inactive' ] );
 
@@ -741,7 +748,7 @@ function widget( elem, options ) {
       link.setAttribute( 'type', 'text/css' );
       link.setAttribute( 'href', '//s3-eu-west-1.amazonaws.com/cibulstatic/leaflet-0.6.4.css');
 
-      cn.el( 'head' ).appendChild( link );
+      du.el( 'head' ).appendChild( link );
 
     } else {
 
@@ -755,7 +762,7 @@ function widget( elem, options ) {
 
   function _initLocations( data ) {
 
-    cn.forEach( data.ev, function( ev ) {
+    utils.forEach( data.ev, function( ev ) {
 
       if ( !ev.l ) return;
 
@@ -850,7 +857,7 @@ function widget( elem, options ) {
 
   function _initAllInclusiveBounds( isPassed ) {
 
-    if ( !cn.size( locations ) ) {
+    if ( !utils.size( locations ) ) {
 
       log( 'no location is defined, cannot define bounds.' );
 
@@ -918,7 +925,7 @@ function widget( elem, options ) {
 
   function _createMap( options, cb ) {
 
-    var mapParams = cn.extend( {
+    var mapParams = utils.extend( {
       tiles: config.tiles,
       center: false, // needed
       zoom: 15
@@ -940,17 +947,17 @@ function widget( elem, options ) {
       labels : config.labels[ config.lang ]
     } );
 
-    if ( cn.el( elem, config.selectors.syncSection ) ) {
+    if ( du.el( elem, config.selectors.syncSection ) ) {
 
-      div.removeChild( cn.el( div, config.selectors.syncSection ) );
+      div.removeChild( du.el( div, config.selectors.syncSection ) );
 
-      div.appendChild( cn.el( elem, config.selectors.syncSection ) );
+      div.appendChild( du.el( elem, config.selectors.syncSection ) );
 
     }
 
     elem.innerHTML = div.innerHTML;
 
-    m.createMap( cn.el( elem, 'div'), { center: mapParams.center, zoom: mapParams.zoom, onReady: function( newMap ) {
+    m.createMap( du.el( elem, 'div'), { center: mapParams.center, zoom: mapParams.zoom, onReady: function( newMap ) {
 
       map = newMap;
 
@@ -966,7 +973,7 @@ function widget( elem, options ) {
 
     var center = [ 48.8705187, 2.3821144 ];
 
-    if ( locations && cn.size( locations ) ) {
+    if ( locations && utils.size( locations ) ) {
       
       for ( var s in locations ) break;
 
@@ -1038,7 +1045,7 @@ function widget( elem, options ) {
 
     if ( typeof updateMap == 'undefined' ) updateMap = false;
 
-    _update( cn.extend({ location: null }, _getBoundParams( bounds ) ) );
+    _update( utils.extend({ location: null }, _getBoundParams( bounds ) ) );
 
     if ( updateMap ) {
 
@@ -1170,7 +1177,7 @@ function widget( elem, options ) {
 
   function _bindSync() {
 
-    cn.addEvent( cn.el( elem, config.selectors.sync ), 'change', function( e ) {
+    du.addEvent( du.el( elem, config.selectors.sync ), 'change', function( e ) {
 
       config.auto = !config.auto;
 
@@ -1201,14 +1208,14 @@ function widget( elem, options ) {
 
     config.auto = false;
 
-    cn.el( elem, config.selectors.sync ).checked = false;
+    du.el( elem, config.selectors.sync ).checked = false;
 
   }
 
 
   function _activateSync() {
 
-    cn.el( elem, config.selectors.sync ).checked = true;
+    du.el( elem, config.selectors.sync ).checked = true;
 
     config.auto = true;
 

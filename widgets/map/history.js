@@ -2,7 +2,7 @@
 
 module.exports = function() {
 
-  var history = [];
+  var history = [], fresh = true;
 
   return {
     add: add,
@@ -11,10 +11,13 @@ module.exports = function() {
     matchCurrent: matchCurrent,
     matchPrev: matchPrev,
     current: current,
-    back: back
+    back: back,
+    isFresh: isFresh
   }
 
   function sync( bounds ) {
+
+    fresh = false;
 
     if ( !history.length ) return;
 
@@ -28,6 +31,8 @@ module.exports = function() {
       k: JSON.stringify( reqParams ), 
       b: bounds 
     };
+
+    fresh = false;
 
     if ( history.length && ( history[ history.length - 1 ].k == newItem.k ) ) {
 
@@ -56,6 +61,12 @@ module.exports = function() {
     if ( history.length <= 1 ) return false;
 
     return _match( reqParams, -2 );
+  }
+
+  function isFresh() {
+
+    return fresh;
+
   }
 
   function get( index ) {

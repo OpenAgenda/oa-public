@@ -396,7 +396,7 @@ module.exports = function( uid ) {
 
     modalTaken = false;
 
-    _forEachWidget( 'enable' );
+    _forEachWidget( 'enable', currentRequestParams );
 
     enabled = true;
 
