@@ -1,3 +1,5 @@
+"use strict";
+
 var utils = require( 'utils' ),
 
 rUtils = require( '../reactUtils' ),
@@ -33,14 +35,8 @@ module.exports = function( params ) {
       customfields: {
         write: 'ecustomfieldssend'
       },
-      ageFields: {
-        write: 'eagesend'
-      },
-      typeField: {
-        write: 'etypesend'
-      },
-      accessibilityFields: {
-        write: 'eaccessibilitysend'
+      singleField: {
+        write: 'esinglesend'
       },
       uidfetch: 'euidfetch',
       validate: 'evalidate',
@@ -53,7 +49,7 @@ module.exports = function( params ) {
 
   }, params);
 
-  var eh = rUtils.eh;
+  var eh = rUtils.eh,
 
   validator = eventValidator({labels: params.labels}),
 
@@ -69,10 +65,12 @@ module.exports = function( params ) {
 
     if (Object.prototype.toString.call(event) === '[object Array]') event = {};
 
-    _updateLanguages();
+    _initLanguages();
 
     _on(params.events.log, function() {
+
       console.log(event);
+
     });
 
     _on( params.events.fetch, function( cb ) {
@@ -81,9 +79,9 @@ module.exports = function( params ) {
 
     } );
 
-    _on(params.events.description.fetch, function(callback) {
+    _on( params.events.description.fetch, function( cb ) {
 
-      callback({
+      cb({
         title: event.title,
         description: event.description,
         tags: event.tags,
@@ -92,7 +90,7 @@ module.exports = function( params ) {
 
     });
 
-    _on(params.events.description.write, function(data) {
+    _on( params.events.description.write, function( data ) {
 
       var error = null;
 
@@ -112,13 +110,11 @@ module.exports = function( params ) {
 
       if (!event[data.name]) event[data.name] = {};
 
-      event[data.name] = data.value;
+      event[ data.name ] = JSON.parse( JSON.stringify( data.value ) );
 
       if (data.callback) data.callback(error);
 
       _evaluate();
-
-      _updateLanguages();
 
     });
 
@@ -128,7 +124,7 @@ module.exports = function( params ) {
 
     });
 
-    _on(params.events.location.write, function( location ) {
+    _on( params.events.location.write, function( location ) {
 
       event.location = location;
 
@@ -190,21 +186,9 @@ module.exports = function( params ) {
 
     });
 
-    _on( params.events.typeField.write, function( data ) {
+    _on( params.events.singleField.write, function( data ) {
 
-      event.type = data;
-
-    });
-
-    _on( params.events.ageFields.write, function( data ) {
-
-      event.age = data;
-
-    });
-
-    _on(params.events.accessibilityFields.write, function(data) {
-
-      event.accessibility = data;
+      event[ data.name ] = JSON.parse( JSON.stringify( data.value ) );
 
     });
 
@@ -218,31 +202,36 @@ module.exports = function( params ) {
 
     } );
 
-    _on(params.events.uidfetch, function(callback) {
+    _on( params.events.uidfetch, function( cb ) {
 
-      callback({uid: event.uid?event.uid:false, draft: event.draft?true:false });
+      cb( {
+        uid: event.uid || false, 
+        draft: !!event.draft
+      } );
 
     });
 
-    _on(params.events.validate, function(callbacks) {
+    _on( params.events.validate, function(callbacks) {
 
       onValidate = callbacks.onChange;
 
-      _evaluate(callbacks.onSuccess);
+      _evaluate( callbacks.onSuccess );
+
+    } );
+
+    _on( params.events.fetchEncoded, function( cb ) {
+
+      cb( JSON.stringify( event ) );
 
     });
 
-    _on(params.events.fetchEncoded, function(callback) {
+    _on( params.events.fetchLanguages, function( cb ) {
 
-      callback(JSON.stringify(event));
-
-    });
-
-    _on(params.events.fetchLanguages, function(callback) {
-
-      callback(languages);
+      cb( languages );
 
     });
+
+    _on(params.events.languageChange, _updateLanguages );
 
     _on(params.events.clear, function() {
 
@@ -341,11 +330,11 @@ module.exports = function( params ) {
 
   },
 
-  _updateLanguages = function() {
+  _initLanguages = function() {
 
     var newLanguages = [];
 
-    utils.forEach(params.descriptionFields, function(fieldName) {
+    utils.forEach( params.descriptionFields, function( fieldName ) {
 
       if ( typeof event[fieldName] == 'undefined' ) return;
       
@@ -361,14 +350,35 @@ module.exports = function( params ) {
 
     });
 
+    _updateLanguages( newLanguages );
+
+  },
+
+  _updateLanguages = function( newLanguages ) {
+
     // compare with existing
 
     if (!_compareArrays(newLanguages, languages)) {
+
+      // remove each deleted language from event object
       
-      // they are different
+      languages.filter( function( l ) {
+
+        return newLanguages.indexOf( l ) == -1;
+
+      }).forEach( function( l ) {
+
+        [ 'title', 'description', 'freeText', 'tags', 'conditions' ].forEach( function( field ) {
+
+          delete event[ field ][ l ];
+
+        } );
+
+      });
+      
       languages = newLanguages;
 
-      eh.trigger(params.events.languageChange, languages);
+      eh.trigger( params.events.languageChange, languages );
 
     }
 

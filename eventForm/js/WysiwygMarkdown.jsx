@@ -68,7 +68,7 @@ module.exports = React.createClass( {
 
       return <li className={count> 1 ? 'lang-unit' : '' }>
         {count>1?<label className="off32">{l}</label>:''}
-        <textarea className={'mce-box-' + i}>{self.props.markdown[ l ] }</textarea>
+        <textarea className={'mce-box-' + i} value={self.props.markdown[ l ] }></textarea>
       </li>
 
     };

@@ -16,10 +16,24 @@ defaults = {
   events : {
     fetch: 'eventfetch',
     fetchLanguages: 'languagesfetch', // must be dyslexia.
+    languageChange: 'elanguageschange',
     description: 'edescriptionfieldsend',
     customFields: 'ecustomfieldssend',
+    single: 'esinglesend'
   },
-  custom: false
+  custom: false,
+  labels: {
+    title: { fr: 'Le titre', en: 'The title' },
+    description: { fr: 'Description', en: 'Description' },
+    longDescription: { fr: 'Description longue', en: 'Long description' },
+    accessibility: { fr: 'Accessibilité particulière', en: 'Accessibility conditions' },
+    conditions: { fr: 'Conditions', en: 'Conditions' },
+    ticketLink: { fr: 'Lien de réservation', en: 'Reservation link' },
+    age: { fr: 'Age du public ciblé', en: 'Targeted public age' },
+    addLanguage: 'ajouter une langue',
+    keywords: 'Mots clés',
+    keywordPlaceholder: 'Ajouter un mot clé'
+  }
 };
 
 // legacy
@@ -43,6 +57,7 @@ window.oaEventForm = function( options ) {
       language= {params.language}
       onTextChange= {onTextChange}
       onCustomChange= {onCustomChange}
+      onChangeLanguages= {onChangeLanguages}
       custom= {params.custom}
       labels= {params.labels} />, 
       rUtils.el( params.canvas )
@@ -50,9 +65,23 @@ window.oaEventForm = function( options ) {
 
   });
 
+  function onChangeLanguages( languages ) {
+
+    rUtils.eh.trigger( params.events.languageChange, languages );
+
+  }
+
   function onTextChange( field, content ) {
 
-    rUtils.eh.trigger( params.events.description, {
+    var eventName = params.events.description;
+
+    if ( [ 'title', 'description', 'freeText', 'tags', 'conditions' ].indexOf( field ) == -1 ) {
+
+      eventName = params.events.single;
+
+    }
+
+    rUtils.eh.trigger( eventName, {
       name: field,
       value: content
     } );

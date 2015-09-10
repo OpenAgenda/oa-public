@@ -82,6 +82,8 @@ module.exports = React.createClass( {
       languages: languages
     } );
 
+    this.props.onChangeLanguages( languages );
+
   },
 
   render: function() {

@@ -108,7 +108,7 @@ module.exports = function( params ) {
         country: country,
         languages: languages,
         canvas: du.el(elem, params.selectors.places),
-        locationData: utils.extend( {}, location, { timings: timings } ),
+        locationData: location ? utils.extend( {}, location, { timings: timings } ) : {},
         get: params.get,
         locations: params.localSelection,
         onChange: function(location) {

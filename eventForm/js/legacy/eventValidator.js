@@ -21,7 +21,8 @@ module.exports = function( params ) {
     tags: { max: 255 },
     freeText: { max: 10000 },
     placename: { max: 100 },
-    address: { max: 255 }
+    address: { max: 255 },
+    conditions: { max: 255 }
 
   }, params);
 
@@ -48,6 +49,7 @@ module.exports = function( params ) {
       try { process('description', event['description'][lang]) } catch(e) { if (!contains(errors, e)) errors.push(e); }
       try { process('tags', event['tags'][lang]) } catch(e) { if (!contains(errors, e)) errors.push(e); }
       try { process('freeText', event['freeText'][lang]) } catch(e) { if (!contains(errors, e)) errors.push(e); }
+      try { process('conditions', event['conditions'][lang]) } catch(e) { if (!contains(errors, e)) errors.push(e); }
 
     });
 
@@ -65,7 +67,7 @@ module.exports = function( params ) {
 
     var langs = [];
 
-    utils.forEach(['title', 'description', 'tags', 'freeText'], function(field) {
+    utils.forEach(['title', 'description', 'tags', 'freeText', 'conditions'], function(field) {
 
       for (var lang in event[field])
         if (!contains(langs, lang))  langs.push(lang);
@@ -100,19 +102,25 @@ module.exports = function( params ) {
 
     },
 
-    freeText: function(value) {
+    conditions: function( value ) {
+
+      _maxLength( 'conditions', value );
+
+    },
+
+    freeText: function( value ) {
 
       _maxLength('freeText', value);
 
     },
 
-    placename: function(value) {
+    placename: function( value ) {
 
       if (typeof value !== 'string') value = '';
 
-      _shouldNotBeEmpty('placename', value);
+      _shouldNotBeEmpty( 'placename', value );
 
-      _maxLength('placename', value);
+      _maxLength( 'placename', value );
 
     },
 

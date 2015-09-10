@@ -136,7 +136,6 @@
    */
   
   oaEventSubmit( {
-    canvas: '.js_form_canvas_below',
     allowDraft: true,
     publish: '#publish',
     update: '#update{uid}',
@@ -156,18 +155,6 @@
 
   oaEventForm( {
     language: 'fr',
-    labels: {
-      title: { fr: 'Le titre', en: 'The title' },
-      description: { fr: 'Description', en: 'Description' },
-      longDescription: { fr: 'Description longue', en: 'Long description' },
-      accessibility: { fr: 'Accessibilité particulière', en: 'Accessibility conditions' },
-      conditions: { fr: 'Conditions', en: 'Conditions' },
-      ticketLink: { fr: 'Lien de réservation', en: 'Reservation link' },
-      age: { fr: 'Age du public ciblé', en: 'Targeted public age' },
-      addLanguage: 'ajouter une langue',
-      keywords: 'Mots clés',
-      keywordPlaceholder: 'Ajouter un mot clé'
-    },
     custom: '[{"name":"somenmber","type":"public","fieldType":"number","label":{"fr":"Un nombre","en":"A number"}},{"name":"somesmalltext","type":"private","fieldType":"text","max":50,"min":20,"optional":true,"multilingual":true, "label":{"fr":"Ceci est un petit texte","en":"This is a small text"}},{"name":"somelongtext","type":"public","fieldType":"textarea","value":"dude!","label":{"fr":"Ceci est un long texte","en":"This is a long text"},"info":{"fr":"Vous devez saisir quelque chose ici","en":"You should type in something here"}, "max": 20}]'
   } );
 
