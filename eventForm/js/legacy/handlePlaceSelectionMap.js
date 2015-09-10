@@ -15,7 +15,7 @@ module.exports = function(params) {
     templates: {
       main: '<div class="js_selection_map selection-map"></div><div class="js_marker_info"></div>',
       info: '<div class="suggestion"><span class="name"><%= name %></span><span class="address"><%= address %></span><span class="js_actions actions"></span></span></div>',
-      action: '<a href="#" class="action"><% if (icon) { %><i class="<%= icon %>"></i><% } %><% if (label) { %><span><%= label %></span><% } %></a>'
+      action: '<a href="#" class="button blue small"><%= label %></a>'
     },
     selectors: {
       map: '.js_selection_map',
@@ -26,7 +26,7 @@ module.exports = function(params) {
       select: 'select'
     },
     actions: [
-      { name: 'select', icon: 'icon-arrow-right', label: 'select' }
+      { name: 'select', label: 'select' }
     ],
     onSelect: false,
     map: {
@@ -38,11 +38,11 @@ module.exports = function(params) {
     defaultZoom: 13
   }, params);
 
-  var elem, mapElem, infoElem, map, markers = [],
+  var elem, mapElem, infoElem, map, markers = [], m,
 
   init = function() {
 
-    mapLib = mapLib( params.map.init );
+    if( !m ) m = mapLib( params.map.init );
 
     if (!elem) createElem();
 
@@ -62,14 +62,14 @@ module.exports = function(params) {
 
     utils.forEach(selection, function(item) {
 
-      var marker = mapLib.createMarker(map, {
+      var marker = m.createMarker(map, {
         position: [item.lat, item.lng],
         icon: params.icon
       });
 
-      mapLib.setOnMarkerClick(marker, function() {
+      m.setOnMarkerClick(marker, function() {
 
-        mapLib.setCenter(map, mapLib.getPosition(marker));
+        m.setCenter(map, m.getPosition(marker));
 
         _displayInfo(item);
 
@@ -78,9 +78,9 @@ module.exports = function(params) {
       });
 
       if (bounds)
-        mapLib.extendBounds(bounds, mapLib.getPosition(marker));
+        m.extendBounds(bounds, m.getPosition(marker));
       else
-        bounds = mapLib.createBounds(mapLib.getPosition(marker));
+        bounds = m.createBounds(m.getPosition(marker));
 
       markers.push(marker);
 
@@ -91,11 +91,11 @@ module.exports = function(params) {
       
       _displayInfo(options.highlight);
 
-      mapLib.setCenter(map, [options.highlight.lat, options.highlight.lng]);
+      m.setCenter(map, [options.highlight.lat, options.highlight.lng]);
       
     } else {
 
-      mapLib.fitBounds(map, bounds);
+      m.fitBounds(map, bounds);
 
     }
 
@@ -115,7 +115,7 @@ module.exports = function(params) {
 
   _createMap = function() {
 
-    map = mapLib.createMap(mapElem, { center: params.map.coords, tiles: params.map.init.url } );
+    map = m.createMap(mapElem, { center: params.map.coords, tiles: params.map.init.url } );
 
   },
 

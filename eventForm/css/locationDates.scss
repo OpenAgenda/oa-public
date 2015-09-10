@@ -32,6 +32,12 @@
 
     .button {
 
+      margin: 0.2em 0;
+
+    }
+
+    .change {
+
       float: right;
 
     }
@@ -104,7 +110,7 @@
 
       .address {
 
-        margin-bottom: 0.2em;
+        margin: 0.5em 0;
 
       }
 
@@ -158,12 +164,6 @@
     .date-actions {
 
       padding-top: 2em;
-
-    }
-
-    .action {
-
-      margin-right: 1em;
 
     }
 
@@ -262,6 +262,22 @@
     .today { 
 
       font-weight: bold;
+
+    }
+
+  }
+
+
+  .context-menu {
+
+    background-color: white;
+    border: 1px solid $oa-gray-lighter;
+    padding: 0.3em;
+    margin: 0.2em 0;
+
+    li { 
+
+      cursor: pointer;
 
     }
 

@@ -27,7 +27,7 @@ module.exports = function( params ) {
         '</ul>',
         '<div class="js_suggestions place-suggestions"></div>' ].join(''),
       empty: '<span class="info empty-message"><%= empty %></span>',
-      dragLink: '<a class="manual-link" href="#"><i class="icon-screenshot"></i><span><%= manualMark %></span></a>',
+      dragLink: '<a class="button small" href="#"><%= manualMark %></a>',
       dragTab: '<li class="js_tab"><a href="#"><i class="icon-screenshot"></i></a></li>'
     },
     selectors: {

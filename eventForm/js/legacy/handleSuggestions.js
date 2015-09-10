@@ -1,10 +1,10 @@
-var cn = require( '../../../lib/common/common.mod.js' ),
+var utils = require( 'utils' ),
 
-handleContextMenu =  require( '../../handleContextMenu/src/handleContextMenu.mod.js' ),
+du = require( '../../../js/lib/domUtils' ),
 
-EJS = require( '../../../lib/clientEjs/ejs' ),
+handleContextMenu =  require( './handleContextMenu.js' ),
 
-ehLib = require( '../../../lib/EventHandler/EventHandler' );
+EJS = require( '../../../js/lib/clientEjs/ejs' );
 
 module.exports = function( inputElem, list, key, template, options ) {
 
@@ -22,7 +22,7 @@ module.exports = function( inputElem, list, key, template, options ) {
 
   run = function() {
 
-    cn.extend( params, options );
+    utils.extend( params, options );
 
     contextDiv = document.createElement( 'div' );
 
@@ -31,19 +31,19 @@ module.exports = function( inputElem, list, key, template, options ) {
 
     if ( options.contextMenuClass ) {
 
-      cn.addClass( contextDiv, options.contextMenuClass );
+      du.addClass( contextDiv, options.contextMenuClass );
 
     }
 
     inputElem.insertAdjacentElement( 'afterend', contextDiv );
 
     // give behavior to context menu element
-    contextMenu = handleContextMenu( inputElem, contextDiv, ehLib.sEventHandler.getInstance(), { openOnClick: false } );
+    contextMenu = handleContextMenu( inputElem, contextDiv, { openOnClick: false } );
 
     // provide and show shortlist based on input value
-    cn.addEvent( inputElem, 'keyup', function( e ){
+    du.addEvent( inputElem, 'keyup', function( e ){
 
-      cn.removeClass( inputElem, options.invalidClass );
+      du.removeClass( inputElem, options.invalidClass );
 
       if ( e.keyCode==13 ) {
 
@@ -63,7 +63,7 @@ module.exports = function( inputElem, list, key, template, options ) {
 
         if ( !possibles.length ) {
 
-          cn.addClass( inputElem, options.invalidClass );
+          du.addClass( inputElem, options.invalidClass );
 
         }
 
@@ -97,13 +97,13 @@ module.exports = function( inputElem, list, key, template, options ) {
 
     li;
 
-    cn.forEach( list, function( listItem ) {
+    du.forEach( list, function( listItem ) {
 
       li = document.createElement( 'li' );
 
       li.innerHTML = ejs.render( listItem );
 
-      cn.addEvent( li, 'click', function() {
+      du.addEvent( li, 'click', function() {
 
         onClick( listItem );
 
@@ -123,7 +123,7 @@ module.exports = function( inputElem, list, key, template, options ) {
 
     selection = [];
 
-    cn.forEach( list, function( listItem ) {
+    du.forEach( list, function( listItem ) {
 
       if ( listItem[key].toLowerCase().match(regex) ){
 
@@ -151,7 +151,7 @@ module.exports = function( inputElem, list, key, template, options ) {
 
     } else {
 
-      cn.forEach( clean.toLowerCase(), function(c) {
+      du.forEach( clean.toLowerCase(), function(c) {
         regex += '.*' + c;
       });
 

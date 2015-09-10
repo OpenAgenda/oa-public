@@ -8,7 +8,11 @@ getMaker = require( './makeLooseGet' ),
 
 EJS = require( '../../../js/lib/clientEjs/ejs' ),
 
-inputWidgets = require( '../../../js/lib/inputWidgets/inputWidgets' );
+inputWidgets = require( '../../../js/lib/inputWidgets/inputWidgets' ),
+
+inputCountry = require( './inputCountry' ),
+
+Spinner = require( 'spin.js' );
 
 module.exports = function(params) {
 
@@ -159,7 +163,7 @@ module.exports = function(params) {
 
       _notLoading();
 
-      forEach(fetchedSuggestions, function(fetchedSuggestion){
+      du.forEach(fetchedSuggestions, function(fetchedSuggestion){
 
         // will need to filter out already listed locations here eventually
 
@@ -178,13 +182,13 @@ module.exports = function(params) {
     var regex = ''
       , subset = [];
 
-    forEach (value, function(c) {
+    du.forEach (value, function(c) {
       regex += '.*' + c.toLowerCase();
     });
 
     regex = new RegExp(regex);
 
-    forEach(list, function(listItem) {
+    du.forEach(list, function(listItem) {
       if (listItem[key].toLowerCase().match(regex)) subset.push(listItem);
     });
 
@@ -296,7 +300,7 @@ module.exports = function(params) {
 
     if (params.countries) cParams.countries = params.countries;
 
-    var ic = inputCountry(cParams);
+    var ic = inputCountry( cParams );
 
   },
 

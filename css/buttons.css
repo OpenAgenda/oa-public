@@ -39,16 +39,12 @@ button i,
   vertical-align: baseline!important;
 }
 
-button:hover, .button:hover {
 
-  color: white;
+button:hover,
+.button:hover {
 
   opacity: 0.9;
   
-}
-
-button:hover *, .button:hover * {
-  color: white;
 }
 
 .green {

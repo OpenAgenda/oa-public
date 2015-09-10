@@ -1,6 +1,14 @@
-var inputCountry = function(params) {
+"use strict";
 
-  params = extend({
+var utils = require( 'utils' ),
+
+inputWidgets = require( '../../../js/lib/inputWidgets/inputWidgets' ),
+
+handleSuggestions = require( './handleSuggestions' ),
+
+inputCountry = function(params) {
+
+  params = utils.extend({
     canvas: false,
     onSelect: false,
     labels: { countryField: 'country name', countryFieldInfo: 'type in a country name and click or press enter' },
@@ -51,3 +59,5 @@ var inputCountry = function(params) {
   }
   
 };
+
+if ( module ) module.exports = inputCountry;

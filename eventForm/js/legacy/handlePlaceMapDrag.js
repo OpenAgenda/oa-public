@@ -4,14 +4,16 @@ var utils = require( 'utils' ),
 
 du = require( '../../../js/lib/domUtils' ),
 
-EJS = require( '../../../js/lib/clientEjs/ejs' );
+EJS = require( '../../../js/lib/clientEjs/ejs' ),
+
+mapLib = require( '../../../js/lib/maps/osm.maps.mod' );
 
 module.exports = function(params) {
 
   params = utils.extend({
     canvas: false, // required
     templates: {
-      main: '<span><%= manualMarkDetail %></span><div class="js_drag_map selection-map"></div><div class="js_actions"><a class="js_select action" href="#"><i class="icon-arrow-right"></i><span><%= select %></span></a></div>',
+      main: '<span><%= manualMarkDetail %></span><div class="js_drag_map selection-map"></div><div class="js_actions"><a class="js_select action button small blue" href="#"><span><%= select %></span></a></div>',
     },
     selectors: {
       map: '.js_drag_map',
@@ -26,16 +28,16 @@ module.exports = function(params) {
     map: {
       type: 'osm',
       init: {url: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'},
-      coords: [48.447052, 1.486754],
+      coords: [ 48.447052, 1.486754 ],
     },
     icon: 'images/markerIcon.png'
   }, params);
 
-  var elem, map, marker, position, mapLib,
+  var elem, map, marker, position, mapElem, m,
 
   init = function() {
 
-    mapLib = maps.use(params.map.type);
+    if( !m ) m = mapLib( params.map.init );
 
     if (!elem) _createElem();
 
@@ -69,7 +71,7 @@ module.exports = function(params) {
 
       du.preventDefault(e);
 
-      var latLng = mapLib.getPosition(marker);
+      var latLng = m.getPosition(marker);
 
       if (params.onSelect) params.onSelect('select', {lat: latLng[0], lng: latLng[1]});
 
@@ -79,13 +81,15 @@ module.exports = function(params) {
 
   _removeElem = function() {
 
+    var child;
+
     if (!elem) return;
 
     marker = undefined;
 
     map = undefined;
 
-    while (child = childObject(elem, 0)) elem.removeChild(child);
+    while (child = du.childObject(elem, 0)) elem.removeChild(child);
 
     elem.parentNode.removeChild(elem);
 
@@ -95,23 +99,23 @@ module.exports = function(params) {
 
   _createMap = function() {
 
-    map = mapLib.createMap(mapElem, { center: position });
+    map = m.createMap(mapElem, { center: position });
 
-    marker = mapLib.createMarker(map, {
+    marker = m.createMarker(map, {
       position: position,
       draggable: true,
       icon: params.icon
     });
 
-    mapLib.setOnMarkerEvent(marker, 'dragend', _markerPositionChange);
+    m.setOnMarkerEvent(marker, 'dragend', _markerPositionChange);
 
   },
 
   _updateMarkerPosition = function() {
 
-    mapLib.setMarkerPosition(marker, position);
+    m.setMarkerPosition(marker, position);
 
-    mapLib.setCenter(map, position);
+    m.setCenter(map, position);
 
     _markerPositionChange()
 
@@ -119,7 +123,7 @@ module.exports = function(params) {
 
   _markerPositionChange = function() {
 
-    var latLng = mapLib.getPosition(marker);
+    var latLng = m.getPosition(marker);
 
     if (params.onSelect) params.onSelect('defaultselect', {lat: latLng[0], lng: latLng[1]});
 

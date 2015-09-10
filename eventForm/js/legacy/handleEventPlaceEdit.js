@@ -24,7 +24,7 @@ defaults = {
       '<div class="separator"></div>'
     ].join( '' ),
     info: [
-      '<a href="#" class="action js_change button blue">',
+      '<a href="#" class="action js_change button blue change">',
         '<%= changeLabel %>',
       '</a>',
       '<div class="title"><%= name %></div>',
