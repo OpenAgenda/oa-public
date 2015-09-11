@@ -308,6 +308,7 @@ function buildCsv( includePrivateData ) {
 
       csvStream = csv.createWriteStream( {
         headers: true,
+        //delimiter: "\t",
         delimiter: ';',
         quote: '"',
         escape: '"'
@@ -324,6 +325,11 @@ function buildCsv( includePrivateData ) {
 
       csvStream.pipe( res );
 
+      /*res.writeHead( 200, {
+        'Content-Type' : 'application/vnd.ms-excel',
+        'content-disposition' : 'attachment; filename=\"test.xls\"'
+      });*/
+
       res.writeHead( 200, {
         'Content-Type': 'text/csv',
         'content-disposition': [
@@ -331,7 +337,7 @@ function buildCsv( includePrivateData ) {
           req.agenda.title,
           '.', _stringifiedNow(),
           '.csv\"' ].join('')
-      } );
+      } ); 
 
       stream.on( 'data', function( eventData ) {
 
