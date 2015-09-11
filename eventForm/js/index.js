@@ -23,16 +23,17 @@ defaults = {
   },
   custom: false,
   labels: {
+    descriptionSection: { fr: 'Descriptifs', en: 'Description fields' },
     title: { fr: 'Le titre', en: 'The title' },
     description: { fr: 'Description', en: 'Description' },
     longDescription: { fr: 'Description longue', en: 'Long description' },
+    keywords: { fr: 'Mots clés', en: 'Keywords' },
     accessibility: { fr: 'Accessibilité particulière', en: 'Accessibility conditions' },
     conditions: { fr: 'Conditions', en: 'Conditions' },
     ticketLink: { fr: 'Lien de réservation', en: 'Reservation link' },
     age: { fr: 'Age du public ciblé', en: 'Targeted public age' },
     addLanguage: 'ajouter une langue',
-    keywords: 'Mots clés',
-    keywordPlaceholder: 'Ajouter un mot clé'
+    keywordPlaceholder: { fr: 'Ajouter un mot clé', en: 'Add a keyword' }
   }
 };
 
@@ -54,7 +55,7 @@ window.oaEventForm = function( options ) {
     React.render( <EventForm
       initialLanguages= { formUtils.extractLanguages( eventData ) }
       initData= {eventData}
-      language= {params.language}
+      lang= {params.language}
       onTextChange= {onTextChange}
       onCustomChange= {onCustomChange}
       onChangeLanguages= {onChangeLanguages}
@@ -73,11 +74,11 @@ window.oaEventForm = function( options ) {
 
   function onTextChange( field, content ) {
 
-    var eventName = params.events.description;
+    var eventName = params.events.single;
 
-    if ( [ 'title', 'description', 'freeText', 'tags', 'conditions' ].indexOf( field ) == -1 ) {
+    if ( [ 'title', 'description', 'freeText', 'tags', 'conditions' ].indexOf( field ) !== -1 ) {
 
-      eventName = params.events.single;
+      eventName = params.events.description;
 
     }
 

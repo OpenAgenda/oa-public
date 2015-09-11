@@ -126,7 +126,17 @@ module.exports = function( params ) {
 
     _on( params.events.location.write, function( location ) {
 
-      event.location = location;
+      if ( location.timings ) {
+
+        event.timings = JSON.parse( JSON.stringify( location.timings ) );
+
+      }
+
+
+
+      event.location = JSON.parse( JSON.stringify( location ) );
+
+      if ( event.location.timings ) delete event.location.timings;
 
       _evaluate();
 

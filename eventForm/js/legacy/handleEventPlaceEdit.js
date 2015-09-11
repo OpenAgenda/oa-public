@@ -209,7 +209,7 @@ module.exports = function( options ) {
         canvas: du.el( elem, params.selectors.placeForm ),
         countries: params.countries,
         country: params.country,
-        get: params.get,
+        url: params.url,
         locations: params.locations,
         labels: params.labels,
         onFetched: function( suggestions ) {

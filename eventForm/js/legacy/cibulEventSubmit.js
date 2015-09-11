@@ -6,6 +6,8 @@ rUtils = require( '../reactUtils' ),
 
 du = require( '../../../js/lib/domUtils' ),
 
+remote = require( '../../../js/lib/remote/remote.mod' ),
+
 EJS = require( '../../../js/lib/clientEjs/ejs' );
 
 module.exports = function( params ) {
@@ -97,7 +99,7 @@ module.exports = function( params ) {
 
     du.addEvent(button, 'click', function(e) {
 
-      preventDefault(e);
+      du.preventDefault( e );
 
       _process[name](function(encodedEvent) {
 

@@ -39,7 +39,7 @@ module.exports = function( params ) {
 
 
     // if some fields are missing in any of the languages, set them to empty
-    utils.forEach(['title', 'description', 'tags', 'freeText'], function(field) {
+    utils.forEach(['title', 'description', 'tags', 'freeText', 'conditions' ], function(field) {
       if (typeof event[field] == 'undefined') event[field] = {};
     });
 
@@ -57,7 +57,7 @@ module.exports = function( params ) {
 
     try { process('placename', event.location.name) } catch(e) { if (!contains(errors, e)) errors.push(e); }
     try { process('address', event.location.address) } catch(e) { if (!contains(errors, e)) errors.push(e); }
-    try { process('dates', event.location.dates) } catch(e) { if (!contains(errors, e)) errors.push(e); }
+    try { process( 'timings', event.timings ) } catch(e) { if (!contains(errors, e)) errors.push(e); }
 
     return errors;
 
@@ -134,11 +134,11 @@ module.exports = function( params ) {
 
     },
 
-    dates: function(dates) {
+    timings: function(timings) {
 
-      if (typeof dates != 'object') dates = [];
+      if (typeof timings != 'object') timings = [];
 
-      if (!dates.length) throw params.labels.noDates;
+      if (!timings.length) throw params.labels.noDates;
 
     }
 

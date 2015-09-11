@@ -61,7 +61,7 @@ module.exports = React.createClass({
             label= { field.label }
             info= { field.info }
             optional= { field.optional }
-            labelsLang= { self.props.labelsLang } 
+            lang= { self.props.lang } 
             type= { field.fieldType } 
             value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : {} }
             error= { self.props.errors[ field.name ] || false }
@@ -75,7 +75,7 @@ module.exports = React.createClass({
             label= { field.label }
             info= { field.info } 
             optional= { field.optional }
-            labelsLang= { self.props.labelsLang } 
+            lang= { self.props.lang } 
             type= { field.fieldType } 
             value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
             error= { self.props.errors[ field.name ] || false }
@@ -87,7 +87,7 @@ module.exports = React.createClass({
 
         return <CheckboxField
           field= { field }
-          labelsLang= { self.props.labelsLang } 
+          lang= { self.props.lang } 
           value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
           handleUpdate= { self.onChange( field.name ) } />;
 
@@ -95,7 +95,7 @@ module.exports = React.createClass({
 
         return <RadioFields
           field= { field }
-          labelsLang= { self.props.labelsLang }
+          lang= { self.props.lang }
           value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
           error= { self.props.errors[ field.name ] || false }
           handleUpdate= { self.onChange( field.name ) } />;

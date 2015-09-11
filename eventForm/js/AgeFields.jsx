@@ -36,8 +36,16 @@ module.exports = React.createClass({
 
   getInitialState: function() {
 
+    var enabled = false;
+
+    if ( this.props.value && this.props.value.min !== undefined && this.props.value.min !== null ) {
+
+      enabled = true;
+
+    }
+
     return {
-      enabled: this.props.value,
+      enabled: enabled,
     }
 
   },
@@ -76,9 +84,9 @@ module.exports = React.createClass({
 
       }
 
-      var min = self.props.value.min || null, 
+      var min = self.props.value ? self.props.value.min || null : null,
 
-      max = self.props.value.max || null;
+      max = self.props.value ? self.props.value.max || null : null;
 
       if ( enable && min === null ) {
 
@@ -138,16 +146,30 @@ module.exports = React.createClass({
 
   render: function() {
 
+    var min = null, max = null;
+
+    if ( this.state.enabled ) {
+
+      min = this.props.value.min;
+
+      min = ( min !== undefined && min !== null ) ? min + '' : '';
+
+      max = this.props.value.max;
+
+      max = ( max !== undefined && max !== null ) ? max + '' : '';
+
+    }
+
     return ( 
       <div className="cform">
         <ul>
           <li className="line">
-            <input type="checkbox" name="age" value="1" checked={this.state.enabled} onClick={this.onEnabled(!this.state.enabled)} />
+            <input type="checkbox" name="age" checked={this.state.enabled} onClick={this.onEnabled(!this.state.enabled)} />
             <label onClick={this.onEnabled()}>{this.props.label[this.props.labelsLang]}</label> - 
             <label onClick={this.onEnabled()} for="minage">{this.labels.min[this.props.labelsLang]}</label>
             <Select
               name="minage"
-              value={this.state.enabled ? this.props.value.min + '' : ''}
+              value={min}
               options={this.getSelectOptions()}
               clearable={false}
               onChange={ this.onChange( 'min' ) }
@@ -156,8 +178,8 @@ module.exports = React.createClass({
             <label for="maxage">{this.labels.max[this.props.labelsLang]}</label>
             <Select
               name="maxage"
-              value={this.state.enabled ? this.props.value.max + '' : ''}
-              options={this.getSelectOptions( this.props.value.min )}
+              value={max}
+              options={this.getSelectOptions( this.props.value ? min : false )}
               clearable={false}
               onChange={ this.onChange( 'max') }
               onFocus={this.onEnabled(true)}

@@ -11,9 +11,40 @@
 
   }
 
+  .main-error {
+
+    color: $oa-red;
+
+  }
+
+  .loader {
+
+    padding: 0 0.5em 0 0.5em;
+    vertical-align: middle;
+    margin: 0.5em 0;
+    background-color: transparent;
+    
+  }
+
   &.canvas main {
 
     margin-top: 60px!important;
+
+  }
+
+  .event-image .form-section {
+
+    & > div {
+
+      padding: 1em 0 0;
+
+    }
+
+    .canvas {
+
+      text-align: center;
+
+    }
 
   }
   

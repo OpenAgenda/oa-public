@@ -6,7 +6,9 @@ validators = require( './validators' ),
 
 utils = require( 'utils' ),
 
-errors = require( './errors' );
+errors = require( './errors' ),
+
+renderHelpers = require( './renderHelpers.jsx' );
 
 module.exports = React.createClass({
 
@@ -24,7 +26,7 @@ module.exports = React.createClass({
 
     return function( e ) {
 
-      var value = JSON.parse( JSON.stringify( self.props.value ) );
+      var value = JSON.parse( JSON.stringify( self.props.value || {} ) );
 
       value[ l ] = e.target.value;
 
@@ -36,46 +38,31 @@ module.exports = React.createClass({
 
   },
 
-  render: function() {
+  renderBlock: renderHelpers.multilingual.block,
 
-    var self = this,
+  renderField: function( value, l ) {
 
-    count = this.props.languages.length,
+    if ( this.props.type !== 'textarea' ) {
 
-    renderField = function( l ) {
+      return <input type="text" value={ value } onChange={ this.onChange( l ) }/>
 
-      var value = self.props.value[ l ] ? self.props.value[ l ] : '';
+    } else {
 
-      return <li className={count>1?'lang-unit':''}>
-        {count>1?<label>{l}</label>:''}
-        <div>
-          { self.props.type !== 'textarea' ?
-            <input type="text" value={ value } onChange={ self.onChange( l ) }/>
-            : <textarea value={ value } onChange={ self.onChange( l ) }/>
-          }
-          { self.props.error && self.props.error[ l ] && self.state.userHasTyped ? <span className="error">{ self.props.error[ l ] }</span> : '' }
-        </div>
-      </li>
+      return <textarea value={ value } onChange={ this.onChange( l ) }/>
 
-    };
+    }    
 
-    return ( 
-      <ul className="cform">
-        <li>
-          <label>{this.props.label[this.props.labelsLang]}{ this.props.optional ? '' : ' (*)' }</label>
-          { this.props.info && !( this.props.error && self.state.userHasTyped ) ? <span className="info">{this.props.info[this.props.labelsLang]}</span> : '' }
-        </li>
-        {this.props.languages.map(renderField)}
-      </ul>
-    );
-    
   },
+
+  renderError: renderHelpers.multilingual.error,
+
+  render: renderHelpers.multilingual.render,
 
   validate: function( value ) {
 
     var currentMessages = {},
 
-    messages = errors.messages( this.props.labelsLang ),
+    messages = errors.messages( this.props.lang ),
 
     self = this,
 

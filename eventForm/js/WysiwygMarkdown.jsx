@@ -28,7 +28,7 @@ module.exports = React.createClass( {
 
     return function( e ) {
 
-      var changed = JSON.parse( JSON.stringify( self.props.markdown ) );
+      var changed = self.props.markdown ? JSON.parse( JSON.stringify( self.props.markdown ) ) : {};
 
       changed[ l ] = toMarkdown( e.target.getContent() );
 
@@ -45,6 +45,8 @@ module.exports = React.createClass( {
     count = this.props.languages.length,
 
     renderField = function( l, i ) {
+
+      var value = self.props.markdown ? ( self.props.markdown[ l ] ? self.props.markdown[ l ] : '' ) : '';
 
       setTimeout( function() {
 
@@ -66,17 +68,44 @@ module.exports = React.createClass( {
 
       });
 
-      return <li className={count> 1 ? 'lang-unit' : '' }>
-        {count>1?<label className="off32">{l}</label>:''}
-        <textarea className={'mce-box-' + i} value={self.props.markdown[ l ] }></textarea>
-      </li>
+      if ( count > 1 ) {
+
+        return <li className="lang-unit">
+          <label className="off32">{l}</label>
+          <textarea className={'mce-box-' + i} value={ marked( value ) }></textarea>
+        </li>
+
+      } else {
+
+        return <textarea className={'mce-box-' + i} value={ marked( value ) }></textarea>
+
+      }
+
+      
 
     };
 
-    return <ul className="cform">
-      <li><label>{this.props.labels.longDescription}</label></li>
-      {this.props.languages.map(renderField)}
-    </ul>
+    if ( count > 1 ) {
+
+      return <ul className="cform">
+        <li>
+          <label>{this.props.labels.longDescription[this.props.lang]}</label>
+        </li>
+        {this.props.languages.map(renderField)}
+      </ul>
+
+    } else {
+
+      return <ul className="cform">
+        <li>
+          <label>{this.props.labels.longDescription[this.props.lang]}</label>
+          {this.props.languages.map(renderField)}
+        </li>
+      </ul>
+
+    } 
+
+    
 
   }
 

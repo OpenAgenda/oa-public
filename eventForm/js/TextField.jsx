@@ -53,8 +53,8 @@ module.exports = React.createClass({
 
     return <ul className="cform">
       <li>
-        <label>{this.props.label[this.props.labelsLang]}{ this.props.optional ? '' : ' (*)' }</label>
-        { this.props.info?<span className="info">{ this.props.info[ this.props.labelsLang ] }</span>:'' }
+        <label>{this.props.label[this.props.lang]}{ this.props.optional ? '' : ' (*)' }</label>
+        { this.props.info?<span className="info">{ this.props.info[ this.props.lang ] }</span>:'' }
       </li>
       <li>
         { this.renderField() }
@@ -66,7 +66,7 @@ module.exports = React.createClass({
 
   validate: function( value ) {
 
-    var messages = errors.messages( this.props.labelsLang ),
+    var messages = errors.messages( this.props.lang ),
 
     constraints = this.props.constraints || {};
 

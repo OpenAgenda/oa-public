@@ -102,6 +102,7 @@ module.exports = function( params ) {
     eh.trigger( params.events.fetch, function( location, timings ) {
 
       locationHandler = handleEventPlaceEdit({
+        url: params.url,
         labels: params.labels,
         lang: params.lang,
         countries: params.countries,

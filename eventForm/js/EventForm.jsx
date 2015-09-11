@@ -30,6 +30,12 @@ module.exports = React.createClass( {
 
     state.languages = this.props.initialLanguages;
 
+    if ( !state.languages.length ) {
+
+      state.languages = [ this.props.lang ];
+
+    }
+
     return state;
   },
 
@@ -90,6 +96,8 @@ module.exports = React.createClass( {
 
     return <div>
 
+      <h2>{this.props.labels.descriptionSection[ this.props.lang ]}</h2>
+
       <LanguageBar 
         languages={ this.state.languages } 
         onChangeLanguages={ this.changeLanguages }
@@ -104,7 +112,7 @@ module.exports = React.createClass( {
         error={this.state.errors.title }
         languages={this.state.languages}
         onChange={this.onChange( 'title' )}
-        labelsLang={this.props.language} />
+        lang={this.props.lang} />
 
       <MultilingualTextField
         constraints={{max: 200}}
@@ -115,19 +123,22 @@ module.exports = React.createClass( {
         error={this.state.errors.description }
         languages={this.state.languages}
         onChange={this.onChange( 'description' )}
-        labelsLang={this.props.language} /> 
+        lang={this.props.lang} /> 
 
       <EventKeywordsField
         tags={this.state.tags}
         languages={this.state.languages}
         onChange={this.onChange( 'tags' )}
-        labels={this.props.labels} />
+        label={this.props.labels.keywords}
+        placeholder={this.props.labels.keywordPlaceholder}
+        lang={this.props.lang} />
 
       <WysiwygMarkdown
         markdown={this.state.freeText}
         languages={this.state.languages}
         onChange={this.onChange( 'freeText' )}
-        labels={this.props.labels} />
+        labels={this.props.labels}
+        lang={this.props.lang}/>
 
       <MultilingualTextField
         constraints={{max: 255}}
@@ -138,7 +149,7 @@ module.exports = React.createClass( {
         error={this.state.errors.conditions }
         languages={this.state.languages}
         onChange={this.onChange( 'conditions' )}
-        labelsLang={this.props.language} />  
+        lang={this.props.lang} />  
 
       <TextField 
         label={this.props.labels.ticketLink}
@@ -147,28 +158,28 @@ module.exports = React.createClass( {
         value={this.state.ticketLink}
         error={this.state.errors.ticketLink}
         onChange={this.onChange( 'ticketLink' )}
-        labelsLang={this.props.language} />
+        lang={this.props.lang} />
 
       <AccessibilityFields 
         value={this.state.accessibility || []}
         label={this.props.labels.accessibility}
         onChange={this.onChange( 'accessibility' )} 
-        labelsLang={this.props.language} />
+        labelsLang={this.props.lang} />
 
       <AgeFields
-        value={ this.state.age || {} }
+        value={ this.state.age }
         label={ this.props.labels.age }
         onChange={ this.onChange( 'age' ) }
-        labelsLang={ this.props.language } />
+        labelsLang={ this.props.lang } />
 
       { this.props.custom ? <CustomFields
-        fields={ JSON.parse( this.props.custom ) }
+        fields={ this.props.custom }
         values={this.state.custom || {} }
         errors={ this.state.errors || {} }
         languages={this.state.languages}
         onChange={this.changeCustom}
         label={this.props.labels}
-        labelsLang={this.props.language} />
+        lang={this.props.lang} />
       : '' }
 
     </div>;

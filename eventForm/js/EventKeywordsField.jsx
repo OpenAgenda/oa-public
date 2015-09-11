@@ -2,7 +2,9 @@
 
 var React = require( 'react' ),
 
-TagsInput = require( 'react-tagsinput' );
+TagsInput = require( 'react-tagsinput' ),
+
+renderHelpers = require( './renderHelpers.jsx' );
 
 module.exports = React.createClass( {
 
@@ -32,7 +34,7 @@ module.exports = React.createClass( {
 
     return function( lTags ) {
 
-      var tags = JSON.parse( JSON.stringify( self.props.tags ) );
+      var tags = JSON.parse( JSON.stringify( self.props.tags || {} ) );
 
       tags[ l ] = self.stringify( lTags );
 
@@ -42,36 +44,20 @@ module.exports = React.createClass( {
 
   },
 
-  render: function() {
+  renderBlock: renderHelpers.multilingual.block,
 
-    var self = this,
+  renderError: renderHelpers.multilingual.error,
 
-    count = this.props.languages.length,
+  renderField: function( value, l ) {
 
-    renderField = function( l ) {
+    return <TagsInput 
+      value= { this.parse( this.props.tags ? this.props.tags[ l ] : '' ) }
+      placeholder= {this.props.placeholder[ this.props.lang ] }
+      onChange={ this.onChange( l ) }
+      ref='tags' />
 
-      return <li className={count>1?'lang-unit':''}>
-        {count>1?<label>{l}</label>:''}
-        <div>
-          <TagsInput 
-            value= { self.parse( self.props.tags[ l ] ) }
-            placeholder= {self.props.labels.keywordPlaceholder}
-            onChange={ self.onChange( l ) }
-            ref='tags' />
-        </div>
-      </li>
+  },
 
-    };
-
-    return <ul className="cform">
-
-      <li>
-        <label>{this.props.labels.keywords}</label>
-      </li>
-      {this.props.languages.map(renderField)}
-
-    </ul>
-
-  }
+  render: renderHelpers.multilingual.render
 
 } );
