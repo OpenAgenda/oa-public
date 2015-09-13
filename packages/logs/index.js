@@ -51,7 +51,7 @@ module.exports = function( namespace, preloaded ) {
       message ? { message: message } : {}
     );
 
-    if ( logger ) logger.log( entry );
+    if ( logger && level !== 'debug' ) logger.log( entry );
 
     debugLog( message );
 
