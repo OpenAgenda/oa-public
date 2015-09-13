@@ -13,6 +13,7 @@ React = require( 'react' ),
 defaults = {
   language: 'fr',
   canvas: '.js_form_canvas',
+  useMarkdown: false,
   events : {
     fetch: 'eventfetch',
     fetchLanguages: 'languagesfetch', // must be dyslexia.
@@ -54,6 +55,7 @@ window.oaEventForm = function( options ) {
 
     React.render( <EventForm
       initialLanguages= { formUtils.extractLanguages( eventData ) }
+      useMarkdown= {params.useMarkdown}
       initData= {eventData}
       lang= {params.language}
       onTextChange= {onTextChange}

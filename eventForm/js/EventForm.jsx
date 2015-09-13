@@ -92,6 +92,33 @@ module.exports = React.createClass( {
 
   },
 
+  renderFreeTextField: function() {
+
+    return <MultilingualTextField
+      constraints={{max: 10000}}
+      optional={false}
+      label={this.props.labels.longDescription}
+      type='textarea'
+      rows={10}
+      value={this.state.freeText}
+      error={this.state.errors.freeText }
+      languages={this.state.languages}
+      onChange={this.onChange( 'freeText' )}
+      lang={this.props.lang} /> 
+
+  },
+
+  renderMarkdownField: function() {
+
+    return <WysiwygMarkdown
+      markdown={this.state.freeText}
+      languages={this.state.languages}
+      onChange={this.onChange( 'freeText' )}
+      labels={this.props.labels}
+      lang={this.props.lang} />;
+
+  },
+
   render: function() {
 
     return <div>
@@ -133,12 +160,7 @@ module.exports = React.createClass( {
         placeholder={this.props.labels.keywordPlaceholder}
         lang={this.props.lang} />
 
-      <WysiwygMarkdown
-        markdown={this.state.freeText}
-        languages={this.state.languages}
-        onChange={this.onChange( 'freeText' )}
-        labels={this.props.labels}
-        lang={this.props.lang}/>
+      { this.props.useMarkdown ? this.renderMarkdownField() : this.renderFreeTextField() }
 
       <MultilingualTextField
         constraints={{max: 255}}

@@ -48,7 +48,7 @@ module.exports = React.createClass({
 
     } else {
 
-      return <textarea value={ value } onChange={ this.onChange( l ) }/>
+      return <textarea rows={ this.props.rows } value={ value } onChange={ this.onChange( l ) }/>
 
     }    
 

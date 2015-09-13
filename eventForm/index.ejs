@@ -5,7 +5,9 @@
     <div class="js_form_canvas_below"></div>
   </main>
 </div>
+<% if ( useMarkdown ) { %>
 <script type="text/javascript" src="/js/legacy/tinymce/tinymce.min.js"></script>
+<% } %>
 <script type="text/javascript">
 
 
@@ -145,6 +147,9 @@
   });
 
   oaEventForm( {
+<% if ( useMarkdown ) { %>
+    useMarkdown: true,
+<% } %>
     language: 'fr',
     custom: [{"name":"somenmber","type":"public","fieldType":"number","label":{"fr":"Un nombre","en":"A number"}},{"name":"somesmalltext","type":"private","fieldType":"text","max":50,"min":20,"optional":true,"multilingual":true, "label":{"fr":"Ceci est un petit texte","en":"This is a small text"}},{"name":"somelongtext","type":"public","fieldType":"textarea","value":"dude!","label":{"fr":"Ceci est un long texte","en":"This is a long text"},"info":{"fr":"Vous devez saisir quelque chose ici","en":"You should type in something here"}, "max": 20}]
   } );

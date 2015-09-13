@@ -57,6 +57,7 @@ module.exports = React.createClass( {
           plugins: 'autolink link lists print preview autoresize',
           toolbar: 'formatselect bold italic link',
           statusbar: false,
+          block_formats: 'Paragraph=p;Heading 1=h1;Heading 2=h2;Heading 3=h3;',
           autoresize_min_height: 100,
           setup: function( editor ) {
 
