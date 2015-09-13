@@ -33,7 +33,7 @@ _onStart,
 _onComplete,
 
 jobHandlers = {
-  'index.rebuild' : _rebuild,
+  'index.resync' : _resync,
   'event.publish' : _publish( 'events' ),
   'event.create' : _publish( 'events' ),
   'event.delete' : _delete( 'events' ),
@@ -147,9 +147,9 @@ function _handleJob( err, job ) {
 
 }
 
-function _rebuild( job, cb ) {
+function _resync( job, cb ) {
 
-  esSvc.rebuild( function( ) {
+  esSvc.resync( job.values, function(  ) {
 
     cb();
 

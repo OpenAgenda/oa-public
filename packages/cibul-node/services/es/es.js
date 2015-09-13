@@ -8,17 +8,17 @@ lib = require( '../../lib/lib' ),
 
 c = require( './lib/clean' ),
 
-rebuild = require( './lib/rebuild' ),
+resync = require( './lib/resync' ),
 
 LIMIT = 20;
 
-rebuild.set( legacyLib );
+resync.set( legacyLib );
 
 module.exports = {
   agendas: agendas,
   search: search,
   searchAgendas: searchAgendas,
-  rebuild: rebuild
+  resync: resync
 }
 
 function agendas( agenda ) {
