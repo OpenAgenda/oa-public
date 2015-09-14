@@ -160,7 +160,7 @@ module.exports = React.createClass( {
         placeholder={this.props.labels.keywordPlaceholder}
         lang={this.props.lang} />
 
-      { this.props.useMarkdown ? this.renderMarkdownField() : this.renderFreeTextField() }
+      { this.props.useWysiwyg ? this.renderMarkdownField() : this.renderFreeTextField() }
 
       <MultilingualTextField
         constraints={{max: 255}}

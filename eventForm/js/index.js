@@ -13,7 +13,7 @@ React = require( 'react' ),
 defaults = {
   language: 'fr',
   canvas: '.js_form_canvas',
-  useMarkdown: false,
+  useWysiwyg: false,
   events : {
     fetch: 'eventfetch',
     fetchLanguages: 'languagesfetch', // must be dyslexia.
