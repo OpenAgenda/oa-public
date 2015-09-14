@@ -755,6 +755,14 @@ module.exports = function( uid ) {
 
           }
 
+        } else if ( k == 'what' ) {
+
+          if ( data[ k ].length ) {
+
+            cleanData[ k ] = data[ k ];
+
+          }
+
         } else {
 
           cleanData[ k ] = data[ k ];

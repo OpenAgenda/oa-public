@@ -340,6 +340,8 @@ function widget( elem, options ) {
 
       bounds = baseBounds;
 
+      navHistory.add( reqParams, bounds );
+
     } else if ( activeBounds ) {
 
       // query params have changed and DO NOT contain geographical
