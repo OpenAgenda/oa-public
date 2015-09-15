@@ -4,9 +4,19 @@ var React = require( 'react' ),
 
 TagsInput = require( 'react-tagsinput' ),
 
-renderHelpers = require( './renderHelpers.jsx' );
+renderHelpers = require( './renderHelpers.jsx' ),
+
+validators = require( './validators' );
 
 module.exports = React.createClass( {
+
+  getInitialState: function() {
+
+    return {
+      userHasTyped: false
+    };
+
+  },
 
   stringify: function( tArr ) {
 
@@ -22,7 +32,7 @@ module.exports = React.createClass( {
 
     } ).map( function( t ) {
 
-      return t.trim('');
+      return t.trim( '' );
 
     });
 
@@ -36,9 +46,11 @@ module.exports = React.createClass( {
 
       var tags = JSON.parse( JSON.stringify( self.props.tags || {} ) );
 
+      self.setState( { userHasTyped: true } );
+
       tags[ l ] = self.stringify( lTags );
 
-      self.props.onChange( tags );
+      self.props.onChange( tags, self.validate( tags ) );
 
     }
 
@@ -58,6 +70,8 @@ module.exports = React.createClass( {
 
   },
 
-  render: renderHelpers.multilingual.render
+  render: renderHelpers.multilingual.render,
+
+  validate: validators.validate
 
 } );

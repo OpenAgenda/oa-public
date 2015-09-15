@@ -130,78 +130,84 @@ module.exports = React.createClass( {
         onChangeLanguages={ this.changeLanguages }
         labels={ this.props.labels } />
 
-      <MultilingualTextField
-        constraints={{max: 140}}
-        optional={false}
-        label={this.props.labels.title}
-        type='text'
-        value={this.state.title}
-        error={this.state.errors.title }
-        languages={this.state.languages}
-        onChange={this.onChange( 'title' )}
-        lang={this.props.lang} />
+      <div className="form-section">
 
-      <MultilingualTextField
-        constraints={{max: 200}}
-        optional={false}
-        label={this.props.labels.description}
-        type='text'
-        value={this.state.description}
-        error={this.state.errors.description }
-        languages={this.state.languages}
-        onChange={this.onChange( 'description' )}
-        lang={this.props.lang} /> 
+        <MultilingualTextField
+          constraints={{max: 140}}
+          optional={false}
+          label={this.props.labels.title}
+          type='text'
+          value={this.state.title}
+          error={this.state.errors.title }
+          languages={this.state.languages}
+          onChange={this.onChange( 'title' )}
+          lang={this.props.lang} />
 
-      <EventKeywordsField
-        tags={this.state.tags}
-        languages={this.state.languages}
-        onChange={this.onChange( 'tags' )}
-        label={this.props.labels.keywords}
-        placeholder={this.props.labels.keywordPlaceholder}
-        lang={this.props.lang} />
+        <MultilingualTextField
+          constraints={{max: 200}}
+          optional={false}
+          label={this.props.labels.description}
+          type='text'
+          value={this.state.description}
+          error={this.state.errors.description }
+          languages={this.state.languages}
+          onChange={this.onChange( 'description' )}
+          lang={this.props.lang} /> 
 
-      { this.props.useWysiwyg ? this.renderMarkdownField() : this.renderFreeTextField() }
+        <EventKeywordsField
+          constraints={{max: 255}}
+          tags={this.state.tags}
+          languages={this.state.languages}
+          onChange={this.onChange( 'tags' )}
+          label={this.props.labels.keywords}
+          error={this.state.errors.tags }
+          placeholder={this.props.labels.keywordPlaceholder}
+          lang={this.props.lang} />
 
-      <MultilingualTextField
-        constraints={{max: 255}}
-        label={this.props.labels.conditions}
-        type='text'
-        optional={true}
-        value={this.state.conditions}
-        error={this.state.errors.conditions }
-        languages={this.state.languages}
-        onChange={this.onChange( 'conditions' )}
-        lang={this.props.lang} />  
+        { this.props.useWysiwyg ? this.renderMarkdownField() : this.renderFreeTextField() }
 
-      <TextField 
-        label={this.props.labels.ticketLink}
-        type="url"
-        optional={true}
-        value={this.state.ticketLink}
-        error={this.state.errors.ticketLink}
-        onChange={this.onChange( 'ticketLink' )}
-        lang={this.props.lang} />
+        <MultilingualTextField
+          constraints={{max: 255}}
+          label={this.props.labels.conditions}
+          type='text'
+          optional={true}
+          value={this.state.conditions}
+          error={this.state.errors.conditions }
+          languages={this.state.languages}
+          onChange={this.onChange( 'conditions' )}
+          lang={this.props.lang} />  
 
-      <AccessibilityFields 
-        value={this.state.accessibility || []}
-        label={this.props.labels.accessibility}
-        onChange={this.onChange( 'accessibility' )} 
-        labelsLang={this.props.lang} />
+        <TextField 
+          label={this.props.labels.ticketLink}
+          type="url"
+          optional={true}
+          value={this.state.ticketLink}
+          error={this.state.errors.ticketLink}
+          onChange={this.onChange( 'ticketLink' )}
+          lang={this.props.lang} />
 
-      <AgeFields
-        value={ this.state.age }
-        label={ this.props.labels.age }
-        onChange={ this.onChange( 'age' ) }
-        labelsLang={ this.props.lang } />
+        <AccessibilityFields 
+          value={this.state.accessibility || []}
+          label={this.props.labels.accessibility}
+          onChange={this.onChange( 'accessibility' )} 
+          labelsLang={this.props.lang} />
 
-      { this.props.custom ? <CustomFields
+        <AgeFields
+          value={ this.state.age }
+          label={ this.props.labels.age }
+          onChange={ this.onChange( 'age' ) }
+          labelsLang={ this.props.lang } />
+
+      </div>
+
+      { this.props.custom ? <div className="form-section"><CustomFields
         fields={ this.props.custom }
         values={this.state.custom || {} }
         errors={ this.state.errors || {} }
         languages={this.state.languages}
         onChange={this.changeCustom}
         label={this.props.labels}
-        lang={this.props.lang} />
+        lang={this.props.lang} /></div>
       : '' }
 
     </div>;

@@ -6,8 +6,6 @@ validators = require( './validators' ),
 
 utils = require( 'utils' ),
 
-errors = require( './errors' ),
-
 renderHelpers = require( './renderHelpers.jsx' );
 
 module.exports = React.createClass({
@@ -58,48 +56,6 @@ module.exports = React.createClass({
 
   render: renderHelpers.multilingual.render,
 
-  validate: function( value ) {
-
-    var currentMessages = {},
-
-    messages = errors.messages( this.props.lang ),
-
-    self = this,
-
-    has = false;
-
-    this.props.languages.forEach( function( l ) {
-
-      var v = value[ l ] || '',
-
-      message;
-
-      if ( !v.length && self.props.optional===false ) {
-
-        message = messages.notEmpty();
-
-      } else if ( ( self.props.constraints.max !== undefined ) && ( v.length > self.props.constraints.max ) ) {
-
-        message = messages.tooLong( self.props.constraints.max );
-
-      } else if ( ( self.props.constraints.min !== undefined ) && ( v.length < self.props.constraints.min ) ) {
-
-        message = messages.tooShort( self.props.constraints.min );
-
-      }
-
-      if ( message ) {
-
-        currentMessages[ l ] = message;
-
-        has = true;
-
-      }
-
-    });
-
-    return has ? currentMessages : false;
-
-  }
+  validate: validators.validate
 
 });

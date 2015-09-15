@@ -22,6 +22,7 @@ function mBlock( l ) {
       <label>{l}</label>
       <div>
         {this.renderField( value, l )}
+        {this.renderError( l )}
       </div>
     </li>
 

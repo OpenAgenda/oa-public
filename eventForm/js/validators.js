@@ -1,11 +1,60 @@
 "use strict";
 
+var errors = require( './errors' );
+
 module.exports = {
   isInteger: isInteger,
   isNumber: isNumber,
   isUrl: isUrl,
-  isEmail: isEmail
+  isEmail: isEmail,
+  validate: validate
 }
+
+
+function validate( value ) {
+
+  var currentMessages = {},
+
+  messages = errors.messages( this.props.lang ),
+
+  self = this,
+
+  has = false;
+
+  this.props.languages.forEach( function( l ) {
+
+    var v = value[ l ] || '',
+
+    message;
+
+    if ( !v.length && self.props.optional===false ) {
+
+      message = messages.notEmpty();
+
+    } else if ( ( self.props.constraints.max !== undefined ) && ( v.length > self.props.constraints.max ) ) {
+
+      message = messages.tooLong( self.props.constraints.max );
+
+    } else if ( ( self.props.constraints.min !== undefined ) && ( v.length < self.props.constraints.min ) ) {
+
+      message = messages.tooShort( self.props.constraints.min );
+
+    }
+
+    if ( message ) {
+
+      currentMessages[ l ] = message;
+
+      has = true;
+
+    }
+
+  });
+
+  return has ? currentMessages : false;
+
+}
+
 
 function isUrl( v ) {
 

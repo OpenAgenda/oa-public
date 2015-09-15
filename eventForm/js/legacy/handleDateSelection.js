@@ -17,9 +17,9 @@ module.exports = function(params) {
     onChange: false,
     onHeightChange: false,
     templates: {
-      main: '<div class="date-actions js_add_dates js_add_dates_link js_clear_dates_link"></div><div class="js_date_list date-list"></div>',
-      addLink: '<button class="blue button date-action"><i class="fa fa-plus"></i><span><%= addLabel %></span></button>',
-      clearLink: '<button class="red button date-action"><span>&#215; </span><span><%= clearLabel %></span></button>',
+      main: '<div class="js_date_list date-list"></div><div class="date-actions js_add_dates js_add_dates_link js_clear_dates_link"></div>',
+      addLink: '<button class="blue button date-action small"><i class="fa fa-plus"></i><span><%= addLabel %></span></button>',
+      clearLink: '<button class="red button date-action small"><span>&#215; </span><span><%= clearLabel %></span></button>',
     },
     selectors: {
       addDatesCanvas: '.js_add_dates',

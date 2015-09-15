@@ -24,9 +24,11 @@ module.exports = function(params) {
         '<div class="info"><%= addInfo %></div>',
         '<div class="js_dates date-select"></div>',
         '<div class="timing-select cform">',
-          '<div class="js_timings"></div>',
-          '<button class="blue"><%= addDate %></button>',
-          '<div class="error js_error"></div>',
+          '<div class="timing-inputs">',
+            '<div class="js_timings"></div>',
+            '<button class="blue button"><%= addDate %></button>',
+            '<div class="error js_error"></div>',
+          '</div>',
         '</div>' ].join('')
     },
     selectors: {

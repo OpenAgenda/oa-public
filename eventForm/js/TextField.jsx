@@ -55,8 +55,6 @@ module.exports = React.createClass({
       <li>
         <label>{this.props.label[this.props.lang]}{ this.props.optional ? '' : ' (*)' }</label>
         { this.props.info?<span className="info">{ this.props.info[ this.props.lang ] }</span>:'' }
-      </li>
-      <li>
         { this.renderField() }
         { this.props.error && this.state.userHasTyped ? <span className="error">{this.props.error}</span> : '' }
       </li>

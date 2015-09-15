@@ -17,7 +17,7 @@ defaults = {
   country: {code: 'FR', name: 'France'},
   templates: {
     main: [ 
-      '<div class="js_place place"></div>',
+      '<div class="js_place place form-section"></div>',
       '<div class="js_dates dates form-section">',
         '<h2><%= dateTitle %></h2>',
       '</div>',

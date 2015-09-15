@@ -55,7 +55,7 @@ window.oaEventForm = function( options ) {
 
     React.render( <EventForm
       initialLanguages= { formUtils.extractLanguages( eventData ) }
-      useMarkdown= {params.useMarkdown}
+      useWysiwyg= {params.useWysiwyg}
       initData= {eventData}
       lang= {params.language}
       onTextChange= {onTextChange}

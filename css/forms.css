@@ -150,6 +150,7 @@
   display: inline-block;
   width: auto;
   border: 0;
+  margin-right: 0.5em;
 }
 .cform .radio {
   display: inline;

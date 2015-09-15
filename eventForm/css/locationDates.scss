@@ -122,9 +122,12 @@
     vertical-align: top;
   }
 
+  .timing-inputs {
 
+    padding-left: 1em;
 
-  .timing > * { font-size: 0.9em; }
+  }
+
   .timing a { margin-left: 0.4em; }
 
   .add-dates {
@@ -142,10 +145,6 @@
 
   }
 
-
-  .add-dates button {
-    margin-top: 3em;
-  }
 
   .dates {
 
@@ -165,7 +164,15 @@
 
     .date-list {
 
-      margin-top: 2em;
+      margin-top: 1em;
+
+      .date > span {
+
+        font-weight: bold;
+        padding-bottom: 0.3em;
+        display: block;
+
+      }
 
     }
 

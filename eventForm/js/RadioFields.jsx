@@ -49,17 +49,19 @@ module.exports = React.createClass({
 
       return <li>
         <input type="radio" name={self.props.field.name} checked={option.value==self.props.value} onChange={self.onChange.bind( self, option.value )} />
-        <label>{option.label[self.props.labelsLang]}</label>
+        <label>{option.label[self.props.lang]}</label>
       </li>;
 
     };
 
     return ( 
-      <li>
-        <label>{this.props.field.label[this.props.labelsLang]}{this.props.field.optional ? '' : ' (*)'}</label>
-        <ul>{this.props.field.options.map( renderOption )}</ul>
-        { this.props.error && this.state.userHasTyped ? <span className="error">{this.props.error}</span> : '' }
-      </li>
+      <ul className="cform">
+        <li>
+          <label>{this.props.field.label[this.props.lang]}{this.props.field.optional ? '' : ' (*)'}</label>
+        </li>
+        {this.props.field.options.map( renderOption )}
+        { this.props.error && this.state.userHasTyped ? <li><span className="error">{this.props.error}</span></li> : '' }
+      </ul>
     );
 
   },

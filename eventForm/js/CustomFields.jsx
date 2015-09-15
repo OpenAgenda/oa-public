@@ -89,6 +89,7 @@ module.exports = React.createClass({
           field= { field }
           lang= { self.props.lang } 
           value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
+          label= { field.label }
           handleUpdate= { self.onChange( field.name ) } />;
 
       } else if ( field.fieldType == 'radio' ) {
@@ -98,6 +99,7 @@ module.exports = React.createClass({
           lang= { self.props.lang }
           value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
           error= { self.props.errors[ field.name ] || false }
+          label= { field.label }
           handleUpdate= { self.onChange( field.name ) } />;
 
       }
