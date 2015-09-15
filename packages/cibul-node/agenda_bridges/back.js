@@ -86,13 +86,19 @@ function serviceSynchronize( req, res ) {
 
     res.setFlash( req, 'Your swapcard events are being updated' );
 
-    res.redirect( 302, req.genUrl( 'serviceIndex', { service: req.params.service } ) );
+    res.redirect( 302, req.genUrl( 'serviceIndex', { slug: req.agenda.slug, service: req.params.service } ) );
 
     return wn.call( req.service.processEvents, req.agenda, 'publish' );
 
   } )
 
-  .catch( _error( req, res ) );
+  .catch( function( err ) {
+
+    res.setFlash( req, 'An error occured: %error%', { '%error%' : err } );
+
+    res.redirect( 302, req.genUrl( 'serviceIndex', { slug: req.agenda.slug, service: req.params.service } ) );
+
+  } );
 
 }
 
@@ -104,7 +110,7 @@ function serviceUnlink( req, res ) {
 
     res.setFlash( req, 'Your swapcard events are now being unlinked' );
 
-    res.redirect( 302, req.genUrl( 'serviceIndex', { service: req.params.service } ) );
+    res.redirect( 302, req.genUrl( 'serviceIndex', { slug: req.agenda.slug, service: req.params.service } ) );
 
     return wn.call( req.service.unlinkEvents, req.agenda );
 

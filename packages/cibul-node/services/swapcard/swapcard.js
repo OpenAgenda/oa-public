@@ -24,13 +24,7 @@ querystring = require( 'querystring' ),
 
 lib = require( '../../lib/lib' );
 
-module.exports = function ( m, c ) {
-
-  return functions( m, c );
-
-};
-
-var functions = function( model, config ) {
+module.exports = function ( model, config ) {
 
   var oauth2 = new OAuth2( config.bridges.swapcard.clientID, 
     config.bridges.swapcard.clientSecret,
@@ -44,11 +38,22 @@ var functions = function( model, config ) {
 
   moment.lang( 'fr' );
 
+  return {
+    connectService: connectService,
+    getAccessToken: getAccessToken,
+    processEvents: processEvents,
+    unlinkEvents: unlinkEvents,
+    addJob: addJob,
+    publish: create,
+    update: patch,
+    delete: remove
+  };
+
   /**
    * link an account or an agenda to an other application's account
    */
   
-  var connectService = function( req, res ) {
+  function connectService( req, res ) {
 
     var stateObj = {
       slug: req.agenda.slug,
@@ -70,9 +75,9 @@ var functions = function( model, config ) {
 
     res.redirect( url );
 
-  },
+  }
 
-  getAccessToken = function( slug, code, type, cb ) {
+  function getAccessToken( slug, code, type, cb ) {
 
     log( 'info', 'getting access token of grant_type %s', type );
 
@@ -89,7 +94,11 @@ var functions = function( model, config ) {
 
     oauth2.getOAuthAccessToken( code, params, function( err, access, refresh, result ) {
 
-      if ( err ) return cb( err );
+      if ( err ) {
+
+        return cb( JSON.parse( err.data ).error );
+
+      }
 
       log( 'info', 'oauth response successful' );
 
@@ -97,9 +106,9 @@ var functions = function( model, config ) {
 
     } );
 
-  },
+  }
 
-  processEvents = function( agenda, action, cb ) {
+  function processEvents( agenda, action, cb ) {
 
     var total = 40,
 
@@ -140,15 +149,15 @@ var functions = function( model, config ) {
 
      );
 
-  },
+  }
 
-  addJob = function( eventId, agendaId, action ) {
+  function addJob( eventId, agendaId, action ) {
 
     coms.queue( 'jobs', { type: 'swapcard', action: action, eventId: eventId, agendaId: agendaId } );
 
-  },
+  }
 
-  unlinkEvents = function( agenda, cb ) {
+  function unlinkEvents( agenda, cb ) {
 
     log( 'unlinking events' );
 
@@ -207,6 +216,143 @@ var functions = function( model, config ) {
 
   },
 
+  function createOrPatch( values, cb ) {
+
+    w( {
+      agendaId: values.agendaId,
+      eventId: values.eventId,
+      instance: instance,
+      agenda: false,
+      agendaScConfig: false,
+      event: false,
+      scEvent: false, // the stringified swapcard event data
+      eventScConfig: false
+    })
+
+    .then( _getAgenda )
+
+    .then( _getEvent )
+
+    .then( _buildSwapcardData )
+
+    .then( _defineMethodAndRoute )
+
+    .then( _doRequest )
+
+    .then( _verifyStatusCode )
+
+  }
+
+  function _verifyStatusCode( v ) {
+
+    if ( !v.result.statusCode ) {
+
+      return rj( v.result );
+
+    }
+
+    if ( v.result.statusCode == 401 ) {
+
+      log( 'info', 'access token is expired' );
+
+    }
+
+    if ( !v.resultv.result.statusCode !== 210 ) {
+
+    }
+
+  }
+
+
+  function _doRequest( v ) {
+
+    return w.promise( function( rs, rj ) {
+
+      _request( v.method, v.route, { 
+        'Authorization': 'Bearer ' + v.agendaScConfig.access, 
+        'Content-Type': 'application/json', 
+        'Accept-Language': 'fr,eng'
+      }, v.scEvent, function( err, result ) {
+
+        if ( err ) return rj( err );
+
+        v.result = result;
+
+        rs( v );
+
+      } );
+
+    });
+
+  }
+
+
+  /**
+   * it is either a patch or a create
+   */
+
+  function _defineMethodAndRoute( v ) {
+
+    if ( v.eventScConfig.id ) {
+
+      v.method = 'PATCH';
+
+      v.route = config.bridges.swapcard.baseSite + '/v1/events/' + v.eventScConfig.id;
+
+    } else {
+
+      v.method = 'POST';
+
+      v.route = config.bridges.swapcard.baseSite + '/v1/events';
+
+    }
+
+    return v;
+
+  }
+
+
+  function _getEvent( v ) {
+
+    return w.promise( function( rs, rj ) {
+
+      model.events().get( { id: v.eventId }, function( err, event ) {
+
+        if ( err ) return rj( 'did not find event' );
+
+        v.event = model.events().instance( event );
+
+        v.eventScConfig = v.event.getStore( 'swapcard', {} );
+
+        rs( v );
+
+      });
+
+    });
+
+  }
+
+
+  function _getAgenda( v ) {
+
+    return w.promise( function( rs, rj ) {
+
+      model.agendas().get( { id: v.agendaId }, function( err, agenda ) {
+
+        if ( err ) return rj( 'could not retrieve agenda' );
+
+        v.agenda = model.agendas().instance( agenda );
+
+        v.agendaScConfig = agenda.getStore( 'swapcard', null );
+
+        rs( v );
+
+      } );
+
+    });
+
+  }
+
   create = function( values, cb ) {
 
     log( 'info', 'creating event with values : %s', JSON.stringify( values ) );
@@ -255,7 +401,7 @@ var functions = function( model, config ) {
 
       store = agenda.getStore( 'swapcard', null );
 
-      return wn.call( _request, 'POST', config.bridges.swapcard.baseSite + '/v1/events', { 'Authorization': 'Bearer ' + store.access, 'Content-Type': 'application/json', 'Accept-Language': 'fr,eng' }, data, null );
+      return wn.call( _request, 'POST', config.bridges.swapcard.baseSite + '/v1/events', { 'Authorization': 'Bearer ' + store.access, 'Content-Type': 'application/json', 'Accept-Language': 'fr,eng' }, data );
 
     } )
 
@@ -263,7 +409,7 @@ var functions = function( model, config ) {
 
       if ( result.statusCode == 201 ) {
 
-        log( 'Create event swapcard success' );
+        log( 'info', 'create event swapcard success' );
 
         return wn.call( instance.setStore, 'swapcard', { id: result.id }, true );
 
@@ -342,7 +488,7 @@ var functions = function( model, config ) {
 
       data = JSON.stringify( eventSwapcard );
 
-      return wn.call( _request, 'PATCH', config.bridges.swapcard.baseSite + '/v1/events/' + swapcardStore.id, { 'Content-Type': 'application/json', 'Authorization': bearer, 'Accept-Language': 'fr,eng' }, data, null );
+      return wn.call( _request, 'PATCH', config.bridges.swapcard.baseSite + '/v1/events/' + swapcardStore.id, { 'Content-Type': 'application/json', 'Authorization': bearer, 'Accept-Language': 'fr,eng' }, data );
 
     } )
 
@@ -381,9 +527,10 @@ var functions = function( model, config ) {
       }
 
     } );
+  
   },
 
-  remove = function( values, cb ) {
+  function remove( values, cb ) {
 
     log( 'info', 'removing event with values : %s', JSON.stringify( values ) );
 
@@ -461,9 +608,9 @@ var functions = function( model, config ) {
 
     } );
 
-  },
+  }
 
-  _loadValues = function( agenda, action ) {
+  function _loadValues( agenda, action ) {
 
     return function( e, cb ) {
 
@@ -487,9 +634,9 @@ var functions = function( model, config ) {
 
     };
 
-  },
+  }
 
-  _request = function( method, url, header, data, token, cb ) {
+  function _request( method, url, header, data, cb ) {
 
     var parsedUrl = URL.parse( url, false, true ),
 
@@ -551,9 +698,9 @@ var functions = function( model, config ) {
 
     req.end();
 
-  },
+  }
 
-  _handleStatusCode = function( values, method, cb ) {
+  function _handleStatusCode( values, method, cb ) {
 
     if ( values.statusCode == 401 ) {
 
@@ -601,46 +748,34 @@ var functions = function( model, config ) {
 
     }
 
-  },
+  }
 
-  _getEventData = function( eventInstance, cb ) {
+  function _buildSwapcardData( v ) {
 
-    var data = {},
+    return w.promise( function( rs, rj ) {
 
-    strt = eventInstance.locations[ 0 ].timings[ 0 ].start,
+      var start = v.event.locations[ 0 ].timings[ 0 ].start,
 
-    end = eventInstance.locations[ 0 ].timings[ eventInstance.locations[ 0 ].timings.length - 1 ].end,
+      end = v.event.locations[ 0 ].timings[ v.event.locations[ 0 ].timings.length -1 ].end;
 
-    beginsAt = moment( strt ).format( "YYYY-MM-DD HH:mm:ss" ),
+      v.scEvent = JSON.stringify( {
+        name: v.event.getTitle(),
+        description: v.event.getDescription() + '\n\n' + v.event.getFreeText(),
+        place: v.event.locations[ 0 ].name + ' - ' + v.event.locations[ 0 ].address,
+        eventType: 'PUBLIC',
+        logo: {
+          data: ( v.event.getImage( true ) || config.aws.staticBucketPath + config.bridges.swapcard.emptyImage ).replace('cibultest', 'cibul')
+        },
+        latitude: v.event.locations[ 0 ].latitude,
+        longitude: v.event.locations[ 0 ].longitude,
+        beginsAt: moment( start ).format( "YYYY-MM-DD HH:mm:ss" ),
+        endsAt: moment( end ).format( "YYYY-MM-DD HH:mm:ss" )
+      } );
 
-    endsAt = moment( end ).format( "YYYY-MM-DD HH:mm:ss" );
+      rs( v );
 
-    data[ 'name' ] = eventInstance.getTitle();
-    data[ 'description' ] = eventInstance.getDescription() + '\n\n' + eventInstance.getFreeText();
-    data[ 'place' ] = eventInstance.locations[ 0 ].name + ' - ' + eventInstance.locations[ 0 ].address;
-    data[ 'eventType' ] = 'PUBLIC';
-    data[ 'logo' ] = {};
-    data.logo[ 'data' ] = ( eventInstance.getImage( true ) || config.aws.staticBucketPath + config.bridges.swapcard.emptyImage ).replace('cibultest', 'cibul');
-    data[ 'latitude' ] = eventInstance.locations[ 0 ].latitude;
-    data[ 'longitude' ] = eventInstance.locations[ 0 ].longitude;
-    data[ 'beginsAt' ] = beginsAt;
-    data[ 'endsAt' ] = endsAt;
+    });
 
-    cb( null, data );
-
-  };
-
-  var exposed = {
-    connectService: connectService,
-    getAccessToken: getAccessToken,
-    processEvents: processEvents,
-    unlinkEvents: unlinkEvents,
-    addJob: addJob,
-    publish: create,
-    update: patch,
-    delete: remove
-  };
-
-  return exposed;
+  }
 
 };

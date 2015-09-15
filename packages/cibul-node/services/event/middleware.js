@@ -14,9 +14,7 @@ config = require( '../../config' ),
 
 i18n = require( '../../i18n/i18n' ),
 
-timeHelper = require( 'cibulTemplates' ).helpers.time,
-
-textHelper = require( 'cibulTemplates' ).helpers.text();
+timeHelper = require( 'cibulTemplates' ).helpers.time;
 
 module.exports = function( eventService ) {
 
@@ -201,7 +199,7 @@ function format( req, res, next ) {
       dateRange: i18n( dateRange[ 0 ], _t( dateRange[1] ), req.lang ).replace( ':', req.lang=='fr' ? 'h' : ':' ),
       isUpcoming: req.event.isUpcoming(),
       description: req.event.getDescription(),
-      freeText: textHelper.nl2br( req.event.getEnrichedFreeText() ),
+      freeText: req.event.getEnrichedFreeText(),
       tags: req.event.getTags(),
       placeName: req.event.getLocationName(),
       address: req.event.getAddress(),

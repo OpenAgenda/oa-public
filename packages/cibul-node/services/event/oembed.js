@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( 'logger' )( 'oembed service' ),
+var log = require( 'logger' )( 'oembed' ),
 
 lib = require( '../../lib/lib' ),
 
