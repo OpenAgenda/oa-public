@@ -253,7 +253,7 @@ function widget( elem, options ) {
 
       try {
 
-        clusterGroup = m.createCluster( map, markers );
+        clusterGroup = m.createCluster( map, [] );
 
       } catch( e ) {
 
@@ -262,6 +262,28 @@ function widget( elem, options ) {
       }
 
     }
+
+  }
+
+
+  function _resetClusterController( reqParams ) {
+
+    if ( _nonMapQueryChange( reqParams ) ) return true;
+
+    var current = navHistory.get();
+    
+    // if it is a lateral movement of map, must be reset
+    // else, it means bits of maps are now shown that were not shown before.
+
+    if ( current.neLat < reqParams.neLat ) return true;
+
+    if ( current.neLng < reqParams.neLng ) return true;
+
+    if ( current.swLat > reqParams.swLat ) return true;
+
+    if ( current.swLng > reqParams.swLng ) return true;
+
+    return false;
 
   }
 
@@ -305,7 +327,7 @@ function widget( elem, options ) {
 
   function enable( reqParams ) {
 
-    var resetCluster = _nonMapQueryChange( reqParams ) || !initCluster,
+    var resetCluster = _resetClusterController( reqParams ) || !initCluster,
 
     bounds = false;
 
@@ -654,11 +676,13 @@ function widget( elem, options ) {
 
     }
 
-    for ( var l in locations ) {
-      
+
+    activeLocations.forEach( function( l ) {
+
       markers.push( _refreshMarker( locations[ l ] ) );
-    
-    }
+
+    } );
+
 
     if ( enabled && useClusters && clusterGroup && resetCluster ) {
 
