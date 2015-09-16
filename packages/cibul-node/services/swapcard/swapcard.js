@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( 'logger' )( 'swapcard_service' ),
+var log = require( 'logger' )( 'swapcard' ),
 
 https = require( 'https' ),
 
@@ -49,62 +49,70 @@ module.exports = function ( model, config ) {
     delete: remove
   };
 
-  /**
-   * link an account or an agenda to an other application's account
-   */
-  
-  function connectService( req, res ) {
+  function create( values, cb ) { createOrPatch( values, cb ); }
 
-    var stateObj = {
-      slug: req.agenda.slug,
-      dsjid986: 58
-    },
+  function patch( values, cb ) { createOrPatch( values, cb ); }
 
-    stateObj = JSON.stringify( stateObj ),
+  function createOrPatch( values, cb ) {
 
-    decodedState = new Buffer( stateObj ).toString( 'base64' );
+    log( 'info', {
+      message: 'createOrPatch values %s',
+      agendaId: values.agendaId, 
+      eventId: values.eventId 
+    }, JSON.stringify( values ) );
 
-    var params = {
-      redirect_uri: config.bridges.swapcard.redirect,
-      scope: 'scope_event_rw',
-      response_type: 'code',
-      state: decodedState
-    };
+    w( {
+      agendaId: values.agendaId,
+      eventId: values.eventId,
+      agenda: false,
+      agendaScConfig: false,
+      event: false,
+      scEvent: false, // the stringified swapcard event data
+      eventScConfig: false,
+      result: false
+    })
 
-  	var url = oauth2.getAuthorizeUrl( params );
+    .then( _getAgenda )
 
-    res.redirect( url );
+    .then( _getEvent )
 
-  }
+    .then( _buildSwapcardData )
 
-  function getAccessToken( slug, code, type, cb ) {
+    .then( _defineMethodAndRoute )
 
-    log( 'info', 'getting access token of grant_type %s', type );
+    .then( _doRequest )
 
-    var stateObj = JSON.stringify( {
-      slug: slug,
-      djncdkc: 32
-    } ),
+    .then( _verifyStatusCode )
 
-    params = {
-      grant_type: type === 'authorization_code' ? 'authorization_code' : 'refresh_token',
-      redirect_uri: config.bridges.swapcard.redirect,
-      state: new Buffer( stateObj ).toString( 'base64' )
-    };
+    .done( function( v ) {
 
-    oauth2.getOAuthAccessToken( code, params, function( err, access, refresh, result ) {
+      if ( v.result.statusCode == 201 ) {
 
-      if ( err ) {
+        log( 'info', { message: 'successfully created event', agendaId: v.agendaId, eventId: v.eventId } );
 
-        return cb( JSON.parse( err.data ).error );
+        v.event.setStore( 'swapcard', { id: v.result.id }, true, cb );
+
+      } else {
+
+        log( 'info', { message: 'successfully patched event', agendaId: v.agendaId, eventId: v.eventId } );
+
+        cb();
 
       }
 
-      log( 'info', 'oauth response successful' );
+    }, function( err ) {
 
-      cb( null, access, refresh );
+      if ( typeof err == 'object' && err.retry ) {
 
-    } );
+        createOrPatch( values, cb );
+
+      } else {
+
+        cb( err );
+
+      }
+
+    });
 
   }
 
@@ -148,6 +156,65 @@ module.exports = function ( model, config ) {
       }
 
      );
+
+  }
+
+  /**
+   * link an account or an agenda to an other application's account
+   */
+  
+  function connectService( req, res ) {
+
+    var stateObj = {
+      slug: req.agenda.slug,
+      dsjid986: 58
+    },
+
+    stateObj = JSON.stringify( stateObj ),
+
+    decodedState = new Buffer( stateObj ).toString( 'base64' );
+
+    var params = {
+      redirect_uri: config.bridges.swapcard.redirect,
+      scope: 'scope_event_rw',
+      response_type: 'code',
+      state: decodedState
+    };
+
+    var url = oauth2.getAuthorizeUrl( params );
+
+    res.redirect( url );
+
+  }
+
+  function getAccessToken( slug, code, type, cb ) {
+
+    log( 'info', { slug: slug, type: type, message: 'getting access token' } );
+
+    var stateObj = JSON.stringify( {
+      slug: slug,
+      djncdkc: 32
+    } ),
+
+    params = {
+      grant_type: type === 'authorization_code' ? 'authorization_code' : 'refresh_token',
+      redirect_uri: config.bridges.swapcard.redirect,
+      state: new Buffer( stateObj ).toString( 'base64' )
+    };
+
+    oauth2.getOAuthAccessToken( code, params, function( err, access, refresh, result ) {
+
+      if ( err ) {
+
+        return cb( JSON.parse( err.data ).error );
+
+      }
+
+      log( 'info', { slug: slug, type: type, message: 'access token retrieved' } );
+
+      cb( null, access, refresh );
+
+    } );
 
   }
 
@@ -214,52 +281,58 @@ module.exports = function ( model, config ) {
 
      );
 
-  },
-
-  function createOrPatch( values, cb ) {
-
-    w( {
-      agendaId: values.agendaId,
-      eventId: values.eventId,
-      instance: instance,
-      agenda: false,
-      agendaScConfig: false,
-      event: false,
-      scEvent: false, // the stringified swapcard event data
-      eventScConfig: false
-    })
-
-    .then( _getAgenda )
-
-    .then( _getEvent )
-
-    .then( _buildSwapcardData )
-
-    .then( _defineMethodAndRoute )
-
-    .then( _doRequest )
-
-    .then( _verifyStatusCode )
-
   }
+
 
   function _verifyStatusCode( v ) {
 
-    if ( !v.result.statusCode ) {
+    if ( [ 201, 204 ].indexOf( v.result.statusCode ) !== -1 ) {
 
-      return rj( v.result );
-
-    }
-
-    if ( v.result.statusCode == 401 ) {
-
-      log( 'info', 'access token is expired' );
+      return v;
 
     }
 
-    if ( !v.resultv.result.statusCode !== 210 ) {
+    return w.promise( function( rs, rj ) {
 
-    }
+      if ( !v.result.statusCode ) {
+
+        rj( v.result );
+
+      } else if ( v.result.statusCode == 401 ) {
+
+        log( 'info', 'access token is expired' );
+
+        getAccessToken( v.agenda.slug, v.agendaScConfig.refresh, 'refresh_token', function( err, a, r ) {
+
+          if ( err && err.statusCode == 400 ) {
+
+            notification.notify.expiredSwapcard( { agendaId: values.agenda.id } );
+
+          }
+
+          if ( err ) return rj( err );
+
+          log( 'info', 'successfully refreshed access token' );
+
+          v.agenda.setStore( 'swapcard', { access: a, refresh: r }, true, function( err ) {
+
+            if ( err ) return rj( err );
+
+            log( 'info', 'updated agenda %s store with new access & refresh values', v.agenda.id );
+
+            return rj( { retry: true } );
+
+          });
+
+        } );
+
+      } else {
+
+        rj( v.result );
+
+      }
+
+    });
 
   }
 
@@ -295,11 +368,15 @@ module.exports = function ( model, config ) {
 
     if ( v.eventScConfig.id ) {
 
+      log( 'will patch' );
+
       v.method = 'PATCH';
 
       v.route = config.bridges.swapcard.baseSite + '/v1/events/' + v.eventScConfig.id;
 
     } else {
+
+      log( 'will post' );
 
       v.method = 'POST';
 
@@ -324,6 +401,8 @@ module.exports = function ( model, config ) {
 
         v.eventScConfig = v.event.getStore( 'swapcard', {} );
 
+        log( 'retrieved event' );
+
         rs( v );
 
       });
@@ -343,7 +422,9 @@ module.exports = function ( model, config ) {
 
         v.agenda = model.agendas().instance( agenda );
 
-        v.agendaScConfig = agenda.getStore( 'swapcard', null );
+        v.agendaScConfig = v.agenda.getStore( 'swapcard', null );
+
+        log( 'retrieved agenda' );
 
         rs( v );
 
@@ -353,182 +434,6 @@ module.exports = function ( model, config ) {
 
   }
 
-  create = function( values, cb ) {
-
-    log( 'info', 'creating event with values : %s', JSON.stringify( values ) );
-
-    var instance,
-
-    agenda,
-
-    store,
-
-    bearer,
-
-    data;
-
-    wn.call( model.reviews().get, { id: values.agendaId } )
-
-    .then( function( review ) {
-
-      log( 'info', 'loaded agenda %s', JSON.stringify( review.id ) );
-
-      agenda = model.reviews().instance( review );
-
-      log( 'info', 'loaded agenda instance, loading event with id %s', values.eventId );
-
-      return wn.call( model.events().get, { id: values.eventId } );
-
-    } )
-
-    .then( function( e ) {
-
-      if ( !e ) throw 'event was not found';
-
-      log( 'info', 'loaded event %s', e.id );
-
-      instance = model.events().instance( e );
-
-      return wn.call( _getEventData, instance );
-
-    } )
-
-    .then( function( eventSwapcard ) {
-
-      data = JSON.stringify( eventSwapcard );
-
-      log( 'info', 'formatted event: %s', data );
-
-      store = agenda.getStore( 'swapcard', null );
-
-      return wn.call( _request, 'POST', config.bridges.swapcard.baseSite + '/v1/events', { 'Authorization': 'Bearer ' + store.access, 'Content-Type': 'application/json', 'Accept-Language': 'fr,eng' }, data );
-
-    } )
-
-    .then( function( result ) {
-
-      if ( result.statusCode == 201 ) {
-
-        log( 'info', 'create event swapcard success' );
-
-        return wn.call( instance.setStore, 'swapcard', { id: result.id }, true );
-
-      } else throw result;
-
-    } )
-
-    .done( function( ) {
-
-      return cb();
-
-    }, function( err ) {
-
-      log( 'error', err );
-
-      if ( err ) {
-
-        if ( err.statusCode && err.statusCode != 201 ) {
-
-          log( 'error', err.message );
-
-          _handleStatusCode( { agenda: agenda, instance: instance, statusCode: err.statusCode, refresh: store.refresh }, 'publish', cb );
-
-        } else {
-
-          return cb( err );
-
-        }
-
-      }
-
-    } );
-
-  },
-
-  patch = function( values, cb ) {
-
-    log( 'info', 'patching event with values : %s', JSON.stringify( values ) );
-
-    var instance,
-
-    agenda,
-
-    store,
-
-    bearer,
-
-    data;
-
-    wn.call( model.reviews().get, { id: values.agendaId } )
-
-    .then( function( review ) {
-
-      agenda = model.reviews().instance( review );
-
-      return wn.call( model.events().get, { id: values.eventId } );
-
-    } )
-
-    .then( function( e ) {
-
-      instance = model.events().instance( e );
-
-      store = agenda.getStore( 'swapcard', null );
-
-      bearer = 'Bearer ' + store.access;
-
-      return wn.call( _getEventData, instance );
-
-
-    } )
-
-    .then( function( eventSwapcard ) {
-
-      var swapcardStore = instance.getStore( 'swapcard', {} );
-
-      data = JSON.stringify( eventSwapcard );
-
-      return wn.call( _request, 'PATCH', config.bridges.swapcard.baseSite + '/v1/events/' + swapcardStore.id, { 'Content-Type': 'application/json', 'Authorization': bearer, 'Accept-Language': 'fr,eng' }, data );
-
-    } )
-
-    .then( function( result ) {
-
-      if ( result.statusCode == 204 ) {
-
-        log( 'info', 'patch successful' );
-
-        return cb();
-
-      } else throw result;
-
-    } )
-
-    .catch( function( err ) {
-
-      if ( err ) {
-
-        log( 'error', typeof err == 'string' ? err : JSON.stringify( err ) );
-
-        if ( err.statusCode && err.statusCode != 204 ) {
-
-          log( 'error', err.message );
-
-          _handleStatusCode( { agenda: agenda, instance: instance, statusCode: err.statusCode, refresh: store.refresh }, 'update', function( error ) {
-
-            if ( error ) return cb( error );
-
-            return cb();
-
-          } );
-
-        } else cb( err );
-
-      }
-
-    } );
-  
-  },
 
   function remove( values, cb ) {
 
@@ -771,6 +676,8 @@ module.exports = function ( model, config ) {
         beginsAt: moment( start ).format( "YYYY-MM-DD HH:mm:ss" ),
         endsAt: moment( end ).format( "YYYY-MM-DD HH:mm:ss" )
       } );
+
+      log( 'info', { message: 'prepared swapcard event data', data: v.scEvent } );
 
       rs( v );
 

@@ -8,7 +8,9 @@ controlData = require( '../../agenda/controlData' ),
 
 logger = require( 'logger' ),
 
-config = require( '../../../config' );
+config = require( '../../../config' ),
+
+st = {}; // buffer serial saves
 
 /**
  * handles callbacks and events when changes occur in event
@@ -18,7 +20,7 @@ module.exports = function( loaded, instance ) {
 
   _requires();
 
-  var log = logger( 'service:event:instance:' + instance.id + ':dispatcher' );
+  var log = logger( 'service:event:instance:dispatcher:' + instance.id );
 
   return {
     stateChange: stateChange,
@@ -59,9 +61,19 @@ module.exports = function( loaded, instance ) {
 
   function onSave() {
 
-    log( 'onSave' );
+    if ( st[ instance.id ] ) {
 
-    coms.publish( config.mainChannel, { name: 'event.update', values: { id: instance.id } } );
+      clearTimeout( st[ instance.id ] );
+
+    }
+
+    st[ instance.id ] = setTimeout( function() {
+
+      log( 'onSave' );
+
+      coms.publish( config.mainChannel, { name: 'event.update', values: { id: instance.id } } );
+
+    }, 200 );
 
   }
 
