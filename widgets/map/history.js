@@ -28,7 +28,7 @@ module.exports = function() {
   function add( reqParams, bounds ) {
 
     var newItem = { 
-      k: JSON.stringify( reqParams ), 
+      k: JSON.stringify( _clean( reqParams ) ), 
       b: bounds 
     };
 
@@ -78,6 +78,25 @@ module.exports = function() {
     if ( i < 0 ) return false;
 
     return JSON.parse( history[ i ].k );
+
+  }
+
+
+  /**
+   * numbers are always numbers, strings always strings
+   */
+  
+  function _clean( obj ) {
+
+    var clean = {};
+
+    for ( var k in obj ) {
+
+      clean = !isNaN( obj[ k ] ) ? parseFloat( obj[ k ] ) : obj[ k ];
+
+    }
+
+    return clean;
 
   }
 
