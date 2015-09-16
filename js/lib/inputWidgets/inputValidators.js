@@ -27,4 +27,4 @@ var inputValidators = {
   }
 }
 
-if ( module ) module.exports = inputValidators;
+if ( typeof module !== 'undefined' ) module.exports = inputValidators;

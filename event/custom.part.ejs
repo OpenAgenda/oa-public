@@ -1,3 +1,4 @@
+<% if ( typeof customHead !== 'undefined' ) { %><%- customHead %><% } %>
 <dl <% if ( typeof customClass !== 'undefined' ) { %>class="<%= customClass %>"<% } %>>
 <% for ( var i in custom ) { %>
 <% if ( custom[ i ].value ) { %>

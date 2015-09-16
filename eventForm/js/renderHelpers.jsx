@@ -12,9 +12,20 @@ module.exports = {
 
 function mBlock( l ) {
 
-  var value = this.props.value ? ( this.props.value[ l ] ? this.props.value[ l ] : '' ) : '',
+  var value,
 
   count = this.props.languages.length;
+
+  if ( typeof this.props.value == 'string' ) {
+
+    value = this.props.value;
+
+  } else {
+
+    value = this.props.value ? ( this.props.value[ l ] ? this.props.value[ l ] : '' ) : '';
+
+  }
+
 
   if ( count > 1 ) {
 

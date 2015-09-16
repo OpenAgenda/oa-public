@@ -18,6 +18,34 @@ module.exports = React.createClass({
 
   },
 
+  componentDidUpdate: function() {
+
+    var value;
+
+    if ( typeof this.props.value === 'string' ) {
+
+      value = this.convertToMultilingual( this.props.value );
+
+      this.props.onChange( value, this.validate( value ) );
+
+    }
+
+  },
+
+  convertToMultilingual: function( v ) {
+
+    var m = {};
+
+    utils.forEach( this.props.languages, function( language ) {
+
+      m[ language ] = v;
+
+    });
+
+    return m;
+
+  },
+
   onChange: function( l ) {
 
     var self = this;

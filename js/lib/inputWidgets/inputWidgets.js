@@ -316,4 +316,4 @@ inputWidgets.textarea.prototype = extend({
 }, inputWidget);
 
 
-if ( module ) module.exports = inputWidgets;
+if ( typeof module !== 'undefined' ) module.exports = inputWidgets;

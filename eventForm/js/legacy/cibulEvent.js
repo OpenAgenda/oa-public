@@ -202,11 +202,11 @@ module.exports = function( params ) {
 
     });
 
-    _on( params.events.customfields.write, function( values, errors ) {
+    _on( params.events.customfields.write, function( data ) {
 
-      event.custom = values;
+      event.custom = data.values;
 
-      _setCurrentErrors( errors )
+      _setCurrentErrors( data.errors );
 
       _evaluate();
 

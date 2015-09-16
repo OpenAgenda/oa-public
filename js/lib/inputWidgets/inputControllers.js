@@ -272,4 +272,4 @@ inputControllers.textarea.prototype = extend({
 }, inputController);
 
 
-if ( module ) module.exports = inputControllers;
+if ( typeof module !== 'undefined' ) module.exports = inputControllers;
