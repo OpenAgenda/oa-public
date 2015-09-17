@@ -686,20 +686,33 @@ function widget( elem, options ) {
 
     if ( enabled && useClusters && clusterGroup && resetCluster ) {
 
-      try {
-        
-        m.addClusterLayers( clusterGroup, markers );
-
-      } catch( e ) {
-
-        console.error( 'cluster lib crash: %s', e );
-
-      }
+      _addClusterLayers( clusterGroup, markers );
 
     }
 
   }
 
+  function _addClusterLayers( clusterGroup, markers ) {
+
+    var extract = markers.splice( 0, 4000 );
+
+    try {
+        
+      m.addClusterLayers( clusterGroup, extract );
+
+    } catch( e ) {
+
+      console.error( 'cluster lib crash: %s', e );
+
+    }
+
+    if ( markers.length ) setTimeout( function() {
+
+      _addClusterLayers( clusterGroup, markers );
+
+    }, 500 );
+
+  }
 
   function setOnBoundsChange( cb ) {
 

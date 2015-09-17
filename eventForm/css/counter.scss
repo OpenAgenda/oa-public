@@ -1,0 +1,14 @@
+.ef .counter {
+  
+  float: right;
+  font-size: 0.9em;
+  color: $oa-gray;
+  padding-bottom: 0.4em;
+
+  &.error {
+
+    color: $oa-red;
+
+  }
+
+}

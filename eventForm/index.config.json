@@ -11,6 +11,7 @@
     "efKeywords" : "css/tags.scss",
     "efTinyMCE" : "css/tinyMCE.scss",
     "efLocationDates" : "css/locationDates.scss",
+    "counter" : "css/counter.scss",
     "leaflet" : "../css/leaflet-0.7.3.css"
   },
   "base" : {

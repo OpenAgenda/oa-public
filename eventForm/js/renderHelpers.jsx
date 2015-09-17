@@ -1,6 +1,8 @@
 "use strict";
 
-var React = require( 'react' );
+var React = require( 'react' ),
+
+Counter = require( './Counter.jsx' );
 
 module.exports = {
   multilingual: {
@@ -9,6 +11,8 @@ module.exports = {
     error: mError
   }
 }
+
+
 
 function mBlock( l ) {
 
@@ -33,6 +37,7 @@ function mBlock( l ) {
       <label>{l}</label>
       <div>
         {this.renderField( value, l )}
+        {_counter( this.props, value )}
         {this.renderError( l )}
       </div>
     </li>
@@ -80,5 +85,16 @@ function mRender() {
     </ul>
 
   }
+
+}
+
+
+function _counter( props, value ) {
+
+  var max = props.constraints && props.constraints.max ? props.constraints.max : false;
+
+  if ( !max ) return;
+
+  return <Counter max={max} value={value} />;
 
 }

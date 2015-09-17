@@ -97,6 +97,7 @@ module.exports = React.createClass( {
     return <MultilingualTextField
       placeholder={this.props.labels.longDescriptionPlaceholder}
       name='long_description'
+      count={true}
       constraints={{max: 10000}}
       optional={true}
       label={this.props.labels.longDescription}
@@ -137,6 +138,7 @@ module.exports = React.createClass( {
 
         <MultilingualTextField
           constraints={{max: 140}}
+          counter={true}
           optional={false}
           label={this.props.labels.title}
           name='title'
@@ -149,6 +151,7 @@ module.exports = React.createClass( {
 
         <MultilingualTextField
           constraints={{max: 200}}
+          counter={true}
           optional={false}
           label={this.props.labels.description}
           name='description'
@@ -161,6 +164,7 @@ module.exports = React.createClass( {
 
         <EventKeywordsField
           constraints={{max: 255}}
+          counter={true}
           tags={this.state.tags}
           name='keywords'
           optional={true}
@@ -175,6 +179,7 @@ module.exports = React.createClass( {
 
         <MultilingualTextField
           constraints={{max: 255}}
+          counter={true}
           label={this.props.labels.conditions}
           placeholder={this.props.labels.conditionsPlaceholder }
           name='conditions'
