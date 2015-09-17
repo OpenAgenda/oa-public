@@ -1,0 +1,347 @@
+"use strict";
+
+var utils = require( 'utils' ),
+
+rUtils = require( '../reactUtils' ),
+
+du = require( '../../../js/lib/domUtils' ),
+
+EJS = require( '../../../js/lib/clientEjs/ejs' ),
+
+remote = require( '../../../js/lib/remote/remote.mod' ),
+
+Spinner = require( 'spin.js' );
+
+module.exports = function( params ) {
+
+  params = utils.extend({
+    canvas: false,
+    templates: {
+      main: [
+        '<div class="form-section">',
+          '<h2><%= imageSection %></h2>',
+          '<div class="upload-image">',
+            '<button><%= upload %></button>',
+            '<span class="js_loader loader"></span>',
+            '<span class="js_message info"></span>',
+          '</div>',
+          '<div class="canvas js_image_canvas"></div>',
+          '<div class="js_remove remove-action">',
+            '<a class="button small red" href="#"><%= removeImage %></a>',
+            '<span class="js_remove_loader"></span>',
+            '<span class="js_remove_message info error"></span>',
+          '</div>',
+          '<div class="separator"></div>',
+        '</div>' ].join(''),
+      empty: '<div><%= noImage %></div>'
+    },
+    classes: {
+      main: 'event-image',
+      error: 'error',
+      success: 'success',
+      disabled: 'disabled'
+    },
+    selectors: {
+      button: 'button',
+      imageCanvas: '.js_image_canvas',
+      info: '.js_message',
+      loader: '.js_loader',
+      removeLoader: '.js_remove_loader',
+      remove: '.js_remove',
+      removeMessage: '.js_remove_message'
+    },
+    frameName: 'imageframe',
+    labels: {
+      upload: 'load image',
+      info: 'image should be at least 300px wide',
+      error: 'There was a problem while loading the image. Reload the page and try again.',
+      success: 'Image successfully loaded',
+      imageSection: 'Image',
+      removeImage: 'remove image',
+      removeMessage: 'There was a problem regarding the removal of the image. Reload the page and try again.',
+      noImage: 'No image is currently associated with this event.'
+    },
+    spinner: { lines: 7, length: 1, width: 2, radius: 3, corners: 0, rotate: 0},
+    upload: false,
+    remove: false,
+    callbackName: 'image_upload_result',
+    initName: false,
+    onSuccess: false,
+    onRemove: false,
+    onImageLoad: false,
+    prefix: false,
+    path: false // path where images are found
+  }, params);
+
+  var elem, removeElem, form, fileInput, spinner, imageLoaded = false, locked = false,
+
+  run = function() {
+
+    _createElem();
+
+    _createFrame();
+
+    _createForm();
+
+    _declareCallback();
+
+    _displayMessage();
+
+    if (params.initName) {
+      imageLoaded = true;
+      _displayImage(params.initName);
+    } else {
+      _displayEmptyMessage();
+    }
+
+    _toggleRemove();
+
+  },
+
+  _createForm = function() {
+
+    form = document.createElement('form');
+    
+    form.setAttribute('method', 'post');
+    form.setAttribute('enctype', 'multipart/form-data');
+    form.setAttribute('target', params.frameName);
+    form.setAttribute('action', params.upload + (params.upload.indexOf('?')==-1?'?':'&') + 'callback=' + params.callbackName);
+
+    fileInput = document.createElement('input');
+    fileInput.setAttribute('type', 'file');
+    fileInput.setAttribute('name', 'image');
+
+    du.addEvent(fileInput, 'change', _fileChosen);
+
+    du.addEvent(fileInput, 'click', function(e) {
+      if (locked) du.preventDefault(e);
+    });
+
+    form.appendChild(fileInput);
+
+    utils.extend(form.style, {
+      width: du.el(elem, params.selectors.button).offsetWidth + 'px',
+      height: du.el(elem, params.selectors.button).offsetHeight + 'px',
+      position: 'absolute',
+      overflow: 'hidden'
+    });
+
+    utils.extend(fileInput.style, {
+      opacity: 0,
+      filter: 'alpha(opacity=0)',
+      cursor: 'pointer',
+      position: 'absolute',
+      right: 0
+    });
+
+    du.el(elem, params.selectors.button).insertAdjacentElement('beforebegin', form);
+
+  },
+
+  _createFrame = function() {
+
+    var iframe = document.createElement('iframe');
+
+    iframe.setAttribute('name', params.frameName);
+
+    iframe.style.display = 'none';
+
+    elem.appendChild(iframe);
+
+  },
+
+  _fileChosen = function(e) {
+
+    if (!fileInput.value.length) return;
+
+    form.submit();
+
+    _lock(params.selectors.loader);
+
+  },
+
+  _imageUploaded = function(res) {
+
+    if (res.success) {
+
+      _displayImage(res.name);
+
+      _displayMessage(res.message, 'success');
+
+      imageLoaded = true;
+
+      _toggleRemove();
+
+      if (params.onSuccess) params.onSuccess(res.name);
+    
+    } else {
+
+      _displayMessage(res.message, 'error');
+
+    }
+
+    _unlock();
+
+  },
+
+  _displayImage = function(name) {
+
+    du.el(elem, params.selectors.imageCanvas).innerHTML = '';
+
+    if (!name) return _displayEmptyMessage();
+
+    var img = document.createElement('img');
+
+    img.setAttribute('src', params.path + params.prefix + name + '?' + Math.random());
+
+    du.addEvent(img, 'load', function(){
+      params.onImageLoad();
+    });
+
+    du.el(elem, params.selectors.imageCanvas).appendChild(img);
+
+  },
+
+  _displayEmptyMessage = function() {
+
+    du.el(elem, params.selectors.imageCanvas).innerHTML = new EJS({text: params.templates.empty}).render(params.labels);
+
+  },
+
+  _displayMessage = function(message, type) {
+
+    if (!message)
+      if (type=='error')
+        message = params.labels.error;
+      else if (type=='success')
+        message = params.labels.success;
+      else
+        message = params.labels.info;
+
+    var infoElem = du.el(elem, params.selectors.info);
+
+    du.removeClass(infoElem, params.classes.error);
+    du.removeClass(infoElem, params.classes.success);
+
+    if (type == 'error')
+      du.addClass(infoElem, params.classes.error);
+    else if (type == 'success')
+      du.addClass(infoElem, params.classes.success);
+
+    infoElem.innerHTML = message;
+
+  },
+
+  _toggleRemove = function() {
+
+    if (!removeElem) {
+
+      removeElem = du.el(elem, params.selectors.remove);
+
+      du.addEvent(du.el(removeElem, 'a'), 'click', function(e) {
+
+        du.preventDefault(e);
+
+        if (locked) return;
+
+        _lock(params.selectors.removeLoader);
+
+        remote.get(params.remove, {timeout: 10000}, function(success, data) {
+
+          _unlock();
+
+          if (!success) return;
+
+          if (!data.success) {
+
+            du.el(elem, params.selectors.removeMessage).innerHTML = data.message?data.message:params.labels.removeError;
+
+            return;
+          }
+
+          imageLoaded = false;
+
+          if (params.onRemove) params.onRemove();
+
+          _displayImage(false);
+
+          _toggleRemove();
+
+        }, true);
+
+      });
+
+    }
+
+    du.el(elem, params.selectors.removeMessage).innerHTML = '';
+
+    removeElem.style.display = imageLoaded?'block':'none';
+
+  },
+
+  _declareCallback = function() {
+
+    window[params.callbackName] = function(response) {
+      _imageUploaded(response);
+    };
+
+  },
+
+  _lock = function(selector) {
+
+    locked = true;
+
+    du.el(elem, params.selectors.button).setAttribute('disabled', 'disabled');
+
+    du.addClass(du.el(elem, params.selectors.remove), params.classes.disabled);
+
+    if (!spinner) spinner = new Spinner(params.spinner);
+
+    spinner.spin();
+
+    du.el(elem, selector).appendChild(spinner.el);
+
+  },
+
+  _unlock = function() {
+
+    locked = false;
+
+    du.el(elem, params.selectors.button).removeAttribute('disabled');
+
+    du.removeClass(du.el(elem, params.selectors.remove), params.classes.disabled);
+
+    spinner.stop();
+
+  },
+
+  _fireEvent = function(elem, types) {
+
+    if (elem === null || elem === undefined) return;
+    if (typeof types == 'string') types = [types];
+    du.forEach(types, function(type){
+      if ("fireEvent" in elem) {
+        elem.fireEvent('on' + type);
+      } else {
+        var evt = document.createEvent("HTMLEvents");
+        evt.initEvent(type, false, true);
+        elem.dispatchEvent(evt);
+      }
+    });
+
+  },
+
+  _createElem = function() {
+
+    elem = document.createElement('div');
+    elem.className = params.classes.main;
+
+    elem.innerHTML = new EJS({text: params.templates.main }).render(params.labels);
+
+    du.el( params.canvas ).appendChild(elem);
+
+  };
+
+  run();
+
+};

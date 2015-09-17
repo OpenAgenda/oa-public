@@ -1,0 +1,39 @@
+.ef .slist {
+  
+  p {
+
+    margin: 0 0 1em 0;
+
+  }
+
+  li {
+    
+    display: inline-block;
+
+    span {
+
+      cursor: pointer;
+      padding: 0.3em 0.5em;
+      margin: 0 1em 0.5em 0;
+      display: block;
+      border-radius: 3px;
+
+    }
+
+    &.selected {
+
+      span { 
+
+        background: $oa-blue;
+        color: $oa-white;
+
+      }
+
+    }
+
+  }
+
+
+
+
+}

@@ -1,0 +1,93 @@
+.ef {
+
+  .info {
+    color: $oa-gray;
+    padding: 0.2em 0 1em;
+  }
+
+  .form-section {
+
+    padding: 1em 0 2em;
+
+  }
+
+  .submit-actions {
+
+    padding: 2em 0 1em;
+
+  }
+
+  .main-error {
+
+    color: $oa-red;
+
+  }
+
+  .loader {
+
+    padding: 0 0.5em 0 0.5em;
+    vertical-align: middle;
+    margin: 0.5em 0;
+    background-color: transparent;
+    
+  }
+
+  &.canvas main {
+
+    margin-top: 20px!important;
+
+    padding: 20px 30px;
+
+  }
+
+  .event-image .form-section {
+
+    & > div {
+
+      padding: 1em 0 0;
+
+    }
+
+    .canvas {
+
+      text-align: center;
+
+      div {
+
+        padding: 20px;
+        color: $oa-gray;
+        background-color: rgba( black, 0.03 );
+
+      }
+
+    }
+
+  }
+  
+  .lang-unit {
+
+    > label {
+
+      display: inline-block;
+      width: 2em;
+      text-transform: uppercase;
+      position: absolute;
+      padding: 9px;
+
+      &.off32 {
+
+        padding-top: 3.2em;
+
+      }
+
+    }
+
+    > div {
+
+      margin-left: 3em;
+
+    }
+
+  }
+
+}

@@ -26,3 +26,5 @@ var inputValidators = {
 
   }
 }
+
+if ( typeof module !== 'undefined' ) module.exports = inputValidators;

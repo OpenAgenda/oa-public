@@ -19,6 +19,7 @@ defaults = {
     dev: '/agendas/{agendaUid}/events/{eventUid}/custom/private',
     tpl: '/server/testdata/privateeventcustomdata.json'
   },
+  head: '<div class="private-head"><i class="fa fa-lock"></i></div>',
   template: require( '../custom.part.ejs' ),
   className: 'private'
 }
@@ -53,7 +54,7 @@ module.exports = function( options ) {
 
       var elem = _render( data );
 
-      cn.el( params.selector ).appendChild( elem );
+      cn.el( params.selector ).insertAdjacentHTML( 'beforeend', _render( data ) );
 
     });
 
@@ -92,15 +93,13 @@ module.exports = function( options ) {
 
   function _render( data, cb ) {
 
-    var elem = document.createElement( 'div' );
-
     data.customClass = params.className;
 
-    elem.innerHTML = new EJS( { 
+    data.customHead = params.head;
+
+    return new EJS( { 
       text: params.template
     } ).render( data );
-
-    return elem.childNodes[ 0 ];
 
   }
 

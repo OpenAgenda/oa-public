@@ -52,6 +52,7 @@
 .cform li.line > select,
 .cform li.line > form,
 .cform li.line > div,
+.cform .Select-control,
 .cform input.line,
 .cform span.line {
   width: auto;
@@ -70,12 +71,13 @@
 .cform input[type="radio"],
 .cform input[type="checkbox"],
 .cform select,
+.cform .Select-control,
 .cform textarea { 
 
   color: #434a54;
   font-size: inherit;
 
-  border: 1px solid #aab2bd;
+  border: 1px solid $form-border;
   
   padding: 10px;
   vertical-align: middle; 
@@ -92,8 +94,7 @@
 .cform input[type="password"],
 .cform input[type="radio"],
 .cform input[type="checkbox"],
-.cform select,
-.cform .Select-control {
+.cform select {
 
   height: 34px;
 
@@ -112,6 +113,10 @@
 /* select renders differently */
 .cform select {
   padding: 4px 4px 7px;
+}
+
+.cform .Select-control {
+  padding: 6px 4px 7px;
 }
 
 .cform input.error {
@@ -145,6 +150,7 @@
   display: inline-block;
   width: auto;
   border: 0;
+  margin-right: 0.5em;
 }
 .cform .radio {
   display: inline;

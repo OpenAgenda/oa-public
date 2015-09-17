@@ -1,3 +1,23 @@
+if ( typeof extend === 'undefined' ) {
+
+  var utils = require( 'utils' ),
+
+  du = require( '../domUtils' ),
+
+  extend = utils.extend,
+
+  addClass = du.addClass,
+
+  removeClass = du.removeClass,
+
+  forEach = utils.forEach,
+
+  addEvent = du.addEvent;
+
+  Object.size = utils.size;
+
+}
+
 var inputController = {
 
   _init: function(elems, params) {
@@ -250,3 +270,6 @@ inputControllers.textarea.prototype = extend({
     elems[0].value = value;
   }
 }, inputController);
+
+
+if ( typeof module !== 'undefined' ) module.exports = inputControllers;

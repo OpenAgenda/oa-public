@@ -15,6 +15,7 @@
   "event/action",
   "event/embedShow",
   "event/action",
+  "eventForm/index",
   "search/agendas",
   "search/events",
   "newsletter/event/full",

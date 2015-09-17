@@ -62,12 +62,22 @@ module.exports = function( templateName, data, cb ) {
 
 };
 
-module.exports.disableFileCache = require( './cachedFs' ).disable;
+module.exports.disableFileCache = function() {
+
+  cachedFs.disable();
+
+  useCache = false;
+
+}
 
 
 var ejs = require('ejs'),
 
-readFile = require( './cachedFs' ).readFile,
+useCache = true,
+
+cachedFs = require( './cachedFs' ),
+
+readFile = cachedFs.readFile,
 
 cn = require('../js/lib/common/common.mod.js'),
 
@@ -84,7 +94,7 @@ helpers = {},
 _renderTemplate = function( filename, templateBody, data ) {
 
   data.filename = filename;
-  data.cache = true;
+  data.cache = useCache;
 
   return ejs.render( templateBody, data );
 

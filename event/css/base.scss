@@ -61,11 +61,20 @@
         padding: 0 0 5px;
       }
 
+      .private-head {
+
+        background: $oa-blue;
+        padding: 5px 20px;
+
+        i { color: $oa-white; }
+
+        font-size: 1.2em;
+
+      }
+
       dl.private {
 
-        border: 3px solid $oa-blue;
-
-        //background-color: lighten( $oa-blue, 30% );
+        background-color: rgba( $oa-blue, 0.05 );
 
       }
 
