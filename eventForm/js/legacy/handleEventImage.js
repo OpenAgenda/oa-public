@@ -8,6 +8,8 @@ du = require( '../../../js/lib/domUtils' ),
 
 EJS = require( '../../../js/lib/clientEjs/ejs' ),
 
+remote = require( '../../../js/lib/remote/remote.mod' ),
+
 Spinner = require( 'spin.js' );
 
 module.exports = function( params ) {

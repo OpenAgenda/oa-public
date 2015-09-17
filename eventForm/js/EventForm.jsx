@@ -95,9 +95,10 @@ module.exports = React.createClass( {
   renderFreeTextField: function() {
 
     return <MultilingualTextField
+      placeholder={this.props.labels.longDescriptionPlaceholder}
       name='long_description'
       constraints={{max: 10000}}
-      optional={false}
+      optional={true}
       label={this.props.labels.longDescription}
       type='textarea'
       rows={10}
@@ -175,6 +176,7 @@ module.exports = React.createClass( {
         <MultilingualTextField
           constraints={{max: 255}}
           label={this.props.labels.conditions}
+          placeholder={this.props.labels.conditionsPlaceholder }
           name='conditions'
           type='text'
           optional={true}

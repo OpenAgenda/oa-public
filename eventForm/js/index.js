@@ -28,10 +28,21 @@ defaults = {
     title: { fr: 'Le titre', en: 'The title' },
     description: { fr: 'Description', en: 'Description' },
     longDescription: { fr: 'Description longue', en: 'Long description' },
+    longDescriptionPlaceholder: {
+      fr: 'Saisissez une description détaillée de votre événement\n\nAjoutez des liens vers des images aussi (.jpg ou autre)\n\nIntégrez des vidéos youtube en collant le lien de la page. ex: http://www.youtube.com/watch?v=wZZ7oFKsKzY',
+      en: 'Type in a detailed description of your event \n\nPaste in image links too (.jpg or other) \n\nEmbed youtube videos by simply pasting in the link. ex: http://www.youtube.com/watch?v=wZZ7oFKsKzY'
+    },
     keywords: { fr: 'Mots clés', en: 'Keywords' },
     accessibility: { fr: 'Accessibilité particulière', en: 'Accessibility conditions' },
     conditions: { fr: 'Conditions', en: 'Conditions' },
-    ticketLink: { fr: 'Lien de réservation', en: 'Reservation link' },
+    conditionsPlaceholder: {
+      fr: 'Entrée libre, inscription requise, tarif, autre...',
+      en: 'Free access, inscription required, pricing, other...'
+    },
+    ticketLink: {
+      fr: 'Lien de réservation',
+      en: 'Reservation link'
+    },
     age: { fr: 'Age du public ciblé', en: 'Targeted public age' },
     addLanguage: 'ajouter une langue',
     keywordPlaceholder: { fr: 'Ajouter un mot clé', en: 'Add a keyword' }

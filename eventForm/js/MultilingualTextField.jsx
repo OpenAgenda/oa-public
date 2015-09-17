@@ -73,6 +73,7 @@ module.exports = React.createClass({
     if ( this.props.type !== 'textarea' ) {
 
       return <input 
+        placeholder={ this.props.placeholder ? this.props.placeholder[ this.props.lang ] : '' }
         name={name}
         type="text" 
         value={ value }
@@ -81,6 +82,7 @@ module.exports = React.createClass({
     } else {
 
       return <textarea
+        placeholder={ this.props.placeholder ? this.props.placeholder[ this.props.lang ] : '' }
         name={name}
         rows={ this.props.rows }
         value={ value }

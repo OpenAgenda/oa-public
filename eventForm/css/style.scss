@@ -34,7 +34,9 @@
 
   &.canvas main {
 
-    margin-top: 60px!important;
+    margin-top: 20px!important;
+
+    padding: 20px 30px;
 
   }
 
@@ -49,6 +51,14 @@
     .canvas {
 
       text-align: center;
+
+      div {
+
+        padding: 20px;
+        color: $oa-gray;
+        background-color: rgba( black, 0.03 );
+
+      }
 
     }
 
