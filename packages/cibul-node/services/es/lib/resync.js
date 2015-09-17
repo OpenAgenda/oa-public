@@ -12,13 +12,22 @@ log = require( 'logger' )( 'es:resync' );
 
 module.exports = function( options, cb ) {
 
-  var params = utils.extend( {
+  var params, operations = [];
+
+  if ( arguments.length == 1 ) {
+
+    cb = options;
+
+    options = {};
+
+  }
+
+  params = utils.extend( {
     agendaId: false,
     isPublished: null,
     interval: 0
-  }, options ),
+  }, options );
 
-  operations = [];
 
   if ( params.agendaId ) {
 
@@ -143,11 +152,11 @@ function _removeZombies( type, params ) {
 
         if ( dbRef ) return _delay( params.interval, next )();
 
-        log( 'removing %s zombie id %s', type, dbRef.id );
+        log( 'removing %s zombie id %s', type, obj[ type=='reviews' ? 'reviewId' : 'eventId' ] );
 
         count.removed++;
 
-        lib[ type ]().remove( dbRef.id, _delay( params.interval, next ) );
+        lib[ type ]().remove( obj[ type=='reviews' ? 'reviewId' : 'eventId' ], _delay( params.interval, next ) );
 
       } );
 

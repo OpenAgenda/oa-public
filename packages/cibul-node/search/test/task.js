@@ -45,7 +45,7 @@ describe( 'search index sync', function() {
       
       task.setOnComplete( done );
 
-      bogusComs.publish( config.es.channel, { name: 'index.rebuild' } );
+      bogusComs.publish( config.es.channel, { name: 'index.resync' } );
 
     } );
 

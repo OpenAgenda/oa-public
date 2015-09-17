@@ -26,7 +26,7 @@ describe( 'agenda groupActions task', function() {
 
   beforeEach( q.test.clear );
 
-  beforeEach( elastic.rebuild );
+  beforeEach( elastic.resync );
 
   beforeEach( function( done ) {
 
