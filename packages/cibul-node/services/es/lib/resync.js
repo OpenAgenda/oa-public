@@ -25,8 +25,17 @@ module.exports = function( options, cb ) {
   params = utils.extend( {
     agendaId: false,
     isPublished: null,
-    interval: 0
+    interval: 0,
+    reset: false
   }, options );
+
+  if ( params.reset ) {
+
+    delete params.agendaId;
+
+    operations.push( lib.resetIndex );
+
+  }
 
 
   if ( params.agendaId ) {
@@ -35,23 +44,19 @@ module.exports = function( options, cb ) {
 
     delete params.agendaId;
 
-  }
+  } else {
 
-  // if no agenda is specified, resync all agendas
-  if ( !params.reviewId ) {
+    operations.push( _removeZombies( 'reviews' ) );
 
-    operations.splice( 0, 0, 
-      _removeZombies( 'reviews' ),
-      _update( 'reviews' )
-    );
+    operations.push( _update( 'reviews' ) );
 
   }
 
-  operations.splice( 2, 0, 
-    _removeZombies( 'events', params ),
-    _update( 'events', params ),
-    lib.refreshIndex
-  );
+  operations.push( _removeZombies( 'events', params ) );
+
+  operations.push( _update( 'events', params ) );
+
+  operations.push( lib.refreshIndex );
 
   if ( !lib ) return cb( 'es is not inited' );
 
