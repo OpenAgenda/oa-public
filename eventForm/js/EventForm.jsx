@@ -97,7 +97,7 @@ module.exports = React.createClass( {
     return <MultilingualTextField
       placeholder={this.props.labels.longDescriptionPlaceholder}
       name='long_description'
-      count={true}
+      counter={true}
       constraints={{max: 10000}}
       optional={true}
       label={this.props.labels.longDescription}
