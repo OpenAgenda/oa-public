@@ -154,9 +154,25 @@ module.exports = function( params ) {
 
   _highlightDomItem = function(index) {
 
+    var li;
+
     for (var i = du.els(params.canvas, params.selectors.item).length - 1; i >= 0; i--) {
 
-      (i==index?du.addClass:du.removeClass)(du.els(params.canvas, params.selectors.item)[i], params.classes.active);
+      li = du.els( params.canvas, params.selectors.item )[ i ];
+
+      if ( i==index ) {
+
+        du.addClass( li, params.classes.active );
+
+        li.setAttribute( 'id', 'default-location' );
+
+      } else {
+
+        du.removeClass( li, params.classes.active );
+
+        li.removeAttribute( 'id' );
+
+      }
 
     };
 

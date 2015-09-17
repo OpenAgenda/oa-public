@@ -68,13 +68,23 @@ module.exports = React.createClass({
 
   renderField: function( value, l ) {
 
+    var name = this.props.languages.length > 1 ? this.props.name + '_' + l : this.props.name;
+
     if ( this.props.type !== 'textarea' ) {
 
-      return <input type="text" value={ value } onChange={ this.onChange( l ) }/>
+      return <input 
+        name={name}
+        type="text" 
+        value={ value }
+        onChange={ this.onChange( l ) } />
 
     } else {
 
-      return <textarea rows={ this.props.rows } value={ value } onChange={ this.onChange( l ) }/>
+      return <textarea
+        name={name}
+        rows={ this.props.rows }
+        value={ value }
+        onChange={ this.onChange( l ) } />
 
     }    
 

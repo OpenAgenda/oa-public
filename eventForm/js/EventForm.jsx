@@ -95,6 +95,7 @@ module.exports = React.createClass( {
   renderFreeTextField: function() {
 
     return <MultilingualTextField
+      name='long_description'
       constraints={{max: 10000}}
       optional={false}
       label={this.props.labels.longDescription}
@@ -111,6 +112,7 @@ module.exports = React.createClass( {
   renderMarkdownField: function() {
 
     return <WysiwygMarkdown
+      name='long_description'
       markdown={this.state.freeText}
       languages={this.state.languages}
       onChange={this.onChange( 'freeText' )}
@@ -136,6 +138,7 @@ module.exports = React.createClass( {
           constraints={{max: 140}}
           optional={false}
           label={this.props.labels.title}
+          name='title'
           type='text'
           value={this.state.title}
           error={this.state.errors.title }
@@ -147,6 +150,7 @@ module.exports = React.createClass( {
           constraints={{max: 200}}
           optional={false}
           label={this.props.labels.description}
+          name='description'
           type='text'
           value={this.state.description}
           error={this.state.errors.description }
@@ -157,6 +161,8 @@ module.exports = React.createClass( {
         <EventKeywordsField
           constraints={{max: 255}}
           tags={this.state.tags}
+          name='keywords'
+          optional={true}
           languages={this.state.languages}
           onChange={this.onChange( 'tags' )}
           label={this.props.labels.keywords}
@@ -169,6 +175,7 @@ module.exports = React.createClass( {
         <MultilingualTextField
           constraints={{max: 255}}
           label={this.props.labels.conditions}
+          name='conditions'
           type='text'
           optional={true}
           value={this.state.conditions}
@@ -179,6 +186,7 @@ module.exports = React.createClass( {
 
         <TextField 
           label={this.props.labels.ticketLink}
+          name='ticket_link'
           type="url"
           optional={true}
           value={this.state.ticketLink}
@@ -186,7 +194,7 @@ module.exports = React.createClass( {
           onChange={this.onChange( 'ticketLink' )}
           lang={this.props.lang} />
 
-        <AccessibilityFields 
+        <AccessibilityFields
           value={this.state.accessibility || []}
           label={this.props.labels.accessibility}
           onChange={this.onChange( 'accessibility' )} 

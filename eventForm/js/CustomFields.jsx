@@ -57,6 +57,7 @@ module.exports = React.createClass({
         if ( field.multilingual ) {
 
           return <MultilingualTextField
+            name={ field.name }
             constraints= { field } 
             label= { field.label }
             info= { field.info }
@@ -71,6 +72,7 @@ module.exports = React.createClass({
         } else {
 
           return <TextField 
+            name= { field.name }
             constraints= { field }
             label= { field.label }
             info= { field.info } 
@@ -86,6 +88,7 @@ module.exports = React.createClass({
       } else if ( field.fieldType == 'checkbox' ) {
 
         return <CheckboxField
+          name= { field.name }
           field= { field }
           lang= { self.props.lang } 
           value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
@@ -95,6 +98,7 @@ module.exports = React.createClass({
       } else if ( field.fieldType == 'radio' ) {
 
         return <RadioFields
+          name= { field.name }
           field= { field }
           lang= { self.props.lang }
           value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }

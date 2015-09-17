@@ -39,11 +39,18 @@ module.exports = React.createClass({
 
     if ( this.props.type !== 'textarea' ) {
 
-      return <input type="text" value={this.props.value ? this.props.value : ''} onChange={this.onChange}/>;
+      return <input 
+        name={this.props.name}
+        type="text"
+        value={this.props.value ? this.props.value : ''} 
+        onChange={this.onChange}/>;
 
     } else {
 
-      return <textarea value={this.props.value} onChange={this.onChange}/>
+      return <textarea 
+        name={this.props.name}
+        value={this.props.value} 
+        onChange={this.onChange} />
 
     }
 
