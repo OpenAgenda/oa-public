@@ -26,7 +26,7 @@ module.exports = React.createClass( {
 
   parse: function( tString ) {
 
-    return ( typeof tString == 'undefined' ? '' : tString ).split( ',' ).filter( function( s ) {
+    return ( typeof tString !== 'string' ? '' : tString ).split( ',' ).filter( function( s ) {
 
       return !!s.length;
 
