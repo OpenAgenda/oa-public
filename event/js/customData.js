@@ -52,8 +52,6 @@ module.exports = function( options ) {
 
       }
 
-      var elem = _render( data );
-
       cn.el( params.selector ).insertAdjacentHTML( 'beforeend', _render( data ) );
 
     });
@@ -95,11 +93,9 @@ module.exports = function( options ) {
 
     data.customClass = params.className;
 
-    data.customHead = params.head;
-
-    return new EJS( { 
+    return params.head + ( new EJS( { 
       text: params.template
-    } ).render( data );
+    } ).render( data ) );
 
   }
 
