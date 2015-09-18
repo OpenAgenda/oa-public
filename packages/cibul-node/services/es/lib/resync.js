@@ -135,7 +135,7 @@ function _removeZombies( type, params ) {
 
     var count = { processed: 0, removed: 0, errors: 0 };
 
-    log( 'removing %s zombies', type );
+    log( 'info', 'removing %s zombies', type );
 
     _loopThroughIndex( type, params, function( obj, next ) {
 
@@ -157,7 +157,7 @@ function _removeZombies( type, params ) {
 
         if ( dbRef ) return _delay( params.interval, next )();
 
-        log( 'removing %s zombie id %s', type, obj[ type=='reviews' ? 'reviewId' : 'eventId' ] );
+        log('info', 'removing %s zombie id %s', type, obj[ type=='reviews' ? 'reviewId' : 'eventId' ] );
 
         count.removed++;
 
@@ -224,7 +224,7 @@ function _loopThroughIndex( type, params, usageFunc, cb ) {
 
   }, function( wcb ) {
 
-    log( 'fetching in index offset %s', offset );
+    log( 'info', 'fetching in index %s offset %s', type, offset );
 
     lib[ type ]().search( utils.extend( { options: { from: offset, size: limit } }, params ), function( err, result ) {
 
@@ -259,7 +259,7 @@ function _loopThroughDb( schema, params, usageFunc, cb ) {
 
   }, function( wcb ) {
 
-    log( 'fetching in db offset %s', offset );
+    log( 'info', 'fetching in db %s offset %s', schema, offset );
 
     model[ schema ]().list( utils.extend( {
       extended: true,

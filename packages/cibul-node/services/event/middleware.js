@@ -63,7 +63,13 @@ function loadEvent( paramName, fieldName ) {
 
     .done( function( v ) {
 
-      if ( v.redirect ) return res.redirect( v.redirect.code, v.redirect.to );
+      if ( v.redirect ) {
+
+        log( 'redirecting to %s with code %s', v.redirect.to, v.redirect.code );
+
+        return res.redirect( v.redirect.code, v.redirect.to );
+
+      }
 
       req.event = v.event;
 
@@ -402,14 +408,7 @@ function _selectLanguage( v ) {
 
   if ( !v.req.query.lang ) return v;
 
-  if ( !v.event.hasLanguage( v.req.query.lang ) ) {
-
-    v.redirect = {
-      code: 302,
-      to: v.req.genUrl( v.req.agenda ? 'agendaEventShow' : 'eventShow', v.req.agenda ? { slug: v.req.agenda.slug, eventSlug: v.event.slug } : { eventSlug: v.event.slug } )
-    };
-
-  } else {
+  if ( v.event.hasLanguage( v.req.query.lang ) ) {
 
     v.event.switchLanguage( v.req.query.lang );
 
