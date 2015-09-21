@@ -13,7 +13,7 @@
 <% } %>
       </div>
 <% } %>
-  <form class="cform" method="post" action="<%= genUrl( 'signin', optionals ) %>">
+  <form class="cform" method="post" action="<%= genUrl( agenda ? 'agendaSignin' : 'signin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>">
     <ul>
       <li>
         <label for="email"><%= __('Email') %></label>
@@ -31,13 +31,13 @@
   
   --><ul class="services">
     <li>
-      <a id="facebook-signin" class="button facebook-blue fit" href="<%= genUrl( 'facebookSignin', optionals ) %>">
+      <a id="facebook-signin" class="button facebook-blue fit" href="<%= genUrl( agenda ? 'agendaFacebookSignin' : 'facebookSignin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>">
         <i class="fa fa-facebook"></i>
         <span>Facebook</span>
       </a>
     </li>
     <li>
-      <a id="twitter-signin" class="button twitter-blue fit" href="<%= genUrl( 'twitterSignin', optionals ) %>">
+      <a id="twitter-signin" class="button twitter-blue fit" href="<%= genUrl( agenda ? 'agendaTwitterSignin' : 'twitterSignin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>">
         <i class="fa fa-twitter"></i>
         <span>Twitter</span>
       </a>
@@ -52,7 +52,7 @@
 
   <footer>
     <p>
-      <%= __( 'Don\'t have an account yet?' ) %> <a id="signup" class="url" href="<%= genUrl( 'signup', optionals ) %>"><%= __('Create one!') %></a>
+      <%= __( 'Don\'t have an account yet?' ) %> <a id="signup" class="url" href="<%= genUrl( agenda ? 'agendaSignup' : 'signup', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"><%= __('Create one!') %></a>
     </p>
     <p>
       <a id="lost-password" href="<%= genUrl( 'lostPassword' ) %>" class="url"><%= __( 'I lost my password' ) %></a>

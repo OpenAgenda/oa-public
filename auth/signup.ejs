@@ -1,6 +1,6 @@
 <div class="canvas page signup">
   <h1><%= __('Create an account') %></h1>
-  <form class="cform" method="post" action="<%= genUrl( 'signup', optionals ) %>">
+  <form class="cform" method="post" action="<%= genUrl( agenda ? 'agendaSignup' : 'signup', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>">
     <ul>
       <li>
         <label for="full_name"><%= __('Your name') %></label>
@@ -77,7 +77,7 @@
   </ul>
   <footer>
     
-    <p><a class="url" href="<%= genUrl( 'signin', optionals ) %>"><%= __('I already have an account') %></a></p>
+    <p><a class="url" href="<%= genUrl( agenda ? 'agendaSignin' : 'signin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"><%= __('I already have an account') %></a></p>
     <p><%- __( 'By creating an account you agree to the %terms%.', { '%terms%' : '<a class="url" href="' + genUrl( 'termsShow' ) + '">' + __('Terms of Use') + '</a>' }) %></p>
   </footer>
 </div>

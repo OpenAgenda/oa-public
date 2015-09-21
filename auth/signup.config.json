@@ -13,6 +13,7 @@
   "base" : {
     "pageClass" : "ct auth",
     "optionals" : {},
-    "useCaptcha" : false
+    "useCaptcha" : false,
+    "agenda" : false
   }
 }

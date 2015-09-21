@@ -12,6 +12,7 @@
   },
   "base" : {
     "pageClass" : "ct auth",
-    "optionals" : {}
+    "optionals" : {},
+    "agenda" : false
   }
 }
