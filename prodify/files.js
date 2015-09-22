@@ -267,7 +267,6 @@ files = {
     [paths.jsc, 'cibulEmbed/src/cibulEmbed.js'],
   ],
 
-
   'cmap.js': [[paths.lg, 'cmap.js']],
   'colorpicker.min.js': [[paths.lg, 'colorpicker.min.js']],
   'datepicker.js': [[paths.lg, 'datepicker.js']],
