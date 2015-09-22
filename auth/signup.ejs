@@ -1,5 +1,6 @@
 <div class="canvas page signup">
   <h1><%= __('Create an account') %></h1>
+  <p><a class="url" href="<%= genUrl( agenda ? 'agendaSignin' : 'signin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"><%= __( 'But I already have an account' ) %></a></p>
   <form class="cform" method="post" action="<%= genUrl( agenda ? 'agendaSignup' : 'signup', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>">
     <ul>
       <li>
