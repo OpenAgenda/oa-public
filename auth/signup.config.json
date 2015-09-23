@@ -1,17 +1,16 @@
 {
-  "layout": "layout/main",
-  "css" : {
-    "signin" : "css/style.scss",
-    "forms" : "../css/forms.css",
-    "cStructure" : "../structure/css/centered.css",
-    "fontawesome430" : "../css/font-awesome-4.3.0/css/font-awesome.css"
+  "layout": "bsLayout/main",
+
+  "oaCss" : {
+    "bsForms" : "../css/bsForms.scss",
+    "auth" : "css/auth.scss"
   },
   "helpers" : {
     "_t" : "time",
     "_i" : "image"
   },
   "base" : {
-    "pageClass" : "ct auth",
+    "pageClass" : "auth",
     "optionals" : {},
     "useCaptcha" : false,
     "agenda" : false

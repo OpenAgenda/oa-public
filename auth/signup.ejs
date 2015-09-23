@@ -1,84 +1,106 @@
-<div class="canvas page signup">
-  <h1><%= __('Create an account') %></h1>
-  <p><a class="url" href="<%= genUrl( agenda ? 'agendaSignin' : 'signin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"><%= __( 'But I already have an account' ) %></a></p>
-  <form class="cform" method="post" action="<%= genUrl( agenda ? 'agendaSignup' : 'signup', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>">
-    <ul>
-      <li>
-        <label for="full_name"><%= __('Your name') %></label>
-        <input type="text" name="full_name" value="<%= full_name %>"/>
-<% if ( errors.full_name ) { %>
-        <span class="error"><%= __( errors.full_name ) %></span>
-<% } %>
-      </li>
-      <li>
-        <label for="email"><%= __('Email') %></label>
-        <input type="email" name="email" value="<%= email %>" />
-<% if ( errors.email ) { %>
-        <span class="error"><%= __( errors.email ) %></span>
-<% } %>
-      </li>
-      <li>
-        <label for="password"><%= __('Password') %></label>
-        <input type="password" name="password" value="<%= password %>" />
-<% if ( errors.password ) { %>
-      <span class="error"><%= __( errors.password ) %></span>
-<% } %>
-      </li>
-     	<li>
-        <label for="repeat"><%= __('Repeat Password') %></label> 
-     	  <input type="password" name="repeat" value="<%= repeat %>" />
-<% if ( errors.repeat ) { %>
-        <span class="error"><%= __( errors.repeat ) %></span>
-<% } %>
-      </li>
-<% if ( useCaptcha ) { %>
-      <li>
-        <div class="captcha">
-          <div class="g-recaptcha" data-sitekey="<%= captchaKey %>"></div>
+<div class="container">
+  <div class="row top-margined">
+    <section class="col-sm-6 col-sm-offset-3 wsq">
+      <div class="row">
+        <div class="content">
+          <h1><%= __('Create an account') %></h1>
+          <a class="url" id="signin" href="<%= genUrl( agenda ? 'agendaSignin' : 'signin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"><%= __( 'But I already have an account' ) %></a>
         </div>
-<% if ( errors.captcha ) { %>
-        <span class="error"><%= __( errors.captcha ) %></span>
-<% } %> 
-      </li>
-<% } %>
-      <li>
-        <button name="signup" class="blue" type="submit"><%= __('Sign Up') %></button>
-      </li>
-    </ul>
-  </form>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 content">
 
-  <ul class="services cform">
-    <li>
-      <a id="facebook-signup" class="button facebook-blue fit" href="<%= genUrl( 'facebookSignup', optionals ) %>">
-        <i class="fa fa-facebook"></i>
-        <span>Facebook</span>
-      </a>
-<% if ( errors.facebookUid ) { %>
-      <span class="error"><%= __( errors.facebookUid ) %></span>
+          <div class="form-group">
+            <label for="full_name"><%= __('Your name') %></label>
+            <input class="form-control" type="text" name="full_name" value="<%= full_name %>"/>
+<% if ( errors.full_name ) { %>
+            <span class="error"><%= __( errors.full_name ) %></span>
 <% } %>
-    </li>
-    <li>
-      <a id="twitter-signup" class="button twitter-blue fit" href="<%= genUrl( 'twitterSignup', optionals ) %>">
-        <i class="fa fa-twitter"></i>
-        <span>Twitter</span>
-      </a>
-<% if ( errors.twitterUid ) { %>
-      <span class="error"><%= __( errors.twitterUid ) %></span>
+          </div>
+
+          <div class="form-group">
+            <label for="email"><%= __('Email') %></label>
+            <input class="form-control" type="email" name="email" value="<%= email %>" />
+<% if ( errors.email ) { %>
+            <span class="error"><%= __( errors.email ) %></span>
 <% } %>
-    </li>
-    <li>
-      <a id="google-signup" class="button google-red fit" href="<%= genUrl( 'googleSignup', optionals ) %>">
-        <i class="fa fa-google-plus"></i>
-        <span>Google Plus</span>
-      </a>
+          </div>
+
+          <div class="form-group">
+            <label for="password"><%= __('Password') %></label>
+            <input class="form-control" type="password" name="password" value="<%= password %>" />
+<% if ( errors.password ) { %>
+            <span class="error"><%= __( errors.password ) %></span>
+<% } %>
+          </div>
+
+          <div class="form-group">
+            <label for="repeat"><%= __('Repeat Password') %></label> 
+            <input class="form-control" type="password" name="repeat" value="<%= repeat %>" />
+<% if ( errors.repeat ) { %>
+            <span class="error"><%= __( errors.repeat ) %></span>
+<% } %>
+          </div>
+
+<% if ( useCaptcha ) { %>
+          <div class="form-group">
+            <div class="captcha">
+              <div class="g-recaptcha" data-sitekey="<%= captchaKey %>"></div>
+            </div>
+<% if ( errors.captcha ) { %>
+            <span class="error"><%= __( errors.captcha ) %></span>
+<% } %> 
+          </div>
+<% } %>
+
+          <div class="form-group">
+            <button name="signup" class="btn btn-success" type="submit"><%= __('Sign Up') %></button>
+          </div>
+
+        </div>
+
+        <div class="col-sm-6 content social">
+
+          <div class="form-group">
+            
+            <a id="facebook-signup" class="btn btn-default btn-facebook fit" href="<%= genUrl( 'facebookSignup', optionals ) %>">
+              <i class="fa fa-facebook"></i>
+              <span>Facebook</span>
+            </a>
+      <% if ( errors.facebookUid ) { %>
+            <span class="error"><%= __( errors.facebookUid ) %></span>
+      <% } %>
+
+          </div>
+
+          <div class="form-group">
+
+            <a id="twitter-signup" class="btn btn-default btn-twitter fit" href="<%= genUrl( 'twitterSignup', optionals ) %>">
+              <i class="fa fa-twitter"></i>
+              <span>Twitter</span>
+            </a>
+      <% if ( errors.twitterUid ) { %>
+            <span class="error"><%= __( errors.twitterUid ) %></span>
+      <% } %>
+          </div>
+
+          <div class="form-group">
+
+            <a id="google-signup" class="btn btn-default btn-google fit" href="<%= genUrl( 'googleSignup', optionals ) %>">
+              <i class="fa fa-google-plus"></i>
+              <span>Google Plus</span>
+            </a>
 <% if ( errors.googleUid ) { %>
-      <span class="error"><%= __( errors.googleUid ) %></span>
+            <span class="error"><%= __( errors.googleUid ) %></span>
 <% } %>
-    </li>
-  </ul>
-  <footer>
-    
-    <p><a class="url" href="<%= genUrl( agenda ? 'agendaSignin' : 'signin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"><%= __('I already have an account') %></a></p>
-    <p><%- __( 'By creating an account you agree to the %terms%.', { '%terms%' : '<a class="url" href="' + genUrl( 'termsShow' ) + '">' + __('Terms of Use') + '</a>' }) %></p>
-  </footer>
+            
+          </div>
+
+        </div>
+      </div>
+      <div class="row content">
+        <p><%- __( 'By creating an account you agree to the %terms%.', { '%terms%' : '<a class="url" href="' + genUrl( 'termsShow' ) + '">' + __('Terms of Use') + '</a>' }) %></p>
+      </div>
+    </section>
+  </div>
 </div>
