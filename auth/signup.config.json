@@ -7,12 +7,15 @@
   },
   "helpers" : {
     "_t" : "time",
-    "_i" : "image"
+    "_i" : "image",
+    "_txt" : "text",
+    "_sl" : "shareLinks"
   },
   "base" : {
     "pageClass" : "auth",
     "optionals" : {},
     "useCaptcha" : false,
-    "agenda" : false
+    "agenda" : false,
+    "includeActionLinks" : false
   }
 }

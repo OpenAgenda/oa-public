@@ -6,7 +6,7 @@
     <section class="col-sm-6 col-sm-offset-3 wsq">
       <div class="row">
         <div class="content">
-          <h1><%= __('Connection') %></h1>
+          <h2><%= __('Connection') %></h2>
 <% if ( typeof message !== 'undefined' || typeof errors.email !== 'undefined' || typeof errors.password !== 'undefined' ) { %>
           <div class="form-group">
 <% if ( typeof message !== 'undefined' ) { %>
@@ -24,7 +24,7 @@
       </div>
       <div class="row">
 
-        <form class="col-sm-6 content">
+        <form class="col-sm-6 content" method="post">
           <div class="form-group">
             <label for="email"><%= __('Email') %></label>
             <input class="form-control" type="email" name="email" value="<%= email %>" />
@@ -55,7 +55,7 @@
           </div>
 
           <div class="form-group">
-            <a id="google-signup" class="btn btn-default btn-google fit" href="<%= genUrl( 'googleSignin', optionals ) %>">
+            <a id="google-signup" class="btn btn-default btn-google fit" href="<%= genUrl( agenda ? 'agendaGoogleSignin' : 'googleSignin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>">
               <i class="fa fa-google-plus"></i>
               <span>Google Plus</span>
             </a>

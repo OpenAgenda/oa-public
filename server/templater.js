@@ -50,7 +50,7 @@ module.exports = function( templateName, data, cb ) {
 
     if ( results.layout ) {
 
-      templateRender = _renderTemplate(results.layout, results.layoutBody, data).replace( '<!-- content -->', templateRender );
+      templateRender = _renderTemplate( results.layout, results.layoutBody, data ).replace( '<!-- content -->', templateRender );
 
     }
 
@@ -89,23 +89,23 @@ deepExtend = require( 'deep-extend' ),
 
 log = debug( 'templater' ),
 
-helpers = {},
+helpers = {};
 
-_renderTemplate = function( filename, templateBody, data ) {
+function _renderTemplate( filename, templateBody, data ) {
 
   data.filename = filename;
   data.cache = useCache;
 
   return ejs.render( templateBody, data );
 
-},
+}
 
 
 /**
  * prepare translator function used for template rendering
  */
 
-_loadTranslator = function( labels ) {
+function _loadTranslator( labels ) {
 
   return function(label, values) {
 
@@ -129,10 +129,10 @@ _loadTranslator = function( labels ) {
 
   };
 
-},
+}
 
 
-_loadTemplate = function( templateName ) {
+function _loadTemplate( templateName ) {
 
   return function( cb ) {
 
@@ -220,10 +220,10 @@ _loadTemplate = function( templateName ) {
 
   };
 
-},
+}
 
 
-_loadLabels = function( lang ) {
+function _loadLabels( lang ) {
 
   return function( data, cb ) {
 
@@ -266,9 +266,10 @@ _loadLabels = function( lang ) {
 
   };
 
-},
+}
 
-_loadHelpers = function( data, cb ) {
+
+function _loadHelpers( data, cb ) {
 
   if ( !data.config.helpers ) return cb( null, data );
 
@@ -293,10 +294,10 @@ _loadHelpers = function( data, cb ) {
 
   cb( null, data );
 
-},
+}
 
 
-_loadScripts = function( templateName, scriptsBase ) {
+function _loadScripts( templateName, scriptsBase ) {
 
   var basePath = scriptsBase ? scriptsBase : '';
 
@@ -322,15 +323,15 @@ _loadScripts = function( templateName, scriptsBase ) {
 
   };
 
-},
+}
 
-_insertEnvironment = function( render, environment ) {
+function _insertEnvironment( render, environment ) {
 
   return render.replace( '<head>', '<head><script type="text/javascript">window.env="' + environment + '"</script>' );
 
-},
+}
 
-_escape = function( html ) {
+function _escape( html ) {
 
   return String(html)
     .replace(/&/g, '&amp;')

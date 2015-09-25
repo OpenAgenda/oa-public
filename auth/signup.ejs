@@ -1,14 +1,17 @@
+<% if ( agenda ) { %>
+<% include ../agenda/head.part.ejs %>
+<% } %>
 <div class="container">
   <div class="row top-margined">
     <section class="col-sm-6 col-sm-offset-3 wsq">
       <div class="row">
         <div class="content">
-          <h1><%= __('Create an account') %></h1>
+          <h2><%= __('Create an account') %></h2>
           <a class="url" id="signin" href="<%= genUrl( agenda ? 'agendaSignin' : 'signin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"><%= __( 'But I already have an account' ) %></a>
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-6 content">
+        <form class="col-sm-6 content" method="post">
 
           <div class="form-group">
             <label for="full_name"><%= __('Your name') %></label>
@@ -57,13 +60,13 @@
             <button name="signup" class="btn btn-success" type="submit"><%= __('Sign Up') %></button>
           </div>
 
-        </div>
+        </form>
 
         <div class="col-sm-6 content social">
 
           <div class="form-group">
             
-            <a id="facebook-signup" class="btn btn-default btn-facebook fit" href="<%= genUrl( 'facebookSignup', optionals ) %>">
+            <a id="facebook-signup" class="btn btn-default btn-facebook fit" href="<%= genUrl( agenda ? 'agendaFacebookSignup' : 'facebookSignup', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>">
               <i class="fa fa-facebook"></i>
               <span>Facebook</span>
             </a>
@@ -75,7 +78,7 @@
 
           <div class="form-group">
 
-            <a id="twitter-signup" class="btn btn-default btn-twitter fit" href="<%= genUrl( 'twitterSignup', optionals ) %>">
+            <a id="twitter-signup" class="btn btn-default btn-twitter fit" href="<%= genUrl( agenda ? 'agendaTwitterSignup' : 'twitterSignup', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>">
               <i class="fa fa-twitter"></i>
               <span>Twitter</span>
             </a>
@@ -86,7 +89,7 @@
 
           <div class="form-group">
 
-            <a id="google-signup" class="btn btn-default btn-google fit" href="<%= genUrl( 'googleSignup', optionals ) %>">
+            <a id="google-signup" class="btn btn-default btn-google fit" href="<%= genUrl( agenda ? 'agendaGoogleSignup' : 'googleSignup', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>">
               <i class="fa fa-google-plus"></i>
               <span>Google Plus</span>
             </a>
