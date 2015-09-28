@@ -25,7 +25,7 @@ defaults = {
   custom: false,
   labels: {
     descriptionSection: { fr: 'Descriptifs', en: 'Description fields' },
-    title: { fr: 'Le titre', en: 'The title' },
+    title: { fr: 'Titre', en: 'Title' },
     description: { fr: 'Description', en: 'Description' },
     longDescription: { fr: 'Description longue', en: 'Long description' },
     longDescriptionPlaceholder: {
