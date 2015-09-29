@@ -106,6 +106,15 @@ module.exports = React.createClass({
           label= { field.label }
           handleUpdate= { self.onChange( field.name ) } />;
 
+      } else if ( field.fieldType == 'image' ) {
+
+        return <ImageUpload
+          name={ field.name }
+          lang={ self.props.lang }
+          value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
+          label= { field.label } 
+          handleUpdate= { self.onChange( field.name ) } />
+
       }
 
     };

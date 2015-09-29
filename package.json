@@ -36,7 +36,8 @@
     "marked" : "0.3.5",
     "to-markdown" : "2.0.0",
     "languages" : "0.1.3",
-    "react-tagsinput" : "1.4.3"
+    "react-tagsinput" : "1.4.3",
+    "imageUpload" : "git+ssh://git@bitbucket.org:openagenda/imageupload.git",
   },
   "browserify" : {
     "transform" : "reactify"
