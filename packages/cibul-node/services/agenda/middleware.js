@@ -4,6 +4,8 @@ var svc,
 
 csv = require( 'fast-csv' ),
 
+pdf = require( 'pdf' ),
+
 utils = require( '../../lib/utils' ),
 
 svcConfig = require( './config' ),
@@ -25,7 +27,8 @@ module.exports = function( agendaService ) {
     decorateEvents: decorateEvents,
     decorateEvent: decorateEvent,
     cleanJson: cleanJson,
-    buildCsv: buildCsv
+    buildCsv: buildCsv,
+    buildPdf: buildPdf
   }
 
 }
@@ -294,6 +297,68 @@ function cleanJson( req, res, next ) {
 }
 
 
+function buildPdf( req, res, next ) {
+
+  var stream = req.agenda.searchStream( req.query.search, {
+    showAll: false
+  } ),
+
+  pdfStream = pdf( {
+    title: req.agenda.title,
+    description: req.agenda.description,
+    link: req.agenda.url,
+  }, 'fr' );
+
+  pdfStream.getReadableStream().pipe( res );
+
+  res.writeHead( 200, {
+    'Content-Type': 'application/pdf',
+    'content-disposition': [
+      'attachment; filename=\"',
+      req.agenda.title,
+      '.', _stringifiedNow(),
+      '.pdf\"' ].join('')
+  } );
+
+  stream.on( 'data', function( eventData ) {
+
+    req.log( 'streaming event %s for pdf export', eventData.id );
+
+    var eInst = eventSvc.instanciate( eventData );
+
+    stream.pause();
+
+    eventSvc.exports.clean( eInst, function( err, clean ) {
+
+      if ( err ) {
+
+        req.log( 'error', err );
+
+        return stream.resume();
+
+      }
+
+      pdfStream.write( clean );
+
+      stream.resume();
+
+    });
+
+  } );
+
+  stream.on( 'end', function() {
+
+    req.log( 'end reached' );
+
+    pdfStream.end();
+
+  });
+
+  
+
+}
+
+
 function buildCsv( includePrivateData ) {
 
   return function( req, res, next ) {
@@ -356,6 +421,8 @@ function buildCsv( includePrivateData ) {
             includePrivateData: !!includePrivateData
           }, function( err, clean ) {
 
+            processing--;
+
             if ( err ) {
 
               req.log( 'error', err );
@@ -363,8 +430,6 @@ function buildCsv( includePrivateData ) {
               return stream.resume();
 
             }
-
-            processing--;
 
             csvStream.write( utils.extend( {}, defaultRow, f.flatten( clean ) ) );
 

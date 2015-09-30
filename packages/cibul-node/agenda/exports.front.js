@@ -26,6 +26,11 @@ routes = {
     agendaSvc.mw.buildCsv( false )
   ] ],
 
+  agendaPdfEvents: [ 'get', '/events.pdf', [
+    agendaSvc.mw.load( 'uid' ),
+    agendaSvc.mw.buildPdf
+  ] ],
+
   agendaSourceAdd: [ 'get', '/addTo/:aggUid', [
     cmn.flashSetter,
     agendaSvc.mw.load( 'uid' ),
