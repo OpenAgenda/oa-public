@@ -8,7 +8,9 @@ MultilingualTextField = require( './MultilingualTextField.jsx' ),
 
 CheckboxField = require( './CheckboxField.jsx' ),
 
-RadioFields = require( './RadioFields.jsx' );
+RadioFields = require( './RadioFields.jsx' ),
+
+ImageUpload = require( 'imageUpload/lib/ImageUploader.jsx' );
 
 module.exports = React.createClass({
 
@@ -109,10 +111,16 @@ module.exports = React.createClass({
       } else if ( field.fieldType == 'image' ) {
 
         return <ImageUpload
+          className="upload"
           name={ field.name }
+          upload={ self.props.res.upload.replace( '{field}', field.name ) }
+          remove={ self.props.res.remove.replace( '{field}', field.name ) }
           lang={ self.props.lang }
           value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
-          label= { field.label } 
+          label= { field.label }
+          buttonLabel= { self.props.labels.uploadButton }
+          buttonClass="blue button"
+          removeClass="red button"
           handleUpdate= { self.onChange( field.name ) } />
 
       }

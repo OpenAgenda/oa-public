@@ -221,7 +221,8 @@ module.exports = React.createClass( {
         errors={ this.state.errors || {} }
         languages={this.state.languages}
         onChange={this.changeCustom}
-        label={this.props.labels}
+        labels={this.props.labels}     
+        res={this.props.customRes}   
         lang={this.props.lang} /></div>
       : '' }
 
