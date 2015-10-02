@@ -6,6 +6,8 @@ rUtils = require( './reactUtils' ),
 
 du = require( '../../js/lib/domUtils' ),
 
+deepExtend = require( 'deep-extend' ),
+
 EventForm = require( './EventForm.jsx' ),
 
 React = require( 'react' ),
@@ -60,7 +62,7 @@ window.oaEventImage = require( './legacy/cibulEventImage' );
 // the form page is loaded by sf.
 window.oaEventForm = function( options ) {
 
-  var params = rUtils.extend( {}, defaults, options ? options : {} );
+  var params = deepExtend( {}, defaults, options ? options : {} );
 
   rUtils.eh.trigger( params.events.fetch, function( eventData ) {
 
