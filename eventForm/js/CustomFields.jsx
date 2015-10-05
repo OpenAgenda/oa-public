@@ -34,6 +34,24 @@ module.exports = React.createClass({
 
   },
 
+  onImageChange: function( field ) {
+
+    var self = this;
+
+    return function( value, error ) {
+
+      if ( value ) {
+
+        value = value.split( '/' ).pop(); // we just want the file name, not the full url
+
+      }
+
+      self.onChange( field )( value, error );
+
+    }
+
+  },
+
   isValid: function() {
 
     var valid = true;
@@ -121,7 +139,7 @@ module.exports = React.createClass({
           buttonLabel= { self.props.labels.uploadButton }
           buttonClass="blue button"
           removeClass="red button"
-          handleUpdate= { self.onChange( field.name ) } />
+          handleUpdate= { self.onImageChange( field.name ) } />
 
       }
 
