@@ -6,6 +6,8 @@
   <dd>
 <% if ( custom[ i ].fieldType == 'url' ) { %>
     <a target="_blank" href="<%= custom[ i ].value %>"><%= custom[ i ].value %></a>
+<% } else if ( custom[ i ].fieldType == 'image' ) { %>
+   <img src="<%= _i( custom[ i ].value ) %>" alt="<%= custom[ i ].name %>" />
 <% } else if ( custom[ i ].fieldType == 'email' ) { %>
     <a href="mailto:<%= custom[ i ].value %>"><%= custom[ i ].value %></a>
 <% } else if ( [ 'radio', 'checkbox' ].indexOf( custom[ i ].fieldType ) !== -1 ) { %>
