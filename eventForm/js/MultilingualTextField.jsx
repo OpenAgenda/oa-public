@@ -18,17 +18,16 @@ module.exports = React.createClass({
 
   },
 
-  componentDidUpdate: function() {
+  componentDidMount: function() {
 
-    var value;
+    var value = this.props.value;
 
-    if ( typeof this.props.value === 'string' ) {
+    if ( utils.isArray( value ) ) value = false;
 
-      value = this.convertToMultilingual( this.props.value );
+    value = value ? value : this.convertToMultilingual( value );
 
-      this.props.onChange( value, this.validate( value ) );
-
-    }
+    // must run validator on init or else form is considered valid
+    this.props.onChange( value, this.validate( value ) );
 
   },
 

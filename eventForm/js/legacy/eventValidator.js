@@ -26,7 +26,15 @@ module.exports = function( params ) {
 
   }, params);
 
-  var process = function(field, value) {
+  var langs,
+
+  updateLanguages = function( languages ) {
+
+    langs = languages;
+
+  },
+
+  process = function(field, value) {
 
     _validators[field](value);
 
@@ -34,8 +42,7 @@ module.exports = function( params ) {
 
   processFull = function(event) {
 
-    var langs = _extractLanguages(event)
-      , errors = [];
+    var errors = [];
 
 
     // if some fields are missing in any of the languages, set them to empty
@@ -45,7 +52,7 @@ module.exports = function( params ) {
 
     utils.forEach(langs, function(lang) {
 
-      try { process('title', event['title'][lang]) } catch(e) { if (!contains(errors, e)) errors.push(e); }
+      try { process('title', event['title'][lang]) } catch(e) { if (!contains(errors, e)) errors.push( e ); }
       try { process('description', event['description'][lang]) } catch(e) { if (!contains(errors, e)) errors.push(e); }
       try { process('tags', event['tags'][lang]) } catch(e) { if (!contains(errors, e)) errors.push(e); }
       try { process('freeText', event['freeText'][lang]) } catch(e) { if (!contains(errors, e)) errors.push(e); }
@@ -63,20 +70,6 @@ module.exports = function( params ) {
 
   },
 
-  _extractLanguages = function(event) {
-
-    var langs = [];
-
-    utils.forEach(['title', 'description', 'tags', 'freeText', 'conditions'], function(field) {
-
-      for (var lang in event[field])
-        if (!contains(langs, lang))  langs.push(lang);
-
-    });
-
-    return langs;
-
-  },
 
   _validators = {
 
@@ -150,15 +143,26 @@ module.exports = function( params ) {
 
   },
 
-  _shouldNotBeEmpty = function(field, value) {
+  _shouldNotBeEmpty = function( field, value ) {
     
-    if (typeof value == 'undefined' || !value.length) throw params.labels.empty.replace('%noun%', params.labels[field]);
+    if (typeof value == 'undefined' || !value.length) {
+
+      throw params.labels.empty.replace( '%noun%', params.labels[ field ] );
+
+    }
 
   };
 
   return {
     process: process,
-    processFull: processFull
+    processFull: processFull,
+    updateLanguages: updateLanguages
   }
 
 };
+
+function contains( arr, i ) {
+
+  return arr.indexOf( i ) !== -1;
+
+}

@@ -64,6 +64,8 @@ window.oaEventForm = function( options ) {
 
   var params = deepExtend( {}, defaults, options ? options : {} );
 
+  rUtils.eh.trigger( params.events.languageChange, [ params.language ] );
+
   rUtils.eh.trigger( params.events.fetch, function( eventData ) {
 
     React.render( <EventForm

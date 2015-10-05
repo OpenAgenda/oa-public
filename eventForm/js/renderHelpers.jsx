@@ -47,6 +47,7 @@ function mBlock( l ) {
     return <div>
       { this.renderField( value, l ) }
       { _counter( this.props, value ) }
+      {this.renderError( l )}
     </div>;
 
   }

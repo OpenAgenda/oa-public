@@ -65,13 +65,11 @@ module.exports = function( params ) {
 
     if (Object.prototype.toString.call(event) === '[object Array]') event = {};
 
-    _initLanguages();
+    _on( params.events.log, function() {
 
-    _on(params.events.log, function() {
+      console.log( event );
 
-      console.log(event);
-
-    });
+    } );
 
     _on( params.events.fetch, function( cb ) {
 
@@ -85,7 +83,8 @@ module.exports = function( params ) {
         title: event.title,
         description: event.description,
         tags: event.tags,
-        freeText: event.freeText
+        freeText: event.freeText,
+        conditions: event.conditions
       });
 
     });
@@ -144,7 +143,7 @@ module.exports = function( params ) {
 
     // get agenda information
 
-    _on(params.events.agenda.fetch, function(data) {
+    _on(params.events.agenda.fetch, function( data ) {
 
       if (event.agendas) for (var a in event.agendas) {
 
@@ -332,35 +331,11 @@ module.exports = function( params ) {
 
   _validateEvent = function(preErrors, callback) {
 
-    var errors = validator.processFull(event),
+    var errors = validator.processFull( event ),
 
     concatenated = preErrors.concat( errors );
 
-    callback(concatenated.length?false:true, concatenated );
-
-  },
-
-  _initLanguages = function() {
-
-    var newLanguages = [];
-
-    utils.forEach( params.descriptionFields, function( fieldName ) {
-
-      if ( typeof event[fieldName] == 'undefined' ) return;
-      
-      for ( var lang in event[ fieldName ] ) {
-
-        if ( newLanguages.indexOf( lang ) == -1 ) {
-
-          newLanguages.push( lang );
-
-        }
-
-      }
-
-    });
-
-    _updateLanguages( newLanguages );
+    callback( concatenated.length?false:true, concatenated );
 
   },
 
@@ -387,6 +362,8 @@ module.exports = function( params ) {
       });
       
       languages = newLanguages;
+
+      validator.updateLanguages( languages );
 
       eh.trigger( params.events.languageChange, languages );
 

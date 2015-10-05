@@ -25,6 +25,13 @@ module.exports = React.createClass({
 
   },
 
+  componentDidMount: function() {
+
+    // need to validate data on mount
+    this.props.onChange( this.props.value || '', this.validate( this.props.value || '' ) );
+
+  },
+
   onChange: function( e ) {
 
     var value = e.target.value;
