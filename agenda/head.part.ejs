@@ -1,45 +1,26 @@
-<header id="header" <% if ( theme ) { %> style="background-image:url(<%= _i( theme.image ) %>)" <% } %>>
-<% if ( theme ) { %>
+<header id="header" <% if ( agenda.theme ) { %> style="background-image:url(<%= _i( agenda.theme.image ) %>)" <% } %>>
+<% if ( agenda.theme ) { %>
   <div class="layer"></div>
 <% } %>
-  <div class="container profile<% if ( !theme ) { %> notheme <% } %>">
+  <div class="container profile<% if ( !agenda.theme ) { %> notheme <% } %>">
     <div class="row"><!--
       --><div class="col-sm-2 avatar-container">
-<% if ( image ) { %>
-      <a href="<%= genUrl( 'agendaShow', { slug: slug } ) %>">
-        <img class="avatar" src="<%= _i( image ) %>" alt="<%= title %>">
+<% if ( agenda.image ) { %>
+      <a href="<%= genUrl( 'agendaShow', { slug: agenda.slug } ) %>">
+        <img class="avatar" src="<%= _i( agenda.image ) %>" alt="<%= agenda.title %>">
       </a>
 <% } %>
       </div><!--
       --><div class="col-sm-6 title-container">
-        <a href="<%= genUrl( 'agendaShow', { slug: slug } ) %>">
-          <h1><%= title %></h1>
-          <p><%- _txt.setLinks( description ) %></p>
+        <a href="<%= genUrl( 'agendaShow', { slug: agenda.slug } ) %>">
+          <h1><%= agenda.title %></h1>
+          <p><%- _txt.setLinks( agenda.description ) %></p>
         </a>
-<% if ( url ) { %>
-        <p><a target="_blank" href="<%= url %>"><%= url %></a></p>
+<% if ( agenda.url ) { %>
+        <p><a target="_blank" href="<%= agenda.url %>"><%= agenda.url %></a></p>
 <% } %>
-      </div><!--
-<% if ( !isEmpty ) { %>        
-      --><div class="col-sm-4 col-aside action-container">
-        <p>
-          <a class="btn btn-success js_import_action" href="<%= importUri %>" rel="nofollow">
-            <i class="fa fa-plus-circle"></i>
-            <%= __('Import / Add to my Agenda') %>
-          </a>
-        </p>
-        <p class="share"><%= __('Share') %>&nbsp;:
-          <%- _sl.fb( { title: title, url: genUrl( 'agendaShow', { slug: slug }, { abs: true } ) } ) %>
-          <%- _sl.tw( { title: title, url: genUrl( 'agendaShow', { slug: slug }, { abs: true } ) } ) %>
-          <%- _sl.gp( { title: title, url: genUrl( 'agendaShow', { slug: slug }, { abs: true } ) } ) %>
-          <%- _sl.li( { title: title, url: genUrl( 'agendaShow', { slug: slug }, { abs: true } ) } ) %>
-        </p>
-      </div><!--
-<% } else { %>
-      --><div class="col-sm-4 action-container">
-        <p><a href="<%= genUrl( 'conversationAgendaContact', { uid: uid, redirect: _r({ module: 'review', action: 'show', 'slug': slug }) }) %>" rel="nofollow"><%= __('Contact the administrator of this agenda') %></a></p>
-      </div><!--
-<% } %>
-    --></div>
+      </div><% if ( includeActionLinks ) { %><!--
+<% include ./actionLinks.part.ejs %>
+    --><% } %></div>
   </div>
 </header>

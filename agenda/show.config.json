@@ -23,7 +23,8 @@
     "pageId" : "agenda",
     "queryLang" : false,
     "isEmbed" : false,
-    "hasSearchQuery" : false
+    "hasSearchQuery" : false,
+    "includeActionLinks" : true
   },
   "js" : true
 }

@@ -6,6 +6,7 @@
     "eventCategoriesAndTags" : "css/categoriesAndTags.scss",
     "fontawesome430" : "../css/font-awesome-4.3.0/css/font-awesome.css",
     "efReactSelect" : "css/reactSelect.css",
+    "efImageUpload" : "css/imageUpload.scss",
     "efLanguageBar" : "css/languageBar.scss",
     "accessibility" : "css/accessibility.scss",
     "efKeywords" : "css/tags.scss",

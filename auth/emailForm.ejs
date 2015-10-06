@@ -2,7 +2,7 @@
 
   <h1><%= __( typeof title == 'undefined' ? 'Create an account' : title ) %></h1>
   <p><%= __( 'Complete the signup process by typing in your email' ) %></p>
-  <form class="cform" method="get" action="<%= genUrl( uri, optionals ) %>">
+  <form class="cform" method="get" action="<%= genUrl( uri, [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>">
     <ul class="line">
       <li>
         <input type="email" name="email" placeholder="<%= __('Email') %>" value="<%= email %>" />

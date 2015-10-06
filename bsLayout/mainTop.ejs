@@ -47,10 +47,10 @@
 <% [ 'fr', 'en' ].forEach( function( l ) { %>
 <% if ( lang==l ) { %>
                 <li><a rel="alternate" href="?lang=<%= l %>" hreflang="<%= l %>" class="selected"><%= langLabels[ l ] %></a></li>
-<% } else { %>
+<% } else { %> 
                 <li><a href="?lang=<%= l %>" hreflang="<%= l %>"><%= langLabels[ l ] %></a></li>
 <% } %>
-<% }); %>
+<% } ); %>
               </ul>
             </li>
             <li class="js_not_logged signin">

@@ -12,7 +12,7 @@
 
 
   // these are the preloaded locations
-  var localLocations = <%- JSON.stringify(locations) %>;
+  var localLocations = <%- JSON.stringify( locations ) %>;
 
   oaEvent({
     event: <%- JSON.stringify( event ) %>,
@@ -151,16 +151,78 @@
     useWysiwyg: true,
 <% } %>
     language: 'fr',
-    custom: [
-      {"name":"somenmber","type":"public","fieldType":"number","label":{"fr":"Un nombre","en":"A number"}},
-      {"name":"somesmalltext","type":"private","fieldType":"text","max":50,"min":20,"optional":true,"multilingual":true, "label":{"fr":"Ceci est un petit texte","en":"This is a small text"}},
-      {"name":"somelongtext","type":"public","fieldType":"textarea","value":"dude!","label":{"fr":"Ceci est un long texte","en":"This is a long text"},"info":{"fr":"Vous devez saisir quelque chose ici","en":"You should type in something here"}, "max": 20},
-      {"name":"checkboxfield","type":"private","fieldType":"checkbox","value":true,"label":{"fr":"Ceci est un champ checkbox","en":"This is a checkbox field"}},
-      {"name":"radiofields","type":"public","fieldType":"radio", "label": { "en" : "Hey radio fields", "fr" : "Hep les champs radio" }, "options":[
-        {"label":{"fr":"oui","en":"yes"},"value":"1"},
-        {"label":{"fr":"non","en":"no"},"value":"0"},
-        {"label":{"fr":"peut-être","en":"maybe"},"value":"2"}
-      ] } ]
+    customRes: {
+      upload: '/upload',
+      remove: '/remove'
+    },
+    custom: [ {
+      "name":"somenmber",
+      "type":"public",
+      "fieldType":"number",
+      "label":{
+        "fr":"Un nombre",
+        "en":"A number"
+      }
+    }, {
+      "name":"somesmalltext",
+      "type":"private",
+      "fieldType":"text",
+      "max":50,
+      "min":20,
+      "optional":true,
+      "multilingual":true, 
+      "label":{
+        "fr":"Ceci est un petit texte",
+        "en":"This is a small text"
+      }
+    }, {
+      "name":"somelongtext",
+      "type":"public",
+      "fieldType":"textarea",
+      "value":"dude!",
+      "label":{
+        "fr":"Ceci est un long texte",
+        "en":"This is a long text"
+      },
+      "info":{
+        "fr":"Vous devez saisir quelque chose ici",
+        "en":"You should type in something here"
+      },
+      "max": 20
+    }, {
+      "name":"checkboxfield",
+      "type":"private",
+      "fieldType":"checkbox",
+      "value":true,
+      "label":{
+        "fr":"Ceci est un champ checkbox",
+        "en":"This is a checkbox field"
+      } 
+    }, { 
+      "name":"radiofields",
+      "type":"public",
+      "fieldType":"radio",
+      "label": {
+        "en" : "Hey radio fields",
+        "fr" : "Hep les champs radio"
+      },
+      "options": [
+        { "label":{ "fr":"oui","en":"yes" },"value":"1" },
+        { "label":{ "fr":"non","en":"no" },"value":"0" },
+        { "label":{ "fr":"peut-être","en":"maybe" },"value":"2" }
+      ]
+    }, {
+      "name" : "yourface",
+      "type" : "public",
+      "fieldType" : "image",
+      "label" : {
+        "en" : "Upload your face pic",
+        "fr" : "Chargez votre image de profil"
+      },
+      "crop" : true,
+      "width" : 300,
+      "height" : 300
+    } ]
   } );
 
 </script>

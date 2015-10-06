@@ -1,13 +1,18 @@
 {
   "base" : {
-    "title" : "Jeu de Territoire pour développer la qualité de Vie et la température de l'eau",
-    "description" : "l'agenda des évènements repérés par ChezNous",
-    "image" : "review_cheznous_598_00.jpg",
-    "isEmpty" : false,
-    "slug" : "chez-nous",
-    "url" : "http://cheznous.coop",
+    "agenda" : {
+      "title" : "Jeu de Territoire pour développer la qualité de Vie et la température de l'eau",
+      "description" : "l'agenda des évènements repérés par ChezNous",
+      "image" : "review_cheznous_598_00.jpg",
+      "isEmpty" : false,
+      "slug" : "chez-nous",
+      "url" : "http://cheznous.coop",
+      "uid" : 48959239,
+      "theme" : false
+    },
+    
     "redirect" : "quiruezrhdk",
-    "uid" : 48959239,
+    
     "eventUri" : "eventShow",
     "importUri" : "/agenda/action.part",
     "base" : { "slug" : "chez-nous" },
@@ -19,7 +24,7 @@
       "perPage" : 20,
       "lang" : "fr"
     },
-    "theme" : false,
+    
     "pager" : {
       "current" : 3,
       "total" : 127,
@@ -29,7 +34,9 @@
     }
   },
   "standard" : {
-    "isEmpty" : false,
+    "agenda" : {
+      "isEmpty" : false
+    },
     "events" : [
       {
         "title" : "Les imams en France",
@@ -168,23 +175,29 @@
     }
   },
   "noimage" : {
-    "image": false,
-    "isEmpty" : true,
+    "agenda" : {
+      "image": false,
+      "isEmpty" : true
+    },
     "events" : []
   },
   "themed" : {
-    "theme" : {
-      "image" : "review-bg-1402924618-615.jpg",
-      "repeat" : false,
-      "anchorage" : "center",
-      "backgroundColor" : "#fafafc",
-      "canvasPosition" : "center",
-      "canvasOffset" : "120"
+    "agenda" : {
+      "theme" : {
+        "image" : "review-bg-1402924618-615.jpg",
+        "repeat" : false,
+        "anchorage" : "center",
+        "backgroundColor" : "#fafafc",
+        "canvasPosition" : "center",
+        "canvasOffset" : "120"
+      }
     },
     "events" : []
   },
   "empty" : {
-    "isEmpty" : true,
+    "agenda" : {
+      "isEmpty" : true
+    },
     "events" : [],
     "scriptParams" : {
       "empty" : true

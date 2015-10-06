@@ -50,16 +50,32 @@
     .custom {
 
       dl {
+        
         padding: 10px 20px;
+
+        dt {
+          padding: 5px 0 5px;
+        }
+
+        dd {
+          
+          padding: 0 0 5px;
+          
+          &.image {
+            
+            text-align: center;
+
+            img {
+              max-width: 100%;
+            }
+
+          }
+
+        }
+
       }
 
-      dt {
-        padding: 5px 0 5px;
-      }
-
-      dd {
-        padding: 0 0 5px;
-      }
+      
 
       .private-head {
 

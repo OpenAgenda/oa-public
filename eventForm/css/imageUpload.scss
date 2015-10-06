@@ -1,0 +1,37 @@
+.ef .upload {
+
+  form > div,
+  form > label,
+  form > span,
+  form > a {
+
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 1em;
+
+  }
+
+  input[type="file"] {
+
+    cursor: pointer;
+    width: 300px!important;
+    right: 0;
+    left: inherit!important;
+
+  }
+
+  .error {
+
+    font-size: 0.9em;
+    color: $oa-red;
+
+  }
+
+  img {
+
+    padding: 1em 0;
+    max-width: 100%;
+
+  }
+
+}

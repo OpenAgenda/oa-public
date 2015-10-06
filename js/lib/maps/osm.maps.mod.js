@@ -42,7 +42,15 @@ maps.register('osm', (function(){
         options.onReady(map);
       });
 
-      map.setView(options.center, options.zoom);
+      try {
+
+        map.setView(options.center, options.zoom);
+
+      } catch( e ) {
+
+        console.log( 'test env map load fail' );
+
+      }
 
       L.tileLayer(libOptions.url, { minZoom: 2, maxZoom: 18, attribution: libOptions.attr }).addTo(map);
 

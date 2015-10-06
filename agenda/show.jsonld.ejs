@@ -2,13 +2,13 @@
 {
   "@context": "http://schema.org",
   "@type" : "Thing",
-  "name" : "<%= title %>",
-<% if ( image ) { %>
-  "image" : "<%= _i( image ) %>",
+  "name" : "<%= agenda.title %>",
+<% if ( agenda.image ) { %>
+  "image" : "<%= _i( agenda.image ) %>",
 <% } %>
-<% if ( url ) { %>
-  "url" : "<%= url %>",
+<% if ( agenda.url ) { %>
+  "url" : "<%= agenda.url %>",
 <% } %>
-  "description" : "<%= description %>"
+  "description" : "<%= agenda.description %>"
 }
 </script>

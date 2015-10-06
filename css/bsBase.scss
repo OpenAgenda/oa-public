@@ -1,5 +1,29 @@
-#content {
+body {
+
   background: $oa-gray-lighter;
+
+}
+
+.wsq {
+
+  background: $oa-white;
+  vertical-align: top;
+  text-align: left;
+
+  -webkit-border-radius: 3px; 
+  -moz-border-radius: 3px; 
+  border-radius: 3px;
+
+}
+
+.content {
+  
+  padding: 20px 30px;
+
+}
+
+
+#content {
   padding: 25px 0;
   position: relative;
 }

@@ -8,7 +8,9 @@ MultilingualTextField = require( './MultilingualTextField.jsx' ),
 
 CheckboxField = require( './CheckboxField.jsx' ),
 
-RadioFields = require( './RadioFields.jsx' );
+RadioFields = require( './RadioFields.jsx' ),
+
+ImageUpload = require( 'imageUpload/lib/ImageUploader.jsx' );
 
 module.exports = React.createClass({
 
@@ -27,6 +29,24 @@ module.exports = React.createClass({
       errors[ field ] = error;
 
       self.props.onChange( values, errors );
+
+    }
+
+  },
+
+  onImageChange: function( field ) {
+
+    var self = this;
+
+    return function( value, error ) {
+
+      if ( value ) {
+
+        value = value.split( '/' ).pop(); // we just want the file name, not the full url
+
+      }
+
+      self.onChange( field )( value, error );
 
     }
 
@@ -105,6 +125,24 @@ module.exports = React.createClass({
           error= { self.props.errors[ field.name ] || false }
           label= { field.label }
           handleUpdate= { self.onChange( field.name ) } />;
+
+      } else if ( field.fieldType == 'image' ) {
+
+        // value given here should be path.
+        // path can be given by EventForm & index;
+
+        return <ImageUpload
+          className="upload"
+          name={ field.name }
+          upload={ self.props.res.upload.replace( '{field}', field.name ) }
+          remove={ self.props.res.remove.replace( '{field}', field.name ) }
+          lang={ self.props.lang }
+          value= { self.props.values[ field.name ] ? self.props.res.path + self.props.values[ field.name ] : '' }
+          label= { field.label }
+          buttonLabel= { self.props.labels.uploadButton }
+          buttonClass="blue button"
+          removeClass="red button"
+          handleUpdate= { self.onImageChange( field.name ) } />
 
       }
 
