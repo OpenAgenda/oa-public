@@ -14,7 +14,8 @@
       <div class="btn-adds">
         <a class="btn btn-default" href="<%= genUrl( 'agendaFeed', { uid: uid }) %>">RSS</a>
         <a class="btn btn-default" href="<%= genUrl( 'agendaIcal', { uid: uid }) %>?dl=1">ICS</a>
-        <a class="btn btn-default "href="<%= genUrl( 'agendaCsvEvents', { uid: uid, search: { passed: 1 } }) %>">CSV *</a>
+        <a class="btn btn-default "href="<%= genUrl( 'agendaCsvEvents', { uid: uid, search: { passed: 1 } }) %>">CSV</a>
+        <a class="btn btn-default "href="<%= genUrl( 'agendaXlsxEvents', { uid: uid, search: { passed: 1 } }) %>">Excel ( xlsx )</a>
         <a class="btn btn-default" href="<%= genUrl( 'agendaXml', { uid: uid }) %>?dl=1">XML</a>
         <a class="btn btn-default" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: uid, page: 1, search: { passed: 1 } } ) %>">JSON *</a>
       </div>

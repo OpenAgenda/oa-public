@@ -96,11 +96,8 @@ window.oaEventImage = require( './legacy/cibulEventImage' );
 window.oaEventForm = function( options ) {
 
   var params = deepExtend( {}, defaults, options ? options : {} );
-<<<<<<< HEAD
 
   rUtils.eh.trigger( params.events.languageChange, [ params.language ] );
-=======
->>>>>>> agendasignin
 
   rUtils.eh.trigger( params.events.fetch, function( eventData ) {
 
