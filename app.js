@@ -14,7 +14,7 @@ p = require( './server/promises' ),
 
 mountStatic = st( { path: __dirname , url: '/', cache: false } ),
 
-cn = require('./js/lib/common/common.mod.js'),
+cn = require( './js/lib/common/common.mod.js' ),
 
 async = require( 'async' ),
 

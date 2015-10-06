@@ -1,28 +1,36 @@
 .ef .upload {
 
-  form > div {
-
-    vertical-align: top;
-    display: inline-block;
-    margin-right: 1em;
-    padding: 0 1em 1em 0;
-
-  }
-
+  form > div,
+  form > label,
+  form > span,
   form > a {
 
-    vertical-align: top;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 1em;
 
   }
 
-  label { margin-right: 1em; }
+  input[type="file"] {
+
+    cursor: pointer;
+    width: 300px!important;
+    right: 0;
+    left: inherit!important;
+
+  }
 
   .error {
 
-    display: inline-block;
     font-size: 0.9em;
-    padding: 0.7em 0;
     color: $oa-red;
+
+  }
+
+  img {
+
+    padding: 1em 0;
+    max-width: 100%;
 
   }
 

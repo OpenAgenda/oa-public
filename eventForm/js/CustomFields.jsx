@@ -128,13 +128,16 @@ module.exports = React.createClass({
 
       } else if ( field.fieldType == 'image' ) {
 
+        // value given here should be path.
+        // path can be given by EventForm & index;
+
         return <ImageUpload
           className="upload"
           name={ field.name }
           upload={ self.props.res.upload.replace( '{field}', field.name ) }
           remove={ self.props.res.remove.replace( '{field}', field.name ) }
           lang={ self.props.lang }
-          value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
+          value= { self.props.values[ field.name ] ? self.props.res.path + self.props.values[ field.name ] : '' }
           label= { field.label }
           buttonLabel= { self.props.labels.uploadButton }
           buttonClass="blue button"
