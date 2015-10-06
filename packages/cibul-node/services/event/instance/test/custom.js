@@ -32,9 +32,9 @@ describe( 'event service instance - custom', function() {
 
   beforeEach( ( done ) => {
 
-    var stream = fs.createReadStream( 'testdata/bunny.png' );
+    var stream = fs.createReadStream( __dirname + '/testdata/bunny.png' );
 
-    stream.pipe( fs.createWriteStream( 'testdata/source.png' ) );
+    stream.pipe( fs.createWriteStream( __dirname + '/testdata/source.png' ) );
 
     stream.on( 'end', done );
 

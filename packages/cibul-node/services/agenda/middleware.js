@@ -6,6 +6,8 @@ csv = require( 'fast-csv' ),
 
 pdf = require( 'pdf' ),
 
+xlsx = require( 'xlsx-writestream' ),
+
 utils = require( '../../lib/utils' ),
 
 svcConfig = require( './config' ),
@@ -28,6 +30,7 @@ module.exports = function( agendaService ) {
     decorateEvent: decorateEvent,
     cleanJson: cleanJson,
     buildCsv: buildCsv,
+    buildXlsx: buildXlsx,
     buildPdf: buildPdf
   }
 
@@ -366,6 +369,102 @@ function buildPdf( req, res, next ) {
 }
 
 
+function buildXlsx( includePrivateData ) {
+
+  return function( req, res, next ) {
+
+    req.agenda.flattener( includePrivateData, function( err, f ) {
+
+      if ( err ) return next( err );
+
+      var stream = req.agenda.searchStream( req.query.search, {
+        showAll: includePrivateData 
+      } ),
+
+      xlsxStream = new xlsx(),
+
+      defaultRow = {}, processing = 0, end;
+
+      // default empty values
+      f.getFieldNames().forEach( ( n ) => {
+
+        defaultRow[ n ] = '';
+
+      } );
+
+      xlsxStream.getReadStream().pipe( res );
+
+      /*res.writeHead( 200, {
+        'Content-Type' : 'application/vnd.ms-excel',
+        'content-disposition' : 'attachment; filename=\"test.xls\"'
+      });*/
+
+      res.writeHead( 200, {
+        'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'content-disposition': [
+          'attachment; filename=\"',
+          req.agenda.title,
+          '.', _stringifiedNow(),
+          '.xlsx\"' ].join('')
+      } ); 
+
+      stream.on( 'data', function( eventData ) {
+
+        stream.pause();
+
+        processing++;
+
+        // instanciate
+        var eInst = eventSvc.instanciate( eventData );
+
+        // clean event
+        eventSvc.exports.clean( eInst, function( err, clean ) {
+
+          // decorate with agenda related data
+          svc.exports.decorateEvent( req.agenda, eInst, clean, {
+            includePrivateData: !!includePrivateData
+          }, function( err, clean ) {
+
+            processing--;
+
+            if ( err ) {
+
+              req.log( 'error', err );
+
+              return stream.resume();
+
+            }
+
+            xlsxStream.addRow( _cleanXlsxRow( utils.extend( {}, defaultRow, f.flatten( clean ) ) ) );
+
+            stream.resume();
+
+            if ( !processing && end ) {
+
+              xlsxStream.finalize();
+
+            }
+
+          } );
+
+        } );
+
+
+      } );
+
+      stream.on( 'end', function() {
+
+        end = true;
+
+      });
+
+    } );
+
+  }
+
+}
+
+
 function buildCsv( includePrivateData ) {
 
   return function( req, res, next ) {
@@ -500,6 +599,29 @@ function _hasQueryOtherThan( req, exceptions ) {
   }
 
   return false;
+
+}
+
+
+function _cleanXlsxRow( row ) {
+
+  var clean = {};
+
+  for( let c in row ) {
+
+    if ( typeof row[ c ] == 'string' ) {
+
+      row[ c ] = row[ c ].replace( /\v/g, ' ' );
+
+    } else {
+
+      clean[ c ] = row[ c ];
+
+    }
+
+  }
+
+  return row;
 
 }
 

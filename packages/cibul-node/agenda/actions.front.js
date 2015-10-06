@@ -18,7 +18,7 @@ routes = {
 
   agendaEventAdd: [ 'get', '/add/:eventUid', [
     cmn.requireLogged,
-    eventSvc.mw.load( 'eventUid', 'uid' ),
+    eventSvc.mw.load( 'eventUid', 'uid', { inAgendaContext: false } ),
     cmn.checkAdminOrModerator,
     _verifyAlreadyAdded,
     eventAdd

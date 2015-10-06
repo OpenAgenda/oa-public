@@ -37,17 +37,21 @@ module.exports = function( eventService ) {
  * load event instance and set it in req.event
  */
 
-function loadEvent( paramName, fieldName ) {
+function loadEvent( paramName, fieldName, options ) {
+
+  var params = utils.extend( { 
+    inAgendaContext: true // if agenda is in request and event must not be loaded in agenda context, use this
+  }, options || {} );
 
   return function( req, res, next ) {
 
-    w( { 
+    w( {
       req: req,
       res: res,
-      event: false 
+      event: false
     } )
 
-    .then( _get( paramName, fieldName ) )
+    .then( _get( paramName, fieldName, params.inAgendaContext ) )
 
     .then( _selectLanguage )
 
@@ -77,7 +81,7 @@ function loadEvent( paramName, fieldName ) {
 
         if ( !req.session.logged ) return next( { code: 401 } );
 
-        if ( req.agenda && !v.hasAgendaCreds ){
+        if ( params.inAgendaContext && req.agenda && !v.hasAgendaCreds ){
 
           req.log( 'user does not have required agenda credentials' );
 
@@ -548,7 +552,7 @@ function _loadAccessRequired( v ) {
  * load event instance from request parameters
  */
 
-function _get( paramName, fieldName ) {
+function _get( paramName, fieldName, inAgendaContext ) {
 
   if ( typeof fieldName == 'undefined' ) {
 
@@ -564,7 +568,7 @@ function _get( paramName, fieldName ) {
 
       getParams[ fieldName ] = v.req.params[ paramName ];
 
-      if ( v.req.agenda ) getParams.reviewId = v.req.agenda.id;
+      if ( v.req.agenda && inAgendaContext ) getParams.reviewId = v.req.agenda.id;
 
       v.req.log( 'getting event with params %s', JSON.stringify( getParams ) );
 

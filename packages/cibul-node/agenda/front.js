@@ -175,9 +175,9 @@ function show( req, res ) {
       description: req.agenda.description,
       url: req.agenda.url,
       image: req.agenda.getImage( false ),
-      isEmpty: req.agenda.isEmpty
-    },
-    importUri: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } )
+      isEmpty: req.agenda.isEmpty,
+      importUri: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } )
+    }
   } );
 
   cmn.render( req, res, 'agenda/show', req.templateData );

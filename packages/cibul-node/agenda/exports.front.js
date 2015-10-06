@@ -31,6 +31,11 @@ routes = {
     agendaSvc.mw.buildPdf
   ] ],
 
+  agendaXlsxEvents: [ 'get', '/events.xlsx', [
+    agendaSvc.mw.load( 'uid' ),
+    agendaSvc.mw.buildXlsx( false )
+  ]],
+
   agendaSourceAdd: [ 'get', '/addTo/:aggUid', [
     cmn.flashSetter,
     agendaSvc.mw.load( 'uid' ),

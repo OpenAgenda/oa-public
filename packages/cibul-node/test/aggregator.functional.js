@@ -37,8 +37,6 @@ describe( 'agenda aggregator actions', function() {
 
   });
 
-  beforeEach( q.test.clear );
-
   before( function( done ) {
 
     t.boot( true, done );
