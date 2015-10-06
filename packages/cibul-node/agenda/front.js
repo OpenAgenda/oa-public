@@ -142,7 +142,9 @@ function showXhr( template ) {
     if ( !req.xhr ) return next();
 
     lib.extend( req.templateData, {
-      slug: req.agenda.slug
+      agenda: {
+        slug: req.agenda.slug  
+      }
     } );
 
     if ( req.renders ) req.templateData.renders = req.renders;
@@ -164,16 +166,18 @@ function showXhr( template ) {
 
 
 function show( req, res ) {
-
+  
   lib.extend( req.templateData, {
-    uid: req.agenda.uid,
-    slug: req.agenda.slug,
-    title: req.agenda.title,
-    description: req.agenda.description,
-    url: req.agenda.url,
-    image: req.agenda.getImage( false ),
-    importUri: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } ),
-    isEmpty: req.agenda.isEmpty
+    agenda: {
+      uid: req.agenda.uid,
+      slug: req.agenda.slug,
+      title: req.agenda.title,
+      description: req.agenda.description,
+      url: req.agenda.url,
+      image: req.agenda.getImage( false ),
+      isEmpty: req.agenda.isEmpty
+    },
+    importUri: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } )
   } );
 
   cmn.render( req, res, 'agenda/show', req.templateData );
@@ -191,8 +195,10 @@ function redirect( req, res ) {
 function embedShow( req, res ) {
 
   lib.extend( req.templateData, {
-    uid: req.agenda.uid + ( req.embed ? '/' + req.embed.uid : '' ),
-    isEmpty: req.agenda.isEmpty,
+    agenda: {
+      uid: req.agenda.uid + ( req.embed ? '/' + req.embed.uid : '' ),
+      isEmpty: req.agenda.isEmpty,  
+    },
     renders: req.renders,
     pager: {
       base: { uid: req.agenda.uid },
@@ -453,7 +459,9 @@ function _layoutData( req, res ) {
   var url = req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { abs: true } ),
 
   data = {
-    theme: req.agenda.getTheme(),
+    agenda: {
+      theme: req.agenda.getTheme(),  
+    },
     queryLang: req.query.lang ? req.query.lang : false,
     scriptParams: {
       total: req.total,

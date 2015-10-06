@@ -248,7 +248,7 @@ function _createToken( values ) {
 
   return w.promise( function( resolve, reject ) {
 
-    log( 'creating/fetching token with values %s', JSON.stringify( values ) );
+    log( 'creating/fetching token' );
 
     model.tokens().getActivation( { userId: values.user.id, email: values.user.email }, true, function( err, token ) {
 
@@ -268,7 +268,7 @@ function _createToken( values ) {
 
 function _sendToken( values ) {
 
-  log( 'sending activation token %s', JSON.stringify( values ) );
+  log( 'sending activation token' );
 
   var linkParams = { token: values.token };
 
@@ -276,7 +276,9 @@ function _sendToken( values ) {
 
   if ( values.redirect ) linkParams.redirect = values.redirect;
 
-  var link = genUrl.abs( 'activate', linkParams ),
+  if ( values.agenda ) linkParams.slug = values.agenda.slug;
+
+  var link = genUrl.abs( values.agenda ? 'agendaActivate' : 'activate', linkParams ),
 
   text = "Congratulations!, You just created your OpenAgenda account. Click on the following link to activate it \n %link%";
 

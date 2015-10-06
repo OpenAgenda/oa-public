@@ -16,11 +16,15 @@ w = require( 'when' ),
 
 genUrl = require( '../services/genUrl' ),
 
+agendaSvc = require( '../services/agenda' ),
+
 routes = {
-  facebookSignin: [ 'get', '/signin', signin ],
-  facebookSigninCallback: [ 'get', '/signin/callback', signinCallback ],
-  facebookSignup: [ 'get', '/signup', signup ],
-  facebookSignupCallback: [ 'get', '/signup/callback', signupCallback ]
+  facebookSignin: [ 'get', '/facebook/signin', signin ],
+  agendaFacebookSignin: [ 'get', '/:slug/facebook/signin', signin ],
+  facebookSigninCallback: [ 'get', '/facebook/signin/callback', auth.process( 'facebook', 'signin' ) ],
+  facebookSignup: [ 'get', '/facebook/signup', signup ],
+  agendaFacebookSignup: [ 'get', '/:slug/facebook/signup', signup ],
+  facebookSignupCallback: [ 'get', '/facebook/signup/callback', auth.process( 'facebook', 'signup' ) ]
 };
 
 module.exports = function( path ) {
@@ -29,7 +33,8 @@ module.exports = function( path ) {
 
   router.pre( [
     cmn.flashSetter,
-    cmn.loadBaseData( auth.layoutData ),
+    agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
+    cmn.loadBaseData( auth.layoutData, 'oa.css' ),
     cmn.loadSession,
     cmn.requireUnlogged
   ] );
@@ -76,7 +81,7 @@ function load( router, path ) {
 
 function signin( req, res, next ) {
 
-  auth.saveOptionals( req, res );
+  auth.saveOptionals( req, res, req.agenda ? { agenda: req.agenda.slug } : {} );
 
   pLib.authenticate( 'facebook-signin', {
     scope: 'email', 
@@ -85,66 +90,14 @@ function signin( req, res, next ) {
 
 }
 
+
 function signup( req, res, next ) {
 
-  auth.saveOptionals( req, res );
+  auth.saveOptionals( req, res, req.agenda ? { agenda: req.agenda.slug } : {} );
 
   pLib.authenticate( 'facebook-signup', {
     scope: 'email', 
     callbackURL: genUrl.abs( 'facebookSignupCallback' )
-  } )( req, res, next );
-
-}
-
-function signinCallback( req, res, next ) {
-
-  auth.restoreOptionals( req, res );
-
-  pLib.authenticate( 'facebook-signin', {}, function( err, profile, data ) {
-
-    w( { err: err, profile: profile, req: req, res: res })
-
-    .then( auth.attemptAuth )
-
-    .then( auth.ifUserLoaded( false, auth.attemptCreate ) )
-
-    .then( auth.ifUserLoaded( false, auth.errors.existingEmail ) )
-
-    .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.signin ) ) )
-
-    .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.errors.defaultMessage ) ) )
-
-    .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.renderSignin ) ) )
-
-    .done( auth.done , cmn.catchError( req, res ) );
-
-  } )( req, res, next );
-
-}
-
-
-function signupCallback( req, res, next ) {
-
-  auth.restoreOptionals( req, res );
-
-  pLib.authenticate( 'facebook-signup', {}, function( err, profile, data ) {
-
-    w( { req: req, res: res, err: err, profile: profile, data: data } )
-
-    .then( auth.attemptCreate )
-
-    .then( auth.ifUserLoaded( false, auth.errors.existingEmail ) )
-
-    .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.attemptAuth ) ) )
-
-    .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.errors.defaultMessage  )) )
-
-    .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.signin ) ) )
-
-    .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.renderSignup ) ) )
-
-    .done( auth.done , cmn.catchError( req, res ) );
-
   } )( req, res, next );
 
 }

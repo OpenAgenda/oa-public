@@ -91,15 +91,19 @@ function _initZombie( cb ) {
 
   Browser = require( 'zombie' );
 
-  Browser.localhost( 'https://d.openagenda.com', 443 );
-
   cb( );
 
 }
 
 function loadBrowser( cb ) {
 
-  cb( null, Browser.create() );
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+  var browser = new Browser();
+
+  browser.site = 'https://d.openagenda.com';
+
+  cb( null, browser );
 
 }
 
@@ -136,7 +140,8 @@ function signin( browser, user, nextUrl ) {
   // js errors on php gen page causes zombie error
   .then( done, done );
 
-  function done() {
+  function done( err ) {
+
 
     if ( !nextUrl ) return;
 

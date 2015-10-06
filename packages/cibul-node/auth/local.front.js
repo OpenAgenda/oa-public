@@ -20,7 +20,9 @@ config = require( '../config' ),
 
 lib = require( '../lib/lib' ),
 
-userSvc = require( '../services/user/user' ),
+userSvc = require( '../services/user' ),
+
+agendaSvc = require( '../services/agenda' ),
 
 pLib = require( './lib/passport' ),
 
@@ -30,8 +32,18 @@ routes = {
     _checkUnloggedAndUpdateRedis, auth.renderSignin 
   ] ],
 
+  agendaSignin: [ 'get', '/:slug/signin', [
+    _checkUnloggedAndUpdateRedis,
+    auth.renderSignin
+  ] ],
+
   signinSubmit: [ 'post', '/signin', [ 
     cmn.requireUnlogged, 
+    signinSubmit
+  ] ],
+
+  agendaSigninSubmit: [ 'post', '/:slug/signin', [
+    cmn.requireUnlogged,
     signinSubmit
   ] ],
 
@@ -46,7 +58,18 @@ routes = {
     auth.renderSignup
   ] ],
 
+  agendaSignup: [ 'get', '/:slug/signup', [
+    cmn.requireUnlogged,
+    _loadCaptcha,
+    auth.renderSignup
+  ] ],
+
   signupSubmit: [ 'post', '/signup', [
+    cmn.requireUnlogged,
+    signupSubmit
+  ] ],
+
+  agendaSignupSubmit: [ 'post', '/:slug/signup', [
     cmn.requireUnlogged,
     signupSubmit
   ] ],
@@ -56,12 +79,27 @@ routes = {
     signupComplete
   ] ],
 
+  agendaSignupComplete: [ 'get', '/:slug/signup/complete', [
+    cmn.requireUnlogged,
+    signupComplete
+  ]],
+
   activateResend: [ 'get', '/activate/resend', [
     cmn.requireUnlogged,
     activateResend
   ] ],
 
+  agendaActivateResend: [ 'get', '/:slug/activate/resend', [
+    cmn.requireUnlogged,
+    activateResend
+  ]],
+
   activate: [ 'get', '/activate/:token', [
+    cmn.requireUnlogged,
+    activate
+  ] ],
+
+  agendaActivate: [ 'get', '/:slug/activate/:token', [
     cmn.requireUnlogged,
     activate
   ] ]
@@ -88,7 +126,8 @@ module.exports = function( path ) {
   router.pre( [
     cmn.https,
     cmn.flashSetter,
-    cmn.loadBaseData( auth.layoutData ),
+    agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
+    cmn.loadBaseData( auth.layoutData, 'oa.css' ),
     cmn.loadSession
   ] );
 
@@ -122,7 +161,13 @@ function signinSubmit( req, res, next ) {
     badRequestMessage: 'You must type in an email and a password'
   }, function( err, user, data ) {
 
-    w( { err: err, req: req, res: res, data: data, user: user } )
+    w( {
+      err: err,
+      req: req,
+      res: res,
+      data: data,
+      user: user
+    } )
 
     .then( auth.ifUserLoaded( false, function( values ) {
 
@@ -170,9 +215,14 @@ function signupSubmit( req, res ) {
 
 function signupComplete( req, res ) {
 
-  var resendQuery = lib.extend( auth.loadOptionals( req ), { email: req.query.email } )
+  var resendQuery = lib.extend( auth.loadOptionals( req ), { email: req.query.email } );
 
-  cmn.render( req, res, 'auth/activation', { resendQuery: resendQuery } );
+  if ( req.agenda ) resendQuery.slug = req.agenda.slug;
+
+  cmn.render( req, res, 'auth/activation', { 
+    agenda: req.agenda,
+    resendQuery: resendQuery
+  } );
 
 }
 
@@ -185,7 +235,10 @@ function activateResend( req, res ) {
 
   } else {
 
-    userSvc.activation.createAndSend( lib.extend( auth.loadOptionals( req ), { email: req.query.email } ) )
+    userSvc.activation.createAndSend( lib.extend( auth.loadOptionals( req ), { 
+      email: req.query.email,
+      agenda: req.agenda
+    } ) )
 
     .then( function( values ) {
 
@@ -321,12 +374,16 @@ function _attemptCreate( values ) {
 
   return w.promise( function( resolve, reject ) {
 
+    var options = auth.loadOptionals( values.req );
+
+    if ( values.req.agenda ) options.agenda = values.req.agenda;
+
     userSvc.create( {
       fullName: values.req.body.full_name,
       email: values.req.body.email,
       password: values.req.body.password,
       culture: values.req.lang
-    }, auth.loadOptionals( values.req ), function( err, user, data ) {
+    }, options, function( err, user, data ) {
 
       if ( err ) return reject( err );
 

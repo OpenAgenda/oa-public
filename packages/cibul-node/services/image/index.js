@@ -21,7 +21,7 @@ w = p.w,
 
 wn = p.wn,
 
-log = require( 'logger' )( 'image service' ),
+log = require( 'logger' )( 'services/image' ),
 
 config = require( '../../config' ),
 
@@ -221,7 +221,7 @@ function _save( values ) {
 
     path.pop();
 
-    path.push( values.name );
+    path.push( _stripExtension( values.name ) );
 
     dstPath = path.join('/') + '.' + format;
 
@@ -473,5 +473,19 @@ function _setConfig( values ) {
 function _getTemporaryFilePath() {
 
   return config.tmpFolderPath + ( new Date() ).getTime() + '-' + Math.ceil( Math.random() * 9999999999 );
+
+}
+
+function _stripExtension( filename ) {
+
+  var parts = filename.split( '.' );
+
+  if ( [ 'jpg', 'png', 'bmp', 'jpeg' ].indexOf( parts.pop() ) !== -1 ) {
+
+    return parts.join( '.' );
+
+  }
+
+  return filename;
 
 }

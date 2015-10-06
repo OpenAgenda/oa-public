@@ -42,7 +42,8 @@ module.exports = function( agendaService ) {
 function loadAgenda( paramName, fieldName, options ) {
 
   var loadOptions = {
-    name: 'agenda'
+    name: 'agenda',
+    required: true
   }; // options used for function, not for get
 
   if ( arguments.length === 2 && typeof fieldName == 'object' ) {
@@ -62,7 +63,7 @@ function loadAgenda( paramName, fieldName, options ) {
   if ( !options ) options = {};
 
   // extract options for function
-  [ 'name' ].forEach( function( k ) {
+  [ 'name', 'required' ].forEach( function( k ) {
 
     if ( options[ k ] === undefined ) return;
 
@@ -77,6 +78,12 @@ function loadAgenda( paramName, fieldName, options ) {
     var getParams = {};
 
     getParams[ fieldName ] = req.params[ paramName ];
+
+    if ( !loadOptions.required && req.params[ paramName ] === undefined ) {
+
+      return next();
+
+    }
 
     svc.get( getParams, options, function( err, a ) {
 
@@ -109,7 +116,7 @@ function loadAgenda( paramName, fieldName, options ) {
 
           if ( err ) return next( err );
 
-          req.agenda.isEmpty = !has;
+          req[ loadOptions.name ].isEmpty = !has;
 
           next();
 

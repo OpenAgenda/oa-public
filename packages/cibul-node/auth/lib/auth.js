@@ -8,9 +8,13 @@ config = require( '../../config' ),
 
 w = require( 'when' ),
 
+pLib = require( './passport' ),
+
 deepExtend = require( 'deep-extend' ),
 
-userSvc = require( '../../services/user/user' ),
+userSvc = require( '../../services/user' ),
+
+loadAgenda = require( '../../services/agenda' ).mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
 
 session = require( './session' ),
 
@@ -27,6 +31,7 @@ exposed = {
   loadOptionals: loadOptionals,
   saveOptionals: saveOptionals,
   restoreOptionals: restoreOptionals,
+  serviceCallback: serviceCallback,
   done: done, // when a controller is done
   errors: {
     defaultMessage: errorDefaultMessage,
@@ -62,6 +67,7 @@ function init( service ) {
   return deepExtend( {
     attemptAuth: attemptAuth,
     attemptCreate: attemptCreate,
+    process: process,
     errors: {}
   }, exposed );
 
@@ -84,6 +90,8 @@ function init( service ) {
 
       if ( !values.profile ) {
 
+        values.req.log( 'profile is not set' );
+
         return resolve( values );
 
       }
@@ -94,7 +102,13 @@ function init( service ) {
 
         if ( user ) {
 
+          values.req.log( 'user is loaded' ); 
+
           values.user = user;
+
+        } else {
+
+          values.req.log( 'no user was loaded' );
 
         }
 
@@ -119,7 +133,9 @@ function init( service ) {
 
     return w.promise( function( resolve, reject ) {
 
-      var options = {};
+      var options = loadOptionals( values.req );
+
+      if ( values.req.agenda ) options.agenda = values.req.agenda;
 
       if ( !values.profile ) {
 
@@ -132,7 +148,7 @@ function init( service ) {
         email: values.profile.email,
         fullName: values.profile.fullName,
         culture: values.req.lang
-      }, loadOptionals( values.req ), function( err, user, data ) {
+      }, options, function( err, user, data ) {
 
         if ( err ) values.err = err;
 
@@ -162,6 +178,46 @@ function init( service ) {
 
   }
 
+
+  /**
+ * upon reception of service callback, optionnally create
+ * then signin user
+ */
+
+function process( service, name ) {
+
+  return serviceCallback( function( req, res, next ) {
+
+    pLib.authenticate( service + '-' + name, {}, function( err, profile, data ) {
+
+      w( { 
+        req: req,
+        res: res,
+        err: err,
+        profile: profile,
+        data: data
+      } )
+
+      .then( attemptAuth )
+
+      .then( ifUserLoaded( false, attemptCreate ) )
+
+      .then( ifUserLoaded( false, errorExistingEmail ) )
+
+      .then( ifUnresolved( ifUserLoaded( true, signin ) ) )
+
+      .then( ifUnresolved( ifUserLoaded( false, errorDefaultMessage  )) )
+
+      .then( ifUnresolved( ifUserLoaded( false, module.exports[ name == 'signup' ? 'renderSignup' : 'renderSignin' ] ) ) )
+
+      .done( done , cmn.catchError( req, res ) );
+
+    } )( req, res, next );
+
+  } );
+
+}
+
 }
 
 module.exports = init;
@@ -171,7 +227,7 @@ lib.extend( init, exposed );
 
 function signin( values ) {
 
-  var req = values.req, res = values.res, user = values.user;
+  var req = values.req, res = values.res, user = values.user, agendaSlug;
 
   if ( values.resolved ) return values;
 
@@ -211,13 +267,55 @@ function signin( values ) {
 
       }
 
-      res.redirect( 302, req.genUrl( 'homeShow' ) );
+      if ( req.query.agenda ) {
+
+        agendaSlug = req.query.agenda;
+
+      } else if ( req.agenda ) {
+
+        agendaSlug = req.agenda.slug;
+
+      }
+
+      res.redirect( 302, agendaSlug ? req.genUrl( 'agendaShow', { slug: agendaSlug } ) : req.genUrl( 'homeShow' ) );
 
       resolve( values );
 
     } );
 
   } );
+
+}
+
+
+/**
+ * upon reception of service callback, preload agenda or not
+ * depending on stored optionals
+ */
+
+function serviceCallback( cb ) {
+
+  return function( req, res, next ) {
+
+    restoreOptionals( req, res );
+
+    if ( req.query.agenda ) {
+
+      req.params.slug = req.query.agenda;
+
+      loadAgenda( req, res, function() {
+
+        cb( req, res, next );
+
+      } );
+
+    } else {
+
+      cb( req, res, next );
+
+    }
+
+  }
 
 }
 
@@ -234,6 +332,18 @@ function _render( template, defaults ) {
 
     data = deepExtend( {}, defaults );
 
+    if ( req.agenda ) {
+
+      data.agenda = {
+        slug: req.agenda.slug,
+        title: req.agenda.title,
+        description: req.agenda.description,
+        image: req.agenda.image,
+        url: req.agenda.url
+      }
+
+    }
+
     if ( asPromise ) {
 
       values.resolved = true;
@@ -241,6 +351,10 @@ function _render( template, defaults ) {
       if ( values.err ) deepExtend( data, values.err );
 
       data = deepExtend( data, values.data ? values.data : {} );
+
+    } else {
+
+      deepExtend( data, arguments.length === 3 ? arguments[ 2 ] : {} );
 
     }
 
@@ -359,9 +473,19 @@ function redirectToResend( values ) {
 
 function redirectToComplete( values ) {
 
-  var uri = values.resend? 'activateResend' : 'signupComplete';
+  var uri;
 
-  values.res.redirect( 302, values.req.genUrl( uri, lib.extend( loadOptionals( values.req ), { email: values.user.email } ) ) );
+  if ( values.resend ) {
+
+    uri = 'activateResend';
+
+  } else {
+
+    uri = values.req.agenda ? 'agendaSignupComplete' : 'signupComplete';
+
+  }
+
+  values.res.redirect( 302, values.req.genUrl( uri, [ loadOptionals( values.req ), { email: values.user.email }, values.req.agenda ? { slug: values.req.agenda.slug } : {} ] ) );
 
   values.resolved = true;
 
@@ -373,7 +497,8 @@ function redirectToComplete( values ) {
 function layoutData( req ) {
 
   return {
-    optionals: loadOptionals( req )
+    optionals: loadOptionals( req ),
+    agenda: req.agenda ? req.agenda : false
   }
 
 }
@@ -391,6 +516,12 @@ function loadOptionals( req ) {
   if ( req.query.redirect ) {
 
     optionals.redirect = req.query.redirect;
+
+  }
+
+  if ( req.query.agenda ) {
+
+    optionals.agenda = req.query.agenda;
 
   }
 

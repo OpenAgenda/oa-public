@@ -8,6 +8,8 @@ path,
 
 w = require( 'when' ),
 
+eventSvc = require( '../services/event' ),
+
 model = cmn.getCibulModel(),
 
 routes = {
@@ -16,7 +18,7 @@ routes = {
 
   agendaEventAdd: [ 'get', '/add/:eventUid', [
     cmn.requireLogged,
-    cmn.loadEvent( 'eventUid', 'uid' ),
+    eventSvc.mw.load( 'eventUid', 'uid' ),
     cmn.checkAdminOrModerator,
     _verifyAlreadyAdded,
     eventAdd
@@ -24,7 +26,7 @@ routes = {
 
   agendaEventRemove: [ 'get', '/remove/:eventUid', [
     cmn.requireLogged,
-    cmn.loadEvent( 'eventUid', 'uid' ),
+    eventSvc.mw.load( 'eventUid', 'uid' ),
     cmn.checkAdminOrModerator,
     eventRemove
   ] ]

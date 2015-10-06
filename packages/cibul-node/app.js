@@ -73,13 +73,14 @@ module.exports = function( enabledTypes, cb ) {
         require( './newsletter/front' )( '/:slug/newsletters' ),
         require( './general/front' )( '' ),
         require( './search/front' )( '' ),
+        require( './event/form.back' )( '' ),
         require( './event/front' )( '' ),
         require( './event/actions.front' )( '' ),
         require( './event/back' )( '' ),
+        require( './auth/facebook.front' )( '' ),
+        require( './auth/twitter.front' )( '' ),
+        require( './auth/google.front' )( '' ),
         require( './auth/local.front' )( '' ),
-        require( './auth/facebook.front' )( '/facebook' ),
-        require( './auth/twitter.front' )( '/twitter' ),
-        require( './auth/google.front' )( '/google' ),
         require( './auth/reset.front' )( '/password' ),
         require( './agenda/stakeholders.back' )( '/:slug/admin' ),
         require( './agenda/emailstrategie.back' )( '/:slug/admin/emailstrategie' ),
@@ -91,7 +92,8 @@ module.exports = function( enabledTypes, cb ) {
         require( './agenda_bridges/back' )( '/:slug/admin/services'),
         require( './agenda/exports.front' )( '/agendas/:uid' ),
         require( './agenda/exports.back' )( '/agendas/:uid/admin' ),
-        require( './agenda/groupActions.back' )( '/agendas/:uid/admin' )
+        require( './agenda/groupActions.back' )( '/agendas/:uid/admin' ),
+        require( './legacy/back' )( '/legacy' )
       ]
     };
 

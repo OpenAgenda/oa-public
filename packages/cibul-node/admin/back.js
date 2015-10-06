@@ -24,7 +24,7 @@ model = cmn.getCibulModel(),
 
 adminSvc = require( '../services/admin/admin' ),
 
-userSvc = require( '../services/user/user' ),
+userSvc = require( '../services/user' ),
 
 routes = {
   adminIndex: [ 'get', '/', index ],

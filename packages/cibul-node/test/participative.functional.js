@@ -60,7 +60,7 @@ describe( 'participative agenda', function() {
 
   });
 
-  it( 'click on add button redirects to signin', function( done ) {
+  it( 'click on add button redirects to agenda signup', function( done ) {
 
     this.timeout( 10000 );
 
@@ -70,7 +70,7 @@ describe( 'participative agenda', function() {
 
     .then( function() {
 
-      browser.location.pathname.should.equal( '/signin' );
+      browser.location.pathname.should.equal( '/a-participative-agenda/signup' );
 
     })
 
@@ -78,25 +78,7 @@ describe( 'participative agenda', function() {
 
   } );
 
-  it( 'click on add button adds redirect parameter for origin', function( done ) {
-
-    this.timeout( 10000 );
-
-    browser.visit( '/' + agenda.slug )
-
-    .then( _clickLink( browser, '#add-event' ) )
-
-    .then( function() {
-
-      _b64Decode(browser.location.href.split( '?redirect=' )[ 1 ] )
-
-      .should.equal( 'https://d.openagenda.com/frontend_test.php/a-participative-agenda/addevent' );
-
-    })
-
-    .done( done, _err );
-
-  } );
+ 
 
   it( 'signed in user clicks on add button reaches add event page', function( done ) {
 

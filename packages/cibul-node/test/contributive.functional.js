@@ -350,7 +350,7 @@ describe( 'contributive agenda', function() {
 
     .then( function() {
 
-      browser.location.pathname.should.equal( '/frontend_test.php/a-contributive-agenda/addevent/signup' );
+      browser.location.pathname.should.equal( '/frontend_test.php/a-contributive-agenda/addevent/info' );
 
     })
 

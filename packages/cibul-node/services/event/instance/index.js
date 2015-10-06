@@ -4,13 +4,15 @@ var model = require( '../../model' ),
 
 state = require( './state' ),
 
+custom = require( './custom' ),
+
 dispatcher = require( './dispatcher' ),
 
 utils = require( '../../../lib/utils' ),
 
 config = require( '../../../config' ),
 
-imageSvc = require( '../../image/image' ),
+imageSvc = require( '../../image' ),
 
 s3Svc = require( '../../file/s3' ),
 
@@ -34,6 +36,13 @@ module.exports = function( data ) {
     'setState',
     'getState',
     'setOnStateChange'
+  ] );
+
+  custom( svcInstance, instance, [
+    'loadAgendaCustomContext', // load agenda context
+    'setCustomImage',          // process custom image upload
+    'unsetCustomImage',        // take a wild guess
+    'saveCustomImage'          // switch custom image from tmp store to permanent
   ] );
 
   svcInstance.setOnStateChange( dsp.stateChange );

@@ -10,7 +10,7 @@ levenshtein = require( 'fast-levenshtein' ),
 
 lib = require( '../../lib/lib' ),
 
-imageSvc = require( '../image/image' ),
+imageSvc = require( '../image' ),
 
 s3Svc = require( '../file/s3' ),
 

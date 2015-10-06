@@ -2,7 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 
-//require( 'debug' ).enable( '*' );
+// require( 'debug' ).enable( 'services/file/s3' );
 
 var should = require( 'should' ),
 
@@ -16,7 +16,9 @@ filePath2 = __dirname + '/testfiletoupload2.txt',
 
 srcPath = __dirname + '/src1.txt',
 
-srcPath2 = __dirname + '/src2.txt';
+srcPath2 = __dirname + '/src2.txt',
+
+config = require( '../../../config' );
 
 describe( 's3 store', function() {
 
@@ -125,6 +127,26 @@ describe( 's3 store', function() {
 
     });
 
-  } )
+  } );
+
+  it( 'should transfer file from one bucket to the next', ( done ) => {
+
+    s3Svc.store( filePath, ( err ) => {
+
+      s3Svc.transfer( config.aws.bucket, filePath.split('/').pop(), config.aws.tmpBucket, filePath2.split('/').pop(), ( err ) => {
+
+        s3Svc.exists( config.aws.tmpBucketPath + filePath2.split('/').pop(), ( err, exists ) => {
+
+          exists.should.equal( true );
+
+          done();
+
+        } );
+
+      } );
+
+    });
+
+  } );
 
 });

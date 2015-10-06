@@ -93,8 +93,10 @@ config = {
       secretAccessKey: 'HXK3zbccKFRWrJtpK/Kkqgz1+HNP57f3icQq9GwG',
       region: 'eu-west-1',
       imageBucketPath: 'https://cibul.s3.amazonaws.com/',
+      tmpBucketPath: 'https://cibultmp.s3.amazonaws.com/',
       staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/',
-      bucket: 'cibul'
+      bucket: 'cibul',
+      tmpBucket: 'cibultmp'
     },
     mailjet: {
       apiKey: '8c200831a70d4f391bd697fa3cbca6a3',
@@ -361,8 +363,10 @@ config = {
       secretAccessKey: 'HXK3zbccKFRWrJtpK/Kkqgz1+HNP57f3icQq9GwG',
       region: 'eu-west-1',
       imageBucketPath: 'https://cibuldev.s3.amazonaws.com/',
+      tmpBucketPath: 'https://cibuldevtmp.s3.amazonaws.com/',
       staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/',
-      bucket: 'cibuldev'
+      bucket: 'cibuldev',
+      tmpBucket: 'cibuldevtmp'
     },
     bridges: {
       swapcard: {
@@ -381,7 +385,7 @@ config = {
     mainChannel: 'maintest',
     logNameSpaces: false,
     logEntriesToken: false,
-    //logNameSpaces: 'oa:*',
+    logNameSpaces: false,
     root: 'https://d.openagenda.com',
     domain: 'd.openagenda.com',
     db: {
@@ -441,9 +445,11 @@ config = {
       accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
       secretAccessKey: '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',
       region: 'eu-west-1',
+      tmpBucketPath: 'https://cibultesttmp.s3.amazonaws.com/',
       imageBucketPath: 'https://cibultest.s3.amazonaws.com/',
       staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/',
-      bucket: 'cibultest'
+      bucket: 'cibultest',   
+      tmpBucket: 'cibultesttmp'
     },
   },
   

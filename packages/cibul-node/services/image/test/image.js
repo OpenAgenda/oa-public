@@ -6,7 +6,7 @@ process.env.NODE_ENV = 'test';
 
 var should = require( 'should' ),
 
-imageSvc = require( '../image' ),
+imageSvc = require( '../' ),
 
 fs = require( 'fs' ),
 

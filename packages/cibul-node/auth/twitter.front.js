@@ -8,7 +8,7 @@ config = require( '../config' ),
 
 lib = require( '../lib/lib' ),
 
-userSvc = require( '../services/user/user' ),
+userSvc = require( '../services/user' ),
 
 pLib = require( './lib/passport' ),
 
@@ -18,13 +18,19 @@ deepExtend = require( 'deep-extend' ),
 
 genUrl = require( '../services/genUrl' ),
 
+agendaSvc = require( '../services/agenda' ),
+
 w = require( 'when' ),
 
 routes = {
-  twitterSignin: [ 'get', '/signin', signin ],
-  twitterSigninCallback: [ 'get', '/signin/callback', signinCallback ],
-  twitterSignup: [ 'get', '/signup', signup ],
-  twitterSignupCallback: [ 'get', '/signup/callback', signupCallback ]
+  twitterSignin: [ 'get', '/twitter/signin', signin ],
+  agendaTwitterSignin: [ 'get', '/:slug/twitter/signin', signin ],
+  twitterSigninCallback: [ 'get', '/twitter/signin/callback', auth.serviceCallback( _processSignin ) ],
+  twitterSignup: [ 'get', '/twitter/signup', signup ],
+  agendaTwitterSignup: [ 'get', '/:slug/twitter/signup', signup ],
+  twitterEmail: [ 'get', '/twitter/email', email ],
+  agendaTwitterEmail: [ 'get', '/:slug/twitter/email', email ],
+  twitterSignupCallback: [ 'get', '/twitter/signup/callback', auth.serviceCallback( _processSignup ) ]
 };
 
 
@@ -34,7 +40,8 @@ module.exports = function( path ) {
 
   router.pre( [
     cmn.flashSetter,
-    cmn.loadBaseData( auth.layoutData ),
+    agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
+    cmn.loadBaseData( auth.layoutData, 'oa.css' ),
     cmn.loadSession,
     cmn.requireUnlogged
   ] );
@@ -81,7 +88,7 @@ function load( router, path ) {
 
 function signin( req, res, next ) {
 
-  auth.saveOptionals( req, res );
+  auth.saveOptionals( req, res, req.agenda ? { agenda: req.agenda.slug } : {} );
 
   pLib.authenticate( 'twitter-signin', {
     callbackURL: genUrl.abs( 'twitterSigninCallback' )
@@ -91,43 +98,63 @@ function signin( req, res, next ) {
 
 function signup( req, res, next ) {
 
+  var additional = {};
+
   if ( req.query.email ) {
 
     req.log( 'retrieved email %s', req.query.email );
 
-    auth.saveOptionals( req, res, { email: req.query.email } );
-
-    pLib.authenticate( 'twitter-signup', {
-      callbackURL: genUrl.abs( 'twitterSignupCallback' )
-    })( req, res, next );
-
-  } else {
-
-    auth.renderEmail( req, res, { uri: 'twitterSignup' } );
+    additional.email = req.query.email;
 
   }
 
+  if ( req.agenda ) {
+
+    additional.agenda = req.agenda.slug;
+
+  }
+
+  auth.saveOptionals( req, res, additional );
+
+  pLib.authenticate( 'twitter-signup', {
+    callbackURL: genUrl.abs( 'twitterSignupCallback' )
+  })( req, res, next );
+
 }
 
-function signinCallback( req, res, next ) {
 
-  auth.restoreOptionals( req, res );
+function email( req, res, next ) {
+
+  auth.renderEmail( req, res, {
+    optionals: auth.loadOptionals( req ),
+    uri: req.agenda ? 'agendaTwitterSignup' : 'twitterSignup'
+  } );
+
+}
+
+
+function _processSignin( req, res, next ) {
+
+  req.log( 'processing signin%s', req.agenda ? ' with agenda ' + req.agenda.slug : '' );
 
   pLib.authenticate( 'twitter-signin', {}, function( err, profile, data ) {
 
-    w( { err: err, profile: profile, req: req, res: res } )
+    w( {
+      err: err,
+      profile: profile,
+      req: req,
+      res: res
+    } )
 
     .then( auth.attemptAuth )
 
     .then( auth.ifUserLoaded( false, _attemptUsernameLoad ) )
 
-    .then( auth.ifUserLoaded( true, auth.ifUserActivated( false, auth.redirectToResend ) ) )
+    .then( auth.ifUserLoaded( true, auth.ifUserActivated( false, _resendActivationToken ) ) )
 
     .then( auth.ifUserLoaded( false, _attemptTwitterCreate ))
 
     .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.errors.defaultMessage ) ) )
-
-    .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( false, auth.redirectToComplete ) ) ) )
 
     .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( true, auth.signin ) ) ) )
 
@@ -144,9 +171,9 @@ function signinCallback( req, res, next ) {
 }
 
 
-function signupCallback( req, res, next ) {
+function _processSignup( req, res, next ) {
 
-  auth.restoreOptionals( req, res );
+  req.log( 'processing signup%s', req.agenda ? ' with agenda ' + req.agenda.slug : '' );
 
   pLib.authenticate( 'twitter-signup', {}, function( err, profile, data ) {
 
@@ -156,7 +183,7 @@ function signupCallback( req, res, next ) {
 
     .then( auth.ifUserLoaded( false, _attemptTwitterCreate ) )
 
-    .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( false, auth.redirectToComplete ) ) ) )
+    .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( false, _resendActivationToken ) ) ) )
 
     .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( true, auth.signin ) ) ) )
 
@@ -168,15 +195,33 @@ function signupCallback( req, res, next ) {
 
 }
 
-function _attemptTwitterCreate( values ) {
+
+function _resendActivationToken( values ) {
+
+  values.req.log( 'resend activation token' )
+
+  if ( values.req.agenda ) values.agenda = values.req.agenda;
 
   return w( values )
 
-  .then( _renderEmailFormIfNoProfileEmail( values ) )
+  .then( userSvc.activation.createAndSend )
 
-  .then( auth.attemptCreate )
+  .then( auth.redirectToComplete );
 
-  .then( auth.ifUserLoaded( false, auth.errors.existingEmail ) );
+}
+
+
+function _attemptTwitterCreate( values ) {
+
+  values.req.log( 'attempting twitter create' );
+
+  return w( values )
+
+  .then( _redirectEmailFormIfNoProfileEmail )
+
+  .then( auth.ifUnresolved( auth.attemptCreate ) )
+
+  .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.errors.existingEmail ) ) );
 
 }
 
@@ -228,13 +273,21 @@ function _attemptUsernameLoad( values ) {
 }
 
 
-function _renderEmailFormIfNoProfileEmail( values ) {
+function _redirectEmailFormIfNoProfileEmail( values ) {
+
+  values.req.log( 'redirect if no email is found in query' );
+
+  var redirectUrl = values.req.genUrl( values.req.agenda ? 'agendaTwitterEmail' : 'twitterEmail', [ 
+    values.req.query, values.req.agenda ? { slug: values.req.agenda.slug } : {} 
+  ] );
 
   if ( !values.req.query.email ) {
 
-    values.data = { uri: 'twitterSignup' };
+    values.req.log( 'no email is set in query' );
 
-    return auth.renderEmail( lib.extend( values, { uri: 'twitterSignup' } ) );
+    values.res.redirect( 302, redirectUrl );
+
+    values.resolved = true;
 
   }
 

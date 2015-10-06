@@ -110,7 +110,7 @@ describe( 'signup', function() {
   } );
 
 
-  it ( 'erroneous email', function( done ) {
+  it( 'erroneous email', function( done ) {
 
     browser.visit( '/signup', function( err ) {
 

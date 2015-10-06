@@ -27,6 +27,7 @@ exports.checkCredential = checkCredential;        // middleware. check that requ
 exports.flashSetter = flashSetter;                // middleware. set a flash prior to redirect
 exports.checkAdministrator = checkAdministrator;  // middleware. checks that logged user is administrator of loaded agenda
 exports.checkModerator = checkModerator;
+exports.checkContributor = checkContributor;
 exports.checkAdminOrModerator = checkAdminOrModerator;
 
 
@@ -146,6 +147,8 @@ function loadEvent( paramName, fieldName ) {
 
     }
 
+    log( 'retrieving event for %s', JSON.stringify( identifier ) );
+
     wn.call( model.events().get, identifiers )
 
     .then( function( data ) {
@@ -217,6 +220,29 @@ function checkModerator( req, res, next ) {
   .catch( function( err ) {
 
     errorResponse( req, res, err );
+
+  } );
+
+}
+
+
+function checkContributor( req, res, next ) {
+
+  async.parallel( [
+    async.apply( req.agenda.isAdministrator, { id: req.session.userId } ),
+    async.apply( req.agenda.isModerator, { id: req.session.userId } ),
+    async.apply( req.agenda.isContributor, { id: req.session.userId } )
+  ], ( err, results ) => {
+
+    if ( err ) return next( err );
+
+    if ( !results.filter( ( r ) => { return r; } ).length ) {
+
+      return next( { code: 403 } );
+
+    }
+
+    next();
 
   } );
 

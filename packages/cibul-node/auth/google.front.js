@@ -14,13 +14,17 @@ auth = require( './lib/auth' )( 'google' ),
 
 genUrl = require( '../services/genUrl' ),
 
+agendaSvc = require( '../services/agenda' ),
+
 w = require( 'when' ),
 
 routes = {
-  googleSignin: [ 'get', '/signin', signin ],
-  googleSigninCallback: [ 'get', '/signin/callback', signinCallback ],
-  googleSignup: [ 'get', '/signup', signup ],
-  googleSignupCallback: [ 'get', '/signup/callback', signupCallback ]
+  googleSignin: [ 'get', '/google/signin', signin ],
+  agendaGoogleSignin: [ 'get', '/:slug/google/signin', signin ],
+  googleSigninCallback: [ 'get', '/google/signin/callback', auth.serviceCallback( auth.process( 'google', 'signin' ) ) ],
+  googleSignup: [ 'get', '/google/signup', signup ],
+  agendaGoogleSignup: [ 'get', '/:slug/google/signup', signup ],
+  googleSignupCallback: [ 'get', '/google/signup/callback', auth.serviceCallback( auth.process( 'google', 'signup' ) ) ]
 };
 
 module.exports = function( path ) {
@@ -29,7 +33,8 @@ module.exports = function( path ) {
 
   router.pre( [
     cmn.flashSetter,
-    cmn.loadBaseData( auth.layoutData ),
+    agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
+    cmn.loadBaseData( auth.layoutData, 'oa.css' ),
     cmn.loadSession,
     cmn.requireUnlogged
   ] );
@@ -77,7 +82,7 @@ function load( router, path ) {
 
 function signin( req, res, next ) {
 
-  auth.saveOptionals( req, res );
+  auth.saveOptionals( req, res, req.agenda ? { agenda: req.agenda.slug } : {} );
 
   pLib.authenticate( 'google-signin', {
     scope: 'email', 
@@ -88,7 +93,7 @@ function signin( req, res, next ) {
 
 function signup( req, res, next ) {
 
-  auth.saveOptionals( req, res );
+  auth.saveOptionals( req, res, req.agenda ? { agenda: req.agenda.slug } : {} );
 
   pLib.authenticate( 'google-signup', {
     scope: 'email', 
@@ -97,13 +102,16 @@ function signup( req, res, next ) {
 
 }
 
-function signinCallback( req, res, next ) {
-
-  auth.restoreOptionals( req, res );
+function _processSignin( req, res, next ) {
 
   pLib.authenticate( 'google-signin', {}, function( err, profile, data ) {
 
-    w( { err: err, profile: profile, req: req, res: res })
+    w( {
+      err: err,
+      profile: profile,
+      req: req,
+      res: res
+    })
 
     .then( auth.attemptAuth )
 
@@ -124,13 +132,17 @@ function signinCallback( req, res, next ) {
 }
 
 
-function signupCallback( req, res, next ) {
-
-  auth.restoreOptionals( req, res );
+function _processSignup( req, res, next ) {
 
   pLib.authenticate( 'google-signup', {}, function( err, profile, data ) {
 
-    w( { req: req, res: res, err: err, profile: profile, data: data } )
+    w( {
+      req: req,
+      res: res,
+      err: err,
+      profile: profile,
+      data: data 
+    } )
 
     .then( auth.attemptCreate )
 

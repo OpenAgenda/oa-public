@@ -32,7 +32,10 @@ module.exports = function( data ) {
 
   svcInstance = utils.extend( {}, instance, {
     addEvent: addEvent,
-    removeEvent: removeEvent
+    removeEvent: removeEvent,
+    events: {
+      new: newEvent
+    }
   }),
 
   dsp = dispatcher( svcInstance, instance );
@@ -89,6 +92,15 @@ module.exports = function( data ) {
       
     } );
 
+  }
+
+  function newEvent( cb ) {
+
+    var newEventInst = eventSvc.instanciate( instance.events.new() );
+
+    if ( cb ) cb( null, newEventInst );
+
+    return newEventInst;
 
   }
 

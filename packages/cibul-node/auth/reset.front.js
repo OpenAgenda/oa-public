@@ -8,7 +8,7 @@ config = require( '../config' ),
 
 w = require( 'when' ),
 
-userSvc = require( '../services/user/user' ),
+userSvc = require( '../services/user' ),
 
 routes = {
   lostPassword: [ 'get', '/lost', lostPassword ],

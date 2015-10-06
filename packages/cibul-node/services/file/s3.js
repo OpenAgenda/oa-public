@@ -1,10 +1,10 @@
 "use strict";
 
-var log = require( 'logger' )( 's3 service' ),
+var log = require( 'logger' )( 'services/file/s3' ),
 
 config = require( '../../config' ),
 
-lib = require( '../../lib/lib' ),
+utils = require( 'utils' ),
 
 s3 = require( 's3' ),
 
@@ -17,10 +17,42 @@ async = require( 'async' );
 module.exports = {
   store: store,
   remove: remove,
+  transfer: transfer,
   exists: exists
 }
 
+function transfer( srcBucket, srcName, dstBucket, dstName, cb ) {
+
+  log( 'transfering %s/%s to %s/%s', srcBucket, srcName, dstBucket, dstName );
+
+  var client = _getClient(), replied = false,
+
+  uploader = client.moveObject({
+    CopySource: srcBucket + '/' + srcName,
+    Bucket: dstBucket,
+    Key: dstName,
+    ACL: 'public-read'
+  });
+
+  uploader.on( 'error', ( err ) => {
+
+    if ( err ) cb( err );
+
+    replied = true;
+
+  } );
+  
+  uploader.on( 'end', () => {
+
+    if ( !replied ) cb();
+
+  } );
+
+}
+
 function store( file, options, cb ) {
+
+  log( 'storing %s', JSON.stringify( file ) )
 
   var params, client, uploader, error;
 
@@ -32,7 +64,7 @@ function store( file, options, cb ) {
 
   }
 
-  if ( lib.isArray( file ) ) {
+  if ( utils.isArray( file ) ) {
 
     async.each( file, function( f, ecb ) {
 
@@ -42,22 +74,25 @@ function store( file, options, cb ) {
 
   } else {
 
-    params = lib.extend({
-      clearOrigin: true
+    params = utils.extend({
+      clearOrigin: true,
+      bucket: config.aws.bucket
     }, options ? options : {} );
+
+    log( 'storing %s in bucket %s', file, params.bucket );
 
     client = _getClient();
 
     uploader = client.uploadFile({
       localFile: file,
       s3Params: {
-        Bucket: config.aws.bucket,
+        Bucket: params.bucket,
         Key: file.split('/').pop(),
         ACL: 'public-read'
       }
     });
 
-    uploader.on('error', function( err ) {
+    uploader.on( 'error', function( err ) {
 
       error = err;
 
@@ -71,7 +106,7 @@ function store( file, options, cb ) {
 
         if ( !params.clearOrigin ) {
 
-          cb();
+          cb( null );
 
         } else {
 
@@ -79,7 +114,7 @@ function store( file, options, cb ) {
 
             if ( err ) log( 'error', 'could not delete file %s', file );
 
-            cb();
+            cb( null );
 
           } );
 
@@ -94,11 +129,23 @@ function store( file, options, cb ) {
 }
 
 
-function remove( filename, cb ) {
+function remove( filename, options, cb ) {
 
-  var client, operation, error;
+  var client, operation, error, params;
 
-  if ( !lib.isArray( filename ) ) {
+  if ( arguments.length == 2 ) {
+
+    cb = options;
+
+    options = {};
+
+  }
+
+  params = utils.extend( {
+    bucket: config.aws.bucket
+  }, options );
+
+  if ( !utils.isArray( filename ) ) {
 
     filename = [ filename ];
 
@@ -107,7 +154,7 @@ function remove( filename, cb ) {
   client = _getClient();
 
   operation = client.deleteObjects( {
-    Bucket: config.aws.bucket,
+    Bucket: params.bucket,
     Delete: {
       Objects: filename.map( function( f ) {
 
@@ -121,24 +168,40 @@ function remove( filename, cb ) {
 
     error = err;
 
-    cb( 'unable to upload:' + err );
+    cb( 'unable to remove:' + err );
 
   } );
 
-  operation.on( 'end', cb );
+  operation.on( 'end', function() { 
+
+    if ( !error ) cb( null );
+
+  } );
 
 }
 
 
 function exists( filename, cb ) {
 
-  http.get( s3.getPublicUrlHttp( config.aws.bucket, filename ) , function(res) {
+  var path;
+
+  if ( filename.indexOf( '//' ) !== -1 ) {
+
+    path = filename.replace( /^http(s|):/, 'http:' );
+
+  } else {
+
+    path = s3.getPublicUrlHttp( config.aws.bucket, filename );
+
+  }
+
+  http.get( path , function( res ) {
 
     cb( null, res.statusCode == 200 );
 
   })
 
-  .on('error', cb );
+  .on( 'error', () => { cb( null ); } );
 
 }
 
