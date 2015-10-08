@@ -11,7 +11,8 @@ module.exports = React.createClass( {
   getInitialState: function() {
 
     return {
-      displaySelect: false
+      displaySelect: false,
+      sortedLanguageCodes: this.sortLanguageCodes()
     }
 
   },
@@ -26,11 +27,36 @@ module.exports = React.createClass( {
 
   },
 
+  sortLanguageCodes: function() {
+
+    return languages.getAllLanguageCode().map( function( c ) { 
+
+      return {
+        code: c,
+        label: languages.getLanguageInfo( c ).nativeName
+      }
+
+    }).sort( function( a, b ) {
+
+      if (a.label < b.label ) return -1;
+
+      if ( a.label > b.label ) return 1;
+
+      return 0;
+
+    }).map( function( a ) {
+
+      return a.code;
+
+    } );
+
+  },
+
   getRemainingLanguages: function() {
 
     var self = this;
 
-    return languages.getAllLanguageCode().filter( function( c ) {
+    return this.state.sortedLanguageCodes.filter( function( c ) {
 
       return self.props.languages.indexOf( c ) == -1;
 
