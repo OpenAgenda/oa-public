@@ -82,7 +82,7 @@ module.exports = function( params ) {
         _addButton('update');
         if (draft && params.allowDraft && params.publish) _addButton('publish');
 
-        _addButton('remove');
+        //_addButton('remove');
       }
 
     });
