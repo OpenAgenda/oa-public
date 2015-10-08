@@ -10,6 +10,8 @@ config = require( '../../config' ),
 
 model = require( '../model' ),
 
+agendaSvc = require( '../agenda' ),
+
 async = require( 'async' ),
 
 w = require( 'when' ),
@@ -270,15 +272,11 @@ function _loadInvitationAgendas( invitations ) {
 
     async.each( invitations, function( invitation, ecb ) {
 
-      model.reviews().get( { id: invitation.reviewId }, function( err, agenda ) {
+      agendaSvc.get( { id: invitation.reviewId }, function( err, agenda ) {
 
         if ( err ) return ecb( err );
 
-        if ( agenda ) {
-
-          invitation.agenda = model.reviews().instance( agenda );
-          
-        }
+        invitation.agenda = agenda;
 
         ecb();
 
@@ -356,13 +354,13 @@ function _loadAgenda( values ) {
 
   return w.promise( function( resolve, reject ) {
 
-    model.agendas().get( { id: values.invitation.reviewId }, function( err, agenda ) {
+    agendaSvc.get( { id: values.invitation.reviewId }, function( err, agenda ) {
 
       if ( err ) return reject( err );
 
       if ( !agenda ) return reject( 'agenda was not found' );
 
-      values.agenda = model.agendas().instance( agenda );
+      values.agenda = agenda;
 
       resolve( values );
 

@@ -33,9 +33,13 @@ module.exports = function( data ) {
   svcInstance = utils.extend( {}, instance, {
     addEvent: addEvent,
     removeEvent: removeEvent,
+    setContributor: _stakeholderSetter( 'setContributor' ),
+    setModerator: _stakeholderSetter( 'setModerator' ),
+    setAdministrator: _stakeholderSetter( 'setAdministrator' ),
     events: {
       new: newEvent
-    }
+    },
+    refresh: refresh
   }),
 
   dsp = dispatcher( svcInstance, instance );
@@ -72,6 +76,27 @@ module.exports = function( data ) {
   return cache( 'agenda', svcInstance, [], [ 'addEvent', 'removeEvent' ] );
 
 
+  function refresh( cb ) {
+
+    instance.save( { updatedAt: new Date() }, ( err ) => {
+
+      if ( err ) {
+
+        log( 'error', 'could not clear timestamp of agenda %s', agenda.uid );
+
+      } else {
+
+        dsp.onRefresh();
+
+      }
+
+      if ( cb ) return cb( err );
+
+    } );
+    
+  }
+
+
   function addEvent( event, stakeholder, cb ) {
 
     instance.isStakeholder( stakeholder, function( err, is ) {
@@ -104,6 +129,7 @@ module.exports = function( data ) {
 
   }
 
+
   function removeEvent( event, stakeholder, cb ) {
 
     if ( arguments.length == 3 ) {
@@ -131,6 +157,29 @@ module.exports = function( data ) {
       cb();
 
     });
+
+  }
+
+
+  /**
+   * proxy method to db instance; does a little refresh on the way
+   */
+
+  function _stakeholderSetter( methodName ) {
+
+    return ( user, cb ) => {
+
+      instance[ methodName ]( user, ( err ) => {
+
+        if ( err ) return cb( err );
+
+        dsp.onRefresh();
+
+        cb();
+
+      });
+
+    };
 
   }
   

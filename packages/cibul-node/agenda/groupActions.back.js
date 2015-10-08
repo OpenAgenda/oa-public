@@ -29,7 +29,7 @@ module.exports = function( path ) {
     agendaSvc.mw.load( 'uid' ),
     cmn.loadSession,
     cmn.flashSetter,
-    cmn.checkAdministrator()
+    cmn.checkAdminOrModerator
   ] );
 
   return {

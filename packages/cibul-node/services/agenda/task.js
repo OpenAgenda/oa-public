@@ -58,7 +58,7 @@ function _onAgendaActivity( action ) {
 
     }
 
-    _clearTimestamp( agenda );
+    agenda.refresh();
 
   });
 
@@ -87,7 +87,7 @@ function _onEventActivity( action ) {
 
       }
 
-      _clearTimestamp( agenda );
+      agenda.refresh();
 
       ecb();
 
@@ -101,16 +101,6 @@ function _onEventActivity( action ) {
 
 }
 
-
-function _clearTimestamp( agenda ) {
-
-  agenda.save( { updatedAt: new Date() }, function( err ) {
-
-    if ( err ) log( 'error', 'could not clear timestamp of agenda %s', agenda.uid );
-
-  } );
-
-}
 
 function _emailStrategie( agenda, event ) {
 

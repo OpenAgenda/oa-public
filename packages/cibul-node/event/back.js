@@ -24,7 +24,7 @@ routes = {
   agendaEventChangeState: [ 'get', '/:slug/events/:eventSlug/state/:type', [
     agendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
-    cmn.checkAdministrator(),
+    cmn.checkAdminOrModerator,
     _checkAuthorizedChanges( [ STATETYPES.VALIDATED, STATETYPES.NOTVALIDATED, STATETYPES.PUBLISHED ] ),
     _changeState,
     _xhrResponse,
@@ -34,7 +34,7 @@ routes = {
   agendaEventChangeFeatured: [ 'get', '/:slug/events/:eventSlug/featured/:type', [
     agendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
-    cmn.checkAdministrator(),
+    cmn.checkAdminOrModerator,
     _checkAuthorizedChanges( [ 'featured', 'notfeatured' ] ),
     _changeFeatured,
     _redirect
@@ -43,7 +43,7 @@ routes = {
   agendaEventPrivateCustomData: [ 'get', '/agendas/:uid/events/:eventUid/custom/private', [
     agendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
-    cmn.checkAdministrator(),
+    cmn.checkAdminOrModerator,
     privateCustomData
   ] ]
 
