@@ -1,7 +1,7 @@
 <div id="admin-bar" class="js_admin_controls">
   <ul class="admin-list"><!--
 <% if ( !loner ) { %>
-    --><li class="admin-item w25 js_admin_item js_role_agenda_admin">
+    --><li class="admin-item w25 js_admin_item js_role_agenda_admin js_role_agenda_moderator">
       <a class="admin-link" data-href="<%= genUrl( 'agendaAdminShow', { slug: slug } ) %>" rel="nofollow">
         <i class="fa fa-list"></i>
         <span><%= __( 'Manage agenda' ) %></span>
@@ -36,7 +36,7 @@
       <span class="admin-selected"><%= __( 'Actions' ) %></span>
       <ul class="list-group js_dropdown_menu">
 <% if ( !loner ) { %>
-        <li class="list-group-item js_admin_item js_role_agenda_admin">
+        <li class="list-group-item js_admin_item js_role_agenda_admin js_role_agenda_moderator">
 <% if ( event.featured ) { %>
           <a class="item starify active" href="<%= genUrl( 'agendaEventChangeFeatured', { slug: slug, eventSlug: event.slug, type: 'notfeatured' } ) %>" rel="nofollow"><span><%= __( 'Featured' ) %></span><span class="hovered"><%= __('Remove from featured') %></span><i class="fa fa-star-o"></i><i class="fa fa-star"></i></a>
 <% } else { %>

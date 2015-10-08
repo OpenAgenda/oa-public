@@ -43,13 +43,13 @@
         "label" : "To complete",
         "type" : 0,
         "agendaOnly" : true,
-        "classNames" : "js_role_agenda_admin"
+        "classNames" : "js_role_agenda_admin js_role_agenda_moderator"
       },
       "controlled" : {
         "label" : "Ready for publishing",
         "type" : 1,
         "agendaOnly" : true,
-        "classNames" : "js_role_agenda_admin"
+        "classNames" : "js_role_agenda_admin js_role_agenda_moderator"
       },
       "published" : {
         "label" : "Published",

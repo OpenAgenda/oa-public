@@ -117,9 +117,18 @@
   }
 
   @media (min-width: 768px) {
+
     .avatar-container, .action-container, .title-container {
+
       display: inline-block;
       float: none;
+
+    }
+
+    .title-container {
+
+      p { max-width: 5OOpx; }
+
     }
 
     .agenda-container {

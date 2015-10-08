@@ -68,12 +68,12 @@ var widget = function( elem, options ) {
 
     log( 'initing' );
 
+    _createElement();
+
     controller = options.register( wLib.interface( 'search', uid, {
       enable : enable,
       disable : disable
     } ) );
-
-    _createElement();
 
     oneWidgetReady = true;
 
