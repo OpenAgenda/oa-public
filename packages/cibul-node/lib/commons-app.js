@@ -189,7 +189,10 @@ function checkAdministrator( options ) {
 
     .then( function( isAdmin ) {
 
-      if ( !isAdmin ) throw { message : 'You do not have access to the administration of this agenda.', code: 403 };
+      if ( !isAdmin ) throw {
+        message : 'You do not have access to the administration of this agenda.',
+        code: 403
+      };
 
       next();
 
@@ -575,34 +578,61 @@ function isLogged( req ) {
  * redirects to authShow if user is not logged
  */
 
-function requireLogged( req, res, next ) {
+function requireLogged( options ) {
 
-  if ( isLogged( req ) ) {
+  var params = Object.assign( {
+    redirect: false,
+    redirectParams: []
+  }, options || {} );
 
-    next();
+  return ( req, res, next ) => {
 
-    return;
+    if ( isLogged( req ) ) {
 
-  }
+      next();
 
+      return;
 
-  // is not logged, redirect to login screen
+    }
 
-  if ( req.xhr ) {
+    // is not logged, redirect to login screen
 
-    renderJson( {
-      success: false
-    } );
+    if ( req.xhr ) {
 
-  } else {
+      renderJson( {
+        success: false
+      } );
 
-    var currentResource = new Buffer( req.originalUrl );
+    } else {
 
-    res.redirect( 302, req.genUrl( 'authShow', { redirect: currentResource.toString( 'base64' ) } ) );
+      let redirectTo;
+
+      if ( !params.redirect ) {
+
+        redirectTo = req.genUrl( 'authShow', { redirect: ( new Buffer( req.originalUrl ) ).toString( 'base64' ) } );
+
+      } else {
+
+        let redirectValues = {};
+
+        params.redirectParams.forEach( ( p ) => {
+
+          redirectValues[ p ] = req.params[ p ];
+
+        } );
+
+        redirectTo = req.genUrl( params.redirect, redirectValues );
+
+      }
+
+      res.redirect( 302, redirectTo );
+
+    }
 
   }
 
 }
+
 
 function requireUnlogged( req, res, next ) {
 

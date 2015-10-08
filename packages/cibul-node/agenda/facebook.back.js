@@ -43,7 +43,8 @@ module.exports = function( path ) {
 
   router.pre( [
     cmn.flashSetter,
-    cmn.loadSession
+    cmn.loadSession,
+    cmn.requireLogged( { redirect: 'agendaSignup', redirectParams: [ 'slug' ] } )
   ] );
 
   return {

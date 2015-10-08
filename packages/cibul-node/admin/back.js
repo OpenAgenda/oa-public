@@ -53,7 +53,7 @@ module.exports = function( path ) {
     cmn.flashSetter,
     cmn.loadBaseData(),
     cmn.loadSession,
-    cmn.requireLogged,
+    cmn.requireLogged(),
     cmn.requireAdmin
   ] );
 

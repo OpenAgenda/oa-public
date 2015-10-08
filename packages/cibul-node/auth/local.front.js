@@ -48,7 +48,7 @@ routes = {
   ] ],
 
   signout: [ 'get', '/signout', [
-    cmn.requireLogged,
+    cmn.requireLogged(),
     signout
   ] ],
   

@@ -33,9 +33,9 @@ module.exports = function( path ) {
     cmn.flashSetter,
     agendaSvc.mw.load( 'slug' ),
     cmn.loadSession,
+    cmn.requireLogged( { redirect: 'agendaSignup', redirectParams: [ 'slug' ] } ),
     agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData( _layoutData ),
-    cmn.requireLogged,
     cmn.checkAdministrator(),
     _loadService
   ] );

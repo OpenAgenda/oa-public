@@ -17,7 +17,7 @@ routes = {
   agendaActionShow: [ 'get', '/', actionShow ],
 
   agendaEventAdd: [ 'get', '/add/:eventUid', [
-    cmn.requireLogged,
+    cmn.requireLogged(),
     eventSvc.mw.load( 'eventUid', 'uid', { inAgendaContext: false } ),
     cmn.checkAdminOrModerator,
     _verifyAlreadyAdded,
@@ -25,7 +25,7 @@ routes = {
   ] ],
 
   agendaEventRemove: [ 'get', '/remove/:eventUid', [
-    cmn.requireLogged,
+    cmn.requireLogged(),
     eventSvc.mw.load( 'eventUid', 'uid' ),
     cmn.checkAdminOrModerator,
     eventRemove

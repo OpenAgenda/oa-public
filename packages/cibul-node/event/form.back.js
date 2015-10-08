@@ -37,7 +37,7 @@ module.exports = function( path ) {
   router.pre( [
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
     cmn.loadSession,
-    cmn.requireLogged,
+    cmn.requireLogged(),
     cmn.checkContributor,
     _checkField
   ] );

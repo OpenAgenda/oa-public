@@ -56,7 +56,7 @@ module.exports = function( path ) {
     cmn.flashSetter,
     cmn.loadSession,
     cmn.loadBaseData( _layoutData ),
-    cmn.requireLogged,
+    cmn.requireLogged(),
     cmn.checkCredential( 'newsletters' ),
     cmn.checkAdministrator()
   ] );
