@@ -64,41 +64,6 @@ du.asapReady( function() {
 } );
 
 
-du.addEvent( window, 'load', function() {
-
-  _init();
-
-  if ( typeof window.eh !== 'undefined' ) eh = window.eh;
-
-  if ( params.env == 'dev' || window.env == 'dev' ) debug.enable( '*' );
-
-  mobileMonitor( document, window, navigator, eh );
-
-  mobileMenu();
-
-  messageLinks( eh );
-
-  confirmMessage();
-
-  toggle();
-
-  flash();
-
-  cibulMessage();
-
-  headerProfile( params.profile );
-
-  du.forEach( hooks, function( hook ) {
-
-    hook( params );
-
-  });
-
-  ran = true;
-
-} );
-
-
 /**
  * provide hook for page specific script launchers
  * which are to be called when page is ready
@@ -131,6 +96,41 @@ window.asap = function( cb ) {
  */
 
 window.getSession = handleSession();
+
+
+asap( function() {
+
+  _init();
+
+  if ( typeof window.eh !== 'undefined' ) eh = window.eh;
+
+  if ( params.env == 'dev' || window.env == 'dev' ) debug.enable( '*' );
+
+  mobileMonitor( document, window, navigator, eh );
+
+  mobileMenu();
+
+  messageLinks( eh );
+
+  confirmMessage();
+
+  toggle();
+
+  flash();
+
+  cibulMessage();
+
+  headerProfile( params.profile );
+
+  du.forEach( hooks, function( hook ) {
+
+    hook( params );
+
+  });
+
+  ran = true;
+
+} );
 
 
 
