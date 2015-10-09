@@ -51,7 +51,27 @@ outdated( {
 
 du.asapReady( function() {
 
-  _init();
+  utils.extend( params, layout.getOptions( 'body' ) );
+
+  if ( typeof window.eh !== 'undefined' ) eh = window.eh;
+
+  if ( params.env == 'dev' || window.env == 'dev' ) debug.enable( '*' );
+
+  mobileMonitor( document, window, navigator, eh );
+
+  mobileMenu();
+
+  messageLinks( eh );
+
+  confirmMessage();
+
+  toggle();
+
+  flash();
+
+  cibulMessage();
+
+  headerProfile( params.profile );
 
   du.forEach( asaps, function( asapHook ) {
 
@@ -60,6 +80,19 @@ du.asapReady( function() {
   });
 
   asapRan = true;
+
+} );
+
+
+du.addEvent( window, 'load', function() {
+
+  du.forEach( hooks, function( hook ) {
+
+    hook( params );
+
+  });
+
+  ran = true;
 
 } );
 
@@ -96,53 +129,3 @@ window.asap = function( cb ) {
  */
 
 window.getSession = handleSession();
-
-
-asap( function() {
-
-  _init();
-
-  if ( typeof window.eh !== 'undefined' ) eh = window.eh;
-
-  if ( params.env == 'dev' || window.env == 'dev' ) debug.enable( '*' );
-
-  mobileMonitor( document, window, navigator, eh );
-
-  mobileMenu();
-
-  messageLinks( eh );
-
-  confirmMessage();
-
-  toggle();
-
-  flash();
-
-  cibulMessage();
-
-  headerProfile( params.profile );
-
-  du.forEach( hooks, function( hook ) {
-
-    hook( params );
-
-  });
-
-  ran = true;
-
-} );
-
-
-
-function _init() {
-
-  // if there is stuff there already, this are inited.
-  if ( utils.size( params ) ) return;
-
-  var options = layout.getOptions( 'body' );
-
-  utils.extend( params, options );
-
-  return options;
-
-}
