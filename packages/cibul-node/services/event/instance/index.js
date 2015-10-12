@@ -27,7 +27,8 @@ module.exports = function( data ) {
     getImage: _imageGetter( 'getImage' ),
     getThumbnail: _imageGetter( 'getThumbnail' ),
     getFullImage: _imageGetter( 'getFullImage' ),
-    remove: remove
+    remove: remove,
+    transferOwnership: transferOwnership
   }),
 
   dsp = dispatcher( svcInstance, instance );
@@ -106,6 +107,13 @@ module.exports = function( data ) {
       cb();
 
     });
+
+  }
+
+
+  function transferOwnership( userId, cb ) {
+
+    instance.save( { ownerId: userId }, cb );
 
   }
 

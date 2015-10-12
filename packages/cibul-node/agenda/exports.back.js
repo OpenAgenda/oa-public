@@ -15,6 +15,11 @@ routes = {
   agendaAdminCsvEvents: [ 'get', '/events.csv', [
     agendaSvc.mw.load( 'uid' ),
     agendaSvc.mw.buildCsv( true )
+  ] ],
+
+  agendaAdminXlsxEvents: [ 'get', '/events.xlsx', [
+    agendaSvc.mw.load( 'uid' ),
+    agendaSvc.mw.buildXlsx( true )
   ] ]
 
 };

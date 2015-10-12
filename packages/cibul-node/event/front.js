@@ -26,6 +26,7 @@ routes = {
     agendaSvc.mw.decorateEvent( false ),
     _formatSocialLinks,
     cmn.loadBaseData( eventSvc.mw.layoutData, 'oa.css' ),
+    _appendEventTransferCredential,
     agendaEventShow
   ] ],
 
@@ -376,6 +377,29 @@ function _formatCustomEmbedLinks( req, res, next ) {
   req.formatted.backLabel = i18n( 'back', req.lang );
 
   next();
+
+}
+
+
+function _appendEventTransferCredential( req, res, next ) {
+
+  req.baseData.hasOwnershipTransfer = false;
+
+  req.baseData.scriptParams.hasOwnershipTransfer = false;
+
+  if ( !req.session ) return next();
+
+  if ( req.session.userId !== req.event.ownerId ) return next();
+
+  req.agenda.hasCredential( 'eventTransfer', ( err, has ) => {
+
+    req.baseData.hasOwnershipTransfer = has;
+
+    req.baseData.scriptParams.hasOwnershipTransfer = has;
+
+    next();
+
+  } );
 
 }
 

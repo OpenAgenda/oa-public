@@ -10,6 +10,10 @@ agendaSvc = require( '../services/agenda' ),
 
 STATETYPES = require( '../services/model' ).events().STATETYPES,
 
+validator = require( 'validator' ),
+
+userSvc = require( '../services/user' ),
+
 routes = {
 
   eventChangeState: [ 'get', '/events/:eventSlug/state/:type', [
@@ -45,6 +49,13 @@ routes = {
     eventSvc.mw.load( 'eventUid', 'uid' ),
     cmn.checkAdminOrModerator,
     privateCustomData
+  ] ],
+
+  eventTransfer: [ 'get', '/:slug/events/:eventSlug/transfer' , [
+    agendaSvc.mw.load( 'slug' ),
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    cmn.checkCredential( 'eventTransfer' ),
+    transfer
   ] ]
 
 };
@@ -79,6 +90,42 @@ function privateCustomData( req, res, next ) {
     });
 
   });
+
+}
+
+
+function transfer( req, res, next ) {
+
+  if ( req.event.ownerId !== req.session.userId ) {
+
+    return next( { code: 403, message: 'you are not the owner of this event' } );
+
+  }
+
+  if ( !req.query.email || !validator.isEmail( req.query.email ) ) {
+
+    return next( { code: 400, message: 'email is wrong or missing' } );
+
+  }
+
+  userSvc.get( { email: req.query.email }, ( err, user ) => {
+
+    if ( err ) return next( err );
+
+    if ( !user ) return next( { code: 400, message: 'the target account does not exist' } );
+
+    req.event.transferOwnership( user.id, ( err, success ) => {
+
+      if ( err ) return next( err );
+
+      res.setFlash( req, 'ownership is transfered' );
+
+      res.redirect( 302, req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } ) );
+
+    } );
+
+  } );
+
 
 }
 
