@@ -1,7 +1,7 @@
 {
   "layout" : "layout/blank",
   "css" : {
-    "base" : "../css/base.css",
+    "base" : "../css/base.scss",
     "eventListBase" : "css/base.css",
     "eventListSearch" : "css/search.css"
   },
