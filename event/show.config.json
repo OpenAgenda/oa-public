@@ -8,7 +8,8 @@
     "event-base" : "css/base.scss",
     "event" : "css/style.scss",
     "event-details" : "css/details.scss",
-    "leaflet" : "../css/leaflet-0.7.3.css"
+    "leaflet" : "../css/leaflet-0.7.3.css",
+    "popup-overlay" : "../agenda/css/popup-overlay.scss"
   },
 
   "helpers" : {
@@ -24,6 +25,7 @@
     "event" : {
       "owner": false
     },
+    "hasOwnershipTransfer" : false,
     "impairments" : {
       "hi" : "hearing impairment",
       "pi" : "mental impairment",

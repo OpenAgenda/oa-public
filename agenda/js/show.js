@@ -194,11 +194,14 @@ function _showOptionalWidgets( controller ) {
   controller.getControlData( function( data ) {
 
     cn.forEach( [ {
-      sel: '.js_category_widget', key: 'ct'
+      sel: '.js_category_widget',
+      key: 'ct'
     }, {
-      sel: '.js_tags_widget', key: 't'
+      sel: '.js_tags_widget',
+      key: 't'
     }, {
-      sel: '.js_org_widget', key: 'org'
+      sel: '.js_org_widget',
+      key: 'org'
     } ], function( cfg ) {
 
       if ( ( typeof data[ cfg.key ] !== 'undefined' ) && data[ cfg.key ].length && cn.el( cfg.sel ) ) {

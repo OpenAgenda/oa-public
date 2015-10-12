@@ -6,7 +6,7 @@ cn = require( '../../js/lib/common/common.mod' ),
 
 adminControls = require( '../../user/js/adminControls' ),
 
-modalPartial = require( '../../bsLayout/js/modalPartial' ),
+ownershipTransfer = require( './ownershipTransfer' ),
 
 customData = require( './customData' ),
 
@@ -31,10 +31,11 @@ defaults.selectors[ ROLES.AGENDAADMIN ] = '.js_role_agenda_admin';
 
 if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) debug.enable( '*' );
 
-window.hook( function( options ) {
+window.asap( function( options ) {
 
   var params = cn.extend( {
-    hasCustomFields: false
+    hasCustomFields: false,
+    hasOwnershipTransfer: false
   }, defaults, options );
 
   log = debug( 'event' );
@@ -56,6 +57,12 @@ window.hook( function( options ) {
         customData().load( params.agendaUid, params.uid );
 
       } );
+
+    }
+
+    if ( params.hasOwnershipTransfer ) {
+
+      ownershipTransfer();
 
     }
 

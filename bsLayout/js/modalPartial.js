@@ -1,8 +1,12 @@
 "use strict";
 
-var cn = require('../../js/lib/common/common.mod.js' ),
+var deepExtend = require( 'deep-extend' ),
 
 remote = require( '../../js/lib/remote/remote.mod.js' ),
+
+utils = require( 'utils' ),
+
+domUtils = require( '../../js/lib/domUtils' ),
 
 debug = require( 'debug' ), log,
 
@@ -27,9 +31,9 @@ module.exports.multiple = multiple;
 
 function multiple( linkElems, options ) {
 
-  var params = cn.extend( {}, defaults, options ? options : {} );
+  var params = deepExend( {}, defaults, options ? options : {} );
 
-  cn.forEach( linkElems, function( linkElem ) {
+  domUtils.forEach( linkElems, function( linkElem ) {
 
     if ( linkElem.hasAttribute( params.attributes.flag ) ) return;
 
@@ -44,7 +48,7 @@ function multiple( linkElems, options ) {
 
 function processItem( linkElem, options ) {
 
-  var params = cn.extend( {}, defaults, options ? options : {} ),
+  var params = deepExtend( {}, defaults, options ? options : {} ),
 
   modalElem = false, // know if needs to be loaded or not
 
@@ -52,9 +56,9 @@ function processItem( linkElem, options ) {
 
   innerClick = false;
 
-  if ( !cn.isElement( linkElem ) ) {
+  if ( !domUtils.isElement( linkElem ) ) {
 
-    if ( cn.isArray( linkElem ) && linkElem.length && cn.isElement( linkElem[ 0 ] ) ) {
+    if ( utils.isArray( linkElem ) && linkElem.length && domUtils.isElement( linkElem[ 0 ] ) ) {
 
       multiple( linkElem, options );
 
@@ -68,13 +72,21 @@ function processItem( linkElem, options ) {
 
   }
 
-  cn.addEvent( linkElem, 'click', function( e ) {
+  domUtils.addEvent( linkElem, 'click', function( e ) {
 
-    cn.preventDefault( e );
+    domUtils.preventDefault( e );
 
     if ( !modalElem ) { 
 
-      _fetchAndCreate( _display );
+      if ( linkElem.hasAttribute( 'href' ) ) {
+
+        _fetchAndCreate( _display );
+
+      } else {
+
+        _generateElemFromHTML( _display );
+
+      }
 
     } else {
 
@@ -84,8 +96,18 @@ function processItem( linkElem, options ) {
 
   });
 
-  function _fetchAndCreate( onComplete ) {
 
+  /**
+   * use html given in options as content of modal elem
+   */
+
+  function _generateElemFromHTML( onComplete ) {
+
+    _initModal( params.html, onComplete );
+
+  }
+
+  function _fetchAndCreate( onComplete ) {
 
     ( window.env == 'tpl' ? _rawGetter : _jsonGetter )( linkElem.getAttribute( 'href' ), function( err, data ) {
 
@@ -97,37 +119,43 @@ function processItem( linkElem, options ) {
 
       }
 
-      modalElem = document.createElement( 'div' );
-
-      modalElem.innerHTML = data;
-
-      cn.addEvent( cn.el( modalElem, params.selectors.inner ), 'click', function() {
-
-        _flagInnerClick();
-
-      } );
-
-      cn.addEvent( cn.el( modalElem, params.selectors.close ), 'click', function() {
-
-        _close();
-
-      });
-
-      _close();
-
-      cn.el( 'body' ).appendChild( modalElem );
-
-      _processSubmodals( modalElem, _close );
-
-      onComplete();
+      _initModal( data, onComplete );
 
     }, true );
 
   }
 
+  function _initModal( html, cb ) {
+
+    modalElem = document.createElement( 'div' );
+
+    modalElem.innerHTML = html;
+
+    domUtils.addEvent( domUtils.el( modalElem, params.selectors.inner ), 'click', function() {
+
+      _flagInnerClick();
+
+    } );
+
+    domUtils.addEvent( domUtils.el( modalElem, params.selectors.close ), 'click', function() {
+
+      _close();
+
+    });
+
+    _close();
+
+    domUtils.el( 'body' ).appendChild( modalElem );
+
+    _processSubmodals( modalElem, _close );
+
+    cb();
+
+  }
+
   function _display() {
 
-    cn.removeClass( modalElem, params.classes.displayNone );
+    domUtils.removeClass( modalElem, params.classes.displayNone );
 
   }
 
@@ -135,7 +163,7 @@ function processItem( linkElem, options ) {
 
     if ( innerClick ) return;
 
-    cn.addClass( modalElem, params.classes.displayNone );
+    domUtils.addClass( modalElem, params.classes.displayNone );
 
   }
 
@@ -152,18 +180,18 @@ function processItem( linkElem, options ) {
 
 function _processSubmodals( elem, close ) {
 
-  var child = cn.childObject( elem, 0 );
+  var child = domUtils.childObject( elem, 0 );
 
   if ( !child ) return;
 
   if ( child.hasAttribute( defaults.attributes.modal ) ) {
 
-    cn.forEach( cn.els( child, '.' + child.getAttribute( defaults.attributes.modal ) ), function( submodalTrigger ) {
+    domUtils.forEach( domUtils.els( child, '.' + child.getAttribute( defaults.attributes.modal ) ), function( submodalTrigger ) {
 
       processItem( submodalTrigger );
 
       // close parent modal to prevent pileup
-      cn.addEvent( submodalTrigger, 'click', function( e ) {
+      domUtils.addEvent( submodalTrigger, 'click', function( e ) {
 
         close();
 

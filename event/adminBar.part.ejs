@@ -44,6 +44,11 @@
 <% } %>      
         </li>
 <% } %>
+<% if ( !loner && hasOwnershipTransfer ) { %>
+        <li class="list-group-item js_role_event_editor js_ownership_transfer" data-res="<%= genUrl( 'eventTransfer', { slug: slug, eventSlug: event.slug } ) %>">
+          <a class="item active" rel="nofollow"><%= __( 'Transfer ownership' ) %></a>
+        </li>
+<% } %>
         <li class="list-group-item js_admin_item js_role_event_editor">
           <a class="item active" href="<%= !loner ? genUrl( 'agendaEventDuplicate', { slug: slug, eventSlug: event.slug } ) : genUrl( 'eventDuplicate', { eventSlug: event.slug } ) %>" rel="nofollow"><%= __( 'Duplicate' ) %></a>
         </li>

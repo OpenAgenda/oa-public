@@ -191,6 +191,14 @@
       "hasCustomFields" : true
     }
   },
+  "transferable" : {
+    "hasOwnershipTransfer": true,
+    "scriptParams" : {
+      "ownerUid" : 36234263,
+      "agendaUid" : 93761158,
+      "hasOwnershipTransfer" : true
+    }
+  },
   "featured" : {
     "event" : {
       "featured" : true
