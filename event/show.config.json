@@ -25,6 +25,7 @@
     "event" : {
       "owner": false
     },
+    "hasCustomFields" : false,
     "hasOwnershipTransfer" : false,
     "impairments" : {
       "hi" : "hearing impairment",

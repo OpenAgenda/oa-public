@@ -48,6 +48,12 @@ outdated( {
   }
 });
 
+/**
+ * provide function to retrieve session data
+ */
+
+window.getSession = handleSession();
+
 
 du.asapReady( function() {
 
@@ -123,9 +129,3 @@ window.asap = function( cb ) {
   asaps.push( cb )
 
 }
-
-/**
- * provide function to retrieve session data
- */
-
-window.getSession = handleSession();

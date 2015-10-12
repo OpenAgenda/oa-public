@@ -31,7 +31,7 @@ module.exports.multiple = multiple;
 
 function multiple( linkElems, options ) {
 
-  var params = deepExend( {}, defaults, options ? options : {} );
+  var params = deepExtend( {}, defaults, options ? options : {} );
 
   domUtils.forEach( linkElems, function( linkElem ) {
 
