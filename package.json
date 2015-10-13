@@ -37,7 +37,8 @@
     "to-markdown" : "2.0.0",
     "languages" : "0.1.3",
     "react-tagsinput" : "1.4.3",
-    "imageUpload" : "git+ssh://git@bitbucket.org:openagenda/imageupload.git"
+    "imageUpload" : "git+ssh://git@bitbucket.org:openagenda/imageupload.git",
+    "react-timings-picker" : "git://github.com/Oagenda/react-timings-picker.git"
   },
   "browserify" : {
     "transform" : "reactify"

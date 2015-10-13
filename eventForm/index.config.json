@@ -8,6 +8,7 @@
     "efReactSelect" : "css/reactSelect.css",
     "efImageUpload" : "css/imageUpload.scss",
     "efLanguageBar" : "css/languageBar.scss",
+    "efTimingsPicker" : "css/timingsPicker.scss",
     "accessibility" : "css/accessibility.scss",
     "efKeywords" : "css/tags.scss",
     "efTinyMCE" : "css/tinyMCE.scss",

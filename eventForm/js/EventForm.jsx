@@ -18,6 +18,8 @@ AccessibilityFields = require( './AccessibilityFields.jsx' ),
 
 AgeFields = require( './AgeFields.jsx' ),
 
+TimingsPicker = require( './TimingsPicker.jsx' ),
+
 utils = require( 'utils' );
 
 module.exports = React.createClass( {
@@ -127,6 +129,11 @@ module.exports = React.createClass( {
 
     return <div>
 
+      <TimingsPicker
+        labels={this.props.labels}
+        lang={this.props.lang}
+        timings={this.state.timings} />
+
       <h2>{this.props.labels.descriptionSection[ this.props.lang ]}</h2>
 
       <LanguageBar 
@@ -225,6 +232,8 @@ module.exports = React.createClass( {
         res={this.props.customRes}   
         lang={this.props.lang} /></div>
       : '' }
+
+      
 
     </div>;
 
