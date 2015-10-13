@@ -100,6 +100,8 @@ var widget = function( elem, options ) {
 
   function enable( reqParams ) {
 
+    log( 'enabling' );
+
     if ( firstEnable ) {
 
       _setCalendarPosition();
@@ -319,15 +321,6 @@ var widget = function( elem, options ) {
 
     calendar.setSelected( selection, false );
 
-    // TWEAK - to force refresh on selection - this should be corrected at the calendar level
-    
-    if ( !selection ) {
-
-      calendar.showNext();
-      calendar.showPrevious();
-
-    }
-
     if ( enabled ) {
 
       calendar.enable();
@@ -335,6 +328,15 @@ var widget = function( elem, options ) {
     } else {
 
       calendar.disable();
+
+    }
+
+    // TWEAK - to force refresh on selection - this should be corrected at the calendar level
+    
+    if ( !selection ) {
+
+      calendar.showNext();
+      calendar.showPrevious();
 
     }
 
