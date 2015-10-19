@@ -13,9 +13,9 @@ module.exports = {
   escape: escape
 };
 
-function escape( html ) {
+function escape( str, escapeApostrophe ) {
 
-  return String( html )
+  var escaped = String( str )
   
   .replace( /&/g, '&amp;' )
   
@@ -23,9 +23,15 @@ function escape( html ) {
   
   .replace( />/g, '&gt;' )
   
-  .replace( /'/g, '&#39;' )
-  
   .replace( /"/g, '&quot;' );
+
+  if ( escapeApostrophe ) {
+
+    escaped = escaped.replace( /'/g, '&#39;' );
+
+  }
+
+  return escaped;
 
 }
 
