@@ -29,7 +29,7 @@
             <img src="/images/openagenda.png" width="125" alt="OpenAgenda">
           </a>
         </div>
-        <div class="navbar-collapse">
+        <div class="navbar-collapse collapse">
           <form class="navbar-left search-form" role="search" action="<%= genUrl( searchRes ) %>">
             <input class="search-input" placeholder="<%= __('Search') %>" type="text" name="search[what]" value="<%= search && ( typeof search.what !== 'undefined' ) ? search.what : '' %>">
 <% if ( typeof lang !== 'undefined' && lang !== 'fr' ) { %>

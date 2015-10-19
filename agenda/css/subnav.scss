@@ -1,5 +1,5 @@
 #sub-nav {
-  background: $oa-gray-light;
+  background: $oa-gray-lightest;
   font-weight: 300;
   position: relative;
   z-index: 100;
@@ -21,6 +21,21 @@
     line-height: 50px;
     padding: 0;
     text-decoration: none;
+
+    span {
+
+      font-weight: bold;
+      vertical-align: middle;
+
+    }
+
+    i {
+
+      font-size: 1.2em;
+      vertical-align: middle;
+
+    }
+
   }
 
   .active a {

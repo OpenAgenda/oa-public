@@ -22,7 +22,10 @@
       "uid" : 48959239,
       "total" : 200,
       "perPage" : 20,
-      "lang" : "fr"
+      "lang" : "fr",
+      "res" : {
+        "actions" : "#actions" 
+      }
     },
     
     "pager" : {

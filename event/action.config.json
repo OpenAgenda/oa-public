@@ -2,7 +2,7 @@
   "layout" : "bsLayout/main",
 
   "oaCss" : {
-    "share-page" : "css/share-page.scss",
+    "share-page" : "../agenda/css/share-page.scss",
     "share-menu" : "../agenda/css/share-menu.scss"
   },
 

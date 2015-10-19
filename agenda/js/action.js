@@ -1,0 +1,31 @@
+"use strict";
+
+var favorites = require( './favorites' ),
+
+debug = require( 'debug' ), log,
+
+params = {
+  uid: false // agenda uid required
+},
+
+utils = require( 'utils' );
+
+if ( [ 'tpl', 'dev' ].indexOf( window.env ) !== -1 ) {
+
+  debug.enable( '*' );
+
+}
+
+window.asap( function( options ) {
+
+  log = debug( 'agendaActions' );
+
+  log( 'initing' );
+
+  utils.extend( params, options );
+
+  favorites.init( { agendaUid: params.uid } );
+
+  favorites.menu();
+
+});

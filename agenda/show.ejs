@@ -8,7 +8,10 @@
       </div>
 <% if ( !agenda.isEmpty ) { %>
       <div class="col-sm-4 col-aside display-none js_add_button">
-        <a id="add-event" class="add-event" href="<%= genUrl( 'agendaEventNew', { slug: agenda.slug } ) %>" rel="nofollow"><%= __('Add an event') %></a>
+        <a id="add-event" class="add-event" href="<%= genUrl( 'agendaEventNew', { slug: agenda.slug } ) %>" rel="nofollow">
+          <i class="fa fa-plus-circle"></i>
+          <span><%= __('Add an event') %></span>
+        </a>
       </div>
 <% } %>
     </div>
@@ -41,7 +44,7 @@
 
         <section class="side-item side-map">
           <h3 class="mobile-only">
-            <i class="fa fa-map-marker side-icon"></i><span class="side-title"><%= __('Map') %></span>
+            <i class="fa fa-map-marker side-icon"></i><span class="side-title"><%= __( 'Map' ) %></span>
           </h3>
           <div class="side-content cbpgmp agenda-map" data-cbctl="<%= agenda.uid %>|<%= lang %>">
             <div class="map-sync js_map_sync">
@@ -53,7 +56,7 @@
 
         <section class="side-item side-calendar">
           <h3 class="mobile-only">
-            <i class="fa fa-calendar-o side-icon"></i><span class="side-title"><%= __('Select dates') %></span>
+            <i class="fa fa-calendar-o side-icon"></i><span class="side-title"><%= __( 'Select dates' ) %></span>
           </h3>
           <div class="side-content">
             <div class="cbpgcl cibulCalendar" data-cbctl="<%= agenda.uid %>|<%= lang %>"></div>
@@ -105,10 +108,10 @@
 <% var centeredFooter = true; %>
 <% include ../bsLayout/footer.part.ejs %>
 <% } %>
-<div id="admin-bar" class="js_admin_controls">
-  <ul class="admin-list">
-    <li class="admin-item">
-      <a class="admin-link" data-href="<%= genUrl( 'agendaAdminShow', { slug: agenda.slug } ) %>" rel="nofollow"><%= __('Manage') %></a>
+<div id="admin-bar" class="edge-bar js_admin_controls">
+  <ul class="edge-list">
+    <li class="edge-item">
+      <a class="edge-link" data-href="<%= genUrl( 'agendaAdminShow', { slug: agenda.slug } ) %>" rel="nofollow"><%= __('Manage') %></a>
     </li>
   </ul>
 </div>

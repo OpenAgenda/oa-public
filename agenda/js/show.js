@@ -20,6 +20,8 @@ domUtils = require( '../../js/lib/domUtils' ),
 
 config = require( './config' ),
 
+favorites = require( './favorites' ),
+
 widgets = {
   search: require( '../../widgets/search/search' ),
   tags: require( '../../widgets/tags/tags' ),
@@ -38,7 +40,8 @@ params = {
     add: '.js_add_button',
     admin: '.js_admin_button',
     org: '.js_org_widget',
-    titleSection: '.js_agenda_title'
+    titleSection: '.js_agenda_title',
+    searchLinks: '.js_use_search' // add search params to links with this class
   },
   classes: {
     displayNone: 'display-none'
@@ -69,8 +72,10 @@ window.asap( function( options ) {
   
   adminControls.init();
 
-  _handleImportButton();
-
+  favorites.init( {
+    agendaUid: options.uid,
+    res: options.res
+  } );
 
   window.getSession( function( session ) {
 
@@ -91,6 +96,8 @@ window.asap( function( options ) {
 
     modalPartial.multiple( cn.els( '.js_event_action' ) );
 
+    favorites.sweep();
+
     list.init( {
       total: options.total,
       perPage: options.perPage,
@@ -99,6 +106,8 @@ window.asap( function( options ) {
         modalPartial.multiple( cn.els( '.js_event_action' ) );
 
         timeline.dom();
+
+        favorites.sweep();
 
       }
     } );
@@ -114,6 +123,8 @@ window.asap( function( options ) {
       log( 'query values changed to %s', JSON.stringify( newSearchValues ) );
 
       list.reset( domUtils.loadInLocation( { search: newSearchValues } ) );
+
+      _copyToSearch( newSearchValues );
 
     } );
 
@@ -181,14 +192,6 @@ function _handleAddButton( session, ctl ) {
 }
 
 
-function _handleImportButton() {
-
-  modalPartial( cn.el( '.js_import_action' ) );
-
-}
-
-
-
 function _showOptionalWidgets( controller ) {
 
   controller.getControlData( function( data ) {
@@ -247,6 +250,21 @@ function _onWidgetLoaded( cb ) {
 function _displayAddButton() {
 
   cn.removeClass( cn.el( params.selectors.add ), params.classes.displayNone );
+
+}
+
+
+function _copyToSearch( values ) {
+
+  cn.forEach( cn.els( params.selectors.searchLinks ) || [], function( el ) {
+
+    var href = el.getAttribute( 'href' ).split( '?' )[ 0 ] 
+
+             + '?' + qs.stringify( { search: values } );
+
+    el.setAttribute( 'href', href );
+
+  });
 
 }
 

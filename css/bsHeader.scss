@@ -8,6 +8,12 @@
     display: block;
     visibility: visible;
   }
+
+  &.navbar-collapse {
+
+    visibility: visible;
+
+  }
 }
 
 .navbar-toggle {
@@ -44,10 +50,6 @@
 
   .navbar-header {
     padding-left: 10px;
-  }
-
-  .navbar-collapse {
-    padding: 0;
   }
 
   @media (min-width: 768px) {
@@ -160,6 +162,13 @@
 
   @media (max-width: 768px) {
 
+
+    .navbar-collapse {
+
+      padding: 0;
+
+    }
+
     .dropdown-menu {
       display: block;
       position: relative;
@@ -191,6 +200,12 @@
 
       .search-input {
         width: 100%;
+        border: 0;
+        padding-left: 15px;
+      }
+
+      .search-button {
+        border: 0;
       }
 
     }

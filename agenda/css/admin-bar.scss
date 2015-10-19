@@ -1,31 +1,62 @@
-#admin-bar {
+.edge-bar {
+  
   background: $oa-blue;
-  margin-top: -1px;
 
-  .admin-item {
+  &.fixed-bottom {
 
-    border-bottom: 1px solid rgba(255,255,255,0.38);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 3000;
+
+  }
+
+  .edge-list {
+    margin: 0;
+    padding: 0;
+  }
+
+  .edge-item {
+
     display: inline-block;
     position: relative;
     vertical-align: top;
     width: 100%;
+    border-bottom: 1px solid rgba(255,255,255,0.38);
 
     .list-group.in {
       display: block;
     }
 
+    .edge-info, .edge-link, .edge-selected {
+      color: $oa-white;
+      display: block;
+      line-height: 50px;
+      padding: 0 20px;
+      width: 100%;
+      overflow: hidden;
+      word-wrap: whitespace;
+      text-overflow: ellipsis;
+    }
+
+    a {
+
+      color: $oa-white;
+      cursor: pointer;
+      
+    }
+
   }
 
-  .admin-info, .admin-link, .admin-selected {
-    color: $oa-white;
-    display: block;
-    line-height: 50px;
-    padding: 0 20px;
-    width: 100%;
-    overflow: hidden;
-    word-wrap: whitespace;
-    text-overflow: ellipsis;
-  }
+
+
+}
+
+#admin-bar {
+  
+  margin-top: -1px;
+
+  
 
   .admin-link {
     text-align: left;
@@ -46,11 +77,6 @@
       }
     }
 
-  }
-
-  .admin-list {
-    margin: 0;
-    padding: 0;
   }
 
   .admin-selected {
@@ -192,21 +218,21 @@
   
     height: 50px;
 
-    .admin-item {
+    .edge-item {
       border-bottom: none;
       border-right: 1px solid rgba(255,255,255,0.38);
       width: 50%;
     }
 
-    .admin-item.w33 {
+    .edge-item.w33 {
       width: 33%;
     }
 
-    .admin-item.w25 {
+    .edge-item.w25 {
       width: 25%;
     }
 
-    .admin-item.w20 {
+    .edge-item.w20 {
       width: 20%;
     }
 
@@ -214,4 +240,5 @@
       position: relative;
     }
   }
+  
 }

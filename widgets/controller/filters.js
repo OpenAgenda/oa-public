@@ -1,11 +1,8 @@
 "use strict";
 
-var cn = require( '../../js/lib/common/common.mod' );
-
-
 module.exports = {
   what: what,
-  //passed: passed,
+  passed: passed,
   event: event,
   categories: categories,
   tags: tags,
@@ -95,7 +92,11 @@ function tags( item, reqParams ) {
 
   for ( var i = reqTags.length - 1; i >= 0; i-- ) {
 
-    if ( !cn.contains( item.t, reqTags[ i ] ) ) return false;
+    if ( item.t.indexOf( reqTags[ i ] ) == -1 ) {
+
+      return false;
+
+    }
 
   }
 

@@ -65,7 +65,7 @@ body {
   }
 
   .search-button {
-    border-right: 1px solid $oa-gray-less-light;
+    border-right: 1px solid $oa-gray-light;
     color: $oa-gray;
     position: absolute;
     right: 0;
@@ -77,9 +77,9 @@ body {
   }
 
   .search-input {
-    background: $oa-gray-light;
+    background: $oa-gray-lightest;
     border: 0;
-    border-left: 1px solid $oa-gray-less-light;
+    border-left: 1px solid $oa-gray-light;
     height: 100%;
     padding-left: 20px;
     width: 100%;
@@ -125,7 +125,7 @@ body {
   .tooltip-text {
     background: #111;
     border-radius: 3px;
-    color: $oa-gray-light;
+    color: $oa-gray-lightest;
     display: none;
     font-size: 12px;
     left: 0;

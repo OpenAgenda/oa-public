@@ -71,8 +71,8 @@ module.exports = function( uid ) {
 
     controlDataFetch( {
       jsonp: !_isAjax(),
-      uid: uid.split( '/' )[ 0 ],
-      embedUid: embedMode ? uid.split( '/' )[ 1 ] : false
+      uid: ( uid + '' ).split( '/' )[ 0 ],
+      embedUid: embedMode ? ( uid + '' ).split( '/' )[ 1 ] : false
     }, function( err, data ) {
 
       if ( err || !data ) {

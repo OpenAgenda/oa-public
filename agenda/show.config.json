@@ -8,6 +8,7 @@
     "agenda-admin-bar" : "css/admin-bar.scss",
     "agenda-subnav" : "css/subnav.scss",
     "agenda" : "css/style.scss",
+    "agenda-favorites" : "css/favorites.scss",
     "leaflet" : "../css/leaflet-0.7.3.css"
   },
   

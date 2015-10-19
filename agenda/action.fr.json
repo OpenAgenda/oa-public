@@ -1,8 +1,6 @@
-{ 
-  "Import / Add to my agenda"
-  : "Importer / Ajouter à mon agenda" ,
-  "Automatically import all dates of this agenda in your personal agenda"
-  : "Importez toutes les dates de cet agenda dans votre agenda personnel" ,
+{
+  "Export / Use"
+  : "Exporter / Utiliser",
   "Google Agenda"
   : "Google Calendar" ,
   "Import in OpenAgenda"
@@ -16,5 +14,21 @@
   "Create an agenda"
   : "Créez-un agenda",
   "The data structure of this export may change."
-  : "La structure de données de cet export peut évoluer."
+  : "La structure de données de cet export peut évoluer.",
+  "Export your favorites"
+  : "Exportez vos favoris",
+  "You favorited {count} events. Select the format in which you want to retrieve them."
+  : "Vous avez selectionné {count} favoris. Choisissez le format de l'export.",
+  "clear your selection"
+  : "supprimez votre sélection",
+  "Or %clear%."
+  : "Ou %clear%.",
+  "Your selection is currently empty for this agenda. To create one, browse the list of events and check %icon%"
+  : "Votre sélection est actuellement vide pour cet agenda. Pour en créer une, naviguez la liste des événements et cliquez sur %icon%",
+  "Export / Download everything"
+  : "Tout Exporter / Télécharger",
+  "Export the current selection"
+  : "Exporter la séléction courante",
+  "Export the events part of the agendas current selection"
+  : "Exporter les événements faisant parti de la séléction courante"
 }

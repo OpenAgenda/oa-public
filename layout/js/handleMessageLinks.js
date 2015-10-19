@@ -20,8 +20,10 @@ module.exports = function(eh, options) {
   
   if (typeof options !== 'undefined') cn.extend(params, options);
 
-  cn.forEach(params.events, function(eventName) {
-    eh.on(eventName, scan);
+  cn.forEach( params.events, function( eventName ) {
+
+    eh.on( eventName, scan );
+    
   });
 
   scan();
