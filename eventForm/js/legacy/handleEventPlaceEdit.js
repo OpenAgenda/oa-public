@@ -10,17 +10,12 @@ handlePlaceSelection = require( './handlePlaceSelection' ),
 
 EJS = require( '../../../js/lib/clientEjs/ejs' ),
 
-handleDateSelection = require( './handleDateSelection' ),
-
 defaults = {
   canvas: false,
   country: {code: 'FR', name: 'France'},
   templates: {
     main: [ 
       '<div class="js_place place form-section"></div>',
-      '<div class="js_dates dates form-section">',
-        '<h2><%= dateTitle %></h2>',
-      '</div>',
       '<div class="separator"></div>'
     ].join( '' ),
     info: [
@@ -34,7 +29,6 @@ defaults = {
   selectors: {
     info: '.js_place',
     placeForm: '.js_place',
-    timings: '.js_dates',
     pricing: '.js_pricing',
     change: '.js_change',
     remove: '.js_remove'
@@ -47,7 +41,6 @@ defaults = {
     locationTitle: 'Place',
     locationInfo: false,
     pricingTitle: 'Pricing',
-    dateTitle: 'Dates',
     change:'change',
     fetchInfo: 'Type the name and address and select you location from the list',
     placename: 'Name',
@@ -90,14 +83,13 @@ module.exports = function( options ) {
 
   location = {}, // this is the current location handled by this script
 
-  timings = [], elem, infoElem, placeSelector, pricingSelector, placeFetch, dateSelector, languages = params.languages,
+  elem, infoElem, placeSelector, pricingSelector, placeFetch, dateSelector, languages = params.languages,
 
   _run = function() {
 
     if ( params.locationData ) {
 
       location = params.locationData;
-      timings = params.locationData.timings ? params.locationData.timings : [];
 
     }
 
@@ -115,8 +107,6 @@ module.exports = function( options ) {
       
     }
 
-    _showDateSelection();
-
   },
 
   _updateInfo = function(locationInfo) {
@@ -125,7 +115,7 @@ module.exports = function( options ) {
 
       infoElem = document.createElement('div');
 
-      du.el(elem, params.selectors.info).appendChild(infoElem);
+      du.el( elem, params.selectors.info ).appendChild( infoElem );
 
     }
 
@@ -154,23 +144,21 @@ module.exports = function( options ) {
   },
 
   /**
-   * run locally everytime there is a change in the location/dates/pricing
+   * run locally everytime there is a change in the location
    * binds them and calls onChange and onComplete (only when location is effectively complete)
    **/
 
   _onChange = function() {
 
-    utils.extend( location, { timings: timings } );
+    if ( params.onChange ) params.onChange( location );
 
-    if (params.onChange) params.onChange(location);
+    _controlLocation( function( success ) {
 
-    _controlLocation(function(success) {
+      if ( success && params.onComplete ) params.onComplete( location );
 
-      if (success && timings.length && params.onComplete) params.onComplete( location );
+    } );
 
-    });
-
-    if (params.onHeightChange) params.onHeightChange();
+    if ( params.onHeightChange ) params.onHeightChange();
 
     
   },
@@ -288,32 +276,6 @@ module.exports = function( options ) {
     }
 
     du.addClass(du.el(elem, params.selectors.placeForm), params.classes.edit);
-
-  },
-
-
-  /**
-   * shows the menu listing dates
-   */
-
-  _showDateSelection = function() {
-
-    var dateSelector = handleDateSelection({
-      canvas: du.el( elem, params.selectors.timings ),
-      timings: timings,
-      labels: params.labels,
-      lang: params.lang,
-      onChange: function(newTimings) {
-        
-        timings = newTimings;
-
-        _onChange();
-
-      },
-      onHeightChange: params.onHeightChange
-    });
-
-    if (!timings.length) dateSelector.showAdd();
 
   },
 

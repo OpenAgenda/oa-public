@@ -71,9 +71,9 @@ module.exports = React.createClass( {
 
   },
 
-  changeCustom: function( values, errors ) {
+  onCustomChange: function( values, errors ) {
 
-    var updatedErrors = utils.extend( JSON.parse( JSON.stringify( this.state.errors ) ), errors );
+    var updatedErrors = this.mergedErrors( errors );
 
     this.props.onCustomChange( values, updatedErrors );
 
@@ -81,6 +81,25 @@ module.exports = React.createClass( {
       custom: values,
       errors: updatedErrors
     } );
+
+  },
+
+  onTimingsChange: function( values, errors ) {
+
+    var updatedErrors = this.mergedErrors( errors );
+
+    this.props.onTimingsChange( values, updatedErrors );
+
+    this.setState( {
+      timings: values,
+      errors: updatedErrors
+    } );
+
+  },
+
+  mergedErrors: function( addedErrors ) {
+
+    return utils.extend( JSON.parse( JSON.stringify( this.state.errors ) ), addedErrors );
 
   },
 
@@ -128,11 +147,6 @@ module.exports = React.createClass( {
   render: function() {
 
     return <div>
-
-      <TimingsPicker
-        labels={this.props.labels}
-        lang={this.props.lang}
-        timings={this.state.timings} />
 
       <h2>{this.props.labels.descriptionSection[ this.props.lang ]}</h2>
 
@@ -227,11 +241,22 @@ module.exports = React.createClass( {
         values={this.state.custom || {} }
         errors={ this.state.errors || {} }
         languages={this.state.languages}
-        onChange={this.changeCustom}
+        onChange={this.onCustomChange}
         labels={this.props.labels}     
         res={this.props.customRes}   
         lang={this.props.lang} /></div>
       : '' }
+
+
+      <div className="js_event_location_canvas"></div>
+
+
+      <TimingsPicker
+        labels={this.props.labels}
+        lang={this.props.lang}
+        error={this.state.errors.timings}
+        timings={this.state.timings}
+        onChange={this.onTimingsChange} />
 
       
 
