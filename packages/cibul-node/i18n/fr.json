@@ -132,5 +132,7 @@
   "You can now configure and use the latest embed codes on your website"
   : "Vous pouvez désormais configurer et utiliser la dernière version des codes d'agendas integrés",
   "embed configuration not found"
-  : "configuration de la vue integrée introuvable"
+  : "configuration de la vue integrée introuvable",
+  "Export / Use"
+  : "Exporter / Utiliser"
 }

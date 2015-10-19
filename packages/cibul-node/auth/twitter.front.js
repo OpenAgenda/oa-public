@@ -249,6 +249,12 @@ function _attemptUsernameLoad( values ) {
 
   return w.promise( function( resolve, reject ) {
 
+    if ( !values.profile ) {
+
+      return reject( values );
+
+    }
+
     userSvc.auth.twitterScreenName( values.profile.fullName, auth.loadOptionals( values.req ), function( err, user, data ) {
 
       if ( err ) values.err = err;

@@ -95,7 +95,7 @@ function activateByToken( token, options, cb ) {
 
     }
 
-    model.users().get( { id: tokenObj.userId }, function( err, user ) {
+    userSvc.get( { id: tokenObj.userId }, function( err, user ) {
 
       if ( err ) return cb( err );
 
@@ -221,7 +221,7 @@ function _loadInactiveUser( values ) {
 
     return w.promise( function( resolve, reject ) {
 
-      model.users().get( user, function( err, result ) {
+      userSvc.get( user, function( err, result ) {
 
         log( 'loaded user %s', JSON.stringify( result ) );
 

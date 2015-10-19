@@ -1,0 +1,9 @@
+{
+  "attributes" : [ { 
+    "name" : "ShareUrl", 
+    "mapTo" : "actionLink" 
+  }, {
+    "name" : "ShareLabel",
+    "mapTo" : "actionLabel"
+  } ]
+}

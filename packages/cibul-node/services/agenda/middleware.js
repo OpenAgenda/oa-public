@@ -8,11 +8,13 @@ pdf = require( 'pdf' ),
 
 xlsx = require( 'xlsx-writestream' ),
 
-utils = require( '../../lib/utils' ),
+utils = require( 'utils' ),
 
 svcConfig = require( './config' ),
 
 eventSvc = require( '../event' ),
+
+config = require( '../../config' ),
 
 mwh = require( '../lib/middlewareHelpers' );
 
@@ -317,6 +319,7 @@ function buildPdf( req, res, next ) {
     title: req.agenda.title,
     description: req.agenda.description,
     link: req.agenda.url,
+    imageLink: req.agenda.image ? config.aws.imageBucketPath + req.agenda.image : false
   }, 'fr' );
 
   pdfStream.getReadableStream().pipe( res );
@@ -394,11 +397,6 @@ function buildXlsx( includePrivateData ) {
 
       xlsxStream.getReadStream().pipe( res );
 
-      /*res.writeHead( 200, {
-        'Content-Type' : 'application/vnd.ms-excel',
-        'content-disposition' : 'attachment; filename=\"test.xls\"'
-      });*/
-
       res.writeHead( 200, {
         'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'content-disposition': [
@@ -456,6 +454,8 @@ function buildXlsx( includePrivateData ) {
 
         end = true;
 
+        if ( !processing ) xlsxStream.finalize();
+
       });
 
     } );
@@ -479,7 +479,6 @@ function buildCsv( includePrivateData ) {
 
       csvStream = csv.createWriteStream( {
         headers: true,
-        //delimiter: "\t",
         delimiter: ';',
         quote: '"',
         escape: '"'
@@ -495,11 +494,6 @@ function buildCsv( includePrivateData ) {
       });
 
       csvStream.pipe( res );
-
-      /*res.writeHead( 200, {
-        'Content-Type' : 'application/vnd.ms-excel',
-        'content-disposition' : 'attachment; filename=\"test.xls\"'
-      });*/
 
       res.writeHead( 200, {
         'Content-Type': 'text/csv',
@@ -557,6 +551,8 @@ function buildCsv( includePrivateData ) {
       stream.on( 'end', function() {
 
         end = true;
+
+        if ( !processing ) csvStream.end();
 
       });
 

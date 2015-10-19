@@ -68,7 +68,13 @@ function get( params, cb ) {
 
   log( 'getting user %s', JSON.stringify( params ) );
 
-  model.users().get( params, cb );
+  model.users().get( params, ( err, user ) => {
+
+    if ( err ) return cb( err );
+
+    cb( null, model.users().instance( user ) );
+
+  } );
 
 }
 
@@ -229,7 +235,7 @@ function _validateAndCreate( values ) {
 
         log( 'user successfully created' );
 
-        values.user = user;
+        values.user = model.users().instance( user );
 
       }
 
@@ -271,11 +277,11 @@ function _ifIsActivated( expected, func ) {
 
 function _loadUser( values ) {
 
-  return w.promise( function( resolve, reject ) {
+  return w.promise( ( rs, rj ) => {
 
-    model.users().get( { email: values.email }, function( err, user ) {
+    get( { email: values.email }, ( err, user ) => {
 
-      if ( err ) return reject( err );
+      if ( err ) return rj( err );
 
       if ( !user ) {
 
@@ -289,7 +295,7 @@ function _loadUser( values ) {
 
       }
 
-      resolve( values );
+      rs( values );
 
     } );
 
@@ -300,15 +306,15 @@ function _loadUser( values ) {
 
 function _findUserByServiceId( values ) {
 
-  return w.promise( function( resolve, reject ) {
+  return w.promise( ( rs, rj ) => {
 
     var getData = {};
 
     getData[ values.fieldName ] = values.id;
 
-    model.users().get( getData, function( err, user ) {
+    get( getData, ( err, user ) => {
 
-      if ( err ) return reject( err );
+      if ( err ) return rj( err );
 
       if ( user ) {
 
@@ -322,7 +328,7 @@ function _findUserByServiceId( values ) {
 
       }
 
-      resolve( values );
+      rs( values );
 
     });
 

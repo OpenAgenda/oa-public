@@ -60,10 +60,21 @@ module.exports = function( p ) {
 function actionShow( req, res ) {
 
   w( {
-    uid: req.agenda.uid,
+    agenda: {
+      title: req.agenda.getTitle(),
+      description: req.agenda.getDescription(),
+      slug: req.agenda.slug,
+      uid: req.agenda.uid,
+      image: req.agenda.getImage()
+    },
     hasAggregator: false,
     agendas: [],
-    xhr: req.xhr
+    xhr: req.xhr,
+    includeActionLinks: false,
+    scriptParams: {
+      uid: req.agenda.uid
+    },
+    search: req.query.search
   } )
 
   .then( function( values ) {

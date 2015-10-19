@@ -12,6 +12,7 @@
     { "name" : "PricingInfo", "mapTo" : "pricingInfo" },
     { "name" : "TicketUrl", "mapTo" : "ticketLink" },
     { "name" : "Category", "mapTo" : "category" },
-    { "name" : "CategoryLink", "mapTo" : "categoryLink" }
+    { "name" : "CategoryLink", "mapTo" : "categoryLink" },
+    { "name" : "Favorite", "mapTo" : "favorite" }
   ]
 }

@@ -12,7 +12,7 @@ redis = require( 'redis' ),
 
 async = require( 'async' ),
 
-Browser,
+Browser = require( 'zombie' ),
 
 fixtures = require( 'cibulModel/test/fixtures/fixtures' )( model ),
 
@@ -58,13 +58,13 @@ function boot( startApp, cb ) {
 
         server = s;
 
-        _initZombie( cb );
+        cb();
 
       } );
 
     } else {
 
-      _initZombie( cb );
+      cb();
 
     }
 
@@ -87,13 +87,7 @@ function clearAll( cb ) {
 
 }
 
-function _initZombie( cb ) {
 
-  Browser = require( 'zombie' );
-
-  cb( );
-
-}
 
 function loadBrowser( cb ) {
 

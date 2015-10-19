@@ -16,7 +16,9 @@ tblr = {
   eventItem: fs.readFileSync( __dirname + '/templates/eventItem.tblr' ).toString(),
   eventItemMapping: JSON.parse( fs.readFileSync( __dirname + '/templates/eventItem.map.json' ).toString() ),
   event: fs.readFileSync( __dirname + '/templates/event.tblr' ).toString(),
-  eventMapping: JSON.parse( fs.readFileSync( __dirname + '/templates/event.map.json' ).toString() )
+  eventMapping: JSON.parse( fs.readFileSync( __dirname + '/templates/event.map.json' ).toString() ),
+  header: fs.readFileSync( __dirname + '/templates/header.tblr' ).toString(),
+  headerMapping: JSON.parse( fs.readFileSync( __dirname + '/templates/header.map.json' ).toString() )
 };
 
 module.exports = function( embedService ) {
@@ -26,6 +28,7 @@ module.exports = function( embedService ) {
   return {
     load: loadEmbed,
     loadCustomLayoutData: loadCustomLayoutData,
+    renderHeader: renderHeader,
     renderEventItems: renderEventItems,
     renderEvent: renderEvent,
     browserCache: browserCache,
@@ -79,6 +82,36 @@ function renderEventItems( req, res, next ) {
     });
 
   }, next );
+
+}
+
+
+function renderHeader( req, res, next ) {
+
+  var mapping = tblr.headerMapping,
+
+  template = tblr.header,
+
+  parser;
+
+  if ( req.embed ) {
+
+    mapping = req.embed.getMapping( 'header' ) || mapping;
+
+    template = req.embed.getTemplate( 'header' ) || template;
+
+  }
+
+  parser = parserLib( mapping );
+
+  parser.load( template );
+  
+  req.renders.header = parser.render( {
+    actionLink: req.actionLink.url,
+    actionLabel: req.actionLink.label
+  } );
+
+  next();
 
 }
 

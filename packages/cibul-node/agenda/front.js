@@ -57,8 +57,10 @@ routes = {
     agendaSvc.mw.search( perPage ),
     _format,
     _appendFacebookParams,
+    _formatEmbedHeadLinks,
     _formatEmbedLinks,
     embedSvc.mw.renderEventItems,
+    embedSvc.mw.renderHeader,
     showXhr( 'agenda/embedShow' ), 
     cmn.loadBaseData( _layoutData, 'oae.css' ),  // this needs to switch to embed base css ( can be deactivated )
     embedShow
@@ -70,8 +72,10 @@ routes = {
     embedSvc.mw.browserCache,
     agendaSvc.mw.search( perPage ),
     _format,
+    _formatEmbedHeadLinks,
     _formatCustomEmbedLinks,
     embedSvc.mw.renderEventItems,
+    embedSvc.mw.renderHeader,
     showXhr( 'agenda/embedShow' ),
     cmn.loadBaseData( _layoutData ),
     embedSvc.mw.loadCustomLayoutData,
@@ -85,8 +89,10 @@ routes = {
     embedSvc.mw.load( 'embedUid', 'uid' ),
     agendaSvc.mw.search( perPage, true ),
     _format,
+    _formatEmbedHeadLinks,
     _formatCustomEmbedLinks,
     embedSvc.mw.renderEventItems,
+    embedSvc.mw.renderHeader,
     showXhr( 'agenda/embedShow' ),
     cmn.loadBaseData( _layoutData ),
     embedSvc.mw.loadCustomLayoutData,
@@ -345,7 +351,8 @@ function _formatEventItem( event, _t, lang, cb ) {
     pricingInfo: inst.getPricingInfo(),
     ticketLink: inst.getTicketLink(),
     organization: event.organization ? { slug: event.organizationSlug, label: event.organization } : false,
-    category: false
+    category: false,
+    favorite: '<span class="fav js_fav_item" data-event-uid="' + inst.uid + '"></span>'
   } );
 
   inst.getAgendaCategory( function( err, c ) {
@@ -380,6 +387,18 @@ function _formatShowLinks( req, res, next ) {
     e.importUri = req.genUrl( 'eventActionShow', { eventSlug: e.slug } );
 
   });
+
+  next();
+
+}
+
+
+function _formatEmbedHeadLinks( req, res, next ) {
+
+  req.actionLink = {
+    url: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } ),
+    label: i18n( 'Export / Use', req.lang )
+  };
 
   next();
 
@@ -467,10 +486,13 @@ function _layoutData( req, res ) {
       total: req.total,
       perPage: perPage,
       uid: req.agenda.uid + ( req.embed ? '/' + req.embed.uid : '' ),
-      lang: req.lang
+      lang: req.lang,
+      res: {
+        actions: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } )
+      }
     },
     metas: {
-      title: utils.escape( req.agenda.title ),
+      title: utils.escape( req.agenda.title, false ),
       ogSiteName: { property: 'og:site_name', content: 'OpenAgenda' },
       ogTitle: { property: 'og:title', content: utils.escape( req.agenda.title ) },
       ogType: { property: 'og:type', content: 'activity' },

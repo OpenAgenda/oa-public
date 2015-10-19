@@ -1,12 +1,16 @@
 "use strict";
 
-var testLib = require( './lib/lib' ),
+var t = require( './lib/lib' ),
+
+w = require( 'when' ),
 
 should = require( 'should' ),
 
 config = require( '../config' ),
 
-async = require( 'async' );
+async = require( 'async' ),
+
+theRightEmail = 'billy@cibul.net';
 
 //require( 'debug' ).enable( '*' );
 
@@ -16,18 +20,18 @@ describe( 'signin', function() {
 
   var browser, user = {};
 
-  before( function( done ) {
+  before( ( done ) => {
 
-    testLib.boot( true, done );
+    t.boot( true, done );
 
   } );
 
   // create one user
-  beforeEach( testLib.sets.prepareOneUser( user, 'billy' ) );
+  beforeEach( t.sets.prepareOneUser( user, 'billy' ) );
 
   beforeEach( function( done ) {
 
-    testLib.loadBrowser( function( err, b ) {
+    t.loadBrowser( function( err, b ) {
 
       browser = b;
 
@@ -37,9 +41,9 @@ describe( 'signin', function() {
 
   });
 
-  after( testLib.shutdown );
+  after( t.shutdown );
 
-  it( 'page loads', function( done ) {
+  it( 'page loads', ( done ) => {
 
     browser.visit( '/signin', function( err ) {
 
@@ -54,7 +58,7 @@ describe( 'signin', function() {
   });
 
 
-  it( 'redirect is maintained to signup', function( done ) {
+  it( 'redirect is maintained to signup', ( done ) => {
 
     browser.visit( '/signin?redirect=123&iToken=456', function( err ) {
 
@@ -67,7 +71,7 @@ describe( 'signin', function() {
   })
 
 
-  it( 'bad email', function( done ) {
+  it( 'bad email', ( done ) => {
 
     browser.visit( '/signin', function( err ) {
 
@@ -87,7 +91,7 @@ describe( 'signin', function() {
 
   });
 
-  it( 'no password', function( done ) {
+  it( 'no password', ( done ) => {
 
     browser.visit( '/signin', function( err ) {
 
@@ -107,7 +111,7 @@ describe( 'signin', function() {
 
   } );
 
-  it( 'wrong password', function( done ) {
+  it( 'wrong password', ( done ) => {
 
     browser.visit( '/signin', function( err ) {
 
@@ -129,7 +133,57 @@ describe( 'signin', function() {
 
   });
 
-  it( 'successful signin - redirect to home', function( done ) {
+
+  it( 'successful signin - updates last_signin in user profile', ( done ) => {
+
+    w.promise( ( rs, rj ) => {
+
+      t.model.lib.query( 'select last_signin from user where email = ?', theRightEmail, ( err, rows ) => {
+
+        should( rows[ 0 ].last_signin ).equal( null );
+
+        rs();
+
+      } )
+
+    } )
+
+    .then( () => {
+
+      return browser.visit( '/signin' );
+
+    })
+
+    .then( () => {
+
+      return w.promise( ( rs, rj ) => {
+
+        _successfullSignin( browser, function( err ) {
+
+          rs();
+
+        });
+
+      });
+
+    })
+
+    .then( () => {
+
+      t.model.lib.query( 'select last_signin from user where email = ?', theRightEmail, ( err, rows ) => {
+
+        should( rows[ 0 ].last_signin ).not.equal( null );
+
+        done();
+
+      } );
+
+    });
+
+  });
+
+
+  it( 'successful signin - redirect to home', ( done ) => {
 
     browser.visit( '/signin', function( err ) {
 
@@ -146,7 +200,7 @@ describe( 'signin', function() {
   });
 
 
-  it( 'successful signin - redirect to other page', function( done ) {
+  it( 'successful signin - redirect to other page', ( done ) => {
 
     this.timeout( 10000 );
 
@@ -169,7 +223,7 @@ describe( 'signin', function() {
   });
 
 
-  it( 'successful signin - session cookie is updated', function( done ) {
+  it( 'successful signin - session cookie is updated', ( done ) => {
 
     browser.visit( '/signin', function( err ) {
 
@@ -199,7 +253,7 @@ describe( 'signin', function() {
 
         var sessionCookie = browser.getCookie( config.session.name );
 
-        testLib.redisGet( config.session.storePrefix + sessionCookie, function( err, value ) {
+        t.redisGet( config.session.storePrefix + sessionCookie, function( err, value ) {
 
           should( JSON.parse( value ).id ).equal( user.id );
 
@@ -265,7 +319,7 @@ describe( 'signin', function() {
 
         browser.visit( '/signout', function( err ) {
 
-          testLib.redisGet( config.session.storePrefix + cookieBefore, function( err, value ) {
+          t.redisGet( config.session.storePrefix + cookieBefore, function( err, value ) {
 
             should( value ).equal( null );
 
@@ -290,7 +344,7 @@ describe( 'signin', function() {
 
 function _successfullSignin( browser, cb ) {
 
-  browser.fill( 'email', 'billy@cibul.net' );
+  browser.fill( 'email', theRightEmail );
 
   browser.fill( 'password', "bisounoursvertapois" );
 

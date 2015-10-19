@@ -184,7 +184,8 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
     'countryCode',
     'type',
     'accessibility',
-    'age'
+    'age',
+    'uids'
   ].forEach( function( name ) {
 
     if ( query[ name ] ) esQuery[ name ] = query[ name ];
@@ -216,7 +217,7 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
       }
     };
 
-  } else if ( query.passed ) {
+  } else if ( query.passed || query.when === false ) {
 
     delete esQuery.when;
 
@@ -288,15 +289,20 @@ function _clean( query, params ) {
 
   if ( !query ) return clean;
 
-  [ 'what', 'type', 'age', 'scope' ].forEach( function( k ) {
+  [ 'what', 'type', 'age', 'scope', 'uids' ].forEach( function( k ) {
 
     if ( !query[ k ] ) return;
 
     clean[ k ] = query[ k ];
 
-  }); 
+  });
 
-  if ( query.from ) {
+
+  if ( query.uids ) {
+
+    clean.when = false;
+
+  } else if ( query.from ) {
 
     clean.when = [ query.from ];
 

@@ -235,11 +235,17 @@ function signin( values ) {
 
   values.req.log( 'signing in user %s', user.email );
 
-  return w.promise( function( resolve, reject ) {
+  return w.promise( ( resolve, reject ) => {
 
-    session.set( req, res, user, function() {
+    session.set( req, res, user, () => {
 
       var redirectUrl;
+
+      user.refreshLastSignin( ( err ) => {
+
+        if ( err ) req.log( 'error', { message: 'could not refresh lastSignin', error: err } );
+
+      });
 
       if ( req.query.redirect ) {
 
