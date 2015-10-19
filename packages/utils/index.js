@@ -15,6 +15,12 @@ module.exports = {
 
 function escape( str, escapeApostrophe ) {
 
+  if ( escapeApostrophe === undefined ) {
+
+    escapeApostrophe = true;
+
+  }
+
   var escaped = String( str )
   
   .replace( /&/g, '&amp;' )
