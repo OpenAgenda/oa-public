@@ -169,9 +169,17 @@ function fZ( n, size ) {
 
   if ( !size ) size = 2;
 
-  var s = n + '';
+  var s = n + '',
+
+  sign = s.substr( 0, 1 ) == '-' ? '-' : '';
+
+  if ( sign.length ) {
+
+    s = s.substr( 1 );
+
+  }
 
   while ( s.length < size ) s = '0' + s;
 
-  return s; 
+  return sign + s; 
 }
