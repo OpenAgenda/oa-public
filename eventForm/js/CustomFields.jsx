@@ -10,7 +10,9 @@ CheckboxField = require( './CheckboxField.jsx' ),
 
 RadioFields = require( './RadioFields.jsx' ),
 
-ImageUpload = require( 'imageUpload/lib/ImageUploader.jsx' );
+ImageUpload = require( 'imageUpload/lib/ImageUploader.jsx' ),
+
+utils = require( 'utils' );
 
 module.exports = React.createClass({
 
@@ -20,7 +22,7 @@ module.exports = React.createClass({
 
     return function( value, error ) {
 
-      var values = JSON.parse( JSON.stringify( self.props.values ) ),
+      var values = self.copyValues(),
 
       errors = JSON.parse( JSON.stringify( self.props.errors ) );
 
@@ -31,6 +33,18 @@ module.exports = React.createClass({
       self.props.onChange( values, errors );
 
     }
+
+  },
+
+  copyValues: function() {
+
+    if ( !this.props.values || utils.isArray( this.props.values ) ) {
+
+      return {};
+
+    }
+
+    return JSON.parse( JSON.stringify( this.props.values ) );
 
   },
 
