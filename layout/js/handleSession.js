@@ -286,7 +286,7 @@ function _fetch( url, cb ) {
 
   log( 'fetching %s', url );
 
-  remote.get( url, { timeout: 1000 }, function( responseType, data ){
+  remote.get( url, { timeout: 10000 }, function( responseType, data ){
 
     if ( responseType == 'success' ) cb( data );
 
