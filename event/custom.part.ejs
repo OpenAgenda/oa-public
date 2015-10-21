@@ -17,7 +17,7 @@
   <dd>
     <a href="mailto:<%= custom[ i ].value %>"><%= custom[ i ].value %></a>
   </dd>
-<% } else if ( [ 'radio', 'checkbox' ].indexOf( custom[ i ].fieldType ) !== -1 ) { %>
+<% } else if ( [ 'radio', 'checkbox', 'select' ].indexOf( custom[ i ].fieldType ) !== -1 ) { %>
   <dt><%= labels[ custom[ i ].name ] %></dt>
   <dd>
     <span><%= custom[ i ].label %></span>

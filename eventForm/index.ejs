@@ -10,7 +10,6 @@
 <% } %>
 <script type="text/javascript">
 
-
   // these are the preloaded locations
   var localLocations = <%- JSON.stringify( locations ) %>;
 
@@ -198,18 +197,35 @@
         "fr":"Ceci est un champ checkbox",
         "en":"This is a checkbox field"
       } 
-    }, { 
+    }, {
       "name":"radiofields",
       "type":"public",
       "fieldType":"radio",
+      "info": {
+        "fr" : "Quelques détails en plus\nSur plusieurs lignes",
+        "en" : "Some more details\nOn several lines"
+      },
       "label": {
         "en" : "Hey radio fields",
         "fr" : "Hep les champs radio"
       },
       "options": [
-        { "label":{ "fr":"oui","en":"yes" },"value":"1" },
-        { "label":{ "fr":"non","en":"no" },"value":"0" },
-        { "label":{ "fr":"peut-être","en":"maybe" },"value":"2" }
+        { "label": { "fr":"oui", "en":"yes" }, "value":"1" },
+        { "label": { "fr":"non", "en":"no" }, "value":"0" },
+        { "label": { "fr":"peut-être", "en":"maybe" }, "value":"2" }
+      ]
+    }, {
+      "name": "selectfield",
+      "type": "public",
+      "fieldType": "select",
+      "label": {
+        "en" : "Hey radio fields",
+        "fr" : "Hep les champs radio"
+      },
+      "options": [
+        { "label":{ "fr": "oui", "en": "yes" },"value":"1" },
+        { "label":{ "fr": "non", "en": "no" },"value":"0" },
+        { "label":{ "fr": "peut-être", "en": "maybe" },"value":"2" }
       ]
     }, {
       "name" : "yourface",

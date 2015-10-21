@@ -10,6 +10,8 @@ CheckboxField = require( './CheckboxField.jsx' ),
 
 RadioFields = require( './RadioFields.jsx' ),
 
+SelectField = require( './SelectField.jsx' ),
+
 ImageUpload = require( 'imageUpload/lib/ImageUploader.jsx' ),
 
 utils = require( 'utils' );
@@ -135,10 +137,23 @@ module.exports = React.createClass({
           name= { field.name }
           field= { field }
           lang= { self.props.lang }
+          info= { field.info } 
           value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
           error= { self.props.errors[ field.name ] || false }
           label= { field.label }
-          handleUpdate= { self.onChange( field.name ) } />;
+          onChange= { self.onChange( field.name ) } />;
+
+      } else if ( field.fieldType == 'select' ) {
+
+        return <SelectField
+          name= { field.name }
+          field= { field }
+          lang= { self.props.lang }
+          info= { field.info } 
+          value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
+          error= { self.props.errors[ field.name ] || false }
+          label= { field.label }
+          onChange= { self.onChange( field.name ) } />;
 
       } else if ( field.fieldType == 'image' ) {
 
@@ -163,7 +178,7 @@ module.exports = React.createClass({
     };
 
     return (
-      <div>
+      <div className="custom-fields">
         {this.props.fields.map( createField )}
         <div className="separator"></div>
       </div>

@@ -8,8 +8,16 @@
   }
 
   .info {
+    
     color: $oa-gray;
-    padding: 0.2em 0 1em;
+
+  }
+
+  .error, .info {
+
+    padding: 0 0 0.8em;
+    font-size: 0.95em;
+
   }
 
   .form-section {
@@ -98,6 +106,26 @@
     > div {
 
       margin-left: 3em;
+
+    }
+
+  }
+
+  .custom-fields {
+
+    .cform .Select-control { min-width: 10em; }
+
+    .info span { 
+
+      color: $oa-gray;
+      display: block;
+      padding: 0 0 5px;
+
+      &:last-child {
+
+        padding: 0;
+
+      }
 
     }
 

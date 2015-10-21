@@ -44,7 +44,7 @@ module.exports = React.createClass( {
 
     return function( lTags ) {
 
-      var tags = JSON.parse( JSON.stringify( self.props.tags || {} ) );
+      var tags = JSON.parse( JSON.stringify( self.props.value || {} ) );
 
       self.setState( { userHasTyped: true } );
 
@@ -63,7 +63,7 @@ module.exports = React.createClass( {
   renderField: function( value, l ) {
 
     return <TagsInput 
-      value= { this.parse( this.props.tags ? this.props.tags[ l ] : '' ) }
+      value= { this.parse( this.props.value ? this.props.value[ l ] : '' ) }
       placeholder= {this.props.placeholder[ this.props.lang ] }
       onChange={ this.onChange( l ) }
       ref='tags' />

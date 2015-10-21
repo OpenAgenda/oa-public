@@ -2,14 +2,17 @@
 
 var React = require( 'react' ),
 
-Counter = require( './Counter.jsx' );
+Counter = require( './Counter.jsx' ),
+
+du = require( '../../js/lib/domUtils' );
 
 module.exports = {
   multilingual: {
     render: mRender,
     block: mBlock,
     error: mError
-  }
+  },
+  errorOrInfo: errorOrInfo
 }
 
 
@@ -29,7 +32,6 @@ function mBlock( l ) {
     value = this.props.value ? ( this.props.value[ l ] ? this.props.value[ l ] : '' ) : '';
 
   }
-
 
   if ( count > 1 ) {
 
@@ -66,6 +68,28 @@ function mError( l ) {
 
 }
 
+function errorOrInfo() {
+
+  var infos;
+
+  if ( this.props.error && this.state.userHasTyped ) {
+
+    return <span className="error">{this.props.error}</span>;
+
+  } else if ( this.props.info ) {
+
+    infos = this.props.info[this.props.lang].split( '\n' );
+
+    return <span className="info">
+      {infos.map( function( info ) { return <span>{info}</span> } )}
+    </span>
+
+  }
+
+  return '';
+
+}
+
 function mRender() {
 
   if ( this.props.languages.length > 1 ) {
@@ -73,7 +97,7 @@ function mRender() {
     return <ul className="cform">
       <li>
         <label>{this.props.label[this.props.lang]}{ this.props.optional ? '' : ' (*)' }</label>
-        { this.props.info && !( this.props.error && this.state.userHasTyped ) ? <span className="info">{this.props.info[this.props.lang]}</span> : '' }
+        {errorOrInfo.apply( this )}
       </li>
       {this.props.languages.map(this.renderBlock)}
     </ul>
@@ -83,8 +107,9 @@ function mRender() {
     return <ul className="cform">
       <li>
         <label>{this.props.label[this.props.lang]}{ this.props.optional ? '' : ' (*)' }</label>
+        { errorOrInfo.apply( this ) }
         { this.props.info && !( this.props.error && this.state.userHasTyped ) ? <span className="info">{this.props.info[this.props.lang]}</span> : '' }
-      {this.props.languages.map(this.renderBlock)}
+        {this.props.languages.map(this.renderBlock)}
       </li>
     </ul>
 

@@ -165,7 +165,7 @@ module.exports = React.createClass( {
         <EventKeywordsField
           constraints={{max: 255}}
           counter={true}
-          tags={this.state.tags}
+          value={this.state.tags}
           name='keywords'
           optional={true}
           languages={this.state.languages}

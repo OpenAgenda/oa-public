@@ -39,63 +39,14 @@
       text-overflow: ellipsis;
     }
 
+    .edge-info a { color: $oa-white; }
+
     a {
 
-      color: $oa-white;
       cursor: pointer;
       
     }
 
-  }
-
-
-
-}
-
-#admin-bar {
-  
-  margin-top: -1px;
-
-  
-
-  .admin-link {
-    text-align: left;
-    text-decoration: none;
-
-    i {
-      font-size: 20px;
-      line-height: 50px;
-      opacity: 0.62;
-      position: absolute;
-      right: 20px;
-      top: 0;
-    }
-
-    &:hover {
-      i {
-        opacity: 1;
-      }
-    }
-
-  }
-
-  .admin-selected {
-    &:after {
-      content: "\f0d7";
-      font-family: "FontAwesome";
-      opacity: 0.62;
-      position: absolute;
-      right: 20px;
-      top: 0;
-    }
-
-    &:hover {
-      cursor: pointer;
-
-      &:after {
-        opacity: 1;
-      }
-    }
   }
 
   .list-group {
@@ -105,9 +56,12 @@
     position: absolute;
     width: 100%;
     z-index: 2001;
+    padding: 0;
   }
 
+
   .list-group-item {
+
     .item {
 
       padding-left: 20px;
@@ -193,6 +147,48 @@
 
   }
 
+
+  .edge-link {
+    text-align: left;
+    text-decoration: none;
+
+    i {
+      font-size: 20px;
+      line-height: 50px;
+      opacity: 0.62;
+      position: absolute;
+      right: 20px;
+      top: 0;
+    }
+
+    &:hover {
+      i {
+        opacity: 1;
+      }
+    }
+
+  }
+
+  .edge-selected {
+    &:after {
+      content: "\f0d7";
+      font-family: "FontAwesome";
+      opacity: 0.62;
+      position: absolute;
+      right: 20px;
+      top: 0;
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      &:after {
+        opacity: 1;
+      }
+    }
+  }
+
+
   .score {
     b {
       font-size: 18px;
@@ -240,5 +236,12 @@
       position: relative;
     }
   }
+
+
+}
+
+#admin-bar {
+  
+  margin-top: -1px;
   
 }
