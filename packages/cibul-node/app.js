@@ -89,7 +89,7 @@ module.exports = function( enabledTypes, cb ) {
         require( './agenda/front' )( '' ),
         require( './agenda/facebook.back' )( '' ),
         require( './agenda/actions.front' )( '/:slug/actions' ),
-        require( './agenda_bridges/back' )( '/:slug/admin/services'),
+        require( './agenda_bridges/back' )( '/:slug/admin/services' ),
         require( './agenda/exports.front' )( '/agendas/:uid' ),
         require( './agenda/exports.back' )( '/agendas/:uid/admin' ),
         require( './agenda/groupActions.back' )( '/agendas/:uid/admin' ),
