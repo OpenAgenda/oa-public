@@ -36,6 +36,12 @@ routes = {
     agendaSvc.mw.buildXlsx( false )
   ]],
 
+  agendaRssEvents: [ 'get', '/events.rss', [
+    agendaSvc.mw.load( 'uid' ),
+    agendaSvc.mw.search( 20 ),
+    agendaSvc.mw.rss
+  ]],
+
   agendaSourceAdd: [ 'get', '/addTo/:aggUid', [
     cmn.flashSetter,
     agendaSvc.mw.load( 'uid' ),
@@ -58,8 +64,15 @@ routes = {
 
 module.exports = function( path ) {
 
+  var router = modLib.Router( routes );
+
+  router.pre( [
+    cmn.loadLogger( 'agenda front' ),
+    cmn.loadSession
+  ] );
+
   return {
-    load: modLib.Router( routes ).load( path ),
+    load: router.load( path ),
     paths: modLib.getPaths( path, routes )
   }
 

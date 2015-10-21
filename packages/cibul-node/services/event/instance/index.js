@@ -16,7 +16,9 @@ imageSvc = require( '../../image' ),
 
 s3Svc = require( '../../file/s3' ),
 
-fileSvc = require( '../../file/file' );
+fileSvc = require( '../../file/file' ),
+
+exportable = require( './exportable' );
 
 module.exports = function( data ) {
 
@@ -46,6 +48,10 @@ module.exports = function( data ) {
     'saveCustomImage'          // switch custom image from tmp store to permanent
   ] );
 
+  exportable( svcInstance, instance, [
+    'exportable'
+  ] );
+
   svcInstance.setOnStateChange( dsp.stateChange );
 
   instance.onSave = dsp.onSave;
@@ -53,7 +59,6 @@ module.exports = function( data ) {
 
 
   return svcInstance;
-
 
   // assuming for now that input is url
   function setImage( url, cb ) {

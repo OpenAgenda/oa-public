@@ -31,6 +31,7 @@ module.exports = function( agendaService ) {
     decorateEvents: decorateEvents,
     decorateEvent: decorateEvent,
     cleanJson: cleanJson,
+    rss: require( './rss' ),
     buildCsv: buildCsv,
     buildXlsx: buildXlsx,
     buildPdf: buildPdf
@@ -341,7 +342,7 @@ function buildPdf( req, res, next ) {
 
     stream.pause();
 
-    eventSvc.exports.clean( eInst, function( err, clean ) {
+    eInst.exportable( ( err, clean ) => {
 
       if ( err ) {
 
@@ -416,7 +417,7 @@ function buildXlsx( includePrivateData ) {
         var eInst = eventSvc.instanciate( eventData );
 
         // clean event
-        eventSvc.exports.clean( eInst, function( err, clean ) {
+        eInst.exportable( ( err, clean ) => {
 
           // decorate with agenda related data
           svc.exports.decorateEvent( req.agenda, eInst, clean, {
@@ -504,7 +505,7 @@ function buildCsv( includePrivateData ) {
           '.csv\"' ].join('')
       } ); 
 
-      stream.on( 'data', function( eventData ) {
+      stream.on( 'data', ( eventData ) => {
 
         stream.pause();
 
@@ -513,13 +514,12 @@ function buildCsv( includePrivateData ) {
         // instanciate
         var eInst = eventSvc.instanciate( eventData );
 
-        // clean event
-        eventSvc.exports.clean( eInst, function( err, clean ) {
+        eInst.exportable( ( err, clean ) => {
 
           // decorate with agenda related data
           svc.exports.decorateEvent( req.agenda, eInst, clean, {
             includePrivateData: !!includePrivateData
-          }, function( err, clean ) {
+          }, ( err, clean ) => {
 
             processing--;
 
@@ -548,7 +548,7 @@ function buildCsv( includePrivateData ) {
 
       } );
 
-      stream.on( 'end', function() {
+      stream.on( 'end', () => {
 
         end = true;
 

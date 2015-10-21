@@ -113,7 +113,9 @@ function customImageSave( req, res, next ) {
 
 function logController( req, res, next ) {
 
-  var body = {};
+  var body = {},
+
+  errCount = 0;
 
   if ( typeof req.body == 'object' ) {
 
@@ -125,7 +127,7 @@ function logController( req, res, next ) {
 
       } catch( e ) {
 
-        // who gives a nucklefuck.
+        console.log( req.body )
 
       }
 
