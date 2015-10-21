@@ -26,7 +26,7 @@
         <p class="legend"><%= __( 'Export the current selection' ) %></p>
         <span><%= __( 'Export the events part of the agendas current selection' ) %></span>
         <div class="btn-adds">
-          <a class="btn btn-default" href="<%= genUrl( 'agendaRssEvents', { uid: agenda.uid }) %>">RSS</a>
+          <a class="btn btn-default" href="<%= genUrl( 'agendaRssEvents', { uid: agenda.uid } ) %>">RSS</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaCsvEvents', { uid: agenda.uid, search: search }) %>">CSV</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaXlsxEvents', { uid: agenda.uid, search: search } ) %>">Excel ( xlsx )</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaPdfEvents', { uid: agenda.uid, search: search }) %>">PDF</a>
