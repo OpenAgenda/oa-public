@@ -24,29 +24,9 @@ module.exports = React.createClass({
 
     return function( value, error ) {
 
-      var values = self.copyValues(),
-
-      errors = JSON.parse( JSON.stringify( self.props.errors ) );
-
-      values[ field ] = value;
-
-      errors[ field ] = error;
-
-      self.props.onChange( values, errors );
+      self.props.onChange( field, value, error );
 
     }
-
-  },
-
-  copyValues: function() {
-
-    if ( !this.props.values || utils.isArray( this.props.values ) ) {
-
-      return {};
-
-    }
-
-    return JSON.parse( JSON.stringify( this.props.values ) );
 
   },
 
@@ -62,23 +42,9 @@ module.exports = React.createClass({
 
       }
 
-      self.onChange( field )( value, error );
+      self.onChange( field, value, error );
 
     }
-
-  },
-
-  isValid: function() {
-
-    var valid = true;
-
-    for( var f in this.state ) {
-
-      if ( this.state[ f ].error ) valid = false;
-
-    }
-
-    return valid;
 
   },
 

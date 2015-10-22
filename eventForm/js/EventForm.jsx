@@ -36,6 +36,8 @@ module.exports = React.createClass( {
 
     }
 
+    if ( !state.custom ) state.custom = {};
+
     return state;
   },
 
@@ -43,25 +45,19 @@ module.exports = React.createClass( {
 
     var self = this;
 
-    return function( value, errors ) {
+    return function( value, errorMessage ) {
 
-      var updated = {};
+      var updated = {
+        //errors: {}
+      };
 
       updated[ field ] = value;
 
-      updated.errors = JSON.parse( JSON.stringify( self.state.errors ) );
+      //updated.errors[ field ] = errorMessage
 
-      if ( errors ) {
-
-        updated.errors[ field ] = errors;
-
-      } else if ( updated.errors[ field ] ) {
-
-        delete updated.errors[ field ];
-
-      }
-
-      self.props.onTextChange( field, value );
+      //self.props.onTextChange( field, value );
+      
+      console.log( updated );
 
       self.setState( updated );
 
@@ -69,20 +65,28 @@ module.exports = React.createClass( {
 
   },
 
-  changeCustom: function( values, errors ) {
+  changeCustom: function( field, value, errorMessage ) {
 
-    var updatedErrors = utils.extend( JSON.parse( JSON.stringify( this.state.errors ) ), errors );
+    return;
 
-    this.props.onCustomChange( values, updatedErrors );
+    var updatedCustom = JSON.parse( JSON.stringify( this.state.custom ) );
 
-    this.setState( {
-      custom: values,
-      errors: updatedErrors
-    } );
+    var updated = {
+      custom: {},
+      errors: {}
+    };
+
+    updated.custom[ field ] = value;
+
+    updated.errors[ field ] = errorMessage;
+
+    this.setState( updated );
 
   },
 
   changeLanguages: function( languages ) {
+
+    return;
 
     this.setState( {
       languages: languages

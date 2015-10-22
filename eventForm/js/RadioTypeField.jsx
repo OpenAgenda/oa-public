@@ -67,7 +67,11 @@ module.exports = function( funcs ) {
 
       if ( !this.props.optional && !( value + '').length ) {
 
-        return this.message( ERR.NOTEMPTY );
+        return {
+          field: this.props.field,
+          label: this.props.label[ this.props.lang ],
+          message: this.message( ERR.NOTEMPTY )
+        }
 
       }
 
@@ -81,7 +85,7 @@ module.exports = function( funcs ) {
 
       messages[ ERR.NOTEMPTY ] = {
         en: 'this field cannot be empty',
-        fr: 'ce champ ne peux pas rester vide'
+        fr: 'ce champ ne peut pas rester vide'
       };
 
       return messages[ code ][ this.props.lang ];

@@ -4,7 +4,9 @@ var React = require( 'react' ),
 
 Counter = require( './Counter.jsx' ),
 
-du = require( '../../js/lib/domUtils' );
+du = require( '../../js/lib/domUtils' ),
+
+utils = require( 'utils' );
 
 module.exports = {
   multilingual: {
@@ -70,11 +72,13 @@ function mError( l ) {
 
 function errorOrInfo() {
 
-  var infos;
+  var infos, 
 
-  if ( this.props.error && this.state.userHasTyped ) {
+  error = utils.isArray( this.props.error ) ? this.props.error[ 0 ] : this.props.error;
 
-    return <span className="error">{this.props.error}</span>;
+  if ( error && this.state.userHasTyped ) {
+    
+    return <span className="error">{error.message}</span>;
 
   } else if ( this.props.info ) {
 

@@ -14,6 +14,8 @@ deepExtend = require( 'deep-extend' ),
 
 React = require( 'react' ),
 
+fieldErrors = [], customErrors = [],
+
 defaults = {
   language: 'fr',
   canvas: '.js_form_canvas',
@@ -45,8 +47,8 @@ defaults = {
       en: 'Long description'
     },
     longDescriptionPlaceholder: {
-      fr: 'Saisissez une description détaillée de votre événement\n\nAjoutez des liens vers des images aussi (.jpg ou autre)\n\nIntégrez des vidéos youtube en collant le lien de la page. ex: http://www.youtube.com/watch?v=wZZ7oFKsKzY',
-      en: 'Type in a detailed description of your event \n\nPaste in image links too (.jpg or other) \n\nEmbed youtube videos by simply pasting in the link. ex: http://www.youtube.com/watch?v=wZZ7oFKsKzY'
+      fr: 'Saisissez une description détaillée de votre événement. \n\nVouz pouvez également ajouter des liens vers des images (.jpg ou autre). \n\nIntégrez des vidéos youtube en collant le lien de la page. ex: http://www.youtube.com/watch?v=wZZ7oFKsKzY',
+      en: 'Type in a detailed description of your event. \n\nPaste in image links too (.jpg or other). \n\nEmbed youtube videos by simply pasting in the link. ex: http://www.youtube.com/watch?v=wZZ7oFKsKzY'
     },
     keywords: {
       fr: 'Mots clés',
@@ -123,7 +125,11 @@ window.oaEventForm = function( options ) {
 
   }
 
-  function onTextChange( field, content ) {
+  function onTextChange( field, content, errors ) {
+
+    fieldErrors.filter( function( e ) { return e.field !== field } );
+
+    if ( errors ) fieldErrors.splice( 0, 0, errors );
 
     var eventName = params.events.single;
 
@@ -135,7 +141,8 @@ window.oaEventForm = function( options ) {
 
     rUtils.eh.trigger( eventName, {
       name: field,
-      value: content
+      value: content,
+      errors: fieldErrors.concat( customErrors )
     } );
 
   }

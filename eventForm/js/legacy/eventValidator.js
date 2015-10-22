@@ -5,14 +5,15 @@ module.exports = function( params ) {
   params = utils.extend({
 
     labels: {
-      title: 'The title',
-      description: 'The description',
-      address: 'The address',
+      title: 'Title',
+      description: 'Description',
+      address: 'Address',
       placename: 'The name of the place',
       tags: 'The tags',
       freeText: 'The Free Text field',
       empty: '%noun% cannot be empty',
       max: '%noun% cannot exceed %max% characters',
+      timings: 'Timings',
       noDates: 'There must be at least one date for each location'
     },
 
@@ -46,19 +47,19 @@ module.exports = function( params ) {
 
 
     // if some fields are missing in any of the languages, set them to empty
-    utils.forEach(['title', 'description', 'tags', 'freeText', 'conditions' ], function(field) {
+    /*utils.forEach(['title', 'description', 'tags', 'freeText', 'conditions' ], function(field) {
       if (typeof event[field] == 'undefined') event[field] = {};
-    });
+    });*/
 
-    utils.forEach(langs, function(lang) {
+    /*utils.forEach(langs, function(lang) {
 
-      try { process('title', event['title'][lang]) } catch(e) { if (!contains(errors, e)) errors.push( e ); }
-      try { process('description', event['description'][lang]) } catch(e) { if (!contains(errors, e)) errors.push(e); }
-      try { process('tags', event['tags'][lang]) } catch(e) { if (!contains(errors, e)) errors.push(e); }
-      try { process('freeText', event['freeText'][lang]) } catch(e) { if (!contains(errors, e)) errors.push(e); }
-      try { process('conditions', event['conditions'][lang]) } catch(e) { if (!contains(errors, e)) errors.push(e); }
+      try { process('title', event['title'][lang]) } catch(e) { errors.push( utils.extend( e, { lang: lang } ) ); }
+      try { process('description', event['description'][lang]) } catch(e) { errors.push( utils.extend( e, { lang: lang } ) ); }
+      try { process('tags', event['tags'][lang]) } catch(e) { errors.push( utils.extend( e, { lang: lang } ) ); }
+      try { process('freeText', event['freeText'][lang]) } catch(e) { errors.push( utils.extend( e, { lang: lang } ) ); }
+      try { process('conditions', event['conditions'][lang]) } catch(e) { errors.push( utils.extend( e, { lang: lang } ) ); }
 
-    });
+    });*/
 
     
 
@@ -129,9 +130,17 @@ module.exports = function( params ) {
 
     timings: function(timings) {
 
-      if (typeof timings != 'object') timings = [];
+      if ( typeof timings != 'object' ) timings = [];
 
-      if (!timings.length) throw params.labels.noDates;
+      if ( !timings.length ) {
+
+        throw {
+          field: 'timings',
+          label: params.labels.timings,
+          message: params.labels.noDates
+        }
+
+      }
 
     }
 
@@ -139,7 +148,15 @@ module.exports = function( params ) {
 
   _maxLength = function(field, value) {
 
-    if (typeof value == 'string' && value.length > params[field].max) throw params.labels.max.replace('%max%', params[field].max).replace('%noun%', params.labels[field]);
+    if (typeof value == 'string' && value.length > params[field].max) {
+
+      throw {
+        field: field,
+        label: params.labels[ field ],
+        message: params.labels.max.replace( '%max%', params[field].max).replace( '%noun%', params.labels[field] )
+      }
+
+    }
 
   },
 
@@ -147,7 +164,11 @@ module.exports = function( params ) {
     
     if (typeof value == 'undefined' || !value.length) {
 
-      throw params.labels.empty.replace( '%noun%', params.labels[ field ] );
+      throw {
+        field: field,
+        label: params.labels[ field ],
+        message: params.labels.empty.replace( '%noun%', params.labels[ field ] )
+      }
 
     }
 

@@ -91,23 +91,9 @@ module.exports = function( params ) {
 
     _on( params.events.description.write, function( data ) {
 
-      var error = null;
+      currentErrors = data.errors;
 
-      try {
-
-        for ( var lang in data.value ) {
-
-          _validate( data.name, data.value[ lang ] );
-
-        }
-
-      } catch (e) {
-
-        error = e;
-
-      }
-
-      if (!event[data.name]) event[data.name] = {};
+      if ( !event[data.name] ) event[ data.name ] = {};
 
       event[ data.name ] = JSON.parse( JSON.stringify( data.value ) );
 
@@ -130,8 +116,6 @@ module.exports = function( params ) {
         event.timings = JSON.parse( JSON.stringify( location.timings ) );
 
       }
-
-
 
       event.location = JSON.parse( JSON.stringify( location ) );
 
@@ -173,13 +157,13 @@ module.exports = function( params ) {
 
     // update agenda information
 
-    _on(params.events.image.fetch, function(callback) {
+    _on( params.events.image.fetch, function(callback) {
 
       callback(event.image?{image: event.image }:false);
 
     });
 
-    _on(params.events.image.remove, function() {
+    _on( params.events.image.remove, function() {
 
       event.image = false;
 
@@ -187,7 +171,7 @@ module.exports = function( params ) {
 
     });
 
-    _on(params.events.image.write, function(data) {
+    _on( params.events.image.write, function(data) {
 
       if (data.image) event.image = data.image;
 
@@ -197,6 +181,8 @@ module.exports = function( params ) {
 
     _on( params.events.singleField.write, function( data ) {
 
+      currentErrors = data.errors;
+
       event[ data.name ] = JSON.parse( JSON.stringify( data.value ) );
 
     });
@@ -205,7 +191,7 @@ module.exports = function( params ) {
 
       event.custom = data.values;
 
-      _setCurrentErrors( data.errors );
+      currentErrors = data.errors;
 
       _evaluate();
 
@@ -267,7 +253,7 @@ module.exports = function( params ) {
 
   _evaluate = function(onSuccess) {
 
-    if (onValidate || onSuccess) _validateEvent( _getCurrentErrors(), function(success, errors ) {
+    if ( onValidate || onSuccess ) _validateEvent( _getCurrentErrors(), function(success, errors ) {
 
       if (success && onSuccess) onSuccess();
 
@@ -334,6 +320,8 @@ module.exports = function( params ) {
     var errors = validator.processFull( event ),
 
     concatenated = preErrors.concat( errors );
+
+    console.log( errors );
 
     callback( concatenated.length?false:true, concatenated );
 

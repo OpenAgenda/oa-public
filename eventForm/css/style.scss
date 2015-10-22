@@ -131,4 +131,19 @@
 
   }
 
+
+  .event-errors {
+
+    * {
+
+      color: $oa-red;
+
+    }
+
+    li {
+      font-size: 0.95em;
+    }
+
+  }
+
 }

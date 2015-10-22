@@ -80,7 +80,7 @@ module.exports.messages = function( lang ) {
 
     return _message( lang, {
       en: 'this field cannot be empty',
-      fr: 'ce champ ne peux pas rester vide'
+      fr: 'ce champ ne peut pas rester vide'
     } );
 
   }

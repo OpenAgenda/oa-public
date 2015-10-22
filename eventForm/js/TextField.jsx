@@ -81,17 +81,24 @@ module.exports = React.createClass({
 
     var messages = errors.messages( this.props.lang ),
 
-    constraints = this.props.constraints || {};
+    constraints = this.props.constraints || {},
+
+    error = {
+      field: this.props.name,
+      label: this.props.label[ this.props.lang ]
+    };
 
     if ( value === undefined ) value = '';
 
     if ( ( value === null ) ) value = '';
 
-    if ( !( value + '').length ) {
+    if ( !( value + '' ).length ) {
 
       if ( !this.props.optional ) {
 
-        return messages.notEmpty();
+        error.message = messages.notEmpty();
+
+        return error;
 
       }
 
@@ -101,19 +108,25 @@ module.exports = React.createClass({
 
     if ( ( constraints.max !== undefined ) && ( value.length > constraints.max ) ) {
 
-      return messages.tooLong( constraints.max );
+      error.message = messages.tooLong( constraints.max );
+
+      return error;
 
     }
 
     if ( ( constraints.min !== undefined ) && ( value.length < constraints.min ) ) {
 
-      return messages.tooShort( constraints.min );
+      error.message = messages.tooShort( constraints.min );
+
+      return error;
 
     }
 
     if ( typeValidators[ this.props.type ] && !typeValidators[ this.props.type ].func( value ) ) {
 
-      return messages[ typeValidators[ this.props.type ].error ]();
+      error.message = messages[ typeValidators[ this.props.type ].error ]();
+
+      return error;
 
     }
 
