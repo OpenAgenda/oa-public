@@ -247,9 +247,18 @@ module.exports = function( params ) {
 
       du.forEach( errors, function( error ) {
 
-        if ( utils.isArray( error ) ) {
+        if ( typeof error.message !== 'string' ) {
 
-          flattened = flattened.concat( error );
+          for ( var l in error.message ) {
+
+            flattened.push( {
+              field: error.field,
+              label: error.label,
+              message: error.message[ l ],
+              lang: l
+            } );
+
+          }
 
         } else {
 

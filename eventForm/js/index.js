@@ -142,7 +142,7 @@ window.oaEventForm = function( options ) {
     rUtils.eh.trigger( eventName, {
       name: field,
       value: content,
-      errors: fieldErrors.concat( customErrors )
+      errors: errors
     } );
 
   }

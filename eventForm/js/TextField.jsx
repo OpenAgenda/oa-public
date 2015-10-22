@@ -70,8 +70,9 @@ module.exports = React.createClass({
     return <ul className="cform">
       <li>
         <label>{this.props.label[this.props.lang]}{ this.props.optional ? '' : ' (*)' }</label>
-        {renderHelpers.errorOrInfo.apply( this )}
+        {renderHelpers.renderInfo.apply( this )}
         { this.renderField() }
+        { renderHelpers.renderError.apply( this ) }
       </li>
     </ul>
 
@@ -81,12 +82,7 @@ module.exports = React.createClass({
 
     var messages = errors.messages( this.props.lang ),
 
-    constraints = this.props.constraints || {},
-
-    error = {
-      field: this.props.name,
-      label: this.props.label[ this.props.lang ]
-    };
+    constraints = this.props.constraints || {};
 
     if ( value === undefined ) value = '';
 
@@ -96,9 +92,7 @@ module.exports = React.createClass({
 
       if ( !this.props.optional ) {
 
-        error.message = messages.notEmpty();
-
-        return error;
+        return messages.notEmpty();
 
       }
 
@@ -108,25 +102,19 @@ module.exports = React.createClass({
 
     if ( ( constraints.max !== undefined ) && ( value.length > constraints.max ) ) {
 
-      error.message = messages.tooLong( constraints.max );
-
-      return error;
+      return messages.tooLong( constraints.max );
 
     }
 
     if ( ( constraints.min !== undefined ) && ( value.length < constraints.min ) ) {
 
-      error.message = messages.tooShort( constraints.min );
-
-      return error;
+      return messages.tooShort( constraints.min );
 
     }
 
     if ( typeValidators[ this.props.type ] && !typeValidators[ this.props.type ].func( value ) ) {
 
-      error.message = messages[ typeValidators[ this.props.type ].error ]();
-
-      return error;
+      return messages[ typeValidators[ this.props.type ].error ]();
 
     }
 

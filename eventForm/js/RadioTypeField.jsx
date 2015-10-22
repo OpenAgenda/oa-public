@@ -67,11 +67,7 @@ module.exports = function( funcs ) {
 
       if ( !this.props.optional && !( value + '').length ) {
 
-        return {
-          field: this.props.field,
-          label: this.props.label[ this.props.lang ],
-          message: this.message( ERR.NOTEMPTY )
-        }
+        return this.message( ERR.NOTEMPTY );
 
       }
 

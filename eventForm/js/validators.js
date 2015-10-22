@@ -13,7 +13,7 @@ module.exports = {
 
 function validate( value ) {
 
-  var currentMessages = {}, currentErrors = {},
+  var currentMessages = {},
 
   messages = errors.messages( this.props.lang ),
 
@@ -51,17 +51,7 @@ function validate( value ) {
 
   });
 
-  for( var lang in currentMessages ) {
-
-    currentErrors[ lang ] = {
-      field: this.props.name,
-      label: this.props.label[ this.props.lang ],
-      message: currentMessages[ lang ]
-    }
-
-  }
-
-  return has ? currentErrors: false;
+  return has ? currentMessages: false;
 
 }
 

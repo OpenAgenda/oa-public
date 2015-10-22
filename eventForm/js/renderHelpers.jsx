@@ -11,9 +11,10 @@ utils = require( 'utils' );
 module.exports = {
   multilingual: {
     render: mRender,
-    block: mBlock,
-    error: mError
+    block: mBlock
   },
+  renderInfo: renderInfo,
+  renderError: renderError,
   errorOrInfo: errorOrInfo
 }
 
@@ -41,8 +42,8 @@ function mBlock( l ) {
       <label>{l}</label>
       <div>
         {this.renderField( value, l )}
+        {renderError.call( this, l )}
         {_counter( this.props, value )}
-        {this.renderError( l )}
       </div>
     </li>
 
@@ -50,47 +51,50 @@ function mBlock( l ) {
 
     return <div>
       { this.renderField( value, l ) }
+      {renderError.call( this, l )}
       { _counter( this.props, value ) }
-      {this.renderError( l )}
     </div>;
 
   }
 
 }
 
-function mError( l ) {
+function errorOrInfo() {
 
-  if ( this.props.error && this.props.error[ l ] && this.state.userHasTyped ) {
+  var errorRender = renderError.call( this );
 
-    return <span className="error">{ this.props.error[ l ] }</span>;
+  if ( errorRender ) return errorRender;
 
-  }
+  return renderInfo.call( this );
+  
+}
 
-  return '';
+function renderError( l ) {
+
+  var message = false;
+
+  if ( !this.state.userHasTyped ) return;
+
+  if ( !this.props.error ) return;
+
+  message = l ? this.props.error[ l ] : this.props.error;
+
+  if ( !message ) return;
+
+  return <span className="error">{message}</span>;
 
 }
 
-function errorOrInfo() {
 
-  var infos, 
+function renderInfo() {
 
-  error = utils.isArray( this.props.error ) ? this.props.error[ 0 ] : this.props.error;
+  if ( !this.props.info ) return;
 
-  if ( error && this.state.userHasTyped ) {
-    
-    return <span className="error">{error.message}</span>;
+  var infos = this.props.info[this.props.lang].split( '\n' );
 
-  } else if ( this.props.info ) {
-
-    infos = this.props.info[this.props.lang].split( '\n' );
-
-    return <span className="info">
-      {infos.map( function( info ) { return <span>{info}</span> } )}
-    </span>
-
-  }
-
-  return '';
+  return <span className="info">
+    {infos.map( function( info ) { return <span>{info}</span> } )}
+  </span>
 
 }
 
@@ -101,7 +105,7 @@ function mRender() {
     return <ul className="cform">
       <li>
         <label>{this.props.label[this.props.lang]}{ this.props.optional ? '' : ' (*)' }</label>
-        {errorOrInfo.apply( this )}
+        {renderInfo.call( this )}
       </li>
       {this.props.languages.map(this.renderBlock)}
     </ul>
@@ -111,8 +115,7 @@ function mRender() {
     return <ul className="cform">
       <li>
         <label>{this.props.label[this.props.lang]}{ this.props.optional ? '' : ' (*)' }</label>
-        { errorOrInfo.apply( this ) }
-        { this.props.info && !( this.props.error && this.state.userHasTyped ) ? <span className="info">{this.props.info[this.props.lang]}</span> : '' }
+        { renderInfo.call( this ) }
         {this.props.languages.map(this.renderBlock)}
       </li>
     </ul>

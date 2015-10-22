@@ -18,7 +18,9 @@ AccessibilityFields = require( './AccessibilityFields.jsx' ),
 
 AgeFields = require( './AgeFields.jsx' ),
 
-utils = require( 'utils' );
+utils = require( 'utils' ),
+
+formErrors = {};
 
 module.exports = React.createClass( {
 
@@ -26,7 +28,7 @@ module.exports = React.createClass( {
 
     var state = this.props.initData;
 
-    state.errors = state.errors || {};
+    formErrors = state.errors || {};
 
     state.languages = this.props.initialLanguages;
 
@@ -47,19 +49,15 @@ module.exports = React.createClass( {
 
     return function( value, errorMessage ) {
 
-      var updated = {
-        //errors: {}
-      };
+      var updated = {};
 
       updated[ field ] = value;
 
-      //updated.errors[ field ] = errorMessage
-
-      //self.props.onTextChange( field, value );
-      
-      console.log( updated );
+      formErrors[ field ] = errorMessage;
 
       self.setState( updated );
+
+      self.props.onTextChange( field, value, self.listErrorDetails( ) );
 
     }
 
@@ -67,20 +65,57 @@ module.exports = React.createClass( {
 
   changeCustom: function( field, value, errorMessage ) {
 
-    return;
-
-    var updatedCustom = JSON.parse( JSON.stringify( this.state.custom ) );
-
     var updated = {
-      custom: {},
-      errors: {}
+      custom: JSON.parse( JSON.stringify( this.state.custom ) )
     };
 
     updated.custom[ field ] = value;
 
-    updated.errors[ field ] = errorMessage;
+    formErrors[ field ] = errorMessage;
 
     this.setState( updated );
+
+    this.props.onCustomChange( updated.custom , this.listErrorDetails( ) );
+
+  },
+
+
+  /**
+   * generate events as list including for each error the message, the label of the field and its name
+   */
+  listErrorDetails: function() {
+
+    var errors = [];
+
+    for( var i in formErrors ) {
+
+      if ( formErrors[ i ] ) errors.push( {
+        field: i,
+        label: this.getErrorFieldLabel( i )[ this.props.lang ],
+        message: formErrors[ i ]
+      });
+
+    }
+
+    return errors;
+
+  },
+
+  getErrorFieldLabel: function( field ) {
+
+    var customPossibles = this.props.custom.filter( function( customField ) {
+
+      return customField.name == field;
+
+    });
+
+    if ( customPossibles.length ) return customPossibles[ 0 ].label;
+
+    if ( field == 'freeText' ) return this.props.labels.longDescription;
+
+    if ( field == 'tags' ) return this.props.labels.keywords;
+
+    return this.props.labels[ field ];
 
   },
 
@@ -108,7 +143,7 @@ module.exports = React.createClass( {
       type='textarea'
       rows={10}
       value={this.state.freeText}
-      error={this.state.errors.freeText }
+      error={ formErrors.freeText }
       languages={this.state.languages}
       onChange={this.onChange( 'freeText' )}
       lang={this.props.lang} /> 
@@ -148,7 +183,7 @@ module.exports = React.createClass( {
           name='title'
           type='text'
           value={this.state.title}
-          error={this.state.errors.title }
+          error={formErrors.title }
           languages={this.state.languages}
           onChange={this.onChange( 'title' )}
           lang={this.props.lang} />
@@ -161,7 +196,7 @@ module.exports = React.createClass( {
           name='description'
           type='text'
           value={this.state.description}
-          error={this.state.errors.description }
+          error={formErrors.description }
           languages={this.state.languages}
           onChange={this.onChange( 'description' )}
           lang={this.props.lang} /> 
@@ -175,7 +210,7 @@ module.exports = React.createClass( {
           languages={this.state.languages}
           onChange={this.onChange( 'tags' )}
           label={this.props.labels.keywords}
-          error={this.state.errors.tags }
+          error={formErrors.tags }
           placeholder={this.props.labels.keywordPlaceholder}
           lang={this.props.lang} />
 
@@ -190,7 +225,7 @@ module.exports = React.createClass( {
           type='text'
           optional={true}
           value={this.state.conditions}
-          error={this.state.errors.conditions }
+          error={formErrors.conditions }
           languages={this.state.languages}
           onChange={this.onChange( 'conditions' )}
           lang={this.props.lang} />  
@@ -201,7 +236,7 @@ module.exports = React.createClass( {
           type="url"
           optional={true}
           value={this.state.ticketLink}
-          error={this.state.errors.ticketLink}
+          error={formErrors.ticketLink}
           onChange={this.onChange( 'ticketLink' )}
           lang={this.props.lang} />
 
@@ -221,8 +256,8 @@ module.exports = React.createClass( {
 
       { this.props.custom ? <div className="form-section"><CustomFields
         fields={ this.props.custom }
-        values={this.state.custom || {} }
-        errors={ this.state.errors || {} }
+        values={this.state.custom }
+        errors={ formErrors }
         languages={this.state.languages}
         onChange={this.changeCustom}
         labels={this.props.labels}     

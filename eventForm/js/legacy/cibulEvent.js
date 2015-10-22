@@ -55,7 +55,7 @@ module.exports = function( params ) {
 
   nextLocationIndex = 0,
 
-  currentErrors = {},
+  currentErrors = [],
 
   event = params.event, onValidate = false, languages = [],
 
@@ -253,45 +253,13 @@ module.exports = function( params ) {
 
   _evaluate = function(onSuccess) {
 
-    if ( onValidate || onSuccess ) _validateEvent( _getCurrentErrors(), function(success, errors ) {
+    if ( onValidate || onSuccess ) _validateEvent( currentErrors, function(success, errors ) {
 
       if (success && onSuccess) onSuccess();
 
       if (onValidate) onValidate(success, errors );
 
     });
-
-  },
-
-  _getCurrentErrors = function() {
-
-    var errs = [];
-
-    for ( var i in currentErrors ) {
-
-      errs.push( currentErrors[ i ] );
-
-    }
-
-    return errs;
-
-  },
-
-  _setCurrentErrors = function( newErrors ) {
-
-    for ( var i in newErrors ) {
-
-      if ( !newErrors[ i ] ) {
-
-        delete currentErrors[ i ];
-
-      } else {
-
-        currentErrors[ i ] = newErrors[ i ];
-
-      }
-
-    }
 
   },
 
