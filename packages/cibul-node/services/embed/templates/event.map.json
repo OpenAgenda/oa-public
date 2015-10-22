@@ -77,7 +77,10 @@
   },{ 
     "name" : "CategoryLink",
     "mapTo" : "categoryLink"
-  } ],
+  }, {
+    "name" : "Featured",
+    "mapTo" : "featured"
+  }],
 
   "children" : [ {
     "name" : "Timings",

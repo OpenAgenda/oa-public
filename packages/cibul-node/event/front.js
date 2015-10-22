@@ -118,16 +118,8 @@ function agendaEventShow( req, res ) {
     eventSlug: req.params.eventSlug
   } );
 
-  req.event.getFeatured( function( err, featured ) {
-
-    if ( err ) return next( err );
-
-    req.formatted.featured = featured;
-
-    cmn.render( req, res, 'event/show', {
-      event: req.formatted
-    } );
-
+  cmn.render( req, res, 'event/show', {
+    event: req.formatted
   } );
 
 }

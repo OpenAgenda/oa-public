@@ -273,18 +273,30 @@ function format( req, res, next ) {
 
       formatted.categorySlug = results[ 4 ] ? results[ 4 ].slug : false;
 
+      req.event.getFeatured( function( err, featured ) {
+
+        if ( err ) return next( err );
+
+        formatted.featured = featured;
+
+        req.formatted = formatted;
+
+        next();
+
+      } );
+
+
     } else {
 
       formatted.importUri = req.genUrl( 'eventActionShow', { 
         eventSlug: req.event.slug
       } );
 
+      req.formatted = formatted;
+
+      next();
+
     }
-
-
-    req.formatted = formatted;
-
-    next();
 
   } );
 
