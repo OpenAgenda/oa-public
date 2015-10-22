@@ -283,13 +283,11 @@ module.exports = function( params ) {
 
   },
 
-  _validateEvent = function(preErrors, callback) {
+  _validateEvent = function( preErrors, callback ) {
 
     var errors = validator.processFull( event ),
 
     concatenated = preErrors.concat( errors );
-
-    console.log( errors );
 
     callback( concatenated.length?false:true, concatenated );
 
