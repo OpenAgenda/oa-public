@@ -12,6 +12,8 @@ eventSvc = require( '../services/event' ),
 
 model = require( '../services/model' ),
 
+async = require( 'async' ),
+
 routes = {
 
   agendaActionShow: [ 'get', '/', actionShow ],
@@ -81,34 +83,53 @@ function actionShow( req, res ) {
 
     if ( !req.session.logged ) return values;
 
-    return w.promise( function( resolve, reject ) {
+    return w.promise( ( rs, rj ) => {
+
+      values.agendas = [];
+
+      var aIds = [];
 
       // list agendas which have the aggregator feature and of which user is admin
 
-      model.reviews().list( { aggregator: true, adminId: req.session.userId }, function( err, agendas ) {
+      async.each( [
+        { aggregator: true, adminId: req.session.userId },
+        { aggregator: true, ownerId: req.session.userId }
+      ], ( query, ecb ) => {
 
-        if ( err ) return reject( err );
+        model.reviews().list( query, ( err, agendas ) => {
 
-        values.agendas = agendas.map( function( a ) {
+          if ( err ) return rj( err );
 
-          return {
-            id: a.id,
-            title: a.title,
-            aggUid: a.uid,
-            aggregates: false
-          }
+          agendas.forEach( ( a ) => {
 
-        }).filter( function( a ) {
+            if ( a.id == req.agenda.id ) return;
 
-          return a.id !== req.agenda.id;
+            if ( aIds.indexOf( a.id ) !== -1 ) return;
 
-        });
+            aIds.push( a.id );
+
+            values.agendas.push( {
+              id: a.id,
+              title: a.title,
+              aggUid: a.uid,
+              aggregates: false
+            } );
+
+          } );
+
+          ecb();
+
+        } );
+
+      }, ( err, result ) => {
+
+        if ( err ) return rj( err );
 
         if ( values.agendas.length ) values.hasAggregator = true;
 
-        resolve( values );
+        rs( values );
 
-      });
+      } );
 
     });    
 
