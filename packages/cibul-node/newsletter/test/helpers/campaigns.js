@@ -1,10 +1,8 @@
 process.env.NODE_ENV = 'test';
 
-var config = require('../../../config'),
+var config = require( '../../../config' ),
 
-cmn = require( '../../../lib/commons-task' ),
-
-model = cmn.getCibulModel(),
+model = require( '../../../services/model' ),
 
 fixtures = require( 'cibulModel/test/fixtures/fixtures' )( model ),
 

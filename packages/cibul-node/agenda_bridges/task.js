@@ -12,15 +12,13 @@ async = require( 'async' ),
 
 coms = require( '../lib/coms' ),
 
-cmn = require( '../lib/commons-task' ),
-
 config = require( '../config' ),
 
 w = require( 'when' ),
 
 wn = require( 'when/node' ),
 
-model = cmn.getCibulModel(),
+model = require( '../services/model' ),
 
 running = false,
 
@@ -41,13 +39,12 @@ jobHandlers = {
  * exposed function list
  */
 
-exports.load = cmn.makeLoad( run );
-exports.run = run;
+module.exports = run;
 
 // for testing
-exports.setOnStart = setOnStart;
-exports.setOnComplete = setOnComplete;
-exports.setComs = setComs;
+module.exports.setOnStart = setOnStart;
+module.exports.setOnComplete = setOnComplete;
+module.exports.setComs = setComs;
 
 
 function run() {

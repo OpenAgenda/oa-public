@@ -13,9 +13,7 @@ lib = require( '../lib/lib' ),
 
 coms = require( '../lib/coms' ),
 
-cmn = require( '../lib/commons-task' ),
-
-model = cmn.getCibulModel(),
+model = require( '../services/model' ),
 
 config = require( '../config' ),
 
@@ -42,7 +40,6 @@ _onStart;
  * exported function list
  */
 
-exports.load = cmn.makeLoad( run );     // load task using offset and period
 exports.run = run;                      // run task
 
 // for testing

@@ -7,7 +7,6 @@
 
 exports.loadLogger = loadLogger;
 
-exports.getCibulModel = getCibulModel;            // get model instance
 exports.render = render;                          // render and serve response
 exports.renderJson = renderJson;                  // render and serve json
 exports.renderTemplate = renderTemplate;          // render and serve template
@@ -76,17 +75,6 @@ genUrl = require( '../services/genUrl' ),
 languages = require( 'languages' );
 
 
-
-
-/**
- * get a model instance
- */
-
-function getCibulModel() {
-
-  return model;
-
-}
 
 
 

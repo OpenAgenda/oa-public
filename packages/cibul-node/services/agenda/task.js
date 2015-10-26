@@ -8,19 +8,13 @@ eventSvc = require( '../event' ),
 
 coms = require( '../../lib/coms' ),
 
-cmn = require( '../../lib/commons-task' ),
-
 async = require( 'async' ),
 
 config = require( '../../config' ),
 
 groupActions = require( './tasks/groupActions' );
 
-module.exports = {
-  load: cmn.makeLoad( run )
-}
-
-function run() {
+module.exports = function() {
 
   groupActions();
 

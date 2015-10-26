@@ -19,9 +19,7 @@ config = require( '../config' ),
 
 coms = require( '../lib/coms' ),
 
-cmn = require( '../lib/commons-task' ),
-
-model,
+model = require( '../services/model' ),
 
 running = false,
 
@@ -32,22 +30,13 @@ _onReady,
 _onProcessed;
 
 
-/**
- * exported function list
- */
+module.exports = run;
 
-exports.load = cmn.makeLoad( run );        // load task using offset and period
-exports.run = run;                         // run task
 
-/**
- * execute the task
- */
 
 function run() {
 
   if ( !running ) {
-
-    model = cmn.getCibulModel();
 
     running = true;
 

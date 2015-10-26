@@ -16,7 +16,7 @@ cmn = require( '../lib/commons-app' ),
 
 build = require( './build' ),
 
-model = cmn.getCibulModel(),
+model = require( '../services/model' ),
 
 generic = require( './generic' )( model ),
 

@@ -20,7 +20,7 @@ log = require( 'logger' )( 'admin/back' ),
 
 lib = require( '../lib/lib' ), 
 
-model = cmn.getCibulModel(),
+model = require( '../services/model' ),
 
 adminSvc = require( '../services/admin/admin' ),
 

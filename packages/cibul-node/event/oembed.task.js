@@ -8,8 +8,6 @@ var config = require( '../config' ),
 
 coms = require( '../lib/coms' ),
 
-cmn = require( '../lib/commons-task' ),
-
 oembedSvc = require( '../services/event/oembed' ),
 
 running = false,
@@ -18,13 +16,12 @@ _onStart,
 
 _onComplete;
 
-module.exports = {
-  load: cmn.makeLoad( run ),
-  run: run,
-  setOnStart: setOnStart,
-  setOnComplete: setOnComplete,
-  setComs: setComs
-}
+module.exports = run;
+
+// for testing
+module.exports.setOnStart = setOnStart,
+module.exports.setOnComplete = setOnComplete,
+module.exports.setComs = setComs
 
 function run() {
 

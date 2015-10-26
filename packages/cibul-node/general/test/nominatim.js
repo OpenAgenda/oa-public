@@ -6,13 +6,11 @@ var config = require( '../../config' ),
 
 log = require( 'logger' )( 'nominatim task tests' ),
 
-async = require('async'),
+async = require( 'async' ),
 
-should = require('should'),
+should = require( 'should' ),
 
-cmn = require( '../../lib/commons-task' ),
-
-model = cmn.getCibulModel(),
+model = require( '../../services/model' ),
 
 fixtures = require( 'cibulModel/test/fixtures/fixtures' )( model ),
 

@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * send all the things by mail using SES
  * 
@@ -7,7 +9,7 @@
 
 var log = require( 'logger' )( 'mailer' ),
 
-lib = require( '../lib/lib' ),
+utils = require( 'utils' ),
 
 config = require( '../config' ),
 
@@ -16,8 +18,6 @@ config = require( '../config' ),
  */
 
 coms = require( '../lib/coms' ),
-
-cmn = require( '../lib/commons-task' ),
 
 running = false,
 
@@ -34,11 +34,13 @@ _onProcessed;
  * exported function list
  */
 
-exports.load = cmn.makeLoad( run );        // load task using offset and period
-exports.run = run;                         // run task
-exports.shutdown = shutdown;               // shut everything down
-exports.setOnReady = setOnReady;           // optional callback to signal that task is up an running
-exports.setOnProcessed = setOnProcessed;   // optional callback called when a mail send has been processed
+module.exports = run;
+
+utils.extend( module.exports, {
+  shutdown: shutdown,             // shut everything down
+  setOnReady: setOnReady,         // optional callback to signal that task is up an running
+  setOnProcessed: setOnProcessed  // optional callback called when a mail send has been processed
+});
 
 /**
  * execute the task
@@ -119,7 +121,7 @@ function _listen() {
 
     recipient = recipients.pop();
 
-    if ( recipients.length ) _queue(lib.extend( values, { recipient : recipients }));
+    if ( recipients.length ) _queue(utils.extend( values, { recipient : recipients }));
 
     _send({
       recipient: recipient,
@@ -180,12 +182,12 @@ function _sesMailer( config, cb ) {
 
   latestTick = 0,     // last time a mail was sent
 
-  mailerConfig = lib.extend({
+  mailerConfig = utils.extend({
     source: false,
     replyTo: false
   }, config.mailer),
 
-  awsConfig = lib.extend({
+  awsConfig = utils.extend({
     accessKeyId: false,
     secretAccessKey: false,
     region: false
@@ -201,7 +203,7 @@ function _sesMailer( config, cb ) {
 
     log( 'debug', 'initing sesMailer' );
 
-    lib.extend( AWS.config, awsConfig );
+    utils.extend( AWS.config, awsConfig );
 
     ses = new AWS.SES();
 
@@ -221,7 +223,7 @@ function _sesMailer( config, cb ) {
 
   _mail = function( options, cb, sendResultCb ) {
 
-    var params = lib.extend({
+    var params = utils.extend({
       recipient: false, // recipient(s)
       subject: false, // the subject
       html: false, // this or text will be required

@@ -4,7 +4,9 @@ var redis = require( 'redis' ),
 
 config = require( '../../config' ),
 
-cmn = require( '../../lib/commons-app' );
+cmn = require( '../../lib/commons-app' ),
+
+model = require( '../../services/model' );
 
 module.exports = {
   set: set,
@@ -53,7 +55,7 @@ function syncRedis( req, res, cb ) {
 
   if ( cmn.isLogged( req ) ) {
 
-    cmn.getCibulModel().users().get( { id: req.session.userId }, function( err, user ) {
+    model.users().get( { id: req.session.userId }, function( err, user ) {
 
       if ( err ) {
 

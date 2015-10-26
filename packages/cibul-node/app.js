@@ -20,7 +20,9 @@ module.exports = function( enabledTypes, cb ) {
 
     log = logger( 'app' ),
 
-    config = require( './config' );
+    config = require( './config' ),
+
+    tfy = require( './lib/taskify' );
 
     logger.init( {
       debug: {
@@ -193,25 +195,25 @@ module.exports = function( enabledTypes, cb ) {
 
     if ( loadTasks && ( enabledTypes.indexOf( 'task' ) !== -1 ) ) {
 
-      require( './newsletter/task' ).load( { period: 60000, bootOffset: 15000 } );
+      //require( './newsletter/task' ).load( { period: 60000, bootOffset: 15000 } );
       
-      require( './mailer/task' ).load( { bootOffset: 14909 } );
+      tfy( require( './mailer/task' ), { bootOffset: 14909 } );
       
-      require( './search/task' ).load( { bootOffset: 1000 } );
+      tfy( require( './search/task' ), { bootOffset: 1000 } );
 
-      require( './general/nominatim.task' ).load( { bootOffset: 10000, period: 60000*5 } );
+      tfy( require( './general/nominatim.task' ), { bootOffset: 10000, period: 60000*5 } );
 
-      require( './agenda_bridges/task' ).load( { bootOffset: 3000 } );
+      tfy( require( './agenda_bridges/task' ), { bootOffset: 3000 } );
 
-      require( './general/jobs.task' ).load( { bootOffset: 1000 } );
+      tfy( require( './general/jobs.task' ), { bootOffset: 1000 } );
 
-      require( './general/resetApiCounters.task' ).load( { period: 'daily', time: '00:00' } );
+      tfy( require( './general/resetApiCounters.task' ), { period: 'daily', time: '00:00' } );
 
-      require( './general/mainLogger.task').load();
+      require( './general/mainLogger.task' )();
 
-      require( './event/oembed.task' ).load();
+      require( './event/oembed.task' )();
 
-      require( './services/agenda/task' ).load();
+      require( './services/agenda/task' )();
 
       require( './services/aggregator' ).task();
 

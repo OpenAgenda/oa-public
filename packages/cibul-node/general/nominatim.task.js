@@ -6,9 +6,7 @@ coms = require( '../lib/coms' ),
 
 config = require( '../config' ),
 
-cmn = require( '../lib/commons-task' ),
-
-model = cmn.getCibulModel(),
+model = require( '../services/model' ),
 
 async = require( 'async' ),
 
@@ -38,16 +36,12 @@ map = {
 };
 
 
-/**
- * exported function list
- */
 
-exports.load = cmn.makeLoad( run );     // load task using offset and period
-exports.run = run;                      // run task
+module.exports = run;
 
 // for testing
-exports.setOnStart = setOnStart;        // task is running
-exports.setOnComplete = setOnComplete;  // task has completed a run
+module.exports.setOnStart = setOnStart;        // task is running
+module.exports.setOnComplete = setOnComplete;  // task has completed a run
 
 
 /**

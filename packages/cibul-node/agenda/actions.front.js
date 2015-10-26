@@ -10,7 +10,7 @@ w = require( 'when' ),
 
 eventSvc = require( '../services/event' ),
 
-model = cmn.getCibulModel(),
+model = require( '../services/model' ),
 
 routes = {
 

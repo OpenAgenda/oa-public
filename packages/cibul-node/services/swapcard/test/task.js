@@ -17,9 +17,7 @@ bogusComs = require( '../../../test/helpers/bogusComs' ),
 
 helpers = require( './helpers/helpers' ),
 
-cmn = require( '../../../lib/commons-task' ),
-
-model = cmn.getCibulModel(),
+model = require( '../../../services/model' ),
 
 swapcard = require( '../swapcard' )( model, config ),
 

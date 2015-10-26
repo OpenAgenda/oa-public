@@ -10,17 +10,9 @@ config = require( '../config' ),
 
 coms = require( '../lib/coms' ),
 
-cmn = require( '../lib/commons-task' ),
-
 running = false;
 
-module.exports = {
-  load: cmn.makeLoad( run ),
-  run: run
-}
-
-
-function run() {
+module.exports = function() {
 
   if ( running ) {
 

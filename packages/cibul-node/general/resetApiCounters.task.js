@@ -4,9 +4,7 @@ var log = require( 'logger' )( 'daily task' ),
 
 config = require( '../config' ),
 
-cmn = require( '../lib/commons-task' ),
-
-model = cmn.getCibulModel(),
+model = require( '../services/model' ),
 
 redis = require( 'redis' ),
 
@@ -21,12 +19,11 @@ _onComplete;
  * exposed function list
  */
 
-exports.load = cmn.makeLoad( run );
-exports.run = run;
+module.exports = run;
 
 // for testing
-exports.setOnStart = setOnStart;
-exports.setOnComplete = setOnComplete;
+module.exports.setOnStart = setOnStart;
+module.exports.setOnComplete = setOnComplete;
 
 
 

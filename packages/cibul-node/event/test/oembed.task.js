@@ -8,9 +8,7 @@ async = require( 'async' ),
 
 should = require( 'should' ),
 
-cmn = require( '../../lib/commons-task' ),
-
-cbm = cmn.getCibulModel(),
+cbm = require( '../../services/model' ),
 
 fixtureSets = require( 'cibulModel/test/fixtures/sets' )( cbm ),
 

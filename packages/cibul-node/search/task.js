@@ -14,13 +14,11 @@ coms = require( '../lib/coms' ),
 
 utils = require( '../lib/utils' ),
 
-cmn = require( '../lib/commons-task' ),
-
 agendaSvc = require( '../services/agenda' ),
 
 config = require( '../config' ),
 
-model = cmn.getCibulModel(),
+model = require( '../services/model' ),
 
 ES = require( 'ES' )( config.es ),
 
@@ -45,19 +43,15 @@ jobHandlers = {
 };
 
 
-
-/**
- * exposed function list
- */
-
-exports.load = cmn.makeLoad( run );
-exports.run = run;
+module.exports = run;
 
 // for testing
-exports.setOnStart = setOnStart;
-exports.setOnComplete = setOnComplete;
-exports.unsetOnComplete = unsetOnComplete;
-exports.setComs = setComs;
+utils.extend( module.exports, {
+  setOnStart: setOnStart,
+  setOnComplete: setOnComplete,
+  unsetOnComplete: unsetOnComplete,
+  setComs: setComs
+} );
 
 
 function run() {
