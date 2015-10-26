@@ -1,16 +1,18 @@
 {
-  "layout": "layout/main",
-  "css" : {
-    "signin" : "css/style.scss",
-    "forms" : "../css/forms.css",
-    "cStructure" : "../structure/css/centered.css"
+  "layout": "bsLayout/main",
+  "oaCss" : {
+    "bsForms" : "../css/bsForms.scss",
+    "agenda-header" : "../agenda/css/header.scss",
+    "auth" : "css/auth.scss"
    },
   "helpers" : {
     "_t" : "time",
-    "_i" : "image"
+    "_i" : "image",
+    "_txt" : "text"
   },
   "base" : {
-    "pageClass" : "ct auth",
+    "pageClass" : "auth",
+    "includeActionLinks" : false,
     "facebookPage" : "//facebook.com/oagenda",
     "twitterPage" : "//twitter.com/OpenAgendaFR"
   }
