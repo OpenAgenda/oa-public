@@ -42,7 +42,7 @@ describe( 'oembed task - job creation', function( ) {
 
     });  
 
-    task.run();
+    task();
 
     bogusComs.publish( config.mainChannel, {
       name: 'event.publish', 

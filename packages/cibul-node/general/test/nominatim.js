@@ -62,7 +62,7 @@ describe( 'nominatim', function() {
 
     });
 
-    task.run();
+    task();
 
   } );
 

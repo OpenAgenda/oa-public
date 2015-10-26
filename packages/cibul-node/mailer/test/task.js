@@ -33,7 +33,7 @@ describe( 'mailer', function() {
 
     task.setOnReady( done );
 
-    task.run();
+    task();
 
   });
 

@@ -39,7 +39,7 @@ describe( 'search index sync', function() {
 
       fixtureData = fData;
 
-      task.run();
+      task();
 
       // rebuild index
       
