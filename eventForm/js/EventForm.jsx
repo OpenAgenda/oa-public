@@ -103,13 +103,17 @@ module.exports = React.createClass( {
 
   getErrorFieldLabel: function( field ) {
 
-    var customPossibles = this.props.custom.filter( function( customField ) {
+    if ( this.props.custom ) {
 
-      return customField.name == field;
+      var customPossibles = this.props.custom.filter( function( customField ) {
 
-    });
+        return customField.name == field;
 
-    if ( customPossibles.length ) return customPossibles[ 0 ].label;
+      });
+
+      if ( customPossibles.length ) return customPossibles[ 0 ].label;
+
+    }
 
     if ( field == 'freeText' ) return this.props.labels.longDescription;
 

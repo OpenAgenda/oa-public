@@ -161,7 +161,7 @@ module.exports = React.createClass({
     }
 
     return ( 
-      <div className="cform">
+      <div className="cform target-age">
         <ul>
           <li className="line">
             <input type="checkbox" name="age" checked={this.state.enabled} onClick={this.onEnabled(!this.state.enabled)} />
