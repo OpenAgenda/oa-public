@@ -125,8 +125,6 @@ module.exports = React.createClass( {
 
   changeLanguages: function( languages ) {
 
-    return;
-
     this.setState( {
       languages: languages
     } );
