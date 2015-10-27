@@ -78,6 +78,9 @@
     "name" : "CategoryLink",
     "mapTo" : "categoryLink"
   }, {
+    "name" : "CategorySlug",
+    "mapTo" : "categorySlug"
+  }, {
     "name" : "Featured",
     "mapTo" : "featured"
   }],

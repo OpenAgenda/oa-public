@@ -13,6 +13,7 @@
     { "name" : "TicketUrl", "mapTo" : "ticketLink" },
     { "name" : "Category", "mapTo" : "category" },
     { "name" : "CategoryLink", "mapTo" : "categoryLink" },
+    { "name" : "CategorySlug", "mapTo" : "categorySlug" },
     { "name" : "Favorite", "mapTo" : "favorite" },
     { "name" : "Featured", "mapTo" : "featured" }
   ]
