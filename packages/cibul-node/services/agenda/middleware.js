@@ -193,7 +193,7 @@ function formatTemplateData( req, res, next ) {
 
   req.templateData.importUri = req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } );
 
-  req.templateData.hasSearchQuery = !!utils.size( req.query.search );
+  req.templateData.hasSearchQuery = !!utils.size( req.query.oaq );
 
   next();
 
@@ -216,7 +216,7 @@ function searchEvents( limit, showAll ) {
 
     }
 
-    req.agenda.search( req.query.search, utils.extend( {
+    req.agenda.search( req.query.oaq, utils.extend( {
       limit: Math.min( parseInt( req.query.limit ? req.query.limit : limit, 10 ), 300 ),
       showAll: showAll
     }, pagination ), function( err, data ) {
@@ -312,7 +312,7 @@ function cleanJson( req, res, next ) {
 
 function buildPdf( req, res, next ) {
 
-  var stream = req.agenda.searchStream( req.query.search, {
+  var stream = req.agenda.searchStream( req.query.oaq, {
     showAll: false
   } ),
 
@@ -381,7 +381,7 @@ function buildXlsx( includePrivateData ) {
 
       if ( err ) return next( err );
 
-      var stream = req.agenda.searchStream( req.query.search, {
+      var stream = req.agenda.searchStream( req.query.oaq, {
         showAll: includePrivateData 
       } ),
 
@@ -474,7 +474,7 @@ function buildCsv( includePrivateData ) {
 
       if ( err ) return next( err );
 
-      var stream = req.agenda.searchStream( req.query.search, {
+      var stream = req.agenda.searchStream( req.query.oaq, {
         showAll: includePrivateData 
       } ),
 

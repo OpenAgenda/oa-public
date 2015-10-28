@@ -128,7 +128,7 @@ function search( limit ) {
 
   return function( req, res, next ) {
 
-    es.search( req.query.search, {
+    es.search( req.query.oaq, {
       limit: limit,
       page: req.query.page
     }, function( err, data ) {

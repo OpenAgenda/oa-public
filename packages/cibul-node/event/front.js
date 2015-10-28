@@ -95,6 +95,8 @@ module.exports = function( path ) {
   var router = modLib.Router( routes );
 
   router.pre( [
+    cmn.loadLogger( 'event front' ),
+    cmn.redirectLegacySearch,
     cmn.flashSetter,
     cmn.loadSession
   ] );
@@ -233,16 +235,16 @@ function _formatAgendaLinks( uri, keys ) {
 
     if ( req.query.fb ) routeValues.fb = 1;
 
-    if ( req.query.search && req.query.search.passed !== undefined ) {
+    if ( req.query.oaq && req.query.oaq.passed !== undefined ) {
 
-      baseSearchQuery.passed = req.query.search.passed;
+      baseSearchQuery.passed = req.query.oaq.passed;
 
     }
 
     // link to go back to the agenda
     req.formatted.backLink = req.genUrl( uri, [ 
       routeValues, 
-      req.query.search ? { search: req.query.search } : {},
+      req.query.oaq ? { oaq: req.query.oaq } : {},
       { lang: req.lang }
     ] );
 
@@ -251,7 +253,7 @@ function _formatAgendaLinks( uri, keys ) {
     // link to results for event location in agenda
     req.formatted.locationLink = req.genUrl( uri, [
       routeValues,
-      { search: utils.extend( { location: req.event.getLocationUid() }, baseSearchQuery ) },
+      { oaq: utils.extend( { location: req.event.getLocationUid() }, baseSearchQuery ) },
       { lang: req.lang }
     ] );
 
@@ -262,7 +264,7 @@ function _formatAgendaLinks( uri, keys ) {
 
       req.formatted.categoryLink = req.genUrl( uri, [
         routeValues,
-        { search: utils.extend( { category: req.formatted.categorySlug }, baseSearchQuery ) },
+        { oaq: utils.extend( { category: req.formatted.categorySlug }, baseSearchQuery ) },
         { lang: req.lang }
       ] );
 
@@ -304,7 +306,7 @@ function _formatEmbedLinks( req, res, next ) {
 
   req.formatted.locationLink = req.genUrl( 'agendaEmbedShow', {
     uid: req.params.uid,
-    search: {
+    oaq: {
       location: req.event.getLocationUid()
     },
     lang: req.lang
@@ -316,7 +318,7 @@ function _formatEmbedLinks( req, res, next ) {
 
     req.formatted.categoryLink = req.genUrl( 'agendaEmbedShow', {
       uid: req.params.uid,
-      search: {
+      oaq: {
         category: req.formatted.categorySlug
       }
     });
@@ -345,7 +347,7 @@ function _formatCustomEmbedLinks( req, res, next ) {
   req.formatted.locationLink = req.genUrl( 'customEmbedShow', {
     uid: req.params.uid,
     embedUid: req.params.embedUid,
-    search: {
+    oaq: {
       location: req.event.getLocationUid()
     },
     lang: req.lang
@@ -358,7 +360,7 @@ function _formatCustomEmbedLinks( req, res, next ) {
     req.formatted.categoryLink = req.genUrl( 'customEmbedShow', {
       uid: req.params.uid,
       embedUid: req.params.embedUid,
-      search: {
+      oaq: {
         category: req.formatted.categorySlug
       },
       lang: req.lang
@@ -419,7 +421,7 @@ function _formatSocialLinks( req, res, next ) {
 
     siteUrl = req.embed.getSiteUrl();
 
-    eventUrl = siteUrl + '?search[uid]=' + req.event.uid;
+    eventUrl = siteUrl + '?oaq[uid]=' + req.event.uid;
 
     fbAppId = req.embed.getFacebookAppId();
 

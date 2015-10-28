@@ -67,6 +67,7 @@ module.exports = function( path ) {
   var router = modLib.Router( routes );
 
   router.pre( [
+    cmn.redirectLegacySearch,
     cmn.loadLogger( 'agenda front' ),
     cmn.loadSession
   ] );

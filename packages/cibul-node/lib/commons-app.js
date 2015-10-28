@@ -36,6 +36,7 @@ exports.writeToCookie = writeToCookie;
 exports.clearCookie = clearCookie;
 exports.readCookie = readCookie;
 
+exports.redirectLegacySearch = redirectLegacySearch;
 exports.loadLegacyRoutes = loadLegacyRoutes;
 
 /**
@@ -72,7 +73,9 @@ async = require( 'async' ),
 
 genUrl = require( '../services/genUrl' ),
 
-languages = require( 'languages' );
+languages = require( 'languages' ),
+
+qs = require( 'qs' );
 
 
 
@@ -988,5 +991,23 @@ function loadLegacyRoutes( genUrl ) {
   }
 
   genUrl.load( legacyRoutes );
+
+}
+
+function redirectLegacySearch( req, res, next ) {
+
+  if ( req.query.search ) {
+
+    var query = utils.extend( { oaq: req.query.search }, req.query );
+
+    query.search = undefined;
+
+    res.redirect( 301, req.baseUrl + req.path + '?' + qs.stringify( query ) );
+
+    return;
+
+  }
+
+  next();
 
 }

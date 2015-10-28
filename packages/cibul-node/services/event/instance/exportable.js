@@ -6,6 +6,8 @@ genUrl = require( '../../genUrl' ),
 
 timeHelper = require( 'cibulTemplates' ).helpers.time,
 
+w = require( 'when' ),
+
 _t = {
   fr: timeHelper( { lang: 'fr' } ),
   en: timeHelper( { lang: 'en' } )
@@ -42,9 +44,9 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
   
   function exportable( cb ) {
 
-    var dateRange = instance.getDateRange( true ),
+    var dateRange = instance.getDateRange( true );
 
-    c = {
+    w( {
       uid: instance.uid,
       slug: instance.slug,
       canonicalUrl: genUrl( 'eventShow', { eventSlug: instance.slug }, { protocol: 'https://' } ),
@@ -60,19 +62,75 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
         fr: i18n( dateRange[ 0 ], _t.fr( dateRange[ 1 ] ), 'fr' ).replace( ':', 'h' ),
         en: i18n( dateRange[ 0 ], _t.en( dateRange[ 1 ] ), 'en' )
       }
-    },
+    } )
 
-    l = instance.locations.length ? instance.locations[ 0 ] : false;
+    .then( _appendLocation )
+
+    .then( _appendTimings )
+
+    .done( ( v ) => {
+
+      cb( null, v );
+
+    }, cb );
+
+  }
+
+
+  function _appendTimings( v ) {
+
+    return w.promise( ( rs, rj ) => {
+
+      instance.getTimings( ( err, timings ) => {
+
+        if ( err ) return rj( err );
+
+        var t;
+
+        utils.extend( v, {
+          firstDate: null,
+          firstTimeStart: null,
+          firstTimeEnd: null
+        } );
+
+        if ( timings.length ) {
+
+          t = {
+            start: new Date( timings[ 0 ].start ),
+            end: new Date( timings[ 0 ].end )
+          };
+
+          utils.extend( v, {
+            firstDate: _stringifyDate( t.start ),
+            firstTimeStart: utils.fZ( t.start.getUTCHours() ) + ':' + utils.fZ( t.start.getMinutes() ),
+            firstTimeEnd: utils.fZ( t.end.getUTCHours() ) + ':' + utils.fZ( t.end.getMinutes() )
+          });
+
+        }
+
+        rs( v );
+
+      } );
+
+    } );
+
+
+  }
+
+
+  function _appendLocation( v ) {
+
+    var l = instance.locations.length ? instance.locations[ 0 ] : false;
 
     if ( l ) {
 
-      for( var f in locationFieldsMap ) {
+      for ( var f in locationFieldsMap ) {
 
-        c[ f ] = null;
+        v[ f ] = null;
 
         if ( l[ locationFieldsMap[ f ] ] ) {
           
-          c[ f ] = l[ locationFieldsMap[ f ] ];
+          v[ f ] = l[ locationFieldsMap[ f ] ];
 
         }
 
@@ -80,36 +138,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     }
 
-    instance.getTimings( ( err, timings ) => {
-
-      if ( err ) return cb( err );
-
-      var t;
-
-      utils.extend( c, {
-        firstDate: null,
-        firstTimeStart: null,
-        firstTimeEnd: null
-      } );
-
-      if ( timings.length ) {
-
-        t = {
-          start: new Date( timings[ 0 ].start ),
-          end: new Date( timings[ 0 ].end )
-        };
-
-        utils.extend( c, {
-          firstDate: _stringifyDate( t.start ),
-          firstTimeStart: utils.fZ( t.start.getUTCHours() ) + ':' + utils.fZ( t.start.getMinutes() ),
-          firstTimeEnd: utils.fZ( t.end.getUTCHours() ) + ':' + utils.fZ( t.end.getMinutes() )
-        });
-
-      }
-
-      cb( null, c );
-
-    } );
+    return v;
 
   }
 

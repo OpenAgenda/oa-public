@@ -8,7 +8,7 @@ model = require( '../../model' ),
 
 utils = require( 'utils' ),
 
-log = require( 'logger' )( 'es:resync' );
+log = require( 'logger' )( 'es/resync' );
 
 module.exports = function( options, cb ) {
 
@@ -251,7 +251,7 @@ function _loopThroughIndex( type, params, usageFunc, cb ) {
 
 function _loopThroughDb( schema, params, usageFunc, cb ) {
 
-  var hasMore = true, limit = 500, offset = 0;
+  var hasMore = true, limit = 100, offset = 0;
 
   async.whilst( function()  {
 

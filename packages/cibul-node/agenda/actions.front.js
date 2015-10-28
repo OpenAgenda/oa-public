@@ -76,7 +76,7 @@ function actionShow( req, res ) {
     scriptParams: {
       uid: req.agenda.uid
     },
-    search: req.query.search
+    search: req.query.oaq
   } )
 
   .then( function( values ) {

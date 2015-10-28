@@ -29,6 +29,7 @@ module.exports = function( path ) {
   var router = modLib.Router( routes );
 
   router.pre( [
+    cmn.redirectLegacySearch,
     agendaSvc.mw.load( 'uid' ),
     cmn.loadSession,
     cmn.checkAdministrator()

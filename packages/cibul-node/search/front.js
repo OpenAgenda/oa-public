@@ -54,6 +54,8 @@ module.exports = function( p ) {
   var router = modLib.Router( routes );
 
   router.pre( [
+    cmn.loadLogger( 'search front' ),
+    cmn.redirectLegacySearch,
     cmn.loadSession,
     _maintain( [ 'page', 'search' ] ),
     cmn.loadBaseData( _layoutData )
@@ -73,7 +75,7 @@ module.exports = function( p ) {
 
 function searchEvents( req, res, next ) {
 
-  if ( !req.query.search || !req.query.search.what.length ) {
+  if ( !req.query.oaq || !req.query.oaq.what.length ) {
 
     req.log( 'info', 'request received for searchEvents with no params.' );
 
@@ -81,9 +83,9 @@ function searchEvents( req, res, next ) {
 
   }
 
-  req.log( 'info', 'request received for searchEvents with query: %s', JSON.stringify( req.query.search ) );
+  req.log( 'info', 'request received for searchEvents with query: %s', JSON.stringify( req.query.oaq ) );
   
-  eventSvc.search( req.query.search, { page: req.query.page }, function( err, result ) {
+  eventSvc.search( req.query.oaq, { page: req.query.page }, function( err, result ) {
 
     if ( err ) return next( err );
 
@@ -91,7 +93,7 @@ function searchEvents( req, res, next ) {
       req.templateData ? req.templateData : {}, { 
         events: _cleanEvents( result.events ),
         searchRes: 'searchEvents', 
-        search: req.query.search 
+        search: req.query.oaq 
       }, _pager( req, 'searchEvents', result.total )
     ));
 
@@ -125,7 +127,7 @@ function latestEvents( req, res ) {
       req.templateData ? req.templateData : {}, { 
         events: _cleanEvents( result.events ),
         searchRes: 'searchEvents', 
-        search: req.query.search 
+        search: req.query.oaq 
       }, _pager( req, 'latestEvents', result.total )
     ));
 
@@ -136,9 +138,9 @@ function latestEvents( req, res ) {
 
 function searchAgendas( req, res ) {
 
-  req.cleanSearch = req.query.search;
+  req.cleanSearch = req.query.oaq;
 
-  if ( !req.query.search || !req.query.search.what.length ) {
+  if ( !req.query.oaq || !req.query.oaq.what.length ) {
 
     req.log( 'info', 'request received for searchAgendas with no params.' );
 
@@ -146,7 +148,7 @@ function searchAgendas( req, res ) {
 
   }
 
-  wn.call( agendaSvc.search, req.query.search, { page: req.query.page } )
+  wn.call( agendaSvc.search, req.query.oaq, { page: req.query.page } )
 
   .then( _renderAgendas( req, res, 'searchAgendas' ) )
 

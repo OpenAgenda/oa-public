@@ -123,6 +123,7 @@ module.exports = function( path ) {
 
   router.pre( [
     cmn.loadLogger( 'agenda front' ),
+    cmn.redirectLegacySearch,
     cmn.flashSetter,
     cmn.loadSession
   ] );
@@ -271,7 +272,7 @@ function _format( req, res, next ) {
 
     req.templateData = {
       events: formattedEvents,
-      hasSearchQuery: !!lib.size( req.query.search ),
+      hasSearchQuery: !!lib.size( req.query.oaq ),
       passed: req.agenda.passed,
       total: req.total,
       page: req.query.page || 1
@@ -380,7 +381,7 @@ function _formatShowLinks( req, res, next ) {
       lang : req.lang 
     };
 
-    if ( req.query.search ) params.search = req.query.search;
+    if ( req.query.oaq ) params.search = req.query.oaq;
 
     e.link = req.genUrl( 'agendaEventShow', params );
 
@@ -417,13 +418,13 @@ function _formatEmbedLinks( req, res, next ) {
 
     if ( req.query.fb ) params.fb = 1;
 
-    if ( req.query.search ) params.search = req.query.search;
+    if ( req.query.oaq ) params.search = req.query.oaq;
 
     e.link = req.genUrl(  'agendaEmbedEventShow', params );
 
     if ( e.categorySlug ) e.categoryLink = req.genUrl( 'agendaEmbedShow', {
       uid: req.params.uid,
-      search: {
+      oaq: {
         category: e.categorySlug
       }
     });
@@ -446,7 +447,7 @@ function _formatCustomEmbedLinks( req, res, next ) {
       lang: req.lang
     };
 
-    if ( req.query.search ) params.search = req.query.search;
+    if ( req.query.oaq ) params.search = req.query.oaq;
 
     e.link = req.genUrl( req.preview ? 'agendaCustomEmbedEventShowPreview' : 'agendaCustomEmbedEventShow', params );
 
@@ -455,7 +456,7 @@ function _formatCustomEmbedLinks( req, res, next ) {
       e.categoryLink = req.genUrl( req.preview ? 'customEmbedShowPreview' : 'customEmbedShow', {
         uid: req.params.uid,
         embedUid: req.embed.uid,
-        search: {
+        oaq: {
           category: e.categorySlug,
           passed: req.query.passed
         },
