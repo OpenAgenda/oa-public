@@ -2,7 +2,7 @@
 
 var log = require( 'logger' )( 'agenda event search' ),
 
-es = require( '../../es/es' ),
+es = require( '../../elasticsearch' ),
 
 Readable = require( 'stream' ).Readable,
 

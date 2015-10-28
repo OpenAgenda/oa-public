@@ -8,7 +8,7 @@ cache = require( '../cache' ),
 
 config = require( '../../config' ),
 
-es = require( '../es/es' );
+es = require( '../elasticsearch' );
 
 module.exports = {
   list: model.agendas().list,

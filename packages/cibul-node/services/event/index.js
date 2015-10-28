@@ -6,7 +6,7 @@ config = require( '../../config' ),
 
 model = require( '../model' ),
 
-es = require( '../es/es' ),
+es = require( '../elasticsearch' ),
 
 lib = require( '../../lib/lib' ),
 

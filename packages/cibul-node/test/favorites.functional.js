@@ -4,7 +4,7 @@ var t = require( './lib/lib' ),
 
 should = require( 'should' ),
 
-es = require( '../services/es/es' );
+es = require( '../services/elasticsearch' );
 
 describe( 'agenda favorites', function() {
 

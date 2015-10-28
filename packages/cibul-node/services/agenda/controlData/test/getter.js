@@ -6,7 +6,7 @@ var controlData = require( '../' ),
 
 should = require( 'should' ),
 
-es = require( '../../../es/es' ),
+es = require( '../../../elasticsearch' ),
 
 model = require( '../../../model' ),
 

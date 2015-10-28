@@ -8,7 +8,7 @@ model = require( '../../model' ),
 
 should = require( 'should' ),
 
-es = require( '../../es/es' );
+es = require( '../../elasticsearch' );
 
 describe( 'aggregator source handlings', function() {
 

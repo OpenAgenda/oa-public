@@ -6,7 +6,7 @@ var should = require( 'should' ),
 
 build = require( '../lib/build' ),
 
-es = require( '../../../es/es' ),
+es = require( '../../../elasticsearch' ),
 
 model = require( '../../../model' ),
 

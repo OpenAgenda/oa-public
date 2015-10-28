@@ -209,6 +209,8 @@ module.exports = function( enabledTypes, cb ) {
 
       tfy( require( './general/resetApiCounters.task' ), { period: 'daily', time: '00:00' } );
 
+      tfy( require( './services/elasticsearch' ).refresh, { period: 'daily', time: '00:00' } );
+
       require( './general/mainLogger.task' )();
 
       require( './event/oembed.task' )();

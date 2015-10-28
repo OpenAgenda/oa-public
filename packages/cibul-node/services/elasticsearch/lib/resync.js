@@ -8,7 +8,7 @@ model = require( '../../model' ),
 
 utils = require( 'utils' ),
 
-log = require( 'logger' )( 'es/resync' );
+log = require( 'logger' )( 'services/elasticsearch/resync' );
 
 module.exports = function( options, cb ) {
 
@@ -115,6 +115,8 @@ function _update( type, query ) {
       } );
 
     }, function( err ) {
+
+      if ( err ) log( 'error', err );
 
       _logUpdates( type, count );      
 

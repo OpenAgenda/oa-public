@@ -10,15 +10,20 @@ c = require( './lib/clean' ),
 
 resync = require( './lib/resync' ),
 
+refresh = require( './lib/refresh' ),
+
 LIMIT = 20;
 
 resync.set( legacyLib );
+
+refresh.set( legacyLib );
 
 module.exports = {
   agendas: agendas,
   search: search,
   searchAgendas: searchAgendas,
-  resync: resync
+  resync: resync,
+  refresh: refresh
 }
 
 function agendas( agenda ) {

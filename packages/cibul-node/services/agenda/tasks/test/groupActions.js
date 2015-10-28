@@ -16,7 +16,7 @@ q = require( 'queue' )( config.queues.groupActions, {
   redis: config.redis
 } ),
 
-elastic = require( '../../../es/es' );
+elastic = require( '../../../elasticsearch' );
 
 describe( 'agenda groupActions task', function() {
 

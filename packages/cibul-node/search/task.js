@@ -22,7 +22,7 @@ model = require( '../services/model' ),
 
 ES = require( 'ES' )( config.es ),
 
-esSvc = require( '../services/es/es' ),
+esSvc = require( '../services/elasticsearch' ),
 
 running = false,
 
