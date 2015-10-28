@@ -51,7 +51,7 @@ module.exports = function( uid ) {
 
   whatUids = false, what, scope,
 
-  enabled = false,
+  enabled = false, firstSweepCompleted = false,
 
   embedMode = ( ( uid + '' ).indexOf('/') !== -1 ), // embedMode is true if widget is for agenda embed
 
@@ -192,7 +192,25 @@ module.exports = function( uid ) {
 
     widgets.push( widgetParams );
 
-    if ( enabled ) widgetParams.enable( currentRequestParams );
+    if ( firstSweepCompleted && widgetParams.include ) {
+
+      setTimeout( function() {
+
+        _trasverseInclude( widgetParams );
+
+        if ( enabled ) {
+
+          widgetParams.enable( currentRequestParams );
+
+        }
+
+      }, 100 );
+
+    } else if ( enabled ) {
+
+      widgetParams.enable( currentRequestParams );
+
+    }
 
     return {
       update: update,
@@ -642,23 +660,10 @@ module.exports = function( uid ) {
     // let clear & disable happen
     setTimeout( function() {
 
-      // go through each event, determine if should be included
-      // .. in which case include in widgets
-      for ( var i in ctl.ev ) {
-
-        if ( _applyFilters( ctl.ev[i], currentRequestParams ) ) {
-
-          includedCount++;
-
-          ctl.ev[i].passed = _isPassed( ctl.ev[i] );
-
-          _include( ctl.ev[i], currentRequestParams );
-
-        }
-      
-      }
+      includedCount = _trasverseInclude();
 
       enabled = true;
+      firstSweepCompleted = true;
 
       log( 'sweep result %d out of %d', includedCount, cn.size( ctl.a ) );
 
@@ -670,6 +675,31 @@ module.exports = function( uid ) {
       }
 
     }, 10 );
+
+  }
+
+
+  function _trasverseInclude( targetWidget ) {
+
+    var counter = 0;
+
+    // go through each event, determine if should be included
+    // .. in which case include in widgets
+    for ( var i in ctl.ev ) {
+
+      if ( _applyFilters( ctl.ev[i], currentRequestParams ) ) {
+
+        counter++;
+
+        ctl.ev[i].passed = _isPassed( ctl.ev[i] );
+
+        _include( ctl.ev[i], currentRequestParams, targetWidget );
+
+      }
+    
+    }
+
+    return counter;
 
   }
 
@@ -703,17 +733,26 @@ module.exports = function( uid ) {
    * as part of sweep, tell widgets event item passed through filters
    */
   
-  function _include( item, p ) {
+  function _include( item, p, targetWidget ) {
 
-    for ( var i = widgets.length - 1; i >= 0; i-- ) {
+    if ( targetWidget ) {
 
-      if ( widgets[ i ].include ) {
+      targetWidget.include( item, p );
 
-        widgets[i].include( item, p );  
+    } else {
+
+      for ( var i = widgets.length - 1; i >= 0; i-- ) {
+
+        if ( widgets[ i ].include ) {
+
+          widgets[i].include( item, p );  
+
+        }
 
       }
 
     }
+
 
   }
 
