@@ -306,7 +306,7 @@ function layoutData( req, res ) {
 
   var data = {
     metas: {
-      title: utils.escape( req.formatted.title ),
+      title: utils.escape( req.formatted.title, false ),
       ogSiteName: { property: 'og:site_name', content: 'OpenAgenda' },
       ogTitle: { property: 'og:title', content: utils.escape( req.formatted.title ) },
       ogDescription: { property: 'og:description', content: utils.escape( req.formatted.description ) },
