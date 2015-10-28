@@ -3,6 +3,6 @@
   : "Vous avez %count% événements dans votre sélection",
   "clear"
   : "supprimer",
-  "import"
-  : "importer"
+  "export"
+  : "exporter"
 }

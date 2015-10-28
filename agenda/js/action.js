@@ -28,4 +28,4 @@ window.asap( function( options ) {
 
   favorites.menu();
 
-});
+} );

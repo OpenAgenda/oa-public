@@ -260,7 +260,7 @@ function _copyToSearch( values ) {
 
     var href = el.getAttribute( 'href' ).split( '?' )[ 0 ] 
 
-             + '?' + qs.stringify( { search: values } );
+             + '?' + qs.stringify( { oaq: values } );
 
     el.setAttribute( 'href', href );
 

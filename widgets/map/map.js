@@ -84,6 +84,8 @@ function widget( elem, options ) {
 
   onBoundsChangeCallback,
 
+  firstEnabled = true,
+
   enabled = false,
 
   map,
@@ -360,7 +362,7 @@ function widget( elem, options ) {
 
       navHistory.add( reqParams, navHistory.current() );
 
-    } else if ( navHistory.isFresh() && !utils.size( reqParams ) ) {
+    } else if ( firstEnabled && ( !utils.size( reqParams ) || _hasOnlyPassedParams( reqParams ) ) ) {
 
       bounds = baseBounds;
 
@@ -375,6 +377,8 @@ function widget( elem, options ) {
       navHistory.add( reqParams, bounds );
 
     }
+
+    firstEnabled = false;
 
     _updateBounds( bounds, function() {
 
@@ -413,6 +417,13 @@ function widget( elem, options ) {
       if ( popupLocation ) _openPopup( popupLocation );
 
     } );
+
+  }
+
+
+  function _hasOnlyPassedParams( reqParams ) {
+
+    return utils.size( reqParams ) == 1 && reqParams.passed !== undefined;
 
   }
   

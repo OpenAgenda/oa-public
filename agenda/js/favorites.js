@@ -118,7 +118,7 @@ function sweep( ignoreFlagged ) {
 
         bBar.setContent(
           __( 'You have now %count% events in your selection', { '%count%' : favUids.length } ) 
-          + ' - <a href="' + params.res.actions + '">' + __( 'import' ) + '</a>'
+          + ' - <a href="' + params.res.actions + '">' + __( 'export' ) + '</a>'
           + ' - <a class="js_fav_clear">' + __( 'clear' ) + '</a>' 
         );
 

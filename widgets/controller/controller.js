@@ -69,6 +69,8 @@ module.exports = function( uid ) {
 
     log( 'controller is configured in %s mode', embedMode ? 'embed' : 'agenda' );
 
+    _redirectLegacySearch();
+
     controlDataFetch( {
       jsonp: !_isAjax(),
       uid: ( uid + '' ).split( '/' )[ 0 ],
@@ -171,7 +173,7 @@ module.exports = function( uid ) {
 
     if ( !syncHref ) return;
 
-    update( _readHrefQuery( 'search' ) );
+    update( _readHrefQuery( 'oaq' ) );
 
   }
 
@@ -353,7 +355,7 @@ module.exports = function( uid ) {
 
     remote.getJsonp( 
       params.search.replace( '{uid}', uid ) +
-      '?' + qs.stringify( { search: searchQuery } ), { 
+      '?' + qs.stringify( { oaq: searchQuery } ), { 
       data: {}, 
       timeout: 10000 
     }, function( responseType, data ) {
@@ -422,7 +424,7 @@ module.exports = function( uid ) {
 
     if ( syncHref ) {
 
-      hrefParams = _clean( _readHrefQuery( 'search' ) );
+      hrefParams = _clean( _readHrefQuery( 'oaq' ) );
 
       if ( isDifferent( hrefParams ) ) {
 
@@ -816,11 +818,11 @@ module.exports = function( uid ) {
       
       if ( cn.size( updatedQuery ) ) {
 
-        query.search = updatedQuery;
+        query.oaq = updatedQuery;
 
       } else {
 
-        delete query.search;
+        delete query.oaq;
 
       }
 
@@ -870,6 +872,20 @@ module.exports = function( uid ) {
     }
 
     return {};
+
+  }
+
+  function _redirectLegacySearch() {
+
+    var queryParts = window.location.href.split( '#' )[ 0 ].split( '?' ).slice( 1 );
+
+    if ( !queryParts.length ) return;
+
+    if ( queryParts[ 0 ].replace( '%5B', '[' ).replace( '%5D', ']' ).indexOf( 'search[' ) !== -1 ) {
+
+      window.location.href = window.location.href.replace( /search\[/g, 'oaq[' ).replace( /search%5B/g, 'oaq%5B' );
+
+    }
 
   }
 

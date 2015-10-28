@@ -27,8 +27,8 @@
   : "Votre sélection est actuellement vide pour cet agenda. Pour en créer une, naviguez la liste des événements et cliquez sur %icon%",
   "Export / Download everything"
   : "Tout Exporter / Télécharger",
-  "Export the current selection"
-  : "Exporter la séléction courante",
-  "Export the events part of the agendas current selection"
-  : "Exporter les événements faisant parti de la séléction courante"
+  "Export the your latest search"
+  : "Exportez votre dernière recherche",
+  "Export the events included in your lastest search"
+  : "Exportez les événements inclus dans votre dernière recherche"
 }

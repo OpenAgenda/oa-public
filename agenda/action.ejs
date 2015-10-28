@@ -23,14 +23,14 @@
           <span><%- __( 'Your selection is currently empty for this agenda. To create one, browse the list of events and check %icon%', { '%icon%' : '<i class="fav fa fa-star"></i>' } ) %></span>
         </div>
 
-        <p class="legend"><%= __( 'Export the current selection' ) %></p>
-        <span><%= __( 'Export the events part of the agendas current selection' ) %></span>
+        <p class="legend"><%= __( 'Export the your latest search' ) %></p>
+        <span><%= __( 'Export the events included in your lastest search' ) %></span>
         <div class="btn-adds">
-          <a class="btn btn-default" href="<%= genUrl( 'agendaRssEvents', { uid: agenda.uid } ) %>">RSS</a>
-          <a class="btn btn-default" href="<%= genUrl( 'agendaCsvEvents', { uid: agenda.uid, search: search }) %>">CSV</a>
-          <a class="btn btn-default" href="<%= genUrl( 'agendaXlsxEvents', { uid: agenda.uid, search: search } ) %>">Excel ( xlsx )</a>
-          <a class="btn btn-default" href="<%= genUrl( 'agendaPdfEvents', { uid: agenda.uid, search: search }) %>">PDF</a>
-          <a class="btn btn-default" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: agenda.uid, search: search } ) %>">JSON *</a>
+          <a class="btn btn-default" href="<%= genUrl( 'agendaRssEvents', { uid: agenda.uid, oaq: search } ) %>">RSS</a>
+          <a class="btn btn-default" href="<%= genUrl( 'agendaCsvEvents', { uid: agenda.uid, oaq: search }) %>">CSV</a>
+          <a class="btn btn-default" href="<%= genUrl( 'agendaXlsxEvents', { uid: agenda.uid, oaq: search } ) %>">Excel ( xlsx )</a>
+          <a class="btn btn-default" href="<%= genUrl( 'agendaPdfEvents', { uid: agenda.uid, oaq: search }) %>">PDF</a>
+          <a class="btn btn-default" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: agenda.uid, oaq: search } ) %>">JSON *</a>
         </div>
 
         <p class="legend"><%= __( 'Export / Download everything' ) %></p>
@@ -39,11 +39,11 @@
           <a class="btn btn-default" href="<%= genUrl( 'agendaIcal', { uid: agenda.uid }) %>?dl=1">iCal</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaRssEvents', { uid: agenda.uid }) %>">RSS</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaIcal', { uid: agenda.uid }) %>?dl=1">ICS</a>
-          <a class="btn btn-default" href="<%= genUrl( 'agendaCsvEvents', { uid: agenda.uid, search: { passed: 1 } }) %>">CSV</a>
-          <a class="btn btn-default" href="<%= genUrl( 'agendaXlsxEvents', { uid: agenda.uid, search: { passed: 1 } }) %>">Excel ( xlsx )</a>
-          <a class="btn btn-default" href="<%= genUrl( 'agendaPdfEvents', { uid: agenda.uid, search: { passed: 1 } }) %>">PDF</a>
+          <a class="btn btn-default" href="<%= genUrl( 'agendaCsvEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>">CSV</a>
+          <a class="btn btn-default" href="<%= genUrl( 'agendaXlsxEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>">Excel ( xlsx )</a>
+          <a class="btn btn-default" href="<%= genUrl( 'agendaPdfEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>">PDF</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaXml', { uid: agenda.uid }) %>?dl=1">XML</a>
-          <a class="btn btn-default" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: agenda.uid, page: 1, search: { passed: 1 } } ) %>">JSON *</a>
+          <a class="btn btn-default" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: agenda.uid, page: 1, oaq: { passed: 1 } } ) %>">JSON *</a>
         </div>
 
 <% if ( hasAggregator ) { %>
