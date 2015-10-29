@@ -4,13 +4,9 @@ var Select = require( 'react-select' ),
 
 React = require( 'react' ),
 
-rUtils = require( './reactUtils.js' ),
-
-defaults = {
-  canvas: '.js_form_canvas',
-  events: {
-    send: 'eagesend'
-  }
+limits = {
+  min: 0,
+  max: 120
 };
 
 module.exports = React.createClass({
@@ -56,9 +52,27 @@ module.exports = React.createClass({
 
     return function( e ) {
 
-      var current = JSON.parse( JSON.stringify( self.props.value ) );
+      var v,
 
-      current[ attr ] = parseInt( e, 10 );
+      current = JSON.parse( JSON.stringify( self.props.value ) );
+
+      if ( e.target ) {
+
+        v = e.target.value;
+
+      } else {
+
+        v = e;
+
+      }
+
+      v = parseInt( v, 10 );
+
+      if ( !isNaN( v ) ) {
+
+        current[ attr ] = v;
+
+      }
 
       if ( current.min && current.min > self.props.value.max ) {
 
@@ -123,11 +137,11 @@ module.exports = React.createClass({
 
     if ( typeof minValue == 'undefined' ) {
 
-      minValue = 0;
+      minValue = limits.min;
 
     }
 
-    for ( var i=0; i<100; i++ ) {
+    for ( var i=0; i<limits.max; i++ ) {
 
       if ( minValue <= i ) {
       
@@ -172,8 +186,9 @@ module.exports = React.createClass({
               value={min}
               options={this.getSelectOptions()}
               clearable={false}
-              onChange={ this.onChange( 'min' ) }
+              onChange={this.onChange( 'min' )}
               onFocus={this.onEnabled(true)}
+              onBlur={this.onChange( 'min' )}
             />
             <label for="maxage">{this.labels.max[this.props.labelsLang]}</label>
             <Select
@@ -181,7 +196,8 @@ module.exports = React.createClass({
               value={max}
               options={this.getSelectOptions( this.props.value ? min : false )}
               clearable={false}
-              onChange={ this.onChange( 'max') }
+              onChange={this.onChange( 'max' )}
+              onBlur={this.onChange( 'max' )}
               onFocus={this.onEnabled(true)}
             />
           </li>

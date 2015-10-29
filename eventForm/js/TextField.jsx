@@ -15,7 +15,20 @@ typeValidators = {
   number: { func: validators.isNumber, error: 'notNum' },
   email: { func: validators.isEmail, error: 'notEmail' },
   url: { func: validators.isUrl, error: 'notURL' }
-};
+},
+
+typeCleaners = {
+  integer: trim,
+  number: trim,
+  email: trim,
+  url: trim
+}
+
+function trim( v ) {
+
+  return v.trim();
+
+}
 
 module.exports = React.createClass({
 
@@ -37,6 +50,12 @@ module.exports = React.createClass({
   onChange: function( e ) {
 
     var value = e.target.value;
+
+    if ( typeCleaners[ this.props.type ] ) {
+
+      value = typeCleaners[ this.props.type ]( value );
+
+    }
 
     this.setState( { userHasTyped: true } );
 
