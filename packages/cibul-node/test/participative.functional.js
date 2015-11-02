@@ -107,7 +107,7 @@ describe( 'participative agenda', function() {
   } );
  
 
-  it( 'signed in user clicks on add button reaches add event page', function( done ) {
+  it( 'signed in user clicks on add button reaches add event page', ( done ) => {
 
     _signin( browser, user )
 
@@ -123,7 +123,7 @@ describe( 'participative agenda', function() {
 
     .done( done, _err );
 
-  });
+  } );
 
 });
 
