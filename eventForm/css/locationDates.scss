@@ -63,6 +63,28 @@
   }
 
 
+  .country {
+
+    display: block;
+    margin: 1em 0;
+
+    a .url {
+
+      font-weight: bold;
+
+      margin-right: 0.5em;
+
+    }
+
+    i {
+
+      vertical-align: middle;
+
+    }
+
+  }
+
+
   .place-suggestions {
 
     margin-left: 3em;
@@ -111,7 +133,7 @@
   .selection-map { min-height: 200px; }
 
 
-  .manual-link > * { padding-right: 0.4em;}
+  .manual-link > * { padding-right: 0.4em; }
 
 
 
