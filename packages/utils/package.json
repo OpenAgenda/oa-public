@@ -1,5 +1,8 @@
 {
   "name" : "utils",
-  "version" : "0.0.6",
-  "description" : "minimalistic utilities lib"
+  "version" : "0.0.7",
+  "description" : "minimalistic utilities lib",
+  "devDependencies" : {
+    "should": "7.1.1"
+  }
 }

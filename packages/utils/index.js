@@ -10,8 +10,7 @@ module.exports = {
   forEach: forEach, // for some older browsers
   toCamelCase: toCamelCase,
   toUnderscore: toUnderscore,
-  escape: escape,
-  slugify: slugify
+  escape: escape
 };
 
 function escape( str, escapeApostrophe ) {
@@ -183,13 +182,4 @@ function fZ( n, size ) {
   while ( s.length < size ) s = '0' + s;
 
   return sign + s; 
-}
-
-function slugify( text ) {
-
-  return text
-    .toLowerCase()
-    .replace(/ /g,'-')
-    .replace(/[^\w-]+/g,'');
-
 }
