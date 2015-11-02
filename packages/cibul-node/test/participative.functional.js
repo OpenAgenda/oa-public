@@ -6,6 +6,8 @@ w = require( 'when' );
 
 describe( 'participative agenda', function() {
 
+  this.timeout( 10000 );
+
   var browser,
 
   agenda = {},
@@ -32,9 +34,9 @@ describe( 'participative agenda', function() {
 
   after( t.shutdown );
 
-  before( t.sets.prepareOneAgendaInstance( agenda, 'participative' ) );
+  beforeEach( t.sets.prepareOneAgendaInstance( agenda, 'participative' ) );
 
-  before( function( done ) {
+  beforeEach( function( done ) {
 
     t.fixtures.load( 'users', 'cindy', function( err, u ) {
 
@@ -60,9 +62,8 @@ describe( 'participative agenda', function() {
 
   });
 
-  it( 'click on add button redirects to agenda signup', function( done ) {
 
-    this.timeout( 10000 );
+  it( 'click on add button redirects to agenda signup', function( done ) {
 
     browser.visit( '/' + agenda.slug )
 
@@ -78,14 +79,37 @@ describe( 'participative agenda', function() {
 
   } );
 
+
+  it( 'agenda requiring additional contributor info leads new invited user to info form', ( done ) => {
+
+    // add cfields here
+    
+    _addCFields( agenda )
+
+    .then( () => {
+
+      return _signin( browser, user );
+
+    } )
+
+    .then( null, _visit( browser, '/' + agenda.slug ) )
+
+    .then( _clickLink( browser, '#add-event' ) )
+
+    .then( function() {
+
+      browser.location.pathname.indexOf( '/a-participative-agenda/addevent/info' ).should.not.equal( -1 );
+
+    } )
+
+    .done( done, _err );
+
+  } );
  
 
   it( 'signed in user clicks on add button reaches add event page', function( done ) {
 
-    this.timeout( 10000 );
-
     _signin( browser, user )
-
 
     .then( null, _visit( browser, '/' + agenda.slug ) )
 
@@ -126,6 +150,22 @@ function _signin( browser, user ) {
     return browser.pressButton( 'signin' );
 
   } );
+
+}
+
+function _addCFields( agenda ) {
+
+  var d = w.defer();
+
+  t.model.lib.query( 'update review set store = ? where id = ?', [ '{"cFields":{"contact_number":[]}}', agenda.id ], ( err ) => {
+
+    if ( err ) return d.reject( err );
+
+    d.resolve();
+
+  } );
+
+  return d.promise;
 
 }
 

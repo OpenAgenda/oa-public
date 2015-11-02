@@ -37,7 +37,11 @@ describe( 'controlData build', function() {
 
   });
 
-  beforeEach( es.resync );
+  beforeEach( ( done ) => {
+
+    es.resync( { reset: true }, done );
+
+  } );
 
   it( 'should generate and store control data containing the events of the agenda', function( done ) {
 

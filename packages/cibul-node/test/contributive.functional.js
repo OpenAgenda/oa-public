@@ -192,7 +192,7 @@ describe( 'contributive agenda', function() {
   });
 
 
-  it( 'user becomes contributor on activation of account', function( done ) {
+  it( 'user becomes contributor on activation of account', ( done ) => {
 
     var iToken;
 
@@ -290,10 +290,10 @@ describe( 'contributive agenda', function() {
 
     .done( done, _err );
 
-  })
+  });
 
 
-  it( 'processed invited user is led to form', function( done ) {
+  it( 'processed invited user is led to form', ( done ) => {
 
     _sendInvitation( browser, agenda, user )
 
@@ -326,7 +326,7 @@ describe( 'contributive agenda', function() {
   } );
 
 
-  it( 'agenda requiring additional contributor info leads new invited user to info form', function( done ) {
+  it( 'agenda requiring additional contributor info leads new invited user to info form', ( done ) => {
 
     _sendInvitation( browser, agenda, user, true )
 
@@ -357,6 +357,7 @@ describe( 'contributive agenda', function() {
     .done( done, _err );
 
   } );
+
 
   it( 'agenda with "activating invitation" credential automatically activates invited users that sign up', function( done ) {
 
@@ -395,6 +396,7 @@ describe( 'contributive agenda', function() {
     .done( done, _err );
 
   });
+
 
 });
 

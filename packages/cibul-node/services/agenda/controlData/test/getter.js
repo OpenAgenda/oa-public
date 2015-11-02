@@ -51,7 +51,12 @@ describe( 'controlData getter', function() {
 
   beforeEach( store.test.clear );
 
-  beforeEach( es.resync );
+  beforeEach( ( done ) => {
+
+    es.resync( { reset: true }, done );
+
+  } );
+
 
   it( 'generates on the fly if nothing is stored', function( done ) {
 
@@ -64,6 +69,7 @@ describe( 'controlData getter', function() {
     });
 
   });
+  
 
   it( 'returns whatever is stored if anything is found', function( done ) {
 
