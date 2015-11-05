@@ -35,7 +35,7 @@
 
         <p class="legend"><%= __( 'Export / Download everything' ) %></p>
         <div class="btn-adds">
-          <a class="btn btn-default" href="https://www.google.com/calendar/render?cid=<%= genUrl( 'agendaIcal', { uid: agenda.uid }, { protocol: 'http://' } ) %>"><%= __('Google Agenda') %></a>
+          <a class="btn btn-default" href="https://www.google.com/calendar/render?cid=<%= genUrl( 'agendaIcal', { uid: agenda.uid }, { protocol: 'https://' } ) %>"><%= __('Google Agenda') %></a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaIcal', { uid: agenda.uid }) %>?dl=1">iCal</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaRssEvents', { uid: agenda.uid }) %>">RSS</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaIcal', { uid: agenda.uid }) %>?dl=1">ICS</a>
