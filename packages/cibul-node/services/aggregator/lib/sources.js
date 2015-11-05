@@ -4,6 +4,8 @@ var aggUtils = require( './aggUtils' ),
 
 p = require( '../../../lib/promises' ),
 
+notify = require( '../../notification/notification' ).notify,
+
 q;
 
 module.exports = {
@@ -35,6 +37,8 @@ function add( sourceId, aggregatorAgendaId, upcomingOnly, cb ) {
   .then( _dispatchProcessJob )
 
   .done( function( v ) {
+
+    notify.newSource( { sourceId: sourceId, aggregatorAgendaId: aggregatorAgendaId } );
 
     cb( null, {
       added: v.added

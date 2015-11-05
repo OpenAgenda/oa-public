@@ -40,10 +40,21 @@ module.exports = {
     newContributor: _notify( TYPES.AGENDA.NEWCONTRIBUTOR ),
     newAdministrator: _notify( TYPES.AGENDA.NEWADMINISTRATOR ),
     newModerator: _notify( TYPES.AGENDA.NEWMODERATOR ),
-    expiredSwapcard: _notify( TYPES.AGENDA.EXPIREDSWAPCARD )
+    expiredSwapcard: _notify( TYPES.AGENDA.EXPIREDSWAPCARD ),
+    newSource: newSource
   },
   process: process
 };
+
+
+function newSource( data ) {
+
+  data.name = 'notification';
+
+  coms.queue( config.legacyQueue, JSON.stringify( data ), { raw: true } );
+
+}
+
 
 function process( data, cb ) {
 
