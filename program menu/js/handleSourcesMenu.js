@@ -18,11 +18,15 @@ var handleSourcesMenu = function(params) {
     div.innerHTML = template.render(source);
 
     if (params.loggedUid==params.ownerUid) {
+
       var removeLink = document.createElement('li');
-      removeLink.innerHTML = '<a><i class="icon-remove"></i></a>';
+      removeLink.innerHTML = '<a><i class="fa fa-remove"></i></a>';
       addEvent(removeLink, 'click', function() {
         _sendRemoveSourceRequest(source.uid, div, removeLink);
       });
+
+      div.insertAdjacentHTML( 'afterbegin', '<div class="rwi-act" style="float: right; padding-right: 1em;"></div>')
+
       getElementsByClassName(div, params.classes.sourceAction)[0].appendChild(removeLink);
     }
 
