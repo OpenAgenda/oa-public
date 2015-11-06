@@ -17,18 +17,16 @@ var handleSourcesMenu = function(params) {
     var div = document.createElement('div');
     div.innerHTML = template.render(source);
 
-    if (params.loggedUid==params.ownerUid) {
+    var removeLink = document.createElement('li');
+    removeLink.innerHTML = '<a><i class="fa fa-remove"></i></a>';
+    addEvent(removeLink, 'click', function() {
+      _sendRemoveSourceRequest(source.uid, div, removeLink);
+    });
 
-      var removeLink = document.createElement('li');
-      removeLink.innerHTML = '<a><i class="fa fa-remove"></i></a>';
-      addEvent(removeLink, 'click', function() {
-        _sendRemoveSourceRequest(source.uid, div, removeLink);
-      });
+    div.insertAdjacentHTML( 'afterbegin', '<div class="rwi-act" style="float: right; padding-right: 1em;"></div>')
 
-      div.insertAdjacentHTML( 'afterbegin', '<div class="rwi-act" style="float: right; padding-right: 1em;"></div>')
-
-      getElementsByClassName(div, params.classes.sourceAction)[0].appendChild(removeLink);
-    }
+    getElementsByClassName(div, params.classes.sourceAction)[0].appendChild(removeLink);
+    
 
     return div;
 
