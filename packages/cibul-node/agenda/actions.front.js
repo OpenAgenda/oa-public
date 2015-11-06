@@ -92,8 +92,8 @@ function actionShow( req, res ) {
       // list agendas which have the aggregator feature and of which user is admin
 
       async.each( [
-        { aggregator: true, adminId: req.session.userId },
-        { aggregator: true, ownerId: req.session.userId }
+        { aggregator: true, adminId: req.session.userId, limit: false },
+        { aggregator: true, ownerId: req.session.userId, limit: false }
       ], ( query, ecb ) => {
 
         model.reviews().list( query, ( err, agendas ) => {
