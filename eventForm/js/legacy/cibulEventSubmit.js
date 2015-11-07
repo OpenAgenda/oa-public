@@ -17,11 +17,11 @@ module.exports = function( params ) {
     timeout: 5000,
     beforeNext: false, // in case submission is ajax, this callback can be called before the next form is loaded
     canvas: '.js_form_canvas_below',
-    template: '<ul class="event-errors js_errors"></ul><div class="js_actions submit-actions"></div>',
+    template: '<div class="event-errors js_errors display-none"><p><%= hasErrors %></p><ul></ul></div><div class="js_actions submit-actions"></div>',
     allowDraft: false,
     classes: {
-      main: 'submit',
-      error: 'error',
+      main: 'submit cform',
+      error: 'err',
       lightboxFrame: 'lightbox-frame wsq',
       lightboxCanvas: 'lightbox-canvas',
       lightboxButtons: 'lightbox-buttons',
@@ -46,7 +46,8 @@ module.exports = function( params ) {
       remove: 'Remove',
       removeMessage: 'Are you sure you want to delete this event?',
       removeYes: 'Yes',
-      removeNo: 'Cancel'
+      removeNo: 'Cancel',
+      hasErrors: 'Some fields need to be looked at before the form can be submitted'
     },
     events: {
       uidfetch: 'euidfetch',
@@ -82,7 +83,6 @@ module.exports = function( params ) {
         _addButton('update');
         if (draft && params.allowDraft && params.publish) _addButton('publish');
 
-        //_addButton('remove');
       }
 
     });
@@ -101,14 +101,19 @@ module.exports = function( params ) {
 
       du.preventDefault( e );
 
-      _process[name](function(encodedEvent) {
+      _process[name](function( encodedEvent ) {
 
         var url = decodeURIComponent(params[name]).replace('{uid}', uid);
 
-        if (encodedEvent)
+        if ( encodedEvent ) {
+
           _post(url, encodedEvent);
-        else
+
+        } else {
+
           window.location.href = url;
+
+        }
         
       });
 
@@ -228,35 +233,74 @@ module.exports = function( params ) {
 
   },
 
-  _displayErrors = function(success, errors) {
+  _displayErrors = function( success, errors ) {
 
-    du.el(elem, params.selectors.errors).innerHTML = '';
+    var errorElem = du.el( elem, params.selectors.errors );
 
-    if (success) return;
+    if ( !errors.length || success ) {
 
-    du.forEach(errors, function(error) {
+      du.addClass( errorElem, 'display-none' );
 
-      var er = document.createElement('li');
+    } else {
 
-      er.innerHTML = error;
+      var flattened = [];
 
-      er.className = params.classes.error;
+      du.forEach( errors, function( error ) {
 
-      du.el(elem, params.selectors.errors).appendChild(er);
+        if ( typeof error.message !== 'string' ) {
 
-    });
+          for ( var l in error.message ) {
 
-    eh.trigger(params.events.heightChange);
+            flattened.push( {
+              field: error.field,
+              label: error.label,
+              message: error.message[ l ],
+              lang: l
+            } );
+
+          }
+
+        } else {
+
+          flattened.push( error );
+
+        }
+
+      } );
+
+      du.el( errorElem, 'ul' ).innerHTML = '';
+
+      du.forEach( flattened, function( error ) {
+
+        var er = document.createElement('li');
+
+        er.innerHTML =  '- <strong>' + error.label
+
+        + ( error.lang ? ' (' + error.lang.toUpperCase() + ')' : '' )
+
+        + '</strong>: ' + error.message;
+
+        er.className = params.classes.error;
+
+        du.el( errorElem, 'ul' ).appendChild( er );
+
+      });      
+
+      du.removeClass( errorElem, 'display-none' );
+
+    }
+
+    eh.trigger( params.events.heightChange );
 
   },
 
   _createElement = function() {
 
-    elem = document.createElement('div');
+    elem = document.createElement( 'div' );
 
     elem.className = params.classes.main;
 
-    elem.innerHTML = new EJS({text: params.template }).render(params.labels);
+    elem.innerHTML = new EJS( {text: params.template } ).render( params.labels );
 
     du.el( params.canvas ).appendChild(elem);
 

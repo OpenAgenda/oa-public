@@ -3,13 +3,15 @@
 
   "oaeCss" : {
     "agenda-base" : "css/base.scss",
-    "agenda-embed" : "css/embed-style.scss"
+    "agenda-embed" : "css/embed-style.scss",
+    "agenda-favorites" : "css/favorites.scss"
   },
 
   "oaetCss" : {
     "agenda-base" : "css/base.scss",
     "agenda-embed" : "css/embed-style.scss",
-    "agenda-embed-tiled" : "css/embed-tiled-style.scss"
+    "agenda-embed-tiled" : "css/embed-tiled-style.scss",
+    "agenda-favorites" : "css/favorites.scss"
   },
 
   "helpers" : {

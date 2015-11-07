@@ -59,7 +59,9 @@
   }
 
   .event-container {
+
     margin-bottom: 20px;
+
   }
 
   .action-container {
@@ -71,7 +73,7 @@
       margin-top: 5px;
 
       i {
-        font-size: 32px;
+        font-size: 22px;
         margin-right: 5px;
         vertical-align: middle;
       }
@@ -107,7 +109,7 @@
 
     &.notheme .row {
       position: relative;
-      padding: 1.4em 0;
+      padding: 20px 40px;
     }
 
     &.notheme .title-container {

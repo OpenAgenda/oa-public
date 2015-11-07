@@ -11,7 +11,8 @@
 
   // selected filters
   .filters {
-    margin-bottom: 15px;
+
+    margin: 0 0 15px;
 
     a {
       font-size: 12px;
@@ -23,7 +24,7 @@
       margin-right: 10px;
 
       a {
-        background: $oa-gray-light;
+        background: $oa-gray-lightest;
         color: $oa-black;
         padding-right: 30px;
 
@@ -145,9 +146,6 @@
       right: 0;
     }
 
-    .featured i {
-      color: $oa-yellow;
-    }
 
     @media (min-width: 768px) {
       
@@ -181,7 +179,7 @@
 
   .event-header {
 
-    background: $oa-gray-light;
+    background: $oa-gray-lightest;
     border: 1px solid $oa-gray-lighter;
     border-radius: 3px 3px 0 0;
     font-size: 14px;

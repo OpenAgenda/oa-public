@@ -1,9 +1,8 @@
-<% if ( !agenda.isEmpty ) { %>
---><div class="col-sm-4 col-aside action-container">
+--><div class="col-sm-3 action-container">
   <p>
-    <a class="btn btn-success js_import_action" href="<%= agenda.importUri %>" rel="nofollow">
-      <i class="fa fa-plus-circle"></i>
-      <%= __('Import / Add to my Agenda') %>
+    <a class="btn btn-success js_use_search" href="<%= agenda.importUri %>" rel="nofollow">
+      <i class="fa fa-share-alt"></i>
+      <%= __( 'Export / Use' ) %>
     </a>
   </p>
   <p class="share"><%= __('Share') %>&nbsp;:
@@ -12,14 +11,12 @@
     <%- _sl.gp( { title: agenda.title, url: genUrl( 'agendaShow', { slug: agenda.slug }, { abs: true } ) } ) %>
     <%- _sl.li( { title: agenda.title, url: genUrl( 'agendaShow', { slug: agenda.slug }, { abs: true } ) } ) %>
   </p>
-</div><!--
-<% } else { %>
-  --><div class="col-sm-4 action-container">
-    <p>
-      <a href="<%= genUrl( 'conversationAgendaContact', { 
-        uid: agenda.uid, 
-        redirect: _r({ module: 'review', action: 'show', 'slug': agenda.slug }) 
-      }) %>" rel="nofollow"><%= __('Contact the administrator of this agenda') %></a>
-    </p>
-  </div><!--
+<% if ( agenda.isEmpty ) { %>
+  <p>
+    <a href="<%= genUrl( 'conversationAgendaContact', { 
+      uid: agenda.uid, 
+      redirect: _r({ module: 'review', action: 'show', 'slug': agenda.slug }) 
+    }) %>" rel="nofollow"><%= __('Contact the administrator of this agenda') %></a>
+  </p>
 <% } %>
+</div><!--

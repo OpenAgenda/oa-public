@@ -84,6 +84,8 @@ function widget( elem, options ) {
 
   onBoundsChangeCallback,
 
+  firstEnabled = true,
+
   enabled = false,
 
   map,
@@ -231,6 +233,8 @@ function widget( elem, options ) {
 
     useClusters = utils.size( locations ) > config.clusterThreshold;
 
+    useClusters = true;
+
     for ( var l in locations ) {
 
       var location = locations[ l ];
@@ -358,7 +362,7 @@ function widget( elem, options ) {
 
       navHistory.add( reqParams, navHistory.current() );
 
-    } else if ( navHistory.isFresh() && !utils.size( reqParams ) ) {
+    } else if ( firstEnabled && ( !utils.size( reqParams ) || _hasOnlyPassedParams( reqParams ) ) ) {
 
       bounds = baseBounds;
 
@@ -373,6 +377,8 @@ function widget( elem, options ) {
       navHistory.add( reqParams, bounds );
 
     }
+
+    firstEnabled = false;
 
     _updateBounds( bounds, function() {
 
@@ -411,6 +417,13 @@ function widget( elem, options ) {
       if ( popupLocation ) _openPopup( popupLocation );
 
     } );
+
+  }
+
+
+  function _hasOnlyPassedParams( reqParams ) {
+
+    return utils.size( reqParams ) == 1 && reqParams.passed !== undefined;
 
   }
   
@@ -1273,8 +1286,8 @@ function widget( elem, options ) {
 
     for ( var l in locations ) {
 
-      // is this is a neighbor?
-      if ( ( l !== location.l ) && _distance( locations[ l ].coords[0], locations[ l ].coords[1], location.coords[0], location.coords[1]) < distanceThreshold ) {
+      // is this a neighbor?
+      if ( ( parseInt( l, 10 ) !== location.uid ) && _distance( locations[ l ].coords[0], locations[ l ].coords[1], location.coords[0], location.coords[1]) < distanceThreshold ) {
 
         nCount++;
 

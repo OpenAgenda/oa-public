@@ -10,7 +10,11 @@ CheckboxField = require( './CheckboxField.jsx' ),
 
 RadioFields = require( './RadioFields.jsx' ),
 
-ImageUpload = require( 'imageUpload/lib/ImageUploader.jsx' );
+SelectField = require( './SelectField.jsx' ),
+
+ImageUpload = require( 'imageUpload/lib/ImageUploader.jsx' ),
+
+utils = require( 'utils' );
 
 module.exports = React.createClass({
 
@@ -20,15 +24,7 @@ module.exports = React.createClass({
 
     return function( value, error ) {
 
-      var values = JSON.parse( JSON.stringify( self.props.values ) ),
-
-      errors = JSON.parse( JSON.stringify( self.props.errors ) );
-
-      values[ field ] = value;
-
-      errors[ field ] = error;
-
-      self.props.onChange( values, errors );
+      self.props.onChange( field, value, error );
 
     }
 
@@ -46,23 +42,9 @@ module.exports = React.createClass({
 
       }
 
-      self.onChange( field )( value, error );
+      self.onChange( field, value, error );
 
     }
-
-  },
-
-  isValid: function() {
-
-    var valid = true;
-
-    for( var f in this.state ) {
-
-      if ( this.state[ f ].error ) valid = false;
-
-    }
-
-    return valid;
 
   },
 
@@ -121,10 +103,23 @@ module.exports = React.createClass({
           name= { field.name }
           field= { field }
           lang= { self.props.lang }
+          info= { field.info } 
           value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
           error= { self.props.errors[ field.name ] || false }
           label= { field.label }
-          handleUpdate= { self.onChange( field.name ) } />;
+          onChange= { self.onChange( field.name ) } />;
+
+      } else if ( field.fieldType == 'select' ) {
+
+        return <SelectField
+          name= { field.name }
+          field= { field }
+          lang= { self.props.lang }
+          info= { field.info } 
+          value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
+          error= { self.props.errors[ field.name ] || false }
+          label= { field.label }
+          onChange= { self.onChange( field.name ) } />;
 
       } else if ( field.fieldType == 'image' ) {
 
@@ -149,7 +144,7 @@ module.exports = React.createClass({
     };
 
     return (
-      <div>
+      <div className="custom-fields">
         {this.props.fields.map( createField )}
         <div className="separator"></div>
       </div>

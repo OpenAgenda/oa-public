@@ -2,6 +2,13 @@
 <div id="content">
   <div class="container">
     <div class="row">
+<% if ( renders.header.length ) { %>
+      <header>
+        <section class="<% if ( layoutMode=='standard') { %>col-xs-8 col-xs-offset-2 <% } %>col-lg-6 col-lg-offset-3 main-content">
+          <%- renders.header %>
+        </section>
+      </header>
+<% } %>
       <section class="<% if ( layoutMode=='standard') { %>col-xs-8 col-xs-offset-2 <% } %>col-lg-6 col-lg-offset-3 main-content">
         <div class="row filters cbpgft" data-cbctl="<%= agenda.uid %><% if (typeof embedUid !== 'undefined') { %>/<%= embedUid %><% } %>|<%= lang %><%- fb ? '|bs' : '' %>"></div>
 <% if ( total > 0 ) { %>

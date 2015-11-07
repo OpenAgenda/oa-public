@@ -41,7 +41,7 @@ module.exports = React.createClass({
     code: 'sl', 
     label: {
       en: 'sign language',
-      fr: 'language des signes'
+      fr: 'langue des signes'
     }
   }],
 

@@ -10,7 +10,6 @@
 <% } %>
 <script type="text/javascript">
 
-
   // these are the preloaded locations
   var localLocations = <%- JSON.stringify( locations ) %>;
 
@@ -24,6 +23,7 @@
       empty: '%noun% ne peux pas être vide',
       max: '%noun% ne doit pas excéder %max% caractères',
       address: 'L\'adresse',
+      timings: 'Horaires',
       placename: 'Le nom du lieu',
       noDates: 'Il doit y avoir au moins un horaire de défini par lieu'
     }
@@ -81,7 +81,8 @@
       remove: 'Supprimer l\'événement',
       removeMessage: 'Are you sure you want to delete this event?',
       removeYes: 'Yes',
-      removeNo: 'Cancel'
+      removeNo: 'Cancel',
+      hasErrors: 'Certains champs ont des saisies non valides. Complétez le formulaire avant de retenter de le soumettre.'
     } 
   });
 
@@ -137,18 +138,35 @@
         "fr":"Ceci est un champ checkbox",
         "en":"This is a checkbox field"
       } 
-    }, { 
+    }, {
       "name":"radiofields",
       "type":"public",
       "fieldType":"radio",
+      "info": {
+        "fr" : "Quelques détails en plus\nSur plusieurs lignes",
+        "en" : "Some more details\nOn several lines"
+      },
       "label": {
         "en" : "Hey radio fields",
         "fr" : "Hep les champs radio"
       },
       "options": [
-        { "label":{ "fr":"oui","en":"yes" },"value":"1" },
-        { "label":{ "fr":"non","en":"no" },"value":"0" },
-        { "label":{ "fr":"peut-être","en":"maybe" },"value":"2" }
+        { "label": { "fr":"oui", "en":"yes" }, "value":"1" },
+        { "label": { "fr":"non", "en":"no" }, "value":"0" },
+        { "label": { "fr":"peut-être", "en":"maybe" }, "value":"2" }
+      ]
+    }, {
+      "name": "selectfield",
+      "type": "public",
+      "fieldType": "select",
+      "label": {
+        "en" : "Hey radio fields",
+        "fr" : "Hep les champs radio"
+      },
+      "options": [
+        { "label":{ "fr": "oui", "en": "yes" },"value":"1" },
+        { "label":{ "fr": "non", "en": "no" },"value":"0" },
+        { "label":{ "fr": "peut-être", "en": "maybe" },"value":"2" }
       ]
     }, {
       "name" : "yourface",

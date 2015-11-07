@@ -37,7 +37,17 @@ module.exports = function(params) {
       countryFieldInfo: 'type in a country name and click or press enter'
     },
     templates: {
-      main: '<span class="info"><%= fetchInfo %></span><div></div><div class="js_country_canvas"><a href="#" class="url"><span class="js_country"></span><i class="icon-edit"></i></a></div></div><div class="js_loader loader"></div>',
+      main: [
+        '<span class="info"><%= fetchInfo %></span>',
+        '<div class="js_country_canvas">',
+          '<a href="#">',
+            '<div><%= countryField.charAt(0).toUpperCase() + countryField.slice(1) %>: </div>',
+            '<span class="js_country url"></span>',
+            '<i class="fa fa-edit url"></i>',
+          '</a>',
+        '</div>',
+        '<div class="js_place_inputs"></div>',
+        '<div class="js_loader loader"></div>' ].join( '' ),
       addressGuide: '<span><%= addressNumberInfo %></span> <span><%= addressStreetInfo %></span>, <span><%= addressCityInfo %></span></span>'
     },
     spinner: { lines: 7, length: 1, width: 2, radius: 3, corners: 0, rotate: 0},
@@ -75,7 +85,7 @@ module.exports = function(params) {
       label: params.labels.placename + ' (*)',
       placeholder: params.labels.placename,
       name: 'placename', 
-      canvas: du.el(elem, 'div'), 
+      canvas: du.el( elem, '.js_place_inputs' ), 
       info: params.labels.placenameInfo, 
       events: ['change', 'keyup'], 
       onUpdate: _buildNameSuggestions
@@ -87,7 +97,7 @@ module.exports = function(params) {
       label: params.labels.address + ' (*)',
       placeholder: params.labels.address, 
       name: 'address', 
-      canvas: du.el(elem, 'div'), 
+      canvas: du.el( elem, '.js_place_inputs' ), 
       info: params.labels.addressInfo, 
       events: ['change', 'keyup'], 
       onUpdate: function(address) {
@@ -97,7 +107,7 @@ module.exports = function(params) {
       enabled: false
     });
 
-    _createAddressGuide(du.el(elem, 'div'));
+    _createAddressGuide( du.el( elem, '.js_place_inputs' ) );
 
     // show country link
 
@@ -202,9 +212,9 @@ module.exports = function(params) {
 
     elem.className = params.classes.main;
 
-    elem.innerHTML = new EJS({text: params.templates.main}).render(params.labels);
+    elem.innerHTML = new EJS( { text: params.templates.main } ).render( params.labels );
 
-    params.canvas.appendChild(elem);
+    params.canvas.appendChild( elem );
 
   },
 

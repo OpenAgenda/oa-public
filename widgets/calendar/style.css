@@ -1,7 +1,15 @@
 .ccal { width: 18em; font-size: 0.8em; text-align: center; display: inline-block; }
 .ccal div { display: block;}
 .ccal ul { margin: 0; padding: 0; text-align: left; }
-.ccal li { list-style-type: none; display: inline-block; width: 13.2%; cursor: pointer; text-align: center; border: 1px solid transparent; }
+.ccal li { 
+  list-style-type: none;
+  display: inline-block;
+  width: 13.2%;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid transparent;
+  background: none;
+}
 .ccal li span { display: inline-block; line-height: 1.8em; }
 .ccal li.calmonth { width: 69%; cursor: pointer; }
 .ccal li span { padding: 0.1em 0.05em; display: block; }

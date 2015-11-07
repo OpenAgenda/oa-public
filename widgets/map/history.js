@@ -11,13 +11,10 @@ module.exports = function() {
     matchCurrent: matchCurrent,
     matchPrev: matchPrev,
     current: current,
-    back: back,
-    isFresh: isFresh
+    back: back
   }
 
   function sync( bounds ) {
-
-    fresh = false;
 
     if ( !history.length ) return;
 
@@ -31,8 +28,6 @@ module.exports = function() {
       k: JSON.stringify( _clean( reqParams ) ), 
       b: bounds 
     };
-
-    fresh = false;
 
     if ( history.length && ( history[ history.length - 1 ].k == newItem.k ) ) {
 
@@ -61,12 +56,6 @@ module.exports = function() {
     if ( history.length <= 1 ) return false;
 
     return _match( reqParams, -2 );
-  }
-
-  function isFresh() {
-
-    return fresh;
-
   }
 
   function get( index ) {

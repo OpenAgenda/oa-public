@@ -18,6 +18,8 @@ cn = require( '../../js/lib/common/common.mod' ),
 
 handler,
 
+favorites = require( './favorites' ),
+
 Masonry = require( 'masonry-layout' ), 
 
 msnry = false,
@@ -25,14 +27,17 @@ msnry = false,
 defaults = {
   selectors: {
     listContent: '.js_list_content',
-    loadNext: '.js_load_next'
+    loadNext: '.js_load_next',
+    searchLinks: '.js_use_search' // add search params to links with this class
   },
   cascading: false
-};
+},
+
+params;
 
 window.asap( function( options ) {
 
-  var params = cn.extend( {}, defaults, options );
+  params = cn.extend( {}, defaults, options );
 
   log = debug( 'embedded agenda show' );
 
@@ -48,6 +53,8 @@ window.asap( function( options ) {
 
   }
 
+  _copyToSearch();
+
   if ( params.cascading ) {
 
     log( 'cascading mode on' );
@@ -60,12 +67,20 @@ window.asap( function( options ) {
 
   }
 
+  favorites.init( {
+    agendaUid: parseInt( typeof options.uid == 'string' ? options.uid.split( '/' )[ 0 ] : options.uid, 10 ),
+    res: options.res,
+    bottomBar: false
+  } );
+
   list.init( {
     total: params.total,
     perPage: params.perPage,
     autoLoadNext: false,
     onLastPage: _hideTrigger( params.selectors.loadNext )
   } );
+
+  favorites.sweep();
 
   _handleLoadNextElements( params.selectors.loadNext );
 
@@ -158,6 +173,8 @@ function _loadNext() {
     handler.contentChange();
 
     if ( msnry ) msnry.reset();
+
+    favorites.sweep();
     
   });
 
@@ -174,6 +191,23 @@ function _hideTrigger( selector ) {
     } );
 
   }
+
+}
+
+
+function _copyToSearch() {
+
+  var query = window.location.href.split( '?' );
+
+  if ( !query.length == 2 ) return;
+
+  query = query[ 1 ];
+
+  cn.forEach( cn.els( params.selectors.searchLinks ) || [], function( el ) {
+
+    el.setAttribute( 'href', el.getAttribute( 'href' ).split( '?' )[ 0 ] + '?' + query );
+
+  });
 
 }
 

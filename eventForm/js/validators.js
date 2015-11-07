@@ -51,7 +51,7 @@ function validate( value ) {
 
   });
 
-  return has ? currentMessages : false;
+  return has ? currentMessages: false;
 
 }
 

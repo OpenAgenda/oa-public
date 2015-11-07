@@ -1,15 +1,15 @@
-<div id="admin-bar" class="js_admin_controls">
-  <ul class="admin-list"><!--
+<div id="admin-bar" class="edge-bar js_admin_controls">
+  <ul class="edge-list"><!--
 <% if ( !loner ) { %>
-    --><li class="admin-item w25 js_admin_item js_role_agenda_admin js_role_agenda_moderator">
-      <a class="admin-link" data-href="<%= genUrl( 'agendaAdminShow', { slug: slug } ) %>" rel="nofollow">
+    --><li class="edge-item w25 js_admin_item js_role_agenda_admin js_role_agenda_moderator">
+      <a class="edge-link" data-href="<%= genUrl( 'agendaAdminShow', { slug: slug } ) %>" rel="nofollow">
         <i class="fa fa-list"></i>
         <span><%= __( 'Manage agenda' ) %></span>
       </a>
     </li><!--
 <% } %>
-    --><li class="admin-item tooltip js_toggle w25" data-toggle="js_dropdown_menu">
-      <span class="admin-selected"><%= __( states[ event.currentState ].label ) %></span>
+    --><li class="edge-item tooltip js_toggle w25" data-toggle="js_dropdown_menu">
+      <span class="edge-selected"><%= __( states[ event.currentState ].label ) %></span>
       <ul class="list-group js_dropdown_menu">
 <% for( var i in states ) { %>
 <% if ( !states[ i ].hideAction ) { %>
@@ -29,11 +29,11 @@
       </ul>
       <span class="tooltip-text"><%= __( 'Event state' ) %></span>
     </li><!--
-    --><li class="admin-item js_admin_item js_role_event_editor w25">
-      <a class="admin-link" href="<%= genUrl( loner ? 'eventEdit' : 'agendaEventEdit', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ] ) %>" rel="nofollow"><%= __('Edit') %></a>
+    --><li class="edge-item js_admin_item js_role_event_editor w25">
+      <a class="edge-link" href="<%= genUrl( loner ? 'eventEdit' : 'agendaEventEdit', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ] ) %>" rel="nofollow"><%= __('Edit') %></a>
     </li><!--
-    --><li class="admin-item js_admin_item js_role_event_editor js_role_agenda_admin js_toggle w25" data-toggle="js_dropdown_menu">
-      <span class="admin-selected"><%= __( 'Actions' ) %></span>
+    --><li class="edge-item js_admin_item js_role_event_editor js_role_agenda_admin js_toggle w25" data-toggle="js_dropdown_menu">
+      <span class="edge-selected"><%= __( 'Actions' ) %></span>
       <ul class="list-group js_dropdown_menu">
 <% if ( !loner ) { %>
         <li class="list-group-item js_admin_item js_role_agenda_admin js_role_agenda_moderator">

@@ -1,12 +1,14 @@
 {
   "base" : {
-    "title" : "Jeu de Territoire pour développer la qualité de Vie",
-    "description" : "l'agenda des évènements repérés par ChezNous",
-    "image" : "review_cheznous_598_00.jpg",
-    "slug" : "chez-nous",
+    "agenda" : {
+      "uid" : 48959239,
+      "title" : "Jeu de Territoire pour développer la qualité de Vie",
+      "description" : "l'agenda des évènements repérés par ChezNous",
+      "image" : "review_cheznous_598_00.jpg",
+      "slug" : "chez-nous"
+    },
     "url" : "http://cheznous.coop",
     "redirect" : "quiruezrhdk",
-    "uid" : 48959239,
     "eventUri" : "agendaEmbedEventShow",
     "embedUid" : 3283883,
     "base" : { "uid" : 48959239 },
@@ -36,9 +38,10 @@
   "standard" : {
     "isEmpty" : false,
     "renders" : {
+      "header" : "<a class=\"url action-link\" href=\"#\" target=\"_blank\">Importer / Ajouter à mon agenda</a>",
       "eventItems" : [
         "<article class=\"row\">\n<section>\n<a class=\"event-card\" href=\"/agendas/48959239/embeds/46744426/events/6529113?lang=fr\">\n<h3 class=\"event-title\">Ateliers Théâtre et Cabaret (Chant, Comédie Musicale)</h3>\n\n      <div class=\"event-img\">\n        <img class=\"img-responsive\" src=\"https://cibul.s3.amazonaws.com/event_ateliers-theatre-et-comedie-musicale-adultes_402719.jpg\" alt=\"Ateliers Théâtre et Cabaret (Chant, Comédie Musicale)\"/>\n      </div>\n\n      <div class=\"event-text\">\n        <p>Sketches, scènes de théâtre et cinéma, chansons ou danses de tous styles, humour et poésie selon vos souhaits, le plaisir avant tout ! Impros, interprétation, spectacles et courts-métrages</p>\n        <ul class=\"metas\">\n          <li>Ava Production<!-- or City --></li>\n          <li>du 29 septembre 2012 au 31 mai 2015</li>\n        </ul>\n      </div>\n    </a>\n  </section>\n</article>",
-        "<article class=\"row\">\n<section>\n<a class=\"event-card\" href=\"/agendas/48959239/embeds/46744426/events/19015604?lang=fr\">\n<h3 class=\"event-title\">POINTS FLOTTANTS</h3>\n\n      <div class=\"event-img\">\n        <img class=\"img-responsive\" src=\"https://cibul.s3.amazonaws.com/event_points-flottants_353492.jpg\" alt=\"POINTS FLOTTANTS\"/>\n      </div>\n\n      <div class=\"event-text\">\n        <p>La galerie 59 invite, pour la première fois de jeunes artistes chinois à s'installer en résidence pendant 1 mois.</p>\n        <ul class=\"metas\">\n          <li>Aftersquat 59rivoli<!-- or City --></li>\n          <li>du 15 avril 2015 au 28 avril 2015</li>\n        </ul>\n      </div>\n    </a>\n  </section>\n</article>",
+        "<article class=\"row\">\n<section>\n<a class=\"event-card\" href=\"/agendas/48959239/embeds/46744426/events/19015604?lang=fr\">\n<span class=\"fav js_fav_item\" data-event-uid=\"6529113\"><i class=\"fa fa-star-o\"></i></span><h3 class=\"event-title\">POINTS FLOTTANTS</h3>\n\n      <div class=\"event-img\">\n        <img class=\"img-responsive\" src=\"https://cibul.s3.amazonaws.com/event_points-flottants_353492.jpg\" alt=\"POINTS FLOTTANTS\"/>\n      </div>\n\n      <div class=\"event-text\">\n        <p>La galerie 59 invite, pour la première fois de jeunes artistes chinois à s'installer en résidence pendant 1 mois.</p>\n        <ul class=\"metas\">\n          <li>Aftersquat 59rivoli<!-- or City --></li>\n          <li>du 15 avril 2015 au 28 avril 2015</li>\n        </ul>\n      </div>\n    </a>\n  </section>\n</article>",
         "<article class=\"row\">\n<section>\n<a class=\"event-card\" href=\"/agendas/48959239/embeds/46744426/events/77603762?lang=fr\">\n<h3 class=\"event-title\">Traits d'unions</h3>\n\n      <div class=\"event-img\">\n        <img class=\"img-responsive\" src=\"https://cibul.s3.amazonaws.com/event_traits-d-unions_833_852150.jpg\" alt=\"Traits d'unions\"/>\n      </div>\n\n      <div class=\"event-text\">\n        <p> Un univers riche en couleur et en émotions qui laisse un frisson rêveur aux voyageurs musicaux.</p>\n        <ul class=\"metas\">\n          <li>Aftersquat 59rivoli<!-- or City --></li>\n          <li>25 avril 2015, 18h00</li>\n        </ul>\n      </div>\n    </a>\n  </section>\n</article>",
         "<article class=\"row\">\n<section>\n<a class=\"event-card\" href=\"/agendas/48959239/embeds/46744426/events/56079495?lang=fr\">\n<h3 class=\"event-title\">Tongue Bundle</h3>\n\n      <div class=\"event-img\">\n        <img class=\"img-responsive\" src=\"https://cibul.s3.amazonaws.com/event_tongue-bundle_219968.jpg\" alt=\"Tongue Bundle\"/>\n      </div>\n\n      <div class=\"event-text\">\n        <p> Par l’étrange et l’agressif, la musique de Tongue Bundle passe avec un arrière goût “pop”, entraînant et obsessionnel, du “jazz” au bruit pur.</p>\n        <ul class=\"metas\">\n          <li>Aftersquat 59rivoli<!-- or City --></li>\n          <li>26 avril 2015, 18h00</li>\n        </ul>\n      </div>\n    </a>\n  </section>\n</article>",
         "<article class=\"row\">\n<section>\n<a class=\"event-card\" href=\"/agendas/48959239/embeds/46744426/events/27296216?lang=fr\">\n<h3 class=\"event-title\">EXPOSITION COLLECTIVE AU 59 RIVOLI</h3>\n\n      <div class=\"event-img\">\n        <img class=\"img-responsive\" src=\"https://cibul.s3.amazonaws.com/event_exposition-collective-au-59-rivoli_738337.jpg\" alt=\"EXPOSITION COLLECTIVE AU 59 RIVOLI\"/>\n      </div>\n\n      <div class=\"event-text\">\n        <p>RDLS, Pardon, Mathias Costa et Fredkapilo au 59 Rivoli </p>\n        <ul class=\"metas\">\n          <li>Aftersquat 59rivoli<!-- or City --></li>\n          <li>du 28 avril 2015 au 3 mai 2015</li>\n        </ul>\n      </div>\n    </a>\n  </section>\n</article>"

@@ -1,5 +1,17 @@
 #agenda {
 
+  header {
+
+    padding: 1em 0;
+
+    .action-link {
+
+      float: right;
+
+    }
+
+  }
+
   .event-card {
 
     background: transparent;
@@ -15,6 +27,7 @@
   .event-title {
 
     font-weight: bold;
+    padding: 20px 0;
 
   }
 
@@ -27,6 +40,39 @@
   .metas {
 
     padding: 0;
+
+  }
+
+  /**
+   * <ul class="active-filters"><li><span>événements passés</span><a>✕</a></li></ul>
+   */
+
+  .active-filters {
+
+    padding: 0;
+
+    li {
+
+      display: inline-block;
+      padding: 10px;
+      list-style-type: none;
+      border: 1px solid $oa-gray-lightish;
+      border-radius: 3px;
+
+      span {
+
+        margin-right: 1em;
+
+      }
+
+      a {
+
+        cursor: pointer;
+
+      }
+
+
+    }
 
   }
 

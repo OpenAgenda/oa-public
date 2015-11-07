@@ -2,13 +2,14 @@
   <aside class="col-sm-3 event-aside">
     <div>
 <% if ( typeof event.featured !== 'undefined' && event.featured ) { %>
-      <span class="featured"><i class="fa fa-star"></i> <%= __( 'Featured' ) %></span>
+      <span class="featured"><i class="fa fa-thumb-tack"></i> <%= __( 'Featured' ) %></span>
 <% } %>
       <span class="time-count js_relative_time" data-relative-time="<%= event.closestDate %>"></span>
     </div>
   </aside>
   <section class="col-sm-9">
     <a class="event-card" href="<%= event.link %>">
+      <span class="fav js_fav_item" data-event-uid="<%= event.uid %>"><i class="fa fa-star-o"></i></span>
       <h3 class="event-title"><%= event.title %></h3>
 <% if ( event.image ) { %>    
       <div class="event-img">

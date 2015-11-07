@@ -2,8 +2,12 @@
   "layout" : "bsLayout/main",
 
   "oaCss" : {
-    "share-menu" : "css/share-menu.scss",
-    "popup-overlay" : "css/popup-overlay.scss"
+    "agenda-base" : "css/base.scss",
+    "agenda-sidebar" : "css/sidebar.scss",
+    "agenda-header" : "css/header.scss",
+    "agenda-admin-bar" : "css/admin-bar.scss",
+    "share-page" : "css/share-page.scss",
+    "share-menu" : "css/share-menu.scss"
   },
 
   "helpers" : {
@@ -15,5 +19,7 @@
 
   "base" : {
     "xhr" : false
-  }
+  },
+
+  "js" : true
 }

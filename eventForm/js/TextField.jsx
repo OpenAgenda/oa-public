@@ -4,6 +4,8 @@ var React = require( 'react' ),
 
 validators = require( './validators' ),
 
+renderHelpers = require( './renderHelpers.jsx' ),
+
 errors = require( './errors' ),
 
 utils = require( 'utils' ),
@@ -13,7 +15,20 @@ typeValidators = {
   number: { func: validators.isNumber, error: 'notNum' },
   email: { func: validators.isEmail, error: 'notEmail' },
   url: { func: validators.isUrl, error: 'notURL' }
-};
+},
+
+typeCleaners = {
+  integer: trim,
+  number: trim,
+  email: trim,
+  url: trim
+}
+
+function trim( v ) {
+
+  return v.trim();
+
+}
 
 module.exports = React.createClass({
 
@@ -35,6 +50,12 @@ module.exports = React.createClass({
   onChange: function( e ) {
 
     var value = e.target.value;
+
+    if ( typeCleaners[ this.props.type ] ) {
+
+      value = typeCleaners[ this.props.type ]( value );
+
+    }
 
     this.setState( { userHasTyped: true } );
 
@@ -68,9 +89,9 @@ module.exports = React.createClass({
     return <ul className="cform">
       <li>
         <label>{this.props.label[this.props.lang]}{ this.props.optional ? '' : ' (*)' }</label>
-        { this.props.info?<span className="info">{ this.props.info[ this.props.lang ] }</span>:'' }
+        {renderHelpers.renderInfo.apply( this )}
         { this.renderField() }
-        { this.props.error && this.state.userHasTyped ? <span className="error">{this.props.error}</span> : '' }
+        { renderHelpers.renderError.apply( this ) }
       </li>
     </ul>
 
@@ -86,7 +107,7 @@ module.exports = React.createClass({
 
     if ( ( value === null ) ) value = '';
 
-    if ( !( value + '').length ) {
+    if ( !( value + '' ).length ) {
 
       if ( !this.props.optional ) {
 

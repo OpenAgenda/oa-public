@@ -8,6 +8,10 @@ b64 = require( '../../js/lib/Base64/Base64.mod.js' ),
 
 toggle = require( './toggle' ),
 
+utils = require( 'utils' ),
+
+du = require( '../../js/lib/domUtils' ),
+
 params = {
   selectors: {
     languageMenu: '.js_language_menu',
@@ -26,11 +30,11 @@ pClicked = false;
 
 module.exports = function( options ) {
 
-  params = cn.extend( params, options );
+  params = utils.extend( params, options );
 
-  var languageMenu = cn.el( params.selectors.languageMenu ),
+  var languageMenu = du.el( params.selectors.languageMenu ),
 
-  signinLink = cn.el( params.selectors.signinLink );
+  signinLink = du.el( params.selectors.signinLink );
 
   // tmp hack to avoid execution on legacy project
   if ( !languageMenu ) return;
@@ -42,7 +46,7 @@ module.exports = function( options ) {
 
     if ( !session.logged ) {
 
-      _addSigninLinkRedirect( cn.el( params.selectors.signinLink ) );
+      _addSigninLinkRedirect( du.el( params.selectors.signinLink ) );
 
       return;
 
@@ -81,9 +85,9 @@ module.exports = function( options ) {
 
       ul.innerHTML = rendered;
 
-      li = cn.el( ul, 'li' );
+      li = du.el( ul, 'li' );
 
-      cn.el( params.selectors.headerLinks ).insertAdjacentElement( 'beforeend', li );
+      du.el( params.selectors.headerLinks ).insertAdjacentElement( 'beforeend', li );
 
       toggle( li );
 
@@ -100,9 +104,9 @@ function _addSigninLinkRedirect( elem ) {
 
 }
 
-var _behave = function( li ) {
+function _behave( li ) {
 
-  cn.addEvent( cn.el( li, params.selectors.profile ), 'click', function( e ) {
+  du.addEvent( du.el( li, params.selectors.profile ), 'click', function( e ) {
 
     pClicked = true;
 
@@ -114,7 +118,7 @@ var _behave = function( li ) {
 
   });
 
-  cn.addEvent( cn.el( 'body' ), 'click', function( e ) {
+  du.addEvent( du.el( 'body' ), 'click', function( e ) {
 
     if ( pClicked ) {
 
@@ -128,16 +132,16 @@ var _behave = function( li ) {
 
   });
 
-},
+}
 
-_show = function( li ) {
+function _show( li ) {
 
-  cn.removeClass( cn.el( li, params.selectors.dropdown ), params.classes.displayNone );
+  du.removeClass( du.el( li, params.selectors.dropdown ), params.classes.displayNone );
 
-},
+}
 
-_hide = function( li ) {
+function _hide( li ) {
 
-  cn.addClass( cn.el( li, params.selectors.dropdown ), params.classes.displayNone );
+  du.addClass( du.el( li, params.selectors.dropdown ), params.classes.displayNone );
 
-};
+}
