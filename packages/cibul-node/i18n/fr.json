@@ -134,5 +134,7 @@
   "embed configuration not found"
   : "configuration de la vue integrée introuvable",
   "Export / Use"
-  : "Exporter / Utiliser"
+  : "Exporter / Utiliser",
+  "ownership is transfered"
+  : "la propriété est transférée"
 }

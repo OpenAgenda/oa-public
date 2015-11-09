@@ -379,7 +379,8 @@ function layoutData( req, res ) {
     agendaUid: req.agenda ? req.agenda.uid : false,
     ownerUid: req.formatted.owner.uid,
     adminAgendaUids: req.formatted.adminAgendas ? req.formatted.adminAgendas.map( function( a ) { return a.uid; } ) : [],
-    hasCustomFields: req.formatted.custom && req.formatted.custom.length
+    hasCustomFields: req.formatted.custom && req.formatted.custom.length,
+    lang: req.lang
   };
 
   return data;

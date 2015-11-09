@@ -70,7 +70,7 @@ function get( params, cb ) {
 
   model.users().get( params, ( err, user ) => {
 
-    if ( err ) return cb( err );
+    if ( err || !user ) return cb( err, false );
 
     cb( null, model.users().instance( user ) );
 

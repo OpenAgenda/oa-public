@@ -74,7 +74,8 @@ function actionShow( req, res ) {
     xhr: req.xhr,
     includeActionLinks: false,
     scriptParams: {
-      uid: req.agenda.uid
+      uid: req.agenda.uid,
+      lang: req.lang
     },
     search: req.query.oaq
   } )
