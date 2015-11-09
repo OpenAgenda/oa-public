@@ -8,7 +8,9 @@ params = {
   uid: false // agenda uid required
 },
 
-utils = require( 'utils' );
+utils = require( 'utils' ),
+
+gShare = require( './googleCalendarShare' );
 
 if ( [ 'tpl', 'dev' ].indexOf( window.env ) !== -1 ) {
 
@@ -27,5 +29,7 @@ window.asap( function( options ) {
   favorites.init( { agendaUid: params.uid } );
 
   favorites.menu();
+
+  gShare( options );
 
 } );

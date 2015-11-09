@@ -7,7 +7,8 @@
     "agenda-header" : "css/header.scss",
     "agenda-admin-bar" : "css/admin-bar.scss",
     "share-page" : "css/share-page.scss",
-    "share-menu" : "css/share-menu.scss"
+    "share-menu" : "css/share-menu.scss",
+    "popup-overlay" : "css/popup-overlay.scss"
   },
 
   "helpers" : {

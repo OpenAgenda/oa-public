@@ -14,7 +14,8 @@
     "includeActionLinks" : false,
 
     "scriptParams" : {
-      "uid" : 48959239
+      "uid" : 48959239,
+      "lang" : "fr"
     },
 
     "oaq" : { "passed" : 1 }

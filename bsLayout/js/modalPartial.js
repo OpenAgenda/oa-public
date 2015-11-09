@@ -76,15 +76,15 @@ function processItem( linkElem, options ) {
 
     domUtils.preventDefault( e );
 
-    if ( !modalElem ) { 
+    if ( !modalElem ) {
 
-      if ( linkElem.hasAttribute( 'href' ) ) {
+      if ( params.html ) {
 
-        _fetchAndCreate( _display );
+        _generateElemFromHTML( _display );
 
       } else {
 
-        _generateElemFromHTML( _display );
+        _fetchAndCreate( _display );
 
       }
 

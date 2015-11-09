@@ -2,7 +2,7 @@
 
 var eventMap = require( './map' ),
 
-cn = require( '../../js/lib/common/common.mod' ),
+utils = require( 'utils' ),
 
 adminControls = require( '../../user/js/adminControls' ),
 
@@ -29,11 +29,15 @@ defaults.selectors[ ROLES.EVENTEDITOR ] = '.js_role_event_editor';
 defaults.selectors[ ROLES.AGENDAMODERATOR ] = '.js_role_agenda_moderator';
 defaults.selectors[ ROLES.AGENDAADMIN ] = '.js_role_agenda_admin';
 
-if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) debug.enable( '*' );
+if ( [ 'tpl', 'dev' ].indexOf( window.env ) !== -1 ) {
+
+  debug.enable( '*' );
+
+}
 
 window.asap( function( options ) {
 
-  var params = cn.extend( {
+  var params = utils.extend( {
     hasCustomFields: false,
     hasOwnershipTransfer: false
   }, defaults, options );
@@ -62,7 +66,9 @@ window.asap( function( options ) {
 
     if ( params.hasOwnershipTransfer ) {
 
-      ownershipTransfer();
+      ownershipTransfer( {
+        lang: params.lang
+      } );
 
     }
 

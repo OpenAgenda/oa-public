@@ -82,5 +82,7 @@
   "sign language"
   : "language des signes",
   "Accessibility: %impairments%"
-  : "Accessibilité: %impairments%"
+  : "Accessibilité: %impairments%",
+  "Transfer ownership"
+  : "Transférer la propriété"
 }
