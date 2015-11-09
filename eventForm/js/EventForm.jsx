@@ -20,7 +20,7 @@ AgeFields = require( './AgeFields.jsx' ),
 
 TimingsPicker = require( './TimingsPicker.jsx' ),
 
-utils = require( 'utils' );
+utils = require( 'utils' ),
 
 formErrors = {};
 
@@ -103,15 +103,9 @@ module.exports = React.createClass( {
 
   },
 
-<<<<<<< HEAD
-  onCustomChange: function( values, errors ) {
-
-    var updatedErrors = this.mergedErrors( errors );
-=======
   getErrorFieldLabel: function( field ) {
 
     if ( this.props.custom ) {
->>>>>>> origin/master
 
       var customPossibles = this.props.custom.filter( function( customField ) {
 
@@ -131,22 +125,17 @@ module.exports = React.createClass( {
 
   },
 
-  onTimingsChange: function( values, errors ) {
+  onTimingsChange: function( values, errorMessage ) {
 
-    var updatedErrors = this.mergedErrors( errors );
+    var updated = {};
 
-    this.props.onTimingsChange( values, updatedErrors );
+    updated.timings = values;
 
-    this.setState( {
-      timings: values,
-      errors: updatedErrors
-    } );
+    formErrors.timings = errorMessage;
 
-  },
+    this.setState( updated );
 
-  mergedErrors: function( addedErrors ) {
-
-    return utils.extend( JSON.parse( JSON.stringify( this.state.errors ) ), addedErrors );
+    this.props.onTimingsChange( values, this.listErrorDetails( ) );
 
   },
 
@@ -288,7 +277,7 @@ module.exports = React.createClass( {
         values={this.state.custom }
         errors={ formErrors }
         languages={this.state.languages}
-        onChange={this.onCustomChange}
+        onChange={this.changeCustom}
         labels={this.props.labels}     
         res={this.props.customRes}   
         lang={this.props.lang} /></div>
@@ -301,7 +290,7 @@ module.exports = React.createClass( {
       <TimingsPicker
         labels={this.props.labels}
         lang={this.props.lang}
-        error={this.state.errors.timings}
+        error={formErrors.timings}
         timings={this.state.timings}
         onChange={this.onTimingsChange} />
 

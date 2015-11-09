@@ -65,7 +65,7 @@ module.exports = React.createClass( {
     return <div>
       <h2>{this.props.labels.timings[ this.props.lang ]}</h2>
       <Picker
-        startTime="7:00"
+        startTime="3:00"
         endTime="3:00"
         timings={this.getTimings()}
         weekStartDay={1}
