@@ -47,7 +47,7 @@ module.exports = React.createClass( {
 
     var self = this;
 
-    var timings = this.props.timings.map( function( t ) {
+    var timings = ( this.props.timings || [] ).map( function( t ) {
 
       return {
         start: t.date + 'T' + t.begin + self._tZ(),
