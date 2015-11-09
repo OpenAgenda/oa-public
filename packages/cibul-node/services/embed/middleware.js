@@ -63,7 +63,7 @@ function renderEventItems( req, res, next ) {
 
   eventItemParser.load( template );
 
-  async.each( req.events, function( e, ecb ) {
+  async.eachSeries( req.events, function( e, ecb ) {
 
     _getCustomFields( req, e, 'eventitem', function( err, values ) {
 
