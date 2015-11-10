@@ -87,6 +87,10 @@ defaults = {
     keywordPlaceholder: {
       fr: 'Ajouter un mot clé',
       en: 'Add a keyword'
+    },
+    noDates: {
+      fr: 'Au moins un horaire doit être défini',
+      en: 'At least one timing must be defined'
     }
   }
 };
