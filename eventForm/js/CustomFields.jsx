@@ -42,7 +42,7 @@ module.exports = React.createClass({
 
       }
 
-      self.onChange( field, value, error );
+      self.props.onChange( field, value, error );
 
     }
 
