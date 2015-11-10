@@ -2,11 +2,13 @@
 
 var svc,
 
-utils = require( '../../lib/utils' ),
+utils = require( 'utils' ),
 
 async = require( 'async' ),
 
-genUrl = require( '../genUrl' );
+genUrl = require( '../genUrl' ),
+
+config = require( '../../config' );
 
 module.exports = function( service ) {
 
@@ -82,7 +84,15 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
         custom.forEach( function( v ) {
 
-          toDecorate.customValues[ v.name ] = v.value;
+          if ( v.fieldType == 'image' ) {
+
+            toDecorate.customValues[ v.name ] = config.aws.imageBucketPath + v.value;
+
+          } else {
+
+            toDecorate.customValues[ v.name ] = v.value;
+
+          }
 
         });
 
