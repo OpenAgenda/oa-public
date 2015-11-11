@@ -158,8 +158,6 @@ describe( 'get list, handle content', function() {
 
   afterEach( function( done ) {
 
-    return done();
-
     ifc.DeleteListByID( {
       listID: listId,
       token: token
