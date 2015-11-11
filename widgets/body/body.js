@@ -175,7 +175,7 @@ function widget( elem, options ) {
 
     }
 
-    var hrefQuery = _readQueryPart( href, 'search', {} );
+    var hrefQuery = _readQueryPart( href, 'oaq', {} );
 
     if ( _isEventLink( href ) ) {
 
@@ -196,15 +196,23 @@ function widget( elem, options ) {
 
     frameLink( elem, onReady, function( message ) {
 
+      log( 'received message from frame: %s', message );
+
       if ( message.load ) {
 
+        log( 'message is a load request: %s', message.load );
+
         if ( _isEventLink( message.load ) ) {
+
+          log( 'message is an event link' );
 
           _setSrc( _clean( message.load ) );
 
           _goToFrameTop();
 
         } else if ( _isAgendaLink( message.load ) ) {
+
+          log( 'message is an agenda list link' );
 
           var currentQuery = controller.getCurrentQuery(),
 
@@ -216,13 +224,13 @@ function widget( elem, options ) {
 
             delete currentQuery.uid;
 
-            newSrc = _clean( message.load + '?' + qs.stringify( { search: currentQuery } ) );
+            newSrc = _clean( message.load + '?' + qs.stringify( { oaq: currentQuery } ) );
 
           } else {
 
             // frame is requesting a change in filter
 
-            queryChangeRequest = ( qs.parse( message.load.substr( message.load.indexOf( '?' ) + 1 ) ) || {} ).search;
+            queryChangeRequest = ( qs.parse( message.load.substr( message.load.indexOf( '?' ) + 1 ) ) || {} ).oaq;
 
             if ( typeof queryChangeRequest == 'undefined' ) {
 
@@ -232,13 +240,15 @@ function widget( elem, options ) {
 
             if ( currentQuery.passed ) queryChangeRequest.passed = 1;
 
-            newSrc = _clean( message.load.substr( 0, message.load.indexOf( '?' ) + 1 ) + qs.stringify( { search: queryChangeRequest } ) );
+            newSrc = _clean( message.load.substr( 0, message.load.indexOf( '?' ) + 1 ) + qs.stringify( { oaq: queryChangeRequest } ) );
 
           }
 
           _setSrc( newSrc );
 
         } else {
+
+          log( 'message is an external link' );
 
           if ( ( typeof message.target !== 'undefined' ) && ( message.target == '_blank' ) ) {
 
@@ -306,12 +316,18 @@ function widget( elem, options ) {
 
     path = parts[ 0 ], 
 
-    query = qs.parse( parts.length > 1 ? parts[ 1 ] : {} );
+    query = qs.parse( parts.length > 1 ? parts[ 1 ] : {} ),
+
+    src;
 
     // insert language
     if ( lang ) query.lang = lang;
 
-    elem.setAttribute( 'src', path + '?' + qs.stringify( query ) );
+    src = path + '?' + qs.stringify( query );
+
+    log( 'setting frame source to %s', src );
+
+    elem.setAttribute( 'src', src );
 
     controller.requestModal( 'body' );
 
@@ -337,7 +353,7 @@ function widget( elem, options ) {
 
   function _getAgendaRes( reqParams ) {
 
-    var query = qs.stringify( { search: reqParams } );
+    var query = qs.stringify( { oaq: reqParams } );
 
     if ( window.env == 'tpl' ) {
 
