@@ -62,7 +62,7 @@ module.exports = React.createClass( {
 
         cleanChild = document.createElement( cleanType.replace( '#', '' ) );
 
-        cleanChild.innerHTML = child.innerText || '';
+        cleanChild.innerHTML = child.innerText || child.textContent || '';
 
         cleanChild.innerHTML = this.flattenChildren( cleanChild );
 
@@ -88,7 +88,7 @@ module.exports = React.createClass( {
 
     if ( !node.childNodes.length ) {
 
-      return node.innerText;
+      return node.innerText || node.textContent || '';
 
     }
 
