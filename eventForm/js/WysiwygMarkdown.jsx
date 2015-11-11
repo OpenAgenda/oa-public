@@ -38,6 +38,78 @@ module.exports = React.createClass( {
 
   },
 
+
+  /**
+   * ensure pasted content is cleaned up before
+   * it is processed 
+   */
+  
+  cleanNode: function( node ) {
+
+    var clean = document.createElement( node.nodeName ),
+
+    cleanChild, i, type, child, cleanType;
+
+    for( var i = 0; i < node.childNodes.length; i++ ) {
+
+      child = node.childNodes[ i ];
+
+      type = child.nodeName.toLowerCase();
+
+      if ( type !== '#text' ) {
+
+        cleanType = [ 'p', 'h1', 'h2', 'h3' ].indexOf( type ) !== -1 ? type : 'p';
+
+        cleanChild = document.createElement( cleanType.replace( '#', '' ) );
+
+        cleanChild.innerHTML = child.innerText || '';
+
+        cleanChild.innerHTML = this.flattenChildren( cleanChild );
+
+        clean.appendChild( cleanChild );
+        
+      }
+
+    }
+
+    return clean;
+
+  },
+
+
+  /**
+   * because we don't deal with fancy in-depth html,
+   * we prevent it from being pasted by using this
+   */
+  
+  flattenChildren: function( node ) {
+
+    var flattened = '';
+
+    if ( !node.childNodes.length ) {
+
+      return node.innerText;
+
+    }
+
+    for( var i = 0; i< node.childNodes.length; i++ ) {
+
+      if ( node.childNodes[ i ].childNodes.length ) {
+
+        flattened += this.flattenChildren( node.childNodes[ i ] );
+
+      } else {
+
+        flattened += node.childNodes[ i ].nodeValue;
+
+      }
+
+    }
+
+    return flattened;
+
+  },
+
   render: function() {
 
     var self = this,
@@ -52,9 +124,9 @@ module.exports = React.createClass( {
 
         tinymce.init({
           selector: '.mce-box-' + i,
-          language: 'fr_FR',
+          language: self.props.lang=='fr' ? 'fr_FR' : 'en_EN',
           menubar: false,
-          plugins: 'autolink link lists print preview autoresize',
+          plugins: 'autolink link lists print preview autoresize paste',
           toolbar: 'formatselect bold italic bullist link',
           statusbar: false,
           block_formats: 'Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3;',
@@ -63,8 +135,14 @@ module.exports = React.createClass( {
 
             editor.on( 'change', self.onChange( l ) );
 
-          }
+          },
+          paste_postprocess : function(pl, o) {
 
+            // paste from word-type processors insert a mess of tags
+            // in the html; these must be cleaned
+            o.node = self.cleanNode( o.node );
+
+          }
         });
 
       });
