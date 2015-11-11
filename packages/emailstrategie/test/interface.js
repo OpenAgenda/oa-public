@@ -242,7 +242,7 @@ describe( 'get list, handle content', function() {
 
     });
 
-  })
+  });
 
   it( 'SaveListItem special character', function( done ) {
 
@@ -252,7 +252,9 @@ describe( 'get list, handle content', function() {
       [ 3, 'La muraille \r\n de lave', 'glauque' ],
       [ 4, 'Les Matins de l\'emploi', 'Les métiers de l\'hotellerie : venez rencontrer des professionnels, partager expérience et points de vue.  ' ],
       [ 5, '\'\'  . \n\n      de l’hôtelle', 'Test' ],
-      [ 6, '&', 'why use &' ]
+      [ 6, '&', 'why use &' ],
+      [ 7, '*;#"“”#~\\', '*;#"“”#~\\' ],
+      [ 8, '<>', '<>' ]
     ], function( entry, ecb ) {
 
       ifc.SaveListItem( {
@@ -267,7 +269,7 @@ describe( 'get list, handle content', function() {
 
       ifc.GetListByID( { listID: listId, token: token }, function( err, response ) {
 
-        response.totalRecords.should.eql( 6 );
+        response.totalRecords.should.eql( 8 );
 
         done();
 
