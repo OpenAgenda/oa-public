@@ -168,7 +168,7 @@ module.exports = function( params ) {
 
     _on( params.events.image.write, function(data) {
 
-      if (data.image) event.image = data.image;
+      if ( data.image ) event.image = data.image;
 
       _evaluate();
 

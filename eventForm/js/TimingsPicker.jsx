@@ -33,7 +33,7 @@ module.exports = React.createClass( {
         end: utils.fZ( e.getHours() ) + ':' + utils.fZ( e.getMinutes() )
       }
 
-    }), timings.length ? false : this.props.labels.noDates[ this.props.lang ] );
+    } ), timings.length ? false : this.props.labels.noDates[ this.props.lang ] );
 
   },
 
