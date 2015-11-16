@@ -471,17 +471,23 @@ $dayInWeek: 7;
 
 				width: part-of($dayInWeek);
 
-			  span {
+			  div {
 
 			  	padding: 15px 0;
 			  	display: block;
-			  	color: $reverseColor;
+			  	
 					@include text-overflow(ellipsis);
 					text-align: center;
 					white-space: nowrap;
 					line-height: $dayHeaderHeight;
 					height: $dayHeaderHeight;
 					border-left: 1px solid white;
+
+					span {
+
+						color: $reverseColor;
+
+					}
 
 			  }
 
