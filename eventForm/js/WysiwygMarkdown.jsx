@@ -56,23 +56,29 @@ module.exports = React.createClass( {
 
       type = child.nodeName.toLowerCase();
 
-      if ( type !== '#text' ) {
+      cleanType = [ 'p', 'h1', 'h2', 'h3' ].indexOf( type ) !== -1 ? type : 'p';
 
-        cleanType = [ 'p', 'h1', 'h2', 'h3' ].indexOf( type ) !== -1 ? type : 'p';
+      cleanChild = document.createElement( cleanType );
 
-        cleanChild = document.createElement( cleanType.replace( '#', '' ) );
+      cleanChild.innerHTML = this.flattenChildren( child );
 
-        cleanChild.innerHTML = child.innerText || child.textContent || '';
-
-        cleanChild.innerHTML = this.flattenChildren( cleanChild );
+      if ( cleanChild.innerHTML.length ) {
 
         clean.appendChild( cleanChild );
-        
+
       }
 
     }
 
     return clean;
+
+  },
+
+  getTextContent: function( elem ) {
+
+    var attr = ( 'innerText' in elem ) ? 'innerText' : 'textContent';
+
+    return ( elem[ attr ] || '' ).trim();
 
   },
 
@@ -88,7 +94,7 @@ module.exports = React.createClass( {
 
     if ( !node.childNodes.length ) {
 
-      return node.innerText || node.textContent || '';
+      return this.getTextContent( node ); 
 
     }
 
@@ -100,7 +106,7 @@ module.exports = React.createClass( {
 
       } else {
 
-        flattened += node.childNodes[ i ].nodeValue;
+        flattened += node.childNodes[ i ].nodeValue || '';
 
       }
 
