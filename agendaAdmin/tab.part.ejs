@@ -1,4 +1,4 @@
-<li class="menu-item js_menu_item">
+<li class="menu-item js_menu_item <% if ( tab==t.key ) { %> selected<% } %>">
   <a class="<% if ( tab==t.key ) { %> active<% } %>" href="<%= genUrl( t.uri, { slug: agenda.slug } ) %>">
     <span><%= __( t.label ) %></span>
   </a>

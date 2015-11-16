@@ -1,0 +1,19 @@
+{
+  "layout" : "agendaAdmin/bsLayout",
+  "oaCss" : {
+    "categorytags" : "css/style.scss",
+    "tag-editor" : "../node_modules/tag-editor/sass/style.scss"
+  },
+
+  "helpers" : {
+    "_i" : "image"
+  },
+
+  "base" : {
+    "mainClass" : "agenda-admin",
+    "pageId" : false,
+    "tab" : "categories"
+  },
+
+  "js" : true
+}
