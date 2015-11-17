@@ -28,12 +28,22 @@ module.exports = React.createClass( {
 
     return function( e ) {
 
-      var changed = self.props.markdown ? JSON.parse( JSON.stringify( self.props.markdown ) ) : {};
+      var changed = self.props.markdown ? JSON.parse( JSON.stringify( self.props.markdown ) ) : {},
 
-      changed[ l ] = toMarkdown( e.target.getContent() );
+      errored = false; // opera
 
-      self.props.onChange( changed );
+      try {
 
+        changed[ l ] = toMarkdown( e.target.getContent() );
+
+      } catch( e ) {
+
+        errored = true;
+
+      }
+
+      if ( !errored ) self.props.onChange( changed );
+      
     }
 
   },
