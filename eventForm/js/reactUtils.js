@@ -12,15 +12,9 @@ module.exports = {
   el: domUtils.el,
   ehUpdate: ehUpdate,
   ehSubscriber: ehSubscriber,
-  loadReact: loadReact,
   eh: eh
 }
 
-function loadReact() {
-
-  return window.React;
-
-}
 
 function ehUpdate( eventName ) {
 

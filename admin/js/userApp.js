@@ -1,5 +1,7 @@
 var React = require( 'react' ),
 
+ReactDom = require( 'react-dom' ),
+
 UserList = require( './userList' ),
 
 UserSearch = require( './userSearch' ),
@@ -169,6 +171,6 @@ UserApp = React.createClass({
 
 module.exports = function( canvasElem ) {
 
-  React.render( <UserApp/>, canvasElem );
+  ReactDom.render( <UserApp/>, canvasElem );
 
 }

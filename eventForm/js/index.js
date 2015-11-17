@@ -14,6 +14,8 @@ deepExtend = require( 'deep-extend' ),
 
 React = require( 'react' ),
 
+ReactDom = require( 'react-dom' ),
+
 fieldErrors = [], customErrors = [],
 
 defaults = {
@@ -112,7 +114,7 @@ window.oaEventForm = function( options ) {
 
   rUtils.eh.trigger( params.events.fetch, function( eventData ) {
 
-    React.render( <EventForm
+    ReactDom.render( <EventForm
       initialLanguages= { formUtils.extractLanguages( eventData ) }
       useWysiwyg= {params.useWysiwyg}
       initData= {eventData}

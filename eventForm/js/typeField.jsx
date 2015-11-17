@@ -4,6 +4,8 @@ var Select = require( 'react-select' ),
 
 React = require( 'react' ),
 
+ReactDom = require( 'react-dom' ),
+
 rUtils = require( './reactUtils.js' ),
 
 defaults = {
@@ -17,7 +19,7 @@ module.exports = function( options ) {
 
   var params = rUtils.extend( {}, defaults, options );
 
-  React.render(
+  ReactDom.render(
     <TypeField initType={params.code} lang={params.lang} onChange={rUtils.ehUpdate( params.events.send )} />,
     rUtils.createCanvas( rUtils.el( params.canvas ) )
   );
