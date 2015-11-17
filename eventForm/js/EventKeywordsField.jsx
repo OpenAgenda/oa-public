@@ -62,9 +62,14 @@ module.exports = React.createClass( {
 
   renderField: function( value, l ) {
 
+
+
     return <TagsInput 
       value= { this.parse( this.props.value ? this.props.value[ l ] : '' ) }
-      placeholder= {this.props.placeholder[ this.props.lang ] }
+      inputProps={{
+        placeholder: value.length ? '' : this.props.placeholder[ this.props.lang ], 
+        className : 'react-tagsinput-input' 
+      }}
       onChange={ this.onChange( l ) }
       ref='tags' />
 

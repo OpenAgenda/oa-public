@@ -50,6 +50,8 @@
 
   "swapcard/index",
 
+  "categories/index",
+
   "error/show",
   
   "eventLists/searchList",
