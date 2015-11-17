@@ -38,6 +38,9 @@ module.exports = function( params ) {
       singleField: {
         write: 'esinglesend'
       },
+      timingsField: {
+        write: 'etimingssend'
+      },
       uidfetch: 'euidfetch',
       validate: 'evalidate',
       fetchEncoded: 'efetchencoded',
@@ -105,21 +108,13 @@ module.exports = function( params ) {
 
     _on( params.events.location.fetch, function(cb) {
 
-      cb( event.location, event.timings );
+      cb( event.location );
 
     });
 
     _on( params.events.location.write, function( location ) {
 
-      if ( location.timings ) {
-
-        event.timings = JSON.parse( JSON.stringify( location.timings ) );
-
-      }
-
       event.location = JSON.parse( JSON.stringify( location ) );
-
-      if ( event.location.timings ) delete event.location.timings;
 
       _evaluate();
 
@@ -173,7 +168,7 @@ module.exports = function( params ) {
 
     _on( params.events.image.write, function(data) {
 
-      if (data.image) event.image = data.image;
+      if ( data.image ) event.image = data.image;
 
       _evaluate();
 
@@ -186,6 +181,12 @@ module.exports = function( params ) {
       event[ data.name ] = JSON.parse( JSON.stringify( data.value ) );
 
     });
+
+    _on( params.events.timingsField.write, function( newTimings ) {
+
+      event.timings = JSON.parse( JSON.stringify( newTimings ) );
+
+    } );
 
     _on( params.events.customfields.write, function( data ) {
 

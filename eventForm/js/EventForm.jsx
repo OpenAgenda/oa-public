@@ -18,6 +18,8 @@ AccessibilityFields = require( './AccessibilityFields.jsx' ),
 
 AgeFields = require( './AgeFields.jsx' ),
 
+TimingsPicker = require( './TimingsPicker.jsx' ),
+
 utils = require( 'utils' ),
 
 formErrors = {};
@@ -120,6 +122,20 @@ module.exports = React.createClass( {
     if ( field == 'tags' ) return this.props.labels.keywords;
 
     return this.props.labels[ field ];
+
+  },
+
+  onTimingsChange: function( values, errorMessage ) {
+
+    var updated = {};
+
+    updated.timings = values;
+
+    formErrors.timings = errorMessage;
+
+    this.setState( updated );
+
+    this.props.onTimingsChange( values, this.listErrorDetails( ) );
 
   },
 
@@ -266,6 +282,19 @@ module.exports = React.createClass( {
         res={this.props.customRes}   
         lang={this.props.lang} /></div>
       : '' }
+
+
+      <div className="js_event_location_canvas"></div>
+
+
+      <TimingsPicker
+        labels={this.props.labels}
+        lang={this.props.lang}
+        error={formErrors.timings}
+        timings={this.state.timings}
+        onChange={this.onTimingsChange} />
+
+      
 
     </div>;
 

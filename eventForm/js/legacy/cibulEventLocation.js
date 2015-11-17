@@ -13,7 +13,7 @@ handleEventPlaceEdit = require( './handleEventPlaceEdit' );
 module.exports = function( params ) {
 
   params = utils.extend({
-    canvas: '.js_form_canvas_below',
+    canvas: '.js_event_location_canvas',
     countries: false,
     lang: 'en',
     events: {
@@ -99,7 +99,7 @@ module.exports = function( params ) {
 
   _createLocationHandler = function() {
 
-    eh.trigger( params.events.fetch, function( location, timings ) {
+    eh.trigger( params.events.fetch, function( location ) {
 
       locationHandler = handleEventPlaceEdit({
         url: params.url,
@@ -109,7 +109,7 @@ module.exports = function( params ) {
         country: country,
         languages: languages,
         canvas: du.el(elem, params.selectors.places),
-        locationData: location ? utils.extend( {}, location, { timings: timings } ) : {},
+        locationData: location ? utils.extend( {}, location ) : {},
         get: params.get,
         locations: params.localSelection,
         onChange: function(location) {

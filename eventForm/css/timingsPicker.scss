@@ -1,0 +1,785 @@
+/* #region absolute colors */
+
+$white: #fff;
+$xlightGray: #eee;
+$lightGray: #ccc;
+$gray: #aaa;
+$darkGray: #666;
+$xdarkGray: #333;
+$black: #000;
+
+$xlightBlue: #E3F2FF;
+$lightBlue: #42B0E1;
+$darkblue: #3367C0;
+$green: #1A9E1F;
+$red: #E23737;
+
+/* #endregion absolute colors*/
+
+/* #region screen widths*/
+
+$large: 960px;
+$medium: 768px;
+$small: 640px;
+$xsmall: 480px;
+$xxsmall: 400px;
+
+/* #endregion screen widths*/
+
+/* #region font sizes*/
+
+
+$rcNormalFont: 14px;
+$rcMediumFont: 12px;
+$rcSmallFont: 11px;
+$rcXsmallFont: 10px;
+
+/* #endregion font sizes*/
+
+/* #region timetable widths*/
+
+$timetableWidth: 50px;
+$timetableSmallWidth: 40px;
+$timetableMinWidth: 35px;
+$timetableMinSmallWidth: 30px;
+
+/* #endregion timetable widths*/
+
+/* #region cells heights*/
+
+$dayHeaderHeight: 2px;
+$dayCellHeight: 25px;
+
+/* #endregion cells heights */
+
+/* #region colors */
+
+$primaryColor: #6c6c6c;
+$secondaryColor: $oa-gray;
+$reverseColor: $white;
+$success: $green;
+$error: $red;
+
+$calendarBorderColor: #dcdcdc;
+$calendarBackColor: #fff;
+
+$headerPrimaryColor: $primaryColor;
+$headerSecondaryColor: $secondaryColor;
+
+$schedulerHeaderColor: $reverseColor;
+$schedulerHeaderBackColor: $lightBlue;
+$schedulerHeaderTodayColor: $primaryColor;
+$schedulerHeaderTodayBackColor: $white;
+$schedulerDayBorderColor: $white;
+
+$oddRowBackColor: $xlightGray;
+$evenRowBackColor: $white;
+
+$eventBackColor: $oa-white;
+
+$datepickerSelectedBackColor: $lightBlue;
+$datepickerTodayBackColor: $xlightBlue;
+$datepickerHoverBackColor: $xlightGray;
+
+$linkDefaultColor: #165979;
+
+/* #endregion colors*/
+
+/* #region scheduler */
+
+$dayInWeek: 7;
+
+/* #endregion scheduler */
+
+
+
+
+
+
+
+
+
+
+
+/* #region styles */
+
+@mixin rotate($deg) {
+	-moz-transform: rotate($deg);
+	-ms-transform: rotate($deg);
+	-o-transform: rotate($deg);
+	-webkit-transform: rotate($deg);
+	transform: rotate($deg);
+}
+
+@mixin box-sizing($value) {
+	-moz-box-sizing: $value;
+	-webkit-box-sizing: $value;
+	box-sizing: $value;
+}
+
+@mixin word-break($value) {
+	-ms-word-break: #{$value};
+	 word-break: #{$value};
+}
+
+@mixin text-overflow($value) {
+	-ms-text-overflow: $value;
+	-o-text-overflow: $value;
+	text-overflow: $value;
+}
+
+@mixin user-select($value) {
+	-moz-user-select: $value;
+	-ms-user-select: $value;
+	-webkit-user-select: $value;
+	user-select: $value;
+}
+
+@mixin translateY($value) {
+	-moz-transform: translateY($value);
+	-ms-transform: translateY($value);
+	-o-transform: translateY($value);
+	-webkit-transform: translateY($value);
+	transform: translateY($value);
+}
+
+@mixin translateX($value) {
+	-moz-transform: translateX($value);
+	-ms-transform: translateX($value);
+	-o-transform: translateX($value);
+	-webkit-transform: translateX($value);
+	transform: translateX($value);
+}
+
+@mixin translate($x, $y) {
+	-moz-transform: translate($x, $y);
+	-ms-transform: translate($x, $y);
+	-o-transform: translate($x, $y);
+	-webkit-transform: translate($x, $y);
+	transform: translate($x, $y);
+}
+
+@mixin rotate($angle) {
+	-moz-transform: rotate($angle);
+	-ms-transform: rotate($angle);
+	-o-transform: rotate($angle);
+	-webkit-transform: rotate($angle);
+	transform: rotate($angle);
+}
+
+/* #endregion styles*/
+
+/* #region media queries*/
+
+@mixin respond-to($media) {
+	@if $media == xxsmall {
+		@media only screen and (max-width: $xxsmall ) { @content; }
+	}
+	@else if $media == xsmall {
+		@media only screen and (max-width: $xsmall ) { @content; }
+	}
+	@else if $media == small {
+		@media only screen and (max-width: $small ) { @content; }
+	}
+	@else if $media == medium {
+		@media only screen and (max-width: $medium ) { @content; }
+	}
+	@else if $media == large {
+		@media only screen and (max-width: $large) { @content; }
+	}
+}
+
+/* #endregion media queries*/
+
+/* #region utils */
+
+@function str-replace($string, $search, $replace: "") {
+	$index: str-index($string, $search);
+
+	@if $index {
+		@return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+	}
+
+	@return $string;
+}
+
+@function part-of($number){
+	@return 100% / $number;
+}
+
+/* #endregion utils */
+
+/* #region font face */
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+	$src: null;
+
+	$extmods: (
+		eot: "?",
+		svg: "#" + str-replace($name, " ", "_")
+	);
+
+	$formats: (
+		otf: "opentype",
+		ttf: "truetype"
+	);
+
+	@each $ext in $exts {
+		$extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+		$format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+		$src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+	}
+
+	@font-face {
+		font-family: quote($name);
+		font-style: $style;
+		font-weight: $weight;
+		src: $src;
+	}
+}
+
+/* #endregion font face*/
+
+/* #region select */
+
+@mixin selectbox-wrapper($width){
+	width: $width;
+	div{
+		display: block;
+	}
+}
+
+/* #endregion select*/
+
+/* #region positioning */
+
+@mixin vertical-align($position: relative) {
+	position: $position;
+	top: 50%;
+	@include translateY(-50%);
+}
+
+@mixin center-absolute-position(){
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	@include translate(-50%, -50%);
+}
+
+@mixin vertical-centre ($height) {
+	height:$height;
+	line-height:$height !important;
+	display:inline-block;
+	vertical-align:middle;
+}
+
+@mixin right-top-corner ($top: 2px, $right: 2px, $width: auto, $height: auto){
+	width: $height;
+	height: $width;
+	position: absolute;
+	right: $right;
+	top: $top;
+}
+
+/* #endregion positioning*/
+
+/* #region figures*/
+
+@mixin arrow($color: black, $leftWeight: 0.2em, $rightWeigh: 0.2em, $strokeType: solid, $angle: 0){
+	content: "";
+	display: inline-block;
+	/* By using an em scale, the arrows will size with the font */
+	width: 0.7em;
+	height: 0.7em;
+	border-right: $rightWeigh $strokeType $color;
+	border-top: $leftWeight $strokeType $color;
+	@include rotate($angle);
+}
+
+/* #endregion figures*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.border-box {
+	@include box-sizing(border-box)
+}
+
+.rc-noselect {
+	-webkit-touch-callout: none;
+	@include user-select(none);
+}
+
+.rc-error{
+		color: $error;
+	}
+
+	.rc-success{
+		color: $success;
+	}
+
+.rc-icon {
+	&.rc-icon-close:after {
+		content: "\2716";
+	}
+
+	&.rc-icon-left-arrow:before {
+		@include arrow($secondaryColor, 2px, 2px, solid, -135deg);
+	}
+
+	&.rc-icon-right-arrow:before {
+		@include arrow($secondaryColor, 2px, 2px, solid, 45deg);
+	}
+}
+
+.rc-icon-wrapper {
+	position: relative;
+	height: 0.5em;
+	width: 20px;
+
+	.rc-icon {
+		@include center-absolute-position();
+	}
+}
+
+.rc-calendar {
+
+	display: block;
+
+	width: 100%;
+	height: 100%;
+	font-size: $rcNormalFont;
+	color: $primaryColor;
+	background-color: $calendarBackColor;
+
+	.rc-calendar-body {
+		border-bottom: none;
+	}
+
+	a {
+		cursor: pointer;
+		color: $linkDefaultColor;
+	}
+
+	.rc-stats {
+
+		padding: 0.5em 0;
+
+	}
+
+	.rc-header {
+		display: block;
+
+		div {
+			display: inline-block;
+		}
+
+		.rc-week {
+			margin-right: 15px;
+			min-width: 150px;
+			width: 150px;
+			display: table-cell;
+			vertical-align: middle;
+
+			.rc-date{
+				width: 50px;
+				display: inline-block;
+				text-align: center;
+				margin: 0 8px;
+			}
+
+			.rc-icon-wrapper{
+				margin: 0 10px;
+				cursor: pointer;
+			}
+
+			.rc-icon {
+				color: $secondaryColor;
+			}
+		}
+
+		.rc-options{
+			display: table-cell;
+			padding-left: 15px;
+			.is-focused:not(.is-open) > .Select-control {
+				box-shadow: none;
+			}
+
+			.Select-control{
+				border: none;
+				padding-right: 20px;
+				color: $primaryColor;
+
+				&:hover{
+					box-shadow: none;
+				}
+
+				.Select-placeholder{
+					padding-right: 20px;
+				}
+			}
+
+			.Select-placeholder, .Select-input{
+				color: $primaryColor;
+			}
+
+			.Select-option.is-focused {
+				background-color: $xlightGray;
+				color: $rcNormalFont;
+			}
+
+			.Select-arrow{
+				color: $secondaryColor;
+				border-color: $secondaryColor transparent transparent;
+				top: 15px;
+			}
+		}
+
+		.rc-month {
+			@include selectbox-wrapper(130px);
+			margin-right: 15px;
+		}
+
+		.rc-years {
+			@include selectbox-wrapper(75px);
+		}
+
+		.rc-weekdays {
+
+			text-align: right;
+			display: block;
+			padding-left: $timetableWidth;
+			padding-right: 15px;
+			background-color: $schedulerHeaderBackColor;
+
+			.rc-day-name {
+
+				width: part-of($dayInWeek);
+
+			  div {
+
+			  	padding: 15px 0;
+			  	display: block;
+			  	
+					@include text-overflow(ellipsis);
+					text-align: center;
+					white-space: nowrap;
+					line-height: $dayHeaderHeight;
+					height: $dayHeaderHeight;
+					border-left: 1px solid white;
+
+					span {
+
+						color: $reverseColor;
+
+					}
+
+			  }
+
+			}
+
+		}
+	}
+
+	.rc-scheduler {
+
+		display: block;
+		height: 360px;
+		overflow-y: scroll;
+
+		.rc-day-cell {
+			height: $dayCellHeight;
+
+			&:nth-child(2n-1) {
+				background-color: $oddRowBackColor;
+			}
+
+			&:nth-child(2n) {
+				background-color: $evenRowBackColor;
+			}
+		}
+
+		.rc-day-time {
+			position: relative;
+
+			.rc-event {
+				background-color: $eventBackColor;
+				padding: 0;
+				overflow: hidden;
+				position: absolute;
+				right: 0;
+				left: 1px;
+				border: 2px solid $oa-blue;
+
+				.rc-time {
+					margin-right: 16px;
+					margin-top: 4px;
+					height: 1.1em;
+					white-space: nowrap;
+					font-size: $rcMediumFont;
+					color: $xdarkGray;
+					text-align: center;
+				}
+
+				.rc-icon-close{
+					color: $secondaryColor;
+
+					&:hover{
+						color: $primaryColor;
+					}
+				}
+
+				.rc-event-resizer {
+					position: absolute;
+					right: 0;
+					left: 0;
+					bottom: 0;
+					height: $rcSmallFont;
+					line-height: $rcSmallFont;
+					text-align: center;
+					cursor: s-resize;
+					background-color: $eventBackColor;
+					font-size: $rcNormalFont;
+
+					&:before {
+						content: "\3d";
+					}
+
+					color: $secondaryColor;
+
+					&:hover{
+						color: $primaryColor;
+					}
+				}
+
+				.rc-event-icon {
+					@include right-top-corner();
+					font-size: $rcSmallFont;
+					cursor: pointer;
+				}
+			}
+		}
+
+		.rc-timetable {
+			float: left;
+			font-size: $rcMediumFont;
+			border-bottom: 1px solid $calendarBorderColor;
+			border-top: 1px solid $schedulerHeaderBackColor;
+
+			& > div {
+				text-align: center;
+				line-height: $dayCellHeight;
+			}
+
+			width: $timetableWidth;
+			min-width: $timetableMinWidth;
+		}
+
+		.rc-days {
+			margin-left: $timetableWidth;
+			position: relative;
+			font-size: 0;
+
+			.rc-day {
+				@extend .border-box;
+				border-left: 1px solid $schedulerDayBorderColor;
+				border-bottom: 1px solid $calendarBorderColor;
+				border-top: 1px solid $schedulerHeaderBackColor;
+				width: part-of($dayInWeek);
+				display: inline-block;
+				@include word-break("break-word");
+				font-size: $rcNormalFont;
+
+				&.today{
+					border: 1px solid $lightBlue;
+					.rc-day-header{
+						color: $schedulerHeaderTodayColor;
+						background-color: $schedulerHeaderTodayBackColor;
+					}
+				}
+				&.tomorrow{
+					border-left: none;
+				}
+			}
+		}
+	}
+
+	.rc-reccurencer {
+		margin-top: 10px;
+		font-size: $rcMediumFont;
+		position: relative;
+
+		div {
+			display: inline-block;
+		}
+
+		.rc-ok-button {
+			padding: 7px 12px;
+			background-color: $lightBlue;
+			color: #fff;
+			border-radius: 3px;
+		}
+
+		.rc-message-close{
+			@include right-top-corner(0, 2px);
+			cursor: pointer;
+		}
+	}
+}
+
+.rc-datepicker-wrapper {
+	position: absolute;
+	display: inline-block;
+	z-index: 2147483647;
+}
+
+.rc-dp-calendar {
+	font-size: $rcMediumFont;
+	float:left;
+	display:block;
+	@extend .border-box;
+	background:$white;
+	width:250px;
+	border:solid 1px $calendarBorderColor;
+	margin-bottom:10px;
+	
+	$spacing:10px;
+	$icon-width:40px;
+	$header-height:40px;
+	
+	>div.rc-dp-header {
+		float:left;
+		width:100%;
+		background:$schedulerHeaderBackColor;
+		height:$header-height;
+		color:$reverseColor;
+		
+		> * { 
+			@include vertical-centre($header-height);
+		}
+		
+		>.rc-icon-wrapper {
+			float:left;
+			width:$icon-width;
+			font-weight:bold;
+			position:relative;
+			@extend .border-box;
+			padding:0 $spacing;
+			cursor:pointer;
+			> span:before{
+				border-color:$reverseColor;
+			}
+		}
+		
+		>.left {
+			text-align:left;
+		}
+		
+		>.right {
+			text-align:right;
+			margin-left:$icon-width*-1;
+		}
+		
+		>span { 
+			float:left;
+			width:100%;
+			font-weight:bold;
+			text-transform:uppercase;
+			@extend .border-box;
+			padding-left:$icon-width+$spacing;
+			margin-left:$icon-width*-1;
+			text-align:center;
+			padding-right:$icon-width;
+			color:inherit;
+		}
+	}
+	>div.rc-dp-week {
+		float:left;
+		width:100%;
+		border-top:solid 1px $calendarBorderColor;
+		
+		&:first-child {
+			border-top:none;
+		}
+		
+		>span.rc-dp-day {
+			float:left;
+			width: part-of($dayInWeek);
+			@extend .border-box;
+			border-left:solid 1px $calendarBorderColor;
+			font-size: 0.9em;
+			text-align:center;
+			@include vertical-centre(26px);
+			background:$white;
+			cursor:pointer;
+			color:$black;
+			
+			&:first-child {
+				border-left:none;
+			}
+			
+			&.today {
+				background:$datepickerTodayBackColor;
+			}
+			
+			&.different-month {
+				color:$secondaryColor;
+			}
+			
+			&.selected {
+				background:$datepickerSelectedBackColor;
+				color:$reverseColor;
+			}
+
+			&:hover{
+				background-color: $datepickerHoverBackColor;
+			}
+		}
+		
+		&.rc-dp-names>span {
+			color:$primaryColor;
+			font-weight:bold;
+		}
+	}
+}
+
+.rc-datepicker.rc-dp-container {
+	position: relative;
+}
+
+.rc-dp-input {
+	position: relative;
+	font-size: $rcMediumFont;
+	border-radius: 0;
+	box-shadow: none;
+	border: 1px solid $lightGray;
+	border-radius: 3px;
+	line-height: 16px;
+	padding: 6px 10px 5px;
+	margin: 0 5px;
+
+	&:focus {
+		outline: none;
+		border-color: $gray;
+		box-shadow: inset 0 2px 2px $xlightGray, 0 0 10px 0 $lightGray;
+	}
+
+	&:not(:valid) ~ .close-icon {
+		display: none;
+	}
+}

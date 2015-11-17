@@ -26,7 +26,8 @@ defaults = {
     languageChange: 'elanguageschange',
     description: 'edescriptionfieldsend',
     customFields: 'ecustomfieldssend',
-    single: 'esinglesend'
+    single: 'esinglesend',
+    timings: 'etimingssend'
   },
   custom: false,
   labels: {
@@ -74,6 +75,10 @@ defaults = {
       fr: 'Age du public ciblé',
       en: 'Targeted public age'
     },
+    timings: {
+      fr: 'Horaires',
+      en: 'Timings'
+    },
     uploadButton: {
       fr: 'Sélectionner',
       en: 'Select'
@@ -82,6 +87,10 @@ defaults = {
     keywordPlaceholder: {
       fr: 'Ajouter un mot clé',
       en: 'Add a keyword'
+    },
+    noDates: {
+      fr: 'Au moins un horaire doit être défini',
+      en: 'At least one timing must be defined'
     }
   }
 };
@@ -110,6 +119,7 @@ window.oaEventForm = function( options ) {
       lang= {params.language}
       onTextChange= {onTextChange}
       onCustomChange= {onCustomChange}
+      onTimingsChange= {onTimingsChange}
       onChangeLanguages= {onChangeLanguages}
       custom= {params.custom}
       customRes={params.customRes}
@@ -122,6 +132,12 @@ window.oaEventForm = function( options ) {
   function onChangeLanguages( languages ) {
 
     rUtils.eh.trigger( params.events.languageChange, languages );
+
+  }
+
+  function onTimingsChange( newTimings ) {
+
+    rUtils.eh.trigger( params.events.timings, newTimings );
 
   }
 

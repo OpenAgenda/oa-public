@@ -40,7 +40,8 @@
     "imageUpload" : "git+ssh://git@bitbucket.org:openagenda/imageupload.git",
     "category-editor" : "git+ssh://git@bitbucket.org:openagenda/category-editor.git",
     "tag-editor" : "git+ssh://git@bitbucket.org:openagenda/tag-editor.git",
-    "sync-button" : "git+ssh://git@bitbucket.org:openagenda/sync-button.git"
+    "sync-button" : "git+ssh://git@bitbucket.org:openagenda/sync-button.git",
+    "react-timings-picker" : "git://github.com/Oagenda/react-timings-picker.git"
   },
   "browserify" : {
     "transform" : "reactify"
