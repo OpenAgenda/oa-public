@@ -62,8 +62,6 @@ module.exports = React.createClass( {
 
   renderField: function( value, l ) {
 
-
-
     return <TagsInput 
       value= { this.parse( this.props.value ? this.props.value[ l ] : '' ) }
       inputProps={{
