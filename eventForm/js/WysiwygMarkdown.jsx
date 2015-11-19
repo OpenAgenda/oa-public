@@ -84,11 +84,18 @@ module.exports = React.createClass( {
 
   },
 
-  getTextContent: function( elem ) {
+  getCleanTextContent: function( elem ) {
 
-    var attr = ( 'innerText' in elem ) ? 'innerText' : 'textContent';
+    var attr = ( 'innerText' in elem ) ? 'innerText' : 'textContent',
 
-    return ( elem[ attr ] || '' ).trim();
+    content = elem[ attr ] || '',
+
+    cleanContent = content.replace( new RegExp( ['[',
+      String.fromCharCode(8233),
+      String.fromCharCode(8232),
+    ']' ].join( '' ), 'g' ), ' ' );
+
+    return cleanContent.trim();
 
   },
 
@@ -104,7 +111,7 @@ module.exports = React.createClass( {
 
     if ( !node.childNodes.length ) {
 
-      return this.getTextContent( node ); 
+      return this.getCleanTextContent( node ); 
 
     }
 
