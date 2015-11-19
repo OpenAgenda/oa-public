@@ -60,6 +60,18 @@ module.exports = function( enabledTypes, cb ) {
       db: config.db
     }, function( err ) { if ( err ) log( 'error', err ); } );
 
+    require( 'tag-editor' ).init( {
+      store: config.db,
+      legacy: config.db,
+      logger: logger
+    } );
+
+    require( 'category-editor' ).init( {
+      store: config.db,
+      legacy: config.db,
+      logger: logger
+    } );
+
     emailStrategie.init( {
       database: config.emailStrategieDb,
       redis: config.redis,
@@ -90,6 +102,7 @@ module.exports = function( enabledTypes, cb ) {
         require( './location/front' )( '/locations' ),
         require( './agenda/front' )( '' ),
         require( './agenda/facebook.back' )( '' ),
+        require( './agenda/tagcat.back' )( '' ),
         require( './agenda/actions.front' )( '/:slug/actions' ),
         require( './agenda_bridges/back' )( '/:slug/admin/services' ),
         require( './agenda/exports.front' )( '/agendas/:uid' ),
