@@ -573,6 +573,20 @@ $dayInWeek: 7;
 
           }
 
+          &.rc-below {
+
+            position: absolute;
+            width: 100%;
+            bottom: -30px;
+
+            span {
+
+              color: $primaryColor;
+
+            }
+
+          }
+
         }
 
         .rc-icon-close {
@@ -580,7 +594,7 @@ $dayInWeek: 7;
           margin-top: 2px;
           color: $secondaryColor;
 
-          &:hover{
+          &:hover {
             color: $primaryColor;
           }
 
