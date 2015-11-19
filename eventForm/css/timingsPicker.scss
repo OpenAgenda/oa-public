@@ -48,7 +48,7 @@ $timetableMinSmallWidth: 30px;
 /* #region cells heights*/
 
 $dayHeaderHeight: 2px;
-$dayCellHeight: 25px;
+$dayCellHeight: 40px;
 
 /* #endregion cells heights */
 
@@ -538,12 +538,13 @@ $dayInWeek: 7;
 				}
 
 				padding: 0;
-				overflow: hidden;
+				
 				position: absolute;
 				right: 0;
 				left: 1px;
 
 				.rc-time {
+
 					margin-right: 16px;
 					margin-top: 4px;
 					height: 1.1em;
@@ -556,6 +557,20 @@ $dayInWeek: 7;
 
 						color: $eventFrontColor;
 						font-weight: bold;
+
+					}
+
+					&.rc-above {
+
+						position: absolute;
+						top: -20px;
+						width: 100%;
+
+						span {
+
+							color: $primaryColor;
+
+						}
 
 					}
 
