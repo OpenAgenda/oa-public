@@ -27,7 +27,26 @@ module.exports = React.createClass({
     value = value ? value : this.convertToMultilingual( value );
 
     // must run validator on init or else form is considered valid
+    // this is not enough as it does not take into account
+    // subsequent added languages
     this.props.onChange( value, this.validate( value ) );
+
+  },
+
+  componentWillReceiveProps: function( newProps ) {
+
+    var self = this;
+
+    if ( newProps.languages.filter( function( l ) {
+
+      return self.props.languages.indexOf( l ) == -1;
+
+    }).length ) {
+
+      // a language was added
+      this.props.onChange( newProps.value, this.validate( newProps.value, newProps.languages ) );
+
+    }
 
   },
 

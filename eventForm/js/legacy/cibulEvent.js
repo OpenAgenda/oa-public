@@ -298,7 +298,7 @@ module.exports = function( params ) {
 
     // compare with existing
 
-    if (!_compareArrays(newLanguages, languages)) {
+    if ( !_compareArrays(newLanguages, languages) ) {
 
       // remove each deleted language from event object
       
@@ -314,8 +314,24 @@ module.exports = function( params ) {
 
         } );
 
+        currentErrors = currentErrors.map( function( e ) {
+
+          if ( typeof e.message !== 'string' && e.message[ l ] ) {
+
+             delete e.message[ l ];
+
+          }
+
+          return e;
+
+        } ).filter( function( e ) {
+
+          return ( typeof e.message == 'string' || utils.size( e.message ) );
+
+        } );
+
       });
-      
+
       languages = newLanguages;
 
       validator.updateLanguages( languages );

@@ -110,12 +110,14 @@ window.oaEventForm = function( options ) {
 
   var params = deepExtend( {}, defaults, options ? options : {} );
 
-  rUtils.eh.trigger( params.events.languageChange, [ params.language ] );
-
   rUtils.eh.trigger( params.events.fetch, function( eventData ) {
 
+    var initialLanguages = formUtils.extractLanguages( eventData );
+
+    rUtils.eh.trigger( params.events.languageChange, initialLanguages );
+
     ReactDom.render( <EventForm
-      initialLanguages= { formUtils.extractLanguages( eventData ) }
+      initialLanguages= { initialLanguages }
       useWysiwyg= {params.useWysiwyg}
       initData= {eventData}
       lang= {params.language}

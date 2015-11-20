@@ -11,7 +11,11 @@ module.exports = {
 }
 
 
-function validate( value ) {
+/**
+ * validate multilingual field values
+ */
+
+function validate( value, languages ) {
 
   var currentMessages = {},
 
@@ -21,7 +25,9 @@ function validate( value ) {
 
   has = false;
 
-  this.props.languages.forEach( function( l ) {
+  if ( !languages ) languages = this.props.languages;
+
+  languages.forEach( function( l ) {
 
     var v = value[ l ] || '',
 
