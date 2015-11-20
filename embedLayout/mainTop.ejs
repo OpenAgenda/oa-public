@@ -2,13 +2,13 @@
 <html<%- fb ? ' class="fb"': '' %>>
   <head>
 <% if ( metas.title ) { %>
-    <title><%= __( metas.title ) %></title>
+    <title><%- __( metas.title ) %></title>
 <% } %>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
     <meta name="language" content="<%= lang %>" />
 <% for ( var i in metas ) { %><% if ( typeof metas[i] == 'string' ) { %>
-    <meta name="<%= i %>" content="<%= __( metas[i] ) %>" />
+    <meta name="<%= i %>" content="<%- __( metas[i] ) %>" />
 <% } else { %>
     <meta <% for ( var j in metas[i] ) { %> <%- j %>="<%- metas[i][j] %>"<% } %> />
 <% } %><% } %>
