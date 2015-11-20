@@ -21,6 +21,7 @@ session = require( './session' ),
 exposed = {
   setSession: session.set,
   unsetSession: session.unset,
+  checkUnloggedAndUpdateRedis: checkUnloggedAndUpdateRedis,
   signin: signin,
   layoutData: layoutData,
   ifUserLoaded: ifUserLoaded,
@@ -532,6 +533,21 @@ function loadOptionals( req ) {
   }
 
   return optionals;
+
+}
+
+
+/**
+ * check that user is logged and update redis either way
+ */
+
+function checkUnloggedAndUpdateRedis( req, res, next ) {
+
+  session.syncRedis( req, res, function( err ) {
+
+    cmn.requireUnlogged( req, res, next );
+
+  } );
 
 }
 

@@ -132,6 +132,9 @@ config = {
         emptyImage: 'white300x300.jpg'
       }
     },
+    comexposium: {
+      contributingAgendaUid: 25263543 // le salon du cheval
+    },
     routes: {
       globals: {
         'authShow' : {

@@ -91,6 +91,7 @@ module.exports = function( enabledTypes, cb ) {
         require( './event/front' )( '' ),
         require( './event/actions.front' )( '' ),
         require( './event/back' )( '' ),
+        require( './auth/comexposium.front' )( '' ),
         require( './auth/facebook.front' )( '' ),
         require( './auth/twitter.front' )( '' ),
         require( './auth/google.front' )( '' ),

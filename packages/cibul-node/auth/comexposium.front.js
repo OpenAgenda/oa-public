@@ -1,0 +1,171 @@
+"use strict";
+
+var modLib = require( '../lib/moduleLib' ),
+
+cmn = require( '../lib/commons-app' ),
+
+w = require( 'when' ),
+
+deepExtend = require( 'deep-extend' ),
+
+auth = require( './lib/auth' ),
+
+model = require( '../services/model' ),
+
+log = require( 'logger' )( 'auth/local' ),
+
+config = require( '../config' ),
+
+lib = require( '../lib/lib' ),
+
+userSvc = require( '../services/user' ),
+
+agendaSvc = require( '../services/agenda' ),
+
+routes = {
+
+  comexposiumSignin: [ 'get', '/comex/signin', [
+    auth.checkUnloggedAndUpdateRedis,
+    comexposiumSignin
+  ] ]
+
+};
+
+module.exports = function( path ) {
+
+  var router = modLib.Router( routes );
+
+  log( 'initing' );
+
+  router.pre( [
+    cmn.https,
+    cmn.flashSetter,
+    cmn.loadSession
+  ] );
+
+  return {
+    load: router.load( path ),
+    paths: modLib.getPaths( path, routes )
+  }
+
+}
+
+
+function comexposiumSignin( req, res, next ) {
+
+  if ( !req.query.login ) return next( 'login is missing' );
+
+  if ( !req.query.password ) return next( 'password is missing' );
+
+  w( {
+    req: req,
+    res: res,
+    login: req.query.login,
+    password: req.query.password,
+    user: false, // user to be loaded
+    agenda: false, // agenda to contribute to
+    isContributor: false
+  } )
+
+  .then( _loadUser )
+
+  .then( _verifyPassword )
+
+  .then( _loadCurrentAgenda )
+
+  .then( _checkIsContributor )
+
+  .then( _makeContributorIfRequired )
+
+  .then( auth.signin )
+
+  .done( auth.done , next );
+
+}
+
+
+function _loadUser( v ) {
+
+  var d = w.defer();
+
+  userSvc.get( { comexposiumId: v.login }, ( err, user ) => {
+
+    if ( err ) return d.reject( err );
+
+    if ( !user ) return d.reject( 'user not found' );
+
+    v.user = user;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+function _verifyPassword( v ) {
+
+  if ( v.user.getStore().comex.password !== v.password ) {
+
+    throw 'Invalid password';
+
+  }
+
+  return v;
+
+}
+
+function _loadCurrentAgenda( v ) {
+
+  var d = w.defer();
+
+  agendaSvc.get( { uid: config.comexposium.contributingAgendaUid }, ( err, agenda ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.agenda = agenda;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+function _checkIsContributor( v ) {
+
+  var d = w.defer();
+
+  v.agenda.isContributor( v.user, ( err, is ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.isContributor = !!is;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+function _makeContributorIfRequired( v ) {
+
+  var d = w.defer();
+
+  if ( v.isContributor ) return d.resolve();
+
+  v.agenda.setContributor( v.user, ( err ) => {
+
+    if ( err ) return d.reject( err );
+
+    d.resolve( v )
+
+  } );
+
+  return d.promise;
+
+}

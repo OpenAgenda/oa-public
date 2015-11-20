@@ -10,8 +10,6 @@ deepExtend = require( 'deep-extend' ),
 
 auth = require( './lib/auth' ),
 
-session = require( './lib/session' ),
-
 https = require( 'https' ),
 
 log = require( 'logger' )( 'auth/local' ),
@@ -29,11 +27,11 @@ pLib = require( './lib/passport' ),
 routes = {
 
   signin: [ 'get', '/signin', [ 
-    _checkUnloggedAndUpdateRedis, auth.renderSignin 
+    auth.checkUnloggedAndUpdateRedis, auth.renderSignin 
   ] ],
 
   agendaSignin: [ 'get', '/:slug/signin', [
-    _checkUnloggedAndUpdateRedis,
+    auth.checkUnloggedAndUpdateRedis,
     auth.renderSignin
   ] ],
 
@@ -188,7 +186,6 @@ function signinSubmit( req, res, next ) {
 }
 
 
-
 function signupSubmit( req, res ) {
 
   w( { req: req, res: res, data: req.body } )
@@ -300,19 +297,7 @@ function _handleSigninRequest( req, email, password, done ) {
 }
 
 
-/**
- * check that user is logged and update redis either way
- */
 
-function _checkUnloggedAndUpdateRedis( req, res, next ) {
-
-  session.syncRedis( req, res, function( err ) {
-
-    cmn.requireUnlogged( req, res, next );
-
-  } );
-
-}
 
 
 function _ifHasErrors( has, func ) {
