@@ -302,14 +302,14 @@ if (typeof HTMLElement != "undefined" && !HTMLElement.prototype.insertAdjacentEl
     }
   };
 
-  HTMLElement.prototype.insertAdjacentHTML = function (where, htmlStr) {
+  if ( !HTMLElement.prototype.insertAdjacentHTML) HTMLElement.prototype.insertAdjacentHTML = function (where, htmlStr) {
     var r = this.ownerDocument.createRange();
     r.setStartBefore(this);
     var parsedHTML = r.createContextualFragment(htmlStr);
     this.insertAdjacentElement(where, parsedHTML);
   };
 
-  HTMLElement.prototype.insertAdjacentText = function (where, txtStr) {
+  if ( !HTMLElement.prototype.insertAdjacentText ) HTMLElement.prototype.insertAdjacentText = function (where, txtStr) {
     var parsedText = document.createTextNode(txtStr);
     this.insertAdjacentElement(where, parsedText);
   };

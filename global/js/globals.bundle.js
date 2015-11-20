@@ -4,465 +4,8 @@ var debug = require( 'debug' ),
 log = debug( 'globals' );
 
 window.handleGlobals = require('../../layout/js/main');
-},{"../../layout/js/main":24,"debug":2}],2:[function(require,module,exports){
 
-/**
- * This is the web browser implementation of `debug()`.
- *
- * Expose `debug()` as the module.
- */
-
-exports = module.exports = require('./debug');
-exports.log = log;
-exports.formatArgs = formatArgs;
-exports.save = save;
-exports.load = load;
-exports.useColors = useColors;
-
-/**
- * Colors.
- */
-
-exports.colors = [
-  'lightseagreen',
-  'forestgreen',
-  'goldenrod',
-  'dodgerblue',
-  'darkorchid',
-  'crimson'
-];
-
-/**
- * Currently only WebKit-based Web Inspectors and the Firebug
- * extension (*not* the built-in Firefox web inpector) are
- * known to support "%c" CSS customizations.
- *
- * TODO: add a `localStorage` variable to explicitly enable/disable colors
- */
-
-function useColors() {
-  // is webkit? http://stackoverflow.com/a/16459606/376773
-  return ('WebkitAppearance' in document.documentElement.style) ||
-    // is firebug? http://stackoverflow.com/a/398120/376773
-    (window.console && (console.firebug || (console.exception && console.table)));
-}
-
-/**
- * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
- */
-
-exports.formatters.j = function(v) {
-  return JSON.stringify(v);
-};
-
-
-/**
- * Colorize log arguments if enabled.
- *
- * @api public
- */
-
-function formatArgs() {
-  var args = arguments;
-  var useColors = this.useColors;
-
-  args[0] = (useColors ? '%c' : '')
-    + this.namespace
-    + (useColors ? '%c ' : ' ')
-    + args[0]
-    + (useColors ? '%c ' : ' ')
-    + '+' + exports.humanize(this.diff);
-
-  if (!useColors) return args
-
-  var c = 'color: ' + this.color;
-  args = [args[0], c, ''].concat(Array.prototype.slice.call(args, 1));
-
-  // the final "%c" is somewhat tricky, because there could be other
-  // arguments passed either before or after the %c, so we need to
-  // figure out the correct index to insert the CSS into
-  var index = 0;
-  var lastC = 0;
-  args[0].replace(/%[a-z%]/g, function(match) {
-    if ('%%' === match) return;
-    index++;
-    if ('%c' === match) {
-      // we only are interested in the *last* %c
-      // (the user may have provided their own)
-      lastC = index;
-    }
-  });
-
-  args.splice(lastC, 0, c);
-  return args;
-}
-
-/**
- * Invokes `console.log()` when available.
- * No-op when `console.log` is not a "function".
- *
- * @api public
- */
-
-function log() {
-  // This hackery is required for IE8,
-  // where the `console.log` function doesn't have 'apply'
-  return 'object' == typeof console
-    && 'function' == typeof console.log
-    && Function.prototype.apply.call(console.log, console, arguments);
-}
-
-/**
- * Save `namespaces`.
- *
- * @param {String} namespaces
- * @api private
- */
-
-function save(namespaces) {
-  try {
-    if (null == namespaces) {
-      localStorage.removeItem('debug');
-    } else {
-      localStorage.debug = namespaces;
-    }
-  } catch(e) {}
-}
-
-/**
- * Load `namespaces`.
- *
- * @return {String} returns the previously persisted debug modes
- * @api private
- */
-
-function load() {
-  var r;
-  try {
-    r = localStorage.debug;
-  } catch(e) {}
-  return r;
-}
-
-/**
- * Enable namespaces listed in `localStorage.debug` initially.
- */
-
-exports.enable(load());
-
-},{"./debug":3}],3:[function(require,module,exports){
-
-/**
- * This is the common logic for both the Node.js and web browser
- * implementations of `debug()`.
- *
- * Expose `debug()` as the module.
- */
-
-exports = module.exports = debug;
-exports.coerce = coerce;
-exports.disable = disable;
-exports.enable = enable;
-exports.enabled = enabled;
-exports.humanize = require('ms');
-
-/**
- * The currently active debug mode names, and names to skip.
- */
-
-exports.names = [];
-exports.skips = [];
-
-/**
- * Map of special "%n" handling functions, for the debug "format" argument.
- *
- * Valid key names are a single, lowercased letter, i.e. "n".
- */
-
-exports.formatters = {};
-
-/**
- * Previously assigned color.
- */
-
-var prevColor = 0;
-
-/**
- * Previous log timestamp.
- */
-
-var prevTime;
-
-/**
- * Select a color.
- *
- * @return {Number}
- * @api private
- */
-
-function selectColor() {
-  return exports.colors[prevColor++ % exports.colors.length];
-}
-
-/**
- * Create a debugger with the given `namespace`.
- *
- * @param {String} namespace
- * @return {Function}
- * @api public
- */
-
-function debug(namespace) {
-
-  // define the `disabled` version
-  function disabled() {
-  }
-  disabled.enabled = false;
-
-  // define the `enabled` version
-  function enabled() {
-
-    var self = enabled;
-
-    // set `diff` timestamp
-    var curr = +new Date();
-    var ms = curr - (prevTime || curr);
-    self.diff = ms;
-    self.prev = prevTime;
-    self.curr = curr;
-    prevTime = curr;
-
-    // add the `color` if not set
-    if (null == self.useColors) self.useColors = exports.useColors();
-    if (null == self.color && self.useColors) self.color = selectColor();
-
-    var args = Array.prototype.slice.call(arguments);
-
-    args[0] = exports.coerce(args[0]);
-
-    if ('string' !== typeof args[0]) {
-      // anything else let's inspect with %o
-      args = ['%o'].concat(args);
-    }
-
-    // apply any `formatters` transformations
-    var index = 0;
-    args[0] = args[0].replace(/%([a-z%])/g, function(match, format) {
-      // if we encounter an escaped % then don't increase the array index
-      if (match === '%%') return match;
-      index++;
-      var formatter = exports.formatters[format];
-      if ('function' === typeof formatter) {
-        var val = args[index];
-        match = formatter.call(self, val);
-
-        // now we need to remove `args[index]` since it's inlined in the `format`
-        args.splice(index, 1);
-        index--;
-      }
-      return match;
-    });
-
-    if ('function' === typeof exports.formatArgs) {
-      args = exports.formatArgs.apply(self, args);
-    }
-    var logFn = exports.log || enabled.log || console.log.bind(console);
-    logFn.apply(self, args);
-  }
-  enabled.enabled = true;
-
-  var fn = exports.enabled(namespace) ? enabled : disabled;
-
-  fn.namespace = namespace;
-
-  return fn;
-}
-
-/**
- * Enables a debug mode by namespaces. This can include modes
- * separated by a colon and wildcards.
- *
- * @param {String} namespaces
- * @api public
- */
-
-function enable(namespaces) {
-  exports.save(namespaces);
-
-  var split = (namespaces || '').split(/[\s,]+/);
-  var len = split.length;
-
-  for (var i = 0; i < len; i++) {
-    if (!split[i]) continue; // ignore empty strings
-    namespaces = split[i].replace('*', '.*?');
-    if (namespaces[0] === '-') {
-      exports.skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
-    } else {
-      exports.names.push(new RegExp('^' + namespaces + '$'));
-    }
-  }
-}
-
-/**
- * Disable debug output.
- *
- * @api public
- */
-
-function disable() {
-  exports.enable('');
-}
-
-/**
- * Returns true if the given mode name is enabled, false otherwise.
- *
- * @param {String} name
- * @return {Boolean}
- * @api public
- */
-
-function enabled(name) {
-  var i, len;
-  for (i = 0, len = exports.skips.length; i < len; i++) {
-    if (exports.skips[i].test(name)) {
-      return false;
-    }
-  }
-  for (i = 0, len = exports.names.length; i < len; i++) {
-    if (exports.names[i].test(name)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-/**
- * Coerce `val`.
- *
- * @param {Mixed} val
- * @return {Mixed}
- * @api private
- */
-
-function coerce(val) {
-  if (val instanceof Error) return val.stack || val.message;
-  return val;
-}
-
-},{"ms":4}],4:[function(require,module,exports){
-/**
- * Helpers.
- */
-
-var s = 1000;
-var m = s * 60;
-var h = m * 60;
-var d = h * 24;
-var y = d * 365.25;
-
-/**
- * Parse or format the given `val`.
- *
- * Options:
- *
- *  - `long` verbose formatting [false]
- *
- * @param {String|Number} val
- * @param {Object} options
- * @return {String|Number}
- * @api public
- */
-
-module.exports = function(val, options){
-  options = options || {};
-  if ('string' == typeof val) return parse(val);
-  return options.long
-    ? long(val)
-    : short(val);
-};
-
-/**
- * Parse the given `str` and return milliseconds.
- *
- * @param {String} str
- * @return {Number}
- * @api private
- */
-
-function parse(str) {
-  var match = /^((?:\d+)?\.?\d+) *(ms|seconds?|s|minutes?|m|hours?|h|days?|d|years?|y)?$/i.exec(str);
-  if (!match) return;
-  var n = parseFloat(match[1]);
-  var type = (match[2] || 'ms').toLowerCase();
-  switch (type) {
-    case 'years':
-    case 'year':
-    case 'y':
-      return n * y;
-    case 'days':
-    case 'day':
-    case 'd':
-      return n * d;
-    case 'hours':
-    case 'hour':
-    case 'h':
-      return n * h;
-    case 'minutes':
-    case 'minute':
-    case 'm':
-      return n * m;
-    case 'seconds':
-    case 'second':
-    case 's':
-      return n * s;
-    case 'ms':
-      return n;
-  }
-}
-
-/**
- * Short format for `ms`.
- *
- * @param {Number} ms
- * @return {String}
- * @api private
- */
-
-function short(ms) {
-  if (ms >= d) return Math.round(ms / d) + 'd';
-  if (ms >= h) return Math.round(ms / h) + 'h';
-  if (ms >= m) return Math.round(ms / m) + 'm';
-  if (ms >= s) return Math.round(ms / s) + 's';
-  return ms + 'ms';
-}
-
-/**
- * Long format for `ms`.
- *
- * @param {Number} ms
- * @return {String}
- * @api private
- */
-
-function long(ms) {
-  return plural(ms, d, 'day')
-    || plural(ms, h, 'hour')
-    || plural(ms, m, 'minute')
-    || plural(ms, s, 'second')
-    || ms + ' ms';
-}
-
-/**
- * Pluralization helper.
- */
-
-function plural(ms, n, name) {
-  if (ms < n) return;
-  if (ms < n * 1.5) return Math.floor(ms / n) + ' ' + name;
-  return Math.ceil(ms / n) + ' ' + name + 's';
-}
-
-},{}],5:[function(require,module,exports){
+},{"../../layout/js/main":21,"debug":25}],2:[function(require,module,exports){
 var lightbox = require('../../js/lib/lightbox/lightbox.mod.js'),
 
 cn = require('../../js/lib/common/common.mod.js'),
@@ -555,146 +98,8 @@ var request =  function(res, reqParams, callback) {
   remote.get(res, {data: reqParams, timeout: 10000, retries: 1}, callback, !params.debug);
 
 };
-},{"../../js/lib/common/common.mod.js":10,"../../js/lib/lightbox/lightbox.mod.js":11,"../../js/lib/remote/remote.mod.js":12,"debug":6}],6:[function(require,module,exports){
 
-/**
- * Expose `debug()` as the module.
- */
-
-module.exports = debug;
-
-/**
- * Create a debugger with the given `name`.
- *
- * @param {String} name
- * @return {Type}
- * @api public
- */
-
-function debug(name) {
-  if (!debug.enabled(name)) return function(){};
-
-  return function(fmt){
-    fmt = coerce(fmt);
-
-    var curr = new Date;
-    var ms = curr - (debug[name] || curr);
-    debug[name] = curr;
-
-    fmt = name
-      + ' '
-      + fmt
-      + ' +' + debug.humanize(ms);
-
-    // This hackery is required for IE8
-    // where `console.log` doesn't have 'apply'
-    window.console
-      && console.log
-      && Function.prototype.apply.call(console.log, console, arguments);
-  }
-}
-
-/**
- * The currently active debug mode names.
- */
-
-debug.names = [];
-debug.skips = [];
-
-/**
- * Enables a debug mode by name. This can include modes
- * separated by a colon and wildcards.
- *
- * @param {String} name
- * @api public
- */
-
-debug.enable = function(name) {
-  try {
-    localStorage.debug = name;
-  } catch(e){}
-
-  var split = (name || '').split(/[\s,]+/)
-    , len = split.length;
-
-  for (var i = 0; i < len; i++) {
-    name = split[i].replace('*', '.*?');
-    if (name[0] === '-') {
-      debug.skips.push(new RegExp('^' + name.substr(1) + '$'));
-    }
-    else {
-      debug.names.push(new RegExp('^' + name + '$'));
-    }
-  }
-};
-
-/**
- * Disable debug output.
- *
- * @api public
- */
-
-debug.disable = function(){
-  debug.enable('');
-};
-
-/**
- * Humanize the given `ms`.
- *
- * @param {Number} m
- * @return {String}
- * @api private
- */
-
-debug.humanize = function(ms) {
-  var sec = 1000
-    , min = 60 * 1000
-    , hour = 60 * min;
-
-  if (ms >= hour) return (ms / hour).toFixed(1) + 'h';
-  if (ms >= min) return (ms / min).toFixed(1) + 'm';
-  if (ms >= sec) return (ms / sec | 0) + 's';
-  return ms + 'ms';
-};
-
-/**
- * Returns true if the given mode name is enabled, false otherwise.
- *
- * @param {String} name
- * @return {Boolean}
- * @api public
- */
-
-debug.enabled = function(name) {
-  for (var i = 0, len = debug.skips.length; i < len; i++) {
-    if (debug.skips[i].test(name)) {
-      return false;
-    }
-  }
-  for (var i = 0, len = debug.names.length; i < len; i++) {
-    if (debug.names[i].test(name)) {
-      return true;
-    }
-  }
-  return false;
-};
-
-/**
- * Coerce `val`.
- */
-
-function coerce(val) {
-  if (val instanceof Error) return val.stack || val.message;
-  return val;
-}
-
-// persist
-
-try {
-  if (window.localStorage) debug.enable(localStorage.debug);
-} catch(e){}
-
-},{}],7:[function(require,module,exports){
+},{"../../js/lib/common/common.mod.js":6,"../../js/lib/lightbox/lightbox.mod.js":8,"../../js/lib/remote/remote.mod.js":9,"debug":25}],3:[function(require,module,exports){
 module.exports = {
   
   // public method for encoding
@@ -828,7 +233,8 @@ _utf8_encode = function (string) {
 
   return utftext;
 };
-},{}],8:[function(require,module,exports){
+
+},{}],4:[function(require,module,exports){
 /* EventHandler v0.2 */
 (function( root ){
 
@@ -918,7 +324,8 @@ _utf8_encode = function (string) {
   })();
 
 })( typeof exports !== 'undefined' ? exports : window );
-},{}],9:[function(require,module,exports){
+
+},{}],5:[function(require,module,exports){
 var rsplit = function(string, regex) {
   var result = regex.exec(string),retArr = new Array(), first_idx, last_idx, first_bit;
   while (result != null)
@@ -1420,7 +827,8 @@ request.send(null)
 }
 
 module.exports = EJS;
-},{}],10:[function(require,module,exports){
+
+},{}],6:[function(require,module,exports){
 exports.addZero = function(number) {
   return (parseInt(number, 10)<10?'0':'') + number;
 };
@@ -1725,14 +1133,14 @@ if (typeof HTMLElement != "undefined" && !HTMLElement.prototype.insertAdjacentEl
     }
   };
 
-  HTMLElement.prototype.insertAdjacentHTML = function (where, htmlStr) {
+  if ( !HTMLElement.prototype.insertAdjacentHTML) HTMLElement.prototype.insertAdjacentHTML = function (where, htmlStr) {
     var r = this.ownerDocument.createRange();
     r.setStartBefore(this);
     var parsedHTML = r.createContextualFragment(htmlStr);
     this.insertAdjacentElement(where, parsedHTML);
   };
 
-  HTMLElement.prototype.insertAdjacentText = function (where, txtStr) {
+  if ( !HTMLElement.prototype.insertAdjacentText ) HTMLElement.prototype.insertAdjacentText = function (where, txtStr) {
     var parsedText = document.createTextNode(txtStr);
     this.insertAdjacentElement(where, parsedText);
   };
@@ -1820,7 +1228,282 @@ exports.removeProperty = function(obj, name) {
   return obj.removeAttribute(name);
 
 };
-},{}],11:[function(require,module,exports){
+
+},{}],7:[function(require,module,exports){
+"use strict";
+
+var qs = require( 'qs' ),
+
+utils = require( 'utils' );
+
+module.exports = {
+  el: el,
+  els: els,
+  addEvent: addEvent,     // add an event to an element 
+  whenReady: whenReady, // executes callback when dom is ready or if dom is ready
+  asapReady: asapReady, // executes cb as soon as elem targetted by elem ( or body by default ) exists.
+  loadInLocation: loadInLocation,
+  hasClass: hasClass,
+  addClass: addClass,
+  removeClass: removeClass,
+  forEach: forEach,
+  childObject: childObject,
+  preventDefault: preventDefault,
+  isElement: isElement,
+  nl2br: nl2br
+}
+
+function isElement( o ) {
+
+  return (
+    typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
+    o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName==="string"
+  );
+
+}
+
+function preventDefault( event ) {
+
+  event.preventDefault ? event.preventDefault() : event.returnValue = false;
+
+};
+
+function childObject(elem, index) {
+
+  var i = 0, realI = 0;
+
+  while (elem.childNodes[i]) {
+
+    if (elem.childNodes[i].nodeType == 1) {
+
+      if (realI==index) return elem.childNodes[i];
+
+      realI++;
+    }
+
+    i++;
+
+  }
+
+  return false;
+
+}
+
+
+function hasClass( element, cls ) {
+
+  return ( ' ' + element.className + ' ').indexOf(' ' + cls + ' ' ) > -1; 
+
+}
+
+function addClass( element, className ) {
+
+  if (!hasClass(element, className)) element.className = element.className + ' ' + className; 
+
+}
+
+function removeClass( element, cls ) {
+
+  if ( hasClass( element, cls ) ) {
+
+    var regex = new RegExp(cls, 'g');
+
+    element.className = element.className.replace(regex,'');
+
+  } 
+
+}
+
+
+function els( node, selector ) {
+
+  if ( typeof node == 'string' ) {
+
+    selector = node;
+    node = document;
+
+  }
+
+  var prefix = selector.substr( 0, 1 );
+
+  if ( '.#,'.indexOf( prefix ) !== -1 ) {
+
+    selector = selector.substr( 1 );
+
+  }
+
+  if ( prefix == '.' ) {
+
+    return getElementsByClassName( node, selector );
+
+  } else if ( prefix == '#') {
+
+    var result = node.getElementById( selector );
+    
+    if ( result ) {
+
+      return [ result ];
+
+    } else {
+
+      return [];
+
+    }
+
+  } else {
+
+    return node.getElementsByTagName( selector );
+
+  }
+
+};
+
+function el( node, selector ) {
+
+  var results = els( node, selector );
+
+  return results.length ? results[ 0 ] : null;
+
+}
+
+
+function whenReady( cb ) {
+
+  if ( document.readyState === 'complete' ) {
+
+    cb();
+
+  } else {
+
+    addEvent( window, 'load', cb );
+
+  }
+
+}
+
+function asapReady( selector, timeout, cb ) {
+
+  if ( arguments.length == 1 ) {
+
+    cb = selector;
+
+    timeout = 0;
+
+    selector = 'body'
+
+  } else if ( arguments.length == 2 ) {
+
+    cb = timeout;
+
+    timeout = 0;
+
+  }
+
+  if ( el( selector ) ) return cb();
+
+  setTimeout( function() {
+
+    asapReady( selector, Math.min( ( timeout + 10 ) * 2, 10000 ), cb );
+
+  }, timeout );
+
+}
+
+
+function loadInLocation( values ) {
+
+  var href = window.location.href.split( '?' )[ 0 ];
+
+  if ( utils.size( values ) ) {
+
+    href += '?' + qs.stringify( values );
+
+  }
+
+  return href;
+
+}
+
+
+/**
+ * cross browser add event
+ */
+
+function addEvent( elem, types, eventHandle ) {
+
+  if ( elem == null || elem == undefined ) return;
+  
+  if ( typeof types == 'string' ) types = [ types ];
+  
+  forEach( types, function( type ) {
+
+    if ( elem.addEventListener ) {
+
+      elem.addEventListener( type, eventHandle, false );
+
+    } else if ( elem.attachEvent ) {
+
+        elem.attachEvent( 'on' + type, eventHandle );
+
+    } else {
+
+        elem[ 'on' + type ]=eventHandle;
+
+    }
+
+  } );
+
+}
+
+function forEach( array, action ) {
+
+  for ( var i = 0; i < array.length; i++ ) {
+
+    action( array[ i ] );
+
+  }
+
+}
+
+function getElementsByClassName( node, className ) {
+
+  if ( typeof node == 'string' ) {
+
+    className = node;
+    node = document;
+
+  }
+
+  var a = [],
+
+  re = new RegExp( '(^| )' + className + '( |$)' ),
+
+  els = node.getElementsByTagName( '*' );
+
+  for( var i=0, j=els.length; i<j; i++ ) {
+
+    if ( re.test( els[i].className ) ) {
+
+      a.push( els[i] );
+
+    }
+
+  }
+
+  return a;
+
+}
+
+
+function nl2br( str, is_xhtml ) {
+
+  var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
+
+  return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+
+}
+
+},{"qs":30,"utils":36}],8:[function(require,module,exports){
 var canvasElem = false,
   frameElem = false,
   onClose = false,
@@ -2127,7 +1810,8 @@ _setButtons = function(classes, buttons) {
   frameElem.appendChild( div );
 
 };
-},{"../common/common.mod.js":10}],12:[function(require,module,exports){
+
+},{"../common/common.mod.js":6}],9:[function(require,module,exports){
 // this guy does not include the getStack method
 module.exports = {
   get: function(url, settings, callback, ajax) {
@@ -2387,7 +2071,8 @@ module.exports = {
     return i.concat(s).concat(t).join('&');
   }
 };
-},{}],13:[function(require,module,exports){
+
+},{}],10:[function(require,module,exports){
 /*!
  * Cookies.js - 0.3.1
  * Wednesday, April 24 2013 @ 2:28 AM EST
@@ -2529,7 +2214,8 @@ module.exports = {
         window.Cookies = Cookies;
     }
 })();
-},{}],14:[function(require,module,exports){
+
+},{}],11:[function(require,module,exports){
 "use strict";
 
 var cn = require( '../../js/lib/common/common.mod.js' ),
@@ -2577,7 +2263,8 @@ function _print( render ) {
   });
 
 }
-},{"../../js/lib/common/common.mod.js":10,"./clientTemplater":15}],15:[function(require,module,exports){
+
+},{"../../js/lib/common/common.mod.js":6,"./clientTemplater":12}],12:[function(require,module,exports){
 var cn = require( '../../js/lib/common/common.mod.js' ),
 
 EJS = require( '../../js/lib/clientEjs/ejs' ),
@@ -2806,7 +2493,8 @@ function _checkAndClearTemplates( lastUpdate ) {
   store.set('lastTemplateUpdate', lastUpdate );
 
 };
-},{"../../js/lib/clientEjs/ejs":9,"../../js/lib/common/common.mod.js":10,"../../js/lib/remote/remote.mod.js":12,"./i18n":22,"async":27,"store":33}],16:[function(require,module,exports){
+
+},{"../../js/lib/clientEjs/ejs":5,"../../js/lib/common/common.mod.js":6,"../../js/lib/remote/remote.mod.js":9,"./i18n":19,"async":24,"store":35}],13:[function(require,module,exports){
 var cn = require( '../../js/lib/common/common.mod.js' ),
 
 debug = require('debug'),
@@ -2867,7 +2555,8 @@ module.exports = function() {
   } );
 
 }
-},{"../../js/lib/common/common.mod.js":10,"../../js/lib/lightbox/lightbox.mod":11,"debug":28}],17:[function(require,module,exports){
+
+},{"../../js/lib/common/common.mod.js":6,"../../js/lib/lightbox/lightbox.mod":8,"debug":25}],14:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 b64 = require('../../js/lib/Base64/Base64.mod.js'),
@@ -2932,7 +2621,8 @@ clear = function() {
   cookies.set(params.keys.cookie, b64.encode(JSON.stringify(cookieValues)));
 
 };
-},{"../../js/lib/Base64/Base64.mod.js":7,"../../js/lib/common/common.mod.js":10,"../../js/lib/lightbox/lightbox.mod.js":11,"../../js/vendors/Cookies-master/src/cookies.js":13}],18:[function(require,module,exports){
+
+},{"../../js/lib/Base64/Base64.mod.js":3,"../../js/lib/common/common.mod.js":6,"../../js/lib/lightbox/lightbox.mod.js":8,"../../js/vendors/Cookies-master/src/cookies.js":10}],15:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 action = require('../../home/js/action.js'),
@@ -2955,8 +2645,10 @@ module.exports = function(eh, options) {
   
   if (typeof options !== 'undefined') cn.extend(params, options);
 
-  cn.forEach(params.events, function(eventName) {
-    eh.on(eventName, scan);
+  cn.forEach( params.events, function( eventName ) {
+
+    eh.on( eventName, scan );
+    
   });
 
   scan();
@@ -2982,7 +2674,8 @@ var scan = function() {
   });
 
 };
-},{"../../home/js/action.js":5,"../../js/lib/common/common.mod.js":10,"debug":28}],19:[function(require,module,exports){
+
+},{"../../home/js/action.js":2,"../../js/lib/common/common.mod.js":6,"debug":25}],16:[function(require,module,exports){
 var cn = require('../../js/lib/common/common.mod.js'),
 
 params = {
@@ -3029,7 +2722,8 @@ getWidth = function() {
   return d.width?d.width:w.innerWidth;
 
 };
-},{"../../js/lib/common/common.mod.js":10}],20:[function(require,module,exports){
+
+},{"../../js/lib/common/common.mod.js":6}],17:[function(require,module,exports){
 "use strict";
 
 var cn = require( '../../js/lib/common/common.mod.js' ),
@@ -3318,14 +3012,15 @@ function _fetch( url, cb ) {
 
   log( 'fetching %s', url );
 
-  remote.get( url, {}, function( responseType, data ){
+  remote.get( url, { timeout: 10000 }, function( responseType, data ){
 
     if ( responseType == 'success' ) cb( data );
 
   }, true );
 
 }
-},{"../../js/lib/Base64/Base64.mod.js":7,"../../js/lib/common/common.mod.js":10,"../../js/lib/remote/remote.mod.js":12,"../../js/vendors/Cookies-master/src/cookies.js":13,"debug":28,"store":33}],21:[function(require,module,exports){
+
+},{"../../js/lib/Base64/Base64.mod.js":3,"../../js/lib/common/common.mod.js":6,"../../js/lib/remote/remote.mod.js":9,"../../js/vendors/Cookies-master/src/cookies.js":10,"debug":25,"store":35}],18:[function(require,module,exports){
 "use strict";
 
 var cn = require( '../../js/lib/common/common.mod.js' ),
@@ -3335,6 +3030,10 @@ cTemplater = require( './clientTemplater' ),
 b64 = require( '../../js/lib/Base64/Base64.mod.js' ),
 
 toggle = require( './toggle' ),
+
+utils = require( 'utils' ),
+
+du = require( '../../js/lib/domUtils' ),
 
 params = {
   selectors: {
@@ -3354,11 +3053,11 @@ pClicked = false;
 
 module.exports = function( options ) {
 
-  params = cn.extend( params, options );
+  params = utils.extend( params, options );
 
-  var languageMenu = cn.el( params.selectors.languageMenu ),
+  var languageMenu = du.el( params.selectors.languageMenu ),
 
-  signinLink = cn.el( params.selectors.signinLink );
+  signinLink = du.el( params.selectors.signinLink );
 
   // tmp hack to avoid execution on legacy project
   if ( !languageMenu ) return;
@@ -3370,7 +3069,7 @@ module.exports = function( options ) {
 
     if ( !session.logged ) {
 
-      _addSigninLinkRedirect( cn.el( params.selectors.signinLink ) );
+      _addSigninLinkRedirect( du.el( params.selectors.signinLink ) );
 
       return;
 
@@ -3409,9 +3108,9 @@ module.exports = function( options ) {
 
       ul.innerHTML = rendered;
 
-      li = cn.el( ul, 'li' );
+      li = du.el( ul, 'li' );
 
-      cn.el( params.selectors.headerLinks ).insertAdjacentElement( 'beforeend', li );
+      du.el( params.selectors.headerLinks ).insertAdjacentElement( 'beforeend', li );
 
       toggle( li );
 
@@ -3428,9 +3127,9 @@ function _addSigninLinkRedirect( elem ) {
 
 }
 
-var _behave = function( li ) {
+function _behave( li ) {
 
-  cn.addEvent( cn.el( li, params.selectors.profile ), 'click', function( e ) {
+  du.addEvent( du.el( li, params.selectors.profile ), 'click', function( e ) {
 
     pClicked = true;
 
@@ -3442,7 +3141,7 @@ var _behave = function( li ) {
 
   });
 
-  cn.addEvent( cn.el( 'body' ), 'click', function( e ) {
+  du.addEvent( du.el( 'body' ), 'click', function( e ) {
 
     if ( pClicked ) {
 
@@ -3456,20 +3155,21 @@ var _behave = function( li ) {
 
   });
 
-},
+}
 
-_show = function( li ) {
+function _show( li ) {
 
-  cn.removeClass( cn.el( li, params.selectors.dropdown ), params.classes.displayNone );
+  du.removeClass( du.el( li, params.selectors.dropdown ), params.classes.displayNone );
 
-},
+}
 
-_hide = function( li ) {
+function _hide( li ) {
 
-  cn.addClass( cn.el( li, params.selectors.dropdown ), params.classes.displayNone );
+  du.addClass( du.el( li, params.selectors.dropdown ), params.classes.displayNone );
 
-};
-},{"../../js/lib/Base64/Base64.mod.js":7,"../../js/lib/common/common.mod.js":10,"./clientTemplater":15,"./toggle":26}],22:[function(require,module,exports){
+}
+
+},{"../../js/lib/Base64/Base64.mod.js":3,"../../js/lib/common/common.mod.js":6,"../../js/lib/domUtils":7,"./clientTemplater":12,"./toggle":23,"utils":36}],19:[function(require,module,exports){
 "use strict";
 
 module.exports = function( labelSet ) {
@@ -3497,7 +3197,8 @@ module.exports = function( labelSet ) {
   };
 
 }
-},{}],23:[function(require,module,exports){
+
+},{}],20:[function(require,module,exports){
 "use strict";
 
 var cn = require( '../../js/lib/common/common.mod.js' );
@@ -3527,10 +3228,13 @@ function getOptions( selector ) {
   return options;
 
 }
-},{"../../js/lib/common/common.mod.js":10}],24:[function(require,module,exports){
+
+},{"../../js/lib/common/common.mod.js":6}],21:[function(require,module,exports){
 "use strict";
 
-var cn = require('../../js/lib/common/common.mod.js'),
+var utils = require( 'utils' ),
+
+du = require( '../../js/lib/domUtils' ),
 
 mobileMonitor = require('./handleMobileMonitor.js'),
 
@@ -3560,9 +3264,9 @@ flash = require('./handleFlashMessage.js'),
 
 eh = require('../../js/lib/EventHandler/EventHandler.js').sEventHandler.getInstance(),
 
-ran = false,
+ran = false, asapRan = false,
 
-hooks = [],
+hooks = [], asaps = [],
 
 params = {};
 
@@ -3572,19 +3276,24 @@ outdated( {
     'IE': 9,
     'Safari': 5,
     'Mobile Safari': 5,
-    'Firefox':  25
+    'Firefox':  24
   }
 });
 
-cn.addEvent( window, 'load', function() {
+/**
+ * provide function to retrieve session data
+ */
 
-  var options = layout.getOptions( 'body' );
+window.getSession = handleSession();
 
-  cn.extend( params, options );
+
+du.asapReady( function() {
+
+  utils.extend( params, layout.getOptions( 'body' ) );
 
   if ( typeof window.eh !== 'undefined' ) eh = window.eh;
 
-  if ( options.env == 'dev' || window.env == 'dev' ) debug.enable( '*' );
+  if ( params.env == 'dev' || window.env == 'dev' ) debug.enable( '*' );
 
   mobileMonitor( document, window, navigator, eh );
 
@@ -3600,19 +3309,35 @@ cn.addEvent( window, 'load', function() {
 
   cibulMessage();
 
-  headerProfile( options.profile );
+  headerProfile( params.profile );
 
-  cn.forEach( hooks, function( hook ) {
+  du.forEach( asaps, function( asapHook ) {
+
+    asapHook( params );
+
+  });
+
+  asapRan = true;
+
+} );
+
+
+du.addEvent( window, 'load', function() {
+
+  du.forEach( hooks, function( hook ) {
 
     hook( params );
 
   });
+
+  ran = true;
 
 } );
 
 
 /**
  * provide hook for page specific script launchers
+ * which are to be called when page is ready
  */
 
 window.hook = function( cb ) {
@@ -3623,12 +3348,21 @@ window.hook = function( cb ) {
 
 };
 
+
 /**
- * provide function to retrieve session data
+ * same as hook, but ready as soon as options are
+ * available
  */
 
-window.getSession = handleSession();
-},{"../../js/lib/EventHandler/EventHandler.js":8,"../../js/lib/common/common.mod.js":10,"./cibulMessage":14,"./confirmMessage":16,"./handleFlashMessage.js":17,"./handleMessageLinks.js":18,"./handleMobileMonitor.js":19,"./handleSession":20,"./headerProfile":21,"./layout":23,"./mobileMenu":25,"./toggle":26,"debug":28,"outdated-browser-rework":31}],25:[function(require,module,exports){
+window.asap = function( cb ) {
+
+  if ( asapRan ) return cb( params );
+
+  asaps.push( cb )
+
+}
+
+},{"../../js/lib/EventHandler/EventHandler.js":4,"../../js/lib/domUtils":7,"./cibulMessage":11,"./confirmMessage":13,"./handleFlashMessage.js":14,"./handleMessageLinks.js":15,"./handleMobileMonitor.js":16,"./handleSession":17,"./headerProfile":18,"./layout":20,"./mobileMenu":22,"./toggle":23,"debug":25,"outdated-browser-rework":28,"utils":36}],22:[function(require,module,exports){
 "use strict";
 
 var cn = require( '../../js/lib/common/common.mod.js' ),
@@ -3668,7 +3402,8 @@ module.exports = function() {
   } )
 
 }
-},{"../../js/lib/common/common.mod.js":10}],26:[function(require,module,exports){
+
+},{"../../js/lib/common/common.mod.js":6}],23:[function(require,module,exports){
 "use strict";
 
 /**
@@ -3808,7 +3543,8 @@ function _hide( elem, params ) {
   cn.removeClass( elem, params.classes.display );
 
 }
-},{"../../js/lib/common/common.mod.js":10}],27:[function(require,module,exports){
+
+},{"../../js/lib/common/common.mod.js":6}],24:[function(require,module,exports){
 (function (process){
 /*!
  * async
@@ -4935,7 +4671,7 @@ function _hide( elem, params ) {
 }());
 
 }).call(this,require('_process'))
-},{"_process":34}],28:[function(require,module,exports){
+},{"_process":37}],25:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -5084,7 +4820,7 @@ function load() {
 
 exports.enable(load());
 
-},{"./debug":29}],29:[function(require,module,exports){
+},{"./debug":26}],26:[function(require,module,exports){
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -5283,9 +5019,120 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":30}],30:[function(require,module,exports){
-module.exports=require(4)
-},{"/home/kaore/Dev/www/cibul-templates/global/js/node_modules/debug/node_modules/ms/index.js":4}],31:[function(require,module,exports){
+},{"ms":27}],27:[function(require,module,exports){
+/**
+ * Helpers.
+ */
+
+var s = 1000;
+var m = s * 60;
+var h = m * 60;
+var d = h * 24;
+var y = d * 365.25;
+
+/**
+ * Parse or format the given `val`.
+ *
+ * Options:
+ *
+ *  - `long` verbose formatting [false]
+ *
+ * @param {String|Number} val
+ * @param {Object} options
+ * @return {String|Number}
+ * @api public
+ */
+
+module.exports = function(val, options){
+  options = options || {};
+  if ('string' == typeof val) return parse(val);
+  return options.long
+    ? long(val)
+    : short(val);
+};
+
+/**
+ * Parse the given `str` and return milliseconds.
+ *
+ * @param {String} str
+ * @return {Number}
+ * @api private
+ */
+
+function parse(str) {
+  var match = /^((?:\d+)?\.?\d+) *(ms|seconds?|s|minutes?|m|hours?|h|days?|d|years?|y)?$/i.exec(str);
+  if (!match) return;
+  var n = parseFloat(match[1]);
+  var type = (match[2] || 'ms').toLowerCase();
+  switch (type) {
+    case 'years':
+    case 'year':
+    case 'y':
+      return n * y;
+    case 'days':
+    case 'day':
+    case 'd':
+      return n * d;
+    case 'hours':
+    case 'hour':
+    case 'h':
+      return n * h;
+    case 'minutes':
+    case 'minute':
+    case 'm':
+      return n * m;
+    case 'seconds':
+    case 'second':
+    case 's':
+      return n * s;
+    case 'ms':
+      return n;
+  }
+}
+
+/**
+ * Short format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
+ */
+
+function short(ms) {
+  if (ms >= d) return Math.round(ms / d) + 'd';
+  if (ms >= h) return Math.round(ms / h) + 'h';
+  if (ms >= m) return Math.round(ms / m) + 'm';
+  if (ms >= s) return Math.round(ms / s) + 's';
+  return ms + 'ms';
+}
+
+/**
+ * Long format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
+ */
+
+function long(ms) {
+  return plural(ms, d, 'day')
+    || plural(ms, h, 'hour')
+    || plural(ms, m, 'minute')
+    || plural(ms, s, 'second')
+    || ms + ' ms';
+}
+
+/**
+ * Pluralization helper.
+ */
+
+function plural(ms, n, name) {
+  if (ms < n) return;
+  if (ms < n * 1.5) return Math.floor(ms / n) + ' ' + name;
+  return Math.ceil(ms / n) + ' ' + name + 's';
+}
+
+},{}],28:[function(require,module,exports){
 var UserAgentParser = require('user-agent-parser');
 var languageMessages = {
 	"br":{
@@ -5720,7 +5567,7 @@ module.exports = function(options) {
 
 
 
-},{"user-agent-parser":32}],32:[function(require,module,exports){
+},{"user-agent-parser":29}],29:[function(require,module,exports){
 // UAParser.js v0.6.0
 // Lightweight JavaScript-based User-Agent string parser
 // https://github.com/faisalman/ua-parser-js
@@ -6213,7 +6060,399 @@ module.exports = function(options) {
     module.exports = UAParser;
 })(this);
 
-},{}],33:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
+module.exports = require('./lib/');
+
+},{"./lib/":31}],31:[function(require,module,exports){
+// Load modules
+
+var Stringify = require('./stringify');
+var Parse = require('./parse');
+
+
+// Declare internals
+
+var internals = {};
+
+
+module.exports = {
+    stringify: Stringify,
+    parse: Parse
+};
+
+},{"./parse":32,"./stringify":33}],32:[function(require,module,exports){
+// Load modules
+
+var Utils = require('./utils');
+
+
+// Declare internals
+
+var internals = {
+    delimiter: '&',
+    depth: 5,
+    arrayLimit: 20,
+    parameterLimit: 1000
+};
+
+
+internals.parseValues = function (str, options) {
+
+    var obj = {};
+    var parts = str.split(options.delimiter, options.parameterLimit === Infinity ? undefined : options.parameterLimit);
+
+    for (var i = 0, il = parts.length; i < il; ++i) {
+        var part = parts[i];
+        var pos = part.indexOf(']=') === -1 ? part.indexOf('=') : part.indexOf(']=') + 1;
+
+        if (pos === -1) {
+            obj[Utils.decode(part)] = '';
+        }
+        else {
+            var key = Utils.decode(part.slice(0, pos));
+            var val = Utils.decode(part.slice(pos + 1));
+
+            if (!obj.hasOwnProperty(key)) {
+                obj[key] = val;
+            }
+            else {
+                obj[key] = [].concat(obj[key]).concat(val);
+            }
+        }
+    }
+
+    return obj;
+};
+
+
+internals.parseObject = function (chain, val, options) {
+
+    if (!chain.length) {
+        return val;
+    }
+
+    var root = chain.shift();
+
+    var obj = {};
+    if (root === '[]') {
+        obj = [];
+        obj = obj.concat(internals.parseObject(chain, val, options));
+    }
+    else {
+        var cleanRoot = root[0] === '[' && root[root.length - 1] === ']' ? root.slice(1, root.length - 1) : root;
+        var index = parseInt(cleanRoot, 10);
+        var indexString = '' + index;
+        if (!isNaN(index) &&
+            root !== cleanRoot &&
+            indexString === cleanRoot &&
+            index >= 0 &&
+            index <= options.arrayLimit) {
+
+            obj = [];
+            obj[index] = internals.parseObject(chain, val, options);
+        }
+        else {
+            obj[cleanRoot] = internals.parseObject(chain, val, options);
+        }
+    }
+
+    return obj;
+};
+
+
+internals.parseKeys = function (key, val, options) {
+
+    if (!key) {
+        return;
+    }
+
+    // The regex chunks
+
+    var parent = /^([^\[\]]*)/;
+    var child = /(\[[^\[\]]*\])/g;
+
+    // Get the parent
+
+    var segment = parent.exec(key);
+
+    // Don't allow them to overwrite object prototype properties
+
+    if (Object.prototype.hasOwnProperty(segment[1])) {
+        return;
+    }
+
+    // Stash the parent if it exists
+
+    var keys = [];
+    if (segment[1]) {
+        keys.push(segment[1]);
+    }
+
+    // Loop through children appending to the array until we hit depth
+
+    var i = 0;
+    while ((segment = child.exec(key)) !== null && i < options.depth) {
+
+        ++i;
+        if (!Object.prototype.hasOwnProperty(segment[1].replace(/\[|\]/g, ''))) {
+            keys.push(segment[1]);
+        }
+    }
+
+    // If there's a remainder, just add whatever is left
+
+    if (segment) {
+        keys.push('[' + key.slice(segment.index) + ']');
+    }
+
+    return internals.parseObject(keys, val, options);
+};
+
+
+module.exports = function (str, options) {
+
+    if (str === '' ||
+        str === null ||
+        typeof str === 'undefined') {
+
+        return {};
+    }
+
+    options = options || {};
+    options.delimiter = typeof options.delimiter === 'string' || Utils.isRegExp(options.delimiter) ? options.delimiter : internals.delimiter;
+    options.depth = typeof options.depth === 'number' ? options.depth : internals.depth;
+    options.arrayLimit = typeof options.arrayLimit === 'number' ? options.arrayLimit : internals.arrayLimit;
+    options.parameterLimit = typeof options.parameterLimit === 'number' ? options.parameterLimit : internals.parameterLimit;
+
+    var tempObj = typeof str === 'string' ? internals.parseValues(str, options) : str;
+    var obj = {};
+
+    // Iterate over the keys and setup the new object
+
+    var keys = Object.keys(tempObj);
+    for (var i = 0, il = keys.length; i < il; ++i) {
+        var key = keys[i];
+        var newObj = internals.parseKeys(key, tempObj[key], options);
+        obj = Utils.merge(obj, newObj);
+    }
+
+    return Utils.compact(obj);
+};
+
+},{"./utils":34}],33:[function(require,module,exports){
+// Load modules
+
+var Utils = require('./utils');
+
+
+// Declare internals
+
+var internals = {
+    delimiter: '&',
+    indices: true
+};
+
+
+internals.stringify = function (obj, prefix, options) {
+
+    if (Utils.isBuffer(obj)) {
+        obj = obj.toString();
+    }
+    else if (obj instanceof Date) {
+        obj = obj.toISOString();
+    }
+    else if (obj === null) {
+        obj = '';
+    }
+
+    if (typeof obj === 'string' ||
+        typeof obj === 'number' ||
+        typeof obj === 'boolean') {
+
+        return [encodeURIComponent(prefix) + '=' + encodeURIComponent(obj)];
+    }
+
+    var values = [];
+
+    if (typeof obj === 'undefined') {
+        return values;
+    }
+
+    var objKeys = Object.keys(obj);
+    for (var i = 0, il = objKeys.length; i < il; ++i) {
+        var key = objKeys[i];
+        if (!options.indices &&
+            Array.isArray(obj)) {
+
+            values = values.concat(internals.stringify(obj[key], prefix, options));
+        }
+        else {
+            values = values.concat(internals.stringify(obj[key], prefix + '[' + key + ']', options));
+        }
+    }
+
+    return values;
+};
+
+
+module.exports = function (obj, options) {
+
+    options = options || {};
+    var delimiter = typeof options.delimiter === 'undefined' ? internals.delimiter : options.delimiter;
+    options.indices = typeof options.indices === 'boolean' ? options.indices : internals.indices;
+
+    var keys = [];
+
+    if (typeof obj !== 'object' ||
+        obj === null) {
+
+        return '';
+    }
+
+    var objKeys = Object.keys(obj);
+    for (var i = 0, il = objKeys.length; i < il; ++i) {
+        var key = objKeys[i];
+        keys = keys.concat(internals.stringify(obj[key], key, options));
+    }
+
+    return keys.join(delimiter);
+};
+
+},{"./utils":34}],34:[function(require,module,exports){
+// Load modules
+
+
+// Declare internals
+
+var internals = {};
+
+
+exports.arrayToObject = function (source) {
+
+    var obj = {};
+    for (var i = 0, il = source.length; i < il; ++i) {
+        if (typeof source[i] !== 'undefined') {
+
+            obj[i] = source[i];
+        }
+    }
+
+    return obj;
+};
+
+
+exports.merge = function (target, source) {
+
+    if (!source) {
+        return target;
+    }
+
+    if (typeof source !== 'object') {
+        if (Array.isArray(target)) {
+            target.push(source);
+        }
+        else {
+            target[source] = true;
+        }
+
+        return target;
+    }
+
+    if (typeof target !== 'object') {
+        target = [target].concat(source);
+        return target;
+    }
+
+    if (Array.isArray(target) &&
+        !Array.isArray(source)) {
+
+        target = exports.arrayToObject(target);
+    }
+
+    var keys = Object.keys(source);
+    for (var k = 0, kl = keys.length; k < kl; ++k) {
+        var key = keys[k];
+        var value = source[key];
+
+        if (!target[key]) {
+            target[key] = value;
+        }
+        else {
+            target[key] = exports.merge(target[key], value);
+        }
+    }
+
+    return target;
+};
+
+
+exports.decode = function (str) {
+
+    try {
+        return decodeURIComponent(str.replace(/\+/g, ' '));
+    } catch (e) {
+        return str;
+    }
+};
+
+
+exports.compact = function (obj, refs) {
+
+    if (typeof obj !== 'object' ||
+        obj === null) {
+
+        return obj;
+    }
+
+    refs = refs || [];
+    var lookup = refs.indexOf(obj);
+    if (lookup !== -1) {
+        return refs[lookup];
+    }
+
+    refs.push(obj);
+
+    if (Array.isArray(obj)) {
+        var compacted = [];
+
+        for (var i = 0, il = obj.length; i < il; ++i) {
+            if (typeof obj[i] !== 'undefined') {
+                compacted.push(obj[i]);
+            }
+        }
+
+        return compacted;
+    }
+
+    var keys = Object.keys(obj);
+    for (i = 0, il = keys.length; i < il; ++i) {
+        var key = keys[i];
+        obj[key] = exports.compact(obj[key], refs);
+    }
+
+    return obj;
+};
+
+
+exports.isRegExp = function (obj) {
+    return Object.prototype.toString.call(obj) === '[object RegExp]';
+};
+
+
+exports.isBuffer = function (obj) {
+
+    if (obj === null ||
+        typeof obj === 'undefined') {
+
+        return false;
+    }
+
+    return !!(obj.constructor &&
+        obj.constructor.isBuffer &&
+        obj.constructor.isBuffer(obj));
+};
+
+},{}],35:[function(require,module,exports){
 ;(function(win){
 	var store = {},
 		doc = win.document,
@@ -6390,50 +6629,264 @@ module.exports = function(options) {
 
 })(Function('return this')());
 
-},{}],34:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
+"use strict";
+
+module.exports = {
+  extend: extend,
+  filterByAttr: filterByAttr,
+  isArray: isArray,
+  size: size,
+  fZ: fZ,
+  unique: unique,
+  forEach: forEach, // for some older browsers
+  toCamelCase: toCamelCase,
+  toUnderscore: toUnderscore,
+  escape: escape
+};
+
+function escape( str, escapeApostrophe ) {
+
+  if ( escapeApostrophe === undefined ) {
+
+    escapeApostrophe = true;
+
+  }
+
+  var escaped = String( str )
+  
+  .replace( /&/g, '&amp;' )
+  
+  .replace( /</g, '&lt;' )
+  
+  .replace( />/g, '&gt;' )
+  
+  .replace( /"/g, '&quot;' );
+
+  if ( escapeApostrophe ) {
+
+    escaped = escaped.replace( /'/g, '&#39;' );
+
+  }
+
+  return escaped;
+
+}
+
+function toCamelCase( input ) {
+
+  if ( typeof input == 'object' ) {
+
+    var camelCased = {};
+
+    for ( var key in input ) {
+
+      camelCased[ toCamelCase(key) ] = input[ key ];
+
+    }
+
+    return camelCased;
+
+  }
+
+  return input.replace( /[-_](.)/g, function( match, group1 ) {
+
+    return group1.toUpperCase();
+
+  });
+
+}
+
+function toUnderscore( input ) {
+
+  if (typeof input == 'object') {
+
+    var underscored = {};
+
+    for (var key in input) {
+
+      underscored[toUnderscore(key)] = input[key];
+
+    }
+
+    return underscored;
+
+  }
+
+  return input.replace(/([A-Z])/g, function($1){return "_"+$1.toLowerCase();});
+
+}
+
+function unique( arr ) {
+
+  var u = [];
+
+  arr.forEach( function( a ) {
+
+    if ( u.indexOf( a ) === -1 ) u.push( a );
+
+  });
+
+  return u;
+
+}
+
+
+function isArray( obj ) {
+
+  return Object.prototype.toString.call( obj ) === '[object Array]';
+
+}
+
+function size( obj ) {
+
+  var size = 0, key;
+
+  for ( key in obj ) {
+
+    if ( obj.hasOwnProperty( key ) ) size++;
+
+  }
+
+  return size;
+
+}
+
+
+function filterByAttr( obj, arr ) {
+
+  var newObj = {};
+
+  forEach( arr, function( name ) {
+
+    if ( obj[name] !== undefined ) newObj[name] = obj[name];
+
+  });
+
+  return newObj;
+
+};
+
+function forEach( array, action ) {
+
+  for ( var i = 0; i < array.length; i++ ) {
+
+    action( array[i] );
+
+  }
+
+};
+
+function extend() {
+
+  for ( var i=1; i<arguments.length; i++ ) {
+
+    for ( var key in arguments[i] ) {
+
+      if ( arguments[i].hasOwnProperty( key ) ) {
+
+        arguments[ 0 ][ key ] = arguments[ i ][ key ];
+
+      }
+
+    }
+
+  }
+        
+  return arguments[ 0 ];
+
+}
+
+function fZ( n, size ) {
+
+  if ( !size ) size = 2;
+
+  var s = n + '',
+
+  sign = s.substr( 0, 1 ) == '-' ? '-' : '';
+
+  if ( sign.length ) {
+
+    s = s.substr( 1 );
+
+  }
+
+  while ( s.length < size ) s = '0' + s;
+
+  return sign + s; 
+}
+},{}],37:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
 
-process.nextTick = (function () {
-    var canSetImmediate = typeof window !== 'undefined'
-    && window.setImmediate;
-    var canPost = typeof window !== 'undefined'
-    && window.postMessage && window.addEventListener
-    ;
-
-    if (canSetImmediate) {
-        return function (f) { return window.setImmediate(f) };
+function cleanUpNextTick() {
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
     }
+    if (queue.length) {
+        drainQueue();
+    }
+}
 
-    if (canPost) {
-        var queue = [];
-        window.addEventListener('message', function (ev) {
-            var source = ev.source;
-            if ((source === window || source === null) && ev.data === 'process-tick') {
-                ev.stopPropagation();
-                if (queue.length > 0) {
-                    var fn = queue.shift();
-                    fn();
-                }
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = setTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
             }
-        }, true);
-
-        return function nextTick(fn) {
-            queue.push(fn);
-            window.postMessage('process-tick', '*');
-        };
+        }
+        queueIndex = -1;
+        len = queue.length;
     }
+    currentQueue = null;
+    draining = false;
+    clearTimeout(timeout);
+}
 
-    return function nextTick(fn) {
-        setTimeout(fn, 0);
-    };
-})();
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        setTimeout(drainQueue, 0);
+    }
+};
 
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
 process.title = 'browser';
 process.browser = true;
 process.env = {};
 process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
 
 function noop() {}
 
@@ -6447,12 +6900,12 @@ process.emit = noop;
 
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
-}
+};
 
-// TODO(shtylman)
 process.cwd = function () { return '/' };
 process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
+process.umask = function() { return 0; };
 
 },{}]},{},[1]);
