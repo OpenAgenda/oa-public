@@ -495,14 +495,14 @@ function _layoutData( req, res ) {
     metas: {
       title: utils.escape( req.agenda.title, false ),
       ogSiteName: { property: 'og:site_name', content: 'OpenAgenda' },
-      ogTitle: { property: 'og:title', content: utils.escape( req.agenda.title ) },
+      ogTitle: { property: 'og:title', content: utils.escape( req.agenda.title, false ) },
       ogType: { property: 'og:type', content: 'activity' },
       ogLanguage: { property: 'og:language', content: req.lang },
       ogUrl: { property: 'og:url', content: url },
       "twitter:card" : "summary",
       "twitter:site" : config.twitter.name,
-      "twitter:title" : utils.escape( req.agenda.getTitle() ),
-      "twitter:description" : utils.escape( req.agenda.description ),
+      "twitter:title" : utils.escape( req.agenda.getTitle(), false ),
+      "twitter:description" : utils.escape( req.agenda.description, false ),
       "twitter:domain" : config.domain,
       "twitter:url" : url
     }

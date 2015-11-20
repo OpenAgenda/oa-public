@@ -308,12 +308,12 @@ function layoutData( req, res ) {
     metas: {
       title: utils.escape( req.formatted.title, false ),
       ogSiteName: { property: 'og:site_name', content: 'OpenAgenda' },
-      ogTitle: { property: 'og:title', content: utils.escape( req.formatted.title ) },
+      ogTitle: { property: 'og:title', content: utils.escape( req.formatted.title, false ) },
       ogDescription: { property: 'og:description', content: utils.escape( req.formatted.description ) },
       ogLocale: { property: 'og:locale', content: req.lang },
       "twitter:card" : "summary_large_image",
-      "twitter:title" : utils.escape( req.formatted.title ),
-      "twitter:description" : utils.escape( req.formatted.description ),
+      "twitter:title" : utils.escape( req.formatted.title, false ),
+      "twitter:description" : utils.escape( req.formatted.description, false ),
       "twitter:domain" : config.domain
     },
     loner: !req.agenda
