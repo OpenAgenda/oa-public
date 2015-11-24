@@ -98,7 +98,7 @@ function agendaEventNewCustomRemove( req, res, next ) {
 
 function agendaEventCustomUpload( req, res, next ) {
 
-  log( 'processing uploaded image' );
+  req.log( 'processing uploaded image' );
 
   imageUpload( {
     dest: config.tmpFolderPath,
