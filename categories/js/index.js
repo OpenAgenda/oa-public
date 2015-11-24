@@ -9,7 +9,8 @@ params = {
   uploadRes: '#upload',
   selectors: {
     canvas: '.js_canvas'
-  }
+  },
+  useTags: false // accessible to those with the right cred
 },
 
 React = require( 'react' ),
@@ -26,7 +27,8 @@ window.asap( function( options ) {
     lang={params.lang}
     tagSet={params.tagSet}
     categorySet={params.categorySet}
-    uploadRes={params.uploadRes}/>, 
+    uploadRes={params.uploadRes} 
+    useTags={params.useTags}/>, 
   du.el( params.selectors.canvas ) );
 
 } );

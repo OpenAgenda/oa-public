@@ -8,7 +8,26 @@ CategoryEditor = require( 'category-editor/lib/CategoryEditor.jsx' ),
 
 SyncButton = require( 'sync-button' ),
 
-Spinner = require( 'sync-button/Spinner.jsx' );
+Spinner = require( 'sync-button/Spinner.jsx' ),
+
+FeatureRequest = require( './FeatureRequest.jsx' ),
+
+labels = {
+  tagFeatureTitle: {
+    fr: 'Essayez les tags d\'agenda',
+    en: 'Try agenda tags'
+  },
+  tagFeatureDescription: {
+    fr: 'Organisez vos événements via un ou plusieurs groupes de tags; nommez vos groupes, organisez et ordonnez-les pour offrir à vos utilisateurs des filtres plus adaptés à vos événements!',
+    en: 'Organize your events with one or more tag groups; organize and sort your tags to give the best possible selection of filters for your events!'
+  },
+  tagFeatureTeaser: {
+    fr: 'Faites plus avec des groupes de tags',
+    en: 'Do more with tag groups'
+  }
+},
+
+tplEnv = window.env=='tpl';
 
 module.exports = React.createClass( {
 
@@ -58,6 +77,28 @@ module.exports = React.createClass( {
 
   },
 
+  renderFeatureRequest: function() {
+
+    return <FeatureRequest
+      lang={this.props.lang}
+      labels={{
+        title: labels.tagFeatureTitle,
+        teaser: labels.tagFeatureTeaser,
+        description: labels.tagFeatureDescription
+      }}
+      res={ tplEnv ? "#featurerequest" : "/featurerequest" } />
+
+  },
+
+  renderTagSection: function() {
+
+    return <TagEditor
+      lang={this.props.lang}
+      set={this.state.tagSet}
+      onSetUpdate={this.onSetUpdate( 'tagSet' )} />
+
+  },
+
   render: function() {
 
     return <div>
@@ -71,16 +112,14 @@ module.exports = React.createClass( {
           syncError={this.state.syncError}
           data={ { 
             tagSet: this.state.tagSet, 
-            categorySet: this.state.categorySet } } />
+            categorySet: this.state.categorySet
+          } } />
       </div>
       <CategoryEditor
         lang={this.props.lang}
         set={this.state.categorySet}
         onSetUpdate={this.onSetUpdate( 'categorySet' )} />
-      <TagEditor
-        lang={this.props.lang}
-        set={this.state.tagSet}
-        onSetUpdate={this.onSetUpdate( 'tagSet' )} />
+      {this.props.useTags?this.renderTagSection():''}
       <div className="tc-edge">
         <SyncButton
           lang={this.props.lang}
@@ -91,7 +130,9 @@ module.exports = React.createClass( {
           syncError={this.state.syncError}
           data={ {
             tagSet: this.state.tagSet,
-            categorySet: this.state.categorySet } } />
+            categorySet: this.state.categorySet 
+          } } />
+        {this.props.useTags?'':this.renderFeatureRequest()}
       </div>
       <Spinner
         loading={this.state.loading} />
