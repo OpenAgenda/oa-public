@@ -1,5 +1,16 @@
 .ef .upload {
 
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.03);
+
+  form {
+
+    text-align: left;
+    background-color: $oa-white;
+    padding-bottom: 1em;
+
+  }
+
   form > div,
   form > label,
   form > span,
