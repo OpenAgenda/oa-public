@@ -136,5 +136,7 @@
   "Export / Use"
   : "Exporter / Utiliser",
   "ownership is transfered"
-  : "la propriété est transférée"
+  : "la propriété est transférée",
+  "from the %firstDate% to the %lastDate%"
+  : "du %firstDate% au %lastDate%"
 }

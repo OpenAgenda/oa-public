@@ -50,6 +50,7 @@
     "category-editor" : "git+ssh://git@bitbucket.org:openagenda/category-editor.git",
     "tag-editor" : "git+ssh://git@bitbucket.org:openagenda/tag-editor.git",
     "xlsx-writestream" : "0.4.0",
-    "rss" : "1.2.0"
+    "rss" : "1.2.0",
+    "mailer" : "git@bitbucket.org:openagenda/mailer.git"
   }
 }

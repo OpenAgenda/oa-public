@@ -24,7 +24,9 @@ groupActions = require( './groupActions' ),
 
 controlData = require( '../controlData' ),
 
-dispatcher = require( './dispatcher' );
+dispatcher = require( './dispatcher' ),
+
+instanceQueue = require( '../../lib/instanceQueue' );
 
 module.exports = function( data ) {
 
@@ -46,10 +48,15 @@ module.exports = function( data ) {
 
   instance.onSave = dsp.onSave;
 
+  instanceQueue( svcInstance, instance, [
+    'queue'
+  ] );
+
   search( svcInstance, instance, [
     'search',
     'searchStream',
-    'aggregate'
+    'aggregate',
+    'resync'
   ]);
 
   sources( svcInstance, instance, [

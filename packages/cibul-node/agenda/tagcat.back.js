@@ -4,6 +4,8 @@ var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
+coms = require( '../lib/coms' ),
+
 agendaSvc = require( '../services/agenda' ),
 
 utils = require( 'utils' ),
@@ -23,6 +25,7 @@ routes = {
   categoryTagShow: [ 'get', '/:slug/admin/tagcat', [
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdministrator(),
+    cmn.checkCredential( 'tags', { namespace: 'hasTagsCred' } ),
     tagMw.get,
     categoryMw.get,
     agendaSvc.mw.loadAdminLayout,
@@ -38,21 +41,6 @@ routes = {
     categoryMw.set,
     updateResponse
   ] ]
-
-  /*
-  
-  facebookTabLink: [ 'get', '/agendas/:uid/facebook/tab/link', [
-    agendaSvc.mw.load( 'uid' ),
-    cmn.checkAdministrator(),
-    fb.tab.create
-  ] ],
-
-  facebookTabRedirect: [ 'get', '/facebook/tab/create/:state', [
-    fb.tab.redirect,
-    _onComplete
-  ] ]
-
-  */
 
 }
 
@@ -75,7 +63,15 @@ module.exports = function( path ) {
 
 function updateResponse( req, res ) {
 
-  res.send( res.statusCode && res.statusCode !== 200 ? 'nok' : 'ok' );
+  if ( res.statusCode && res.statusCode !== 200 ) {
+
+    return rs.send( 'nok' );
+
+  }
+
+  req.agenda.queue( 'resync' );
+
+  res.send( 'ok' );
 
 }
 
@@ -86,7 +82,8 @@ function show( req, res ) {
       updateRes: req.genUrl( 'categoryTagUpdate', { slug: req.agenda.slug } ),
       tagSet: req.tagSet,
       categorySet: req.categorySet,
-      lang: req.lang
+      lang: req.lang,
+      useTags: req.hasTagsCred
     }
   } );
 

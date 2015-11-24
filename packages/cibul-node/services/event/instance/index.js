@@ -18,7 +18,9 @@ s3Svc = require( '../../file/s3' ),
 
 fileSvc = require( '../../file/file' ),
 
-exportable = require( './exportable' );
+exportable = require( './exportable' ),
+
+dates = require( './dates' );
 
 module.exports = function( data ) {
 
@@ -46,6 +48,10 @@ module.exports = function( data ) {
     'setCustomImage',          // process custom image upload
     'unsetCustomImage',        // take a wild guess
     'saveCustomImage'          // switch custom image from tmp store to permanent
+  ] );
+
+  dates( svcInstance, instance, [
+    'getRange'
   ] );
 
   exportable( svcInstance, instance, [

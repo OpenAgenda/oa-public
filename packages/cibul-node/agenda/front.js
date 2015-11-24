@@ -10,6 +10,8 @@ lib = require( '../lib/lib' ),
 
 agendaSvc = require( '../services/agenda' ),
 
+eventSvc = require( '../services/event' ),
+
 embedSvc = require( '../services/embed/embed' ),
 
 perPage = 20,
@@ -25,8 +27,6 @@ i18n = require( '../i18n/i18n' ),
 timeHelper = require( 'cibulTemplates' ).helpers.time,
 
 fb = require( 'facebook' ),
-
-model = require( '../services/model' ),
 
 utils = require( 'utils' ),
 
@@ -328,7 +328,7 @@ function _loadAgendaByAgendaId( req, res, next ) {
 
 function _formatEventItem( event, _t, lang, cb ) {
 
-  var inst = model.events().instance( event ),
+  var inst = eventSvc.instanciate( event ),
 
   img, dateRange;
 
@@ -339,7 +339,7 @@ function _formatEventItem( event, _t, lang, cb ) {
   dateRange = inst.getDateRange( true );
 
   var formatted = lib.extend( inst, {
-    dateRange: i18n( dateRange[ 0 ], _t( dateRange[1] ), lang ).replace( ':', lang=='fr' ? 'h' : ':' ),
+    dateRange: inst.getRange(),
     closestDate: inst.getClosestDate(),
     title: inst.getTitle(),
     image: img ? img.replace( 'cibuldev', 'cibul' ) : false,

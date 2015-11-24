@@ -30,7 +30,8 @@ function agendas( agenda ) {
 
   return {
     search: _search,
-    aggregate: _aggregate
+    aggregate: _aggregate,
+    resync: _resync
   }
 
   function _search( query, options, cb ) {
@@ -62,6 +63,12 @@ function agendas( agenda ) {
     aggregate( query, lib.extend( {
       agendaId: agenda.id
     }, options ), cb );
+
+  }
+
+  function _resync( cb ) {
+
+    resync( { agendaId: agenda.id }, cb );
 
   }
 

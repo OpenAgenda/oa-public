@@ -128,20 +128,33 @@ function _update( type, query ) {
 
 }
 
+function _defineGetQuery( type, params, obj ) {
+
+  var q = { id: obj[ type=='reviews' ? 'reviewId' : 'eventId' ] };
+
+  if ( type == 'events' && params.reviewId ) {
+
+    q.reviewId = params.reviewId;
+
+  }
+
+  return q;
+
+}
 
 function _removeZombies( type, params ) {
 
   if ( !params ) params = {};
 
-  return function( cb ) {
+  return ( cb ) => {
 
     var count = { processed: 0, removed: 0, errors: 0 };
 
     log( 'info', 'removing %s zombies', type );
 
-    _loopThroughIndex( type, params, function( obj, next ) {
+    _loopThroughIndex( type, params, ( obj, next ) => {
 
-      model[ type ]().get( { id: obj[ type=='reviews' ? 'reviewId' : 'eventId' ] }, function( err, dbRef ) {
+      model[ type ]().get( _defineGetQuery( type, params, obj ), function( err, dbRef ) {
 
         if ( count.processed % 1000 === 0 ) _logZombies( type, count );
 
@@ -159,7 +172,7 @@ function _removeZombies( type, params ) {
 
         if ( dbRef ) return _delay( params.interval, next )();
 
-        log('info', 'removing %s zombie id %s', type, obj[ type=='reviews' ? 'reviewId' : 'eventId' ] );
+        log( 'info', 'removing %s zombie id %s', type, obj[ type=='reviews' ? 'reviewId' : 'eventId' ] );
 
         count.removed++;
 

@@ -696,7 +696,8 @@ function requireAdmin( req, res, next ) {
 function checkCredential( name, options ) {
 
   var params = utils.extend( {
-    name: 'agenda'
+    name: 'agenda',
+    namespace: false // if not set, response is error when cred is not assigned
   }, options ? options: {} );
 
   if ( !options ) options = {};
@@ -707,9 +708,23 @@ function checkCredential( name, options ) {
 
       if ( err ) return errorResponse( req, res, err );
 
-      if ( !has ) return errorResponse( req, res, 'user does not have required creds' );
+      if ( !has && !params.namespace ) {
 
-      log( 'debug', 'agenda has credentials "%s"', name );
+          return errorResponse( req, res, 'user does not have required creds' );
+
+      }
+
+      if ( has ) {
+
+        log( 'debug', 'agenda has credentials "%s"', name );
+
+      }
+
+      if ( params.namespace ) {
+
+        req[ params.namespace ] = has;
+
+      }
 
       next();
 

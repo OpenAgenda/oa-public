@@ -182,8 +182,6 @@ function format( req, res, next ) {
 
   img = req.event.getImage( true ),
 
-  dateRange = req.event.getDateRange( true ),
-
   _t = timeHelper( { lang: req.lang } ),
 
   location,
@@ -206,7 +204,7 @@ function format( req, res, next ) {
       slug: req.event.slug,
       title: req.event.getTitle(),
       image: img ? img.replace( 'cibuldev', 'cibul' ) : false,
-      dateRange: i18n( dateRange[ 0 ], _t( dateRange[1] ), req.lang ).replace( ':', req.lang=='fr' ? 'h' : ':' ),
+      dateRange: req.event.getRange(),
       isUpcoming: req.event.isUpcoming(),
       description: req.event.getDescription(),
       freeText: req.event.getEnrichedFreeText(),

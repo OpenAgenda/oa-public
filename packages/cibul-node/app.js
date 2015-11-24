@@ -16,6 +16,8 @@ module.exports = function( enabledTypes, cb ) {
 
     var emailStrategie = require( 'emailStrategie' ),
 
+    mailer = require( 'mailer' ),
+
     logger = require( 'logger' ),
 
     log = logger( 'app' ),
@@ -72,6 +74,12 @@ module.exports = function( enabledTypes, cb ) {
       logger: logger
     } );
 
+    mailer.init( {
+      queueName: 'newmailer',
+      host: config.redis.host,
+      port: config.redis.port
+    } );
+
     emailStrategie.init( {
       database: config.emailStrategieDb,
       redis: config.redis,
@@ -86,6 +94,7 @@ module.exports = function( enabledTypes, cb ) {
         require( './newsletter/back' )( '/:slug/admin/newsletters' ),
         require( './newsletter/front' )( '/:slug/newsletters' ),
         require( './general/front' )( '' ),
+        require( './general/back' )( '' ),
         require( './search/front' )( '' ),
         require( './event/form.back' )( '' ),
         require( './event/front' )( '' ),
@@ -235,7 +244,11 @@ module.exports = function( enabledTypes, cb ) {
 
       emailStrategie.task();
 
+      mailer.task();
+
       require( './services/agenda/controlData' ).task();
+
+      require( './services/lib/instanceQueue/task' )();
 
     }
 

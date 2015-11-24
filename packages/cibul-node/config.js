@@ -25,7 +25,7 @@ config = {
     googleAnalyticsId: 'UA-60305866-1',
     useCache: true,
     agendaCacheExpire: 30*1000,
-    adminEmail: 'kaore@openagenda.com',
+    adminEmail: 'admin@openagenda.com',
     mapboxAccessToken: 'pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
     db: {
       database: 'oa',
