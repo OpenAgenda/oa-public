@@ -108,7 +108,7 @@ describe( 'contributive agenda', function() {
 
     _signin( browser, { email: user.email, password: 'bisounoursjaunedevant' } )
 
-    .then( null, _p( browser, 'visit', '/' + agenda.slug ) )
+    .then( _p( browser, 'visit', '/' + agenda.slug ) )
 
     .then( _p( browser, 'clickLink', '#add-event' ) )
 
@@ -129,7 +129,7 @@ describe( 'contributive agenda', function() {
 
     _signin( browser, { email: user.email, password: 'bisounoursjaunedevant' } )
 
-    .then( null, _p( browser, 'visit', '/' + agenda.slug ) )
+    .then( _p( browser, 'visit', '/' + agenda.slug ) )
 
     .then( _p( browser, 'clickLink', '#add-event' ) )
 
@@ -155,7 +155,7 @@ describe( 'contributive agenda', function() {
 
     } )
 
-    .then( null, function() {
+    .then( function() {
 
       return w.promise( function( resolve, reject ) {
 
@@ -407,7 +407,7 @@ function _sendInvitation( browser, agenda, user, requireInfo ) {
 
   return _signin( browser, { email: 'gaetan@cibul.net', password: 'wigglypoof' } )
 
-  .then( null, _p( browser, 'visit', '/frontend_test.php/' + agenda.slug + '/admin/contributors' ) )
+  .then( _p( browser, 'visit', '/frontend_test.php/' + agenda.slug + '/admin/contributors' ) )
 
   .then( _p( browser, 'pressButton', '#save-contribution-settings' ) )
 
