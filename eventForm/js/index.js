@@ -22,6 +22,9 @@ defaults = {
   language: 'fr',
   canvas: '.js_form_canvas',
   useWysiwyg: false,
+  agendaUid: false,
+  categorySet: undefined,
+  tagSet: undefined,
   events : {
     fetch: 'eventfetch',
     fetchLanguages: 'languagesfetch', // must be dyslexia.
@@ -29,7 +32,8 @@ defaults = {
     description: 'edescriptionfieldsend',
     customFields: 'ecustomfieldssend',
     single: 'esinglesend',
-    timings: 'etimingssend'
+    timings: 'etimingssend',
+    agenda: 'eagendawrite'
   },
   custom: false,
   labels: {
@@ -93,13 +97,32 @@ defaults = {
     noDates: {
       fr: 'Au moins un horaire doit être défini',
       en: 'At least one timing must be defined'
+    },
+    categoriesTitle: {
+      en: 'Categories',
+      fr: 'Catégories'
+    },
+    tagsTitle: {
+      en: 'Tags',
+      fr: 'Tags'
+    },
+    categoriesInfo: {
+      en: 'These are used to index your event in the agenda. Pick one.',
+      fr: 'Celles-ci servent pour l\'indexation dans l\'agenda. Vous pouvez en choisir une.'
+    },
+    defaultTagGroupName: {
+      en: 'Tags',
+      fr: 'Tags'
+    },
+    defaultTagGroupInfo: {
+      en: 'These are used to index your event in the agenda. You can select several.',
+      fr: 'Ceux-ci servent pour l\'indexation dans l\'agenda. Vous pouvez en choisir plusieurs.'
     }
   }
 };
 
 // legacy
 window.oaEvent = require( './legacy/cibulEvent' );
-window.oaEventAgenda = require( './legacy/cibulEventAgenda' );
 window.oaEventLocation = require( './legacy/cibulEventLocation' );
 window.oaEventSubmit = require( './legacy/cibulEventSubmit' );
 window.oaEventImage = require( './legacy/cibulEventImage' );
@@ -117,6 +140,7 @@ window.oaEventForm = function( options ) {
     rUtils.eh.trigger( params.events.languageChange, initialLanguages );
 
     ReactDom.render( <EventForm
+      agendaUid= { params.agendaUid }
       initialLanguages= { initialLanguages }
       useWysiwyg= {params.useWysiwyg}
       initData= {eventData}
@@ -125,13 +149,24 @@ window.oaEventForm = function( options ) {
       onCustomChange= {onCustomChange}
       onTimingsChange= {onTimingsChange}
       onChangeLanguages= {onChangeLanguages}
+      onAgendaDataChange= {onAgendaDataChange}
       custom= {params.custom}
       customRes={params.customRes}
+      categories={params.categories}
+      categorySet={params.categorySet}
+      tags={params.tags}
+      tagSet={params.tagSet}
       labels= {params.labels} />, 
       rUtils.el( params.canvas )
     );
 
   });
+
+  function onAgendaDataChange( data ) {
+
+    rUtils.eh.trigger( params.events.agenda, data );
+
+  }
 
   function onChangeLanguages( languages ) {
 

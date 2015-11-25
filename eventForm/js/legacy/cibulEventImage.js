@@ -13,7 +13,7 @@ handleEventImage = require( './handleEventImage' );
 module.exports = function( params ) {
 
   params = utils.extend({
-    canvas: '.js_form_canvas_above',
+    canvas: '.js_event_image_canvas',
     upload: false, // required. resource to upload image
     remove: false, // required. resource to remove image
     events: {

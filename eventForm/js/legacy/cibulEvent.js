@@ -142,7 +142,15 @@ module.exports = function( params ) {
       if (!event.agendas) event.agendas = [];
 
       for (var i = event.agendas.length - 1; i >= 0; i--) {
-        if (event.agendas[i].uid == data.uid) return event.agendas[i] = data;
+
+        if (event.agendas[i].uid == data.uid) {
+
+          event.agendas[i] = data
+
+          return;
+
+        }
+
       }
 
       event.agendas.push(data);

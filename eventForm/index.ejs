@@ -29,39 +29,6 @@
     }
   });
 
-<% if ( typeof agenda !== 'undefined' ) { %>
-  oaEventAgenda({
-    uid: 84735921,
-    tags: <%- JSON.stringify( agenda.tags ) %>,
-    categories: <%- JSON.stringify( agenda.categories ) %>,
-    labels: {
-      tagTitle: 'Mots clés de l\'agenda',
-      categoryTitle: 'Catégories de l\'agenda',
-      tagInfo: 'Séléctionnez un ou plusieurs mots clés',
-      categoryInfo: 'Séléctionnez une catégorie'
-    }
-  });
-<% } %>
-
-
-  oaEventImage({
-    upload: 'http://templates.cibul.net/event form/server/index.php',
-    remove: 'http://templates.cibul.net/event form/server/remove.php',
-    path: 'http://templates.cibul.net/event form/server/uploaded/',
-    labels: {
-      upload: 'charger une image',
-      info: 'l\'image doit au moins avoir 300 pixels de largeur',
-      error: 'Un problème est survenu lors du chargement de l\'image. Rechargez le formulaire et retentez',
-      success: 'L\'image a été chargée avec succès',
-      imageSection: 'Image',
-      removeImage: 'retirer l\'image',
-      removeMessage: 'Un problème est survenu lors de la tentative de suppression de l\'image. Rechargez le formulaire et retentez',
-      noImage: 'Aucune image n\'est encore associée à cet événement'
-    }
-  });
-
-
-
 
   /*
    [{"name":"somenmber","type":"public","fieldType":"number","label":{"fr":"Un nombre","en":"A number"}},{"name":"somestat","type":"private","fieldType":"integer","label":{"fr":"Une stat quelconque","en":"Some statistic"}},{"name":"somesmalltext","type":"private","fieldType":"text","max":200,"min":20,"optional":true,"multilingual":true, "label":{"fr":"Ceci est un petit texte","en":"This is a small text"}},{"name":"somelongtext","type":"public","fieldType":"textarea","value":"dude!","label":{"fr":"Ceci est un long texte","en":"This is a long text"},"info":{"fr":"Vous devez saisir quelque chose ici","en":"You should type in something here"}},{"name":"someurl","type":"public","fieldType":"url","label":{"fr":"ceci est une url","en":"this is an url"}},{"name":"someemail","type":"public","fieldType":"email","label":{"fr":"ceci est un email","en":"this is an email"}},{"name":"checkboxfield","type":"private","fieldType":"checkbox","value":true,"label":{"fr":"Ceci est un champ checkbox","en":"This is a checkbox field"}},{"name":"radiofields","type":"public","fieldType":"radio","options":[{"label":{"fr":"oui","en":"yes"},"value":"1"},{"label":{"fr":"non","en":"no"},"value":"0"},{"label":{"fr":"peut-être","en":"maybe"},"value":"2"}],"value":"2","label":{"fr":"Etes-vous d\'accord?","en":"Do you agree"}},{"name":"testimony","type":"public","fieldType":"textarea","multilingual":true,"optional":true,"label":{"fr":"T\\u00e9moignage","en":"Testimony"},"value":{"fr":"J\'ai adoré!","en":"I loved it!"}}]
@@ -90,6 +57,9 @@
 <% if ( useMarkdown ) { %>
     useWysiwyg: true,
 <% } %>
+    agendaUid: 84735921,
+    tags: <%- JSON.stringify( agenda.tags ) %>,
+    categories: <%- JSON.stringify( agenda.categories ) %>,
     language: 'fr',
     customRes: {
       upload: '/upload',
@@ -181,6 +151,23 @@
       "height" : 300
     } ]
   } );
+
+
+  oaEventImage({
+    upload: 'http://templates.cibul.net/event form/server/index.php',
+    remove: 'http://templates.cibul.net/event form/server/remove.php',
+    path: 'http://templates.cibul.net/event form/server/uploaded/',
+    labels: {
+      upload: 'charger une image',
+      info: 'l\'image doit au moins avoir 300 pixels de largeur',
+      error: 'Un problème est survenu lors du chargement de l\'image. Rechargez le formulaire et retentez',
+      success: 'L\'image a été chargée avec succès',
+      imageSection: 'Image',
+      removeImage: 'retirer l\'image',
+      removeMessage: 'Un problème est survenu lors de la tentative de suppression de l\'image. Rechargez le formulaire et retentez',
+      noImage: 'Aucune image n\'est encore associée à cet événement'
+    }
+  });
 
 
   oaEventLocation({

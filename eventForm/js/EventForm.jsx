@@ -20,7 +20,13 @@ AgeFields = require( './AgeFields.jsx' ),
 
 TimingsPicker = require( './TimingsPicker.jsx' ),
 
+TagSelector = require( 'agenda-tags/lib/TagSelector.jsx' ),
+
+CategorySelector = require( 'agenda-categories/lib/CategorySelector.jsx' ),
+
 utils = require( 'utils' ),
+
+update = require( 'react-addons-update' ),
 
 formErrors = {};
 
@@ -139,6 +145,118 @@ module.exports = React.createClass( {
 
   },
 
+  onTagsCategoryChange: function( type ) {
+
+    var self = this;
+
+    return function( newData ) {
+
+      var agendaIndex = self.getAgendaIndex(), 
+
+      agendas = {};
+
+      if ( agendaIndex == -1 ) {
+
+        agendas = [ {
+          uid:self.props.agendaUid,
+          tags: type == 'tags' ? newData : [],
+          category: type == 'category' ? newData : undefined
+        } ];
+
+        self.setState( { agendas: agendas } );
+
+      } else {
+
+        agendas[ agendaIndex ] = {};
+
+        agendas[ agendaIndex ][ type ] = { $set : newData };
+
+        self.setState( {
+          agendas: update( self.state.agendas, agendas )
+        } );
+
+      }
+
+      self.props.onAgendaDataChange( {
+        uid: self.props.agendaUid,
+        tags: self.stringifySlugs( type == 'tags' ? newData : ( agendaIndex == -1 ? [] : self.state.agendas[ agendaIndex ].tags ) ),
+        category: self.stringifySlugs( type == 'category' ? newData : ( agendaIndex == -1 ? undefined : self.state.agendas[ agendaIndex ].category ) )
+      } );
+
+    }
+
+  },
+
+  stringifySlugs: function( data ) {
+
+    if ( !data ) return;
+
+    if ( utils.isArray( data ) ) {
+
+      return data.map( function( d ) { return typeof d == 'object' ? d.slug : d } );
+
+    } else {
+
+      return ( typeof data == 'object' ? data.slug : data );
+
+    }
+
+  },
+
+  getSelectedCategory: function() {
+
+    var aIndex = this.getAgendaIndex();
+
+    if ( aIndex == -1 ) return;
+
+    var category = this.state.agendas[ aIndex ].category;
+
+    if ( !category ) return;
+
+    if ( typeof category == 'string' ) return { slug: category };
+
+    return category
+
+  },
+
+  getSelectedTags: function() {
+
+    var aIndex = this.getAgendaIndex();
+
+    if ( aIndex == -1 ) return [];
+
+    var tags = this.state.agendas[ aIndex ].tags;
+
+    if ( !tags || !tags.length ) return [];
+
+    if ( typeof tags[ 0 ] == 'string' ) {
+
+      return tags.map( function( t ) { return { slug: t } } );
+
+    }
+
+    return tags;
+
+  },
+
+  getAgendaIndex: function() {
+
+    var self = this,
+
+    agendaIndex = -1;
+
+    if ( !this.state.agendas ) return agendaIndex;
+
+    this.state.agendas.forEach( function( agenda, i ) {
+
+      if ( agenda.uid == self.props.agendaUid ) agendaIndex = i;
+
+    } );
+
+    return agendaIndex;
+
+  },
+
   changeLanguages: function( languages ) {
 
     this.setState( {
@@ -183,6 +301,24 @@ module.exports = React.createClass( {
   render: function() {
 
     return <div>
+
+      <CategorySelector
+        lang={this.props.lang}
+        set={this.props.categorySet}
+        categories={this.props.categories}
+        selection={this.getSelectedCategory()}
+        onChange={this.onTagsCategoryChange( 'category' )}
+        labels={this.props.labels} />
+
+      <TagSelector
+        lang={this.props.lang}
+        set={this.props.tagSet}
+        tags={this.props.tags}
+        selection={this.getSelectedTags()}
+        onChange={this.onTagsCategoryChange( 'tags' )}
+        labels={this.props.labels} />
+
+      <div className="js_event_image_canvas"></div>
 
       <h2>{this.props.labels.descriptionSection[ this.props.lang ]}</h2>
 

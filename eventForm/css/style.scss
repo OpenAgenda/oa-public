@@ -9,7 +9,7 @@
 
   }
 
-  .info {
+  .info, .tc-info {
     
     color: $oa-gray;
 
@@ -24,7 +24,7 @@
 
   }
 
-  .error, .info {
+  .error, .info, .tc-info {
 
     padding: 0 0 0.8em;
     font-size: 0.95em;

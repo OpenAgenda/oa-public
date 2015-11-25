@@ -2,9 +2,9 @@
 
 var React = require( 'react' ),
 
-TagEditor = require( 'tag-editor/lib/TagEditor.jsx' ),
+TagEditor = require( 'agenda-tags/lib/TagEditor.jsx' ),
 
-CategoryEditor = require( 'category-editor/lib/CategoryEditor.jsx' ),
+CategoryEditor = require( 'agenda-categories/lib/CategoryEditor.jsx' ),
 
 SyncButton = require( 'sync-button' ),
 

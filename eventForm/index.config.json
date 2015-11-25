@@ -9,6 +9,7 @@
     "efImageUpload" : "css/imageUpload.scss",
     "efLanguageBar" : "css/languageBar.scss",
     "efTimingsPicker" : "css/timingsPicker.scss",
+    "efAgendaTags" : "../node_modules/agenda-tags/sass/selectorStyle.scss",
     "accessibility" : "css/accessibility.scss",
     "efKeywords" : "css/tags.scss",
     "efTinyMCE" : "css/tinyMCE.scss",
