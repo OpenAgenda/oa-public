@@ -53,12 +53,6 @@ module.exports = {
     uri : "agendaAdminWeb"
   }, {
     section : "export",
-    key : "newsletters",
-    label : "Newsetters",
-    uri : "newsletterIndex",
-    requiredCred: 'newsletters'
-  }, {
-    section : "export",
     key : "indesign",
     label : "Indesign - Xml",
     uri : "agendaAdminIndesign",
