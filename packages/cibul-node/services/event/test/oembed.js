@@ -12,7 +12,7 @@ fixtureSets = require( 'cibulModel/test/fixtures/sets' )( cbm );
 
 describe( 'oembed service', function() {
 
-  this.timeout( 10000 );
+  this.timeout( 20000 );
 
   var eInst = {};
 

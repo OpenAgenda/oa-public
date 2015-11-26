@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( 'logger' )( 'oembed' ),
+var log = require( 'logger' )( 'services/event/oembed' ),
 
 lib = require( '../../lib/lib' ),
 
@@ -114,7 +114,13 @@ function _processLink( links ) {
 
     _getAndParse( config.oembed.res + '?api_key=' + config.oembed.key + '&url=' + encodeURI( processedLink.link ), function( err, data ) {
 
-      if ( err ) return cb();
+      if ( err ) {
+
+        log( 'error', err );
+
+        return cb();
+
+      }
 
       linksItem = lib.getByAttr( links, { link: processedLink.link } );
 
@@ -145,16 +151,6 @@ function _getAndParse( url, cb ) {
 
   https.get( url, function( res ) {
 
-    if ( res.statusCode !== 200 ) {
-
-      // log error and fa'ggetabatit
-
-      log( 'error', 'received a status code %s from %s', res.statusCode, url );
-
-      return cb( true );
-
-    }
-
     res.on( 'data', function( chunk ) {
 
       data += chunk;
@@ -175,7 +171,13 @@ function _getAndParse( url, cb ) {
 
       }
 
-      cb( null, data );
+      if ( res.statusCode !== 200 ) {
+
+        log( 'error', 'received a status code %s from %s: %s', res.statusCode, url, data );
+
+      }
+
+      cb( res.statusCode == 200 ? null : res.statusCode, data );
 
     });
 
