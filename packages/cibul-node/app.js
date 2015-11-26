@@ -62,13 +62,13 @@ module.exports = function( enabledTypes, cb ) {
       db: config.db
     }, function( err ) { if ( err ) log( 'error', err ); } );
 
-    require( 'tag-editor' ).init( {
+    require( 'agenda-tags' ).init( {
       store: config.db,
       legacy: config.db,
       logger: logger
     } );
 
-    require( 'category-editor' ).init( {
+    require( 'agenda-categories' ).init( {
       store: config.db,
       legacy: config.db,
       logger: logger

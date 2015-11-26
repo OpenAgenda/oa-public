@@ -47,8 +47,8 @@
     "node-redis-warlock" : "0.1.2",
     "languages" : "0.1.3",
     "imageUpload" : "git+ssh://git@bitbucket.org:openagenda/imageupload.git",
-    "category-editor" : "git+ssh://git@bitbucket.org:openagenda/category-editor.git",
-    "tag-editor" : "git+ssh://git@bitbucket.org:openagenda/tag-editor.git",
+    "agenda-categories" : "git+ssh://git@bitbucket.org:openagenda/agenda-categories.git",
+    "agenda-tags" : "git+ssh://git@bitbucket.org:openagenda/agenda-tags.git",
     "xlsx-writestream" : "0.4.0",
     "rss" : "1.2.0",
     "mailer" : "git@bitbucket.org:openagenda/mailer.git"

@@ -6,7 +6,7 @@ moment = require( 'moment' );
 
 module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
 
-  var dates, sameMonth;
+  var dates;
 
   return {
     getRange: getRange

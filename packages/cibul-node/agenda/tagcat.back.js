@@ -16,15 +16,16 @@ genUrl = require( '../services/genUrl' ),
 
 bodyParser = require( 'body-parser' ),
 
-tagMw = require( 'tag-editor' ).mw( 'agenda.id', 'tagSet' ),
+tagMw = require( 'agenda-tags' ).mw( 'agenda.id', 'tagSet' ),
 
-categoryMw = require( 'category-editor' ).mw( 'agenda.id', 'categorySet' ),
+categoryMw = require( 'agenda-categories' ).mw( 'agenda.id', 'categorySet' ),
 
 routes = {
 
   categoryTagShow: [ 'get', '/:slug/admin/tagcat', [
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdministrator(),
+    cmn.checkCredential( 'tagcat' ),
     cmn.checkCredential( 'tags', { namespace: 'hasTagsCred' } ),
     tagMw.get,
     categoryMw.get,
