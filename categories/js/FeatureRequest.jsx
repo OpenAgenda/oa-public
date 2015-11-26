@@ -70,6 +70,12 @@ module.exports = React.createClass( {
 
   },
 
+  onCanvasClick: function( e ) {
+
+    if ( this.refs.popupcanvas == e.target ) this.onHide( e );
+
+  },
+
   onHide: function( e ) {
 
     e.preventDefault();
@@ -175,7 +181,7 @@ module.exports = React.createClass( {
 
   renderFeature: function() {
 
-    return <div className="popup-overlay">
+    return <div className="popup-overlay" ref="popupcanvas" onClick={this.onCanvasClick}>
       <section>
         <header className="popup-title">
           <h2>{this.getLabel( 'title' )}</h2>
