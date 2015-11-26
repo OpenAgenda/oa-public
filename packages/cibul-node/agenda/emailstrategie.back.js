@@ -23,7 +23,7 @@ module.exports = function( path ) {
   router.pre( [
     cmn.flashSetter,
     cmn.loadSession,
-    cmn.loadAgenda( 'slug' ),
+    agendaSvc.mw.load( 'slug' ),
     cmn.checkAdministrator(),
     cmn.checkCredential( 'emailstrategie' ),
     agendaSvc.mw.loadAdminLayout,

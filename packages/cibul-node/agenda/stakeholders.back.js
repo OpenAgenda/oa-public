@@ -65,7 +65,7 @@ module.exports = function( path ) {
   router.pre( [
     cmn.flashSetter,
     cmn.loadSession,
-    cmn.loadAgenda( 'slug' )
+    agendaSvc.mw.load( 'slug' )
   ] );
 
   return {

@@ -17,7 +17,7 @@ userSvc = require( '../services/user' ),
 routes = {
 
   eventChangeState: [ 'get', '/events/:eventSlug/state/:type', [
-    cmn.loadAgenda( 'slug' ), 
+    agendaSvc.mw.load( 'slug' ), 
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.checkEventEditor,
     _checkAuthorizedChanges( [ STATETYPES.PUBLISHED ] ),

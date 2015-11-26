@@ -13,8 +13,6 @@ exports.renderTemplate = renderTemplate;          // render and serve template
 exports.errorResponse = errorResponse;            // render error page
 exports.catchError = catchError;                  // the heir of standard error handling
 
-exports.loadAgenda = loadAgenda;                  // middleware. loads an agenda in the request based on its slug
-exports.loadEvent = loadEvent;                    // middleware. loads an event in the request
 exports.isLogged = isLogged;                      // this guy speaks for himself.
 exports.requireLogged = requireLogged;            // middleware. verify if user is logged
 exports.requireUnlogged = requireUnlogged;
@@ -77,49 +75,6 @@ languages = require( 'languages' ),
 
 qs = require( 'qs' );
 
-
-
-
-
-/**
- * middleware for loading an agenda and shoving it in the request using app.param
- */
-
-function loadAgenda( paramName ) {
-
-  return function( req, res, next ) {
-
-    var identifiers = {};
-
-    if ( !req.params[ paramName ] ) {
-
-      return next();
-
-    } else {
-
-      identifiers[ paramName ] = req.params[ paramName ];
-
-    }
-
-    wn.call( agendaSvc.get, identifiers )
-
-    .then( function( agenda ) {
-
-      if ( !agenda ) throw { code: 404 };
-
-      req.agenda = agenda;
-
-      req.log.load({ agenda: req.agenda.slug });
-
-      next();
-
-    })
-
-    .catch( catchError( req, res ) );
-
-  }
-
-}
 
 
 function loadEvent( paramName, fieldName ) {
@@ -834,25 +789,9 @@ function loadLogger( name ) {
 
     req.log.load( {
       module: name ? name : 'unkown',
-      url: req.originalUrl
-    } );
-
-    next();
-
-  }
-
-}
-
-function _logRoute( name ) {
-
-  return function( req, res, next ) {
-
-    log( 'request %s goes to controller %s', req.originalUrl, name );
-
-    req.log.load({
-      controller: name,
+      url: req.originalUrl,
       ip: req.header( 'x-forwarded-for' )
-    });
+    } );
 
     next();
 

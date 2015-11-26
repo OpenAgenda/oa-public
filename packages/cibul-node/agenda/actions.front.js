@@ -10,6 +10,8 @@ w = require( 'when' ),
 
 eventSvc = require( '../services/event' ),
 
+agendaSvc = require( '../services/agenda' ),
+
 model = require( '../services/model' ),
 
 async = require( 'async' ),
@@ -44,7 +46,7 @@ module.exports = function( p ) {
   router.pre( [
     cmn.flashSetter,
     cmn.loadSession,
-    cmn.loadAgenda( 'slug' )
+    agendaSvc.mw.load( 'slug' )
   ] );
 
   return {
