@@ -75,7 +75,9 @@ module.exports = function( p ) {
 
 function searchEvents( req, res, next ) {
 
-  if ( !req.query.oaq || !req.query.oaq.what.length ) {
+  req.cleanSearch = req.query.oaq;
+
+  if ( !req.cleanSearch || !req.cleanSearch.what.length ) {
 
     req.log( 'info', 'request received for searchEvents with no params.' );
 
@@ -83,9 +85,9 @@ function searchEvents( req, res, next ) {
 
   }
 
-  req.log( 'info', 'request received for searchEvents with query: %s', JSON.stringify( req.query.oaq ) );
+  req.log( 'info', 'request received for searchEvents with query: %s', JSON.stringify( req.cleanSearch ) );
   
-  eventSvc.search( req.query.oaq, { page: req.query.page }, function( err, result ) {
+  eventSvc.search( req.cleanSearch, { page: req.query.page }, function( err, result ) {
 
     if ( err ) return next( err );
 
@@ -93,7 +95,7 @@ function searchEvents( req, res, next ) {
       req.templateData ? req.templateData : {}, { 
         events: _cleanEvents( result.events ),
         searchRes: 'searchEvents', 
-        search: req.query.oaq 
+        search: req.cleanSearch
       }, _pager( req, 'searchEvents', result.total )
     ));
 
@@ -251,7 +253,7 @@ function _pager( req, routeName, totalItems ) {
 
   return {
     pager: {
-      base: {},
+      base: { oaq: req.cleanSearch },
       routeName: routeName,
       current: req.query.page || 1,
       total: totalItems,
