@@ -92,7 +92,7 @@ describe( 'participative agenda', function() {
 
     } )
 
-    .then( null, _visit( browser, '/' + agenda.slug ) )
+    .then( _visit( browser, '/' + agenda.slug ) )
 
     .then( _clickLink( browser, '#add-event' ) )
 
