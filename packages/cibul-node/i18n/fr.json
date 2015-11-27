@@ -1,4 +1,16 @@
 {
+  "no dates available"
+  : "aucune date disponible",
+  "%firstDate% and until the %lastDate%"
+  : "le %firstDate% et jusqu'au %lastDate%",
+  "%firstDate% + 1 other date"
+  : "%firstDate% + 1 autre date",
+  "%firstDate% + %count% other dates"
+  : "%firstDate% + %count% autres dates",
+  "%date% at %times%"
+  : "%date% à %times%",
+  "%date% from %start% to %end%"
+  : "%date% de %start% à %end%",
   "campaign updated"
   : "campagne mise à jour",
   "The contact was removed"

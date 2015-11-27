@@ -2,11 +2,13 @@
 
 var i18n = require( '../../../i18n/i18n' ),
 
-moment = require( 'moment' );
+moment = require( 'moment' ),
+
+utils = require( 'utils' );
 
 module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
 
-  var dates;
+  var dates, lang;
 
   return {
     getRange: getRange
@@ -14,50 +16,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
   function getRange() {
 
-    let dates = _getDates(),
-
-    first = dates[ 0 ].date,
-
-    last = dates[ dates.length - 1 ].date,
-
-    lang = instance.getCurrentLanguage();
-
-    moment.locale( lang );
-
-    if ( dates.length == 1 ) {
-
-      return moment( dates[ 0 ].date ).format( 'dddd LL' );
-
-    } else if ( dates.length <= 4 ) {
-
-      return _reduceDates( dates.map( d => d.date ), moment );
-
-    }
-
-    if ( moment( first ).format( 'YYYY' ) !== moment( last ).format( 'YYYY' ) ) {
-
-      first = moment( first ).format( 'D MMMM YYYY' );
-
-      last = moment( last ).format( 'D MMMM YYYY' );  
-
-    } else if ( moment( first ).format( 'MM' ) !== moment( last ).format( 'MM' ) ) {
-
-      first = moment( first ).format( 'D MMMM' );
-
-      last = moment( last ).format( 'D MMMM YYYY' );
-
-    } else {
-
-      first = moment( first ).format( 'D' );
-
-      last = moment( last ).format( 'D MMMM YYYY' );
-
-    }
-
-    return i18n( 'from the %firstDate% to the %lastDate%', {
-      '%firstDate%' : first,
-      '%lastDate%' : last
-    }, lang );
+    return _getRange( _getDates(), _getLang() );
 
   }
 
@@ -67,51 +26,171 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
   }
 
+  function _getLang() {
+
+    return lang ? lang : lang = instance.getCurrentLanguage();
+
+  }
+
 } );
 
 module.exports.test = {
-  _reduceDates: _reduceDates
+  _getRange: _getRange
 }
 
 
-function _reduceDates( dates, moment ) {
+function _getRange( dates, lang ) {
 
-  // is it the same month as the next guy / last date ? > display month
-  // is it the same year as the next guy / last date ? > display year
-  
-  return dates.reduce( ( compiled, date, i ) => {
+  moment.locale( lang );
 
-    let displayYear = ( i == dates.length - 1 || date.getFullYear() !== dates[ i + 1 ].getFullYear() );
+  var upcomingDates = dates.filter( _isTodayOrLater );
 
-    let displayMonth = ( i == dates.length - 1 || date.getMonth() !== dates[ i +1 ].getMonth() );
+  if ( dates.length == 1 && dates[ 0 ].timings.length == 1 ) {
 
-    if ( displayYear ) {
+    return _displaySingleTiming( dates[ 0 ].timings[ 0 ], lang );
 
-      compiled += _separator( dates, i ) + moment( date ).format( 'D MMMM YYYY' );
+  } else if ( dates.length == 1 ) {
 
-    } else if ( displayMonth ) {
+    return _displaySingleDate( dates[ 0 ], lang );
 
-      compiled += _separator( dates, i ) + moment( date ).format( 'D MMMM' );
+  } else if ( upcomingDates.length == 1 && upcomingDates[ 0 ].timings.length == 1 ) {
+
+    return _displaySingleTiming( upcomingDates[ 0 ].timings[ 0 ], lang );
+
+  } else if ( upcomingDates.length == 1 ) {
+
+    return _displaySingleDate( upcomingDates[ 0 ], lang );
+
+  } else if ( upcomingDates.length == 2 ) {
+
+    return i18n( '%firstDate% + 1 autre date', {
+      '%firstDate%' : _getRange( [ upcomingDates[ 0 ] ], lang )
+    }, lang );
+
+  } else if ( upcomingDates.length > 2 && upcomingDates.length <= 4 ) {
+
+    return i18n( '%firstDate% + %count% other dates', {
+      '%firstDate%' : _getRange( [ upcomingDates[ 0 ] ], lang ),
+      '%count%' : upcomingDates.length - 1
+    }, lang );
+
+  } else if ( upcomingDates.length > 4 ) {
+
+    return i18n( '%firstDate% and until the %lastDate%', {
+      '%firstDate%' : _getRange( [ upcomingDates[ 0 ] ], lang ),
+      '%lastDate%' : _renderDate( upcomingDates[ upcomingDates.length - 1 ].date, lang, 'Do MMMM' )
+    }, lang );
+
+  } else if ( dates.length ) { // no upcoming dates
+
+    return i18n( '%firstDate% and until the %lastDate%', {
+      '%firstDate%' : _getRange( [ dates[ 0 ] ], lang ),
+      '%lastDate%' : _renderDate( dates[ dates.length - 1 ].date, lang, 'Do MMMM' )
+    }, lang )
+
+  } else {
+
+    return i18n( 'no dates available', lang );
+
+  }
+
+}
+
+
+function _displaySingleDate( date, lang ) {
+
+  return i18n( '%date% at %times%', {
+    '%date%' : _renderDate( date.timings[ 0 ].start, lang ),
+    '%times%' : _renderTimes( date.timings )
+  }, lang );
+
+}
+
+
+function _displaySingleTiming( timing, lang ) {
+
+  return i18n( '%date% from %start% to %end%', {
+    '%date%' : _renderDate( timing.start, lang ),
+    '%start%' : _renderTime( timing.start, lang ),
+    '%end%' : _renderTime( timing.end, lang )
+  }, lang );
+
+}
+
+
+function _renderDate( dt, lang, format ) {
+
+  let displayYear = !_isCurrentYear( dt );
+
+  if ( !format ) format = 'dddd D MMMM';
+
+  return moment( dt ).format( format + ( displayYear ? ' YYYY' : '' ) );
+
+}
+
+
+function _renderTime( date, lang ) {
+
+  var sep = 'h',
+
+  dt = typeof date == 'string' ? new Date( date ) : date,
+
+  h = dt.getUTCHours() + sep,
+
+  m = dt.getUTCMinutes();
+
+  if ( m ) return [ h, utils.fZ( m ) ].join( '' );
+
+  return h;
+
+}
+
+
+function _renderTimes( timings, lang ) {
+
+  var str = '';
+
+  timings.forEach( ( t, i ) => {
+
+    let rt = _renderTime( t.start, lang );
+
+    if ( !str.length ) {
+
+      str = rt;
 
     } else {
 
-      compiled += _separator( dates, i ) + date.getDate();
+      str += ( i == timings.length - 1 ? ' & ' : ', ' ) + rt;
 
     }
 
-    return compiled;
+  } );
 
-  }, '' );
-
+  return str;
 
 }
 
-function _separator( dates, i ) {
 
-  if ( i == 0 ) return '';
+function _isCurrentYear( date ) {
 
-  if ( i == dates.length -1 ) return ' & ';
+  var dt = typeof date == 'string' ? new Date( date ) : date,
 
-  return ', '
+  d = new Date();
+
+  return d.getFullYear() == dt.getFullYear();
+
+}
+
+function _isTodayOrLater( d ) {
+
+  var now = new Date(), date = d.date;
+
+  return ( date > now )
+
+  || ( date.getFullYear() == now.getFullYear()
+
+  && date.getMonth() == now.getMonth()
+
+  && date.getDate() == now.getDate() );
 
 }
