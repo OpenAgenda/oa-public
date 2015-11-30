@@ -1,0 +1,27 @@
+{
+  "base" : {
+    "type" : "html",
+    "fullViewLink" : "http://somelink",
+    "title" : {
+      "text" : "The agenda %title% published your event %event%",
+      "values" : {
+        "%title%" : "La Gargouille",
+        "%event%" : "La foire au vin"
+      },
+      "link" : "https://openagenda.com"
+    },
+    "actions" : [ {
+      "label" : "If you want to this, follow this link",
+      "link" : "http://bisounours.com/rose/aubideblanc"
+    }, {
+      "label" : "If you want to do that, follow that link",
+      "link" : "https://petitponey.com/arc/en/ciel"
+    } ]
+  },
+  "standard" : {
+    "description" : "Your event is now displayed in the agenda. You can see it in the links in the bottom of this mail."
+  },
+  "nodescription" : {
+    "description" : false
+  }
+}

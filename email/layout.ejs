@@ -6,7 +6,7 @@
 <% if ( mobileMeta ) { %>
     <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
 <% } %>
-    <title><%= layout.title %></title>
+    <title><%= __( title.text, title.values ) %></title>
     <style type="text/css">
       
       /* /\/\/\/\/\/\/\/\/ CLIENT-SPECIFIC STYLES /\/\/\/\/\/\/\/\/ */
@@ -431,10 +431,10 @@
                   <!-- BEGIN PREHEADER // -->
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader" style="<%= css.templatePreheader %>">
                     <tr>
-                      <td valign="top" class="preheaderContent" style="<% css.preheaderContent %> padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:20px;"><%= layout.preheaderContent %></td>
-<% if ( previewLink ) { %>
+<% if ( fullViewLink ) { %>
+                      <td valign="top" class="preheaderContent" style="<% css.preheaderContent %> padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:20px;"><%= __( title.text, title.values ) %></td>
                       <td valign="top" width="180" class="preheaderContent" style="<% css.preheaderContent %> padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:0;">
-                        <%= __('Email not displaying correctly?') %><br /><a href="<%= genUrl('newsletterShow', { uid: campaignUid }, { abs: true }) %>" target="_blank"><%= __('View this in your browser') %></a>.
+                        <%= __('Email not displaying correctly?') %><br /><a href="<%= fullViewLink %>" target="_blank"><%= __('View this in your browser') %></a>.
                       </td>
 <% } %>
                     </tr>

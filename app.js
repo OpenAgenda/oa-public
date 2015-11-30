@@ -377,6 +377,8 @@ function _compileSass( v ) {
 
       if ( err ) return rj( err );
 
+      if ( !aggregated.length ) return rs( v );
+
       sass.render( { data: aggregated }, function( err, result ) {
 
         if ( err ) {

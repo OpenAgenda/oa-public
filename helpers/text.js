@@ -3,10 +3,33 @@ module.exports = function() {
   return {
     nl2br: nl2br,
     escape: escape,
-    setLinks: setLinks
+    setLinks: setLinks,
+    linkedText: linkedText
   };
 
 };
+
+function linkedText( __, data, useLinks ) {
+
+  var mappedLabels = {}, k;
+
+  for( k in data.values ) {
+
+    if ( useLinks ) {
+
+      mappedLabels[ k ] = `<a href="${data.values[k].link}">${data.values[k].label}</a>`;
+
+    } else {
+
+      mappedLabels[ k ] = data.values[ k ].label;
+
+    }
+
+  }
+
+  return __( escape( data.text ), mappedLabels );
+
+}
 
 
 /**
