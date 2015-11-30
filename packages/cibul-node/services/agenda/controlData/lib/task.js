@@ -40,7 +40,7 @@ function launch() {
 
   filteredQueue.launch();
 
-  log( 'setting flush interval at %s', flushInterval );
+  log( 'info', 'setting flush interval at %s', flushInterval );
 
   _flushLoop();
 
@@ -134,7 +134,7 @@ function _flushLoop() {
 
       async.eachSeries( ids, function( id, ecb ) {
 
-        log( 'queuing %s in filtered queue', id );
+        log( 'info', 'queuing %s in filtered queue', id );
 
         filteredQueue( { id: id }, ecb );
 
@@ -146,7 +146,7 @@ function _flushLoop() {
 
         } else {
 
-          if ( ids.length ) log( 'flushed %s', JSON.stringify( ids ) );
+          if ( ids.length ) log( 'info', 'flushed %s', JSON.stringify( ids ) );
 
         }
 

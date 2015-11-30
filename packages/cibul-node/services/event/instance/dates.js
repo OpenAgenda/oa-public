@@ -39,7 +39,7 @@ module.exports.test = {
 }
 
 
-function _getRange( dates, lang ) {
+function _getRange( dates, lang, format ) {
 
   moment.locale( lang );
 
@@ -47,24 +47,27 @@ function _getRange( dates, lang ) {
 
   if ( dates.length == 1 && dates[ 0 ].timings.length == 1 ) {
 
-    return _displaySingleTiming( dates[ 0 ].timings[ 0 ], lang );
+    return _displaySingleTiming( dates[ 0 ].timings[ 0 ], lang, format );
 
   } else if ( dates.length == 1 ) {
 
-    return _displaySingleDate( dates[ 0 ], lang );
+    return _displaySingleDate( dates[ 0 ], lang, format );
 
   } else if ( upcomingDates.length == 1 && upcomingDates[ 0 ].timings.length == 1 ) {
 
-    return _displaySingleTiming( upcomingDates[ 0 ].timings[ 0 ], lang );
+    return _displaySingleTiming( upcomingDates[ 0 ].timings[ 0 ], lang, format );
 
   } else if ( upcomingDates.length == 1 ) {
 
-    return _displaySingleDate( upcomingDates[ 0 ], lang );
+    return _displaySingleDate( upcomingDates[ 0 ], lang, format );
 
-  } else if ( upcomingDates.length == 2 ) {
+  } else if ( upcomingDates.length == 2 || dates.length == 2 ) {
 
-    return i18n( '%firstDate% + 1 autre date', {
-      '%firstDate%' : _getRange( [ upcomingDates[ 0 ] ], lang )
+    let d = dates.length == 2 ? dates : upcomingDates;
+
+    return i18n( '%firstDate% and the %secondDate%', {
+      '%firstDate%' : _getRange( [ d[ 0 ] ], lang ),
+      '%secondDate%' : _getRange( [ d[ 1 ] ], lang, 'Do MMMM' )
     }, lang );
 
   } else if ( upcomingDates.length > 2 && upcomingDates.length <= 4 ) {
@@ -97,20 +100,20 @@ function _getRange( dates, lang ) {
 }
 
 
-function _displaySingleDate( date, lang ) {
+function _displaySingleDate( date, lang, format ) {
 
   return i18n( '%date% at %times%', {
-    '%date%' : _renderDate( date.timings[ 0 ].start, lang ),
+    '%date%' : _renderDate( date.timings[ 0 ].start, lang, format ),
     '%times%' : _renderTimes( date.timings )
   }, lang );
 
 }
 
 
-function _displaySingleTiming( timing, lang ) {
+function _displaySingleTiming( timing, lang, format ) {
 
   return i18n( '%date% from %start% to %end%', {
-    '%date%' : _renderDate( timing.start, lang ),
+    '%date%' : _renderDate( timing.start, lang, format ),
     '%start%' : _renderTime( timing.start, lang ),
     '%end%' : _renderTime( timing.end, lang )
   }, lang );

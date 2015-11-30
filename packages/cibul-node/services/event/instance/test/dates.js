@@ -93,7 +93,32 @@ describe( 'services/event/instance/dates', function() {
   } );
 
 
-  it( 'if has between 2 and 4 upcoming dates, display should be like "mardi 10 novembre 2014 à 15h + x autres dates"', () => {
+  it( 'if has 2 dates, display should be like "le mardi 10 novembre à', () => {
+
+    let dates = [{
+      date: new Date( '2014-11-10T15:00:00Z' ),
+      timings: [ {
+        start: new Date( '2014-11-10T15:00:00Z' ),
+        end: new Date( '2014-11-10T16:00:00Z' )
+      } ]
+    }, {
+      date: new Date( '2014-11-12T14:00:00Z' ),
+      timings: [ {
+        start: new Date( '2014-11-12T17:00:00Z' ),
+        end: new Date( '2014-11-12T18:00:00Z' )
+      }, {
+        start: new Date( '2014-11-12T19:00:00Z' ),
+        end: new Date( '2014-11-12T21:00:00Z' )
+      } ]
+    }];
+
+    d._getRange( dates, 'fr' ).should.equal( 'le lundi 10 novembre 2014 de 15h à 16h et le 12 novembre 2014 à 17h & 19h' );
+    d._getRange( dates, 'en' ).should.equal( 'Monday 10 November 2014 from 15h to 16h and the 12th November 2014 at 17h & 19h' );
+
+  });
+
+
+  it( 'if has between 3 and 4 upcoming dates, display should be like "mardi 10 novembre 2014 à 15h + x autres dates"', () => {
 
     var now = new Date(),
 

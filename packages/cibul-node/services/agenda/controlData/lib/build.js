@@ -18,7 +18,7 @@ module.exports = function( data, cb ) {
 
   loadServices();
 
-  log( 'processing for %s', data.id );
+  log( 'info', 'processing for %s', data.id );
 
   w( {
     agendaId: data.id,
@@ -37,13 +37,13 @@ module.exports = function( data, cb ) {
 
   .done( function( v ) {
 
-    log( 'control data loaded' );
+    log( 'info', 'control data loaded for %s', data.id );
 
     cb( null, v.ctlData );
 
   }, function( err ) {
 
-    log( err );
+    log( 'error', err );
 
     cb( err ); // queue lib does not handle errors
 
@@ -55,7 +55,7 @@ function _store( v ) {
 
   return w.promise( function( rs, rj ) {
 
-    log( 'storing control data for agenda %s', v.agenda.id );
+    log( 'info', 'storing control data for agenda %s', v.agenda.id );
 
     store.set( v.agenda.uid, v.ctlData, function( err ) {
 

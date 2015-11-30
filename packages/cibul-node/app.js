@@ -244,7 +244,25 @@ module.exports = function( enabledTypes, cb ) {
 
       emailStrategie.task();
 
-      mailer.task();
+      mailer.task.setService( config.mailer.service, {
+        source: config.mailer.source,
+        replyTo: config.mailer.replyTo,
+        accessKeyId: config.aws.accessKeyId,
+        secretAccessKey: config.aws.secretAccessKey,
+        region: config.aws.region
+      }, ( err ) => {
+
+        if ( err ) {
+
+          return log( 'error', 'could not set mailer service: %s', err );
+
+        }
+
+        log( 'info', 'launching mailer service' );
+
+        mailer.task();
+
+      });
 
       require( './services/agenda/controlData' ).task();
 

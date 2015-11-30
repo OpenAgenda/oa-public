@@ -6,6 +6,8 @@ aggregator,
 
 controlData = require( '../../agenda/controlData' ),
 
+mailContributor = require( './mailContributor' ),
+
 logger = require( 'logger' ),
 
 config = require( '../../../config' ),
@@ -20,7 +22,9 @@ module.exports = function( loaded, instance ) {
 
   _requires();
 
-  var log = logger( 'service:event:instance:dispatcher:' + instance.id );
+  var log = logger( 'services/event/instance/dispatcher' );
+
+  log.load( 'eventId', instance.id );
 
   return {
     stateChange: stateChange,
@@ -47,6 +51,10 @@ module.exports = function( loaded, instance ) {
       aggregator.notifyPublish( instance.id, instance.agenda.id );
 
       controlData.queue( instance.agenda );
+
+      mailContributor( instance, instance.agenda );
+
+      // here do something dirty before mailer arrives. get template content, send mail.
 
     } else if ( oldState == 'published' ) {
 

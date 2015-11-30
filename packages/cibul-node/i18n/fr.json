@@ -3,8 +3,8 @@
   : "aucune date disponible",
   "%firstDate% and until the %lastDate%"
   : "le %firstDate% et jusqu'au %lastDate%",
-  "%firstDate% + 1 other date"
-  : "%firstDate% + 1 autre date",
+  "%firstDate% and the %secondDate%"
+  : "le %firstDate% et le %secondDate%",
   "%firstDate% + %count% other dates"
   : "%firstDate% + %count% autres dates",
   "%date% at %times%"
@@ -150,5 +150,7 @@
   "ownership is transfered"
   : "la propriété est transférée",
   "from the %firstDate% to the %lastDate%"
-  : "du %firstDate% au %lastDate%"
+  : "du %firstDate% au %lastDate%",
+  "The agenda %title% published your event %event%"
+  : "L'agenda %title% a publié votre événement %event%"
 }

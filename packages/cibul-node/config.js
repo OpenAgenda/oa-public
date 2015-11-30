@@ -78,9 +78,10 @@ config = {
       name: 'cibul'
     },
     mailer: {
+      service: 'ses',
       source: 'no-reply@openagenda.com',
       replyTo: 'admin@openagenda.com',
-      simulated: false
+      simulated: false // legacy ./mailer
     },
     api: {
       redis: {
@@ -313,7 +314,7 @@ config = {
     env: 'dev',
     multiCore: false,
     mainChannel: 'maindev',
-    logNameSpaces: 'oa:*',
+    logNameSpaces: 'oa:services/event/mailContributor',
     logEntriesToken: 'a2923436-55dc-4eba-8668-44824d11c089',
     //useCache: false,
     db: {
@@ -353,7 +354,8 @@ config = {
       port: 6379
     },
     mailer: {
-      simulated: true
+      service: 'dud',
+      simulated: true // legacy ./mailer
     },
     routes: {
       defaultGlobalsPrefix: '/frontend_dev.php'
@@ -442,7 +444,8 @@ config = {
       port: 6379
     },
     mailer: {
-      simulated: true
+      service: 'dud',
+      simulated: true // legacy ./mailer
     },
     aws: {
       accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
