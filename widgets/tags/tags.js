@@ -355,9 +355,11 @@ function _order( tags, orderedSlugs ) {
 
 }
 
-
-require( '../lib/controllerLoader' )( function( register ) {
-
-  wLib.forEachAnchor( '.cbpgtg', { register: register }, widget );
-
+require( '../lib/loader' )( {
+  selector: '.cbpgtg',
+  widget: widget,
+  backup: {
+    selector: '[data-oatg]',
+    classNames: 'cibulTags'
+  }
 } );

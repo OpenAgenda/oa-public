@@ -538,7 +538,7 @@ function _jsIncludePath( name ) {
 
     var paths = {
       src: {},
-      dest: { path: '/js/browserified' }
+      dest: { path: 'build/browserified' }
     },
 
     templatePath = name.split('/'),

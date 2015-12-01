@@ -220,8 +220,11 @@ function setOnReady( cb ) {
 }
 
 
-require( '../lib/controllerLoader' )( function( register ) {
-
-  wLib.forEachAnchor( '.cbpgsc', { register: register }, widget );
-
+require( '../lib/loader' )( {
+  selector: '.cbpgsc',
+  widget: widget,
+  backup: {
+    selector: '[data-oasc]',
+    classNames: 'cibulSearch'
+  }
 } );

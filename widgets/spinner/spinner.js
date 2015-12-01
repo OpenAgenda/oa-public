@@ -96,8 +96,7 @@ function widget( elem, options ) {
 
 }
 
-require( '../lib/controllerLoader' )( function( register ) {
-
-  wLib.forEachAnchor( '.cbpgsp', { register: register }, widget );
-
+require( '../lib/loader' )( {
+  selector: '.cbpgsp',
+  widget: widget
 } );

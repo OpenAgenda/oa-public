@@ -59,11 +59,14 @@ config = {
  * register the widget
  */
 
-require( '../lib/controllerLoader' )( function( register ) {
-
-  wLib.forEachAnchor( '.cbpgbdy', { register: register }, widget );
-
-});
+require( '../lib/loader' )( {
+  selector: '.cbpgbdy', 
+  backup: { // drupal removes classes
+    selector: '[data-oabdy]',
+    classNames: 'cibulFrame'
+  },
+  widget: widget
+} );
 
 
 /**

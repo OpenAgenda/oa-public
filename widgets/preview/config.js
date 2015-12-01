@@ -5,6 +5,8 @@ module.exports = {
     count: 'data-count'
   },
   selector: '.cbpgpr',
+  backupSelector: '[data-oapr]',
+  backupClasses: 'oa-preview',
   timeout: 5000,
   defaultLang: 'fr',
   count: 3,

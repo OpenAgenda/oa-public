@@ -386,9 +386,11 @@ function setOnReady( cb ) {
 
 }
 
-
-require( '../lib/controllerLoader' )( function( register ) {
-
-  wLib.forEachAnchor( '.cbpgcl', { register: register }, widget );
-
+require( '../lib/loader' )( {
+  selector: '.cbpgcl',
+  widget: widget,
+  backup: {
+    selector: '[data-oacl]',
+    classNames: 'cibulCalendar'
+  }
 } );

@@ -235,8 +235,11 @@ function setOnReady( cb ) {
 }
 
 
-require( '../lib/controllerLoader' )( function( register ) {
-
-  wLib.forEachAnchor( '.cbpgct', { register: register }, widget );
-
+require( '../lib/loader' )( {
+  selector: '.cbpgct',
+  widget: widget,
+  backup: {
+    selector: '[data-oact]',
+    classNames: 'cibulCategories'
+  }
 } );

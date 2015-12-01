@@ -187,9 +187,13 @@ function _filterByAttr( obj, arr ) {
 
 function _init() {
 
-  var res = config.res[ env ] ? config.res[ env ] : config.res.all;
+  var res = config.res[ env ] ? config.res[ env ] : config.res.all,
 
-  cn.forEach( cn.els( config.selector ), function( elem ) {
+  found = false, 
+
+  _process = function( elem ) {
+
+    found = true;
 
     var arr = elem.getAttribute( config.attributes.config ).split( '|' ),
 
@@ -206,6 +210,18 @@ function _init() {
       useStyle: !elem.hasAttribute( config.attributes.noDefaultStyle ),
       count: count
     } );
+
+  }
+
+  cn.forEach( cn.els( config.selector ), _process );
+
+  if ( found ) return;
+
+  cn.forEach( document.querySelectorAll( config.backupSelector ), function( elem ) {
+
+    cn.addClass( elem, config.backupClasses );
+
+    _process( elem );
 
   } );
 

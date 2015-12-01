@@ -67,7 +67,7 @@
     </style>
 
     <p>preview widget with custom template:</p>
-    <div class="gni cbpgpr" data-cbctl="<%= uid %>">
+    <div <%- backup ? 'class="gni cbpgpr"' : 'data-oapr' %> data-cbctl="<%= uid %>">
       <a href="#here">Voir l'agenda</a>
       <!-- 
         <ul>
@@ -91,14 +91,14 @@
     <div class="separator"></div>
 
     <p>preview widget with default style, linking to oa.com:</p>
-    <div class="cbpgpr oa-preview" data-cbctl="<%= uid %>">
+    <div <%- backup ? 'class="gni cbpgpr"' : 'data-oapr' %> data-cbctl="<%= uid %>">
       <a href="//d.openagenda.com/agendas/<%= uid %>">Voir l'agenda</a>
     </div>
 
     <div class="separator"></div>
 
     <p>preview widget without default style, with more items:</p>
-    <div class="cbpgpr" data-cbctl="<%= uid %>" data-count="10">
+    <div <%- backup ? 'class="gni cbpgpr"' : 'data-oapr' %> data-cbctl="<%= uid %>" data-count="10">
       <a href="#here">Voir l'agenda</a>
     </div>
 

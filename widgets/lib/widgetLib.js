@@ -1,4 +1,6 @@
-var cn = require( '../../js/lib/common/common.mod.js' ),
+var du = require( '../../js/lib/domUtils' ),
+
+utils = require( 'utils' ),
 
 log = require( 'debug' )( 'widgetLib' );
 
@@ -23,17 +25,41 @@ function _load( selector, options, cb ) {
 
   return function() {
 
-    cn.forEach( cn.els( selector ), function( elem ) {
-      
+    var found = false,
+
+    _process = function( elem ) {
+
+      found = true;
+
       if ( !_flagged( elem ) ) {
 
-        cb( elem, cn.extend( {
+        cb( elem, utils.extend( {
           anchorConfig: readAnchorConfig( elem )
         }, options ) );
 
       }
 
-    } );
+    };
+
+    du.forEach( du.els( selector ), _process );
+
+    // if class has not been found, attempt to find through backup data attribute selector
+
+    if ( !found && options.backup ) {
+
+      du.forEach( document.querySelectorAll( options.backup.selector ), function( elem ) {
+
+        if ( options.backup && options.backup.classNames ) {
+
+          du.addClass( elem, options.backup.classNames );
+
+        }
+
+        _process( elem );
+
+      } );
+
+    }
 
   }
 
@@ -46,7 +72,7 @@ function _load( selector, options, cb ) {
 
 exports.interface = function( name, uid, cbs ) {
 
-  return cn.extend({
+  return utils.extend({
     name: name,
     uid: uid,
     clear: isNotDefined( 'clear', name ),
@@ -100,7 +126,7 @@ function _domReady( cb ) {
 
   } else {
 
-    cn.addEvent( window, 'load', cb );
+    du.addEvent( window, 'load', cb );
 
   }
 
@@ -116,7 +142,7 @@ function _onAsapReady( timeout, cb ) {
 
   }
 
-  if ( cn.el( 'body' ) ) return cb();
+  if ( du.el( 'body' ) ) return cb();
 
   setTimeout( function() {
 

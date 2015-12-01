@@ -236,8 +236,11 @@ function setOnReady( cb ) {
 
 }
 
-require( '../lib/controllerLoader' )( function( register ) {
-
-  wLib.forEachAnchor( '.cbpgcstm', { register: register }, widget );
-
+require( '../lib/loader' )( {
+  selector: '.cbpgcstm',
+  widget: widget,
+  backup: {
+    selector: '[data-oacstm]',
+    classNames: 'cibul-custom'
+  }
 } );

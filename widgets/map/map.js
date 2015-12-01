@@ -1366,8 +1366,11 @@ function setOnReady( cb ) {
 }
 
 
-require( '../lib/controllerLoader' )( function( register ) {
-
-  wLib.forEachAnchor( '.cbpgmp', { register: register }, widget );
-
+require( '../lib/loader' )( {
+  selector: '.cbpgmp',
+  widget: widget,
+  backup: {
+    selector: '[data-oamp]',
+    classNames: 'cibulMap'
+  }
 } );

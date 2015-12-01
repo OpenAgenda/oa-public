@@ -305,8 +305,11 @@ function _fZ( n ) {
 }
 
 
-require( '../lib/controllerLoader' )( function( register ) {
-
-  wLib.forEachAnchor( '.cbpgor', { register: register }, widget );
-
+require( '../lib/loader' )( {
+  selector: '.cbpgor',
+  widget: widget,
+  backup: {
+    selector: '[data-oaor]',
+    classNames: 'cibulOrganizations'
+  }
 } );
