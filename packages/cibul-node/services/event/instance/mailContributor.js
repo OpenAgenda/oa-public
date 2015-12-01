@@ -68,12 +68,12 @@ function _sendPublicationMail( v ) {
         '%title%' : v.agenda.title,
         '%event%' : v.instance.getTitle()
       },
-      message: v.message,
       link: genUrl( 'agendaEventShow', {
         slug: v.agenda.slug,
         eventSlug: v.instance.slug
       }, { abs: true } )
-    }
+    },
+    message: v.message
   },
 
   renders = {};
