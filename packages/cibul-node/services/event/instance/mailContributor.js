@@ -73,7 +73,7 @@ function _sendPublicationMail( v ) {
         eventSlug: v.instance.slug
       }, { abs: true } )
     },
-    message: v.message
+    description: v.message
   },
 
   renders = {};
@@ -180,7 +180,7 @@ function _retrieveContributor( v ) {
 function _retrieveAgendaCustomMessage( v ) {
 
   v.message = v.agenda.getStore( 'publicationMessage' );
-
+  
   return v;
 
 }

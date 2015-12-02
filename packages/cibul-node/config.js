@@ -314,7 +314,7 @@ config = {
     env: 'dev',
     multiCore: false,
     mainChannel: 'maindev',
-    logNameSpaces: 'oa:services/event/mailContributor',
+    logNameSpaces: 'oa:*',
     logEntriesToken: 'a2923436-55dc-4eba-8668-44824d11c089',
     //useCache: false,
     db: {
