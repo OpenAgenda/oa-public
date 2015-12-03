@@ -64,7 +64,7 @@ function widget( elem, options ) {
 
     elem.innerHTML = '';
 
-    elem.insertAdjacentElement( 'afterbegin', _render( wTpl, { events: events } ) );
+    elem.insertAdjacentElement( 'afterbegin', _render( wTpl, { events: events, total: data.total } ) );
 
   } );
 

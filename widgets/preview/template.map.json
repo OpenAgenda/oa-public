@@ -1,4 +1,8 @@
 {
+  "attributes" : [ {
+    "name" : "TotalEvents",
+    "mapTo" : "total"
+  } ],
   "children" : [ {
     "name" : "Events",
     "mapTo" : "events",
