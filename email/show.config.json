@@ -2,7 +2,7 @@
   "layout" : "email/layout",
   "css" : {},
   "helpers" : {
-    "_t" : "text"
+    "_txt" : "text"
   },
   "base" : {
     "fullViewLink" : false,
