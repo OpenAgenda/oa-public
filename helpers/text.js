@@ -1,15 +1,19 @@
 "use strict";
 
+var marked = require( 'marked' );
+
 module.exports = function() {
 
   return {
     nl2br: nl2br,
     escape: escape,
     setLinks: setLinks,
-    linkedText: linkedText
+    linkedText: linkedText,
+    marked: marked
   };
 
 };
+
 
 function linkedText( __, data, useLinks ) {
 

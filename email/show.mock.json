@@ -12,7 +12,7 @@
     }
   },
   "standard" : {
-    "description" : "Your event is now displayed in the agenda. You can see it in the links in the bottom of this mail."
+    "description" : "Bonjour,\n\nNous avons bien reçu votre proposition d’événement et nous vous en remercions.\n\nVotre événement est labellisé et publié sur le site internet de la Semaine de l’industrie.\n\nVeuillez trouver ci-joint le lien pour télécharger le kit de communication : http://www.entreprises.gouv.fr/files/files/directions_services/semaine-industrie/kit-com/kit-de-comm-2016.zip\n\nVous pouvez nous transmettre tout support de communication (vidéos, articles, photos…) que nous pourrions relayer sur la Page Facebook de la Semaine de l’industrie et sur le site internet.\ncontact-semaine-industrie.dge@finances.gouv.fr\n\nPour toute information complémentaire, n’hésitez pas à nous contacter !!!\n\nBien cordialement,\n\nLe Comité de validation des labellisations"
   },
   "multiline" : {
     "description" : "Merci de votre contribution.\n\n - Kaoré -"
