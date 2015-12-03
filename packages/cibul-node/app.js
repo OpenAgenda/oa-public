@@ -77,7 +77,8 @@ module.exports = function( enabledTypes, cb ) {
     mailer.init( {
       queueName: 'newmailer',
       host: config.redis.host,
-      port: config.redis.port
+      port: config.redis.port,
+      log: logger( 'newmailer' )
     } );
 
     emailStrategie.init( {
