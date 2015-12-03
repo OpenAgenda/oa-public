@@ -284,11 +284,11 @@ function _loadHelpers( data, cb ) {
 
     if ( !helpers[ name ] ) {
 
-      helpers[name] = require( __dirname + '/../helpers/' + data.config.helpers[name] );
+      helpers[ name ] = require( __dirname + '/../helpers/' + data.config.helpers[ name ] );
 
     }
 
-    data.helpers[name] = helpers[name]( helpersConfig );
+    data.helpers[ name ] = helpers[ name ]( helpersConfig );
 
   }
 
