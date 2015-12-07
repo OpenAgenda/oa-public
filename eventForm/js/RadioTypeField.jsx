@@ -32,7 +32,7 @@ module.exports = function( funcs ) {
 
     onChange: function( value ) {
 
-      var i;
+      var i, newValue;
 
       this.setState( { userHasTyped: true } );
 
@@ -42,7 +42,7 @@ module.exports = function( funcs ) {
 
       } else {
 
-        i = this.props.value.indexOf( value ),
+        i = this.props.value.indexOf( value );
 
         newValue = ( this.props.value || [] ).concat();
 
