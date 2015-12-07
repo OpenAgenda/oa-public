@@ -34,7 +34,29 @@ module.exports = function( funcs ) {
 
       this.setState( { userHasTyped: true } );
 
-      this.update( value );
+      if ( this.props.type == 'radio' ) {
+
+        this.update( value );
+
+      } else {
+
+        let i = this.props.value.indexOf( value ),
+
+        newValue = ( this.props.value || [] ).concat();
+
+        if ( i == -1 ) {
+
+          newValue.push( value );
+
+        } else {
+
+          newValue.splice( i, 1 );
+
+        }
+
+        this.update( newValue );
+
+      }
 
     },
 
@@ -63,11 +85,19 @@ module.exports = function( funcs ) {
 
     validate: function( value ) {
 
-      if ( value === undefined ) value = '';
+      if ( this.props.type == 'radio' ) {
 
-      if ( !this.props.optional && !( value + '').length ) {
+        if ( value === undefined ) value = '';
 
-        return this.message( ERR.NOTEMPTY );
+        if ( !this.props.optional && !( value + '').length ) {
+
+          return this.message( ERR.NOTEMPTY );
+
+        }
+
+      } else {
+
+        if ( value === undefined ) value = [];
 
       }
 

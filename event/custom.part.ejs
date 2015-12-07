@@ -17,10 +17,10 @@
   <dd>
     <a href="mailto:<%= custom[ i ].value %>"><%= custom[ i ].value %></a>
   </dd>
-<% } else if ( [ 'radio', 'checkbox', 'select' ].indexOf( custom[ i ].fieldType ) !== -1 ) { %>
+<% } else if ( custom[ i ].label && [ 'radio', 'checkbox', 'select', 'multichoice' ].indexOf( custom[ i ].fieldType ) !== -1 ) { %>
   <dt><%= labels[ custom[ i ].name ] %></dt>
   <dd>
-    <span><%= custom[ i ].label %></span>
+    <span><%= typeof custom[ i ].label == 'string' ? custom[ i ].label : custom[ i ].label.join( ', ' )  %></span>
   </dd>
 <% } else { %>
   <dt><%= labels[ custom[ i ].name ] %></dt>

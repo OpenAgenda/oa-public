@@ -101,6 +101,7 @@ module.exports = React.createClass({
 
         return <RadioFields
           name= { field.name }
+          type= "radio"
           field= { field }
           lang= { self.props.lang }
           info= { field.info } 
@@ -113,6 +114,19 @@ module.exports = React.createClass({
 
         return <SelectField
           name= { field.name }
+          field= { field }
+          lang= { self.props.lang }
+          info= { field.info } 
+          value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
+          error= { self.props.errors[ field.name ] || false }
+          label= { field.label }
+          onChange= { self.onChange( field.name ) } />;
+
+      } else if ( field.fieldType == 'multichoice' ) {
+
+        return <RadioFields
+          name= { field.name }
+          type= "checkbox"
           field= { field }
           lang= { self.props.lang }
           info= { field.info } 

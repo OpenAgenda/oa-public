@@ -6,6 +6,20 @@ RadioTypeField = require( './RadioTypeField.jsx' );
 
 module.exports = RadioTypeField( {
 
+  isChecked: function( option ) {
+
+    if ( this.props.type == 'radio' ) {
+
+      return option.value == this.props.value
+
+    } else {
+
+      return this.props.value.indexOf( option.value ) !== -1;
+
+    }
+
+  },
+
   renderField: function() {
 
     var self = this,
@@ -13,7 +27,11 @@ module.exports = RadioTypeField( {
     renderOption = function( option ) {
 
       return <li>
-        <input type="radio" name={self.props.field.name} checked={option.value==self.props.value} onChange={self.onChange.bind( self, option.value )} />
+        <input 
+          type={self.props.type}
+          name={self.props.field.name}
+          checked={self.isChecked( option )}
+          onChange={self.onChange.bind( self, option.value )} />
         <label>{option.label[self.props.lang]}</label>
       </li>;
 
