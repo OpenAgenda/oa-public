@@ -82,7 +82,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
         toDecorate.customValues = {};
 
-        custom.forEach( function( v ) {
+        custom.forEach( ( v ) => {
 
           if ( v.fieldType == 'image' ) {
 
@@ -94,7 +94,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
           }
 
-        });
+        } );
 
         toDecorate.custom = custom;
 
