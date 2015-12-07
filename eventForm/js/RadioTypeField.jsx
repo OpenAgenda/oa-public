@@ -32,6 +32,8 @@ module.exports = function( funcs ) {
 
     onChange: function( value ) {
 
+      var i;
+
       this.setState( { userHasTyped: true } );
 
       if ( this.props.type == 'radio' ) {
@@ -40,7 +42,7 @@ module.exports = function( funcs ) {
 
       } else {
 
-        let i = this.props.value.indexOf( value ),
+        i = this.props.value.indexOf( value ),
 
         newValue = ( this.props.value || [] ).concat();
 

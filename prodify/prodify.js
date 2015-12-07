@@ -90,7 +90,7 @@ legacyProdify = function() {
 
     forEachInputFile(inputEntries, function( path, filename ) {
 
-      content += (labels?'/*' + filename + '*/':'') + (mangle?ugly.minify(path + filename, {mangle: true}).code:fs.readFileSync(path + filename)) + (changeLine?'\n':';');
+      content += (labels?'/*' + filename + '*/':'') + (mangle?ugly.minify(path + filename, { mangle: true }).code:fs.readFileSync(path + filename)) + (changeLine?'\n':';');
       
     });
 
