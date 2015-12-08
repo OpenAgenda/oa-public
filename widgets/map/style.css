@@ -11,10 +11,10 @@
 .cibulMap .leaflet-popup-content { padding: 2px 15px 2px 5px; }
 .cibulMap .leaflet-popup-tip-container { visibility: hidden; }
 
-.cibulMap .postalcode { display: none; }
-.cibulMap .city { display: none; }
-.cibulMap .department { display: none; }
-.cibulMap .region { display: none; }
+.cibulMap .map-postalcode { display: none; }
+.cibulMap .map-city { display: none; }
+.cibulMap .map-department { display: none; }
+.cibulMap .map-region { display: none; }
 
 
 .leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {

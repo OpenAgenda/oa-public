@@ -1,4 +1,9 @@
 /**
+ * deprecate this
+ */
+
+
+/**
  * need a class to hide stuff
  */
 .display-none {
@@ -31,10 +36,10 @@
   font-weight: bold;
 }
 
-.map-location .postalcode { display: none; }
-.map-location .city { display: none; }
-.map-location .department { display: none; }
-.map-location .region { display: none; }
+.map-location .map-postalcode { display: none; }
+.map-location .map-city { display: none; }
+.map-location .map-department { display: none; }
+.map-location .map-region { display: none; }
 
 
 
