@@ -310,13 +310,13 @@ module.exports = React.createClass( {
         onChange={this.onTagsCategoryChange( 'category' )}
         labels={this.props.labels} /> : '' }
 
-      <TagSelector
+      { this.props.tags.length || ( this.props.tagSet && this.props.tagSet.groups.length ) ? <TagSelector
         lang={this.props.lang}
         set={this.props.tagSet}
         tags={this.props.tags}
         selection={this.getSelectedTags()}
         onChange={this.onTagsCategoryChange( 'tags' )}
-        labels={this.props.labels} />
+        labels={this.props.labels} /> : '' }
 
       <div className="js_event_image_canvas"></div>
 
