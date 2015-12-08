@@ -18,59 +18,46 @@ describe( 'contributive agenda', function() {
 
   user = {};
 
-  before( function( done ) {
-
-    t.boot( true, done );
-
-  });
+  before( done => t.boot( true, done ) )
 
   beforeEach( t.fixtures.clearAll );
 
-  beforeEach( function( done ) {
+  beforeEach( done => t.coms.clearQueue( 'jobs', done ) );
 
-    t.coms.clearQueue( 'jobs', done ); 
+  beforeEach( done => t.coms.clearQueue( 'mailer', done ) );
 
-  } );
+  beforeEach( ( done ) => {
 
-  beforeEach( function( done ) {
-
-    t.loadBrowser( function( err, b ) {
+    t.loadBrowser( ( err, b ) => {
 
       browser = b;
 
       done();
 
-    });
+    } );
 
   });
 
   beforeEach( t.sets.prepareOneAgendaInstance( agenda, 'contributive' ) );
 
-  beforeEach( function( done ) {
+  beforeEach( done => agenda.setCredential( 'editors', done ) );
 
-    agenda.setCredential( 'editors', done );
+  beforeEach( ( done ) => {
 
-  });
-
-  beforeEach( function( done ) {
-
-    t.fixtures.load( 'users', 'jenny', function( err, u ) {
+    t.fixtures.load( 'users', 'jenny', ( err, u ) => {
 
       user = u
 
       done();
 
-    });
+    } );
 
-  });
+  } );
 
-  beforeEach( function( done ) {
+  beforeEach( done => t.model.lib.query( 'delete from conversation', done ) );
 
-    t.model.lib.query( 'delete from conversation', done );
 
-  });
-
-  it( 'add button is visible on agenda', function( done ) {
+  it( 'add button is visible on agenda', ( done ) => {
 
     browser.visit( '/' + agenda.slug )
 
@@ -85,13 +72,13 @@ describe( 'contributive agenda', function() {
   });
 
 
-  it( 'invitation is created by admin', function( done ) {
+  it( 'invitation is created by admin', ( done ) => {
 
     this.timeout( 10000 );
 
     _sendInvitation( browser, agenda, user, true )
 
-    .then(function( i ) {
+    .then( ( i ) => {
 
       i.email.should.equal( user.email );
       i.type.should.equal( 1 );
@@ -157,7 +144,7 @@ describe( 'contributive agenda', function() {
 
     .then( function() {
 
-      return w.promise( function( resolve, reject ) {
+      return w.promise( ( resolve, reject ) => {
 
         t.model.lib.query( 'select * from conversation limit 0, 1', function( err, rows ) {
 
@@ -250,11 +237,15 @@ describe( 'contributive agenda', function() {
 
     .then( function( token ) {
 
-      return browser.visit( '/activate/' + token.token + '?iToken=' + iToken)
+      return browser.visit( '/' + agenda.slug + '/activate/' + token.token + '?iToken=' + iToken)
 
     })
 
-    .then( null, function() {
+    .then( function() {
+
+      // user should arrive on event form page
+      browser.location.pathname.should.equal( '/frontend_test.php/a-contributive-agenda/addevent' );
+
 
       return w.promise( function( resolve ) {
 
@@ -365,7 +356,7 @@ describe( 'contributive agenda', function() {
 
     wn.call( agenda.setCredential, 'activatingInvitations' )
 
-    .then( function( ) {
+    .then( ( ) => {
 
       return _sendInvitation( browser, agenda, { email: 'newdude@cibul.net', password: 'wigglypoof' } );
 
@@ -375,7 +366,7 @@ describe( 'contributive agenda', function() {
 
     .then( _visit( browser, '/signup' ) )
 
-    .then( function() {
+    .then( () => {
 
       browser.fill( 'email', 'newdude@cibul.net' );
 
@@ -387,11 +378,40 @@ describe( 'contributive agenda', function() {
 
     })
 
-    .then( null, function() {
+    .then( null, () => {
 
       browser.location.pathname.should.equal( '/frontend_test.php/home' );
 
     })
+
+    .done( done, _err );
+
+  });
+
+
+  it( 'invitation mail displays link leading to agenda signup form', ( done ) => {
+
+    var iToken;
+
+    _sendInvitation( browser, agenda, { email: 'newguy@cibul.net' } )
+
+    .then( ( i ) => {
+
+      let d = w.defer();
+
+      t.coms.consume( 'mailer', ( err, values ) => {
+
+        values.text.indexOf( 'openagenda.com/a-contributive-agenda/signup?iToken=' + i.token ).should.not.equal( -1 );
+
+        d.resolve();
+
+      } );
+
+      userSvc.processInvitation( { invitationId: i.id } );
+
+      return d.promise;
+
+    } )
 
     .done( done, _err );
 
@@ -411,7 +431,7 @@ function _sendInvitation( browser, agenda, user, requireInfo ) {
 
   .then( _p( browser, 'pressButton', '#save-contribution-settings' ) )
 
-  .then( requireInfo ? function() {
+  .then( requireInfo ? () => {
 
     browser.check( 'fields[organization]' );
 
@@ -419,7 +439,7 @@ function _sendInvitation( browser, agenda, user, requireInfo ) {
 
   .then( _p( browser, 'pressButton', '#save-contributor-info' ) )
 
-  .then( function() {
+  .then( () => {
 
     browser.fill( 'editors', user.email );
 
@@ -427,7 +447,7 @@ function _sendInvitation( browser, agenda, user, requireInfo ) {
 
   })
 
-  .then( function() {
+  .then( () => {
 
     return wn.call( t.model.invitations().get, {} );
 

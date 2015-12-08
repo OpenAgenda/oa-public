@@ -95,7 +95,7 @@ function processInvitation( values, cb ) {
 
     log( 'successfully processed invitation with values %s', JSON.stringify( values ) );
 
-    cb( null, values );
+    if ( cb ) cb( null, values );
 
   }, cb );
 

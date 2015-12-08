@@ -181,39 +181,41 @@ function agendaInvitations( agenda ) {
   
   function _sendInvitation( type, values ) {
 
-    return w.promise( function( resolve, reject ) {
+    let d = w.defer();
 
-      agenda.getLanguage( function( err, lang ) {
+    agenda.getLanguage( ( err, lang ) => {
 
-        if ( values.lang ) lang = values.lang;
+      if ( values.lang ) lang = values.lang;
 
-        if ( err ) return reject( err );
+      if ( err ) return d.reject( err );
 
-        var link = genUrl( 'signin', { iToken: values.invitation.token }, { protocol: 'https://' } ),
+      var link = genUrl( 'agendaSignup', { 
+        slug: agenda.slug, 
+        iToken: values.invitation.token 
+      }, { protocol: 'https://' } ),
 
-        title = 'You have been invited to become %stakeholder% of the agenda %agenda%',
+      title = 'You have been invited to become %stakeholder% of the agenda %agenda%',
 
-        text = 'Click here to start %stakeholderaction% the agenda %agenda%';
-
-
-        // owner invitation language sounds good
-
-        invitationsService.getComs().queue( 'mailer', {
-          recipient: values.invitation.email,
-          subject: i18n( title, { '%agenda%' : agenda.title, '%stakeholder%' : i18n( _equivalent( 'contributor', type ), lang ? lang : 'en' ) }, lang ? lang : 'en' ),
-          text: i18n( text, { '%agenda%' : agenda.title, '%stakeholderaction%' : i18n( _equivalent( 'contributing to', type ),  lang ? lang : 'en' ) }, lang ? lang : 'en' ) + "\n" + link
-        }, function( err ) {
-
-          if ( err ) return reject( err );
-
-          resolve( values );
-
-        } );
-
-      });
+      text = 'Click here to start %stakeholderaction% the agenda %agenda%';
 
 
-    } );
+      // owner invitation language sounds good
+
+      invitationsService.getComs().queue( 'mailer', {
+        recipient: values.invitation.email,
+        subject: i18n( title, { '%agenda%' : agenda.title, '%stakeholder%' : i18n( _equivalent( 'contributor', type ), lang ? lang : 'en' ) }, lang ? lang : 'en' ),
+        text: i18n( text, { '%agenda%' : agenda.title, '%stakeholderaction%' : i18n( _equivalent( 'contributing to', type ),  lang ? lang : 'en' ) }, lang ? lang : 'en' ) + "\n" + link
+      }, ( err ) => {
+
+        if ( err ) return d.reject( err );
+
+        d.resolve( values );
+
+      } );
+
+    });
+
+    return d.promise;
 
   }
 

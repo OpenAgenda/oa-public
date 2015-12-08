@@ -228,69 +228,84 @@ lib.extend( init, exposed );
 
 function signin( values ) {
 
-  var req = values.req, res = values.res, user = values.user, agendaSlug;
+  var req = values.req, 
 
-  if ( values.resolved ) return values;
+  res = values.res, 
+
+  user = values.user, 
+
+  agendaSlug,
+
+  d = w.defer();
+
+  if ( values.resolved ) {
+
+    return values;
+
+  }
+
+  if ( req.query.agenda ) {
+
+    agendaSlug = req.query.agenda;
+
+  } else if ( req.agenda ) {
+
+    agendaSlug = req.agenda.slug;
+
+  }
 
   values.resolved = true;
 
   values.req.log( 'signing in user %s', user.email );
 
-  return w.promise( ( resolve, reject ) => {
+  session.set( req, res, user, () => {
 
-    session.set( req, res, user, () => {
+    var redirectUrl;
 
-      var redirectUrl;
+    user.refreshLastSignin( ( err ) => {
 
-      user.refreshLastSignin( ( err ) => {
+      if ( err ) req.log( 'error', { message: 'could not refresh lastSignin', error: err } );
 
-        if ( err ) req.log( 'error', { message: 'could not refresh lastSignin', error: err } );
+    });
 
-      });
+    if ( req.query.redirect ) {
 
-      if ( req.query.redirect ) {
+      try {
 
-        try {
+        redirectUrl = new Buffer( req.query.redirect, 'base64' ).toString();
 
-          redirectUrl = new Buffer(req.query.redirect, 'base64').toString();
+      } catch ( e ) {
 
-        } catch ( e ) {
-
-          req.log( 'error', 'could not decode redirect %s', req.query.redirect );
-
-        }
-
-        if ( redirectUrl ) {
-
-          req.log( 'info', 'signin in successful, redirecting to %s', redirectUrl );
-
-          res.redirect( redirectUrl );
-
-          resolve( values );
-
-          return;
-
-        }
+        req.log( 'error', 'could not decode redirect %s', req.query.redirect );
 
       }
 
-      if ( req.query.agenda ) {
+    } else if ( req.query.iToken && agendaSlug ) {
 
-        agendaSlug = req.query.agenda;
+      // this is a invitation signin / signup, redirect to form.
+      redirectUrl = req.genUrl( 'agendaEventNew', { slug: agendaSlug } )
 
-      } else if ( req.agenda ) {
+    }
 
-        agendaSlug = req.agenda.slug;
+    if ( redirectUrl ) {
 
-      }
+      req.log( 'info', 'signin in successful, redirecting to %s', redirectUrl );
 
-      res.redirect( 302, agendaSlug ? req.genUrl( 'agendaShow', { slug: agendaSlug } ) : req.genUrl( 'homeShow' ) );
+      res.redirect( redirectUrl );
 
-      resolve( values );
+      d.resolve( values );
 
-    } );
+      return;
+
+    }
+
+    res.redirect( 302, agendaSlug ? req.genUrl( 'agendaShow', { slug: agendaSlug } ) : req.genUrl( 'homeShow' ) );
+
+    d.resolve( values );
 
   } );
+
+  return d.promise;
 
 }
 
