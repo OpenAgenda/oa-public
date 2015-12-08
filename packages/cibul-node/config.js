@@ -23,6 +23,7 @@ config = {
     domain: 'openagenda.com',
     root: 'https://openagenda.com',
     googleAnalyticsId: 'UA-60305866-1',
+    embedGoogleAnalyticsId: 'UA-60305866-2',
     useCache: true,
     agendaCacheExpire: 30*1000,
     adminEmail: 'admin@openagenda.com',

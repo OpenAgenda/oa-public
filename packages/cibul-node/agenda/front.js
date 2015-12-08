@@ -46,6 +46,7 @@ routes = {
   ] ],
 
   agendaFacebook: [ 'post', '/facebook/tab', [
+    cmn.useEmbedGoogleAnalytics,
     fb.tab.loadAgendaId,
     _loadAgendaByAgendaId,
     _redirectToEmbed
@@ -62,6 +63,7 @@ routes = {
     embedSvc.mw.renderEventItems,
     embedSvc.mw.renderHeader,
     showXhr( 'agenda/embedShow' ), 
+    cmn.useEmbedGoogleAnalytics,
     cmn.loadBaseData( _layoutData, 'oae.css' ),  // this needs to switch to embed base css ( can be deactivated )
     embedShow
   ] ],
@@ -77,13 +79,14 @@ routes = {
     embedSvc.mw.renderEventItems,
     embedSvc.mw.renderHeader,
     showXhr( 'agenda/embedShow' ),
+    cmn.useEmbedGoogleAnalytics,
     cmn.loadBaseData( _layoutData ),
     embedSvc.mw.loadCustomLayoutData,
     embedShow
   ] ],
 
   customEmbedShowPreview: [ 'get', '/agendas/:uid/previewEmbeds/:embedUid/events', [
-    function( req, res, next ) { req.preview = true; next() },
+    ( req, res, next ) => { req.preview = true; next() },
     agendaSvc.mw.load( 'uid', { cache: true } ),
     cmn.checkAdministrator(),
     embedSvc.mw.load( 'embedUid', 'uid' ),
@@ -94,6 +97,7 @@ routes = {
     embedSvc.mw.renderEventItems,
     embedSvc.mw.renderHeader,
     showXhr( 'agenda/embedShow' ),
+    cmn.useEmbedGoogleAnalytics,
     cmn.loadBaseData( _layoutData ),
     embedSvc.mw.loadCustomLayoutData,
     embedShow
