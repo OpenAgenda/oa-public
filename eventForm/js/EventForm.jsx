@@ -302,13 +302,13 @@ module.exports = React.createClass( {
 
     return <div>
 
-      <CategorySelector
+      { this.props.categories.length || ( this.props.categorySet && this.props.categorySet.categories.length ) ? <CategorySelector
         lang={this.props.lang}
         set={this.props.categorySet}
         categories={this.props.categories}
         selection={this.getSelectedCategory()}
         onChange={this.onTagsCategoryChange( 'category' )}
-        labels={this.props.labels} />
+        labels={this.props.labels} /> : '' }
 
       <TagSelector
         lang={this.props.lang}
