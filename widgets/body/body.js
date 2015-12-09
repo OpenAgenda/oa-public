@@ -475,9 +475,27 @@ function widget( elem, options ) {
 
   function _goToFrameTop() {
 
-    window.scrollTo( 0, elem.offsetTop );  
+    window.scrollTo( 0, _findPos( elem ).top - 40 );  
 
   }
+
+}
+
+function _findPos( obj ) {
+
+  var o = { left: 0, top: 0 };
+
+  if ( obj.offsetParent ) {
+
+    do {
+        o.left += obj.offsetLeft;
+        o.top += obj.offsetTop;
+
+    } while ( obj = obj.offsetParent );
+
+  }
+
+  return o;
 
 }
 
