@@ -170,9 +170,9 @@ function _loadNext() {
 
   list.loadNext( function( err ) {
 
-    handler.contentChange();
-
     if ( msnry ) msnry.reset();
+
+    handler.contentChange();
 
     favorites.sweep();
     
