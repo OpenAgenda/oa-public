@@ -16,5 +16,16 @@
     { "name" : "CategorySlug", "mapTo" : "categorySlug" },
     { "name" : "Favorite", "mapTo" : "favorite" },
     { "name" : "Featured", "mapTo" : "featured" }
-  ]
+  ],
+  "children" : [ {
+    "name" : "Tags",
+    "mapTo" : "tags",
+    "attributes" : [ {
+      "name" : "Tag",
+      "mapTo" : "label"
+    }, {
+      "name" : "TagLink",
+      "mapTo" : "link"
+    } ]
+  } ]
 }

@@ -86,6 +86,15 @@
   }],
 
   "children" : [ {
+    "name" : "Tags",
+    "mapTo" : "tags",
+    "attributes" : [ {
+      "name" : "Tag",
+      "mapTo" : "label",
+      "name" : "TagLink",
+      "mapTo" : "link"
+    } ]
+  }, {
     "name" : "Timings",
     "mapTo" : "timings",
     "attributes" : [ {
@@ -103,12 +112,12 @@
       "name" : "Timings",
       "mapTo" : "timings",
       "attributes" : [ {
-        "name" : "Start",
-        "mapTo" : "startLabel"
+        "name" : "Tag",
+        "mapTo" : "label"
       }, {
-        "name" : "End",
-        "mapTo" : "endLabel"
-      }]
+        "name" : "TagLink",
+        "mapTo" : "link"
+      } ]
     } ]
   } ]
 }

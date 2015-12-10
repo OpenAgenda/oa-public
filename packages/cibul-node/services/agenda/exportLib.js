@@ -36,7 +36,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
   async.waterfall( [
 
-    function( wcb ) {
+    wcb => {
 
       if ( !params.includePrivateData ) return wcb();
 
@@ -52,7 +52,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
     },
 
-    function( wcb ) {
+    wcb => {
 
       event.getFeatured( function( err, isFeatured ) {
 
@@ -66,7 +66,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
     },
 
-    function( wcb ) {
+    wcb => {
 
       var customFieldsGetter = agenda.getEventPublicCustomData;
 

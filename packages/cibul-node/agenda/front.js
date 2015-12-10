@@ -345,6 +345,8 @@ function _formatEventItem( event, _t, lang, cb ) {
   var formatted = lib.extend( inst, {
     dateRange: inst.getRange(),
     closestDate: inst.getClosestDate(),
+    keywords: inst.getTags(),
+    tags: [],
     title: inst.getTitle(),
     image: img ? img.replace( 'cibuldev', 'cibul' ) : false,
     thumbnail: inst.getThumbnail( false ),
@@ -368,7 +370,15 @@ function _formatEventItem( event, _t, lang, cb ) {
 
     formatted.categorySlug = c.slug;
 
-    cb( null, formatted );
+    inst.getAgendaTags( function( err, t ) {
+
+      formatted.tags = t;
+
+      cb( null, formatted );
+
+    } );
+
+    
 
   });
 
@@ -426,12 +436,27 @@ function _formatEmbedLinks( req, res, next ) {
 
     e.link = req.genUrl(  'agendaEmbedEventShow', params );
 
-    if ( e.categorySlug ) e.categoryLink = req.genUrl( 'agendaEmbedShow', {
-      uid: req.params.uid,
-      oaq: {
-        category: e.categorySlug
-      }
-    });
+    if ( e.categorySlug ) {
+
+      e.categoryLink = req.genUrl( 'agendaEmbedShow', {
+        uid: req.params.uid,
+        oaq: {
+          category: e.categorySlug
+        }
+      });
+
+    }
+
+    if ( e.tags ) e.tags.forEach( t => {
+
+      t.link = req.genUrl( 'agendaEmbedShow', {
+        uid: req.params.uid,
+        oaq: {
+          tag: t.slug
+        }
+      } );
+
+    } );
 
   } );
 
@@ -465,9 +490,23 @@ function _formatCustomEmbedLinks( req, res, next ) {
           passed: req.query.passed
         },
         lang: req.lang
-      });
+      } );
 
     }
+
+    if ( e.tags ) e.tags.forEach( t => {
+
+      t.link = req.genUrl( req.preview ? 'customEmbedShowPreview' : 'customEmbedShow', {
+        uid: req.params.uid,
+        embedUid: req.embed.uid,
+        oaq: {
+          tag: t.slug,
+          passed: req.query.passed
+        },
+        lang: req.lang
+      } );
+
+    } );
 
   } );
 
