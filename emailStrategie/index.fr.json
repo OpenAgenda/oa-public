@@ -26,5 +26,9 @@
   "Export featured events only"
   : "Exporter les événements en une uniquement",
   "Include passed events"
-  : "Inclure les événements passés"
+  : "Inclure les événements passés",
+  "Define the url associated to your agenda in the %settings%"
+  : "Définissez l'url associée à votre agenda dans %settings%",
+  "settings tab"
+  : "l'onglet Paramètres"
 }

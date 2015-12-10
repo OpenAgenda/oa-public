@@ -45,14 +45,17 @@
         <label for="filters[passed]"><%= __( 'Include passed events' ) %></label>
       </li>
       <li>
-        <label><strong>3. <%= __( 'Define to which site event links should lead') %></strong></label>
+        <label>
+          <strong>3. <%= __( 'Define to which site event links should lead' ) %></strong>
+        </label>
       </li>
       <li>
         <input type="checkbox" name="url" <% if ( !url ) { %>disabled<% } %> value="<%= url %>">
         <label for="url"><%= __( 'Links go to your website ( yourwebsiteagendapage.com ) rather than on your openagenda.com agenda page' ) %></label>
+        <span class="info" style="font-size:0.9em; color:#999;"><%- __( 'Define the url associated to your agenda in the %settings%', { '%settings%' : '<a class="url" href="' + genUrl( 'agendaAdminSettings', { slug : agenda.slug } ) + '">' + __( 'settings tab' ) + '</a>' } ) %></span>
       </li>
       <li>
-        <label for="fields"><strong>4. <%= __( 'Send your selection to EmailStrategie') %></strong></label>
+        <label for="fields"><strong>4. <%= __( 'Send your selection to EmailStrategie' ) %></strong></label>
       </li>
       <li><ul class="line">
         <li>
