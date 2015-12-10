@@ -111,6 +111,8 @@
   : "du %start% au %finish%",
   "%start%, %time%"
   : "%start%, %time%",
+  "%date% from %start% to %end%"
+  : "%date% de %start% à %end%",
   "back"
   : "retour",
   "The info has been updated"
