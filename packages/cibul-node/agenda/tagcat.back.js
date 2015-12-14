@@ -25,7 +25,6 @@ routes = {
   categoryTagShow: [ 'get', '/:slug/admin/tagcat', [
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdministrator(),
-    cmn.checkCredential( 'tagcat' ),
     cmn.checkCredential( 'tags', { namespace: 'hasTagsCred' } ),
     tagMw.get,
     categoryMw.get,
