@@ -1,0 +1,20 @@
+{
+  "name": "images",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "no license",
+  "dependencies": {
+    "async": "^1.5.0",
+    "basic-logger": "git+ssh://git@bitbucket.org:openagenda/basic-logger.git",
+    "gm": "^1.21.1",
+    "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
+    "when": "^3.7.5"
+  },
+  "devDependencies": {
+    "should": "^8.0.1",
+    "mocha": "^2.3.4"
+  }
+}
