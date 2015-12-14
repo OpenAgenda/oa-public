@@ -390,27 +390,32 @@ $dayInWeek: 7;
     border-bottom: 0;
     border-radius: 4px 4px 0 0;
 
+    .rc-toolbar {
+
+      display: block;
+      text-align: right;
+
+    }
+
     div {
       display: inline-block;
     }
 
     .rc-week {
       
-      padding: 0 10px;
-      
-      width: 100px;
-      display: table-cell;
+      padding: 8px 10px 0;
+
+      float: left;
       vertical-align: middle;
 
       .rc-date{
-        width: 40px;
+        width: 120px;
         display: inline-block;
         text-align: center;
         margin: 0 8px;
       }
 
       .rc-icon-wrapper{
-        
         cursor: pointer;
       }
 
@@ -420,7 +425,8 @@ $dayInWeek: 7;
     }
 
     .rc-options{
-      display: table-cell;
+
+      text-align: left;
       
       .is-focused:not(.is-open) > .Select-control {
         box-shadow: none;
