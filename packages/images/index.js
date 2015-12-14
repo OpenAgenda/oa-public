@@ -13,7 +13,11 @@ module.exports.init = function( cfg ) {
     logger: false
   }, cfg );
 
-  if ( config.logger ) log = logger( 'images' );
+  if ( config.logger ) {
+
+    log = config.logger( 'images' );
+
+  }
 
 };
 
