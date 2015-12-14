@@ -100,7 +100,7 @@ module.exports = function( params ) {
 
       event[ data.name ] = JSON.parse( JSON.stringify( data.value ) );
 
-      if (data.callback) data.callback(error);
+      if ( data.callback ) data.callback( error );
 
       _evaluate();
 
@@ -122,7 +122,7 @@ module.exports = function( params ) {
 
     // get agenda information
 
-    _on(params.events.agenda.fetch, function( data ) {
+    _on( params.events.agenda.fetch, function( data ) {
 
       if (event.agendas) for (var a in event.agendas) {
 
@@ -137,15 +137,19 @@ module.exports = function( params ) {
 
     // write agenda information in existing or new entry
 
-    _on(params.events.agenda.write, function( data ) {
+    _on( params.events.agenda.write, function( data ) {
 
-      if (!event.agendas) event.agendas = [];
+      currentErrors = data.errors;
 
-      for (var i = event.agendas.length - 1; i >= 0; i--) {
+      _evaluate();
 
-        if (event.agendas[i].uid == data.uid) {
+      if ( !event.agendas ) event.agendas = [];
 
-          event.agendas[i] = data
+      for ( var i = event.agendas.length - 1; i >= 0; i-- ) {
+
+        if ( event.agendas[i].uid == data.uid ) {
+
+          event.agendas[i] = data;
 
           return;
 
@@ -153,7 +157,7 @@ module.exports = function( params ) {
 
       }
 
-      event.agendas.push(data);
+      event.agendas.push( data );
 
     });
 
@@ -162,7 +166,7 @@ module.exports = function( params ) {
 
     _on( params.events.image.fetch, function(callback) {
 
-      callback(event.image?{image: event.image }:false);
+      callback(event.image ? { image: event.image } : false);
 
     });
 
@@ -235,14 +239,16 @@ module.exports = function( params ) {
 
     });
 
-    _on(params.events.languageChange, _updateLanguages );
+    _on( params.events.languageChange, _updateLanguages );
 
-    _on(params.events.clear, function() {
+    _on( params.events.clear, function() {
 
       // unregister methods
-      utils.forEach(callbackIds, function(id) { 
+      utils.forEach( callbackIds, function(id) { 
+
         eh.cancel(id);
-      });
+
+      } );
 
     });
 
@@ -260,7 +266,7 @@ module.exports = function( params ) {
 
   },
 
-  _evaluate = function(onSuccess) {
+  _evaluate = function( onSuccess ) {
 
     if ( onValidate || onSuccess ) _validateEvent( currentErrors, function(success, errors ) {
 

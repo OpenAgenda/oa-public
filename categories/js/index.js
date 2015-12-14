@@ -10,7 +10,7 @@ params = {
   selectors: {
     canvas: '.js_canvas'
   },
-  useTags: false // accessible to those with the right cred
+  useTags: false // display tags menu & category additional fields
 },
 
 React = require( 'react' ),
@@ -28,7 +28,7 @@ window.asap( function( options ) {
     tagSet={params.tagSet}
     categorySet={params.categorySet}
     uploadRes={params.uploadRes} 
-    useTags={params.useTags}/>, 
+    extraFeatures={params.useTags} />, 
   du.el( params.selectors.canvas ) );
 
 } );

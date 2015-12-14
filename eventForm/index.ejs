@@ -58,8 +58,13 @@
     useWysiwyg: true,
 <% } %>
     agendaUid: 84735921,
+<% if ( typeof agenda.categorySet == 'undefined' ) { %>
     tags: <%- JSON.stringify( agenda.tags ) %>,
     categories: <%- JSON.stringify( agenda.categories ) %>,
+<% } else { %>
+    tagSet: <%- JSON.stringify( agenda.tagSet ) %>,
+    categorySet: <%- JSON.stringify( agenda.categorySet ) %>,
+<% } %>
     language: 'fr',
     customRes: {
       upload: '/upload',

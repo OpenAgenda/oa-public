@@ -104,6 +104,7 @@ module.exports = React.createClass( {
     return <div>
       <div className="tc-edge">
         <SyncButton
+          extraFeatures={this.props.extraFeatures}
           lang={this.props.lang}
           res={this.props.uploadRes}
           onSend={this.onSend}
@@ -119,7 +120,7 @@ module.exports = React.createClass( {
         lang={this.props.lang}
         set={this.state.categorySet}
         onSetUpdate={this.onSetUpdate( 'categorySet' )} />
-      {this.props.useTags?this.renderTagSection():''}
+      {this.props.extraFeatures?this.renderTagSection():''}
       <div className="tc-edge">
         <SyncButton
           lang={this.props.lang}
@@ -132,7 +133,7 @@ module.exports = React.createClass( {
             tagSet: this.state.tagSet,
             categorySet: this.state.categorySet 
           } } />
-        {this.props.useTags?'':this.renderFeatureRequest()}
+        { this.props.extraFeatures ? '' : this.renderFeatureRequest() }
       </div>
       <Spinner
         loading={this.state.loading} />

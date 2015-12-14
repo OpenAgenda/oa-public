@@ -117,6 +117,22 @@ defaults = {
     defaultTagGroupInfo: {
       en: 'These are used to index your event in the agenda. You can select several.',
       fr: 'Ceux-ci servent pour l\'indexation dans l\'agenda. Vous pouvez en choisir plusieurs.'
+    },
+    required: {
+      en: 'Required.',
+      fr: 'Requis.'
+    },
+    categoriesRequired: {
+      en: 'Required.',
+      fr: 'Requis.'
+    },
+    requiredTagError: {
+      en: 'You must select at least one item',
+      fr: 'Vous devez faire au minimum une sélection'
+    },
+    requiredCategoryError: {
+      en: 'You must select one item',
+      fr: 'Vous devez faire une sélection'
     }
   }
 };

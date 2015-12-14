@@ -93,15 +93,31 @@ module.exports = React.createClass( {
    */
   listErrorDetails: function() {
 
-    var errors = [];
+    var errors = [], self = this;
 
     for( var i in formErrors ) {
 
-      if ( formErrors[ i ] ) errors.push( {
-        field: i,
-        label: this.getErrorFieldLabel( i )[ this.props.lang ],
-        message: formErrors[ i ]
-      });
+      if ( utils.isArray( formErrors[ i ] ) ) {
+
+        errors = errors.concat( formErrors[ i ].map( function( e ) {
+
+          return {
+            field: e.field,
+            label: e.label,
+            message: e.message[ self.props.lang ]
+          }
+
+        } ) );
+
+      } else if ( formErrors[ i ] ) {
+
+        errors.push( {
+          field: i,
+          label: this.getErrorFieldLabel( i )[ this.props.lang ],
+          message: formErrors[ i ]  
+        });
+
+      }
 
     }
 
@@ -149,11 +165,13 @@ module.exports = React.createClass( {
 
     var self = this;
 
-    return function( newData ) {
+    return function( newData, errors ) {
 
       var agendaIndex = self.getAgendaIndex(), 
 
       agendas = {};
+
+      formErrors[ type ] = errors;
 
       if ( agendaIndex == -1 ) {
 
@@ -180,7 +198,8 @@ module.exports = React.createClass( {
       self.props.onAgendaDataChange( {
         uid: self.props.agendaUid,
         tags: self.stringifySlugs( type == 'tags' ? newData : ( agendaIndex == -1 ? [] : self.state.agendas[ agendaIndex ].tags ) ),
-        category: self.stringifySlugs( type == 'category' ? newData : ( agendaIndex == -1 ? undefined : self.state.agendas[ agendaIndex ].category ) )
+        category: self.stringifySlugs( type == 'category' ? newData : ( agendaIndex == -1 ? undefined : self.state.agendas[ agendaIndex ].category ) ),
+        errors: self.listErrorDetails()
       } );
 
     }
@@ -302,7 +321,7 @@ module.exports = React.createClass( {
 
     return <div>
 
-      { this.props.categories.length || ( this.props.categorySet && this.props.categorySet.categories.length ) ? <CategorySelector
+      { ( this.props.categories && this.props.categories.length ) || ( this.props.categorySet && this.props.categorySet.categories.length ) ? <CategorySelector
         lang={this.props.lang}
         set={this.props.categorySet}
         categories={this.props.categories}
@@ -310,7 +329,7 @@ module.exports = React.createClass( {
         onChange={this.onTagsCategoryChange( 'category' )}
         labels={this.props.labels} /> : '' }
 
-      { this.props.tags.length || ( this.props.tagSet && this.props.tagSet.groups.length ) ? <TagSelector
+      { ( this.props.tags && this.props.tags.length ) || ( this.props.tagSet && this.props.tagSet.groups.length ) ? <TagSelector
         lang={this.props.lang}
         set={this.props.tagSet}
         tags={this.props.tags}
