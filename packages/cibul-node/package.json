@@ -46,7 +46,7 @@
     "soap" : "0.9.1",
     "node-redis-warlock" : "0.1.2",
     "languages" : "0.1.3",
-    "imageUpload" : "git+ssh://git@bitbucket.org:openagenda/imageupload.git",
+    "image-upload" : "git+ssh://git@bitbucket.org:openagenda/image-upload.git",
     "agenda-categories" : "git+ssh://git@bitbucket.org:openagenda/agenda-categories.git",
     "agenda-tags" : "git+ssh://git@bitbucket.org:openagenda/agenda-tags.git",
     "xlsx-writestream" : "0.4.0",

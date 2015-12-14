@@ -6,7 +6,7 @@ cmn = require( '../lib/commons-app' ),
 
 config = require( '../config' ),
 
-imageUpload = require( 'imageUpload/lib/middleware' ),
+imageUpload = require( 'image-upload/lib/middleware' ),
 
 agendaSvc = require( '../services/agenda' ),
 
