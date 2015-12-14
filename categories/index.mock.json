@@ -3,9 +3,9 @@
 
     "scriptParams" : {
       "lang" : "fr",
+      "useTags" : true,
       "categorySet" : {
         "label": "Les catégories",
-        "compulsory": false,
         "categories" : [ {
           "label" : "Concert"
         }, {

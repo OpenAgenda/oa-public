@@ -104,7 +104,6 @@ module.exports = React.createClass( {
     return <div>
       <div className="tc-edge">
         <SyncButton
-          extraFeatures={this.props.extraFeatures}
           lang={this.props.lang}
           res={this.props.uploadRes}
           onSend={this.onSend}
@@ -117,6 +116,7 @@ module.exports = React.createClass( {
           } } />
       </div>
       <CategoryEditor
+        extraFeatures={this.props.extraFeatures}
         lang={this.props.lang}
         set={this.state.categorySet}
         onSetUpdate={this.onSetUpdate( 'categorySet' )} />
