@@ -93,7 +93,7 @@ describe( 'services/event/instance/dates', function() {
   } );
 
 
-  it( 'if has 2 dates, display should be like "le mardi 10 novembre à', () => {
+  it( 'if has 2 dates, display should be like "le lundi 10 novembre 2014 de 15h à 16h et le 12 novembre 2014 à 17h & 19h"', () => {
 
     let dates = [{
       date: new Date( '2014-11-10T15:00:00Z' ),

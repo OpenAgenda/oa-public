@@ -34,7 +34,7 @@ describe( 'event state changes', function() {
 
   });
 
-  it( 'event state is changed to validated', function( done ) {
+  it( 'event state is changed to validated', done => {
 
     event.setState( TYPES.VALIDATED, function( err ) {
 

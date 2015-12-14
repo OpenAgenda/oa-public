@@ -8,8 +8,6 @@ model = require( '../model' ),
 
 es = require( '../elasticsearch' ),
 
-lib = require( '../../lib/lib' ),
-
 coms = require( '../../lib/coms' ),
 
 exportLib = require( './exportLib' );
@@ -27,6 +25,19 @@ module.exports = {
 module.exports.mw = require( './middleware' )( module.exports );
 
 module.exports.exports = require( './exportLib' )( module.exports );
+
+
+/**
+ * add following methods
+ *
+ * getEventCount 
+ * locationWillRemove
+ * locationDidUpdate
+ * locationsWillMerge
+ * 
+ */
+
+module.exports.locations = require( './locations' )( module.exports );
 
 
 function get( params, cb ) {

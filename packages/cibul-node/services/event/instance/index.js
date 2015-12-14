@@ -32,7 +32,8 @@ module.exports = function( data ) {
     getThumbnail: _imageGetter( 'getThumbnail' ),
     getFullImage: _imageGetter( 'getFullImage' ),
     remove: remove,
-    transferOwnership: transferOwnership
+    transferOwnership: transferOwnership,
+    refresh: refresh
   }),
 
   dsp = dispatcher( svcInstance, instance );
@@ -61,8 +62,6 @@ module.exports = function( data ) {
   svcInstance.setOnStateChange( dsp.stateChange );
 
   instance.onSave = dsp.onSave;
-
-
 
   return svcInstance;
 
@@ -126,6 +125,23 @@ module.exports = function( data ) {
 
     instance.save( { ownerId: userId }, cb );
 
+  }
+
+
+  function refresh( cb ) {
+
+    instance.save( { updatedAt: new Date() }, ( err ) => {
+
+      if ( err ) {
+
+        log( 'error', 'could not clear timestamp of event %s', event.uid );
+
+      }
+
+      if ( cb ) return cb( err );
+
+    } );
+    
   }
 
 
