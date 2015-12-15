@@ -9,6 +9,18 @@
 
   }
 
+  a.btn.btn-default {
+
+    background: white;
+    padding: 0.6em 0.8em 0.5em;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0.02em 0.5em;
+
+  }
+
   .info, .tc-info {
     
     color: $oa-gray;
