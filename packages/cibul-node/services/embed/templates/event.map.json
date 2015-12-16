@@ -112,11 +112,11 @@
       "name" : "Timings",
       "mapTo" : "timings",
       "attributes" : [ {
-        "name" : "Tag",
-        "mapTo" : "label"
+        "name" : "Start",
+        "mapTo" : "startLabel"
       }, {
-        "name" : "TagLink",
-        "mapTo" : "link"
+        "name" : "End",
+        "mapTo" : "endLabel"
       } ]
     } ]
   } ]

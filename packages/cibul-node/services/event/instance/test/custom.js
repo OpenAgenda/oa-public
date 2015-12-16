@@ -2,13 +2,11 @@
 
 process.env.NODE_ENV = 'test';
 
-// require( 'debug' ).enable( 'services/event/instance/custom, services/image, services/file/s3' );
-
 var cbm = require( '../../../model' ),
 
 https = require( 'https' ),
 
-s3Svc = require( '../../../file/s3' ),
+s3Svc = require( 'files' ).s3,
 
 should = require( 'should' ),
 

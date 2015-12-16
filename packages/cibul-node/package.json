@@ -14,6 +14,8 @@
     "redis" : "~0.12",
     "oauth" : "0.9.11",
     "deep-extend" : "~0.2",
+    "images" : "git+ssh://git@bitbucket.org:openagenda/images.git",
+    "files" : "git+ssh://git@bitbucket.org:openagenda/files.git",
     "cibulModel" : "git+ssh://git@bitbucket.org:cibul/cibulmodel.git",
     "cibulTemplates" : "git+ssh://git@bitbucket.org:cibul/cibul-templates.git",
     "tumblrParser" : "git+ssh://git@bitbucket.org:openagenda/tumblrparser.git",

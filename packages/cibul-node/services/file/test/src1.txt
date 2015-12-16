@@ -1,3 +1,0 @@
-Put this in buffer
-before the test is
-executed.

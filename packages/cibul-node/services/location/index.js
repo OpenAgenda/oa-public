@@ -10,11 +10,11 @@ levenshtein = require( 'fast-levenshtein' ),
 
 lib = require( '../../lib/lib' ),
 
-imageSvc = require( '../image' ),
+imageSvc = require( 'images' ),
 
-s3Svc = require( '../file/s3' ),
+s3Svc = require( 'files' ).s3,
 
-fileSvc = require( '../file/file' );
+fileSvc = require( 'files' ).file;
 
 
 module.exports = {

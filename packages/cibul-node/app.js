@@ -74,6 +74,18 @@ module.exports = function( enabledTypes, cb ) {
       logger: logger
     } );
 
+    require( 'images' ).init( {
+      tmpPath: config.tmpFolderPath,
+      logger: logger
+    } );
+
+    require( 'files' ).init( {
+      bucket: config.aws.bucket,
+      accessKeyId: config.aws.accessKeyId, // required
+      secretAccessKey: config.aws.secretAccessKey, // required too
+      logger: logger
+    } );
+
     mailer.init( {
       queueName: 'newmailer',
       host: config.redis.host,

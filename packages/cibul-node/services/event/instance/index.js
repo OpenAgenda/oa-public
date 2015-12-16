@@ -12,11 +12,11 @@ utils = require( '../../../lib/utils' ),
 
 config = require( '../../../config' ),
 
-imageSvc = require( '../../image' ),
+imageSvc = require( 'images' ),
 
-s3Svc = require( '../../file/s3' ),
+s3Svc = require( 'files' ).s3,
 
-fileSvc = require( '../../file/file' ),
+fileSvc = require( 'files' ).file,
 
 exportable = require( './exportable' ),
 

@@ -6,9 +6,9 @@ w = require( 'when' ),
 
 config = require( '../../../config' ),
 
-imageSvc = require( '../../image' ),
+imageSvc = require( 'images' ),
 
-s3Svc = require( '../../file/s3' ),
+s3Svc = require( 'files' ).s3,
 
 log = require( 'logger' )( 'services/event/instance/custom' );
 
