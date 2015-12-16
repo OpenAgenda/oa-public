@@ -71,9 +71,9 @@ function processImageMulti( srcOptions, destOptions, cb ) {
     clear: false
   };
 
-  _download( {
+  ( srcParams.url ? _download( {
     url: srcParams.url
-  } )
+  } ) : w( { path: srcParams.path } ) )
 
   .then( function( values ) {
 
