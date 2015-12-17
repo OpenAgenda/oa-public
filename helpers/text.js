@@ -9,10 +9,23 @@ module.exports = function() {
     escape: escape,
     setLinks: setLinks,
     linkedText: linkedText,
-    marked: marked
+    marked: marked,
+    truncate: truncate
   };
 
 };
+
+
+function truncate( str, len, append ) {
+
+  str = String(str);
+  if (str.length > len) {
+    str = str.slice(0, len);
+    if (append) str += append;
+  }
+  return str;
+  
+}
 
 
 function linkedText( __, data, useLinks ) {

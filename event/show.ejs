@@ -97,12 +97,14 @@
           <ul><!--
 <% event.agendaReferences.forEach( function( ref ) { %>
 <% if ( loner || ( ref.slug !== slug ) ) { %>
-            --><li>
+            --><li <% if ( !ref.thumbnail ) { %>class="empty"<% } %>>
               <a href="<%= genUrl( 'agendaShow', { slug: ref.slug } ) %>"><!--
 <% if ( ref.thumbnail ) { %>
                 --><img class="avatar" alt="<%= ref.title %>" src="<%= _i( ref.thumbnail ) %>"/><!--
+<% } else { %>
+                --><div class="avatar"></div><!--
 <% } %>
-                --><%= ref.title %>
+                --><span><%= _txt.truncate( ref.title, 26, ' ...' ) %></span>
               </a>
             </li><!--
 <% } %>

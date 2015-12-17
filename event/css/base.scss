@@ -257,42 +257,6 @@
     height: 320px;
   }
 
-  // sharers
-  .sharers {
-    display: none;
-
-    a {
-      color: $oa-gray;
-      display: block;
-      text-align: center;
-      text-decoration: none;
-      width: 100px;
-
-      &:hover {
-        color: $oa-blue;
-
-        .avatar {
-          border-color: $oa-blue;
-        }
-      }
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    li {
-      display: inline-block;
-      margin: 10px 3px;
-      vertical-align: middle;
-    }
-
-    .avatar {
-      display: block;
-      max-width: 70px;
-    }
-  }
 
   // organizer
   .organizer {
@@ -379,10 +343,6 @@
 
     .sidebar {
       float: right;
-    }
-
-    .sharers {
-      display: block;
     }
 
     #event-nav {

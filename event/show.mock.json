@@ -146,9 +146,20 @@
         },
         {
           "uid" : 739269,
+          "title" : "Blog",
+          "slug" : "lfjdslqhfjdsl"
+        },
+        {
+          "uid" : 739269,
           "title" : "L'agenda au titre le plus long du template en 2015 avec du texte à rallonge",
           "slug" : "lfjdslqhfjdsl",
           "thumbnail" : "rwtbreview_transition-touraine_00.jpg"
+        },
+        {
+          "uid" : 12321,
+          "title" : "Un autre agenda",
+          "slug" : "lfjdslqhfjdsl",
+          "thumbnail" : "rwtbreview_vous-avez-dit-moli-re_02.jpg"
         }
       ]
 
