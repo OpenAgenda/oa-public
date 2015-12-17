@@ -140,9 +140,11 @@ function renderEvent( req, res, next ) {
 
   eventParser.load( template );
 
-  _getCustomFields( req, req.event, 'event', function( err, values ) {
+  _getCustomFields( req, req.event, 'event', ( err, values ) => {
 
     if ( err ) return next( err );
+
+    _flattenArrays( values );
 
     utils.extend( req.formatted, values );
 
@@ -362,5 +364,16 @@ function _getCustomFields( req, e, mapping, cb ) {
     } );
 
   } ); 
+
+}
+
+
+function _flattenArrays( values ) {
+
+  for ( var k in values ) {
+
+    if ( utils.isArray( values[ k ] ) ) values[ k ] = values[ k ].join( ', ' );
+
+  }
 
 }
