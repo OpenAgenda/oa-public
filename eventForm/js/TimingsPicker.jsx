@@ -48,9 +48,10 @@ module.exports = React.createClass( {
     var timings = ( this.props.timings || [] ).map( function( t ) {
 
       return {
-        start: t.date + 'T' + t.begin + self._tZ(),
-        end: t.date + 'T' + t.end + self._tZ()
+        start: t.date + 'T' + t.begin + self._tZ( t.date ),
+        end: t.date + 'T' + t.end + self._tZ( t.date )
       }
+
 
     });
 
@@ -75,9 +76,9 @@ module.exports = React.createClass( {
 
   },
 
-  _tZ: function() {
+  _tZ: function( d ) {
 
-    var tzh = ( new Date ).getTimezoneOffset() / 60;
+    var tzh = ( new Date( d ) ).getTimezoneOffset() / 60;
 
     return ( tzh >= 0 ? '' : '+' ) + utils.fZ( - tzh ) + ':00';
 
