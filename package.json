@@ -27,7 +27,7 @@
     "react-dom": "0.14.2",
     "react-select": "0.6.12",
     "react-tagsinput": "3.0.2",
-    "react-timings-picker": "git://github.com/Oagenda/react-timings-picker.git",
+    "react-timings-picker": "git://github.com/Oagenda/react-timings-picker.git#9fcea675d1ef5f888cec24af20fd87f0f65a3369",
     "reactify": "1.1.1",
     "spin.js": "2.3.2",
     "st": "0.5.2",
