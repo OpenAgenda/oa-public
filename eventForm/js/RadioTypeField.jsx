@@ -36,11 +36,7 @@ module.exports = function( funcs ) {
 
       this.setState( { userHasTyped: true } );
 
-      if ( this.props.type == 'radio' ) {
-
-        this.update( value );
-
-      } else {
+      if ( this.props.type == 'multichoice' ) {
 
         i = this.props.value.indexOf( value );
 
@@ -57,6 +53,10 @@ module.exports = function( funcs ) {
         }
 
         this.update( newValue );
+
+      } else {
+
+        this.update( value );
 
       }
 
@@ -87,7 +87,11 @@ module.exports = function( funcs ) {
 
     validate: function( value ) {
 
-      if ( this.props.type == 'radio' ) {
+      if ( this.props.type == 'multichoice' ) {
+
+        if ( value === undefined ) value = [];
+
+      } else {
 
         if ( value === undefined ) value = '';
 
@@ -96,11 +100,7 @@ module.exports = function( funcs ) {
           return this.message( ERR.NOTEMPTY );
 
         }
-
-      } else {
-
-        if ( value === undefined ) value = [];
-
+        
       }
 
       return false;
