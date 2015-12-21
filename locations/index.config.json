@@ -1,0 +1,23 @@
+{
+  "layout" : "agendaAdmin/bsLayout",
+  "oaCss" : {
+    "leaflet" : "../css/leaflet-0.7.3.css",
+    "location-editor" : "../node_modules/agenda-locations/sass/style.scss",
+    "react-select" : "../node_modules/react-select/dist/react-select.css",
+    "location-form" : "../node_modules/agenda-locations/sass/form.scss",
+    "image-upload" : "../node_modules/image-upload/sass/style.scss",
+    "locations" : "css/style.scss"
+  },
+
+  "helpers" : {
+    "_i" : "image"
+  },
+
+  "base" : {
+    "mainClass" : "agenda-admin",
+    "pageId" : false,
+    "tab" : "locations"
+  },
+
+  "js" : true
+}

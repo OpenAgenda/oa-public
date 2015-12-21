@@ -1,0 +1,18 @@
+{
+  "base" : {
+
+    "scriptParams" : {
+      "lang" : "fr",
+      "res" : {
+        "index" : "/locations/testlocations.json",
+        "image" : {
+          "upload" : "#:locationUid",
+          "remove" : "#:locationUid",
+          "newUpload" : "#",
+          "newRemove" : "#"
+        }
+      }
+    }
+
+  }
+}

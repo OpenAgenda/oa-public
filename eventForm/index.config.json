@@ -6,7 +6,7 @@
     "eventCategoriesAndTags" : "css/categoriesAndTags.scss",
     "fontawesome430" : "../css/font-awesome-4.3.0/css/font-awesome.css",
     "efReactSelect" : "css/reactSelect.css",
-    "efImageUpload" : "../node_modules/image-upload/sass/style.scss",
+    "image-upload" : "../node_modules/image-upload/sass/style.scss",
     "efLanguageBar" : "css/languageBar.scss",
     "efTimingsPicker" : "css/timingsPicker.scss",
     "efAgendaTags" : "../node_modules/agenda-tags/sass/selectorStyle.scss",
