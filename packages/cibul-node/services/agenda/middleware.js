@@ -606,17 +606,21 @@ function _cleanXlsxRow( row ) {
 
     if ( typeof row[ c ] == 'string' ) {
 
-      row[ c ] = row[ c ].replace( /\v/g, ' ' );
+      clean[ c ] = row[ c ].replace( /\v/g, ' ' );
 
+    } else if ( utils.isArray( row[ c ] ) ) {
+
+      clean[ c ] = row[ c ].join( ', ' ) + '';
+      
     } else {
 
-      clean[ c ] = row[ c ];
-
+      clean[ c ] = row[ c ] + '';
+    
     }
 
   }
 
-  return row;
+  return clean;
 
 }
 
