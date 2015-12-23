@@ -1,0 +1,13 @@
+{
+  "name": "date-range",
+  "version": "1.0.0",
+  "description": "summarize a list of timings in a single label",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^2.3.4",
+    "should": "^8.0.2"
+  }
+}
