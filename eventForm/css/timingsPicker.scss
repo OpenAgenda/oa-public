@@ -511,9 +511,17 @@ $dayInWeek: 7;
     display: block;
     height: 360px;
     overflow-y: scroll;
+    position: relative;
 
     border: 1px solid $form-border;
     border-radius: 0 0 4px 4px;
+
+    &.noscroll {
+
+      overflow: hidden;
+      padding-right: 10px;
+
+    }
 
 
 
@@ -848,4 +856,50 @@ $dayInWeek: 7;
   &:not(:valid) ~ .close-icon {
     display: none;
   }
+}
+
+.rc-time-adjustment{
+  text-align: left;
+  display: inline-block;
+
+  input{
+    margin: 5px 0 0 0;
+  }
+
+  section{
+    margin: 5px 0;
+  }
+
+  .rc-adjust-button{
+    @extend .primary-button;
+    display: inline-block;
+  }
+}
+
+.rc-modal-overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(220, 220, 220, 0.75);
+
+  .rc-modal-content{
+    position: absolute;
+    top: 60px;
+    bottom: 60px;
+    left: 40px;
+    right: 40px;
+    width: 200px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    background: #fff;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 4px;
+    outline: none;
+    padding: 20px;
+    text-align: center;
+  }
+
 }
