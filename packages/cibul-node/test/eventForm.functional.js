@@ -57,8 +57,6 @@ describe( 'event form - new', function() {
 
       browser.field( 'textarea[name=long_description]' ).should.be.ok;
 
-      browser.field( 'input[name=ticket_link]' ).should.be.ok;
-
       browser.field( 'input[name=conditions]' ).should.be.ok;
 
       done();
@@ -66,26 +64,5 @@ describe( 'event form - new', function() {
     } );
 
   });
-
-  /** cannot get jsonp to work 
-  it( 'geocodes addresses', function( done ) {
-
-    t.do.signin( browser, user, addEventRes )
-
-    .then( function() {
-
-      browser.fill( 'placename', 'Le 8' );
-
-      browser.fill( 'address', '8 rue Alice, Courbevoie' );
-
-      setTimeout( function() {
-
-        done();
-
-      }, 3000 );
-
-    } );
-
-  });*/
 
 });

@@ -4,7 +4,7 @@ var w = require( 'when' ),
 
 timeHelper = require( 'cibulTemplates' ).helpers.time,
 
-registration = require( 'registration/lib/validate' ).getTypesAndValues;
+registration = require( 'registration/src/validate' ).getTypesAndValues;
 
 /**
  * prepare event data for display or upload
@@ -46,7 +46,7 @@ module.exports = function( req, res, next ) {
 
     let d = w.defer();
 
-    if ( req.agenda ) return v;
+    if ( !req.agenda ) return v;
 
     w( v )
 
