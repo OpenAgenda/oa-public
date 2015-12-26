@@ -33,7 +33,6 @@
             <a href="<%= event.googleShare %>" target="_blank" class="gp" rel="nofollow"><i class="fa fa-google-plus"></i></a>
             <a href="<%= event.linkedInShare %>" target="_blank" class="li" rel="nofollow"><i class="fa fa-linkedin"></i></a>
             <a href="<%= event.importUri + '?action=email' %>" rel="nofollow"><i class="fa fa-envelope-o"></i></a>
-            
           </p>
 <% if ( !event.isUpcoming ) { %>
           <p>
@@ -45,18 +44,18 @@
         </div>
 
         
-<% if ( event.ticketLink || event.pricingInfo ) { %>
+<% if ( event.pricingInfo ) { %>
         <section class="detail-item">
           <h3><i class="fa fa-ticket"></i></h3>
           <div class="detail-item-content">
 <% if ( event.pricingInfo ) { %>
             <p><%= event.pricingInfo %></p>
 <% } %>
-<% if ( event.ticketLink ) { %>
-            <p><a rel="external" href="<%= event.ticketLink %>"><%= __('Ticketing link') %></a></p>
-<% } %>
           </div>
         </section>
+<% } %>
+<% if ( event.registrationComponent ) { %>
+          <%- event.registrationComponent %>
 <% } %>
         <section class="detail-item">
           <h3><i class="fa fa-clock-o"></i></h3>
@@ -161,7 +160,7 @@
           return __( 'from %from% to %to%', { '%from%' : t.startLabel, '%to%' : t.endLabel } );
 }).join( ',' ) %>
               </li>
-<% }) %>
+<% }); %>
             </ul>
           </section>
 <% } %>

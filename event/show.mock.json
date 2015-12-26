@@ -161,7 +161,9 @@
           "slug" : "lfjdslqhfjdsl",
           "thumbnail" : "rwtbreview_vous-avez-dit-moli-re_02.jpg"
         }
-      ]
+      ],
+
+      "registrationComponent" : "<ul class=\"registration\"><li><a target=\"_blank\" href=\"http://yahoo.com\"><i class=\"fa fa-link\"></i><span>http://yahoo.com</span></a></li><li><a href=\"mailto:contact@email.com\"><i class=\"fa fa-envelope\"></i><span>contact@email.com</span></a></li><li><a href=\"tel:0650916026\"><i class=\"fa fa-phone\"></i><span>0650916026</span></a></li></ul>"
 
     },
 

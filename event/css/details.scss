@@ -42,4 +42,43 @@
     }
   }
 
+  .registration {
+
+    list-style-type: none;
+
+    padding-left: 1em;
+
+    a { 
+
+      color: $oa-black;
+
+      &:hover {
+
+        color: $oa-blue;
+
+      }
+
+    }
+
+    span {
+
+      padding-left: 0.7em;
+
+    }
+
+    li { 
+
+      padding-bottom: 0.8em;
+
+    }
+
+    i { 
+    
+      width: 1.5em;
+      color: $oa-silver;
+
+    }
+
+  }
+
 }

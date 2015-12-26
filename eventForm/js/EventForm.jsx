@@ -24,6 +24,8 @@ TagSelector = require( 'agenda-tags/lib/TagSelector.jsx' ),
 
 CategorySelector = require( 'agenda-categories/lib/CategorySelector.jsx' ),
 
+Registration = require( 'registration/lib/Registration.js' ),
+
 utils = require( 'utils' ),
 
 update = require( 'react-addons-update' ),
@@ -403,15 +405,14 @@ module.exports = React.createClass( {
           onChange={this.onChange( 'conditions' )}
           lang={this.props.lang} />  
 
-        <TextField 
-          label={this.props.labels.ticketLink}
-          name='ticket_link'
-          type="url"
-          optional={true}
-          value={this.state.ticketLink}
-          error={formErrors.ticketLink}
-          onChange={this.onChange( 'ticketLink' )}
-          lang={this.props.lang} />
+        <ul className="cform">
+          <li>
+            <Registration 
+              lang={this.props.lang}
+              value={this.state.ticketLink}
+              onChange={this.onChange( 'ticketLink' )} />
+          </li>
+        </ul>
 
         <AccessibilityFields
           value={this.state.accessibility || []}

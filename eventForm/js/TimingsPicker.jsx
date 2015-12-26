@@ -70,7 +70,9 @@ module.exports = React.createClass( {
         weekStartDay={1}
         onTimingsChange={this.onChange}
         onTimingClick={this.onSelect}
-        readOnly={false} 
+        readOnly={false}
+        timeStep={60}
+        timingStep={30}
         lang={this.getLang()} />
     </div>;
 

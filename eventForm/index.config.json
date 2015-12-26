@@ -15,7 +15,8 @@
     "efTinyMCE" : "css/tinyMCE.scss",
     "efLocationDates" : "css/locationDates.scss",
     "counter" : "css/counter.scss",
-    "leaflet" : "../css/leaflet-0.7.3.css"
+    "leaflet" : "../css/leaflet-0.7.3.css",
+    "registrationForm" : "../node_modules/registration/sass/style.scss"
   },
   "base" : {
     "pageClass" : "cb"
