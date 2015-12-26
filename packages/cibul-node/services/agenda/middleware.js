@@ -291,7 +291,7 @@ function decorateEvent( includePrivateData ) {
 
 function cleanJson( req, res, next ) {
 
-  req.formatted.forEach( function( f ) {
+  req.formatted.forEach( f => {
 
     if ( f.customValues ) {
 

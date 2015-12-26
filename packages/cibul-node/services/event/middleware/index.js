@@ -2,7 +2,7 @@
 
 var svc,
 
-p = require( '../../lib/promises' ), w = p.w,
+p = require( '../../../lib/promises' ), w = p.w,
 
 log = require( 'logger' )( 'event middleware' ),
 
@@ -10,11 +10,9 @@ utils = require( 'utils' ),
 
 async = require( 'async' ),
 
-config = require( '../../config' ),
+config = require( '../../../config' ),
 
-i18n = require( '../../i18n/i18n' ),
-
-timeHelper = require( 'cibulTemplates' ).helpers.time;
+i18n = require( '../../../i18n/i18n' );
 
 module.exports = function( eventService ) {
 
@@ -23,7 +21,8 @@ module.exports = function( eventService ) {
   return {
     load: loadEvent,
     loadUris: loadUris,
-    format: format,
+    format: require( './format' ),
+    components: require( './components' ),
     cleanEvents: cleanEvents,
     search: search,
     checkEventEditor: checkEventEditor,
@@ -175,130 +174,6 @@ function checkEventEditor( req, res, next ) {
 
 }
 
-
-function format( req, res, next ) {
-
-  var formatted = {}, dates = [], timingsByDate = {},
-
-  img = req.event.getImage( true ),
-
-  _t = timeHelper( { lang: req.lang } ),
-
-  location,
-
-  getters = [
-    req.event.getOwner,
-    req.event.getAgendaReferences,
-    req.event.getAdminAgendas,
-    req.event.getState
-  ];
-
-  if ( req.agenda ) getters.push( req.event.getAgendaCategory );
-
-  async.series( getters, function( err, results ) {
-
-    if ( err ) return next( err );
-
-    formatted = {
-      uid: req.event.uid,
-      slug: req.event.slug,
-      title: req.event.getTitle(),
-      image: img ? img.replace( 'cibuldev', 'cibul' ) : false,
-      dateRange: req.event.getRange(),
-      isUpcoming: req.event.isUpcoming(),
-      description: req.event.getDescription(),
-      freeText: req.event.getEnrichedFreeText(),
-      tags: req.event.getTags(),
-      placeName: req.event.getLocationName(),
-      address: req.event.getAddress(),
-      region: req.event.getRegion(),
-      city: req.event.getCity(),
-      postalCode: req.event.getPostalCode(),
-      latitude: req.event.getLatitude(),
-      longitude: req.event.getLongitude(),
-      timings: req.event.getTimings(),
-      dates: req.event.getDates(),
-      pricingInfo: req.event.getPricingInfo(),
-      ticketLink: req.event.getTicketLink(),
-      owner: results[ 0 ],
-      agendaReferences: results[ 1 ],
-      allAgendaReferences: results[ 1 ],
-      adminAgendas: results[ 2 ],
-      languages: false,
-      currentState: results[ 3 ],
-      accessibility: req.event.getAccessibility(),
-      age: req.event.getAge()
-    };
-
-    if ( req.event.getLanguages().length > 1 ) {
-
-      formatted.languages = {
-        current: req.event.getCurrentLanguage(),
-        selection: req.event.getLanguages()
-      };
-
-    }
-
-    // deprecate this in favor of .dates
-    formatted.timings.forEach( function( timing ) {
-
-      timing.label = _t( timing.start, 'dddd Do - HH:mm' );
-
-    });
-
-    formatted.dates.forEach( function( date ) {
-
-      date.label = _t( date.date, 'dddd Do MMM' );
-
-      date.timings.forEach( function( t ) {
-
-        t.startLabel = _t( t.start, 'HH:mm' );
-
-        t.endLabel = _t( t.end, 'HH:mm' );
-
-      });
-
-    });
-
-    if ( req.agenda ) {
-
-      formatted.importUri = req.genUrl( 'agendaEventActionShow', {
-        slug: req.agenda.slug,
-        eventSlug: req.event.slug
-      });
-
-      formatted.category = results[ 4 ] ? results[ 4 ].label : false;
-
-      formatted.categorySlug = results[ 4 ] ? results[ 4 ].slug : false;
-
-      req.event.getFeatured( function( err, featured ) {
-
-        if ( err ) return next( err );
-
-        formatted.featured = featured;
-
-        req.formatted = formatted;
-
-        next();
-
-      } );
-
-
-    } else {
-
-      formatted.importUri = req.genUrl( 'eventActionShow', { 
-        eventSlug: req.event.slug
-      } );
-
-      req.formatted = formatted;
-
-      next();
-
-    }
-
-  } );
-
-}
 
 function layoutData( req, res ) {
 

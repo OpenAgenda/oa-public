@@ -22,6 +22,7 @@ routes = {
     agendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.format,
+    eventSvc.mw.components,
     _formatAgendaLinks( 'agendaShow', [ 'slug' ] ),
     agendaSvc.mw.decorateEvent( false ),
     _formatSocialLinks,
@@ -124,7 +125,8 @@ function agendaEventShow( req, res ) {
   } );
 
   cmn.render( req, res, 'event/show', {
-    event: req.formatted
+    event: req.formatted,
+    components: req.components
   } );
 
 }

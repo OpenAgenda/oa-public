@@ -10,6 +10,8 @@ i18n = require( '../../i18n/i18n' ),
 
 genUrl = require( '../genUrl' ),
 
+registration = require( 'registration/src/validate' ).getTypesAndValues,
+
 timeHelper = require( 'cibulTemplates' ).helpers.time,
 
 _t = {
@@ -82,6 +84,8 @@ function cleanEvent( eInst, cb ) {
     }
 
   }
+
+  c.registration = registration( c.registrationUrl );
 
   eInst.getTimings( function( err, timings ) {
 
