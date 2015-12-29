@@ -28,6 +28,9 @@ config = {
     agendaCacheExpire: 30*1000,
     adminEmail: 'admin@openagenda.com',
     mapboxAccessToken: 'pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
+    geocodeFarm: {
+      key: 'c90247db-b0de461fb1e9-8517d6450e7b'
+    },
     db: {
       database: 'oa',
       host: 'cibul.cjlxznnlwwtq.eu-west-1.rds.amazonaws.com',
@@ -61,6 +64,15 @@ config = {
       port : 9200,
       indexName : 'cibul',
       channel: 'main'
+    },
+    esLocation: {
+      log: [ {
+        type: 'stdio',
+        level: [ 'error', 'warning' ]
+      } ],
+      index: 'location',
+      apiVersion: '1.3',
+      timeout: 30000
     },
     redis: {
       host: 'ec2-54-195-243-94.eu-west-1.compute.amazonaws.com',

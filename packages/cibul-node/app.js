@@ -74,6 +74,34 @@ module.exports = function( enabledTypes, cb ) {
       logger: logger
     } );
 
+    require( 'agenda-locations' ).init( {
+      geocodefarm: config.geocodeFarm,
+      elasticsearch: {
+        connect: {
+          host: config.es.host + ':' + config.es.port,
+          log: config.esLocation.log
+        },
+        index: config.esLocation.index,
+        apiVersion: config.esLocation.apiVersion,
+        timeout: config.esLocation.timeout
+      },
+      mysql: {
+        host: config.db.host,
+        user: config.db.user,
+        password: config.db.password,
+        database: config.db.database,
+        table: 'location'
+      },
+      files: {
+        tmpPath: config.tmpFolderPath,
+        bucket: config.aws.bucket,
+        accessKeyId: config.aws.accessKeyId,
+        secretAccessKey: config.aws.secretAccessKey
+      },
+      interfaces: require( './services/event' ).locations,
+      logger: logger
+    } );
+
     require( 'images' ).init( {
       tmpPath: config.tmpFolderPath,
       logger: logger
@@ -123,6 +151,7 @@ module.exports = function( enabledTypes, cb ) {
         require( './agenda/emailstrategie.back' )( '/:slug/admin/emailstrategie' ),
         require( './agenda/embeds.back' )( '/:slug/admin/embeds' ),
         require( './location/front' )( '/locations' ),
+        require( './location/back' )( '' ),
         require( './agenda/front' )( '' ),
         require( './agenda/facebook.back' )( '' ),
         require( './agenda/tagcat.back' )( '' ),

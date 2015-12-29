@@ -8,9 +8,13 @@ config = require( '../../config' ),
 
 async = require( 'async' ),
 
+logger = require( 'logger' ), log,
+
 svc;
 
 module.exports = function( s ) {
+
+  log = logger( 'services/event/locations' );
 
   svc = s;
 
@@ -30,13 +34,27 @@ module.exports = function( s ) {
 
 function locationWillRemove( locationId, cb ) {
 
+  log( 'removing events associated with location %s', locationId );
+
   model.locations().getRelatedEventIds( locationId, ( err, eventIds ) => {
+
+    log( 'events associated with location %s are %s', locationId, eventIds.join( ', ' ) );
 
     async.eachSeries( eventIds, ( eventId, ecb ) => {
 
-      svc.get( { id: eventId }, ( err, event ) => {
+      log( 'triggering removal of event %s', eventId );
+
+      svc.get( { id: eventId, isNew: null }, ( err, event ) => {
 
         if ( err ) return ecb( err );
+
+        if ( !event ) {
+
+          log( 'error', 'could not find event %s', eventId );
+
+          return ecb( err );
+
+        }
 
         event.remove( ecb );
 

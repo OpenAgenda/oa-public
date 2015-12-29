@@ -20,6 +20,12 @@ module.exports = {
     requiredCred: 'moderators'
   }, {
     section : "manage",
+    key : "location",
+    label : "Locations",
+    uri : "agendaAdminLocations",
+    requiredCred: 'location'
+  }, {
+    section : "manage",
     key : "dataviz",
     label : "Dataviz",
     uri : "agendaAdminDataviz"

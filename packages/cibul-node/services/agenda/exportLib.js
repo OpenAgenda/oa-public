@@ -86,7 +86,11 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
           if ( v.fieldType == 'image' ) {
 
-            toDecorate.customValues[ v.name ] = config.aws.imageBucketPath + v.value;
+            if ( v.value ) {
+
+              toDecorate.customValues[ v.name ] = config.aws.imageBucketPath + v.value;
+
+            }
 
           } else {
 

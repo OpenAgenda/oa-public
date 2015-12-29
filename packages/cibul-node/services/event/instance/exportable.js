@@ -54,9 +54,9 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
       description: instance.description,
       longDescription: instance.getFreeText(),
       html: instance.getEnrichedFreeText(),
-      image: instance.getImage(),
-      thumbnail: instance.getThumbnail(),
-      originalImage: instance.getFullImage(),
+      image: loaded.getImage(),
+      thumbnail: loaded.getThumbnail(),
+      originalImage: loaded.getFullImage(),
       updatedAt: instance.updatedAt,
       range: {
         fr: i18n( dateRange[ 0 ], _t.fr( dateRange[ 1 ] ), 'fr' ).replace( ':', 'h' ),
