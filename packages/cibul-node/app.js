@@ -100,6 +100,10 @@ module.exports = function( enabledTypes, cb ) {
       },
       interfaces: require( './services/event' ).locations,
       logger: logger
+    }, () => {
+
+      //if ( enabledTypes.indexOf( 'task' ) !== -1 ) require( 'agenda-locations/tasks/associateFreeLocations' )();
+
     } );
 
     require( 'images' ).init( {
