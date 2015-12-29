@@ -1,6 +1,10 @@
 {
   "layout" : "layout/main",
   "css" : {
+    "variables" : "../css/variables.scss",
+    "bootstrap" : "../bootstrap/custom-bootstrap.css",
+    "react-select" : "../node_modules/react-select/dist/react-select.css",
+    "bsBase" : "../css/bsBase.scss",
     "style" : "css/style.scss",
     "cStructure" : "../structure/css/centered.css",
     "eventCategoriesAndTags" : "css/categoriesAndTags.scss",
@@ -13,9 +17,11 @@
     "accessibility" : "css/accessibility.scss",
     "efKeywords" : "css/tags.scss",
     "efTinyMCE" : "css/tinyMCE.scss",
-    "efLocationDates" : "css/locationDates.scss",
     "counter" : "css/counter.scss",
-    "leaflet" : "../css/leaflet-0.7.3.css"
+    "leaflet" : "../css/leaflet-0.7.3.css",
+    "efEventLocationSelector" : "../node_modules/agenda-locations/sass/location-selector.scss",
+    "efEventLocationForm" : "../node_modules/agenda-locations/sass/form.scss",
+    "efEventLocationFormTweaks" : "css/locationForm.scss"
   },
   "base" : {
     "pageClass" : "cb"

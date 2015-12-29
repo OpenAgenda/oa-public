@@ -95,6 +95,7 @@ module.exports = React.createClass({
         name={name}
         type="text" 
         value={ value }
+        className="form-control"
         onChange={ this.onChange( l ) } />
 
     } else {
@@ -104,6 +105,7 @@ module.exports = React.createClass({
         name={name}
         rows={ this.props.rows }
         value={ value }
+        className="form-control"
         onChange={ this.onChange( l ) } />
 
     }    

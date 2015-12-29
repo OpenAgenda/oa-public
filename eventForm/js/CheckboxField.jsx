@@ -25,7 +25,7 @@ module.exports = React.createClass({
   render: function() {
 
     return ( 
-      <ul className="cform">
+      <ul>
         <li>
           <input type="checkbox" checked={this.props.value} onChange={this.onChange} />
           <label>{this.props.field.label[this.props.lang]}{this.props.field.optional ? '' : ' (*)'}</label>

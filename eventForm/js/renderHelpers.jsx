@@ -102,7 +102,7 @@ function mRender() {
 
   if ( this.props.languages.length > 1 ) {
 
-    return <ul className="cform">
+    return <ul>
       <li>
         <label>{this.props.label[this.props.lang]}{ this.props.optional ? '' : ' (*)' }</label>
         {renderInfo.call( this )}
@@ -112,7 +112,7 @@ function mRender() {
 
   } else {
 
-    return <ul className="cform">
+    return <ul>
       <li>
         <label>{this.props.label[this.props.lang]}{ this.props.optional ? '' : ' (*)' }</label>
         { renderInfo.call( this ) }

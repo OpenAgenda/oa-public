@@ -2,7 +2,6 @@
   <main class="wsq">
     <div class="js_form_canvas_above"></div>
     <div class="js_form_canvas"></div>
-    <div class="js_form_canvas_below"></div>
   </main>
 </div>
 <% if ( useMarkdown ) { %>
@@ -33,30 +32,13 @@
   /*
    [{"name":"somenmber","type":"public","fieldType":"number","label":{"fr":"Un nombre","en":"A number"}},{"name":"somestat","type":"private","fieldType":"integer","label":{"fr":"Une stat quelconque","en":"Some statistic"}},{"name":"somesmalltext","type":"private","fieldType":"text","max":200,"min":20,"optional":true,"multilingual":true, "label":{"fr":"Ceci est un petit texte","en":"This is a small text"}},{"name":"somelongtext","type":"public","fieldType":"textarea","value":"dude!","label":{"fr":"Ceci est un long texte","en":"This is a long text"},"info":{"fr":"Vous devez saisir quelque chose ici","en":"You should type in something here"}},{"name":"someurl","type":"public","fieldType":"url","label":{"fr":"ceci est une url","en":"this is an url"}},{"name":"someemail","type":"public","fieldType":"email","label":{"fr":"ceci est un email","en":"this is an email"}},{"name":"checkboxfield","type":"private","fieldType":"checkbox","value":true,"label":{"fr":"Ceci est un champ checkbox","en":"This is a checkbox field"}},{"name":"radiofields","type":"public","fieldType":"radio","options":[{"label":{"fr":"oui","en":"yes"},"value":"1"},{"label":{"fr":"non","en":"no"},"value":"0"},{"label":{"fr":"peut-être","en":"maybe"},"value":"2"}],"value":"2","label":{"fr":"Etes-vous d\'accord?","en":"Do you agree"}},{"name":"testimony","type":"public","fieldType":"textarea","multilingual":true,"optional":true,"label":{"fr":"T\\u00e9moignage","en":"Testimony"},"value":{"fr":"J\'ai adoré!","en":"I loved it!"}}]
    */
-  
-  oaEventSubmit( {
-    allowDraft: true,
-    publish: '#publish',
-    update: '#update{uid}',
-    nopublish: '#nopublish',
-    remove: '#remove/{uid}',
-    labels: {
-      update: 'Appliquer les changements',
-      publish: 'Publier',
-      create: 'Publier',
-      createdraft: 'Créer sans publier',
-      remove: 'Supprimer l\'événement',
-      removeMessage: 'Are you sure you want to delete this event?',
-      removeYes: 'Yes',
-      removeNo: 'Cancel',
-      hasErrors: 'Certains champs ont des saisies non valides. Complétez le formulaire avant de retenter de le soumettre.'
-    } 
-  });
 
   oaEventForm( {
+    locationFeature: <%= locationFeature %>,
 <% if ( useMarkdown ) { %>
     useWysiwyg: true,
 <% } %>
+<% if ( typeof agenda !== 'undefined' ) { %>
     agendaUid: 84735921,
 <% if ( typeof agenda.categorySet == 'undefined' ) { %>
     tags: <%- JSON.stringify( agenda.tags ) %>,
@@ -65,10 +47,23 @@
     tagSet: <%- JSON.stringify( agenda.tagSet ) %>,
     categorySet: <%- JSON.stringify( agenda.categorySet ) %>,
 <% } %>
+<% } %>
     language: 'fr',
     customRes: {
       upload: '/upload',
       remove: '/remove'
+    },
+    locationRes: {
+      index: '/eventForm/server/location_list.json', 
+      geocode: '/geocode', 
+      set: '/eventForm/server/location_success.json' ,
+      remove: '/remove',
+      image: {
+        newUpload: '/image',
+        newRemove: '/image/remove',
+        upload: '/:locationUid/image',
+        remove: '/:locationUid/image/remove'
+      }
     },
     custom: [ {
       "name":"somenmber",
@@ -175,6 +170,26 @@
   } );
 
 
+  oaEventSubmit( {
+    allowDraft: true,
+    publish: '#publish',
+    update: '#update{uid}',
+    nopublish: '#nopublish',
+    remove: '#remove/{uid}',
+    labels: {
+      update: 'Appliquer les changements',
+      publish: 'Publier',
+      create: 'Publier',
+      createdraft: 'Créer sans publier',
+      remove: 'Supprimer l\'événement',
+      removeMessage: 'Are you sure you want to delete this event?',
+      removeYes: 'Yes',
+      removeNo: 'Cancel',
+      hasErrors: 'Certains champs ont des saisies non valides. Complétez le formulaire avant de retenter de le soumettre.'
+    } 
+  });
+
+
   oaEventImage({
     upload: 'http://templates.cibul.net/event form/server/index.php',
     remove: 'http://templates.cibul.net/event form/server/remove.php',
@@ -191,8 +206,9 @@
     }
   });
 
+<% if ( !locationFeature ) { %>
 
-  oaEventLocation({
+  oaEventLocation( {
     url: 'http://d.cibul.net/frontend_dev.php/event/location/search',
     localSelection: localLocations,
     countries: <%- JSON.stringify( countries ) %>,
@@ -253,6 +269,9 @@
       coords: [48.447052, 1.486754]
     },
     icon: '../images/markerIcon.png'
-  });
+  } );
+
+<% } %>
+  
 
 </script>

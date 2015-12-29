@@ -69,6 +69,7 @@ module.exports = React.createClass({
 
       return <input 
         name={this.props.name}
+        className="form-control"
         type="text"
         value={this.props.value ? this.props.value : ''} 
         onChange={this.onChange}/>;
@@ -86,7 +87,7 @@ module.exports = React.createClass({
 
   render: function() {
 
-    return <ul className="cform">
+    return <ul>
       <li>
         <label>{this.props.label[this.props.lang]}{ this.props.optional ? '' : ' (*)' }</label>
         {renderHelpers.renderInfo.apply( this )}

@@ -1,6 +1,79 @@
+body.cb {
+  
+  background-color: $oa-gray-lighter;
+
+}
+
+/**
+ * overrides of sf style ( body > header bit )
+ */
+
+body > header {
+
+  label {
+
+    font-weight: normal;
+
+  }
+
+  .logo {
+
+    width: auto;
+
+    img { width: 125px; }
+
+  }
+
+  .links > li > a {
+
+    padding: 16px 10px;
+
+  }
+
+}
+
 .ef {
 
   overflow: hidden;
+
+
+  .Select { /* overrides of sf style */
+
+    display: block;
+
+    .Select-placeholder {
+
+      padding: 2px 52px 8px 10px;
+
+    }
+
+    .Select-arrow-zone {
+
+      top: 4px;
+
+    }
+
+  }
+
+  .dropdown { /* overrides of sf style */
+
+    display: block; 
+    box-shadow: none;
+    border: none;
+
+  }
+
+  .btn-default { /* override default style; mabe change this in future to base css */
+
+    color: $oa-black;
+
+  }
+
+  label {
+
+    font-weight: normal;
+
+  }
 
   h1 {
 
@@ -110,13 +183,15 @@
   
   .lang-unit {
 
+    padding: 1em 0;
+
     > label {
 
       display: inline-block;
-      width: 2em;
+      width: 1.5em;
       text-transform: uppercase;
       position: absolute;
-      padding: 9px;
+      padding: 9px 0;
 
       &.off32 {
 
@@ -128,7 +203,7 @@
 
     > div {
 
-      margin-left: 3em;
+      margin-left: 2em;
 
     }
 
