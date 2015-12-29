@@ -1,22 +1,28 @@
 {
   "layout" : "layout/main",
   "css" : {
+    "variables" : "../css/variables.scss",
+    "bootstrap" : "../bootstrap/custom-bootstrap.css",
+    "react-select" : "../node_modules/react-select/dist/react-select.css",
+    "bsBase" : "../css/bsBase.scss",
     "style" : "css/style.scss",
     "cStructure" : "../structure/css/centered.css",
     "eventCategoriesAndTags" : "css/categoriesAndTags.scss",
     "fontawesome430" : "../css/font-awesome-4.3.0/css/font-awesome.css",
     "efReactSelect" : "css/reactSelect.css",
-    "efImageUpload" : "../node_modules/image-upload/sass/style.scss",
+    "image-upload" : "../node_modules/image-upload/sass/style.scss",
     "efLanguageBar" : "css/languageBar.scss",
     "efTimingsPicker" : "css/timingsPicker.scss",
     "efAgendaTags" : "../node_modules/agenda-tags/sass/selectorStyle.scss",
     "accessibility" : "css/accessibility.scss",
     "efKeywords" : "css/tags.scss",
     "efTinyMCE" : "css/tinyMCE.scss",
-    "efLocationDates" : "css/locationDates.scss",
     "counter" : "css/counter.scss",
     "leaflet" : "../css/leaflet-0.7.3.css",
-    "registrationForm" : "../node_modules/registration/sass/style.scss"
+    "registrationForm" : "../node_modules/registration/sass/style.scss",
+    "efEventLocationSelector" : "../node_modules/agenda-locations/sass/location-selector.scss",
+    "efEventLocationForm" : "../node_modules/agenda-locations/sass/form.scss",
+    "efEventLocationFormTweaks" : "css/locationForm.scss"
   },
   "base" : {
     "pageClass" : "cb"

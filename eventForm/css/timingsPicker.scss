@@ -351,11 +351,9 @@ $dayInWeek: 7;
 .rc-icon-wrapper {
   position: relative;
   height: 0.5em;
-  width: 12px;
+  width: 1.5em;
 
-  .rc-icon {
-    @include center-absolute-position();
-  }
+  text-align: center;
 }
 
 .rc-calendar {
@@ -895,10 +893,10 @@ $dayInWeek: 7;
   .rc-modal-content{
     position: absolute;
     top: 60px;
-    bottom: 100px;
+    bottom: 92px;
     left: 40px;
     right: 40px;
-    width: 200px;
+    width: 230px;
     margin: 0 auto;
     border: 1px solid #ccc;
     background: #fff;

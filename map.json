@@ -52,6 +52,8 @@
 
   "categories/index",
 
+  "locations/index",
+
   "error/show",
   
   "eventLists/searchList",

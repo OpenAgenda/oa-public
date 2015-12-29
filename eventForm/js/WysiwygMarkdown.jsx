@@ -189,7 +189,7 @@ module.exports = React.createClass( {
 
     if ( count > 1 ) {
 
-      return <ul className="cform">
+      return <ul>
         <li>
           <label>{this.props.labels.longDescription[this.props.lang]}</label>
         </li>
@@ -198,7 +198,7 @@ module.exports = React.createClass( {
 
     } else {
 
-      return <ul className="cform">
+      return <ul>
         <li>
           <label>{this.props.labels.longDescription[this.props.lang]}</label>
           {this.props.languages.map(renderField)}

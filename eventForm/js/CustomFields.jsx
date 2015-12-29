@@ -69,7 +69,7 @@ module.exports = React.createClass({
             value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : {} }
             error= { self.props.errors[ field.name ] || false }
             languages= { self.props.languages }
-            onChange= { self.onChange( field.name ) }/>;
+            onChange= { self.onChange( field.name ) } />;
 
         } else {
 

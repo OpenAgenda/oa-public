@@ -19,6 +19,7 @@ ReactDom = require( 'react-dom' ),
 fieldErrors = [], customErrors = [],
 
 defaults = {
+  locationFeature: false,
   language: 'fr',
   canvas: '.js_form_canvas',
   useWysiwyg: false,
@@ -33,13 +34,18 @@ defaults = {
     customFields: 'ecustomfieldssend',
     single: 'esinglesend',
     timings: 'etimingssend',
-    agenda: 'eagendawrite'
+    agenda: 'eagendawrite',
+    location: 'elocationsend'
   },
   custom: false,
   labels: {
     descriptionSection: {
       fr: 'Descriptifs',
       en: 'Description fields'
+    },
+    locationSection: {
+      fr: 'Lieu',
+      en: 'Location'
     },
     title: {
       fr: 'Titre',
@@ -138,6 +144,7 @@ defaults = {
 };
 
 // legacy
+
 window.oaEvent = require( './legacy/cibulEvent' );
 window.oaEventLocation = require( './legacy/cibulEventLocation' );
 window.oaEventSubmit = require( './legacy/cibulEventSubmit' );
@@ -156,6 +163,7 @@ window.oaEventForm = function( options ) {
     rUtils.eh.trigger( params.events.languageChange, initialLanguages );
 
     ReactDom.render( <EventForm
+      locationFeature= { params.locationFeature }
       agendaUid= { params.agendaUid }
       initialLanguages= { initialLanguages }
       useWysiwyg= {params.useWysiwyg}
@@ -166,8 +174,10 @@ window.oaEventForm = function( options ) {
       onTimingsChange= {onTimingsChange}
       onChangeLanguages= {onChangeLanguages}
       onAgendaDataChange= {onAgendaDataChange}
+      onLocationChange= {onLocationChange}
       custom= {params.custom}
       customRes={params.customRes}
+      locationRes={params.locationRes}
       categories={params.categories}
       categorySet={params.categorySet}
       tags={params.tags}
@@ -193,6 +203,12 @@ window.oaEventForm = function( options ) {
   function onTimingsChange( newTimings ) {
 
     rUtils.eh.trigger( params.events.timings, newTimings );
+
+  }
+
+  function onLocationChange( newLocation ) {
+
+    rUtils.eh.trigger( params.events.location, newLocation );
 
   }
 

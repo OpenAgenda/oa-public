@@ -22,6 +22,8 @@ TimingsPicker = require( './TimingsPicker.jsx' ),
 
 TagSelector = require( 'agenda-tags/lib/TagSelector.jsx' ),
 
+LocationSelector = require( 'agenda-locations/components/LocationSelector.jsx' ),
+
 CategorySelector = require( 'agenda-categories/lib/CategorySelector.jsx' ),
 
 Registration = require( 'registration/lib/Registration.js' ),
@@ -33,6 +35,18 @@ update = require( 'react-addons-update' ),
 formErrors = {};
 
 module.exports = React.createClass( {
+
+  propTypes: {
+    locationFeature: React.PropTypes.bool
+  },
+
+  getDefaultProps: function() {
+
+    return {
+      locationFeature: false
+    }
+
+  },
 
   getInitialState: function() {
 
@@ -49,6 +63,9 @@ module.exports = React.createClass( {
     }
 
     if ( !state.custom ) state.custom = {};
+
+
+    state.locationMode = state.location ? 'show' : 'search';
 
     return state;
   },
@@ -160,6 +177,25 @@ module.exports = React.createClass( {
     this.setState( updated );
 
     this.props.onTimingsChange( values, this.listErrorDetails( ) );
+
+  },
+
+  onLocationModeChange: function( newMode ) {
+
+    this.setState( {
+      locationMode: newMode
+    } );
+
+  },
+
+  onLocationChange: function( newLocation, newMode ) {
+
+    this.setState( {
+      location: newLocation,
+      locationMode: newMode
+    } );
+
+    this.props.onLocationChange( newLocation );
 
   },
 
@@ -319,138 +355,155 @@ module.exports = React.createClass( {
 
   },
 
+  renderLocationSelector: function() {
+
+    return <div className="form-section">
+      <LocationSelector
+        mode={this.state.locationMode}
+        onChangeMode={this.onLocationModeChange}
+        location={this.state.location}
+        lang={this.props.lang}
+        res={this.props.locationRes}
+        onChange={this.onLocationChange} />
+    </div>
+
+  },
+
   render: function() {
 
     return <div>
 
-      { ( this.props.categories && this.props.categories.length ) || ( this.props.categorySet && this.props.categorySet.categories.length ) ? <CategorySelector
-        lang={this.props.lang}
-        set={this.props.categorySet || undefined}
-        categories={this.props.categories}
-        selection={this.getSelectedCategory()}
-        onChange={this.onTagsCategoryChange( 'category' )}
-        labels={this.props.labels} /> : '' }
+      {this.state.locationMode === 'create' ? this.renderLocationSelector() : null}
 
-      { ( this.props.tags && this.props.tags.length ) || ( this.props.tagSet && this.props.tagSet.groups.length ) ? <TagSelector
-        lang={this.props.lang}
-        set={this.props.tagSet}
-        tags={this.props.tags}
-        selection={this.getSelectedTags()}
-        onChange={this.onTagsCategoryChange( 'tags' )}
-        labels={this.props.labels} /> : '' }
+      <div style={{display: this.state.locationMode === 'create' ? 'none' : 'block' }}>
 
-      <div className="js_event_image_canvas"></div>
+        { ( this.props.categories && this.props.categories.length ) || ( this.props.categorySet && this.props.categorySet.categories.length ) ? <CategorySelector
+          lang={this.props.lang}
+          set={this.props.categorySet}
+          categories={this.props.categories}
+          selection={this.getSelectedCategory()}
+          onChange={this.onTagsCategoryChange( 'category' )}
+          labels={this.props.labels} /> : '' }
 
-      <h2>{this.props.labels.descriptionSection[ this.props.lang ]}</h2>
+        { ( this.props.tags && this.props.tags.length ) || ( this.props.tagSet && this.props.tagSet.groups.length ) ? <TagSelector
+          lang={this.props.lang}
+          set={this.props.tagSet}
+          tags={this.props.tags}
+          selection={this.getSelectedTags()}
+          onChange={this.onTagsCategoryChange( 'tags' )}
+          labels={this.props.labels} /> : '' }
 
-      <LanguageBar 
-        languages={ this.state.languages } 
-        onChangeLanguages={ this.changeLanguages }
-        labels={ this.props.labels } />
+        <div className="js_event_image_canvas"></div>
 
-      <div className="form-section">
+        <h2>{this.props.labels.descriptionSection[ this.props.lang ]}</h2>
 
-        <MultilingualTextField
-          constraints={{max: 140}}
-          counter={true}
-          optional={false}
-          label={this.props.labels.title}
-          name='title'
-          type='text'
-          value={this.state.title}
-          error={formErrors.title }
+        <LanguageBar 
+          languages={ this.state.languages } 
+          onChangeLanguages={ this.changeLanguages }
+          labels={ this.props.labels } />
+
+        <div className="form-section">
+
+          <MultilingualTextField
+            constraints={{max: 140}}
+            counter={true}
+            optional={false}
+            label={this.props.labels.title}
+            name='title'
+            type='text'
+            value={this.state.title}
+            error={formErrors.title }
+            languages={this.state.languages}
+            onChange={this.onChange( 'title' )}
+            lang={this.props.lang} />
+
+          <MultilingualTextField
+            constraints={{max: 200}}
+            counter={true}
+            optional={false}
+            label={this.props.labels.description}
+            name='description'
+            type='text'
+            value={this.state.description}
+            error={formErrors.description }
+            languages={this.state.languages}
+            onChange={this.onChange( 'description' )}
+            lang={this.props.lang} /> 
+
+          <EventKeywordsField
+            constraints={{max: 255}}
+            counter={true}
+            value={this.state.tags}
+            name='keywords'
+            optional={true}
+            languages={this.state.languages}
+            onChange={this.onChange( 'tags' )}
+            label={this.props.labels.keywords}
+            error={formErrors.tags }
+            placeholder={this.props.labels.keywordPlaceholder}
+            lang={this.props.lang} />
+
+          { this.props.useWysiwyg ? this.renderMarkdownField() : this.renderFreeTextField() }
+
+          <MultilingualTextField
+            constraints={{max: 255}}
+            counter={true}
+            label={this.props.labels.conditions}
+            placeholder={this.props.labels.conditionsPlaceholder }
+            name='conditions'
+            type='text'
+            optional={true}
+            value={this.state.conditions}
+            error={formErrors.conditions }
+            languages={this.state.languages}
+            onChange={this.onChange( 'conditions' )}
+            lang={this.props.lang} />  
+
+          <Registration 
+            lang={this.props.lang}
+            value={this.state.ticketLink}
+            onChange={this.onChange( 'ticketLink' )} />
+
+          <AccessibilityFields
+            value={this.state.accessibility || []}
+            label={this.props.labels.accessibility}
+            onChange={this.onChange( 'accessibility' )} 
+            labelsLang={this.props.lang} />
+
+          <AgeFields
+            value={ this.state.age }
+            label={ this.props.labels.age }
+            onChange={ this.onChange( 'age' ) }
+            labelsLang={ this.props.lang } />
+
+        </div>
+
+        { this.props.custom ? <div className="form-section"><CustomFields
+          fields={ this.props.custom }
+          values={this.state.custom }
+          errors={ formErrors }
           languages={this.state.languages}
-          onChange={this.onChange( 'title' )}
-          lang={this.props.lang} />
+          onChange={this.changeCustom}
+          labels={this.props.labels}     
+          res={this.props.customRes}   
+          lang={this.props.lang} /></div>
+        : '' }
 
-        <MultilingualTextField
-          constraints={{max: 200}}
-          counter={true}
-          optional={false}
-          label={this.props.labels.description}
-          name='description'
-          type='text'
-          value={this.state.description}
-          error={formErrors.description }
-          languages={this.state.languages}
-          onChange={this.onChange( 'description' )}
-          lang={this.props.lang} /> 
+        { this.props.locationFeature ? <div>
+          <h2>{this.props.labels.locationSection[ this.props.lang ]}</h2>
+          {this.state.locationMode === 'create' ? null : this.renderLocationSelector()}
+        </div> : <div className="js_event_location_canvas"></div>}
+        
+        <TimingsPicker
+          labels={this.props.labels}
+          lang={this.props.lang}
+          error={formErrors.timings}
+          timings={this.state.timings}
+          onChange={this.onTimingsChange} />
 
-        <EventKeywordsField
-          constraints={{max: 255}}
-          counter={true}
-          value={this.state.tags}
-          name='keywords'
-          optional={true}
-          languages={this.state.languages}
-          onChange={this.onChange( 'tags' )}
-          label={this.props.labels.keywords}
-          error={formErrors.tags }
-          placeholder={this.props.labels.keywordPlaceholder}
-          lang={this.props.lang} />
-
-        { this.props.useWysiwyg ? this.renderMarkdownField() : this.renderFreeTextField() }
-
-        <MultilingualTextField
-          constraints={{max: 255}}
-          counter={true}
-          label={this.props.labels.conditions}
-          placeholder={this.props.labels.conditionsPlaceholder }
-          name='conditions'
-          type='text'
-          optional={true}
-          value={this.state.conditions}
-          error={formErrors.conditions }
-          languages={this.state.languages}
-          onChange={this.onChange( 'conditions' )}
-          lang={this.props.lang} />  
-
-        <ul className="cform">
-          <li>
-            <Registration 
-              lang={this.props.lang}
-              value={this.state.ticketLink}
-              onChange={this.onChange( 'ticketLink' )} />
-          </li>
-        </ul>
-
-        <AccessibilityFields
-          value={this.state.accessibility || []}
-          label={this.props.labels.accessibility}
-          onChange={this.onChange( 'accessibility' )} 
-          labelsLang={this.props.lang} />
-
-        <AgeFields
-          value={ this.state.age }
-          label={ this.props.labels.age }
-          onChange={ this.onChange( 'age' ) }
-          labelsLang={ this.props.lang } />
+        <div className="js_form_canvas_below"></div>
 
       </div>
-
-      { this.props.custom ? <div className="form-section"><CustomFields
-        fields={ this.props.custom }
-        values={this.state.custom }
-        errors={ formErrors }
-        languages={this.state.languages}
-        onChange={this.changeCustom}
-        labels={this.props.labels}     
-        res={this.props.customRes}   
-        lang={this.props.lang} /></div>
-      : '' }
-
-
-      <div className="js_event_location_canvas"></div>
-
-
-      <TimingsPicker
-        labels={this.props.labels}
-        lang={this.props.lang}
-        error={formErrors.timings}
-        timings={this.state.timings}
-        onChange={this.onTimingsChange} />
-
-      
 
     </div>;
 
