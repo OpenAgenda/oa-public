@@ -1,0 +1,24 @@
+{
+  "name": "bs-templates",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch" : "node scripts/watch.js",
+    "build" : "node scripts/build.js"
+  },
+  "dependencies": {
+    "async": "^1.5.0",
+    "bootstrap": "3.3.5",
+    "colors": "^1.1.2",
+    "express": "^4.13.3",
+    "font-awesome": "4.3.0",
+    "node-sass": "^3.4.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "node-watch": "^0.3.5"
+  }
+}
