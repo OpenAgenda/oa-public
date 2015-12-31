@@ -31,16 +31,19 @@ function render( template, data ){
 
 function getMonthYear( date, lang ){
   var monthyear = Months[ date.getMonth() ][lang];
-  if( new Date().getFullYear() != date.getFullYear() ){
-    monthyear =  monthyear +' ' + date.getFullYear();
+  if( new Date().getUTCFullYear() != date.getUTCFullYear() ){
+    monthyear =  monthyear +' ' + date.getUTCFullYear();
   }
   return monthyear;
 }
 
+function pad( str ){
+  return ( '0' + str ).slice(-2);
+}
 
 function getTimes( range ){
   return range.map( function(timing){
-    return timing.start.getHours()+':'+timing.start.getMinutes();
+    return [ timing.start.getUTCHours(), timing.start.getUTCMinutes() ].map( pad ).join( ':' );
   }).join(', ');
 }
 
@@ -70,7 +73,7 @@ DateRange.prototype = {
   initializeState: function(){
     this.range.forEach( function( v ){
 
-      v.date = v.start.toLocaleDateString();
+      v.date = v.start.toISOString().slice(0,10);
       this.dateTimingHashMap[ v.date ] = v;
 
       if( this.uniqDates.indexOf( v.date ) == -1 ){
@@ -94,7 +97,7 @@ DateRange.prototype = {
       case 1:
         date1 = this.range[0].start;
 
-        data.day = date1.getDate();
+        data.day = date1.getUTCDate();
         data.monthyear = getMonthYear( date1, lang );
         data.times = getTimes( this.range, lang );
 
@@ -104,8 +107,8 @@ DateRange.prototype = {
         date1 = this.dateTimingHashMap[ this.uniqDates[0] ];
         date2 = this.dateTimingHashMap[ this.uniqDates[1] ];
 
-        data.firstdate = date1.start.getDate();
-        data.seconddate = date2.start.getDate();
+        data.firstdate = date1.start.getUTCDate();
+        data.seconddate = date2.start.getUTCDate();
         data.monthyear = getMonthYear( date1.start, lang );
         out = render( dateFormatTwoDates[lang], data );
         break;
@@ -113,8 +116,8 @@ DateRange.prototype = {
         date1 = this.dateTimingHashMap[ this.uniqDates[0] ];
         date2 = this.dateTimingHashMap[ this.uniqDates[ this.uniqDateCount -1 ] ];
 
-        data.firstdate = date1.start.getDate();
-        data.lastdate = date2.start.getDate();
+        data.firstdate = date1.start.getUTCDate();
+        data.lastdate = date2.start.getUTCDate();
         data.monthyear = getMonthYear( date1.start, lang );
         out = render( dateFormatMoreDates[lang], data );
         break;

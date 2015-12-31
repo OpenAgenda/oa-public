@@ -2,7 +2,7 @@
   "name": "date-range",
   "version": "1.0.0",
   "description": "summarize a list of timings in a single label",
-  "main": "index.js",
+  "main": "date-range",
   "keywords": [],
   "author": "",
   "license": "ISC",
