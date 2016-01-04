@@ -90,7 +90,17 @@ legacyProdify = function() {
 
     forEachInputFile(inputEntries, function( path, filename ) {
 
-      content += (labels?'/*' + filename + '*/':'') + (mangle?ugly.minify(path + filename, { mangle: true }).code:fs.readFileSync(path + filename)) + (changeLine?'\n':';');
+      try {
+
+        content += (labels?'/*' + filename + '*/':'') + (mangle?ugly.minify(path + filename, { mangle: true }).code:fs.readFileSync(path + filename)) + (changeLine?'\n':';');
+
+      } catch( e ) {
+
+        console.log( 'error', e );
+
+        throw e;
+
+      }
       
     });
 
@@ -489,7 +499,20 @@ _browserify = function( paths, cb ) {
 
       if ( err ) return cb( err );
 
-      var uglified = ugly.minify(content, { mangle: true, fromString: true }).code;
+      var uglified;
+
+      try {
+
+        uglified = ugly.minify(content, { mangle: true, fromString: true }).code;
+
+      } catch( e ) {
+
+        console.log( 'error', e );
+
+        throw e;
+
+      }
+
 
       // done!
 
@@ -559,7 +582,21 @@ browserifyTemplateScript = function( name, cb ) {
 
       if ( err ) return cb( err );
 
-      var uglified = ugly.minify(content, { mangle: true, fromString: true }).code;
+      var uglified;
+
+      try {
+
+        uglified = ugly.minify(content, { mangle: true, fromString: true }).code;
+
+      } catch( e ) {
+
+        console.log( 'no, here' );
+        console.log( 'error', e );
+
+        throw e;
+
+      }
+      
 
       // done!
 
