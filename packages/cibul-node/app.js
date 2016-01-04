@@ -78,7 +78,7 @@ module.exports = function( enabledTypes, cb ) {
       geocodefarm: config.geocodeFarm,
       elasticsearch: {
         host: config.es.host + ':' + config.es.port,
-        log: config.esLocation.log
+        log: config.esLocation.log,
         index: config.esLocation.index,
         apiVersion: config.esLocation.apiVersion,
         timeout: config.esLocation.timeout
