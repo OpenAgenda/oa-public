@@ -77,10 +77,8 @@ module.exports = function( enabledTypes, cb ) {
     require( 'agenda-locations' ).init( {
       geocodefarm: config.geocodeFarm,
       elasticsearch: {
-        connect: {
-          host: config.es.host + ':' + config.es.port,
-          log: config.esLocation.log
-        },
+        host: config.es.host + ':' + config.es.port,
+        log: config.esLocation.log
         index: config.esLocation.index,
         apiVersion: config.esLocation.apiVersion,
         timeout: config.esLocation.timeout
