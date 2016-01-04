@@ -20,7 +20,7 @@ fileSvc = require( 'files' ).file,
 
 exportable = require( './exportable' ),
 
-dates = require( './dates' );
+range = require( 'date-range' );
 
 module.exports = function( data ) {
 
@@ -33,7 +33,8 @@ module.exports = function( data ) {
     getFullImage: _imageGetter( 'getFullImage' ),
     remove: remove,
     transferOwnership: transferOwnership,
-    refresh: refresh
+    refresh: refresh,
+    getRange: getRange
   }),
 
   dsp = dispatcher( svcInstance, instance );
@@ -49,10 +50,6 @@ module.exports = function( data ) {
     'setCustomImage',          // process custom image upload
     'unsetCustomImage',        // take a wild guess
     'saveCustomImage'          // switch custom image from tmp store to permanent
-  ] );
-
-  dates( svcInstance, instance, [
-    'getRange'
   ] );
 
   exportable( svcInstance, instance, [
@@ -142,6 +139,20 @@ module.exports = function( data ) {
 
     } );
     
+  }
+
+
+  function getRange() {
+
+    return range( instance.getTimings().map( t => {
+
+      return {
+        start: new Date( t.start ),
+        end: new Date( t.end )
+      }
+
+    } ), instance.getCurrentLanguage() );
+
   }
 
 
