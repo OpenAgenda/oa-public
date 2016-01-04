@@ -27,6 +27,7 @@
     "gm": "1.21.1",
     "image-upload": "git+ssh://git@bitbucket.org:openagenda/image-upload.git",
     "images": "git+ssh://git@bitbucket.org:openagenda/images.git",
+    "date-range": "git+ssh://git@bitbucket.org:openagenda/date-range.git",
     "languages": "0.1.3",
     "logger": "git+ssh://git@bitbucket.org:openagenda/logger.git",
     "mailer": "git@bitbucket.org:openagenda/mailer.git",
