@@ -2,6 +2,14 @@
 
 var labels = require( './labels' );
 
+/*patterns = [ 'week', 'dayOfMonth' ].map( function( name ) {
+
+  return './patterns/'
+
+})
+
+week = require( './patterns/week' ); */
+
 module.exports = function( timings, lang ) {
 
   if ( !lang ) lang = 'en';
@@ -11,6 +19,12 @@ module.exports = function( timings, lang ) {
   uniqueDates = [],
 
   firstDate, lastDate;
+
+  if ( !timings || !timings.length ) {
+
+    return _render( labels.noDates[ lang ] );    
+
+  }
 
   timings.forEach( function( t ) {
 
@@ -60,7 +74,7 @@ function _render( template, data ){
 
   var out = template;
 
-  Object.keys( data ).forEach( function( key ) {
+  Object.keys( data || {} ).forEach( function( key ) {
     var regex = new RegExp( '%' + key + '%' );
     out = out.replace( regex, data[ key ], 'g' );
   });

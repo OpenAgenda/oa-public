@@ -13,6 +13,10 @@ module.exports = {
     en: '%firstDate% - %lastDate%',
     fr: '%firstDate% - %lastDate%'
   },
+  noDates: {
+    en: 'no dates available',
+    fr: 'aucune date disponible'
+  },
   months: [
     { en: 'January', fr: 'Janvier' },
     { en: 'February', fr: 'Février' },

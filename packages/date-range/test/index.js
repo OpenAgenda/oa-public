@@ -8,10 +8,29 @@ range = require('../'),
 
 testData = require( './data' );
 
-
 describe( 'date-range', () => {
 
-  describe( 'Case: one date', () => {
+  describe( 'no dates', () => {
+
+    it( 'empty array input should display "no dates available"', () => {
+
+      range( [], 'en' )
+
+      .should.equal( 'no dates available' );
+
+    } );
+
+    it( 'undefined input should display "no dates available', () => {
+
+      range( undefined, 'en' )
+
+      .should.equal( 'no dates available' );
+
+    } );
+
+  } );
+
+  describe( 'one date', () => {
 
     var output = '18 December, 07:00, 10:00, 11:00';
 
@@ -92,7 +111,7 @@ describe( 'date-range', () => {
   });
 
 
-  describe( 'Case: more dates', function(){
+  describe( 'Case: more dates', () => {
 
     var output = '16 - 19 December';
 
@@ -114,6 +133,19 @@ describe( 'date-range', () => {
 
 
   });
+
+
+  /*describe( 'Case: patterns', () => {
+
+    range( 'appends an information relative to the day of the week', () => {
+
+      range( testData.moreDates.tuesdays, 'en' )
+
+      .should.equal( 'fdsqfds' );
+
+    } );
+
+  } );*/
 
 
 });
