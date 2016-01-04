@@ -1,14 +1,9 @@
 "use strict";
 
-var labels = require( './labels' );
+var DateRange = require( './date-range' );
 
-module.exports = process; 
+module.exports = function( timings, lang ) {
 
-
-function process( timings, lang ) {
-
-  /**
-   * the magic happens here
-   */
-
+  return ( new DateRange( timings, { lang: lang } ) ).toString();
+  
 }

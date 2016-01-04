@@ -69,7 +69,7 @@ function DateRange( data, opts ){
 DateRange.prototype = {
 
 
-  /* Pre-calculate the values which are mostly used to make dicisions */
+  /* Pre-calculate the values which are mostly used to make decisions */
   initializeState: function(){
     this.range.forEach( function( v ){
 

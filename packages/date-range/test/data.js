@@ -79,6 +79,24 @@ module.exports = {
               start: new Date( year + '-12-19T13:00:00Z' ),
               end:   new Date( year + '-12-19T13:30:00Z' )
             },
+    ],
+    multipleMonths: [
+            {
+              start: new Date( year + '-11-16T07:00:00Z' ),
+              end:   new Date( year + '-11-16T08:00:00Z' )
+            },
+            {
+              start: new Date( year + '-11-18T10:00:00Z' ),
+              end:   new Date( year + '-11-18T10:30:00Z' )
+            },
+            {
+              start: new Date( year + '-12-19T10:00:00Z' ),
+              end:   new Date( year + '-12-19T10:30:00Z' )
+            },
+            {
+              start: new Date( year + '-12-19T13:00:00Z' ),
+              end:   new Date( year + '-12-19T13:30:00Z' )
+            },
     ]
   }
 };

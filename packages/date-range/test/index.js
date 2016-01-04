@@ -87,7 +87,8 @@ describe( 'date-range', function(){
   describe( 'Case: more dates', function(){
 
     var output = '16-19 December';
-    it( 'case:default should display as"'+ output +'"', function(){
+
+    it( 'case:default should display as"'+ output +'"', () => {
 
       var dateRange = new DateRange( testData.moreDates.default, { lang: 'en' } );
       var out = dateRange.toString();
@@ -95,10 +96,16 @@ describe( 'date-range', function(){
       out.should.be.equal( output );
     });
 
+    it( 'should display months when more than one', () => {
+
+      var output = '16 November-19 December';
+
+      ( new DateRange( testData.moreDates.multipleMonths, { lang: 'en' } ) ).toString().should.equal( output );
+
+    } );
+
 
   });
-
-
 
 
 });
