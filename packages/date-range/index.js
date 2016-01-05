@@ -1,14 +1,8 @@
 "use strict";
 
-var labels = require( './labels' );
+var labels = require( './labels' ),
 
-/*patterns = [ 'week', 'dayOfMonth' ].map( function( name ) {
-
-  return './patterns/'
-
-})
-
-week = require( './patterns/week' ); */
+patterns = require( './patterns' );
 
 module.exports = function( timings, lang ) {
 
@@ -18,13 +12,18 @@ module.exports = function( timings, lang ) {
 
   uniqueDates = [],
 
-  firstDate, lastDate;
+  firstDate, lastDate,
 
-  if ( !timings || !timings.length ) {
+  p = patterns(),
+
+  render;
+
+  if ( !timings || !timings.length || ! ( timings instanceof Array ) ) {
 
     return _render( labels.noDates[ lang ] );    
 
   }
+
 
   timings.forEach( function( t ) {
 
@@ -38,6 +37,8 @@ module.exports = function( timings, lang ) {
 
     }
 
+    p.add( t );
+
   } );
 
   firstDate = dateMap[ uniqueDates[ 0 ] ];
@@ -47,23 +48,23 @@ module.exports = function( timings, lang ) {
   if ( uniqueDates.length == 1 ) {
 
     return _render( labels.oneDate[ lang ], {
-      day: _renderDate( firstDate, lang ),
+      day: _renderDate( firstDate, true, lang ),
       times: _getTimes( timings, lang )
-    } );
+    } )
 
   } else if ( uniqueDates.length == 2 ) {
 
     return _render( labels.twoDates[ lang ], {
-      firstDate: _renderDate( firstDate, lastDate, lang ),
-      lastDate: _renderDate( lastDate, lang )
+      firstDate: _renderDate( firstDate, lastDate, false, lang ),
+      lastDate: _renderDate( lastDate, firstDate, true, lang )
     } );
 
   } else {
 
     return _render( labels.moreDates[ lang ], {
-      firstDate: _renderDate( firstDate, lastDate, lang ),
-      lastDate: _renderDate( lastDate, lang )
-    } );
+      firstDate: _renderDate( firstDate, lastDate, false, lang ),
+      lastDate: _renderDate( lastDate, firstDate, true, lang )
+    } ) + p.render( ', ' + labels.prefix[ lang ] + ' ', lang );
 
   }
   
@@ -75,19 +76,23 @@ function _render( template, data ){
   var out = template;
 
   Object.keys( data || {} ).forEach( function( key ) {
+
     var regex = new RegExp( '%' + key + '%' );
     out = out.replace( regex, data[ key ], 'g' );
+
   });
 
   return out;
 }
 
 
-function _renderDate( date, relativeTo, lang ) {
+function _renderDate( date, relativeTo, isLast, lang ) {
 
-  if ( arguments.length == 2 ) {
+  if ( arguments.length == 3 ) {
 
-    lang = relativeTo;
+    lang = isLast;
+
+    isLast = relativeTo;
 
     relativeTo = false;
 
@@ -105,9 +110,11 @@ function _renderDate( date, relativeTo, lang ) {
 
   } else {
 
-    render.year = date.getUTCFullYear() !== relativeTo.getUTCFullYear();
+    render.year = date.getUTCFullYear() !== relativeTo.getUTCFullYear() 
 
-    render.month = render.year || date.getMonth() !== relativeTo.getMonth();
+                || ( isLast && now.getUTCFullYear() !== date.getUTCFullYear() );
+
+    render.month = render.year || date.getMonth() !== relativeTo.getMonth() || isLast;
 
   }
 

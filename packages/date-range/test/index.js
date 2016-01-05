@@ -32,7 +32,7 @@ describe( 'date-range', () => {
 
   describe( 'one date', () => {
 
-    var output = '18 December, 07:00, 10:00, 11:00';
+    var output = '18 december, 07:00, 10:00, 11:00';
 
     it( 'should displays as "'+ output +'"', function(){
 
@@ -42,7 +42,7 @@ describe( 'date-range', () => {
 
     });
 
-    var output2 = '18 December 2014, 07:00, 10:00, 11:00';
+    var output2 = '18 december 2014, 07:00, 10:00, 11:00';
 
     it( 'differentYear should displays as "'+ output2 +'"', () => {
 
@@ -52,7 +52,7 @@ describe( 'date-range', () => {
 
     });
 
-    var output3 = '18 Décembre 2014, 07:00, 10:00, 11:00';
+    var output3 = '18 décembre 2014, 07:00, 10:00, 11:00';
 
     it( 'differentYear, French should displays as "'+ output3 +'"', () => {
 
@@ -66,7 +66,7 @@ describe( 'date-range', () => {
 
   describe( 'Case: two dates', () => {
 
-    var output = '16 and 18 December';
+    var output = '16 and 18 december';
 
     it( 'if two dates, displays as "'+ output +'"', () => {
 
@@ -76,7 +76,7 @@ describe( 'date-range', () => {
 
     } );
 
-    var output2 = '16 and 18 December 2014';
+    var output2 = '16 and 18 december 2014';
 
     it( 'if two dates differentYear, displays as "'+ output2 +'"', () => {
 
@@ -86,7 +86,7 @@ describe( 'date-range', () => {
 
     } );
 
-    var output3 = '16 et 18 Décembre 2014';
+    var output3 = '16 et 18 décembre 2014';
 
     it( 'French: if two dates differentYear, displays as "'+ output3 +'"', () => {
 
@@ -97,7 +97,7 @@ describe( 'date-range', () => {
     } );
 
 
-    var output4 = '16 et 18 Décembre 2014';
+    var output4 = '16 et 18 décembre 2014';
 
     it( 'French: Different initialization if two dates differentYear, displays as "'+ output4 +'"', function(){
 
@@ -108,12 +108,21 @@ describe( 'date-range', () => {
     } );
 
 
+    it( 'if one date on different year only, display both years: 16 décembre 2014 et 18 décembre 2016', () => {
+
+      range( testData.twoDates.oneDifferentYear, 'fr' )
+
+      .should.be.equal( '16 décembre 2014 et 18 décembre 2016' );
+
+    } );
+
+
   });
 
 
   describe( 'Case: more dates', () => {
 
-    var output = '16 - 19 December';
+    var output = '16 - 19 december';
 
     it( 'case:default should display as"'+ output +'"', () => {
 
@@ -127,7 +136,7 @@ describe( 'date-range', () => {
 
       range( testData.moreDates.multipleMonths, 'en' )
 
-      .should.equal( '16 November - 19 December' );
+      .should.equal( '16 november - 19 december' );
 
     } );
 
@@ -135,17 +144,17 @@ describe( 'date-range', () => {
   });
 
 
-  /*describe( 'Case: patterns', () => {
+  describe( 'patterns', () => {
 
-    range( 'appends an information relative to the day of the week', () => {
+    it( 'appends an information relative to the day of the week: 1 - 22 december 2015, on tuesdays', () => {
 
       range( testData.moreDates.tuesdays, 'en' )
 
-      .should.equal( 'fdsqfds' );
+      .should.equal( '1 - 22 december 2015, on tuesdays' );
 
     } );
 
-  } );*/
+  } );
 
 
 });

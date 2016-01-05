@@ -58,6 +58,16 @@ module.exports = {
               start: new Date( '2014-12-18T10:00:00Z' ),
               end:   new Date( '2014-12-18T10:30:00Z' )
             },
+    ],
+    oneDifferentYear: [
+      {
+        start: new Date( '2014-12-16T07:00:00Z' ),
+        end:   new Date( '2014-12-16T08:00:00Z' )
+      },
+      {
+        start: new Date( year + '-12-18T10:00:00Z' ),
+        end:   new Date( year + '-12-18T10:30:00Z' )
+      },
     ]
   },
 
@@ -97,6 +107,24 @@ module.exports = {
               start: new Date( year + '-12-19T13:00:00Z' ),
               end:   new Date( year + '-12-19T13:30:00Z' )
             },
+    ],
+    tuesdays: [
+      {
+        start: new Date( '2015-12-01T07:00:00Z' ),
+        end:   new Date( '2015-12-01T08:00:00Z' )
+      },
+      {
+        start: new Date( '2015-12-08T10:00:00Z' ),
+        end:   new Date( '2015-12-08T10:30:00Z' )
+      },
+      {
+        start: new Date( '2015-12-15T07:00:00Z' ),
+        end:   new Date( '2015-12-15T08:00:00Z' )
+      },
+      {
+        start: new Date( '2015-12-22T10:00:00Z' ),
+        end:   new Date( '2015-12-22T10:30:00Z' )
+      }
     ]
   }
 };

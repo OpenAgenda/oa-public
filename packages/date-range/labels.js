@@ -18,17 +18,43 @@ module.exports = {
     fr: 'aucune date disponible'
   },
   months: [
-    { en: 'January', fr: 'Janvier' },
-    { en: 'February', fr: 'Février' },
-    { en: 'March', fr: 'Mars' },
-    { en: 'April', fr: 'Avril' },
-    { en: 'May', fr: 'Mai' },
-    { en: 'June', fr: 'Juin' },
-    { en: 'July', fr: 'Juillet' },
-    { en: 'August', fr: 'Août' },
-    { en: 'September', fr: 'Septembre' },
-    { en: 'October', fr: 'Octobre' },
-    { en: 'November', fr: 'Novembre' },
-    { en: 'December', fr: 'Décembre' }
-  ]
+    { en: 'january', fr: 'janvier' },
+    { en: 'february', fr: 'février' },
+    { en: 'march', fr: 'mars' },
+    { en: 'april', fr: 'avril' },
+    { en: 'may', fr: 'mai' },
+    { en: 'june', fr: 'juin' },
+    { en: 'july', fr: 'juillet' },
+    { en: 'august', fr: 'août' },
+    { en: 'september', fr: 'septembre' },
+    { en: 'october', fr: 'octobre' },
+    { en: 'november', fr: 'novembre' },
+    { en: 'december', fr: 'décembre' }
+  ],
+  prefix: {
+    en: 'on',
+    fr: 'les'
+  },
+  weekdays: [ {
+    en: 'sundays',
+    fr: 'dimanches'
+  }, {
+    en: 'mondays',
+    fr: 'lundis'
+  }, {
+    en: 'tuesdays',
+    fr: 'mardis'
+  }, {
+    en: 'wednesdays',
+    fr: 'mercredis'
+  }, {
+    en: 'thursdays',
+    fr: 'jeudis'
+  }, {
+    en: 'fridays',
+    fr: 'vendredis'
+  }, {
+    en: 'saturdays',
+    fr: 'samedis'
+  } ]
 };
