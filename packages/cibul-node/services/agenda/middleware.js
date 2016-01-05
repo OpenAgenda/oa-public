@@ -311,7 +311,9 @@ function cleanJson( req, res, next ) {
 
 function buildPdf( req, res, next ) {
 
-  var stream = req.agenda.searchStream( req.query.oaq, {
+  var pdfOptions = req.agenda.getPdfOptions(),
+
+  stream = req.agenda.searchStream( req.query.oaq, {
     showAll: false
   } ),
 
@@ -319,7 +321,8 @@ function buildPdf( req, res, next ) {
     title: req.agenda.title,
     description: req.agenda.description,
     link: req.agenda.url,
-    imageLink: req.agenda.image ? config.aws.imageBucketPath.replace( 'cibuldev', 'cibul' ) + req.agenda.image : false
+    imageLink: req.agenda.image ? config.aws.imageBucketPath.replace( 'cibuldev', 'cibul' ) + req.agenda.image : false,
+    style: pdfOptions.style
   }, 'fr' );
 
   pdfStream.getReadableStream().pipe( res );
