@@ -143,11 +143,11 @@ function _pad( str ){
 }
 
 
-function _getTimes( timings ) {
+function _getTimes( timings, lang ) {
 
   return timings.map( function( timing ) {
 
-    return [ timing.start.getUTCHours(), timing.start.getUTCMinutes() ].map( _pad ).join( ':' );
+    return [ timing.start.getUTCHours(), timing.start.getUTCMinutes() ].map( _pad ).join( labels.minuteSeparator[ lang ] );
 
   } ).join( ', ' );
 

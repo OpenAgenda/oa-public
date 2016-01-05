@@ -52,7 +52,7 @@ describe( 'date-range', () => {
 
     });
 
-    var output3 = '18 décembre 2014, 07:00, 10:00, 11:00';
+    var output3 = '18 décembre 2014, 07h00, 10h00, 11h00';
 
     it( 'differentYear, French should displays as "'+ output3 +'"', () => {
 

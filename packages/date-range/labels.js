@@ -31,6 +31,10 @@ module.exports = {
     { en: 'november', fr: 'novembre' },
     { en: 'december', fr: 'décembre' }
   ],
+  minuteSeparator: {
+    en: ':',
+    fr: 'h'
+  },
   prefix: {
     en: 'on',
     fr: 'les'
