@@ -10,6 +10,7 @@
     "async": "^1.5.0",
     "basic-logger": "git+ssh://git@bitbucket.org:openagenda/basic-logger.git",
     "gm": "^1.21.1",
+    "request": "^2.67.0",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
     "when": "^3.7.5"
   },

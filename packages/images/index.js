@@ -1,5 +1,7 @@
 "use strict";
 
+var request = require( 'request' );
+
 module.exports = processImage;
 
 module.exports.multi = processImageMulti;
@@ -395,61 +397,47 @@ function _download( values ) {
 
     aborted = false,
 
-    req = ( src.match( /^https:/ ) ? https : http )
+    req = request.get( {
+      url: src,
+      agentOptions: {
+        rejectUnauthorized: false
+      },
+      timeout: config.timeout
+    } )
 
-    .get( src, function( res ) {
+    .on( 'error', err => {
 
-      if ( res.statusCode != 200 ) {
+      rj( err.code == 'ETIMEDOUT' ? 'timeout' : err );
 
-        log( 'download attempt returned a code %s for path %s', req.statusCode, src );
+    } )
 
-        return rj( 'status code: ' + res.statusCode );
+    .on( 'data', chunk => {
+
+      downloadedSize += chunk.length;
+
+      if ( downloadedSize > config.maxSize ) {
+
+        _downloadAbort( req, path, 'maximum size exceeded', rj );
+
+        aborted = true;
 
       }
 
-      res.pipe( file );
+    } )
 
-      res.on( 'data', function( chunk ) {
+    .on( 'end', () => {
 
-        downloadedSize += chunk.length;
+      if ( aborted ) return;
 
-        if ( downloadedSize > config.maxSize ) {
+      values.path = path;
 
-          _downloadAbort( req, path, 'maximum size exceeded', rj );
+      log( 'download successful at %s', path );
 
-          aborted = true;
-
-        }
-
-      });
-
-      res.on( 'end', function() {
-        
-        if ( aborted ) return;
-
-        values.path = path;
-
-        log( 'download successful at %s', path );
-
-        rs( values );
-
-      });
+      rs( values );
 
     });
 
-    req.setTimeout( config.timeout, function() {
-
-      _downloadAbort( req, path, 'timeout', rj );
-
-      aborted = true;
-
-    });
-
-    req.on( 'error', function( err ) {
-
-      log( 'error', 'request error: %s', err );
-
-    } );
+    req.pipe( file );
 
   } );
 
