@@ -476,7 +476,7 @@ function _downloadAbort( req, path, errorMessage, cb ) {
 
 function _getTemporaryFilePath() {
 
-  return config.tmpFolderPath + ( new Date() ).getTime() + '-' + Math.ceil( Math.random() * 9999999999 );
+  return config.tmpPath + ( new Date() ).getTime() + '-' + Math.ceil( Math.random() * 9999999999 );
 
 }
 
