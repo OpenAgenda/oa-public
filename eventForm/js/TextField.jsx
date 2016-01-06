@@ -76,7 +76,9 @@ module.exports = React.createClass({
 
     } else {
 
-      return <textarea 
+      return <textarea
+        className="form-control"
+        rows="4" 
         name={this.props.name}
         value={this.props.value} 
         onChange={this.onChange} />
