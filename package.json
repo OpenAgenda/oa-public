@@ -44,7 +44,8 @@
     "agenda-tags": "git+ssh://git@bitbucket.org:openagenda/agenda-tags.git",
     "agenda-categories": "git+ssh://git@bitbucket.org:openagenda/agenda-categories.git",
     "registration": "git+ssh://git@bitbucket.org:openagenda/registration.git",
-    "agenda-locations" : "git+ssh://git@bitbucket.org:openagenda/agenda-locations.git"
+    "agenda-locations" : "git+ssh://git@bitbucket.org:openagenda/agenda-locations.git",
+    "react-form-components" : "git+ssh://git@bitbucket.org:openagenda/react-form-components.git"
   },
   "peerDependencies" : {
     "react": "0.14.2"

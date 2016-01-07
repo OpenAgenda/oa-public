@@ -4,6 +4,8 @@
     "leaflet" : "../css/leaflet-0.7.3.css",
     "location-editor" : "../node_modules/agenda-locations/sass/style.scss",
     "react-select" : "../node_modules/react-select/dist/react-select.css",
+    "multilingual-input-fields" : "../node_modules/react-form-components/sass/multilingual-input-field.scss",
+    "language-bar" : "../node_modules/react-form-components/sass/language-bar.scss",
     "location-form" : "../node_modules/agenda-locations/sass/form.scss",
     "image-upload" : "../node_modules/image-upload/sass/style.scss",
     "locations" : "css/style.scss"
