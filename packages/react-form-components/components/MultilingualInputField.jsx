@@ -34,7 +34,19 @@ module.exports = React.createClass( {
 
   },
 
-  onChange: function() {
+  onChange: function( lang ) {
+
+    var self = this;
+
+    return function( e ) {
+
+      var newValue = JSON.parse( JSON.stringify( self.props.value ) );
+
+      newValue[ lang ] = e.target.value;
+
+      self.props.onChange( self.props.name, newValue );
+
+    }
 
   },
 
