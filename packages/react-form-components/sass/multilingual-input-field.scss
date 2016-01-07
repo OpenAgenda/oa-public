@@ -1,0 +1,28 @@
+.multilingual-input-field {
+
+  padding: 2em 0;
+
+  .lang-unit {
+
+    padding: 1em 0;
+    position: relative;
+
+    > label {
+
+      display: inline-block;
+      width: 1.5em;
+      text-transform: uppercase;
+      position: absolute;
+      padding: 9px 0;
+
+    }
+
+    > div {
+
+      margin-left: 2em;
+
+    }
+
+  }
+
+}

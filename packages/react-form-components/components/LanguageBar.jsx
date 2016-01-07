@@ -19,7 +19,7 @@ module.exports = React.createClass( {
 
   onRemove: function( code ) {
 
-    this.props.onChangeLanguages( this.props.languages.filter( function( l ) {
+    this.props.onChange( this.props.languages.filter( function( l ) {
 
       return l !== code;
 
@@ -93,7 +93,7 @@ module.exports = React.createClass( {
 
     this.hideSelect();
 
-    this.props.onChangeLanguages( languages );
+    this.props.onChange( languages );
 
   },
 
@@ -119,7 +119,7 @@ module.exports = React.createClass( {
           { this.state.displaySelect ? <Select
           options={this.getRemainingLanguages()}
           onChange={this.languageAdd}
-          clearable={false} /> : <a className="url" onClick={this.showSelect}>{this.props.labels.addLanguage}</a> }
+          clearable={false} /> : <a className="url" onClick={this.showSelect}>{this.props.getLabel( 'addLanguage' )}</a> }
         </span>
         
       </div>
