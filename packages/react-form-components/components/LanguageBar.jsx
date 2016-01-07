@@ -104,7 +104,7 @@ module.exports = React.createClass( {
     languageItem = function( l ) {
 
       return <LanguageItem 
-        code={l}
+        key={l}
         languages={self.props.languages}
         onRemove={self.onRemove} />
 
@@ -133,7 +133,7 @@ var LanguageItem = React.createClass( {
 
   onRemove: function() {
 
-    this.props.onRemove( this.props.code );
+    this.props.onRemove( this.props.key );
 
   },
 
@@ -141,7 +141,7 @@ var LanguageItem = React.createClass( {
 
     var self = this,
 
-    lInfo = languages.getLanguageInfo( this.props.code ),
+    lInfo = languages.getLanguageInfo( this.props.key ),
 
     removeCross = function() {
 
