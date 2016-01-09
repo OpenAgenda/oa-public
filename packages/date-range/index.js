@@ -6,7 +6,11 @@ patterns = require( './patterns' );
 
 module.exports = function( timings, lang ) {
 
-  if ( !lang ) lang = 'en';
+  if ( [ 'fr', 'en' ].indexOf( lang ) == -1 ) {
+
+    lang = 'en';
+
+  }
 
   var dateMap = {},
 

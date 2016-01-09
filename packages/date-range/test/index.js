@@ -144,6 +144,19 @@ describe( 'date-range', () => {
   });
 
 
+  describe( 'wrong input', () => {
+
+    it( 'renders in english if unknown or non existing language is input', () => {
+
+      range( testData.moreDates.default, 'es' )
+
+      .should.be.equal( '16 - 19 december' );
+
+    } );
+
+  } );
+
+
   describe( 'patterns', () => {
 
     it( 'appends an information relative to the day of the week: 1 - 22 december 2015, on tuesdays', () => {
