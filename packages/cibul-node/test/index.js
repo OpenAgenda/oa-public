@@ -6,7 +6,6 @@ require( '../services/genUrl/test/genUrl' );
 require( '../services/event/test/oembed' );
 require( '../services/event/test/state' );
 require( '../event/test/oembed.task' );
-require( '../node_modules/files/test/s3' );
 require( '../node_modules/images/test/all' );
 require( '../services/invitation/test/processing' );
 require( '../services/invitation/test/preprocessing' );

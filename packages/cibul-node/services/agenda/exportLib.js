@@ -8,6 +8,10 @@ async = require( 'async' ),
 
 genUrl = require( '../genUrl' ),
 
+agendaTags = require( 'agenda-tags' ),
+
+agendaCategories = require( 'agenda-categories' ),
+
 config = require( '../../config' );
 
 module.exports = function( service ) {
@@ -40,7 +44,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
       if ( !params.includePrivateData ) return wcb();
 
-      event.getState( function( err, state ) {
+      event.getState( ( err, state ) => {
 
         if ( err ) return wcb( err );
 
@@ -54,7 +58,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
     wcb => {
 
-      event.getFeatured( function( err, isFeatured ) {
+      event.getFeatured( ( err, isFeatured ) => {
 
         if ( err ) return wcb( err );
 
@@ -76,7 +80,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
       }
 
-      customFieldsGetter( event, params.lang, function( err, custom ) {
+      customFieldsGetter( event, params.lang, ( err, custom ) => {
 
         if ( err ) return wcb( err );
 
@@ -110,9 +114,9 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
     },
 
-    function( wcb ) {
+    wcb => {
 
-      event.getAgendaCategory( agenda.id, function( err, category ) {
+      event.getAgendaCategory( agenda.id, ( err, category ) => {
 
         if ( err ) return wcb( err );
 
@@ -124,9 +128,9 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
     },
 
-    function( wcb ) {
+    wcb => {
 
-      event.getAgendaTags( agenda.id, function( err, tags ) {
+      event.getAgendaTags( agenda.id, ( err, tags ) => {
 
         if ( err ) return wcb( err );
 
@@ -134,7 +138,41 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
         wcb();
 
-      });
+      } );
+
+    },
+
+    wcb => {
+
+      toDecorate.tagGroups = [];
+
+      if ( !toDecorate.tags.length ) return wcb();
+
+      let tagSlugs = toDecorate.tags.map( t => t.slug );
+
+      agendaTags.get( agenda.id, ( err, tagSet ) => {
+
+        if ( err ) return wcb( err );
+
+        toDecorate.tagGroups = ( tagSet ? tagSet.groups : [] ).filter( g => {
+
+          // keep groups containing tags used by event
+          return g.tags.filter( t => tagSlugs.indexOf( t.slug ) ).length;
+
+        } ).map( g => {
+
+          return {
+            name: g.name,
+            tags: g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).map( t => { return { label: t.label, slug: t.slug } } )
+          }
+
+        } );
+
+        console.log( JSON.stringify( toDecorate.tagGroups ) );
+
+        wcb();
+
+      } );
 
     }
 
@@ -152,7 +190,7 @@ function decorateEvents( agenda, events, toDecorate, options, cb ) {
 
   var i = 0;
 
-  async.eachSeries( events, function( event, ecb ) {
+  async.eachSeries( events, ( event, ecb ) => {
 
     decorateEvent( agenda, event, toDecorate[ i++ ], options, ecb );
 

@@ -148,6 +148,9 @@ function renderEvent( req, res, next ) {
 
     utils.extend( req.formatted, values );
 
+    console.log( mapping );
+    console.log( req.formatted );
+
     req.render = eventParser.render( req.formatted );
 
     next();

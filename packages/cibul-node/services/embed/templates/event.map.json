@@ -86,11 +86,30 @@
   }],
 
   "children" : [ {
+    "name" : "TagGroups",
+    "mapTo" : "tagGroups",
+    "attributes" : [ {
+      "name" : "Name",
+      "mapTo" : "name"
+    } ],
+    "children" : [ {
+      "name" : "Tags",
+      "mapTo" : "tags",
+      "attributes" : [ {
+        "name" : "Tag",
+        "mapTo" : "label"
+      }, {
+        "name" : "TagLink",
+        "mapTo" : "link"
+      } ]
+    } ]
+  }, {
     "name" : "Tags",
     "mapTo" : "tags",
     "attributes" : [ {
       "name" : "Tag",
-      "mapTo" : "label",
+      "mapTo" : "label"
+    }, {
       "name" : "TagLink",
       "mapTo" : "link"
     } ]
