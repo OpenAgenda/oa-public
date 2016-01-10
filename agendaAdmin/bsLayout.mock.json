@@ -28,6 +28,11 @@
     "uri" : "agendaAdminCategories"
   }, {
     "section" : "manage",
+    "key" : "locations",
+    "label" : "Locations",
+    "uri" : "agendaAdminLocations"
+  }, {
+    "section" : "manage",
     "key" : "sources",
     "label" : "Sources",
     "uri" : "agendaAdminSources"
