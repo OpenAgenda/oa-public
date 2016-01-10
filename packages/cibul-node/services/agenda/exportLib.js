@@ -116,6 +116,10 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
     wcb => {
 
+      // if category is already present, no
+      // need to fetch again
+      if ( toDecorate.category ) return wcb();
+
       event.getAgendaCategory( agenda.id, ( err, category ) => {
 
         if ( err ) return wcb( err );
@@ -129,6 +133,10 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
     },
 
     wcb => {
+
+      // if tags are already loaded
+      // no need to fetch again
+      if ( toDecorate.tags ) return wcb();
 
       event.getAgendaTags( agenda.id, ( err, tags ) => {
 
@@ -167,8 +175,6 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
           }
 
         } );
-
-        console.log( JSON.stringify( toDecorate.tagGroups ) );
 
         wcb();
 
