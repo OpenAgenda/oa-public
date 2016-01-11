@@ -154,9 +154,19 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
       toDecorate.tagGroups = [];
 
-      if ( !toDecorate.tags.length ) return wcb();
+      let tagSlugs = [];
 
-      let tagSlugs = toDecorate.tags.map( t => t.slug );
+      if ( typeof toDecorate.tags == 'string' ) {
+
+        tagSlugs = [ toDecorate.tags ];
+
+      } else if ( toDecorate.tags ) {
+
+        tagSlugs = toDecorate.tags.map( t => t.slug );
+
+      }
+
+      if ( !tagSlugs || !tagSlugs.length ) return wcb();
 
       agendaTags.get( agenda.id, ( err, tagSet ) => {
 
