@@ -297,7 +297,7 @@ function catchError( req, res, jsonResponse ) {
 
   return function( err ) {
 
-    log( 'error', 'caught error: %s', err );
+    log( 'error', 'caught error: %s', typeof err == 'object' && err.message ? err.message : JSON.stringify( err ) );
 
     if ( err.code == 404 ) {
 

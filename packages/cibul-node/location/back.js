@@ -41,6 +41,12 @@ routes = {
     mw.remove
   ] ],
 
+  agendaAdminLocationMerge: [ 'post', '/:slug/admin/locations/merge', [
+    cmn.checkAdministrator(),
+    bodyParser.json(),
+    mw.merge
+  ] ],
+
   locationGeocode: [ 'get', '/:slug/locations/geocode', [
     _loadUserUid,
     mw.geocode
@@ -101,6 +107,7 @@ function show( req, res ) {
         geocode: req.genUrl( 'locationGeocode', { slug: req.agenda.slug } ),
         set: req.genUrl( 'agendaAdminLocationSet', { slug: req.agenda.slug } ),
         remove: req.genUrl( 'agendaAdminLocationRemove', { slug: req.agenda.slug } ),
+        merge: req.genUrl( 'agendaAdminLocationMerge', { slug: req.agenda.slug } ),
         image: {
           newUpload: req.genUrl( 'locationNewImageUpload', { slug: req.agenda.slug } ),
           newRemove: req.genUrl( 'locationNewImageRemove', { slug: req.agenda.slug } ),
