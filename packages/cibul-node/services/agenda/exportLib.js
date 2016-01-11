@@ -169,12 +169,18 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
         } ).map( g => {
 
+          // keep group tags used by event
           return {
             name: g.name,
             tags: g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).map( t => { return { label: t.label, slug: t.slug } } )
           }
 
-        } );
+        } ).filter( g => {
+
+          // remove empty groups
+          return g.tags.length;
+
+        } )
 
         wcb();
 
