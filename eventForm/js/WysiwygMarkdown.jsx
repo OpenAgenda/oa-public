@@ -154,6 +154,11 @@ module.exports = React.createClass( {
           statusbar: false,
           block_formats: 'Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3;',
           autoresize_min_height: 100,
+          // https://www.tinymce.com/docs/plugins/link/#link_title
+          link_title: false,
+          default_link_target: '_blank',
+          link_assume_external_targets: true,
+
           setup: function( editor ) {
 
             editor.on( 'change', self.onChange( l ) );
