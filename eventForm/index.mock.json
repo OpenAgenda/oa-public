@@ -396,7 +396,15 @@
     }
   },
   "sets" : {
-    "event" : {},
+    "event" : {
+      "agendas": [
+        {
+          "uid": 84735921, 
+          "tags": [ "theatre-du-chatelet", "vente", "festival-nemo", "espace-jemmapes" ],
+          "category": "expositions"
+        }
+      ]
+    },
     "agenda" : {
       "categorySet" : {
         "required" : true,
