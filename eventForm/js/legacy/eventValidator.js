@@ -8,6 +8,8 @@ module.exports = function( params ) {
       title: 'Title',
       description: 'Description',
       address: 'Address',
+      location: 'Location',
+      noLocation: 'No location is defined',
       placename: 'The name of the place',
       tags: 'The tags',
       freeText: 'The Free Text field',
@@ -62,9 +64,21 @@ module.exports = function( params ) {
     });*/
 
     
+    if ( event.location ) {
 
-    try { process('placename', event.location.name) } catch(e) { if (!contains(errors, e)) errors.push(e); }
-    try { process('address', event.location.address) } catch(e) { if (!contains(errors, e)) errors.push(e); }
+      try { process('placename', event.location.name) } catch(e) { if (!contains(errors, e)) errors.push(e); }
+      try { process('address', event.location.address) } catch(e) { if (!contains(errors, e)) errors.push(e); }
+
+    } else {
+
+      errors.push( {
+        field: 'location',
+        label: params.labels.location,
+        message: params.labels.noLocation
+      } );
+      
+    }
+
     try { process( 'timings', event.timings ) } catch(e) { if (!contains(errors, e)) errors.push(e); }
 
     return errors;
@@ -74,7 +88,13 @@ module.exports = function( params ) {
 
   _validators = {
 
-    title: function (value) {
+    location: function( value ) {
+
+
+
+    },
+
+    title: function ( value ) {
 
       _shouldNotBeEmpty('title', value);
 
@@ -82,7 +102,7 @@ module.exports = function( params ) {
 
     },
 
-    description: function(value) {
+    description: function( value ) {
 
       _shouldNotBeEmpty('description', value);
 
@@ -90,7 +110,7 @@ module.exports = function( params ) {
 
     },
 
-    tags: function(value) {
+    tags: function( value ) {
 
       _maxLength('tags', value);
 
