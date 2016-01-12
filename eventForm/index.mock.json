@@ -386,12 +386,22 @@
       ]
     }
   },
-  "hidefield" : {
+  "standardcustom" : {
     "event" : {},
     "configuration" : {
       "fields" : [ {
         "name" : "keywords",
         "display" : false
+      }, {
+        "name" : "conditions",
+        "label" : {
+          "fr" : "Détail des conditions",
+          "en" : "Condition details"
+        },
+        "placeholder" : {
+          "fr" : "Le prix",
+          "en" : "The price."
+        }
       } ]
     }
   },

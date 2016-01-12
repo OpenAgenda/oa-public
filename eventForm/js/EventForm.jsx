@@ -97,7 +97,7 @@ module.exports = React.createClass( {
 
   },
 
-  displayField: function( fieldName ) {
+  getFieldConfiguration: function( fieldName ) {
 
     var fields = this.props.configuration.fields || [],
 
@@ -107,9 +107,45 @@ module.exports = React.createClass( {
 
     } );
 
-    if ( !fieldConfiguration.length ) return true;
+    if ( !fieldConfiguration.length ) return false;
 
-    fieldConfiguration = fieldConfiguration[ 0 ];
+    return fieldConfiguration[ 0 ];
+
+  },
+
+  getFieldLabel: function( fieldName, translated ) {
+
+    var configuration = this.getFieldConfiguration( fieldName );
+
+    if ( configuration && configuration.label ) {
+
+      return translated ? configuration.label[ this.props.lang ] : configuration.label;
+
+    }
+
+    return translated ? this.props.labels[ fieldName ][ this.props.lang ] : this.props.labels[ fieldName ];
+
+  },
+
+  getFieldPlaceholder: function( fieldName, translated ) {
+
+    var configuration = this.getFieldConfiguration( fieldName );
+
+    if ( configuration && configuration.placeholder ) {
+
+      return translated ? configuration.placeholder[ this.props.lang ] : configuration.placeholder;
+
+    }
+
+    return translated ? this.props.labels[ fieldName + 'Placeholder' ][ this.props.lang ] : this.props.labels[ fieldName + 'Placeholder' ];
+
+  },
+
+  displayField: function( fieldName ) {
+
+    var fieldConfiguration = this.getFieldConfiguration( fieldName );
+
+    if ( !fieldConfiguration || fieldConfiguration.display === undefined ) return true;
 
     return fieldConfiguration.display;
 
@@ -474,8 +510,8 @@ module.exports = React.createClass( {
           <MultilingualTextField
             constraints={{max: 255}}
             counter={true}
-            label={this.props.labels.conditions}
-            placeholder={this.props.labels.conditionsPlaceholder }
+            label={ this.getFieldLabel( 'conditions', false ) }
+            placeholder={ this.getFieldPlaceholder( 'conditions', false ) }
             name='conditions'
             type='text'
             optional={true}
