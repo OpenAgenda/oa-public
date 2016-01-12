@@ -34,6 +34,7 @@
    */
 
   oaEventForm( {
+    configuration: <%- JSON.stringify( configuration ) %>,
     locationFeature: <%= locationFeature %>,
 <% if ( useMarkdown ) { %>
     useWysiwyg: true,

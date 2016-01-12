@@ -37,13 +37,20 @@ formErrors = {};
 module.exports = React.createClass( {
 
   propTypes: {
-    locationFeature: React.PropTypes.bool
+    locationFeature: React.PropTypes.bool,
+    configuration: React.PropTypes.object
   },
 
   getDefaultProps: function() {
 
     return {
-      locationFeature: false
+      locationFeature: false,
+      configuration: {
+        fields: [ {
+          name: 'keywords',
+          display: false
+        } ]
+      }
     }
 
   },
@@ -87,6 +94,24 @@ module.exports = React.createClass( {
       self.props.onTextChange( field, value, self.listErrorDetails( ) );
 
     }
+
+  },
+
+  displayField: function( fieldName ) {
+
+    var fields = this.props.configuration.fields || [],
+
+    fieldConfiguration = fields.filter( function( f ) {
+
+      return f.name == fieldName;
+
+    } );
+
+    if ( !fieldConfiguration.length ) return true;
+
+    fieldConfiguration = fieldConfiguration[ 0 ];
+
+    return fieldConfiguration.display;
 
   },
 
@@ -430,6 +455,7 @@ module.exports = React.createClass( {
             onChange={this.onChange( 'description' )}
             lang={this.props.lang} /> 
 
+          { this.displayField( 'keywords' ) ?
           <EventKeywordsField
             constraints={{max: 255}}
             counter={true}
@@ -441,7 +467,7 @@ module.exports = React.createClass( {
             label={this.props.labels.keywords}
             error={formErrors.tags }
             placeholder={this.props.labels.keywordPlaceholder}
-            lang={this.props.lang} />
+            lang={this.props.lang} /> : null }
 
           { this.props.useWysiwyg ? this.renderMarkdownField() : this.renderFreeTextField() }
 

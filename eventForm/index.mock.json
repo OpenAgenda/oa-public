@@ -2,6 +2,7 @@
   "base" : {
     "useMarkdown" : false,
     "locationFeature" : true,
+    "configuration": false,
     "locations" : [
       { "name": "Palais des congrès", "address": "58 Boulevard Charles Livon, 13007 Marseille, France", "lat": 43.292057, "lng": 5.358939, "uid": 281 },
       { "name": "Visionairs Gallery", "address": "14 Rue des Carmes, 75005 Paris, France", "lat": 48.849159, "lng": 2.347472, "uid": 282 },
@@ -383,6 +384,15 @@
         { "slug":"alhambra","label":"alhambra" },
         { "slug":"science","label":"science" }
       ]
+    }
+  },
+  "hidefield" : {
+    "event" : {},
+    "configuration" : {
+      "fields" : [ {
+        "name" : "keywords",
+        "display" : false
+      } ]
     }
   },
   "sets" : {
