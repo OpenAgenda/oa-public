@@ -30,21 +30,34 @@
     }
 
     .description {
+
       font-size: 15px;
       font-weight: 200;
       padding: 10px 20px;
+
+      div {
+
+        /* this applies to embedded content */
+        margin: 20px 0;
+
+      }
+
     }
 
     .short-description {
+
       font-size: 24px;
       font-weight: 200;
       padding: 10px 20px 0;
+
     }
 
     .title {
+    
       font-size: 24px;
       font-weight: 300;
       margin: 30px 0 15px;
+      
     }
 
     .custom {
