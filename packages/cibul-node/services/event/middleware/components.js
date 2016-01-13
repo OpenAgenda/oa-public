@@ -19,9 +19,13 @@ module.exports = function( req, res, next ) {
 
 function _registration( v ) {
 
-  v.req.formatted.registrationComponent = ReactDOMServer.renderToStaticMarkup(
+  var registrationComponent = ReactDOMServer.renderToStaticMarkup(
     Registration( { value: v.req.event.getTicketLink() || '' } )
   );
+
+  if ( registrationComponent == '<noscript></noscript>' ) registrationComponent = false;
+
+  v.req.formatted.registrationComponent = registrationComponent;
 
   return v;
 
