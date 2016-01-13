@@ -117,24 +117,24 @@
       </aside>
 
       <section class="col-sm-7 col-sm-offset-1">
+
+<% if ( event.languages ) { %>
+        <div class="langs">
+          <ul>
+<% event.languages.selection.forEach( function( l ) { %>
+<% if ( l.label==event.languages.current ) { %>
+            <li class="current"><a><%= l.label %></a></li>
+<% } else { %>
+            <li><a hreflang="<%= l %>" href="<%= l.link %>"><%= l.label %></a></li>
+<% } %>
+<% }) %>
+          </ul>
+        </div>
+<% } %>
         
         <div class="event-content">
           <h1><%= event.title %></h1>
           <p class="short-description"><%= event.description %></p>
-<% if ( event.languages ) { %>
-          <div class="langs">
-            <p><%= __('Description available in') %>&nbsp;</p>
-            <ul>
-<% event.languages.selection.forEach( function( l ) { %>
-<% if ( l.label==event.languages.current ) { %>
-              <li class="current"><a><%= l.label %></a></li>
-<% } else { %>
-              <li><a hreflang="<%= l %>" href="<%= l.link %>"><%= l.label %></a></li>
-<% } %>
-<% }) %>
-            </ul>
-          </div>
-<% } %>
 <% if ( event.image ) { %>
           <img  class="img-responsive" src="<%= event.image %>">
 <% } %>

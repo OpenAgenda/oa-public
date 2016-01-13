@@ -8,6 +8,7 @@
     "event-base" : "css/base.scss",
     "event" : "css/style.scss",
     "event-details" : "css/details.scss",
+    "event-langs" : "css/langs.scss",
     "leaflet" : "../css/leaflet-0.7.3.css",
     "sharers" : "css/sharers.scss",
     "popup-overlay" : "../agenda/css/popup-overlay.scss"
