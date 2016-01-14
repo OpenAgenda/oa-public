@@ -351,7 +351,7 @@ function _equivalent( message, type ) {
   messages[ 'contributor' ][ TYPES.AGENDAADMIN ] = 'administrator';
   messages[ 'contributor' ][ TYPES.AGENDAMODERATOR ] = 'moderator';
 
-  messages[ 'contributing to' ][ TYPES.AGENDACONTRIBUTOR ] = 'contributor';
+  messages[ 'contributing to' ][ TYPES.AGENDACONTRIBUTOR ] = 'contributing to';
   messages[ 'contributing to' ][ TYPES.AGENDAADMIN ] = 'administering';
   messages[ 'contributing to' ][ TYPES.AGENDAMODERATOR ] = 'moderating';
 
