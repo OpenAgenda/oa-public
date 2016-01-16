@@ -14,19 +14,45 @@ log = require( 'logger' )( 'legacy' ),
 
 utils = require( 'utils' ),
 
+bodyParser = require( 'body-parser' ),
+
+mailer = require( 'mailer' ),
+
 routes = {
 
+  /**
+   * provide to sf the html of the head section of an agenda
+   */
   headPart: [ 'get', '/:slug/head', [
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
     head
   ] ],
 
+  /**
+   * process a save for a custom image
+   */
   customImageSave: [ 'get', '/:slug/events/:eventUid/custom/:field/user/:userUid', [
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
     customImageSave
   ] ],
 
-  log: [ 'post', '/log', logController ]
+
+  /**
+   * log sf messages
+   */
+  log: [ 'post', '/log', [
+    bodyParser.json(),
+    logController 
+  ] ],
+
+
+  /**
+   * send mails on behalf of sf
+   */
+  mail: [ 'post', '/mail', [
+    bodyParser.json(),
+    mail
+  ] ]
 
 };
 
@@ -111,33 +137,84 @@ function customImageSave( req, res, next ) {
 
 }
 
-function logController( req, res, next ) {
 
-  var body = {},
+/*
 
-  errCount = 0;
+  mail things received from symfony. 
 
-  if ( typeof req.body == 'object' ) {
+  sample: { 
+    recipient: { 'gaetan@cibul.net': 'Gaetan Latouche' },
+    subject: 'Messagerie OpenAgenda: You have a new message',
+    body: '<p>fdqfdsqfdsq</p>\n<p>Kari Olafsson:</p>\n<p>"fdqfdsqfdq"</p>\n<p><a href="http://d.openagenda.com/frontend_dev.php/messages/1539851231500506" target="_blank">voir le message sur OpenAgenda / répondre</a></p>',
+    type: 'html' 
+  }
 
-    for( var v in req.body ) {
+*/
+function mail( req, res, next ) {
 
-      try {
+  let data = req.body,
 
-        utils.extend( body, JSON.parse( v ) );
+  type = 'html', 
 
-      } catch( e ) {
+  mail = {};
 
-        console.log( req.body )
+  if ( !data ) {
 
-      }
+    req.log( 'error', 'no body found' );
 
-    }
+    return _done( req, res );
 
   }
 
-  if ( utils.size( body ) ) {
+  if ( !data.recipient ) {
 
-    log( body );
+    req.log( 'error', 'no recipient' );
+
+    return _done( req, res );
+
+  }
+
+  if ( !data.body ) {
+
+    req.log( 'error', 'no body' );
+
+    return _done( req, res );
+
+  }
+
+  mail[ data.type == 'html' ? 'html' : 'text' ] = data.body;
+
+  mail.recipient = _cleanRecipients( data.recipient );
+
+  mail.subject = data.subject;
+
+  mailer( mail );
+
+  _done( req, res );
+
+}
+
+function _done( req, res ) {
+
+  cmn.renderJson( req, res, { success: true } );
+
+}
+
+function logController( req, res, next ) {
+
+  if ( req.body && typeof req.body == 'object' ) {
+
+    try {
+
+      log( utils.extend( {
+        origin: 'symfony',
+      }, req.body ) );
+
+    } catch( e ) {
+
+      log( 'error', { origin: 'sf log', body: JSON.stringify( req.body ) } )
+
+    }
 
   }
 
@@ -156,5 +233,38 @@ function _checkLocalhost( req, res, next ) {
   }
 
   next();
+
+}
+
+
+function _cleanRecipients( recipients ) {
+
+  var clean = [];
+
+  if ( utils.isArray( recipients ) ) {
+
+    recipients.forEach( r => {
+
+      let email = _extractRecipient( r );
+
+      if ( email ) clean.push( email );
+
+    });
+
+  } else if ( typeof recipients == 'object' ) {
+
+    let email = _extractRecipient( recipients );
+
+    if ( email ) clean.push( email );
+
+  }
+
+  return clean;
+
+}
+
+function _extractRecipient( obj ) {
+
+  for ( let email in obj ) return email;
 
 }
