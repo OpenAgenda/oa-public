@@ -20,6 +20,8 @@ svc = require( '../' ),
 
 coms = require( '../../../lib/coms' );
 
+require( '../../genUrl' ).init( { domain: config.domain } );
+
 
 describe( 'invitation processing', function() {
 
