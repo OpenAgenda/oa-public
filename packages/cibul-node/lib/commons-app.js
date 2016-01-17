@@ -777,7 +777,7 @@ function renderJson( req, res, data, options ) {
 
   if ( req.query.callback ) {
 
-    body = req.query.callback + '(' + body + ')';
+    body = req.query.callback + '(' + _filterNonParsable( body ) + ')';
 
   }
 
@@ -943,6 +943,19 @@ function _cleanLang( dirtyLang ) {
   if ( languages.isValid( dirtyLang ) ) return dirtyLang;
 
   return 'fr';
+
+}
+
+
+/**
+ * filter out characters that will cause parse errors on browser
+ */
+
+function _filterNonParsable( str ) {
+
+  var rgx = new RegExp( '[' + [ 8232, 8233 ].map( String.fromCharCode ).join( '' ) + ']', 'g' );
+
+  return str.replace( rgx, ' ' );
 
 }
 
