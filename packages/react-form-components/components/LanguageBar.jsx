@@ -4,15 +4,37 @@ var React = require( 'react' ),
 
 languages = require( 'languages' ),
 
-Select = require( 'react-select' );
+Select = require( 'react-select' ),
+
+labels = require( '../labels' ),
+
+makeLabelGetter = require( '../lib/makeLabelGetter' );
 
 module.exports = React.createClass( {
+
+  propTypes: {
+
+    // used by component to load labels
+    getLabel: React.PropTypes.func,
+
+    // notify parent of new language selection
+    onChange: React.PropTypes.func
+
+  },
 
   getInitialState: function() {
 
     return {
       displaySelect: false,
       sortedLanguageCodes: this.sortLanguageCodes()
+    }
+
+  },
+
+  getDefaultProps: function() {
+
+    return {
+      getLabel: makeLabelGetter( labels )
     }
 
   },

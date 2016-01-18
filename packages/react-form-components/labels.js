@@ -1,0 +1,20 @@
+"use strict";
+
+module.exports = {
+
+  'groupTags.required' : {
+    fr: 'Au moins un élément doit être sélectionné',
+    en: 'At least one item must be selected'
+  },
+
+  required: {
+    fr: 'Requis',
+    en: 'Required'
+  },
+
+  addLanguage: {
+    fr: 'Ajouter une langue',
+    en: 'Add a language'
+  }
+
+}

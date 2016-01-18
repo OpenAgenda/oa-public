@@ -1,6 +1,10 @@
 "use strict";
 
-var React = require( 'react' );
+var React = require( 'react' ),
+
+makeLabelGetter = require( '../lib/makeLabelGetter' ),
+
+labels = require( '../labels' );
 
 module.exports = React.createClass( {
 
@@ -29,7 +33,8 @@ module.exports = React.createClass( {
   getDefaultProps: function() {
 
     return {
-      type: 'text'
+      type: 'text',
+      getLabel: makeLabelGetter( labels )
     }
 
   },
