@@ -154,8 +154,6 @@ function mail( req, res, next ) {
 
   let data = req.body,
 
-  type = 'html', 
-
   mail = {};
 
   if ( !data ) {
@@ -182,7 +180,7 @@ function mail( req, res, next ) {
 
   }
 
-  mail[ data.type == 'html' ? 'html' : 'text' ] = data.body;
+  mail[ data.type !== 'text' ? 'html' : 'text' ] = data.body;
 
   mail.recipient = _cleanRecipients( data.recipient );
 
