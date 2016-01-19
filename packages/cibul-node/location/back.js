@@ -25,6 +25,7 @@ routes = {
     agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData( 'oa.css' ),
     _loadUserUid,
+    mw.loadSettings,
     show
   ] ],
 
@@ -98,9 +99,12 @@ module.exports = function( path ) {
 
 function show( req, res ) {
 
+  // attempt a settings load
+
   cmn.render( req, res, 'locations/index', {
     scriptParams: {
       detailedInfo: true,
+      settings: req.settings,
       lang: req.lang,
       res: {
         index: req.genUrl( 'locationIndex', { slug: req.agenda.slug } ),
