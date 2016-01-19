@@ -26,6 +26,7 @@ window.asap( function( options ) {
   deepExtend( params, options );
 
   ReactDom.render( <LocactionsAdmin
+    settings={params.settings}
     lang={params.lang}
     detailedInfo={true}
     res={params.res} />, 
