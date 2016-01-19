@@ -37,6 +37,7 @@ module.exports = function( config ) {
     if ( clean.length < params.min ) {
 
       throw [ {
+        field: params.field,
         code: 'string.tooshort',
         message: 'the string is too short',
         values: {
@@ -51,6 +52,7 @@ module.exports = function( config ) {
     if ( clean.length > params.max ) {
 
       throw [ {
+        field: params.field,
         code: 'string.toolong',
         message: 'the string is too long',
         values: {
