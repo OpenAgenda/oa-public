@@ -31,6 +31,14 @@ module.exports = React.createClass( {
 
   },
 
+  getInitialState: function() {
+
+    return {
+      userHasTyped: false
+    }
+
+  },
+
   getDefaultProps: function() {
 
     return {
@@ -42,6 +50,10 @@ module.exports = React.createClass( {
   },
 
   onChange: function( e ) {
+
+    this.setState( {
+      userHasTyped: true
+    } );
 
     this.props.onChange( this.props.name, e.target.value );
 
@@ -66,6 +78,8 @@ module.exports = React.createClass( {
     var self = this;
 
     if ( !this.props.validator ) return null;
+
+    if ( ( !this.props.value || !this.props.value.length ) && !this.state.userHasTyped ) return null;
 
     try {
 
