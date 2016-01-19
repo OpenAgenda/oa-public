@@ -7,9 +7,17 @@ validators = require( '../validators' );
 describe( 'validators', () => {
 
 
-  describe( 'phone', () => {
+  describe.only( 'phone', () => {
 
     var validate = validators.phone( { field: 'telephone' } );
+
+    it( 'a phone number with spaces is a phone number', () => {
+
+      let clean = validate( '06 50 91 60' );
+
+      clean.should.equal( '06 50 91 60' );
+
+    } );
 
     it( 'is a phone and is trimmed', () => {
 

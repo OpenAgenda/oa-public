@@ -6,7 +6,7 @@ module.exports = function( config ) {
 
   return rgx( {
     field: config.field,
-    regex: /^(\+|)\d+$/,
+    regex: /^(\+|)[\d\s]+$/,
     error: {
       code: 'phone.invalid',
       message: 'value is not a phone number'
