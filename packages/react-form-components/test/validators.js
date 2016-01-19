@@ -7,7 +7,7 @@ validators = require( '../validators' );
 describe( 'validators', () => {
 
 
-  describe.only( 'phone', () => {
+  describe( 'phone', () => {
 
     var validate = validators.phone( { field: 'telephone' } );
 
