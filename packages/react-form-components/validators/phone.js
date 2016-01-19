@@ -2,9 +2,10 @@
 
 var rgx = require( './regex' );
 
-module.exports = function() {
+module.exports = function( config ) {
 
   return rgx( {
+    field: config.field,
     regex: /^(\+|)\d+$/,
     error: {
       code: 'phone.invalid',

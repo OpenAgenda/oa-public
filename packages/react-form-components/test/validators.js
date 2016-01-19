@@ -9,7 +9,7 @@ describe( 'validators', () => {
 
   describe( 'phone', () => {
 
-    var validate = validators.phone();
+    var validate = validators.phone( { field: 'telephone' } );
 
     it( 'is a phone and is trimmed', () => {
 
@@ -33,6 +33,8 @@ describe( 'validators', () => {
 
         e[ 0 ].code.should.equal( 'phone.invalid' );
 
+        e[ 0 ].field.should.equal( 'telephone' ); 
+
       }
 
     } );
@@ -42,7 +44,7 @@ describe( 'validators', () => {
 
   describe( 'email', () => {
 
-    var validate = validators.email();
+    var validate = validators.email( { field: 'email' } );
 
     it( 'is an email and is trimmed', () => {
 
@@ -74,7 +76,7 @@ describe( 'validators', () => {
 
   describe( 'link', () => {
 
-    var validate = validators.link();
+    var validate = validators.link( { field: 'link' } );
 
     it( 'is a link', () => {
 
@@ -118,7 +120,7 @@ describe( 'validators', () => {
 
   describe( 'text', () => {
 
-    var validate = validators.text( { min: 3, max: 10 } );
+    var validate = validators.text( { field: 'text', min: 3, max: 10 } );
 
 
     it( 'trims by default', () => {

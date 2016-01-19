@@ -5,9 +5,10 @@ var utils = require( 'utils' );
 module.exports = function( config ) {
 
   var params = utils.extend( {
+    field: false, // required
     min: 0,
     max: 1000000,
-    trim: true
+    trim: true,
   }, config );
 
   return function( value ) {
@@ -19,6 +20,7 @@ module.exports = function( config ) {
       // there is something there and it is not a string
 
       throw [ {
+        field: params.field,
         code: 'string.invalidtype',
         message: 'not a string',
         origin: value

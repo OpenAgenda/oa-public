@@ -5,6 +5,7 @@ var utils = require( 'utils' );
 module.exports = function( config ) {
 
   var params = utils.extend( {
+    field: false, // required
     regex: false, // required
     error: { // replace with something more specific
       code: 'regex.mismatch',
@@ -26,7 +27,8 @@ module.exports = function( config ) {
     if ( !params.regex.test( clean ) ) {
 
       throw [ utils.extend( {
-        origin: clean
+        origin: clean,
+        field: params.field
       }, params.error ) ];
 
     }
