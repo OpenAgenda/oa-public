@@ -12,6 +12,31 @@ module.exports = {
     en: 'Email'
   },
 
+  'string.tooshort' : {
+    fr: 'Le champ doit comporter au moins %min% caractères',
+    en: 'The field must contain at least %min% caracters'
+  },
+
+  'string.toolong' : {
+    fr: 'Le champ doit comporter au plus %max% caractères',
+    en: 'The field must contain at must %max% caracters'
+  },
+
+  'email.invalid' : {
+    fr: 'Un email valide doit être renseigné',
+    en: 'A valid email must be input'
+  },
+
+  'phone.invalid' : {
+    fr: 'Un numéro de télephone valide doit être renseigné',
+    en: 'A valid phone number must be input'
+  },
+
+  'link.invalid' : {
+    fr: 'Un lien valide doit être renseigné',
+    en: 'A valid link must be input'
+  },
+
   'groupTags.required' : {
     fr: 'Au moins un élément doit être sélectionné',
     en: 'At least one item must be selected'

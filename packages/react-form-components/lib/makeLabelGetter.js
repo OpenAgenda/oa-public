@@ -4,7 +4,6 @@ module.exports = function( labels ) {
 
   return function( name, values, lang ) {
 
-
     if ( arguments.length == 2 && typeof values == 'string' ) {
 
       lang = values;
@@ -22,7 +21,7 @@ module.exports = function( labels ) {
 
       for( k in values ) {
 
-        str = str.replace( k, values[ k ] );
+        str = str.replace( '%' + k + '%', values[ k ] );
 
       }
 

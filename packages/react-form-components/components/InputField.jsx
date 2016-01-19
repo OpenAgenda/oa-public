@@ -1,15 +1,18 @@
 "use strict";
 
-var React = require( 'react' );
+var React = require( 'react' ),
+
+getLabel = require( '../lib/makeLabelGetter' )( require( '../labels' ) );
 
 module.exports = React.createClass( {
 
   propTypes: {
 
+    // value - usually a string
+    lang: React.PropTypes.string,
+
     // the name of the input
     name: React.PropTypes.string,
-
-    // value - usually a string
 
     // used by component to load labels
     getLabel: React.PropTypes.func,
@@ -32,7 +35,7 @@ module.exports = React.createClass( {
 
     return {
 
-      type: 'text'
+      type: 'text',
 
     }
 
@@ -41,6 +44,20 @@ module.exports = React.createClass( {
   onChange: function( e ) {
 
     this.props.onChange( this.props.name, e.target.value );
+
+  },
+
+  getLabel: function( label, values ) {
+
+    var str;
+
+    if ( this.props.getLabel ) {
+
+      str = this.props.getLabel( label, values, this.props.lang );
+
+    }
+
+    return str || getLabel( label, values, this.props.lang );
 
   },
 
@@ -61,7 +78,7 @@ module.exports = React.createClass( {
         return <span
           key={error.code}
           className="error">
-          {self.props.getLabel( error.code, error.values, self.props.lang )}
+          {self.getLabel( error.code, error.values, self.props.lang )}
         </span>
 
       } ) }</p>;
@@ -75,7 +92,7 @@ module.exports = React.createClass( {
   render: function() {
 
     return <div className="form-group">
-      <label>{this.props.getLabel( this.props.name )}</label>
+      <label>{this.getLabel( this.props.name )}</label>
       <div className={this.props.className || ''}>
         {this.props.type!=="textarea" ? <input
           className="form-control"

@@ -104,6 +104,7 @@ Wrapper = React.createClass( {
 
       <InputField
         name="name"
+        lang="fr"
         value={ this.state.values.name }
         onChange={ this.onChange }
         validator={validators.text( { min: 3, max: 20 } )}
@@ -113,7 +114,7 @@ Wrapper = React.createClass( {
         name="email"
         value={ this.state.values.email }
         onChange={ this.onChange }
-        validator={validators.email() }
+        validator={validators.email( { field: 'email' } ) }
         getLabel={getLabel} />
 
       <div className="separator"></div>
