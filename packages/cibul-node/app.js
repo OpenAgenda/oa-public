@@ -88,7 +88,8 @@ module.exports = function( enabledTypes, cb ) {
         user: config.db.user,
         password: config.db.password,
         database: config.db.database,
-        table: 'location'
+        table: 'location',
+        agendaSettingsTableName: 'location_agenda_settings'
       },
       files: {
         tmpPath: config.tmpFolderPath,
