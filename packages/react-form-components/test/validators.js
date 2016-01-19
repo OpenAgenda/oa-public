@@ -2,11 +2,177 @@
 
 var should = require( 'should' ),
 
-validators = {
-  groupTags: require( '../validators/groupTags.js' )
-}
+validators = require( '../validators' );
 
 describe( 'validators', () => {
+
+
+  describe( 'phone', () => {
+
+    var validate = validators.phone();
+
+    it( 'is a phone and is trimmed', () => {
+
+      let clean = validate( ' 06509160 ' );
+
+      clean.should.equal( '06509160' );
+
+    } );
+
+    it( 'is not a phone', () => {
+
+      let caught = false;
+
+      try {
+
+        validate( 'fdsqf' );
+
+      } catch( e ) {
+
+        caught = true;
+
+        e[ 0 ].code.should.equal( 'phone.invalid' );
+
+      }
+
+    } );
+
+  } );
+
+
+  describe( 'email', () => {
+
+    var validate = validators.email();
+
+    it( 'is an email and is trimmed', () => {
+
+      let clean = validate( ' kaore@cibul.net ' );
+
+      clean.should.equal( 'kaore@cibul.net' );
+
+    } );
+
+    it( 'is not an email', () => {
+
+      let caught = false;
+
+      try {
+
+        validate( 'fdsqf' );
+
+      } catch( e ) {
+
+        caught = true;
+
+        e[ 0 ].code.should.equal( 'email.invalid' );
+
+      }
+
+    } );
+
+  } );
+
+  describe( 'link', () => {
+
+    var validate = validators.link();
+
+    it( 'is a link', () => {
+
+      let hasErrs = false;
+
+      try {
+
+        validate( 'https://openagenda.com' );
+
+      } catch( e ) {
+
+        hasErrs = true;
+
+      }
+
+      hasErrs.should.equal( false );
+
+    });
+
+    it( 'not a link', () => {
+
+      var caught = false;
+
+      try {
+
+        validate( 'fsqfsdq' );
+
+      } catch( e ) {
+
+        caught = true;
+
+        e[ 0 ].code.should.equal( 'link.invalid' );
+
+      }
+
+      caught.should.equal( true );
+
+    } );
+
+  })
+
+  describe( 'text', () => {
+
+    var validate = validators.text( { min: 3, max: 10 } );
+
+
+    it( 'trims by default', () => {
+
+      let clean = validate( ' pneu ' );
+
+      clean.should.equal( 'pneu' );
+
+    } );
+
+
+    it( 'wrong type', () => {
+
+      try {
+
+        validate( { grut: 'blip' } );
+
+      } catch( e ) {
+
+        e[ 0 ].code.should.equal( 'string.invalidtype' )
+
+      }
+
+    } );
+
+    it( 'too long', () => {
+
+      try {
+
+        validate( 'fdssqfdsqfdsqfdsq' );
+
+      } catch( e ) {
+
+        e[ 0 ].code.should.equal( 'string.toolong' );
+
+      }
+
+    } );
+
+    it( 'too short', () => {
+
+      try {
+
+        validate( 'fd' );
+
+      } catch( e ) {
+
+        e[ 0 ].code.should.equal( 'string.tooshort' );
+
+      }
+
+    } );
+
+  } );
 
   describe( 'groupTags', () => {
 
@@ -26,11 +192,13 @@ describe( 'validators', () => {
 
     it( 'validates one group only if index is specified at validation', () => {
 
-      var groupErrors, errors;
+      var groupErrors, errors,
+
+      validator = validators.groupTags( set );
 
       try {
 
-        var tags = validators.groupTags( set, [ { id: 11 } ], 2 );
+        var tags = validator( [ { id: 11 } ], 2 );
 
       } catch( e ) {
 
@@ -40,7 +208,7 @@ describe( 'validators', () => {
 
       try {
 
-        var tags = validators.groupTags( set, [ { id: 11 } ] );
+        var tags = validator( [ { id: 11 } ] );
 
       } catch( e ) {
 
@@ -57,11 +225,11 @@ describe( 'validators', () => {
 
     it( 'returns errors when required but no tag of selection matches', () => {
 
-      var errors;
+      var errors, validator = validators.groupTags( set );
 
       try {
 
-        var tags = validators.groupTags( set, [ { id: 1 } ] );
+        var tags = validator( [ { id: 1 } ] );
 
       } catch( errs ) {
 
@@ -79,11 +247,11 @@ describe( 'validators', () => {
 
     it( 'returns tags if no errors was detected', () => {
 
-      var errors;
+      var errors, validator = validators.groupTags( set );
 
       try {
 
-        var tags = validators.groupTags( set, [ { id: 1 }, { id: 4 } ] );
+        var tags = validator( [ { id: 1 }, { id: 4 } ] );
 
       } catch( errs ) {
 

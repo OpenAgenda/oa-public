@@ -10,56 +10,60 @@
  */
 
 
-module.exports = function( set, values, groupIndex ) {
+module.exports = function( set ) {
 
-  if ( groupIndex !== undefined ) return validateGroup( set.groups[ groupIndex ], values );
+  return function( values, groupIndex ) {
 
-  var errors = [];
+    if ( groupIndex !== undefined ) return validateGroup( set.groups[ groupIndex ], values );
 
-  set.groups.forEach( function( group, i ) {
+    var errors = [];
 
-    try {
+    set.groups.forEach( function( group, i ) {
 
-      validateGroup( group, values );
+      try {
 
-    } catch( errs ) {
+        validateGroup( group, values );
 
-      errors = errors.concat( errs );
+      } catch( errs ) {
 
-    }
+        errors = errors.concat( errs );
 
-  } );
+      }
 
-  if ( errors.length ) throw errors;
+    } );
 
-  // no cleaning for this
-  return values;
+    if ( errors.length ) throw errors;
 
-}
-
-function validateGroup( group, values ) {
-
-  if ( !group.required ) return;
-
-  var ids = values.map( function( v ) { return v.id; } );
-
-  if ( !group.tags.filter( function( t ) {
-
-    return ids.indexOf( t.id ) !== -1;
-
-  } ).length ) {
-
-    throw [ {
-      field: group.name ? group.name : 'Tags',
-      code: 'groupTags.required',
-      message: 'a selection is required',
-      origin: group.tags,
-      values: {}
-    } ]
+    // no cleaning for this
+    return values;
 
   }
 
-  // no cleaning.
-  return values;
+  function validateGroup( group, values ) {
+
+    if ( !group.required ) return;
+
+    var ids = values.map( function( v ) { return v.id; } );
+
+    if ( !group.tags.filter( function( t ) {
+
+      return ids.indexOf( t.id ) !== -1;
+
+    } ).length ) {
+
+      throw [ {
+        field: group.name ? group.name : 'Tags',
+        code: 'groupTags.required',
+        message: 'a selection is required',
+        origin: group.tags,
+        values: {}
+      } ]
+
+    }
+
+    // no cleaning.
+    return values;
+
+  }
 
 }

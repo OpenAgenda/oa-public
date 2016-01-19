@@ -104,7 +104,7 @@ module.exports = React.createClass( {
 
     try {
 
-      validator( this.props.set, this.props.value, i );
+      validator( this.props.set )( this.props.value, i );
 
     } catch( e ) { errors = e; };
     

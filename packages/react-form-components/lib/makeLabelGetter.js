@@ -4,16 +4,15 @@ module.exports = function( labels ) {
 
   return function( name, values, lang ) {
 
+
     if ( arguments.length == 2 && typeof values == 'string' ) {
 
       lang = values;
       values = {};
 
-    } else if ( arguments.length == 2 ) {
-
-      lang = 'en';
-
     }
+
+    if ( !lang ) lang = 'en';
 
     if ( !labels[ name ] ) return null;
 

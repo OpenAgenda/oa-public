@@ -8,7 +8,7 @@ window.onload = function() {
 
 var React = require( 'react' ),
 
-makeLabelGetter = require( '../../lib/makeLabelGetter' ),
+getLabel = require( '../../lib/makeLabelGetter' )( require( '../../labels' ) ),
 
 ReactDom = require( 'react-dom' ),
 
@@ -18,7 +18,11 @@ MultilingualInputField = require( '../../components/MultilingualInputField.jsx' 
 
 GroupTagSelector = require( '../../components/GroupTagSelector.jsx' ),
 
+InputField = require( '../../components/InputField.jsx' ),
+
 update = require( 'react-addons-update' ),
+
+validators = require( '../../validators' ),
 
 Wrapper = React.createClass( {
 
@@ -26,6 +30,10 @@ Wrapper = React.createClass( {
 
     return {
       values: {
+        name: 'Poney Vert',
+        phone: +3365034302,
+        email: 'billy@poneyland.com',
+        link: 'poneyland.com',
         tags: [ {
           id: 1,
           label: 'Musée de France'
@@ -93,6 +101,22 @@ Wrapper = React.createClass( {
   render: function() {
 
     return <div>
+
+      <InputField
+        name="name"
+        value={ this.state.values.name }
+        onChange={ this.onChange }
+        validator={validators.text( { min: 3, max: 20 } )}
+        getLabel={getLabel} />
+
+      <InputField
+        name="email"
+        value={ this.state.values.email }
+        onChange={ this.onChange }
+        validator={validators.email() }
+        getLabel={getLabel} />
+
+      <div className="separator"></div>
 
       <LanguageBar
         languages= {[ 'fr', 'en', 'es' ]}
