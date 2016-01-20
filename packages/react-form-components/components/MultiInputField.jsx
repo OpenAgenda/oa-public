@@ -4,8 +4,6 @@ var React = require( 'react' ),
 
 getLabel = require( '../lib/makeLabelGetter' )( require( '../labels' ) ),
 
-orValidators = require( '../lib/orValidators' ),
-
 TagsInput = require( 'react-tagsinput' );
 
 module.exports = React.createClass( {
@@ -17,7 +15,7 @@ module.exports = React.createClass( {
     typeIconClassNames: React.PropTypes.object,
     value: React.PropTypes.string.isRequired,
     lang: React.PropTypes.string,
-    validators: React.PropTypes.array
+    validator: React.PropTypes.object
 
   },
 
@@ -50,51 +48,10 @@ module.exports = React.createClass( {
 
   },
 
+  decorate: function( values ) {
 
-  /**
-   * value provided in props is a comma-separated
-   * string. This provide a clean array
-   * of those values with for each: value and type
-   */
-  
-  getValues: function() {
+    return this.props.validator.decorate( values );
 
-    if ( !this.props.value ) return [];
-
-    return this.props.value.split( ',' )
-
-    .map( this.cleanValue );
-
-  },
-
-
-  /**
-   * puts value through validators
-   * returns an object with the value and the type
-   */
-
-  cleanValue: function( v ) {
-
-    var validator;
-
-    try {
-
-      validator = orValidators( v, this.props.validators );
-
-    } catch( e ) {
-
-      return {
-        value: v,
-        type: 'error'
-      }
-
-    }
-
-    return {
-      value: v,
-      type: validator.type
-    }
- 
   },
 
   getLabel: function( label, values ) {
@@ -115,7 +72,11 @@ module.exports = React.createClass( {
 
     this.setState( { inputValue: '' } );
 
-    this.props.onChange( this.props.name, v.map(  item => typeof item == 'string' ? item : item.value ).join( ', ' ) );
+    this.props.onChange( this.props.name, v.map( function( decoratedItem ) {
+
+      return typeof decoratedItem == 'string' ? decoratedItem : decoratedItem.value;
+
+    } ) );
 
   },
 
@@ -128,7 +89,7 @@ module.exports = React.createClass( {
     this.setState( { inputValue: '' } );
 
     // stick the last typed entry to the values and signal parent
-    this.onChange( this.getValues().concat( value ) );
+    this.onChange( this.decorate( this.props.value.concat( value ) ) );
 
   },
 
@@ -138,7 +99,7 @@ module.exports = React.createClass( {
 
     if ( value.indexOf( ',' ) !== -1 ) {
 
-      this.onChange( this.getValues().concat( value.split( ',' )[ 0 ] ) );
+      this.onChange( this.decorate( this.props.value.concat( value.split( ',' )[ 0 ] ) ) );
 
       value = value.split( ',' )[ 1 ];
 
@@ -150,7 +111,7 @@ module.exports = React.createClass( {
 
   renderItem: function( t ) {
 
-    if ( t.tag.type == 'error' ) t.className += ' error';
+    if ( t.tag.errors ) t.className += ' error';
 
     return <span key={t.key} className={t.className}>
       <i className={this.props.typeIconClassNames[ t.tag.type || 'error' ]}></i>
@@ -162,13 +123,13 @@ module.exports = React.createClass( {
 
   render: function() {
 
-    var values = this.getValues(),
+    var values = this.decorate( this.props.value ),
 
-    error = !!values.filter( v => v.type=='error' ).length;
+    error = !!values.filter( v => !!v.errors ).length;
 
-    return <div className={'multi-input' + ( error ? ' error' : '' )}>
+    return <div className="multi-input">
       <label>{ this.getLabel( this.props.name ) }</label>
-      <span className="info">{ error ? this.getLabel( 'multi-input.error' ) : this.props.info || this.getLabel( 'multi-input.info' )}</span>
+      <span className={error ? 'error' : 'info'}>{ error ? this.getLabel( 'multi-input.error' ) : this.props.info || this.getLabel( 'multi-input.info' )}</span>
       <TagsInput
         value={values} 
         renderTag={this.renderItem}

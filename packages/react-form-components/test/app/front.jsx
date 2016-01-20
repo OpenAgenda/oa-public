@@ -35,7 +35,7 @@ Wrapper = React.createClass( {
         name: 'Poney Vert',
         phone: +3365034302,
         email: 'billy@poneyland.com',
-        contacts: 'jony@nointernet.com, 0981189550, fdqfdq',
+        contacts: [ 'jony@nointernet.com', '0981189550', 'fdqfdq' ],
         link: 'poneyland.com',
         tags: [ {
           id: 1,
@@ -151,10 +151,10 @@ Wrapper = React.createClass( {
         lang='fr'
         info='Faut taper des truc'
         value={this.state.values.contacts}
-        validators={[
+        validator={ validators.list( [
           validators.email(),
           validators.phone()
-        ]}
+        ] ) }
         onChange={this.onChange} />
 
       <div className="separator"></div>
