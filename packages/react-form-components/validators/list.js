@@ -77,7 +77,7 @@ module.exports = function( config, validators ) {
 
   function decorate( value ) {
 
-    return ( value || {} ).map( decorateItem );
+    return ( value || [] ).map( decorateItem );
     
   }
 
