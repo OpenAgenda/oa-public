@@ -10,12 +10,12 @@ module.exports = React.createClass( {
 
   propTypes: {
 
+    value: React.PropTypes.array,
     // the form name of the field
     name: React.PropTypes.string,
     typeIconClassNames: React.PropTypes.object,
-    value: React.PropTypes.string.isRequired,
     lang: React.PropTypes.string,
-    validator: React.PropTypes.object
+    validator: React.PropTypes.func
 
   },
 
