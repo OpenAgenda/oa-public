@@ -1,5 +1,10 @@
 "use strict";
 
+/**
+ * provide a labels getter that will
+ * give back labels fed at init
+ */
+
 module.exports = function( labels ) {
 
   return function( name, values, lang ) {

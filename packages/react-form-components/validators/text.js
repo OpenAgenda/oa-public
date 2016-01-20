@@ -9,7 +9,7 @@ module.exports = function( config ) {
     min: 0,
     max: 1000000,
     trim: true,
-  }, config );
+  }, config || {} );
 
   return function( value ) {
 

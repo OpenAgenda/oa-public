@@ -11,10 +11,11 @@ module.exports = function( config ) {
       code: 'regex.mismatch',
       message: 'regex does not match'
     },
-    trim: true
-  }, config );
+    trim: true,
+    type: false
+  }, config || {} ),
 
-  return function( value ) {
+  validator = function( value ) {
 
     var clean = ( value + '' );
 
@@ -35,6 +36,14 @@ module.exports = function( config ) {
 
     return clean;
 
+  };
+
+  if ( params.type ) {
+
+    validator.type = params.type;
+
   }
+
+  return validator;
 
 }

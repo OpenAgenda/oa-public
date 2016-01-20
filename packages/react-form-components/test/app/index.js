@@ -7,7 +7,8 @@ var app = require( 'test-app' )( {
     __dirname + '/../../sass/test.scss',
     __dirname + '/../../sass/language-bar.scss',
     __dirname + '/../../sass/multilingual-input-field.scss',
-    __dirname + '/../../sass/group-tag-selector.scss'
+    __dirname + '/../../sass/group-tag-selector.scss',
+    __dirname + '/../../sass/multi-input-field.scss'
   ]
 } );
 

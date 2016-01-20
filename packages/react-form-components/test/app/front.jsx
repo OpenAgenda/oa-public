@@ -20,6 +20,8 @@ GroupTagSelector = require( '../../components/GroupTagSelector.jsx' ),
 
 InputField = require( '../../components/InputField.jsx' ),
 
+MultiInputField = require( '../../components/MultiInputField.jsx' ),
+
 update = require( 'react-addons-update' ),
 
 validators = require( '../../validators' ),
@@ -33,6 +35,7 @@ Wrapper = React.createClass( {
         name: 'Poney Vert',
         phone: +3365034302,
         email: 'billy@poneyland.com',
+        contacts: 'jony@nointernet.com, 0981189550, fdqfdq',
         link: 'poneyland.com',
         tags: [ {
           id: 1,
@@ -140,6 +143,21 @@ Wrapper = React.createClass( {
         value={this.state.values.tags}
         onChange={this.onChange}
         set={this.getTestGroupSet()} />
+
+      <div className="separator"></div>
+
+      <MultiInputField
+        name="contacts"
+        lang='fr'
+        info='Faut taper des truc'
+        value={this.state.values.contacts}
+        validators={[
+          validators.email(),
+          validators.phone()
+        ]}
+        onChange={this.onChange} />
+
+      <div className="separator"></div>
 
     </div>
 

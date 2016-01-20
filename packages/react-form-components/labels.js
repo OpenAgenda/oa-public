@@ -12,6 +12,16 @@ module.exports = {
     en: 'Email'
   },
 
+  'multi-input.info': {
+    fr: 'Saisissez une ou plusieurs valeurs',
+    en: 'Type in one or multiple values'
+  },
+
+  'multi-input.error': {
+    fr: 'Les saisies non valides ne seront pas sauvegardées',
+    en: 'Invalid entries will not be saved'
+  },
+
   'string.tooshort' : {
     fr: 'Le champ doit comporter au moins %min% caractères',
     en: 'The field must contain at least %min% caracters'
