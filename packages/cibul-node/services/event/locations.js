@@ -88,6 +88,8 @@ function locationDidUpdate( locationId, cb ) {
 
 function locationsWillMerge( mergeInLocationId, locationIds, cb ) {
 
+  log( 'initiating location merge of locations %s into %s', JSON.stringify( locationIds ), mergeInLocationId );
+
   async.eachSeries( locationIds, ( locationId, ecb ) => {
 
     _transferEventLocations( locationId, mergeInLocationId, ecb );
@@ -97,6 +99,8 @@ function locationsWillMerge( mergeInLocationId, locationIds, cb ) {
 }
 
 function _transferEventLocations( fromLocationId, toLocationId, cb ) {
+
+  log( 'transfering events from location %s to %s', fromLocationId, toLocationId );
 
   model.locations().getRelatedEventIds( fromLocationId, ( err, eventIds ) => {
 
