@@ -153,7 +153,8 @@ Wrapper = React.createClass( {
         value={this.state.values.contacts}
         validator={ validators.list( [
           validators.email(),
-          validators.phone()
+          validators.phone(),
+          validators.link()
         ] ) }
         onChange={this.onChange} />
 

@@ -183,6 +183,14 @@ describe( 'validators', () => {
 
     var validate = validators.link( { field: 'link' } );
 
+    it( 'http is added if missing', () => {
+
+      var clean = validate( 'lemonde.fr' );
+
+      clean.should.equal( 'http://lemonde.fr' );
+
+    });
+
     it( 'is a link', () => {
 
       let hasErrs = false;
