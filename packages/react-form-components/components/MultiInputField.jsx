@@ -89,7 +89,7 @@ module.exports = React.createClass( {
     this.setState( { inputValue: '' } );
 
     // stick the last typed entry to the values and signal parent
-    this.onChange( this.decorate( this.props.value.concat( value ) ) );
+    this.onChange( this.decorate( ( this.props.value || [] ).concat( value ) ) );
 
   },
 
@@ -99,7 +99,7 @@ module.exports = React.createClass( {
 
     if ( value.indexOf( ',' ) !== -1 ) {
 
-      this.onChange( this.decorate( this.props.value.concat( value.split( ',' )[ 0 ] ) ) );
+      this.onChange( this.decorate( ( this.props.value || [] ).concat( value.split( ',' )[ 0 ] ) ) );
 
       value = value.split( ',' )[ 1 ];
 
@@ -123,7 +123,7 @@ module.exports = React.createClass( {
 
   render: function() {
 
-    var values = this.decorate( this.props.value ),
+    var values = this.decorate( this.props.value || [] ),
 
     error = !!values.filter( function( v ) { return !!v.errors } ).length;
 
