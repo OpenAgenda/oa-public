@@ -5,6 +5,7 @@
     "location-editor" : "../node_modules/agenda-locations/sass/style.scss",
     "react-select" : "../node_modules/react-select/dist/react-select.css",
     "multilingual-input-fields" : "../node_modules/react-form-components/sass/multilingual-input-field.scss",
+    "multi-input-field" : "../node_modules/react-form-components/sass/multi-input-field.scss",
     "tag-groups" : "../node_modules/react-form-components/sass/group-tag-selector.scss",
     "language-bar" : "../node_modules/react-form-components/sass/language-bar.scss",
     "location-form" : "../node_modules/agenda-locations/sass/form.scss",

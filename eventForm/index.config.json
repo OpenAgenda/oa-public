@@ -21,7 +21,10 @@
     "leaflet" : "../css/leaflet-0.7.3.css",
     "registrationForm" : "../node_modules/registration/sass/style.scss",
     "efEventLocationSelector" : "../node_modules/agenda-locations/sass/location-selector.scss",
-    "efEventLocationForm" : "../node_modules/agenda-locations/sass/form.scss",
+    "location-form" : "../node_modules/agenda-locations/sass/form.scss",
+    "multilingual-input-fields" : "../node_modules/react-form-components/sass/multilingual-input-field.scss",
+    "multi-input-field" : "../node_modules/react-form-components/sass/multi-input-field.scss",
+    "tag-groups" : "../node_modules/react-form-components/sass/group-tag-selector.scss",
     "efEventLocationFormTweaks" : "css/locationForm.scss"
   },
   "base" : {

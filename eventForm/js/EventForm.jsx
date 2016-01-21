@@ -49,6 +49,9 @@ module.exports = React.createClass( {
         fields: [ {
           name: 'keywords',
           display: false
+        }, {
+          name: 'location',
+          settings: false
         } ]
       }
     }
@@ -420,6 +423,7 @@ module.exports = React.createClass( {
 
     return <div className="form-section">
       <LocationSelector
+        settings={this.getFieldConfiguration( 'location' ).settings}
         mode={this.state.locationMode}
         onChangeMode={this.onLocationModeChange}
         location={this.state.location}
