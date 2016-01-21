@@ -131,9 +131,9 @@
 <% } %>
         
         <div class="event-content">
-<% if ( ( typeof event.tags !== 'undefined' && event.tags.length ) || ( typeof event.category !== 'undefined' ) ) { %>
+<% if ( ( typeof event.tags !== 'undefined' && event.tags.length ) || ( typeof event.category !== null ) ) { %>
   <ul class="tags">
-<% if ( typeof event.category !== 'undefined' ) { %>
+<% if ( typeof event.category !== null ) { %>
     <li class="category"><%= event.category %></li>
 <% } %>
 <% if ( typeof event.tags !== 'undefined' && event.tags.length ) { %>
