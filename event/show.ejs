@@ -131,12 +131,12 @@
 <% } %>
         
         <div class="event-content">
-<% if ( ( typeof event.tags !== 'undefined' && event.tags.length ) || event.category ) { %>
+<% if ( ( [ 'undefined', 'string' ].indexOf( typeof event.tags ) == -1 && event.tags.length ) || event.category ) { %>
   <ul class="tags">
 <% if ( event.category ) { %>
     <li class="category"><%= event.category %></li>
 <% } %>
-<% if ( typeof event.tags !== 'undefined' && event.tags.length ) { %>
+<% if ( [ 'undefined', 'string' ].indexOf( typeof event.tags ) == -1 && event.tags.length ) { %>
 <% event.tags.forEach( function( t ) { %>
     <li><%= t.label %></li>
 <% }); %>
