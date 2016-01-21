@@ -81,6 +81,8 @@
   : "administrer",
   "contributing"
   : "contribuer",
+  "moderating"
+  : "modérer",
   "Follow this link to reset your password: %link%"
   : "Suivez ce lien pour réinitialiser votre mot de passe: %link%",
   "Reset your password"
