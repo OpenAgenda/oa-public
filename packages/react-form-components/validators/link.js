@@ -2,6 +2,8 @@
 
 var rgx = require( './regex' ),
 
+emailValidator = require( './email' )(),
+
 utils = require( 'utils' );
 
 module.exports = function( config ) {
@@ -25,9 +27,13 @@ module.exports = function( config ) {
 
   validator = function( value ) {
 
-    var clean = value,
+    var clean = value, isEmail = true,
 
-    optional = config ? !!config.optional : false;
+    optional = config ? !!config.optional : false,
+
+    error = [ utils.extend( {
+      origin: value
+    }, templateError ) ];
 
     if ( value ) {
 
@@ -41,6 +47,19 @@ module.exports = function( config ) {
 
     }
 
+    try {
+
+      emailValidator( value );
+
+    } catch( e ) {
+
+      isEmail = false;
+
+    }
+
+    if ( isEmail ) throw error;
+
+
     if ( !/^(http(s|):|)\/\//.test( clean ) ) {
 
       clean = 'http://' + clean;
@@ -49,17 +68,13 @@ module.exports = function( config ) {
 
     if ( clean.indexOf( '.' ) == -1 ) {
 
-      throw [ utils.extend( {
-        origin: value
-      }, templateError ) ];
+      throw error;
 
     }
 
     if ( clean.indexOf( ',' ) !== -1 ) {
 
-      throw [ utils.extend( {
-        origin: value
-      }, templateError ) ];
+      throw error;
 
     }
 

@@ -183,6 +183,26 @@ describe( 'validators', () => {
 
     var validate = validators.link( { field: 'link' } );
 
+
+    it( 'an email is not a link', () => {
+
+      let errors = [];
+
+      try {
+
+        validate( 'email@gmail.com' );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 1 );
+
+    } );
+
+
     it( 'http is added if missing', () => {
 
       var clean = validate( 'lemonde.fr' );
