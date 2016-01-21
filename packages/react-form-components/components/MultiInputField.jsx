@@ -125,7 +125,7 @@ module.exports = React.createClass( {
 
     var values = this.decorate( this.props.value ),
 
-    error = !!values.filter( v => !!v.errors ).length;
+    error = !!values.filter( function( v ) { return !!v.errors } ).length;
 
     return <div className="multi-input">
       <label>{ this.getLabel( this.props.name ) }</label>
