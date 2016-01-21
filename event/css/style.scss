@@ -25,6 +25,29 @@
 
     }
 
+    .tags {
+
+      padding: 20px 20px 0;
+
+      li {
+
+        display: inline-block;
+        background: $oa-blue;
+        margin-right: 0.5em;
+        border-radius: 4px;
+        color: $oa-white;
+        padding: 0.2em 0.4em;
+
+      }
+
+      .category {
+
+        text-transform: uppercase;
+
+      }
+
+    }
+
     .description {
 
       h1 {
