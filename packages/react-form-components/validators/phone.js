@@ -5,6 +5,7 @@ var rgx = require( './regex' );
 module.exports = function( config ) {
 
   return rgx( {
+    optional: config ? config.optional : false,
     field: config ? config.field : undefined,
     regex: /^(\+|)[\d\s]+$/,
     error: {

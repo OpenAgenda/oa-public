@@ -5,6 +5,7 @@ var utils = require( 'utils' );
 module.exports = function( config ) {
 
   var params = utils.extend( {
+    optional: false,
     field: false, // required
     regex: false, // required
     error: { // replace with something more specific
@@ -18,6 +19,12 @@ module.exports = function( config ) {
   validator = function( value ) {
 
     var clean = ( value + '' );
+
+    if ( params.optional && !clean.length ) {
+
+      return clean;
+
+    }
 
     if ( params.trim ) {
 
