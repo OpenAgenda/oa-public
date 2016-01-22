@@ -106,7 +106,7 @@ function searchEvents( req, res, next ) {
 
 function widgetSearchEvents( req, res ) {
 
-  req.agenda.aggregate( req.query.search, {
+  req.agenda.aggregate( req.query.oaq, {
     showAll: false
   }, function( err, result ) {
 

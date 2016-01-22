@@ -13,9 +13,9 @@ util.inherits( Search, Readable );
 module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => {
 
   return {
-    search: search,
+    search: es.agendas( instance ).search,
     searchStream: searchStream,
-    aggregate: aggregate,
+    aggregate: es.agendas( instance ).aggregate,
     resync: resync
   }
 
@@ -28,18 +28,6 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
       loaded.refresh( cb );
 
     } );
-
-  }
-
-  function aggregate( query, options, cb ) {
-
-    es.agendas( instance ).aggregate( query, options, cb );
-
-  }
-
-  function search( query, options, cb ) {
-
-    es.agendas( instance ).search( query, options, cb );
 
   }
 
