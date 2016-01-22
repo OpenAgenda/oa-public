@@ -49,7 +49,7 @@ module.exports = function( uid ) {
 
   currentRequestParams = {}, // current agenda request parameters
 
-  whatUids = false, what, scope,
+  whatUids = false, what, scope, passed, // those are for the same feature ( aggregated search )
 
   enabled = false, firstSweepCompleted = false,
 
@@ -357,19 +357,25 @@ module.exports = function( uid ) {
 
     if ( what === currentRequestParams.what 
 
-    && scope === currentRequestParams.scope ) return cb();
+    && scope === currentRequestParams.scope
+
+    && passed === currentRequestParams.passed ) return cb();
 
     whatUids = false;
 
     what = currentRequestParams.what;
 
-    scope = currentRequestParams.scope;
+    scope = currentRequestParams.scope,
+
+    passed = currentRequestParams.passed;
 
     if ( !what ) return cb();
 
     var searchQuery = { what: what };
 
     if ( scope ) searchQuery.scope = scope;
+
+    if ( passed ) searchQuery.passed = passed;
 
     remote.getJsonp( 
       params.search.replace( '{uid}', uid ) +
@@ -665,7 +671,7 @@ module.exports = function( uid ) {
       enabled = true;
       firstSweepCompleted = true;
 
-      log( 'sweep result %d out of %d', includedCount, cn.size( ctl.a ) );
+      log( 'sweep result %d out of %d', includedCount, cn.size( ctl.ev ) );
 
       // enable all the widgets ( if modal is not taken )
       if ( !modalTaken ) {
@@ -691,7 +697,7 @@ module.exports = function( uid ) {
 
         counter++;
 
-        ctl.ev[i].passed = _isPassed( ctl.ev[i] );
+        ctl.ev[ i ].passed = _isPassed( ctl.ev[ i ] );
 
         _include( ctl.ev[i], currentRequestParams, targetWidget );
 

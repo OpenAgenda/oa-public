@@ -350,7 +350,6 @@ function widget( elem, options ) {
 
       // query params match previous state. Bounds should
       // go back to previous state
-
       bounds = navHistory.back();
 
     } else if ( reqParams.neLat && navHistory.current() ) {
