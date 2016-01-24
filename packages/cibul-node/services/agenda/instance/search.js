@@ -21,7 +21,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
   function resync( cb ) {
 
-    es.agendas( instance ).resync( ( err ) => {
+    es.agendas( instance ).resync( err => {
 
       if ( err ) return cb( err );
 

@@ -28,6 +28,8 @@ module.exports = function( req, res, next ) {
 
   .then( _dates )
 
+  .then( _location )
+
   .then( _registration )
 
   .then( _load( 'owner', 'getOwner' ) )
@@ -70,6 +72,14 @@ module.exports = function( req, res, next ) {
 
 }
 
+
+function _location( v ) {
+
+  v.formatted.location = v.req.event.getLocationDetails( v.req.lang );
+
+  return v;
+
+}
 
 function _registration( v ) {
   
