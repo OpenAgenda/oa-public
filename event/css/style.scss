@@ -5,9 +5,15 @@
     background: $oa-white;
     border-radius: 3px;
 
-    h1, .description, .short-description, .dates {
+    h1, .description, .dates {
 
       padding: 20px;
+
+    }
+
+    .short-description {
+
+      padding: 20px 20px 10px;
 
     }
 
@@ -25,24 +31,35 @@
 
     }
 
+    .category {
+
+      color: $oa-gray;
+      padding: 0 0 0 20px;
+
+      label {
+
+        font-weight: normal;
+        
+      }
+
+    }
+
     .tags {
 
-      padding: 20px 20px 0;
+      color: $oa-gray;
+      padding: 0 0 0 20px;
 
-      li {
+      label {
 
-        display: inline-block;
-        background: $oa-blue;
-        margin: 0 0.5em 0.8em 0;
-        border-radius: 4px;
-        color: $oa-white;
-        padding: 0.2em 0.4em;
+        font-weight: normal;
 
       }
 
-      .category {
+      ul, li {
 
-        text-transform: uppercase;
+        display: inline;
+        margin: 0;
+        padding: 0;
 
       }
 
@@ -70,6 +87,12 @@
       strong { font-weight: bold; }
 
     }
+
+  }
+
+  .location-details {
+
+    padding-top: 4em;
 
   }
 

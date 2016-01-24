@@ -28,7 +28,10 @@
         { "slug": "alhambra", "label": "alhambra" },
         { "slug": "exposition", "label": "exposition" },
         { "slug": "peinture", "label": "peinture" },
-        { "slug": "photographie", "label": "photographie" }
+        { "slug": "photographie", "label": "photographie" },
+        { "slug": "grut", "label": "grut" },
+        { "slug": "streum", "label": "streum" },
+        { "slug": "lutinrouge", "label": "lutin rouge" }
       ],
       "category" : "Une catégorie",
 
@@ -48,13 +51,30 @@
       "currentState" : "draft",
       "featured" : false,
 
-      "placeName" : "O2 Academy Brixton",
-      "address" : "211 Stockwell Road, SW9 9 London",
-      "city" : "London",
-      "region" : "Nom de la région",
-      "postalCode" : "12345",
-      "latitude" : 51.464980,
-      "longitude" : -0.114850,
+      "location" : {
+
+        "link" : "#",
+        "name" : "Musée des beaux-arts de valenciennes",
+        "address" : "Boulevard Watteau, Valenciennes",
+        "image" : "location71865148.jpg",
+        "city" : "Valenciennes",
+        "postalCode" : "59300",
+        "latitude" : 50.357208,
+        "longitude" : -3.531375,
+        "access" : "Par la porte principale",
+        "phone" : "03 27 22 57 20",
+        "website" : "http://musee.valenciennes.fr",
+        "description" : "Construit au début du XIXe siècle, le musée de Valenciennes appartient à cette génération de palais des Beaux-Arts édifiés sous la IIIe république : larges espaces, proportions monumentales qui ici mettent admirablement en valeur une collection prestigieuse : de l'archéologie gallo-romaine jusqu'au XXe siècle, avec comme temps forts la peinture flamande du XVIIe siècle et la grande sculpture du XIXe siècle autour de la figure de Jean-Baptiste Carpeaux.",
+        "tags" : [ { 
+          "label" : "Musée de France" 
+        }, {
+          "label" : "Jardin remarquable"
+        }, {
+          "label" : "Première participation"
+        } ]
+      },
+
+
       "dates" : [{
         "date":"2015-06-05T00:00:00.000Z",
         "timings":[

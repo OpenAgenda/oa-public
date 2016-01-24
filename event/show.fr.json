@@ -84,5 +84,13 @@
   "Accessibility: %impairments%"
   : "Accessibilité: %impairments%",
   "Transfer ownership"
-  : "Transférer la propriété"
+  : "Transférer la propriété",
+  "Access"
+  : "Accès",
+  "About the venue"
+  : "A propos du lieu",
+  "Tags"
+  : "Tags",
+  "Category"
+  : "Catégorie"
 }
