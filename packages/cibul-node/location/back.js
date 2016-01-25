@@ -53,6 +53,12 @@ routes = {
     mw.geocode
   ] ],
 
+  locationResync: [ 'get', '/:slug/admin/locations/resync', [
+    cmn.checkAdministrator(),
+    mw.resync,
+    _resyncSuccess
+  ] ],
+
   locationNewImageUpload: [ 'post', '/:slug/locations/image', [
     _loadUserUid,
     mw.newImageUpload
@@ -121,6 +127,14 @@ function show( req, res ) {
       }
     }
   } );
+
+}
+
+function _resyncSuccess( req, res, next ) {
+
+  res.setFlash( req, 'resync is ongoin' );
+
+  res.redirect( req.genUrl( 'agendaAdminLocations', { slug: req.agenda.slug } ) );
 
 }
 
