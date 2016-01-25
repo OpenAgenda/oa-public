@@ -86,7 +86,7 @@
             </p>
           </div><!--
 <% if ( event.location.image ) { %>
-          --><img 
+          --><img class="location-img"
             src="<%= _i( event.location.image ) %>"
             alt="<%= event.location.name %>"
           /><!--
@@ -181,7 +181,7 @@
           <p class="short-description"><%= event.description %></p>
 <% if ( event.category ) { %>
           <div class="category">
-            <label><%= __( 'Category') %>:</label>
+            <label><%= __( 'Category' ) %>:</label>
             <span><%= event.category %></span>
           </div>
 <% } %>
