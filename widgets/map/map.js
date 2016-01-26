@@ -375,6 +375,10 @@ function widget( elem, options ) {
 
       navHistory.add( reqParams, bounds );
 
+    } else {
+
+      navHistory.add( reqParams, bounds );
+
     }
 
     firstEnabled = false;
