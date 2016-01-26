@@ -57,6 +57,7 @@ function cleanEvent( eInst, cb ) {
     title: eInst.title,
     description: eInst.description,
     longDescription: eInst.freeText,
+    html: eInst.getEnrichedFreeText( true ),
     image: eInst.getImage(),
     thumbnail: eInst.getThumbnail(),
     originalImage: eInst.getFullImage(),
