@@ -86,7 +86,7 @@
       </tr>
       <tr>
         <td>
-          <a class="linkItem" href="https://www.google.com/calendar/render?cid=<%= genUrl('agendaIcal', { uid: uid }, { abs: true }) %>" style="<%= css.linkItem %>" target="_blank">- <%= __('Google Calendar') %></a>
+          <a class="linkItem" href="https://www.google.com/calendar/render?cid=<%= genUrl('agendaIcsEvents', { uid: uid }, { abs: true }) %>" style="<%= css.linkItem %>" target="_blank">- <%= __('Google Calendar') %></a>
         </td>
       </tr>
       <tr>
@@ -151,7 +151,7 @@
 
 <%- __('Stay up to date by connecting this agenda to your favorite service') %>:
 
-<%- __('Google Calendar') %>:  https://www.google.com/calendar/render?cid=<%- genUrl('agendaIcal', { uid: uid }, { abs: true }) %>
+<%- __('Google Calendar') %>:  https://www.google.com/calendar/render?cid=<%- genUrl('agendaIcsEvents', { uid: uid }, { abs: true }) %>
 
 <%- __('Rss') %>: <%- genUrl('agendaFeed', { uid: uid }, { abs: true }) %>
 
