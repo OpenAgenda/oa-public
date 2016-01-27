@@ -57,8 +57,6 @@ module.exports = React.createClass( {
 
   render: function() {
 
-    console.log( this.props.configuration ? this.props.configuration.activeDays : undefined );
-
     return <div>
       <h2>{this.props.labels.timings[ this.props.lang ]}</h2>
       <Picker

@@ -82,7 +82,7 @@
           <h3><i class="fa fa-map-marker"></i></h3>
           <div class="detail-item-content">
             <p>
-              <a href="<%= event.location.link %>"><%= event.location.name %></a>
+              <a href="<%= event.locationLink || '#' %>"><%= event.location.name %></a>
             </p>
           </div><!--
 <% if ( event.location.image ) { %>
