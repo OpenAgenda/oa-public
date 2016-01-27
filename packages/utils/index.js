@@ -15,6 +15,8 @@ module.exports = {
 
 function escape( str, escapeApostrophe ) {
 
+  if ( !str ) return str;
+
   if ( escapeApostrophe === undefined ) {
 
     escapeApostrophe = true;
