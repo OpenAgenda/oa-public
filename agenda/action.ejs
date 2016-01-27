@@ -13,6 +13,9 @@
         <div class="js_favorite_menu display-none">
           <span class="js_fav_info"><%= __( 'You favorited {count} events. Select the format in which you want to retrieve them.' ) %></span> <span><%- __( 'Or %clear%.', { '%clear%' : '<a class="url js_fav_clear" href="#">' + __( 'clear your selection' ) + '</a>' } ) %></span>
           <div class="btn-adds">
+            <a class="btn btn-default js_google_calendar js_fav_export" href="<%= genUrl( 'agendaIcsEvents', { uid: agenda.uid }, { protocol: 'http://' } ) %>"><%= __( 'Google Agenda' ) %></a>
+            <a class="btn btn-default js_fav_export" href="<%= genUrl( 'agendaIcsEvents', { uid: agenda.uid }) %>">iCal</a>
+            <a class="btn btn-default js_fav_export" href="<%= genUrl( 'agendaIcsEvents', { uid: agenda.uid }) %>">ICS</a>
             <a class="btn btn-default js_fav_export" href="<%= genUrl( 'agendaCsvEvents', { uid: agenda.uid }) %>">CSV</a>
             <a class="btn btn-default js_fav_export" href="<%= genUrl( 'agendaXlsxEvents', { uid: agenda.uid } ) %>">Excel ( xlsx )</a>
             <a class="btn btn-default js_fav_export" href="<%= genUrl( 'agendaPdfEvents', { uid: agenda.uid }) %>">PDF</a>
@@ -26,6 +29,9 @@
         <p class="legend"><%= __( 'Export the your latest search' ) %></p>
         <span><%= __( 'Export the events included in your lastest search' ) %></span>
         <div class="btn-adds">
+          <a class="btn btn-default js_google_calendar" href="<%= genUrl( 'agendaIcsEvents', { uid: agenda.uid, oaq: search }, { protocol: 'http://' } ) %>"><%= __( 'Google Agenda' ) %></a>
+          <a class="btn btn-default" href="<%= genUrl( 'agendaIcsEvents', { uid: agenda.uid, oaq: search }) %>">iCal</a>
+          <a class="btn btn-default" href="<%= genUrl( 'agendaIcsEvents', { uid: agenda.uid, oaq: search }) %>">ICS</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaRssEvents', { uid: agenda.uid, oaq: search } ) %>">RSS</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaCsvEvents', { uid: agenda.uid, oaq: search }) %>">CSV</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaXlsxEvents', { uid: agenda.uid, oaq: search } ) %>">Excel ( xlsx )</a>
@@ -35,10 +41,10 @@
 
         <p class="legend"><%= __( 'Export / Download everything' ) %></p>
         <div class="btn-adds">
-          <a class="btn btn-default js_google_calendar" href="<%= genUrl( 'agendaIcsEvents', { uid: agenda.uid }, { protocol: 'http://' } ) %>"><%= __( 'Google Agenda' ) %></a>
-          <a class="btn btn-default" href="<%= genUrl( 'agendaIcsEvents', { uid: agenda.uid }) %>?dl=1">iCal</a>
-          <a class="btn btn-default" href="<%= genUrl( 'agendaRssEvents', { uid: agenda.uid }) %>">RSS</a>
-          <a class="btn btn-default" href="<%= genUrl( 'agendaIcsEvents', { uid: agenda.uid }) %>?dl=1">ICS</a>
+          <a class="btn btn-default js_google_calendar" href="<%= genUrl( 'agendaIcsEvents', { uid: agenda.uid, oaq: { passed: 1 } }, { protocol: 'http://' } ) %>"><%= __( 'Google Agenda' ) %></a>
+          <a class="btn btn-default" href="<%= genUrl( 'agendaIcsEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>">iCal</a>
+          <a class="btn btn-default" href="<%= genUrl( 'agendaRssEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>">RSS</a>
+          <a class="btn btn-default" href="<%= genUrl( 'agendaIcsEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>">ICS</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaCsvEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>">CSV</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaXlsxEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>">Excel ( xlsx )</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaPdfEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>">PDF</a>
