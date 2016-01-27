@@ -524,6 +524,7 @@ $dayInWeek: 7;
 
 
     .rc-day-cell {
+
       height: $dayCellHeight;
 
       &:nth-child(2n-1) {
@@ -533,9 +534,27 @@ $dayInWeek: 7;
       &:nth-child(2n) {
         background-color: $evenRowBackColor;
       }
+
+    }
+
+    .rc-inactive-day {
+
+      .rc-day-cell {
+
+        &:nth-child(2n-1) {
+          background-color: lighten( $oddRowBackColor, 5 );
+        }
+
+        &:nth-child(2n) {
+          background-color: lighten( $evenRowBackColor, 5 );
+        }
+
+      }
+
     }
 
     .rc-day-time {
+
       position: relative;
 
       .rc-event {
@@ -791,6 +810,7 @@ $dayInWeek: 7;
     }
     
     >span.rc-dp-day {
+
       float:left;
       width: part-of($dayInWeek);
       @extend .border-box;
@@ -801,6 +821,12 @@ $dayInWeek: 7;
       background:$white;
       cursor:pointer;
       color:$black;
+
+      &.rc-dp-inactive-day {
+
+        color: $oa-gray-light;
+
+      }
       
       &:first-child {
         border-left:none;

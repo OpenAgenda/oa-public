@@ -37,10 +37,6 @@ module.exports = React.createClass( {
 
   },
 
-  onSelect: function( start, end, targetTiming ) {
-
-  },
-
   getTimings: function() {
 
     var self = this;
@@ -61,15 +57,17 @@ module.exports = React.createClass( {
 
   render: function() {
 
+    console.log( this.props.configuration ? this.props.configuration.activeDays : undefined );
+
     return <div>
       <h2>{this.props.labels.timings[ this.props.lang ]}</h2>
       <Picker
         startTime="7:00"
         endTime="7:00"
         timings={this.getTimings()}
+        activeDays={ this.props.configuration ? this.props.configuration.activeDays : undefined }
         weekStartDay={1}
         onTimingsChange={this.onChange}
-        onTimingClick={this.onSelect}
         readOnly={false}
         timeStep={60}
         timingStep={30}

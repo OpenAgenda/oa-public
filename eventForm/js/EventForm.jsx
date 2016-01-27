@@ -565,6 +565,7 @@ module.exports = React.createClass( {
           lang={this.props.lang}
           error={formErrors.timings}
           timings={this.state.timings}
+          configuration={this.getFieldConfiguration( 'timings' )}
           onChange={this.onTimingsChange} />
 
         <div className="js_form_canvas_below"></div>

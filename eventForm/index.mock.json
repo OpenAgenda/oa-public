@@ -390,6 +390,15 @@
     "event" : {},
     "configuration" : {
       "fields" : [ {
+        "name" : "timings",
+        "activeDays" :  [ {
+          "startDate": "2016-01-27",
+          "endDate": "2016-01-31"
+        }, {
+          "startDate": "2016-04-05",
+          "endDate": "2016-04-11"
+        } ]
+      }, {
         "name" : "keywords",
         "display" : false
       }, {
