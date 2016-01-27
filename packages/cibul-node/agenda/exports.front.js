@@ -42,6 +42,11 @@ routes = {
     agendaSvc.mw.rss
   ]],
 
+  agendaIcsEvents: [ 'get', '/events.ics', [
+    agendaSvc.mw.load( 'uid' ),
+    agendaSvc.mw.buildIcs
+  ] ],
+
   agendaSourceAdd: [ 'get', '/addTo/:aggUid', [
     cmn.flashSetter,
     agendaSvc.mw.load( 'uid' ),

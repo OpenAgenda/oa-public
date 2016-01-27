@@ -34,7 +34,8 @@ module.exports = function( agendaService ) {
     rss: require( './rss' ),
     buildCsv: buildCsv,
     buildXlsx: buildXlsx,
-    buildPdf: buildPdf
+    buildPdf: buildPdf,
+    buildIcs: require( './ics' )
   }
 
 }
