@@ -21,7 +21,7 @@ routes = {
   ] ],
 
   agendaAdminLocations: [ 'get', '/:slug/admin/locations', [
-    cmn.checkAdministrator(),
+    cmn.checkAdminOrModerator,
     agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData( 'oa.css' ),
     _loadUserUid,
@@ -36,14 +36,14 @@ routes = {
   ] ],
 
   agendaAdminLocationRemove: [ 'post', '/:slug/admin/locations/remove', [
-    cmn.checkAdministrator(),
+    cmn.checkAdminOrModerator,
     bodyParser.json(),
     _loadUserUid,
     mw.remove
   ] ],
 
   agendaAdminLocationMerge: [ 'post', '/:slug/admin/locations/merge', [
-    cmn.checkAdministrator(),
+    cmn.checkAdminOrModerator,
     bodyParser.json(),
     mw.merge
   ] ],
@@ -54,7 +54,7 @@ routes = {
   ] ],
 
   locationResync: [ 'get', '/:slug/admin/locations/resync', [
-    cmn.checkAdministrator(),
+    cmn.checkAdminOrModerator,
     mw.resync,
     _resyncSuccess
   ] ],
@@ -70,13 +70,13 @@ routes = {
   ] ],
 
   locationImageUpload: [ 'post', '/:slug/locations/:locationUid/image', [
-    cmn.checkAdministrator(),
+    cmn.checkAdminOrModerator,
     _loadUserUid,
     mw.imageUpload
   ] ],
 
   locationImageRemove: [ 'post', '/:slug/locations/:locationUid/image/remove', [
-    cmn.checkAdministrator(),
+    cmn.checkAdminOrModerator,
     _loadUserUid,
     mw.imageRemove
   ] ]

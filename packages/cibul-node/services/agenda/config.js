@@ -1,84 +1,98 @@
-"use strict";
+'use strict';
 
 module.exports = {
 
   adminTabs: [ {
-    section : "manage",
-    key : "events",
-    label : "Events",
-    uri : "agendaAdminShow"
+    section : 'manage',
+    key : 'events',
+    label : 'Events',
+    access: 'moderator',
+    uri : 'agendaAdminShow'
   }, {
-    section : "manage",
-    key : "contributors",
-    label : "Contributors",
-    uri : "agendaAdminContributors"
+    section : 'manage',
+    key : 'contributors',
+    label : 'Contributors',
+    access: 'moderator',
+    uri : 'agendaAdminContributors'
   }, {
-    section : "manage",
-    key : "moderators",
-    label : "Moderators",
-    uri : "agendaAdminModerators",
+    section : 'manage',
+    key : 'moderators',
+    label : 'Moderators',
+    uri : 'agendaAdminModerators',
+    access: 'administrator',
     requiredCred: 'moderators'
   }, {
-    section : "manage",
-    key : "locations",
-    label : "Locations",
-    uri : "agendaAdminLocations",
+    section : 'manage',
+    key : 'locations',
+    label : 'Locations',
+    uri : 'agendaAdminLocations',
+    access: 'moderator',
     requiredCred: 'location'
   }, {
-    section : "manage",
-    key : "dataviz",
-    label : "Dataviz",
-    uri : "agendaAdminDataviz"
+    section : 'manage',
+    key : 'dataviz',
+    label : 'Dataviz',
+    access: 'administrator',
+    uri : 'agendaAdminDataviz'
   }, {
-    section : "manage",
-    key : "categories",
-    label : "Categories and Tags",
-    uri : "agendaAdminCategories"
+    section : 'manage',
+    key : 'categories',
+    label : 'Categories and Tags',
+    access: 'administrator',
+    uri : 'agendaAdminCategories'
   }, {
-    section : "manage",
-    key : "sources",
-    label : "Sources",
-    uri : "agendaAdminSources",
-    requiredCred: "aggregator"
+    section : 'manage',
+    key : 'sources',
+    label : 'Sources',
+    uri : 'agendaAdminSources',
+    access: 'administrator',
+    requiredCred: 'aggregator'
   }, {
-    section : "export",
-    key : "facebook",
-    label: "Facebook",
-    uri: "facebookShow"
+    section : 'export',
+    key : 'facebook',
+    label: 'Facebook',
+    access: 'administrator',
+    uri: 'facebookShow'
   }, {
-    section : "export",
-    key : "swapcard",
-    label : "Swapcard",
-    uri : "serviceIndex",
-    uriParams : { service : "swapcard" },
+    section : 'export',
+    key : 'swapcard',
+    label : 'Swapcard',
+    uri : 'serviceIndex',
+    uriParams : { service : 'swapcard' },
+    access: 'administrator',
     requiredCred: 'swapcard'
   }, {
-    section : "export",
-    key : "web",
-    label : "Web Integration",
-    uri : "agendaAdminWeb"
+    section : 'export',
+    key : 'web',
+    label : 'Web Integration',
+    access: 'administrator',
+    uri : 'agendaAdminWeb'
   }, {
-    section : "export",
-    key : "indesign",
-    label : "Indesign - Xml",
-    uri : "agendaAdminIndesign",
+    section : 'export',
+    key : 'indesign',
+    label : 'Indesign - Xml',
+    uri : 'agendaAdminIndesign',
+    access: 'administrator',
     requiredCred: 'indesign'
   }, {
-    section : "export",
-    key: "emailstrategie",
-    label: "EmailStrategie",
-    uri: "agendaAdminEmailStrategie",
+    section : 'export',
+    key: 'emailstrategie',
+    label: 'EmailStrategie',
+    uri: 'agendaAdminEmailStrategie',
+    access: 'administrator',
     requiredCred: 'emailstrategie'
   }, {
-    section : "settings",
-    key : "administrators",
-    label : "Administrators",
-    uri : "agendaAdminAdministrators"
+    section : 'settings',
+    key : 'administrators',
+    label : 'Administrators',
+    access: 'administrator',
+    uri : 'agendaAdminAdministrators'
   }, {
-    section : "settings",
-    key : "settings",
-    label : "Settings",
-    uri : "agendaAdminSettings"
+    section : 'settings',
+    key : 'settings',
+    label : 'Settings',
+    access: 'administrator',
+    uri : 'agendaAdminSettings'
   } ]
 
 }

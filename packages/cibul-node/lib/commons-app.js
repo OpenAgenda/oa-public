@@ -211,6 +211,8 @@ function checkAdminOrModerator( req, res, next ) {
 
     if ( !results[ 0 ] && !results[ 1 ] ) return next( { code: 403 } );
 
+    req.access = results[ 0 ] ? 'administrator' : 'moderator';
+
     next();
 
   })

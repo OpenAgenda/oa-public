@@ -165,6 +165,14 @@ function loadAdminLayout( req, res, next ) {
 
     req.layoutData.tabs = svcConfig.adminTabs.filter( function( tab ) {
 
+      // if user is moderator and tab access is not given to moderators,
+      // filter.
+      if ( req.access == 'moderator' && tab.access !== 'moderator' ) {
+
+        return false;
+
+      }
+
       if ( tab.requiredCred === undefined ) return true;
 
       return credentials.indexOf( tab.requiredCred ) !== -1;
