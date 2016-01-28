@@ -17,6 +17,19 @@ function parentLink( onLinkEstablished, onParentMessage ) {
 
   window.addEventListener( 'message', function _onParentMessageReceived( e ) {
 
+    // prevent interference from embedded media messages
+    if ( [ 'vimeo.com', 'soundcloud.com' ].filter( function( unauthorizedOrigin ) {
+
+      return e.origin.indexOf( unauthorizedOrigin ) !== -1
+
+    } ).length ) {
+
+      console.log( 'unauthorized origin: %s', e.origin );
+
+      return;
+
+    }
+
     if ( !handShakeComplete ) {
 
       log( 'received hanshake request from parent' );
