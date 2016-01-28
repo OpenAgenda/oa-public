@@ -26,6 +26,7 @@
 <% tabs.filter( function( t ) { return t.section === 'manage' } ).forEach( function( t ) { %>
       <% include ./tab.part.ejs %>
 <% }); %>
+<% if ( tabs.filter( function( t ) { return t.section == 'export' } ).length ) { %>
       <ul class="sidebar-item">
         <li class="menu-item title js_menu_item">
           <h2><%= __('Export') %></h2>
@@ -34,12 +35,15 @@
       <% include ./tab.part.ejs %>
 <% }) %>
       </ul>
+<% } %>
+<% if ( tabs.filter( function( t ) { return t.section == 'settings' } ).length ) { %>
       <ul class="sidebar-item">
         <li class="menu-item title js_menu_item"><h2><%= __('Customize') %></h2></li>
 <% tabs.filter( function( t ) { return t.section == 'settings' } ).forEach( function( t ) { %>
       <% include ./tab.part.ejs %>
 <% }) %>
       </ul>
+<% } %>
     </nav><!--
     --><div class="main">
       <!-- content -->

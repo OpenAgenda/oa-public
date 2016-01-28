@@ -26,6 +26,7 @@
       <% include ./tab.part.ejs %>
 <% }); %>
       </ul>
+<% if ( tabs.filter( function( t ) { return t.section == 'export' } ).length ) { %>
       <ul class="list-unstyled">
         <li>
           <h2><%= __('Export') %></h2>
@@ -34,6 +35,8 @@
       <% include ./tab.part.ejs %>
 <% }) %>
       </ul>
+<% } %>
+<% if ( tabs.filter( function( t ) { return t.section == 'settings' } ).length ) { %>
       <ul class="sidebar-item list-unstyled">
         <li>
           <h2><%= __('Customize') %></h2>
@@ -42,6 +45,7 @@
       <% include ./tab.part.ejs %>
 <% }) %>
       </ul>
+<% } %>
     </div><!--
     --><div class="col col-sm-9 body">
       <!-- content -->
