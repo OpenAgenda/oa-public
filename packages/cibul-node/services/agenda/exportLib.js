@@ -40,6 +40,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
   async.waterfall( [
 
+    // if private data requested, add state info
     wcb => {
 
       if ( !params.includePrivateData ) return wcb();
@@ -56,6 +57,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
     },
 
+    // add featured
     wcb => {
 
       event.getFeatured( ( err, isFeatured ) => {
@@ -70,6 +72,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
     },
 
+    // add custom fields
     wcb => {
 
       var customFieldsGetter = agenda.getEventPublicCustomData;
@@ -114,6 +117,24 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
     },
 
+    // add contributor info
+    wcb => {
+
+      if ( !params.includePrivateData ) return wcb();
+
+      event.getContributorInfo( agenda.id, ( err, contributorInfo ) => {
+
+        if ( err ) return wcb( err );
+
+        toDecorate.contributor = contributorInfo || null;
+
+        wcb();
+
+      } );
+
+    },
+
+    // add category
     wcb => {
 
       // if category is already present, no
@@ -132,6 +153,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
     },
 
+    // add tags
     wcb => {
 
       // if tags are already loaded
@@ -150,6 +172,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
     },
 
+    // add tag groups
     wcb => {
 
       toDecorate.tagGroups = [];

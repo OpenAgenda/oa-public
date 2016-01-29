@@ -161,6 +161,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
         'latitude',
         'longitude',
         'featured',
+        'contributor.organization',
         { 
           sourceField: 'slug',
           destField: 'link',
@@ -180,6 +181,8 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
     value = values;
 
     fieldNames.forEach( function( name ) {
+
+      if ( value === null ) return;
 
       value = value[ name ];
 
@@ -218,7 +221,16 @@ function _extendMapping( agenda, includePrivateData ) {
 
   customFields = agenda.getCustomFieldsConfig();
 
-  if ( includePrivateData ) amendment.push( 'state' );
+  if ( includePrivateData ) {
+
+    amendment = amendment.concat( [
+      'state',
+      'contributor.contactNumber',
+      'contributor.contactName',
+      'contributor.contactPosition'
+    ] );
+
+  }
 
   customFields.forEach( function( cField ) {
 
