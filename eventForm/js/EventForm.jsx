@@ -72,8 +72,7 @@ module.exports = React.createClass( {
 
     }
 
-    if ( !state.custom ) state.custom = {};
-
+    if ( !state.custom || utils.isArray( state.custom ) ) state.custom = {};
 
     state.locationMode = state.location ? 'show' : 'search';
 
