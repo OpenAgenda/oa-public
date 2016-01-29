@@ -8,6 +8,7 @@ module.exports = {
   el: el,
   els: els,
   addEvent: addEvent,     // add an event to an element 
+  removeEvent: removeEvent,
   whenReady: whenReady, // executes callback when dom is ready or if dom is ready
   asapReady: asapReady, // executes cb as soon as elem targetted by elem ( or body by default ) exists.
   loadInLocation: loadInLocation,
@@ -222,6 +223,34 @@ function addEvent( elem, types, eventHandle ) {
   } );
 
 }
+
+
+function removeEvent( elem, types, eventHandle ) {
+
+  if ( elem === null || elem === undefined ) return;
+
+  if ( typeof types == 'string' ) types = [ types ];
+
+  forEach( types, function( type ) {
+
+    if ( elem.removeEventListener ) {
+    
+      elem.removeEventListener( type, eventHandle, false );
+    
+    } else if ( elem.detachEvent ) {
+    
+      elem.detachEvent( 'on'+type, eventHandle );
+    
+    } else {
+    
+      elem[ "on"+type ]=null;
+    
+    }
+
+  });
+
+};
+
 
 function forEach( array, action ) {
 

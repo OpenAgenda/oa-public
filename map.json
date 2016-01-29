@@ -81,6 +81,10 @@
     "prod" : "embed/cibulSearchWidget.js"
   },
   {
+    "js" : "widgets/age/age.js",
+    "prod" : "embed/oaAgeWidget.js"
+  },
+  {
     "js" : "widgets/categories/categories.js",
     "prod" : "embed/cibulCategoriesWidget.js"
   },
