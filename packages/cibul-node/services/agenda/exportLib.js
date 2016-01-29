@@ -120,13 +120,25 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
     // add contributor info
     wcb => {
 
-      if ( !params.includePrivateData ) return wcb();
-
       event.getContributorInfo( agenda.id, ( err, contributorInfo ) => {
+
+        toDecorate.contributor = null;
 
         if ( err ) return wcb( err );
 
-        toDecorate.contributor = contributorInfo || null;
+        if ( !contributorInfo ) return wcb();
+
+        if ( !params.includePrivateData ) {
+
+          toDecorate.contributor = {
+            organization: contributorInfo.organization
+          }
+
+        } else {
+
+          toDecorate.contributor = contributorInfo || null;
+
+        }
 
         wcb();
 
