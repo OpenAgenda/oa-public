@@ -2,12 +2,32 @@
 
 var watch = require( 'node-watch' ),
 
-sassify = require( './sassify' );
+sassify = require( './sassify' ),
+
+ejs = require( 'ejs' ),
+
+fs = require( 'fs' );
 
 watch( __dirname + '/../', ( filename ) => {
 
-  if ( !/\.scss$/.test( filename ) ) return;
+  if ( /^[^_].+\.ejs$/.test( filename ) ) {
 
-  sassify( filename );
+    _buildHTML( filename );
+
+  } else if ( /\.scss$/.test( filename ) ) {
+
+    sassify( filename );
+
+  }
 
 } );
+
+function _buildHTML( filename ) {
+
+  var str = ejs.render( fs.readFileSync( filename ).toString(), {
+    filename: filename
+  } );
+
+  fs.writeFileSync( filename.replace( '.ejs', '.html' ), str );
+
+}

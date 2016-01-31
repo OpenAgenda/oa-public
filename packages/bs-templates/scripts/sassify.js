@@ -2,6 +2,8 @@
 
 var sass = require( 'node-sass' ),
 
+importOnce = require('node-sass-import-once'),
+
 fs = require( 'fs' ),
 
 colors = require( 'colors' );
@@ -12,6 +14,7 @@ module.exports = function( filename, cb ) {
 
   sass.render( {
     file: filename,
+    importer: importOnce,
     includePaths: [ __dirname + '/../' ]
   }, ( err, result ) => {
 
