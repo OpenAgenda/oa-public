@@ -94,6 +94,84 @@
 
     padding-top: 4em;
 
+    strong {
+
+      font-weight: bold;
+
+    }
+
+    p {
+
+      padding: 20px 20px 0;
+      margin: 0;
+
+    }
+
+    .location-head {
+
+      padding: 20px 20px 0;
+
+      label {
+
+        display: block;
+
+        a {
+
+          color: inherit;
+
+        }
+
+      }
+
+    }
+
+    .location-image {
+
+      padding: 20px 20px 0;
+
+      img {
+
+        max-width: 100%;
+
+      }
+      
+    }
+
+    .location-tags {
+
+      width: 80%;
+      display: inline-block;
+      padding: 0;
+      vertical-align: middle;
+
+      li {
+
+        display: inline;
+
+      }
+
+    }
+
+    ul {
+
+      padding: 20px;
+
+      li {
+
+        padding: 0.5em 0;
+
+      }
+
+      i {
+
+        padding-right: 0.8em;
+        display: inline-block;
+        vertical-align: middle;
+
+      }
+
+    }
+
   }
 
 }

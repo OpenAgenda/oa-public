@@ -84,52 +84,9 @@
             <p>
               <a href="<%= event.locationLink || '#' %>"><%= event.location.name %></a>
             </p>
+            <p><%= event.location.address %></p>
           </div><!--
-<% if ( event.location.image ) { %>
-          --><img class="location-img"
-            src="<%= _i( event.location.image ) %>"
-            alt="<%= event.location.name %>"
-          /><!--
-<% } %>
           --><div class="map js_map" data-coord="<%= event.location.latitude %>|<%= event.location.longitude %>"></div>
-
-          <p><%= event.location.address %></p>
-
-<% if ( event.location.access ) { %>
-          <p>
-            <span><%= __( 'Access' ) %>:</span>
-            <span><%= event.location.access %></span>
-          </p>
-<% } %>
-
-          <ul class="list-unstyled">
-<% if ( event.location.website ) { %>
-            <li>
-              <i class="fa fa-globe"></i>
-              <a href="<%= event.location.website %>">
-                <span><%= event.location.website %></span>
-              </a>
-            </li>
-<% } %>
-<% if ( event.location.phone ) { %>
-            <li>
-              <i class="fa fa-phone"></i>
-              <a href="tel:<%= event.location.phone %>">
-                <span><%= event.location.phone %></span>
-              </a>
-            </li>
-<% } %>
-<% if ( event.location.tags ) { %>
-            <li>
-              <i class="fa fa-tags"></i><!--
-              --><ul class="location-tags">
-<%- event.location.tags.map( function( tag ) {
-  return '<li>' + _txt.escape( tag.label ) + '</li>';
-} ).join( ', ') %>              
-              </ul>
-            </li>
-<% } %>
-          </ul>
 
         </section>
 
@@ -227,16 +184,72 @@
 <% } %>
 
         </div>
-
-<% if ( event.location.description ) { %>
+<% if ( 
+  event.location.description 
+  || event.location.access
+  || event.location.image
+  || event.location.website
+  || event.location.phone
+  || event.location.tags ) { %>
     <div class="location-details">
       <h3><%= __( 'About the venue' ) %></h3>
       <div class="event-content">
-        <p class="description"><%- _txt.nl2br( event.location.description ) %></p>
+
+        <div class="location-head">
+          <label>
+            <a href="<%= event.locationLink || '#' %>"><%= event.location.name %></a>
+          </label>
+          <span><%= event.location.address %></span>
+        </div>
+
+<% if ( event.location.description ) { %>
+        <p><%- _txt.nl2br( event.location.description ) %></p>
+<% } %>
+<% if ( event.location.access ) { %>
+        <p>
+          <strong><%= __( 'Access' ) %>:</strong>
+          <span><%= event.location.access %></span>
+        </p>
+<% } %>
+<% if ( event.location.image ) { %>
+        <div class="location-image">
+          <img
+            src="<%= _i( event.location.image ) %>"
+            alt="<%= event.location.name %>" />
+        </div>
+<% } %>
+
+        <ul class="list-unstyled">
+<% if ( event.location.website ) { %>
+          <li>
+            <i class="fa fa-globe"></i>
+            <a href="<%= event.location.website %>">
+              <span><%= event.location.website %></span>
+            </a>
+          </li>
+<% } %>
+<% if ( event.location.phone ) { %>
+          <li>
+            <i class="fa fa-phone"></i>
+            <a href="tel:<%= event.location.phone %>">
+              <span><%= event.location.phone %></span>
+            </a>
+          </li>
+<% } %>
+<% if ( event.location.tags ) { %>
+          <li>
+            <i class="fa fa-tags"></i><!--
+            --><ul class="location-tags">
+<%- event.location.tags.map( function( tag ) {
+  return '<li>' + _txt.escape( tag.label ) + '</li>';
+} ).join( ', ') %>              
+            </ul>
+          </li>
+<% } %>
+          </ul>
       </div>
     </div>
 <% } %>
-
 
 <% if ( event.owner ) { %>  
         <p class="signature"><%= __('Published by %owner%', { '%owner%' : event.owner.name } ) %></p>
