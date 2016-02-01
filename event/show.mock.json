@@ -33,6 +33,7 @@
         { "slug": "streum", "label": "streum" },
         { "slug": "lutinrouge", "label": "lutin rouge" }
       ],
+      
       "category" : "Une catégorie",
 
       "age" : {
