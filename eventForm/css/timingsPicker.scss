@@ -539,15 +539,26 @@ $dayInWeek: 7;
 
     .rc-inactive-day {
 
+      color: white;
+
+      background: repeating-linear-gradient(
+        135deg,
+        $oa-gray-lightest,
+        $oa-gray-lightest 10px,
+        $oa-white 10px,
+        $oa-white 20px
+      );
+
       .rc-day-cell {
 
-        &:nth-child(2n-1) {
-          background-color: lighten( $oddRowBackColor, 5 );
-        }
+        background-color: transparent;
 
-        &:nth-child(2n) {
-          background-color: lighten( $evenRowBackColor, 5 );
-        }
+      }
+
+      &.rc-day-time {
+
+        left: 0px;
+        padding-left: 1px;
 
       }
 
