@@ -539,6 +539,8 @@ $dayInWeek: 7;
 
     .rc-inactive-day {
 
+      cursor: not-allowed;
+
       color: white;
 
       background: repeating-linear-gradient(
