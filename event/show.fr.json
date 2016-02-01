@@ -71,16 +71,16 @@
   : "A partir de %min% ans",
   "%min% to %max% years old"
   : "De %min% à %max% ans",
-  "hearing impairment"
-  : "handicap auditif",
-  "mental impairment"
-  : "handicap psychique",
-  "motor impairment"
-  : "handicap moteur",
-  "visual impairment"
-  : "handicap visuel",
-  "sign language"
-  : "language des signes",
+  "accessible to the hearing impaired"
+  : "accessible aux handicapés auditif",
+  "accessible to the mentally impaired"
+  : "accessible aux handicapés psychique",
+  "accessible to the motor impaired"
+  : "accessible aux handicapés moteur",
+  "accessible to the visually impaired"
+  : "accessible aux handicapés visuel",
+  "sign language available"
+  : "accessible en langue des signes",
   "Accessibility: %impairments%"
   : "Accessibilité: %impairments%",
   "Transfer ownership"

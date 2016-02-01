@@ -40,7 +40,7 @@
         "max" : 99
       },
 
-      "accessibility" : [ "hi", "sl" ],
+      "accessibility" : [ "hi", "pi", "mi", "vi", "sl" ],
 
       "owner" : {
         "name" : "Billy Bob",

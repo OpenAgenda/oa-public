@@ -81,6 +81,46 @@
 
   }
 
+  .acc {
+
+    display: inline-block;
+    width: 30px!important;
+    height: 30px!important;
+    vertical-align: middle;
+    background-image: url("//s3.eu-central-1.amazonaws.com/oastatic/accessibility-30.png");
+
+    &.hi {
+
+      background-position: 120px 30px;
+
+    }
+
+    &.pi {
+
+      background-position: 120px 90px;
+
+    }
+
+    &.mi {
+
+      background-position: 120px 60px;
+
+    }
+
+    &.vi {
+
+      background-position: 120px 0;
+
+    }
+
+    &.sl {
+
+      background-position: 120px 120px;
+
+    }
+
+  }
+
   .location-side {
 
     .map {

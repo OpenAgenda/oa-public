@@ -30,11 +30,11 @@
     "hasCustomFields" : false,
     "hasOwnershipTransfer" : false,
     "impairments" : {
-      "hi" : "hearing impairment",
-      "pi" : "mental impairment",
-      "mi" : "motor impairment",
-      "vi" : "visual impairment",
-      "sl" : "sign language"
+      "hi" : "accessible to the hearing impaired",
+      "pi" : "accessible to the mentally impaired",
+      "mi" : "accessible to the motor impaired",
+      "vi" : "accessible to the visually impaired",
+      "sl" : "sign language available"
     },
     "states" : {
       "draft" : {

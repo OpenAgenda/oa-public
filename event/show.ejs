@@ -61,13 +61,14 @@
         </section>
 
 <% if ( event.accessibility && event.accessibility.length ) { %>
+<% event.accessibility.forEach( function( i ) { %>
         <section class="detail-item">
-          <h3><i class="fa fa-wheelchair"></i></h3>
-          <p class="detail-item-content"><%= __( 'Accessibility: %impairments%', { '%impairments%' : event.accessibility.map( function( i ) { 
-            return __( impairments[ i ] );
-          } ).join( ', ' ) } ) %></p>
+          <h3><i class="acc <%= i %>"></i></h3>
+          <p class="detail-item-content"><%= __( impairments[ i ] ) %></p>
         </section>
-<% } %><% if ( event.age ) { %>
+<% }) %>        
+<% } %>
+<% if ( event.age ) { %>
         <section class="detail-item">
           <h3><i class="fa fa-child"></i></h3>
 <% if ( !event.age.max ) { %> 
