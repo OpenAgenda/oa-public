@@ -156,5 +156,7 @@
   "from the %firstDate% to the %lastDate%"
   : "du %firstDate% au %lastDate%",
   "The agenda %title% published your event %event%"
-  : "L'agenda %title% a publié votre événement %event%"
+  : "L'agenda %title% a publié votre événement %event%",
+  "see more"
+  : "voir plus"
 }
