@@ -96,7 +96,7 @@ function _renderEvent( agenda, eData, lang, query ) {
     'SUMMARY:' + _esc( ev.getDescription() ),
     'DESCRIPTION:' + truncatedDescription + ' ' + i18n( 'see more', lang ) + ': ' + url,
     'STATUS:CONFIRMED',
-    'LOCATION:' + l.name + '\\n' + l.address,
+    'LOCATION:' + l.name + '\\r\\n' + l.address,
     'GEO:' + l.latitude + ';' + l.longitude,
     'URL:' + url,
     'LAST-MODIFIED:' + _date( ev.updatedAt )
