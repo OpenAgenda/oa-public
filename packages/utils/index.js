@@ -10,8 +10,26 @@ module.exports = {
   forEach: forEach, // for some older browsers
   toCamelCase: toCamelCase,
   toUnderscore: toUnderscore,
-  escape: escape
+  escape: escape,
+  truncate: truncate
 };
+
+
+function truncate( str, len, append ) {
+
+  str = String( str );
+
+  if ( str.length > len ) {
+
+    str = str.slice( 0, len );
+
+    if ( append ) str += append;
+
+  }
+
+  return str;
+  
+}
 
 function escape( str, escapeApostrophe ) {
 
