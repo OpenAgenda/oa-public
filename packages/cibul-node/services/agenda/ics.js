@@ -10,7 +10,7 @@ utils = require( 'utils' ),
 
 i18n = require( '../../i18n/i18n' ),
 
-limit = 2000000;
+limit = 600000;
 
 module.exports = function( req, res, next ) {
 
