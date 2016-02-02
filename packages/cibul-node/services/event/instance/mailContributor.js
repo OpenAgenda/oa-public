@@ -1,6 +1,6 @@
 "use strict";
 
-var w = require( 'when' ),
+var p = require( '../../../lib/promises' ), w = p.w,
 
 async = require( 'async' ),
 
@@ -33,20 +33,23 @@ module.exports = function( instance, agenda ) {
     agenda: agenda,
     contributor: false,
     isAdministrator: false,
-    message: false
+    message: false,
+    firstPublicationFlag: true
   } )
 
   .then( _loadAgenda )
 
-  .then( _retrieveContributor )
+  .then( _checkFirstPublicationFlag )
 
-  .then( _checkAdmin )
+  .then( p.ife( { firstPublicationFlag : false }, _retrieveContributor ) )
 
-  .then( _retrieveAgendaCustomMessage )
+  .then( p.ife( { firstPublicationFlag : false }, _checkAdmin ) )
 
-  .then( _sendPublicationMail )
+  .then( p.ife( { firstPublicationFlag : false }, _sendPublicationMail ) )
 
-  .done( () => {}, ( err ) => { log( 'error', err ); } );
+  .then( p.ife( { firstPublicationFlag : false }, _setFirstPublicationFlag ) )
+
+  .done( () => {}, err => { log( 'error', err ); } );
 
 }
 
@@ -175,6 +178,41 @@ function _retrieveContributor( v ) {
   return d.promise;
 
 }
+
+function _checkFirstPublicationFlag( v ) {
+
+  var d = w.defer();
+
+  v.instance.getFirstPublicationFlag( ( err, flag ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.firstPublicationFlag = flag;
+
+    d.resolve( v );
+
+  } )
+
+  return d.promise;
+
+}
+
+function _setFirstPublicationFlag( v ) {
+
+  var d = w.defer();
+
+  v.instance.setFirstPublicationFlag( err => {
+
+    if ( err ) return d.reject( err );
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
 
 
 function _retrieveAgendaCustomMessage( v ) {
