@@ -284,7 +284,7 @@ describe( 'contributive agenda', function() {
   });
 
 
-  it( 'processed invited user is led to form', ( done ) => {
+  it( 'processed invited user is led to form', done => {
 
     _sendInvitation( browser, agenda, user )
 
@@ -310,7 +310,7 @@ describe( 'contributive agenda', function() {
 
       browser.location.pathname.should.equal( '/frontend_test.php/a-contributive-agenda/addevent' );
 
-    })
+    } )
 
     .done( done, _err );
 
