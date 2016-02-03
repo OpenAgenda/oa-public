@@ -1,8 +1,6 @@
 "use strict";
 
-var coms = require( '../../lib/coms' ),
-
-model = require( '../model' ),
+var model = require( '../model' ),
 
 config = require( '../../config' ),
 

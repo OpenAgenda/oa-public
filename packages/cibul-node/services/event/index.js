@@ -26,17 +26,6 @@ module.exports.mw = require( './middleware' )( module.exports );
 
 module.exports.exports = require( './exportLib' )( module.exports );
 
-
-/**
- * add following methods
- *
- * getEventCount 
- * locationWillRemove
- * locationDidUpdate
- * locationsWillMerge
- * 
- */
-
 module.exports.locations = require( './locations' )( module.exports );
 
 

@@ -65,7 +65,8 @@ module.exports = function( enabledTypes, cb ) {
     require( 'agenda-tags' ).init( {
       store: config.db,
       legacy: config.db,
-      logger: logger
+      logger: logger,
+      interfaces: require( './services/agenda' ).tags
     } );
 
     require( 'agenda-categories' ).init( {
@@ -97,6 +98,7 @@ module.exports = function( enabledTypes, cb ) {
         accessKeyId: config.aws.accessKeyId,
         secretAccessKey: config.aws.secretAccessKey
       },
+      // callbacks for updating other app services when changes occur
       interfaces: require( './services/event' ).locations,
       logger: logger
     }, () => {

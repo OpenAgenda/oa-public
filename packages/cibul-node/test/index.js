@@ -24,3 +24,5 @@ require( '../services/agenda/controlData/test/task' );
 require( '../services/agenda/controlData/test/lock' );
 require( '../services/agenda/controlData/test/build' );
 require( '../services/event/instance/test/custom' );
+require( '../services/event/test/locations' );
+require( '../services/agenda/test/tags' );

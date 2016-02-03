@@ -8,7 +8,7 @@ log = require( 'logger' )( 'event state' ),
 
 TYPES = model.events().STATETYPES;
 
-module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
+module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => {
 
   var onStateChange;
 

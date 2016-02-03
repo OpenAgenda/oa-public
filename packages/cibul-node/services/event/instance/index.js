@@ -20,9 +20,17 @@ fileSvc = require( 'files' ).file,
 
 exportable = require( './exportable' ),
 
+onRefresh, // used for testing
+
 range = require( 'date-range' );
 
-module.exports = function( data ) {
+module.exports = instanciate;
+
+module.exports.test = {
+  setOnRefresh: setOnRefresh
+}
+
+function instanciate( data ) {
 
   var instance = model.events().instance( data ),
 
@@ -127,7 +135,9 @@ module.exports = function( data ) {
 
   function refresh( cb ) {
 
-    instance.save( { updatedAt: new Date() }, ( err ) => {
+    if ( onRefresh ) onRefresh( parseInt( instance.id ) );
+
+    instance.save( { updatedAt: new Date() }, err => {
 
       if ( err ) {
 
@@ -169,5 +179,12 @@ module.exports = function( data ) {
     }
 
   }
+
+}
+
+
+function setOnRefresh( cb ) {
+
+  onRefresh = cb;
 
 }

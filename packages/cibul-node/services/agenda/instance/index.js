@@ -26,9 +26,17 @@ controlData = require( '../controlData' ),
 
 dispatcher = require( './dispatcher' ),
 
-instanceQueue = require( '../../lib/instanceQueue' );
+instanceQueue = require( '../../lib/instanceQueue' ),
 
-module.exports = function( data ) {
+onRefresh;
+
+module.exports = instanciate;
+
+module.exports.test = {
+  setOnRefresh: setOnRefresh
+}
+
+function instanciate( data ) {
 
   var instance = model.agendas().instance( data ),
 
@@ -84,6 +92,8 @@ module.exports = function( data ) {
 
 
   function refresh( cb ) {
+
+    if ( onRefresh ) onRefresh( instance.id );
 
     instance.save( { updatedAt: new Date() }, ( err ) => {
 
@@ -190,4 +200,10 @@ module.exports = function( data ) {
 
   }
   
+}
+
+function setOnRefresh( cb ) {
+
+  onRefresh = cb;
+
 }

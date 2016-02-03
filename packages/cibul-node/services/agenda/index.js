@@ -21,6 +21,7 @@ module.exports.mw = require( './middleware' )( module.exports );
 
 module.exports.exports = require( './exportLib' )( module.exports ); 
 
+module.exports.tags = require( './tags' )( module.exports );
 
 function search( query, options, cb ) {
 
