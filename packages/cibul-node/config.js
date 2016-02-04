@@ -148,7 +148,7 @@ config = {
       }
     },
     comexposium: {
-      contributingAgendaUid: 25263543 // le salon du cheval
+      contributingAgendaUid: 63430882 // le salon de l'agriculture
     },
     routes: {
       globals: {

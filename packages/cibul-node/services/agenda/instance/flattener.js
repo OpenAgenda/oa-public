@@ -184,6 +184,8 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
       if ( value === null ) return;
 
+      if ( value === undefined ) return;
+
       value = value[ name ];
 
     });
