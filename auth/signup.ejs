@@ -6,7 +6,7 @@
     <section class="col-sm-6 col-sm-offset-3 wsq">
       <div class="row">
         <div class="content">
-          <h2><%= __('Create an account') %></h2>
+          <h2><%= __( 'Create an account' ) %></h2>
           <a class="url" id="signin" href="<%= genUrl( agenda ? 'agendaSignin' : 'signin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"><%= __( 'But I already have an account' ) %></a>
         </div>
       </div>
@@ -14,7 +14,7 @@
         <form class="col-sm-6 content" method="post">
 
           <div class="form-group">
-            <label for="full_name"><%= __('Name Surname') %></label>
+            <label for="full_name"><%= __( 'Name Surname' ) %></label>
             <input class="form-control" type="text" name="full_name" value="<%= full_name %>"/>
 <% if ( errors.full_name ) { %>
             <span class="error"><%= __( errors.full_name ) %></span>
