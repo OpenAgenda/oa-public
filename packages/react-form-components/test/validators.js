@@ -6,6 +6,105 @@ validators = require( '../validators' );
 
 describe( 'validators', () => {
 
+  describe( 'number', () => {
+
+    it( 'puts a default value if nothing is specified', () => {
+
+      let validate = validators.number( {
+        default: 13
+      } );
+
+      validate( '' ).should.equal( 13 );
+
+    } );
+
+    it( 'throws an error if is not optional and no default is specified', () => {
+
+      let validate = validators.number( {
+        optional: false
+      }), 
+
+      errors = [];
+
+      try {
+
+        validate( '' );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 1 );
+
+      errors[ 0 ].code.should.equal( 'required' );
+
+    } );
+
+    it( 'throws an error if value is not a number', () => {
+
+      let validate = validators.number( {} ),
+
+      errors = [];
+
+      try {
+
+        validate( 'fdsqfds' );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 1 );
+
+      errors[ 0 ].code.should.equal( 'number.invalid' );
+
+    } );
+
+    it( 'throws an error if value exceeds a limit', () => {
+
+      let validate = validators.number( {
+        max: 10
+      } ),
+
+      errors = [];
+
+      try {
+
+        validate( '56' );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 1 );
+
+      errors[ 0 ].code.should.equal( 'number.toobig' ); 
+
+    });
+
+    it( 'cleans a valid entry', () => {
+
+      let validate = validators.number( {
+        field: '11or12',
+        min: 11,
+        max: 12,
+        optional: false,
+      } );
+
+      validate( '11' ).should.equal( 11 );
+
+    });
+
+  } );
+
+
+
   describe( 'list', () => {
 
     var validate = validators.list( [

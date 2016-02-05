@@ -12,6 +12,16 @@ module.exports = {
     en: 'Email'
   },
 
+  'number.toosmall' : {
+    fr: 'Le nombre doit être supérieur ou égal à %min%',
+    en: 'The number must be equal to or higher than %min%'
+  },
+
+  'number.toobig' : {
+    fr: 'Le nombre doit être inférieur ou égal à %max%',
+    en: 'The number must be equal to or lower than %max%'
+  },
+
   'multi-input.info': {
     fr: 'Saisissez une ou plusieurs valeurs',
     en: 'Type in one or multiple values'
@@ -45,6 +55,11 @@ module.exports = {
   'link.invalid' : {
     fr: 'Un lien valide doit être renseigné',
     en: 'A valid link must be input'
+  },
+
+  'number.invalid' : {
+    fr: 'Un nombre valide doit être renseigné',
+    en: 'A valid number must be input'
   },
 
   'groupTags.required' : {

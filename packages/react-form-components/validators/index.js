@@ -6,5 +6,6 @@ module.exports = {
   link: require( './link' ),
   email: require( './email' ),
   phone: require( './phone' ),
-  list: require( './list' )
+  list: require( './list' ),
+  number: require( './number' )
 }
