@@ -6,5 +6,6 @@ module.exports = {
   email: require( './email' ),
   phone: require( './phone' ),
   list: require( './list' ),
-  number: require( './number' )
+  number: require( './number' ),
+  labels: require( './label' )
 }
