@@ -66,7 +66,7 @@ $widget-color: $oa-blue;
 //@import "assets/stylesheets/bootstrap/thumbnails";
 //@import "assets/stylesheets/bootstrap/alerts";
 //@import "assets/stylesheets/bootstrap/progress-bars";
-//@import "assets/stylesheets/bootstrap/media";
+@import "assets/stylesheets/bootstrap/media";
 //@import "assets/stylesheets/bootstrap/list-group";
 //@import "assets/stylesheets/bootstrap/panels";
 //@import "assets/stylesheets/bootstrap/responsive-embed";
@@ -82,3 +82,24 @@ $widget-color: $oa-blue;
 // Utility classes
 //@import "assets/stylesheets/bootstrap/utilities";
 //@import "assets/stylesheets/bootstrap/responsive-utilities";
+
+// header
+@import "../header/style.scss";
+
+body {
+
+  background-color: $oa-gray-lightest;
+
+}
+
+.wsq {
+
+  background: $oa-white;
+  vertical-align: top;
+  text-align: left;
+
+  -webkit-border-radius: 3px; 
+  -moz-border-radius: 3px; 
+  border-radius: 3px;
+
+}
