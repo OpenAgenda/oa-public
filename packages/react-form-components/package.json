@@ -10,7 +10,7 @@
     "react-addons-update": "0.14.2",
     "react-select": "^0.9.1",
     "should": "^8.1.1",
-    "validator": "^4.5.0",
+    "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git",
     "react-tagsinput": "^3.0.3",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git"
   },
