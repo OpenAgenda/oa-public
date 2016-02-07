@@ -7,5 +7,5 @@ module.exports = {
   phone: require( './phone' ),
   list: require( './list' ),
   number: require( './number' ),
-  labels: require( './label' )
+  labels: require( './labels' )
 }
