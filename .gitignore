@@ -5,3 +5,4 @@ node_modules/*
 openagenda/.sass-cache/*
 build/browserified/*
 build/sass/*
+npm-debug.log
