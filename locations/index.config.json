@@ -10,7 +10,8 @@
     "language-bar" : "../node_modules/react-form-components/sass/language-bar.scss",
     "location-form" : "../node_modules/agenda-locations/sass/form.scss",
     "image-upload" : "../node_modules/image-upload/sass/style.scss",
-    "locations" : "css/style.scss"
+    "locations" : "css/style.scss",
+    "terms" : "../node_modules/agenda-locations/sass/terms.scss"
   },
 
   "helpers" : {
