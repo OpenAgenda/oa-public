@@ -1,0 +1,12 @@
+{
+  "base" : {
+
+    "scriptParams" : {
+      "lang" : "fr",
+      "res" : {
+        "terms" : "/agendaAdminEvents/testTerms.json"
+      }
+    }
+
+  }
+}

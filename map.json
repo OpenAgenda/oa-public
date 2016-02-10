@@ -54,6 +54,8 @@
 
   "locations/index",
 
+  "agendaAdminEvents/index",
+
   "error/show",
   
   "eventLists/searchList",

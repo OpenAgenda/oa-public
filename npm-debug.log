@@ -1,0 +1,147 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'link', 'labels' ]
+2 info using npm@2.14.2
+3 info using node@v4.0.0
+4 verbose install where, what [ '/usr/local/lib', [ 'labels' ] ]
+5 verbose install initial load of /usr/local/lib/package.json
+6 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/ES/package.json
+7 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/agenda-categories/package.json
+8 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/agenda-locations/package.json
+9 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/agenda-tags/package.json
+10 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/basic-logger/package.json
+11 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/bower/package.json
+12 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/browserify/package.json
+13 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/bs-templates/package.json
+14 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/bunyan/package.json
+15 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/cibulModel/package.json
+16 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/cibulNode/package.json
+17 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/cibulTemplates/package.json
+18 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/date-range/package.json
+19 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/emailStrategie/package.json
+20 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/facebook/package.json
+21 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/files/package.json
+22 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/geocode-farm/package.json
+23 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/grunt-cli/package.json
+24 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/gulp/package.json
+25 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/gulp-cli/package.json
+26 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/imageUpload/package.json
+27 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/jake/package.json
+28 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/logger/package.json
+29 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/mailer/package.json
+30 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/mocha/package.json
+31 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/n/package.json
+32 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/nodemon/package.json
+33 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/npm/package.json
+34 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/nsp/package.json
+35 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/pdf/package.json
+36 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/queue/package.json
+37 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/react-form-components/package.json
+38 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/registration/package.json
+39 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/speed-test/package.json
+40 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/strongloop/package.json
+41 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/sync-button/package.json
+42 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/test-app/package.json
+43 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/test-app-helpers/package.json
+44 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/tumblrParser/package.json
+45 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/utils/package.json
+46 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/validators/package.json
+47 verbose installManyTop reading scoped package data from /usr/local/lib/node_modules/watchify/package.json
+48 info package.json agenda-locations@1.0.0 No repository field.
+49 info package.json bs-templates@1.0.0 No repository field.
+50 info package.json basic-logger@1.0.0 No description
+51 info package.json basic-logger@1.0.0 No repository field.
+52 info package.json basic-logger@1.0.0 No README data
+53 info package.json date-range@1.0.0 No repository field.
+54 info package.json registration@1.0.0 No description
+55 info package.json registration@1.0.0 No repository field.
+56 info package.json registration@1.0.0 No README data
+57 info package.json files@1.0.0 No description
+58 info package.json files@1.0.0 No repository field.
+59 info package.json files@1.0.0 No README data
+60 info package.json react-form-components@1.0.1 No description
+61 info package.json react-form-components@1.0.1 No repository field.
+62 info package.json react-form-components@1.0.1 No README data
+63 info package.json logger@0.0.1 No repository field.
+64 info package.json pdf@0.0.1 No repository field.
+65 info package.json test-app@1.0.0 No description
+66 info package.json test-app@1.0.0 No repository field.
+67 info package.json test-app@1.0.0 No README data
+68 info package.json utils@0.0.9 No repository field.
+69 info package.json test-app-helpers@1.0.0 No repository field.
+70 info package.json validators@1.0.0 No repository field.
+71 verbose readDependencies loading dependencies from /usr/local/lib/package.json
+72 silly cache add args [ 'labels', null ]
+73 verbose cache add spec labels
+74 silly cache add parsed spec Result {
+74 silly cache add   raw: 'labels',
+74 silly cache add   scope: null,
+74 silly cache add   name: 'labels',
+74 silly cache add   rawSpec: '',
+74 silly cache add   spec: '*',
+74 silly cache add   type: 'range' }
+75 silly addNamed labels@*
+76 verbose addNamed "*" is a valid semver range for labels
+77 silly addNameRange { name: 'labels', range: '*', hasData: false }
+78 silly mapToRegistry name labels
+79 silly mapToRegistry using default registry
+80 silly mapToRegistry registry https://registry.npmjs.org/
+81 silly mapToRegistry uri https://registry.npmjs.org/labels
+82 verbose addNameRange registry:https://registry.npmjs.org/labels not in flight; fetching
+83 verbose request uri https://registry.npmjs.org/labels
+84 verbose request no auth needed
+85 info attempt registry request try #1 at 5:05:22 PM
+86 verbose request id 0926299d84482411
+87 http request GET https://registry.npmjs.org/labels
+88 http 404 https://registry.npmjs.org/labels
+89 verbose headers { 'content-type': 'application/json',
+89 verbose headers   'cache-control': 'max-age=0',
+89 verbose headers   'content-length': '2',
+89 verbose headers   'accept-ranges': 'bytes',
+89 verbose headers   date: 'Tue, 09 Feb 2016 16:04:28 GMT',
+89 verbose headers   via: '1.1 varnish',
+89 verbose headers   age: '0',
+89 verbose headers   connection: 'keep-alive',
+89 verbose headers   'x-served-by': 'cache-fra1229-FRA',
+89 verbose headers   'x-cache': 'MISS',
+89 verbose headers   'x-cache-hits': '0',
+89 verbose headers   'x-timer': 'S1455033868.022628,VS0,VE755' }
+90 silly get cb [ 404,
+90 silly get   { 'content-type': 'application/json',
+90 silly get     'cache-control': 'max-age=0',
+90 silly get     'content-length': '2',
+90 silly get     'accept-ranges': 'bytes',
+90 silly get     date: 'Tue, 09 Feb 2016 16:04:28 GMT',
+90 silly get     via: '1.1 varnish',
+90 silly get     age: '0',
+90 silly get     connection: 'keep-alive',
+90 silly get     'x-served-by': 'cache-fra1229-FRA',
+90 silly get     'x-cache': 'MISS',
+90 silly get     'x-cache-hits': '0',
+90 silly get     'x-timer': 'S1455033868.022628,VS0,VE755' } ]
+91 verbose stack Error: Registry returned 404 for GET on https://registry.npmjs.org/labels
+91 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:263:12)
+91 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:241:14)
+91 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:171:14)
+91 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:198:22)
+91 verbose stack     at emitTwo (events.js:87:13)
+91 verbose stack     at Request.emit (events.js:172:7)
+91 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1073:14)
+91 verbose stack     at emitOne (events.js:82:20)
+91 verbose stack     at Request.emit (events.js:169:7)
+91 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1019:12)
+92 verbose statusCode 404
+93 verbose pkgid labels
+94 verbose cwd /home/kaore/Dev/www/cibul-templates
+95 error Linux 3.13.0-77-generic
+96 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "link" "labels"
+97 error node v4.0.0
+98 error npm  v2.14.2
+99 error code E404
+100 error 404 Registry returned 404 for GET on https://registry.npmjs.org/labels
+100 error 404
+100 error 404 'labels' is not in the npm registry.
+100 error 404 You should bug the author to publish it (or use the name yourself!)
+100 error 404
+100 error 404 Note that you can also install from a
+100 error 404 tarball, folder, http url, or git url.
+101 verbose exit [ 1, true ]
