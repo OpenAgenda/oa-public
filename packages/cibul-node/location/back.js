@@ -48,6 +48,11 @@ routes = {
     mw.merge
   ] ],
 
+  agendaAdminLocationTerms: [ 'get', '/:slug/admin/locations/terms', [
+    cmn.checkAdminOrModerator,
+    mw.list.terms
+  ] ],
+
   locationGeocode: [ 'get', '/:slug/locations/geocode', [
     _loadUserUid,
     mw.geocode
