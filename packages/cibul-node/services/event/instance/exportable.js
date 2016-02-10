@@ -58,6 +58,8 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
       thumbnail: loaded.getThumbnail(),
       originalImage: loaded.getFullImage(),
       updatedAt: instance.updatedAt,
+      age: instance.getAge(),
+      accessibility: instance.getAccessibility(),
       range: {
         fr: i18n( dateRange[ 0 ], _t.fr( dateRange[ 1 ] ), 'fr' ).replace( ':', 'h' ),
         en: i18n( dateRange[ 0 ], _t.en( dateRange[ 1 ] ), 'en' )

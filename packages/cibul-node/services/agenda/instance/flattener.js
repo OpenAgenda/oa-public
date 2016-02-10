@@ -160,6 +160,9 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
         'region',
         'latitude',
         'longitude',
+        'accessibility',
+        'age.min',
+        'age.max',
         'featured',
         'contributor.organization',
         { 

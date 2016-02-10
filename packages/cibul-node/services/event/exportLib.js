@@ -61,6 +61,8 @@ function cleanEvent( eInst, cb ) {
     image: eInst.getImage(),
     thumbnail: eInst.getThumbnail(),
     originalImage: eInst.getFullImage(),
+    age: eInst.getAge(),
+    accessibility: eInst.getAccessibility(),
     updatedAt: eInst.updatedAt,
     range: {
       fr: i18n( dateRange[ 0 ], _t.fr( dateRange[ 1 ] ), 'fr' ).replace( ':', 'h' ),
