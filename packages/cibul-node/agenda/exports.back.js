@@ -41,7 +41,7 @@ module.exports = function( path ) {
     cmn.redirectLegacySearch,
     agendaSvc.mw.load( 'uid' ),
     cmn.loadSession,
-    cmn.checkAdministrator()
+    cmn.checkAdminOrModerator
   ] );
 
   return {
