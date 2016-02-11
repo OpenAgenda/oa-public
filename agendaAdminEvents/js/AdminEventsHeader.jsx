@@ -70,7 +70,7 @@ AdminEventsHeader = React.createClass({
                 placeholder={getLabel( 'locationName', this.props.lang )}
                 value={this.getQueryPart( 'locationName' )}
                 onKeyUp={this.onKeyUp( 'locationName' )} />
-              <TermSelector
+              {this.props.terms?<TermSelector
                 field="region"
                 placeholder={getLabel( 'region', this.props.lang )}
                 value={this.getQueryPart( 'region' )}
@@ -78,7 +78,7 @@ AdminEventsHeader = React.createClass({
                 onChange={function( term ) {
                   self.setQueryPart( 'region', term );
                 }}
-              />
+              />:null}
               <div className="state-control">
                 <Select
                   value={this.getQueryPart( 'state' )}

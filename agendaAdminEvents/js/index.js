@@ -25,6 +25,7 @@ window.asap( function( options ) {
   deepExtend( params, options );
 
   ReactDom.render( <AdminEventsHeader
+    terms={params.terms}
     lang={params.lang}
     res={params.res} />, du.el( params.selectors.headerCanvas ) );
 

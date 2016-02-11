@@ -2,10 +2,21 @@
   "base" : {
 
     "scriptParams" : {
+      "terms" : true,
       "lang" : "fr",
       "res" : {
         "terms" : "/agendaAdminEvents/testTerms.json"
       }
+    }
+
+  },
+
+  "standard" : {},
+
+  "noterms" : {
+
+    "scriptParams" : {
+      "terms" : false
     }
 
   }
