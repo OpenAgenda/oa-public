@@ -28,8 +28,8 @@ routes = {
   agendaEventChangeState: [ 'get', '/:slug/events/:eventSlug/state/:type', [
     agendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
-    cmn.checkAdminOrModerator,
     _checkAuthorizedChanges( [ STATETYPES.VALIDATED, STATETYPES.NOTVALIDATED, STATETYPES.PUBLISHED ] ),
+    _changeStateCredential,
     _changeState,
     _xhrResponse,
     _redirect
@@ -164,6 +164,26 @@ function _redirect( req, res ) {
   req.log( 'redirecting to %s', redirectUrl );
 
   res.redirect( redirectUrl );
+
+}
+
+
+function _changeStateCredential( req, res, next ) {
+
+  let settings = req.agenda.getSettings();
+
+  if ( parseInt( req.params.type ) === STATETYPES.PUBLISHED && !settings.moderators.canPublish ) {
+
+    cmn.checkAdministrator( {
+      message: 'Only agenda administrators may publish events',
+      redirect: req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } )
+    } )( req, res, next );
+
+  } else {
+
+    cmn.checkAdminOrModerator( req, res, next );
+
+  }
 
 }
 

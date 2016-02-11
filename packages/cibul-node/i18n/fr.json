@@ -1,4 +1,6 @@
 {
+  "Only agenda administrators may publish events"
+  : "Seuls les administateurs de l'agenda peuvent publier des événements",
   "no dates available"
   : "aucune date disponible",
   "%firstDate% and until the %lastDate%"

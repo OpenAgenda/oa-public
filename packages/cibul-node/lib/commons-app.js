@@ -128,25 +128,39 @@ function loadEvent( paramName, fieldName ) {
 function checkAdministrator( options ) {
 
   var params = utils.extend( {
-    name: 'agenda'
+    name: 'agenda',
+    message: 'You do not have access to the administration of this agenda.',
+    redirect: false
   }, options ? options : {} );
 
   return function( req, res, next ) {
 
     wn.call( req[ params.name ].isAdministrator, { id: req.session.userId } )
 
-    .then( function( isAdmin ) {
+    .then( isAdmin => {
 
-      if ( !isAdmin ) throw {
-        message : 'You do not have access to the administration of this agenda.',
-        code: 403
-      };
+      if ( !isAdmin ) {
+
+        if ( params.redirect ) {
+
+          res.setFlash( req, params.message );
+
+          return res.redirect( params.redirect );
+
+        }
+
+        throw {
+          message : params.message,
+          code: 403
+        };
+
+      }
 
       next();
 
     } )
 
-    .catch( function( err ) {
+    .catch( err => {
 
       errorResponse( req, res, err );
 
