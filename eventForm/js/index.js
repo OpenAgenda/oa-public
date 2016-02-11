@@ -16,6 +16,8 @@ React = require( 'react' ),
 
 ReactDom = require( 'react-dom' ),
 
+formConfiguration = require( './formConfiguration' ),
+
 fieldErrors = [], customErrors = [],
 
 defaults = {
@@ -164,7 +166,7 @@ window.oaEventForm = function( options ) {
     rUtils.eh.trigger( params.events.languageChange, initialLanguages );
 
     ReactDom.render( <EventForm
-      configuration= { params.configuration ? params.configuration : {} }
+      configuration= { formConfiguration( params.configuration ? params.configuration : {}, { lang: params.language } ) }
       locationFeature= { params.locationFeature }
       agendaUid= { params.agendaUid }
       initialLanguages= { initialLanguages }

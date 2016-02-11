@@ -8,11 +8,15 @@ du = require( '../../../js/lib/domUtils' ),
 
 EJS = require( '../../../js/lib/clientEjs/ejs' ),
 
-handleEventImage = require( './handleEventImage' );
+handleEventImage = require( './handleEventImage' ),
+
+formConfiguration = require( '../formConfiguration' );
 
 module.exports = function( params ) {
 
   params = utils.extend({
+    language: 'en',
+    configuration: false,
     canvas: '.js_event_image_canvas',
     upload: false, // required. resource to upload image
     remove: false, // required. resource to remove image
@@ -31,7 +35,15 @@ module.exports = function( params ) {
 
   run = function() {
 
-    eh.trigger(params.events.fetch, function(data) {
+    var imageConfiguration = formConfiguration( params.configuration ? params.configuration : {}, { lang: params.language } ).field( 'image' );
+
+    if ( imageConfiguration.info ) {
+
+      params.labels.info = imageConfiguration.info[ params.language ];
+
+    }
+
+    eh.trigger(params.events.fetch, function( data ) {
 
       handleEventImage({
         labels: params.labels,

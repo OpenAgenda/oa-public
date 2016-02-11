@@ -37,8 +37,8 @@ formErrors = {};
 module.exports = React.createClass( {
 
   propTypes: {
-    locationFeature: React.PropTypes.bool,
-    configuration: React.PropTypes.object
+    configuration: React.PropTypes.object,
+    locationFeature: React.PropTypes.bool
   },
 
   getDefaultProps: function() {
@@ -96,60 +96,6 @@ module.exports = React.createClass( {
       self.props.onTextChange( field, value, self.listErrorDetails( ) );
 
     }
-
-  },
-
-  getFieldConfiguration: function( fieldName ) {
-
-    var fields = this.props.configuration.fields || [],
-
-    fieldConfiguration = fields.filter( function( f ) {
-
-      return f.name == fieldName;
-
-    } );
-
-    if ( !fieldConfiguration.length ) return false;
-
-    return fieldConfiguration[ 0 ];
-
-  },
-
-  getFieldLabel: function( fieldName, translated ) {
-
-    var configuration = this.getFieldConfiguration( fieldName );
-
-    if ( configuration && configuration.label ) {
-
-      return translated ? configuration.label[ this.props.lang ] : configuration.label;
-
-    }
-
-    return translated ? this.props.labels[ fieldName ][ this.props.lang ] : this.props.labels[ fieldName ];
-
-  },
-
-  getFieldPlaceholder: function( fieldName, translated ) {
-
-    var configuration = this.getFieldConfiguration( fieldName );
-
-    if ( configuration && configuration.placeholder ) {
-
-      return translated ? configuration.placeholder[ this.props.lang ] : configuration.placeholder;
-
-    }
-
-    return translated ? this.props.labels[ fieldName + 'Placeholder' ][ this.props.lang ] : this.props.labels[ fieldName + 'Placeholder' ];
-
-  },
-
-  displayField: function( fieldName ) {
-
-    var fieldConfiguration = this.getFieldConfiguration( fieldName );
-
-    if ( !fieldConfiguration || fieldConfiguration.display === undefined ) return true;
-
-    return fieldConfiguration.display;
 
   },
 
@@ -422,7 +368,7 @@ module.exports = React.createClass( {
 
     return <div className="form-section">
       <LocationSelector
-        settings={this.getFieldConfiguration( 'location' ).settings}
+        settings={ this.props.configuration.field( 'location' ).settings }
         mode={this.state.locationMode}
         onChangeMode={this.onLocationModeChange}
         location={this.state.location}
@@ -494,7 +440,7 @@ module.exports = React.createClass( {
             onChange={this.onChange( 'description' )}
             lang={this.props.lang} /> 
 
-          { this.displayField( 'keywords' ) ?
+          { this.props.configuration.field( 'keywords' ).display() ?
           <EventKeywordsField
             constraints={{max: 255}}
             counter={true}
@@ -504,7 +450,7 @@ module.exports = React.createClass( {
             languages={this.state.languages}
             onChange={this.onChange( 'tags' )}
             label={this.props.labels.keywords}
-            error={formErrors.tags }
+            error={formErrors.tags}
             placeholder={this.props.labels.keywordPlaceholder}
             lang={this.props.lang} /> : null }
 
@@ -513,8 +459,8 @@ module.exports = React.createClass( {
           <MultilingualTextField
             constraints={{max: 255}}
             counter={true}
-            label={ this.getFieldLabel( 'conditions', false ) }
-            placeholder={ this.getFieldPlaceholder( 'conditions', false ) }
+            label={ this.props.configuration.field( 'conditions' ).getLabel( false, this.props.labels ) }
+            placeholder={ this.props.configuration.field( 'conditions' ).getPlaceholder( false, this.props.labels ) }
             name='conditions'
             type='text'
             optional={true}
@@ -564,7 +510,7 @@ module.exports = React.createClass( {
           lang={this.props.lang}
           error={formErrors.timings}
           timings={this.state.timings}
-          configuration={this.getFieldConfiguration( 'timings' )}
+          configuration={this.props.configuration.field( 'timings' ) }
           onChange={this.onTimingsChange} />
 
         <div className="js_form_canvas_below"></div>

@@ -199,9 +199,11 @@
 
 
   oaEventImage({
+    configuration: <%- JSON.stringify( configuration ) %>,
     upload: 'http://templates.cibul.net/event form/server/index.php',
     remove: 'http://templates.cibul.net/event form/server/remove.php',
     path: 'http://templates.cibul.net/event form/server/uploaded/',
+    language: 'fr',
     labels: {
       upload: 'charger une image',
       info: 'l\'image doit au moins avoir 300 pixels de largeur',
