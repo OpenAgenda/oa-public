@@ -29,7 +29,13 @@ routes = {
     show
   ] ],
 
-  agendaAdminLocationSet: [ 'post', '/:slug/locations', [
+  agendaLocationSet: [ 'post', '/:slug/locations', [
+    bodyParser.json(),
+    _loadUserUid,
+    mw.setToValidate
+  ] ],
+
+  agendaAdminLocationSet: [ 'post', '/:slug/admin/locations', [
     bodyParser.json(),
     _loadUserUid,
     mw.set
