@@ -26,6 +26,7 @@ module.exports = function( path ) {
   var router = modLib.Router( routes );
 
   router.pre( [
+    cmn.loadLogger( 'group actions' ),
     agendaSvc.mw.load( 'uid' ),
     cmn.loadSession,
     cmn.flashSetter,
@@ -60,6 +61,8 @@ function changeStates( req, res, next ) {
   req.agenda.changeEventStates( newState, function( err ) {
 
     if ( err ) return next( err );
+
+    req.log( 'info', 'changing state of all agenda events to %s', [ 'to be controlled', 'ready to be published', 'published' ][ newState ] );
 
     var labels = {}
 
