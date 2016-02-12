@@ -46,11 +46,25 @@ function queueMail( options, cb ) {
 
 function extractEmails( emails, filterInvalids ) {
 
-  if ( typeof filterInvalids === 'undefined' ) filterInvalids = true;
+  let splitEmails;
+
+  if ( filterInvalids === undefined ) filterInvalids = true;
 
   if ( typeof emails !== 'string' ) throw 'arg must be a string containing emails';
 
-  return emails.split( /[\s;,\n\r]+/ ).filter( filterInvalids ? validator.isEmail : function( v ) { return true; } );
+  splitEmails = emails.split( /[\s;,\n\r]+/ );
+
+  if ( filterInvalids ) {
+
+    return splitEmails.filter( v => {
+  
+      return validator.isEmail( v );
+  
+    } );
+
+  }
+
+  return splitEmails;
 
 }
 
