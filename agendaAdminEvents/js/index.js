@@ -14,7 +14,11 @@ params = {
     terms: '#'
   },
   selectors: {
-    headerCanvas: '.js_header_canvas'
+    headerCanvas: '.js_header_canvas',
+    grouped: {
+      link: '.js_grouped_link',
+      body: '.js_grouped_body'
+    }
   }
 },
 
@@ -29,4 +33,20 @@ window.asap( function( options ) {
     lang={params.lang}
     res={params.res} />, du.el( params.selectors.headerCanvas ) );
 
+  _groupedActions();
+
 } );
+
+// show grouped actions on link click
+function _groupedActions() {
+
+  du.addEvent( du.el( params.selectors.grouped.link ), 'click', function( e ) {
+
+    e.preventDefault();
+
+    du.addClass( du.el( params.selectors.grouped.link ), 'display-none' );
+    du.removeClass( du.el( params.selectors.grouped.body ), 'display-none' );
+
+  } );
+
+}
