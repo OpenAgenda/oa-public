@@ -24,7 +24,7 @@ routes = {
 
   agendaAdminJsonEvents: [ 'get', '/events.json', [
     agendaSvc.mw.load( 'uid' ),
-    agendaSvc.mw.search( perPage ),
+    agendaSvc.mw.search( perPage, true ),
     eventSvc.mw.cleanEvents,
     agendaSvc.mw.decorateEvents( true ),
     agendaSvc.mw.cleanJson,
