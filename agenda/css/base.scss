@@ -3,6 +3,10 @@
 #agenda {
   // agenda without events
 
+  #content {
+    padding: 15px 0;
+  }
+
   #content.no-event {
     padding: 175px 15px;
     text-align: center;

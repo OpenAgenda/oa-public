@@ -101,13 +101,15 @@ window.asap( function( options ) {
     list.init( {
       total: options.total,
       perPage: options.perPage,
-      onLoad: function() {
+      onLoad: function( err, data ) {
 
         modalPartial.multiple( cn.els( '.js_event_action' ) );
 
         timeline.dom();
 
         favorites.sweep();
+
+        _updateTotal( data );
 
       }
     } );
@@ -134,6 +136,20 @@ window.asap( function( options ) {
 
 });
 
+
+// khh khhhh..
+function _updateTotal( data ) {
+
+  var elem = cn.el( '.js_total' );
+
+  if ( !elem || !data || data.total === undefined ) return;
+
+  elem.innerHTML = elem.innerHTML
+                   .replace( /[0-9]+/, data.total )
+                   .replace( /s/, '' )
+                   + ( data.total > 1 ? 's' : '' );
+
+}
 
 
 function _isAdmin( ctl ) {

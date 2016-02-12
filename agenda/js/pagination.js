@@ -2,8 +2,6 @@
 
 var cn = require( '../../js/lib/common/common.mod' ),
 
-remote = require( '../../js/lib/remote/remote.mod' ),
-
 debug = require( 'debug' ), log,
 
 qs = require( 'qs' ),

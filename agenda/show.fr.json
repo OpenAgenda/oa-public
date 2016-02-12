@@ -49,5 +49,7 @@
   "load more"
   : "voir plus",
   "Featured"
-  : "À la une"
+  : "À la une",
+  "%count% events"
+  : "%count% événements"
 }
