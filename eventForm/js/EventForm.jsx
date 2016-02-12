@@ -503,7 +503,7 @@ module.exports = React.createClass( {
         { this.props.locationFeature ? <div>
           <h2>{this.props.labels.locationSection[ this.props.lang ]}</h2>
           {this.state.locationMode === 'create' ? null : this.renderLocationSelector()}
-        </div> : <div className="js_event_location_canvas"></div>}
+        </div> : <div className="js_event_location_canvas"></div> }
         
         <TimingsPicker
           labels={this.props.labels}
