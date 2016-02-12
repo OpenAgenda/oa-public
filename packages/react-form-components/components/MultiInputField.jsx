@@ -129,7 +129,6 @@ module.exports = React.createClass( {
 
     return <div className="multi-input">
       <label>{ this.getLabel( this.props.name ) }</label>
-      <span className={error ? 'error' : 'info'}>{ error ? this.getLabel( 'multi-input.error' ) : this.props.info || this.getLabel( 'multi-input.info' )}</span>
       <TagsInput
         value={values} 
         renderTag={this.renderItem}
@@ -139,6 +138,7 @@ module.exports = React.createClass( {
           onChange: this.onInputChange,
           value: this.state.inputValue
         }} />
+      <span className={error ? 'error' : 'info'}>{ error ? this.getLabel( 'multi-input.error' ) : this.props.info || this.getLabel( 'multi-input.info' )}</span>
     </div>
 
   }

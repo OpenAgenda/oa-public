@@ -112,6 +112,7 @@ module.exports = React.createClass( {
           {self.renderLanguageBlock( lang )}
         </li>
       } )}
+        {this.props.info ? <li className="info">{this.props.info}</li> : null }
       </ul>
     </div>
 

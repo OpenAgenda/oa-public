@@ -133,6 +133,7 @@ Wrapper = React.createClass( {
         value={{fr: 'Ouaich', en: 'Yep', es: 'Si'}}
         languages={[ 'fr', 'en', 'es' ]}
         onChange={function( name, value ){}}
+        info="Yeepeekayyay"
         type="text" />
 
       <div className="separator"></div>
