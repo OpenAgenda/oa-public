@@ -4,31 +4,14 @@ var Select = require( 'react-select' ),
 
 React = require( 'react' ),
 
+labels = require( 'labels/cibul-templates/age-fields' ),
+
 limits = {
   min: 0,
   max: 120
 };
 
 module.exports = React.createClass({
-
-  labels: {
-    year: {
-      fr: 'an',
-      en: 'year'
-    },
-    years: {
-      fr: 'ans',
-      en: 'years'
-    },
-    min: {
-      fr: 'De',
-      en: 'From'
-    },
-    max: {
-      fr: 'à',
-      en: 'to'
-    }
-  },
 
   getInitialState: function() {
 
@@ -147,7 +130,7 @@ module.exports = React.createClass({
       
         this.selectOptions.push( {
           value: i + '',
-          label: i + ' ' + ( i < 2 ? this.labels.year : this.labels.years )[ this.props.labelsLang ]
+          label: i + ' ' + ( i < 2 ? labels.year : labels.years )[ this.props.labelsLang ]
         } );
 
       }
@@ -180,7 +163,7 @@ module.exports = React.createClass({
           <li className="line">
             <input type="checkbox" name="age" checked={this.state.enabled} onClick={this.onEnabled(!this.state.enabled)} />
             <label onClick={this.onEnabled()}>{this.props.label[this.props.labelsLang]}</label> - 
-            <label onClick={this.onEnabled()} for="minage">{this.labels.min[this.props.labelsLang]}</label>
+            <label onClick={this.onEnabled()} for="minage">{labels.min[this.props.labelsLang]}</label>
             <Select
               name="minage"
               value={min}
@@ -189,8 +172,9 @@ module.exports = React.createClass({
               onChange={this.onChange( 'min' )}
               onFocus={this.onEnabled(true)}
               onBlur={this.onChange( 'min' )}
+              placeholder={labels.select[this.props.labelsLang]}
             />
-            <label for="maxage">{this.labels.max[this.props.labelsLang]}</label>
+            <label for="maxage">{labels.max[this.props.labelsLang]}</label>
             <Select
               name="maxage"
               value={max}
@@ -199,6 +183,7 @@ module.exports = React.createClass({
               onChange={this.onChange( 'max' )}
               onBlur={this.onChange( 'max' )}
               onFocus={this.onEnabled(true)}
+              placeholder={labels.select[this.props.labelsLang]}
             />
           </li>
         </ul>
