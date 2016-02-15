@@ -45,11 +45,17 @@ module.exports = React.createClass( {
 
     return function( lTags ) {
 
-      var tags = JSON.parse( JSON.stringify( self.props.value || {} ) );
+      var currentInputs = JSON.parse( JSON.stringify( self.state.currentInputs ) ),
+
+      tags = JSON.parse( JSON.stringify( self.props.value || {} ) );
 
       self.setState( { userHasTyped: true } );
 
       tags[ l ] = self.stringify( lTags );
+
+      currentInputs[ l ] = '';
+
+      self.setState( { currentInputs: currentInputs } );
 
       self.props.onChange( tags, self.validate( tags ) );
 
@@ -67,7 +73,7 @@ module.exports = React.createClass( {
 
       tags = JSON.parse( JSON.stringify( self.props.value || {} ) ),
 
-      lTags = tags[ l ].split( ',' );
+      lTags = ( tags[ l ] || '' ).split( ',' );
 
       if ( !currentInputs[ l ] || !currentInputs[ l ].length ) return;
 
