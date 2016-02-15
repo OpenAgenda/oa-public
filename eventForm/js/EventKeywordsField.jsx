@@ -13,7 +13,8 @@ module.exports = React.createClass( {
   getInitialState: function() {
 
     return {
-      userHasTyped: false
+      userHasTyped: false,
+      currentInputs: {}
     };
 
   },
@@ -56,6 +57,54 @@ module.exports = React.createClass( {
 
   },
 
+  onBlur: function( l ) {
+
+    var self = this;
+
+    return function() {
+
+      var currentInputs = JSON.parse( JSON.stringify( self.state.currentInputs ) ),
+
+      tags = JSON.parse( JSON.stringify( self.props.value || {} ) ),
+
+      lTags = tags[ l ].split( ',' );
+
+      if ( !currentInputs[ l ] || !currentInputs[ l ].length ) return;
+
+      lTags.push( currentInputs[ l ] );
+
+      currentInputs[ l ] = '';
+
+      self.setState( { currentInputs: currentInputs } );
+
+      tags[ l ] = self.stringify( lTags );
+
+      self.props.onChange( tags, self.validate( tags ) );
+
+    }
+
+  },
+
+  onInputChange: function( l ) {
+
+    var self = this;
+
+    return function( e ) {
+
+      var currentInputs = JSON.parse( JSON.stringify( self.state.currentInputs ) ),
+
+      hasComma = e.target.value.split( ',' ).length > 1;
+
+      currentInputs[ l ] = e.target.value.split( ',' )[ 0 ];
+
+      self.setState( { currentInputs: currentInputs } );
+
+      if ( hasComma ) self.onBlur( l )(); 
+
+    }
+
+  },
+
   renderBlock: renderHelpers.multilingual.block,
 
   renderError: renderHelpers.multilingual.error,
@@ -66,7 +115,10 @@ module.exports = React.createClass( {
       value= { this.parse( this.props.value ? this.props.value[ l ] : '' ) }
       inputProps={{
         placeholder: value.length ? '' : this.props.placeholder[ this.props.lang ], 
-        className : 'react-tagsinput-input' 
+        className : 'react-tagsinput-input',
+        onBlur: this.onBlur( l ),
+        onChange: this.onInputChange( l ),
+        value: this.state.currentInputs[ l ]
       }}
       onChange={ this.onChange( l ) }
       ref='tags' />
