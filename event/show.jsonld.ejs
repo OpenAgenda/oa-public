@@ -15,24 +15,24 @@
 <% } %>
   "location" : {
     "@type" : "Place",
-    "name" : "<%= event.placeName %>",
+    "name" : "<%= event.location.name %>",
     "address" : {
       "@type" : "PostalAddress",
-<% if ( event.postalCode ) { %>
-      "postalCode" : "<%= event.postalCode %>",
+<% if ( event.location.postalCode ) { %>
+      "postalCode" : "<%= event.location.postalCode %>",
 <% } %>
-<% if ( event.city ) { %>
-      "addressLocality" : "<%= event.city %>",
+<% if ( event.location.city ) { %>
+      "addressLocality" : "<%= event.location.city %>",
 <% } %>
-<% if ( event.region ) { %>
-      "addressRegion" : "<%= event.region %>",
+<% if ( event.location.region ) { %>
+      "addressRegion" : "<%= event.location.region %>",
 <% } %>
-      "streetAddress" : "<%= event.address %>"
+      "streetAddress" : "<%= event.location.address %>"
     },
     "geo": {
       "@type" : "GeoCoordinates",
-      "latitude" : "<%= event.latitude %>",
-      "longitude" : "<%= event.longitude %>"
+      "latitude" : "<%= event.location.latitude %>",
+      "longitude" : "<%= event.location.longitude %>"
     }
   }
 }
