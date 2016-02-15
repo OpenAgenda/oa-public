@@ -116,6 +116,12 @@ body > header {
 
   }
 
+  .error, .error.info {
+
+    color: $oa-red!important;
+
+  }
+
   .form-section {
 
     padding: 1em 0 2em;

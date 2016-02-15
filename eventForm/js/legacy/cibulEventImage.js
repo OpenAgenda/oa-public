@@ -43,27 +43,29 @@ module.exports = function( params ) {
 
     }
 
-    eh.trigger(params.events.fetch, function( data ) {
+    eh.trigger( params.events.fetch, function( data ) {
 
       handleEventImage({
         labels: params.labels,
         canvas: params.canvas,
         upload: params.upload,
         remove: params.remove,
-        onSuccess: function(name) {
+        onSuccess: function( name ) {
 
-          eh.trigger(params.events.send, {image: name});
+          eh.trigger( params.events.send, { image: name } );
 
         },
         onRemove: function() {
 
-          eh.trigger(params.events.remove);
+          eh.trigger( params.events.remove );
 
           eh.trigger(params.events.heightChange);
 
         },
         onImageLoad: function() {
+
           eh.trigger(params.events.heightChange);
+
         },
         initName: data.image?data.image:false,
         path: params.path,
