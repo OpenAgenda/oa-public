@@ -10,7 +10,7 @@ async = require( 'async' );
 
 describe( 'event display', function() {
 
-  this.timeout( 10000 );
+  this.timeout( 20000 );
 
   var browser, user = {}, event = {}, randomUser = {};
 
@@ -113,7 +113,7 @@ describe( 'draft in agenda', function() {
   // create an unpublished event in an agenda 
   // a owner, a agenda editor and a random user
   
-  this.timeout( 10000 );
+  this.timeout( 20000 );
 
   var browser,
 
@@ -273,7 +273,7 @@ describe( 'unpublished in agenda', function() {
   // create an unpublished event in an agenda 
   // a owner, a agenda editor and a random user
   
-  this.timeout( 10000 );
+  this.timeout( 20000 );
 
   var browser,
 
