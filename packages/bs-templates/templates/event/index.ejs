@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="event.css">
+    <meta name="title" content="OpenAgenda" />
+    <meta name="description" content="Maintenance" />
+  </head>
+  <body id="event">
+    <% include ../header/_header.ejs %>
+    <% include _admin-bar.ejs %>
+    <% include _agenda-header.ejs %>
+
+    <div id="content" class="js_page_body">
+
+      <div class="container">
+        <div class="row">
+          <aside class="col-sm-4 col-aside sidebar">
+
+            <div class="meta-container">
+              <p>
+                <a rel="nofollow" class="btn btn-success event-action js_import_action" href="/aev-iledefrance/events/portes-ouvertes-a-la-ferme/action">
+                  <i class="fa fa-plus-circle"></i> Ajouter à mon agenda
+                </a>
+              </p>
+              <p class="share">
+                Partager&nbsp;:
+                <a href="#" target="_blank" class="fb" rel="nofollow"><i class="fa fa-facebook"></i></a>
+                <a href="#" target="_blank" class="tw" rel="nofollow"><i class="fa fa-twitter"></i></a>
+                <a href="#" target="_blank" class="gp" rel="nofollow"><i class="fa fa-google-plus"></i></a>
+                <a href="#" target="_blank" class="li" rel="nofollow"><i class="fa fa-linkedin"></i></a>
+                <a href="#" rel="nofollow"><i class="fa fa-envelope-o"></i></a>
+              </p>
+            </div>
+
+            <section class="detail-item">
+              <h3><i class="fa fa-ticket"></i></h3>
+              <div class="detail-item-content">
+                <p>sans réservation</p>
+              </div>
+            </section>
+
+            <section class="detail-item">
+              <h3><i class="fa fa-clock-o"></i></h3>
+              <p class="detail-item-content">6 mars - 2 octobre, les dimanches</p>
+            </section>
+
+            <section class="detail-item location-side">
+              <h3><i class="fa fa-map-marker"></i></h3>
+              <div class="detail-item-content">
+                <p>
+                  <a href="/aev-iledefrance?oaq%5Blocation%5D=52370332&amp;lang=fr">Lieu de RDV : Ferme pédagogique de la Butte Pinson</a>
+                </p>
+                <p>16 Rue Suzanne Valadon, 95360 Montmagny, France</p>
+              </div><!--
+              --><% include _leaflet-map.ejs %>
+            </section>
+
+            <div class="sharers">
+              <ul><!--
+                --><li>
+                  <a href="/enlarge-your-paris"><!--
+
+                    --><img class="avatar" alt="Enlarge your Paris" src="//cibul.s3.amazonaws.com/rwtbreview_enlarge-your-paris_01.jpg"><!--
+
+                    --><span>Enlarge your Paris</span>
+                  </a>
+                </li><!--
+
+
+
+                --><li>
+                  <a href="/parisdepeches"><!--
+
+                    --><img class="avatar" alt="Paris Dépêches" src="//cibul.s3.amazonaws.com/rwtbreview_parisdepeches_00.jpg"><!--
+
+                    --><span>Paris Dépêches</span>
+                  </a>
+                </li><!--
+
+
+
+                --><li>
+                  <a href="/hop"><!--
+
+                    --><img class="avatar" alt="Hop" src="//cibul.s3.amazonaws.com/rwtbreview_hop_00.jpg"><!--
+
+                    --><span>Hop</span>
+                  </a>
+                </li><!--
+              --></ul>
+            </div>
+
+            <footer id="footer">
+              <p>
+                <a href="/">OpenAgenda</a> · 
+                <a href="/about">À propos</a> · 
+                <a href="http://openagenda.zendesk.com/" target="_blank">Aide</a> · 
+                <a href="https://openagenda.zendesk.com/hc/fr/articles/201753991">Conditions d'utilisation</a>
+              </p>
+            </footer>
+
+          </aside>
+
+          <section class="col-sm-7 col-sm-offset-1">
+            
+            <div class="event-content">
+              <h1>Portes ouvertes à la ferme</h1>
+              <p class="short-description">Bienvenue à la ferme de la butte ! Ici, ânesses, moutons, chèvres, poneys, lapins, canards et poules évoluent dans un milieu naturel. Venez-vous initier à la vie de fermier !</p>
+
+              <div class="category">
+                <label>Catégorie:</label>
+                <span>Apprendre</span>
+              </div>
+
+              <div class="description">
+                <p>Bienvenue à la ferme de la butte ! Ici, ânesses, moutons, chèvres, poneys, lapins, canards et poules évoluent dans un milieu naturel. Venez-vous initier à la vie de fermier ! Au programme : mise en pâturage du troupeau et soins apportés aux animaux...</p>
+              </div>
+
+              <div class="custom js_custom">            
+                <dl>
+                  <dt>Structure ou association intervenante</dt>
+                  <dd>
+                    <span>La Licorne</span>
+                  </dd>
+                </dl>
+
+                <div class="private-head">
+                  <i class="fa fa-lock"></i>
+                </div>
+
+                <dl class="private">
+                  <dt>Type de public</dt>
+                  <dd>
+                    <span>4 - sans réservation</span>
+                  </dd>
+                  <dt>Mode d'inscription</dt>
+                  <dd>
+                    <span>pas de réservation</span>
+                  </dd>
+                  <dt>Email(s) de l'animateur</dt>
+                  <dd>
+                    <span>fermepeda@r2k.coop</span>
+                  </dd>
+                  <dt>PRIF</dt>
+                  <dd>
+                    <span>20 - Butte Pinson</span>
+                  </dd>
+                  <dt>Thématique</dt>
+                  <dd>
+                    <span>1 - Agriculture</span>
+                  </dd>
+                  <dt>Profil</dt>
+                  <dd>
+                    <span>1 - Apprendre</span>
+                  </dd>
+                </dl>
+              </div>
+
+              <section class="dates">
+                <h3 class="title">Détail des dates</h3>
+                <ul>
+                  <li class="date">
+                    dimanche 6 mars: de 10:30 à 18:30
+                  </li>
+                  <li class="date">
+                    dimanche 3 avr.: de 10:30 à 18:30
+                  </li>
+                  <li class="date">
+                    dimanche 1er mai: de 10:30 à 18:30
+                  </li>
+                  <li class="date">
+                    dimanche 5 juin: de 10:30 à 18:30
+                  </li>
+                  <li class="date">
+                    dimanche 3 juil.: de 10:30 à 18:30
+                  </li>
+                  <li class="date">
+                    dimanche 7 août: de 10:30 à 18:30
+                  </li>
+                  <li class="date">
+                    dimanche 4 sept.: de 10:30 à 18:30
+                  </li>
+                  <li class="date">
+                    dimanche 2 oct.: de 10:30 à 18:30
+                  </li>
+                </ul>
+              </section>
+            </div>
+
+            <p class="signature">Publié par lucas</p>
+
+          </section>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>

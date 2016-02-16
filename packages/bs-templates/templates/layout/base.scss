@@ -1,3 +1,4 @@
+
 $oa-blue: #41acdd;
 $oa-black: #413a42;
 $oa-white: #fff;
@@ -81,8 +82,12 @@ $widget-color: $oa-blue;
 //@import "assets/stylesheets/bootstrap/utilities";
 //@import "assets/stylesheets/bootstrap/responsive-utilities";
 
+
+// Font awesome
+@import "../../node_modules/font-awesome/scss/font-awesome.scss";
+
 // header
-@import "../header/style.scss";
+@import "../header/header.scss";
 
 body {
 
@@ -100,4 +105,18 @@ body {
   -moz-border-radius: 3px; 
   border-radius: 3px;
 
+}
+
+
+.avatar-container {
+  margin: 30px;
+}
+
+.avatar {
+  border: 3px solid $oa-white;
+  border-radius: 100px; 
+  display: inline-block;
+  margin: auto;
+  max-width: 140px;
+  width: 100%;
 }

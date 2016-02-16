@@ -8,15 +8,15 @@ fs = require( 'fs' ),
 
 colors = require( 'colors' );
 
-module.exports = function( filename, cb ) {
+module.exports = createCss;
+
+module.exports.render = render;
+
+function createCss( filename, cb ) {
 
   if ( !/\.scss$/.test( filename ) ) return cb ? cb() : null;
 
-  sass.render( {
-    file: filename,
-    importer: importOnce,
-    includePaths: [ __dirname + '/../' ]
-  }, ( err, result ) => {
+  render( filename, ( err, rendered ) => {
 
     if ( err ) {
 
@@ -26,7 +26,25 @@ module.exports = function( filename, cb ) {
 
     }
 
-    fs.writeFile( filename.replace( '.scss', '.css' ), result.css.toString(), cb ? cb : () => {} );
+    fs.writeFile( filename.replace( '.scss', '.css' ), rendered, cb ? cb : () => {} );
+
+  } );
+
+}
+
+function render( filename, cb ) {
+
+  console.log( filename );
+
+  sass.render( {
+    file: filename,
+    importer: importOnce,
+    includePaths: [ __dirname + '/../' ]
+  }, ( err, result ) => {
+
+    if ( err ) return cb( err );
+
+    cb( null, result.css.toString() );
 
   } );
 

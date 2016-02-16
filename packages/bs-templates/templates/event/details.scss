@@ -1,0 +1,135 @@
+#event {
+
+  .detail-item {
+
+    padding: 10px 0 15px;
+    position: relative;
+
+    h3 {
+
+      margin: 0 10px 0 0;
+      vertical-align: middle;
+      text-align: center;
+      width: 30px;
+      display: inline-block;
+
+      i {
+        color: $oa-silver;
+        font-size: 31px;
+      }
+
+    }
+
+    .detail-item-content {
+
+      display: inline-block;
+      max-width: 80%;
+      vertical-align: middle;
+      margin: 0;
+
+    }
+
+    .info {
+      color: $oa-silver;
+    }
+
+    i {
+      color: $oa-silver;
+    }
+
+    p {
+      margin: 5px 0;
+    }
+  }
+
+  .registration {
+
+    list-style-type: none;
+
+    padding-left: 1em;
+
+    a { 
+
+      color: $oa-black;
+
+      &:hover {
+
+        color: $oa-blue;
+
+      }
+
+    }
+
+    span {
+
+      padding-left: 0.7em;
+
+    }
+
+    li { 
+
+      padding-bottom: 0.8em;
+
+    }
+
+    i { 
+    
+      width: 1.5em;
+      color: $oa-silver;
+
+    }
+
+  }
+
+  .acc {
+
+    display: inline-block;
+    width: 30px!important;
+    height: 30px!important;
+    vertical-align: middle;
+    background-image: url("//s3.eu-central-1.amazonaws.com/oastatic/accessibility-30.png");
+
+    &.hi {
+
+      background-position: 120px 30px;
+
+    }
+
+    &.pi {
+
+      background-position: 120px 90px;
+
+    }
+
+    &.mi {
+
+      background-position: 120px 60px;
+
+    }
+
+    &.vi {
+
+      background-position: 120px 0;
+
+    }
+
+    &.sl {
+
+      background-position: 120px 120px;
+
+    }
+
+  }
+
+  .location-side {
+
+    .map {
+
+      margin: 10px 0 20px;
+      height: 200px;
+
+    }
+
+  }
+
+}
