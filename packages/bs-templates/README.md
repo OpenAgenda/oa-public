@@ -1,23 +1,23 @@
 # Overview
 
-To start working on a new template, create a folder in the templates folder, create your html & scss file in it, import what you need from any other folder and launch the command:
+Project for sassing openagenda styles.
 
-npm run-script watch
+To get started, run server.js, a tiny express server to serve rendered styles.
 
-And start editing your file. The css equivalent of your scss will be generated in the same folder, so reference it directly in your html template
+so:
 
-# Using scss
+npm install
 
-In any template folder, edit an scss file. When the watch script is running, a css file with the same name will be generated in the folder as changes are saved. Reference the css file in the template.
+and then:
 
-Import any style required to have a fully rendered template
+node run
 
+# Rules
 
-# Using partials
+  * Avoid loosely identified general styling rules. If you think a style *may* be useful for other pages in the future, put it in a separate scss file, but keep it in the folder of the project you are working on. When the day comes that the file is effectively used elsewhere, it can be moved at that point
 
-To avoid repetition when building html templates, the partial feature of the ejs templating engine is used as such:
+  * the ejs templating engine is used to build template pages for its partial feature. No other feature is used. So .ejs files are basically html files with occasional 'include' statements
 
-  * Any partial file begins with _
-  * Work should be done on .ejs files which will compile into .html file. Only ejs & scss files are tracked by git
-  * Use the ejs 'include' statement to add partial to a template
-  * When the watch script is running any non partial ejs file is saved, an html render is generated
+  * scss files of each template import all the styles they need.
+
+  * partials start with an underscore they often match a corresponding scss file.
