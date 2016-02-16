@@ -1,0 +1,31 @@
+<% include ../layout/_top.ejs %>
+<div class="agenda-search">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2 wsq header">
+        the head
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2 wsq body media-list">
+        <nav class="page-nav">
+          <button class="btn btn-default">load previous</button>
+        </nav>
+        <div>
+          <% include ./_agendaItem.ejs %>
+          <% include ./_agendaItem.ejs %>
+          <% include ./_agendaItem.ejs %>
+          <% include ./_agendaItem.ejs %>
+          <% include ./_agendaItem.ejs %>
+          <% include ./_agendaItem.ejs %>
+          <% include ./_agendaItem.ejs %>
+          <% include ./_agendaItem.ejs %>
+        </div>
+        <nav class="page-nav">
+          <button class="btn btn-default">load more</button>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../layout/_bottom.ejs %>
