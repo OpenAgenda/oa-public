@@ -228,7 +228,7 @@ function searchEvents( limit, showAll ) {
     req.agenda.search( req.query.oaq, utils.extend( {
       limit: Math.min( parseInt( req.query.limit ? req.query.limit : limit, 10 ), 300 ),
       showAll: showAll
-    }, pagination ), function( err, data ) {
+    }, pagination ), ( err, data ) => {
 
       if ( err ) return next( err );
 

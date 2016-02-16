@@ -6,11 +6,14 @@ cmn = require( '../lib/commons-app' ),
 
 locationSvc = require( '../services/location' ),
 
+al = require( 'agenda-locations' ),
+
 routes = {
 
   locationShow: [ 'get', '/:uid.json', [
     locationSvc.mw.load( 'uid', 'uid' ),
-    show
+    al.mw.get,
+    ( req, res ) => cmn.renderJson( req, res, req.location )
   ] ]
 
 };
@@ -29,23 +32,5 @@ module.exports = function( path ) {
     load: router.load( path ),
     paths: modLib.getPaths( path, routes )
   }
-
-}
-
-function show( req, res ) {
-
-  var l = req.location;
-
-  cmn.renderJson( req, res, {
-    name: l.placename,
-    address: l.address,
-    city: l.city,
-    district: l.cityDistrict,
-    latitude: l.latitude,
-    longitude: l.longitude,
-    postalCode: l.postalCode,
-    department: l.department,
-    region: l.region
-  });
 
 }
