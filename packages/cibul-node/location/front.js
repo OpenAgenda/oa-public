@@ -4,14 +4,11 @@ var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
-locationSvc = require( '../services/location' ),
-
 al = require( 'agenda-locations' ),
 
 routes = {
 
   locationShow: [ 'get', '/:uid.json', [
-    locationSvc.mw.load( 'uid', 'uid' ),
     al.mw.get,
     ( req, res ) => cmn.renderJson( req, res, req.location )
   ] ]
