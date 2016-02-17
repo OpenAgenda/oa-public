@@ -149,7 +149,7 @@ module.exports = React.createClass( {
           selector: '.mce-box-' + i,
           language: self.props.lang=='fr' ? 'fr_FR' : 'en_EN',
           menubar: false,
-          plugins: 'autolink link lists print preview autoresize paste',
+          plugins: 'autolink link lists print preview autoresize paste placeholder',
           toolbar: 'formatselect bold italic bullist link',
           statusbar: false,
           block_formats: 'Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3;',
@@ -179,12 +179,12 @@ module.exports = React.createClass( {
 
         return <li className="lang-unit">
           <label className="off32">{l}</label>
-          <textarea className={'mce-box-' + i} value={ marked( value ) }></textarea>
+          <textarea className={'mce-box-' + i} value={ marked( value ) } placeholder={ self.props.placeholder[ self.props.lang ] }></textarea>
         </li>
 
       } else {
 
-        return <textarea className={'mce-box-' + i} value={ marked( value ) }></textarea>
+        return <textarea className={'mce-box-' + i} value={ marked( value ) } placeholder={ self.props.placeholder[ self.props.lang ] }></textarea>
 
       }
 
@@ -196,17 +196,17 @@ module.exports = React.createClass( {
 
       return <ul>
         <li>
-          <label>{this.props.labels.longDescription[this.props.lang]}</label>
+          <label>{ this.props.label[ this.props.lang ] }</label>
         </li>
-        {this.props.languages.map(renderField)}
+        { this.props.languages.map( renderField ) }
       </ul>
 
     } else {
 
       return <ul>
         <li>
-          <label>{this.props.labels.longDescription[this.props.lang]}</label>
-          {this.props.languages.map(renderField)}
+          <label>{ this.props.label[ this.props.lang ] }</label>
+          { this.props.languages.map( renderField ) }
         </li>
       </ul>
 

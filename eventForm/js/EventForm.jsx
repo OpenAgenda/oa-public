@@ -336,12 +336,12 @@ module.exports = React.createClass( {
   renderFreeTextField: function() {
 
     return <MultilingualTextField
-      placeholder={this.props.labels.longDescriptionPlaceholder}
+      label={ this.props.configuration.field( 'longDescription' ).getLabel( false, this.props.labels ) }
+      placeholder={ this.props.configuration.field( 'longDescription' ).getPlaceholder( false, this.props.labels ) }
       name='long_description'
       counter={true}
       constraints={{max: 10000}}
       optional={true}
-      label={this.props.labels.longDescription}
       type='textarea'
       rows={10}
       value={this.state.freeText}
@@ -355,6 +355,8 @@ module.exports = React.createClass( {
   renderMarkdownField: function() {
 
     return <WysiwygMarkdown
+      label={ this.props.configuration.field( 'longDescription' ).getLabel( false, this.props.labels ) }
+      placeholder={ this.props.configuration.field( 'longDescription' ).getPlaceholder( false, this.props.labels ) }
       name='long_description'
       markdown={this.state.freeText}
       languages={this.state.languages}

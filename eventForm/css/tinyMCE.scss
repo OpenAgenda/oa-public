@@ -21,6 +21,13 @@
 
     border: 1px 0 0 0 solid $form-border;
 
+    label {
+
+      color: $oa-gray-light!important;
+      white-space: normal;
+
+    }
+
   }
 
   .mce-statusbar {

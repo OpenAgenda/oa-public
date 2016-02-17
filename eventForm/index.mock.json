@@ -390,6 +390,12 @@
     "event" : {},
     "configuration" : {
       "fields" : [ {
+        "name" : "longDescription",
+        "placeholder" : {
+          "fr" : "Ceci est un placeholder personnalisé",
+          "en" : "This is a custom placeholder"
+        }
+      }, {
         "name" : "image",
         "info" : {
           "fr" : "Ceci est un message personnalisé",
