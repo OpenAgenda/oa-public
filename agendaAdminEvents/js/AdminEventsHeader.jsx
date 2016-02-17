@@ -12,6 +12,30 @@ Select = require( 'react-select' ),
 
 AdminEventsHeader = React.createClass({
 
+  getInitialState: function() {
+
+    return {
+      temporary: {}
+    }
+
+  },
+
+  onChange: function( field ) {
+
+    var self = this;
+
+    return function( e ) {
+
+      var temporary = JSON.parse( JSON.stringify( self.state.temporary ) );
+
+      temporary[ field ] = e.target.value;
+
+      self.setState( { temporary: temporary } );
+
+    }
+
+  },
+
   onKeyUp: function( field ) {
 
     var self = this;
@@ -64,11 +88,13 @@ AdminEventsHeader = React.createClass({
                 className="form-control"
                 placeholder={getLabel( 'title', this.props.lang )}
                 value={this.getQueryPart( 'title' )}
+                onChange={this.onChange( 'title' )}
                 onKeyUp={this.onKeyUp( 'title' )} />
               <input
                 className="form-control"
                 placeholder={getLabel( 'locationName', this.props.lang )}
                 value={this.getQueryPart( 'locationName' )}
+                onChange={this.onChange( 'locationName' )}
                 onKeyUp={this.onKeyUp( 'locationName' )} />
               {this.props.terms?<TermSelector
                 field="region"
@@ -99,9 +125,17 @@ AdminEventsHeader = React.createClass({
 
   getQueryPart: function( name ) {
 
-    var query = this.getQuery();
+    if ( this.state.temporary[ name ] !== undefined ) {
 
-    return query[ name ];
+      return this.state.temporary[ name ];
+
+    } else {
+
+      var query = this.getQuery();
+
+      return query[ name ];
+
+    }
 
   },
 
