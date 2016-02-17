@@ -97,12 +97,12 @@ AdminEventsHeader = React.createClass({
                 onChange={this.onChange( 'locationName' )}
                 onKeyUp={this.onKeyUp( 'locationName' )} />
               {this.props.terms?<TermSelector
-                field="region"
+                field="region,country"
                 placeholder={getLabel( 'region', this.props.lang )}
-                value={this.getQueryPart( 'region' )}
+                value={this.getRegionQueryPart()}
                 res={this.props.res.terms}
                 onChange={function( term ) {
-                  self.setQueryPart( 'region', term );
+                  self.setRegionQueryPart( term );
                 }}
               />:null}
               <div className="state-control">
@@ -125,7 +125,7 @@ AdminEventsHeader = React.createClass({
 
   getQueryPart: function( name ) {
 
-    if ( this.state.temporary[ name ] !== undefined ) {
+    if ( typeof this.state.temporary[ name ] !== undefined ) {
 
       return this.state.temporary[ name ];
 
@@ -139,11 +139,34 @@ AdminEventsHeader = React.createClass({
 
   },
 
+  getRegionQueryPart: function() {
+
+    var query = this.getQuery();
+
+    return {
+      region: query[ 'region' ],
+      countryCode: query[ 'country' ]
+    }
+
+  },
+
   setQueryPart: function( name, value ) {
 
     var query = this.getQuery();
 
     query[ name ] = value;
+
+    window.location.href = window.location.href.split( '?' )[ 0 ] + '?' + qs.stringify( query );
+
+  },
+
+  setRegionQueryPart: function( value ) {
+
+    var query = this.getQuery();
+
+    query.region = ( value || {} ).region;
+
+    query.country = ( value || {} ).countryCode;
 
     window.location.href = window.location.href.split( '?' )[ 0 ] + '?' + qs.stringify( query );
 

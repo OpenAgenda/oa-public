@@ -69,6 +69,15 @@ body > header {
 
   }
 
+
+  /* override of sf style */
+  input[type="radio"], input[type="checkbox"] {
+
+    margin: 0 4px 0 0;
+
+  }
+
+
   label {
 
     font-weight: normal;
