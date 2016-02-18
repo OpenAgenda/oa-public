@@ -13,17 +13,17 @@ perPage = 20,
 routes = {
 
   agendaAdminCsvEvents: [ 'get', '/events.csv', [
-    agendaSvc.mw.load( 'uid' ),
+    cmn.checkAdminOrModerator,
     agendaSvc.mw.buildCsv( true )
   ] ],
 
   agendaAdminXlsxEvents: [ 'get', '/events.xlsx', [
-    agendaSvc.mw.load( 'uid' ),
+    cmn.checkAdminOrModerator,
     agendaSvc.mw.buildXlsx( true )
   ] ],
 
   agendaAdminJsonEvents: [ 'get', '/events.json', [
-    agendaSvc.mw.load( 'uid' ),
+    cmn.checkAdminOrModeratorOrKey,
     agendaSvc.mw.search( perPage, true ),
     eventSvc.mw.cleanEvents,
     agendaSvc.mw.decorateEvents( true ),
@@ -40,8 +40,7 @@ module.exports = function( path ) {
   router.pre( [
     cmn.redirectLegacySearch,
     agendaSvc.mw.load( 'uid' ),
-    cmn.loadSession,
-    cmn.checkAdminOrModerator
+    cmn.loadSession
   ] );
 
   return {

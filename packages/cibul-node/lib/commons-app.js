@@ -17,15 +17,18 @@ exports.isLogged = isLogged;                      // this guy speaks for himself
 exports.requireLogged = requireLogged;            // middleware. verify if user is logged
 exports.requireUnlogged = requireUnlogged;
 exports.https = https;                            // middleware. force https ( redirect to when not )
+
 exports.requireAdmin = requireAdmin;
 exports.loadBaseData = loadBaseData;              // middleware. 
 exports.loadSession = loadSession;                // middleware. load session data
 exports.checkCredential = checkCredential;        // middleware. check that request agenda has required credential
 exports.flashSetter = flashSetter;                // middleware. set a flash prior to redirect
+
 exports.checkAdministrator = checkAdministrator;  // middleware. checks that logged user is administrator of loaded agenda
 exports.checkModerator = checkModerator;
 exports.checkContributor = checkContributor;
 exports.checkAdminOrModerator = checkAdminOrModerator;
+exports.checkAdminOrModeratorOrKey = checkAdminOrModeratorOrKey;
 
 exports.useEmbedGoogleAnalytics = useEmbedGoogleAnalytics;
 
@@ -116,7 +119,6 @@ function loadEvent( paramName, fieldName ) {
   } 
 
 }
-
 
 
 
@@ -234,6 +236,28 @@ function checkAdminOrModerator( req, res, next ) {
 }
 
 
+function checkAdminOrModeratorOrKey( req, res, next ) {
+
+  checkAdminOrModerator( req, res, err => {
+
+    if ( !err ) return next();
+
+    if ( !req.agenda.isKeyValid( req.query.key ) ) {
+
+      return next( {
+        message : 'the key is invalid',
+        code: 403
+      } );
+
+    }
+
+    next();
+
+  } );
+
+}
+
+
 /**
  * what to do with errors... make a redirect
  */
@@ -243,6 +267,12 @@ function errorResponse( req, res, error, jsonResponse ) {
   var errorTemplate;
 
   req.log( 'preparing error response' );
+
+  if ( jsonResponse === undefined ) {
+
+    jsonResponse = /\.json$/.test( req.path );
+
+  }
 
   if ( [ 401, 403, 404 ].indexOf( error.code ) == -1 ) {
 
