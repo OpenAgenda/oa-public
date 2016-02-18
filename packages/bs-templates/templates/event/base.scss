@@ -17,6 +17,10 @@
     > .container {
       position: relative;
     }
+
+    .sidebar {
+      margin-top: 10px;
+    }
   }
 
   .event-content {
@@ -47,8 +51,6 @@
 
     .short-description {
 
-      font-size: 24px;
-      font-weight: 200;
       padding: 10px 20px 0;
 
     }
@@ -124,6 +126,8 @@
       }
 
       .short-description {
+        font-size: 24px;
+        font-weight: 200;
         padding: 20px 40px 0;
       }
     }
@@ -317,6 +321,7 @@
 
     .sidebar {
       float: right;
+      margin-top: 0;
     }
 
     #event-nav {

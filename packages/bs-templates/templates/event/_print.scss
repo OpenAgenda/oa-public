@@ -2,14 +2,14 @@
   body {
     background: #fff;
     color: #111;
-    font-family: Georgia, "Times New Roman", serif;
+    // font-family: Georgia, "Times New Roman", serif;
     font-size: 12pt;
     print-color-adjust: exact;
   }
 
-  h1 {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
+  // h1 {
+  //   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  // }
 
   h2, h3, dt {
     page-break-after: avoid;
@@ -41,6 +41,11 @@
   .row, .col-sm-10, .col-sm-offset-1 {
     padding: 0;
     margin: 0;
+  }
+
+  .col-sm-10, .col-sm-7, .col-sm-4 {
+    float: none !important;
+    width: 100% !important;
   }
 
   #event {
@@ -80,23 +85,12 @@
 
       .col-sm-10 {
         text-align: center;
-        width: 100%;
       }
     }
 
     #content {
       margin: 0.5cm 0;
       padding: 0;
-
-      .sidebar {
-        float: right;
-        margin-top: 0.5cm;
-        width: 30% !important;
-      }
-
-      .col-sm-7 {
-        width: 70% !important;
-      }
     }
 
     .event-content {
@@ -121,15 +115,16 @@
 
       .description {
         font-size: 12pt;
+        font-weight: 400;
       }
     }
 
     .detail-item h3 {
       color: silver;
-      margin-right: 0.1cm;
+      margin-right: 0;
 
       i {
-        font-size: 16pt;
+        font-size: 20pt;
       }
     }
 
