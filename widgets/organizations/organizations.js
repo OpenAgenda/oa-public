@@ -212,7 +212,7 @@ var widget = function( elem, options ) {
 
     orgsInTime = {}; // org indexed by slug, with bool passed
 
-    today = today.getFullYear() + '-' + _fZ( today.getMonth() + 1 ) + '-' + _fZ( today.getDate() ),
+    today = today.getFullYear() + '-' + _fZ( today.getMonth() + 1 ) + '-' + _fZ( today.getDate() );
 
 
     log( 'defining widget organizations' );
@@ -249,7 +249,11 @@ var widget = function( elem, options ) {
     }
 
     
-    organizations = data.org ? data.org : [];
+    organizations = ( data.org ? data.org : [] ).filter( function( o ) {
+
+      return o.s && o.s.length;
+
+    } );
 
     cn.forEach( organizations, function( org ) {
 
