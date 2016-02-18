@@ -1,0 +1,148 @@
+@media print {
+  body {
+    background: #fff;
+    color: #111;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 12pt;
+    print-color-adjust: exact;
+  }
+
+  h1 {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  h2, h3, dt {
+    page-break-after: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  .page-header, .edge-bar, #footer {
+    display: none;
+  }
+
+  a[href^=http] {
+    color: #06c;
+
+    &:after {
+      content: " [" attr(href) "] ";
+      font-size: 80%; 
+    }
+  }
+
+  .container {
+    padding: 0;
+    width: 100%;
+  }
+
+  .row, .col-sm-10, .col-sm-offset-1 {
+    padding: 0;
+    margin: 0;
+  }
+
+  #event {
+    .meta-container, .sharers, .private-head, .leaflet-control-container {
+      display: none;
+    }
+
+    #header {
+      background: #fff;
+      border-bottom: 1px solid silver;
+
+      a {
+        color: #111;
+      }
+
+      .agenda-container {
+        margin-bottom: 0.1cm;
+        margin-top: 0.1cm;
+
+        .avatar {
+          border-radius: 3px;
+          border-width: 0;
+          display: inline-block;
+          width: 1cm;
+
+          & + strong {
+            color: $oa-blue;
+            display: inline-block;
+            margin: 0;
+
+            & + span {
+              display: none;
+            }
+          }
+        }
+      }
+
+      .col-sm-10 {
+        text-align: center;
+        width: 100%;
+      }
+    }
+
+    #content {
+      margin: 0.5cm 0;
+      padding: 0;
+
+      .sidebar {
+        float: right;
+        margin-top: 0.5cm;
+        width: 30% !important;
+      }
+
+      .col-sm-7 {
+        width: 70% !important;
+      }
+    }
+
+    .event-content {
+      h1 {
+        color: $oa-blue;
+        font-size: 24pt;
+      }
+
+      .custom dl {
+        padding: 0 20px;
+        margin: 0;
+
+        &.private {
+          background: #fff;
+        }
+      }
+
+      .short-description {
+        font-size: 12pt;
+        font-weight: bold;
+      }
+
+      .description {
+        font-size: 12pt;
+      }
+    }
+
+    .detail-item h3 {
+      color: silver;
+      margin-right: 0.1cm;
+
+      i {
+        font-size: 16pt;
+      }
+    }
+
+    .signature {
+      color: $oa-gray-light;
+      margin: 0;
+      padding-left: 20px;
+      text-align: left;
+    }
+  }
+}
+
+@page {
+  margin: 0.5cm;
+  margin-bottom: 1cm;
+}
