@@ -249,11 +249,17 @@ function agendaInvitations( agenda ) {
         recipient: values.invitation.email,
         subject: i18n( title, { '%agenda%' : agenda.title, '%stakeholder%' : i18n( _equivalent( 'contributor', type ), lang ? lang : 'en' ) }, lang ? lang : 'en' ),
         text: i18n( text, { '%agenda%' : agenda.title, '%stakeholderaction%' : i18n( _equivalent( 'contributing to', type ),  lang ? lang : 'en' ) }, lang ? lang : 'en' ) + "\n" + link
-      }, ( err ) => {
+      }, err => {
 
         if ( err ) return d.reject( err );
 
-        d.resolve( values );
+        model.invitations().update( { id: values.invitation.id }, { updatedAt: new Date() }, err => {
+
+          if ( err ) return d.reject( err );
+
+          d.resolve( values );
+
+        } );
 
       } );
 
