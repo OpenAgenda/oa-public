@@ -42,6 +42,21 @@ routes = {
     inviteResend( { inviteMethod: 'inviteModerators', redirect: 'agendaAdminModerators' })
   ] ],
 
+  contributorInviteResendAll: [ 'get', '/contributors/resendall', [ 
+    cmn.checkAdminOrModerator,
+    inviteResendAll()
+  ] ],
+
+  administratorInviteResendAll: [ 'get', '/admins/resendall', [
+    cmn.checkAdministrator(),
+    inviteResendAll( { inviteMethod: 'resendInviteAdministrators', redirect: 'agendaAdminAdministrators' } )
+  ] ],
+
+  moderatorsInviteResendAll: [ 'get', '/moderators/resendall', [
+    cmn.checkAdministrator(),
+    inviteResendAll( { inviteMethod: 'resendInviteModerators', redirect: 'agendaAdminModerators' })
+  ] ],
+
   contributorsInfo: [ 'get', '/contributors/info', [ 
     cmn.checkAdministrator(),
     agendaSvc.mw.loadAdminLayout,
@@ -139,6 +154,36 @@ function invite( options ) {
       res.redirect( 302, req.genUrl( params.redirect, { slug: req.agenda.slug } ) )
 
     }
+
+  }
+
+}
+
+
+function inviteResendAll( options ) {
+
+  var params = utils.extend( {
+    inviteMethod: 'resendInviteContributors',
+    redirect: 'agendaAdminContributors'
+  }, options || {} );
+
+  return function( req, res ) {
+
+    invitationSvc.agenda( req.agenda )[ params.inviteMethod ]( req.lang, ( err, invitations, result ) => {
+
+      if ( err ) {
+
+        res.setFlash( req, 'Something went wrong. We will fix this shortly.' );
+
+      } else {
+
+        res.setFlash( req, '%s invitations sent more than one day ago are being resent' , { '%s' : invitations.length } );
+
+      }
+
+      res.redirect( 302, req.genUrl( params.redirect, { slug: req.agenda.slug } ) );
+
+    } );
 
   }
 

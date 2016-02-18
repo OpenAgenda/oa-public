@@ -32,11 +32,18 @@ TYPES = {
   AGENDAMODERATOR: 3
 },
 
-inviteMethods = {};
+inviteMethods = {
+  get: {},
+  list: {}
+};
 
-inviteMethods[ TYPES.AGENDACONTRIBUTOR ] = 'getContributorInvite';
-inviteMethods[ TYPES.AGENDAADMIN ] = 'getAdministratorInvite';
-inviteMethods[ TYPES.AGENDAMODERATOR ] = 'getModeratorInvite';
+inviteMethods.get[ TYPES.AGENDACONTRIBUTOR ] = 'getContributorInvite';
+inviteMethods.get[ TYPES.AGENDAADMIN ] = 'getAdministratorInvite';
+inviteMethods.get[ TYPES.AGENDAMODERATOR ] = 'getModeratorInvite';
+
+inviteMethods.list[ TYPES.AGENDACONTRIBUTOR ] = 'listContributorInvites';
+inviteMethods.list[ TYPES.AGENDAADMIN ] = 'listAdministratorInvites';
+inviteMethods.list[ TYPES.AGENDAMODERATOR ] = 'listModeratorInvites';
 
 module.exports = agendaInvitations;
 
@@ -60,6 +67,9 @@ function agendaInvitations( agenda ) {
     inviteContributor: _inviteStakeholder( TYPES.AGENDACONTRIBUTOR ),
     inviteAdministrator: _inviteStakeholder( TYPES.AGENDAADMIN ),
     inviteModerator: _inviteStakeholder( TYPES.AGENDAMODERATOR ),
+    resendInviteContributors: _resendInviteStakeholders( TYPES.AGENDACONTRIBUTOR ),
+    resendInviteAdministrators: _resendInviteStakeholders( TYPES.AGENDAADMIN ),
+    resendInviteModerators: _resendInviteStakeholders( TYPES.AGENDAMODERATOR ),
     processContributorInvitation: _processStakeholder( TYPES.AGENDACONTRIBUTOR ),
     processAdministratorInvitation: _processStakeholder( TYPES.AGENDAADMIN ),
     processModeratorInvitation: _processStakeholder( TYPES.AGENDAMODERATOR )
@@ -70,7 +80,7 @@ function agendaInvitations( agenda ) {
 
     return function( email, lang, cb ) {
 
-      agenda[ inviteMethods[ type ] ]( { email: email }, true, function( err, invitation ) {
+      agenda[ inviteMethods.get[ type ] ]( { email: email }, true, function( err, invitation ) {
 
         if ( err ) return cb( err );
 
@@ -91,6 +101,40 @@ function agendaInvitations( agenda ) {
   }
 
 
+  function _resendInviteStakeholders( type ) {
+
+    return function( lang, cb ) {
+
+      var yesterday = new Date();
+
+      yesterday.setDate( yesterday.getDate() - 1 );
+
+      agenda[ inviteMethods.list[ type ] ]( {
+        limit: false,
+        updatedBefore: yesterday
+      }, function( err, invitations ) {
+
+        if ( err ) return cb( err );
+
+        async.eachSeries( invitations, ( invitation, ecb ) => {
+
+          invitationsService.addJob( invitation, lang, ecb );
+
+        }, err => {
+
+          if ( err ) return cb( err );
+
+          cb( null, invitations );
+
+        } );
+
+      } );
+
+    }
+
+  }
+
+
   function _inviteStakeholders( type ) {
 
     return function( emails, lang, cb ) {
@@ -105,7 +149,7 @@ function agendaInvitations( agenda ) {
 
         log( 'processing email %s', email );
 
-        agenda[ inviteMethods[ type ] ]( { email: email }, true, function( err, invitation, data ) {
+        agenda[ inviteMethods.get[ type ] ]( { email: email }, true, function( err, invitation, data ) {
 
           if ( err ) return ecb( err );
           

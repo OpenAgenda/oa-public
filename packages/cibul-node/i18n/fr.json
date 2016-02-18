@@ -160,5 +160,7 @@
   "The agenda %title% published your event %event%"
   : "L'agenda %title% a publié votre événement %event%",
   "see more"
-  : "voir plus"
+  : "voir plus",
+  "%s invitations sent more than one day ago are being resent"
+  : "%s invitations ayant été envoyées il y a plus d'un jour sont en cours de relance"
 }
