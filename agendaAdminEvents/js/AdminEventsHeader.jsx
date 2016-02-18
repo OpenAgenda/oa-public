@@ -12,6 +12,18 @@ Select = require( 'react-select' ),
 
 AdminEventsHeader = React.createClass({
 
+  propTypes: {
+    lang: React.PropTypes.string
+  },
+
+  getDefaultProps: function() {
+
+    return {
+      lang: 'en'
+    }
+
+  },
+
   getInitialState: function() {
 
     return {
@@ -98,6 +110,7 @@ AdminEventsHeader = React.createClass({
                 onKeyUp={this.onKeyUp( 'locationName' )} />
               {this.props.terms?<TermSelector
                 field="region,country"
+                lang={this.props.lang}
                 placeholder={getLabel( 'region', this.props.lang )}
                 value={this.getRegionQueryPart()}
                 res={this.props.res.terms}
