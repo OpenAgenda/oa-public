@@ -72,7 +72,7 @@ module.exports = React.createClass( {
 
     this.timeout = setTimeout( function() {
 
-      self.props.onChange( self.state.edit );
+      self.props.onChange( self.props.name, self.state.edit );
 
       self.setState( {
         value: self.state.edit
@@ -92,7 +92,7 @@ module.exports = React.createClass( {
 
       this.clearTimeout();
 
-      this.props.onChange( this.state.edit );
+      this.props.onChange( this.props.name, this.state.edit );
 
       this.setState( {
         value: this.state.edit
