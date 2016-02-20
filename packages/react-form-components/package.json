@@ -5,6 +5,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "scripts" : {
+    "install": "babel components -d build",
+    "babelify": "babel components -d build"
+  },
   "dependencies": {
     "languages": "0.1.3",
     "react-addons-update": "0.14.2",
@@ -22,9 +26,18 @@
     "react": "0.14.2",
     "reactify": "1.1.1",
     "should": "^7.1.1",
-    "test-app": "git@bitbucket.org:openagenda/test-app.git"
+    "test-app": "git@bitbucket.org:openagenda/test-app.git",
+    "babel-cli": "^6.3.17",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13"
   },
   "browserify": {
     "transform": "reactify"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
   }
 }
