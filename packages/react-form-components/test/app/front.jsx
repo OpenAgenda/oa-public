@@ -18,7 +18,8 @@ MultilingualInputField = require( '../../components/MultilingualInputField.jsx' 
 
 GroupTagSelector = require( '../../components/GroupTagSelector.jsx' ),
 
-SearchField = require( '../../components/SearchField.jsx' ),
+// needs to be babelified first
+SearchField = require( '../../build/SearchField' ),
 
 InputField = require( '../../components/InputField.jsx' ),
 

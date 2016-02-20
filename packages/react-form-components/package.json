@@ -13,6 +13,7 @@
     "languages": "0.1.3",
     "react-addons-update": "0.14.2",
     "react-select": "^0.9.1",
+    "spin.js" : "2.3.2",
     "should": "^8.1.1",
     "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git",
     "react-tagsinput": "^3.0.3",

@@ -2,7 +2,7 @@
 
 var React = require( 'react' ),
 
-Spinner = require( 'spinner' );
+Spinner = require( './Spinner' );
 
 module.exports = React.createClass( {
 
