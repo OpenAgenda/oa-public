@@ -21,7 +21,9 @@
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git"
   },
   "peerDependencies": {
-    "react": "0.14.2"
+    "react": "0.14.2",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13"
   },
   "devDependencies": {
     "react": "0.14.2",
