@@ -18,6 +18,8 @@ MultilingualInputField = require( '../../components/MultilingualInputField.jsx' 
 
 GroupTagSelector = require( '../../components/GroupTagSelector.jsx' ),
 
+SearchField = require( '../../components/SearchField.jsx' ),
+
 InputField = require( '../../components/InputField.jsx' ),
 
 MultiInputField = require( '../../components/MultiInputField.jsx' ),
@@ -104,6 +106,18 @@ Wrapper = React.createClass( {
   render: function() {
 
     return <div>
+
+      <div className="separator"></div>
+
+      <SearchField
+        name="search"
+        value={ this.state.values.search }
+        label="a hidden label"
+        placeholder="do your search"
+        onChange={ this.onChange }
+      />
+
+      <div className="separator"></div>
 
       <InputField
         name="name"
