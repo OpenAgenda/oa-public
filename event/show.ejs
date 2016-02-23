@@ -159,7 +159,7 @@
             </ul>
           </div>
 <% } %>
-        </div>
+        
 <% if ( event.image ) { %>
           <img  class="img-responsive" src="<%= event.image %>">
 <% } %>
@@ -217,6 +217,7 @@
 <% if ( event.location.image ) { %>
         <div class="location-image">
           <img
+            class="img-responsive"
             src="<%= _i( event.location.image ) %>"
             alt="<%= event.location.name %>" />
         </div>

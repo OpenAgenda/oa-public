@@ -8,7 +8,7 @@
     "event-base" : "../node_modules/bs-templates/templates/event/_base.scss",
     "event" : "../node_modules/bs-templates/templates/event/_style.scss",
     "event-details" : "../node_modules/bs-templates/templates/event/_details.scss",
-    "event-details" : "../node_modules/bs-templates/templates/event/_langs.scss",
+    "event-langs" : "../node_modules/bs-templates/templates/event/_langs.scss",
     "leaflet" : "../css/leaflet-0.7.3.css",
     "sharers" : "../node_modules/bs-templates/templates/event/_sharers.scss",
     "popup-overlay" : "../agenda/css/popup-overlay.scss",
