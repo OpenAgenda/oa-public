@@ -10,7 +10,7 @@ npm install
 
 and then:
 
-node run
+npm start
 
 # Rules
 

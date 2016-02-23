@@ -1,0 +1,178 @@
+#event {
+
+  .event-content {
+
+    background: $oa-white;
+    border-radius: 3px;
+
+    h1, .description, .dates {
+
+      padding: 20px;
+
+    }
+
+    .short-description {
+      
+      margin: 0;
+      padding: 20px;
+
+    }
+
+    .share {
+
+      padding-bottom: 10px;
+
+      i {
+
+        font-size: 16px;
+        line-height: 20px;
+      
+      }
+
+
+    }
+
+    .category {
+
+      color: $oa-gray;
+      padding: 0 0 0 20px;
+
+      label {
+
+        font-weight: normal;
+        
+      }
+
+    }
+
+    .tags {
+
+      color: $oa-gray;
+      padding: 0 0 10px 20px;
+
+      label {
+
+        font-weight: normal;
+
+      }
+
+      ul, li {
+
+        display: inline;
+        margin: 0;
+        padding: 0;
+
+      }
+
+    }
+
+    .description {
+
+      h1 {
+        font-size: 30px;
+        padding: 20px 0;
+      }
+
+      h2 {
+
+        font-size: 24px;
+
+      }
+
+      h3 {
+
+        font-size: 20px;
+
+      }
+
+      strong { font-weight: bold; }
+
+    }
+
+  }
+
+  .location-details {
+
+    padding-top: 4em;
+
+    strong {
+
+      font-weight: bold;
+
+    }
+
+    p {
+
+      padding: 20px 20px 0;
+      margin: 0;
+
+    }
+
+    .location-head {
+
+      padding: 20px 20px 0;
+
+      label {
+
+        display: block;
+
+        a {
+
+          color: inherit;
+
+        }
+
+      }
+
+    }
+
+    .location-image {
+
+      padding: 20px 20px 0;
+
+      img {
+
+        max-width: 100%;
+
+      }
+      
+    }
+
+    .location-tags {
+
+      width: 80%;
+      display: inline-block;
+      padding: 0;
+      vertical-align: middle;
+
+      li {
+
+        display: inline;
+
+      }
+
+    }
+
+    ul {
+
+      padding: 20px;
+
+      li {
+
+        padding: 0.5em 0;
+
+      }
+
+      i {
+
+        padding-right: 0.8em;
+        display: inline-block;
+        vertical-align: middle;
+
+      }
+
+    }
+
+  }
+
+}

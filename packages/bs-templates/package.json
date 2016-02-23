@@ -4,7 +4,6 @@
   "description": "openagenda bootstrap templates",
   "main": "index.js",
   "scripts": {
-    "watch": "node scripts/watch.js",
     "install": "node scripts/build.js",
     "build": "node scripts/build.js"
   },
