@@ -20,4 +20,6 @@ npm start
 
   * scss files of each template import all the styles they need.
 
+  * partial scss files start with an underscore
+
   * partials start with an underscore they often match a corresponding scss file.
