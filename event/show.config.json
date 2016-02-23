@@ -3,15 +3,16 @@
   "layout" : "bsLayout/main",
 
   "oaCss" : {
-    "agenda-header" : "../agenda/css/header.scss",
-    "agenda-admin-bar" : "../agenda/css/admin-bar.scss",
-    "event-base" : "css/base.scss",
-    "event" : "css/style.scss",
-    "event-details" : "css/details.scss",
-    "event-langs" : "css/langs.scss",
+    "agenda-header" : "../node_modules/bs-templates/templates/agenda/_header.scss",
+    "agenda-admin-bar" : "../node_modules/bs-templates/templates/agenda/_admin-bar.scss",
+    "event-base" : "../node_modules/bs-templates/templates/event/_base.scss",
+    "event" : "../node_modules/bs-templates/templates/event/_style.scss",
+    "event-details" : "../node_modules/bs-templates/templates/event/_details.scss",
+    "event-details" : "../node_modules/bs-templates/templates/event/_langs.scss",
     "leaflet" : "../css/leaflet-0.7.3.css",
-    "sharers" : "css/sharers.scss",
-    "popup-overlay" : "../agenda/css/popup-overlay.scss"
+    "sharers" : "../node_modules/bs-templates/templates/event/_sharers.scss",
+    "popup-overlay" : "../agenda/css/popup-overlay.scss",
+    "event-print" : "../node_modules/bs-templates/templates/event/_print.scss"
   },
 
   "helpers" : {

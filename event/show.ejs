@@ -18,6 +18,29 @@
 <div id="content" class="js_page_body">
   <div class="container">
     <div class="row">
+
+      <section class="col-sm-7 col-sm-offset-1">
+
+<% if ( event.languages ) { %>
+        <div class="langs">
+          <ul>
+<% event.languages.selection.forEach( function( l ) { %>
+<% if ( l.label==event.languages.current ) { %>
+            <li class="current"><a><%= l.label %></a></li>
+<% } else { %>
+            <li><a hreflang="<%= l %>" href="<%= l.link %>"><%= l.label %></a></li>
+<% } %>
+<% }) %>
+          </ul>
+        </div>
+<% } %>
+        
+        <div class="event-content">
+          <h1><%= event.title %></h1>
+          <p class="short-description"><%= event.description %></p>
+        </div>
+      </section>
+
       <aside class="col-sm-4 col-aside sidebar">
 
         <div class="meta-container">
@@ -119,24 +142,7 @@
       </aside>
 
       <section class="col-sm-7 col-sm-offset-1">
-
-<% if ( event.languages ) { %>
-        <div class="langs">
-          <ul>
-<% event.languages.selection.forEach( function( l ) { %>
-<% if ( l.label==event.languages.current ) { %>
-            <li class="current"><a><%= l.label %></a></li>
-<% } else { %>
-            <li><a hreflang="<%= l %>" href="<%= l.link %>"><%= l.label %></a></li>
-<% } %>
-<% }) %>
-          </ul>
-        </div>
-<% } %>
-        
         <div class="event-content">
-          <h1><%= event.title %></h1>
-          <p class="short-description"><%= event.description %></p>
 <% if ( event.category ) { %>
           <div class="category">
             <label><%= __( 'Category' ) %>:</label>
@@ -144,22 +150,20 @@
           </div>
 <% } %>
 <% if ( [ 'undefined', 'string' ].indexOf( typeof event.tags ) == -1 && event.tags.length ) { %>
-  <div class="tags">
-    <label><%= __( 'Tags' ) %>:</label>
-    <ul>
+          <div class="tags">
+            <label><%= __( 'Tags' ) %>:</label>
+            <ul>
 <%- event.tags.map( t => {
       return '<li>' + _txt.escape( t.label ) + '</li>';
 }).join( ', ' ) %>
-    </ul>
-  </div>
+            </ul>
+          </div>
 <% } %>
-
+        </div>
 <% if ( event.image ) { %>
           <img  class="img-responsive" src="<%= event.image %>">
 <% } %>
-          <div class="description">
-            <%- event.freeText %>
-          </div>
+          <div class="description"><%- event.freeText %></div>
 
           <div class="custom js_custom">
 <% if ( event.custom ) { %>

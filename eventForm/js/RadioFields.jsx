@@ -10,7 +10,7 @@ module.exports = RadioTypeField( {
 
     if ( this.props.type == 'radio' ) {
 
-      return option.value == this.props.value
+      return option.value == this.props.value;
 
     } else {
 
