@@ -24,6 +24,8 @@ module.exports = function( enabledTypes, cb ) {
 
     config = require( './config' ),
 
+    init = require( './lib/init' ),
+
     tfy = require( './lib/taskify' );
 
     logger.init( {
@@ -75,31 +77,7 @@ module.exports = function( enabledTypes, cb ) {
       logger: logger
     } );
 
-    require( 'agenda-locations' ).init( {
-      geocodefarm: config.geocodeFarm,
-      elasticsearch: {
-        host: config.es.host + ':' + config.es.port,
-        log: config.esLocation.log,
-        index: config.esLocation.index,
-        apiVersion: config.esLocation.apiVersion,
-        timeout: config.esLocation.timeout
-      },
-      mysql: {
-        host: config.db.host,
-        user: config.db.user,
-        password: config.db.password,
-        database: config.db.database,
-        table: 'location',
-        agendaSettingsTableName: 'location_agenda_settings'
-      },
-      files: {
-        tmpPath: config.tmpFolderPath,
-        bucket: config.aws.bucket,
-        accessKeyId: config.aws.accessKeyId,
-        secretAccessKey: config.aws.secretAccessKey
-      },
-      // callbacks for updating other app services when changes occur
-      interfaces: require( './services/event' ).locations,
+    init.agendaLocations( {
       logger: logger
     }, () => {
 

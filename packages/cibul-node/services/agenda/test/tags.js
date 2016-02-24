@@ -10,7 +10,9 @@ es = require( '../../elasticsearch' ),
 
 eventSvc = require( '../../event' ),
 
-agendaSvc = require( '../' );
+agendaSvc = require( '../' ),
+
+init = require( '../../../lib/init' );
 
 describe( 'agenda service tags interface', function() {
 
@@ -73,6 +75,12 @@ describe( 'agenda service tags interface', function() {
 
   before( done => {
 
+    init.agendaLocations( {}, done );
+
+  })
+
+  before( done => {
+
     es.resync( { reset: true }, done );
 
   } );
@@ -99,7 +107,7 @@ describe( 'agenda service tags interface', function() {
 
       agendaSvc.tags.agendaTagsChanged( a.id, {
         removed: [ { slug: 'shoe' } ]
-      });
+      } );
 
     } );
 

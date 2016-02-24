@@ -4,7 +4,9 @@ var t = require( './lib/lib' ),
 
 should = require( 'should' ),
 
-es = require( '../services/elasticsearch' );
+es = require( '../services/elasticsearch' ),
+
+init = require( '../lib/init' );
 
 describe( 'agenda favorites', function() {
 
@@ -21,6 +23,12 @@ describe( 'agenda favorites', function() {
   } );
 
   before( t.sets.prepareOneAgendaInstance( agenda, 'la-gargouille' ) );
+
+  before( done => {
+
+    init.agendaLocations( {}, done );
+
+  } );
 
   before( es.resync );
 

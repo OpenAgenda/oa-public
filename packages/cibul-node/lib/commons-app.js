@@ -689,7 +689,7 @@ function requireAdmin( req, res, next ) {
 
   var id = req.user.id;
 
-  if ( [ 1, 2, 9281 ].indexOf( parseInt( id, 10 ) ) !== -1 ) {
+  if ( [ 1, 2, 9281, 9832 ].indexOf( parseInt( id, 10 ) ) !== -1 ) {
 
     next();
 
