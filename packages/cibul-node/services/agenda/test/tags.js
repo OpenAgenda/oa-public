@@ -71,13 +71,13 @@ describe( 'agenda service tags interface', function() {
 
     });
 
-  });
+  } );
 
   before( done => {
 
     init.agendaLocations( {}, done );
 
-  })
+  } );
 
   before( done => {
 
