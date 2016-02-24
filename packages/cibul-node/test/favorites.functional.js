@@ -24,7 +24,7 @@ describe( 'agenda favorites', function() {
 
   before( es.resync );
 
-  beforeEach( ( done ) => {
+  beforeEach( done => {
 
     t.loadBrowser( ( err, b ) => {
 

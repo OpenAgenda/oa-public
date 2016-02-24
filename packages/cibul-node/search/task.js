@@ -24,6 +24,8 @@ ES = require( 'ES' )( config.es ),
 
 esSvc = require( '../services/elasticsearch' ),
 
+loadDetailedLocation = require( '../services/elasticsearch/lib/loadDetailedLocation' ),
+
 running = false,
 
 _onStart,
@@ -276,25 +278,51 @@ function _publish( schema ) {
 
       }
 
-      ES[ schema ]().insert( obj, function( err, result ) {
+      if ( schema === 'reviews' ) {
 
+        return _doPublish( schema, obj, cb );
+
+      }
+
+      loadDetailedLocation( obj, err => {
+
+        // for events, detailed location data must be fetched
+        // via agenda-location service.
+        
         if ( err ) {
 
-          cb( err );
-
-        } else {
-
-          log( 'info', 'search lib indexed event returning result: ' + JSON.stringify( result ) );
-
-          cb();
+          log( 'error', 'could not load detailed location data in event %s', obj.id );
 
         }
+
+        _doPublish( schema, obj, cb );
 
       } );
 
     } );
 
   }
+
+}
+
+
+function _doPublish( schema, obj, cb ) {
+
+  ES[ schema ]().insert( obj, function( err, result ) {
+
+    if ( err ) {
+
+      cb( err );
+
+    } else {
+
+      log( 'info', 'search lib indexed event returning result: ' + JSON.stringify( result ) );
+
+      cb();
+
+    }
+
+  } );
 
 }
 

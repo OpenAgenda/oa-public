@@ -8,7 +8,9 @@ model = require( '../../model' ),
 
 utils = require( 'utils' ),
 
-log = require( 'logger' )( 'services/elasticsearch/resync' );
+log = require( 'logger' )( 'services/elasticsearch/resync' ),
+
+loadDetailedLocation = require( './loadDetailedLocation' );
 
 module.exports = function( options, cb ) {
 
@@ -86,6 +88,9 @@ module.exports.set = function( l ) {
 
 
 
+
+
+
 function _update( type, query ) {
 
   if ( !query ) query = {};
@@ -96,21 +101,16 @@ function _update( type, query ) {
 
     _loopThroughDb( type, query, function( dbRef, next ) {
 
-      lib[ type ]().update( dbRef, function( err ) {
+      if ( type !== 'events' ) return _doUpdate( type, dbRef, count, next );
 
-        count.processed++;
+      // events type need to have detailed location fed by location service
+      // before being indexed.
+      
+      loadDetailedLocation( dbRef, err => {
 
-        if ( err ) {
+        if ( err ) log( 'error', 'could not load detailed location data in event %s', dbRef.id );
 
-          log( 'error', 'es update error for %s: %s', type, JSON.stringify( err ) )
-
-          count.errors++;
-
-        }
-
-        if ( count.processed % 1000 === 0 ) _logUpdates( type, count );
-
-        _delay( query.interval, next )();
+        _doUpdate( type, dbRef, count, next );
 
       } );
 
@@ -121,6 +121,28 @@ function _update( type, query ) {
       _logUpdates( type, count );      
 
       cb( err );
+
+    } );
+
+  }
+
+  function _doUpdate( type, obj, count, cb ) {
+
+    lib[ type ]().update( obj, function( err ) {
+
+      count.processed++;
+
+      if ( err ) {
+
+        log( 'error', 'es update error for %s: %s', type, JSON.stringify( err ) )
+
+        count.errors++;
+
+      }
+
+      if ( count.processed % 1000 === 0 ) _logUpdates( type, count );
+
+      _delay( query.interval, cb )();
 
     } );
 

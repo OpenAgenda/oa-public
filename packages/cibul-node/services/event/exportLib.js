@@ -32,7 +32,11 @@ locationFieldsMap = {
   region: 'region',
   latitude: 'latitude',
   longitude: 'longitude',
-  timings: 'timings'
+  timings: 'timings',
+  locationDescription: 'description',
+  locationAccess: 'access',
+  locationImage: 'image',
+  locationTags: 'tags'
 };
 
 module.exports = function( service ) {
