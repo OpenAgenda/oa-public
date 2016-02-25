@@ -9,40 +9,27 @@ defaults = {
   events: {
     send: 'eaccessibilitysend'
   }
-};
+},
+
+labels = require( 'labels/event/accessibility' );
 
 module.exports = React.createClass({
 
   types: [{
     code: 'mi',
-    label: {
-      en: 'motor impairment',
-      fr: 'handicap moteur'
-    }
+    label: labels.motorImpairment
   }, {
     code: 'hi',
-    label: {
-      en: 'hearing impairment',
-      fr: 'handicap auditif'
-    }
+    label: labels.hearingImpairment
   },{
     code: 'pi',
-    label: {
-      en: 'mental impairment',
-      fr: 'handicap psychique'
-    }
+    label: labels.mentalImpairment
   },{
     code: 'vi',
-    label: {
-      en: 'visual impairment',
-      fr: 'handicap visuel'
-    }
+    label: labels.visualImpairment
   }, { 
-    code: 'sl', 
-    label: {
-      en: 'sign language',
-      fr: 'langue des signes'
-    }
+    code: 'sl',
+    label: labels.signLanguage
   }],
 
   getInitialState: function() {
