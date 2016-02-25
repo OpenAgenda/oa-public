@@ -15,22 +15,22 @@ labels = require( 'labels/event/accessibility' );
 
 module.exports = React.createClass({
 
-  types: [{
+  types: [ {
     code: 'mi',
     label: labels.motorImpairment
   }, {
     code: 'hi',
     label: labels.hearingImpairment
-  },{
+  }, {
     code: 'pi',
     label: labels.mentalImpairment
-  },{
+  }, {
     code: 'vi',
     label: labels.visualImpairment
   }, { 
     code: 'sl',
     label: labels.signLanguage
-  }],
+  } ],
 
   getInitialState: function() {
 
