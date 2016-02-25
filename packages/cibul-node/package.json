@@ -54,7 +54,8 @@
     "validator": "3.40.0",
     "when": "~3.4",
     "xlsx-writestream": "0.4.0",
-    "xml": "git+ssh://git@bitbucket.org:openagenda/xml.git"
+    "xml": "git+ssh://git@bitbucket.org:openagenda/xml.git",
+    "labels": "git+ssh://git@bitbucket.org:openagenda/labels.git"
   },
   "devDependencies" : {
     "zombie": "4.1.0",

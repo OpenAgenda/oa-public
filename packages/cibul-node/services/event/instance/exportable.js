@@ -13,7 +13,7 @@ _t = {
   en: timeHelper( { lang: 'en' } )
 },
 
-locationFieldsMap = {
+legacyLocationFieldsMap = {
   conditions: 'pricingInfo',
   registrationUrl: 'ticketLink',
   locationName: 'name',
@@ -27,6 +27,30 @@ locationFieldsMap = {
   latitude: 'latitude',
   longitude: 'longitude',
   timings: 'timings'
+},
+
+locationFieldsMap = {
+  uid : 'uid',
+  name : 'name',
+  slug : 'slug',
+  address : 'address',
+  image: 'image',
+  postalCode : 'postcode',
+  city: 'city',
+  district: 'district',
+  city: 'city',
+  district: 'district',
+  department: 'department',
+  region: 'region',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  description: 'description',
+  access: 'access',
+  countryCode: 'countryCode',
+  website: 'website',
+  links: 'links',
+  phone: 'phone',
+  tags: 'tags'
 },
 
 utils = require( 'utils' );
@@ -126,17 +150,11 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     if ( l ) {
 
-      for ( var f in locationFieldsMap ) {
+      _inject( v, l, legacyLocationFieldsMap );
 
-        v[ f ] = null;
+      v.location = {};
 
-        if ( l[ locationFieldsMap[ f ] ] ) {
-          
-          v[ f ] = l[ locationFieldsMap[ f ] ];
-
-        }
-
-      }
+      _inject( v.location, l, locationFieldsMap );
 
     }
 
@@ -152,5 +170,22 @@ function _stringifyDate( d ) {
   if ( typeof d == 'string' ) d = new Date( d );
 
   return [ d.getFullYear(), utils.fZ( d.getMonth() + 1 ), utils.fZ( d.getDate() ) ].join( '-' );
+
+}
+
+
+function _inject( c, l, map ) {
+
+  for( var f in map ) {
+
+    c[ f ] = null;
+
+    if ( l[ map[ f ] ] ) {
+      
+      c[ f ] = l[ map[ f ] ];
+
+    }
+
+  }
 
 }

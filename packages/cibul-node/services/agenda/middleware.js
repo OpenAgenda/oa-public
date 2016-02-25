@@ -401,7 +401,7 @@ function buildXlsx( includePrivateData ) {
       defaultRow = {}, processing = 0, end;
 
       // default empty values
-      f.getFieldNames().forEach( ( n ) => {
+      f.getFieldNames().forEach( n => {
 
         defaultRow[ n ] = '';
 
@@ -418,7 +418,7 @@ function buildXlsx( includePrivateData ) {
           '.xlsx\"' ].join('')
       } ); 
 
-      stream.on( 'data', function( eventData ) {
+      stream.on( 'data', eventData => {
 
         stream.pause();
 
@@ -499,11 +499,11 @@ function buildCsv( includePrivateData ) {
       defaultRow = {}, processing = 0, end;
 
       // csv must have all column filled with empty values
-      f.getFieldNames().forEach( function( n ) {
+      f.getFieldNames().forEach( n => {
 
         defaultRow[ n ] = '';
 
-      });
+      } );
 
       csvStream.pipe( res );
 
@@ -516,7 +516,7 @@ function buildCsv( includePrivateData ) {
           '.csv\"' ].join('')
       } ); 
 
-      stream.on( 'data', ( eventData ) => {
+      stream.on( 'data', eventData => {
 
         stream.pause();
 

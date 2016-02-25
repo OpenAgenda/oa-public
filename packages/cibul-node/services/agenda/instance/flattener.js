@@ -4,9 +4,11 @@ var utils = require( 'utils' ),
 
 genUrl = require( '../../genUrl' ).abs,
 
-possibleLanguages = [ 'fr', 'en', 'es', 'de', 'it' ];
+possibleLanguages = [ 'fr', 'en', 'es', 'de', 'it' ],
 
-module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
+accessibilityLabels = require( 'labels/event/accessibility' );
+
+module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => {
 
   return {
     flattener: flattener
@@ -118,7 +120,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
             flattened[ dstField + '_' + lang ] = fn( value[ lang ] );
 
-          });
+          } );
 
         } else if ( typeof value === 'boolean' ) {
 
@@ -150,17 +152,16 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
         'firstTimeStart',
         'firstTimeEnd',
         'registrationUrl',
-        'locationName',
-        'locationUid',
-        'address',
-        'postalCode',
-        'city',
-        'district',
-        'department',
-        'region',
-        'latitude',
-        'longitude',
-        'accessibility',
+        {
+          sourceField: 'accessibility',
+          destField: 'accessibility_fr',
+          fn: _defineAccessibility( 'fr' )
+        },
+        {
+          sourceField: 'accessibility',
+          destField: 'accessibility_en',
+          fn: _defineAccessibility( 'en' )
+        },
         'age.min',
         'age.max',
         'featured',
@@ -169,8 +170,27 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
           sourceField: 'slug',
           destField: 'link',
           fn: _defineEventUrl( instance )
-        }
-      ], _extendMapping( instance, includePrivateFields ) );
+        },
+        'location.uid',
+        'location.latitude',
+        'location.longitude',
+        'location.name',
+        'location.address',
+        'location.postalCode',
+        'location.city',
+        'location.district',
+        'location.department',
+        'location.region',
+        'location.image',
+        'location.phone',
+        'location.website', {
+          sourceField: 'location.tags',
+          destField: 'location.tags',
+          fn: _flattenTags( instance )
+        } ], 
+        _textFields( [ 
+          'location.description', 'location.access'
+        ], languages ), _extendMapping( instance, includePrivateFields ) );
 
     }
 
@@ -304,6 +324,44 @@ function _defineEventUrl( instance ) {
       slug: instance.slug, 
       eventSlug: slug 
     } );
+
+  }
+
+}
+
+
+function _defineAccessibility( lang ) {
+
+  let labelCodes = {
+    mi: 'motorImpairment',
+    hi: 'hearingImpairment',
+    pi: 'mentalImpairment',
+    vi: 'visualImpairment',
+    sl: 'signLanguage'
+  }
+
+  return function( codes ) {
+
+    if ( !codes || !utils.isArray( codes ) ) return '';
+
+    return codes.map( c => {
+
+      return accessibilityLabels[ labelCodes[ c ] ][ lang ];
+
+    } ).join( ', ' );
+
+  }
+
+}
+
+
+function _flattenTags( instance ) {
+
+  return function( tags ) {
+
+    if ( !tags ) return '';
+
+    return tags.map( t => t.label ).join( ', ' );
 
   }
 
