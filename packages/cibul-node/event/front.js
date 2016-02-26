@@ -88,6 +88,7 @@ routes = {
   eventShow: [ 'get', '/events/:eventSlug', [
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.format,
+    eventSvc.mw.components,
     _formatSocialLinks,
     cmn.loadBaseData( eventSvc.mw.layoutData, 'oa.css' ),
     show

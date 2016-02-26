@@ -86,6 +86,19 @@
   }],
 
   "children" : [ {
+    "name" : "Registration",
+    "mapTo" : "registration",
+    "attributes" : [ {
+      "name" : "Prefix",
+      "mapTo" : "prefix"
+    }, {
+      "name" : "Type",
+      "mapTo" : "type"
+    }, {
+      "name" : "Value",
+      "mapTo" : "value"
+    } ]
+  }, {
     "name" : "TagGroups",
     "mapTo" : "tagGroups",
     "attributes" : [ {
