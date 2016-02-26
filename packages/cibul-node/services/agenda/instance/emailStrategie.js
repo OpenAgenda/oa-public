@@ -109,24 +109,20 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
       return w.promise( function( rs, rj ) {
 
-        loaded.flattener( false, function( err, f ) {
+        loaded.flattener( false, ( err, f ) => {
 
           if ( err ) return rj( err );
 
           var listFields = obj.list ? obj.list.getFields() : [];
 
-          obj.fields = f.getFieldNames().map( function( fName ) {
+          obj.fields = f.getFieldNames().map( fName => {
 
             return {
               name: fName,
               checked: listFields.indexOf( fName ) !== -1
             }
 
-          } ). filter( function( f ) {
-
-            return f.name !== 'uid';
-
-          });
+          } ).filter( f => f.name !== 'uid' );
 
           rs( obj );
 
@@ -136,7 +132,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     } )
 
-    .done( function( obj ) {
+    .done( obj => {
 
       cb( null, obj );
 
