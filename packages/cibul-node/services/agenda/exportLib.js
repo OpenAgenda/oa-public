@@ -12,7 +12,9 @@ agendaTags = require( 'agenda-tags' ),
 
 agendaCategories = require( 'agenda-categories' ),
 
-config = require( '../../config' );
+config = require( '../../config' ),
+
+w = require( 'when' );
 
 module.exports = function( service ) {
 
@@ -26,223 +28,6 @@ module.exports = function( service ) {
 }
 
 
-function decorateEvent( agenda, event, toDecorate, options, cb ) {
-
-  var params = utils.extend( {
-    includePrivateData: false,
-    lang: false
-  }, options );
-
-  toDecorate.canonicalUrl = genUrl( 'agendaEventShow', { 
-    slug: agenda.slug,
-    eventSlug: event.slug
-  }, { protocol: 'https://' } );
-
-  async.waterfall( [
-
-    // if private data requested, add state info
-    wcb => {
-
-      if ( !params.includePrivateData ) return wcb();
-
-      event.getState( ( err, state ) => {
-
-        if ( err ) return wcb( err );
-
-        toDecorate.state = state;
-
-        wcb();
-
-      });
-
-    },
-
-    // add featured
-    wcb => {
-
-      event.getFeatured( ( err, isFeatured ) => {
-
-        if ( err ) return wcb( err );
-
-        toDecorate.featured = isFeatured;
-
-        wcb();
-
-      });
-
-    },
-
-    // add custom fields
-    wcb => {
-
-      var customFieldsGetter = agenda.getEventPublicCustomData;
-
-      if ( params.includePrivateData ) {
-
-        customFieldsGetter = agenda.getEventCustom;
-
-      }
-
-      customFieldsGetter( event, params.lang, ( err, custom ) => {
-
-        if ( err ) return wcb( err );
-
-        toDecorate.customValues = {};
-
-        custom.forEach( ( v ) => {
-
-          if ( v.fieldType == 'image' ) {
-
-            if ( v.value ) {
-
-              toDecorate.customValues[ v.name ] = config.aws.imageBucketPath + v.value;
-
-            }
-
-          } else {
-
-            toDecorate.customValues[ v.name ] = v.value;
-
-          }
-
-        } );
-
-        toDecorate.custom = custom;
-
-        toDecorate.customLabels = agenda.getCustomFieldsLabels( event.getCurrentLanguage() );
-
-        wcb();
-
-      } );
-
-    },
-
-    // add contributor info
-    wcb => {
-
-      event.getContributorInfo( agenda.id, ( err, contributorInfo ) => {
-
-        toDecorate.contributor = null;
-
-        if ( err ) return wcb( err );
-
-        if ( !contributorInfo ) return wcb();
-
-        if ( !params.includePrivateData ) {
-
-          toDecorate.contributor = {
-            organization: contributorInfo.organization
-          }
-
-        } else {
-
-          toDecorate.contributor = contributorInfo || null;
-
-        }
-
-        wcb();
-
-      } );
-
-    },
-
-    // add category
-    wcb => {
-
-      // if category is already present, no
-      // need to fetch again
-      if ( toDecorate.category ) return wcb();
-
-      event.getAgendaCategory( agenda.id, ( err, category ) => {
-
-        if ( err ) return wcb( err );
-
-        toDecorate.category = category || null;
-
-        wcb();
-
-      });
-
-    },
-
-    // add tags
-    wcb => {
-
-      // if tags are already loaded
-      // no need to fetch again
-      if ( toDecorate.tags ) return wcb();
-
-      event.getAgendaTags( agenda.id, ( err, tags ) => {
-
-        if ( err ) return wcb( err );
-
-        toDecorate.tags = tags;
-
-        wcb();
-
-      } );
-
-    },
-
-    // add tag groups
-    wcb => {
-
-      toDecorate.tagGroups = [];
-
-      let tagSlugs = [];
-
-      if ( typeof toDecorate.tags == 'string' ) {
-
-        tagSlugs = [ toDecorate.tags ];
-
-      } else if ( toDecorate.tags ) {
-
-        tagSlugs = toDecorate.tags.map( t => t.slug );
-
-      }
-
-      if ( !tagSlugs || !tagSlugs.length ) return wcb();
-
-      agendaTags.get( agenda.id, ( err, tagSet ) => {
-
-        if ( err ) return wcb( err );
-
-        toDecorate.tagGroups = ( tagSet ? tagSet.groups : [] ).filter( g => {
-
-          // keep groups containing tags used by event
-          return g.tags.filter( t => tagSlugs.indexOf( t.slug ) ).length;
-
-        } ).map( g => {
-
-          // keep group tags used by event
-          return {
-            name: g.name,
-            tags: g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).map( t => { return { label: t.label, slug: t.slug } } )
-          }
-
-        } ).filter( g => {
-
-          // remove empty groups
-          return g.tags.length;
-
-        } )
-
-        wcb();
-
-      } );
-
-    }
-
-  ], function( err ) {
-
-    if ( err ) return cb( err );
-
-    cb( null, toDecorate );
-
-  });
-
-}
-
 function decorateEvents( agenda, events, toDecorate, options, cb ) {
 
   var i = 0;
@@ -252,5 +37,270 @@ function decorateEvents( agenda, events, toDecorate, options, cb ) {
     decorateEvent( agenda, event, toDecorate[ i++ ], options, ecb );
 
   }, cb );
+
+}
+
+
+function decorateEvent( agenda, event, toDecorate, options, cb ) {
+
+  toDecorate.canonicalUrl = genUrl( 'agendaEventShow', { 
+    slug: agenda.slug,
+    eventSlug: event.slug
+  }, { protocol: 'https://' } );
+
+  w( utils.extend( {
+    agenda: agenda,
+    event: event,
+    decorated: toDecorate,
+    lang: false,                // given by options
+    includePrivateData: false   // given by options
+  }, options ) )
+
+  .then( _addState ) // only if private data
+
+  .then( _addFeatured )
+
+  .then( _addCustomFields )
+
+  .then( _addContributorInfo )
+
+  .then( _addCategory )
+
+  .then( _addTags )
+
+  .then( _addTagGroups )
+
+  .then( _addFreeTextSuffixes )
+
+  .done( v => {
+
+    cb( null, v.decorated );
+
+  }, cb );
+
+}
+
+
+function _addFreeTextSuffixes( v ) {
+
+  let suffixes = v.agenda.getEventFreeTextSuffixes( false ),
+
+  markedSuffixes = v.agenda.getEventFreeTextSuffixes( true );
+
+  for ( let l in v.decorated.longDescription ) {
+
+    if ( suffixes[ l ] ) {
+
+      v.decorated.longDescription[ l ] += '\n\n' + suffixes[ l ];
+      v.decorated.html[ l ] += '\n\n' + markedSuffixes[ l ];
+
+    }
+
+  }
+
+  return v;
+
+}
+
+
+function _addTagGroups( v ) {
+
+  let d = w.defer(),
+  
+  tagSlugs = [];
+
+  v.decorated.tagGroups = [];
+
+  if ( typeof v.decorated.tags == 'string' ) {
+
+    tagSlugs = [ v.decorated.tags ];
+
+  } else if ( v.decorated.tags ) {
+
+    tagSlugs = v.decorated.tags.map( t => t.slug );
+
+  }
+
+  if ( !tagSlugs || !tagSlugs.length ) return v;
+
+  agendaTags.get( v.agenda.id, ( err, tagSet ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.decorated.tagGroups = ( tagSet ? tagSet.groups : [] )
+
+    // keep groups containing tags used by event
+    .filter( g => g.tags.filter( t => tagSlugs.indexOf( t.slug ) ).length )
+
+    // keep group tags used by event
+    .map( g => ( {
+      name: g.name,
+      tags: g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).map( t => { return { label: t.label, slug: t.slug } } )
+    } ) )
+
+    // remove empty groups
+    .filter( g => g.tags.length );
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _addTags( v ) {
+
+  // if tags are already loaded no need to fetch again
+  if ( v.decorated.tags ) return v;
+
+  let d = w.defer();
+
+  v.event.getAgendaTags( v.agenda.id, ( err, tags ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.decorated.tags = tags;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _addCategory( v ) {
+
+  // if category is already present, no need to fetch again
+  if ( v.decorated.category ) return v;
+
+  let d = w.defer();
+
+  v.event.getAgendaCategory( v.agenda.id, ( err, category ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.decorated.category = category || null;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _addContributorInfo( v ) {
+
+  let d = w.defer();
+
+  v.event.getContributorInfo( v.agenda.id, ( err, contributorInfo ) => {
+
+    v.decorated.contributor = null;
+
+    if ( err ) return d.reject( err );
+
+    if ( !contributorInfo ) return d.resolve( v );
+
+    if ( !v.includePrivateData ) {
+
+      v.decorated.contributor = {
+        organization: contributorInfo.organization
+      }
+
+    } else {
+
+      v.decorated.contributor = contributorInfo || null;
+
+    }
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _addCustomFields( v ) {
+
+  let d = w.defer(),
+
+  customFieldsGetter = v.includePrivateData ? v.agenda.getEventCustom : v.agenda.getEventPublicCustomData;
+
+  customFieldsGetter( v.event, v.lang, ( err, custom ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.decorated.customValues = {};
+
+    custom.forEach( c => {
+
+      if ( c.fieldType == 'image' && c.value ) {
+
+        v.decorated.customValues[ c.name ] = config.aws.imageBucketPath + c.value;
+
+      } else if ( c.fieldType !== 'image' ) {
+
+        v.decorated.customValues[ c.name ] = c.value;
+
+      }
+
+    } );
+
+    v.decorated.custom = custom;
+
+    v.decorated.customLabels = v.agenda.getCustomFieldsLabels( v.event.getCurrentLanguage() );
+
+    return d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _addFeatured( v ) {
+
+  let d = w.defer();
+
+  v.event.getFeatured( ( err, isFeatured ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.decorated.featured = isFeatured;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _addState( v ) {
+
+  if ( !v.includePrivateData ) return v;
+
+  let d = w.defer();
+
+  v.event.getState( ( err, state ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.decorated.state = state;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
 
 }

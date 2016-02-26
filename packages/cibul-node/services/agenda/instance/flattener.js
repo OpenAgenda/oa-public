@@ -141,7 +141,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
     function _defineMapping( includePrivateFields ) {
 
       return [ 'uid' ].concat( _textFields( [ 
-        'title', 'description', 'longDescription', 'conditions' 
+        'title', 'description', 'longDescription', 'conditions', 'html'
       ], languages ), [
         'image',
         'thumbnail',
