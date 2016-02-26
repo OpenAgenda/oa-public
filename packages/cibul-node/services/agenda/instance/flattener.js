@@ -6,7 +6,9 @@ genUrl = require( '../../genUrl' ).abs,
 
 possibleLanguages = [ 'fr', 'en', 'es', 'de', 'it' ],
 
-accessibilityLabels = require( 'labels/event/accessibility' );
+accessibilityLabels = require( 'labels/event/accessibility' ),
+
+exportFieldLabels = require( 'labels/event/exportFieldNames' );
 
 module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => {
 
@@ -14,15 +16,20 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
     flattener: flattener
   }
 
-  function flattener( includePrivateFields, cb ) {
+  function flattener( options, cb ) {
 
-    var languages, mapping;
+    var languages, mapping,
+
+    params = utils.extend( {
+      includePrivateFields: typeof options == 'boolean' ? options : false,
+      lang: false
+    }, typeof options === 'object' ? options : {} )
 
     instance.getLanguages( function( err, l ) {
 
       languages = l;
 
-      mapping = _defineMapping( includePrivateFields );
+      mapping = _defineMapping( params.includePrivateFields );
 
       cb( null, {
         getFieldNames: getFieldNames,
@@ -65,7 +72,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
       });
 
-      return names;
+      return names.map( _fieldLabel );
 
     }
 
@@ -102,13 +109,13 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
           suffixes.forEach( function( s ) {
 
-            flattened[ dstField + '_' + s ] = '';
+            flattened[ _fieldLabel( dstField + '_' + s ) ] = '';
 
           });
 
         } else {
 
-          flattened[ dstField ] = '';
+          flattened[ _fieldLabel( dstField ) ] = '';
 
         }
 
@@ -118,23 +125,48 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
           _extractLanguages( value ).forEach( function( lang ) {
 
-            flattened[ dstField + '_' + lang ] = fn( value[ lang ] );
+            flattened[ _fieldLabel( dstField + '_' + lang ) ] = fn( value[ lang ] );
 
           } );
 
         } else if ( typeof value === 'boolean' ) {
 
-          flattened[ dstField ] = fn( value ? '1' : '' );
+          flattened[ _fieldLabel( dstField ) ] = fn( value ? '1' : '' );
 
         } else if ( value !== null ) {
 
-          flattened[ dstField ] = fn( value ? value : '' );
+          flattened[ _fieldLabel( dstField ) ] = fn( value ? value : '' );
 
         }
 
       });
 
       return flattened;
+
+    }
+
+    function _fieldLabel( field ) {
+
+      if ( !params.lang ) return field;
+
+      let suffix = false;
+
+      if ( /.+(\_([a-z][a-z]))$/.test( field ) ) {
+
+        suffix = field.match( /.+(\_([a-z][a-z]))$/ )[ 1 ];
+        field = field.replace( suffix, '' );
+
+      }
+
+      if ( exportFieldLabels[ field ] ) {
+
+        return exportFieldLabels[ field ][ params.lang ]
+
+        + ( suffix ? ' (' + suffix.toUpperCase().substr( 1 ) + ')' : '' );
+
+      }
+
+      return field + ( suffix || '' );
 
     }
 

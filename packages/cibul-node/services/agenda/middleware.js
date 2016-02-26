@@ -388,7 +388,10 @@ function buildXlsx( includePrivateData ) {
 
   return function( req, res, next ) {
 
-    req.agenda.flattener( includePrivateData, function( err, f ) {
+    req.agenda.flattener( {
+      includePrivateData: includePrivateData,
+      lang: req.lang
+    }, ( err, f ) => {
 
       if ( err ) return next( err );
 
@@ -401,11 +404,7 @@ function buildXlsx( includePrivateData ) {
       defaultRow = {}, processing = 0, end;
 
       // default empty values
-      f.getFieldNames().forEach( n => {
-
-        defaultRow[ n ] = '';
-
-      } );
+      f.getFieldNames().forEach( n => defaultRow[ n ] = '' );
 
       xlsxStream.getReadStream().pipe( res );
 
@@ -481,7 +480,10 @@ function buildCsv( includePrivateData ) {
 
   return function( req, res, next ) {
 
-    req.agenda.flattener( includePrivateData, function( err, f ) {
+    req.agenda.flattener( {
+      includePrivateData: includePrivateData,
+      lang: req.lang
+    }, function( err, f ) {
 
       if ( err ) return next( err );
 
