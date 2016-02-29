@@ -18,6 +18,14 @@
 
 .tc-editor {
 
+  padding: 2em 0;
+
+  .tc-group {
+  
+    padding: 0 0 2em;
+
+  }
+
   h2 {
 
     margin: 0;
@@ -29,6 +37,36 @@
     padding: 2em 0 3em;
 
     border-bottom: 1px solid $oa-gray-light;
+
+    .tc-remove {
+
+      .tc-remove-link {
+
+        float: right;
+        cursor: pointer;
+
+      }
+
+      .tc-remove-confirm {
+
+        padding: 1em 0;
+
+        span {
+
+          display: block;
+          padding-bottom: 1em;
+
+        }
+
+        a {
+
+          margin-right: 1em;
+
+        }
+
+      }
+
+    }
 
   }
 
@@ -60,7 +98,13 @@
 
     .tc-item {
 
-      padding: 1em 0;
+      padding: 1em 0.5em;
+
+      &:hover {
+
+        background: lighten( $oa-gray-light, 17 );
+
+      }
 
       .tc-actions {
 
