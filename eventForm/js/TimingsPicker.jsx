@@ -45,7 +45,7 @@ module.exports = React.createClass( {
 
       return {
         start: t.date + 'T' + t.begin + self._tZ( t.date ),
-        end: t.date + 'T' + t.end + self._tZ( t.date )
+        end: _endDate( t.date, t.begin, t.end ) + 'T' + t.end + self._tZ( t.date )
       }
 
 
@@ -79,6 +79,24 @@ module.exports = React.createClass( {
     var tzh = ( new Date( d ) ).getTimezoneOffset() / 60;
 
     return ( tzh >= 0 ? '' : '+' ) + utils.fZ( - tzh ) + ':00';
+
+  },
+
+  _endDate: function( d, begin, end ) {
+
+    var date;
+
+    if ( end >= begin ) {
+
+      return d;
+
+    }
+
+    date = new Date( d );
+
+    date.setDate( date.getDate() + 24 );
+
+    return ( date.getFullYear(), utils.fZ( date.getMonth() + 1 ), utils.fZ( date.getDate() ) ).join( '-' );
 
   }
 
