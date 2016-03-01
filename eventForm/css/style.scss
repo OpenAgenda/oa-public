@@ -63,6 +63,12 @@ body > header {
 
   }
 
+  input[type="radio"], input[type="checkbox"] {
+
+    margin-top: 3px;    
+
+  }
+
   .btn-default { /* override default style; mabe change this in future to base css */
 
     color: $oa-black;
