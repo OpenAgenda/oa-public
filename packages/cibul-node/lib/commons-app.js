@@ -322,8 +322,9 @@ function errorResponse( req, res, error, jsonResponse ) {
 
   }
 
-
   if ( req.baseData ) {
+
+    req.baseData.head.css.main = '/css/compiled.css';
 
     render( req, res, errorTemplate, error );
     

@@ -63,6 +63,8 @@ exposed.renderEmail = _render( 'auth/emailForm', {
   errors: {}
 });
 
+exposed.renderInvalidActivation = _render( 'auth/invalidActivation', {} );
+
 function init( service ) {
   
   return deepExtend( {

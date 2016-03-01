@@ -279,7 +279,7 @@ function activate( req, res ) {
 
     if ( !user ) {
 
-      return cmn.catchError( req, res )( 'Activation link was not recognized. Please try again.' );
+      return auth.renderInvalidActivation( req, res );
 
     }
 
