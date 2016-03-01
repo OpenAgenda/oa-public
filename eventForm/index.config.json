@@ -13,7 +13,7 @@
     "image-upload" : "../node_modules/image-upload/sass/style.scss",
     "efLanguageBar" : "css/languageBar.scss",
     "efTimingsPicker" : "css/timingsPicker.scss",
-    "efAgendaTags" : "../node_modules/agenda-tags/sass/selectorStyle.scss",
+    "efAgendaTags" : "../node_modules/bs-templates/templates/agenda-tags/_selector.scss",
     "accessibility" : "css/accessibility.scss",
     "efKeywords" : "css/tags.scss",
     "efTinyMCE" : "css/tinyMCE.scss",

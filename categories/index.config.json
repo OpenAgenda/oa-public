@@ -2,7 +2,7 @@
   "layout" : "agendaAdmin/bsLayout",
   "oaCss" : {
     "categorytags" : "css/style.scss",
-    "tag-editor" : "../node_modules/agenda-tags/sass/style.scss",
+    "tag-editor" : "../node_modules/bs-templates/templates/agenda-tags/_editor.scss",
     "popup-overlay" : "../agenda/css/popup-overlay.scss",
     "feature-request" : "css/feature-request.scss"
   },
