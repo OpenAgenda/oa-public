@@ -1,0 +1,17 @@
+{
+  "layout": "bsLayout/main",
+  "oaCss" : {
+    "bsForms" : "../css/bsForms.scss",
+    "agenda-header" : "../agenda/css/header.scss",
+    "auth" : "css/auth.scss"
+   },
+  "helpers" : {
+    "_t" : "time",
+    "_i" : "image",
+    "_txt" : "text"
+  },
+  "base" : {
+    "pageClass" : "auth",
+    "includeActionLinks" : false
+  }
+}
