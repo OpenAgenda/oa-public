@@ -46,7 +46,7 @@ module.exports = function( req, res ) {
 
       feed.item( {
         title: eInst.getTitle(),
-        description: '<p>' + eInst.getDescription() + '</p><p> ' + exp.range[ req.lang ] + '</p>' + exp.html,
+        description: '<p>' + eInst.getDescription() + '</p><p> ' + exp.range[ req.lang ] + '</p>' + ( exp.html[ req.lang ] || '' ) ,
         url: req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: eInst.slug, lang: req.lang }, { abs: true } ),
         guid: req.agenda.uid + '/' + eInst.uid,
         date: eInst.createdAt,
