@@ -98,11 +98,19 @@ function _processLink( links ) {
 
     var res, linksItem;
 
-    if ( !_isOembeddable( processedLink.link ) ) {
+    if ( _isImage( processedLink.link ) ) {
+
+      linksItem = lib.getByAttr( links, { link: processedLink.link } );
+
+      linksItem.code = '<img src="' + processedLink.link + '"/>';
 
       return cb();
 
-    }
+    } else if ( !_isOembeddable( processedLink.link ) ) {
+
+      return cb();
+
+    } 
 
     if ( processedLink.code ) {
 
@@ -126,7 +134,10 @@ function _processLink( links ) {
 
       if ( linksItem === null ) {
 
-        links.push( { link: processedLink.link, code: data.html ? data.html : null } );
+        links.push( {
+          link: processedLink.link,
+          code: data.html ? data.html : null
+        } );
 
       } else {
 
@@ -185,6 +196,12 @@ function _getAndParse( url, cb ) {
 
 }
 
+
+function _isImage( link ) {
+
+  return /\.(png|jpg|bmp|jpeg|gif)$/.test( link );
+
+}
 
 
 function _isOembeddable( link ) {
