@@ -18,6 +18,8 @@ ReactDom = require( 'react-dom' ),
 
 formConfiguration = require( './formConfiguration' ),
 
+labels = require( 'labels/event/form' ),
+
 fieldErrors = [], customErrors = [],
 
 defaults = {
@@ -41,109 +43,7 @@ defaults = {
     location: 'elocationsend'
   },
   custom: false,
-  labels: {
-    descriptionSection: {
-      fr: 'Descriptifs',
-      en: 'Description fields'
-    },
-    locationSection: {
-      fr: 'Lieu',
-      en: 'Location'
-    },
-    title: {
-      fr: 'Titre',
-      en: 'Title'
-    },
-    description: {
-      fr: 'Description',
-      en: 'Description'
-    },
-    longDescription: {
-      fr: 'Description longue',
-      en: 'Long description'
-    },
-    longDescriptionPlaceholder: {
-      fr: 'Saisissez une description détaillée de votre événement. \n\nVouz pouvez également ajouter des liens vers des images (.jpg ou autre). \n\nIntégrez des vidéos youtube en collant le lien de la page. ex: http://www.youtube.com/watch?v=wZZ7oFKsKzY',
-      en: 'Type in a detailed description of your event. \n\nPaste in image links too (.jpg or other). \n\nEmbed youtube videos by simply pasting in the link. ex: http://www.youtube.com/watch?v=wZZ7oFKsKzY'
-    },
-    keywords: {
-      fr: 'Mots clés',
-      en: 'Keywords'
-    },
-    accessibility: {
-      fr: 'Accessibilité particulière',
-      en: 'Accessibility conditions'
-    },
-    conditions: {
-      fr: 'Conditions',
-      en: 'Conditions'
-    },
-    conditionsPlaceholder: {
-      fr: 'Entrée libre, inscription requise, tarif, autre...',
-      en: 'Free access, inscription required, pricing, other...'
-    },
-    ticketLink: {
-      fr: 'Lien de réservation',
-      en: 'Reservation link'
-    },
-    age: {
-      fr: 'Age du public ciblé',
-      en: 'Targeted public age'
-    },
-    timings: {
-      fr: 'Horaires',
-      en: 'Timings'
-    },
-    uploadButton: {
-      fr: 'Sélectionner',
-      en: 'Select'
-    },
-    addLanguage: 'ajouter une langue',
-    keywordPlaceholder: {
-      fr: 'Ajouter un mot clé',
-      en: 'Add a keyword'
-    },
-    noDates: {
-      fr: 'Au moins un horaire doit être défini',
-      en: 'At least one timing must be defined'
-    },
-    categoriesTitle: {
-      en: 'Categories',
-      fr: 'Catégories'
-    },
-    tagsTitle: {
-      en: 'Tags',
-      fr: 'Tags'
-    },
-    categoriesInfo: {
-      en: 'These are used to index your event in the agenda. Pick one.',
-      fr: 'Celles-ci servent pour l\'indexation dans l\'agenda. Vous pouvez en choisir une.'
-    },
-    defaultTagGroupName: {
-      en: 'Tags',
-      fr: 'Tags'
-    },
-    defaultTagGroupInfo: {
-      en: 'These are used to index your event in the agenda. You can select several.',
-      fr: 'Ceux-ci servent pour l\'indexation dans l\'agenda. Vous pouvez en choisir plusieurs.'
-    },
-    required: {
-      en: 'Required.',
-      fr: 'Requis.'
-    },
-    categoriesRequired: {
-      en: 'Required.',
-      fr: 'Requis.'
-    },
-    requiredTagError: {
-      en: 'You must select at least one item',
-      fr: 'Vous devez faire au minimum une sélection'
-    },
-    requiredCategoryError: {
-      en: 'You must select one item',
-      fr: 'Vous devez faire une sélection'
-    }
-  }
+  labels: labels
 };
 
 // legacy
