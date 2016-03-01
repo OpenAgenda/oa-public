@@ -205,6 +205,17 @@
           <span><%= event.location.address %></span>
         </div>
 
+<% if ( event.location.tags && event.location.tags.length ) { %>
+        <div class="tags">
+          <label><%= __( 'Tags' ) %>:</label>
+          <ul>
+<%- event.location.tags.map( t => {
+    return '<li>' + _txt.escape( t.label ) + '</li>';
+}).join( ', ' ) %>
+          </ul>
+        </div>
+<% } %>
+
 <% if ( event.location.description ) { %>
         <p><%- _txt.nl2br( event.location.description ) %></p>
 <% } %>
