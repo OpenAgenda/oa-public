@@ -138,7 +138,7 @@ AdminEventsHeader = React.createClass({
 
   getQueryPart: function( name ) {
 
-    if ( typeof this.state.temporary[ name ] !== undefined ) {
+    if ( typeof this.state.temporary[ name ] !== 'undefined' ) {
 
       return this.state.temporary[ name ];
 
