@@ -93,7 +93,7 @@ function run() {
           email: config.adminEmail
         }, function( err, result ) {
           
-          var updates = { store: l.store }, 
+          var updates = { store: l.store || {} }, 
 
           interval = requestInterval;
 
