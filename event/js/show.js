@@ -121,7 +121,7 @@ function _defineRoles( params, session ) {
 
   }
 
-  log( 'roles: [%s]', roles.join(',') );
+  log( 'roles: [%s]', roles.join( ',' ) );
 
   return roles;
 

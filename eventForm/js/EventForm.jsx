@@ -483,11 +483,11 @@ module.exports = React.createClass( {
             onChange={this.onChange( 'accessibility' )} 
             labelsLang={this.props.lang} />
 
-          <AgeFields
+          { this.props.configuration.field( 'age' ).display() ? <AgeFields
             value={ this.state.age }
             label={ this.props.labels.age }
             onChange={ this.onChange( 'age' ) }
-            labelsLang={ this.props.lang } />
+            labelsLang={ this.props.lang } /> : null }
 
         </div>
 
