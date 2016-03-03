@@ -8,7 +8,7 @@ adminControls = require( '../../user/js/adminControls' ),
 
 ownershipTransfer = require( './ownershipTransfer' ),
 
-customData = require( './customData' ),
+privateData = require( './privateData' ),
 
 debug = require( 'debug' ), log,
 
@@ -58,7 +58,7 @@ window.asap( function( options ) {
 
         log( 'user is admin' );
 
-        customData().load( params.agendaUid, params.uid );
+        privateData().load( params.agendaUid, params.uid );
 
       } );
 
