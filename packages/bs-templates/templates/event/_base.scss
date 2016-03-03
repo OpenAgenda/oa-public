@@ -68,6 +68,7 @@
       dl {
         
         padding: 10px 20px;
+        margin-bottom: 0;
 
         dt {
           padding: 5px 0 5px;
@@ -101,6 +102,13 @@
         i { color: $oa-white; }
 
         font-size: 1.2em;
+
+      }
+
+      .private-subhead {
+        
+        border-bottom: 1px solid $oa-blue;
+        background-color: rgba( $oa-blue, 0.05 );
 
       }
 
