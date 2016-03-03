@@ -47,17 +47,10 @@
     "agenda-locations" : "git+ssh://git@bitbucket.org:openagenda/agenda-locations.git",
     "react-form-components" : "git+ssh://git@bitbucket.org:openagenda/react-form-components.git",
     "labels": "git+ssh://git@bitbucket.org:openagenda/labels.git",
-    "bs-templates" : "git+ssh://git@bitbucket.org:openagenda/bs-templates.git"
-  },
-  "peerDependencies" : {
-    "react": "0.14.2",
+    "bs-templates" : "git+ssh://git@bitbucket.org:openagenda/bs-templates.git",
     "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.3.13"
-  },
-  "devDependencies": {
-    "react": "0.14.2",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.3.13"
+    "babel-preset-react": "^6.3.13",
+    "babel-cli": "^6.3.17"
   },
   "browserify": {
     "transform": "reactify"
