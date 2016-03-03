@@ -12,7 +12,11 @@ STATETYPES = require( '../services/model' ).events().STATETYPES,
 
 validator = require( 'validator' ),
 
+contributorLabels = require( 'labels/event/contributors' ),
+
 userSvc = require( '../services/user' ),
+
+w = require( 'when' ),
 
 routes = {
 
@@ -44,11 +48,11 @@ routes = {
     _redirect
   ] ],
 
-  agendaEventPrivateCustomData: [ 'get', '/agendas/:uid/events/:eventUid/custom/private', [
+  agendaEventPrivate: [ 'get', '/agendas/:uid/events/:eventUid/private', [
     agendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
     cmn.checkAdminOrModerator,
-    privateCustomData
+    getPrivateEventData
   ] ],
 
   eventTransfer: [ 'get', '/:slug/events/:eventSlug/transfer' , [
@@ -76,20 +80,80 @@ module.exports = function( path ) {
 
 }
 
-function privateCustomData( req, res, next ) {
 
-  req.agenda.getEventPrivateCustomData( req.event, function( err, custom ) {
+function getPrivateEventData( req, res, next ) {
 
-    if ( err ) return next( err );
+  w( {
+    req: req,
+    res: res,
+    custom: false,
+    labels: false,
+    contributor: false
+  } )
 
-    var labels = req.agenda.getCustomFieldsLabels( req.event.getCurrentLanguage() );
+  // get private custom data
+  .then( v => {
 
-    cmn.renderJson( req, res, {
-      custom: custom,
-      labels: labels
+    let d = w.defer();
+
+    req.agenda.getEventPrivateCustomData( req.event, ( err, custom ) => {
+
+      if ( err ) return d.reject( err );
+
+      v.labels = v.req.agenda.getCustomFieldsLabels( v.req.event.getCurrentLanguage() );
+
+      d.resolve( v );
+
     });
 
-  });
+    return d.promise;
+
+  } )
+
+  // get contributor info
+  .then( v => {
+
+    let d = w.defer();
+
+    req.event.getContributorInfo( ( err, contributorInfo ) => {
+
+      if ( err ) return d.reject( err );
+
+      if ( contributorInfo.organizationSlug ) {
+
+        contributorInfo.organizationSlug = undefined;
+
+      }
+
+      v.contributor = contributorInfo;
+
+      d.resolve( v );
+
+    } );
+
+    return d.promise;
+
+  } )
+
+  .done( v => {
+
+    cmn.renderJson( req, res, {
+      custom: {
+        custom: v.custom,
+        labels: v.labels  
+      },
+      contributor: {
+        data: v.contributor,
+        labels: {
+          organization: contributorLabels.organization[ req.lang ],
+          contactNumber: contributorLabels.contactNumber[ req.lang ],
+          contactName: contributorLabels.contactName[ req.lang ],
+          contactPosition: contributorLabels.contactPosition[ req.lang ]
+        }
+      }
+    } );
+
+  }, next );
 
 }
 
