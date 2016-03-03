@@ -4,7 +4,11 @@ var onHit = false, monitoredElem,
 
 du = require( '.' );
 
-du.addEvent( document, 'scroll', _monitor );
+if ( typeof document !== 'undefined' ) {
+
+  du.addEvent( document, 'scroll', _monitor );
+
+}
 
 module.exports = function( cb ) {
 

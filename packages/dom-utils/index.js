@@ -9,7 +9,6 @@ module.exports = {
   removeEvent: removeEvent,
   whenReady: whenReady, // executes callback when dom is ready or if dom is ready
   asapReady: asapReady, // executes cb as soon as elem targetted by elem ( or body by default ) exists.
-  loadInLocation: loadInLocation,
   hasClass: hasClass,
   addClass: addClass,
   removeClass: removeClass,
