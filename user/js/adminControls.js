@@ -12,6 +12,8 @@ du = require( '../../js/lib/domUtils' ),
 
 log,
 
+shouldDisplay = false,
+
 params = {
   ownerUid: false,
   adminAgendaUids: [],
@@ -32,7 +34,7 @@ ifAdminCallbacks = [];
 
 function init() {
 
-  hide();
+  if ( !shouldDisplay ) hide();
 
   _move();
 
@@ -73,7 +75,7 @@ function process( session, options ) {
 
 function hide() {
 
-  if (typeof log !== 'undefined') log( 'hiding' );
+  if ( typeof log !== 'undefined' ) log( 'hiding' );
 
   du.addClass( du.el( params.selectors.controls ), params.classes.displayNone );
 
@@ -122,6 +124,8 @@ function _test( session ) {
 }
 
 function _display() {
+
+  shouldDisplay = true;
 
   var controlsElem = du.el( params.selectors.controls );
 

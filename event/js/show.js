@@ -35,6 +35,12 @@ if ( [ 'tpl', 'dev' ].indexOf( window.env ) !== -1 ) {
 
 }
 
+window.hook( function( options ) {
+
+  adminControls.init();
+
+} );
+
 window.asap( function( options ) {
 
   var params = utils.extend( {
@@ -43,8 +49,6 @@ window.asap( function( options ) {
   }, defaults, options );
 
   log = debug( 'event' );
-
-  adminControls.init();
 
   window.getSession( function( session ) {
 

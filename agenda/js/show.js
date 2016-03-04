@@ -56,6 +56,12 @@ if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) {
 
 }
 
+window.hook( function( options ) {
+
+  adminControls.init();
+
+} );
+
 window.asap( function( options ) {
 
   log = debug( 'agendaPage' );
@@ -69,8 +75,6 @@ window.asap( function( options ) {
   uid = options.uid,
 
   timeline = timeliner( options.lang );
-  
-  adminControls.init();
 
   favorites.init( {
     agendaUid: options.uid,
