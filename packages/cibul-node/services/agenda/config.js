@@ -26,8 +26,7 @@ module.exports = {
     key : 'locations',
     label : 'Locations',
     uri : 'agendaAdminLocations',
-    access: 'moderator',
-    requiredCred: 'location'
+    access: 'moderator'
   }, {
     section : 'manage',
     key : 'dataviz',

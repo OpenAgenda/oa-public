@@ -102,8 +102,7 @@ module.exports = function( path ) {
     cmn.flashSetter,
     cmn.loadSession,
     cmn.requireLogged( { redirect: 'agendaSignup', redirectParams: [ 'slug' ] } ),
-    agendaSvc.mw.load( 'slug' ),
-    cmn.checkCredential( 'location' )
+    agendaSvc.mw.load( 'slug' )
   ] );
 
   return {
