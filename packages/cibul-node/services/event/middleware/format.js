@@ -256,7 +256,7 @@ function _main( v ) {
     title: 'getTitle',
     description: 'getDescription',
     freeText: 'getEnrichedFreeText',
-    tags: 'getTags',
+    keywords: 'getTags',
     dateRange: 'getRange',
     isUpcoming: 'isUpcoming',
     placeName: 'getLocationName',
