@@ -37,10 +37,6 @@
 
   oaEventForm( {
     configuration: <%- JSON.stringify( configuration ) %>,
-    locationFeature: <%= locationFeature %>,
-<% if ( useMarkdown ) { %>
-    useWysiwyg: true,
-<% } %>
 <% if ( typeof agenda !== 'undefined' ) { %>
     agendaUid: 84735921,
 <% if ( typeof agenda.categorySet == 'undefined' ) { %>
@@ -215,73 +211,6 @@
       noImage: 'Aucune image n\'est encore associée à cet événement'
     }
   });
-
-<% if ( !locationFeature ) { %>
-
-  oaEventLocation( {
-    url: 'http://d.cibul.net/frontend_dev.php/event/location/search',
-    localSelection: localLocations,
-    countries: <%- JSON.stringify( countries ) %>,
-    labels: {
-      addPlace: 'ajouter un lieu',
-      locationTitle: 'Lieu',
-      locationInfo: 'Définissez le lieu de l\'événement',
-      dateTitle: 'Dates',
-      pricingTitle: 'Prix et Réservation',
-      change:'modifier',
-      remove: 'retirer',
-      removeLocation: 'retirer lieu',
-      removeLocationInfo: 'les dates et tarifs associés seront supprimés',
-      fetchInfo: 'Saisissez le nom et l\'adresse du lieu puis séléctionnez le sur la liste',
-      placename: 'Nom',
-      placenameInfo: 'Nom du lieu',
-      address: 'Adresse',
-      addressNumberInfo: 'street number',
-      addressStreetInfo: 'street name',
-      addressCityInfo: 'city',
-      empty: 'Saisissez un nom et une adresse pour voir la liste de choix apparaître.',
-      manualMark: 'Placer le marqueur manuellement', // * new
-      manualMarkDetail: 'saisissez le nom du lieu et son adresse, puis ajustez la position du marqueur en le glissant sur la carte', // * new
-      addLabel: 'ajouter des dates',
-      addDate: 'Valider',
-      clearLabel: 'retirer toutes les dates',
-      timingInfo: 'hh:mm',
-      timingError: 'hh:mm',
-      timingGeneralError: 'les horaires doivent être spécifiés', // * new
-      dateError: 'aucune date n\'est séléctionnée', // * new
-      addTitle: 'Ajoutez des dates',
-      addInfo: 'séléctionnez une rangée de dates en cliquant et glissant le curseur sur le calendrier, puis saisissez les horaires.',
-      begin: 'horaire de début',
-      end: 'horaire de fin',
-      noPlaceName: 'Le nom est manquant.',
-      noAddress: 'L\'adresse est manquante.',
-      noLatLng: 'Les données géogaphiques sont manquantes veuillez refaire la séléction de votre lieu.',
-      incompletePlace: 'La saisie du lieu est incomplète.',
-      select: 'séléctionner',
-      seeMap: 'voir carte',
-      languages: {
-        en: 'english',
-        fr: 'français',
-        es: 'espanol',
-        it: 'italiano'
-      },
-      ticketLink: 'Lien de billetterie',
-      ticketLinkInfo: 'Si vous disposez d\'une billetterie en ligne',
-      pricingInfo: 'Tarification',
-      pricingInfoInfo: 'Informations générales',
-      countryField: 'pays', 
-      countryFieldInfo: 'saisissez un nom de pays puis cliquez sur "entrée"'
-    },
-    lang: 'fr',
-    map: {
-      type: 'osm',
-      init: {url: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png'},
-      coords: [48.447052, 1.486754]
-    },
-    icon: '../images/markerIcon.png'
-  } );
-
-<% } %>
   
 
 </script>

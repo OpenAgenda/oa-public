@@ -37,14 +37,12 @@ formErrors = {};
 module.exports = React.createClass( {
 
   propTypes: {
-    configuration: React.PropTypes.object,
-    locationFeature: React.PropTypes.bool
+    configuration: React.PropTypes.object
   },
 
   getDefaultProps: function() {
 
     return {
-      locationFeature: false,
       configuration: {
         fields: [ {
           name: 'keywords',
@@ -474,19 +472,19 @@ module.exports = React.createClass( {
 
         { this.props.custom ? <div className="form-section"><CustomFields
           fields={ this.props.custom }
-          values={this.state.custom }
+          values={ this.state.custom }
           errors={ formErrors }
-          languages={this.state.languages}
-          onChange={this.changeCustom}
-          labels={this.props.labels}     
-          res={this.props.customRes}   
-          lang={this.props.lang} /></div>
+          languages={ this.state.languages }
+          onChange={ this.changeCustom }
+          labels={ this.props.labels }     
+          res={ this.props.customRes }   
+          lang={ this.props.lang } /></div>
         : '' }
 
-        { this.props.locationFeature ? <div>
+        <div>
           <h2>{this.props.labels.locationSection[ this.props.lang ]}</h2>
           {this.state.locationMode === 'create' ? null : this.renderLocationSelector()}
-        </div> : <div className="js_event_location_canvas"></div> }
+        </div>
         
         <TimingsPicker
           labels={this.props.labels}
@@ -500,7 +498,7 @@ module.exports = React.createClass( {
 
       </div>
 
-    </div>;
+    </div>
 
   }
 

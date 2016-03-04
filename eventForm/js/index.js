@@ -24,7 +24,6 @@ fieldErrors = [], customErrors = [],
 
 defaults = {
   configuration: false,
-  locationFeature: false,
   language: 'fr',
   canvas: '.js_form_canvas',
   useWysiwyg: false,
@@ -49,7 +48,6 @@ defaults = {
 // legacy
 
 window.oaEvent = require( './legacy/cibulEvent' );
-window.oaEventLocation = require( './legacy/cibulEventLocation' );
 window.oaEventSubmit = require( './legacy/cibulEventSubmit' );
 window.oaEventImage = require( './legacy/cibulEventImage' );
 
@@ -67,7 +65,6 @@ window.oaEventForm = function( options ) {
 
     ReactDom.render( <EventForm
       configuration= { formConfiguration( params.configuration ? params.configuration : {}, { lang: params.language } ) }
-      locationFeature= { params.locationFeature }
       agendaUid= { params.agendaUid }
       initialLanguages= { initialLanguages }
       useWysiwyg= {params.useWysiwyg}
