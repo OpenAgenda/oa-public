@@ -86,7 +86,7 @@ module.exports = React.createClass( {
 
     var date;
 
-    if ( end >= begin ) {
+    if ( end > begin ) {
 
       return d;
 
