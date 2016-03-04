@@ -56,10 +56,7 @@
     "xlsx-writestream": "0.4.0",
     "xml": "git+ssh://git@bitbucket.org:openagenda/xml.git",
     "labels": "git+ssh://git@bitbucket.org:openagenda/labels.git",
-    "bs-templates" : "git+ssh://git@bitbucket.org:openagenda/bs-templates.git",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.3.13",
-    "babel-cli": "^6.3.17"
+    "bs-templates" : "git+ssh://git@bitbucket.org:openagenda/bs-templates.git"
   },
   "devDependencies" : {
     "zombie": "4.1.0",
