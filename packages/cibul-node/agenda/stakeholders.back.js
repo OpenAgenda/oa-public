@@ -177,7 +177,7 @@ function inviteResendAll( options ) {
 
       } else {
 
-        res.setFlash( req, '%s invitations sent more than one day ago are being resent' , { '%s' : invitations.length } );
+        res.setFlash( req, '%s invitations are being resent.<br/><br/>Note that invitations cannot be sent in bulk more than once every 24 hours' , { '%s' : invitations.length } );
 
       }
 

@@ -161,6 +161,6 @@
   : "L'agenda %title% a publié votre événement %event%",
   "see more"
   : "voir plus",
-  "%s invitations sent more than one day ago are being resent"
-  : "%s invitations ayant été envoyées il y a plus d'un jour sont en cours de relance"
+  "%s invitations are being resent.<br/><br/>Note that invitations cannot be sent in bulk more than once every 24 hours"
+  : "%s invitations sont en cours d'envoi. <br/><br/>Notez que les invitations ne peuvent être relancés qu'une fois toutes les 24h."
 }
