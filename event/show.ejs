@@ -256,7 +256,11 @@
 <% } %>
 
 <% if ( event.owner ) { %>  
-        <p class="signature"><%= __('Published by %owner%', { '%owner%' : event.owner.name } ) %></p>
+        <div class="signature">
+          <p><%= __('Published by %owner%', { '%owner%' : event.owner.name } ) %></p>
+          <span><%= _t( event.updatedAt, 'dddd Do MMMM - HH:mm' ) %></span> - <a href="<%= event.owner.contactLink %>"><%= __( 'contact' ) %></a>
+        </div>
+        <p class="signature"></p>
 <% } %>
       </section>
     </div>

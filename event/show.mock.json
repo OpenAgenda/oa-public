@@ -13,6 +13,7 @@
 
       "importUri" : "/event/action.part",
       "languages" : false,
+      "updatedAt" : "2014-10-01T18:30:00.000Z",
       
       "uid" : 47088340,
       "slug" : "concert-de-sion-russel-jones-thomas-kahn-le-18-12-11",
@@ -49,7 +50,8 @@
       "owner" : {
         "name" : "Billy Bob",
         "uid" : 783697896,
-        "slug" : "billy-bob"
+        "slug" : "billy-bob",
+        "contactLink" : "#contactlink"
       },
 
       "currentState" : "draft",
