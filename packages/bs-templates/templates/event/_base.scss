@@ -92,7 +92,6 @@
 
       }
 
-      
 
       .private-head {
 
@@ -179,9 +178,14 @@
 
   // signature
   .signature {
-    color: $oa-gray;
-    margin: 40px 0;
-    text-align: right;
+
+    float: right;
+    margin: 20px 0 40px 0;
+
+    span {
+      color: $oa-gray;
+    }
+
   }
   
   // metadatas
