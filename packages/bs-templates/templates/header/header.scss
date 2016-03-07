@@ -4,6 +4,23 @@
   z-index: 2002;
   padding-bottom: 0;
 
+
+  .collapse {
+    display: none;
+    visibility: hidden;
+
+    &.in {
+      display: block;
+      visibility: visible;
+    }
+
+    &.navbar-collapse {
+
+      visibility: visible;
+
+    }
+  }
+
   .navbar-header {
     padding-left: 10px;
   }
