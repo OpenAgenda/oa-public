@@ -16,7 +16,9 @@ module.exports = function( req, res, next ) {
   w( {
     req: req,
     res: res,
-    formatted: {},
+    formatted: {
+      updatedAt: req.event.updatedAt
+    },
     _t: timeHelper( { lang: req.lang } )
   } )
 

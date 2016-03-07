@@ -302,7 +302,7 @@ config = {
         },
         'conversationDiscussion' : {
           method: 'get',
-          uri: '/messages/new?uid=:uid'
+          uri: '/messages/new?uuid=:uid&redirect=:redirect'
         },
         'conversationAgendaContact' : {
           method: 'get',

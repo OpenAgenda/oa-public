@@ -128,6 +128,8 @@ function agendaEventShow( req, res ) {
     eventSlug: req.params.eventSlug
   } );
 
+  _addContactLink( req );
+
   cmn.render( req, res, 'event/show', {
     event: req.formatted,
     components: req.components
@@ -183,6 +185,8 @@ function show( req, res ) {
     eventSlug: req.params.eventSlug
   } );
 
+  _addContactLink( req );
+
   cmn.render( req, res, 'event/show', { event: req.formatted } );
 
 }
@@ -220,6 +224,21 @@ function _addLanguageLinks( req, uri, uriParams ) {
   });
 
   req.formatted.languages.selection = linkedLanguages;
+
+}
+
+
+function _addContactLink( req ) {
+
+  if ( !req.formatted.owner ) return;
+
+  req.formatted.owner.contactLink = req.genUrl( 'conversationDiscussion', {
+    uid: req.formatted.owner.uid,
+    redirect: new Buffer( req.genUrl( req.agenda ? 'agendaEventShow' : 'eventShow', req.agenda ? {
+      slug: req.agenda.slug,
+      eventSlug: req.event.slug
+    } : { eventSlug: req.event.slug }, { abs: true } ) ).toString( 'base64' )
+  } );
 
 }
 
