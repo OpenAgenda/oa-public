@@ -2,7 +2,7 @@
   "name": "bs-templates",
   "version": "1.0.0",
   "description": "openagenda bootstrap templates",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "install": "node scripts/build.js",
     "build": "node scripts/build.js"

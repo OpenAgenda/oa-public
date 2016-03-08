@@ -20,6 +20,9 @@ $navbar-default-bg: $oa-white;
 $text-color: $oa-black;
 $input-color-placeholder: $oa-silver;
 
+$jumbotron-bg: transparent;
+$jumbotron-padding: 15px;
+
 $headings-font-weight: 300;
 
 // Social colors
@@ -29,6 +32,7 @@ $google-color: #D44032;
 $linkedin-color: #4875B4;
 $pinterest-color: #CA2128;
 $widget-color: $oa-blue;
+$tumblr-color: #32506d;
 
 // Core variables and mixins
 
@@ -61,7 +65,7 @@ $widget-color: $oa-blue;
 //@import "assets/stylesheets/bootstrap/pager";
 //@import "assets/stylesheets/bootstrap/labels";
 //@import "assets/stylesheets/bootstrap/badges";
-//@import "assets/stylesheets/bootstrap/jumbotron";
+@import "assets/stylesheets/bootstrap/jumbotron";
 //@import "assets/stylesheets/bootstrap/thumbnails";
 //@import "assets/stylesheets/bootstrap/alerts";
 //@import "assets/stylesheets/bootstrap/progress-bars";
@@ -95,6 +99,10 @@ body {
 
 }
 
+
+/**
+ * white page
+ */
 .wsq {
 
   background: $oa-white;
@@ -107,16 +115,40 @@ body {
 
 }
 
+/**
+ * content block of a white page
+ */
+.content {
+  
+  padding: 20px 30px;
+
+}
+
+
+/** 
+ * use for simple full page dialogs, 
+ * to give them some margin from the 
+ * top of the page
+ */
+.top-margined {
+
+  margin-top: 60px;
+
+}
 
 .avatar-container {
+
   margin: 30px;
+  
 }
 
 .avatar {
+
   border: 3px solid $oa-white;
   border-radius: 100px; 
   display: inline-block;
   margin: auto;
   max-width: 140px;
   width: 100%;
+
 }

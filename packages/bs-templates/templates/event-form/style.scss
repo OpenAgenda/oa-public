@@ -1,0 +1,31 @@
+@import "../layout/base";
+@import "../agenda/header";
+@import "social-shares";
+
+.event-dialog {
+  
+  .content.jumbotron {
+    
+    margin-top: 30px;
+    margin-bottom: 20px;
+
+  }
+
+  .below-jumbotron {
+
+    padding-top: 0;
+
+  }
+
+  .actions {
+
+    a {
+
+      display: block;
+      margin-bottom: 1em;
+
+    }
+
+  }
+
+}
