@@ -2,7 +2,7 @@
   "layout": "bsLayout/main",
   "oaCss" : {
     "bsForms" : "../css/bsForms.scss",
-    "agenda-header" : "../agenda/css/header.scss",
+    "agenda-header" : "../node_modules/bs-templates/templates/agenda/_header.scss",
     "auth" : "css/auth.scss"
    },
   "helpers" : {

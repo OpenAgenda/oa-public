@@ -4,7 +4,7 @@
   "oaCss" : {
     "agenda-base" : "css/base.scss",
     "agenda-sidebar" : "css/sidebar.scss",
-    "agenda-header" : "css/header.scss",
+    "agenda-header" : "../node_modules/bs-templates/templates/agenda/_header.scss",
     "agenda-admin-bar" : "css/admin-bar.scss",
     "agenda-subnav" : "css/subnav.scss",
     "agenda" : "css/style.scss",

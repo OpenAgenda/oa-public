@@ -61,8 +61,9 @@ run = function() {
     async.apply( prodifyCss, map, 'oaetCss', destOAETCssPath ),
     async.apply( prodifyPublicTemplates, map ),
     async.apply( prodifyTemplateJs, map ),
-    async.apply( prodifyJs, map ), 
-    legacyProdify
+    async.apply( prodifyJs, map ),
+    _copyBsCss,
+    legacyProdify,
   ], function( err ) {
 
     if ( err ) throw err;
@@ -70,6 +71,20 @@ run = function() {
     log('done.');
 
   });
+
+},
+
+
+
+_copyBsCss = function( cb ) {
+
+  var src = fs.createReadStream( '../node_modules/bs-templates/compiled/main.css' ),
+
+  dest = fs.createWriteStream( '../../cibul-symfony/web/css/oasfmain.css' );
+
+  src.pipe( dest );
+
+  src.on( 'end', () => cb() );  
 
 },
 
