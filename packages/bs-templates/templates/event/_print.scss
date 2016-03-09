@@ -21,7 +21,11 @@
     page-break-inside: avoid;
   }
 
-  .page-header, .edge-bar, #footer {
+  .page-header,
+  .oa-page-header,
+  .edge-bar,
+  #footer,
+  .map {
     display: none;
   }
 
@@ -52,7 +56,13 @@
   }
 
   #event {
-    .meta-container, .sharers, .private-head, .private-subhead, .leaflet-control-container {
+
+    .meta-container,
+    .sharers,
+    .private-head,
+    .private-subhead,
+    .leaflet-control-container,
+    .signature {
       display: none;
     }
 
@@ -117,7 +127,7 @@
         margin: 0 0 10px;
       }
 
-      .img-responsive {
+      img {
 
         max-width: 10cm!important;
 
@@ -173,6 +183,16 @@
           margin-bottom: 0;
         }
       }
+    }
+
+    .location-details {
+
+      .location-head, p, .location-image, ul {
+
+        padding-left: 0!important;
+
+      }
+
     }
 
     .detail-item {
