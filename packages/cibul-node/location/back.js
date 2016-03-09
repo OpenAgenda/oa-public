@@ -142,7 +142,7 @@ function show( req, res ) {
 
 function _resyncSuccess( req, res, next ) {
 
-  res.setFlash( req, 'resync is ongoin' );
+  res.setFlash( req, 'resync is ongoing' );
 
   res.redirect( req.genUrl( 'agendaAdminLocations', { slug: req.agenda.slug } ) );
 

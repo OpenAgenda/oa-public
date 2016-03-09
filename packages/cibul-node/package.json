@@ -1,8 +1,11 @@
 {
   "name": "cibulNode",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "description": "OpenAgenda main app",
+  "scripts" : {
+    "start" : "nodemon --ignore node_modules/ server.js web admin task"
+  },
   "dependencies": {
     "ES": "git+ssh://git@bitbucket.org:cibul/es-node.git",
     "agenda-categories": "git+ssh://git@bitbucket.org:openagenda/agenda-categories.git",
