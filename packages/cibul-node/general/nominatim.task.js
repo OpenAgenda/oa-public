@@ -113,11 +113,11 @@ function run() {
 
             var parsedData = france( nom.clean( result ) );
 
-            if (parsedData.city && !l.city) updates.city = parsedData.city;
+            if ( parsedData.city && !l.city ) updates.city = parsedData.city;
 
-            if (parsedData.country_code && !l.country) updates.country = parsedData.country_code;
+            if ( parsedData.country_code && !l.country ) updates.country = parsedData.country_code;
 
-            if (parsedData.department) updates.department = parsedData.department;
+            if ( parsedData.department ) updates.department = parsedData.department;
 
             if ( parsedData.region ) {
 
@@ -125,9 +125,9 @@ function run() {
 
             }
 
-            if (parsedData.cityDistrict) updates.cityDistrict = parsedData.cityDistrict;
+            if ( parsedData.cityDistrict ) updates.cityDistrict = parsedData.cityDistrict;
 
-            if (parsedData.postalCode) updates.postalCode = parsedData.postalCode;
+            if ( parsedData.postalCode ) updates.postalCode = parsedData.postalCode;
             
           }
 
