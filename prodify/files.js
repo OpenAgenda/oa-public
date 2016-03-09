@@ -22,21 +22,21 @@ var paths = {
   m:   '../message/js/'
 },
 
-destPath = '../../cibul-symfony/web/js/',
+destPath = __dirname + '/../../cibul-symfony/web/js/',
 
-destPublicTemplatePath = '../../cibul-symfony/web/templates/',
+destPublicTemplatePath = __dirname + '/../../cibul-symfony/web/templates/',
 
-destCssPath = '../../cibul-symfony/web/css/compiled.css',
+destCssPath = __dirname + '/../../cibul-symfony/web/css/compiled.css',
 
-destEmbedCssPath = '../../cibul-symfony/web/css/embedDefault.css',
+destEmbedCssPath = __dirname + '/../../cibul-symfony/web/css/embedDefault.css',
 
-destAdminCssPath = '../../cibul-symfony/web/css/compiledAdmin.css',
+destAdminCssPath = __dirname + '/../../cibul-symfony/web/css/compiledAdmin.css',
 
-destOACssPath = '../../cibul-symfony/web/css/oa.css',
+destOACssPath = __dirname + '/../../cibul-symfony/web/css/oa.css',
 
-destOAECssPath = '../../cibul-symfony/web/css/oae.css',
+destOAECssPath = __dirname + '/../../cibul-symfony/web/css/oae.css',
 
-destOAETCssPath = '../../cibul-symfony/web/css/oaet.css',
+destOAETCssPath = __dirname + '/../../cibul-symfony/web/css/oaet.css',
 
 files = {
 

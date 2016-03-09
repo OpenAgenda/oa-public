@@ -22,7 +22,7 @@ destPublicTemplatePath = require('./files.js').destPublicTemplatePath,
 
 sass = require( 'node-sass' ),
 
-map = JSON.parse( fs.readFileSync('../map.json', "utf8") ),
+map = JSON.parse( fs.readFileSync( __dirname + '/../map.json', "utf8") ),
 
 cn = require( '../js/lib/common/common.mod.js' ),
 
@@ -78,9 +78,9 @@ run = function() {
 
 _copyBsCss = function( cb ) {
 
-  var src = fs.createReadStream( '../node_modules/bs-templates/compiled/main.css' ),
+  var src = fs.createReadStream( __dirname + '/../node_modules/bs-templates/compiled/main.css' ),
 
-  dest = fs.createWriteStream( '../../cibul-symfony/web/css/oasfmain.css' );
+  dest = fs.createWriteStream( __dirname + '/../../cibul-symfony/web/css/oasfmain.css' );
 
   src.pipe( dest );
 
@@ -107,7 +107,7 @@ legacyProdify = function() {
 
       try {
 
-        content += (labels?'/*' + filename + '*/':'') + (mangle?ugly.minify(path + filename, { mangle: true }).code:fs.readFileSync(path + filename)) + (changeLine?'\n':';');
+        content += (labels?'/*' + filename + '*/':'') + (mangle?ugly.minify( __dirname + '/' + path + filename, { mangle: true }).code:fs.readFileSync( __dirname + '/' + path + filename ) ) + (changeLine?'\n':';');
 
       } catch( e ) {
 
@@ -166,8 +166,8 @@ prodifyPublicTemplates = function( map, cb ) {
 
     async.series([
       async.apply( checkOrCreateDir, mapItem.uri ),
-      async.apply( copyFile, '../' + mapItem.uri + '.ejs', destPublicTemplatePath + mapItem.uri + '.ejs' ),
-      async.apply( copyFile, '../' + mapItem.uri + '.fr.json', destPublicTemplatePath + mapItem.uri + '.fr.json' )
+      async.apply( copyFile, __dirname + '/../' + mapItem.uri + '.ejs', destPublicTemplatePath + mapItem.uri + '.ejs' ),
+      async.apply( copyFile, __dirname + '/../' + mapItem.uri + '.fr.json', destPublicTemplatePath + mapItem.uri + '.fr.json' )
     ], ecb );
 
   }, cb );
@@ -498,7 +498,7 @@ _browserify = function( paths, cb ) {
 
   var bundle = b.bundle(),
 
-  destFilePath = __dirname + '/' + paths.dest.path + '/' + paths.dest.name,
+  destFilePath = paths.dest.path + '/' + paths.dest.name,
 
   writeStream = fs.createWriteStream( destFilePath ); 
 

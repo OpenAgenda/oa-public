@@ -3,6 +3,10 @@
   "name": "cibulTemplates",
   "version": "0.0.2",
   "description": "cibul templates library",
+  "scripts" : {
+    "start" : "nodemon --ignore build/ --ignore node_modules/ app",
+    "build" : "node prodify/prodify nc"
+  },
   "dependencies": {
     "async": "0.9.0",
     "browserify": "6.3.3",
@@ -26,7 +30,7 @@
     "react-dom": "0.14.7",
     "react-select": "^0.9.1",
     "react-tagsinput": "3.0.2",
-    "react-timings-picker": "git://github.com/Oagenda/react-timings-picker.git#4481bf4ded6d4e09a84bc7a25c1ee15e110bde22",
+    "react-timings-picker": "git://github.com/Oagenda/react-timings-picker.git",
     "reactify": "1.1.1",
     "spin.js": "2.3.2",
     "st": "0.5.2",
