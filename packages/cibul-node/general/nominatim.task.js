@@ -14,6 +14,8 @@ france = require( '../services/nominatim/franceCleaner' ),
 
 nom = require( '../services/nominatim/nominatim' ),
 
+geocode = require( 'agenda-locations' ).utils.geocode,
+
 running = false,
 
 _onComplete,
@@ -117,7 +119,11 @@ function run() {
 
             if (parsedData.department) updates.department = parsedData.department;
 
-            if (parsedData.region) updates.region = parsedData.region;
+            if ( parsedData.region ) {
+
+              updates.region = parsedData.countryCode == 'FR' ? geocode.clean.frenchRegion( parsedData.region ) : parsedData.region;
+
+            }
 
             if (parsedData.cityDistrict) updates.cityDistrict = parsedData.cityDistrict;
 

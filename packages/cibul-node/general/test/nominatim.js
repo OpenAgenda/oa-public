@@ -42,7 +42,7 @@ describe( 'nominatim', function() {
 
         var expected = {
           1 : { department: 'Haute-Marne' },
-          2 : { region: 'Centre' },
+          2 : { region: 'Centre-Val de Loire' },
           3 : { city_district: '19e Arrondissement' }
         };
 
