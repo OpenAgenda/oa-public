@@ -13,6 +13,7 @@
     <% include ./js.part.ejs %>
   </head>
   <body<% if ( pageClass ) { %> class="<%= pageClass %>"<% } %> data-options="<%- typeof scriptParams !== 'undefined' ? _esc( JSON.stringify( scriptParams ) ) : '' %>">
+    <div id="outdated"></div>
     <header class="js_top_nav">
       <div class="container">
         <a class="logo" href="<%= genUrl( 'corpoHome' ) %>"><img alt="OpenAgenda" src="/images/openagenda.png"></a>

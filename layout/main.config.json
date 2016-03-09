@@ -10,7 +10,8 @@
     "page" : "../css/page structure/page.css",
     "structure" : "../structure/css/structure.css",
     "buttons" : "../css/buttons.css",
-    "fontawesome430" : "../css/font-awesome-4.3.0/css/font-awesome.css"
+    "fontawesome430" : "../css/font-awesome-4.3.0/css/font-awesome.css",
+    "outdated" : "../css/outdated.scss"
   },
 
   "base" : {

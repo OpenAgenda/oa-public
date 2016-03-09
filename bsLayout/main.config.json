@@ -7,7 +7,8 @@
     "bsHeader" : "../css/bsHeader.scss",
     "bsFooter" : "../css/bsFooter.scss",
     "bsButtons" : "../css/bsButtons.scss",
-    "tmp" : "../css/temporary.css"
+    "tmp" : "../css/temporary.css",
+    "outdated" : "../css/outdated.scss"
   },
 
   "base" : {
