@@ -100,6 +100,8 @@ function getPrivateEventData( req, res, next ) {
 
       if ( err ) return d.reject( err );
 
+      v.custom = custom;
+
       v.labels = v.req.agenda.getCustomFieldsLabels( v.req.event.getCurrentLanguage() );
 
       d.resolve( v );
