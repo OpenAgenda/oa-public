@@ -149,7 +149,20 @@
             <span><%= event.category %></span>
           </div>
 <% } %>
-<% if ( [ 'undefined', 'string' ].indexOf( typeof event.tags ) == -1 && event.tags.length ) { %>
+<% if ( typeof event.tagGroups !== 'undefined' ) { %>
+          <div class="tag-groups">
+<% event.tagGroups.forEach( g => { %>
+          <div class="tags">
+            <label><%= g.name %>: </label>
+            <ul>
+<%- g.tags.map( t => {
+      return '<li>' + _txt.escape( t.label ) + '</li>';
+}).join( ', ' ) %>        
+            </ul>
+          </div>
+<% }); %>
+          </div>
+<% } else if ( [ 'undefined', 'string' ].indexOf( typeof event.tags ) == -1 && event.tags.length ) { %>
           <div class="tags">
             <label><%= __( 'Tags' ) %>:</label>
             <ul>
