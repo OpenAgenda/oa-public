@@ -8,9 +8,9 @@ wn = require( 'when/node' ),
 
 userSvc = require( '../services/invitation' );
 
-describe( 'contributive agenda', function() {
+describe( 'contributive agenda', () => {
 
-  this.timeout( 20000 );
+  this.timeout( 30000 );
 
   var browser,
 
@@ -241,7 +241,7 @@ describe( 'contributive agenda', function() {
 
     })
 
-    .then( function() {
+    .then( null, function() {
 
       // user should arrive on event form page
       browser.location.pathname.should.equal( '/frontend_test.php/a-contributive-agenda/addevent' );
