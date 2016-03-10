@@ -23,7 +23,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
     var languages, mapping,
 
     params = utils.extend( {
-      includePrivateFields: typeof options == 'boolean' ? options : false,
+      includePrivateData: typeof options == 'boolean' ? options : false,
       lang: false
     }, typeof options === 'object' ? options : {} )
 
@@ -31,7 +31,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
       languages = l;
 
-      mapping = _defineMapping( params.includePrivateFields );
+      mapping = _defineMapping( params.includePrivateData );
 
       cb( null, {
         getFieldNames: getFieldNames,
@@ -172,7 +172,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
     }
 
-    function _defineMapping( includePrivateFields ) {
+    function _defineMapping( includePrivateData ) {
 
       return [ 'uid' ].concat( _textFields( [ 
         'title', 'description', 'longDescription', 'conditions', 'html'
@@ -234,7 +234,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         } ], 
         _textFields( [ 
           'location.description', 'location.access'
-        ], languages ), _extendMapping( instance, includePrivateFields ) );
+        ], languages ), _extendMapping( instance, includePrivateData ) );
 
     }
 
