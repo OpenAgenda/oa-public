@@ -8,7 +8,9 @@ possibleLanguages = [ 'fr', 'en', 'es', 'de', 'it' ],
 
 accessibilityLabels = require( 'labels/event/accessibility' ),
 
-exportFieldLabels = require( 'labels/event/exportFieldNames' );
+exportFieldLabels = require( 'labels/event/exportFieldNames' ),
+
+moment = require( 'moment' );
 
 module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => {
 
@@ -162,7 +164,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
         return exportFieldLabels[ field ][ params.lang ]
 
-        + ( suffix ? ' (' + suffix.toUpperCase().substr( 1 ) + ')' : '' );
+        + ( suffix ? ' - ' + suffix.toUpperCase().substr( 1 ) : '' );
 
       }
 
@@ -180,6 +182,16 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         'originalImage',
         'updatedAt',
         [ 'range', 'range', [ 'fr', 'en' ] ],
+        {
+          'sourceField' : 'timings',
+          'destField' : 'timings_fr',
+          fn: _defineTimings( 'fr' )
+        },
+        {
+          'sourceField' : 'timings',
+          'destField' : 'timings_en',
+          fn: _defineTimings( 'en' )
+        },
         'firstDate',
         'firstTimeStart',
         'firstTimeEnd',
@@ -346,6 +358,31 @@ function _extractLanguages( values ) {
 }
 
 
+function _defineTimings( lang ) {
+
+  let today = new Date();
+
+  return function( timings ) {
+
+    moment.locale( lang );
+
+    return timings
+
+    .map( t => {
+
+      let d = moment( t.start ).format( 'ddd Do MMM' ) + ( today.getUTCFullYear() !== parseInt( t.start.substr( 0, 4 ) ) ? ' ' + t.start.substr( 0, 4 ) : '' ),
+
+      start = t.start.split( 'T' )[ 1 ].substr( 0, 2 ) + ( lang == 'fr' ? 'h' : ':' ) + t.start.split( 'T' )[ 1 ].substr( 3, 2 ),
+
+      end = t.end.split( 'T' )[ 1 ].substr( 0, 2 ) + ( lang == 'fr' ? 'h' : ':' ) + t.end.split( 'T' )[ 1 ].substr( 3, 2 );
+
+      return d + ' - ' + start + ( lang == 'fr' ? ' à ' : ' to ' ) + end;
+
+    } ).join( '\n' );
+
+  }
+
+}
 
 
 function _defineEventUrl( instance ) {
