@@ -236,7 +236,7 @@ function _redirect( req, res ) {
 
 function _changeStateCredential( req, res, next ) {
 
-  let settings = req.agenda.getSettings();
+  let settings = req.agenda.getSettings( true );
 
   if ( parseInt( req.params.type ) === STATETYPES.PUBLISHED && !settings.moderators.canPublish ) {
 

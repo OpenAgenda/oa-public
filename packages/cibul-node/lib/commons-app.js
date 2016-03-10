@@ -518,6 +518,12 @@ function loadBaseData( func, cssFile ) {
 
     }
 
+    if ( req.agenda && req.agenda.hasChatbox() ) {
+
+      baseData.bottom.scripts.push( 'CRISP_WEBSITE_ID = "-KC1cwSWCMI3qYiWHBSI";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();' );
+
+    }
+
     req.baseData = deepExtend( req.baseData ? req.baseData : {}, baseData );
 
     next();
