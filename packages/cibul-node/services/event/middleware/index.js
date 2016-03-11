@@ -47,58 +47,61 @@ function loadEvent( paramName, fieldName, options ) {
     w( {
       req: req,
       res: res,
-      event: false
+      event: false,
+      accessRequired: null,
+      user: {
+        logged: null,
+        editor: null, // owner of the event or editor through admin agenda
+        credential: null // relative to agenda
+      }
     } )
 
     .then( _get( paramName, fieldName, params.inAgendaContext ) )
 
     .then( _selectLanguage )
 
-    .then( _loadAccessRequired )
-
     .then( p.ifl( { 'req.agenda' : true }, _loadAgendaContext ) )
+
+    .then( _loadAccessRequired )
 
     .then( p.ifl( { accessRequired: true }, _loadUserCreds ) )
 
     .then( p.ifl( { 'req.agenda' : true, accessRequired: true }, _loadUserAgendaCreds ) )
 
-    .then( p.ifl( { 'req.agenda' : true, accessRequired: true, hasAgendaCreds: false }, _redirectToCanonicalIfNotDraft ) )
-
     .done( function( v ) {
-
-      if ( v.redirect ) {
-
-        log( 'redirecting to %s with code %s', v.redirect.to, v.redirect.code );
-
-        return res.redirect( v.redirect.code, v.redirect.to );
-
-      }
 
       req.event = v.event;
 
-      if ( v.accessRequired ) {
+      // event is publicly available
+      if ( !v.accessRequired ) {
 
-        if ( !req.session.logged ) return next( { code: 401 } );
-
-        if ( params.inAgendaContext && req.agenda && !v.hasAgendaCreds ){
-
-          req.log( 'user does not have required agenda credentials' );
-
-          return next( { code: 403 } );
-
-        }
-
-        if ( v.isDraft && !v.hasCreds ) {
-
-          req.log( 'user does not have required credentials' );
-
-          return next( { code: 403 } );
-
-        }
+        return next();
 
       }
 
-      next();
+      // event is restricted and user is not logged
+      if ( !v.user.logged ) {
+
+        return res.redirect( req.genUrl( req.agenda ? 'agendaSignup' : 'signup', utils.extend( {
+          msg: 'limitedaccessevent',
+          redirect: ( new Buffer( req.genUrl( req.agenda ? 'agendaEventShow' : 'eventShow', utils.extend( {
+            eventSlug: req.event.slug
+          }, req.agenda ? { slug: req.agenda.slug } : {} ) ) ).toString( 'base64' ) )
+        }, req.agenda ? {
+          slug: req.agenda.slug
+        } : {} ) ) );
+
+      }
+
+      // user is logged and is editor or admin or moderator
+      if ( v.user.editor || v.user.credential ) {
+
+        return next();
+
+      }
+
+      // user is logged but does not have access
+      return next( { code: 403, messageCode: 'eventRestrictedAccess' } );
 
     }, next );
 
@@ -278,22 +281,6 @@ function _loadAgendaContext( v ) {
 }
 
 
-function _redirectToCanonicalIfNotDraft( v ) {
-
-  if ( !v.event.getIsDraft() ) {
-
-    v.redirect = {
-      code: 302,
-      to: v.req.genUrl( 'eventShow', { eventSlug: v.event.slug } )
-    };
-
-  }
-
-  return v;
-
-}
-
-
 function _selectLanguage( v ) {
 
   if ( !v.req.query.lang ) return v;
@@ -350,7 +337,7 @@ function _loadUserAgendaCreds( v ) {
 
       if ( is ) {
 
-        v.hasAgendaCreds = true;
+        v.user.credential = 'administrator';
 
         return rs( v );
 
@@ -360,21 +347,9 @@ function _loadUserAgendaCreds( v ) {
 
         if ( err ) return rj( err );
 
-        if ( is ) {
+        v.user.credential = is ? 'moderator' : null;
 
-          v.hasAgendaCreds = true;
-
-          return rs( v );
-
-        }
-
-        v.req.agenda.isContributor( user, function( err, is ) {
-
-          v.hasAgendaCreds = v.hasCreds && is;
-
-          rs( v );
-
-        } );
+        rs( v );
 
       });
 
@@ -387,28 +362,17 @@ function _loadUserAgendaCreds( v ) {
 
 function _loadUserCreds( v ) {
 
-  v.req.log( 'checking user creds' );
+  v.user.logged = v.req.session.logged;
 
-  if ( !v.req.session.logged ) {
+  if ( !v.user.logged ) return v;
 
-    v.req.log( 'user is not logged' );
+  return w.promise( ( rs, rj ) => {
 
-    return v;
-
-  }
-
-  return w.promise( function( rs, rj ) {
-
-    // I just need to be able to see it if it is not draft.
-    // if it is draft
-
-    v.event.isEditor( v.req.session.userId, function( err, is ) {
-
-      v.req.log( 'user is editor' );
+    v.event.isEditor( v.req.session.userId, ( err, is ) => {
 
       if ( err ) return rj( err );
 
-      if ( is ) v.hasCreds = true;
+      v.user.editor = is;
 
       rs( v );
 

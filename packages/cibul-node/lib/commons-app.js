@@ -78,6 +78,10 @@ genUrl = require( '../services/genUrl' ),
 
 languages = require( 'languages' ),
 
+labels = {
+  unauthorized: require( 'labels/errors/unauthorized' )
+},
+
 qs = require( 'qs' );
 
 
@@ -353,6 +357,10 @@ function catchError( req, res, jsonResponse ) {
       res.code = 404;
 
       req.log( 'error', err );
+
+    } else if ( err.code == 403 && err.messageCode ) {
+
+      err.message = labels.unauthorized[ err.messageCode ][ req.lang ];
 
     }
 

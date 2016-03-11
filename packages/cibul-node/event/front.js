@@ -444,7 +444,7 @@ function _formatSocialLinks( req, res, next ) {
   } else {
 
     eventUrl = req.genUrl( 'eventShow', {
-      eventSlug: req.event.slug 
+      eventSlug: req.event.slug
     }, { protocol: 'https://' } );
 
   }

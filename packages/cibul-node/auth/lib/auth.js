@@ -14,6 +14,8 @@ deepExtend = require( 'deep-extend' ),
 
 userSvc = require( '../../services/user' ),
 
+labels = require( 'labels/auth/messages' ),
+
 loadAgenda = require( '../../services/agenda' ).mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
 
 session = require( './session' ),
@@ -379,6 +381,12 @@ function _render( template, defaults ) {
     } else {
 
       deepExtend( data, arguments.length === 3 ? arguments[ 2 ] : {} );
+
+    }
+
+    if ( req.query.msg ) {
+
+      data.headMessage = labels[ req.query.msg ] ? labels[ req.query.msg ][ req.lang ] : false;
 
     }
 

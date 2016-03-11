@@ -8,7 +8,7 @@ wn = require( 'when/node' ),
 
 userSvc = require( '../services/invitation' );
 
-describe( 'contributive agenda', () => {
+describe( 'contributive agenda', function () {
 
   this.timeout( 30000 );
 
@@ -300,13 +300,13 @@ describe( 'contributive agenda', () => {
 
       return _signin( browser, { email: user.email, password: 'bisounoursjaunedevant' } );
 
-    } )  
+    } )
 
     .then( null, _p( browser, 'visit', '/' + agenda.slug ) )
 
     .then( _p( browser, 'clickLink', '#add-event' ) )
 
-    .then( function() {
+    .then( null, function() {
 
       browser.location.pathname.should.equal( '/frontend_test.php/a-contributive-agenda/addevent' );
 
