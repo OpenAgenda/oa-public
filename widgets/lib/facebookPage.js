@@ -22,6 +22,10 @@ module.exports = function( pageOptions ) {
 
   } );
 
+  return {
+    contentChange: function() {}
+  }
+
 }
 
 function _fbAsyncInit( fbAppId, cb ) {
