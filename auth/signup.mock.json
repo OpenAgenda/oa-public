@@ -26,5 +26,8 @@
   },
   "noinvite" : {
     "iToken" : false
+  },
+  "headmessage" : {
+    "headMessage" : "Cette page n'est accessible que depuis une session ouverte. Connectez-vous."
   }
 }

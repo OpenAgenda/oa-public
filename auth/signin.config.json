@@ -12,6 +12,7 @@
     "_sl" : "shareLinks"
   },
   "base" : {
+    "headMessage" : false,
     "pageClass" : "auth",
     "optionals" : {},
     "agenda" : false,

@@ -2,6 +2,7 @@
 <% include ../agenda/head.part.ejs %>
 <% } %>
 <div class="container">
+  <% include _headMessage.ejs %>
   <div class="row top-margined">
     <section class="col-sm-6 col-sm-offset-3 wsq">
       <div class="row">
@@ -34,7 +35,7 @@
             <input class="form-control" type="password" name="password" value="<%= password %>" />
           </div>
           <div class="form-group">
-            <button class="btn btn-success" name="signin" type="submit"><%= __('Sign in') %></button>
+            <button class="btn btn-success" name="signin" type="submit"><%= __( 'Sign in' ) %></button>
           </div>
         </form>
 
