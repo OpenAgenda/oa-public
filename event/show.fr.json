@@ -29,8 +29,8 @@
   : "Description disponible en",
   "Date details"
   : "Détail des dates",
-  "Published by %owner%"
-  : "Publié par %owner%",
+  "created by %owner%"
+  : "crée par %owner%",
   "Past event"
   : "Événement passé",
   "see all the events"
