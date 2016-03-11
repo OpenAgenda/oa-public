@@ -182,8 +182,9 @@
     float: right;
     margin: 20px 0 40px 0;
 
-    span {
-      color: $oa-gray;
+    p {
+      display: inline-block;
+      padding-right: 0.5em;
     }
 
   }
