@@ -437,6 +437,10 @@ function _formatSocialLinks( req, res, next ) {
       eventSlug: req.event.slug 
     }, { protocol: 'https://' } );
 
+    siteUrl = req.genUrl( 'agendaShow', {
+      slug: req.agenda.slug
+    }, { protocol: 'https://' } );
+
   } else {
 
     eventUrl = req.genUrl( 'eventShow', {
@@ -447,7 +451,7 @@ function _formatSocialLinks( req, res, next ) {
 
   if ( req.embed ) {
 
-    siteUrl = req.embed.getSiteUrl();
+    siteUrl = req.embed.getSiteUrl() || siteUrl;
 
     eventUrl = siteUrl + '?oaq[uid]=' + req.event.uid;
 
