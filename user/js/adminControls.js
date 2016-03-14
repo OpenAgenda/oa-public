@@ -34,9 +34,11 @@ ifAdminCallbacks = [];
 
 function init() {
 
-  if ( !shouldDisplay ) hide();
+  hide( !shouldDisplay );
 
   _move();
+
+  _displayItems();
 
 }
 
@@ -73,11 +75,11 @@ function process( session, options ) {
 }
 
 
-function hide() {
+function hide( hideMenu ) {
 
   if ( typeof log !== 'undefined' ) log( 'hiding' );
 
-  du.addClass( du.el( params.selectors.controls ), params.classes.displayNone );
+  if ( hideMenu ) du.addClass( du.el( params.selectors.controls ), params.classes.displayNone );
 
   u.forEach( du.els( params.selectors.item ), function( item ) {
 
@@ -123,11 +125,7 @@ function _test( session ) {
 
 }
 
-function _display() {
-
-  shouldDisplay = true;
-
-  var controlsElem = du.el( params.selectors.controls );
+function _displayItems() {
 
   if ( !params.displaySelectors ) { 
 
@@ -144,6 +142,14 @@ function _display() {
     });
 
   });
+
+}
+
+function _display() {
+
+  shouldDisplay = true;
+
+  var controlsElem = du.el( params.selectors.controls );
 
   du.removeClass( controlsElem, params.classes.displayNone );
 
