@@ -412,7 +412,7 @@ function _formatEmbedHeadLinks( req, res, next ) {
 
   req.actionLink = {
     url: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } ),
-    label: i18n( 'Export / Use', req.lang )
+    label: i18n( 'Export', req.lang )
   };
 
   next();

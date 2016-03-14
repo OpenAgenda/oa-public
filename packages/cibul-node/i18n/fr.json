@@ -151,8 +151,8 @@
   : "Vous pouvez désormais configurer et utiliser la dernière version des codes d'agendas integrés",
   "embed configuration not found"
   : "configuration de la vue integrée introuvable",
-  "Export / Use"
-  : "Exporter / Utiliser",
+  "Export"
+  : "Exporter",
   "ownership is transfered"
   : "la propriété est transférée",
   "from the %firstDate% to the %lastDate%"
