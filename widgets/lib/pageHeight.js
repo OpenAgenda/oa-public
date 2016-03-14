@@ -122,8 +122,11 @@ function _getFirstChildPaddingSum() {
 
 }
 
+
 function _getStyleValue( elem, name ) {
 
-  return parseInt( ( window.getComputedStyle ? window.getComputedStyle( elem ) : elem.currentStyle )[ name ], 10 );
+  var style = ( window.getComputedStyle ? window.getComputedStyle( elem ) : elem.currentStyle ) || {};
+
+  return parseInt( style[ name ] || 0, 10 );
 
 }
