@@ -86,6 +86,12 @@ module.exports = React.createClass( {
 
   },
 
+  orderBy( order ) {
+
+    this.resetPage( actions.getOrderedQuery( this.state, order ) );
+
+  },
+
   resetPage( newQuery ) {
 
     get( this.props.res, {
@@ -108,9 +114,30 @@ module.exports = React.createClass( {
 
   },
 
+  renderFilters() {
+
+    var current = ( this.state.query || {} ).order || 'mostrecent',
+
+    labels = {
+      mostrecent: 'recent',
+      count: 'most events',
+      upcomingcount: 'most upcoming events'
+    };
+
+    return <div className="filters">
+      { Object.keys( labels ).map( order => { 
+
+        return order === current ? 
+          <a><strong>{ labels[ order ] }</strong></a> 
+          : <a onClick={ this.orderBy.bind( null, order ) }>{ labels[ order ] }</a>  
+      } ) }
+    </div>
+
+  },
+
   render() {
 
-    return <div className="container">
+    return <div className="container agenda-search">
       <div className="row">
         <div className="col-sm-8 col-sm-offset-2 wsq header">
           <div className="form-group">
@@ -123,6 +150,7 @@ module.exports = React.createClass( {
               onChange={this.onSearchChange}
             />
           </div>
+          {this.renderFilters()}
         </div>
       </div>
       <div className="row">

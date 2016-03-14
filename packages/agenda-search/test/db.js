@@ -28,6 +28,24 @@ describe( 'db', () => {
 
     } );
 
-  })
+  } );
+
+
+  it( 'getDetails', done => {
+
+    db.getDetails( 4848, ( err, details ) => {
+
+      should( err ).equal( null );
+
+      details.should.eql( {
+        publishedEvents: 9,
+        upcomingPublishedEvents: 7
+      } );
+
+      done();
+
+    } );
+
+  } );
 
 } );

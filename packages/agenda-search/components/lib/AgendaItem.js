@@ -38,6 +38,23 @@ module.exports = React.createClass({
             "p",
             { className: "description" },
             this.props.agenda.description
+          ),
+          React.createElement(
+            "div",
+            null,
+            React.createElement(
+              "span",
+              null,
+              "événements: ",
+              this.props.agenda.publishedEvents
+            ),
+            " /",
+            React.createElement(
+              "span",
+              null,
+              "à venir: ",
+              this.props.agenda.upcomingPublishedEvents
+            )
           )
         )
       )

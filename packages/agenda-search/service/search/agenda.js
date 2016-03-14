@@ -2,6 +2,12 @@
 
 var utils = require( 'utils' );
 
+const sorts = {
+  mostrecent: { updatedAt: { order: 'desc' } },
+  count: { publishedEvents: { order: 'desc' } },
+  upcomingcount: { upcomingPublishedEvents: { order: 'desc' } }
+}
+
 module.exports = {
 
   // index name
@@ -25,7 +31,9 @@ module.exports = {
 
 }
 
-
+/**
+ * build dsl query for fetching agendas
+ */
 function query( q, offset, limit ) {
 
   var dsl = {
@@ -37,9 +45,13 @@ function query( q, offset, limit ) {
       }
     },
     _source: { exclude: ['*_es'] }
-  },
+  };
 
-  query = {};
+  if ( sorts[ q.order ] ) {
+
+    dsl.sort = sorts[ q.order ];
+
+  }
 
   if ( q.search && q.search.length ) {
 
@@ -80,6 +92,16 @@ function getMappings() {
         },
 
         uid: {
+          type: 'integer',
+          index: 'not_analyzed'
+        },
+
+        publishedEvents: {
+          type: 'integer',
+          index: 'not_analyzed'
+        },
+
+        upcomingPublishedEvents: {
           type: 'integer',
           index: 'not_analyzed'
         },
@@ -150,7 +172,7 @@ function clean( a, config ) {
 
   var c = {};
 
-  [ 'id', 'uid', 'slug', 'title', 'description', 'updated_at', 'image' ].forEach( k => {
+  [ 'id', 'uid', 'slug', 'title', 'description', 'updated_at', 'image', 'publishedEvents', 'upcomingPublishedEvents' ].forEach( k => {
 
     c[ utils.toCamelCase( k ) ] = a[ k ];
 

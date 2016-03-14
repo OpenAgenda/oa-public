@@ -27,7 +27,10 @@ function init( c, cb ) {
 
   config = deepExtend( {
     mysql: {},
-    logger: false
+    logger: false,
+    interfaces: {
+      getEventStats: ( agendaId, cb ) => cb()
+    }
   }, c );
 
   if ( config.logger ) {

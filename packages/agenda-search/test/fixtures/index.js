@@ -12,7 +12,11 @@ database = config.mysql.database,
 
 sql = {
   reset: fs.readFileSync( __dirname + '/reset.sql' ).toString(),
-  data: fs.readFileSync( __dirname + '/data.sql' ).toString()
+  data: {
+    agenda: fs.readFileSync( __dirname + '/agenda.data.sql' ).toString(),
+    agendaEvent: fs.readFileSync( __dirname + '/agendaEvent.data.sql' ).toString(),
+    occurrence: fs.readFileSync( __dirname + '/occurrence.data.sql' ).toString()
+  }
 },
 
 w = require( 'when' );
@@ -35,7 +39,9 @@ module.exports = function( cb ) {
 
     return _query( v, 
       sql.reset
-      .replace( /\${schema}/g, config.schemas.agenda )
+      .replace( /\${agendaSchema}/g, config.schemas.agenda )
+      .replace( /\${agendaEventSchema}/g, config.schemas.agendaEvent )
+      .replace( /\${occurrenceSchema}/g, config.schemas.occurrence )
       .replace( /\${database}/g, database )
     );
 
@@ -44,9 +50,35 @@ module.exports = function( cb ) {
   // populate the agenda schema
   .then( v => {
 
-    _query( v, 
-      sql.data
+    console.log( 'populating agendas' );
+
+    return _query( v, 
+      sql.data.agenda
       .replace( /\${schema}/g, config.schemas.agenda )
+    );
+
+  } )
+
+  // populate the occurrence schema
+  .then( v => {
+
+    console.log( 'populating occurrences' );
+
+    return _query( v, 
+      sql.data.occurrence
+      .replace( /\${schema}/g, config.schemas.occurrence )
+    );
+
+  } )
+
+  // populate the agendaEvent schema
+  .then( v => {
+
+    console.log( 'populating agendaEvent references' );
+
+    return _query( v, 
+      sql.data.agendaEvent
+      .replace( /\${schema}/g, config.schemas.agendaEvent )
     );
 
   } )

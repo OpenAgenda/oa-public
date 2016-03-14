@@ -72,17 +72,18 @@ module.exports = function( obj, db, config ) {
 
       cb();
 
-    }, err => {
-
-      cb( err );
-
-    } );
+    }, cb );
 
   }
 
   
 }
 
+
+/**
+ * HERE: run interface function for each agenda
+ * before running the bulk insert
+ */
 
 function _populate( v ) {
 
@@ -104,7 +105,7 @@ function _populate( v ) {
 
       if ( err ) {
 
-        log( 'error', err );
+        console.log( 'error', err );
 
         return wcb( err );
 

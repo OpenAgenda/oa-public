@@ -1,13 +1,13 @@
 {
   "name": "agenda-search",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "service/index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test" : "mocha",
+    "test" : "mocha -w",
     "install": "babel components/src -d components/lib",
     "babelify": "babel components/src -d components/lib",
     "preserve" : "npm run-script babelify",
@@ -26,7 +26,7 @@
     "knex": "^0.9.0",
     "mysql": "^2.10.2",
     "qs": "^6.1.0",
-    "react-addons-update": "0.14.2",
+    "react-addons-update": "0.14.7",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
     "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git",
     "react-form-components": "git+ssh://git@bitbucket.org:openagenda/react-form-components.git",
@@ -38,14 +38,14 @@
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "bs-templates": "git@bitbucket.org:openagenda/bs-templates.git",
-    "react": "0.14.2",
-    "react-dom": "0.14.2",
+    "react": "0.14.7",
+    "react-dom": "0.14.7",
     "should": "^8.2.0",
     "test-app": "git@bitbucket.org:openagenda/test-app.git"
   },
   "peerDependencies": {
-    "react": "0.14.2",
-    "react-dom": "0.14.2",
+    "react": "0.14.7",
+    "react-dom": "0.14.7",
     "babel-cli": "^6.3.17",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13"

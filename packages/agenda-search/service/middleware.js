@@ -6,7 +6,10 @@ validators = require( 'validators' ),
 
 service, config,
 
-validatePage = validators.number( { min: 1, default: 1 } ),
+validatePage = validators.number( {
+  min: 1,
+  default: 1
+} ),
 
 utils = require( 'utils' ),
 
@@ -48,14 +51,12 @@ function list( req, res, next ) {
 
     if ( req.xhr ) return res.json( req.data );
 
-    req.content = ReactDOMServer.renderToString(
-      Body( {
-        page: page,
-        query: req.query.oas,
-        agendas: agendas,
-        total: total
-      } )
-    );
+    req.content = ReactDOMServer.renderToString( Body( {
+      page: page,
+      query: req.query.oas,
+      agendas: agendas,
+      total: total
+    } ) );
 
     next();
 

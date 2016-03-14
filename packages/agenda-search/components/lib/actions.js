@@ -8,8 +8,22 @@ var update = require('react-addons-update');
 
 module.exports = {
   addPageItems: addPageItems,
-  resetPageItems: resetPageItems
+  resetPageItems: resetPageItems,
+  getOrderedQuery: getOrderedQuery
 };
+
+/**
+ * get state query decorated with order passed in params
+ */
+
+function getOrderedQuery(current, order) {
+
+  var query = current.query || {};
+
+  query.order = order;
+
+  return query;
+}
 
 /**
  * append new items to top or bottom of list

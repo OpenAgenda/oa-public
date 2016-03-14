@@ -22,6 +22,14 @@ app.get( '/', mw.list );
 
 fixtures( ( err, result ) => {
 
+  if ( err ) {
+
+    console.error( err );
+
+    return;
+
+  }
+
   service.init( config );
   
   service.rebuild( () => app.getAndListen() );

@@ -72,6 +72,10 @@ module.exports = React.createClass({
       search: search
     });
   },
+  orderBy: function orderBy(order) {
+
+    this.resetPage(actions.getOrderedQuery(this.state, order));
+  },
   resetPage: function resetPage(newQuery) {
     var _this2 = this;
 
@@ -92,11 +96,42 @@ module.exports = React.createClass({
       });
     });
   },
+  renderFilters: function renderFilters() {
+    var _this3 = this;
+
+    var current = (this.state.query || {}).order || 'mostrecent',
+        labels = {
+      mostrecent: 'recent',
+      count: 'most events',
+      upcomingcount: 'most upcoming events'
+    };
+
+    return React.createElement(
+      'div',
+      { className: 'filters' },
+      Object.keys(labels).map(function (order) {
+
+        return order === current ? React.createElement(
+          'a',
+          null,
+          React.createElement(
+            'strong',
+            null,
+            labels[order]
+          )
+        ) : React.createElement(
+          'a',
+          { onClick: _this3.orderBy.bind(null, order) },
+          labels[order]
+        );
+      })
+    );
+  },
   render: function render() {
 
     return React.createElement(
       'div',
-      { className: 'container' },
+      { className: 'container agenda-search' },
       React.createElement(
         'div',
         { className: 'row' },
@@ -118,7 +153,8 @@ module.exports = React.createClass({
               value: this.state.query ? this.state.query.search : '',
               onChange: this.onSearchChange
             })
-          )
+          ),
+          this.renderFilters()
         )
       ),
       React.createElement(
