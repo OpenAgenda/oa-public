@@ -229,11 +229,7 @@ var widget = function( elem, options ) {
     elem.innerHTML = new EJS( { text: templates.main } ).render( {} );
 
     calendar = new cLib.CibulCalendar( cn.el( elem, 'div' ), {
-      filter: function( date, classes ) {
-
-        return _filterCalendar( date, classes );
-        
-      },
+      filter: _filterCalendar,
       onSelect: _onSelect,
       navDomContent: { prev: '<', next: '>'},
       lang: lang
@@ -304,9 +300,15 @@ var widget = function( elem, options ) {
 
     ].join( '-' );
 
-    if ( cn.contains( activeDates, formattedDate ) ) {
+    if ( activeDates.indexOf( formattedDate ) !== -1 ) {
 
       classes.push( 'hasdates' );
+
+    }
+
+    if ( existingDates.indexOf( formattedDate ) !== -1 ) {
+
+      classes.push( 'exists' );
 
     }
 

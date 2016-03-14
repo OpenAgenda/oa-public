@@ -1,5 +1,8 @@
 <html>
   <head>
+<script type="text/javascript">
+  window.testControlData='<%= controlData %>';
+</script>
 <% js.forEach( function( jsPath ) { %>
   <script type="text/javascript" src="<%= jsPath %>"></script>
 <% }) %>
