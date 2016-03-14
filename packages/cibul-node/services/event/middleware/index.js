@@ -49,6 +49,7 @@ function loadEvent( paramName, fieldName, options ) {
       res: res,
       event: false,
       accessRequired: null,
+      inAgendaContext: params.inAgendaContext,
       user: {
         logged: null,
         editor: null, // owner of the event or editor through admin agenda
@@ -391,7 +392,15 @@ function _loadAccessRequired( v ) {
 
   v.isDraft = v.event.getIsDraft();
 
-  v.accessRequired = ( v.req.agenda && !v.event.isPublishedOn( v.req.agenda ) ) || v.isDraft;
+  if ( v.req.agenda && v.inAgendaContext ) {
+
+    v.accessRequired = !v.event.isPublishedOn( v.req.agenda );
+
+  } else {
+
+    v.accessRequired = v.isDraft;
+
+  }
 
   return v;
 
