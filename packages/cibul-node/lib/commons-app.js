@@ -29,6 +29,7 @@ exports.checkModerator = checkModerator;
 exports.checkContributor = checkContributor;
 exports.checkAdminOrModerator = checkAdminOrModerator;
 exports.checkAdminOrModeratorOrKey = checkAdminOrModeratorOrKey;
+exports.checkStakeholder = checkStakeholder;
 
 exports.useEmbedGoogleAnalytics = useEmbedGoogleAnalytics;
 
@@ -235,10 +236,21 @@ function checkAdminOrModerator( req, res, next ) {
 
     next();
 
-  })
+  } );
 
 }
 
+function checkStakeholder( req, res, next ) {
+
+  req.agenda.isStakeholder( { id: req.session.userId }, ( err, is ) => {
+
+    if ( !is ) return next( { code: 403 } );
+
+    next();
+
+  } );
+
+}
 
 function checkAdminOrModeratorOrKey( req, res, next ) {
 
