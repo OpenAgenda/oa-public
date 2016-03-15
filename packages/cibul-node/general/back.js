@@ -15,13 +15,15 @@ userSvc = require( '../services/user' ),
 routes = {
 
   featureRequest: [ 'post', '/featurerequest', [
+    cmn.loadLogger( 'featureRequest' ),
     bodyParser.json(),
     _loadUser,
     featureRequest 
   ] ],
 
   sns: [ 'post', '/aws/sns', [
-    bodyParser.json(),
+    cmn.loadLogger( 'sns' ),
+    bodyParser.text(),
     sns
   ] ]
 
@@ -32,7 +34,6 @@ module.exports = function( path ) {
   var router = modLib.Router( routes );
 
   router.pre([
-    cmn.loadLogger( 'general/back' ),
     cmn.loadSession
   ]);
 
@@ -76,10 +77,15 @@ function _loadUser( req, res, next ) {
 
 function sns( req, res, next ) {
 
-  console.log( 'sns' );
+  try {
 
-  console.log( req.query );
-  console.log( req.body );
+    req.log( 'info', JSON.parse( req.body ) );
+
+  } catch( e ) {
+
+    req.log( 'error', 'could not ready sns: %s', req.body );
+
+  }
 
   res.send( 'ok' );
 
