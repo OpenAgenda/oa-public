@@ -18,6 +18,11 @@ routes = {
     bodyParser.json(),
     _loadUser,
     featureRequest 
+  ] ],
+
+  sns: [ 'get', '/aws/sns', [
+    bodyParser.json(),
+    sns
   ] ]
 
 };
@@ -65,5 +70,17 @@ function _loadUser( req, res, next ) {
     next();
 
   });
+
+}
+
+
+function sns( req, res, next ) {
+
+  console.log( 'sns' );
+
+  console.log( req.query );
+  console.log( req.body );
+
+  res.send( 'ok' );
 
 }
