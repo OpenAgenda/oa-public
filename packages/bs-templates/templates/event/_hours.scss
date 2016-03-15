@@ -1,0 +1,101 @@
+#event {
+  .hours {
+    padding: 20px;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .month {
+      display: none;
+      width: 200px;
+
+      &-title {
+        border-bottom: 1px solid silver;
+        border-top: 1px solid silver;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        position: relative;
+        text-align: center;
+
+        h4 {
+          font-size: 1em;
+          font-weight: bold;
+          margin: 0;
+        }
+
+        h4, i {
+          display: inline-block;
+        }
+
+        i {
+          cursor: pointer;
+          padding: 13px 5px;
+          position: absolute;
+          top: 0;
+
+          &:hover {
+            color: $oa-blue;
+          }
+        }
+
+        .prev {
+          left: 0;
+        }
+
+        .next {
+          right: 0;
+        }
+      }
+
+      &-list {
+        margin-bottom: 10px;
+      }
+
+      &-item {
+        padding: 5px;
+        position: relative;
+
+        span {
+          display: inline-block;
+          width: 50%;
+        }
+
+        &:hover {
+          background: #fafafa;
+        }
+      }
+
+      &-current {
+        display: block;
+      }
+    }
+
+    .day {
+      font-weight: 500;
+      position: absolute;
+      top: 5px;
+      left: 5px;
+    }
+
+    .hour {
+      font-weight: 300;
+      margin-left: 50%;
+    }
+  }
+
+  .no-js {
+    .month {
+      display: inline-block;
+      margin-right: 10px;
+      vertical-align: top;
+    }
+
+    .month-title i {
+      display: none;
+    }
+  }
+}
