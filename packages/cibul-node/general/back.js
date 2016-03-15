@@ -20,7 +20,7 @@ routes = {
     featureRequest 
   ] ],
 
-  sns: [ 'get', '/aws/sns', [
+  sns: [ 'post', '/aws/sns', [
     bodyParser.json(),
     sns
   ] ]
