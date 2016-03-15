@@ -8,6 +8,8 @@ mailer = require( 'mailer' ),
 
 config = require( '../config' ),
 
+utils = require( 'utils' ),
+
 bodyParser = require( 'body-parser' ),
 
 userSvc = require( '../services/user' ),
@@ -79,7 +81,11 @@ function sns( req, res, next ) {
 
   try {
 
-    req.log( 'info', JSON.parse( req.body ) );
+    let body = JSON.parse( req.body ),
+
+    message = JSON.parse( body.Message );
+
+    req.log( 'info', utils.extend( body, message ) );
 
   } catch( e ) {
 
