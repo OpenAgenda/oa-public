@@ -184,11 +184,21 @@ function mail( req, res, next ) {
 
   mail.recipient = _cleanRecipients( data.recipient );
 
+  if ( !mail.recipient.length ) {
+
+    req.log( 'error', 'no recipients for mail with data: %s', data.body.substr( 0, 200 ) + '...' );
+
+    return _done( req, res );
+
+  }
+
   mail.subject = data.subject;
 
-  mailer( mail );
+  mailer( mail, err => {
 
-  _done( req, res );
+    _done( req, res );
+
+  } );
 
 }
 
@@ -243,17 +253,15 @@ function _cleanRecipients( recipients ) {
 
     recipients.forEach( r => {
 
-      let email = _extractRecipient( r );
+      let emails = _extractRecipients( r );
 
-      if ( email ) clean.push( email );
+      clean = clean.concat( emails );
 
     });
 
   } else if ( typeof recipients == 'object' ) {
 
-    let email = _extractRecipient( recipients );
-
-    if ( email ) clean.push( email );
+    clean = _extractRecipients( recipients );
 
   }
 
@@ -261,8 +269,12 @@ function _cleanRecipients( recipients ) {
 
 }
 
-function _extractRecipient( obj ) {
+function _extractRecipients( obj ) {
 
-  for ( let email in obj ) return email;
+  let emails = [];
+
+  for( let email in obj ) emails.push( email );
+
+  return emails;
 
 }
