@@ -11,6 +11,9 @@
           "newUpload" : "#",
           "newRemove" : "#"
         }
+      },
+      "agenda" : {
+        "slug" : "theagendaslug"
       }
     }
 

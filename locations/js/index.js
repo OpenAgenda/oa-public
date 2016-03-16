@@ -26,6 +26,7 @@ window.asap( function( options ) {
   deepExtend( params, options );
 
   ReactDom.render( <LocactionsAdmin
+    agenda={params.agenda}
     settings={params.settings}
     lang={params.lang}
     detailedInfo={true}
