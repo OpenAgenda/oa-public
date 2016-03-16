@@ -12,7 +12,11 @@ utils = require( 'utils' ),
 
 storeKey = 'emailstrategie',
 
-searchDefaultQuery = {};
+searchDefaultQuery = {},
+
+flattenerParams = {
+  headerHandler: f => f.replace( /\./g , '_' )
+};
 
 module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
 
@@ -109,7 +113,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
       return w.promise( function( rs, rj ) {
 
-        loaded.flattener( false, ( err, f ) => {
+        loaded.flattener( flattenerParams, ( err, f ) => {
 
           if ( err ) return rj( err );
 
@@ -218,7 +222,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
       if ( !account.lists.length ) {
 
-        loaded.flattener( false, function( err, f ) {
+        loaded.flattener( flattenerParams, function( err, f ) {
 
           if ( err ) return cb( err );
 
@@ -295,7 +299,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
       if ( err ) return cb( err );
 
-      loaded.flattener( false, function( err, f ) {
+      loaded.flattener( flattenerParams, function( err, f ) {
 
         cb( err, list, f );
 
@@ -428,9 +432,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
       if ( err ) return cb( err );
 
-      loaded.flattener( {
-        headerHandler: f => f.replace( /\./g , '_' )
-      }, ( err, f ) => {
+      loaded.flattener( flattenerParams, ( err, f ) => {
 
         var stream = loaded.searchStream( searchQuery ),
 
