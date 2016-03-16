@@ -24,7 +24,8 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
     params = utils.extend( {
       includePrivateData: typeof options == 'boolean' ? options : false,
-      lang: false
+      lang: false,
+      prettyHeaders: true
     }, typeof options === 'object' ? options : {} )
 
     instance.getLanguages( function( err, l ) {
@@ -150,6 +151,8 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
     function _fieldLabel( field ) {
 
       if ( !params.lang ) return field;
+
+      if ( !params.prettyHeaders ) return field;
 
       let suffix = false;
 

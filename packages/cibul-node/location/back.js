@@ -122,6 +122,11 @@ function show( req, res ) {
       detailedInfo: true,
       settings: req.settings,
       lang: req.lang,
+      agenda: {
+        slug: req.agenda.slug,
+        title: req.agenda.title,
+        uid: req.agenda.uid
+      },
       res: {
         index: req.genUrl( 'locationIndex', { slug: req.agenda.slug } ),
         geocode: req.genUrl( 'locationGeocode', { slug: req.agenda.slug } ),
