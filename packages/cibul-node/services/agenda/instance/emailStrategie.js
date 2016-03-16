@@ -428,7 +428,9 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
       if ( err ) return cb( err );
 
-      loaded.flattener( { prettyHeaders: false }, function( err, f ) {
+      loaded.flattener( {
+        headerHandler: f => f.replace( /\./g , '_' )
+      }, ( err, f ) => {
 
         var stream = loaded.searchStream( searchQuery ),
 
