@@ -92,10 +92,23 @@ AdminEventsHeader = React.createClass({
 
     return (
       <div className="row admin-events-header">
-        <div className="col col-sm-12">
+        <div className="col col-sm-2">
+          <div className="form-group">
+            <div className="state-control">
+              <Select
+                value={this.getQueryPart( 'state' )}
+                options={self.getStateOptions()}
+                clearable={false}
+                placeholder={getLabel( 'state', this.props.lang )}
+                onChange={function( state ) {
+                  self.setQueryPart( 'state', state );
+                }} />
+            </div>
+          </div>
+        </div>
+        <div className="col col-sm-10">
           <div className="form-inline">
             <div className="form-group">
-              <label>{getLabel( 'filterList', this.props.lang )}</label>
               <input
                 className="form-control"
                 placeholder={getLabel( 'title', this.props.lang )}
@@ -108,26 +121,26 @@ AdminEventsHeader = React.createClass({
                 value={this.getQueryPart( 'locationName' )}
                 onChange={this.onChange( 'locationName' )}
                 onKeyUp={this.onKeyUp( 'locationName' )} />
-              {this.props.terms?<TermSelector
+            </div>
+            <div className="form-group">
+              <input
+                className="form-control"
+                placeholder={getLabel( 'contributor', this.props.lang )}
+                value={this.getQueryPart( 'contributor' )}
+                onChange={this.onChange( 'contributor' )}
+                onKeyUp={this.onKeyUp( 'contributor' )} />
+              { this.props.terms ? <TermSelector
                 field="region,country"
                 lang={this.props.lang}
                 placeholder={getLabel( 'region', this.props.lang )}
                 value={this.getRegionQueryPart()}
                 res={this.props.res.terms}
                 onChange={function( term ) {
+
                   self.setRegionQueryPart( term );
+
                 }}
-              />:null}
-              <div className="state-control">
-                <Select
-                  value={this.getQueryPart( 'state' )}
-                  options={self.getStateOptions()}
-                  clearable={false}
-                  placeholder={getLabel( 'state', this.props.lang )}
-                  onChange={function( state ) {
-                    self.setQueryPart( 'state', state );
-                  }} />
-              </div>
+              /> : null }
             </div>
           </div>
         </div>

@@ -1,4 +1,6 @@
 .admin-events-header {
+
+  padding: 1em 0;
   
   .form-control, .terms-selector, label {
 
@@ -11,6 +13,22 @@
     display: inline-block;
     vertical-align: middle;
     min-width: 100px;
+
+  }
+
+  .term-selector {
+
+    min-width: 196px;
+
+  }
+
+  .form-inline {
+
+    .form-group {
+
+      padding-bottom: 0.5em;
+
+    }
 
   }
 
