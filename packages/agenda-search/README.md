@@ -8,6 +8,7 @@ Before anything, make sure you have npm -g installed the following:
   * https://www.npmjs.com/package/babel-preset-es2015
   * https://www.npmjs.com/package/babel-preset-react
 
+Configure your testconfig.js file and save it at the root of the project - it will be used by the test app - a sample is provided at the bottom of this readme.
 
 Then, install:
 
@@ -39,3 +40,43 @@ components contains src jsx files and regular ES5 built files. Plus a couple of 
 # Writing rules
 
 As always: https://github.com/rwaldron/idiomatic.js/
+
+
+# Init
+
+for testing the app, you need to save testconfig.js at the root of the project. Here is a sample:
+
+"use strict";
+
+module.exports = {
+  mysql : {
+    host : '127.0.0.1',
+    database : 'atestdb',
+    password : 'thetestdbpassword',
+    user : 'testdbuser'
+  },
+  schemas : {
+    agenda: 'agenda',
+    occurrence: 'occurrence',
+    agendaEvent: 'agenda_event'
+  },
+  elasticsearch: {
+    host: 'localhost:9200',
+    log: [ {
+      type: 'stdio',
+      level: [ 'error', 'warning' ]
+    } ],
+    apiVersion: '1.3',
+    timeout: 30000
+  },
+  mw: {
+    limit: {
+      default: 20,
+      max: 100
+    }
+  },
+  image: {
+    path: '//cibul.s3.amazonaws.com/',
+    default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+  }
+}

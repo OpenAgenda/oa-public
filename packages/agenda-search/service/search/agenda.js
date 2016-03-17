@@ -45,7 +45,9 @@ function query( q, offset, limit ) {
       }
     },
     _source: { exclude: ['*_es'] }
-  };
+  },
+
+  dslQuery = {}
 
   if ( sorts[ q.order ] ) {
 
@@ -55,7 +57,7 @@ function query( q, offset, limit ) {
 
   if ( q.search && q.search.length ) {
 
-    query.multi_match = {
+    dslQuery.multi_match = {
       query: q.search,
       type: 'cross_fields',
       operator: 'and',
@@ -66,13 +68,13 @@ function query( q, offset, limit ) {
 
   }
 
-  if ( !utils.size( query ) ) {
+  if ( !utils.size( dslQuery ) ) {
 
-    query = { match_all: {} };
+    dslQuery = { match_all: {} };
 
   }
 
-  dsl.query = query;
+  dsl.query = dslQuery;
 
   return dsl;
 

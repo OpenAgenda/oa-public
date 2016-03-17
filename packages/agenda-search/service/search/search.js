@@ -27,6 +27,8 @@ module.exports = function( obj, db, config ) {
 
     client = _createClient( config );
 
+    console.log( JSON.stringify( dsl ) );
+
     client.search( {
       index: obj.alias,
       body: dsl
