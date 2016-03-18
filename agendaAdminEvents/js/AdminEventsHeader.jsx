@@ -87,7 +87,7 @@ AdminEventsHeader = React.createClass({
 
     }
 
-    utils.unique( defaults ).forEach( f => {
+    utils.unique( defaults ).forEach( function( f ) {
 
       obj[ f ] = undefined;
 
