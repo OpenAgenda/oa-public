@@ -260,7 +260,7 @@ function signin( values ) {
 
   values.resolved = true;
 
-  values.req.log( 'signing in user %s', user.email );
+  values.req.log( 'info', 'signing in user %s', user.email );
 
   session.set( req, res, user, () => {
 
