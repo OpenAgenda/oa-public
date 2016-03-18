@@ -24,7 +24,7 @@ params = {
 
 ReactDom = require( 'react-dom' );
 
-window.asap( function( options ) {
+window.hook( function( options ) {
 
   deepExtend( params, options );
 

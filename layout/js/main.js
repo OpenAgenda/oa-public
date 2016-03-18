@@ -57,7 +57,11 @@ window.getSession = handleSession();
 
 du.asapReady( function() {
 
-  utils.extend( params, layout.getOptions( 'body' ) );
+  if ( !utils.size( params ) ) {
+
+    utils.extend( params, layout.getOptions( 'body' ) );
+    
+  }
 
   if ( typeof window.eh !== 'undefined' ) eh = window.eh;
 
@@ -91,6 +95,12 @@ du.asapReady( function() {
 
 
 du.addEvent( window, 'load', function() {
+
+  if ( !utils.size( params ) ) {
+
+    utils.extend( params, layout.getOptions( 'body' ) );
+
+  }
 
   du.forEach( hooks, function( hook ) {
 

@@ -2,9 +2,21 @@
 
   padding: 1em 0;
   
-  .form-control, .terms-selector, label {
+  .form-control, label {
 
     margin-right: 0.5em;
+
+  }
+
+  .form-control, .picked-terms-selector {
+
+    min-width: 290px;
+
+  }
+
+  .terms-selector {
+
+    min-width: 190px;
 
   }
 
@@ -16,9 +28,9 @@
 
   }
 
-  .term-selector {
+  .picked-terms-selector {
 
-    min-width: 196px;
+    display: inline-block;
 
   }
 
