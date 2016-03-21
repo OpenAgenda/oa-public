@@ -58,7 +58,7 @@ describe( 'signup', function() {
 
   } );
 
-  it( 'empty form submit displays 3 error messages', function( done ) {
+  it( 'empty form submit displays 3 error messages', done => {
 
     browser.visit( '/signup', function( err ) {
 

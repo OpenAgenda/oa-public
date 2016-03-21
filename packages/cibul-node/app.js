@@ -135,6 +135,7 @@ module.exports = function( enabledTypes, cb ) {
         require( './agenda/embeds.back' )( '/:slug/admin/embeds' ),
         require( './location/front' )( '/locations' ),
         require( './location/back' )( '' ),
+        require( './agenda/shares.front' )( '' ),
         require( './agenda/front' )( '' ),
         require( './agenda/facebook.back' )( '' ),
         require( './agenda/tagcat.back' )( '' ),

@@ -26,6 +26,9 @@ config = {
     embedGoogleAnalyticsId: 'UA-60305866-2',
     useCache: true,
     agendaCacheExpire: 30*1000,
+    shares: {
+      agenda: [ 'twitter', 'facebook', 'googlePlus', 'linkedIn' ]
+    },
     adminEmail: 'admin@openagenda.com',
     mapboxAccessToken: 'pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
     geocodeFarm: {
