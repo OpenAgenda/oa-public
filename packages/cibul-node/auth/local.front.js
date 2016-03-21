@@ -24,6 +24,8 @@ agendaSvc = require( '../services/agenda' ),
 
 pLib = require( './lib/passport' ),
 
+emailValidator = require( 'validators/email' )(),
+
 routes = {
 
   signin: [ 'get', '/signin', [ 
@@ -53,12 +55,14 @@ routes = {
   signup: [ 'get', '/signup', [ 
     cmn.requireUnlogged,
     _loadCaptcha,
+    _guessFullName,
     auth.renderSignup
   ] ],
 
   agendaSignup: [ 'get', '/:slug/signup', [
     cmn.requireUnlogged,
     _loadCaptcha,
+    _guessFullName,
     auth.renderSignup
   ] ],
 
@@ -351,6 +355,41 @@ function _loadCaptcha( req, res, next ) {
   }
 
   next();
+
+}
+
+
+function _guessFullName( req, res, next ) {
+
+  if ( !req.query.email ) return next();
+
+  let email;
+
+  try {
+
+    email = emailValidator( req.query.email );
+
+  } catch( e ) {
+
+    return next();
+
+  }
+  
+  let parts = email.split( '@' ),
+
+  name = parts[ 0 ]
+
+  .split( /[\._]/g )
+
+  .map( s => s[ 0 ].toUpperCase() + s.substr( 1 ) )
+
+  .join( ' ' ),
+
+  at = ( parts[ 1 ][ 0 ].toUpperCase() + parts[ 1 ].substr( 1 ) ).split( '.' )[ 0 ];
+
+  auth.renderSignup( req, res, {
+    full_name: name + ' ' + at
+  } );
 
 }
 

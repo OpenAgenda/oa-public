@@ -26,7 +26,7 @@ describe( 'contributive agenda', function () {
 
   beforeEach( done => t.coms.clearQueue( 'mailer', done ) );
 
-  beforeEach( ( done ) => {
+  beforeEach( done => {
 
     t.loadBrowser( ( err, b ) => {
 
@@ -36,7 +36,7 @@ describe( 'contributive agenda', function () {
 
     } );
 
-  });
+  } );
 
   beforeEach( t.sets.prepareOneAgendaInstance( agenda, 'contributive' ) );
 
@@ -120,7 +120,7 @@ describe( 'contributive agenda', function () {
 
     .then( _p( browser, 'clickLink', '#add-event' ) )
 
-    .then( function() {
+    .then( () => {
 
       browser.fill( 'request[message]', 'a descriptive message' );
       
@@ -132,7 +132,7 @@ describe( 'contributive agenda', function () {
 
     .then( _visit( browser, '/signin' ) )
 
-    .then( function() {
+    .then( () => {
 
       browser.fill( 'email', 'gaetan@cibul.net' );
 
@@ -142,7 +142,7 @@ describe( 'contributive agenda', function () {
 
     } )
 
-    .then( function() {
+    .then( () => {
 
       return w.promise( ( resolve, reject ) => {
 
@@ -162,13 +162,13 @@ describe( 'contributive agenda', function () {
 
     } )
 
-    .then( function() {
+    .then( () => {
 
       return wn.call( agenda.isContributor, user );
 
     })
 
-    .then( function( is ) {
+    .then( is => {
 
       is.should.equal( true );
 
@@ -356,11 +356,11 @@ describe( 'contributive agenda', function () {
 
     wn.call( agenda.setCredential, 'activatingInvitations' )
 
-    .then( ( ) => {
+    .then( () => {
 
       return _sendInvitation( browser, agenda, { email: 'newdude@cibul.net', password: 'wigglypoof' } );
 
-    })
+    } )
 
     .then( _visit( browser, '/signout' ) )
 

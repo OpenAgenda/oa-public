@@ -61,15 +61,27 @@ function init( svc ) {
 function agendaInvitations( agenda ) {
 
   return {
+
+    /**
+     * generate invitations
+     */
     inviteContributors: _inviteStakeholders( TYPES.AGENDACONTRIBUTOR ),
     inviteAdministrators: _inviteStakeholders( TYPES.AGENDAADMIN ),
     inviteModerators: _inviteStakeholders( TYPES.AGENDAMODERATOR ),
     inviteContributor: _inviteStakeholder( TYPES.AGENDACONTRIBUTOR ),
     inviteAdministrator: _inviteStakeholder( TYPES.AGENDAADMIN ),
     inviteModerator: _inviteStakeholder( TYPES.AGENDAMODERATOR ),
+
+    /**
+     * resend invitations
+     */
     resendInviteContributors: _resendInviteStakeholders( TYPES.AGENDACONTRIBUTOR ),
     resendInviteAdministrators: _resendInviteStakeholders( TYPES.AGENDAADMIN ),
     resendInviteModerators: _resendInviteStakeholders( TYPES.AGENDAMODERATOR ),
+
+    /**
+     * process invitation: send mail or create stakeholder
+     */
     processContributorInvitation: _processStakeholder( TYPES.AGENDACONTRIBUTOR ),
     processAdministratorInvitation: _processStakeholder( TYPES.AGENDAADMIN ),
     processModeratorInvitation: _processStakeholder( TYPES.AGENDAMODERATOR )
@@ -192,7 +204,7 @@ function agendaInvitations( agenda ) {
   
 
   /**
-   * process stakeholder invitaiton ( admin, moderator or contributor )
+   * process stakeholder invitation ( admin, moderator or contributor )
    */
 
   function _processStakeholder( type ) {
@@ -205,7 +217,7 @@ function agendaInvitations( agenda ) {
       
       return _attemptLoadUser( values )
 
-      .then( function( values ) {
+      .then( values => {
 
         if ( !values.user || !values.user.isActivated ) {
 
@@ -235,7 +247,8 @@ function agendaInvitations( agenda ) {
 
       var link = genUrl( 'agendaSignup', { 
         slug: agenda.slug, 
-        iToken: values.invitation.token 
+        iToken: values.invitation.token,
+        email: values.invitation.email
       }, { protocol: 'https://' } ),
 
       title = 'You have been invited to become %stakeholder% of the agenda %agenda%',

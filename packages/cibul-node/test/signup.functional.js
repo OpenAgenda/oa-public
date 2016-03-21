@@ -6,7 +6,7 @@ should = require( 'should' );
 
 describe( 'signup', function() {
 
-  this.timeout( 10000 );
+  this.timeout( 60000 );
 
   var browser;
 
@@ -41,6 +41,20 @@ describe( 'signup', function() {
       done();
 
     } );
+
+  } );
+
+  it( 'email in get is interpreted to suggest name', done => {
+
+    browser.visit( '/signup?email=some.name@organization.com' )
+
+    .then( () => {
+
+      browser.query( 'input[name=full_name]' ).value.should.equal( 'Some Name Organization' );
+      
+      done();
+
+    }, () => { done() } );
 
   } );
 
