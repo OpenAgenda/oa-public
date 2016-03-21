@@ -10,19 +10,19 @@ var defaults = {
       content: '<i class="fa fa-facebook"></i><span>facebook</span>',
       className: 'fb',
       res: 'https://www.facebook.com/sharer.php',
-      params: {u: 'url'}
+      params: { u: 'url' }
     },
     tw: {
       content: '<i class="fa fa-twitter"></i><span>twitter</span>',
       className: 'tw',
       res: 'https://twitter.com/share',
-      params: {url: 'url', text: 'title'}
+      params: { url: 'url', text: 'title' }
     },
     gp: {
       content: '<i class="fa fa-google-plus"></i><span>google plus</span>',
       className: 'gp',
       res: 'https://plus.google.com/share',
-      params: {url: 'url'}
+      params: { url: 'url' }
     },
     li: {
       content: '<i class="fa fa-linkedin"></i><span>linkedin</span>',

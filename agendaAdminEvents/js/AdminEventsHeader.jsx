@@ -188,6 +188,7 @@ AdminEventsHeader = React.createClass({
                 onKeyUp={this.onKeyUp( 'locationName' )} />
             </div>
             <div className="form-group">
+            
               <input
                 className="form-control"
                 placeholder={getLabel( 'contributor', this.props.lang )}
