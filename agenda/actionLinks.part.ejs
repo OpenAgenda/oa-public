@@ -6,19 +6,19 @@
     </a>
   </p>
   <p class="share"><%= __('Share') %>&nbsp;:
-    <a rel="no-follow" href="<%= genUrl( 'agendaShare', { slug: agenda.slug, service: 'twitter' }) %>" class="tw" target="_blank">
+    <a rel="nofollow" href="<%= genUrl( 'agendaShare', { slug: agenda.slug, service: 'twitter' }) %>" class="tw" target="_blank">
       <i class="fa fa-twitter"></i>
       <span>twitter</span>
     </a>
-    <a rel="no-follow" href="<%= genUrl( 'agendaShare', { slug: agenda.slug, service: 'facebook' }) %>" class="fb" target="_blank">
+    <a rel="nofollow" href="<%= genUrl( 'agendaShare', { slug: agenda.slug, service: 'facebook' }) %>" class="fb" target="_blank">
       <i class="fa fa-facebook"></i>
       <span>facebook</span>
     </a>
-    <a rel="no-follow" href="<%= genUrl( 'agendaShare', { slug: agenda.slug, service: 'googlePlus' }) %>" class="gp" target="_blank">
+    <a rel="nofollow" href="<%= genUrl( 'agendaShare', { slug: agenda.slug, service: 'googlePlus' }) %>" class="gp" target="_blank">
       <i class="fa fa-google-plus"></i>
       <span>google plus</span>
     </a>
-    <a rel="no-follow" href="<%= genUrl( 'agendaShare', { slug: agenda.slug, service: 'linkedIn' }) %>" class="li" target="_blank">
+    <a rel="nofollow" href="<%= genUrl( 'agendaShare', { slug: agenda.slug, service: 'linkedIn' }) %>" class="li" target="_blank">
       <i class="fa fa-linkedin"></i>
       <span>linkedin</span>
     </a>
@@ -28,7 +28,7 @@
     <a href="<%= genUrl( 'conversationAgendaContact', { 
       uid: agenda.uid, 
       redirect: _r({ module: 'review', action: 'show', 'slug': agenda.slug }) 
-    }) %>" rel="nofollow"><%= __('Contact the administrator of this agenda') %></a>
+    }) %>" rel="nofollow"><%= __( 'Contact the administrator of this agenda' ) %></a>
   </p>
 <% } %>
 </div><!--
