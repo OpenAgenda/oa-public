@@ -27,8 +27,6 @@ module.exports = function( obj, db, config ) {
 
     client = _createClient( config );
 
-    console.log( JSON.stringify( dsl ) );
-
     client.search( {
       index: obj.alias,
       body: dsl
@@ -256,13 +254,20 @@ function _getPreviousIndices( v ) {
 
   d = w.defer();
 
-  client.indices.getAlias( { name: v.obj.alias }, ( err, result ) => {
+  client.indices.getAlias( {
+    name: v.obj.alias
+  }, ( err, result ) => {
+
+    if ( err && err.displayName !== 'NotFound' ) {
+
+      return d.reject( err );
+
+    }
 
     client.close();
 
-    if ( err ) return d.reject( err );
-
-    v.previousIndices = Object.keys( result );
+    // if err at this point, means alias not set
+    v.previousIndices = err ? [] : Object.keys( result );
 
     d.resolve( v );
 
@@ -274,9 +279,15 @@ function _getPreviousIndices( v ) {
 
 
 /**
- * remove indexes listed by v.previousIndexes
+ * remove indexes listed by v.previousIndices
  */
 function _removePreviousIndices( v ) {
+
+  if ( !v.previousIndices.length ) {
+
+    return v;
+
+  }
 
   var client = _createClient( v.config ),
 
