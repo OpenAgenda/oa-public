@@ -10,6 +10,8 @@ Before anything, make sure you have npm -g installed the following:
 
 Configure your testconfig.js file and save it at the root of the project - it will be used by the test app - a sample is provided at the bottom of this readme.
 
+Check you have elasticsearch installed. The tested version for this app is 1.3.4
+
 Then, install:
 
     npm install
