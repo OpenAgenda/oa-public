@@ -55,11 +55,23 @@ function linkedText( __, data, useLinks ) {
  * from php.js
  */
 
-function nl2br( str, is_xhtml ) {
+function nl2br( str, is_xhtml, esc ) {
+
+  if ( typeof is_xhtml == 'undefined' ) {
+
+    is_xhtml = true;
+
+  }
+
+  if ( typeof esc == 'undefined' ) {
+
+    esc = true;
+
+  }
 
   var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
 
-  return ( escape( str + '' ) ).replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+  return ( esc ? escape( str + '' ) : str ).replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 
 }
 

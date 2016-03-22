@@ -229,7 +229,7 @@
         </div>
 
 <% if ( event.location.description ) { %>
-        <p><%- _txt.nl2br( event.location.description ) %></p>
+        <p><%- _txt.nl2br( event.location.description, true, false ) %></p>
 <% } %>
 <% if ( event.location.access ) { %>
         <p>
