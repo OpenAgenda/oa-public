@@ -4,9 +4,22 @@ var React = require( 'react' ),
 
 Picker = require( 'react-timings-picker' ),
 
-utils = require( 'utils' );
+utils = require( 'utils' ),
+
+transform = require( './timingsTransform' );
 
 module.exports = React.createClass( {
+
+  getDefaultProps: function() {
+
+    return {
+      day: {
+        start: '07:00',
+        end: '07:00'
+      }
+    }
+
+  },
 
   getLang: function() {
 
@@ -21,37 +34,18 @@ module.exports = React.createClass( {
 
   onChange: function( timings, targetTiming, operation ) {
 
-    this.props.onChange( timings.map( function( t ) {
+    var processed = transform.toEventFormFormat( timings, this.props.day.start, this.props.day.end );
 
-      var s = new Date( t.start ),
-
-      e = new Date( t.end );
-
-      return {
-        date: s.getFullYear() + '-' + utils.fZ( s.getMonth() + 1 ) + '-' + utils.fZ( s.getDate() ),
-        begin: utils.fZ( s.getHours() ) + ':' + utils.fZ( s.getMinutes() ),
-        end: utils.fZ( e.getHours() ) + ':' + utils.fZ( e.getMinutes() )
-      }
-
-    } ), timings.length ? false : this.props.labels.noDates[ this.props.lang ] );
+    this.props.onChange( 
+      processed, 
+      timings.length ? false : this.props.labels.noDates[ this.props.lang ]
+    );
 
   },
 
   getTimings: function() {
 
-    var self = this;
-
-    var timings = ( this.props.timings || [] ).map( function( t ) {
-
-      return {
-        start: t.date + 'T' + t.begin + self._tZ( t.date ),
-        end: self._endDate( t.date, t.begin, t.end ) + 'T' + t.end + self._tZ( t.date )
-      }
-
-
-    });
-
-    return timings;
+    return transform.toTimingsWidgetFormat( this.props.timings, this.props.day.start, this.props.day.end );
 
   },
 
@@ -60,8 +54,8 @@ module.exports = React.createClass( {
     return <div>
       <h2>{this.props.labels.timings[ this.props.lang ]}</h2>
       <Picker
-        startTime="7:00"
-        endTime="7:00"
+        startTime={this.props.day.start}
+        endTime={this.props.day.end}
         timings={this.getTimings()}
         activeDays={ this.props.configuration ? this.props.configuration.activeDays : undefined }
         weekStartDay={1}
@@ -71,32 +65,6 @@ module.exports = React.createClass( {
         timingStep={30}
         lang={this.getLang()} />
     </div>;
-
-  },
-
-  _tZ: function( d ) {
-
-    var tzh = ( new Date( d ) ).getTimezoneOffset() / 60;
-
-    return ( tzh >= 0 ? '' : '+' ) + utils.fZ( - tzh ) + ':00';
-
-  },
-
-  _endDate: function( d, begin, end ) {
-
-    var date;
-
-    if ( end > begin ) {
-
-      return d;
-
-    }
-
-    date = new Date( d );
-
-    date.setDate( date.getDate() + 1 );
-
-    return [ date.getFullYear(), utils.fZ( date.getMonth() + 1 ), utils.fZ( date.getDate() ) ].join( '-' );
 
   }
 

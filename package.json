@@ -3,9 +3,9 @@
   "name": "cibulTemplates",
   "version": "0.0.2",
   "description": "cibul templates library",
-  "scripts" : {
-    "start" : "nodemon --ignore build/ --ignore node_modules/ app",
-    "build" : "node prodify/prodify nc"
+  "scripts": {
+    "start": "nodemon --ignore build/ --ignore node_modules/ app",
+    "build": "node prodify/prodify nc"
   },
   "dependencies": {
     "async": "0.9.0",
@@ -44,15 +44,15 @@
     "when": "~3.4",
     "xhr": "^2.2.0",
     "spinner": "git@bitbucket.org:openagenda/spinner.git",
-    "react-addons-update" : "0.14.7",
+    "react-addons-update": "0.14.7",
     "image-upload": "git+ssh://git@bitbucket.org:openagenda/image-upload.git",
     "agenda-tags": "git+ssh://git@bitbucket.org:openagenda/agenda-tags.git",
     "agenda-categories": "git+ssh://git@bitbucket.org:openagenda/agenda-categories.git",
     "registration": "git+ssh://git@bitbucket.org:openagenda/registration.git",
-    "agenda-locations" : "git+ssh://git@bitbucket.org:openagenda/agenda-locations.git",
-    "react-form-components" : "git+ssh://git@bitbucket.org:openagenda/react-form-components.git",
+    "agenda-locations": "git+ssh://git@bitbucket.org:openagenda/agenda-locations.git",
+    "react-form-components": "git+ssh://git@bitbucket.org:openagenda/react-form-components.git",
     "labels": "git+ssh://git@bitbucket.org:openagenda/labels.git",
-    "bs-templates" : "git+ssh://git@bitbucket.org:openagenda/bs-templates.git",
+    "bs-templates": "git+ssh://git@bitbucket.org:openagenda/bs-templates.git",
     "dom-utils": "git+ssh://git@bitbucket.org:openagenda/dom-utils.git"
   },
   "browserify": {
@@ -63,5 +63,8 @@
       "es2015",
       "react"
     ]
+  },
+  "devDependencies": {
+    "should": "^8.2.2"
   }
 }
