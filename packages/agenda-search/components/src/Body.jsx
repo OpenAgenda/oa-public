@@ -128,8 +128,8 @@ module.exports = React.createClass( {
       { Object.keys( labels ).map( order => { 
 
         return order === current ? 
-          <a><strong>{ labels[ order ] }</strong></a> 
-          : <a onClick={ this.orderBy.bind( null, order ) }>{ labels[ order ] }</a>  
+          <a key={order}><strong>{ labels[ order ] }</strong></a> 
+          : <a key={order} onClick={ this.orderBy.bind( null, order ) }>{ labels[ order ] }</a>  
       } ) }
     </div>
 

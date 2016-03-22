@@ -113,7 +113,7 @@ module.exports = React.createClass({
 
         return order === current ? React.createElement(
           'a',
-          null,
+          { key: order },
           React.createElement(
             'strong',
             null,
@@ -121,7 +121,7 @@ module.exports = React.createClass({
           )
         ) : React.createElement(
           'a',
-          { onClick: _this3.orderBy.bind(null, order) },
+          { key: order, onClick: _this3.orderBy.bind(null, order) },
           labels[order]
         );
       })
