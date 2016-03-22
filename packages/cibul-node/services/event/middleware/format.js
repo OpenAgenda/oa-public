@@ -164,7 +164,7 @@ function _dates( v ) {
 
     d.label = v._t( d.date, 'dddd Do MMM' );
 
-    d.timings.forEach( t => {
+    d.timings.sort( ( a, b ) => a.start > b.start ).forEach( t => {
 
       t.label = v._t( t.start, 'dddd Do - HH:mm' );
 

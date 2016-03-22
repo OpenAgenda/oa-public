@@ -3,13 +3,13 @@
   "version": "0.0.2",
   "private": true,
   "description": "OpenAgenda main app",
-  "scripts" : {
-    "start" : "nodemon --ignore node_modules/ server.js web admin task"
+  "scripts": {
+    "start": "nodemon --ignore node_modules/ server.js web admin task"
   },
   "dependencies": {
     "ES": "git+ssh://git@bitbucket.org:cibul/es-node.git",
     "agenda-categories": "git+ssh://git@bitbucket.org:openagenda/agenda-categories.git",
-    "agenda-locations" : "git+ssh://git@bitbucket.org:openagenda/agenda-locations.git",
+    "agenda-locations": "git+ssh://git@bitbucket.org:openagenda/agenda-locations.git",
     "agenda-tags": "git+ssh://git@bitbucket.org:openagenda/agenda-tags.git",
     "async": "~0.9",
     "aws-sdk": "~2.0",
@@ -18,11 +18,11 @@
     "cibulModel": "git+ssh://git@bitbucket.org:cibul/cibulmodel.git",
     "cibulTemplates": "git+ssh://git@bitbucket.org:cibul/cibul-templates.git",
     "cookie-parser": "~1.3",
-    "cookie-session" : "1.2.0",
+    "cookie-session": "1.2.0",
     "debug": "~2.2",
     "deep-extend": "~0.2",
     "emailStrategie": "git+ssh://git@bitbucket.org:openagenda/emailStrategie.git",
-    "express" : "~4.13",
+    "express": "~4.13",
     "facebook": "git+ssh://git@bitbucket.org:openagenda/facebook.git",
     "fast-csv": "0.6.0",
     "fast-levenshtein": "1.0.6",
@@ -47,8 +47,8 @@
     "pdf": "git+ssh://git@bitbucket.org:openagenda/pdf.git#ce78177eadf64e3eaa996685189e7a9a84f9b25e",
     "qs": "~2.2",
     "queue": "git+ssh://git@bitbucket.org:openagenda/queue.git",
-    "react" : "0.14.7",
-    "react-dom" : "0.14.7",
+    "react": "0.14.7",
+    "react-dom": "0.14.7",
     "redis": "~0.12",
     "registration": "git+ssh://git@bitbucket.org:openagenda/registration.git",
     "rss": "1.2.0",
@@ -60,11 +60,11 @@
     "xlsx-writestream": "0.4.0",
     "xml": "git+ssh://git@bitbucket.org:openagenda/xml.git",
     "labels": "git+ssh://git@bitbucket.org:openagenda/labels.git",
-    "bs-templates" : "git+ssh://git@bitbucket.org:openagenda/bs-templates.git",
+    "bs-templates": "git+ssh://git@bitbucket.org:openagenda/bs-templates.git",
     "shares": "git+ssh://git@bitbucket.org:openagenda/shares.git"
   },
-  "devDependencies" : {
-    "zombie": "4.1.0",
-    "should": "~4.0"
+  "devDependencies": {
+    "should": "^8.2.2",
+    "zombie": "4.1.0"
   }
 }
