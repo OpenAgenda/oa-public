@@ -10,7 +10,9 @@ recursiveListPaths = require( './scripts/recursiveListPaths' ),
 
 renderEjs = require( './scripts/renderEjs' ),
 
-sassify = require( './scripts/sassify' );
+sassify = require( './scripts/sassify' ),
+
+fs = require( 'fs' );
 
 
 /**
@@ -67,6 +69,28 @@ app.get( /css$/, ( req, res, next ) => {
     res.send( css );
 
   });
+
+} );
+
+/**
+ * images
+ */
+
+app.get( /(png|jpg|jpeg)$/, ( req, res, next ) => {
+
+  let stream = fs.createReadStream( templatesBase + req.path );
+
+  stream.on( 'open', () => {
+
+    stream.pipe( res );
+
+  } );
+
+  stream.on( 'end', () => {
+
+    res.end();
+
+  } );
 
 } );
 

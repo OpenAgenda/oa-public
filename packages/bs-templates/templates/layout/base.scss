@@ -93,10 +93,21 @@ $tumblr-color: #32506d;
 // header
 @import "../header/header.scss";
 
+@import "search-form";
+
 body {
 
   background-color: $oa-gray-lightest;
 
+}
+
+
+.mobile-only {
+  display: block; 
+
+  @media (min-width: 768px) {
+    display: none;
+  }
 }
 
 
