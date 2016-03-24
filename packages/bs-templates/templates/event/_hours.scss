@@ -1,6 +1,8 @@
 #event {
   .hours {
-    padding: 20px;
+    
+    width: 80%;
+    margin-left: 40px;
 
     ul {
       list-style: none;
@@ -9,8 +11,13 @@
     }
 
     .month {
-      display: none;
+      
       width: 100%;
+      display: inline-block;
+      margin: 10px 10px 30px 0;
+
+      
+      
 
       &-title {
         border-bottom: 1px solid silver;
@@ -105,17 +112,20 @@
         vertical-align: top;
       }
     }
+
+    &.no-js {
+
+      width: 100%;
+      margin-left: 0;
+
+      .prev, .next {
+
+        display: none;
+
+      }
+
+    }
   }
 
-  .no-js {
-    .month {
-      display: inline-block;
-      margin-right: 10px;
-      vertical-align: top;
-    }
 
-    .month-title i {
-      display: none;
-    }
-  }
 }
