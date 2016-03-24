@@ -10,7 +10,7 @@
 
     .month {
       display: none;
-      width: 200px;
+      max-width: 235px;
 
       &-title {
         border-bottom: 1px solid silver;
@@ -32,6 +32,7 @@
         }
 
         i {
+          color: $oa-black;
           cursor: pointer;
           padding: 13px 5px;
           position: absolute;
@@ -65,7 +66,7 @@
         }
 
         &:hover {
-          background: #fafafa;
+          background: $oa-gray-lightest;
         }
       }
 
@@ -82,8 +83,19 @@
     }
 
     .hour {
+      color: $oa-gray;
       font-weight: 300;
       margin-left: 50%;
+      white-space: nowrap;
+    }
+
+    &.detail-item {
+      padding: 0;
+
+      h3 {
+        margin-top: 5px;
+        vertical-align: top;
+      }
     }
   }
 
