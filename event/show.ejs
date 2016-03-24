@@ -81,6 +81,9 @@
         <section class="detail-item">
           <h3><i class="fa fa-clock-o"></i></h3>
           <p class="detail-item-content"><%= event.dateRange %></p>
+          <div class="display-none js_hours hours">
+            <ul class="months"></ul>
+          </div>
         </section>
 
 <% if ( event.accessibility && event.accessibility.length ) { %>
@@ -137,6 +140,9 @@
         </div>
 <% } %>
       
+
+        <% include _hours.part.ejs %>
+
         <% include ../bsLayout/footer.part.ejs %>
 
       </aside>

@@ -11,6 +11,7 @@
     "event-langs" : "../node_modules/bs-templates/templates/event/_langs.scss",
     "leaflet" : "../css/leaflet-0.7.3.css",
     "sharers" : "../node_modules/bs-templates/templates/event/_sharers.scss",
+    "event-hours" : "../node_modules/bs-templates/templates/event/_hours.scss",
     "popup-overlay" : "../agenda/css/popup-overlay.scss",
     "event-print" : "../node_modules/bs-templates/templates/event/_print.scss"
   },

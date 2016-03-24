@@ -17,6 +17,16 @@ module.exports = function( options ) {
 
     moment.locale( params.lang );
 
+    if ( typeof date == 'string' ) {
+
+      try {
+
+        date = JSON.parse( date );
+
+      } catch( e ) {}
+
+    }
+
     // date can be an array of dates, one date with a time
 
     if ( ( typeof date == 'object' ) && !( date instanceof Date ) ) {
@@ -36,7 +46,7 @@ module.exports = function( options ) {
 
         }
 
-        clean[k] = formatDate( date[k], assumedFormat );
+        clean[ k ] = formatDate( date[ k ], assumedFormat );
 
       }
 

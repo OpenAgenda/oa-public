@@ -10,10 +10,19 @@ module.exports = function() {
     setLinks: setLinks,
     linkedText: linkedText,
     marked: marked,
-    truncate: truncate
+    truncate: truncate,
+    capitalize: capitalize
   };
 
 };
+
+function capitalize( str ) {
+
+  if ( !str || !str.length ) return;
+
+  return str.substr( 0, 1 ).toUpperCase() + str.substr( 1 );
+
+}
 
 
 function truncate( str, len, append ) {

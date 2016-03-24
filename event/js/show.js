@@ -10,6 +10,8 @@ ownershipTransfer = require( './ownershipTransfer' ),
 
 privateData = require( './privateData' ),
 
+hours = require( './hours' ),
+
 debug = require( 'debug' ), log,
 
 ROLES = {
@@ -38,6 +40,8 @@ if ( [ 'tpl', 'dev' ].indexOf( window.env ) !== -1 ) {
 window.hook( function( options ) {
 
   adminControls.init();
+
+  hours( options );
 
 } );
 
