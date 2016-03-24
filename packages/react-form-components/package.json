@@ -6,7 +6,6 @@
   "author": "",
   "license": "ISC",
   "scripts" : {
-    "build": "babel components -d build",
     "babelify": "babel components -d build",
     "preserve" : "npm run-script babelify",
     "serve": "node test/app",
