@@ -13,17 +13,23 @@
   li {
 
     display: inline-block;
-    background: $oa-blue;
-    border: 0;
-    margin: 0 10px 10px 0;
-    border-radius: 3px;
+    vertical-align: top;
+    padding: 0 10px 10px 0;
 
-    span {
-    
-      padding: 8px;
-      display: inline-block;
-      cursor: pointer;
-      color: $oa-white;
+    .language-item {
+
+      background: $oa-blue;
+      border: 0;
+      border-radius: 3px;
+
+      span {
+      
+        padding: 8px;
+        display: inline-block;
+        cursor: pointer;
+        color: $oa-white;
+
+      }
 
     }
 
@@ -34,18 +40,18 @@
     display: inline-block;
     cursor: pointer;
 
-    .Select-control {
-
-      width: 10em;
-
-    }
-
     a {
 
       padding-top: 7px;
       display: inline-block;
 
     }
+
+  }
+
+  .Select-control {
+
+    width: 10em;
 
   }
 

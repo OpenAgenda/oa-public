@@ -22,16 +22,17 @@ module.exports = React.createClass( {
 
   },
 
-  getInitialState: function() {
+  getInitialState() {
 
     return {
       displaySelect: false,
-      sortedLanguageCodes: this.sortLanguageCodes()
+      sortedLanguageCodes: this.sortLanguageCodes(),
+      edited: false
     }
 
   },
 
-  getDefaultProps: function() {
+  getDefaultProps() {
 
     return {
       getLabel: makeLabelGetter( labels )
@@ -39,7 +40,7 @@ module.exports = React.createClass( {
 
   },
 
-  onRemove: function( code ) {
+  onRemove( code ) {
 
     this.props.onChange( this.props.languages.filter( function( l ) {
 
@@ -49,7 +50,7 @@ module.exports = React.createClass( {
 
   },
 
-  sortLanguageCodes: function() {
+  sortLanguageCodes() {
 
     return languages.getAllLanguageCode().map( function( c ) { 
 
@@ -74,15 +75,13 @@ module.exports = React.createClass( {
 
   },
 
-  getRemainingLanguages: function() {
+  getRemainingLanguages() {
 
     var self = this;
 
-    return this.state.sortedLanguageCodes.filter( function( c ) {
+    return this.state.sortedLanguageCodes
 
-      return self.props.languages.indexOf( c ) == -1;
-
-    })
+    .filter( c => this.props.languages.indexOf( c ) == -1 )
 
     .map( function( c ) {
 
@@ -95,19 +94,23 @@ module.exports = React.createClass( {
 
   },
 
-  showSelect: function() {
+  showSelect() {
 
-    this.setState( { displaySelect: true } );
-
-  },
-
-  hideSelect: function() {
-
-    this.setState( { displaySelect: false } );
+    this.setState( {
+      displaySelect: true
+    } );
 
   },
 
-  languageAdd: function( newCode ) {
+  hideSelect() {
+
+    this.setState( {
+      displaySelect: false
+    } );
+
+  },
+
+  languageAdd( newCode ) {
 
     var languages = this.props.languages.slice();
 
@@ -119,17 +122,37 @@ module.exports = React.createClass( {
 
   },
 
-  render: function() {
+  languageEdit( code ) {
 
-    var self = this,
+    this.setState( { edited: code } );
 
-    languageItem = function( l ) {
+  },
+
+  languageChange( previousCode, newCode ) {
+
+    var languages = this.props.languages.slice();
+
+    languages.splice( languages.indexOf( previousCode ), 1, newCode );
+
+    this.setState( { edited: false } );
+
+    this.props.onChange( languages );
+
+  },
+
+  render() {
+
+    let languageItem = l => {
 
       return <LanguageItem 
         code={l}
         key={l}
-        languages={self.props.languages}
-        onRemove={self.onRemove} />
+        edited={l==this.state.edited}
+        languages={this.props.languages}
+        getRemainingLanguages={this.getRemainingLanguages}
+        onRemove={this.onRemove}
+        onChange={this.languageChange}
+        onEdit={this.languageEdit.bind( null, l )} />
 
     };
 
@@ -160,22 +183,48 @@ var LanguageItem = React.createClass( {
 
   },
 
+  renderCross() {
+
+    return <span onClick={this.onRemove} className="remove">&#10005;</span>
+
+  },
+
+  onChange: function( code ) {
+
+    this.props.onChange( this.props.code, code );
+
+  },
+
   render: function() {
 
-    var self = this,
+    let lInfo = languages.getLanguageInfo( this.props.code );
 
-    lInfo = languages.getLanguageInfo( this.props.code ),
+    if ( this.props.edited ) {
 
-    removeCross = function() {
+      return <li>
+        <Select
+          value={lInfo.nativeName}
+          options={this.props.getRemainingLanguages()}
+          onChange={this.onChange}
+          clearable={false} />
+      </li>
 
-      return <span onClick={self.onRemove} className="remove">&#10005;</span>
+    } else {
+
+      return <li>
+        <div className="language-item">
+          <span onClick={this.props.onEdit}>{lInfo.nativeName}</span>
+          { this.props.languages.length > 1 ? this.renderCross() : null }
+        </div>
+      </li>
 
     }
 
     return <li>
-      <span>{lInfo.nativeName}</span>
+      { this.props.edited ? 'edited' : 
+      <span onClick={this.props.onEdit}>{lInfo.nativeName}</span> }
       
-      { this.props.languages.length > 1 ? removeCross() : null }
+      { this.props.languages.length > 1 ? this.renderCross() : null }
     </li>;
 
   }

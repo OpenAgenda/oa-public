@@ -24,17 +24,16 @@ module.exports = React.createClass({
 
     return {
       displaySelect: false,
-      sortedLanguageCodes: this.sortLanguageCodes()
+      sortedLanguageCodes: this.sortLanguageCodes(),
+      edited: false
     };
   },
-
   getDefaultProps: function getDefaultProps() {
 
     return {
       getLabel: makeLabelGetter(labels)
     };
   },
-
   onRemove: function onRemove(code) {
 
     this.props.onChange(this.props.languages.filter(function (l) {
@@ -42,7 +41,6 @@ module.exports = React.createClass({
       return l !== code;
     }));
   },
-
   sortLanguageCodes: function sortLanguageCodes() {
 
     return languages.getAllLanguageCode().map(function (c) {
@@ -63,14 +61,13 @@ module.exports = React.createClass({
       return a.code;
     });
   },
-
   getRemainingLanguages: function getRemainingLanguages() {
+    var _this = this;
 
     var self = this;
 
     return this.state.sortedLanguageCodes.filter(function (c) {
-
-      return self.props.languages.indexOf(c) == -1;
+      return _this.props.languages.indexOf(c) == -1;
     }).map(function (c) {
 
       return {
@@ -79,17 +76,18 @@ module.exports = React.createClass({
       };
     });
   },
-
   showSelect: function showSelect() {
 
-    this.setState({ displaySelect: true });
+    this.setState({
+      displaySelect: true
+    });
   },
-
   hideSelect: function hideSelect() {
 
-    this.setState({ displaySelect: false });
+    this.setState({
+      displaySelect: false
+    });
   },
-
   languageAdd: function languageAdd(newCode) {
 
     var languages = this.props.languages.slice();
@@ -100,17 +98,34 @@ module.exports = React.createClass({
 
     this.props.onChange(languages);
   },
+  languageEdit: function languageEdit(code) {
 
+    this.setState({ edited: code });
+  },
+  languageChange: function languageChange(previousCode, newCode) {
+
+    var languages = this.props.languages.slice();
+
+    languages.splice(languages.indexOf(previousCode), 1, newCode);
+
+    this.setState({ edited: false });
+
+    this.props.onChange(languages);
+  },
   render: function render() {
+    var _this2 = this;
 
-    var self = this,
-        languageItem = function languageItem(l) {
+    var languageItem = function languageItem(l) {
 
       return React.createElement(LanguageItem, {
         code: l,
         key: l,
-        languages: self.props.languages,
-        onRemove: self.onRemove });
+        edited: l == _this2.state.edited,
+        languages: _this2.props.languages,
+        getRemainingLanguages: _this2.getRemainingLanguages,
+        onRemove: _this2.onRemove,
+        onChange: _this2.languageChange,
+        onEdit: _this2.languageEdit.bind(null, l) });
     };
 
     return React.createElement(
@@ -135,7 +150,6 @@ module.exports = React.createClass({
       )
     );
   }
-
 });
 
 var LanguageItem = React.createClass({
@@ -147,28 +161,63 @@ var LanguageItem = React.createClass({
     this.props.onRemove(this.props.code);
   },
 
+  renderCross: function renderCross() {
+
+    return React.createElement(
+      'span',
+      { onClick: this.onRemove, className: 'remove' },
+      '✕'
+    );
+  },
+
+
+  onChange: function onChange(code) {
+
+    this.props.onChange(this.props.code, code);
+  },
+
   render: function render() {
 
-    var self = this,
-        lInfo = languages.getLanguageInfo(this.props.code),
-        removeCross = function removeCross() {
+    var lInfo = languages.getLanguageInfo(this.props.code);
+
+    if (this.props.edited) {
 
       return React.createElement(
-        'span',
-        { onClick: self.onRemove, className: 'remove' },
-        '✕'
+        'li',
+        null,
+        React.createElement(Select, {
+          value: lInfo.nativeName,
+          options: this.props.getRemainingLanguages(),
+          onChange: this.onChange,
+          clearable: false })
       );
-    };
+    } else {
+
+      return React.createElement(
+        'li',
+        null,
+        React.createElement(
+          'div',
+          { className: 'language-item' },
+          React.createElement(
+            'span',
+            { onClick: this.props.onEdit },
+            lInfo.nativeName
+          ),
+          this.props.languages.length > 1 ? this.renderCross() : null
+        )
+      );
+    }
 
     return React.createElement(
       'li',
       null,
-      React.createElement(
+      this.props.edited ? 'edited' : React.createElement(
         'span',
-        null,
+        { onClick: this.props.onEdit },
         lInfo.nativeName
       ),
-      this.props.languages.length > 1 ? removeCross() : null
+      this.props.languages.length > 1 ? this.renderCross() : null
     );
   }
 
