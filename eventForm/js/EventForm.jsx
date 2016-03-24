@@ -2,7 +2,7 @@
 
 var React = require( 'react' ),
 
-LanguageBar = require( './LanguageBar.jsx' ),
+LanguageBar = require( 'react-form-components/build/LanguageBar' ),
 
 TextField = require( './TextField.jsx' ),
 
@@ -31,6 +31,10 @@ Registration = require( 'registration/lib/Registration.js' ),
 utils = require( 'utils' ),
 
 update = require( 'react-addons-update' ),
+
+languageUtils = require( './legacy/languageUtils' ),
+
+textFields = [ 'title', 'description', 'freeText', 'tags', 'conditions' ],
 
 formErrors = {};
 
@@ -94,6 +98,56 @@ module.exports = React.createClass( {
       self.props.onTextChange( field, value, self.listErrorDetails( ) );
 
     }
+
+  },
+
+  onSwappedLanguage: function( languages, swapFrom, swapTo ) {
+
+    var updated = {}, self = this;
+
+    textFields.forEach( function( field ) {
+
+      updated[ field ] = JSON.parse( JSON.stringify( self.state[ field ] ) );
+
+      updated[ field ][ swapTo ] = updated[ field ][ swapFrom ];
+
+      updated[ field ][ swapFrom ] = undefined;
+
+    } );
+
+    updated.languages = languages;
+
+    this.setState( updated );
+
+    textFields.forEach( function( field ) {
+
+      self.props.onTextChange( field, updated[ field ], self.listErrorDetails( ) );
+
+    } );
+
+  },
+
+  onChangedLanguage: function( languages, changedLanguage, change ) {
+
+    var updated = {}, self = this;
+
+    textFields.forEach( function( field ) {
+
+      updated[ field ] = JSON.parse( JSON.stringify( self.state[ field ] ) );
+
+      updated[ field ][ changedLanguage ] = change;
+
+    } ); 
+
+    updated.languages = languages;
+
+    this.setState( updated );
+
+    textFields.forEach( function( field ) {
+
+      self.props.onTextChange( field, updated[ field ], self.listErrorDetails( ) );
+
+    } );
 
   },
 
@@ -323,11 +377,50 @@ module.exports = React.createClass( {
 
   changeLanguages: function( languages ) {
 
-    this.setState( {
-      languages: languages
-    } );
+    var swapIndex, removedLanguage, addedLanguage, swapFrom, swapTo, self = this;
 
-    this.props.onChangeLanguages( languages );
+    if ( languageUtils.isSame( languages, this.state.languages ) ) {
+
+      // nothing changed.
+      return;
+
+    }
+
+    swapIndex = languageUtils.getSwapIndex( languages, this.state.languages );
+
+    if ( swapIndex !== -1 ) {
+
+      swapFrom = this.state.languages[ swapIndex ];
+
+      swapTo = languages[ swapIndex ];
+
+      return this.onSwappedLanguage( languages, swapFrom, swapTo );
+
+    }
+
+    if ( languages.length < this.state.languages.length ) {
+
+      // a language was removed
+
+      removedLanguage = this.state.languages.filter( function( l ) {
+
+        return languages.indexOf( l ) == -1;
+
+      } )[ 0 ];
+
+      return this.onChangedLanguage( languages, removedLanguage );
+
+    }
+
+
+    // a language was added  
+    addedLanguage = languages.filter( function( l ) {
+
+      return self.state.languages.indexOf( l ) == -1;
+
+    } )[ 0 ];
+
+    this.onChangedLanguage( languages, addedLanguage, '' );
 
   },
 
@@ -390,7 +483,7 @@ module.exports = React.createClass( {
 
         <LanguageBar 
           languages={ this.state.languages } 
-          onChangeLanguages={ this.changeLanguages }
+          onChange={ this.changeLanguages }
           labels={ this.props.labels } />
 
         <div className="form-section">

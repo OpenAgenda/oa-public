@@ -11,7 +11,7 @@
     "fontawesome430" : "../css/font-awesome-4.3.0/css/font-awesome.css",
     "efReactSelect" : "css/reactSelect.css",
     "image-upload" : "../node_modules/image-upload/sass/style.scss",
-    "efLanguageBar" : "css/languageBar.scss",
+    "efLanguageBar" : "../node_modules/react-form-components/sass/language-bar.scss",
     "efTimingsPicker" : "css/timingsPicker.scss",
     "efAgendaTags" : "../node_modules/bs-templates/templates/agenda-tags/_selector.scss",
     "accessibility" : "css/accessibility.scss",

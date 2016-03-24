@@ -73,7 +73,6 @@ window.oaEventForm = function( options ) {
       onTextChange= {onTextChange}
       onCustomChange= {onCustomChange}
       onTimingsChange= {onTimingsChange}
-      onChangeLanguages= {onChangeLanguages}
       onAgendaDataChange= {onAgendaDataChange}
       onLocationChange= {onLocationChange}
       custom= {params.custom}
@@ -92,12 +91,6 @@ window.oaEventForm = function( options ) {
   function onAgendaDataChange( data ) {
 
     rUtils.eh.trigger( params.events.agenda, data );
-
-  }
-
-  function onChangeLanguages( languages ) {
-
-    rUtils.eh.trigger( params.events.languageChange, languages );
 
   }
 

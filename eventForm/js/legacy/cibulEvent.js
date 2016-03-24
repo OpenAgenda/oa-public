@@ -4,7 +4,9 @@ var utils = require( 'utils' ),
 
 rUtils = require( '../reactUtils' ),
 
-eventValidator = require( './eventValidator' );
+eventValidator = require( './eventValidator' ),
+
+lUtils = require( './languageUtils' );
 
 module.exports = function( params ) {
 
@@ -62,11 +64,15 @@ module.exports = function( params ) {
 
   event = params.event, onValidate = false, languages = [],
 
-  callbackIds = [], // keep track of callbacks used by event handler
+  callbackIds = []; // keep track of callbacks used by event handler
 
-  init = function() {
+  function init() {
 
-    if (Object.prototype.toString.call(event) === '[object Array]') event = {};
+    if ( Object.prototype.toString.call( event ) === '[object Array]' ) {
+
+      event = {};
+
+    }
 
     _on( params.events.log, function() {
 
@@ -252,21 +258,21 @@ module.exports = function( params ) {
 
     });
 
-  },
+  }
 
-  _on = function(eventName, callback) {
+  function _on( eventName, callback ) {
 
     callbackIds.push(eh.on(eventName, callback));
 
-  },
+  }
 
-  _validate = function(field, value) {
+  function _validate( field, value ) {
 
     validator.process(field, value);
 
-  },
+  }
 
-  _evaluate = function( onSuccess ) {
+  function _evaluate( onSuccess ) {
 
     if ( onValidate || onSuccess ) _validateEvent( currentErrors, function(success, errors ) {
 
@@ -276,9 +282,9 @@ module.exports = function( params ) {
 
     });
 
-  },
+  }
 
-  _extract = function( attr, obj, filterIfFalse ) {
+  function _extract( attr, obj, filterIfFalse ) {
 
     var extract = {};
 
@@ -296,9 +302,9 @@ module.exports = function( params ) {
 
     return extract;
 
-  },
+  }
 
-  _validateEvent = function( preErrors, callback ) {
+  function _validateEvent( preErrors, callback ) {
 
     var errors = validator.processFull( event ),
 
@@ -306,21 +312,60 @@ module.exports = function( params ) {
 
     callback( concatenated.length?false:true, concatenated );
 
-  },
+  }
 
-  _updateLanguages = function( newLanguages ) {
+  function _updateLanguages( newLanguages ) {
 
     // compare with existing
 
-    if ( !_compareArrays(newLanguages, languages) ) {
+    var swapIndex = lUtils.getSwapIndex( languages, newLanguages ),
 
-      // remove each deleted language from event object
-      
+    hasChanges = !lUtils.isSame( languages, newLanguages );
+
+    if ( swapIndex == -1 && !hasChanges ) {
+
+      // nothing happened here..
+      return;
+
+    }
+
+    if ( swapIndex !== -1 ) {
+
+      // we have a language swap, current must be replaced by new
+      var swapFrom = languages[ swapIndex ],
+
+      swapTo = newLanguages[ swapIndex ];
+
+      [ 'title', 'description', 'freeText', 'tags', 'conditions' ].forEach( function( field ) {
+
+        event[ field ][ swapTo ] = event[ field ][ swapFrom ];
+
+        delete event[ field ][ swapFrom ];
+
+      } );
+
+      currentErrors = currentErrors.map( function( e ) {
+
+        if ( typeof e.message !== 'string' && e.message[ swapFrom ] ) {
+
+          e.message[ swapTo ] = e.message[ swapFrom ];
+
+          delete e.message[ swapFrom ];
+
+        }
+
+        return e;
+
+      } );
+
+    } else if ( hasChanges ) {
+
+      // there is a change in languages, removed languages must be cleared out from event.
       languages.filter( function( l ) {
 
         return newLanguages.indexOf( l ) == -1;
 
-      }).forEach( function( l ) {
+      } ).forEach( function( l ) {
 
         [ 'title', 'description', 'freeText', 'tags', 'conditions' ].forEach( function( field ) {
 
@@ -346,38 +391,14 @@ module.exports = function( params ) {
 
       });
 
-      languages = newLanguages;
-
-      validator.updateLanguages( languages );
-
-      eh.trigger( params.events.languageChange, languages );
-
     }
 
-  },
+    languages = newLanguages;
 
-  //http://stackoverflow.com/questions/7837456/comparing-two-arrays-in-javascript
-  _compareArrays = function(a, b) {
+    validator.updateLanguages( languages );
 
-    // if the other array is a falsy value, return
-    if (!a) return false;
+    eh.trigger( params.events.languageChange, languages );
 
-    // compare lengths - can save a lot of time
-    if (b.length != a.length) return false;
-
-    for (var i = 0; i < b.length; i++) {
-      // Check if we have nested arrays
-      if (b[i] instanceof Array && a[i] instanceof Array) {
-        // recurse into the nested arrays
-        if (!b[i].compare(a[i]))
-          return false;
-      }
-      else if (b[i] != a[i]) {
-        // Warning - two different object instances will never be equal: {x:20} != {x:20}
-        return false;
-      }
-    }
-    return true;
   };
 
   init();
