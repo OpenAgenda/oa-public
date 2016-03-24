@@ -120,9 +120,6 @@
     }
 
     @media (min-width: 768px) {
-      .dates {
-        padding: 20px 40px;
-      }
 
       h1 {
         padding: 20px 40px 0;
@@ -139,42 +136,7 @@
       }
     }
   }
-
-  .dates {
     
-    .title {
-      color: $oa-black;
-
-      i {
-        color: $oa-silver;
-        font-size: 31px;
-        width: 50px;
-      }
-    }
-
-    li {
-      margin: 5px 0;
-      position: relative;
-
-      i {
-        color: $oa-gray;
-        position: absolute;
-        top: 4px;
-        left: -10px;
-      }
-
-      &.past {
-        color: $oa-silver;
-      }
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-  }
-
-  
 
   // signature
   .signature {

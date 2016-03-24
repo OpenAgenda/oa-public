@@ -10,7 +10,7 @@
 
     .month {
       display: none;
-      max-width: 235px;
+      width: 100%;
 
       &-title {
         border-bottom: 1px solid silver;
@@ -87,6 +87,7 @@
       font-weight: 300;
       margin-left: 50%;
       white-space: nowrap;
+      text-align: right;
     }
 
     &.detail-item {
