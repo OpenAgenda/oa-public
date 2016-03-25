@@ -121,13 +121,13 @@ function getPrivateEventData( req, res, next ) {
 
       if ( err ) return d.reject( err );
 
-      if ( contributorInfo.organizationSlug ) {
+      if ( contributorInfo && contributorInfo.organizationSlug ) {
 
         contributorInfo.organizationSlug = undefined;
 
       }
 
-      v.contributor = contributorInfo;
+      v.contributor = contributorInfo || {};
 
       d.resolve( v );
 
@@ -164,13 +164,19 @@ function transfer( req, res, next ) {
 
   if ( req.event.ownerId !== req.session.userId ) {
 
-    return next( { code: 403, message: 'you are not the owner of this event' } );
+    return next( {
+      code: 403,
+      message: 'you are not the owner of this event'
+    } );
 
   }
 
   if ( !req.query.email || !validator.isEmail( req.query.email ) ) {
 
-    return next( { code: 400, message: 'email is wrong or missing' } );
+    return next( {
+      code: 400,
+      message: 'email is wrong or missing'
+    } );
 
   }
 

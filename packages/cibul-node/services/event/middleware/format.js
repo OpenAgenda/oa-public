@@ -8,7 +8,7 @@ registration = require( 'registration/src/validate' ).getTypesAndValues;
 
 /**
  * prepare event data for display or upload
- * ( links & full pathed images, )
+ * ( links & full pathed images )
  */
 
 module.exports = function( req, res, next ) {

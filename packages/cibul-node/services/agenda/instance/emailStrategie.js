@@ -455,7 +455,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
             if ( externalUrl ) {
 
-              flat.link = externalUrl + '?search[uid]=' + clean.uid;
+              flat.link = externalUrl + '?oaq[uid]=' + clean.uid;
 
             }
 
