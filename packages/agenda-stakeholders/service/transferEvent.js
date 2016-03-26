@@ -26,12 +26,10 @@ module.exports = function( agendaId ) {
       // given
       agenda: { id: agendaId },
       event: null, // required: event identifiers,
-      from: null, // required: from user identifiers,
-      to: null,   // required: to user identifiers,
+      user: null,   // required: to user identifiers,
 
       // fetched
-      fromStakeholder: null,
-      toStakeholder: null,
+      stakeholder: null,
       agendaEvent: null,
       transferedEvent: null
 
@@ -41,15 +39,11 @@ module.exports = function( agendaId ) {
 
     .then( dbUtils.getAgendaEvent( 'agenda', 'event', 'agendaEvent' ) )
 
-    .then( dbUtils.getStakeholder( 'agenda', 'from', 'fromStakeholder' ) )
-
-    .then( dbUtils.getStakeholder( 'agenda', 'to', 'toStakeholder' ) )
+    .then( dbUtils.getStakeholder( 'agenda', 'user', 'stakeholder' ) )
 
     .then( _verifyDbFetches )
 
-    .then( _verifyEventContributorAssociation )
-
-    .then( dbUtils.updateAgendaEvent( 'agenda', 'event', 'toStakeholder' ) )
+    .then( dbUtils.updateAgendaEvent( 'agenda', 'event', 'stakeholder' ) )
 
     .then( _updateOwnership )
 
@@ -87,15 +81,9 @@ function _verifyDbFetches( v ) {
 
   }
 
-  if ( v.fromStakeholder === null ) {
+  if ( v.stakeholder === null ) {
 
-    throw 'origin stakeholder was not found';
-
-  }
-
-  if ( v.toStakeholder === null ) {
-
-    throw 'destination stakeholder was not found';
+    throw 'stakeholder was not found';
 
   }
 
@@ -131,7 +119,7 @@ function _verifyEventContributorAssociation( v ) {
  */
 function _updateOwnership( v ) {
 
-  if ( v.transferedEvent.ownerId !== v.fromStakeholder.userId ) {
+  if ( v.transferedEvent.ownerId !== v.agendaEvent.userId ) {
 
     return v;
 
@@ -146,7 +134,7 @@ function _updateOwnership( v ) {
     } )
 
     .update( {
-      owner_id: v.toStakeholder.userId
+      owner_id: v.stakeholder.userId
     } )
 
   } )

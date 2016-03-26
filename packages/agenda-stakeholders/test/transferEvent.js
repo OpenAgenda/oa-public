@@ -32,11 +32,10 @@ describe( 'agenda-stakeholders', function() {
 
       service( 4608 ).transferEvent( {
         event: { id: 82374 },
-        from: { id: 9999 },
-        to: { id: 7368 }
+        user: { id: 9999 }
       }, err => {
 
-        err.should.equal( 'origin stakeholder was not found' );
+        err.should.equal( 'stakeholder was not found' );
 
         done();
 
@@ -48,28 +47,10 @@ describe( 'agenda-stakeholders', function() {
 
       service( 4608 ).transferEvent( {
         event: { id: 9999 },
-        from: { id: 7349 },
-        to: { id: 7368 }
+        user: { id: 7368 }
       }, err => {
 
         err.should.equal( 'event was not found' );
-
-        done();
-
-      } );
-
-    } );
-
-
-    it( 'fails at attempt to transfer from wrong stakeholder', done => {
-
-      service( 4608 ).transferEvent( {
-        event: { id: 82374 },
-        from: { id: 7412 },
-        to: { id: 7368 }
-      }, err => {
-
-        err.should.equal( 'user has not contributed event' );
 
         done();
 
@@ -82,8 +63,7 @@ describe( 'agenda-stakeholders', function() {
 
       service( 4608 ).transferEvent( {
         event: { id: 82374 },
-        from: { id: 7349 },
-        to: { id: 7368 }
+        user: { id: 7368 }
       }, err => {
 
         let con = mysql.createConnection( config.mysql );
@@ -103,12 +83,11 @@ describe( 'agenda-stakeholders', function() {
     } );
 
 
-    it( 'transfers the event ownership', done => {
+    it.only( 'transfers the event ownership', done => {
 
       service( 4608 ).transferEvent( {
         event: { id: 82378 },
-        from: { id: 7349 },
-        to: { id: 7368 }
+        user: { id: 7368 }
       }, err => {
 
         let con = mysql.createConnection( config.mysql );
