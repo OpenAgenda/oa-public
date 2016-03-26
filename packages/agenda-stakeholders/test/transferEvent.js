@@ -83,7 +83,7 @@ describe( 'agenda-stakeholders', function() {
     } );
 
 
-    it.only( 'transfers the event ownership', done => {
+    it( 'transfers the event ownership', done => {
 
       service( 4608 ).transferEvent( {
         event: { id: 82378 },

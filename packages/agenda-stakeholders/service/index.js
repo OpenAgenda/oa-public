@@ -38,6 +38,12 @@ function init( c ) {
 
   schemas = c.schemas;
 
+  if ( c.logger ) {
+
+    logger.setLogger( c.logger );
+    
+  }
+
   knex = knexLib( {
     client: 'mysql',
     connection: c.mysql
@@ -54,11 +60,5 @@ function init( c ) {
     knex: knex,
     schemas: schemas
   } );
-
-  if ( c.logger ) {
-
-    logger.setLogger( c.logger );
-    
-  }
 
 }
