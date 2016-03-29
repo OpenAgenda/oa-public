@@ -45,6 +45,8 @@ module.exports = function( instance, agenda ) {
 
   .then( p.ife( { firstPublicationFlag : false }, _checkAdmin ) )
 
+  .then( p.ife( { firstPublicationFlag : false }, _retrieveAgendaCustomMessage ) )
+
   .then( p.ife( { firstPublicationFlag : false }, _sendPublicationMail ) )
 
   .then( p.ife( { firstPublicationFlag : false }, _setFirstPublicationFlag ) )
