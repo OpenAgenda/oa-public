@@ -11,7 +11,9 @@ var knex, schemas,
 log = require( 'basic-logger' )( 'dbUtils' );
 
 module.exports = {
+  
   init: init,
+
   // get event data
   getEvent: getEvent,
 
@@ -22,7 +24,10 @@ module.exports = {
   getStakeholder: getStakeholder,
 
   // update agenda event reference with new stakeholder
-  updateAgendaEvent: updateAgendaEvent
+  updateAgendaEvent: updateAgendaEvent,
+
+  // format stakeholder data coming from db
+  formatStakeholder: formatStakeholder
 }
 
 function getEvent( idNamespace, eventNamespace ) {
@@ -96,7 +101,7 @@ function getStakeholder( agendaNamespace, userNamespace, destNamespace ) {
 
     return knex.transaction( trx => {
 
-      return trx.select( 'credential', 'organization', 'store' )
+      return trx.select( 'credential', 'organization', 'store', 'review_id', 'store', 'user_id' )
 
       .from( schemas.stakeholder )
 
@@ -115,37 +120,7 @@ function getStakeholder( agendaNamespace, userNamespace, destNamespace ) {
 
       if ( stakeholders && stakeholders.length ) {
 
-        let stakeholder = {
-          userId: v[ userNamespace ].id,
-          agendaId: v[ agendaNamespace ].id,
-          credential: stakeholders[ 0 ].credential
-        };
-
-        // extract store data
-        try {
-
-          let store = JSON.parse( stakeholders[ 0 ].store ),
-
-          fields = store.custom_fields || {};
-
-          Object.keys( fields ).forEach( f => {
-
-            stakeholder[ utils.toCamelCase( f ) ] = fields[ f ];
-
-          } );
-
-          if ( stakeholder.organization ) {
-
-            stakeholder.organization = {
-              label: stakeholder.organization,
-              slug: stakeholders[ 0 ].organization
-            }
-
-          }
-
-        } catch( e ) {}
-
-        v[ destNamespace ] = stakeholder;
+        v[ destNamespace ] = formatStakeholder( stakeholders[ 0 ] );
 
       }
 
@@ -154,6 +129,55 @@ function getStakeholder( agendaNamespace, userNamespace, destNamespace ) {
     } );
 
   }
+
+}
+
+function formatStakeholder( dbObj ) {
+
+  let stakeholder = {};
+
+  Object.keys( dbObj ).forEach( k => {
+
+    if ( k == 'store' ) return;
+
+    stakeholder[ utils.toCamelCase( k ) ] = dbObj[ k ];
+
+  } );
+
+  if ( stakeholder.reviewId ) {
+
+    stakeholder.agendaId = stakeholder.reviewId;
+
+    delete stakeholder.reviewId;
+
+  }
+
+  try {
+
+    let store = JSON.parse( dbObj.store ),
+
+    fields = store.custom_fields || {};
+
+    Object.keys( fields ).forEach( f => {
+
+      if ( f == 'organization' ) {
+
+        stakeholder.organization = {
+          label: fields[ f ],
+          slug: stakeholder.organization
+        }
+
+      } else {
+
+        stakeholder[ utils.toCamelCase( f ) ] = fields[ f ];
+
+      }
+
+    } );
+
+  } catch( e ) {}
+
+  return stakeholder;
 
 }
 

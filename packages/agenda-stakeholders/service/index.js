@@ -14,6 +14,10 @@ transferEvent = require( './transferEvent' ),
 
 dbUtils = require( './dbUtils' ),
 
+utils = require( 'utils' ),
+
+getters = require( './getters' ),
+
 logger = require( 'basic-logger' );
 
 module.exports = agenda;
@@ -28,9 +32,13 @@ function agenda( agendaId ) {
 
   }
 
+  let get = getters( agendaId );
+
   return {
+    get: get,
+    list: get.list,
     transferEvent: transferEvent( agendaId )
-  }
+  }  
 
 }
 
@@ -52,6 +60,11 @@ function init( c ) {
   config = c;
 
   transferEvent.init( {
+    knex: knex,
+    schemas: schemas
+  } );
+
+  getters.init( {
     knex: knex,
     schemas: schemas
   } );
