@@ -555,7 +555,7 @@ function _layoutData( req, res ) {
 
     lib.extend( data.metas, {
       ogImage: { property: 'og:image', content: req.agenda.getImage( true ) },
-      "twitter:image:src" : req.agenda.getImage( true )
+      "twitter:image" : req.agenda.getImage( true )
     });
 
   }

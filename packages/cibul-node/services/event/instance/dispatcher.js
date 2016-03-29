@@ -75,7 +75,7 @@ module.exports = function( loaded, instance ) {
 
     }
 
-    st[ instance.id ] = setTimeout( function() {
+    st[ instance.id ] = setTimeout( () => {
 
       log( 'onSave' );
 

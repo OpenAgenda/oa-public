@@ -240,8 +240,8 @@ function layoutData( req, res ) {
   if ( req.event.image ) {
 
     utils.extend( data.metas, {
-      ogImage: { property: 'og:image', content: req.event.image},
-      "twitter:image:src" : req.event.image
+      ogImage: { property: 'og:image', content: req.event.getImage( true ) },
+      "twitter:image" : req.event.getImage( true )
     });
 
   }
