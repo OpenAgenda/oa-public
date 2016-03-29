@@ -188,7 +188,7 @@ function layoutData( req, res ) {
       ogTitle: { property: 'og:title', content: utils.escape( req.formatted.title, false ) },
       ogDescription: { property: 'og:description', content: utils.escape( req.formatted.description ) },
       ogLocale: { property: 'og:locale', content: req.lang },
-      "twitter:card" : "summary_large_image",
+      "twitter:card" : req.event.image ? 'summary_large_image' : 'summary',
       "twitter:title" : utils.escape( req.formatted.title, false ),
       "twitter:description" : utils.escape( req.formatted.description, false ),
       "twitter:domain" : config.domain
