@@ -66,7 +66,7 @@ function instanciate( data ) {
 
   svcInstance.setOnStateChange( dsp.stateChange );
 
-  instance.onSave = dsp.onSave;
+  instance.onSave = svcInstance.onSave = dsp.onSave;
 
   return svcInstance;
 

@@ -411,8 +411,6 @@ function _appendEventTransferCredential( req, res, next ) {
 
   if ( !req.session ) return next();
 
-  if ( req.session.userId !== req.event.ownerId ) return next();
-
   req.agenda.hasCredential( 'eventTransfer', ( err, has ) => {
 
     req.baseData.hasOwnershipTransfer = has;

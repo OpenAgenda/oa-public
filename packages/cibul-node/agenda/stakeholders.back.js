@@ -8,6 +8,14 @@ invitationSvc = require( '../services/invitation' ),
 
 agendaSvc = require( '../services/agenda' ),
 
+eventSvc = require( '../services/event' ),
+
+userSvc = require( '../services/user' ),
+
+validator = require( 'validator' ),
+
+stakeholders = require( 'agenda-stakeholders/middleware' ),
+
 utils = require( '../lib/utils' ),
 
 routes = {
@@ -69,6 +77,15 @@ routes = {
     agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData(),
     infoSubmit
+  ] ],
+
+  eventTransfer: [ 'get', '/contributors/transfer/:eventSlug' , [
+    cmn.checkAdminOrModerator,
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    cmn.checkCredential( 'eventTransfer' ),
+    stakeholders.loadAgenda( 'agenda', 'stakeholders' ),
+    _loadUserByEmail,
+    transfer
   ] ]
   
 };
@@ -230,5 +247,52 @@ function inviteResend( options ) {
     } );
 
   }
+
+}
+
+
+function _loadUserByEmail( req, res, next ) {
+
+  if ( !req.query.email || !validator.isEmail( req.query.email ) ) {
+
+    return next( {
+      code: 400,
+      message: 'email is wrong or missing'
+    } );
+
+  }
+
+  userSvc.get( { email: req.query.email }, ( err, user ) => {
+
+    if ( err ) return next( err );
+
+    if ( !user ) return next( { code: 400, message: 'the target account does not exist' } );
+
+    req.stakeholder = user;
+
+    next();
+
+  } );
+
+}
+
+
+function transfer( req, res, next ) {
+
+  req.stakeholders.transferEvent( {
+    event: { id: req.event.id },
+    user: { id: req.stakeholder.id }
+  }, err => {
+
+    if ( err ) return next( err );
+
+    // force ES update
+    req.event.onSave();
+
+    res.setFlash( req, 'ownership is transfered' );
+
+    res.redirect( 302, req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } ) );
+
+  } );
 
 }

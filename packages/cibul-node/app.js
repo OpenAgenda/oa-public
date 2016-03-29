@@ -77,6 +77,17 @@ module.exports = function( enabledTypes, cb ) {
       logger: logger
     } );
 
+    require( 'agenda-stakeholders' ).init( {
+      schemas: {
+        agenda: 'review',
+        agendaEvent: 'review_article',
+        event: 'event',
+        stakeholder: 'reviewer'
+      },
+      mysql: config.db,
+      logger: logger
+    } )
+
     init.agendaLocations( {
       logger: logger
     }, () => {
