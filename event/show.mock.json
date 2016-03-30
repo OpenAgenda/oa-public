@@ -107,6 +107,7 @@
       "currentState": "draft",
       "featured": false,
       "location": {
+        "uid" : 46739624,
         "link": "#",
         "name": "Musée des beaux-arts de valenciennes",
         "address": "Boulevard Watteau, Valenciennes",
