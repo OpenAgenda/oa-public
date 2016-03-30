@@ -184,9 +184,16 @@ function instanciate( data ) {
 
   function _stakeholderSetter( methodName ) {
 
-    return ( user, cb ) => {
+    return function( user, options, cb ) {
 
-      instance[ methodName ]( user, ( err ) => {
+      if ( arguments.length === 2 ) {
+
+        cb = options;
+        options = {};
+
+      }
+
+      instance[ methodName ]( user, options, err => {
 
         if ( err ) return cb( err );
 

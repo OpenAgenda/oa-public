@@ -48,7 +48,7 @@ describe( 'agenda comexposium signin', function() {
 
   });
 
-  beforeEach( ( done ) => {
+  beforeEach( done => {
 
     t.model.lib.query( 'insert into user ( uid, email, comexposium_id, store ) values ( ?, ?, ?, ? )', [
       12345678,
@@ -65,7 +65,7 @@ describe( 'agenda comexposium signin', function() {
 
   });
 
-  beforeEach( ( done ) => {
+  beforeEach( done => {
 
     t.model.lib.query( 'insert into user ( email ) values ( ? )', [ 'cow@boy.com' ], ( err, result ) => {
 
@@ -77,7 +77,7 @@ describe( 'agenda comexposium signin', function() {
 
   });
 
-  beforeEach( ( done ) => {
+  beforeEach( done => {
 
     t.model.lib.query( 'insert into review ( uid, title, owner_id ) values ( ?, ?, ? )', [
       config.comexposium.contributingAgendaUid,
@@ -92,7 +92,7 @@ describe( 'agenda comexposium signin', function() {
   });
 
 
-  it( 'signin via comexposium link', ( done ) => {
+  it( 'signin via comexposium link', done => {
 
     browser.visit( '/comex/signin?login=' + user.comexposiumId + '&password=' + user.store.comex.password )
 
@@ -106,7 +106,7 @@ describe( 'agenda comexposium signin', function() {
 
   });
 
-  it( 'signed in user is contributor of configured agenda', ( done ) => {
+  it( 'signed in user is contributor of configured agenda', done => {
 
     browser.visit( '/comex/signin?login=' + user.comexposiumId + '&password=' + user.store.comex.password )
 

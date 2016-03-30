@@ -6,7 +6,9 @@ w = require( 'when' ),
 
 wn = require( 'when/node' ),
 
-userSvc = require( '../services/invitation' );
+userSvc = require( '../services/invitation' ),
+
+mailer = require( 'mailer' );
 
 describe( 'contributive agenda', function () {
 
@@ -56,6 +58,12 @@ describe( 'contributive agenda', function () {
 
   beforeEach( done => t.model.lib.query( 'delete from conversation', done ) );
 
+  afterEach( () => {
+
+    mailer.test.client.setOnQueuedMail( false );
+
+  } );
+
 
   it( 'add button is visible on agenda', ( done ) => {
 
@@ -69,29 +77,42 @@ describe( 'contributive agenda', function () {
 
     .done( done, _err );
 
-  });
+  } );
 
 
-  it( 'invitation is created by admin', ( done ) => {
-
-    this.timeout( 10000 );
+  it( 'invitation is created by admin', done => {
 
     _sendInvitation( browser, agenda, user, true )
 
-    .then( ( i ) => {
+    .then( i  => {
 
       i.email.should.equal( user.email );
       i.type.should.equal( 1 );
       i.reviewId.should.equal( agenda.id );
 
-    })
+    } )
 
     .done( done , _err );
 
-  });
+  } );
 
 
-  it( 'uninvited user is led to request an invitation form', function( done ) {
+  it( 'invitation created by user references user as creator', done => {
+
+    _sendInvitation( browser, agenda, user, true )
+
+    .then( i  => {
+
+      i.creatorId.should.equal( agenda.ownerId );
+
+    } )
+
+    .done( done, _err );
+
+  } );
+
+
+  it( 'uninvited user is led to request an invitation form', done => {
 
     _signin( browser, { email: user.email, password: 'bisounoursjaunedevant' } )
 
@@ -99,7 +120,7 @@ describe( 'contributive agenda', function () {
 
     .then( _p( browser, 'clickLink', '#add-event' ) )
 
-    .then( null, function() {
+    .then( null, () => {
 
       browser.location.pathname.indexOf( 'a-contributive-agenda/addevent/uninvited' ).should.not.equal( -1 );
 
@@ -110,9 +131,7 @@ describe( 'contributive agenda', function () {
   } );
 
 
-  it( 'uninvited user becomes contributor through request an invitation form', function( done ) {
-
-    this.timeout( 20000 );
+  it( 'uninvited user becomes contributor through request an invitation form', done => {
 
     _signin( browser, { email: user.email, password: 'bisounoursjaunedevant' } )
 
@@ -179,7 +198,7 @@ describe( 'contributive agenda', function () {
   });
 
 
-  it( 'user becomes contributor on activation of account', ( done ) => {
+  it( 'user becomes contributor on activation of account', done => {
 
     var iToken;
 
@@ -187,15 +206,15 @@ describe( 'contributive agenda', function () {
 
     .then( _visit( browser, '/signout' ) )
 
-    .then( function() {
+    .then( () => {
 
-      return w.promise( function( rs, rj ) {
+      return w.promise( ( rs, rj ) => {
 
-        t.coms.consume( 'jobs', function( err, values ) {
+        t.coms.consume( 'jobs', ( err, values ) => {
 
           values.type.should.equal( 'invitation/index' );
 
-          t.model.invitations().get( { id: values.invitationId }, function( err, i ) {
+          t.model.invitations().get( { id: values.invitationId }, ( err, i ) => {
 
             rs( i );
 
@@ -207,7 +226,7 @@ describe( 'contributive agenda', function () {
 
     })
 
-    .then( function( i ) {
+    .then( i => {
 
       iToken = i.token;
 
@@ -215,7 +234,7 @@ describe( 'contributive agenda', function () {
 
     })
 
-    .then( function() {
+    .then( () => {
 
       browser.fill( 'full_name', 'new guy' );
 
@@ -229,31 +248,32 @@ describe( 'contributive agenda', function () {
 
     })
 
-    .then( function() {
+    .then( () => {
 
       return wn.call( t.model.tokens().get );
 
     })
 
-    .then( function( token ) {
+    .then( token => {
 
       return browser.visit( '/' + agenda.slug + '/activate/' + token.token + '?iToken=' + iToken)
 
     })
 
-    .then( null, function() {
+    .then( null, () => {
 
       // user should arrive on event form page
       browser.location.pathname.should.equal( '/frontend_test.php/a-contributive-agenda/addevent' );
 
-
-      return w.promise( function( resolve ) {
+      return w.promise( resolve => {
 
         // user should be a contributor of agenda now
 
-        t.model.lib.query( 'select * from reviewer', function( err, rows ) {
+        t.model.lib.query( 'select * from reviewer', ( err, rows ) => {
 
           rows.length.should.equal( 1 );
+
+          rows[ 0 ].creator_id.should.equal( agenda.ownerId );
 
           resolve();
 
@@ -263,11 +283,11 @@ describe( 'contributive agenda', function () {
 
     })
 
-    .then( function() {
+    .then( () => {
 
-      return w.promise( function( resolve ) {
+      return w.promise( resolve => {
 
-        t.coms.consume( 'jobs', function( err, values ) {
+        t.coms.consume( 'jobs', ( err, values ) => {
 
           values.type.should.equal( 'notification' );
 
@@ -288,7 +308,7 @@ describe( 'contributive agenda', function () {
 
     _sendInvitation( browser, agenda, user )
 
-    .then(function( i ) {
+    .then( i => {
 
       return wn.call( userSvc.processInvitation, { invitationId: i.id } );
 
@@ -296,7 +316,7 @@ describe( 'contributive agenda', function () {
 
     .then( _visit( browser, '/signout' ) )
 
-    .then( function() {
+    .then( () => {
 
       return _signin( browser, { email: user.email, password: 'bisounoursjaunedevant' } );
 
@@ -306,7 +326,7 @@ describe( 'contributive agenda', function () {
 
     .then( _p( browser, 'clickLink', '#add-event' ) )
 
-    .then( null, function() {
+    .then( null, () => {
 
       browser.location.pathname.should.equal( '/frontend_test.php/a-contributive-agenda/addevent' );
 
@@ -317,11 +337,11 @@ describe( 'contributive agenda', function () {
   } );
 
 
-  it( 'agenda requiring additional contributor info leads new invited user to info form', ( done ) => {
+  it( 'agenda requiring additional contributor info leads new invited user to info form', done => {
 
     _sendInvitation( browser, agenda, user, true )
 
-    .then(function( i ) {
+    .then( i => {
 
       return wn.call( userSvc.processInvitation, { invitationId: i.id } );
 
@@ -329,7 +349,7 @@ describe( 'contributive agenda', function () {
 
     .then( _visit( browser, '/signout' ) )
 
-    .then( function() {
+    .then( () => {
 
       return _signin( browser, { email: user.email, password: 'bisounoursjaunedevant' } );
 
@@ -339,7 +359,7 @@ describe( 'contributive agenda', function () {
 
     .then( _p( browser, 'clickLink', '#add-event' ) )
 
-    .then( function() {
+    .then( () => {
 
       browser.location.pathname.should.equal( '/frontend_test.php/a-contributive-agenda/addevent/info' );
 
@@ -350,7 +370,7 @@ describe( 'contributive agenda', function () {
   } );
 
 
-  it( 'agenda with "activating invitation" credential automatically activates invited users that sign up', function( done ) {
+  it( 'agenda with "activating invitation" credential automatically activates invited users that sign up', done => {
 
     this.timeout( 25000 );
 
@@ -386,20 +406,46 @@ describe( 'contributive agenda', function () {
 
     .done( done, _err );
 
-  });
+  } );
 
 
-  it( 'invitation mail displays link leading to agenda signup form', ( done ) => {
-
-    var iToken;
+  it( 'invitation mail has codified replyTo ', done => {
 
     _sendInvitation( browser, agenda, { email: 'newguy@cibul.net' } )
 
-    .then( ( i ) => {
+    .then( i => {
 
       let d = w.defer();
 
-      t.coms.consume( 'mailer', ( err, values ) => {
+      mailer.test.client.setOnQueuedMail( values => {
+
+        values.replyTo.split( '.' )[ 0 ].should.equal( i.token );
+        values.replyTo.split( '@' )[ 0 ].split( '.' )[ 2 ].should.equal( 'invitation' );
+
+        d.resolve();
+
+      } );
+
+      userSvc.processInvitation( { invitationId: i.id } );
+
+      return d.promise;
+
+    } )
+
+    .done( done, _err );
+
+  } );
+
+
+  it( 'invitation mail displays link leading to agenda signup form', done => {
+
+    _sendInvitation( browser, agenda, { email: 'newguy@cibul.net' } )
+
+    .then( i => {
+
+      let d = w.defer();
+
+      mailer.test.client.setOnQueuedMail( values => {
 
         values.text.indexOf( 'openagenda.com/a-contributive-agenda/signup?iToken=' + i.token ).should.not.equal( -1 );
 
@@ -415,7 +461,7 @@ describe( 'contributive agenda', function () {
 
     .done( done, _err );
 
-  });
+  } );
 
 
 });

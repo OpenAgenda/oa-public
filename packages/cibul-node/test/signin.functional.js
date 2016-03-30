@@ -200,17 +200,17 @@ describe( 'signin', function() {
   });
 
 
-  it( 'successful signin - redirect to other page', ( done ) => {
+  it( 'successful signin - redirect to other page', done => {
 
     this.timeout( 10000 );
 
-    browser.visit( '/frontend_test.php/termsofuse', function( err ) {
+    browser.visit( '/frontend_test.php/videos', function( err ) {
 
       browser.clickLink( '.js_signin_link', function( err ) {
 
         _successfullSignin( browser, function( err ) {
 
-          browser.location.pathname.should.equal( '/frontend_test.php/termsofuse' );
+          browser.location.pathname.should.equal( '/frontend_test.php/videos' );
 
           done();
 

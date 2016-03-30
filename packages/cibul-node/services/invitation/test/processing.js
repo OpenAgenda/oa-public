@@ -18,14 +18,22 @@ sets = require( 'cibulModel/test/fixtures/sets' )( cbm ),
 
 svc = require( '../' ),
 
-coms = require( '../../../lib/coms' );
+mailer = require( 'mailer' );
 
 require( '../../genUrl' ).init( { domain: config.domain } );
 
 
 describe( 'invitation processing', function() {
 
+  this.timeout( 10000 );
+
   var agendas = [{}], users = [], invitations = [];
+
+  mailer.init( {
+    queueName: 'newmailer',
+    host: config.redis.host,
+    port: config.redis.port
+  } );
 
   // load one agenda and one user
   before( sets.prepareOneAgendaInstance( agendas[ 0 ], 'la-gargouille' ) );
@@ -102,11 +110,11 @@ describe( 'invitation processing', function() {
 
   });
 
-  beforeEach( function( done ) {
+  afterEach( () => {
 
-    coms.clearQueue( 'mailer', done );
+    mailer.test.client.setOnQueuedMail( false );
 
-  });
+  } );
 
   it( 'invitation should create a contributor from user id', function( done ) {
 
@@ -154,25 +162,25 @@ describe( 'invitation processing', function() {
   } );
 
 
-  it( 'contributor invitation should trigger a mail send', function( done ) {
+  it( 'contributor invitation should trigger a mail send', done => {
 
-    svc.processInvitation( { invitationId: invitations[ 2 ].id }, function( err ) {
+    mailer.test.client.setOnQueuedMail( values => {
+
+      values.recipient.should.eql( [ 'random@oa.com' ] );
+      values.subject.should.equal( 'Vous avez été invité à devenir contributeur de l\'agenda Fete de la bretagne' );
+      values.text.indexOf().should.not.equal( 'Cliquez ici pour commencer à contribuer à l\'agenda Fete de la bretagne' );
 
       cbm.lib.query( 'select * from invitation where id = ?', [ invitations[ 2 ].id ], function( err, rows ) {
 
         rows.length.should.equal( 1 );
 
-        coms.consume( 'mailer', true, function( err, mail ) {
-
-          mail.recipient.should.equal( 'random@oa.com' );
-          mail.subject.should.equal( 'Vous avez été invité à devenir contributeur de l\'agenda Fete de la bretagne' );
-          mail.text.indexOf().should.not.equal( 'Cliquez ici pour commencer à contribuer à l\'agenda Fete de la bretagne' );
-
-          done();
-
-        });
+        done();
 
       } );
+
+    } );
+
+    svc.processInvitation( { invitationId: invitations[ 2 ].id }, function( err ) {
 
     });
 
@@ -227,30 +235,27 @@ describe( 'invitation processing', function() {
 
   it( 'administrator invitation should trigger a mail send', function( done ) {
 
-    svc.processInvitation( { invitationId: invitations[ 5 ].id }, function( err ) {
+    mailer.test.client.setOnQueuedMail( values => {
+
+      values.recipient.should.eql( [ 'otherrandom@oa.com' ] );
+      values.subject.should.equal( 'Vous avez été invité à devenir administrateur de l\'agenda Fete de la bretagne' );
+      values.text.indexOf( 'Cliquez ici pour commencer à administrer l\'agenda Fete de la bretagne' ).should.not.equal( -1 );
 
       cbm.lib.query( 'select id from invitation where id = ?', [ invitations[ 5 ].id ], function( err, rows ) {
 
         rows.length.should.equal( 1 );
 
-        coms.consume( 'mailer', true, function( err, mail ) {
-
-          mail.recipient.should.equal( 'otherrandom@oa.com' );
-
-          mail.subject.should.equal( 'Vous avez été invité à devenir administrateur de l\'agenda Fete de la bretagne' );
-
-          mail.text.indexOf( 'Cliquez ici pour commencer à administrer l\'agenda Fete de la bretagne' ).should.not.equal( -1 );
-
-          done();
-
-        });
+        done();
 
       } );
 
-    });
+    } );
 
+    svc.processInvitation( { invitationId: invitations[ 5 ].id }, function( err ) {
 
-  });
+    } );
+
+  } );
 
 
   it( 'process user invitations', function( done ) {

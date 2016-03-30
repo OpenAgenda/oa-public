@@ -27,7 +27,10 @@ module.exports = {
   addJob: addJob,
   processUser: processUser,
   preprocessUser: preprocessUser,
+
+  // route invitation to internal service based on its type
   processInvitation: processInvitation,
+  
   getComs: getComs
 }
 
@@ -63,7 +66,7 @@ function processInvitation( values, cb ) {
 
   .then( _loadAgenda )
 
-  .then( function( values ) {
+  .then( values => {
 
     if ( values.invitation.type == TYPES.AGENDACONTRIBUTOR ) {
 
@@ -130,7 +133,10 @@ function processUser( values, cb ) {
 
       async.eachSeries( invitations, function( invitation, ecs ) {
 
-        processInvitation( { invitation: invitation, user: values.user }, ecs );
+        processInvitation( {
+          invitation: invitation,
+          user: values.user
+        }, ecs );
 
       }, function( err ) {
 

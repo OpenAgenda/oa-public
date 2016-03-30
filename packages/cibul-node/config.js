@@ -21,6 +21,7 @@ config = {
     logEntriesToken: '1cdd4c11-fe29-4144-ae18-e4fb8392c282',
     name: 'cibul-node',
     domain: 'openagenda.com',
+    mailerDomain: 'mailer.openagenda.com',
     root: 'https://openagenda.com',
     googleAnalyticsId: 'UA-60305866-1',
     embedGoogleAnalyticsId: 'UA-60305866-2',

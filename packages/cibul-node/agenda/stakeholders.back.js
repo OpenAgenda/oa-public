@@ -146,7 +146,11 @@ function invite( options ) {
 
     if ( req.body.editors ) {
 
-      invitationSvc.agenda( req.agenda )[ params.inviteMethod ]( req.body.editors, req.lang, function( err, invitations, result ) {
+      invitationSvc.agenda( req.agenda )[ params.inviteMethod ]( {
+        emails: req.body.editors, 
+        lang: req.lang,
+        userId: req.user.id
+      }, ( err, invitations, result ) => {
 
         if ( err ) {
 
@@ -186,7 +190,9 @@ function inviteResendAll( options ) {
 
   return function( req, res ) {
 
-    invitationSvc.agenda( req.agenda )[ params.inviteMethod ]( req.lang, ( err, invitations, result ) => {
+    invitationSvc.agenda( req.agenda )[ params.inviteMethod ]( {
+      lang: req.lang
+    }, ( err, invitations, result ) => {
 
       if ( err ) {
 
@@ -224,7 +230,11 @@ function inviteResend( options ) {
 
     }
 
-    invitationSvc.agenda( req.agenda )[ params.inviteMethod ]( req.query.email, req.lang, function( err, invitation, result ) {
+    invitationSvc.agenda( req.agenda )[ params.inviteMethod ]( {
+      emails: req.query.email, 
+      lang: req.lang,
+      userId: req.user.id
+    }, function( err, invitation, result ) {
 
       if ( err ) {
 

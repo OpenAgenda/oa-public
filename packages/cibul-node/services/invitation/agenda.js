@@ -18,7 +18,7 @@ w = require( 'when' ),
 
 model = require( '../model' ),
 
-mailer = require( '../mailer' ),
+mailer = require( 'mailer' ),
 
 cmn = require( '../../lib/commons-app' ),
 
@@ -81,6 +81,7 @@ function agendaInvitations( agenda ) {
 
     /**
      * process invitation: send mail or create stakeholder
+     * this sits behind a queue and is handled by a worker process
      */
     processContributorInvitation: _processStakeholder( TYPES.AGENDACONTRIBUTOR ),
     processAdministratorInvitation: _processStakeholder( TYPES.AGENDAADMIN ),
@@ -90,21 +91,33 @@ function agendaInvitations( agenda ) {
 
   function _inviteStakeholder( type ) {
 
-    return function( email, lang, cb ) {
+    return ( options, cb ) => {
 
-      agenda[ inviteMethods.get[ type ] ]( { email: email }, true, function( err, invitation ) {
+      let params = utils.extend( {
+        email: false, // required
+        lang: false, // required
+        userId: false // optional
+      }, options );
 
-        if ( err ) return cb( err );
+      agenda[ inviteMethods.get[ type ] ]( { 
+        email: params.email
+      }, {
+        creatorId: params.userId
+      }, ( err, invitation ) => {
+
+        if ( err ) {
+
+          return cb( err );
+
+        }
 
         if ( invitation ) {
 
-          invitationsService.addJob( invitation, lang, cb );
-
-        } else {
-
-          cb( null, null, data );
+          return invitationsService.addJob( invitation, lang, cb );
 
         }
+
+        cb( null, null, data );
 
       });
 
@@ -115,9 +128,13 @@ function agendaInvitations( agenda ) {
 
   function _resendInviteStakeholders( type ) {
 
-    return function( lang, cb ) {
+    return function( options, cb ) {
 
-      var yesterday = new Date();
+      let params = utils.extend( {
+        lang: false // required
+      }, options ),
+
+      yesterday = new Date();
 
       yesterday.setDate( yesterday.getDate() - 1 );
 
@@ -130,7 +147,7 @@ function agendaInvitations( agenda ) {
 
         async.eachSeries( invitations, ( invitation, ecb ) => {
 
-          invitationsService.addJob( invitation, lang, ecb );
+          invitationsService.addJob( invitation, params.lang, ecb );
 
         }, err => {
 
@@ -149,21 +166,31 @@ function agendaInvitations( agenda ) {
 
   function _inviteStakeholders( type ) {
 
-    return function( emails, lang, cb ) {
+    return ( options, cb ) => {
 
-      var result = {
+      var params = utils.extend( {
+        emails: false, // required
+        lang: false, // required
+        userId: false
+      }, options ),
+
+      result = {
         errors: []
       },
 
       invitations = [];
 
-      async.eachSeries( mailer.extractEmails( emails, false ), function( email, ecb ) {
+      async.eachSeries( mailer.extractEmails( params.emails, false ), function( email, ecb ) {
 
         log( 'processing email %s', email );
 
-        agenda[ inviteMethods.get[ type ] ]( { email: email }, true, function( err, invitation, data ) {
+        agenda[ inviteMethods.get[ type ] ]( { email: email }, { creatorId: params.userId }, function( err, invitation, data ) {
 
-          if ( err ) return ecb( err );
+          if ( err ) {
+
+            return ecb( err );
+
+          }
           
           if ( invitation ) {
 
@@ -182,15 +209,15 @@ function agendaInvitations( agenda ) {
 
         });
 
-      }, function( err ) {
+      }, err => {
 
-        if ( err ) cb( err );
+        if ( err ) return cb( err );
 
-        async.each( invitations, function( invitation, ecb ) {
+        async.each( invitations, ( invitation, ecb ) => {
 
-          invitationsService.addJob( invitation, lang, ecb );
+          invitationsService.addJob( invitation, params.lang, ecb );
 
-        }, function( err ) {
+        }, err => {
 
           cb( err, invitations, result );  
 
@@ -237,46 +264,84 @@ function agendaInvitations( agenda ) {
   
   function _sendInvitation( type, values ) {
 
-    let d = w.defer();
+    let d = w.defer(),
 
-    agenda.getLanguage( ( err, lang ) => {
+    lang, creator = null;
 
-      if ( values.lang ) lang = values.lang;
+    async.waterfall( [
 
-      if ( err ) return d.reject( err );
+      // get language
+      wcb => {
 
-      var link = genUrl( 'agendaSignup', { 
-        slug: agenda.slug, 
-        iToken: values.invitation.token,
-        email: values.invitation.email
-      }, { protocol: 'https://' } ),
+        agenda.getLanguage( ( err, l ) => {
 
-      title = 'You have been invited to become %stakeholder% of the agenda %agenda%',
+          if ( err ) return wcb( err );
 
-      text = 'Click here to start %stakeholderaction% the agenda %agenda%';
+          lang = l;
 
+          wcb();
 
-      // owner invitation language sounds good
+        } ) 
 
-      invitationsService.getComs().queue( 'mailer', {
-        recipient: values.invitation.email,
-        subject: i18n( title, { '%agenda%' : agenda.title, '%stakeholder%' : i18n( _equivalent( 'contributor', type ), lang ? lang : 'en' ) }, lang ? lang : 'en' ),
-        text: i18n( text, { '%agenda%' : agenda.title, '%stakeholderaction%' : i18n( _equivalent( 'contributing to', type ),  lang ? lang : 'en' ) }, lang ? lang : 'en' ) + "\n" + link
-      }, err => {
+      },
 
-        if ( err ) return d.reject( err );
+      // load creator
+      wcb => {
 
-        model.invitations().update( { id: values.invitation.id }, { updatedAt: new Date() }, err => {
+        if ( !values.invitation.creatorId ) {
 
-          if ( err ) return d.reject( err );
+          return wcb();
 
-          d.resolve( values );
+        }
+
+        model.users().get( { id: values.invitation.creatorId }, ( err, u ) => {
+
+          if ( err ) return wcb( err );
+
+          creator = u;
+
+          wcb();
 
         } );
 
-      } );
+      },
 
-    });
+      // send mail
+      wcb => {
+
+        var link = genUrl( 'agendaSignup', { 
+          slug: agenda.slug, 
+          iToken: values.invitation.token,
+          email: values.invitation.email
+        }, { protocol: 'https://' } ),
+
+        title = 'You have been invited to become %stakeholder% of the agenda %agenda%',
+
+        text = 'Click here to start %stakeholderaction% the agenda %agenda%';
+
+        mailer( {
+          recipient: values.invitation.email,
+          replyTo: creator ? [ values.invitation.token, creator.uid, 'invitation' ].join( '.' ) + '@' + config.mailerDomain : null,
+          subject: i18n( title, { '%agenda%' : agenda.title, '%stakeholder%' : i18n( _equivalent( 'contributor', type ), lang || 'en' ) }, lang || 'en' ),
+          text:  i18n( text, { '%agenda%' : agenda.title, '%stakeholderaction%' : i18n( _equivalent( 'contributing to', type ),  lang || 'en' ) }, lang || 'en' ) + "\n" + link
+        }, wcb );
+
+      },
+
+      // update invitation
+      wcb => {
+
+        model.invitations().update( { id: values.invitation.id }, { updatedAt: new Date() }, wcb );
+
+      }
+
+    ], err => {
+
+      if ( err ) return d.reject( err );
+
+      d.resolve( values );
+
+    } );
 
     return d.promise;
 
@@ -286,9 +351,10 @@ function agendaInvitations( agenda ) {
   /**
    * create stakeholder
    *
-   * @param type          type of the stakeholder to be created
+   * @param type                type of the stakeholder to be created
    * @param values.user
    * @param values.lang
+   * @param values.invitation   optional invitation
    */
 
   function _createStakeholder( type, values ) {
@@ -336,7 +402,7 @@ function agendaInvitations( agenda ) {
 
         } else {
 
-          agenda[ t.set ]( values.user, function( err ) {
+          agenda[ t.set ]( values.user, { creatorId: values.invitation.creatorId }, function( err ) {
 
             if ( err ) return reject( err );
 

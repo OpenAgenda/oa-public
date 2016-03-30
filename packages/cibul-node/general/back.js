@@ -23,21 +23,27 @@ routes = {
     featureRequest 
   ] ],
 
-  sns: [ 'post', '/aws/sns', [
+  snsMailReports: [ 'post', '/aws/sns', [
     cmn.loadLogger( 'sns' ),
     bodyParser.text(),
-    sns
+    snsMailReports
+  ] ],
+
+  snsMailReplies: [ 'post', 'aws/sns/mailreplies', [
+    cmn.loadLogger( 'snsMailReplies' ),
+    bodyParser.text(),
+    snsMailReplies
   ] ]
 
 };
 
-module.exports = function( path ) {
+module.exports = path => {
 
   var router = modLib.Router( routes );
 
-  router.pre([
+  router.pre( [
     cmn.loadSession
-  ]);
+  ] );
 
   return {
     load: router.load( path ),
@@ -77,7 +83,7 @@ function _loadUser( req, res, next ) {
 }
 
 
-function sns( req, res, next ) {
+function snsMailReports( req, res, next ) {
 
   try {
 
@@ -89,7 +95,24 @@ function sns( req, res, next ) {
 
   } catch( e ) {
 
-    req.log( 'error', 'could not ready sns: %s', req.body );
+    req.log( 'error', 'could not read sns mail report: %s', req.body );
+
+  }
+
+  res.send( 'ok' );
+
+}
+
+
+function snsMailReplies( req, res, next ) {
+
+  try {
+
+    let body = JSON.parse( req.body );  
+
+  } catch( e ) {
+
+    req.log( 'error', 'could not read sns mail reply :%s', req.body );
 
   }
 
