@@ -33,6 +33,7 @@ module.exports = function( agendaId ) {
     }, cb );
 
   }
+  
 
   function list( query, offset, limit, cb ) {
 

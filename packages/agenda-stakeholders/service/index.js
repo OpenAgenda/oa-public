@@ -35,9 +35,16 @@ function agenda( agendaId ) {
   let get = getters( agendaId );
 
   return {
+    
+    // get a stakeholder of an agenda
     get: get,
+
+    // list stakeholders of an agenda
     list: get.list,
+
+    // transfer an event from one stakeholder to another
     transferEvent: transferEvent( agendaId )
+    
   }  
 
 }

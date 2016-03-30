@@ -57,7 +57,7 @@ describe( 'agenda-stakeholders', () => {
     } );
 
 
-    it( 'list gives the tenth stakholder only', done => {
+    it( 'list gives the tenth stakeholder only', done => {
 
       service( 4608 ).list( 9, 1, ( err, stakeholders ) => {
 
