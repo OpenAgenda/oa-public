@@ -12,6 +12,8 @@ model = require( '../model' ),
 
 agendaSvc = require( '../agenda' ),
 
+mail = require( './mail' ),
+
 async = require( 'async' ),
 
 w = require( 'when' ),
@@ -30,8 +32,12 @@ module.exports = {
 
   // route invitation to internal service based on its type
   processInvitation: processInvitation,
-  
-  getComs: getComs
+  getComs: getComs,
+
+  // load invitation from mail@ part of email
+  // or define mail@ part
+  // mail: mail
+
 }
 
 agendaInvitations.init( module.exports );

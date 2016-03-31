@@ -29,7 +29,7 @@ routes = {
     snsMailReports
   ] ],
 
-  snsMailReplies: [ 'post', 'aws/sns/mailreplies', [
+  snsMailReplies: [ 'post', '/aws/sns/mailreplies', [
     cmn.loadLogger( 'snsMailReplies' ),
     bodyParser.text(),
     snsMailReplies
@@ -108,14 +108,45 @@ function snsMailReplies( req, res, next ) {
 
   try {
 
-    let body = JSON.parse( req.body ); 
+    let body = JSON.parse( req.body ),
 
-    console.log( '*************' );
-    console.log( body );
+    messageId = body.MessageId,
+
+    message = JSON.parse( body.Message );
+
+    // the encoded invitation 'a58dcb7f4d5593428bac0dd85c941f216c6fcd34.75052324.invitation@mailer.openagenda.com'
+    // message.mail.destination[ 0 ]
+
+    // the subject
+    // message.mail.commonHeaders.subject
+
+    // the content
+    // message.content
+    // message.content( '' )
+    
+    // from
+    // message.mail.source  
+
+    /**
+     * here I need to send a mail to the owner of the invitation
+     */
+
+    // invitationSvc.getInvitation
+    
+    let mailContent = mailer.parser.extract( message.content );
+
+    mailer( {
+      recipient: 'kaore@openagenda.com',
+      replyTo: message.mail.source,
+      subject: message.mail.commonHeaders.subject,
+      text: mailContent.text,
+      html: mailContent.html
+    } );
 
   } catch( e ) {
 
     req.log( 'error', 'could not read sns mail reply :%s', req.body );
+    console.log( e );
 
   }
 
