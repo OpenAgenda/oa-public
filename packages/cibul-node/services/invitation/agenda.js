@@ -290,7 +290,7 @@ function agendaInvitations( agenda ) {
       // load invitation mail identifier
       wcb => {
 
-        mail.getMailIdentifier( invitation, ( err, id ) => {
+        mail.getMailIdentifier( values.invitation, ( err, id ) => {
 
           if ( err ) return wcb( err );
 

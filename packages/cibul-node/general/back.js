@@ -122,7 +122,9 @@ function snsMailReplies( req, res, next ) {
 
     subject = message.mail.commonHeaders.subject,
 
-    replyTo = message.mail.source;    
+    replyTo = message.mail.source;
+
+    req.log( 'info', utils.extend( body, message ) );
 
   } catch( e ) {
 
@@ -164,25 +166,3 @@ function snsMailReplies( req, res, next ) {
    
 
 }
-
-
- 
-
-
-
-    // the encoded invitation 'a58dcb7f4d5593428bac0dd85c941f216c6fcd34.75052324.invitation@mailer.openagenda.com'
-    // message.mail.destination[ 0 ]
-
-    // the subject
-    // message.mail.commonHeaders.subject
-
-    // the content
-    // message.content
-    // message.content( '' )
-    
-    // from
-    // message.mail.source  
-
-    /**
-     * here I need to send a mail to the owner of the invitation
-     */

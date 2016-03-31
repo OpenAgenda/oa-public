@@ -117,6 +117,11 @@ routes = {
     showXhr( 'agenda/show' ),
     cmn.loadBaseData( _layoutData, 'oa.css' ),
     show
+  ] ],
+
+  agendaResync: [ 'get', '/:slug/resync', [
+    agendaSvc.mw.load( 'slug', { cache: true } ),
+    resync
   ] ]
 
 };
@@ -199,6 +204,22 @@ function show( req, res ) {
 function redirect( req, res ) {
 
   return res.redirect( 301, req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { protocol: 'https://' } ) );
+
+}
+
+function resync( req, res ) {
+
+  req.log( 'info', 'resyncing agenda' );
+
+  req.agenda.resync( err => {
+
+    req.log( 'info', 'agenda resync complete' );
+
+  } );
+
+  res.setFlash( req, 'resync is ongoing' );
+
+  redirect( req, res );
 
 }
 
@@ -387,7 +408,7 @@ function _formatEventItem( event, _t, lang, cb ) {
 
 function _formatShowLinks( req, res, next ) {
 
-  req.templateData.events.forEach( function( e ) {
+  req.templateData.events.forEach(  e => {
 
     var params = { 
       slug: req.agenda.slug,
@@ -422,7 +443,7 @@ function _formatEmbedHeadLinks( req, res, next ) {
 
 function _formatEmbedLinks( req, res, next ) {
 
-  req.templateData.events.forEach( function( e ) {
+  req.templateData.events.forEach( e => {
 
     var params = { 
       uid: req.agenda.uid,
@@ -467,7 +488,7 @@ function _formatEmbedLinks( req, res, next ) {
 
 function _formatCustomEmbedLinks( req, res, next ) {
 
-  req.templateData.events.forEach( function( e ) {
+  req.templateData.events.forEach( e => {
 
     var params = {
       uid: req.agenda.uid,
