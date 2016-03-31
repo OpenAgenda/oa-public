@@ -108,7 +108,10 @@ function snsMailReplies( req, res, next ) {
 
   try {
 
-    let body = JSON.parse( req.body );  
+    let body = JSON.parse( req.body ); 
+
+    console.log( '*************' );
+    console.log( body );
 
   } catch( e ) {
 
