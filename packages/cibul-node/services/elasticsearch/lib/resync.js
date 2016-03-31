@@ -171,7 +171,7 @@ function _removeZombies( type, params ) {
   return ( cb ) => {
 
     var count = { processed: 0, removed: 0, errors: 0 };
-
+    
     log( 'info', 'removing %s zombies', type );
 
     _loopThroughIndex( type, params, ( obj, next ) => {

@@ -14,19 +14,9 @@ module.exports = function( enabledTypes, cb ) {
 
   supervisor( function( loadTasks ) {
 
-    var emailStrategie = require( 'emailStrategie' ),
+    var logger = require( 'logger' ),
 
-    mailer = require( 'mailer' ),
-
-    logger = require( 'logger' ),
-
-    log = logger( 'app' ),
-
-    config = require( './config' ),
-
-    init = require( './lib/init' ),
-
-    tfy = require( './lib/taskify' );
+    config = require( './config' );
 
     logger.init( {
       debug: {
@@ -36,11 +26,22 @@ module.exports = function( enabledTypes, cb ) {
       token: config.logEntriesToken
     } );
 
+    var mailer = require( 'mailer' ),
+
+    log = logger( 'app' ),
+
+    init = require( './lib/init' ),
+
+    tfy = require( './lib/taskify' );
+
     log( 'info', 'running server' );
+
 
     // load libraries
 
-    var cmn = require( './lib/commons-app' ),
+    var emailStrategie = require( 'emailStrategie' ),
+
+    cmn = require( './lib/commons-app' ),
 
     express = require( 'express' ),
 
