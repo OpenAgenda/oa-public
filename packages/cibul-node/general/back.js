@@ -10,6 +10,8 @@ config = require( '../config' ),
 
 utils = require( 'utils' ),
 
+invitationSvc = require( '../services/invitation' ),
+
 bodyParser = require( 'body-parser' ),
 
 userSvc = require( '../services/user' ),
@@ -112,7 +114,61 @@ function snsMailReplies( req, res, next ) {
 
     messageId = body.MessageId,
 
-    message = JSON.parse( body.Message );
+    message = JSON.parse( body.Message ),
+
+    destination = message.mail.destination[ 0 ],
+
+    mailContent = mailer.parser.extract( message.content ),
+
+    subject = message.mail.commonHeaders.subject,
+
+    replyTo = message.mail.source;    
+
+  } catch( e ) {
+
+    req.log( 'error', 'could not read sns mail reply :%s', req.body );
+
+    return res.send( 'ok' );
+
+  }
+
+  invitationSvc.mail.loadUserFromMaiIdentifier( destination, ( err, user ) => {
+
+    if ( err || !user ) {
+
+      req.log( 'error', 'could not fetch invitation creator: %s', err );
+
+      return res.send( 'ok' );
+
+    }
+
+    if ( !mailContent.text && !mailContent.html ) {
+
+      return res.send( 'ok' );
+
+    }
+
+    mailer( {
+      recipient: user.email,
+      replyTo: message.mail.source,
+      subject: message.mail.commonHeaders.subject,
+      text: mailContent.text,
+      html: mailContent.html
+    }, err => {
+
+      res.send( 'ok' );
+
+    } );
+
+  } );
+   
+
+}
+
+
+ 
+
+
 
     // the encoded invitation 'a58dcb7f4d5593428bac0dd85c941f216c6fcd34.75052324.invitation@mailer.openagenda.com'
     // message.mail.destination[ 0 ]
@@ -130,26 +186,3 @@ function snsMailReplies( req, res, next ) {
     /**
      * here I need to send a mail to the owner of the invitation
      */
-
-    // invitationSvc.getInvitation
-    
-    let mailContent = mailer.parser.extract( message.content );
-
-    mailer( {
-      recipient: 'kaore@openagenda.com',
-      replyTo: message.mail.source,
-      subject: message.mail.commonHeaders.subject,
-      text: mailContent.text,
-      html: mailContent.html
-    } );
-
-  } catch( e ) {
-
-    req.log( 'error', 'could not read sns mail reply :%s', req.body );
-    console.log( e );
-
-  }
-
-  res.send( 'ok' );
-
-}

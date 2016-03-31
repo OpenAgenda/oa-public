@@ -10,6 +10,8 @@ i18n = require( '../../i18n/i18n' ),
 
 config = require( '../../config' ),
 
+mail = require( './mail' ),
+
 notification = require( '../notification/notification' ),
 
 async = require( 'async' ),
@@ -266,7 +268,7 @@ function agendaInvitations( agenda ) {
 
     let d = w.defer(),
 
-    lang, creator = null;
+    lang, mailIdentifier = null;
 
     async.waterfall( [
 
@@ -285,20 +287,14 @@ function agendaInvitations( agenda ) {
 
       },
 
-      // load creator
+      // load invitation mail identifier
       wcb => {
 
-        if ( !values.invitation.creatorId ) {
-
-          return wcb();
-
-        }
-
-        model.users().get( { id: values.invitation.creatorId }, ( err, u ) => {
+        mail.getMailIdentifier( invitation, ( err, id ) => {
 
           if ( err ) return wcb( err );
 
-          creator = u;
+          mailIdentifier = id;
 
           wcb();
 
@@ -321,7 +317,7 @@ function agendaInvitations( agenda ) {
 
         mailer( {
           recipient: values.invitation.email,
-          replyTo: creator ? [ values.invitation.token, creator.uid, 'invitation' ].join( '.' ) + '@' + config.mailerDomain : null,
+          replyTo: mailIdentifier,
           subject: i18n( title, { '%agenda%' : agenda.title, '%stakeholder%' : i18n( _equivalent( 'contributor', type ), lang || 'en' ) }, lang || 'en' ),
           text:  i18n( text, { '%agenda%' : agenda.title, '%stakeholderaction%' : i18n( _equivalent( 'contributing to', type ),  lang || 'en' ) }, lang || 'en' ) + "\n" + link
         }, wcb );

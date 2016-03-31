@@ -36,7 +36,7 @@ module.exports = {
 
   // load invitation from mail@ part of email
   // or define mail@ part
-  // mail: mail
+  mail: mail
 
 }
 
