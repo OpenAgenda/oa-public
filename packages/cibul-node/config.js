@@ -236,6 +236,10 @@ config = {
           method: 'get',
           uri: '/:slug/admin'
         },
+        'agendaEventAdminNavigate' : {
+          method: 'get',
+          uri: '/:slug/admin/navigate'
+        },
         'agendaAdminContributors' : {
           method: 'get',
           uri: '/:slug/admin/contributors'
