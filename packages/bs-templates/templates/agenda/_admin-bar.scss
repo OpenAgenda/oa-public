@@ -29,6 +29,7 @@
     }
 
     .edge-info, .edge-link, .edge-selected {
+
       color: $oa-white;
       display: block;
       line-height: 50px;
@@ -37,6 +38,7 @@
       overflow: hidden;
       word-wrap: whitespace;
       text-overflow: ellipsis;
+
     }
 
     .edge-info a { color: $oa-white; }
@@ -45,6 +47,66 @@
 
       cursor: pointer;
       
+    }
+
+    .admin-nav {
+
+      .edge-link {
+
+        &.center {
+
+          padding: 0 80px;
+
+          i {
+
+            right: 80px;
+
+          }
+
+        }
+
+        &.nav-link {
+
+          position: absolute;
+          top: 0;
+          width: auto;
+          padding: 0 20px;
+          border-left: 1px solid transparent;
+          border-right: 1px solid transparent;
+
+          i {
+
+            position: relative;
+            right: auto;
+            top: auto;
+            left: auto;
+
+          }
+
+          &.next {
+
+            right: 0;
+            border-left: 1px solid rgba( 255,255,255,0.20 );
+
+          }
+
+          &.prev {
+
+            left: 0;
+            border-right: 1px solid rgba( 255,255,255,0.20 );
+
+          }
+
+          &.inactive, &.inactive:hover {
+
+            color: rgba( 255, 255, 255, 0.40 );
+
+          }
+
+        }
+
+      }
+
     }
 
   }
