@@ -21,7 +21,7 @@ ReactDom = require( 'react-dom' ),
 
 LocactionsAdmin = require( '../../node_modules/agenda-locations/components/AgendaAdminLocations.jsx' );
 
-window.asap( function( options ) {
+window.hook( function( options ) {
 
   deepExtend( params, options );
 
