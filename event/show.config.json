@@ -38,6 +38,7 @@
       "vi" : "accessible to the visually impaired",
       "sl" : "sign language available"
     },
+    "adminNav" : {},
     "states" : {
       "draft" : {
         "label" : "Draft",
