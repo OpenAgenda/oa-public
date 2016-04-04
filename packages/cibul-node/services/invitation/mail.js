@@ -13,7 +13,7 @@ function getMailIdentifier( invitation, cb ) {
 
   if ( !invitation.creatorId ) {
 
-    return cb( null, 'no-reply' );
+    return cb( null, 'no-reply@openagenda.com' );
 
   }
 
