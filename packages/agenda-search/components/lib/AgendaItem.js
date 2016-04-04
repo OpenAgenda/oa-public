@@ -5,6 +5,7 @@ var React = require('react');
 module.exports = React.createClass({
   displayName: "exports",
 
+
   propTypes: {
     agenda: React.PropTypes.object
   },

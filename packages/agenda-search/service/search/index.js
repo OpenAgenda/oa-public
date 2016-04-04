@@ -4,8 +4,8 @@ var search = require( './search' ),
 
 obj = require( './agenda' );
 
-module.exports = function( db, cfg ) {
+module.exports = function( service, cfg ) {
 
-  return search( obj, db, cfg );
+  return search( obj, service, cfg );
 
 }

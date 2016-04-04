@@ -1,24 +1,24 @@
 "use strict";
 
-var should = require( 'should' ),
+process.env.NODE_ENV = 'test';
 
-db = require( '../service/db' ),
+var should = require( 'should' ),
 
 config = require( '../testconfig' ),
 
 searchLib = require( '../service/search' ), search,
 
-fixtures = require( './fixtures' );
+fixtures = require( './fixtures' ),
 
-describe( 'search', () => {
+agendaTestService = require( './app/agendaTestService' );
 
-  before( fixtures );
+describe( 'search', function() {
 
-  before( () => db.init( config ) );
+  this.timeout( 10000 );
 
   before( () => {
 
-    search = searchLib( db, config );
+    search = searchLib( agendaTestService, config );
 
   } );
 
@@ -28,7 +28,7 @@ describe( 'search', () => {
 
     search.list( {}, 0, 10, ( err, agendas, total ) => {
 
-      total.should.equal( 102 );
+      total.should.equal( 980 );
 
       done();
 

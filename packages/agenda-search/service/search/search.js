@@ -6,9 +6,13 @@ elastic = require( 'elasticsearch' ),
 
 utils = require( 'utils' ),
 
-async = require( 'async' );
+async = require( 'async' ),
 
-module.exports = function( obj, db, config ) {
+logger = require( 'basic-logger' ), log;
+
+module.exports = function( obj, service, config ) {
+
+  log = logger( 'search' );
 
   return {
 
@@ -45,11 +49,13 @@ module.exports = function( obj, db, config ) {
 
   function rebuild( cb ) {
 
+    log( 'rebuild' );
+
     w( {
       config: config.elasticsearch,
       image: config.image,
       obj: obj,
-      db: db,
+      service: service,
       previousIndices: false,
       index: obj.alias + '_' + _now()
     } )
@@ -87,6 +93,8 @@ module.exports = function( obj, db, config ) {
 
 function _populate( v ) {
 
+  log( 'populating index' );
+
   var d = w.defer(),
 
   pageCount = 0,
@@ -101,7 +109,9 @@ function _populate( v ) {
 
   async.doWhilst( wcb => {
 
-    v.db.list( offset, limit, ( err, items ) => {
+    log( 'listing agendas from %s to %s', offset, offset + limit );
+
+    v.service.list( offset, limit, { detailed: true }, ( err, items ) => {
 
       if ( err ) {
 
@@ -137,7 +147,7 @@ function _populate( v ) {
 
   }, () => !!pageCount, () => {
 
-    //log( 'info', 'indexed %s items', indexedCount );
+    log( 'info', 'indexed %s items', indexedCount );
 
     v.indexedCount = indexedCount;
 
@@ -206,7 +216,11 @@ function _refresh( v ) {
 
     client.close();
 
-    if ( err ) return d.reject( err );
+    if ( err ) {
+
+      return d.reject( err );
+
+    }
 
     d.resolve( v );
 
@@ -250,6 +264,8 @@ function _applyAlias( v ) {
  */
 function _getPreviousIndices( v ) {
 
+  log( 'retrieving previous indices' );
+
   var client = _createClient( v.config ),
 
   d = w.defer();
@@ -268,6 +284,8 @@ function _getPreviousIndices( v ) {
 
     // if err at this point, means alias not set
     v.previousIndices = err ? [] : Object.keys( result );
+
+    log( 'retrieved %s indices', v.previousIndices.length );
 
     d.resolve( v );
 
@@ -299,7 +317,11 @@ function _removePreviousIndices( v ) {
 
     client.close();
 
-    if ( err ) return d.reject( err );
+    if ( err ) {
+
+      return d.reject( err );
+
+    }
 
     d.resolve( v );
 
@@ -311,6 +333,8 @@ function _removePreviousIndices( v ) {
 
 
 function _createIndex( v ) {
+
+  log( 'creating index' );
 
   var client = _createClient( v.config ),
 
@@ -325,6 +349,8 @@ function _createIndex( v ) {
     client.close();
 
     if ( err ) return d.reject( err );
+
+    log( 'index %s created', v.index );
 
     d.resolve( v );
 

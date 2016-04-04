@@ -10,28 +10,22 @@ var app = require( 'test-app' )( {
   decorateCanvas: false
 } ),
 
-fixtures = require( '../fixtures' ),
-
 config = require( '../../testconfig.js' ),
 
 service = require( '../../service' ),
 
-mw = service.mw;
+mw = service.mw,
+
+utils = require( 'utils' ),
+
+agendaTestService = require( './agendaTestService' );
 
 app.get( '/', mw.list );
 
-fixtures( ( err, result ) => {
-
-  if ( err ) {
-
-    console.error( err );
-
-    return;
-
+service.init( utils.extend( {
+  services: {
+    agendas: agendaTestService
   }
+}, config ) );
 
-  service.init( config );
-  
-  service.rebuild( () => app.getAndListen() );
-
-} );
+service.rebuild( () => app.getAndListen() );

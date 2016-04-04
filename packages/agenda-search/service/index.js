@@ -28,8 +28,8 @@ function init( c, cb ) {
   config = deepExtend( {
     mysql: {},
     logger: false,
-    interfaces: {
-      getEventStats: ( agendaId, cb ) => cb()
+    services: {
+      agendas: false
     }
   }, c );
 
@@ -39,9 +39,7 @@ function init( c, cb ) {
 
   }
 
-  db.init( config );
-
-  search = searchLib( db, config );
+  search = searchLib( config.services.agendas, config );
 
   mw.init( {
     list: list
@@ -67,7 +65,7 @@ function list( query, offset, limit, cb ) {
 
 
 /**
- * rebuild the search index based on primary db data
+ * rebuild the search index based on data provided by agenda service
  */
 function rebuild( cb ) {
 

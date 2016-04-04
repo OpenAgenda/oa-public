@@ -6,6 +6,7 @@ var React = require('react'),
 module.exports = React.createClass({
   displayName: 'exports',
 
+
   propTypes: {
     items: React.PropTypes.array,
     total: React.PropTypes.number,
