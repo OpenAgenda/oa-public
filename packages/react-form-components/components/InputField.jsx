@@ -23,6 +23,9 @@ module.exports = React.createClass( {
     // optional validator
     validator: React.PropTypes.func,
 
+    // optional placeholder
+    placeholder: React.PropTypes.string,
+
     // type of input ( textarea or text )
     type: React.PropTypes.string,
 
@@ -111,6 +114,7 @@ module.exports = React.createClass( {
         {this.props.type!=="textarea" ? <input
           className="form-control"
           type="text"
+          placeholder={this.getLabel( this.props.placeholder )}
           value={this.props.value}
           onChange={this.onChange} />
         : <textarea
