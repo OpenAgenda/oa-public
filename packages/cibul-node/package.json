@@ -37,7 +37,6 @@
     "languages": "0.1.3",
     "logger": "git+ssh://git@bitbucket.org:openagenda/logger.git",
     "mailer": "git@bitbucket.org:openagenda/mailer.git",
-    "mailjet": "0.0.1",
     "moment": "2.8.3",
     "newrelic": "*",
     "newsletter": "git+ssh://git@bitbucket.org/openagenda/newsletter.git",

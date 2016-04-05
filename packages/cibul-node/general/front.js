@@ -5,8 +5,6 @@ var modLib = require( '../lib/moduleLib' ),
 cmn = require( '../lib/commons-app' ),
 
 config = require( '../config' ),
-
-Mailjet = require( 'mailjet' ),
   
 newsletter = require( 'newsletter' ),
 
