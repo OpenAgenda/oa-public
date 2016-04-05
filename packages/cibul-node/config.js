@@ -120,6 +120,10 @@ config = {
       apiKey: '8c200831a70d4f391bd697fa3cbca6a3',
       apiSecret: '6554476977a74b9cace0ddd0dc1ea657'
     },
+    sendinblue : {
+      apiKey : 'Gg6zBJdqf8mjHXFp',
+      newsletterList: 4
+    },
     oembed: {
       res: 'https://iframe.ly/api/oembed',
       //key: '044c4cbd91d65eab056738',

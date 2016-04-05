@@ -7,6 +7,8 @@ cmn = require( '../lib/commons-app' ),
 config = require( '../config' ),
 
 Mailjet = require( 'mailjet' ),
+  
+newsletter = require( 'newsletter' ),
 
 mailer = require( '../services/mailer' ),
 
@@ -81,16 +83,17 @@ function index( view ) {
 
 function newsletterSubscribe( req, res ) {
 
-  var data = {
-    id: 595683, // random?
-    contact: req.body.email
-  },
+  newsletter.addSubscriber( req.body.email, ( err, result ) => {
 
-  instance = new Mailjet( config.mailjet.apiKey, config.mailjet.apiSecret, { secure: true, output: 'json' } );
+    if ( err ) {
 
-  instance.sendRequest( 'listsaddContact', data, 'POST', function( err, status, result, headers ) {
+      req.log( 'error', { service: 'newsletter', message: result.message, error: result.message } );
 
-    if ( status === 200 ) {
+      res.setFlash( req, 'Either the email is invalid or the newsletter service is unavailable. Please try again later.' );
+
+      res.redirect( 302, req.genUrl( 'corpoHome' ) );
+      
+    } else {
 
       res.setFlash( req, 'You have been added to the newsletter list. Thanks!' );
 
@@ -101,18 +104,10 @@ function newsletterSubscribe( req, res ) {
         recipient: [ 'romain@cibul.net', 'kaore@cibul.net' ],
         text: '"' + req.body.email + '" a été ajouté à la newsletter.'
       } );
-
-    } else {
-
-      req.log( 'error', { service: 'mailjet', message: JSON.stringify( result ), error: '' + err } );
-
-      res.setFlash( req, 'Either the email is invalid or the newsletter service is unavailable. Please try again later.' );
-
-      res.redirect( 302, req.genUrl( 'corpoHome' ) );
-
+      
     }
 
-  });
+  } );
 
 }
 

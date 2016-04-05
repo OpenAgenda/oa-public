@@ -122,6 +122,14 @@ module.exports = function( enabledTypes, cb ) {
       logger: logger
     } );
 
+    require( 'newsletter' ).init( {
+      sendinblue: {
+        apiKey: config.sendinblue.apiKey,
+        newsletterList: config.sendinblue.newsletterList
+      },
+      logger: logger
+    } );
+
     webModules = {
       admin: [ // for admins only
         require( './admin/back' )( '/admin' )
