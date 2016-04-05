@@ -31,133 +31,36 @@ var handleEventList = function(params) {
     orderSelect: '<div class="js_select order"><i class="fa fa-sort-amount-desc"></i><span><%= label %>: <span class="js_chosen"></span></div><ul class="order-list js_menu wsq"><% for (index in orders) { %><li data-order="<%= index %>"><%= orders[index].label %></li><% } %></ul>'
   }, params.templates?params.templates:{});
 
-  var run = function() {
 
-    handleList(params.elems.listCanvas, sEventHandler.getInstance(), {
-      url: params.url,
-      params: params.debug?{format: 'jsonp'}:{},
-      ajax: !params.debug,
-      mainItem: 'event',
-      templates: {
-        event: params.templates.event,
-        order: params.templates.order
-      },
-      scripts: { event: function(){} },
-      triggerEvents: { load: 'load', loadPrevious: 'loadPrevious', loadNext: 'loadNext' },
-      triggeredEvents: { loading: 'lhLoading', complete: 'lhComplete', success:'lhSuccess', fail: 'lhFail', lock: 'locklist', unlock: 'unlocklist' },
-      anchor: params.anchor
-    });
+  handleList(params.elems.listCanvas, sEventHandler.getInstance(), {
+    url: params.url,
+    params: params.debug?{format: 'jsonp'}:{},
+    ajax: !params.debug,
+    mainItem: 'event',
+    templates: {
+      event: params.templates.event,
+      order: params.templates.order
+    },
+    scripts: { event: function(){} },
+    triggerEvents: { load: 'load', loadPrevious: 'loadPrevious', loadNext: 'loadNext' },
+    triggeredEvents: { loading: 'lhLoading', complete: 'lhComplete', success:'lhSuccess', fail: 'lhFail', lock: 'locklist', unlock: 'unlocklist' },
+    anchor: params.anchor
+  });
 
-    handleNav(params.elems.navPrevious, params.elems.navNext, sEventHandler.getInstance(), {
-      triggerEvents: { loading: 'lhLoading', loadSuccess: 'lhSuccess', loadFail: 'lhFail'},
-      triggeredEvents: { getNextPage: 'loadNext', getPreviousPage: 'loadPrevious' },
-      url: params.url,
-      initDisplay: params.initNav,
-      anchor: params.anchor,
-      relyOnCount: true
-    });
+  handleNav(params.elems.navPrevious, params.elems.navNext, sEventHandler.getInstance(), {
+    triggerEvents: { loading: 'lhLoading', loadSuccess: 'lhSuccess', loadFail: 'lhFail'},
+    triggeredEvents: { getNextPage: 'loadNext', getPreviousPage: 'loadPrevious' },
+    url: params.url,
+    initDisplay: params.initNav,
+    anchor: params.anchor,
+    relyOnCount: true
+  });
 
-    handleLock(params.elems.listCanvas, {lock: 'locklist', unlock: 'unlocklist' });
+  handleLock(params.elems.listCanvas, {lock: 'locklist', unlock: 'unlocklist' });
 
-    if (params.includeFilters) handleEventListFilters({
-      canvas: params.elems.listHead,
-      labels: params.labels
-    });
-
-
-    _initOrderWidget();
-
-    _initPastLink();
-
-  },
-
-  _initPastLink = function() {
-
-    //states: 0 is exluded, include - 1: is included, exclude
-
-    var urlParams = params.url.getUrlParameters(),
-
-    state = urlParams.passed?1:0,
-
-    _show = function(index) {
-
-      var links = widget.getElementsByTagName('a');
-
-      links[0].style.display = links[1].style.display = 'none';
-
-      links[index].style.display = 'block';
-
-    };
-
-    var widget = document.createElement('span');
-    widget.innerHTML = new EJS({ text: params.templates.pastLink }).render(params.labels);
-
-    addEvent(widget, 'click', function() {
-
-      sEventHandler.getInstance().trigger('load', { passed: state?0:1 });
-
-    });
-
-    sEventHandler.getInstance().on('lhSuccess', function(data) {
-
-      _show(state = data.passed?1:0);
-
-    });
-
-    _show(state);
-
-    params.elems.listCanvas.insertAdjacentElement('beforebegin', widget);
-
-  },
-
-  _initOrderWidget = function() {
-
-    var _pick = function(choice) {
-
-      getElementsByClassName(widget, 'js_chosen')[0].innerHTML = params.orders[choice].label;
-
-      forEach(getElementsByClassName(widget, 'js_menu')[0].getElementsByTagName('li'), function(li) {
-        if (li.getAttribute('data-order') == choice)
-          addClass(li, 'active');
-        else
-          removeClass(li, 'active');
-      });
-
-    };
-
-    // create element
-
-    var widget = document.createElement('span');
-    widget.innerHTML = new EJS({ text: params.templates.orderSelect }).render({ orders: params.orders, label: params.labels.order });
-
-    // give it behavior
-
-    handleContextMenu(getElementsByClassName(widget, 'js_select')[0], getElementsByClassName(widget, 'js_menu')[0], sEventHandler.getInstance());
-
-    forEach(widget.getElementsByTagName('li'), function(li) {
-      addEvent(li, 'click', function(e) {
-        _pick(li.getAttribute('data-order'));
-        sEventHandler.getInstance().trigger('load', {order: li.getAttribute('data-order')});
-      });
-    });
-
-    sEventHandler.getInstance().on('lhSuccess', function(data) {
-      if (data.order) _pick(data.order);
-    });
-
-    // initialize it
-
-    var urlParams = params.url.getUrlParameters(),
-      defaultOrder = urlParams.order?urlParams.order:params.defaultOrder;
-
-    _pick(defaultOrder);
-
-    // prepend it above of list
-
-    params.elems.listCanvas.insertAdjacentElement('beforebegin', widget);
-
-  };
-
-  run();
+  if (params.includeFilters) handleEventListFilters({
+    canvas: params.elems.listHead,
+    labels: params.labels
+  });
 
 };
