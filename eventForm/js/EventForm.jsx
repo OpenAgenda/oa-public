@@ -113,7 +113,7 @@ module.exports = React.createClass( {
 
     textFields.forEach( function( field ) {
 
-      updated[ field ] = JSON.parse( JSON.stringify( self.state[ field ] ) );
+      updated[ field ] = JSON.parse( JSON.stringify( self.state[ field ] || {} ) );
 
       updated[ field ][ swapTo ] = updated[ field ][ swapFrom ];
 
@@ -139,7 +139,7 @@ module.exports = React.createClass( {
 
     textFields.forEach( function( field ) {
 
-      updated[ field ] = JSON.parse( JSON.stringify( self.state[ field ] ) );
+      updated[ field ] = JSON.parse( JSON.stringify( self.state[ field ] || {} ) );
 
       updated[ field ][ changedLanguage ] = change;
 
