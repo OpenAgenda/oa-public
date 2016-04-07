@@ -23,7 +23,7 @@ module.exports = function( data, cb ) {
     decorate: true,
     fullImagePath: true
   }, ( err, location ) => {
-
+    
     if ( err ) return cb( err );
 
     for( let k in location ) {

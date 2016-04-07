@@ -20,7 +20,10 @@ module.exports = function( req, res, next ) {
 function _registration( v ) {
 
   var registrationComponent = ReactDOMServer.renderToStaticMarkup(
-    Registration( { value: v.req.event.getTicketLink( true ) || '' } )
+    Registration( { 
+      value: v.req.event.getTicketLink( true ) || '',
+      lang: v.req.lang
+    } )
   );
 
   if ( registrationComponent == '<noscript></noscript>' ) registrationComponent = false;
