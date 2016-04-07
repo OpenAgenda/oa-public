@@ -127,7 +127,7 @@ Wrapper = React.createClass( {
         onChange={ this.onChange }
         validator={validators.text( { min: 3, max: 20 } )}
         getLabel={getLabel}
-        autofocus="true" />
+        autoFocus="true" />
 
       <InputField
         name="email"
