@@ -361,21 +361,24 @@ function agendaInvitations( agenda ) {
       label: 'a contributor',
       is: 'isContributor',
       set: 'setContributor',
-      new: 'newContributor'
+      new: 'newContributor',
+      myNew: 'iAmNewContributor'
     };
 
     types[ TYPES.AGENDAMODERATOR ] = {
       label: 'a moderator',
       is: 'isModerator',
       set: 'setModerator',
-      new: 'newModerator'
+      new: 'newModerator',
+      myNew: 'iAmNewModerator'
     };
 
     types[ TYPES.AGENDAADMIN ] = {
       label: 'an administrator',
       is: 'isAdministrator',
       set: 'setAdministrator',
-      new: 'newAdministrator'
+      new: 'newAdministrator',
+      myNew: 'iAmNewAdministrator'
     };
 
     return w.promise( function( resolve, reject ) {
@@ -401,6 +404,11 @@ function agendaInvitations( agenda ) {
           agenda[ t.set ]( values.user, { creatorId: values.invitation.creatorId }, function( err ) {
 
             if ( err ) return reject( err );
+
+            notification.notify[ t.myNew ]( {
+              agendaId: agenda.id,
+              userId: values.user.id
+            } );
 
             notification.notify[ t.new ]( {
               agendaId: agenda.id,

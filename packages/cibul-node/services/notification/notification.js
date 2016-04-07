@@ -38,8 +38,11 @@ TYPES = model.notifications().TYPES;
 module.exports = {
   notify: {
     newContributor: _notify( TYPES.AGENDA.NEWCONTRIBUTOR ),
+    iAmNewContributor: _notify( TYPES.AGENDA.IAMNEWCONTRIBUTOR ),
     newAdministrator: _notify( TYPES.AGENDA.NEWADMINISTRATOR ),
+    iAmNewModerator: _notify( TYPES.AGENDA.IAMNEWMODERATOR ),
     newModerator: _notify( TYPES.AGENDA.NEWMODERATOR ),
+    iAmNewAdministrator: _notify( TYPES.AGENDA.IAMNEWADMINISTRATOR ),
     expiredSwapcard: _notify( TYPES.AGENDA.EXPIREDSWAPCARD ),
     newSource: newSource
   },
@@ -71,11 +74,34 @@ function process( data, cb ) {
 
     return _createAdminNotifications( type, values, cb );
 
+  } else if ( [
+    TYPES.AGENDA.IAMNEWCONTRIBUTOR,
+    TYPES.AGENDA.IAMNEWADMINISTRATOR,
+    TYPES.AGENDA.IAMNEWMODERATOR,
+  ].indexOf( type ) !== -1 ) {
+
+    return _createMyNotification( type, values, cb );
+
   }
 
   log( 'error', 'unhandled type %s', type );
 
   cb();
+
+}
+
+
+function _createMyNotification( type, data, cb ) {
+
+  model.notifications().create[ type ]( data, ( err, result ) => {
+
+    if ( err ) return cb( err );
+
+    if ( !result.notification ) log( 'error', 'could not create notification: %s', JSON.stringify( result ) );
+
+    cb();
+
+  } );
 
 }
 
@@ -129,7 +155,7 @@ function _loadAgendaAdministrators( values ) {
 
   .then( function( administrators ) {
 
-    values.administrators = administrators;
+    values.administrators = administrators.filter( a => a.id !== values.entry.ownerId );
 
     return values;
 
@@ -141,12 +167,19 @@ function _notify( type ) {
 
   return function( data, cb ) {
 
-    data.userId = false; // userId is set after enqueuing
+    if ( data.userId === undefined ) {
 
-    // so this would not work.
-    model.notifications().cleanAndValidate[ type ]( data, false, function( err, result ) {
+      data.userId = false;
 
-      if ( !_isValid( type, err, result ) ) return cb ? cb( err ) : null;
+    }    
+
+    model.notifications().cleanAndValidate[ type ]( data, false, ( err, result ) => {
+
+      if ( !_isValid( type, err, result ) ) {
+
+        return cb ? cb( err ) : null;
+
+      }
 
       _queue( type, result.clean, cb );
 
