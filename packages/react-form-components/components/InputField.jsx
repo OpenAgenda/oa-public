@@ -33,7 +33,7 @@ module.exports = React.createClass( {
     renderButton: React.PropTypes.func,
     
     // optional autofocus
-    autoFocus: React.PropTypes.string
+    autoFocus: React.PropTypes.bool
 
   },
 
