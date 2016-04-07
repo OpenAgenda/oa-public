@@ -23,7 +23,10 @@
     <div class="row">
       <section class="col-sm-6 col-sm-offset-2 main-content">
         <div class="row filters cbpgft" data-cbctl="<%= agenda.uid %>|<%= lang %>|bs"></div>
-        <div class="total js_total"><%= __( '%count% events', { '%count%' : total }) %></div>
+        <div class="total js_total">
+          <span><%= __( passedIncluded ? '%count% events' : '%count% upcoming events', { '%count%' : total }) %></span>
+          <% if ( !passedIncluded ) { %> - <a href="<%= genUrl( 'agendaShow', [ { slug: agenda.slug }, passedQuery ] ) %>"><%= __( 'include passed events' ) %></a><% } %>
+        </div>
       </section>
       <section class="col-sm-8 main-content js_list_content">
         <% include ./show.part.ejs %>

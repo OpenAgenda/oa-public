@@ -51,5 +51,9 @@
   "Featured"
   : "À la une",
   "%count% events"
-  : "%count% événements"
+  : "%count% événements",
+  "%count% upcoming events"
+  : "%count% événements à venir",
+  "include passed events"
+  : "inclure les événements passés"
 }
