@@ -30,7 +30,10 @@ module.exports = React.createClass( {
     type: React.PropTypes.string,
 
     // optional button
-    renderButton: React.PropTypes.func
+    renderButton: React.PropTypes.func,
+    
+    // optional autofocus
+    autofocus: React.PropTypes.bool
 
   },
 
@@ -47,6 +50,8 @@ module.exports = React.createClass( {
     return {
 
       type: 'text',
+      
+      autofocus: false
 
     }
 
@@ -116,12 +121,14 @@ module.exports = React.createClass( {
           type="text"
           placeholder={this.getLabel( this.props.placeholder )}
           value={this.props.value}
-          onChange={this.onChange} />
+          onChange={this.onChange}
+          autofocus={this.props.autofocus} />
         : <textarea
           className="form-control"
           value={this.props.value}
           rows={6}
-          onChange={this.onChange} /> } {this.props.renderButton ? this.props.renderButton() : ''}
+          onChange={this.onChange}
+          autofocus={this.props.autofocus} /> } {this.props.renderButton ? this.props.renderButton() : ''}
       </div>
       {this.renderErrors()}
       {this.props.bottom ? this.props.bottom : null }
