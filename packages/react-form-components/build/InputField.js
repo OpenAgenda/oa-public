@@ -24,11 +24,17 @@ module.exports = React.createClass({
     // optional validator
     validator: React.PropTypes.func,
 
+    // optional placeholder
+    placeholder: React.PropTypes.string,
+
     // type of input ( textarea or text )
     type: React.PropTypes.string,
 
     // optional button
-    renderButton: React.PropTypes.func
+    renderButton: React.PropTypes.func,
+
+    // optional autofocus
+    autofocus: React.PropTypes.bool
 
   },
 
@@ -43,7 +49,9 @@ module.exports = React.createClass({
 
     return {
 
-      type: 'text'
+      type: 'text',
+
+      autofocus: false
 
     };
   },
@@ -117,12 +125,15 @@ module.exports = React.createClass({
         this.props.type !== "textarea" ? React.createElement('input', {
           className: 'form-control',
           type: 'text',
+          placeholder: this.getLabel(this.props.placeholder),
           value: this.props.value,
-          onChange: this.onChange }) : React.createElement('textarea', {
+          onChange: this.onChange,
+          autoFocus: !!this.props.autofocus }) : React.createElement('textarea', {
           className: 'form-control',
           value: this.props.value,
           rows: 6,
-          onChange: this.onChange }),
+          onChange: this.onChange,
+          autoFocus: !!this.props.autofocus }),
         ' ',
         this.props.renderButton ? this.props.renderButton() : ''
       ),

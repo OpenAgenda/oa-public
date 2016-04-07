@@ -122,13 +122,13 @@ module.exports = React.createClass( {
           placeholder={this.getLabel( this.props.placeholder )}
           value={this.props.value}
           onChange={this.onChange}
-          autofocus={this.props.autofocus} />
+          autoFocus={!!this.props.autofocus} />
         : <textarea
           className="form-control"
           value={this.props.value}
           rows={6}
           onChange={this.onChange}
-          autofocus={this.props.autofocus} /> } {this.props.renderButton ? this.props.renderButton() : ''}
+          autoFocus={!!this.props.autofocus} /> } {this.props.renderButton ? this.props.renderButton() : ''}
       </div>
       {this.renderErrors()}
       {this.props.bottom ? this.props.bottom : null }
