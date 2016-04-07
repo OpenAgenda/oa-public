@@ -295,10 +295,24 @@ function _format( req, res, next ) {
 
     if ( err ) return cb( err );
 
+    let passedQuery = JSON.parse( JSON.stringify( req.query ) );
+
+    if ( !passedQuery.oaq ) {
+
+      passedQuery.oaq = {};
+
+    }
+
+    passedQuery.oaq.passed = 1;
+
     req.templateData = {
       events: formattedEvents,
       hasSearchQuery: !!lib.size( req.query.oaq ),
+      // are all events of the agenda passed
       passed: req.agenda.passed,
+      // does the current selection include passed events
+      passedIncluded: req.query.oaq ? req.query.oaq.passed : false,
+      passedQuery: passedQuery,
       total: req.total,
       page: req.query.page || 1
     };
