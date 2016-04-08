@@ -24,6 +24,8 @@ async = require( 'async' ),
 
 model = require( 'cibulModel' )( config.db ),
 
+init = require( '../../lib/init' ),
+
 fixtureData;
 
 task.setComs( bogusComs );
@@ -31,6 +33,12 @@ task.setComs( bogusComs );
 describe( 'search index sync', function() {
 
   this.timeout( 20000 );
+
+  before( done => {
+
+    init.agendaLocations( {}, done );
+
+  } );
   
   before( function( done ) {
 
@@ -45,7 +53,7 @@ describe( 'search index sync', function() {
       
       task.setOnComplete( done );
 
-      bogusComs.publish( config.es.channel, { name: 'index.resync' } );
+      bogusComs.publish( config.es.channel, { name: 'index.resync', values: { reset: true } } );
 
     } );
 
@@ -56,7 +64,7 @@ describe( 'search index sync', function() {
 
     async.eachSeries( fixtureData.events, function( fEvent, ecb ) {
 
-      var requestedId = fEvent.id
+      let requestedId = fEvent.id;
 
       ES.events().get( fEvent.id + '@' + fixtureData.reviews[0].id, function( err, result ) {
 
