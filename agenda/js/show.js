@@ -113,7 +113,7 @@ window.asap( function( options ) {
 
         favorites.sweep();
 
-        _updateTotal( data );
+        //_updateTotal( data );
 
       }
     } );
