@@ -17,7 +17,8 @@
             <span class="error"><%= __( errors.email ) %></span>
 <% } %>
 <% if ( typeof errors.password !== 'undefined' ) { %>
-            <span class="error"><%= __( errors.password ) %></span>
+            <p class="bg-danger"><%- __( 'Your password is incorrect. We can help you to %change%', { '%change%' : '<a href="' + genUrl( 'lostPassword' ) + '">' + __( 'change it' ) + '</a>' } ) %></p>              
+            </p>
 <% } %>
           </div>
 <% } %>

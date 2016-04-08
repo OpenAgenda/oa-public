@@ -27,5 +27,10 @@
       "importUri" : "idontneedthis",
       "isEmpty" : false
     }
+  },
+  "wrongpassword" : {
+    "errors" : {
+      "password" : "label is not used anymore"
+    }
   }
 }

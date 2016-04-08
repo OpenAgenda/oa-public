@@ -205,7 +205,7 @@
 
         <div class="location-head">
           <label>
-            <a href="<%= event.locationLink || '#' %>"><%= event.location.name %></a>
+            <a href="<%= event.locationLink || '#' %>"><%- event.location.name %></a>
           </label>
           <span><%- event.location.address %></span>
 <% if ( event.location.tags && event.location.tags.length ) { %>

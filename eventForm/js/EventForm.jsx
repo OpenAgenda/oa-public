@@ -81,6 +81,12 @@ module.exports = React.createClass( {
     return state;
   },
 
+  getLabel: function( name ) {
+
+    return this.props.labels[ name ][ this.props.lang ];
+
+  },
+
   onChange: function( field ) {
 
     var self = this;
@@ -107,7 +113,7 @@ module.exports = React.createClass( {
 
     textFields.forEach( function( field ) {
 
-      updated[ field ] = JSON.parse( JSON.stringify( self.state[ field ] ) );
+      updated[ field ] = JSON.parse( JSON.stringify( self.state[ field ] || {} ) );
 
       updated[ field ][ swapTo ] = updated[ field ][ swapFrom ];
 
@@ -133,7 +139,7 @@ module.exports = React.createClass( {
 
     textFields.forEach( function( field ) {
 
-      updated[ field ] = JSON.parse( JSON.stringify( self.state[ field ] ) );
+      updated[ field ] = JSON.parse( JSON.stringify( self.state[ field ] || {} ) );
 
       updated[ field ][ changedLanguage ] = change;
 
@@ -484,7 +490,7 @@ module.exports = React.createClass( {
         <LanguageBar 
           languages={ this.state.languages } 
           onChange={ this.changeLanguages }
-          labels={ this.props.labels } />
+          getLabel={ this.getLabel } />
 
         <div className="form-section">
 

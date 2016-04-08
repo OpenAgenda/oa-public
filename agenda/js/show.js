@@ -113,7 +113,7 @@ window.asap( function( options ) {
 
         favorites.sweep();
 
-        _updateTotal( data );
+        //_updateTotal( data );
 
       }
     } );
@@ -144,7 +144,7 @@ window.asap( function( options ) {
 // khh khhhh..
 function _updateTotal( data ) {
 
-  var elem = cn.el( '.js_total' );
+  var elem = cn.el( 'span', cn.el( '.js_total' ) );
 
   if ( !elem || !data || data.total === undefined ) return;
 

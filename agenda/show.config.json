@@ -24,6 +24,7 @@
     "pageId" : "agenda",
     "queryLang" : false,
     "isEmbed" : false,
+    "passedIncluded" : false,
     "hasSearchQuery" : false,
     "includeActionLinks" : true
   },
