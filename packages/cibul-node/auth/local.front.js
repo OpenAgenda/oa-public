@@ -24,8 +24,6 @@ agendaSvc = require( '../services/agenda' ),
 
 pLib = require( './lib/passport' ),
 
-emailValidator = require( 'validators/email' )(),
-
 routes = {
 
   signin: [ 'get', '/signin', [ 
@@ -363,32 +361,13 @@ function _guessFullName( req, res, next ) {
 
   if ( !req.query.email ) return next();
 
-  let email;
+  let fullName = auth.fullNameFromEmail( req.query.email );
 
-  try {
-
-    email = emailValidator( req.query.email );
-
-  } catch( e ) {
-
-    return next();
-
-  }
-  
-  let parts = email.split( '@' ),
-
-  name = parts[ 0 ]
-
-  .split( /[\._]/g )
-
-  .map( s => s[ 0 ].toUpperCase() + s.substr( 1 ) )
-
-  .join( ' ' ),
-
-  at = ( parts[ 1 ][ 0 ].toUpperCase() + parts[ 1 ].substr( 1 ) ).split( '.' )[ 0 ];
+  if ( !fullName ) return next();
 
   auth.renderSignup( req, res, {
-    full_name: name + ' ' + at
+    full_name: fullName,
+    email: req.query.email
   } );
 
 }

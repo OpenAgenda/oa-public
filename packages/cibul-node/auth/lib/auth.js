@@ -10,6 +10,8 @@ w = require( 'when' ),
 
 pLib = require( './passport' ),
 
+emailValidator = require( 'validators/email' )(),
+
 deepExtend = require( 'deep-extend' ),
 
 userSvc = require( '../../services/user' ),
@@ -35,6 +37,7 @@ exposed = {
   saveOptionals: saveOptionals,
   restoreOptionals: restoreOptionals,
   serviceCallback: serviceCallback,
+  fullNameFromEmail: fullNameFromEmail,
   done: done, // when a controller is done
   errors: {
     defaultMessage: errorDefaultMessage,
@@ -138,7 +141,9 @@ function init( service ) {
 
     return w.promise( function( resolve, reject ) {
 
-      var options = loadOptionals( values.req );
+      let options = loadOptionals( values.req ),
+
+      fullName = values.profile.fullName.length ? values.profile.fullName : fullNameFromEmail( values.profile.email );
 
       if ( values.req.agenda ) options.agenda = values.req.agenda;
 
@@ -151,7 +156,7 @@ function init( service ) {
       userSvc.create[ service ]( {
         id: values.profile.id,
         email: values.profile.email,
-        fullName: values.profile.fullName,
+        fullName: fullName,
         culture: values.req.lang
       }, options, function( err, user, data ) {
 
@@ -558,6 +563,37 @@ function loadOptionals( req ) {
   }
 
   return optionals;
+
+}
+
+
+function fullNameFromEmail( emailInput ) {
+
+  let email;
+
+  try {
+
+    email = emailValidator( emailInput );
+
+  } catch( e ) {
+
+    return false;
+
+  }
+  
+  let parts = email.split( '@' ),
+
+  name = parts[ 0 ]
+
+  .split( /[\._]/g )
+
+  .map( s => s[ 0 ].toUpperCase() + s.substr( 1 ) )
+
+  .join( ' ' ),
+
+  at = ( parts[ 1 ][ 0 ].toUpperCase() + parts[ 1 ].substr( 1 ) ).split( '.' )[ 0 ];
+
+  return name + ' ' + at
 
 }
 
