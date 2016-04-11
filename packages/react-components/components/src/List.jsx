@@ -13,11 +13,20 @@ module.exports = React.createClass( {
     limit: React.PropTypes.number,
     getPage: React.PropTypes.func,
     renderItem: React.PropTypes.func,
-    renderEmpty: React.PropTypes.func,
-    renderPrev: React.PropTypes.func,
-    renderNext: React.PropTypes.func,
     prevLabel: React.PropTypes.string,
-    nextLabel: React.PropTypes.string
+    nextLabel: React.PropTypes.string,
+    renderEmpty: React.PropTypes.oneOfType( [
+      React.PropTypes.func,
+      React.PropTypes.string
+    ] ),
+    renderPrev: React.PropTypes.oneOfType( [
+      React.PropTypes.func,
+      React.PropTypes.string
+    ] ),
+    renderNext: React.PropTypes.oneOfType( [
+      React.PropTypes.func,
+      React.PropTypes.string
+    ] )
   },
 
   getDefaultProps() {
@@ -69,17 +78,19 @@ module.exports = React.createClass( {
 
   },
 
-  renderPrev() {    
+  renderPrev() {
     return this.props.renderPrev ? this.props.renderPrev : (this.hasPrevPage() ?
       <nav className="page-nav">
-        <button className="btn btn-default" onClick={this.props.getPage.bind( null, false )}>{this.props.prevLabel}</button>
+        <button className="btn btn-default"
+                onClick={this.props.getPage.bind( null, false )}>{this.props.prevLabel}</button>
       </nav> : null)
   },
 
   renderNext() {
     return this.props.renderNext ? this.props.renderNext : (this.hasNextPage() ?
       <nav className="page-nav">
-        <button className="btn btn-default" onClick={this.props.getPage.bind( null, true )}>this.props.nextLabel</button>
+        <button className="btn btn-default" onClick={this.props.getPage.bind( null, true )}>this.props.nextLabel
+        </button>
       </nav> : null)
   },
 
