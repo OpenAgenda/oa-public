@@ -79,19 +79,31 @@ module.exports = React.createClass( {
   },
 
   renderPrev() {
-    return this.props.renderPrev ? this.props.renderPrev : (this.hasPrevPage() ?
-      <nav className="page-nav">
-        <button className="btn btn-default"
-                onClick={this.props.getPage.bind( null, false )}>{this.props.prevLabel}</button>
-      </nav> : null)
+
+    if ( this.props.renderPrev )
+      return typeof this.props.renderPrev === 'function' ? this.props.renderPrev() : this.props.renderPrev;
+    else if ( this.hasPrevPage() )
+      return (
+        <nav className="page-nav">
+          <button className="btn btn-default"
+                  onClick={this.props.getPage.bind( null, false )}>{this.props.prevLabel}</button>
+        </nav>
+      );
+    
   },
 
   renderNext() {
-    return this.props.renderNext ? this.props.renderNext : (this.hasNextPage() ?
-      <nav className="page-nav">
-        <button className="btn btn-default" onClick={this.props.getPage.bind( null, true )}>this.props.nextLabel
-        </button>
-      </nav> : null)
+
+    if ( this.props.renderNext )
+      return typeof this.props.renderNext === 'function' ? this.props.renderNext() : this.props.renderNext;
+    else if ( this.hasNextPage() )
+      return (
+        <nav className="page-nav">
+          <button className="btn btn-default"
+                  onClick={this.props.getPage.bind( null, true )}>{this.props.nextLabel}</button>
+        </nav>
+      );
+    
   },
 
   render() {
