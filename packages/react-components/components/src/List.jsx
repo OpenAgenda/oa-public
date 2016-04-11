@@ -82,7 +82,8 @@ module.exports = React.createClass( {
 
     if ( this.props.renderPrev )
       return typeof this.props.renderPrev === 'function' ? this.props.renderPrev() : this.props.renderPrev;
-    else if ( this.hasPrevPage() )
+    
+    if ( this.hasPrevPage() )
       return (
         <nav className="page-nav">
           <button className="btn btn-default"
@@ -96,13 +97,20 @@ module.exports = React.createClass( {
 
     if ( this.props.renderNext )
       return typeof this.props.renderNext === 'function' ? this.props.renderNext() : this.props.renderNext;
-    else if ( this.hasNextPage() )
+    
+    if ( this.hasNextPage() )
       return (
         <nav className="page-nav">
           <button className="btn btn-default"
                   onClick={this.props.getPage.bind( null, true )}>{this.props.nextLabel}</button>
         </nav>
       );
+    
+  },
+  
+  renderEmpty() {
+    
+    return typeof this.props.renderEmpty === 'function' ? this.props.renderEmpty() : this.props.renderEmpty
     
   },
 
@@ -112,7 +120,7 @@ module.exports = React.createClass( {
       <div>
         {this.renderPrev()}
         <div>
-          {this.props.items.length ? this.props.items.map( this.props.renderItem ) : this.props.renderEmpty}
+          {this.props.items.length ? this.props.items.map( this.props.renderItem ) : this.renderEmpty()}
         </div>
         {this.renderNext()}
       </div>
