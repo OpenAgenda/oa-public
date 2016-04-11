@@ -62,7 +62,9 @@ module.exports = React.createClass({
   },
   renderPrev: function renderPrev() {
 
-    if (this.props.renderPrev) return typeof this.props.renderPrev === 'function' ? this.props.renderPrev() : this.props.renderPrev;else if (this.hasPrevPage()) return React.createElement(
+    if (this.props.renderPrev) return typeof this.props.renderPrev === 'function' ? this.props.renderPrev() : this.props.renderPrev;
+
+    if (this.hasPrevPage()) return React.createElement(
       'nav',
       { className: 'page-nav' },
       React.createElement(
@@ -75,7 +77,9 @@ module.exports = React.createClass({
   },
   renderNext: function renderNext() {
 
-    if (this.props.renderNext) return typeof this.props.renderNext === 'function' ? this.props.renderNext() : this.props.renderNext;else if (this.hasNextPage()) return React.createElement(
+    if (this.props.renderNext) return typeof this.props.renderNext === 'function' ? this.props.renderNext() : this.props.renderNext;
+
+    if (this.hasNextPage()) return React.createElement(
       'nav',
       { className: 'page-nav' },
       React.createElement(
@@ -86,6 +90,10 @@ module.exports = React.createClass({
       )
     );
   },
+  renderEmpty: function renderEmpty() {
+
+    return typeof this.props.renderEmpty === 'function' ? this.props.renderEmpty() : this.props.renderEmpty;
+  },
   render: function render() {
 
     return React.createElement(
@@ -95,7 +103,7 @@ module.exports = React.createClass({
       React.createElement(
         'div',
         null,
-        this.props.items.length ? this.props.items.map(this.props.renderItem) : this.props.renderEmpty
+        this.props.items.length ? this.props.items.map(this.props.renderItem) : this.renderEmpty()
       ),
       this.renderNext()
     );
