@@ -28,7 +28,7 @@ module.exports = React.createClass( {
       limit: 20,
       prevLabel: 'load previous',
       nextLabel: 'load next',
-      renderEmpty: () => ''
+      renderEmpty: () => null
     }
 
   },
