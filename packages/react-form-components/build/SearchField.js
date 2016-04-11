@@ -147,7 +147,7 @@ module.exports = React.createClass({
       { className: this.props.dynamic ? '' : 'input-group' },
       React.createElement(
         'label',
-        { className: 'sr-only', 'for': this.props.name },
+        { className: 'sr-only', htmlFor: this.props.name },
         this.props.label
       ),
       React.createElement('input', {
