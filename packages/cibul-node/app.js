@@ -87,7 +87,7 @@ module.exports = function( enabledTypes, cb ) {
       },
       mysql: config.db,
       logger: logger
-    } );
+    }, () => {} );
 
     init.agendaLocations( {
       logger: logger
