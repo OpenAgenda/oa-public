@@ -5,8 +5,8 @@ var React = require('react'),
     Spinner = require('spin.js');
 
 module.exports = React.createClass({
-  displayName: 'exports',
 
+  displayName: 'Spinner',
 
   propTypes: {
     loading: React.PropTypes.bool.isRequired

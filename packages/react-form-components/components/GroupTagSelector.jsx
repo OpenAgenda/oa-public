@@ -10,6 +10,8 @@ labels = require( '../labels' );
 
 module.exports = React.createClass( {
 
+  displayName: 'GroupTagSelector',
+
   propTypes: {
 
     lang: React.PropTypes.string,

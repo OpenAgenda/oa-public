@@ -5,8 +5,8 @@ var React = require('react'),
     labels = require('../labels');
 
 module.exports = React.createClass({
-  displayName: 'exports',
 
+  displayName: 'MultilingualInputField',
 
   propTypes: {
 

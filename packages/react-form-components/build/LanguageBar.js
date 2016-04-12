@@ -7,8 +7,8 @@ var React = require('react'),
     makeLabelGetter = require('../lib/makeLabelGetter');
 
 module.exports = React.createClass({
-  displayName: 'exports',
 
+  displayName: 'LanguageBar',
 
   propTypes: {
 

@@ -5,8 +5,8 @@ var React = require('react'),
     TagsInput = require('react-tagsinput');
 
 module.exports = React.createClass({
-  displayName: 'exports',
 
+  displayName: 'MultiInputField',
 
   propTypes: {
 

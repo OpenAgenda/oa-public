@@ -12,6 +12,8 @@ makeLabelGetter = require( '../lib/makeLabelGetter' );
 
 module.exports = React.createClass( {
 
+  displayName: 'LanguageBar',
+
   propTypes: {
 
     // used by component to load labels

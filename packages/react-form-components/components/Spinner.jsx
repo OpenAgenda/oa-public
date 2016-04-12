@@ -8,6 +8,8 @@ Spinner = require( 'spin.js' );
 
 module.exports = React.createClass( {
 
+  displayName: 'Spinner',
+
   propTypes: {
     loading: React.PropTypes.bool.isRequired
   },

@@ -4,8 +4,8 @@ var React = require('react'),
     Spinner = require('./Spinner');
 
 module.exports = React.createClass({
-  displayName: 'exports',
 
+  displayName: 'SearchField',
 
   propTypes: {
     value: React.PropTypes.string,

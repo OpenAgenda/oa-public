@@ -7,6 +7,7 @@
   "license": "ISC",
   "scripts" : {
     "babelify": "babel components -d build",
+    "build": "npm run-script babelify",
     "preserve" : "npm run-script babelify",
     "serve": "node test/app",
     "start": "nodemon --exec 'npm' --ignore build --ext js,jsx run-script serve"

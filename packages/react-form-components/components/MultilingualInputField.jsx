@@ -8,6 +8,8 @@ labels = require( '../labels' );
 
 module.exports = React.createClass( {
 
+  displayName: 'MultilingualInputField',
+
   propTypes: {
     
     // list of language codes to display

@@ -6,6 +6,8 @@ getLabel = require( '../lib/makeLabelGetter' )( require( '../labels' ) );
 
 module.exports = React.createClass( {
 
+  displayName: 'InputField',
+
   propTypes: {
 
     // value - usually a string
