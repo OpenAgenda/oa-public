@@ -16,7 +16,9 @@ dbUtils = require( './dbUtils' ),
 
 utils = require( 'utils' ),
 
-getters = require( './getters' ),
+instanciate = require( './instanciate' ),
+
+gettersLib = require( './getters' ),
 
 logger = require( 'basic-logger' ),
 
@@ -34,28 +36,62 @@ function agenda( agendaId ) {
 
   }
 
-  let get = getters( agendaId ),
+  let getters = gettersLib( agendaId ),
 
-  s = settings( agendaId );
+  s = settings( agendaId ),
 
-  return {
+  // exposed part of the service for a specific agenda
+  agendaService = {};
 
-    // set stakeholder requirements
-    settings: {
-      get: s.get,
-      set: s.set
-    },
+  // set stakeholder requirements
+  agendaService.settings = { 
+    get: s.get,
+    set: s.set
+  };
 
-    // get a stakeholder of an agenda
-    get: get,
+  // get a stakeholder of an agenda
+  agendaService.get = get;
 
-    // list stakeholders of an agenda
-    list: get.list,
+  // list stakeholders of an agenda
+  agendaService.list = getters.list;
 
-    // transfer an event from one stakeholder to another
-    transferEvent: transferEvent( agendaId )
-    
-  }  
+  // transfer an event from one stakeholder to another
+  agendaService.transferEvent = transferEvent( agendaId );
+
+  // instanciation function for agenda stakeholders
+  agendaService.instanciate = instanciate( agendaService );
+
+  return agendaService;
+
+  function get( identifiers, options, cb ) {
+
+    if ( arguments.length === 2 ) {
+
+      cb = options;
+      options = {};
+
+    }
+
+    let params = Object.assign( {
+      instanciate: false
+    }, options || {} );
+
+    getters.get( identifiers, ( err, stakeholder ) => {
+
+      if ( err ) return cb( err );
+
+      // avoid instanciating empty result
+      if ( !stakeholder ) {
+
+        return cb( null, null );
+
+      }
+
+      cb( null, params.instanciate ? agendaService.instanciate( stakeholder ) : stakeholder );
+
+    } );
+
+  }
 
 }
 

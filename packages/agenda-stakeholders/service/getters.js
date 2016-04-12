@@ -12,9 +12,10 @@ w = require( 'when' );
 
 module.exports = function( agendaId ) {
 
-  get.list = list;
-
-  return get;
+  return {
+    get: get,
+    list: list
+  }
 
   function get( query, cb ) {
 

@@ -102,6 +102,12 @@ function _validate( fields ) {
 
       }
 
+      if ( f.type === undefined ) {
+
+        throw 'field type is not set at index ' + i;
+
+      }
+
     } catch( e ) {
 
       errors.push( e );
