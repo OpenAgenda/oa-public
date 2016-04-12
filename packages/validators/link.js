@@ -84,6 +84,8 @@ module.exports = function( config ) {
 
   validator.type = 'link';
 
+  validator.field = field;
+
   return validator;
 
 }

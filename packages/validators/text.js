@@ -11,7 +11,12 @@ module.exports = function( config ) {
     trim: true,
   }, config || {} );
 
-  return function( value ) {
+  return utils.extend( validate, {
+    type: 'text',
+    field: params.field
+  } );
+
+  function validate( value ) {
 
     var clean = value ? value + '' : '';
 

@@ -51,6 +51,12 @@ module.exports = function( config ) {
 
   }
 
+  if ( params.field ) {
+
+    validator.field = params.field;
+
+  }
+
   return validator;
 
 }

@@ -15,9 +15,10 @@ module.exports = function( config ) {
 
   emaiRgx = /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i;
 
-  validate.type = 'email';
-
-  return validate;
+  return utils.extend( validate, {
+    type: 'email',
+    field: params.field
+  } );
 
   function validate( value ) {
 
