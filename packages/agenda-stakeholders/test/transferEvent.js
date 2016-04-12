@@ -14,7 +14,7 @@ service = require( '../service' );
 
 describe( 'agenda-stakeholders', function() {
 
-  this.timeout( 10000 );
+  this.timeout( 30000 );
 
   before( done => {
 
