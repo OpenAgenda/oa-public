@@ -253,13 +253,11 @@
           </li>
 <% } %>
 <% if ( event.location.links ) { %>
-          <li>
+          <li class="location-links">
             <label><%= __( 'More links' ) %></label>: 
-            <span>
 <% event.location.links.forEach( function( link ) { %>
-              <a href="<%= link %>"><%= link %></a>
+            <a href="<%= link %>" target="_blank"><%= link %></a>
 <% } ); %>
-            </span>
           </li>
 <% } %>
 
