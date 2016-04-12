@@ -18,7 +18,9 @@ utils = require( 'utils' ),
 
 getters = require( './getters' ),
 
-logger = require( 'basic-logger' );
+logger = require( 'basic-logger' ),
+
+settings = require( './settings' );
 
 module.exports = agenda;
 
@@ -32,10 +34,18 @@ function agenda( agendaId ) {
 
   }
 
-  let get = getters( agendaId );
+  let get = getters( agendaId ),
+
+  s = settings( agendaId );
 
   return {
-    
+
+    // set stakeholder requirements
+    settings: {
+      get: s.get,
+      set: s.set
+    },
+
     // get a stakeholder of an agenda
     get: get,
 
@@ -49,36 +59,71 @@ function agenda( agendaId ) {
 
 }
 
-function init( c ) {
+
+function init( c, cb ) {
 
   schemas = c.schemas;
 
-  if ( c.logger ) {
-
-    logger.setLogger( c.logger );
-    
-  }
-
-  knex = knexLib( {
-    client: 'mysql',
-    connection: c.mysql
-  } );
-
   config = c;
 
-  transferEvent.init( {
-    knex: knex,
-    schemas: schemas
-  } );
+  w( c )
 
-  getters.init( {
-    knex: knex,
-    schemas: schemas
-  } );
+  .then( () => {
 
-  dbUtils.init( {
-    knex: knex,
-    schemas: schemas
-  } );
+    if ( c.logger ) {
+
+      logger.setLogger( c.logger );
+      
+    }
+
+  } )
+
+  .then( () => {
+
+    knex = knexLib( {
+      client: 'mysql',
+      connection: c.mysql
+    } );
+
+  } )  
+
+  .then( () => {
+
+    transferEvent.init( {
+      knex: knex,
+      schemas: schemas
+    } );
+
+  } )
+
+  .then( () => {
+
+    getters.init( {
+      knex: knex,
+      schemas: schemas
+    } );
+
+  } )
+
+  .then( () => {
+
+    dbUtils.init( {
+      knex: knex,
+      schemas: schemas
+    } );
+
+  } )
+
+  .then( () => {
+
+    return settings.init( {
+      mysql: c.mysql,
+      knex: knex,
+      schemas: schemas
+    } );
+
+  } )
+
+  .done( () => cb(), cb );
 
 }

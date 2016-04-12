@@ -22,7 +22,11 @@ describe( 'agenda-stakeholders', function() {
 
     fixtures( done );
 
-    service.init( config );
+  } );
+
+  before( done => {
+
+    service.init( config, done );
 
   } );
 

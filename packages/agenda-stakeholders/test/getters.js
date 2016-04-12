@@ -24,7 +24,11 @@ describe( 'agenda-stakeholders', () => {
 
       fixtures( done );
 
-      service.init( config );
+    } );
+
+    before( done => {
+
+      service.init( config, done );
 
     } );
 
@@ -63,7 +67,7 @@ describe( 'agenda-stakeholders', () => {
 
         stakeholders.length.should.equal( 1 );
 
-        stakeholders[ 0 ].should.eql( { 
+        stakeholders[ 0 ].should.eql( {
           id: 6996,
           credential: 3,
           userId: 7368,

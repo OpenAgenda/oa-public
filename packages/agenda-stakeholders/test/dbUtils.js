@@ -1,5 +1,7 @@
 "use strict";
 
+process.env.NODE_ENV = 'test';
+
 var should = require( 'should' ),
 
 config = require( '../testconfig' ),
@@ -125,6 +127,7 @@ describe( 'agenda-stakeholders', function() {
       } );
 
     } );
+    
 
     it( 'getEvent - does not find', done => {
 
@@ -144,6 +147,7 @@ describe( 'agenda-stakeholders', function() {
       } );
 
     } );
+
 
     it( 'getEvent - finds', done => {
 

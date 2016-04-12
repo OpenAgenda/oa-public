@@ -11,11 +11,9 @@ utils = require( 'utils' ),
 
 dbUtils = require( './dbUtils' ),
 
-logger = require( 'basic-logger' ),
+logger = require( 'basic-logger' ), log,
 
-w = require( 'when' ),
-
-log = logger( 'transferEvent' );
+w = require( 'when' );
 
 module.exports = function( agendaId ) {
 
@@ -59,11 +57,13 @@ module.exports = function( agendaId ) {
 
 module.exports.init = function( config ) {
 
-  log( 'initing' );
+  log = logger( 'transferEvent' );
 
   schemas = config.schemas;
 
   knex = config.knex;
+
+  log( 'inited' );
 
 }
 

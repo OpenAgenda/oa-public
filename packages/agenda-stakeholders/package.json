@@ -17,7 +17,8 @@
     "should": "^8.3.0",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
     "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git",
-    "when": "^3.7.7"
+    "when": "^3.7.7",
+    "mysql-table-store": "git+ssh://git@bitbucket.org:openagenda/mysql-table-store.git"
   },
   "devDependencies": {
     "mysql": "^2.10.2",
