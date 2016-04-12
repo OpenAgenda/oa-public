@@ -2,7 +2,13 @@
 
 var qs = require( 'qs' );
 
-module.exports.getQueryPart = function( name, defaultValue ) {
+module.exports = {
+  getQueryPart,
+  setQueryPart
+};
+
+
+function getQueryPart( name, defaultValue ) {
 
   if ( !document ) return defaultValue;
 
@@ -19,5 +25,20 @@ module.exports.getQueryPart = function( name, defaultValue ) {
   if ( query[ name ] === undefined ) return defaultValue;
 
   return query[ name ];
+
+}
+
+function setQueryPart( query ) {
+
+  if (
+    ( typeof window.history !== 'undefined' )
+    && ( typeof window.history.pushState !== 'undefined' )
+  ) {
+
+    window.history.pushState( query, null,
+      window.location.href.split( '?' )[ 0 ] + '?' + qs.stringify( query )
+    );
+
+  }
 
 }

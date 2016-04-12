@@ -1,6 +1,8 @@
 "use strict";
 
-var qs = require( 'qs' );
+var qs = require( 'qs' ),
+  
+  utils = require( "utils" );
 
 module.exports = function( values ) {
 

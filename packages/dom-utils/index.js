@@ -26,7 +26,7 @@ function isElement( o ) {
 
   return (
     typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
-    o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName==="string"
+    o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName === "string"
   );
 
 }
@@ -37,15 +37,15 @@ function preventDefault( event ) {
 
 };
 
-function childObject(elem, index) {
+function childObject( elem, index ) {
 
   var i = 0, realI = 0;
 
-  while (elem.childNodes[i]) {
+  while ( elem.childNodes[ i ] ) {
 
-    if (elem.childNodes[i].nodeType == 1) {
+    if ( elem.childNodes[ i ].nodeType == 1 ) {
 
-      if (realI==index) return elem.childNodes[i];
+      if ( realI == index ) return elem.childNodes[ i ];
 
       realI++;
     }
@@ -61,13 +61,13 @@ function childObject(elem, index) {
 
 function hasClass( element, cls ) {
 
-  return ( ' ' + element.className + ' ').indexOf(' ' + cls + ' ' ) > -1; 
+  return ( ' ' + element.className + ' ').indexOf( ' ' + cls + ' ' ) > -1;
 
 }
 
 function addClass( element, className ) {
 
-  if (!hasClass(element, className)) element.className = element.className + ' ' + className; 
+  if ( !hasClass( element, className ) ) element.className = element.className + ' ' + className;
 
 }
 
@@ -75,11 +75,11 @@ function removeClass( element, cls ) {
 
   if ( hasClass( element, cls ) ) {
 
-    var regex = new RegExp(cls, 'g');
+    var regex = new RegExp( cls, 'g' );
 
-    element.className = element.className.replace(regex,'');
+    element.className = element.className.replace( regex, '' );
 
-  } 
+  }
 
 }
 
@@ -105,10 +105,10 @@ function els( node, selector ) {
 
     return getElementsByClassName( node, selector );
 
-  } else if ( prefix == '#') {
+  } else if ( prefix == '#' ) {
 
     var result = node.getElementById( selector );
-    
+
     if ( result ) {
 
       return [ result ];
@@ -186,9 +186,9 @@ function asapReady( selector, timeout, cb ) {
 function addEvent( elem, types, eventHandle ) {
 
   if ( elem == null || elem == undefined ) return;
-  
+
   if ( typeof types == 'string' ) types = [ types ];
-  
+
   forEach( types, function( type ) {
 
     if ( elem.addEventListener ) {
@@ -197,11 +197,11 @@ function addEvent( elem, types, eventHandle ) {
 
     } else if ( elem.attachEvent ) {
 
-        elem.attachEvent( 'on' + type, eventHandle );
+      elem.attachEvent( 'on' + type, eventHandle );
 
     } else {
 
-        elem[ 'on' + type ]=eventHandle;
+      elem[ 'on' + type ] = eventHandle;
 
     }
 
@@ -219,20 +219,20 @@ function removeEvent( elem, types, eventHandle ) {
   forEach( types, function( type ) {
 
     if ( elem.removeEventListener ) {
-    
+
       elem.removeEventListener( type, eventHandle, false );
-    
+
     } else if ( elem.detachEvent ) {
-    
-      elem.detachEvent( 'on'+type, eventHandle );
-    
+
+      elem.detachEvent( 'on' + type, eventHandle );
+
     } else {
-    
-      elem[ "on"+type ]=null;
-    
+
+      elem[ "on" + type ] = null;
+
     }
 
-  });
+  } );
 
 };
 
@@ -258,15 +258,15 @@ function getElementsByClassName( node, className ) {
 
   var a = [],
 
-  re = new RegExp( '(^| )' + className + '( |$)' ),
+    re = new RegExp( '(^| )' + className + '( |$)' ),
 
-  els = node.getElementsByTagName( '*' );
+    els = node.getElementsByTagName( '*' );
 
-  for( var i=0, j=els.length; i<j; i++ ) {
+  for ( var i = 0, j = els.length; i < j; i++ ) {
 
-    if ( re.test( els[i].className ) ) {
+    if ( re.test( els[ i ].className ) ) {
 
-      a.push( els[i] );
+      a.push( els[ i ] );
 
     }
 
@@ -281,7 +281,7 @@ function nl2br( str, is_xhtml ) {
 
   var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
 
-  return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+  return (str + '').replace( /([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2' );
 
 }
 
@@ -293,7 +293,7 @@ function windowInnerHeight( w, d ) {
     d = document;
   }
 
-  return w.innerHeight || d.documentElement.clientHeight || d.getElementsByTagName('body')[0].clientHeight;
+  return w.innerHeight || d.documentElement.clientHeight || d.getElementsByTagName( 'body' )[ 0 ].clientHeight;
 
 }
 
@@ -303,17 +303,17 @@ function getScrollOffsets( w ) {
   w = w || window;
 
   // This works for all browsers except IE versions 8 and before
-  if (typeof w.pageXOffset !== 'undefined') return {
+  if ( typeof w.pageXOffset !== 'undefined' ) return {
     x: w.pageXOffset,
-    y:w.pageYOffset
+    y: w.pageYOffset
   };
 
   // For IE (or any browser) in Standards mode
   var d = w.document;
-  if (document.compatMode == "CSS1Compat") {
+  if ( document.compatMode == "CSS1Compat" ) {
     return {
-      x:d.documentElement.scrollLeft,
-      y:d.documentElement.scrollTop
+      x: d.documentElement.scrollLeft,
+      y: d.documentElement.scrollTop
     };
   }
 
@@ -333,7 +333,8 @@ function parseJsonAttribute( selector, tagName, defaultValue ) {
 
     data = JSON.parse( el( selector ).getAttribute( tagName ) );
 
-  } catch( e ) {}
+  } catch ( e ) {
+  }
 
   return data;
 
