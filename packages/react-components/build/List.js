@@ -4,8 +4,8 @@ var React = require('react'),
     monitorBottomHit = require('dom-utils/monitorBottomHit');
 
 module.exports = React.createClass({
-  displayName: 'exports',
 
+  displayName: 'List',
 
   propTypes: {
     items: React.PropTypes.array,

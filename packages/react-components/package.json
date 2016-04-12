@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "babelify": "babel components -d build",
+    "build": "npm run-script babelify",
     "preserve": "npm run-script babelify",
     "serve": "node test/app",
     "start": "nodemon --exec 'npm' --ignore components/lib --ext js,jsx run-script serve"
@@ -20,7 +21,8 @@
     "react": "0.14.7"
   },
   "dependencies": {
-    "react-addons-update": "^0.14.7"
+    "react-addons-update": "^0.14.7",
+    "dom-utils": "git+ssh://git@bitbucket.org:openagenda/dom-utils.git"
   },
   "devDependencies": {
     "babel-cli": "^6.3.17",
