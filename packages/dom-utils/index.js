@@ -18,7 +18,8 @@ module.exports = {
   isElement: isElement,
   nl2br: nl2br,
   getScrollOffsets: getScrollOffsets,
-  windowInnerHeight: windowInnerHeight
+  windowInnerHeight: windowInnerHeight,
+  parseJsonAttribute: parseJsonAttribute
 }
 
 function isElement( o ) {
@@ -321,5 +322,19 @@ function getScrollOffsets( w ) {
     x: d.body.scrollLeft,
     y: d.body.scrollTop
   };
+
+}
+
+function parseJsonAttribute( selector, tagName, defaultValue ) {
+
+  var data = defaultValue;
+
+  try {
+
+    data = JSON.parse( el( selector ).getAttribute( tagName ) );
+
+  } catch( e ) {}
+
+  return data;
 
 }
