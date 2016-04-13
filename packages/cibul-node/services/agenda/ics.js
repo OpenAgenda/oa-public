@@ -36,9 +36,9 @@ module.exports = function( req, res, next ) {
 
     }
 
-    chunk += '\n' + _renderEvent( req.agenda, data, req.lang, req.query.oaq || {} );
+    chunk += '\r\n' + _renderEvent( req.agenda, data, req.lang, req.query.oaq || {} );
 
-    size += Buffer.byteLength( chunk, 'utf8');
+    size += Buffer.byteLength( chunk, 'utf8' );
 
     res.write( chunk );
 
@@ -117,7 +117,7 @@ function _renderEvent( agenda, eData, lang, query ) {
 
   } );
 
-  return icaled.join( '\n' );
+  return icaled.join( '\r\n' );
 
 }
 
@@ -131,7 +131,7 @@ function _renderHead( agenda, lang ) {
     'X-WR-CALNAME:' + esc( agenda.title ),
     'X-WR-CALDESC:' + esc( agenda.description ),
     'X-WR-RELCALID:' + agenda.uid
-  ].join( '\n' );
+  ].join( '\r\n' );
 
 }
 
