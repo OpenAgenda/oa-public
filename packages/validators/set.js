@@ -2,7 +2,11 @@
 
 module.exports = function( validators ) {
 
-  return function( valuesSet ) {
+  validate.type = 'set';
+
+  return validate;
+
+  function validate( valuesSet ) {
 
     var errors = [], clean = [];
 
