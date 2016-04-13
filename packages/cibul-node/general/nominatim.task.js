@@ -117,17 +117,17 @@ function run() {
 
             if ( parsedData.country_code && !l.country ) updates.country = parsedData.country_code;
 
-            if ( parsedData.department ) updates.department = parsedData.department;
+            if ( parsedData.department && !l.department ) updates.department = parsedData.department;
 
-            if ( parsedData.region ) {
+            if ( parsedData.region && !l.region ) {
 
               updates.region = parsedData.countryCode == 'FR' ? geocode.clean.frenchRegion( parsedData.region ) : parsedData.region;
 
             }
 
-            if ( parsedData.cityDistrict ) updates.cityDistrict = parsedData.cityDistrict;
+            if ( parsedData.cityDistrict && !l.cityDistrict ) updates.cityDistrict = parsedData.cityDistrict;
 
-            if ( parsedData.postalCode ) updates.postalCode = parsedData.postalCode;
+            if ( parsedData.postalCode && !l.postalCode ) updates.postalCode = parsedData.postalCode;
             
           }
 
@@ -135,6 +135,13 @@ function run() {
 
 
           model.locations().update( { id: l.id } , updates, function( err ) {
+
+            log( 'info', {
+              message: 'updated location',
+              location: JSON.stringify( l ),
+              locationId: l.id,
+              update: JSON.stringify( updates )
+            } );
 
             log( 'location %s updated, waiting %s seconds to process next', l.id, interval );
 
