@@ -39,6 +39,25 @@
       word-wrap: whitespace;
       text-overflow: ellipsis;
 
+      &.published {
+
+        background: #5bb75b;
+
+      }
+
+      &.tocontrol {
+
+        background: $oa-white;
+        color: $oa-black;
+
+      }
+
+      &.controlled {
+
+        background: #F7CB2A;
+
+      }
+
     }
 
     .edge-info a { color: $oa-white; }
