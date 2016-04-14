@@ -373,7 +373,7 @@ function _defineTimings( lang ) {
 
     .map( t => {
 
-      let d = moment( t.start ).format( 'ddd Do MMM' ) + ( today.getUTCFullYear() !== parseInt( t.start.substr( 0, 4 ) ) ? ' ' + t.start.substr( 0, 4 ) : '' ),
+      let d = moment( t.start ).format( 'dddd Do MMMM' ) + ( today.getUTCFullYear() !== parseInt( t.start.substr( 0, 4 ) ) ? ' ' + t.start.substr( 0, 4 ) : '' ),
 
       start = t.start.split( 'T' )[ 1 ].substr( 0, 2 ) + ( lang == 'fr' ? 'h' : ':' ) + t.start.split( 'T' )[ 1 ].substr( 3, 2 ),
 
