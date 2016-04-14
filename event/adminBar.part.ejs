@@ -17,7 +17,7 @@
     </li><!--
 <% } %>  
     --><li class="edge-item tooltip js_toggle w25" data-toggle="js_dropdown_menu">
-      <span class="edge-selected"><%= __( states[ event.currentState ].label ) %></span>
+      <span class="edge-selected <%= event.currentState %>"><%= __( states[ event.currentState ].label ) %></span>
       <ul class="list-group js_dropdown_menu">
 <% for( var i in states ) { %>
 <% if ( !states[ i ].hideAction ) { %>
