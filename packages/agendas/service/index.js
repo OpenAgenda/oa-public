@@ -2,24 +2,26 @@
 
 const knexLib = require( 'knex' ),
 
-details = require( './details' ),
+  details = require( './details' ),
 
-w = require( 'when' ),
+  w = require( 'when' ),
 
-guard = require( 'when/guard' ),
+  guard = require( 'when/guard' ),
 
-wn = require( 'when/node' );
+  wn = require( 'when/node' );
 
 var knex,
 
-config,
+  config,
 
-schemas;
+  schemas;
 
 module.exports = {
   init: init,
   list: list,
-  getConfig: () => { return config; }
+  getConfig: () => {
+    return config;
+  }
 }
 
 function init( c ) {
@@ -49,38 +51,62 @@ function list( query, offset, limit, cb ) {
 
   }
 
+  query = Object.assign( {
+    total: false,
+    detailled: false,
+    search: null
+  }, query );
+
   if ( !knex ) return cb( 'no config' );
 
   w( {
     offset: offset,
     limit: limit,
     query: query,
-    agendas: []
+    agendas: [],
+    total: null,
+    knex: knex( schemas.agenda )
   } )
+
+  .then( _search )
+
+  .then( _total )
 
   .then( _list )
 
   .then( _detailed )
 
-  .done( v => cb( null, v.agendas ), cb );
+  .done( v => cb( null, v.agendas, v.total ) );
 
 }
 
-function _detailed( v ) {
+function _search( v ) {
 
-  if ( !v.query.detailed ) {
+  if ( !v.query.search ) return v;
 
-    return v;
+  v.knex = v.knex
+  .where( 'title', 'like', `%${v.query.search}%` )
+  .orWhere( 'description', 'like', `%${v.query.search}%` )
 
-  }
+  return v;
 
-  let gDetails = guard( guard.n( 1 ), agenda => wn.call( details.load, agenda ) );
+}
 
-  return w.map( v.agendas, gDetails )
+function _total( v ) {
 
-  .then( agendas => {
+  if ( !v.query.total ) return v;
 
-    v.agendas = agendas;
+  return knex.transaction( trx => {
+
+    return v.knex.clone()
+    .count( 'id as agendas' )
+    .transacting(trx);
+
+  } )
+
+  .then( result => {
+
+    v.total = result[ 0 ].agendas;
 
     return v;
 
@@ -92,13 +118,31 @@ function _list( v ) {
 
   return knex.transaction( trx => {
 
-    return trx
+    return v.knex
     .select( 'id', 'uid', 'slug', 'title', 'description', 'image', 'updated_at' )
-    .from( schemas.agenda )
     .limit( v.limit )
-    .offset( v.offset );
+    .offset( v.offset )
+    .transacting(trx);
 
   } )
+
+  .then( agendas => {
+
+    v.agendas = agendas;
+
+    return v;
+
+  } );
+
+}
+
+function _detailed( v ) {
+
+  if ( !v.query.detailed ) return v;
+
+  let gDetails = guard( guard.n( 1 ), agenda => wn.call( details.load, agenda ) );
+
+  return w.map( v.agendas, gDetails )
 
   .then( agendas => {
 
