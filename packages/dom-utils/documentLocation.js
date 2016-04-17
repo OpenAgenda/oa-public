@@ -3,9 +3,27 @@
 var qs = require( 'qs' );
 
 module.exports = {
+  getQuery,
   getQueryPart,
   setQueryPart
 };
+
+
+function getQuery() {
+
+  if ( !document ) return;
+
+  var parts = document.location.href.split( '?' ), query;
+
+  if ( parts.length < 2 ) return;
+
+  query = parts[ 1 ].split( '#' )[ 0 ];
+
+  if ( !query.length ) return;
+
+  return qs.parse( query );
+
+}
 
 
 function getQueryPart( name, defaultValue ) {
