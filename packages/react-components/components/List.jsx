@@ -28,7 +28,8 @@ module.exports = React.createClass( {
     renderNext: React.PropTypes.oneOfType( [
       React.PropTypes.func,
       React.PropTypes.string
-    ] )
+    ] ),
+    wrapTag: React.PropTypes.string //TODO React component possibility
   },
 
   getDefaultProps() {
@@ -72,7 +73,7 @@ module.exports = React.createClass( {
 
   componentWillMount() {
 
-    if ( this.isClient() ) monitorBottomHit( () => {
+    if ( this.isClient() && this.props.getPage ) monitorBottomHit( () => {
 
       this.props.getPage( true );
 
@@ -84,7 +85,7 @@ module.exports = React.createClass( {
 
     if ( this.props.renderPrev )
       return typeof this.props.renderPrev === 'function' ? this.props.renderPrev() : this.props.renderPrev;
-    
+
     if ( this.hasPrevPage() )
       return (
         <nav className="page-nav">
@@ -92,14 +93,14 @@ module.exports = React.createClass( {
                   onClick={this.props.getPage.bind( null, false )}>{this.props.prevLabel}</button>
         </nav>
       );
-    
+
   },
 
   renderNext() {
 
     if ( this.props.renderNext )
       return typeof this.props.renderNext === 'function' ? this.props.renderNext() : this.props.renderNext;
-    
+
     if ( this.hasNextPage() )
       return (
         <nav className="page-nav">
@@ -107,25 +108,25 @@ module.exports = React.createClass( {
                   onClick={this.props.getPage.bind( null, true )}>{this.props.nextLabel}</button>
         </nav>
       );
-    
+
   },
-  
+
   renderEmpty() {
-    
+
     return typeof this.props.renderEmpty === 'function' ? this.props.renderEmpty() : this.props.renderEmpty
-    
+
   },
 
   render() {
 
+    var Tag = this.props.wrapTag ? this.props.wrapTag : 'div';
+
     return (
-      <div>
+      <Tag>
         {this.renderPrev()}
-        <div>
           {this.props.items.length ? this.props.items.map( this.props.renderItem ) : this.renderEmpty()}
-        </div>
         {this.renderNext()}
-      </div>
+      </Tag>
     )
 
   }

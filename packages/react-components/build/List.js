@@ -18,7 +18,8 @@ module.exports = React.createClass({
     nextLabel: React.PropTypes.string,
     renderEmpty: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.string]),
     renderPrev: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.string]),
-    renderNext: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.string])
+    renderNext: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.string]),
+    wrapTag: React.PropTypes.string //TODO React component possibility
   },
 
   getDefaultProps: function getDefaultProps() {
@@ -55,7 +56,7 @@ module.exports = React.createClass({
   componentWillMount: function componentWillMount() {
     var _this = this;
 
-    if (this.isClient()) monitorBottomHit(function () {
+    if (this.isClient() && this.props.getPage) monitorBottomHit(function () {
 
       _this.props.getPage(true);
     });
@@ -96,15 +97,13 @@ module.exports = React.createClass({
   },
   render: function render() {
 
+    var Tag = this.props.wrapTag ? this.props.wrapTag : 'div';
+
     return React.createElement(
-      'div',
+      Tag,
       null,
       this.renderPrev(),
-      React.createElement(
-        'div',
-        null,
-        this.props.items.length ? this.props.items.map(this.props.renderItem) : this.renderEmpty()
-      ),
+      this.props.items.length ? this.props.items.map(this.props.renderItem) : this.renderEmpty(),
       this.renderNext()
     );
   }
