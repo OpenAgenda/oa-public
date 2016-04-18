@@ -91,6 +91,27 @@ describe( 'agenda-stakeholders', () => {
 
     } );
 
+
+    it( 'validates custom values', done => {
+
+      service( 4609 ).settings.custom.validate( {
+        contact_name: 'Some name',
+        organization: 'DRAC ALPC',
+        contact_number: '05 57 95 01 84',
+        contact_name: 'DEYRES Joëlle',
+        contact_position: 'coordination régionale manifestations patrimoine'
+      }, ( err, result ) => {
+
+        should( err ).equal( null );
+
+        result.errors.length.should.equal( 0 );
+
+        done();
+
+      } );
+
+    } );
+
   } );
 
 })

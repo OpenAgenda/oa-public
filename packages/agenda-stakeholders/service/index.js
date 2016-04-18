@@ -46,7 +46,13 @@ function agenda( agendaId ) {
   // set stakeholder requirements
   agendaService.settings = { 
     get: s.get,
-    set: s.set
+    set: s.set,
+    clear: s.clear,
+    custom: {
+      validate: s.custom.validate,
+      toValues: s.custom.toValues,
+      toFields: s.custom.toFields
+    }
   };
 
   // get a stakeholder of an agenda
@@ -134,7 +140,7 @@ function init( c, cb ) {
 
   .then( () => {
 
-    getters.init( {
+    gettersLib.init( {
       knex: knex,
       schemas: schemas
     } );
@@ -144,6 +150,15 @@ function init( c, cb ) {
   .then( () => {
 
     dbUtils.init( {
+      knex: knex,
+      schemas: schemas
+    } );
+
+  } )
+
+  .then( () => {
+
+    instanciate.init( {
       knex: knex,
       schemas: schemas
     } );

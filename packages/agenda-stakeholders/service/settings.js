@@ -16,6 +16,8 @@ storeLib = require( 'mysql-table-store' ), store,
 
 validators = require( 'validators' ),
 
+customFormat = require( './customFormat' ),
+
 defaultSettings = {
   fields: []
 },
@@ -27,6 +29,7 @@ defaultSettings = {
 legacyFields = [ { 
   field: 'organization',
   type: 'text',
+  slugged: true, // when a slug should be generated and stored
   params: { min: 2, max: 160 }
 }, {
   field: 'contact_number',
@@ -55,8 +58,17 @@ function settings( agendaId ) {
 
   return {
     get: get,
-    set: set
+    set: set,
+    clear: clear,
+
+    custom: {
+      validate: validateCustomValues,
+      toValues: toCustomValues,
+      toFields: toCustomFields
+    }
+
   }
+
   
   function get( cb ) {
 
@@ -71,6 +83,7 @@ function settings( agendaId ) {
     } );
 
   }
+
   
   function set( settings, cb ) {
 
@@ -82,7 +95,101 @@ function settings( agendaId ) {
 
   }
 
+
+  function clear( cb ) {
+
+    store.set( agendaId, null, cb );
+
+  }
+
+  function toCustomFields( data, cb ) {
+
+    get( ( err, settings ) => {
+
+      if ( err ) return cb( err );
+
+      cb( null, customFormat.getFieldValues( data, settings ), settings );
+
+    } );
+
+  }
+
+  function toCustomValues( data, cb ) {
+
+    get( ( err, settings ) => {
+
+      if ( err ) return cb( err );
+
+      cb( null, customFormat.getValues( data, settings ) );
+
+    } );
+
+  }
+
+
+  function validateCustomValues( values, cb ) {
+
+    _getCustomValidator( ( err, validator, settings ) => {
+
+      if ( err ) return cb( err );
+
+      let errors = [],
+
+      clean = [], cleanFieldValues = {};
+
+      try {
+
+        clean = validator( Object.keys( values ).map( k => {
+
+          return {
+            field: k,
+            value: typeof values[ k ] === 'object' ? values[ k ].label : values[ k ]
+          }
+
+        } ) );
+
+      } catch( e ) {
+
+        errors = e;
+
+      };
+
+      clean.forEach( c => { cleanFieldValues[ c.field ] = c.value } );
+
+      cb( null, {
+        valid: !errors.length,
+        clean: cleanFieldValues,
+        errors: errors,
+        settings: settings
+      } );
+
+    } );
+
+  }
+
+  /**
+   * fields validator validates a stakeholder custom fields set
+   */
+
+  function _getCustomValidator( cb ) {
+
+    get( ( err, settings ) => {
+
+      if ( err ) return cb( err );
+
+      // initialize fields validator array
+      let stakeholderValidators = settings.fields.map( f => 
+        validators[ f.type ]( Object.assign( { field: f.field }, f.params ) ) 
+      );
+
+      cb( null, validators.set( stakeholderValidators ), settings );
+
+    } );
+
+  }
+
 }
+
 
 
 /**

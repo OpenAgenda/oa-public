@@ -16,7 +16,7 @@ knexLib = require( 'knex' ),
 
 w = require( 'when' );
 
-describe( 'agenda-stakeholders', function() {
+describe( 'agenda-stakeholders', () => {
 
   describe( 'dbUtils', function() {
     
@@ -56,15 +56,21 @@ describe( 'agenda-stakeholders', function() {
       .done( v => {
 
         v.stakeholder.should.eql( {
+          id: 7207,
           userId: 7744,
           agendaId: 4608,
           credential: 1,
-          organization: 
-           { label: 'Arboretum des Grandes Bruyères',
-             slug: 'arboretum-des-grandes-bruyeres' },
-          contactNumber: '0238571261',
-          contactName: 'Marie DEGAEY',
-          contactPosition: 'Chargée de développement touristique' 
+          createdAt: v.stakeholder.createdAt, // not tested
+          updatedAt: new Date( '2016-02-19 10:53:05.000 +0100' ),
+          custom: {
+            organization: { 
+              label: 'Arboretum des Grandes Bruyères',
+              slug: 'arboretum-des-grandes-bruyeres'
+            },
+            contactNumber: '0238571261',
+            contactName: 'Marie DEGAEY',
+            contactPosition: 'Chargée de développement touristique'           
+          }
         } );
 
         done();

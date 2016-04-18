@@ -6,6 +6,8 @@ utils = require( 'utils' ),
 
 dbUtils = require( './dbUtils' ),
 
+format = require( './format' ),
+
 log = require( 'basic-logger' )( 'getters' ),
 
 w = require( 'when' );
@@ -74,7 +76,7 @@ function _list( v ) {
   return knex.transaction( trx => {
 
     return trx
-    .select( 'id', 'credential', 'user_id', 'review_id', 'store', 'organization' )
+    .select( 'id', 'credential', 'user_id', 'review_id', 'store', 'organization', 'updated_at', 'created_at' )
     .from( schemas.stakeholder )
     .where( v.wheres )
     .limit( v.limit )
@@ -84,7 +86,7 @@ function _list( v ) {
 
   .then( dbStakeholders => {
 
-    v.stakeholders = dbStakeholders.map( dbUtils.formatStakeholder );
+    v.stakeholders = dbStakeholders.map( format.dbToObj );
 
     return v;
 

@@ -42,16 +42,21 @@ describe( 'agenda-stakeholders', () => {
         should( err ).equal( null );
 
         stakeholder.should.eql( {
-          credential: 3,
-          organization: {
-            label: 'DRAC PACA',
-            slug: 'drac-paca'
-          },
+          id: 6996,
           userId: 7368,
           agendaId: 4608,
-          contactNumber: '04 42 16 19 75',
-          contactName: 'LARROUMEC',
-          contactPosition: 'CORRESPONDANT'
+          credential: 3,
+          updatedAt: new Date( 'Thu Feb 04 2016 21:20:21 GMT+0100 (CET)' ),
+          createdAt: new Date( 'Fri Jan 01 2016 01:10:01 GMT+0100 (CET)' ),
+          custom: {
+            organization: {
+              label: 'DRAC PACA',
+              slug: 'drac-paca'
+            },
+            contactNumber: '04 42 16 19 75',
+            contactName: 'LARROUMEC',
+            contactPosition: 'CORRESPONDANT'
+          }
         } );
 
         done();
@@ -65,20 +70,26 @@ describe( 'agenda-stakeholders', () => {
 
       service( 4608 ).list( 9, 1, ( err, stakeholders ) => {
 
+        should( err ).equal( null );
+
         stakeholders.length.should.equal( 1 );
 
         stakeholders[ 0 ].should.eql( {
           id: 6996,
           credential: 3,
           userId: 7368,
-          organization: {
-            label: 'DRAC PACA', 
-            slug: 'drac-paca' 
-          },
           agendaId: 4608,
-          contactNumber: '04 42 16 19 75',
-          contactName: 'LARROUMEC',
-          contactPosition: 'CORRESPONDANT' 
+          updatedAt: new Date( 'Thu Feb 04 2016 21:20:21 GMT+0100 (CET)' ),
+          createdAt: new Date( 'Fri Jan 01 2016 01:10:01 GMT+0100 (CET)' ),
+          custom: {
+            organization: {
+              label: 'DRAC PACA', 
+              slug: 'drac-paca' 
+            },
+            contactNumber: '04 42 16 19 75',
+            contactName: 'LARROUMEC',
+            contactPosition: 'CORRESPONDANT' 
+          }
         } );
 
         done();

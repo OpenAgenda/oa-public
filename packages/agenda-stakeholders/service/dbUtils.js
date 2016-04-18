@@ -1,6 +1,8 @@
 "use strict";
 
-const utils = require( 'utils' );
+const utils = require( 'utils' ),
+
+format = require( './format' );
 
 /**
  * get promises for db resources
@@ -8,7 +10,7 @@ const utils = require( 'utils' );
 
 var knex, schemas,
 
-log = require( 'basic-logger' )( 'dbUtils' );
+logger = require( 'basic-logger' ), log;
 
 module.exports = {
   
@@ -24,10 +26,7 @@ module.exports = {
   getStakeholder: getStakeholder,
 
   // update agenda event reference with new stakeholder
-  updateAgendaEvent: updateAgendaEvent,
-
-  // format stakeholder data coming from db
-  formatStakeholder: formatStakeholder
+  updateAgendaEvent: updateAgendaEvent
 }
 
 function getEvent( idNamespace, eventNamespace ) {
@@ -101,7 +100,7 @@ function getStakeholder( agendaNamespace, userNamespace, destNamespace ) {
 
     return knex.transaction( trx => {
 
-      return trx.select( 'credential', 'organization', 'store', 'review_id', 'store', 'user_id' )
+      return trx.select( 'credential', 'organization', 'store', 'review_id', 'store', 'user_id', 'id', 'created_at', 'updated_at' )
 
       .from( schemas.stakeholder )
 
@@ -120,7 +119,7 @@ function getStakeholder( agendaNamespace, userNamespace, destNamespace ) {
 
       if ( stakeholders && stakeholders.length ) {
 
-        v[ destNamespace ] = formatStakeholder( stakeholders[ 0 ] );
+        v[ destNamespace ] = format.dbToObj( stakeholders[ 0 ] );
 
       }
 
@@ -132,54 +131,6 @@ function getStakeholder( agendaNamespace, userNamespace, destNamespace ) {
 
 }
 
-function formatStakeholder( dbObj ) {
-
-  let stakeholder = {};
-
-  Object.keys( dbObj ).forEach( k => {
-
-    if ( k == 'store' ) return;
-
-    stakeholder[ utils.toCamelCase( k ) ] = dbObj[ k ];
-
-  } );
-
-  if ( stakeholder.reviewId ) {
-
-    stakeholder.agendaId = stakeholder.reviewId;
-
-    delete stakeholder.reviewId;
-
-  }
-
-  try {
-
-    let store = JSON.parse( dbObj.store ),
-
-    fields = store.custom_fields || {};
-
-    Object.keys( fields ).forEach( f => {
-
-      if ( f == 'organization' ) {
-
-        stakeholder.organization = {
-          label: fields[ f ],
-          slug: stakeholder.organization
-        }
-
-      } else {
-
-        stakeholder[ utils.toCamelCase( f ) ] = fields[ f ];
-
-      }
-
-    } );
-
-  } catch( e ) {}
-
-  return stakeholder;
-
-}
 
 function updateAgendaEvent( agendaNamespace, eventNamespace, contributorNamespace ) {
 
@@ -205,6 +156,8 @@ function updateAgendaEvent( agendaNamespace, eventNamespace, contributorNamespac
 
 
 function init( config ) {
+
+  log = logger( 'dbUtils' );
 
   schemas = config.schemas;
 
