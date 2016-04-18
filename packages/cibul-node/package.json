@@ -4,7 +4,8 @@
   "private": true,
   "description": "OpenAgenda main app",
   "scripts": {
-    "start": "nodemon --ignore node_modules/ server.js web admin task"
+    "start": "nodemon --ignore node_modules/ server.js web admin task",
+    "background": "nohup npm start >/dev/null 2>&1 &"
   },
   "dependencies": {
     "ES": "git+ssh://git@bitbucket.org:cibul/es-node.git",
