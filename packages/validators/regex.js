@@ -35,7 +35,7 @@ module.exports = function( config ) {
     if ( !params.regex.test( clean ) ) {
 
       throw [ utils.extend( {
-        origin: clean,
+        origin: value,
         field: params.field
       }, params.error ) ];
 
