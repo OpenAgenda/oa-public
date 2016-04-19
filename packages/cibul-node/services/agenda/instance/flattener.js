@@ -299,7 +299,8 @@ function _extendMapping( agenda, includePrivateData ) {
       'state',
       'contributor.contactNumber',
       'contributor.contactName',
-      'contributor.contactPosition'
+      'contributor.contactPosition',
+      'contributor.email'
     ] );
 
   }
