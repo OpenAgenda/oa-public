@@ -14,15 +14,13 @@
     "basic-logger": "git+ssh://git@bitbucket.org:openagenda/basic-logger.git",
     "knex": "^0.10.0",
     "mysql": "^2.10.2",
-    "mysql-table-store": "git+ssh://git@bitbucket.org:openagenda/mysql-table-store.git",
-    "should": "^8.3.0",
+    "mysql-table-store": "git+ssh://git@bitbucket.org:openagenda/mysql-table-store.git",    
     "slug": "^0.9.1",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
     "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git",
     "when": "^3.7.7"
   },
   "devDependencies": {
-    "mysql": "^2.10.2",
-    "should": "^8.2.2"
+    "should": "^8.3.0"
   }
 }
