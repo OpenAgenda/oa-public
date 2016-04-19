@@ -8,7 +8,9 @@ w = require( 'when' ),
 
 slug = require( 'slug' ),
 
-logger = require( 'basic-logger' );
+logger = require( 'basic-logger' ),
+
+format = require( './format' );
 
 var knex, schemas, log;
 
@@ -69,17 +71,34 @@ function instanciate( agendaService ) {
 
         if ( !params.force && !result.valid ) {
 
-          return cb( null, false, result.errors );
+          return cb( null, {
+            success: false,
+            valid: false,
+            errors: result.errors
+          } );
 
         }
 
-        agendaService.settings.custom.toValues( result.clean, ( err, values ) => {
+        // no clean values is returned if data is not validated
+        let toCommit = params.force && !result.valid ? fieldValues : result.clean;
 
-          should( err ).equal( null );
+        agendaService.settings.custom.toValues( toCommit, ( err, values ) => {
+
+          if ( err ) return cb( err );
 
           stakeholder.custom = values;
 
-          _save( cb );
+          _save( err => {
+
+            if ( err ) return cb( err );
+
+            cb( null, {
+              success: true,
+              valid: result.valid,
+              errors: result.errors
+            } );
+
+          } );
 
         } );
 
@@ -127,17 +146,17 @@ function instanciate( agendaService ) {
       // save it to db with knex
       knex.transaction( trx => {
 
-        let op;
+        let op = trx.from( schemas.stakeholder );
 
         if ( _isNew() ) {
 
-          op = trx.insert( stakeholder );
+          op.insert( entry );
 
         } else {
 
-          op = trx.update( stakeholder )
+          op.update( entry )
 
-          .where( { id: stakholder.id } );
+          .where( { id: entry.id } );
 
         }
 
@@ -145,7 +164,7 @@ function instanciate( agendaService ) {
 
       } )
 
-      .done( () => {
+      .then( () => {
 
         cb( null );
 
@@ -156,7 +175,7 @@ function instanciate( agendaService ) {
 
     function _isNew() {
 
-      return !!stakeholder.id;
+      return !stakeholder.id;
 
     }
 

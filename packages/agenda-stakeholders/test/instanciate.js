@@ -8,7 +8,9 @@ var config = require( '../testconfig' ),
 
 fixtures = require( './fixtures' ),
 
-service = require( '../service' );
+service = require( '../service' ),
+
+mysql = require( 'mysql' );
 
 describe( 'agenda-stakeholders', () => {
 
@@ -73,6 +75,137 @@ describe( 'agenda-stakeholders', () => {
     } );
 
 
+    it( 'setFieldValues - gives errors if input is not valid', done => {
+
+      service( 4608 ).get( { userId: 7795 }, { instanciate: true }, ( err, instance ) => {
+
+        instance.setFieldValues( {
+          organization: 'OpenAgenda',
+          contact_number: '012345',
+          contact_position: 'Guinea Pig'
+        }, ( err, result ) => {
+
+          should( err ).equal( null );
+
+          result.should.eql( {
+            success: false,
+            valid: false,
+            errors: [ {
+              code: 'string.tooshort',
+              field: 'contact_name',
+              message: 'the string is too short',
+              values: {
+                max: 160,
+                min: 2
+              },
+              origin: undefined
+            } ]
+          } );
+
+          done();
+
+        } );
+
+      } );
+
+    } );
+
+
+    it( 'setFieldValues - forcing invalid input writes it to db anyways', done => {
+
+      service( 4608 ).get( { userId: 7795 }, { instanciate: true }, ( err, instance ) => {
+
+        instance.setFieldValues( {
+          organization: 'OpenAgenda',
+          contact_number: '012345',
+          contact_position: 'Guinea Pig'
+        }, { force: true }, ( err, result ) => {
+
+          should( err ).equal( null );
+
+          result.should.eql( {
+            success: true,
+            valid: false,
+            errors: [ {
+              code: 'string.tooshort',
+              field: 'contact_name',
+              message: 'the string is too short',
+              values: {
+                max: 160,
+                min: 2
+              },
+              origin: undefined
+            } ]
+          } );
+
+          let con = mysql.createConnection( config.mysql );
+
+          con.query( `select * from ${config.schemas.stakeholder} where user_id = ? and review_id = ?`, [ 7795, 4608 ], ( err, rows ) => {
+
+            let store = JSON.parse( rows[ 0 ].store );
+
+            con.end();
+
+            store.custom_fields.should.eql( {
+              organization: { label: 'OpenAgenda', slug: 'openagenda' },
+              contact_number: '012345',
+              contact_position: 'Guinea Pig'
+            } );
+
+            done();
+
+          } );
+
+        } );
+
+      } );
+
+    } );
+
+
+    it( 'setFieldValues - updates existing stakeholder when valid', done => {
+
+      service( 4608 ).get( { userId: 7795 }, { instanciate: true }, ( err, instance ) => {
+
+        instance.setFieldValues( {
+          organization: 'OpenAgenda',
+          contact_number: '012345',
+          contact_name: 'Gaetan Latouche',
+          contact_position: 'Guinea Pig'
+        }, ( err, result ) => {
+
+          should( err ).equal( null );
+
+          result.valid.should.equal( true );
+          result.errors.length.should.equal( 0 );
+          result.success.should.equal( true );
+
+          let con = mysql.createConnection( config.mysql );
+
+          con.query( `select * from ${config.schemas.stakeholder} where user_id = ? and review_id = ?`, [ 7795, 4608 ], ( err, rows ) => {
+
+            let store = JSON.parse( rows[ 0 ].store );
+
+            store.custom_fields.should.eql( {
+              organization: { label: 'OpenAgenda', slug: 'openagenda' },
+              contact_number: '012345',
+              contact_name: 'Gaetan Latouche',
+              contact_position: 'Guinea Pig'
+            } );
+
+            con.end();
+
+            done();
+
+          } );
+
+        } );
+
+      } );
+
+    } );
+
+
 
     it( 'isValid - does not pass', done => {
 
@@ -119,7 +252,6 @@ describe( 'agenda-stakeholders', () => {
 
     } );
 
-    
 
   } );
 
