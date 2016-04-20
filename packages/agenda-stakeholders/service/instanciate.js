@@ -22,7 +22,9 @@ function instanciate( agendaService ) {
 
   return function( data ) {
 
-    let stakeholder = utils.extend( {}, data );
+    let stakeholder = utils.extend( {
+      custom: {}
+    }, data );
 
     return {
 
@@ -33,7 +35,9 @@ function instanciate( agendaService ) {
       getFieldValues: getFieldValues,
 
       // set field values
-      setFieldValues: setFieldValues
+      setFieldValues: setFieldValues,
+
+      save: save
 
     }
 
@@ -62,7 +66,8 @@ function instanciate( agendaService ) {
       }
 
       let params = Object.assign( {
-        force: false // force set of field values and ignore validation
+        force: false, // force set of field values and ignore validation
+        save: true
       }, options );
 
       agendaService.settings.custom.validate( fieldValues, ( err, result ) => {
@@ -88,7 +93,9 @@ function instanciate( agendaService ) {
 
           stakeholder.custom = values;
 
-          _save( err => {
+          if ( !params.save ) return cb( null );
+
+          save( { force: true }, err => {
 
             if ( err ) return cb( err );
 
@@ -131,43 +138,99 @@ function instanciate( agendaService ) {
     /**
      * commit to db current stakeholder state
      */
-    function _save( cb ) {
+    function save( options, cb ) {
 
-      stakeholder.updatedAt = new Date();
+      if ( arguments.length == 1 ) {
 
-      if ( _isNew() ) {
+        cb = options;
 
-        stakeholder.createdAt = new Date();
+        options = {};
 
       }
 
-      let entry = format.objToDb( stakeholder );
+      w( utils.extend( {
+        force: false,
+        valid: null,
+        saved: false
+      }, options ) )
 
-      // save it to db with knex
-      knex.transaction( trx => {
+      // validate custom fields
+      .then( v => {
 
-        let op = trx.from( schemas.stakeholder );
+        if ( v.force ) return v;
 
-        if ( _isNew() ) {
+        let d = w.defer();
 
-          op.insert( entry );
+        isValid( ( err, is, errors ) => {
 
-        } else {
+          if ( err ) return d.reject( err );
 
-          op.update( entry )
+          v.valid = is;
 
-          .where( { id: entry.id } );
+          v.errors = errors;
 
-        }
+          d.resolve( v );
 
-        return op;
+        } );
+
+        return d.promise;
 
       } )
 
-      .then( () => {
+      // execute update
+      .done( v => {
 
-        cb( null );
+        if ( !v.force && !v.valid ) {
 
+          return cb( null, {
+            saved: false,
+            valid: false,
+            errors: v.errors
+          } );
+
+        }
+
+        stakeholder.updatedAt = new Date();
+
+        if ( _isNew() ) {
+
+          stakeholder.createdAt = new Date();
+
+        }
+
+        let op = knex.from( schemas.stakeholder );
+
+        if ( _isNew() ) {
+
+          op.insert( format.objToDb( stakeholder ) );
+
+        } else {
+
+          op.update( format.objToDb( stakeholder ) )
+
+          .where( { id: stakeholder.id } );
+
+        }
+
+        op.asCallback( ( err, result ) => {
+
+          if ( err ) return cb( err );
+
+          if ( _isNew() ) {
+
+            stakeholder.id = result[ 0 ];
+
+          }
+
+          cb( null, {
+            saved: true,
+            valid: v.valid,
+            errors: v.errors,
+            stakeholder: stakeholder
+          } );
+
+        } );
+        
       }, cb );
 
     }

@@ -67,7 +67,30 @@ function agenda( agendaId ) {
   // instanciation function for agenda stakeholders
   agendaService.instanciate = instanciate( agendaService );
 
+  agendaService.new = newStakeholder;
+
   return agendaService;
+
+
+  function newStakeholder( options ) {
+
+    let stakeholder = utils.extend( {
+      userId: null, // required
+      credential: 1 // contributor
+    }, options || {}, {
+      agendaId: agendaId
+    } );
+
+    if ( !stakeholder.userId ) {
+
+      throw 'userId is required';
+
+    }
+
+    return agendaService.instanciate( stakeholder );
+
+  }
+
 
   function get( identifiers, options, cb ) {
 

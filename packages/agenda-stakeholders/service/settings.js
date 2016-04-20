@@ -14,7 +14,7 @@ w = require( 'when' ),
 
 storeLib = require( 'mysql-table-store' ), store,
 
-validators = require( 'validators' ),
+validator = require( './validator' ),
 
 customFormat = require( './customFormat' ),
 
@@ -177,12 +177,7 @@ function settings( agendaId ) {
 
       if ( err ) return cb( err );
 
-      // initialize fields validator array
-      let stakeholderValidators = settings.fields.map( f => 
-        validators[ f.type ]( Object.assign( { field: f.field }, f.params ) ) 
-      );
-
-      cb( null, validators.set( stakeholderValidators ), settings );
+      cb( null, validator( settings.fields ), settings );
 
     } );
 

@@ -109,9 +109,53 @@ Get data associated to stakeholder ready for use for display or edit in a form
     } );
 
 
+### Create a new stakeholder
+
+the .new method will return a stakeholder ready to be handled and saved. It needs to be given its field values beforehand:
+
+    let instance = service.new( { userId: 123 } );
+
+    // if this goes well, save is implicit.
+    instance.setFieldValues( { ... } )
+
+    // if the instance is not to be saved at field
+    // values save, it can be saved later with .save
+
+    instance.setFieldValues( { ... }, { save: false }, err => {
+
+      instance.save( ( err, result ) => { ... } );
+
+    } );
+
+
 ## Settings
 
 Documentation pending. Get and set stakeholder config for an agenda ( field requirements mostly )
+
+
+## Validation
+
+For validation, service relies on service/validator which exposes a field set validator configured on the basis of fields defined in the agenda stakeholder settings.
+
+This validator is to be used on the frontend of the app as well
+
+    var validator = require( './service/validator' );  
+
+    service.settings.get( ( err, settings ) => {
+
+      var v = validator( settings.fields );
+
+      try {
+
+        var clean = v( [ { field: 'organization', value: 'Acme Inc' }, { ... } ] );
+
+      } catch ( errors ) {
+
+        // errors are associated with fields as well, in a list, to allow component to redistribute them
+
+      }
+
+    } );
 
 
 #Running the app

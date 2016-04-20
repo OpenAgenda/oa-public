@@ -231,6 +231,7 @@ describe( 'agenda-stakeholders', () => {
       } );
 
     } );
+    
 
     it( 'isValid - passes', done => {
 
