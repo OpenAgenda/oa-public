@@ -14,7 +14,8 @@
   },
 
   "base" : {
-    "centeredFooter" : true
+    "centeredFooter" : true,
+    "back" : false
   },
 
   "js" : true

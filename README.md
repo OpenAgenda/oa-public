@@ -15,7 +15,7 @@ Layouts wrap pages with whatever you put in them. They are specified in your tem
 
 In a bootstrap environment, lightbox display is handled by the bsLayout/modalPartial script.
 
-    var mp = require( '../whateverpath/modalPartial' );
+    var mp = require( '../whateverpath/modalPartial' ); // bsLayout/js/modalPartial is good
 
     mp( elem ); // if the elem is a link with an href to be loaded via ajax
 

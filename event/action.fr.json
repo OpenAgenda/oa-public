@@ -22,5 +22,7 @@
   "Send"
   : "Envoyer",
   "go back to the event page"
-  : "revenir à la page événement"
+  : "revenir à la page événement",
+  "go back to the agenda"
+  : "revenir à l'agenda"
 }
