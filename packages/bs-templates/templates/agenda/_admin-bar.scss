@@ -28,6 +28,47 @@
       display: block;
     }
 
+    .state {
+
+      .sticker {
+
+        border-radius: 100px;
+        width: 1.2em;
+        height: 1.2em;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 1em;
+        border: 2px solid $oa-white;
+
+      }
+
+      span {
+
+        display: inline-block;
+        vertical-align: middle;
+
+      }
+
+      &.published .sticker {
+
+        background: #5bb75b;
+
+      }
+
+      &.tocontrol .sticker {
+
+        background: $oa-white;
+
+      }
+
+      &.controlled .sticker {
+
+        background: #F7CA18;
+
+      }
+
+    }
+
     .edge-info, .edge-link, .edge-selected {
 
       color: $oa-white;
@@ -38,25 +79,6 @@
       overflow: hidden;
       word-wrap: whitespace;
       text-overflow: ellipsis;
-
-      &.published {
-
-        background: #5bb75b;
-
-      }
-
-      &.tocontrol {
-
-        background: $oa-white;
-        color: $oa-black;
-
-      }
-
-      &.controlled {
-
-        background: #F7CB2A;
-
-      }
 
     }
 
