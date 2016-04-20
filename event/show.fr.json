@@ -102,5 +102,7 @@
   "Hi, could you bring the following changes to the location named '%name'? reference: %uid% - ( add details of the change here )"
   : "Bonjour, pourriez-vous apporter les modifications suivantes au lieu ayant pour nom '%name%' ? reference: %uid% - ( détaillez les modifications ici )",
   "More links"
-  : "Liens additionnels"
+  : "Liens additionnels",
+  "State"
+  : "Statut"
 }

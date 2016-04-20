@@ -104,7 +104,7 @@
         "slug": "billy-bob",
         "contactLink": "#contactlink"
       },
-      "currentState": "draft",
+      "currentState": "published",
       "featured": false,
       "location": {
         "uid" : 46739624,
