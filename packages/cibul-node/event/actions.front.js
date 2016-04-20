@@ -117,6 +117,12 @@ function actionShow( req, res ) {
     logged: req.session.logged
   };
 
+  if ( req.query.back ) {
+
+    req.templateData.back = req.query.back;
+
+  }
+
   async.eachSeries( actions, function( action, scb ) {
 
     loaders[ action ]( req, res, scb );
