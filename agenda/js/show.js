@@ -12,8 +12,6 @@ list = require( './list' ),
 
 timeliner = require( './timeliner' ),
 
-modalPartial = require( '../../bsLayout/js/modalPartial' ),
-
 adminControls = require( '../../user/js/adminControls' ),
 
 domUtils = require( '../../js/lib/domUtils' ),
@@ -98,8 +96,6 @@ window.asap( function( options ) {
 
   if ( !options.empty ) {
 
-    modalPartial.multiple( cn.els( '.js_event_action' ) );
-
     favorites.sweep();
 
     list.init( {
@@ -107,13 +103,9 @@ window.asap( function( options ) {
       perPage: options.perPage,
       onLoad: function( err, data ) {
 
-        modalPartial.multiple( cn.els( '.js_event_action' ) );
-
         timeline.dom();
 
         favorites.sweep();
-
-        //_updateTotal( data );
 
       }
     } );
