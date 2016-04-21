@@ -104,6 +104,6 @@ var formatDate = function ( date, format ) {
 
   }
 
-  return moment( date ).utc().format( format );
+  return moment( date ).format( format );
 
 };

@@ -6,7 +6,11 @@ qs = require( 'qs' ),
 
 labels = require( 'labels/agenda-admin-events/filters' ),
 
+stateLabels = require( 'labels/event/states' ),
+
 getLabel = require( 'labels' )( labels ),
+
+getStateLabel = require( 'labels' )( stateLabels ),
 
 Select = require( 'react-select' ),
 
@@ -132,19 +136,19 @@ AdminEventsHeader = React.createClass({
   getStateOptions: function() {
 
     return [ {
-      label: getLabel( 'tobecontrolled', this.props.lang ),
+      label: getStateLabel( 'tobecontrolled', this.props.lang ),
       value: 'tobecontrolled'
     }, {
-      label: getLabel( 'controlled', this.props.lang ),
+      label: getStateLabel( 'controlled', this.props.lang ),
       value: 'controlled'
     }, {
-      label: getLabel( 'published', this.props.lang ),
+      label: getStateLabel( 'published', this.props.lang ),
       value: 'published'
     }, {
-      label: getLabel( 'featured', this.props.lang ),
+      label: getStateLabel( 'featured', this.props.lang ),
       value: 'featured'
     }, {
-      label: getLabel( 'all', this.props.lang ),
+      label: getStateLabel( 'all', this.props.lang ),
       value: 'all'
     } ]
 
@@ -164,7 +168,7 @@ AdminEventsHeader = React.createClass({
                 value={this.getQueryPart( 'state' )}
                 options={self.getStateOptions()}
                 clearable={false}
-                placeholder={getLabel( 'state', this.props.lang )}
+                placeholder={getStateLabel( 'state', this.props.lang )}
                 onChange={function( state ) {
                   self.setQueryPart( 'state', state );
                 }} />
