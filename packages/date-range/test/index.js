@@ -32,15 +32,29 @@ describe( 'date-range', () => {
 
   describe( 'one date', () => {
 
-    var output = '18 december, 07:00, 10:00, 11:00';
+    it( 'should displays as "18 december, 07:00, 10:00, 11:00"', function() {
 
-    it( 'should displays as "'+ output +'"', function(){
-
-      range( testData.oneDate.default, 'en' )
+      range( testData.oneDate.winterDefault, 'en' )
       
-      .should.be.equal( output );
+      .should.be.equal( '18 december, 07:00, 10:00, 11:00' );
 
     });
+
+    it( 'should display as "18 december, 08:00, 11:00, 12:00"', () => {
+
+      range( testData.oneDate.winterDefault, 'en', 'Europe/Paris' )
+
+      .should.be.equal( '18 december, 08:00, 11:00, 12:00' );
+
+    } );
+
+    it( 'should display as "18 april, 09:00, 12:00, 13:00"', () => {
+
+      range( testData.oneDate.summerDefault, 'en', 'Europe/Paris' )
+
+      .should.be.equal( '18 april, 09:00, 12:00, 13:00' );
+
+    } );
 
     var output2 = '18 december 2014, 07:00, 10:00, 11:00';
 

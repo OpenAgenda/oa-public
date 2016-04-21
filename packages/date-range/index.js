@@ -2,9 +2,11 @@
 
 var labels = require( './labels' ),
 
-patterns = require( './patterns' );
+patterns = require( './patterns' ),
 
-module.exports = function( timings, lang ) {
+moment = require( 'moment-timezone' );
+
+module.exports = function( timings, lang, timezone ) {
 
   if ( [ 'fr', 'en' ].indexOf( lang ) == -1 ) {
 
@@ -53,7 +55,7 @@ module.exports = function( timings, lang ) {
 
     return _render( labels.oneDate[ lang ], {
       day: _renderDate( firstDate, true, lang ),
-      times: _getTimes( timings, lang )
+      times: _getTimes( timings, lang, timezone )
     } )
 
   } else if ( uniqueDates.length == 2 ) {
@@ -147,11 +149,25 @@ function _pad( str ){
 }
 
 
-function _getTimes( timings, lang ) {
+function _getTimes( timings, lang, timezone ) {
 
   return timings.map( function( timing ) {
 
-    return [ timing.start.getUTCHours(), timing.start.getUTCMinutes() ].map( _pad ).join( labels.minuteSeparator[ lang ] );
+    let hours = timing.start.getUTCHours(),
+
+    minutes = timing.start.getUTCMinutes();
+
+    if ( timezone ) {
+      
+      let t = moment( timing.start );
+
+      hours = t.tz( timezone ).hours();
+
+      minutes = t.tz( timezone ).minutes();
+      
+    }
+
+    return [ hours, minutes ].map( _pad ).join( labels.minuteSeparator[ lang ] );
 
   } ).join( ', ' );
 

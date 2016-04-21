@@ -9,5 +9,8 @@
   "devDependencies": {
     "mocha": "^2.3.4",
     "should": "^8.0.2"
+  },
+  "dependencies": {
+    "moment-timezone": "^0.5.3"
   }
 }

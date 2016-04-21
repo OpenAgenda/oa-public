@@ -4,7 +4,7 @@ var year = ( new Date().getFullYear() );
 
 module.exports = {
   oneDate:{
-    default: [
+    winterDefault: [
              {
                start: new Date( year + '-12-18T07:00:00Z' ),
                end:   new Date( year + '-12-18T08:00:00Z' )
@@ -16,6 +16,21 @@ module.exports = {
              {
                start: new Date( year + '-12-18T11:00:00Z' ),
                end:   new Date( year + '-12-18T12:00:00Z' )
+             },
+
+    ],
+    summerDefault: [
+             {
+               start: new Date( year + '-04-18T07:00:00Z' ),
+               end:   new Date( year + '-04-18T08:00:00Z' )
+             },
+             {
+               start: new Date( year + '-04-18T10:00:00Z' ),
+               end:   new Date( year + '-04-18T10:30:00Z' )
+             },
+             {
+               start: new Date( year + '-04-18T11:00:00Z' ),
+               end:   new Date( year + '-04-18T12:00:00Z' )
              },
 
     ],
