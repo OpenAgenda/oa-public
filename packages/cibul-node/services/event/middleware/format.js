@@ -17,7 +17,8 @@ module.exports = function( req, res, next ) {
     req: req,
     res: res,
     formatted: {
-      updatedAt: req.event.updatedAt
+      updatedAt: req.event.updatedAt,
+      timezone: req.event.getLocationDetails().timezone,
     },
     _t: timeHelper( { lang: req.lang } )
   } )
@@ -158,19 +159,21 @@ function _categories( v ) {
 
 function _dates( v ) {
 
+  let timezone = v.req.event.getLocationDetails().timezone
+
   v.formatted.dates = v.req.event.getDates();
 
   v.formatted.dates.forEach( d => {
 
-    d.label = v._t( d.date, 'dddd Do MMM' );
+    d.label = v._t( d.date, 'dddd Do MMM', v.formatted.timezone );
 
     d.timings.sort( ( a, b ) => a.start > b.start ).forEach( t => {
 
-      t.label = v._t( t.start, 'dddd Do - HH:mm' );
+      t.label = v._t( t.start, 'dddd Do - HH:mm', v.formatted.timezone );
 
-      t.startLabel = v._t( t.start, 'HH:mm' );
+      t.startLabel = v._t( t.start, 'HH:mm', v.formatted.timezone );
 
-      t.endLabel = v._t( t.end, 'HH:mm' );
+      t.endLabel = v._t( t.end, 'HH:mm', v.formatted.timezone );
 
     } );
 
@@ -187,7 +190,7 @@ function _timings( v ) {
 
   v.formatted.timings = v.req.event.getTimings().map( t => {
 
-    t.label = v._t( t.start, 'dddd Do - HH:mm' );
+    t.label = v._t( t.start, 'dddd Do - HH:mm', v.formatted.timezone );
 
     return t;
 

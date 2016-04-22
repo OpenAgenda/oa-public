@@ -94,6 +94,8 @@ module.exports = function( enabledTypes, cb ) {
     }, () => {
 
       //if ( enabledTypes.indexOf( 'task' ) !== -1 ) require( 'agenda-locations/tasks/associateFreeLocations' )();
+      
+      if ( enabledTypes.indexOf( 'task' ) !== -1 ) require( 'agenda-locations' ).tasks.setLocationTimezones( err => { console.log( err ); console.log( 'done'); } );
 
     } );
 

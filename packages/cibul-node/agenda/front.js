@@ -285,11 +285,9 @@ function controlData( req, res ) {
 
 function _format( req, res, next ) {
 
-  var _t = timeHelper( { lang: req.lang } );
-
   async.map( req.events, function( e, mcb ) {
 
-    _formatEventItem( e, _t, req.lang, mcb );
+    _formatEventItem( e, req.lang, mcb );
 
   }, function( err, formattedEvents ) {
 
@@ -365,7 +363,7 @@ function _loadAgendaByAgendaId( req, res, next ) {
 }
 
 
-function _formatEventItem( event, _t, lang, cb ) {
+function _formatEventItem( event, lang, cb ) {
 
   var inst = eventSvc.instanciate( event ),
 

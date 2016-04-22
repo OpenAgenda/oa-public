@@ -39,6 +39,7 @@
     "logger": "git+ssh://git@bitbucket.org:openagenda/logger.git",
     "mailer": "git@bitbucket.org:openagenda/mailer.git",
     "moment": "2.8.3",
+    "moment-timezone": "^0.5.3",
     "newrelic": "*",
     "newsletter": "git+ssh://git@bitbucket.org/openagenda/newsletter.git",
     "node-redis-warlock": "0.1.2",

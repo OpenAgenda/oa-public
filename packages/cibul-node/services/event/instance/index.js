@@ -14,6 +14,8 @@ config = require( '../../../config' ),
 
 imageSvc = require( 'images' ),
 
+moment = require( 'moment-timezone' ),
+
 s3Svc = require( 'files' ).s3,
 
 fileSvc = require( 'files' ).file,
@@ -152,7 +154,15 @@ function instanciate( data ) {
   }
 
 
-  function getRange() {
+  function getRange( language ) {
+
+    if ( !language ) {
+
+      language = instance.getCurrentLanguage();
+
+    }
+
+    let timezone = instance.getLocationDetails().timezone;
 
     return range( instance.getTimings().map( t => {
 
@@ -161,7 +171,7 @@ function instanciate( data ) {
         end: new Date( t.end )
       }
 
-    } ), instance.getCurrentLanguage() );
+    } ), language, timezone );
 
   }
 

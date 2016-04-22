@@ -10,6 +10,8 @@ accessibilityLabels = require( 'labels/event/accessibility' ),
 
 exportFieldLabels = require( 'labels/event/exportFieldNames' ),
 
+stateLabels = require( 'labels/event/states' ),
+
 moment = require( 'moment' );
 
 module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => {
@@ -61,9 +63,13 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
           dstNames.push( m[ 1 ].split( '.' )[ 0 ] );
 
-        } else if ( typeof m === 'object' ) {
+        } else if ( typeof m === 'object' && m.fn ) {
 
           dstNames.push( m.destField ? m.destField : m.sourceField );
+
+        } else if ( typeof m === 'object' ) {
+
+          dstNames.push( m.destField ? m.field : m.field );
 
         } else {
 
@@ -96,11 +102,16 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
           dstField = m[ 0 ];
           suffixes = m.length == 3 ? m[ 2 ] : false;
 
-        } else if ( typeof m === 'object' ) {
+        } else if ( typeof m === 'object' && m.fn ) {
 
           fn = m.fn;
           srcField = m.sourceField;
           dstField = m.destField ? m.destField : m.sourceField
+
+        } else if ( typeof m === 'object' ) {
+
+          srcField = m.field;
+          dstField = m.field;
 
         } else {
 
@@ -177,7 +188,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
     function _defineMapping( includePrivateData ) {
 
-      return [ 'uid' ].concat( _textFields( [ 
+      var map = [ 'uid' ].concat( _textFields( [ 
         'title', 'description', 'longDescription', 'conditions', 'html'
       ], languages ), [
         'image',
@@ -198,6 +209,13 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         'firstDate',
         'firstTimeStart',
         'firstTimeEnd',
+        { 
+          sourceField: 'category',
+          fn: _extractCategory
+        }, {
+          sourceField: 'tags',
+          fn: _extractTags
+        },
         'registrationUrl',
         {
           sourceField: 'accessibility',
@@ -213,6 +231,28 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         'age.max',
         'featured',
         'contributor.organization',
+        {
+          type: 'private',
+          sourceField: 'state',
+          destField: 'state',
+          fn: _state
+        },
+        {
+          type: 'private',
+          field: 'contributor.contactNumber'
+        },
+        {
+          type: 'private',
+          field: 'contributor.contactName'
+        },
+        {
+          type: 'private',
+          field: 'contributor.contactPosition'
+        },
+        {
+          type: 'private',
+          field: 'contributor.email'
+        },
         { 
           sourceField: 'slug',
           destField: 'link',
@@ -237,7 +277,21 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         } ], 
         _textFields( [ 
           'location.description', 'location.access'
-        ], languages ), _extendMapping( instance, includePrivateData ) );
+        ], languages ), _extendMapping( instance, includePrivateData ) )
+
+        .filter( f => {
+
+          if ( typeof f !== 'object' ) return true;
+
+          if ( typeof utils.isArray( f ) ) return true;
+
+          if ( f.type === 'private' && !includePrivateData ) return false;
+
+          return true;
+
+        } );
+
+      return map;
 
     }
 
@@ -283,27 +337,9 @@ function _textFields( fields, languages ) {
 
 function _extendMapping( agenda, includePrivateData ) {
 
-  var amendment = [ { 
-    sourceField: 'category',
-    fn: _extractCategory
-  }, {
-    sourceField: 'tags',
-    fn: _extractTags
-  } ],
+  var amendment = [],
 
   customFields = agenda.getCustomFieldsConfig();
-
-  if ( includePrivateData ) {
-
-    amendment = amendment.concat( [
-      'state',
-      'contributor.contactNumber',
-      'contributor.contactName',
-      'contributor.contactPosition',
-      'contributor.email'
-    ] );
-
-  }
 
   customFields.forEach( function( cField ) {
 
@@ -444,6 +480,13 @@ function _flattenTags( instance ) {
 function _extractCategory( c ) {
 
   return c.label;
+
+}
+
+
+function _state( s ) {
+
+  return stateLabels[ s ].en + ' / ' + stateLabels[ s ].fr;
 
 }
 

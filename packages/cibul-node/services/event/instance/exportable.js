@@ -8,11 +8,6 @@ timeHelper = require( 'cibulTemplates' ).helpers.time,
 
 w = require( 'when' ),
 
-_t = {
-  fr: timeHelper( { lang: 'fr' } ),
-  en: timeHelper( { lang: 'en' } )
-},
-
 legacyLocationFieldsMap = {
   conditions: 'pricingInfo',
   registrationUrl: 'ticketLink',
@@ -85,8 +80,8 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
       age: instance.getAge(),
       accessibility: instance.getAccessibility(),
       range: {
-        fr: i18n( dateRange[ 0 ], _t.fr( dateRange[ 1 ] ), 'fr' ).replace( ':', 'h' ),
-        en: i18n( dateRange[ 0 ], _t.en( dateRange[ 1 ] ), 'en' )
+        fr: eInst.getRange( 'fr' ),
+        en: eInst.getRange( 'en' )
       }
     } )
 
@@ -94,7 +89,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     .then( _appendTimings )
 
-    .done( ( v ) => {
+    .done( v => {
 
       cb( null, v );
 

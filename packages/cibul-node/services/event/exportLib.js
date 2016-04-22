@@ -6,6 +6,8 @@ utils = require( '../../lib/utils' ),
 
 async = require( 'async' ),
 
+moment = require( 'moment-timezone' ),
+
 i18n = require( '../../i18n/i18n' ),
 
 genUrl = require( '../genUrl' ),
@@ -56,7 +58,8 @@ locationFieldsMap = {
   website: 'website',
   links: 'links',
   phone: 'phone',
-  tags: 'tags'
+  tags: 'tags',
+  timezone: 'timezone'
 }
 
 module.exports = function( service ) {
@@ -89,12 +92,14 @@ function cleanEvent( eInst, cb ) {
     accessibility: eInst.getAccessibility(),
     updatedAt: eInst.updatedAt,
     range: {
-      fr: i18n( dateRange[ 0 ], _t.fr( dateRange[ 1 ] ), 'fr' ).replace( ':', 'h' ),
-      en: i18n( dateRange[ 0 ], _t.en( dateRange[ 1 ] ), 'en' )
+      fr: eInst.getRange( 'fr' ),
+      en: eInst.getRange( 'en' )
     }
   },
 
   l = eInst.locations.length ? eInst.locations[ 0 ] : false;
+
+
 
   if ( l ) {
 
@@ -107,6 +112,8 @@ function cleanEvent( eInst, cb ) {
   }
 
   c.registration = registration( c.registrationUrl );
+
+  let timezone = eInst.getLocationDetails().timezone;
 
   eInst.getTimings( function( err, timings ) {
 
@@ -129,8 +136,8 @@ function cleanEvent( eInst, cb ) {
 
       utils.extend( c, {
         firstDate: _stringifyDate( t.start ),
-        firstTimeStart: _fZ( t.start.getUTCHours() ) + ':' + _fZ( t.start.getMinutes() ),
-        firstTimeEnd: _fZ( t.end.getUTCHours() ) + ':' + _fZ( t.end.getMinutes() )
+        firstTimeStart: moment.tz( t.start, timezone ).format( 'HH:mm' ),
+        firstTimeEnd: moment.tz( t.end, timezone ).format( 'HH:mm' )
       });
 
     }
