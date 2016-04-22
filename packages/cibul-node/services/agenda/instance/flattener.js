@@ -235,7 +235,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
           type: 'private',
           sourceField: 'state',
           destField: 'state',
-          fn: _state
+          fn: _state( params.lang )
         },
         {
           type: 'private',
@@ -484,9 +484,13 @@ function _extractCategory( c ) {
 }
 
 
-function _state( s ) {
+function _state( lang ) {
 
-  return stateLabels[ s ].en + ' / ' + stateLabels[ s ].fr;
+  return s => {
+
+    return stateLabels[ s ][ lang ];
+
+  }
 
 }
 

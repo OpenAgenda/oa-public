@@ -80,8 +80,8 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
       age: instance.getAge(),
       accessibility: instance.getAccessibility(),
       range: {
-        fr: eInst.getRange( 'fr' ),
-        en: eInst.getRange( 'en' )
+        fr: loaded.getRange( 'fr' ),
+        en: loaded.getRange( 'en' )
       }
     } )
 
