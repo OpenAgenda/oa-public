@@ -29,12 +29,6 @@ module.exports = {
     access: 'moderator'
   }, {
     section : 'manage',
-    key : 'dataviz',
-    label : 'Dataviz',
-    access: 'administrator',
-    uri : 'agendaAdminDataviz'
-  }, {
-    section : 'manage',
     key : 'categories',
     label : 'Categories and Tags',
     access: 'administrator',
