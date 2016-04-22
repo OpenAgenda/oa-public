@@ -8,7 +8,7 @@
         </a>
         <a class="edge-link center" rel="nofollow" data-href="<%= genUrl( 'agendaAdminShow', [ adminNav, { slug: slug } ] ) %>">
           <i class="fa fa-list"></i>
-          <span><%= __( 'Manage agenda' ) %></span>
+          <span><%= __( 'Back to the dashboard' ) %></span>
         </a>
         <a class="nav-link next edge-link<% if ( adminNav && adminNav.last ) { %> inactive<% } %>" href="<%= adminNav && adminNav.last ? '#' : genUrl( 'agendaEventAdminNavigate', [ { slug: slug, nav: 'next', admin_nav: adminNav } ] ) %>">
           <i class="fa fa-chevron-right"></i>
