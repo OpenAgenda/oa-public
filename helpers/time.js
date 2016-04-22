@@ -13,7 +13,7 @@ module.exports = function( options ) {
     utc: true
   }, options );
 
-  var process = function( date, format ) {
+  var process = function( date, format, timezone ) {
 
     moment.locale( params.lang );
 
@@ -46,7 +46,7 @@ module.exports = function( options ) {
 
         }
 
-        clean[ k ] = formatDate( date[ k ], assumedFormat );
+        clean[ k ] = formatDate( date[ k ], assumedFormat, timezone );
 
       }
 
@@ -56,7 +56,7 @@ module.exports = function( options ) {
 
       if ( !format ) format = 'Do MMMM YYYY';
 
-      return formatDate( date, format );
+      return formatDate( date, format, timezone );
 
     }
 

@@ -8,6 +8,7 @@
     "slug": "chez-nous",
     "url": "http://cheznous.coop",
     "event": {
+      "uri" : "#",
       "importUri": "/event/action.part",
       "languages": false,
       "updatedAt": "2014-10-01T18:30:00.000Z",

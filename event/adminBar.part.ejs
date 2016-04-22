@@ -10,7 +10,7 @@
           <i class="fa fa-list"></i>
           <span><%= __( 'Manage agenda' ) %></span>
         </a>
-        <a class="nav-link next edge-link active" href="<%= genUrl( 'agendaEventAdminNavigate', [ { slug: slug, nav: 'next', admin_nav: adminNav } ] ) %>">
+        <a class="nav-link next edge-link<% if ( adminNav && adminNav.last ) { %> inactive<% } %>" href="<%= genUrl( 'agendaEventAdminNavigate', [ { slug: slug, nav: 'next', admin_nav: adminNav } ] ) %>">
           <i class="fa fa-chevron-right"></i>
         </a>
       </div>
@@ -24,12 +24,12 @@
 <% if ( loner ) { %>
 <% if ( !states[ i ].agendaOnly ) { %>
         <li class="list-group-item js_admin_item <%= states[ i ].classNames %>">
-          <a data-href="<%= states[ i ].type !== null ? genUrl( 'eventChangeState', { eventSlug: event.slug, type: states[ i ].type } ) : '#' %>" class="item bullet js_change_state_to_<%- states[ i ].type %><% if ( i !== event.currentState ) { %> active<% } %>" rel="nofollow"><%= __( states[ i ].label ) %></a>
+          <a data-href="<%= states[ i ].type !== null ? genUrl( 'eventChangeState', { eventSlug: event.slug, type: states[ i ].type, redirect: event.uri } ) : '#' %>" class="item bullet js_change_state_to_<%- states[ i ].type %><% if ( i !== event.currentState ) { %> active<% } %>" rel="nofollow"><%= __( states[ i ].label ) %></a>
         </li>
 <% } %>
 <% } else { %>
         <li class="list-group-item js_admin_item <%= states[ i ].classNames %>">
-          <a data-href="<%= states[ i ].type !== null ? genUrl( 'agendaEventChangeState', { slug: slug, eventSlug: event.slug, type: states[ i ].type } ) : '#' %>" class="item bullet js_change_state_to_<%- states[ i ].type %><% if ( i !== event.currentState ) { %> active<% } %>" rel="nofollow"><%= __( states[ i ].label ) %></a>
+          <a data-href="<%= states[ i ].type !== null ? genUrl( 'agendaEventChangeState', { slug: slug, eventSlug: event.slug, type: states[ i ].type, redirect: event.uri } ) : '#' %>" class="item bullet js_change_state_to_<%- states[ i ].type %><% if ( i !== event.currentState ) { %> active<% } %>" rel="nofollow"><%= __( states[ i ].label ) %></a>
         </li>
 <% } %>
 <% } %>
