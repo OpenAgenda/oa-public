@@ -2,7 +2,7 @@
  * format date or objects of dates according to the given format
  */
 
-var moment = require( 'moment' ),
+var moment = require( 'moment-timezone' ),
 
 deepExtend = require( 'deep-extend' );
 
@@ -96,7 +96,7 @@ module.exports = function( options ) {
 
 };
 
-var formatDate = function ( date, format ) {
+var formatDate = function ( date, format, timezone ) {
 
   if ( !(date instanceof Date)) {
 
@@ -104,6 +104,12 @@ var formatDate = function ( date, format ) {
 
   }
 
-  return moment( date ).format( format );
+  if ( timezone ) {
+
+    return moment.tz( date, timezone ).format( format );
+    
+  }
+
+  return moment( date ).utc().format( format );
 
 };
