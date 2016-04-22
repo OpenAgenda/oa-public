@@ -123,10 +123,18 @@ module.exports = function( path ) {
 
 function agendaEventShow( req, res ) {
 
-  _addLanguageLinks( req, 'agendaEventShow', {
-    slug: req.params.slug,
-    eventSlug: req.params.eventSlug
-  } );
+  let reqParams = {
+    slug: req.agenda.slug,
+    eventSlug: req.event.slug
+  }
+
+  if ( req.query.admin_nav ) {
+
+    reqParams.admin_nav = req.query.admin_nav;
+
+  }
+
+  _addLanguageLinks( req, 'agendaEventShow', reqParams );
 
   _addContactLink( req );
 

@@ -171,15 +171,21 @@ function _redirect( req, res ) {
 
   redirectUrl;
 
-  if ( req.agenda ) {
+  if ( req.query.redirect ) {
 
-    uri = 'agendaEventShow';
+    redirectUrl = req.query.redirect;
+
+  } else if ( req.agenda ) {
 
     query.slug = req.agenda.slug;
 
-  }
+    redirectUrl = req.genUrl( 'agendaEventShow', query );
 
-  redirectUrl = req.genUrl( uri, query );
+  } else {
+
+    redirectUrl = req.genUrl( 'eventShow', query );      
+
+  }
 
   req.log( 'redirecting to %s', redirectUrl );
 

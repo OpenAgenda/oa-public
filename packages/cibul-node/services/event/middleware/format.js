@@ -47,6 +47,8 @@ module.exports = function( req, res, next ) {
 
   .then( _importUri )
 
+  .then( _uri )
+
   .then( v => {
 
     let d = w.defer();
@@ -90,6 +92,35 @@ function _registration( v ) {
 
   return v;
   
+}
+
+
+function _uri( v ) {
+
+  let reqParams = {
+    eventSlug: v.req.event.slug
+  }
+
+  if ( v.req.agenda ) {
+
+    reqParams.slug = v.req.agenda.slug;
+
+    if ( v.req.query.admin_nav ) {
+
+      reqParams.admin_nav = v.req.query.admin_nav;
+
+    }
+
+    v.formatted.uri = v.req.genUrl( 'agendaEventShow', reqParams );
+
+  } else {
+
+    v.formatted.uri = v.req.genUrl( 'eventShow', reqParams );
+
+  }
+
+  return v;
+
 }
 
 
@@ -158,8 +189,6 @@ function _categories( v ) {
 
 
 function _dates( v ) {
-
-  let timezone = v.req.event.getLocationDetails().timezone
 
   v.formatted.dates = v.req.event.getDates();
 
