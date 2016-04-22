@@ -81,8 +81,6 @@ du.asapReady( function() {
 
   cibulMessage();
 
-  headerProfile( params.profile );
-
   du.forEach( asaps, function( asapHook ) {
 
     asapHook( params );
@@ -101,6 +99,8 @@ du.addEvent( window, 'load', function() {
     utils.extend( params, layout.getOptions( 'body' ) );
 
   }
+
+  headerProfile( params.profile );
 
   du.forEach( hooks, function( hook ) {
 
