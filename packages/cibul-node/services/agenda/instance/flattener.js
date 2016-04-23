@@ -488,6 +488,8 @@ function _state( lang ) {
 
   return s => {
 
+    if ( !s || !s.length ) return s;
+
     return stateLabels[ s ][ lang ];
 
   }
