@@ -77,7 +77,7 @@ maps.register('osm', (function(){
         
         icon.iconUrl = options.icon;
 
-        if (options.anchor) icon.iconAnchor = L.point(options.anchor);
+        if ( options.anchor ) icon.iconAnchor = L.point( options.anchor );
 
         icon = L.icon(icon);
 
@@ -90,7 +90,7 @@ maps.register('osm', (function(){
       marker = L.marker(options.position, {
         title: options.title,
         icon: icon,
-        draggable: options.draggable?options.draggable:false,
+        draggable: options.draggable ? options.draggable : false,
         count: count
       })
 

@@ -31,7 +31,8 @@ module.exports = function( options ) {
 
       maps.createMarker( map, {
         position: coords,
-        icon: params.icon
+        icon: params.icon,
+        anchor: [ 9, 25 ]
       });
 
     },
