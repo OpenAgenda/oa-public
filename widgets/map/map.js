@@ -331,7 +331,7 @@ function widget( elem, options ) {
 
   function enable( reqParams ) {
 
-    var resetCluster = _resetClusterController( reqParams ) || !initCluster,
+    var resetCluster = _resetClusterController( reqParams ) || !initCluster,
 
     bounds = false;
 
@@ -540,7 +540,7 @@ function widget( elem, options ) {
 
       }
 
-      utils.extend( location, data, { uid: location.uid /* for template testing */} );
+      utils.extend( location, data, { uid: location.uid /* for template testing */} );
 
       cb( null, location );
 
