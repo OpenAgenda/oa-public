@@ -46,7 +46,8 @@ module.exports = React.createClass({
   },
   componentDidMount: function componentDidMount() {
 
-    this.setState(actions.loading(this.state, false));
+    if (this.state.search.agendas.length) this.setState(actions.loading(this.state, false));
+    this.resetSearchPage('');
   },
   onSearchChange: function onSearchChange(name, search) {
 

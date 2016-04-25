@@ -32,22 +32,22 @@ module.exports = React.createClass({
         React.createElement(
           "div",
           { className: "row" },
-          React.createElement(
+          this.props.agenda.image ? React.createElement(
             "div",
             { className: "col-sm-2 avatar-container" },
             React.createElement(
               "a",
-              { href: "#agendaShow%7B%22slug%22:%22la-gargouille%22%7D" },
-              React.createElement("img", { className: "avatar", src: "//cibul.s3.amazonaws.com/review_cheznous_598_00.jpg",
-                alt: "L'agenda de la Gargouille" })
+              { href: "#" },
+              React.createElement("img", { className: "avatar", src: 'https://cibul.s3.amazonaws.com/' + this.props.agenda.image,
+                alt: this.props.agenda.title })
             )
-          ),
+          ) : null,
           React.createElement(
             "div",
-            { className: "col-sm-7 title-container" },
+            { className: this.props.agenda.image ? 'col-sm-7 title-container' : 'title-container' },
             React.createElement(
               "a",
-              { href: "#agendaShow%7B%22slug%22:%22la-gargouille%22%7D" },
+              { href: "#" },
               React.createElement(
                 "h1",
                 null,
@@ -59,15 +59,15 @@ module.exports = React.createClass({
                 this.props.agenda.description
               )
             ),
-            React.createElement(
+            this.props.agenda.url ? React.createElement(
               "p",
               null,
               React.createElement(
                 "a",
-                { target: "_blank", href: "http://cibul.net" },
-                "http://cibul.net"
+                { target: "_blank", href: this.props.agenda.url },
+                this.props.agenda.url
               )
-            )
+            ) : null
           )
         )
       )

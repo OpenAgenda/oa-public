@@ -16,39 +16,35 @@ module.exports = React.createClass( {
     getStakeholdersPage: React.PropTypes.func,
     limit: React.PropTypes.number
   },
-  
+
   getDefaultProps() {
-    
+
     return {
       limit: 20
     };
-    
+
   },
 
   renderAgendaHeader () {
     return (
       <header className="agenda-header">
         <div className="container-fluid profile notheme">
-          <div className="row">{/*
-           */}
-            <div className="col-sm-2 avatar-container">
+          <div className="row">
+            { this.props.agenda.image ?
+              <div className="col-sm-2 avatar-container">
+                <a href="#">
+                  <img className="avatar" src={'https://cibul.s3.amazonaws.com/' + this.props.agenda.image}
+                       alt={this.props.agenda.title}/>
+                </a>
+              </div> : null }
 
-              <a href="#agendaShow%7B%22slug%22:%22la-gargouille%22%7D">
-                <img className="avatar" src="//cibul.s3.amazonaws.com/review_cheznous_598_00.jpg"
-                     alt="L'agenda de la Gargouille"/>
-              </a>
-
-            </div>
-            {/*
-             */}
-            <div className="col-sm-7 title-container">
-              <a href="#agendaShow%7B%22slug%22:%22la-gargouille%22%7D">
+            <div className={ this.props.agenda.image ? 'col-sm-7 title-container' : 'title-container' }>
+              <a href="#">
                 <h1>{this.props.agenda.title}</h1>
                 <p>{this.props.agenda.description}</p>
               </a>
-
-              <p><a target="_blank" href="http://cibul.net">http://cibul.net</a></p>
-
+              { this.props.agenda.url ?
+                <p><a target="_blank" href={this.props.agenda.url}>{this.props.agenda.url}</a></p> : null }
             </div>
           </div>
         </div>
