@@ -1,3 +1,5 @@
+"use strict";
+
 var http = require( 'http' ),
 
 url = require( 'url' ),
@@ -314,9 +316,9 @@ function _listCssFiles( v ) {
 
   if ( !v.compiled.head ) v.compiled.head = {};
 
-  var c, ccs;
+  var c, css;
 
-  [ 'css', 'embedCss', 'oaCss', 'oaeCss' ].forEach( function( name ) {
+  [ 'css', 'embedCss', 'oaCss', 'oaeCss', 'adminCss' ].forEach( function( name ) {
 
     if ( v.config[ name ] ) {
 

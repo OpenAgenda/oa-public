@@ -7,6 +7,7 @@
   "auth/resetPassword",
   "admin/index",
   "admin/users",
+  "admin/agendas",
   "corpo/index",
   "agenda/show",
   "agenda/embedShow",

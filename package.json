@@ -53,7 +53,8 @@
     "react-form-components": "git+ssh://git@bitbucket.org:openagenda/react-form-components.git",
     "labels": "git+ssh://git@bitbucket.org:openagenda/labels.git",
     "bs-templates": "git+ssh://git@bitbucket.org:openagenda/bs-templates.git",
-    "dom-utils": "git+ssh://git@bitbucket.org:openagenda/dom-utils.git"
+    "dom-utils": "git+ssh://git@bitbucket.org:openagenda/dom-utils.git",
+    "admin-agendas": "git+ssh://git@bitbucket.org:openagenda/admin-agendas.git"
   },
   "browserify": {
     "transform": "reactify"
