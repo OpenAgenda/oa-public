@@ -327,11 +327,11 @@ function getScrollOffsets( w ) {
 
 function parseJsonAttribute( selector, tagName, defaultValue ) {
 
-  var data = defaultValue;
+  var data = defaultValue || {};
 
   try {
 
-    data = JSON.parse( el( selector ).getAttribute( tagName ) );
+    data = utils.extend({}, data, JSON.parse( el( selector ).getAttribute( tagName ) ) );
 
   } catch ( e ) {
   }
