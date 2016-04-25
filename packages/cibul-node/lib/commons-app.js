@@ -530,7 +530,7 @@ function loadBaseData( func, cssFile ) {
 
     }
 
-    if ( config.env == 'prod' || true ) {
+    if ( config.env == 'prod' ) {
 
       let googleAnalyticsId = req.googleAnalyticsId || config.googleAnalyticsId;
 
