@@ -101,7 +101,7 @@ function _total( v ) {
 
     return v.knex.clone()
     .count( 'id as agendas' )
-    .transacting(trx);
+    .transacting( trx );
 
   } )
 
@@ -121,9 +121,10 @@ function _list( v ) {
 
     return v.knex
     .select( 'id', 'uid', 'slug', 'title', 'description', 'image', 'url', 'updated_at' )
+    .orderBy( 'updated_at', 'desc' )
     .limit( v.limit )
     .offset( v.offset )
-    .transacting(trx);
+    .transacting( trx );
 
   } )
 
