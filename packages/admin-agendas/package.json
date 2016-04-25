@@ -1,5 +1,5 @@
 {
-  "name": "agenda-admin",
+  "name": "admin-agendas",
   "version": "1.0.0",
   "description": "",
   "main": "service/index.js",
@@ -20,7 +20,7 @@
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/openagenda/agenda-admin#readme",
+  "homepage": "https://bitbucket.org/openagenda/admin-agendas#readme",
   "dependencies": {
     "agenda-stakeholders": "git+ssh://git@bitbucket.org:openagenda/agenda-stakeholders.git",
     "agendas": "git+ssh://git@bitbucket.org:openagenda/agendas.git",
