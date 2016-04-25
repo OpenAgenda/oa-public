@@ -147,6 +147,7 @@ function actionDatesShow( req, res ) {
   return cmn.render( req, res, 'event/actionDates', {
     event: {
       uri: req.eventUri,
+      timezone: req.event.locations[ 0 ].store.timezone,
       params: req.eventUriParams,
       timings: req.event.locations[0].timings.map( function( timing ) {
 
