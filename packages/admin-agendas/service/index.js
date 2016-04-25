@@ -54,7 +54,7 @@ function init( c, cb ) {
 
   .then( () => {
 
-    mw.init( require( '.' ), c );
+    mw.init( require( './' ), c );
 
   } )
 
