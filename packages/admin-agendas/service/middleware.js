@@ -60,25 +60,16 @@ function agendasList( req, res, next ) {
   } catch ( e ) {
   }
 
+  if ( !req.xhr ) return next();
+
   service.agendas.list( query, offset, limit, ( err, agendas, total ) => {
 
     if ( err ) return next( err );
 
-    req.data = {
+    return res.json( {
       agendas: agendas,
       total: total
-    };
-
-    if ( req.xhr ) return res.json( req.data );
-
-    req.content = ReactDOMServer.renderToString( Body( {
-      searchQuery: req.query.oas,
-      searchPage: page,
-      agendas: agendas,
-      agendasTotal: total
-    } ) );
-
-    next();
+    } );
 
   } );
 
@@ -113,21 +104,10 @@ function agendaStakeholdersList( req, res, next ) {
 
     if ( err ) return next( err );
 
-    req.data = {
+    return res.json( {
       stakeholders: stakeholders,
       total: total
-    };
-
-    if ( req.xhr ) return res.json( req.data );
-
-    req.content = ReactDOMServer.renderToString( Body( {
-      stakeholdersQuery: req.query.oas,
-      stakeholdersPage: page,
-      stakeholders: stakeholders,
-      stakeholdersTotal: total
-    } ) );
-
-    next();
+    } );
 
   } );
 

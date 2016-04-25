@@ -14,16 +14,7 @@ module.exports = React.createClass({
 
   propTypes: {
     searchRes: React.PropTypes.string,
-    searchQuery: React.PropTypes.object,
-    searchPage: React.PropTypes.number,
-    agendas: React.PropTypes.array,
-    agendasTotal: React.PropTypes.number,
-
     stakeholdersRes: React.PropTypes.string,
-    stakeholdersQuery: React.PropTypes.object,
-    stakeholdersPage: React.PropTypes.number,
-    stakeholders: React.PropTypes.array,
-    stakeholdersTotal: React.PropTypes.number,
 
     agenda: React.PropTypes.object
   },
@@ -33,21 +24,21 @@ module.exports = React.createClass({
     return {
       loading: true,
       search: {
-        query: this.props.searchQuery,
-        agendas: this.props.agendas,
-        total: this.props.agendasTotal,
-        pageRange: [this.props.searchPage, this.props.searchPage]
+        query: {},
+        agendas: [],
+        total: 0,
+        pageRange: [1, 1]
       },
-      agenda: this.props.agenda,
-      stakeholders: this.props.stakeholders,
-      stakeholdersPageRange: [this.props.stakeholdersPage, this.props.stakeholdersPage],
-      stakeholdersTotal: this.props.stakeholdersTotal
+      agenda: {},
+      stakeholders: [],
+      stakeholdersPageRange: [1, 1],
+      stakeholdersTotal: 0
     };
   },
   componentDidMount: function componentDidMount() {
 
-    if (this.state.search.agendas.length) this.setState(actions.loading(this.state, false));
-    this.resetSearchPage({});
+    this.setState(actions.loading(this.state, false));
+    if (!this.state.search.agendas.length) this.resetSearchPage({});
   },
   onSearchChange: function onSearchChange(name, search) {
 
