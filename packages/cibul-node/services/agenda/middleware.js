@@ -557,8 +557,6 @@ function buildCsv( includePrivateData ) {
           } );
 
         } );
-
-
       } );
 
       stream.on( 'end', () => {

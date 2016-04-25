@@ -8,6 +8,8 @@ timeHelper = require( 'cibulTemplates' ).helpers.time,
 
 w = require( 'when' ),
 
+moment = require( 'moment-timezone' ),
+
 legacyLocationFieldsMap = {
   conditions: 'pricingInfo',
   registrationUrl: 'ticketLink',
@@ -45,7 +47,8 @@ locationFieldsMap = {
   website: 'website',
   links: 'links',
   phone: 'phone',
-  tags: 'tags'
+  tags: 'tags',
+  'timezone' : 'timezone'
 },
 
 utils = require( 'utils' );
@@ -100,6 +103,19 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
   function _appendTimings( v ) {
 
+    let timezone = v.location.timezone || 'Europe/Paris';
+
+    // add timezone in timings array for use in flat exports
+    v.timings = v.timings.map( t => {
+
+      return {
+        start: t.start,
+        end: t.end,
+        timezone: timezone
+      };
+
+    } );
+
     return w.promise( ( rs, rj ) => {
 
       instance.getTimings( ( err, timings ) => {
@@ -123,9 +139,9 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
           utils.extend( v, {
             firstDate: _stringifyDate( t.start ),
-            firstTimeStart: utils.fZ( t.start.getUTCHours() ) + ':' + utils.fZ( t.start.getMinutes() ),
-            firstTimeEnd: utils.fZ( t.end.getUTCHours() ) + ':' + utils.fZ( t.end.getMinutes() )
-          });
+            firstTimeStart: moment.tz( t.start, timezone ).format( 'HH:mm' ),
+            firstTimeEnd: moment.tz( t.end, timezone ).format( 'HH:mm' )
+          } );
 
         }
 

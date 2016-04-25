@@ -12,7 +12,7 @@ exportFieldLabels = require( 'labels/event/exportFieldNames' ),
 
 stateLabels = require( 'labels/event/states' ),
 
-moment = require( 'moment' );
+moment = require( 'moment-timezone' );
 
 module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => {
 
@@ -410,13 +410,21 @@ function _defineTimings( lang ) {
 
     .map( t => {
 
-      let d = moment( t.start ).format( 'dddd Do MMMM' ) + ( today.getUTCFullYear() !== parseInt( t.start.substr( 0, 4 ) ) ? ' ' + t.start.substr( 0, 4 ) : '' ),
+      let d = moment.tz( t.start, t.timezone ).format( 'dddd Do MMMM' ) + ( today.getUTCFullYear() !== parseInt( t.start.substr( 0, 4 ) ) ? ' ' + t.start.substr( 0, 4 ) : '' ),
 
-      start = t.start.split( 'T' )[ 1 ].substr( 0, 2 ) + ( lang == 'fr' ? 'h' : ':' ) + t.start.split( 'T' )[ 1 ].substr( 3, 2 ),
+      start = moment.tz( t.start, t.timezone ).format( 'HH:mm' ),
 
-      end = t.end.split( 'T' )[ 1 ].substr( 0, 2 ) + ( lang == 'fr' ? 'h' : ':' ) + t.end.split( 'T' )[ 1 ].substr( 3, 2 );
+      end = moment.tz( t.end, t.timezone ).format( 'HH:mm' );
 
-      return d + ' - ' + start + ( lang == 'fr' ? ' à ' : ' to ' ) + end;
+      if ( lang == 'fr' ) {
+
+        return d + ' - ' + start.replace( ':', 'h' ) + ' à ' + end.replace( ':', 'h' );
+
+      } else {
+
+        return d + ' - ' + start + ' to ' + end;
+
+      }
 
     } ).join( '\n' );
 
