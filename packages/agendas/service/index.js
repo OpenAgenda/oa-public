@@ -87,6 +87,7 @@ function _search( v ) {
   v.knex = v.knex
   .where( 'title', 'like', `%${v.query.search}%` )
   .orWhere( 'description', 'like', `%${v.query.search}%` )
+  .orWhere( 'slug', 'like', `%${v.query.search}%` )
 
   return v;
 
@@ -119,7 +120,7 @@ function _list( v ) {
   return knex.transaction( trx => {
 
     return v.knex
-    .select( 'id', 'uid', 'slug', 'title', 'description', 'image', 'updated_at' )
+    .select( 'id', 'uid', 'slug', 'title', 'description', 'image', 'url', 'updated_at' )
     .limit( v.limit )
     .offset( v.offset )
     .transacting(trx);
