@@ -282,6 +282,24 @@ function errorResponse( req, res, error, jsonResponse ) {
 
   var errorTemplate;
 
+  if ( error.statusCode && !error.code ) {
+
+    error.code = error.statusCode;
+
+  }
+
+  if ( !req.log ) {
+
+    loadLogger( 'express' )( req, res );
+
+  }
+
+  if ( !req.lang ) {
+
+    _defineLang( req );
+
+  }
+
   req.log( 'preparing error response' );
 
   if ( jsonResponse === undefined ) {
@@ -290,13 +308,13 @@ function errorResponse( req, res, error, jsonResponse ) {
 
   }
 
-  if ( [ 401, 403, 404 ].indexOf( error.code ) == -1 ) {
+  if ( [ 401, 403, 404, 413 ].indexOf( error.code ) == -1 ) {
 
     req.log.load( { errorStack: error.stack } );
 
     req.log( 'error', 'received error: %s', JSON.stringify( error ) );
 
-    console.error( (new Date).toUTCString(), 'uncaught: %s', JSON.stringify( error ) );
+    console.error( ( new Date ).toUTCString(), 'uncaught: %s', JSON.stringify( error ) );
 
     console.error( error.stack ? error.stack : 'no stack' );
 
@@ -320,7 +338,12 @@ function errorResponse( req, res, error, jsonResponse ) {
 
   }
 
-  if ( error.message ) {
+
+  if ( res.code === 413 ) {
+
+    error.message = i18n( 'Your submission is too large: maximum allowed is %max%kb, you submitted %sub%kb', { '%max%' : Math.ceil( error.limit/1000 ) , '%sub%' : Math.ceil( error.length/1000 ) }, req.lang );
+
+  } else if ( error.message ) {
 
     error.message = i18n( error.message, {}, req.lang );
 
@@ -879,7 +902,7 @@ function loadLogger( name ) {
       ip: req.header( 'x-forwarded-for' )
     } );
 
-    next();
+    if ( next ) next();
 
   }
 

@@ -168,6 +168,8 @@ function agendaInvitations( agenda ) {
 
   function _inviteStakeholders( type ) {
 
+    const thresholdCount = 1000;
+
     return ( options, cb ) => {
 
       var params = utils.extend( {
@@ -180,9 +182,21 @@ function agendaInvitations( agenda ) {
         errors: []
       },
 
-      invitations = [];
+      invitations = [],
 
-      async.eachSeries( mailer.extractEmails( params.emails, false ), function( email, ecb ) {
+      alreadyCbed = true,
+
+      extractedEmails = mailer.extractEmails( params.emails, false );
+
+      if ( thresholdCount < extractedEmails.length ) {
+
+        cb( null, [], { count: extractedEmails.length } );
+
+        alreadyCbed = false;
+
+      }
+
+      async.eachSeries( extractedEmails, function( email, ecb ) {
 
         log( 'processing email %s', email );
 
@@ -213,7 +227,7 @@ function agendaInvitations( agenda ) {
 
       }, err => {
 
-        if ( err ) return cb( err );
+        if ( err ) return alreadyCbed ? cb( err ) : null;
 
         async.each( invitations, ( invitation, ecb ) => {
 
@@ -221,7 +235,7 @@ function agendaInvitations( agenda ) {
 
         }, err => {
 
-          cb( err, invitations, result );  
+          if ( alreadyCbed ) cb( err, invitations, result );  
 
         });
 

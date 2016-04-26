@@ -172,7 +172,7 @@ function showXhr( template ) {
         partial: partial,
         total: req.templateData.total,
         page: req.templateData.page
-      });
+      } );
 
     });
 

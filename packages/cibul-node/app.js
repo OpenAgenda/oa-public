@@ -93,9 +93,13 @@ module.exports = function( enabledTypes, cb ) {
       logger: logger
     }, () => {
 
-      //if ( enabledTypes.indexOf( 'task' ) !== -1 ) require( 'agenda-locations/tasks/associateFreeLocations' )();
-      
-      if ( enabledTypes.indexOf( 'task' ) !== -1 ) require( 'agenda-locations' ).tasks.setLocationTimezones( err => { console.log( err ); console.log( 'done'); } );
+      if ( enabledTypes.indexOf( 'task' ) !== -1 ) {
+
+        //require( 'agenda-locations/tasks/associateFreeLocations' )();
+
+        require( 'agenda-locations' ).tasks.setLocationTimezones( err => { } );
+
+      }
 
     } );
 
@@ -174,7 +178,10 @@ module.exports = function( enabledTypes, cb ) {
 
     app.use( require( 'cookie-parser' )() );
 
-    app.use( require( 'body-parser' ).urlencoded( { extended: true } ) );
+    app.use( require( 'body-parser' ).urlencoded( {
+      extended: true,
+      limit: 500000
+    } ) );
 
     app.use( cookieSession( config.session ) );
 

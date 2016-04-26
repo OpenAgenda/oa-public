@@ -156,6 +156,10 @@ function invite( options ) {
 
           res.setFlash( req, 'Something went wrong. We will fix this shortly.' );
 
+        } else if ( result.count ) {
+
+          res.setFlash( req, 'Your %s submitted emails are being processed', { '%s' : result.count } );
+
         } else if ( invitations.length == 0 ) {
 
           res.setFlash( req, 'No new invitation was sent' );
