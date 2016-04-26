@@ -1,0 +1,10 @@
+{
+  "base": {
+    "scriptParams" : {
+      "res": {
+        "agendas": "agendas.data.json",
+        "stakeholders": "stakeholders.data.json"
+      }
+    }
+  }
+}

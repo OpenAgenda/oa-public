@@ -194,7 +194,7 @@ checkOrCreateDir = function( uri, cb ) {
 
       if ( !err ) return escb(); // dir exists
 
-      fs.mkdir( dir, 0754, escb );
+      fs.mkdir( dir, "0754", escb );
 
     });
 

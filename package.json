@@ -54,7 +54,8 @@
     "uglify-js": "2.4.24",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
     "when": "~3.4",
-    "xhr": "^2.2.0"
+    "xhr": "^2.2.0",
+    "admin-agendas": "git+ssh://git@bitbucket.org:openagenda/admin-agendas.git"
   },
   "browserify": {
     "transform": "reactify"
