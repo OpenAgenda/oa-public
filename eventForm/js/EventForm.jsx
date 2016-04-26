@@ -247,10 +247,11 @@ module.exports = React.createClass( {
 
   },
 
-  onLocationModeChange: function( newMode ) {
+  onLocationModeChange: function( newMode, initLocation ) {
 
     this.setState( {
-      locationMode: newMode
+      locationMode: newMode,
+      location: initLocation
     } );
 
   },
