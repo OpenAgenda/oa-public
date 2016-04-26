@@ -43,6 +43,15 @@ config = {
       password: 'V4\'&4F:,Mtji\'hzq',
       cache: true
     },
+    schemas : {
+      agenda: 'review',
+      event: 'event',
+      agendaEvent: 'review_article',
+      occurrence: 'occurrence',
+      stakeholder: 'reviewer',
+      stakeholderSettings: 'stakeholder_settings',
+      user: 'user'
+    },
     auth: {
       local: {
         useCaptcha: true,

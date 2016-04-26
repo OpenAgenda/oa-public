@@ -79,12 +79,7 @@ module.exports = function( enabledTypes, cb ) {
     } );
 
     require( 'agenda-stakeholders' ).init( {
-      schemas: {
-        agenda: 'review',
-        agendaEvent: 'review_article',
-        event: 'event',
-        stakeholder: 'reviewer'
-      },
+      schemas : config.schemas,
       mysql: config.db,
       logger: logger
     }, () => {} );
@@ -136,9 +131,16 @@ module.exports = function( enabledTypes, cb ) {
       logger: logger
     } );
 
+    require( 'admin-agendas' ).init( {
+      mysql: config.db,
+      schemas : config.schemas,
+      logger: logger
+    } );
+
     webModules = {
       admin: [ // for admins only
-        require( './admin/back' )( '/admin' )
+        require( './admin/back' )( '/admin' ),
+        require( './admin/agendas.back' )( '/admin/agendas' )
       ],
       web: [ // open to the public
         require( './newsletter/back' )( '/:slug/admin/newsletters' ),
@@ -188,7 +190,7 @@ module.exports = function( enabledTypes, cb ) {
     app.use( function ( req, res, next ) {
 
       res.removeHeader( 'X-Powered-By' );
-      
+
       next();
 
     } );
@@ -222,7 +224,7 @@ module.exports = function( enabledTypes, cb ) {
     } );
 
     // run 'admin' type modules
-    
+
     if ( enabledTypes.indexOf( 'admin' ) !== -1 ) {
 
       webModules.admin.forEach( function( m ) {
@@ -259,7 +261,7 @@ module.exports = function( enabledTypes, cb ) {
       cmn.catchError( req, res )( err );
 
     });
-   
+
 
     if ( enabledTypes.indexOf( 'web' ) !== -1 || enabledTypes.indexOf( 'admin' ) !== -1 ) {
 
@@ -274,9 +276,9 @@ module.exports = function( enabledTypes, cb ) {
     if ( loadTasks && ( enabledTypes.indexOf( 'task' ) !== -1 ) ) {
 
       //require( './newsletter/task' ).load( { period: 60000, bootOffset: 15000 } );
-      
+
       tfy( require( './mailer/task' ), { bootOffset: 14909 } );
-      
+
       tfy( require( './search/task' ), { bootOffset: 1000 } );
 
       tfy( require( './general/nominatim.task' ), { bootOffset: 10000, period: 60000*5 } );

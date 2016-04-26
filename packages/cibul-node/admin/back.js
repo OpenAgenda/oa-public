@@ -210,7 +210,9 @@ function userSignin( req, res ) {
 
   session.set( req, res, req.loadedUser, function() {
 
-    return cmn.renderJson( req, res, { success: true } );
+    if ( req.xhr ) return cmn.renderJson( req, res, { success: true } );
+
+    return res.redirect( 302, req.genUrl( 'homeShow' ) );
 
   });
 
