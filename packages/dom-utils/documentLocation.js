@@ -50,7 +50,7 @@ function setQueryPart( query ) {
 
   if ( typeof window.history !== 'undefined' && typeof window.history.pushState !== 'undefined' ) {
 
-    let q = qs.stringify( query );
+    var q = qs.stringify( query );
       
     window.history.pushState( query, '',
       window.location.href.split( '?' )[ 0 ] + ( q ? '?' + q : '' )
