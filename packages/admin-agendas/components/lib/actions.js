@@ -14,13 +14,15 @@ module.exports = {
     return update(currentState, changes);
   },
   resetPageItems: function resetPageItems(currentState, query, data) {
+    var page = arguments.length <= 3 || arguments[3] === undefined ? 1 : arguments[3];
+
 
     var changes = {
       search: {}
     };
 
     changes.search.pageRange = {
-      $set: [1, 1]
+      $set: [parseInt(page), parseInt(page)]
     };
 
     changes.search.query = {

@@ -113,6 +113,11 @@ module.exports = React.createClass({
             "th",
             null,
             "Depuis"
+          ),
+          React.createElement(
+            "th",
+            null,
+            "Actions"
           )
         )
       ),
@@ -137,6 +142,57 @@ module.exports = React.createClass({
         },
         wrapTag: "tbody"
       })
+    );
+  },
+  renderStakeholderItem: function renderStakeholderItem(stakeholder) {
+
+    return React.createElement(
+      "tr",
+      { key: stakeholder.id },
+      React.createElement(
+        "td",
+        null,
+        React.createElement(
+          "a",
+          { href: "#" },
+          stakeholder.user.uid
+        )
+      ),
+      React.createElement(
+        "td",
+        null,
+        creadentialsToString(stakeholder.credential)
+      ),
+      React.createElement(
+        "td",
+        null,
+        stakeholder.user.full_name
+      ),
+      React.createElement(
+        "td",
+        null,
+        stakeholder.user.username
+      ),
+      React.createElement(
+        "td",
+        null,
+        stakeholder.user.email
+      ),
+      React.createElement(
+        "td",
+        null,
+        "le ",
+        stakeholder.user.created_at
+      ),
+      React.createElement(
+        "td",
+        null,
+        React.createElement(
+          "a",
+          { href: '/admin/users/signin?uid=' + stakeholder.user.uid },
+          React.createElement("i", { className: "fa fa-sign-in", "aria-hidden": "true" })
+        )
+      )
     );
   },
   renderPrev: function renderPrev() {
@@ -187,48 +243,6 @@ module.exports = React.createClass({
 
     return this.props.pageRange[0] > 1;
   },
-  renderStakeholderItem: function renderStakeholderItem(stakeholder) {
-
-    return React.createElement(
-      "tr",
-      { key: stakeholder.id },
-      React.createElement(
-        "td",
-        null,
-        React.createElement(
-          "a",
-          { href: "#" },
-          stakeholder.user.id
-        )
-      ),
-      React.createElement(
-        "td",
-        null,
-        stakeholder.credential
-      ),
-      React.createElement(
-        "td",
-        null,
-        stakeholder.user.full_name
-      ),
-      React.createElement(
-        "td",
-        null,
-        stakeholder.user.username
-      ),
-      React.createElement(
-        "td",
-        null,
-        stakeholder.user.email
-      ),
-      React.createElement(
-        "td",
-        null,
-        "le ",
-        stakeholder.user.created_at
-      )
-    );
-  },
   render: function render() {
 
     return React.createElement(
@@ -243,3 +257,16 @@ module.exports = React.createClass({
     );
   }
 });
+
+function creadentialsToString(type) {
+  switch (type) {
+    case 1:
+      return 'Contributeur';
+    case 2:
+      return 'Administrateur';
+    case 3:
+      return 'Modérateur';
+    default:
+      'Inconnu';
+  }
+}

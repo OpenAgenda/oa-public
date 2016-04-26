@@ -64,6 +64,7 @@ module.exports = React.createClass( {
           <th>Nom d'utilisateur</th>
           <th>Email</th>
           <th>Depuis</th>
+          <th>Actions</th>
         </tr>
         </thead>
         <List
@@ -76,6 +77,22 @@ module.exports = React.createClass( {
           wrapTag="tbody"
         />
       </table>
+    );
+
+  },
+
+  renderStakeholderItem( stakeholder ){
+
+    return (
+      <tr key={stakeholder.id}>
+        <td><a href="#">{stakeholder.user.uid}</a></td>
+        <td>{creadentialsToString( stakeholder.credential )}</td>
+        <td>{stakeholder.user.full_name}</td>
+        <td>{stakeholder.user.username}</td>
+        <td>{stakeholder.user.email}</td>
+        <td>le {stakeholder.user.created_at}</td>
+        <td><a href={'/admin/users/signin?uid=' + stakeholder.user.uid}><i className="fa fa-sign-in" aria-hidden="true"></i></a></td>
+      </tr>
     );
 
   },
@@ -122,21 +139,6 @@ module.exports = React.createClass( {
 
   },
 
-  renderStakeholderItem( stakeholder ){
-
-    return (
-      <tr key={stakeholder.id}>
-        <td><a href="#">{stakeholder.user.id}</a></td>
-        <td>{stakeholder.credential}</td>
-        <td>{stakeholder.user.full_name}</td>
-        <td>{stakeholder.user.username}</td>
-        <td>{stakeholder.user.email}</td>
-        <td>le {stakeholder.user.created_at}</td>
-      </tr>
-    );
-
-  },
-
   render(){
 
     return <div className="col-md-9">
@@ -150,3 +152,16 @@ module.exports = React.createClass( {
   }
 
 } );
+
+function creadentialsToString( type ) {
+  switch ( type ) {
+    case 1:
+      return 'Contributeur';
+    case 2:
+      return 'Administrateur';
+    case 3:
+      return 'Modérateur';
+    default:
+      'Inconnu'
+  }
+}

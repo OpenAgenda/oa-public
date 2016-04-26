@@ -20,12 +20,12 @@ var app = require( 'test-app' )( {
 app.get( '/', mw.agendas.list );
 app.get( '/stakeholders/', mw.stakeholders.list );
 
-fixtures( ( err, result ) => {
+// fixtures( ( err, result ) => {
 
-  if ( err ) return console.error( err );
+  // if ( err ) return console.error( err );
 
   service.init( config );
 
   app.getAndListen();
 
-} );
+// } );

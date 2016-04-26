@@ -15,14 +15,14 @@ module.exports = {
 
   },
 
-  resetPageItems( currentState, query, data ) {
+  resetPageItems( currentState, query, data, page = 1 ) {
 
     var changes = {
       search: {}
     };
-
+    
     changes.search.pageRange = {
-      $set: [ 1, 1 ]
+      $set: [ parseInt( page ), parseInt( page ) ]
     };
 
     changes.search.query = {

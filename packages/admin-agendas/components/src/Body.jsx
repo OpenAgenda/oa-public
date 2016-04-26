@@ -10,7 +10,7 @@ var React = require( "react" ),
 
   get = require( 'utils/get' ),
 
-  updateHref = require( 'dom-utils/documentLocation' ).setQueryPart,
+  _updateHref = require( 'dom-utils/documentLocation' ).setQueryPart,
 
   getQuery = require( 'dom-utils/documentLocation' ).getQuery;
 
@@ -46,7 +46,20 @@ module.exports = React.createClass( {
   componentDidMount() {
 
     this.setState( actions.loading( this.state, false ) );
-    if ( !this.state.search.agendas.length ) this.resetSearchPage( {} );
+
+    console.log( getQuery() );
+
+    let q = Object.assign( {}, {
+      oas: {
+        search: ''
+      },
+      searchPage: 1,
+      agendaId: null
+    }, getQuery() );
+
+    if ( !this.state.search.agendas.length ) this.resetSearchPage( q.oas, q.searchPage, () => {
+      if ( q.agendaId ) this.onSelectAgenda( q.agendaId );
+    } );
 
   },
 
@@ -58,20 +71,22 @@ module.exports = React.createClass( {
 
   },
 
-  resetSearchPage( newQuery ) {
+  resetSearchPage( newQuery, page = 1, cb ) {
 
     var query = {
       oas: newQuery,
-      searchPage: 1
+      searchPage: page
     };
 
     get( this.props.searchRes, query, ( err, data ) => {
 
       if ( err ) return console.log( 'error', err );
 
-      this.setState( actions.resetPageItems( this.state, newQuery, data ) );
+      this.setState( actions.resetPageItems( this.state, newQuery, data, page ) );
 
       updateHref( Object.assign( getQuery() || {}, query ) );
+
+      if ( cb ) cb();
 
     } );
 
@@ -106,7 +121,7 @@ module.exports = React.createClass( {
 
   onSelectAgenda( id ) {
 
-    var agenda =  this.state.search.agendas.filter(v => v.id == id)[0];
+    var agenda = this.state.search.agendas.filter( v => v.id == id )[ 0 ];
 
     var query = {
       agendaId: id
@@ -179,3 +194,19 @@ module.exports = React.createClass( {
   }
 
 } );
+
+function updateHref( query ) {
+
+  let q = Object.assign( {}, {
+    oas: {
+      search: ''
+    },
+    searchPage: 1
+  }, query );
+
+  if ( q.searchPage <= 1 ) delete q.searchPage;
+  if ( q.oas.search == '' ) delete q.oas.search;
+
+  _updateHref( q );
+
+}

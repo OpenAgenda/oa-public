@@ -5,7 +5,7 @@ var React = require("react"),
     Details = require('./Details'),
     actions = require('./actions'),
     get = require('utils/get'),
-    updateHref = require('dom-utils/documentLocation').setQueryPart,
+    _updateHref = require('dom-utils/documentLocation').setQueryPart,
     getQuery = require('dom-utils/documentLocation').getQuery;
 
 module.exports = React.createClass({
@@ -36,9 +36,23 @@ module.exports = React.createClass({
     };
   },
   componentDidMount: function componentDidMount() {
+    var _this = this;
 
     this.setState(actions.loading(this.state, false));
-    if (!this.state.search.agendas.length) this.resetSearchPage({});
+
+    console.log(getQuery());
+
+    var q = Object.assign({}, {
+      oas: {
+        search: ''
+      },
+      searchPage: 1,
+      agendaId: null
+    }, getQuery());
+
+    if (!this.state.search.agendas.length) this.resetSearchPage(q.oas, q.searchPage, function () {
+      if (q.agendaId) _this.onSelectAgenda(q.agendaId);
+    });
   },
   onSearchChange: function onSearchChange(name, search) {
 
@@ -47,24 +61,30 @@ module.exports = React.createClass({
     });
   },
   resetSearchPage: function resetSearchPage(newQuery) {
-    var _this = this;
+    var _this2 = this;
+
+    var page = arguments.length <= 1 || arguments[1] === undefined ? 1 : arguments[1];
+    var cb = arguments[2];
+
 
     var query = {
       oas: newQuery,
-      searchPage: 1
+      searchPage: page
     };
 
     get(this.props.searchRes, query, function (err, data) {
 
       if (err) return console.log('error', err);
 
-      _this.setState(actions.resetPageItems(_this.state, newQuery, data));
+      _this2.setState(actions.resetPageItems(_this2.state, newQuery, data, page));
 
       updateHref(Object.assign(getQuery() || {}, query));
+
+      if (cb) cb();
     });
   },
   getSearchPage: function getSearchPage(next) {
-    var _this2 = this;
+    var _this3 = this;
 
     if (this.state.loading) return;
 
@@ -81,15 +101,15 @@ module.exports = React.createClass({
 
       if (err) return console.log('error', err);
 
-      _this2.setState(actions.loading(_this2.state, false));
+      _this3.setState(actions.loading(_this3.state, false));
 
-      _this2.setState(actions.addPageItems(_this2.state, next, data));
+      _this3.setState(actions.addPageItems(_this3.state, next, data));
 
       updateHref(Object.assign(getQuery() || {}, query));
     });
   },
   onSelectAgenda: function onSelectAgenda(id) {
-    var _this3 = this;
+    var _this4 = this;
 
     var agenda = this.state.search.agendas.filter(function (v) {
       return v.id == id;
@@ -103,13 +123,13 @@ module.exports = React.createClass({
 
       if (err) return console.log('error', err);
 
-      _this3.setState(actions.selectAgenda(_this3.state, agenda, data));
+      _this4.setState(actions.selectAgenda(_this4.state, agenda, data));
 
       updateHref(Object.assign(getQuery() || {}, query));
     });
   },
   getStakeholdersPage: function getStakeholdersPage(next) {
-    var _this4 = this;
+    var _this5 = this;
 
     if (this.state.loading) return;
 
@@ -126,9 +146,9 @@ module.exports = React.createClass({
 
       if (err) return console.log('error', err);
 
-      _this4.setState(actions.loading(_this4.state, false));
+      _this5.setState(actions.loading(_this5.state, false));
 
-      _this4.setState(actions.addStakeholdersItems(_this4.state, next, data));
+      _this5.setState(actions.addStakeholdersItems(_this5.state, next, data));
 
       updateHref(Object.assign(getQuery() || {}, query));
     });
@@ -165,3 +185,18 @@ module.exports = React.createClass({
     );
   }
 });
+
+function updateHref(query) {
+
+  var q = Object.assign({}, {
+    oas: {
+      search: ''
+    },
+    searchPage: 1
+  }, query);
+
+  if (q.searchPage <= 1) delete q.searchPage;
+  if (q.oas.search == '') delete q.oas.search;
+
+  _updateHref(q);
+}
