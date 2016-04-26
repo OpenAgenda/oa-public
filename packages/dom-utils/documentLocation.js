@@ -3,9 +3,9 @@
 var qs = require( 'qs' );
 
 module.exports = {
-  getQuery,
-  getQueryPart,
-  setQueryPart
+  getQuery: getQuery,
+  getQueryPart: getQueryPart,
+  setQueryPart: setQueryPart
 };
 
 
