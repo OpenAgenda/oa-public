@@ -93,13 +93,15 @@
           color: $oa-blue;
         }
 
-        span { display: none; }
+        span {
+          display: none;
+        }
       }
     }
   }
 
-  .profile.container {
-    
+  .profile.container, .profile.container-fluid {
+
     min-height: 315px;
     position: relative;
     text-align: center;
@@ -110,7 +112,6 @@
 
     &.notheme .row {
       position: relative;
-      padding: 20px 40px;
     }
 
     &.notheme .title-container {
@@ -130,7 +131,9 @@
 
     .title-container {
 
-      p { max-width: 5OOpx; }
+      p {
+        max-width: 5 OOpx;
+      }
 
     }
 
@@ -160,7 +163,7 @@
       }
     }
 
-    .profile.container {
+    .profile.container, .profile.container-fluid {
       text-align: left;
 
       .row {
@@ -170,5 +173,15 @@
       }
     }
   }
-  
+
+  @media (min-width: 1200px) {
+
+    .profile.container, .profile.container-fluid {
+
+      padding: 20px 40px;
+
+    }
+
+  }
+
 }
