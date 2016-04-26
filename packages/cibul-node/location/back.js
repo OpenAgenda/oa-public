@@ -31,6 +31,7 @@ routes = {
 
   agendaLocationSet: [ 'post', '/:slug/locations', [
     bodyParser.json(),
+    _checkCreate,
     _loadUserUid,
     mw.setToValidate
   ] ],
@@ -181,5 +182,18 @@ function _loadUserUid( req, res, next) {
     next();
 
   } );
+
+}
+
+function _checkCreate( req, res, next ) {
+
+  if ( req.body && !req.body.uid && !req.body.id ) {
+
+    return next();
+
+  }
+
+  // there is an identifier. So a set is for moderators.
+  cmn.checkAdminOrModerator( req, res, next );
 
 }
