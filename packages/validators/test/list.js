@@ -6,97 +6,129 @@ validators = require( '../' );
 
 describe( 'list validator', () => {
 
-  var validate = validators.list( [
-    validators.link(),
-    validators.phone(),
-    validators.email()
-  ] );
+  describe( 'basic', () => {
+
+    var validate = validators.list( [
+      validators.link(),
+      validators.phone(),
+      validators.email()
+    ] );
 
 
-  it( 'cleans list of invalid values', () => {
+    it( 'cleans list of invalid values', () => {
 
-    let clean = validate.clean( [ 'fdfdsqf', 'mail@gmail.com', 'fdsqfdsq' ] );
+      let clean = validate.clean( [ 'fdfdsqf', 'mail@gmail.com', 'fdsqfdsq' ] );
 
-    clean.length.should.equal( 1 );
-    clean[ 0 ].should.equal( 'mail@gmail.com' );
+      clean.length.should.equal( 1 );
+      clean[ 0 ].should.equal( 'mail@gmail.com' );
 
-  } );
-
-
-  it( 'validates a list', () => {
-
-    let clean = validate( [ 'contact@email.com', '06' ] );
-
-    clean.should.eql( [ 'contact@email.com', '06' ] );
-
-  } );
+    } );
 
 
-  it( 'errors a list', () => {
+    it( 'validates a list', () => {
 
-    var errors = [];
+      let clean = validate( [ 'contact@email.com', '06' ] );
 
-    try {
+      clean.should.eql( [ 'contact@email.com', '06' ] );
 
-      validate( [ 'fdsfdsq', '06 50 91' ] );
-
-    } catch ( e ) {
-
-      errors = e;
-
-    }
-
-    errors.length.should.equal( 3 );
-
-  } );
+    } );
 
 
-  it( 'decorates a valid item', () => {
+    it( 'errors a list', () => {
 
-    var dec = validate.decorateItem( ' youpidou@gmail.com ' );
+      var errors = [];
 
-    dec.should.eql( {
-      value: 'youpidou@gmail.com',
-      type: 'email'
+      try {
+
+        validate( [ 'fdsfdsq', '06 50 91' ] );
+
+      } catch ( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 3 );
+
+    } );
+
+
+    it( 'decorates a valid item', () => {
+
+      var dec = validate.decorateItem( ' youpidou@gmail.com ' );
+
+      dec.should.eql( {
+        value: 'youpidou@gmail.com',
+        type: 'email'
+      } );
+
+    } );
+
+
+    it( 'decorates an invalid item', () => {
+
+      var dec = validate.decorateItem( 'fdfqds' );
+
+      dec.value.should.equal( 'fdfqds' );
+
+      dec.errors.length.should.equal( 3 );
+
+    } );
+
+
+    it( 'errors an item', () => {
+
+      let errors = [];
+
+      try {
+
+        validate.validateItem( 'fqfdq' );
+
+      } catch ( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 3 );
+
+    } );
+
+    it( 'validates an item', () => {
+
+      var clean = validate.validateItem( 'phone@number.com' );
+
+      clean.should.equal( 'phone@number.com' );
+
     } );
 
   } );
 
+  describe( 'with field', () => {
 
-  it( 'decorates an invalid item', () => {
+    var validate = validators.list( { field: 'myfield' }, [
+      validators.link(),
+      validators.phone(),
+      validators.email()
+    ] );
 
-    var dec = validate.decorateItem( 'fdfqds' );
+    it( 'includes field name in error', () => {
 
-    dec.value.should.equal( 'fdfqds' );
+      let errors = false
 
-    dec.errors.length.should.equal( 3 );
+      try {
 
-  } );
+        validate( 'fdsf' );
 
+      } catch ( e ) {
 
-  it( 'errors an item', () => {
+        errors = e;
 
-    let errors = [];
+      }
 
-    try {
+      errors[ 0 ].field.should.equal( 'myfield' );
 
-      validate.validateItem( 'fqfdq' );
-
-    } catch ( e ) {
-
-      errors = e;
-
-    }
-
-    errors.length.should.equal( 3 );
-
-  } );
-
-  it( 'validates an item', () => {
-
-    var clean = validate.validateItem( 'phone@number.com' );
-
-    clean.should.equal( 'phone@number.com' );
+    } );
 
   } );
 

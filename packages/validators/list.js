@@ -17,6 +17,10 @@ module.exports = function( config, validators ) {
 
   }
 
+  var params = utils.extend( {
+    field: null
+  }, config );
+
   utils.extend( validate, {
     type: 'list',
     clean: clean,
@@ -33,11 +37,12 @@ module.exports = function( config, validators ) {
 
     if ( !utils.isArray( value ) ) {
 
-      throw {
+      throw [ {
+        field: params.field,
         code: 'list.wrongtype',
         message: 'value should be a list',
         origin: value
-      }
+      } ]
 
     }
 
