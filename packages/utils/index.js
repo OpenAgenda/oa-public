@@ -11,7 +11,18 @@ module.exports = {
   toCamelCase: toCamelCase,
   toUnderscore: toUnderscore,
   escape: escape,
-  truncate: truncate
+  truncate: truncate,
+  capitalize: capitalize
+};
+
+function capitalize( str ) {
+
+  str = String(str);
+
+  if ( !str.length ) return '';
+
+  return str[ 0 ].toUpperCase() + str.substr( 1, str.length );
+
 };
 
 

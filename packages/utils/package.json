@@ -1,6 +1,6 @@
 {
   "name" : "utils",
-  "version" : "0.0.9",
+  "version" : "0.0.91",
   "description" : "minimalistic utilities lib",
   "devDependencies" : {
     "should": "7.1.1"
