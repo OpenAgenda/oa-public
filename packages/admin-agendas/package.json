@@ -26,6 +26,7 @@
     "basic-logger": "git+ssh://git@bitbucket.org:openagenda/basic-logger.git",
     "deep-extend": "^0.4.1",
     "dom-utils": "git+ssh://git@bitbucket.org/openagenda/dom-utils.git",
+    "mysql": "^2.10.2",
     "knex": "^0.10.0",
     "labels": "git+ssh://git@bitbucket.org/openagenda/labels.git",
     "react-addons-update": "0.14.7",
@@ -44,7 +45,6 @@
     "react-dom": "0.14.7",
     "should": "^8.2.0",
     "test-app": "git@bitbucket.org:openagenda/test-app.git",
-    "mysql": "^2.10.2",
     "reactify": "^1.1.1"
   },
   "peerDependencies": {
