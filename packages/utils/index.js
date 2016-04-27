@@ -12,8 +12,20 @@ module.exports = {
   toUnderscore: toUnderscore,
   escape: escape,
   truncate: truncate,
-  capitalize: capitalize
+  capitalize: capitalize,
+  uncapitalize: uncapitalize
 };
+
+
+function uncapitalize( str ) {
+
+  str = String(str);
+
+  if ( !str.length ) return '';
+
+  return str[ 0 ].toLowerCase() + str.substr( 1, str.length );
+
+}
 
 function capitalize( str ) {
 

@@ -32,6 +32,14 @@ describe( 'utils', () => {
 
     } );
 
+    it( 'uncapitalize', () => {
+
+      utils.uncapitalize( 'Uncapthis' )
+
+      .should.equal( 'uncapthis' );
+
+    } );
+
   } );
 
 } );
