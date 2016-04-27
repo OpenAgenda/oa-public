@@ -47,11 +47,12 @@ module.exports = React.createClass({
         search: ''
       },
       searchPage: 1,
-      agendaId: null
+      agendaId: null,
+      stakeholdersPage: 1
     }, getQuery());
 
     if (!this.state.search.agendas.length) this.resetSearchPage(q.oas, q.searchPage, function () {
-      if (q.agendaId) _this.onSelectAgenda(q.agendaId);
+      if (q.agendaId) _this.onSelectAgenda(q.agendaId, q.stakeholdersPage);
     });
   },
   onSearchChange: function onSearchChange(name, search) {
@@ -111,19 +112,23 @@ module.exports = React.createClass({
   onSelectAgenda: function onSelectAgenda(id) {
     var _this4 = this;
 
+    var page = arguments.length <= 1 || arguments[1] === undefined ? 1 : arguments[1];
+
+
     var agenda = this.state.search.agendas.filter(function (v) {
       return v.id == id;
     })[0];
 
     var query = {
-      agendaId: id
+      agendaId: id,
+      stakeholdersPage: page
     };
 
     get(this.props.stakeholdersRes, query, function (err, data) {
 
       if (err) return console.log('error', err);
 
-      _this4.setState(actions.selectAgenda(_this4.state, agenda, data));
+      _this4.setState(actions.selectAgenda(_this4.state, agenda, data, page));
 
       updateHref(Object.assign(getQuery() || {}, query));
     });
@@ -192,11 +197,13 @@ function updateHref(query) {
     oas: {
       search: ''
     },
-    searchPage: 1
+    searchPage: 1,
+    stakeholdersPage: 1
   }, query);
 
   if (q.searchPage <= 1) delete q.searchPage;
   if (q.oas.search == '') delete q.oas.search;
+  if (q.stakeholdersPage <= 1) delete q.stakeholdersPage;
 
   _updateHref(q);
 }

@@ -72,7 +72,7 @@ module.exports = {
 
   },
 
-  selectAgenda( currentState, agenda, data ) {
+  selectAgenda( currentState, agenda, data, page = 1 ) {
 
     var changes = {};
 
@@ -80,6 +80,9 @@ module.exports = {
       $set: agenda
     };
 
+    changes.stakeholdersPageRange = {
+      $set: [ parseInt( page ), parseInt( page ) ]
+    };
 
     changes.stakeholdersTotal = {
       $set: data.total
@@ -117,7 +120,7 @@ module.exports = {
     } else {
 
       changes.stakeholders = {
-        $splice: [ [ 0, 0 ].concat( data.agendas ) ]
+        $splice: [ [ 0, 0 ].concat( data.stakeholders ) ]
       };
 
     }

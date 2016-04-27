@@ -64,11 +64,17 @@ module.exports = {
     return update(currentState, changes);
   },
   selectAgenda: function selectAgenda(currentState, agenda, data) {
+    var page = arguments.length <= 3 || arguments[3] === undefined ? 1 : arguments[3];
+
 
     var changes = {};
 
     changes.agenda = {
       $set: agenda
+    };
+
+    changes.stakeholdersPageRange = {
+      $set: [parseInt(page), parseInt(page)]
     };
 
     changes.stakeholdersTotal = {
@@ -101,7 +107,7 @@ module.exports = {
     } else {
 
       changes.stakeholders = {
-        $splice: [[0, 0].concat(data.agendas)]
+        $splice: [[0, 0].concat(data.stakeholders)]
       };
     }
 
