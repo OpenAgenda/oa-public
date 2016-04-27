@@ -8,5 +8,7 @@ module.exports = {
   list: require( './list' ),
   number: require( './number' ),
   labels: require( './labels' ),
-  set: require( './set' )
+  set: require( './set' ),
+  latitude: require( './latitude' ),
+  longitude: require( './longitude' )
 }
