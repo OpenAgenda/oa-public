@@ -1,6 +1,6 @@
 {
   "name": "date-range",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "summarize a list of timings in a single label",
   "main": "index",
   "keywords": [],
@@ -11,6 +11,7 @@
     "should": "^8.0.2"
   },
   "dependencies": {
-    "moment-timezone": "^0.5.3"
+    "moment-timezone": "^0.5.3",
+    "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git"
   }
 }

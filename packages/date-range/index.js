@@ -4,7 +4,9 @@ var labels = require( './labels' ),
 
 patterns = require( './patterns' ),
 
-moment = require( 'moment-timezone' );
+moment = require( 'moment-timezone' ),
+
+utils = require( 'utils' );
 
 module.exports = function( timings, lang, timezone ) {
 
@@ -33,7 +35,7 @@ module.exports = function( timings, lang, timezone ) {
 
   timings.forEach( function( t ) {
 
-    var d = t.start.toISOString().slice( 0, 10 );
+    var d = moment.tz( t.start, timezone ).format( 'YYYY-MM-DD' );
 
     dateMap[ d ] = t.start;
 
@@ -54,22 +56,22 @@ module.exports = function( timings, lang, timezone ) {
   if ( uniqueDates.length == 1 ) {
 
     return _render( labels.oneDate[ lang ], {
-      day: _renderDate( firstDate, true, lang ),
+      day: _renderDate( firstDate, false, true, lang, timezone ),
       times: _getTimes( timings, lang, timezone )
     } )
 
   } else if ( uniqueDates.length == 2 ) {
 
     return _render( labels.twoDates[ lang ], {
-      firstDate: _renderDate( firstDate, lastDate, false, lang ),
+      firstDate: _renderDate( firstDate, lastDate, false, lang, timezone ),
       lastDate: _renderDate( lastDate, firstDate, true, lang )
     } );
 
   } else {
 
     return _render( labels.moreDates[ lang ], {
-      firstDate: _renderDate( firstDate, lastDate, false, lang ),
-      lastDate: _renderDate( lastDate, firstDate, true, lang )
+      firstDate: _renderDate( firstDate, lastDate, false, lang, timezone ),
+      lastDate: _renderDate( lastDate, firstDate, true, lang, timezone )
     } ) + p.render( ', ' + labels.prefix[ lang ] + ' ', lang );
 
   }
@@ -92,23 +94,17 @@ function _render( template, data ){
 }
 
 
-function _renderDate( date, relativeTo, isLast, lang ) {
+function _renderDate( date, relativeTo, isLast, lang, timezone ) {
 
-  if ( arguments.length == 3 ) {
-
-    lang = isLast;
-
-    isLast = relativeTo;
-
-    relativeTo = false;
-
-  }
+  moment.locale( lang );
 
   var render = { month: true, year: false },
 
   now = new Date(),
 
-  rendered = date.getUTCDate();
+  momentDate = moment.tz( date, timezone ),
+
+  momentRelativeDate = relativeTo ? moment.tz( relativeTo, timezone ) : relativeTo;
 
   if ( !relativeTo ) {
 
@@ -120,21 +116,21 @@ function _renderDate( date, relativeTo, isLast, lang ) {
 
                 || ( isLast && now.getUTCFullYear() !== date.getUTCFullYear() );
 
-    render.month = render.year || date.getMonth() !== relativeTo.getMonth() || isLast;
+    render.month = render.year || momentDate.month() !== momentRelativeDate.month() || isLast;
 
   }
 
-  if ( render.month ) {
+  if ( render.year ) {
 
-    rendered += ' ' + labels.months[ date.getUTCMonth() ][ lang ];
+    return [ momentDate.format( 'D' ), utils.uncapitalize( momentDate.format( 'MMMM' ) ), momentDate.format( 'YYYY' ) ].join( ' ' );;
 
-    if ( render.year ) {
+  } else if ( render.month ) {
 
-      rendered += ' ' + date.getUTCFullYear();
-
-    }
+    return [ momentDate.format( 'D' ), utils.uncapitalize( momentDate.format( 'MMMM' ) ) ].join( ' ' );
 
   }
+
+  return momentDate.format( 'D' );
 
   return rendered;
 
