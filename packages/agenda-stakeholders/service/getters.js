@@ -56,14 +56,18 @@ module.exports = function( agendaId ) {
       wheres: {
         review_id: agendaId
       },
-      stakeholders: []
+      stakeholders: [],
+      total: null,
+      knex: knex( schemas.stakeholder )
     } )
 
     .then( _list )
 
+    .then( _total )
+
     .done( v => {
 
-      cb( null, v.stakeholders );
+      cb( null, v.stakeholders, v.total );
 
     }, cb );
 
@@ -75,18 +79,41 @@ function _list( v ) {
 
   return knex.transaction( trx => {
 
-    return trx
+    v.knex = v.knex.where( v.wheres );
+
+    return v.knex.clone()
     .select( 'id', 'credential', 'user_id', 'review_id', 'store', 'organization', 'updated_at', 'created_at' )
-    .from( schemas.stakeholder )
-    .where( v.wheres )
     .limit( v.limit )
-    .offset( v.offset );
+    .offset( v.offset )
+    .transacting( trx );
 
   } )
 
   .then( dbStakeholders => {
 
     v.stakeholders = dbStakeholders.map( format.dbToObj );
+
+    return v;
+
+  } );
+
+}
+
+function _total( v ) {
+
+  if ( !v.query.total ) return v;
+
+  return knex.transaction( trx => {
+
+    return v.knex.clone()
+    .count( 'id as stakeholders' )
+    .transacting( trx );
+
+  } )
+
+  .then( result => {
+
+    v.total = result[ 0 ].stakeholders;
 
     return v;
 
