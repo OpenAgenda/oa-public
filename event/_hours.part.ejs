@@ -24,15 +24,15 @@
     <li class="month" data-date="<%= d.date %>">
       <header class="month-title">
         <i class="prev fa fa-chevron-left js_left"></i>
-        <h4><%= _txt.capitalize( _t( d.date, 'MMMM YYYY', event.timezone ) ) %></h4>
+        <h4><%= _txt.capitalize( _t( d.date, 'MMMM YYYY' ) ) %></h4>
         <i class="next fa fa-chevron-right js_right"></i>
       </header>
       <ul class="month-list">
-<% } else if ( i !== 0 && _t( d.date, 'W', event.timezone ) !== _t( dates[ i - 1 ].date, 'W', event.timezone ) ) { %>
+<% } else if ( i !== 0 && _t( d.date, 'W' ) !== _t( dates[ i - 1 ].date, 'W' ) ) { %>
         <li class="week-separator"></li>
 <% } %>
         <li class="month-item">
-          <span class="day"><%= _txt.capitalize( _t( d.date, 'dddd DD', event.timezone ) ) %></span>
+          <span class="day"><%= _txt.capitalize( _t( d.date, 'dddd DD' ) ) %></span>
 <% d.timings.forEach( t => { %>
           <span class="hour"><%= t.startLabel %> - <%= t.endLabel %></span>
 <% }) %>
