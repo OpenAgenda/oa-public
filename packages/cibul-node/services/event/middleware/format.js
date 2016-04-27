@@ -194,7 +194,7 @@ function _dates( v ) {
 
   v.formatted.dates.forEach( d => {
 
-    d.label = v._t( d.date, 'dddd Do MMM', v.formatted.timezone );
+    d.label = v._t( d.date, 'dddd Do MMM' );
 
     d.timings.sort( ( a, b ) => a.start > b.start ).forEach( t => {
 
