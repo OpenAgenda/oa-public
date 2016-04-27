@@ -4,6 +4,7 @@
  * errors are a list of objects that contain the following fields
  *   - a message
  *   - a field name
+ *   - a group name
  *   - a code
  *   - the origin value of the error
  *   - values relevent to the error ( optional )
@@ -52,7 +53,8 @@ module.exports = function( set ) {
     } ).length ) {
 
       throw [ {
-        field: group.name ? group.name : 'Tags',
+        field: set.field,
+        group: group.name ? group.name : 'Tags',
         code: 'groupTags.required',
         message: 'a selection is required',
         origin: group.tags,
