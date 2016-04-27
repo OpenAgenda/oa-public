@@ -1,14 +1,20 @@
-"use strict";
+"use strict"; // ES5
 
-module.exports = function( validators ) {
+var utils = require( 'utils' );
+
+module.exports = function( validators, options ) {
 
   validate.type = 'set';
+
+  var params = utils.extend( {
+    compact: false
+  }, options || {} );
 
   return validate;
 
   function validate( valuesSet ) {
 
-    var errors = [], clean = [];
+    var errors = [], clean = [], compacted = {};
 
     validators.forEach( function( validator ) {
 
@@ -38,6 +44,18 @@ module.exports = function( validators ) {
     if ( errors.length ) {
 
       throw errors;
+
+    }
+
+    if ( params.compact ) {
+
+      clean.forEach( function( c ) {
+
+        compacted[ c.field ] = c.value;
+
+      } );
+
+      return compacted;
 
     }
 
