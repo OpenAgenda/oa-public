@@ -1,15 +1,8 @@
 {
-<<<<<<< HEAD
   "name" : "utils",
   "version" : "0.0.91",
-  "description" : "minimalistic utilities lib",
-  "devDependencies" : {
-=======
-  "name": "utils",
-  "version": "0.0.9",
   "description": "minimalistic utilities lib",
   "devDependencies": {
->>>>>>> 144fcf9345b2c8dfc02d580f75018d534c6c02cb
     "should": "7.1.1"
   },
   "dependencies": {
