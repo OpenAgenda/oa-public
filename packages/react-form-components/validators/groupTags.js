@@ -51,7 +51,7 @@ module.exports = function( set ) {
 
     if ( !group.required ) return;
 
-    var ids = ( values || []).map( function( v ) { return v.id; } );
+    var ids = ( values || [] ).map( function( v ) { return v.id; } );
 
     if ( !group.tags.filter( function( t ) {
 
