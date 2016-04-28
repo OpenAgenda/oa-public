@@ -1,5 +1,7 @@
 "use strict";
 
+require( 'dom-utils/ie8' );
+
 var utils = require( 'utils' ),
 
 du = require( '../../js/lib/domUtils' ),
