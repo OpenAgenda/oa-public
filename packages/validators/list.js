@@ -30,7 +30,10 @@ module.exports = function( config, validators ) {
     decorateItem: decorateItem
   } );
 
-  return validate;
+  return utils.extend( validate, {
+    type: 'list',
+    field: params.field
+  } );
 
   function validate( value, cleanOnly ) {
 
