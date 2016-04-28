@@ -1,5 +1,7 @@
 "use strict";
 
+var utils = require( 'utils' );
+
 /**
  * errors are a list of objects that contain the following fields
  *   - a message
@@ -13,7 +15,12 @@
 
 module.exports = function( set ) {
 
-  return function( values, groupIndex ) {
+  return utils.extend( validate, {
+    field: set.field
+  } );
+
+
+  function validate( values, groupIndex ) {
 
     if ( groupIndex !== undefined ) return validateGroup( set.groups[ groupIndex ], values );
 
@@ -44,7 +51,7 @@ module.exports = function( set ) {
 
     if ( !group.required ) return;
 
-    var ids = values.map( function( v ) { return v.id; } );
+    var ids = ( values || []).map( function( v ) { return v.id; } );
 
     if ( !group.tags.filter( function( t ) {
 
