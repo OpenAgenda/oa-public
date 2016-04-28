@@ -13,11 +13,16 @@ module.exports = function( config ) {
     field: false, // required
     min: undefined, // minus infinity if defined
     max: undefined, // infinity and beyond?
-    default: undefined, // if set, no input cleans to this 
+    default: undefined, // if set, no input cleans to this
     optional: true
   }, config || {} );
 
-  return function( value ) {
+  return utils.extend( validate, {
+    type: 'email',
+    field: params.field
+  })
+
+  function validate( value ) {
 
     var clean = undefined;
 
@@ -59,7 +64,7 @@ module.exports = function( config ) {
         message: 'not a number',
         origin: value
       } ];
-      
+
     }
 
     if ( params.min !== undefined && clean < params.min ) {
