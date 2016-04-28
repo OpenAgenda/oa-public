@@ -10,5 +10,6 @@ module.exports = {
   labels: require( './labels' ),
   set: require( './set' ),
   latitude: require( './latitude' ),
-  longitude: require( './longitude' )
+  longitude: require( './longitude' ),
+  pass: require( './pass' )
 }
