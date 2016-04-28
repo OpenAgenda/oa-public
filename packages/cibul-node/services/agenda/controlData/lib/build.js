@@ -8,6 +8,8 @@ w = require( 'when' ),
 
 log = require( 'logger' )( 'controlData', { lib: 'build' } ),
 
+moment = require( 'moment-timezone' ),
+
 async = require( 'async' ),
 
 model = require( '../../../model' ),
@@ -208,15 +210,11 @@ function _extractLocation( event ) {
 
 }
 
-function _getTimingDate( t ) {
+function _getTimingDate( t, timezone ) {
 
-  var d = new Date( t.start );
+  console.log( t.start );
 
-  return [ 
-    d.getFullYear(), 
-    utils.fZ( d.getMonth() + 1 ), 
-    utils.fZ( d.getDate() )
-  ].join( '-' );
+  return moment.tz( t.start, timezone ).format( 'YYYY-MM-DD' );
 
 }
 
@@ -226,6 +224,8 @@ function _extractEvent( agenda, event ) {
     u: event.uid,
     l: event.getLocationUid()
   };
+
+  parsed.tz = event.getLocationDetails().timezone;
 
   // this is syncronous
   event.getAgendaTags( agenda.id, function( err, tags ) {
@@ -253,7 +253,7 @@ function _extractEvent( agenda, event ) {
 
   parsed.d = utils.unique( event.getTimings().map( function( t ) {
 
-    return _getTimingDate( t );
+    return _getTimingDate( t, parsed.tz );
 
   }) );
 
