@@ -6,7 +6,7 @@ validators = require( '../' );
 
 describe( 'link validator', () => {
 
-  describe( 'basic', () => {
+  describe( 'required ( default )', () => {
 
     var validate = validators.link( { field: 'link' } );
 

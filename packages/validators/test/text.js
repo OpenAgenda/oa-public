@@ -6,58 +6,89 @@ validators = require( '../' );
 
 describe( 'text validator', () => {
 
-  var validate = validators.text( { field: 'text', min: 3, max: 10 } );
+  describe( 'required (default)', () => {
+
+    var validate = validators.text( { field: 'text', min: 3, max: 10 } );
+
+    it( 'trims by default', () => {
+
+      let clean = validate( ' pneu ' );
+
+      clean.should.equal( 'pneu' );
+
+    } );
 
 
-  it( 'trims by default', () => {
+    it( 'wrong type', () => {
 
-    let clean = validate( ' pneu ' );
+      try {
 
-    clean.should.equal( 'pneu' );
+        validate( { grut: 'blip' } );
+
+      } catch( e ) {
+
+        e[ 0 ].code.should.equal( 'string.invalidtype' )
+
+      }
+
+    } );
+
+    it( 'too long', () => {
+
+      try {
+
+        validate( 'fdssqfdsqfdsqfdsq' );
+
+      } catch( e ) {
+
+        e[ 0 ].code.should.equal( 'string.toolong' );
+
+      }
+
+    } );
+
+    it( 'too short', () => {
+
+      try {
+
+        validate( 'fd' );
+
+      } catch( e ) {
+
+        e[ 0 ].code.should.equal( 'string.tooshort' );
+
+      }
+
+    } );
 
   } );
 
+  describe( 'optional', () => {
 
-  it( 'wrong type', () => {
+    var validate = validators.text( { field: 'text', min: 3, max: 10, optional: true } );
 
-    try {
+    it( 'empty value is fine', () => {
 
-      validate( { grut: 'blip' } );
+      let errors = [], clean;
 
-    } catch( e ) {
+      try {
 
-      e[ 0 ].code.should.equal( 'string.invalidtype' )
+        clean = validate( '' );
 
-    }
+      } catch( e ) {
 
-  } );
+        errors = e;
 
-  it( 'too long', () => {
+      }
 
-    try {
+      errors.length.should.equal( 0 );
 
-      validate( 'fdssqfdsqfdsqfdsq' );
+      clean.should.equal( '' );
 
-    } catch( e ) {
-
-      e[ 0 ].code.should.equal( 'string.toolong' );
-
-    }
+    } );
 
   } );
 
-  it( 'too short', () => {
-
-    try {
-
-      validate( 'fd' );
-
-    } catch( e ) {
-
-      e[ 0 ].code.should.equal( 'string.tooshort' );
-
-    }
-
-  } );
+  
 
 } );

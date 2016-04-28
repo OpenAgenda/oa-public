@@ -9,6 +9,7 @@ module.exports = function( config ) {
     min: 0,
     max: 1000000,
     trim: true,
+    optional: false
   }, config || {} );
 
   return utils.extend( validate, {
@@ -36,6 +37,12 @@ module.exports = function( config ) {
     if ( params.trim ) {
 
       clean = clean.trim();
+
+    }
+
+    if ( !clean.length && params.optional ) {
+
+      return clean;
 
     }
 
