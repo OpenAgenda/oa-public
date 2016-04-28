@@ -44,4 +44,26 @@ describe( 'phone validator', () => {
 
   } );
 
+  it( 'optional field accepts empty input', function() {
+
+    var validate = validators.phone( { field: 'telephone', 'optional' : true } ),
+
+    errors = [], clean;
+
+    try {
+
+      clean = validate()
+
+    } catch ( e ) {
+
+      errors = e;
+
+    }
+
+    errors.length.should.equal( 0 );
+
+    should( clean ).equal( null );
+
+  } );
+
 } );

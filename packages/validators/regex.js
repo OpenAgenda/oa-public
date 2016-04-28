@@ -18,9 +18,9 @@ module.exports = function( config ) {
 
   validator = function( value ) {
 
-    var clean = ( value + '' );
+    var clean = value ? ( value + '' ) : null;
 
-    if ( params.optional && !clean.length ) {
+    if ( params.optional && ( !clean || !clean.length ) ) {
 
       return clean;
 
