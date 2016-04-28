@@ -18,7 +18,8 @@ module.exports = function( config, validators ) {
   }
 
   var params = utils.extend( {
-    field: null
+    field: null,
+    optional: false
   }, config );
 
   utils.extend( validate, {
@@ -34,6 +35,18 @@ module.exports = function( config, validators ) {
   function validate( value, cleanOnly ) {
 
     var clean = [], errors = [];
+
+    if ( params.optional && !value ) {
+
+      return clean;
+
+    }
+
+    if ( params.optional && utils.isArray( value ) && !value.length ) {
+
+      return clean;
+
+    }
 
     if ( !utils.isArray( value ) ) {
 

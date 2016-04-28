@@ -132,4 +132,22 @@ describe( 'list validator', () => {
 
   } );
 
+  describe( 'optional', () => {
+
+    var validate = validators.list( { optional: true }, [
+      validators.link(),
+      validators.phone(),
+      validators.email()
+    ] );
+
+    it( 'no input returns empty list', () => {
+
+      validate()
+
+      .should.eql( [] );
+
+    } );
+
+  } );
+
 } );
