@@ -40,8 +40,6 @@ module.exports = React.createClass({
 
     this.setState(actions.loading(this.state, false));
 
-    console.log(getQuery());
-
     var q = Object.assign({}, {
       oas: {
         search: ''

@@ -15,7 +15,7 @@ module.exports = React.createClass({
 
     return React.createElement(
       'div',
-      { className: 'agenda-item media cursor-pointer', onClick: this.props.onSelect.bind(null, this.props.agenda.id) },
+      { className: 'agenda-item media cursor-pointer', onClick: this.props.onSelect.bind(null, this.props.agenda.id, 1) },
       React.createElement(
         'a',
         null,
