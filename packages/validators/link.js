@@ -41,9 +41,9 @@ module.exports = function( config ) {
 
     }
 
-    if ( !value.length && optional ) {
+    if ( ( !value || !value.length ) && optional ) {
 
-      return '';
+      return value;
 
     }
 
