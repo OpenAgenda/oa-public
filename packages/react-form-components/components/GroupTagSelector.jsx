@@ -81,50 +81,17 @@ module.exports = React.createClass( {
 
   renderItem: function( item, groupIndex ) {
 
-    var self = this,
-
-    selected = this.props.value
+    var checked = this.props.value
                .map( function( v ) { return v.id; } )
                .indexOf( item.id ) !== -1;
 
-    return <li 
-      key={item.id} 
-      onClick={ ( selected ? this.removeItem : this.addItem ).bind( null, item, groupIndex ) } 
-      className={ selected ? 'active' : ''} >
-      <span>{item.label}</span>
-    </li>
-
-  },
-
-  renderInfo: function( group, i ) {
-
-    // if there is an error ( and user has typed ), render that
-    
-    var errors = [],
-
-    self = this;
-
-    try {
-
-      validator( this.props.set )( this.props.value, i );
-
-    } catch( e ) { errors = e; };
-    
-    if ( this.state.userHasTyped.indexOf( i ) !== -1 && errors.length ) {
-
-      return <p>{ errors.map( function( error ) {
-
-        return <span
-          key={error.code}
-          className="error">
-            {self.props.getLabel( error.code, error.values, self.props.lang )}
-        </span>
-
-      } ) }</p>
-
-    }
-
-    return <p>{ group.required ? <span>{this.props.getLabel( 'required', this.props.lang )}</span> : null }{ group.required && group.info ? ' - ' : null }{ group.info ? <span>{group.info}</span> : null }</p>
+    return <div className="checkbox" 
+      key={item.id}>
+      <label>
+        <input type="checkbox" checked={checked} onChange={ ( checked ? this.removeItem : this.addItem ).bind( null, item, groupIndex ) } />
+        {item.label}
+      </label>
+    </div>
 
   },
 
@@ -147,10 +114,10 @@ module.exports = React.createClass( {
 
     return <div className="gt-group">
       <div className="gt-head">
-        <h2>{group.name}</h2>
-        {this.renderInfo( group, i )}
+        <label className={ errors.length ? 'error' : '' }>{group.name}{ group.required ? ' (*)' : '' }</label>
+        { group.info ? <p>{group.info}</p> : null }
       </div>
-      <ul className="list-unstyled gt-selector-items">{ group.tags.map( function( t ) { return self.renderItem( t, i ) } ) }</ul>
+      <div className="list-unstyled gt-selector-items">{ group.tags.map( function( t ) { return self.renderItem( t, i ) } ) }</div>
     </div>
 
   },

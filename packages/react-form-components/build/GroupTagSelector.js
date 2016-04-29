@@ -72,71 +72,20 @@ module.exports = React.createClass({
 
   renderItem: function renderItem(item, groupIndex) {
 
-    var self = this,
-        selected = this.props.value.map(function (v) {
+    var checked = this.props.value.map(function (v) {
       return v.id;
     }).indexOf(item.id) !== -1;
 
     return React.createElement(
-      'li',
-      {
-        key: item.id,
-        onClick: (selected ? this.removeItem : this.addItem).bind(null, item, groupIndex),
-        className: selected ? 'active' : '' },
+      'div',
+      { className: 'checkbox',
+        key: item.id },
       React.createElement(
-        'span',
+        'label',
         null,
+        React.createElement('input', { type: 'checkbox', checked: checked, onChange: (checked ? this.removeItem : this.addItem).bind(null, item, groupIndex) }),
         item.label
       )
-    );
-  },
-
-  renderInfo: function renderInfo(group, i) {
-
-    // if there is an error ( and user has typed ), render that
-
-    var errors = [],
-        self = this;
-
-    try {
-
-      validator(this.props.set)(this.props.value, i);
-    } catch (e) {
-      errors = e;
-    };
-
-    if (this.state.userHasTyped.indexOf(i) !== -1 && errors.length) {
-
-      return React.createElement(
-        'p',
-        null,
-        errors.map(function (error) {
-
-          return React.createElement(
-            'span',
-            {
-              key: error.code,
-              className: 'error' },
-            self.props.getLabel(error.code, error.values, self.props.lang)
-          );
-        })
-      );
-    }
-
-    return React.createElement(
-      'p',
-      null,
-      group.required ? React.createElement(
-        'span',
-        null,
-        this.props.getLabel('required', this.props.lang)
-      ) : null,
-      group.required && group.info ? ' - ' : null,
-      group.info ? React.createElement(
-        'span',
-        null,
-        group.info
-      ) : null
     );
   },
 
@@ -161,14 +110,19 @@ module.exports = React.createClass({
         'div',
         { className: 'gt-head' },
         React.createElement(
-          'h2',
-          null,
-          group.name
+          'label',
+          { className: errors.length ? 'error' : '' },
+          group.name,
+          group.required ? ' (*)' : ''
         ),
-        this.renderInfo(group, i)
+        group.info ? React.createElement(
+          'p',
+          null,
+          group.info
+        ) : null
       ),
       React.createElement(
-        'ul',
+        'div',
         { className: 'list-unstyled gt-selector-items' },
         group.tags.map(function (t) {
           return self.renderItem(t, i);
