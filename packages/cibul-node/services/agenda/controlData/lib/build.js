@@ -212,8 +212,6 @@ function _extractLocation( event ) {
 
 function _getTimingDate( t, timezone ) {
 
-  console.log( t.start );
-
   return moment.tz( t.start, timezone ).format( 'YYYY-MM-DD' );
 
 }
