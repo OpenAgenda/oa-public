@@ -9,7 +9,12 @@ module.exports = function( config ) {
     optional: true
   }, config || {} );
 
-  return function( value ) {
+  return utils.extend( validate, {
+    field: params.field,
+    type: 'latitude'
+  } );
+
+  function validate( value ) {
 
     var clean = parseFloat( value );
 
