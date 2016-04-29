@@ -274,7 +274,7 @@ function _cleanEvents( events ) {
       slug: e.slug,
       title: inst.getTitle(),
       description: inst.getDescription(),
-      dateRange: inst.getDateRange( true ),
+      dateRange: inst.getRange(),
       thumbnail: inst.getThumbnail( false ),
       placeName: inst.getLocationName().label
     }
