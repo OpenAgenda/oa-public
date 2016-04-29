@@ -64,7 +64,7 @@ module.exports = function( timings, lang, timezone ) {
 
     return _render( labels.twoDates[ lang ], {
       firstDate: _renderDate( firstDate, lastDate, false, lang, timezone ),
-      lastDate: _renderDate( lastDate, firstDate, true, lang )
+      lastDate: _renderDate( lastDate, firstDate, true, lang, timezone )
     } );
 
   } else {
