@@ -67,23 +67,19 @@ describe( 'text validator', () => {
 
     var validate = validators.text( { field: 'text', min: 3, max: 10, optional: true } );
 
-    it( 'empty value is fine', () => {
+    it( 'undefined or null cleans to null', () => {
 
-      let errors = [], clean;
+      should( validate() )
 
-      try {
+      .equal( null );
 
-        clean = validate( '' );
+    } );
 
-      } catch( e ) {
+    it( 'empty string cleans to null', () => {
 
-        errors = e;
+      should( validate( '' ) )
 
-      }
-
-      errors.length.should.equal( 0 );
-
-      clean.should.equal( '' );
+      .equal( null );
 
     } );
 

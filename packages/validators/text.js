@@ -40,9 +40,9 @@ module.exports = function( config ) {
 
     }
 
-    if ( !clean.length && params.optional ) {
+    if ( params.optional && ( typeof value === 'undefined' || value === null || !clean.length ) ) {
 
-      return clean;
+      return null;
 
     }
 
