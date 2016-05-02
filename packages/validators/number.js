@@ -45,6 +45,12 @@ module.exports = function( config ) {
 
     }
 
+    if ( clean === undefined && params.optional ) {
+
+      return null;
+
+    }
+
     if ( clean === undefined && !params.optional ) {
 
       throw [ {

@@ -6,6 +6,16 @@ validators = require( '../' );
 
 describe( 'number validator', () => {
 
+  it( 'returns null if nothing is given on an optional validator', () => {
+
+    let optionalValidate = validators.number( {
+      optional: true
+    } );
+
+    should( optionalValidate() ).equal( null );
+
+  } );
+
   it( 'puts a default value if nothing is specified', () => {
 
     let validate = validators.number( {
