@@ -105,7 +105,7 @@ module.exports = React.createClass({
 
     return React.createElement(
       'div',
-      { className: 'gt-group' },
+      { className: 'gt-group', key: i },
       React.createElement(
         'div',
         { className: 'gt-head' },

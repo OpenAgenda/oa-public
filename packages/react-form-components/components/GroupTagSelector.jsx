@@ -112,7 +112,7 @@ module.exports = React.createClass( {
 
     }
 
-    return <div className="gt-group">
+    return <div className="gt-group" key={i}>
       <div className="gt-head">
         <label className={ errors.length ? 'error' : '' }>{group.name}{ group.required ? ' (*)' : '' }</label>
         { group.info ? <p>{group.info}</p> : null }
