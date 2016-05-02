@@ -12,7 +12,7 @@ RadioFields = require( './RadioFields.jsx' ),
 
 SelectField = require( './SelectField.jsx' ),
 
-ImageUpload = require( 'image-upload/lib/ImageUploader.jsx' ),
+ImageUpload = require( 'image-upload/components/build/ImageUploader' ),
 
 utils = require( 'utils' );
 
