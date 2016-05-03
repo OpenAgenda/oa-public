@@ -5,7 +5,8 @@
       "terms" : true,
       "lang" : "fr",
       "res" : {
-        "terms" : "/agendaAdminEvents/testTerms.json"
+        "location" : "location.json",
+        "terms" : "testTerms.json"
       }
     }
 

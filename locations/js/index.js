@@ -19,7 +19,7 @@ React = require( 'react' ),
 
 ReactDom = require( 'react-dom' ),
 
-LocactionsAdmin = require( '../../node_modules/agenda-locations/components/AgendaAdminLocations.jsx' );
+LocactionsAdmin = require( '../../node_modules/agenda-locations/components/build/AgendaAdminLocations' );
 
 window.hook( function( options ) {
 

@@ -22,7 +22,7 @@ TimingsPicker = require( './TimingsPicker.jsx' ),
 
 TagSelector = require( 'agenda-tags/lib/TagSelector.jsx' ),
 
-LocationSelector = require( 'agenda-locations/components/LocationSelector.jsx' ),
+LocationSelector = require( 'agenda-locations/components/build/LocationSelector' ),
 
 CategorySelector = require( 'agenda-categories/lib/CategorySelector.jsx' ),
 

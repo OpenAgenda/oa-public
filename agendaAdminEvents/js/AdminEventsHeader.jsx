@@ -1,6 +1,6 @@
 var React = require('react'),
 
-TermSelectorPicker = require( 'agenda-locations/components/TermSelectorPicker.jsx' ),
+TermSelectorPicker = require( 'agenda-locations/components/build/TermSelectorPicker' ),
 
 qs = require( 'qs' ),
 
@@ -16,7 +16,9 @@ Select = require( 'react-select' ),
 
 utils = require( 'utils' ),
 
-AdminEventsHeader = React.createClass({
+LocationField = require( './LocationField.jsx' ),
+
+AdminEventsHeader = React.createClass( {
 
   propTypes: {
     lang: React.PropTypes.string
@@ -184,12 +186,12 @@ AdminEventsHeader = React.createClass({
                 value={this.getQueryPart( 'title' )}
                 onChange={this.onChange( 'title' )}
                 onKeyUp={this.onKeyUp( 'title' )} />
-              <input
-                className="form-control"
-                placeholder={getLabel( 'locationName', this.props.lang )}
-                value={this.getQueryPart( 'locationName' )}
+              <LocationField
+                res={this.props.res}
+                getQueryPart={this.getQueryPart}
                 onChange={this.onChange( 'locationName' )}
-                onKeyUp={this.onKeyUp( 'locationName' )} />
+                onKeyUp={this.onKeyUp( 'locationName' )}
+                placeholder={getLabel( 'locationName', this.props.lang )} />              
             </div>
             <div className="form-group">
             
