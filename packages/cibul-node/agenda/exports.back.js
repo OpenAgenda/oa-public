@@ -13,12 +13,12 @@ perPage = 20,
 routes = {
 
   agendaAdminCsvEvents: [ 'get', '/events.csv', [
-    cmn.checkAdminOrModerator,
+    cmn.checkAdminOrModeratorOrKey,
     agendaSvc.mw.buildCsv( true )
   ] ],
 
   agendaAdminXlsxEvents: [ 'get', '/events.xlsx', [
-    cmn.checkAdminOrModerator,
+    cmn.checkAdminOrModeratorOrKey,
     agendaSvc.mw.buildXlsx( true )
   ] ],
 
