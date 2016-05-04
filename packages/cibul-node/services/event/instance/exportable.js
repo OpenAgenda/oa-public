@@ -48,7 +48,8 @@ locationFieldsMap = {
   links: 'links',
   phone: 'phone',
   tags: 'tags',
-  'timezone' : 'timezone'
+  'timezone' : 'timezone',
+  'updatedAt' : 'updatedAt'
 },
 
 utils = require( 'utils' );

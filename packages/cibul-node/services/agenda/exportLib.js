@@ -125,7 +125,6 @@ function _addTagGroups( v ) {
 
   agendaTags.get( v.agenda.id, ( err, tagSet ) => {
 
-
     if ( err ) return d.reject( err );
 
     v.decorated.tagGroups = ( tagSet ? tagSet.groups : [] )

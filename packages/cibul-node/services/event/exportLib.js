@@ -59,7 +59,8 @@ locationFieldsMap = {
   links: 'links',
   phone: 'phone',
   tags: 'tags',
-  timezone: 'timezone'
+  timezone: 'timezone',
+  updatedAt: 'updatedAt'
 }
 
 module.exports = function( service ) {
@@ -115,7 +116,7 @@ function cleanEvent( eInst, cb ) {
 
   let timezone = eInst.getLocationDetails().timezone;
 
-  eInst.getTimings( function( err, timings ) {
+  eInst.getTimings( ( err, timings ) => {
 
     if ( err ) return cb( err );
 
