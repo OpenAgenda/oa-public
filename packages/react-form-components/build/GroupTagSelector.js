@@ -89,43 +89,54 @@ module.exports = React.createClass({
     );
   },
 
-  renderGroup: function renderGroup(group, i) {
+  renderGroupHead: function renderGroupHead(group, i) {
 
-    var self = this,
-        errors = [];
+    var errors = [],
+        displayError = false;
 
     try {
 
       // cleans and throws errors
-      validator(this.props.set, this.props.value, i);
+      validator(this.props.set)(this.props.value, i);
     } catch (errs) {
 
       errors = errs;
     }
 
+    if (errors.length && this.state.userHasTyped.indexOf(i) !== -1) {
+
+      displayError = true;
+    }
+
+    return React.createElement(
+      'div',
+      { className: 'gt-head' },
+      React.createElement(
+        'label',
+        { className: displayError ? 'error' : '' },
+        group.name,
+        group.required ? ' (*)' : ''
+      ),
+      group.info ? React.createElement(
+        'p',
+        null,
+        group.info
+      ) : null
+    );
+  },
+
+  renderGroup: function renderGroup(group, i) {
+    var _this = this;
+
     return React.createElement(
       'div',
       { className: 'gt-group', key: i },
-      React.createElement(
-        'div',
-        { className: 'gt-head' },
-        React.createElement(
-          'label',
-          { className: errors.length ? 'error' : '' },
-          group.name,
-          group.required ? ' (*)' : ''
-        ),
-        group.info ? React.createElement(
-          'p',
-          null,
-          group.info
-        ) : null
-      ),
+      this.renderGroupHead(group, i),
       React.createElement(
         'div',
         { className: 'list-unstyled gt-selector-items' },
         group.tags.map(function (t) {
-          return self.renderItem(t, i);
+          return _this.renderItem(t, i);
         })
       )
     );

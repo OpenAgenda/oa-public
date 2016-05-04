@@ -95,16 +95,14 @@ module.exports = React.createClass( {
 
   },
 
-  renderGroup: function( group, i ) {
+  renderGroupHead: function( group, i ) {
 
-    var self = this,
-
-    errors = [];
+    var errors = [], displayError = false;
 
     try {
 
       // cleans and throws errors
-      validator( this.props.set, this.props.value, i );
+      validator( this.props.set )( this.props.value, i );
 
     } catch( errs ) {
 
@@ -112,12 +110,24 @@ module.exports = React.createClass( {
 
     }
 
+    if ( errors.length && this.state.userHasTyped.indexOf( i ) !== -1 ) {
+
+      displayError = true;
+
+    }
+
+    return <div className="gt-head">
+      <label className={ displayError ? 'error' : '' }>{ group.name }{ group.required ? ' (*)' : '' }</label>
+      { group.info ? <p>{ group.info }</p> : null }
+    </div>
+
+  },
+
+  renderGroup: function( group, i ) {
+
     return <div className="gt-group" key={i}>
-      <div className="gt-head">
-        <label className={ errors.length ? 'error' : '' }>{group.name}{ group.required ? ' (*)' : '' }</label>
-        { group.info ? <p>{group.info}</p> : null }
-      </div>
-      <div className="list-unstyled gt-selector-items">{ group.tags.map( function( t ) { return self.renderItem( t, i ) } ) }</div>
+      {this.renderGroupHead( group, i )}
+      <div className="list-unstyled gt-selector-items">{ group.tags.map( t => { return this.renderItem( t, i ) } ) }</div>
     </div>
 
   },
