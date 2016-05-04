@@ -125,12 +125,13 @@ function _addTagGroups( v ) {
 
   agendaTags.get( v.agenda.id, ( err, tagSet ) => {
 
+
     if ( err ) return d.reject( err );
 
     v.decorated.tagGroups = ( tagSet ? tagSet.groups : [] )
 
     // keep groups containing tags used by event
-    .filter( g => g.tags.filter( t => tagSlugs.indexOf( t.slug ) ).length )
+    .filter( g => g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).length )
 
     // keep group tags used by event
     .map( g => ( {
