@@ -40,7 +40,7 @@
     "react-form-components": "git+ssh://git@bitbucket.org:openagenda/react-form-components.git",
     "react-select": "^0.9.1",
     "react-tagsinput": "3.0.2",
-    "react-timings-picker": "git://github.com/Oagenda/react-timings-picker.git",
+    "react-timings-picker": "git://github.com/Oagenda/react-timings-picker.git#7d082766bcdb9eb93c3eb3425327b7472ef69de5",
     "reactify": "1.1.1",
     "registration": "git+ssh://git@bitbucket.org:openagenda/registration.git",
     "spin.js": "2.3.2",
