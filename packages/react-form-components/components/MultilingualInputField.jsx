@@ -28,7 +28,10 @@ module.exports = React.createClass( {
     rows: React.PropTypes.number,
 
     // type of the field. either text or textarea
-    type: React.PropTypes.string
+    type: React.PropTypes.string,
+
+    // bottom is a component generator that takes a lang
+    bottom: React.PropTypes.func
 
   },
 
@@ -36,7 +39,8 @@ module.exports = React.createClass( {
 
     return {
       type: 'text',
-      getLabel: makeLabelGetter( labels )
+      getLabel: makeLabelGetter( labels ),
+      bottom: () => null
     }
 
   },
@@ -61,25 +65,25 @@ module.exports = React.createClass( {
 
     var name = this.props.languages.length > 1 ? this.props.name + '_' + lang : this.props.name;
 
-    if ( this.props.type == 'textarea' ) {
+    return <div>
 
-      return <textarea
-        name={name}
-        rows={this.props.rows}
-        value={this.props.value[lang]}
-        className="form-control"
-        onChange={this.onChange( lang )} />
+    { this.props.type == 'textarea' ? <textarea
+      name={name}
+      rows={this.props.rows}
+      value={this.props.value[lang]}
+      className="form-control"
+      onChange={this.onChange( lang )} />
 
-    } else {
-
-      return <input
+    : <input
         name={name}
         type="text"
         value={this.props.value[lang]}
         className="form-control"
-        onChange={this.onChange( lang )} />
+        onChange={this.onChange( lang )} /> }
 
-    }
+    { this.props.bottom( lang ) }
+
+    </div>
 
   },
 

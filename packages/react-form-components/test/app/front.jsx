@@ -144,6 +144,8 @@ Wrapper = React.createClass( {
 
       <div className="separator"></div>
 
+      <p>display multilingual input component</p>
+
       <MultilingualInputField
         name='description'
         value={{fr: 'Ouaich', en: 'Yep', es: 'Si'}}
@@ -151,6 +153,23 @@ Wrapper = React.createClass( {
         onChange={function( name, value ){}}
         info="Yeepeekayyay"
         type="text" />
+
+      <div className="separator"></div>
+
+      <p>display bottom bit for each field of multilingual input</p>
+
+      <MultilingualInputField
+        name='description'
+        value={{fr: 'Ouaich', en: 'Yep', es: 'Si'}}
+        languages={[ 'fr', 'en', 'es' ]}
+        onChange={function( name, value ){}}
+        info="Yeepeekayyay"
+        type="text"
+        bottom={function( lang ) {
+
+          return <span>{lang}</span>;
+
+        }} />
 
       <div className="separator"></div>
 
