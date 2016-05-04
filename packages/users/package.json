@@ -1,0 +1,28 @@
+{
+  "name": "users",
+  "version": "1.0.0",
+  "description": "",
+  "main": "service/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/users.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/openagenda/users#readme",
+  "dependencies": {
+    "basic-logger": "git+ssh://git@bitbucket.org/openagenda/basic-logger.git",
+    "fixtures": "git+ssh://git@bitbucket.org/openagenda/fixtures.git",
+    "knex": "^0.10.0",
+    "mysql": "^2.10.2",
+    "utils": "git+ssh://git@bitbucket.org/openagenda/utils.git",
+    "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git",
+    "when": "^3.7.7"
+  },
+  "devDependencies": {
+    "should": "^8.3.1"
+  }
+}
