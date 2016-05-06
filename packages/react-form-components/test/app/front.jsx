@@ -143,6 +143,7 @@ Wrapper = React.createClass( {
         onChange={function(){}} />
 
       <div className="separator"></div>
+      <h2>Multilingual input field</h2>
 
       <p>display multilingual input component</p>
 
@@ -170,6 +171,23 @@ Wrapper = React.createClass( {
           return <span>{lang}</span>;
 
         }} />
+
+      <div className="separator"></div>
+
+      <p>display empty fields when input is empty</p>
+
+      <MultilingualInputField
+        name='description'
+        value={{}}
+        languages={[ 'fr', 'en', 'es' ]}
+        onChange={function( name, value ){}}
+        info="Yeepeekayyay"
+        type="text"
+        bottom={function( lang ) {
+
+          return <span>{lang}</span>;
+
+        }} />      
 
       <div className="separator"></div>
 
