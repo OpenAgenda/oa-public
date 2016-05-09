@@ -119,6 +119,8 @@ function _forEachRelatedAgenda( event, eachCb, cb ) {
 
   event.getAgendaReferences( { isPublished: null, internal: true }, function( err, agendas ) {
 
+    if ( err ) return cb( err );
+
     async.eachSeries( agendas, function( a, ecb ) {
 
       var agenda = svc.instanciate( a );

@@ -42,9 +42,15 @@ module.exports = function( path ) {
 
 function changeStates( req, res, next ) {
 
-  var redirectRes = req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ),
+  let redirectRes = req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ),
 
-  newState;
+  labels = {},
+
+  stateSwitch;
+
+  labels[ eventSvc.STATETYPES.NOTVALIDATED ] = 'to be completed';
+  labels[ eventSvc.STATETYPES.VALIDATED ] = 'ready to publish';
+  labels[ eventSvc.STATETYPES.PUBLISHED ] = 'published';
 
   if ( !req.body.state.length ) {
 
@@ -56,21 +62,31 @@ function changeStates( req, res, next ) {
 
   }
 
-  newState = parseInt( req.body.state );
+  stateSwitch = {
+    readytopublished: [ eventSvc.STATETYPES.VALIDATED, eventSvc.STATETYPES.PUBLISHED ],
+    publishedtoready: [ eventSvc.STATETYPES.PUBLISHED, eventSvc.STATETYPES.VALIDATED ],
+    tocontroltoready: [ eventSvc.STATETYPES.NOTVALIDATED, eventSvc.STATETYPES.VALIDATED ],
+    readytotocontrol: [ eventSvc.STATETYPES.VALIDATED, eventSvc.STATETYPES.NOTVALIDATED ]
+  }[ req.body.state ];
 
-  req.agenda.changeEventStates( newState, function( err ) {
+  if ( !stateSwitch ) {
+
+    res.setFlash( req, 'the action you requested is unknown' );
+
+    return res.redirect( 302, redirectRes );
+
+  }
+
+  req.agenda.changeEventStates( stateSwitch[ 0 ], stateSwitch[ 1 ], err => {
 
     if ( err ) return next( err );
 
-    req.log( 'info', 'changing state of all agenda events to %s', [ 'to be controlled', 'ready to be published', 'published' ][ newState ] );
+    req.log( 'info', 'changing state of agenda events from %s to %s', labels[ stateSwitch[ 0 ] ], labels[ stateSwitch[ 1 ] ] );
 
-    var labels = {}
-
-    labels[ eventSvc.STATETYPES.NOTVALIDATED ] = 'to be controlled';
-    labels[ eventSvc.STATETYPES.VALIDATED ] = 'ready to be published';
-    labels[ eventSvc.STATETYPES.PUBLISHED ] = 'published';
-
-    res.setFlash( req, 'Your action is being processed. The state of your events will shortly be changed to %newstate%.', { '%newstate%' : '<strong>' + i18n( labels[ newState ], req.lang ) + '</strong>' } );
+    res.setFlash( req, 'Your action is being processed. Events in the state %oldstate% will shortly be changed to %newstate%.', { 
+      '%oldstate%' : '<strong>' + i18n( labels[ stateSwitch[ 0 ] ], req.lang ) + '</strong>',
+      '%newstate%' : '<strong>' + i18n( labels[ stateSwitch[ 1 ] ], req.lang ) + '</strong>'
+    } );
 
     res.redirect( 302, redirectRes );
 

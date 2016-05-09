@@ -137,14 +137,14 @@
   : "%source% a été ajouté aux sources de %agg%. Les événements à venir seront rajoutés dans un instant.",
   "%source% was removed from the sources of %agg%."
   : "%source% a été retiré des sources de %agg%.",
-  "to be controlled"
-  : "à controller",
-  "ready to be published"
+  "to be completed"
+  : "à compléter",
+  "ready to publish"
   : "prêt à être publié",
   "published"
   : "publié",
-  "Your action is being processed. The state of your events will shortly be changed to %newstate%."
-  : "Votre action est en cours de traitement. L'état de vos événements sera changé à %newstate% dans un court instant.",
+  "Your action is being processed. Events in the state %oldstate% will shortly be changed to %newstate%."
+  : "Votre action est en cours de traitement. Vos événements ayant pour statut %oldstate% passeront à %newstate% au cours des prochaines minutes",
   "Select an action to execute before pressing the button"
   : "Selectionnez une action à executer avant de cliquer sur le bouton",
   "You can now configure and use the latest embed codes on your website"
@@ -166,5 +166,7 @@
   "Your submission is too large: maximum allowed is %max%kb, you submitted %sub%kb"
   : "Votre soumission est trop importante: le maximum autorisé est %max%kb, vous avez soumis %sub%kb",
   "Your %s submitted emails are being processed"
-  : "Les %s emails soumis sont en cours de traitement"
+  : "Les %s emails soumis sont en cours de traitement",
+  "the action you requested is unknown"
+  : "l'action que vous avez demandé est inconne"
 }

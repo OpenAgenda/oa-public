@@ -6,6 +6,8 @@ async = require( 'async' ),
 
 log = require( 'logger' )( 'event state' ),
 
+utils = require( 'utils' ),
+
 TYPES = model.events().STATETYPES;
 
 module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => {
@@ -18,7 +20,18 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
     setOnStateChange: setOnStateChange
   }
 
-  function getState( cb ) {
+  function getState( options, cb ) {
+
+    if ( arguments.length === 1 ) {
+
+      cb = options;
+      options = {}
+
+    }
+
+    var params = utils.extend( {
+      labelized: true
+    }, options );
 
     if ( !instance.isInAgendaContext() ) { 
 
@@ -44,7 +57,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
         }
 
-        cb( null, _labelize( state ) );
+        cb( null, params.labelized ? _labelize( state ) : state );
 
       });
 

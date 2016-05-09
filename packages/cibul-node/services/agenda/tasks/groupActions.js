@@ -10,7 +10,9 @@ eventSvc = require( '../../event' ),
 
 utils = require( 'utils' ),
 
-log = require( 'logger' )( 'groupactions - tasks' );
+log = require( 'logger' )( 'groupactions - tasks' ),
+
+w = require( 'when' );
 
 q.setConsumer( process );
 
@@ -68,9 +70,9 @@ function process( data, cb ) {
 
 
 
-function dispatchChangeEventStates( agendaId, newState, cb ) {
+function dispatchChangeEventStates( agendaId, oldState, newState, cb ) {
 
-  log( 'dispatchChangeEventStates: agenda %s state %s', agendaId, newState );
+  log( 'dispatchChangeEventStates: agenda %s from state %s to state %s', agendaId, oldState, newState );
 
   svc.get( { id: agendaId }, function( err, agenda ) {
 
@@ -88,7 +90,7 @@ function dispatchChangeEventStates( agendaId, newState, cb ) {
 
       q( {
         method: 'changeEventState',
-        args: [ agendaId, eventData.eventId, newState ]
+        args: [ agendaId, eventData.eventId, oldState, newState ]
       }, function() {
 
         count++;
@@ -111,30 +113,137 @@ function dispatchChangeEventStates( agendaId, newState, cb ) {
 
 }
 
-function changeEventState( agendaId, eventId, newState, cb ) {
+function changeEventState( agendaId, eventId, oldState, newState, cb ) {
 
-  log( 'changeEventState for agenda %s, event %s to state %s', agendaId, eventId, newState );
+  if ( arguments.length === 4 ) {
 
-  svc.get( { id: agendaId }, function( err, agenda ) {
+    cb = newState;
 
-    if ( err ) return cb( err );
+    newState = oldState;
 
-    eventSvc.get( { id: eventId }, function( err, event ) {
+    oldState = false;
 
-      if ( err ) return cb( err );
+  }
 
-      event.loadAgendaContext( agendaId, function( err ) {
+  log( 'changeEventState for agenda %s, event %s', agendaId, eventId );
 
-        if ( err ) return cb( err );
+  w( {
+    agendaId: agendaId,
+    eventId: eventId,
+    oldState: oldState,
+    newState: newState,
+    agenda: false,
+    event: false,
+    currentState: false,
+    doChange: false
+  } )
 
-        log( 'changeEventState - setting state' );
+  .then( _loadAgenda )
 
-        event.setState( newState, cb );
+  .then( _loadEvent )
 
-      });
+  .then( _getCurrentState )
 
-    });
+  .then( _verifyOldStateMatch )
 
-  });
+  .done( v => {
+
+    if ( !v.doChange ) {
+
+      return cb();
+
+    } else {
+
+      log( 'changeEventState for agenda %s, event %s: changing state to ', agendaId, eventId, newState );
+
+      v.event.setState( newState, cb );
+
+    }
+
+  }, cb );
+
+}
+
+
+function _verifyOldStateMatch( v ) {
+
+  if ( !v.event ) return v;
+
+  if ( v.oldState === false ) {
+
+    v.doChange = true;
+
+  } else if ( v.oldState === v.currentState ) {
+
+    v.doChange = true;
+
+  }
+
+  return v;
+
+}
+
+
+function _getCurrentState( v ) {
+
+  if ( !v.event ) return v;
+
+  let d = w.defer();
+
+  v.event.getState( { labelized: false }, ( err, state ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.currentState = state;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _loadAgenda( v ) {
+
+  let d = w.defer();
+
+  svc.get( { id: v.agendaId }, ( err, agenda ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.agenda = agenda;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _loadEvent( v ) {
+
+  let d = w.defer();
+
+  eventSvc.get( { id: v.eventId }, ( err, event ) => {
+
+    if ( err ) return d.reject( err );
+
+    event.loadAgendaContext( v.agendaId, err => {
+
+      if ( err ) return d.reject( err );
+
+      v.event = event;
+
+      d.resolve( v );
+
+    } );
+
+  } );
+
+  return d.promise;
 
 }
