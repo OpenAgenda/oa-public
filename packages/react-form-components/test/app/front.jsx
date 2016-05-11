@@ -25,6 +25,8 @@ InputField = require( '../../components/InputField.jsx' ),
 
 MultiInputField = require( '../../components/MultiInputField.jsx' ),
 
+Spinner = require( '../../components/Spinner.jsx' ),
+
 update = require( 'react-addons-update' ),
 
 validators = require( '../../validators' ),
@@ -213,6 +215,14 @@ Wrapper = React.createClass( {
         onChange={this.onChange} />
 
       <div className="separator"></div>
+
+        <p>Use this spinner to show that stuff is loading. Spreads to the first parent in position: relative.</p>
+
+        <div style={{height: '300px', position: 'relative', border: '1px solid #ccc'}}>
+
+          <Spinner />
+
+        </div>
 
     </div>
 

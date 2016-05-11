@@ -11,7 +11,15 @@ module.exports = React.createClass( {
   displayName: 'Spinner',
 
   propTypes: {
-    loading: React.PropTypes.bool.isRequired
+    loading: React.PropTypes.bool
+  },
+
+  getDefaultProps() {
+
+    return {
+      loading: true
+    }
+
   },
 
   componentDidMount: function() {
