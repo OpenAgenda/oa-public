@@ -1,0 +1,12 @@
+@import "assets/stylesheets/bootstrap/badges";
+
+.badge-warning, .label-warning {
+  background-color: $oa-warning;
+  border-color: $oa-warning;
+}
+
+.badge-default, .label-default {
+  color: $oa-gray;
+  background-color: $oa-white;
+  border: 1px solid $oa-gray-light;
+}

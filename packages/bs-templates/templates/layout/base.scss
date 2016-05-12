@@ -1,4 +1,3 @@
-
 $oa-blue: #41acdd;
 $oa-black: #413a42;
 $oa-white: #fff;
@@ -11,6 +10,8 @@ $oa-gray-lightest: #fafafa;
 $oa-red: #da4453;
 $oa-green: #5cb85c;
 $oa-yellow: rgba(240, 194, 12, 0.6);
+
+$oa-warning: #f6bb42;
 
 $form-border: #aab2bd;
 
@@ -64,7 +65,7 @@ $tumblr-color: #32506d;
 //@import "assets/stylesheets/bootstrap/pagination";
 //@import "assets/stylesheets/bootstrap/pager";
 //@import "assets/stylesheets/bootstrap/labels";
-//@import "assets/stylesheets/bootstrap/badges";
+
 @import "assets/stylesheets/bootstrap/jumbotron";
 //@import "assets/stylesheets/bootstrap/thumbnails";
 //@import "assets/stylesheets/bootstrap/alerts";
@@ -90,6 +91,9 @@ $tumblr-color: #32506d;
 // Font awesome
 @import "../../node_modules/font-awesome/scss/font-awesome.scss";
 
+
+@import "badges";
+
 // header
 @import "../header/header.scss";
 
@@ -97,7 +101,7 @@ $tumblr-color: #32506d;
 
 body {
 
-  background-color: $oa-gray-lightest;
+  background-color: $oa-gray-lighter;
 
 }
 
