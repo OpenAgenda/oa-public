@@ -10,5 +10,6 @@ module.exports = {
   schemas : {
     user: 'user',
     apiKeySet: 'api_key_set'
-  }
+  },
+  debug: true
 };

@@ -56,7 +56,7 @@ function init( c, cb ) {
 
   } )
 
-  .done( () => cb(), cb );
+  .done( () => cb ? cb() : null, cb ? cb : null );
 
 }
 
