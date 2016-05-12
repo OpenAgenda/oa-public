@@ -1,0 +1,121 @@
+<% include ../layout/_top.ejs %>
+    <div class="container user-settings">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="top-margined wsq">
+                    <div class="content">
+                        <div class="header">
+                            <h2>Paramètres du compte</h2>
+                        </div>
+
+                        <p><a href="#">Closed example</a></p>
+
+                        <div class="panel-group">
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Profil utilisateur</div>
+                                <div class="panel-body">
+
+                                    <form method="post" role="form">
+                                        <div class="form-group">
+                                            <label for="fullname">Nom complet *</label>
+                                            <input type="text" class="form-control" name="fullname">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="culture">Langue *</label>
+                                            <select name="culture" class="form-control">
+                                                <option value="fr">Français</option>
+                                                <option value="en">Anglais</option>
+                                            </select>
+                                        </div>
+
+                                        <p class="pull-left">
+                                            <button type="submit" class="btn btn-danger">Supprimer mon compte</button>
+                                        </p>
+
+                                        <div class="text-right">
+                                            <button type="submit" class="btn btn-success">Sauvegarder</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Email</div>
+                                <div class="panel-body">
+
+                                    <form method="post" role="form">
+                                        <div class="form-group">
+                                            <label for="email">Email *</label>
+                                            <input type="text" class="form-control" name="email">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="password">Mot de passe *</label>
+                                            <input type="text" class="form-control" name="password">
+                                        </div>
+
+                                        <div class="text-right">
+                                            <button type="submit" class="btn btn-success">Sauvegarder</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Mot de passe</div>
+                                <div class="panel-body">
+
+                                    <form method="post" role="form">
+                                        <div class="form-group">
+                                            <label for="old_password">Mot de passe actuel *</label>
+                                            <input type="text" class="form-control" name="old_password">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="new_password">Nouveau mot de passe *</label>
+                                            <input type="text" class="form-control" name="new_password">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="confirmation">Répétez le mot de passe *</label>
+                                            <input type="text" class="form-control" name="confirmation">
+                                        </div>
+
+                                        <div class="text-right">
+                                            <button type="submit" class="btn btn-success">Sauvegarder</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Clé API</div>
+                                <div class="panel-body">
+                                    <p>La clé API permet de lire les données publiées sur OpenAgenda via l'API.</p>
+
+                                    <p><a href="#">Voir la documentation</a></p>
+
+                                    <div class="form-group">
+                                        <label for="email">Ma clé API</label>
+                                        <input type="text" class="form-control" name="api_key" value="KnmbKGT6M7Ki6OJMtb4eKoEsGBsVOPpE" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p><a href="#">Closed example</a></p>
+
+                        <p><a href="#">Closed example</a></p>
+
+                        <p><a href="#">Closed example</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<% include ../layout/_bottom.ejs %>
