@@ -46,13 +46,23 @@ module.exports = React.createClass( {
 
   },
 
+  onChange: function( e ) {
+
+    this.setState( {
+      value: e.target.value
+    } );
+
+    this.props.onChange( e );
+
+  },
+
   render: function() {
 
     return <input
       className="form-control"
       placeholder={this.props.placeholder}
       value={this.state.value}
-      //onChange={this.props.onChange}
+      onChange={this.onChange}
       onKeyUp={this.props.onKeyUp} />
 
   }
