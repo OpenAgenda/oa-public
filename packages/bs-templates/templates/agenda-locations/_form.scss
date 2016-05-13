@@ -1,3 +1,10 @@
+@import "../form-components/multilingual-input";
+@import "../form-components/language-bar";
+@import "../form-components/group-tag-selector";
+@import "../form-components/multi-input-field";
+@import "../form-components/react-select";
+@import "../form-components/image-upload";
+
 .location-form {
 
   .head {
@@ -9,6 +16,40 @@
 
       margin-top: 10px;
       margin-left: 0; // sf
+
+    }
+
+  }
+
+  .pager {
+
+    li {
+      display: inline-block;
+      width: 33%;
+      vertical-align: middle;
+    }
+
+    span {
+      border: none;
+    }
+
+  }
+
+  .stakeholder {
+
+    padding: 1em 0;
+
+    ul {
+
+      padding: 0;
+
+      li {
+
+        display: inline-block;
+        color: $oa-gray;
+        margin-right: 0.5em;
+
+      }
 
     }
 

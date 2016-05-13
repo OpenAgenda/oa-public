@@ -1,0 +1,49 @@
+.gt-selector {
+
+  margin-bottom: 2em;
+
+  .gt-info {
+
+    margin-bottom: 1em;
+
+  }
+
+  .gt-group {
+
+    padding-bottom: 1em;
+
+  }
+
+  .error {
+
+    font-weight: bold;
+    color: $oa-red;
+
+    input[type="text"] { color: $oa-red; }
+
+  }
+
+  li {
+
+    display: inline-block;
+    margin: 0 1em 1em 0;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &.active {
+
+      color: $oa-white;
+      background-color: $oa-blue;
+
+      span {
+
+        color: $oa-white;
+
+      }
+
+    }
+
+  }
+  
+}
