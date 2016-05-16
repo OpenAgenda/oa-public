@@ -18,6 +18,10 @@ params = {
     grouped: {
       link: '.js_grouped_link',
       body: '.js_grouped_body'
+    },
+    exports: {
+      link: '.js_exports_link',
+      body: '.js_exports_body'
     }
   }
 },
@@ -33,19 +37,21 @@ window.hook( function( options ) {
     lang={params.lang}
     res={params.res} />, du.el( params.selectors.headerCanvas ) );
 
-  _groupedActions();
+  _hidden( params.selectors.grouped.link, params.selectors.grouped.body );
+
+  _hidden( params.selectors.exports.link, params.selectors.exports.body );
 
 } );
 
 // show grouped actions on link click
-function _groupedActions() {
+function _hidden( link, body ) {
 
-  du.addEvent( du.el( params.selectors.grouped.link ), 'click', function( e ) {
+  du.addEvent( du.el( link ), 'click', function( e ) {
 
     e.preventDefault();
 
-    du.addClass( du.el( params.selectors.grouped.link ), 'display-none' );
-    du.removeClass( du.el( params.selectors.grouped.body ), 'display-none' );
+    du.addClass( du.el( link ), 'display-none' );
+    du.removeClass( du.el( body ), 'display-none' );
 
   } );
 
