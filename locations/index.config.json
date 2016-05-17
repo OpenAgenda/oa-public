@@ -8,10 +8,10 @@
     "multi-input-field" : "../node_modules/react-form-components/sass/multi-input-field.scss",
     "tag-groups" : "../node_modules/react-form-components/sass/group-tag-selector.scss",
     "language-bar" : "../node_modules/react-form-components/sass/language-bar.scss",
-    "location-form" : "../node_modules/agenda-locations/sass/form.scss",
+    "location-form" : "../node_modules/bs-templates/templates/agenda-locations/_form.scss",
     "image-upload" : "../node_modules/image-upload/sass/style.scss",
-    "locations" : "css/style.scss",
-    "terms" : "../node_modules/agenda-locations/sass/terms.scss"
+    "terms" : "../node_modules/bs-templates/templates/agenda-locations/_terms.scss",
+    "locations" : "css/style.scss"
   },
 
   "helpers" : {

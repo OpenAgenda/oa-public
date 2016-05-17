@@ -1,6 +1,6 @@
 "use strict";
 
-var du = require( '../../js/lib/domUtils' ),
+var du = require( 'dom-utils' ),
 
 deepExtend = require( 'deep-extend' ),
 
@@ -19,7 +19,7 @@ React = require( 'react' ),
 
 ReactDom = require( 'react-dom' ),
 
-LocactionsAdmin = require( '../../node_modules/agenda-locations/components/build/AgendaAdminLocations' );
+LocactionsAdmin = require( 'agenda-locations/components/build/AgendaAdminLocations' );
 
 window.hook( function( options ) {
 
