@@ -10,6 +10,8 @@ accessibilityLabels = require( 'labels/event/accessibility' ),
 
 exportFieldLabels = require( 'labels/event/exportFieldNames' ),
 
+agendaTags = require( 'agenda-tags' ),
+
 stateLabels = require( 'labels/event/states' ),
 
 moment = require( 'moment-timezone' );
@@ -32,14 +34,22 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
     instance.getLanguages( function( err, l ) {
 
+      if ( err ) return cb( err );
+
       languages = l;
 
-      mapping = _defineMapping( params.includePrivateData );
+      agendaTags.get( instance.id, ( err, tagSet ) => {
 
-      cb( null, {
-        getFieldNames: getFieldNames,
-        flatten: flatten
-      });
+        if ( err ) return cb( err );
+
+        mapping = _defineMapping( params.includePrivateData, tagSet );
+
+        cb( null, {
+          getFieldNames: getFieldNames,
+          flatten: flatten
+        });
+
+      } );
 
     });
 
@@ -186,9 +196,9 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
     }
 
-    function _defineMapping( includePrivateData ) {
+    function _defineMapping( includePrivateData, tagSet ) {
 
-      var map = [ 'uid' ].concat( _textFields( [ 
+      let map = [ 'uid' ].concat( _textFields( [ 
         'title', 'description', 'longDescription', 'conditions', 'html'
       ], languages ), [
         'image',
@@ -212,11 +222,16 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         { 
           sourceField: 'category',
           fn: _extractCategory
-        }, {
+        } ],
+        ( tagSet ? tagSet.groups.map( g => ( {
+          sourceField: 'tags',
+          destField: g.name,
+          fn: _extractGroupTags( g )
+        } ) ) : [ {
           sourceField: 'tags',
           fn: _extractTags
-        },
-        'registrationUrl',
+        } ] ),
+        [ 'registrationUrl',
         {
           sourceField: 'accessibility',
           destField: 'accessibility_fr',
@@ -504,6 +519,29 @@ function _state( lang ) {
 
 }
 
+
+
+function _extractGroupTags( group ) {
+
+  let groupSlugs = group.tags.map( t => t.slug );
+
+  return tags => {
+
+    if ( !utils.isArray( tags ) ) {
+
+      return '';
+
+    }
+
+    return tags
+
+    .filter( t => groupSlugs.indexOf( t.slug ) !== -1 )
+
+    .map( t => t.label ).join( ', ' )
+
+  }
+
+}
 
 
 /**
