@@ -26,6 +26,8 @@ cmn = require( '../../lib/commons-app' ),
 
 genUrl = require( '../genUrl' ),
 
+templater = require( 'cibulTemplates' ),
+
 invitationsService,
 
 TYPES = {
@@ -325,16 +327,58 @@ function agendaInvitations( agenda ) {
           email: values.invitation.email
         }, { protocol: 'https://' } ),
 
+        renders = {},
+
         title = 'You have been invited to become %stakeholder% of the agenda %agenda%',
 
-        text = 'Click here to start %stakeholderaction% the agenda %agenda%';
+        emailData = {
+          lang: lang || 'en',
+          env: process.env.NODE_ENV,
+          title: {
+            text: i18n( title, lang || 'en' ),
+            values: {
+              '%agenda%' : agenda.title,
+              '%stakeholder%' : i18n( _equivalent( 'contributor', type ), lang || 'en' )
+            },
+            link: link
+          },
+          description: i18n(
+            'Click here to start %stakeholderaction% the agenda %agenda%', 
+            {
+              '%agenda%' : agenda.title, 
+              '%stakeholderaction%' : i18n( _equivalent( 'contributing to', type ),  lang || 'en' ) 
+            }, 
+            lang || 'en' ) 
+          + "\n" + link
+        };
 
-        mailer( {
-          recipient: values.invitation.email,
-          replyTo: mailIdentifier,
-          subject: i18n( title, { '%agenda%' : agenda.title, '%stakeholder%' : i18n( _equivalent( 'contributor', type ), lang || 'en' ) }, lang || 'en' ),
-          text:  i18n( text, { '%agenda%' : agenda.title, '%stakeholderaction%' : i18n( _equivalent( 'contributing to', type ),  lang || 'en' ) }, lang || 'en' ) + "\n" + link
-        }, wcb );
+        async.each( [ 'html', 'text'], ( type, ecb ) => {
+
+          templater( 'email/show', utils.extend( { type: type }, emailData ), ( err, render ) => {
+
+            if ( err ) return ecb( err );
+
+            renders[ type ] = render;
+
+            ecb();
+
+          } );
+
+        }, err => {
+
+          if ( err ) return wcb( err );
+
+          mailer( {
+            recipient: values.invitation.email,
+            replyTo: mailIdentifier,
+            subject: i18n( title, { '%agenda%' : agenda.title, '%stakeholder%' : i18n( _equivalent( 'contributor', type ), lang || 'en' ) }, lang || 'en' ),
+            text: renders.text,
+            html: renders.html
+          } );
+
+          wcb();
+
+        } );
 
       },
 
