@@ -6,11 +6,19 @@ lib = require( '../../../lib/lib' ),
 
 config = require( '../../../config' ),
 
-mailer = require( '../../mailer' ),
+mailer = require( 'mailer' ),
 
 model = require( 'cibulModel' )( config.db ),
 
 genUrl = require( '../../genUrl' ),
+
+i18n = require( '../../../i18n/i18n' ),
+
+templater = require( 'cibulTemplates' ),
+
+utils = require( 'utils' ),
+
+async = require( 'async' ),
 
 w = require( 'when' ),
 
@@ -270,7 +278,9 @@ function _sendToken( values ) {
 
   log( 'sending activation token' );
 
-  var linkParams = { token: values.token };
+  let linkParams = { token: values.token },
+
+  d = w.defer();
 
   if ( values.iToken ) linkParams.iToken = values.iToken;
 
@@ -280,19 +290,49 @@ function _sendToken( values ) {
 
   var link = genUrl.abs( values.agenda ? 'agendaActivate' : 'activate', linkParams ),
 
-  text = "Congratulations!, You just created your OpenAgenda account. Click on the following link to activate it \n %link%";
+  title = i18n( 'Activate your OpenAgenda account', values.user.culture ),
+
+  text = "Congratulations!, You just created your OpenAgenda account. Click on the following link to activate it \n %link%",
+
+  renders = {};
 
   values.link = link;
 
-  return wn.call( mailer.queueMail, {
-    recipient: values.user.email,
-    subject: 'Activate your OpenAgenda Account',
-    text: [ text, { '%link%' : link } ],
-    lang: values.user.culture
-  } ).then( function( result ) {
+  async.each( [ 'html', 'text' ], ( type, ecb ) => {
 
-    return values;
+    templater( 'email/show', utils.extend( { type: type }, {
+      lang: values.user.culture,
+      env: process.env.NODE_ENV,
+      title: {
+        text: title,
+        link: link
+      },
+      description: i18n( text, { '%link%' : link }, values.user.culture )
+    } ), ( err, render ) => {
+
+      if ( err ) return ecb( err );
+
+      renders[ type ] = render;
+
+      ecb();
+
+    } );  
+
+  }, err => {
+
+    if ( err ) return d.reject( err );
+
+    mailer( {
+      recipient: values.user.email,
+      subject: title,
+      text: renders.text,
+      html: renders.html
+    } ); 
+
+    d.resolve( values );
 
   } );
+
+  return d.promise;
 
 }

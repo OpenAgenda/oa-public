@@ -43,7 +43,7 @@
   : "Vos événements swapcard ne sont désormais plus liés",
   "Your account has been created, you can now login"
   : "Votre compte a été crée, vous pouvez vous connecter",
-  "Activate your OpenAgenda Account"
+  "Activate your OpenAgenda account"
   : "Activez votre compte OpenAgenda",
   "Congratulations!, You just created your OpenAgenda account. Click on the following link to activate it \n %link%"
   : "Félicitations! Vous venez de créer votre compte OpenAgenda. Cliquez sur le lien suivant pour l'activer et commencer à utiliser votre agenda \n %link%",
@@ -168,5 +168,7 @@
   "Your %s submitted emails are being processed"
   : "Les %s emails soumis sont en cours de traitement",
   "the action you requested is unknown"
-  : "l'action que vous avez demandé est inconne"
+  : "l'action que vous avez demandé est inconne",
+  "Activate your OpenAgenda Account"
+  : "Activez votre compte OpenAgenda"
 }
