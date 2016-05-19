@@ -26,7 +26,18 @@ module.exports = function( config ) {
 
     }
 
-    if ( params.trim ) {
+    if ( !params.optional && !clean ) {
+
+      throw [ {
+        origin: value,
+        field: params.field,
+        code: 'required',
+        message: 'value must not be empty'
+      } ];
+
+    }
+
+    if ( typeof clean == 'string' && params.trim ) {
 
       clean = clean.trim();
 

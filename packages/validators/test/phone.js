@@ -16,6 +16,29 @@ describe( 'phone validator', () => {
 
   } );
 
+  it( 'an empty input for a compulsory value returns a required error', () => {
+
+    let errors = [];
+
+    try {
+
+      validators.phone( { field: 'telephone', optional: false } )();
+
+    } catch( e ) {
+
+      errors = e;
+
+    }
+
+    errors[ 0 ].should.eql( { 
+      origin: undefined,
+      field: 'telephone',
+      code: 'required',
+      message: 'value must not be empty' 
+    } );
+
+  } );
+
   it( 'is a phone and is trimmed', () => {
 
     let clean = validate( ' 06509160 ' );
