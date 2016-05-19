@@ -2,7 +2,8 @@
 @import "../agenda/header";
 @import "social-shares";
 
-.event-dialog {
+/* event-dialog is to be deprecated */
+.event-dialog, .page-dialog {
 
   .header {
 
