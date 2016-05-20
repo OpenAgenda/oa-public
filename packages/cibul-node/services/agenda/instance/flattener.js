@@ -10,6 +10,8 @@ accessibilityLabels = require( 'labels/event/accessibility' ),
 
 exportFieldLabels = require( 'labels/event/exportFieldNames' ),
 
+agendaLocations = require( 'agenda-locations' ),
+
 agendaTags = require( 'agenda-tags' ),
 
 stateLabels = require( 'labels/event/states' ),
@@ -283,7 +285,10 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         'location.district',
         'location.department',
         'location.region',
-        'location.country',
+        {
+          sourceField: 'location.countryCode',
+          fn: _defineCountryLabel( params.lang )
+        },
         'location.image',
         'location.phone',
         'location.website', {
@@ -517,6 +522,13 @@ function _state( lang ) {
     return stateLabels[ s ][ lang ];
 
   }
+
+}
+
+
+function _defineCountryLabel( lang ) {
+
+  return code => agendaLocations.utils.countries.getLabel( code.toUpperCase(), lang );
 
 }
 
