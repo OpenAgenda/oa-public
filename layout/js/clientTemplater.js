@@ -1,4 +1,6 @@
-var cn = require( '../../js/lib/common/common.mod.js' ),
+"use strict";
+
+var utils = require( 'utils' ),
 
 EJS = require( '../../js/lib/clientEjs/ejs' ),
 
@@ -53,7 +55,7 @@ module.exports = function( templateName, options, cb  ) {
 
     }
 
-    cn.extend( params, options );
+    utils.extend( params, options );
 
     _loadTemplate( templateName, params, function( err, t, l ) {
 
@@ -78,7 +80,7 @@ module.exports = function( templateName, options, cb  ) {
 
   render = function( data ) {
 
-    return new EJS({ text: template }).render( cn.extend( data, helpers ) );
+    return new EJS({ text: template }).render( utils.extend( data, helpers ) );
 
   };
 
@@ -142,7 +144,7 @@ function _loadEjs( name, cb ) {
 
   if ( store.enabled && useCache ) {
 
-    labels = store.get( storePrefix + name + '.ejs');
+    var labels = store.get( storePrefix + name + '.ejs');
 
     if ( labels ) return cb( null, labels );
 

@@ -279,6 +279,8 @@ prodifyCss = function( map, cssKey, destFile, cb ) {
 
       sass.render( { data: mainCss }, function( err, result ) {
 
+        if ( err ) return cb( err );
+
         fs.writeFile( destFile, result.css.toString(), cb );
 
       } );
