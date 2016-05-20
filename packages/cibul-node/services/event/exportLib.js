@@ -16,6 +16,8 @@ registration = require( 'registration/src/validate' ).getTypesAndValues,
 
 timeHelper = require( 'cibulTemplates' ).helpers.time,
 
+config = require( '../../config' ),
+
 _t = {
   fr: timeHelper( { lang: 'fr' } ),
   en: timeHelper( { lang: 'en' } ),
@@ -100,8 +102,6 @@ function cleanEvent( eInst, cb ) {
 
   l = eInst.locations.length ? eInst.locations[ 0 ] : false;
 
-
-
   if ( l ) {
 
     _inject( c, l, legacyLocationFieldsMap );
@@ -109,6 +109,12 @@ function cleanEvent( eInst, cb ) {
     c.location = {};
 
     _inject( c.location, l, locationFieldsMap );
+
+    if ( c.location.image && c.location.image.indexOf( '//' ) == -1 ) {
+
+      c.location.image = config.aws.imageBucketPath.replace( 'https:', '' ) + c.location.image;
+
+    }
 
   }
 

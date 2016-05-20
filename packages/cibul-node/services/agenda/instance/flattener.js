@@ -283,6 +283,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         'location.district',
         'location.department',
         'location.region',
+        'location.country',
         'location.image',
         'location.phone',
         'location.website', {

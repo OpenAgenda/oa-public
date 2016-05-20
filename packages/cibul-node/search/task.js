@@ -337,18 +337,44 @@ function _update( schema ) {
 
       if ( err ) return cb( err );
 
-      if ( obj ) {
+      if ( schema === 'reviews' ) {
 
-        ES[ schema ]().update( obj, cb );
+        _updateES( obj, cb )
 
       } else {
 
-        _delete( schema )( job, cb );
+        loadDetailedLocation( obj, err => {
+
+          // for events, detailed location data must be fetched
+          // via agenda-location service.
+          
+          if ( err ) {
+
+            log( 'error', 'could not load detailed location data in event %s', obj.id );
+
+          }
+
+          _updateES( obj, cb );
+
+        } );
 
       }
 
-
     });
+
+  }
+
+  function _updateES( obj, cb ) {
+
+    if ( obj ) {
+
+      ES[ schema ]().update( obj, cb );
+
+    } else {
+
+      _delete( schema )( job, cb );
+
+    }
 
   }
 
