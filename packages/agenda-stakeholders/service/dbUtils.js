@@ -100,16 +100,25 @@ function getStakeholder( agendaNamespace, userNamespace, destNamespace ) {
 
     return knex.transaction( trx => {
 
-      return trx.select( 'credential', 'organization', 'store', 'review_id', 'store', 'user_id', 'id', 'created_at', 'updated_at' )
+      let qObj = trx.select( 'credential', 'organization', 'store', 'review_id', 'store', 'user_id', 'id', 'created_at', 'updated_at' )
 
       .from( schemas.stakeholder )
 
-      .where( {
-        review_id: v[ agendaNamespace ].id,
-        user_id: v[ userNamespace ].id
-      } )
+      .where( 'review_id', v[ agendaNamespace ].id );
 
-      .limit( 1 ).offset( 0 );
+      if ( v[ userNamespace ].stakeholderId ) {
+
+        qObj.where( 'id', v[ userNamespace ].stakeholderId );
+
+      } else {
+
+        qObj.where( 'user_id', v[ userNamespace ].id );
+
+      }
+
+      qObj.limit( 1 ).offset( 0 );
+
+      return qObj;
 
     } )
 

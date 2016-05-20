@@ -23,7 +23,7 @@ module.exports = function( agendaId ) {
 
     w( {
       agenda: { id: agendaId },
-      user: { id: query.userId },
+      user: { id: query.userId, stakeholderId: query.id },
       stakeholder: null
     } )
 

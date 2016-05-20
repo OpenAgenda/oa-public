@@ -33,6 +33,23 @@ describe( 'agenda-stakeholders', () => {
     } );
 
 
+    it( 'get with id gets stakeholder matching id', done => {
+
+      service( 4608 ).get( {
+        id: 6975
+      }, ( err, stakeholder ) => {
+
+        should( err ).equal( null );
+
+        stakeholder.id.should.equal( 6975 );
+
+        done();
+
+      } );
+
+    } );
+
+
     it( 'get with userId gets stakeholder matching userId', done => {
 
       service( 4608 ).get( {

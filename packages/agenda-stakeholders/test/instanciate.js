@@ -220,8 +220,8 @@ describe( 'agenda-stakeholders', () => {
           errors.should.eql( [ {
             origin: undefined,
             field: 'contact_number',
-            code: 'phone.invalid',
-            message: 'value is not a phone number' 
+            code: 'required',
+            message: 'value must not be empty' 
           } ] )
 
           done();
