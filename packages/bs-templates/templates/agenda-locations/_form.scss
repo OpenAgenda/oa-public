@@ -110,8 +110,15 @@
 
   .alternatives {
 
-    list-style-type: none;
-    padding: 0;
+    padding: 0.5em 0 1em;
+
+    ul {
+
+      list-style-type: none;
+      padding: 0;
+
+    }
+    
 
     li {
 
@@ -120,7 +127,35 @@
 
     }
 
+    &.image-alternatives {
+
+      li {
+
+        display: inline-block;
+        max-height: 75px;
+        overflow: hidden;
+        opacity: 0.8;
+
+        &:hover {
+
+          opacity: 1;
+
+        }
+
+      }
+
+      img {
+
+        max-width: 120px;
+        margin-right: 1em;
+
+      }
+
+    }
+
   }
+
+
 
 
   .multilingual-group {
