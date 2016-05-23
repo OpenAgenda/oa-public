@@ -5,62 +5,79 @@
   "main": "service/index.js",
   "scripts": {
     "test": "mocha",
-    "build": "browserify -t [ babelify --presets [ es2015 react ] ] react/index.js -o react.build.js",
-    "watch": "watchify -t [ babelify --presets [ es2015 react ] ] react/index.js -o react.build.js -v",
-    "serve": "node test/app",
-    "start": "nodemon --exec 'npm' --ignore react/ --ignore react.build.js --ignore test/app/front.build.js --ext js,jsx run-script serve"
+    "start": "node test/app",
+    "watch": "nodemon --watch test --watch middleware --watch service --exec 'npm run start'",
+    "_start": "node bin/test-app.js",
+    "_build": "concurrently \"npm run build-server\" \"npm run build-client\"",
+    "_build-server": "webpack --colors --display-error-details --config webpack/test-app.config.js",
+    "_build-client": "webpack --colors --display-error-details --config webpack/client.config.js",
+    "_watch": "concurrently --kill-others \"npm run watch-server-start\" \"npm run watch-server\" \"npm run watch-client\"",
+    "_watch-server": "webpack --verbose --watch --colors --display-error-details --config webpack/test-app.config-watch.js",
+    "_watch-client": "webpack --verbose --watch --colors --display-error-details --config webpack/client.config.js",
+    "_watch-server-start": "nodemon --watch bin/test-app.js --exec 'npm run start'",
+    "_postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/users.git"
+    "url": "git +ssh://git@bitbucket.org/openagenda/users.git"
   },
   "author": "",
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/users#readme",
   "dependencies": {
     "basic-logger": "git+ssh://git@bitbucket.org/openagenda/basic-logger.git",
+    "concurrently": "^2.0.0",
     "dom-utils": "git+ssh://git@bitbucket.org/openagenda/dom-utils.git",
     "fixtures": "git+ssh://git@bitbucket.org/openagenda/fixtures.git",
     "history": "^2.1.1",
     "knex": "^0.10.0",
     "mysql": "^2.10.2",
+    "react": "latest",
     "react-dom": "0.14.7",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.0",
     "react-router-redux": "^4.0.4",
     "redux": "^3.5.2",
     "redux-form": "^5.2.3",
+    "spinner": "git+ssh://git@bitbucket.org/openagenda/spinner.git",
     "utils": "git+ssh://git@bitbucket.org/openagenda/utils.git",
     "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git",
     "when": "^3.7.7"
   },
   "devDependencies": {
+    "babel-core": "^6.8.0",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-react-display-name": "^6.8.0",
+    "babel-plugin-transform-runtime": "^6.8.0",
+    "babel-plugin-typecheck": "^3.8.0",
     "babel-preset-es2015": "^6.6.0",
     "babel-preset-react": "^6.5.0",
-    "babelify": "^7.3.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.9.0",
+    "babel-runtime": "^6.6.1",
     "bs-templates": "git+ssh://git@bitbucket.org/openagenda/bs-templates.git",
-    "react": "0.14.7",
+    "react-transform-catch-errors": "^1.0.2",
+    "redbox-react": "^1.2.4",
     "redux-devtools": "^3.2.0",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.0.11",
+    "redux-mock-store": "^1.0.2",
     "should": "^8.3.1",
-    "test-app": "git+ssh://git@bitbucket.org/openagenda/test-app.git",
-    "watchify": "^3.7.0"
+    "test-app": "git+ssh://git@bitbucket.org/openagenda/test-app.git#webpack"
   },
   "peerDependencies": {
     "react": "0.14.7"
   },
   "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            "es2015",
-            "react"
-          ]
-        }
-      ]
+    "transform": "babelify"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
     ]
   }
 }

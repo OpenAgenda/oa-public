@@ -20,6 +20,8 @@ const React = require( 'react' ),
 
   createStore = require( './store/createStore' ),
 
+  actions = require( './actions' ),
+
   DevTools = require( './containers/DevTools' ),
 
   App = require( './containers/App' ),
@@ -27,18 +29,31 @@ const React = require( 'react' ),
   SettingsContainer = require( './containers/SettingsContainer' );
 
 
+require( 'dom-utils/ie8' );
+
+
 module.exports = function( options ) {
 
   var params = utils.extend( {
     canvas: '.js_canvas',
-    prefix: '/'
+    prefix: '',
+    urls: {
+      getMe: '/getMe',
+      updateProfile: '/updateProfile',
+      changeEmail: '/changeEmail',
+      changePassword: '/changePassword'
+    }
   }, options );
+  
 
   var browserHistory = useRouterHistory( createHistory )( { basename: params.prefix } ),
 
-    store = createStore( browserHistory, window.env || 'prod' ),
+    store = createStore( browserHistory, window.env ),
 
     history = syncHistoryWithStore( browserHistory, store );
+
+
+  store.dispatch( actions.setAppSettings( params ) );
 
 
   ReactDom.render(

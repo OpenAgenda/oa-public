@@ -17,32 +17,31 @@ const ApiKeySettings = React.createClass( {
 
   render: function() {
 
-    const { activeTab } = this.props;
+    const { activeTab, fields: { apiKey } } = this.props;
 
     return (
-      <div>
-        { activeTab ?
-          <div className="panel-group">
-            <div className="panel panel-primary">
-              <div className="panel-heading">Clé API</div>
-              <div className="panel-body">
-                <p>La clé API permet de lire les données publiées sur OpenAgenda via l'API.</p>
+      activeTab ?
+        <div>
+          <h4><i className="fa fa-caret-down" aria-hidden="true"></i> Clé API</h4>
+          
+          <div style={{padding: '0 5px'}}>
+            <p>La clé API permet de lire les données publiées sur OpenAgenda via l'API.</p>
 
-                <p><a href="#">Voir la documentation</a></p>
+            <p><a href="#">Voir la documentation</a></p>
 
-                <div className="form-group">
-                  <label htmlFor="email">Ma clé API</label>
-                  <input type="text" className="form-control" name="api_key" value="KnmbKGT6M7Ki6OJMtb4eKoEsGBsVOPpE"
-                         readOnly/>
-                </div>
-              </div>
+            <div className="form-group">
+              <label htmlFor="email">Ma clé API</label>
+              <input type="text" className="form-control" name="api_key" readOnly {...apiKey}/>
             </div>
-          </div> : <p><Link to="/apiKey">Clé API</Link></p> }
-      </div>
+          </div>
+        </div> : <h4><Link to="/apiKey"><i className="fa fa-caret-right" aria-hidden="true"></i> Clé API</Link></h4>
     );
 
   }
 
 } );
 
-module.exports = ApiKeySettings;
+module.exports = reduxForm( {
+  form: 'apiKeySettings',
+  fields: [ 'apiKey' ]
+} )( ApiKeySettings );

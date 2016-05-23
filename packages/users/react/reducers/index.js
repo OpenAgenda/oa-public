@@ -4,11 +4,14 @@ const { combineReducers } = require( 'redux' ),
 
   { reducer: form } = require( 'redux-form' ),
 
-  userSettings = require( './user-settings' );
+  app = require( './app' ),
+
+  userSettings = require( './userSettings' );
 
 
 module.exports = combineReducers( {
   routing: routerReducer,
   form,
+  app,
   userSettings
 } );

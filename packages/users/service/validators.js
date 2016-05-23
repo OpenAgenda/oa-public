@@ -151,29 +151,16 @@ function changePassword( fields ) {
 
   var validateSet = setValidator( [
     text( {
-      field: 'old_password'
-    } ),
-    text( {
-      field: 'new_password',
-      min: 4
-    } ),
-    text( {
-      field: 'confirmation',
+      field: 'password',
       min: 4
     } )
-  ].filter( v => Object.keys( fields ).indexOf( v.field ) !== -1 ), { compact: true } );
+  ], { compact: true } );
 
   try {
 
     var result = validateSet( [ {
-      field: 'old_password',
-      value: fields.old_password
-    }, {
-      field: 'new_password',
-      value: fields.new_password
-    }, {
-      field: 'confirmation',
-      value: fields.confirmation
+      field: 'password',
+      value: fields.password
     } ] );
 
     return { valid: true, fields: result };
@@ -191,6 +178,9 @@ function changeEmail( fields ) {
   var validateSet = setValidator( [
     email( {
       field: 'email'
+    } ),
+    text( {
+      field: 'password'
     } )
   ], { compact: true } );
 
@@ -199,6 +189,9 @@ function changeEmail( fields ) {
     var result = validateSet( [ {
       field: 'email',
       value: fields.email
+    }, {
+      field: 'password',
+      value: fields.password
     } ] );
 
     return { valid: true, fields: result };

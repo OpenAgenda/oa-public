@@ -33,4 +33,10 @@ const App = React.createClass( {
 
 } );
 
-module.exports = connect()( App );
+function mapStateToProps( { app: { loading } } ) {
+
+  return { loading };
+
+}
+
+module.exports = connect( mapStateToProps )( App );

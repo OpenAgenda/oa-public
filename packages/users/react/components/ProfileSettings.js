@@ -7,7 +7,7 @@ const React = require( 'react' ),
   { reduxForm } = require( 'redux-form' );
 
 
-var ProfileSettings = React.createClass( {
+const ProfileSettings = React.createClass( {
 
   displayName: 'ProfileSettings',
 
@@ -20,40 +20,34 @@ var ProfileSettings = React.createClass( {
     const { activeTab, fields: { fullname, culture }, handleSubmit } = this.props;
 
     return (
-      <div>
-        { activeTab ?
-          <div className="panel-group">
-            <div className="panel panel-primary">
-              <div className="panel-heading">Profil utilisateur</div>
-              <div className="panel-body">
+      activeTab ?
+        <div>
+          <h4><i className="fa fa-caret-down" aria-hidden="true"></i> Profil utilisateur</h4>
 
-                <form onSubmit={handleSubmit}>
-                  <div className="form-group">
-                    <label htmlFor="fullname">Nom complet *</label>
-                    <input type="text" className="form-control" name="fullname" {...fullname}/>
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="culture">Langue *</label>
-                    <select name="culture" className="form-control" {...culture}>
-                      <option value="fr">Français</option>
-                      <option value="en">Anglais</option>
-                    </select>
-                  </div>
-
-                  <p className="pull-left">
-                    <button type="button" className="btn btn-danger">Supprimer mon compte</button>
-                  </p>
-
-                  <div className="text-right">
-                    <button type="submit" className="btn btn-success">Sauvegarder</button>
-                  </div>
-                </form>
-
+          <div style={{padding: '0 5px'}}>
+            <form onSubmit={handleSubmit} style={{paddingBottom: '8px'}}>
+              <div className="form-group">
+                <label htmlFor="fullname">Nom complet *</label>
+                <input type="text" className="form-control" name="fullname" {...fullname}/>
               </div>
-            </div>
-          </div> : <p><Link to="/profile">Profil utilisateur</Link></p> }
-      </div>
+
+              <div className="form-group">
+                <label htmlFor="culture">Langue *</label>
+                <select name="culture" className="form-control" {...culture}>
+                  <option value="fr">Français</option>
+                  <option value="en">Anglais</option>
+                </select>
+              </div>
+
+              <button type="submit" className="btn btn-success">Sauvegarder</button>
+
+              <div className="pull-right">
+                <a href="#" className="text-danger">Supprimer mon compte</a>
+              </div>
+            </form>
+          </div>
+        </div> :
+        <h4><Link to="/profile"><i className="fa fa-caret-right" aria-hidden="true"></i> Profil utilisateur</Link></h4>
     );
 
   }
@@ -62,6 +56,5 @@ var ProfileSettings = React.createClass( {
 
 module.exports = reduxForm( {
   form: 'profileSettings',
-  fields: [ 'fullname', 'culture' ],
-  initialValues: { culture: 'fr' }
+  fields: [ 'fullname', 'culture' ]
 } )( ProfileSettings );

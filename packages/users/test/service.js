@@ -8,64 +8,185 @@ const config = require( '../testconfig' ),
 
   fixtures = require( 'fixtures' ),
 
-  service = require( '../service' ),
-
-  mysql = require( 'mysql' );
+  service = require( '../service' );
 
 
-describe( 'Users', () => {
+describe( 'service', function() {
 
-  describe( 'service', function() {
+  this.timeout( 20000 );
 
-    this.timeout( 10000 );
+  before( done => {
 
-    before( done => {
+    fixtures.init( config );
 
-      fixtures.init( config );
+    fixtures( [ {
+      table: 'user',
+      src: __dirname + '/fixtures/user.data.sql'
+    }, {
+      table: 'apiKeySet',
+      src: __dirname + '/fixtures/api_key_set.data.sql'
+    } ], done );
 
-      fixtures( [ {
-        table: 'user',
-        src: __dirname + '/fixtures/user.data.sql'
-      }, {
-        table: 'apiKeySet',
-        src: __dirname + '/fixtures/api_key_set.data.sql'
-      } ], done );
+  } );
 
-    } );
+  before( done => {
 
-    before( done => {
+    service.init( config, done );
 
-      service.init( config, done );
+  } );
 
-    } );
+  it( 'list', done => {
 
-    it( 'list', done => {
+    service.list( 0, 10, ( err, users ) => {
 
-      service.list( 0, 10, ( err, users ) => {
+      should( err ).equal( null );
+
+      service.list( {}, 4, 1, ( err, offsetUsers ) => {
 
         should( err ).equal( null );
+        users.length.should.equal( 10 );
+        offsetUsers.length.should.equal( 1 );
+        users[ 4 ].id.should.equal( offsetUsers[ 0 ].id );
 
-        service.list( {}, 4, 1, ( err, offsetUsers ) => {
-
-          should( err ).equal( null );
-          users.length.should.equal( 10 );
-          offsetUsers.length.should.equal( 1 );
-          users[ 4 ].id.should.equal( offsetUsers[ 0 ].id );
-
-          done();
-
-        } );
+        done();
 
       } );
 
     } );
 
-    it( 'get by id', done => {
+  } );
+
+  it( 'get by id', done => {
+
+    service.get( { id: 2 }, ( err, user ) => {
+
+      should( err ).equal( null );
+      user.email.should.equal( 'romain.lange@gmail.com' );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'get by uid', done => {
+
+    service.get( { uid: 99999999 }, ( err, user ) => {
+
+      should( err ).equal( null );
+      user.email.should.equal( 'romain.lange@gmail.com' );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'get by email', done => {
+
+    service.get( { email: 'romain.lange@gmail.com' }, ( err, user ) => {
+
+      should( err ).equal( null );
+      user.email.should.equal( 'romain.lange@gmail.com' );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'get inexistent user', done => {
+
+    service.get( { email: 'blablabla@sorry.com' }, ( err, user ) => {
+
+      should( err ).equal( null );
+      should( user ).equal( null );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'set', done => {
+
+    service.set( { id: 2, full_name: 'Romain' }, ( err, result ) => {
+
+      should( err ).equal( null );
+      result.user.email.should.equal( 'romain.lange@gmail.com' );
+      result.user.full_name.should.equal( 'Romain' );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'set inexistent user', done => {
+
+    service.set( { id: 987654321, full_name: 'Je fais du caca là !' }, ( err, result ) => {
+
+      should( err ).equal( null );
+      should( result.user ).equal( null );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'create', done => {
+
+    service.set( {
+      full_name: 'Test et retest',
+      email: 'test.test@openagenda.com',
+      culture: 'fr'
+    }, ( err, result ) => {
+
+      should( err ).equal( null );
+
+      service.get( { id: result.user.id }, ( err, user ) => {
+
+        should( err ).equal( null );
+        user.full_name.should.equal( 'Test et retest' );
+        user.email.should.equal( 'test.test@openagenda.com' );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
+  it( 'create user with bad info', done => {
+
+    service.set( {
+      full_name: 'Test et retest',
+      email: 'cestpasunemailca',
+      culture: 'frolala'
+    }, ( err, result ) => {
+
+      should( err ).equal( null );
+      result.errors.length.should.equal( 2 );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'update profile', done => {
+
+    service.updateProfile( { id: 2, full_name: 'Nouveau ptit nom', culture: 'en' }, ( err, result ) => {
+
+      should( err ).equal( null );
 
       service.get( { id: 2 }, ( err, user ) => {
 
         should( err ).equal( null );
-        user.email.should.equal( 'romain.lange@gmail.com' );
+        user.full_name.should.equal( 'Nouveau ptit nom' );
+        user.culture.should.equal( 'en' );
 
         done();
 
@@ -73,149 +194,44 @@ describe( 'Users', () => {
 
     } );
 
-    it( 'get by uid', done => {
+  } );
 
-      service.get( { uid: 99999999 }, ( err, user ) => {
+  it( 'update profile with bad info', done => {
 
-        should( err ).equal( null );
-        user.email.should.equal( 'romain.lange@gmail.com' );
+    service.updateProfile( { id: 2, culture: 'rhaaaa' }, ( err, result ) => {
 
-        done();
+      should( err ).equal( null );
+      result.errors[ 0 ].code.should.equal( 'string.toolong' );
 
-      } );
-
-    } );
-
-    it( 'get by email', done => {
-
-      service.get( { email: 'romain.lange@gmail.com' }, ( err, user ) => {
-
-        should( err ).equal( null );
-        user.email.should.equal( 'romain.lange@gmail.com' );
-
-        done();
-
-      } );
+      done();
 
     } );
 
-    it( 'get inexistent user', done => {
+  } );
 
-      service.get( { email: 'blablabla@sorry.com' }, ( err, user ) => {
+  it( 'verify password', done => {
 
-        should( err ).equal( null );
-        should( user ).equal( null );
+    service.verifyPassword( { email: 'gaetan@cibul.net', password: 'cibulon' }, ( err, result ) => {
 
-        done();
+      should( err ).equal( null );
+      should( result ).equal( true );
 
-      } );
-
-    } );
-
-    it( 'set', done => {
-
-      service.set( { id: 2, full_name: 'Romain' }, ( err, result ) => {
-
-        should( err ).equal( null );
-        result.user.email.should.equal( 'romain.lange@gmail.com' );
-        result.user.full_name.should.equal( 'Romain' );
-
-        done();
-
-      } );
+      done();
 
     } );
 
-    it( 'set inexistent user', done => {
+  } );
 
-      service.set( { id: 987654321, full_name: 'Je fais du caca là !' }, ( err, result ) => {
+  it( 'change password', done => {
 
-        should( err ).equal( null );
-        should( result.user ).equal( null );
+    service.changePassword( {
+      id: 119,
+      password: 'openagendon'
+    }, ( err, result ) => {
 
-        done();
+      should( err ).equal( null );
 
-      } );
-
-    } );
-
-    it( 'create', done => {
-
-      service.set( {
-        full_name: 'Test et retest',
-        email: 'test.test@openagenda.com',
-        culture: 'fr'
-      }, ( err, result ) => {
-
-        should( err ).equal( null );
-
-        service.get( { id: result.user.id }, ( err, user ) => {
-
-          should( err ).equal( null );
-          user.full_name.should.equal( 'Test et retest' );
-          user.email.should.equal( 'test.test@openagenda.com' );
-
-          done();
-
-        } );
-
-      } );
-
-    } );
-
-    it( 'create user with bad info', done => {
-
-      service.set( {
-        full_name: 'Test et retest',
-        email: 'cestpasunemailca',
-        culture: 'frolala'
-      }, ( err, result ) => {
-
-        should( err ).equal( null );
-        result.errors.length.should.equal( 2 );
-
-        done();
-
-      } );
-
-    } );
-
-    it( 'update profile', done => {
-
-      service.updateProfile( { id: 2, full_name: 'Nouveau ptit nom', culture: 'us' }, ( err, result ) => {
-
-        should( err ).equal( null );
-
-        service.get( { id: 2 }, ( err, user ) => {
-
-          should( err ).equal( null );
-          user.full_name.should.equal( 'Nouveau ptit nom' );
-          user.culture.should.equal( 'us' );
-
-          done();
-
-        } );
-
-      } );
-
-    } );
-
-    it( 'update profile with bad info', done => {
-
-      service.updateProfile( { id: 2, culture: 'rhaaaa' }, ( err, result ) => {
-
-        should( err ).equal( null );
-        result.errors[ 0 ].code.should.equal( 'string.toolong' );
-
-        done();
-
-      } );
-
-    } );
-
-    it( 'verify password', done => {
-
-      service.verifyPassword( { email: 'gaetan@cibul.net', password: 'cibulon' }, ( err, result ) => {
+      service.verifyPassword( { email: 'gaetan@cibul.net', password: 'openagendon' }, ( err, result ) => {
 
         should( err ).equal( null );
         should( result ).equal( true );
@@ -226,21 +242,29 @@ describe( 'Users', () => {
 
     } );
 
-    it( 'change password', done => {
+  } );
 
-      service.changePassword( {
+  it( 'change email', done => {
+
+    service.requestChangeEmail( {
+      id: 119,
+      email: 'gaetan@openagenda.com'
+    }, ( err, result ) => {
+
+      should( err ).equal( null );
+
+      service.confirmChangeEmail( {
         id: 119,
-        old_password: 'cibulon',
-        new_password: 'openagendon',
-        confirmation: 'openagendon'
+        token: result.token
       }, ( err, result ) => {
 
         should( err ).equal( null );
+        result.should.equal( true );
 
-        service.verifyPassword( { email: 'gaetan@cibul.net', password: 'openagendon' }, ( err, result ) => {
+        service.get( { id: 119 }, ( err, user ) => {
 
           should( err ).equal( null );
-          should( result ).equal( true );
+          user.email.should.equal( 'gaetan@openagenda.com' );
 
           done();
 
@@ -250,51 +274,19 @@ describe( 'Users', () => {
 
     } );
 
-    it( 'change email', done => {
+  } );
 
-      service.requestChangeEmail( {
-        id: 119,
-        email: 'gaetan@openagenda.com'
-      }, ( err, result ) => {
+  it( 'change email with already taken', done => {
 
-        should( err ).equal( null );
+    service.requestChangeEmail( {
+      id: 2,
+      email: 'gaetan@openagenda.com'
+    }, ( err, result ) => {
 
-        service.confirmChangeEmail( {
-          id: 119,
-          token: result.token
-        }, ( err, result ) => {
+      should( err ).equal( null );
+      result.errors[ 0 ].code.should.equal( 'email.alreadytaken' );
 
-          should( err ).equal( null );
-          result.should.equal( true );
-
-          service.get( { id: 119 }, ( err, user ) => {
-
-            should( err ).equal( null );
-            user.email.should.equal( 'gaetan@openagenda.com' );
-
-            done();
-
-          } );
-
-        } );
-
-      } );
-
-    } );
-
-    it( 'change email with already taken', done => {
-
-      service.requestChangeEmail( {
-        id: 2,
-        email: 'gaetan@openagenda.com'
-      }, ( err, result ) => {
-
-        should( err ).equal( null );
-        result.errors[ 0 ].code.should.equal( 'email.alreadytaken' );
-
-        done();
-
-      } );
+      done();
 
     } );
 

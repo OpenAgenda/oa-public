@@ -47,7 +47,7 @@ function promiseMiddleware() {
 
     const { promise, types } = action,
 
-      rest = _objectWithoutProperties( action, [ "promise", "types" ] );
+      rest = removeObjectProperties( action, [ "promise", "types" ] );
 
     if ( !promise ) {
       return next( action );
@@ -66,7 +66,7 @@ function promiseMiddleware() {
 
 }
 
-function _objectWithoutProperties( obj, keys ) {
+function removeObjectProperties( obj, keys ) {
 
   var target = {};
 

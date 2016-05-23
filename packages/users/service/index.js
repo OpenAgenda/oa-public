@@ -10,14 +10,17 @@ const knexLib = require( 'knex' ),
 
   utils = require( 'utils' ),
 
-  crypto = require( './crypto' );
+  crypto = require( './crypto' ),
+
+  mw = require( '../middleware' );
 
 
-var knex, config, schemas;
+var config, knex, schemas;
 
 
 module.exports = {
   init: init,
+  mw: mw,
   list: list,
   get: get,
   set: set,
@@ -53,6 +56,12 @@ function init( c, cb ) {
       client: 'mysql',
       connection: c.mysql
     } );
+
+  } )
+
+  .then( () => {
+
+    mw.init( require( './index' ), c );
 
   } )
 
@@ -160,6 +169,8 @@ function updateProfile( query, cb ) {
   .then( _filterForUpdateProfile )
 
   .then( _updateOrInsert )
+
+  .then( _clean )
 
   .done( v => cb( null, {
     user: v.user,
@@ -497,6 +508,8 @@ function _filterForUpdateProfile( v ) {
 
 function _changePassword( v ) {
 
+  if ( v.errors.length ) return v;
+
   var keys = Object.keys( v.identifier ),
 
     validator = validators.changePassword( v.query ),
@@ -506,20 +519,6 @@ function _changePassword( v ) {
 
   v.valid = validator.valid;
 
-
-  if ( fields.new_password !== fields.confirmation ) {
-
-    v.errors.push( {
-      field: 'confirmation',
-      code: 'confirmation.differentpassword',
-      message: 'password different confirmation',
-      origin: fields.confirmation
-    } );
-
-    v.valid = false;
-
-  }
-
   if ( !v.valid ) {
 
     v.errors = validator.errors;
@@ -527,9 +526,10 @@ function _changePassword( v ) {
 
   }
 
+
   var salt = crypto.randomHash(),
 
-    password = crypto.makeHashPassword( fields.new_password, salt ),
+    password = crypto.makeHashPassword( fields.password, salt ),
 
     query = { password, salt };
 
@@ -554,15 +554,14 @@ function _requestChangeEmail( v ) {
 
   if ( v.errors.length ) return v;
 
-  var validator = validators.changeEmail( { email: v.query.email } );
+  var validator = validators.changeEmail( v.query );
 
 
   v.valid = validator.valid;
 
-
   if ( !v.valid ) {
 
-    v.errors = validator.errors;
+    v.errors = validator.errors ;
     return v;
 
   }
@@ -583,6 +582,8 @@ function _requestChangeEmail( v ) {
 
 
   delete v.query.email;
+
+  delete v.query.password;
 
 
   return v;

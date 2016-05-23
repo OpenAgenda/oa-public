@@ -20,38 +20,32 @@ const PasswordSettings = React.createClass( {
     const { activeTab, fields: { old_password, new_password, confirmation }, handleSubmit } = this.props;
 
     return (
-      <div>
-        { activeTab ?
-          <div className="panel-group">
-            <div className="panel panel-primary">
-              <div className="panel-heading">Mot de passe</div>
-              <div className="panel-body">
+      activeTab ?
+        <div>
+          <h4><i className="fa fa-caret-down" aria-hidden="true"></i> Mot de passe</h4>
 
-                <form onSubmit={handleSubmit}>
-                  <div className="form-group">
-                    <label htmlFor="old_password">Mot de passe actuel *</label>
-                    <input type="text" className="form-control" name="old_password" {...old_password}/>
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="new_password">Nouveau mot de passe *</label>
-                    <input type="text" className="form-control" name="new_password" {...new_password}/>
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="confirmation">Répétez le mot de passe *</label>
-                    <input type="text" className="form-control" name="confirmation" {...confirmation}/>
-                  </div>
-
-                  <div className="text-right">
-                    <button type="submit" className="btn btn-success">Sauvegarder</button>
-                  </div>
-                </form>
-
+          <div style={{padding: '0 5px'}}>
+            <form onSubmit={handleSubmit} style={{paddingBottom: '8px'}}>
+              <div className="form-group">
+                <label htmlFor="old_password">Mot de passe actuel *</label>
+                <input type="password" className="form-control" name="old_password" {...old_password}/>
               </div>
-            </div>
-          </div> : <p><Link to="/password">Mot de passe</Link></p> }
-      </div>
+
+              <div className="form-group">
+                <label htmlFor="new_password">Nouveau mot de passe *</label>
+                <input type="password" className="form-control" name="new_password" {...new_password}/>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="confirmation">Répétez le mot de passe *</label>
+                <input type="password" className="form-control" name="confirmation" {...confirmation}/>
+              </div>
+
+              <button type="submit" className="btn btn-success">Sauvegarder</button>
+            </form>
+          </div>
+        </div> :
+        <h4><Link to="/password"><i className="fa fa-caret-right" aria-hidden="true"></i> Mot de passe</Link></h4>
     );
 
   }

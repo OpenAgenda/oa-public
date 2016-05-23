@@ -1,40 +1,49 @@
 "use strict";
 
-var app = require( 'test-app' )( {
-    frontWrapper: __dirname + '/front.jsx',
+const app = require( 'test-app' )( {
+    frontWrapper: __dirname + '/front.js',
     excludeDefaultStyles: true,
     styles: [
       __dirname + '/../../node_modules/bs-templates/compiled/main.css'
     ],
-    decorateCanvas: false,
-    redux: true
+    decorateCanvas: false
   } ),
+
+  path = require( 'path' ),
 
   fixtures = require( 'fixtures' ),
 
   config = require( '../../testconfig.js' ),
 
-  service = require( '../../service' );
+  service = require( '../../service' ),
 
-  // mw = service.mw;
+  mw = service.mw;
 
-// app.get( '/', mw.agendas.list );
-// app.get( '/stakeholders/', mw.stakeholders.list );
+
+app.use( ( req, res, next ) => {
+  req.user = { id: 119 };
+  next();
+} );
+
+app.get( '/getMe', mw.getMe );
+app.get( '/updateProfile', mw.updateProfile );
+app.get( '/changeEmail', mw.changeEmail );
+app.get( '/changePassword', mw.changePassword );
 
 fixtures.init( config );
 
 fixtures( [ {
   table: 'user',
-  src: __dirname + '/../fixtures/user.data.sql'
+  src: path.resolve( __dirname, '../fixtures/user.data.sql' )
 }, {
   table: 'apiKeySet',
-  src: __dirname + '/../fixtures/api_key_set.data.sql'
+  src: path.resolve( __dirname, '../fixtures/api_key_set.data.sql' )
 } ], err => {
 
   if ( err ) return console.error( err );
 
   service.init( config );
 
-  app.getAndListen();
+  app.getAndListen( '*' );
 
 } );
