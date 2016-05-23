@@ -12,6 +12,7 @@ module.exports = function( config ) {
       code: 'regex.mismatch',
       message: 'regex does not match'
     },
+    clean: false, // if true result of regex is clean value
     trim: true,
     type: false
   }, config || {} ),
@@ -52,7 +53,7 @@ module.exports = function( config ) {
 
     }
 
-    return clean;
+    return params.clean ? clean.match( params.regex )[ 0 ] : clean;
 
   };
 
