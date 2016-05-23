@@ -132,9 +132,12 @@
       li {
 
         display: inline-block;
-        max-height: 75px;
         overflow: hidden;
         opacity: 0.8;
+        width: 120px;
+        height: 75px;
+        position: relative;
+        margin-right: 1em;
 
         &:hover {
 
@@ -146,8 +149,14 @@
 
       img {
 
-        max-width: 120px;
-        margin-right: 1em;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 100%;
+        height: auto;
+        -webkit-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%);
 
       }
 
