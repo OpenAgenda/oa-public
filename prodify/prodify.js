@@ -38,6 +38,8 @@ mangle = true,
 
 log,
 
+webpack = require( 'webpack' )
+
 browserify = require( 'browserify' ),
 
 stringify = require( 'stringify' ),
@@ -48,7 +50,7 @@ browserified = [],
 
 run = function() {
 
-  debug.enable( '*' );
+  debug.enable( 'prodify' );
 
   log = debug( 'prodify' );
 
@@ -84,7 +86,7 @@ _copyBsCss = function( cb ) {
 
   src.pipe( dest );
 
-  src.on( 'end', () => cb() );  
+  src.on( 'end', () => cb() );
 
 },
 
@@ -116,7 +118,7 @@ legacyProdify = function() {
         throw e;
 
       }
-      
+
     });
 
     fs.writeFile(destPath + destFile, content, function( err ) {
@@ -279,6 +281,8 @@ prodifyCss = function( map, cssKey, destFile, cb ) {
 
       sass.render( { data: mainCss }, function( err, result ) {
 
+        if ( err ) return cb( err );
+
         fs.writeFile( destFile, result.css.toString(), cb );
 
       } );
@@ -322,7 +326,7 @@ listCss = function listCss( map, cssKey, cb ) {
 
       if ( err ) return cb( err );
 
-      var offset = ( templateName.split( '/' ).length - 1 ) * 3, 
+      var offset = ( templateName.split( '/' ).length - 1 ) * 3,
 
       csses = {},
 
@@ -339,7 +343,7 @@ listCss = function listCss( map, cssKey, cb ) {
             // generic css
 
             csses[c] = config[cssKey][c].substr( offset );
-            
+
           } else if ( config[cssKey][c].indexOf( '//' ) !== -1 ) {
 
             // web path, get as is
@@ -388,7 +392,7 @@ listCss = function listCss( map, cssKey, cb ) {
 
   });
 
-  
+
 
 },
 
@@ -413,7 +417,7 @@ prodifyTemplateJs = function( map, cb ) {
 
       async.eachSeries( toBrowserify, _browserify, scb );
 
-    });  
+    });
 
   }, cb );
 
@@ -488,6 +492,50 @@ _browserify = function( paths, cb ) {
 
   // run browserify_browserify
 
+
+  /*var compiler = webpack( {
+    entry: __dirname + '/' + paths.src.path + '/' + paths.src.name,
+    output: {
+      path: __dirname + '/' + paths.dest.path,
+      filename: paths.dest.name
+    },
+    resolve: {
+      extensions: [ '', '.js', '.jsx' ],
+      moduleDirectories: [ './node_modules' ]
+    },
+    module: {
+      loaders: [
+        {
+          test: /\.(js|jsx)$/,
+          loader: 'babel?presets[]=react&presets[]=es2015',
+          exclude: /(node_modules)/
+        },
+        {
+          test: /\.(json)$/,
+          loader: 'json',
+          exclude: /(node_modules)/
+        },
+        {
+          test: /\.(ejs|css|html|tblr)$/,
+          loader: 'raw',
+          exclude: /(node_modules)/
+        }
+      ]
+    },
+    plugins: []
+  } );
+
+  compiler.run(function(err, stats) {
+    if ( err ) cb( err );
+    console.log( stats.toString( {
+      hash: false,
+      chunks: false,
+      colors: true
+    } ) );
+    cb();
+  });*/
+
+
   var b = browserify();
 
   b.transform(stringify(['.ejs', '.css', '.html', '.tblr' ]));
@@ -500,7 +548,7 @@ _browserify = function( paths, cb ) {
 
   destFilePath = paths.dest.path + '/' + paths.dest.name,
 
-  writeStream = fs.createWriteStream( destFilePath ); 
+  writeStream = fs.createWriteStream( destFilePath );
 
   bundle.pipe( writeStream );
 
@@ -550,7 +598,7 @@ _templateJsPath = function( name ) {
   };
 
   // determine name of template js file
-      
+
   var folder = name.split('/');
 
   paths.src.name = folder.pop() + '.js';
@@ -611,7 +659,7 @@ browserifyTemplateScript = function( name, cb ) {
         throw e;
 
       }
-      
+
 
       // done!
 

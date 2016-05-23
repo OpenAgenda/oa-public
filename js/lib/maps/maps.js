@@ -1,8 +1,8 @@
 var maps = (function(){
 
-  var types = {}
-    , ROADMAP = 'roadmap'
-    , libs = {};
+  var types = {},
+    ROADMAP = 'roadmap',
+    libs = {};
 
   var init = function(type, libOptions) {
 

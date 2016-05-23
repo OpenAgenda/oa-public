@@ -8,10 +8,15 @@
     "build": "node prodify/prodify nc"
   },
   "dependencies": {
+    "admin-agendas": "git+ssh://git@bitbucket.org/openagenda/admin-agendas.git",
     "agenda-categories": "git+ssh://git@bitbucket.org:openagenda/agenda-categories.git",
     "agenda-locations": "git+ssh://git@bitbucket.org:openagenda/agenda-locations.git",
     "agenda-tags": "git+ssh://git@bitbucket.org:openagenda/agenda-tags.git",
     "async": "0.9.0",
+    "babel-core": "^6.9.0",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
     "browserify": "6.3.3",
     "bs-templates": "git+ssh://git@bitbucket.org:openagenda/bs-templates.git",
     "d3": "3.5.6",
@@ -23,6 +28,7 @@
     "form-serialize": "0.3.0",
     "image-upload": "git+ssh://git@bitbucket.org:openagenda/image-upload.git",
     "imagesloaded": "3.1.8",
+    "json-loader": "^0.5.4",
     "labels": "git+ssh://git@bitbucket.org:openagenda/labels.git",
     "languages": "0.1.3",
     "leaflet": "0.7.3",
@@ -31,15 +37,16 @@
     "masonry-layout": "3.3.0",
     "moment": "2.9.0",
     "moment-timezone": "^0.5.3",
-    "node-sass": "3.3.3",
+    "node-sass": "^3.7.0",
     "outdated-browser-rework": "0.1.1",
     "qs": "2.3.3",
+    "raw-loader": "^0.5.1",
     "react": "0.14.7",
     "react-addons-update": "0.14.7",
     "react-dom": "0.14.7",
     "react-form-components": "git+ssh://git@bitbucket.org:openagenda/react-form-components.git",
     "react-select": "^0.9.1",
-    "react-tagsinput": "3.0.2",
+    "react-tagsinput": "3.7.0",
     "react-timings-picker": "git://github.com/Oagenda/react-timings-picker.git",
     "reactify": "1.1.1",
     "registration": "git+ssh://git@bitbucket.org:openagenda/registration.git",
@@ -52,19 +59,11 @@
     "to-markdown": "2.0.0",
     "tumblrParser": "git+ssh://git@bitbucket.org:openagenda/tumblrparser.git",
     "uglify-js": "2.4.24",
+    "users": "git+ssh://git@bitbucket.org/openagenda/users.git",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
+    "webpack": "^1.13.1",
     "when": "~3.4",
-    "xhr": "^2.2.0",
-    "admin-agendas": "git+ssh://git@bitbucket.org:openagenda/admin-agendas.git"
-  },
-  "browserify": {
-    "transform": "reactify"
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "react"
-    ]
+    "xhr": "^2.2.0"
   },
   "devDependencies": {
     "should": "^8.2.2"
