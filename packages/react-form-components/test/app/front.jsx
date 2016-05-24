@@ -193,12 +193,26 @@ Wrapper = React.createClass( {
 
       <div className="separator"></div>
 
+      <p>Grouped tags selector</p>
+
       <GroupTagSelector
         name='tags'
         lang='fr'
         value={this.state.values.tags}
         onChange={this.onChange}
         set={this.getTestGroupSet()} />
+
+      <div className="separator"></div>
+
+      <p>Grouped tags selector with disabled tags</p>
+
+      <GroupTagSelector
+        name='tags'
+        lang='fr'
+        value={this.state.values.tags}
+        onChange={this.onChange}
+        set={this.getTestGroupSet()}
+        disabledTagIds={[1,3,4,5,6]} />            
 
       <div className="separator"></div>
 

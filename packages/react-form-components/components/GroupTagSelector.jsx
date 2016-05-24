@@ -26,15 +26,21 @@ module.exports = React.createClass( {
     getLabel: React.PropTypes.func,
 
     // current tag selection
-    value: React.PropTypes.array
+    value: React.PropTypes.array,
 
+    // optional renderer for additional component under tag item
+    tagBottom: React.PropTypes.func,
+
+    // optional list of tags that 
+    disabledTagIds: React.PropTypes.array
   },
 
   getDefaultProps: function() {
 
     return {
       lang: 'en',
-      getLabel: makeLabelGetter( labels )
+      getLabel: makeLabelGetter( labels ),
+      disabledTagIds: []
     }
 
   },
@@ -79,18 +85,21 @@ module.exports = React.createClass( {
 
   },
 
-  renderItem: function( item, groupIndex ) {
+  renderItem: function( item, groupIndex, itemIndex ) {
 
     var checked = this.props.value
                .map( function( v ) { return v.id; } )
-               .indexOf( item.id ) !== -1;
+               .indexOf( item.id ) !== -1,
 
-    return <div className="checkbox" 
+    isDisabled = this.props.disabledTagIds.indexOf( item.id ) !== -1;
+
+    return <div className={ isDisabled ? 'checkbox disabled' : 'checkbox' }
       key={item.id}>
       <label>
         <input type="checkbox" checked={checked} onChange={ ( checked ? this.removeItem : this.addItem ).bind( null, item, groupIndex ) } />
         {item.label}
       </label>
+      { this.props.tagBottom ? this.props.tagBottom( item, groupIndex, itemIndex ) : null }
     </div>
 
   },
@@ -125,9 +134,11 @@ module.exports = React.createClass( {
 
   renderGroup: function( group, i ) {
 
-    return <div className="gt-group" key={i}>
+    let groupIsDisabled = !group.tags.filter( t => this.props.disabledTagIds.indexOf( t.id ) == -1 ).length;
+
+    return <div className={ groupIsDisabled ? 'gt-group disabled' : 'gt-group' } key={i}>
       {this.renderGroupHead( group, i )}
-      <div className="list-unstyled gt-selector-items">{ group.tags.map( t => { return this.renderItem( t, i ) } ) }</div>
+      <div className="list-unstyled gt-selector-items">{ group.tags.map( ( t , ti ) => { return this.renderItem( t, i, ti ) } ) }</div>
     </div>
 
   },

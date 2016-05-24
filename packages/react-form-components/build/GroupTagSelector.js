@@ -23,15 +23,21 @@ module.exports = React.createClass({
     getLabel: React.PropTypes.func,
 
     // current tag selection
-    value: React.PropTypes.array
+    value: React.PropTypes.array,
 
+    // optional renderer for additional component under tag item
+    tagBottom: React.PropTypes.func,
+
+    // optional list of tags that
+    disabledTagIds: React.PropTypes.array
   },
 
   getDefaultProps: function getDefaultProps() {
 
     return {
       lang: 'en',
-      getLabel: makeLabelGetter(labels)
+      getLabel: makeLabelGetter(labels),
+      disabledTagIds: []
     };
   },
 
@@ -70,22 +76,24 @@ module.exports = React.createClass({
     this.props.onChange(this.props.name, newSelection);
   },
 
-  renderItem: function renderItem(item, groupIndex) {
+  renderItem: function renderItem(item, groupIndex, itemIndex) {
 
     var checked = this.props.value.map(function (v) {
       return v.id;
-    }).indexOf(item.id) !== -1;
+    }).indexOf(item.id) !== -1,
+        isDisabled = this.props.disabledTagIds.indexOf(item.id) !== -1;
 
     return React.createElement(
       'div',
-      { className: 'checkbox',
+      { className: isDisabled ? 'checkbox disabled' : 'checkbox',
         key: item.id },
       React.createElement(
         'label',
         null,
         React.createElement('input', { type: 'checkbox', checked: checked, onChange: (checked ? this.removeItem : this.addItem).bind(null, item, groupIndex) }),
         item.label
-      )
+      ),
+      this.props.tagBottom ? this.props.tagBottom(item, groupIndex, itemIndex) : null
     );
   },
 
@@ -128,15 +136,19 @@ module.exports = React.createClass({
   renderGroup: function renderGroup(group, i) {
     var _this = this;
 
+    var groupIsDisabled = !group.tags.filter(function (t) {
+      return _this.props.disabledTagIds.indexOf(t.id) == -1;
+    }).length;
+
     return React.createElement(
       'div',
-      { className: 'gt-group', key: i },
+      { className: groupIsDisabled ? 'gt-group disabled' : 'gt-group', key: i },
       this.renderGroupHead(group, i),
       React.createElement(
         'div',
         { className: 'list-unstyled gt-selector-items' },
-        group.tags.map(function (t) {
-          return _this.renderItem(t, i);
+        group.tags.map(function (t, ti) {
+          return _this.renderItem(t, i, ti);
         })
       )
     );

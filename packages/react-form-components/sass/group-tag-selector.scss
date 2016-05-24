@@ -45,5 +45,21 @@
     }
 
   }
+
+  .disabled {
+
+    input[type="checkbox"] {
+
+      opacity: 0.5;
+
+    }
+
+    label {
+
+      color: $oa-gray-light;
+
+    }
+
+  }
   
 }
