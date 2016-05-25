@@ -36,11 +36,5 @@
   },
   "browserify": {
     "transform": "reactify"
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "react"
-    ]
   }
 }

@@ -3,7 +3,7 @@
 var React = require('react'),
     monitorBottomHit = require('dom-utils/monitorBottomHit');
 
-module.exports = React.createClass({
+var List = React.createClass({
 
   displayName: 'List',
 
@@ -108,3 +108,5 @@ module.exports = React.createClass({
     );
   }
 });
+
+module.export = List;
