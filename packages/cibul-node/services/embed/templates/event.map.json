@@ -50,6 +50,9 @@
   }, {
     "name" : "City",
     "mapTo" : "city"
+  }, {
+    "name" : "ShareUrl",
+    "mapTo" : "actionLink"
   }, {  
     "name" : "FacebookShareUrl",
     "mapTo" : "facebookShare"
@@ -83,7 +86,7 @@
   }, {
     "name" : "Featured",
     "mapTo" : "featured"
-  }],
+  } ],
 
   "children" : [ {
     "name" : "Registration",

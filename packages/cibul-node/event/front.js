@@ -45,6 +45,7 @@ routes = {
     _formatAgendaLinks( 'agendaEmbedShow', [ 'uid' ] ),
     agendaSvc.mw.decorateEvent( false ),
     _formatSocialLinks,
+    _formatEmbedHeadLinks,
     cmn.useEmbedGoogleAnalytics,
     embedSvc.mw.renderEvent,
     cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
@@ -61,6 +62,7 @@ routes = {
     _formatAgendaLinks( 'customEmbedShow', [ 'uid', 'embedUid' ] ),
     agendaSvc.mw.decorateEvent( false ),
     _formatSocialLinks,
+    _formatEmbedHeadLinks,
     cmn.useEmbedGoogleAnalytics,
     embedSvc.mw.renderEvent,
     cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
@@ -78,6 +80,7 @@ routes = {
     _formatAgendaLinks( 'customEmbedShowPreview', [ 'uid', 'embedUid' ] ),
     agendaSvc.mw.decorateEvent( false ),
     _formatSocialLinks,
+    _formatEmbedHeadLinks,
     cmn.useEmbedGoogleAnalytics,
     embedSvc.mw.renderEvent,
     cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
@@ -473,6 +476,18 @@ function _formatSocialLinks( req, res, next ) {
     req.formatted.facebookShare = eventSvc.share.getFacebookFeedLink( req.formatted, eventUrl, fbAppId );
 
   }
+
+  next();
+
+}
+
+
+function _formatEmbedHeadLinks( req, res, next ) {
+
+  req.formatted.actionLink = req.genUrl( 'agendaEventActionShow', {
+    slug: req.agenda.slug,
+    eventSlug: req.event.slug
+  }, { protocol: 'https://' } );
 
   next();
 
