@@ -6,7 +6,8 @@ var app = require( 'test-app' )( {
     styles: [
       __dirname + '/../../node_modules/bs-templates/compiled/admin.css'
     ],
-    decorateCanvas: false
+    decorateCanvas: false,
+    webpack: true
   } ),
 
   fixtures = require( '../fixtures' ),
