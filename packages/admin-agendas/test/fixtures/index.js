@@ -137,6 +137,14 @@ module.exports = function( cb ) {
     );
 
   } )
+    
+    .then( v => {
+
+      if ( v.con ) v.con.end();
+      
+      return v;
+      
+    } )
 
   .done( () => cb(), cb );
   
