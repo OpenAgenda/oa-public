@@ -186,6 +186,9 @@ function _request( name, method, data, cb ) {
 
   soapData = soapData.join( '' );
 
+  //console.log('SENDING');
+  //console.log( soapData );
+
   soap.headers[ 'Content-Length' ] = soapData ? Buffer.byteLength( soapData ) : 0;
 
   req = http.request({
@@ -229,9 +232,13 @@ function _request( name, method, data, cb ) {
 
             parsed = parsed[ 0 ];
 
-            for( i in parsed ) {
+            if ( typeof parsed === 'object' ) {
 
-              parsed[ i ] = parsed[ i ].length == 1 ? parsed[ i ][ 0 ] : parsed[ i ];
+              for( let i in parsed ) {
+
+                parsed[ i ] = parsed[ i ].length == 1 ? parsed[ i ][ 0 ] : parsed[ i ];
+
+              }
 
             }
 
