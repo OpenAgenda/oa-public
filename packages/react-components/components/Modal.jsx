@@ -1,6 +1,8 @@
 "use strict";
 
-const React = require( 'react' );
+const React = require( 'react' ),
+
+  ReactDOM = require( "react-dom" );
 
 
 const Modal = React.createClass( {
@@ -13,8 +15,43 @@ const Modal = React.createClass( {
     onClose: React.PropTypes.func
   },
 
+  clickOnModal: false,
+
   getDefaultProps() {
-    return { visible: false };
+    return { visible: true };
+  },
+
+  componentDidUpdate() {
+
+    if ( this.props.visible ) {
+      ReactDOM.findDOMNode( this.modalRef ).addEventListener( 'click', this.handleModalClick );
+      document.addEventListener( 'click', this.handleDocumentClick );
+    } else {
+      ReactDOM.findDOMNode( this.modalRef ).removeEventListener( 'click', this.handleModalClick );
+      document.removeEventListener( 'click', this.handleDocumentClick );
+    }
+
+  },
+
+  handleModalClick( e ) {
+
+    this.clickOnModal = true;
+
+  },
+
+  handleDocumentClick( e ) {
+
+    if ( this.props.visible && !this.clickOnModal ) {
+
+      const area = ReactDOM.findDOMNode( this.modalRef );
+
+      if ( !area.contains( e.target ) ) {
+        this.handleClose();
+      }
+
+    }
+
+    this.clickOnModal = false;
   },
 
   handleClose() {
@@ -31,7 +68,7 @@ const Modal = React.createClass( {
 
     return (
       <div style={{ display: visible ? 'block' : 'none' }} className="popup-overlay">
-        <section>
+        <section ref={ref => this.modalRef = ref}>
           <header className="popup-title">
             <h2>{title}</h2>
             <a onClick={this.handleClose} className="close-link">
