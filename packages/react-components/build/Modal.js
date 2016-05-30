@@ -13,7 +13,7 @@ var Modal = React.createClass({
   },
 
   getDefaultProps: function getDefaultProps() {
-    return { visible: false };
+    return { visible: true };
   },
   handleClose: function handleClose() {
     var onClose = this.props.onClose;
