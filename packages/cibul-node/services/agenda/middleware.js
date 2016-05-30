@@ -331,8 +331,11 @@ function buildPdf( req, res, next ) {
     description: req.agenda.description,
     link: req.agenda.url,
     imageLink: req.agenda.image ? config.aws.imageBucketPath.replace( 'cibuldev', 'cibul' ) + req.agenda.image : false,
-    style: pdfOptions.style
-  }, 'fr' );
+  }, {
+    lang: req.lang,
+    style: pdfOptions.style,
+    showLinks: pdfOptions.showLinks
+  } );
 
   pdfStream.getReadableStream().pipe( res );
 

@@ -50,7 +50,7 @@
     "passport-google-oauth": "0.1.5",
     "passport-local": "1.0.0",
     "passport-twitter": "1.0.2",
-    "pdf": "git+ssh://git@bitbucket.org:openagenda/pdf.git#ce78177eadf64e3eaa996685189e7a9a84f9b25e",
+    "pdf": "git+ssh://git@bitbucket.org:openagenda/pdf.git",
     "qs": "~2.2",
     "queue": "git+ssh://git@bitbucket.org:openagenda/queue.git",
     "react": "0.14.7",
