@@ -36,10 +36,6 @@ routes = {
     mw.setToValidate
   ] ],
 
-  agendaLocationGet: [ 'get', '/:slug/locations/:locationUid', [
-    mw.get
-  ] ],
-
   agendaAdminLocationSet: [ 'post', '/:slug/admin/locations', [
     bodyParser.json(),
     _loadUserUid,
@@ -95,6 +91,10 @@ routes = {
     cmn.checkAdminOrModerator,
     _loadUserUid,
     mw.imageRemove
+  ] ],
+
+  agendaLocationGet: [ 'get', '/:slug/locations/:locationUid', [
+    mw.get
   ] ]
 
 }
