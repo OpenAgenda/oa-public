@@ -7434,22 +7434,23 @@
 
 	    return function () {
 
+	      var min = null,
+	          max = null;
+
 	      if (typeof enable == 'undefined') {
 
 	        enable = !self.state.enabled;
 	      }
 
-	      var min = self.props.value ? self.props.value.min || null : null,
-	          max = self.props.value ? self.props.value.max || null : null;
+	      if (enable) {
 
-	      if (enable && min === null) {
+	        min = self.props.value ? self.props.value.min || null : null;
 
-	        min = 0;
-	      }
+	        max = self.props.value ? self.props.value.max || null : null;
 
-	      if (enable && max === null) {
+	        if (min === null) min = 0;
 
-	        max = 99;
+	        if (max === null) max = 99;
 	      }
 
 	      self.props.onChange({
@@ -7689,6 +7690,7 @@
 	        startTime: this.props.day.start,
 	        endTime: this.props.day.end,
 	        timings: this.getTimings(),
+	        defaultDisplayWeekDay: this.props.configuration && this.props.configuration.defaultWeek ? new Date(this.props.configuration.defaultWeek) : undefined,
 	        activeDays: this.props.configuration ? this.props.configuration.activeDays : undefined,
 	        weekStartDay: 1,
 	        onTimingsChange: this.onChange,

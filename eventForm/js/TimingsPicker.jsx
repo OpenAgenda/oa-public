@@ -60,6 +60,7 @@ module.exports = React.createClass( {
         startTime={this.props.day.start}
         endTime={this.props.day.end}
         timings={this.getTimings()}
+        defaultDisplayWeekDay={ this.props.configuration && this.props.configuration.defaultWeek ? new Date( this.props.configuration.defaultWeek ) : undefined }
         activeDays={ this.props.configuration ? this.props.configuration.activeDays : undefined }
         weekStartDay={1}
         onTimingsChange={this.onChange}

@@ -820,7 +820,7 @@
 
 	function _domReady(cb) {
 
-	  if (document.readyState === "complete") {
+	  if (document.readyState === 'complete') {
 
 	    cb();
 	  } else {

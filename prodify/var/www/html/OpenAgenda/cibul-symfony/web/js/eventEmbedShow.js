@@ -91,7 +91,11 @@
 	    pageHeight = __webpack_require__(7),
 	    linkClickController = false;
 
-	module.exports = function (pageOptions) {
+	module.exports = embeddedPage;
+
+	module.exports.copyToSearch = copyToSearch;
+
+	function embeddedPage(pageOptions) {
 
 	  var sendFunc;
 
@@ -146,7 +150,24 @@
 	      _catchLinkEvents();
 	    }
 	  };
-	};
+	}
+
+	function copyToSearch(selector, queryPart) {
+
+	  if (typeof queryPart === 'undefined') {
+
+	    var query = window.location.href.split('?');
+
+	    if (!query.length == 2) return;
+
+	    queryPart = query[1];
+	  }
+
+	  cn.forEach(cn.els(selector) || [], function (el) {
+
+	    el.setAttribute('href', el.getAttribute('href').split('?')[0] + '?' + queryPart);
+	  });
+	}
 
 	function _catchLinkEvents() {
 

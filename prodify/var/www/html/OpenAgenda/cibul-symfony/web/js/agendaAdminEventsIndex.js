@@ -47,9 +47,9 @@
 	"use strict";
 
 	var du = __webpack_require__(1),
-	    deepExtend = __webpack_require__(5),
-	    React = __webpack_require__(6),
-	    AdminEventsHeader = __webpack_require__(7),
+	    deepExtend = __webpack_require__(2),
+	    React = __webpack_require__(3),
+	    AdminEventsHeader = __webpack_require__(4),
 	    params = {
 	  lang: 'en',
 	  res: {
@@ -57,13 +57,13 @@
 	  },
 	  selectors: {
 	    headerCanvas: '.js_header_canvas',
-	    grouped: {
-	      link: '.js_grouped_link',
-	      body: '.js_grouped_body'
+	    headControls: {
+	      link: '.js_head_link',
+	      body: '.js_head_body'
 	    }
 	  }
 	},
-	    ReactDom = __webpack_require__(19);
+	    ReactDom = __webpack_require__(18);
 
 	window.hook(function (options) {
 
@@ -74,18 +74,30 @@
 	    lang: params.lang,
 	    res: params.res }), du.el(params.selectors.headerCanvas));
 
-	  _groupedActions();
+	  _toggler(params.selectors.headControls.link, params.selectors.headControls.body);
 	});
 
 	// show grouped actions on link click
-	function _groupedActions() {
+	function _toggler(link, body) {
 
-	  du.addEvent(du.el(params.selectors.grouped.link), 'click', function (e) {
+	  var links = du.els(link),
+	      bodies = du.els(body);
 
-	    e.preventDefault();
+	  du.forEach(links, function (link, activeIndex) {
 
-	    du.addClass(du.el(params.selectors.grouped.link), 'display-none');
-	    du.removeClass(du.el(params.selectors.grouped.body), 'display-none');
+	    du.addEvent(link, 'click', function (e) {
+
+	      var enabledIndex = du.hasClass(link, 'current') ? -1 : activeIndex;
+
+	      e.preventDefault();
+
+	      du.forEach(links, function (l, i) {
+
+	        du[i === enabledIndex ? 'addClass' : 'removeClass'](l, 'current');
+
+	        du[i === enabledIndex ? 'removeClass' : 'addClass'](bodies[i], 'display-none');
+	      });
+	    });
 	  });
 	}
 
@@ -95,23 +107,15 @@
 
 	"use strict";
 
-	var _typeof2 = __webpack_require__(2);
-
-	var _typeof3 = _interopRequireDefault(_typeof2);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var qs = __webpack_require__(3),
-	    utils = __webpack_require__(4);
+	var utils = __webpack_require__( !(function webpackMissingModule() { var e = new Error("Cannot find module \"utils\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()) );
 
 	module.exports = {
 	  el: el,
 	  els: els,
-	  addEvent: addEvent, // add an event to an element
+	  addEvent: addEvent,     // add an event to an element 
 	  removeEvent: removeEvent,
 	  whenReady: whenReady, // executes callback when dom is ready or if dom is ready
 	  asapReady: asapReady, // executes cb as soon as elem targetted by elem ( or body by default ) exists.
-	  loadInLocation: loadInLocation,
 	  hasClass: hasClass,
 	  addClass: addClass,
 	  removeClass: removeClass,
@@ -119,502 +123,332 @@
 	  childObject: childObject,
 	  preventDefault: preventDefault,
 	  isElement: isElement,
-	  nl2br: nl2br
-	};
-
-	function isElement(o) {
-
-	  return (typeof HTMLElement === 'undefined' ? 'undefined' : (0, _typeof3.default)(HTMLElement)) === "object" ? o instanceof HTMLElement : //DOM2
-	  o && (typeof o === 'undefined' ? 'undefined' : (0, _typeof3.default)(o)) === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName === "string";
+	  nl2br: nl2br,
+	  getScrollOffsets: getScrollOffsets,
+	  windowInnerHeight: windowInnerHeight,
+	  parseJsonAttribute: parseJsonAttribute
 	}
 
-	function preventDefault(event) {
+	function isElement( o ) {
+
+	  return (
+	    typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
+	    o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName === "string"
+	  );
+
+	}
+
+	function preventDefault( event ) {
 
 	  event.preventDefault ? event.preventDefault() : event.returnValue = false;
+
 	};
 
-	function childObject(elem, index) {
+	function childObject( elem, index ) {
 
-	  var i = 0,
-	      realI = 0;
+	  var i = 0, realI = 0;
 
-	  while (elem.childNodes[i]) {
+	  while ( elem.childNodes[ i ] ) {
 
-	    if (elem.childNodes[i].nodeType == 1) {
+	    if ( elem.childNodes[ i ].nodeType == 1 ) {
 
-	      if (realI == index) return elem.childNodes[i];
+	      if ( realI == index ) return elem.childNodes[ i ];
 
 	      realI++;
 	    }
 
 	    i++;
+
 	  }
 
 	  return false;
+
 	}
 
-	function hasClass(element, cls) {
 
-	  return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+	function hasClass( element, cls ) {
+
+	  return ( ' ' + element.className + ' ').indexOf( ' ' + cls + ' ' ) > -1;
+
 	}
 
-	function addClass(element, className) {
+	function addClass( element, className ) {
 
-	  if (!hasClass(element, className)) element.className = element.className + ' ' + className;
+	  if ( !hasClass( element, className ) ) element.className = element.className + ' ' + className;
+
 	}
 
-	function removeClass(element, cls) {
+	function removeClass( element, cls ) {
 
-	  if (hasClass(element, cls)) {
+	  if ( hasClass( element, cls ) ) {
 
-	    var regex = new RegExp(cls, 'g');
+	    var regex = new RegExp( cls, 'g' );
 
-	    element.className = element.className.replace(regex, '');
+	    element.className = element.className.replace( regex, '' );
+
 	  }
+
 	}
 
-	function els(node, selector) {
 
-	  if (typeof node == 'string') {
+	function els( node, selector ) {
+
+	  if ( typeof node == 'string' ) {
 
 	    selector = node;
 	    node = document;
+
 	  }
 
-	  var prefix = selector.substr(0, 1);
+	  var prefix = selector.substr( 0, 1 );
 
-	  if ('.#,'.indexOf(prefix) !== -1) {
+	  if ( '.#,'.indexOf( prefix ) !== -1 ) {
 
-	    selector = selector.substr(1);
+	    selector = selector.substr( 1 );
+
 	  }
 
-	  if (prefix == '.') {
+	  if ( prefix == '.' ) {
 
-	    return getElementsByClassName(node, selector);
-	  } else if (prefix == '#') {
+	    return getElementsByClassName( node, selector );
 
-	    var result = node.getElementById(selector);
+	  } else if ( prefix == '#' ) {
 
-	    if (result) {
+	    var result = node.getElementById( selector );
 
-	      return [result];
+	    if ( result ) {
+
+	      return [ result ];
+
 	    } else {
 
 	      return [];
+
 	    }
+
 	  } else {
 
-	    return node.getElementsByTagName(selector);
+	    return node.getElementsByTagName( selector );
+
 	  }
+
 	};
 
-	function el(node, selector) {
+	function el( node, selector ) {
 
-	  var results = els(node, selector);
+	  var results = els( node, selector );
 
-	  return results.length ? results[0] : null;
+	  return results.length ? results[ 0 ] : null;
+
 	}
 
-	function whenReady(cb) {
 
-	  if (document.readyState === 'complete') {
+	function whenReady( cb ) {
+
+	  if ( document.readyState === 'complete' ) {
 
 	    cb();
+
 	  } else {
 
-	    addEvent(window, 'load', cb);
+	    addEvent( window, 'load', cb );
+
 	  }
+
 	}
 
-	function asapReady(selector, timeout, cb) {
+	function asapReady( selector, timeout, cb ) {
 
-	  if (arguments.length == 1) {
+	  if ( arguments.length == 1 ) {
 
 	    cb = selector;
 
 	    timeout = 0;
 
-	    selector = 'body';
-	  } else if (arguments.length == 2) {
+	    selector = 'body'
+
+	  } else if ( arguments.length == 2 ) {
 
 	    cb = timeout;
 
 	    timeout = 0;
+
 	  }
 
-	  if (el(selector)) return cb();
+	  if ( el( selector ) ) return cb();
 
-	  setTimeout(function () {
+	  setTimeout( function() {
 
-	    asapReady(selector, Math.min((timeout + 10) * 2, 10000), cb);
-	  }, timeout);
+	    asapReady( selector, Math.min( ( timeout + 10 ) * 2, 10000 ), cb );
+
+	  }, timeout );
+
 	}
 
-	function loadInLocation(values) {
-
-	  var href = window.location.href.split('?')[0];
-
-	  if (utils.size(values)) {
-
-	    href += '?' + qs.stringify(values);
-	  }
-
-	  return href;
-	}
 
 	/**
 	 * cross browser add event
 	 */
 
-	function addEvent(elem, types, eventHandle) {
+	function addEvent( elem, types, eventHandle ) {
 
-	  if (elem == null || elem == undefined) return;
+	  if ( elem == null || elem == undefined ) return;
 
-	  if (typeof types == 'string') types = [types];
+	  if ( typeof types == 'string' ) types = [ types ];
 
-	  forEach(types, function (type) {
+	  forEach( types, function( type ) {
 
-	    if (elem.addEventListener) {
+	    if ( elem.addEventListener ) {
 
-	      elem.addEventListener(type, eventHandle, false);
-	    } else if (elem.attachEvent) {
+	      elem.addEventListener( type, eventHandle, false );
 
-	      elem.attachEvent('on' + type, eventHandle);
+	    } else if ( elem.attachEvent ) {
+
+	      elem.attachEvent( 'on' + type, eventHandle );
+
 	    } else {
 
-	      elem['on' + type] = eventHandle;
+	      elem[ 'on' + type ] = eventHandle;
+
 	    }
-	  });
+
+	  } );
+
 	}
 
-	function removeEvent(elem, types, eventHandle) {
 
-	  if (elem === null || elem === undefined) return;
+	function removeEvent( elem, types, eventHandle ) {
 
-	  if (typeof types == 'string') types = [types];
+	  if ( elem === null || elem === undefined ) return;
 
-	  forEach(types, function (type) {
+	  if ( typeof types == 'string' ) types = [ types ];
 
-	    if (elem.removeEventListener) {
+	  forEach( types, function( type ) {
 
-	      elem.removeEventListener(type, eventHandle, false);
-	    } else if (elem.detachEvent) {
+	    if ( elem.removeEventListener ) {
 
-	      elem.detachEvent('on' + type, eventHandle);
+	      elem.removeEventListener( type, eventHandle, false );
+
+	    } else if ( elem.detachEvent ) {
+
+	      elem.detachEvent( 'on' + type, eventHandle );
+
 	    } else {
 
-	      elem["on" + type] = null;
-	    }
-	  });
-	};
-
-	function forEach(array, action) {
-
-	  for (var i = 0; i < array.length; i++) {
-
-	    action(array[i]);
-	  }
-	}
-
-	function getElementsByClassName(node, className) {
-
-	  if (typeof node == 'string') {
-
-	    className = node;
-	    node = document;
-	  }
-
-	  var a = [],
-	      re = new RegExp('(^| )' + className + '( |$)'),
-	      els = node.getElementsByTagName('*');
-
-	  for (var i = 0, j = els.length; i < j; i++) {
-
-	    if (re.test(els[i].className)) {
-
-	      a.push(els[i]);
-	    }
-	  }
-
-	  return a;
-	}
-
-	function nl2br(str, is_xhtml) {
-
-	  var breakTag = is_xhtml || typeof is_xhtml === 'undefined' ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
-
-	  return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
-	}
-
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	exports.__esModule = true;
-
-	var _iterator = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../core-js/symbol/iterator\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-	var _iterator2 = _interopRequireDefault(_iterator);
-
-	var _symbol = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../core-js/symbol\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-	var _symbol2 = _interopRequireDefault(_symbol);
-
-	var _typeof = typeof _symbol2.default === "function" && typeof _iterator2.default === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default ? "symbol" : typeof obj; };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.default) === "symbol" ? function (obj) {
-	  return typeof obj === "undefined" ? "undefined" : _typeof(obj);
-	} : function (obj) {
-	  return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
-	};
-
-/***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./lib/\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-
-/***/ },
-/* 4 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	module.exports = {
-	  extend: extend,
-	  filterByAttr: filterByAttr,
-	  isArray: isArray,
-	  size: size,
-	  fZ: fZ,
-	  unique: unique,
-	  forEach: forEach, // for some older browsers
-	  toCamelCase: toCamelCase,
-	  toUnderscore: toUnderscore,
-	  escape: escape,
-	  truncate: truncate,
-	  capitalize: capitalize,
-	  uncapitalize: uncapitalize
-	};
-
-
-	function uncapitalize( str ) {
-
-	  str = String(str);
-
-	  if ( !str.length ) return '';
-
-	  return str[ 0 ].toLowerCase() + str.substr( 1, str.length );
-
-	}
-
-	function capitalize( str ) {
-
-	  str = String(str);
-
-	  if ( !str.length ) return '';
-
-	  return str[ 0 ].toUpperCase() + str.substr( 1, str.length );
-
-	};
-
-
-	function truncate( str, len, append ) {
-
-	  str = String( str );
-
-	  if ( str.length > len ) {
-
-	    str = str.slice( 0, len );
-
-	    if ( append ) str += append;
-
-	  }
-
-	  return str;
-	  
-	}
-
-	function escape( str, escapeApostrophe ) {
-
-	  if ( !str ) return str;
-
-	  if ( escapeApostrophe === undefined ) {
-
-	    escapeApostrophe = true;
-
-	  }
-
-	  var escaped = String( str )
-	  
-	  .replace( /&/g, '&amp;' )
-	  
-	  .replace( /</g, '&lt;' )
-	  
-	  .replace( />/g, '&gt;' )
-	  
-	  .replace( /"/g, '&quot;' );
-
-	  if ( escapeApostrophe ) {
-
-	    escaped = escaped.replace( /'/g, '&#39;' );
-
-	  }
-
-	  return escaped;
-
-	}
-
-	function toCamelCase( input ) {
-
-	  if ( typeof input == 'object' ) {
-
-	    var camelCased = {};
-
-	    for ( var key in input ) {
-
-	      camelCased[ toCamelCase(key) ] = input[ key ];
+	      elem[ "on" + type ] = null;
 
 	    }
 
-	    return camelCased;
-
-	  }
-
-	  return input.replace( /[-_](.)/g, function( match, group1 ) {
-
-	    return group1.toUpperCase();
-
-	  });
-
-	}
-
-	function toUnderscore( input ) {
-
-	  if (typeof input == 'object') {
-
-	    var underscored = {};
-
-	    for (var key in input) {
-
-	      underscored[toUnderscore(key)] = input[key];
-
-	    }
-
-	    return underscored;
-
-	  }
-
-	  return input.replace(/([A-Z])/g, function($1){return "_"+$1.toLowerCase();});
-
-	}
-
-	function unique( arr ) {
-
-	  var u = [];
-
-	  arr.forEach( function( a ) {
-
-	    if ( u.indexOf( a ) === -1 ) u.push( a );
-
-	  });
-
-	  return u;
-
-	}
-
-
-	function isArray( obj ) {
-
-	  return Object.prototype.toString.call( obj ) === '[object Array]';
-
-	}
-
-	function size( obj ) {
-
-	  var size = 0, key;
-
-	  for ( key in obj ) {
-
-	    if ( obj.hasOwnProperty( key ) ) size++;
-
-	  }
-
-	  return size;
-
-	}
-
-
-	function filterByAttr( obj, arr ) {
-
-	  var newObj = {};
-
-	  forEach( arr, function( name ) {
-
-	    if ( obj[name] !== undefined ) newObj[name] = obj[name];
-
-	  });
-
-	  return newObj;
+	  } );
 
 	};
+
 
 	function forEach( array, action ) {
 
 	  for ( var i = 0; i < array.length; i++ ) {
 
-	    action( array[i] );
+	    action( array[ i ] );
 
 	  }
 
-	};
+	}
 
-	function extend() {
+	function getElementsByClassName( node, className ) {
 
-	  for ( var i=1; i<arguments.length; i++ ) {
+	  if ( typeof node == 'string' ) {
 
-	    for ( var key in arguments[i] ) {
+	    className = node;
+	    node = document;
 
-	      if ( arguments[i].hasOwnProperty( key ) ) {
+	  }
 
-	        arguments[ 0 ][ key ] = arguments[ i ][ key ];
+	  var a = [],
 
-	      }
+	    re = new RegExp( '(^| )' + className + '( |$)' ),
+
+	    els = node.getElementsByTagName( '*' );
+
+	  for ( var i = 0, j = els.length; i < j; i++ ) {
+
+	    if ( re.test( els[ i ].className ) ) {
+
+	      a.push( els[ i ] );
 
 	    }
 
 	  }
-	        
-	  return arguments[ 0 ];
+
+	  return a;
 
 	}
 
-	function fZ( n, size ) {
 
-	  if ( !size ) size = 2;
+	function nl2br( str, is_xhtml ) {
 
-	  var s = n + '',
+	  var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
 
-	  sign = s.substr( 0, 1 ) == '-' ? '-' : '';
+	  return (str + '').replace( /([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2' );
 
-	  if ( sign.length ) {
+	}
 
-	    s = s.substr( 1 );
 
+	function windowInnerHeight( w, d ) {
+
+	  if ( !w ) {
+	    w = window;
+	    d = document;
 	  }
 
-	  while ( s.length < size ) s = '0' + s;
+	  return w.innerHeight || d.documentElement.clientHeight || d.getElementsByTagName( 'body' )[ 0 ].clientHeight;
 
-	  return sign + s; 
 	}
 
+	function getScrollOffsets( w ) {
+
+	  // Use the specified window or the current window if no argument 
+	  w = w || window;
+
+	  // This works for all browsers except IE versions 8 and before
+	  if ( typeof w.pageXOffset !== 'undefined' ) return {
+	    x: w.pageXOffset,
+	    y: w.pageYOffset
+	  };
+
+	  // For IE (or any browser) in Standards mode
+	  var d = w.document;
+	  if ( document.compatMode == "CSS1Compat" ) {
+	    return {
+	      x: d.documentElement.scrollLeft,
+	      y: d.documentElement.scrollTop
+	    };
+	  }
+
+	  // For browsers in Quirks mode
+	  return {
+	    x: d.body.scrollLeft,
+	    y: d.body.scrollTop
+	  };
+
+	}
+
+	function parseJsonAttribute( selector, tagName, defaultValue ) {
+
+	  var data = defaultValue || {};
+
+	  try {
+
+	    data = utils.extend({}, data, JSON.parse( el( selector ).getAttribute( tagName ) ) );
+
+	  } catch ( e ) {
+	  }
+
+	  return data;
+
+	}
 
 /***/ },
-/* 5 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {/*!
@@ -711,7 +545,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"/var/www/html/OpenAgenda/cibul-templates/node_modules/buffer/index.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())).Buffer))
 
 /***/ },
-/* 6 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -720,28 +554,28 @@
 
 
 /***/ },
-/* 7 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _stringify = __webpack_require__(8);
+	var _stringify = __webpack_require__(5);
 
 	var _stringify2 = _interopRequireDefault(_stringify);
 
-	var _keys = __webpack_require__(9);
+	var _keys = __webpack_require__(6);
 
 	var _keys2 = _interopRequireDefault(_keys);
 
-	var _redboxReact2 = __webpack_require__(10);
+	var _redboxReact2 = __webpack_require__(7);
 
 	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
 
-	var _react2 = __webpack_require__(6);
+	var _react2 = __webpack_require__(3);
 
 	var _react3 = _interopRequireDefault(_react2);
 
-	var _reactTransformCatchErrors3 = __webpack_require__(11);
+	var _reactTransformCatchErrors3 = __webpack_require__(8);
 
 	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
 
@@ -764,16 +598,16 @@
 	  };
 	}
 
-	var React = __webpack_require__(6),
-	    TermSelectorPicker = __webpack_require__(12),
-	    qs = __webpack_require__(3),
-	    labels = __webpack_require__(13),
-	    stateLabels = __webpack_require__(14),
-	    getLabel = __webpack_require__(15)(labels),
-	    getStateLabel = __webpack_require__(15)(stateLabels),
-	    Select = __webpack_require__(16),
-	    utils = __webpack_require__(4),
-	    LocationField = __webpack_require__(17),
+	var React = __webpack_require__(3),
+	    TermSelectorPicker = __webpack_require__(9),
+	    qs = __webpack_require__(10),
+	    labels = __webpack_require__(11),
+	    stateLabels = __webpack_require__(12),
+	    getLabel = __webpack_require__(13)(labels),
+	    getStateLabel = __webpack_require__(13)(stateLabels),
+	    Select = __webpack_require__(14),
+	    utils = __webpack_require__(15),
+	    LocationField = __webpack_require__(16),
 	    AdminEventsHeader = _wrapComponent('_component')(React.createClass({
 	  displayName: 'AdminEventsHeader',
 
@@ -867,6 +701,17 @@
 	    };
 	  },
 
+	  onLocationChange: function onLocationChange(e) {
+
+	    var temporary = JSON.parse((0, _stringify2.default)(this.state.temporary));
+
+	    temporary.locationName = e.target.value;
+
+	    temporary.locationUid = undefined;
+
+	    this.setState({ temporary: temporary });
+	  },
+
 	  onKeyUp: function onKeyUp(field) {
 
 	    var self = this;
@@ -875,7 +720,7 @@
 
 	      if (e.keyCode == 13) {
 
-	        self.setQueryPart(field, e.target.value);
+	        self.setQueryParts(self.state.temporary);
 	      }
 	    };
 	  },
@@ -946,7 +791,7 @@
 	            React.createElement(LocationField, {
 	              res: this.props.res,
 	              getQueryPart: this.getQueryPart,
-	              onChange: this.onChange('locationName'),
+	              onChange: this.onLocationChange,
 	              onKeyUp: this.onKeyUp('locationName'),
 	              placeholder: getLabel('locationName', this.props.lang) })
 	          ),
@@ -1035,19 +880,19 @@
 	module.exports = AdminEventsHeader;
 
 /***/ },
-/* 8 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = { "default": __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"core-js/library/fn/json/stringify\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())), __esModule: true };
 
 /***/ },
-/* 9 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = { "default": __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"core-js/library/fn/object/keys\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())), __esModule: true };
 
 /***/ },
-/* 10 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1368,7 +1213,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 11 */
+/* 8 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1433,7 +1278,7 @@
 	}
 
 /***/ },
-/* 12 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1557,7 +1402,14 @@
 	});
 
 /***/ },
-/* 13 */
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./lib/\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+
+/***/ },
+/* 11 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1587,7 +1439,7 @@
 
 
 /***/ },
-/* 14 */
+/* 12 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1624,7 +1476,7 @@
 	}
 
 /***/ },
-/* 15 */
+/* 13 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1668,7 +1520,7 @@
 	}
 
 /***/ },
-/* 16 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* disable some rules until we refactor more completely; fixing them now would
@@ -2620,20 +2472,254 @@
 	module.exports = Select;
 
 /***/ },
-/* 17 */
+/* 15 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	module.exports = {
+	  extend: extend,
+	  filterByAttr: filterByAttr,
+	  isArray: isArray,
+	  size: size,
+	  fZ: fZ,
+	  unique: unique,
+	  forEach: forEach, // for some older browsers
+	  toCamelCase: toCamelCase,
+	  toUnderscore: toUnderscore,
+	  escape: escape,
+	  truncate: truncate,
+	  capitalize: capitalize,
+	  uncapitalize: uncapitalize
+	};
+
+
+	function uncapitalize( str ) {
+
+	  str = String(str);
+
+	  if ( !str.length ) return '';
+
+	  return str[ 0 ].toLowerCase() + str.substr( 1, str.length );
+
+	}
+
+	function capitalize( str ) {
+
+	  str = String(str);
+
+	  if ( !str.length ) return '';
+
+	  return str[ 0 ].toUpperCase() + str.substr( 1, str.length );
+
+	};
+
+
+	function truncate( str, len, append ) {
+
+	  str = String( str );
+
+	  if ( str.length > len ) {
+
+	    str = str.slice( 0, len );
+
+	    if ( append ) str += append;
+
+	  }
+
+	  return str;
+	  
+	}
+
+	function escape( str, escapeApostrophe ) {
+
+	  if ( !str ) return str;
+
+	  if ( escapeApostrophe === undefined ) {
+
+	    escapeApostrophe = true;
+
+	  }
+
+	  var escaped = String( str )
+	  
+	  .replace( /&/g, '&amp;' )
+	  
+	  .replace( /</g, '&lt;' )
+	  
+	  .replace( />/g, '&gt;' )
+	  
+	  .replace( /"/g, '&quot;' );
+
+	  if ( escapeApostrophe ) {
+
+	    escaped = escaped.replace( /'/g, '&#39;' );
+
+	  }
+
+	  return escaped;
+
+	}
+
+	function toCamelCase( input ) {
+
+	  if ( typeof input == 'object' ) {
+
+	    var camelCased = {};
+
+	    for ( var key in input ) {
+
+	      camelCased[ toCamelCase(key) ] = input[ key ];
+
+	    }
+
+	    return camelCased;
+
+	  }
+
+	  return input.replace( /[-_](.)/g, function( match, group1 ) {
+
+	    return group1.toUpperCase();
+
+	  });
+
+	}
+
+	function toUnderscore( input ) {
+
+	  if (typeof input == 'object') {
+
+	    var underscored = {};
+
+	    for (var key in input) {
+
+	      underscored[toUnderscore(key)] = input[key];
+
+	    }
+
+	    return underscored;
+
+	  }
+
+	  return input.replace(/([A-Z])/g, function($1){return "_"+$1.toLowerCase();});
+
+	}
+
+	function unique( arr ) {
+
+	  var u = [];
+
+	  arr.forEach( function( a ) {
+
+	    if ( u.indexOf( a ) === -1 ) u.push( a );
+
+	  });
+
+	  return u;
+
+	}
+
+
+	function isArray( obj ) {
+
+	  return Object.prototype.toString.call( obj ) === '[object Array]';
+
+	}
+
+	function size( obj ) {
+
+	  var size = 0, key;
+
+	  for ( key in obj ) {
+
+	    if ( obj.hasOwnProperty( key ) ) size++;
+
+	  }
+
+	  return size;
+
+	}
+
+
+	function filterByAttr( obj, arr ) {
+
+	  var newObj = {};
+
+	  forEach( arr, function( name ) {
+
+	    if ( obj[name] !== undefined ) newObj[name] = obj[name];
+
+	  });
+
+	  return newObj;
+
+	};
+
+	function forEach( array, action ) {
+
+	  for ( var i = 0; i < array.length; i++ ) {
+
+	    action( array[i] );
+
+	  }
+
+	};
+
+	function extend() {
+
+	  for ( var i=1; i<arguments.length; i++ ) {
+
+	    for ( var key in arguments[i] ) {
+
+	      if ( arguments[i].hasOwnProperty( key ) ) {
+
+	        arguments[ 0 ][ key ] = arguments[ i ][ key ];
+
+	      }
+
+	    }
+
+	  }
+	        
+	  return arguments[ 0 ];
+
+	}
+
+	function fZ( n, size ) {
+
+	  if ( !size ) size = 2;
+
+	  var s = n + '',
+
+	  sign = s.substr( 0, 1 ) == '-' ? '-' : '';
+
+	  if ( sign.length ) {
+
+	    s = s.substr( 1 );
+
+	  }
+
+	  while ( s.length < size ) s = '0' + s;
+
+	  return sign + s; 
+	}
+
+
+/***/ },
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _redboxReact2 = __webpack_require__(10);
+	var _redboxReact2 = __webpack_require__(7);
 
 	var _redboxReact3 = _interopRequireDefault(_redboxReact2);
 
-	var _react2 = __webpack_require__(6);
+	var _react2 = __webpack_require__(3);
 
 	var _react3 = _interopRequireDefault(_react2);
 
-	var _reactTransformCatchErrors3 = __webpack_require__(11);
+	var _reactTransformCatchErrors3 = __webpack_require__(8);
 
 	var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
 
@@ -2656,9 +2742,9 @@
 	  };
 	}
 
-	var React = __webpack_require__(6),
-	    utils = __webpack_require__(4),
-	    get = __webpack_require__(18); //function( res, data, cb )
+	var React = __webpack_require__(3),
+	    utils = __webpack_require__(15),
+	    get = __webpack_require__(17); //function( res, data, cb )
 
 	module.exports = _wrapComponent('_component')(React.createClass({
 	  displayName: 'exports',
@@ -2699,20 +2785,29 @@
 	    });
 	  },
 
+	  onChange: function onChange(e) {
+
+	    this.setState({
+	      value: e.target.value
+	    });
+
+	    this.props.onChange(e);
+	  },
+
 	  render: function render() {
 
 	    return React.createElement('input', {
 	      className: 'form-control',
 	      placeholder: this.props.placeholder,
-	      value: this.state.value
-	      //onChange={this.props.onChange}
-	      , onKeyUp: this.props.onKeyUp });
+	      value: this.state.value,
+	      onChange: this.onChange,
+	      onKeyUp: this.props.onKeyUp });
 	  }
 
 	}));
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2759,7 +2854,7 @@
 	};
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

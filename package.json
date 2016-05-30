@@ -75,19 +75,6 @@
     "should": "^8.2.2"
   },
   "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            "es2015",
-            "react"
-          ],
-          "plugins": [
-            "transform-react-jsx"
-          ]
-        }
-      ]
-    ]
+    "transform": "reactify"
   }
 }
