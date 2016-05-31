@@ -11,7 +11,8 @@
     "location-form" : "../node_modules/agenda-locations/sass/form.scss",
     "image-upload" : "../node_modules/image-upload/sass/style.scss",
     "locations" : "css/style.scss",
-    "terms" : "../node_modules/agenda-locations/sass/terms.scss"
+    "terms" : "../node_modules/agenda-locations/sass/terms.scss",
+    "modal" : "../node_modules/bs-templates/templates/modal/_modal.scss"
   },
 
   "helpers" : {

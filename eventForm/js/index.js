@@ -76,12 +76,12 @@ window.oaEventForm = function( options ) {
       onAgendaDataChange= {onAgendaDataChange}
       onLocationChange= {onLocationChange}
       custom= {params.custom}
-      customRes={params.customRes}
-      locationRes={params.locationRes}
-      categories={params.categories}
-      categorySet={params.categorySet}
-      tags={params.tags}
-      tagSet={params.tagSet}
+      customRes= {params.customRes}
+      locationRes= {params.locationRes}
+      categories= {params.categories}
+      categorySet= {params.categorySet}
+      tags= {params.tags}
+      tagSet= {params.tagSet}
       labels= {params.labels} />, 
       rUtils.el( params.canvas )
     );
