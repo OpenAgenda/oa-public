@@ -18,7 +18,7 @@ const React = require( 'react' ),
 
   routes = require( './routes' ),
 
-  createStore = require( './store/createStore' ),
+  createStore = require( './create' ),
 
   actions = require( './actions' ),
 
@@ -48,7 +48,7 @@ module.exports = function( options ) {
 
   var browserHistory = useRouterHistory( createHistory )( { basename: params.prefix } ),
 
-    store = createStore( browserHistory, window.env ),
+    store = createStore( browserHistory ),
 
     history = syncHistoryWithStore( browserHistory, store );
 

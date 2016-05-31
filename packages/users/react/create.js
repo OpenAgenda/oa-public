@@ -2,18 +2,17 @@
 
 const { createStore, compose, applyMiddleware } = require( 'redux' ),
 
-  { routerMiddleware } = require( 'react-router-redux' ),
-
-  { persistState } = require( 'redux-devtools' ),
-
-  DevTools = require( '../containers/DevTools' );
+  { routerMiddleware } = require( 'react-router-redux' );
 
 
-module.exports = ( history, env = 'prod' ) => {
+module.exports = ( history ) => {
 
   var enhancer;
 
-  if ( env == 'dev' ) {
+  if ( typeof window !== 'undefined' && window.env == 'dev' ) {
+    const { persistState } = require( 'redux-devtools' ),
+      DevTools = require( './containers/DevTools' );
+
     enhancer = compose(
       applyMiddleware( routerMiddleware( history ), promiseMiddleware ),
       window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
@@ -25,8 +24,8 @@ module.exports = ( history, env = 'prod' ) => {
     );
   }
 
-  const reducers = require( './../reducers/index' );
-  const store = createStore( reducers, window.__data, enhancer );
+  const reducers = require( './reducers/index' );
+  const store = createStore( reducers, typeof window !== 'undefined' ? window.__data : undefined, enhancer );
 
   return store;
 
