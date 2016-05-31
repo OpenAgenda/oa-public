@@ -631,12 +631,11 @@ function _browserify( paths, cb ) {
     cb();
   });*/
 
-
-  var b = browserify();
+  var b = browserify( { extensions: [ '.js', '.json', '.jsx' ] } );
 
   b.transform(stringify(['.ejs', '.css', '.html', '.tblr' ]));
 
-  b.transform({ global: true }, reactify);
+  b.transform( reactify );
 
   b.add( __dirname + '/' + paths.src.path + '/' + paths.src.name );
 

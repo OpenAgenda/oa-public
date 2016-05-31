@@ -38,7 +38,7 @@ mangle = true,
 
 log,
 
-webpack = require( 'webpack' )
+// webpack = require( 'webpack' ),
 
 browserify = require( 'browserify' ),
 
@@ -507,7 +507,7 @@ _browserify = function( paths, cb ) {
       loaders: [
         {
           test: /\.(js|jsx)$/,
-          loader: 'babel?presets[]=react&presets[]=es2015',
+          loader: 'babel-loader?presets[]=react&presets[]=es2015',
           exclude: /(node_modules)/
         },
         {
@@ -536,7 +536,7 @@ _browserify = function( paths, cb ) {
   });*/
 
 
-  var b = browserify();
+  var b = browserify( { extensions: [ '.js', '.json', '.jsx' ] } );
 
   b.transform(stringify(['.ejs', '.css', '.html', '.tblr' ]));
 
