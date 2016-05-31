@@ -1,8 +1,5 @@
 {
-  "You have now %count% events in your selection"
-  : "Vous avez %count% événements dans votre sélection",
-  "clear"
-  : "supprimer",
-  "export"
-  : "exporter"
+  "You have now %count% events in your selection": "Vous avez %count% événements dans votre sélection",
+  "clear": "supprimer",
+  "export": "exporter"
 }

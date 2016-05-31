@@ -21,6 +21,7 @@
   "search/events",
   "newsletter/event/full",
   "newsletter/agenda/full",
+  "user/settings",
   {
     "uri" : "user/menu",
     "public" : true

@@ -1,3 +1,5 @@
+"use strict";
+
 var cn = require( '../../js/lib/common/common.mod.js' ),
 
 EJS = require( '../../js/lib/clientEjs/ejs' ),
@@ -142,7 +144,7 @@ function _loadEjs( name, cb ) {
 
   if ( store.enabled && useCache ) {
 
-    labels = store.get( storePrefix + name + '.ejs');
+    var labels = store.get( storePrefix + name + '.ejs');
 
     if ( labels ) return cb( null, labels );
 
