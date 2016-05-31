@@ -2,8 +2,6 @@
 
 var cn = require( '../../js/lib/common/common.mod.js' ),
 
-EJS = require( '../../js/lib/clientEjs/ejs' ),
-
 remote = require( '../../js/lib/remote/remote.mod.js' ),
 
 store = require( 'store' ),
@@ -80,7 +78,7 @@ module.exports = function( templateName, options, cb  ) {
 
   render = function( data ) {
 
-    return new EJS({ text: template }).render( cn.extend( data, helpers ) );
+    return template( cn.extend( data, helpers ) );
 
   };
 

@@ -1,6 +1,4 @@
-var EJS = require( '../../js/lib/clientEjs/ejs' ),
-
-cn = require( '../../js/lib/common/common.mod.js' ),
+var cn = require( '../../js/lib/common/common.mod.js' ),
 
 log = require( 'debug' )( 'categories dom' ),
 
@@ -49,7 +47,7 @@ module.exports = function( anchorElem ) {
 
   render = function( data ) {
 
-    anchorElem.innerHTML = new EJS( { text: mainTemplate } ).render( data );
+    anchorElem.innerHTML = mainTemplate( data );
 
     cn.forEach( data.categories, function( category ) {
 
@@ -57,7 +55,7 @@ module.exports = function( anchorElem ) {
 
       catElem;
 
-      catWrapper.innerHTML = new EJS( { text: itemTemplate } ).render( category );
+      catWrapper.innerHTML = itemTemplate( category );
 
       catElem = cn.el( catWrapper, 'li' );
 

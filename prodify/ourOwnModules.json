@@ -1,8 +1,9 @@
 [
-  "agenda-tags",
   "agenda-categories",
-  "spinner",
-  "sync-button",
+  "agenda-locations",
+  "agenda-tags",
   "image-upload",
-  "react-timings-picker"
+  "react-timings-picker",
+  "spinner",
+  "sync-button"
 ]

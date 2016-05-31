@@ -1,6 +1,4 @@
-var ejs = require( '../../js/lib/clientEjs/ejs.secured' ),
-
-cn = require( '../../js/lib/common/common.mod.js' ),
+var cn = require( '../../js/lib/common/common.mod.js' ),
 
 log = require( 'debug' )( 'activeFilter dom' ),
 
@@ -45,7 +43,7 @@ module.exports = function( anchorElem ) {
 
     }
 
-    wrapper.innerHTML = ejs.render( mainTemplate, data );
+    wrapper.innerHTML = mainTemplate( data );
 
     itemsCanvas = cn.el( wrapper, params.selectors.itemsCanvas );
 
@@ -86,7 +84,7 @@ module.exports = function( anchorElem ) {
 
     filterElem;
 
-    itemWrapper.innerHTML = ejs.render( itemTemplate, filter );
+    itemWrapper.innerHTML = itemTemplate( filter );
 
     filterElem = cn.el( itemWrapper, 'li' );
 

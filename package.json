@@ -48,6 +48,7 @@
     "deep-extend": "0.2.11",
     "dom-utils": "git+ssh://git@bitbucket.org:openagenda/dom-utils.git",
     "ejs": "^2.4.2",
+    "ejs-loader": "^0.2.1",
     "express": "4.9.5",
     "form-serialize": "0.3.0",
     "image-upload": "git+ssh://git@bitbucket.org:openagenda/image-upload.git",

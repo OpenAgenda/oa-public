@@ -1,8 +1,6 @@
 "use strict";
 
-var EJS = require( '../../js/lib/clientEjs/ejs' ),
-
-cn = require( '../../js/lib/common/common.mod.js' ),
+var cn = require( '../../js/lib/common/common.mod.js' ),
 
 log = require( 'debug' )( 'organizations dom' ),
 
@@ -51,7 +49,7 @@ module.exports = function( anchorElem ) {
 
   render = function( data ) {
 
-    anchorElem.innerHTML = new EJS( { text: mainTemplate } ).render( data );
+    anchorElem.innerHTML = mainTemplate( data );
 
     cn.forEach( data.organizations, function( org ) {
 
@@ -59,7 +57,7 @@ module.exports = function( anchorElem ) {
 
       catElem;
 
-      catWrapper.innerHTML = new EJS( { text: itemTemplate } ).render( org );
+      catWrapper.innerHTML = itemTemplate( org );
 
       catElem = cn.el( catWrapper, 'li' );
 

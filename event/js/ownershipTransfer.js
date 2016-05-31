@@ -8,8 +8,6 @@ utils = require( 'utils' ),
 
 domUtils = require( '../../js/lib/domUtils' ),
 
-EJS = require( '../../js/lib/clientEjs/ejs' ),
-
 i18n = require( '../../layout/js/i18n' ), __,
 
 labels = {
@@ -28,7 +26,7 @@ module.exports = function( options ) {
 
   elem = domUtils.el( params.selector );
 
-  modalPartial( elem, { html: new EJS({ text: ownershipForm }).render( {
+  modalPartial( elem, { html: ownershipForm( {
     res: elem.getAttribute( 'data-res' ),
     __: i18n( labels[ params.lang ] || {} )
   } ) } );

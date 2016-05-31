@@ -2,9 +2,7 @@
 
 var utils = require( 'utils' ),
 
-du = require( '../../../js/lib/domUtils' ),
-
-EJS = require( '../../../js/lib/clientEjs/ejs' );
+du = require( '../../../js/lib/domUtils' );
 
 require( '../../../js/lib/verboseDate/verboseDate' );
 
@@ -30,7 +28,7 @@ module.exports = function(params) {
 
     elem = document.createElement('div');
 
-    elem.innerHTML = new EJS({text: params.templates.main}).render();
+    elem.innerHTML = params.templates.main();
 
     listElem = du.el(elem, 'ul');
 
@@ -200,7 +198,7 @@ module.exports = function(params) {
 
       var dateElem = document.createElement('div');
 
-      dateElem.innerHTML = new EJS({text: params.templates.dateItem }).render(utils.extend({lang: params.lang}, selection[dateIndex]));
+      dateElem.innerHTML = params.templates.dateItem(utils.extend({lang: params.lang}, selection[dateIndex]));
 
       dateElem = dateElem.childNodes[0];
 
@@ -210,7 +208,7 @@ module.exports = function(params) {
 
         timingElem = document.createElement('div');
 
-        timingElem.innerHTML = new EJS({text: params.templates.timingItem }).render(timing);
+        timingElem.innerHTML = params.templates.timingItem(timing);
 
         timingElem = timingElem.childNodes[0];
 

@@ -14,8 +14,6 @@ config = require( './config' ),
 
 buttonTemplate = require( './button.ejs' ),
 
-EJS = require( '../../js/lib/clientEjs/ejs' ),
-
 onReady;
 
 if ( window.env == 'tpl' ) debug.enable( '*' );
@@ -158,7 +156,7 @@ var widget = function( elem, options ) {
 
     var wrapper = document.createElement( 'div' );
 
-    wrapper.innerHTML = new EJS( { text: buttonTemplate } ).render( { labels: config.labels[ lang ] } );
+    wrapper.innerHTML = buttonTemplate( { labels: config.labels[ lang ] } );
 
     elem.appendChild( cn.el( wrapper, 'button' ) );
 

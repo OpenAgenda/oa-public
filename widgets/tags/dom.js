@@ -1,8 +1,6 @@
 "use strict";
 
-var EJS = require( '../../js/lib/clientEjs/ejs' ),
-
-cn = require( '../../js/lib/common/common.mod.js' ),
+var cn = require( '../../js/lib/common/common.mod.js' ),
 
 log = require( 'debug' )( 'tag dom' ),
 
@@ -47,7 +45,7 @@ module.exports = function( anchorElem ) {
 
   function render( data ) {
 
-    anchorElem.innerHTML = new EJS( { text: mainTemplate } ).render( data );
+    anchorElem.innerHTML = mainTemplate( data );
 
     cn.forEach( data.tags, function( tag ) {
 
@@ -55,7 +53,7 @@ module.exports = function( anchorElem ) {
 
       tagElem;
 
-      tagWrapper.innerHTML = new EJS( { text: itemTemplate } ).render( tag );
+      tagWrapper.innerHTML = itemTemplate( tag );
 
       tagElem = cn.el( tagWrapper, 'li' );
 

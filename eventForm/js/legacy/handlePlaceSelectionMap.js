@@ -4,8 +4,6 @@ var utils = require( 'utils' ),
 
 du = require( '../../../js/lib/domUtils' ),
 
-EJS = require( '../../../js/lib/clientEjs/ejs' ),
-
 mapLib = require( '../../../js/lib/maps/osm.maps.mod' );
 
 module.exports = function(params) {
@@ -103,7 +101,7 @@ module.exports = function(params) {
 
   _displayInfo = function(item) {
 
-    infoElem.innerHTML = new EJS({ text: params.templates.info }).render(item);
+    infoElem.innerHTML = params.templates.info(item);
 
     utils.forEach(params.actions, function(action) {
 
@@ -137,7 +135,7 @@ module.exports = function(params) {
 
     elem = document.createElement('div');
 
-    elem.innerHTML = new EJS({text: params.templates.main }).render();
+    elem.innerHTML = params.templates.main();
 
     mapElem = du.el(elem, params.selectors.map);
 

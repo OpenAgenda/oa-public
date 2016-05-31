@@ -6,9 +6,7 @@ rUtils = require( '../reactUtils' ),
 
 du = require( '../../../js/lib/domUtils' ),
 
-remote = require( '../../../js/lib/remote/remote.mod' ),
-
-EJS = require( '../../../js/lib/clientEjs/ejs' );
+remote = require( '../../../js/lib/remote/remote.mod' );
 
 module.exports = function( params ) {
 
@@ -300,7 +298,7 @@ module.exports = function( params ) {
 
     elem.className = params.classes.main;
 
-    elem.innerHTML = new EJS( {text: params.template } ).render( params.labels );
+    elem.innerHTML = params.template( params.labels );
 
     du.el( params.canvas ).appendChild(elem);
 

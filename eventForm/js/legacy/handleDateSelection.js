@@ -4,8 +4,6 @@ var utils = require( 'utils' ),
 
 du = require( '../../../js/lib/domUtils' ),
 
-EJS = require( '../../../js/lib/clientEjs/ejs' ),
-
 handleDatesAdd = require( './handleDatesAdd' ),
 
 handleDatesList = require( './handleDatesList' );
@@ -163,7 +161,7 @@ module.exports = function(params) {
 
     elem = document.createElement('div');
 
-    elem.innerHTML = new EJS({text: params.templates.main }).render();
+    elem.innerHTML = params.templates.main();
 
     params.canvas.appendChild(elem);
 
@@ -176,7 +174,7 @@ module.exports = function(params) {
 
     addLink.className = params.classes.link;
 
-    addLink.innerHTML = new EJS({text: params.templates.addLink }).render(params.labels);
+    addLink.innerHTML = params.templates.addLink(params.labels);
 
     du.addEvent(addLink, 'click', function(e) {
 
@@ -202,7 +200,7 @@ module.exports = function(params) {
 
     clearLink.className = params.classes.link + ' ' + params.classes.remove;
 
-    clearLink.innerHTML = new EJS({ text: params.templates.clearLink }).render(params.labels);
+    clearLink.innerHTML = params.templates.clearLink(params.labels);
 
     du.addEvent(clearLink, 'click', function(e) {
       

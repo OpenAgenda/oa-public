@@ -42,9 +42,9 @@ var ugly = require( 'uglify-js' ),
 
   webpack = require( 'webpack' ),
 
-  webpackProdConfig = require( './prod.config.js' ),
+  webpackConfigProd = require( './config.prod.js' ),
 
-  webpackDevConfig = require( './dev.config.js' ),
+  webpackConfigDev = require( './config.dev.js' ),
 
   browserify = require( 'browserify' ),
 
@@ -495,7 +495,7 @@ var ugly = require( 'uglify-js' ),
 
     // run webpack
 
-    var compiler = webpack( production ? webpackProdConfig( paths ) : webpackDevConfig( paths ) );
+    var compiler = webpack( production ? webpackConfigProd( paths ) : webpackConfigDev( paths ) );
 
     compiler.run( function ( err, stats ) {
       if ( err ) cb( err );

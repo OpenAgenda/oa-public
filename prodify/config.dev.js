@@ -4,15 +4,13 @@ const path = require( 'path' ),
 
   webpack = require( 'webpack' ),
 
-  strip = require( 'strip-loader' ),
-
   ourOwnModules = require( './ourOwnModules.json' );
 
 
 module.exports = ( paths ) => {
 
   return {
-    devtool: 'source-map',
+    devtool: 'cheap-module-eval-source-map',
     entry: path.join( __dirname, paths.src.path, paths.src.name ),
     output: {
       path: paths.dest.path,
@@ -22,7 +20,7 @@ module.exports = ( paths ) => {
       loaders: [
         {
           test: /\.jsx?$/,
-          loaders: [ strip.loader( 'debug', 'console.log' ), 'babel' ],
+          loader: 'babel',
           exclude: new RegExp( 'node_modules\\/(?!' + ourOwnModules.join( '|' ) + ')' )
         },
         {
@@ -30,7 +28,11 @@ module.exports = ( paths ) => {
           loader: 'json'
         },
         {
-          test: /\.(ejs|css|html|tblr)$/,
+          test: /\.ejs$/,
+          loader: 'ejs'
+        },
+        {
+          test: /\.(css|html|tblr)$/,
           loader: 'raw'
         }
       ]
@@ -45,23 +47,14 @@ module.exports = ( paths ) => {
     plugins: [
       new webpack.DefinePlugin( {
         'process.env': {
-          NODE_ENV: '"production"'
+          NODE_ENV: '"development"'
         },
         __CLIENT__: true,
         __SERVER__: false,
-        __DEVELOPMENT__: false,
-        __DEVTOOLS__: false
+        __DEVELOPMENT__: true,
+        __DEVTOOLS__: true
       } ),
-      new webpack.IgnorePlugin( /(.*)/, /node_modules\/(imagesloaded|get-size|outlayer|fizzy-ui-utils)/ ),
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.OccurenceOrderPlugin(),
-      new webpack.optimize.UglifyJsPlugin( {
-        compress: {
-          warnings: false
-        },
-        mangle: true,
-        fromString: true
-      } )
+      new webpack.IgnorePlugin( /(.*)/, /node_modules\/(imagesloaded|get-size|outlayer|fizzy-ui-utils)/ )
     ],
     node: {
       fs: 'empty'

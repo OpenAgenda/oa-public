@@ -6,8 +6,6 @@ du = require( '../../js/lib/domUtils' ),
 
 modalPartial = require( '../../bsLayout/js/modalPartial' ),
 
-EJS = require( '../../js/lib/clientEjs/ejs' ),
-
 i18n = require( '../../layout/js/i18n' ), __,
 
 labels = {
@@ -32,7 +30,7 @@ module.exports = function( options ) {
 
 function _displayBehavior( linkElem ) {
 
-  modalPartial( linkElem, { html: new EJS( { text: params.template } ).render( {
+  modalPartial( linkElem, { html: params.template( {
     __: __,
     link: linkElem.getAttribute( 'href' )
   } ) } );

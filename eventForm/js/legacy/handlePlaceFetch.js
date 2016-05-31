@@ -6,8 +6,6 @@ du = require( '../../../js/lib/domUtils' ),
 
 getMaker = require( './makeLooseGet' ),
 
-EJS = require( '../../../js/lib/clientEjs/ejs' ),
-
 inputWidgets = require( '../../../js/lib/inputWidgets/inputWidgets' ),
 
 inputCountry = require( './inputCountry' ),
@@ -212,7 +210,7 @@ module.exports = function(params) {
 
     elem.className = params.classes.main;
 
-    elem.innerHTML = new EJS( { text: params.templates.main } ).render( params.labels );
+    elem.innerHTML = params.templates.main( params.labels );
 
     params.canvas.appendChild( elem );
 
@@ -243,7 +241,7 @@ module.exports = function(params) {
 
     addressGuide.className = params.classes.addressGuide;
 
-    addressGuide.innerHTML = new EJS({text: params.templates.addressGuide }).render(params.labels);
+    addressGuide.innerHTML = params.templates.addressGuide(params.labels);
 
     canvasElem.appendChild(addressGuide);
 

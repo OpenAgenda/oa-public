@@ -4,8 +4,6 @@ exports.setOnReady = setOnReady;
 
 var UID = 0, LANG = 1,
 
-EJS = require( '../../js/lib/clientEjs/ejs' ),
-
 cn = require(  '../../js/lib/common/common.mod.js' ),
 
 wLib = require(  '../lib/widgetLib' ),
@@ -121,7 +119,7 @@ var widget = function( elem, options ) {
 
     if ( !cn.el( elem, 'input' ) ) {
 
-      elem.innerHTML += new EJS( { text : template } ).render( { labels : config.labels[ lang ] } );
+      elem.innerHTML += template( { labels : config.labels[ lang ] } );
       
     }
 
