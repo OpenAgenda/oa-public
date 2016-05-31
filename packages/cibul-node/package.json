@@ -29,7 +29,7 @@
     "emailStrategie": "git+ssh://git@bitbucket.org:openagenda/emailStrategie.git",
     "express": "~4.13",
     "facebook": "git+ssh://git@bitbucket.org:openagenda/facebook.git",
-    "fast-csv": "0.6.0",
+    "fast-csv": "2.0.0",
     "fast-levenshtein": "1.0.6",
     "files": "git+ssh://git@bitbucket.org:openagenda/files.git",
     "gm": "1.21.1",
