@@ -6,8 +6,6 @@ module.exports = EJS;
 
 function EJS( options ) {
 
-  options.client = true;
-
   this.options = options;
 
 }

@@ -22,8 +22,6 @@ async = require( 'async' ),
 
 deepExtend = require( 'deep-extend' ),
 
-webpack = require( 'webpack' ),
-
 browserify = require( 'browserify' ),
 
 stringify = require( 'stringify' ),
@@ -36,7 +34,7 @@ debug = require( 'debug' ),
 
 map = JSON.parse( fs.readFileSync( __dirname + '/map.json', 'utf-8' ) );
 
-debug.enable( 'httpServer' );
+debug.enable( '*' );
 
 templater.disableFileCache();
 
@@ -209,13 +207,13 @@ function _jsIncludeMainPath( uri ) {
   parts.push( 'js' );
 
   return {
-    src: {
-      path: parts.join('/'),
-      name: name
+    src: { 
+      path: parts.join('/'), 
+      name: name 
     },
-    dest: {
-      path: 'build/browserified',
-      name: cn.toCamelCase( uri.replace('/', '_' ) ) + '.js'
+    dest: { 
+      path: 'build/browserified', 
+      name: cn.toCamelCase( uri.replace('/', '_' ) ) + '.js' 
     }
   };
 
@@ -230,7 +228,7 @@ function _browserifyFiles( pathKey, fileObjPath ) {
 
       var jsPaths,
 
-      jsFiles = v,
+      jsFiles = v, 
 
       mainPath;
 
@@ -247,7 +245,7 @@ function _browserifyFiles( pathKey, fileObjPath ) {
       } else {
 
         jsPaths = jsFiles.map( _jsIncludePath( p.getSubObject( pathKey, v ) ) );
-
+        
       }
 
       if ( !v.js ) v.js = [];
@@ -257,7 +255,7 @@ function _browserifyFiles( pathKey, fileObjPath ) {
       async.each( jsPaths, _browserify, function( err ) {
 
         if ( err ) return rj( err );
-
+        
         rs( v );
 
       });
@@ -334,8 +332,8 @@ function _listCssFiles( v ) {
 
   if ( v.layoutConfig && v.layoutConfig[ c ] ) {
 
-    css = cn.extend(
-      _absolutePath( v.config.layout, v.layoutConfig[ c ] ),
+    css = cn.extend( 
+      _absolutePath( v.config.layout, v.layoutConfig[ c ] ), 
       _absolutePath( v.uri, css )
     );
 
@@ -588,54 +586,11 @@ function _browserify( paths, cb ) {
 
   // run browserify_browserify
 
-
-  /*var compiler = webpack( {
-    entry: __dirname + '/' + paths.src.path + '/' + paths.src.name,
-    output: {
-      path: __dirname + '/' + paths.dest.path,
-      filename: paths.dest.name
-    },
-    resolve: {
-      extensions: [ '', '.js', '.jsx' ],
-      moduleDirectories: [ './node_modules' ]
-    },
-    module: {
-      loaders: [
-        {
-          test: /\.(js|jsx)$/,
-          loader: 'babel?presets[]=react&presets[]=es2015',
-          exclude: /(node_modules)/
-        },
-        {
-          test: /\.(json)$/,
-          loader: 'json',
-          exclude: /(node_modules)/
-        },
-        {
-          test: /\.(ejs|css|html|tblr)$/,
-          loader: 'raw',
-          exclude: /(node_modules)/
-        }
-      ]
-    },
-    plugins: []
-  } );
-
-  compiler.run(function(err, stats) {
-    if ( err ) cb( err );
-    console.log( stats.toString( {
-      hash: false,
-      chunks: false,
-      colors: true
-    } ) );
-    cb();
-  });*/
-
-  var b = browserify( { extensions: [ '.js', '.json', '.jsx' ] } );
+  var b = browserify();
 
   b.transform(stringify(['.ejs', '.css', '.html', '.tblr' ]));
 
-  b.transform( reactify );
+  b.transform(reactify);
 
   b.add( __dirname + '/' + paths.src.path + '/' + paths.src.name );
 
@@ -713,7 +668,7 @@ function _absolutePath( uri, css ) {
       path.splice( 0, 1 );
 
       isSub = false;
-
+      
     }
 
     absCss[c] = ( isSub ? '/' + templatePath : '' ) + '/' + path.join('/');

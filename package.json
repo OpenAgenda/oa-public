@@ -4,55 +4,25 @@
   "version": "0.0.2",
   "description": "cibul templates library",
   "scripts": {
-    "start": "nodemon --ignore build --ignore node_modules app",
-    "build:dev": "better-npm-run build:dev",
-    "build:prod": "better-npm-run build:prod"
-  },
-  "betterScripts": {
-    "build:dev": {
-      "command": "node prodify/prodify dev",
-      "env": {
-        "NODE_ENV": "development"
-      }
-    },
-    "build:prod": {
-      "command": "node prodify/prodify",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    }
+    "start": "nodemon --ignore build/ --ignore node_modules/ app",
+    "build": "node prodify/prodify nc"
   },
   "dependencies": {
-    "admin-agendas": "git+ssh://git@bitbucket.org/openagenda/admin-agendas.git",
     "agenda-categories": "git+ssh://git@bitbucket.org:openagenda/agenda-categories.git",
     "agenda-locations": "git+ssh://git@bitbucket.org:openagenda/agenda-locations.git",
     "agenda-tags": "git+ssh://git@bitbucket.org:openagenda/agenda-tags.git",
     "async": "0.9.0",
-    "babel-core": "^6.9.0",
-    "babel-loader": "^6.2.4",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-react-transform": "^2.0.2",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-react-display-name": "^6.8.0",
-    "babel-plugin-transform-react-jsx": "^6.8.0",
-    "babel-plugin-transform-runtime": "^6.9.0",
-    "babel-plugin-typecheck": "^3.9.0",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-runtime": "^6.9.2",
-    "babelify": "^7.3.0",
     "browserify": "6.3.3",
     "bs-templates": "git+ssh://git@bitbucket.org:openagenda/bs-templates.git",
     "d3": "3.5.6",
     "debug": "2.1.0",
     "deep-extend": "0.2.11",
     "dom-utils": "git+ssh://git@bitbucket.org:openagenda/dom-utils.git",
-    "ejs": "^2.4.2",
+    "ejs": "2.4.2",
     "express": "4.9.5",
     "form-serialize": "0.3.0",
     "image-upload": "git+ssh://git@bitbucket.org:openagenda/image-upload.git",
     "imagesloaded": "3.1.8",
-    "json-loader": "^0.5.4",
     "labels": "git+ssh://git@bitbucket.org:openagenda/labels.git",
     "languages": "0.1.3",
     "leaflet": "0.7.3",
@@ -61,42 +31,44 @@
     "masonry-layout": "3.3.0",
     "moment": "2.9.0",
     "moment-timezone": "^0.5.3",
-    "node-sass": "^3.7.0",
+    "node-sass": "3.3.3",
     "outdated-browser-rework": "0.1.1",
     "qs": "2.3.3",
-    "raw-loader": "^0.5.1",
     "react": "0.14.7",
     "react-addons-update": "0.14.7",
     "react-dom": "0.14.7",
     "react-form-components": "git+ssh://git@bitbucket.org:openagenda/react-form-components.git",
     "react-select": "^0.9.1",
-    "react-tagsinput": "git://github.com/olahol/react-tagsinput.git#3967966b829950bde19b1355491174788b1b2002",
+    "react-tagsinput": "3.0.2",
     "react-timings-picker": "git://github.com/Oagenda/react-timings-picker.git",
-    "react-transform-catch-errors": "^1.0.2",
     "reactify": "1.1.1",
-    "redbox-react": "^1.2.6",
     "registration": "git+ssh://git@bitbucket.org:openagenda/registration.git",
     "spin.js": "2.3.2",
     "spinner": "git@bitbucket.org:openagenda/spinner.git",
     "st": "0.5.2",
     "store": "1.3.17",
     "stringify": "3.0.0",
-    "strip-loader": "^0.1.2",
     "sync-button": "git+ssh://git@bitbucket.org:openagenda/sync-button.git",
     "to-markdown": "2.0.0",
     "tumblrParser": "git+ssh://git@bitbucket.org:openagenda/tumblrparser.git",
     "uglify-js": "2.4.24",
-    "users": "git+ssh://git@bitbucket.org/openagenda/users.git",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
-    "webpack": "^1.13.1",
     "when": "~3.4",
-    "xhr": "^2.2.0"
-  },
-  "devDependencies": {
-    "better-npm-run": "0.0.8",
-    "should": "^8.2.2"
+    "xhr": "^2.2.0",
+    "admin-agendas": "git+ssh://git@bitbucket.org:openagenda/admin-agendas.git",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-react": "^6.5.0"
   },
   "browserify": {
     "transform": "reactify"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
+  },
+  "devDependencies": {
+    "should": "^8.2.2"
   }
 }
