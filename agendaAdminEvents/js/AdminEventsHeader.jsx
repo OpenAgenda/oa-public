@@ -119,18 +119,6 @@ AdminEventsHeader = React.createClass( {
 
   },
 
-  onLocationChange: function( e ) {
-
-    var temporary = JSON.parse( JSON.stringify( this.state.temporary ) );
-
-    temporary.locationName = e.target.value;
-
-    temporary.locationUid = undefined;
-
-    this.setState( { temporary: temporary } );
-
-  },
-
   onKeyUp: function( field ) {
 
     var self = this;
@@ -139,7 +127,7 @@ AdminEventsHeader = React.createClass( {
 
       if ( e.keyCode == 13 ) {
 
-        self.setQueryParts( self.state.temporary );
+        self.setQueryPart( field, e.target.value );
 
       }
 
@@ -201,7 +189,7 @@ AdminEventsHeader = React.createClass( {
               <LocationField
                 res={this.props.res}
                 getQueryPart={this.getQueryPart}
-                onChange={this.onLocationChange }
+                onChange={this.onChange( 'locationName' )}
                 onKeyUp={this.onKeyUp( 'locationName' )}
                 placeholder={getLabel( 'locationName', this.props.lang )} />              
             </div>

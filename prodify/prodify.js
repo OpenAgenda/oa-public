@@ -612,7 +612,6 @@ browserifyTemplateScript = function( name, cb ) {
 
       }
       
-
       // done!
 
       fs.writeFile( destFilePath, uglified, cb);

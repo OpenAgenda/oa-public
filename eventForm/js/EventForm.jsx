@@ -201,7 +201,7 @@ module.exports = React.createClass( {
           field: i,
           label: this.getErrorFieldLabel( i )[ this.props.lang ],
           message: formErrors[ i ]  
-        } );
+        });
 
       }
 

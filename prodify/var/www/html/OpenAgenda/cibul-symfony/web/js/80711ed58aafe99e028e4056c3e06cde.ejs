@@ -1,0 +1,18 @@
+<div class="popup-overlay js_close_popup">
+  <section>
+    <header class="popup-title">
+      <h2><%= __( 'Google Calendar' ) %></h2>
+      <a class="close-link" href=""><i class="fa fa-times fa-lg"></i></a>
+    </header>
+    <div class="js_popup_content popup-content">
+      <div class="form-group">
+        <input class="form-control" value="<%= link %>" onclick="select()"/>
+      </div>
+      <h4><%= __( 'Instructions' ) %></h4>
+      <p>1. <%= __( 'Copy the link in the field above' ) %></p>
+      <p>2. <%= __( 'Open %google%', { '%google%' : '<a target="_blank" href="https://calendar.google.com">' + __( 'Google Calendar' ) + '</a>'} ) %></p>
+      <p>3. <%= __( 'In the left section, open "Other Calendars > Add by URL"' ) %></p>
+      <p>4. <%= __( 'Follow the instructions by pasting the link you copied in step 1' ) %></p>
+    </div>
+  </section>
+</div>

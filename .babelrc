@@ -1,0 +1,34 @@
+{
+  "presets": [
+    "react",
+    "es2015"
+  ],
+  "plugins": [
+    "transform-react-jsx",
+    "transform-runtime",
+    "add-module-exports",
+    "transform-decorators-legacy",
+    "transform-react-display-name"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "typecheck",
+        [
+          "react-transform",
+          {
+            "transforms": [
+              {
+                "transform": "react-transform-catch-errors",
+                "imports": [
+                  "react",
+                  "redbox-react"
+                ]
+              }
+            ]
+          }
+        ]
+      ]
+    }
+  }
+}

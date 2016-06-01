@@ -1,6 +1,6 @@
 "use strict";
 
-var du = require( 'dom-utils' ),
+var du = require( '../../js/lib/domUtils' ),
 
 deepExtend = require( 'deep-extend' ),
 
@@ -15,9 +15,9 @@ params = {
   },
   selectors: {
     headerCanvas: '.js_header_canvas',
-    headControls: {
-      link: '.js_head_link',
-      body: '.js_head_body'
+    grouped: {
+      link: '.js_grouped_link',
+      body: '.js_grouped_body'
     }
   }
 },
@@ -33,32 +33,19 @@ window.hook( function( options ) {
     lang={params.lang}
     res={params.res} />, du.el( params.selectors.headerCanvas ) );
 
-  _toggler( params.selectors.headControls.link, params.selectors.headControls.body );
+  _groupedActions();
 
 } );
 
 // show grouped actions on link click
-function _toggler( link, body ) {
+function _groupedActions() {
 
-  var links = du.els( link ), bodies = du.els( body );
+  du.addEvent( du.el( params.selectors.grouped.link ), 'click', function( e ) {
 
-  du.forEach( links, function( link, activeIndex ) {
+    e.preventDefault();
 
-    du.addEvent( link, 'click', function( e ) {
-
-      var enabledIndex = du.hasClass( link, 'current' ) ? -1 : activeIndex;
-
-      e.preventDefault();
-
-      du.forEach( links, function( l, i ) {
-
-        du[ i === enabledIndex ? 'addClass' : 'removeClass' ]( l, 'current' );
-
-        du[ i === enabledIndex ? 'removeClass' : 'addClass' ]( bodies[ i ], 'display-none' );
-
-      } );
-
-    } );
+    du.addClass( du.el( params.selectors.grouped.link ), 'display-none' );
+    du.removeClass( du.el( params.selectors.grouped.body ), 'display-none' );
 
   } );
 
