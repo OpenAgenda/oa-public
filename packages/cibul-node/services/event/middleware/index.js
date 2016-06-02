@@ -153,7 +153,7 @@ function search( limit ) {
 
 function cleanEvents( req, res, next ) {
 
-  svc.exports.cleanEvents( req.events, function( err, clean ) {
+  svc.exports.cleanEvents( req.events, ( err, clean ) => {
 
     if ( err ) return next( err );
 
