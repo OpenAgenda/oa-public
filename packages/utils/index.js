@@ -13,7 +13,8 @@ module.exports = {
   escape: escape,
   truncate: truncate,
   capitalize: capitalize,
-  uncapitalize: uncapitalize
+  uncapitalize: uncapitalize,
+  cleanString: cleanString 
 };
 
 
@@ -225,4 +226,16 @@ function fZ( n, size ) {
   while ( s.length < size ) s = '0' + s;
 
   return sign + s; 
+}
+
+function cleanString( str ) {
+
+  if ( typeof str !== 'string' ) return str;
+
+  return str.replace( new RegExp( [ '[',
+    String.fromCharCode( 8233 ),
+    String.fromCharCode( 8232 ),
+    String.fromCharCode( 8 ),
+  ']' ].join( '' ), 'g' ), ' ' );
+
 }
