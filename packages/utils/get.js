@@ -14,8 +14,10 @@ module.exports = function( res, data, cb ) {
 
   }
 
+  var query = qs.stringify( data );
+
   xhr( {
-    uri: res + '?' + qs.stringify( data ),
+    uri: res + ( query ? '?' + query : '' ),
     method: 'get',
     json: true,
     headers: {
