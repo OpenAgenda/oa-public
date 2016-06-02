@@ -141,6 +141,7 @@ module.exports = React.createClass( {
           value: this.state.inputValue
         }} />
       <span className={error ? 'error' : 'info'}>{ error ? this.getLabel( 'multi-input.error' ) : this.props.info || this.getLabel( 'multi-input.info' )}</span>
+      { this.props.bottom ? this.props.bottom : null }
     </div>
 
   }
