@@ -33,6 +33,16 @@
 
     }
 
+    &.disabled {
+
+      .language-item {
+
+        background: $oa-gray-light;
+
+      }
+
+    }
+
   }
 
   .language-add {
