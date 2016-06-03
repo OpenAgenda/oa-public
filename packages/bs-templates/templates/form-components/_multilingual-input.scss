@@ -25,4 +25,21 @@
 
   }
 
+  .disabled {
+
+    label, .info {
+
+      color: $oa-gray-light;
+
+    }
+
+    input[type="text"] {
+
+      color: $oa-gray;
+      background-color: $oa-gray-lighter;
+
+    }
+
+  }
+
 }
