@@ -2,7 +2,11 @@
 
 var app = require( 'test-app' )( {
   frontWrapper: __dirname + '/front.jsx',
-  styles: [ 
+  excludeDefaultStyles: true,
+  styles: [
+    __dirname + '/../../node_modules/bs-templates/compiled/main.css'
+  ],
+  /*styles: [ 
     __dirname + '/../../sass/variables.scss', 
     __dirname + '/../../sass/test.scss',
     __dirname + '/../../node_modules/react-select/dist/react-select.css',
@@ -11,7 +15,7 @@ var app = require( 'test-app' )( {
     __dirname + '/../../sass/group-tag-selector.scss',
     __dirname + '/../../sass/multi-input-field.scss',
     __dirname + '/../../sass/spinner.scss'
-  ]
+  ] */ // deprecated
 } );
 
 app.getAndListen();

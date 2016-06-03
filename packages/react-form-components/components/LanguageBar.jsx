@@ -16,6 +16,11 @@ module.exports = React.createClass( {
 
   propTypes: {
 
+    enabled: React.PropTypes.array,
+
+    // if languages can be added removed or changed
+    editable: React.PropTypes.bool,
+
     // used by component to load labels
     getLabel: React.PropTypes.func,
 
@@ -49,6 +54,14 @@ module.exports = React.createClass( {
       return l !== code;
 
     } ) );
+
+  },
+
+  isEnabled( lang ) {
+
+    if ( !this.props.enabled  ) return true;
+
+    return this.props.enabled.indexOf( lang ) !== -1;
 
   },
 
@@ -147,6 +160,8 @@ module.exports = React.createClass( {
     let languageItem = l => {
 
       return <LanguageItem 
+        enabled={this.isEnabled( l )}
+        editable={this.props.editable}
         code={l}
         key={l}
         edited={l==this.state.edited}
@@ -161,14 +176,14 @@ module.exports = React.createClass( {
     return (
       <div className="language-bar">
         <ul>
-          {this.props.languages.map( languageItem )}
+          {this.props.languages.map( l => { return languageItem( l ) } )}
         </ul>
-        <span className="language-add cform">
+        { this.props.editable ? <span className="language-add cform">
           { this.state.displaySelect ? <Select
           options={this.getRemainingLanguages()}
           onChange={this.languageAdd}
           clearable={false} /> : <a className="url" onClick={this.showSelect}>{this.props.getLabel( 'addLanguage' )}</a> }
-        </span>
+        </span> : null }
         
       </div>
     );
@@ -181,7 +196,18 @@ var LanguageItem = React.createClass( {
 
   onRemove: function() {
 
+    if ( !this.props.editable ) return;
+
     this.props.onRemove( this.props.code );
+
+  },
+
+  getDefaultProps() {
+
+    return {
+      enabled: true,
+      editable: true
+    }
 
   },
 
@@ -213,10 +239,10 @@ var LanguageItem = React.createClass( {
 
     } else {
 
-      return <li>
+      return <li className={this.props.enabled ? '' : 'disabled'}>
         <div className="language-item">
           <span onClick={this.props.onEdit}>{lInfo.nativeName}</span>
-          { this.props.languages.length > 1 ? this.renderCross() : null }
+          { this.props.languages.length > 1 && this.props.editable ? this.renderCross() : null }
         </div>
       </li>
 

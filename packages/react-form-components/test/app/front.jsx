@@ -112,6 +112,8 @@ Wrapper = React.createClass( {
 
       <div className="separator"></div>
 
+      <h2>Search field</h2>
+
       <SearchField
         name="search"
         value={ this.state.values.search }
@@ -122,6 +124,8 @@ Wrapper = React.createClass( {
 
       <div className="separator"></div>
 
+      <h2>Input field</h2>
+
       <InputField
         name="name"
         lang="fr"
@@ -129,7 +133,7 @@ Wrapper = React.createClass( {
         onChange={ this.onChange }
         validator={validators.text( { min: 3, max: 20 } )}
         getLabel={getLabel}
-        autoFocus="true" />
+        autoFocus={true} />
 
       <InputField
         name="email"
@@ -138,13 +142,37 @@ Wrapper = React.createClass( {
         validator={validators.email( { field: 'email' } ) }
         getLabel={getLabel} />
 
+      <div className="separator"></div>        
+
+      <p>disabled input field</p>
+
+      <InputField
+        name="email"
+        value={ this.state.values.email }
+        onChange={ this.onChange }
+        validator={validators.email( { field: 'email' } ) }
+        getLabel={getLabel}
+        enabled={false} />
+
       <div className="separator"></div>
 
+      <h3>Language bars</h3>
+
       <LanguageBar
+        enabled={[ 'fr' ]}
         languages= {[ 'fr', 'en', 'es' ]}
         onChange={function(){}} />
 
+
+      <p>not editable</p>
+
+      <LanguageBar
+        languages= {[ 'fr', 'en', 'es']}
+        onChange={function(){}}
+        editable={false} />
+
       <div className="separator"></div>
+      
       <h2>Multilingual input field</h2>
 
       <p>display multilingual input component</p>
@@ -155,7 +183,20 @@ Wrapper = React.createClass( {
         languages={[ 'fr', 'en', 'es' ]}
         onChange={function( name, value ){}}
         info="Yeepeekayyay"
-        type="text" />
+        type="text"
+      />
+
+      <p> the same, disabled</p>
+
+      <MultilingualInputField
+        name='description'
+        enabled={{en:false}}
+        value={{fr: 'Ouaich', en: 'Yep', es: 'Si'}}
+        languages={[ 'fr', 'en', 'es' ]}
+        onChange={function( name, value ){}}
+        info="Yeepeekayyay"
+        type="text"
+      />
 
       <div className="separator"></div>
 
@@ -217,6 +258,20 @@ Wrapper = React.createClass( {
       <div className="separator"></div>
 
       <MultiInputField
+        name="contacts"
+        lang='fr'
+        info='Faut taper des truc'
+        value={this.state.values.contacts}
+        validator={ validators.list( [
+          validators.email(),
+          validators.phone(),
+          validators.link()
+        ] ) }
+        onChange={this.onChange} />
+
+      <p>the same, disabled</p>
+      <MultiInputField
+        enabled={false}
         name="contacts"
         lang='fr'
         info='Faut taper des truc'

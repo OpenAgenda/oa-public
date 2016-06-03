@@ -17,7 +17,8 @@ module.exports = React.createClass( {
     name: React.PropTypes.string,
     typeIconClassNames: React.PropTypes.object,
     lang: React.PropTypes.string,
-    validator: React.PropTypes.func
+    validator: React.PropTypes.func,
+    enabled: React.PropTypes.bool
 
   },
 
@@ -44,7 +45,9 @@ module.exports = React.createClass( {
         error: 'fa fa-exclamation-circle'
       },
 
-      allowedTypes: [ 'link', 'email', 'phone' ]
+      allowedTypes: [ 'link', 'email', 'phone' ],
+
+      enabled: true
 
     }
 
@@ -72,6 +75,8 @@ module.exports = React.createClass( {
 
   onChange: function( v ) {
 
+    if ( !this.props.enabled ) return;
+
     this.setState( { inputValue: '' } );
 
     this.props.onChange( this.props.name, v.map( function( decoratedItem ) {
@@ -83,6 +88,8 @@ module.exports = React.createClass( {
   },
 
   onBlur: function( v ) {
+
+    if ( !this.props.enabled ) return;
 
     var value = this.state.inputValue;
 
@@ -129,7 +136,7 @@ module.exports = React.createClass( {
 
     error = !!values.filter( function( v ) { return !!v.errors } ).length;
 
-    return <div className="multi-input">
+    return <div className={ this.props.enabled ? 'multi-input' : 'multi-input disabled' }>
       <label>{ this.getLabel( this.props.name ) }</label>
       <TagsInput
         value={values} 
@@ -138,7 +145,8 @@ module.exports = React.createClass( {
         inputProps={{
           onBlur: this.onBlur,
           onChange: this.onInputChange,
-          value: this.state.inputValue
+          value: this.state.inputValue,
+          disabled: !this.props.enabled
         }} />
       <span className={error ? 'error' : 'info'}>{ error ? this.getLabel( 'multi-input.error' ) : this.props.info || this.getLabel( 'multi-input.info' )}</span>
       { this.props.bottom ? this.props.bottom : null }

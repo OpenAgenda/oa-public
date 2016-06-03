@@ -12,6 +12,11 @@ module.exports = React.createClass({
 
   propTypes: {
 
+    enabled: React.PropTypes.array,
+
+    // if languages can be added removed or changed
+    editable: React.PropTypes.bool,
+
     // used by component to load labels
     getLabel: React.PropTypes.func,
 
@@ -40,6 +45,12 @@ module.exports = React.createClass({
 
       return l !== code;
     }));
+  },
+  isEnabled: function isEnabled(lang) {
+
+    if (!this.props.enabled) return true;
+
+    return this.props.enabled.indexOf(lang) !== -1;
   },
   sortLanguageCodes: function sortLanguageCodes() {
 
@@ -118,6 +129,8 @@ module.exports = React.createClass({
     var languageItem = function languageItem(l) {
 
       return React.createElement(LanguageItem, {
+        enabled: _this2.isEnabled(l),
+        editable: _this2.props.editable,
         code: l,
         key: l,
         edited: l == _this2.state.edited,
@@ -134,9 +147,11 @@ module.exports = React.createClass({
       React.createElement(
         'ul',
         null,
-        this.props.languages.map(languageItem)
+        this.props.languages.map(function (l) {
+          return languageItem(l);
+        })
       ),
-      React.createElement(
+      this.props.editable ? React.createElement(
         'span',
         { className: 'language-add cform' },
         this.state.displaySelect ? React.createElement(Select, {
@@ -147,7 +162,7 @@ module.exports = React.createClass({
           { className: 'url', onClick: this.showSelect },
           this.props.getLabel('addLanguage')
         )
-      )
+      ) : null
     );
   }
 });
@@ -158,9 +173,18 @@ var LanguageItem = React.createClass({
 
   onRemove: function onRemove() {
 
+    if (!this.props.editable) return;
+
     this.props.onRemove(this.props.code);
   },
 
+  getDefaultProps: function getDefaultProps() {
+
+    return {
+      enabled: true,
+      editable: true
+    };
+  },
   renderCross: function renderCross() {
 
     return React.createElement(
@@ -195,7 +219,7 @@ var LanguageItem = React.createClass({
 
       return React.createElement(
         'li',
-        null,
+        { className: this.props.enabled ? '' : 'disabled' },
         React.createElement(
           'div',
           { className: 'language-item' },
@@ -204,7 +228,7 @@ var LanguageItem = React.createClass({
             { onClick: this.props.onEdit },
             lInfo.nativeName
           ),
-          this.props.languages.length > 1 ? this.renderCross() : null
+          this.props.languages.length > 1 && this.props.editable ? this.renderCross() : null
         )
       );
     }

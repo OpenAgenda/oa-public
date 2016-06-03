@@ -21,7 +21,8 @@
     "spin.js": "2.3.2",
     "spinner": "git@bitbucket.org:openagenda/spinner.git",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
-    "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git"
+    "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git",
+    "bs-templates": "git+ssh://git@bitbucket.org:openagenda/bs-templates.git"
   },
   "peerDependencies": {
     "react": "0.14.7",

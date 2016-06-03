@@ -10,6 +10,9 @@ module.exports = React.createClass({
 
   propTypes: {
 
+    // enabled boolean
+    enabled: React.PropTypes.object,
+
     // list of language codes to display
     languages: React.PropTypes.array,
 
@@ -38,26 +41,24 @@ module.exports = React.createClass({
     return {
       type: 'text',
       getLabel: makeLabelGetter(labels),
+      enabled: {},
       bottom: function bottom() {
         return null;
       }
     };
   },
-
   onChange: function onChange(lang) {
-
-    var self = this;
+    var _this = this;
 
     return function (e) {
 
-      var newValue = JSON.parse(JSON.stringify(self.props.value));
+      var newValue = JSON.parse(JSON.stringify(_this.props.value));
 
       newValue[lang] = e.target.value;
 
-      self.props.onChange(self.props.name, newValue);
+      _this.props.onChange(_this.props.name, newValue);
     };
   },
-
   renderField: function renderField(lang) {
 
     var name = this.props.languages.length > 1 ? this.props.name + '_' + lang : this.props.name;
@@ -70,16 +71,21 @@ module.exports = React.createClass({
         rows: this.props.rows,
         value: this.props.value[lang],
         className: 'form-control',
-        onChange: this.onChange(lang) }) : React.createElement('input', {
+        onChange: this.onChange(lang),
+        disabled: !this.isEnabled(lang) }) : React.createElement('input', {
         name: name,
         type: 'text',
         value: this.props.value[lang],
         className: 'form-control',
-        onChange: this.onChange(lang) }),
+        onChange: this.onChange(lang),
+        disabled: !this.isEnabled(lang) }),
       this.props.bottom(lang)
     );
   },
+  isEnabled: function isEnabled(lang) {
 
+    return this.props.enabled[lang] === undefined ? true : this.props.enabled[lang];
+  },
   renderLanguageBlock: function renderLanguageBlock(lang) {
 
     if (this.props.languages.length > 1) {
@@ -103,10 +109,8 @@ module.exports = React.createClass({
       return this.renderField(lang);
     }
   },
-
   render: function render() {
-
-    var self = this;
+    var _this2 = this;
 
     return React.createElement(
       'div',
@@ -122,8 +126,8 @@ module.exports = React.createClass({
         this.props.languages.map(function (lang) {
           return React.createElement(
             'li',
-            { key: lang },
-            self.renderLanguageBlock(lang)
+            { key: lang, className: _this2.isEnabled(lang) ? '' : 'disabled' },
+            _this2.renderLanguageBlock(lang)
           );
         }),
         this.props.info ? React.createElement(
@@ -134,5 +138,4 @@ module.exports = React.createClass({
       )
     );
   }
-
 });

@@ -11,6 +11,9 @@ module.exports = React.createClass( {
   displayName: 'MultilingualInputField',
 
   propTypes: {
+
+    // enabled boolean
+    enabled: React.PropTypes.object,
     
     // list of language codes to display
     languages: React.PropTypes.array,
@@ -35,33 +38,32 @@ module.exports = React.createClass( {
 
   },
 
-  getDefaultProps: function() {
+  getDefaultProps() {
 
     return {
       type: 'text',
       getLabel: makeLabelGetter( labels ),
+      enabled: {},
       bottom: () => null
     }
 
   },
 
-  onChange: function( lang ) {
+  onChange( lang ) {
 
-    var self = this;
+    return e => {
 
-    return function( e ) {
-
-      var newValue = JSON.parse( JSON.stringify( self.props.value ) );
+      var newValue = JSON.parse( JSON.stringify( this.props.value ) );
 
       newValue[ lang ] = e.target.value;
 
-      self.props.onChange( self.props.name, newValue );
+      this.props.onChange( this.props.name, newValue );
 
     }
 
   },
 
-  renderField: function( lang ) {
+  renderField( lang ) {
 
     var name = this.props.languages.length > 1 ? this.props.name + '_' + lang : this.props.name;
 
@@ -72,14 +74,16 @@ module.exports = React.createClass( {
       rows={this.props.rows}
       value={this.props.value[lang]}
       className="form-control"
-      onChange={this.onChange( lang )} />
+      onChange={this.onChange( lang )}
+      disabled={!this.isEnabled( lang )} />
 
     : <input
         name={name}
         type="text"
         value={this.props.value[lang]}
         className="form-control"
-        onChange={this.onChange( lang )} /> }
+        onChange={this.onChange( lang )} 
+        disabled={!this.isEnabled( lang )} /> }
 
     { this.props.bottom( lang ) }
 
@@ -87,7 +91,13 @@ module.exports = React.createClass( {
 
   },
 
-  renderLanguageBlock: function( lang ) {
+  isEnabled( lang ) {
+
+    return this.props.enabled[ lang ] === undefined ? true : this.props.enabled[ lang ];
+
+  },
+
+  renderLanguageBlock( lang ) {
 
     if ( this.props.languages.length > 1 ) {
 
@@ -106,16 +116,14 @@ module.exports = React.createClass( {
 
   },
 
-  render: function() {
-
-    var self = this;
+  render() {
 
     return <div className="multilingual-input-field form-group">
       <label>{this.props.getLabel( this.props.name )}</label>
       <ul className="list-unstyled">
-      {this.props.languages.map( function( lang ) {
-        return <li key={lang}>
-          {self.renderLanguageBlock( lang )}
+      {this.props.languages.map( lang => {
+        return <li key={lang} className={this.isEnabled( lang ) ? '' : 'disabled'}>
+          {this.renderLanguageBlock( lang )}
         </li>
       } )}
         {this.props.info ? <li className="info">{this.props.info}</li> : null }

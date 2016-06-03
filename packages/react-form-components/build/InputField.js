@@ -34,7 +34,9 @@ module.exports = React.createClass({
     renderButton: React.PropTypes.func,
 
     // optional autofocus
-    autoFocus: React.PropTypes.bool
+    autoFocus: React.PropTypes.bool,
+
+    enabled: React.PropTypes.bool
 
   },
 
@@ -51,12 +53,19 @@ module.exports = React.createClass({
 
       type: 'text',
 
-      autoFocus: false
+      autoFocus: false,
+
+      enabled: true
 
     };
   },
 
   onChange: function onChange(e) {
+
+    if (!this.props.enabled) {
+
+      return;
+    }
 
     this.setState({
       userHasTyped: true
@@ -113,7 +122,7 @@ module.exports = React.createClass({
 
     return React.createElement(
       'div',
-      { className: 'form-group' },
+      { className: this.props.enabled ? 'form-group' : 'form-group disabled' },
       React.createElement(
         'label',
         null,
@@ -128,10 +137,12 @@ module.exports = React.createClass({
           placeholder: this.getLabel(this.props.placeholder),
           value: this.props.value,
           onChange: this.onChange,
+          disabled: !this.props.enabled,
           autoFocus: !!this.props.autoFocus }) : React.createElement('textarea', {
           className: 'form-control',
           value: this.props.value,
           rows: 6,
+          disabled: !this.props.enabled,
           onChange: this.onChange,
           autoFocus: !!this.props.autoFocus }),
         ' ',

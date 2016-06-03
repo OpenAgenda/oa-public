@@ -15,7 +15,8 @@ module.exports = React.createClass({
     name: React.PropTypes.string,
     typeIconClassNames: React.PropTypes.object,
     lang: React.PropTypes.string,
-    validator: React.PropTypes.func
+    validator: React.PropTypes.func,
+    enabled: React.PropTypes.bool
 
   },
 
@@ -41,7 +42,9 @@ module.exports = React.createClass({
         error: 'fa fa-exclamation-circle'
       },
 
-      allowedTypes: ['link', 'email', 'phone']
+      allowedTypes: ['link', 'email', 'phone'],
+
+      enabled: true
 
     };
   },
@@ -65,6 +68,8 @@ module.exports = React.createClass({
 
   onChange: function onChange(v) {
 
+    if (!this.props.enabled) return;
+
     this.setState({ inputValue: '' });
 
     this.props.onChange(this.props.name, v.map(function (decoratedItem) {
@@ -74,6 +79,8 @@ module.exports = React.createClass({
   },
 
   onBlur: function onBlur(v) {
+
+    if (!this.props.enabled) return;
 
     var value = this.state.inputValue;
 
@@ -121,7 +128,7 @@ module.exports = React.createClass({
 
     return React.createElement(
       'div',
-      { className: 'multi-input' },
+      { className: this.props.enabled ? 'multi-input' : 'multi-input disabled' },
       React.createElement(
         'label',
         null,
@@ -134,7 +141,8 @@ module.exports = React.createClass({
         inputProps: {
           onBlur: this.onBlur,
           onChange: this.onInputChange,
-          value: this.state.inputValue
+          value: this.state.inputValue,
+          disabled: !this.props.enabled
         } }),
       React.createElement(
         'span',
