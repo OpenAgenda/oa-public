@@ -87,11 +87,14 @@
     }
 
     .react-tagsinput-remove {
+
       cursor: pointer;
       font-weight: bold;
+
     }
 
     .react-tagsinput-input {
+
       background: transparent;
       border: 0;
       color: #777;
@@ -103,12 +106,37 @@
       outline: none;
       padding: 5px;
       width: 80px;
+
     }
 
   }
 
+}
 
+.disabled .multi-input,
+.disabled.multi-input {
+
+  label, .info {
+
+    color: $oa-gray;
+
+  }
   
+  .react-tagsinput-tag {
 
+    background-color: $oa-gray-light;
+    border: 1px solid $oa-gray-light;
+
+    &.error {
+
+      i, span, a, a:before {
+        color: $oa-gray-light;
+      }
+      
+      border: 1px solid $oa-gray-light;
+
+    }
+
+  }
 
 }
