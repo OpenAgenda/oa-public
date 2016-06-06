@@ -19,7 +19,15 @@ module.exports = {
   nl2br: nl2br,
   getScrollOffsets: getScrollOffsets,
   windowInnerHeight: windowInnerHeight,
-  parseJsonAttribute: parseJsonAttribute
+  parseJsonAttribute: parseJsonAttribute,
+  isSafari: isSafari
+}
+
+function isSafari() {
+
+  return navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+    navigator.userAgent && !navigator.userAgent.match('CriOS');
+
 }
 
 function isElement( o ) {
