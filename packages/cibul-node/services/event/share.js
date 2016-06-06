@@ -77,7 +77,7 @@ function addCalendarLinks( event, eventUrl ) {
 function _googleLink( event, timing, eventUrl ) {
 
   return [
-    'http://www.google.com/calendar/event?action=TEMPLATE',
+    'https://www.google.com/calendar/event?action=TEMPLATE',
     '&text=', encodeURIComponent( event.getTitle() ),
     '&dates=', _linkifyTime( timing.start ), '/', _linkifyTime( timing.end ),
     '&sprop=website:', eventUrl,
