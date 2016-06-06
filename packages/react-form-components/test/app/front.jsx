@@ -190,7 +190,7 @@ Wrapper = React.createClass( {
 
       <MultilingualInputField
         name='description'
-        enabled={{en:false}}
+        enabled={[ 'fr', 'es' ]}
         value={{fr: 'Ouaich', en: 'Yep', es: 'Si'}}
         languages={[ 'fr', 'en', 'es' ]}
         onChange={function( name, value ){}}

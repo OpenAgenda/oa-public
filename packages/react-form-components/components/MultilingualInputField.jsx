@@ -4,7 +4,9 @@ var React = require( 'react' ),
 
 makeLabelGetter = require( '../lib/makeLabelGetter' ),
 
-labels = require( '../labels' );
+labels = require( '../labels' ),
+
+utils = require( 'utils' );
 
 module.exports = React.createClass( {
 
@@ -13,7 +15,7 @@ module.exports = React.createClass( {
   propTypes: {
 
     // enabled boolean
-    enabled: React.PropTypes.object,
+    enabled: React.PropTypes.array,
     
     // list of language codes to display
     languages: React.PropTypes.array,
@@ -93,7 +95,9 @@ module.exports = React.createClass( {
 
   isEnabled( lang ) {
 
-    return this.props.enabled[ lang ] === undefined ? true : this.props.enabled[ lang ];
+    if ( !utils.isArray( this.props.enabled ) ) return true;
+
+    return this.props.enabled.indexOf( lang ) !== -1;
 
   },
 
