@@ -48,7 +48,7 @@ browserified = [],
 
 run = function() {
 
-  debug.enable( '*' );
+  debug.enable( 'prodify' );
 
   log = debug( 'prodify' );
 
