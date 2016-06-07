@@ -81,7 +81,8 @@
     "uglify-js": "2.4.24",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
     "when": "~3.4",
-    "xhr": "^2.2.0"
+    "xhr": "^2.2.0",
+    "webpack": "latest"
   },
   "devDependencies": {
     "better-npm-run": "0.0.8",

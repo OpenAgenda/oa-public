@@ -4,11 +4,6 @@
     "es2015"
   ],
   "plugins": [
-<<<<<<< HEAD
-=======
-    "transform-react-jsx",
-    "transform-runtime",
->>>>>>> bb2d855d2ab8164177ff9bc221f038c507f3fcc2
     "add-module-exports",
     "transform-decorators-legacy",
     "transform-react-display-name"
