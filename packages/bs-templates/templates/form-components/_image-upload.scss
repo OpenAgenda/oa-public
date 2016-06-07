@@ -9,6 +9,7 @@
     position: relative;
     overflow: hidden;
     display: inline-block;
+    cursor: pointer;
 
     input[type="file"] {
 
@@ -19,7 +20,12 @@
       width: 100%;
       opacity: 0;
       padding: 0.5em;
-      cursor: pointer;
+
+      &::-webkit-file-upload-button {
+
+        cursor:pointer;
+
+      }
 
     }
 
@@ -27,6 +33,7 @@
 
       z-index: -1;
       margin-left: 0.5em;
+      cursor: pointer;
 
     }
 
