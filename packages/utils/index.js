@@ -236,6 +236,7 @@ function cleanString( str ) {
     String.fromCharCode( 8233 ),
     String.fromCharCode( 8232 ),
     String.fromCharCode( 8 ),
+    String.fromCharCode( 1 ),
   ']' ].join( '' ), 'g' ), ' ' );
 
 }
