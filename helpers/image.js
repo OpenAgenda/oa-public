@@ -1,8 +1,8 @@
 module.exports = function( ) {
 
-  return function( image, static ) {
+  return function( image, staticFile ) {
 
-    if ( static ) return '//cibulstatic.s3.amazonaws.com/' + image;
+    if ( staticFile ) return '//cibulstatic.s3.amazonaws.com/' + image;
 
     return '//cibul.s3.amazonaws.com/' + image;
 

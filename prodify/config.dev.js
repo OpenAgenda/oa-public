@@ -41,9 +41,12 @@ module.exports = ( paths ) => {
     resolve: {
       extensions: [ '', '.js', '.jsx' ],
       moduleDirectories: [ './node_modules' ],
-      fallback: path.join( __dirname, '../node_modules' )
+      fallback: path.join( process.cwd(), 'node_modules' )
     },
-    resolveLoader: { root: path.join( __dirname, '../node_modules' ) },
+    resolveLoader: {
+      root: path.join( process.cwd(), 'node_modules' ),
+      fallback: path.join( process.cwd(), 'node_modules' )
+    },
     plugins: [
       new webpack.DefinePlugin( {
         'process.env': {
