@@ -1,8 +1,12 @@
 .disabled {
 
   &.form-group,
-  .form-group, 
+  .form-group,
+  .multi-input,
+  &.multi-input,
   .multilingual-group .form-group {
+
+    opacity: 0.5;
 
     label, .info {
 
