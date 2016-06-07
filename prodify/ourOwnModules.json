@@ -1,8 +1,11 @@
 [
+  "admin-agendas",
   "agenda-categories",
   "agenda-locations",
   "agenda-tags",
   "image-upload",
+  "react-components",
+  "react-form-components",
   "react-timings-picker",
   "spinner",
   "sync-button"

@@ -41,7 +41,10 @@ module.exports = ( paths ) => {
     resolve: {
       extensions: [ '', '.js', '.jsx' ],
       moduleDirectories: [ './node_modules' ],
-      fallback: path.join( process.cwd(), 'node_modules' )
+      fallback: path.join( process.cwd(), 'node_modules' ),
+      alias: {
+        react: path.join( process.cwd(), 'node_modules/react' ),
+      }
     },
     resolveLoader: {
       root: path.join( process.cwd(), 'node_modules' ),

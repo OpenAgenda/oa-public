@@ -1,90 +1,91 @@
 var cn = require( '../../js/lib/common/common.mod.js' ),
 
-remote = require( '../../js/lib/remote/remote.mod.js' ),
+  remote = require( '../../js/lib/remote/remote.mod.js' ),
 
-store = require( 'store' ),
+  store = require( 'store' ),
 
-useCache = true,
+  ejs = require( 'ejs' ),
 
-routePrefix = '/templates/',
+  useCache = true,
 
-storePrefix = 'templates:',
+  routePrefix = '/templates/',
 
-i18n = require( './i18n' ),
+  storePrefix = 'templates:',
 
-async = require( 'async' );
+  i18n = require( './i18n' ),
+
+  async = require( 'async' );
 
 
 /**
  * load template from remote and render data
  */
 
-module.exports = function( templateName, options, cb  ) {
+module.exports = function ( templateName, options, cb ) {
 
   var params = {
-    urls: {},          // urls to be used by genUrl
-    lang: 'fr',        // language to use
-    lastUpdate: false  // what is the last udpate time for templates
-  },
+      urls: {},          // urls to be used by genUrl
+      lang: 'fr',        // language to use
+      lastUpdate: false  // what is the last udpate time for templates
+    },
 
-  helpers = {},
+    helpers = {},
 
-  template,
+    template,
 
-  labels,
+    labels,
 
-  init = function() {
+    init = function () {
 
-    if ( !cb ) {
+      if ( !cb ) {
 
-      cb = options;
+        cb = options;
 
-      options = {};
+        options = {};
 
-    }
+      }
 
-    if ( window.env == 'tpl' ) {
+      if ( window.env == 'tpl' ) {
 
-      routePrefix = '/';
+        routePrefix = '/';
 
-      useCache = false;
+        useCache = false;
 
-    }
+      }
 
-    cn.extend( params, options );
+      cn.extend( params, options );
 
-    _loadTemplate( templateName, params, function( err, t, l ) {
+      _loadTemplate( templateName, params, function ( err, t, l ) {
 
-      if ( err ) return cb( err );
+        if ( err ) return cb( err );
 
-      template = t;
+        template = t;
 
-      labels = l;
+        labels = l;
 
-      helpers = {
-        __ : i18n( labels ),
-        genUrl : _loadGenUrl( params.urls )
-      };
+        helpers = {
+          __: i18n( labels ),
+          genUrl: _loadGenUrl( params.urls )
+        };
 
-      cb( null, {
-        render: render
+        cb( null, {
+          render: render
+        } );
+
       } );
 
-    });
+    },
 
-  },
+    render = function ( data ) {
 
-  render = function( data ) {
+      return ejs.render( template, cn.extend( data, helpers ) );
 
-    return template( cn.extend( data, helpers ) );
-
-  };
+    };
 
 
   init();
 
 };
-
 
 
 /**
@@ -95,16 +96,16 @@ function _loadTemplate( name, options, cb ) {
 
   if ( options.lastUpdate ) _checkAndClearTemplates( options.lastUpdate );
 
-  async.parallel([
+  async.parallel( [
     async.apply( _loadEjs, name ),
     async.apply( _loadLabels, name, options.lang )
-  ], function( err, results ) {
+  ], function ( err, results ) {
 
     if ( err ) return cb( err );
 
-    cb( null, results[0], results[1] );
+    cb( null, results[ 0 ], results[ 1 ] );
 
-  });
+  } );
 
 }
 
@@ -121,7 +122,7 @@ function _loadLabels( name, lang, cb ) {
 
   if ( store.enabled && useCache ) {
 
-    labels = store.get( storePrefix + name + '.' + lang + '.json');
+    labels = store.get( storePrefix + name + '.' + lang + '.json' );
 
     if ( labels ) return cb( null, labels );
 
@@ -140,7 +141,7 @@ function _loadEjs( name, cb ) {
 
   if ( store.enabled && useCache ) {
 
-    labels = store.get( storePrefix + name + '.ejs');
+    var labels = store.get( storePrefix + name + '.ejs' );
 
     if ( labels ) return cb( null, labels );
 
@@ -165,7 +166,7 @@ function _fetchAndStore( filename, parse, cb ) {
 
   }
 
-  remote.getXmlHttp( routePrefix + filename, { raw: true }, function( responseType, content ) {
+  remote.getXmlHttp( routePrefix + filename, { raw: true }, function ( responseType, content ) {
 
     if ( responseType !== 'success' ) return cb( responseType );
 
@@ -179,9 +180,8 @@ function _fetchAndStore( filename, parse, cb ) {
 
     cb( null, content );
 
-  });
+  } );
 
-  
 
 }
 
@@ -192,7 +192,7 @@ function _fetchAndStore( filename, parse, cb ) {
 
 function _loadGenUrl( urls ) {
 
-  return function( uri, values ) {
+  return function ( uri, values ) {
 
     if ( !urls[ uri ] ) return '#';
 
@@ -201,7 +201,6 @@ function _loadGenUrl( urls ) {
   };
 
 }
-
 
 
 /**
@@ -213,14 +212,14 @@ function _checkAndClearTemplates( lastUpdate ) {
 
   if ( !store.enabled ) return;
 
-  if ( store.get('lastTemplateUpdate') >= lastUpdate ) return;
+  if ( store.get( 'lastTemplateUpdate' ) >= lastUpdate ) return;
 
-  store.forEach(function( key, value ) {
+  store.forEach( function ( key, value ) {
 
     if ( key.indexOf( storePrefix ) !== -1 ) store.clear( key );
 
-  });
+  } );
 
-  store.set('lastTemplateUpdate', lastUpdate );
+  store.set( 'lastTemplateUpdate', lastUpdate );
 
 };
