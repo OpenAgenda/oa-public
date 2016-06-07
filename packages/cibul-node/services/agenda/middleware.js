@@ -152,6 +152,9 @@ function loadAdminLayout( req, res, next ) {
       description: req.agenda.description,
       url: req.agenda.url,
       image: req.agenda.getImage( false )
+    },
+    bottom: {
+      scripts: []
     }
   }
 
@@ -178,6 +181,8 @@ function loadAdminLayout( req, res, next ) {
       return credentials.indexOf( tab.requiredCred ) !== -1;
 
     } );
+
+    req.layoutData.bottom.scripts.push( config.externalScripts.zendesk );
 
     next();
 
