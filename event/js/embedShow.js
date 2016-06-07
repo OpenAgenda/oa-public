@@ -22,7 +22,7 @@ window.asap( function( options ) {
 
   }
 
-} );
+});
 
 function _appendTargetBlanks() {
 

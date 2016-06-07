@@ -75,25 +75,25 @@ module.exports = React.createClass({
 
     return function() {
 
-      var min = null,
-
-      max = null;
-
       if ( typeof enable == 'undefined' ) {
 
         enable = !self.state.enabled;
 
       }
 
-      if ( enable ) {
+      var min = self.props.value ? self.props.value.min || null : null,
 
-        min = self.props.value ? self.props.value.min || null : null;
+      max = self.props.value ? self.props.value.max || null : null;
 
-        max = self.props.value ? self.props.value.max || null : null;
+      if ( enable && min === null ) {
 
-        if ( min === null ) min = 0;
+        min = 0;
 
-        if ( max === null ) max = 99;
+      }
+
+      if ( enable && max === null ) {
+
+        max = 99;
 
       }
 

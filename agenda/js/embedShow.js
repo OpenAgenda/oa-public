@@ -53,7 +53,7 @@ window.asap( function( options ) {
 
   }
 
-  embedded.copyToSearch( params.selectors.searchLinks );
+  _copyToSearch();
 
   if ( params.cascading ) {
 
@@ -191,6 +191,23 @@ function _hideTrigger( selector ) {
     } );
 
   }
+
+}
+
+
+function _copyToSearch() {
+
+  var query = window.location.href.split( '?' );
+
+  if ( !query.length == 2 ) return;
+
+  query = query[ 1 ];
+
+  cn.forEach( cn.els( params.selectors.searchLinks ) || [], function( el ) {
+
+    el.setAttribute( 'href', el.getAttribute( 'href' ).split( '?' )[ 0 ] + '?' + query );
+
+  });
 
 }
 

@@ -8,6 +8,8 @@ toMarkdown = require( 'to-markdown' ),
 
 debug = require( 'debug' ),
 
+utils = require( 'utils' ),
+
 log = debug( 'wysiwyg' ),
 
 changeDelay = 3000, tm; // refreshing the component is expensive
@@ -86,16 +88,9 @@ module.exports = React.createClass( {
 
   getCleanTextContent: function( elem ) {
 
-    var attr = ( 'innerText' in elem ) ? 'innerText' : 'textContent',
+    var attr = ( 'innerText' in elem ) ? 'innerText' : 'textContent';
 
-    content = elem[ attr ] || '',
-
-    cleanContent = content.replace( new RegExp( ['[',
-      String.fromCharCode(8233),
-      String.fromCharCode(8232),
-    ']' ].join( '' ), 'g' ), ' ' );
-
-    return cleanContent.trim();
+    return utils.cleanString( elem[ attr ] || '' ).trim();
 
   },
 

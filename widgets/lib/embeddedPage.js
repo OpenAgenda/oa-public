@@ -10,11 +10,7 @@ pageHeight = require( './pageHeight' ),
 
 linkClickController = false;
 
-module.exports = embeddedPage;
-
-module.exports.copyToSearch = copyToSearch;
-
-function embeddedPage( pageOptions ) {
+module.exports = function( pageOptions ) {
 
   var sendFunc;
 
@@ -78,26 +74,6 @@ function embeddedPage( pageOptions ) {
 
     }
   }
-
-}
-
-function copyToSearch( selector, queryPart ) {
-
-  if ( typeof queryPart === 'undefined' ) {
-
-    var query = window.location.href.split( '?' );
-
-    if ( !query.length == 2 ) return;
-
-    queryPart = query[ 1 ];
-
-  }
-
-  cn.forEach( cn.els( selector ) || [], function( el ) {
-
-    el.setAttribute( 'href', el.getAttribute( 'href' ).split( '?' )[ 0 ] + '?' + queryPart );
-
-  } );
 
 }
 

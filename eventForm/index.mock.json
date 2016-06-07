@@ -489,13 +489,8 @@
       }
     }
   },
-  "defaultweekdisplay" : {
-    "event" : {},
-    "configuration" : {
-      "fields" : [ {
-        "name" : "timings",
-        "defaultWeek" :  "2014-01-27T00:00:00Z"
-      } ]
-    }
+  "markdown" : {
+    "useMarkdown" : true,
+    "event" : {}
   }
 }

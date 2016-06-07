@@ -1,5 +1,3 @@
-"use strict";
-
 var cn = require( '../../js/lib/common/common.mod.js' ),
 
 remote = require( '../../js/lib/remote/remote.mod.js' ),
@@ -142,7 +140,7 @@ function _loadEjs( name, cb ) {
 
   if ( store.enabled && useCache ) {
 
-    var labels = store.get( storePrefix + name + '.ejs');
+    labels = store.get( storePrefix + name + '.ejs');
 
     if ( labels ) return cb( null, labels );
 

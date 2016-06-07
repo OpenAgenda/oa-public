@@ -30,7 +30,5 @@
   "Export the your latest search"
   : "Exportez votre dernière recherche",
   "Export the events included in your lastest search"
-  : "Exportez les événements inclus dans votre dernière recherche",
-  "Click here for details on the json export"
-  : "Cliquez ici pour des détails sur l'export json"
+  : "Exportez les événements inclus dans votre dernière recherche"
 }

@@ -2,8 +2,6 @@ var ugly = require( 'uglify-js' ),
 
   fs = require( 'fs' ),
 
-  path = require( 'path' ),
-
   files = require( './files.js' ).files, // ye olde prodify reference
 
   destPath = require( './files.js' ).destPath,
@@ -36,23 +34,17 @@ var ugly = require( 'uglify-js' ),
 
   changeLine = false,
 
-  production = true,
+  mangle = true,
 
   log,
-
-  webpack = require( 'webpack' ),
-
-  webpackConfigProd = require( './config.prod.js' ),
-
-  webpackConfigDev = require( './config.dev.js' ),
 
   browserify = require( 'browserify' ),
 
   stringify = require( 'stringify' ),
 
-  reactify = require( 'reactify' ),
+  webpackConfigProd = require( './config.prod.js' ),
 
-  browserified = [],
+  webpackConfigDev = require( './config.dev.js' ),
 
   run = function () {
 
@@ -114,7 +106,7 @@ var ugly = require( 'uglify-js' ),
 
         try {
 
-          content += (labels ? '/*' + filename + '*/' : '') + (production ? ugly.minify( __dirname + '/' + path + filename, { mangle: true } ).code : fs.readFileSync( __dirname + '/' + path + filename ) ) + (changeLine ? '\n' : ';');
+          content += (labels ? '/*' + filename + '*/' : '') + (mangle ? ugly.minify( __dirname + '/' + path + filename, { mangle: true } ).code : fs.readFileSync( __dirname + '/' + path + filename ) ) + (changeLine ? '\n' : ';');
 
         } catch ( e ) {
 
@@ -266,7 +258,7 @@ var ugly = require( 'uglify-js' ),
 
         }
 
-        log( 'adding content of %s', path.join( __dirname, '..', cssFilename ) );
+        log( 'adding content of %s', __dirname + '/../' + cssFilename );
 
         fs.readFile( __dirname + '/../' + cssFilename, 'utf-8', function ( err, css ) {
 
@@ -285,8 +277,6 @@ var ugly = require( 'uglify-js' ),
         if ( !mainCss.length ) return cb();
 
         sass.render( { data: mainCss }, function ( err, result ) {
-
-          if ( err ) return cb( err );
 
           fs.writeFile( destFile, result.css.toString(), cb );
 
@@ -487,81 +477,64 @@ var ugly = require( 'uglify-js' ),
 
     }
 
-
     browserified.push( paths.dest.path + paths.dest.name );
 
-    log( 'browserificationization %s', path.join( paths.dest.path, paths.dest.name ) );
+    log( 'browserificationization %s', paths.dest.path + paths.dest.name );
 
-
-    // run webpack
 
     var compiler = webpack( production ? webpackConfigProd( paths ) : webpackConfigDev( paths ) );
 
-    compiler.run( function ( err, stats ) {
-      if ( err ) cb( err );
+    // run browserify_browserify
 
-      var msg = stats.toString( {
-          hash: false,
-          chunks: false,
-          colors: true
-        } ),
-        
-        shownMsg = ~msg.indexOf( 'WARNING' ) ? msg.substring( 0, msg.indexOf( 'WARNING' ) - 11 ) : msg;
+    var b = browserify();
 
-      console.log( shownMsg );
+    b.transform( stringify( [ '.ejs', '.css', '.html', '.tblr' ] ) );
 
-      cb();
+    b.transform( reactify );
+
+    b.add( __dirname + '/' + paths.src.path + '/' + paths.src.name );
+
+    var bundle = b.bundle(),
+
+      destFilePath = paths.dest.path + '/' + paths.dest.name,
+
+
+      writeStream = fs.createWriteStream( destFilePath );
+
+    bundle.pipe( writeStream );
+
+    writeStream.on( 'close', function () {
+
+      // minify here
+
+      if ( !mangle ) return cb();
+
+      fs.readFile( destFilePath, 'utf-8', function ( err, content ) {
+
+        if ( err ) return cb( err );
+
+        var uglified;
+
+        try {
+
+          uglified = ugly.minify( content, { mangle: true, fromString: true } ).code;
+
+        } catch ( e ) {
+
+          console.log( 'error', e );
+
+          throw e;
+
+        }
+
+
+        // done!
+
+        fs.writeFile( destFilePath, uglified, cb );
+
+      } );
+
     } );
-
-
-    /*var b = browserify();
-
-     b.transform(stringify(['.ejs', '.css', '.html', '.tblr' ]));
-
-     b.transform( 'babelify' );
-
-     b.add( __dirname + '/' + paths.src.path + '/' + paths.src.name );
-
-     var bundle = b.bundle(),
-
-     destFilePath = paths.dest.path + '/' + paths.dest.name,
-
-     writeStream = fs.createWriteStream( destFilePath );
-
-     bundle.pipe( writeStream );
-
-     writeStream.on( 'close', function() {
-
-     // minify here
-
-     if ( !mangle ) return cb();
-
-     fs.readFile( destFilePath, 'utf-8', function( err, content ){
-
-     if ( err ) return cb( err );
-
-     var uglified;
-
-     try {
-
-     uglified = ugly.minify(content, { mangle: true, fromString: true }).code;
-
-     } catch( e ) {
-
-     console.log( 'error', e );
-
-     throw e;
-
-     }
-
-
-     // done!
-
-     fs.writeFile( destFilePath, uglified, cb);
-
-     });
-
-     });*/
 
 
     // handle mangle
@@ -586,6 +559,65 @@ var ugly = require( 'uglify-js' ),
     paths.dest.name = cn.toCamelCase( name.replace( /\//g, '_' ) ) + '.js';
 
     return paths;
+
+  },
+
+  browserifyTemplateScript = function ( name, cb ) {
+
+    // determine js file name from template name and process
+
+    var b = browserify(),
+
+      folder = name.split( '/' );
+
+    b.transform( stringify( [ '.ejs', '.css', '.html' ] ) );
+
+    folder[ folder.length - 1 ] = 'js/' + folder[ folder.length - 1 ] + '.js';
+
+    var jsFile = __dirname + '/../' + folder.join( '/' ),
+
+      destName = cn.toCamelCase( name.replace( /\//g, '_' ) ),
+
+      destFilePath = destPath + destName + '.js',
+
+      writeStream = fs.createWriteStream( destFilePath );
+
+    b.add( jsFile );
+
+    b.bundle().pipe( writeStream );
+
+    writeStream.on( 'close', function () {
+
+      // minify here
+
+      if ( !mangle ) return cb();
+
+      fs.readFile( destFilePath, 'utf-8', function ( err, content ) {
+
+        if ( err ) return cb( err );
+
+        var uglified;
+
+        try {
+
+          uglified = ugly.minify( content, { mangle: true, fromString: true } ).code;
+
+        } catch ( e ) {
+
+          console.log( 'no, here' );
+          console.log( 'error', e );
+
+          throw e;
+
+        }
+
+        // done!
+
+        fs.writeFile( destFilePath, uglified, cb );
+
+      } );
+
+    } );
 
   },
 
@@ -617,8 +649,8 @@ for ( var i = 0; i < process.argv.length; i++ ) {
   if ( process.argv[ i ] == 'l' ) {
     labels = true;
     changeLine = true;
-  } else if ( process.argv[ i ] == 'dev' ) {
-    production = false;
+  } else if ( process.argv[ i ] == 'nc' ) {
+    mangle = false;
   }
 }
 

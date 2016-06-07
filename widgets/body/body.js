@@ -2,7 +2,9 @@
 
 var UID = 0,
 
-cn = require( '../../js/lib/common/common.mod.js' ),
+utils = require( 'utils' ),
+
+du = require( 'dom-utils' ),
 
 wLib = require( '../lib/widgetLib' ),
 
@@ -81,7 +83,7 @@ function widget( elem, options ) {
 
     debug.enable( '*' );
 
-    config = cn.extend( config.all, config[ env ] );
+    config = utils.extend( config.all, config[ env ] );
 
   } else {
 
@@ -201,75 +203,73 @@ function widget( elem, options ) {
 
       log( 'received message from frame: %s', message );
 
-      if ( message.load ) {
+      if ( !message.load ) {
 
-        log( 'message is a load request: %s', message.load );
+        return onMessage( message );
 
-        if ( _isEventLink( message.load ) ) {
+      }
 
-          log( 'message is an event link' );
 
-          _setSrc( _clean( message.load ) );
+      log( 'message is a load request: %s', message.load );
 
-          _goToFrameTop();
+      if ( _isEventLink( message.load ) ) {
 
-        } else if ( _isAgendaLink( message.load ) ) {
+        log( 'message is an event link' );
 
-          log( 'message is an agenda list link' );
+        _setSrc( _clean( message.load ) );
 
-          var currentQuery = controller.getCurrentQuery(),
+        return _goToFrameTop();
 
-          newSrc, queryChangeRequest;
+      } 
 
-          if ( message.load.indexOf( '?' ) === -1 ) {
+      if ( _isAgendaLink( message.load ) ) {
 
-            // agenda link has no associated filter
+        log( 'message is an agenda list link' );
 
-            delete currentQuery.uid;
+        var currentQuery = controller.getCurrentQuery(),
 
-            newSrc = _clean( message.load + '?' + qs.stringify( { oaq: currentQuery } ) );
+        newSrc, queryChangeRequest;
 
-          } else {
+        if ( message.load.indexOf( '?' ) === -1 ) {
 
-            // frame is requesting a change in filter
+          // agenda link has no associated filter
 
-            queryChangeRequest = ( qs.parse( message.load.substr( message.load.indexOf( '?' ) + 1 ) ) || {} ).oaq;
+          delete currentQuery.uid;
 
-            if ( typeof queryChangeRequest == 'undefined' ) {
-
-              queryChangeRequest = {};
-
-            }
-
-            if ( currentQuery.passed ) queryChangeRequest.passed = 1;
-
-            newSrc = _clean( message.load.substr( 0, message.load.indexOf( '?' ) + 1 ) + qs.stringify( { oaq: queryChangeRequest } ) );
-
-          }
-
-          _setSrc( newSrc );
+          newSrc = _clean( message.load + '?' + qs.stringify( { oaq: currentQuery } ) );
 
         } else {
 
-          log( 'message is an external link' );
+          // frame is requesting a change in filter
 
-          if ( ( typeof message.target !== 'undefined' ) && ( message.target == '_blank' ) ) {
+          queryChangeRequest = ( qs.parse( message.load.substr( message.load.indexOf( '?' ) + 1 ) ) || {} ).oaq;
 
-            window.open( message.load, '_blank' );
+          if ( typeof queryChangeRequest == 'undefined' ) {
 
-          } else {
-
-            window.location.href = message.load;
+            queryChangeRequest = {};
 
           }
 
+          if ( currentQuery.passed ) queryChangeRequest.passed = 1;
+
+          newSrc = _clean( message.load.substr( 0, message.load.indexOf( '?' ) + 1 ) + qs.stringify( { oaq: queryChangeRequest } ) );
+
         }
 
-      } else {
-
-        onMessage( message );
+       return  _setSrc( newSrc );
 
       }
+
+
+      log( 'message is an external link' );
+
+      if ( ( typeof message.target !== 'undefined' ) && ( message.target === '_blank' ) && !du.isSafari() ) {
+
+        return window.open( message.load, '_blank' );
+
+      }
+
+      window.location.href = message.load;
 
     }, agendaRes );
 
@@ -407,7 +407,7 @@ function widget( elem, options ) {
 
   function _initSrc( query ) {
 
-    if ( cn.size( query ) ) {
+    if ( utils.size( query ) ) {
 
       change( query );
 
