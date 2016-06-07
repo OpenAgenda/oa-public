@@ -62,7 +62,7 @@ $tumblr-color: #32506d;
 @import "assets/stylesheets/bootstrap/navs";
 @import "assets/stylesheets/bootstrap/navbar";
 //@import "assets/stylesheets/bootstrap/breadcrumbs";
-//@import "assets/stylesheets/bootstrap/pagination";
+@import "assets/stylesheets/bootstrap/pagination";
 @import "assets/stylesheets/bootstrap/pager";
 //@import "assets/stylesheets/bootstrap/labels";
 
@@ -178,3 +178,9 @@ body {
   width: 100%;
 
 }
+
+/* hack to put crisp on the left */
+.crisp-client-container .crisp-client-excerpt .crisp-client-excerpt-chat,
+body .crisp-client-container .crisp-client-excerpt .crisp-client-excerpt-minimized {
+  right: inherit !important;
+  left: 80px !important; }

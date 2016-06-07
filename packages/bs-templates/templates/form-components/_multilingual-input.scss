@@ -33,9 +33,10 @@
 
     }
 
-    input[type="text"] {
+    input[type="text"],
+    textarea {
 
-      color: $oa-gray;
+      color: $oa-gray-light;
       background-color: $oa-gray-lighter;
 
     }

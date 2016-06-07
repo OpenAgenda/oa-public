@@ -13,6 +13,12 @@
 
   }
 
+  input {
+
+    background: transparent;
+
+  }
+
   .react-tagsinput {
     
     background-color: $oa-white;
@@ -118,20 +124,27 @@
 
   label, .info {
 
-    color: $oa-gray;
+    color: $oa-gray-light;
 
   }
 
   .react-tagsinput {
 
     cursor: not-allowed;
+    background-color: $oa-gray-lighter;
 
   }
   
   .react-tagsinput-tag {
 
-    background-color: $oa-gray-light;
     border: 1px solid $oa-gray-light;
+    background-color: transparent;
+
+    span, i, a:before {
+
+      color: $oa-gray-light;
+
+    }
 
     &.error {
 
@@ -142,12 +155,6 @@
       border: 1px solid $oa-gray-light;
 
     }
-
-  }
-
-  input {
-
-    background: transparent;
 
   }
 

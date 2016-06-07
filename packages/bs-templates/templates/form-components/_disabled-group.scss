@@ -2,8 +2,7 @@
 
   &.form-group,
   .form-group, 
-  .multilingual-group .form-group,
-  &.multi-input {
+  .multilingual-group .form-group {
 
     label, .info {
 
@@ -13,7 +12,7 @@
 
     input[type="text"], textarea {
 
-      color: $oa-gray;
+      color: $oa-gray-light;
       background-color: $oa-gray-lighter;
 
     }

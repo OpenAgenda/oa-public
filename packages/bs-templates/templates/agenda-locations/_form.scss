@@ -11,7 +11,7 @@
   .form-head {
 
     display: block;
-    padding: 0;  // sf
+    padding: 0 0 1em;  // sf
 
     h2 {
 
@@ -22,16 +22,22 @@
 
   }
 
-  .pager {
+  .suggestion-nav {
 
-    li {
-      display: inline-block;
-      width: 33%;
-      vertical-align: middle;
-    }
+    position: absolute;
+    right: 0;
+    top: 1.8em;
 
-    span {
-      border: none;
+    a {
+      
+      padding: 0 0.2em;
+
+      &.disabled {
+
+        color: $oa-gray-lighter;
+
+      }
+
     }
 
   }
@@ -39,6 +45,7 @@
   .stakeholder {
 
     padding: 1em 0;
+    position: relative;
 
     ul {
 
