@@ -124,13 +124,13 @@ module.exports = React.createClass( {
 
     return <div className="multilingual-input-field form-group">
       <label>{this.props.getLabel( this.props.name )}</label>
+      { this.props.info ? <span className="info">{this.props.info}</span> : null }
       <ul className="list-unstyled">
       {this.props.languages.map( lang => {
         return <li key={lang} className={this.isEnabled( lang ) ? '' : 'disabled'}>
           {this.renderLanguageBlock( lang )}
         </li>
       } )}
-        {this.props.info ? <li className="info">{this.props.info}</li> : null }
       </ul>
     </div>
 

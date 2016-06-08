@@ -123,6 +123,11 @@ module.exports = React.createClass({
         null,
         this.props.getLabel(this.props.name)
       ),
+      this.props.info ? React.createElement(
+        'span',
+        { className: 'info' },
+        this.props.info
+      ) : null,
       React.createElement(
         'ul',
         { className: 'list-unstyled' },
@@ -132,12 +137,7 @@ module.exports = React.createClass({
             { key: lang, className: _this2.isEnabled(lang) ? '' : 'disabled' },
             _this2.renderLanguageBlock(lang)
           );
-        }),
-        this.props.info ? React.createElement(
-          'li',
-          { className: 'info' },
-          this.props.info
-        ) : null
+        })
       )
     );
   }
