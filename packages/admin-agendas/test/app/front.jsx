@@ -1,6 +1,6 @@
 "use strict";
 
-var main = require( '../../components/lib/main' );
+var main = require( '../../components/src/main' );
 
 window.onload = function() {
 
