@@ -23,6 +23,7 @@
     }
   },
   "dependencies": {
+    "admin-agendas": "git+ssh://git@bitbucket.org:openagenda/admin-agendas.git",
     "agenda-categories": "git+ssh://git@bitbucket.org:openagenda/agenda-categories.git",
     "agenda-locations": "git+ssh://git@bitbucket.org:openagenda/agenda-locations.git",
     "agenda-tags": "git+ssh://git@bitbucket.org:openagenda/agenda-tags.git",
@@ -76,7 +77,7 @@
     "redbox-react": "^1.2.6",
     "registration": "git+ssh://git@bitbucket.org:openagenda/registration.git",
     "spin.js": "2.3.2",
-    "spinner": "git@bitbucket.org:openagenda/spinner.git",
+    "spinner": "git+ssh://git@bitbucket.org:openagenda/spinner.git",
     "st": "0.5.2",
     "store": "1.3.17",
     "stringify": "3.0.0",
