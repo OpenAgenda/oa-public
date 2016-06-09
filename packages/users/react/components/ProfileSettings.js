@@ -2,9 +2,11 @@
 
 const React = require( 'react' ),
 
-  { Link } = require( 'react-router' ),
+  { reduxForm } = require( 'redux-form' ),
 
-  { reduxForm } = require( 'redux-form' );
+  { capitalize } = require( 'utils' ),
+
+  { push } = require( 'react-router-redux' );
 
 
 const ProfileSettings = React.createClass( {
@@ -15,39 +17,60 @@ const ProfileSettings = React.createClass( {
     activeTab: React.PropTypes.bool
   },
 
-  render: function() {
+  contextTypes: {
+    getLabels: React.PropTypes.func
+  },
 
-    const { activeTab, fields: { fullname, culture }, handleSubmit } = this.props;
+  render: function () {
+
+    const { getLabels } = this.context;
+
+    const {
+      activeTab, fields: { full_name, culture }, handleSubmit, displayDeleteAccountConfirmation,
+      successMessageDisplayed
+    } = this.props;
 
     return (
-      activeTab ?
-        <div>
-          <h4><i className="fa fa-caret-down" aria-hidden="true"></i> Profil utilisateur</h4>
-
+      <tr onClick={!activeTab ? this.props.dispatch.bind( this, push( '/profile' ) ) : null}>
+        <td onClick={activeTab ? this.props.dispatch.bind( this, push( '/' ) ) : null}
+            className="col-md-3" style={{cursor: 'pointer'}}>{getLabels( 'userProfile' )}
+        </td>
+        {activeTab ? <td>
           <div style={{padding: '0 5px'}}>
             <form onSubmit={handleSubmit} style={{paddingBottom: '8px'}}>
               <div className="form-group">
-                <label htmlFor="fullname">Nom complet *</label>
-                <input type="text" className="form-control" name="fullname" {...fullname}/>
+                <label htmlFor="full_name">{getLabels( 'fullname' )} *</label>
+                <input type="text" className="form-control" name="full_name" {...full_name}/>
+                {full_name.touched && full_name.error &&
+                <div className="text-danger">{capitalize( getLabels( full_name.error ) )}</div>}
               </div>
 
               <div className="form-group">
-                <label htmlFor="culture">Langue *</label>
+                <label htmlFor="culture">{getLabels( 'language' )} *</label>
                 <select name="culture" className="form-control" {...culture}>
                   <option value="fr">Français</option>
-                  <option value="en">Anglais</option>
+                  <option value="en">English</option>
                 </select>
+                {culture.touched && culture.error && <div className="text-danger">{capitalize( getLabels( culture.error ) )}</div>}
               </div>
 
-              <button type="submit" className="btn btn-success">Sauvegarder</button>
+              <div className="form-inline pull-left">
+                <button type="submit" className="btn btn-primary">{getLabels( 'save' )}</button>
+                {successMessageDisplayed &&
+                <label className="text-success" style={{marginLeft: '10px'}}>
+                  <b>{getLabels( 'updateProfileSuccess' )}</b>
+                </label>}
+              </div>
 
               <div className="pull-right">
-                <a href="#" className="text-danger">Supprimer mon compte</a>
+                <a href="#" className="text-danger" onClick={displayDeleteAccountConfirmation.bind( this, true )}>
+                  {getLabels( 'deleteMyAccount' )}
+                </a>
               </div>
             </form>
           </div>
-        </div> :
-        <h4><Link to="/profile"><i className="fa fa-caret-right" aria-hidden="true"></i> Profil utilisateur</Link></h4>
+        </td> : <td style={{cursor: 'pointer'}}>{getLabels( 'modify' )}</td>}
+      </tr>
     );
 
   }
@@ -56,5 +79,5 @@ const ProfileSettings = React.createClass( {
 
 module.exports = reduxForm( {
   form: 'profileSettings',
-  fields: [ 'fullname', 'culture' ]
+  fields: [ 'full_name', 'culture' ]
 } )( ProfileSettings );

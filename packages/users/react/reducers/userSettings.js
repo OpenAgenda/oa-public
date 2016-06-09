@@ -4,7 +4,13 @@ const types = require( '../actions/actionsTypes' );
 
 
 const initialState = {
-  user: null
+  user: null,
+  deleteAccountConfirmationIsOpen: false,
+  successMessagesDisplayed: {
+    updateProfile: false,
+    changeEmail: false,
+    changePassword: false
+  }
 };
 
 
@@ -13,12 +19,14 @@ function userSettings( state = initialState, action ) {
   switch ( action.type ) {
     case types.GET_ME:
       return getMe( state, action.status, action.data );
-    case types.UPDATE_PROFILE:
-      return updateProfile( state, action.status, action.data );
-    case types.CHANGE_EMAIL:
-      return changeEmail( state, action.status, action.data );
-    case types.CHANGE_PASSWORD:
-      return changePassword( state, action.status, action.data );
+    case types.UPDATE_USER:
+      return updateUser( state, action.status, action.user );
+    case types.DISPLAY_DELETE_ACCOUNT_CONFIRMATION:
+      return { ...state, deleteAccountConfirmationIsOpen: action.visible };
+    case types.DELETE_ACCOUNT:
+      return deleteAccount( state, action.status, action.data );
+    case types.DISPLAY_MESSAGE:
+      return { ...state, successMessagesDisplayed: { [action.name]: action.visible } }
     default:
       return state;
   }
@@ -29,37 +37,27 @@ function userSettings( state = initialState, action ) {
 function getMe( state, status, data = {} ) {
   switch ( status ) {
     case 'response':
-      return Object.assign( {}, state, { user: data.user } );
+      return { ...state, user: data.user };
     default:
       return state;
   }
 }
 
 
-function updateProfile( state, status, data = {} ) {
+function updateUser( state, status, user = {} ) {
   switch ( status ) {
     case 'response':
-      return Object.assign( {}, state );
+      return { ...state, user: { ...state.user, ...user } };
     default:
       return state;
   }
 }
 
 
-function changeEmail( state, status, data = {} ) {
+function deleteAccount( state, status, data = {} ) {
   switch ( status ) {
     case 'response':
-      return Object.assign( {}, state );
-    default:
-      return state;
-  }
-}
-
-
-function changePassword( state, status, data = {} ) {
-  switch ( status ) {
-    case 'response':
-      return Object.assign( {}, state );
+      return { ...state, user: null }
     default:
       return state;
   }

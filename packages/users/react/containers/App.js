@@ -9,16 +9,22 @@ const App = React.createClass( {
 
   displayName: 'App',
 
+  contextTypes: {
+    getLabels: React.PropTypes.func
+  },
+
   render() {
+
+    const { getLabels } = this.context;
 
     return (
       <div className="container user-settings">
         <div className="row">
-          <div className="col-md-8 col-md-offset-2">
+          <div className="col-md-10 col-md-offset-1">
             <div className="top-margined wsq">
               <div className="content">
                 <div className="header">
-                  <h2>Paramètres du compte</h2>
+                  <h2>{getLabels( 'accountParameters' )}</h2>
                 </div>
 
                 {this.props.children}

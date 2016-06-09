@@ -2,56 +2,113 @@
 
 const React = require( 'react' ),
 
+  { bindActionCreators } = require( 'redux' ),
+
   { connect } = require( 'react-redux' ),
 
-  { push } = require( 'react-router-redux' ),
+  { routerActions } = require( 'react-router-redux' ),
 
-  { change: changeFieldValue } = require( 'redux-form' ),
+  { change: changeFieldValue, reset: resetForm } = require( 'redux-form' ),
 
   get = require( 'utils/get' ),
 
+  request = require( 'superagent' ),
+
   actions = require( '../actions' ),
 
+  Spinner = require( 'react-form-components/build/Spinner' ),
+
   ProfileSettings = require( '../components/ProfileSettings' ),
+
+  ImageSettings = require( '../components/ImageSettings' ),
 
   EmailSettings = require( '../components/EmailSettings' ),
 
   PasswordSettings = require( '../components/PasswordSettings' ),
 
-  ApiKeySettings = require( '../components/ApiKeySettings' );
+  ApiKeySettings = require( '../components/ApiKeySettings' ),
+
+  Modal = require( 'react-components/build/Modal' );
 
 
 const SettingsContainer = React.createClass( {
 
   displayName: 'SettingsContainer',
 
+  contextTypes: {
+    getLabels: React.PropTypes.func
+  },
+
   componentWillMount() {
 
-    this.props.getMe();
+    this.props.getMe()
+      .then(
+        () => this.props.setLoading( false ),
+        () => this.props.setLoading( false )
+      );
 
   },
 
   render() {
 
-    const { route: { activeTab }, user, updateProfile, changeEmail, changePassword } = this.props;
+    const { getLabels } = this.context;
+
+    const {
+      loading, user, route: { activeTab }, routerActions, getUrl,
+      updateUser, changeEmail, changePassword, deleteAccount,
+      displayDeleteAccountConfirmation, deleteAccountConfirmationIsOpen,
+      successMessagesDisplayed: {
+        updateProfile: profileMessageDisplayed,
+        changeEmail: emailMessageDisplayed,
+        changePassword: passwordMessageDisplayed
+      },
+      onChangeProfileImage
+    } = this.props;
 
     return (
-      <div style={{padding: '15px 0'}}>
-        <ProfileSettings activeTab={activeTab == 'profile'} onSubmit={updateProfile}/>
-        <EmailSettings activeTab={activeTab == 'email'} onSubmit={changeEmail}/>
-        <PasswordSettings activeTab={activeTab == 'password'} onSubmit={changePassword}/>
-        <ApiKeySettings activeTab={activeTab == 'apiKey'}/>
+      <div className="table-responsive" style={{padding: '15px 0', position: 'relative', overflow: 'hidden'}}>
+
+        {loading ? <Spinner/> :
+          <table className="table table-hover">
+            <tbody>
+            <ProfileSettings activeTab={activeTab == 'profile'} onSubmit={updateUser}
+                             displayDeleteAccountConfirmation={displayDeleteAccountConfirmation}
+                             successMessageDisplayed={profileMessageDisplayed}/>
+
+            <ImageSettings activeTab={activeTab == 'image'} routerActions={routerActions}
+                           onUpdate={onChangeProfileImage} uploadImageRes={getUrl( 'uploadProfileImageRes' )}
+                           removeImageRes={getUrl( 'removeProfileImageRes' )} image={user && user.image || ''}/>
+
+            <EmailSettings activeTab={activeTab == 'email'} onSubmit={changeEmail}
+                           successMessageDisplayed={emailMessageDisplayed}/>
+
+            <PasswordSettings activeTab={activeTab == 'password'} onSubmit={changePassword}
+                              successMessageDisplayed={passwordMessageDisplayed}/>
+
+            <ApiKeySettings activeTab={activeTab == 'apiKey'}/>
+            </tbody>
+          </table>}
+
+        <Modal visible={deleteAccountConfirmationIsOpen} onClose={displayDeleteAccountConfirmation.bind( this, false )}
+               title={getLabels( 'deleteMyAccount' )}>
+          <div className="text-center">
+            <p>{getLabels( 'deleteModalText' )}</p>
+            <button className="btn btn-danger" onClick={deleteAccount}>{getLabels( 'deleteModalButton' )}</button>
+          </div>
+        </Modal>
+
       </div>
     );
   }
 
 } );
 
-function mapStateToProps( { app: { appSettings }, userSettings: { user } } ) {
+function mapStateToProps( { app: { appSettings, loading }, userSettings } ) {
 
   return {
+    loading,
     appSettings,
-    user
+    ...userSettings
   };
 
 }
@@ -63,61 +120,169 @@ function mergeProps( stateProps, dispatchProps, ownProps ) {
   const { appSettings } = stateProps;
 
   const mapDispatchToProps = {
+    setLoading,
+    getUrl,
+    routerActions: bindActionCreators( routerActions, dispatch ),
     getMe,
-    updateProfile,
+    updateUser,
+    onChangeProfileImage,
     changeEmail,
-    changePassword
+    changePassword,
+    displayDeleteAccountConfirmation,
+    deleteAccount
   };
 
   return Object.assign( {}, ownProps, stateProps, mapDispatchToProps );
 
+  function setLoading( value ) {
+
+    dispatch( actions.setLoading( value ) );
+
+  }
 
   function getMe() {
     dispatch( actions.getMe( 'request' ) );
 
-    get( url( 'getMe' ), ( err, result ) => {
-      if ( !err ) {
-        dispatch( actions.getMe( 'response', result ) );
-        dispatch( changeFieldValue( 'profileSettings', 'fullname', result.user.full_name ) );
-        dispatch( changeFieldValue( 'profileSettings', 'culture', result.user.culture ) );
-        dispatch( changeFieldValue( 'emailSettings', 'email', result.user.email ) );
-        dispatch( changeFieldValue( 'apiKeySettings', 'apiKey', result.user.api_key ) );
-      }
+    return new Promise( ( resolve, reject ) => {
+
+      get( getUrl( 'getMe' ), ( err, result ) => {
+        if ( err ) {
+          reject( err );
+        } else {
+          dispatch( actions.getMe( 'response', result ) );
+          if ( result.user ) {
+            dispatch( changeFieldValue( 'profileSettings', 'full_name', result.user.full_name ) );
+            dispatch( changeFieldValue( 'profileSettings', 'culture', result.user.culture ) );
+            dispatch( changeFieldValue( 'emailSettings', 'email', result.user.email ) );
+            dispatch( changeFieldValue( 'apiKeySettings', 'apiKey', result.user.api_key ) );
+            dispatch( changeFieldValue( 'apiKeySettings', 'apiSecret', result.user.api_secret ) );
+            resolve( result.user );
+          } else {
+            reject();
+          }
+        }
+      } );
     } );
   }
 
-  function updateProfile( { fullname, culture } ) {
-    dispatch( actions.updateProfile( 'request' ) );
+  function updateUser( { full_name, culture } ) {
+    dispatch( actions.updateUser( 'request' ) );
 
-    get( url( 'updateProfile' ), { full_name: fullname, culture }, ( err, result ) => {
-      if ( !err ) {
-        dispatch( actions.updateProfile( 'response', result ) );
-      }
+    return new Promise( ( resolve, reject ) => {
+      get( getUrl( 'updateProfile' ), { full_name, culture }, ( err, result ) => {
+        if ( !err ) {
+          let errors = getFormFirstErrors( result.errors );
+
+          if ( Object.keys( errors ).length ) {
+            reject( errors );
+          } else {
+            dispatch( actions.displayMessage( 'updateProfile', true ) );
+            setTimeout( () => dispatch( actions.displayMessage( 'updateProfile', false ) ), 2000 );
+            resolve();
+          }
+
+          if ( result.success ) {
+            dispatch( actions.updateUser( 'response', result ) );
+          }
+        }
+      } );
     } );
+  }
+
+  function onChangeProfileImage( image, err ) {
+
+    dispatch( actions.updateUser( 'response', { image } ) );
+
   }
 
   function changeEmail( { email, password } ) {
     dispatch( actions.changeEmail( 'request' ) );
 
-    get( url( 'changeEmail' ), { email, password }, ( err, result ) => {
-      if ( !err ) {
-        dispatch( actions.changeEmail( 'response', result ) );
-      }
-    } );
+    return new Promise( ( resolve, reject ) => {
+
+      get( getUrl( 'changeEmail' ), { email, password }, ( err, result ) => {
+        if ( !err ) {
+          let errors = getFormFirstErrors( result.errors );
+
+          if ( Object.keys( errors ).length ) {
+            reject( errors );
+          } else {
+            dispatch( actions.displayMessage( 'changeEmail', true ) );
+            setTimeout( () => dispatch( actions.displayMessage( 'changeEmail', false ) ), 2000 );
+            resolve();
+          }
+
+          dispatch( actions.changeEmail( 'response', result ) );
+        }
+      } );
+
+    } )
+      .then( () => {
+        dispatch( resetForm( 'emailSettings' ) );
+      } );
   }
 
   function changePassword( { old_password, new_password, confirmation } ) {
     dispatch( actions.changePassword( 'request' ) );
 
-    get( url( 'changePassword' ), { old_password, new_password, confirmation }, ( err, result ) => {
-      if ( !err ) {
-        dispatch( actions.changePassword( 'response', result ) );
-      }
-    } );
+    return new Promise( ( resolve, reject ) => {
+
+      get( getUrl( 'changePassword' ), { old_password, new_password, confirmation }, ( err, result ) => {
+        if ( !err ) {
+          let errors = getFormFirstErrors( result.errors );
+
+          if ( Object.keys( errors ).length ) {
+            reject( errors );
+          } else {
+            dispatch( actions.displayMessage( 'changePassword', true ) );
+            setTimeout( () => dispatch( actions.displayMessage( 'changePassword', false ) ), 2000 );
+            resolve();
+          }
+          dispatch( actions.changePassword( 'response', result ) );
+        }
+      } );
+
+    } )
+      .then( () => {
+        dispatch( resetForm( 'passwordSettings' ) );
+      } );
   }
 
-  function url( name ) {
+  function displayDeleteAccountConfirmation( open, e ) {
+    if ( e ) e.preventDefault();
+    dispatch( actions.displayDeleteAccountConfirmation( open ) );
+  }
+
+  function deleteAccount() {
+    dispatch( actions.deleteAccount( 'request' ) );
+
+    request.post( getUrl( 'deleteAccount' ) )
+      .set( 'X-Requested-With', 'XMLHttpRequest' )
+      .send( { _csrf: appSettings.csrfToken } )
+      .end( () => {
+        dispatch( actions.deleteAccount( 'response' ) );
+        dispatch( actions.displayDeleteAccountConfirmation( false ) );
+      } )
+  }
+
+  function getUrl( name ) {
     return appSettings.prefix + appSettings.urls[ name ];
+  }
+
+  function getFormFirstErrors( validatorErrors ) {
+    let errors = {};
+
+    if ( validatorErrors ) {
+      let oneErrorPerField = validatorErrors.filter( ( e, i, a ) => {
+        return a.findIndex( _e => e.field === _e.field ) === i
+      } );
+
+      for ( let error of oneErrorPerField ) {
+        errors[ error.field ] = error.code;
+      }
+    }
+
+    return errors;
   }
 
 }

@@ -6,8 +6,12 @@ const app = require( 'test-app' )( {
     styles: [
       __dirname + '/../../node_modules/bs-templates/compiled/main.css'
     ],
-    decorateCanvas: false
+    decorateCanvas: false,
+    webpack: true,
+    babelServer: true
   } ),
+
+  csurf = require( 'csurf' ),
 
   path = require( 'path' ),
 
@@ -26,9 +30,12 @@ app.use( ( req, res, next ) => {
 } );
 
 app.get( '/getMe', mw.getMe );
-app.get( '/updateProfile', mw.updateProfile );
-app.get( '/changeEmail', mw.changeEmail );
+app.get( '/updateUser', mw.updateProfile );
+app.get( '/requestChangeEmail', [ mw.requestChangeEmail, sendEmail ] );
 app.get( '/changePassword', mw.changePassword );
+app.post( '/deleteAccount', mw.csrfProtection, mw.deleteAccount );
+app.post( '/uploadProfileImage', mw.uploadProfileImage );
+app.post( '/removeProfileImage', mw.removeProfileImage );
 
 fixtures.init( config );
 
@@ -44,6 +51,16 @@ fixtures( [ {
 
   service.init( config );
 
-  app.getAndListen( '*' );
+  app.getAndListen( '*', 3000, [ mw.csrfProtection ] );
 
 } );
+
+function sendEmail( req, res ) {
+
+  const result = Object.assign( {}, req.result );
+
+  delete result.token;
+
+  res.json( result );
+
+}

@@ -140,7 +140,8 @@ describe( 'service', function() {
     service.set( {
       full_name: 'Test et retest',
       email: 'test.test@openagenda.com',
-      culture: 'fr'
+      culture: 'fr',
+      password: 'passwooord'
     }, ( err, result ) => {
 
       should( err ).equal( null );
@@ -226,7 +227,7 @@ describe( 'service', function() {
 
     service.changePassword( {
       id: 119,
-      password: 'openagendon'
+      new_password: 'openagendon'
     }, ( err, result ) => {
 
       should( err ).equal( null );
@@ -287,6 +288,26 @@ describe( 'service', function() {
       result.errors[ 0 ].code.should.equal( 'email.alreadytaken' );
 
       done();
+
+    } );
+
+  } );
+
+  it( 'delete user', done => {
+
+    service.remove( { id: 119 }, ( err, result ) => {
+
+      should( err ).equal( null );
+      result.should.equal( true );
+
+      service.get( { id: 119 }, ( err, user ) => {
+
+        should( err ).equal( null );
+        should( user ).equal( null );
+
+        done();
+
+      } );
 
     } );
 

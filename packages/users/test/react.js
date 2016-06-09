@@ -21,7 +21,7 @@ describe( 'react', function() {
       fullname: 'Mon user test',
       culture: 'fr',
       email: 'test@test.fr'
-    }
+    };
 
     userSettingsReduer( {}, actions.getMe( 'response', { user } ) ).should.eql( { user } );
 

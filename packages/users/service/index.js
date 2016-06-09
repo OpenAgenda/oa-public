@@ -6,6 +6,8 @@ const knexLib = require( 'knex' ),
 
   logger = require( 'basic-logger' ),
 
+  mailer = require( 'mailer' ),
+
   validators = require( './validators' ),
 
   utils = require( 'utils' ),
@@ -19,16 +21,18 @@ var config, knex, schemas;
 
 
 module.exports = {
-  init: init,
-  mw: mw,
-  list: list,
-  get: get,
-  set: set,
-  updateProfile: updateProfile,
-  changePassword: changePassword,
-  verifyPassword: verifyPassword,
-  requestChangeEmail: requestChangeEmail,
-  confirmChangeEmail: confirmChangeEmail
+  init,
+  mw,
+  validators,
+  list,
+  get,
+  set,
+  updateProfile,
+  changePassword,
+  verifyPassword,
+  requestChangeEmail,
+  confirmChangeEmail,
+  remove
 };
 
 
@@ -36,36 +40,43 @@ function init( c, cb ) {
 
   schemas = c.schemas;
 
-  config = c;
+  config = Object.assign( {
+    interfaces: {
+      // signal user deletion
+      userWillRemove: ( user, cb ) => {
+        if ( cb ) cb( null )
+      }
+    }
+  }, c );
 
   w( c )
 
-  .then( () => {
+    .then( () => {
 
-    if ( c.logger ) {
+      if ( c.logger ) {
 
-      logger.setLogger( c.logger );
+        logger.setLogger( c.logger );
 
-    }
+      }
 
-  } )
+    } )
 
-  .then( () => {
+    .then( () => {
 
-    knex = knexLib( {
-      client: 'mysql',
-      connection: c.mysql
-    } );
+      knex = knexLib( {
+        client: 'mysql',
+        connection: c.mysql
+      } );
 
-  } )
+    } )
 
-  .then( () => {
+    .then( () => {
 
-    mw.init( require( './index' ), c );
+      mw.init( require( './index' ), c );
 
-  } )
+    } )
 
-  .done( () => cb ? cb() : null, cb ? cb : null );
+    .done( () => cb ? cb() : null, cb ? cb : null );
 
 }
 
@@ -96,30 +107,42 @@ function list( query, offset, limit, cb ) {
     knex: knex( schemas.user )
   } )
 
-  .then( _search )
+    .then( _search )
 
-  .then( _total )
+    .then( _total )
 
-  .then( _list )
+    .then( _list )
 
-  .done( v => cb( null, v.users, v.total ) );
+    .done( v => cb( null, v.users, v.total ) );
 
 }
 
-function get( query, cb ) {
+function get( query, options, cb ) {
+
+  if ( arguments.length == 2 ) {
+    cb = options;
+    options = {};
+  }
+
+  const params = Object.assign( {
+    fullImagePath: false
+  }, options );
 
   if ( !config ) return cb( 'service not initialized' );
 
   w( {
     identifier: getIdentifier( query ),
-    user: null
+    user: null,
+    params
   } )
 
-  .then( _get )
+    .then( _get )
 
-  .then( _clean )
+    .then( _clean )
 
-  .done( v => cb( null, v.user ), err => cb( err ) );
+    .then( _formatImageUrl )
+
+    .done( v => cb( null, v.user ), err => cb( err ) );
 
 }
 
@@ -136,16 +159,18 @@ function set( query, cb ) {
     errors: []
   } )
 
-  .then( _checkEmailTaken )
+    .then( _checkEmailTaken )
 
-  .then( _updateOrInsert )
+    .then( _hashPassword )
 
-  .done( v => cb( null, {
-    user: v.user,
-    valid: v.valid,
-    success: v.success,
-    errors: v.errors
-  } ), err => cb( err ) );
+    .then( _updateOrInsert )
+
+    .done( v => cb( null, {
+      user: v.user,
+      valid: v.valid,
+      success: v.success,
+      errors: v.errors
+    } ), err => cb( err ) );
 
 }
 
@@ -164,20 +189,20 @@ function updateProfile( query, cb ) {
     errors: []
   } )
 
-  .then( _checkEmailTaken )
+    .then( _checkEmailTaken )
 
-  .then( _filterForUpdateProfile )
+    .then( _filterForUpdateProfile )
 
-  .then( _updateOrInsert )
+    .then( _updateOrInsert )
 
-  .then( _clean )
+    .then( _clean )
 
-  .done( v => cb( null, {
-    user: v.user,
-    valid: v.valid,
-    success: v.success,
-    errors: v.errors
-  } ), err => cb( err ) );
+    .done( v => cb( null, {
+      user: v.user,
+      valid: v.valid,
+      success: v.success,
+      errors: v.errors
+    } ), err => cb( err ) );
 
 }
 
@@ -193,19 +218,19 @@ function changePassword( query, cb ) {
     errors: []
   } )
 
-  .then( _get )
+    .then( _get )
 
-  .then( _changePassword )
+    .then( _changePassword )
 
-  .then( _updateOrInsert )
+    .then( _hashPassword )
 
-  .then( _clean )
+    .then( _updateOrInsert )
 
-  .done( v => cb( null, {
-    valid: v.valid,
-    success: v.success,
-    errors: v.errors
-  } ), err => cb( err ) );
+    .done( v => cb( null, {
+      valid: v.valid,
+      success: v.success,
+      errors: v.errors
+    } ), err => cb( err ) );
 
 }
 
@@ -219,13 +244,11 @@ function verifyPassword( query, cb ) {
     success: false
   } )
 
-  .then( _get )
+    .then( _get )
 
-  .then( _verifyPassword )
+    .then( _verifyPassword )
 
-  .then( _clean )
-
-  .done( v => cb( null, v.success ), err => cb( err ) );
+    .done( v => cb( null, v.success ), err => cb( err ) );
 
 }
 
@@ -242,22 +265,20 @@ function requestChangeEmail( query, cb ) {
     token: null
   } )
 
-  .then( _get )
+    .then( _get )
 
-  .then( _checkEmailTaken )
+    .then( _checkEmailTaken )
 
-  .then( _requestChangeEmail )
+    .then( _requestChangeEmail )
 
-  .then( _updateOrInsert )
+    .then( _updateOrInsert )
 
-  .then( _clean )
-
-  .done( v => cb( null, {
-    valid: v.valid,
-    success: v.success,
-    errors: v.errors,
-    token: v.token
-  } ), err => cb( err ) );
+    .done( v => cb( null, {
+      valid: v.valid,
+      success: v.success,
+      errors: v.errors,
+      token: v.token
+    } ), err => cb( err ) );
 
 }
 
@@ -269,20 +290,39 @@ function confirmChangeEmail( query, cb ) {
     identifier: getIdentifier( query, true ),
     query: query,
     errors: [],
+    emailChanged: false
+  } )
+
+    .then( _get )
+
+    .then( _checkEmailTaken )
+
+    .then( _confirmChangeEmail )
+
+    .then( _updateOrInsert )
+
+    .done( v => cb( null, v.emailChanged ), err => cb( err ) );
+
+}
+
+function remove( query, cb ) {
+
+  if ( !config ) return cb( 'service not initialized' );
+
+  w( {
+    identifier: getIdentifier( query, true ),
+    query: query,
+    errors: [],
     success: false
   } )
 
-  .then( _get )
+    .then( _get )
 
-  .then( _checkEmailTaken )
+    .then( _removeUser )
 
-  .then( _confirmChangeEmail )
+    .then( _updateOrInsert )
 
-  .then( _updateOrInsert )
-
-  .then( _clean )
-
-  .done( v => cb( null, v.success ), err => cb( err ) );
+    .done( v => cb( null, v.success ), err => cb( err ) );
 
 }
 
@@ -292,7 +332,7 @@ function _search( v ) {
   if ( !v.query.search ) return v;
 
   v.knex.where( 'full_name', 'like', `%${v.query.search}%` )
-  .orWhere( 'email', 'like', `%${v.query.search}%` );
+    .orWhere( 'email', 'like', `%${v.query.search}%` );
 
   return v;
 
@@ -305,18 +345,18 @@ function _total( v ) {
   return knex.transaction( trx => {
 
     return v.knex.clone()
-    .count( 'id as users' )
-    .transacting( trx );
+      .count( 'id as users' )
+      .transacting( trx );
 
   } )
 
-  .then( result => {
+    .then( result => {
 
-    v.total = result[ 0 ].users;
+      v.total = result[ 0 ].users;
 
-    return v;
+      return v;
 
-  } );
+    } );
 
 }
 
@@ -325,52 +365,52 @@ function _list( v ) {
   return knex.transaction( trx => {
 
     return v.knex
-    .select( 'id', 'uid', 'full_name', 'email', 'image', 'facebook_uid', 'twitter_id', 'google_id', 'culture',
-      'is_activated', 'created_at', 'updated_at', 'last_notified', 'is_removed', 'last_signin', 'comexposium_id' )
-    .orderBy( 'email', 'asc' )
-    .limit( v.limit )
-    .offset( v.offset )
-    .transacting( trx );
+      .select( 'id', 'uid', 'full_name', 'username', 'email', 'image', 'facebook_uid', 'twitter_id', 'google_id', 'culture',
+        'is_activated', 'created_at', 'updated_at', 'last_notified', 'is_removed', 'last_signin', 'comexposium_id' )
+      .orderBy( 'email', 'asc' )
+      .limit( v.limit )
+      .offset( v.offset )
+      .transacting( trx );
 
   } )
 
-  .then( users => {
+    .then( users => {
 
-    v.users = users;
+      v.users = users;
 
-    return v;
+      return v;
 
-  } );
+    } );
 
 }
 
 function _get( v ) {
 
-  var keys = Object.keys( v.identifier );
+  var identifiers = Object.keys( v.identifier );
 
   return knex.transaction( trx => {
 
     return knex
-    .select( schemas.user + '.*', schemas.apiKeySet + '.api_key', schemas.apiKeySet + '.api_secret' )
-    .from( schemas.user )
-    .leftJoin( schemas.apiKeySet, schemas.user + '.id', schemas.apiKeySet + '.user_id' )
-    .where( schemas.user + '.' + ( keys[ 0 ] || 'id' ), v.identifier[ keys[ 0 ] ] || -1 )
-    .limit( 1 )
-    .transacting( trx );
+      .select( schemas.user + '.*', schemas.apiKeySet + '.api_key', schemas.apiKeySet + '.api_secret' )
+      .from( schemas.user )
+      .leftJoin( schemas.apiKeySet, schemas.user + '.id', schemas.apiKeySet + '.user_id' )
+      .where( schemas.user + '.' + ( identifiers[ 0 ] || 'id' ), v.identifier[ identifiers[ 0 ] ] || -1 )
+      .limit( 1 )
+      .transacting( trx );
 
   } )
 
-  .then( users => {
+    .then( users => {
 
-    v.user = users.length ? users[ 0 ] : null;
+      v.user = users.length && users[ 0 ].is_removed === 0 ? users[ 0 ] : null;
 
-    return v;
+      return v;
 
-  }, err => {
+    }, err => {
 
-    throw err
+      throw err;
 
-  } );
+    } );
 
 }
 
@@ -380,22 +420,22 @@ function _checkEmailTaken( v ) {
 
     return emailAlreadyTaken( v.query.email )
 
-    .then( emailTaken => {
+      .then( emailTaken => {
 
-      if ( emailTaken ) {
+        if ( emailTaken ) {
 
-        v.errors.push( {
-          field: 'email',
-          code: 'email.alreadytaken',
-          message: 'this email is not available',
-          origin: v.query.email
-        } );
+          v.errors.push( {
+            field: 'email',
+            code: 'email.alreadytaken',
+            message: 'this email is not available',
+            origin: v.query.email
+          } );
 
-      }
+        }
 
-      return v;
+        return v;
 
-    } );
+      } );
 
   }
 
@@ -416,7 +456,7 @@ function _updateOrInsert( v ) {
 
     var mode = user && ( v.query.id || v.query.uid ) ? 'update' : 'insert',
 
-      keys = Object.keys( v.identifier ),
+      identifiers = Object.keys( v.identifier ),
 
       validator = mode == 'update' ? validators.update( v.query ) : validators( v.query ),
 
@@ -438,6 +478,8 @@ function _updateOrInsert( v ) {
 
     }
 
+    if ( mode == 'insert' ) fields.created_at = new Date();
+    fields.updated_at = new Date();
 
     return knex.transaction( trx => {
 
@@ -445,7 +487,7 @@ function _updateOrInsert( v ) {
 
       if ( mode == 'update' ) {
 
-        queryBuilder.where( keys[ 0 ] || 'id', v.identifier[ keys[ 0 ] ] || -1 )
+        queryBuilder.where( identifiers[ 0 ] || 'id', v.identifier[ identifiers[ 0 ] ] || -1 )
 
       }
 
@@ -453,19 +495,19 @@ function _updateOrInsert( v ) {
 
     } )
 
-    .then( result => {
+      .then( result => {
 
-      v.user = typeof result == 'number' ? Object.assign( user, fields ) : { id: result[ 0 ] };
+        v.user = typeof result == 'number' ? Object.assign( user, fields ) : { id: result[ 0 ] };
 
-      v.success = true;
+        v.success = true;
 
-      return d.resolve( v );
+        return d.resolve( v );
 
-    }, err => {
+      }, err => {
 
-      return d.reject( err );
+        return d.reject( err );
 
-    } );
+      } );
 
   } );
 
@@ -481,7 +523,7 @@ function _filterForUpdateProfile( v ) {
 
   }
 
-  var keys = Object.keys( v.identifier ),
+  var identifiers = Object.keys( v.identifier ),
 
     validator = validators.updateProfile( v.query ),
 
@@ -498,7 +540,7 @@ function _filterForUpdateProfile( v ) {
 
   }
 
-  keys.forEach( elem => fields[ elem ] = v.query[ elem ] );
+  identifiers.forEach( elem => fields[ elem ] = v.query[ elem ] );
 
   v.query = fields;
 
@@ -510,11 +552,7 @@ function _changePassword( v ) {
 
   if ( v.errors.length ) return v;
 
-  var keys = Object.keys( v.identifier ),
-
-    validator = validators.changePassword( v.query ),
-
-    fields = validator.fields;
+  var validator = validators.changePassword( v.query );
 
 
   v.valid = validator.valid;
@@ -526,17 +564,7 @@ function _changePassword( v ) {
 
   }
 
-
-  var salt = crypto.randomHash(),
-
-    password = crypto.makeHashPassword( fields.password, salt ),
-
-    query = { password, salt };
-
-
-  keys.forEach( elem => query[ elem ] = v.query[ elem ] );
-
-  v.query = query;
+  v.query.password = v.query.new_password;
 
   return v;
 
@@ -545,6 +573,25 @@ function _changePassword( v ) {
 function _verifyPassword( v ) {
 
   v.success = crypto.verifyPassword( v.user.password, v.query.password, v.user.salt );
+
+  return v;
+
+}
+
+function _hashPassword( v ) {
+
+  if ( v.query.password ) {
+
+    var salt = crypto.randomHash(),
+
+      password = crypto.makeHashPassword( v.query.password, salt );
+
+
+    v.query.password = password;
+
+    v.query.salt = salt;
+
+  }
 
   return v;
 
@@ -561,7 +608,7 @@ function _requestChangeEmail( v ) {
 
   if ( !v.valid ) {
 
-    v.errors = validator.errors ;
+    v.errors = validator.errors;
     return v;
 
   }
@@ -606,7 +653,7 @@ function _confirmChangeEmail( v ) {
 
     v.query.store = JSON.stringify( store );
 
-    v.success = true;
+    v.emailChanged = true;
 
   }
 
@@ -614,13 +661,64 @@ function _confirmChangeEmail( v ) {
 
 }
 
+function _removeUser( v ) {
+
+  if ( !v.user ) {
+    v.errors.push( {
+      code: 'user.notfound',
+      message: 'user not found',
+    } );
+    v.success = false;
+
+    return v;
+  }
+
+  let d = w.defer();
+
+  config.interfaces.userWillRemove( v.user, err => {
+
+    if ( err ) return d.reject( err );
+
+    v.user.is_removed = 1;
+    v.user.is_activated = 0;
+
+    var date = new Date();
+
+    v.user.username = `*removed-${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${v.user.id}`;
+
+    v.query = v.user;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
 function _clean( v ) {
 
   if ( v.user ) {
 
-    v.user = utils.filterByAttr( v.user, [ 'id', 'uid', 'full_name', 'email', 'image', 'facebook_uid', 'twitter_id', 'google_id',
+    v.user = utils.filterByAttr( v.user, [ 'id', 'uid', 'full_name', 'username', 'email', 'image', 'facebook_uid', 'twitter_id', 'google_id',
       'culture', 'is_activated', 'created_at', 'updated_at', 'last_notified', 'is_removed', 'last_signin', 'comexposium_id',
       'api_key', 'api_secret' ] );
+
+  }
+
+  return v;
+
+}
+
+function _formatImageUrl( v ) {
+
+  const image = v.user && v.user.image;
+
+  if ( v.params.fullImagePath && image ) {
+
+    if ( !image.match( /(?:https?:|\/\/)(.*)/ ) ) {
+      v.user.image = '//' + config.files.bucket + '.s3.amazonaws.com/' + image;
+    }
 
   }
 
@@ -654,7 +752,7 @@ function emailAlreadyTaken( email ) {
 
   var d = w.defer();
 
-  get( { email: email }, ( err, user ) => {
+  get( { email }, ( err, user ) => {
 
     if ( err ) return d.reject( err );
 

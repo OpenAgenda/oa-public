@@ -25,7 +25,8 @@ module.exports = ( history ) => {
   }
 
   const reducers = require( './reducers/index' );
-  const store = createStore( reducers, typeof window !== 'undefined' ? window.__data : undefined, enhancer );
+  const initialState = typeof window !== 'undefined' ? window.__data : undefined;
+  const store = createStore( reducers, initialState, enhancer );
 
   return store;
 
@@ -42,7 +43,7 @@ function getDebugSessionKey() {
 
 function promiseMiddleware() {
 
-  return ( next ) => ( action ) => {
+  return next => action => {
 
     const { promise, types } = action,
 
@@ -57,8 +58,8 @@ function promiseMiddleware() {
     next( Object.assign( {}, rest, { type: REQUEST } ) );
 
     return promise.then(
-      ( result ) => next( Object.assign( {}, rest, { result, type: SUCCESS } ) ),
-      ( error ) => next( Object.assign( {}, rest, { error, type: FAILURE } ) )
+      result => next( Object.assign( {}, rest, { result, type: SUCCESS } ) ),
+      error => next( Object.assign( {}, rest, { error, type: FAILURE } ) )
     );
 
   };

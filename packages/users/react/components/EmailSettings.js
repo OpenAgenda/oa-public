@@ -2,9 +2,11 @@
 
 const React = require( 'react' ),
 
-  { Link } = require( 'react-router' ),
+  { reduxForm } = require( 'redux-form' ),
 
-  { reduxForm } = require( 'redux-form' );
+  { capitalize } = require( 'utils' ),
+
+  { push } = require( 'react-router-redux' );
 
 
 const EmailSettings = React.createClass( {
@@ -14,32 +16,49 @@ const EmailSettings = React.createClass( {
   propTypes: {
     activeTab: React.PropTypes.bool
   },
+  
+  contextTypes: {
+    getLabels: React.PropTypes.func
+  },
 
-  render: function() {
+  render: function () {
 
-    const { activeTab, fields: { email, password }, handleSubmit } = this.props;
+    const { getLabels } = this.context;
+
+    const { activeTab, dispatch, fields: { email, password }, handleSubmit, successMessageDisplayed } = this.props;
 
     return (
-      activeTab ?
-        <div>
-          <h4><i className="fa fa-caret-down" aria-hidden="true"></i> Email</h4>
-
+      <tr onClick={!activeTab ? dispatch.bind( this, push( '/email' ) ) : null}>
+        <td onClick={activeTab ? dispatch.bind( this, push( '/' ) ) : null}
+            className="col-md-3" style={{cursor: 'pointer'}}>{getLabels( 'email' )}
+        </td>
+        {activeTab ? <td>
           <div style={{padding: '0 5px'}}>
             <form onSubmit={handleSubmit} style={{paddingBottom: '8px'}}>
               <div className="form-group">
-                <label htmlFor="email">Email *</label>
+                <label htmlFor="email">{getLabels( 'email' )} *</label>
                 <input type="text" className="form-control" name="email" {...email}/>
+                {email.touched && email.error && <div className="text-danger">{capitalize( getLabels( email.error ) )}</div>}
               </div>
 
               <div className="form-group">
-                <label htmlFor="password">Mot de passe *</label>
+                <label htmlFor="password">{getLabels( 'password' )} *</label>
                 <input type="password" className="form-control" name="password" {...password}/>
+                {password.touched && password.error &&
+                <div className="text-danger">{capitalize( getLabels( password.error ) )}</div>}
               </div>
 
-              <button type="submit" className="btn btn-success">Sauvegarder</button>
+              <div className="form-inline pull-left">
+                <button type="submit" className="btn btn-primary">{getLabels( 'save' )}</button>
+                {successMessageDisplayed &&
+                <label className="text-success" style={{marginLeft: '10px'}}>
+                  <b>{getLabels( 'updateEmailSuccess' )}</b>
+                </label>}
+              </div>
             </form>
           </div>
-        </div> : <h4><Link to="/email"><i className="fa fa-caret-right" aria-hidden="true"></i> Email</Link></h4>
+        </td> : <td style={{cursor: 'pointer'}}>{getLabels( 'modify' )}</td>}
+      </tr>
     );
 
   }

@@ -20,9 +20,15 @@ const React = require( 'react' ),
 
   createStore = require( './create' ),
 
+  labels = require( 'labels/users/settings' ),
+
+  getLabels = require( 'labels' )( labels ),
+
   actions = require( './actions' ),
 
   DevTools = require( './containers/DevTools' ),
+
+  RelayContainer = require( './containers/RelayContainer' ),
 
   App = require( './containers/App' ),
 
@@ -32,37 +38,51 @@ const React = require( 'react' ),
 require( 'dom-utils/ie8' );
 
 
-module.exports = function( options ) {
+module.exports = function ( options ) {
 
-  var params = utils.extend( {
+  const params = utils.extend( {
     canvas: '.js_canvas',
+    dataTag: 'data-options',
+    lang: 'fr',
     prefix: '',
     urls: {
       getMe: '/getMe',
       updateProfile: '/updateProfile',
-      changeEmail: '/changeEmail',
-      changePassword: '/changePassword'
+      changeEmail: '/requestChangeEmail',
+      changePassword: '/changePassword',
+      deleteAccount: '/deleteAccount',
+      uploadProfileImageRes: '/uploadProfileImage',
+      removeProfileImageRes: '/removeProfileImage'
     }
   }, options );
-  
 
-  var browserHistory = useRouterHistory( createHistory )( { basename: params.prefix } ),
+  const settings = Object.assign( params, du.parseJsonAttribute( 'body', params.dataTag ) );
 
-    store = createStore( browserHistory ),
+  const browserHistory = useRouterHistory( createHistory )( { basename: params.prefix } );
+  const store = createStore( browserHistory );
+  const history = syncHistoryWithStore( browserHistory, store );
 
-    history = syncHistoryWithStore( browserHistory, store );
-
-
-  store.dispatch( actions.setAppSettings( params ) );
-
+  store.dispatch( actions.setAppSettings( settings ) );
 
   ReactDom.render(
     <Provider store={store} key="provider">
       <div>
-        <Router history={history}>
+        <Router history={history} createElement={createElement}>
           {routes( store )}
         </Router>
         { !window.devToolsExtension && window.env == 'dev' ? <DevTools /> : null }
       </div>
     </Provider>, du.el( params.canvas ) );
+
+
+  function createElement( Component, props ) {
+    return (
+      <RelayContainer
+        Component={Component}
+        store={store}
+        routerProps={props}
+        getLabels={getLabels}
+        lang={params.lang}/>
+    );
+  }
 };

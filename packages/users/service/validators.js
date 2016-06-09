@@ -6,6 +6,8 @@ const setValidator = require( 'validators/set' ),
 
   email = require( 'validators/email' ),
 
+  number = require( 'validators/number' ),
+
   utils = require( 'utils' );
 
 
@@ -21,47 +23,8 @@ function validate( fields ) {
 
   var validateSet = setValidator( [
     text( {
-      field: 'full_name'
-    } ),
-    text( {
-      field: 'culture',
-      min: 2,
-      max: 2
-    } ),
-    email( {
-      field: 'email'
-    } )
-  ], { compact: true } );
-
-  try {
-
-    var result = validateSet( [ {
       field: 'full_name',
-      value: fields.full_name
-    }, {
-      field: 'culture',
-      value: fields.culture
-    }, {
-      field: 'email',
-      value: fields.email
-    } ] );
-
-
-    return { valid: true, fields: result };
-
-  } catch ( e ) {
-
-    return { valid: false, errors: e };
-
-  }
-
-}
-
-function update( fields ) {
-
-  var validateSet = setValidator( [
-    text( {
-      field: 'full_name'
+      min: 2
     } ),
     text( {
       field: 'culture',
@@ -76,11 +39,8 @@ function update( fields ) {
     } ),
     text( {
       field: 'salt'
-    } ),
-    text( {
-      field: 'store'
     } )
-  ].filter( v => Object.keys( fields ).indexOf( v.field ) !== -1 ), { compact: true } );
+  ], { compact: true } );
 
   try {
 
@@ -99,9 +59,89 @@ function update( fields ) {
     }, {
       field: 'salt',
       value: fields.salt
+    } ] );
+
+
+    return { valid: true, fields: result };
+
+  } catch ( e ) {
+
+    return { valid: false, errors: e };
+
+  }
+
+}
+
+function update( fields ) {
+
+  var validateSet = setValidator( [
+    text( {
+      field: 'full_name',
+      min: 2
+    } ),
+    text( {
+      field: 'username'
+    } ),
+    text( {
+      field: 'culture',
+      min: 2,
+      max: 2
+    } ),
+    email( {
+      field: 'email'
+    } ),
+    text( {
+      field: 'password'
+    } ),
+    text( {
+      field: 'salt'
+    } ),
+    text( {
+      field: 'image'
+    } ),
+    text( {
+      field: 'store'
+    } ),
+    number( {
+      field: 'is_activated'
+    } ),
+    number( {
+      field: 'is_removed'
+    } )
+  ].filter( v => Object.keys( fields ).indexOf( v.field ) !== -1 ), { compact: true } );
+
+  try {
+
+    var result = validateSet( [ {
+      field: 'full_name',
+      value: fields.full_name
+    }, {
+      field: 'username',
+      value: fields.username
+    }, {
+      field: 'culture',
+      value: fields.culture
+    }, {
+      field: 'email',
+      value: fields.email
+    }, {
+      field: 'password',
+      value: fields.password
+    }, {
+      field: 'salt',
+      value: fields.salt
+    }, {
+      field: 'image',
+      value: fields.image
     }, {
       field: 'store',
       value: fields.store
+    }, {
+      field: 'is_activated',
+      value: fields.is_activated
+    }, {
+      field: 'is_removed',
+      value: fields.is_removed
     } ] );
 
     return { valid: true, fields: result };
@@ -118,7 +158,8 @@ function updateProfile( fields ) {
 
   var validateSet = setValidator( [
     text( {
-      field: 'full_name'
+      field: 'full_name',
+      min: 2
     } ),
     text( {
       field: 'culture',
@@ -151,7 +192,7 @@ function changePassword( fields ) {
 
   var validateSet = setValidator( [
     text( {
-      field: 'password',
+      field: 'new_password',
       min: 4
     } )
   ], { compact: true } );
@@ -159,8 +200,8 @@ function changePassword( fields ) {
   try {
 
     var result = validateSet( [ {
-      field: 'password',
-      value: fields.password
+      field: 'new_password',
+      value: fields.new_password
     } ] );
 
     return { valid: true, fields: result };

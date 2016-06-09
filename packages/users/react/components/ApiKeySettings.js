@@ -2,9 +2,9 @@
 
 const React = require( 'react' ),
 
-  { Link } = require( 'react-router' ),
+  { reduxForm } = require( 'redux-form' ),
 
-  { reduxForm } = require( 'redux-form' );
+  { push } = require( 'react-router-redux' );
 
 
 const ApiKeySettings = React.createClass( {
@@ -15,26 +15,38 @@ const ApiKeySettings = React.createClass( {
     activeTab: React.PropTypes.bool
   },
 
-  render: function() {
+  contextTypes: {
+    getLabels: React.PropTypes.func
+  },
 
-    const { activeTab, fields: { apiKey } } = this.props;
+  render: function () {
+
+    const { getLabels } = this.context;
+
+    const { activeTab, dispatch, fields: { apiKey, apiSecret } } = this.props;
 
     return (
-      activeTab ?
-        <div>
-          <h4><i className="fa fa-caret-down" aria-hidden="true"></i> Clé API</h4>
-          
+      <tr onClick={!activeTab ? dispatch.bind( this, push( '/apiKey' ) ) : null}>
+        <td onClick={activeTab ? dispatch.bind( this, push( '/' ) ) : null}
+            className="col-md-3" style={{cursor: 'pointer'}}>{getLabels( 'apiKeys' )}
+        </td>
+        {activeTab ? <td>
           <div style={{padding: '0 5px'}}>
-            <p>La clé API permet de lire les données publiées sur OpenAgenda via l'API.</p>
+            <p>{getLabels( 'apiKeyInformation' )}</p>
 
-            <p><a href="#">Voir la documentation</a></p>
+            <p><a href="//openagenda.zendesk.com/hc/fr/sections/201090781-The-API-documentation-in-english-">{getLabels( 'showDocumentation' )}</a></p>
 
             <div className="form-group">
-              <label htmlFor="email">Ma clé API</label>
+              <label htmlFor="api_key">{getLabels( 'publicKey' )}</label>
               <input type="text" className="form-control" name="api_key" readOnly {...apiKey}/>
             </div>
+            {apiSecret.value && <div className="form-group">
+              <label htmlFor="api_secret">{getLabels( 'secretKey' )}</label>
+              <input type="text" className="form-control" name="api_secret" readOnly {...apiSecret}/>
+            </div>}
           </div>
-        </div> : <h4><Link to="/apiKey"><i className="fa fa-caret-right" aria-hidden="true"></i> Clé API</Link></h4>
+        </td> : <td style={{cursor: 'pointer'}}>{getLabels( 'showApiKeys' )}</td>}
+      </tr>
     );
 
   }
@@ -43,5 +55,5 @@ const ApiKeySettings = React.createClass( {
 
 module.exports = reduxForm( {
   form: 'apiKeySettings',
-  fields: [ 'apiKey' ]
+  fields: [ 'apiKey', 'apiSecret' ]
 } )( ApiKeySettings );
