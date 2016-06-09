@@ -175,18 +175,15 @@ Wrapper = React.createClass( {
       
       <h2>Multilingual input field</h2>
 
-      <p>display multilingual input component</p>
-
       <MultilingualInputField
         name='description'
         value={{fr: 'Ouaich', en: 'Yep', es: 'Si'}}
         languages={[ 'fr', 'en', 'es' ]}
         onChange={function( name, value ){}}
+        label="display multilingual input components"
         info="Yeepeekayyay"
         type="text"
       />
-
-      <p> the same, disabled</p>
 
       <MultilingualInputField
         name='description'
@@ -194,43 +191,33 @@ Wrapper = React.createClass( {
         value={{fr: 'Ouaich', en: 'Yep', es: 'Si'}}
         languages={[ 'fr', 'en', 'es' ]}
         onChange={function( name, value ){}}
+        label="the same, disabled"
         info="Yeepeekayyay"
         type="text"
       />
-
-      <div className="separator"></div>
-
-      <p>display bottom bit for each field of multilingual input</p>
 
       <MultilingualInputField
         name='description'
         value={{fr: 'Ouaich', en: 'Yep', es: 'Si'}}
         languages={[ 'fr', 'en', 'es' ]}
         onChange={function( name, value ){}}
+        label="display bottom bit for each field of multilingual input"
         info="Yeepeekayyay"
         type="text"
         bottom={function( lang ) {
 
-          return <span>{lang}</span>;
+          return <span>a bottom text: {lang}</span>;
 
         }} />
-
-      <div className="separator"></div>
-
-      <p>display empty fields when input is empty</p>
 
       <MultilingualInputField
         name='description'
         value={{}}
         languages={[ 'fr', 'en', 'es' ]}
         onChange={function( name, value ){}}
+        label="display empty fields when input is empty"
         info="Yeepeekayyay"
-        type="text"
-        bottom={function( lang ) {
-
-          return <span>{lang}</span>;
-
-        }} />      
+        type="text" />      
 
       <div className="separator"></div>
 

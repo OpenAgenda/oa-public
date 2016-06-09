@@ -23,6 +23,12 @@ module.exports = React.createClass({
     // used by component to load labels
     getLabel: React.PropTypes.func,
 
+    // used to optionnally bypass getLabel and load main label as is
+    label: React.PropTypes.func,
+
+    // used to optionnally bypass getLabel and load info as is
+    info: React.PropTypes.string,
+
     // called when value changes
     onChange: React.PropTypes.func,
 
@@ -121,7 +127,7 @@ module.exports = React.createClass({
       React.createElement(
         'label',
         null,
-        this.props.getLabel(this.props.name)
+        this.props.label || this.props.getLabel(this.props.name)
       ),
       this.props.info ? React.createElement(
         'span',

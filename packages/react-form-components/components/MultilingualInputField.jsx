@@ -25,7 +25,13 @@ module.exports = React.createClass( {
 
     // used by component to load labels
     getLabel: React.PropTypes.func,
-    
+
+    // used to optionnally bypass getLabel and load main label as is
+    label: React.PropTypes.func,
+
+    // used to optionnally bypass getLabel and load info as is
+    info: React.PropTypes.string,
+
     // called when value changes
     onChange: React.PropTypes.func,
 
@@ -123,8 +129,8 @@ module.exports = React.createClass( {
   render() {
 
     return <div className="multilingual-input-field form-group">
-      <label>{this.props.getLabel( this.props.name )}</label>
-      { this.props.info ? <span className="info">{this.props.info}</span> : null }
+      <label>{this.props.label || this.props.getLabel( this.props.name )}</label>
+      { this.props.info ? <span className="info">{ this.props.info }</span> : null }
       <ul className="list-unstyled">
       {this.props.languages.map( lang => {
         return <li key={lang} className={this.isEnabled( lang ) ? '' : 'disabled'}>
