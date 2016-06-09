@@ -42,6 +42,7 @@ module.exports = React.createClass( {
   getDefaultProps() {
 
     return {
+      editable: true,
       getLabel: makeLabelGetter( labels )
     }
 
