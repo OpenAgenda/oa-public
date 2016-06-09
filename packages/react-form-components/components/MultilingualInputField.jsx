@@ -51,7 +51,6 @@ module.exports = React.createClass( {
     return {
       type: 'text',
       getLabel: makeLabelGetter( labels ),
-      enabled: {},
       bottom: () => null
     }
 
@@ -128,7 +127,15 @@ module.exports = React.createClass( {
 
   render() {
 
-    return <div className="multilingual-input-field form-group">
+    let classes = [ 'multilingual-input-field', 'form-group' ];
+
+    if ( this.props.enabled && !this.props.enabled.length ) {
+
+      classes.push( 'disabled' );
+
+    }
+
+    return <div className={classes.join( ' ' )}>
       <label>{this.props.label || this.props.getLabel( this.props.name )}</label>
       { this.props.info ? <span className="info">{ this.props.info }</span> : null }
       <ul className="list-unstyled">

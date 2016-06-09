@@ -198,6 +198,17 @@ Wrapper = React.createClass( {
 
       <MultilingualInputField
         name='description'
+        enabled={[]}
+        value={{fr: 'Ouaich', en: 'Yep', es: 'Si'}}
+        languages={[ 'fr', 'en', 'es' ]}
+        onChange={function( name, value ){}}
+        label="the same, entirely disabled"
+        info="Yeepeekayyay"
+        type="text"
+      />
+
+      <MultilingualInputField
+        name='description'
         value={{fr: 'Ouaich', en: 'Yep', es: 'Si'}}
         languages={[ 'fr', 'en', 'es' ]}
         onChange={function( name, value ){}}
@@ -217,7 +228,7 @@ Wrapper = React.createClass( {
         onChange={function( name, value ){}}
         label="display empty fields when input is empty"
         info="Yeepeekayyay"
-        type="text" />      
+        type="text" />     
 
       <div className="separator"></div>
 

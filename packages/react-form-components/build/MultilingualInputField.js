@@ -48,7 +48,6 @@ module.exports = React.createClass({
     return {
       type: 'text',
       getLabel: makeLabelGetter(labels),
-      enabled: {},
       bottom: function bottom() {
         return null;
       }
@@ -121,9 +120,16 @@ module.exports = React.createClass({
   render: function render() {
     var _this2 = this;
 
+    var classes = ['multilingual-input-field', 'form-group'];
+
+    if (this.props.enabled && !this.props.enabled.length) {
+
+      classes.push('disabled');
+    }
+
     return React.createElement(
       'div',
-      { className: 'multilingual-input-field form-group' },
+      { className: classes.join(' ') },
       React.createElement(
         'label',
         null,
