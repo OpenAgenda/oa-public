@@ -4,7 +4,7 @@
   "description": "",
   "main": "service/index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --compilers js:babel-core/register",
     "start": "node test/app",
     "watch": "nodemon --watch test --watch middleware --watch service --exec 'npm run start'",
     "_start": "node bin/test-app.js",

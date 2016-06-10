@@ -11,5 +11,11 @@ module.exports = {
     user: 'user',
     apiKeySet: 'api_key_set'
   },
+  files: {
+    tmpPath: '/var/tmp',
+    bucket: 'openagendatst',
+    accessKeyId: 'ERSDFYUHKIJFLEUJF',
+    secretAccessKey: 'cdfvq/fzeef-fcezqf'
+  },
   debug: true
 };
