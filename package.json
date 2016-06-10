@@ -86,6 +86,7 @@
     "to-markdown": "2.0.0",
     "tumblrParser": "git+ssh://git@bitbucket.org:openagenda/tumblrparser.git",
     "uglify-js": "2.4.24",
+    "users": "git+ssh://git@bitbucket.org:openagenda/users.git",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
     "webpack": "^1.13.1",
     "when": "~3.4",
