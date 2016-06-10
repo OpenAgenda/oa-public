@@ -7,21 +7,20 @@ const { createStore, compose, applyMiddleware } = require( 'redux' ),
 
 module.exports = ( history ) => {
 
-  var enhancer;
+  let enhancer;
+  const middleware = applyMiddleware( routerMiddleware( history ), promiseMiddleware );
 
   if ( typeof window !== 'undefined' && window.env == 'dev' ) {
     const { persistState } = require( 'redux-devtools' ),
       DevTools = require( './containers/DevTools' );
 
     enhancer = compose(
-      applyMiddleware( routerMiddleware( history ), promiseMiddleware ),
+      middleware,
       window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
       persistState( getDebugSessionKey() )
     );
   } else {
-    enhancer = compose(
-      applyMiddleware( routerMiddleware( history ), promiseMiddleware )
-    );
+    enhancer = compose( middleware );
   }
 
   const reducers = require( './reducers/index' );
@@ -47,7 +46,7 @@ function promiseMiddleware() {
 
     const { promise, types } = action,
 
-      rest = removeObjectProperties( action, [ "promise", "types" ] );
+      rest = removeObjectProperties( action, [ 'promise', 'types' ] );
 
     if ( !promise ) {
       return next( action );

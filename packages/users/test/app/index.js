@@ -1,6 +1,10 @@
 "use strict";
 
-const app = require( 'test-app' )( {
+const bodyParser = require( 'body-parser' ),
+
+  cookieParser = require( 'cookie-parser' ),
+
+  app = require( 'test-app' )( {
     frontWrapper: __dirname + '/front.js',
     excludeDefaultStyles: true,
     styles: [
@@ -29,11 +33,14 @@ app.use( ( req, res, next ) => {
   next();
 } );
 
+app.use( bodyParser.urlencoded( { extended: true } ) );
+app.use( cookieParser() );
+
 app.get( '/getMe', mw.getMe );
 app.get( '/updateUser', mw.updateProfile );
 app.get( '/requestChangeEmail', [ mw.requestChangeEmail, sendEmail ] );
 app.get( '/changePassword', mw.changePassword );
-app.post( '/deleteAccount', mw.csrfProtection, mw.deleteAccount );
+app.post( '/deleteAccount', mw.deleteAccount );
 app.post( '/uploadProfileImage', mw.uploadProfileImage );
 app.post( '/removeProfileImage', mw.removeProfileImage );
 

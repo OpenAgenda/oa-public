@@ -32,9 +32,12 @@ var logger = require( 'basic-logger' ),
 
   getRoutes = require( '../react/routes' );
 
+const csrf = csurf( { cookie: true } );
+
 module.exports = {
   init,
   matchApp,
+  csrf,
   csrfProtection,
   getMe,
   updateProfile,
@@ -333,7 +336,7 @@ function deleteAccount( req, res, next ) {
 
 function csrfProtection( req, res, next ) {
 
-  csurf( { cookie: true } )( req, res, err => {
+  csrf( req, res, err => {
 
     req.data = Object.assign( {}, req.data, { csrfToken: req.csrfToken() } );
 

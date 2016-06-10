@@ -47,7 +47,7 @@ module.exports = function ( options ) {
     prefix: '',
     urls: {
       getMe: '/getMe',
-      updateProfile: '/updateProfile',
+      updateProfile: '/updateUser',
       changeEmail: '/requestChangeEmail',
       changePassword: '/changePassword',
       deleteAccount: '/deleteAccount',
