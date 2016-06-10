@@ -1,14 +1,20 @@
-const React = require( 'react' ),
+if ( __DEVELOPMENT__ ) {
 
-  { createDevTools } = require( 'redux-devtools' ),
+  const React = require( 'react' ),
 
-  DockMonitor = require( 'redux-devtools-dock-monitor' ).default,
+    { createDevTools } = require( 'redux-devtools' ),
 
-  LogMonitor = require( 'redux-devtools-log-monitor' ).default;
+    DockMonitor = require( 'redux-devtools-dock-monitor' ).default,
+
+    LogMonitor = require( 'redux-devtools-log-monitor' ).default;
 
 
-module.exports = createDevTools(
-  <DockMonitor toggleVisibilityKey="ctrl-h" changePositionKey="ctrl-p" defaultPosition="bottom">
-    <LogMonitor />
-  </DockMonitor>
-);
+  module.exports = createDevTools(
+    <DockMonitor toggleVisibilityKey="ctrl-h" changePositionKey="ctrl-p" defaultPosition="bottom">
+      <LogMonitor />
+    </DockMonitor>
+  );
+
+} else {
+  module.exports = {};
+}

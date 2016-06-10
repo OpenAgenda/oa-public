@@ -70,7 +70,7 @@ module.exports = function ( options ) {
         <Router history={history} createElement={createElement}>
           {routes( store )}
         </Router>
-        { !window.devToolsExtension && window.env == 'dev' ? <DevTools /> : null }
+        { !window.devToolsExtension && __DEVELOPMENT__ ? <DevTools /> : null }
       </div>
     </Provider>, du.el( params.canvas ) );
 

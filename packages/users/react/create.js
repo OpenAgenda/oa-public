@@ -10,7 +10,7 @@ module.exports = ( history ) => {
   let enhancer;
   const middleware = applyMiddleware( routerMiddleware( history ), promiseMiddleware );
 
-  if ( typeof window !== 'undefined' && window.env == 'dev' ) {
+  if ( __DEVELOPMENT__ ) {
     const { persistState } = require( 'redux-devtools' ),
       DevTools = require( './containers/DevTools' );
 
