@@ -118,8 +118,8 @@
         "name" : "TagLink",
         "mapTo" : "link"
       }, {
-        "name" : "TagId",
-        "mapTo" : "id"
+        "name" : "TagSlug",
+        "mapTo" : "slug"
       } ]
     } ]
   }, {
@@ -132,8 +132,8 @@
       "name" : "TagLink",
       "mapTo" : "link"
     }, {
-      "name" : "TagId",
-      "mapTo" : "id"
+      "name" : "TagSlug",
+      "mapTo" : "slug"
     } ]
   }, {
     "name" : "Timings",
