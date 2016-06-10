@@ -8,5 +8,6 @@
   "react-form-components",
   "react-timings-picker",
   "spinner",
-  "sync-button"
+  "sync-button",
+  "users"
 ]
