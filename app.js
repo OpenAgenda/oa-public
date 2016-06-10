@@ -2,39 +2,45 @@
 
 var http = require( 'http' ),
 
-url = require( 'url' ),
+  url = require( 'url' ),
 
-st = require( 'st' ),
+  path = require( 'path' ),
 
-sass = require( 'node-sass' ),
+  st = require( 'st' ),
 
-sassDestFile = '/build/sass/tmp.css',
+  sass = require( 'node-sass' ),
 
-templater = require( './server/templater.js' ),
+  sassDestFile = '/build/sass/tmp.css',
 
-p = require( './server/promises' ),
+  templater = require( './server/templater.js' ),
 
-mountStatic = st( { path: __dirname , url: '/', cache: false } ),
+  p = require( './server/promises' ),
 
-cn = require( './js/lib/common/common.mod.js' ),
+  mountStatic = st( { path: __dirname, url: '/', cache: false } ),
 
-async = require( 'async' ),
+  cn = require( './js/lib/common/common.mod.js' ),
 
-deepExtend = require( 'deep-extend' ),
+  async = require( 'async' ),
 
-browserify = require( 'browserify' ),
+  deepExtend = require( 'deep-extend' ),
 
-stringify = require( 'stringify' ),
+  webpack = require( 'webpack' ),
 
-reactify = require( 'reactify' ),
+  webpackConfigDev = require( './prodify/config.dev' ),
 
-fs = require( 'fs' ),
+  browserify = require( 'browserify' ),
 
-debug = require( 'debug' ),
+  stringify = require( 'stringify' ),
 
-map = JSON.parse( fs.readFileSync( __dirname + '/map.json', 'utf-8' ) );
+  reactify = require( 'reactify' ),
 
-debug.enable( '*' );
+  fs = require( 'fs' ),
+
+  debug = require( 'debug' ),
+
+  map = JSON.parse( fs.readFileSync( __dirname + '/map.json', 'utf-8' ) );
+
+debug.enable( 'httpServer' );
 
 templater.disableFileCache();
 
@@ -43,25 +49,25 @@ var log = debug( 'httpServer' );
 
 http.createServer( function ( req, res ) {
 
-  log('processing request %s', req.url );
+  log( 'processing request %s', req.url );
 
-  req.query = url.parse(req.url, true ).query;
+  req.query = url.parse( req.url, true ).query;
 
   p.w( { req: req, res: res, data: {} } )
 
-  .then( _loadUri )
+    .then( _loadUri )
 
-  .then( p.ife( { uri: false }, _renderMap ) )
+    .then( p.ife( { uri: false }, _renderMap ) )
 
-  .then( p.ifl( { responded: false }, _checkStatic ) )
+    .then( p.ifl( { responded: false }, _checkStatic ) )
 
-  .done( function( v ) {
+    .done( function ( v ) {
 
-    if ( !v.responded ) _prepareRender( v );
+      if ( !v.responded ) _prepareRender( v );
 
-  });
+    } );
 
-} ).listen( process.env.PORT || 3000 , process.env.IP || 'localhost' );
+} ).listen( process.env.PORT || 3000, process.env.IP || 'localhost' );
 
 
 function _prepareRender( v ) {
@@ -69,56 +75,56 @@ function _prepareRender( v ) {
   p.w( v )
 
   // load config file
-  .then( _load( 'config', 'uri', '.config.json', true ) )
+    .then( _load( 'config', 'uri', '.config.json', true ) )
 
-  // load layout config file
-  .then( p.ifl( { 'config.layout' : true }, _load( 'layoutConfig', 'config.layout', '.config.json', true ) ) )
+    // load layout config file
+    .then( p.ifl( { 'config.layout': true }, _load( 'layoutConfig', 'config.layout', '.config.json', true ) ) )
 
-  // load mock data
-  .then( _load( 'data', 'uri', '.mock.json', true ) )
+    // load mock data
+    .then( _load( 'data', 'uri', '.mock.json', true ) )
 
-  // load layout mock data
-  .then( p.ifl( { 'config.layout' : true }, _load( 'layoutData', 'config.layout', '.mock.json', true ) ) )
+    // load layout mock data
+    .then( p.ifl( { 'config.layout': true }, _load( 'layoutData', 'config.layout', '.mock.json', true ) ) )
 
-  // browserify js data
-  .then( p.ifl( { 'config.js' : true }, _browserifyFiles( 'uri', 'config.js' ) ) )
+    // browserify js data
+    .then( p.ifl( { 'config.js': true }, _browserifyFiles( 'uri', 'config.js' ) ) )
 
-  // browserify layout js data
-  .then( p.ifl( { 'layoutConfig.js' : true }, _browserifyFiles( 'config.layout', 'layoutConfig.js' ) ) )
+    // browserify layout js data
+    .then( p.ifl( { 'layoutConfig.js': true }, _browserifyFiles( 'config.layout', 'layoutConfig.js' ) ) )
 
-  // compile template data
-  .then( _compileTemplateData )
+    // compile template data
+    .then( _compileTemplateData )
 
-  // append css links
-  .then( _listCssFiles )
+    // append css links
+    .then( _listCssFiles )
 
-  // compile it all
-  .then( _compileSass )
+    // compile it all
+    .then( _compileSass )
 
-  // define js files root
-  .then( _jsRoot )
+    // define js files root
+    .then( _jsRoot )
 
-  // define url generator
-  .then( _fakeGenUrl )
+    // define url generator
+    .then( _fakeGenUrl )
 
-  // language
-  .then( _defineLanguage )
+    // language
+    .then( _defineLanguage )
 
-  // environment
-  .then( _defineEnvironment )
+    // environment
+    .then( _defineEnvironment )
 
-  // render template
-  .then( _render )
+    // render template
+    .then( _render )
 
-  .done( function( v ) {
+    .done( function ( v ) {
 
-    _respond( v.res, 200, v.render );
+      _respond( v.res, 200, v.render );
 
-  }, function( err ) {
+    }, function ( err ) {
 
-    _respond( v.res, 500, 'There was a problem while loading the template: ' + err );
+      _respond( v.res, 500, 'There was a problem while loading the template: ' + err );
 
-  });
+    } );
 
 }
 
@@ -129,7 +135,7 @@ function _loadUri( v ) {
 
   var parsed = url.parse( v.req.url, true ),
 
-  uri = parsed.pathname.substr(1);
+    uri = parsed.pathname.substr( 1 );
 
   v.uri = uri.length ? uri : false;
 
@@ -141,13 +147,13 @@ function _checkStatic( v ) {
 
   log( 'checking static file' );
 
-  if ( cn.contains( ['.js'], v.uri.substr( -3 ) ) ||
+  if ( cn.contains( [ '.js' ], v.uri.substr( -3 ) ) ||
 
-  cn.contains( ['.css', '.jpg', '.png', '.ico', '.ttf', '.svg', '.eot', '.otf', '.ejs'], v.uri.substr( -4 ) ) ||
+    cn.contains( [ '.css', '.jpg', '.png', '.ico', '.ttf', '.svg', '.eot', '.otf', '.ejs' ], v.uri.substr( -4 ) ) ||
 
-  cn.contains( ['.woff2'], v.uri.substr( -6 ) ) ||
+    cn.contains( [ '.woff2' ], v.uri.substr( -6 ) ) ||
 
-  cn.contains( ['.woff', '.json', '.html'], v.uri.substr( -5 ) ) ) {
+    cn.contains( [ '.woff', '.json', '.html' ], v.uri.substr( -5 ) ) ) {
 
     log( 'handling as static resource request' );
 
@@ -165,11 +171,11 @@ log( 'IMPORTANT: if nodemon is to be used, use it with proper exclusions' );
 
 function _load( key, pathKey, suffix, throwError ) {
 
-  return function( v ) {
+  return function ( v ) {
 
-    return p.w.promise( function( rs, rj ) {
+    return p.w.promise( function ( rs, rj ) {
 
-      fs.readFile( __dirname + '/' + p.getSubObject( pathKey, v ) + suffix, 'utf-8', function( err, content ) {
+      fs.readFile( __dirname + '/' + p.getSubObject( pathKey, v ) + suffix, 'utf-8', function ( err, content ) {
 
         if ( err ) {
 
@@ -189,9 +195,9 @@ function _load( key, pathKey, suffix, throwError ) {
 
         rs( v );
 
-      });
+      } );
 
-    });
+    } );
 
   }
 
@@ -202,18 +208,18 @@ function _jsIncludeMainPath( uri ) {
 
   var parts = uri.split( '/' ),
 
-  name = parts.pop();
+    name = parts.pop();
 
   parts.push( 'js' );
 
   return {
-    src: { 
-      path: parts.join('/'), 
-      name: name 
+    src: {
+      path: parts.join( '/' ),
+      name: name
     },
-    dest: { 
-      path: 'build/browserified', 
-      name: cn.toCamelCase( uri.replace('/', '_' ) ) + '.js' 
+    dest: {
+      path: 'build/browserified',
+      name: cn.toCamelCase( uri.replace( '/', '_' ) ) + '.js'
     }
   };
 
@@ -222,21 +228,21 @@ function _jsIncludeMainPath( uri ) {
 
 function _browserifyFiles( pathKey, fileObjPath ) {
 
-  return function( v ) {
+  return function ( v ) {
 
-    return p.w.promise( function( rs, rj ) {
+    return p.w.promise( function ( rs, rj ) {
 
       var jsPaths,
 
-      jsFiles = v, 
+        jsFiles = v,
 
-      mainPath;
+        mainPath;
 
-      fileObjPath.split( '.' ).forEach( function( part ) {
+      fileObjPath.split( '.' ).forEach( function ( part ) {
 
         jsFiles = jsFiles[ part ];
 
-      });
+      } );
 
       if ( jsFiles === true ) {
 
@@ -245,22 +251,24 @@ function _browserifyFiles( pathKey, fileObjPath ) {
       } else {
 
         jsPaths = jsFiles.map( _jsIncludePath( p.getSubObject( pathKey, v ) ) );
-        
+
       }
 
       if ( !v.js ) v.js = [];
 
-      v.js = jsPaths.map( function( path ) { return path.dest.name; } ).concat( v.js );
+      v.js = jsPaths.map( function ( path ) {
+        return path.dest.name;
+      } ).concat( v.js );
 
-      async.each( jsPaths, _browserify, function( err ) {
+      async.each( jsPaths, _browserify, function ( err ) {
 
         if ( err ) return rj( err );
-        
+
         rs( v );
 
-      });
+      } );
 
-    });
+    } );
 
   }
 
@@ -271,7 +279,7 @@ function _compileTemplateData( v ) {
 
   var base = v.data.base ? v.data.base : {},
 
-  state = v.req.query ? v.req.query.state : false;
+    state = v.req.query ? v.req.query.state : false;
 
   if ( v.js ) {
 
@@ -285,7 +293,7 @@ function _compileTemplateData( v ) {
 
   } else {
 
-    for( var state in v.data ) {
+    for ( var state in v.data ) {
 
       if ( state !== 'base' ) break;
 
@@ -318,7 +326,7 @@ function _listCssFiles( v ) {
 
   var c, css;
 
-  [ 'css', 'embedCss', 'oaCss', 'oaeCss', 'adminCss' ].forEach( function( name ) {
+  [ 'css', 'embedCss', 'oaCss', 'oaeCss', 'adminCss' ].forEach( function ( name ) {
 
     if ( v.config[ name ] ) {
 
@@ -328,12 +336,12 @@ function _listCssFiles( v ) {
 
     }
 
-  });
+  } );
 
   if ( v.layoutConfig && v.layoutConfig[ c ] ) {
 
-    css = cn.extend( 
-      _absolutePath( v.config.layout, v.layoutConfig[ c ] ), 
+    css = cn.extend(
+      _absolutePath( v.config.layout, v.layoutConfig[ c ] ),
       _absolutePath( v.uri, css )
     );
 
@@ -347,7 +355,7 @@ function _listCssFiles( v ) {
 
 function _compileSass( v ) {
 
-  return p.w.promise( function( rs, rj ) {
+  return p.w.promise( function ( rs, rj ) {
 
     var aggregated = '', cssArr = [];
 
@@ -357,9 +365,9 @@ function _compileSass( v ) {
 
     }
 
-    async.eachSeries( cssArr, function( cssFile, ecb ) {
+    async.eachSeries( cssArr, function ( cssFile, ecb ) {
 
-      fs.readFile( __dirname + cssFile, 'utf-8', function( err, content ) {
+      fs.readFile( __dirname + cssFile, 'utf-8', function ( err, content ) {
 
         content = _fixFontAwesomeRelativePath( cssFile, content );
 
@@ -375,13 +383,13 @@ function _compileSass( v ) {
 
       } );
 
-    }, function( err ) {
+    }, function ( err ) {
 
       if ( err ) return rj( err );
 
       if ( !aggregated.length ) return rs( v );
 
-      sass.render( { data: aggregated }, function( err, result ) {
+      sass.render( { data: aggregated }, function ( err, result ) {
 
         if ( err ) {
 
@@ -391,7 +399,7 @@ function _compileSass( v ) {
 
         }
 
-        fs.writeFile( __dirname + sassDestFile, result.css.toString(), function( err ) {
+        fs.writeFile( __dirname + sassDestFile, result.css.toString(), function ( err ) {
 
           if ( err ) {
 
@@ -407,13 +415,13 @@ function _compileSass( v ) {
 
           rs( v );
 
-        });
+        } );
 
-      });
+      } );
 
     } );
 
-  });
+  } );
 
 }
 
@@ -475,9 +483,9 @@ function _defineEnvironment( v ) {
 
 function _render( v ) {
 
-  return p.w.promise( function( rs, rj ) {
+  return p.w.promise( function ( rs, rj ) {
 
-    templater( v.uri, v.compiled, function( err, render ) {
+    templater( v.uri, v.compiled, function ( err, render ) {
 
       if ( err ) return rj( err );
 
@@ -485,9 +493,9 @@ function _render( v ) {
 
       rs( v );
 
-    });
+    } );
 
-  });
+  } );
 
 }
 
@@ -500,13 +508,13 @@ function _renderMap( v ) {
 
   log( 'rendering map' );
 
-  _respond( v.res, 200, '<ul>' + map.map( function( mapItem ) {
+  _respond( v.res, 200, '<ul>' + map.map( function ( mapItem ) {
 
-    var uri = typeof mapItem == 'string' ? mapItem : mapItem.uri ;
+      var uri = typeof mapItem == 'string' ? mapItem : mapItem.uri;
 
-    return '<li><a href="/' + uri + '">' + uri + '</a></li>';
+      return '<li><a href="/' + uri + '">' + uri + '</a></li>';
 
-  } ).join('') + '</ul>' );
+    } ).join( '' ) + '</ul>' );
 
   v.responded = true;
 
@@ -523,10 +531,10 @@ function _respond( res, code, body, responseType ) {
 
   if ( responseType === undefined ) responseType = "text/html; charset=utf-8";
 
-  res.writeHead(code, {
+  res.writeHead( code, {
     "Content-Type": responseType,
     'Cache-Control': 'no-cache'
-  });
+  } );
 
   res.write( body );
   res.end();
@@ -536,22 +544,22 @@ function _respond( res, code, body, responseType ) {
 
 function _jsIncludePath( name ) {
 
-  return function( jsRelativePath ) {
+  return function ( jsRelativePath ) {
 
     var paths = {
-      src: {},
-      dest: { path: 'build/browserified' }
-    },
+        src: {},
+        dest: { path: 'build/browserified' }
+      },
 
-    templatePath = name.split('/'),
+      templatePath = name.split( '/' ),
 
-    pathParts = jsRelativePath.split('/');
+      pathParts = jsRelativePath.split( '/' );
 
     templatePath.pop();
 
     paths.src.path = [];
 
-    pathParts.forEach( function( pathPart ) {
+    pathParts.forEach( function ( pathPart ) {
 
       if ( pathPart !== '..' ) {
 
@@ -563,15 +571,15 @@ function _jsIncludePath( name ) {
 
       }
 
-    });
+    } );
 
     paths.src.path = templatePath.concat( paths.src.path );
 
-    paths.dest.name = cn.toCamelCase( paths.src.path.join('_') );
+    paths.dest.name = cn.toCamelCase( paths.src.path.join( '_' ) );
 
     paths.src.name = paths.src.path.pop();
 
-    paths.src.path = paths.src.path.join('/');
+    paths.src.path = paths.src.path.join( '/' );
 
     return paths;
 
@@ -584,21 +592,27 @@ function _browserify( paths, cb ) {
 
   log( 'browserificationization' );
 
-  // run browserify_browserify
+  // run webpack
 
-  var b = browserify();
+  paths.src.path = path.join( '..', paths.src.path );
 
-  b.transform(stringify(['.ejs', '.css', '.html', '.tblr' ]));
+  var compiler = webpack( webpackConfigDev( paths ) );
 
-  b.transform(reactify);
+  compiler.run( function ( err, stats ) {
+    if ( err ) cb( err );
 
-  b.add( __dirname + '/' + paths.src.path + '/' + paths.src.name );
+    var msg = stats.toString( {
+        hash: false,
+        chunks: false,
+        colors: true
+      } ),
 
-  var bundle = b.bundle();
+      shownMsg = ~msg.indexOf( 'WARNING' ) ? msg.substring( 0, msg.indexOf( 'WARNING' ) - 11 ) : msg;
 
-  bundle.pipe( fs.createWriteStream( __dirname + '/' + paths.dest.path + '/' + paths.dest.name ) );
+    console.log( shownMsg );
 
-  bundle.on( 'end', cb );
+    cb();
+  } );
 
 }
 
@@ -609,23 +623,23 @@ function _genUrl( data ) {
 
     var values = {};
 
-    if (arguments.length > 1) {
+    if ( arguments.length > 1 ) {
 
-      for (var i = 1; i < arguments.length; i++) {
+      for ( var i = 1; i < arguments.length; i++ ) {
 
-        cn.extend(values, arguments[i]);
+        cn.extend( values, arguments[ i ] );
 
       }
 
     }
 
-    if ( data.devUrls && data.devUrls[name] ) {
+    if ( data.devUrls && data.devUrls[ name ] ) {
 
-      return data.devUrls[name] + '#' + name + encodeURI(JSON.stringify(values));
+      return data.devUrls[ name ] + '#' + name + encodeURI( JSON.stringify( values ) );
 
     }
 
-    return '#' + name + encodeURI(JSON.stringify(values));
+    return '#' + name + encodeURI( JSON.stringify( values ) );
 
   };
 
@@ -633,15 +647,15 @@ function _genUrl( data ) {
 
 function _readFile( filename, cb ) {
 
-  fs.readFile(__dirname + '/' + filename, 'utf-8', function( err, content ) {
+  fs.readFile( __dirname + '/' + filename, 'utf-8', function ( err, content ) {
 
     if ( err ) return cb( err );
 
-    if ( filename.indexOf('.json') !== -1 ) return cb( null, JSON.parse( content ) );
+    if ( filename.indexOf( '.json' ) !== -1 ) return cb( null, JSON.parse( content ) );
 
     cb( null, content );
 
-  });
+  } );
 
 }
 
@@ -651,27 +665,27 @@ function _readFile( filename, cb ) {
 
 function _absolutePath( uri, css ) {
 
-  var templatePath = uri.split('/');
+  var templatePath = uri.split( '/' );
 
   templatePath.pop();
 
   var absCss = {};
 
-  for( var c in css ) {
+  for ( var c in css ) {
 
-    var path = css[c].split('/'),
+    var path = css[ c ].split( '/' ),
 
-    isSub = true; // if is a subfolder of current uri
+      isSub = true; // if is a subfolder of current uri
 
-    while ( path[0] == '..' ) {
+    while ( path[ 0 ] == '..' ) {
 
       path.splice( 0, 1 );
 
       isSub = false;
-      
+
     }
 
-    absCss[c] = ( isSub ? '/' + templatePath : '' ) + '/' + path.join('/');
+    absCss[ c ] = ( isSub ? '/' + templatePath : '' ) + '/' + path.join( '/' );
 
   }
 
