@@ -74,7 +74,7 @@
     "redux-devtools-log-monitor": "^1.0.11",
     "redux-mock-store": "^1.0.2",
     "should": "^8.3.1",
-    "test-app": "git+ssh://git@bitbucket.org/openagenda/test-app.git#webpack"
+    "test-app": "git+ssh://git@bitbucket.org/openagenda/test-app.git"
   },
   "peerDependencies": {
     "react": "0.14.7"
