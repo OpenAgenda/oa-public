@@ -26,6 +26,9 @@
     }, {
       "name" : "TagLink",
       "mapTo" : "link"
+    }, {
+      "name" : "TagSlug",
+      "mapTo" : "slug"
     } ]
   } ]
 }

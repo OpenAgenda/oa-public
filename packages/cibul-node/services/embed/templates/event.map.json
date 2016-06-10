@@ -117,6 +117,9 @@
       }, {
         "name" : "TagLink",
         "mapTo" : "link"
+      }, {
+        "name" : "TagId",
+        "mapTo" : "id"
       } ]
     } ]
   }, {
@@ -128,6 +131,9 @@
     }, {
       "name" : "TagLink",
       "mapTo" : "link"
+    }, {
+      "name" : "TagId",
+      "mapTo" : "id"
     } ]
   }, {
     "name" : "Timings",
