@@ -1,3 +1,5 @@
+"use strict";
+
 if ( __DEVELOPMENT__ ) {
 
   const React = require( 'react' ),
