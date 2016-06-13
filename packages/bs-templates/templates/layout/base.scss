@@ -105,6 +105,18 @@ body {
 
 }
 
+a.text-danger {
+  
+  color: $oa-red;
+
+}
+
+a.text-danger:hover {
+  
+  color: darken( $oa-red, 10 );
+
+}
+
 
 .mobile-only {
   display: block; 
