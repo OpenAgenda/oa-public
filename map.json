@@ -132,5 +132,9 @@
   {
     "js" : "agenda embed menu/js/embedMenu.js",
     "prod" : "review/embedMenu.js"
+  },
+  {
+    "js" : "node_modules/agenda-locations/components/build/verifiedLocationsCounter.js",
+    "prod" : "verifiedLocationsCounter.js"
   }
 ]

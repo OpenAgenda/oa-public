@@ -4,6 +4,11 @@
 <script type="text/javascript"><%- script %></script>
 <% }); %>
 <% } %>
+<% if ( typeof bottom.scriptSources !== 'undefined' ) { %>
+<% bottom.scriptSources.forEach( function( src ) { %>
+<script type="text/javascript" src="<%= src %>"></script>
+<% } ); %>
+<% } %>
 <% } %>
   </body>
 </html>
