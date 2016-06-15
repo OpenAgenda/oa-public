@@ -318,7 +318,7 @@ function _listCssFiles( v ) {
 
   var c, css;
 
-  [ 'css', 'embedCss', 'oaCss', 'oaeCss', 'adminCss' ].forEach( function( name ) {
+  [ 'css', 'embedCss', 'oaCss', 'oaeCss', 'adminCss', 'bsCss' ].forEach( function( name ) {
 
     if ( v.config[ name ] ) {
 
@@ -358,6 +358,8 @@ function _compileSass( v ) {
     }
 
     async.eachSeries( cssArr, function( cssFile, ecb ) {
+
+      log( 'compiling %s', __dirname + cssFile );
 
       fs.readFile( __dirname + cssFile, 'utf-8', function( err, content ) {
 
