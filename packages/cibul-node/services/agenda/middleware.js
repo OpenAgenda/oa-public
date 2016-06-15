@@ -4,6 +4,8 @@ var svc,
 
 csv = require( 'fast-csv' ),
 
+async = require( 'async' ),
+
 pdf = require( 'pdf' ),
 
 xlsx = require( 'xlsx-writestream' ),
@@ -144,49 +146,71 @@ function loadAgenda( paramName, fieldName, options ) {
 
 function loadAdminLayout( req, res, next ) {
 
-  req.layoutData = {
-    agenda: {
-      slug: req.agenda.slug,
-      uid: req.agenda.uid,
-      title: req.agenda.title,
-      description: req.agenda.description,
-      url: req.agenda.url,
-      image: req.agenda.getImage( false )
-    },
-    bottom: {
-      scripts: []
-    }
-  }
+  async.waterfall( [
 
-  req.agenda.getCredentialList( function( err, credentials ) {
+    wcb => {
 
-    req.log( 'loaded credentials %s', credentials );
-
-    if ( err ) return next( err );
-
-    // filter tabs where agenda does not have required creds
-
-    req.layoutData.tabs = svcConfig.adminTabs.filter( function( tab ) {
-
-      // if user is moderator and tab access is not given to moderators,
-      // filter.
-      if ( req.access == 'moderator' && tab.access !== 'moderator' ) {
-
-        return false;
-
+      req.layoutData = {
+        agenda: {
+          slug: req.agenda.slug,
+          uid: req.agenda.uid,
+          title: req.agenda.title,
+          description: req.agenda.description,
+          url: req.agenda.url,
+          image: req.agenda.getImage( false )
+        },
+        bottom: {
+          scripts: [
+            config.externalScripts.zendesk
+          ],
+          scriptSources: [
+            '/js/verifiedLocationsCounter.js'
+          ]
+        }
       }
 
-      if ( tab.requiredCred === undefined ) return true;
+      wcb();
 
-      return credentials.indexOf( tab.requiredCred ) !== -1;
+    },
 
-    } );
+    // define tabs to display based on credentials
+    wcb => {
 
-    req.layoutData.bottom.scripts.push( config.externalScripts.zendesk );
+      req.agenda.getCredentialList( function( err, credentials ) {
 
-    next();
+        req.log( 'loaded credentials %s', credentials );
 
-  });
+        if ( err ) return wcb( err );
+
+        // filter tabs where agenda does not have required creds
+
+        req.layoutData.tabs = svcConfig.adminTabs.filter( function( tab ) {
+
+          // if user is moderator and tab access is not given to moderators,
+          // filter.
+          if ( req.access == 'moderator' && tab.access !== 'moderator' ) {
+
+            return false;
+
+          }
+
+          if ( tab.requiredCred === undefined ) return true;
+
+          return credentials.indexOf( tab.requiredCred ) !== -1;
+
+        } );
+
+        wcb();
+
+      } );
+
+    },
+
+  ], err => {
+
+    next( err || undefined );
+
+  } );
 
 }
 

@@ -5,43 +5,47 @@
  */
 
 
-exports.loadLogger = loadLogger;
+module.exports = {
 
-exports.render = render;                          // render and serve response
-exports.renderJson = renderJson;                  // render and serve json
-exports.renderTemplate = renderTemplate;          // render and serve template
-exports.errorResponse = errorResponse;            // render error page
-exports.catchError = catchError;                  // the heir of standard error handling
+  loadLogger,
+  
+  render,                       // render and serve response
+  renderJson,                   // render and serve json
+  renderTemplate,               // render and serve template
+  errorResponse,                // render error page
+  catchError,                   // the heir of standard error handling
+  
+  isLogged,                     // this guy speaks for himself.
+  requireLogged,                // middleware. verify if user is logged
+  requireUnlogged,
+  https,                        // middleware. force https ( redirect to when not )
+  
+  requireAdmin,
+  loadBaseData,                 // middleware. 
+  loadSession,                  // middleware. load session data
+  loadUserUid,
+  checkCredential,              // middleware. check that request agenda has required credential
+  flashSetter,                  // middleware. set a flash prior to redirect
+  
+  checkAdministrator,           // middleware. checks that logged user is administrator of loaded agenda
+  checkModerator,
+  checkContributor,
+  checkAdminOrModerator,
+  checkAdminOrModeratorOrKey,
+  checkStakeholder,
+  
+  useEmbedGoogleAnalytics,
+  
+  getRedirect,                  // get redirect
+  
+  writeToCookie,
+  clearCookie,
+  readCookie,
+  
+  redirectLegacySearch,
+  loadLegacyRoutes
 
-exports.isLogged = isLogged;                      // this guy speaks for himself.
-exports.requireLogged = requireLogged;            // middleware. verify if user is logged
-exports.requireUnlogged = requireUnlogged;
-exports.https = https;                            // middleware. force https ( redirect to when not )
-
-exports.requireAdmin = requireAdmin;
-exports.loadBaseData = loadBaseData;              // middleware. 
-exports.loadSession = loadSession;                // middleware. load session data
-exports.checkCredential = checkCredential;        // middleware. check that request agenda has required credential
-exports.flashSetter = flashSetter;                // middleware. set a flash prior to redirect
-
-exports.checkAdministrator = checkAdministrator;  // middleware. checks that logged user is administrator of loaded agenda
-exports.checkModerator = checkModerator;
-exports.checkContributor = checkContributor;
-exports.checkAdminOrModerator = checkAdminOrModerator;
-exports.checkAdminOrModeratorOrKey = checkAdminOrModeratorOrKey;
-exports.checkStakeholder = checkStakeholder;
-
-exports.useEmbedGoogleAnalytics = useEmbedGoogleAnalytics;
-
-
-exports.getRedirect = getRedirect;                // get redirect
-
-exports.writeToCookie = writeToCookie;
-exports.clearCookie = clearCookie;
-exports.readCookie = readCookie;
-
-exports.redirectLegacySearch = redirectLegacySearch;
-exports.loadLegacyRoutes = loadLegacyRoutes;
+}
 
 /**
  * dependencies and constant declarations
@@ -78,6 +82,8 @@ async = require( 'async' ),
 genUrl = require( '../services/genUrl' ),
 
 languages = require( 'languages' ),
+
+userSvc = require( '../services/user' ),
 
 labels = {
   unauthorized: require( 'labels/errors/unauthorized' )
@@ -576,6 +582,20 @@ function loadBaseData( func, cssFile ) {
 }
 
 
+function loadUserUid( req, res, next ) {
+
+  userSvc.get( { id: req.user.id }, ( err, user ) => {
+
+    if ( err ) return next( err );
+
+    req.userUid = user.uid;
+
+    next();
+
+  } );
+
+}
+
 
 /**
  * load session data 
@@ -654,7 +674,7 @@ function requireLogged( options ) {
 
     if ( req.xhr ) {
 
-      renderJson( {
+      renderJson( req, res, {
         success: false
       } );
 
@@ -701,7 +721,7 @@ function requireUnlogged( req, res, next ) {
 
   if ( req.xhr ) {
 
-    renderJson( {
+    renderJson( req, res, {
       success: false
     } );
 

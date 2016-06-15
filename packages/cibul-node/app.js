@@ -162,6 +162,7 @@ module.exports = function( enabledTypes, cb ) {
         require( './agenda/emailstrategie.back' )( '/:slug/admin/emailstrategie' ),
         require( './agenda/embeds.back' )( '/:slug/admin/embeds' ),
         require( './location/front' )( '/locations' ),
+        require( './location/suggestions.front' )( '/:slug/locations/:locationUid/suggest' ),
         require( './location/back' )( '' ),
         require( './agenda/shares.front' )( '' ),
         require( './agenda/front' )( '' ),

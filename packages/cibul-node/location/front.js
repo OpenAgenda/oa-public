@@ -8,7 +8,7 @@ al = require( 'agenda-locations' ),
 
 routes = {
 
-  locationShow: [ 'get', '/:uid.json', [
+  locationShow: [ 'get', '/:locationUid.json', [
     al.mw.get,
     ( req, res ) => cmn.renderJson( req, res, req.location )
   ] ]

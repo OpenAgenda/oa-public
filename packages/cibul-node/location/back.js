@@ -10,12 +10,10 @@ agendaSvc = require( '../services/agenda' ),
 
 mw = require( 'agenda-locations' ).mw(),
 
-userSvc = require( '../services/user' ),
-
 routes = {
 
   locationIndex: [ 'get', '/:slug/locations', [
-    _loadUserUid,
+    cmn.loadUserUid,
     mw.list,
     showList
   ] ],
@@ -23,8 +21,8 @@ routes = {
   agendaAdminLocations: [ 'get', '/:slug/admin/locations', [
     cmn.checkAdminOrModerator,
     agendaSvc.mw.loadAdminLayout,
-    cmn.loadBaseData( 'oa.css' ),
-    _loadUserUid,
+    cmn.loadBaseData( 'oasfmain.css' ),
+    cmn.loadUserUid,
     mw.loadSettings,
     show
   ] ],
@@ -32,20 +30,20 @@ routes = {
   agendaLocationSet: [ 'post', '/:slug/locations', [
     bodyParser.json(),
     _checkCreate,
-    _loadUserUid,
+    cmn.loadUserUid,
     mw.setToValidate
   ] ],
 
   agendaAdminLocationSet: [ 'post', '/:slug/admin/locations', [
     bodyParser.json(),
-    _loadUserUid,
+    cmn.loadUserUid,
     mw.set
   ] ],
 
   agendaAdminLocationRemove: [ 'post', '/:slug/admin/locations/remove', [
     cmn.checkAdminOrModerator,
     bodyParser.json(),
-    _loadUserUid,
+    cmn.loadUserUid,
     mw.remove
   ] ],
 
@@ -60,8 +58,14 @@ routes = {
     mw.list.terms
   ] ],
 
+  locationGetStakeholder: [ 'get', '/:slug/admin/locations/stakeholders/:stakeholderId', [
+    cmn.checkAdminOrModerator,
+    ( req, res, next ) => { req.agendaId = req.agenda.id; req.stakeholderId = req.params.stakeholderId; next(); },
+    mw.getStakeholder
+  ] ],
+
   locationGeocode: [ 'get', '/:slug/locations/geocode', [
-    _loadUserUid,
+    cmn.loadUserUid,
     mw.geocode
   ] ],
 
@@ -71,30 +75,35 @@ routes = {
     _resyncSuccess
   ] ],
 
+  locationToVerifyCount: [ 'get', '/:slug/admin/locations/verifycount', [
+    cmn.checkAdminOrModerator,
+    mw.getUnverifiedCount
+  ] ],
+
   locationNewImageUpload: [ 'post', '/:slug/locations/image', [
-    _loadUserUid,
+    cmn.loadUserUid,
     mw.newImageUpload
   ] ],
 
   locationNewImageRemove: [ 'post', '/:slug/locations/image/remove', [
-    _loadUserUid,
+    cmn.loadUserUid,
     mw.newImageRemove
   ] ],
 
   locationImageUpload: [ 'post', '/:slug/locations/:locationUid/image', [
     cmn.checkAdminOrModerator,
-    _loadUserUid,
+    cmn.loadUserUid,
     mw.imageUpload
   ] ],
 
   locationImageRemove: [ 'post', '/:slug/locations/:locationUid/image/remove', [
     cmn.checkAdminOrModerator,
-    _loadUserUid,
+    cmn.loadUserUid,
     mw.imageRemove
   ] ],
 
   agendaLocationGet: [ 'get', '/:slug/locations/:locationUid', [
-    mw.get
+    mw.load, ( req, res ) => { res.json( req.location ); }
   ] ]
 
 }
@@ -138,6 +147,7 @@ function show( req, res ) {
         seeEvents: req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ) + '?locationUid=:locationUid',
         set: req.genUrl( 'agendaAdminLocationSet', { slug: req.agenda.slug } ),
         get: req.genUrl( 'agendaLocationGet', { slug: req.agenda.slug, locationUid: ':locationUid' } ),
+        getStakeholder: req.genUrl( 'locationGetStakeholder', { slug: req.agenda.slug, stakeholderId: ':stakeholderId' } ),
         remove: req.genUrl( 'agendaAdminLocationRemove', { slug: req.agenda.slug } ),
         merge: req.genUrl( 'agendaAdminLocationMerge', { slug: req.agenda.slug } ),
         image: {
@@ -176,20 +186,6 @@ function showList( req, res, next ) {
 
 }
 
-
-function _loadUserUid( req, res, next) {
-
-  userSvc.get( { id: req.user.id }, ( err, user ) => {
-
-    if ( err ) return next( err );
-
-    req.userUid = user.uid;
-
-    next();
-
-  } );
-
-}
 
 function _checkCreate( req, res, next ) {
 

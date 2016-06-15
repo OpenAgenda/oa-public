@@ -6,6 +6,8 @@ config = require( '../../config' ),
 
 async = require( 'async' ),
 
+stakeholders = require( 'agenda-stakeholders' ),
+
 logger = require( 'logger' ), log,
 
 svc;
@@ -20,8 +22,20 @@ module.exports = function( s ) {
     getEventCount: model.locations().getEventCount,
     locationWillRemove: locationWillRemove,
     locationDidUpdate: locationDidUpdate,
-    locationsWillMerge: locationsWillMerge
+    locationsWillMerge: locationsWillMerge,
+    getStakeholder: getStakeholder
   }
+
+}
+
+
+/**
+ * get stakeholder from stakeholder service
+ */
+
+function getStakeholder( agendaId, stakeholderId, cb ) {
+
+  stakeholders( agendaId ).get( { id: stakeholderId }, cb );
 
 }
 
