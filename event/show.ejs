@@ -252,7 +252,7 @@
             </a>
           </li>
 <% } %>
-<% if ( event.location.links ) { %>
+<% if ( event.location.links && event.location.links.length ) { %>
           <li class="location-links">
             <label><%= __( 'More links' ) %></label>: 
 <% event.location.links.forEach( function( link ) { %>
