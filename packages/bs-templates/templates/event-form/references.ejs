@@ -1,0 +1,68 @@
+<% include ../layout/_top.ejs %>
+<div class="container">
+  <div class="row top-margined">
+
+    <section class="col-sm-6 col-sm-offset-3 wsq">
+      <div class="content event-references">
+        
+        <h2>Event form list presentation</h2>
+
+        <div class="configure">
+        
+          <label>Evénements liés</label>
+
+          <ul class="list-unstyled">
+            <li><% include _reference-item.ejs %></li>
+            <li><% include _reference-item.ejs %></li>
+            <li><% include _reference-item.ejs %></li>
+          </ul>
+
+          <a href="#">Ajouter un événement</a>
+
+          <p>remplace 'Ajouter un événement' sur clic:</p>
+          <div class="search">
+            <input type="text" class="form-control" placeholder="Chercher via titre ou lieu" />
+            <ul class="search-results">
+              <li><% include _reference-item.ejs %></li>
+              <li><% include _reference-item.ejs %></li>
+              <li><% include _reference-item.ejs %></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="row" style="margin-top: 320px;">
+
+    <section class="col-sm-6 col-sm-offset-3 wsq">
+
+      <div class="content event-references">
+
+        <h2>Event page presentation</h2>
+
+        <h3>Voir Aussi</h3>
+        <div class="media">
+          <div class="media-left">
+            <a class="event-pic" href="#">
+              <img class="media-object" src="//cibul.s3.amazonaws.com/evtbevent_les-estivales-2016_707612.jpg"> 
+            </a>
+          </div>
+          <div class="media-body">
+            <a href="#">
+              <h4 class="media-heading">La photosynthèse pour les aigris</h4>
+              <ul class="list-unstyled">
+                <li>L'abreuvoir, Quimper</li>
+                <li>25 janvier, 10h</li>
+              </ul>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+</div>
+<% include ../layout/_bottom.ejs %>

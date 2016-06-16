@@ -1,0 +1,109 @@
+.event-references {
+
+  .media {
+
+    a {
+
+      color: inherit;
+
+      &:hover {
+
+        text-decoration: none;
+
+      
+      }
+    }
+
+  }
+
+  h4 {
+
+    font-size: 1em;
+    font-weight: bold;
+
+  }
+
+  li {
+
+    margin-bottom: 0.2em;
+
+  }
+
+
+  .configure {
+
+    .media {
+
+      padding: 1em 0;
+
+      .remove {
+
+        margin: 20px 10px 0 0;
+        font-size: 1.1em;
+
+        &:hover {
+
+          color: $oa-red;
+
+        }
+
+      }
+
+    }
+
+    .search {
+
+      position: relative;
+
+      .search-results {
+
+        border: 1px solid $oa-gray-light;
+        padding: 0;
+        list-style-type: none;
+        position: absolute;
+        background-color: $oa-white;
+        top: 2.6em;
+        border-radius: 3px;
+
+        > li {
+
+          margin: 0;
+
+        }
+
+        .media {
+
+          padding: 0.4em 0.8em;
+          cursor: pointer;
+          margin: 0;
+
+          &:hover {
+
+            background: $oa-gray-lighter;
+
+          }
+
+        }
+
+      }
+
+      .remove {
+
+        display: none;
+
+      }
+        
+    }
+
+  }
+  
+  .event-pic {
+
+    height: 64px;
+    width: 64px;
+    overflow: hidden;
+    display: inline-block;
+
+  }
+
+}
