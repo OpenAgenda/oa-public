@@ -102,6 +102,8 @@ function frameLink( elem, onLinkEstablished, onReceive ) {
 
   function _onFrameMessageReceived( e ) {
 
+    var data;
+
     if ( !handShakeComplete ) {
 
       log( 'link with frame established' );
@@ -118,11 +120,24 @@ function frameLink( elem, onLinkEstablished, onReceive ) {
 
       log( 'receiving message from frame: %s', e.data );
 
-      onReceive( typeof e.data == 'string' ? JSON.parse( e.data ) : e.data );
+      data = false;
+
+      try {
+
+        data = typeof e.data == 'string' ? JSON.parse( e.data ) : e.data;
+
+      } catch( e ) {}
+
+      if ( data ) {
+
+        onReceive( data );
+
+      }
 
     }
 
   }
+
 
   function _appendProtocol( href ) {
 
