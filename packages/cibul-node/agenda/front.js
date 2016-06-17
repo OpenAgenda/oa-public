@@ -367,16 +367,12 @@ function _formatEventItem( event, req, cb ) {
 
   var inst = eventSvc.instanciate( event ),
 
-  img, dateRange;
+  img = inst.getImage( true );
 
   inst.switchLanguage( req.lang );
 
-  img = inst.getImage( true );
-
-  dateRange = inst.getDateRange( true );
-
   var formatted = lib.extend( inst, {
-    dateRange: inst.getRange(),
+    dateRange: inst.getRange( req.lang ),
     closestDate: inst.getClosestDate(),
     keywords: inst.getTags(),
     tags: [],
