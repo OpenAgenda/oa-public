@@ -490,7 +490,7 @@ function _formatEmbedLinks( req, res, next ) {
       t.link = req.genUrl( 'agendaEmbedShow', {
         uid: req.params.uid,
         oaq: {
-          tag: t.slug
+          tags: [ t.slug ]
         }
       } );
 
@@ -538,7 +538,7 @@ function _formatCustomEmbedLinks( req, res, next ) {
         uid: req.params.uid,
         embedUid: req.embed.uid,
         oaq: {
-          tag: t.slug,
+          tags: [ t.slug ],
           passed: req.query.passed
         },
         lang: req.lang
