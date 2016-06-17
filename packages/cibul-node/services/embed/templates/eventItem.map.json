@@ -11,6 +11,14 @@
     { "name" : "DateRange", "mapTo": "dateRange" },
     { "name" : "PricingInfo", "mapTo" : "pricingInfo" },
     { "name" : "TicketUrl", "mapTo" : "ticketLink" },
+    { "name" : "TicketLabel", "mapTo" : "ticketLabel" },
+    {
+      "name" : "ShareUrl",
+      "mapTo" : "actionLink"
+    }, {
+      "name" : "ShareLabel",
+      "mapTo" : "actionLabel"
+    },
     { "name" : "Category", "mapTo" : "category" },
     { "name" : "CategoryLink", "mapTo" : "categoryLink" },
     { "name" : "CategorySlug", "mapTo" : "categorySlug" },

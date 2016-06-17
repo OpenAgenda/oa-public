@@ -287,7 +287,7 @@ function _format( req, res, next ) {
 
   async.map( req.events, function( e, mcb ) {
 
-    _formatEventItem( e, req.lang, mcb );
+    _formatEventItem( e, req, mcb );
 
   }, function( err, formattedEvents ) {
 
@@ -363,17 +363,19 @@ function _loadAgendaByAgendaId( req, res, next ) {
 }
 
 
-function _formatEventItem( event, lang, cb ) {
+function _formatEventItem( event, req, cb ) {
 
   var inst = eventSvc.instanciate( event ),
 
   img, dateRange;
 
-  inst.switchLanguage( lang );
+  inst.switchLanguage( req.lang );
 
   img = inst.getImage( true );
 
   dateRange = inst.getDateRange( true );
+
+  console.log( inst.getTicketLink() );
 
   var formatted = lib.extend( inst, {
     dateRange: inst.getRange(),
@@ -390,6 +392,12 @@ function _formatEventItem( event, lang, cb ) {
     city: inst.getCity().label,
     pricingInfo: inst.getPricingInfo(),
     ticketLink: inst.getTicketLink(),
+    ticketLabel: i18n( 'Register', req.lang ),
+    actionLink: req.genUrl( 'agendaEventActionShow', {
+      slug: req.agenda.slug,
+      eventSlug: event.slug
+    }, { protocol: 'https://' } ),
+    actionLabel: i18n( 'Export', req.lang ),
     organization: event.organization ? { slug: event.organizationSlug, label: event.organization } : false,
     category: false,
     favorite: '<span class="fav js_fav_item" data-event-uid="' + inst.uid + '"></span>'

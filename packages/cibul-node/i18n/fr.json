@@ -170,5 +170,7 @@
   "the action you requested is unknown"
   : "l'action que vous avez demandé est inconne",
   "Activate your OpenAgenda Account"
-  : "Activez votre compte OpenAgenda"
+  : "Activez votre compte OpenAgenda",
+  "Register"
+  : "Réserver"
 }
