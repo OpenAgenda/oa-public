@@ -375,8 +375,6 @@ function _formatEventItem( event, req, cb ) {
 
   dateRange = inst.getDateRange( true );
 
-  console.log( inst.getTicketLink() );
-
   var formatted = lib.extend( inst, {
     dateRange: inst.getRange(),
     closestDate: inst.getClosestDate(),
