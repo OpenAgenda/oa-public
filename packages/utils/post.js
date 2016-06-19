@@ -11,7 +11,8 @@ module.exports = function( res, data, cb ) {
       'X-Requested-With': 'XMLHttpRequest',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify( data )
+    body: JSON.stringify( data ),
+    responseType: 'json'
   }, function( err, result ) {
 
     if ( err ) {

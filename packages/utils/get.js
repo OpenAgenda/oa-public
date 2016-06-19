@@ -25,11 +25,7 @@ module.exports = function( res, data, cb ) {
     }
   }, function( err, result ) {
 
-    if ( err ) {
-
-      return cb( err );
-
-    }
+    if ( err ) return cb( err );
 
     if ( result.statusCode !== 200 ) {
 
