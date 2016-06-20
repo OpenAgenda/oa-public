@@ -1,6 +1,8 @@
+"use strict;"
+
 var types = {},
 
-ROADMAP = 'roadmap'
+ROADMAP = 'roadmap',
 
 libs = {};
 

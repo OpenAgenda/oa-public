@@ -75,56 +75,56 @@ function _prepareRender( v ) {
   p.w( v )
 
   // load config file
-    .then( _load( 'config', 'uri', '.config.json', true ) )
+  .then( _load( 'config', 'uri', '.config.json', true ) )
 
-    // load layout config file
-    .then( p.ifl( { 'config.layout': true }, _load( 'layoutConfig', 'config.layout', '.config.json', true ) ) )
+  // load layout config file
+  .then( p.ifl( { 'config.layout': true }, _load( 'layoutConfig', 'config.layout', '.config.json', true ) ) )
 
-    // load mock data
-    .then( _load( 'data', 'uri', '.mock.json', true ) )
+  // load mock data
+  .then( _load( 'data', 'uri', '.mock.json', true ) )
 
-    // load layout mock data
-    .then( p.ifl( { 'config.layout': true }, _load( 'layoutData', 'config.layout', '.mock.json', true ) ) )
+  // load layout mock data
+  .then( p.ifl( { 'config.layout': true }, _load( 'layoutData', 'config.layout', '.mock.json', true ) ) )
 
-    // browserify js data
-    .then( p.ifl( { 'config.js': true }, _browserifyFiles( 'uri', 'config.js' ) ) )
+  // browserify js data
+  .then( p.ifl( { 'config.js': true }, _browserifyFiles( 'uri', 'config.js' ) ) )
 
-    // browserify layout js data
-    .then( p.ifl( { 'layoutConfig.js': true }, _browserifyFiles( 'config.layout', 'layoutConfig.js' ) ) )
+  // browserify layout js data
+  .then( p.ifl( { 'layoutConfig.js': true }, _browserifyFiles( 'config.layout', 'layoutConfig.js' ) ) )
 
-    // compile template data
-    .then( _compileTemplateData )
+  // compile template data
+  .then( _compileTemplateData )
 
-    // append css links
-    .then( _listCssFiles )
+  // append css links
+  .then( _listCssFiles )
 
-    // compile it all
-    .then( _compileSass )
+  // compile it all
+  .then( _compileSass )
 
-    // define js files root
-    .then( _jsRoot )
+  // define js files root
+  .then( _jsRoot )
 
-    // define url generator
-    .then( _fakeGenUrl )
+  // define url generator
+  .then( _fakeGenUrl )
 
-    // language
-    .then( _defineLanguage )
+  // language
+  .then( _defineLanguage )
 
-    // environment
-    .then( _defineEnvironment )
+  // environment
+  .then( _defineEnvironment )
 
-    // render template
-    .then( _render )
+  // render template
+  .then( _render )
 
-    .done( function ( v ) {
+  .done( function ( v ) {
 
-      _respond( v.res, 200, v.render );
+    _respond( v.res, 200, v.render );
 
-    }, function ( err ) {
+  }, function ( err ) {
 
-      _respond( v.res, 500, 'There was a problem while loading the template: ' + err );
+    _respond( v.res, 500, 'There was a problem while loading the template: ' + err );
 
-    } );
+  } );
 
 }
 

@@ -498,6 +498,7 @@ var ugly = require( 'uglify-js' ),
     var compiler = webpack( production ? webpackConfigProd( paths ) : webpackConfigDev( paths ) );
 
     compiler.run( function ( err, stats ) {
+      
       if ( err ) cb( err );
 
       var msg = stats.toString( {
@@ -508,63 +509,12 @@ var ugly = require( 'uglify-js' ),
 
         shownMsg = ~msg.indexOf( 'WARNING' ) ? msg.substring( 0, msg.indexOf( 'WARNING' ) - 11 ) : msg;
 
-      console.log( shownMsg );
+      log( shownMsg );
 
       cb();
+
     } );
 
-
-    /*var b = browserify();
-
-     b.transform(stringify(['.ejs', '.css', '.html', '.tblr' ]));
-
-     b.transform( 'babelify' );
-
-     b.add( __dirname + '/' + paths.src.path + '/' + paths.src.name );
-
-     var bundle = b.bundle(),
-
-     destFilePath = paths.dest.path + '/' + paths.dest.name,
-
-     writeStream = fs.createWriteStream( destFilePath );
-
-     bundle.pipe( writeStream );
-
-     writeStream.on( 'close', function() {
-
-     // minify here
-
-     if ( !mangle ) return cb();
-
-     fs.readFile( destFilePath, 'utf-8', function( err, content ){
-
-     if ( err ) return cb( err );
-
-     var uglified;
-
-     try {
-
-     uglified = ugly.minify(content, { mangle: true, fromString: true }).code;
-
-     } catch( e ) {
-
-     console.log( 'error', e );
-
-     throw e;
-
-     }
-
-
-     // done!
-
-     fs.writeFile( destFilePath, uglified, cb);
-
-     });
-
-     });*/
-
-
-    // handle mangle
 
   },
 
