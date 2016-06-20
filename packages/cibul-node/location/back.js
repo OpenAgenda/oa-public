@@ -104,6 +104,13 @@ routes = {
 
   agendaLocationGet: [ 'get', '/:slug/locations/:locationUid', [
     mw.load, ( req, res ) => { res.json( req.location ); }
+  ] ],
+
+  locationSuggestionRemove: [ 'post', '/:slug/locations/:locationUid/suggestion/remove', [
+    cmn.checkAdminOrModerator,
+    bodyParser.json(),
+    ( req, res, next ) => { req.stakeholderId = req.body.stakeholderId; console.log( req.body ); next(); },
+    mw.clearSuggestion
   ] ]
 
 }
@@ -150,6 +157,7 @@ function show( req, res ) {
         getStakeholder: req.genUrl( 'locationGetStakeholder', { slug: req.agenda.slug, stakeholderId: ':stakeholderId' } ),
         remove: req.genUrl( 'agendaAdminLocationRemove', { slug: req.agenda.slug } ),
         merge: req.genUrl( 'agendaAdminLocationMerge', { slug: req.agenda.slug } ),
+        removeSuggestion: req.genUrl( 'locationSuggestionRemove', { slug: req.agenda.slug, locationUid: ':locationUid' } ),
         image: {
           newUpload: req.genUrl( 'locationNewImageUpload', { slug: req.agenda.slug } ),
           newRemove: req.genUrl( 'locationNewImageRemove', { slug: req.agenda.slug } ),
