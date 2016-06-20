@@ -48,10 +48,10 @@ module.exports = ( paths ) => {
         react: path.join( process.cwd(), 'node_modules/react' ),
       }*/
     },
-    resolveLoader: { 
+    /*resolveLoader: { 
       root: path.join( __dirname, '../node_modules' ),
       fallback: path.join( process.cwd(), 'node_modules' )
-    },
+    },*/
     plugins: [
       new webpack.DefinePlugin( {
         'process.env': {
