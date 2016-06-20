@@ -48,9 +48,6 @@ var ugly = require( 'uglify-js' ),
 
   browserify = require( 'browserify' ),
 
-  stringify = require( 'stringify' ),
-
-  reactify = require( 'reactify' ),
 
   browserified = [],
 
