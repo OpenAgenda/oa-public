@@ -32,7 +32,7 @@ const React = require( 'react' ),
 
   SettingsContainer = require( './containers/SettingsContainer' );
 
-if ( process.env == 'development' ) {
+if ( process.env.NODE_ENV == 'development' ) {
   const DevTools = require( './containers/DevTools' );
 }
 
@@ -71,7 +71,7 @@ module.exports = function ( options ) {
         <Router history={history} createElement={createElement}>
           {routes( store )}
         </Router>
-        { !window.devToolsExtension && process.env == 'development' ? <DevTools /> : null }
+        {process.env.NODE_ENV == 'development' && !window.devToolsExtension ? <DevTools /> : null}
       </div>
     </Provider>, du.el( params.canvas ) );
 
