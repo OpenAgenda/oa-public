@@ -26,17 +26,18 @@ const React = require( 'react' ),
 
   actions = require( './actions' ),
 
-  DevTools = require( './containers/DevTools' ),
-
   RelayContainer = require( './containers/RelayContainer' ),
 
   App = require( './containers/App' ),
 
   SettingsContainer = require( './containers/SettingsContainer' );
 
+if ( process.env == 'development' ) {
+  const DevTools = require( './containers/DevTools' );
+}
+
 
 require( 'dom-utils/ie8' );
-
 
 module.exports = function ( options ) {
 
@@ -70,7 +71,7 @@ module.exports = function ( options ) {
         <Router history={history} createElement={createElement}>
           {routes( store )}
         </Router>
-        { !window.devToolsExtension && __DEVELOPMENT__ ? <DevTools /> : null }
+        { !window.devToolsExtension && process.env == 'development' ? <DevTools /> : null }
       </div>
     </Provider>, du.el( params.canvas ) );
 

@@ -2,9 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 
-const config = require( '../testconfig' ),
-
-  should = require( 'should' ),
+const should = require( 'should' ),
 
   actions = require( '../react/actions' ),
 

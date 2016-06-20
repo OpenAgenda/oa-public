@@ -1,22 +1,16 @@
 "use strict";
 
-if ( __DEVELOPMENT__ ) {
+const React = require( 'react' ),
 
-  const React = require( 'react' ),
+  { createDevTools } = require( 'redux-devtools' ),
 
-    { createDevTools } = require( 'redux-devtools' ),
+  DockMonitor = require( 'redux-devtools-dock-monitor' ).default,
 
-    DockMonitor = require( 'redux-devtools-dock-monitor' ).default,
-
-    LogMonitor = require( 'redux-devtools-log-monitor' ).default;
+  LogMonitor = require( 'redux-devtools-log-monitor' ).default;
 
 
-  module.exports = createDevTools(
-    <DockMonitor toggleVisibilityKey="ctrl-h" changePositionKey="ctrl-p" defaultPosition="bottom">
-      <LogMonitor />
-    </DockMonitor>
-  );
-
-} else {
-  module.exports = {};
-}
+module.exports = createDevTools(
+  <DockMonitor toggleVisibilityKey="ctrl-h" changePositionKey="ctrl-p" defaultPosition="bottom">
+    <LogMonitor />
+  </DockMonitor>
+);
