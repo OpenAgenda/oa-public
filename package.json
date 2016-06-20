@@ -90,10 +90,10 @@
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
     "webpack": "^1.13.1",
     "when": "~3.4",
+    "react": "0.14.7",
     "xhr": "^2.2.0"
   },
   "devDependencies": {
-    "react": "0.14.7",
     "should": "^8.2.2"
   },
   "peerDependencies": {
