@@ -2,9 +2,7 @@
 
 var utils = require( 'utils' ),
 
-du = require( '../../../js/lib/domUtils' ),
-
-EJS = require( '../../../js/lib/clientEjs/ejs' );
+du = require( '../../../js/lib/domUtils' );
 
 module.exports = function( params ) {
 
@@ -73,7 +71,7 @@ module.exports = function( params ) {
 
       elem = document.createElement('div');
 
-      elem.innerHTML = new EJS({text: params.templates.main }).render();
+      elem.innerHTML = params.templates.main();
 
       list = du.el(elem, 'ul');
 
@@ -102,7 +100,7 @@ module.exports = function( params ) {
 
     var liCanvas = document.createElement('ul'), li;
 
-    liCanvas.innerHTML = new EJS({ text: params.templates.item }).render(item);
+    liCanvas.innerHTML = params.templates.item(item);
 
     li = du.el(liCanvas, 'li');
 
@@ -124,7 +122,7 @@ module.exports = function( params ) {
 
     var actionCanvas = document.createElement('div');
 
-    actionCanvas.innerHTML = new EJS({text: params.templates.action}).render(utils.extend({}, action, {label: params.labels[action.label]}));
+    actionCanvas.innerHTML = params.templates.action(utils.extend({}, action, {label: params.labels[action.label]}));
 
     du.addEvent(actionCanvas.childNodes[0], 'click', function(e) {
 

@@ -1,3 +1,5 @@
+"use strict";
+
 maps.register( 'osm', (function(){
 
   var libOptions;

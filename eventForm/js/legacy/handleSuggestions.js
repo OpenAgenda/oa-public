@@ -2,9 +2,7 @@ var utils = require( 'utils' ),
 
 du = require( '../../../js/lib/domUtils' ),
 
-handleContextMenu =  require( './handleContextMenu.js' ),
-
-EJS = require( '../../../js/lib/clientEjs/ejs' );
+handleContextMenu =  require( './handleContextMenu.js' );
 
 module.exports = function( inputElem, list, key, template, options ) {
 
@@ -89,9 +87,7 @@ module.exports = function( inputElem, list, key, template, options ) {
 
     }
 
-    var ejs = new EJS({ text: template }), 
-
-    newChild, 
+    var newChild, 
 
     ul = document.createElement('ul'), 
 
@@ -101,7 +97,7 @@ module.exports = function( inputElem, list, key, template, options ) {
 
       li = document.createElement( 'li' );
 
-      li.innerHTML = ejs.render( listItem );
+      li.innerHTML = template( listItem );
 
       du.addEvent( li, 'click', function() {
 

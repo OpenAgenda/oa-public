@@ -12,8 +12,6 @@ cLib = require( '../../js/vendors/CibulCalendar/src/CibulCalendar' ),
 
 debug = require( 'debug' ),
 
-EJS = require( '../../js/lib/clientEjs/ejs' ),
-
 config = {
   langAttribute : 'data-lang'
 },
@@ -226,7 +224,7 @@ var widget = function( elem, options ) {
 
   function _createCalendar() {
 
-    elem.innerHTML = new EJS( { text: templates.main } ).render( {} );
+    elem.innerHTML = templates.main( {} );
 
     calendar = new cLib.CibulCalendar( cn.el( elem, 'div' ), {
       filter: _filterCalendar,

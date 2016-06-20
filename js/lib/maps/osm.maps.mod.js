@@ -226,7 +226,7 @@ maps.register('osm', (function(){
 
     createCluster: function( map, markers ) {
 
-      clusterGroup = L.markerClusterGroup({
+      var clusterGroup = L.markerClusterGroup({
         showCoverageOnHover: false
       });
 

@@ -6,8 +6,6 @@ rUtils = require( '../reactUtils' ),
 
 du = require( '../../../js/lib/domUtils' ),
 
-EJS = require( '../../../js/lib/clientEjs/ejs' ),
-
 handleEventImage = require( './handleEventImage' ),
 
 formConfiguration = require( '../formConfiguration' );

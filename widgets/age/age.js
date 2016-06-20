@@ -4,8 +4,6 @@ exports.setOnReady = setOnReady;
 
 var UID = 0, LANG = 1,
 
-EJS = require( '../../js/lib/clientEjs/ejs' ),
-
 wLib = require(  '../lib/widgetLib' ),
 
 template = require( './main.ejs' ),
@@ -106,7 +104,7 @@ function widget( elem, options ) {
 
     styler( style );
 
-    elem.innerHTML = new EJS( { text: template } ).render( {
+    elem.innerHTML = template( {
       labels: config.labels[ lang ]
     } );
 

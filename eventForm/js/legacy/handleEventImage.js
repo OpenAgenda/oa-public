@@ -6,8 +6,6 @@ rUtils = require( '../reactUtils' ),
 
 du = require( '../../../js/lib/domUtils' ),
 
-EJS = require( '../../../js/lib/clientEjs/ejs' ),
-
 remote = require( '../../../js/lib/remote/remote.mod' ),
 
 Spinner = require( 'spin.js' );
@@ -204,7 +202,7 @@ module.exports = function( params ) {
 
   _displayEmptyMessage = function() {
 
-    du.el(elem, params.selectors.imageCanvas).innerHTML = new EJS({text: params.templates.empty}).render(params.labels);
+    du.el(elem, params.selectors.imageCanvas).innerHTML = params.templates.empty(params.labels);
 
   },
 
@@ -336,7 +334,7 @@ module.exports = function( params ) {
     elem = document.createElement('div');
     elem.className = params.classes.main;
 
-    elem.innerHTML = new EJS({text: params.templates.main }).render(params.labels);
+    elem.innerHTML = params.templates.main(params.labels);
 
     du.el( params.canvas ).appendChild(elem);
 

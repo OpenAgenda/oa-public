@@ -8,8 +8,6 @@ handlePlaceFetch = require( './handlePlaceFetch' ),
 
 handlePlaceSelection = require( './handlePlaceSelection' ),
 
-EJS = require( '../../../js/lib/clientEjs/ejs' ),
-
 defaults = {
   canvas: false,
   country: {code: 'FR', name: 'France'},
@@ -123,7 +121,7 @@ module.exports = function( options ) {
 
     while ( child = du.childObject(infoElem, 0)) infoElem.removeChild(child);
 
-    infoElem.innerHTML = new EJS({text: params.templates.info }).render(utils.extend({changeLabel: params.labels.change }, locationInfo));
+    infoElem.innerHTML = params.templates.info(utils.extend({changeLabel: params.labels.change }, locationInfo));
 
     infoElem.style.display = 'block';
 
@@ -177,7 +175,7 @@ module.exports = function( options ) {
 
     elem = document.createElement('div');
 
-    elem.innerHTML = new EJS({text: params.templates.main }).render(params.labels);
+    elem.innerHTML = params.templates.main(params.labels);
 
     params.canvas.appendChild(elem);
 

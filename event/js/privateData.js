@@ -8,8 +8,6 @@ remote = require( '../../js/lib/remote/remote.mod.js' ),
 
 debug = require( 'debug' ), log,
 
-EJS = require( '../../js/lib/clientEjs/ejs' ),
-
 defaults = {
   uid: false,
   agendaUid: false,
@@ -114,9 +112,7 @@ module.exports = function( options ) {
 
   function _renderContributor( data ) {
 
-    return params.contributorHead + ( new EJS( { 
-      text: params.contributorTemplate
-    } ).render( data ) );
+    return params.contributorHead + params.contributorTemplate( data );
 
   }
 
@@ -124,9 +120,7 @@ module.exports = function( options ) {
 
     data.customClass = params.className;
 
-    return ( new EJS( { 
-      text: params.customTemplate
-    } ).render( data ) );
+    return params.customTemplate( data );
 
   }
 

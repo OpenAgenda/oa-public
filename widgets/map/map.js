@@ -12,8 +12,6 @@ utils = require( 'utils' ),
 
 remote = require( '../../js/lib/remote/remote.mod.js' ),
 
-EJS = require( '../../js/lib/clientEjs/ejs' ),
-
 wLib = require(  '../lib/widgetLib' ),
 
 debug = require( 'debug' ),
@@ -261,6 +259,8 @@ function widget( elem, options ) {
 
       } catch( e ) {
 
+        console.error( e );
+
         console.error( 'markercluster lib crashed at cluster creation' );
 
       }
@@ -441,7 +441,7 @@ function widget( elem, options ) {
 
       _closePopup();
 
-      popup = m.createPopup( map, new EJS({ text: templates.popup }).render( popupData ), { marker: l.marker });
+      popup = m.createPopup( map, templates.popup( popupData ), { marker: l.marker });
 
     } );
 
@@ -998,7 +998,7 @@ function widget( elem, options ) {
 
     var div = document.createElement( 'div' );
 
-    div.innerHTML = new EJS( {text: templates.main } ).render( {
+    div.innerHTML = templates.main( {
       labels : config.labels[ config.lang ]
     } );
 

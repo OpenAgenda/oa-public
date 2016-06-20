@@ -4,8 +4,6 @@ var utils = require( 'utils' ),
 
 du = require( '../../../js/lib/domUtils' ),
 
-EJS = require( '../../../js/lib/clientEjs/ejs' ),
-
 handlePlaceSelectionList = require( './handlePlaceSelectionList' ),
 
 handlePlaceSelectionMap = require( './handlePlaceSelectionMap' ),
@@ -130,7 +128,7 @@ module.exports = function( params ) {
 
     elem = document.createElement('div');
 
-    elem.innerHTML = new EJS({text: params.templates.main }).render(params.labels);
+    elem.innerHTML = params.templates.main(params.labels);
 
     elem.className = params.classes.main;
 
@@ -145,7 +143,7 @@ module.exports = function( params ) {
   function _createDragLink() {
 
     dragLink = document.createElement('div');
-    dragLink.innerHTML = new EJS({text: params.templates.dragLink }).render(params.labels);
+    dragLink.innerHTML = params.templates.dragLink(params.labels);
     dragLink = dragLink.childNodes[0];
 
     du.addEvent(dragLink, 'click', function(e) {
@@ -233,7 +231,7 @@ module.exports = function( params ) {
     if (emptyElem) return;
 
     emptyElem = document.createElement('div');
-    emptyElem.innerHTML = new EJS({text: params.templates.empty }).render(params.labels);
+    emptyElem.innerHTML = params.templates.empty(params.labels);
 
     du.el(elem, params.selectors.suggestions).appendChild(emptyElem);
 

@@ -24,7 +24,7 @@ styler = function( styleToAppend, styleVars, w, d ) {
 
   if ( !sheet ) _createSheet( w, d );
 
-  styles = utils.extend( {}, defaults.styles, styleVars ? styleVars : {} );
+  var styles = utils.extend( {}, defaults.styles, styleVars ? styleVars : {} );
 
   style += _format( styleToAppend, styles );
 
