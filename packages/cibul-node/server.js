@@ -1,4 +1,4 @@
-"use strict";
+require( './server.babel' ); // babel registration (runtime transpilation for node)
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
@@ -8,6 +8,6 @@ var enabledTypes = ( process.argv ? process.argv : [] ).filter( function( argIte
 
   return [ 'web', 'admin', 'task' ].indexOf( argItem ) !== -1;
 
-});
+} );
 
 require( './app' )( enabledTypes );

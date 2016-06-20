@@ -2,7 +2,7 @@
 
 var supervisor = require( './lib/supervisor' );
 
-module.exports = function( enabledTypes, cb ) {
+module.exports = function ( enabledTypes, cb ) {
 
   if ( !cb && ( typeof enabledTypes == 'function' ) ) {
 
@@ -12,11 +12,11 @@ module.exports = function( enabledTypes, cb ) {
 
   }
 
-  supervisor( function( loadTasks ) {
+  supervisor( function ( loadTasks ) {
 
     var logger = require( 'logger' ),
 
-    config = require( './config' );
+      config = require( './config' );
 
     logger.init( {
       debug: {
@@ -28,11 +28,11 @@ module.exports = function( enabledTypes, cb ) {
 
     var mailer = require( 'mailer' ),
 
-    log = logger( 'app' ),
+      log = logger( 'app' ),
 
-    init = require( './lib/init' ),
+      init = require( './lib/init' ),
 
-    tfy = require( './lib/taskify' );
+      tfy = require( './lib/taskify' );
 
     log( 'info', 'running server' );
 
@@ -41,21 +41,25 @@ module.exports = function( enabledTypes, cb ) {
 
     var emailStrategie = require( 'emailStrategie' ),
 
-    cmn = require( './lib/commons-app' ),
+      cmn = require( './lib/commons-app' ),
 
-    express = require( 'express' ),
+      express = require( 'express' ),
 
-    cookieSession = require( 'cookie-session' ),
+      cookieParser = require( 'cookie-parser' ),
 
-    genUrl = require( './services/genUrl' ).init( {
-      domain: config.domain,
-    } ),
+      bodyParser = require( 'body-parser' ),
 
-    webModules,
+      cookieSession = require( 'cookie-session' ),
 
-    app = express(),
+      genUrl = require( './services/genUrl' ).init( {
+        domain: config.domain,
+      } ),
 
-    server;
+      webModules,
+
+      app = express(),
+
+      server;
 
     require( 'facebook' ).init( {
       app: config.auth.facebook,
@@ -63,7 +67,9 @@ module.exports = function( enabledTypes, cb ) {
         tabRedirect: config.root + '/facebook/tab/create/:state'
       },
       db: config.db
-    }, function( err ) { if ( err ) log( 'error', err ); } );
+    }, function ( err ) {
+      if ( err ) log( 'error', err );
+    } );
 
     require( 'agenda-tags' ).init( {
       store: config.db,
@@ -79,10 +85,11 @@ module.exports = function( enabledTypes, cb ) {
     } );
 
     require( 'agenda-stakeholders' ).init( {
-      schemas : config.schemas,
+      schemas: config.schemas,
       mysql: config.db,
       logger: logger
-    }, () => {} );
+    }, () => {
+    } );
 
     init.agendaLocations( {
       logger: logger
@@ -92,7 +99,8 @@ module.exports = function( enabledTypes, cb ) {
 
         //require( 'agenda-locations/tasks/associateFreeLocations' )();
 
-        require( 'agenda-locations' ).tasks.setLocationTimezones( err => { } );
+        require( 'agenda-locations' ).tasks.setLocationTimezones( err => {
+        } );
 
       }
 
@@ -133,7 +141,19 @@ module.exports = function( enabledTypes, cb ) {
 
     require( 'admin-agendas' ).init( {
       mysql: config.db,
-      schemas : config.schemas,
+      schemas: config.schemas,
+      logger: logger
+    } );
+
+    require( 'users' ).init( {
+      mysql: config.db,
+      schemas: config.schemas,
+      files: {
+        bucket: config.aws.bucket,
+        accessKeyId: config.aws.accessKeyId, // required
+        secretAccessKey: config.aws.secretAccessKey,
+        tmpPath: config.tmpFolderPath
+      },
       logger: logger
     } );
 
@@ -143,6 +163,7 @@ module.exports = function( enabledTypes, cb ) {
         require( './admin/agendas.back' )( '/admin/agendas' )
       ],
       web: [ // open to the public
+        require( './user/settings.back' )( '/newsettings' ),
         require( './newsletter/back' )( '/:slug/admin/newsletters' ),
         require( './newsletter/front' )( '/:slug/newsletters' ),
         require( './general/front' )( '' ),
@@ -179,14 +200,14 @@ module.exports = function( enabledTypes, cb ) {
 
     app.set( 'trust proxy', 'loopback' );
 
-    app.use( require( 'cookie-parser' )() );
+    app.use( cookieParser() );
 
-    app.use( require( 'body-parser' ).urlencoded( {
+    app.use( cookieSession( config.session ) );
+
+    app.use( bodyParser.urlencoded( {
       extended: true,
       limit: 500000
     } ) );
-
-    app.use( cookieSession( config.session ) );
 
     app.use( function ( req, res, next ) {
 
@@ -198,15 +219,15 @@ module.exports = function( enabledTypes, cb ) {
 
 
     // load gen url everywhere
-    app.use( function( req, res, next ) {
+    app.use( function ( req, res, next ) {
 
       req.genUrl = genUrl.copy(); // need genUrl only for request lifecycle
 
       next();
 
-    });
+    } );
 
-    app.use( function( req, res, next ) {
+    app.use( function ( req, res, next ) {
 
       req.log = logger( 'req' );
 
@@ -214,11 +235,11 @@ module.exports = function( enabledTypes, cb ) {
 
       next();
 
-    });
+    } );
 
     cmn.loadLegacyRoutes( genUrl );
 
-    webModules.web.concat( webModules.admin ).forEach( function( m ) {
+    webModules.web.concat( webModules.admin ).forEach( function ( m ) {
 
       genUrl.load( m.paths );
 
@@ -228,11 +249,11 @@ module.exports = function( enabledTypes, cb ) {
 
     if ( enabledTypes.indexOf( 'admin' ) !== -1 ) {
 
-      webModules.admin.forEach( function( m ) {
+      webModules.admin.forEach( function ( m ) {
 
         m.load( app );
 
-      });
+      } );
 
     }
 
@@ -242,26 +263,26 @@ module.exports = function( enabledTypes, cb ) {
     // run 'web' type modules
     if ( enabledTypes.indexOf( 'web' ) !== -1 ) {
 
-      webModules.web.forEach( function( m ) {
+      webModules.web.forEach( function ( m ) {
 
         m.load( app );
 
-      });
+      } );
 
     }
 
 
-    app.use(function( req, res, next ){
+    app.use( function ( req, res, next ) {
 
       cmn.catchError( req, res )( { code: 404 } );
 
-    });
+    } );
 
-    app.use( function( err, req, res, next ) {
+    app.use( function ( err, req, res, next ) {
 
       cmn.catchError( req, res )( err );
 
-    });
+    } );
 
 
     if ( enabledTypes.indexOf( 'web' ) !== -1 || enabledTypes.indexOf( 'admin' ) !== -1 ) {
@@ -282,7 +303,7 @@ module.exports = function( enabledTypes, cb ) {
 
       tfy( require( './search/task' ), { bootOffset: 1000 } );
 
-      tfy( require( './general/nominatim.task' ), { bootOffset: 10000, period: 60000*5 } );
+      tfy( require( './general/nominatim.task' ), { bootOffset: 10000, period: 60000 * 5 } );
 
       tfy( require( './agenda_bridges/task' ), { bootOffset: 3000 } );
 
@@ -320,7 +341,7 @@ module.exports = function( enabledTypes, cb ) {
 
         mailer.task();
 
-      });
+      } );
 
       require( './services/agenda/controlData' ).task();
 

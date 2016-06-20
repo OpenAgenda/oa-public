@@ -2,7 +2,7 @@ var https = require('https'),
 
 host = 'nominatim.openstreetmap.org',
 
-geocodePath = '/search/{address}?format=json&addressdetails=1&limit=1&accept-language={language}&email={email}'
+geocodePath = '/search/{address}?format=json&addressdetails=1&limit=1&accept-language={language}&email={email}',
 
 reversePath = '/reverse?format=json&lat={latitude}&lon={longitude}&zoom=18&addressdetails=1&accept-language={language}&email={email}',
 

@@ -53,7 +53,8 @@ config = {
       occurrence: 'occurrence',
       stakeholder: 'reviewer',
       stakeholderSettings: 'stakeholder_settings',
-      user: 'user'
+      user: 'user',
+      apiKeySet: 'api_key_set'
     },
     auth: {
       local: {

@@ -64,7 +64,7 @@ function run() {
 
   running = true;
 
-  done = false;
+  var done = false;
 
   if ( _onStart ) _onStart();
 

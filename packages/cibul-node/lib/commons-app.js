@@ -836,6 +836,8 @@ function flashSetter( req, res, next ) {
 
   };
 
+  req.setFlash = res.setFlash.bind( null, req );
+
   next();
 
 }

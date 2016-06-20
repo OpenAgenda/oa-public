@@ -48,8 +48,6 @@ locationFieldsMap = {
   postalCode : 'postcode',
   city: 'city',
   district: 'district',
-  city: 'city',
-  district: 'district',
   department: 'department',
   region: 'region',
   latitude: 'latitude',
