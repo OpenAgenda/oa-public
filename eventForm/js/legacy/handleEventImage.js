@@ -8,6 +8,8 @@ du = require( '../../../js/lib/domUtils' ),
 
 remote = require( '../../../js/lib/remote/remote.mod' ),
 
+ejs = require( 'ejs' ),
+
 Spinner = require( 'spin.js' );
 
 module.exports = function( params ) {
@@ -202,7 +204,7 @@ module.exports = function( params ) {
 
   _displayEmptyMessage = function() {
 
-    du.el(elem, params.selectors.imageCanvas).innerHTML = params.templates.empty(params.labels);
+    du.el(elem, params.selectors.imageCanvas).innerHTML = ejs.render( params.templates.empty, params.labels );
 
   },
 
@@ -334,7 +336,7 @@ module.exports = function( params ) {
     elem = document.createElement('div');
     elem.className = params.classes.main;
 
-    elem.innerHTML = params.templates.main(params.labels);
+    elem.innerHTML = ejs.render( params.templates.main, params.labels );
 
     du.el( params.canvas ).appendChild(elem);
 
