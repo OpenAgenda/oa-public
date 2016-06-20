@@ -1,11 +1,11 @@
 <div class="header">
-  <h2><%= __('Contribution Note') %></h2>
+  <h2><%= __('contributionNote') %></h2>
 </div>
 <section>
   <form class="cform" method="post" action="<%= genUrl( 'contributorsInfoSubmit', { slug: agenda.slug } ) %>">
     <ul>
       <li>
-        <label for="info"><%= __( 'Provide guidelines for users contributing to your agenda' ) %></label>
+        <label for="info"><%= __( 'provideGuidelines' ) %></label>
         <textarea name="info"><%= info %></textarea>
       </li>
       <li>
@@ -14,7 +14,7 @@
             <a class="button" href="<%= genUrl( 'agendaAdminContributors', { slug: agenda.slug }) %>"><%= __('back') %></a>
           </li>
           <li>
-            <button class="green"><%= __('Submit') %></button>
+            <button class="green"><%= __('submit') %></button>
           </li>
         </ul>
       </li>
