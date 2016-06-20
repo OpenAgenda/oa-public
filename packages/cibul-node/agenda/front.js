@@ -380,6 +380,7 @@ function _formatEventItem( event, req, cb ) {
     image: img ? img.replace( 'cibuldev', 'cibul' ) : false,
     thumbnail: inst.getThumbnail( false ),
     description: inst.getDescription(),
+    freeText: inst.getEnrichedFreeText( false ),
     placeName: inst.getLocationName(),
     address: inst.getAddress().label,
     placeNameLabel: inst.getLocationName().label,

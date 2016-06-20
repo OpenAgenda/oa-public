@@ -9,6 +9,9 @@
     "name" : "FreeText",
     "mapTo" : "freeText"
   }, {
+    "name" : "Html",
+    "mapTo" : "html"
+  }, {
     "name" : "ImageUrl",
     "mapTo" : "image"
   }, {

@@ -1,7 +1,14 @@
 {
   "attributes": [
     { "name" : "Title", "mapTo": "title" },
-    { "name" : "Description", "mapTo": "description" },
+    {
+      "name" : "Description",
+      "mapTo": "description"
+    },
+    {
+      "name" : "FreeText",
+      "mapTo" : "freeText"
+    },
     { "name" : "Link", "mapTo": "link" },
     { "name" : "ImageUrl", "mapTo": "image" },
     { "name" : "ThumbnailUrl", "mapTo" : "thumbnail" },
