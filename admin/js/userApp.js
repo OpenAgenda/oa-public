@@ -66,7 +66,7 @@ UserApp = React.createClass({
 
     searchQuery = {
       page: page ? page : 1
-    };
+    },
 
     currentSearch = searchValue;
 
