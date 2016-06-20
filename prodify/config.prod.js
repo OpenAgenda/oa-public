@@ -62,7 +62,7 @@ module.exports = ( paths ) => {
         __DEVELOPMENT__: false,
         __DEVTOOLS__: false
       } ),
-      new webpack.IgnorePlugin( /(.*)/, /node_modules\/(imagesloaded|get-size|outlayer|fizzy-ui-utils)/ ),
+      new webpack.IgnorePlugin( /(.*)/, /node_modules\/(get-size)/ ),
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.optimize.UglifyJsPlugin( {

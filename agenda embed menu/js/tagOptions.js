@@ -1,3 +1,5 @@
+"use strict";
+
 var cn = require('../../js/lib/common/common.mod.js'),
 
 controlDataFetch = require( '../../js/lib/controlDataFetch/controlDataFetch' ),
@@ -51,9 +53,9 @@ module.exports = function(options) {
 
       total = tags.length;
 
-      if (params.onSelectionChange) _onSelectionChange = params.onSelectionChange;
+      if ( params.onSelectionChange ) _onSelectionChange = params.onSelectionChange;
 
-      if (!total) return;
+      if ( !total ) return;
 
       _createCanvas();
 
@@ -67,9 +69,10 @@ module.exports = function(options) {
       
     });
 
-},
+}
 
-_onSelectionChange = function( newConfig ) {
+
+function _onSelectionChange( newConfig ) {
   
   var src = cn.el(params.selectors.frame).src;
 
@@ -77,7 +80,8 @@ _onSelectionChange = function( newConfig ) {
 
 }
 
-_removeTag = function(tag) {
+
+function _removeTag( tag ) {
 
   selectedSlugs.splice(selectedSlugs.indexOf(tag.s),1);
 
@@ -85,9 +89,10 @@ _removeTag = function(tag) {
 
   _updateCode();
 
-},
+}
 
-_addTag = function(tag) {
+
+function _addTag( tag ) {
 
   selectedSlugs.push(tag.s);
 
@@ -95,11 +100,11 @@ _addTag = function(tag) {
 
   _updateCode();
 
-},
+}
 
 // pick the code from the field, shove it in an element, use dom to update config attribute
 
-_updateCode = function() {
+function _updateCode() {
 
   var code = cn.el(params.selectors.codeElem).value;
 
@@ -129,9 +134,10 @@ _updateCode = function() {
 
   cn.el(params.selectors.codeElem).value = div.innerHTML;
 
-},
+}
 
-_createCanvas = function() {
+
+function _createCanvas() {
 
   cn.el(params.selectors.elem).innerHTML = params.templates.canvas;
 
@@ -139,9 +145,10 @@ _createCanvas = function() {
 
   if (params.classes.canvas) canvas.className = params.classes.canvas;
 
-},
+}
 
-_createOption = function(tag) {
+
+function _createOption( tag ) {
 
   var ul = document.createElement('ul');
 
