@@ -1,0 +1,75 @@
+@import "../layout/base";
+// @import "../layout/leaflet-0.7.3.scss";
+// @import "../agenda/admin-bar";
+@import "../agenda/header";
+
+// Typography
+body {
+  font-family: Roboto, "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+// Footer
+@import "footer";
+
+// Corpo style
+.corpo {
+  @import "carousel";
+  // @import "hero";
+  @import "media";
+  @import "price";
+
+  .row {
+    // border-bottom: 1px solid $oa-gray-light;
+    padding-bottom: 4em;
+    padding-top: 4em;
+
+    > h2 {
+      margin-bottom: 1em;
+    }
+  }
+
+  #produits {
+    padding-top: 0;
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: 200;
+  }
+
+  strong.h1 {
+    color: $brand-primary;
+    display: block;
+  }
+
+  blockquote {
+    footer:before {
+      content: none;
+    }
+
+    img {
+      float: left;
+      margin-right: 10px;
+    }
+
+    strong {
+      color: $oa-black;
+    }
+  }
+
+  .background-white {
+    background: $oa-white;
+  }
+
+  .background-blue {
+    background: $oa-blue;
+
+    h1, h2 {
+      color: $oa-white;
+    }
+  }
+
+  .background-gray {
+    background: $oa-gray-lighter;
+  }
+}

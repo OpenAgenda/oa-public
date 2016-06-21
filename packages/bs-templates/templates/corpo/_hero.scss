@@ -1,0 +1,84 @@
+// Hero unit
+// =========
+// A simple and wide content embellished by a background cover
+
+$b: '.hero';
+$color-layer: rgba(0, 0, 0, 0.25);
+
+#{$b} {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  padding: 6em 1em;
+  position: relative;
+
+  // Cover
+  // Your background image
+
+  &-cover {
+    background-color: $oa-blue;
+    background-repeat: no-repeat;
+    background-position: fixed;
+    background-size: cover;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    &-layer:after {
+      background-color: $color-layer;
+      content: '';
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+
+    &-bureau {
+      background-image: url(img/bureau.jpg);
+    }
+  }
+
+  // Body
+  // Example: heading + cta
+
+  &-body {
+    color: white;
+    position: relative;
+    text-align: center;
+
+    h1 {
+      font-size: 3.2em;
+      margin: 0;
+    }
+
+    p {
+      color: $oa-gray-lighter;
+      font-size: 18px;
+      font-weight: 300;
+      margin: 1em 0 2em;
+    }
+
+    em {
+      color: $brand-primary;
+      font-style: normal;
+    }
+  }
+
+  // Height modifier
+  // Default: banner
+  &-half {
+    min-height: 50vh;
+  }
+
+  &-full {
+    min-height: 100vh;
+  }
+
+  @media (max-width: 800px) {
+    &-body h1 {
+      font-size: 42px;
+    }
+  }
+}

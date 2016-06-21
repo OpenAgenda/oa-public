@@ -1,4 +1,4 @@
-"use strict";
+  "use strict";
 
 var express = require( 'express' );
 
@@ -76,9 +76,16 @@ app.get( /css$/, ( req, res, next ) => {
  * images
  */
 
-app.get( /(png|jpg|jpeg)$/, ( req, res, next ) => {
+app.get( /(png|jpg|jpeg|svg)$/, ( req, res, next ) => {
 
   let stream = fs.createReadStream( templatesBase + req.path );
+
+  res.set('Content-Type', ( {
+    png: 'image/png',
+    jpg: 'image/jpg',
+    jpeg: 'image/jpeg',
+    svg: 'image/svg+xml'
+  } )[ req.path.split( '.' ).pop() ] );
 
   stream.on( 'open', () => {
 

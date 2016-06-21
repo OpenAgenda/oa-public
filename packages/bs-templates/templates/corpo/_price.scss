@@ -1,0 +1,81 @@
+// Pricing table
+// ==============
+// List of the pricing plans available
+
+$b: '.price';
+
+#{$b} {
+  align-items: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 4em 0;
+
+  &-item {
+    background-color: $oa-white;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+    list-style: none;
+    margin: 5px;
+    padding: 1em;
+    text-align: center;
+
+    &-featured {
+      box-shadow: 0 0 2px 1px $oa-blue;
+      margin: -10px 3px;
+      z-index: 1;
+    }
+  }
+
+  &-title {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 1em 0;
+  }
+
+  &-accent {
+    color: $brand-primary;
+    font-size: 2em;
+  }
+
+  &-features {
+    border-top: 1px solid $oa-gray-light;
+    margin-top: 1em;
+    flex-grow: 1;
+  }
+
+  &-feature {
+    padding: 1em 0;
+
+    strong {
+      color: $oa-gray;
+      font-weight: normal;
+    }
+  }
+
+  .price-btn {
+    border-top: 1px solid $oa-gray-light;
+    margin: 0;
+    padding-top: 1em;
+  }
+
+  @media (max-width: 992px) {
+    &-item {
+      flex: 0 0 48%;
+
+      &-featured {
+        margin: 5px;
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+
+    &-item {
+      flex: 1 0 auto;
+    }
+  }
+}
