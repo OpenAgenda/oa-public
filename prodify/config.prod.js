@@ -12,6 +12,7 @@ const path = require( 'path' ),
 module.exports = ( paths ) => {
 
   return {
+    //devtool: 'source-map',
     entry: path.join( __dirname, paths.src.path, paths.src.name ),
     output: {
       path: paths.dest.path,
