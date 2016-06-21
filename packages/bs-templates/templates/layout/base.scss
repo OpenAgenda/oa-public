@@ -87,7 +87,6 @@ $tumblr-color: #32506d;
 //@import "assets/stylesheets/bootstrap/utilities";
 //@import "assets/stylesheets/bootstrap/responsive-utilities";
 
-
 // Font awesome
 @import "../../node_modules/font-awesome/scss/font-awesome.scss";
 
@@ -117,15 +116,13 @@ a.text-danger:hover {
 
 }
 
-
 .mobile-only {
-  display: block; 
+  display: block;
 
   @media (min-width: 768px) {
     display: none;
   }
 }
-
 
 /**
  * white page
@@ -136,8 +133,8 @@ a.text-danger:hover {
   vertical-align: top;
   text-align: left;
 
-  -webkit-border-radius: 3px; 
-  -moz-border-radius: 3px; 
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   border-radius: 3px;
 
 }
@@ -146,13 +143,12 @@ a.text-danger:hover {
  * content block of a white page
  */
 .content {
-  
+
   padding: 20px 30px;
 
 }
 
-
-/** 
+/**
  * use for simple full page dialogs, 
  * to give them some margin from the 
  * top of the page
@@ -177,13 +173,13 @@ a.text-danger:hover {
 .avatar-container {
 
   margin: 30px;
-  
+
 }
 
 .avatar {
 
   border: 3px solid $oa-white;
-  border-radius: 100px; 
+  border-radius: 100px;
   display: inline-block;
   margin: auto;
   max-width: 140px;
@@ -191,8 +187,19 @@ a.text-danger:hover {
 
 }
 
+<<<<<<< Updated upstream
 /* hack to put crisp on the left */
 .crisp-client-container .crisp-client-excerpt .crisp-client-excerpt-chat,
 body .crisp-client-container .crisp-client-excerpt .crisp-client-excerpt-minimized {
   right: inherit !important;
   left: 80px !important; }
+=======
+/*
+ * One pixel overflow input/button field
+ */
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group {
+
+  line-height: 1.45;
+
+}
+>>>>>>> Stashed changes
