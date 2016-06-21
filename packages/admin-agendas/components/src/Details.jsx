@@ -86,7 +86,7 @@ module.exports = React.createClass( {
     return (
       <tr key={stakeholder.id}>
         <td><a href="#">{stakeholder.user.uid}</a></td>
-        <td>{creadentialsToString( stakeholder.credential )}</td>
+        <td>{credentialsToString( stakeholder.credential )}</td>
         <td>{stakeholder.user.full_name}</td>
         <td>{stakeholder.user.username}</td>
         <td>{stakeholder.user.email}</td>
@@ -153,7 +153,7 @@ module.exports = React.createClass( {
 
 } );
 
-function creadentialsToString( type ) {
+function credentialsToString( type ) {
   switch ( type ) {
     case 1:
       return 'Contributeur';

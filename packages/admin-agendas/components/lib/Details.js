@@ -161,7 +161,7 @@ module.exports = React.createClass({
       React.createElement(
         "td",
         null,
-        creadentialsToString(stakeholder.credential)
+        credentialsToString(stakeholder.credential)
       ),
       React.createElement(
         "td",
@@ -258,7 +258,7 @@ module.exports = React.createClass({
   }
 });
 
-function creadentialsToString(type) {
+function credentialsToString(type) {
   switch (type) {
     case 1:
       return 'Contributeur';
