@@ -133,4 +133,4 @@ const List = React.createClass( {
 
 } );
 
-module.export = List;
+module.exports = List;
