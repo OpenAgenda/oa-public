@@ -21,12 +21,28 @@ var Modal = React.createClass({
   componentDidUpdate: function componentDidUpdate() {
 
     if (this.props.visible) {
-      ReactDOM.findDOMNode(this.modalRef).addEventListener('click', this.handleModalClick);
-      document.addEventListener('click', this.handleDocumentClick);
+
+      this.addClickEvents();
     } else {
-      ReactDOM.findDOMNode(this.modalRef).removeEventListener('click', this.handleModalClick);
-      document.removeEventListener('click', this.handleDocumentClick);
+
+      this.removeClickEvents();
     }
+  },
+  addClickEvents: function addClickEvents() {
+
+    ReactDOM.findDOMNode(this.modalRef).addEventListener('click', this.handleModalClick);
+
+    document.addEventListener('click', this.handleDocumentClick);
+  },
+  removeClickEvents: function removeClickEvents() {
+
+    ReactDOM.findDOMNode(this.modalRef).removeEventListener('click', this.handleModalClick);
+
+    document.removeEventListener('click', this.handleDocumentClick);
+  },
+  componentWillUnmount: function componentWillUnmount() {
+
+    this.removeClickEvents();
   },
   handleModalClick: function handleModalClick(e) {
 
