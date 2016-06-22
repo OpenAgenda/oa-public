@@ -90,7 +90,6 @@ $tumblr-color: #32506d;
 // Font awesome
 @import "../../node_modules/font-awesome/scss/font-awesome.scss";
 
-
 @import "badges";
 
 // header
@@ -105,14 +104,14 @@ body {
 }
 
 a.text-danger {
-  
+
   color: $oa-red;
 
 }
 
 a.text-danger:hover {
-  
-  color: darken( $oa-red, 10 );
+
+  color: darken($oa-red, 10);
 
 }
 
@@ -164,11 +163,10 @@ a.text-danger:hover {
  */
 
 .alert-clickable {
-  
+
   cursor: pointer;
 
 }
-
 
 .avatar-container {
 
@@ -187,13 +185,13 @@ a.text-danger:hover {
 
 }
 
-<<<<<<< Updated upstream
 /* hack to put crisp on the left */
 .crisp-client-container .crisp-client-excerpt .crisp-client-excerpt-chat,
 body .crisp-client-container .crisp-client-excerpt .crisp-client-excerpt-minimized {
   right: inherit !important;
-  left: 80px !important; }
-=======
+  left: 80px !important;
+}
+
 /*
  * One pixel overflow input/button field
  */
@@ -202,4 +200,3 @@ body .crisp-client-container .crisp-client-excerpt .crisp-client-excerpt-minimiz
   line-height: 1.45;
 
 }
->>>>>>> Stashed changes
