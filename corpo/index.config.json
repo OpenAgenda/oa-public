@@ -7,6 +7,11 @@
     "_i": "image"
   },
   "base": {
+    "stats": {
+      "agendas": 4000,
+      "contributors": 12000,
+      "events": 90000
+    },
     "pageClass": "ct",
     "pageId": "corpo",
     "references": [
