@@ -15,7 +15,8 @@
     "bottom": {
       "scriptSources": [
         "//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js",
-        "//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/collapse.js",
+        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/transition.js"
       ]
     },
     "pageClass" : false,
