@@ -400,11 +400,15 @@ function _formatEventItem( event, req, cb ) {
 
   inst.getAgendaCategory( function( err, c ) {
 
-    if ( err || !c ) return cb( err, formatted );
+    if ( err ) return cb( err, formatted );
 
-    formatted.category = c.label;
+    if ( c ) {
 
-    formatted.categorySlug = c.slug;
+      formatted.category = c.label;
+
+      formatted.categorySlug = c.slug;
+
+    }
 
     inst.getAgendaTags( function( err, t ) {
 
@@ -414,9 +418,7 @@ function _formatEventItem( event, req, cb ) {
 
     } );
 
-    
-
-  });
+  } );
 
 }
 
@@ -482,7 +484,7 @@ function _formatEmbedLinks( req, res, next ) {
         oaq: {
           category: e.categorySlug
         }
-      });
+      } );
 
     }
 
