@@ -17,11 +17,10 @@ var knex,
   schemas;
 
 module.exports = {
-  init: init,
-  list: list,
-  getConfig: () => {
-    return config;
-  }
+  init,
+  list,
+  count,
+  getConfig: () => config
 }
 
 function init( c ) {
@@ -80,6 +79,16 @@ function list( query, offset, limit, cb ) {
 
 }
 
+function count( cb ) {
+
+  list( { total: true }, null, null, ( err, agendas, total ) => {
+    if ( err ) cb( err );
+    cb( null, total );
+  } );
+
+}
+
+
 function _search( v ) {
 
   if ( !v.query.search ) return v;
@@ -122,8 +131,8 @@ function _list( v ) {
     return v.knex
     .select( 'id', 'uid', 'slug', 'title', 'description', 'image', 'url', 'updated_at' )
     .orderBy( 'updated_at', 'desc' )
-    .limit( v.limit )
-    .offset( v.offset )
+    .limit( v.limit || 0 )
+    .offset( v.offset || 0 )
     .transacting( trx );
 
   } )

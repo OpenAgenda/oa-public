@@ -13,12 +13,12 @@
     "async": "^1.5.2",
     "knex": "^0.10.0",
     "basic-logger": "git+ssh://git@bitbucket.org:openagenda/basic-logger.git",
+    "mysql": "^2.10.2",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
     "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git",
     "when": "^3.7.7"
   },
   "devDependencies": {
-    "mysql": "^2.10.2",
     "should": "^8.2.2"
   }
 }
