@@ -8,7 +8,7 @@
   },
   "base" : {
     "pageClass" : "ct",
-    "pageId" : "corpo",
+    "pageId" : "old_corpo",
     "references" : [
       {
         "src": "bretagne.jpg",

@@ -1,4 +1,4 @@
-module.exports = function( templateName, data, cb ) {
+module.exports = function ( templateName, data, cb ) {
 
   if ( typeof data == 'function' ) {
 
@@ -7,7 +7,7 @@ module.exports = function( templateName, data, cb ) {
 
   }
 
-  log('loading template files for %s', templateName);
+  log( 'loading template files for %s', templateName );
 
   var loaders = [
     _loadTemplate( templateName ),
@@ -16,13 +16,29 @@ module.exports = function( templateName, data, cb ) {
     _loadScripts( templateName, data.scriptsBase ),
   ];
 
-  async.waterfall(loaders, function( err, results ) {
+  async.waterfall( loaders, function ( err, results ) {
+
+    const layoutBottom = results.layout && results.layoutConfig.base && results.layoutConfig.base.bottom || {};
+    const templateBottom = results.config.base && results.config.base.bottom || {};
+    const dataBottom = data.bottom || {};
+
+    data.bottom = {
+      scripts: [
+        ...layoutBottom.scripts || [],
+        ...templateBottom.scripts || [],
+        ...dataBottom.scripts || []
+      ].filter( ( v, i, a ) => a.indexOf( v ) === i ),
+      scriptSources: [
+        ...layoutBottom.scriptSources || [],
+        ...templateBottom.scriptSources || [],
+        ...dataBottom.scriptSources || []
+      ].filter( ( v, i, a ) => a.indexOf( v ) === i )
+    };
+
 
     if ( err ) return cb( err );
 
-    var template = results.template, labels = results.labels;
-
-    if ( results.config.base ) data = cn.extend(results.config.base, data);
+    if ( results.config.base ) data = cn.extend( results.config.base, data );
 
     if ( results.layout && results.layoutConfig.base ) {
 
@@ -32,7 +48,9 @@ module.exports = function( templateName, data, cb ) {
 
     if ( data.js ) {
 
-      data.js = data.js.map( function( jsName ) { return data.scriptsBase + '/' + jsName; });
+      data.js = data.js.map( function ( jsName ) {
+        return data.scriptsBase + '/' + jsName;
+      } );
 
     } else {
 
@@ -40,9 +58,9 @@ module.exports = function( templateName, data, cb ) {
 
     }
 
-    if (results.helpers) cn.extend(data, results.helpers);
+    if ( results.helpers ) cn.extend( data, results.helpers );
 
-    data.__ = _loadTranslator( labels );
+    data.__ = _loadTranslator( results.labels );
 
     data._esc = _escape;
 
@@ -58,11 +76,11 @@ module.exports = function( templateName, data, cb ) {
 
     cb( null, templateRender );
 
-  });
+  } );
 
 };
 
-module.exports.disableFileCache = function() {
+module.exports.disableFileCache = function () {
 
   cachedFs.disable();
 
@@ -71,25 +89,25 @@ module.exports.disableFileCache = function() {
 }
 
 
-var ejs = require('ejs'),
+var ejs = require( 'ejs' ),
 
-useCache = true,
+  useCache = true,
 
-cachedFs = require( './cachedFs' ),
+  cachedFs = require( './cachedFs' ),
 
-readFile = cachedFs.readFile,
+  readFile = cachedFs.readFile,
 
-cn = require('../js/lib/common/common.mod.js'),
+  cn = require( '../js/lib/common/common.mod.js' ),
 
-async = require( 'async' ),
+  async = require( 'async' ),
 
-debug = require( 'debug' ),
+  debug = require( 'debug' ),
 
-deepExtend = require( 'deep-extend' ),
+  deepExtend = require( 'deep-extend' ),
 
-log = debug( 'templater' ),
+  log = debug( 'templater' ),
 
-helpers = {};
+  helpers = {};
 
 function _renderTemplate( filename, templateBody, data ) {
 
@@ -107,21 +125,21 @@ function _renderTemplate( filename, templateBody, data ) {
 
 function _loadTranslator( labels ) {
 
-  return function(label, values) {
+  return function ( label, values ) {
 
-    if (!values) values = {};
+    if ( !values ) values = {};
 
     var translation = label;
 
-    if ( labels && labels[label] ) {
+    if ( labels && labels[ label ] ) {
 
-      translation = labels[label];
+      translation = labels[ label ];
 
     }
 
-    for (var key in values) {
+    for ( var key in values ) {
 
-      translation = translation.replace(key, values[key]);
+      translation = translation.replace( key, values[ key ] );
 
     }
 
@@ -134,19 +152,19 @@ function _loadTranslator( labels ) {
 
 function _loadTemplate( templateName ) {
 
-  return function( cb ) {
+  return function ( cb ) {
 
-    var baseTemplatePath = ( __dirname + '/../' + templateName ).replace('.part', ''),
+    var baseTemplatePath = ( __dirname + '/../' + templateName ).replace( '.part', '' ),
 
-    isPartial = templateName.substr( -5 ) === '.part',
+      isPartial = templateName.substr( -5 ) === '.part',
 
-    data = {
-      name: templateName.replace( '.part', '' )
-    };
+      data = {
+        name: templateName.replace( '.part', '' )
+      };
 
     log( 'reading contents of %s', baseTemplatePath + '.config.json' );
 
-    readFile( baseTemplatePath + '.config.json', function( err, config ) {
+    readFile( baseTemplatePath + '.config.json', function ( err, config ) {
 
       if ( err ) {
 
@@ -159,7 +177,7 @@ function _loadTemplate( templateName ) {
         try {
 
           data.config = JSON.parse( config );
-         
+
         } catch ( err ) {
 
           log( 'trouble parsing config file contents: %s', config );
@@ -180,19 +198,19 @@ function _loadTemplate( templateName ) {
 
       }
 
-      var files = [async.apply( readFile, data.template ) ];
+      var files = [ async.apply( readFile, data.template ) ];
 
       if ( data.config.layout ) {
 
         data.layout = __dirname + '/../' + data.config.layout + '.ejs';
 
-        files.push( async.apply( readFile, data.layout) );
+        files.push( async.apply( readFile, data.layout ) );
 
         files.push( async.apply( readFile, __dirname + '/../' + data.config.layout + '.config.json' ) );
 
       }
 
-      async.parallel( files, function( err, results ) {
+      async.parallel( files, function ( err, results ) {
 
         if ( err ) {
 
@@ -202,21 +220,21 @@ function _loadTemplate( templateName ) {
 
         }
 
-        data.templateBody = results[0];
+        data.templateBody = results[ 0 ];
 
         if ( data.config.layout ) {
 
-          data.layoutBody = results[1];
+          data.layoutBody = results[ 1 ];
 
-          data.layoutConfig = JSON.parse( results[2] );
+          data.layoutConfig = JSON.parse( results[ 2 ] );
 
         }
 
-        cb(null, data);
+        cb( null, data );
 
-      });
+      } );
 
-    });
+    } );
 
   };
 
@@ -225,7 +243,7 @@ function _loadTemplate( templateName ) {
 
 function _loadLabels( lang ) {
 
-  return function( data, cb ) {
+  return function ( data, cb ) {
 
     var files = [ data.name ];
 
@@ -237,11 +255,11 @@ function _loadLabels( lang ) {
 
     if ( lang === 'en' ) return cb( null, data );
 
-    async.parallel( files.map( function ( name ) { 
+    async.parallel( files.map( function ( name ) {
 
-      return async.apply( readFile, __dirname + '/../' + name + '.' + lang + '.json' ); 
+      return async.apply( readFile, __dirname + '/../' + name + '.' + lang + '.json' );
 
-    }), function ( err, results ) {
+    } ), function ( err, results ) {
 
       var labels = {};
 
@@ -251,10 +269,10 @@ function _loadLabels( lang ) {
 
       } else {
 
-        labels = JSON.parse( results[0] );
+        labels = JSON.parse( results[ 0 ] );
 
-        if ( results.length > 1 ) cn.extend(labels, JSON.parse( results[1] ) );
-        
+        if ( results.length > 1 ) cn.extend( labels, JSON.parse( results[ 1 ] ) );
+
       }
 
 
@@ -262,7 +280,7 @@ function _loadLabels( lang ) {
 
       cb( null, data );
 
-    });
+    } );
 
   };
 
@@ -301,7 +319,7 @@ function _loadScripts( templateName, scriptsBase ) {
 
   var basePath = scriptsBase ? scriptsBase : '';
 
-  return function( data, cb ) {
+  return function ( data, cb ) {
 
     var isTemplateJs = data.config.js === true;
 
@@ -309,13 +327,13 @@ function _loadScripts( templateName, scriptsBase ) {
 
     if ( data.layoutConfig && data.layoutConfig.js === true ) {
 
-      data.config.js.push( basePath + '/' + cn.toCamelCase( data.config.layout.replace(/\//g, '_') ) + '.js' );
+      data.config.js.push( basePath + '/' + cn.toCamelCase( data.config.layout.replace( /\//g, '_' ) ) + '.js' );
 
     }
 
     if ( isTemplateJs ) {
 
-      data.config.js.push( basePath + '/' + cn.toCamelCase( templateName.replace(/\//g, '_') ) + '.js' );
+      data.config.js.push( basePath + '/' + cn.toCamelCase( templateName.replace( /\//g, '_' ) ) + '.js' );
 
     }
 
@@ -333,11 +351,11 @@ function _insertEnvironment( render, environment ) {
 
 function _escape( html ) {
 
-  return String(html)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/'/g, '&#39;')
-    .replace(/"/g, '&quot;');
+  return String( html )
+    .replace( /&/g, '&amp;' )
+    .replace( /</g, '&lt;' )
+    .replace( />/g, '&gt;' )
+    .replace( /'/g, '&#39;' )
+    .replace( /"/g, '&quot;' );
 
 };

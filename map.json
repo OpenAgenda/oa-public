@@ -9,6 +9,7 @@
   "admin/users",
   "admin/agendas",
   "corpo/index",
+  "corpo/new",
   "agenda/show",
   "agenda/embedShow",
   "agenda/action",

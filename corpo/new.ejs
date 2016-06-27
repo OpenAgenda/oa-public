@@ -1,4 +1,4 @@
-<div id="presentation" class="background-blue">
+<div class="background-blue" id="presentation">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
@@ -7,7 +7,11 @@
                         <h1>Offrez un agenda clair à vos publics</h1>
                         <p>Pour votre université, festival, salon, ville, lieu, tournée, campagne, entreprise, magazine,
                             communauté, etc.&nbsp;!</p>
-                        <p><a href="" class="btn btn-default btn-lg">Créez un agenda (gratuit)</a></p>
+                        <p>
+                            <a href="<%= genUrl( 'signup' ) %>" class="btn btn-default btn-lg">
+                                Créez un agenda (gratuit)
+                            </a>
+                        </p>
                     </div>
                     <div class="col-md-3 text-center vcenter">
                         <img src="//cibulstatic.s3.amazonaws.com/screens.png" alt="...">
@@ -18,7 +22,7 @@
     </div>
 </div>
 
-<div class="background-gray">
+<div class="background-white">
     <div class="container">
         <div class="row">
             <ul class="list-unstyled text-center">
@@ -39,7 +43,7 @@
     </div>
 </div>
 
-<div class="background-white" id="produits">
+<div class="background-gray" id="produits" name="produits">
     <div class="container">
         <div class="row">
             <div class="media col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
@@ -55,7 +59,7 @@
     </div>
 </div>
 
-<div class="background-gray">
+<div class="background-white">
     <div class="container">
         <div class="row">
             <div class="media col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
@@ -72,7 +76,7 @@
     </div>
 </div>
 
-<div class="background-white">
+<div class="background-gray">
     <div class="container">
         <div class="row">
             <div class="media col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
@@ -89,7 +93,7 @@
     </div>
 </div>
 
-<div class="background-gray">
+<div class="background-white">
     <div class="container">
         <div class="row">
             <div class="media col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
@@ -98,8 +102,9 @@
                 </figure>
                 <article class="media-body media-middle">
                     <h2 class="media-heading">Partagez <em>vos événements</em></h2>
-                    <p>Votre agenda est synchronisable avec tous vos supports et diffusables par tous&nbsp;!<br>#DonnéesOuvertes
-                        #OpenData</p>
+                    <p>
+                        Votre agenda est synchronisable avec tous vos supports et diffusables par tous&nbsp;!<br>
+                        #DonnéesOuvertes #OpenData</p>
                 </article>
             </div>
         </div>
@@ -124,7 +129,9 @@
                         <li class="price-feature">Agrégation</li>
                     </ul>
                     <p class="price-btn">
-                        <a class="btn btn-primary btn-lg btn-block" href="">Choisir</a>
+                        <a class="btn btn-primary btn-lg btn-block" href="mailto:contact@openagenda.com">
+                            Nous contacter
+                        </a>
                     </p>
                 </section>
                 <section class="price-item">
@@ -140,7 +147,9 @@
                         <li class="price-feature">Privé ou public</li>
                     </ul>
                     <p class="price-btn">
-                        <a class="btn btn-primary btn-lg btn-block" href="">Choisir</a>
+                        <a class="btn btn-primary btn-lg btn-block" href="mailto:contact@openagenda.com">
+                            Nous contacter
+                        </a>
                     </p>
                 </section>
                 <section class="price-item price-item-featured">
@@ -153,7 +162,9 @@
                         <li class="price-feature">Emailing interne</li>
                     </ul>
                     <p class="price-btn">
-                        <a class="btn btn-primary btn-lg btn-block" href="">Choisir</a>
+                        <a class="btn btn-primary btn-lg btn-block" href="mailto:contact@openagenda.com">
+                            Nous contacter
+                        </a>
                     </p>
                 </section>
                 <section class="price-item">
@@ -166,7 +177,9 @@
                         <li class="price-feature">Déploiement et reporting</li>
                     </ul>
                     <p class="price-btn">
-                        <a class="btn btn-primary btn-lg btn-block" href="">Nous contacter</a>
+                        <a class="btn btn-primary btn-lg btn-block" href="mailto:contact@openagenda.com">
+                            Nous contacter
+                        </a>
                     </p>
                 </section>
             </div>
@@ -253,7 +266,7 @@
         <div class="row text-center">
             <h2>Prêt&nbsp;?</h2>
             <p>
-                <a class="btn btn-primary btn-lg" href="">Créer un agenda (gratuit)</a>
+                <a class="btn btn-primary btn-lg" href="<%= genUrl( 'signup' ) %>">Créer un agenda (gratuit)</a>
             </p>
         </div>
     </div>
@@ -284,45 +297,44 @@
             <div class="col-sm-4">
                 <h2>Contact</h2>
                 <ul class="list-unstyled">
-                    <li><a href="">01 23 45 67 89</a></li>
-                    <li><a href="mailto:">contact@openagenda.com</a></li>
-                    <li><a href="">29 passage du Ponceau, 75 002 Paris</a></li>
+                    <li><a href="mailto:contact@openagenda.com">contact@openagenda.com</a></li>
+                    <li><a href="https://goo.gl/maps/2JYWje3wbqB2">29 passage du Ponceau, 75 002 Paris</a></li>
                     <li>
                         <ul class="list-unstyled list-inline">
                             <li>
-                                <a href="">
+                                <a href="https://twitter.com/OAgenda">
                                     <i class="fa fa-twitter-square fa-lg"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="https://www.instagram.com/openagenda/">
                                     <i class="fa fa-instagram fa-lg"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="https://www.facebook.com/oagenda">
                                     <i class="fa fa-facebook-square fa-lg"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="https://www.linkedin.com/company/open-agenda">
                                     <i class="fa fa-linkedin-square fa-lg"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="https://github.com/Oagenda">
                                     <i class="fa fa-github-square fa-lg"></i>
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <form action="/newsletter/subscribe" method="post">
+                        <form action="<%= genUrl( 'newsletterSubscribe' ) %>" method="post">
                             <div class="input-group">
                                 <input type="email" name="email" placeholder="Votre adresse email" class="form-control">
-                    <span class="input-group-btn">
-                      <button type="submit" class="btn btn-primary">S'abonner</button>
-                    </span>
+                                <span class="input-group-btn">
+                                  <button type="submit" class="btn btn-primary">S'abonner</button>
+                                </span>
                             </div>
                         </form>
                     </li>
@@ -332,19 +344,21 @@
                 <h2>La société</h2>
                 <ul class="list-unstyled">
                     <li><a href="">À propos</a></li>
-                    <li><a href="">Recrutement</a></li>
-                    <li><a href="">Crunchbase</a></li>
+                    <li><a href="https://angel.co/oagenda">Recrutement</a></li>
+                    <li><a href="https://www.crunchbase.com/organization/openagenda#/entity">Crunchbase</a></li>
                     <li><a href="">Notre OpenAgenda&nbsp;!</a></li>
                 </ul>
             </div>
             <div class="col-sm-3 col-sm-offset-1">
                 <h2>Le service</h2>
                 <ul class="list-unstyled">
-                    <li><a href="">Aide</a></li>
-                    <li><a href="">Plan de développement</a></li>
-                    <li><a href="">Blog</a></li>
-                    <li><a href="">OA Status</a></li>
-                    <li><a href="">Condititions d'utilisation</a></li>
+                    <li><a href="https://openagenda.zendesk.com/hc/fr">Aide</a></li>
+                    <li><a href="https://trello.com/b/4FnqcF96">Plan de développement</a></li>
+                    <li><a href="http://blog.openagenda.com/">Blog</a></li>
+                    <li><a href="https://twitter.com/OAgendastatus">OA Status</a></li>
+                    <li>
+                        <a href="https://openagenda.zendesk.com/hc/fr/articles/201753991">Condititions d'utilisation</a>
+                    </li>
                 </ul>
             </div>
         </div>

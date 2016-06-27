@@ -22,7 +22,7 @@
         <% if ( pageId ) { %>
         id="<%= pageId %>"
         <% } %>
-        class="<% if ( pageClass ) { %> <%= pageClass %> <% } %>js_toggle" data-toggle="collapse"
+        class="<% if ( pageClass ) { %> <%= pageClass %> <% } %>js_toggle"
         data-options="<%- typeof scriptParams !== 'undefined' ? _esc( JSON.stringify( scriptParams ) ) : '' %>">
 <div id="outdated"></div>
 <nav class="oa-page-header navbar navbar-default navbar-static-top">
@@ -32,7 +32,7 @@
                     data-target="#bs-navbar-collapse" aria-expanded="false">
                 <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
                 <img src="https://openagenda.com/images/openagenda.png" width="125" alt="OpenAgenda">
             </a>
         </div>
@@ -44,14 +44,22 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <p class="navbar-btn"><button class="btn btn-primary">Créer un compte</button></p>
+                    <p class="navbar-btn">
+                        <a href="<%= genUrl( 'signup' ) %>" class="btn btn-primary">Créer un compte</a>
+                    </p>
                 </li>
-                <li class="signin"><a href="#">Connexion</a></li>
+                <li class="signin"><a href="<%= genUrl( 'signin' ) %>">Connexion</a></li>
                 <li class="language-menu">
-                    <a href="#">fr <i class="fa fa-caret-down"></i></a>
-                    <ul class="dropdown-menu collapse">
-                        <li><a rel="alternate" href="#" hreflang="en" class="selected">English</a></li>
-                        <li><a href="#" hreflang="fr">Français</a></li>
+                    <a href="#" data-toggle="dropdown">fr <i class="fa fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <% [ 'fr', 'en' ].forEach( function( l ) { %>
+                        <% if ( lang == l ) { %>
+                        <li><a href="?lang=<%= l %>" hreflang="<%= l %>" class="selected"><%= langLabels[ l ] %></a>
+                        </li>
+                        <% } else { %>
+                        <li><a rel="alternate" href="?lang=<%= l %>" hreflang="<%= l %>"><%= langLabels[ l ] %></a></li>
+                        <% } %>
+                        <% } ); %>
                     </ul>
                 </li>
             </ul>
