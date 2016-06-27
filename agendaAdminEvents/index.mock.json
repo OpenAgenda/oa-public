@@ -5,6 +5,7 @@
       "terms" : true,
       "lang" : "fr",
       "res" : {
+        "contributor" : "user.json",
         "location" : "location.json",
         "terms" : "testTerms.json"
       }
