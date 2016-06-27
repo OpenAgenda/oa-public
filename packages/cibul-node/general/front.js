@@ -2,46 +2,49 @@
 
 var modLib = require( '../lib/moduleLib' ),
 
-cmn = require( '../lib/commons-app' ),
+  cmn = require( '../lib/commons-app' ),
 
-config = require( '../config' ),
-  
-newsletter = require( 'newsletter' ),
+  config = require( '../config' ),
 
-mailer = require( '../services/mailer' ),
+  newsletter = require( 'newsletter' ),
 
-model = require( '../services/model' ),
+  mailer = require( '../services/mailer' ),
 
-path,
+  model = require( '../services/model' ),
 
-coms = require( '../lib/coms' ),
+  agendas = require( 'agendas' ),
 
-w = require( 'when' ),
+  path,
 
-routes = {
-  corpoHome: [ 'get', '/', index( 'home' ) ],
-  corpoFeatures: [ 'get', '/features', index( 'features' ) ],
-  corpoPricing: [ 'get', '/services', index( 'pricing' ) ],
-  corpoApi: [ 'get', '/interface', index( 'api' ) ],
-  corpoAbout: [ 'get', '/about', index( 'about' ) ],
-  newsletterSubscribe: [ 'post', '/newsletter/subscribe', newsletterSubscribe ],
-  serviceConnectCallback: [ 'get', '/services/:service/connect/callback', serviceConnectCallback ],
-  emailUnsubscribe: [ 'get', '/unsubscribe', unsubscribe ],
-  emailUnsubscribeSubmit: [ 'post', '/unsubscribe', unsubscribeSubmit ]
-};
+  coms = require( '../lib/coms' ),
 
-module.exports = function( p ) {
+  w = require( 'when' ),
+
+  routes = {
+    corpoHome: [ 'get', '/', index( 'home' ) ],
+    corpoFeatures: [ 'get', '/features', index( 'features' ) ],
+    corpoPricing: [ 'get', '/services', index( 'pricing' ) ],
+    corpoApi: [ 'get', '/interface', index( 'api' ) ],
+    corpoAbout: [ 'get', '/about', index( 'about' ) ],
+    newCorpo: [ 'get', '/popopo', [ cmn.loadBaseData( 'oasfmain.css' ), newCorpo() ] ],
+    newsletterSubscribe: [ 'post', '/newsletter/subscribe', newsletterSubscribe ],
+    serviceConnectCallback: [ 'get', '/services/:service/connect/callback', serviceConnectCallback ],
+    emailUnsubscribe: [ 'get', '/unsubscribe', unsubscribe ],
+    emailUnsubscribeSubmit: [ 'post', '/unsubscribe', unsubscribeSubmit ]
+  };
+
+module.exports = function ( p ) {
 
   path = p;
 
   var router = modLib.Router( routes );
 
-  router.pre([
+  router.pre( [
     cmn.loadLogger( 'general' ),
     cmn.flashSetter,
     cmn.loadSession,
-    cmn.loadBaseData( function() {}, 'oa.css' )
-  ]);
+    cmn.loadBaseData( 'oa.css' )
+  ] );
 
   return {
     load: router.load( path ),
@@ -57,9 +60,9 @@ module.exports = function( p ) {
 
 function index( view ) {
 
-  return function( req, res ) {
+  return function ( req, res ) {
 
-    cmn.https( req, res, function() {
+    cmn.https( req, res, function () {
 
       if ( req.session.logged ) {
 
@@ -71,12 +74,101 @@ function index( view ) {
 
       cmn.render( req, res, 'corpo/index', { tab: view } );
 
-    });
+    } );
 
   }
 
 }
 
+
+function newCorpo() {
+
+  return function ( req, res, next ) {
+
+    cmn.https( req, res, function () {
+
+      if ( req.session.logged ) {
+
+        res.redirect( 302, req.genUrl( 'homeShow' ) );
+
+        return;
+
+      }
+
+      getStats()
+        .then( ( [ agendas, contributors, events ] ) => {
+
+          cmn.render( req, res, 'corpo/new', {
+            stats: {
+              agendas,
+              contributors,
+              events
+            }
+          } );
+
+        }, err => next( err ) );
+
+    } );
+
+  }
+
+}
+
+function getStats() {
+
+  return Promise.all( [
+    getTotalAgendas(),
+    getTotalContributors(),
+    getTotalEvents()
+  ] );
+
+}
+
+
+function getTotalAgendas() {
+
+  const con = model.lib.getConnection();
+
+  return new Promise( ( resolve, reject ) => {
+
+    con.query( 'SELECT COUNT(*) AS reviews FROM review', function ( err, rows ) {
+      if ( err ) reject( err );
+      resolve( rows[ 0 ].reviews );
+    } );
+
+  } );
+
+}
+
+function getTotalContributors() {
+
+  const con = model.lib.getConnection();
+
+  return new Promise( ( resolve, reject ) => {
+
+    con.query( 'SELECT COUNT(*) AS reviewers FROM reviewer', function ( err, rows ) {
+      if ( err ) reject( err );
+      resolve( rows[ 0 ].reviewers );
+    } );
+
+  } );
+
+}
+
+function getTotalEvents() {
+
+  const con = model.lib.getConnection();
+
+  return new Promise( ( resolve, reject ) => {
+
+    con.query( 'SELECT COUNT(*) AS events FROM event', function ( err, rows ) {
+      if ( err ) reject( err );
+      resolve( rows[ 0 ].events );
+    } );
+
+  } );
+
+}
 
 
 function newsletterSubscribe( req, res ) {
@@ -90,7 +182,7 @@ function newsletterSubscribe( req, res ) {
       res.setFlash( req, 'Either the email is invalid or the newsletter service is unavailable. Please try again later.' );
 
       res.redirect( 302, req.genUrl( 'corpoHome' ) );
-      
+
     } else {
 
       res.setFlash( req, 'You have been added to the newsletter list. Thanks!' );
@@ -102,7 +194,7 @@ function newsletterSubscribe( req, res ) {
         recipient: [ 'romain@cibul.net', 'kaore@cibul.net' ],
         text: '"' + req.body.email + '" a été ajouté à la newsletter.'
       } );
-      
+
     }
 
   } );
@@ -122,18 +214,18 @@ function unsubscribeSubmit( req, res ) {
 
   model.unsubscribed().create( {
     email: req.body.email
-  }, function( err, entry ) {
+  }, function ( err, entry ) {
 
     if ( err ) {
 
       cmn.render( req, res, 'general/unsubscribe', {
         email: req.body.email ? req.body.email : '',
         error: err
-      });
+      } );
 
     } else {
 
-      res.setFlash( req, 'You will from now on no longer receive event emails at the address %email%', { '%email%' : req.body.email } );
+      res.setFlash( req, 'You will from now on no longer receive event emails at the address %email%', { '%email%': req.body.email } );
 
       res.redirect( 302, '/' );
 
@@ -147,21 +239,25 @@ function serviceConnectCallback( req, res ) {
 
   var stateObj,
 
-  tokens;
+    tokens;
 
   try {
 
     stateObj = new Buffer( req.query.state, 'base64' );
 
     stateObj = JSON.parse( stateObj );
-    
-  } catch( e ) {
+
+  } catch ( e ) {
 
     return cmn.catchError( req, res )( { code: 500, message: 'invalid parameters' } );
 
   }
 
 
-  res.redirect( 302, req.genUrl( 'serviceSynchronize', { slug: stateObj.slug, service: req.params.service, code: req.query.code } ) );
+  res.redirect( 302, req.genUrl( 'serviceSynchronize', {
+    slug: stateObj.slug,
+    service: req.params.service,
+    code: req.query.code
+  } ) );
 
 }

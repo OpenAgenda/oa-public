@@ -71,6 +71,12 @@ module.exports = function ( enabledTypes, cb ) {
       if ( err ) log( 'error', err );
     } );
 
+    require( 'agendas' ).init( {
+      mysql: config.db,
+      schemas: config.schemas,
+      logger: logger
+    } );
+
     require( 'agenda-tags' ).init( {
       store: config.db,
       legacy: config.db,

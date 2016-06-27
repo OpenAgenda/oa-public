@@ -11,6 +11,7 @@
   "dependencies": {
     "ES": "git+ssh://git@bitbucket.org:cibul/es-node.git",
     "admin-agendas": "git+ssh://git@bitbucket.org/openagenda/admin-agendas.git",
+    "agendas": "git+ssh://git@bitbucket.org:openagenda/agendas.git",
     "agenda-categories": "git+ssh://git@bitbucket.org:openagenda/agenda-categories.git",
     "agenda-locations": "git+ssh://git@bitbucket.org:openagenda/agenda-locations.git",
     "agenda-stakeholders": "git+ssh://git@bitbucket.org:openagenda/agenda-stakeholders.git",
