@@ -8,10 +8,10 @@
   },
   "base" : {
     "pageClass" : "ct",
-    "pageId" : "corpo",
+    "pageId" : "old_corpo",
     "references" : [
-      { 
-        "src": "bretagne.jpg", 
+      {
+        "src": "bretagne.jpg",
         "alt" : "Région Bretagne",
         "href" : "http://fetedelabretagne.com"
       },
@@ -20,8 +20,8 @@
         "alt" : "Conseil National du Numérique",
         "href" : "http://www.cnnumerique.fr"
       },
-      { 
-        "src": "ministere.jpg", 
+      {
+        "src": "ministere.jpg",
         "alt" : "Ministère de l'éducation nationale, de l'enseignement supérieur et de la recherche",
         "href" : "http://journee-arts-culture-sup.fr"
       },
@@ -41,7 +41,7 @@
         "href" : "http://www.invest-in-france.org"
       },
       {
-        "src": "lafrenchtech.jpg", 
+        "src": "lafrenchtech.jpg",
         "alt" : "La French Tech",
         "href" : "http://www.lafrenchtech.com"
       },
@@ -50,8 +50,8 @@
         "alt" : "Ministère de la culture",
         "href" : "http://www.culturecommunication.gouv.fr"
       },
-      { 
-        "src": "numa.png", 
+      {
+        "src": "numa.png",
         "alt" : "Numa",
         "href" : "https://www.numa.paris"
       },

@@ -1,0 +1,41 @@
+{
+  "oaCss": {
+    "variables": "../css/variables.scss",
+    "bootstrap": "../bootstrap/custom-bootstrap.css",
+    "fontawesome430": "../css/font-awesome-4.3.0/css/font-awesome.css",
+    "bsBase": "../css/bsBase.scss",
+    "bsHeader": "../css/bsHeader.scss",
+    "bsFooter": "../css/bsFooter.scss",
+    "bsButtons": "../css/bsButtons.scss",
+    "tmp": "../css/temporary.css",
+    "outdated": "../css/outdated.scss"
+  },
+  "base": {
+    "bottom": {
+      "scriptSources": [
+        "//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js",
+        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/collapse.js",
+        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/transition.js",
+        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/dropdown.js"
+      ],
+      "scripts": [
+        "jQuery(function(t){t('a[href*=\"#\"]:not([href=\"#\"])').click(function(){if(location.pathname.replace(/^\\//,\"\")==this.pathname.replace(/^\\//,\"\")&&location.hostname==this.hostname){var a=t(this.hash);if(a=a.length?a:t(\"[name=\"+this.hash.slice(1)+\"]\"),a.length)return t(\"html,body\").animate({scrollTop:a.offset().top},350),!1}});var a=window.location.hash;if(a){var e=t(a);if(e.length)return t(\"html,body\").animate({scrollTop:e.offset().top},350),!1}});"
+      ]
+    },
+    "pageClass": false,
+    "pageId": false,
+    "searchRes": "searchEvents",
+    "search": "",
+    "metas": {
+      "title": "OpenAgenda",
+      "description": "Communicate efficiently on your events",
+      "keywords": "openagenda, events, agendas, open data, networked",
+      "robots": "index, follow"
+    },
+    "lang": "fr",
+    "langLabels": {
+      "fr": "français",
+      "en": "english"
+    }
+  }
+}

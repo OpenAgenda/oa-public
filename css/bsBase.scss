@@ -240,3 +240,11 @@ body .crisp-client-container .crisp-client-excerpt .crisp-client-excerpt-minimiz
   }
 }
 
+/*
+ * One pixel overflow input/button field
+ */
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group {
+
+  line-height: 1.45;
+
+}
