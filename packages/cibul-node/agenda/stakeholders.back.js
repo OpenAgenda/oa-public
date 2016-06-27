@@ -86,6 +86,17 @@ routes = {
     stakeholders.loadAgenda( 'agenda', 'stakeholders' ),
     _loadUserByEmail,
     transfer
+  ] ],
+
+  stakeholderGet: [ 'get', '/contributors/:uid.json', [
+    cmn.checkAdminOrModerator,
+    _loadUserByUid,
+    stakeholders.load( 'agenda', 'queriedUser' ),
+    ( req, res ) => {
+
+      res.json( { name: req.queriedUser.fullName } );
+
+    }
   ] ]
   
 };
@@ -283,6 +294,21 @@ function _loadUserByEmail( req, res, next ) {
     if ( !user ) return next( { code: 400, message: 'the target account does not exist' } );
 
     req.stakeholder = user;
+
+    next();
+
+  } );
+
+}
+
+
+function _loadUserByUid( req, res, next ) {
+
+  userSvc.get( { uid: req.params.uid }, ( err, user ) => {
+
+    if ( err ) return next( err );
+
+    req.queriedUser = user;
 
     next();
 
