@@ -115,7 +115,7 @@ routes = {
     _format,
     _formatShowLinks,
     showXhr( 'agenda/show' ),
-    cmn.loadBaseData( _layoutData, 'oa.css' ),
+    cmn.loadBaseData( _layoutData, 'oasfmain.css' ),
     show
   ] ],
 
