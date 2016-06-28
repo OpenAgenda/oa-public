@@ -39,8 +39,8 @@
   : "recharger la page agenda",
   "This agenda has not published any events yet"
   : "Cet agenda n'a pas encore publié d'événements",
-  "Contact the administrator of this agenda"
-  : "Contacter l'administrateur de l'agenda",
+  "Contact administrator"
+  : "Contacter l'admin",
   "by %name%" : "par %name%",
   "There are no upcoming events published in this agenda."
   : "Il n'y a pas d'événements publiés à venir dans cet agenda.",

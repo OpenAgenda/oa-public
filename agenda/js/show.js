@@ -266,6 +266,8 @@ function _onWidgetLoaded( cb ) {
 
 function _displayAddButton() {
 
+  console.log( params.selectors.add )
+
   cn.removeClass( cn.el( params.selectors.add ), params.classes.displayNone );
 
 }

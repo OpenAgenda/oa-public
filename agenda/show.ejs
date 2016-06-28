@@ -1,122 +1,108 @@
 <% include ./head.part.ejs %>
-<div id="sub-nav">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-6 col-sm-offset-2">
-        <ul class="nav nav-tabs">
-        </ul>
-      </div>
-<% if ( !agenda.isEmpty ) { %>
-      <div class="col-sm-4 col-aside display-none js_add_button">
-        <a id="add-event" class="add-event" href="<%= genUrl( 'agendaEventNew', { slug: agenda.slug } ) %>" rel="nofollow">
-          <i class="fa fa-plus-circle"></i>
-          <span><%= __('Add an event') %></span>
-        </a>
-      </div>
-<% } %>
-    </div>
-  </div>
-</div>
 <% if ( !agenda.isEmpty ) { %>
 <div id="content">
-  <div class="container">
-    <div class="row">
-      <section class="col-sm-6 col-sm-offset-2 main-content">
-        <div class="row filters cbpgft" data-cbctl="<%= agenda.uid %>|<%= lang %>|bs"></div>
-        <div class="total js_total">
-          <span><%= __( passedIncluded ? '%count% events' : '%count% upcoming events', { '%count%' : total }) %></span>
-          <% if ( !passedIncluded ) { %> - <a href="<%= genUrl( 'agendaShow', [ { slug: agenda.slug }, passedQuery ] ) %>"><%= __( 'include passed events' ) %></a><% } %>
+    <div class="container">
+        <div class="row">
+            <section class="col-sm-6 col-sm-offset-2 main-content">
+                <div class="row filters cbpgft" data-cbctl="<%= agenda.uid %>|<%= lang %>|bs"></div>
+                <div class="total js_total">
+                    <span><%= __( passedIncluded ? '%count% events' : '%count% upcoming events', { '%count%': total } ) %></span>
+                    <% if ( !passedIncluded ) { %>
+                    -
+                    <a href="<%= genUrl( 'agendaShow', [ { slug: agenda.slug }, passedQuery ] ) %>"><%= __( 'include passed events' ) %></a>
+                    <% } %>
+                </div>
+            </section>
+            <section class="col-sm-8 main-content js_list_content">
+                <% include ./show.part.ejs %>
+            </section>
+            <aside class="col-sm-4 col-aside sidebar">
+
+                <section class="side-item side-search">
+                    <h3 class="mobile-only">
+                        <i class="fa fa-search side-icon"></i><span
+                                class="side-title"><%= __( 'Search in this agenda' ) %></span>
+                    </h3>
+                    <div class="side-content">
+                        <div class="search-form cbpgsc" data-cbctl="<%= agenda.uid %>|<%= lang %>">
+                            <input type="text" placeholder="<%= __( 'Search in this agenda' ) %>" class="search-input">
+                            <div class="search-button">
+                                <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="side-item side-map">
+                    <h3 class="mobile-only">
+                        <i class="fa fa-map-marker side-icon"></i><span class="side-title"><%= __( 'Map' ) %></span>
+                    </h3>
+                    <div class="side-content cbpgmp agenda-map" data-cbctl="<%= agenda.uid %>|<%= lang %>">
+                        <div class="map-sync js_map_sync">
+                            <input type="checkbox" id="map-sync" class="js_sync_checkbox">
+                            <label for="map-sync"><%= __( 'Search when I move the map' ) %></label>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="side-item side-calendar">
+                    <h3 class="mobile-only">
+                        <i class="fa fa-calendar-o side-icon"></i><span
+                                class="side-title"><%= __( 'Select dates' ) %></span>
+                    </h3>
+                    <div class="side-content">
+                        <div class="cbpgcl cibulCalendar" data-cbctl="<%= agenda.uid %>|<%= lang %>"></div>
+                    </div>
+                </section>
+
+                <section class="side-item side-categories display-none js_category_widget">
+                    <h3>
+                        <i class="fa fa-tag side-icon"></i>
+                        <span class="side-title"><%= __( 'Categories' ) %></span>
+                    </h3>
+                    <div class="side-content cbpgct" data-cbctl="<%= agenda.uid %>|bs"></div>
+                </section>
+
+                <section class="side-item side-tags display-none js_tags_widget">
+                    <h3>
+                        <i class="fa fa-tags side-icon"></i>
+                        <span class="side-title"><%= __( 'Tags' ) %></span>
+                    </h3>
+                    <div class="side-content cbpgtg" data-cbctl="<%= agenda.uid %>||bs"></div>
+                </section>
+
+                <section class="side-item display-none js_org_widget">
+                    <h3>
+                        <i class="fa fa-institution side-icon"></i><span
+                                class="side-title"><%= __( 'Organization' ) %></span>
+                    </h3>
+                    <div class="side-content cbpgor" data-cbctl="<%= agenda.uid %>|bs"></div>
+                </section>
+
+                <% include ../bsLayout/footer.part.ejs %>
+            </aside>
         </div>
-      </section>
-      <section class="col-sm-8 main-content js_list_content">
-        <% include ./show.part.ejs %>
-      </section>
-      <aside class="col-sm-4 col-aside sidebar">
-
-        <section class="side-item side-search">
-          <h3 class="mobile-only">
-            <i class="fa fa-search side-icon"></i><span class="side-title"><%= __('Search in this agenda') %></span>
-          </h3>
-          <div class="side-content">
-            <div class="search-form cbpgsc" data-cbctl="<%= agenda.uid %>|<%= lang %>">
-              <input type="text" placeholder="<%= __('Search in this agenda') %>" class="search-input"><div class="search-button">
-                <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="side-item side-map">
-          <h3 class="mobile-only">
-            <i class="fa fa-map-marker side-icon"></i><span class="side-title"><%= __( 'Map' ) %></span>
-          </h3>
-          <div class="side-content cbpgmp agenda-map" data-cbctl="<%= agenda.uid %>|<%= lang %>">
-            <div class="map-sync js_map_sync">
-              <input type="checkbox" id="map-sync" class="js_sync_checkbox">
-              <label for="map-sync"><%= __('Search when I move the map') %></label>
-            </div>
-          </div>
-        </section>
-
-        <section class="side-item side-calendar">
-          <h3 class="mobile-only">
-            <i class="fa fa-calendar-o side-icon"></i><span class="side-title"><%= __( 'Select dates' ) %></span>
-          </h3>
-          <div class="side-content">
-            <div class="cbpgcl cibulCalendar" data-cbctl="<%= agenda.uid %>|<%= lang %>"></div>
-          </div>
-        </section>
-
-        <section class="side-item side-categories display-none js_category_widget">
-          <h3>
-            <i class="fa fa-tag side-icon"></i>
-            <span class="side-title"><%= __('Categories') %></span>
-          </h3>
-          <div class="side-content cbpgct" data-cbctl="<%= agenda.uid %>|bs"></div>
-        </section>
-
-        <section class="side-item side-tags display-none js_tags_widget">
-          <h3>
-            <i class="fa fa-tags side-icon"></i>
-            <span class="side-title"><%= __( 'Tags' ) %></span>
-          </h3>
-          <div class="side-content cbpgtg" data-cbctl="<%= agenda.uid %>||bs"></div>
-        </section>
-
-        <section class="side-item display-none js_org_widget">
-          <h3>
-            <i class="fa fa-institution side-icon"></i><span class="side-title"><%= __('Organization') %></span>
-          </h3>
-          <div class="side-content cbpgor" data-cbctl="<%= agenda.uid %>|bs"></div>
-        </section>
-
-        <section class="side-item">
-          <div class="side-content">
-            <p><a href="<%= genUrl( 'conversationAgendaContact', { uid: agenda.uid, redirect: _r({ module: 'review', action: 'show', slug: agenda.slug }) }) %>" rel="nofollow"><%= __('Contact the administrator of this agenda') %></a></p>
-          </div>
-        </section>
-        <% include ../bsLayout/footer.part.ejs %>
-      </aside>
     </div>
-  </div>
 </div>
 <% } else { %>
 <div id="content" class="no-event">
-  <div class="container">
-    <p class="display-none js_add_button">
-      <a class="btn btn-success btn-lg" href="<%= genUrl( 'agendaEventNew', { slug: agenda.slug } ) %>" rel="nofollow"><%= __( 'Add an event' ) %></a>
-    </p>
-    <p><%= __( 'This agenda has not published any events yet' ) %></p>
-  </div>
+    <div class="container">
+        <p class="display-none js_add_button">
+            <a class="btn btn-success btn-lg" href="<%= genUrl( 'agendaEventNew', { slug: agenda.slug } ) %>"
+               rel="nofollow"><%= __( 'Add an event' ) %></a>
+        </p>
+        <p><%= __( 'This agenda has not published any events yet' ) %></p>
+    </div>
 </div>
 <% var centeredFooter = true; %>
 <% include ../bsLayout/footer.part.ejs %>
 <% } %>
 <div id="admin-bar" class="edge-bar js_admin_controls">
-  <ul class="edge-list">
-    <li class="edge-item">
-      <a class="edge-link" data-href="<%= genUrl( 'agendaAdminShow', { slug: agenda.slug } ) %>" rel="nofollow"><%= __( 'Manage' ) %></a>
-    </li>
-  </ul>
+    <ul class="edge-list">
+        <li class="edge-item">
+            <a class="edge-link" data-href="<%= genUrl( 'agendaAdminShow', { slug: agenda.slug } ) %>"
+               rel="nofollow"><%= __( 'Manage' ) %></a>
+        </li>
+    </ul>
 </div>
 <% include show.jsonld.ejs %>
