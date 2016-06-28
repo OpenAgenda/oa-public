@@ -138,11 +138,11 @@ config = {
       //key: '044c4cbd91d65eab056738',
       //key: '32d62d210e9dcf24c0134e',
       key: '05acdb65a8a86f5d0d792d',
-      platforms: [ 
-        'youtube', 'dailymotion', 'vimeo', 
-        'soundcloud', 'twitter', 'flickr', 
-        'instagram', 'tumblr', 'prezi', 
-        'google', 'ted', 'ina.fr'
+      platforms: [
+        'youtube', 'dailymotion', 'vimeo',
+        'soundcloud', 'twitter', 'flickr',
+        'instagram', 'tumblr', 'prezi',
+        'google', 'ted', 'ina.fr', 'youtu'
       ]
     },
     newsletter: {
