@@ -120,6 +120,7 @@ Wrapper = React.createClass( {
         label="a hidden label"
         placeholder="do your search"
         onChange={ this.onChange }
+        loading={ true }
       />
 
       <div className="separator"></div>

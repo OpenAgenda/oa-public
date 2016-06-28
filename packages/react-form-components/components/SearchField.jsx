@@ -140,7 +140,7 @@ module.exports = React.createClass( {
 
   render: function() {
 
-    return <div className={this.props.dynamic ? '' : 'input-group' }>
+    return <div className={this.props.dynamic ? 'search-field' : 'search-field input-group' }>
       <label className="sr-only" htmlFor={this.props.name}>{this.props.label}</label>
       <input
         placeholder={this.props.placeholder}
