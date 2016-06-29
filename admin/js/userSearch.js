@@ -17,7 +17,7 @@ module.exports = React.createClass({
     return (
       <form className="form-inline" onSubmit={this.handleSubmit}>
         <div className="form-group">
-          <label for="search"></label>
+          <label htmlFor="search"></label>
           <input type="text" placeholder="search" ref="search" name="search" className="form-control" />
         </div>
         <button type="submit" className="btn btn-default">Ok</button>

@@ -2,15 +2,34 @@
 
 var React = require( 'react' ),
 
-remote = require( '../../js/lib/remote/remote.mod' );
+  remote = require( '../../js/lib/remote/remote.mod' );
 
-module.exports = React.createClass({
+module.exports = React.createClass( {
 
-  render: function() {
+  getInitialState() {
+    return {
+      password: null
+    };
+  },
+
+  handleChangePassword( e ) {
+
+    this.setState( { password: e.target.value } );
+
+  },
+
+  handleSubmitChangePassword( e ) {
+    e.preventDefault();
+
+    this.props.onUserChangePassword( { password: this.state.password } )
+      .then( () => this.setState( { password: e.target.value } ) );
+  },
+
+  render: function () {
 
     var user = this.props.user,
 
-    activationLink = '';
+      activationLink = '';
 
     if ( !user ) {
 
@@ -57,10 +76,24 @@ module.exports = React.createClass({
             <td>{user.updatedAt}</td>
           </tr>
         </table>
-        <a onClick={this.props.onUserSignin} href="#">Signin as user</a>
+        <a onClick={this.props.onUserSignin} href="#">Signin as user</a><br/>
+        <form className="form-inline" onSubmit={this.handleSubmitChangePassword}>
+          <div className="form-group">
+            <label htmlFor="password">Nouveau mot de passe: </label>
+            <input
+              type="text"
+              className="form-control"
+              id="password"
+              placeholder="ICI, TU LE METS ICI !"
+              value={this.state.password}
+              onChange={this.handleChangePassword}
+            />
+          </div>
+          <button type="submit" className="btn btn-default">Change password</button>
+        </form>
       </div>
     );
 
   }
 
-})
+} )

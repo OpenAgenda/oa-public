@@ -18,6 +18,8 @@ module.exports = function ( templateName, data, cb ) {
 
   async.waterfall( loaders, function ( err, results ) {
 
+    if ( err ) return cb( err );
+
     const layoutBottom = results.layout && results.layoutConfig.base && results.layoutConfig.base.bottom || {};
     const templateBottom = results.config.base && results.config.base.bottom || {};
     const dataBottom = data.bottom || {};
@@ -34,9 +36,6 @@ module.exports = function ( templateName, data, cb ) {
         ...dataBottom.scriptSources || []
       ].filter( ( v, i, a ) => a.indexOf( v ) === i )
     };
-
-
-    if ( err ) return cb( err );
 
     if ( results.config.base ) data = cn.extend( results.config.base, data );
 
