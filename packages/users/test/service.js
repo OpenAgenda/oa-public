@@ -20,10 +20,10 @@ describe( 'service', function() {
     fixtures.init( config );
 
     fixtures( [ {
-      table: 'user',
+      table: config.schemas.user,
       src: __dirname + '/fixtures/user.data.sql'
     }, {
-      table: 'apiKeySet',
+      table: config.schemas.apiKeySet,
       src: __dirname + '/fixtures/api_key_set.data.sql'
     } ], done );
 

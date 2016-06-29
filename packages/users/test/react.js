@@ -6,7 +6,7 @@ const should = require( 'should' ),
 
   actions = require( '../react/actions' ),
 
-  userSettingsReduer = require( '../react/reducers/userSettings' );
+  userSettingsReducer = require( '../react/reducers/userSettings' );
 
 
 describe( 'react', function() {
@@ -21,7 +21,7 @@ describe( 'react', function() {
       email: 'test@test.fr'
     };
 
-    userSettingsReduer( {}, actions.getMe( 'response', { user } ) ).should.eql( { user } );
+    userSettingsReducer( {}, actions.getMe( 'response', { user } ) ).should.eql( { user } );
 
     done();
 

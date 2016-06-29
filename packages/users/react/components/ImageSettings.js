@@ -2,7 +2,7 @@
 
 const React = require( 'react' ),
 
-  ImageUpload = require( 'image-upload/components/src/ImageUploader' );
+  ImageUpload = require( 'image-upload/components/build/ImageUploader' );
 
 
 const ProfileSettings = React.createClass( {
