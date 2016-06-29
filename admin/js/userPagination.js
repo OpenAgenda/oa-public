@@ -18,7 +18,7 @@ module.exports = React.createClass({
 
     createItem = function( item ) {
 
-      return <li onClick={self.handleClick}><a>{item}</a></li>;
+      return <li key={item} onClick={self.handleClick}><a>{item}</a></li>;
 
     },
 
