@@ -44,11 +44,13 @@ function master() {
 
   var total = config.multiCore ? require( 'os' ).cpus().length : 1,
 
-  tasksWorker, crashCount = 0;
+  tasksWorker, crashCount = 0,
 
-  log( 'info', 'launching on %d workers', total );
+  workerCount = total - 1 || 1;
 
-  for ( var i = 0; i < total; i++ ) {
+  log( 'info', 'launching on %d workers', workerCount );
+
+  for ( var i = 0; i < workerCount; i++ ) {
 
     cluster.fork();
 
