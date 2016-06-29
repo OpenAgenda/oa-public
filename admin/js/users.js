@@ -2,7 +2,7 @@ var userApp = require( './userApp' );
 
 window.hook( function( ) {
 
-  userApp( document.getElementsByTagName('body')[0] );
+  userApp( document.getElementsByClassName('app')[0] );
 
 
 } );

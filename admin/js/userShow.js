@@ -52,6 +52,7 @@ module.exports = React.createClass( {
       <div>
         <h2>{user.fullName}</h2>
         <table className="table">
+          <tbody>
           <tr>
             <td>uid</td>
             <td>{user.uid}</td>
@@ -75,6 +76,7 @@ module.exports = React.createClass( {
             <td>Updated At</td>
             <td>{user.updatedAt}</td>
           </tr>
+          </tbody>
         </table>
         <a onClick={this.props.onUserSignin} href="#">Signin as user</a><br/>
         <form className="form-inline" onSubmit={this.handleSubmitChangePassword}>
