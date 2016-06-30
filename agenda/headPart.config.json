@@ -1,6 +1,7 @@
 {
   "readme" : "this template is used only to give a rendered header to the legacy php project",
   "helpers" : {
+    "_r" : "redirect",
     "_i" : "image",
     "_txt" : "text"
   },
