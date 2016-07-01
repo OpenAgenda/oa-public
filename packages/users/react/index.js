@@ -30,11 +30,9 @@ const React = require( 'react' ),
 
   App = require( './containers/App' ),
 
-  SettingsContainer = require( './containers/SettingsContainer' );
-
-if ( process.env.NODE_ENV == 'development' ) {
-  const DevTools = require( './containers/DevTools' );
-}
+  SettingsContainer = require( './containers/SettingsContainer' ),
+  
+  DevTools = require( './containers/DevTools' );
 
 
 require( 'dom-utils/ie8' );
