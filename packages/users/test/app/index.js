@@ -50,7 +50,7 @@ fixtures( [ {
   table: 'user',
   src: path.resolve( __dirname, '../fixtures/user.data.sql' )
 }, {
-  table: 'apiKeySet',
+  table: 'api_key_set',
   src: path.resolve( __dirname, '../fixtures/api_key_set.data.sql' )
 } ], err => {
 

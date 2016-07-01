@@ -614,7 +614,7 @@ function _requestChangeEmail( v ) {
   }
 
 
-  var store = JSON.parse( v.user.store || {} ),
+  var store = JSON.parse( v.user.store || '{}' ),
 
     token = crypto.randomHash();
 

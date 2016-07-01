@@ -29,7 +29,7 @@ const ProfileSettings = React.createClass( {
         <td onClick={activeTab ? routerActions.push.bind( null, '/' ) : null}
             className="col-md-3" style={{cursor: 'pointer'}}>{getLabels( 'profileImage' )}
         </td>
-        {activeTab ? <td>
+        {activeTab ? <td>e
           <div style={{padding: '0 5px'}}>
             <ImageUpload
               lang={lang}
