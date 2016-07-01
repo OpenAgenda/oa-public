@@ -582,8 +582,8 @@ module.exports = React.createClass( {
         : '' }
 
         <div>
-          <h2>{this.props.labels.locationSection[ this.props.lang ]}</h2>
-          {this.state.locationMode === 'create' ? null : this.renderLocationSelector()}
+          <h2>{ this.props.labels.locationSection[ this.props.lang ] }</h2>
+          { this.state.locationMode === 'create' ? null : this.renderLocationSelector() }
         </div>
         
         <TimingsPicker
