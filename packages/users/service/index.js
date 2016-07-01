@@ -685,6 +685,7 @@ function _removeUser( v ) {
     var date = new Date();
 
     v.user.username = `*removed-${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${v.user.id}`;
+    v.user.email = v.user.email.replace('@', '@@');
 
     v.query = v.user;
 
