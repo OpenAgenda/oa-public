@@ -2,48 +2,51 @@
 
 var modLib = require( '../lib/moduleLib' ),
 
-cmn = require( '../lib/commons-app' ),
+  cmn = require( '../lib/commons-app' ),
 
-config = require( '../config' ),
+  config = require( '../config' ),
 
-moment = require( 'moment' ),
+  moment = require( 'moment' ),
 
-w = require( 'when' ),
+  w = require( 'when' ),
 
-wn = require( 'when/node' ),
+  wn = require( 'when/node' ),
 
-session = require( '../auth/lib/session' ),
+  session = require( '../auth/lib/session' ),
 
-async = require( 'async' ),
+  async = require( 'async' ),
 
-log = require( 'logger' )( 'admin/back' ),
+  log = require( 'logger' )( 'admin/back' ),
 
-lib = require( '../lib/lib' ), 
+  lib = require( '../lib/lib' ),
 
-model = require( '../services/model' ),
+  model = require( '../services/model' ),
 
-adminSvc = require( '../services/admin/admin' ),
+  adminSvc = require( '../services/admin/admin' ),
 
-userSvc = require( '../services/user' ),
+  userSvc = require( '../services/user' ),
 
-routes = {
-  adminIndex: [ 'get', '/', index ],
-  adminSearch: [ 'get', '/search', search ],
-  adminUsers: [ 'get', '/users', users ],
-  adminUserSignInAs: [ 'get', '/users/signin', [ 
-    _loadUser,
-    userSignin
-  ] ],
-  adminUserActivate: [ 'get', '/users/activate', [
-    _loadUser,
-    userActivate
-  ] ],
-  eventsByWeek: [ 'get', '/eventsbyweek', eventsByWeek ],
-  eventsDiff: [ 'get', '/eventsdiff', eventsDiff ]
-};
+  users = require( 'users' ),
+
+  routes = {
+    adminIndex: [ 'get', '/', index ],
+    adminSearch: [ 'get', '/search', search ],
+    adminUsers: [ 'get', '/users', getUsers ],
+    adminUserSignInAs: [ 'get', '/users/signin', [
+      _loadUser,
+      userSignin
+    ] ],
+    adminUserActivate: [ 'get', '/users/activate', [
+      _loadUser,
+      userActivate
+    ] ],
+    adminUserChangePassword: [ 'get', '/users/changePassword', userChangePassword ],
+    eventsByWeek: [ 'get', '/eventsbyweek', eventsByWeek ],
+    eventsDiff: [ 'get', '/eventsdiff', eventsDiff ]
+  };
 
 
-module.exports = function( path ) {
+module.exports = function ( path ) {
 
   var router = modLib.Router( routes );
 
@@ -69,49 +72,49 @@ function index( req, res ) {
 
   var totals = {},
 
-  totalsWeek = {},
+    totalsWeek = {},
 
-  totalsMonth = {};
+    totalsMonth = {};
 
   log( 'rendering index' );
-  
+
   wn.call( _getTotals )
 
-  .spread( function( rt, et, ut ) {
+    .spread( function ( rt, et, ut ) {
 
-    totals.reviews = rt;
-    totals.events = et;
-    totals.users = ut;
+      totals.reviews = rt;
+      totals.events = et;
+      totals.users = ut;
 
-    return wn.call( _getTotalsWeek );
+      return wn.call( _getTotalsWeek );
 
-  } )
+    } )
 
-  .spread( function( rtw, etw, utw ) {
+    .spread( function ( rtw, etw, utw ) {
 
-    totalsWeek.reviews = rtw;
-    totalsWeek.events = etw;
-    totalsWeek.users = utw;
+      totalsWeek.reviews = rtw;
+      totalsWeek.events = etw;
+      totalsWeek.users = utw;
 
-    return wn.call( _getTotalsMonth );
+      return wn.call( _getTotalsMonth );
 
-  } )
+    } )
 
-  .spread( function( rtm, etm, utm ) {
+    .spread( function ( rtm, etm, utm ) {
 
-    totalsMonth.reviews = rtm;
-    totalsMonth.events = etm;
-    totalsMonth.users = utm;
+      totalsMonth.reviews = rtm;
+      totalsMonth.events = etm;
+      totalsMonth.users = utm;
 
-    cmn.render( req, res, 'admin/index', _layoutData( totals, totalsWeek, totalsMonth ) );
+      cmn.render( req, res, 'admin/index', _layoutData( totals, totalsWeek, totalsMonth ) );
 
-  } )
+    } )
 
-  .catch( function( err ) {
+    .catch( function ( err ) {
 
-    log( err.message );
+      log( err.message );
 
-  } );
+    } );
 
 
 }
@@ -121,58 +124,58 @@ function search( req, res ) {
 
   var start = moment( req.query.begin, 'DD-MM-YYYY' ).toDate(),
 
-  end = moment( req.query.end, 'DD-MM-YYYY' ).endOf('day').toDate();
+    end = moment( req.query.end, 'DD-MM-YYYY' ).endOf( 'day' ).toDate();
 
   wn.call( _getFork, start, end )
 
-  .spread( function( r, e, u ) {
+    .spread( function ( r, e, u ) {
 
-    cmn.render( req, res, 'admin/index', {
+      cmn.render( req, res, 'admin/index', {
 
-      events: {
-        total: e,
-        totalInWeek: null,
-        totalInMonth: null
-      },
+        events: {
+          total: e,
+          totalInWeek: null,
+          totalInMonth: null
+        },
 
-      reviews: {
-        total: r,
-        totalInWeek: null,
-        totalInMonth: null
-      },
+        reviews: {
+          total: r,
+          totalInWeek: null,
+          totalInMonth: null
+        },
 
-      users: {
-        total: u,
-        totalInWeek: null,
-        totalInMonth: null
-      }
+        users: {
+          total: u,
+          totalInWeek: null,
+          totalInMonth: null
+        }
 
-    });
-  
-  } )
+      } );
 
-  .catch( function ( err ) {
+    } )
 
-    log( err.message );
+    .catch( function ( err ) {
 
-  });
+      log( err.message );
+
+    } );
 
 }
 
 
-function users( req, res ) {
+function getUsers( req, res ) {
 
   if ( req.xhr ) {
 
     if ( req.query.uid ) {
 
-      return _loadUser( req, res, function() {
+      return _loadUser( req, res, function () {
 
         cmn.renderJson( req, res, {
           user: lib.filterByAttr( req.loadedUser, [ 'uid', 'fullName', 'email', 'isActivated', 'createdAt', 'updatedAt' ] )
-        });
+        } );
 
-      });
+      } );
 
     } else {
 
@@ -193,28 +196,44 @@ function users( req, res ) {
 }
 
 
+function userChangePassword( req, res ) {
+
+  const { uid, password: new_password } = req.query;
+
+  users.changePassword( { uid, new_password }, ( err, result ) => {
+
+    console.log( err, result );
+
+    if ( err || !result.success ) return res.json( { success: false } );
+    res.json( { success: true } );
+
+  } );
+
+}
+
+
 function userActivate( req, res ) {
 
-  userSvc.activation.activate( req.loadedUser, function( err, result ) {
+  userSvc.activation.activate( req.loadedUser, function ( err, result ) {
 
     if ( err ) return cmn.catchError( req, res )( err );
 
-    return cmn.renderJson( req, res, { success: true } );
+    return cmn.renderJson( req, res, { success: true } );
 
-  });
+  } );
 
 }
 
 
 function userSignin( req, res ) {
 
-  session.set( req, res, req.loadedUser, function() {
+  session.set( req, res, req.loadedUser, function () {
 
     if ( req.xhr ) return cmn.renderJson( req, res, { success: true } );
 
     return res.redirect( 302, req.genUrl( 'homeShow' ) );
 
-  });
+  } );
 
 }
 
@@ -225,15 +244,15 @@ function _loadUser( req, res, next ) {
 
   var uid = req.query.uid;
 
-  model.users().get({ uid: uid }, function( err, result ) {
+  model.users().get( { uid: uid }, function ( err, result ) {
 
     if ( err ) return cmn.catchError( req, res )( err );
 
     req.loadedUser = result;
 
-    next();    
+    next();
 
-  });
+  } );
 
 }
 
@@ -241,33 +260,33 @@ function _searchUsers( req, res ) {
 
   var perPage = 40, page = req.query.page ? parseInt( req.query.page, 10 ) : 1,
 
-  where = '',
+    where = ' where is_removed = 0',
 
-  total = 0;
+    total = 0;
 
   if ( req.query.search ) {
 
-    where += ' where email like \'%' + req.query.search +'%\''
-          +  ' or full_name like \'%' + req.query.search +'%\'';
+    where += ' and email like \'%' + req.query.search + '%\''
+      + ' or full_name like \'%' + req.query.search + '%\'';
 
   }
 
-  model.lib.query( 'select count(id) as total from user' + where, function( err, rows ) {
+  model.lib.query( 'select count(id) as total from user' + where, function ( err, rows ) {
 
     if ( err ) return cmn.catchError( req, res )( err );
 
     total = rows[ 0 ].total;
 
-    model.lib.query( 'select * from user' + where + ' order by created_at desc limit ' + (page-1)*perPage + ', ' + perPage, function( err, rows ) {
+    model.lib.query( 'select * from user' + where + ' order by created_at desc limit ' + (page - 1) * perPage + ', ' + perPage, function ( err, rows ) {
 
       if ( err ) return cmn.catchError( req, res )( err );
 
       cmn.renderJson( req, res, {
-        users: rows.map( function( row ) {
+        users: rows.map( function ( row ) {
 
           return { uid: row.uid, fullName: row.full_name, email: row.email };
 
-        }),
+        } ),
         page: page,
         total: total,
         perPage: perPage
@@ -282,23 +301,23 @@ function _searchUsers( req, res ) {
 
 function eventsByWeek( req, res ) {
 
-  adminSvc.getIndexedEventsByWeek( function( err, result ) {
+  adminSvc.getIndexedEventsByWeek( function ( err, result ) {
 
     if ( err ) return cmn.errorResponse( req, res, err );
 
     cmn.renderJson( req, res, {
       success: true,
       data: result
-    });
+    } );
 
-  });
+  } );
 
 }
 
 
 function eventsDiff( req, res ) {
 
-  adminSvc.getIndexDiff( function( err, diff ) {
+  adminSvc.getIndexDiff( function ( err, diff ) {
 
     if ( err ) return cmn.errorResponse( req, res, err );
 
@@ -322,13 +341,13 @@ function _getFork( begin, end, cb ) {
 
     async.apply( model.users().total, { createdAt: { gte: begin, lte: end } } )
 
-    ], cb );
+  ], cb );
 
 }
 
 function _getTotals( cb ) {
 
-  async.parallel([
+  async.parallel( [
 
     async.apply( model.reviews().total ),
 
@@ -336,33 +355,33 @@ function _getTotals( cb ) {
 
     async.apply( model.users().total )
 
-    ], cb );
+  ], cb );
 }
 
 function _getTotalsWeek( cb ) {
 
   var weekStart = moment().subtract( 1, 'week' ).startOf( 'week' ).toDate(),
 
-  weekStop = moment().subtract( 1, 'week' ).endOf( 'week' ).toDate();
+    weekStop = moment().subtract( 1, 'week' ).endOf( 'week' ).toDate();
 
-  async.parallel([
+  async.parallel( [
 
-    async.apply( model.reviews().total, {createdAt: { gt: weekStart, lt: weekStop } } ),
+    async.apply( model.reviews().total, { createdAt: { gt: weekStart, lt: weekStop } } ),
 
-    async.apply( model.events().total, {createdAt: { gt: weekStart, lt: weekStop } } ),
+    async.apply( model.events().total, { createdAt: { gt: weekStart, lt: weekStop } } ),
 
-    async.apply( model.users().total, {createdAt: { gt: weekStart, lt: weekStop } } )
+    async.apply( model.users().total, { createdAt: { gt: weekStart, lt: weekStop } } )
 
-    ], cb );
+  ], cb );
 }
 
 function _getTotalsMonth( cb ) {
 
   var monthStart = moment().subtract( 1, 'month' ).startOf( 'month' ).toDate(),
 
-  monthStop = moment().subtract( 1, 'month' ).endOf( 'month' ).toDate();
+    monthStop = moment().subtract( 1, 'month' ).endOf( 'month' ).toDate();
 
-  async.parallel([
+  async.parallel( [
 
     async.apply( model.reviews().total, { createdAt: { gt: monthStart, lt: monthStop } } ),
 
@@ -370,12 +389,12 @@ function _getTotalsMonth( cb ) {
 
     async.apply( model.users().total, { createdAt: { gt: monthStart, lt: monthStop } } )
 
-    ], cb );
+  ], cb );
 
 }
 
 
-var _layoutData = function( totals, totalsWeek, totalsMonth ) {
+var _layoutData = function ( totals, totalsWeek, totalsMonth ) {
 
   return {
 

@@ -39,8 +39,8 @@ module.exports = function( path ) {
   router.pre( [
     cmn.flashSetter,
     cmn.loadSession,
-    cmn.loadUserUid,
     cmn.requireLogged( { redirect: 'agendaSignup', redirectParams: [ 'slug' ] } ),
+    cmn.loadUserUid,
     agendaSvc.mw.load( 'slug' ),
     cmn.checkStakeholder,
     stakeholderMw.load( 'agenda', 'user', 'stakeholder' ),

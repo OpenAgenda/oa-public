@@ -151,7 +151,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
           _extractLanguages( value ).forEach( function( lang ) {
 
-            flattened[ _fieldLabel( dstField + '_' + lang ) ] = fn( value[ lang ] );
+            flattened[ _fieldLabel( dstField + '_' + lang ) ] = fn( value[ lang ] || '' );
 
           } );
 
@@ -291,7 +291,9 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         },
         'location.image',
         'location.phone',
-        'location.website', {
+        'location.website', 
+        'location.links',
+        {
           sourceField: 'location.tags',
           destField: 'location.tags',
           fn: _flattenTags( instance )
@@ -383,9 +385,11 @@ function _isMultilingual( value ) {
 
   || value === null ) return false;
 
+  if ( !Object.keys( value ).length ) return true;
+
   for ( var i = possibleLanguages.length - 1; i >= 0; i-- ) {
 
-    if ( typeof value[ possibleLanguages[ i ] ] == 'string' ) {
+    if ( value[ possibleLanguages[ i ] ] === null || ( typeof value[ possibleLanguages[ i ] ] == 'string' ) ) {
 
       return true;
 

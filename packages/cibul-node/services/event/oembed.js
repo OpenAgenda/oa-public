@@ -110,7 +110,7 @@ function _processLink( links ) {
 
       return cb();
 
-    } 
+    }
 
     if ( processedLink.code ) {
 

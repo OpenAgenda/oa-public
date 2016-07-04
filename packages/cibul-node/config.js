@@ -142,7 +142,8 @@ config = {
         'youtube', 'dailymotion', 'vimeo',
         'soundcloud', 'twitter', 'flickr',
         'instagram', 'tumblr', 'prezi',
-        'google', 'ted', 'ina.fr', 'youtu'
+        'google', 'ted', 'ina.fr', 'youtu',
+        'calameo'
       ]
     },
     newsletter: {
