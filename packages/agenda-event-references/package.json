@@ -2,9 +2,11 @@
   "name": "agenda-event-references",
   "version": "1.0.0",
   "description": "This service allows adding references within an event to other events in the same agenda.",
-  "main": "index.js",
+  "main": "service/index.js",
   "scripts": {
-    "start": "node test/app"
+    "start": "node test/app",
+    "babelify": "babel react/src -d react/build",
+    "build": "npm run-script babelify"
   },
   "dependencies": {
     "babel-loader": "^6.2.4",

@@ -1,14 +1,18 @@
 "use strict";
 
+const utils = require( 'utils' ),
+
+mw = require( './middleware' ),
+
+db = require( './db' );
+
+var config;
+
 module.exports = service;
 
 module.exports.init = init;
 
-const utils = require( 'utils' ),
-
-mw = require( 'middleware' ),
-
-db = require( 'db' );
+module.exports.mw = mw
 
 function service( agendaId ) {
 
@@ -47,7 +51,7 @@ function init( c, cb ) {
       events: ( agendaId, query, cb ) => { cb( null, [] ); }
 
     },
-    mysql: false // db connection config
+    mysql: false, // db connection config
     schemas: {} // service table names
   }, c );
 

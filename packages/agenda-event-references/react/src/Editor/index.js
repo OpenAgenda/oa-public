@@ -11,8 +11,6 @@ import actions from './actions'
 import configureStore from './store/configure'
 import clickTracker from '../clickTracker'
 
-let DevTools;
-
 export default options => {
 
   let initialState = utils.extend( {

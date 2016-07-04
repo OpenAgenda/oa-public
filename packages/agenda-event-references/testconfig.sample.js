@@ -7,5 +7,9 @@ module.exports = {
     password: '**',
     user: 'root'
   },
-  schema: 'agenda_event_reference'
+  schema: 'agenda_event_reference',
+  interfaces: {
+
+    events: function() { cb( 'events interface is not specified' ) }
+  }
 }

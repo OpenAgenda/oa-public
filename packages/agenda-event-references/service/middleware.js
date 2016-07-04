@@ -1,8 +1,8 @@
 "use strict";
 
-const utils = require( 'utils' ),
+const utils = require( 'utils' );
 
-config; // defined at init
+let config; // defined at init
 
 module.exports = {
   events,
