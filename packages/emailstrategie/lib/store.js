@@ -180,7 +180,13 @@ function _checkSchema( cb ) {
 
     con.end();
 
-    if ( err ) return cb( err );
+    if ( err ) {
+
+      log( 'error', err );
+
+      if ( cb ) return cb( err );
+
+    }
 
     con = _createConnection();
 
