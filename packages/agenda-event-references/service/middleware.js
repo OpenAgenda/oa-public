@@ -1,0 +1,40 @@
+"use strict";
+
+const utils = require( 'utils' ),
+
+config; // defined at init
+
+module.exports = {
+  events,
+  init
+}
+
+/**
+ * forward event search to interfaced service
+ */
+function events( req, res, next ) {
+
+  if ( !req.agendaId ) {
+
+    return next( 'no agenda was specified' );
+
+  }
+
+  config.interfaces.events( req.agendaId, req.query, ( err, events ) => {
+
+    if ( err ) return next( err );
+
+    req.events = events;
+
+    next();
+
+  } );
+
+}
+
+
+function init( c ) {
+
+  config = c;
+
+}
