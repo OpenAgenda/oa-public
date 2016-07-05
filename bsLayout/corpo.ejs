@@ -33,7 +33,7 @@
                 <i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand" href="/">
-                <img src="https://openagenda.com/images/openagenda.png" width="125" alt="OpenAgenda">
+                <img src="https://openagenda.com/images/openagenda.png" width="185" alt="OpenAgenda">
             </a>
         </div>
         <div class="navbar-collapse collapse" id="bs-navbar-collapse">
@@ -43,12 +43,16 @@
                 <li><a href="#references">Références</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>
+                <li class="signup">
                     <p class="navbar-btn">
                         <a href="<%= genUrl( 'signup' ) %>" class="btn btn-primary">Créer un compte</a>
                     </p>
                 </li>
                 <li class="signin"><a href="<%= genUrl( 'signin' ) %>">Connexion</a></li>
+                <li class="tel">
+                        <a href="tel:+33176350143"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;&nbsp;+33 1
+                            76 35 01 43</a>
+                </li>
                 <li class="language-menu">
                     <a href="#" data-toggle="dropdown">fr <i class="fa fa-caret-down"></i></a>
                     <ul class="dropdown-menu">
