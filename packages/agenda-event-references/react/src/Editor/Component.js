@@ -74,7 +74,7 @@ const EditorComponent = React.createClass( {
 
             </div>
 
-        : <a href="#" onClick={onShow}>{getLabel( 'addEvent' )}</a> }
+        : <a onClick={onShow}>{getLabel( 'addEvent' )}</a> }
 
       </div>
 
