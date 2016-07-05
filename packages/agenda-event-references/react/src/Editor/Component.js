@@ -37,7 +37,7 @@ const EditorComponent = React.createClass( {
 
     let { onShow, onSearch, onEventRemove, onEventAdd, search, events, loading, getLabel } = this.props;
 
-    return <div className="content event-references">
+    return <div className="event-references">
 
       <div className="configure">
         
