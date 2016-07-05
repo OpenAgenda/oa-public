@@ -64,7 +64,7 @@ var EditorComponent = _react2.default.createClass({
 
     return _react2.default.createElement(
       'div',
-      { className: 'content event-references' },
+      { className: 'event-references' },
       _react2.default.createElement(
         'div',
         { className: 'configure' },

@@ -52,7 +52,8 @@ exports.default = function (options) {
       display: false
     }
   }, options || {}),
-      store = (0, _redux.createStore)(_reducers2.default, initialState, _configure2.default);
+      store = (0, _redux.createStore)(_reducers2.default, initialState, _configure2.default),
+      onChange = options.onChange;
 
   store.dispatch(_actions2.default.eventsLoad());
 
@@ -60,6 +61,16 @@ exports.default = function (options) {
 
     store.dispatch(_actions2.default.searchHide());
   });
+
+  if (onChange) {
+
+    store.subscribe(function () {
+
+      onChange(store.getState().events.map(function (e) {
+        return e.uid;
+      }));
+    });
+  }
 
   return _react2.default.createElement(
     _reactRedux.Provider,

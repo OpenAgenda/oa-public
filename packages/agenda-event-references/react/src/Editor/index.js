@@ -26,7 +26,9 @@ export default options => {
     }
   }, options || {} ),
 
-  store = createStore( editorApp, initialState, configureStore );
+  store = createStore( editorApp, initialState, configureStore ),
+
+  onChange = options.onChange;
 
   store.dispatch( actions.eventsLoad() );
 
@@ -35,6 +37,16 @@ export default options => {
     store.dispatch( actions.searchHide() );
 
   } );
+
+  if ( onChange ) {
+
+    store.subscribe( function() {
+
+      onChange( store.getState().events.map( e => e.uid ) );
+
+    } );
+
+  }
 
   return <Provider store={ store }>
     <Container />
