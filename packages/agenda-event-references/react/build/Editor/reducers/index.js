@@ -23,9 +23,7 @@ exports.default = function () {
   var action = arguments[1];
 
 
-  var newState = (0, _reactAddonsUpdate2.default)(state, {
-    search: { $set: (0, _search2.default)(state.search, action) }
-  });
+  var newState = (0, _search2.default)(state, action);
 
   newState = (0, _events2.default)(newState, action);
 

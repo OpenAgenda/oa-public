@@ -1,6 +1,8 @@
 [ {
   "uid": 111,
-  "title": "Yeepee",
+  "title": {
+    "fr" : "Yeepee"
+  },
   "location": {
     "name": "BNF",
     "address": "Paris"
@@ -8,7 +10,9 @@
   "dateRange": "14 février"
 }, {
   "uid": 222,
-  "title": "Kay",
+  "title": {
+    "fr" : "Kay"
+  },
   "location": {
     "name": "Chez Janine",
     "address": "Passage Ponceau"
@@ -16,7 +20,9 @@
   "dateRange": "15 mars"
 }, {
   "uid": 333,
-  "title": "Yey",
+  "title": {
+    "fr" : "Yey"
+  },
   "location": {
     "name": "59 rivoli",
     "address": "59 rue de rivoli"

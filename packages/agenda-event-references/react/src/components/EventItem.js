@@ -39,10 +39,10 @@ module.exports = React.createClass( {
       </a>
       : null }
       <div className="media-body">
-        <h4 className="media-heading">{this.props.event.title}</h4>
+        <h4 className="media-heading">{ this.props.event.title }</h4>
         <ul className="list-unstyled">
-          <li>{this.props.event.location.name}, {this.props.event.location.address}</li>
-          <li>{this.props.event.dateRange}</li>
+          <li>{ this.props.event.location.name }, { this.props.event.location.address }</li>
+          <li>{ this.props.event.dateRange }</li>
         </ul>
       </div>
     </div>

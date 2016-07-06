@@ -30,7 +30,17 @@ exports.default = function () {
 
       return (0, _reactAddonsUpdate2.default)(state, {
         loading: { $set: false },
-        events: { $set: action.events },
+        events: { $set: action.events.map(function (e) {
+            return {
+              uid: e.uid,
+              title: e.title[state.lang],
+              dateRange: e.dateRange,
+              location: {
+                name: e.location.name,
+                address: e.location.address
+              }
+            };
+          }) },
         error: { $set: false }
       });
 

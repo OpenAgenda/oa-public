@@ -20,36 +20,56 @@ exports.default = function () {
     case 'SEARCH_REQUEST':
 
       return (0, _reactAddonsUpdate2.default)(state, {
-        searching: { $set: true },
-        query: { $set: action.query }
+        search: {
+          searching: { $set: true },
+          query: { $set: action.query }
+        }
       });
 
     case 'SEARCH_FAILED':
 
       return (0, _reactAddonsUpdate2.default)(state, {
-        searching: { $set: false },
-        error: { $set: action.error }
+        search: {
+          searching: { $set: false },
+          error: { $set: action.error }
+        }
       });
 
     case 'SEARCH_SUCCESS':
 
       return (0, _reactAddonsUpdate2.default)(state, {
-        searching: { $set: false },
-        query: { $set: action.query },
-        events: { $set: action.events }
+        search: {
+          searching: { $set: false },
+          query: { $set: action.query },
+          events: { $set: action.events.map(function (e) {
+              return {
+                uid: e.uid,
+                title: e.title[state.lang],
+                dateRange: e.dateRange,
+                location: {
+                  name: e.location.name,
+                  address: e.location.address
+                }
+              };
+            }) }
+        }
       });
 
     case 'SEARCH_SHOW':
 
-      return {
-        display: true
-      };
+      return (0, _reactAddonsUpdate2.default)(state, {
+        search: {
+          display: { $set: true }
+        }
+      });
 
     case 'SEARCH_HIDE':
 
-      return {
-        display: false
-      };
+      return (0, _reactAddonsUpdate2.default)(state, {
+        search: {
+          display: { $set: false }
+        }
+      });
 
     default:
 

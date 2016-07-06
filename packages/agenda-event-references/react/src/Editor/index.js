@@ -15,6 +15,7 @@ export default options => {
 
   let initialState = utils.extend( {
     initUids: [],
+    lang: 'fr',
     res: {
       events: '/events'
     },

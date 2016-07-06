@@ -16,9 +16,11 @@ let Wrapper;
 
 window.onload = () => { ReactDom.render( <Wrapper />, du.el( '.js_canvas' ) ); }
 
+//  <Editor initUids={[111]} onChange={this.onChange} />
+
 Wrapper = React.createClass( {
 
-  onChange(updatedUids) {
+  onChange( updatedUids ) {
 
     console.log( updatedUids );
 
@@ -34,7 +36,7 @@ Wrapper = React.createClass( {
       </div>
       <div className="top-margined wsq">
         <div className="content">
-          <Editor initUids={[111]} onChange={this.onChange} />
+          <Editor initUids={[]} onChange={this.onChange} />
         </div>
       </div>
     </div>

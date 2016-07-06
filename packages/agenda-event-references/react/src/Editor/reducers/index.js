@@ -6,9 +6,7 @@ import update from 'react-addons-update'
 
 export default ( state = {}, action ) => {
 
-  let newState = update( state, {
-    search: { $set: search( state.search, action ) }
-  } );
+  let newState = search( state, action );
 
   newState = events( newState, action );
 

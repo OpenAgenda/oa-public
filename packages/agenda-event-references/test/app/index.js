@@ -60,7 +60,19 @@ function eventSearch( agendaId, query, cb ) {
 
     return [ e.title, e.location.name, e.location.address ].filter( text => {
 
-      return text.toLowerCase().indexOf( query.search.toLowerCase() ) !== -1;
+      if ( typeof text === 'object' ) {
+
+        return !!Object.keys( text ).filter( k => {
+
+          return text[ k ].toLowerCase().indexOf( query.search.toLowerCase() ) !== -1;
+
+        } ).length;
+
+      } else {
+
+        return text.toLowerCase().indexOf( query.search.toLowerCase() ) !== -1;
+
+      }
 
     } ).length ? true : false;
 

@@ -42,6 +42,7 @@ exports.default = function (options) {
 
   var initialState = _utils2.default.extend({
     initUids: [],
+    lang: 'fr',
     res: {
       events: '/events'
     },

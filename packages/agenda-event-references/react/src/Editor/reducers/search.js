@@ -9,36 +9,54 @@ export default ( state = {}, action ) => {
     case 'SEARCH_REQUEST':
 
       return update( state, {
-        searching: { $set: true },
-        query: { $set: action.query }
+        search: {
+          searching: { $set: true },
+          query: { $set: action.query }
+        }
       } );
 
     case 'SEARCH_FAILED':
 
       return update( state, {
-        searching: { $set: false },
-        error: { $set: action.error }
+        search: {
+          searching: { $set: false },
+          error: { $set: action.error }
+        }
       } );
 
     case 'SEARCH_SUCCESS':
 
       return update( state, {
-        searching: { $set: false },
-        query: { $set: action.query },
-        events: { $set: action.events }
+        search: {
+          searching: { $set: false },
+          query: { $set: action.query },
+          events: { $set: action.events.map( e => ( { 
+            uid: e.uid,
+            title: e.title[ state.lang ],
+            dateRange: e.dateRange,
+            location: {
+              name: e.location.name,
+              address: e.location.address
+            }
+          } ) ) }
+        }
       } );
 
     case 'SEARCH_SHOW':
 
-      return {
-        display: true
-      };
+      return update( state, {
+        search: {
+          display: { $set: true }
+        }
+      } );
 
     case 'SEARCH_HIDE':
 
-      return {
-        display: false
-      };
+      return update( state, {
+        search: {
+          display: { $set: false }
+        }
+      } );
 
     default:
 

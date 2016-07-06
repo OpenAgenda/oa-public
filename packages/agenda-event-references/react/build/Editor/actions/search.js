@@ -41,33 +41,6 @@ function searchShow() {
   };
 }
 
-/*function searchType( e ) {
-
-  return function( dispatch, getState ) {
-
-    if ( e.keyCode === 13 ) {
-
-      let state = getState();
-
-      return dispatch( search( state.res, state.search.query ) );
-
-    }
-
-    dispatch( searchChange( e.target.value ) );
-
-  }
-
-} */
-
-/*function searchChange( query ) {
-
-  return {
-    type: 'SEARCH_CHANGE',
-    query: query
-  }
-
-}*/
-
 function searchRequest(query) {
 
   return {

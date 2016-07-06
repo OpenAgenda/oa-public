@@ -20,6 +20,14 @@ function events( req, res, next ) {
 
   }
 
+  if ( !Object.keys( req.query ).length ) {
+
+    req.events = [];
+
+    next();
+
+  }
+
   config.interfaces.events( req.agendaId, req.query, ( err, events ) => {
 
     if ( err ) return next( err );
