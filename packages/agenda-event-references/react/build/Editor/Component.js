@@ -124,7 +124,7 @@ var EditorComponent = _react2.default.createClass({
           ) : null
         ) : _react2.default.createElement(
           'a',
-          { href: '#', onClick: onShow },
+          { onClick: onShow },
           getLabel('addEvent')
         )
       )
