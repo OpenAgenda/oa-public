@@ -11,41 +11,47 @@ import actions from './actions'
 import configureStore from './store/configure'
 import clickTracker from '../clickTracker'
 
+let store;
+
 export default options => {
 
-  let initialState = utils.extend( {
-    initUids: [],
-    lang: 'fr',
-    res: {
-      events: '/events'
-    },
-    loading: false,
-    error: false,
-    events: [],
-    search: {
-      display: false
-    }
-  }, options || {} ),
+  if ( !store ) {
 
-  store = createStore( editorApp, initialState, configureStore ),
+    let initialState = utils.extend( {
+      initUids: [],
+      lang: 'fr',
+      res: {
+        events: '/events'
+      },
+      loading: false,
+      error: false,
+      events: [],
+      search: {
+        display: false
+      }
+    }, options || {} ),
 
-  onChange = options.onChange;
+    onChange = options.onChange;
 
-  store.dispatch( actions.eventsLoad() );
+    store = createStore( editorApp, initialState, configureStore );
 
-  clickTracker( 'search', '.search', () => {
+    store.dispatch( actions.eventsLoad() );
 
-    store.dispatch( actions.searchHide() );
+    clickTracker( 'search', '.search', () => {
 
-  } );
-
-  if ( onChange ) {
-
-    store.subscribe( function() {
-
-      onChange( store.getState().events.map( e => e.uid ) );
+      store.dispatch( actions.searchHide() );
 
     } );
+
+    if ( onChange ) {
+
+      store.subscribe( function() {
+
+        onChange( store.getState().events.map( e => e.uid ) );
+
+      } );
+
+    }
 
   }
 

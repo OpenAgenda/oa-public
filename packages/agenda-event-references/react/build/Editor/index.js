@@ -38,39 +38,47 @@ var _clickTracker2 = _interopRequireDefault(_clickTracker);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var store = undefined;
+
 exports.default = function (options) {
 
-  var initialState = _utils2.default.extend({
-    initUids: [],
-    lang: 'fr',
-    res: {
-      events: '/events'
-    },
-    loading: false,
-    error: false,
-    events: [],
-    search: {
-      display: false
-    }
-  }, options || {}),
-      store = (0, _redux.createStore)(_reducers2.default, initialState, _configure2.default),
-      onChange = options.onChange;
+  if (!store) {
+    (function () {
 
-  store.dispatch(_actions2.default.eventsLoad());
+      var initialState = _utils2.default.extend({
+        initUids: [],
+        lang: 'fr',
+        res: {
+          events: '/events'
+        },
+        loading: false,
+        error: false,
+        events: [],
+        search: {
+          display: false
+        }
+      }, options || {}),
+          onChange = options.onChange;
 
-  (0, _clickTracker2.default)('search', '.search', function () {
+      store = (0, _redux.createStore)(_reducers2.default, initialState, _configure2.default);
 
-    store.dispatch(_actions2.default.searchHide());
-  });
+      store.dispatch(_actions2.default.eventsLoad());
 
-  if (onChange) {
+      (0, _clickTracker2.default)('search', '.search', function () {
 
-    store.subscribe(function () {
+        store.dispatch(_actions2.default.searchHide());
+      });
 
-      onChange(store.getState().events.map(function (e) {
-        return e.uid;
-      }));
-    });
+      if (onChange) {
+
+        store.subscribe(function () {
+
+          onChange(store.getState().events.map(function (e) {
+            return e.uid;
+          }));
+        });
+      }
+    })();
   }
 
   return _react2.default.createElement(

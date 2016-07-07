@@ -33,7 +33,7 @@ export default ( state = {}, action ) => {
           events: { $set: action.events.map( e => ( { 
             uid: e.uid,
             title: e.title[ state.lang ],
-            dateRange: e.dateRange,
+            dateRange: e.dateRange[ state.lang ],
             location: {
               name: e.location.name,
               address: e.location.address

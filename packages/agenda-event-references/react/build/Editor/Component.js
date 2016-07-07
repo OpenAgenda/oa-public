@@ -69,7 +69,7 @@ var EditorComponent = _react2.default.createClass({
         'div',
         { className: 'configure' },
         _react2.default.createElement(
-          'label',
+          'h2',
           null,
           getLabel('editorTitle')
         ),

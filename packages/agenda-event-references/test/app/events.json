@@ -7,7 +7,10 @@
     "name": "BNF",
     "address": "Paris"
   },
-  "dateRange": "14 février"
+  "dateRange": {
+    "fr" : "14 février",
+    "en" : "14 february"
+  }
 }, {
   "uid": 222,
   "title": {
@@ -17,7 +20,10 @@
     "name": "Chez Janine",
     "address": "Passage Ponceau"
   },
-  "dateRange": "15 mars"
+  "dateRange": {
+    "fr" : "15 mars",
+    "en" : "15 march"
+  }
 }, {
   "uid": 333,
   "title": {
@@ -27,5 +33,8 @@
     "name": "59 rivoli",
     "address": "59 rue de rivoli"
   },
-  "dateRange": "du 20 au 22 juin"
+  "dateRange": {
+    "fr": "du 20 au 22 juin",
+    "en": "from 20 to 22 june"
+  }
 } ]

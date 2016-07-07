@@ -41,7 +41,7 @@ const EditorComponent = React.createClass( {
 
       <div className="configure">
         
-        <label>{getLabel( 'editorTitle' )}</label>
+        <h2>{getLabel( 'editorTitle' )}</h2>
 
         <ul className="list-unstyled references">
           { loading ? <Spinner/> : ( 

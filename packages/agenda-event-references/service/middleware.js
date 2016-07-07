@@ -24,7 +24,7 @@ function events( req, res, next ) {
 
     req.events = [];
 
-    next();
+    return next();
 
   }
 

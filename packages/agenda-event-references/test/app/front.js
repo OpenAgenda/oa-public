@@ -36,7 +36,7 @@ Wrapper = React.createClass( {
       </div>
       <div className="top-margined wsq">
         <div className="content">
-          <Editor initUids={[]} onChange={this.onChange} />
+          <Editor initUids={[111]} onChange={this.onChange} />
         </div>
       </div>
     </div>

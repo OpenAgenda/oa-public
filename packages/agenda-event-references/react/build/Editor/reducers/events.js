@@ -34,7 +34,7 @@ exports.default = function () {
             return {
               uid: e.uid,
               title: e.title[state.lang],
-              dateRange: e.dateRange,
+              dateRange: e.dateRange[state.lang],
               location: {
                 name: e.location.name,
                 address: e.location.address
@@ -79,7 +79,7 @@ exports.default = function () {
         return e.uid;
       }).indexOf(action.event.uid) !== -1) {
 
-        return;
+        return state;
       }
 
       return (0, _reactAddonsUpdate2.default)(state, {
