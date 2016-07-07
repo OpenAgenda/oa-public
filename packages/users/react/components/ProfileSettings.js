@@ -26,9 +26,17 @@ const ProfileSettings = React.createClass( {
     const { getLabels } = this.context;
 
     const {
-      activeTab, fields: { full_name, culture }, handleSubmit, displayDeleteAccountConfirmation,
+      activeTab, fields: { full_name, culture }, handleSubmit, displayModal, deleteAccount,
       successMessageDisplayed
     } = this.props;
+
+    const deleteModal = {
+      visible: true,
+      title: getLabels( 'deleteMyAccount' ),
+      content: <p>{getLabels( 'deleteModalText' )}</p>,
+      action: deleteAccount,
+      actionText: getLabels( 'deleteModalButton' )
+    };
 
     return (
       <tr onClick={!activeTab ? this.props.dispatch.bind( this, push( '/profile' ) ) : null}>
@@ -51,7 +59,8 @@ const ProfileSettings = React.createClass( {
                   <option value="fr">Français</option>
                   <option value="en">English</option>
                 </select>
-                {culture.touched && culture.error && <div className="text-danger">{capitalize( getLabels( culture.error ) )}</div>}
+                {culture.touched && culture.error &&
+                <div className="text-danger">{capitalize( getLabels( culture.error ) )}</div>}
               </div>
 
               <div className="form-inline pull-left">
@@ -63,7 +72,7 @@ const ProfileSettings = React.createClass( {
               </div>
 
               <div className="pull-right">
-                <a href="#" className="text-danger" onClick={displayDeleteAccountConfirmation.bind( this, true )}>
+                <a href="#" className="text-danger" onClick={() => displayModal( deleteModal )}>
                   {getLabels( 'deleteMyAccount' )}
                 </a>
               </div>

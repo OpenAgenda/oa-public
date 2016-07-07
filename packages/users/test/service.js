@@ -11,7 +11,7 @@ const config = require( '../testconfig' ),
   service = require( '../service' );
 
 
-describe( 'service', function() {
+describe( 'service', function () {
 
   this.timeout( 20000 );
 
@@ -288,6 +288,63 @@ describe( 'service', function() {
       result.errors[ 0 ].code.should.equal( 'email.alreadytaken' );
 
       done();
+
+    } );
+
+  } );
+
+  it( 'regenerate public api key', done => {
+
+    service.get( { id: 119 }, ( err, user ) => {
+
+      should( err ).equal( null );
+
+      service.generateApiKey( { id: 119 }, ( err, result ) => {
+
+        should( err ).equal( null );
+        should( result.key ).not.equal( user.api_key );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
+  it( 'generate new public api key', done => {
+
+    service.get( { id: 439 }, ( err, user ) => {
+
+      should( err ).equal( null );
+
+      service.generateApiKey( { id: 439 }, ( err, result ) => {
+
+        should( err ).equal( null );
+        should( result.key ).not.equal( user.api_key );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
+  it( 'generate public api key secret', done => {
+
+    service.get( { id: 1 }, ( err, user ) => {
+
+      should( err ).equal( null );
+
+      service.generateApiKey( { id: 1 }, { secret: true }, ( err, result ) => {
+        
+        should( err ).equal( null );
+        should( result.key ).not.equal( user.api_secret );
+
+        done();
+
+      } );
 
     } );
 

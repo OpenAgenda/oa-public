@@ -32,6 +32,7 @@ module.exports = {
   verifyPassword,
   requestChangeEmail,
   confirmChangeEmail,
+  generateApiKey,
   remove
 };
 
@@ -305,6 +306,41 @@ function confirmChangeEmail( query, cb ) {
 
 }
 
+function generateApiKey( query, options, cb ) {
+
+  if ( arguments.length == 2 ) {
+    cb = options;
+    options = {};
+  }
+
+  const params = Object.assign( {
+    secret: false
+  }, options );
+
+  if ( !config ) return cb( 'service not initialized' );
+
+  w( {
+    identifier: getIdentifier( query, true ),
+    query,
+    params,
+    errors: [],
+    success: false
+  } )
+
+    .then( _get )
+
+    .then( _generateApiKey )
+
+    .then( _updateOrInsertApiKeySet )
+
+    .done( v => cb( null, {
+      success: v.success,
+      errors: v.errors,
+      key: v.query.secret == 1 ? v.query.api_secret : v.query.api_key
+    } ), err => cb( err ) );
+
+}
+
 function remove( query, cb ) {
 
   if ( !config ) return cb( 'service not initialized' );
@@ -313,7 +349,8 @@ function remove( query, cb ) {
     identifier: getIdentifier( query, true ),
     query: query,
     errors: [],
-    success: false
+    success: false,
+    action: 'remove'
   } )
 
     .then( _get )
@@ -458,7 +495,7 @@ function _updateOrInsert( v ) {
 
       identifiers = Object.keys( v.identifier ),
 
-      validator = mode == 'update' ? validators.update( v.query ) : validators( v.query ),
+      validator = mode == 'update' ? validators.update( v.query, v.action == 'remove' ) : validators( v.query ),
 
       fields = validator.fields;
 
@@ -512,6 +549,90 @@ function _updateOrInsert( v ) {
   } );
 
   return d.promise;
+
+}
+
+function _updateOrInsertApiKeySet( v ) {
+
+  if ( v.errors.length ) return v;
+
+  return knex.transaction( trx => {
+
+    return knex
+      .select( '*' )
+      .from( schemas.apiKeySet )
+      .where( 'user_id', v.query.id || -1 )
+      .limit( 1 )
+      .transacting( trx );
+
+  } )
+
+    .then( keySets => {
+
+      const keySet = keySets.length ? keySets[ 0 ] : null;
+
+      return Object.assign( v, { keySet } );
+
+    }, err => {
+
+      throw err;
+
+    } )
+
+    .then( v => {
+
+      const d = w.defer();
+
+      const mode = v.keySet ? 'update' : 'insert',
+
+        identifiers = Object.keys( v.identifier ),
+
+        validator = validators.apiKeySet( v.query ),
+
+        fields = validator.fields;
+
+
+      v.valid = validator.valid;
+
+      if ( !v.valid ) {
+
+        v.errors = validator.errors;
+        return d.resolve( v );
+
+      }
+
+      if ( mode == 'insert' ) {
+        fields.user_id = v.user.id;
+        fields.type = 1;
+        fields.created_at = new Date();
+      }
+      fields.updated_at = new Date();
+
+      knex.transaction( trx => {
+
+        const queryBuilder = knex( schemas.apiKeySet )[ mode ]( fields );
+
+        if ( mode == 'update' ) {
+
+          queryBuilder.where( 'user_id', v.identifier[ identifiers[ 0 ] ] || -1 )
+
+        }
+
+        return queryBuilder.transacting( trx );
+
+      } ).then( result => {
+        v.success = true;
+
+        return d.resolve( v );
+      }, err => {
+
+        return d.reject( err );
+
+      } );
+
+      return d.promise;
+
+    } );
 
 }
 
@@ -685,7 +806,7 @@ function _removeUser( v ) {
     var date = new Date();
 
     v.user.username = `*removed-${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${v.user.id}`;
-    v.user.email = v.user.email.replace('@', '@@');
+    v.user.email = v.user.email.replace( '@', '@@' );
 
     v.query = v.user;
 
@@ -722,6 +843,24 @@ function _formatImageUrl( v ) {
     }
 
   }
+
+  return v;
+
+}
+
+function _generateApiKey( v ) {
+
+  if ( !v.user ) {
+    v.errors.push( {
+      code: 'user.notfound',
+      message: 'user not found',
+    } );
+    v.success = false;
+
+    return v;
+  }
+
+  v.query[ v.params.secret == 1 ? 'api_secret' : 'api_key' ] = crypto.randomHash();
 
   return v;
 

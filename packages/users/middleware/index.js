@@ -46,6 +46,7 @@ module.exports = {
   requestChangeEmail,
   confirmChangeEmail,
   changePassword,
+  generateApiKey,
   deleteAccount
 };
 
@@ -253,7 +254,7 @@ function requestChangeEmail( req, res, next ) {
 function confirmChangeEmail( req, res, next ) {
 
   service.confirmChangeEmail( req.query, ( err, success ) => {
-    
+
     if ( success ) {
       req.setFlash( 'Votre email a été modifié avec succés' )
     } else {
@@ -307,6 +308,28 @@ function changePassword( req, res, next ) {
     }
 
     service.changePassword( query, ( err, result ) => {
+
+      if ( err ) return next( err );
+
+      res.json( result );
+
+    } );
+
+  } );
+
+}
+
+function generateApiKey( req, res, next ) {
+
+  if ( !req.xhr ) return next();
+
+  service.get( req.user, ( err, user ) => {
+
+    if ( err ) return next( err );
+
+    if ( req.query.secret == 1 && !user.api_secret ) return next( 'Unauthorized' );
+
+    service.generateApiKey( req.user, { secret: req.query.secret }, ( err, result ) => {
 
       if ( err ) return next( err );
 

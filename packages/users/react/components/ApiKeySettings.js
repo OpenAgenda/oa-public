@@ -23,7 +23,16 @@ const ApiKeySettings = React.createClass( {
 
     const { getLabels } = this.context;
 
-    const { activeTab, dispatch, fields: { apiKey, apiSecret } } = this.props;
+    const { activeTab, dispatch, fields: { apiKey, apiSecret }, displayModal, generateApiKey } = this.props;
+
+    const generateApiKeyModal = ( secret = 0 ) => ({
+      visible: true,
+      title: getLabels( 'generateNewApiKey' ),
+      content: <p>{getLabels( 'generateNewApiKeyModalText' )}</p>,
+      action: () => generateApiKey( secret ),
+      actionText: getLabels( 'generateNewApiKeyModalButton' ),
+      buttonClass: 'btn btn-primary'
+    });
 
     return (
       <tr onClick={!activeTab ? dispatch.bind( this, push( '/apiKey' ) ) : null}>
@@ -34,15 +43,36 @@ const ApiKeySettings = React.createClass( {
           <div style={{padding: '0 5px'}}>
             <p>{getLabels( 'apiKeyInformation' )}</p>
 
-            <p><a href="//openagenda.zendesk.com/hc/fr/sections/201090781-The-API-documentation-in-english-">{getLabels( 'showDocumentation' )}</a></p>
+            <p>
+              <a href="//openagenda.zendesk.com/hc/fr/sections/201090781-The-API-documentation-in-english-">
+                {getLabels( 'showDocumentation' )}
+              </a>
+            </p>
 
             <div className="form-group">
               <label htmlFor="api_key">{getLabels( 'publicKey' )}</label>
-              <input type="text" className="form-control" name="api_key" readOnly {...apiKey}/>
+              <div className="input-group">
+                <input type="text" className="form-control" name="api_key" readOnly {...apiKey}/>
+                <span className="input-group-btn">
+                  <button className="btn btn-default" type="button"
+                          onClick={() => displayModal( generateApiKeyModal() )}>
+                    <i className="fa fa-refresh" aria-hidden="true"></i>
+                  </button>
+                </span>
+              </div>
             </div>
+
             {apiSecret.value && <div className="form-group">
               <label htmlFor="api_secret">{getLabels( 'secretKey' )}</label>
-              <input type="text" className="form-control" name="api_secret" readOnly {...apiSecret}/>
+              <div className="input-group">
+                <input type="text" className="form-control" name="api_secret" readOnly {...apiSecret}/>
+                <span className="input-group-btn">
+                  <button className="btn btn-default" type="button"
+                          onClick={() => displayModal( generateApiKeyModal( 1 ) )}>
+                    <i className="fa fa-refresh" aria-hidden="true"></i>
+                  </button>
+                </span>
+              </div>
             </div>}
           </div>
         </td> : <td style={{cursor: 'pointer'}}>{getLabels( 'showApiKeys' )}</td>}

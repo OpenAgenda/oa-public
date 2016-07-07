@@ -15,7 +15,8 @@ module.exports = Object.assign( validate, {
   update,
   updateProfile,
   changePassword,
-  changeEmail
+  changeEmail,
+  apiKeySet
 } );
 
 
@@ -72,7 +73,7 @@ function validate( fields ) {
 
 }
 
-function update( fields ) {
+function update( fields, removing ) {
 
   var validateSet = setValidator( [
     text( {
@@ -86,9 +87,6 @@ function update( fields ) {
       field: 'culture',
       min: 2,
       max: 2
-    } ),
-    email( {
-      field: 'email'
     } ),
     text( {
       field: 'password'
@@ -108,7 +106,9 @@ function update( fields ) {
     number( {
       field: 'is_removed'
     } )
-  ].filter( v => Object.keys( fields ).indexOf( v.field ) !== -1 ), { compact: true } );
+  ]
+    .concat( removing ? [] : email( { field: 'email' } ) )
+    .filter( v => Object.keys( fields ).indexOf( v.field ) !== -1 ), { compact: true } );
 
   try {
 
@@ -233,6 +233,37 @@ function changeEmail( fields ) {
     }, {
       field: 'password',
       value: fields.password
+    } ] );
+
+    return { valid: true, fields: result };
+
+  } catch ( e ) {
+
+    return { valid: false, errors: e };
+
+  }
+
+}
+
+function apiKeySet( fields ) {
+
+  var validateSet = setValidator( [
+    text( {
+      field: 'api_key'
+    } ),
+    text( {
+      field: 'api_secret'
+    } )
+  ].filter( v => Object.keys( fields ).indexOf( v.field ) !== -1 ), { compact: true } );
+
+  try {
+
+    var result = validateSet( [ {
+      field: 'api_key',
+      value: fields.api_key
+    }, {
+      field: 'api_secret',
+      value: fields.api_secret
     } ] );
 
     return { valid: true, fields: result };

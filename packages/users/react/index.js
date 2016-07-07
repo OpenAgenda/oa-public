@@ -49,6 +49,7 @@ module.exports = function ( options ) {
       updateProfile: '/updateUser',
       changeEmail: '/requestChangeEmail',
       changePassword: '/changePassword',
+      generateApiKey: '/generateApiKey',
       deleteAccount: '/deleteAccount',
       uploadProfileImageRes: '/uploadProfileImage',
       removeProfileImageRes: '/removeProfileImage'

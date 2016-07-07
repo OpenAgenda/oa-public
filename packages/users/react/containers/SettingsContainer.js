@@ -56,7 +56,8 @@ const SettingsContainer = React.createClass( {
     const {
       loading, user, route: { activeTab }, routerActions, getUrl,
       updateUser, changeEmail, changePassword, deleteAccount,
-      displayDeleteAccountConfirmation, deleteAccountConfirmationIsOpen,
+      generateApiKey,
+      displayModal, modal,
       successMessagesDisplayed: {
         updateProfile: profileMessageDisplayed,
         changeEmail: emailMessageDisplayed,
@@ -66,13 +67,13 @@ const SettingsContainer = React.createClass( {
     } = this.props;
 
     return (
-      <div className="table-responsive" style={{padding: '15px 0', position: 'relative', overflow: 'hidden'}}>
+      <div className="table-responsive" style={{padding: '15px 0', position: 'relative'}}>
 
         {loading ? <Spinner/> :
           <table className="table table-hover">
             <tbody>
             <ProfileSettings activeTab={activeTab == 'profile'} onSubmit={updateUser}
-                             displayDeleteAccountConfirmation={displayDeleteAccountConfirmation}
+                             deleteAccount={deleteAccount} displayModal={displayModal}
                              successMessageDisplayed={profileMessageDisplayed}/>
 
             <ImageSettings activeTab={activeTab == 'image'} routerActions={routerActions}
@@ -85,15 +86,20 @@ const SettingsContainer = React.createClass( {
             <PasswordSettings activeTab={activeTab == 'password'} onSubmit={changePassword}
                               successMessageDisplayed={passwordMessageDisplayed}/>
 
-            <ApiKeySettings activeTab={activeTab == 'apiKey'}/>
+            <ApiKeySettings activeTab={activeTab == 'apiKey'} generateApiKey={generateApiKey}
+                            displayModal={displayModal}/>
             </tbody>
           </table>}
 
-        <Modal visible={deleteAccountConfirmationIsOpen} onClose={displayDeleteAccountConfirmation.bind( this, false )}
-               title={getLabels( 'deleteMyAccount' )}>
+        <Modal visible={modal.visible || false} onClose={() => displayModal( { visible: false } )}
+               title={modal.title || ''}>
           <div className="text-center">
-            <p>{getLabels( 'deleteModalText' )}</p>
-            <button className="btn btn-danger" onClick={deleteAccount}>{getLabels( 'deleteModalButton' )}</button>
+            {modal.content || ''}
+            <button
+              className={modal.buttonClass || 'btn btn-danger'}
+              onClick={() => { if (modal.action) modal.action(); displayModal( { visible: false } ) }}>
+              {modal.actionText || ''}
+            </button>
           </div>
         </Modal>
 
@@ -128,7 +134,8 @@ function mergeProps( stateProps, dispatchProps, ownProps ) {
     onChangeProfileImage,
     changeEmail,
     changePassword,
-    displayDeleteAccountConfirmation,
+    generateApiKey,
+    displayModal,
     deleteAccount
   };
 
@@ -248,9 +255,27 @@ function mergeProps( stateProps, dispatchProps, ownProps ) {
       } );
   }
 
-  function displayDeleteAccountConfirmation( open, e ) {
+  function generateApiKey( secret = 0 ) {
+    dispatch( actions.generateApiKey( 'request' ) );
+
+    request.get( getUrl( 'generateApiKey' ) )
+      .query( { secret } )
+      .set( 'X-Requested-With', 'XMLHttpRequest' )
+      .end( ( err, result ) => {
+        if ( !err ) {
+          let errors = getFormFirstErrors( result.body.errors );
+
+          if ( !Object.keys( errors ).length ) {
+            dispatch( actions.generateApiKey( 'response', { ...result.body, secret } ) );
+            dispatch( changeFieldValue( 'apiKeySettings', secret ? 'apiSecret' : 'apiKey', result.body.key ) );
+          }
+        }
+      } );
+  }
+
+  function displayModal( modal, e ) {
     if ( e ) e.preventDefault();
-    dispatch( actions.displayDeleteAccountConfirmation( open ) );
+    dispatch( actions.displayModal( modal ) );
   }
 
   function deleteAccount() {
@@ -259,10 +284,7 @@ function mergeProps( stateProps, dispatchProps, ownProps ) {
     request.post( getUrl( 'deleteAccount' ) )
       .set( 'X-Requested-With', 'XMLHttpRequest' )
       .send( { _csrf: appSettings.csrfToken } )
-      .end( () => {
-        dispatch( actions.deleteAccount( 'response' ) );
-        dispatch( actions.displayDeleteAccountConfirmation( false ) );
-      } )
+      .end( () => dispatch( actions.deleteAccount( 'response' ) ) )
   }
 
   function getUrl( name ) {

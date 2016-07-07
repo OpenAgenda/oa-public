@@ -5,7 +5,7 @@ const types = require( '../actions/actionsTypes' );
 
 const initialState = {
   user: null,
-  deleteAccountConfirmationIsOpen: false,
+  modal: {},
   successMessagesDisplayed: {
     updateProfile: false,
     changeEmail: false,
@@ -21,12 +21,16 @@ function userSettings( state = initialState, action ) {
       return getMe( state, action.status, action.data );
     case types.UPDATE_USER:
       return updateUser( state, action.status, action.user );
+    case types.GENERATE_APIKEY:
+      return generateApiKey( state, action.status, action.data );
+    case types.DISPLAY_MODAL:
+      return { ...state, modal: action.data };
     case types.DISPLAY_DELETE_ACCOUNT_CONFIRMATION:
       return { ...state, deleteAccountConfirmationIsOpen: action.visible };
     case types.DELETE_ACCOUNT:
-      return deleteAccount( state, action.status, action.data );
+      return deleteAccount( state, action.status );
     case types.DISPLAY_MESSAGE:
-      return { ...state, successMessagesDisplayed: { [action.name]: action.visible } }
+      return { ...state, successMessagesDisplayed: { ...state.successMessagesDisplayed, [action.name]: action.visible } }
     default:
       return state;
   }
@@ -43,7 +47,6 @@ function getMe( state, status, data = {} ) {
   }
 }
 
-
 function updateUser( state, status, user = {} ) {
   switch ( status ) {
     case 'response':
@@ -53,8 +56,16 @@ function updateUser( state, status, user = {} ) {
   }
 }
 
+function generateApiKey( state, status, data = {} ) {
+  switch ( status ) {
+    case 'response':
+      return { ...state, user: { ...state.user, [data.secret ? 'api_secret' : 'api_key']: data.key } };
+    default:
+      return state;
+  }
+}
 
-function deleteAccount( state, status, data = {} ) {
+function deleteAccount( state, status ) {
   switch ( status ) {
     case 'response':
       return { ...state, user: null }

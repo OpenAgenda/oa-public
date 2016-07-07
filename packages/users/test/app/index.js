@@ -40,6 +40,7 @@ app.get( '/getMe', mw.getMe );
 app.get( '/updateUser', mw.updateProfile );
 app.get( '/requestChangeEmail', [ mw.requestChangeEmail, sendEmail ] );
 app.get( '/changePassword', mw.changePassword );
+app.get( '/generateApiKey', mw.generateApiKey );
 app.post( '/deleteAccount', mw.deleteAccount );
 app.post( '/uploadProfileImage', mw.uploadProfileImage );
 app.post( '/removeProfileImage', mw.removeProfileImage );
