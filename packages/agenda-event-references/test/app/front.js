@@ -8,15 +8,41 @@ React = require( 'react' ),
 
 ReactDom = require( 'react-dom' ),
 
-//Show = require( '../../react/src/Show' ),
+Show = require( '../../react/src/Show' ),
 
-Editor = require( '../../react/src/Editor' );
+Editor = require( '../../react/src/Editor' ),
+
+showEvents = [ {
+  "uid": 111,
+  "title": {
+    "fr" : "Yeepee"
+  },
+  "location": {
+    "name": "BNF",
+    "address": "Paris"
+  },
+  "dateRange": {
+    "fr" : "14 février",
+    "en" : "14 february"
+  }
+}, {
+  "uid": 222,
+  "title": {
+    "fr" : "Kay"
+  },
+  "location": {
+    "name": "Chez Janine",
+    "address": "Passage Ponceau"
+  },
+  "dateRange": {
+    "fr" : "15 mars",
+    "en" : "15 march"
+  }
+} ];
 
 let Wrapper;
 
 window.onload = () => { ReactDom.render( <Wrapper />, du.el( '.js_canvas' ) ); }
-
-//  <Editor initUids={[111]} onChange={this.onChange} />
 
 Wrapper = React.createClass( {
 
@@ -31,7 +57,7 @@ Wrapper = React.createClass( {
     return <div>
       <div className="top-margined wsq">
         <div className="content">
-          
+          <Show events={showEvents} lang="fr" />
         </div>
       </div>
       <div className="top-margined wsq">
