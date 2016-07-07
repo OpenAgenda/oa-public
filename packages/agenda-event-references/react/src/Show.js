@@ -37,10 +37,15 @@ export default React.createClass( {
 
   render() {
 
-    return <div className="event-references">
+    return <div className="event-references show">
 
       <h3>{getLabel( 'showTitle', this.props.lang )}</h3>
-      {this.props.events.map( e => <EventItem event={this.translateEvent( e )} /> )}
+
+      <div className="media content wsq">
+
+        {this.props.events.map( e => <EventItem event={this.translateEvent( e )} /> )}
+
+      </div>
 
     </div>
 

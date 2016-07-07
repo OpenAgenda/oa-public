@@ -55,15 +55,19 @@ exports.default = _react2.default.createClass({
 
     return _react2.default.createElement(
       'div',
-      { className: 'event-references' },
+      { className: 'event-references show' },
       _react2.default.createElement(
         'h3',
         null,
         getLabel('showTitle', this.props.lang)
       ),
-      this.props.events.map(function (e) {
-        return _react2.default.createElement(_EventItem2.default, { event: _this.translateEvent(e) });
-      })
+      _react2.default.createElement(
+        'div',
+        { className: 'media content wsq' },
+        this.props.events.map(function (e) {
+          return _react2.default.createElement(_EventItem2.default, { event: _this.translateEvent(e) });
+        })
+      )
     );
   }
 });
