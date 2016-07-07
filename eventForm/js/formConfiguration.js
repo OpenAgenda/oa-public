@@ -62,9 +62,11 @@ module.exports = function( formConfiguration, options ) {
 
     }
 
-    function display() {
+    function display( defaultValue ) {
 
-      if ( !configuration || configuration.display === undefined ) return true;
+      if ( defaultValue === undefined ) defaultValue = true;      
+
+      if ( !configuration || configuration.display === undefined ) return defaultValue;
 
       return configuration.display;
 

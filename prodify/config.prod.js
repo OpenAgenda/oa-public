@@ -51,14 +51,14 @@ module.exports = ( paths ) => {
         }
       } ),
       new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.optimize.OccurenceOrderPlugin()/*,
       new webpack.optimize.UglifyJsPlugin( {
         compress: {
           warnings: false
         },
         mangle: true,
         fromString: true
-      } )
+      } )*/
     ],
     node: {
       fs: 'empty'

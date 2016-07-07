@@ -258,6 +258,7 @@
   },
   "standard": {
     "event" : {
+      "references" : [ 111 ],
       "uid": 1238,
       "title": { "fr":  "Super concert de la mort", "en":  "Super Killer Concert", "es":  "Super Concierto Que Mata" },
       "description": { "fr":  "Moilneu", "en":  "There will be music", "es":  "Habra Musica"},
@@ -392,6 +393,9 @@
     "event" : {},
     "configuration" : {
       "fields" : [ {
+        "name" : "references",
+        "display" : true
+      }, {
         "name" : "longDescription",
         "placeholder" : {
           "fr" : "Ceci est un placeholder personnalisé",
