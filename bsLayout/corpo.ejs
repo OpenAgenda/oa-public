@@ -38,30 +38,29 @@
         </div>
         <div class="navbar-collapse collapse" id="bs-navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="#produits">Produits</a></li>
+                <li><a href="#fonctions">Fonctions</a></li>
                 <li><a href="#tarifs">Tarifs</a></li>
                 <li><a href="#references">Références</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="signup">
+                <li class="signin"><a href="<%= genUrl( 'signin' ) %>">Connexion</a></li>
+                <li class="signup"><a href="<%= genUrl( 'signup' ) %>">Créer un compte</a></li>
+                <li class="tel">
                     <p class="navbar-btn">
-                        <a href="<%= genUrl( 'signup' ) %>" class="btn btn-primary">Créer un compte</a>
+                        <a href="tel:+33176350143" class="btn btn-default">
+                            <i class="fa fa-phone" aria-hidden="true"></i>&nbsp;&nbsp;+33 1 76 35 01 43
+                        </a>
                     </p>
                 </li>
-                <li class="signin"><a href="<%= genUrl( 'signin' ) %>">Connexion</a></li>
-                <li class="tel">
-                        <a href="tel:+33176350143"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;&nbsp;+33 1
-                            76 35 01 43</a>
-                </li>
                 <li class="language-menu">
-                    <a href="#" data-toggle="dropdown">fr <i class="fa fa-caret-down"></i></a>
+                    <a href="#" data-toggle="dropdown">fr <i class="fa fa-angle-down"></i></a>
                     <ul class="dropdown-menu">
                         <% [ 'fr', 'en' ].forEach( function( l ) { %>
                         <% if ( lang == l ) { %>
-                        <li><a href="?lang=<%= l %>" hreflang="<%= l %>" class="selected"><%= langLabels[ l ] %></a>
+                        <li><a href="?lang=<%= l %>" hreflang="<%= l %>"><%= langLabels[ l ] %></a>
                         </li>
                         <% } else { %>
-                        <li><a rel="alternate" href="?lang=<%= l %>" hreflang="<%= l %>"><%= langLabels[ l ] %></a></li>
+                        <li><a rel="alternate" href="?lang=<%= l %>" hreflang="<%= l %>" class="unselected"><%= langLabels[ l ] %></a></li>
                         <% } %>
                         <% } ); %>
                     </ul>

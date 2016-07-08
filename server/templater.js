@@ -46,7 +46,7 @@ module.exports = function ( templateName, data, cb ) {
 
     }
 
-    if ( data.js ) {
+    if ( data.js && data.js.length ) {
 
       data.js = data.js.map( function ( jsName ) {
         return data.scriptsBase + '/' + jsName;

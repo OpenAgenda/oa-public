@@ -1,53 +1,45 @@
 <div id="presentation">
     <div class="container">
-        <div class="row spaced">
-            <div class="col-md-offset-8 col-md-4">
-                <h1>Une solution de <br>
-                    <div class="typed"></div>
-                    <br>
-                    pour vos événements
-                </h1>
-                <p>Pour votre université, festival, salon, ville, lieu, tournée, campagne, entreprise, magazine,
-                    communauté, etc.&nbsp;!</p>
-                <p>
-                    <a href="<%= genUrl( 'signup' ) %>" class="btn btn-default btn-lg">
-                        Créez votre agenda
-                    </a>
-                </p>
-            </div>
+        <div class="spaced text-center">
+            <h1 class="hook">Créez un agenda publique performant</h1>
+            <p class="under-hook">Pour votre <br><span class="typed"></span></p>
+            <p class="hook-action">
+                <a href="<%= genUrl( 'signup' ) %>" class="btn btn-primary btn-lg">
+                    Créer un agenda
+                </a>
+            </p>
         </div>
     </div>
 </div>
 
-<div class="background-white" id="fonctions">
+<div class="background-gray" id="trio-actions">
     <div class="container">
         <div class="row spaced">
             <ul class="list-unstyled text-center">
                 <li class="col-xs-4">
-                    <div class="box-tooltip" data-toggle="tooltip" data-placement="bottom"
-                         title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium nostrum perferendis vel?">
-                        <p><img src="//s3.eu-central-1.amazonaws.com/oastatic/contribuer.png" width="70"></p>
-                        <p>Créez votre agenda</p>
-                    </div>
+                    <i class="fa fa-sliders fa-4x" aria-hidden="true"></i>
+                    <p>Paramétrez</p>
                 </li>
                 <li class="col-xs-4">
-                    <div class="box-tooltip">
-                        <p><img src="//s3.eu-central-1.amazonaws.com/oastatic/collaborez.svg" width="70"></p>
-                        <p>Collaborez</p>
-                    </div>
+                    <i class="fa fa-users fa-4x" aria-hidden="true"></i>
+                    <p>Collaborez</p>
                 </li>
                 <li class="col-xs-4">
-                    <div class="box-tooltip">
-                        <p><img src="//s3.eu-central-1.amazonaws.com/oastatic/diffusez.svg" width="70"></p>
-                        <p>Diffusez</p>
-                    </div>
+                    <i class="fa fa-bullhorn fa-4x" aria-hidden="true"></i>
+                    <p>Diffusez</p>
                 </li>
             </ul>
         </div>
     </div>
 </div>
 
-<div class="background-gray">
+<div class="background-white">
+    <div class="container">
+        <hr>
+    </div>
+</div>
+
+<div class="background-white" id="carousel">
     <div class="container">
         <div class="spaced">
             <div id="carousel-screens" class="carousel slide" data-ride="carousel">
@@ -63,19 +55,49 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox">
                     <div class="item active">
-                        <img src="//s3-eu-west-1.amazonaws.com/cibulstatic/integration_1.png" alt="integration_1">
+                        <a href="http://agendadesentrepreneurs.openagenda.com/" target="_blank">
+                            <img src="//s3-eu-west-1.amazonaws.com/cibulstatic/integration_1.png" alt="integration_1">
+                            <div class="carousel-caption">
+                                <h3>L'agenda des Entrepreneurs</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi, quibusdam.</p>
+                            </div>
+                        </a>
                     </div>
                     <div class="item">
-                        <img src="//s3-eu-west-1.amazonaws.com/cibulstatic/integration_2.png" alt="integration_2">
+                        <a href="http://www.entreprises.gouv.fr/semaine-industrie" target="_blank">
+                            <img src="//s3-eu-west-1.amazonaws.com/cibulstatic/integration_2.png" alt="integration_2">
+                            <div class="carousel-caption">
+                                <h3>La semaine de l'industrie</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, nesciunt?</p>
+                            </div>
+                        </a>
                     </div>
                     <div class="item">
-                        <img src="//s3-eu-west-1.amazonaws.com/cibulstatic/integration_3.png" alt="integration_3">
+                        <a href="http://www.dutilleux2016.com/agenda/" target="_blank">
+                            <img src="//s3-eu-west-1.amazonaws.com/cibulstatic/integration_3.png" alt="integration_3">
+                            <div class="carousel-caption">
+                                <h3>L'agenda Dutilleux</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio, ut?</p>
+                            </div>
+                        </a>
                     </div>
                     <div class="item">
-                        <img src="//s3-eu-west-1.amazonaws.com/cibulstatic/integration_4.png" alt="integration_4">
+                        <a href="http://www.lasemainenumerique.paris/" target="_blank">
+                            <img src="//s3-eu-west-1.amazonaws.com/cibulstatic/integration_4.png" alt="integration_4">
+                            <div class="carousel-caption">
+                                <h3>La semaine numérique</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, quasi.</p>
+                            </div>
+                        </a>
                     </div>
                     <div class="item">
-                        <img src="//s3-eu-west-1.amazonaws.com/cibulstatic/integration_5.jpg" alt="integration_5">
+                        <a href="http://journee-arts-culture-sup.fr/" target="_blank">
+                            <img src="//s3-eu-west-1.amazonaws.com/cibulstatic/integration_5.jpg" alt="integration_5">
+                            <div class="carousel-caption">
+                                <h3>Les journées des arts et de la culture dans les enseignements supérieur</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum, laborum!</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
 
@@ -93,82 +115,88 @@
     </div>
 </div>
 
-<div class="background-white" id="produits" name="produits">
-    <div class="container">
-        <div class="row spaced">
-            <div class="media col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
-                <article class="media-body media-middle">
-                    <h2 class="media-heading">Un agenda <em>complet</em> et <em>structuré</em></h2>
-                    <p>Vos événements sont détaillés et vous pouvez explorer votre agenda par de multiples facettes&nbsp;!</p>
-                </article>
-                <figure class="media-right media-middle">
-                    <img src="//s3.eu-central-1.amazonaws.com/oastatic/explorez.svg" width="256">
-                </figure>
+<div id="fonctions" name="fonctions">
+    <div class="background-gray">
+        <div class="container">
+            <div class="spaced">
+                <div class="media">
+                    <article class="media-body media-middle">
+                        <h2 class="media-heading">Un agenda <em>complet</em> et <em>structuré</em></h2>
+                        <p>Vos événements sont détaillés et vous pouvez explorer votre agenda par de multiples facettes&nbsp;!</p>
+                    </article>
+                    <figure class="media-right media-middle">
+                        <img src="//s3.eu-central-1.amazonaws.com/oastatic/explorez.svg" width="256">
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="background-white">
+        <div class="container">
+            <div class="spaced">
+                <div class="media">
+                    <figure class="media-left media-middle">
+                        <img src="//s3.eu-central-1.amazonaws.com/oastatic/adaptez.svg" width="256">
+                    </figure>
+                    <article class="media-body media-middle">
+                        <h2 class="media-heading">Pour petits, moyens et grands agendas <em>participatifs</em></h2>
+                        <p>Seul&nbsp;? En équipe de quelques dizaines&nbsp;? De dizaines de milliers&nbsp;?<br>Votre
+                            agenda
+                            s'adapte à votre contexte&nbsp;!</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="background-gray">
+        <div class="container">
+            <div class="spaced">
+                <div class="media">
+                    <article class="media-body media-middle">
+                        <h2 class="media-heading">Déployez <em>votre réseau</em> d'agendas&nbsp;!</h2>
+                        <p>Vous animez une fédération&nbsp;? Un territoire&nbsp;?<br>Déployez un réseau d'agendas et
+                            agrégez
+                            en temps réel tous les événements&nbsp;!</p>
+                    </article>
+                    <figure class="media-right media-middle">
+                        <img src="//s3.eu-central-1.amazonaws.com/oastatic/deployez.svg" width="256">
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="background-white">
+        <div class="container">
+            <div class="spaced">
+                <div class="media">
+                    <figure class="media-left media-middle">
+                        <img src="//s3.eu-central-1.amazonaws.com/oastatic/partagez.svg" width="256">
+                    </figure>
+                    <article class="media-body media-middle">
+                        <h2 class="media-heading">Partagez <em>vos événements</em></h2>
+                        <p>
+                            Votre agenda est synchronisable avec tous vos supports et diffusable par tous&nbsp;!<br>
+                            #DonnéesOuvertes #OpenData</p>
+                    </article>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="background-gray">
-    <div class="container">
-        <div class="row spaced">
-            <div class="media col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
-                <figure class="media-left media-middle">
-                    <img src="//s3.eu-central-1.amazonaws.com/oastatic/adaptez.svg" width="256">
-                </figure>
-                <article class="media-body media-middle">
-                    <h2 class="media-heading">Pour petits, moyens et grands agendas <em>participatifs</em></h2>
-                    <p>Seul&nbsp;? En équipe de quelques dizaines&nbsp;? De dizaines de milliers&nbsp;?<br>Votre agenda
-                        s'adapte à votre contexte&nbsp;!</p>
-                </article>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="background-white">
-    <div class="container">
-        <div class="row spaced">
-            <div class="media col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
-                <article class="media-body media-middle">
-                    <h2 class="media-heading">Déployez <em>votre réseau</em> d'agendas&nbsp;!</h2>
-                    <p>Vous animez une fédération&nbsp;? Un territoire&nbsp;?<br>Déployez un réseau d'agendas et agrégez
-                        en temps réel tous les événements&nbsp;!</p>
-                </article>
-                <figure class="media-right media-middle">
-                    <img src="//s3.eu-central-1.amazonaws.com/oastatic/deployez.svg" width="256">
-                </figure>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="background-gray">
-    <div class="container">
-        <div class="row spaced">
-            <div class="media col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
-                <figure class="media-left media-middle">
-                    <img src="//s3.eu-central-1.amazonaws.com/oastatic/partagez.svg" width="256">
-                </figure>
-                <article class="media-body media-middle">
-                    <h2 class="media-heading">Partagez <em>vos événements</em></h2>
-                    <p>
-                        Votre agenda est synchronisable avec tous vos supports et diffusables par tous&nbsp;!<br>
-                        #DonnéesOuvertes #OpenData</p>
-                </article>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="background-blue" id="tarifs">
-    <div class="container">
+<div class="background-gray" id="tarifs">
+    <!--<div class="container">
         <div class="spaced">
             <h2 class="text-center">Tarifs</h2>
             <div class="price">
                 <section class="price-item">
-                    <h3 class="price-title"><i class="fa fa-bookmark"></i><br>Standard</h3>
-                    <p class="price-accent">Gratuit</p>
+                    <div class="price-header">
+                        <h3 class="price-title"><i class="fa fa-bookmark"></i><br>Agenda standard</h3>
+                        <p class="price-accent">Gratuit</p>
+                    </div>
                     <ul class="price-features list-unstyled">
                         <li class="price-feature">Nombre d'événements illimité</li>
                         <li class="price-feature">Nombre de membre illimité</li>
@@ -179,14 +207,17 @@
                         <li class="price-feature">Agrégation</li>
                     </ul>
                     <p class="price-btn">
-                        <a class="btn btn-primary btn-lg btn-block" href="mailto:contact@openagenda.com">
-                            Nous contacter
-                        </a>
+                        <a class="btn btn-primary btn-lg btn-block" href="<%= genUrl( 'signup' ) %>">Créer un agenda</a>
                     </p>
                 </section>
                 <section class="price-item">
-                    <h3 class="price-title"><i class="fa fa-cog"></i><br>Custom</h3>
-                    <p class="price-accent">600&nbsp;€ / an</p>
+                    <div class="price-header">
+                        <h3 class="price-title"><i class="fa fa-cog"></i><br>Agenda custom</h3>
+                        <p class="price-accent">
+                            600 € / an<br>
+                            <small>50 € / mois</small>
+                        </p>
+                    </div>
                     <ul class="price-features list-unstyled">
                         <li class="price-feature"><strong>les fonctions Standard <i class="fa fa-check"></i></strong>
                         </li>
@@ -202,9 +233,14 @@
                         </a>
                     </p>
                 </section>
-                <section class="price-item price-item-featured">
-                    <h3 class="price-title"><i class="fa fa-star"></i><br>Premium</h3>
-                    <p class="price-accent">6&nbsp;000&nbsp;€ / an</p>
+                <section class="price-item">
+                    <div class="price-header">
+                        <h3 class="price-title"><i class="fa fa-star"></i><br>Agenda premium</h3>
+                        <p class="price-accent">
+                            4 200 € / an<br>
+                            <small>350 € / mois</small>
+                        </p>
+                    </div>
                     <ul class="price-features list-unstyled">
                         <li class="price-feature"><strong>les fonctions Custom <i class="fa fa-check"></i></strong></li>
                         <li class="price-feature">Circuit de validation étendu</li>
@@ -218,8 +254,10 @@
                     </p>
                 </section>
                 <section class="price-item">
-                    <h3 class="price-title"><i class="fa fa-sitemap"></i><br>Portail</h3>
-                    <p class="price-accent">Sur mesure</p>
+                    <div class="price-header">
+                        <h3 class="price-title"><i class="fa fa-sitemap"></i><br>Portail</h3>
+                        <p class="price-accent">Sur mesure</p>
+                    </div>
                     <ul class="price-features list-unstyled">
                         <li class="price-feature">Définition de l'axe éditorial</li>
                         <li class="price-feature">Animation de communauté</li>
@@ -234,6 +272,101 @@
                 </section>
             </div>
         </div>
+    </div>-->
+
+    <div class="container">
+        <div class="spaced">
+            <h2 class="text-center">Tarifs</h2>
+            <div class="pricing">
+                <ul>
+                    <li class="unit price-success">
+                        <div class="price-title">
+                            <h3>Gratuit</h3>
+                        </div>
+                        <div class="price-body">
+                            <p>Agenda standard</p>
+                            <ul>
+                                <li>Nombre d'événements illimité</li>
+                                <li>Nombre de membres illimité</li>
+                                <li>Téléchargements illimités</li>
+                                <li>OpenData</li>
+                                <li>Multilingue et multimédia</li>
+                                <li>Pré & post modération</li>
+                                <li>Agrégation</li>
+                            </ul>
+                        </div>
+                        <div class="price-foot">
+                            <a class="btn btn-success" href="<%= genUrl( 'signup' ) %>">Créer un agenda</a>
+                        </div>
+                    </li>
+                    <li class="unit price-primary">
+                        <div class="price-title">
+                            <h3>
+                                600 € / an<br>
+                                <small>(50 € / mois)</small>
+                            </h3>
+                        </div>
+                        <div class="price-body">
+                            <p>Agenda custom</p>
+                            <ul>
+                                <li><strong>les fonctions Standard <i class="fa fa-check"></i></strong></li>
+                                <li>Champs personnalisables</li>
+                                <li>Embed personnalisable</li>
+                                <li>Limitation des dates et lieux</li>
+                                <li>Fiches lieux détaillées</li>
+                                <li>Privé ou public</li>
+                            </ul>
+                        </div>
+                        <div class="price-foot">
+                            <a class="btn btn-primary" href="mailto:contact@openagenda.com">
+                                Nous contacter
+                            </a>
+                        </div>
+                    </li>
+                    <li class="unit price-primary">
+                        <div class="price-title">
+                            <h3>
+                                4200 € / an<br>
+                                <small>(350 € / mois)</small>
+                            </h3>
+                        </div>
+                        <div class="price-body">
+                            <p>Agenda premium</p>
+                            <ul>
+                                <li><strong>les fonctions Custom <i class="fa fa-check"></i></strong></li>
+                                <li>Circuit de validation étendu</li>
+                                <li>Modérateurs</li>
+                                <li>Emailing interne</li>
+                            </ul>
+                        </div>
+                        <div class="price-foot">
+                            <a class="btn btn-primary" href="mailto:contact@openagenda.com">
+                                Nous contacter
+                            </a>
+                        </div>
+                    </li>
+                    <li class="unit price-primary">
+                        <div class="price-title">
+                            <h3>Sur mesure</h3>
+                        </div>
+                        <div class="price-body">
+                            <p>Portail</p>
+                            <ul>
+                                <li><strong>les fonctions Premium <i class="fa fa-check"></i></strong></li>
+                                <li>Définition de l'axe éditorial</li>
+                                <li>Animation de communauté</li>
+                                <li>Déploiement et reporting</li>
+                            </ul>
+                        </div>
+                        <div class="price-foot">
+                            <a class="btn btn-primary" href="mailto:contact@openagenda.com">
+                                Nous contacter
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -245,36 +378,41 @@
                 <div class="row">
                     <li class="col-sm-4">
                         <blockquote>
-                            <p>«&nbsp;Ils sont pas chers.&nbsp;»</p>
+                            <p>« Simplicité, interface dynamique, géolocalisation.<br>
+                                Une équipe à l’écoute, de très bons conseils et très réactive !!! »</p>
                             <footer class="media">
                                 <img class="img-circle" src="//cibul.s3.amazonaws.com/rwtbreview_kaore-olafsson_01.jpg"
                                      width="40">
-                                <strong>Jérôme Messina</strong><br>
-                                <span>Ministère de la culture</span>
+                                <strong>Karine Gal</strong><br>
+                                <span>Semaine de l'industrie</span>
                             </footer>
                         </blockquote>
                     </li>
                     <li class="col-sm-4">
                         <blockquote>
-                            <p>«&nbsp;J'ai cru qu'ils n'y arriveraient jamais.&nbsp;»</p>
+                            <p>«&nbsp;La solution idéale pour centraliser toutes les informations
+                                relatives à un événement commun où interviennent plusieurs organisateurs en facilitant
+                                ainsi la lecture de l’internaute à la recherche d’information. L’outil est très intuitif
+                                et simple d’utilisation, il tient toutes ses promesses.&nbsp;»</p>
                             <footer class="media">
                                 <img class="img-circle" src="//cibul.s3.amazonaws.com/rwtbreview_museumzr_00.jpg"
                                      width="40">
-                                <strong>Anne-Laure Régnier</strong><br>
-                                <span>Comexposium</span>
+                                <strong>Paola Scotton</strong><br>
+                                <span>Réunion des Opéras de France</span>
                             </footer>
                         </blockquote>
                     </li>
                     <li class="col-sm-4">
                         <blockquote>
-                            <p>«&nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi a mollis nunc.
-                                Nulla
-                                sagittis consectetur tellus congue viverra.&nbsp;»</p>
+                            <p>«&nbsp;Nous souhaitions avec des partenaires, créer des agendas collaboratifs dédiés aux
+                                événements du numérique, de l'innovation, et du coworking. Openagenda nous a permis de
+                                gagner du temps en mutualisant nos événements et de les diffuser plus largement via nos
+                                sites web et au delà.&nbsp;»</p>
                             <footer class="media">
                                 <img class="img-circle" src="//cibul.s3.amazonaws.com/rwtbreview_fes2016_01.jpg"
                                      width="40">
-                                <strong>Agnès Léopold</strong><br>
-                                <span>Est-Ensemble</span>
+                                <strong>Xavier Masclaux</strong><br>
+                                <span>Pôle Numérique</span>
                             </footer>
                         </blockquote>
                     </li>
@@ -296,19 +434,19 @@
                 <div class="row">
                     <li class="col-sm-4">
                         <p>
-                            <strong class="h1"><%= stats.agendas.toString().replace( /\B(?=(\d{3})+(?!\d))/g, " " ) %></strong>
+                            <strong class="h1 odometer">0</strong><br>
                             agendas
                         </p>
                     </li>
                     <li class="col-sm-4">
                         <p>
-                            <strong class="h1"><%= stats.contributors.toString().replace( /\B(?=(\d{3})+(?!\d))/g, " " ) %></strong>
+                            <strong class="h1 odometer">0</strong><br>
                             contributeurs
                         </p>
                     </li>
                     <li class="col-sm-4">
                         <p>
-                            <strong class="h1"><%= stats.events.toString().replace( /\B(?=(\d{3})+(?!\d))/g, " " ) %></strong>
+                            <strong class="h1 odometer">0</strong><br>
                             événements
                         </p>
                     </li>
@@ -414,7 +552,7 @@
                     <li><a href="https://openagenda.zendesk.com/hc/fr">Aide</a></li>
                     <li><a href="https://trello.com/b/4FnqcF96">Plan de développement</a></li>
                     <li><a href="http://blog.openagenda.com/">Blog</a></li>
-                    <li><a href="https://twitter.com/OAgendastatus">OA Status</a></li>
+                    <li><a href="https://twitter.com/OAgendastatus">Etat du service</a></li>
                     <li>
                         <a href="https://openagenda.zendesk.com/hc/fr/articles/201753991">Condititions d'utilisation</a>
                     </li>
