@@ -26,7 +26,54 @@ module.exports = {
   get,
   set,
   clear,
+  clearReferences,
   init
+}
+
+
+function _removeReferencesOf( v ) {
+
+  return knex( config.schema )
+
+  .where( {
+    agenda_id: v.agendaId,
+    ref_event_id: v.eventId
+  } )
+
+  .del()
+
+  .then( delCount => {
+
+    v.deleted = delCount;
+
+    return v;
+
+  } );
+
+}
+
+/**
+ * remove all references pointing to an event in an agenda
+ */
+function clearReferences( agendaId, eventId, cb ) {
+
+  w( {
+    agendaId,
+    eventId,
+    impactedEventIds: [],
+    deleted: 0
+  } )
+
+  .then( _getReferrers )
+
+  .then( _removeReferencesOf )
+
+  .done( v => {
+
+    cb( null, v.impactedEventIds );
+
+  }, cb );
+
 }
 
 function clear( agendaId, eventId, cb ) {
@@ -36,7 +83,7 @@ function clear( agendaId, eventId, cb ) {
     eventId
   } )
 
-  .then( _clearReferences )
+  .then( _clearReferencesOf )
 
   .done( v => { cb() }, cb );
 
@@ -65,7 +112,7 @@ function set( agendaId, eventId, referredEventIds, cb ) {
     result: []
   } )
 
-  .then( _clearReferences )
+  .then( _clearReferencesOf )
 
   .then( _insertReferences )
 
@@ -99,6 +146,27 @@ function init( c, cb ) {
 
 }
 
+function _getReferrers( v ) {
+
+  return knex( config.schema )
+
+  .distinct( 'event_id' )
+
+  .where( {
+    agenda_id: v.agendaId,
+    ref_event_id: v.eventId
+  } )
+
+  .then( result => {
+
+    v.impactedEventIds = result.map( r => r.event_id );
+
+    return v;
+
+  } )
+
+}
+
 function _getReferences( v ) {
 
   return knex( config.schema )
@@ -118,7 +186,7 @@ function _getReferences( v ) {
 
 }
 
-function _clearReferences( v ) {
+function _clearReferencesOf( v ) {
 
   return knex( config.schema )
 

@@ -23,10 +23,10 @@ describe( 'agenda-event-references - db', function() {
 
   beforeEach( done => {
 
-    fixtures.init( { mysql: config.mysql, schemas: { a: config.schema } } );
+    fixtures.init( { mysql: config.mysql } );
 
     fixtures( [ {
-      table: 'a',
+      table: config.schema,
       src: __dirname + '/fixtures.sql'
     } ], done );
 
@@ -44,9 +44,37 @@ describe( 'agenda-event-references - db', function() {
 
       should( err ).equal( null );
 
-      refEventIds.should.eql( [ 1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109 ] );
+      refEventIds.should.eql( [ 1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1007, 1109 ] );
 
       done();
+
+    } );
+
+  } );
+
+  it( 'db.clearReferences - removes all references pointing to an event', done => {
+
+    let con = mysql.createConnection( config.mysql );
+
+    con.query( `select * from ${config.schema} where agenda_id = ? and ref_event_id = ?`, [ 1, 1007 ], ( err, rows ) => {
+
+      rows.length.should.equal( 2 );
+
+      db.clearReferences( 1, 1007, ( err, impactedEventIds ) => {
+
+        impactedEventIds.should.eql( [ 100, 101 ] );
+
+        con.query( `select * from ${config.schema} where agenda_id = ? and ref_event_id = ?`, [ 1, 1007 ], ( err, rows ) => {
+
+          rows.length.should.equal( 0 );
+
+          con.end();
+
+          done();
+
+        } );
+
+      } );
 
     } );
 

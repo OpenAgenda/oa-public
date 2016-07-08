@@ -19,7 +19,10 @@ function service( agendaId ) {
   return {
     set, // ( eventId, referredEventIds, cb )
     clear, // ( eventId, cb )
-    get
+    get,
+    // remove a reference, gives back list of
+    // impacted events
+    clearReferences
   }
 
   function set( eventId, referredEventIds, cb ) {
@@ -37,6 +40,12 @@ function service( agendaId ) {
   function clear( eventId, cb ) {
 
     db.clear( agendaId, eventId, cb );
+
+  }
+
+  function clearReferences( eventId, cb ) {
+
+    db.clearReferences( agendaId, eventId, cb );
 
   }
 
