@@ -22,10 +22,12 @@ export default React.createClass( {
 
   },
 
-  translateEvent( event ) {
+  cleanEvent( event ) {
 
     return {
       title: event.title[ this.props.lang ],
+      link: event.link || '#',
+      image: event.image || false,
       location: {
         name: event.location.name,
         address: event.location.address
@@ -41,9 +43,9 @@ export default React.createClass( {
 
       <h3>{getLabel( 'showTitle', this.props.lang )}</h3>
 
-      <div className="media content wsq">
+      <div className="wsq">
 
-        {this.props.events.map( e => <EventItem event={this.translateEvent( e )} /> )}
+        {this.props.events.map( e => <EventItem event={this.cleanEvent( e )} /> )}
 
       </div>
 

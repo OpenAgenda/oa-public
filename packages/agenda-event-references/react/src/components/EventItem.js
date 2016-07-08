@@ -12,11 +12,13 @@ module.exports = React.createClass( {
 
   onClick( e ) {
 
-    e.preventDefault();
+    if ( this.props.onClick ) {
 
-    if ( !this.props.onClick ) return;
+      e.preventDefault();
 
-    this.props.onClick( this.props.event );
+      this.props.onClick( this.props.event );
+
+    }
 
   },
 
@@ -32,18 +34,25 @@ module.exports = React.createClass( {
 
   render() {
 
-    return <div className="media" onClick={this.onClick}>
+    return <div className="media" onClick={this.onClick} >
+      { this.props.event.image ? <div className="media-left">
+        <a className="event-pic" href={this.props.event.link || '#'}>
+          <img className="media-object" src={this.props.event.image} />
+        </a>
+      </div> : null }
       { this.props.onRemove ? 
       <a href="#" className="pull-right remove" onClick={ this.onRemove }>
         <i className="fa fa-trash"></i>
       </a>
       : null }
       <div className="media-body">
-        <h4 className="media-heading">{ this.props.event.title }</h4>
-        <ul className="list-unstyled">
-          <li>{ this.props.event.location.name }, { this.props.event.location.address }</li>
-          <li>{ this.props.event.dateRange }</li>
-        </ul>
+        <a href={this.props.event.link || '#'}>
+          <h4 className="media-heading">{ this.props.event.title }</h4>
+          <ul className="list-unstyled">
+            <li>{ this.props.event.location.name }, { this.props.event.location.address }</li>
+            <li>{ this.props.event.dateRange }</li>
+          </ul>
+        </a>
       </div>
     </div>
 

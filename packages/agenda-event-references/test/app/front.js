@@ -14,6 +14,8 @@ Editor = require( '../../react/src/Editor' ),
 
 showEvents = [ {
   "uid": 111,
+  "image": "https://cibul.s3.amazonaws.com/evtbevent_eglise-st-pierre_769_150422.jpg",
+  "link" : "#somelink",
   "title": {
     "fr" : "Yeepee"
   },
@@ -30,6 +32,7 @@ showEvents = [ {
   "title": {
     "fr" : "Kay"
   },
+  "link" : "#someotherlink",
   "location": {
     "name": "Chez Janine",
     "address": "Passage Ponceau"
@@ -55,10 +58,8 @@ Wrapper = React.createClass( {
   render() {
 
     return <div>
-      <div className="top-margined wsq">
-        <div className="content">
-          <Show events={showEvents} lang="fr" />
-        </div>
+      <div className="top-margined">
+        <Show events={showEvents} lang="fr" />
       </div>
       <div className="top-margined wsq">
         <div className="content">
