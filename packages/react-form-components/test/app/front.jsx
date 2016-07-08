@@ -119,8 +119,21 @@ Wrapper = React.createClass( {
         value={ this.state.values.search }
         label="a hidden label"
         placeholder="do your search"
+        threshold={ 2 }
         onChange={ this.onChange }
         loading={ true }
+      />
+
+      <div className="separator"></div>
+
+      <SearchField
+        name="search"
+        value={ this.state.values.search }
+        label="a hidden label"
+        placeholder="do your search"
+        threshold={ 5 }
+        onChange={ this.onChange }
+        loading={ false }
       />
 
       <div className="separator"></div>

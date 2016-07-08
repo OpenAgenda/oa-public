@@ -9,6 +9,7 @@ module.exports = React.createClass({
 
   propTypes: {
     value: React.PropTypes.string,
+    threshold: 2,
     name: React.PropTypes.string,
     dynamic: React.PropTypes.bool,
     timeout: React.PropTypes.number,
@@ -74,6 +75,13 @@ module.exports = React.createClass({
     });
 
     this.clearTimeout();
+
+    // if the length of the search string is below the
+    // threshold, ignore change
+    if (e.target.value.length < this.props.threshold) {
+
+      return;
+    }
 
     this.timeout = setTimeout(function () {
 
