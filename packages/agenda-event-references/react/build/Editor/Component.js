@@ -74,6 +74,11 @@ var EditorComponent = _react2.default.createClass({
           getLabel('editorTitle')
         ),
         _react2.default.createElement(
+          'p',
+          null,
+          getLabel('editorInfo')
+        ),
+        _react2.default.createElement(
           'ul',
           { className: 'list-unstyled references' },
           loading ? _react2.default.createElement(_Spinner2.default, null) : events.length ? events.map(function (e) {

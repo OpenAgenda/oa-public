@@ -43,6 +43,8 @@ const EditorComponent = React.createClass( {
         
         <h2>{getLabel( 'editorTitle' )}</h2>
 
+        <p>{getLabel( 'editorInfo' )}</p>
+
         <ul className="list-unstyled references">
           { loading ? <Spinner/> : ( 
             events.length ? events.map( e => <li key={e.uid}><EventItem event={e} onRemove={onEventRemove} /></li> )
