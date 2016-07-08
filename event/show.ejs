@@ -192,6 +192,13 @@
           </div>
 
         </div>
+
+<% if ( typeof event.referencesComponent ) { %>
+
+  <%- event.referencesComponent %>
+    
+<% } %>
+
 <% if ( 
   event.location.description 
   || event.location.access

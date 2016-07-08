@@ -39,7 +39,8 @@ defaults = {
     single: 'esinglesend',
     timings: 'etimingssend',
     agenda: 'eagendawrite',
-    location: 'elocationsend'
+    location: 'elocationsend',
+    references: 'ereferences'
   },
   custom: false,
   labels: labels
@@ -75,9 +76,11 @@ window.oaEventForm = function( options ) {
       onTimingsChange= {onTimingsChange}
       onAgendaDataChange= {onAgendaDataChange}
       onLocationChange= {onLocationChange}
+      onReferencesChange= {onReferencesChange}
       custom= {params.custom}
       customRes={params.customRes}
       locationRes={params.locationRes}
+      referenceRes={params.referenceRes}
       categories={params.categories}
       categorySet={params.categorySet}
       tags={params.tags}
@@ -134,6 +137,12 @@ window.oaEventForm = function( options ) {
       values: values,
       errors: errors
     } );
+
+  }
+
+  function onReferencesChange( values ) {
+
+    rUtils.eh.trigger( params.events.references, values );
 
   }
 
