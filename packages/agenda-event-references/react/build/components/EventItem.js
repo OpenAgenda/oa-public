@@ -18,11 +18,12 @@ module.exports = _react2.default.createClass({
 
   onClick: function onClick(e) {
 
-    e.preventDefault();
+    if (this.props.onClick) {
 
-    if (!this.props.onClick) return;
+      e.preventDefault();
 
-    this.props.onClick(this.props.event);
+      this.props.onClick(this.props.event);
+    }
   },
   onRemove: function onRemove(e) {
 
@@ -37,6 +38,15 @@ module.exports = _react2.default.createClass({
     return _react2.default.createElement(
       "div",
       { className: "media", onClick: this.onClick },
+      this.props.event.image ? _react2.default.createElement(
+        "div",
+        { className: "media-left" },
+        _react2.default.createElement(
+          "a",
+          { className: "event-pic", href: this.props.event.link || '#' },
+          _react2.default.createElement("img", { className: "media-object", src: this.props.event.image })
+        )
+      ) : null,
       this.props.onRemove ? _react2.default.createElement(
         "a",
         { href: "#", className: "pull-right remove", onClick: this.onRemove },
@@ -46,24 +56,28 @@ module.exports = _react2.default.createClass({
         "div",
         { className: "media-body" },
         _react2.default.createElement(
-          "h4",
-          { className: "media-heading" },
-          this.props.event.title
-        ),
-        _react2.default.createElement(
-          "ul",
-          { className: "list-unstyled" },
+          "a",
+          { href: this.props.event.link || '#' },
           _react2.default.createElement(
-            "li",
-            null,
-            this.props.event.location.name,
-            ", ",
-            this.props.event.location.address
+            "h4",
+            { className: "media-heading" },
+            this.props.event.title
           ),
           _react2.default.createElement(
-            "li",
-            null,
-            this.props.event.dateRange
+            "ul",
+            { className: "list-unstyled" },
+            _react2.default.createElement(
+              "li",
+              null,
+              this.props.event.location.name,
+              ", ",
+              this.props.event.location.address
+            ),
+            _react2.default.createElement(
+              "li",
+              null,
+              this.props.event.dateRange
+            )
           )
         )
       )

@@ -39,10 +39,12 @@ exports.default = _react2.default.createClass({
       lang: 'fr'
     };
   },
-  translateEvent: function translateEvent(event) {
+  cleanEvent: function cleanEvent(event) {
 
     return {
       title: event.title[this.props.lang],
+      link: event.link || '#',
+      image: event.image || false,
       location: {
         name: event.location.name,
         address: event.location.address
@@ -63,9 +65,9 @@ exports.default = _react2.default.createClass({
       ),
       _react2.default.createElement(
         'div',
-        { className: 'media content wsq' },
+        { className: 'wsq' },
         this.props.events.map(function (e) {
-          return _react2.default.createElement(_EventItem2.default, { event: _this.translateEvent(e) });
+          return _react2.default.createElement(_EventItem2.default, { event: _this.cleanEvent(e) });
         })
       )
     );
