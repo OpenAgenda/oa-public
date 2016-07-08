@@ -58,6 +58,7 @@ const EditorComponent = React.createClass( {
 
               <SearchField
                 loading={ search.searching }
+                threshold={ 3 }
                 value={ search.query }
                 name="search"
                 label={ getLabel( 'search' ) }
