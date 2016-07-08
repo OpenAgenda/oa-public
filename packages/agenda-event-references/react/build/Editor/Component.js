@@ -102,6 +102,7 @@ var EditorComponent = _react2.default.createClass({
           { className: 'search' },
           _react2.default.createElement(_SearchField2.default, {
             loading: search.searching,
+            threshold: 3,
             value: search.query,
             name: 'search',
             label: getLabel('search'),
