@@ -28,7 +28,7 @@ function events( req, res, next ) {
 
   }
 
-  config.interfaces.events( req.agendaId, req.query, ( err, events ) => {
+  config.interfaces.events( req.agendaId, req.query, { showAll: !!req.access }, ( err, events ) => {
 
     if ( err ) return next( err );
 
