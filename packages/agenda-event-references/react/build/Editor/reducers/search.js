@@ -41,7 +41,11 @@ exports.default = function () {
         search: {
           searching: { $set: false },
           query: { $set: action.query },
-          events: { $set: action.events.map(function (e) {
+          events: { $set: action.events.filter(function (e) {
+              return state.events.map(function (ev) {
+                return ev.uid;
+              }).indexOf(e.uid) === -1;
+            }).map(function (e) {
               return {
                 uid: e.uid,
                 title: e.title[state.lang],
@@ -51,7 +55,8 @@ exports.default = function () {
                   address: e.location.address
                 }
               };
-            }) }
+            })
+          }
         }
       });
 

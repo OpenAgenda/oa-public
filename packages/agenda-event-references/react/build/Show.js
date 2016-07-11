@@ -67,7 +67,7 @@ exports.default = _react2.default.createClass({
         'div',
         { className: 'wsq' },
         this.props.events.map(function (e) {
-          return _react2.default.createElement(_EventItem2.default, { event: _this.cleanEvent(e) });
+          return _react2.default.createElement(_EventItem2.default, { key: e.uid, event: _this.cleanEvent(e) });
         })
       )
     );

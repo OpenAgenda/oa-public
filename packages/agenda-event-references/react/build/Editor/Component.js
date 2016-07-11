@@ -74,11 +74,6 @@ var EditorComponent = _react2.default.createClass({
           getLabel('editorTitle')
         ),
         _react2.default.createElement(
-          'p',
-          null,
-          getLabel('editorInfo')
-        ),
-        _react2.default.createElement(
           'ul',
           { className: 'list-unstyled references' },
           loading ? _react2.default.createElement(_Spinner2.default, null) : events.length ? events.map(function (e) {
@@ -99,7 +94,7 @@ var EditorComponent = _react2.default.createClass({
         ),
         search.display ? _react2.default.createElement(
           'div',
-          { className: 'search' },
+          { className: search.events ? 'search dropdown open' : 'search dropdown' },
           _react2.default.createElement(_SearchField2.default, {
             loading: search.searching,
             threshold: 3,
@@ -111,7 +106,7 @@ var EditorComponent = _react2.default.createClass({
           }),
           search.events ? _react2.default.createElement(
             'ul',
-            { className: 'search-results' },
+            { className: 'dropdown-menu' },
             search.events.length ? search.events.map(function (event) {
               return _react2.default.createElement(
                 'li',
@@ -120,10 +115,10 @@ var EditorComponent = _react2.default.createClass({
               );
             }) : _react2.default.createElement(
               'li',
-              null,
+              { className: 'empty' },
               _react2.default.createElement(
                 'p',
-                { className: 'empty-search' },
+                null,
                 getLabel('emptySearch')
               )
             )
