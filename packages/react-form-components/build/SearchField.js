@@ -9,7 +9,7 @@ module.exports = React.createClass({
 
   propTypes: {
     value: React.PropTypes.string,
-    threshold: 2,
+    threshold: React.PropTypes.number,
     name: React.PropTypes.string,
     dynamic: React.PropTypes.bool,
     timeout: React.PropTypes.number,
@@ -23,7 +23,8 @@ module.exports = React.createClass({
       name: 'search',
       dynamic: false,
       timeout: 1500,
-      loading: false
+      loading: false,
+      threshold: 2
     };
   },
 
