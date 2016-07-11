@@ -30,15 +30,19 @@ export default ( state = {}, action ) => {
         search: {
           searching: { $set: false },
           query: { $set: action.query },
-          events: { $set: action.events.map( e => ( { 
-            uid: e.uid,
-            title: e.title[ state.lang ],
-            dateRange: e.dateRange[ state.lang ],
-            location: {
-              name: e.location.name,
-              address: e.location.address
-            }
-          } ) ) }
+          events: { $set: 
+            action.events
+            .filter( e => state.events.map( ev => ev.uid ).indexOf( e.uid ) === -1 )
+            .map( e => ( { 
+              uid: e.uid,
+              title: e.title[ state.lang ],
+              dateRange: e.dateRange[ state.lang ],
+              location: {
+                name: e.location.name,
+                address: e.location.address
+              }
+            } ) ) 
+          }
         }
       } );
 

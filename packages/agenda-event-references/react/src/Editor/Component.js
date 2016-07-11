@@ -43,8 +43,6 @@ const EditorComponent = React.createClass( {
         
         <h2>{getLabel( 'editorTitle' )}</h2>
 
-        <p>{getLabel( 'editorInfo' )}</p>
-
         <ul className="list-unstyled references">
           { loading ? <Spinner/> : ( 
             events.length ? events.map( e => <li key={e.uid}><EventItem event={e} onRemove={onEventRemove} /></li> )
@@ -54,7 +52,7 @@ const EditorComponent = React.createClass( {
 
         { search.display ? 
 
-            <div className="search">
+            <div className={ search.events ? 'search dropdown open' : 'search dropdown' }>
 
               <SearchField
                 loading={ search.searching }
@@ -66,11 +64,11 @@ const EditorComponent = React.createClass( {
                 onChange={ onSearch }
               />
 
-              { search.events ? <ul className="search-results">
+              { search.events ? <ul className="dropdown-menu">
               { search.events.length ?
                 search.events.map( event => <li key={event.uid}><EventItem event={event} onClick={onEventAdd} /></li> )
-              : <li>
-                  <p className="empty-search">{getLabel( 'emptySearch' )}</p>
+              : <li className="empty">
+                  <p>{getLabel( 'emptySearch' )}</p>
                 </li>
               }
               </ul> : null }

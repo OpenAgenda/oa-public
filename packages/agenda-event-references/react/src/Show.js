@@ -45,7 +45,7 @@ export default React.createClass( {
 
       <div className="wsq">
 
-        {this.props.events.map( e => <EventItem event={this.cleanEvent( e )} /> )}
+        {this.props.events.map( e => <EventItem key={e.uid} event={this.cleanEvent( e )} /> )}
 
       </div>
 
