@@ -33,7 +33,7 @@
                 <i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand" href="/">
-                <img src="https://openagenda.com/images/openagenda.png" width="185" alt="OpenAgenda">
+                <img src="https://s3.eu-central-1.amazonaws.com/oastatic/openagenda-white-185.png" width="185" alt="OpenAgenda">
             </a>
         </div>
         <div class="navbar-collapse collapse" id="bs-navbar-collapse">
@@ -53,14 +53,21 @@
                     </p>
                 </li>
                 <li class="language-menu">
-                    <a href="#" data-toggle="dropdown">fr <i class="fa fa-angle-down"></i></a>
+                    <a href="#" data-toggle="dropdown"><%= lang %> <i class="fa fa-angle-down"></i></a>
                     <ul class="dropdown-menu">
                         <% [ 'fr', 'en' ].forEach( function( l ) { %>
                         <% if ( lang == l ) { %>
-                        <li><a href="?lang=<%= l %>" hreflang="<%= l %>"><%= langLabels[ l ] %></a>
+                        <li>
+                            <a href="?lang=<%= l %>" hreflang="<%= l %>" class="selected">
+                                <%= langLabels[ l ] %> - <%= l.toUpperCase() %>
+                            </a>
                         </li>
                         <% } else { %>
-                        <li><a rel="alternate" href="?lang=<%= l %>" hreflang="<%= l %>" class="unselected"><%= langLabels[ l ] %></a></li>
+                        <li>
+                            <a rel="alternate" href="?lang=<%= l %>" hreflang="<%= l %>">
+                                <%= langLabels[ l ] %> - <%= l.toUpperCase() %>
+                            </a>
+                        </li>
                         <% } %>
                         <% } ); %>
                     </ul>

@@ -1,7 +1,7 @@
 <div id="presentation">
     <div class="container">
         <div class="spaced text-center">
-            <h1 class="hook">Créez un agenda publique performant</h1>
+            <h1 class="hook">Créez un agenda public performant</h1>
             <p class="under-hook">Pour votre <br><span class="typed"></span></p>
             <p class="hook-action">
                 <a href="<%= genUrl( 'signup' ) %>" class="btn btn-primary btn-lg">
@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div class="background-gray" id="trio-actions">
+<div class="background-white" id="trio-actions">
     <div class="container">
         <div class="row spaced">
             <ul class="list-unstyled text-center">
@@ -33,15 +33,90 @@
     </div>
 </div>
 
-<div class="background-white">
+<!--<div class="background-white">
     <div class="container">
         <hr>
+    </div>
+</div>-->
+
+<div id="fonctions" name="fonctions">
+    <div class="background-gray">
+        <div class="container">
+            <div class="spaced">
+                <div class="media">
+                    <article class="media-body media-middle">
+                        <h2 class="media-heading">Un agenda <em>complet</em> et <em>structuré</em></h2>
+                        <p>Vos événements sont détaillés et vous pouvez explorer votre agenda par de multiples critères !</p>
+                    </article>
+                    <figure class="media-right media-middle">
+                        <img src="//s3.eu-central-1.amazonaws.com/oastatic/explorez.svg" width="256">
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="background-white">
+        <div class="container">
+            <div class="spaced">
+                <div class="media">
+                    <figure class="media-left media-middle">
+                        <img src="//s3.eu-central-1.amazonaws.com/oastatic/adaptez.svg" width="256">
+                    </figure>
+                    <article class="media-body media-middle">
+                        <h2 class="media-heading">Pour petits, moyens et grands agendas <em>participatifs</em></h2>
+                        <p>Seul ? En équipe de quelques dizaines ? De dizaines de milliers ?<br>Votre
+                            agenda
+                            s'adapte à votre contexte !</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="background-gray">
+        <div class="container">
+            <div class="spaced">
+                <div class="media">
+                    <article class="media-body media-middle">
+                        <h2 class="media-heading">Déployez <em>votre réseau</em> d'agendas !</h2>
+                        <p>Vous animez une fédération ? Un territoire ?<br>Déployez un réseau d'agendas et
+                            agrégez
+                            en temps réel tous les événements !</p>
+                    </article>
+                    <figure class="media-right media-middle">
+                        <img src="//s3.eu-central-1.amazonaws.com/oastatic/deployez.svg" width="256">
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="background-white">
+        <div class="container">
+            <div class="spaced">
+                <div class="media">
+                    <figure class="media-left media-middle">
+                        <img src="//s3.eu-central-1.amazonaws.com/oastatic/partagez.svg" width="256">
+                    </figure>
+                    <article class="media-body media-middle">
+                        <h2 class="media-heading">Partagez <em>vos événements</em></h2>
+                        <p>
+                            Votre agenda est synchronisable avec tous vos supports et diffusable par tous !<br>
+                            #DonnéesOuvertes #OpenData</p>
+                    </article>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="background-white" id="carousel">
     <div class="container">
         <div class="spaced">
+            <h2 class="text-center">
+                Nos références
+            </h2>
             <div id="carousel-screens" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
@@ -103,11 +178,11 @@
 
                 <!-- Controls -->
                 <a class="left carousel-control" href="#carousel-screens" role="button" data-slide="prev">
-                    <i class="fa fa-angle-left fa-4" aria-hidden="true"></i>
+                    <i class="fa fa-angle-left fa-7x" aria-hidden="true"></i>
                     <span class="sr-only">Previous</span>
                 </a>
                 <a class="right carousel-control" href="#carousel-screens" role="button" data-slide="next">
-                    <i class="fa fa-angle-right fa-4" aria-hidden="true"></i>
+                    <i class="fa fa-angle-right fa-7x" aria-hidden="true"></i>
                     <span class="sr-only">Next</span>
                 </a>
             </div>
@@ -115,165 +190,59 @@
     </div>
 </div>
 
-<div id="fonctions" name="fonctions">
-    <div class="background-gray">
-        <div class="container">
-            <div class="spaced">
-                <div class="media">
-                    <article class="media-body media-middle">
-                        <h2 class="media-heading">Un agenda <em>complet</em> et <em>structuré</em></h2>
-                        <p>Vos événements sont détaillés et vous pouvez explorer votre agenda par de multiples facettes&nbsp;!</p>
-                    </article>
-                    <figure class="media-right media-middle">
-                        <img src="//s3.eu-central-1.amazonaws.com/oastatic/explorez.svg" width="256">
-                    </figure>
+<div class="background-white" id="testimonials">
+    <div class="container">
+        <div class="spaced">
+            <h2 class="text-center">Ce que disent nos clients</h2>
+            <ul class="list-unstyled">
+                <div class="row">
+                    <li class="col-sm-4">
+                        <blockquote>
+                            <p>« Simplicité, interface dynamique, géolocalisation.<br>
+                                Une équipe à l’écoute, de très bons conseils et très réactive !!! »</p>
+                            <footer class="media">
+                                <img class="img-circle" src="//s3.eu-central-1.amazonaws.com/oastatic/GAL_Karine.jpg"
+                                     width="40">
+                                <strong>Karine Gal</strong><br>
+                                <span>Semaine de l'industrie</span>
+                            </footer>
+                        </blockquote>
+                    </li>
+                    <li class="col-sm-4">
+                        <blockquote>
+                            <p>« La solution idéale pour centraliser toutes les informations relatives à un événement
+                                commun. L’outil est très intuitif et simple d’utilisation,
+                                il tient toutes ses promesses. »</p>
+                            <footer class="media">
+                                <img class="img-circle" src="//s3.eu-central-1.amazonaws.com/oastatic/paola-scotton.jpg"
+                                     width="40">
+                                <strong>Paola Scotton</strong><br>
+                                <span>Réunion des Opéras de France</span>
+                            </footer>
+                        </blockquote>
+                    </li>
+                    <li class="col-sm-4">
+                        <blockquote>
+                            <p>« OpenAgenda nous a permis de gagner du temps en mutualisant nos événements et de les
+                                diffuser plus largement via nos sites web et au-delà. »</p>
+                            <footer class="media">
+                                <img class="img-circle" src="//s3.eu-central-1.amazonaws.com/oastatic/Xavier-maslaux.jpg"
+                                     width="40">
+                                <strong>Xavier Masclaux</strong><br>
+                                <span>Pôle Numérique</span>
+                            </footer>
+                        </blockquote>
+                    </li>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="background-white">
-        <div class="container">
-            <div class="spaced">
-                <div class="media">
-                    <figure class="media-left media-middle">
-                        <img src="//s3.eu-central-1.amazonaws.com/oastatic/adaptez.svg" width="256">
-                    </figure>
-                    <article class="media-body media-middle">
-                        <h2 class="media-heading">Pour petits, moyens et grands agendas <em>participatifs</em></h2>
-                        <p>Seul&nbsp;? En équipe de quelques dizaines&nbsp;? De dizaines de milliers&nbsp;?<br>Votre
-                            agenda
-                            s'adapte à votre contexte&nbsp;!</p>
-                    </article>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="background-gray">
-        <div class="container">
-            <div class="spaced">
-                <div class="media">
-                    <article class="media-body media-middle">
-                        <h2 class="media-heading">Déployez <em>votre réseau</em> d'agendas&nbsp;!</h2>
-                        <p>Vous animez une fédération&nbsp;? Un territoire&nbsp;?<br>Déployez un réseau d'agendas et
-                            agrégez
-                            en temps réel tous les événements&nbsp;!</p>
-                    </article>
-                    <figure class="media-right media-middle">
-                        <img src="//s3.eu-central-1.amazonaws.com/oastatic/deployez.svg" width="256">
-                    </figure>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="background-white">
-        <div class="container">
-            <div class="spaced">
-                <div class="media">
-                    <figure class="media-left media-middle">
-                        <img src="//s3.eu-central-1.amazonaws.com/oastatic/partagez.svg" width="256">
-                    </figure>
-                    <article class="media-body media-middle">
-                        <h2 class="media-heading">Partagez <em>vos événements</em></h2>
-                        <p>
-                            Votre agenda est synchronisable avec tous vos supports et diffusable par tous&nbsp;!<br>
-                            #DonnéesOuvertes #OpenData</p>
-                    </article>
-                </div>
-            </div>
+            </ul>
+            <!--<p class="text-center">
+                <a class="btn btn-link btn-lg" href="">Voir plus de références</a>
+            </p>-->
         </div>
     </div>
 </div>
 
 <div class="background-gray" id="tarifs">
-    <!--<div class="container">
-        <div class="spaced">
-            <h2 class="text-center">Tarifs</h2>
-            <div class="price">
-                <section class="price-item">
-                    <div class="price-header">
-                        <h3 class="price-title"><i class="fa fa-bookmark"></i><br>Agenda standard</h3>
-                        <p class="price-accent">Gratuit</p>
-                    </div>
-                    <ul class="price-features list-unstyled">
-                        <li class="price-feature">Nombre d'événements illimité</li>
-                        <li class="price-feature">Nombre de membre illimité</li>
-                        <li class="price-feature">Téléchargements illimités</li>
-                        <li class="price-feature">OpenData</li>
-                        <li class="price-feature">Multilingue et multimédia</li>
-                        <li class="price-feature">Pré &amp; post modération</li>
-                        <li class="price-feature">Agrégation</li>
-                    </ul>
-                    <p class="price-btn">
-                        <a class="btn btn-primary btn-lg btn-block" href="<%= genUrl( 'signup' ) %>">Créer un agenda</a>
-                    </p>
-                </section>
-                <section class="price-item">
-                    <div class="price-header">
-                        <h3 class="price-title"><i class="fa fa-cog"></i><br>Agenda custom</h3>
-                        <p class="price-accent">
-                            600 € / an<br>
-                            <small>50 € / mois</small>
-                        </p>
-                    </div>
-                    <ul class="price-features list-unstyled">
-                        <li class="price-feature"><strong>les fonctions Standard <i class="fa fa-check"></i></strong>
-                        </li>
-                        <li class="price-feature">Champs personnalisables</li>
-                        <li class="price-feature">Embed personnalisable</li>
-                        <li class="price-feature">Limitation des dates et lieux</li>
-                        <li class="price-feature">Fiches lieux détaillées</li>
-                        <li class="price-feature">Privé ou public</li>
-                    </ul>
-                    <p class="price-btn">
-                        <a class="btn btn-primary btn-lg btn-block" href="mailto:contact@openagenda.com">
-                            Nous contacter
-                        </a>
-                    </p>
-                </section>
-                <section class="price-item">
-                    <div class="price-header">
-                        <h3 class="price-title"><i class="fa fa-star"></i><br>Agenda premium</h3>
-                        <p class="price-accent">
-                            4 200 € / an<br>
-                            <small>350 € / mois</small>
-                        </p>
-                    </div>
-                    <ul class="price-features list-unstyled">
-                        <li class="price-feature"><strong>les fonctions Custom <i class="fa fa-check"></i></strong></li>
-                        <li class="price-feature">Circuit de validation étendu</li>
-                        <li class="price-feature">Modérateurs</li>
-                        <li class="price-feature">Emailing interne</li>
-                    </ul>
-                    <p class="price-btn">
-                        <a class="btn btn-primary btn-lg btn-block" href="mailto:contact@openagenda.com">
-                            Nous contacter
-                        </a>
-                    </p>
-                </section>
-                <section class="price-item">
-                    <div class="price-header">
-                        <h3 class="price-title"><i class="fa fa-sitemap"></i><br>Portail</h3>
-                        <p class="price-accent">Sur mesure</p>
-                    </div>
-                    <ul class="price-features list-unstyled">
-                        <li class="price-feature">Définition de l'axe éditorial</li>
-                        <li class="price-feature">Animation de communauté</li>
-                        <li class="price-feature">Pyramide d'agendas</li>
-                        <li class="price-feature">Déploiement et reporting</li>
-                    </ul>
-                    <p class="price-btn">
-                        <a class="btn btn-primary btn-lg btn-block" href="mailto:contact@openagenda.com">
-                            Nous contacter
-                        </a>
-                    </p>
-                </section>
-            </div>
-        </div>
-    </div>-->
-
     <div class="container">
         <div class="spaced">
             <h2 class="text-center">Tarifs</h2>
@@ -370,63 +339,7 @@
     </div>
 </div>
 
-<div class="background-white" id="references">
-    <div class="container">
-        <div class="spaced">
-            <h2 class="text-center">Ce que disent nos clients</h2>
-            <ul class="list-unstyled">
-                <div class="row">
-                    <li class="col-sm-4">
-                        <blockquote>
-                            <p>« Simplicité, interface dynamique, géolocalisation.<br>
-                                Une équipe à l’écoute, de très bons conseils et très réactive !!! »</p>
-                            <footer class="media">
-                                <img class="img-circle" src="//cibul.s3.amazonaws.com/rwtbreview_kaore-olafsson_01.jpg"
-                                     width="40">
-                                <strong>Karine Gal</strong><br>
-                                <span>Semaine de l'industrie</span>
-                            </footer>
-                        </blockquote>
-                    </li>
-                    <li class="col-sm-4">
-                        <blockquote>
-                            <p>«&nbsp;La solution idéale pour centraliser toutes les informations
-                                relatives à un événement commun où interviennent plusieurs organisateurs en facilitant
-                                ainsi la lecture de l’internaute à la recherche d’information. L’outil est très intuitif
-                                et simple d’utilisation, il tient toutes ses promesses.&nbsp;»</p>
-                            <footer class="media">
-                                <img class="img-circle" src="//cibul.s3.amazonaws.com/rwtbreview_museumzr_00.jpg"
-                                     width="40">
-                                <strong>Paola Scotton</strong><br>
-                                <span>Réunion des Opéras de France</span>
-                            </footer>
-                        </blockquote>
-                    </li>
-                    <li class="col-sm-4">
-                        <blockquote>
-                            <p>«&nbsp;Nous souhaitions avec des partenaires, créer des agendas collaboratifs dédiés aux
-                                événements du numérique, de l'innovation, et du coworking. Openagenda nous a permis de
-                                gagner du temps en mutualisant nos événements et de les diffuser plus largement via nos
-                                sites web et au delà.&nbsp;»</p>
-                            <footer class="media">
-                                <img class="img-circle" src="//cibul.s3.amazonaws.com/rwtbreview_fes2016_01.jpg"
-                                     width="40">
-                                <strong>Xavier Masclaux</strong><br>
-                                <span>Pôle Numérique</span>
-                            </footer>
-                        </blockquote>
-                    </li>
-                </div>
-            </ul>
-            <!--<p class="text-center">
-                <a class="btn btn-link btn-lg" href="">Voir plus de références</a>
-            </p>-->
-        </div>
-    </div>
-</div>
-</div>
-
-<div class="background-gray">
+<div class="background-white">
     <div class="container">
         <div class="spaced">
             <h2 class="text-center">En ce moment</h2>
@@ -456,11 +369,11 @@
     </div>
 </div>
 
-<div class="background-white">
+<div class="background-gray">
     <div class="container">
         <div class="row spaced">
             <div class="col-xs-12 text-center">
-                <h2>Prêt&nbsp;?</h2>
+                <h2>Prêt ?</h2>
                 <p>
                     <a class="btn btn-primary btn-lg" href="<%= genUrl( 'signup' ) %>">Créer un agenda (gratuit)</a>
                 </p>
@@ -476,13 +389,13 @@
         <h2 class="text-center">En ce moment</h2>
         <ul class="list-unstyled text-center">
           <li class="col-xs-4">
-            <p><strong>4&nbsp;000</strong> agendas</p>
+            <p><strong>4 000</strong> agendas</p>
           </li>
           <li class="col-xs-4">
-            <p><strong>12&nbsp;000</strong> contributeurs</p>
+            <p><strong>12 000</strong> contributeurs</p>
           </li>
           <li class="col-xs-4">
-            <p><strong>90&nbsp;000</strong> événements</p>
+            <p><strong>90 000</strong> événements</p>
           </li>
         </ul>
       </div>
@@ -540,10 +453,10 @@
             <div class="col-sm-3 col-sm-offset-1">
                 <h2>La société</h2>
                 <ul class="list-unstyled">
-                    <li><a href="">À propos</a></li>
+                    <!--<li><a href="">À propos</a></li>-->
                     <li><a href="https://angel.co/oagenda">Recrutement</a></li>
                     <li><a href="https://www.crunchbase.com/organization/openagenda#/entity">Crunchbase</a></li>
-                    <li><a href="">Notre OpenAgenda&nbsp;!</a></li>
+                    <li><a href="">Notre OpenAgenda !</a></li>
                 </ul>
             </div>
             <div class="col-sm-3 col-sm-offset-1">
