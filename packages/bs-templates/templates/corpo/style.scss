@@ -5,7 +5,7 @@
 
 // Typography
 body {
-  font-family: Roboto, "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 // Footer
@@ -17,19 +17,20 @@ body {
   // @import "hero";
   @import "media";
   @import "price";
+  @import "typed";
+  @import "odometer-theme";
 
-  .row {
-    // border-bottom: 1px solid $oa-gray-light;
-    padding-bottom: 4em;
-    padding-top: 4em;
-
-    > h2 {
-      margin-bottom: 1em;
-    }
+  @media(max-width: $screen-md) {
   }
 
-  #produits {
-    padding-top: 0;
+  .spaced {
+    padding-bottom: 4em;
+    padding-top: 4em;
+  }
+
+  .row > h2 {
+    // border-bottom: 1px solid $oa-gray-light;
+    margin-bottom: 1em;
   }
 
   p {
@@ -57,6 +58,24 @@ body {
     }
   }
 
+  hr {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border: 0;
+    border-top: 2px solid #eeeeee;
+  }
+
+  .fa-7x {
+    font-size: 7em;
+  }
+
+  small {
+    font-weight: 400;
+    line-height: 1;
+    color: #777;
+    font-size: 65%;
+  }
+
   .background-white {
     background: $oa-white;
   }
@@ -71,5 +90,139 @@ body {
 
   .background-gray {
     background: $oa-gray-lighter;
+  }
+
+  #presentation {
+    height: 750px;
+    position: relative;
+    color: antiquewhite;
+
+    &:before {
+      content: "";
+      position: absolute;
+      background-image: url('//s3.eu-central-1.amazonaws.com/oastatic/placeit.png');
+      background-size: cover;
+      -webkit-filter: brightness(50%);
+      -moz-filter: brightness(50%);
+      -o-filter: brightness(50%);
+      filter: brightness(50%);
+      height: 100%;
+      width: 100%;
+    }
+
+    .container {
+      position: relative;
+    }
+
+    .hook {
+      margin-top: 110px;
+      font-size: 65px;
+    }
+
+    .under-hook {
+      margin-top: 75px;
+      font-size: 35px;
+    }
+
+    .hook-action {
+      margin-top: 100px;
+
+      .btn {
+        padding: 10px 35px;
+      }
+    }
+  }
+
+  #trio-actions {
+    i {
+      color: $oa-blue;
+      width: 140px;
+      line-height: 140px;
+      border-radius: 70px;
+      background: darken($oa-white, 10);
+      margin: auto auto 12px;
+    }
+  }
+
+  #fonctions {
+    .media {
+      .media-left {
+        padding-right: 17%;
+      }
+
+      .media-right {
+        padding-left: 17%;
+      }
+    }
+  }
+
+  #carousel {
+    background-color: $oa-black;
+
+    h2 {
+      color: $oa-white;
+      margin-bottom: 40px;
+    }
+
+    #carousel-screens {
+      width: 80%;
+      margin: auto;
+    }
+  }
+
+  #testimonials {
+    h2 {
+      margin-bottom: 40px;
+    }
+
+    blockquote {
+      border-left: none;
+      padding: 0;
+      quotes: "\201C" "\201D" "\2018" "\2019";
+
+      .quote {
+        position: relative;
+        padding: 15px;
+        margin-bottom: 25px;
+        background: lighten($oa-gray, 40);
+        border-radius: 8px;
+
+        &:after {
+          content: '';
+          position: absolute;
+          border-style: solid;
+          border-width: 16px 8px 0;
+          border-color: lighten($oa-gray, 40) transparent;
+          display: block;
+          width: 0;
+          z-index: 1;
+          bottom: -16px;
+          left: 10px;
+        }
+
+        p {
+          &:before {
+            font-family: Georgia, "Times New Roman", Times, serif;
+            content: open-quote;
+            font-weight: bold;
+            font-size: 35px;
+            line-height: 0;
+            color: $oa-blue;
+            vertical-align: -0.1em;
+            padding-right: 8px;
+          }
+
+          &:after {
+            content: close-quote;
+            visibility: hidden;
+            line-height: 0;
+          }
+        }
+      }
+
+      footer {
+        padding: 0;
+      }
+    }
   }
 }
