@@ -17,9 +17,15 @@
       border-radius: 16px;
       background-color: transparent;
       color: $oa-white;
+      border-color: darken($oa-white, 5);
+      -webkit-transition: color, border-color 200ms ease;
+      -moz-transition: color, border-color 200ms ease;
+      -ms-transition: color, border-color 200ms ease;
+      -o-transition: color, border-color 200ms ease;
+      transition: color, border-color 200ms ease;
 
       &:hover, &:focus {
-        color: darken($oa-white, 15);
+        color: darken($oa-white, 10);
         border-color: darken($oa-white, 15);
       }
     }
