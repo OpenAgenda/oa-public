@@ -25,6 +25,7 @@
     "multilingual-input-fields" : "../node_modules/react-form-components/sass/multilingual-input-field.scss",
     "multi-input-field" : "../node_modules/react-form-components/sass/multi-input-field.scss",
     "tag-groups" : "../node_modules/react-form-components/sass/group-tag-selector.scss",
+    "dropdown" : "../node_modules/bs-templates/templates/components/_dropdown.scss",
     "event-references-editor" : "../node_modules/bs-templates/templates/event-form/_references.scss",
     "efEventLocationFormTweaks" : "css/locationForm.scss"
   },
