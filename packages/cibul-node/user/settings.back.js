@@ -33,6 +33,7 @@ module.exports = function ( path ) {
     userSettingsChangeEmail: [ 'get', '/changeEmail', [ cmn.requireLogged(), mw.requestChangeEmail, sendEmail ] ],
     userSettingsChangeEmailConfirmation: [ 'get', '/changeEmail/confirm', mw.confirmChangeEmail ],
     userSettingsChangePassword: [ 'get', '/changePassword', [ cmn.requireLogged(), mw.changePassword ] ],
+    userSettingsGenerateApiKey: [ 'get', '/generateApiKey', [ cmn.requireLogged(), mw.generateApiKey ] ],
     userSettingsDeleteAccount: [ 'post', '/deleteAccount', [ cmn.requireLogged(), mw.deleteAccount ] ],
     userSettingsUploadProfileImage: [ 'post', '/uploadProfileImage', [ cmn.requireLogged(), mw.uploadProfileImage ] ],
     userSettingsRemoveProfileImage: [ 'post', '/removeProfileImage', [ cmn.requireLogged(), mw.removeProfileImage ] ],
@@ -68,6 +69,7 @@ module.exports = function ( path ) {
           updateProfile: '/updateProfile',
           changeEmail: '/changeEmail',
           changePassword: '/changePassword',
+          generateApiKey: '/generateApiKey',
           deleteAccount: '/deleteAccount',
           uploadProfileImageRes: '/uploadProfileImage',
           removeProfileImageRes: '/removeProfileImage'
