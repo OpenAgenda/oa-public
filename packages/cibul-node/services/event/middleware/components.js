@@ -69,7 +69,8 @@ function _references( v ) {
     if ( !eventIds.length ) return d.resolve( v );
 
     v.req.agenda.events.list( {
-      ids: eventIds
+      ids: eventIds,
+      isPublished: null
     }, ( err, events ) => {
 
       if ( err ) return d.reject( err );
