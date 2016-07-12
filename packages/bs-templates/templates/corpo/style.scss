@@ -13,6 +13,7 @@ body {
 
 // Corpo style
 #corpo {
+  @import "header";
   @import "carousel";
   // @import "hero";
   @import "media";
@@ -93,7 +94,7 @@ body {
     &:before {
       content: "";
       position: absolute;
-      background-image: url('//s3.eu-central-1.amazonaws.com/oastatic/placeit.png');
+      background-image: url('//s3.eu-central-1.amazonaws.com/oastatic/placeit.jpg');
       background-size: cover;
       -webkit-filter: brightness(50%);
       -moz-filter: brightness(50%);

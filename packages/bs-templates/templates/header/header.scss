@@ -1,31 +1,13 @@
 .oa-page-header {
 
-  margin-bottom: 0;
+  margin: 0;
+  z-index: 2002;
+  padding-bottom: 0;
 
-  .navbar-header {
-    .logo {
-      width: 185px;
-      height: 32px;
-      background-image: url("//s3.eu-central-1.amazonaws.com/oastatic/openagenda-white-185.png");
-      background-size: cover;
-    }
-  }
-
-  .collapsing, .collapse {
-    transition: height 0.2s;
-  }
-
-  .collapsing {
-    ul li {
-      visibility: hidden;
-    }
-  }
 
   .collapse {
-    &[aria-expanded="false"] {
-      display: none;
-      visibility: hidden;
-    }
+    display: none;
+    visibility: hidden;
 
     &.in {
       display: block;
@@ -33,222 +15,151 @@
     }
 
     &.navbar-collapse {
+
       visibility: visible;
+
     }
+  }
+
+  .navbar-header {
+    padding-left: 10px;
   }
 
   .language-menu {
-    & > a {
+
+    &>a {
       text-transform: uppercase;
     }
+
+    .selected {
+      color: $oa-blue;
+    }
+
   }
 
-  .navbar-nav {
-    .tel a {
-      border-radius: 16px;
-      background-color: transparent;
+  .search-form {
+
+    float: left;
+    margin: 0 0 0 1em;
+
+    .search-input {
+
+      width: 210px;
+
     }
+
   }
 
-  @media (min-width: $screen-md) {
-    background-color: initial;
-    position: absolute;
-    width: 100%;
-    margin: 0;
-    z-index: 2002;
-    padding-bottom: 0;
-    min-height: 75px;
-    border: none;
+  .profile {
 
-    .navbar-nav {
-      .navbar-btn {
-        margin: 23px 15px 24px;
+    &>a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      display: inline-block;
+      cursor: pointer;
+
+      img {
+        width: 30px;
+        max-height: 30px;
       }
 
-      .tel a {
-        color: $oa-white;
-        border-color: darken($oa-white, 5);
-        -webkit-transition: color, border-color 200ms ease;
-        -moz-transition: color, border-color 200ms ease;
-        -ms-transition: color, border-color 200ms ease;
-        -o-transition: color, border-color 200ms ease;
-        transition: color, border-color 200ms ease;
-
-        &:hover, &:focus {
-          color: darken($oa-white, 10);
-          border-color: darken($oa-white, 15);
-        }
-      }
-
-      > li > a {
-        padding: 30px 15px;
-        color: $oa-white;
-
-        &:hover, &:focus {
-          color: darken($oa-white, 15);
-        }
-      }
-
-      > li.signup > a {
-        color: $oa-blue;
-        font-weight: bold;
-        -webkit-transition: color 200ms ease;
-        -moz-transition: color 200ms ease;
-        -ms-transition: color 200ms ease;
-        -o-transition: color 200ms ease;
-        transition: color 200ms ease;
-
-        &:hover {
-          color: lighten($oa-blue, 10);
-        }
-      }
     }
 
-    .navbar-brand {
-      padding: 22px 15px;
-      height: 80px;
-    }
+    .dropdown-menu {
 
-    .navbar-header {
-      padding-left: 10px;
-    }
+      min-width: 400px;
+      margin: 0;
+      padding: 0;
 
-    .language-menu {
-      &.open > a, &.open > a:hover, &.open > a:focus {
-        background-color: transparent;
-        color: darken($oa-white, 15);
-      }
+      .row {
 
-      & > ul.dropdown-menu {
-        top: 21px;
-        right: 0;
-        text-align: right;
-        min-width: 0;
-      }
+        li {
 
-      .selected {
-        background-color: #eee;
-      }
-    }
+          padding: 0 10px;
 
-    .search-form {
-      float: left;
-      margin: 0 0 0 1em;
+          img {
+            width: 24px;
+          }
 
-      .search-input {
-        width: 210px;
-      }
-    }
+          a {
+            color: #333;
+            padding: 10px 0;
+            display: block;
+          }
 
-    .profile {
-      & > a {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        display: inline-block;
-        cursor: pointer;
+          &:hover {
 
-        img {
-          width: 30px;
-          max-height: 30px;
-        }
-
-      }
-
-      .dropdown-menu {
-        min-width: 400px;
-        margin: 0;
-        padding: 0;
-
-        .row {
-          li {
-            padding: 0 10px;
-
-            img {
-              width: 24px;
-            }
+            background: #f5f5f5;
 
             a {
-              color: #333;
-              padding: 10px 0;
-              display: block;
+
+              text-decoration: none;
+
             }
 
-            &:hover {
-              background: #f5f5f5;
-
-              a {
-                text-decoration: none;
-              }
-            }
           }
+
         }
+
       }
+
     }
+
+
   }
+
 
   /**
    * mobile menu adjustments - hack over bootstrap, isolated from the rest.
    */
 
-  @media (max-width: $screen-md) {
+  @media (max-width: 768px) {
 
     padding-left: 15px;
     padding-right: 15px;
 
-    .navbar-header {
-      .logo {
-        background-image: url("//s3.eu-central-1.amazonaws.com/oastatic/openagenda-185.png");
-      }
+    .navbar-nav>li, .navbar-nav {
+      float: left !important;
     }
 
-    .navbar-nav {
-      .navbar-btn {
-        margin-left: 15px;
-      }
-
-      /*& > li, & .navbar-nav {
-        float: left !important;
-      }*/
-
-    }
-
-    /*.navbar-right {
+    .navbar-right {
       float: right !important;
-    }*/
+    }
 
-    /*.dropdown-menu {
+    .navbar-collapse {
+
+      padding: 0;
+
+    }
+
+    .dropdown-menu {
+
       display: block;
       position: relative;
       visibility: visible;
       width: 100%;
       border: none;
       box-shadow: none;
-    }*/
 
-    /*.language-menu {
+    }
+
+    .language-menu {
+
       display: block;
-      float: none !important;
-      padding: 0;
+      float: none!important;
 
-      & > a {
+      &>a {
         display: none;
       }
 
       .dropdown-menu li {
         display: inline-block;
-        padding: 10px 15px;
-
-        a {
-          padding: 0;
-
-          &:not(.selected) {
-            color: $oa-blue;
-          }
-        }
       }
-    }*/
+
+    }
 
     .search-form {
+
       float: none;
       margin: 0;
 
@@ -261,14 +172,17 @@
       .search-button {
         border: 0;
       }
+
     }
 
     .profile {
-      & > a {
+
+      &>a {
         display: none;
       }
 
-      /*.dropdown-menu {
+      .dropdown-menu {
+
         display: block;
         position: relative;
         visibility: visible;
@@ -276,7 +190,16 @@
         .row {
           margin: 0;
         }
-      }*/
+
+      }
+
     }
+
+    .signin {
+      float: left;
+      padding-left: 5px;
+    }
+
   }
+
 }
