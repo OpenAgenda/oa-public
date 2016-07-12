@@ -62,6 +62,12 @@ routes = {
     eventMailSend
   ] ],
 
+  agendaEventIcsShow: [ 'get', '/:slug/events/:eventSlug/ics', [
+    agendaSvc.mw.load( 'slug' ),
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    eventSvc.mw.ics
+  ] ],
+
   eventMailSend: [ 'post', '/events/:eventSlug/email', [
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.format,
@@ -140,9 +146,9 @@ function actionShow( req, res ) {
 
 function actionDatesShow( req, res ) {
 
-  var service = [ 'google', 'yahoo', 'live' ].indexOf( req.query.service ) !== -1 ? req.query.service : 'google';
+  var service = [ 'google', 'yahoo', 'live', 'ics' ].indexOf( req.query.service ) !== -1 ? req.query.service : 'google';
 
-  eventSvc.share.addCalendarLinks( req.event, req.genUrl( req.eventUri, req.eventUriParams, { abs: true } ) );
+  eventSvc.share.addCalendarLinks( req.event, req.genUrl( req.eventUri, req.eventUriParams, { abs: true } ), req.agenda );
 
   return cmn.render( req, res, 'event/actionDates', {
     event: {
@@ -245,20 +251,31 @@ function _calendarAction( req, res, next ) {
 
   var timings = req.event.getTimings(),
 
-  multipleTimings = timings.length > 1;
+  multipleTimings = timings.length > 1,
 
-  eventSvc.share.addCalendarLinks( req.event, req.genUrl( req.eventUri, req.eventUriParams, { abs: true } ) );
+  datesUri = req.agenda ? 'agendaEventActionDatesShow' : 'eventActionDatesShow';
 
-  req.templateData.event.imports = timings.length ? [{ 
+  if ( req.agenda ) {
+
+    req.eventUriParams.slug = req.agenda.slug;
+
+  }
+
+  eventSvc.share.addCalendarLinks( req.event, req.genUrl( req.eventUri, req.eventUriParams, { abs: true } ), req.agenda );
+
+  req.templateData.event.imports = timings.length ? [ { 
     label: 'Google Calendar',
-    uri: multipleTimings ? req.genUrl( 'eventActionDatesShow', [ req.eventUriParams, { service: 'google' } ] ) : timings[ 0 ].calendarLinks.google,
-  },{ 
+    uri: multipleTimings ? req.genUrl( datesUri, [ req.eventUriParams, { service: 'google' } ] ) : timings[ 0 ].calendarLinks.google,
+  }, { 
     label: 'Yahoo! Calendar',
-    uri: multipleTimings ? req.genUrl( 'eventActionDatesShow', [ req.eventUriParams, { service: 'yahoo' } ] ) : timings[ 0 ].calendarLinks.yahoo,
-  },{ 
+    uri: multipleTimings ? req.genUrl( datesUri, [ req.eventUriParams, { service: 'yahoo' } ] ) : timings[ 0 ].calendarLinks.yahoo,
+  }, { 
     label: 'Windows Live',
-    uri: multipleTimings ? req.genUrl( 'eventActionDatesShow', [ req.eventUriParams, { service: 'live' } ] ) : timings[ 0 ].calendarLinks.live
-  }] : [];
+    uri: multipleTimings ? req.genUrl( datesUri, [ req.eventUriParams, { service: 'live' } ] ) : timings[ 0 ].calendarLinks.live
+  }, {
+    label: 'ICS',
+    uri: multipleTimings ? req.genUrl( datesUri, [ req.eventUriParams, { service: 'ics' } ] ) : timings[ 0 ].calendarLinks.ics
+  } ] : [];
 
   req.templateData.event.multipleTimings = multipleTimings;
 

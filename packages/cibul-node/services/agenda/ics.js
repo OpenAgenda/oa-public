@@ -1,18 +1,12 @@
 "use strict";
 
-var esc = require( 'utils' ).escape,
-
-eventSvc = require( '../event' ),
-
-genUrl = require( '../genUrl' ),
-
-utils = require( 'utils' ),
-
-i18n = require( '../../i18n/i18n' ),
+var eventSvc = require( '../event' ),
 
 limit = 600000;
 
-module.exports = function( req, res, next ) {
+module.exports = streamIcsEvents;
+
+function streamIcsEvents( req, res, next ) {
 
   var stream = req.agenda.searchStream( req.query.oaq ),
 
@@ -30,7 +24,7 @@ module.exports = function( req, res, next ) {
 
     if ( !renderedHeader )  {
 
-      chunk += _renderHead( req.agenda, req.lang );
+      chunk += eventSvc.getIcsHead( req.agenda, req.lang );
 
       renderedHeader = true;
 
@@ -72,105 +66,6 @@ function _end( stream, res ) {
 
 function _renderEvent( agenda, eData, lang, query ) {
 
-  var ev = eventSvc.instanciate( eData ),
-
-  l = ev.getLocationDetails(),
-
-  repeated, icaled = [],
-
-  today = new Date(),
-
-  url = genUrl( 'agendaEventShow', { 
-    slug: agenda.slug,
-    eventSlug: ev.slug
-  }, { protocol: 'https://' } ),
-
-  truncatedDescription = _esc( utils.truncate( ev.getFreeText(), 30, '...' ) ),
-
-  timings = ev.getTimings();
-
-  ev.switchLanguage( lang );
-
-  repeated = [
-    'DTSTAMP:' + _date(),
-    'SUMMARY:' + _esc( ev.getDescription() ),
-    'DESCRIPTION:' + truncatedDescription + ' ' + i18n( 'see more', lang ) + ': ' + url,
-    'STATUS:CONFIRMED',
-    'LOCATION:' + l.name + '\\r\\n' + l.address,
-    'GEO:' + l.latitude + ';' + l.longitude,
-    'URL:' + url,
-    'LAST-MODIFIED:' + _date( ev.updatedAt )
-  ];
-
-  today = today.getFullYear() + '-' + utils.fZ( today.getMonth() + 1 ) + '-' + utils.fZ( today.getDate() );
-
-  timings.filter( t => timings.length <= 10 || t.start.split( 'T' )[ 0 ] >= today ).forEach( t => {
-
-    icaled = icaled.concat( [
-      'BEGIN:VEVENT',
-      'UID:' + agenda.uid + '//' + ev.uid + '//' + t.start.split( '.' )[ 0 ].replace( 'T', '//' ),
-      'DTSTART:' + _date( t.start ),
-      'DTEND:' + _date( t.end )
-    ], repeated, [
-      'END:VEVENT'
-    ] );
-
-  } );
-
-  return icaled.join( '\r\n' );
-
-}
-
-function _renderHead( agenda, lang ) {
-
-  return [ 
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//' + esc( agenda.title )  + '//agenda::' + lang,
-    'METHOD:PUBLISH',
-    'X-WR-CALNAME:' + esc( agenda.title ),
-    'X-WR-CALDESC:' + esc( agenda.description ),
-    'X-WR-RELCALID:' + agenda.uid
-  ].join( '\r\n' );
-
-}
-
-
-/**
- * format date in ics friendly format
- */
-
-function _date( d ) {
-
-  if ( typeof d === 'object' ) {
-
-    d = JSON.stringify( d );
-
-  } else if ( !d ) {
-
-    d = JSON.stringify( new Date() );
-
-  }
-
-  return d.split( '.' )[ 0 ].replace( /"|\-|\:/g, '' );
-
-}
-
-
-/**
- * escape for ical content
- */
-
-function _esc( txt ) {
-
-  return txt
-
-  .replace( /\r/g, ' ' )
-
-  .replace( /\n/g, '\\r\\n' )
-
-  .replace( /,/g, '\\,' )
-
-  .replace( /;/g, '\\;' );
+  return eventSvc.instanciate( eData ).getIcs( agenda, lang );
 
 }

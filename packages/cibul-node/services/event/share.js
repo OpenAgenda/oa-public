@@ -54,7 +54,7 @@ function getSocialLinks( event, eventUrl, siteUrl ) {
   
 }
 
-function addCalendarLinks( event, eventUrl ) {
+function addCalendarLinks( event, eventUrl, agenda ) {
 
   if ( !event.locations || !event.locations.length ) {
 
@@ -62,13 +62,24 @@ function addCalendarLinks( event, eventUrl ) {
 
   }
 
-  event.locations[ 0 ].timings.forEach( function( timing ) {
+  event.locations[ 0 ].timings.forEach( ( timing, i ) => {
 
     timing.calendarLinks = {
       google: _googleLink( event, timing, eventUrl ),
       yahoo: _yahooLink( event, timing, eventUrl ),
       live: _liveLink( event, timing, eventUrl )
     };
+
+    if ( agenda ) {
+
+      timing.calendarLinks.ics = genUrl( 'agendaEventIcsShow', {
+        slug: agenda.slug,
+        eventSlug: event.slug,
+        timing: i,
+        dl: 1
+      } );
+
+    }
 
   });
 
@@ -112,7 +123,7 @@ function _liveLink( event, timing, eventUrl ) {
     '&dtstart=', _linkifyTime( timing.start ),
     '&dtend=', _linkifyTime( timing.end ),
     '&description=', encodeURIComponent( event.getDescription() + ' - ' + eventUrl )
-  ].join('');
+  ].join( '' );
 
 }
 

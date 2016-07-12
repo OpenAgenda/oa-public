@@ -26,7 +26,7 @@ routes = {
     _formatAgendaLinks( 'agendaShow', [ 'slug' ] ),
     agendaSvc.mw.decorateEvent( false ),
     _formatSocialLinks,
-    cmn.loadBaseData( eventSvc.mw.layoutData, 'oa.css' ),
+    cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
     _appendEventTransferCredential,
     agendaEventShow
   ] ],
@@ -93,7 +93,7 @@ routes = {
     eventSvc.mw.format,
     eventSvc.mw.components,
     _formatSocialLinks,
-    cmn.loadBaseData( eventSvc.mw.layoutData, 'oa.css' ),
+    cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
     show
   ] ]
 

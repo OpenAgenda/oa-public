@@ -54,7 +54,8 @@ config = {
       stakeholder: 'reviewer',
       stakeholderSettings: 'stakeholder_settings',
       user: 'user',
-      apiKeySet: 'api_key_set'
+      apiKeySet: 'api_key_set',
+      eventReferences: 'agenda_event_reference'
     },
     auth: {
       local: {

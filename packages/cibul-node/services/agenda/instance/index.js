@@ -12,6 +12,8 @@ sources = require( './sources' ),
 
 async = require( 'async' ),
 
+log = require( 'logger' )( 'agenda service instance' ),
+
 cache = require( '../../cache' ),
 
 flattener = require( './flattener' ),
@@ -47,7 +49,8 @@ function instanciate( data ) {
     setModerator: _stakeholderSetter( 'setModerator' ),
     setAdministrator: _stakeholderSetter( 'setAdministrator' ),
     events: {
-      new: newEvent
+      new: newEvent,
+      list: instance.events.list
     },
     refresh: refresh
   }),

@@ -1,0 +1,152 @@
+"use strict";
+
+const genUrl = require( '../../genUrl' ),
+
+i18n = require( '../../../i18n/i18n' ),
+
+utils = require( 'utils' ),
+
+moment = require( 'moment' ),
+
+esc = utils.escape;
+
+module.exports = function( agenda, eData /* event data */, ev /* event instance */, lang, timingIndex ) {
+
+  let l = ev.getLocationDetails(),
+
+  repeated, icaled = [],
+
+  today = new Date(),
+
+  url = genUrl( 'agendaEventShow', { 
+    slug: agenda.slug,
+    eventSlug: ev.slug
+  }, { protocol: 'https://' } ),
+
+  truncatedDescription = _esc( utils.truncate( ev.getFreeText(), 30, '...' ) ),
+
+  timings = ev.getTimings();
+
+  if ( timingIndex === undefined ) {
+
+    timingIndex = -1;
+
+  } else {
+
+    try {
+
+      timingIndex = parseInt( timingIndex );
+
+    } catch( e ) { 
+
+      timingIndex = -1;
+
+    }
+
+  }
+
+  ev.switchLanguage( lang );
+
+  repeated = [
+    'DTSTAMP:' + _date(),
+    'TZID:' + l.timezone.replace( '/', '-' ) ,
+    'SUMMARY:' + _esc( ev.getDescription() ),
+    'DESCRIPTION:' + truncatedDescription + ' ' + i18n( 'see more', lang ) + ': ' + url,
+    'STATUS:CONFIRMED',
+    'LOCATION:' + l.name + '\\r\\n' + l.address,
+    'GEO:' + l.latitude + ';' + l.longitude,
+    'URL:' + url,
+    'LAST-MODIFIED:' + _date( ev.updatedAt )
+  ];
+
+  today = today.getFullYear() + '-' + utils.fZ( today.getMonth() + 1 ) + '-' + utils.fZ( today.getDate() );
+
+  timings
+
+  // limit timings if is passed and more than ten
+  .filter( ( t, i ) => {
+
+    if ( timingIndex !== -1 ) {
+
+      return timingIndex === i;
+
+    }
+
+    return i <= 10 || t.start.split( 'T' )[ 0 ] >= today;
+
+  } )
+
+  .forEach( t => {
+
+    icaled = icaled.concat( [
+      'BEGIN:VEVENT',
+      'UID:' + agenda.uid + '//' + ev.uid + '//' + _date( t.start, 'YYYY-MM-DD//HH:mm:00' ),
+      'DTSTART:' + _date( t.start ),
+      'DTEND:' + _date( t.end ),
+    ], repeated, [
+      'ORGANIZER:OA',
+      'END:VEVENT'
+    ] );
+
+  } );
+
+  return icaled.join( '\r\n' );
+
+}
+
+
+module.exports.head = function( agenda, lang ) {
+
+  return [ 
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//' + esc( agenda.title )  + '//agenda::' + lang,
+    'METHOD:PUBLISH',
+    'X-WR-CALNAME:' + esc( agenda.title ),
+    'X-WR-CALDESC:' + esc( agenda.description ),
+    'X-WR-RELCALID:' + agenda.uid,
+  ].join( '\r\n' );
+
+}
+
+
+/**
+ * format date in ics friendly format
+ */
+
+function _date( d, format ) {
+
+  if ( !format ) format = 'YYYYMMDDTHHmm00';
+
+  if ( typeof d === 'object' ) {
+
+    d = JSON.stringify( d );
+
+  } else if ( !d ) {
+
+    d = JSON.stringify( new Date() );
+
+  }
+
+  return moment( d.replace( /\"/g, '' ) ).utc().format( format ) + 'Z';
+
+}
+
+
+/**
+ * escape for ical content
+ */
+
+function _esc( txt ) {
+
+  return txt
+
+  .replace( /\r/g, ' ' )
+
+  .replace( /\n/g, '\\r\\n' )
+
+  .replace( /,/g, '\\,' )
+
+  .replace( /;/g, '\\;' );
+
+}

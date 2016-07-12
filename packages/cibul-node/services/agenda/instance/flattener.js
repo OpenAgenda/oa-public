@@ -374,6 +374,13 @@ function _extendMapping( agenda, includePrivateData ) {
 
   });
 
+  // add references if set by agenda form config
+  if ( agenda.getEventFieldConfig( 'references' ).display ) {
+
+    amendment.push( 'references' );
+
+  }
+
   return amendment;
 
 }

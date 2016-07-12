@@ -26,7 +26,8 @@ module.exports = function( eventService ) {
     cleanEvents: cleanEvents,
     search: search,
     checkEventEditor: checkEventEditor,
-    layoutData: layoutData
+    layoutData: layoutData,
+    ics: ics
   }
 
 }
@@ -175,6 +176,23 @@ function checkEventEditor( req, res, next ) {
     next();
 
   } );
+
+}
+
+
+function ics( req, res, next ) {
+
+  res.set( 'Content-Type', 'application/json; charset=utf-8' );
+
+  if ( req.query.dl ) {
+
+    res.set( 'Content-disposition', 'attachment; filename=' + req.event.slug + '.ics' );
+
+  }
+
+  res.write( req.event.getIcs( req.agenda, req.lang, true, req.query.timing ) );
+
+  res.end();
 
 }
 

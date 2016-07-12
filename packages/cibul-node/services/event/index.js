@@ -19,7 +19,8 @@ module.exports = {
   share: require( './share' ),
   list: model.events().list,
   instanciate: require( './instance' ),
-  STATETYPES: model.events().STATETYPES
+  STATETYPES: model.events().STATETYPES,
+  getIcsHead: require( './instance/ics' ).head
 }
 
 module.exports.mw = require( './middleware' )( module.exports );
@@ -37,7 +38,7 @@ function get( params, cb ) {
 
     cb( null, result ? module.exports.instanciate( result ) : null );
 
-  });
+  } );
 
 }
 

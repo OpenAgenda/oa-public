@@ -4,6 +4,8 @@ var model = require( '../../model' ),
 
 state = require( './state' ),
 
+ics = require( './ics' ),
+
 custom = require( './custom' ),
 
 dispatcher = require( './dispatcher' ),
@@ -44,7 +46,8 @@ function instanciate( data ) {
     remove: remove,
     transferOwnership: transferOwnership,
     refresh: refresh,
-    getRange: getRange
+    getRange: getRange,
+    getIcs
   }),
 
   dsp = dispatcher( svcInstance, instance );
@@ -134,7 +137,6 @@ function instanciate( data ) {
 
   }
 
-
   function refresh( cb ) {
 
     if ( onRefresh ) onRefresh( parseInt( instance.id ) );
@@ -151,6 +153,17 @@ function instanciate( data ) {
 
     } );
     
+  }
+
+
+  function getIcs( agenda, lang, decorate, timingIndex ) {
+
+    if ( timingIndex === undefined ) timingIndex = -1;
+
+    return ( decorate ? ics.head( agenda ) + '\n' : '' )
+    + ics( agenda, data, instance, lang, timingIndex )
+    + ( decorate ? '\nEND:VCALENDAR' : '' );
+
   }
 
 

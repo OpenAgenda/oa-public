@@ -112,6 +112,10 @@ module.exports = function ( enabledTypes, cb ) {
 
     } );
 
+    init.agendaEventReferences( {
+      logger: logger
+    } );
+
     require( 'images' ).init( {
       tmpPath: config.tmpFolderPath,
       logger: logger

@@ -8,6 +8,8 @@ eventSvc = require( '../services/event' ),
 
 agendaSvc = require( '../services/agenda' ),
 
+eventReferences = require( 'agenda-event-references' ),
+
 STATETYPES = require( '../services/model' ).events().STATETYPES,
 
 contributorLabels = require( 'labels/event/contributors' ),
@@ -49,6 +51,30 @@ routes = {
     eventSvc.mw.load( 'eventUid', 'uid' ),
     cmn.checkAdminOrModerator,
     getPrivateEventData
+  ] ],
+
+  agendaEventReferences: [ 'get', '/agendas/:uid/events/:eventUid/references', [
+    agendaSvc.mw.load( 'uid' ),
+    eventSvc.mw.load( 'eventUid', 'uid' ),
+    _loadAdminOrModerator,
+    eventSvc.mw.components.getReferences,
+    ( req, res, next ) => {
+
+      res.json( {
+        references: req.referencesRender
+      } );
+
+    }
+  ] ],
+
+  // this name does not imply reference search
+  agendaEventReferenceSearch: [ 'get', '/agendas/:uid/events', [
+    cmn.requireLogged(),
+    agendaSvc.mw.load( 'uid' ),
+    ( req, res, next ) => { req.agendaId = req.agenda.id; next(); },
+    _loadAdminOrModerator,
+    eventReferences.mw.events,
+    ( req, res ) => { res.json( req.events ); }
   ] ]
 
 };
@@ -288,5 +314,16 @@ function _checkAuthorizedChanges( authorizedTypes ) {
     next();
 
   }
+
+}
+
+function _loadAdminOrModerator( req, res, next ) {
+
+  // load req.access without throwing error
+  cmn.checkAdminOrModerator( req, res, err => {
+
+    next();
+
+  } );
 
 }

@@ -341,6 +341,14 @@ function cleanJson( req, res, next ) {
 
     }
 
+    if ( f.references ) {
+
+      f.linkedEvents = f.references;
+
+      delete f.references;
+
+    }
+
   });
 
   next();
@@ -530,7 +538,11 @@ function buildCsv( includePrivateData ) {
         escape: '"'
       } ),
 
-      defaultRow = {}, processing = 0, end;
+      defaultRow = {},
+
+      processing = 0,
+
+      end;
 
       // csv must have all column filled with empty values
       f.getFieldNames().forEach( n => {

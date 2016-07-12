@@ -1,5 +1,6 @@
 "use strict";
 
 module.exports = {
-  agendaLocations: require( './agendaLocations' )
+  agendaLocations: require( './agendaLocations' ),
+  agendaEventReferences: require( './agendaEventReferences' )
 }

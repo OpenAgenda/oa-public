@@ -26,6 +26,8 @@ esSvc = require( '../services/elasticsearch' ),
 
 loadDetailedLocation = require( '../services/elasticsearch/lib/loadDetailedLocation' ),
 
+loadEventReferences = require( '../services/elasticsearch/lib/loadEventReferences' ),
+
 running = false,
 
 _onStart,
@@ -295,7 +297,17 @@ function _publish( schema ) {
 
         }
 
-        _doPublish( schema, obj, cb );
+        loadEventReferences( obj, err => {
+
+          if ( err ) {
+
+            log( 'error', 'could not load reference data in event %s', obj.id );
+
+          }          
+
+          _doPublish( schema, obj, cb );
+
+        } );
 
       } );
 
@@ -354,7 +366,17 @@ function _update( schema ) {
 
           }
 
-          _updateES( obj, cb );
+          loadEventReferences( obj, err => {
+
+            if ( err ) {
+
+              log( 'error', 'could not load reference data in event %s', obj.id );
+
+            }
+
+            _updateES( obj, cb );
+
+          } );
 
         } );
 

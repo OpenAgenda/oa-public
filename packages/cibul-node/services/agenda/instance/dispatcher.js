@@ -6,9 +6,13 @@ controlData,
 
 logger = require( 'logger' ),
 
+async = require( 'async' ),
+
 coms = require( '../../../lib/coms' ),
 
-config = require( '../../../config' );
+config = require( '../../../config' ),
+
+clearReferences = require( '../../event/clearReferences' );
 
 module.exports = function( loaded, instance ) {
 
@@ -56,6 +60,8 @@ module.exports = function( loaded, instance ) {
     } );
 
     controlData.queue( instance );
+
+    clearReferences( instance.id, eventId );
 
   }
 

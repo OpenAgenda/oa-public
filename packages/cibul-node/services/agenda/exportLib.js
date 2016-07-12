@@ -62,6 +62,8 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
   .then( _addCustomFields )
 
+  .then( _addReferences )
+
   .then( _addContributorInfo )
 
   .then( _addCategory )
@@ -190,6 +192,27 @@ function _addCategory( v ) {
   } );
 
   return d.promise;
+
+}
+
+
+function _addReferences( v ) {
+
+  v.decorated.references = [];
+
+  let referenceSet = v.event.articles
+
+  .filter( a => a.review.id===v.agenda.id )
+
+  .map( a => a.references );
+
+  if ( referenceSet.length ) {
+
+    v.decorated.references = referenceSet[ 0 ];
+
+  }
+
+  return v;
 
 }
 

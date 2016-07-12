@@ -8,6 +8,8 @@ eventSvc = require( '../services/event' ),
 
 userSvc = require( '../services/user' ),
 
+referencesSvc = require( 'agenda-event-references' ),
+
 cmn = require( '../lib/commons-app' ),
 
 log = require( 'logger' )( 'legacy' ),
@@ -20,6 +22,7 @@ mailer = require( 'mailer' ),
 
 routes = {
 
+
   /**
    * provide to sf the html of the head section of an agenda
    */
@@ -28,12 +31,24 @@ routes = {
     head
   ] ],
 
+
   /**
    * process a save for a custom image
    */
   customImageSave: [ 'get', '/:slug/events/:eventUid/custom/:field/user/:userUid', [
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+    _loadEventByUid,
     customImageSave
+  ] ],
+
+
+  /**
+   * process a save for event references
+   */
+  eventReferencesSave: [ 'get', '/:slug/events/:eventUid/references', [
+    agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+    _loadEventByUid,
+    referencesSave
   ] ],
 
 
@@ -89,51 +104,79 @@ function head( req, res, next ) {
 
 }
 
+function _loadEventByUid( req, res, next ) {
 
-function customImageSave( req, res, next ) {
+  eventSvc.get( { uid: req.params.eventUid }, ( err, event ) => {
 
-  req.log( 'received request to save custom image' );
+    if ( err ) return next( err );
 
-  eventSvc.get( { uid: req.params.eventUid }, function( err, event ) {
+    if ( !event ) return next( 'no event found' );
 
-    if ( err || !event ) {
+    req.event = event;
 
-      req.log( 'error', err || 'no event found for ' + req.params.eventUid );
+    next();
 
-      return next( err || 'no event found' );
+  } );
 
-    }
+}
 
-    userSvc.get( { uid: req.params.userUid }, function( err, user ) {
 
-      if ( err || !user ) {
+function referencesSave( req, res, next ) {
 
-        req.log( 'error', err || 'no user found for ' + req.params.userUid );
+  req.log( 'received request to save references' );
 
-        return next( err || 'no user found' );
+  req.agenda.search( { uids: req.query.uids }, { showAll: true }, ( err, result ) => {
 
-      }
+    if ( err ) return next( err );
 
-      event.loadAgendaCustomContext( {
-        uid: req.agenda.uid,
-        customFields: req.agenda.getCustomFieldsConfig()
-      });
+    req.log( 'events added as reference: %s', result.events.map( e => e.slug + ':' + e.id ).join( ',' ) );
 
-      event.saveCustomImage( {
-        name: req.params.field,
-        userUid: user.uid
-      }, ( err, destUrl ) => {
+    let refIds = result.events.map( e => parseInt( e.id.split( '@' )[ 0 ] ) );
 
-        req.log( destUrl );
+    referencesSvc( req.agenda.id ).set( req.event.id, refIds, err => {
 
-        res.send( destUrl );
+      req.log( 'references for event %s set: %s', req.event.id, refIds.join( ', ' ) );
 
-      } );
+      res.send( 'ok' );
 
     } );
 
   } );
 
+}
+
+
+function customImageSave( req, res, next ) {
+
+  req.log( 'received request to save custom image' );
+
+  userSvc.get( { uid: req.params.userUid }, ( err, user ) => {
+
+    if ( err || !user ) {
+
+      req.log( 'error', err || 'no user found for ' + req.params.userUid );
+
+      return next( err || 'no user found' );
+
+    }
+
+    event.loadAgendaCustomContext( {
+      uid: req.agenda.uid,
+      customFields: req.agenda.getCustomFieldsConfig()
+    });
+
+    event.saveCustomImage( {
+      name: req.params.field,
+      userUid: user.uid
+    }, ( err, destUrl ) => {
+
+      req.log( destUrl );
+
+      res.send( destUrl );
+
+    } );
+
+  } );
 
 }
 

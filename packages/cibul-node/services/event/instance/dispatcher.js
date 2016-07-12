@@ -27,9 +27,9 @@ module.exports = function( loaded, instance ) {
   log.load( 'eventId', instance.id );
 
   return {
-    stateChange: stateChange,
-    onSave: onSave,
-    onRemove: onRemove
+    stateChange,
+    onSave,
+    onRemove
   }
 
 
