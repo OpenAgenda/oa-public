@@ -123,9 +123,9 @@ function _loadEventByUid( req, res, next ) {
 
 function referencesSave( req, res, next ) {
 
-  req.log( 'received request to save references' );
+  req.log( 'received request to save references for uids %s', req.query.uids );
 
-  req.agenda.search( { uids: req.query.uids }, { showAll: true }, ( err, result ) => {
+  req.agenda.search( { uids: req.query.uids || [] }, { showAll: true }, ( err, result ) => {
 
     if ( err ) return next( err );
 
