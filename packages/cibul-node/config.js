@@ -355,8 +355,12 @@ config = {
     //useCache: false,
     db: {
       database: 'oadev',
+      host: 'localhost',
+      user: 'root',
+      /*
       host: 'ec2-54-195-244-5.eu-west-1.compute.amazonaws.com',
       user: 'dev',
+      */
       password: 'grut',
       cache: true
     },
