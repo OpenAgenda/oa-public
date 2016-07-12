@@ -19,6 +19,7 @@
     top: 50%;
     color: $oa-blue;
     opacity: 1;
+    font-size: 7em;
 
     &:active {
       opacity: .85;
@@ -66,5 +67,22 @@
     left: 0;
     height: 100%;
     width: 100%;
+  }
+}
+
+
+@media(max-width: $screen-md) {
+  .carousel-control {
+    .fa {
+      font-size: 3em;
+    }
+
+    &.right i {
+      right: -25%;
+    }
+
+    &.left i {
+      left: -25%;
+    }
   }
 }

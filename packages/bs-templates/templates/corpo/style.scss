@@ -20,9 +20,6 @@ body {
   @import "typed";
   @import "odometer-theme";
 
-  @media(max-width: $screen-md) {
-  }
-
   .spaced {
     padding-bottom: 4em;
     padding-top: 4em;
@@ -63,10 +60,6 @@ body {
     margin-bottom: 0px;
     border: 0;
     border-top: 2px solid #eeeeee;
-  }
-
-  .fa-7x {
-    font-size: 7em;
   }
 
   small {
@@ -146,12 +139,12 @@ body {
 
   #fonctions {
     .media {
-      .media-left {
-        padding-right: 17%;
+      .media-left img {
+        margin-right: 20em;
       }
 
-      .media-right {
-        padding-left: 17%;
+      .media-right img {
+        margin-left: 20em;
       }
     }
   }
@@ -223,6 +216,43 @@ body {
       footer {
         padding: 0;
       }
+    }
+  }
+
+  @media(max-width: $screen-md) {
+    #presentation {
+      .hook {
+        margin-top: 20px;
+        font-size: 55px;
+      }
+    }
+
+    #fonctions {
+      .media {
+        .media-right img, .media-left img {
+          max-width: 70%;
+        }
+
+        .media-right img {
+          margin-left: 0;
+          margin-top: 2.5em;
+        }
+
+        .media-left img {
+          margin-right: 0;
+          margin-bottom: 2.5em;
+        }
+      }
+    }
+
+    #carousel {
+      #carousel-screens {
+        width: 100%;
+      }
+    }
+
+    .pricing > ul {
+      display: block;
     }
   }
 }
