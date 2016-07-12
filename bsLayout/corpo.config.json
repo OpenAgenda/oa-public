@@ -1,16 +1,21 @@
 {
   "bsCss": {
+    "main": "../node_modules/bs-templates/compiled/main.css"
   },
   "base": {
     "bottom": {
       "scriptSources": [
         "//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js",
-        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/collapse.js",
         "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/transition.js",
-        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/dropdown.js"
+        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/collapse.js",
+        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/dropdown.js",
+        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/carousel.js",
+        "//s3.eu-central-1.amazonaws.com/oastatic/typed.min.js",
+        "//s3.eu-central-1.amazonaws.com/oastatic/odometer.min.js"
       ],
       "scripts": [
-        "jQuery(function(t){t('a[href*=\"#\"]:not([href=\"#\"])').click(function(){if(location.pathname.replace(/^\\//,\"\")==this.pathname.replace(/^\\//,\"\")&&location.hostname==this.hostname){var a=t(this.hash);if(a=a.length?a:t(\"[name=\"+this.hash.slice(1)+\"]\"),a.length)return t(\"html,body\").animate({scrollTop:a.offset().top},350),!1}});var a=window.location.hash;if(a){var e=t(a);if(e.length)return t(\"html,body\").animate({scrollTop:e.offset().top},350),!1}});"
+        "jQuery( function ( $ ) { $( 'a[href*=\"#\"]:not([href=\"#\"]):not([href=\"#carousel-screens\"])' ).click( function() { if ( location.pathname.replace( /^\\//, '' ) == this.pathname.replace( /^\\//,'') && location.hostname == this.hostname ) { var target = $( this.hash ); target = target.length ? target : $('[name=' + this.hash.slice(1) +']'); if ( target.length ) { $( 'html,body' ).animate( { scrollTop: target.offset().top }, 350 ); return false; } } }); var hashOnLoad = window.location.hash; if( hashOnLoad ) { var target = $( hashOnLoad ); if ( target.length ) { $( 'html,body' ).animate( { scrollTop: target.offset().top }, 350 ); return false; } } } );",
+        "$(function(){$('.typed').typed({strings: ['festival', 'salon', 'fédération', 'théâtre', 'ville', 'association', 'université', 'entreprise', 'palais des congrès', 'fablab', 'tiers-lieu', 'caserne', 'diocèse', 'hôpital'],typeSpeed: 40, startDelay: 1000, backDelay: 2000, loop: true });});"
       ]
     },
     "pageClass": false,
@@ -25,8 +30,8 @@
     },
     "lang": "fr",
     "langLabels": {
-      "fr": "français",
-      "en": "english"
+      "fr": "Français",
+      "en": "English"
     }
   }
 }

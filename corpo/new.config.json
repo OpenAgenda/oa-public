@@ -1,16 +1,16 @@
 {
   "layout": "bsLayout/corpo",
-  "bsCss": {
-    "main": "/node_modules/bs-templates/compiled/main.css"
-  },
+  "bsCss": {},
   "helpers": {
     "_i": "image"
   },
   "base": {
-    "stats": {
-      "agendas": 4000,
-      "contributors": 12000,
-      "events": 90000
+    "scriptParams" : {
+      "stats": {
+        "agendas": 4000,
+        "contributors": 12000,
+        "events": 90000
+      }
     },
     "pageClass": "ct",
     "pageId": "corpo",
@@ -66,5 +66,6 @@
         "href": "https://idee.paris.fr/agenda"
       }
     ]
-  }
+  },
+  "js": true
 }
