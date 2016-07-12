@@ -99,10 +99,12 @@ function newCorpo() {
         .then( ( [ agendas, contributors, events ] ) => {
 
           cmn.render( req, res, 'corpo/new', {
-            stats: {
-              agendas,
-              contributors,
-              events
+            scriptParams : {
+              stats: {
+                agendas,
+                contributors,
+                events
+              }
             }
           } );
 
