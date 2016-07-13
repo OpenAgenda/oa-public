@@ -22,7 +22,6 @@ mailer = require( 'mailer' ),
 
 routes = {
 
-
   /**
    * provide to sf the html of the head section of an agenda
    */
