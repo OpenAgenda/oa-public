@@ -203,11 +203,16 @@ function _extractKeywords( e ) {
 
   let keywords = {};
 
-  Object.keys( e.tags ).forEach( l => {
+  try {
 
-    keywords[ l ] = e.tags[ l ] ? e.tags[ l ].split( ',' ).map( k => k.trim() ).filter( k => k.length ) : [];
+    Object.keys( e.tags ).forEach( l => {
 
-  } );
+      keywords[ l ] = e.tags[ l ] ? e.tags[ l ].split( ',' ).map( k => k.trim() ).filter( k => k.length ) : [];
+
+    } );
+
+  } catch( e ) {}
+
 
   return keywords;
 
