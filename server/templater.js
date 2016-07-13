@@ -30,7 +30,7 @@ module.exports = function ( templateName, data, cb ) {
 
     if ( err ) return cb( err );
 
-    const layoutBottom = results.layout && results.layoutConfig.base && results.layoutConfig.base.bottom || {};
+    const layoutBottom = results.layoutConfig && results.layoutConfig.base && results.layoutConfig.base.bottom || {};
     const templateBottom = results.config.base && results.config.base.bottom || {};
     const dataBottom = data.bottom || {};
 
@@ -295,7 +295,7 @@ function _loadLabels( lang ) {
 
       var labels = {};
 
-      if ( err ) {
+      if ( err ) {labels
 
         log( 'File not found at %s. Ignoring.', err.path );
 

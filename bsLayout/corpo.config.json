@@ -2,6 +2,7 @@
   "bsCss": {
     "main": "../node_modules/bs-templates/compiled/main.css"
   },
+  "labels": "corpo/layout",
   "base": {
     "bottom": {
       "scriptSources": [
