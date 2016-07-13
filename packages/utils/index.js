@@ -232,17 +232,17 @@ function cleanString( str ) {
 
   if ( typeof str !== 'string' ) return str;
 
-  return str.replace( new RegExp( [ '[',
+  var charsToClean = [
     String.fromCharCode( 8233 ),
-    String.fromCharCode( 8232 ),
-    String.fromCharCode( 1 ),
-    String.fromCharCode( 2 ),
-    String.fromCharCode( 3 ),
-    String.fromCharCode( 4 ),
-    String.fromCharCode( 5 ),
-    String.fromCharCode( 6 ),
-    String.fromCharCode( 7 ),
-    String.fromCharCode( 8 ),
-  ']' ].join( '' ), 'g' ), ' ' );
+    String.fromCharCode( 8232 )
+  ];
+
+  for( var i = 1; i <= 31; i++ ) {
+
+    charsToClean.push( String.fromCharCode( i ) );
+
+  }
+
+  return str.replace( new RegExp( '[' + charsToClean.join( '' ) + ']', 'g' ), ' ' );
 
 }
