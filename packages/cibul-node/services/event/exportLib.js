@@ -85,6 +85,7 @@ function cleanEvent( eInst, cb ) {
     title: eInst.title,
     description: eInst.description,
     longDescription: eInst.freeText,
+    keywords: _extractKeywords( eInst ),
     html: eInst.getEnrichedFreeText( true ),
     image: eInst.getImage(),
     thumbnail: eInst.getThumbnail(),
@@ -193,5 +194,21 @@ function _stringifyDate( d ) {
 function _fZ( n ) {
 
   return (n>9?'':'0') + n;
+
+}
+
+function _extractKeywords( e ) {
+
+  if ( !e.tags ) return e.tags;
+
+  let keywords = {};
+
+  Object.keys( e.tags ).forEach( l => {
+
+    keywords[ l ] = e.tags[ l ] ? e.tags[ l ].split( ',' ).map( k => k.trim() ).filter( k => k.length ) : [];
+
+  } );
+
+  return keywords;
 
 }
