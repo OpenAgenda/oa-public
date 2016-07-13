@@ -12,7 +12,7 @@ const path = require( 'path' ),
 module.exports = ( paths ) => {
 
   return {
-    devtool: 'source-map',
+    //devtool: 'source-map',
     entry: path.join( __dirname, paths.src.path, paths.src.name ),
     output: {
       path: paths.dest.path,
@@ -43,35 +43,22 @@ module.exports = ( paths ) => {
     resolve: {
       extensions: [ '', '.js', '.jsx' ],
       moduleDirectories: [ './node_modules' ],
-      fallback: path.join( process.cwd(), 'node_modules' ),
-      alias: {
-        react: path.join( process.cwd(), 'node_modules/react' ),
-      }
-    },
-    resolveLoader: { 
-      root: path.join( __dirname, '../node_modules' ),
-      fallback: path.join( process.cwd(), 'node_modules' )
     },
     plugins: [
       new webpack.DefinePlugin( {
         'process.env': {
           NODE_ENV: '"production"'
-        },
-        __CLIENT__: true,
-        __SERVER__: false,
-        __DEVELOPMENT__: false,
-        __DEVTOOLS__: false
+        }
       } ),
-      new webpack.IgnorePlugin( /(.*)/, /node_modules\/(imagesloaded|get-size|outlayer|fizzy-ui-utils)/ ),
       new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.optimize.OccurenceOrderPlugin()/*,
       new webpack.optimize.UglifyJsPlugin( {
         compress: {
           warnings: false
         },
         mangle: true,
         fromString: true
-      } )
+      } ) */
     ],
     node: {
       fs: 'empty'

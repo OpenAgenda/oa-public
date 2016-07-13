@@ -30,7 +30,22 @@ module.exports = function ( templateName, data, cb ) {
 
     if ( err ) return cb( err );
 
-    var template = results.template, labels = results.labels;
+    const layoutBottom = results.layout && results.layoutConfig.base && results.layoutConfig.base.bottom || {};
+    const templateBottom = results.config.base && results.config.base.bottom || {};
+    const dataBottom = data.bottom || {};
+
+    data.bottom = {
+      scripts: [
+        ...layoutBottom.scripts || [],
+        ...templateBottom.scripts || [],
+        ...dataBottom.scripts || []
+      ].filter( ( v, i, a ) => a.indexOf( v ) === i ),
+      scriptSources: [
+        ...layoutBottom.scriptSources || [],
+        ...templateBottom.scriptSources || [],
+        ...dataBottom.scriptSources || []
+      ].filter( ( v, i, a ) => a.indexOf( v ) === i )
+    };
 
     if ( results.config.base ) data = cn.extend( results.config.base, data );
 
@@ -40,7 +55,7 @@ module.exports = function ( templateName, data, cb ) {
 
     }
 
-    if ( data.js ) {
+    if ( data.js && data.js.length ) {
 
       data.js = data.js.map( function ( jsName ) {
         return data.scriptsBase + '/' + jsName;
@@ -376,7 +391,3 @@ function _escape( html ) {
     .replace( /"/g, '&quot;' );
 
 };
-
-function _translator() {
-
-}

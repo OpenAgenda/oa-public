@@ -23,6 +23,12 @@ body {
 }
 
 
+.crisp-client-container .crisp-client-excerpt .crisp-client-excerpt-chat,
+body .crisp-client-container .crisp-client-excerpt .crisp-client-excerpt-minimized {
+  right: inherit !important;
+  left: 80px !important; }
+  
+
 #content {
   padding: 25px 0;
   position: relative;
@@ -234,3 +240,11 @@ body {
   }
 }
 
+/*
+ * One pixel overflow input/button field
+ */
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group {
+
+  line-height: 1.45;
+
+}

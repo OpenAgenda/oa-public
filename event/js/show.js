@@ -8,6 +8,8 @@ adminControls = require( '../../user/js/adminControls' ),
 
 ownershipTransfer = require( './ownershipTransfer' ),
 
+displayReferences = require( './displayReferences' ),
+
 privateData = require( './privateData' ),
 
 hours = require( './hours' ),
@@ -71,6 +73,8 @@ window.asap( function( options ) {
       } );
 
     }
+
+    displayReferences( params.agendaUid, params.uid );
 
     if ( params.hasOwnershipTransfer ) {
 

@@ -28,6 +28,8 @@ CategorySelector = require( 'agenda-categories/lib/CategorySelector.jsx' ),
 
 Registration = require( 'registration/lib/Registration.js' ),
 
+References = require( 'agenda-event-references/react/build/Editor' ),
+
 utils = require( 'utils' ),
 
 update = require( 'react-addons-update' ),
@@ -581,9 +583,15 @@ module.exports = React.createClass( {
           lang={ this.props.lang } /></div>
         : '' }
 
+        { this.props.configuration.field( 'references' ).display( false ) ? <References 
+          initUids={ this.state.references }
+          res={ this.props.referenceRes }
+          onChange={ this.props.onReferencesChange }
+        /> : null }
+
         <div>
-          <h2>{this.props.labels.locationSection[ this.props.lang ]}</h2>
-          {this.state.locationMode === 'create' ? null : this.renderLocationSelector()}
+          <h2>{ this.props.labels.locationSection[ this.props.lang ] }</h2>
+          { this.state.locationMode === 'create' ? null : this.renderLocationSelector() }
         </div>
         
         <TimingsPicker

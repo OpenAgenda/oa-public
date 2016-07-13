@@ -259,6 +259,8 @@ function widget( elem, options ) {
 
       } catch( e ) {
 
+        console.error( e );
+
         console.error( 'markercluster lib crashed at cluster creation' );
 
       }

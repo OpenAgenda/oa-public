@@ -1,6 +1,8 @@
-var cn = require( '../../js/lib/common/common.mod.js' ),
+"use strict";
 
-  remote = require( '../../js/lib/remote/remote.mod.js' ),
+var utils = require( 'utils' ),
+
+  remote = require( '../../js/lib/remote/remote.mod' ),
 
   store = require( 'store' ),
 
@@ -53,7 +55,7 @@ module.exports = function ( templateName, options, cb ) {
 
       }
 
-      cn.extend( params, options );
+      utils.extend( params, options );
 
       _loadTemplate( templateName, params, function ( err, t, l ) {
 
@@ -78,10 +80,9 @@ module.exports = function ( templateName, options, cb ) {
 
     render = function ( data ) {
 
-      return ejs.render( template, cn.extend( data, helpers ) );
+      return ejs.render( template, utils.extend( data, helpers ) );
 
     };
-
 
   init();
 

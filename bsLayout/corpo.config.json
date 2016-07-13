@@ -1,0 +1,35 @@
+{
+  "bsCss": {
+    "main": "../node_modules/bs-templates/compiled/main.css"
+  },
+  "base": {
+    "bottom": {
+      "scriptSources": [
+        "//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js",
+        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/transition.js",
+        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/collapse.js",
+        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/dropdown.js",
+        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/carousel.js",
+        "//s3.eu-central-1.amazonaws.com/oastatic/typed.min.js",
+        "//s3.eu-central-1.amazonaws.com/oastatic/odometer.min.js"
+      ],
+      "scripts": []
+    },
+    "pageClass": false,
+    "pageId": false,
+    "searchRes": "searchEvents",
+    "search": "",
+    "metas": {
+      "title": "OpenAgenda",
+      "description": "Communicate efficiently on your events",
+      "keywords": "openagenda, events, agendas, open data, networked",
+      "robots": "index, follow"
+    },
+    "lang": "fr",
+    "langLabels": {
+      "fr": "Français",
+      "en": "English"
+    }
+  },
+  "js": true
+}

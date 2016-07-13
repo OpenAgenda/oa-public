@@ -60,7 +60,7 @@ module.exports = ( paths ) => {
         __DEVELOPMENT__: true,
         __DEVTOOLS__: true
       } ),
-      new webpack.IgnorePlugin( /(.*)/, /node_modules\/(imagesloaded|get-size|outlayer|fizzy-ui-utils)/ )
+      new webpack.IgnorePlugin( /(.*)/, /node_modules\/(get-size)/ )
     ],
     node: {
       fs: 'empty'

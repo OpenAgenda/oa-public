@@ -6,6 +6,8 @@ rUtils = require( '../reactUtils' ),
 
 du = require( '../../../js/lib/domUtils' ),
 
+ejs = require( 'ejs' ),
+
 remote = require( '../../../js/lib/remote/remote.mod' );
 
 module.exports = function( params ) {
@@ -105,7 +107,7 @@ module.exports = function( params ) {
 
         if ( encodedEvent ) {
 
-          _post(url, encodedEvent);
+          _post( url, encodedEvent );
 
         } else {
 
@@ -298,7 +300,7 @@ module.exports = function( params ) {
 
     elem.className = params.classes.main;
 
-    elem.innerHTML = params.template( params.labels );
+    elem.innerHTML =  ejs.render( params.template, params.labels );
 
     du.el( params.canvas ).appendChild(elem);
 

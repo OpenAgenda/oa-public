@@ -318,6 +318,7 @@ function widget( elem, options ) {
       data.tags.push( {
         label : tag.t,
         slug : tag.s,
+        className : 'oa-tag-' + tag.s,
         active : enabled && count,
         selected : selectedTag == tag.s,
         count: count

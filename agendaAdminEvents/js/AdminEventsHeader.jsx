@@ -2,36 +2,29 @@
 
 var React = require('react'),
 
-
 TermSelectorPicker = require( 'agenda-locations/components/build/TermSelectorPicker' ),
-
 
 qs = require( 'qs' ),
 
-
 labels = require( 'labels/agenda-admin-events/filters' ),
-
 
 stateLabels = require( 'labels/event/states' ),
 
-
 getLabel = require( 'labels' )( labels ),
-
 
 getStateLabel = require( 'labels' )( stateLabels ),
 
-
 Select = require( 'react-select' ),
-
 
 utils = require( 'utils' ),
 
+UidTextField = require( './UidTextField.jsx' ),
 
-LocationField = require( './LocationField.jsx' ),
+LocationField = UidTextField( 'locationName', 'locationUid' ),
 
+ContributorField = UidTextField( 'contributor', 'contributorUid' ),
 
 AdminEventsHeader = React.createClass( {
-
 
   propTypes: {
 
@@ -39,9 +32,7 @@ AdminEventsHeader = React.createClass( {
 
   },
 
-
   getDefaultProps: function() {
-
 
     return {
 
@@ -59,15 +50,12 @@ AdminEventsHeader = React.createClass( {
 
     }
 
-
   },
 
 
   getInitialState: function() {
 
-
     var term = this.loadTerm();
-
 
     return {
 
@@ -77,58 +65,36 @@ AdminEventsHeader = React.createClass( {
 
     }
 
-
   },
 
 
   loadTerm: function() {
 
-
     var fields = Object.keys( this.props.geographicFields ),
-
 
     terms = {}, self = this;
 
-
     fields.forEach( function( f ) {
-
 
       terms[ f == 'country' ? 'countryCode' : f ] = self.getQueryPart( f );
 
-
     } );
 
-
     return terms;
-
 
   },
 
 
   onTermChange: function( term ) {
 
-
     this.setState( {
-
       term: term
-
     } );
 
-
     // if this is a field switch, do not refresh
-
-
-    if ( utils.size( term ) == 1 ) {
-
-
-      return;
-
-
-    }
-
+    if ( utils.size( term ) == 1 ) return;
 
     this.setQueryParts( term, this.getGeographicDefaults() );
-
 
   },
 
@@ -137,135 +103,94 @@ AdminEventsHeader = React.createClass( {
 
   getGeographicDefaults: function() {
 
-
     var defaults = [], obj = {};
-
 
     for ( var f in this.props.geographicFields ) {
 
-
       defaults = defaults.concat( this.props.geographicFields[ f ].split( ',' ) );
 
-
     }
-
 
     utils.unique( defaults ).forEach( function( f ) {
 
-
       obj[ f ] = undefined;
-
 
     } );
 
-
     return obj;
 
-
   },
-
 
   onChange: function( field ) {
 
-
     var self = this;
 
-
     return function( e ) {
-
 
       var temporary = JSON.parse( JSON.stringify( self.state.temporary ) );
 
-
       temporary[ field ] = e.target.value;
-
 
       self.setState( { temporary: temporary } );
 
-
     }
 
-
   },
 
-
-  onLocationChange: function( e ) {
-
-
-    var temporary = JSON.parse( JSON.stringify( this.state.temporary ) );
-
-
-    temporary.locationName = e.target.value;
-
-
-    temporary.locationUid = undefined;
-
-
-    this.setState( { temporary: temporary } );
-
-
-  },
-
-
-  onKeyUp: function( field ) {
-
+  onUidFieldChange: function( uidName, textName ) {
 
     var self = this;
 
-
     return function( e ) {
 
+      var temporary = JSON.parse( JSON.stringify( self.state.temporary ) );
 
-      if ( e.keyCode == 13 ) {
+      temporary[ textName ] = e.target.value;
 
+      temporary[ uidName ] = undefined;
 
-        self.setQueryParts( self.state.temporary );
+      console.log( temporary );
 
-
-      }
-
+      self.setState( { temporary: temporary } );
 
     }
 
+  },
+
+  onKeyUp: function( field ) {
+
+    var self = this;
+
+    return function( e ) {
+
+      if ( e.keyCode == 13 ) {
+
+        self.setQueryParts( self.state.temporary );
+
+      }
+
+    }
 
   },
 
-
   getStateOptions: function() {
 
-
     return [ {
-
       label: getStateLabel( 'tobecontrolled', this.props.lang ),
-
       value: 'tobecontrolled'
-
     }, {
-
       label: getStateLabel( 'controlled', this.props.lang ),
-
       value: 'controlled'
-
     }, {
-
       label: getStateLabel( 'published', this.props.lang ),
-
       value: 'published'
-
     }, {
-
       label: getStateLabel( 'featured', this.props.lang ),
-
       value: 'featured'
-
     }, {
-
       label: getStateLabel( 'all', this.props.lang ),
-
       value: 'all'
-
     } ]
-
 
   },
 
@@ -274,9 +199,7 @@ AdminEventsHeader = React.createClass( {
 
   render: function() {
 
-
     var self = this;
-
 
     return (
 
@@ -330,11 +253,11 @@ AdminEventsHeader = React.createClass( {
 
               <LocationField
 
-                res={this.props.res}
+                res={this.props.res.location}
 
                 getQueryPart={this.getQueryPart}
 
-                onChange={this.onLocationChange }
+                onChange={ this.onUidFieldChange( 'locationUid', 'locationName' ) }
 
                 onKeyUp={this.onKeyUp( 'locationName' )}
 
@@ -344,20 +267,17 @@ AdminEventsHeader = React.createClass( {
 
             <div className="form-group">
 
-            
+              <ContributorField
 
-              <input
+                res={this.props.res.contributor}
 
-                className="form-control"
+                getQueryPart={this.getQueryPart}
 
-                placeholder={getLabel( 'contributor', this.props.lang )}
+                onChange={this.onUidFieldChange( 'contributorUid', 'contributor' )}
 
-                value={this.getQueryPart( 'contributor' )}
+                onKeyUp={this.onKeyUp( 'contributor' )}
 
-                onChange={this.onChange( 'contributor' )}
-
-                onKeyUp={this.onKeyUp( 'contributor' )} />
-
+                placeholder={getLabel( 'contributor', this.props.lang )} />
 
               <TermSelectorPicker
 
@@ -402,91 +322,65 @@ AdminEventsHeader = React.createClass( {
 
   getQueryPart: function( name ) {
 
-
     if ( this.state && typeof this.state.temporary[ name ] !== 'undefined' ) {
-
 
       return this.state.temporary[ name ];
 
-
     } else {
-
 
       var query = this.getQuery();
 
-
       return query[ name ];
 
-
     }
-
 
   },
 
 
   setQueryPart: function( name, value ) {
 
-
     var query = this.getQuery();
-
 
     query[ name ] = value;
 
-
     this.setQuery( query );
-
 
   },
 
 
   setQueryParts: function( value, defaults ) {
 
-
     var query = this.getQuery();
-
 
     utils.extend( query, defaults, value );
 
-    
-
     if ( query.country ) {
-
 
       query.countryCode = query.country.code;
 
-
       query.country = undefined;
-
 
     }
 
-
     this.setQuery( query );
-
 
   },
 
 
   setQuery: function( q ) {
 
-
     var href = window.location.href.split( '#' )[ 0 ].split( '?' )[ 0 ];
 
-
     window.location.href = href + '?' + qs.stringify( q );
-
 
   },
 
 
   getQuery: function() {
 
-
     var parts = window.location.href.split( '#' )[ 0 ].split( '?' );
 
-
     return parts.length > 1 ? qs.parse( parts[ 1 ] ) : {};
-
 
   }
 

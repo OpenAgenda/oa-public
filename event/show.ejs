@@ -187,11 +187,15 @@
           <div class="custom js_custom">
 <% if ( event.custom ) { %>
 <% var custom = event.custom, labels = event.customLabels; %>
-            <% include ./custom.part.ejs %>
+            <% include custom.part.ejs %>
 <% } %>
           </div>
 
         </div>
+
+
+        <div class="js_references"></div>
+
 <% if ( 
   event.location.description 
   || event.location.access
@@ -252,7 +256,7 @@
             </a>
           </li>
 <% } %>
-<% if ( event.location.links ) { %>
+<% if ( event.location.links && event.location.links.length ) { %>
           <li class="location-links">
             <label><%= __( 'More links' ) %></label>: 
 <% event.location.links.forEach( function( link ) { %>
@@ -261,11 +265,19 @@
           </li>
 <% } %>
 
-          <% if ( !loner ) { %><li><a href="mailto:admin@openagenda.com?subject=<%= __( 'Location information change request: %name%', { '%name%' : event.location.name } ) %>&body=<%= __( 'Hi, could you bring the following changes to the location named \'%name\'? reference: %uid% - ( add details of the change here )', {
-            '%name%' : event.location.name, 
-            '%uid%' : uid + '/' + event.location.uid } ) %>"><%= __( 'request a change in the location information' ) %></a></li><% } %>
+<% if ( !loner ) { %>
+          <li>
+            <a class="display-none js_role_event_editor" href="<%= genUrl( 'locationSuggestion', { locationUid: event.location.uid, slug: slug, eventSlug: event.slug } ) %>"><%= __( 'request a change in the location information' ) %></a>
+          </li>
+<% } %>
           </ul>
       </div>
+    </div>
+<% } %>
+
+<% if ( typeof event.keywords !== 'undefined' && event.keywords.length ) { %>
+    <div class="keywords">
+      <span><%= event.keywords %></span>
     </div>
 <% } %>
 
@@ -273,7 +285,6 @@
         <div class="signature">
           <p><%= __('created by %owner%', { '%owner%' : event.owner.name } ) %> <%= _t( event.updatedAt, 'dddd Do MMMM - HH:mm' ) %></p>- <a href="<%= event.owner.contactLink %>"><%= __( 'contact' ) %></a>
         </div>
-        <p class="signature"></p>
 <% } %>
       </section>
     </div>

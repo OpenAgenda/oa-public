@@ -11,7 +11,9 @@ AdminEventsHeader = require( './AdminEventsHeader.jsx' ),
 params = {
   lang: 'en',
   res: {
-    terms: '#'
+    terms: '#',
+    location: '#',
+    user: '#'
   },
   selectors: {
     headerCanvas: '.js_header_canvas',

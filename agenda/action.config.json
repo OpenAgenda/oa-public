@@ -12,6 +12,7 @@
   },
 
   "helpers" : {
+    "_r" : "redirect",
     "_t" : "time",
     "_i" : "image",
     "_sl" : "shareLinks",

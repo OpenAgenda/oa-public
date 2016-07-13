@@ -79,7 +79,11 @@ function hide( hideMenu ) {
 
   if ( typeof log !== 'undefined' ) log( 'hiding' );
 
-  if ( hideMenu ) du.addClass( du.el( params.selectors.controls ), params.classes.displayNone );
+  if ( hideMenu ) {
+
+    du.addClass( du.el( params.selectors.controls ), params.classes.displayNone );
+
+  }
 
   u.forEach( du.els( params.selectors.item ), function( item ) {
 

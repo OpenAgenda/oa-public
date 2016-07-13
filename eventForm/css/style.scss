@@ -70,6 +70,21 @@ body > header {
 
   }
 
+  .ndc {
+
+    .title-container {
+
+      .btn i,
+      strong {
+
+        color: $oa-white;
+
+      }
+
+    }
+
+  }
+
   input[type="radio"], input[type="checkbox"] {
 
     margin-top: 3px;    

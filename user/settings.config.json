@@ -1,6 +1,6 @@
 {
   "layout": "bsLayout/main",
-  "oaCss" : {
+  "bsCss" : {
     "main" : "../node_modules/bs-templates/compiled/main.css"
   },
   "helpers" : {

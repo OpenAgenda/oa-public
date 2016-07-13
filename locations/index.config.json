@@ -1,17 +1,8 @@
 {
   "layout" : "agendaAdmin/bsLayout",
-  "oaCss" : {
-    "leaflet" : "../css/leaflet-0.7.3.css",
-    "location-editor" : "../node_modules/agenda-locations/sass/style.scss",
-    "react-select" : "../node_modules/react-select/dist/react-select.css",
-    "multilingual-input-fields" : "../node_modules/react-form-components/sass/multilingual-input-field.scss",
-    "multi-input-field" : "../node_modules/react-form-components/sass/multi-input-field.scss",
-    "tag-groups" : "../node_modules/react-form-components/sass/group-tag-selector.scss",
-    "language-bar" : "../node_modules/react-form-components/sass/language-bar.scss",
-    "location-form" : "../node_modules/agenda-locations/sass/form.scss",
-    "image-upload" : "../node_modules/image-upload/sass/style.scss",
-    "locations" : "css/style.scss",
-    "terms" : "../node_modules/agenda-locations/sass/terms.scss"
+
+  "bsCss" : {
+    "main" : "../node_modules/bs-templates/compiled/main.css"
   },
 
   "helpers" : {

@@ -107,6 +107,8 @@ window.asap( function( options ) {
 
         favorites.sweep();
 
+        _updateTotal( data );
+
       }
     } );
 
@@ -114,7 +116,7 @@ window.asap( function( options ) {
     
       log( 'widgets are loaded and initialized' );
 
-    });
+    } );
 
     _onControllerChange( controller, function( newSearchValues ) {
 
@@ -130,15 +132,18 @@ window.asap( function( options ) {
 
   }
 
-});
+} );
 
 
-// khh khhhh..
 function _updateTotal( data ) {
 
-  var elem = cn.el( 'span', cn.el( '.js_total' ) );
+  var elem = cn.el( cn.el( '.js_total' ), 'span' );
 
-  if ( !elem || !data || data.total === undefined ) return;
+  if ( !elem || !data || data.total === undefined ) {
+
+    return;
+
+  } 
 
   elem.innerHTML = elem.innerHTML
                    .replace( /[0-9]+/, data.total )
@@ -260,6 +265,8 @@ function _onWidgetLoaded( cb ) {
 
 
 function _displayAddButton() {
+
+  console.log( params.selectors.add )
 
   cn.removeClass( cn.el( params.selectors.add ), params.classes.displayNone );
 
