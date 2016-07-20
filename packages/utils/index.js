@@ -239,7 +239,7 @@ function cleanString( str ) {
 
   for( var i = 1; i <= 31; i++ ) {
 
-    charsToClean.push( String.fromCharCode( i ) );
+    if ( i !== 10 ) charsToClean.push( String.fromCharCode( i ) );
 
   }
 
