@@ -233,13 +233,15 @@ function cleanString( str ) {
   if ( typeof str !== 'string' ) return str;
 
   var charsToClean = [
-    String.fromCharCode( 8233 ),
-    String.fromCharCode( 8232 )
+    1, 2, 3, 4, 5, 6, 7, 8,
+    31, // Information separator
+    8232,
+    8233
   ];
 
-  for( var i = 1; i <= 31; i++ ) {
+  for( var i = 0; i < charsToClean.length; i++ ) {
 
-    if ( i !== 10 ) charsToClean.push( String.fromCharCode( i ) );
+    charsToClean[ i ] = String.fromCharCode( charsToClean[ i ] );
 
   }
 
