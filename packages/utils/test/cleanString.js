@@ -28,7 +28,7 @@ describe( 'utils.cleanString', () => {
 
       utils.cleanString( cleanChar ).should.equal( cleanChar );
 
-    } )
+    } );
 
   } );
 
