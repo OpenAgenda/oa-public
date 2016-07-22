@@ -191,6 +191,12 @@
 <% } %>
           </div>
 
+<% if ( typeof event.keywords !== 'undefined' && event.keywords.length ) { %>
+          <div class="keywords">
+            <span><%= event.keywords %></span>
+          </div>
+<% } %>
+
         </div>
 
 
@@ -272,12 +278,6 @@
 <% } %>
           </ul>
       </div>
-    </div>
-<% } %>
-
-<% if ( typeof event.keywords !== 'undefined' && event.keywords.length ) { %>
-    <div class="keywords">
-      <span><%= event.keywords %></span>
     </div>
 <% } %>
 
