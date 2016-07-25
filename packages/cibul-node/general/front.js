@@ -100,6 +100,7 @@ function newCorpo() {
 
           cmn.render( req, res, 'corpo/new', {
             scriptParams : {
+              lang: req.lang || 'fr',
               stats: {
                 agendas,
                 contributors,
