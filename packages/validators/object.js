@@ -32,7 +32,7 @@ module.exports = function (options, validators) {
 
     validators.forEach(function (validator) {
 
-      var matchingValue = values.filter(function (v) {
+      var matchingValue = (values || []).filter(function (v) {
         return v.field === validator.field;
       });
 

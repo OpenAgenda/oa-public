@@ -120,7 +120,7 @@ function _mapToObject(values) {
 
         namespaces.forEach(function (namespace) {
 
-          if (obj[namespace] === undefined) obj[namespace] = {};
+          if (cursor[namespace] === undefined) cursor[namespace] = {};
 
           cursor = cursor[namespace];
         });

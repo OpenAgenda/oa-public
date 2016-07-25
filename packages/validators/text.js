@@ -15,7 +15,7 @@ module.exports = function (config) {
     min: 0,
     max: 1000000,
     trim: true,
-    optional: false
+    optional: true
   }, config || {});
 
   return _utils2.default.extend(validate, {
