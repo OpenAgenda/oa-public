@@ -1,5 +1,33 @@
 .event-references {
 
+  margin-bottom: 60px;
+
+  &.show {
+
+    padding-top: 60px;
+    margin-bottom: 0;
+
+    .media {
+
+      margin: 0;
+      padding: 20px 20px 0px;
+
+      &:last-child {
+
+        padding-bottom: 20px;
+
+      }
+
+      &:first-child {
+
+        padding-top: 20px;
+
+      }
+
+    }
+
+  }
+
   .media {
 
     a {
@@ -10,8 +38,8 @@
 
         text-decoration: none;
 
-      
       }
+      
     }
 
   }
@@ -32,54 +60,29 @@
 
   .configure {
 
-    .media {
+    a {
 
-      padding: 1em 0;
-
-      .remove {
-
-        margin: 20px 10px 0 0;
-        font-size: 1.1em;
-
-        &:hover {
-
-          color: $oa-red;
-
-        }
-
-      }
+      cursor: pointer;
 
     }
 
-    .search {
+    .references {
 
       position: relative;
+      min-height: 70px;
 
-      .search-results {
+      .media {
 
-        border: 1px solid $oa-gray-light;
-        padding: 0;
-        list-style-type: none;
-        position: absolute;
-        background-color: $oa-white;
-        top: 2.6em;
-        border-radius: 3px;
+        padding: 1em 0;
 
-        > li {
+        .remove {
 
-          margin: 0;
-
-        }
-
-        .media {
-
-          padding: 0.4em 0.8em;
-          cursor: pointer;
-          margin: 0;
+          margin: 20px 10px 0 0;
+          font-size: 1.1em;
 
           &:hover {
 
-            background: $oa-gray-lighter;
+            color: $oa-red;
 
           }
 
@@ -87,6 +90,22 @@
 
       }
 
+      .empty {
+
+        padding: 2em 0;
+        text-align: center;
+        display: block;
+
+      }
+    
+    }
+
+
+    .search {
+
+      z-index: 2;
+
+      /* just for templating */
       .remove {
 
         display: none;

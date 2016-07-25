@@ -63,6 +63,12 @@
       
     }
 
+    .img-responsive {
+
+      width: 100%;
+
+    }
+
     .custom {
 
       dl {
@@ -150,6 +156,8 @@
     }
 
   }
+
+
   
   // metadatas
   .meta-container {
@@ -171,6 +179,14 @@
         color: $oa-gray;
       }
     }
+  }
+
+  .keywords {
+
+    color: $oa-gray;
+    font-size: 0.9em;
+    padding: 30px 20px 10px;
+
   }
 
   .share {

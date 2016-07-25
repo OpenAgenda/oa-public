@@ -55,7 +55,7 @@ $tumblr-color: #32506d;
 @import "assets/stylesheets/bootstrap/buttons";
 
 // Components
-//@import "assets/stylesheets/bootstrap/component-animations";
+@import "assets/stylesheets/bootstrap/component-animations";
 @import "assets/stylesheets/bootstrap/dropdowns";
 @import "assets/stylesheets/bootstrap/button-groups";
 @import "assets/stylesheets/bootstrap/input-groups";
@@ -65,7 +65,7 @@ $tumblr-color: #32506d;
 @import "assets/stylesheets/bootstrap/pagination";
 @import "assets/stylesheets/bootstrap/pager";
 //@import "assets/stylesheets/bootstrap/labels";
-
+//@import "assets/stylesheets/bootstrap/badges";
 @import "assets/stylesheets/bootstrap/jumbotron";
 //@import "assets/stylesheets/bootstrap/thumbnails";
 @import "assets/stylesheets/bootstrap/alerts";
@@ -90,12 +90,20 @@ $tumblr-color: #32506d;
 // Font awesome
 @import "../../node_modules/font-awesome/scss/font-awesome.scss";
 
+// Lightbox
+@import "lightbox";
+
 @import "badges";
 
+
 // header
-@import "../header/header.scss";
+@import "../header/header";
+@import "../header/legacy";
 
 @import "search-form";
+
+// OA components
+@import "../components/dropdown";
 
 body {
 
@@ -121,6 +129,16 @@ a.text-danger:hover {
   @media (min-width: 768px) {
     display: none;
   }
+}
+
+
+/**
+ * set display-none through class
+ */
+.display-none {
+  
+  display: none;
+
 }
 
 /**
@@ -168,6 +186,11 @@ a.text-danger:hover {
 
 }
 
+
+
+/**
+ * avatars are round in shape
+ */
 .avatar-container {
 
   margin: 30px;

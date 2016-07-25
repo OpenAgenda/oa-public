@@ -165,12 +165,63 @@
 
   .list-group-item {
 
-    .item {
+    list-style-type: none;
+    background: transparent;
+    border: none;
+    padding: 0;
 
-      padding-left: 20px;
+    .item {
+      color: $oa-gray;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: block;
+      padding: 10px 45px 10px 30px;
+      text-align: left;
+      text-decoration: none;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 100%;
 
       &.bullet:after {
         box-shadow: 0 0 0 1px silver;
+        background: white;
+        border-radius: 30px;
+        color: $oa-gray-lighter;
+        content: "";
+        font-family: FontAwesome;
+        height: 20px;
+        position: absolute;
+        right: 15px;
+        text-align: center;
+        width: 20px;
+      }
+
+      &.active:hover {
+        color: $oa-blue;
+
+        &.bullet:after {
+          background: $oa-silver;
+          border: 5px solid $oa-white;
+        }
+      }
+      
+      &.selected {
+        color: $oa-blue;
+
+        &:after {
+          background: $oa-blue;
+          border: 5px solid $oa-white;
+        }
+
+        &:hover:after {
+          color: $oa-blue;
+        }
+      }
+
+      &.active {
+        color: $oa-black;
       }
 
       &.starify {
@@ -246,7 +297,6 @@
       }
 
     }
-
 
   }
 

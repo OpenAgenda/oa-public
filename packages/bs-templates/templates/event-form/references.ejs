@@ -9,9 +9,10 @@
 
         <div class="configure">
         
-          <label>Evénements liés</label>
+          <h2>Evénements liés</h2>
+          <p>Liez d'autres événements de l'agenda à votre événement</p>
 
-          <ul class="list-unstyled">
+          <ul class="list-unstyled references">
             <li><% include _reference-item.ejs %></li>
             <li><% include _reference-item.ejs %></li>
             <li><% include _reference-item.ejs %></li>
@@ -20,9 +21,9 @@
           <a href="#">Ajouter un événement</a>
 
           <p>remplace 'Ajouter un événement' sur clic:</p>
-          <div class="search">
+          <div class="search dropdown open">
             <input type="text" class="form-control" placeholder="Chercher via titre ou lieu" />
-            <ul class="search-results">
+            <ul class="dropdown-menu">
               <li><% include _reference-item.ejs %></li>
               <li><% include _reference-item.ejs %></li>
               <li><% include _reference-item.ejs %></li>
@@ -35,19 +36,32 @@
   </div>
   <div class="row" style="margin-top: 320px;">
 
-    <section class="col-sm-6 col-sm-offset-3 wsq">
+    <section class="col-sm-6 col-sm-offset-3">
 
-      <div class="content event-references">
+      <div class="event-references show">
 
         <h2>Event page presentation</h2>
 
         <h3>Voir Aussi</h3>
-        <div class="media">
+
+        <div class="media content wsq">
           <div class="media-left">
             <a class="event-pic" href="#">
               <img class="media-object" src="//cibul.s3.amazonaws.com/evtbevent_les-estivales-2016_707612.jpg"> 
             </a>
           </div>
+          <div class="media-body">
+            <a href="#">
+              <h4 class="media-heading">La photosynthèse pour les aigris</h4>
+              <ul class="list-unstyled">
+                <li>L'abreuvoir, Quimper</li>
+                <li>25 janvier, 10h</li>
+              </ul>
+            </a>
+          </div>
+        </div>
+
+        <div class="media content wsq">
           <div class="media-body">
             <a href="#">
               <h4 class="media-heading">La photosynthèse pour les aigris</h4>
