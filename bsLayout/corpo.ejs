@@ -39,13 +39,13 @@
         </div>
         <div class="navbar-collapse collapse" id="bs-navbar-collapse" aria-expanded="false">
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="#fonctions"><%= __('layoutFunctions') %></a></li>
-                <li><a href="#tarifs"><%= __('layoutPricing') %></a></li>
-                <li><a href="#testimonials"><%= __('layoutTestimonials') %></a></li>
+                <li><a href="#fonctions"><%= __( 'layoutFunctions' ) %></a></li>
+                <li><a href="#tarifs"><%= __( 'layoutPricing' ) %></a></li>
+                <li><a href="#testimonials"><%= __( 'layoutTestimonials' ) %></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="signin"><a href="<%= genUrl( 'signin' ) %>"><%= __('layoutSignin') %></a></li>
-                <li class="signup"><a href="<%= genUrl( 'signup' ) %>"><%= __('layoutSignup') %></a></li>
+                <li class="signin"><a href="<%= genUrl( 'start', { a: 'header_signin' } ) %>"><%= __( 'layoutSignin' ) %></a></li>
+                <li class="signup"><a href="<%= genUrl( 'start', { a: 'header_signup' } ) %>"><%= __( 'layoutSignup' ) %></a></li>
                 <li class="tel">
                     <p class="navbar-btn">
                         <a href="tel:+33176350143" class="btn btn-default">
