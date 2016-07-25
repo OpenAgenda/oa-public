@@ -157,28 +157,41 @@ function _loadTranslator( data, cb ) {
 
   } else {
 
-    let branches = data.config.labels.split( '/' );
-    let currentBranch;
-    let currentPos = allLabels;
+    let labels = _getLabels( data.config.labels );
+    let templateLabelsPath = data.layoutConfig && data.layoutConfig.labels || null;
+    let templateLabels = templateLabelsPath ? _getLabels( templateLabelsPath ) : {};
 
-    while ( currentBranch = branches.shift() ) {
+    console.log( data.config.labels, _getLabels( 'corpo/typed' ) );
 
-      if ( !branches.length ) {
-        
-        const getLabel = makeLabelGetter( currentPos[ currentBranch ] );
-
-        data.__ = (label, values) => getLabel( label, values, data.lang );
-
-      }
-
-      currentPos = currentPos[ currentBranch ];
-
-    }
+    let getLabel = makeLabelGetter( Object.assign( {}, labels, templateLabels ) );
+    data.__ = (label, values) => getLabel( label, values, data.lang );
 
   }
 
   cb( null, data );
 
+}
+
+function _getLabels( path ) {
+  let branches = path.split( '/' );
+  let currentBranch;
+  let currentPos = allLabels;
+
+  console.log( allLabels.corpo );
+
+  while ( currentBranch = branches.shift() ) {
+
+    if ( !branches.length ) {
+
+      return currentPos[ currentBranch ];
+
+    }
+
+    currentPos = currentPos[ currentBranch ];
+
+  }
+
+  return null;
 }
 
 
