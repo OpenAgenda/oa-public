@@ -10,7 +10,6 @@
   "admin/agendas",
   "corpo/index",
   "contributors/info",
-  "corpo/new",
   "agenda/show",
   "agenda/embedShow",
   "agenda/action",
