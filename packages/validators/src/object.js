@@ -28,7 +28,7 @@ module.exports = function( options, validators ) {
 
     validators.forEach( validator => {
 
-      let matchingValue = values.filter( v => v.field === validator.field );
+      let matchingValue = ( values || [] ).filter( v => v.field === validator.field );
 
       matchingValue = matchingValue.length ? matchingValue[ 0 ] : {
         field: validator.field, 

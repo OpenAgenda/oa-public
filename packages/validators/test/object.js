@@ -39,7 +39,7 @@ describe( 'object validator', () => {
 
       let validate = validators.object( [
         validators.text( { field: 'name', min: 3, max: 300 } ),
-        validators.text( { field: 'code', min: 3, max: 20 } ) 
+        validators.text( { field: 'code', min: 3, max: 20, optional: false } ) 
       ] ),
 
       errors = null;
