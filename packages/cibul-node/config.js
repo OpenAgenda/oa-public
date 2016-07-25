@@ -34,6 +34,7 @@ config = {
       agenda: [ 'twitter', 'facebook', 'googlePlus', 'linkedIn' ]
     },
     adminEmail: 'admin@openagenda.com',
+    contactResource: 'https://pipedrivewebforms.com/form/dd36e7d663fe7c77e3ac65b3bada24e0',
     mapboxAccessToken: 'pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
     geocodeFarm: {
       key: 'c90247db-b0de461fb1e9-8517d6450e7b'

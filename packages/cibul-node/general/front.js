@@ -21,16 +21,12 @@ var modLib = require( '../lib/moduleLib' ),
   w = require( 'when' ),
 
   routes = {
-    corpoHome: [ 'get', '/', index( 'home' ) ],
-    corpoFeatures: [ 'get', '/features', index( 'features' ) ],
-    corpoPricing: [ 'get', '/services', index( 'pricing' ) ],
-    corpoApi: [ 'get', '/interface', index( 'api' ) ],
-    corpoAbout: [ 'get', '/about', index( 'about' ) ],
-    newCorpo: [ 'get', '/popopo', [ cmn.loadBaseData( 'oasfmain.css' ), newCorpo() ] ],
+    corpoHome: [ 'get', '/', [ cmn.loadBaseData( 'oasfmain.css' ), corpo ] ],
     newsletterSubscribe: [ 'post', '/newsletter/subscribe', newsletterSubscribe ],
     serviceConnectCallback: [ 'get', '/services/:service/connect/callback', serviceConnectCallback ],
     emailUnsubscribe: [ 'get', '/unsubscribe', unsubscribe ],
-    emailUnsubscribeSubmit: [ 'post', '/unsubscribe', unsubscribeSubmit ]
+    emailUnsubscribeSubmit: [ 'post', '/unsubscribe', unsubscribeSubmit ],
+    start: [ 'get', '/start', start ]
   };
 
 module.exports = function ( p ) {
@@ -54,66 +50,36 @@ module.exports = function ( p ) {
 }
 
 
-/**
- * controllers
- */
 
-function index( view ) {
+function corpo( req, res, next ) {
 
-  return function ( req, res ) {
+  cmn.https( req, res, function () {
 
-    cmn.https( req, res, function () {
+    if ( req.session.logged ) {
 
-      if ( req.session.logged ) {
+      res.redirect( 302, req.genUrl( 'homeShow' ) );
 
-        res.redirect( 302, req.genUrl( 'homeShow' ) );
+      return;
 
-        return;
+    }
 
-      }
+    getStats()
+      .then( ( [ agendas, contributors, events ] ) => {
 
-      cmn.render( req, res, 'corpo/index', { tab: view } );
-
-    } );
-
-  }
-
-}
-
-
-function newCorpo() {
-
-  return function ( req, res, next ) {
-
-    cmn.https( req, res, function () {
-
-      if ( req.session.logged ) {
-
-        res.redirect( 302, req.genUrl( 'homeShow' ) );
-
-        return;
-
-      }
-
-      getStats()
-        .then( ( [ agendas, contributors, events ] ) => {
-
-          cmn.render( req, res, 'corpo/new', {
-            scriptParams : {
-              lang: req.lang || 'fr',
-              stats: {
-                agendas,
-                contributors,
-                events
-              }
+        cmn.render( req, res, 'corpo/index', {
+          scriptParams : {
+            lang: req.lang || 'fr',
+            stats: {
+              agendas,
+              contributors,
+              events
             }
-          } );
+          }
+        } );
 
-        }, err => next( err ) );
+      }, err => next( err ) );
 
-    } );
-
-  }
+  } );
 
 }
 
@@ -203,6 +169,47 @@ function newsletterSubscribe( req, res ) {
   } );
 
 }
+
+
+function start( req, res, next ) {
+
+  const actions = {
+    header_signin: req.genUrl( 'signin' ), 
+    header_signup: req.genUrl( 'signup' ), 
+    header_phone: 'ok', 
+    main: req.genUrl( 'signup' ), 
+    pricing_free: req.genUrl( 'signup' ), 
+    pricing_custom: config.contactResource, 
+    pricing_premium: config.contactResource, 
+    pricing_tailored: config.contactResource,
+    bottom: req.genUrl( 'signup' )
+  }
+
+  let action = Object.keys( actions ).filter( v => req.query.a === v );
+
+  if ( !action.length ) {
+
+    return res.redirect( 301, req.genUrl( 'corpoHome' ) );
+
+  }
+
+  action = action[ 0 ];
+
+  req.log( 'info', {
+    message: 'corpo link: ' + action,
+    action: action
+  } );
+
+  if ( actions[ action ] === 'ok' ) {
+
+    return res.send( 'ok' );
+
+  }
+
+  res.redirect( 301, actions[ action ] );
+
+}
+
 
 function unsubscribe( req, res ) {
 
