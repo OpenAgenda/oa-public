@@ -142,10 +142,18 @@ body {
     .media {
       .media-left img {
         margin-right: 20em;
+
+        &.big {
+          margin-right: 10em;
+        }
       }
 
       .media-right img {
         margin-left: 20em;
+
+        &.big {
+          margin-left: 10em;
+        }
       }
     }
   }
