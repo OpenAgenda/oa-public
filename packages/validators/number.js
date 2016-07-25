@@ -1,6 +1,10 @@
 "use strict";
 
-var utils = require('utils');
+var _utils = require('utils');
+
+var _utils2 = _interopRequireDefault(_utils);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /*
 integer: require( 'react-form-components/validators/integer' )
@@ -9,7 +13,7 @@ state: validators.integer( { field: 'state', min: 0, max: 1, default: 1 } )
 
 module.exports = function (config) {
 
-  var params = utils.extend({
+  var params = _utils2.default.extend({
     field: false, // required
     min: undefined, // minus infinity if defined
     max: undefined, // infinity and beyond?
@@ -17,7 +21,7 @@ module.exports = function (config) {
     optional: true
   }, config || {});
 
-  return utils.extend(validate, {
+  return _utils2.default.extend(validate, {
     type: 'email',
     field: params.field
   });
