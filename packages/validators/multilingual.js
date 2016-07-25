@@ -1,66 +1,59 @@
 "use strict";
 
-var utils = require( 'utils' ),
+var utils = require('utils'),
+    text = require('./text');
 
-text = require( './text' );
+module.exports = function (config) {
 
-module.exports = function( config ) {
-
-  var params = utils.extend( {
+  var params = utils.extend({
     field: false,
     optional: false,
     defaultLanguage: 'en'
-  }, config || {} );
+  }, config || {});
 
-  return utils.extend( validate, {
+  return utils.extend(validate, {
     type: 'multilingual',
     field: params.field
-  } );
+  });
 
-  function validate( value ) {
+  function validate(value) {
 
-    var clean = {}, tmp = {}, l, errors = [],
+    var clean = {},
+        tmp = {},
+        l,
+        errors = [],
+        validateText = text(params);
 
-    validateText = text( params );
+    if (typeof value === 'string') {
 
-    if ( typeof value === 'string' ) {
-
-      tmp[ params.defaultLanguage ] = value;
+      tmp[params.defaultLanguage] = value;
 
       value = tmp;
-
     };
 
-    if ( !value ) value = {};
+    if (!value) value = {};
 
-    for( l in value ) {
+    for (l in value) {
 
       try {
 
-        clean[ l ] = validateText( value[ l ] );
+        clean[l] = validateText(value[l]);
+      } catch (lErrors) {
 
-      } catch( lErrors ) {
-
-        errors = errors.concat( lErrors.map( function( error ) {
+        errors = errors.concat(lErrors.map(function (error) {
 
           error.lang = l;
 
           return error;
-
-        } ) );
-
+        }));
       }
-
     }
 
-    if ( errors.length ) {
+    if (errors.length) {
 
       throw errors;
-
     }
 
     return clean;
-
   }
-
-}
+};

@@ -4,7 +4,7 @@ const should = require( 'should' ),
 
 validators = require( '../' );
 
-describe.only( 'regex validator', () => {
+describe( 'regex validator', () => {
 
   var validate = validators.regex( { field: 'stars', regex: /\*/g } );
 

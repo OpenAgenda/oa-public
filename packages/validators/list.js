@@ -1,6 +1,6 @@
 "use strict";
 
-var utils = require( 'utils' );
+var utils = require('utils');
 
 /**
  * processes an array of values of potentially different
@@ -8,154 +8,135 @@ var utils = require( 'utils' );
  * an index.
  */
 
-module.exports = function( config, validators ) {
+module.exports = function (config, validators) {
 
-  if ( arguments.length == 1 ) {
+  if (arguments.length == 1) {
 
     validators = config;
     config = {};
-
   }
 
-  var params = utils.extend( {
+  var params = utils.extend({
     field: null,
     optional: false
-  }, config );
+  }, config);
 
-  utils.extend( validate, {
+  utils.extend(validate, {
     type: 'list',
     clean: clean,
     decorate: decorate,
     validateItem: validateItem,
     decorateItem: decorateItem
-  } );
+  });
 
-  return utils.extend( validate, {
+  return utils.extend(validate, {
     type: 'list',
     field: params.field
-  } );
+  });
 
-  function validate( value, cleanOnly ) {
+  function validate(value, cleanOnly) {
 
-    var clean = [], errors = [];
+    var clean = [],
+        errors = [];
 
-    if ( params.optional && !value ) {
-
-      return clean;
-
-    }
-
-    if ( params.optional && utils.isArray( value ) && !value.length ) {
+    if (params.optional && !value) {
 
       return clean;
-
     }
 
-    if ( !utils.isArray( value ) ) {
+    if (params.optional && utils.isArray(value) && !value.length) {
 
-      throw [ {
+      return clean;
+    }
+
+    if (!utils.isArray(value)) {
+
+      throw [{
         field: params.field,
         code: 'list.wrongtype',
         message: 'value should be a list',
         origin: value
-      } ]
-
+      }];
     }
 
-    value.forEach( function( item, i ) {
+    value.forEach(function (item, i) {
 
       try {
 
-        clean.push( validateItem( item ) );
+        clean.push(validateItem(item));
+      } catch (errs) {
 
-      } catch( errs ) {
-
-        errors = errors.concat( errs.map( function( e ) {
+        errors = errors.concat(errs.map(function (e) {
 
           e.index = i;
 
           return e;
-
-        } ) );
-
+        }));
       }
+    });
 
-    } );
-
-    if ( !cleanOnly && errors.length ) throw errors;
+    if (!cleanOnly && errors.length) throw errors;
 
     return clean;
-
   }
 
+  function clean(value) {
 
-  function clean( value ) {
-
-    return validate( value, true );
-
+    return validate(value, true);
   }
 
+  function decorate(value) {
 
-  function decorate( value ) {
-
-    return ( value || [] ).map( decorateItem );
-    
+    return (value || []).map(decorateItem);
   }
-
 
   /**
    * process item against validators and
    * throw errors or return clean
    */
 
-  function validateItem( item, decorated ) {
+  function validateItem(item, decorated) {
 
-    var clean, errors = [], type;
+    var clean,
+        errors = [],
+        type;
 
-    validators.forEach( function( v ) {
+    validators.forEach(function (v) {
 
-      if ( clean ) return;
+      if (clean) return;
 
       try {
 
         type = v.type;
 
-        clean = v( item );
+        clean = v(item);
+      } catch (e) {
 
-      } catch( e ) {
-
-        errors = errors.concat( e );
-
+        errors = errors.concat(e);
       }
+    });
 
-    } );
-
-    if ( clean !== undefined ) {
+    if (clean !== undefined) {
 
       return decorated ? {
         value: clean,
         type: type
       } : clean;
-
     }
 
-    if ( decorated ) {
+    if (decorated) {
 
       return {
         value: item,
         errors: errors
-      }
-
+      };
     }
 
     throw errors;
-
   }
 
-  function decorateItem( item ) {
+  function decorateItem(item) {
 
-    return validateItem( item, true );
-
+    return validateItem(item, true);
   }
-
-}
+};

@@ -1,19 +1,20 @@
 "use strict";
 
-var utils = require( 'utils' );
+var utils = require('utils');
 
-module.exports = function( config ) {
+module.exports = function (config) {
 
-  var params = utils.extend( {
+  var params = utils.extend({
     field: undefined,
     type: 'pass'
-  }, config || {} );
+  }, config || {});
 
-  return utils.extend( validate, {
+  return utils.extend(validate, {
     type: 'pass',
     field: params.field
-  } );
+  });
 
-  function validate( value ) { return value; }
-
-}
+  function validate(value) {
+    return value;
+  }
+};

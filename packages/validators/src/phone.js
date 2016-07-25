@@ -1,10 +1,10 @@
 "use strict";
 
-var rgx = require('./regex');
+var rgx = require( './regex' );
 
-module.exports = function (config) {
+module.exports = function( config ) {
 
-  return rgx({
+  return rgx( {
     optional: config ? config.optional : false,
     field: config ? config.field : undefined,
     regex: /^(\+|)[\d\s]+$/,
@@ -13,5 +13,6 @@ module.exports = function (config) {
       message: 'value is not a phone number'
     },
     type: 'phone'
-  });
-};
+  } );
+
+}

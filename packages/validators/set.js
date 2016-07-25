@@ -1,66 +1,69 @@
-"use strict"; // ES5
+"use strict";
 
-var utils = require( 'utils' );
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-module.exports = function( validators, options ) {
+var _utils = require('utils');
+
+var _utils2 = _interopRequireDefault(_utils);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (validators, options) {
 
   validate.type = 'set';
 
-  var params = utils.extend( {
+  var params = _utils2.default.extend({
     compact: false
-  }, options || {} );
+  }, options || {});
 
   return validate;
 
-  function validate( valuesSet ) {
+  function validate(valuesSet) {
 
-    var errors = [], clean = [], compacted = {};
+    var errors = [],
+        clean = [],
+        compacted = {};
 
-    validators.forEach( function( validator ) {
+    validators.forEach(function (validator) {
 
-      var matchingValue = valuesSet.filter( function( v ) {
+      var matchingValue = valuesSet.filter(function (v) {
 
         return v.field === validator.field;
+      });
 
-      } );
-
-      matchingValue = matchingValue.length ? matchingValue[ 0 ] : { field: validator.field, value: undefined }
+      matchingValue = matchingValue.length ? matchingValue[0] : { field: validator.field, value: undefined };
 
       try {
 
-        clean.push( {
+        clean.push({
           field: matchingValue.field,
-          value: validator( matchingValue.value )
-        } );
+          value: validator(matchingValue.value)
+        });
+      } catch (e) {
 
-      } catch( e ) {
-
-        errors = errors.concat( e );
-
+        errors = errors.concat(e);
       }
+    });
 
-    } );
-
-    if ( errors.length ) {
+    if (errors.length) {
 
       throw errors;
-
     }
 
-    if ( params.compact ) {
+    if (params.compact) {
 
-      clean.forEach( function( c ) {
+      clean.forEach(function (c) {
 
-        compacted[ c.field ] = c.value;
-
-      } );
+        compacted[c.field] = c.value;
+      });
 
       return compacted;
-
     }
 
     return clean;
-
   }
+};
 
-}
+module.exports = exports['default'];

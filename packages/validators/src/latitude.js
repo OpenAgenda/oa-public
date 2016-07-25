@@ -1,53 +1,58 @@
 "use strict"; // ES5
 
-var utils = require('utils');
+var utils = require( 'utils' );
 
-module.exports = function (config) {
+module.exports = function( config ) {
 
-  var params = utils.extend({
-    field: false,
+  var params = utils.extend( {
+    field: false, 
     optional: true
-  }, config || {});
+  }, config || {} );
 
-  return utils.extend(validate, {
+  return utils.extend( validate, {
     field: params.field,
     type: 'latitude'
-  });
+  } );
 
-  function validate(value) {
+  function validate( value ) {
 
-    var clean = parseFloat(value);
+    var clean = parseFloat( value );
 
-    if (isNaN(clean)) {
+    if ( isNaN( clean ) ) {
 
-      throw [{
+      throw [ {
         field: params.field,
         code: 'latitude.invalid',
         message: 'not a number',
         origin: value
-      }];
+      } ];
+
     }
 
-    if (clean < -90) {
+    if ( clean < -90 ) {
 
-      throw [{
+      throw [ {
         field: params.field,
         code: 'latitude.toosmall',
         message: 'latitude cannot be less than -90',
         origin: value
-      }];
+      } ]
+
     }
 
-    if (clean > 90) {
+    if ( clean > 90 ) {
 
-      throw [{
+      throw [ {
         field: params.field,
         code: 'latitude.toobig',
         message: 'latitude cannot be more than 90',
         origin: value
-      }];
+      } ];
+
     }
 
     return clean;
+
   }
-};
+
+}

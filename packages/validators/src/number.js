@@ -1,75 +1,81 @@
 "use strict";
 
-var utils = require('utils');
+var utils = require( 'utils' );
 
 /*
 integer: require( 'react-form-components/validators/integer' )
 state: validators.integer( { field: 'state', min: 0, max: 1, default: 1 } )
 */
 
-module.exports = function (config) {
+module.exports = function( config ) {
 
-  var params = utils.extend({
+  var params = utils.extend( {
     field: false, // required
     min: undefined, // minus infinity if defined
     max: undefined, // infinity and beyond?
     default: undefined, // if set, no input cleans to this
     optional: true
-  }, config || {});
+  }, config || {} );
 
-  return utils.extend(validate, {
+  return utils.extend( validate, {
     type: 'email',
     field: params.field
-  });
+  })
 
-  function validate(value) {
+  function validate( value ) {
 
     var clean = undefined;
 
-    if (typeof value == 'string' && value.length) {
+    if ( typeof value == 'string' && value.length ) {
 
-      clean = parseInt(value, 10);
-    } else if (typeof value == 'number') {
+      clean = parseInt( value, 10 );
+
+    } else if ( typeof value == 'number' ) {
 
       clean = value;
+
     }
 
     // we have a clean value, we can check if it fits
     // in what we want.
 
-    if (clean === undefined && params.default) {
+    if ( clean === undefined && params.default ) {
 
       return params.default;
+
     }
 
-    if (clean === undefined && params.optional) {
+    if ( clean === undefined && params.optional ) {
 
       return null;
+
     }
 
-    if (clean === undefined && !params.optional) {
+    if ( clean === undefined && !params.optional ) {
 
-      throw [{
+      throw [ {
         field: validate.field,
         code: 'required',
         message: 'a number is required',
         origin: value
-      }];
+      } ];
+
     }
 
-    if (isNaN(clean)) {
+    if ( isNaN( clean ) ) {
 
-      throw [{
+      throw [ {
         field: validate.field,
         code: 'number.invalid',
         message: 'not a number',
         origin: value
-      }];
+      } ];
+
     }
 
-    if (params.min !== undefined && clean < params.min) {
+    if ( params.min !== undefined && clean < params.min ) {
 
-      throw [{
+      throw [ {
         field: validate.field,
         code: 'number.toosmall',
         message: 'the number is too small',
@@ -77,12 +83,13 @@ module.exports = function (config) {
           min: params.min
         },
         origin: value
-      }];
+      } ];
+
     }
 
-    if (params.max !== undefined && clean > params.max) {
+    if ( params.max !== undefined && clean > params.max ) {
 
-      throw [{
+      throw [ {
         field: params.field,
         code: 'number.toobig',
         message: 'the number is too big',
@@ -90,9 +97,12 @@ module.exports = function (config) {
           max: params.max
         },
         origin: value
-      }];
+      } ];
+
     }
 
     return clean;
+
   }
-};
+
+}

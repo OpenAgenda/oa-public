@@ -1,10 +1,10 @@
 "use strict";
 
-var utils = require('utils');
+var utils = require( 'utils' );
 
-module.exports = function (config) {
+module.exports = function( config ) {
 
-  var params = utils.extend({
+  var params = utils.extend( {
     optional: false,
     field: false, // required
     regex: false, // required
@@ -15,51 +15,60 @@ module.exports = function (config) {
     clean: false, // if true result of regex is clean value
     trim: true,
     type: false
-  }, config || {}),
-      validator = function validator(value) {
+  }, config || {} ),
 
-    var clean = value ? value + '' : null;
+  validator = function( value ) {
 
-    if (params.optional && (!clean || !clean.length)) {
+    var clean = value ? ( value + '' ) : null;
+
+    if ( params.optional && ( !clean || !clean.length ) ) {
 
       return clean;
+
     }
 
-    if (!params.optional && !clean) {
+    if ( !params.optional && !clean ) {
 
-      throw [{
+      throw [ {
         origin: value,
         field: params.field,
         code: 'required',
         message: 'value must not be empty'
-      }];
+      } ];
+
     }
 
-    if (typeof clean == 'string' && params.trim) {
+    if ( typeof clean == 'string' && params.trim ) {
 
       clean = clean.trim();
+
     }
 
-    if (!params.regex.test(clean)) {
+    if ( !params.regex.test( clean ) ) {
 
-      throw [utils.extend({
+      throw [ utils.extend( {
         origin: value,
         field: params.field
-      }, params.error)];
+      }, params.error ) ];
+
     }
 
-    return params.clean ? clean.match(params.regex)[0] : clean;
+    return params.clean ? clean.match( params.regex )[ 0 ] : clean;
+
   };
 
-  if (params.type) {
+  if ( params.type ) {
 
     validator.type = params.type;
+
   }
 
-  if (params.field) {
+  if ( params.field ) {
 
     validator.field = params.field;
+
   }
 
   return validator;
-};
+
+}
