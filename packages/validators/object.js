@@ -41,25 +41,37 @@ module.exports = function (options, validators) {
         value: undefined
       };
 
-      try {
+      if (validator.type !== 'object') {
 
-        clean.push({
-          field: matchingValue.field,
-          value: validator(matchingValue.value)
-        });
-      } catch (e) {
+        try {
 
-        errors = errors.concat(e);
+          clean.push({
+            field: matchingValue.field,
+            value: validator(matchingValue.value)
+          });
+        } catch (e) {
+
+          errors = errors.concat(e);
+        }
+      } else {
+
+        try {
+
+          clean = clean.concat(validator(matchingValue.value).map(function (c) {
+            return _utils2.default.extend(c, {
+              field: matchingValue.field + '.' + c.field
+            });
+          }));
+        } catch (e) {
+
+          errors = errors.concat(e.map(function (objErr) {
+            return _utils2.default.extend(objErr, {
+              field: matchingValue.field + '.' + objErr.field
+            });
+          }));
+        }
       }
     });
-
-    if (errors.length && validate.field) {
-
-      throw [{
-        field: validate.field,
-        errors: errors
-      }];
-    }
 
     if (errors.length) {
 

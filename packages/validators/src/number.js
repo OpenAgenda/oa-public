@@ -1,6 +1,6 @@
 "use strict";
 
-var utils = require( 'utils' );
+import utils from 'utils'
 
 /*
 integer: require( 'react-form-components/validators/integer' )
@@ -9,7 +9,7 @@ state: validators.integer( { field: 'state', min: 0, max: 1, default: 1 } )
 
 module.exports = function( config ) {
 
-  var params = utils.extend( {
+  let params = utils.extend( {
     field: false, // required
     min: undefined, // minus infinity if defined
     max: undefined, // infinity and beyond?
@@ -20,11 +20,11 @@ module.exports = function( config ) {
   return utils.extend( validate, {
     type: 'email',
     field: params.field
-  })
+  } );
 
   function validate( value ) {
 
-    var clean = undefined;
+    let clean = undefined;
 
     if ( typeof value == 'string' && value.length ) {
 
