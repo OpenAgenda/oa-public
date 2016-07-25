@@ -4,6 +4,7 @@ const typedLabels = require( 'labels/corpo/typed' );
 const flatten = require( 'labels/flatten' );
 
 window.hook( options => {
+  console.log( options );
   const flattenLabels = flatten( typedLabels, options.lang );
   const labels = Object.keys( flattenLabels ).map( ( k ) => flattenLabels[ k ] );
 
