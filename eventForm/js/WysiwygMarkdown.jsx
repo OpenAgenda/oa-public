@@ -148,7 +148,7 @@ module.exports = React.createClass( {
           toolbar: 'formatselect bold italic bullist link',
           statusbar: false,
           browser_spellcheck:true,
-          block_formats: 'Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3;',
+          block_formats: 'Paragraph=p;Header 2=h2;Header 3=h3;',
           autoresize_min_height: 100,
           // https://www.tinymce.com/docs/plugins/link/#link_title
           link_title: false,
