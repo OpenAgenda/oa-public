@@ -37,11 +37,17 @@ $b: '.footer';
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: $screen-xs) {
     text-align: center;
 
     h2 {
       margin: 2em 0 1em;
+    }
+  }
+
+  @media (min-width: $screen-xs) and (max-width: $screen-sm) {
+    li form {
+      margin: 0;
     }
   }
 }

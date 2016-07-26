@@ -85,7 +85,8 @@ $price-danger: #DE1D10;
 
   > ul {
     display: table;
-    margin: 4em auto;
+    margin: 4em auto 0;
+    text-align: center;
   }
 
   .without-border {
@@ -124,18 +125,25 @@ $price-danger: #DE1D10;
 
 @media screen and (max-width: $screen-sm) {
   .pricing .unit {
-    display: block;
     margin-bottom: 20px;
-  }
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 
-  .pricing .unit.active {
-    top: 0;
-    margin-right: 0;
-    margin-left: 0;
-  }
+    &.active {
+      top: 0;
+      margin-right: 0;
+      margin-left: 0;
+    }
 
-  .pricing .unit.active .price-title h3 {
-    font-size: 30px;
+    &.active .price-title h3 {
+      font-size: 30px;
+    }
+
+    .price-body {
+      min-height: 0;
+    }
   }
 }
 
@@ -163,6 +171,7 @@ $price-danger: #DE1D10;
 
 .pricing .price-body ul {
   padding-top: 10px;
+  min-height: 0;
 }
 
 .pricing .price-body li {

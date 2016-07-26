@@ -136,34 +136,18 @@ body {
       background: darken($oa-white, 10);
       margin: auto auto 12px;
     }
-  }
 
-  #fonctions {
-    .media {
-      .media-left img {
-        margin-right: 20em;
-
-        &.big {
-          margin-right: 10em;
-        }
-      }
-
-      .media-right img {
-        margin-left: 20em;
-
-        &.big {
-          margin-left: 10em;
-        }
-      }
+    p {
+      margin: 0;
     }
   }
 
-  #carousel {
+  #references {
     background-color: $oa-black;
 
     h2 {
       color: $oa-white;
-      margin-bottom: 40px;
+      margin: 0 0 40px;
     }
 
     #carousel-screens {
@@ -228,6 +212,16 @@ body {
     }
   }
 
+  #ready {
+    h2 {
+      margin: 0 0 30px;
+    }
+
+    a.btn {
+      padding: 10px 35px;
+    }
+  }
+
   @media(max-width: $screen-sm) {
     #presentation {
       .hook {
@@ -236,25 +230,31 @@ body {
       }
     }
 
+    #trio-actions:nth-child(n+2) {
+      ul li {
+        margin-bottom: 20px;
+      }
+    }
+
     #fonctions {
       .media {
-        .media-right img, .media-left img {
-          max-width: 70%;
-        }
+        text-align: center;
 
         .media-right img {
           margin-left: 0;
+          margin-right: 0;
           margin-top: 2.5em;
         }
 
         .media-left img {
+          margin-left: 0;
           margin-right: 0;
           margin-bottom: 2.5em;
         }
       }
     }
 
-    #carousel {
+    #references {
       #carousel-screens {
         width: 100%;
       }

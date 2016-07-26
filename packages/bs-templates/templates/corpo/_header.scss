@@ -15,7 +15,7 @@
     transition: height 0.2s;
   }
 
-  .collapsing {
+  /* .collapsing {
     ul li {
       visibility: hidden;
     }
@@ -35,9 +35,13 @@
     &.navbar-collapse {
       visibility: visible;
     }
-  }
+  } */
 
   .language-menu {
+    ul a:hover {
+
+    }
+
     & > a {
       text-transform: uppercase;
     }
@@ -68,11 +72,6 @@
       .tel a {
         color: $oa-white;
         border-color: darken($oa-white, 5);
-        -webkit-transition: color, border-color 200ms ease;
-        -moz-transition: color, border-color 200ms ease;
-        -ms-transition: color, border-color 200ms ease;
-        -o-transition: color, border-color 200ms ease;
-        transition: color, border-color 200ms ease;
 
         &:hover, &:focus {
           color: darken($oa-white, 10);
@@ -128,6 +127,11 @@
 
       .selected {
         background-color: #eee;
+        color: $oa-black;
+
+        &:hover {
+          background-color: darken(#eee, 10%);
+        }
       }
     }
 
@@ -190,10 +194,9 @@
    * mobile menu adjustments - hack over bootstrap, isolated from the rest.
    */
 
-  @media (max-width: $screen-md) {
+  @media (max-width: $screen-sm) {
 
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 0 15px;
 
     .navbar-header {
       .logo {
@@ -206,5 +209,15 @@
         margin-left: 15px;
       }
     }
+  }
+
+  @media (min-width: $screen-sm) and (max-width: $screen-md) {
+
+    padding: 0;
+
+    .container {
+      width: 100%;
+    }
+
   }
 }
