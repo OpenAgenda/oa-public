@@ -21,7 +21,7 @@ module.exports = {
   list,
   count,
   getConfig: () => config
-}
+};
 
 function init( c ) {
 
@@ -51,6 +51,7 @@ function list( query, offset, limit, cb ) {
   }
 
   query = Object.assign( {
+    ids: [],
     total: false,
     detailled: false,
     search: null
@@ -67,15 +68,15 @@ function list( query, offset, limit, cb ) {
     knex: knex( schemas.agenda )
   } )
 
-  .then( _search )
+    .then( _search )
 
-  .then( _total )
+    .then( _total )
 
-  .then( _list )
+    .then( _list )
 
-  .then( _detailed )
+    .then( _detailed )
 
-  .done( v => cb( null, v.agendas, v.total ) );
+    .done( v => cb( null, v.agendas, v.total ) );
 
 }
 
@@ -91,12 +92,21 @@ function count( cb ) {
 
 function _search( v ) {
 
+  let ids = false;
+
+  if ( v.query.ids.length ) {
+    ids = true;
+    v.knex = v.knex
+      .whereIn( 'id', v.query.ids );
+  }
+
   if ( !v.query.search ) return v;
 
-  v.knex = v.knex
-  .where( 'title', 'like', `%${v.query.search}%` )
-  .orWhere( 'description', 'like', `%${v.query.search}%` )
-  .orWhere( 'slug', 'like', `%${v.query.search}%` )
+  v.knex = v.knex[ ids ? 'andWhere' : 'where' ]( function () {
+    this.where( 'title', 'like', `%${v.query.search}%` )
+      .orWhere( 'description', 'like', `%${v.query.search}%` )
+      .orWhere( 'slug', 'like', `%${v.query.search}%` )
+  } );
 
   return v;
 
@@ -109,18 +119,18 @@ function _total( v ) {
   return knex.transaction( trx => {
 
     return v.knex.clone()
-    .count( 'id as agendas' )
-    .transacting( trx );
+      .count( 'id as agendas' )
+      .transacting( trx );
 
   } )
 
-  .then( result => {
+    .then( result => {
 
-    v.total = result[ 0 ].agendas;
+      v.total = result[ 0 ].agendas;
 
-    return v;
+      return v;
 
-  } );
+    } );
 
 }
 
@@ -129,21 +139,21 @@ function _list( v ) {
   return knex.transaction( trx => {
 
     return v.knex
-    .select( 'id', 'uid', 'slug', 'title', 'description', 'image', 'url', 'updated_at' )
-    .orderBy( 'updated_at', 'desc' )
-    .limit( v.limit || 0 )
-    .offset( v.offset || 0 )
-    .transacting( trx );
+      .select( 'id', 'uid', 'slug', 'title', 'description', 'image', 'url', 'updated_at' )
+      .orderBy( 'updated_at', 'desc' )
+      .limit( v.limit || 0 )
+      .offset( v.offset || 0 )
+      .transacting( trx );
 
   } )
 
-  .then( agendas => {
+    .then( agendas => {
 
-    v.agendas = agendas;
+      v.agendas = agendas;
 
-    return v;
+      return v;
 
-  } );
+    } );
 
 }
 
@@ -155,12 +165,12 @@ function _detailed( v ) {
 
   return w.map( v.agendas, gDetails )
 
-  .then( agendas => {
+    .then( agendas => {
 
-    v.agendas = agendas;
+      v.agendas = agendas;
 
-    return v;
+      return v;
 
-  } );
+    } );
 
 }

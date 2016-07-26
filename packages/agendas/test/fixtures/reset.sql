@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS ${agendaSchema} (
   title VARCHAR(255) NOT NULL, 
   owner_id BIGINT NOT NULL, 
   slug VARCHAR(255) NOT NULL UNIQUE, 
-  description VARCHAR(150), 
+  description VARCHAR(165), /* 150 in real world */
   image VARCHAR(255), 
   url VARCHAR(255), 
   collaborative TINYINT(1) DEFAULT '0' NOT NULL, 
