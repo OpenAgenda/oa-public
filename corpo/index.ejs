@@ -49,7 +49,7 @@
                         <p><%= __( 'function1Description' ) %></p>
                     </article>
                     <figure class="media-right media-middle">
-                        <img class="big" src="//s3.eu-central-1.amazonaws.com/oastatic/agenda-basic.png" width="384">
+                        <img class="big shadow" src="//s3.eu-central-1.amazonaws.com/oastatic/agenda-basic.png" width="384">
                     </figure>
                 </div>
             </div>
@@ -61,7 +61,7 @@
             <div class="spaced">
                 <div class="media">
                     <figure class="media-left media-middle">
-                        <img class="big" src="//s3.eu-central-1.amazonaws.com/oastatic/agenda-participatif.png" width="384">
+                        <img class="big shadow" src="//s3.eu-central-1.amazonaws.com/oastatic/agenda-participatif.png" width="384">
                     </figure>
                     <article class="media-body media-middle">
                         <h2 class="media-heading"><%- __( 'function2Head' ) %></h2>
@@ -105,7 +105,7 @@
     </div>
 </div>
 
-<div class="background-white" id="carousel">
+<div class="background-white" id="references">
     <div class="container">
         <div class="spaced">
             <h2 class="text-center"><%= __( 'ourReferences' ) %></h2>
@@ -123,8 +123,9 @@
                     <div class="item<%= i == 0 ? ' active' : '' %>">
                         <a href="<%= reference.url %>" target="_blank">
                             <img src="<%= reference.image %>" alt="integration_<%= i %>">
-                            <div class="carousel-caption">
+                            <div class="hidden-xs carousel-caption">
                                 <h3><%= reference.caption %></h3>
+                                <p><i><%= reference.url %></i></p>
                             </div>
                         </a>
                     </div>
@@ -133,12 +134,12 @@
 
                 <!-- Controls -->
                 <a class="left carousel-control" href="#carousel-screens" role="button" data-slide="prev">
-                    <i class="fa fa-angle-left" aria-hidden="true"></i>
-                    <span class="sr-only"><%= __( 'previous' ) %></span>
+                    <!-- <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="sr-only"><%= __( 'previous' ) %></span> -->
                 </a>
                 <a class="right carousel-control" href="#carousel-screens" role="button" data-slide="next">
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    <span class="sr-only"><%= __( 'next' ) %></span>
+                    <!-- <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <span class="sr-only"><%= __( 'next' ) %></span> -->
                 </a>
             </div>
         </div>
@@ -300,7 +301,7 @@
     </div>
 </div>
 
-<div class="background-gray">
+<div class="background-gray" id="ready">
     <div class="container">
         <div class="row spaced">
             <div class="col-xs-12 text-center">
@@ -366,9 +367,9 @@
                 <h2><%= __('ourCompany') %></h2>
                 <ul class="list-unstyled">
                     <!--<li><a href="">À propos</a></li>-->
-                    <li><a href="https://angel.co/oagenda"><%= __('jobs') %></a></li>
+                    <li><a href="https://angel.co/oagenda/jobs"><%= __('jobs') %></a></li>
                     <li><a href="https://www.crunchbase.com/organization/openagenda#/entity">Crunchbase</a></li>
-                    <li><a href=""><%= __('ourOA') %></a></li>
+                    <li><a href="http://openagenda.com/openagenda"><%= __('ourOA') %></a></li>
                 </ul>
             </div>
             <div class="col-sm-3 col-sm-offset-1">

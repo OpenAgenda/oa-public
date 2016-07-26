@@ -22,7 +22,13 @@ module.exports = React.createClass( {
     e.preventDefault();
 
     this.props.onUserChangePassword( { password: this.state.password } )
-      .then( () => this.setState( { password: e.target.value } ) );
+      .then( () => this.setState( { password: '' } ) )
+      .catch( () => {
+        this.setState( { error: 'Erreur, mon pauvre doudou !' } );
+        setTimeout( () => {
+          this.setState( { error: null } );
+        }, 3000 );
+      } );
   },
 
   render: function () {
@@ -86,13 +92,14 @@ module.exports = React.createClass( {
               type="text"
               className="form-control"
               id="password"
-              placeholder="ICI, TU LE METS ICI !"
+              placeholder="No error allowed babe"
               value={this.state.password}
               onChange={this.handleChangePassword}
             />
           </div>
           <button type="submit" className="btn btn-default">Change password</button>
         </form>
+        {this.state.error && <div className="text-danger"><b>{this.state.error}</b></div>}
       </div>
     );
 

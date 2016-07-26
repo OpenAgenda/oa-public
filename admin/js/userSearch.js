@@ -6,7 +6,7 @@ module.exports = React.createClass({
 
     e.preventDefault();
 
-    var searchValue = this.refs.search.getDOMNode().value;
+    var searchValue = this.refs.search.value;
 
     this.props.onSearchSubmit( searchValue );
 

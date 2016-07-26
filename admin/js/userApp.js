@@ -28,7 +28,7 @@ var React = require( 'react' ),
         users: '/server/testdata/adminusers.json',
         activate: '/server/testdata/adminusersactivate.json'
       }
-    },
+    }
   },
 
   config = ( [ 'tpl' ].indexOf( window.env ) !== 1 ) ? cn.extend( {}, defaults.all, defaults[ window.env ] ) : defaults.all,
@@ -77,6 +77,8 @@ var React = require( 'react' ),
 
       }
 
+      this.searchQuery = searchQuery;
+
       remote.getXmlHttp( config.res.users, { data: searchQuery }, function ( success, data ) {
 
         if ( self.isMounted() ) {
@@ -102,7 +104,7 @@ var React = require( 'react' ),
 
     handlePageSelect: function ( page ) {
 
-      this.search( currentSearch, page );
+      this.search( this.searchQuery.search, page );
 
     },
 
@@ -114,7 +116,7 @@ var React = require( 'react' ),
 
       remote.getXmlHttp( config.res.activate, { data: { uid: this.state.user.uid } }, function ( responseType, data ) {
 
-        if ( !responseType == 'success' ) return alert( 'schplof.' );
+        if ( responseType !== 'success' ) return alert( 'schplof.' );
 
         if ( !data.success ) return alert( data.message );
 
@@ -130,8 +132,6 @@ var React = require( 'react' ),
 
     handleUserSignin: function ( e ) {
 
-      var self = this;
-
       e.preventDefault();
 
       remote.getXmlHttp( config.res.signin, { data: { uid: this.state.user.uid } }, function ( responseType, data ) {
@@ -146,7 +146,7 @@ var React = require( 'react' ),
 
     },
 
-    handleChangePassword: function( data ) {
+    handleChangePassword: function ( data ) {
 
       return new Promise( ( resolve, reject ) => {
 
@@ -158,7 +158,6 @@ var React = require( 'react' ),
         remote.getXmlHttp( config.res.changePassword, { data: { uid, password } }, function ( responseType, data ) {
 
           if ( responseType !== 'success' ) return reject();
-          console.log( data );
 
           return resolve();
 
@@ -198,4 +197,4 @@ module.exports = function ( canvasElem ) {
 
   ReactDom.render( <UserApp/>, canvasElem );
 
-}
+};
