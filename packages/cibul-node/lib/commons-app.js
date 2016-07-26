@@ -919,7 +919,7 @@ function loadLogger( name ) {
     req.log = logger( 'req' );
 
     req.log.load( {
-      module: name ? name : 'unkown',
+      module: name ? name : 'unknown',
       url: req.originalUrl,
       ip: req.header( 'x-forwarded-for' )
     } );
