@@ -218,6 +218,11 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
           'destField' : 'timings_en',
           fn: _defineTimings( 'en' )
         },
+        {
+          'sourceField' : [ 'timings', 'location.timezone' ],
+          'destField' : 'isoTimings',
+          fn: _defineISOTimings
+        },
         'firstDate',
         'firstTimeStart',
         'firstTimeEnd',
@@ -323,6 +328,16 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
   function _extractValue( values, field ) {
 
+    if ( utils.isArray( field ) ) {
+
+      return field.map( f => {
+
+        return _extractValue( values, f );
+
+      } );
+
+    }
+
     var fieldNames = field.split( '.' ),
 
     value = values;
@@ -426,6 +441,21 @@ function _extractLanguages( values ) {
   }
 
   return extractedLanguages;
+
+}
+
+
+function _defineISOTimings( args ) {
+
+  return args[ 0 ].map( t => {
+
+    [ t.start, t.end ]
+
+    .map( t => moment( t ).tz( args[ 1 ] || 'Europe/Paris' ).format() )
+
+    .join( '-' );
+
+  } ).join( '\n' );
 
 }
 
