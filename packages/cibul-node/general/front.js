@@ -12,6 +12,8 @@ var modLib = require( '../lib/moduleLib' ),
 
   model = require( '../services/model' ),
 
+  metaLabels = require( 'labels' )( require( 'labels/corpo/metas' ) ),
+
   agendas = require( 'agendas' ),
 
   path,
@@ -67,6 +69,12 @@ function corpo( req, res, next ) {
       .then( ( [ agendas, contributors, events ] ) => {
 
         cmn.render( req, res, 'corpo/index', {
+          metas: {
+            title: metaLabels( 'title', req.lang ),
+            description: metaLabels( 'description', req.lang ),
+            keywords: metaLabels( 'keywords', req.lang ),
+            robots: 'index, follow'
+          },
           scriptParams : {
             lang: req.lang || 'fr',
             stats: {
