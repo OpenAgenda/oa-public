@@ -30,7 +30,7 @@ w = require( 'when' );
 
 module.exports = build;
 
-module.exports.init = c => { 
+module.exports.init = c => {
 
   config = JSON.parse( JSON.stringify( c ) );
 
@@ -54,7 +54,7 @@ function build( cb ) {
 
     return _query( v,
       sql.drop
-      .replace( /\${database}/g, database )
+      .replace( /\$\{database}/g, database )
     );
 
   } )
@@ -64,7 +64,7 @@ function build( cb ) {
 
     return _query( v, 
       sql.create
-      .replace( /\${database}/g, database )
+      .replace( /\$\{database}/g, database )
     );
 
   } )
@@ -74,9 +74,9 @@ function build( cb ) {
 
     return _query( v, 
       sql.data.agenda
-      .replace( /\${schema}/g, config.schemas.agenda )
+      .replace( /\$\{schema}/g, config.schemas.agenda )
     );
-
+    
   } )
 
   // populate the event schema
@@ -84,7 +84,7 @@ function build( cb ) {
 
     return _query( v, 
       sql.data.event
-      .replace( /\${schema}/g, config.schemas.event )
+      .replace( /\$\{schema}/g, config.schemas.event )
     );
 
   } )
@@ -95,7 +95,7 @@ function build( cb ) {
 
     return _query( v, 
       sql.data.stakeholder
-      .replace( /\${schema}/g, config.schemas.stakeholder )
+      .replace( /\$\{schema}/g, config.schemas.stakeholder )
     );
 
   } )
@@ -105,7 +105,7 @@ function build( cb ) {
 
     return _query( v, 
       sql.data.agendaEvent
-      .replace( /\${schema}/g, config.schemas.agendaEvent )
+      .replace( /\$\{schema}/g, config.schemas.agendaEvent )
     );
 
   } )
@@ -114,7 +114,7 @@ function build( cb ) {
 
     return _query( v, 
       sql.data.stakeholderSettings
-      .replace( /\${schema}/g, config.schemas.stakeholderSettings )
+      .replace( /\$\{schema}/g, config.schemas.stakeholderSettings )
     );
 
   } )

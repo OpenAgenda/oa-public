@@ -4,19 +4,19 @@ process.env.NODE_ENV = 'test';
 
 var should = require( 'should' ),
 
-config = require( '../testconfig' ),
+  config = require( '../testconfig' ),
 
-fixtures = require( './fixtures' ),
+  fixtures = require( './fixtures' ),
 
-mysql = require( 'mysql' ),
+  mysql = require( 'mysql' ),
 
-service = require( '../service' );
+  service = require( '../service' );
 
 describe( 'agenda-stakeholders', () => {
 
-  describe( 'getters', function() {
+  describe( 'getters', function () {
 
-    this.timeout( 30000 );
+    this.timeout( 60000 );
 
     before( done => {
 
@@ -100,12 +100,12 @@ describe( 'agenda-stakeholders', () => {
           createdAt: new Date( 'Fri Jan 01 2016 01:10:01 GMT+0100 (CET)' ),
           custom: {
             organization: {
-              label: 'DRAC PACA', 
-              slug: 'drac-paca' 
+              label: 'DRAC PACA',
+              slug: 'drac-paca'
             },
             contactNumber: '04 42 16 19 75',
             contactName: 'LARROUMEC',
-            contactPosition: 'CORRESPONDANT' 
+            contactPosition: 'CORRESPONDANT'
           }
         } );
 
@@ -127,7 +127,37 @@ describe( 'agenda-stakeholders', () => {
 
       } );
 
-    } );    
+    } );
+
+    it( 'lists first 20 stakeholders of an user', done => {
+
+      service.user( 7368 ).list( 0, 1, ( err, stakeholders ) => {
+
+        stakeholders.length.should.equal( 1 );
+
+        stakeholders[ 0 ].should.eql( {
+          id: 6996,
+          credential: 3,
+          userId: 7368,
+          agendaId: 4608,
+          updatedAt: new Date( 'Thu Feb 04 2016 21:20:21 GMT+0100 (CET)' ),
+          createdAt: new Date( 'Fri Jan 01 2016 01:10:01 GMT+0100 (CET)' ),
+          custom: {
+            organization: {
+              label: 'DRAC PACA',
+              slug: 'drac-paca'
+            },
+            contactNumber: '04 42 16 19 75',
+            contactName: 'LARROUMEC',
+            contactPosition: 'CORRESPONDANT'
+          }
+        } );
+
+        done();
+
+      } );
+
+    } );
 
   } );
 

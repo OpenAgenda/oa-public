@@ -2,17 +2,24 @@
 
 var knex, schemas,
 
-utils = require( 'utils' ),
+  utils = require( 'utils' ),
 
-dbUtils = require( './dbUtils' ),
+  dbUtils = require( './dbUtils' ),
 
-format = require( './format' ),
+  format = require( './format' ),
 
-log = require( 'basic-logger' )( 'getters' ),
+  log = require( 'basic-logger' )( 'getters' ),
 
-w = require( 'when' );
+  w = require( 'when' );
 
-module.exports = function( agendaId ) {
+module.exports = agenda;
+
+module.exports.init = init;
+
+module.exports.user = user;
+
+
+function agenda( agendaId ) {
 
   return {
     get: get,
@@ -27,16 +34,16 @@ module.exports = function( agendaId ) {
       stakeholder: null
     } )
 
-    .then( dbUtils.getStakeholder( 'agenda', 'user', 'stakeholder' ) )
+      .then( dbUtils.getStakeholder( 'agenda', 'user', 'stakeholder' ) )
 
-    .done( v => {
+      .done( v => {
 
-      cb( null, v.stakeholder );
+        cb( null, v.stakeholder );
 
-    }, cb );
+      }, cb );
 
   }
-  
+
 
   function list( query, offset, limit, cb ) {
 
@@ -61,15 +68,59 @@ module.exports = function( agendaId ) {
       knex: knex( schemas.stakeholder )
     } )
 
-    .then( _list )
+      .then( _list )
 
-    .then( _total )
+      .then( _total )
 
-    .done( v => {
+      .done( v => {
 
-      cb( null, v.stakeholders, v.total );
+        cb( null, v.stakeholders, v.total );
 
-    }, cb );
+      }, cb );
+
+  }
+
+}
+
+
+function user( userId ) {
+
+  return {
+    list
+  };
+
+  function list( query, offset, limit, cb ) {
+
+    if ( arguments.length === 3 ) {
+
+      cb = limit;
+      limit = offset;
+      offset = query;
+      query = {};
+
+    }
+
+    w( {
+      offset,
+      limit,
+      query,
+      wheres: {
+        user_id: userId
+      },
+      stakeholders: [],
+      total: null,
+      knex: knex( schemas.stakeholder )
+    } )
+
+      .then( _list )
+
+      .then( _total )
+
+      .done( v => {
+
+        cb( null, v.stakeholders, v.total );
+
+      }, cb );
 
   }
 
@@ -82,20 +133,20 @@ function _list( v ) {
     v.knex = v.knex.where( v.wheres );
 
     return v.knex.clone()
-    .select( 'id', 'credential', 'user_id', 'review_id', 'store', 'organization', 'updated_at', 'created_at' )
-    .limit( v.limit )
-    .offset( v.offset )
-    .transacting( trx );
+      .select( 'id', 'credential', 'user_id', 'review_id', 'store', 'organization', 'updated_at', 'created_at' )
+      .limit( v.limit )
+      .offset( v.offset )
+      .transacting( trx );
 
   } )
 
-  .then( dbStakeholders => {
+    .then( dbStakeholders => {
 
-    v.stakeholders = dbStakeholders.map( format.dbToObj );
+      v.stakeholders = dbStakeholders.map( format.dbToObj );
 
-    return v;
+      return v;
 
-  } );
+    } );
 
 }
 
@@ -106,22 +157,22 @@ function _total( v ) {
   return knex.transaction( trx => {
 
     return v.knex.clone()
-    .count( 'id as stakeholders' )
-    .transacting( trx );
+      .count( 'id as stakeholders' )
+      .transacting( trx );
 
   } )
 
-  .then( result => {
+    .then( result => {
 
-    v.total = result[ 0 ].stakeholders;
+      v.total = result[ 0 ].stakeholders;
 
-    return v;
+      return v;
 
-  } );
+    } );
 
 }
 
-module.exports.init = function( config ) {
+function init( config ) {
 
   log( 'initing' );
 

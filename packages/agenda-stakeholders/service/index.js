@@ -28,6 +28,8 @@ module.exports = agenda;
 
 module.exports.init = init;
 
+module.exports.user = user;
+
 function agenda( agendaId ) {
 
   if ( !config ) {
@@ -121,6 +123,25 @@ function agenda( agendaId ) {
     } );
 
   }
+
+}
+
+function user( userId ) {
+
+  if ( !config ) {
+
+    throw 'service not initialized';
+
+  }
+
+  let getters = gettersLib.user( userId );
+
+  // exposed part of the service for a specific user
+  const userService = {
+    list: getters.list
+  };
+
+  return userService;
 
 }
 

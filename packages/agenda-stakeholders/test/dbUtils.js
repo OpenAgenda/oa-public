@@ -20,7 +20,7 @@ describe( 'agenda-stakeholders', () => {
 
   describe( 'dbUtils', function() {
     
-    this.timeout( 30000 );
+    this.timeout( 60000 );
 
     before( done => {
 

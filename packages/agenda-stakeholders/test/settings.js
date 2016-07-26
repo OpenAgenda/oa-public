@@ -14,7 +14,7 @@ describe( 'agenda-stakeholders', () => {
 
   describe( 'settings', function() {
 
-    this.timeout( 30000 );
+    this.timeout( 60000 );
 
     before( done => {
 
@@ -95,7 +95,6 @@ describe( 'agenda-stakeholders', () => {
     it( 'validates custom values', done => {
 
       service( 4609 ).settings.custom.validate( {
-        contact_name: 'Some name',
         organization: 'DRAC ALPC',
         contact_number: '05 57 95 01 84',
         contact_name: 'DEYRES Joëlle',

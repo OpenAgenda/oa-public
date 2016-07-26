@@ -16,7 +16,7 @@ describe( 'agenda-stakeholders', () => {
 
   describe( 'service', function() {
 
-    this.timeout( 10000 );
+    this.timeout( 60000 );
 
     before( done => {
 
