@@ -1,0 +1,5 @@
+<% for ( var i in metas ) { %><% if ( typeof metas[i] == 'string' ) { %>
+    <meta name="<%= i %>" content="<%- metas[i] %>" />
+<% } else { %>
+    <meta <% for ( var j in metas[i] ) { %> <%- j %>="<%- metas[i][j] %>"<% } %> />
+<% } %><% } %>
