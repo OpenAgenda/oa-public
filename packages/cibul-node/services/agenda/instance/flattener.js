@@ -14,6 +14,10 @@ agendaLocations = require( 'agenda-locations' ),
 
 agendaTags = require( 'agenda-tags' ),
 
+agendaCategories = require( 'agenda-categories' ),
+
+async = require( 'async' ),
+
 stateLabels = require( 'labels/event/states' ),
 
 moment = require( 'moment-timezone' );
@@ -26,34 +30,66 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
   function flattener( options, cb ) {
 
-    var languages, mapping,
+    let languages, mapping, tagSet, categorySet,
 
     params = utils.extend( {
       includePrivateData: typeof options == 'boolean' ? options : false,
       lang: false,
       headerHandler: false
-    }, typeof options === 'object' ? options : {} )
+    }, typeof options === 'object' ? options : {} );
 
-    instance.getLanguages( function( err, l ) {
+    async.waterfall( [
+      wcb => {
+
+        instance.getLanguages( ( err, l ) => {
+
+          if ( err ) return wcb( err );
+
+          languages = l;
+
+          wcb();
+
+        } );
+
+      },
+      wcb => {
+
+        agendaTags.get( instance.id, ( err, t ) => {
+
+          if ( err ) return wcb( err );
+
+          tagSet = t;
+
+          wcb();
+
+        } );
+
+      },
+      wcb => {
+
+        agendaCategories.get( instance.id, ( err, c ) => {
+
+          if ( err ) return wcb( err );
+
+          categorySet = c;
+
+          wcb();
+
+        } );
+
+      }
+    ], err => {
 
       if ( err ) return cb( err );
 
-      languages = l;
-
-      agendaTags.get( instance.id, ( err, tagSet ) => {
-
-        if ( err ) return cb( err );
-
-        mapping = _defineMapping( params.includePrivateData, tagSet );
+        mapping = _defineMapping( params.includePrivateData, tagSet, categorySet );
 
         cb( null, {
           getFieldNames: getFieldNames,
           flatten: flatten
         });
 
-      } );
-
-    });
+    } );
 
     function getFieldNames() {
 
@@ -198,10 +234,10 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
     }
 
-    function _defineMapping( includePrivateData, tagSet ) {
+    function _defineMapping( includePrivateData, tagSet, categorySet ) {
 
       let map = [ 'uid' ].concat( _textFields( [ 
-        'title', 'description', 'longDescription', 'conditions', 'html'
+        'title', 'description', 'longDescription', 'conditions', 'html', 'keywords'
       ], languages ), [
         'image',
         'thumbnail',
@@ -228,6 +264,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         'firstTimeEnd',
         { 
           sourceField: 'category',
+          destField: categorySet && categorySet.name ? categorySet.name : 'category',
           fn: _extractCategory
         } ],
         ( tagSet ? tagSet.groups.map( g => ( {

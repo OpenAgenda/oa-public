@@ -74,6 +74,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
       title: instance.title,
       description: instance.description,
       longDescription: instance.freeText,
+      keywords: instance.tags,
       html: instance.getEnrichedFreeText( true ),
       image: loaded.getImage(),
       thumbnail: loaded.getThumbnail(),
