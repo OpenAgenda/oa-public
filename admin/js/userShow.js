@@ -95,6 +95,10 @@ module.exports = React.createClass( {
             <td>Updated At</td>
             <td>{user.updatedAt}</td>
           </tr>
+          <tr>
+            <td>Last signin</td>
+            <td>{user.lastSignin}</td>
+          </tr>
           </tbody>
         </table>
         <a onClick={this.props.onUserSignin} href="#">Signin as user</a><br/>
