@@ -449,7 +449,7 @@ function _defineISOTimings( args ) {
 
   return args[ 0 ].map( t => {
 
-    [ t.start, t.end ]
+    return [ t.start, t.end ]
 
     .map( t => moment( t ).tz( args[ 1 ] || 'Europe/Paris' ).format() )
 
