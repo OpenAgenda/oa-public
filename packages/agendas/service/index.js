@@ -105,7 +105,7 @@ function _search( v ) {
   v.knex = v.knex[ ids ? 'andWhere' : 'where' ]( function () {
     this.where( 'title', 'like', `%${v.query.search}%` )
       .orWhere( 'description', 'like', `%${v.query.search}%` )
-      .orWhere( 'slug', 'like', `%${v.query.search}%` )
+      .orWhere( 'slug', 'like', `%${v.query.search}%` );
   } );
 
   return v;
