@@ -1,6 +1,16 @@
 <% include ../layout/_top.ejs %>
 <div class="container">
-  <% include _dropdown.ejs %>
-  </div>
+    <% include _dropdown.ejs %>
+
+    <div class="row">
+        <section class="col-sm-6 col-sm-offset-2 top-margined">
+
+            <h2>Calendar</h2>
+
+            <div class="wsq content">
+                <% include _calendar %>
+            </div>
+        </section>
+    </div>
 </div>
 <% include ../layout/_bottom.ejs %>

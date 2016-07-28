@@ -57,8 +57,8 @@ body {
   }
 
   hr {
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
     border: 0;
     border-top: 2px solid #eeeeee;
   }
@@ -72,6 +72,22 @@ body {
 
   .background-white {
     background: $oa-white;
+
+    .shadow {
+      -webkit-box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.4);
+      -moz-box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.4);
+      box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  .background-gray {
+    background: $oa-gray-lighter;
+
+    .shadow {
+      -webkit-box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.3);
+      -moz-box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.3);
+      box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.3);
+    }
   }
 
   .background-blue {
@@ -80,10 +96,6 @@ body {
     h1, h2 {
       color: $oa-white;
     }
-  }
-
-  .background-gray {
-    background: $oa-gray-lighter;
   }
 
   #presentation {
@@ -97,8 +109,6 @@ body {
       background-image: url('//s3.eu-central-1.amazonaws.com/oastatic/placeit.jpg');
       background-size: cover;
       -webkit-filter: brightness(50%);
-      -moz-filter: brightness(50%);
-      -o-filter: brightness(50%);
       filter: brightness(50%);
       height: 100%;
       width: 100%;
@@ -139,6 +149,22 @@ body {
 
     p {
       margin: 0;
+    }
+  }
+
+  #fonctions {
+    figure .rounded {
+      width: 256px;
+      line-height: 256px;
+      border-radius: 128px;
+      background: $oa-blue;
+      margin-left: 20em;
+      margin-right: 1em;
+
+      img {
+        margin: 0;
+        transform: scale(0.7);
+      }
     }
   }
 

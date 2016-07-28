@@ -1,0 +1,43 @@
+@import "../layout/base";
+
+.agenda-settings {
+  .table-responsive {
+    overflow: visible;
+  }
+
+  table {
+    td:first-of-type {
+      cursor: pointer;
+    }
+  }
+
+  form {
+    textarea {
+      width: 100%;
+      resize: vertical;
+    }
+
+    .radio + .radio {
+      margin: 10px 0;
+    }
+
+    .container-fluid {
+      margin: 10px 0;
+    }
+  }
+
+  .dropdown {
+    .dropdown-menu {
+      padding: 0;
+    }
+    
+    label {
+      font-weight: normal;
+    }
+
+    .cibulCalendar {
+      min-width: 250px;
+      margin: auto;
+    }
+  }
+}
