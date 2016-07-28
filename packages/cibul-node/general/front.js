@@ -190,7 +190,8 @@ function start( req, res, next ) {
     pricing_custom: config.contactResource, 
     pricing_premium: config.contactResource, 
     pricing_tailored: config.contactResource,
-    bottom: req.genUrl( 'signup' )
+    bottom: req.genUrl( 'signup' ),
+    newsletter: req.genUrl( 'homeShow' )
   }
 
   let action = Object.keys( actions ).filter( v => req.query.a === v );
