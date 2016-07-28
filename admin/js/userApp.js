@@ -55,7 +55,10 @@ var React = require( 'react' ),
 
       remote.getXmlHttp( config.res.users, { data: { uid: uid } }, function ( success, data ) {
 
-        self.setState( { user: data.user } );
+        self.setState( {
+          user: data.user,
+          stakeholders: data.stakeholders
+        } );
 
       } );
 
@@ -184,7 +187,7 @@ var React = require( 'react' ),
               <UserList users={this.state.users} onUserClick={this.get}/>
             </div>
             <div className="col-md-8">
-              <UserShow user={this.state.user} onUserActivation={this.handleUserActivation}
+              <UserShow user={this.state.user} stakeholders={this.state.stakeholders} onUserActivation={this.handleUserActivation}
                         onUserSignin={this.handleUserSignin} onUserChangePassword={this.handleChangePassword}/>
             </div>
           </div>
