@@ -84,6 +84,24 @@ describe( 'schema validator', () => {
 
     } );
 
+    it( 'validates a subset of the schema', () => {
+
+      let clean = schemaValidator.part( [ 'url', 'settings.someSetting' ], {
+        url: 'https://openagenda.com',
+        settings: {
+          someSetting: 12
+        }
+      } );
+
+      clean.should.eql( {
+        url: 'https://openagenda.com',
+        settings: {
+          someSetting: 12
+        }
+      } );
+
+    } );
+
 
     it( 'validates and cleans a part of the schema - object case', () => {
 
@@ -168,6 +186,7 @@ describe( 'schema validator', () => {
 
     } );
 
+
     it( 'valid deep object is valid', () => {
 
       let cleanObject = schemaValidator( {
@@ -195,6 +214,7 @@ describe( 'schema validator', () => {
       } );
 
     } );
+
 
     it( 'invalid deep object gives flat', () => {
 
@@ -224,12 +244,12 @@ describe( 'schema validator', () => {
         message: 'the string is too short',
         values: { min: 2, max: 255 },
         origin: undefined 
-      }, { 
+      }, {
         field: 'url',
         code: 'link.invalid',
         message: 'value is not a link',
         origin: 'notalink'
-      },{ 
+      },{
         field: 'settings.credentials.universe',
         code: 'number.invalid',
         message: 'not a number',

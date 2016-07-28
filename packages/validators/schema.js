@@ -36,7 +36,52 @@ function schema(struct) {
     return _mapToObject(clean);
   }
 
-  function part(address, values) {
+  function part(fields, values) {
+
+    if (typeof fields === 'string') return validateField(fields, values);
+
+    if (!_utils2.default.isArray(fields)) throw 'wrong part input';
+
+    var clean = {},
+        errors = [];
+
+    fields.forEach(function (field) {
+
+      var value = values;
+
+      field.split('.').forEach(function (fieldPart) {
+
+        value = value[fieldPart];
+      });
+
+      try {
+        (function () {
+
+          var cleanPart = clean,
+              fieldParts = field.split('.'),
+              leafField = fieldParts.pop();
+
+          fieldParts.forEach(function (fieldPart) {
+
+            if (!cleanPart[fieldPart]) cleanPart[fieldPart] = {};
+
+            cleanPart = cleanPart[fieldPart];
+          });
+
+          cleanPart[leafField] = validateField(field, value);
+        })();
+      } catch (e) {
+
+        errors = errors.concat(e);
+      }
+    });
+
+    if (errors.length) throw errors;
+
+    return clean;
+  }
+
+  function validateField(address, values) {
 
     var subStruct = struct;
 

@@ -27,7 +27,59 @@ function schema( struct ) {
 
   }
 
-  function part( address, values ) {
+
+  function part( fields, values ) {
+
+    if ( typeof fields === 'string' ) return validateField( fields, values );
+
+    if ( !utils.isArray( fields ) ) throw 'wrong part input';
+
+    let clean = {}, errors = [];
+
+    fields.forEach( field => {
+
+      let value = values;
+
+      field.split( '.' ).forEach( fieldPart => {
+
+        value = value[ fieldPart ];
+
+      } );
+
+      try {
+
+        let cleanPart = clean,
+
+        fieldParts = field.split( '.' ),
+
+        leafField = fieldParts.pop();
+
+        fieldParts.forEach( fieldPart => {
+
+          if ( !cleanPart[ fieldPart ] ) cleanPart[ fieldPart ] = {};
+
+          cleanPart = cleanPart[ fieldPart ];
+
+        } );
+
+        cleanPart[ leafField ] = validateField( field, value );
+
+      } catch ( e ) {
+
+        errors = errors.concat( e );
+
+      }
+
+    } );
+
+    if ( errors.length ) throw errors;
+
+    return clean;
+
+  }
+
+
+  function validateField( address, values ) {
 
     let subStruct = struct;
 
