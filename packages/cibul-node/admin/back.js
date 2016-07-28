@@ -28,6 +28,11 @@ var modLib = require( '../lib/moduleLib' ),
 
   users = require( 'users' ),
 
+  stakeholdersSvc = require( 'agenda-stakeholders' ),
+
+  agendasSvc = require( 'agendas' ),
+
+
   routes = {
     adminIndex: [ 'get', '/', index ],
     adminSearch: [ 'get', '/search', search ],
@@ -163,16 +168,53 @@ function search( req, res ) {
 }
 
 
-function getUsers( req, res ) {
+function getUsers( req, res, next ) {
 
   if ( req.xhr ) {
 
     if ( req.query.uid ) {
 
-      return _loadUser( req, res, function () {
+      return _loadUser( req, res, () => {
 
-        cmn.renderJson( req, res, {
-          user: lib.filterByAttr( req.loadedUser, [ 'uid', 'fullName', 'email', 'isActivated', 'createdAt', 'updatedAt' ] )
+        if ( !req.loadedUser.id ) return next( 'User not found' );
+
+        stakeholdersSvc.user( req.loadedUser.id ).list( 0, 500, ( err, stakeholders = [] ) => {
+
+          agendasSvc.list( { ids: stakeholders.map( item => item.agendaId ) }, 0, 500, ( err, agendas ) => {
+
+            model.lib.query( 'SELECT count(*) as nbrEvents, review_id ' +
+              'FROM review_article WHERE user_id = ? AND store NOT LIKE "%\\"sources\\":%" GROUP BY review_id',
+              [ req.loadedUser.id ],
+              ( err, counters ) => {
+
+                stakeholders = stakeholders.map( stakeholder => {
+
+                  stakeholder.agenda = agendas.filter( agenda => agenda.id == stakeholder.agendaId )[ 0 ];
+
+                  const counter = counters.filter( counter => counter.review_id == stakeholder.agendaId )[ 0 ];
+                  stakeholder.nbrEvents = counter && counter.nbrEvents;
+
+                  return stakeholder;
+
+                } );
+
+                cmn.renderJson( req, res, {
+                  user: lib.filterByAttr( req.loadedUser, [ 
+                    'uid',
+                    'fullName',
+                    'email',
+                    'isActivated',
+                    'createdAt',
+                    'updatedAt',
+                    'lastSignin'
+                  ] ),
+                  stakeholders
+                } );
+
+              } );
+
+          } );
+
         } );
 
       } );
