@@ -1,15 +1,72 @@
 "use strict";
 
-const setValidator = require( 'validators/set' ),
-
-  text = require( 'validators/text' ),
+const text = require( 'validators/text' ),
 
   email = require( 'validators/email' ),
 
   number = require( 'validators/number' ),
 
-  utils = require( 'utils' );
+  link = require( 'validators/link' ),
 
+  utils = require( 'utils' ),
+
+  schema = require( 'validators/schema' );
+
+schema.register( {
+  text,
+  link,
+  number,
+  email
+} );
+
+// define the schema
+
+const schemaValidator = schema( {
+  full_name: {
+    type: 'text',
+    min: 2
+  },
+  username: {
+    type: 'text'
+  },
+  culture: {
+    type: 'text',
+    min: 2,
+    max: 2
+  },
+  email: {
+    type: 'email'
+  },
+  password: {
+    type: 'text',
+    min: 4
+  },
+  salt: {
+    type: 'text'
+  },
+  image: {
+    type: 'text'
+  },
+  store: {
+    type: 'text'
+  },
+  is_activated: {
+    type: 'number'
+  },
+  is_removed: {
+    type: 'number'
+  },
+  new_password: {
+    type: 'text',
+    min: 4
+  },
+  api_key: {
+    type: 'text'
+  },
+  api_secret: {
+    type: 'text'
+  }
+} );
 
 module.exports = Object.assign( validate, {
   update,
@@ -20,253 +77,75 @@ module.exports = Object.assign( validate, {
 } );
 
 
-function validate( fields ) {
+function validate( data ) {
 
-  var validateSet = setValidator( [
-    text( {
-      field: 'full_name',
-      min: 2
-    } ),
-    text( {
-      field: 'culture',
-      min: 2,
-      max: 2
-    } ),
-    email( {
-      field: 'email'
-    } ),
-    text( {
-      field: 'password'
-    } ),
-    text( {
-      field: 'salt'
-    } )
-  ], { compact: true } );
-
-  try {
-
-    var result = validateSet( [ {
-      field: 'full_name',
-      value: fields.full_name
-    }, {
-      field: 'culture',
-      value: fields.culture
-    }, {
-      field: 'email',
-      value: fields.email
-    }, {
-      field: 'password',
-      value: fields.password
-    }, {
-      field: 'salt',
-      value: fields.salt
-    } ] );
-
-
-    return { valid: true, fields: result };
-
-  } catch ( e ) {
-
-    return { valid: false, errors: e };
-
-  }
+  return _validate( [
+    'full_name',
+    'culture',
+    'email',
+    'password',
+    'salt'
+  ], data );
 
 }
 
-function update( fields, removing ) {
+function update( data, removing ) {
 
-  var validateSet = setValidator( [
-    text( {
-      field: 'full_name',
-      min: 2
-    } ),
-    text( {
-      field: 'username'
-    } ),
-    text( {
-      field: 'culture',
-      min: 2,
-      max: 2
-    } ),
-    text( {
-      field: 'password'
-    } ),
-    text( {
-      field: 'salt'
-    } ),
-    text( {
-      field: 'image'
-    } ),
-    text( {
-      field: 'store'
-    } ),
-    number( {
-      field: 'is_activated'
-    } ),
-    number( {
-      field: 'is_removed'
-    } )
-  ]
-    .concat( removing ? [] : email( { field: 'email' } ) )
-    .filter( v => Object.keys( fields ).indexOf( v.field ) !== -1 ), { compact: true } );
-
-  try {
-
-    var result = validateSet( [ {
-      field: 'full_name',
-      value: fields.full_name
-    }, {
-      field: 'username',
-      value: fields.username
-    }, {
-      field: 'culture',
-      value: fields.culture
-    }, {
-      field: 'email',
-      value: fields.email
-    }, {
-      field: 'password',
-      value: fields.password
-    }, {
-      field: 'salt',
-      value: fields.salt
-    }, {
-      field: 'image',
-      value: fields.image
-    }, {
-      field: 'store',
-      value: fields.store
-    }, {
-      field: 'is_activated',
-      value: fields.is_activated
-    }, {
-      field: 'is_removed',
-      value: fields.is_removed
-    } ] );
-
-    return { valid: true, fields: result };
-
-  } catch ( e ) {
-
-    return { valid: false, errors: e };
-
-  }
+  return _validate( [
+    'full_name',
+    'username',
+    'culture',
+    'password',
+    'salt',
+    'image',
+    'store',
+    'is_activated',
+    'is_removed'
+  ].concat( removing ? [] : 'email' )
+    .filter( v => Object.keys( data ).indexOf( v ) !== -1 ), data );
 
 }
 
-function updateProfile( fields ) {
+function updateProfile( data ) {
 
-  var validateSet = setValidator( [
-    text( {
-      field: 'full_name',
-      min: 2
-    } ),
-    text( {
-      field: 'culture',
-      min: 2,
-      max: 2
-    } )
-  ].filter( v => Object.keys( fields ).indexOf( v.field ) !== -1 ), { compact: true } );
-
-  try {
-
-    var result = validateSet( [ {
-      field: 'full_name',
-      value: fields.full_name
-    }, {
-      field: 'culture',
-      value: fields.culture
-    } ] );
-
-    return { valid: true, fields: result };
-
-  } catch ( e ) {
-
-    return { valid: false, errors: e };
-
-  }
+  return _validate( [
+    'full_name',
+    'culture'
+  ].filter( v => Object.keys( data ).indexOf( v ) !== -1 ), data );
 
 }
 
-function changePassword( fields ) {
+function changePassword( data ) {
 
-  var validateSet = setValidator( [
-    text( {
-      field: 'new_password',
-      min: 4
-    } )
-  ], { compact: true } );
-
-  try {
-
-    var result = validateSet( [ {
-      field: 'new_password',
-      value: fields.new_password
-    } ] );
-
-    return { valid: true, fields: result };
-
-  } catch ( e ) {
-
-    return { valid: false, errors: e };
-
-  }
+  return _validate( [
+    'new_password'
+  ], data );
 
 }
 
-function changeEmail( fields ) {
+function changeEmail( data ) {
 
-  var validateSet = setValidator( [
-    email( {
-      field: 'email'
-    } ),
-    text( {
-      field: 'password'
-    } )
-  ], { compact: true } );
-
-  try {
-
-    var result = validateSet( [ {
-      field: 'email',
-      value: fields.email
-    }, {
-      field: 'password',
-      value: fields.password
-    } ] );
-
-    return { valid: true, fields: result };
-
-  } catch ( e ) {
-
-    return { valid: false, errors: e };
-
-  }
+  return _validate( [
+    'email',
+    'password'
+  ], data );
 
 }
 
-function apiKeySet( fields ) {
+function apiKeySet( data ) {
 
-  var validateSet = setValidator( [
-    text( {
-      field: 'api_key'
-    } ),
-    text( {
-      field: 'api_secret'
-    } )
-  ].filter( v => Object.keys( fields ).indexOf( v.field ) !== -1 ), { compact: true } );
+  return _validate( [
+    'api_key',
+    'api_secret'
+  ].filter( v => Object.keys( data ).indexOf( v ) !== -1 ), data );
+
+}
+
+function _validate( fields, data ) {
 
   try {
 
-    var result = validateSet( [ {
-      field: 'api_key',
-      value: fields.api_key
-    }, {
-      field: 'api_secret',
-      value: fields.api_secret
-    } ] );
-
-    return { valid: true, fields: result };
+    return { valid: true, fields: schemaValidator.part( fields, data ) };
 
   } catch ( e ) {
 
