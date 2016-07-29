@@ -3,7 +3,7 @@
 var React = require( 'react' ),
 
   remote = require( '../../js/lib/remote/remote.mod' ),
-  
+
   List = require( 'react-components/build/List' );
 
 module.exports = React.createClass( {
@@ -32,14 +32,15 @@ module.exports = React.createClass( {
         }, 3000 );
       } );
   },
-  
-  renderStakeholder(props) {
+
+  renderStakeholder( props ) {
     return (
       <tr key={props.id}>
         <td>{props.id}</td>
-        <td>{credentialToString(props.credential)}</td>
+        <td>{credentialToString( props.credential )}</td>
         <td><a href={`/${props.agenda.slug}`}>{props.agenda.title}</a></td>
         <td>{props.nbrEvents}</td>
+        <td><pre>{JSON.stringify( props.custom, null, 4 )}</pre></td>
       </tr>
     );
   },
@@ -125,6 +126,7 @@ module.exports = React.createClass( {
               <th>Rôle</th>
               <th>Agenda</th>
               <th>Nombre d'événements</th>
+              <th>Custom</th>
             </tr>
             </thead>
             <List
