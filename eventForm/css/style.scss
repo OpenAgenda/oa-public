@@ -70,6 +70,21 @@ body > header {
 
   }
 
+  .ndc {
+
+    .title-container {
+
+      .btn i,
+      strong {
+
+        color: $oa-white;
+
+      }
+
+    }
+
+  }
+
   input[type="radio"], input[type="checkbox"] {
 
     margin-top: 3px;    
@@ -115,7 +130,7 @@ body > header {
 
   .contribution-info {
 
-    border-left: 3px solid $oa-blue;
+    border: 3px solid $oa-blue;
     padding: 0.5em 1em;
     background: rgba(0, 0, 0, 0.03);
     line-height: 1.6em;

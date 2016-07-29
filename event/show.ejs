@@ -159,7 +159,7 @@
           <div class="tag-groups">
 <% event.tagGroups.forEach( g => { %>
           <div class="tags">
-            <label><%= g.name %>: </label>
+            <label><%= g.name || __( 'Tags' ) %>: </label>
             <ul>
 <%- g.tags.map( t => {
       return '<li>' + _txt.escape( t.label ) + '</li>';
@@ -191,7 +191,17 @@
 <% } %>
           </div>
 
+<% if ( typeof event.keywords !== 'undefined' && event.keywords.length ) { %>
+          <div class="keywords">
+            <span><%= event.keywords %></span>
+          </div>
+<% } %>
+
         </div>
+
+
+        <div class="js_references"></div>
+
 <% if ( 
   event.location.description 
   || event.location.access

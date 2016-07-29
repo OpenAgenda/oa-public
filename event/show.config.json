@@ -2,18 +2,8 @@
   
   "layout" : "bsLayout/main",
 
-  "oaCss" : {
-    "agenda-header" : "../node_modules/bs-templates/templates/agenda/_header.scss",
-    "agenda-admin-bar" : "../node_modules/bs-templates/templates/agenda/_admin-bar.scss",
-    "event-base" : "../node_modules/bs-templates/templates/event/_base.scss",
-    "event" : "../node_modules/bs-templates/templates/event/_style.scss",
-    "event-details" : "../node_modules/bs-templates/templates/event/_details.scss",
-    "event-langs" : "../node_modules/bs-templates/templates/event/_langs.scss",
-    "leaflet" : "../css/leaflet-0.7.3.css",
-    "sharers" : "../node_modules/bs-templates/templates/event/_sharers.scss",
-    "event-hours" : "../node_modules/bs-templates/templates/event/_hours.scss",
-    "popup-overlay" : "../agenda/css/popup-overlay.scss",
-    "event-print" : "../node_modules/bs-templates/templates/event/_print.scss"
+  "bsCss" : {
+    "main" : "/node_modules/bs-templates/compiled/main.css"
   },
 
   "helpers" : {

@@ -643,7 +643,20 @@ footer a { padding-right: 0.87em; }
 
 /*1 - GENERAL LAYOUT - image dynamic upload elements */
 
-.image-upload { position: absolute; top: 0; right: 0; text-align: right; width: auto; cursor: pointer; padding: 10px }
+.image-upload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: right;
+  width: auto;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.image-upload .info {
+  display: block;
+  padding-bottom: 0.5em;
+}
 
 .image-upload a { padding: 2px 4px; }
 

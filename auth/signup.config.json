@@ -6,6 +6,7 @@
     "auth" : "css/auth.scss"
   },
   "helpers" : {
+    "_r" : "redirect",
     "_t" : "time",
     "_i" : "image",
     "_txt" : "text",

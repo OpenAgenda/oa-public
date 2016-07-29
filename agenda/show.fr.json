@@ -55,5 +55,7 @@
   "%count% upcoming events"
   : "%count% événements à venir",
   "include passed events"
-  : "inclure les événements passés"
+  : "inclure les événements passés",
+  "Contact"
+  : "Contacter"
 }

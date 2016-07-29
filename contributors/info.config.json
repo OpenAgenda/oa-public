@@ -1,5 +1,6 @@
 {
   "layout" : "agendaAdmin/layout",
+  "labels" : "contributors/info",
   "css" : {},
   "helpers" : {
     "_t" : "time",

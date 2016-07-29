@@ -107,7 +107,7 @@ module.exports = function( params ) {
 
         if ( encodedEvent ) {
 
-          _post(url, encodedEvent);
+          _post( url, encodedEvent );
 
         } else {
 

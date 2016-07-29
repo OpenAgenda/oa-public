@@ -2,6 +2,7 @@
   "bsCss": {
     "main": "../node_modules/bs-templates/compiled/main.css"
   },
+  "labels": "corpo/layout",
   "base": {
     "bottom": {
       "scriptSources": [
@@ -13,25 +14,23 @@
         "//s3.eu-central-1.amazonaws.com/oastatic/typed.min.js",
         "//s3.eu-central-1.amazonaws.com/oastatic/odometer.min.js"
       ],
-      "scripts": [
-        "jQuery( function ( $ ) { $( 'a[href*=\"#\"]:not([href=\"#\"]):not([href=\"#carousel-screens\"])' ).click( function() { if ( location.pathname.replace( /^\\//, '' ) == this.pathname.replace( /^\\//,'') && location.hostname == this.hostname ) { var target = $( this.hash ); target = target.length ? target : $('[name=' + this.hash.slice(1) +']'); if ( target.length ) { $( 'html,body' ).animate( { scrollTop: target.offset().top }, 350 ); return false; } } }); var hashOnLoad = window.location.hash; if( hashOnLoad ) { var target = $( hashOnLoad ); if ( target.length ) { $( 'html,body' ).animate( { scrollTop: target.offset().top }, 350 ); return false; } } } );",
-        "$(function(){$('.typed').typed({strings: ['festival', 'salon', 'fédération', 'théâtre', 'ville', 'association', 'université', 'entreprise', 'palais des congrès', 'fablab', 'tiers-lieu', 'caserne', 'diocèse', 'hôpital'],typeSpeed: 40, startDelay: 1000, backDelay: 2000, loop: true });});"
-      ]
+      "scripts": [],
+      "metas": {
+        "title": "OpenAgenda",
+        "description": "Communicate efficiently on your events",
+        "keywords": "openagenda, events, agendas, open data, networked",
+        "robots": "index, follow"
+      }
     },
     "pageClass": false,
     "pageId": false,
     "searchRes": "searchEvents",
     "search": "",
-    "metas": {
-      "title": "OpenAgenda",
-      "description": "Communicate efficiently on your events",
-      "keywords": "openagenda, events, agendas, open data, networked",
-      "robots": "index, follow"
-    },
     "lang": "fr",
     "langLabels": {
       "fr": "Français",
       "en": "English"
     }
-  }
+  },
+  "js": true
 }

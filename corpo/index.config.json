@@ -1,65 +1,77 @@
 {
-  "layout" : "bsLayout/main",
-  "oaCss" : {
-    "corpo" : "css/style.scss"
+  "layout": "bsLayout/corpo",
+  "bsCss": {},
+  "labels": "corpo/index",
+  "helpers": {
+    "_i": "image"
   },
-  "helpers" : {
-    "_i" : "image"
-  },
-  "base" : {
-    "pageClass" : "ct",
-    "pageId" : "old_corpo",
-    "references" : [
+  "base": {
+    "scriptParams": {
+      "lang": "fr",
+      "stats": {
+        "agendas": 4000,
+        "contributors": 12000,
+        "events": 90000
+      }
+    },
+    "pageClass": "ct",
+    "pageId": "corpo",
+    "references": [
       {
-        "src": "bretagne.jpg",
-        "alt" : "Région Bretagne",
-        "href" : "http://fetedelabretagne.com"
+        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_1.png",
+        "url": "http://agendadesentrepreneurs.openagenda.com/",
+        "caption": "L'agenda des Entrepreneurs"
       },
       {
-        "src": "cnnum.jpg",
-        "alt" : "Conseil National du Numérique",
-        "href" : "http://www.cnnumerique.fr"
+        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_2.png",
+        "url": "http://www.entreprises.gouv.fr/semaine-industrie",
+        "caption": "La semaine de l'industrie"
       },
       {
-        "src": "ministere.jpg",
-        "alt" : "Ministère de l'éducation nationale, de l'enseignement supérieur et de la recherche",
-        "href" : "http://journee-arts-culture-sup.fr"
+        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_3.png",
+        "url": "http://www.dutilleux2016.com/agenda/",
+        "caption": "L'agenda Dutilleux"
       },
       {
-        "src": "fidh.jpg",
-        "alt" : "FIDH",
-        "href" : "https://www.fidh.org"
+        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_4.png",
+        "url": "http://www.lasemainenumerique.paris/",
+        "caption": "La semaine numérique"
       },
       {
-        "src": "idf.jpg",
-        "alt" : "Île-de-France",
-        "href" : "http://www.iledefrance.fr"
+        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_5.jpg",
+        "url": "http://journee-arts-culture-sup.fr/",
+        "caption": "Les journées des arts et de la culture dans les enseignements supérieur"
+      }
+    ],
+    "testimonials": [
+      {
+        "text": {
+          "fr": "Simplicité, interface dynamique, géolocalisation. Une équipe à l’écoute, de très bons conseils et très réactive&nbsp;!!!",
+          "en": "OpenAgenda is a simple, interactive and geolocalized solution operated by a very reactive and efficient team&nbsp;!"
+        },
+        "image": "//s3.eu-central-1.amazonaws.com/oastatic/GAL_Karine.jpg",
+        "name": "Karine Gal",
+        "job": "Ministère de l'Economie - Semaine de l'industrie"
       },
       {
-        "src": "investinfrance.jpg",
-        "alt" : "Invest in France",
-        "href" : "http://www.invest-in-france.org"
+        "text": {
+          "fr": "La solution idéale pour centraliser toutes les informations relatives à un événement commun. L’outil est très intuitif et simple d’utilisation, il tient toutes ses promesses.",
+          "en": "The ideal solution to centralize all the event's datas, OpenAgenda is easy to use and keeps all his promises."
+        },
+        "image": "//s3.eu-central-1.amazonaws.com/oastatic/paola-scotton.jpg",
+        "name": "Paola Scotton",
+        "job": "Réunion des Opéras de France - Tous à l'Opéra"
       },
       {
-        "src": "lafrenchtech.jpg",
-        "alt" : "La French Tech",
-        "href" : "http://www.lafrenchtech.com"
-      },
-      {
-        "src": "ministereculture.png",
-        "alt" : "Ministère de la culture",
-        "href" : "http://www.culturecommunication.gouv.fr"
-      },
-      {
-        "src": "numa.png",
-        "alt" : "Numa",
-        "href" : "https://www.numa.paris"
-      },
-      {
-        "src": "paris.png",
-        "alt" : "Mairie de Paris",
-        "href" : "https://idee.paris.fr/agenda"
+        "text": {
+          "fr": "OpenAgenda nous a permis de gagner du temps en mutualisant nos événements et de les diffuser plus largement via nos sites web et au-delà.",
+          "en": "OpenAgenda helped us save a lot of time by gathering our events in one single calendar, broadcasted on our website and across the internet."
+        },
+        "image": "//s3.eu-central-1.amazonaws.com/oastatic/Xavier-maslaux.jpg",
+        "name": "Xavier Masclaux",
+        "job": "Pôle Numérique"
       }
     ]
-  }
+  },
+  "js": true
 }

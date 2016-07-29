@@ -1,6 +1,8 @@
 {
-  "agenda" : {
-    "slug" : "agenda-slug"
-  },
-  "info" : "Typidi type type type"
+  "base": {
+    "agenda": {
+      "slug": "agenda-slug"
+    },
+    "info": "Typidi type type type"
+  }
 }

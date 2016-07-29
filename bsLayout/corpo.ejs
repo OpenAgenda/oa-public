@@ -7,10 +7,12 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="language" content="<%= lang %>"/>
-    <% if ( metas.title ) { %>
-    <title><%- __( metas.title ) %></title>
+    <% if ( typeof metas !== 'undefined' && metas.title ) { %>
+    <title><%- metas.title %></title>
     <% } %>
-    <% include ../layout/metas.part.ejs %>
+    <% if ( typeof metas !== 'undefined' ) { %>
+    <% include ../layout/newLabelMetas.part.ejs %>
+    <% } %>
     <% include ../layout/css.part.ejs %>
     <% include ../layout/js.part.ejs %>
 
@@ -38,14 +40,14 @@
             </a>
         </div>
         <div class="navbar-collapse collapse" id="bs-navbar-collapse" aria-expanded="false">
-            <ul class="nav navbar-nav navbar-left">
-                <li><a href="#fonctions">Fonctions</a></li>
-                <li><a href="#tarifs">Tarifs</a></li>
-                <li><a href="#testimonials">Références</a></li>
+            <ul class="nav navbar-nav navbar-left hidden-sm">
+                <li><a href="#fonctions"><%= __( 'layoutFeatures' ) %></a></li>
+                <li><a href="#tarifs"><%= __( 'layoutPricing' ) %></a></li>
+                <li><a href="#references"><%= __( 'layoutTestimonials' ) %></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="signin"><a href="<%= genUrl( 'signin' ) %>">Connexion</a></li>
-                <li class="signup"><a href="<%= genUrl( 'signup' ) %>">Créer un compte</a></li>
+                <li class="signin"><a href="<%= genUrl( 'start', { a: 'header_signin' } ) %>"><%= __( 'layoutSignin' ) %></a></li>
+                <li class="signup"><a href="<%= genUrl( 'start', { a: 'header_signup' } ) %>"><%= __( 'layoutSignup' ) %></a></li>
                 <li class="tel">
                     <p class="navbar-btn">
                         <a href="tel:+33176350143" class="btn btn-default">

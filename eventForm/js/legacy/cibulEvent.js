@@ -43,6 +43,9 @@ module.exports = function( params ) {
       timingsField: {
         write: 'etimingssend'
       },
+      references: {
+        write: 'ereferences'
+      },
       uidfetch: 'euidfetch',
       validate: 'evalidate',
       fetchEncoded: 'efetchencoded',
@@ -211,6 +214,14 @@ module.exports = function( params ) {
       event.custom = data.values;
 
       currentErrors = data.errors;
+
+      _evaluate();
+
+    } );
+
+    _on( params.events.references.write, function( data ) {
+
+      event.references = data;
 
       _evaluate();
 

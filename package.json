@@ -25,6 +25,7 @@
   "dependencies": {
     "admin-agendas": "git+ssh://git@bitbucket.org:openagenda/admin-agendas.git",
     "agenda-categories": "git+ssh://git@bitbucket.org:openagenda/agenda-categories.git",
+    "agenda-event-references": "git+ssh://git@bitbucket.org:openagenda/agenda-event-references.git",
     "agenda-locations": "git+ssh://git@bitbucket.org:openagenda/agenda-locations.git",
     "agenda-tags": "git+ssh://git@bitbucket.org:openagenda/agenda-tags.git",
     "async": "0.9.0",
@@ -66,7 +67,9 @@
     "outdated-browser-rework": "0.1.1",
     "qs": "2.3.3",
     "raw-loader": "^0.5.1",
+    "react": "0.14.7",
     "react-addons-update": "0.14.7",
+    "react-components": "git+ssh://git@bitbucket.org/openagenda/react-components.git",
     "react-dom": "0.14.7",
     "react-form-components": "git+ssh://git@bitbucket.org:openagenda/react-form-components.git",
     "react-select": "^0.9.1",
@@ -90,7 +93,6 @@
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
     "webpack": "^1.13.1",
     "when": "~3.4",
-    "react": "0.14.7",
     "xhr": "^2.2.0"
   },
   "devDependencies": {

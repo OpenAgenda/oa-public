@@ -1,3 +1,12 @@
+"use strict";
+
+const path = require( 'path' );
+
+const allLabels = require( 'labels/all' );
+
+const makeLabelGetter = require( 'labels/makeLabelGetter' );
+
+
 module.exports = function ( templateName, data, cb ) {
 
   if ( typeof data == 'function' ) {
@@ -12,13 +21,16 @@ module.exports = function ( templateName, data, cb ) {
   var loaders = [
     _loadTemplate( templateName ),
     _loadLabels( data.lang ),
+    _loadTranslator,
     _loadHelpers,
     _loadScripts( templateName, data.scriptsBase ),
   ];
 
   async.waterfall( loaders, function ( err, results ) {
 
-    const layoutBottom = results.layout && results.layoutConfig.base && results.layoutConfig.base.bottom || {};
+    if ( err ) return cb( err );
+
+    const layoutBottom = results.layoutConfig && results.layoutConfig.base && results.layoutConfig.base.bottom || {};
     const templateBottom = results.config.base && results.config.base.bottom || {};
     const dataBottom = data.bottom || {};
 
@@ -34,9 +46,6 @@ module.exports = function ( templateName, data, cb ) {
         ...dataBottom.scriptSources || []
       ].filter( ( v, i, a ) => a.indexOf( v ) === i )
     };
-
-
-    if ( err ) return cb( err );
 
     if ( results.config.base ) data = cn.extend( results.config.base, data );
 
@@ -60,9 +69,9 @@ module.exports = function ( templateName, data, cb ) {
 
     if ( results.helpers ) cn.extend( data, results.helpers );
 
-    data.__ = _loadTranslator( results.labels );
-
     data._esc = _escape;
+
+    data.__ = results.__;
 
     var templateRender = _renderTemplate( results.template, results.templateBody, data );
 
@@ -118,35 +127,67 @@ function _renderTemplate( filename, templateBody, data ) {
 
 }
 
-
 /**
  * prepare translator function used for template rendering
  */
 
-function _loadTranslator( labels ) {
+function _loadTranslator( data, cb ) {
 
-  return function ( label, values ) {
+  if ( !data.config.labels ) {
 
-    if ( !values ) values = {};
+    data.__ = ( label, values = {} ) => {
 
-    var translation = label;
+      var translation = label;
 
-    if ( labels && labels[ label ] ) {
+      if ( data.labels && data.labels[ label ] ) {
 
-      translation = labels[ label ];
+        translation = data.labels[ label ];
+
+      }
+
+      for ( var key in values ) {
+
+        translation = translation.replace( key, values[ key ] );
+
+      }
+
+      return translation;
+
+    };
+
+  } else {
+
+    let labels = _getLabels( data.config.labels );
+    let templateLabelsPath = data.layoutConfig && data.layoutConfig.labels || null;
+    let templateLabels = templateLabelsPath ? _getLabels( templateLabelsPath ) : {};
+
+    let getLabel = makeLabelGetter( Object.assign( {}, labels, templateLabels ) );
+    data.__ = (label, values) => getLabel( label, values, data.lang );
+
+  }
+
+  cb( null, data );
+
+}
+
+function _getLabels( path ) {
+  let branches = path.split( '/' );
+  let currentBranch;
+  let currentPos = allLabels;
+
+  while ( currentBranch = branches.shift() ) {
+
+    if ( !branches.length ) {
+
+      return currentPos[ currentBranch ];
 
     }
 
-    for ( var key in values ) {
+    currentPos = currentPos[ currentBranch ];
 
-      translation = translation.replace( key, values[ key ] );
+  }
 
-    }
-
-    return translation;
-
-  };
-
+  return null;
 }
 
 
@@ -263,7 +304,7 @@ function _loadLabels( lang ) {
 
       var labels = {};
 
-      if ( err ) {
+      if ( err ) {labels
 
         log( 'File not found at %s. Ignoring.', err.path );
 
