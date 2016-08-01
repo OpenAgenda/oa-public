@@ -5,6 +5,7 @@ var du = require( 'dom-utils' ),
 deepExtend = require( 'deep-extend' ),
 
 params = {
+  detailedInfo: true,
   lang: 'en',
   res: {
     index: '#'
@@ -29,7 +30,7 @@ window.hook( function( options ) {
     agenda={params.agenda}
     settings={params.settings}
     lang={params.lang}
-    detailedInfo={true}
+    detailedInfo={params.detailedInfo}
     res={params.res} />, 
   du.el( params.selectors.canvas ) );
 
