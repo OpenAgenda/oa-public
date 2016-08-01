@@ -72,7 +72,7 @@ describe( 'link validator', () => {
 
       hasErrs.should.equal( false );
 
-    });
+    } );
 
     it( 'not a link', () => {
 
@@ -106,7 +106,25 @@ describe( 'link validator', () => {
 
       .equal( undefined );
 
-    } )
+    } );
+
+    it( 'link validator is optional by default', () => {
+
+      let errors = []
+
+      try {
+
+        validators.link()();
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 0 );
+
+    } );
 
   } );
 
