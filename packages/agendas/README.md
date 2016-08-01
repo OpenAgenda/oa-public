@@ -1,3 +1,58 @@
+# settings options for agendas
+
+.settings
+
+  .theme
+
+  .credentials
+    .moderators
+    .tags
+    .chatbox
+    .embeds
+      .head
+      .templates
+
+  .exports
+    .pdf
+  
+  .keys: [ { type, rights } ] // list of hashes found in store
+
+  .stakeholders: [ { type, rights, fields } ]
+    // may be in own service
+    // types: 'all', 'administrator', 'moderator', 'contributor'
+
+  .contribution
+    .message
+    .type
+
+  .events
+
+    .decorators // in fields?
+      .longDescription
+        .suffix
+
+    .fields
+      .standard: []
+      .custom: []
+
+
+.set( {id}, {} )
+
+  validate
+
+  map
+
+  update or create
+
+
+
+
+
+
+
+  ype | owner_id | review_id | integrated | newsletter | facebook | admins | embedded_form | moderated | extended_rights | aggregator | indesign | dataviz | editors | created_at          | updated_at          | lifespan | newsletters | swapcard | activating_invitations | custom_templates | contribution_info | moderator | custom_head | emailstrategie | wysiwyg | event_transfer | tags | tagcat | location |
+
+
 #Sample config
 
     "use strict";

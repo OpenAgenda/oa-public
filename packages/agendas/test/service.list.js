@@ -1,5 +1,7 @@
 "use strict";
 
+process.env.NODE_ENV = 'test';
+
 var should = require( 'should' ),
 
 // service loaded with test lib

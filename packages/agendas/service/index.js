@@ -8,20 +8,31 @@ const knexLib = require( 'knex' ),
 
   guard = require( 'when/guard' ),
 
-  wn = require( 'when/node' );
+  wn = require( 'when/node' ),
+
+  set = require( './set' ),
+
+  get = require( './get' ),
+
+  logger = require( 'basic-logger' );
 
 var knex,
 
   config,
 
-  schemas;
+  schemas,
+
+  log;
 
 module.exports = {
   init,
   list,
+  get,
+  set,
   count,
   getConfig: () => config
 };
+
 
 function init( c ) {
 
@@ -32,7 +43,19 @@ function init( c ) {
     connection: c.mysql
   } );
 
+  if ( c.logger ) {
+
+    logger.setLogger( c.logger );
+
+  }
+
   details.init( schemas, knex );
+
+  get.init( schemas, knex );
+
+  set.init( schemas, knex, c.mysql );
+
+  log = logger( 'agendas service' );
 
   config = c;
 
@@ -53,7 +76,7 @@ function list( query, offset, limit, cb ) {
   query = Object.assign( {
     ids: [],
     total: false,
-    detailled: false,
+    detailed: false,
     search: null
   }, query );
 
