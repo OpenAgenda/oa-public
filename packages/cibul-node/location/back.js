@@ -140,7 +140,7 @@ function show( req, res ) {
 
   cmn.render( req, res, 'locations/index', {
     scriptParams: {
-      detailedInfo: true,
+      detailedInfo: req.settings.admin && req.settings.admin.detailed !== undefined ? req.settings.admin.detailed : true,
       settings: req.settings,
       lang: req.lang,
       agenda: {

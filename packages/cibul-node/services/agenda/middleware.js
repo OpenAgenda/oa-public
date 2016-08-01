@@ -349,7 +349,7 @@ function cleanJson( req, res, next ) {
 
     }
 
-  });
+  } );
 
   next();
 
