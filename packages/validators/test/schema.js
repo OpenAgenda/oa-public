@@ -83,6 +83,7 @@ describe( 'schema validator', () => {
       clean.should.equal( 12 );
 
     } );
+    
 
     it( 'validates a subset of the schema', () => {
 

@@ -24,7 +24,7 @@ module.exports = function (config) {
     },
         clean = value,
         isEmail = true,
-        optional = config ? !!config.optional : false,
+        optional = config ? !!config.optional : true,
         error = [utils.extend({
       origin: value
     }, templateError)];

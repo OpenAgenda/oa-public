@@ -31,7 +31,7 @@ module.exports = function( config ) {
 
     isEmail = true,
 
-    optional = config ? !!config.optional : false,
+    optional = config ? !!config.optional : true,
 
     error = [ utils.extend( {
       origin: value
