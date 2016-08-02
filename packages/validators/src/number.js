@@ -7,7 +7,7 @@ integer: require( 'react-form-components/validators/integer' )
 state: validators.integer( { field: 'state', min: 0, max: 1, default: 1 } )
 */
 
-module.exports = function( config ) {
+module.exports = config => {
 
   let params = utils.extend( {
     field: false, // required
@@ -24,7 +24,7 @@ module.exports = function( config ) {
 
   function validate( value ) {
 
-    let clean = undefined;
+    let clean;
 
     if ( typeof value == 'string' && value.length ) {
 

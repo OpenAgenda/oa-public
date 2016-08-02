@@ -28,7 +28,7 @@ module.exports = function (config) {
 
   function validate(value) {
 
-    var clean = undefined;
+    var clean = void 0;
 
     if (typeof value == 'string' && value.length) {
 

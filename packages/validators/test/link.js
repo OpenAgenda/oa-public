@@ -8,7 +8,7 @@ describe( 'link validator', () => {
 
   describe( 'required ( default )', () => {
 
-    var validate = validators.link( { field: 'link' } );
+    var validate = validators.link( { field: 'link', optional: false } );
 
     it( 'an email is not a link', () => {
 
