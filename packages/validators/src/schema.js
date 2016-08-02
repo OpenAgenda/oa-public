@@ -150,7 +150,10 @@ function _mapToList( values ) {
 
   return Object.keys( values ).map( k => {
 
-    let isObject = values[ k ] && typeof values[ k ] === 'object';
+    let isObject = 
+      values[ k ] 
+      && typeof values[ k ] === 'object'
+      && !( values[ k ] instanceof Date );
 
     return {
       field: k,

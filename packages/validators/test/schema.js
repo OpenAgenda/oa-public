@@ -262,4 +262,47 @@ describe( 'schema validator', () => {
   } );
 
 
+  describe( 'particulars', () => {
+
+    before( () => {
+
+      // load up the validators
+      // that will be used by the schema lib
+      schema.register( {
+        text: validators.text,
+        link: validators.link,
+        number: validators.number,
+        date: validators.date
+      } );
+
+    } );
+
+    it( 'validates a schema with dates', () => {
+
+      let errors = [], clean,
+
+      validator = schema( {
+        updatedAt: {
+          type: 'date',
+          optional: false
+        }
+      } );
+
+      try {
+
+        clean = validator( { updatedAt: new Date() } );
+        
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 0 );
+
+    } );
+
+  } );
+
+
 } );

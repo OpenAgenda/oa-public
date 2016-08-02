@@ -139,7 +139,7 @@ function _mapToList(values) {
 
   return Object.keys(values).map(function (k) {
 
-    var isObject = values[k] && _typeof(values[k]) === 'object';
+    var isObject = values[k] && _typeof(values[k]) === 'object' && !(values[k] instanceof Date);
 
     return {
       field: k,
