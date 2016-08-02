@@ -6,7 +6,8 @@ schema.register( {
   text: require( 'validators/text' ),
   boolean: require( 'validators/boolean' ),
   link: require( 'validators/link' ),
-  number: require( 'validators/number' )
+  number: require( 'validators/number' ),
+  date: require( 'validators/date' )
 } );
 
 module.exports = agendaSchema();
@@ -33,6 +34,14 @@ module.exports.map = [
   'title',
   'description',
   'url',
+  {
+    db: 'updated_at',
+    obj: 'updatedAt'
+  },
+  {
+    db: 'created_at',
+    obj: 'createdAt'
+  },
   {
     db: 'settings',
     obj: 'settings',
@@ -70,6 +79,14 @@ function agendaSchema() {
     },
     ownerId: {
       type: 'number',
+      optional: false
+    },
+    updatedAt: {
+      type: 'date',
+      optional: false
+    },
+    createdAt: {
+      type: 'date',
       optional: false
     },
     description: {

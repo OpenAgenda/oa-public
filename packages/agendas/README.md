@@ -1,3 +1,30 @@
+# Overview
+
+Do stuff with agendas: list, get, set them.
+
+# Initialisation
+
+    const agendas = require( 'agendas' );
+
+    agendas.init( {
+      // change this to your db parameters
+      config: require( './testconfig.sample.js' )
+    } );
+
+# List
+
+List agendas
+
+    agendas.list( [ query ], offset, limit, cb );
+
+## Query parameters
+
+ * **ids**: list agendas matching the ids
+ * **total**: include total in result ( requires an extra query )
+ * **detailed**: include stats about agendas ( more costly )
+ * **search**: sql like search in title, description and slug
+ * **order** : order by last update or creation date - possible values: 'updatedAt.desc', 'updatedAt.asc', 'createdAt.desc', 'createdAt.asc' ( default ).
+
 # settings options for agendas
 
 .settings

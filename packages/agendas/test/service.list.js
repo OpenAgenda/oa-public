@@ -79,4 +79,46 @@ describe( 'list', function () {
 
   } );
 
+
+  it( 'list ordered by createdAt.desc gets newest agenda listed first', done => {
+
+    svc.list( { order: 'createdAt.desc' }, 0, 10, ( err, agendas ) => {
+
+      let prevCreatedAt = agendas[ 0 ].createdAt;
+
+      agendas.forEach( a => {
+
+        a.createdAt.should.be.belowOrEqual( prevCreatedAt );
+
+        prevCreatedAt = a.createdAt;
+
+      } );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'list ordered by updatedAt.desc gets latest agendas listed first', done => {
+
+    svc.list( { order: 'updatedAt.desc' }, 0, 10, ( err, agendas ) => {
+
+      let prevUpdatedAt = agendas[ 0 ].updatedAt;
+
+      agendas.forEach( a => {
+
+        a.updatedAt.should.be.belowOrEqual( prevUpdatedAt );
+
+        prevUpdatedAt = a.updatedAt;
+
+      } );
+
+      done();
+
+    } );
+
+  } );
+
 } );

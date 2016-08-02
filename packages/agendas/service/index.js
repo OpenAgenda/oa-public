@@ -14,7 +14,11 @@ const knexLib = require( 'knex' ),
 
   get = require( './get' ),
 
-  logger = require( 'basic-logger' );
+  logger = require( 'basic-logger' ),
+
+  dbParse = require( './lib/mysqlParse' )( require( './validate' ).map ),
+
+  utils = require( 'utils' );
 
 var knex,
 
@@ -77,15 +81,16 @@ function list( query, offset, limit, cb ) {
     ids: [],
     total: false,
     detailed: false,
-    search: null
+    search: null,
+    order: ''
   }, query );
 
   if ( !knex ) return cb( 'no config' );
 
   w( {
-    offset: offset,
-    limit: limit,
-    query: query,
+    offset,
+    limit,
+    query,
     agendas: [],
     total: null,
     knex: knex( schemas.agenda )
@@ -94,6 +99,8 @@ function list( query, offset, limit, cb ) {
     .then( _search )
 
     .then( _total )
+
+    .then( _order )
 
     .then( _list )
 
@@ -118,22 +125,50 @@ function _search( v ) {
   let ids = false;
 
   if ( v.query.ids.length ) {
+
     ids = true;
-    v.knex = v.knex
-      .whereIn( 'id', v.query.ids );
+    
+    v.knex = v.knex.whereIn( 'id', v.query.ids );
+
   }
 
-  if ( !v.query.search ) return v;
+  if ( !v.query.search ) {
+
+    return v;
+
+  }
 
   v.knex = v.knex[ ids ? 'andWhere' : 'where' ]( function () {
+
     this.where( 'title', 'like', `%${v.query.search}%` )
       .orWhere( 'description', 'like', `%${v.query.search}%` )
       .orWhere( 'slug', 'like', `%${v.query.search}%` );
+
   } );
 
   return v;
 
 }
+
+
+function _order( v ) {
+
+  if ( [ 'updatedAt.desc', 'createdAt.desc', 'updatedAt.asc', 'updatedAt.desc' ]
+
+  .indexOf( v.query.order ) == -1 ) {
+
+    return v;
+
+  }
+
+  let orderParts = utils.toUnderscore( v.query.order ).split( '.' );
+
+  v.knex.orderBy( orderParts[ 0 ], orderParts[ 1 ] );
+
+  return v;
+
+}
+
 
 function _total( v ) {
 
@@ -162,7 +197,7 @@ function _list( v ) {
   return knex.transaction( trx => {
 
     return v.knex
-      .select( 'id', 'uid', 'slug', 'title', 'description', 'image', 'url', 'updated_at' )
+      .select( 'id', 'uid', 'slug', 'title', 'description', 'image', 'url', 'updated_at', 'created_at' )
       .orderBy( 'updated_at', 'desc' )
       .limit( v.limit || 0 )
       .offset( v.offset || 0 )
@@ -170,13 +205,13 @@ function _list( v ) {
 
   } )
 
-    .then( agendas => {
+  .then( agendas => {
 
-      v.agendas = agendas;
+    v.agendas = agendas.map( dbParse.toObj );
 
-      return v;
+    return v;
 
-    } );
+  } );
 
 }
 

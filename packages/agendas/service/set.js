@@ -73,6 +73,8 @@ function _update( identifiers, data, options, cb ) {
 
   .then( _merge )
 
+  .then( _setToNow( 'merged', 'updatedAt' ) )
+
   .then( _validate( 'merged' ) )
 
   .then( _verifyUnique( 'slug' ) )
@@ -124,6 +126,10 @@ function _create( data, options, cb ) {
   .then( _createSlugIfNotSet )
 
   .then( _verifyUnique( 'slug' ) )
+
+  .then( _setToNow( 'data', 'updatedAt' ) )
+
+  .then( _setToNow( 'data', 'createdAt' ) )
 
   .then( _validate( 'data' ) )
 
@@ -369,6 +375,19 @@ function _merge( v ) {
   v.merged = utils.extend( {}, v.current, v.data );
 
   return v;
+
+}
+
+
+function _setToNow( target, field ) {
+
+  return v => {
+
+    v[ target ][ field ] = new Date();
+
+    return v;
+
+  }
 
 }
 

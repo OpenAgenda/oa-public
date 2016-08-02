@@ -30,7 +30,9 @@ describe( 'get', function() {
         title: 'Programme des animations du Salon du Fromage et des Produits Laitiers 2016',
         description: 'Des animations pour des expériences autour du goût et des savoir-faire / Numerous events to have experiences around taste and know-how',
         url: 'http://www.salon-fromage.com/',
-        settings: null
+        settings: null,
+        createdAt: agenda.createdAt,
+        updatedAt: agenda.updatedAt
       } );
 
       done();
@@ -66,7 +68,9 @@ describe( 'get', function() {
         title: 'EPN "Espace Torcy"',
         description: 'Agenda de l\'EPN "Espace Torcy"\r\n2 rue de Torcy 75018 Paris\r\nTél : 01 40 38 67 00\r\nEmail : epn@ensparis.fr',
         url: 'http://www.ensparis.fr',
-        settings: null
+        settings: null,
+        createdAt: agenda.createdAt,
+        updatedAt: agenda.updatedAt
       } );
 
       done();
@@ -90,7 +94,9 @@ describe( 'get', function() {
         description: 'Agenda de l\'EPN "Espace Torcy"\r\n2 rue de Torcy 75018 Paris\r\nTél : 01 40 38 67 00\r\nEmail : epn@ensparis.fr',
         url: 'http://www.ensparis.fr',
         settings: null,
-        credentials: null
+        credentials: null,
+        createdAt: agenda.createdAt,
+        updatedAt: agenda.updatedAt
       } );
 
       done();

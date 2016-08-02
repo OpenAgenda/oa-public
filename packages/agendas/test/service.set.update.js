@@ -32,7 +32,9 @@ describe( 'service.set: update an agenda', function() {
         title: 'Le Frometon',
         description: 'Des animations pour des expériences autour du goût et des savoir-faire / Numerous events to have experiences around taste and know-how',
         url: 'http://www.salon-fromage.com/',
-        settings: null
+        settings: null,
+        updatedAt: result.agenda.updatedAt,
+        createdAt: result.agenda.createdAt
       } );
 
       done();
@@ -63,6 +65,8 @@ describe( 'service.set: update an agenda', function() {
           description: 'test ! :)',
           url: '',
           settings: null,
+          updatedAt: result.agenda.updatedAt,
+          createdAt: result.agenda.createdAt,
           credentials: { 
             moderators: true,
             tags: false,
