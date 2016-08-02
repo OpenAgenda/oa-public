@@ -71,7 +71,7 @@ module.exports = config => {
     } else {
 
       // if it not a string, it must be a date
-      if ( !value instanceof Date ) {
+      if ( ! ( value instanceof Date ) ) {
 
         throw [ utils.extend( {
           code: 'date.invalid',
