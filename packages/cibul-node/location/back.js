@@ -23,7 +23,7 @@ routes = {
     agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData( 'oasfmain.css' ),
     cmn.loadUserUid,
-    mw.loadSettings,
+    mw.loadSettings(),
     show
   ] ],
 
@@ -60,7 +60,13 @@ routes = {
 
   locationGetStakeholder: [ 'get', '/:slug/admin/locations/stakeholders/:stakeholderId', [
     cmn.checkAdminOrModerator,
-    ( req, res, next ) => { req.agendaId = req.agenda.id; req.stakeholderId = req.params.stakeholderId; next(); },
+    ( req, res, next ) => {
+
+      req.agendaId = req.agenda.id; 
+      req.stakeholderId = req.params.stakeholderId;
+      next();
+
+    },
     mw.getStakeholder
   ] ],
 

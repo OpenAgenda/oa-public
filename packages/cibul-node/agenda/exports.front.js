@@ -8,6 +8,8 @@ cmn = require( '../lib/commons-app' ),
 
 eventSvc = require( '../services/event' ),
 
+locationMw = require( 'agenda-locations' ).mw(),
+
 perPage = 20,
 
 routes = {
@@ -23,6 +25,7 @@ routes = {
 
   agendaCsvEvents: [ 'get', '/events.csv', [
     agendaSvc.mw.load( 'uid' ),
+    locationMw.loadSettings( 'locationSettings' ),
     agendaSvc.mw.buildCsv( false )
   ] ],
 
@@ -33,6 +36,7 @@ routes = {
 
   agendaXlsxEvents: [ 'get', '/events.xlsx', [
     agendaSvc.mw.load( 'uid' ),
+    locationMw.loadSettings( 'locationSettings' ),
     agendaSvc.mw.buildXlsx( false )
   ]],
 

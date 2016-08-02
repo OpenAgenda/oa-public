@@ -34,6 +34,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
     params = utils.extend( {
       includePrivateData: typeof options == 'boolean' ? options : false,
+      includeDetailedLocation: typeof options === 'boolean' ? options : true,
       lang: false,
       headerHandler: false
     }, typeof options === 'object' ? options : {} );
@@ -82,12 +83,12 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
       if ( err ) return cb( err );
 
-        mapping = _defineMapping( params.includePrivateData, tagSet, categorySet );
+      mapping = _defineMapping( params.includePrivateData, params.includeDetailedLocation, tagSet, categorySet );
 
-        cb( null, {
-          getFieldNames: getFieldNames,
-          flatten: flatten
-        });
+      cb( null, {
+        getFieldNames: getFieldNames,
+        flatten: flatten
+      });
 
     } );
 
@@ -234,7 +235,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
     }
 
-    function _defineMapping( includePrivateData, tagSet, categorySet ) {
+    function _defineMapping( includePrivateData, includeDetailedLocation, tagSet, categorySet ) {
 
       let map = [ 'uid' ].concat( _textFields( [ 
         'title', 'description', 'longDescription', 'conditions', 'html', 'keywords'
@@ -330,19 +331,9 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         {
           sourceField: 'location.countryCode',
           fn: _defineCountryLabel( params.lang )
-        },
-        'location.image',
-        'location.phone',
-        'location.website', 
-        'location.links',
-        {
-          sourceField: 'location.tags',
-          destField: 'location.tags',
-          fn: _flattenTags( instance )
-        } ], 
-        _textFields( [ 
-          'location.description', 'location.access'
-        ], languages ), _extendMapping( instance, includePrivateData ) )
+        } ],
+        ( includeDetailedLocation ? _extendLocationMapping( instance, languages ) : [] ),
+        _extendMapping( instance, includePrivateData ) )
 
         .filter( f => {
 
@@ -409,6 +400,29 @@ function _textFields( fields, languages ) {
   return languageFields;
 
 }
+
+
+function _extendLocationMapping( agenda, languages ) {
+
+  return [
+    'location.image',
+    'location.phone',
+    'location.website', 
+    'location.links',
+    {
+      sourceField: 'location.tags',
+      destField: 'location.tags',
+      fn: _flattenTags( agenda )
+    } ].concat( 
+    
+      _textFields( [ 
+        'location.description', 'location.access'
+      ], languages )
+
+    );
+
+}
+
 
 function _extendMapping( agenda, includePrivateData ) {
 
