@@ -16,7 +16,9 @@ const knexLib = require( 'knex' ),
 
   logger = require( 'basic-logger' ),
 
-  dbParse = require( './lib/mysqlParse' )( require( './validate' ).map ),
+  validate = require( './validate' ),
+
+  dbParse = require( './lib/mysqlParse' )( validate.map ),
 
   utils = require( 'utils' );
 
@@ -194,10 +196,12 @@ function _total( v ) {
 
 function _list( v ) {
 
+  let listFields = validate.map.filter( f => typeof f === 'string' || f.list === true || f.list === undefined ).map( f => typeof f === 'string' ? f : f.db );
+
   return knex.transaction( trx => {
 
     return v.knex
-      .select( 'id', 'uid', 'slug', 'title', 'description', 'image', 'url', 'updated_at', 'created_at' )
+      .select.apply( v.knex, listFields )
       .orderBy( 'updated_at', 'desc' )
       .limit( v.limit || 0 )
       .offset( v.offset || 0 )

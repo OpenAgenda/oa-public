@@ -30,11 +30,13 @@ describe( 'service.set: create an agenda', function() {
       result.should.eql( { 
         agenda: { 
           slug: 'hello-world',
+          image: null,
           uid: result.agenda.uid, // that 
           title: 'Hello World',
           description: null,
           url: null,
           settings: null,
+          verified: 0,
           createdAt: result.agenda.createdAt,
           updatedAt: result.agenda.updatedAt
         },
@@ -100,6 +102,8 @@ describe( 'service.set: create an agenda', function() {
           description: 'Que faire à Courbevoie',
           url: 'http://www.ville-courbevoie.fr/lagenda-de-vos-evenements.htm',
           settings: null,
+          image: null,
+          verified: 0,
           createdAt: result.agenda.createdAt,
           updatedAt: result.agenda.updatedAt
         },
@@ -135,6 +139,8 @@ describe( 'service.set: create an agenda', function() {
           description: 'Evénements d\'une rando en Espagne/France/Italie',
           url: null,
           settings: null,
+          image: null,
+          verified: 0,
           credentials: {
             moderators: false,
             tags: false,

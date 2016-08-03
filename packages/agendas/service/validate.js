@@ -23,7 +23,8 @@ module.exports.map = [
     db: 'owner_id',
     obj: 'ownerId',
     internal: true,
-    protected: true
+    protected: true,
+    list: false
   },
   'slug',
   {
@@ -31,9 +32,19 @@ module.exports.map = [
     obj: 'uid',
     protected: true
   },
+  {
+    db: 'verified',
+    obj: 'verified',
+    protected: true
+  },
   'title',
   'description',
   'url',
+  {
+    db: 'image',
+    obj: 'image',
+    protected: true
+  },
   {
     db: 'updated_at',
     obj: 'updatedAt'
@@ -45,14 +56,16 @@ module.exports.map = [
   {
     db: 'settings',
     obj: 'settings',
-    type: 'json'
+    type: 'json',
+    list: false
   },
   {
     db: 'credentials',
     obj: 'credentials',
     type: 'json',
     internal: true,
-    protected: true
+    protected: true,
+    list: false
   }
 ];
 
@@ -76,6 +89,10 @@ function agendaSchema() {
     uid: {
       type: 'number',
       optional: false
+    },
+    verified: {
+      type: 'boolean',
+      default: false
     },
     ownerId: {
       type: 'number',

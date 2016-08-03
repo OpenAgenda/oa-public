@@ -84,7 +84,21 @@ The data to be updated; Check test/service.set.update.js for an example, and the
  * **internal**: defaults at false - if true, returned updated agenda includes internal data ( see validate map )
 
 
-# settings options for agendas
+
+
+
+
+# Random dev notes
+
+
+## Migration
+
+ * verified table entry needs to be added
+ * credentials need to go from review_credentials to credentials
+
+## Settings
+
+This service usage is not documentation. More like todos.
 
     .settings
 

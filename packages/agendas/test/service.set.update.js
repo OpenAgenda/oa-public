@@ -31,10 +31,12 @@ describe( 'service.set: update an agenda', function() {
         uid: 52084961,
         title: 'Le Frometon',
         description: 'Des animations pour des expériences autour du goût et des savoir-faire / Numerous events to have experiences around taste and know-how',
+        image: 'review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg',
         url: 'http://www.salon-fromage.com/',
         settings: null,
         updatedAt: result.agenda.updatedAt,
-        createdAt: result.agenda.createdAt
+        createdAt: result.agenda.createdAt,
+        verified: 0
       } );
 
       done();
@@ -61,9 +63,11 @@ describe( 'service.set: update an agenda', function() {
           ownerId: 7388,
           slug: 'agenda_culturel_auvergne',
           uid: 65903437,
+          verified: 0,
           title: 'Agenda culturel Auvergne',
           description: 'test ! :)',
           url: '',
+          image: null,
           settings: null,
           updatedAt: result.agenda.updatedAt,
           createdAt: result.agenda.createdAt,
