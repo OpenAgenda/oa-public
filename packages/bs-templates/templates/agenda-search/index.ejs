@@ -3,17 +3,8 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-8 col-sm-offset-2 wsq header">
-        <form>
-          <div class="form-group">
-            <label class="sr-only" for="agenda_search">Agenda search</label>
-            <input type="text" class="form-control" id="agenda_search" placeholder="Search">
-          </div>
-          <div class="filters">
-            <a><strong>recent</strong></a>
-            <a>most events</a>
-            <a>most upcoming events</a>
-          </div>
-        </form>
+        <h1>Search results for <span>"fdsqfds"</span></h1>
+        <span>Found 329 agendas</span>
       </div>
     </div>
     <div class="row">
@@ -22,6 +13,7 @@
           <button class="btn btn-default">load previous</button>
         </nav>
         <div>
+          <% include ./_agendaVerifiedItem.ejs %>
           <% include ./_agendaItem.ejs %>
           <% include ./_agendaItem.ejs %>
           <% include ./_agendaItem.ejs %>

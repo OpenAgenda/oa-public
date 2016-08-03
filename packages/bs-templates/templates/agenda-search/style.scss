@@ -10,17 +10,7 @@
 
   .header {
 
-    padding: 1em 1em 0 1em;
-
-  }
-
-  .filters {
-
-    a {
-
-      padding-right: 1em;
-
-    }
+    padding: 1em 2em;
 
   }
 
@@ -33,6 +23,12 @@
       color: inherit;
       text-decoration: none;
       display: block;
+
+    }
+
+    .verified {
+
+      color: $oa-blue;
 
     }
 
