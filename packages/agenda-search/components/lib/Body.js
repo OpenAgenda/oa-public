@@ -1,19 +1,19 @@
 "use strict";
 
 var React = require('react'),
-    AgendaItem = require('./AgendaItem.js'),
-    SearchField = require('react-form-components/build/SearchField.js'),
+    AgendaItem = require('./AgendaItem'),
+    SearchField = require('react-form-components/build/SearchField'),
     Spinner = require('react-form-components/build/Spinner'),
-    List = require('./List'),
-    get = require('./get'),
+    List = require('react-components/build/List'),
+    get = require('utils/get'),
     actions = require('./actions'),
     getLabel = require('labels')(require('labels/agenda-search')),
-    updateHref = require('./updateHref'),
+    documentLocation = require('dom-utils/documentLocation'),
     monitorField = require('./monitorField');
 
 module.exports = React.createClass({
-  displayName: 'exports',
 
+  displayName: 'Body',
 
   propTypes: {
     res: React.PropTypes.string,
@@ -74,7 +74,7 @@ module.exports = React.createClass({
 
       _this2.setState(change);
 
-      updateHref(query);
+      documentLocation.setQueryPart(query);
     });
   },
   onSearchChange: function onSearchChange(name, search) {
@@ -99,7 +99,7 @@ module.exports = React.createClass({
 
       _this3.setState(changes);
 
-      updateHref({
+      documentLocation.setQueryPart({
         oas: newQuery,
         page: 1
       });
@@ -145,7 +145,7 @@ module.exports = React.createClass({
         { className: 'row' },
         React.createElement(
           'div',
-          { className: 'col-sm-8 col-sm-offset-2 wsq agenda-search' },
+          { className: 'wsq col-sm-8 col-sm-offset-2' },
           this.state.loading ? React.createElement(Spinner, null) : null,
           this.state.query && this.state.query.search ? this.renderSearchHead() : this.renderHead(),
           React.createElement(

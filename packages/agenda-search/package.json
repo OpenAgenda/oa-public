@@ -29,6 +29,7 @@
     "dom-utils": "git+ssh://git@bitbucket.org:openagenda/dom-utils.git",
     "labels": "git+ssh://git@bitbucket.org:openagenda/labels.git",
     "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git",
+    "react-components": "git+ssh://git@bitbucket.org:openagenda/react-components.git",
     "react-form-components": "git+ssh://git@bitbucket.org:openagenda/react-form-components.git",
     "when": "^3.7.7",
     "xhr": "^2.2.0"

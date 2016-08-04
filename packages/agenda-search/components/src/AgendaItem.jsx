@@ -6,6 +6,8 @@ getLabel = require( 'labels' )( require( 'labels/agenda-search' ) );
 
 module.exports = React.createClass( {
 
+  displayName: 'AgendaItem',
+
   propTypes: {
     agenda: React.PropTypes.object,
     lang: React.PropTypes.string

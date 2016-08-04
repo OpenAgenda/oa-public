@@ -2,15 +2,15 @@
 
 var React = require( 'react' ),
 
-ReactDom = require( 'react-dom' ),
+  ReactDom = require( 'react-dom' ),
 
-du = require( 'dom-utils' ),
+  du = require( 'dom-utils' ),
 
-dl = require( 'dom-utils/documentLocation' ),
+  dl = require( 'dom-utils/documentLocation' ),
 
-utils = require( 'utils' ),
+  utils = require( 'utils' ),
 
-Body = require( './Body' );
+  Body = require( './Body' );
 
 module.exports = function( options ) {
 
@@ -18,9 +18,9 @@ module.exports = function( options ) {
     res: '/', // where to fetch list.
     canvas: '.js_search_canvas',
     dataTag: 'data-options'
-  }, options ),
+  }, options );
 
-  data = parseTag( 'body', params.dataTag, {
+  var data = du.parseJsonAttribute( 'body', params.dataTag, {
     agendas: [],
     total: 0
   } );
@@ -32,19 +32,5 @@ module.exports = function( options ) {
     agendas: data.agendas,
     total: data.total
   } ), du.el( params.canvas ) );
-
-}
-
-function parseTag( selector, tagName, defaultValue ) {
-
-  var data = defaultValue;
-
-  try {
-
-    data = JSON.parse( du.el( selector ).getAttribute( tagName ) );
-
-  } catch( e ) {}
-
-  return data;
 
 }

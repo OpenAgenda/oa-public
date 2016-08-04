@@ -2,25 +2,27 @@
 
 var React = require( 'react' ),
 
-AgendaItem = require( './AgendaItem.js' ),
+  AgendaItem = require( './AgendaItem' ),
 
-SearchField = require( 'react-form-components/build/SearchField.js' ),
+  SearchField = require( 'react-form-components/build/SearchField' ),
 
-Spinner = require( 'react-form-components/build/Spinner' ),
+  Spinner = require( 'react-form-components/build/Spinner' ),
 
-List = require( './List' ),
+  List = require( 'react-components/build/List' ),
 
-get = require( './get' ),
+  get = require( 'utils/get' ),
 
-actions = require( './actions' ),
+  actions = require( './actions' ),
 
-getLabel = require( 'labels' )( require( 'labels/agenda-search' ) ),
+  getLabel = require( 'labels' )( require( 'labels/agenda-search' ) ),
 
-updateHref = require( './updateHref' ),
+  documentLocation = require( 'dom-utils/documentLocation' ),
 
-monitorField = require( './monitorField' );
+  monitorField = require( './monitorField' );
 
 module.exports = React.createClass( {
+
+  displayName: 'Body',
 
   propTypes: {
     res: React.PropTypes.string,
@@ -82,7 +84,7 @@ module.exports = React.createClass( {
 
       this.setState( change );
 
-      updateHref( query );
+      documentLocation.setQueryPart( query );
 
     } );
 
@@ -111,7 +113,7 @@ module.exports = React.createClass( {
 
       this.setState( changes );
 
-      updateHref( {
+      documentLocation.setQueryPart( {
         oas: newQuery,
         page: 1
       } );
@@ -141,7 +143,7 @@ module.exports = React.createClass( {
 
     return <div className="container agenda-search top-margined">
       <div className="row">
-        <div className="col-sm-8 col-sm-offset-2 wsq agenda-search">
+        <div className="wsq col-sm-8 col-sm-offset-2">
           { this.state.loading ? <Spinner/> : null }
           { this.state.query && this.state.query.search ? this.renderSearchHead() : this.renderHead() }
           <div className="body media-list">

@@ -4,8 +4,8 @@ var React = require('react'),
     getLabel = require('labels')(require('labels/agenda-search'));
 
 module.exports = React.createClass({
-  displayName: 'exports',
 
+  displayName: 'AgendaItem',
 
   propTypes: {
     agenda: React.PropTypes.object,

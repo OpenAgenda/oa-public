@@ -41,7 +41,8 @@ function _randomAgenda( uid ) {
     title: _appendTitleParts( 'Agenda title ' + uid ),
     description: 'description ' + uid,
     publishedEvents: upcoming + Math.ceil( Math.random() * 1000 ),
-    upcomingPublishedEvents: upcoming
+    upcomingPublishedEvents: upcoming,
+    uid: uid
   }
 
 }

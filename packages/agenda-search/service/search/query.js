@@ -4,7 +4,7 @@ var qs = require( 'qs' ),
 
 utils = require( 'utils' ),
 
-clientSide == !!document;
+clientSide = !!document;
 
 /**
  * lib for processing list state
@@ -36,7 +36,7 @@ function href( query ) {
 
 module.exports = function( query ) {
 
-  var clientSide == !!document,
+  var clientSide = !!document,
 
   current = query.oas ? JSON.parse( JSON.stringify( query.oas ) ) : {};
 

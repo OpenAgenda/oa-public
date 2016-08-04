@@ -13,8 +13,9 @@ module.exports = function (options) {
     res: '/', // where to fetch list.
     canvas: '.js_search_canvas',
     dataTag: 'data-options'
-  }, options),
-      data = parseTag('body', params.dataTag, {
+  }, options);
+
+  var data = du.parseJsonAttribute('body', params.dataTag, {
     agendas: [],
     total: 0
   });
@@ -27,15 +28,3 @@ module.exports = function (options) {
     total: data.total
   }), du.el(params.canvas));
 };
-
-function parseTag(selector, tagName, defaultValue) {
-
-  var data = defaultValue;
-
-  try {
-
-    data = JSON.parse(du.el(selector).getAttribute(tagName));
-  } catch (e) {}
-
-  return data;
-}

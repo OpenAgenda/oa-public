@@ -76,24 +76,3 @@ function init( s, c ) {
   }, c.mw || {} );
 
 }
-
-
-function _clean( query ) {
-
-  var clean = {};
-
-  if ( !query || query === null || typeof query !== 'object' ) {
-
-    return clean;
-
-  }
-
-  if ( query.search && typeof query.search == 'string' ) {
-
-    clean.search = query.search;
-
-  }
-
-  return clean;
-
-}
