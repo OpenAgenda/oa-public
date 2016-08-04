@@ -19,11 +19,11 @@ resync.set( legacyLib );
 refresh.set( legacyLib );
 
 module.exports = {
-  agendas: agendas,
-  search: search,
-  searchAgendas: searchAgendas,
-  resync: resync,
-  refresh: refresh
+  agendas,
+  search,
+  searchAgendas,
+  resync,
+  refresh
 }
 
 function agendas( agenda ) {
