@@ -75,6 +75,10 @@ function rebuild( cb ) {
 
   }
 
-  search.rebuild( cb );
+  search.rebuild( err => {
+
+    if ( cb ) cb( err );
+
+  } );
 
 }

@@ -20,9 +20,34 @@ ReactDOMServer = require( 'react-dom/server' ),
 Body = React.createFactory( require( '../components/lib/Body.js' ) );
 
 module.exports = {
-  init: init,
-  list: list
+  init,
+  rebuild,
+  list
 }
+
+
+function rebuild( req, res, next ) {
+
+  if ( req.log ) req.log( 'info', 'starting agenda search index rebuild' );
+
+  service.rebuild( err => {
+
+    if ( err ) {
+
+      req.log( 'error', 'errored during agenda search rebuild: %s', JSON.stringify( err ) );
+
+    } else {
+
+      req.log( 'info', 'completed agenda search index rebuild' );
+
+    }
+
+  } );
+
+  next();
+
+}
+
 
 function list( req, res, next ) {
 
