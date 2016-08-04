@@ -3,10 +3,13 @@
 var React = require('react'),
     AgendaItem = require('./AgendaItem.js'),
     SearchField = require('react-form-components/build/SearchField.js'),
+    Spinner = require('react-form-components/build/Spinner'),
     List = require('./List'),
     get = require('./get'),
     actions = require('./actions'),
-    updateHref = require('./updateHref');
+    getLabel = require('labels')(require('labels/agenda-search')),
+    updateHref = require('./updateHref'),
+    monitorField = require('./monitorField');
 
 module.exports = React.createClass({
   displayName: 'exports',
@@ -15,7 +18,8 @@ module.exports = React.createClass({
   propTypes: {
     res: React.PropTypes.string,
     agendas: React.PropTypes.array,
-    page: React.PropTypes.number
+    page: React.PropTypes.number,
+    lang: React.PropTypes.string
   },
 
   getDefaultProps: function getDefaultProps() {
@@ -23,20 +27,26 @@ module.exports = React.createClass({
     return {
       res: '/',
       agendas: [],
-      page: 1
+      page: 1,
+      lang: 'fr'
     };
   },
   getInitialState: function getInitialState() {
+    var _this = this;
+
+    monitorField('.js_agenda_search', function (value) {
+      return _this.onSearchChange('search', value);
+    });
 
     return {
       total: this.props.total,
       agendas: this.props.agendas,
       pageRange: [this.props.page, this.props.page],
-      query: this.props.query };
+      query: this.props.query // only true at init
+    };
   },
-  // only true at init
   getPage: function getPage(next) {
-    var _this = this;
+    var _this2 = this;
 
     if (this.state.loading) return;
 
@@ -53,16 +63,16 @@ module.exports = React.createClass({
 
       if (err) {
 
-        _this.setState({ loading: false });
+        _this2.setState({ loading: false });
 
         return console.log('error', err);
       }
 
-      var change = actions.addPageItems(_this.state, next, data);
+      var change = actions.addPageItems(_this2.state, next, data);
 
       change.loading = false;
 
-      _this.setState(change);
+      _this2.setState(change);
 
       updateHref(query);
     });
@@ -73,12 +83,10 @@ module.exports = React.createClass({
       search: search
     });
   },
-  orderBy: function orderBy(order) {
-
-    this.resetPage(actions.getOrderedQuery(this.state, order));
-  },
   resetPage: function resetPage(newQuery) {
-    var _this2 = this;
+    var _this3 = this;
+
+    this.setState({ loading: true });
 
     get(this.props.res, {
       oas: newQuery,
@@ -87,9 +95,9 @@ module.exports = React.createClass({
 
       if (err) return console.log('error', err);
 
-      var changes = actions.resetPageItems(_this2.state, newQuery, data);
+      var changes = actions.resetPageItems(_this3.state, newQuery, data);
 
-      _this2.setState(changes);
+      _this3.setState(changes);
 
       updateHref({
         oas: newQuery,
@@ -97,89 +105,69 @@ module.exports = React.createClass({
       });
     });
   },
-  renderFilters: function renderFilters() {
-    var _this3 = this;
-
-    var current = (this.state.query || {}).order || 'mostrecent',
-        labels = {
-      mostrecent: 'recent',
-      count: 'most events',
-      upcomingcount: 'most upcoming events'
-    };
+  renderHead: function renderHead() {
 
     return React.createElement(
       'div',
-      { className: 'filters' },
-      Object.keys(labels).map(function (order) {
+      { className: 'header' },
+      React.createElement(
+        'h1',
+        null,
+        getLabel('latestUpdated', this.props.lang)
+      )
+    );
+  },
+  renderSearchHead: function renderSearchHead() {
 
-        return order === current ? React.createElement(
-          'a',
-          { key: order },
-          React.createElement(
-            'strong',
-            null,
-            labels[order]
-          )
-        ) : React.createElement(
-          'a',
-          { key: order, onClick: _this3.orderBy.bind(null, order) },
-          labels[order]
-        );
-      })
+    return React.createElement(
+      'div',
+      { className: 'header' },
+      React.createElement(
+        'h1',
+        null,
+        getLabel('results', { search: this.state.query.search }, this.props.lang)
+      ),
+      React.createElement(
+        'span',
+        null,
+        getLabel('found', { count: this.state.total }, this.props.lang)
+      )
     );
   },
   render: function render() {
+    var _this4 = this;
 
     return React.createElement(
       'div',
-      { className: 'container agenda-search' },
+      { className: 'container agenda-search top-margined' },
       React.createElement(
         'div',
         { className: 'row' },
         React.createElement(
           'div',
-          { className: 'col-sm-8 col-sm-offset-2 wsq header' },
+          { className: 'col-sm-8 col-sm-offset-2 wsq agenda-search' },
+          this.state.loading ? React.createElement(Spinner, null) : null,
+          this.state.query && this.state.query.search ? this.renderSearchHead() : this.renderHead(),
           React.createElement(
             'div',
-            { className: 'form-group' },
-            React.createElement(
-              'label',
-              { className: 'sr-only', 'for': 'agenda_search' },
-              'Agenda search'
-            ),
-            React.createElement(SearchField, {
-              name: 'oas[search]',
-              label: 'Search',
-              placeholder: 'Search',
-              value: this.state.query ? this.state.query.search : '',
-              onChange: this.onSearchChange
-            })
-          ),
-          this.renderFilters()
-        )
-      ),
-      React.createElement(
-        'div',
-        { className: 'row' },
-        React.createElement(
-          'div',
-          { className: 'col-sm-8 col-sm-offset-2 wsq body media-list agenda-search' },
-          this.state.agendas.length ? React.createElement(List, {
-            query: this.state.query,
-            pageRange: this.state.pageRange,
-            getPage: this.getPage,
-            total: this.state.total,
-            items: this.state.agendas // a 'get' can maybe be given in props differently here from server?
-            , renderItem: function renderItem(i) {
-              return React.createElement(AgendaItem, { agenda: i, key: i.uid });
-            }
-          }) : React.createElement(
-            'div',
-            { className: 'empty' },
-            React.createElement(
-              'p',
-              null,
-              'Sorry, no agendas match this search'
+            { className: 'body media-list' },
+            this.state.agendas.length ? React.createElement(List, {
+              query: this.state.query,
+              pageRange: this.state.pageRange,
+              getPage: this.getPage,
+              total: this.state.total,
+              items: this.state.agendas // a 'get' can maybe be given in props differently here from server?
+              , renderItem: function renderItem(i) {
+                return React.createElement(AgendaItem, { agenda: i, key: i.uid, lang: _this4.props.lang });
+              }
+            }) : React.createElement(
+              'div',
+              { className: 'empty' },
+              React.createElement(
+                'p',
+                null,
+                getLabel('empty', this.props.lang)
+              )
             )
           )
         )

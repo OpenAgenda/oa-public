@@ -17,10 +17,10 @@ module.exports = function( obj, service, config ) {
   return {
 
     // make a listed search
-    list: list,
+    list,
 
     // create new index and update alias
-    rebuild: rebuild
+    rebuild
 
   }
 
@@ -111,7 +111,7 @@ function _populate( v ) {
 
     log( 'listing agendas from %s to %s', offset, offset + limit );
 
-    v.service.list( offset, limit, { detailed: true }, ( err, items ) => {
+    v.service.list( { detailed: true }, offset, limit, ( err, items ) => {
 
       if ( err ) {
 
@@ -121,11 +121,13 @@ function _populate( v ) {
 
       }
 
+      let filteredItems = items.filter( a => a.publishedEvents || a.verified );
+
       pageCount = items.length;
 
       offset += limit;
 
-      _bulkInsert( v, items, ( err, result ) => {
+      _bulkInsert( v, filteredItems, ( err, result ) => {
 
         if ( !err ) {
 

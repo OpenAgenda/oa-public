@@ -16,7 +16,7 @@ module.exports = function( options ) {
 
   var params = utils.extend( {
     res: '/', // where to fetch list.
-    canvas: '.js_canvas',
+    canvas: '.js_search_canvas',
     dataTag: 'data-options'
   }, options ),
 

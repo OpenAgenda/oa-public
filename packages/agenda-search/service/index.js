@@ -13,10 +13,10 @@ deepExtend = require( 'deep-extend' ),
 config;
 
 module.exports = {
-  init: init,
-  list: list,
-  rebuild: rebuild,
-  mw: mw
+  init,
+  list,
+  rebuild,
+  mw
 }
 
 
@@ -42,7 +42,7 @@ function init( c, cb ) {
   search = searchLib( config.services.agendas, config );
 
   mw.init( {
-    list: list
+    list
   }, config );
 
 }

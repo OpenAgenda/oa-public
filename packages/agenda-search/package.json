@@ -4,13 +4,13 @@
   "description": "",
   "main": "service/index.js",
   "scripts": {
-    "test" : "mocha -w",
+    "test": "mocha -w",
     "install": "babel components/src -d components/lib",
     "babelify": "babel components/src -d components/lib",
-    "preserve" : "npm run-script babelify",
+    "preserve": "npm run-script babelify",
     "serve": "node test/app",
-    "serve-debug" : "node debug test/app",
-    "debug": "nodemon --exec 'npm' --ignore components/lib --ext js,jsx run-script serve-debug", 
+    "serve-debug": "node debug test/app",
+    "debug": "nodemon --exec 'npm' --ignore components/lib --ext js,jsx run-script serve-debug",
     "start": "nodemon --exec 'npm' --ignore components/lib --ext js,jsx run-script serve"
   },
   "keywords": [],
@@ -26,6 +26,8 @@
     "qs": "^6.1.0",
     "react-addons-update": "0.14.7",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
+    "dom-utils": "git+ssh://git@bitbucket.org:openagenda/dom-utils.git",
+    "labels": "git+ssh://git@bitbucket.org:openagenda/labels.git",
     "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git",
     "react-form-components": "git+ssh://git@bitbucket.org:openagenda/react-form-components.git",
     "when": "^3.7.7",
@@ -36,11 +38,13 @@
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "bs-templates": "git@bitbucket.org:openagenda/bs-templates.git",
+    "mysql": "^2.10.2",
     "react": "0.14.7",
     "react-dom": "0.14.7",
+    "reactify": "^1.1.1",
     "should": "^8.2.0",
     "test-app": "git@bitbucket.org:openagenda/test-app.git",
-    "mysql": "^2.10.2"
+    "agendas" : "git@bitbucket.org:openagenda/agendas.git"
   },
   "peerDependencies": {
     "react": "0.14.7",
@@ -54,5 +58,8 @@
       "es2015",
       "react"
     ]
+  },
+  "browserify": {
+    "transform": "reactify"
   }
 }

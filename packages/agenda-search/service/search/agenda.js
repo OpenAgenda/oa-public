@@ -2,12 +2,6 @@
 
 var utils = require( 'utils' );
 
-const sorts = {
-  mostrecent: { updatedAt: { order: 'desc' } },
-  count: { publishedEvents: { order: 'desc' } },
-  upcomingcount: { upcomingPublishedEvents: { order: 'desc' } }
-}
-
 module.exports = {
 
   // index name
@@ -49,12 +43,7 @@ function query( q, offset, limit ) {
 
   dslQuery = {}
 
-  if ( sorts[ q.order ] ) {
-
-    dsl.sort = sorts[ q.order ];
-
-  }
-
+  // when a text search is made, look into title and description
   if ( q.search && q.search.length ) {
 
     dslQuery.multi_match = {
@@ -66,8 +55,19 @@ function query( q, offset, limit ) {
       ]
     }
 
+    dsl.sort = [ {
+      verified: {
+        order: 'desc'
+      }
+    }, {
+      updatedAt: {
+        order: 'desc'
+      }
+    } ];
+
   }
 
+  // when a text search is made, make sure 
   if ( !utils.size( dslQuery ) ) {
 
     dslQuery = { match_all: {} };
@@ -130,6 +130,10 @@ function getMappings() {
 
         updatedAt: {
           type: 'date'
+        },
+
+        verified: {
+          type: 'boolean'
         }
 
       }
@@ -174,7 +178,7 @@ function clean( a, config ) {
 
   var c = {};
 
-  [ 'id', 'uid', 'slug', 'title', 'description', 'updated_at', 'image', 'publishedEvents', 'upcomingPublishedEvents' ].forEach( k => {
+  [ 'id', 'uid', 'slug', 'title', 'description', 'updated_at', 'image', 'publishedEvents', 'upcomingPublishedEvents', 'verified' ].forEach( k => {
 
     c[ utils.toCamelCase( k ) ] = a[ k ];
 

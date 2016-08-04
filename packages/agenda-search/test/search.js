@@ -8,8 +8,6 @@ config = require( '../testconfig' ),
 
 searchLib = require( '../service/search' ), search,
 
-fixtures = require( './fixtures' ),
-
 agendaTestService = require( './app/agendaTestService' );
 
 describe( 'search', function() {

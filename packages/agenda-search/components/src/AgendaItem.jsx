@@ -1,11 +1,14 @@
 "use strict";
 
-var React = require( 'react' );
+var React = require( 'react' ),
+
+getLabel = require( 'labels' )( require( 'labels/agenda-search' ) );
 
 module.exports = React.createClass( {
 
   propTypes: {
-    agenda: React.PropTypes.object
+    agenda: React.PropTypes.object,
+    lang: React.PropTypes.string
   },
 
   render: function() {
@@ -20,7 +23,10 @@ module.exports = React.createClass( {
           />
         </div>
         <div className="media-body">
-          <h4 className="title media-heading">{this.props.agenda.title}</h4>
+          <div className="title media-heading">
+            <h4>{this.props.agenda.title}</h4>
+            {this.props.agenda.verified ? <span className="badge badge-primary">{getLabel( 'verified', this.props.lang )}</span> : null }
+          </div>
           <p className="description">{this.props.agenda.description}</p>
           <div>
             <span>événements: {this.props.agenda.publishedEvents}</span> / 

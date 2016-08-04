@@ -6,20 +6,27 @@ AgendaItem = require( './AgendaItem.js' ),
 
 SearchField = require( 'react-form-components/build/SearchField.js' ),
 
+Spinner = require( 'react-form-components/build/Spinner' ),
+
 List = require( './List' ),
 
 get = require( './get' ),
 
 actions = require( './actions' ),
 
-updateHref = require( './updateHref' );
+getLabel = require( 'labels' )( require( 'labels/agenda-search' ) ),
+
+updateHref = require( './updateHref' ),
+
+monitorField = require( './monitorField' );
 
 module.exports = React.createClass( {
 
   propTypes: {
     res: React.PropTypes.string,
     agendas: React.PropTypes.array,
-    page: React.PropTypes.number
+    page: React.PropTypes.number,
+    lang: React.PropTypes.string
   },
 
   getDefaultProps() {
@@ -27,18 +34,21 @@ module.exports = React.createClass( {
     return {
       res: '/',
       agendas: [],
-      page: 1
+      page: 1,
+      lang: 'fr'
     }
 
   },
 
   getInitialState() {
 
+    monitorField( '.js_agenda_search', value => this.onSearchChange( 'search', value ) );
+
     return {
       total: this.props.total,
       agendas: this.props.agendas,
       pageRange: [ this.props.page, this.props.page ],
-      query: this.props.query, // only true at init
+      query: this.props.query // only true at init
     }
 
   },
@@ -86,13 +96,9 @@ module.exports = React.createClass( {
 
   },
 
-  orderBy( order ) {
-
-    this.resetPage( actions.getOrderedQuery( this.state, order ) );
-
-  },
-
   resetPage( newQuery ) {
+
+    this.setState( { loading: true } );
 
     get( this.props.res, {
       oas: newQuery,
@@ -114,55 +120,40 @@ module.exports = React.createClass( {
 
   },
 
-  renderFilters() {
+  renderHead() {
 
-    var current = ( this.state.query || {} ).order || 'mostrecent',
-
-    labels = {
-      mostrecent: 'recent',
-      count: 'most events',
-      upcomingcount: 'most upcoming events'
-    };
-
-    return <div className="filters">
-      { Object.keys( labels ).map( order => { 
-
-        return order === current ? 
-          <a key={order}><strong>{ labels[ order ] }</strong></a> 
-          : <a key={order} onClick={ this.orderBy.bind( null, order ) }>{ labels[ order ] }</a>  
-      } ) }
+    return <div className="header">
+      <h1>{getLabel( 'latestUpdated', this.props.lang )}</h1>
     </div>
 
   },
 
+  renderSearchHead() {
+
+    return <div className="header">
+      <h1>{getLabel( 'results', { search: this.state.query.search }, this.props.lang )}</h1>
+      <span>{getLabel( 'found', { count: this.state.total }, this.props.lang )}</span>
+    </div>
+
+  },
+  
   render() {
 
-    return <div className="container agenda-search">
+    return <div className="container agenda-search top-margined">
       <div className="row">
-        <div className="col-sm-8 col-sm-offset-2 wsq header">
-          <div className="form-group">
-            <label className="sr-only" for="agenda_search">Agenda search</label>
-            <SearchField
-              name="oas[search]"
-              label="Search"
-              placeholder="Search"
-              value={ this.state.query ? this.state.query.search : '' }
-              onChange={this.onSearchChange}
-            />
+        <div className="col-sm-8 col-sm-offset-2 wsq agenda-search">
+          { this.state.loading ? <Spinner/> : null }
+          { this.state.query && this.state.query.search ? this.renderSearchHead() : this.renderHead() }
+          <div className="body media-list">
+            {this.state.agendas.length ? <List
+              query={this.state.query}
+              pageRange={this.state.pageRange}
+              getPage={this.getPage}
+              total={this.state.total}
+              items={this.state.agendas} // a 'get' can maybe be given in props differently here from server?
+              renderItem={ i => <AgendaItem agenda={i} key={i.uid} lang={this.props.lang}/> }
+            /> : <div className="empty"><p>{getLabel( 'empty', this.props.lang ) }</p></div> }
           </div>
-          {this.renderFilters()}
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-sm-8 col-sm-offset-2 wsq body media-list agenda-search">
-          {this.state.agendas.length ? <List
-            query={this.state.query}
-            pageRange={this.state.pageRange}
-            getPage={this.getPage}
-            total={this.state.total}
-            items={this.state.agendas} // a 'get' can maybe be given in props differently here from server?
-            renderItem={ i => <AgendaItem agenda={i} key={i.uid}/> }
-          /> : <div className="empty"><p>Sorry, no agendas match this search</p></div> }
         </div>
       </div>
     </div>

@@ -85,6 +85,10 @@ function resetPageItems( currentState, query, data ) {
     $set: data.total
   }
 
+  changes.loading = {
+    $set: false
+  }
+
   return update( currentState, changes );
 
 }

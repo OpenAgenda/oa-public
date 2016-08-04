@@ -53,7 +53,8 @@ describe( 'components actions', () => {
       query: { search: 'bloup' },
       pageRange: [ 1, 1 ],
       agendas: [ 'agenda123', 'agenda345' ],
-      total: 12000
+      total: 12000,
+      loading: false
     } );
 
   } );
