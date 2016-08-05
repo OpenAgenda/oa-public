@@ -3,7 +3,9 @@
 .agenda-search {
 
   a {
+
     cursor: pointer;
+
   }
   
   .header {
@@ -24,24 +26,16 @@
 
     }
 
-    h4 {
-
-      display: inline-block;
-      vertical-align: middle;
-      padding-right: 0.2em;
-
-    }
-
-    .verified {
-
-      color: $oa-blue;
-
-    }
-
     .description {
 
       margin-bottom: 0.2em;
 
+    }
+
+    .badge {
+
+      margin-right: 0.4em;
+  
     }
 
     .ill {
