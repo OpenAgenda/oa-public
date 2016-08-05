@@ -37,7 +37,6 @@ async.waterfall( [
     // routes agenda search hits on. These are given in on the front
     // side at the react components initialization
     
-
     app.get( '/', ( req, res, next ) => {
 
       req.lang = 'fr';

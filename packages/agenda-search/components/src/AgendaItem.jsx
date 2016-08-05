@@ -13,10 +13,10 @@ module.exports = React.createClass( {
     lang: React.PropTypes.string
   },
 
-  render: function() {
+  render() {
 
     return <div className="agenda-item media">
-      <a>
+      <a href={'/agendas/' + this.props.agenda.uid}>
         <div className="media-left">
           <img 
             className="media-object ill avatar" 
@@ -26,13 +26,15 @@ module.exports = React.createClass( {
         </div>
         <div className="media-body">
           <div className="title media-heading">
-            <h4>{this.props.agenda.title}</h4>
-            {this.props.agenda.verified ? <span className="badge badge-primary">{getLabel( 'verified', this.props.lang )}</span> : null }
+            <strong>{this.props.agenda.title}</strong>
           </div>
           <p className="description">{this.props.agenda.description}</p>
           <div>
-            <span>événements: {this.props.agenda.publishedEvents}</span> / 
-            <span>à venir: {this.props.agenda.upcomingPublishedEvents}</span>
+            { this.props.agenda.verified ? <span className="badge badge-primary"><i className="fa fa-check"></i> {getLabel( 'verified', this.props.lang )}</span> : null }
+            { this.props.agenda.upcomingPublishedEvents === 0 && this.props.agenda.publishedEvents === 1 ? <span className="badge badge-default">{getLabel( 'publishedEvent', this.props.lang )}</span> : null }
+            { this.props.agenda.upcomingPublishedEvents === 0 && this.props.agenda.publishedEvents > 1 ? <span className="badge badge-default">{getLabel( 'publishedEvents', { count: this.props.agenda.publishedEvents }, this.props.lang )}</span> : null }
+            { this.props.agenda.upcomingPublishedEvents === 1 ? <span className="badge badge-info">{getLabel( 'upcomingEvent', this.props.lang )}</span> : null }
+            { this.props.agenda.upcomingPublishedEvents > 1 ? <span className="badge badge-info">{getLabel( 'upcomingEvents', { count: this.props.agenda.upcomingPublishedEvents }, this.props.lang )}</span> : null }
           </div>
         </div>
       </a>

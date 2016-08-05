@@ -19,7 +19,7 @@ module.exports = React.createClass({
       { className: 'agenda-item media' },
       React.createElement(
         'a',
-        null,
+        { href: '/agendas/' + this.props.agenda.uid },
         React.createElement(
           'div',
           { className: 'media-left' },
@@ -36,15 +36,10 @@ module.exports = React.createClass({
             'div',
             { className: 'title media-heading' },
             React.createElement(
-              'h4',
+              'strong',
               null,
               this.props.agenda.title
-            ),
-            this.props.agenda.verified ? React.createElement(
-              'span',
-              { className: 'badge badge-primary' },
-              getLabel('verified', this.props.lang)
-            ) : null
+            )
           ),
           React.createElement(
             'p',
@@ -54,23 +49,36 @@ module.exports = React.createClass({
           React.createElement(
             'div',
             null,
-            React.createElement(
+            this.props.agenda.verified ? React.createElement(
               'span',
-              null,
-              'événements: ',
-              this.props.agenda.publishedEvents
-            ),
-            ' /',
-            React.createElement(
+              { className: 'badge badge-primary' },
+              React.createElement('i', { className: 'fa fa-check' }),
+              ' ',
+              getLabel('verified', this.props.lang)
+            ) : null,
+            this.props.agenda.upcomingPublishedEvents === 0 && this.props.agenda.publishedEvents === 1 ? React.createElement(
               'span',
-              null,
-              'à venir: ',
-              this.props.agenda.upcomingPublishedEvents
-            )
+              { className: 'badge badge-default' },
+              getLabel('publishedEvent', this.props.lang)
+            ) : null,
+            this.props.agenda.upcomingPublishedEvents === 0 && this.props.agenda.publishedEvents > 1 ? React.createElement(
+              'span',
+              { className: 'badge badge-default' },
+              getLabel('publishedEvents', { count: this.props.agenda.publishedEvents }, this.props.lang)
+            ) : null,
+            this.props.agenda.upcomingPublishedEvents === 1 ? React.createElement(
+              'span',
+              { className: 'badge badge-info' },
+              getLabel('upcomingEvent', this.props.lang)
+            ) : null,
+            this.props.agenda.upcomingPublishedEvents > 1 ? React.createElement(
+              'span',
+              { className: 'badge badge-info' },
+              getLabel('upcomingEvents', { count: this.props.agenda.upcomingPublishedEvents }, this.props.lang)
+            ) : null
           )
         )
       )
     );
   }
-
 });
