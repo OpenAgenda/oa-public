@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS ${agendaEventSchema} (
   review_id BIGINT NOT NULL,
   event_id BIGINT NOT NULL,
   state TINYINT,
+  is_published TINYINT(1) DEFAULT '0' NOT NULL,
   INDEX review_id_idx (review_id), 
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;

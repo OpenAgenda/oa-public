@@ -75,9 +75,15 @@ function _getUpcomingPublishedEvents( v ) {
 
     .leftJoin( schemas.occurrence, schemas.agendaEvent + '.event_id', schemas.occurrence + '.event_id' )
 
-    .where( 'review_id', '=', v.agendaId )
+    .where( function() {
 
-    .andWhere( 'state', '=', states.published )
+      this.where( 'state', '=', states.published )
+
+      .orWhere( 'is_published', '=', 1 );
+
+    } )
+
+    .andWhere( 'review_id', '=', v.agendaId )
 
     .andWhere( 'date', '>=', today );
 
@@ -104,9 +110,15 @@ function _getPublishedEvents( v ) {
 
     .from( schemas.agendaEvent )
 
-    .where( 'review_id', '=', v.agendaId )
+    .where( function() {
 
-    .andWhere( 'state', '=', states.published );
+        this.where( 'state', '=', states.published )
+
+        .orWhere( 'is_published', '=', 1 );
+
+    } )
+
+    .andWhere( 'review_id', '=', v.agendaId )
 
   } )
 

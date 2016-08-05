@@ -49,8 +49,8 @@ describe( 'get', function() {
 
       should( err ).equal( null );
 
-      agenda.publishedEvents.should.equal( 9 );
-      agenda.upcomingPublishedEvents.should.equal( 7 );
+      agenda.publishedEvents.should.equal( 10 );
+      agenda.upcomingPublishedEvents.should.equal( 8 );
 
       done();
 
