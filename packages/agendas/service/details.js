@@ -69,7 +69,7 @@ function _getUpcomingPublishedEvents( v ) {
 
     return trx
 
-    .count( schemas.agendaEvent + '.id as published_count' )
+    .countDistinct( schemas.agendaEvent + '.id as published_count' )
 
     .from( schemas.agendaEvent )
 
