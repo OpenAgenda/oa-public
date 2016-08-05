@@ -1,8 +1,8 @@
 "use strict";
 
-var utils = require( 'utils' );
+const utils = require( 'utils' ),
 
-module.exports = {
+obj = {
 
   // index name
   alias: 'agenda',
@@ -13,15 +13,25 @@ module.exports = {
   indexBody: getIndexSettings(),
 
   // prepare dsl query
-  query: query,
+  query,
 
   // clean items before being put to index
-  clean: clean,
+  clean,
 
   // process items read from index
-  parse: parse,
+  parse,
 
   mappings: getMappings()
+
+}
+
+
+
+module.exports = obj;
+
+module.exports.init = function( cfg ) {
+
+  if ( cfg && cfg.alias ) obj.alias = cfg.alias;
 
 }
 

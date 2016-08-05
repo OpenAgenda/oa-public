@@ -12,7 +12,8 @@ module.exports = function (options) {
   var params = utils.extend({
     res: '/', // where to fetch list.
     canvas: '.js_search_canvas',
-    dataTag: 'data-options'
+    dataTag: 'data-options',
+    lang: 'en'
   }, options);
 
   var data = du.parseJsonAttribute('body', params.dataTag, {
@@ -22,6 +23,7 @@ module.exports = function (options) {
 
   ReactDom.render(React.createElement(Body, {
     res: params.res,
+    lang: params.lang,
     query: dl.getQueryPart('oas', {}),
     page: parseInt(dl.getQueryPart('page', 1), 10),
     agendas: data.agendas,

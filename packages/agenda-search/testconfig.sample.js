@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = {
+  alias: 'agenda_test',
   mysql : {
     host : '127.0.0.1',
     database : 'agenda_search_test',
