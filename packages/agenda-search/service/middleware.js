@@ -77,6 +77,7 @@ function list( req, res, next ) {
     if ( req.xhr ) return res.json( req.data );
 
     req.content = ReactDOMServer.renderToString( Body( {
+      lang: req.lang,
       page: page,
       query: req.query.oas,
       agendas: agendas,

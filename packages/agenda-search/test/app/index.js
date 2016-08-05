@@ -40,6 +40,8 @@ async.waterfall( [
 
     app.get( '/', ( req, res, next ) => {
 
+      req.lang = 'fr';
+
       if ( !req.xhr ) return next();
 
       // fake internet lag
