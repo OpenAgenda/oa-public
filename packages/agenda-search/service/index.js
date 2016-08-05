@@ -42,7 +42,8 @@ function init( c, cb ) {
   search = searchLib( config.services.agendas, config );
 
   mw.init( {
-    list
+    list,
+    rebuild
   }, config );
 
 }
