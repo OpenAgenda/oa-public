@@ -16,6 +16,12 @@
 
   .agenda-item {
 
+    .media-left, .media-body {
+
+      vertical-align: middle;
+
+    }
+
     padding: 1em 2em;
 
     a {
@@ -28,7 +34,7 @@
 
     .description {
 
-      margin-bottom: 0.2em;
+      margin-bottom: 0.4em;
 
     }
 
