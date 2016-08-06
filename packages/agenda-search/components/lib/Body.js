@@ -156,6 +156,8 @@ module.exports = React.createClass({
               pageRange: this.state.pageRange,
               getPage: this.getPage,
               total: this.state.total,
+              prevLabel: getLabel('loadPrevious', this.props.lang),
+              nextLabel: getLabel('loadNext', this.props.lang),
               items: this.state.agendas // a 'get' can maybe be given in props differently here from server?
               , renderItem: function renderItem(i) {
                 return React.createElement(AgendaItem, { agenda: i, key: i.uid, lang: _this4.props.lang });

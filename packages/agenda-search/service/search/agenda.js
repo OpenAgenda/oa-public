@@ -70,6 +70,10 @@ function query( q, offset, limit ) {
         order: 'desc'
       }
     }, {
+      upcomingPublishedEvents: {
+        order: 'desc',
+      }
+    }, {
       updatedAt: {
         order: 'desc'
       }

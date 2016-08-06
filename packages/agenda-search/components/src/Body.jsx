@@ -152,6 +152,8 @@ module.exports = React.createClass( {
               pageRange={this.state.pageRange}
               getPage={this.getPage}
               total={this.state.total}
+              prevLabel={getLabel('loadPrevious', this.props.lang)}
+              nextLabel={getLabel('loadNext', this.props.lang)}
               items={this.state.agendas} // a 'get' can maybe be given in props differently here from server?
               renderItem={ i => <AgendaItem agenda={i} key={i.uid} lang={this.props.lang}/> }
             /> : <div className="empty"><p>{getLabel( 'empty', this.props.lang ) }</p></div> }
