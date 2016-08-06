@@ -14,6 +14,8 @@ module.exports = ( selector, cb ) => {
 
     if ( e.keyCode !== 13 ) return;
 
+    e.preventDefault();
+
     cb( e.target.value ); 
 
   } );
