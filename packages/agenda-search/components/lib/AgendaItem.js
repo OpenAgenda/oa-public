@@ -49,12 +49,12 @@ module.exports = React.createClass({
           React.createElement(
             'div',
             null,
-            this.props.agenda.verified ? React.createElement(
+            this.props.agenda.official ? React.createElement(
               'span',
               { className: 'badge badge-primary' },
-              React.createElement('i', { className: 'fa fa-check' }),
+              React.createElement('i', { className: 'fa fa-sun-o' }),
               ' ',
-              getLabel('verified', this.props.lang)
+              getLabel('official', this.props.lang)
             ) : null,
             this.props.agenda.upcomingPublishedEvents === 0 && this.props.agenda.publishedEvents === 1 ? React.createElement(
               'span',

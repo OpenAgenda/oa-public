@@ -66,7 +66,7 @@ function query( q, offset, limit ) {
     }
 
     dsl.sort = [ {
-      verified: {
+      official: {
         order: 'desc'
       }
     }, {
@@ -146,7 +146,7 @@ function getMappings() {
           type: 'date'
         },
 
-        verified: {
+        official: {
           type: 'boolean'
         }
 
@@ -192,7 +192,7 @@ function clean( a, config ) {
 
   var c = {};
 
-  [ 'id', 'uid', 'slug', 'title', 'description', 'updated_at', 'image', 'publishedEvents', 'upcomingPublishedEvents', 'verified' ].forEach( k => {
+  [ 'id', 'uid', 'slug', 'title', 'description', 'updated_at', 'image', 'publishedEvents', 'upcomingPublishedEvents', 'official' ].forEach( k => {
 
     c[ utils.toCamelCase( k ) ] = a[ k ];
 

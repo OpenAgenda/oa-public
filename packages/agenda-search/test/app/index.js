@@ -56,7 +56,9 @@ async.waterfall( [
 
       req.content = [ 
         '<div>',
-          '<input type="text" class="js_agenda_search"/>', 
+          '<form class="js_agenda_search">',
+            '<input type="text"/>', 
+          '</form>',
         '</div>',
         '<div class="js_search_canvas">',
           req.content,

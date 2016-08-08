@@ -30,7 +30,7 @@ module.exports = React.createClass( {
           </div>
           <p className="description">{this.props.agenda.description}</p>
           <div>
-            { this.props.agenda.verified ? <span className="badge badge-primary"><i className="fa fa-check"></i> {getLabel( 'verified', this.props.lang )}</span> : null }
+            { this.props.agenda.official ? <span className="badge badge-primary"><i className="fa fa-sun-o"></i> {getLabel( 'official', this.props.lang )}</span> : null }
             { this.props.agenda.upcomingPublishedEvents === 0 && this.props.agenda.publishedEvents === 1 ? <span className="badge badge-default">{getLabel( 'publishedEvent', this.props.lang )}</span> : null }
             { this.props.agenda.upcomingPublishedEvents === 0 && this.props.agenda.publishedEvents > 1 ? <span className="badge badge-default">{getLabel( 'publishedEvents', { count: this.props.agenda.publishedEvents }, this.props.lang )}</span> : null }
             { this.props.agenda.upcomingPublishedEvents === 1 ? <span className="badge badge-info">{getLabel( 'upcomingEvent', this.props.lang )}</span> : null }

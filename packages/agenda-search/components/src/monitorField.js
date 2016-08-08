@@ -6,17 +6,17 @@ module.exports = ( selector, cb ) => {
 
   if ( typeof window === 'undefined' || typeof document === 'undefined' ) return; // server!
 
-  let elem = du.el( selector );
+  let formElem = du.el( selector ),
 
-  if ( !elem ) return;
+  inputElem = du.el( formElem, 'input' );
 
-  du.addEvent( elem, 'keyup', e => {
+  if ( !formElem || !inputElem ) return;
 
-    if ( e.keyCode !== 13 ) return;
+  du.addEvent( formElem, 'submit', e => {
 
     e.preventDefault();
 
-    cb( e.target.value ); 
+    cb( inputElem.value ); 
 
   } );
 

@@ -121,7 +121,7 @@ function _populate( v ) {
 
       }
 
-      let filteredItems = items.filter( a => a.publishedEvents || a.verified );
+      let filteredItems = items.filter( a => a.publishedEvents || a.official );
 
       pageCount = items.length;
 

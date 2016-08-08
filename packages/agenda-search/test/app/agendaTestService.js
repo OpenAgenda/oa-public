@@ -37,7 +37,7 @@ function _randomAgenda( uid ) {
   let upcoming = Math.ceil( Math.random() * 1000 );
 
   return {
-    verified: uid % 10 === 0,
+    official: uid % 10 === 0,
     title: _appendTitleParts( 'Agenda title ' + uid ),
     description: 'description ' + uid,
     publishedEvents: upcoming + Math.ceil( Math.random() * 1000 ),

@@ -6,16 +6,15 @@ module.exports = function (selector, cb) {
 
   if (typeof window === 'undefined' || typeof document === 'undefined') return; // server!
 
-  var elem = du.el(selector);
+  var formElem = du.el(selector),
+      inputElem = du.el(formElem, 'input');
 
-  if (!elem) return;
+  if (!formElem || !inputElem) return;
 
-  du.addEvent(elem, 'keyup', function (e) {
-
-    if (e.keyCode !== 13) return;
+  du.addEvent(formElem, 'submit', function (e) {
 
     e.preventDefault();
 
-    cb(e.target.value);
+    cb(inputElem.value);
   });
 };
