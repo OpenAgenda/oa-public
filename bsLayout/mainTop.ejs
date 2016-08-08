@@ -32,7 +32,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <form class="navbar-left search-form js_agenda_search" role="search" action="<%= genUrl( 'agendaSearch' ) %>">
-            <input class="search-input" placeholder="<%= __('Search') %>" type="text" name="oas[search]" value="<%= typeof search !== 'undefined' ? search : '' %>">
+            <input class="search-input" placeholder="<%= __('Search') %>" type="text" name="search" value="<%= typeof search !== 'undefined' ? search : '' %>">
 <% if ( typeof lang !== 'undefined' && lang !== 'fr' ) { %>
             <input type="hidden" name="lang" value="<%= lang %>"/>
 <% } %>
