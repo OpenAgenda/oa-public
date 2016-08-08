@@ -36,7 +36,7 @@ describe( 'service.set: create an agenda', function() {
           description: null,
           url: null,
           settings: null,
-          verified: 0,
+          official: 0,
           createdAt: result.agenda.createdAt,
           updatedAt: result.agenda.updatedAt
         },
@@ -103,7 +103,7 @@ describe( 'service.set: create an agenda', function() {
           url: 'http://www.ville-courbevoie.fr/lagenda-de-vos-evenements.htm',
           settings: null,
           image: null,
-          verified: 0,
+          official: 0,
           createdAt: result.agenda.createdAt,
           updatedAt: result.agenda.updatedAt
         },
@@ -140,7 +140,7 @@ describe( 'service.set: create an agenda', function() {
           url: null,
           settings: null,
           image: null,
-          verified: 0,
+          official: 0,
           credentials: {
             moderators: false,
             tags: false,

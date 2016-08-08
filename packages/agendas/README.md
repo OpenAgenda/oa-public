@@ -93,7 +93,7 @@ The data to be updated; Check test/service.set.update.js for an example, and the
 
 ## Migration
 
- * verified table entry needs to be added
+ * official table entry needs to be added
  * credentials need to go from review_credentials to credentials
 
 ## Settings

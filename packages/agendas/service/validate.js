@@ -33,8 +33,8 @@ module.exports.map = [
     protected: true
   },
   {
-    db: 'verified',
-    obj: 'verified',
+    db: 'official',
+    obj: 'official',
     protected: true
   },
   'title',
@@ -90,7 +90,7 @@ function agendaSchema() {
       type: 'number',
       optional: false
     },
-    verified: {
+    official: {
       type: 'boolean',
       default: false
     },

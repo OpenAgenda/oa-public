@@ -34,7 +34,7 @@ describe( 'get', function() {
         settings: null,
         createdAt: agenda.createdAt,
         updatedAt: agenda.updatedAt,
-        verified: 0
+        official: 0
       } );
 
       done();
@@ -74,7 +74,7 @@ describe( 'get', function() {
         image: 'review_epn-espace-torcy_00.jpg',
         createdAt: agenda.createdAt,
         updatedAt: agenda.updatedAt,
-        verified: 0
+        official: 0
       } );
 
       done();
@@ -102,7 +102,7 @@ describe( 'get', function() {
         credentials: null,
         createdAt: agenda.createdAt,
         updatedAt: agenda.updatedAt,
-        verified: 0
+        official: 0
       } );
 
       done();
