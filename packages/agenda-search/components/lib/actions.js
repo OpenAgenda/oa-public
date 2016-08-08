@@ -8,22 +8,8 @@ var update = require('react-addons-update');
 
 module.exports = {
   addPageItems: addPageItems,
-  resetPageItems: resetPageItems,
-  getOrderedQuery: getOrderedQuery
+  resetPageItems: resetPageItems
 };
-
-/**
- * get state query decorated with order passed in params
- */
-
-function getOrderedQuery(current, order) {
-
-  var query = current.query || {};
-
-  query.order = order;
-
-  return query;
-}
 
 /**
  * append new items to top or bottom of list
@@ -55,7 +41,7 @@ function addPageItems(current, next, data) {
  * reset items in list
  * pagerange is 1,1, state is new, items are replaced
  */
-function resetPageItems(currentState, query, data) {
+function resetPageItems(currentState, search, data) {
 
   var changes = {};
 
@@ -67,8 +53,8 @@ function resetPageItems(currentState, query, data) {
     $set: data.agendas
   };
 
-  changes.query = {
-    $set: query
+  changes.search = {
+    $set: search
   };
 
   changes.total = {
