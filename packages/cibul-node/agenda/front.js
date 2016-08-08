@@ -10,9 +10,13 @@ lib = require( '../lib/lib' ),
 
 agendaSvc = require( '../services/agenda' ),
 
+agendaSearch = require( 'agenda-search' ),
+
 eventSvc = require( '../services/event' ),
 
 embedSvc = require( '../services/embed/embed' ),
+
+searchBaseData = cmn.loadBaseData( 'oasfmain.css' ),
 
 perPage = 20,
 
@@ -101,6 +105,21 @@ routes = {
     cmn.loadBaseData( _layoutData ),
     embedSvc.mw.loadCustomLayoutData,
     embedShow
+  ] ],
+
+  agendaSearch: [ 'get', '/agendas', [
+    agendaSearch.mw.list,
+    ( req, res, next ) => {
+
+      req.xhr ? next() : searchBaseData( req, res, next )
+      
+    },
+    agendaSearchPage
+  ] ],
+
+  agendaSearchRebuild: [ 'get', '/agendas/rebuild', [
+    agendaSearch.mw.rebuild,
+    agendaSearchRebuildRedirect
   ] ],
 
   agendaRedirect: [ 'get', '/agendas/:uid', [
@@ -242,6 +261,34 @@ function embedShow( req, res ) {
   } );
 
   cmn.render( req, res, 'agenda/embedShow', req.templateData );
+
+}
+
+
+function agendaSearchPage( req, res, next ) {
+
+  if ( req.xhr ) return next();
+
+  cmn.render( req, res, 'agendaSearch/index', {
+    search: req.query && req.query.oas ? req.query.oas.search : '',
+    content: req.content,
+    scriptParams: {
+      lang: req.lang,
+      canvas: '.js_search_canvas',
+      agendas: req.data.agendas,
+      total: req.data.total,
+      res: req.genUrl( 'agendaSearch' )
+    }
+  } );
+
+}
+
+
+function agendaSearchRebuildRedirect( req, res, next ) {
+
+  res.setFlash( req, 'rebuilding agenda search index' );
+
+  res.redirect( 302, req.genUrl( 'agendaSearch' ) );
 
 }
 

@@ -51,6 +51,10 @@ module.exports = function ( enabledTypes, cb ) {
 
       cookieSession = require( 'cookie-session' ),
 
+      agendaSearch = require( 'agenda-search' ),
+
+      agendasSvc = require( 'agendas' ),
+
       genUrl = require( './services/genUrl' ).init( {
         domain: config.domain,
       } ),
@@ -88,6 +92,47 @@ module.exports = function ( enabledTypes, cb ) {
       store: config.db,
       legacy: config.db,
       logger: logger
+    } );
+
+    let agendasSvcConfig = {
+      mysql: config.db,
+      schemas: {
+        agenda: 'review',
+        occurrence: 'occurrence',
+        agendaEvent: 'review_article'
+      },
+      elasticsearch: {
+        host: config.es.host + ':' + config.es.port,
+        log: [ {
+          type: 'stdio',
+          level: [ 'error', 'warning' ]
+        } ],
+        apiVersion: '1.3',
+        timeout: 30000
+      },
+      mw: {
+        limit: {
+          default: 20,
+          max: 100
+        }
+      },
+      image: {
+        path: config.aws.imageBucketPath.replace( 'cibuldev', 'cibul' ),
+        default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      },
+      logger: logger
+    };
+
+    agendasSvc.init( agendasSvcConfig );
+
+    agendaSearch.init( Object.assign( {
+      services: {
+        agendas: agendasSvc
+      }
+    }, agendasSvcConfig ), err => {
+
+      if ( err ) log( 'error', 'could not init %s', err );
+
     } );
 
     require( 'agenda-stakeholders' ).init( {
@@ -322,6 +367,8 @@ module.exports = function ( enabledTypes, cb ) {
       tfy( require( './general/resetApiCounters.task' ), { period: 'daily', time: '00:00' } );
 
       tfy( require( './services/elasticsearch' ).refresh, { period: 'daily', time: '00:00' } );
+
+      tfy( agendaSearch.rebuild, { period: 'daily', time: '01:00' } );
 
       require( './general/mainLogger.task' )();
 
