@@ -22,7 +22,6 @@
     "dom-utils": "git+ssh://git@bitbucket.org/openagenda/dom-utils.git",
     "es6-promise": "^3.2.1",
     "fixtures": "git+ssh://git@bitbucket.org/openagenda/fixtures.git",
-    "isomorphic-fetch": "^2.2.1",
     "knex": "^0.10.0",
     "labels": "git+ssh://git@bitbucket.org/openagenda/labels.git",
     "mysql": "^2.11.1",
