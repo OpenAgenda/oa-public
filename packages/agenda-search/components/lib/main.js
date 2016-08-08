@@ -24,7 +24,7 @@ module.exports = function (options) {
   ReactDom.render(React.createElement(Body, {
     res: params.res,
     lang: params.lang,
-    query: dl.getQueryPart('oas', {}),
+    search: dl.getQueryPart('searcg', ''),
     page: parseInt(dl.getQueryPart('page', 1), 10),
     agendas: data.agendas,
     total: data.total

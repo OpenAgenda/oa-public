@@ -44,13 +44,13 @@ module.exports = React.createClass( {
 
   getInitialState() {
 
-    monitorField( '.js_agenda_search', value => this.onSearchChange( 'search', value ) );
+    monitorField( '.js_agenda_search', this.resetPage );
 
     return {
       total: this.props.total,
       agendas: this.props.agendas,
       pageRange: [ this.props.page, this.props.page ],
-      query: this.props.query // only true at init
+      search: this.props.search // only true at init
     }
 
   },
@@ -60,7 +60,7 @@ module.exports = React.createClass( {
     if ( this.state.loading ) return;
 
     let query = {
-      oas: this.state.query,
+      search: this.state.search,
       page: this.state.pageRange[ next ? 1 : 0 ] + ( next ? +1 : -1 )
     }
 
@@ -92,9 +92,7 @@ module.exports = React.createClass( {
 
   onSearchChange( name, search ) {
 
-    this.resetPage( {
-      search: search
-    } );
+    this.resetPage( search );
 
   },
 
@@ -103,7 +101,7 @@ module.exports = React.createClass( {
     this.setState( { loading: true } );
 
     get( this.props.res, {
-      oas: newQuery,
+      search: newQuery,
       page: 1
     }, ( err, data ) => {
 
@@ -114,7 +112,7 @@ module.exports = React.createClass( {
       this.setState( changes );
 
       documentLocation.setQueryPart( {
-        oas: newQuery,
+        search: newQuery,
         page: 1
       } );
 
@@ -133,7 +131,7 @@ module.exports = React.createClass( {
   renderSearchHead() {
 
     return <div className="header">
-      <h1>{getLabel( 'results', { search: this.state.query.search }, this.props.lang )}</h1>
+      <h1>{getLabel( 'results', { search: this.state.search }, this.props.lang )}</h1>
       <span>{getLabel( 'found', { count: this.state.total }, this.props.lang )}</span>
     </div>
 
@@ -145,10 +143,10 @@ module.exports = React.createClass( {
       <div className="row">
         <div className="wsq col-sm-8 col-sm-offset-2">
           { this.state.loading ? <Spinner/> : null }
-          { this.state.query && this.state.query.search ? this.renderSearchHead() : this.renderHead() }
+          { this.state.search ? this.renderSearchHead() : this.renderHead() }
           <div className="body media-list">
             {this.state.agendas.length ? <List
-              query={this.state.query}
+              query={this.state.search}
               pageRange={this.state.pageRange}
               getPage={this.getPage}
               total={this.state.total}

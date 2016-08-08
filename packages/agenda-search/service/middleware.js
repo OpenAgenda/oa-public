@@ -65,7 +65,7 @@ function list( req, res, next ) {
 
   } catch( e ) {}
 
-  service.list( req.query.oas || {}, offset, limit, ( err, agendas, total ) => {
+  service.list( req.query.search ? { search: req.query.search } : {}, offset, limit, ( err, agendas, total ) => {
 
     if ( err ) return next( err );
 
@@ -79,7 +79,7 @@ function list( req, res, next ) {
     req.content = ReactDOMServer.renderToString( Body( {
       lang: req.lang,
       page: page,
-      query: req.query.oas,
+      search: req.query.search,
       agendas: agendas,
       total: total
     } ) );

@@ -38,7 +38,7 @@ module.exports = function( query ) {
 
   var clientSide = !!document,
 
-  current = query.oas ? JSON.parse( JSON.stringify( query.oas ) ) : {};
+  current = query.search ? JSON.parse( JSON.stringify( query.search ) ) : {};
 
   if ( clientSide ) current = _getFromHref();
 
@@ -58,7 +58,7 @@ module.exports = function( query ) {
 
     let query = qs.parse( parts[ 1 ] );
 
-    return query.oas || {};
+    return query.search || null;
 
   }
 
