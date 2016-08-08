@@ -50,6 +50,7 @@ routes = {
   ] ],
 
   agendaFacebook: [ 'post', '/facebook/tab', [
+    cmn.redirectLegacySearch,
     cmn.useEmbedGoogleAnalytics,
     fb.tab.loadAgendaId,
     _loadAgendaByAgendaId,
@@ -57,6 +58,7 @@ routes = {
   ]],
   
   agendaEmbedShow: [ 'get', '/agendas/:uid/embed/events', [
+    cmn.redirectLegacySearch,
     agendaSvc.mw.load( 'uid', { cache: true } ),
     agendaSvc.mw.browserCache,
     agendaSvc.mw.search( perPage ),
@@ -73,6 +75,7 @@ routes = {
   ] ],
   
   customEmbedShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events', [ 
+    cmn.redirectLegacySearch,
     agendaSvc.mw.load( 'uid', { cache: true } ),
     embedSvc.mw.load( 'embedUid', 'uid' ),
     embedSvc.mw.browserCache,
@@ -90,6 +93,7 @@ routes = {
   ] ],
 
   customEmbedShowPreview: [ 'get', '/agendas/:uid/previewEmbeds/:embedUid/events', [
+    cmn.redirectLegacySearch,
     ( req, res, next ) => { req.preview = true; next() },
     agendaSvc.mw.load( 'uid', { cache: true } ),
     cmn.checkAdministrator(),
@@ -123,11 +127,13 @@ routes = {
   ] ],
 
   agendaRedirect: [ 'get', '/agendas/:uid', [
+    cmn.redirectLegacySearch,
     agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
     redirect
   ] ],
   
   agendaShow: [ 'get', '/:slug', [ 
+    cmn.redirectLegacySearch,
     agendaSvc.mw.load( 'slug', { cache: true } ),
     agendaSvc.mw.browserCache,
     agendaSvc.mw.search( perPage ),
@@ -151,7 +157,6 @@ module.exports = function( path ) {
 
   router.pre( [
     cmn.loadLogger( 'agenda front' ),
-    cmn.redirectLegacySearch,
     cmn.flashSetter,
     cmn.loadSession
   ] );
@@ -270,7 +275,7 @@ function agendaSearchPage( req, res, next ) {
   if ( req.xhr ) return next();
 
   cmn.render( req, res, 'agendaSearch/index', {
-    search: req.query && req.query.oas ? req.query.oas.search : '',
+    search: req.query && req.query.search ? req.query.search : '',
     content: req.content,
     scriptParams: {
       lang: req.lang,

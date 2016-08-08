@@ -58,7 +58,6 @@ module.exports = function( p ) {
     cmn.redirectLegacySearch,
     cmn.loadSession,
     _maintain( [ 'page', 'search' ] ),
-    cmn.loadBaseData( _layoutData )
   ] );
 
   return {
@@ -85,21 +84,7 @@ function searchEvents( req, res, next ) {
 
   }
 
-  req.log( 'info', 'request received for searchEvents with query: %s', JSON.stringify( req.cleanSearch ) );
-  
-  eventSvc.search( req.cleanSearch, { page: req.query.page }, function( err, result ) {
-
-    if ( err ) return next( err );
-
-    cmn.render( req, res, 'search/events', lib.extend( 
-      req.templateData ? req.templateData : {}, { 
-        events: _cleanEvents( result.events ),
-        searchRes: 'searchEvents', 
-        search: req.cleanSearch
-      }, _pager( req, 'searchEvents', result.total )
-    ));
-
-  } );
+  res.redirect( 301, req.genUrl( 'agendaSearch', { search: req.cleanSearch } ) );
 
 }
 
@@ -121,19 +106,7 @@ function latestEvents( req, res ) {
 
   req.log( 'info', 'request received for latestEvents.' );
 
-  eventSvc.search( { order: 'update' }, { page: req.query.page }, function( err, result ) {
-
-    if ( err ) return next( err );
-
-    cmn.render( req, res, 'search/events', lib.extend( 
-      req.templateData ? req.templateData : {}, { 
-        events: _cleanEvents( result.events ),
-        searchRes: 'searchEvents', 
-        search: req.query.oaq 
-      }, _pager( req, 'latestEvents', result.total )
-    ));
-
-  } );
+  res.redirect( 301, req.genUrl( 'agendaSearch' ) );
 
 }
 
@@ -150,11 +123,7 @@ function searchAgendas( req, res ) {
 
   }
 
-  wn.call( agendaSvc.search, req.query.oaq, { page: req.query.page } )
-
-  .then( _renderAgendas( req, res, 'searchAgendas' ) )
-
-  .catch( _error( req, res ) );
+  res.redirect( 301, req.genUrl( 'agendaSearch', { search: req.cleanSearch } ) );
 
 }
 
@@ -163,49 +132,10 @@ function latestAgendas( req, res ) {
 
   req.log( 'info', 'request received for latestAgendas' );
 
-  wn.call( agendaSvc.search, { order: 'update' }, { page: req.query.page } )
-
-  .then( _renderAgendas( req, res, 'latestAgendas' ) )
-
-  .catch( _error( req, res ) );
+  res.redirect( 301, req.genUrl( 'agendaSearch' ) );
 
 }
 
-
-
-
-function _renderAgendas( req, res, uri ) {
-
-  return function( result ) {
-
-    result.data.forEach( function( agenda ) {
-
-      lib.extend( agenda, {
-        categories: [],
-        locationInfo: ''
-      });
-
-    } );
-
-    cmn.render( req, res, 'search/agendas', lib.extend(
-      req.templateData ? req.templateData : {},
-      { agendas: result.data, 
-        searchRes: 'searchAgendas', 
-        search: req.cleanSearch },
-      _pager( req, uri, result.total ) 
-    ));
-
-  }
-
-}
-
-function _layoutData( req, res ) {
-
-  return {
-    queryLang: req.query.lang ? req.query.lang : false
-  }
-
-}
 
 function _maintain( queryNames ) {
 
