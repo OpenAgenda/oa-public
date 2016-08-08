@@ -2,7 +2,8 @@ module.exports = {
   attributes: {
     lang: 'data-lang',
     config: 'data-cbctl',
-    count: 'data-count'
+    count: 'data-count',
+    json: 'data-json'
   },
   selector: '.cbpgpr',
   backupSelector: '[data-oapr]',

@@ -27,6 +27,7 @@
     "agenda-categories": "git+ssh://git@bitbucket.org:openagenda/agenda-categories.git",
     "agenda-event-references": "git+ssh://git@bitbucket.org:openagenda/agenda-event-references.git",
     "agenda-locations": "git+ssh://git@bitbucket.org:openagenda/agenda-locations.git",
+    "agenda-search": "git+ssh://git@bitbucket.org:openagenda/agenda-search.git",
     "agenda-tags": "git+ssh://git@bitbucket.org:openagenda/agenda-tags.git",
     "async": "0.9.0",
     "babel-core": "^6.9.0",

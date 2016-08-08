@@ -24,6 +24,7 @@ styler = require( '../lib/widgetStyler' ),
 
 defaults = {
   uid: false, // required
+  json: false, // required
   link: false, // optional. link to agenda page
   eventPart: false, // required. bit to add to link to open event
   lang: 'fr',
@@ -42,10 +43,11 @@ function widget( elem, options ) {
   log = debug( 'preview ' + params.uid );
 
   if ( !params.uid ) return log( 'preview widget uid not found' );
+  if ( !params.uid ) return log( 'preview widget resource ( json ) not found' );
 
   log( 'fetching agenda data' );
 
-  _fetch( params.uid, function( err, data ) {
+  _fetch( params.json, function( err, data ) {
 
     if ( err ) return log( 'could not retrieve agenda data %s', err );
 
@@ -156,18 +158,13 @@ function _flattenMultilinguals( event, e, lang ) {
 
 }
 
-function _fetch( uid, cb ) {
+function _fetch( res, cb ) {
 
-  remote.get(
-    ( config.res[ env ]  ? config.res[ env ].json : config.res.all.json ).replace( '{uid}', uid ),
-    { timeout: config.timeout },
-    function( responseType, data ) {
+  remote.get( res, { timeout: config.timeout }, function( responseType, data ) {
 
-      cb( responseType === 'success' ? null : responseType, data );
+    cb( responseType === 'success' ? null : responseType, data );
 
-    },
-    env === 'tpl'
-  )
+  }, env === 'tpl' )
 
 }
 
@@ -201,11 +198,20 @@ function _init() {
 
     count = elem.hasAttribute( config.attributes.count ) ? parseInt( elem.getAttribute( config.attributes.count ), 10 ) : 3,
 
-    link = cn.el( elem, 'a' ).getAttribute( 'href' );
+    link = cn.el( elem, 'a' ).getAttribute( 'href' ),
+
+    json = ( config.res[ env ]  ? config.res[ env ].json : config.res.all.json ).replace( '{uid}', arr[ UID ] );
+
+    if ( elem.hasAttribute( config.attributes.json ) ) {
+
+      json = elem.getAttribute( config.attributes.json )
+
+    }
 
     widget( elem, {
       uid: arr[ UID ],
       link: link,
+      json: json,
       eventPart: link.indexOf( 'openagenda.com' ) !== -1 ? res.eventPart : res.embedEventPart,
       useStyle: !elem.hasAttribute( config.attributes.noDefaultStyle ),
       count: count
