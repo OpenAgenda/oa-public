@@ -59,6 +59,7 @@ module.exports = ( enabledTypes, cb ) => {
           require( './general/back' )( '' ),
           require( './search/front' )( '' ),
           require( './event/form.back' )( '' ),
+          require( './event/tagsForm.back' )( '/:slug/events/:eventSlug/tagcat' ),
           require( './event/front' )( '' ),
           require( './event/actions.front' )( '' ),
           require( './event/back' )( '' ),
