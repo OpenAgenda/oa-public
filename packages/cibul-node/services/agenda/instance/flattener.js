@@ -337,11 +337,23 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
         .filter( f => {
 
-          if ( typeof f !== 'object' ) return true;
+          if ( typeof f !== 'object' ) {
 
-          if ( typeof utils.isArray( f ) ) return true;
+            return true;
 
-          if ( f.type === 'private' && !includePrivateData ) return false;
+          }
+
+          if ( typeof utils.isArray( f ) ) {
+
+            return true;
+
+          }
+
+          if ( f.type === 'private' && !includePrivateData ) {
+
+            return false;
+
+          }
 
           return true;
 
@@ -578,7 +590,7 @@ function _defineAccessibility( lang ) {
 
       return accessibilityLabels[ labelCodes[ c ] ][ lang ];
 
-    } ).join( ', ' );
+    } ).join( '|' );
 
   }
 
@@ -591,7 +603,7 @@ function _flattenTags( instance ) {
 
     if ( !tags ) return '';
 
-    return tags.map( t => t.label ).join( ', ' );
+    return tags.map( t => t.label ).join( '|' );
 
   }
 
@@ -642,7 +654,7 @@ function _extractGroupTags( group ) {
 
     .filter( t => groupSlugs.indexOf( t.slug ) !== -1 )
 
-    .map( t => t.label ).join( ', ' )
+    .map( t => t.label ).join( '|' )
 
   }
 
@@ -660,7 +672,7 @@ function _extractTags( t ) {
 
   if ( utils.isArray( t ) ) {
 
-    return t.map( function( t ) { return t.label } ).join( ', ');
+    return t.map( function( t ) { return t.label } ).join( '|');
 
   } else if( typeof t == 'object' ) {
 
@@ -672,7 +684,7 @@ function _extractTags( t ) {
 
     }
 
-    return t.join( ', ' );
+    return t.join( '|' );
 
   } else {
 
