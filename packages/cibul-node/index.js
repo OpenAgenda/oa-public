@@ -9,5 +9,6 @@ module.exports = {
     nominatim: require( './services/nominatim/nominatim' )
   },
   config: require( './config' ),
+  init: require( './lib/init' ),
   modelLib: require( './services/model' )
 };

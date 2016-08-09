@@ -18,6 +18,12 @@ module.exports.init = function( config ) {
 
 }
 
+module.exports.getSingleton = function() {
+
+  return singleton;
+
+}
+
 module.exports.abs = function( uri, query ) {
 
   return singleton( uri, query , {
