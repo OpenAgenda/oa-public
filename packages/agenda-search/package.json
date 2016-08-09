@@ -5,7 +5,6 @@
   "main": "service/index.js",
   "scripts": {
     "test": "mocha -w",
-    "install": "babel components/src -d components/lib",
     "babelify": "babel components/src -d components/lib",
     "preserve": "npm run-script babelify",
     "serve": "node test/app",
