@@ -29,7 +29,7 @@ module.exports = function( obj, service, config ) {
 
     var dsl = obj.query( query, offset, limit ),
 
-    client = _createClient( config );
+    client = _createClient( config.elasticsearch );
 
     client.search( {
       index: obj.alias,

@@ -26,7 +26,6 @@ module.exports = {
 function init( c, cb ) {
 
   config = deepExtend( {
-    mysql: {},
     logger: false,
     services: {
       agendas: false
