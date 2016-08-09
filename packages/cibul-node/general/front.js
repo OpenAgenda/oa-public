@@ -8,7 +8,7 @@ var modLib = require( '../lib/moduleLib' ),
 
   newsletter = require( 'newsletter' ),
 
-  mailer = require( '../services/mailer' ),
+  mailer = require( 'mailer' ),
 
   model = require( '../services/model' ),
 
@@ -166,7 +166,7 @@ function newsletterSubscribe( req, res ) {
 
       res.redirect( 302, req.genUrl( 'corpoHome' ) );
 
-      mailer.queueMail( {
+      mailer( {
         subject: 'Nouvel inscrit à la newsletter',
         recipient: [ 'romain@cibul.net', 'kaore@cibul.net' ],
         text: '"' + req.body.email + '" a été ajouté à la newsletter.'

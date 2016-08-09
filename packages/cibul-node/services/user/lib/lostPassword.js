@@ -8,7 +8,7 @@ config = require( '../../../config' ),
 
 model = require( 'cibulModel' )( config.db ),
 
-mailer = require( '../../mailer' ),
+mailer = require( 'mailer' ),
 
 genUrl = require( '../../genUrl' ),
 
@@ -98,12 +98,12 @@ function _sendToken( values ) {
 
   log( 'link: %s', link );
 
-  return wn.call( mailer.queueMail, {
+  return wn.call( mailer, {
     recipient: values.user.email,
     subject: 'Reset your password',
     text: [ text, { '%link%' : link } ],
     lang: values.user.culture
-  }).then( function( result ) {
+  } ).then( function( result ) {
 
     values.sent = true;
 

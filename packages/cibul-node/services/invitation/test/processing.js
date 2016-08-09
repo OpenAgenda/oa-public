@@ -30,7 +30,7 @@ describe( 'invitation processing', function() {
   var agendas = [{}], users = [], invitations = [];
 
   mailer.init( {
-    queueName: 'newmailer',
+    queueName: 'mailer',
     host: config.redis.host,
     port: config.redis.port
   } );

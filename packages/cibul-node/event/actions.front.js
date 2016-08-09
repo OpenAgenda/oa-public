@@ -10,7 +10,7 @@ agendaSvc = require( '../services/agenda' ),
 
 eventSvc = require( '../services/event' ),
 
-mailer = require( '../services/mailer' ),
+mailer = require( 'mailer' ),
 
 async = require( 'async' ),
 
@@ -216,7 +216,7 @@ function eventMailSend( req, res, next ) {
 
       // here we send the mail.
 
-      mailer.queueMail( {
+      mailer( {
         recipient: emails,
         subject: req.event.getTitle(),
         text: renders.text,

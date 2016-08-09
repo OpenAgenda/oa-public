@@ -447,10 +447,10 @@ function _initMailer( config ) {
   log( 'info', 'mailer' );
 
   mailer.init( {
-    queueName: 'newmailer',
+    queueName: 'mailer',
     host: config.redis.host,
     port: config.redis.port,
-    log: logger( 'newmailer' )
+    log: logger( 'mailer' )
   } );
 
   return config;
