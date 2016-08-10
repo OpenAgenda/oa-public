@@ -16,6 +16,12 @@ module.exports = function( res, data, cb ) {
 
   var query = qs.stringify( data );
 
+  if ( ( !res || !res.length ) && window {
+
+    res = window.location.href;
+
+  }
+
   xhr( {
     uri: res + ( query ? '?' + query : '' ),
     method: 'get',
