@@ -4,6 +4,12 @@ var xhr = require( 'xhr' );
 
 module.exports = function( res, data, cb ) {
 
+  if ( ( !res || !res.length ) && window ) {
+
+    res = window.location.href;
+
+  }
+
   xhr( {
     uri: res,
     method: 'post',
