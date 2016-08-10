@@ -45,6 +45,22 @@ describe( 'service.set: update an agenda', function() {
 
   } );
 
+  it( 'set by slug works too', done => {
+
+    svc.set( { slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016' }, {
+      official: true
+    }, ( err, result ) => {
+
+      should( err ).equal( null );
+
+      result.agenda.official.should.equal( 1 ); // because I don't clean at db read
+
+      done();
+
+    } );
+
+  } );
+
   it( 'set credentials on pre-exisiting agenda', done => {
 
     svc.set( { uid: 65903437 }, {
