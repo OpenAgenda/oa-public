@@ -90,13 +90,23 @@ App = React.createClass( {
     this.setState( {
       saving: false,
       saveSuccess: true
-    } )
+    } );
 
-    setTimeout( () => {
+    setTimeout( this.redirect, 5000 );
 
-      window.location.href = this.props.redirect;
+  },
 
-    }, 1000 );
+  redirect() {
+
+    window.location.href = this.props.redirect;
+
+  },
+
+  onCancel( e ) {
+
+    e.preventDefault();
+
+    window.location.href = this.props.redirect;
 
   },
 
@@ -108,14 +118,18 @@ App = React.createClass( {
     
     post( this.props.res, { event: this.state.event }, ( err, result ) => {
 
-      if ( err || !result.success ) return this.setState( {
-        saving: false,
-        saveError: true
-      } );
+      if ( err || !result.success ) {
+
+        return this.setState( {
+          saving: false,
+          saveError: true
+        } );
+
+      }
 
       this.onSuccess();
 
-    }, 1000 );
+    } );
 
   },
 
@@ -146,11 +160,14 @@ App = React.createClass( {
         onChange={ this.onChange( 'tags' ) }
         labels={tagSetLabels}
       /> : null }
+      <a href="#" className="text-danger" onClick={this.onCancel}>{getLabel( 'cancel', this.props.lang )}</a>
       { !this.state.saving ? 
-        <button onClick={this.submit} className="btn btn-primary">{getLabel( 'submit', this.props.lang )}</button>
-        : <button className="btn btn-primary" style={{position: 'relative'}}>{getLabel( 'submit', this.props.lang )} <Spinner spinner={{color: '#666', width: 1, length: 3, radius: 6}} /></button>
+        <button onClick={this.submit} className="btn btn-primary pull-right">{getLabel( 'submit', this.props.lang )}</button>
+        : <button className="btn btn-primary pull-right" style={{position: 'relative'}}>{getLabel( 'submit', this.props.lang )} <Spinner spinner={{color: '#666', width: 1, length: 3, radius: 6}} /></button>
       }
-      { this.state.saveSuccess ? <span className="info info-success info-padded">{ getLabel( 'saveSuccess', this.props.lang )}</span> : null }
+      { this.state.saveSuccess ?
+      <p className="text-center text-success" style={{padding: '2em 0 0'}}>{ getLabel( 'saveSuccess', this.props.lang )}</p>
+      : null }
       { this.state.saveError ? <Modal 
         title={getLabel( 'saveErrorTitle', this.props.lang )}
         onClose={() => { this.setState( { saveError: false } ) } }>
