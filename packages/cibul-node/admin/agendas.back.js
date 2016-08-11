@@ -15,6 +15,8 @@ var config = require( '../config' ),
   routes = {
     adminAgendasIndex: [ 'get', '/', index ],
     adminAgendasSearchRes: [ 'get', '/search', mw.agendas.list ],
+    adminAgendasGetRes: [ 'get', '/get', mw.agendas.get ],
+    adminAgendasSetRes: [ 'post', '/set/:uid', mw.agendas.set ],
     adminAgendasStakeholdersSearchRes: [ 'get', '/stakeholders/search', mw.stakeholders.list ]
   };
 

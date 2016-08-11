@@ -6,7 +6,9 @@ module.exports = {
     event: require( './services/event' ),
     agenda: require( './services/agenda' ),
     embed: require( './services/embed/embed' ),
-    nominatim: require( './services/nominatim/nominatim' )
+    nominatim: require( './services/nominatim/nominatim' ),
+    images: require( 'images' ),
+    files: require( 'files' )
   },
   config: require( './config' ),
   init: require( './lib/init' ),
