@@ -23,11 +23,11 @@ module.exports = function( eventService ) {
     loadUris: loadUris,
     format: require( './format' ),
     components: require( './components' ),
-    cleanEvents: cleanEvents,
-    search: search,
-    checkEventEditor: checkEventEditor,
-    layoutData: layoutData,
-    ics: ics
+    cleanEvents,
+    search,
+    checkEventEditor,
+    layoutData,
+    ics
   }
 
 }
