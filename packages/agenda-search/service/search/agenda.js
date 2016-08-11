@@ -43,11 +43,15 @@ function query( q, offset, limit ) {
   var dsl = {
     from: offset,
     size: limit,
-    sort: {
+    sort: [ {
+      hasUpcomingPublished: {
+        order: 'desc',
+      }
+    }, {
       updatedAt: {
         order: 'desc'
       }
-    },
+    } ],
     _source: { exclude: ['*_es'] }
   },
 
@@ -119,6 +123,11 @@ function getMappings() {
 
         upcomingPublishedEvents: {
           type: 'integer',
+          index: 'not_analyzed'
+        },
+
+        hasUpcomingPublished: {
+          type: 'boolean',
           index: 'not_analyzed'
         },
 
@@ -199,6 +208,8 @@ function clean( a, config ) {
   } );
 
   c.image = a.image ? config.image.path + a.image : config.image.default;
+
+  c.hasUpcomingPublished = !!c.upcomingPublishedEvents;
   
   return c;
 
