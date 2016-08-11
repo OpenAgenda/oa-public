@@ -16,9 +16,17 @@
 
   .agenda-item {
 
+    overflow: visible;
+
     .media-left, .media-body {
 
       vertical-align: middle;
+
+    }
+
+    .media-body {
+
+      overflow: visible;
 
     }
 
@@ -42,6 +50,37 @@
 
       margin-right: 0.4em;
   
+    }
+
+    .official {
+
+      display: inline-block;
+      position: relative;
+
+      .tooltip {
+
+        display: none;
+
+      }
+
+      &:hover .tooltip {
+
+        display: block;
+        opacity: 1;
+        right: -122px;
+        min-width: 120px;
+        top: -1px;
+
+        .tooltip-inner {
+          background-color: $oa-black;
+        }
+
+        .tooltip-arrow {
+          border-right-color: $oa-black;
+        }
+
+      }
+
     }
 
     .ill {
