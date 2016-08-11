@@ -8,6 +8,8 @@ var config = require( '../config' ),
 
   cmn = require( '../lib/commons-app' ),
 
+  bodyParser = require( 'body-parser' ),
+
   moment = require( "moment" ),
 
   mw = require( 'admin-agendas' ).mw,
@@ -16,12 +18,13 @@ var config = require( '../config' ),
     adminAgendasIndex: [ 'get', '/', index ],
     adminAgendasSearchRes: [ 'get', '/search', mw.agendas.list ],
     adminAgendasGetRes: [ 'get', '/get', mw.agendas.get ],
-    adminAgendasSetRes: [ 'post', '/set/:uid', mw.agendas.set ],
+    adminAgendasSetRes: [ 'post', '/:uid', [ bodyParser.json(), mw.agendas.set ] ],
     adminAgendasStakeholdersSearchRes: [ 'get', '/stakeholders/search', mw.stakeholders.list ]
   };
 
 
 module.exports = function( path ) {
+
   var router = modLib.Router( routes );
 
   moment.locale( 'fr' );
@@ -38,6 +41,7 @@ module.exports = function( path ) {
     load: router.load( path ),
     paths: modLib.getPaths( path, routes )
   }
+  
 };
 
 

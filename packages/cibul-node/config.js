@@ -516,13 +516,7 @@ currentConfig.emailStrategieDb = deepExtend( {}, currentConfig.db, {
   database: 'emailStrategie' + ( process.env.NODE_ENV !== 'prod' ? process.env.NODE_ENV : '' )
 } );
 
-module.exports = Object.assign( currentConfig, { set } );
-
-function set( newConfig ) {
-
-  return deepExtend( currentConfig ? currentConfig : {}, newConfig );
-
-}
+module.exports = currentConfig;
 
 function _loadEnv( env ) {
 
