@@ -19,7 +19,7 @@ module.exports = React.createClass( {
       <a href={'/agendas/' + this.props.agenda.uid}>
         <div className="media-left">
           <img 
-            className="media-object ill avatar" 
+            className="media-object ill avatar"
             src={this.props.agenda.image}
             alt={this.props.agenda.title} 
           />
@@ -27,10 +27,18 @@ module.exports = React.createClass( {
         <div className="media-body">
           <div className="title media-heading">
             <strong>{this.props.agenda.title}</strong>
+            { this.props.agenda.official ? 
+              <div className="official">
+                <img src="//s3.eu-central-1.amazonaws.com/oastatic/official14.png" alt="officiel" />
+                <div className="tooltip right" role="tooltip">
+                  <div className="tooltip-arrow"></div>
+                  <div className="tooltip-inner">{getLabel( 'official', this.props.lang) }</div>
+                </div>
+              </div>
+            : null }
           </div>
           <p className="description">{this.props.agenda.description}</p>
           <div>
-            { this.props.agenda.official ? <span className="badge badge-primary"><i className="fa fa-sun-o"></i> {getLabel( 'official', this.props.lang )}</span> : null }
             { this.props.agenda.upcomingPublishedEvents === 0 && this.props.agenda.publishedEvents === 1 ? <span className="badge badge-default">{getLabel( 'publishedEvent', this.props.lang )}</span> : null }
             { this.props.agenda.upcomingPublishedEvents === 0 && this.props.agenda.publishedEvents > 1 ? <span className="badge badge-default">{getLabel( 'publishedEvents', { count: this.props.agenda.publishedEvents }, this.props.lang )}</span> : null }
             { this.props.agenda.upcomingPublishedEvents === 1 ? <span className="badge badge-info">{getLabel( 'upcomingEvent', this.props.lang )}</span> : null }

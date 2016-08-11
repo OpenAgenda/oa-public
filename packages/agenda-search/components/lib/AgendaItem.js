@@ -39,7 +39,22 @@ module.exports = React.createClass({
               'strong',
               null,
               this.props.agenda.title
-            )
+            ),
+            this.props.agenda.official ? React.createElement(
+              'div',
+              { className: 'official' },
+              React.createElement('img', { src: '//s3.eu-central-1.amazonaws.com/oastatic/official14.png', alt: 'officiel' }),
+              React.createElement(
+                'div',
+                { className: 'tooltip right', role: 'tooltip' },
+                React.createElement('div', { className: 'tooltip-arrow' }),
+                React.createElement(
+                  'div',
+                  { className: 'tooltip-inner' },
+                  getLabel('official', this.props.lang)
+                )
+              )
+            ) : null
           ),
           React.createElement(
             'p',
@@ -49,13 +64,6 @@ module.exports = React.createClass({
           React.createElement(
             'div',
             null,
-            this.props.agenda.official ? React.createElement(
-              'span',
-              { className: 'badge badge-primary' },
-              React.createElement('i', { className: 'fa fa-sun-o' }),
-              ' ',
-              getLabel('official', this.props.lang)
-            ) : null,
             this.props.agenda.upcomingPublishedEvents === 0 && this.props.agenda.publishedEvents === 1 ? React.createElement(
               'span',
               { className: 'badge badge-default' },
