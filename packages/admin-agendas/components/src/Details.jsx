@@ -2,7 +2,10 @@
 
 var React = require( "react" ),
 
-  List = require( 'react-components/build/List' );
+  List = require( 'react-components/build/List' ),
+
+  Switch = require( 'rc-switch' );
+
 
 module.exports = React.createClass( {
 
@@ -14,6 +17,7 @@ module.exports = React.createClass( {
     pageRange: React.PropTypes.array,
     total: React.PropTypes.number,
     getStakeholdersPage: React.PropTypes.func,
+    setAgenda: React.PropTypes.func,
     limit: React.PropTypes.number
   },
 
@@ -25,6 +29,12 @@ module.exports = React.createClass( {
 
   },
 
+  setOfficial( checked ){
+
+    this.props.setAgenda( { official: checked } );
+
+  },
+
   renderAgendaHeader () {
     return (
       <header className="agenda-header">
@@ -32,19 +42,25 @@ module.exports = React.createClass( {
           <div className="row">
             { this.props.agenda.image ?
               <div className="col-sm-2 avatar-container">
-                <a href="#">
-                  <img className="avatar" src={'https://cibul.s3.amazonaws.com/' + this.props.agenda.image}
-                       alt={this.props.agenda.title}/>
-                </a>
+                <a href="#"> <img className="avatar" src={'https://cibul.s3.amazonaws.com/' + this.props.agenda.image}
+                                  alt={this.props.agenda.title} /> </a>
               </div> : null }
 
             <div className={ this.props.agenda.image ? 'col-sm-7 title-container' : 'title-container' }>
               <a href="#">
                 <h1>{this.props.agenda.title}</h1>
                 <p>{this.props.agenda.description}</p>
-              </a>
-              { this.props.agenda.url ?
-                <p><a target="_blank" href={this.props.agenda.url}>{this.props.agenda.url}</a></p> : null }
+              </a> { this.props.agenda.url ?
+              <p><a target="_blank" href={this.props.agenda.url}>{this.props.agenda.url}</a></p> : null }<p>
+              Agenda officiel <Switch
+              ref="switch"
+              className="rc-switch"
+              checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+              unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+              onChange={this.setOfficial}
+              checked={!!this.props.agenda.official}
+            />
+            </p>
             </div>
           </div>
         </div>
@@ -70,7 +86,9 @@ module.exports = React.createClass( {
         <List
           items={this.props.stakeholders}
           renderItem={this.renderStakeholderItem}
-          renderEmpty={() => <tr><td colSpan="6" className="text-center">Y'a personne !</td></tr>}
+          renderEmpty={() => <tr>
+            <td colSpan="6" className="text-center">Y'a personne !</td>
+          </tr>}
           renderPrev={this.renderPrev}
           renderNext={this.renderNext}
           getPage={() => null}
@@ -84,14 +102,15 @@ module.exports = React.createClass( {
   renderStakeholderItem( stakeholder ){
 
     return (
-      <tr key={stakeholder.id}>
+      <tr key={stakeholder.uid}>
         <td><a href="#">{stakeholder.user.uid}</a></td>
         <td>{credentialsToString( stakeholder.credential )}</td>
         <td>{stakeholder.user.full_name}</td>
         <td>{stakeholder.user.username}</td>
         <td>{stakeholder.user.email}</td>
         <td>le {stakeholder.user.created_at}</td>
-        <td><a href={'/admin/users/signin?uid=' + stakeholder.user.uid}><i className="fa fa-sign-in" aria-hidden="true"></i></a></td>
+        <td><a href={'/admin/users/signin?uid=' + stakeholder.user.uid}><i className="fa fa-sign-in"
+                                                                           aria-hidden="true"></i></a></td>
       </tr>
     );
 

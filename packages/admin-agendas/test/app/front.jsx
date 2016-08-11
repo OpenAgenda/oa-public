@@ -6,7 +6,9 @@ window.onload = function() {
 
   main( {
     searchRes: '/',
-    stakeholdersRes: '/stakeholders/'
+    agendaRes: '/get',
+    setAgendaRes: '/set',
+    stakeholdersRes: '/stakeholders'
   } );
 
 };

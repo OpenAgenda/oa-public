@@ -16,10 +16,16 @@ var app = require( 'test-app' )( {
 
   service = require( '../../service' ),
 
+  bodyParser = require('body-parser'),
+
   mw = service.mw;
 
+app.use( bodyParser.json() );
+
 app.get( '/', mw.agendas.list );
-app.get( '/stakeholders/', mw.stakeholders.list );
+app.get( '/get', mw.agendas.get );
+app.post( '/set/:uid', mw.agendas.set );
+app.get( '/stakeholders', mw.stakeholders.list );
 
 fixtures( ( err, result ) => {
 

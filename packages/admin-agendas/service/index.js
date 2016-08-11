@@ -20,7 +20,9 @@ module.exports = {
   init,
   mw,
   agendas: {
-    list: agendasList
+    list,
+    get,
+    set
   },
   stakeholders: {
     list: agendaStakeholdersList
@@ -82,7 +84,7 @@ function init( c, cb ) {
 
 }
 
-function agendasList( query, offset, limit, cb ) {
+function list( query, offset, limit, cb ) {
 
   query = Object.assign( {
     total: 1,
@@ -90,6 +92,18 @@ function agendasList( query, offset, limit, cb ) {
   }, query );
 
   agendas.list( query, offset, limit, cb );
+
+}
+
+function get( query, cb ) {
+
+  agendas.get( query, { detailed: true }, cb );
+
+}
+
+function set( agenda, query, cb ) {
+
+  agendas.set( agenda, query, cb );
 
 }
 

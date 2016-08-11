@@ -5,6 +5,7 @@ var React = require("react"),
     Details = require('./Details'),
     actions = require('./actions'),
     get = require('utils/get'),
+    post = require('utils/post'),
     _updateHref = require('dom-utils/documentLocation').setQueryPart,
     getQuery = require('dom-utils/documentLocation').getQuery;
 
@@ -14,6 +15,8 @@ module.exports = React.createClass({
 
   propTypes: {
     searchRes: React.PropTypes.string,
+    agendaRes: React.PropTypes.string,
+    setAgendaRes: React.PropTypes.string,
     stakeholdersRes: React.PropTypes.string,
 
     agenda: React.PropTypes.object
@@ -113,22 +116,23 @@ module.exports = React.createClass({
     var page = arguments.length <= 1 || arguments[1] === undefined ? 1 : arguments[1];
 
 
-    var agenda = this.state.search.agendas.filter(function (v) {
-      return v.id == id;
-    })[0];
-
     var query = {
       agendaId: id,
       stakeholdersPage: page
     };
 
-    get(this.props.stakeholdersRes, query, function (err, data) {
+    get(this.props.stakeholdersRes, query, function (err, stakeholders) {
 
       if (err) return console.log('error', err);
 
-      _this4.setState(actions.selectAgenda(_this4.state, agenda, data, page));
+      get(_this4.props.agendaRes, { id: id }, function (err, agenda) {
 
-      updateHref(Object.assign(getQuery() || {}, query));
+        if (err) return console.log('error', err);
+
+        _this4.setState(actions.selectAgenda(_this4.state, agenda, stakeholders, page));
+
+        updateHref(Object.assign(getQuery() || {}, query));
+      });
     });
   },
   getStakeholdersPage: function getStakeholdersPage(next) {
@@ -156,6 +160,23 @@ module.exports = React.createClass({
       updateHref(Object.assign(getQuery() || {}, query));
     });
   },
+  setAgenda: function setAgenda(data) {
+    var _this6 = this;
+
+    var query = Object.assign({ uid: this.state.agenda.uid }, data);
+
+    return new Promise(function (resolve, reject) {
+
+      post(_this6.props.setAgendaRes + "/" + _this6.state.agenda.uid, query, function (err, result) {
+
+        if (err) return reject(err);
+
+        _this6.setState({ agenda: Object.assign({}, _this6.state.agenda, result.agenda) });
+
+        resolve(result);
+      });
+    });
+  },
   render: function render() {
 
     return React.createElement(
@@ -176,12 +197,14 @@ module.exports = React.createClass({
             onSelectAgenda: this.onSelectAgenda,
             onSearchChange: this.onSearchChange
           }),
+          " ",
           React.createElement(Details, {
             agenda: this.state.agenda,
             stakeholders: this.state.stakeholders,
             total: this.state.stakeholdersTotal,
             pageRange: this.state.stakeholdersPageRange,
-            getStakeholdersPage: this.getStakeholdersPage
+            getStakeholdersPage: this.getStakeholdersPage,
+            setAgenda: this.setAgenda
           })
         )
       )

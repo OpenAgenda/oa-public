@@ -1,7 +1,8 @@
 "use strict";
 
 var React = require("react"),
-    List = require('react-components/build/List');
+    List = require('react-components/build/List'),
+    Switch = require('rc-switch');
 
 module.exports = React.createClass({
 
@@ -13,6 +14,7 @@ module.exports = React.createClass({
     pageRange: React.PropTypes.array,
     total: React.PropTypes.number,
     getStakeholdersPage: React.PropTypes.func,
+    setAgenda: React.PropTypes.func,
     limit: React.PropTypes.number
   },
 
@@ -21,6 +23,10 @@ module.exports = React.createClass({
     return {
       limit: 20
     };
+  },
+  setOfficial: function setOfficial(checked) {
+
+    this.props.setAgenda({ official: checked });
   },
   renderAgendaHeader: function renderAgendaHeader() {
     return React.createElement(
@@ -38,8 +44,10 @@ module.exports = React.createClass({
             React.createElement(
               "a",
               { href: "#" },
+              " ",
               React.createElement("img", { className: "avatar", src: 'https://cibul.s3.amazonaws.com/' + this.props.agenda.image,
-                alt: this.props.agenda.title })
+                alt: this.props.agenda.title }),
+              " "
             )
           ) : null,
           React.createElement(
@@ -59,6 +67,7 @@ module.exports = React.createClass({
                 this.props.agenda.description
               )
             ),
+            " ",
             this.props.agenda.url ? React.createElement(
               "p",
               null,
@@ -67,11 +76,29 @@ module.exports = React.createClass({
                 { target: "_blank", href: this.props.agenda.url },
                 this.props.agenda.url
               )
-            ) : null
+            ) : null,
+            React.createElement(
+              "p",
+              null,
+              "Agenda officiel ",
+              React.createElement(Switch, {
+                ref: "switch",
+                className: "rc-switch",
+                checkedChildren: React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" }),
+                unCheckedChildren: React.createElement("i", { className: "fa fa-times", "aria-hidden": "true" }),
+                onChange: this.setOfficial,
+                checked: !!this.props.agenda.official
+              })
+            )
           )
         )
       )
     );
+
+    /*
+      checkedChildren={'X'}
+      unCheckedChildren={'V'}(
+    */
   },
   renderStakeholdersTable: function renderStakeholdersTable() {
 
@@ -190,7 +217,8 @@ module.exports = React.createClass({
         React.createElement(
           "a",
           { href: '/admin/users/signin?uid=' + stakeholder.user.uid },
-          React.createElement("i", { className: "fa fa-sign-in", "aria-hidden": "true" })
+          React.createElement("i", { className: "fa fa-sign-in",
+            "aria-hidden": "true" })
         )
       )
     );

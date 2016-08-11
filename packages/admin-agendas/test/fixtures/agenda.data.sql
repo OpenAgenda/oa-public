@@ -30,7 +30,10 @@ CREATE TABLE IF NOT EXISTS ${schema} (
   `main` tinyint(1) NOT NULL DEFAULT '0',
   `store` longtext,
   `contribution_type` tinyint(4) NOT NULL DEFAULT '0',
-  `contribution_info` text
+  `contribution_info` text,
+  `official` tinyint(1) NOT NULL DEFAULT '0',
+  `settings` text,
+  `credentials` text
 ) ENGINE=InnoDB AUTO_INCREMENT=5396 DEFAULT CHARSET=utf8;
 
 --

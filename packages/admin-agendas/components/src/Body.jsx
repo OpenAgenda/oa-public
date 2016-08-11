@@ -10,6 +10,8 @@ var React = require( "react" ),
 
   get = require( 'utils/get' ),
 
+  post = require( 'utils/post' ),
+
   _updateHref = require( 'dom-utils/documentLocation' ).setQueryPart,
 
   getQuery = require( 'dom-utils/documentLocation' ).getQuery;
@@ -20,6 +22,8 @@ module.exports = React.createClass( {
 
   propTypes: {
     searchRes: React.PropTypes.string,
+    agendaRes: React.PropTypes.string,
+    setAgendaRes: React.PropTypes.string,
     stakeholdersRes: React.PropTypes.string,
 
     agenda: React.PropTypes.object
@@ -120,20 +124,24 @@ module.exports = React.createClass( {
 
   onSelectAgenda( id, page = 1 ) {
 
-    var agenda = this.state.search.agendas.filter( v => v.id == id )[ 0 ];
-
     var query = {
       agendaId: id,
       stakeholdersPage: page
     };
 
-    get( this.props.stakeholdersRes, query, ( err, data ) => {
+    get( this.props.stakeholdersRes, query, ( err, stakeholders ) => {
 
       if ( err ) return console.log( 'error', err );
 
-      this.setState( actions.selectAgenda( this.state, agenda, data, page ) );
+      get( this.props.agendaRes, { id }, ( err, agenda ) => {
 
-      updateHref( Object.assign( getQuery() || {}, query ) );
+        if ( err ) return console.log( 'error', err );
+
+        this.setState( actions.selectAgenda( this.state, agenda, stakeholders, page ) );
+
+        updateHref( Object.assign( getQuery() || {}, query ) );
+
+      } );
 
     } );
 
@@ -166,6 +174,24 @@ module.exports = React.createClass( {
 
   },
 
+  setAgenda( data ) {
+
+    return new Promise( ( resolve, reject ) => {
+
+      post( `${this.props.setAgendaRes}/${this.state.agenda.uid}`, data, ( err, result ) => {
+
+        if ( err ) return reject( err );
+
+        this.setState( { agenda: result.agenda } );
+
+        resolve( result );
+
+      } );
+
+    } );
+
+  },
+
   render() {
 
     return <div className="admin">
@@ -179,14 +205,14 @@ module.exports = React.createClass( {
             getSearchPage={this.getSearchPage}
             onSelectAgenda={this.onSelectAgenda}
             onSearchChange={this.onSearchChange}
-          />
-          <Details
-            agenda={this.state.agenda}
-            stakeholders={this.state.stakeholders}
-            total={this.state.stakeholdersTotal}
-            pageRange={this.state.stakeholdersPageRange}
-            getStakeholdersPage={this.getStakeholdersPage}
-          />
+          /> <Details
+          agenda={this.state.agenda}
+          stakeholders={this.state.stakeholders}
+          total={this.state.stakeholdersTotal}
+          pageRange={this.state.stakeholdersPageRange}
+          getStakeholdersPage={this.getStakeholdersPage}
+          setAgenda={this.setAgenda}
+        />
         </div>
       </div>
     </div>;

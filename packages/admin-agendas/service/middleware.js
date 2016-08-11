@@ -6,8 +6,6 @@ var logger = require( 'basic-logger' ), log,
 
   React = require( 'react' ),
 
-  ReactDOMServer = require( 'react-dom/server' ),
-
   Body = React.createFactory( require( '../components/lib/Body' ) ),
 
   service, config,
@@ -17,7 +15,9 @@ var logger = require( 'basic-logger' ), log,
 module.exports = {
   init,
   agendas: {
-    list: agendasList
+    list,
+    get,
+    set
   },
   stakeholders: {
     list: agendaStakeholdersList
@@ -38,7 +38,7 @@ function init( s, c ) {
 }
 
 
-function agendasList( req, res, next ) {
+function list( req, res, next ) {
 
   var query = req.query.oas,
 
@@ -70,6 +70,30 @@ function agendasList( req, res, next ) {
       agendas: agendas,
       total: total
     } );
+
+  } );
+
+}
+
+function get( req, res, next ) {
+
+  service.agendas.get( req.query, ( err, agenda ) => {
+
+    if ( err ) return next( err );
+
+    return res.json( agenda );
+
+  } );
+
+}
+
+function set( req, res, next ) {
+
+  service.agendas.set( { uid: req.params.uid }, req.body, ( err, result ) => {
+
+    if ( err ) return next( err );
+
+    return res.json( result );
 
   } );
 
