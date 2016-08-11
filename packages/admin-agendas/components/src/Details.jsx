@@ -102,7 +102,7 @@ module.exports = React.createClass( {
   renderStakeholderItem( stakeholder ){
 
     return (
-      <tr key={stakeholder.uid}>
+      <tr key={stakeholder.id}>
         <td><a href="#">{stakeholder.user.uid}</a></td>
         <td>{credentialsToString( stakeholder.credential )}</td>
         <td>{stakeholder.user.full_name}</td>
