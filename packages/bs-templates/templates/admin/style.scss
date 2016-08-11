@@ -93,6 +93,7 @@ $tumblr-color: #32506d;
 /////////////////////////////
 
 @import "../agenda/header";
+@import 'rc-switch';
 
 html {
   @extend .height-100-md;
