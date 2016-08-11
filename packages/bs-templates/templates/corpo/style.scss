@@ -135,6 +135,19 @@ body {
         padding: 10px 35px;
       }
     }
+
+    .hook-secondary-action {
+
+      padding-top: 0.5em;
+
+      a {
+
+        color: $oa-white;
+        font-size: 0.9em;
+
+      }
+
+    }
   }
 
   #trio-actions {
