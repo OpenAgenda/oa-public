@@ -23,7 +23,7 @@ module.exports = {
 /**
  * load up configuration in lib
  */
-function init( c, cb ) {
+function init( c ) {
 
   config = deepExtend( {
     logger: false,
