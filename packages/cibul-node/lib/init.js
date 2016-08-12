@@ -108,6 +108,8 @@ function _initFacebook( config ) {
 
   log( 'info', 'initing facebook' );
 
+  let d = w.defer();
+
   facebookSvc.init( {
     app: config.auth.facebook,
     routes: {
@@ -116,11 +118,19 @@ function _initFacebook( config ) {
     db: config.db
   }, err => {
 
-    if ( err ) log( 'error', 'could not init agenda-event-references: %s', err );
+    if ( err ) {
+
+      log( 'error', 'could not init agenda-event-references: %s', err );
+
+      return d.reject( err );
+
+    }
+
+    d.resolve( config );
 
   } );
 
-  return config;
+  return d.promise;
 
 }
 
@@ -176,13 +186,27 @@ function _initAdminAgendas( config ) {
 
   log( 'info', 'admin agenda' );
 
+  let d = w.defer();
+
   adminAgendaSvc.init( {
     mysql: config.db,
     schemas: config.schemas,
     logger: logger
+  }, err => {
+
+    if ( err ) {
+
+      log( 'error', 'could not init admin agenda service %s', err );
+
+      return d.reject( err );
+
+    }
+
+    return d.resolve( config );
+
   } );
 
-  return config;
+  return d.promise;
 
 }
 
@@ -190,6 +214,8 @@ function _initAdminAgendas( config ) {
 function _initUsers( config ) {
 
   log( 'info', 'users' );
+
+  let d = w.defer();
 
   userSvc.init( {
     mysql: config.db,
@@ -201,9 +227,21 @@ function _initUsers( config ) {
       tmpPath: config.tmpFolderPath
     },
     logger: logger
+  }, err => {
+
+    if ( err ) {
+
+      log( 'error', 'could not init user service %s', err );
+
+      return d.reject( err );
+
+    }
+
+    return d.resolve( config );
+
   } );
 
-  return config;
+  return d.promise;
 
 }
 
@@ -228,6 +266,8 @@ function _initEmailStrategie( config ) {
 function _initAgendaEventReferences( config ) {
 
   log( 'info', 'agenda event references' );
+
+  let d = w.defer();
 
   agendaEventReferences.init( {
     schema: config.schemas.eventReferences,
@@ -287,11 +327,19 @@ function _initAgendaEventReferences( config ) {
     }
   }, err => {
 
-    if ( err ) log( 'error', 'could not init agenda-event-references: %s', err );
+    if ( err ) {
+
+      log( 'error', 'could not init agenda-event-references: %s', err );
+
+      return d.reject( err );
+
+    }
+
+    d.resolve( config );
 
   } );
 
-  return config;
+  return d.promise;
 
 }
 
@@ -299,6 +347,8 @@ function _initAgendaEventReferences( config ) {
 function _initAgendaLocations( config ) {
 
   log( 'info', 'agenda locations' );
+
+  let d = w.defer();
 
   agendaLocations.init( {
     geocodefarm: config.geocodeFarm,
@@ -328,18 +378,28 @@ function _initAgendaLocations( config ) {
     logger: logger
   }, err => {
 
-    if ( err ) log( 'error', 'could not init agenda locations: %s', err );
+    if ( err ) {
+
+      log( 'error', 'could not init agenda locations: %s', err );
+
+      return d.reject( err );
+
+    }
+
+    d.resolve( config );
 
   } );
 
-  return config;
+  return d.promise;
 
 }
 
 
-function _initAgendaStakeholders( config ) {
+function _initAgendaStakeholders( config ) { // async
 
   log( 'info', 'agenda stakeholders' );
+
+  let d = w.defer();
 
   agendaStakeholders.init( {
     schemas: config.schemas,
@@ -347,16 +407,24 @@ function _initAgendaStakeholders( config ) {
     logger: logger
   }, err => {
 
-    if ( err ) log( 'error', 'could not init agenda stakeholders: %s', err );
+    if ( err ) {
+
+      log( 'error', 'could not init agenda stakeholders: %s', err );
+
+      return d.reject( err );
+
+    }
+
+    d.resolve( config );
 
   } );
 
-  return config;
+  return d.promise;
 
 }
 
 
-function _initAgendaSearch( config ) {
+function _initAgendaSearch( config ) { // sync
 
   log( 'info', 'agenda search' );
 
@@ -385,10 +453,6 @@ function _initAgendaSearch( config ) {
       default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
     },
     logger: logger
-  }, err => {
-
-    if ( err ) log( 'error', 'could not init agenda search: %s', err );
-
   } );
 
   return config;
@@ -396,7 +460,7 @@ function _initAgendaSearch( config ) {
 }
 
 
-function _initAgendaService( config ) {
+function _initAgendaService( config ) { // sync
 
   log( 'agenda service' );
 
@@ -411,7 +475,9 @@ function _initAgendaService( config ) {
 }
 
 
-function _initAgendaCategories( config ) {
+function _initAgendaCategories( config ) { // async
+
+  let d = w.defer();
 
   log( 'info', 'agenda categories' );
 
@@ -419,14 +485,22 @@ function _initAgendaCategories( config ) {
     store: config.db,
     legacy: config.db,
     logger: logger
+  }, err => {
+
+    if ( err ) return d.reject( err );
+
+    d.resolve( config );
+
   } );
 
-  return config;
+  return d.promise;
 
 }
 
 
-function _initAgendaTags( config ) {
+function _initAgendaTags( config ) { // async
+
+  let d = w.defer();
 
   log( 'info', 'agenda tags' );
 
@@ -435,14 +509,20 @@ function _initAgendaTags( config ) {
     legacy: config.db,
     logger: logger,
     interfaces: appSvc.agenda.tags
+  }, err => {
+
+    if ( err ) return d.reject( err );
+
+    d.resolve( config );
+
   } );
 
-  return config;
+  return d.promise;
 
 }
 
 
-function _initMailer( config ) {
+function _initMailer( config ) { // sync
 
   log( 'info', 'mailer' );
 
@@ -458,7 +538,7 @@ function _initMailer( config ) {
 }
 
 
-function _initGenUrl( config ) {
+function _initGenUrl( config ) { // sync
 
   log( 'info', 'genUrl' );
 
@@ -469,7 +549,7 @@ function _initGenUrl( config ) {
 }
 
 
-function _initLogger( config ) {
+function _initLogger( config ) { // sync
 
   logger.init( config.logger );
 
