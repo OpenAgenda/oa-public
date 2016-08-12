@@ -92,7 +92,7 @@ App = React.createClass( {
       saveSuccess: true
     } );
 
-    setTimeout( this.redirect, 5000 );
+    setTimeout( this.redirect, 500 );
 
   },
 
@@ -161,13 +161,9 @@ App = React.createClass( {
         labels={tagSetLabels}
       /> : null }
       <a href="#" className="text-danger" onClick={this.onCancel}>{getLabel( 'cancel', this.props.lang )}</a>
-      { !this.state.saving ? 
-        <button onClick={this.submit} className="btn btn-primary pull-right">{getLabel( 'submit', this.props.lang )}</button>
-        : <button className="btn btn-primary pull-right" style={{position: 'relative'}}>{getLabel( 'submit', this.props.lang )} <Spinner spinner={{color: '#666', width: 1, length: 3, radius: 6}} /></button>
-      }
-      { this.state.saveSuccess ?
-      <p className="text-center text-success" style={{padding: '2em 0 0'}}>{ getLabel( 'saveSuccess', this.props.lang )}</p>
-      : null }
+      { this.state.saving ? <button className="btn btn-primary pull-right" style={{position: 'relative'}}>{getLabel( 'submit', this.props.lang )} <Spinner spinner={{color: '#666', width: 1, length: 3, radius: 6}} /></button> : null }
+      { !this.state.saving && !this.state.saveSuccess ? <button onClick={this.submit} className="btn btn-primary pull-right">{getLabel( 'submit', this.props.lang )}</button> : null }
+      { this.state.saveSuccess ? <button className="btn btn-success pull-right">{getLabel( 'submitted', this.props.lang )} <i className="fa fa-check"></i></button> : null }
       { this.state.saveError ? <Modal 
         title={getLabel( 'saveErrorTitle', this.props.lang )}
         onClose={() => { this.setState( { saveError: false } ) } }>
