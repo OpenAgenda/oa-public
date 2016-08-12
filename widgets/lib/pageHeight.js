@@ -3,9 +3,10 @@
 var imagesLoaded = require( 'imagesloaded' );
 
 module.exports = {
-  check: check,
-  force: force,
-  setOnChange: setOnChange
+  check,
+  force,
+  get,
+  setOnChange
 }
 
 var height,
@@ -30,7 +31,7 @@ cn.addEvent( window, 'load', function() {
 
 function check( force ) {
 
-  var current = _getHeight();
+  var current = get();
 
   if ( _isDisabled() ) return;
 
@@ -84,7 +85,7 @@ function _enable( delay ) {
 
 }
 
-function _getHeight() {
+function get() {
   
   // for IE8, html tag returns wrong height. Taking body height is needed for a cross browser solution.
   return document.getElementsByTagName('body')[0].offsetHeight - _getFirstChildPaddingSum();

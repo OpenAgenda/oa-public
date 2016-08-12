@@ -34,7 +34,9 @@ module.exports = function( pageOptions ) {
         
     });
 
-    pageHeight.force();
+    sendFunc( {
+      height: pageHeight.get() 
+    } );
 
     linkClickController = function( href, target ) {
 
