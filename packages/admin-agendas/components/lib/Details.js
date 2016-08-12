@@ -80,25 +80,24 @@ module.exports = React.createClass({
             React.createElement(
               "p",
               null,
-              "Agenda officiel ",
-              React.createElement(Switch, {
-                ref: "switch",
-                className: "rc-switch",
-                checkedChildren: React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" }),
-                unCheckedChildren: React.createElement("i", { className: "fa fa-times", "aria-hidden": "true" }),
-                onChange: this.setOfficial,
-                checked: !!this.props.agenda.official
-              })
+              this.props.agenda.uid ? React.createElement(
+                "span",
+                null,
+                "Agenda officiel ",
+                React.createElement(Switch, {
+                  ref: "switch",
+                  className: "rc-switch",
+                  checkedChildren: React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" }),
+                  unCheckedChildren: React.createElement("i", { className: "fa fa-times", "aria-hidden": "true" }),
+                  onChange: this.setOfficial,
+                  checked: !!this.props.agenda.official
+                })
+              ) : null
             )
           )
         )
       )
     );
-
-    /*
-      checkedChildren={'X'}
-      unCheckedChildren={'V'}(
-    */
   },
   renderStakeholdersTable: function renderStakeholdersTable() {
 

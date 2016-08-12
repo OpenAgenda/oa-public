@@ -163,15 +163,13 @@ module.exports = React.createClass({
   setAgenda: function setAgenda(data) {
     var _this6 = this;
 
-    var query = Object.assign({ uid: this.state.agenda.uid }, data);
-
     return new Promise(function (resolve, reject) {
 
-      post(_this6.props.setAgendaRes + "/" + _this6.state.agenda.uid, query, function (err, result) {
+      post(_this6.props.setAgendaRes + "/" + _this6.state.agenda.uid, data, function (err, result) {
 
         if (err) return reject(err);
 
-        _this6.setState({ agenda: Object.assign({}, _this6.state.agenda, result.agenda) });
+        _this6.setState({ agenda: result.agenda });
 
         resolve(result);
       });
