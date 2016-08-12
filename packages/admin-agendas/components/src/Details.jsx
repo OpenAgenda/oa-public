@@ -52,14 +52,14 @@ module.exports = React.createClass( {
                 <p>{this.props.agenda.description}</p>
               </a> { this.props.agenda.url ?
               <p><a target="_blank" href={this.props.agenda.url}>{this.props.agenda.url}</a></p> : null }<p>
-              Agenda officiel <Switch
-              ref="switch"
-              className="rc-switch"
-              checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
-              unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
-              onChange={this.setOfficial}
-              checked={!!this.props.agenda.official}
-            />
+              {this.props.agenda && <div>Agenda officiel <Switch
+                ref="switch"
+                className="rc-switch"
+                checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+                unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+                onChange={this.setOfficial}
+                checked={!!this.props.agenda.official}
+              /></div>}
             </p>
             </div>
           </div>
