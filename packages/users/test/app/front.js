@@ -2,7 +2,7 @@
 
 const config = require( '../../testconfig' ),
 
-  main = require( '../../react' );
+  main = require( '../../react/src' );
 
 
 window.onload = function() {

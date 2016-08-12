@@ -63,6 +63,7 @@
     "when": "^3.7.7"
   },
   "devDependencies": {
+    "babel-cli": "^6.11.4",
     "babel-plugin-react-transform": "^2.0.2",
     "babel-runtime": "^6.9.2",
     "body-parser": "^1.15.1",

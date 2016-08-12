@@ -24,13 +24,13 @@ var logger = require( 'basic-logger' ),
 
   createHistory = require( 'react-router/lib/createMemoryHistory' ),
 
-  createStore = require( '../react/create' ),
+  createStore = require( '../react/build/create' ),
 
   { syncHistoryWithStore } = require( 'react-router-redux' ),
 
   { match } = require( 'react-router' ),
 
-  getRoutes = require( '../react/routes' );
+  getRoutes = require( '../react/build/routes' );
 
 const csrf = csurf( { cookie: true } );
 
