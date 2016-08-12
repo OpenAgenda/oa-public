@@ -471,13 +471,7 @@ function _initGenUrl( config ) {
 
 function _initLogger( config ) {
 
-  logger.init( {
-    debug: {
-      prefix: 'oa:',
-      enable: config.logNameSpaces
-    },
-    token: config.logEntriesToken
-  } );
+  logger.init( config.logger );
 
   log = logger( 'init' );
 

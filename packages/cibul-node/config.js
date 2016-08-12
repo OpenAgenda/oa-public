@@ -17,8 +17,13 @@ var deepExtend = require( 'deep-extend' ),
       logPath: '/var/tmp/cibul-node.log',
       logPathDebug: '/var/tmp/cibul-node-debug.log',
       logPathError: '/var/tmp/cibul-node-errors.log',
-      logNameSpaces: false,
-      logEntriesToken: '1cdd4c11-fe29-4144-ae18-e4fb8392c282',
+      logger: {
+        debug: {
+          prefix: 'oa:',
+          enable: false
+        },
+        token: '1cdd4c11-fe29-4144-ae18-e4fb8392c282'
+      },
       name: 'cibul-node',
       domain: 'openagenda.com',
       mailerDomain: 'mailer.openagenda.com',
@@ -351,8 +356,13 @@ var deepExtend = require( 'deep-extend' ),
       env: 'dev',
       multiCore: false,
       mainChannel: 'maindev',
-      logNameSpaces: 'oa:*',
-      logEntriesToken: 'a2923436-55dc-4eba-8668-44824d11c089',
+      logger: {
+        debug: {
+          prefix: 'oa:',
+          enable: 'oa:*'
+        },
+        token: 'a2923436-55dc-4eba-8668-44824d11c089'
+      },
       //useCache: false,
       db: {
         database: 'oadev',
@@ -430,8 +440,13 @@ var deepExtend = require( 'deep-extend' ),
       env: 'test',
       multiCore: false,
       mainChannel: 'maintest',
-      logNameSpaces: false,
-      logEntriesToken: false,
+      logger: {
+        debug: {
+          prefix: 'oa:',
+          enable: false
+        },
+        token: false
+      },
       root: 'https://d.openagenda.com',
       domain: 'd.openagenda.com',
       db: {
