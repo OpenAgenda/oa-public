@@ -130,7 +130,7 @@ function _checkSourceReference( v ) {
 
       if ( err ) return rj( err );
 
-      if ( !has ) return rj( 'event ' + v.event.id + ' is not listed in source agenda ' + v.agenda.id );
+      if ( !has ) return rj( 'event ' + v.event.id + ' is not listed in source agenda ' + v.sourceAgenda.id );
 
       rs( v );
 

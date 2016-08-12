@@ -1,4 +1,4 @@
-require( './server.babel' ); // babel registration (runtime transpilation for node)
+// require( './server.babel' ); // babel registration (runtime transpilation for node)
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
