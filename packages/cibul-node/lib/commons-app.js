@@ -1033,7 +1033,19 @@ function _logRequest( req, res, next ) {
 
 function _defineLang( req ) {
 
-  req.lang = _cleanLang( req.query.lang )
+  if ( req.query.lang ) {
+
+    req.lang = _cleanLang( req.query.lang );
+
+  } else if ( req.session && req.session.lang ) {
+
+    req.lang = _cleanLang( req.session.lang );
+
+  } else {
+
+    req.lang = 'fr';
+
+  }
 
   if ( req.lang !== 'fr' ) {
 

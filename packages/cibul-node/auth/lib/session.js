@@ -18,7 +18,7 @@ function set( req, res, user, cb ) {
 
   req.session.userId = user.id;
   req.session.userUid = user.uid;
-  req.session.lang = 'fr';
+  req.session.lang = user.culture || 'fr';
   req.session.logged = true;
 
   // --- apply to open cookie - legacy interfacing
