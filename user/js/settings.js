@@ -1,4 +1,4 @@
-var App = require( 'users/react' ),
+var App = require( 'users/react/build' ),
 
   deepExtend = require( 'deep-extend' ),
 
