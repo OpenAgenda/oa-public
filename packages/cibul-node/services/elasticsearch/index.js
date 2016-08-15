@@ -299,6 +299,7 @@ function _clean( query, params ) {
     offset: params.offset
   };
 
+
   if ( !query ) return clean;
 
   [ 'what', 'type', 'age', 'scope', 'uids' ].forEach( function( k ) {
@@ -324,7 +325,7 @@ function _clean( query, params ) {
 
     }
 
-  } else if ( query.passed ) {
+  } else if ( !!parseInt( query.passed ) ) {
 
     clean.passed = true;
 
