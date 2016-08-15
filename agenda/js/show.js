@@ -14,7 +14,7 @@ timeliner = require( './timeliner' ),
 
 adminControls = require( '../../user/js/adminControls' ),
 
-domUtils = require( '../../js/lib/domUtils' ),
+documentLocation = require( 'dom-utils/documentLocation' ),
 
 config = require( './config' ),
 
@@ -46,6 +46,8 @@ params = {
   }
 },
 
+totalLib = require( './total' ), total,
+
 uid;
 
 if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) {
@@ -72,7 +74,9 @@ window.asap( function( options ) {
 
   uid = options.uid,
 
-  timeline = timeliner( options.lang );
+  timeline = timeliner( options.lang ),
+
+  total = totalLib( '.js_total', options.lang );
 
   favorites.init( {
     agendaUid: options.uid,
@@ -107,7 +111,7 @@ window.asap( function( options ) {
 
         favorites.sweep();
 
-        _updateTotal( data );
+        total( data.total );
 
       }
     } );
@@ -122,7 +126,19 @@ window.asap( function( options ) {
 
       log( 'query values changed to %s', JSON.stringify( newSearchValues ) );
 
-      list.reset( domUtils.loadInLocation( { search: newSearchValues } ) );
+      let newQuery = {
+        oaq: newSearchValues
+      }
+
+      if ( documentLocation.getQueryPart( 'lang' ) ) {
+
+        newQuery.lang = documentLocation.getQueryPart( 'lang' );
+
+      }
+
+      documentLocation.setQueryPart( newQuery );
+
+      list.reset( window.location.href );
 
       _copyToSearch( newSearchValues );
 
@@ -133,24 +149,6 @@ window.asap( function( options ) {
   }
 
 } );
-
-
-function _updateTotal( data ) {
-
-  var elem = cn.el( cn.el( '.js_total' ), 'span' );
-
-  if ( !elem || !data || data.total === undefined ) {
-
-    return;
-
-  } 
-
-  elem.innerHTML = elem.innerHTML
-                   .replace( /[0-9]+/, data.total )
-                   .replace( /s/, '' )
-                   + ( data.total > 1 ? 's' : '' );
-
-}
 
 
 function _isAdmin( ctl ) {

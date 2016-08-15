@@ -467,7 +467,7 @@ module.exports = function( uid ) {
 
     }
 
-    if ( ctl.p && passedAutoLoad && typeof currentRequestParams.passed == 'undefined' ) {
+    if ( ctl.p && passedAutoLoad && typeof currentRequestParams.passed == 'undefined' && !currentRequestParams.from && !currentRequestParams.to ) {
 
       change = true;
 

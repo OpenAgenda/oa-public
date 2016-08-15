@@ -177,7 +177,7 @@ var widget = function( elem, options ) {
 
     }
 
-    if ( reqParams.passed ) {
+    if ( !!parseInt( reqParams.passed ) ) {
 
       newFilters.push({
         label: config.labels[ lang ].passed,
