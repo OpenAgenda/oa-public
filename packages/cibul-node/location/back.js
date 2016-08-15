@@ -75,6 +75,11 @@ routes = {
     mw.geocode
   ] ],
 
+  locationReverseGeocode: [ 'get', '/:slug/locations/geocode/reverse', [
+    cmn.loadUserUid,
+    mw.reverseGeocode
+  ] ],
+
   locationResync: [ 'get', '/:slug/admin/locations/resync', [
     cmn.checkAdminOrModerator,
     mw.resync,
@@ -157,6 +162,7 @@ function show( req, res ) {
       res: {
         index: req.genUrl( 'locationIndex', { slug: req.agenda.slug } ),
         geocode: req.genUrl( 'locationGeocode', { slug: req.agenda.slug } ),
+        reverseGeocode: req.genUrl( 'locationReverseGeocode', { slug: req.agenda.slug } ),
         seeEvents: req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ) + '?locationUid=:locationUid',
         set: req.genUrl( 'agendaAdminLocationSet', { slug: req.agenda.slug } ),
         get: req.genUrl( 'agendaLocationGet', { slug: req.agenda.slug, locationUid: ':locationUid' } ),
