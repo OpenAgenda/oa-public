@@ -8,7 +8,10 @@ module.exports = {
     embed: require( './services/embed/embed' ),
     nominatim: require( './services/nominatim/nominatim' ),
     images: require( 'images' ),
-    files: require( 'files' )
+    files: require( 'files' ),
+    tags: require( 'agenda-tags' ),
+    locations: require( 'agenda-locations' ),
+    categories: require( 'agenda-categories' )
   },
   config: require( './config' ),
   init: require( './lib/init' ),
