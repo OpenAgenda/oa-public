@@ -9,7 +9,7 @@ const path = require( 'path' ),
   ourOwnModules = require( './ourOwnModules.json' );
 
 
-module.exports = ( paths ) => {
+module.exports = paths => {
 
   return {
     //devtool: 'source-map',

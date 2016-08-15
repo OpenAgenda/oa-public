@@ -48,6 +48,7 @@ var ugly = require( 'uglify-js' ),
 
   browserify = require( 'browserify' ),
 
+  buildFilter = false,
 
   browserified = [],
 
@@ -56,6 +57,12 @@ var ugly = require( 'uglify-js' ),
     debug.enable( 'prodify' );
 
     log = debug( 'prodify' );
+
+    if ( process.argv.length === 3 ) {
+
+      buildFilter = process.argv.pop();
+
+    }
 
     async.series( [
       async.apply( prodifyCss, map, 'css', destCssPath ),
@@ -98,6 +105,12 @@ var ugly = require( 'uglify-js' ),
    */
 
   legacyProdify = function () {
+
+    if ( buildFilter ) {
+
+      return;
+
+    }
 
     log( 'legacy prodify' );
 
@@ -157,6 +170,12 @@ var ugly = require( 'uglify-js' ),
 
 
   prodifyPublicTemplates = function ( map, cb ) {
+
+    if ( buildFilter ) {
+
+      return cb();
+
+    }
 
     // clear destination folder
 
@@ -238,6 +257,12 @@ var ugly = require( 'uglify-js' ),
    */
 
   prodifyCss = function ( map, cssKey, destFile, cb ) {
+
+    if ( buildFilter && cssKey.indexOf( buildFilter ) === -1 ) {
+
+      return cb();
+
+    }
 
     log( 'compiling css %s to %s', cssKey, destFile );
 
@@ -484,11 +509,16 @@ var ugly = require( 'uglify-js' ),
 
     }
 
+    if ( buildFilter && paths.dest.name.indexOf( buildFilter ) === -1 ) {
+
+      return cb();
+
+    }
 
     browserified.push( paths.dest.path + paths.dest.name );
 
-    log( 'browserificationization %s', path.join( paths.dest.path, paths.dest.name ) );
 
+    log( 'browserificationization %s', path.join( paths.dest.path, paths.dest.name ) );
 
     // run webpack
 
