@@ -14,7 +14,9 @@ module.exports = function( res, data, cb ) {
 
   }
 
-  var query = qs.stringify( data );
+  var query = qs.stringify( data ),
+
+  separator = res.indexOf( '?' ) === -1 ? '?' : '&';
 
   if ( ( !res || !res.length ) && window ) {
 
@@ -23,7 +25,7 @@ module.exports = function( res, data, cb ) {
   }
 
   xhr( {
-    uri: res + ( query ? '?' + query : '' ),
+    uri: res + ( query ? separator + query : '' ),
     method: 'get',
     json: true,
     headers: {
