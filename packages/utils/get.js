@@ -16,13 +16,15 @@ module.exports = function( res, data, cb ) {
 
   var query = qs.stringify( data ),
 
-  separator = res.indexOf( '?' ) === -1 ? '?' : '&';
+  separator;
 
   if ( ( !res || !res.length ) && window ) {
 
     res = window.location.href;
 
   }
+
+  separator = res.indexOf( '?' ) === -1 ? '?' : '&';
 
   xhr( {
     uri: res + ( query ? separator + query : '' ),
