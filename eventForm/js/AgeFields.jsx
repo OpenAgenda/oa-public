@@ -85,7 +85,7 @@ module.exports = React.createClass({
 
       if ( enable ) {
 
-        min = self.props.value ? self.props.value.min || null : null;
+        min = self.props.value && typeof self.props.value.min !== 'undefined' && self.props.value.min !== null ? self.props.value.min : null;
 
         max = self.props.value ? self.props.value.max || null : null;
 
