@@ -4,6 +4,8 @@ var eventMap = require( './map' ),
 
 utils = require( 'utils' ),
 
+du = require( 'dom-utils' ),
+
 adminControls = require( '../../user/js/adminControls' ),
 
 ownershipTransfer = require( './ownershipTransfer' ),
@@ -88,6 +90,14 @@ window.asap( function( options ) {
       testFunc: function() { return roles.length; },
       displaySelectors: roles.map( function( r ) { return params.selectors[ r ]; } )
     } );
+
+
+    // ugly hack to display state if state control is not presented
+    if ( !roles.filter( r => r == ROLES.AGENDAMODERATOR || r == ROLES.AGENDAADMIN ).length ) {
+
+      du.removeClass( du.el( '.js_current_state' ), 'display-none' );
+
+    }
 
 
   });
