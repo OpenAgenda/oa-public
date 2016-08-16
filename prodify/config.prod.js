@@ -12,7 +12,7 @@ const path = require( 'path' ),
 module.exports = paths => {
 
   return {
-    devtool: 'source-map',
+    //devtool: 'source-map',
     entry: path.join( __dirname, paths.src.path, paths.src.name ),
     output: {
       path: paths.dest.path,
@@ -52,13 +52,13 @@ module.exports = paths => {
       } ),
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.OccurenceOrderPlugin(),
-      /*new webpack.optimize.UglifyJsPlugin( {
+      new webpack.optimize.UglifyJsPlugin( {
         compress: {
           warnings: false
         },
         mangle: true,
         fromString: true
-      } )*/
+      } )
     ],
     node: {
       fs: 'empty'

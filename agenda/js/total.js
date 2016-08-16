@@ -59,8 +59,8 @@ module.exports = function( selector, lang ) {
     let passedIncluded = !!parseInt( elem.getAttribute( params.attributes.passedIncluded ) );
 
     elem.innerHTML = ejs.render(  `
-<span><%= __( !handlePassed || passedIncluded ? 'totalEvents' : 'upcomingEvents', { count: total } ) %></span><% if ( handlePassed ) { %> - 
-<a href="<%= link %>"><%= __( passedIncluded ? 'excludePassed' : 'includePassed' ) %></a><% } %>
+<span><%= __( !handlePassed || passedIncluded ? 'totalEvents' : 'upcomingEvents', { count: total } ) %></span><% if ( handlePassed && !passedIncluded) { %> - 
+<a href="<%= link %>"><%= __( 'includePassed' ) %></a><% } %>
     `, {
       total: elem.getAttribute( params.attributes.total ),
       passedIncluded: passedIncluded,
