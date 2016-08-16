@@ -122,7 +122,7 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
         message: 'publish - added event %s of source %s to aggregating agenda %s',
         type: 'eventadd',
         eventId,
-        aggregatorAgendaId,
+        aggregatorAgendaId: v.aggregatingAgendaId,
         sourceAgendaId: sourceId,
       }, eventId, sourceId, aggregatingAgendaId );
 
@@ -320,7 +320,7 @@ function _removeFromAggregator( v ) {
 
       log( 'info', {
         message: 'publish - removed event %s of source %s to aggregating agenda %s',
-        type: 'eventadd',
+        type: 'eventremove',
         eventId: v.eventId,
         aggregatorAgendaId: v.aggregatingAgendaId,
         sourceAgendaId: v.sourceId,
