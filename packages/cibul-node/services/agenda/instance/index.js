@@ -4,6 +4,8 @@ var model = require( '../../model' ),
 
 utils = require( '../../../lib/utils' ),
 
+w = require( 'when' ),
+
 eventSvc = require( '../../event' ),
 
 search = require( './search' ),
@@ -12,7 +14,7 @@ sources = require( './sources' ),
 
 async = require( 'async' ),
 
-log = require( 'logger' )( 'agenda service instance' ),
+logger = require( 'logger' ), log,
 
 cache = require( '../../cache' ),
 
@@ -40,11 +42,13 @@ module.exports.test = {
 
 function instanciate( data ) {
 
+  _init();
+
   var instance = model.agendas().instance( data ),
 
   svcInstance = utils.extend( {}, instance, {
-    addEvent: addEvent,
-    removeEvent: removeEvent,
+    addEvent,
+    removeEvent,
     setContributor: _stakeholderSetter( 'setContributor' ),
     setModerator: _stakeholderSetter( 'setModerator' ),
     setAdministrator: _stakeholderSetter( 'setAdministrator' ),
@@ -52,7 +56,7 @@ function instanciate( data ) {
       new: newEvent,
       list: instance.events.list
     },
-    refresh: refresh
+    refresh
   }),
 
   dsp = dispatcher( svcInstance, instance );
@@ -96,9 +100,11 @@ function instanciate( data ) {
 
   function refresh( cb ) {
 
+    log( 'refreshing agenda id %s', instance.id );
+
     if ( onRefresh ) onRefresh( instance.id );
 
-    instance.save( { updatedAt: new Date() }, ( err ) => {
+    instance.save( { updatedAt: new Date() }, err => {
 
       if ( err ) {
 
@@ -117,19 +123,34 @@ function instanciate( data ) {
   }
 
 
-  function addEvent( event, stakeholder, cb ) {
+  /**
+   * add an event to an agenda; same hoop jumping
+   * than one described for removeEvent
+   */
+  function addEvent( event, options, cb ) {
 
-    instance.isStakeholder( stakeholder, function( err, is ) {
+    if ( options.id ) {
+
+      return addEvent( event, { stakeholder: options }, cb );
+
+    }
+
+    let params = utils.extend( {
+      stakeholder: null, // required!
+      mute: false
+    }, options );
+
+    instance.isStakeholder( params.stakeholder, ( err, is ) => {
 
       if ( err ) return cb( err );
 
       if ( !is ) return cb( 'you cannot contribute to this agenda' );
 
-      instance.addEvent( event, stakeholder, function( err, result ) {
+      instance.addEvent( event, params.stakeholder, ( err, result ) => {
 
         if ( err ) return cb( err );
 
-        dsp.onAddEvent( event.id );
+        if ( !params.mute ) dsp.onAddEvent( event.id );
         
         cb();
 
@@ -150,33 +171,46 @@ function instanciate( data ) {
   }
 
 
-  function removeEvent( event, stakeholder, cb ) {
+  /**
+   * remove event from agenda. Need to jump through hoops
+   * as legacy code took stakeholder as second arg.
+   */
+  function removeEvent( event, options, cb ) {
 
-    if ( arguments.length == 3 ) {
+    if ( arguments.length == 3 && options.id !== undefined ) {
 
-      return instance.isStakeholder( stakeholder, function( err, is ) {
-
-        if ( err ) return cb( err );
-
-        if ( !is ) return cb( 'you cannot contribute to this agenda' );
-
-        removeEvent( event, cb );
-
-      } );
+      return removeEvent( event, { stakeholder: options }, cb );
 
     }
 
-    cb = stakeholder;
+    if ( arguments.length === 2 ) {
 
-    instance.removeEvent( event, function( err, count ) {
+      cb = options;
+      options = {};
 
-      if ( err ) return cb( err );
+    }
 
-      dsp.onRemoveEvent( event.id );
+    w( utils.extend( {
+      event,
+      stakeholder: null,
+      mute: false
+    }, options ) )
 
-      cb();
+    .then( _checkIsStakeholder )
 
-    });
+    .done( v => {
+
+      instance.removeEvent( v.event, function( err, count ) {
+
+        if ( err ) return cb( err );
+
+        if ( !v.mute ) dsp.onRemoveEvent( event.id );
+
+        cb();
+
+      } );
+
+    }, cb );
 
   }
 
@@ -215,5 +249,35 @@ function instanciate( data ) {
 function setOnRefresh( cb ) {
 
   onRefresh = cb;
+
+}
+
+
+function _checkIsStakeholder( v ) {
+
+  if ( !v.stakeholder ) return v;
+
+  let d = w.defer();
+
+  instance.isStakeholder( v.stakeholder, ( err, is ) => {
+
+    if ( err ) return d.reject( err );
+
+    if ( !is ) return d.reject( 'you cannot contribute to this agenda' );
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _init() {
+
+  if ( log ) return;
+
+  log = logger( 'services/agenda/instance' );
 
 }

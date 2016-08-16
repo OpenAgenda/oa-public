@@ -10,7 +10,7 @@ libs = {
   sources: require( './sources' )
 },
 
-log = require( 'logger' )( 'aggregator task' ),
+logger = require( 'logger' ), log,
 
 onProcessed; // for testing
 
@@ -26,6 +26,8 @@ utils.extend( module.exports, {
 });
 
 function launch() {
+
+  log = logger( 'services/aggregator/task' );
 
   if ( !q ) return _err( 'aggregator has not been initialized' );
 

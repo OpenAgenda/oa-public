@@ -6,7 +6,7 @@ utils = require( 'utils' ),
 
 build = require( './build' ),
 
-log = require( 'logger' )( 'controlData', { lib: 'task' } ),
+logger = require( 'logger' ), log,
 
 queue = require( 'queue' ),
 
@@ -23,7 +23,7 @@ q, filteredQueue;
 module.exports = launch;
 
 utils.extend( module.exports, {
-  init: init,
+  init,
   test: {
     setBuild: setBuild,
     setInterval: setInterval
@@ -31,6 +31,8 @@ utils.extend( module.exports, {
 });
 
 function launch() {
+
+  log = logger( 'controlData', { lib: 'task' } );
 
   q.setConsumer( buffer );
 

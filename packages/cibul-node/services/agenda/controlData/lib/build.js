@@ -6,7 +6,7 @@ store = require( './store' ),
 
 w = require( 'when' ),
 
-log = require( 'logger' )( 'controlData', { lib: 'build' } ),
+logger = require( 'logger' ), log,
 
 moment = require( 'moment-timezone' ),
 
@@ -17,6 +17,8 @@ model = require( '../../../model' ),
 svc, eventSvc;
 
 module.exports = function( data, cb ) {
+
+  log = logger( 'controlData', { lib: 'build' } );
 
   loadServices();
 

@@ -6,22 +6,30 @@ p = require( '../../../lib/promises' ),
 
 notify = require( '../../notification/notification' ).notify,
 
+logger = require( 'logger' ), log,
+
 q;
 
 module.exports = {
-  add: add,
-  remove: remove,
-  process: process,
-  set: set
+  add,
+  remove,
+  process,
+
+  // when called, forces update of agenda to signal for updating cache
+  complete,
+
+  set
 }
 
 
 function add( sourceId, aggregatorAgendaId, upcomingOnly, cb ) {
 
+  _init();
+
   p.w( {
-    sourceId: sourceId,
-    aggregatorAgendaId: aggregatorAgendaId,
-    upcomingOnly: upcomingOnly,
+    sourceId,
+    aggregatorAgendaId,
+    upcomingOnly,
     preexisting: null,
     added: false
   } )
@@ -36,9 +44,24 @@ function add( sourceId, aggregatorAgendaId, upcomingOnly, cb ) {
 
   .then( _dispatchProcessJob )
 
-  .done( function( v ) {
+  .done( v => {
 
-    notify.newSource( { sourceId: sourceId, aggregatorAgendaId: aggregatorAgendaId } );
+    if ( v.added ) {
+
+      log( 'info', {
+        message: 'agenda source %s was added to aggregating agenda %s',
+        type: 'sourceadd',
+        sourceAgendaId: sourceId,
+        aggregatorAgendaId: aggregatorAgendaId,
+        upcomingOnly: upcomingOnly
+      }, sourceId, aggregatorAgendaId );
+
+    }
+
+    notify.newSource( {
+      sourceId, 
+      aggregatorAgendaId
+    } );
 
     cb( null, {
       added: v.added
@@ -49,6 +72,8 @@ function add( sourceId, aggregatorAgendaId, upcomingOnly, cb ) {
 }
 
 function remove( sourceId, aggregatorAgendaId, cb ) {
+
+  _init();
 
   p.w( {
     sourceId: sourceId,
@@ -62,7 +87,18 @@ function remove( sourceId, aggregatorAgendaId, cb ) {
 
   .then( _removeSource )
 
-  .done( function( v ) {
+  .done( v => {
+
+    if ( v.removed ) {
+
+      log( 'info', {
+        message: 'agenda source %s was removed from aggregating agenda %s',
+        type: 'sourceremove',
+        sourceAgendaId: sourceId,
+        aggregatorAgendaId: aggregatorAgendaId
+      }, sourceId, aggregatorAgendaId );
+
+    }
 
     cb( null, {
       removed: v.removed
@@ -72,28 +108,55 @@ function remove( sourceId, aggregatorAgendaId, cb ) {
 
 }
 
-function process( sourceId, aggregatorAgendaId, upcomingOnly, cb ) {
+function process( sourceId, aggregatorAgendaId, upcomingOnly, mute, cb ) {
+
+  _init();
 
   p.w( {
-    sourceId: sourceId,
-    aggregatorAgendaId: aggregatorAgendaId,
-    upcomingOnly: upcomingOnly,
-    queuedCount: 0
+    sourceId,
+    aggregatorAgendaId,
+    upcomingOnly,
+    mute,
+    queuedCount: 0,
   } )
 
   .then( aggUtils.loadAgenda( 'sourceAgenda', 'sourceId' ) )
 
   .then( _streamEvaluates )
 
+  .then( _dispatchProcessComplete )
+
   .done( function( v ) {
 
     cb( null, {
       queuedCount: v.queuedCount
-    })
+    } );
 
   }, cb );
 
 }
+
+function complete( agendaId, cb ) {
+
+  _init();
+
+  log( 'triggering refresh for agenda id %s', agendaId );
+
+  p.w( {
+    agendaId,
+    agenda: null
+  } )
+
+  .then( aggUtils.loadAgenda( 'agenda', 'agendaId' ) )
+
+  .done( v => {
+
+    v.agenda.refresh( cb );
+
+  }, cb )
+
+}
+
 
 function set( config ) {
 
@@ -133,6 +196,8 @@ function _streamEvaluates( v ) {
 
   return p.w.promise( function( rs, rj ) {
 
+    log( 'streaming events of source agenda id %s to add to aggregating agenda id %s', v.sourceAgenda.id, v.aggregatorAgendaId );
+
     var stream = v.sourceAgenda.searchStream( { passed: !v.upcomingOnly } );
     
     stream.on( 'data', function( eventData ) {
@@ -141,7 +206,7 @@ function _streamEvaluates( v ) {
 
       q( {
         method: 'evaluate.publish',
-        args: [ eventData.eventId, v.sourceAgenda.id, v.aggregatorAgendaId ]
+        args: [ eventData.eventId, v.sourceAgenda.id, v.aggregatorAgendaId, v.mute ]
       }, function( err ) {
 
         if ( err ) return rj( err );
@@ -219,10 +284,13 @@ function _dispatchProcessJob( v ) {
 
   return p.w.promise( function( rs, rj ) {
 
+    // agenda updates should be muted
+    let mute = true;
+
     q( {
       method: 'sources.process',
-      args: [ v.sourceId, v.aggregatorAgendaId, v.upcomingOnly ]
-    }, function( err ) {
+      args: [ v.sourceId, v.aggregatorAgendaId, v.upcomingOnly, mute ]
+    }, err => {
 
       if ( err ) return rj( err );
 
@@ -231,5 +299,37 @@ function _dispatchProcessJob( v ) {
     });
 
   });
+
+}
+
+
+function _dispatchProcessComplete( v ) {
+
+  log( 'dispatching source process completion for agenda id %s', v.aggregatorAgendaId );
+
+  let d = p.w.defer();
+
+  q( {
+    method: 'sources.complete',
+    args: [ v.aggregatorAgendaId ]
+  }, err => {
+
+    if ( err ) return d.reject( err );
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+
+function _init() {
+
+  if ( log ) return;
+
+  log = logger( 'services/aggregator/sources' );
 
 }

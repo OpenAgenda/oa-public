@@ -122,11 +122,21 @@ Translation indexes are mostly located in the template project as they tend to b
 
 A specific project is defined for all thinhs 'frontend' . It exposes a 'templater' module to the server app that is used in the **render** function of **middleware.js**. In a typical controller, once the data is made ready, it is given to that function which callsback rendered html content.
 
+
+## Aggregator in-app service
+
+Handles agenda aggregation operations.
+
+Offers 4 endpoints:
+
+ * notifyPublish: notify service that an event has been published. Service will then check wether said event is referenced by a source agenda. If so, it will queue jobs to evaluate a publish on each agenda aggregating from that source agenda.
+ * notifyUnpublish: same as notifyPublish but for the opposite action.
+ * **sourceAdd**: add a source agenda to an aggregating agenda. When this happens, all / part of events of source are evaluated to be added to aggregator. the 'upcomingOnly' option determines wether only upcoming events should be evaluated
+ * **sourceRemove**: removes a source agenda from an aggregator agenda. All events of source must be evaluated for removal from aggregator. A source remove does NOT unlist events that were aggregated through source.
+
+
+
+
 ## Error handling
 
 There is a 404 and 500 page in the 'general' app module. The handling of errors is still sketchy, how the newsletter app 'back.js' proceeds with this should serve as a guideline for now. Promises (using the 'when' lib) avoid the need to control errors at each callback.
-
-
-## Misc
-
-Rules for image paths

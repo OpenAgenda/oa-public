@@ -8,13 +8,15 @@ model = require( '../../model' ),
 
 utils = require( 'utils' ),
 
-log = require( 'logger' )( 'services/elasticsearch/resync' ),
+logger = require( 'logger' ), log,
 
 loadDetailedLocation = require( './loadDetailedLocation' );
 
 module.exports = function( options, cb ) {
 
   var params, operations = [];
+
+  log = logger( 'services/elasticsearch/resync' );
 
   if ( arguments.length == 1 ) {
 

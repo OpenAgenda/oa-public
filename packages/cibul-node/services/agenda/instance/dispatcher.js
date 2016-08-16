@@ -4,7 +4,7 @@ var aggregator, // loaded through require
 
 controlData,
 
-logger = require( 'logger' ),
+logger = require( 'logger' ), log,
 
 async = require( 'async' ),
 
@@ -18,16 +18,16 @@ module.exports = function( loaded, instance ) {
 
   _requires();
 
-  var log = logger( 'service:event:instance:' + instance.id + ':dispatcher' );
-
   return {
-    onAddEvent: onAddEvent,
-    onRemoveEvent: onRemoveEvent,
-    onSave: onSave,
-    onRefresh: onRefresh
+    onAddEvent,
+    onRemoveEvent,
+    onSave,
+    onRefresh
   }
 
   function onSave() {
+
+    log( 'dispatching on onSave of agenda id %s', instance.id );
 
     controlData.queue( instance );
 
@@ -35,11 +35,15 @@ module.exports = function( loaded, instance ) {
 
   function onRefresh() {
 
+    log( 'dispatching on onRefresh of agenda id %s', instance.id );
+
     controlData.queue( instance );
 
   }
 
   function onAddEvent( eventId ) {
+
+    log( 'dispatching agenda id %s for addEvent of event id %s', instance.id, eventId );
 
     aggregator.notifyPublish( eventId, instance.id );
 
@@ -51,6 +55,8 @@ module.exports = function( loaded, instance ) {
   }
 
   function onRemoveEvent( eventId ) {
+
+    log( 'dispatching agenda id %s for removeEvent of event id %s', instance.id, eventId );
 
     aggregator.notifyUnpublish( eventId, instance.id );
 
@@ -73,5 +79,7 @@ function _requires() { // me no liky circular dependency
   if ( !aggregator ) aggregator = require( '../../aggregator' );
 
   if ( !controlData ) controlData = require( '../controlData' );
+
+  if ( !log ) log = logger( 'services/agenda/instance/dispatcher' );
 
 }

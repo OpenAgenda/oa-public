@@ -5,8 +5,8 @@ var p = require( '../../../lib/promises' ),
 agendaSvc, eventSvc;
 
 module.exports = {
-  loadAgenda: loadAgenda,
-  loadEvent: loadEvent
+  loadAgenda,
+  loadEvent
 }
 
 function loadEvent( v ) {

@@ -61,6 +61,14 @@ function _onAgendaActivity( action ) {
 
 function _onEventActivity( action ) {
 
+  if ( action.values.muteAgendas ) {
+
+    log( 'agendas update is muted' );
+
+    return;
+
+  }
+
   eventSvc.get( { id: action.values.id }, function( err, event ) {
 
     if ( err ) {

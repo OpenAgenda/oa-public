@@ -6,7 +6,7 @@ aggUtils = require( './aggUtils' ),
 
 q,
 
-log = require( 'logger' )( 'aggregator notify' );
+logger = require( 'logger' ), log;
 
 /**
  * create jobs to evaluate addition of event in each
@@ -14,12 +14,14 @@ log = require( 'logger' )( 'aggregator notify' );
  */
 
 module.exports = {
-  publish: publish,
-  unpublish: unpublish,
-  set: set
+  publish,
+  unpublish,
+  set
 }
 
 function unpublish( eventId, agendaId, cb ) {
+
+  _init();
 
   log( 'unpublish event %s from source %s', eventId, agendaId );
 
@@ -59,6 +61,8 @@ function unpublish( eventId, agendaId, cb ) {
 
 
 function publish( eventId, agendaId, cb ) {
+
+  _init();
 
   log( 'publish event %s on source %s', eventId, agendaId );
 
@@ -178,5 +182,14 @@ function _loadAggregatorAgendaIds( v ) {
     });
 
   } );
+
+}
+
+
+function _init() {
+
+  if ( log ) return;
+
+  log = logger( 'services/aggregator/notify' );
 
 }

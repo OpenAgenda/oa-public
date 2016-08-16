@@ -10,6 +10,8 @@ mailContributor = require( './mailContributor' ),
 
 logger = require( 'logger' ),
 
+utils = require( 'utils' ),
+
 config = require( '../../../config' ),
 
 st = {}; // buffer serial saves
@@ -67,7 +69,11 @@ module.exports = function( loaded, instance ) {
   }
 
 
-  function onSave() {
+  function onSave( options ) {
+
+    let params = utils.extend( {
+      muteAgendas: false
+    }, options || {} );
 
     if ( st[ instance.id ] ) {
 
@@ -77,9 +83,9 @@ module.exports = function( loaded, instance ) {
 
     st[ instance.id ] = setTimeout( () => {
 
-      log( 'onSave' );
+      log( 'onSave for id %s', instance.id );
 
-      coms.publish( config.mainChannel, { name: 'event.update', values: { id: instance.id } } );
+      coms.publish( config.mainChannel, { name: 'event.update', values: { id: instance.id, muteAgendas: params.muteAgendas } } );
 
     }, 200 );
 
