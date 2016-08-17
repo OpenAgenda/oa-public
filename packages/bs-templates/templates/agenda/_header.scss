@@ -66,6 +66,7 @@
   }
 
   .action-container {
+
     padding-top: 15px;
 
     p {
@@ -145,14 +146,17 @@
   }
 
   .ctas {
+    
     margin-top: 15px;
 
     .btn {
-      margin-right: 5px;
+
+      margin: 0 5px 7px 0;
 
       &:hover {
         color: $oa-white;
       }
+
     }
 
     .btn-default {
@@ -173,6 +177,9 @@
       margin-right: 5px;
     }
   }
+
+
+  /******************* >= 768PX ***********************/
 
   @media (min-width: 768px) {
 
@@ -230,11 +237,24 @@
     }
   }
 
+
+  /******************* >= 1200px ***********************/
+
   @media (min-width: 1200px) {
 
     .profile.container, .profile.container-fluid {
 
       padding: 20px 40px;
+
+    }
+
+    .ctas {
+
+      .btn {
+
+        margin-bottom: 0;
+
+      }
 
     }
 
