@@ -75,7 +75,7 @@
     "registration": "git+ssh://git@bitbucket.org:openagenda/registration.git",
     "rss": "1.2.0",
     "shares": "git+ssh://git@bitbucket.org:openagenda/shares.git",
-    "tumblrParser": "git+ssh://git@bitbucket.org:openagenda/tumblrparser.git",
+    "tumblr-parser": "git+ssh://git@bitbucket.org:openagenda/tumblr-parser.git",
     "users": "git+ssh://git@bitbucket.org:openagenda/users.git",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
     "validator": "3.40.0",

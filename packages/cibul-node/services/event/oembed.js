@@ -17,9 +17,9 @@ https = require( 'https' ),
 processing = false;
 
 module.exports = {
-  addJob: addJob,    // queue job on job stack
-  process: process,  // process job ( fetch data from service )
-  setComs: setComs   // for testing
+  addJob,    // queue job on job stack
+  process,  // process job ( fetch data from service )
+  setComs   // for testing
 }
 
 
