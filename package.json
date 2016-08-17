@@ -88,7 +88,7 @@
     "strip-loader": "^0.1.2",
     "sync-button": "git+ssh://git@bitbucket.org:openagenda/sync-button.git",
     "to-markdown": "2.0.0",
-    "tumblrParser": "git+ssh://git@bitbucket.org:openagenda/tumblrparser.git",
+    "tumblr-parser": "git+ssh://git@bitbucket.org:openagenda/tumblr-parser.git",
     "uglify-js": "2.4.24",
     "users": "git+ssh://git@bitbucket.org:openagenda/users.git",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
