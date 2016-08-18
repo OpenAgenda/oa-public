@@ -215,6 +215,7 @@ function show( req, res ) {
       description: req.agenda.description,
       url: req.agenda.url,
       image: req.agenda.getImage( false ),
+      official: req.agenda.official,
       isEmpty: req.agenda.isEmpty,
       importUri: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } )
     }
