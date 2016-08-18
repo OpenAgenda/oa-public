@@ -14,6 +14,8 @@ var React = require( 'react' ),
 
   actions = require( './actions' ),
 
+  utils = require( 'utils' ),
+
   getLabel = require( 'labels' )( require( 'labels/agenda-search' ) ),
 
   documentLocation = require( 'dom-utils/documentLocation' ),
@@ -68,7 +70,7 @@ module.exports = React.createClass( {
 
     this.setState( { loading: true } );
 
-    get( this.props.res, query, ( err, data ) => {
+    get( this.props.res, utils.extend( { preventCache: 1 }, query ), ( err, data ) => {
 
       if ( err ) {
 

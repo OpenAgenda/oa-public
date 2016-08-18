@@ -7,6 +7,7 @@ var React = require('react'),
     List = require('react-components/build/List'),
     get = require('utils/get'),
     actions = require('./actions'),
+    utils = require('utils'),
     getLabel = require('labels')(require('labels/agenda-search')),
     documentLocation = require('dom-utils/documentLocation'),
     monitorField = require('./monitorField');
@@ -56,7 +57,7 @@ module.exports = React.createClass({
 
     this.setState({ loading: true });
 
-    get(this.props.res, query, function (err, data) {
+    get(this.props.res, utils.extend({ preventCache: 1 }, query), function (err, data) {
 
       if (err) {
 
