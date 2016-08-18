@@ -35,15 +35,9 @@
 
     } 
 
-    .official {
-
-      position: absolute;
-      top: 7px;
-      right: 0;
-
-    }
 
   }
+
 
   .layer {
     background: rgba(0, 0, 0, 0.40);
@@ -207,6 +201,19 @@
   /******************* >= 768PX ***********************/
 
   @media (min-width: 768px) {
+
+    .agenda-title {
+  
+      .official {
+
+        position: absolute;
+        top: 7px;
+        right: 0;
+
+      }
+      
+    }
+
 
     .avatar-container, .action-container, .title-container {
 
