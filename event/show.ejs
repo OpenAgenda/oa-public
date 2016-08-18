@@ -241,7 +241,7 @@
 <% } %>
 <% if ( event.location.image ) { %>
         <div class="location-image">
-          <img class="img-responsive" src="<%= _i( event.location.image ) %>" alt="<%= event.location.name %>" />
+          <img class="img-responsive" src="<%= event.location.image %>" alt="<%= event.location.name %>" />
         </div>
 <% } %>
 
@@ -273,7 +273,7 @@
 
 <% if ( !loner ) { %>
           <li>
-            <a class="display-none js_role_event_editor" href="<%= genUrl( 'locationSuggestion', { locationUid: event.location.uid, slug: slug, eventSlug: event.slug } ) %>"><%= __( 'request a change in the location information' ) %></a>
+            <a href="<%= genUrl( 'locationSuggestion', { locationUid: event.location.uid, slug: slug, eventSlug: event.slug } ) %>"><%= __( 'request a change in the location information' ) %></a>
           </li>
 <% } %>
           </ul>
