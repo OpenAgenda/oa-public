@@ -36,7 +36,14 @@ du.addEvent( window, 'load', function () {
   }
 
   checkOdometers();
+
   du.addEvent( document, "scroll", checkOdometers );
+
+  setTimeout( () => {
+
+    _slaask.init( '6b2ef2b1830ad6e1c43bbc726c8a9f98' )
+
+  }, 8000 );
 
 } );
 
