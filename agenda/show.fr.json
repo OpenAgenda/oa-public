@@ -57,5 +57,7 @@
   "include passed events"
   : "inclure les événements passés",
   "Contact"
-  : "Contacter"
+  : "Contacter",
+  "Official agenda"
+  : "Agenda officiel"
 }

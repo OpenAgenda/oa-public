@@ -5,6 +5,7 @@
       "description" : "l'agenda des évènements repérés par ChezNous",
       "image" : "review_cheznous_598_00.jpg",
       "isEmpty" : false,
+      "official" : true,
       "slug" : "chez-nous",
       "url" : "http://cheznous.coop",
       "uid" : 48959239,

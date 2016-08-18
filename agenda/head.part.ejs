@@ -13,7 +13,18 @@
       </div><!--
       --><div class="col-sm-7 title-container">
         <a href="<%= genUrl( 'agendaShow', { slug: agenda.slug } ) %>">
-          <h1><%= agenda.title %></h1>
+          <div class="agenda-title">
+            <h1><%= agenda.title %></h1>
+<% if ( agenda.official ) { %>
+            <div class="official big">
+              <i></i>
+              <div class="tooltip right" role="tooltip">
+                <div class="tooltip-arrow"></div>
+                <div class="tooltip-inner"><%= __('Official agenda') %></div>
+              </div>
+            </div>
+<% } %>
+          </div>
           <p><%- _txt.setLinks( agenda.description ) %></p>
         </a>
 <% if ( agenda.url ) { %>
