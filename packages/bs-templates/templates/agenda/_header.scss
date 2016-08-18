@@ -8,16 +8,41 @@
   z-index: 1001;
 
   a {
+  
     color: $oa-white;
     text-decoration: none;
 
-    &:hover {
+    h1:hover, p:hover {
       color: $oa-blue;
     }
+
   }
 
   h1 {
+
     margin-top: 0;
+    
+  }
+
+  .agenda-title {
+
+    display: inline-block;
+    position: relative;
+
+    h1 {
+
+      margin-right: 1em;
+
+    } 
+
+    .official {
+
+      position: absolute;
+      top: 7px;
+      right: 0;
+
+    }
+
   }
 
   .layer {

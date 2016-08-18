@@ -1,4 +1,5 @@
-@import "../layout/base.scss";
+@import "../layout/base";
+@import "../components/official";
 
 .agenda-search {
 
@@ -50,38 +51,6 @@
 
       margin-right: 0.4em;
   
-    }
-
-    .official {
-
-      display: inline-block;
-      position: relative;
-      margin-left: 5px;
-
-      .tooltip {
-
-        display: none;
-
-      }
-
-      &:hover .tooltip {
-
-        display: block;
-        opacity: 1;
-        right: -122px;
-        min-width: 120px;
-        top: -1px;
-
-        .tooltip-inner {
-          background-color: $oa-black;
-        }
-
-        .tooltip-arrow {
-          border-right-color: $oa-black;
-        }
-
-      }
-
     }
 
     .ill {

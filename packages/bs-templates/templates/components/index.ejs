@@ -1,16 +1,31 @@
 <% include ../layout/_top.ejs %>
 <div class="container">
-    <% include _dropdown.ejs %>
 
-    <div class="row">
-        <section class="col-sm-6 col-sm-offset-2 top-margined">
+  <div class="row">
+    
+    <section class="col-sm-6 col-sm-offset-2 top-margined">
+      <h2>Official label</h2>
 
-            <h2>Calendar</h2>
+      <div class="wsq content">
+        <% include _official %>
 
-            <div class="wsq content">
-                <% include _calendar %>
-            </div>
-        </section>
-    </div>
+        <% include _official-big %>
+      </div>
+
+  </div>
+
+  <% include _dropdown.ejs %>
+
+  <div class="row">
+    <section class="col-sm-6 col-sm-offset-2 top-margined">
+
+      <h2>Calendar</h2>
+
+      <div class="wsq content">
+        <% include _calendar %>
+      </div>
+    </section>
+  </div>
+
 </div>
 <% include ../layout/_bottom.ejs %>
