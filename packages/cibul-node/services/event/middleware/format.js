@@ -80,7 +80,7 @@ module.exports = function( req, res, next ) {
 
 function _location( v ) {
 
-  v.formatted.location = v.req.event.getLocationDetails( v.req.lang );
+  v.formatted.location = v.req.event.getLocationDetails( v.req.lang, true );
 
   return v;
 

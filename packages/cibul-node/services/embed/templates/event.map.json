@@ -21,6 +21,12 @@
     "name" : "Conditions",
     "mapTo" : "pricingInfo"
   }, {
+    "name" : "AgeMin",
+    "mapTo" : "age.min"
+  }, {
+    "name" : "AgeMax",
+    "mapTo" : "age.max"
+  }, {
     "name" : "TicketUrl",
     "mapTo" : "ticketLink"
   }, {
@@ -53,6 +59,27 @@
   }, {
     "name" : "City",
     "mapTo" : "city"
+  }, {
+    "name" : "Department",
+    "mapTo" : "location.department"
+  }, {
+    "name" : "Region",
+    "mapTo" : "location.region"
+  }, {
+    "name" : "Access",
+    "mapTo" : "location.access"
+  }, {
+    "name" : "LocationWebsite",
+    "mapTo" : "location.website"
+  }, {
+    "name" : "LocationDescription",
+    "mapTo" : "location.description"
+  }, {
+    "name" : "LocationPhone",
+    "mapTo" : "location.phone"
+  }, {
+    "name" : "LocationImageUrl",
+    "mapTo" : "location.image"
   }, {
     "name" : "ShareUrl",
     "mapTo" : "actionLink"
@@ -95,6 +122,10 @@
   } ],
 
   "children" : [ {
+    "name" : "LocationLinks",
+    "mapTo" : "location.links",
+    "itemName" : "LocationLink"
+  }, {
     "name" : "Registration",
     "mapTo" : "registration",
     "attributes" : [ {

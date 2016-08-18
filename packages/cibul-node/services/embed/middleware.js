@@ -2,7 +2,7 @@
 
 var svc,
 
-parserLib = require( 'tumblrParser' ),
+parserLib = require( 'tumblr-parser' ),
 
 fs = require( 'fs' ),
 
@@ -26,13 +26,13 @@ module.exports = function( embedService ) {
   svc = embedService;
 
   return {
-    load: loadEmbed,
-    loadCustomLayoutData: loadCustomLayoutData,
-    renderHeader: renderHeader,
-    renderEventItems: renderEventItems,
-    renderEvent: renderEvent,
-    browserCache: browserCache,
-    browserCacheControlData: browserCacheControlData
+    load : loadEmbed,
+    loadCustomLayoutData,
+    renderHeader,
+    renderEventItems,
+    renderEvent,
+    browserCache,
+    browserCacheControlData
   }
 
 }
