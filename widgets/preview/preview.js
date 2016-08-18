@@ -1,6 +1,6 @@
 "use strict";
 
-var parser = require( 'tumblrParser' ),
+var parser = require( 'tumblr-parser' ),
 
 cn = require(  '../../js/lib/common/common.mod.js' ),
 
