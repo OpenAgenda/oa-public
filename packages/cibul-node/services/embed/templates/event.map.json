@@ -122,6 +122,10 @@
   } ],
 
   "children" : [ {
+    "name" : "Accessibility",
+    "mapTo" : "accessibility",
+    "itemName" : "Accessibility"
+  }, {
     "name" : "LocationLinks",
     "mapTo" : "location.links",
     "itemName" : "LocationLink"
