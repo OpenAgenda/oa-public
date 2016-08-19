@@ -26,17 +26,17 @@ module.exports = function( agendaService ) {
 
   return {
     load: loadAgenda,
-    loadAdminLayout: loadAdminLayout,
+    loadAdminLayout,
     search: searchEvents,
-    browserCache: browserCache,
-    browserCacheControlData: browserCacheControlData,
-    decorateEvents: decorateEvents,
-    decorateEvent: decorateEvent,
-    cleanJson: cleanJson,
+    browserCache,
+    browserCacheControlData,
+    decorateEvents,
+    decorateEvent,
+    cleanJson,
     rss: require( './rss' ),
-    buildCsv: buildCsv,
-    buildXlsx: buildXlsx,
-    buildPdf: buildPdf,
+    buildCsv,
+    buildXlsx,
+    buildPdf,
     buildIcs: require( './ics' )
   }
 

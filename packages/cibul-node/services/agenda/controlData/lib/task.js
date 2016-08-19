@@ -134,13 +134,13 @@ function _flushLoop() {
 
       }
 
-      async.eachSeries( ids, function( id, ecb ) {
+      async.eachSeries( ids, ( id, ecb ) => {
 
         log( 'info', 'queuing %s in filtered queue', id );
 
         filteredQueue( { id: id }, ecb );
 
-      }, function( err ) {
+      }, err => {
 
         if ( err ) {
 

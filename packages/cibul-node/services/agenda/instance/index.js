@@ -191,6 +191,7 @@ function instanciate( data ) {
     }
 
     w( utils.extend( {
+      agenda: instance,
       event,
       stakeholder: null,
       mute: false
@@ -259,7 +260,7 @@ function _checkIsStakeholder( v ) {
 
   let d = w.defer();
 
-  instance.isStakeholder( v.stakeholder, ( err, is ) => {
+  v.agenda.isStakeholder( v.stakeholder, ( err, is ) => {
 
     if ( err ) return d.reject( err );
 
