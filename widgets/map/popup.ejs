@@ -5,8 +5,12 @@
       <label> <%= count==1 ? labels.events.replace('s', '') : labels.events %></label>
     </span>
 <% } %>
-<% if (typeof image !== 'undefined') { %><img src="<%= image %>"/><% } %>
-  <span>
+<% if (typeof image !== 'undefined') { %>
+  <div class="oa-location-image">
+    <img src="<%= image %>"/>
+  </div>
+<% } %>
+  <span class="oa-location-details">
     <p><%= name %></p>
     <span class="map-address"><%= address %></span>
     <% if ( postalCode ) { %><span class="map-postalcode"><%= postalCode %></span><% } %>
