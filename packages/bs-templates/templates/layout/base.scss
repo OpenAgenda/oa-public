@@ -102,6 +102,9 @@ $tumblr-color: #32506d;
 
 @import "search-form";
 
+// Map
+@import "_leaflet-0.7.3.scss";
+
 // OA components
 @import "../components/dropdown";
 @import "../components/calendar";

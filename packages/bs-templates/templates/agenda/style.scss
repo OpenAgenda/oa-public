@@ -2,8 +2,9 @@
 @import "base";
 @import "header";
 @import "sidebar";
-@import "../layout/leaflet-0.7.3.scss";
+@import "../layout/_leaflet-0.7.3.scss";
 @import "admin-bar";
 @import "subnav";
 @import "favorites";
+@import "../components/small-map";
 @import "agenda";
