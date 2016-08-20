@@ -5,7 +5,7 @@
       <label> <%= count==1 ? labels.events.replace('s', '') : labels.events %></label>
     </span>
 <% } %>
-<% if (typeof image !== 'undefined') { %>
+<% if ( typeof image !== 'undefined' && image ) { %>
   <div class="oa-location-image">
     <img src="<%= image %>"/>
   </div>
