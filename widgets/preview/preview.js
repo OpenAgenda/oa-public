@@ -202,6 +202,12 @@ function _init() {
 
     json = ( config.res[ env ]  ? config.res[ env ].json : config.res.all.json ).replace( '{uid}', arr[ UID ] );
 
+    if ( !link ) {
+
+      throw 'href link is missing in oa preview widget body ( first <a> tag in widget body should have an href attribute. Check that your page html is valid )';
+
+    }
+
     if ( elem.hasAttribute( config.attributes.json ) ) {
 
       json = elem.getAttribute( config.attributes.json )
