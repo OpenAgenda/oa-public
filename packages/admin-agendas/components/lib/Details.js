@@ -43,7 +43,7 @@ module.exports = React.createClass({
             { className: "col-sm-2 avatar-container" },
             React.createElement(
               "a",
-              { href: "#" },
+              { href: this.props.agenda.slug },
               " ",
               React.createElement("img", { className: "avatar", src: 'https://cibul.s3.amazonaws.com/' + this.props.agenda.image,
                 alt: this.props.agenda.title }),
@@ -55,7 +55,7 @@ module.exports = React.createClass({
             { className: this.props.agenda.image ? 'col-sm-7 title-container' : 'title-container' },
             React.createElement(
               "a",
-              { href: "#" },
+              { href: this.props.agenda.slug },
               React.createElement(
                 "h1",
                 null,
@@ -177,12 +177,8 @@ module.exports = React.createClass({
       { key: stakeholder.id },
       React.createElement(
         "td",
-        null,
-        React.createElement(
-          "a",
-          { href: "#" },
-          stakeholder.user.uid
-        )
+        { className: "text-primary" },
+        stakeholder.user.uid
       ),
       React.createElement(
         "td",

@@ -42,12 +42,12 @@ module.exports = React.createClass( {
           <div className="row">
             { this.props.agenda.image ?
               <div className="col-sm-2 avatar-container">
-                <a href="#"> <img className="avatar" src={'https://cibul.s3.amazonaws.com/' + this.props.agenda.image}
+                <a href={this.props.agenda.slug}> <img className="avatar" src={'https://cibul.s3.amazonaws.com/' + this.props.agenda.image}
                                   alt={this.props.agenda.title} /> </a>
               </div> : null }
 
             <div className={ this.props.agenda.image ? 'col-sm-7 title-container' : 'title-container' }>
-              <a href="#">
+              <a href={this.props.agenda.slug}>
                 <h1>{this.props.agenda.title}</h1>
                 <p>{this.props.agenda.description}</p>
               </a> { this.props.agenda.url ?
@@ -103,7 +103,7 @@ module.exports = React.createClass( {
 
     return (
       <tr key={stakeholder.id}>
-        <td><a href="#">{stakeholder.user.uid}</a></td>
+        <td className="text-primary">{stakeholder.user.uid}</td>
         <td>{credentialsToString( stakeholder.credential )}</td>
         <td>{stakeholder.user.full_name}</td>
         <td>{stakeholder.user.username}</td>
