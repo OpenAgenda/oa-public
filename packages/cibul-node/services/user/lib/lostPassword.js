@@ -12,6 +12,12 @@ mailer = require( 'mailer' ),
 
 genUrl = require( '../../genUrl' ),
 
+templater = require( 'cibulTemplates' ),
+
+async = require( 'async' ),
+
+getLabel = require( 'labels' )( require( 'labels/auth/lostPassword' ) ),
+
 w = require( 'when' ),
 
 wn = require( 'when/node' ),
@@ -27,9 +33,9 @@ function init( svc ) {
 }
 
 module.exports = lib.extend( init, {
-  verifyToken: verifyToken,
-  createAndSend: createAndSend,
-  updatePassword: updatePassword
+  verifyToken,
+  createAndSend,
+  updatePassword
 });
 
 
@@ -90,26 +96,52 @@ function _sendToken( values ) {
 
   log( 'sending lost password token %s', JSON.stringify( values ) );
 
-  var link = genUrl.abs( 'resetPassword', { token: values.token.token } ),
-
-  text = "Follow this link to reset your password: %link%";
-
-  values.link = link;
+  let link = genUrl.abs( 'resetPassword', { token: values.token.token } );
 
   log( 'link: %s', link );
 
-  return wn.call( mailer, {
-    recipient: values.user.email,
-    subject: 'Reset your password',
-    text: [ text, { '%link%' : link } ],
-    lang: values.user.culture
-  } ).then( function( result ) {
+  values.link = link;
+
+  let subject = getLabel( 'mailSubject', values.user.culture ),
+
+  body = getLabel( 'mailBody', { link }, values.user.culture ),
+
+  renders = {};
+
+  return wn.call( async.each, [ 'html', 'text' ], ( type, ecb ) => {
+
+    templater( 'email/show', Object.assign( { type }, {
+      lang: values.user.culture,
+      env: process.env.NODE_ENV,
+      title: {
+        text: subject,
+        link: link
+      },
+      description: body
+    } ), ( err, render ) => {
+
+      if ( err ) return ecb( err );
+
+      renders[ type ] = render;
+
+      ecb();
+
+    } );
+
+  } ).then( () => {
+
+    mailer( {
+      recipient: values.user.email,
+      subject: subject,
+      text: renders.text,
+      html: renders.html
+    } );
 
     values.sent = true;
 
     return values;
 
-  });
+  } );
 
 }
 

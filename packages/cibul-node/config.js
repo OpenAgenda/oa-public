@@ -359,7 +359,7 @@ var deepExtend = require( 'deep-extend' ),
       logger: {
         debug: {
           prefix: 'oa:',
-          enable: 'oa:services/aggregator/evaluate'
+          enable: 'oa:*'
         },
         token: 'a2923436-55dc-4eba-8668-44824d11c089'
       },
