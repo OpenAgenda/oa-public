@@ -254,10 +254,14 @@ function searchEvents( limit, showAll ) {
 
     }
 
-    req.agenda.search( req.query.oaq, utils.extend( {
-      limit: Math.min( parseInt( req.query.limit ? req.query.limit : limit, 10 ), 300 ),
+    req.limit = Math.min( parseInt( req.query.limit ? req.query.limit : limit, 10 ), 300 ) || limit;
+    req.offset = pagination.offset || ( pagination.page - 1 ) * req.limit || 0;
+
+    req.agenda.search( req.query.oaq, {
+      limit: req.limit,
+      offset: req.offset,
       showAll: showAll
-    }, pagination ), ( err, data ) => {
+    }, ( err, data ) => {
 
       if ( err ) return next( err );
 

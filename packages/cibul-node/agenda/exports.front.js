@@ -91,8 +91,10 @@ module.exports = function( path ) {
 function json( req, res ) {
 
   cmn.renderJson( req, res, {
+    total: req.total,
+    offset: req.offset,
+    limit: req.limit,
     events: req.formatted,
-    total: req.total
   } );
 
 }
