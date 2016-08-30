@@ -126,7 +126,7 @@ function search( query, options, cb ) {
 
   }
 
-  _prepare( query, options, function( params, esQuery ) {
+  _prepare( query, options, ( params, esQuery ) => {
 
     legacyLib.events().search( esQuery, function( err, result ) {
 
@@ -302,7 +302,7 @@ function _clean( query, params ) {
 
   if ( !query ) return clean;
 
-  [ 'what', 'type', 'age', 'scope', 'uids' ].forEach( function( k ) {
+  [ 'what', 'type', 'age', 'scope', 'uids' ].forEach( k => {
 
     if ( !query[ k ] ) return;
 
@@ -325,7 +325,7 @@ function _clean( query, params ) {
 
     }
 
-  } else if ( !!parseInt( query.passed ) ) {
+  } else if ( _isTruthy( query.passed ) ) {
 
     clean.passed = true;
 
@@ -409,5 +409,17 @@ function _validCoord( coord ) {
   if ( isNaN( coord ) ) return false;
 
   return true;
+
+}
+
+function _isTruthy( v ) {
+
+  if ( typeof v === 'boolean' ) return v;
+
+  if ( typeof v === 'string' && v === 'true' ) return true;
+
+  if ( typeof v === 'string' && v === 'false' ) return false;
+
+  return !!parseInt( v );
 
 }
