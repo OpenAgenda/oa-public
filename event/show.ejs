@@ -215,9 +215,9 @@
 
         <div class="location-head">
           <label>
-            <a target="_blank" href="<%= event.locationLink || '#' %>"><%- event.location.name %></a>
+            <%- event.location.name %>
           </label>
-          <span><%- event.location.address %></span>
+          <span><a target="_blank" href="<%= event.locationLink || '#' %>"><%- event.location.address %></a></span>
 <% if ( event.location.tags && event.location.tags.length ) { %>
           <div class="tags">
             <label><%= __( 'Tags' ) %>:</label>
