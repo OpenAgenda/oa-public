@@ -109,7 +109,7 @@
           <h3><i class="fa fa-map-marker"></i></h3>
           <div class="detail-item-content">
             <p>
-              <a href="<%= event.locationLink || '#' %>"><%= event.location.name %></a>
+              <a target="_blank" href="<%= event.locationLink || '#' %>"><%= event.location.name %></a>
             </p>
             <p><%= event.location.address %></p>
           </div><!--
@@ -215,7 +215,7 @@
 
         <div class="location-head">
           <label>
-            <a href="<%= event.locationLink || '#' %>"><%- event.location.name %></a>
+            <a target="_blank" href="<%= event.locationLink || '#' %>"><%- event.location.name %></a>
           </label>
           <span><%- event.location.address %></span>
 <% if ( event.location.tags && event.location.tags.length ) { %>
