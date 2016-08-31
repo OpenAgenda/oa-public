@@ -291,11 +291,12 @@ function _formatAgendaLinks( uri, keys ) {
     req.formatted.backLabel = i18n( 'back', req.lang );
 
     // link to results for event location in agenda
-    req.formatted.locationLink = req.genUrl( uri, [
+    /*req.formatted.locationLink = req.genUrl( uri, [
       routeValues,
       { oaq: utils.extend( { location: req.event.getLocationUid() }, baseSearchQuery ) },
       { lang: req.lang }
-    ] );
+    ] );*/
+    req.formatted.locationLink = _googleMapLink( req.event.getLatitude(), req.event.getLongitude() );
 
     // link to results for same category in agenda
     req.formatted.categoryLink = false;
@@ -344,13 +345,15 @@ function _formatEmbedLinks( req, res, next ) {
     lang: req.lang
   } );
 
+  /* keeping this handy for a while
   req.formatted.locationLink = req.genUrl( 'agendaEmbedShow', {
     uid: req.params.uid,
     oaq: {
       location: req.event.getLocationUid()
     },
     lang: req.lang
-  });
+  }); */
+  req.formatted.locationLink = _googleMapLink( req.event.getLatitude(), req.event.getLongitude() );
 
   req.formatted.categoryLink = false;
 
@@ -384,6 +387,8 @@ function _formatCustomEmbedLinks( req, res, next ) {
     lang: req.lang
   } );
 
+  /*
+  keeping this handy for a while
   req.formatted.locationLink = req.genUrl( 'customEmbedShow', {
     uid: req.params.uid,
     embedUid: req.params.embedUid,
@@ -391,7 +396,9 @@ function _formatCustomEmbedLinks( req, res, next ) {
       location: req.event.getLocationUid()
     },
     lang: req.lang
-  });
+  }); */
+
+  req.formatted.locationLink = _googleMapLink( req.event.getLatitude(), req.event.getLongitude() );
 
   req.formatted.categoryLink = false;
 
@@ -491,4 +498,10 @@ function _formatEmbedHeadLinks( req, res, next ) {
 
   next();
 
+}
+
+function _googleMapLink( lat, lng ) {
+
+  return `https://maps.google.com/maps?q=${lat},${lng}&z=15`
+  
 }
