@@ -66,6 +66,12 @@ module.exports = React.createClass( {
 
     var state = this.props.initData;
 
+    if ( this.props.configuration.field( 'description' ).fixed() ) {
+
+      this.props.onTextChange( 'description', this.props.configuration.field( 'description' ).fixed(), [] );
+
+    }
+
     formErrors = state.errors || {};
 
     state.languages = this.props.initialLanguages;
@@ -510,6 +516,7 @@ module.exports = React.createClass( {
             onChange={this.onChange( 'title' )}
             lang={this.props.lang} />
 
+          { !this.props.configuration.field( 'description' ).fixed() ? 
           <MultilingualTextField
             constraints={{max: 200}}
             counter={true}
@@ -522,6 +529,7 @@ module.exports = React.createClass( {
             languages={this.state.languages}
             onChange={this.onChange( 'description' )}
             lang={this.props.lang} /> 
+          : null }
 
           { this.props.configuration.field( 'keywords' ).display() ?
           <EventKeywordsField
