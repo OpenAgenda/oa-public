@@ -288,7 +288,7 @@ function _removeSource( v ) {
 
 function _dispatchProcessJob( v ) {
 
-  return p.w.promise( function( rs, rj ) {
+  return p.w.promise( ( rs, rj ) => {
 
     // agenda updates should be muted
     let mute = true;

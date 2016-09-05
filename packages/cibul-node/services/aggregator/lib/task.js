@@ -14,14 +14,12 @@ logger = require( 'logger' ), log,
 
 onProcessed; // for testing
 
-module.exports = launch;
-
-utils.extend( module.exports, {
-  set: set,
-  shutdown: shutdown,
+module.exports = utils.extend( launch, {
+  set,
+  shutdown,
   test: {
-    setOnProcessed: setOnProcessed,
-    unsetOnProcessed: unsetOnProcessed
+    setOnProcessed,
+    unsetOnProcessed
   }
 });
 
