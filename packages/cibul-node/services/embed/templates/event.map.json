@@ -39,6 +39,9 @@
     "name" : "LocationLink",
     "mapTo" : "locationLink"
   }, {
+    "name" : "GoogleItineraryLink",
+    "mapTo" : "googleItineraryLink"
+  }, {
     "name": "DateRange", 
     "mapTo": "dateRange" 
   }, {

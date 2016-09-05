@@ -11,7 +11,7 @@ coms = require( '../../lib/coms' ),
 agendaSvc = require( '../agenda' );
 
 module.exports = {
-  get: get
+  get
 }
 
 module.exports.mw = require( './middleware' )( module.exports );
@@ -37,16 +37,16 @@ function instanciate( data ) {
   agenda;
 
   return lib.extend( {}, instance, {
-    getControlData: getControlData
+    getControlData
   } );
 
   function getControlData( cb ) {
 
-    getAgenda( function( err, a ) {
+    getAgenda( ( err, a ) => {
 
       if ( err ) return cb( err );
 
-      a.getControlData( function( err, ctlData ) {
+      a.getControlData( ( err, ctlData ) => {
 
         instance.decorateAgendaControlData( ctlData, cb ); 
 
