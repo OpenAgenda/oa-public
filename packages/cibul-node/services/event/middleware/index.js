@@ -450,7 +450,7 @@ function _get( paramName, fieldName, inAgendaContext ) {
 
       v.req.log( 'getting event with params %s', JSON.stringify( getParams ) );
 
-      svc.get( getParams, function( err, e ) {
+      svc.get( getParams, ( err, e ) => {
 
         if ( err ) return rj( err );
 

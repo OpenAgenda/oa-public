@@ -13,7 +13,7 @@ coms = require( '../../lib/coms' ),
 exportLib = require( './exportLib' );
 
 module.exports = {
-  get: get,
+  get,
   search: es.search,
   create: create,
   share: require( './share' ),
@@ -32,7 +32,7 @@ module.exports.locations = require( './locations' )( module.exports );
 
 function get( params, cb ) {
 
-  model.events().get( params, function( err, result ) {
+  model.events().get( params, ( err, result ) => {
 
     if ( err ) return cb( err );
 
