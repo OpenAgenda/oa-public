@@ -65,9 +65,8 @@ describe( 'object validator', () => {
         origin: 1 
       }, {
         field: 'code',
-        code: 'string.tooshort',
-        message: 'the string is too short',
-        values: { min: 3, max: 20 },
+        code: 'required',
+        message: 'a string is required',
         origin: undefined 
       } ] );
 

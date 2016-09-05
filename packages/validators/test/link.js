@@ -54,7 +54,8 @@ describe( 'link validator', () => {
 
       clean.should.equal( 'http://lemonde.fr' );
 
-    });
+    } );
+
 
     it( 'is a link', () => {
 
@@ -73,6 +74,7 @@ describe( 'link validator', () => {
       hasErrs.should.equal( false );
 
     } );
+
 
     it( 'not a link', () => {
 

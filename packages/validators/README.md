@@ -3,6 +3,13 @@
 configurable validators that couple up validation with data sanitizing. A configured validator throws errors in arrays in case of invalid data and return sanitized value when the input is valid.
 
 
+## Running the tests
+
+Run:
+
+    npm run watch
+
+
 # Validating a single value
 
 Load all validators by requiring service, or just specific validator by calling the corresponding file, then validate by field type. Example:

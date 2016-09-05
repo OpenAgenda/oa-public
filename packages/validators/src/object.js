@@ -50,6 +50,15 @@ module.exports = function( options, validators ) {
 
         }
 
+      } else if ( typeof matchingValue.value !== 'object' ) {
+
+        errors = errors.concat( [ {
+          field: matchingValue.field,
+          origin: matchingValue.value,
+          code: 'string.invalidtype',
+          message: 'not an object'
+        } ] );
+
       } else {
 
         try {

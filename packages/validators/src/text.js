@@ -40,9 +40,16 @@ module.exports = function( config ) {
 
     }
 
-    if ( params.optional && ( typeof value === 'undefined' || value === null || !clean.length ) ) {
+    if ( typeof value === 'undefined' || value === null || !clean.length ) {
 
-      return null;
+      if ( params.optional ) return null;
+
+      throw [ {
+        field: validate.field,
+        code: 'required',
+        message: 'a string is required',
+        origin: value
+      } ];
 
     }
 

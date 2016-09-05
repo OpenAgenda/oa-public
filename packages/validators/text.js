@@ -44,9 +44,16 @@ module.exports = function (config) {
       clean = clean.trim();
     }
 
-    if (params.optional && (typeof value === 'undefined' || value === null || !clean.length)) {
+    if (typeof value === 'undefined' || value === null || !clean.length) {
 
-      return null;
+      if (params.optional) return null;
+
+      throw [{
+        field: validate.field,
+        code: 'required',
+        message: 'a string is required',
+        origin: value
+      }];
     }
 
     if (clean.length < params.min) {

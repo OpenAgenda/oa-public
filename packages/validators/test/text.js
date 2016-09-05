@@ -2,13 +2,19 @@
 
 var should = require( 'should' ),
 
-validators = require( '../' );
+validators = require( './build' );
 
 describe( 'text validator', () => {
 
-  describe( 'required (default)', () => {
+  describe( 'required', () => {
 
-    var validate = validators.text( { field: 'text', min: 3, max: 10 } );
+    var validate = validators.text( {
+      field: 'text', 
+      min: 3, 
+      max: 10,
+      optional: false
+    } );
+
 
     it( 'trims by default', () => {
 
@@ -33,6 +39,7 @@ describe( 'text validator', () => {
 
     } );
 
+
     it( 'too long', () => {
 
       try {
@@ -46,6 +53,7 @@ describe( 'text validator', () => {
       }
 
     } );
+
 
     it( 'too short', () => {
 
@@ -61,13 +69,35 @@ describe( 'text validator', () => {
 
     } );
 
+
+    it.only( 'required empty string is not valid', () => {
+
+      let validate = validators.text( { field: 'text', max: 10, optional: false } ),
+
+      errors = [];
+
+      try {
+
+        validate( '' );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 1 );
+
+    } );
+
+
   } );
 
   describe( 'optional', () => {
 
-    var validate = validators.text( { field: 'text', min: 3, max: 10, optional: true } );
-
     it( 'undefined or null cleans to null', () => {
+
+      let validate = validators.text( { field: 'text', min: 3, max: 10 } );
 
       should( validate() )
 
@@ -77,11 +107,14 @@ describe( 'text validator', () => {
 
     it( 'empty string cleans to null', () => {
 
+      let validate = validators.text( { field: 'text', min: 3, max: 10 } );
+
       should( validate( '' ) )
 
       .equal( null );
 
     } );
+
 
   } );
 

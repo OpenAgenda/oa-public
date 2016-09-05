@@ -1,5 +1,7 @@
 "use strict";
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 var _utils = require('utils');
 
 var _utils2 = _interopRequireDefault(_utils);
@@ -53,6 +55,14 @@ module.exports = function (options, validators) {
 
           errors = errors.concat(e);
         }
+      } else if (_typeof(matchingValue.value) !== 'object') {
+
+        errors = errors.concat([{
+          field: matchingValue.field,
+          origin: matchingValue.value,
+          code: 'string.invalidtype',
+          message: 'not an object'
+        }]);
       } else {
 
         try {

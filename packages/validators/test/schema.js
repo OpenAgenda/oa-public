@@ -241,9 +241,8 @@ describe( 'schema validator', () => {
 
       errors.should.eql( [ {
         field: 'title',
-        code: 'string.tooshort',
-        message: 'the string is too short',
-        values: { min: 2, max: 255 },
+        code: 'required',
+        message: 'a string is required',
         origin: undefined 
       }, {
         field: 'url',
@@ -299,6 +298,39 @@ describe( 'schema validator', () => {
       }
 
       errors.length.should.equal( 0 );
+
+    } );
+
+
+    it( 'if object is specified in schema and submitted value is not an object', () => {
+
+      let validator = schema( {
+        tags: {
+          fr: {
+            type: 'text',
+            max: 255
+          }
+        }
+      } );
+
+      try {
+
+        validator( {
+          tags: 'libre, conférence'
+        } );
+
+      } catch( e ) {
+
+        e.length.should.equal( 1 );
+
+        e[ 0 ].should.eql( {
+          field: 'tags',
+          origin: 'libre, conférence',
+          code: 'string.invalidtype',
+          message: 'not an object'
+        } );
+
+      }
 
     } );
 
