@@ -9,8 +9,8 @@ aggregator = require( '../../aggregator' );
 module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
 
   return {
-    add: add,
-    remove: remove
+    add,
+    remove
   }
 
   function add( sourceAgenda, cb ) {

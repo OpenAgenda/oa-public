@@ -3,9 +3,9 @@ var w = require( 'when' ),
 wn = require( 'when/node' );
 
 module.exports = {
-  w: w,
-  wn: wn,
-  interrupt: interrupt,
+  w,
+  wn,
+  interrupt,
   ife: ifEqual( _isEqual ),
   ifl: ifEqual( _isLoaded )
 }

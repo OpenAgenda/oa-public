@@ -1,4 +1,4 @@
-var log = require( 'logger' )( 'agenda task' ),
+var logger = require( 'logger' ), log,
 
 svc = require( './' ),
 
@@ -8,6 +8,10 @@ eventSvc = require( '../event' ),
 
 coms = require( '../../lib/coms' ),
 
+aggregator = require( '../aggregator' ),
+
+dispatcher = require( './dispatcher' ),
+
 async = require( 'async' ),
 
 config = require( '../../config' ),
@@ -16,22 +20,25 @@ groupActions = require( './tasks/groupActions' );
 
 module.exports = function() {
 
+  log = logger( 'services/agenda/task' );
+
   groupActions();
 
-  coms.subscribe( config.mainChannel, function( err, action ) {
+  coms.subscribe( config.mainChannel, ( err, action ) => {
 
     if ( err ) return;
 
-    if ( [ 'event.create', 'event.update' ].indexOf( action.name ) !== -1 ) {
+    switch ( action.name ) {
 
-      _onEventActivity( action );
+      case 'event.create':
+      case 'event.update':
 
-    }
+        return _onEventActivity( action );
 
-    // legacy php project change on agenda
-    if ( action.name == 'review.update' ) {
+      case 'review.update':
+      case 'agenda.update':
 
-      _onAgendaActivity( action );
+        return _onAgendaActivity( action );
 
     }
 
@@ -46,13 +53,32 @@ function _onAgendaActivity( action ) {
 
     if ( err ) {
 
-      log( 'error', 'could not fetch agenda %s', agenda.id );
+      log( 'error', 'could not fetch agenda %s: %s', action.values.id, err );
 
       return;
 
     }
 
-    agenda.refresh();
+    const dsp = dispatcher( agenda );
+
+    switch ( ( action.values.type || '' ).split( '.' )[ 0 ] ) {
+
+      case 'contributor':
+      case 'moderator':
+      case 'administrator':
+
+        return dsp.onSetStakeholder( userId, action.values.type );
+
+      case 'refresh':
+
+        return dsp.onRefresh();
+
+      default:
+
+        agenda.refreshUpdatedAt();
+
+    }
+    
 
   });
 
@@ -61,25 +87,15 @@ function _onAgendaActivity( action ) {
 
 function _onEventActivity( action ) {
 
-  if ( action.values.muteAgendas ) {
+  log( 'info', action.values.agendaId ? '-- read event %s activity for agenda %s --' : '-- read event %s activity --', action.values.id, action.values.agendaId );
 
-    log( 'agendas update is muted' );
+  eventSvc.get( { id: action.values.id }, ( err, event ) => {
 
-    return;
+    let count = 0;
 
-  }
+    if ( err ) return log( 'error', 'could not fetch event %s', event.id );
 
-  eventSvc.get( { id: action.values.id }, function( err, event ) {
-
-    if ( err ) {
-
-      log( 'error', 'could not fetch event %s', event.id );
-
-      return;
-
-    }
-
-    _forEachRelatedAgenda( event, function( err, agenda, agendaEvent, ecb ) {
+    _forEachRelatedAgenda( event, action.values.agendaId, ( err, agenda, agendaEvent, ecb ) => {
 
       if ( err ) {
 
@@ -89,13 +105,41 @@ function _onEventActivity( action ) {
 
       }
 
-      agenda.refresh();
+      const dsp = dispatcher( agenda );
+
+      switch ( action.values.type ) {
+
+        case 'event.publish':
+
+          dsp.onEventPublish( event, action.values );
+
+          break;
+
+        case 'event.unpublish':
+
+          dsp.onEventUnpublish( event, action.values );
+
+          break;
+
+        case 'event.remove':
+
+          dsp.onEventRemove( event, action.values );
+
+          break;
+
+        default: // assuming regular update.
+
+          dsp.onEventUpdate( event, action.values );
+
+      }
+
+      count++;
 
       ecb();
 
-    }, function() {
+    }, err => {
 
-      log( 'info', 'processed agenda references on event %s action %s', event.uid, action.name );
+      log( 'info', 'processed %s agenda update on event %s action %s', count, event.uid, action.name );
 
     });
 
@@ -104,43 +148,47 @@ function _onEventActivity( action ) {
 }
 
 
-function _emailStrategie( agenda, event ) {
+function _forEachRelatedAgenda( event, agendaId, eachCb, cb ) {
 
-  agenda.emailStrategie.isLinked( function( err, is ) {
+  if ( agendaId ) {
 
-    if ( err ) return cb( err );
+    svc.get( { id: agendaId }, ( err, a ) => {
 
-    if ( !is ) return;
+      if ( err ) return cb( err );
 
-    agenda.emailStrategie.setEvent( event, function( err ) {
+      event.loadAgendaContext( agendaId, err => {
 
-      if ( err ) log( 'error', 'could not updated emailstrategie on agenda %s and event %s', agenda.uid, event.uid );
+        if ( err ) return cb( err );
+
+        eachCb( err, svc.instanciate( a ), event, cb );
+
+      } );
 
     } );
 
-  });
+  } else {
 
-}
+    event.getAgendaReferences( { isPublished: null, internal: true }, function( err, agendas ) {
 
+      if ( err ) return cb( err );
 
-function _forEachRelatedAgenda( event, eachCb, cb ) {
+      async.eachSeries( agendas, ( a, ecb ) => {
 
-  event.getAgendaReferences( { isPublished: null, internal: true }, function( err, agendas ) {
+        var agenda = svc.instanciate( a );
 
-    if ( err ) return cb( err );
+        event.loadAgendaContext( a.id, err => {
 
-    async.eachSeries( agendas, function( a, ecb ) {
+          if ( err ) return cb( err );
 
-      var agenda = svc.instanciate( a );
+          eachCb( err, agenda, event ? utils.extend( {}, event ) : null, ecb );
 
-      event.loadAgendaContext( a.id, function( err ) {
+        });
 
-        eachCb( err, agenda, event ? utils.extend( {}, event ) : null, ecb );
+      }, cb );
 
-      });
+    } );
 
-    }, cb );
+  }
 
-  } );
 
 }

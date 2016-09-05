@@ -11,7 +11,8 @@ sources = require( './lib/sources' ),
 task = require( './lib/task' ),
 
 q = require( 'queue' )( config.queues.aggregator, { 
-  redis: config.redis 
+  redis: config.redis,
+  schedulable: true
 } );
 
 module.exports = {
@@ -28,14 +29,8 @@ module.exports = {
   task: task
 }
 
-notify.set( {
-  q: q
-} );
+notify.set( { q } );
 
-sources.set( {
-  q: q
-} );
+sources.set( { q } );
 
-task.set( {
-  q: q
-} );
+task.set( { q } );

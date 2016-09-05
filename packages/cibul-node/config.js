@@ -359,9 +359,14 @@ var deepExtend = require( 'deep-extend' ),
       logger: {
         debug: {
           prefix: 'oa:',
+          //enable: 'oa:controlData*,oa:services/agenda/task*, oa:services/aggregator*'
+          //enable: 'oa:services/agenda/controlData*'
+          //enable: 'oa:services/agenda/controlData*,oa:services/agenda/task*,oa:services/agenda/dispatcher*,oa:services/aggregator*',
+          //enable: 'oa:services/agenda/controlData*,oa:services/aggregator/sources'
           enable: 'oa:*'
         },
-        token: 'a2923436-55dc-4eba-8668-44824d11c089'
+        token: false // no need to log dev things
+        //token: 'a2923436-55dc-4eba-8668-44824d11c089'
       },
       //useCache: false,
       db: {

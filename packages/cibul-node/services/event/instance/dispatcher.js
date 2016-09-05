@@ -2,10 +2,6 @@
 
 var coms = require( '../../../lib/coms' ),
 
-aggregator,
-
-controlData = require( '../../agenda/controlData' ),
-
 mailContributor = require( './mailContributor' ),
 
 logger = require( 'logger' ),
@@ -21,8 +17,6 @@ st = {}; // buffer serial saves
  */
 
 module.exports = function( loaded, instance ) {
-
-  _requires();
 
   var log = logger( 'services/event/instance/dispatcher' );
 
@@ -50,19 +44,27 @@ module.exports = function( loaded, instance ) {
 
     if ( newState == 'published' )  {
 
-      aggregator.notifyPublish( instance.id, instance.agenda.id );
-
-      controlData.queue( instance.agenda );
+      coms.publish( config.mainChannel, {
+        name: 'event.update',
+        values: {
+          id: instance.id,
+          agendaId: agenda.id,
+          type: 'event.publish'
+        }
+      } );
 
       mailContributor( instance, instance.agenda );
 
-      // here do something dirty before mailer arrives. get template content, send mail.
-
     } else if ( oldState == 'published' ) {
 
-      aggregator.notifyUnpublish( instance.id, instance.agenda.id );
-
-      controlData.queue( instance.agenda );
+      coms.publish( config.mainChannel, {
+        name: 'event.update',
+        values: {
+          id: instance.id,
+          agendaId: agenda.id,
+          type: 'event.unpublish'
+        }
+      } );
 
     }
 
@@ -71,23 +73,7 @@ module.exports = function( loaded, instance ) {
 
   function onSave( options ) {
 
-    let params = utils.extend( {
-      muteAgendas: false
-    }, options || {} );
-
-    if ( st[ instance.id ] ) {
-
-      clearTimeout( st[ instance.id ] );
-
-    }
-
-    st[ instance.id ] = setTimeout( () => {
-
-      log( 'onSave for id %s', instance.id );
-
-      coms.publish( config.mainChannel, { name: 'event.update', values: { id: instance.id, muteAgendas: params.muteAgendas } } );
-
-    }, 200 );
+    log( 'on save happened somehow with these options: %s', JSON.stringify( options ) );
 
   }
 
@@ -101,11 +87,3 @@ module.exports = function( loaded, instance ) {
   }
 
 };
-
-function _requires() {
-
-  // fix for circular reference
- 
-  if ( !aggregator ) aggregator = require( '../../aggregator' );
-
-}

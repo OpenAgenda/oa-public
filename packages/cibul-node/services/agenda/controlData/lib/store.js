@@ -11,26 +11,26 @@ async = require( 'async' ),
 
 redisConfig,
 
-log = require( 'logger' )( 'controlData', { lib: 'store' } ),
+log = require( 'logger' )( 'services/agenda/controlData', { lib: 'store' } ),
 
 namespace, bufferNamespace;
 
 module.exports = {
-  get: get,
-  getTimestamp: getTimestamp,
-  set: set,
+  init,
+  get,
+  getTimestamp,
+  set,
   buffer: buffer(),
-  init: init,
   test: {
-    clear: clear
+    clear
   }
 }
 
 function buffer() {
 
   return {
-    add: add,
-    flush: flush
+    add,
+    flush
   }
 
   function add( id, cb ) {
@@ -75,7 +75,7 @@ function buffer() {
 
         }
 
-        cb( null, ids.map( function( i ) { return parseInt( i, 10 ); } ) );
+        cb( null, ids.map( id => parseInt( id ) ) );
 
       } );
 
@@ -125,7 +125,7 @@ function set( uid, data, cb ) {
 
   if ( !cli ) return;
 
-  cli.set( namespace + ':' + uid, JSON.stringify( data ), function( err ) {
+  cli.set( namespace + ':' + uid, JSON.stringify( data ), err => {
 
     if ( err ) {
 

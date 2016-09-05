@@ -4,8 +4,6 @@ var utils = require( 'utils' ),
 
 store = require( './store' ),
 
-w = require( 'when' ),
-
 logger = require( 'logger' ), log,
 
 moment = require( 'moment-timezone' ),
@@ -14,17 +12,174 @@ async = require( 'async' ),
 
 model = require( '../../../model' ),
 
+p = require( '../../../../lib/promises' ),
+
 svc, eventSvc;
 
 module.exports = function( data, cb ) {
 
-  log = logger( 'controlData', { lib: 'build' } );
-
   loadServices();
 
-  log( 'info', 'processing for %s', data.id );
+  switch( data.type ) {
 
-  w( {
+    case 'eventPublish':
+
+      return _insert( data, cb );
+
+    case 'eventUnpublish':
+    case 'eventRemove':
+
+      return _remove( data, cb );
+
+    case 'eventUpdate':
+
+      return _update( data, cb );
+
+    default: 
+
+      _reset( data, cb );
+
+  }
+
+}
+
+
+function _update( data, cb ) {
+
+  log( 'updating event %s in agenda %s control data', data.eventId, data.id );
+
+  p.w( {
+    agendaId: data.id,
+    eventId: data.eventId,
+    agenda: false,
+    ctlData: false,
+    event: false
+  } )
+
+  .then( _loadAgenda )
+
+  .then( _getControlData )
+
+  .then( p.ifl( { ctlData: true }, _loadEvent ) )
+
+  .then( p.ifl( { ctlData: true, event: true }, _removeEvent ) )
+
+  .then( p.ifl( { ctlData: true }, _appendEvent ) )
+
+  .then( p.ifl( { ctlData: true }, _updateLastOccurrence ) )
+
+  .then( p.ifl( { ctlData: true }, _storeControlData ) )
+
+  .done( v => {
+
+    if ( !v.ctlData ) {
+
+      log( 'control data not found. resetting' );
+
+      return _reset( data, cb );
+
+    }
+
+    log( 'event %s was updated in agenda %s control data', v.event.id, v.agenda.id );
+
+    cb();
+
+  }, cb );
+
+}
+
+
+function _insert( data, cb ) {
+
+  log( 'inserting event %s into agenda %s control data', data.eventId, data.id );
+
+  p.w( {
+    agendaId: data.id,
+    eventId: data.eventId,
+    agenda: false,     // service instance
+    ctlData: false,     // control data
+    event: false
+  } )
+
+  .then( _loadAgenda )
+
+  .then( _getControlData )
+
+  .then( p.ifl( { ctlData: true }, _loadEvent ) )
+
+  .then( p.ifl( { ctlData: true, event: true }, _appendEvent ) )
+
+  .then( p.ifl( { ctlData: true, event: true }, _updateLastOccurrence ) )
+
+  .then( p.ifl( { ctlData: true }, _storeControlData ) )
+
+  .done( v => {
+
+    if ( !v.ctlData ) {
+
+      log( 'insert failed. resetting' );
+
+      return _reset( data, cb );
+
+    }
+
+    log( 'event %s was inserted in agenda %s control data', v.event.id, v.agenda.id );
+
+    cb();
+
+  }, cb );
+
+}
+
+
+function _remove( data, cb ) {
+
+  log( 'removing event %s from agenda %s control data', data.eventId, data.id );
+
+  p.w( {
+    agendaId: data.id,
+    eventId: data.eventId,
+    agenda: false,
+    event: false,
+    ctlData: false
+  } )
+
+  .then( _loadAgenda )
+
+  .then( _getControlData )
+
+  .then( p.ifl( { ctlData: true }, _loadEvent ) )
+
+  .then( p.ifl( { ctlData: true, event: true }, _removeEvent ) )
+
+  .then( p.ifl( { ctlData: true, event: true }, _updateLastOccurrence ) )
+
+  .then( p.ifl( { ctlData: true }, _storeControlData ) )
+
+  .done( v => {
+
+    if ( !v.ctlData ) {
+
+      log( 'remove failed. resetting' );
+
+      return _reset( data, cb );
+
+    }
+
+    log( 'event %s was removed from agenda %s control data', v.event.id, v.agenda.id );
+
+    cb();
+
+  } );
+
+}
+
+
+function _reset( data, cb ) {
+
+  log( 'resetting control data of agenda %s', data.id );
+
+  p.w( {
     agendaId: data.id,
     dbInstance: false, // model instance
     agenda: false,     // service instance
@@ -35,9 +190,9 @@ module.exports = function( data, cb ) {
 
   .then( _loadBase ) // init ctlData
 
-  .then( _append ) // append events to ctlData
+  .then( _appendEvents ) // append events to ctlData
 
-  .then( _store ) // store ctlData
+  .then( _storeControlData ) // store ctlData
 
   .done( function( v ) {
 
@@ -45,37 +200,63 @@ module.exports = function( data, cb ) {
 
     cb( null, v.ctlData );
 
-  }, function( err ) {
+  }, err => {
 
     log( 'error', err );
 
     cb( err ); // queue lib does not handle errors
 
-  });
+  } );
 
 }
 
-function _store( v ) {
 
-  return w.promise( function( rs, rj ) {
+function _updateLastOccurrence( v ) {
 
-    log( 'info', 'storing control data for agenda %s', v.agenda.id );
+  return p.wn.call( v.agenda.getLastOccurrence )
 
-    store.set( v.agenda.uid, v.ctlData, function( err ) {
+  .then( lo => {
 
-      if ( err ) return rj( err );
+    v.ctlData.lo = lo;
 
-      rs( v );
+    return v;
 
-    } );
+  } );
 
-  });
+}
+
+
+function _storeControlData( v ) {
+
+  log( 'info', 'storing control data for agenda %s', v.agenda.id );
+
+  return p.wn.call( store.set, v.agenda.uid, v.ctlData )
+
+  .then( () => v );
+
+}
+
+function _getControlData( v ) {
+
+  log( 'retrieving control data for agenda %s', v.agenda.id );
+
+  return p.wn.call( store.get, v.agenda.uid )
+
+  .then( ctlData => {
+
+    log( ctlData ? 'control data retrieved for agenda %s' : 'control data could not be retrieved for agenda %s', v.agenda.id );
+
+    v.ctlData = ctlData;
+
+    return v;
+
+  } );
 
 }
 
 function _append( v ) {
 
-  return w.promise( function( rs, rj ) {
+  return p.w.promise( function( rs, rj ) {
 
     log( 'appending events to control data' );
 
@@ -95,7 +276,7 @@ function _append( v ) {
 
 function _loadBase( v ) {
 
-  return w.promise( function( rs, rj ) {
+  return p.w.promise( function( rs, rj ) {
 
     log( 'getting base control data' );
 
@@ -115,7 +296,7 @@ function _loadBase( v ) {
 
 function _loadAgenda( v ) {
 
-  return w.promise( function( rs, rj ) {
+  return p.w.promise( function( rs, rj ) {
 
     log( 'loading agenda' );
 
@@ -138,45 +319,42 @@ function _loadAgenda( v ) {
 }
 
 
-function _appendEvents( agenda, ctlData, cb ) {
+function _loadEvent( v ) {
 
-  var hasMore = true, page = 1, eIndex = [], eUids =[], lIndex = [], lUids = [];
+  let d = p.w.defer();
 
-  async.doWhilst( function( wcb ) {
+  log( 'loading event %s', v.eventId );
 
-    agenda.search( { passed: 1 }, { limit: 40, page: page }, function( err, result ) {
+  eventSvc.get( { id: v.eventId }, ( err, event ) => {
+
+    if ( err ) return d.reject( err );
+
+    log( event ? 'loaded event %s' : 'no event found for id %s', v.eventId );
+
+    v.event = event;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _appendEvents( v ) {
+
+  let d = p.w.defer(),
+
+  hasMore = true, page = 1;
+
+  async.doWhilst( wcb => {
+
+    v.agenda.search( { passed: 1 }, { limit: 40, page: page }, ( err, result ) => {
 
       if ( err ) return wcb( err );
 
-      result.events.forEach( function( event ) {
-
-        var eInst = eventSvc.instanciate( event ),
-
-        l = _extractLocation( eInst ),
-
-        e = _extractEvent( agenda, eInst );
-
-        if ( eUids.indexOf( e.u ) == -1 ) {
-
-          eUids.push( e.u );
-
-          eIndex.push( e );
-
-        }
-
-        if ( l && lUids.indexOf( l.u ) == -1 ) {
-
-          lUids.push( l.u );
-
-          lIndex.push( l );
-
-        }
-
-      });
-
-      ctlData.l = lIndex;
-
-      ctlData.ev = eIndex;
+      result.events.forEach( _appendEvent.bind( null, v ) );
 
       hasMore = !!result.events.length;
 
@@ -186,19 +364,76 @@ function _appendEvents( agenda, ctlData, cb ) {
 
     } );
 
-  }, function() {
+  },
 
-    return hasMore;
+  () => hasMore,
 
-  }, function( err ) {
+  err => {
 
-    if ( err ) return cb( err );
+    if ( err ) return d.reject( err );
 
-    cb( null, ctlData );
+    d.resolve( v );
 
   } );
 
+  return d.promise;
+
 }
+
+
+function _appendEvent( v, event ) {
+
+  if ( arguments.length === 1 ) {
+
+    event = v.event;
+
+  }
+
+  let eInst = eventSvc.instanciate( event ),
+
+  l = _extractLocation( eInst ),
+
+  e = _extractEvent( v.agenda, eInst );
+
+  if ( v.ctlData.ev.map( ev => ev.u ).indexOf( e.u ) == -1 ) {
+
+    v.ctlData.ev.push( e );
+
+  }
+
+  if ( l && v.ctlData.l.map( lc => lc.u ).indexOf( l.u ) == -1 ) {
+
+    v.ctlData.l.push( l );
+
+  }
+
+  return v;
+
+}
+
+
+function _removeEvent( v ) {
+
+  let eInst = eventSvc.instanciate( v.event ),
+
+  locationUid = eInst.getLocationUid();
+
+  // pop event from list
+  
+  v.ctlData.ev = v.ctlData.ev.filter( e => e.u !== eInst.uid );
+
+  // pop location from list if no other event uses it
+  
+  if ( !v.ctlData.ev.filter( e => e.l === locationUid ).length ) {
+
+    v.ctlData.l = v.ctlData.l.filter( l => l.u !== locationUid );
+
+  }
+
+  return v;
+
+}
+
 
 function _extractLocation( event ) {
 
@@ -266,5 +501,7 @@ function loadServices() {
   svc = require( '../../' );
 
   eventSvc = require( '../../../event' );
+
+  if ( !log ) log = logger( 'services/agenda/controlData', { lib: 'build' } );
 
 }

@@ -19,66 +19,6 @@ module.exports = {
   unpublish
 }
 
-function unpublish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
-
-  _init();
-
-  if ( arguments.length === 4 ) {
-
-    cb = mute;
-
-    mute = false;
-
-  }
-
-  log( 'unpublish - evaluating for event %s, source %s, aggregating agenda %s %s', eventId, sourceId, aggregatingAgendaId, mute ? 'mute' : '' );
-
-  p.w( {
-    eventId,
-    sourceId,
-    aggregatingAgendaId,
-    mute,
-    aggregatingAgenda: null,
-    hasRemainingReferences: null,
-    removed: false
-  } )
-
-  .then( aggUtils.loadAgenda( 'sourceAgenda', 'sourceId' ) )
-
-  .then( aggUtils.loadAgenda( 'aggregatingAgenda', 'aggregatingAgendaId' ) )
-
-  .then( aggUtils.loadEvent )
-
-  .then( _checkIfReferenced )
-
-  .then( p.ife( { referenced: true }, _checkIfReferencedBySource ) )
-
-  // start event change operations. First de-reference source agenda from aggregating agenda event
-  .then( p.ife( { referenced: true }, _removeSourceReference ) )
-
-  // if aggregating agenda event has no other source references, remove it; ( it was not added by other source )
-  .then( p.ife( { referenced: true, referencedBySource: true, hasRemainingReferences: false }, _removeFromAggregator ) )
-
-  .done( v => {
-
-    if ( v.removed ) {
-
-      log( 'unpublish - removed event %s of source %s from aggregating agenda %s', eventId, sourceId, aggregatingAgendaId );
-
-    } else {
-
-      log( 'unpublish - did nothing for event %s of source %s and aggregating agenda %s', eventId, sourceId, aggregatingAgendaId );
-
-    }
-
-    cb( null, {
-      removed: v.removed
-    } );
-
-  }, cb );
-
-}
-
 
 function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
 
@@ -170,6 +110,63 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
 }
 
 
+function unpublish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
+
+  _init();
+
+  if ( arguments.length === 4 ) {
+
+    cb = mute;
+
+    mute = false;
+
+  }
+
+  log( 'unpublish - evaluating for event %s, source %s, aggregating agenda %s %s', eventId, sourceId, aggregatingAgendaId, mute ? 'mute' : '' );
+
+  p.w( {
+    eventId,
+    sourceId,
+    aggregatingAgendaId,
+    mute,
+    aggregatingAgenda: null,
+    hasRemainingReferences: null,
+    removed: false
+  } )
+
+  .then( aggUtils.loadAgenda( 'sourceAgenda', 'sourceId' ) )
+
+  .then( aggUtils.loadAgenda( 'aggregatingAgenda', 'aggregatingAgendaId' ) )
+
+  .then( aggUtils.loadEvent )
+
+  .then( _checkIfReferenced )
+
+  .then( p.ife( { referenced: true }, _checkIfReferencedBySource ) )
+
+  // start event change operations. First de-reference source agenda from aggregating agenda event
+  .then( p.ife( { referenced: true }, _removeSourceReference ) )
+
+  // if aggregating agenda event has no other source references, remove it; ( it was not added by other source )
+  .then( p.ife( { referenced: true, referencedBySource: true, hasRemainingReferences: false }, _removeFromAggregator ) )
+
+  .done( v => {
+
+    if ( !v.removed ) {
+
+      log( 'unpublish - did nothing for event %s of source %s and aggregating agenda %s', eventId, sourceId, aggregatingAgendaId );
+
+    }
+
+    cb( null, {
+      removed: v.removed
+    } );
+
+  }, cb );
+
+}
+
+
 /**
  * verify that source effectively references
  * this event
@@ -210,6 +207,8 @@ function _checkIfReferenced( v ) {
 
       if ( !has ) {
 
+        log( 'aggregating agenda %s does not yet reference event %s', v.aggregatingAgendaId, v.event.id );
+
         v.referenced = false;
 
         rs( v );
@@ -219,6 +218,8 @@ function _checkIfReferenced( v ) {
         v.event.loadAgendaContext( v.aggregatingAgendaId, function( err ) {
 
           v.referenced = true;
+
+          log( 'aggregating agenda %s already references event %s', v.aggregatingAgendaId, v.event.id );
 
           if ( err ) return rj( err );
 
@@ -244,8 +245,9 @@ function _checkIfReferenced( v ) {
 function _checkIfReferencedBySource( v ) {
 
   // need a sources getter on the event instance here.
+  log( 'checking if was referenced by source' );
 
-  return p.w.promise( function( rs, rj ) {
+  return p.w.promise( ( rs, rj ) => {
 
     v.event.getSources( function( err, sources ) {
 
@@ -275,8 +277,7 @@ function _addNewSourceReference( v ) {
   log( 'adding source agenda %s reference to event %s', v.sourceAgenda.id, v.event.id );
 
   v.event.addSource( {
-    sourceId: v.sourceAgenda.id,
-    mute: v.mute
+    sourceId: v.sourceAgenda.id
   }, err => {
 
     if ( err ) return d.reject( err );
@@ -303,8 +304,7 @@ function _removeSourceReference( v ) {
   let d = p.w.defer();
 
   v.event.removeSource( {
-    sourceId: v.sourceAgenda.id,
-    muteAgendas: v.mute
+    sourceId: v.sourceAgenda.id
   }, err => {
 
     if ( err ) return d.reject( err );
@@ -337,13 +337,13 @@ function _removeFromAggregator( v ) {
   return p.w.promise( function( rs, rj ) {
 
     v.aggregatingAgenda.removeEvent( v.event, {
-      mute: v.mute
+      refresh: !v.mute
     }, ( err, result ) => {
 
       if ( err ) return rj( err );
 
       log( 'info', {
-        message: 'publish - removed event %s of source %s to aggregating agenda %s',
+        message: 'unpublish - removed event %s of source %s from aggregating agenda %s',
         type: 'eventremove',
         eventId: v.eventId,
         aggregatorAgendaId: v.aggregatingAgendaId,
@@ -509,9 +509,11 @@ function _addEventToAggregator( v ) {
 
   let d = p.w.defer();
 
+  log( 'adding event %s to aggregating agenda %s', v.event.id, v.aggregatingAgenda.id );
+
   v.aggregatingAgenda.addEvent( v.event, {
     stakeholder: { id: v.aggregatingAgenda.ownerId },
-    mute: v.mute
+    refresh: !v.mute
   }, err => {
 
     if ( err ) return d.reject( err );
@@ -523,8 +525,7 @@ function _addEventToAggregator( v ) {
       if ( err ) return d.reject( err );
 
       v.event.addSource( {
-        sourceId: v.sourceId,
-        muteAgendas: v.mute
+        sourceId: v.sourceId
       }, ( err, result ) => {
 
         if ( err ) return d.reject( err );

@@ -160,15 +160,29 @@ function _getAndParse( url, cb ) {
 
   log( 'fetching %s', url );
 
-  https.get( url, function( res ) {
+  https.get( url, res => {
 
-    res.on( 'data', function( chunk ) {
+    let errored = false;
+
+    res.on( 'error', err => {
+
+      errored = true;
+
+      cb( err );
+
+    } );
+
+    res.on( 'data', chunk => {
+
+      if ( errored ) return;
 
       data += chunk;
 
     });
 
     res.on( 'end', function() {
+
+      if ( errored ) return;
 
       try {
 
@@ -192,7 +206,9 @@ function _getAndParse( url, cb ) {
 
     });
 
-  } );
+  } )
+
+  .on( 'error', cb );
 
 }
 

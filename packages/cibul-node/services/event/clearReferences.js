@@ -14,7 +14,11 @@ module.exports = function( agendaId, eventId ) {
 
       coms.publish( config.mainChannel, {
         name: 'event.update',
-        values: { id: eventId }
+        values: {
+          id: eventId,
+          agendaId: agendaId, 
+          type: 'references.clear'
+        }
       } );
 
     } );

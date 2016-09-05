@@ -15,9 +15,9 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
   var onStateChange;
 
   return {
-    setState: setState,
-    getState: getState,
-    setOnStateChange: setOnStateChange
+    setState,
+    getState,
+    setOnStateChange
   }
 
   function getState( options, cb ) {
@@ -97,7 +97,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
       }
 
-      stateModifiers[ newState ]( instance, function( err, result ) {
+      stateModifiers[ newState ]( instance, ( err, result ) => {
 
         if ( err ) return cb( err );
 

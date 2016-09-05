@@ -13,10 +13,10 @@ util.inherits( Search, Readable );
 module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => {
 
   return {
+    searchStream,
+    resync,
     search: es.agendas( instance ).search,
-    searchStream: searchStream,
-    aggregate: es.agendas( instance ).aggregate,
-    resync: resync
+    aggregate: es.agendas( instance ).aggregate
   }
 
   function resync( cb ) {

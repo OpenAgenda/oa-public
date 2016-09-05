@@ -28,16 +28,18 @@ groupActions = require( './groupActions' ),
 
 controlData = require( '../controlData' ),
 
-dispatcher = require( './dispatcher' ),
-
 instanceQueue = require( '../../lib/instanceQueue' ),
+
+coms = require( '../../../lib/coms' ),
+
+config = require( '../../../config' ),
 
 onRefresh;
 
 module.exports = instanciate;
 
 module.exports.test = {
-  setOnRefresh: setOnRefresh
+  setOnRefresh
 }
 
 function instanciate( data ) {
@@ -52,16 +54,17 @@ function instanciate( data ) {
     setContributor: _stakeholderSetter( 'setContributor' ),
     setModerator: _stakeholderSetter( 'setModerator' ),
     setAdministrator: _stakeholderSetter( 'setAdministrator' ),
+    unsetContributor: _stakeholderSetter( 'unsetContributor' ),
+    unsetModerator: _stakeholderSetter( 'unsetModerator' ),
+    unsetAdministrator: _stakeholderSetter( 'unsetAdministrator' ),
     events: {
       new: newEvent,
-      list: instance.events.list
+      list: instance.events.list,
+      get: instance.events.get
     },
-    refresh
-  }),
-
-  dsp = dispatcher( svcInstance, instance );
-
-  instance.onSave = dsp.onSave;
+    refresh,
+    refreshUpdatedAt
+  });
 
   instanceQueue( svcInstance, instance, [
     'queue'
@@ -102,24 +105,33 @@ function instanciate( data ) {
 
     log( 'refreshing agenda id %s', instance.id );
 
-    if ( onRefresh ) onRefresh( instance.id );
+    if ( onRefresh ) onRefresh( instance.id, options );
+
+    coms.publish( config.mainChannel, {
+      name: 'agenda.update',
+      values: {
+        id: instance.id,
+        type: 'refresh'
+      }
+    } );
+
+    if ( cb ) return cb();
+
+  }
+
+
+  function refreshUpdatedAt() {
 
     instance.save( { updatedAt: new Date() }, err => {
 
       if ( err ) {
 
-        log( 'error', 'could not clear timestamp of agenda %s', agenda.uid );
-
-      } else {
-
-        dsp.onRefresh();
+        log( 'error', 'could not clear timestamp of agenda %s: %s', instance.id, err );
 
       }
 
-      if ( cb ) return cb( err );
-
     } );
-    
+
   }
 
 
@@ -137,7 +149,7 @@ function instanciate( data ) {
 
     let params = utils.extend( {
       stakeholder: null, // required!
-      mute: false
+      refresh: true
     }, options );
 
     instance.isStakeholder( params.stakeholder, ( err, is ) => {
@@ -146,12 +158,20 @@ function instanciate( data ) {
 
       if ( !is ) return cb( 'you cannot contribute to this agenda' );
 
-      instance.addEvent( event, params.stakeholder, ( err, result ) => {
+      instance.addEvent( event, params.stakeholder, err => {
 
         if ( err ) return cb( err );
 
-        if ( !params.mute ) dsp.onAddEvent( event.id );
-        
+        coms.publish( config.mainChannel, {
+          name: 'event.update',
+          values: {
+            id: event.id,
+            agendaId: instance.id,
+            type: 'event.publish',
+            refresh: params.refresh
+          }
+        } );
+
         cb();
 
       } );
@@ -194,18 +214,26 @@ function instanciate( data ) {
       agenda: instance,
       event,
       stakeholder: null,
-      mute: false
+      refresh: true
     }, options ) )
 
     .then( _checkIsStakeholder )
 
     .done( v => {
 
-      instance.removeEvent( v.event, function( err, count ) {
+      instance.removeEvent( v.event, ( err, count ) => {
 
         if ( err ) return cb( err );
 
-        if ( !v.mute ) dsp.onRemoveEvent( event.id );
+        coms.publish( config.mainChannel, {
+          name: 'event.update',
+          values: {
+            id: v.event.id,
+            agendaId: instance.id,
+            type: 'event.remove',
+            refresh: v.refresh
+          }
+        } );
 
         cb();
 
@@ -235,7 +263,21 @@ function instanciate( data ) {
 
         if ( err ) return cb( err );
 
-        dsp.onRefresh();
+        coms.publish( config.mainChannel, {
+          name: 'agenda.update',
+          values: {
+            id: instance.id,
+            userId: user.id,
+            type: ( {
+              setContributor: 'contributor.set',
+              setModerator: 'moderator.set',
+              setAdministrator: 'administrator.set',
+              unsetAdministrator: 'administrator.unset',
+              unsetModerator: 'moderator.unset',
+              unsetContributor: 'contributor.unset'
+            } )[ methodName ]
+          }
+        } );
 
         cb();
 

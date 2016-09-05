@@ -8,6 +8,7 @@ q,
 
 logger = require( 'logger' ), log;
 
+
 /**
  * create jobs to evaluate addition of event in each
  * aggregator of source agenda and queue
@@ -49,7 +50,7 @@ function unpublish( eventId, agendaId, cb ) {
 
   .then( _dispatch( 'evaluate.unpublish' ) )
 
-  .done( function( v ) {
+  .done( v => {
 
     log( 'unpublish - dispatched %s evaluates', v.aggregatorAgendaIds.length );
 
@@ -60,7 +61,7 @@ function unpublish( eventId, agendaId, cb ) {
 }
 
 
-function publish( eventId, agendaId, cb ) {
+function publish( eventId, agendaId, mute, cb ) {
 
   _init();
 
@@ -72,14 +73,15 @@ function publish( eventId, agendaId, cb ) {
 
     return q( {
       method: 'notify.publish',
-      args: [ eventId, agendaId ]
+      args: [ eventId, agendaId, mute ]
     } );
 
   }
 
   p.w( {
-    agendaId: agendaId,
-    eventId: eventId,
+    mute,
+    agendaId,
+    eventId,
     agenda: false,
     aggregatorAgendaIds: []
   } )
@@ -90,7 +92,7 @@ function publish( eventId, agendaId, cb ) {
 
   .then( _dispatch( 'evaluate.publish' ) )
 
-  .done( function( v ) {
+  .done( v => {
 
     log( 'publish - dispatched %s evaluates', v.aggregatorAgendaIds.length )
 
@@ -109,7 +111,7 @@ function set( config ) {
 
 function _dispatch( method ) {
 
-  return function( v ) {
+  return v => {
 
     return p.w.map( v.aggregatorAgendaIds, function( aggAgendaId ) {
 
@@ -117,7 +119,7 @@ function _dispatch( method ) {
 
         q( {
           method: method,
-          args: [ v.eventId, v.agendaId, aggAgendaId ]
+          args: [ v.eventId, v.agendaId, aggAgendaId, v.mute ]
         }, function( err ) {
 
           if ( err ) return rj( err );
@@ -145,17 +147,17 @@ function _retrieveAgendaIdsFromSources( v ) {
 
   return p.w.promise( function( rs, rj ) {
 
-    v.event.getAgendaReferences( { internal: true, isPublished: null }, function( err, refs ) {
+    v.event.getAgendaReferences( { internal: true, isPublished: null }, ( err, refs ) => {
 
-      refs.forEach( function( r ) {
+      log( 'retrieved %s agenda references for event %s', refs.length, v.event.id );
 
-        if ( r.sourceIds && r.sourceIds.indexOf( v.agendaId ) !== -1 ) {
+      v.aggregatorAgendaIds = refs
 
-          v.aggregatorAgendaIds.push( r.id );
+        .filter( r => r.sourceIds && r.sourceIds.indexOf( v.agendaId ) !== -1 )
 
-        }
+        .map( r => r.id );
 
-      } );
+      log( 'got %s aggregator ids', v.aggregatorAgendaIds.length );
 
       rs( v );
 

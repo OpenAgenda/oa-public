@@ -43,6 +43,7 @@ jobHandlers = {
   'review.publish' : _publish( 'reviews' ),
   'review.delete' : _delete( 'reviews' ),
   'review.update' : _update( 'reviews' ),
+  'agenda.update' : _update( 'reviews' ),
   'review.sync': _sync
 };
 

@@ -6,13 +6,13 @@ store = require( './lib/store' ),
 
 task = require( './lib/task' ),
 
+utils = require( 'utils' ),
+
 config = require( '../../../config' ),
 
-log = require( 'logger' )( 'controlData', { lib: 'index' } ),
+log = require( 'logger' )( 'services/agenda/controlData', { lib: 'index' } ),
 
 q = require( 'queue' )( config.queues.controlData + ':queue', { redis: config.redis } ),
-
-lock = require( './lib/lock' ),
 
 namespace = 'agendaControlData';
 
@@ -26,21 +26,27 @@ task.init( {
   queuesNamespace: config.queues.controlData
 });
 
-lock.init( {
-  redis: config.redis,
-  namespace: namespace
-});
-
 module.exports = getter;
 
 module.exports.task = task;
 
-module.exports.queue = function( agenda, cb ) {
+module.exports.queue = ( agenda, options, cb ) => {
 
-  var agendaId = typeof agenda == 'object' ? agenda.id : agenda;
+  if ( arguments.length === 2 && typeof options === 'function') {
 
-  log( 'queuing ctl data process for agenda %s', agendaId );
+    cb = options;
+    options = {};
 
-  q( { id: agendaId }, cb );
+  }
+
+  let params = utils.extend( {
+    id: typeof agenda == 'object' ? agenda.id : agenda,
+    type: false, // 'eventPublish', 'eventRemove', 'reset', 'eventUpdate'
+    eventId: false, // if event action, specify event
+  }, options );
+
+  log( 'info', utils.extend( { message: 'queueing ctl data job' }, params ) );
+
+  q( params, cb );
 
 }

@@ -132,7 +132,13 @@ function process( sourceId, aggregatorAgendaId, upcomingOnly, mute, cb ) {
       queuedCount: v.queuedCount
     } );
 
-  }, cb );
+  }, err => {
+
+    log( 'process error: %s', err );
+
+    cb( err );
+
+  } );
 
 }
 
@@ -200,7 +206,7 @@ function _streamEvaluates( v ) {
 
     var stream = v.sourceAgenda.searchStream( { passed: !v.upcomingOnly } );
     
-    stream.on( 'data', function( eventData ) {
+    stream.on( 'data', eventData => {
 
       stream.pause();
 
@@ -305,16 +311,26 @@ function _dispatchProcessJob( v ) {
 
 function _dispatchProcessComplete( v ) {
 
-  log( 'dispatching source process completion for agenda id %s', v.aggregatorAgendaId );
-
   let d = p.w.defer();
 
-  q( {
-    method: 'sources.complete',
-    args: [ v.aggregatorAgendaId ]
-  }, err => {
+  log( 'dispatching source process completion for agenda id %s', v.aggregatorAgendaId );
+
+  q( { method: 'sources.complete', args: [ v.aggregatorAgendaId ] } );
+
+  aggUtils.getAllAggregatorIds( v.aggregatorAgendaId, ( err, ids ) => {
 
     if ( err ) return d.reject( err );
+
+    log( 'dispatching delayed source process completion for aggregators of aggregator agenda %s: %s', v.aggregatorAgendaId, ids.join( ',' ) );
+
+    ids.forEach( id => {
+
+      q( {
+        method: 'sources.complete',
+        args: [ id ]
+      }, { delay: 15 * 60 * 1000 } ); // delay for 15 minutes.
+
+    } );
 
     d.resolve( v );
 

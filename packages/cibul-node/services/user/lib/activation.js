@@ -35,10 +35,10 @@ function init( svc ) {
 }
 
 module.exports = lib.extend( init, {
-  verify: verify,
-  createAndSend: createAndSend,
-  activateByToken: activateByToken,
-  activate: activate
+  verify,
+  createAndSend,
+  activateByToken,
+  activate
 } );
 
 
