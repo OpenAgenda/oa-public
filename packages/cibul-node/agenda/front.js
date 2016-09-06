@@ -645,6 +645,12 @@ function _layoutData( req, res ) {
     }
   };
 
+  if ( req.embed ) {
+
+    data.scriptParams.autoscroll = req.embed.getAutoscroll();
+
+  }
+
   if ( req.agenda.image ) {
 
     lib.extend( data.metas, {
