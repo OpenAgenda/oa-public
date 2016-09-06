@@ -28,9 +28,6 @@
     /* bring your own prefixes */
     transform: translate(-50%, -50%);
 
-    max-height: 95%;
-    margin-top: 7%;
-
   }
 
   &.big {
@@ -38,6 +35,8 @@
     section {
 
       overflow-y: scroll;
+      max-height: 90%;
+      margin-top: 15%;
 
     }
 
@@ -100,9 +99,36 @@
   }
 
   @media (min-width: 768px) {
+
     section {
       border-radius: 3px;
       width: 38.2%;
     }
+
+    &.big {
+
+      section {
+
+        margin-top: 10%;
+
+      }
+
+    }
+
   }
+
+  @media (min-width: 1200px) {
+
+    &.big {
+
+      section {
+
+        margin-top: 5%;
+
+      }
+
+    }
+
+  }
+
 }
