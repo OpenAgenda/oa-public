@@ -36,6 +36,8 @@ update = require( 'react-addons-update' ),
 
 languageUtils = require( './legacy/languageUtils' ),
 
+Modal = require( 'react-components/build/Modal' ),
+
 textFields = [ 'title', 'description', 'freeText', 'tags', 'conditions' ],
 
 formErrors = {};
@@ -472,9 +474,7 @@ module.exports = React.createClass( {
 
     return <div>
 
-      {this.state.locationMode === 'create' ? this.renderLocationSelector() : null}
-
-      <div style={{display: this.state.locationMode === 'create' ? 'none' : 'block' }}>
+      <div>
 
         { ( this.props.categories && this.props.categories.length ) || ( this.props.categorySet && this.props.categorySet.categories.length ) ? <CategorySelector
           lang={this.props.lang}
@@ -599,7 +599,14 @@ module.exports = React.createClass( {
 
         <div>
           <h2>{ this.props.labels.locationSection[ this.props.lang ] }</h2>
-          { this.state.locationMode === 'create' ? null : this.renderLocationSelector() }
+          { this.state.locationMode === 'create' ? 
+            <Modal disableBodyScroll={{true}} classNames={{
+              overlay: 'popup-overlay big'
+            }} onClose={ ()=>{ this.onLocationModeChange( 'search' ); } } >
+              <h2>{this.getLabel( 'locationCreate' )}</h2>
+              {this.renderLocationSelector()}
+            </Modal>
+          : this.renderLocationSelector() }
         </div>
         
         <TimingsPicker
