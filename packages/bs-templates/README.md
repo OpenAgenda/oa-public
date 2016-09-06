@@ -12,6 +12,10 @@ and then:
 
 npm start
 
+# Final css usage
+
+ * Ensure all wanted style is added in the proper compiled/ scss file and npm run build to get the final css file. Require that where you please.
+
 # Rules
 
   * Avoid loosely identified general styling rules. If you think a style *may* be useful for other pages in the future, put it in a separate scss file, but keep it in the folder of the project you are working on. When the day comes that the file is effectively used elsewhere, it can be moved at that point
