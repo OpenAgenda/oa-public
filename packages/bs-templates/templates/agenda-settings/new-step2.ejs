@@ -1,0 +1,90 @@
+<% include ../layout/_top.ejs %>
+
+<div class="container agenda-settings new-step2">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            <div class="top-margined wsq">
+                <div class="content clearfix">
+                    <div class="stepper-container">
+                        <div class="stepper">
+                            <div class="step passed">Description</div>
+                            <div class="step active">Paramètres</div>
+                        </div>
+                    </div>
+
+                    <h2>Le salon du cheval #MoiMeme</h2>
+                    <form>
+                        <div class="form-group">
+                            <div class="radio">
+                                <p><b>Qui peut ajouter des événements à cet agenda ?</b></p>
+                                <label>
+                                    <input type="radio" name="addEvent" />
+                                    Seulement des personnes choisies et moi
+                                </label><br>
+                                <label>
+                                    <input type="radio" name="addEvent" />
+                                    Tout le monde
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="radio">
+                                <p><b>Statut par défaut des événements</b></p>
+                                <label>
+                                    <input type="radio" name="eventDefaultStatus" />
+                                    Publiés
+                                    (<span class="text-muted">vous pouvez modifier les événements ensuite</span>)
+                                </label><br>
+                                <label>
+                                    <input type="radio" name="eventDefaultStatus" />
+                                    Non-publiés
+                                    (<span class="text-muted">les événements ne deviennent publics qu'après votre validation</span>)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p><b>Votre agenda concerne une manifestation ponctuelle, par exemple un festival, un salon ?</b></p>
+                            <p>
+                                Indiquez la période concernée ci-dessous.<br>
+                                Ceci pré-positionnera le sélecteur de dates du formulaire événement et simplifiera la saisie.
+                            </p>
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <div class="dropdown open">
+                                        <label for="startEntryDate">Du</label>
+                                        <input type="text" class="form-control" placeholder="Début"
+                                               id="startEntryDate" data-toggle="dropdown"
+                                               aria-haspopup="true" aria-expanded="true">
+                                        <ul class="dropdown-menu" aria-labelledby="startEntryDate">
+                                            <li>
+                                                <% include ../components/_calendar %>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="dropdown">
+                                        <label for="endEntryDate">Au</label>
+                                        <input type="text" class="form-control" placeholder="Fin"
+                                               id="endEntryDate" data-toggle="dropdown"
+                                               aria-haspopup="true" aria-expanded="true">
+                                        <ul class="dropdown-menu" aria-labelledby="startEntryDate">
+                                            <li>
+                                                <% include ../components/_calendar %>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary">Créer l'agenda</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../layout/_bottom.ejs %>
