@@ -1,7 +1,8 @@
 "use strict";
 
 var React = require('react'),
-    ReactDOM = require("react-dom");
+    ReactDOM = require("react-dom"),
+    bodyScroll = require('./bodyScroll');
 
 var Modal = React.createClass({
 
@@ -10,7 +11,8 @@ var Modal = React.createClass({
   propTypes: {
     title: React.PropTypes.string,
     visible: React.PropTypes.bool,
-    onClose: React.PropTypes.func
+    onClose: React.PropTypes.func,
+    disableBodyScroll: React.PropTypes.bool
   },
 
   clickOnModal: false,
@@ -20,6 +22,7 @@ var Modal = React.createClass({
     return {
       title: false,
       visible: true,
+      disableBodyScroll: false,
       classNames: {
         overlay: 'popup-overlay'
       }
@@ -47,9 +50,15 @@ var Modal = React.createClass({
 
     document.removeEventListener('click', this.handleDocumentClick);
   },
+  componentDidMount: function componentDidMount() {
+
+    if (this.props.disableBodyScroll) bodyScroll.disable();
+  },
   componentWillUnmount: function componentWillUnmount() {
 
     this.removeClickEvents();
+
+    if (this.props.disableBodyScroll) bodyScroll.enable();
   },
   handleModalClick: function handleModalClick(e) {
 

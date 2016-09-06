@@ -2,7 +2,9 @@
 
 const React = require( 'react' ),
 
-  ReactDOM = require( "react-dom" );
+  ReactDOM = require( "react-dom" ),
+
+  bodyScroll = require( './bodyScroll' );
 
 
 const Modal = React.createClass( {
@@ -12,7 +14,8 @@ const Modal = React.createClass( {
   propTypes: {
     title: React.PropTypes.string,
     visible: React.PropTypes.bool,
-    onClose: React.PropTypes.func
+    onClose: React.PropTypes.func,
+    disableBodyScroll: React.PropTypes.bool
   },
 
   clickOnModal: false,
@@ -22,6 +25,7 @@ const Modal = React.createClass( {
     return {
       title: false,
       visible: true,
+      disableBodyScroll: false,
       classNames: {
         overlay: 'popup-overlay'
       }
@@ -59,9 +63,17 @@ const Modal = React.createClass( {
 
   },
 
+  componentDidMount() {
+
+    if ( this.props.disableBodyScroll ) bodyScroll.disable();
+
+  },
+
   componentWillUnmount() {
 
     this.removeClickEvents();
+
+    if ( this.props.disableBodyScroll ) bodyScroll.enable();
 
   },
 
