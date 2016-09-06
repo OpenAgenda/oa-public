@@ -65,6 +65,13 @@ function publish( eventId, agendaId, mute, cb ) {
 
   _init();
 
+  if ( arguments.length === 3 && typeof mute === 'function' ) {
+
+    cb = mute;
+    mute = false;
+
+  } 
+
   log( 'publish event %s on source %s', eventId, agendaId );
 
   if ( !cb ) {
