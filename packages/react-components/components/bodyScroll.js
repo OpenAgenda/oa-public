@@ -38,9 +38,7 @@ function disable() {
 }
 
 function _stringifyStyle( style ) {
-
-  console.log( style );
-
+  
   return Object.keys( style ).filter( k => !!k.length ).map( k => k + ':' + style[ k ] ).join( ';' );
 
 }
