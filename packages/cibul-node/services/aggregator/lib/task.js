@@ -59,13 +59,17 @@ function _process( data, cb ) {
 
   if ( !method ) {
 
-    return log( 'error', 'method not set' );
+    log( 'error', 'method not set' );
+
+    return cb();
 
   }
 
   if ( !args || !utils.isArray( args ) ) {
 
-    return log( 'error', 'args not set' );
+    log( 'error', 'args not set' );
+
+    return cb();
 
   }
 
@@ -73,19 +77,25 @@ function _process( data, cb ) {
 
   if ( method.length !== 2 ) {
 
-    return log( 'error', 'wrong method format' );
+    log( 'error', 'wrong method format' );
+
+    return cb();
 
   }
 
   if ( !libs[ method[ 0 ] ] ) {
 
-    return log( 'error', 'unknown method lib: ' + method[ 0 ] );
+    log( 'error', 'unknown method lib: ' + method[ 0 ] );
+
+    return cb();
 
   }
 
   if ( !libs[ method[ 0 ] ][ method[ 1 ] ] ) {
 
-    return log( 'error', 'unknown lib method: ' + data.method );
+    log( 'error', 'unknown lib method: ' + data.method );
+
+    return cb();
 
   }
 

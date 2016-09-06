@@ -67,7 +67,7 @@ function _onAgendaActivity( action ) {
       case 'moderator':
       case 'administrator':
 
-        return dsp.onSetStakeholder( userId, action.values.type );
+        return dsp.onSetStakeholder( action.values.userId, action.values.type );
 
       case 'refresh':
 
