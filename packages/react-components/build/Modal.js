@@ -8,7 +8,7 @@ var Modal = React.createClass({
   displayName: 'Modal',
 
   propTypes: {
-    title: React.PropTypes.string.isRequired,
+    title: React.PropTypes.string,
     visible: React.PropTypes.bool,
     onClose: React.PropTypes.func
   },
@@ -16,7 +16,14 @@ var Modal = React.createClass({
   clickOnModal: false,
 
   getDefaultProps: function getDefaultProps() {
-    return { visible: true };
+
+    return {
+      title: false,
+      visible: true,
+      classNames: {
+        overlay: 'popup-overlay'
+      }
+    };
   },
   componentDidUpdate: function componentDidUpdate() {
 
@@ -78,13 +85,13 @@ var Modal = React.createClass({
 
     return React.createElement(
       "div",
-      { style: { display: visible ? 'block' : 'none' }, className: "popup-overlay" },
+      { style: { display: visible ? 'block' : 'none' }, className: this.props.classNames.overlay },
       React.createElement(
         "section",
         { ref: function ref(_ref) {
             return _this.modalRef = _ref;
           } },
-        React.createElement(
+        title ? React.createElement(
           "header",
           { className: "popup-title" },
           React.createElement(
@@ -97,7 +104,7 @@ var Modal = React.createClass({
             { onClick: this.handleClose, className: "close-link" },
             React.createElement("i", { className: "fa fa-times fa-lg" })
           )
-        ),
+        ) : null,
         React.createElement(
           "div",
           { className: "popup-content" },

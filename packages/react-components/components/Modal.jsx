@@ -10,7 +10,7 @@ const Modal = React.createClass( {
   displayName: 'Modal',
 
   propTypes: {
-    title: React.PropTypes.string.isRequired,
+    title: React.PropTypes.string,
     visible: React.PropTypes.bool,
     onClose: React.PropTypes.func
   },
@@ -18,7 +18,15 @@ const Modal = React.createClass( {
   clickOnModal: false,
 
   getDefaultProps() {
-    return { visible: true };
+
+    return {
+      title: false,
+      visible: true,
+      classNames: {
+        overlay: 'popup-overlay'
+      }
+    };
+
   },
 
   componentDidUpdate() {
@@ -91,14 +99,16 @@ const Modal = React.createClass( {
     const { visible, title, children } = this.props;
 
     return (
-      <div style={{ display: visible ? 'block' : 'none' }} className="popup-overlay">
+      <div style={{ display: visible ? 'block' : 'none' }} className={this.props.classNames.overlay}>
         <section ref={ref => this.modalRef = ref}>
+         { title ? 
           <header className="popup-title">
             <h2>{title}</h2>
             <a onClick={this.handleClose} className="close-link">
               <i className="fa fa-times fa-lg"/>
             </a>
           </header>
+          : null }
           <div className="popup-content">
             {children}
           </div>
