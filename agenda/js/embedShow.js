@@ -37,7 +37,9 @@ params;
 
 window.asap( function( options ) {
 
-  params = cn.extend( {}, defaults, options );
+  params = cn.extend( {
+    autoscroll: true
+  }, defaults, options );
 
   log = debug( 'embedded agenda show' );
 
@@ -118,7 +120,7 @@ function _initEmbedded( params ) {
   var handler = embedded( {
     onReceive: function( message ) {
 
-      if ( message.bottom ) {
+      if ( message.bottom && params.autoscroll ) {
 
         _loadNext();
 
