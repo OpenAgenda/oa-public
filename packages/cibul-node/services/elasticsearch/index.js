@@ -8,6 +8,8 @@ lib = require( '../../lib/lib' ),
 
 c = require( './lib/clean' ),
 
+coms = require( '../../lib/coms' ),
+
 resync = require( './lib/resync' ),
 
 refresh = require( './lib/refresh' ),
@@ -68,7 +70,23 @@ function agendas( agenda ) {
 
   function _resync( cb ) {
 
-    resync( { agendaId: agenda.id }, cb );
+    resync( { agendaId: agenda.id }, err => {
+
+      if ( !err ) {
+
+        coms.publish( config.mainChannel, {
+          name: 'agenda.update',
+          values: {
+            id: agenda.id,
+            type: 'refresh'
+          }
+        } );
+
+      }
+
+      cb( err );
+
+    } );
 
   }
 
