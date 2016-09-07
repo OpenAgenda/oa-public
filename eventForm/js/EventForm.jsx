@@ -36,6 +36,8 @@ update = require( 'react-addons-update' ),
 
 languageUtils = require( './legacy/languageUtils' ),
 
+Modal = require( 'react-components/build/Modal' ),
+
 textFields = [ 'title', 'description', 'freeText', 'tags', 'conditions' ],
 
 formErrors = {};
@@ -65,6 +67,12 @@ module.exports = React.createClass( {
   getInitialState: function() {
 
     var state = this.props.initData;
+
+    if ( this.props.configuration.field( 'description' ).fixed() ) {
+
+      this.props.onTextChange( 'description', this.props.configuration.field( 'description' ).fixed(), [] );
+
+    }
 
     formErrors = state.errors || {};
 
@@ -466,9 +474,7 @@ module.exports = React.createClass( {
 
     return <div>
 
-      {this.state.locationMode === 'create' ? this.renderLocationSelector() : null}
-
-      <div style={{display: this.state.locationMode === 'create' ? 'none' : 'block' }}>
+      <div>
 
         { ( this.props.categories && this.props.categories.length ) || ( this.props.categorySet && this.props.categorySet.categories.length ) ? <CategorySelector
           lang={this.props.lang}
@@ -510,6 +516,7 @@ module.exports = React.createClass( {
             onChange={this.onChange( 'title' )}
             lang={this.props.lang} />
 
+          { !this.props.configuration.field( 'description' ).fixed() ? 
           <MultilingualTextField
             constraints={{max: 200}}
             counter={true}
@@ -522,6 +529,7 @@ module.exports = React.createClass( {
             languages={this.state.languages}
             onChange={this.onChange( 'description' )}
             lang={this.props.lang} /> 
+          : null }
 
           { this.props.configuration.field( 'keywords' ).display() ?
           <EventKeywordsField
@@ -591,7 +599,14 @@ module.exports = React.createClass( {
 
         <div>
           <h2>{ this.props.labels.locationSection[ this.props.lang ] }</h2>
-          { this.state.locationMode === 'create' ? null : this.renderLocationSelector() }
+          { this.state.locationMode === 'create' ? 
+            <Modal disableBodyScroll={{true}} classNames={{
+              overlay: 'popup-overlay big'
+            }} onClose={ ()=>{ this.onLocationModeChange( 'search' ); } } >
+              <h2>{this.getLabel( 'locationCreate' )}</h2>
+              {this.renderLocationSelector()}
+            </Modal>
+          : this.renderLocationSelector() }
         </div>
         
         <TimingsPicker

@@ -31,7 +31,7 @@ describe( 'timingsTransform', () => {
     } );
 
 
-    it( 'if end is same or smaller than begin and is bigger than lastHour, the timing is filtered out', () => {
+    it( 'if end is smaller than begin and is bigger than lastHour, the timing is filtered out', () => {
 
       transform.toTimingsWidgetFormat( [ {
         date: '2010-01-01',
@@ -109,6 +109,17 @@ describe( 'timingsTransform', () => {
         "begin":"10:00",
         "end":"06:00"
       } ] );
+
+    } );
+
+    it( 'end cannot be same as start', () => {
+
+      transform.toEventFormFormat( [ {
+        start: "2010-01-01T10:00+01:00",
+        end: "2010-01-01T10:00+01:00"
+      } ], '07:00', '07:00' )
+
+      .should.eql( [] );
 
     } );
 

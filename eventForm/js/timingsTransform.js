@@ -37,6 +37,8 @@ function toEventFormFormat( timings, dayStart, dayEnd ) {
 
     e = new Date( t.end );
 
+    if ( s.getTime() === e.getTime() ) return false;
+
     if ( s.getDate() !== e.getDate() ) {
 
       if ( dayEnd < _stringifyHours( e ) ) return false;
@@ -106,7 +108,7 @@ function toTimingsWidgetFormat( timings, dayStart, dayEnd ) {
 
   .filter( function( t ) {
 
-    // we cannot handle end times that go beyond timing column
+    // end can only be smaller or equal to begin if end is on the next day
     if ( t.end <= t.begin ) {
 
       if ( t.end > dayEnd ) return false;

@@ -109,9 +109,9 @@
           <h3><i class="fa fa-map-marker"></i></h3>
           <div class="detail-item-content">
             <p>
-              <a href="<%= event.locationLink || '#' %>"><%= event.location.name %></a>
+              <%= event.location.name %>
             </p>
-            <p><%= event.location.address %></p>
+            <p><a target="_blank" href="<%= event.googleItineraryLink || '#' %>"><%= event.location.address %></a></p>
           </div><!--
           --><div class="map js_map" data-coord="<%= event.location.latitude %>|<%= event.location.longitude %>"></div>
 
@@ -215,9 +215,9 @@
 
         <div class="location-head">
           <label>
-            <a href="<%= event.locationLink || '#' %>"><%- event.location.name %></a>
+            <%- event.location.name %>
           </label>
-          <span><%- event.location.address %></span>
+          <span><a target="_blank" href="<%= event.googleItineraryLink || '#' %>"><%- event.location.address %></a></span>
 <% if ( event.location.tags && event.location.tags.length ) { %>
           <div class="tags">
             <label><%= __( 'Tags' ) %>:</label>

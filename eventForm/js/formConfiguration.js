@@ -19,7 +19,8 @@ module.exports = function( formConfiguration, options ) {
     return utils.extend( {}, configuration, {
       getLabel: getLabel,
       getPlaceholder: getPlaceholder,
-      display: display
+      display: display,
+      fixed: fixed 
     } );
 
     function getConfiguration() {
@@ -69,6 +70,15 @@ module.exports = function( formConfiguration, options ) {
       if ( !configuration || configuration.display === undefined ) return defaultValue;
 
       return configuration.display;
+
+    }
+
+
+    function fixed() {
+
+      if ( !configuration || configuration.fixed === undefined ) return false;
+
+      return configuration.fixed;
 
     }
 

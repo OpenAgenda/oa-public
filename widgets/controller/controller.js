@@ -103,6 +103,8 @@ module.exports = function( uid ) {
 
           if ( err ) {
 
+            console.log( '>>>>>> GEOLOCATION ERROR: ', JSON.stringify( err ) );
+
             _init();
 
           } else {

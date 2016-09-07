@@ -22,7 +22,7 @@ module.exports = paths => {
       loaders: [
         {
           test: /\.jsx?$/,
-          loaders: [ strip.loader( 'debug', 'console.log' ), 'babel' ],
+          loaders: [ 'babel' ],
           exclude: new RegExp( 'node_modules\\/(?!' + ourOwnModules.join( '|' ) + ')' )
         },
         {

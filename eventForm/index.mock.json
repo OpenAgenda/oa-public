@@ -402,6 +402,11 @@
           "en" : "This is a custom placeholder"
         }
       }, {
+        "name" : "description",
+        "fixed" : {
+          "fr" : "This is a fixed value"
+        }
+      }, {
         "name" : "image",
         "info" : {
           "fr" : "Ceci est un message personnalisé",

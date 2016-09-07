@@ -11,7 +11,9 @@
 <% } %>
       <section class="<% if ( layoutMode=='standard') { %>col-xs-8 col-xs-offset-2 <% } %>col-lg-6 col-lg-offset-3 main-content">
         <div class="row filters cbpgft" data-cbctl="<%= agenda.uid %><% if (typeof embedUid !== 'undefined') { %>/<%= embedUid %><% } %>|<%= lang %><%- fb ? '|bs' : '' %>"></div>
-<% if ( total > 0 ) { %>
+<% if ( total === 1 ) { %>
+        <p class="total-count text-center"><%= __( '1 event' ) %></p>
+<% } else if ( total > 1 ) { %>
         <p class="total-count text-center"><%= __( '%total% events', { '%total%' : total } ) %></p>
 <% } %>
       </section>
