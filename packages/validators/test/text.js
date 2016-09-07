@@ -70,7 +70,7 @@ describe( 'text validator', () => {
     } );
 
 
-    it.only( 'required empty string is not valid', () => {
+    it( 'required empty string is not valid', () => {
 
       let validate = validators.text( { field: 'text', max: 10, optional: false } ),
 
