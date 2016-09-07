@@ -36,6 +36,13 @@ function schema(struct) {
     return _mapToObject(clean);
   }
 
+  /**
+   * validate a subset of the schema
+   * @param  list   fields     the list of fields
+   * @param  object values     values to be validated
+   * 
+   * @return object            the object of clean values
+   */
   function part(fields, values) {
 
     if (typeof fields === 'string') return validateField(fields, values);
