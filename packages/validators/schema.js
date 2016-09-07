@@ -45,14 +45,24 @@ function schema(struct) {
    */
   function part(fields, values) {
 
-    if (typeof fields === 'string') return validateField(fields, values);
+    if (typeof fields === 'string') {
 
-    if (!_utils2.default.isArray(fields)) throw 'wrong part input';
+      return validateField(fields, values);
+    }
+
+    // if is not a string, fields is an array of field names
+
+    if (!_utils2.default.isArray(fields)) {
+
+      throw 'wrong part input';
+    }
 
     var clean = {},
         errors = [];
 
     fields.forEach(function (field) {
+
+      // dig into values object if field is deep
 
       var value = values;
 
@@ -114,6 +124,12 @@ function build(struct, field) {
   var validatorStruct = Object.keys(struct).map(function (k) {
 
     var type = struct[k].type || 'object';
+
+    // handle special case where sub object is keyed with 'type'
+    if ((typeof type === 'undefined' ? 'undefined' : _typeof(type)) === 'object') {
+
+      type = 'object';
+    }
 
     if (type !== 'object' && typeof validators[type] === 'undefined') {
 
