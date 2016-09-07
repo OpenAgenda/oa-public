@@ -375,6 +375,8 @@ function _update( schema ) {
 
             }
 
+            
+
             _updateES( obj, cb );
 
           } );

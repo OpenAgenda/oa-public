@@ -32,11 +32,11 @@ module.exports = agenda => {
 
   function onSetStakeholder( userId, action ) {
 
-    log( 'dispatching agenda id %s, for stakeholder %s set to %s', agenda.id, user.id, credential );
+    log( 'dispatching agenda id %s, for stakeholder %s set to %s', agenda.id, userId, action );
 
     controlData.queue( agenda.id, {
       type: 'stakeholderSet',
-      eventId: event.id
+      userId: userId
     } );
 
   }

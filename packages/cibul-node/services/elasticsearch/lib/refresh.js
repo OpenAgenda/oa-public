@@ -42,7 +42,7 @@ function run( done ) {
 
         }
 
-        lib.events().update( dbRef, ( err ) => {
+        lib.events().update( dbRef, err => {
 
           if ( err ) log( 'error', err );
 
