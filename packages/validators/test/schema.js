@@ -276,6 +276,42 @@ describe( 'schema validator', () => {
 
     } );
 
+    it( 'validates a schema with object named type', () => {
+
+      let errors = [], clean, 
+
+      validator = schema( {
+        contribution: {
+          type: {
+            type: 'number'
+          }
+        }
+      } );
+
+      try {
+
+        clean = validator( {
+          contribution: {
+            type: 42
+          }
+        } );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 0 );
+
+      clean.should.eql( {
+        contribution: {
+          type: 42
+        }
+      } );
+
+    } );
+
     it( 'validates a schema with dates', () => {
 
       let errors = [], clean,

@@ -37,14 +37,26 @@ function schema( struct ) {
    */
   function part( fields, values ) {
 
-    if ( typeof fields === 'string' ) return validateField( fields, values );
+    if ( typeof fields === 'string' ) {
 
-    if ( !utils.isArray( fields ) ) throw 'wrong part input';
+      return validateField( fields, values );
+
+    }
+
+    // if is not a string, fields is an array of field names
+
+    if ( !utils.isArray( fields ) ) {
+
+      throw 'wrong part input';
+
+    }
 
     let clean = {}, errors = [];
 
     fields.forEach( field => {
 
+      // dig into values object if field is deep
+      
       let value = values;
 
       field.split( '.' ).forEach( fieldPart => {
@@ -117,6 +129,13 @@ function build( struct, field ) {
 
     let type = struct[ k ].type || 'object';
 
+    // handle special case where sub object is keyed with 'type'
+    if ( typeof type === 'object' ) {
+      
+      type = 'object';
+
+    }
+
     if ( type !== 'object' && typeof validators[ type ] === 'undefined' ) {
 
       throw 'unregistered validator type: ' + struct[ k ].type;
@@ -135,7 +154,7 @@ function build( struct, field ) {
 
   } );
 
-  return objectValidator( { field: field }, validatorStruct );
+  return objectValidator( { field }, validatorStruct );
 
 }
 
