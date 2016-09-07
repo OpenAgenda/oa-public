@@ -2,6 +2,8 @@
 
 require( 'dom-utils/ie8' );
 
+require( 'dom-utils/ie9' );
+
 var utils = require( 'utils' ),
 
 du = require( '../../js/lib/domUtils' ),
