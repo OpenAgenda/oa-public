@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
-    "qs": "^6.1.0"
+    "es6-promise": "^3.2.1",
+    "qs": "^6.1.0",
+    "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git"
   }
 }
