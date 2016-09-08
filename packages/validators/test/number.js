@@ -26,6 +26,12 @@ describe( 'number validator', () => {
 
   } );
 
+  it( 'default value can be 0', () => {
+
+    validators.number( { default: 0 } )().should.equal( 0 );
+
+  } );
+
   it( 'puts a default value if is defined, nothing is specified and is required', () => {
 
     let requiredValidate = validators.number( {

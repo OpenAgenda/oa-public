@@ -39,7 +39,7 @@ module.exports = config => {
     // we have a clean value, we can check if it fits
     // in what we want.
 
-    if ( clean === undefined && params.default ) {
+    if ( clean === undefined && params.default !== undefined ) {
 
       return params.default;
 
