@@ -18,7 +18,7 @@ module.exports = config => {
   }, config || {} );
 
   return utils.extend( validate, {
-    type: 'email',
+    type: 'number',
     field: params.field
   } );
 

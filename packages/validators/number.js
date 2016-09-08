@@ -22,7 +22,7 @@ module.exports = function (config) {
   }, config || {});
 
   return _utils2.default.extend(validate, {
-    type: 'email',
+    type: 'number',
     field: params.field
   });
 
