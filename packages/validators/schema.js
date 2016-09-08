@@ -163,7 +163,7 @@ function _mapToList(values, struct) {
 
     var type = _getType(k, struct);
 
-    if (type === 'object' && typeof values[k] === 'undefined') {
+    if (type === 'object' && (typeof values[k] === 'undefined' || values[k] === null)) {
 
       return {
         field: k,
