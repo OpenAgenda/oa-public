@@ -37,8 +37,6 @@ function disable() {
 
 function _stringifyStyle(style) {
 
-  console.log(style);
-
   return Object.keys(style).filter(function (k) {
     return !!k.length;
   }).map(function (k) {

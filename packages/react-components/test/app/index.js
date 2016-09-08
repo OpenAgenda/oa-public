@@ -3,8 +3,9 @@
 var app = require( 'test-app' )( {
   frontWrapper: __dirname + '/front.jsx',
   styles: [
-    __dirname + '/../../sass/main.scss'
-  ]
+    __dirname + '/../../node_modules/bs-templates/compiled/main.css'
+  ],
+  webpack: true
 } );
 
 app.getAndListen();
