@@ -9,7 +9,8 @@ module.exports = function( config ) {
     min: 0,
     max: 1000000,
     trim: true,
-    optional: true
+    optional: true,
+    default: null
   }, config || {} );
 
   return utils.extend( validate, {
@@ -42,7 +43,7 @@ module.exports = function( config ) {
 
     if ( typeof value === 'undefined' || value === null || !clean.length ) {
 
-      if ( params.optional ) return null;
+      if ( params.optional || params.default !== null ) return params.default;
 
       throw [ {
         field: validate.field,

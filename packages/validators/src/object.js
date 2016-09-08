@@ -23,7 +23,7 @@ module.exports = function( options, validators ) {
   return validate;
 
   function validate( values ) {
-
+    
     var clean = [], errors = [];
 
     validators.forEach( validator => {

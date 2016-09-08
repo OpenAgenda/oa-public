@@ -106,16 +106,28 @@ describe( 'schema validator', () => {
 
     it( 'validates and cleans a part of the schema - object case', () => {
 
-      let clean = schemaValidator.part( 'settings', {
-        someSetting: 45
-      } );
+      let clean = false, errors = [];
+
+      try {
+
+        clean = schemaValidator.part( 'settings', {
+          someSetting: 45
+        } );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 0 );
 
       clean.should.eql( {
         someSetting: 45
       } );
 
     } );
-
+    
 
     it( 'filters out any value not part of the original schema', () => {
 
@@ -211,6 +223,40 @@ describe( 'schema validator', () => {
             moderators: true,
             universe: 42
           }
+        }
+      } );
+
+    } );
+
+
+    it( 'undefined sub object is processed as an empty object', () => {
+
+      let errors = [],
+
+      validate = schema( { 
+        subobj: {
+          somefield: {
+            type: 'text',
+            default: 'thedefaultvalue'
+          }
+        }
+      } ),
+
+      clean = false;
+
+      try {
+
+        clean = validate( { subobj: {} } );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      clean.should.eql( {
+        subobj: {
+          somefield: 'thedefaultvalue'
         }
       } );
 

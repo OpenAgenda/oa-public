@@ -55,7 +55,7 @@ describe( 'number validator', () => {
 
     clean.should.equal( 8 );
 
-  })
+  } );
 
   it( 'throws an error if is not optional and no default is specified', () => {
 

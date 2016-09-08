@@ -17,9 +17,9 @@ function schema( struct ) {
 
   return validate;
 
-  function validate( values, _subValidator = null ) {
+  function validate( values, _subValidator = null, subStruct = null ) {
 
-    let listValues = _mapToList( values );
+    let listValues = _mapToList( values, subStruct || struct );
 
     let clean = ( _subValidator || validator )( listValues );
 
@@ -117,7 +117,7 @@ function schema( struct ) {
 
     }
 
-    return validate( values, build( subStruct ) );
+    return validate( values, build( subStruct ), subStruct );
 
   }
 
@@ -127,14 +127,7 @@ function build( struct, field ) {
 
   let validatorStruct = Object.keys( struct ).map( k => {
 
-    let type = struct[ k ].type || 'object';
-
-    // handle special case where sub object is keyed with 'type'
-    if ( typeof type === 'object' ) {
-      
-      type = 'object';
-
-    }
+    let type = _getType( k, struct );
 
     if ( type !== 'object' && typeof validators[ type ] === 'undefined' ) {
 
@@ -170,9 +163,37 @@ function register( v ) {
 }
 
 
-function _mapToList( values ) {
+function _mapToList( values, struct ) {
 
-  if ( !values ) return [];
+  return Object.keys( struct ).map( k => {
+
+    // filter out non defined values which are non-objects
+
+    let type = _getType( k, struct );
+
+    if ( type === 'object' && typeof values[ k ] === 'undefined' ) {
+
+      return {
+        field: k,
+        value: {}
+      }
+
+    }
+
+    if ( typeof values[ k ] === 'undefined' ) {
+
+      return false;
+
+    }
+
+    return {
+      field: k,
+      value: type === 'object' ? _mapToList( values[ k ], struct[ k ] ) : values[ k ]
+    }
+
+  } ).filter( v => v );
+
+  /* if ( !values ) return [];
 
   return Object.keys( values ).map( k => {
 
@@ -186,7 +207,23 @@ function _mapToList( values ) {
       value: isObject ? _mapToList( values[ k ] ) : values[ k ]
     }
 
-  } );
+  } ); */
+
+}
+
+
+function _getType( k, struct ) {
+
+  let type = struct[ k ].type || 'object';
+
+  // handle special case where sub object is keyed with 'type'
+  if ( typeof type === 'object' ) {
+    
+    type = 'object';
+
+  }
+
+  return type;
 
 }
 

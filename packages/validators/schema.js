@@ -29,7 +29,10 @@ function schema(struct) {
   function validate(values) {
     var _subValidator = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
 
-    var listValues = _mapToList(values);
+    var subStruct = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+
+
+    var listValues = _mapToList(values, subStruct || struct);
 
     var clean = (_subValidator || validator)(listValues);
 
@@ -115,7 +118,7 @@ function schema(struct) {
       return _buildValidator(address, subStruct)(values);
     }
 
-    return validate(values, build(subStruct));
+    return validate(values, build(subStruct), subStruct);
   }
 }
 
@@ -123,13 +126,7 @@ function build(struct, field) {
 
   var validatorStruct = Object.keys(struct).map(function (k) {
 
-    var type = struct[k].type || 'object';
-
-    // handle special case where sub object is keyed with 'type'
-    if ((typeof type === 'undefined' ? 'undefined' : _typeof(type)) === 'object') {
-
-      type = 'object';
-    }
+    var type = _getType(k, struct);
 
     if (type !== 'object' && typeof validators[type] === 'undefined') {
 
@@ -156,19 +153,59 @@ function register(v) {
   });
 }
 
-function _mapToList(values) {
+function _mapToList(values, struct) {
 
-  if (!values) return [];
+  return Object.keys(struct).map(function (k) {
 
-  return Object.keys(values).map(function (k) {
+    // filter out non defined values which are non-objects
 
-    var isObject = values[k] && _typeof(values[k]) === 'object' && !(values[k] instanceof Date);
+    var type = _getType(k, struct);
+
+    if (type === 'object' && typeof values[k] === 'undefined') {
+
+      return {
+        field: k,
+        value: {}
+      };
+    }
+
+    if (typeof values[k] === 'undefined') {
+
+      return false;
+    }
 
     return {
       field: k,
-      value: isObject ? _mapToList(values[k]) : values[k]
+      value: type === 'object' ? _mapToList(values[k], struct[k]) : values[k]
     };
+  }).filter(function (v) {
+    return v;
   });
+
+  /* if ( !values ) return [];
+   return Object.keys( values ).map( k => {
+     let isObject = 
+      values[ k ] 
+      && typeof values[ k ] === 'object'
+      && !( values[ k ] instanceof Date );
+     return {
+      field: k,
+      value: isObject ? _mapToList( values[ k ] ) : values[ k ]
+    }
+   } ); */
+}
+
+function _getType(k, struct) {
+
+  var type = struct[k].type || 'object';
+
+  // handle special case where sub object is keyed with 'type'
+  if ((typeof type === 'undefined' ? 'undefined' : _typeof(type)) === 'object') {
+
+    type = 'object';
+  }
+
+  return type;
 }
 
 function _mapToObject(values) {

@@ -70,6 +70,35 @@ describe( 'text validator', () => {
     } );
 
 
+    it( 'required with default returns default when nothing is given', () => {
+
+      let validate = validators.text( {
+        field: 'text',
+        optional: false,
+        default: 'Mama, I just killed a man, put a gun against his head, pulled my trigger now he\'s dead'
+      } ),
+
+      errors = [], clean = false;
+
+      try {
+
+        clean = validate();
+
+      } catch( e ) {
+
+        errors = e;
+
+        console.log( e );
+
+      }
+
+      errors.length.should.equal( 0 );
+
+      clean.should.equal( 'Mama, I just killed a man, put a gun against his head, pulled my trigger now he\'s dead' );
+
+    } );
+
+
     it( 'required empty string is not valid', () => {
 
       let validate = validators.text( { field: 'text', max: 10, optional: false } ),
