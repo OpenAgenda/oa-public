@@ -30,7 +30,7 @@ module.exports = config => {
 
       clean = parseInt( value, 10 );
 
-    } else if ( typeof value == 'number' ) {
+    } else if ( typeof value === 'number' ) {
 
       clean = value;
 

@@ -33,7 +33,7 @@ module.exports = function (config) {
     if (typeof value == 'string' && value.length) {
 
       clean = parseInt(value, 10);
-    } else if (typeof value == 'number') {
+    } else if (typeof value === 'number') {
 
       clean = value;
     }

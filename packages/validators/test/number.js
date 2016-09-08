@@ -2,7 +2,7 @@
 
 var should = require( 'should' ),
 
-validators = require( '../' );
+validators = require( './build' );
 
 describe( 'number validator', () => {
 
@@ -25,6 +25,31 @@ describe( 'number validator', () => {
     validate( '' ).should.equal( 13 );
 
   } );
+
+  it( 'puts a default value if is defined, nothing is specified and is required', () => {
+
+    let requiredValidate = validators.number( {
+      optional: false,
+      default: 8
+    } ),
+
+    errors = [], clean = 'not clean';
+
+    try {
+
+      clean = requiredValidate();
+
+    } catch( e ) {
+
+      errors = e;
+
+    }
+
+    errors.length.should.equal( 0 );
+
+    clean.should.equal( 8 );
+
+  })
 
   it( 'throws an error if is not optional and no default is specified', () => {
 
