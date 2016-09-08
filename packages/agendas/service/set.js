@@ -83,7 +83,11 @@ function _update( identifiers, data, options, cb ) {
 
   .then( _doUpdate )
 
-  .then( _get( { target: 'updated', internal: options.internal, prerequisite: v => v.success && !v.errors.length } ) )
+  .then( _get( {
+    target: 'updated',
+    internal: options.internal,
+    prerequisite: v => v.success && !v.errors.length
+  } ) )
 
   .done( v => {
 

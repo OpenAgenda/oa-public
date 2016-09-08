@@ -27,7 +27,7 @@ describe( 'service.set: create an agenda', function() {
 
       should( err ).equal( null );
 
-      result.should.eql( { 
+      result.should.eql( {
         agenda: { 
           slug: 'hello-world',
           image: null,
@@ -64,15 +64,13 @@ describe( 'service.set: create an agenda', function() {
 
       result.errors.should.eql( [ { 
         field: 'title',
-        code: 'string.tooshort',
-        message: 'the string is too short',
-        values: { min: 2, max: 255 },
+        code: 'required',
+        message: 'a string is required',
         origin: undefined
       }, { 
         field: 'slug',
-        code: 'string.tooshort',
-        message: 'the string is too short',
-        values: { min: 2, max: 255 },
+        code: 'required',
+        message: 'a string is required',
         origin: '' } 
       ] );
 
