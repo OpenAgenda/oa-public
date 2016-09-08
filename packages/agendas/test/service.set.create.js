@@ -70,7 +70,7 @@ describe( 'service.set: create an agenda', function() {
       }, { 
         field: 'slug',
         code: 'required',
-        message: 'a string is required',
+        message: 'value must not be empty',
         origin: '' } 
       ] );
 

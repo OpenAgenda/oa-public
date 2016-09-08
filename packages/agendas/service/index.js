@@ -18,6 +18,8 @@ const knexLib = require( 'knex' ),
 
   validate = require( './validate' ),
 
+  slugs = require( './slugs' ),
+
   dbParse = require( './lib/mysqlParse' )( validate.map ),
 
   utils = require( 'utils' );
@@ -36,6 +38,10 @@ module.exports = {
   get,
   set,
   count,
+  slugs: {
+    isTaken: slugs.isTaken,
+    generate: slugs.generate,
+  },
   getConfig: () => config
 };
 
@@ -60,6 +66,8 @@ function init( c ) {
   get.init( schemas, knex );
 
   set.init( schemas, knex, c.mysql );
+
+  slugs.init( schemas, knex );
 
   log = logger( 'agendas service' );
 

@@ -71,13 +71,13 @@ describe( 'service.set: update an agenda', function() {
       internal: true // to retrieve credentials after update
     }, ( err, result ) => {
 
-      should( err ).equal( null );
+      should( err ).equal( null )
 
       result.should.eql( { 
         agenda: { 
           id: 4887,
           ownerId: 7388,
-          slug: 'agenda_culturel_auvergne',
+          slug: 'agenda-culturel-auvergne',
           uid: 65903437,
           official: 0,
           title: 'Agenda culturel Auvergne',

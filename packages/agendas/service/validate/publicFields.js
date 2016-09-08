@@ -12,7 +12,7 @@ module.exports = {
     max: 160
   },
   slug: {
-    type: 'text',
+    type: 'slug',
     min: 2,
     max: 255,
     optional: false

@@ -139,7 +139,11 @@ function _create( data, options, cb ) {
 
   .then( _doCreate )
 
-  .then( _get( { target: 'created', internal: options.internal, prerequisite: v => v.success && !v.errors.length } ) )
+  .then( _get( { 
+    target: 'created', 
+    internal: options.internal, 
+    prerequisite: v => v.success && !v.errors.length 
+  } ) )
 
   .done( v => {
 
