@@ -46,6 +46,7 @@ describe( 'schema validator', () => {
 
     } );
 
+
     it( 'validates and cleans a value based on defined schema', () => {
 
       let clean = schemaValidator( {
@@ -225,6 +226,50 @@ describe( 'schema validator', () => {
           }
         }
       } );
+
+    } );
+
+
+    it( 'undefined schema object gives default values', () => {
+
+      schema.register( {
+        text: validators.text,
+        link: validators.link,
+        number: validators.number
+      } );
+
+      let validator = schema( {
+        contribution: {
+          type: {
+            default: 0,
+            type: 'number',
+            optional: false,
+            min: 0, // no contribution
+            max: 2  // contribution on invitation only
+          },
+          message: {
+            type: 'text'
+          }
+        }
+      } ),
+
+      clean = false,
+
+      errors = [];
+
+      try {
+        
+        clean = validator( {} );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 0 );
+
+      clean.should.eql( { contribution: { type: 0, message: null } } )
 
     } );
 

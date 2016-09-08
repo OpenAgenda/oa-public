@@ -15,6 +15,8 @@ function schema( struct ) {
 
   validate.part = part;
 
+  validate.struct = struct;
+
   return validate;
 
   function validate( values, _subValidator = null, subStruct = null ) {
@@ -175,7 +177,7 @@ function _mapToList( values, struct ) {
 
       return {
         field: k,
-        value: {}
+        value: [ {} ]
       }
 
     }
