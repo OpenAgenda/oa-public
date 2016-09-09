@@ -9,7 +9,8 @@ module.exports = {
   },
   description: {
     type: 'text',
-    max: 160
+    max: 160,
+    optional: false
   },
   slug: {
     type: 'slug',
