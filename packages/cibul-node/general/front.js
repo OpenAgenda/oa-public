@@ -206,8 +206,11 @@ function start( req, res, next ) {
 
   req.log( 'info', {
     message: 'corpo link: ' + action,
-    action: action
+    action: action,
+    userAgent: req.headers[ 'user-agent' ]
   } );
+
+  console.log( action + ': ' + req.headers[ 'user-agent' ] );
 
   if ( actions[ action ] === 'ok' ) {
 
