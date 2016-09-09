@@ -12,8 +12,8 @@ es = require( '../elasticsearch' );
 
 module.exports = {
   list: model.agendas().list,
-  search: search,
-  get: get,
+  search,
+  get,
   instanciate: require( './instance' )
 }
 

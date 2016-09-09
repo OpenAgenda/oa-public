@@ -121,6 +121,13 @@ function _onEventActivity( action ) {
 
           break;
 
+        case 'event.tagUpdate':
+        //case 'event.categoryUpdate': does not exist
+
+          // do nothing, legacy es index catches the same event
+
+          break;
+
         case 'event.remove':
 
           dsp.onEventRemove( event, action.values );

@@ -2,6 +2,8 @@
 
 var coms = require( '../../lib/coms' ),
 
+config = require( '../../config' ),
+
 logger = require( 'logger' ), log,
 
 svc, eventSvc = require( '../event' ),
@@ -17,7 +19,7 @@ module.exports = function( s ) {
   svc = s;
 
   return {
-    agendaTagsChanged: agendaTagsChanged
+    agendaTagsChanged
   }
 
 }
@@ -85,7 +87,14 @@ function _streamedRefresh( v ) {
 
     stream.on( 'data', event => {
 
-      eventSvc.instanciate( event ).refresh();
+      coms.publish( config.mainChannel, {
+        name: 'event.update',
+        values: {
+          id: event.id,
+          agendaId: v.agenda.id,
+          type: 'event.tagUpdate'
+        }
+      } );
 
     } );
 

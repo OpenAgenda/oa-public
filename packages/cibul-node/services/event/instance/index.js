@@ -31,7 +31,7 @@ range = require( 'date-range' );
 module.exports = instanciate;
 
 module.exports.test = {
-  setOnRefresh: setOnRefresh
+  setOnRefresh
 }
 
 function instanciate( data ) {
