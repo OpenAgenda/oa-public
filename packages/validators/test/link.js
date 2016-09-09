@@ -2,7 +2,7 @@
 
 var should = require( 'should' ),
 
-validators = require( '../' );
+validators = require( './build' );
 
 describe( 'link validator', () => {
 
@@ -57,21 +57,67 @@ describe( 'link validator', () => {
     } );
 
 
-    it( 'is a link', () => {
+    it( 'are links', () => {
 
-      let hasErrs = false;
+      let errors = false,
 
-      try {
+      links = [
+        'https://openagenda.com',
+        'lemonde.fr',
+        'lesjourneesdupatrimoine.gouv.fr',
+        'http://www.facebook.com/pages/Maison-Des-Musiques-Alternatives/256970411014473',
+        'http://www.placedesreseaux.com/Dossiers/animer-developper/initiative-collective-1.html',
+        'http://www.lebaneseunderground.com/music/index.asp',
+        'http://www.tourisme-ouestvar.com/les-journees-europeennes-du-patrimoine-ollioules-exposition-visites-guidees-animations.html?origine_affinage=true&mid=1&action=result&origine_affinage=true'
+      ],
 
-        validate( 'https://openagenda.com' );
+      notLinks = links.filter( l => {
 
-      } catch( e ) {
+        try {
 
-        hasErrs = true;
+          validate( l );
 
-      }
+          return false;
 
-      hasErrs.should.equal( false );
+        } catch( e ) {
+
+          return true;
+
+        }
+
+      } );
+
+      notLinks.length.should.equal( 0 );
+
+    } );
+
+
+    it.only( 'are not links', () => {
+
+      let errors = false,
+
+      links = [
+        'fdsqfdssfds',
+        'openagenda.com.'
+      ],
+
+      areLinks = links.filter( l => {
+
+        try {
+
+          validate( l );
+
+          return true;
+
+        } catch( e ) {
+
+          return false;
+
+        }
+
+      } );
+
+      areLinks.length.should.equal( 0 );
 
     } );
 

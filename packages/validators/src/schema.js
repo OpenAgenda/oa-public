@@ -195,22 +195,6 @@ function _mapToList( values, struct ) {
 
   } ).filter( v => v );
 
-  /* if ( !values ) return [];
-
-  return Object.keys( values ).map( k => {
-
-    let isObject = 
-      values[ k ] 
-      && typeof values[ k ] === 'object'
-      && !( values[ k ] instanceof Date );
-
-    return {
-      field: k,
-      value: isObject ? _mapToList( values[ k ] ) : values[ k ]
-    }
-
-  } ); */
-
 }
 
 

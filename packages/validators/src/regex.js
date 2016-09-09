@@ -14,7 +14,9 @@ module.exports = function( config ) {
     },
     clean: false, // if true result of regex is clean value
     trim: true,
-    type: false
+    type: false,
+    min: null,
+    max: null
   }, config || {} ),
 
   validator = function( value ) {
@@ -41,6 +43,36 @@ module.exports = function( config ) {
     if ( typeof clean == 'string' && params.trim ) {
 
       clean = clean.trim();
+
+    }
+
+    if ( params.min !== null && clean.length < params.min ) {
+
+      throw [ {
+        origin: value,
+        field: params.field,
+        code: 'toosmall',
+        message: 'value is too short',
+        values: {
+          min: params.min,
+          max: params.max
+        }
+      } ];
+
+    }
+
+    if ( params.max !== null && clean.length > params.max ) {
+
+      throw [ {
+        origin: value,
+        field: params.field,
+        code: 'toolong',
+        message: 'value is too long',
+        values: {
+          min: params.min,
+          max: params.max
+        }
+      }]
 
     }
 
