@@ -18,11 +18,12 @@ describe( 'service.set: create an agenda', function() {
 
   before( svc.test.fixtures );
 
-  it( 'simplest create is with a title and an owner', done => {
+  it( 'simplest create is with a title, a description and an owner', done => {
 
     svc.set( {
       ownerId: 12,
-      title: 'Hello World'
+      title: 'Hello World',
+      description: 'This is necessary'
     }, ( err, result ) => {
 
       should( err ).equal( null );
@@ -33,7 +34,7 @@ describe( 'service.set: create an agenda', function() {
           image: null,
           uid: result.agenda.uid, // that 
           title: 'Hello World',
-          description: null,
+          description: 'This is necessary',
           url: null,
           settings: null,
           official: 0,
@@ -52,7 +53,7 @@ describe( 'service.set: create an agenda', function() {
   } );
 
 
-  it( 'title is mandatory', done => {
+  it( 'title and description are mandatory', done => {
 
     svc.set( {
       ownerId: 3
@@ -64,6 +65,11 @@ describe( 'service.set: create an agenda', function() {
 
       result.errors.should.eql( [ { 
         field: 'title',
+        code: 'required',
+        message: 'a string is required',
+        origin: undefined
+      }, { 
+        field: 'description',
         code: 'required',
         message: 'a string is required',
         origin: undefined

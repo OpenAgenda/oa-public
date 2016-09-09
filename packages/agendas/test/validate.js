@@ -41,7 +41,8 @@ describe( 'validate', () => {
         official: false,
         contribution: {
           type: 0,
-          message: null
+          message: null,
+          defaultState: 2
         },
         url: undefined
       } );
@@ -86,7 +87,8 @@ describe( 'validate', () => {
         ownerId: 1,
         contribution: { 
           type: 0,
-          message: null
+          message: null,
+          defaultState: 2
         },
         updatedAt: now,
         createdAt: now,
