@@ -18,6 +18,10 @@ module.exports = {
     max: 255,
     optional: false
   },
+  url: {
+    type: 'link',
+    max: 255
+  },
   official: {
     type: 'boolean',
     default: false
@@ -30,11 +34,15 @@ module.exports = {
       min: 0, // no contribution
       max: 2  // contribution on invitation only
     },
+    defaultState: {
+      default: 2,
+      type: 'number',
+      optional: false,
+      min: 0, // to be controlled
+      max: 2  // published
+    },
     message: {
       type: 'text'
     }
-  },
-  url: {
-    type: 'link'
   }
 }
