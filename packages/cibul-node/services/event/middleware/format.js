@@ -196,7 +196,9 @@ function _dates( v ) {
 
     d.label = v._t( d.date, 'dddd Do MMM' );
 
-    d.timings.sort( ( a, b ) => a.start > b.start ).forEach( t => {
+    d.timings = d.timings.sort( ( a, b ) => a.start < b.start ? -1 : 1 );
+
+    d.timings.forEach( t => {
 
       t.label = v._t( t.start, 'dddd Do - HH:mm', v.formatted.timezone );
 
