@@ -42,6 +42,7 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
     referenced: null,
     referencedBySource: null,
     added: false,
+    referencedOrAdded: false,
     sourceTags: [],
     sourceCategories: [],
     aggregatorTags: [],
@@ -74,9 +75,9 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
 
   .then( p.ife( { referenced: false }, _addEventToAggregator ) )
 
-  .then( p.ife( { added: true }, _associateSameTags ) )
+  .then( p.ife( { referencedOrAdded: true }, _associateSameTags ) )
 
-  .then( p.ife( { added: true }, _associateSameCategory ) )
+  .then( p.ife( { referencedOrAdded: true }, _associateSameCategory ) )
 
   .done(  v => {
 
@@ -199,9 +200,9 @@ function _checkSourceReference( v ) {
 
 function _checkIfReferenced( v ) {
 
-  return p.w.promise( function( rs, rj ) {
+  return p.w.promise( ( rs, rj ) => {
 
-    v.aggregatingAgenda.hasEvent( v.event, function( err, has ) {
+    v.aggregatingAgenda.hasEvent( v.event, ( err, has ) => {
 
       if ( err ) return rj( err );
 
@@ -215,9 +216,10 @@ function _checkIfReferenced( v ) {
 
       } else {
 
-        v.event.loadAgendaContext( v.aggregatingAgendaId, function( err ) {
+        v.event.loadAgendaContext( v.aggregatingAgendaId, err => {
 
           v.referenced = true;
+          v.referencedOrAdded = true;
 
           log( 'aggregating agenda %s already references event %s', v.aggregatingAgendaId, v.event.id );
 
@@ -280,9 +282,15 @@ function _addNewSourceReference( v ) {
     sourceId: v.sourceAgenda.id
   }, err => {
 
-    if ( err ) return d.reject( err );
+    if ( err ) {
+
+      return d.reject( err );
+
+    }
 
     log( 'source agenda id added to event %s', v.event.id );
+
+    v.referencedOrAdded = true;
 
     d.resolve( v );
 
@@ -533,6 +541,7 @@ function _addEventToAggregator( v ) {
         log( 'source reference agenda %s added to event %s', v.sourceId, v.event.id );
 
         v.added = true;
+        v.referencedOrAdded = true;
 
         d.resolve( v );
 

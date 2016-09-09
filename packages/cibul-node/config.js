@@ -363,6 +363,7 @@ var deepExtend = require( 'deep-extend' ),
           //enable: 'oa:services/agenda/controlData*'
           //enable: 'oa:services/agenda/controlData*,oa:services/agenda/task*,oa:services/agenda/dispatcher*,oa:services/aggregator*',
           //enable: 'oa:services/agenda/controlData*,oa:services/aggregator/sources'
+          //enable: 'oa:services/aggregator/evaluate'
           enable: 'oa:*'
         },
         token: false // no need to log dev things
