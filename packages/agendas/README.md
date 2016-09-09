@@ -84,7 +84,37 @@ The data to be updated; Check test/service.set.update.js for an example, and the
  * **internal**: defaults at false - if true, returned updated agenda includes internal data ( see validate map )
 
 
+## Slugs
 
+Agenda slug-related features. Mainly, check wether a slug is available or not, or generate a slug from a string of characters.
+
+### isTaken
+
+Server side-only fonction to check wether slug is already taken or not. First verifies if given slug is valid
+
+    agendas.slugs.isTaken( 'this-is-a-slug', ( err, result ) => {
+
+      // result looks like this: { taken: true/false, valid: true/false, errors: [] }
+
+    } );
+
+Optionnally, specify a uid that should be omitted from check ( typically, the current agenda slug )
+
+    agenda.slugs.isTaken( 'this-is-a-slug', { excludeUid: 123 }, ( err, result ) => {
+
+      // ...
+
+    } );
+
+Errors are only given if given slug is not valid
+
+### Generate
+
+Can be used on client. Makes a slug out of a string
+
+    let genSlug = require( './service/slugs/generate' );
+
+    genSlug( 'This is a string' ); // returns this-is-a-string
 
 
 
