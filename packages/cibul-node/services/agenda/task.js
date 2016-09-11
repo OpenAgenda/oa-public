@@ -69,6 +69,7 @@ function _onAgendaActivity( action ) {
 
         return dsp.onSetStakeholder( action.values.userId, action.values.type );
 
+      case 'contribution':
       case 'refresh':
 
         return dsp.onRefresh();
