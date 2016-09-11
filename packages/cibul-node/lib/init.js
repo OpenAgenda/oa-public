@@ -484,7 +484,8 @@ function _initAgendaCategories( config ) { // async
   agendaCategories.init( {
     store: config.db,
     legacy: config.db,
-    logger: logger
+    logger: logger,
+    interfaces: appSvc.agenda.tagsAndCategories
   }, err => {
 
     if ( err ) return d.reject( err );
@@ -508,7 +509,7 @@ function _initAgendaTags( config ) { // async
     store: config.db,
     legacy: config.db,
     logger: logger,
-    interfaces: appSvc.agenda.tags
+    interfaces: appSvc.agenda.tagsAndCategories
   }, err => {
 
     if ( err ) return d.reject( err );

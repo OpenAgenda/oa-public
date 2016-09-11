@@ -65,11 +65,9 @@ function updateResponse( req, res ) {
 
   if ( res.statusCode && res.statusCode !== 200 ) {
 
-    return rs.send( 'nok' );
+    return res.send( 'nok' );
 
   }
-
-  req.agenda.queue( 'resync' );
 
   res.send( 'ok' );
 
