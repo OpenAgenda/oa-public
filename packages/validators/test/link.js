@@ -92,7 +92,7 @@ describe( 'link validator', () => {
     } );
 
 
-    it.only( 'are not links', () => {
+    it( 'are not links', () => {
 
       let errors = false,
 
