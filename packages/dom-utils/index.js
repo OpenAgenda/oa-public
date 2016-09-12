@@ -285,11 +285,17 @@ function getElementsByClassName( node, className ) {
 }
 
 
-function nl2br( str, is_xhtml ) {
+function nl2br( str, is_xhtml, esc ) {
 
   var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
 
-  return (str + '').replace( /([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2' );
+  if ( typeof esc === 'undefined' ) {
+
+    esc = false;
+
+  }
+  
+  return ( esc ? utils.escape( str + '' ) : str ).replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 
 }
 
