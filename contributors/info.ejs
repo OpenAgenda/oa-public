@@ -1,23 +1,17 @@
-<div class="header">
-  <h2><%= __('contributionNote') %></h2>
-</div>
 <section>
-  <form class="cform" method="post" action="<%= genUrl( 'contributorsInfoSubmit', { slug: agenda.slug } ) %>">
-    <ul>
-      <li>
-        <label for="info"><%= __( 'provideGuidelines' ) %></label>
-        <textarea name="info"><%= info %></textarea>
-      </li>
-      <li>
-        <ul class="line">
-          <li>
-            <a class="button" href="<%= genUrl( 'agendaAdminContributors', { slug: agenda.slug }) %>"><%= __('back') %></a>
-          </li>
-          <li>
-            <button class="green"><%= __('submit') %></button>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </form>
+  <div class="form-head">
+    <h2><%= __('contributionNote') %></h2>
+  </div>
+  <form method="post" action="<%= genUrl( 'contributorsInfoSubmit', { slug: agenda.slug } ) %>">
+    <div class="form-group">
+      <label for="info"><%= __( 'provideGuidelines' ) %></label>
+      <div>
+        <textarea name="info" class="form-control"><%= info %></textarea>
+      </div>
+    </div>
+    <div class="form-group bottom">
+      <a href="<%= genUrl( 'agendaAdminContributors', { slug: agenda.slug }) %>"><%= __('back') %></a>
+      <button type="submit" class="btn btn-primary pull-right"><%= __('submit') %></button>
+    </div>
+  </form>  
 </section>

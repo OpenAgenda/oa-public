@@ -67,6 +67,8 @@ var _runSelectForm = function(params) {
     wrapperClass: params.selectors.wrapperClass
   });
 
+  cn.removeClass( cn.el(params.selectors.canvas), 'display-none' );
+
 },
 
 _runFormOptions = function(options) {
