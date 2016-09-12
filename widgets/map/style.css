@@ -4,7 +4,13 @@
 .cibulMap .map-sync > * { vertical-align: middle; }
 .cibulMap .map-location .count { display: none; }
 .cibulMap .map-location > span, .map-location > img { display: inline-block; }
-.cibulMap .map-location > img { width: 48px; padding: 0.2em 0.5em 0 0; vertical-align: top;}
+
+.cibulMap .oa-location-image img { 
+  width: 100%;
+  max-width: 180px!important;
+  padding: 1em 0 0.4em 0;
+}
+
 .cibulMap .map-location > span { max-width: 160px; }
 .cibulMap .leaflet-popup-content-wrapper { -webkit-border-radius: 0; border-radius: 0; }
 .cibulMap .leaflet-popup-content p, .leaflet-popup-content { margin: 0; }
