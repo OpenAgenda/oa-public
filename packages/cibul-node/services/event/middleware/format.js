@@ -4,7 +4,9 @@ var w = require( 'when' ),
 
 timeHelper = require( 'cibulTemplates' ).helpers.time,
 
-registration = require( 'registration/src/validate' ).getTypesAndValues;
+registration = require( 'registration/src/validate' ).getTypesAndValues,
+
+du = require( 'dom-utils' );
 
 /**
  * prepare event data for display or upload
@@ -82,9 +84,16 @@ function _location( v ) {
 
   v.formatted.location = v.req.event.getLocationDetails( v.req.lang, true );
 
+  if ( v.formatted.location && v.formatted.location.description ) {
+
+    v.formatted.location.description = du.nl2br( v.formatted.location.description, true, false );
+
+  }
+
   return v;
 
 }
+
 
 function _registration( v ) {
   
