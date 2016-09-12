@@ -68,7 +68,7 @@ routes = {
   contributorsInfo: [ 'get', '/contributors/info', [ 
     cmn.checkAdministrator(),
     agendaSvc.mw.loadAdminLayout,
-    cmn.loadBaseData(),
+    cmn.loadBaseData( 'oasfmain.css' ),
     info
   ] ],
 
@@ -121,10 +121,10 @@ module.exports = function( path ) {
 
 function info( req, res ) {
 
-  req.agenda.getContributionInfo( function( err, info ) {
+  req.agenda.getContributionInfo( ( err, info ) => {
 
     cmn.render( req, res, 'contributors/info', {
-      info: info
+      info
     } );
 
   });

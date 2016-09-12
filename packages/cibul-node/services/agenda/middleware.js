@@ -184,7 +184,7 @@ function loadAdminLayout( req, res, next ) {
 
         // filter tabs where agenda does not have required creds
 
-        req.layoutData.tabs = svcConfig.adminTabs.filter( function( tab ) {
+        req.layoutData.tabs = svcConfig.adminTabs.filter( tab => {
 
           // if user is moderator and tab access is not given to moderators,
           // filter.
