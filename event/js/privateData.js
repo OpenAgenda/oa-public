@@ -83,7 +83,7 @@ module.exports = function( options ) {
 
     log( 'fetching %s', res );
 
-    remote.get( res, {}, function( responseType, data ){
+    remote.get( res, { timeout: 30000 }, function( responseType, data ){
 
       if ( responseType == 'success' ) {
 

@@ -1,7 +1,7 @@
 agenda admin/js/dataVizBundle.js
 agenda admin/js/node_modules/*
 server/node_modules/*
-node_modules/*
+node_modules
 openagenda/.sass-cache/*
 build/browserified/*
 build/sass/*

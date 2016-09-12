@@ -594,7 +594,7 @@ for ( var i = 0; i < process.argv.length; i++ ) {
   if ( process.argv[ i ] == 'l' ) {
     labels = true;
     changeLine = true;
-  } else if ( process.argv[ i ] == 'dev' ) {
+  } else if ( process.env.BUILD_ENV == 'development' ) {
     production = false;
   }
 }

@@ -29,7 +29,7 @@ module.exports = ( paths ) => {
         },
         {
           test: /\.ejs$/,
-          loader: 'ejs'
+          loader: 'ejs-compiled'
         },
         {
           test: /\.(css|html|tblr)$/,
