@@ -1,13 +1,20 @@
 {
-  "layout" : "agendaAdmin/layout",
+  "layout" : "agendaAdmin/bsLayout",
+
   "labels" : "contributors/info",
-  "css" : {},
+
+  "bsCss" : {
+    "main" : "/node_modules/bs-templates/compiled/main.css"
+  },
+
   "helpers" : {
     "_t" : "time",
     "_i" : "image"
   },
+
   "base" : {
-    "mainClass" : "editors",
+    "mainClass" : "agenda-admin editors",
+    "pageId" : false,
     "tab" : "contributors"
   }
 }
