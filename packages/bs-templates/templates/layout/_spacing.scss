@@ -1,0 +1,29 @@
+@mixin createSpacing($type) {
+  $directions: all, v, h, top, right, bottom, left;
+  $sizes: ((sm, 6px), (md, 12px), (xl, 22px));
+
+  @each $direction in $directions {
+    @each $size, $pixel in $sizes {
+      .#{$type}-#{$direction}-#{$size} {
+        @if $direction == all {
+          #{$type}: $pixel;
+        } @else if $direction == v {
+          #{$type}: $pixel 0;
+        } @else if $direction == h {
+          #{$type}: 0 $pixel;
+        } @else if $direction == top {
+          #{$type}: $pixel 0 0 0;
+        } @else if $direction == right {
+          #{$type}: 0 $pixel 0 0;
+        } @else if $direction == bottom {
+          #{$type}: 0 0 $pixel 0;
+        } @else if $direction == left {
+          #{$type}: 0 0 0 $pixel;
+        }
+      }
+    }
+  }
+}
+
+@include createSpacing(margin);
+@include createSpacing(padding);
