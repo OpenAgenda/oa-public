@@ -23,7 +23,7 @@ const Modal = React.createClass( {
   getDefaultProps() {
 
     return {
-      title: false,
+      title: null,
       visible: true,
       disableBodyScroll: false,
       classNames: {
@@ -50,7 +50,7 @@ const Modal = React.createClass( {
   addClickEvents() {
 
     ReactDOM.findDOMNode( this.modalRef ).addEventListener( 'click', this.handleModalClick );
-    
+
     document.addEventListener( 'click', this.handleDocumentClick );
 
   },
@@ -58,12 +58,14 @@ const Modal = React.createClass( {
   removeClickEvents() {
 
     ReactDOM.findDOMNode( this.modalRef ).removeEventListener( 'click', this.handleModalClick );
-    
+
     document.removeEventListener( 'click', this.handleDocumentClick );
 
   },
 
   componentDidMount() {
+
+    if ( this.props.visible ) this.addClickEvents();
 
     if ( this.props.disableBodyScroll ) bodyScroll.disable();
 
@@ -77,7 +79,7 @@ const Modal = React.createClass( {
 
   },
 
-  handleModalClick( e ) {
+  handleModalClick() {
 
     this.clickOnModal = true;
 
@@ -113,14 +115,14 @@ const Modal = React.createClass( {
     return (
       <div style={{ display: visible ? 'block' : 'none' }} className={this.props.classNames.overlay}>
         <section ref={ref => this.modalRef = ref}>
-         { title ? 
-          <header className="popup-title">
-            <h2>{title}</h2>
-            <a onClick={this.handleClose} className="close-link">
-              <i className="fa fa-times fa-lg"/>
-            </a>
-          </header>
-          : null }
+          { title ?
+            <header className="popup-title">
+              <h2>{title}</h2>
+              <a onClick={this.handleClose} className="close-link">
+                <i className="fa fa-times fa-lg" />
+              </a>
+            </header>
+            : null }
           <div className="popup-content">
             {children}
           </div>

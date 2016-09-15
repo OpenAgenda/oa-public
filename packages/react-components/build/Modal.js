@@ -20,7 +20,7 @@ var Modal = React.createClass({
   getDefaultProps: function getDefaultProps() {
 
     return {
-      title: false,
+      title: null,
       visible: true,
       disableBodyScroll: false,
       classNames: {
@@ -52,6 +52,8 @@ var Modal = React.createClass({
   },
   componentDidMount: function componentDidMount() {
 
+    if (this.props.visible) this.addClickEvents();
+
     if (this.props.disableBodyScroll) bodyScroll.disable();
   },
   componentWillUnmount: function componentWillUnmount() {
@@ -60,7 +62,7 @@ var Modal = React.createClass({
 
     if (this.props.disableBodyScroll) bodyScroll.enable();
   },
-  handleModalClick: function handleModalClick(e) {
+  handleModalClick: function handleModalClick() {
 
     this.clickOnModal = true;
   },
