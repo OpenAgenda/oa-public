@@ -14,7 +14,8 @@ module.exports = {
   truncate: truncate,
   capitalize: capitalize,
   uncapitalize: uncapitalize,
-  cleanString: cleanString 
+  cleanString: cleanString ,
+  deep: deep
 };
 
 
@@ -246,5 +247,26 @@ function cleanString( str ) {
   }
 
   return str.replace( new RegExp( '[' + charsToClean.join( '' ) + ']', 'g' ), ' ' );
+
+}
+
+
+function deep( obj, address ) {
+
+  if ( typeof obj !== 'object' ) return;
+
+  if ( obj === null ) return;
+
+  var v = obj, parts = address.split( '.' );
+
+  for ( var i = 0; i < parts.length; i++ ) {
+
+    if ( typeof v[ parts[ i ] ] === 'undefined' ) return;
+
+    v = v[ parts[ i ] ];
+
+  }
+
+  return v;
 
 }
