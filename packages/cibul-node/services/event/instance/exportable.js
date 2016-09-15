@@ -74,7 +74,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
       title: instance.title,
       description: instance.description,
       longDescription: instance.freeText,
-      keywords: instance.tags,
+      keywords: _cleanKeywords( instance.tags ),
       html: instance.getEnrichedFreeText( true ),
       image: loaded.getImage(),
       thumbnail: loaded.getThumbnail(),
@@ -198,5 +198,22 @@ function _inject( c, l, map ) {
     }
 
   }
+
+}
+
+
+function _cleanKeywords( dirty ) {
+
+  if ( !dirty || typeof dirty !== 'object' ) return;
+
+  let clean = {};
+
+  Object.keys( dirty ).forEach( k => {
+
+    clean[ k ] = ( dirty[ k ] || '' ).split( ',' ).map( t => t.trim() ).filter( t => t.length ).join( ', ' );
+
+  } );
+
+  return clean;
 
 }
