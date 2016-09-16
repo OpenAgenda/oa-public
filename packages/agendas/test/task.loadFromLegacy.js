@@ -12,7 +12,7 @@ mysql = require( 'mysql' ),
 
 async = require( 'async' );
 
-describe.only( 'service.tasks.loadFromLegacy', function() {
+describe( 'service.tasks.loadFromLegacy', function() {
 
   this.timeout( 30000 );
 
