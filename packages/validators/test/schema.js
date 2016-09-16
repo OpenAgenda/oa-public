@@ -351,7 +351,7 @@ describe( 'schema validator', () => {
 
   } );
 
-
+    
   describe( 'particulars', () => {
 
     before( () => {
@@ -402,6 +402,7 @@ describe( 'schema validator', () => {
       } );
 
     } );
+
 
     it( 'validates a schema with dates', () => {
 
@@ -460,6 +461,47 @@ describe( 'schema validator', () => {
       }
 
     } );
+
+
+    it( 'undefined root subobject is processed', () => {
+
+      let errors = [],
+
+      validate = schema( {
+        settings: {
+          contribution: {
+            message: {
+              type: 'text',
+              default: 'thedefaultvalue'
+            }
+          }
+        }
+      } ),
+
+      clean = false;
+
+      try {
+
+        clean = validate( {} );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 0 );
+
+      clean.should.eql( {
+        settings: {
+          contribution: {
+            message: 'thedefaultvalue'
+          }
+        }
+      } );
+
+    } );
+    
 
   } );
 

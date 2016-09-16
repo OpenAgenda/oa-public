@@ -40,7 +40,7 @@ module.exports = function (options, validators) {
 
       matchingValue = matchingValue.length ? matchingValue[0] : {
         field: validator.field,
-        value: undefined
+        value: validator.type === 'object' ? [] : undefined
       };
 
       if (validator.type !== 'object') {
@@ -60,7 +60,7 @@ module.exports = function (options, validators) {
         errors = errors.concat([{
           field: matchingValue.field,
           origin: matchingValue.value,
-          code: 'string.invalidtype',
+          code: 'object.invalidtype',
           message: 'not an object'
         }]);
       } else {
