@@ -15,7 +15,8 @@ sql = {
   data: {
     agenda: fs.readFileSync( __dirname + '/agenda.data.sql' ).toString(),
     agendaEvent: fs.readFileSync( __dirname + '/agendaEvent.data.sql' ).toString(),
-    occurrence: fs.readFileSync( __dirname + '/occurrence.data.sql' ).toString()
+    occurrence: fs.readFileSync( __dirname + '/occurrence.data.sql' ).toString(),
+    legacyCredentialSet: fs.readFileSync( __dirname + '/legacyCredentialSet.data.sql' ).toString()
   }
 },
 
@@ -52,6 +53,7 @@ function build( cb ) {
       .replace( /\${agendaSchema}/g, config.schemas.agenda )
       .replace( /\${agendaEventSchema}/g, config.schemas.agendaEvent )
       .replace( /\${occurrenceSchema}/g, config.schemas.occurrence )
+      .replace( /\${legacyCredentialSchema}/g, config.schemas.legacyCredentialSet )
       .replace( /\${database}/g, database )
     );
 
@@ -89,6 +91,18 @@ function build( cb ) {
     return _query( v, 
       sql.data.agendaEvent
       .replace( /\${schema}/g, config.schemas.agendaEvent )
+    );
+
+  } )
+
+  // populate legacy credential table
+  .then( v => {
+
+    console.log( 'populating credential references' );
+
+    return _query( v, 
+      sql.data.legacyCredentialSet
+      .replace( /\${schema}/g, config.schemas.legacyCredentialSet )
     );
 
   } )

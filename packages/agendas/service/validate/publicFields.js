@@ -26,23 +26,25 @@ module.exports = {
     type: 'boolean',
     default: false
   },
-  contribution: {
-    type: {
-      default: 0,
-      type: 'number',
-      optional: false,
-      min: 0, // no contribution
-      max: 2  // contribution on invitation only
-    },
-    defaultState: {
-      default: 2,
-      type: 'number',
-      optional: false,
-      min: 0, // to be controlled
-      max: 2  // published
-    },
-    message: {
-      type: 'text'
+  settings: {
+    contribution: {
+      type: {
+        default: 0,
+        type: 'number',
+        optional: false,
+        min: 0, // no contribution
+        max: 2  // contribution on invitation only
+      },
+      defaultState: {
+        default: 2,
+        type: 'number',
+        optional: false,
+        min: 0, // to be controlled
+        max: 2  // published
+      },
+      message: {
+        type: 'text'
+      }
     }
   }
 }

@@ -39,10 +39,12 @@ describe( 'validate', () => {
         description: 'Description of the agenda',
         slug: 'title-of-the-agenda',
         official: false,
-        contribution: {
-          type: 0,
-          message: null,
-          defaultState: 2
+        settings: {
+          contribution: {
+            defaultState: 2,
+            message: null,
+            type: 0
+          }
         },
         url: undefined
       } );
@@ -85,17 +87,22 @@ describe( 'validate', () => {
         uid: 122312,
         official: false,
         ownerId: 1,
-        contribution: { 
-          type: 0,
-          message: null,
-          defaultState: 2
+        settings: {
+          contribution: {
+            defaultState: 2,
+            message: null,
+            type: 0
+          }
         },
         updatedAt: now,
         createdAt: now,
         description: 'Un agenda de tests',
         image: null,
         url: undefined,
-        credentials: { 
+        credentials: {
+          activatingInvitations: false,
+          emailstrategie: false,
+          indesign: false,
           moderators: false,
           tags: false,
           embedsHead: false,

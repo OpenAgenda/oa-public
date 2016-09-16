@@ -36,7 +36,13 @@ describe( 'service.set: create an agenda', function() {
           title: 'Hello World',
           description: 'This is necessary',
           url: null,
-          settings: null,
+          settings: {
+            contribution: {
+              defaultState: 2,
+              message: null,
+              type: 0
+            }
+          },
           official: 0,
           createdAt: result.agenda.createdAt,
           updatedAt: result.agenda.updatedAt
@@ -105,7 +111,13 @@ describe( 'service.set: create an agenda', function() {
           title: 'Courbevoie',
           description: 'Que faire à Courbevoie',
           url: 'http://www.ville-courbevoie.fr/lagenda-de-vos-evenements.htm',
-          settings: null,
+          settings: {
+            contribution: {
+              defaultState: 2,
+              message: null,
+              type: 0
+            }
+          },
           image: null,
           official: 0,
           createdAt: result.agenda.createdAt,
@@ -145,9 +157,19 @@ describe( 'service.set: create an agenda', function() {
           settings: null,
           image: null,
           official: 0,
+          settings: {
+            contribution: {
+              defaultState: 2,
+              message: null,
+              type: 0
+            }
+          },
           credentials: {
+            activatingInvitations: false,
+            emailstrategie: false,
             moderators: false,
             tags: false,
+            indesign: false,
             embedsHead: false,
             embedsTemplates: false 
           },

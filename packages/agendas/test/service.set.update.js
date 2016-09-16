@@ -33,7 +33,13 @@ describe( 'service.set: update an agenda', function() {
         description: 'Des animations pour des expériences autour du goût et des savoir-faire / Numerous events to have experiences around taste and know-how',
         image: 'review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg',
         url: 'http://www.salon-fromage.com/',
-        settings: null,
+        settings: {
+          contribution: {
+            defaultState: 2,
+            message: null,
+            type: 0
+          }
+        },
         updatedAt: result.agenda.updatedAt,
         createdAt: result.agenda.createdAt,
         official: 0
@@ -84,14 +90,23 @@ describe( 'service.set: update an agenda', function() {
           description: 'test ! :)',
           url: '',
           image: null,
-          settings: null,
+          settings: {
+            contribution: {
+              defaultState: 2,
+              message: null,
+              type: 0
+            }
+          },
           updatedAt: result.agenda.updatedAt,
           createdAt: result.agenda.createdAt,
-          credentials: { 
+          credentials: {
+            activatingInvitations: false,
+            emailstrategie: false,
             moderators: true,
             tags: false,
             embedsHead: false,
-            embedsTemplates: false 
+            embedsTemplates: false,
+            indesign: false
           } 
         },
         valid: true,

@@ -21,7 +21,9 @@ let knex, schemas, mysqlConfig, log,
 
 dbParse = require( './lib/mysqlParse' )( require( './validate' ).map ),
 
-validate = require( './validate' );
+validate = require( './validate' ),
+
+legacy = require( './legacy' );
 
 module.exports = set;
 module.exports.init = init;
@@ -83,6 +85,8 @@ function _update( identifiers, data, options, cb ) {
 
   .then( _doUpdate )
 
+  .then( _applyToLegacy )
+
   .then( _get( {
     target: 'updated',
     internal: options.internal,
@@ -138,6 +142,8 @@ function _create( data, options, cb ) {
   .then( _validate( 'data' ) )
 
   .then( _doCreate )
+
+  .then( _applyToLegacy )
 
   .then( _get( { 
     target: 'created', 
@@ -205,6 +211,32 @@ function _doUpdate( v ) {
 }
 
 
+function _applyToLegacy( v ) {
+
+  if ( !v.success ) return v;
+
+  let d = w.defer();
+
+  legacy( v.id ).applyToLegacy( v.clean, err => {
+
+    if ( err ) {
+
+      log( 'error', {
+        message: 'agenda legacy save triggered error',
+        error: err
+      } );
+
+    }
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
 function _doCreate( v ) {
 
   if ( v.errors.length ) {
@@ -230,6 +262,8 @@ function _doCreate( v ) {
     v.identifiers = {
       id: result[ 0 ]
     };
+
+    v.id = result[ 0 ];
 
     return v;
 

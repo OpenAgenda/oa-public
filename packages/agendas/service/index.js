@@ -8,6 +8,8 @@ const knexLib = require( 'knex' ),
 
   guard = require( 'when/guard' ),
 
+  legacy = require( './legacy' ),
+
   wn = require( 'when/node' ),
 
   set = require( './set' ),
@@ -22,29 +24,27 @@ const knexLib = require( 'knex' ),
 
   dbParse = require( './lib/mysqlParse' )( validate.map ),
 
-  utils = require( 'utils' );
+  utils = require( 'utils' ),
 
-var knex,
+  service = {
+    init,
+    list,
+    get,
+    set,
+    count,
+    slugs: {
+      isTaken: slugs.isTaken,
+      generate: slugs.generate,
+    },
+    tasks: {
+      loadFromLegacy: require( '../tasks/loadFromLegacy' )
+    },
+    getConfig: () => config
+  };
 
-  config,
+module.exports = service;
 
-  schemas,
-
-  log;
-
-module.exports = {
-  init,
-  list,
-  get,
-  set,
-  count,
-  slugs: {
-    isTaken: slugs.isTaken,
-    generate: slugs.generate,
-  },
-  getConfig: () => config
-};
-
+let knex, config, schemas, log;
 
 function init( c ) {
 
@@ -68,6 +68,14 @@ function init( c ) {
   set.init( schemas, knex, c.mysql );
 
   slugs.init( schemas, knex );
+
+  legacy.init( schemas, knex );
+
+  Object.keys( service.tasks ).forEach( k => {
+
+    service.tasks[ k ].init( service );
+
+  } );
 
   log = logger( 'agendas service' );
 
