@@ -21,6 +21,13 @@ function schema( struct ) {
 
   function validate( values, _subValidator = null, subStruct = null ) {
 
+    // initialize undefined or null to empty obj if top level
+    if ( _subValidator === null && subStruct === null && !values ) {
+
+      values = {};
+
+    }
+
     let listValues = _mapToList( values, subStruct || struct );
 
     let clean = ( _subValidator || validator )( listValues );

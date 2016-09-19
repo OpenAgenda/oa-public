@@ -1,6 +1,6 @@
 "use strict";
 
-require('source-map-support').install();
+require( 'source-map-support' ).install();
 
 const validators = require( './build' ),
 
@@ -367,6 +367,7 @@ describe( 'schema validator', () => {
 
     } );
 
+
     it( 'validates a schema with object named type', () => {
 
       let errors = [], clean, 
@@ -499,6 +500,36 @@ describe( 'schema validator', () => {
           }
         }
       } );
+
+    } );
+
+
+    it( 'invalid subobject value gives error with deep field name ( description.fr )', () => {
+
+      let errors = [],
+
+      clean, 
+
+      validate = schema( {
+        description: {
+          fr: {
+            type: 'text',
+            optional: false
+          }
+        }
+      } );
+
+      try {
+
+        validate();
+
+      } catch ( e ) {
+
+        errors = e;
+
+      }
+
+      errors[ 0 ].field.should.equal( 'description.fr' );
 
     } );
     
