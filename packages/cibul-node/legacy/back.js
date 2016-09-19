@@ -159,12 +159,12 @@ function customImageSave( req, res, next ) {
 
     }
 
-    event.loadAgendaCustomContext( {
+    req.event.loadAgendaCustomContext( {
       uid: req.agenda.uid,
       customFields: req.agenda.getCustomFieldsConfig()
-    });
+    } );
 
-    event.saveCustomImage( {
+    req.event.saveCustomImage( {
       name: req.params.field,
       userUid: user.uid
     }, ( err, destUrl ) => {
