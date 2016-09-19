@@ -122,7 +122,7 @@ function _dispatch( method ) {
 
     return p.w.map( v.aggregatorAgendaIds, function( aggAgendaId ) {
 
-      return p.w.promise( function( rs, rj ) {
+      return p.w.promise( ( rs, rj ) => {
 
         q( {
           method: method,

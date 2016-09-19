@@ -79,7 +79,9 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
 
   .then( p.ife( { referencedOrAdded: true }, _associateSameCategory ) )
 
-  .done(  v => {
+  .then( p.ife( { referencedOrAdded: true }, _announceUpdate ) )
+
+  .done( v => {
 
     if ( v.added ) {
 
@@ -508,6 +510,16 @@ function _associateSameCategory( v ) {
 }
 
 
+function _announceUpdate( v ) {
+
+  v.aggregatingAgenda.announceEventUpdate( v.event, {
+    refresh: !v.mute
+  } );
+
+  return v;
+
+}
+
 
 /**
  * assuming event is not already listed, add event to the aggregating agenda
@@ -521,7 +533,7 @@ function _addEventToAggregator( v ) {
 
   v.aggregatingAgenda.addEvent( v.event, {
     stakeholder: { id: v.aggregatingAgenda.ownerId },
-    refresh: !v.mute
+    mute: true
   }, err => {
 
     if ( err ) return d.reject( err );

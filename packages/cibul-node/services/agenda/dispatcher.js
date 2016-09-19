@@ -151,6 +151,16 @@ module.exports = agenda => {
 }
 
 
+function _legacySearchUpdate( eventId ) {
+
+  coms.publish( config.mainChannel, {
+    name: 'search.update', 
+    values: { id: eventId } 
+  } );
+
+}
+
+
 function _requires() { // me no liky circular dependency
 
   if ( !aggregator ) {

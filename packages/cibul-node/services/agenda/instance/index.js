@@ -51,6 +51,7 @@ function instanciate( data ) {
   svcInstance = utils.extend( {}, instance, {
     addEvent,
     removeEvent,
+    announceEventUpdate,
     setContributor: _stakeholderSetter( 'setContributor' ),
     setModerator: _stakeholderSetter( 'setModerator' ),
     setAdministrator: _stakeholderSetter( 'setAdministrator' ),
@@ -149,7 +150,8 @@ function instanciate( data ) {
 
     let params = utils.extend( {
       stakeholder: null, // required!
-      refresh: true
+      refresh: true,
+      mute: false
     }, options );
 
     instance.isStakeholder( params.stakeholder, ( err, is ) => {
@@ -162,14 +164,11 @@ function instanciate( data ) {
 
         if ( err ) return cb( err );
 
-        coms.publish( config.mainChannel, {
-          name: 'event.update',
-          values: {
-            id: event.id,
-            agendaId: instance.id,
-            type: 'event.publish',
-            refresh: params.refresh
-          }
+        if ( params.mute ) return cb();
+
+        announceEventUpdate( event, {
+          type: 'event.publish',
+          refresh: params.refresh
         } );
 
         cb();
@@ -225,14 +224,9 @@ function instanciate( data ) {
 
         if ( err ) return cb( err );
 
-        coms.publish( config.mainChannel, {
-          name: 'event.update',
-          values: {
-            id: v.event.id,
-            agendaId: instance.id,
-            type: 'event.remove',
-            refresh: v.refresh
-          }
+        announceEventUpdate( v.event, {
+          type: 'event.remove',
+          refresh: v.refresh
         } );
 
         cb();
@@ -240,6 +234,27 @@ function instanciate( data ) {
       } );
 
     }, cb );
+
+  }
+
+
+  /**
+   * when multiple actions are done on an event
+   * it is more efficient to prevent an update
+   * for each action and trigger it only at the end
+   * of the operation. That is the use of this
+   * method
+   */
+  function announceEventUpdate( event, values ) {
+
+    coms.publish( config.mainChannel, {
+      name: 'event.update',
+      values: Object.assign( {
+        type: 'event.publish',
+        id: event.id,
+        agendaId: instance.id,
+      }, values )
+    } );
 
   }
 
