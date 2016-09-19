@@ -135,8 +135,24 @@ Offers 4 endpoints:
  * **sourceRemove**: removes a source agenda from an aggregator agenda. All events of source must be evaluated for removal from aggregator. A source remove does NOT unlist events that were aggregated through source.
 
 
+ ### Testing
+
+ There are no automated tests for this part. Here is a procedure that tests most features:
+
+  * Create three agendas: Source, Agg1, Agg2
+  * Define for each the same categories: One, Two, Three
+  * Publish Events on Source: One, Two, Three, associating each one with the category of the same name
+  * Define Agg2 as the aggregator of Agg1
+  * Define Agg1 as the aggregator of Source
+  * * Processing takes place *
+  * Verify that Agg1 and Agg2 have all three events referenced, and that category filters work ( One filters the list to event One )
+  * Unpublish event One from Source
+  * Verify that One is no longer referenced by Agg1 and Agg2
+
+
+
 
 
 ## Error handling
 
-There is a 404 and 500 page in the 'general' app module. The handling of errors is still sketchy, how the newsletter app 'back.js' proceeds with this should serve as a guideline for now. Promises (using the 'when' lib) avoid the need to control errors at each callback.
+There is a 404 and 500 page in the 'general' app module. The handling of errors is still sketchy, how the newsletter app 'back.js' proceeds with this should serve as a guideline for now. Promises (using the 'when' lib) avoid the need to control errors at each callback
