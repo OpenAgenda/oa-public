@@ -1,6 +1,6 @@
 var maps = require( './maps.mod' ),
 
-cn = require( '../common/common.mod'),
+utils = require( 'utils' ),
 
 L = require( 'leaflet' );
 
@@ -14,7 +14,7 @@ maps.register('osm', (function(){
 
     init: function( options ) {
 
-      libOptions = cn.extend({
+      libOptions = utils.extend({
         url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         attr: 'Map data © OpenStreetMap contributors',
       }, options?options:{});
@@ -23,7 +23,7 @@ maps.register('osm', (function(){
 
     createMap: function(mapElt, options) {
 
-      options = cn.extend({
+      options = utils.extend({
         zoom: 15,
         draggable: true,
         scrollwheel: true,
@@ -172,7 +172,7 @@ maps.register('osm', (function(){
 
     createBounds: function(pos, options) {
 
-      options = cn.extend({
+      options = utils.extend({
         padding: 0.001
       }, options?options:{});
 
@@ -180,9 +180,17 @@ maps.register('osm', (function(){
 
     },
 
-    extendBounds: function(bounds, pos) {
+    extendBounds: function( bounds, pos, options ) {
 
-      bounds.extend(new L.LatLng(pos[0], pos[1]));
+      var params = utils.extend( {
+        padding: 0.001
+      }, typeof options === 'undefined' ? options : {} );
+
+      // extend to the north-east
+      bounds.extend( new L.LatLng( parseFloat( pos[0] ) + params.padding, parseFloat( pos[1] ) + params.padding ) );
+
+      // extend to the south-west
+      bounds.extend( new L.LatLng( parseFloat( pos[0] ) - params.padding, parseFloat( pos[1] ) - params.padding ) );
 
     },
 
@@ -212,7 +220,7 @@ maps.register('osm', (function(){
 
       if ( !map.getSize().x ) return;
 
-      options = cn.extend({
+      options = utils.extend({
         marker: false
       }, options?options:{});
 
