@@ -71,6 +71,12 @@ module.exports = React.createClass( {
       page: this.state.pageRange[ next ? 1 : 0 ] + ( next ? +1 : -1 )
     }
 
+    if ( this.state.official !== null ) {
+
+      query.official = this.state.official;
+
+    }
+
     if ( this.state.agendas.length >= this.state.total ) return;
 
     this.setState( { loading: true } );
