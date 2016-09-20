@@ -452,7 +452,11 @@ function _initAgendaSearch( config ) { // sync
       path: config.aws.imageBucketPath.replace( 'cibuldev', 'cibul' ),
       default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
     },
-    logger: logger
+    logger: logger,
+    site: {
+      url: config.root,
+      image: config.logo
+    }
   } );
 
   return config;

@@ -16,8 +16,6 @@ eventSvc = require( '../services/event' ),
 
 embedSvc = require( '../services/embed/embed' ),
 
-searchBaseData = cmn.loadBaseData( 'oasfmain.css' ),
-
 perPage = 20,
 
 deepExtend = require( 'deep-extend' ),
@@ -113,13 +111,11 @@ routes = {
 
   agendaSearch: [ 'get', '/agendas', [
     agendaSearch.mw.list,
-    ( req, res, next ) => {
-
-      req.xhr ? next() : searchBaseData( req, res, next )
-      
-    },
+    cmn.loadBaseData( 'oasfmain.css' ),
     agendaSearchPage
   ] ],
+
+  agendaSearchFormats: [ 'get', '/agendas.:format', agendaSearch.mw.list ],
 
   agendaSearchRebuild: [ 'get', '/agendas/rebuild', [
     agendaSearch.mw.rebuild,
@@ -283,7 +279,7 @@ function agendaSearchPage( req, res, next ) {
       canvas: '.js_search_canvas',
       agendas: req.data.agendas,
       total: req.data.total,
-      res: req.genUrl( 'agendaSearch' )
+      res: req.genUrl( 'agendaSearchFormats', { format: 'json' } )
     }
   } );
 

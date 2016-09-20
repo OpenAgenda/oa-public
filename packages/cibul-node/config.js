@@ -28,6 +28,7 @@ var deepExtend = require( 'deep-extend' ),
       domain: 'openagenda.com',
       mailerDomain: 'mailer.openagenda.com',
       root: 'https://openagenda.com',
+      logo: 'https://s3.eu-central-1.amazonaws.com/oastatic/openagenda-185.png',
       googleAnalyticsId: 'UA-60305866-1',
       embedGoogleAnalyticsId: 'UA-60305866-2',
       externalScripts: {
