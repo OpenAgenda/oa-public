@@ -5,7 +5,8 @@ var qs = require( 'qs' );
 module.exports = {
   getQuery: getQuery,
   getQueryPart: getQueryPart,
-  setQueryPart: setQueryPart
+  setQueryPart: setQueryPart,
+  hasQueryPart: hasQueryPart
 };
 
 
@@ -22,6 +23,13 @@ function getQuery() {
   if ( !query.length ) return;
 
   return qs.parse( query );
+
+}
+
+
+function hasQueryPart( name ) {
+
+  return typeof getQueryPart( name ) === 'undefined';
 
 }
 
