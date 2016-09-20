@@ -25,6 +25,7 @@ module.exports = function (options) {
     res: params.res,
     lang: params.lang,
     search: dl.getQueryPart('search', ''),
+    official: dl.hasQueryPart('official') ? !!parseInt(dl.getQueryPart('official')) : null,
     page: parseInt(dl.getQueryPart('page', 1), 10),
     agendas: data.agendas,
     total: data.total

@@ -1,7 +1,8 @@
 "use strict";
 
 var React = require('react'),
-    getLabel = require('labels')(require('labels/agenda-search'));
+    getLabel = require('labels')(require('labels/agenda-search')),
+    url = require('../../service/url');
 
 module.exports = React.createClass({
 
@@ -19,7 +20,7 @@ module.exports = React.createClass({
       { className: 'agenda-item media' },
       React.createElement(
         'a',
-        { href: '/agendas/' + this.props.agenda.uid },
+        { href: url.agenda(this.props.agenda) },
         React.createElement(
           'div',
           { className: 'media-left' },

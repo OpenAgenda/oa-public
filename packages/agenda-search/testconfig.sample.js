@@ -2,6 +2,10 @@
 
 module.exports = {
   alias: 'agenda_test',
+  site: {
+    url: 'https://openagenda.com',
+    image: 'https://s3.eu-central-1.amazonaws.com/oastatic/openagenda-185.png'
+  },
   mysql : {
     host : '127.0.0.1',
     database : 'agenda_search_test',

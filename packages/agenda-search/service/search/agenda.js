@@ -40,7 +40,11 @@ module.exports.init = function( cfg ) {
  */
 function query( q, offset, limit ) {
 
-  var dsl = {
+  let clean = _cleanQuery( q ),
+
+  isFiltered = _isFilteredQuery( clean ),
+
+  dsl = {
     from: offset,
     size: limit,
     sort: [ {
@@ -55,10 +59,10 @@ function query( q, offset, limit ) {
     _source: { exclude: ['*_es'] }
   },
 
-  dslQuery = {}
+  dslQuery = {};
 
   // when a text search is made, look into title and description
-  if ( q.search && q.search.length ) {
+  if ( clean.search !== null ) {
 
     dslQuery.multi_match = {
       query: q.search,
@@ -85,6 +89,7 @@ function query( q, offset, limit ) {
 
   }
 
+
   // when a text search is made, make sure 
   if ( !utils.size( dslQuery ) ) {
 
@@ -93,6 +98,27 @@ function query( q, offset, limit ) {
   }
 
   dsl.query = dslQuery;
+
+  if ( !isFiltered ) {
+
+    return dsl;
+
+  }
+
+  
+  dsl.filter = {};
+
+  if ( clean.official !== null ) {
+
+    dsl.filter.bool = {
+      must: {
+        term: {
+          official: clean.official
+        }
+      }
+    }
+
+  }
 
   return dsl;
 
@@ -212,5 +238,42 @@ function clean( a, config ) {
   c.hasUpcomingPublished = !!c.upcomingPublishedEvents;
   
   return c;
+
+}
+
+
+function _cleanQuery( q ) {
+
+  if ( !q ) return {};
+
+  let clean = Object.assign( {
+    search: null,
+    official: null
+  }, q );
+
+  if ( clean.official !== null ) {
+
+    clean.official = !!clean.official;
+
+  }
+
+  if ( clean.search !== null && typeof clean.search !== 'string' ) {
+
+    clean.search = null;
+
+  }
+
+  return clean;
+
+}
+
+
+function _isFilteredQuery( q ) {
+
+  let filteringKeys = [ 'official' ],
+
+  setKeys = Object.keys( q ).filter( k => q[ k ] !== null );
+
+  return !!filteringKeys.filter( filteringKey => setKeys.indexOf( filteringKey ) !== -1 ).length;
 
 }

@@ -1,10 +1,14 @@
 "use strict";
 
-var logger = require( 'basic-logger' ), log,
+let logger = require( 'basic-logger' ), log,
+
+getLabel = require( 'labels' )( require( 'labels/agenda-search/index' ) ),
 
 validators = require( 'validators' ),
 
 service, config,
+
+url = require( './url' ),
 
 validatePage = validators.number( {
   min: 1,
@@ -16,6 +20,8 @@ utils = require( 'utils' ),
 React = require( 'react' ),
 
 ReactDOMServer = require( 'react-dom/server' ),
+
+rss = require( 'rss' ),
 
 Body = React.createFactory( require( '../components/lib/Body.js' ) );
 
@@ -55,7 +61,11 @@ function list( req, res, next ) {
 
   offset = 0,
 
-  page = 1;
+  page = 1,
+
+  search = req.query.search || null, 
+
+  official = req.query.official !== undefined ? !!parseInt( req.query.official ) : null;
 
   try {
 
@@ -65,23 +75,39 @@ function list( req, res, next ) {
 
   } catch( e ) {}
 
-  service.list( req.query.search ? { search: req.query.search } : {}, offset, limit, ( err, agendas, total ) => {
+  service.list( {
+    search,
+    official,
+  }, offset, limit, ( err, agendas, total ) => {
 
     if ( err ) return next( err );
 
     req.data = {
-      agendas: agendas,
-      total: total
+      total,
+      offset,
+      limit,
+      agendas
     }
 
-    if ( req.xhr ) return res.json( req.data );
+    if ( req.params.format === 'json' ) {
+
+      return res.json( req.data );
+
+    }
+
+    if ( req.params.format === 'rss' ) {
+
+      return _renderRss( req, res );
+
+    }
 
     req.content = ReactDOMServer.renderToString( Body( {
       lang: req.lang,
-      page: page,
-      search: req.query.search,
-      agendas: agendas,
-      total: total
+      page,
+      search,
+      official,
+      agendas,
+      total
     } ) );
 
     next();
@@ -89,6 +115,43 @@ function list( req, res, next ) {
   } );
 
 }
+
+
+function _renderRss( req, res ) {
+
+  let today = new Date();
+
+  today.setHours( 0, 0, 0, 0 );
+
+  let feed = new rss( {
+    title: getLabel( 'genericSearchTitle', req.lang ),
+    feed_url: config.site.url + req.originalUrl,
+    site_url: 'https://' + req.get( 'host' ),
+    generator: 'OpenAgenda',
+    image_url: config.site.image,
+    pubDate: today,
+    language: req.lang,
+    ttl: 24*60
+  } );
+
+  req.data.agendas.forEach( a => {
+
+    feed.item( {
+      title: a.title,
+      description: a.description,
+      url: url.agenda( a, config.site.url ),
+      guid: a.uid,
+      date: a.createdAt
+    } );
+
+  } ) ;
+
+  res.set( 'Content-Type', 'application/rss+xml' );
+
+  res.send( feed.xml() );
+  
+}
+
 
 function init( s, c ) {
 
@@ -100,5 +163,7 @@ function init( s, c ) {
       max: 100
     }
   }, c.mw || {} );
+
+  config.site = c.site;
 
 }

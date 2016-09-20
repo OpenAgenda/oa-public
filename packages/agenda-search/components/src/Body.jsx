@@ -30,7 +30,9 @@ module.exports = React.createClass( {
     res: React.PropTypes.string,
     agendas: React.PropTypes.array,
     page: React.PropTypes.number,
-    lang: React.PropTypes.string
+    lang: React.PropTypes.string,
+    official: React.PropTypes.bool,
+    search: React.PropTypes.string
   },
 
   getDefaultProps() {
@@ -39,7 +41,9 @@ module.exports = React.createClass( {
       res: '/',
       agendas: [],
       page: 1,
-      lang: 'fr'
+      lang: 'fr',
+      search: null,
+      official: null
     }
 
   },
@@ -52,7 +56,8 @@ module.exports = React.createClass( {
       total: this.props.total,
       agendas: this.props.agendas,
       pageRange: [ this.props.page, this.props.page ],
-      search: this.props.search // only true at init
+      search: this.props.search, // only true at init
+      official: this.props.official
     }
 
   },
@@ -70,7 +75,7 @@ module.exports = React.createClass( {
 
     this.setState( { loading: true } );
 
-    get( this.props.res, utils.extend( { preventCache: 1 }, query ), ( err, data ) => {
+    get( this.props.res, utils.extend( { preventCache: Math.random() }, query ), ( err, data ) => {
 
       if ( err ) {
 

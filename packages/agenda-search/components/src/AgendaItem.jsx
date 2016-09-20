@@ -2,7 +2,9 @@
 
 var React = require( 'react' ),
 
-getLabel = require( 'labels' )( require( 'labels/agenda-search' ) );
+getLabel = require( 'labels' )( require( 'labels/agenda-search' ) ),
+
+url = require( '../../service/url' );
 
 module.exports = React.createClass( {
 
@@ -16,7 +18,7 @@ module.exports = React.createClass( {
   render() {
 
     return <div className="agenda-item media">
-      <a href={'/agendas/' + this.props.agenda.uid}>
+      <a href={url.agenda( this.props.agenda )}>
         <div className="media-left">
           <img 
             className="media-object ill avatar"

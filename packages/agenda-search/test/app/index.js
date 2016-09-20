@@ -50,9 +50,9 @@ async.waterfall( [
     
     app.get( '/', mw.list );
 
-    app.get( '/', ( req, res, next ) => {
+    app.get( '/:format', mw.list );
 
-      if ( req.xhr ) return next();
+    app.get( '/', ( req, res, next ) => {
 
       req.content = [ 
         '<div>',

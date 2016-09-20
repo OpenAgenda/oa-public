@@ -46,4 +46,17 @@ describe( 'search', function() {
 
   } );
 
+
+  it( 'official filter: all retrieved agendas are official', done => {
+
+    search.list( { search: 'title', official: true }, 0, 10, ( err, agendas, total ) => {
+
+      agendas.filter( a => !a.official ).length.should.equal( 0 );
+
+      done();
+
+    } );
+
+  } );
+
 } );
