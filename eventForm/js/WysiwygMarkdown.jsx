@@ -152,10 +152,13 @@ module.exports = React.createClass( {
           autoresize_min_height: 100,
           // https://www.tinymce.com/docs/plugins/link/#link_title
           link_title: false,
+          target_list: false,
           default_link_target: '_blank',
-          link_assume_external_targets: true,
+          link_assume_external_targets: false,
 
           setup: function( editor ) {
+
+            makeUrlConverter( editor );
 
             editor.on( 'change', self.onChange( l ) );
 
@@ -213,3 +216,24 @@ module.exports = React.createClass( {
   }
 
 } );
+
+
+function makeUrlConverter( editor ) {
+
+  var fn = editor.convertURL;
+  
+  editor.convertURL = convertURL_;
+
+  function convertURL_(url, name, elm){
+
+    fn.apply(this, arguments);
+    console.log(arguments);
+    var regex = new RegExp("(http:|https:)?\/\/");
+    if (!regex.test(url)) {
+        return url = "http://" + url
+    }
+    return url;
+
+  }
+
+}
