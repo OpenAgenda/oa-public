@@ -29,7 +29,7 @@ function getQuery() {
 
 function hasQueryPart( name ) {
 
-  return typeof getQueryPart( name ) === 'undefined';
+  return typeof getQueryPart( name ) !== 'undefined';
 
 }
 
