@@ -65,7 +65,7 @@ function list( req, res, next ) {
 
   search = req.query.search || null, 
 
-  official = req.query.official !== undefined ? !!parseInt( req.query.official ) : null;
+  official = req.query.official !== undefined ? !!parseInt( req.query.official === 'true' ? 1 : req.query.official ) : null;
 
   try {
 
