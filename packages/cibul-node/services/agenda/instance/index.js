@@ -51,6 +51,8 @@ function instanciate( data ) {
   svcInstance = utils.extend( {}, instance, {
     addEvent,
     removeEvent,
+    setEventFeatured,
+    setEventUnfeatured,
     announceEventUpdate,
     setContributor: _stakeholderSetter( 'setContributor' ),
     setModerator: _stakeholderSetter( 'setModerator' ),
@@ -236,6 +238,44 @@ function instanciate( data ) {
     }, cb );
 
   }
+
+
+  function setEventFeatured( event, cb ) {
+
+    event.setFeatured( true, err => {
+
+      if ( !err ) {
+
+        announceEventUpdate( event, {
+          type: 'event.featured'
+        } );
+
+      }
+
+      cb( err );
+
+    } );
+
+  }
+
+  function setEventUnfeatured( event, cb ) {
+
+    event.setUnfeatured( true, err => {
+
+      if ( !err ) {
+
+        announceEventUpdate( event, {
+          type: 'event.unfeatured'
+        } );
+
+      }
+
+      cb( err );
+
+    } );
+
+  }
+
 
 
   /**

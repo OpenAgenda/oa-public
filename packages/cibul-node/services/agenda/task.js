@@ -110,6 +110,11 @@ function _onEventActivity( action ) {
 
       switch ( action.values.type ) {
 
+        case 'event.featured':
+        case 'event.unfeatured':
+
+          dsp.onEventFeaturedChange( event );
+
         case 'event.publish':
 
           dsp.onEventPublish( event, action.values );

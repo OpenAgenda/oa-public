@@ -264,13 +264,13 @@ function _changeState( req, res, next ) {
 function _changeFeatured( req, res, next ) {
 
   var funcs = {
-    'featured' : req.event.setFeatured,
-    'notfeatured' : req.event.setUnfeatured
+    'featured' : req.agenda.setEventFeatured,
+    'notfeatured' : req.agenda.setEventUnfeatured
   };
 
   req.log( 'updating featured to %s', req.params.type );
 
-  funcs[ req.params.type ]( true, function( err ) {
+  funcs[ req.params.type ]( req.event, err => {
 
     if ( err ) {
 

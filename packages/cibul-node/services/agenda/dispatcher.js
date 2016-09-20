@@ -22,6 +22,7 @@ module.exports = agenda => {
 
   return {
     onRefresh,
+    onEventFeaturedChange,
     onEventPublish,
     onEventUnpublish,
     onEventRemove,
@@ -38,6 +39,13 @@ module.exports = agenda => {
       type: 'stakeholderSet',
       userId: userId
     } );
+
+  }
+
+
+  function onEventFeaturedChange( event ) {
+
+    log( 'agenda.%s.onEventFeaturedChange.%s', agenda.id, event.id );
 
   }
 
