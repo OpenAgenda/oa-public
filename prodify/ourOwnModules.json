@@ -1,6 +1,7 @@
 [
   "admin-agendas",
   "agenda-categories",
+  "agenda-search",
   "agenda-locations",
   "agenda-tags",
   "image-upload",
