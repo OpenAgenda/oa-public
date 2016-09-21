@@ -215,7 +215,9 @@ module.exports = function( params ) {
 
   _checkValidation = function(onSuccess, postEvent) {
 
-    eh.trigger(params.events.validate, { onChange: _displayErrors, onSuccess: function() {
+    eh.trigger(params.events.validate, { 
+      onChange: _displayErrors, 
+      onSuccess: function() {
 
       if (postEvent) {
 

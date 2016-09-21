@@ -22,6 +22,8 @@ favorites = require( './favorites' ),
 
 Masonry = require( 'masonry-layout' ), 
 
+imagesLoaded = require( 'imagesloaded' ),
+
 msnry = false,
 
 defaults = {
@@ -219,19 +221,33 @@ function _masonry( listSelector ) {
   var m = _start();
 
   return {
-    reset: function() {
-
-      m.destroy();
-
-      _start();
-
-    },
+    reset: _reset,
     start: _start
   }
 
-  function _start() {
+  function _reset( preventImageLoad ) {
 
-    return new Masonry( listSelector );
+    m.destroy();
+
+    _start( preventImageLoad );
+
+  }
+
+  function _start( preventImageLoad ) {
+
+    var m = new Masonry( listSelector );
+
+    if ( !preventImageLoad ) {
+
+      imagesLoaded( cn.el( listSelector ), function() {
+
+        _reset( true );
+
+      } );
+
+    }
+
+    return m;
 
   }
 
