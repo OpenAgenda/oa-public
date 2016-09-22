@@ -62,4 +62,15 @@ describe( 'boolean validator', () => {
 
   });
 
+  it( 'if default is null and nothing is given, returns null', () => {
+
+    let validate = validators.boolean( {
+      field: 'whocares',
+      default: null
+    } );
+
+    should( validate() ).equal( null );
+
+  } );
+
 } );

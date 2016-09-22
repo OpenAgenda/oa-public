@@ -30,7 +30,7 @@ export default config => {
 
       }
 
-      if ( typeof params.default !== 'undefined' ) {
+      if ( typeof params.default !== 'undefined' && params.default !== null ) {
 
         return !!params.default;
 
