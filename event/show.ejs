@@ -81,7 +81,7 @@
         <section class="detail-item">
           <h3><i class="fa fa-clock-o"></i></h3>
           <p class="detail-item-content"><%= event.dateRange %></p>
-          <div class="display-none js_hours hours">
+          <div class="display-none js_hours timings">
             <ul class="months"></ul>
           </div>
         </section>
@@ -140,8 +140,14 @@
         </div>
 <% } %>
       
-
-        <% include _hours.part.ejs %>
+        <section class="detail-item timings no-js js_timings_canvas">
+          <h3><i class="fa fa-calendar-o"></i></h3>
+<% if ( typeof event.timingsComponents !== 'undefined' ) { %>
+          <%- event.timingsComponent %>
+<% } else { %>
+          <% include _hours.part.ejs %> 
+<% } %>
+        </section>
 
         <% include ../bsLayout/footer.part.ejs %>
 

@@ -32,7 +32,7 @@ module.exports = function( pageOptions ) {
         height: height
       } );
         
-    });
+    } );
 
     sendFunc( {
       height: pageHeight.get() 

@@ -45,7 +45,15 @@ window.hook( function( options ) {
 
   adminControls.init();
 
-  hours( options );
+  hours( utils.extend( {}, options, {
+    selectors: {
+      origin: '.js_timings_canvas',
+      destination: '.js_hours',
+      right: '.js_right',
+      left: '.js_left',
+      months: '.js_months'
+    }
+  } ) );
 
 } );
 

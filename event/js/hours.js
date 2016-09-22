@@ -16,12 +16,13 @@ params = {
     displayNone: 'display-none'
   },
   selectors: {
-    origin: '.js_static_hours',
-    destination: '.js_hours',
+    origin: '.js_timings_canvas',
+    destination: false,
     right: '.js_right',
     left: '.js_left',
     months: '.js_months'
-  }
+  },
+  onToggle: false
 }
 
 module.exports = function( options ) {
@@ -36,6 +37,12 @@ module.exports = function( options ) {
 
   if ( !monthElems.length ) return;
 
+  if ( !params.selectors.destination ) {
+
+    params.selectors.destination = params.selectors.origin;
+
+  }
+
   displayedIndex = _initDisplayedIndex( monthElems );
 
   _remove( du.el( monthElems[ 0 ], params.selectors.left ) );
@@ -49,12 +56,16 @@ module.exports = function( options ) {
 
       _showMonth( monthElems[ displayedIndex ] );
 
+      if ( params.onToggle ) params.onToggle();
+
     },
     previous: function() {
 
       displayedIndex--;
 
       _showMonth( monthElems[ displayedIndex ] );
+
+      if ( params.onToggle ) params.onToggle();
 
     }
   } );
@@ -143,7 +154,14 @@ function _removeStatic() {
 
   var staticNode = du.el( params.selectors.origin );
 
-  staticNode.parentNode.removeChild( staticNode );
+  if ( !staticNode ) return;
+
+  if ( params.selectors.destination ) {
+
+    staticNode.parentNode.removeChild( staticNode );
+    
+  }
+
 }
 
 function _extractMonths() {
@@ -151,6 +169,8 @@ function _extractMonths() {
   var months = [], month = null,
 
   staticCanvas = du.el( params.selectors.months );
+
+  if ( !staticCanvas ) return [];
 
   while( month = du.childObject( staticCanvas, 0 ) ) {
 
