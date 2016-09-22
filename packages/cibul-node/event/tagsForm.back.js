@@ -37,8 +37,6 @@ routes = {
     bodyParser.json(),
     _validateTags,
     _validateCategories,
-    _updateTags,
-    _updateCategory,
     update
   ] ]
 
@@ -198,34 +196,16 @@ function _validateCategories( req, res, next ) {
 }
 
 
-function _updateTags( req, res, next ) {
+function update( req, res, next ) {
 
-  req.agenda.unassignTags( req.event, err => {
+  req.agenda.setEventTagsAndCategory( req.event, req.tags, req.category, err => {
 
     if ( err ) return next( err );
 
-    async.eachSeries( req.tags, ( tag, ecb ) => {
+    res.json( {
+      success: true
+    } );
 
-      req.agenda.assignTag( tag, req.event, ecb );
-
-    }, next );
-
-  } );
-
-}
-
-
-function _updateCategory( req, res, next ) {
-
-  req.agenda.assignCategory( req.category, req.event, next );
-
-}
-
-
-function update( req, res, next ) {
-
-  res.json( {
-    success: true
   } );
 
 }

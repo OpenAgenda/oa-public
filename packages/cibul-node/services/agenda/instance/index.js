@@ -53,6 +53,7 @@ function instanciate( data ) {
     removeEvent,
     setEventFeatured,
     setEventUnfeatured,
+    setEventTagsAndCategory,
     announceEventUpdate,
     setContributor: _stakeholderSetter( 'setContributor' ),
     setModerator: _stakeholderSetter( 'setModerator' ),
@@ -236,6 +237,39 @@ function instanciate( data ) {
       } );
 
     }, cb );
+
+  }
+
+
+  function setEventTagsAndCategory( event, tags, category, cb ) {
+
+    instance.assignCategory( category, event, err => {
+
+      if ( err ) return cb( err );
+
+      instance.unassignTags( event, err => {
+
+        if ( err ) return cb( err );
+
+        async.eachSeries( tags, ( tag, ecb ) => {
+
+          instance.assignTag( tag, event, ecb );
+
+        }, err => {
+
+          if ( err ) return cb( err );
+
+          announceEventUpdate( event, {
+            type: 'event.tagsAndCategory'
+          } );
+
+          cb();
+
+        } );
+
+      } );
+
+    } );
 
   }
 
