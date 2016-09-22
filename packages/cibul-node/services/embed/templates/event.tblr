@@ -52,17 +52,8 @@
     <p><a href="{GoogleItineraryLink}">{Address}</a></p>
   </div>
 
-  <section class="dates">
-    <ul>
-{block:Dates}
-      <li>
-        {Date}
-{block:Timings}
-  - {Start} > {End}
-{/block:Timings}
-      </li>
-{/block:Dates}
-    </ul>
-  </section>
+  <div class="timings">
+    {TimingsComponent}
+  </div>
 
 </div>

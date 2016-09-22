@@ -12,15 +12,17 @@ References = React.createFactory( require( 'agenda-event-references/react/build/
 
 aer = require( 'agenda-event-references' ),
 
+templater = require( 'cibulTemplates' ),
+
 genUrl = require( '../../genUrl' ),
 
 async = require( 'async' ),
 
 eventSvc = require( '../../event' );
 
-module.exports = buildComponents;
-
-module.exports.getReferences = getReferences;
+module.exports = Object.assign( buildComponents, {
+  getReferences
+} );
 
 
 function getReferences( req, res, next ) {
@@ -50,6 +52,8 @@ function buildComponents( req, res, next ) {
   w( { req, res, referencesRender: null } )
 
   .then( _registration )
+
+  .then( _timings )
 
   .done( v => next(), err => next( err ) );
   
@@ -132,6 +136,30 @@ function _references( v ) {
   return d.promise;
 
 }
+
+
+function _timings( v ) {
+
+  let d = w.defer();
+
+  templater( 'event/hours', {
+    event: {
+      dates: v.req.formatted.dates
+    }
+  }, ( err, render ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.req.formatted.timingsComponent = render;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
 
 function _registration( v ) {
 
