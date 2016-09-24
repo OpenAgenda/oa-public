@@ -24,8 +24,7 @@ module.exports = function (options) {
   ReactDom.render(React.createElement(Body, {
     res: params.res,
     lang: params.lang,
-    search: dl.getQueryPart('search', ''),
-    official: dl.hasQueryPart('official') ? !!parseInt(dl.getQueryPart('official')) : null,
+    query: dl.getQuery(),
     page: parseInt(dl.getQueryPart('page', 1), 10),
     agendas: data.agendas,
     total: data.total

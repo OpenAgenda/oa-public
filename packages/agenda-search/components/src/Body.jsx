@@ -20,7 +20,9 @@ var React = require( 'react' ),
 
   documentLocation = require( 'dom-utils/documentLocation' ),
 
-  monitorField = require( './monitorField' );
+  monitorField = require( './monitorField' ),
+
+  validateQuery = require( '../../validators/query' );
 
 module.exports = React.createClass( {
 
@@ -31,8 +33,7 @@ module.exports = React.createClass( {
     agendas: React.PropTypes.array,
     page: React.PropTypes.number,
     lang: React.PropTypes.string,
-    official: React.PropTypes.bool,
-    search: React.PropTypes.string
+    query: React.PropTypes.object
   },
 
   getDefaultProps() {
@@ -42,23 +43,41 @@ module.exports = React.createClass( {
       agendas: [],
       page: 1,
       lang: 'fr',
-      search: null,
-      official: null
+      query: null
     }
 
   },
 
   getInitialState() {
 
-    monitorField( '.js_agenda_search', this.resetPage );
+    monitorField( '.js_agenda_search', search => this.resetPage( { search } ) );
+
+    let query = {};
+
+    try {
+
+      query = validateQuery( this.props.query );
+
+    } catch ( e ) {
+
+      console.error( 'query is not valid: %s', this.props.query );
+
+    }
 
     return {
       total: this.props.total,
       agendas: this.props.agendas,
       pageRange: [ this.props.page, this.props.page ],
-      search: this.props.search, // only true at init
-      official: this.props.official
+      query
     }
+
+  },
+
+  prepareGetQuery( query, page ) {
+
+    return utils.extend( {
+      page: page
+    }, query );
 
   },
 
@@ -66,22 +85,13 @@ module.exports = React.createClass( {
 
     if ( this.state.loading ) return;
 
-    let query = {
-      search: this.state.search,
-      page: this.state.pageRange[ next ? 1 : 0 ] + ( next ? +1 : -1 )
-    }
-
-    if ( this.state.official !== null ) {
-
-      query.official = this.state.official;
-
-    }
+    let page = this.state.pageRange[ next ? 1 : 0 ] + ( next ? +1 : -1 );
 
     if ( this.state.agendas.length >= this.state.total ) return;
 
     this.setState( { loading: true } );
 
-    get( this.props.res, utils.extend( { preventCache: Math.random() }, query ), ( err, data ) => {
+    get( this.props.res, this.getHrefQuery( utils.extend( { preventCache: Math.random(), page }, this.state.query ) ), ( err, data ) => {
 
       if ( err ) {
 
@@ -97,7 +107,7 @@ module.exports = React.createClass( {
 
       this.setState( change );
 
-      documentLocation.setQueryPart( query );
+      documentLocation.setQueryPart( this.getHrefQuery( utils.extend( { page }, this.state.query ) ) );
 
     } );
 
@@ -105,7 +115,7 @@ module.exports = React.createClass( {
 
   onSearchChange( name, search ) {
 
-    this.resetPage( search );
+    this.resetPage( { search } );
 
   },
 
@@ -113,23 +123,33 @@ module.exports = React.createClass( {
 
     this.setState( { loading: true } );
 
-    get( this.props.res, {
-      search: newQuery,
-      page: 1
-    }, ( err, data ) => {
+    get( this.props.res, this.getHrefQuery( utils.extend( { page: 1 }, newQuery ) ), ( err, data ) => {
 
       if ( err ) return console.log( 'error', err );
 
-      let changes = actions.resetPageItems( this.state, newQuery, data );
+      this.setState( actions.resetPageItems( this.state, newQuery, data ) );
 
-      this.setState( changes );
-
-      documentLocation.setQueryPart( {
-        search: newQuery,
-        page: 1
-      } );
+      documentLocation.setQueryPart( this.getHrefQuery( utils.extend( { page: 1 }, newQuery ) ) );
 
     } );
+
+  },
+
+  getHrefQuery( query ) {
+
+    let filtered = {};
+
+    Object.keys( query ).forEach( k => {
+
+      if ( query[ k ] === null ) return;
+
+      if ( typeof query[ k ] === 'string' && !query[ k ].length ) return;
+
+      filtered[ k ] = query[ k ];
+
+    } );
+
+    return filtered;
 
   },
 
@@ -144,7 +164,7 @@ module.exports = React.createClass( {
   renderSearchHead() {
 
     return <div className="header">
-      <h1>{getLabel( 'results', { search: this.state.search }, this.props.lang )}</h1>
+      <h1>{getLabel( 'results', { search: this.state.query.search }, this.props.lang )}</h1>
       <span>{getLabel( 'found', { count: this.state.total }, this.props.lang )}</span>
     </div>
 
@@ -159,7 +179,7 @@ module.exports = React.createClass( {
           { this.state.search ? this.renderSearchHead() : this.renderHead() }
           <div className="body media-list">
             {this.state.agendas.length ? <List
-              query={this.state.search}
+              query={this.state.query}
               pageRange={this.state.pageRange}
               getPage={this.getPage}
               total={this.state.total}

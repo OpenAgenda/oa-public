@@ -41,7 +41,7 @@ function addPageItems(current, next, data) {
  * reset items in list
  * pagerange is 1,1, state is new, items are replaced
  */
-function resetPageItems(currentState, search, data) {
+function resetPageItems(currentState, query, data) {
 
   var changes = {};
 
@@ -53,8 +53,8 @@ function resetPageItems(currentState, search, data) {
     $set: data.agendas
   };
 
-  changes.search = {
-    $set: search
+  changes.query = {
+    $set: query
   };
 
   changes.total = {

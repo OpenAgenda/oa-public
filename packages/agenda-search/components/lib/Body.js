@@ -10,7 +10,8 @@ var React = require('react'),
     utils = require('utils'),
     getLabel = require('labels')(require('labels/agenda-search')),
     documentLocation = require('dom-utils/documentLocation'),
-    monitorField = require('./monitorField');
+    monitorField = require('./monitorField'),
+    validateQuery = require('../../validators/query');
 
 module.exports = React.createClass({
 
@@ -21,8 +22,7 @@ module.exports = React.createClass({
     agendas: React.PropTypes.array,
     page: React.PropTypes.number,
     lang: React.PropTypes.string,
-    official: React.PropTypes.bool,
-    search: React.PropTypes.string
+    query: React.PropTypes.object
   },
 
   getDefaultProps: function getDefaultProps() {
@@ -32,84 +32,100 @@ module.exports = React.createClass({
       agendas: [],
       page: 1,
       lang: 'fr',
-      search: null,
-      official: null
+      query: null
     };
   },
   getInitialState: function getInitialState() {
+    var _this = this;
 
-    monitorField('.js_agenda_search', this.resetPage);
+    monitorField('.js_agenda_search', function (search) {
+      return _this.resetPage({ search: search });
+    });
+
+    var query = {};
+
+    try {
+
+      query = validateQuery(this.props.query);
+    } catch (e) {
+
+      console.error('query is not valid: %s', this.props.query);
+    }
 
     return {
       total: this.props.total,
       agendas: this.props.agendas,
       pageRange: [this.props.page, this.props.page],
-      search: this.props.search, // only true at init
-      official: this.props.official
+      query: query
     };
   },
+  prepareGetQuery: function prepareGetQuery(query, page) {
+
+    return utils.extend({
+      page: page
+    }, query);
+  },
   getPage: function getPage(next) {
-    var _this = this;
+    var _this2 = this;
 
     if (this.state.loading) return;
 
-    var query = {
-      search: this.state.search,
-      page: this.state.pageRange[next ? 1 : 0] + (next ? +1 : -1)
-    };
-
-    if (this.state.official !== null) {
-
-      query.official = this.state.official;
-    }
+    var page = this.state.pageRange[next ? 1 : 0] + (next ? +1 : -1);
 
     if (this.state.agendas.length >= this.state.total) return;
 
     this.setState({ loading: true });
 
-    get(this.props.res, utils.extend({ preventCache: Math.random() }, query), function (err, data) {
+    get(this.props.res, this.getHrefQuery(utils.extend({ preventCache: Math.random(), page: page }, this.state.query)), function (err, data) {
 
       if (err) {
 
-        _this.setState({ loading: false });
+        _this2.setState({ loading: false });
 
         return console.log('error', err);
       }
 
-      var change = actions.addPageItems(_this.state, next, data);
+      var change = actions.addPageItems(_this2.state, next, data);
 
       change.loading = false;
 
-      _this.setState(change);
+      _this2.setState(change);
 
-      documentLocation.setQueryPart(query);
+      documentLocation.setQueryPart(_this2.getHrefQuery(utils.extend({ page: page }, _this2.state.query)));
     });
   },
   onSearchChange: function onSearchChange(name, search) {
 
-    this.resetPage(search);
+    this.resetPage({ search: search });
   },
   resetPage: function resetPage(newQuery) {
-    var _this2 = this;
+    var _this3 = this;
 
     this.setState({ loading: true });
 
-    get(this.props.res, {
-      search: newQuery,
-      page: 1
-    }, function (err, data) {
+    get(this.props.res, this.getHrefQuery(utils.extend({ page: 1 }, newQuery)), function (err, data) {
 
       if (err) return console.log('error', err);
 
-      var changes = actions.resetPageItems(_this2.state, newQuery, data);
+      _this3.setState(actions.resetPageItems(_this3.state, newQuery, data));
 
-      _this2.setState(changes);
-
-      documentLocation.setQueryPart({
-        search: newQuery,
-        page: 1
-      });
+      documentLocation.setQueryPart(_this3.getHrefQuery(utils.extend({ page: 1 }, newQuery)));
     });
+  },
+  getHrefQuery: function getHrefQuery(query) {
+
+    var filtered = {};
+
+    Object.keys(query).forEach(function (k) {
+
+      if (query[k] === null) return;
+
+      if (typeof query[k] === 'string' && !query[k].length) return;
+
+      filtered[k] = query[k];
+    });
+
+    return filtered;
   },
   renderHead: function renderHead() {
 
@@ -131,7 +147,7 @@ module.exports = React.createClass({
       React.createElement(
         'h1',
         null,
-        getLabel('results', { search: this.state.search }, this.props.lang)
+        getLabel('results', { search: this.state.query.search }, this.props.lang)
       ),
       React.createElement(
         'span',
@@ -141,7 +157,7 @@ module.exports = React.createClass({
     );
   },
   render: function render() {
-    var _this3 = this;
+    var _this4 = this;
 
     return React.createElement(
       'div',
@@ -158,7 +174,7 @@ module.exports = React.createClass({
             'div',
             { className: 'body media-list' },
             this.state.agendas.length ? React.createElement(List, {
-              query: this.state.search,
+              query: this.state.query,
               pageRange: this.state.pageRange,
               getPage: this.getPage,
               total: this.state.total,
@@ -166,7 +182,7 @@ module.exports = React.createClass({
               nextLabel: getLabel('loadNext', this.props.lang),
               items: this.state.agendas // a 'get' can maybe be given in props differently here from server?
               , renderItem: function renderItem(i) {
-                return React.createElement(AgendaItem, { agenda: i, key: i.uid, lang: _this3.props.lang });
+                return React.createElement(AgendaItem, { agenda: i, key: i.uid, lang: _this4.props.lang });
               }
             }) : React.createElement(
               'div',

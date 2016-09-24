@@ -7,7 +7,9 @@ actions = require( '../components/src/actions' );
 describe( 'components actions', () => {
 
   var currentState = {
-    search: 'blip',
+    query: {
+      search: 'blip'
+    },
     pageRange: [ 2, 3 ],
     agendas: [ 'agenda2', 'agenda3' ]
   },
@@ -22,7 +24,9 @@ describe( 'components actions', () => {
     actions.addPageItems( currentState, true, data )
 
     .should.eql( {
-      search: 'blip',
+      query: {
+        search: 'blip'
+      },
       pageRange: [ 2, 4 ],
       agendas: [ 'agenda2', 'agenda3', 'agenda123', 'agenda345' ]
     } );
@@ -35,7 +39,9 @@ describe( 'components actions', () => {
     actions.addPageItems( currentState, false, data )
 
     .should.eql( {
-      search: 'blip',
+      query: {
+        search: 'blip'
+      },
       pageRange: [ 1, 3 ],
       agendas: [ 'agenda123', 'agenda345', 'agenda2', 'agenda3' ]
     } );
@@ -45,10 +51,14 @@ describe( 'components actions', () => {
 
   it( 'resetPageItems', () => {
 
-    actions.resetPageItems( currentState, 'bloup', data )
+    actions.resetPageItems( currentState, {
+      search: 'bloup'
+    }, data )
 
     .should.eql( {
-      search: 'bloup',
+      query: {
+        search: 'bloup'
+      },
       pageRange: [ 1, 1 ],
       agendas: [ 'agenda123', 'agenda345' ],
       total: 12000,

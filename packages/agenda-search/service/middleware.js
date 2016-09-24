@@ -4,16 +4,11 @@ let logger = require( 'basic-logger' ), log,
 
 getLabel = require( 'labels' )( require( 'labels/agenda-search/index' ) ),
 
-validators = require( 'validators' ),
+validators = require( '../validators' ),
 
 service, config,
 
 url = require( './url' ),
-
-validatePage = validators.number( {
-  min: 1,
-  default: 1
-} ),
 
 utils = require( 'utils' ),
 
@@ -57,35 +52,30 @@ function rebuild( req, res, next ) {
 
 function list( req, res, next ) {
 
-  let limit = config.limit.default,
-
-  offset = 0,
-
-  page = 1,
-
-  search = req.query.search || null, 
-
-  official = req.query.official !== undefined ? !!parseInt( req.query.official === 'true' ? 1 : req.query.official ) : null;
+  let nav, query;
 
   try {
 
-    page = validatePage( req.query.page );
+    nav = validators.nav( req.query );
 
-    offset = ( page - 1 ) * limit;
+    query = validators.query( req.query );
 
-  } catch( e ) {}
+  } catch ( errors ) {
 
-  service.list( {
-    search,
-    official,
-  }, offset, limit, ( err, agendas, total ) => {
+    res.status( 400 );
+
+    return next( errors.map( e => e.message ).join( ', ' ) );
+
+  }
+
+  service.list( query, nav.offset, nav.limit, ( err, agendas, total ) => {
 
     if ( err ) return next( err );
 
     req.data = {
+      offset: nav.offset,
+      limit: nav.limit,
       total,
-      offset,
-      limit,
       agendas
     }
 
@@ -103,9 +93,8 @@ function list( req, res, next ) {
 
     req.content = ReactDOMServer.renderToString( Body( {
       lang: req.lang,
-      page,
-      search,
-      official,
+      page: nav.page,
+      query,
       agendas,
       total
     } ) );

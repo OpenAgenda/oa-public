@@ -2,6 +2,8 @@
 
 const utils = require( 'utils' ),
 
+validate = require( '../../validators/query' ),
+
 obj = {
 
   // index name
@@ -40,22 +42,20 @@ module.exports.init = function( cfg ) {
  */
 function query( q, offset, limit ) {
 
-  let clean = _cleanQuery( q ),
+  let clean = {};
 
-  isFiltered = _isFilteredQuery( clean ),
+  try {
+
+    clean = validate( q );
+
+  } catch( e ) {}
+
+  let isFiltered = _isFilteredQuery( clean ),
 
   dsl = {
     from: offset,
     size: limit,
-    sort: [ {
-      hasUpcomingPublished: {
-        order: 'desc',
-      }
-    }, {
-      updatedAt: {
-        order: 'desc'
-      }
-    } ],
+    sort: getSortDsl( clean ),
     _source: { exclude: ['*_es'] }
   },
 
@@ -72,20 +72,6 @@ function query( q, offset, limit ) {
         'title', 'description'
       ]
     }
-
-    dsl.sort = [ {
-      official: {
-        order: 'desc'
-      }
-    }, {
-      upcomingPublishedEvents: {
-        order: 'desc',
-      }
-    }, {
-      updatedAt: {
-        order: 'desc'
-      }
-    } ];
 
   }
 
@@ -121,6 +107,56 @@ function query( q, offset, limit ) {
   }
 
   return dsl;
+
+}
+
+
+function getSortDsl( query ) {
+
+  // a clean sort is set
+  if ( query.sort !== null ) {
+
+    return ( {
+      'createdAt.desc' : [ {
+        createdAt: {
+          order: 'desc'
+        }
+      } ]
+    } )[ query.sort ]
+
+  }
+
+
+  // default sort when a search is made
+  if ( query.search !== null ) {
+
+    return [ {
+      official: {
+        order: 'desc'
+      }
+    }, {
+      upcomingPublishedEvents: {
+        order: 'desc',
+      }
+    }, {
+      updatedAt: {
+        order: 'desc'
+      }
+    } ];
+
+  } 
+
+
+  // the default sort
+  return [ {
+    hasUpcomingPublished: {
+      order: 'desc',
+    }
+  }, {
+    updatedAt: {
+      order: 'desc'
+    }
+  } ];
 
 }
 
@@ -181,6 +217,10 @@ function getMappings() {
           type: 'date'
         },
 
+        createdAt: {
+          type: 'date'
+        },
+
         official: {
           type: 'boolean'
         }
@@ -227,7 +267,19 @@ function clean( a, config ) {
 
   var c = {};
 
-  [ 'id', 'uid', 'slug', 'title', 'description', 'updated_at', 'image', 'publishedEvents', 'upcomingPublishedEvents', 'official' ].forEach( k => {
+  [ 
+    'id',
+    'uid',
+    'slug',
+    'title',
+    'description',
+    'official',
+    'image', 
+    'publishedEvents',
+    'upcomingPublishedEvents',
+    'updatedAt',
+    'createdAt' 
+  ].forEach( k => {
 
     c[ utils.toCamelCase( k ) ] = a[ k ];
 
@@ -238,32 +290,6 @@ function clean( a, config ) {
   c.hasUpcomingPublished = !!c.upcomingPublishedEvents;
   
   return c;
-
-}
-
-
-function _cleanQuery( q ) {
-
-  if ( !q ) return {};
-
-  let clean = Object.assign( {
-    search: null,
-    official: null
-  }, q );
-
-  if ( clean.official !== null ) {
-
-    clean.official = !!clean.official;
-
-  }
-
-  if ( clean.search !== null && typeof clean.search !== 'string' ) {
-
-    clean.search = null;
-
-  }
-
-  return clean;
 
 }
 
