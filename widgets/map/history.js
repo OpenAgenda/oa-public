@@ -81,7 +81,7 @@ module.exports = function() {
 
     for ( var k in obj ) {
 
-      clean = !isNaN( obj[ k ] ) ? parseFloat( obj[ k ] ) : obj[ k ];
+      clean[ k ] = !isNaN( obj[ k ] ) ? parseFloat( obj[ k ] ) : obj[ k ];
 
     }
 
