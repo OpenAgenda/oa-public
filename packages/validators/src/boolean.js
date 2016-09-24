@@ -40,6 +40,12 @@ export default config => {
 
     }
 
+    if ( value === null && params.default === null ) {
+
+      return null;
+
+    }
+
     return !!value;
 
   }

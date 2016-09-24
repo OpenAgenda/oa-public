@@ -73,4 +73,15 @@ describe( 'boolean validator', () => {
 
   } );
 
+  it( 'if default is null and null is given, returns null', () => {
+
+    let validate = validators.boolean( {
+      field: 'whocares',
+      default: null
+    } );
+
+    should( validate( null ) ).equal( null );
+
+  } );
+
 } );

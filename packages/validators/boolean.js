@@ -45,6 +45,11 @@ exports.default = function (config) {
       return null;
     }
 
+    if (value === null && params.default === null) {
+
+      return null;
+    }
+
     return !!value;
   }
 };
