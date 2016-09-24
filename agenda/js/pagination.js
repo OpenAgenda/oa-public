@@ -49,7 +49,7 @@ function init( options ) {
 
   if ( params.auto ) {
 
-    _onHitBottom( loadNext );
+    _onHitBottom( cn.el( params.selectors.list ), loadNext );
 
   }
 
@@ -119,27 +119,20 @@ function loadNext( cb ) {
 
 
 
-function _onHitBottom( cb ) {
+function _onHitBottom( elem, cb ) {
 
-  var offset,
-
-  body = cn.el( 'body' );
-
-  cn.addEvent( document, 'scroll', function() {
+  cn.addEvent(document, 'scroll', function () {
 
     var scrollPos = cn.getScrollOffsets().y,
+        bottom = elem.offsetHeight + elem.offsetTop,
+        windowHeight = cn.windowInnerHeight();
 
-    pageBottom = body.offsetHeight,
-
-    windowHeight = cn.windowInnerHeight();
-
-    if ( pageBottom - windowHeight <= scrollPos ) {
+    if (bottom - windowHeight <= scrollPos) {
 
       cb();
-
     }
 
-  });
+  } );
 
 }
 
