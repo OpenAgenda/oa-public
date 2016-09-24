@@ -43,8 +43,6 @@ App = React.createClass( {
 
   componentWillMount() {
 
-    console.log( this.props );
-
     get( this.props.res, ( err, data ) => {
 
       if ( err ) return this.setState( {

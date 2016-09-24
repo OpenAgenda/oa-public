@@ -279,7 +279,7 @@
 
 <% if ( !loner ) { %>
           <li>
-            <a class="display-none js_role_event_editor" href="<%= genUrl( 'locationSuggestion', { locationUid: event.location.uid, slug: slug, eventSlug: event.slug } ) %>"><%= __( 'request a change in the location information' ) %></a>
+            <a class="display-none js_role_event_editor" rel="nofollow" href="<%= genUrl( 'locationSuggestion', { locationUid: event.location.uid, slug: slug, eventSlug: event.slug } ) %>"><%= __( 'request a change in the location information' ) %></a>
           </li>
 <% } %>
           </ul>
