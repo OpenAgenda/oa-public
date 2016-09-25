@@ -155,6 +155,7 @@ module.exports = React.createClass( {
           target_list: false,
           default_link_target: '_blank',
           link_assume_external_targets: false,
+          invalid_elements: 'iframe',
 
           setup: function( editor ) {
 
