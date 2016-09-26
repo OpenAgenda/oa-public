@@ -9,6 +9,7 @@ module.exports = {
   popup: false,
   tiles: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png',
   minZoom: 2,
+  maxZoom: 16,
   clusterThreshold: 10,
   onBoundsChangeCallback: false,
   zooming: false,

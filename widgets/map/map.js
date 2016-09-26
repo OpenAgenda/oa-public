@@ -1127,7 +1127,8 @@ function widget( elem, options ) {
     // the leaflet api pretends things are synchronous. They are not.
     setTimeout( function() {
 
-      if ( bounds ) _fitBounds( bounds, true );
+      // fit bounds does not ignore zoom extremes
+      if ( bounds ) _fitBounds( bounds );
 
       // takes a while for map to adjust
       
@@ -1137,7 +1138,7 @@ function widget( elem, options ) {
 
         return cb ? cb( bounds ) : null;
 
-      }, 500);
+      }, 500 );
 
     }, 100 );
 
@@ -1201,9 +1202,22 @@ function widget( elem, options ) {
 
     log( 'prevent map to exceed min zoom' );
 
-    if ( !ignoreZoomLimit && ( m.getZoom( map ) < config.minZoom ) ) {
+    if ( ignoreZoomLimit ) return;
+
+    _boundMapZoom();
+
+  }
+
+
+  function _boundMapZoom() {
+
+    if ( m.getZoom( map ) < config.minZoom ) {
 
       m.setZoom( map, config.minZoom );
+
+    } else if ( m.getZoom( map ) > config.maxZoom ) {
+
+      m.setZoom( map, config.maxZoom )
 
     }
 
