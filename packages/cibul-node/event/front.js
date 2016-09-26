@@ -449,7 +449,13 @@ function _appendEventTransferCredential( req, res, next ) {
 
 function _formatSocialLinks( req, res, next ) {
 
-  var siteUrl = false, eventUrl, fbAppId;
+  let siteUrl = false, 
+
+    eventUrl,
+
+    fbAppId,
+
+    externalSite = false;
 
   if ( req.agenda ) {
 
@@ -472,9 +478,15 @@ function _formatSocialLinks( req, res, next ) {
 
   if ( req.embed ) {
 
-    siteUrl = req.embed.getSiteUrl() || siteUrl;
+    if ( req.embed.getSiteUrl() ) {
 
-    eventUrl = siteUrl + '?oaq[uid]=' + req.event.uid;
+      externalSite = true;
+
+      siteUrl = req.embed.getSiteUrl();
+
+      eventUrl = siteUrl + '?oaq[uid]=' + req.event.uid;
+
+    }
 
     fbAppId = req.embed.getFacebookAppId();
 
