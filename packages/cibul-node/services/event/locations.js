@@ -128,7 +128,13 @@ function _transferEventLocations( fromLocationId, toLocationId, cb ) {
 
         }
 
-        event.changeLocation( toLocationId, ecb );
+        event.changeLocation( toLocationId, err => {
+
+          if ( err ) return ecb( err );
+
+          event.refresh( ecb );
+
+        } );
 
       } );
 

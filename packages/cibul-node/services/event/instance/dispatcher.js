@@ -25,7 +25,21 @@ module.exports = function( loaded, instance ) {
   return {
     stateChange,
     onSave,
-    onRemove
+    onRemove,
+    onRefresh
+  }
+
+
+  function onRefresh() {
+
+    coms.publish( config.mainChannel, {
+      name: 'event.update',
+      values: {
+        id: instance.id,
+        type: 'event.refresh'
+      }
+    } );
+
   }
 
 

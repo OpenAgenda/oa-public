@@ -32,6 +32,7 @@ module.exports = function() {
 
       case 'event.create':
       case 'event.update':
+      case 'event.delete':
 
         return _onEventActivity( action );
 
@@ -87,6 +88,12 @@ function _onAgendaActivity( action ) {
 
 
 function _onEventActivity( action ) {
+
+  if ( action.name === 'event.delete' ) {
+
+    action.values.type = 'event.remove';
+
+  }
 
   log( 'info', action.values.agendaId ? '-- read event %s activity for agenda %s --' : '-- read event %s activity --', action.values.id, action.values.agendaId );
 

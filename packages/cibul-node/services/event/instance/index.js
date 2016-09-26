@@ -147,6 +147,10 @@ function instanciate( data ) {
 
         log( 'error', 'could not clear timestamp of event %s', event.uid );
 
+      } else {
+
+        dsp.onRefresh();
+
       }
 
       if ( cb ) return cb( err );
