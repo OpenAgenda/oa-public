@@ -1,0 +1,24 @@
+{
+  "name": "image-files",
+  "version": "1.0.0",
+  "description": "Handle image processing from when an image url or temporary path to the moment it is stored on s3. Does formatting through the 'images' service and file uploading through the 'files' service. Does not handle client to server image uploads.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "when": "^3.7.7",
+    "images": "git+ssh://git@bitbucket.org:openagenda/images.git",
+    "files": "git+ssh://git@bitbucket.org:openagenda/files.git",
+    "basic-logger": "git+ssh://git@bitbucket.org:openagenda/basic-logger.git"
+  },
+  "devDependencies": {
+    "should": "^11.1.0"
+  }
+}
