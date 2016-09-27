@@ -13,7 +13,8 @@ let config, log;
 module.exports = {
   load,
   init,
-  clear: files.s3.remove
+  clear: files.s3.remove,
+  getBucketPath: files.s3.getBucketPath
 }
 
 
