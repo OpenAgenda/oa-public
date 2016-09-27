@@ -2,3 +2,4 @@ node_modules/
 npm-debug.log
 testconfig.js
 .idea/
+test/files/tmp.jpg
