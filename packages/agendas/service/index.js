@@ -20,6 +20,10 @@ const knexLib = require( 'knex' ),
 
   validate = require( './validate' ),
 
+  instanciate = require( './instanciate' ),
+
+  imageFiles = require( 'image-files' ),
+
   slugs = require( './slugs' ),
 
   dbParse = require( './lib/mysqlParse' )( validate.map ),
@@ -30,6 +34,7 @@ const knexLib = require( 'knex' ),
     init,
     list,
     get,
+    instanciate,
     set,
     count,
     slugs: {
@@ -50,6 +55,8 @@ function init( c ) {
 
   schemas = c.schemas;
 
+  config = c;
+
   knex = knexLib( {
     client: 'mysql',
     connection: c.mysql
@@ -63,13 +70,20 @@ function init( c ) {
 
   details.init( schemas, knex );
 
-  get.init( schemas, knex );
+  get.init( service, knex );
 
   set.init( schemas, knex, c.mysql );
+
+  instanciate.init( service );
 
   slugs.init( schemas, knex );
 
   legacy.init( schemas, knex );
+
+  imageFiles.init( {
+    files: c.files,
+    logger: c.logger
+  } );
 
   Object.keys( service.tasks ).forEach( k => {
 
@@ -78,8 +92,6 @@ function init( c ) {
   } );
 
   log = logger( 'agendas service' );
-
-  config = c;
 
 }
 

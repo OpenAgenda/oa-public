@@ -18,6 +18,7 @@
     "slug": "^0.9.1",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
     "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git",
+    "image-files": "git+ssh://git@bitbucket.org:openagenda/image-files.git",
     "when": "^3.7.7"
   },
   "devDependencies": {

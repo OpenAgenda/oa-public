@@ -8,7 +8,7 @@ details = require( './details' ),
 
 dbParse = require( './lib/mysqlParse' )( require( './validate' ).map );
 
-let knex, schemas;
+let knex, service, schemas;
 
 module.exports = get;
 module.exports.init = init;
@@ -25,7 +25,8 @@ function get( identifiers, options, cb ) {
   w( utils.extend( {
     identifiers: _cleanIdentifiers( identifiers ),
     detailed: false,
-    internal: false
+    internal: false,
+    instanciate: false,
   }, options, {
     entry: null, 
     data: null,
@@ -44,7 +45,7 @@ function get( identifiers, options, cb ) {
 
   .done( v => {
 
-    cb( null, v.filtered );
+    cb( null, v.instanciate ? service.instanciate( v.filtered ) : v.filtered );
 
   }, cb );
 
@@ -169,9 +170,11 @@ function _filterInternals( v ) {
 }
 
 
-function init( s, k ) {
+function init( svc, k ) {
 
-  schemas = s;
+  service = svc;
+
+  schemas = service.getConfig().schemas;
 
   knex = k;
 

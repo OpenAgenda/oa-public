@@ -44,6 +44,7 @@ If identifiers is an integer, it is used as if it were the id of the requested a
 
  * **detailed**: get detailed information on the agenda ( stats )
  * **internal**: include strictly internal info, such as id, ownerid, credentials
+ * **instanciate**: gives agenda instance instead of data if true. Defaults at false
 
 ## Callback
 
@@ -116,6 +117,27 @@ Can be used on client. Makes a slug out of a string
 
     genSlug( 'This is a string' ); // returns this-is-a-string
 
+
+
+# Instanciate
+
+Agenda instances are useful to do operations on specific agendas. They are objects with getters and setters.
+
+They can be loaded through a get ( this is the prefered way ):
+
+    service.get( aId, { instanciate: true }, ( err, agendaInstance ) => { ... } );
+
+Or by giving agenda data to the .instanciate interface
+
+    let agendaInstance = service.instanciate( agendaData );
+
+## Methods
+
+See tests for examples
+
+ * getImage( absolutePath = false ): get the image value. If no image, returns null.
+ * setImage( options, cb ): set the image. options are url or path. Gives a result in callback with the list of image paths on aws s3.
+ * clearImage( cb ): clears the image.
 
 
 # Random dev notes

@@ -1,12 +1,14 @@
 "use strict";
 
 module.exports = {
+  
   mysql : {
     host : '127.0.0.1',
     database : 'agenda_test',
     password : 'yourpassword',
     user : 'yourdbuser'
   },
+
   schemas : {
     agenda: 'agenda',
 
@@ -17,6 +19,14 @@ module.exports = {
     // used for legacy data persistence
     legacyCredentialSet: 'legacy_credential_set'
   },
+
+  files: {
+    tmpPath: __dirname + '/test/tmp',
+    bucket: 'thebucket',
+    accessKeyId: 'thekeyid',
+    secretAccessKey: 'thesecret'
+  },
+
   image: {
     default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
   },
@@ -33,4 +43,5 @@ module.exports = {
     }
 
   }
+
 }
