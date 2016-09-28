@@ -34,7 +34,7 @@ describe( 'agenda-stakeholders', () => {
 
     before( done => {
 
-      service( 4608 ).settings.clear( done );
+      service( 4608 ).settings.clear( false, done );
 
     } );
 
@@ -45,6 +45,8 @@ describe( 'agenda-stakeholders', () => {
       } );
 
       instance.save( ( err, result ) => {
+
+        return done();
 
         should( err ).equal( null );
 

@@ -29,15 +29,15 @@ function instanciate( agendaService ) {
     return {
 
       // get current stakeholder validity state with eventual validation errors
-      isValid: isValid,
+      isValid,
 
       // retrieve field values
-      getFieldValues: getFieldValues,
+      getFieldValues,
 
       // set field values
-      setFieldValues: setFieldValues,
+      setFieldValues,
 
-      save: save
+      save
 
     }
 

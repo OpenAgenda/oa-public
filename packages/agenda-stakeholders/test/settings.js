@@ -8,7 +8,11 @@ mysql = require( 'mysql' ),
 
 fixtures = require( './fixtures' ),
 
-service = require( '../service' );
+defaultFields = require( '../service/defaultFields' ),
+
+service = require( '../service' ),
+
+async = require( 'async' );
 
 describe( 'agenda-stakeholders', () => {
 
@@ -30,6 +34,7 @@ describe( 'agenda-stakeholders', () => {
 
     } );
 
+
     it( 'gets settings from stakeholder settings schema', done => {
 
       service( 4608 ).settings.get( ( err, data ) => {
@@ -49,6 +54,7 @@ describe( 'agenda-stakeholders', () => {
       } );
 
     } );
+
 
     it( 'saves settings to stakeholder schema', done => {
 
@@ -88,6 +94,73 @@ describe( 'agenda-stakeholders', () => {
         done();
 
       } );
+
+    } );
+
+
+    it( 'set default values to agenda settings', done => {
+
+      let con = mysql.createConnection( config.mysql );
+
+      return async.waterfall( [
+        wcb => {
+
+          con.query( `select * from ${config.schemas.agenda} where id = ?`, 4610, ( err, rows ) => {
+
+            should( JSON.parse( rows[ 0 ].store ).cFields ).equal( undefined );
+
+            wcb();
+
+          } );
+
+        },
+        wcb => {
+
+          con.query( `select * from ${config.schemas.stakeholderSettings} where id = ?`, 4610, ( err, rows ) => {
+
+            rows.length.should.equal( 0 );
+
+            wcb();
+
+          } );
+
+        },
+        wcb => {
+
+          service( 4610 ).settings.setDefault( wcb );
+
+        },
+        wcb => {
+
+          con.query( `select * from ${config.schemas.agenda} where id = ?`, 4610, ( err, rows ) => {
+
+            JSON.parse( rows[ 0 ].store ).cFields.should.eql( {
+              organization: [],
+              contact_number: [],
+              contact_name: [],
+              contact_position: [],
+              email: [] 
+            } );
+
+            wcb();
+
+          } );
+
+        },
+        wcb => {
+
+          con.query( `select * from ${config.schemas.stakeholderSettings} where id = ?`, 4610, ( err, rows ) => {
+
+            JSON.parse( rows[ 0 ].store ).fields
+
+            .should.eql( defaultFields );
+
+            wcb();
+
+          } );
+
+        }
+      ], done );
 
     } );
 

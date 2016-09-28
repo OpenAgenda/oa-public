@@ -4,62 +4,36 @@
  * agenda stakeholder settings; field requirements, mainly.
  */
 
-var knex, schemas,
+const utils = require( 'utils' ),
 
-utils = require( 'utils' ),
+logger = require( 'basic-logger' ),
 
-logger = require( 'basic-logger' ), log,
+storeLib = require( 'mysql-table-store' ),
 
 w = require( 'when' ),
-
-storeLib = require( 'mysql-table-store' ), store,
 
 validator = require( './validator' ),
 
 customFormat = require( './customFormat' ),
 
-defaultSettings = {
-  fields: []
-},
+defaultFields = require( './defaultFields' ),
 
-/**
- * legacy fields are just names.
- * the validators settings are given here
- */
-legacyFields = [ { 
-  field: 'organization',
-  type: 'text',
-  slugged: true, // when a slug should be generated and stored
-  params: { min: 2, max: 160 }
-}, {
-  field: 'contact_number',
-  type: 'phone',
-  params: {}
-}, {
-  field: 'contact_name',
-  type: 'text',
-  params: { min: 2, max: 160 }
-}, {
-  field: 'contact_position',
-  type: 'text',
-  params: { min: 2, max: 160 }
-}, {
-  field: 'email',
-  type: 'email',
-  params: {}
-} ];
+legacyLib = require( './legacy' );
 
-module.exports = settings;
+var knex, schemas, log, store;
 
-module.exports.init = init;
-
+module.exports = Object.assign( settings, { init } );
 
 function settings( agendaId ) {
 
+  const legacy = legacyLib( agendaId );
+
   return {
-    get: get,
-    set: set,
-    clear: clear,
+    
+    get,
+    set,
+    setDefault,
+    clear,
 
     custom: {
       validate: validateCustomValues,
@@ -78,7 +52,20 @@ function settings( agendaId ) {
 
       if ( settings ) return cb( null, settings );
 
-      _getFromLegacy( agendaId, cb );
+      legacy.get( cb );
+
+    } );
+
+  }
+
+
+  function setDefault( cb ) {
+
+    store.set( agendaId, { fields: defaultFields }, err => {
+
+      if ( err ) return cb( err );
+
+      legacy.setDefault( cb );
 
     } );
 
@@ -96,11 +83,34 @@ function settings( agendaId ) {
   }
 
 
-  function clear( cb ) {
+  function clear( clearLegacy, cb ) {
 
-    store.set( agendaId, null, cb );
+    if ( arguments.length !== 2 ) {
+
+      cb = clearLegacy;
+      clearLegacy = true
+
+    }
+
+    store.set( agendaId, null, err => {
+
+      if ( err ) return cb( err );
+
+      if ( clearLegacy ) {
+
+        legacy.clear( cb );
+
+      } else {
+
+        cb();
+
+      }
+
+    } );
 
   }
+
+
 
   function toCustomFields( data, cb ) {
 
@@ -139,14 +149,16 @@ function settings( agendaId ) {
 
       try {
 
-        clean = validator( Object.keys( values ).map( k => {
+        let dirty = Object.keys( values ).map( k => {
 
           return {
             field: k,
             value: typeof values[ k ] === 'object' ? values[ k ].label : values[ k ]
           }
 
-        } ) );
+        } );
+
+        clean = validator( dirty );
 
       } catch( e ) {
 
@@ -219,61 +231,6 @@ function _validate( fields ) {
   } );
 
   return errors;
-
-}
-
-function _getFromLegacy( agendaId, cb ) {
-
-  knex.transaction( trx => trx.select( 'store' )
-
-    .from( schemas.agenda )
-
-    .where( {
-      id: agendaId
-    } )
-
-    .limit( 1 ).offset( 0 ) )
-
-  .then( rows => {
-
-    let store = {},
-
-    s = utils.extend( {}, defaultSettings );
-
-    if ( !rows.length ) {
-
-      return s;
-
-    }
-
-    try {
-
-      store = JSON.parse( rows[ 0 ].store );
-
-    } catch( e ) {
-
-      log( 'error', 'could not parse store: %s', rows[ 0 ].store );
-
-      return s;
-
-    }
-
-    if ( !store.cFields ) {
-
-      return s;
-
-    }
-
-    return utils.extend( {}, defaultSettings, {
-      
-      fields: Object.keys( store.cFields )
-        .map( f => legacyFields.filter( lf => lf.field == f )[ 0 ] )
-
-    } );
-
-  } )
-
-  .done( settings => cb( null, settings ), cb );
 
 }
 

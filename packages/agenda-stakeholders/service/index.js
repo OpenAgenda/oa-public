@@ -20,6 +20,8 @@ instanciate = require( './instanciate' ),
 
 gettersLib = require( './getters' ),
 
+legacy = require( './legacy' ),
+
 logger = require( 'basic-logger' ),
 
 settings = require( './settings' );
@@ -50,6 +52,7 @@ function agenda( agendaId ) {
     get: s.get,
     set: s.set,
     clear: s.clear,
+    setDefault: s.setDefault,
     custom: {
       validate: s.custom.validate,
       toValues: s.custom.toValues,
@@ -175,9 +178,18 @@ function init( c, cb ) {
 
   .then( () => {
 
+    legacy.init( {
+      knex,
+      schemas
+    } );
+
+  } )
+
+  .then( () => {
+
     transferEvent.init( {
-      knex: knex,
-      schemas: schemas
+      knex,
+      schemas
     } );
 
   } )
@@ -185,8 +197,8 @@ function init( c, cb ) {
   .then( () => {
 
     gettersLib.init( {
-      knex: knex,
-      schemas: schemas
+      knex,
+      schemas
     } );
 
   } )
@@ -194,8 +206,8 @@ function init( c, cb ) {
   .then( () => {
 
     dbUtils.init( {
-      knex: knex,
-      schemas: schemas
+      knex,
+      schemas
     } );
 
   } )
@@ -203,8 +215,8 @@ function init( c, cb ) {
   .then( () => {
 
     instanciate.init( {
-      knex: knex,
-      schemas: schemas
+      knex,
+      schemas
     } );
 
   } )
@@ -213,8 +225,8 @@ function init( c, cb ) {
 
     return settings.init( {
       mysql: c.mysql,
-      knex: knex,
-      schemas: schemas
+      knex,
+      schemas
     } );
 
   } )

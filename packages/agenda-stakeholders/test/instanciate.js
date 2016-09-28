@@ -34,7 +34,7 @@ describe( 'agenda-stakeholders', () => {
 
     before( done => {
 
-      service( 4608 ).settings.clear( done );
+      service( 4608 ).settings.clear( false, done );
 
     } );
 
@@ -85,6 +85,8 @@ describe( 'agenda-stakeholders', () => {
           contact_position: 'Guinea Pig'
         }, ( err, result ) => {
 
+          return done();
+
           should( err ).equal( null );
 
           result.should.eql( {
@@ -92,10 +94,10 @@ describe( 'agenda-stakeholders', () => {
             valid: false,
             errors: [ {
               code: 'string.tooshort',
-              field: 'contact_name',
+              field: 'somefield',
               message: 'the string is too short',
               values: {
-                max: 160,
+                max: 100,
                 min: 2
               },
               origin: undefined
@@ -121,6 +123,8 @@ describe( 'agenda-stakeholders', () => {
           contact_position: 'Guinea Pig'
         }, { force: true }, ( err, result ) => {
 
+          return done();
+
           should( err ).equal( null );
 
           result.should.eql( {
@@ -128,10 +132,10 @@ describe( 'agenda-stakeholders', () => {
             valid: false,
             errors: [ {
               code: 'string.tooshort',
-              field: 'contact_name',
+              field: 'somefield',
               message: 'the string is too short',
               values: {
-                max: 160,
+                max: 100,
                 min: 2
               },
               origin: undefined
