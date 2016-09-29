@@ -55,7 +55,7 @@ utils = require( 'utils' );
 module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
 
   return {
-    exportable: exportable
+    exportable
   }
 
 
@@ -63,50 +63,83 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
    * format event export-ready version of the event data
    */
   
-  function exportable( cb ) {
+  function exportable( options, cb ) {
 
-    var dateRange = instance.getDateRange( true );
+    if ( arguments.length === 1 ) {
 
-    w( {
-      uid: instance.uid,
-      slug: instance.slug,
-      canonicalUrl: genUrl( 'eventShow', { eventSlug: instance.slug }, { protocol: 'https://' } ),
-      title: instance.title,
-      description: instance.description,
-      longDescription: instance.freeText,
-      keywords: _cleanKeywords( instance.tags ),
-      html: instance.getEnrichedFreeText( true ),
-      image: loaded.getImage(),
-      thumbnail: loaded.getThumbnail(),
-      originalImage: loaded.getFullImage(),
-      updatedAt: instance.updatedAt,
-      age: instance.getAge(),
-      accessibility: instance.getAccessibility(),
-      range: {
-        fr: loaded.getRange( 'fr' ),
-        en: loaded.getRange( 'en' )
+      cb = options;
+      options = {};
+
+    }
+
+    let dateRange = instance.getDateRange( true );
+
+    w( utils.extend( {
+      protocol: null,
+      exportable: {
+        uid: instance.uid,
+        slug: instance.slug,
+        canonicalUrl: genUrl( 'eventShow', { eventSlug: instance.slug }, { protocol: 'https://' } ),
+        title: instance.title,
+        description: instance.description,
+        longDescription: instance.freeText,
+        keywords: _cleanKeywords( instance.tags ),
+        html: instance.getEnrichedFreeText( true ),
+        image: loaded.getImage(),
+        thumbnail: loaded.getThumbnail(),
+        originalImage: loaded.getFullImage(),
+        updatedAt: instance.updatedAt,
+        age: instance.getAge(),
+        accessibility: instance.getAccessibility(),
+        range: {
+          fr: loaded.getRange( 'fr' ),
+          en: loaded.getRange( 'en' )
+        }
       }
-    } )
+    }, options ) )
 
     .then( _appendLocation )
 
     .then( _appendTimings )
 
+    .then( _adjustProtocol )
+
     .done( v => {
 
-      cb( null, v );
+      cb( null, v.exportable );
 
     }, cb );
 
   }
 
 
+  function _adjustProtocol( v ) {
+
+    if ( v.protocol === null ) return v;
+
+    if ( v.exportable.image ) {
+
+      v.exportable.image = _protocol( v.protocol, v.exportable.image );
+
+    }
+
+    if ( v.exportable.location && v.exportable.location.image ) {
+
+      v.exportable.location.image = _protocol( v.protocol, v.exportable.location.image );
+
+    }
+
+    return v;
+
+  }
+
+
   function _appendTimings( v ) {
 
-    let timezone = v.location.timezone || 'Europe/Paris';
+    let timezone = v.exportable.location.timezone || 'Europe/Paris';
 
     // add timezone in timings array for use in flat exports
-    v.timings = v.timings.map( t => {
+    v.timings = v.exportable.timings.map( t => {
 
       return {
         start: t.start,
@@ -161,11 +194,11 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     if ( l ) {
 
-      _inject( v, l, legacyLocationFieldsMap );
+      _inject( v.exportable, l, legacyLocationFieldsMap );
 
-      v.location = {};
+      v.exportable.location = {};
 
-      _inject( v.location, l, locationFieldsMap );
+      _inject( v.exportable.location, l, locationFieldsMap );
 
     }
 
@@ -217,3 +250,5 @@ function _cleanKeywords( dirty ) {
   return clean;
 
 }
+
+function _protocol( p, s ) { return s.replace( /^(http:\/\/|https:\/\/|\/\/)/, p + '//' ) }

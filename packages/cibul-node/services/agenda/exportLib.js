@@ -21,8 +21,8 @@ module.exports = function( service ) {
   svc = service;
 
   return {
-    decorateEvents: decorateEvents,
-    decorateEvent: decorateEvent
+    decorateEvents,
+    decorateEvent
   }
 
 }

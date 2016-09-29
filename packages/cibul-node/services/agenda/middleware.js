@@ -475,7 +475,8 @@ function buildXlsx( includePrivateData ) {
 
           // decorate with agenda related data
           svc.exports.decorateEvent( req.agenda, eInst, clean, {
-            includePrivateData: !!includePrivateData
+            includePrivateData: !!includePrivateData,
+            protocol: 'https:'
           }, function( err, clean ) {
 
             processing--;
@@ -576,11 +577,11 @@ function buildCsv( includePrivateData ) {
         // instanciate
         var eInst = eventSvc.instanciate( eventData );
 
-        eInst.exportable( ( err, clean ) => {
+        eInst.exportable( { protocol: 'https:' }, ( err, clean ) => {
 
           // decorate with agenda related data
           svc.exports.decorateEvent( req.agenda, eInst, clean, {
-            includePrivateData: !!includePrivateData
+            includePrivateData: !!includePrivateData,
           }, ( err, clean ) => {
 
             processing--;
