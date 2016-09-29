@@ -260,7 +260,10 @@ function _getDefault(struct) {
 
   Object.keys(struct).forEach(function (k) {
 
-    if (_isLeaf(struct[k])) {
+    if (!struct[k]) {
+
+      d[k] = null;
+    } else if (_isLeaf(struct[k])) {
 
       d[k] = struct[k].default === undefined ? null : struct[k].default;
     } else {
