@@ -43,7 +43,8 @@ describe( 'validate', () => {
           contribution: {
             defaultState: 2,
             message: null,
-            type: 0
+            type: 0,
+            useFields: false
           }
         },
         url: undefined
@@ -91,7 +92,8 @@ describe( 'validate', () => {
           contribution: {
             defaultState: 2,
             message: null,
-            type: 0
+            type: 0,
+            useFields: false
           }
         },
         updatedAt: now,

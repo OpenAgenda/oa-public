@@ -40,7 +40,8 @@ describe( 'service.set: create an agenda', function() {
             contribution: {
               defaultState: 2,
               message: null,
-              type: 0
+              type: 0,
+              useFields: false
             }
           },
           official: 0,
@@ -115,7 +116,8 @@ describe( 'service.set: create an agenda', function() {
             contribution: {
               defaultState: 2,
               message: null,
-              type: 0
+              type: 0,
+              useFields: false
             }
           },
           image: null,
@@ -161,7 +163,8 @@ describe( 'service.set: create an agenda', function() {
             contribution: {
               defaultState: 2,
               message: null,
-              type: 0
+              type: 0,
+              useFields: false
             }
           },
           credentials: {

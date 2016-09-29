@@ -16,6 +16,10 @@ describe( 'service.set: update an agenda', function() {
     svc.init( config );
   } );
 
+  afterEach( () => {
+    svc.init( config ); // reset interfaces
+  })
+
   before( svc.test.fixtures );
 
   it( 'set sets a pre-exisiting agenda if identifier is given as first parameter', done => {
@@ -37,7 +41,8 @@ describe( 'service.set: update an agenda', function() {
           contribution: {
             defaultState: 2,
             message: null,
-            type: 0
+            type: 0,
+            useFields: false
           }
         },
         updatedAt: result.agenda.updatedAt,
@@ -94,7 +99,8 @@ describe( 'service.set: update an agenda', function() {
             contribution: {
               defaultState: 2,
               message: null,
-              type: 0
+              type: 0,
+              useFields: false
             }
           },
           updatedAt: result.agenda.updatedAt,
@@ -118,6 +124,32 @@ describe( 'service.set: update an agenda', function() {
       done();
 
     } );
+
+  } );
+
+  it( 'onUpdate callbacks with agenda data before and after update', done => {
+
+    svc.init( Object.assign( {}, config, {
+      interfaces: {
+        onUpdate: ( before, after ) => {
+
+          before.settings.contribution.useFields.should.equal( false );
+
+          after.settings.contribution.useFields.should.equal( true );
+
+          done();
+
+        }
+      }
+    } ) );
+
+    svc.set( 4830, {
+      settings: {
+        contribution: {
+          useFields: true
+        }
+      }
+    }, () => {} );
 
   } );
 

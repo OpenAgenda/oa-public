@@ -44,6 +44,10 @@ module.exports = {
       },
       message: {
         type: 'text'
+      },
+      useFields: {
+        type: 'boolean',
+        default: false
       }
     }
   }

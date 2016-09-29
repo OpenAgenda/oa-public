@@ -6,7 +6,11 @@ utils = require( 'utils' ),
 
 details = require( './details' ),
 
-dbParse = require( './lib/mysqlParse' )( require( './validate' ).map );
+dbParse = require( './lib/mysqlParse' )( require( './validate' ).map ),
+
+validate = require( './validate' ),
+
+sUtils = require( './lib/utils' );
 
 let knex, service, schemas;
 
@@ -23,7 +27,7 @@ function get( identifiers, options, cb ) {
   }
 
   w( utils.extend( {
-    identifiers: _cleanIdentifiers( identifiers ),
+    identifiers: sUtils.identifiers.clean( identifiers ),
     detailed: false,
     internal: false,
     instanciate: false,
@@ -33,7 +37,7 @@ function get( identifiers, options, cb ) {
     filtered: null
   } ) )
 
-  .then( _checkIdentifiers )
+  .then( sUtils.identifiers.check )
 
   .then( _get )
 
@@ -49,50 +53,6 @@ function get( identifiers, options, cb ) {
 
   }, cb );
 
-
-}
-
-
-/**
- * do not proceed if clean identifiers amount to nothing
- */
-function _checkIdentifiers( v ) {
-
-  if ( !Object.keys( v.identifiers ).length ) {
-
-    throw 'No known identifiers specified for get';
-
-  }
-
-  return v;
-
-}
-
-
-/**
- * allow only certain fields for get ( id, uid and slug )
- */
-function _cleanIdentifiers( identifiers ) {
-
-  let clean = {};
-
-  if ( typeof identifiers !== 'object' ) {
-    
-    return {
-      id: identifiers
-    }
-
-  }
-
-  [ 'id', 'uid', 'slug' ].forEach( field => {
-
-    if ( typeof identifiers[ field ] === 'undefined' ) return;
-
-    clean[ field ] = identifiers[ field ];
-
-  } );
-
-  return clean;
 
 }
 
@@ -127,7 +87,29 @@ function _translate( v ) {
 
   v.data = dbParse.toObj( v.entry );
 
+  v.data = _applyDefaults( v.data );
+
   return v;
+
+}
+
+
+/**
+ * in db, values are null when they are not defined.
+ * In those cases, default value should apply.
+ */
+
+function _applyDefaults( data ) {
+
+  let defaulted = utils.extend( {}, validate.default );
+
+  Object.keys( data ).forEach( k => {
+
+    defaulted[ k ] = data[ k ] === null ? defaulted[ k ] : data[ k ];
+
+  } );
+
+  return defaulted;
 
 }
 

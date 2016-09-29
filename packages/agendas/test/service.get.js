@@ -31,7 +31,14 @@ describe( 'get', function() {
         description: 'Des animations pour des expériences autour du goût et des savoir-faire / Numerous events to have experiences around taste and know-how',
         url: 'http://www.salon-fromage.com/',
         image: 'review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg',
-        settings: null,
+        settings: {
+          contribution: {
+            defaultState: 2,
+            message: null,
+            type: 0,
+            useFields: false
+          }
+        },
         createdAt: agenda.createdAt,
         updatedAt: agenda.updatedAt,
         official: 0
@@ -70,7 +77,14 @@ describe( 'get', function() {
         title: 'EPN "Espace Torcy"',
         description: 'Agenda de l\'EPN "Espace Torcy"\r\n2 rue de Torcy 75018 Paris\r\nTél : 01 40 38 67 00\r\nEmail : epn@ensparis.fr',
         url: 'http://www.ensparis.fr',
-        settings: null,
+        settings: {
+          contribution: {
+            defaultState: 2,
+            message: null,
+            type: 0,
+            useFields: false
+          }
+        },
         image: 'review_epn-espace-torcy_00.jpg',
         createdAt: agenda.createdAt,
         updatedAt: agenda.updatedAt,
@@ -98,8 +112,23 @@ describe( 'get', function() {
         description: 'Agenda de l\'EPN "Espace Torcy"\r\n2 rue de Torcy 75018 Paris\r\nTél : 01 40 38 67 00\r\nEmail : epn@ensparis.fr',
         url: 'http://www.ensparis.fr',
         image: 'review_epn-espace-torcy_00.jpg',
-        settings: null,
-        credentials: null,
+        settings: {
+          contribution: {
+            defaultState: 2,
+            message: null,
+            type: 0,
+            useFields: false
+          }
+        },
+        credentials: {
+          activatingInvitations: false,
+          emailstrategie: false,
+          embedsHead: false,
+          embedsTemplates: false,
+          indesign: false,
+          moderators: false,
+          tags: false
+        },
         createdAt: agenda.createdAt,
         updatedAt: agenda.updatedAt,
         official: 0

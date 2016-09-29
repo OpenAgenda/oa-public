@@ -31,6 +31,18 @@ module.exports = {
     default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
   },
 
+  interfaces: {
+
+    onCreate: agenda => {},
+
+    onUpdate: ( before, after ) => {},
+
+    beforeRemove: ( agenda, cb ) => { cb() },
+
+    onRemove: agenda => {}
+
+  },
+
   // dependency injection
   services: {
     

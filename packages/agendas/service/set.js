@@ -17,7 +17,7 @@ defineUnique = require( 'mysql-utils/defineUnique' ),
 
 logger = require( 'basic-logger' );
 
-let knex, schemas, mysqlConfig, log,
+let knex, schemas, mysqlConfig, log, interfaces,
 
 dbParse = require( './lib/mysqlParse' )( require( './validate' ).map ),
 
@@ -95,6 +95,12 @@ function _update( identifiers, data, options, cb ) {
 
   .done( v => {
 
+    if ( v.success ) {
+
+      interfaces.onUpdate( v.current, v.updated );
+
+    }
+
     cb( null, {
       agenda: v.updated,
       valid: !v.errors.length,
@@ -152,6 +158,12 @@ function _create( data, options, cb ) {
   } ) )
 
   .done( v => {
+
+    if ( v.success ) {
+
+      interfaces.onCreate( v.created );
+
+    }
 
     cb( null, {
       agenda: v.created,
@@ -388,7 +400,6 @@ function _verifyUnique( field ) {
 
 }
 
-
 function _filterProtected( v ) {
 
   if ( !v.protected ) return v;
@@ -437,6 +448,7 @@ function _setToNow( target, field ) {
 function _get( options ) {
 
   let params = utils.extend( {
+    clean: false,
     target: 'agenda',
     internal: false,
     prerequisite: () => true
@@ -477,13 +489,15 @@ function _get( options ) {
 }
 
 
-function init( s, k, m ) {
+function init( s, k ) {
 
-  schemas = s;
+  schemas = s.getConfig().schemas;
 
   knex = k;
 
-  mysqlConfig = m;
+  mysqlConfig = s.getConfig().mysql;
+
+  interfaces = s.getConfig().interfaces;
 
   log = logger( 'agendas service.set' );
 

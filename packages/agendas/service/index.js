@@ -16,6 +16,8 @@ const knexLib = require( 'knex' ),
 
   get = require( './get' ),
 
+  remove = require( './remove' ),
+
   logger = require( 'basic-logger' ),
 
   validate = require( './validate' ),
@@ -36,6 +38,7 @@ const knexLib = require( 'knex' ),
     get,
     instanciate,
     set,
+    remove,
     count,
     slugs: {
       isTaken: slugs.isTaken,
@@ -72,7 +75,9 @@ function init( c ) {
 
   get.init( service, knex );
 
-  set.init( schemas, knex, c.mysql );
+  set.init( service, knex );
+
+  remove.init( service, knex )
 
   instanciate.init( service );
 
@@ -212,15 +217,16 @@ function _total( v ) {
 
   } )
 
-    .then( result => {
+  .then( result => {
 
-      v.total = result[ 0 ].agendas;
+    v.total = result[ 0 ].agendas;
 
-      return v;
+    return v;
 
-    } );
+  } );
 
 }
+
 
 function _list( v ) {
 
@@ -246,6 +252,7 @@ function _list( v ) {
   } );
 
 }
+
 
 function _detailed( v ) {
 
