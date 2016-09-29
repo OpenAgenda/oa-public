@@ -1,49 +1,104 @@
 {
   "attributes": [
-    { "name" : "Title", "mapTo": "title" },
     {
-      "name" : "Description",
-      "mapTo": "description"
+      "mapTo": "title",
+      "name": "Title"
     },
     {
-      "name" : "FreeText",
-      "mapTo" : "freeText"
+      "mapTo": "description",
+      "name": "Description"
     },
-    { "name" : "Link", "mapTo": "link" },
-    { "name" : "ImageUrl", "mapTo": "image" },
-    { "name" : "ThumbnailUrl", "mapTo" : "thumbnail" },
-    { "name" : "LocationName", "mapTo": "placeNameLabel" },
-    { "name" : "Address", "mapTo" : "address" },
-    { "name" : "City", "mapTo" : "city" },
-    { "name" : "DateRange", "mapTo": "dateRange" },
-    { "name" : "PricingInfo", "mapTo" : "pricingInfo" },
-    { "name" : "TicketUrl", "mapTo" : "ticketLink" },
-    { "name" : "TicketLabel", "mapTo" : "ticketLabel" },
     {
-      "name" : "ShareUrl",
-      "mapTo" : "actionLink"
-    }, {
-      "name" : "ShareLabel",
-      "mapTo" : "actionLabel"
+      "mapTo": "freeText",
+      "name": "FreeText"
     },
-    { "name" : "Category", "mapTo" : "category" },
-    { "name" : "CategoryLink", "mapTo" : "categoryLink" },
-    { "name" : "CategorySlug", "mapTo" : "categorySlug" },
-    { "name" : "Favorite", "mapTo" : "favorite" },
-    { "name" : "Featured", "mapTo" : "featured" }
+    {
+      "mapTo": "link",
+      "name": "Link"
+    },
+    {
+      "mapTo": "image",
+      "name": "ImageUrl"
+    },
+    {
+      "mapTo": "thumbnail",
+      "name": "ThumbnailUrl"
+    },
+    {
+      "mapTo": "placeNameLabel",
+      "name": "LocationName"
+    },
+    {
+      "mapTo": "address",
+      "name": "Address"
+    },
+    {
+      "mapTo": "city",
+      "name": "City"
+    },
+    {
+      "mapTo": "dateRange",
+      "name": "DateRange"
+    },
+    {
+      "mapTo": "pricingInfo",
+      "name": "PricingInfo"
+    },
+    {
+      "mapTo": "ticketLink",
+      "name": "TicketUrl"
+    },
+    {
+      "mapTo": "ticketLabel",
+      "name": "TicketLabel"
+    },
+    {
+      "mapTo": "actionLink",
+      "name": "ShareUrl"
+    },
+    {
+      "mapTo": "actionLabel",
+      "name": "ShareLabel"
+    },
+    {
+      "mapTo": "category",
+      "name": "Category"
+    },
+    {
+      "mapTo": "categoryLink",
+      "name": "CategoryLink"
+    },
+    {
+      "mapTo": "categorySlug",
+      "name": "CategorySlug"
+    },
+    {
+      "mapTo": "favorite",
+      "name": "Favorite"
+    },
+    {
+      "mapTo": "featured",
+      "name": "Featured"
+    }
   ],
-  "children" : [ {
-    "name" : "Tags",
-    "mapTo" : "tags",
-    "attributes" : [ {
-      "name" : "Tag",
-      "mapTo" : "label"
-    }, {
-      "name" : "TagLink",
-      "mapTo" : "link"
-    }, {
-      "name" : "TagSlug",
-      "mapTo" : "slug"
-    } ]
-  } ]
+  "children": [
+    {
+      "attributes": [
+        {
+          "mapTo": "label",
+          "name": "Tag"
+        },
+        {
+          "mapTo": "link",
+          "name": "TagLink"
+        },
+        {
+          "mapTo": "slug",
+          "name": "TagSlug"
+        }
+      ],
+      "mapTo": "tags",
+      "name": "Tags"
+    }
+  ]
 }
