@@ -26,6 +26,8 @@ function schema(struct) {
 
   validate.struct = struct;
 
+  validate.default = _getDefault(struct);
+
   return validate;
 
   function validate(values) {
@@ -250,4 +252,22 @@ function _isLeaf(struct) {
 function _buildValidator(field, definition) {
 
   return validators[definition.type](_utils2.default.extend(definition, { field: field }));
+}
+
+function _getDefault(struct) {
+
+  var d = {};
+
+  Object.keys(struct).forEach(function (k) {
+
+    if (_isLeaf(struct[k])) {
+
+      d[k] = struct[k].default === undefined ? null : struct[k].default;
+    } else {
+
+      d[k] = _getDefault(struct[k]);
+    }
+  });
+
+  return d;
 }

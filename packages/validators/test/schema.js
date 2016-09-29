@@ -151,6 +151,40 @@ describe( 'schema validator', () => {
 
     } );
 
+
+    it( '.default gives default values of schema with null when no default is defined', () => {
+
+      let validator = schema( {
+        title: {
+          type: 'text',
+          min: 2,
+          max: 100
+        },
+        url: {
+          type: 'link'
+        },
+        settings: {
+          someSetting: {
+            type: 'number',
+            optional: false
+          }
+        }
+      } );
+
+      try {
+
+        validator.default.should.eql( {
+          title: null, 
+          url: null, 
+          settings: { 
+            someSetting: null 
+          } 
+        } );
+
+      } catch( e ) { console.log( e ); }
+
+    } );
+
   } );
 
 
