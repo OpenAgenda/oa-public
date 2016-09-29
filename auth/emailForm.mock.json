@@ -6,5 +6,6 @@
     "errors" : {
       "email" : "this email is invalid"
     }
-  }
+  },
+  "standard" : {}
 }

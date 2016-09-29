@@ -1,17 +1,19 @@
 {
-  "layout": "layout/main",
-  "css" : {
-    "signin" : "css/style.scss",
-    "forms" : "../css/forms.css",
-    "cStructure" : "../structure/css/centered.css",
-    "fontawesome410" : "../css/font-awesome-4.1.0/css/font-awesome.css"
+  "layout": "bsLayout/main",
+  "oaCss" : {
+    "bsForms" : "../css/bsForms.scss",
+    "agenda-header" : "../node_modules/bs-templates/templates/agenda/_header.scss",
+    "auth" : "css/auth.scss"
    },
   "helpers" : {
     "_t" : "time",
-    "_i" : "image"
+    "_i" : "image",
+    "_txt" : "text"
   },
   "base" : {
-    "pageClass" : "ct auth",
-    "uri" : false
+    "pageClass" : "auth",
+    "uri" : false,
+    "agenda" : false,
+    "includeActionLinks" : false
   }
 }
