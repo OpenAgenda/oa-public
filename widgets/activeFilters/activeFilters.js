@@ -96,6 +96,7 @@ var widget = function( elem, options ) {
     if ( reqParams.neLat ) {
 
       newFilters.push({
+        type: 'geo',
         label: _label( 'map' ),
         keys: [ 'neLat', 'neLng', 'swLat', 'swLng' ]
       });
@@ -107,6 +108,7 @@ var widget = function( elem, options ) {
       if ( reqParams.to && ( reqParams.to !== reqParams.from )) {
 
         newFilters.push({
+          type: 'time',
           label: dateLabels( reqParams.from, reqParams.to ),
           keys: [ 'from', 'to' ]
         });
@@ -114,6 +116,7 @@ var widget = function( elem, options ) {
       } else {
 
         newFilters.push({
+          type: 'time',
           label: dateLabels( reqParams.from ),
           keys: [ 'from', 'to' ]
         });
@@ -125,6 +128,7 @@ var widget = function( elem, options ) {
     if ( reqParams.what ) {
 
       newFilters.push({
+        type: 'search',
         label: reqParams.what,
         keys: [ 'what' ]
       });
@@ -134,6 +138,7 @@ var widget = function( elem, options ) {
     if ( reqParams.category ) {
 
       newFilters.push({
+        type: 'category',
         label: categories[ reqParams.category ],
         keys: [ 'category' ]
       });
@@ -153,6 +158,7 @@ var widget = function( elem, options ) {
       });
 
       newFilters.push({
+        type: 'tags',
         label: tagLabels.join( ', ' ),
         keys: [ 'tags' ]
       });
@@ -162,6 +168,7 @@ var widget = function( elem, options ) {
     if ( reqParams.location ) {
 
       newFilters.push({
+        type: 'geo',
         label: config.labels[ lang ].location,
         keys: [ 'location' ]
       });
@@ -171,6 +178,7 @@ var widget = function( elem, options ) {
     if ( reqParams.org ) {
 
       newFilters.push({
+        type: 'contributor',
         label: organizations[ reqParams.org ],
         keys: [ 'org' ]
       });
@@ -180,6 +188,7 @@ var widget = function( elem, options ) {
     if ( !!parseInt( reqParams.passed ) ) {
 
       newFilters.push({
+        type: 'time',
         label: config.labels[ lang ].passed,
         keys: [ 'passed' ]
       });
