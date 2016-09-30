@@ -471,7 +471,13 @@ function _initAgendaService( config ) { // sync
   agendasSvc.init( {
     mysql: config.db,
     schemas: config.schemas,
-    logger: logger
+    files: {
+      tmpPath: config.tmpFolderPath,
+      bucket: config.aws.imageBucketPath,
+      accessKeyId: config.aws.accessKeyId,
+      secretAccessKey: config.aws.secretAccessKey
+    },
+    logger
   } );
 
   return config;
