@@ -14,19 +14,19 @@ logger = require( 'basic-logger' ), log;
 
 module.exports = {
   
-  init: init,
+  init,
 
   // get event data
-  getEvent: getEvent,
+  getEvent,
 
   // get agenda-event reference
-  getAgendaEvent: getAgendaEvent,
+  getAgendaEvent,
 
   // get stakeholder data
-  getStakeholder: getStakeholder,
+  getStakeholder,
 
   // update agenda event reference with new stakeholder
-  updateAgendaEvent: updateAgendaEvent
+  updateAgendaEvent
 }
 
 function getEvent( idNamespace, eventNamespace ) {

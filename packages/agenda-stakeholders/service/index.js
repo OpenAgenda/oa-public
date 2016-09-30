@@ -26,11 +26,10 @@ logger = require( 'basic-logger' ),
 
 settings = require( './settings' );
 
-module.exports = agenda;
-
-module.exports.init = init;
-
-module.exports.user = user;
+module.exports = Object.assign( agenda, {
+  init,
+  user
+} );
 
 function agenda( agendaId ) {
 
@@ -83,7 +82,7 @@ function agenda( agendaId ) {
       userId: null, // required
       credential: 1 // contributor
     }, options || {}, {
-      agendaId: agendaId
+      agendaId
     } );
 
     if ( !stakeholder.userId ) {
@@ -107,10 +106,11 @@ function agenda( agendaId ) {
     }
 
     let params = Object.assign( {
-      instanciate: false
+      instanciate: false,
+      detailed: false
     }, options || {} );
 
-    getters.get( identifiers, ( err, stakeholder ) => {
+    getters.get( identifiers, params, ( err, stakeholder ) => {
 
       if ( err ) return cb( err );
 
@@ -153,11 +153,11 @@ function init( c, cb ) {
 
   schemas = c.schemas;
 
-  config = c;
+  config = Object.assign( {
+    interfaces: false
+  }, c );
 
-  w( c )
-
-  .then( () => {
+  w().then( () => {
 
     if ( c.logger ) {
 
@@ -174,7 +174,7 @@ function init( c, cb ) {
       connection: c.mysql
     } );
 
-  } )  
+  } )
 
   .then( () => {
 
@@ -198,7 +198,8 @@ function init( c, cb ) {
 
     gettersLib.init( {
       knex,
-      schemas
+      schemas,
+      interfaces: config.interfaces
     } );
 
   } )

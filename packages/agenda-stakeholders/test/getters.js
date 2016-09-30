@@ -50,6 +50,21 @@ describe( 'agenda-stakeholders', () => {
     } );
 
 
+    it( 'detailed get uses interface to get event count', done => {
+
+      service( 4608 ).get( {
+        id: 6975
+      }, { detailed: true }, ( err, stakeholder ) => {
+
+        stakeholder.eventCount.should.equal( 35 );
+
+        done();
+
+      } );
+
+    } );
+
+
     it( 'get with userId gets stakeholder matching userId', done => {
 
       service( 4608 ).get( {
@@ -129,7 +144,7 @@ describe( 'agenda-stakeholders', () => {
 
     } );
 
-    it( 'lists first 20 stakeholders of an user', done => {
+    it( 'lists first 20 stakeholders of a user', done => {
 
       service.user( 7368 ).list( 0, 1, ( err, stakeholders ) => {
 
@@ -152,6 +167,19 @@ describe( 'agenda-stakeholders', () => {
             contactPosition: 'CORRESPONDANT'
           }
         } );
+
+        done();
+
+      } );
+
+    } );
+
+
+    it( 'detailed list uses interface to get event count', done => {
+
+      service.user( 7368 ).list( { detailed: true }, 0, 1, ( err, stakeholders ) => {
+
+        stakeholders[ 0 ].eventCount.should.equal( 35 );
 
         done();
 
