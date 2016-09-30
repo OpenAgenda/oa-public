@@ -3,6 +3,7 @@ var deepExtend = require( 'deep-extend' ),
   config = {
     all: {
       env: 'prod',
+      corpoLastUpdate: '2016-02-28T11:07:29.000Z',
       port: 8901,
       multiCore: true,
       mainChannel: 'main',

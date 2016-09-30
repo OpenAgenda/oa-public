@@ -16,6 +16,8 @@ var modLib = require( '../lib/moduleLib' ),
 
   agendas = require( 'agendas' ),
 
+  mwHelpers = require( '../services/lib/middlewareHelpers.js' ),
+
   path,
 
   coms = require( '../lib/coms' ),
@@ -23,7 +25,11 @@ var modLib = require( '../lib/moduleLib' ),
   w = require( 'when' ),
 
   routes = {
-    corpoHome: [ 'get', '/', [ cmn.loadBaseData( 'oasfmain.css' ), corpo ] ],
+    corpoHome: [ 'get', '/', [ 
+      cmn.loadBaseData( 'oasfmain.css' ), 
+      _corpoBrowserCache,
+      corpo 
+    ] ],
     newsletterSubscribe: [ 'post', '/newsletter/subscribe', newsletterSubscribe ],
     serviceConnectCallback: [ 'get', '/services/:service/connect/callback', serviceConnectCallback ],
     emailUnsubscribe: [ 'get', '/unsubscribe', unsubscribe ],
@@ -52,10 +58,16 @@ module.exports = function ( p ) {
 }
 
 
+function _corpoBrowserCache( req, res, next ) {
+
+  mwHelpers.compareModifiedSince( config.corpoLastUpdate, req, res, next );
+
+}
+
 
 function corpo( req, res, next ) {
 
-  cmn.https( req, res, function () {
+  cmn.https( req, res, () => {
 
     if ( req.session.logged ) {
 
