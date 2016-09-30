@@ -60,18 +60,6 @@ function init( c, cb ) {
 
   } )
 
-  .then( () => {
-
-    agendas.init( c );
-
-  } )
-
-  .then( () => {
-
-    agendaStakeholders.init( c, w.resolve );
-
-  } )
-
   .done( () => {
 
     log = logger( 'admin' );
