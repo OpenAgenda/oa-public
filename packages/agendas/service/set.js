@@ -95,7 +95,7 @@ function _update( identifiers, data, options, cb ) {
 
   .done( v => {
 
-    if ( v.success ) {
+    if ( v.success && interfaces ) {
 
       interfaces.onUpdate( v.current, v.updated );
 
