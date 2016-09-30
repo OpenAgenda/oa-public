@@ -10,7 +10,7 @@ config.debug = true;
 
 config.plugins = [
   new webpack.DefinePlugin( { __CLIENT__: false, __SERVER__: true, __PRODUCTION__: false, __DEV__: true } ),
-  new webpack.DefinePlugin( { 'process.env': { NODE_ENV: 'development' } } ),
+  new webpack.DefinePlugin( { 'process.env': { NODE_ENV: 'dev' } } ),
   new webpack.NoErrorsPlugin()
 ];
 
