@@ -1,15 +1,14 @@
 "use strict";
 
 module.exports = {
-  compareModifiedSince: compareModifiedSince
+  compareModifiedSince
 }
-
 
 function compareModifiedSince( timestamp, req, res, next ) {
 
   if ( timestamp && typeof timestamp == 'object' ) {
 
-    timestamp = timestamp.toString();
+    timestamp = JSON.stringify( timestamp ).replace( /"/g, '' )
 
   }
 

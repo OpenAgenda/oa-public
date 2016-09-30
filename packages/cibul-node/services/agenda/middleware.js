@@ -280,13 +280,13 @@ function searchEvents( limit, showAll ) {
 
 function browserCacheControlData( req, res, next ) {
 
-  req.agenda.getControlDataTimestamp( function( err, t ) {
+  req.agenda.getControlDataTimestamp( ( err, t ) => {
 
     if ( err ) next( err );
 
     mwh.compareModifiedSince( t, req, res, next );
 
-  });
+  } );
 
 }
 

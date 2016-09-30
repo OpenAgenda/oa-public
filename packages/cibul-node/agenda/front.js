@@ -16,6 +16,8 @@ eventSvc = require( '../services/event' ),
 
 embedSvc = require( '../services/embed/embed' ),
 
+mwHelpers = require( '../services/lib/middlewareHelpers' ),
+
 perPage = 20,
 
 deepExtend = require( 'deep-extend' ),
@@ -110,6 +112,7 @@ routes = {
   ] ],
 
   agendaSearch: [ 'get', '/agendas', [
+    _modifiedSince1am,
     agendaSearch.mw.list,
     cmn.loadBaseData( 'oasfmain.css' ),
     agendaSearchPage
@@ -690,5 +693,16 @@ function _error( req, res ) {
     cmn.errorResponse( req, res, err );
 
   };
+
+}
+
+
+function _modifiedSince1am( req, res, next ) {
+
+  let today1am = new Date();
+
+  today1am.setHours( 1, 0, 0, 0 );
+
+  mwHelpers.compareModifiedSince( today1am, req, res, next );
 
 }
