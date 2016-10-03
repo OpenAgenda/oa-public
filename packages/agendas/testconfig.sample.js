@@ -27,9 +27,7 @@ module.exports = {
     secretAccessKey: 'thesecret'
   },
 
-  image: {
-    default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-  },
+  imagePath: '//openagendatst.s3.amazonaws.com/',
 
   interfaces: {
 

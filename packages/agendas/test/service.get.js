@@ -50,6 +50,20 @@ describe( 'get', function() {
 
   } );
 
+
+  it( 'get with includeImagePath option to true, gets the agenda with image path', done => {
+
+    svc.get( 4875, { includeImagePath: true }, ( err, agenda ) => {
+
+      agenda.image.should.equal( config.imagePath + 'review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg' )
+
+      done();
+
+    } );
+
+  } );
+
+
   it( 'get gets an agenda with details', done => {
 
     svc.get( 4848, { detailed: true }, ( err, agenda ) => {
@@ -96,6 +110,7 @@ describe( 'get', function() {
     } );
 
   } );
+  
 
   it( 'get with internal option gets internal data like credentials and id', done => {
 

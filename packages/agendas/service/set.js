@@ -52,11 +52,14 @@ function _update( identifiers, data, options, cb ) {
 
   }
 
-  w( utils.extend( {
+  let params = utils.extend( {
     // option defaults
     protected: true, // protected fields cannot be tampered with
-    internal: false // retrieve internal fields when update is done
-  }, options, {
+    internal: false, // retrieve internal fields when update is done
+    includeImagePath: false
+  }, options );
+
+  w( utils.extend( {}, params, {
     // unoptionables
     identifiers: identifiers,
     id: false,
@@ -89,8 +92,9 @@ function _update( identifiers, data, options, cb ) {
 
   .then( _get( {
     target: 'updated',
-    internal: options.internal,
-    prerequisite: v => v.success && !v.errors.length
+    internal: params.internal,
+    prerequisite: v => v.success && !v.errors.length,
+    includeImagePath: params.includeImagePath
   } ) )
 
   .done( v => {
@@ -122,10 +126,12 @@ function _create( data, options, cb ) {
 
   }
 
-  w( utils.extend( {
-    // option defaults
-    internal: false
-  }, options, {
+  let params = utils.extend( {
+    internal: false,
+    includeImagePath: false
+  }, options );
+
+  w( utils.extend( {}, params, {
     id: false,
     data: data,
     clean: null,
@@ -154,7 +160,8 @@ function _create( data, options, cb ) {
   .then( _get( { 
     target: 'created', 
     internal: options.internal, 
-    prerequisite: v => v.success && !v.errors.length 
+    prerequisite: v => v.success && !v.errors.length,
+    includeImagePath: params.includeImagePath
   } ) )
 
   .done( v => {
@@ -466,7 +473,10 @@ function _get( options ) {
 
     let d = w.defer();
 
-    get( v.identifiers, { internal: params.internal }, ( err, data ) => {
+    get( v.id ? { id: v.id } : v.identifiers, {
+      internal: params.internal,
+      includeImagePath: params.includeImagePath
+    }, ( err, data ) => {
 
       if ( err ) return d.reject( err );
 

@@ -55,6 +55,7 @@ describe( 'service.set: update an agenda', function() {
     } );
 
   } );
+  
 
   it( 'set by slug works too', done => {
 
@@ -71,6 +72,37 @@ describe( 'service.set: update an agenda', function() {
     } );
 
   } );
+
+
+  it( 'set with includeImagePath to true returns an updated agenda that includes image paths', done => {
+
+    svc.set( 4875, { title: 'Le mur' }, { includeImagePath: true }, ( err, result ) => {
+
+      result.agenda.image.should.equal( '//openagendatst.s3.amazonaws.com/review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg' );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'set slug', done => {
+
+    svc.set( { slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016' }, {
+      slug: 'lait'
+    }, ( err, result ) => {
+
+      should( err ).equal( null );
+
+      result.agenda.slug.should.equal( 'lait' );
+
+      done();
+
+    } );
+
+  } );
+
 
   it( 'set credentials on pre-exisiting agenda', done => {
 
@@ -126,6 +158,7 @@ describe( 'service.set: update an agenda', function() {
     } );
 
   } );
+
 
   it( 'onUpdate callbacks with agenda data before and after update', done => {
 

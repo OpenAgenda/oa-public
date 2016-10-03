@@ -12,7 +12,7 @@ validate = require( './validate' ),
 
 sUtils = require( './lib/utils' );
 
-let knex, service, schemas;
+let knex, service, schemas, imagePath;
 
 module.exports = get;
 module.exports.init = init;
@@ -31,6 +31,7 @@ function get( identifiers, options, cb ) {
     detailed: false,
     internal: false,
     instanciate: false,
+    includeImagePath: false
   }, options, {
     entry: null, 
     data: null,
@@ -48,6 +49,12 @@ function get( identifiers, options, cb ) {
   .then( _filterInternals )
 
   .done( v => {
+
+    if ( v.includeImagePath && v.filtered.image ) {
+
+      v.filtered.image = imagePath + v.filtered.image;
+
+    }
 
     cb( null, v.instanciate ? service.instanciate( v.filtered ) : v.filtered );
 
@@ -157,6 +164,8 @@ function init( svc, k ) {
   service = svc;
 
   schemas = service.getConfig().schemas;
+
+  imagePath = service.getConfig().imagePath;
 
   knex = k;
 
