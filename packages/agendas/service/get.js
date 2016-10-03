@@ -50,6 +50,8 @@ function get( identifiers, options, cb ) {
 
   .done( v => {
 
+    if ( !v.filtered ) return cb( null, null );
+
     if ( v.includeImagePath && v.filtered.image ) {
 
       v.filtered.image = imagePath + v.filtered.image;
