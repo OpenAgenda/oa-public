@@ -46,6 +46,12 @@ export default config => {
 
     }
 
+    if ( [ '0', 'false', false ].indexOf( value ) !== -1 ) {
+
+      return false;
+
+    }
+
     return !!value;
 
   }

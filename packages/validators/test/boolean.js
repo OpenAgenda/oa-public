@@ -6,6 +6,12 @@ validators = require( './build' );
 
 describe( 'boolean validator', () => {
 
+  it( 'cleans true to true', () => {
+
+    validators.boolean()( true ).should.equal( true );
+
+  } );
+
   it( 'returns null if nothing is given on an optional validator', () => {
 
     let optionalValidate = validators.boolean( {
@@ -61,6 +67,18 @@ describe( 'boolean validator', () => {
     validate( '11' ).should.equal( true );
 
   });
+
+  it( 'cleans \'0\' to false', () => {
+
+    validators.boolean()( '0' ).should.equal( false );
+
+  } );
+
+  it( 'cleans \'false\' to false', () => {
+
+    validators.boolean()( 'false' ).should.equal( false );
+
+  } );
 
   it( 'if default is null and nothing is given, returns null', () => {
 
