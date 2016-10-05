@@ -56,6 +56,13 @@ describe( 'agenda-stakeholders', () => {
         id: 6975
       }, { detailed: true }, ( err, stakeholder ) => {
 
+        stakeholder.user.should.eql( { 
+          id: 2576,
+          uid: 128492293,
+          user_name: 'Zorg',
+          email: 'zorg@galactic.uv' 
+        } );
+
         stakeholder.eventCount.should.equal( 35 );
 
         done();
@@ -178,6 +185,13 @@ describe( 'agenda-stakeholders', () => {
     it( 'detailed list uses interface to get event count', done => {
 
       service.user( 7368 ).list( { detailed: true }, 0, 1, ( err, stakeholders ) => {
+
+        stakeholders[ 0 ].user.should.eql( { 
+          id: 7368,
+          uid: 128492293,
+          user_name: 'Zorg',
+          email: 'zorg@galactic.uv' 
+        } );
 
         stakeholders[ 0 ].eventCount.should.equal( 35 );
 

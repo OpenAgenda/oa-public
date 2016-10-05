@@ -49,6 +49,8 @@ function agenda( agendaId ) {
 
     .then( _getEventCount )
 
+    .then( _getUserInfo )
+
     .done( v => {
 
       cb( null, v.stakeholder );
@@ -70,6 +72,7 @@ function agenda( agendaId ) {
     }
 
     w( {
+      agendaId: agendaId,
       offset,
       limit,
       query,
@@ -82,6 +85,10 @@ function agenda( agendaId ) {
     } )
 
       .then( _list )
+
+      .then( _getEventCounts )
+
+      .then( _getUsersInfo )
 
       .then( _total )
 
@@ -128,6 +135,8 @@ function user( userId ) {
       .then( _list )
 
       .then( _getEventCounts )
+
+      .then( _getUsersInfo )
 
       .then( _total )
 
@@ -226,6 +235,43 @@ function _getEventCounts( v ) {
 }
 
 
+function _getUsersInfo( v ) {
+
+  if ( !v.query.detailed || !interfaces ) {
+
+    return v;
+
+  }
+
+  return w.all( v.stakeholders.map( s => {
+
+    let d = w.defer();
+
+    interfaces.getUser( s.userId, ( err, user ) => {
+
+      if ( err ) return d.reject( err );
+
+      s.user = user;
+
+      d.resolve( s );
+
+    } );
+
+    return d.promise;
+
+  } ) )
+
+  .then( stakeholders => {
+
+    v.stakeholders = stakeholders;
+
+    return v;
+
+  } );
+
+}
+
+
 function _getEventCount( v ) {
 
   if ( !v.detailed || !interfaces ) {
@@ -236,11 +282,36 @@ function _getEventCount( v ) {
 
   let d = w.defer();
 
-  interfaces.getEventCount( v.agenda.id, v.user.id, ( err, count ) => {
+  interfaces.getEventCount( v.agenda.id, v.stakeholder.userId, ( err, count ) => {
 
     if ( err ) return d.reject( err );
 
     v.stakeholder.eventCount = count;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _getUserInfo( v ) {
+
+  if ( !v.detailed || !interfaces ) {
+
+    return v;
+
+  }
+
+  let d =w.defer();
+
+  interfaces.getUser( v.stakeholder.userId, ( err, user ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.stakeholder.user = user;
 
     d.resolve( v );
 
