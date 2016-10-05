@@ -499,7 +499,7 @@ function _initAgendaService( config ) { // sync
     schemas: config.schemas,
     files: {
       tmpPath: config.tmpFolderPath,
-      bucket: config.aws.imageBucketPath,
+      bucket: config.aws.bucket,
       accessKeyId: config.aws.accessKeyId,
       secretAccessKey: config.aws.secretAccessKey
     },
