@@ -25,7 +25,7 @@ moment = require( 'moment-timezone' );
 module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => {
 
   return {
-    flattener: flattener
+    flattener
   }
 
   function flattener( options, cb ) {
@@ -246,12 +246,12 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         'updatedAt',
         [ 'range', 'range', [ 'fr', 'en' ] ],
         {
-          'sourceField' : 'timings',
+          'sourceField' : [ 'timings', 'location.timezone' ],
           'destField' : 'timings_fr',
           fn: _defineTimings( 'fr' )
         },
         {
-          'sourceField' : 'timings',
+          'sourceField' : [ 'timings', 'location.timezone' ],
           'destField' : 'timings_en',
           fn: _defineTimings( 'en' )
         },
@@ -527,7 +527,11 @@ function _defineTimings( lang ) {
 
   let today = new Date();
 
-  return function( timings ) {
+  return function( args ) {
+
+    let timings = args[ 0 ],
+
+    timezone = args[ 1 ];
 
     moment.locale( lang );
 
@@ -535,11 +539,11 @@ function _defineTimings( lang ) {
 
     .map( t => {
 
-      let d = moment.tz( t.start, t.timezone ).format( 'dddd Do MMMM' ) + ( today.getUTCFullYear() !== parseInt( t.start.substr( 0, 4 ) ) ? ' ' + t.start.substr( 0, 4 ) : '' ),
+      let d = moment.tz( t.start, timezone ).format( 'dddd Do MMMM' ) + ( today.getUTCFullYear() !== parseInt( t.start.substr( 0, 4 ) ) ? ' ' + t.start.substr( 0, 4 ) : '' ),
 
-      start = moment.tz( t.start, t.timezone ).format( 'HH:mm' ),
+      start = moment.tz( t.start, timezone ).format( 'HH:mm' ),
 
-      end = moment.tz( t.end, t.timezone ).format( 'HH:mm' );
+      end = moment.tz( t.end, timezone ).format( 'HH:mm' );
 
       if ( lang == 'fr' ) {
 

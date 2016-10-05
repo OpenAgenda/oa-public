@@ -1,5 +1,18 @@
 "use strict";
 
+const utils = require( 'utils' ),
+
+streamUtils = require( 'stream-utils' ),
+
+flattener = require( 'flattener' ),
+
+validator = require( 'validator' ),
+
+csv = require( 'fast-csv' ),
+
+xlsx = require( 'xlsx-writestream' );
+
+
 var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
@@ -12,11 +25,9 @@ eventSvc = require( '../services/event' ),
 
 userSvc = require( '../services/user' ),
 
-validator = require( 'validator' ),
+stakeholders = require( 'agenda-stakeholders' ),
 
-stakeholders = require( 'agenda-stakeholders/middleware' ),
-
-utils = require( '../lib/utils' ),
+stakeholdersMw = require( 'agenda-stakeholders/middleware' ),
 
 routes = {
 
@@ -65,6 +76,18 @@ routes = {
     inviteResendAll( { inviteMethod: 'resendInviteModerators', redirect: 'agendaAdminModerators' })
   ] ],
 
+  stakeholdersCsvExport: [ 'get', '/contributors.csv', [
+    cmn.checkAdminOrModerator,
+    _loadFlattener,
+    streamCsv
+  ] ],
+
+  stakeholdersXlsxExport: [ 'get', '/contributors.xlsx', [
+    cmn.checkAdminOrModerator,
+    _loadFlattener,
+    streamXlsx
+  ] ],
+
   contributorsInfo: [ 'get', '/contributors/info', [ 
     cmn.checkAdministrator(),
     agendaSvc.mw.loadAdminLayout,
@@ -83,7 +106,7 @@ routes = {
     cmn.checkAdminOrModerator,
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     cmn.checkCredential( 'eventTransfer' ),
-    stakeholders.loadAgenda( 'agenda', 'stakeholders' ),
+    stakeholdersMw.loadAgenda( 'agenda', 'stakeholders' ),
     _loadUserByEmail,
     transfer
   ] ],
@@ -91,7 +114,7 @@ routes = {
   stakeholderGet: [ 'get', '/contributors/:uid.json', [
     cmn.checkAdminOrModerator,
     _loadUserByUid,
-    stakeholders.load( 'agenda', 'queriedUser' ),
+    stakeholdersMw.load( 'agenda', 'queriedUser' ),
     ( req, res ) => {
 
       res.json( { name: req.queriedUser.fullName } );
@@ -142,7 +165,7 @@ function infoSubmit( req, res ) {
 
     res.redirect( req.genUrl( 'contributorsInfo', { slug: req.agenda.slug } ) );
 
-  });
+  } );
 
 }
 
@@ -203,7 +226,7 @@ function inviteResendAll( options ) {
     redirect: 'agendaAdminContributors'
   }, options || {} );
 
-  return function( req, res ) {
+  return ( req, res ) => {
 
     invitationSvc.agenda( req.agenda )[ params.inviteMethod ]( {
       lang: req.lang
@@ -272,6 +295,98 @@ function inviteResend( options ) {
     } );
 
   }
+
+}
+
+function _loadFlattener( req, res, next ) {
+
+  req.flatten = flattener( [ {
+    source: [ 'user.full_name', 'custom.contactName' ],
+    transform: ( fullName, contactName ) => contactName || fullName,
+    target: 'name'
+  }, {
+    source: 'custom.email',
+    target: 'email'
+  }, {
+    source: 'custom.organization.label',
+    target: 'organisation'
+  }, {
+    source: 'custom.contactNumber',
+    target: 'phone'
+  }, {
+    source: 'custom.contactPosition',
+    target: 'position'
+  }, {
+    source: 'eventCount',
+    target: 'contributions'
+  } ] );
+
+  next();
+
+}
+
+
+function streamStakeholders( req, res, next ) {
+
+  switch( req.params.format ) {
+
+    case 'csv': return _streamCsv( req, res, next );
+
+    case 'xlsx': return _streamXlsx( req, res, next );
+
+    default:
+
+      next( { code: 400, message: 'Export format unavailable' } );
+
+  }
+
+}
+
+
+function streamCsv( req, res ) {
+
+  let listStream = streamUtils.read.list( stakeholders( req.agenda.id ).list, { detailed: true } ),
+
+  transform = streamUtils.transform( req.flatten ),
+
+  csvStream = csv.createWriteStream( {
+    headers: true,
+    delimiter: ';',
+    quote: '"',
+    escape: '"'
+  } );
+
+  listStream.pipe( transform ).pipe( csvStream ).pipe( res );
+
+  res.writeHead( 200, {
+    'Content-Type' : 'text/csv',
+    'content-disposition' : `attachment; filename="contributors.${req.agenda.title}.csv"`
+  } );
+
+}
+
+
+function streamXlsx( req, res, next ) {
+
+  let listStream = streamUtils.read.list( stakeholders( req.agenda.id ).list, { detailed: true } ),
+
+  transform = streamUtils.transform( req.flatten ),
+
+  xlsxStream = new xlsx();
+
+  xlsxStream.getReadStream().pipe( res );
+
+  listStream.pipe( transform )
+
+    .on( 'data', data => xlsxStream.addRow( data ) )
+
+    .on( 'end', () => xlsxStream.finalize() );
+
+
+  res.writeHead( 200, {
+    'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'content-disposition' : `attachment; filename="contributors.${req.agenda.title}.xlsx"`
+  } );
 
 }
 

@@ -23,6 +23,8 @@ agendaSearch = require( 'agenda-search' ),
 
 agendasSvc = require( 'agendas' ),
 
+model = require( '../services/model' ),
+
 genUrl = require( servicePath + '/genUrl' ),
 
 facebookSvc = require( 'facebook' ),
@@ -79,8 +81,6 @@ module.exports = function( config, cb ) {
 
   .then( _initAgendaCategories )
 
-  .then( _initAgendaStakeholders )
-
   .then( _initAgendaLocations )
 
   .then( _initAgendaEventReferences )
@@ -96,6 +96,8 @@ module.exports = function( config, cb ) {
   .then( _initAdminAgendas )
 
   .then( _initUsers )
+
+  .then( _initAgendaStakeholders )
 
   .then( _initFacebook )
 
@@ -404,7 +406,31 @@ function _initAgendaStakeholders( config ) { // async
   agendaStakeholders.init( {
     schemas: config.schemas,
     mysql: config.db,
-    logger: logger
+    logger: logger,
+    interfaces: {
+      getUser: ( userId, cb ) => {
+
+        userSvc.get( { id: userId }, cb );
+
+      },
+      getEventCount: ( agendaId, userId, cb ) => {
+
+        model.lib.query( [
+          'select count( distinct ra.id ) event_count',
+          'from review_article as ra',
+          'where ra.review_id = ? and ra.user_id = ?'
+        ].join( ' ' ), [ agendaId, userId ], ( err, rows ) => {
+
+          if ( err ) return cb( err );
+
+          if ( !rows.length ) return cb( null, 0 );
+
+          cb( null, parseInt( rows[ 0 ].event_count ) );
+
+        } );
+
+      }
+    }
   }, err => {
 
     if ( err ) {
@@ -477,6 +503,7 @@ function _initAgendaService( config ) { // sync
       accessKeyId: config.aws.accessKeyId,
       secretAccessKey: config.aws.secretAccessKey
     },
+    imagePath: config.aws.imageBucketPath,
     logger
   } );
 

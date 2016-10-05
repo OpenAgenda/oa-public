@@ -44,6 +44,8 @@
     "fast-csv": "2.0.0",
     "fast-levenshtein": "1.0.6",
     "files": "git+ssh://git@bitbucket.org:openagenda/files.git",
+    "stream-utils": "git+ssh://git@bitbucket.org:openagenda/stream-utils.git",
+    "flattener": "git+ssh://git@bitbucket.org:openagenda/flattener.git",
     "gm": "1.21.1",
     "history": "^3.0.0",
     "image-upload": "git+ssh://git@bitbucket.org:openagenda/image-upload.git",
