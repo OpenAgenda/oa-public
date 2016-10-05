@@ -27,7 +27,7 @@ module.exports = Object.assign( ( identifiers, cb ) => {
 
   .done( v => {
     
-    if ( v.success && interfaces.onRemove ) {
+    if ( v.success && interfaces && interfaces.onRemove ) {
 
       interfaces.onRemove( v.agenda );
 
