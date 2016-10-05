@@ -14,6 +14,8 @@ function deep( obj, address ) {
 
     if ( typeof v[ parts[ i ] ] === 'undefined' ) return;
 
+    if ( v[ parts[ i ] ] === null ) return;
+
     v = v[ parts[ i ] ];
 
   }
