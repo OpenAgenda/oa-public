@@ -166,7 +166,7 @@ function _create( data, options, cb ) {
 
   .done( v => {
 
-    if ( v.success ) {
+    if ( v.success && interfaces ) {
 
       interfaces.onCreate( v.created );
 
