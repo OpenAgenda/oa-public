@@ -18,6 +18,8 @@ MultilingualInputField = require( '../../components/MultilingualInputField.jsx' 
 
 GroupTagSelector = require( '../../components/GroupTagSelector.jsx' ),
 
+MarkdownComponent = require( '../../components/MarkdownComponent.jsx' ),
+
 // needs to be babelified first
 SearchField = require( '../../build/SearchField' ),
 
@@ -36,6 +38,7 @@ Wrapper = React.createClass( {
   getInitialState: function() {
 
     return {
+      markdown: '',
       values: {
         name: 'Poney Vert',
         phone: +3365034302,
@@ -106,9 +109,29 @@ Wrapper = React.createClass( {
 
   },
 
+  onMarkdownChange: function( value ) {
+
+    console.log( value );
+
+    this.setState( { markdown: value } );
+
+  },
+
   render: function() {
 
     return <div>
+
+      <h2>Wysiwyg component</h2>
+
+      <MarkdownComponent 
+        lang="fr"
+        label="eh ouais"
+        placeholder="gros"
+        onChange={this.onMarkdownChange} 
+        value={this.state.markdown} />
+
+      <p>{this.state.markdown}</p>
+
 
       <div className="separator"></div>
 
