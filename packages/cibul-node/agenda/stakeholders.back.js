@@ -10,8 +10,11 @@ validator = require( 'validator' ),
 
 csv = require( 'fast-csv' ),
 
-xlsx = require( 'xlsx-writestream' );
+xlsx = require( 'xlsx-writestream' ),
 
+getLabel = require( 'labels' )( require( 'labels/contributors/exportHeaders' ) ),
+
+getCredentialLabel = require( 'labels' )( require( 'labels/contributors/credentials' ) );
 
 var modLib = require( '../lib/moduleLib' ),
 
@@ -28,6 +31,7 @@ userSvc = require( '../services/user' ),
 stakeholders = require( 'agenda-stakeholders' ),
 
 stakeholdersMw = require( 'agenda-stakeholders/middleware' ),
+
 
 routes = {
 
@@ -303,25 +307,40 @@ function _loadFlattener( req, res, next ) {
   req.flatten = flattener( [ {
     source: [ 'user.full_name', 'custom.contactName' ],
     transform: ( fullName, contactName ) => contactName || fullName,
-    target: 'name'
+    target: getLabel( 'name', req.lang )
+  }, {
+    source: 'credential',
+    transform: _getCredentialLabel( req.lang ),
+    target: getLabel( 'credential', req.lang )
   }, {
     source: 'custom.email',
-    target: 'email'
+    target: getLabel( 'email', req.lang )
   }, {
     source: 'custom.organization.label',
-    target: 'organisation'
+    target: getLabel( 'organization', req.lang )
   }, {
     source: 'custom.contactNumber',
-    target: 'phone'
+    target: getLabel( 'phone', req.lang )
   }, {
     source: 'custom.contactPosition',
-    target: 'position'
+    target: getLabel( 'position', req.lang )
   }, {
     source: 'eventCount',
-    target: 'contributions'
+    target: getLabel( 'contributions', req.lang )
   } ] );
 
   next();
+
+}
+
+
+function _getCredentialLabel( lang ) {
+
+  return c => [
+    getCredentialLabel( 'contributor', lang ),
+    getCredentialLabel( 'administrator', lang ),
+    getCredentialLabel( 'moderator', lang )
+  ][ c - 1 ];
 
 }
 
