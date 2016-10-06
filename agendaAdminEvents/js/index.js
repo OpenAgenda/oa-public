@@ -14,7 +14,8 @@ params = {
     terms: '#',
     location: '#',
     contributor: '#',
-    addEvent: '#'
+    addEvent: '#',
+    agenda: '#'
   },
   selectors: {
     headerCanvas: '.js_header_canvas',

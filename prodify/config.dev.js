@@ -54,7 +54,7 @@ module.exports = ( paths ) => {
       new webpack.IgnorePlugin( /unicode\/category\/So/ ),
       new webpack.DefinePlugin( {
         'process.env': {
-          NODE_ENV: '"dev"'
+          NODE_ENV: '"development"'
         },
         __CLIENT__: true,
         __SERVER__: false,

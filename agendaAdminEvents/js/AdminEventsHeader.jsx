@@ -355,9 +355,9 @@ var React = require( 'react' ),
               </span>
             </p>
             <div className="input-group">
-              <input type="text" className="form-control" value={this.state.slug} readOnly />
+              <input type="text" className="form-control" value={window.location.origin + this.props.res.agenda} readOnly />
               <span className="input-group-btn">
-                <CopyToClipboard text={this.state.slug || ''} onCopy={this.onCopied}>
+                <CopyToClipboard text={window.location.origin + this.props.res.agenda || ''} onCopy={this.onCopied}>
                   <button
                     className="btn btn-primary btn-block"
                     title={getModalLabel( 'copyLink', this.props.lang )}

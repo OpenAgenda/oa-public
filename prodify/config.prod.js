@@ -52,7 +52,7 @@ module.exports = paths => {
       new webpack.IgnorePlugin( /unicode\/category\/So/ ),
       new webpack.DefinePlugin( {
         'process.env': {
-          NODE_ENV: '"prod"'
+          NODE_ENV: '"production"'
         }
       } ),
       new webpack.optimize.DedupePlugin(),
