@@ -14,6 +14,8 @@
   "agenda/embedShow",
   "agenda/action",
   "agendaSearch/index",
+  "agendaSettings/new",
+  "agendaSettings/edit",
   "event/show",
   "event/action",
   "event/embedShow",

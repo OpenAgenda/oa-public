@@ -18,22 +18,22 @@
     "pageId": "corpo",
     "references": [
       {
-        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_1.png",
+        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_1.jpg",
         "url": "http://agendadesentrepreneurs.openagenda.com/",
         "caption": "L'agenda des Entrepreneurs"
       },
       {
-        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_2.png",
+        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_2.jpg",
         "url": "http://www.entreprises.gouv.fr/semaine-industrie",
         "caption": "La semaine de l'industrie"
       },
       {
-        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_3.png",
+        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_3.jpg",
         "url": "http://www.dutilleux2016.com/agenda/",
         "caption": "L'agenda Dutilleux"
       },
       {
-        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_4.png",
+        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_4.jpg",
         "url": "http://www.lasemainenumerique.paris/",
         "caption": "La semaine numérique"
       },

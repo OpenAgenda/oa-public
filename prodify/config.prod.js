@@ -43,11 +43,16 @@ module.exports = paths => {
     resolve: {
       extensions: [ '', '.js', '.jsx' ],
       moduleDirectories: [ './node_modules' ],
+      fallback: path.join( process.cwd(), 'node_modules' ),
+      alias: {
+        react: path.join( process.cwd(), 'node_modules/react' )
+      }
     },
     plugins: [
+      new webpack.IgnorePlugin( /unicode\/category\/So/ ),
       new webpack.DefinePlugin( {
         'process.env': {
-          NODE_ENV: '"production"'
+          NODE_ENV: '"prod"'
         }
       } ),
       new webpack.optimize.DedupePlugin(),
