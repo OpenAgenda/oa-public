@@ -151,13 +151,16 @@ describe( 'image service - loading stream', function() {
 
 });
 
+
 describe( 'image service - check image size', function() {
+
+  let path, image;
 
   this.timeout( 20000 );
 
-  var path, image;
+  before( () => imageSvc.init( testconfig ) );
 
-  before( function( done ) {
+  before( done => {
 
     imageSvc.test._download( { url: imageSrc } ).done( function( values ) {
 
@@ -200,7 +203,7 @@ describe( 'image service - check image size', function() {
   it( 'verify that image below size limit bounds fails check', function( done ) {
 
     imageSvc.test._checkSize( { 
-      image: image,
+      image,
       sizeLimits: [ 300000, 10000000 ]
     }).then( function( values ) {
 
@@ -445,6 +448,8 @@ describe( 'complete process', function() {
 
   var files = [];
 
+  before( () => imageSvc.init( testconfig ) );
+
   afterEach( function() {
 
     while( files.length ) {
@@ -529,5 +534,28 @@ describe( 'complete process', function() {
     });
 
   });
+
+  it( 'process smallish image from url', function( done ) {
+
+    imageSvc( {
+      url: 'http://s3.eu-central-1.amazonaws.com/oastatic/testprocessedimage.jpg',
+      //url: 'http://www.espace-sciences.org/sites/espace-sciences.org/files/images/evenements/festival-des-sciences/72-puceron-c-public-domain.jpg',
+      name: 'testprocessedimage',
+      format: {
+        crop: true,
+        width: 200,
+        height: 200
+      }
+    }, ( err, resultPath ) => {
+
+      should( err ).equal( null );
+      
+      resultPath.split( '/' ).pop().should.equal( 'testprocessedimage.jpg' );
+
+      done();
+
+    } );
+
+  } );
 
 } );

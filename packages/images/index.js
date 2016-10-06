@@ -1,12 +1,38 @@
 "use strict";
 
-var request = require( 'request' );
+const request = require( 'request' ),
 
-module.exports = processImage;
+utils = require( 'utils' ),
 
-module.exports.multi = processImageMulti;
+p = require( './lib/promises' ), w = p.w, wn = p.wn,
 
-module.exports.init = function( cfg ) {
+http = require( 'http' ),
+
+https = require( 'https' ),
+
+fs = require( 'fs' ),
+
+url = require( 'url' ),
+
+gm = require( 'gm' ).subClass( { imageMagick: true } ),
+
+logger = require( 'basic-logger' );
+
+let log, config;
+
+module.exports = Object.assign( processImage, {
+  multi: processImageMulti,
+  init,
+  test: {
+    _download,
+    _loadImageStream,
+    _crop,
+    _resize,
+    _checkSize
+  }
+} );
+
+function init( cfg ) {
 
   config = utils.extend( {
     tmpPath: '/var/tmp',
@@ -17,41 +43,13 @@ module.exports.init = function( cfg ) {
 
   if ( config.logger ) {
 
-    log = config.logger( 'images' );
+    logger.setLogger( config.logger );
 
   }
 
+  log = logger( 'images' );
+
 };
-
-module.exports.test = {
-  _download: _download,
-  _loadImageStream: _loadImageStream,
-  _crop: _crop,
-  _resize: _resize,
-  _checkSize: _checkSize
-}
-
-var utils = require( 'utils' ),
-
-p = require( './lib/promises' ),
-
-w = p.w,
-
-wn = p.wn,
-
-log = require( 'basic-logger' )( 'images' ),
-
-http = require( 'http' ),
-
-https = require( 'https' ),
-
-fs = require( 'fs' ),
-
-url = require( 'url' ),
-
-config,
-
-gm = require( 'gm' ).subClass( { imageMagick: true } );
 
 
 /**
