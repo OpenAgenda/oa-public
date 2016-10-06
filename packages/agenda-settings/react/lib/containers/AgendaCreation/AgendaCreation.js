@@ -59,8 +59,10 @@ function _wrapComponent(id) {
   };
 }
 
-var AgendaCreation = _wrapComponent('AgendaCreation')((_dec = (0, _reactRedux.connect)(function () {
-  return {};
+var AgendaCreation = _wrapComponent('AgendaCreation')((_dec = (0, _reactRedux.connect)(function (state) {
+  return {
+    res: state.res
+  };
 }, _extends({}, agendaActions)), _dec(_class = (_temp = _class2 = function (_Component) {
   _inherits(AgendaCreation, _Component);
 
@@ -91,8 +93,15 @@ var AgendaCreation = _wrapComponent('AgendaCreation')((_dec = (0, _reactRedux.co
   }, {
     key: 'handleSubmit',
     value: function handleSubmit(values) {
-      console.log(values);
-      this.props.create(values);
+      var _props = this.props;
+      var create = _props.create;
+      var onCreated = _props.res.onCreated;
+
+      create(values).then(function (_ref) {
+        var result = _ref.result;
+
+        window.location.assign(window.location.origin + onCreated.replace(':slug', result.agenda.slug));
+      });
     }
   }, {
     key: 'render',

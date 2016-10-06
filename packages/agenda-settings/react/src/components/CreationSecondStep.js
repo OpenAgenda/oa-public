@@ -27,31 +27,31 @@ export default class CreationSecondStep extends Component {
 
     const getError = fieldname => {
       return get( fields, fieldname ) && get( fields, fieldname, {} ).touched && errors && errors[ fieldname ];
-    }
+    };
 
     return (
       <div>
         <h2>{title}</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <div className={`radio ${getError( 'contribution.type' ) ? 'has-error' : ''}`}>
+            <div className={`radio ${getError( 'settings.contribution.type' ) ? 'has-error' : ''}`}>
               <p><b>{getLabel( 'contribType' )}</b></p>
               <label>
-                <Field name="contribution.type" component="input" type="radio" value="0" />
+                <Field name="settings.contribution.type" component="input" type="radio" value="0" />
                 {getLabel( 'contribTypeChoosen' )}
               </label><br />
               <label>
-                <Field name="contribution.type" component="input" type="radio" value="1" />
+                <Field name="settings.contribution.type" component="input" type="radio" value="1" />
                 {getLabel( 'contribTypeAll' )}
               </label>
             </div>
           </div>
           <div className="form-group">
-            <div className={`radio ${getError( 'contribution.defaultState' ) ? 'has-error' : ''}`}>
+            <div className={`radio ${getError( 'settings.contribution.defaultState' ) ? 'has-error' : ''}`}>
               <p><b>{getLabel( 'contribDefaultState' )}</b></p>
               <label>
                 <Field
-                  name="contribution.defaultState"
+                  name="settings.contribution.defaultState"
                   component="input"
                   type="radio"
                   value="2"
@@ -61,7 +61,7 @@ export default class CreationSecondStep extends Component {
               </label><br />
               <label>
                 <Field
-                  name="contribution.defaultState"
+                  name="settings.contribution.defaultState"
                   component="input"
                   type="radio"
                   value="0"

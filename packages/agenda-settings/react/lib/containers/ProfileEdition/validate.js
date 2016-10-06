@@ -35,10 +35,11 @@ function validate(values) {
   return true;
 }
 
-function asyncValidate(values, dispatch) {
+function asyncValidate(values, dispatch, props) {
 
   return dispatch((0, _agenda.checkSlug)({
-    slug: values.slug
+    slug: values.slug,
+    excludeUid: props.initialValues.uid
   })).then(function (_ref2) {
     var error = _ref2.error;
 

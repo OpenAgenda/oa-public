@@ -4,7 +4,9 @@ import { CreationFirstStep, CreationSecondStep } from '../../components';
 import * as agendaActions from '../../redux/modules/agenda';
 
 @connect(
-  () => ({}),
+  state => ({
+    res: state.res
+  }),
   { ...agendaActions }
 )
 export default class AgendaCreation extends Component {
@@ -36,7 +38,11 @@ export default class AgendaCreation extends Component {
   }
 
   handleSubmit( values ) {
-    this.props.create( values );
+    const { create, res: { onCreated } } = this.props;
+    create( values )
+      .then( ( { result } ) => {
+        window.location.assign( window.location.origin + onCreated.replace( ':slug', result.agenda.slug ) );
+      } );
   }
 
   render() {

@@ -1,0 +1,256 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _redboxReact2 = require('redbox-react');
+
+var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+var _react2 = require('react');
+
+var _react3 = _interopRequireDefault(_react2);
+
+var _reactTransformCatchErrors3 = require('react-transform-catch-errors');
+
+var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _dec, _dec2, _class, _class2, _temp;
+
+var _reactRedux = require('react-redux');
+
+var _reduxForm = require('redux-form');
+
+var _imageUpload = require('image-upload');
+
+var _imageUpload2 = _interopRequireDefault(_imageUpload);
+
+var _Modal = require('react-components/build/Modal');
+
+var _Modal2 = _interopRequireDefault(_Modal);
+
+var _agenda = require('../../redux/modules/agenda');
+
+var agendaActions = _interopRequireWildcard(_agenda);
+
+var _modal = require('../../redux/modules/modal');
+
+var modalActions = _interopRequireWildcard(_modal);
+
+var _validate = require('./validate');
+
+var _inputs = require('../../utils/inputs');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _components = {
+  ProfileEdition: {
+    displayName: 'ProfileEdition'
+  }
+};
+
+var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+  filename: 'react/src/containers/ProfileEdition/ProfileEdition.js',
+  components: _components,
+  locals: [],
+  imports: [_react3.default, _redboxReact3.default]
+});
+
+function _wrapComponent(id) {
+  return function (Component) {
+    return _reactTransformCatchErrors2(Component, id);
+  };
+}
+
+var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.connect)(function (state) {
+  return {
+    initialValues: state.agenda.data,
+    res: state.res,
+    agenda: state.agenda.data,
+    modal: state.modal
+  };
+}, _extends({}, agendaActions, modalActions, { onSubmit: agendaActions.edit })), _dec2 = (0, _reduxForm.reduxForm)({
+  form: 'profileEdition',
+  validate: _validate.validate,
+  asyncValidate: _validate.asyncValidate,
+  asyncBlurFields: ['slug']
+}), _dec(_class = _dec2(_class = (_temp = _class2 = function (_Component) {
+  _inherits(ProfileEdition, _Component);
+
+  function ProfileEdition() {
+    _classCallCheck(this, ProfileEdition);
+
+    var _this = _possibleConstructorReturn(this, (ProfileEdition.__proto__ || Object.getPrototypeOf(ProfileEdition)).call(this));
+
+    _this.renderInput = _inputs.renderInput.bind(_this);
+    _this.renderTextarea = _inputs.renderTextarea.bind(_this);
+    _this.renderInputGroup = _inputs.renderInputGroup.bind(_this);
+    return _this;
+  }
+
+  _createClass(ProfileEdition, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props;
+      var handleSubmit = _props.handleSubmit;
+      var agenda = _props.agenda;
+      var modal = _props.modal;
+      var imageUploaded = _props.imageUploaded;
+      var res = _props.res;
+      var setModal = _props.setModal;
+      var remove = _props.remove;
+      var _context = this.context;
+      var getLabel = _context.getLabel;
+      var lang = _context.lang;
+
+
+      var removeModal = {
+        visible: true,
+        title: getLabel('removeAgenda'),
+        content: _react3.default.createElement(
+          'div',
+          null,
+          _react3.default.createElement(
+            'p',
+            null,
+            getLabel('removeAgendaWarning')
+          ),
+          _react3.default.createElement(
+            'button',
+            { className: 'btn btn-primary', onClick: function onClick() {
+                return setModal({ visible: false });
+              } },
+            'Close'
+          ),
+          _react3.default.createElement(
+            'button',
+            { className: 'btn btn-danger pull-right',
+              onClick: function onClick() {
+                return remove().then(function () {
+                  return setModal({ visible: false });
+                });
+              }
+            },
+            'Remove'
+          )
+        )
+      };
+
+      return _react3.default.createElement(
+        'div',
+        { className: 'profile' },
+        _react3.default.createElement(
+          'h2',
+          { className: 'margin-bottom-md' },
+          getLabel('agendaProfile')
+        ),
+        _react3.default.createElement(
+          'div',
+          { className: 'row' },
+          _react3.default.createElement(
+            'div',
+            { className: 'col-md-7' },
+            _react3.default.createElement(_imageUpload2.default, {
+              frameName: 'profileAgendaEdition',
+              lang: lang,
+              value: agenda.image,
+              handleUpdate: imageUploaded,
+              upload: res.uploadImage.replace(':slug', agenda.slug),
+              remove: res.clearImage.replace(':slug', agenda.slug)
+            }),
+            _react3.default.createElement(
+              'form',
+              { onSubmit: handleSubmit },
+              _react3.default.createElement(_reduxForm.Field, {
+                name: 'title',
+                component: this.renderInput,
+                type: 'text',
+                placeholder: getLabel('namePlaceholder'),
+                className: 'form-control',
+                label: getLabel('name') + ' *',
+                max: _validate.schema.title.max
+              }),
+              _react3.default.createElement(_reduxForm.Field, {
+                name: 'description',
+                component: this.renderTextarea,
+                rows: 6,
+                className: 'form-control',
+                label: getLabel('description') + ' *',
+                max: _validate.schema.description.max
+              }),
+              _react3.default.createElement(_reduxForm.Field, {
+                type: 'text',
+                name: 'url',
+                component: this.renderInput,
+                className: 'form-control',
+                placeholder: getLabel('websitePlaceholder'),
+                label: getLabel('website')
+              }),
+              _react3.default.createElement(_reduxForm.Field, {
+                type: 'text',
+                name: 'slug',
+                component: this.renderInputGroup,
+                className: 'form-control',
+                placeholder: 'URL',
+                label: getLabel('personalizedSlug'),
+                before: _react3.default.createElement(
+                  'div',
+                  { className: 'input-group-addon' },
+                  'openagenda.com/'
+                ),
+                errorOnDirty: true,
+                spellCheck: false
+              }),
+              _react3.default.createElement(
+                'a',
+                { role: 'button', className: 'text-danger', onClick: function onClick() {
+                    return setModal(removeModal);
+                  } },
+                getLabel('removeAgenda')
+              ),
+              _react3.default.createElement(
+                'div',
+                { className: 'pull-right' },
+                _react3.default.createElement(
+                  'button',
+                  { type: 'submit', className: 'btn btn-primary' },
+                  getLabel('saveModifications')
+                )
+              )
+            )
+          )
+        ),
+        _react3.default.createElement(
+          _Modal2.default,
+          { visible: modal.visible || false,
+            onClose: function onClose() {
+              return setModal({ visible: false });
+            },
+            title: modal.title || '' },
+          modal.content || ''
+        )
+      );
+    }
+  }]);
+
+  return ProfileEdition;
+}(_react2.Component), _class2.contextTypes = {
+  getLabel: _react3.default.PropTypes.func,
+  lang: _react3.default.PropTypes.string
+}, _temp)) || _class) || _class));
+
+exports.default = ProfileEdition;
+module.exports = exports['default'];

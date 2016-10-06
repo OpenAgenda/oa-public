@@ -18,7 +18,7 @@ var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErr
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _dec2, _class;
+var _dec, _dec2, _class, _class2, _temp;
 
 var _reactRedux = require('react-redux');
 
@@ -68,7 +68,7 @@ var CreationSecondStep = _wrapComponent('CreationSecondStep')((_dec = (0, _redux
     errors: state.form.agendaCreation.syncErrors,
     fields: state.form.agendaCreation.fields
   };
-}), _dec(_class = _dec2(_class = function (_Component) {
+}), _dec(_class = _dec2(_class = (_temp = _class2 = function (_Component) {
   _inherits(CreationSecondStep, _Component);
 
   function CreationSecondStep() {
@@ -86,6 +86,7 @@ var CreationSecondStep = _wrapComponent('CreationSecondStep')((_dec = (0, _redux
       var errors = _props.errors;
       var fields = _props.fields;
       var title = _props.title;
+      var getLabel = this.context.getLabel;
 
 
       var getError = function getError(fieldname) {
@@ -108,28 +109,28 @@ var CreationSecondStep = _wrapComponent('CreationSecondStep')((_dec = (0, _redux
             { className: 'form-group' },
             _react3.default.createElement(
               'div',
-              { className: 'radio ' + (getError('contribution.type') ? 'has-error' : '') },
+              { className: 'radio ' + (getError('settings.contribution.type') ? 'has-error' : '') },
               _react3.default.createElement(
                 'p',
                 null,
                 _react3.default.createElement(
                   'b',
                   null,
-                  'Qui peut ajouter des événements à cet agenda ?'
+                  getLabel('contribType')
                 )
               ),
               _react3.default.createElement(
                 'label',
                 null,
-                _react3.default.createElement(_reduxForm.Field, { name: 'contribution.type', component: 'input', type: 'radio', value: '0' }),
-                'Seulement des personnes choisies et moi'
+                _react3.default.createElement(_reduxForm.Field, { name: 'settings.contribution.type', component: 'input', type: 'radio', value: '0' }),
+                getLabel('contribTypeChoosen')
               ),
               _react3.default.createElement('br', null),
               _react3.default.createElement(
                 'label',
                 null,
-                _react3.default.createElement(_reduxForm.Field, { name: 'contribution.type', component: 'input', type: 'radio', value: '1' }),
-                'Tout le monde'
+                _react3.default.createElement(_reduxForm.Field, { name: 'settings.contribution.type', component: 'input', type: 'radio', value: '1' }),
+                getLabel('contribTypeAll')
               )
             )
           ),
@@ -138,30 +139,33 @@ var CreationSecondStep = _wrapComponent('CreationSecondStep')((_dec = (0, _redux
             { className: 'form-group' },
             _react3.default.createElement(
               'div',
-              { className: 'radio ' + (getError('contribution.defaultState') ? 'has-error' : '') },
+              { className: 'radio ' + (getError('settings.contribution.defaultState') ? 'has-error' : '') },
               _react3.default.createElement(
                 'p',
                 null,
                 _react3.default.createElement(
                   'b',
                   null,
-                  'Statut par défaut des événements'
+                  getLabel('contribDefaultState')
                 )
               ),
               _react3.default.createElement(
                 'label',
                 null,
                 _react3.default.createElement(_reduxForm.Field, {
-                  name: 'contribution.defaultState',
+                  name: 'settings.contribution.defaultState',
                   component: 'input',
                   type: 'radio',
                   value: '2'
                 }),
-                'Publiés',
+                getLabel('contribDefaultStatePublished'),
+                ' ',
                 _react3.default.createElement(
                   'span',
                   { className: 'text-muted' },
-                  '(vous pouvez modifier les événements ensuite)'
+                  '(',
+                  getLabel('contribDefaultStatePublishedText'),
+                  ')'
                 )
               ),
               _react3.default.createElement('br', null),
@@ -169,16 +173,19 @@ var CreationSecondStep = _wrapComponent('CreationSecondStep')((_dec = (0, _redux
                 'label',
                 null,
                 _react3.default.createElement(_reduxForm.Field, {
-                  name: 'contribution.defaultState',
+                  name: 'settings.contribution.defaultState',
                   component: 'input',
                   type: 'radio',
                   value: '0'
                 }),
-                'Non-publiés',
+                getLabel('contribDefaultStateUnpublished'),
+                ' ',
                 _react3.default.createElement(
                   'span',
                   { className: 'text-muted' },
-                  '(les événements ne deviennent publics qu\'après votre validation)'
+                  '(',
+                  getLabel('contribDefaultStateUnpublishedText'),
+                  ')'
                 )
               )
             )
@@ -186,7 +193,7 @@ var CreationSecondStep = _wrapComponent('CreationSecondStep')((_dec = (0, _redux
           _react3.default.createElement(
             'button',
             { type: 'button', className: 'btn btn-default', onClick: previousPage },
-            'Précédent'
+            getLabel('previous')
           ),
           _react3.default.createElement(
             'div',
@@ -194,7 +201,7 @@ var CreationSecondStep = _wrapComponent('CreationSecondStep')((_dec = (0, _redux
             _react3.default.createElement(
               'button',
               { type: 'submit', className: 'btn btn-primary' },
-              'Créer l\'agenda'
+              getLabel('createAgenda')
             )
           )
         )
@@ -203,7 +210,9 @@ var CreationSecondStep = _wrapComponent('CreationSecondStep')((_dec = (0, _redux
   }]);
 
   return CreationSecondStep;
-}(_react2.Component)) || _class) || _class));
+}(_react2.Component), _class2.contextTypes = {
+  getLabel: _react2.PropTypes.func
+}, _temp)) || _class) || _class));
 
 exports.default = CreationSecondStep;
 module.exports = exports['default'];

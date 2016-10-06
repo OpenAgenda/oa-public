@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import { App, AgendaCreation } from './containers';
+import { CreationApp, AgendaCreation } from './containers';
 
 
-export default function getRoutes() {
+export default function createRoutes() {
 
   return (
-    <Route path="/" component={App}>
+    <Route path="/" component={CreationApp}>
       <IndexRoute component={AgendaCreation} />
     </Route>
   );

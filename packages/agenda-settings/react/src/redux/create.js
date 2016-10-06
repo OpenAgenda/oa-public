@@ -1,10 +1,10 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 
-module.exports = ( history, client ) => {
+export default function ( history, client, state = {} ) {
 
   let enhancer;
-  const middleware = applyMiddleware( routerMiddleware( history ), promiseMiddleware( client ) );
+  const middleware = applyMiddleware( routerMiddleware( history ), promiseMiddleware( client, state ) );
 
   if ( process.env.NODE_ENV == 'development' ) {
     const { persistState } = require( 'redux-devtools' ),
@@ -20,8 +20,8 @@ module.exports = ( history, client ) => {
   }
 
   const reducers = require( './reducer' );
-  const initialState = typeof window !== 'undefined' ? window.__data : undefined;
-  const store = createStore( reducers, initialState, enhancer );
+  const initialState = typeof window !== 'undefined' ? window.__data : {};
+  const store = createStore( reducers, Object.assign( {}, state, initialState ), enhancer );
 
   return store;
 
@@ -38,9 +38,8 @@ function promiseMiddleware( client ) {
 
   return store => next => action => {
 
-    const { promise, types } = action,
-
-      rest = removeObjectProperties( action, [ 'promise', 'types' ] );
+    const { promise, types } = action;
+    const rest = removeObjectProperties( action, [ 'promise', 'types' ] );
 
     if ( !promise ) {
       return next( action );
@@ -50,7 +49,7 @@ function promiseMiddleware( client ) {
 
     next( Object.assign( {}, rest, { type: REQUEST } ) );
 
-    return promise( client )
+    return promise( client, store.getState() )
       .then(
         result => next( Object.assign( {}, rest, { result, type: SUCCESS } ) ),
         error => next( Object.assign( {}, rest, { error, type: FAILURE } ) )
