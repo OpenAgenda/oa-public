@@ -1,16 +1,16 @@
 "use strict";
 
-const utils = require( 'utils' );
+var utils = require( 'utils' );
 
-let validateSlug = require( './validator' )(),
+var validateSlug = require( './validator' )(),
 
   schemas,
 
   knex;
 
 module.exports = {
-  init: ( s, k ) => { schemas = s; knex = k; },
-  isTaken,
+  init: function( s, k ) { schemas = s; knex = k; },
+  isTaken: isTaken,
   generate: require( './generate' )
 }
 
@@ -24,7 +24,7 @@ function isTaken( slug, options, cb ) {
 
   }
 
-  let params = utils.extend( {
+  var params = utils.extend( {
     excludeUid: false
   }, options ),
 
@@ -60,7 +60,7 @@ function isTaken( slug, options, cb ) {
 
   // look up in db
   
-  let knexQuery = knex( schemas.agenda )
+  var knexQuery = knex( schemas.agenda )
 
   .select( 'id' )
 
@@ -74,7 +74,7 @@ function isTaken( slug, options, cb ) {
 
   };
 
-  knexQuery.then( rows => {
+  knexQuery.then( function( rows ) {
 
     cb( null, {
       taken: !!rows.length,
