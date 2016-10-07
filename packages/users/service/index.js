@@ -288,7 +288,7 @@ function confirmChangeEmail( query, cb ) {
   if ( !config ) return cb( 'service not initialized' );
 
   w( {
-    identifier: getIdentifier( query, true ),
+    identifier: getIdentifier( query ),
     query: query,
     errors: [],
     emailChanged: false
@@ -320,7 +320,7 @@ function generateApiKey( query, options, cb ) {
   if ( !config ) return cb( 'service not initialized' );
 
   w( {
-    identifier: getIdentifier( query, true ),
+    identifier: getIdentifier( query ),
     query,
     params,
     errors: [],
@@ -346,7 +346,7 @@ function remove( query, cb ) {
   if ( !config ) return cb( 'service not initialized' );
 
   w( {
-    identifier: getIdentifier( query, true ),
+    identifier: getIdentifier( query ),
     query: query,
     errors: [],
     success: false,

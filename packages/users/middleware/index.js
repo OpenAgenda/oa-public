@@ -347,11 +347,11 @@ function deleteAccount( req, res, next ) {
 
   let query = Object.assign( {}, req.query, req.user );
 
-  service.remove( query, ( err, result ) => {
+  service.remove( query, ( err, success ) => {
 
     if ( err ) return next( err );
 
-    if ( !result ) return res.status( 400 ).send();
+    if ( !success ) return res.status( 400 ).send();
 
     next();
 
