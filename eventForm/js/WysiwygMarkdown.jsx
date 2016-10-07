@@ -189,8 +189,6 @@ module.exports = React.createClass( {
 
       }
 
-      
-
     };
 
     if ( count > 1 ) {
