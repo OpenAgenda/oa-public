@@ -41,7 +41,7 @@ describe( 'service', function () {
 
       should( err ).equal( null );
 
-      service.list( {}, 4, 1, ( err, offsetUsers ) => {
+      service.list( 4, 1, ( err, offsetUsers ) => {
 
         should( err ).equal( null );
         users.length.should.equal( 10 );
@@ -183,7 +183,7 @@ describe( 'service', function () {
 
       should( err ).equal( null );
 
-      service.get( { id: 2 }, ( err, user ) => {
+      service.get( { id: 2 }, { detailed: true }, ( err, user ) => {
 
         should( err ).equal( null );
         user.full_name.should.equal( 'Nouveau ptit nom' );
@@ -331,9 +331,9 @@ describe( 'service', function () {
 
   } );
 
-  it( 'generate public api key secret', done => {
+  it( 'generate secret api key', done => {
 
-    service.get( { id: 1 }, ( err, user ) => {
+    service.get( { id: 1 }, { detailed: true }, ( err, user ) => {
 
       should( err ).equal( null );
 

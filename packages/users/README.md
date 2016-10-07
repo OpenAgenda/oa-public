@@ -1,28 +1,33 @@
 # Users
 
-### list( query, offset, limit, cb )
+### list( query?, offset, limit, cb )
 
-- query: 
+- query: (optional)
   - total: boolean
   - search: string, recherche dans le full_name et l'email
-
+  - detailed: boolean, add detailed fields to request
+  - removed: boolean, get users even if removed
 - cb( err, users, total )
   - users: array of users
   - total: number of total
 
-### get( query, options, cb )
+### get( query, options?, cb )
 
 - query (identifier): object with an email, id or uid expected
-- options:
+- options: (optional)
   - fullImagePath: boolean
+  - detailed: boolean, add detailed fields to request
+  - removed: boolean, get user even if removed
 - cb( err, user )
   - user: object of user
   
-### set( query, cb )
+### set( query, options?, cb )
 
 Usefull for internal set
 
 - query: identifier (id or uid) + data
+- options (optional):
+  - detailed: boolean, add detailed fields to request
 - cb( err, result )
   - result:
     - user: object of user modified

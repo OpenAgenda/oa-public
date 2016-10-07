@@ -19,6 +19,11 @@ const knexLib = require( 'knex' ),
 
 var config, knex, schemas;
 
+const basicFields = [ 'id', 'uid', 'full_name', 'username', 'email', 'image', 'created_at', 'updated_at' ];
+const detailedFields = [ 'id', 'uid', 'full_name', 'username', 'email', 'image',
+  'facebook_uid', 'twitter_id', 'google_id', 'culture', 'is_activated', 'created_at',
+  'updated_at', 'last_notified', 'is_removed', 'last_signin', 'comexposium_id' ];
+
 
 module.exports = {
   init,
@@ -96,7 +101,9 @@ function list( query, offset, limit, cb ) {
 
   query = Object.assign( {
     total: false,
-    search: null
+    search: null,
+    detailed: false,
+    removed: false
   }, query );
 
   w( {
@@ -109,6 +116,8 @@ function list( query, offset, limit, cb ) {
   } )
 
     .then( _search )
+
+    .then( _filterRemoved )
 
     .then( _total )
 
@@ -126,7 +135,9 @@ function get( query, options, cb ) {
   }
 
   const params = Object.assign( {
-    fullImagePath: false
+    fullImagePath: false,
+    detailed: false,
+    removed: false
   }, options );
 
   if ( !config ) return cb( 'service not initialized' );
@@ -147,13 +158,23 @@ function get( query, options, cb ) {
 
 }
 
-function set( query, cb ) {
+function set( query, options, cb ) {
+
+  if ( arguments.length == 2 ) {
+    cb = options;
+    options = {};
+  }
+
+  const params = Object.assign( {
+    detailed: false,
+  }, options );
 
   if ( !config ) return cb( 'service not initialized' );
 
   w( {
     identifier: getIdentifier( query, true ),
     query: query,
+    params: params,
     user: null,
     valid: false,
     success: false,
@@ -241,6 +262,7 @@ function verifyPassword( query, cb ) {
 
   w( {
     identifier: getIdentifier( query ),
+    params: { password: true },
     query: query,
     success: false
   } )
@@ -260,6 +282,7 @@ function requestChangeEmail( query, cb ) {
   w( {
     identifier: getIdentifier( query, true ),
     query: query,
+    params: { store: true },
     valid: false,
     success: false,
     errors: [],
@@ -290,6 +313,7 @@ function confirmChangeEmail( query, cb ) {
   w( {
     identifier: getIdentifier( query ),
     query: query,
+    params: { store: true },
     errors: [],
     emailChanged: false
   } )
@@ -375,6 +399,16 @@ function _search( v ) {
 
 }
 
+function _filterRemoved( v ) {
+
+  if (v.query.removed) return v;
+
+  v.knex = v.knex.where('is_removed', 0);
+
+  return v;
+
+}
+
 function _total( v ) {
 
   if ( !v.query.total ) return v;
@@ -399,11 +433,13 @@ function _total( v ) {
 
 function _list( v ) {
 
+  const detailed = v.query.detailed;
+
   return knex.transaction( trx => {
 
     return v.knex
-      .select( 'id', 'uid', 'full_name', 'username', 'email', 'image', 'facebook_uid', 'twitter_id', 'google_id', 'culture',
-        'is_activated', 'created_at', 'updated_at', 'last_notified', 'is_removed', 'last_signin', 'comexposium_id' )
+      .column( detailed ? detailedFields : basicFields.concat(v.query.removed ? 'is_removed' : []) )
+      .select()
       .orderBy( 'email', 'asc' )
       .limit( v.limit )
       .offset( v.offset )
@@ -423,14 +459,32 @@ function _list( v ) {
 
 function _get( v ) {
 
-  var identifiers = Object.keys( v.identifier );
+  const identifiers = Object.keys( v.identifier );
+  const detailed = v.params && v.params.detailed;
+  const password = v.params && v.params.password;
+  const store = v.params && v.params.store;
+  const removed = v.params && v.params.removed || false;
 
   return knex.transaction( trx => {
 
-    return knex
-      .select( schemas.user + '.*', schemas.apiKeySet + '.api_key', schemas.apiKeySet + '.api_secret' )
-      .from( schemas.user )
-      .leftJoin( schemas.apiKeySet, schemas.user + '.id', schemas.apiKeySet + '.user_id' )
+    const fields = (detailed ? detailedFields : basicFields)
+      .concat( password ? [ 'password', 'salt' ] : [] )
+      .concat( store ? 'store' : [] )
+      .concat( !detailed && !removed ? 'is_removed' : [] )
+      .map( v => `${schemas.user}.${v}` )
+      .concat( detailed ? [ schemas.apiKeySet + '.api_key', schemas.apiKeySet + '.api_secret' ] : [] );
+
+    let request = knex.column( fields ).select().from( schemas.user );
+
+    if ( detailed ) {
+      request = request.leftJoin( schemas.apiKeySet, schemas.user + '.id', schemas.apiKeySet + '.user_id' );
+    }
+
+    if ( !removed ) {
+      request = request.where( schemas.user + '.is_removed', 0 );
+    }
+
+    return request
       .where( schemas.user + '.' + ( identifiers[ 0 ] || 'id' ), v.identifier[ identifiers[ 0 ] ] || -1 )
       .limit( 1 )
       .transacting( trx );
@@ -439,7 +493,7 @@ function _get( v ) {
 
     .then( users => {
 
-      v.user = users.length && users[ 0 ].is_removed === 0 ? users[ 0 ] : null;
+      v.user = users.length ? users[ 0 ] : null;
 
       return v;
 
@@ -486,8 +540,9 @@ function _updateOrInsert( v ) {
 
   var d = w.defer();
 
+  const detailed = v.params && v.params.detailed;
 
-  get( v.query, ( err, user ) => {
+  get( v.query, { detailed: detailed }, ( err, user ) => {
 
     if ( err ) return d.reject( err );
 

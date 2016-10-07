@@ -4,9 +4,9 @@ process.env.NODE_ENV = 'test';
 
 const should = require( 'should' ),
 
-  actions = require( '../react/actions' ),
+  actions = require( '../react/src/actions' ),
 
-  userSettingsReducer = require( '../react/reducers/userSettings' );
+  userSettingsReducer = require( '../react/src/reducers/userSettings' );
 
 
 describe( 'react', function() {

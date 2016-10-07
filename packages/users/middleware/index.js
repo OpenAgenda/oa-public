@@ -120,7 +120,7 @@ function getMe( req, res, next ) {
 
   if ( !req.xhr ) return next();
 
-  service.get( req.user, { fullImagePath: true }, ( err, user ) => {
+  service.get( req.user, { fullImagePath: true, detailed: true }, ( err, user ) => {
 
     if ( err ) return next( err );
 
