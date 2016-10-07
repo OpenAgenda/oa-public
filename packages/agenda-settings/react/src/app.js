@@ -33,7 +33,7 @@ export default function ( options, routes, fn ) {
     return <ReduxAsyncConnect {...props} helpers={{ client }} filter={item => !item.deferred} />;
   }
 
-  if ( process.env.NODE_ENV == 'dev' && !window.devToolsExtension ) {
+  if ( process.env.NODE_ENV == 'development' && !window.devToolsExtension ) {
     const devToolsDest = document.createElement( 'div' );
     window.document.body.insertBefore( devToolsDest, null );
     const DevTools = require( './containers' );
