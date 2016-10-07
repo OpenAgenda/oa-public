@@ -284,7 +284,12 @@ function mergeProps( stateProps, dispatchProps, ownProps ) {
     request.post( getUrl( 'deleteAccount' ) )
       .set( 'X-Requested-With', 'XMLHttpRequest' )
       .send( { _csrf: appSettings.csrfToken } )
-      .end( () => dispatch( actions.deleteAccount( 'response' ) ) )
+      .end( (err, res) => {
+        dispatch( actions.deleteAccount( 'response' ) );
+        if ( !err && res.ok ) {
+          window.location.href = res.body.redirectTo || '/signout';
+        }
+      } );
   }
 
   function getUrl( name ) {

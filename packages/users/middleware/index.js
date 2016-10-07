@@ -351,7 +351,9 @@ function deleteAccount( req, res, next ) {
 
     if ( err ) return next( err );
 
-    res.json( result );
+    if ( !result ) return res.status( 400 ).send();
+
+    next();
 
   } );
 

@@ -83,7 +83,7 @@ module.exports = function (options) {
         { history: history, createElement: createElement },
         routes(store)
       ),
-      process.env.NODE_ENV == 'development' && !window.devToolsExtension ? React.createElement(DevTools, null) : null
+      process.env.NODE_ENV == 'develoment' && !window.devToolsExtension ? React.createElement(DevTools, null) : null
     )
   ), du.el(params.canvas));
 

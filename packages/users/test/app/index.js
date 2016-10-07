@@ -41,7 +41,15 @@ app.get( '/updateUser', mw.updateProfile );
 app.get( '/requestChangeEmail', [ mw.requestChangeEmail, sendEmail ] );
 app.get( '/changePassword', mw.changePassword );
 app.get( '/generateApiKey', mw.generateApiKey );
-app.post( '/deleteAccount', mw.deleteAccount );
+app.post( '/deleteAccount', [
+  ( req, res, next ) => {
+    req.redirectTo = '/logout';
+    next();
+  }, mw.deleteAccount,
+  ( req, res ) => {
+    res.json( { redirectTo: req.redirectTo } );
+    req.setFlash('Your account has been deleted');
+  } ] );
 app.post( '/uploadProfileImage', mw.uploadProfileImage );
 app.post( '/removeProfileImage', mw.removeProfileImage );
 

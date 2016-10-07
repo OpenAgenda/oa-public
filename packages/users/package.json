@@ -7,15 +7,7 @@
     "test": "mocha --compilers js:babel-core/register",
     "start": "node test/app",
     "watch": "nodemon --watch test --watch middleware --watch service --exec 'npm run start'",
-    "_start": "node bin/test-app.js",
-    "_build": "concurrently \"npm run build-server\" \"npm run build-client\"",
-    "_build-server": "webpack --colors --display-error-details --config webpack/test-app.config.js",
-    "_build-client": "webpack --colors --display-error-details --config webpack/client.config.js",
-    "_watch": "concurrently --kill-others \"npm run watch-server-start\" \"npm run watch-server\" \"npm run watch-client\"",
-    "_watch-server": "webpack --verbose --watch --colors --display-error-details --config webpack/test-app.config-watch.js",
-    "_watch-client": "webpack --verbose --watch --colors --display-error-details --config webpack/client.config.js",
-    "_watch-server-start": "nodemon --watch bin/test-app.js --exec 'npm run start'",
-    "_postinstall": "npm run build"
+    "build": "babel react/src -d react/build"
   },
   "repository": {
     "type": "git",
