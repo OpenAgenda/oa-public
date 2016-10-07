@@ -79,10 +79,10 @@ Usefull for internal set
 - cb( err, email_changed )
   - email_changed: boolean
 
-### generateApiKey( query, options, cb )
+### generateApiKey( query, options?, cb )
 
 - query: identifier (id, uid or email)
-- options:
+- options: (optional)
   - secret: boolean
 - cb( err, result )
   - result:
