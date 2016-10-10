@@ -88,6 +88,10 @@ function reducer() {
           image: action.image || null
         })
       });
+    case EDIT_SUCCESS:
+      return _extends({}, state, {
+        data: action.result.agenda
+      });
     default:
       return state;
   }

@@ -9,19 +9,23 @@ import { validate, asyncValidate, schema as agendaSchema } from './validate';
 import { renderInput, renderTextarea, renderInputGroup } from '../../utils/inputs';
 
 @connect(
-  state => ({
-    initialValues: state.agenda.data,
-    res: state.res,
-    agenda: state.agenda.data,
-    modal: state.modal
-  }),
+  state => {
+    const { uid, title, description, url, slug } = state.agenda.data;
+    return {
+      initialValues: { uid, title, description, url, slug },
+      res: state.res,
+      agenda: state.agenda.data,
+      modal: state.modal
+    };
+  },
   { ...agendaActions, ...modalActions, onSubmit: agendaActions.edit }
 )
 @reduxForm( {
   form: 'profileEdition',
   validate,
   asyncValidate,
-  asyncBlurFields: [ 'slug' ]
+  asyncBlurFields: [ 'slug' ],
+  enableReinitialize: true
 } )
 export default class ProfileEdition extends Component {
 
@@ -35,6 +39,21 @@ export default class ProfileEdition extends Component {
     this.renderInput = renderInput.bind( this );
     this.renderTextarea = renderTextarea.bind( this );
     this.renderInputGroup = renderInputGroup.bind( this );
+  }
+
+  renderSubmitBtn() {
+    const { dirty, submitting, submitSucceeded, valid } = this.props;
+    const { getLabel } = this.context;
+
+    if ( !dirty && submitSucceeded ) {
+      return <button type="submit" className="btn btn-success" disabled>Saved</button>;
+    } else if ( submitting ) {
+      return <button type="submit" className="btn btn-primary" disabled>Saving</button>;
+    } else {
+      return <button type="submit" className="btn btn-primary" {...{ disabled: dirty && valid ? undefined : true }}>
+        {getLabel( 'saveModifications' )}
+      </button>;
+    }
   }
 
   render() {
@@ -69,6 +88,7 @@ export default class ProfileEdition extends Component {
               handleUpdate={imageUploaded}
               upload={res.uploadImage.replace( ':slug', agenda.slug )}
               remove={res.clearImage.replace( ':slug', agenda.slug )}
+              rand={false}
             />
             <form onSubmit={handleSubmit}>
               <Field
@@ -111,7 +131,7 @@ export default class ProfileEdition extends Component {
                 {getLabel( 'removeAgenda' )}
               </a>
               <div className="pull-right">
-                <button type="submit" className="btn btn-primary">{getLabel( 'saveModifications' )}</button>
+                {this.renderSubmitBtn()}
               </div>
             </form>
           </div>

@@ -16,6 +16,8 @@ var _reactTransformCatchErrors3 = require('react-transform-catch-errors');
 
 var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _dec, _dec2, _dec3, _class, _class2, _temp;
@@ -67,11 +69,12 @@ var valuesSelector = (0, _reduxForm.formValueSelector)('contributionEdition');
 
 var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _reactRedux.connect)(function (state) {
   return {
-    initialValues: state.agenda.data,
+    initialValues: { settings: { contribution: state.agenda.data.settings.contribution } },
     contributionType: valuesSelector(state, 'settings.contribution.type')
   };
 }, { onSubmit: agendaActions.edit }), _dec2 = (0, _reduxForm.reduxForm)({
-  form: 'contributionEdition'
+  form: 'contributionEdition',
+  enableReinitialize: true
 }), _dec3 = (0, _reactRedux.connect)(function (state) {
   return {
     errors: state.form.contributionEdition.syncErrors,
@@ -90,13 +93,44 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
   }
 
   _createClass(ContributionEdition, [{
+    key: 'renderSubmitBtn',
+    value: function renderSubmitBtn() {
+      var _props = this.props;
+      var dirty = _props.dirty;
+      var submitting = _props.submitting;
+      var submitSucceeded = _props.submitSucceeded;
+      var valid = _props.valid;
+      var getLabel = this.context.getLabel;
+
+
+      if (!dirty && submitSucceeded) {
+        return _react3.default.createElement(
+          'button',
+          { type: 'submit', className: 'btn btn-success', disabled: true },
+          'Saved'
+        );
+      } else if (submitting) {
+        return _react3.default.createElement(
+          'button',
+          { type: 'submit', className: 'btn btn-primary', disabled: true },
+          'Saving'
+        );
+      } else {
+        return _react3.default.createElement(
+          'button',
+          _extends({ type: 'submit', className: 'btn btn-primary' }, { disabled: dirty && valid ? undefined : true }),
+          getLabel('saveModifications')
+        );
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _props = this.props;
-      var handleSubmit = _props.handleSubmit;
-      var fields = _props.fields;
-      var errors = _props.errors;
-      var contributionType = _props.contributionType;
+      var _props2 = this.props;
+      var handleSubmit = _props2.handleSubmit;
+      var fields = _props2.fields;
+      var errors = _props2.errors;
+      var contributionType = _props2.contributionType;
       var getLabel = this.context.getLabel;
 
 
@@ -296,11 +330,7 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
               _react3.default.createElement(
                 'div',
                 { className: 'text-right' },
-                _react3.default.createElement(
-                  'button',
-                  { type: 'submit', className: 'btn btn-primary' },
-                  getLabel('saveModifications')
-                )
+                this.renderSubmitBtn()
               )
             )
           )

@@ -65,6 +65,11 @@ export default function reducer( state = initialState, action = {} ) {
           image: action.image || null
         }
       };
+    case EDIT_SUCCESS:
+      return {
+        ...state,
+        data: action.result.agenda
+      };
     default:
       return state;
   }

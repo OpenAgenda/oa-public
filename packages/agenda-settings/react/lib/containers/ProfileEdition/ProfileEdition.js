@@ -76,8 +76,15 @@ function _wrapComponent(id) {
 }
 
 var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.connect)(function (state) {
+  var _state$agenda$data = state.agenda.data;
+  var uid = _state$agenda$data.uid;
+  var title = _state$agenda$data.title;
+  var description = _state$agenda$data.description;
+  var url = _state$agenda$data.url;
+  var slug = _state$agenda$data.slug;
+
   return {
-    initialValues: state.agenda.data,
+    initialValues: { uid: uid, title: title, description: description, url: url, slug: slug },
     res: state.res,
     agenda: state.agenda.data,
     modal: state.modal
@@ -86,7 +93,8 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
   form: 'profileEdition',
   validate: _validate.validate,
   asyncValidate: _validate.asyncValidate,
-  asyncBlurFields: ['slug']
+  asyncBlurFields: ['slug'],
+  enableReinitialize: true
 }), _dec(_class = _dec2(_class = (_temp = _class2 = function (_Component) {
   _inherits(ProfileEdition, _Component);
 
@@ -102,16 +110,47 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
   }
 
   _createClass(ProfileEdition, [{
+    key: 'renderSubmitBtn',
+    value: function renderSubmitBtn() {
+      var _props = this.props;
+      var dirty = _props.dirty;
+      var submitting = _props.submitting;
+      var submitSucceeded = _props.submitSucceeded;
+      var valid = _props.valid;
+      var getLabel = this.context.getLabel;
+
+
+      if (!dirty && submitSucceeded) {
+        return _react3.default.createElement(
+          'button',
+          { type: 'submit', className: 'btn btn-success', disabled: true },
+          'Saved'
+        );
+      } else if (submitting) {
+        return _react3.default.createElement(
+          'button',
+          { type: 'submit', className: 'btn btn-primary', disabled: true },
+          'Saving'
+        );
+      } else {
+        return _react3.default.createElement(
+          'button',
+          _extends({ type: 'submit', className: 'btn btn-primary' }, { disabled: dirty && valid ? undefined : true }),
+          getLabel('saveModifications')
+        );
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _props = this.props;
-      var handleSubmit = _props.handleSubmit;
-      var agenda = _props.agenda;
-      var modal = _props.modal;
-      var imageUploaded = _props.imageUploaded;
-      var res = _props.res;
-      var setModal = _props.setModal;
-      var remove = _props.remove;
+      var _props2 = this.props;
+      var handleSubmit = _props2.handleSubmit;
+      var agenda = _props2.agenda;
+      var modal = _props2.modal;
+      var imageUploaded = _props2.imageUploaded;
+      var res = _props2.res;
+      var setModal = _props2.setModal;
+      var remove = _props2.remove;
       var _context = this.context;
       var getLabel = _context.getLabel;
       var lang = _context.lang;
@@ -169,7 +208,8 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
               value: agenda.image,
               handleUpdate: imageUploaded,
               upload: res.uploadImage.replace(':slug', agenda.slug),
-              remove: res.clearImage.replace(':slug', agenda.slug)
+              remove: res.clearImage.replace(':slug', agenda.slug),
+              rand: false
             }),
             _react3.default.createElement(
               'form',
@@ -224,11 +264,7 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
               _react3.default.createElement(
                 'div',
                 { className: 'pull-right' },
-                _react3.default.createElement(
-                  'button',
-                  { type: 'submit', className: 'btn btn-primary' },
-                  getLabel('saveModifications')
-                )
+                this.renderSubmitBtn()
               )
             )
           )

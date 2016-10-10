@@ -9,13 +9,14 @@ const valuesSelector = formValueSelector( 'contributionEdition' );
 
 @connect(
   state => ({
-    initialValues: state.agenda.data,
+    initialValues: { settings: { contribution: state.agenda.data.settings.contribution } },
     contributionType: valuesSelector( state, 'settings.contribution.type' )
   }),
   { onSubmit: agendaActions.edit }
 )
 @reduxForm( {
-  form: 'contributionEdition'
+  form: 'contributionEdition',
+  enableReinitialize: true
 } )
 @connect(
   state => ({
@@ -32,6 +33,21 @@ export default class ContributionEdition extends Component {
   constructor() {
     super();
     this.renderTextarea = renderTextarea.bind( this );
+  }
+
+  renderSubmitBtn() {
+    const { dirty, submitting, submitSucceeded, valid } = this.props;
+    const { getLabel } = this.context;
+
+    if ( !dirty && submitSucceeded ) {
+      return <button type="submit" className="btn btn-success" disabled>Saved</button>;
+    } else if ( submitting ) {
+      return <button type="submit" className="btn btn-primary" disabled>Saving</button>;
+    } else {
+      return <button type="submit" className="btn btn-primary" {...{ disabled: dirty && valid ? undefined : true }}>
+        {getLabel( 'saveModifications' )}
+      </button>;
+    }
   }
 
   render() {
@@ -136,7 +152,7 @@ export default class ContributionEdition extends Component {
                 </div>
               </div>
               <div className="text-right">
-                <button type="submit" className="btn btn-primary">{getLabel( 'saveModifications' )}</button>
+                {this.renderSubmitBtn()}
               </div>
             </form>
           </div>
