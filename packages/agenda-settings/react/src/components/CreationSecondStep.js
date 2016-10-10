@@ -56,8 +56,8 @@ export default class CreationSecondStep extends Component {
                   type="radio"
                   value="2"
                 />
-                {getLabel( 'contribDefaultStatePublished' )}{' '}
-                <span className="text-muted">({getLabel( 'contribDefaultStatePublishedText' )})</span>
+                {getLabel( 'contribDefaultStatePublished' )}<br />
+                <span className="text-muted">{getLabel( 'contribDefaultStatePublishedText' )}</span>
               </label><br />
               <label>
                 <Field
@@ -66,8 +66,8 @@ export default class CreationSecondStep extends Component {
                   type="radio"
                   value="0"
                 />
-                {getLabel( 'contribDefaultStateUnpublished' )}{' '}
-                <span className="text-muted">({getLabel( 'contribDefaultStateUnpublishedText' )})</span>
+                {getLabel( 'contribDefaultStateUnpublished' )}<br />
+                <span className="text-muted">{getLabel( 'contribDefaultStateUnpublishedText' )}</span>
               </label>
             </div>
           </div>
@@ -77,7 +77,7 @@ export default class CreationSecondStep extends Component {
           </div>
         </form>
       </div>
-    );
+  );
   }
 
-}
+  }

@@ -159,13 +159,11 @@ var CreationSecondStep = _wrapComponent('CreationSecondStep')((_dec = (0, _redux
                   value: '2'
                 }),
                 getLabel('contribDefaultStatePublished'),
-                ' ',
+                _react3.default.createElement('br', null),
                 _react3.default.createElement(
                   'span',
                   { className: 'text-muted' },
-                  '(',
-                  getLabel('contribDefaultStatePublishedText'),
-                  ')'
+                  getLabel('contribDefaultStatePublishedText')
                 )
               ),
               _react3.default.createElement('br', null),
@@ -179,13 +177,11 @@ var CreationSecondStep = _wrapComponent('CreationSecondStep')((_dec = (0, _redux
                   value: '0'
                 }),
                 getLabel('contribDefaultStateUnpublished'),
-                ' ',
+                _react3.default.createElement('br', null),
                 _react3.default.createElement(
                   'span',
                   { className: 'text-muted' },
-                  '(',
-                  getLabel('contribDefaultStateUnpublishedText'),
-                  ')'
+                  getLabel('contribDefaultStateUnpublishedText')
                 )
               )
             )

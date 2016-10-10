@@ -57,7 +57,7 @@ function matchApp( req, res, next ) {
         state: {
           settings: { prefix, lang, apiRoot: `http://localhost:${port}` },
           res: {
-            get: '/getAgenda',
+            get: '/:uid/agenda.json',
             set: '/:slug/edit',
             slugAvailable: '/slugs/available',
             uploadImage: '/:slug/setImage',
@@ -126,7 +126,7 @@ function getHtmlBody( req ) {
                   <span>Paramètres</span>
                 </a>
               </li>
-              <li class="menu-item js_menu_item js_menu_item_settings_contrib">
+              <li class="menu-item js_menu_item js_menu_item_settings_contribution">
                 <a href="/contribution?_app=edition">
                   <span>Contribution</span>
                 </a>

@@ -10,9 +10,11 @@ import { renderInput, renderTextarea, renderInputGroup } from '../utils/inputs';
   asyncValidate,
   asyncBlurFields: [ 'title', 'slug' ],
   initialValues: {
-    contribution: {
-      type: agendaSchema.settings.contribution.type.default.toString(),
-      defaultState: agendaSchema.settings.contribution.defaultState.default.toString()
+    settings: {
+      contribution: {
+        type: agendaSchema.settings.contribution.type.default.toString(),
+        defaultState: agendaSchema.settings.contribution.defaultState.default.toString()
+      }
     }
   }
 } )

@@ -60,9 +60,11 @@ var CreationFirstStep = _wrapComponent('CreationFirstStep')((_dec = (0, _reduxFo
   asyncValidate: _validate.asyncValidate,
   asyncBlurFields: ['title', 'slug'],
   initialValues: {
-    contribution: {
-      type: _validate.schema.settings.contribution.type.default.toString(),
-      defaultState: _validate.schema.settings.contribution.defaultState.default.toString()
+    settings: {
+      contribution: {
+        type: _validate.schema.settings.contribution.type.default.toString(),
+        defaultState: _validate.schema.settings.contribution.defaultState.default.toString()
+      }
     }
   }
 }), _dec(_class = (_temp = _class2 = function (_Component) {

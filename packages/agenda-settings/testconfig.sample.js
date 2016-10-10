@@ -11,7 +11,10 @@ module.exports = {
     user : 'root'
   },
   schemas : {
-    agenda: 'agenda'
+    agenda: 'agenda',
+    agendaEvent: 'agendaEvent',
+    occurence: 'occurence',
+    legacyCredentialSet: 'legacyCredentialSet'
   },
   files: {
     tmpPath: '/var/tmp/',
@@ -19,5 +22,6 @@ module.exports = {
     accessKeyId: 'dsqdsq',
     secretAccessKey: 'ezfrgfe/dsqdqs+dsqdqs'
   },
+  imagePath: '//openagendatst.s3.amazonaws.com/',
   debug: true
 };
