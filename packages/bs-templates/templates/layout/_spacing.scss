@@ -1,6 +1,6 @@
 @mixin createSpacing($type) {
   $directions: all, v, h, top, right, bottom, left;
-  $sizes: ((sm, 6px), (md, 12px), (xl, 22px));
+  $sizes: ((sm, 12px), (md, 24px), (lg, 36px), (xl, 50px));
 
   @each $direction in $directions {
     @each $size, $pixel in $sizes {
@@ -8,17 +8,19 @@
         @if $direction == all {
           #{$type}: $pixel;
         } @else if $direction == v {
-          #{$type}: $pixel 0;
+          #{$type}-top: $pixel;
+          #{$type}-bottom: $pixel;
         } @else if $direction == h {
-          #{$type}: 0 $pixel;
+          #{$type}-right: $pixel;
+          #{$type}-left: $pixel;
         } @else if $direction == top {
-          #{$type}: $pixel 0 0 0;
+          #{$type}-top: $pixel;
         } @else if $direction == right {
-          #{$type}: 0 $pixel 0 0;
+          #{$type}-right: $pixel;
         } @else if $direction == bottom {
-          #{$type}: 0 0 $pixel 0;
+          #{$type}-bottom: $pixel;
         } @else if $direction == left {
-          #{$type}: 0 0 0 $pixel;
+          #{$type}-left: $pixel;
         }
       }
     }

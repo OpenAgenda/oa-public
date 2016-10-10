@@ -1,6 +1,5 @@
 <% include ../layout/_top.ejs %>
-
-<div class="container agenda-settings new-step2">
+<div class="container agenda-settings-creation new-step2">
     <div class="row">
         <div class="col-md-offset-3 col-md-6">
             <div class="top-margined wsq">
@@ -42,41 +41,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <p><b>Votre agenda concerne une manifestation ponctuelle, par exemple un festival, un salon ?</b></p>
-                            <p>
-                                Indiquez la période concernée ci-dessous.<br>
-                                Ceci pré-positionnera le sélecteur de dates du formulaire événement et simplifiera la saisie.
-                            </p>
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <div class="dropdown open">
-                                        <label for="startEntryDate">Du</label>
-                                        <input type="text" class="form-control" placeholder="Début"
-                                               id="startEntryDate" data-toggle="dropdown"
-                                               aria-haspopup="true" aria-expanded="true">
-                                        <ul class="dropdown-menu" aria-labelledby="startEntryDate">
-                                            <li>
-                                                <% include ../components/_calendar %>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="dropdown">
-                                        <label for="endEntryDate">Au</label>
-                                        <input type="text" class="form-control" placeholder="Fin"
-                                               id="endEntryDate" data-toggle="dropdown"
-                                               aria-haspopup="true" aria-expanded="true">
-                                        <ul class="dropdown-menu" aria-labelledby="startEntryDate">
-                                            <li>
-                                                <% include ../components/_calendar %>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <button type="button" class="btn btn-default">Précédent</button>
                         <div class="pull-right">
                             <button type="submit" class="btn btn-primary">Créer l'agenda</button>
                         </div>

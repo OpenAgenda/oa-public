@@ -1,7 +1,8 @@
-@import "../layout/base";
-@import 'react-datepicker';
+@import '../layout/base';
+@import '../agenda-admin/style';
+@import '../form-components/image-upload';
 
-.agenda-settings {
+.agenda-settings-creation {
   .stepper-container {
     position: relative;
 
@@ -93,15 +94,51 @@
     .form-group + .form-group {
       margin: 28px 0;
     }
+  }
 
-    .form-inline {
-      .form-group + .form-group {
-        margin: 0 10px;
-      }
+  .dropdown {
+    .dropdown-menu {
+      padding: 0;
+    }
+
+    label {
+      font-weight: normal;
     }
 
     .container-fluid {
       margin: 10px 0;
     }
+  }
+}
+
+.agenda-settings-edit {
+  form {
+    textarea {
+      resize: vertical;
+    }
+
+    p.label {
+      margin-bottom: 5px;
+    }
+  }
+
+  & > .profile .image-upload form {
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 250px;
+    height: 250px;
+    max-width: 250px;
+
+    img {
+      border-radius: 50%;
+    }
+
+    /*.actions {
+      padding: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }*/
   }
 }
