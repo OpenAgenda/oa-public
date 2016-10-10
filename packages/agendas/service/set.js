@@ -19,7 +19,7 @@ logger = require( 'basic-logger' );
 
 let knex, schemas, mysqlConfig, log, interfaces,
 
-dbParse = require( './lib/mysqlParse' )( require( './validate' ).map ),
+dbParse = require( 'mysql-utils/mapper' )( require( './validate' ).map ),
 
 validate = require( './validate' ),
 
@@ -417,7 +417,7 @@ function _filterProtected( v ) {
 
   Object.keys( data ).forEach( k => {
 
-    if ( !dbParse.isProtected( 'obj' ) ) {
+    if ( !dbParse.is( 'obj', 'protected', k ) ) {
 
       v.data[ k ] = data[ k ];
 

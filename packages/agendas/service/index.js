@@ -28,7 +28,7 @@ const knexLib = require( 'knex' ),
 
   slugs = require( './slugs' ),
 
-  dbParse = require( './lib/mysqlParse' )( validate.map ),
+  dbParse = require( 'mysql-utils/mapper' )( validate.map ),
 
   utils = require( 'utils' ),
 

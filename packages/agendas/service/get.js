@@ -6,7 +6,7 @@ utils = require( 'utils' ),
 
 details = require( './details' ),
 
-dbParse = require( './lib/mysqlParse' )( require( './validate' ).map ),
+dbParse = require( 'mysql-utils/mapper' )( require( './validate' ).map ),
 
 validate = require( './validate' ),
 
@@ -150,7 +150,7 @@ function _filterInternals( v ) {
 
   v.filtered = {};
 
-  Object.keys( v.data ).filter( f => v.internal || !dbParse.isInternal( 'obj', f ) ).forEach( f => {
+  Object.keys( v.data ).filter( f => v.internal || !dbParse.is( 'obj', f, 'internal' ) ).forEach( f => {
 
     v.filtered[ f ] = v.data[ f ];
 
