@@ -40,9 +40,9 @@ export default class ContributionEdition extends Component {
     const { getLabel } = this.context;
 
     if ( !dirty && submitSucceeded ) {
-      return <button type="submit" className="btn btn-success" disabled>Saved</button>;
+      return <button type="submit" className="btn btn-success" disabled>{getLabel( 'saved' )}</button>;
     } else if ( submitting ) {
-      return <button type="submit" className="btn btn-primary" disabled>Saving</button>;
+      return <button type="submit" className="btn btn-primary" disabled>{getLabel( 'saving' )}</button>;
     } else {
       return <button type="submit" className="btn btn-primary" {...{ disabled: dirty && valid ? undefined : true }}>
         {getLabel( 'saveModifications' )}
