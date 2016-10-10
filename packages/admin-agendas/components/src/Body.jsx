@@ -178,6 +178,10 @@ module.exports = React.createClass( {
 
     return new Promise( ( resolve, reject ) => {
 
+      if ( data.credentials ) {
+        data.credentials = Object.assign( this.state.agenda.credentials, data.credentials );
+      }
+
       post( `${this.props.setAgendaRes}/${this.state.agenda.uid}`, data, ( err, result ) => {
 
         if ( err ) return reject( err );
@@ -205,14 +209,17 @@ module.exports = React.createClass( {
             getSearchPage={this.getSearchPage}
             onSelectAgenda={this.onSelectAgenda}
             onSearchChange={this.onSearchChange}
-          /> <Details
-          agenda={this.state.agenda}
-          stakeholders={this.state.stakeholders}
-          total={this.state.stakeholdersTotal}
-          pageRange={this.state.stakeholdersPageRange}
-          getStakeholdersPage={this.getStakeholdersPage}
-          setAgenda={this.setAgenda}
-        />
+          />
+          <Details
+            agenda={this.state.agenda}
+            stakeholders={this.state.stakeholders}
+            total={this.state.stakeholdersTotal}
+            pageRange={this.state.stakeholdersPageRange}
+            getStakeholdersPage={this.getStakeholdersPage}
+            setAgenda={this.setAgenda}
+            updateHref={updateHref}
+            getQuery={getQuery}
+          />
         </div>
       </div>
     </div>;
@@ -228,12 +235,14 @@ function updateHref( query ) {
       search: ''
     },
     searchPage: 1,
-    stakeholdersPage: 1
+    stakeholdersPage: 1,
+    tab: 'stakeholders'
   }, query );
 
   if ( q.searchPage <= 1 ) delete q.searchPage;
   if ( q.oas.search == '' ) delete q.oas.search;
   if ( q.stakeholdersPage <= 1 ) delete q.stakeholdersPage;
+  if ( q.tab == 'stakeholders' ) delete q.tab;
 
   _updateHref( q );
 

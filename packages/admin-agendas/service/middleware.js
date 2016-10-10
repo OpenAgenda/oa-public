@@ -4,11 +4,9 @@ var logger = require( 'basic-logger' ), log,
 
   validators = require( 'validators' ),
 
-  React = require( 'react' ),
-
-  Body = React.createFactory( require( '../components/lib/Body' ) ),
-
   service, config,
+
+  agendas = require( 'agendas' ),
 
   utils = require( 'utils' );
 
@@ -62,7 +60,12 @@ function list( req, res, next ) {
 
   if ( !req.xhr ) return next();
 
-  service.agendas.list( query, offset, limit, ( err, agendas, total ) => {
+  query = Object.assign( {
+    total: true,
+    detailed: true
+  }, query );
+
+  agendas.list( query, offset, limit, ( err, agendas, total ) => {
 
     if ( err ) return next( err );
 
@@ -77,7 +80,7 @@ function list( req, res, next ) {
 
 function get( req, res, next ) {
 
-  service.agendas.get( req.query, ( err, agenda ) => {
+  agendas.get( req.query, { detailed: true, internal: true }, ( err, agenda ) => {
 
     if ( err ) return next( err );
 
@@ -89,7 +92,7 @@ function get( req, res, next ) {
 
 function set( req, res, next ) {
 
-  service.agendas.set( { uid: req.params.uid }, req.body, ( err, result ) => {
+  agendas.set( { uid: req.params.uid }, req.body, { internal: true }, ( err, result ) => {
 
     if ( err ) return next( err );
 

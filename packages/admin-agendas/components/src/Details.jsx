@@ -29,6 +29,16 @@ module.exports = React.createClass( {
 
   },
 
+  getInitialState() {
+
+    const query = this.props.getQuery();
+
+    return {
+      tab: query.tab || 'stakeholders'
+    };
+
+  },
+
   setOfficial( checked ){
 
     this.props.setAgenda( { official: checked } );
@@ -42,8 +52,9 @@ module.exports = React.createClass( {
           <div className="row">
             { this.props.agenda.image ?
               <div className="col-sm-2 avatar-container">
-                <a href={'/' + this.props.agenda.slug}> <img className="avatar" src={'https://cibul.s3.amazonaws.com/' + this.props.agenda.image}
-                                  alt={this.props.agenda.title} /> </a>
+                <a href={'/' + this.props.agenda.slug}> <img className="avatar"
+                                                             src={'https://cibul.s3.amazonaws.com/' + this.props.agenda.image}
+                                                             alt={this.props.agenda.title} /> </a>
               </div> : null }
 
             <div className={ this.props.agenda.image ? 'col-sm-7 title-container' : 'title-container' }>
@@ -84,10 +95,10 @@ module.exports = React.createClass( {
         </tr>
         </thead>
         <List
-          items={this.props.stakeholders}
+          items={this.props.stakeholders || []}
           renderItem={this.renderStakeholderItem}
           renderEmpty={() => <tr>
-            <td colSpan="6" className="text-center">Y'a personne !</td>
+            <td colSpan="7" className="text-center">Y'a personne !</td>
           </tr>}
           renderPrev={this.renderPrev}
           renderNext={this.renderNext}
@@ -99,7 +110,7 @@ module.exports = React.createClass( {
 
   },
 
-  renderStakeholderItem( stakeholder ){
+  renderStakeholderItem( stakeholder ) {
 
     return (
       <tr key={stakeholder.id}>
@@ -116,30 +127,34 @@ module.exports = React.createClass( {
 
   },
 
-  renderPrev(){
+  renderPrev() {
 
     if ( this.hasPrevPage() ) {
-      return <tr>
-        <td colSpan="6" className="text-center">
-          <button className="btn btn-default"
-                  onClick={this.props.getStakeholdersPage.bind( null, false )}>Précédent
-          </button>
-        </td>
-      </tr>;
+      return (
+        <tr>
+          <td colSpan="6" className="text-center">
+            <button className="btn btn-default"
+                    onClick={this.props.getStakeholdersPage.bind( null, false )}>Précédent
+            </button>
+          </td>
+        </tr>
+      );
     }
 
   },
 
-  renderNext(){
+  renderNext() {
 
     if ( this.hasNextPage() ) {
-      return <tr>
-        <td colSpan="6" className="text-center">
-          <button className="btn btn-default"
-                  onClick={this.props.getStakeholdersPage.bind( null, true )}>Suivant
-          </button>
-        </td>
-      </tr>;
+      return (
+        <tr>
+          <td colSpan="6" className="text-center">
+            <button className="btn btn-default"
+                    onClick={this.props.getStakeholdersPage.bind( null, true )}>Suivant
+            </button>
+          </td>
+        </tr>
+      );
     }
 
   },
@@ -158,13 +173,110 @@ module.exports = React.createClass( {
 
   },
 
-  render(){
+  renderFeaturesTab() {
+    const { agenda, setAgenda } = this.props;
+
+    return (
+      agenda.credentials && <div>
+        <p>
+          <Switch
+            className="rc-switch"
+            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+            onChange={checked => setAgenda( { credentials: { moderators: checked } } )}
+            checked={!!agenda.credentials.moderators}
+          /> Activate moderators
+        </p>
+
+        <p>
+          <Switch
+            className="rc-switch"
+            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+            onChange={checked => setAgenda( { credentials: { tags: checked } } )}
+            checked={!!agenda.credentials.tags}
+          /> Activate agenda tags
+        </p>
+
+        <p>
+          <Switch
+            className="rc-switch"
+            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+            onChange={checked => setAgenda( { credentials: { embedsHead: checked } } )}
+            checked={!!agenda.credentials.embedsHead}
+          /> Add lines inside embed {'<head>'}
+        </p>
+
+        <p>
+          <Switch
+            className="rc-switch"
+            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+            onChange={checked => setAgenda( { credentials: { embedsTemplates: checked } } )}
+            checked={!!agenda.credentials.embedsTemplates}
+          /> Customize embed templates
+        </p>
+
+        <p>
+          <Switch
+            className="rc-switch"
+            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+            onChange={checked => setAgenda( { credentials: { indesign: checked } } )}
+            checked={!!agenda.credentials.indesign}
+          /> Old indesign tab
+        </p>
+
+        <p>
+          <Switch
+            className="rc-switch"
+            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+            onChange={checked => setAgenda( { credentials: { activatingInvitations: checked } } )}
+            checked={!!agenda.credentials.activatingInvitations}
+          /> Invitations that trigger instant account verification ( no activation email required )
+        </p>
+
+        <p>
+          <Switch
+            className="rc-switch"
+            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+            onChange={checked => setAgenda( { credentials: { emailstrategie: checked } } )}
+            checked={!!agenda.credentials.emailstrategie}
+          /> Emailstrategie tab
+        </p>
+      </div>
+    );
+  },
+
+  setTab( name ) {
+    this.setState( { tab: name } );
+    this.props.updateHref( Object.assign( this.props.getQuery() || {}, { tab: name } ) );
+  },
+
+  render() {
+
+    const { tab } = this.state;
 
     return <div className="col-md-9">
       <div className="row">
         {this.props.agenda ? this.renderAgendaHeader() : ''}
 
-        {this.props.stakeholders ? this.renderStakeholdersTable() : ''}
+        <div className="nav nav-tabs">
+          <li role="presentation" className={tab == 'stakeholders' ? 'active' : ''}
+              onClick={() => this.setTab( 'stakeholders' )}>
+            <a href="#">Stakeholders</a>
+          </li>
+          <li role="presentation" className={tab == 'features' ? 'active' : ''}
+              onClick={() => this.setTab( 'features' )}>
+            <a href="#">Features</a>
+          </li>
+        </div>
+
+        {tab == 'stakeholders' && this.renderStakeholdersTable()}
+        {tab == 'features' && this.renderFeaturesTab()}
       </div>
     </div>;
 

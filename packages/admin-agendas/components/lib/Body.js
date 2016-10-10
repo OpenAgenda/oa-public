@@ -165,6 +165,10 @@ module.exports = React.createClass({
 
     return new Promise(function (resolve, reject) {
 
+      if (data.credentials) {
+        data.credentials = Object.assign(_this6.state.agenda.credentials, data.credentials);
+      }
+
       post(_this6.props.setAgendaRes + "/" + _this6.state.agenda.uid, data, function (err, result) {
 
         if (err) return reject(err);
@@ -195,14 +199,15 @@ module.exports = React.createClass({
             onSelectAgenda: this.onSelectAgenda,
             onSearchChange: this.onSearchChange
           }),
-          " ",
           React.createElement(Details, {
             agenda: this.state.agenda,
             stakeholders: this.state.stakeholders,
             total: this.state.stakeholdersTotal,
             pageRange: this.state.stakeholdersPageRange,
             getStakeholdersPage: this.getStakeholdersPage,
-            setAgenda: this.setAgenda
+            setAgenda: this.setAgenda,
+            updateHref: updateHref,
+            getQuery: getQuery
           })
         )
       )
@@ -217,12 +222,14 @@ function updateHref(query) {
       search: ''
     },
     searchPage: 1,
-    stakeholdersPage: 1
+    stakeholdersPage: 1,
+    tab: 'stakeholders'
   }, query);
 
   if (q.searchPage <= 1) delete q.searchPage;
   if (q.oas.search == '') delete q.oas.search;
   if (q.stakeholdersPage <= 1) delete q.stakeholdersPage;
+  if (q.tab == 'stakeholders') delete q.tab;
 
   _updateHref(q);
 }

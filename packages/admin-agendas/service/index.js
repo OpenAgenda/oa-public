@@ -6,8 +6,6 @@ var logger = require( 'basic-logger' ), log,
 
   mw = require( './middleware' ),
 
-  agendas = require( 'agendas' ),
-
   agendaStakeholders = require( 'agenda-stakeholders' ),
 
   w = require( 'when' ),
@@ -19,11 +17,6 @@ var logger = require( 'basic-logger' ), log,
 module.exports = {
   init,
   mw,
-  agendas: {
-    list,
-    get,
-    set
-  },
   stakeholders: {
     list: agendaStakeholdersList
   }
@@ -69,29 +62,6 @@ function init( c, cb ) {
     }
 
   } );
-
-}
-
-function list( query, offset, limit, cb ) {
-
-  query = Object.assign( {
-    total: 1,
-    detailed: 1
-  }, query );
-
-  agendas.list( query, offset, limit, cb );
-
-}
-
-function get( query, cb ) {
-
-  agendas.get( query, { detailed: true }, cb );
-
-}
-
-function set( agenda, query, cb ) {
-
-  agendas.set( agenda, query, cb );
 
 }
 

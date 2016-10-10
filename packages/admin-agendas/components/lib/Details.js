@@ -24,6 +24,14 @@ module.exports = React.createClass({
       limit: 20
     };
   },
+  getInitialState: function getInitialState() {
+
+    var query = this.props.getQuery();
+
+    return {
+      tab: query.tab || 'stakeholders'
+    };
+  },
   setOfficial: function setOfficial(checked) {
 
     this.props.setAgenda({ official: checked });
@@ -45,7 +53,8 @@ module.exports = React.createClass({
               "a",
               { href: '/' + this.props.agenda.slug },
               " ",
-              React.createElement("img", { className: "avatar", src: 'https://cibul.s3.amazonaws.com/' + this.props.agenda.image,
+              React.createElement("img", { className: "avatar",
+                src: 'https://cibul.s3.amazonaws.com/' + this.props.agenda.image,
                 alt: this.props.agenda.title }),
               " "
             )
@@ -148,7 +157,7 @@ module.exports = React.createClass({
         )
       ),
       React.createElement(List, {
-        items: this.props.stakeholders,
+        items: this.props.stakeholders || [],
         renderItem: this.renderStakeholderItem,
         renderEmpty: function renderEmpty() {
           return React.createElement(
@@ -156,7 +165,7 @@ module.exports = React.createClass({
             null,
             React.createElement(
               "td",
-              { colSpan: "6", className: "text-center" },
+              { colSpan: "7", className: "text-center" },
               "Y'a personne !"
             )
           );
@@ -266,7 +275,125 @@ module.exports = React.createClass({
 
     return this.props.pageRange[0] > 1;
   },
+  renderFeaturesTab: function renderFeaturesTab() {
+    var _props = this.props;
+    var agenda = _props.agenda;
+    var setAgenda = _props.setAgenda;
+
+
+    return agenda.credentials && React.createElement(
+      "div",
+      null,
+      React.createElement(
+        "p",
+        null,
+        React.createElement(Switch, {
+          className: "rc-switch",
+          checkedChildren: React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" }),
+          unCheckedChildren: React.createElement("i", { className: "fa fa-times", "aria-hidden": "true" }),
+          onChange: function onChange(checked) {
+            return setAgenda({ credentials: { moderators: checked } });
+          },
+          checked: !!agenda.credentials.moderators
+        }),
+        " Activate moderators"
+      ),
+      React.createElement(
+        "p",
+        null,
+        React.createElement(Switch, {
+          className: "rc-switch",
+          checkedChildren: React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" }),
+          unCheckedChildren: React.createElement("i", { className: "fa fa-times", "aria-hidden": "true" }),
+          onChange: function onChange(checked) {
+            return setAgenda({ credentials: { tags: checked } });
+          },
+          checked: !!agenda.credentials.tags
+        }),
+        " Activate agenda tags"
+      ),
+      React.createElement(
+        "p",
+        null,
+        React.createElement(Switch, {
+          className: "rc-switch",
+          checkedChildren: React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" }),
+          unCheckedChildren: React.createElement("i", { className: "fa fa-times", "aria-hidden": "true" }),
+          onChange: function onChange(checked) {
+            return setAgenda({ credentials: { embedsHead: checked } });
+          },
+          checked: !!agenda.credentials.embedsHead
+        }),
+        " Add lines inside embed ",
+        '<head>'
+      ),
+      React.createElement(
+        "p",
+        null,
+        React.createElement(Switch, {
+          className: "rc-switch",
+          checkedChildren: React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" }),
+          unCheckedChildren: React.createElement("i", { className: "fa fa-times", "aria-hidden": "true" }),
+          onChange: function onChange(checked) {
+            return setAgenda({ credentials: { embedsTemplates: checked } });
+          },
+          checked: !!agenda.credentials.embedsTemplates
+        }),
+        " Customize embed templates"
+      ),
+      React.createElement(
+        "p",
+        null,
+        React.createElement(Switch, {
+          className: "rc-switch",
+          checkedChildren: React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" }),
+          unCheckedChildren: React.createElement("i", { className: "fa fa-times", "aria-hidden": "true" }),
+          onChange: function onChange(checked) {
+            return setAgenda({ credentials: { indesign: checked } });
+          },
+          checked: !!agenda.credentials.indesign
+        }),
+        " Old indesign tab"
+      ),
+      React.createElement(
+        "p",
+        null,
+        React.createElement(Switch, {
+          className: "rc-switch",
+          checkedChildren: React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" }),
+          unCheckedChildren: React.createElement("i", { className: "fa fa-times", "aria-hidden": "true" }),
+          onChange: function onChange(checked) {
+            return setAgenda({ credentials: { activatingInvitations: checked } });
+          },
+          checked: !!agenda.credentials.activatingInvitations
+        }),
+        " Invitations that trigger instant account verification ( no activation email required )"
+      ),
+      React.createElement(
+        "p",
+        null,
+        React.createElement(Switch, {
+          className: "rc-switch",
+          checkedChildren: React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" }),
+          unCheckedChildren: React.createElement("i", { className: "fa fa-times", "aria-hidden": "true" }),
+          onChange: function onChange(checked) {
+            return setAgenda({ credentials: { emailstrategie: checked } });
+          },
+          checked: !!agenda.credentials.emailstrategie
+        }),
+        " Emailstrategie tab"
+      )
+    );
+  },
+  setTab: function setTab(name) {
+    this.setState({ tab: name });
+    this.props.updateHref(Object.assign(this.props.getQuery() || {}, { tab: name }));
+  },
   render: function render() {
+    var _this = this;
+
+    var tab = this.state.tab;
+
 
     return React.createElement(
       "div",
@@ -275,7 +402,36 @@ module.exports = React.createClass({
         "div",
         { className: "row" },
         this.props.agenda ? this.renderAgendaHeader() : '',
-        this.props.stakeholders ? this.renderStakeholdersTable() : ''
+        React.createElement(
+          "div",
+          { className: "nav nav-tabs" },
+          React.createElement(
+            "li",
+            { role: "presentation", className: tab == 'stakeholders' ? 'active' : '',
+              onClick: function onClick() {
+                return _this.setTab('stakeholders');
+              } },
+            React.createElement(
+              "a",
+              { href: "#" },
+              "Stakeholders"
+            )
+          ),
+          React.createElement(
+            "li",
+            { role: "presentation", className: tab == 'features' ? 'active' : '',
+              onClick: function onClick() {
+                return _this.setTab('features');
+              } },
+            React.createElement(
+              "a",
+              { href: "#" },
+              "Features"
+            )
+          )
+        ),
+        tab == 'stakeholders' && this.renderStakeholdersTable(),
+        tab == 'features' && this.renderFeaturesTab()
       )
     );
   }

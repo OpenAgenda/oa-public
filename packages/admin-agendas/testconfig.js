@@ -16,6 +16,12 @@ module.exports = {
     stakeholderSettings: 'stakeholder_settings',
     user: 'user'
   },
+  files: {
+    tmpPath: '/var/tmp/',
+    bucket: 'openagendatst',
+    accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
+    secretAccessKey: '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'
+  },
   mw: {
     limit: {
       default: 20,
