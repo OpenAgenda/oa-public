@@ -29,7 +29,7 @@ exports.default = function (options, routes, fn) {
       } }));
   };
 
-  if (process.env.NODE_ENV == 'dev' && !window.devToolsExtension) {
+  if (process.env.NODE_ENV == 'development' && !window.devToolsExtension) {
     var devToolsDest = document.createElement('div');
     window.document.body.insertBefore(devToolsDest, null);
     var DevTools = require('./containers');

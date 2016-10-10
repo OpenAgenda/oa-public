@@ -29,11 +29,11 @@ exports.default = (0, _redux.combineReducers)({
     agendaCreation: _agenda.formPlugin
   }),
   res: function res() {
-    var s = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+    var s = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     return s;
   },
   settings: function settings() {
-    var s = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+    var s = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     return s;
   },
   agenda: _agenda2.default,

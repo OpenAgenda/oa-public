@@ -58,8 +58,8 @@ var catchValidation = function catchValidation(res) {
 };
 
 function reducer() {
-  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
-  var action = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
 
   switch (action.type) {
@@ -94,7 +94,7 @@ function reducer() {
 };
 
 function formPlugin() {
-  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
 
 
