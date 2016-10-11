@@ -124,13 +124,13 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
         return _react3.default.createElement(
           'button',
           { type: 'submit', className: 'btn btn-success', disabled: true },
-          'Saved'
+          getLabel('saved')
         );
       } else if (submitting) {
         return _react3.default.createElement(
           'button',
           { type: 'submit', className: 'btn btn-primary', disabled: true },
-          'Saving'
+          getLabel('saving')
         );
       } else {
         return _react3.default.createElement(

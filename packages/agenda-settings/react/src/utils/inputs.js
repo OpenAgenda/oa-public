@@ -1,6 +1,7 @@
 import React from 'react';
+import MarkdownComponent from 'react-form-components/build/MarkdownComponent';
 
-export function renderField ( {
+export function renderField( {
   content, input: { name, value }, label, subLabel, max,
   errorOnDirty, meta: { touched, error, dirty }
 } ) {
@@ -23,22 +24,22 @@ export function renderField ( {
   );
 };
 
-export function renderInput ( { type, placeholder, className, spellCheck, ...props } ) {
+export function renderInput( { type, placeholder, className, spellCheck, ...props } ) {
   const inputAttrs = { type, placeholder, className, spellCheck };
   const content = <input {...props.input} {...inputAttrs} />;
-  return renderField.bind(this)( { content, ...props } );
+  return renderField.bind( this )( { content, ...props } );
 };
 
-export function renderTextarea ( { placeholder, className, rows, cols, spellCheck, ...props } ) {
+export function renderTextarea( { placeholder, className, rows, cols, spellCheck, ...props } ) {
   const inputAttrs = { placeholder, className, rows, cols, spellCheck };
   const content = (
     <div>
       <textarea {...props.input} {...inputAttrs} />
     </div>);
-  return renderField.bind(this)( { content, ...props } );
+  return renderField.bind( this )( { content, ...props } );
 };
 
-export function renderInputGroup ( { type, placeholder, className, before, after, spellCheck, ...props } ) {
+export function renderInputGroup( { type, placeholder, className, before, after, spellCheck, ...props } ) {
   const inputAttrs = { type, placeholder, className, spellCheck };
   const content = (
     <div className="input-group">
@@ -46,5 +47,11 @@ export function renderInputGroup ( { type, placeholder, className, before, after
       <input {...props.input} {...inputAttrs} />
       {after}
     </div>);
-  return renderField.bind(this)( { content, ...props } );
+  return renderField.bind( this )( { content, ...props } );
 };
+
+export function renderMarkdownInput( { placeholder, className = '', lang = 'fr', ...props } ) {
+  const inputAttrs = { placeholder, className, lang };
+  const content = <MarkdownComponent {...props.input} {...inputAttrs} />;
+  return renderField.bind( this )( { content, ...props } );
+}

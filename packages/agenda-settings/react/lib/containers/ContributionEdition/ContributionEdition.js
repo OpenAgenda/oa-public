@@ -89,6 +89,7 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
     var _this = _possibleConstructorReturn(this, (ContributionEdition.__proto__ || Object.getPrototypeOf(ContributionEdition)).call(this));
 
     _this.renderTextarea = _inputs.renderTextarea.bind(_this);
+    _this.renderMarkdownInput = _inputs.renderMarkdownInput.bind(_this);
     return _this;
   }
 
@@ -107,13 +108,13 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
         return _react3.default.createElement(
           'button',
           { type: 'submit', className: 'btn btn-success', disabled: true },
-          'Saved'
+          getLabel('saved')
         );
       } else if (submitting) {
         return _react3.default.createElement(
           'button',
           { type: 'submit', className: 'btn btn-primary', disabled: true },
-          'Saving'
+          getLabel('saving')
         );
       } else {
         return _react3.default.createElement(
@@ -203,15 +204,14 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
               ),
               _react3.default.createElement(_reduxForm.Field, {
                 name: 'settings.contribution.message',
-                component: this.renderTextarea,
-                rows: 6,
-                className: 'form-control',
+                component: this.renderMarkdownInput,
                 label: getLabel('consigne'),
                 subLabel: _react3.default.createElement(
                   'p',
                   null,
                   getLabel('consigneSubLabel')
-                )
+                ),
+                lang: this.context.lang
               }),
               contributionType == 1 && _react3.default.createElement(
                 'div',
@@ -341,7 +341,8 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
 
   return ContributionEdition;
 }(_react2.Component), _class2.contextTypes = {
-  getLabel: _react2.PropTypes.func
+  getLabel: _react2.PropTypes.func,
+  lang: _react2.PropTypes.string
 }, _temp)) || _class) || _class) || _class));
 
 exports.default = ContributionEdition;

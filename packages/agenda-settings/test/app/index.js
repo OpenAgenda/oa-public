@@ -7,6 +7,7 @@ const service = require( '../../service' );
 const agendasSvc = require( 'agendas/service/test' );
 const mw = service.mw;
 
+const express = require( 'express' );
 const bodyParser = require( 'body-parser' );
 const cookieParser = require( 'cookie-parser' );
 const morgan = require( 'morgan' );
@@ -23,6 +24,8 @@ const app = require( 'test-app' )( {
 } );
 
 const port = process.env.PORT || 3000;
+
+app.use( '/js', express.static( __dirname + '/js' ) );
 
 app.use( ( req, res, next ) => {
   req.user = { id: 2 };

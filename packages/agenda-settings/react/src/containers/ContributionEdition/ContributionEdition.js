@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
 import get from 'lodash.get';
 import * as agendaActions from '../../redux/modules/agenda';
-import { renderTextarea } from '../../utils/inputs';
+import { renderTextarea, renderMarkdownInput } from '../../utils/inputs';
 
 const valuesSelector = formValueSelector( 'contributionEdition' );
 
@@ -27,12 +27,14 @@ const valuesSelector = formValueSelector( 'contributionEdition' );
 export default class ContributionEdition extends Component {
 
   static contextTypes = {
-    getLabel: PropTypes.func
+    getLabel: PropTypes.func,
+    lang: PropTypes.string
   };
 
   constructor() {
     super();
     this.renderTextarea = renderTextarea.bind( this );
+    this.renderMarkdownInput = renderMarkdownInput.bind( this );
   }
 
   renderSubmitBtn() {
@@ -91,11 +93,10 @@ export default class ContributionEdition extends Component {
               </div>
               <Field
                 name="settings.contribution.message"
-                component={this.renderTextarea}
-                rows={6}
-                className="form-control"
+                component={this.renderMarkdownInput}
                 label={getLabel( 'consigne' )}
                 subLabel={<p>{getLabel( 'consigneSubLabel' )}</p>}
+                lang={this.context.lang}
               />
               {contributionType == 1 && <div className="form-group">
                 <div className={`radio ${getError( 'settings.contribution.useFields' ) ? 'has-error' : ''}`}>

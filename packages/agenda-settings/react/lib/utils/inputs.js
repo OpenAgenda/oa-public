@@ -10,10 +10,15 @@ exports.renderField = renderField;
 exports.renderInput = renderInput;
 exports.renderTextarea = renderTextarea;
 exports.renderInputGroup = renderInputGroup;
+exports.renderMarkdownInput = renderMarkdownInput;
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _MarkdownComponent = require('react-form-components/build/MarkdownComponent');
+
+var _MarkdownComponent2 = _interopRequireDefault(_MarkdownComponent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -113,3 +118,17 @@ function renderInputGroup(_ref4) {
   );
   return renderField.bind(this)(_extends({ content: content }, props));
 };
+
+function renderMarkdownInput(_ref5) {
+  var placeholder = _ref5.placeholder;
+  var _ref5$className = _ref5.className;
+  var className = _ref5$className === undefined ? '' : _ref5$className;
+  var _ref5$lang = _ref5.lang;
+  var lang = _ref5$lang === undefined ? 'fr' : _ref5$lang;
+
+  var props = _objectWithoutProperties(_ref5, ['placeholder', 'className', 'lang']);
+
+  var inputAttrs = { placeholder: placeholder, className: className, lang: lang };
+  var content = _react2.default.createElement(_MarkdownComponent2.default, _extends({}, props.input, inputAttrs));
+  return renderField.bind(this)(_extends({ content: content }, props));
+}
