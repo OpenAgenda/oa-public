@@ -376,7 +376,7 @@ function _update( schema ) {
 
             }
 
-            
+            if ( job.values && job.values.type === 'event.remove' ) return cb();
 
             _updateES( obj, cb );
 
