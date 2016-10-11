@@ -1,18 +1,18 @@
-  "use strict";
+"use strict";
 
 var express = require( 'express' );
 
 var app = express(),
 
-templatesBase = __dirname + '/templates',
+  templatesBase = __dirname + '/templates',
 
-recursiveListPaths = require( './scripts/recursiveListPaths' ),
+  recursiveListPaths = require( './scripts/recursiveListPaths' ),
 
-renderEjs = require( './scripts/renderEjs' ),
+  renderEjs = require( './scripts/renderEjs' ),
 
-sassify = require( './scripts/sassify' ),
+  sassify = require( './scripts/sassify' ),
 
-fs = require( 'fs' );
+  fs = require( 'fs' );
 
 
 /**
@@ -28,12 +28,12 @@ app.get( '/', ( req, res, next ) => {
 
     res.send( [
       '<html>',
-        '<head></head>',
-        '<body>',
-        '<h1>Templates list</h1>',
-        '<ul>',
-        paths.map( p => '<li><a href="' + p + '">' + p + '</a></li>' ).join( '' ),
-        '</ul></body>',
+      '<head></head>',
+      '<body>',
+      '<h1>Templates list</h1>',
+      '<ul>',
+      paths.map( p => '<li><a href="' + p + '">' + p + '</a></li>' ).join( '' ),
+      '</ul></body>',
       '</html>'
     ].join( '' ) );
 
@@ -68,7 +68,7 @@ app.get( /css$/, ( req, res, next ) => {
 
     res.send( css );
 
-  });
+  } );
 
 } );
 
@@ -76,15 +76,18 @@ app.get( /css$/, ( req, res, next ) => {
  * images
  */
 
-app.get( /(png|jpg|jpeg|svg)$/, ( req, res, next ) => {
+app.get( /(png|jpg|jpeg|svg|eot|ttf|woff)$/, ( req, res, next ) => {
 
   let stream = fs.createReadStream( templatesBase + req.path );
 
-  res.set('Content-Type', ( {
+  res.set( 'Content-Type', ( {
     png: 'image/png',
     jpg: 'image/jpg',
     jpeg: 'image/jpeg',
-    svg: 'image/svg+xml'
+    svg: 'image/svg+xml',
+    eot: 'application/vnd.ms-fontobject',
+    ttf: 'application/font-sfnt',
+    woff: 'application/font-woff'
   } )[ req.path.split( '.' ).pop() ] );
 
   stream.on( 'open', () => {
