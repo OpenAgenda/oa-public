@@ -10,6 +10,7 @@ export default class MarkdownComponent extends Component {
 
   static propTypes = {
     tinymceUrl: PropTypes.string,
+    className: PropTypes.string,
     value: PropTypes.string,
     label: PropTypes.string,
     placeholder: PropTypes.string,
@@ -20,11 +21,13 @@ export default class MarkdownComponent extends Component {
   };
 
   static defaultProps = {
+    className: 'form-group',
     value: '',
     tinyMceUrl: '/js/tinymce/tinymce.min.js',
     label: null,
     placeholder: null,
-    onChange: () => {},
+    onChange: () => {
+    },
     uniqueClassName: null,
     lang: 'fr'
   };
@@ -43,7 +46,7 @@ export default class MarkdownComponent extends Component {
       uniqueClassName: this.props.uniqueClassName || 'js_' + generateUniqueIdentifier()
     }
 
-    this.loadTinyMce();
+    if ( typeof document !== 'undefined' ) this.loadTinyMce();
 
   }
 
@@ -51,20 +54,20 @@ export default class MarkdownComponent extends Component {
 
     if ( !this.state.tinyMceIsLoaded ) return null;
 
-    setTimeout( () => {
+    if ( typeof document !== 'undefined' ) setTimeout( this.initializeTinyMce );
 
-      this.initializeTinyMce();
+    const { className, label, placeholder, value } = this.props;
 
-    } );
-
-    return <div className="form-group">
-      { this.props.label && <label>{this.props.label}</label> }
-      <textarea 
-        placeholder={this.props.placeholder}
-        className={this.state.uniqueClassName}
-        value={ marked( this.props.value )} >
+    return (
+      <div className={className}>
+        { label && <label>{label}</label> }
+        <textarea
+          placeholder={placeholder}
+          className={this.state.uniqueClassName}
+          value={ marked( value ) }>
       </textarea>
-    </div>
+      </div>
+    );
 
   }
 
@@ -72,12 +75,12 @@ export default class MarkdownComponent extends Component {
 
     tinymce.init( {
       selector: '.' + this.state.uniqueClassName,
-      language: this.props.lang=='fr' ? 'fr_FR' : 'en_EN',
+      language: this.props.lang == 'fr' ? 'fr_FR' : 'en_EN',
       menubar: false,
       plugins: 'autolink link lists print preview autoresize paste placeholder',
       toolbar: 'formatselect bold italic bullist link',
       statusbar: false,
-      browser_spellcheck:true,
+      browser_spellcheck: true,
       block_formats: 'Paragraph=p;Header 2=h2;Header 3=h3;',
       autoresize_min_height: 100,
       // https://www.tinymce.com/docs/plugins/link/#link_title
@@ -100,7 +103,7 @@ export default class MarkdownComponent extends Component {
 
       },
 
-      paste_postprocess : ( pl, o ) => {
+      paste_postprocess: ( pl, o ) => {
 
         // paste from word-type processors insert a mess of tags
         // in the html; these must be cleaned
@@ -119,7 +122,7 @@ export default class MarkdownComponent extends Component {
       this.setState( { tinyMceIsLoaded: true } );
 
     } );
-    
+
   }
 
 }
@@ -138,11 +141,11 @@ function flattenChildren( node ) {
 
   if ( !node.childNodes.length ) {
 
-    return getCleanTextContent( node ); 
+    return getCleanTextContent( node );
 
   }
 
-  for( var i = 0; i< node.childNodes.length; i++ ) {
+  for ( var i = 0; i < node.childNodes.length; i++ ) {
 
     if ( node.childNodes[ i ].childNodes.length ) {
 
@@ -165,9 +168,9 @@ function cleanNode( node ) {
 
   let clean = document.createElement( node.nodeName ),
 
-  cleanChild, i, type, child, cleanType;
+    cleanChild, i, type, child, cleanType;
 
-  for( i = 0; i < node.childNodes.length; i++ ) {
+  for ( i = 0; i < node.childNodes.length; i++ ) {
 
     child = node.childNodes[ i ];
 
@@ -195,16 +198,16 @@ function cleanNode( node ) {
 function makeUrlConverter( editor ) {
 
   var fn = editor.convertURL;
-  
+
   editor.convertURL = convertURL_;
 
-  function convertURL_(url, name, elm){
+  function convertURL_( url, name, elm ) {
 
-    fn.apply(this, arguments);
-    console.log(arguments);
-    var regex = new RegExp("(http:|https:)?\/\/");
-    if (!regex.test(url)) {
-        return url = "http://" + url
+    fn.apply( this, arguments );
+    console.log( arguments );
+    var regex = new RegExp( "(http:|https:)?\/\/" );
+    if ( !regex.test( url ) ) {
+      return url = "http://" + url
     }
     return url;
 

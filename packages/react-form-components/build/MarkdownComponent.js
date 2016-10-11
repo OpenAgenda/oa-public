@@ -43,7 +43,7 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
   function MarkdownComponent(props) {
     _classCallCheck(this, MarkdownComponent);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MarkdownComponent).call(this, props));
+    var _this = _possibleConstructorReturn(this, (MarkdownComponent.__proto__ || Object.getPrototypeOf(MarkdownComponent)).call(this, props));
 
     _utils2.default.extend(_this, {
       loadTinyMce: _this.loadTinyMce.bind(_this),
@@ -55,7 +55,7 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
       uniqueClassName: _this.props.uniqueClassName || 'js_' + generateUniqueIdentifier()
     };
 
-    _this.loadTinyMce();
+    if (typeof document !== 'undefined') _this.loadTinyMce();
 
     return _this;
   }
@@ -63,33 +63,36 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
   _createClass(MarkdownComponent, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
 
       if (!this.state.tinyMceIsLoaded) return null;
 
-      setTimeout(function () {
+      if (typeof document !== 'undefined') setTimeout(this.initializeTinyMce);
 
-        _this2.initializeTinyMce();
-      });
+      var _props = this.props;
+      var className = _props.className;
+      var label = _props.label;
+      var placeholder = _props.placeholder;
+      var value = _props.value;
+
 
       return _react2.default.createElement(
         'div',
-        { className: 'form-group' },
-        this.props.label && _react2.default.createElement(
+        { className: className },
+        label && _react2.default.createElement(
           'label',
           null,
-          this.props.label
+          label
         ),
         _react2.default.createElement('textarea', {
-          placeholder: this.props.placeholder,
+          placeholder: placeholder,
           className: this.state.uniqueClassName,
-          value: (0, _marked2.default)(this.props.value) })
+          value: (0, _marked2.default)(value) })
       );
     }
   }, {
     key: 'initializeTinyMce',
     value: function initializeTinyMce() {
-      var _this3 = this;
+      var _this2 = this;
 
       tinymce.init({
         selector: '.' + this.state.uniqueClassName,
@@ -115,7 +118,7 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
 
           editor.on('change', function (e) {
 
-            _this3.props.onChange((0, _toMarkdown2.default)(e.target.getContent()));
+            _this2.props.onChange((0, _toMarkdown2.default)(e.target.getContent()));
           });
         },
 
@@ -131,11 +134,11 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
   }, {
     key: 'loadTinyMce',
     value: function loadTinyMce() {
-      var _this4 = this;
+      var _this3 = this;
 
       (0, _loadScript2.default)(this.props.tinyMceUrl, function (err, script) {
 
-        _this4.setState({ tinyMceIsLoaded: true });
+        _this3.setState({ tinyMceIsLoaded: true });
       });
     }
   }]);
@@ -143,6 +146,7 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
   return MarkdownComponent;
 }(_react.Component), _class.propTypes = {
   tinymceUrl: _react.PropTypes.string,
+  className: _react.PropTypes.string,
   value: _react.PropTypes.string,
   label: _react.PropTypes.string,
   placeholder: _react.PropTypes.string,
@@ -151,6 +155,7 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
   uniqueClassName: _react.PropTypes.string,
   lang: _react.PropTypes.string
 }, _class.defaultProps = {
+  className: 'form-group',
   value: '',
   tinyMceUrl: '/js/tinymce/tinymce.min.js',
   label: null,
@@ -193,11 +198,11 @@ function flattenChildren(node) {
 function cleanNode(node) {
 
   var clean = document.createElement(node.nodeName),
-      cleanChild = undefined,
-      i = undefined,
-      type = undefined,
-      child = undefined,
-      cleanType = undefined;
+      cleanChild = void 0,
+      i = void 0,
+      type = void 0,
+      child = void 0,
+      cleanType = void 0;
 
   for (i = 0; i < node.childNodes.length; i++) {
 
