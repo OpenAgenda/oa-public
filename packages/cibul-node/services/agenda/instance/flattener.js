@@ -531,7 +531,7 @@ function _defineTimings( lang ) {
 
     let timings = args[ 0 ],
 
-    timezone = args[ 1 ];
+    timezone = args[ 1 ] || 'Europe/Paris';
 
     moment.locale( lang );
 
