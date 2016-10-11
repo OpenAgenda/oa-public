@@ -172,5 +172,7 @@
   "Activate your OpenAgenda Account"
   : "Activez votre compte OpenAgenda",
   "Register"
-  : "Réserver"
+  : "Réserver",
+  "Your account was successfully deleted"
+  : "Votre compte a bien été supprimé"
 }

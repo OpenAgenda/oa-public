@@ -34,7 +34,17 @@ module.exports = function ( path ) {
     userSettingsChangeEmailConfirmation: [ 'get', '/changeEmail/confirm', mw.confirmChangeEmail ],
     userSettingsChangePassword: [ 'get', '/changePassword', [ cmn.requireLogged(), mw.changePassword ] ],
     userSettingsGenerateApiKey: [ 'get', '/generateApiKey', [ cmn.requireLogged(), mw.generateApiKey ] ],
-    userSettingsDeleteAccount: [ 'post', '/deleteAccount', [ cmn.requireLogged(), mw.deleteAccount ] ],
+    userSettingsDeleteAccount: [ 'post', '/deleteAccount', [
+      cmn.requireLogged(),
+      ( req, res, next ) => {
+        req.redirectTo = req.genUrl( 'signout' )
+        next();
+      },
+      mw.deleteAccount,
+      ( req, res ) => {
+        req.setFlash( 'Your account was successfully deleted' );
+        res.json( { redirectTo: req.redirectTo } );
+      } ] ],
     userSettingsUploadProfileImage: [ 'post', '/uploadProfileImage', [ cmn.requireLogged(), mw.uploadProfileImage ] ],
     userSettingsRemoveProfileImage: [ 'post', '/removeProfileImage', [ cmn.requireLogged(), mw.removeProfileImage ] ],
 
@@ -93,7 +103,10 @@ function sendEmail( req, res, next ) {
     users.get( req.user, ( err, user ) => {
       const emailData = {
         recipient: req.query.email,
-        link: req.genUrl( 'userSettingsChangeEmailConfirmation', { token: result.token, uid: user.uid }, { protocol: 'https://' } ),
+        link: req.genUrl( 'userSettingsChangeEmailConfirmation', {
+          token: result.token,
+          uid: user.uid
+        }, { protocol: 'https://' } ),
         lang: req.lang || 'fr'
       };
 

@@ -28,6 +28,7 @@ var modLib = require( '../lib/moduleLib' ),
     corpoHome: [ 'get', '/', [ 
       cmn.loadBaseData( 'oasfmain.css' ), 
       _corpoBrowserCache,
+      cmn.requireUnlogged,
       corpo 
     ] ],
     newsletterSubscribe: [ 'post', '/newsletter/subscribe', newsletterSubscribe ],
