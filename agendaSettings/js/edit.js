@@ -6,9 +6,23 @@ import du from 'dom-utils';
 
 
 const params = {
-  settings: {
-    lang: 'fr',
-    prefix: '/slug/edit'
+  state: {
+    settings: {
+      lang: 'fr',
+      prefix: '/agendaSettings/edit',
+      apiRoot: `localhost:${process.env.PORT || 3000}`
+    },
+    res: {
+      get: '/agendas/:uid/admin/settings.json',
+      slugAvailable: '/agendas/slugs/available',
+      set: '/:slug/admin/settings/edit',
+      uploadImage: '/:slug/admin/settings/setImage',
+      clearImage: '/:slug/admin/settings/clearImage',
+      remove: '/:slug/admin/settings/remove'
+    },
+    agenda: {
+      uid: '17026855'
+    }
   }
 };
 

@@ -6,9 +6,16 @@ import du from 'dom-utils';
 
 
 const params = {
-  settings: {
-    lang: 'fr',
-    prefix: '/new'
+  state: {
+    settings: {
+      lang: 'fr',
+      prefix: '/new'
+    },
+    res: {
+      create: '/new',
+      slugAvailable: '/agendas/slugs/available',
+      onCreated: '/:slug/admin?bravo'
+    }
   }
 };
 
