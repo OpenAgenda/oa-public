@@ -18,6 +18,8 @@ eventSvc = require( '../event' ),
 
 config = require( '../../config' ),
 
+tabLabels = require( 'labels' )( require( 'labels/agenda-admin/tabs' ) ),
+
 mwh = require( '../lib/middlewareHelpers' );
 
 module.exports = function( agendaService ) {
@@ -185,6 +187,8 @@ function loadAdminLayout( req, res, next ) {
         // filter tabs where agenda does not have required creds
 
         req.layoutData.tabs = svcConfig.adminTabs.filter( tab => {
+
+          tab.label = tabLabels( tab.key, req.lang );
 
           // if user is moderator and tab access is not given to moderators,
           // filter.
