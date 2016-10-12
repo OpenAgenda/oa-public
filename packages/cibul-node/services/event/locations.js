@@ -19,12 +19,33 @@ module.exports = function( s ) {
   svc = s;
 
   return {
-    getEventCount: model.locations().getEventCount,
-    locationWillRemove: locationWillRemove,
-    locationDidUpdate: locationDidUpdate,
-    locationsWillMerge: locationsWillMerge,
-    getStakeholder: getStakeholder
+    getEventCount,
+    locationWillRemove,
+    locationDidUpdate,
+    locationsWillMerge,
+    getStakeholder
   }
+
+}
+
+
+function getEventCount( identifiers, cb ) {
+
+  model.locations().getEventCount( identifiers, {
+    agendaId: identifiers.agendaId
+  }, ( err, agendaEventsCount ) => {
+
+    if ( err ) return cb( err );
+
+    model.locations().getEventCount( identifiers, ( err, allEventsCount ) => {
+
+      if ( err ) return cb( err );
+
+      cb( null, agendaEventsCount, allEventsCount );
+
+    } );
+
+  } )
 
 }
 
