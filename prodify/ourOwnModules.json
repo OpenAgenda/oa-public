@@ -1,12 +1,10 @@
 [
   "admin-agendas",
-  "agendas",
   "agenda-categories",
   "agenda-search",
   "agenda-locations",
   "agenda-tags",
   "agenda-settings",
-  "image-upload",
   "react-components",
   "react-form-components",
   "react-timings-picker",

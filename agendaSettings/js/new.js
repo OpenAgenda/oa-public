@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import App from 'agenda-settings/react/src/createApp';
+import App from 'agenda-settings/react/lib/createApp';
 import deepExtend from 'deep-extend';
 import du from 'dom-utils';
 
