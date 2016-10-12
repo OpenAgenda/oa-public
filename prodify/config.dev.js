@@ -10,7 +10,7 @@ const path = require( 'path' ),
 module.exports = ( paths ) => {
 
   return {
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'inline-source-map',
     entry: path.join( __dirname, paths.src.path, paths.src.name ),
     output: {
       path: paths.dest.path,
@@ -43,7 +43,7 @@ module.exports = ( paths ) => {
       moduleDirectories: [ './node_modules' ],
       fallback: path.join( process.cwd(), 'node_modules' ),
       alias: {
-        react: path.join( process.cwd(), 'node_modules/react' ),
+        react: path.join( process.cwd(), 'node_modules/react' )
       }
     },
     resolveLoader: {
@@ -51,6 +51,7 @@ module.exports = ( paths ) => {
       fallback: path.join( process.cwd(), 'node_modules' )
     },
     plugins: [
+      new webpack.IgnorePlugin( /unicode\/category\/So/ ),
       new webpack.DefinePlugin( {
         'process.env': {
           NODE_ENV: '"development"'

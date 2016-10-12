@@ -13,7 +13,9 @@ params = {
   res: {
     terms: '#',
     location: '#',
-    user: '#'
+    contributor: '#',
+    addEvent: '#',
+    agenda: '#'
   },
   selectors: {
     headerCanvas: '.js_header_canvas',
