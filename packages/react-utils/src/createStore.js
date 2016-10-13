@@ -1,0 +1,59 @@
+import { createStore, compose, applyMiddleware } from 'redux';
+import { routerMiddleware } from 'react-router-redux';
+
+export default function ( reducers ) {
+
+  return ( history, client, state = {} ) => {
+
+    let enhancer;
+    const middleware = applyMiddleware( routerMiddleware( history ), promiseMiddleware( client ) );
+
+    if ( process.env.NODE_ENV == 'development' ) {
+      const { persistState } = require( 'redux-devtools' );
+      const DevTools = require( './ReduxDevTools' );
+
+      enhancer = compose(
+        middleware,
+        window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
+        persistState( getDebugSessionKey() )
+      );
+    } else {
+      enhancer = compose( middleware );
+    }
+
+    return createStore( reducers, state, enhancer );
+
+  };
+
+}
+
+function getDebugSessionKey() {
+  // You can write custom logic here!
+  // By default we try to read the key from ?debug_session=<key> in the address bar
+  const matches = window.location.href.match( /[?&]debug_session=([^&#]+)\b/ );
+  return (matches && matches.length > 0) ? matches[ 1 ] : null;
+}
+
+function promiseMiddleware( client ) {
+
+  return store => next => action => {
+
+    const { promise, types, ...rest } = action;
+
+    if ( !promise ) {
+      return next( action );
+    }
+
+    const [REQUEST, SUCCESS, FAILURE] = types;
+
+    next( { ...rest, type: REQUEST } );
+
+    return promise( client, store.getState() )
+      .then(
+        result => next( { ...rest, result, type: SUCCESS } ),
+        error => next( { ...rest, result, type: FAILURE } )
+      );
+
+  };
+
+}
