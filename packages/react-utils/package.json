@@ -1,0 +1,23 @@
+{
+  "name": "react-utils",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/react-utils.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/openagenda/react-utils#readme",
+  "dependencies": {
+    "react-redux": "^4.4.5",
+    "react-router": "^2.8.1",
+    "react-router-redux": "^4.0.6",
+    "redux-connect": "^3.0.0",
+    "superagent": "^2.3.0"
+  }
+}
