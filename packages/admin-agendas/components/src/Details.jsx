@@ -34,7 +34,7 @@ module.exports = React.createClass( {
     const query = this.props.getQuery();
 
     return {
-      tab: query.tab || 'stakeholders'
+      tab: (query && query.tab) || 'stakeholders'
     };
 
   },

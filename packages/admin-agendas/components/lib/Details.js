@@ -29,7 +29,7 @@ module.exports = React.createClass({
     var query = this.props.getQuery();
 
     return {
-      tab: query.tab || 'stakeholders'
+      tab: query && query.tab || 'stakeholders'
     };
   },
   setOfficial: function setOfficial(checked) {
