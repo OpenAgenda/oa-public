@@ -1,6 +1,8 @@
 "use strict";
 
-let knex, schemas;
+const logger = require( 'basic-logger' );
+
+let knex, schemas, log = () => {};
 
 module.exports = Object.assign( column, { init, get } );
 
@@ -18,6 +20,8 @@ function column( schema, agendaId, columnName, value, cb ) {
   }
 
   if ( !knex ) return cb( 'legacy column not inited' );
+
+  log( 'updating column %s of schema %s at id %s', columnName, schema, agendaId );
 
   let updateData = {};
 
@@ -62,5 +66,7 @@ function init( s, k ) {
   knex = k;
 
   schemas = s;
+
+  log = logger( 'agendas service.legacy.column' );
 
 }

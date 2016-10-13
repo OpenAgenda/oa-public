@@ -18,7 +18,7 @@ describe( 'service.set: update an agenda', function() {
 
   afterEach( () => {
     svc.init( config ); // reset interfaces
-  })
+  } );
 
   before( svc.test.fixtures );
 
@@ -66,6 +66,32 @@ describe( 'service.set: update an agenda', function() {
       should( err ).equal( null );
 
       result.agenda.official.should.equal( 1 ); // because I don't clean at db read
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'set without internal option returns an updated agenda that excludes internal fields', done => {
+
+    svc.set( 4875, { title: 'Booyah' }, ( err, result ) => {
+
+      should( result.agenda.id ).equal( undefined );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'set with internal option set to true returns an updated agenda that includes internal fields', done => {
+
+    svc.set( 4875, { title: 'Boom.' }, { internal: true }, ( err, result ) => {
+
+      should( result.agenda.id ).equal( 4875 );
 
       done();
 
@@ -182,6 +208,29 @@ describe( 'service.set: update an agenda', function() {
           useFields: true
         }
       }
+    }, () => {} );
+
+  } );
+
+
+  it( 'onUpdate callbacks with agenda data that includes internal fields', done => {
+
+    svc.init( Object.assign( {}, config, {
+      interfaces: {
+        onUpdate: ( before, after ) => {
+
+          should( before.id ).equal( 4830 );
+
+          should( after.id ).equal( 4830 );
+
+          done();
+
+        }
+      }
+    } ) );
+
+    svc.set( 4830, {
+      title: 'Blaaargh'
     }, () => {} );
 
   } );

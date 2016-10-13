@@ -6,9 +6,11 @@ column = require( './column' ),
 
 store = require( './store' ),
 
-utils = require( 'utils' );
+utils = require( 'utils' ),
 
-let schemas, knex;
+logger = require( 'basic-logger' );
+
+let schemas, knex, log = () => {};
 
 module.exports = Object.assign( agenda, { 
   init: ( s, k ) => { 
@@ -17,6 +19,8 @@ module.exports = Object.assign( agenda, {
     knex = k;
 
     column.init( s, k );
+
+    log = logger( 'agendas service.legacy' );
 
   }
 } );
@@ -73,6 +77,8 @@ function agenda( agendaId ) {
 
 function _updateContributionType( v ) {
 
+  log( 'updating contribution type' );
+
   let type = utils.deep( v.data, 'settings.contribution.type' );
 
   if ( type === undefined ) return v;
@@ -94,9 +100,15 @@ function _updateContributionType( v ) {
 
 function _updateContributionMessage( v ) {
 
+  log( 'updating contribution message' );
+
   let message = utils.deep( v.data, 'settings.contribution.message' );
 
-  if ( message === undefined ) return v;
+  if ( message === undefined ) {
+
+    message = '';
+
+  }
 
   let d = w.defer();
 
@@ -147,6 +159,8 @@ function _loadCredentials( v ) {
 function _updateCredentials( v ) {
 
   if ( !v.data.credentials ) return v;
+
+  log( 'updating credentials' );
 
   return w( {
     agendaId: v.agendaId,
@@ -220,6 +234,8 @@ function _updateCredentials( v ) {
 
 
 function _updateDefaultState( v ) {
+
+  log( 'updating contribution default state' );
 
   let defaultState = utils.deep( v.data, 'settings.contribution.defaultState' );
 

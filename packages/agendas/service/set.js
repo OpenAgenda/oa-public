@@ -15,11 +15,15 @@ slug = require( 'slug' ),
 
 defineUnique = require( 'mysql-utils/defineUnique' ),
 
-logger = require( 'basic-logger' );
+logger = require( 'basic-logger' ),
+
+map = require( './validate' ).map;
 
 let knex, schemas, mysqlConfig, log, interfaces,
 
-dbParse = require( 'mysql-utils/mapper' )( require( './validate' ).map ),
+dbParse = require( 'mysql-utils/mapper' )( map ),
+
+filterInternals = require( './lib/filterInternals' ),
 
 validate = require( './validate' ),
 
@@ -92,7 +96,7 @@ function _update( identifiers, data, options, cb ) {
 
   .then( _get( {
     target: 'updated',
-    internal: params.internal,
+    internal: true,
     prerequisite: v => v.success && !v.errors.length,
     includeImagePath: params.includeImagePath
   } ) )
@@ -106,7 +110,7 @@ function _update( identifiers, data, options, cb ) {
     }
 
     cb( null, {
-      agenda: v.updated,
+      agenda: params.internal ? v.updated : filterInternals( map, v.updated ),
       valid: !v.errors.length,
       success: v.success,
       errors: v.errors
@@ -159,7 +163,7 @@ function _create( data, options, cb ) {
 
   .then( _get( { 
     target: 'created', 
-    internal: options.internal, 
+    internal: true, 
     prerequisite: v => v.success && !v.errors.length,
     includeImagePath: params.includeImagePath
   } ) )
@@ -173,7 +177,7 @@ function _create( data, options, cb ) {
     }
 
     cb( null, {
-      agenda: v.created,
+      agenda: params.internal ? v.created : filterInternals( map, v.created ),
       valid: !v.errors.length,
       success: v.success,
       errors: v.errors
@@ -223,6 +227,12 @@ function _doUpdate( v ) {
 
     v.success = !!affected;
 
+    if ( v.success ) {
+
+      log( 'info', 'updated agenda %s', v.id );
+
+    }
+
     return v;
 
   } );
@@ -244,6 +254,10 @@ function _applyToLegacy( v ) {
         message: 'agenda legacy save triggered error',
         error: err
       } );
+
+    } else {
+
+      log( 'applied agenda configuration to legacy data structure' );
 
     }
 

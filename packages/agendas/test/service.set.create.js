@@ -12,8 +12,12 @@ describe( 'service.set: create an agenda', function() {
 
   this.timeout( 30000 );
 
-  before( () => {
+  beforeEach( () => {
     svc.init( config );
+  } );
+
+  afterEach( () => {
+    svc.init( config ); // reset interfaces
   } );
 
   before( svc.test.fixtures );
@@ -133,6 +137,49 @@ describe( 'service.set: create an agenda', function() {
       done();
 
     } );
+
+  } );
+
+
+  it( 'set in create mode excludes internal values if internal option is not specified or false', done => {
+
+    svc.set( {
+      ownerId: 1,
+      title: 'Blob 123',
+      description: 'Evénements d\'une rando en Espagne/France/Italie'
+    }, ( err, result ) => {
+
+      should( result.agenda.id ).equal( undefined );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'set in create mode calls onCreate callback with created agenda including internal values', done => {
+
+
+    svc.init( Object.assign( {}, config, {
+      interfaces: {
+        onCreate: ( agenda ) => {
+
+          agenda.title.should.equal( 'Niargl' );
+
+          should( agenda.id ).not.equal( undefined );
+
+          done();
+
+        }
+      }
+    } ) );
+
+    svc.set( {
+      ownerId: 1,
+      title: 'Niargl',
+      description: 'Blotock'
+    }, () => {} )
 
   } );
 
