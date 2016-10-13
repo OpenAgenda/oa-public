@@ -82,10 +82,18 @@ module.exports = {
     uri : 'agendaAdminAdministrators'
   }, {
     section : 'settings',
-    key : 'settings',
-    label : 'Settings',
+    key : 'settings_profile',
+    label : 'Profile',
     access: 'administrator',
-    uri : 'agendaAdminSettings'
+    uri : 'agendaSettingsEditApp',
+    suffix : '/profile'
+  }, {
+    section : 'settings',
+    key : 'settings_contribution',
+    label : 'Contribution',
+    access: 'administrator',
+    uri : 'agendaSettingsEditApp',
+    suffix : '/contribution'
   } ]
 
 }

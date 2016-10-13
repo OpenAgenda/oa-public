@@ -1,0 +1,161 @@
+"use strict";
+
+const React = require( 'react' );
+const ReactDOM = require( 'react-dom/server' );
+const config = require( '../config' );
+const modLib = require( "../lib/moduleLib.js" );
+const cmn = require( '../lib/commons-app' );
+const bodyParser = require( 'body-parser' );
+const agendaSettings = require( 'agenda-settings' );
+const mw = agendaSettings.mw;
+const agendaSvc = require( '../services/agenda' );
+
+
+module.exports = function ( path ) {
+
+  const routes = {
+
+    agendaSettingsCreateApp: [ 'get', '/new', [
+      cmn.loadBaseData( 'oasfmain.css' ),
+      getNewApp
+    ] ],
+
+    agendaSettingsEditApp: [ 'get', '/:slug/admin/settings', [
+      agendaSvc.mw.load( 'slug' ),
+      cmn.checkAdministrator(),
+      agendaSvc.mw.loadAdminLayout,
+      cmn.loadBaseData( 'oasfmain.css' ),
+      matchEditApp
+    ] ],
+
+    agendaSettingsEditSub: [ 'get', '/:slug/admin/settings/?*?', [
+      agendaSvc.mw.load( 'slug' ),
+      cmn.checkAdministrator(),
+      agendaSvc.mw.loadAdminLayout,
+      cmn.loadBaseData( 'oasfmain.css' ),
+      matchEditApp
+    ] ],
+
+    /**********/
+
+    agendaSettingsCreateAgenda: [ 'post', '/new',
+      mw.create
+    ],
+
+    agendaSettingsSlugAvailable: [ 'post', '/agendas/slugs/available',
+      mw.slugs.available
+    ],
+
+    agendaSettingsGetAgenda: [ 'get', '/agendas/:uid/admin/settings.json', [
+      agendaSvc.mw.load( 'uid' ),
+      cmn.checkAdministrator(),
+      mw.get
+    ] ],
+
+    agendaSettingsEditAgenda: [ 'post', '/:slug/admin/settings/edit', [
+      agendaSvc.mw.load( 'slug' ),
+      cmn.checkAdministrator(),
+      mw.set
+    ] ],
+
+    agendaSettingsSetImage: [ 'post', '/:slug/admin/settings/setImage', [
+      agendaSvc.mw.load( 'slug' ),
+      cmn.checkAdministrator(),
+      mw.setImage
+    ] ],
+
+    agendaSettingsClearImage: [ 'post', '/:slug/admin/settings/clearImage', [
+      agendaSvc.mw.load( 'slug' ),
+      cmn.checkAdministrator(),
+      mw.clearImage
+    ] ],
+
+    agendaSettingsRemoveAgenda: [ 'post', '/:slug/admin/settings/remove', [
+      agendaSvc.mw.load( 'slug' ),
+      cmn.checkAdministrator(),
+      mw.removeAgenda
+    ] ]
+  };
+
+  const router = modLib.Router( routes );
+
+  router.pre( [
+    cmn.loadLogger( 'agendaSettings' ),
+    cmn.flashSetter,
+    cmn.loadSession,
+    cmn.requireLogged(),
+    bodyParser.json()
+  ] );
+
+  return {
+    load: router.load( path ),
+    paths: modLib.getPaths( path, routes )
+  };
+
+  function getNewApp( req, res ) {
+
+    const scriptParams = {
+      state: {
+        settings: {
+          prefix: req.genUrl( 'agendaSettingsCreateApp' ).split( '?' )[ 0 ],
+          lang: req.lang || 'fr'
+        },
+        res: {
+          create: '/new',
+          slugAvailable: '/agendas/slugs/available',
+          onCreated: '/:slug/admin?bravo'
+        }
+      }
+    };
+
+    cmn.render( req, res, 'agendaSettings/new', { scriptParams } );
+
+  }
+
+  function getEditApp( req, res, next, { store, component } = {} ) {
+
+    const prefix = req.genUrl( 'agendaSettingsEditApp', { slug: req.params.slug } ).split( '?' )[ 0 ];
+    const state = store ? store.getState() : {};
+
+    // Manually add prefix for react-router matching
+    if ( state.routing && state.routing.locationBeforeTransitions ) {
+      state.routing.locationBeforeTransitions.basename = prefix;
+    }
+
+    const content = component ? ReactDOM.renderToString( component ) : '';
+    const tab = 'settings_' + state.routing.locationBeforeTransitions.pathname.substr( 1 );
+
+    cmn.render( req, res, 'agendaSettings/edit', { scriptParams: { state }, content, tab } );
+
+  }
+
+  function matchEditApp( req, res, next ) {
+
+    const prefix = req.genUrl( 'agendaSettingsEditApp', { slug: req.params.slug } ).split( '?' )[ 0 ];
+    const lang = req.lang || 'fr';
+
+    mw.matchApp(
+      'edit',
+      {
+        state: {
+          settings: { prefix, lang, apiRoot: `http://localhost:${config.port}` },
+          res: {
+            get: '/agendas/:uid/admin/settings.json',
+            slugAvailable: '/agendas/slugs/available',
+            set: '/:slug/admin/settings/edit',
+            uploadImage: '/:slug/admin/settings/setImage',
+            clearImage: '/:slug/admin/settings/clearImage',
+            remove: '/:slug/admin/settings/remove'
+          },
+          agenda: {
+            uid: req.agenda.uid
+          }
+        }
+      },
+      prefix,
+      getEditApp
+    )( req, res, next );
+
+  }
+
+};

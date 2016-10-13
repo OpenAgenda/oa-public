@@ -63,7 +63,8 @@ var deepExtend = require( 'deep-extend' ),
         stakeholderSettings: 'stakeholder_settings',
         user: 'user',
         apiKeySet: 'api_key_set',
-        eventReferences: 'agenda_event_reference'
+        eventReferences: 'agenda_event_reference',
+        legacyCredentialSet: 'review_credential'
       },
       auth: {
         local: {

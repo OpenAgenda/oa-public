@@ -2,56 +2,58 @@
 
 const servicePath = __dirname + '/../services',
 
-w = require( 'when' ),
+  w = require( 'when' ),
 
-utils = require( 'utils' ),
+  utils = require( 'utils' ),
 
-logger = require( 'logger' ),
+  logger = require( 'logger' ),
 
-mailer = require( 'mailer' ),
+  mailer = require( 'mailer' ),
 
-appSvc = {
-  agenda: require( servicePath + '/agenda' ),
-  event: require( servicePath + '/event' )
-},
+  appSvc = {
+    agenda: require( servicePath + '/agenda' ),
+    event: require( servicePath + '/event' )
+  },
 
-emailStrategie = require( 'emailStrategie' ),
+  emailStrategie = require( 'emailStrategie' ),
 
-cookieParser = require( 'cookie-parser' ),
+  cookieParser = require( 'cookie-parser' ),
 
-agendaSearch = require( 'agenda-search' ),
+  agendaSearch = require( 'agenda-search' ),
 
-agendasSvc = require( 'agendas' ),
+  agendasSvc = require( 'agendas' ),
 
-model = require( '../services/model' ),
+  model = require( '../services/model' ),
 
-genUrl = require( servicePath + '/genUrl' ),
+  genUrl = require( servicePath + '/genUrl' ),
 
-facebookSvc = require( 'facebook' ),
+  facebookSvc = require( 'facebook' ),
 
-agendaTags = require( 'agenda-tags' ),
+  agendaTags = require( 'agenda-tags' ),
 
-agendaCategories = require( 'agenda-categories' ),
+  agendaCategories = require( 'agenda-categories' ),
 
-agendaStakeholders = require( 'agenda-stakeholders' ),
+  agendaStakeholders = require( 'agenda-stakeholders' ),
 
-agendaLocations = require( 'agenda-locations' ),
+  agendaLocations = require( 'agenda-locations' ),
 
-agendaEventReferences = require( 'agenda-event-references' ),
+  agendaEventReferences = require( 'agenda-event-references' ),
 
-newsletterSvc = require( 'newsletter' ),
+  agendaSettings = require( 'agenda-settings' ),
 
-adminAgendaSvc = require( 'admin-agendas' ),
+  newsletterSvc = require( 'newsletter' ),
 
-userSvc = require( 'users' ),
+  adminAgendaSvc = require( 'admin-agendas' ),
 
-imageSvc = require( 'images' ),
+  userSvc = require( 'users' ),
 
-filesSvc = require( 'files' );
+  imageSvc = require( 'images' ),
+
+  filesSvc = require( 'files' );
 
 let log;
 
-module.exports = function( config, cb ) {
+module.exports = function ( config, cb ) {
 
   if ( arguments.length == 1 && typeof config === 'function' ) {
 
@@ -61,47 +63,52 @@ module.exports = function( config, cb ) {
   } else if ( arguments.length === 0 ) {
 
     config = require( '../config' );
-    cb = () => {};
+    cb = () => {
+    };
 
   }
 
   w( config )
 
-  .then( _initLogger )
+    .then( _initLogger )
 
-  .then( _initGenUrl )
+    .then( _initGenUrl )
 
-  .then( _initMailer )
+    .then( _initMailer )
 
-  .then( _initAgendaService )
+    .then( _initAgendaService )
 
-  .then( _initAgendaSearch )
+    .then( _initAgendaSearch )
 
-  .then( _initAgendaTags )
+    .then( _initAgendaTags )
 
-  .then( _initAgendaCategories )
+    .then( _initAgendaCategories )
 
-  .then( _initAgendaLocations )
+    .then( _initAgendaStakeholders )
 
-  .then( _initAgendaEventReferences )
+    .then( _initAgendaLocations )
 
-  .then( _initEmailStrategie )
+    .then( _initAgendaEventReferences )
 
-  .then( _initImages )
+    .then( _initAgendaSettings )
 
-  .then( _initNewsletter )
+    .then( _initEmailStrategie )
 
-  .then( _initFiles )
+    .then( _initImages )
 
-  .then( _initAdminAgendas )
+    .then( _initNewsletter )
 
-  .then( _initUsers )
+    .then( _initFiles )
 
-  .then( _initAgendaStakeholders )
+    .then( _initAdminAgendas )
 
-  .then( _initFacebook )
+    .then( _initUsers )
 
-  .done( () => { cb() }, cb );
+    .then( _initFacebook )
+
+    .done( () => {
+      cb()
+    }, cb );
 
 }
 
@@ -248,8 +255,6 @@ function _initUsers( config ) {
 }
 
 
-
-
 function _initEmailStrategie( config ) {
 
   log( 'info', 'emailStrategie' );
@@ -261,6 +266,28 @@ function _initEmailStrategie( config ) {
   } );
 
   return config;
+
+}
+
+function _initAgendaSettings( config ) {
+
+  log( 'info', 'agenda settings' );
+
+  return new Promise( ( resolve, reject ) => {
+
+    agendaSettings.init( {
+      mysql: config.db,
+      schemas: config.schemas,
+      logger: logger
+    }, err => {
+
+      if ( err ) return reject( err );
+
+      resolve( config );
+      
+    } );
+
+  } );
 
 }
 
@@ -369,7 +396,7 @@ function _initAgendaLocations( config ) {
       table: 'location',
       agendaSettingsTableName: 'location_agenda_settings'
     },
-    files: {
+    files: {
       tmpPath: config.tmpFolderPath,
       bucket: config.aws.bucket,
       accessKeyId: config.aws.accessKeyId,
@@ -461,7 +488,7 @@ function _initAgendaSearch( config ) { // sync
     schemas: config.schemas,
     elasticsearch: {
       host: config.es.host + ':' + config.es.port,
-      log: [ {
+      log: [ {
         type: 'stdio',
         level: [ 'error', 'warning' ]
       } ],
@@ -504,7 +531,11 @@ function _initAgendaService( config ) { // sync
       secretAccessKey: config.aws.secretAccessKey
     },
     imagePath: config.aws.imageBucketPath,
-    logger
+    logger,
+    interfaces: {
+      onCreate: () => {},
+      onUpdate: () => {}
+    }
   } );
 
   return config;

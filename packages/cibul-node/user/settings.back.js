@@ -53,8 +53,6 @@ module.exports = function ( path ) {
 
   var router = modLib.Router( routes );
 
-  moment.locale( 'fr' );
-
   router.pre( [
     cmn.loadLogger( 'userSettings' ),
     cmn.flashSetter,
