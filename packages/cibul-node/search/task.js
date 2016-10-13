@@ -42,6 +42,7 @@ jobHandlers = {
   'search.update' : _update( 'events' ),
   'event.update' : _update( 'events' ),
   'review.publish' : _publish( 'reviews' ),
+  'agenda.create' : _publish( 'reviews' ),
   'review.delete' : _delete( 'reviews' ),
   'review.update' : _update( 'reviews' ),
   'agenda.update' : _update( 'reviews' ),
@@ -53,10 +54,10 @@ module.exports = run;
 
 // for testing
 utils.extend( module.exports, {
-  setOnStart: setOnStart,
-  setOnComplete: setOnComplete,
-  unsetOnComplete: unsetOnComplete,
-  setComs: setComs
+  setOnStart,
+  setOnComplete,
+  unsetOnComplete,
+  setComs
 } );
 
 

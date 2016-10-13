@@ -49,7 +49,9 @@ const servicePath = __dirname + '/../services',
 
   imageSvc = require( 'images' ),
 
-  filesSvc = require( 'files' );
+  filesSvc = require( 'files' ),
+
+  coms = require( './coms' );
 
 let log;
 
@@ -108,7 +110,13 @@ module.exports = function ( config, cb ) {
 
     .done( () => {
       cb()
-    }, cb );
+    }, err => {
+
+      log( 'error', err );
+
+      cb( err )
+
+    } );
 
 }
 
@@ -533,8 +541,41 @@ function _initAgendaService( config ) { // sync
     imagePath: config.aws.imageBucketPath,
     logger,
     interfaces: {
-      onCreate: () => {},
-      onUpdate: () => {}
+      onCreate: agenda => {
+
+        // legacy elasticsearch needs to index reviews
+        coms.publish( config.mainChannel, {
+          name: 'agenda.create',
+          values: {
+            id: agenda.id
+          }
+        } );
+
+        agendaStakeholders( agenda.id ).new( {
+          userId: agenda.ownerId, 
+          credential: 2
+        } ).save( err => {
+
+          if ( !err ) return;
+
+          log( 'error', 'could not name agenda %s owner administrator', agenda.id );
+
+        } );
+
+      },
+      onUpdate: ( before, after ) => {
+
+        let hasContributionSettingsChange = JSON.stringify( before.settings.contribution ) !== JSON.stringify( after.settings.contribution );
+
+        coms.publish( config.mainChannel, {
+          name: 'agenda.update',
+          values: {
+            id: agenda.id,
+            type: hasContributionSettingsChange ? 'contribution' : undefined
+          }
+        } );
+          
+      }
     }
   } );
 
