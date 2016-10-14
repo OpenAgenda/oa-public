@@ -570,7 +570,7 @@ function _initAgendaService( config ) { // sync
         coms.publish( config.mainChannel, {
           name: 'agenda.update',
           values: {
-            id: agenda.id,
+            id: after.id,
             type: hasContributionSettingsChange ? 'contribution' : undefined
           }
         } );
