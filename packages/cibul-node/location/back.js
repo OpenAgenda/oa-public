@@ -81,7 +81,6 @@ routes = {
   ] ],
 
   locationResync: [ 'get', '/:slug/admin/locations/resync', [
-    cmn.checkAdminOrModerator,
     mw.resync,
     _resyncSuccess
   ] ],
