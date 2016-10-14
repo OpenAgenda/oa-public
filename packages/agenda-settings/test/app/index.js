@@ -44,7 +44,12 @@ app.post( '/:slug/edit', mw.set );
 app.post( '/:slug/setImage', mw.setImage );
 app.post( '/:slug/clearImage', mw.clearImage );
 app.post( '/slugs/available', mw.slugs.available );
-app.post( '/:slug/remove', mw.removeAgenda );
+app.post( '/:slug/remove', [
+  mw.removeAgenda,
+  ( req, res ) => {
+    res.json( { redirectTo: '/' } );
+  }
+] );
 
 
 function matchApp( req, res, next ) {

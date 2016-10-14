@@ -172,18 +172,19 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
             { className: 'btn btn-primary', onClick: function onClick() {
                 return setModal({ visible: false });
               } },
-            'Close'
+            getLabel('close')
           ),
           _react3.default.createElement(
             'button',
             { className: 'btn btn-danger pull-right',
               onClick: function onClick() {
-                return remove().then(function () {
-                  return setModal({ visible: false });
+                return remove().then(function (_ref) {
+                  var result = _ref.result;
+                  return window.location.href = result.redirectTo || '/';
                 });
               }
             },
-            'Remove'
+            getLabel('remove')
           )
         )
       };

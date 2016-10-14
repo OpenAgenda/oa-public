@@ -14,7 +14,7 @@ describe( 'reducers', () => {
         .eql( {
           agendaCreation: {
             values: {
-              title: 'Foo & bar, why?',
+              title: 'Foo & bar, why ?',
               slug: 'foo-and-bar-why'
             }
           }

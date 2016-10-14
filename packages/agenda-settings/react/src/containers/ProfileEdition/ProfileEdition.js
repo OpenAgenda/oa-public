@@ -66,12 +66,12 @@ export default class ProfileEdition extends Component {
       content: <div>
         <p>{getLabel( 'removeAgendaWarning' )}</p>
         <button className="btn btn-primary" onClick={() => setModal( { visible: false } )}>
-          Close
+          {getLabel( 'close' )}
         </button>
         <button className="btn btn-danger pull-right"
-                onClick={() => remove().then( () => setModal( { visible: false } ) )}
+                onClick={() => remove().then( ( { result } ) => window.location.href = result.redirectTo || '/' )}
         >
-          Remove
+          {getLabel( 'remove' )}
         </button>
       </div>
     };

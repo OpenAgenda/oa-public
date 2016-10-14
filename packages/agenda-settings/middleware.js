@@ -5,13 +5,13 @@ const mwUploadImage = require( 'image-upload/lib/middleware' );
 
 const createHistory = require( 'react-router/lib/createMemoryHistory' );
 const { Provider } = require( 'react-redux' );
-const createStore = require( '../react/lib/redux/create' );
-const ApiClient = require( '../helpers/ApiClient' );
+const createStore = require( './react/lib/redux/create' );
+const ApiClient = require( './helpers/ApiClient' );
 const { syncHistoryWithStore } = require( 'react-router-redux' );
 const { match } = require( 'react-router' );
 const { ReduxAsyncConnect, loadOnServer } = require( 'redux-connect' );
-const createRoutes = require( '../react/lib/createRoutes' );
-const editRoutes = require( '../react/lib/editRoutes' );
+const createRoutes = require( './react/lib/createRoutes' );
+const editRoutes = require( './react/lib/editRoutes' );
 
 let service, config, log;
 
@@ -180,9 +180,9 @@ function removeAgenda( req, res, next ) {
 
     if ( err ) return next( err );
 
-    if ( !result.success ) res.status( 400 );
+    if ( !result.success ) res.status( 400 ).send();
 
-    res.json( result );
+    next();
 
   } );
 

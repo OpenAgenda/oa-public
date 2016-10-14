@@ -2,7 +2,7 @@
   "name": "agenda-settings",
   "version": "1.0.0",
   "description": "",
-  "main": "service/index.js",
+  "main": "service.js",
   "directories": {
     "test": "test"
   },
