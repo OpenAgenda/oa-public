@@ -36,14 +36,10 @@ module.exports = function ( path ) {
     userSettingsGenerateApiKey: [ 'get', '/generateApiKey', [ cmn.requireLogged(), mw.generateApiKey ] ],
     userSettingsDeleteAccount: [ 'post', '/deleteAccount', [
       cmn.requireLogged(),
-      ( req, res, next ) => {
-        req.redirectTo = req.genUrl( 'signout' )
-        next();
-      },
       mw.deleteAccount,
       ( req, res ) => {
-        req.setFlash( 'Your account was successfully deleted' );
-        res.json( { redirectTo: req.redirectTo } );
+        req.setFlash( getLabels( 'accountRemoved', req.lang ) );
+        res.json( { redirectTo: req.genUrl( 'signout' ) } );
       } ] ],
     userSettingsUploadProfileImage: [ 'post', '/uploadProfileImage', [ cmn.requireLogged(), mw.uploadProfileImage ] ],
     userSettingsRemoveProfileImage: [ 'post', '/removeProfileImage', [ cmn.requireLogged(), mw.removeProfileImage ] ],

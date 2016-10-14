@@ -10,6 +10,9 @@ const agendaSettings = require( 'agenda-settings' );
 const mw = agendaSettings.mw;
 const agendaSvc = require( '../services/agenda' );
 
+const labels = require( 'labels/agenda-settings/agendaEdition' );
+const getLabel = require( 'labels' )( labels );
+
 
 module.exports = function ( path ) {
 
@@ -73,7 +76,11 @@ module.exports = function ( path ) {
     agendaSettingsRemoveAgenda: [ 'post', '/:slug/admin/settings/remove', [
       agendaSvc.mw.load( 'slug' ),
       cmn.checkAdministrator(),
-      mw.removeAgenda
+      mw.removeAgenda,
+      ( req, res ) => {
+        req.setFlash( getLabel( 'agendaRemoved', req.lang ) );
+        res.json( { redirectTo: req.genUrl( 'homeShow' ) } );
+      }
     ] ]
   };
 
