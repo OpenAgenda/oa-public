@@ -64,8 +64,10 @@ export default class MarkdownComponent extends Component {
         <textarea
           placeholder={placeholder}
           className={this.state.uniqueClassName}
-          value={ marked( value ) }>
-      </textarea>
+          value={ marked( value ) }
+          onChange={() => {}}
+        >
+        </textarea>
       </div>
     );
 
@@ -204,7 +206,7 @@ function makeUrlConverter( editor ) {
   function convertURL_( url, name, elm ) {
 
     fn.apply( this, arguments );
-    console.log( arguments );
+
     var regex = new RegExp( "(http:|https:)?\/\/" );
     if ( !regex.test( url ) ) {
       return url = "http://" + url

@@ -28,7 +28,7 @@ module.exports = React.createClass({
     // optional renderer for additional component under tag item
     tagBottom: React.PropTypes.func,
 
-    // optional list of tags that
+    // optional list of tags that 
     disabledTagIds: React.PropTypes.array
   },
 

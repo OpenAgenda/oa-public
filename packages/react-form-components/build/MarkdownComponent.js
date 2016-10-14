@@ -86,7 +86,9 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
         _react2.default.createElement('textarea', {
           placeholder: placeholder,
           className: this.state.uniqueClassName,
-          value: (0, _marked2.default)(value) })
+          value: (0, _marked2.default)(value),
+          onChange: function onChange() {}
+        })
       );
     }
   }, {
@@ -234,7 +236,7 @@ function makeUrlConverter(editor) {
   function convertURL_(url, name, elm) {
 
     fn.apply(this, arguments);
-    console.log(arguments);
+
     var regex = new RegExp("(http:|https:)?\/\/");
     if (!regex.test(url)) {
       return url = "http://" + url;
