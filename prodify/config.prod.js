@@ -43,10 +43,11 @@ module.exports = paths => {
     resolve: {
       extensions: [ '', '.js', '.jsx' ],
       moduleDirectories: [ './node_modules' ],
+      /* breaks online build
       fallback: path.join( process.cwd(), 'node_modules' ),
       alias: {
         react: path.join( process.cwd(), 'node_modules/react' )
-      }
+      }*/
     },
     plugins: [
       new webpack.IgnorePlugin( /unicode\/category\/So/ ),
