@@ -40,7 +40,7 @@ function init( c, cb ) {
 
     .then( () => {
 
-      mw.init( require( './index' ), c );
+      mw.init( require( './service' ), c );
 
     } )
 
