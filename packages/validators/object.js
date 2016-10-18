@@ -6,6 +6,10 @@ var _utils = require('utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 
+var _listify = require('./listify');
+
+var _listify2 = _interopRequireDefault(_listify);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var MODES = {
@@ -21,11 +25,16 @@ module.exports = function (options, validators) {
     options = {};
   }
 
-  validate.type = 'object';
+  var params = _utils2.default.extend({
+    field: null,
+    list: false
+  }, options),
+      validator = _utils2.default.extend(validate, {
+    type: 'object',
+    field: params.field
+  });
 
-  validate.field = options ? options.field : null;
-
-  return validate;
+  return params.list ? (0, _listify2.default)(validator) : validator;
 
   function validate(values) {
 

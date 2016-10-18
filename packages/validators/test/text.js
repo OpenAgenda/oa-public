@@ -147,6 +147,25 @@ describe( 'text validator', () => {
 
   } );
 
+
+  describe( 'as list of texts', () => {
+
+    it( 'validates list of text when list bool is set to true', () => {
+
+      let validate = validators.text( {
+        field: 'text',
+        list: true,
+        optional: false
+      } );
+
+      should( validate( [ 'fsqfsdqs', 'fds' ] ) )
+
+      .eql( [ 'fsqfsdqs', 'fds' ] );
+
+    } );
+
+  } );
+
   
 
 } );

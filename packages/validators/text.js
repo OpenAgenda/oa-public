@@ -6,6 +6,10 @@ var _utils = require('utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 
+var _listify = require('./listify');
+
+var _listify2 = _interopRequireDefault(_listify);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = function (config) {
@@ -16,13 +20,15 @@ module.exports = function (config) {
     max: 1000000,
     trim: true,
     optional: true,
-    default: null
-  }, config || {});
-
-  return _utils2.default.extend(validate, {
+    default: null,
+    list: false
+  }, config || {}),
+      validator = _utils2.default.extend(validate, {
     type: 'text',
     field: params.field
   });
+
+  return params.list ? (0, _listify2.default)(validator) : validator;
 
   function validate(value) {
 

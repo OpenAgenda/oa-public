@@ -2,3 +2,4 @@ node_modules/*
 .idea/
 test/build/*
 !test/build/.empty
+npm-debug.log

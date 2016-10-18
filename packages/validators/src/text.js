@@ -1,22 +1,26 @@
 "use strict";
 
-import utils from 'utils'
+import utils from 'utils';
+import listify from './listify';
 
 module.exports = function( config ) {
 
-  var params = utils.extend( {
+  const params = utils.extend( {
     field: false, // required
     min: 0,
     max: 1000000,
     trim: true,
     optional: true,
-    default: null
-  }, config || {} );
+    default: null,
+    list: false
+  }, config || {} ),
 
-  return utils.extend( validate, {
+  validator = utils.extend( validate, {
     type: 'text',
     field: params.field
   } );
+
+  return params.list ? listify( validator ) : validator;
 
   function validate( value ) {
 

@@ -53,7 +53,38 @@ describe( 'list validator', () => {
     } );
 
 
-    it( 'decorates a valid item', () => {
+    it( 'gives index of each error returned', () => {
+
+      let errors = [];
+
+      try {
+
+        validate( [ 'name@email.com', 'rereer', '012394' ] );
+
+      } catch( e ) { errors = e; }
+
+      errors.forEach( e => {
+
+        e.index.should.equal( 1 );
+
+      } );
+
+      try {
+
+        validate( [ 'name@email.com', 'anothername@email.com', 'rereer', '012394' ] );
+
+      } catch( e ) { errors = e; }
+
+      errors.forEach( e => {
+
+        e.index.should.equal( 2 );
+
+      } );
+
+    } )
+
+
+    it( 'decorates a valid item with detected type', () => {
 
       var dec = validate.decorateItem( ' youpidou@gmail.com ' );
 

@@ -1,6 +1,7 @@
 "use strict";
 
-import utils from 'utils'
+import utils from 'utils';
+import listify from './listify';
 
 const MODES = {
   KEYED: 'keyed',
@@ -16,11 +17,17 @@ module.exports = function( options, validators ) {
 
   }
 
-  validate.type = 'object';
+  const params = utils.extend( {
+    field: null,
+    list: false
+  }, options ),
 
-  validate.field = options ? options.field : null;
+  validator = utils.extend( validate, {
+    type: 'object',
+    field: params.field,
+  } );
 
-  return validate;
+  return params.list ? listify( validator ) : validator;
 
   function validate( values ) {
 

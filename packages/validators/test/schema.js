@@ -4,17 +4,15 @@ require( 'source-map-support' ).install();
 
 const validators = require( './build' ),
 
-schema = require( './build/schema' ),
+schema = require( './build/newSchema' ),
 
 should = require( 'should' ),
 
 utils = require( 'utils' );
 
-describe( 'schema validator', () => {
+describe( 'schema validator v2', () => {
 
-  describe( 'basic', () => {
-
-    let schemaValidator;
+  describe( 'shallow schemas', () => {
 
     before( () => {
 
@@ -26,174 +24,123 @@ describe( 'schema validator', () => {
         number: validators.number
       } );
 
-      // define the schema
+    } );
 
-      schemaValidator = schema( {
+    it( 'validates an object with a basic schema', () => {
+
+      let validate = schema( {
         title: {
           type: 'text',
           min: 2,
           max: 100
+        }
+      } );
+
+      validate( {
+        title: 'Simple!'
+      } )
+
+      .should.eql( {
+        title: 'Simple!'
+      } );
+
+    } );
+
+
+    it( 'validates an object with a schema of two items', () => {
+
+      let validate = schema( {
+        title: {
+          type: 'text'
         },
-        url: {
+        link: {
           type: 'link'
-        },
-        settings: {
-          someSetting: {
-            type: 'number'
-          }
         }
+      } );
+
+      validate( {
+        title: 'This is not a link',
+        link: 'this.is.not.a.title'
+      } )
+
+      .should.eql( {
+        title: 'This is not a link',
+        link: 'http://this.is.not.a.title'
       } );
 
     } );
 
 
-    it( 'validates and cleans a value based on defined schema', () => {
+    it( 'throws flat error list when one field is invalid', () => {
 
-      let clean = schemaValidator( {
-        title: 'Lunettes, plutot sage',
-        url: 'https://openagenda.com',
-        settings: {
-          someSetting: '42'
+      let validate = schema( {
+        title: {
+          type: 'text',
+          optional: false
         }
-      } );
+      } ),
 
-      clean.should.eql( {
-        title: 'Lunettes, plutot sage',
-        url: 'https://openagenda.com',
-        settings: {
-          someSetting: 42 
-        }
-      } );
-
-    } );
-
-
-    it( 'validates and cleans a part of the schema', () => {
-
-      let clean = schemaValidator.part( 'url', 'https://openagenda.com' );
-
-      clean.should.equal( 'https://openagenda.com' );
-
-    } );
-
-
-    it( 'validates and cleans a deeper part of the schema', () => {
-
-      let clean = schemaValidator.part( 'settings.someSetting', '12' );
-
-      clean.should.equal( 12 );
-
-    } );
-    
-
-    it( 'validates a subset of the schema', () => {
-
-      let clean = schemaValidator.part( [ 'url', 'settings.someSetting' ], {
-        url: 'https://openagenda.com',
-        settings: {
-          someSetting: 12
-        }
-      } );
-
-      clean.should.eql( {
-        url: 'https://openagenda.com',
-        settings: {
-          someSetting: 12
-        }
-      } );
-
-    } );
-
-
-    it( 'validates and cleans a part of the schema - object case', () => {
-
-      let clean = false, errors = [];
+      errors = [];
 
       try {
 
-        clean = schemaValidator.part( 'settings', {
-          someSetting: 45
-        } );
+        validate( {} );
 
-      } catch( e ) {
+      } catch ( e ) {
 
         errors = e;
 
       }
 
-      errors.length.should.equal( 0 );
-
-      clean.should.eql( {
-        someSetting: 45
-      } );
-
-    } );
-    
-
-    it( 'filters out any value not part of the original schema', () => {
-
-      let clean = schemaValidator( {
-        title: 'the title',
-        url: 'https://openagenda.com',
-        settings: {
-          someSetting: '23'
-        },
-        ignoredValue: 'fdsfds'
-      } );
-
-      clean.should.eql( {
-        title: 'the title',
-        url: 'https://openagenda.com',
-        settings: {
-          someSetting: 23
-        }
-      } );
+      errors.should.eql( [ {
+        field: 'title',
+        code: 'required',
+        message: 'a string is required',
+        origin: undefined 
+      } ] );
 
     } );
 
 
-    it( '.default gives default values of schema with null when no default is defined', () => {
+    it( '.default gives default values of schema with null set when no defaults are defined', () => {
 
-      let validator = schema( {
+      let errors = [],
+
+      validate = schema( {
         title: {
           type: 'text',
           min: 2,
-          max: 100
+          max: 100,
+          default: 'default text'
         },
         url: {
           type: 'link'
-        },
-        settings: {
-          someSetting: {
-            type: 'number',
-            optional: false
-          }
         }
       } );
 
       try {
 
-        validator.default.should.eql( {
-          title: null, 
-          url: null, 
-          settings: { 
-            someSetting: null 
-          } 
+        validate.default.should.eql( {
+          title: 'default text', 
+          url: null,
         } );
 
-      } catch( e ) { console.log( e ); }
+      } catch( e ) { errors = e };
+
+      errors.length.should.equal( 0 );
 
     } );
 
   } );
 
+  describe( 'deep schemas - simple cases', () => {
 
-  describe( 'deep schemas', () => {
-
-    let schemaValidator;
+    let validate;
 
     before( () => {
 
+      // load up the validators
+      // that will be used by the schema lib
       schema.register( {
         text: validators.text,
         link: validators.link,
@@ -201,7 +148,45 @@ describe( 'schema validator', () => {
         boolean: validators.boolean
       } );
 
-      schemaValidator = schema( {
+      validate = schema( {
+        title: {
+          type: 'text'
+        },
+        sub: {
+          fields: {
+            description: {
+              type: 'text',
+              optional: false
+            }
+          }
+        }
+      } );
+
+    } );
+
+
+    it( 'validates an object with a deep schema', () => {
+
+      validate( {
+        title: 'Testing',
+        sub: {
+          description: 'a description'
+        }
+      } )
+
+      .should.eql( {
+        title: 'Testing',
+        sub: {
+          description: 'a description'
+        }
+      } );
+
+    } );
+
+
+    it( 'validates another deep schema object', () => {
+
+      let validate = schema( {
         title: { 
           type: 'text', 
           min: 2, 
@@ -230,14 +215,10 @@ describe( 'schema validator', () => {
             }
           }
         }
-      } );
-
-    } );
+      } ),
 
 
-    it( 'valid deep object is valid', () => {
-
-      let cleanObject = schemaValidator( {
+      cleanObject = validate( {
         title: 'Puma',
         description: 'A feline',
         url: 'https://openagenda.com',
@@ -264,15 +245,9 @@ describe( 'schema validator', () => {
     } );
 
 
-    it( 'undefined schema object gives default values', () => {
+    it( 'undefined object give defaults value throughout schema', () => {
 
-      schema.register( {
-        text: validators.text,
-        link: validators.link,
-        number: validators.number
-      } );
-
-      let validator = schema( {
+      let validate = schema( {
         contribution: {
           type: {
             default: 0,
@@ -293,17 +268,18 @@ describe( 'schema validator', () => {
 
       try {
         
-        clean = validator( {} );
+        clean = validate( {} );
 
-      } catch( e ) {
-
-        errors = e;
-
-      }
+      } catch( e ) { errors = e; }
 
       errors.length.should.equal( 0 );
 
-      clean.should.eql( { contribution: { type: 0, message: null } } )
+      clean.should.eql( {
+        contribution: {
+          type: 0,
+          message: null
+        } 
+      } );
 
     } );
 
@@ -342,13 +318,67 @@ describe( 'schema validator', () => {
     } );
 
 
-    it( 'invalid deep object gives flat', () => {
+    it( 'invalid deep object gives flat error', () => {
 
-      let errors;
+      let errors = [];
+
+      try {
+
+        validate( {
+          title: 'Testing',
+          sub: {}
+        } );
+
+      } catch ( e ) { errors = e; }
+
+      errors.should.eql( [ {
+        field: 'sub.description',
+        code: 'required',
+        message: 'a string is required',
+        origin: undefined 
+      } ] );
+
+    } );
+
+
+    it( 'invalid deep object gives flat error - 2', () => {
+
+      let errors,
+
+      validate = schema( {
+        title: { 
+          type: 'text', 
+          min: 2, 
+          max: 255, 
+          optional: false
+        },
+        description: {
+          type: 'text',
+          max: 40
+        },
+        image: {
+          type: 'text'
+        },
+        url: {
+          type: 'link'
+        },
+        settings: {
+          credentials: {
+            moderators: {
+              type: 'boolean',
+              default: false
+            },
+            universe: {
+              type: 'number',
+              default: 42
+            }
+          }
+        }
+      } );
 
       try {
         
-        let cleanObject = schemaValidator( {
+        let cleanObject = validate( {
           description: 'P',
           url: 'notalink',
           settings: {
@@ -383,10 +413,315 @@ describe( 'schema validator', () => {
 
     } );
 
+
+    it( 'simple schema structure ( without fields key ) is usable', () => {
+
+      let errors = [], clean,
+
+      validate = schema( {
+        title: {
+          type: 'text'
+        },
+        sub: {
+          // look ma', no fields key!
+          description: {
+            type: 'text'
+          }
+        }
+      } );
+
+      try {
+
+        clean = validate( {
+          title: 'Testing',
+          sub: {
+            description: 'Boom'
+          }
+        } );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      clean.should.eql( {
+        title: 'Testing',
+        sub: {
+          description: 'Boom'
+        }
+      } );
+
+    } );
+
+
+    it( 'filters out any data not part of schema', () => {
+
+      let validate = schema( {
+        title: {
+          type: 'text',
+          min: 2,
+          max: 100
+        },
+        url: {
+          type: 'link'
+        },
+        settings: {
+          someSetting: {
+            type: 'number'
+          }
+        }
+      } ),
+
+      clean = validate( {
+        title: 'the title',
+        url: 'https://openagenda.com',
+        settings: {
+          someSetting: '23'
+        },
+        ignoredValue: 'fdsfds'
+      } );
+
+      clean.should.eql( {
+        title: 'the title',
+        url: 'https://openagenda.com',
+        settings: {
+          someSetting: 23
+        }
+      } );
+
+    } );
+
+
+    it( '.default gives default values of schema with null when no default is defined', () => {
+
+      let validate = schema( {
+        title: {
+          type: 'text',
+          min: 2,
+          max: 100
+        },
+        url: {
+          type: 'link'
+        },
+        settings: {
+          someSetting: {
+            type: 'number',
+            optional: false
+          }
+        }
+      } );
+
+      try {
+
+        validate.default.should.eql( {
+          title: null, 
+          url: null, 
+          settings: { 
+            someSetting: null 
+          } 
+        } );
+
+      } catch( e ) { console.log( e ); }
+
+    } );
+
   } );
 
-    
-  describe( 'particulars', () => {
+
+  describe( 'lists in schemas', () => {
+
+    before( () => {
+
+      // load up the validators
+      // that will be used by the schema lib
+      schema.register( {
+        text: validators.text,
+        link: validators.link,
+        number: validators.number
+      } );
+
+    } );
+
+
+    it( 'validates a list of texts', () => {
+
+      let errors = [], clean,
+
+      validator = schema( {
+        aListOfTexts: {
+          type: 'text',
+          optional: false,
+          list: true
+        }
+      } );
+
+      try {
+
+        clean = validator( {
+          aListOfTexts: [ 'a', 'b', 'c' ]
+        } );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 0 );
+
+      clean.should.eql( {
+        aListOfTexts: [ 'a', 'b', 'c' ]
+      } );
+
+    } );
+
+
+    it( 'validates a list of objects', () => {
+
+      let errors = [], clean,
+
+        validator = schema( {
+          aListOfObjects: {
+            list: true,
+            fields: {
+              message: {
+                type: 'text'
+              }
+            }
+          }
+        } );
+
+      try {
+
+        clean = validator( {
+          aListOfObjects: [ {
+            message: 'One'
+          }, {
+            message: 'Two'
+          }, {
+            message: 'Three'
+          } ]
+        } );
+
+      } catch( e ) { errors = e; }
+
+      errors.length.should.equal( 0 );
+
+      clean.should.eql( { 
+        aListOfObjects: [ 
+          { message: 'One' }, 
+          { message: 'Two' }, 
+          { message: 'Three' } 
+        ] 
+      } );
+
+    } );
+
+  } );
+
+
+  describe( 'partial validation', () => {
+
+    let validate;
+
+    before( () => {
+
+      // load up the validators
+      // that will be used by the schema lib
+      schema.register( {
+        text: validators.text,
+        link: validators.link,
+        number: validators.number,
+        link: validators.link
+      } );
+
+      validate = schema( {
+        title: {
+          type: 'text',
+          min: 2,
+          max: 100
+        },
+        url: {
+          type: 'link'
+        },
+        settings: {
+          someSetting: {
+            type: 'number'
+          }
+        }
+      } );
+
+    } );
+
+
+    it( 'validates and cleans a part of the schema', () => {
+
+      let clean = validate.part( 'url', 'https://openagenda.com' );
+
+      clean.should.equal( 'https://openagenda.com' );
+
+    } );
+
+
+    it( 'validates and cleans a deeper part of the schema', () => {
+
+      let clean = validate.part( 'settings.someSetting', '12' );
+
+      clean.should.equal( 12 );
+
+    } );
+
+
+    it( 'validates a subset of the schema', () => {
+
+      let clean = validate.part( [ 'url', 'settings.someSetting' ], {
+        url: 'https://openagenda.com',
+        settings: {
+          someSetting: 12
+        }
+      } );
+
+      clean.should.eql( {
+        url: 'https://openagenda.com',
+        settings: {
+          someSetting: 12
+        }
+      } );
+
+    } );
+
+
+    it( 'validates and cleans a part of the schema - object case', () => {
+
+      let clean = false, errors = [];
+
+      try {
+
+        clean = validate.part( 'settings', {
+          someSetting: 45
+        } );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 0 );
+
+      clean.should.eql( {
+        someSetting: 45
+      } );
+
+    } );
+
+
+
+  } );
+
+
+  describe( 'particular cases', () => {
 
     before( () => {
 
@@ -566,9 +901,7 @@ describe( 'schema validator', () => {
       errors[ 0 ].field.should.equal( 'description.fr' );
 
     } );
-    
 
   } );
-
 
 } );

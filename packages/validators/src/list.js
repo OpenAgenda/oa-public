@@ -24,10 +24,10 @@ module.exports = function( config, validators ) {
 
   utils.extend( validate, {
     type: 'list',
-    clean: clean,
-    decorate: decorate,
-    validateItem: validateItem,
-    decorateItem: decorateItem
+    clean,
+    decorate,
+    validateItem,
+    decorateItem
   } );
 
   return utils.extend( validate, {
@@ -62,7 +62,7 @@ module.exports = function( config, validators ) {
 
     }
 
-    value.forEach( function( item, i ) {
+    value.forEach( ( item, i ) => {
 
       try {
 
