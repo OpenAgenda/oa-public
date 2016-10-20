@@ -119,12 +119,6 @@ function _verifyEventContributorAssociation( v ) {
  */
 function _updateOwnership( v ) {
 
-  if ( v.transferedEvent.ownerId !== v.agendaEvent.userId ) {
-
-    return v;
-
-  }
-
   return knex.transaction( trx => {
 
     return trx.table( schemas.event )
