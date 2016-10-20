@@ -12,7 +12,25 @@ schemas.register( {
   number: require( 'validators/number' )
 } );
 
-let schema;
+const schema = schemas( {
+  page: {
+    type: 'number',
+    optional: true,
+    default: defaults.page,
+    min: 1
+  },
+  offset: {
+    type: 'number',
+    optional: true,
+    default: defaults.offset
+  },
+  limit: {
+    type: 'number',
+    optional: true,
+    default: defaults.limit,
+    max: 100
+  }
+} );
 
 module.exports = function( navQuery ) {
 
@@ -49,24 +67,3 @@ module.exports = function( navQuery ) {
   }
 
 }
-
-
-schema = schemas( {
-  page: {
-    type: 'number',
-    optional: true,
-    default: defaults.page,
-    min: 1
-  },
-  offset: {
-    type: 'number',
-    optional: true,
-    default: defaults.offset
-  },
-  limit: {
-    type: 'number',
-    optional: true,
-    default: defaults.limit,
-    max: 100
-  }
-} );
