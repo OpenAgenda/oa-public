@@ -565,16 +565,30 @@ function _initAgendaService( config ) { // sync
       },
       onUpdate: ( before, after ) => {
 
-        let hasContributionSettingsChange = JSON.stringify( before.settings.contribution ) !== JSON.stringify( after.settings.contribution );
+        let updateType,
+
+        hasContributionSettingsChange = JSON.stringify( before.settings.contribution ) !== JSON.stringify( after.settings.contribution ),
+
+        hasCredentialsChange = JSON.stringify( before.credentials ) !== JSON.stringify( after.credentials );
+
+        if ( hasContributionSettingsChange ) {
+
+          updateType = 'contribution';
+
+        } else if ( hasCredentialsChange ) {
+
+          updateType = 'credentials';
+
+        }
 
         coms.publish( config.mainChannel, {
           name: 'agenda.update',
           values: {
             id: after.id,
-            type: hasContributionSettingsChange ? 'contribution' : undefined
+            type: updateType
           }
         } );
-          
+
       }
     }
   } );

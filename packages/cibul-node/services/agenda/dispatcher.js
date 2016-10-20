@@ -14,7 +14,9 @@ coms = require( '../../lib/coms' ),
 
 config = require( '../../config' ),
 
-clearReferences = require( '../event/clearReferences' );
+clearReferences = require( '../event/clearReferences' ),
+
+redis = require( 'redis' );
 
 module.exports = agenda => {
 
@@ -152,6 +154,8 @@ module.exports = agenda => {
       type: 'reset',
     } );
 
+    _legacyCredCacheClear( agenda.id );
+
     agenda.refreshUpdatedAt();
 
   }
@@ -164,6 +168,25 @@ function _legacySearchUpdate( eventId ) {
   coms.publish( config.mainChannel, {
     name: 'search.update', 
     values: { id: eventId } 
+  } );
+
+}
+
+
+function _legacyCredCacheClear( agendaId ) {
+
+  var cli = redis.createClient( config.redis.port, config.redis.host );
+
+  cli.del( `review:${agendaId}:ft`, ( err, result ) => {
+
+    if ( err ) {
+
+      return log( 'error', { method: '_legacyCredCacheClear', error: err } );
+
+    }
+
+    cli.quit();
+
   } );
 
 }
