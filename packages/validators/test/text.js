@@ -88,8 +88,6 @@ describe( 'text validator', () => {
 
         errors = e;
 
-        console.log( e );
-
       }
 
       errors.length.should.equal( 0 );

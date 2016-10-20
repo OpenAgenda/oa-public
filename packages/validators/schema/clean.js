@@ -47,8 +47,18 @@ function _isNormalized(schema) {
 
 function _isLeaf(node) {
 
-  return !Object.keys(node || {}).filter(function (k) {
+  var is = false;
 
-    return _typeof(node[k]) === 'object';
-  }).length;
+  if (node && node.type && _typeof(node.type) !== 'object' && node.type !== 'schema') {
+
+    is = true;
+  } else {
+
+    is = !Object.keys(node || {}).filter(function (k) {
+
+      return _typeof(node[k]) === 'object' && node[k] !== null;
+    }).length;
+  }
+
+  return is;
 }

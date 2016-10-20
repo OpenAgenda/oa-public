@@ -50,10 +50,22 @@ function _isNormalized( schema ) {
 
 function _isLeaf( node ) {
 
-  return !Object.keys( node || {} ).filter( k => {
+  let is = false;
 
-    return typeof node[ k ] === 'object'
+  if ( node && node.type && typeof node.type !== 'object' && node.type !== 'schema' ) {
 
-  } ).length;
+    is = true;
+
+  } else {
+
+    is = !Object.keys( node || {} ).filter( k => {
+
+      return ( typeof node[ k ] === 'object' && node[ k ] !== null );
+
+    } ).length;
+
+  }
+
+  return is;
 
 }
