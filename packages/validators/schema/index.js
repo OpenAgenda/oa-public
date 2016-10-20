@@ -45,7 +45,9 @@ function schema(options) {
    */
   return _utils2.default.extend(params.list ? (0, _listify2.default)(validate) : validate, {
     part: part,
-    default: _root2.default.getDefault(params.fields)
+    default: _root2.default.getDefault(params.fields),
+    fields: params.fields,
+    struct: params.root ? options : params.fields // legacy
   });
 
   function validate(value) {
