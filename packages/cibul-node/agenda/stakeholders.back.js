@@ -107,8 +107,8 @@ routes = {
   ] ],
 
   eventTransfer: [ 'get', '/contributors/transfer/:eventSlug' , [
-    cmn.checkAdminOrModerator,
     eventSvc.mw.load( 'eventSlug', 'slug' ),
+    _checkAdminOrModeratorOrEventOwner,
     cmn.checkCredential( 'eventTransfer' ),
     stakeholdersMw.loadAgenda( 'agenda', 'stakeholders' ),
     _loadUserByEmail,
@@ -465,7 +465,35 @@ function transfer( req, res, next ) {
 
     res.setFlash( req, 'ownership is transfered' );
 
-    res.redirect( 302, req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } ) );
+    res.redirect( 302, req.genUrl( 'agendaEventShow', {
+      slug: req.agenda.slug,
+      eventSlug: req.event.slug
+    } ) );
+
+  } );
+
+}
+
+
+function _checkAdminOrModeratorOrEventOwner( req, res, next ) {
+
+  if ( req.event.ownerId === req.user.id ) {
+
+    return next();
+
+  }
+
+  cmn.checkAdminOrModerator( req, res, result => {
+
+    if ( result ) return next( result );
+
+    req.event.getAdminAgendas( ( err, agendas ) => {
+
+      let isAdminAgenda = !!agendas.map( a => a.uid ).filter( uid => uid === req.agenda.uid ).length;
+
+      next( isAdminAgenda ? null : { code: 403 } );
+
+    } );
 
   } );
 
