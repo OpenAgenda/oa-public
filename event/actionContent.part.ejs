@@ -20,9 +20,9 @@
 
 <% agendas.forEach( function( agenda ) { %>
 <% if ( agenda.sharing ) { %>
-  <a class="btn btn-default checked uncheckable" href="<%= genUrl( 'agendaEventRemove', { slug: agenda.slug, eventUid: event.uid } ) %>"><%= agenda.title %></a>
+  <a class="btn btn-default checked uncheckable" href="<%= genUrl( 'agendaEventRemove', { slug: agenda.slug, eventUid: event.uid, redirect: agenda.redirect } ) %>"><%= agenda.title %></a>
 <% } else { %>
-  <a class="btn btn-default" href="<%= genUrl( 'agendaEventAdd', { slug: agenda.slug, eventUid: event.uid } ) %>"><%= agenda.title %></a>
+  <a class="btn btn-default" href="<%= genUrl( 'agendaEventAdd', { slug: agenda.slug, eventUid: event.uid, redirect: agenda.redirect } ) %>"><%= agenda.title %></a>
 <% } %>
 <% }); %>
 

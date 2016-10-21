@@ -36,6 +36,12 @@
       "slug" : "la-gargouille",
       "image" : "review_cheznous_598_00.jpg"
     },
+    "agendas" : [
+      { "title" : "La Gargouille", "uid" : 898989, "sharing" : false, "redirect" : "#" },
+      { "title" : "Bibi", "uid" : 7872837, "sharing" : false, "redirect" : "#" },
+      { "title" : "L'agenda de Zorglub", "uid" : 1983928, "sharing" : true , "redirect" : "#" }
+    ],
+    "actions" : [ "calendars", "agendas", "email" ],
     "back" : "#"
   }
 }
