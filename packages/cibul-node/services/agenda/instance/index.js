@@ -6,6 +6,8 @@ utils = require( '../../../lib/utils' ),
 
 w = require( 'when' ),
 
+extAgendaSvc = require( 'agendas' ),
+
 eventSvc = require( '../../event' ),
 
 search = require( './search' ),
@@ -51,6 +53,7 @@ function instanciate( data ) {
   svcInstance = utils.extend( {}, instance, {
     addEvent,
     removeEvent,
+    getContributionSettings,
     setEventFeatured,
     setEventUnfeatured,
     setEventTagsAndCategory,
@@ -154,7 +157,8 @@ function instanciate( data ) {
     let params = utils.extend( {
       stakeholder: null, // required!
       refresh: true,
-      mute: false
+      mute: false,
+      publish: true
     }, options );
 
     instance.isStakeholder( params.stakeholder, ( err, is ) => {
@@ -163,7 +167,7 @@ function instanciate( data ) {
 
       if ( !is ) return cb( 'you cannot contribute to this agenda' );
 
-      instance.addEvent( event, params.stakeholder, err => {
+      instance.addEvent( event, params.stakeholder, { publish: params.publish }, err => {
 
         if ( err ) return cb( err );
 
@@ -328,6 +332,19 @@ function instanciate( data ) {
         id: event.id,
         agendaId: instance.id,
       }, values )
+    } );
+
+  }
+
+
+  function getContributionSettings( cb ) {
+
+    extAgendaSvc.get( { id: instance.id }, ( err, agenda ) => {
+
+      if ( err ) return cb( err );
+
+      cb( null, agenda.settings.contribution );
+
     } );
 
   }

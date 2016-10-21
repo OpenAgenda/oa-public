@@ -16,6 +16,8 @@ model = require( '../services/model' ),
 
 async = require( 'async' ),
 
+getActionLabel = require( 'labels' )( require( 'labels/event/actions' ) ),
+
 routes = {
 
   agendaActionShow: [ 'get', '/', actionShow ],
@@ -23,6 +25,7 @@ routes = {
   agendaEventAdd: [ 'get', '/add/:eventUid', [
     cmn.requireLogged(),
     eventSvc.mw.load( 'eventUid', 'uid', { inAgendaContext: false } ),
+    _getRedirect,
     cmn.checkStakeholder,
     _verifyAlreadyAdded,
     eventAdd
@@ -31,6 +34,7 @@ routes = {
   agendaEventRemove: [ 'get', '/remove/:eventUid', [
     cmn.requireLogged(),
     eventSvc.mw.load( 'eventUid', 'uid' ),
+    _getRedirect,
     cmn.checkStakeholder,
     eventRemove
   ] ]
@@ -198,24 +202,33 @@ function actionShow( req, res ) {
 }
 
 
-
+/**
+ * added regardless of state.
+ */
+  
 function eventAdd( req, res ) {
 
-  req.agenda.addEvent( req.event, req.user, function( err ) {
+  req.agenda.getContributionSettings( ( err, contributionSettings ) => {
 
-    if ( err ) {
+    req.agenda.addEvent( req.event, {
+      stakeholder: req.user,
+      publish: contributionSettings.defaultState === 2 ? true : false
+    }, err => {
 
-      req.log( 'error', 'eventAdd: %s', err );
+      if ( err ) {
 
-      _onActionComplete( req, res, false, 'the event could not be added' );
+        req.log( 'error', 'eventAdd: %s', err );
 
-    } else {
+        return _onActionComplete( req, res, false, getActionLabel( 'agendaShareError', { agenda: req.agenda.title }, req.lang ) );
 
-      _onActionComplete( req, res, true, 'the event was added to the agenda' );
+      }
 
-    }
+      return _onActionComplete( req, res, true, getActionLabel( contributionSettings.defaultState === 2 ? 'agendaSharePublished' : 'agendaShareToControl', { agenda: req.agenda.title }, req.lang ) );
 
-  });
+    } );
+
+  } );
+
 
 }
 
@@ -228,15 +241,24 @@ function eventRemove( req, res ) {
 
       req.log( 'error', 'eventRemove: %s', err );
 
-      _onActionComplete( req, res, false, 'the event could not be removed' );
+      _onActionComplete( req, res, false, getActionLabel( 'agendaShareRemoveError', { agenda: req.agenda.title } , req.lang ) );
 
     } else {
 
-      _onActionComplete( req, res, true, 'the event was removed from the agenda' );
+      _onActionComplete( req, res, true, getActionLabel( 'agendaShareRemoved', { agenda: req.agenda.title }, req.lang ) );
 
     }
 
   });
+
+}
+
+
+function _getRedirect( req, res, next ) {
+
+  req.redirect = cmn.getRedirect( req );
+
+  next();
 
 }
 
@@ -264,29 +286,25 @@ function _verifyAlreadyAdded( req, res, next ) {
 
 function _onActionComplete( req, res, success, message ) {
 
-  var rd = cmn.getRedirect( req );
-
   if ( req.xhr ) {
 
-    cmn.renderJson( {
-      success: success,
-      message: message
+    return cmn.renderJson( {
+      success,
+      message
     } );
-
-    return;
 
   }
 
   res.setFlash( req, message );
 
-  if ( rd ) {
+  if ( req.redirect ) {
 
-    res.redirect( 302, rd );
-
-    return;
+    return res.redirect( 302, req.redirect );
 
   }
 
-  res.redirect( 302, req.genUrl( 'eventShow', { eventSlug: req.event.slug } ) );
+  res.redirect( 302, req.genUrl( 'eventActionShow', {
+    eventSlug: req.event.slug
+  } ) );
 
 }

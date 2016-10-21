@@ -287,28 +287,29 @@ function _agendasAction( req, res, next ) {
 
   if ( !req.session.logged ) return next();
 
-  var agendasSharing = req.event.articles
+  req.event.getAgendaReferences( { isPublished: null, internal: true }, ( err, agendasSharing ) => {
 
-    .filter( function( a ) { return a.isPublished; } )
+    model.reviews().list( { stakeholderId: req.user.id, limit: 200 }, function( err, agendas ) {
 
-    .map( function( a ) { return a.review.id; });
+      if ( err ) return next( err );
 
-  model.reviews().list( { stakeholderId: req.user.id, limit: 200 }, function( err, agendas ) {
+      req.templateData.agendas = agendas.map( a => {
 
-    if ( err ) return next( err );
+        return {
+          uid: a.uid,
+          slug: a.slug,
+          title: a.title,
+          sharing: agendasSharing.map( a => a.id ).indexOf( a.id ) !== -1,
+          redirect: req.agenda ?
+            new Buffer( req.genUrl( 'agendaEventActionShow', { slug: req.agenda.slug, eventSlug: req.event.slug } ) ).toString( 'base64' )
+            : new Buffer( req.genUrl( 'eventActionShow', { eventSlug: req.event.slug } ) ).toString( 'base64' )
+        };
 
-    req.templateData.agendas = agendas.map( function( a ) {
+      } );
 
-      return {
-        uid: a.uid,
-        slug: a.slug,
-        title: a.title,
-        sharing: agendasSharing.indexOf( a.id ) !== -1
-      };
+      next();
 
-    });
-
-    next();
+    } );
 
   } );
 
