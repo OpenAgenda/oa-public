@@ -470,7 +470,7 @@ function widget( elem, options ) {
 
     if ( popupMarker ) {
 
-      popupMarker.remove();
+      map.removeLayer( popupMarker );
       popupMarker = undefined;
 
     }
