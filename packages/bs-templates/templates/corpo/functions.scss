@@ -1,0 +1,17 @@
+#functions {
+
+  figure .rounded {
+    width: 256px;
+    line-height: 256px;
+    border-radius: 128px;
+    background: $oa-blue;
+    margin-left: 20em;
+    margin-right: 1em;
+
+    img {
+      margin: 0;
+      transform: scale(0.7);
+    }
+  }
+
+}
