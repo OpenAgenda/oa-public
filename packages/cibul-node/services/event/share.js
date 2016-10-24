@@ -148,6 +148,8 @@ function _linkedInShare( event, eventUrl, siteUrl ) {
 
   + '&title=' + encodeURIComponent( event.getTitle() )
 
+  + '&summary=' + encodeURIComponent( event.getDescription() + ' - ' + eventUrl )
+
   + '&source=' + encodeURIComponent( siteUrl );
 
 }
@@ -162,13 +164,14 @@ function _pinterestShare( event, eventUrl ) {
 
   var shareLink = 'http://pinterest.com/pin/create/button/'
                 + '?url=' + encodeURIComponent( eventUrl )
-                + '&description=' + encodeURIComponent( event.getDescription() ),
+                + '&description=' + encodeURIComponent( event.getDescription() )
+                + '&is_video=false',
 
   image = event.getImage( true );
 
   if ( image ) {
 
-    shareLink += '&imageUrl=' + encodeURIComponent( image );
+    shareLink += '&media=' + encodeURIComponent( image );
 
   }
 
