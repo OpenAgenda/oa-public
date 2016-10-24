@@ -108,6 +108,21 @@ describe( 'service', function () {
 
   } );
 
+  it( 'get user with detailed options', done => {
+
+    service.get( { id: 2 }, { detailed: true }, ( err, user ) => {
+
+      should( err ).equal( null );
+      should( user ).have.property( 'api_key' );
+      should( user ).have.property( 'facebook_uid' );
+      should( user ).have.property( 'last_signin' );
+
+      done();
+
+    } );
+
+  } );
+
   it( 'set', done => {
 
     service.set( { id: 2, full_name: 'Romain' }, ( err, result ) => {
