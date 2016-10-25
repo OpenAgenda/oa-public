@@ -377,7 +377,7 @@ function _update( schema ) {
 
             }
 
-            if ( job.values && job.values.type === 'event.remove' ) return cb();
+            // removed events need to be updated too. Event delete is different from event remove.
 
             _updateES( obj, cb );
 

@@ -230,7 +230,7 @@ function instanciate( data ) {
       instance.removeEvent( v.event, ( err, count ) => {
 
         if ( err ) return cb( err );
-
+        
         announceEventUpdate( v.event, {
           type: 'event.remove',
           refresh: v.refresh
