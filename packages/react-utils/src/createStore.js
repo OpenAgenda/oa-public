@@ -51,7 +51,7 @@ function promiseMiddleware( client ) {
     return promise( client, store.getState() )
       .then(
         result => next( { ...rest, result, type: SUCCESS } ),
-        error => next( { ...rest, result, type: FAILURE } )
+        error => next( { ...rest, error, type: FAILURE } )
       );
 
   };

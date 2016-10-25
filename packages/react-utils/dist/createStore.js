@@ -72,7 +72,7 @@ function promiseMiddleware(client) {
         return promise(client, store.getState()).then(function (result) {
           return next(_extends({}, rest, { result: result, type: SUCCESS }));
         }, function (error) {
-          return next(_extends({}, rest, { result: result, type: FAILURE }));
+          return next(_extends({}, rest, { error: error, type: FAILURE }));
         });
       };
     };
