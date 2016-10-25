@@ -162,6 +162,19 @@ describe( 'text validator', () => {
 
     } );
 
+    it.only( 'considers an undefined value like an empty array when list bool is set to true', () => {
+
+      let validate = validators.text( {
+        field: 'text',
+        list: true
+      } );
+
+      should( validate() )
+
+      .eql( [] );
+
+    } );
+
   } );
 
   

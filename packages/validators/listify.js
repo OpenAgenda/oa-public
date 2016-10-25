@@ -20,9 +20,10 @@ module.exports = function (validator) {
   function validate(v) {
 
     var clean = [],
-        errors = [];
+        errors = [],
+        value = v === undefined ? [] : v;
 
-    if (!_utils2.default.isArray(v)) {
+    if (!_utils2.default.isArray(value)) {
 
       throw [{
         field: validator.field,
@@ -32,7 +33,7 @@ module.exports = function (validator) {
       }];
     }
 
-    v.forEach(function (item, i) {
+    value.forEach(function (item, i) {
 
       try {
 

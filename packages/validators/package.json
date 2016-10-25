@@ -11,6 +11,7 @@
   },
   "scripts": {
     "pre-commit": "babel src -d ./",
+    "build": "babel src -d ./",
     "build-test": "babel src -d test/build --source-maps inline && mocha",
     "watch": "npm-watch"
   },

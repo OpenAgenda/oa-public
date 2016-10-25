@@ -15,9 +15,11 @@ module.exports = validator => {
 
   function validate( v ) {
 
-    let clean = [], errors = [];
+    let clean = [], errors = [],
 
-    if ( !utils.isArray( v ) ) {
+    value = v === undefined ? [] : v;
+
+    if ( !utils.isArray( value ) ) {
 
       throw [ {
         field: validator.field,
@@ -28,7 +30,7 @@ module.exports = validator => {
 
     }
 
-    v.forEach( ( item, i ) => {
+    value.forEach( ( item, i ) => {
 
       try {
 
