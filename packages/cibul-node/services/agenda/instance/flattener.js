@@ -421,6 +421,7 @@ function _extendLocationMapping( agenda, languages ) {
     'location.phone',
     'location.website', 
     'location.links',
+    'location.imageCredits',
     {
       sourceField: 'location.tags',
       destField: 'location.tags',

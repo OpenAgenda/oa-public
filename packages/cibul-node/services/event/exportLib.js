@@ -45,6 +45,7 @@ locationFieldsMap = {
   slug : 'slug',
   address : 'address',
   image: 'image',
+  imageCredits: 'imageCredits',
   postalCode : 'postcode',
   city: 'city',
   district: 'district',
