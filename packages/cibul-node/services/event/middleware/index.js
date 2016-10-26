@@ -199,17 +199,19 @@ function ics( req, res, next ) {
 
 function layoutData( req, res ) {
 
+  let description = req.formatted.description + ' - ' + req.formatted.dateRange + ' - ' + req.formatted.location.name;
+
   var data = {
     metas: {
       title: utils.escape( req.formatted.title, false ),
       keywords: utils.escape( req.formatted.keywords, false ),
       ogSiteName: { property: 'og:site_name', content: 'OpenAgenda' },
       ogTitle: { property: 'og:title', content: utils.escape( req.formatted.title, false ) },
-      ogDescription: { property: 'og:description', content: utils.escape( req.formatted.description + ' - ' + req.formatted.dateRange ) },
+      ogDescription: { property: 'og:description', content: utils.escape( description ) },
       ogLocale: { property: 'og:locale', content: req.lang },
       "twitter:card" : req.event.image ? 'summary_large_image' : 'summary',
       "twitter:title" : utils.escape( req.formatted.title, false ),
-      "twitter:description" : utils.escape( req.formatted.description + ' - ' + req.formatted.dateRange, false ),
+      "twitter:description" : utils.escape( description, false ),
       "twitter:domain" : config.domain
     },
     loner: !req.agenda
