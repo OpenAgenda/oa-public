@@ -19,6 +19,7 @@
 
   ul.calweekdays, .calbody ul {
     li {
+    
       border: 2px solid $oa-gray-lighter;
       cursor: pointer;
       color: $oa-gray;
@@ -31,6 +32,12 @@
       &:hover {
         color: $oa-blue;
       }
+
+      &.today {
+        font-weight: bold;
+        color: $oa-blue;
+      }
+
     }
   }
 
@@ -68,14 +75,13 @@
     background: $oa-white;
   }
 
-  .today {
-    color: $oa-blue;
-  }
-
   .selected {
     background: $oa-blue;
     border-radius: 0;
-    color: $oa-white;
+
+    span {
+      color: $oa-white;
+    }
 
     &:hover {
       color: $oa-white;
