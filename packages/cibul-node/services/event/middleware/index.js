@@ -205,11 +205,11 @@ function layoutData( req, res ) {
       keywords: utils.escape( req.formatted.keywords, false ),
       ogSiteName: { property: 'og:site_name', content: 'OpenAgenda' },
       ogTitle: { property: 'og:title', content: utils.escape( req.formatted.title, false ) },
-      ogDescription: { property: 'og:description', content: utils.escape( req.formatted.description ) },
+      ogDescription: { property: 'og:description', content: utils.escape( req.formatted.description + ' - ' + req.formatted.dateRange ) },
       ogLocale: { property: 'og:locale', content: req.lang },
       "twitter:card" : req.event.image ? 'summary_large_image' : 'summary',
       "twitter:title" : utils.escape( req.formatted.title, false ),
-      "twitter:description" : utils.escape( req.formatted.description, false ),
+      "twitter:description" : utils.escape( req.formatted.description + ' - ' + req.formatted.dateRange, false ),
       "twitter:domain" : config.domain
     },
     loner: !req.agenda
