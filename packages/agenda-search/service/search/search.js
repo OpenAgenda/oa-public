@@ -121,7 +121,7 @@ function _populate( v ) {
 
       }
 
-      let filteredItems = items.filter( a => a.publishedEvents || a.official );
+      let filteredItems = items.filter( _rebuildFilter );
 
       pageCount = items.length;
 
@@ -158,6 +158,17 @@ function _populate( v ) {
   } );
 
   return d.promise;
+
+}
+
+
+function _rebuildFilter( a ) {
+
+  if ( /(t|T)est/.test( a.title ) ) return false;
+
+  if ( /(t|T)est/.test( a.description ) ) return false;
+
+  return a.publishedEvents || a.official;
 
 }
 

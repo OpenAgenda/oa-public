@@ -76,11 +76,11 @@ async.waterfall( [
 
   if ( err ) throw err;
 
-  service.init( utils.extend( {
+  service.init( utils.extend( config, {
     services: {
       agendas: agendaService
     }
-  }, config ) );
+  } ) );
 
   service.rebuild( () => app.getAndListen() );
 

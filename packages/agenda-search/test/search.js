@@ -26,7 +26,7 @@ describe( 'search', function() {
 
     search.list( {}, 0, 10, ( err, agendas, total ) => {
 
-      total.should.equal( 980 );
+      total.should.equal( 978 );
 
       done();
 

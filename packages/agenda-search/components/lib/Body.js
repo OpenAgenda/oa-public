@@ -169,7 +169,7 @@ module.exports = React.createClass({
           'div',
           { className: 'wsq col-sm-8 col-sm-offset-2' },
           this.state.loading ? React.createElement(Spinner, null) : null,
-          this.state.search ? this.renderSearchHead() : this.renderHead(),
+          this.state.query.search ? this.renderSearchHead() : this.renderHead(),
           React.createElement(
             'div',
             { className: 'body media-list' },

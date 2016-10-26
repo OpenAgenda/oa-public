@@ -35,5 +35,11 @@ module.exports = {
   image: {
     path: '//cibul.s3.amazonaws.com/',
     default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-  }
+  },
+  files: {
+    tmpPath: __dirname + '/test/tmp',
+    bucket: 'openagendatst',
+    accessKeyId: '',
+    secretAccessKey: ''
+  },
 }

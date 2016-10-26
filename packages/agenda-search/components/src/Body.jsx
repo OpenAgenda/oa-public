@@ -176,7 +176,7 @@ module.exports = React.createClass( {
       <div className="row">
         <div className="wsq col-sm-8 col-sm-offset-2">
           { this.state.loading ? <Spinner/> : null }
-          { this.state.search ? this.renderSearchHead() : this.renderHead() }
+          { this.state.query.search ? this.renderSearchHead() : this.renderHead() }
           <div className="body media-list">
             {this.state.agendas.length ? <List
               query={this.state.query}
