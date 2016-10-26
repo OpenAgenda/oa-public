@@ -55,7 +55,7 @@ app.post( '/:slug/remove', [
 function matchApp( req, res, next ) {
 
   const prefix = '';
-  const lang = req.lang || 'fr';
+  const lang = req.query.lang || 'fr';
 
   if ( req.query._app == 'edition' ) {
 
