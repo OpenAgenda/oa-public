@@ -165,7 +165,9 @@ module.exports = React.createClass({
 
     return new Promise(function (resolve, reject) {
 
-      data.credentials = Object.assign({}, _this6.state.agenda.credentials, data.credentials);
+      if (data.credentials) {
+        data.credentials = Object.assign({}, _this6.state.agenda.credentials, data.credentials);
+      }
 
       post(_this6.props.setAgendaRes + "/" + _this6.state.agenda.uid, data, function (err, result) {
 

@@ -92,7 +92,7 @@ function get( req, res, next ) {
 
 function set( req, res, next ) {
 
-  agendas.set( { uid: req.params.uid }, req.body, { internal: true }, ( err, result ) => {
+  agendas.set( { uid: req.params.uid }, req.body, { internal: true, protected: false }, ( err, result ) => {
 
     if ( err ) return next( err );
 
