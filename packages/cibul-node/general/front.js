@@ -14,8 +14,6 @@ var modLib = require( '../lib/moduleLib' ),
 
   metaLabels = require( 'labels' )( require( 'labels/corpo/metas' ) ),
 
-  agendas = require( 'agendas' ),
-
   mwHelpers = require( '../services/lib/middlewareHelpers.js' ),
 
   path,
