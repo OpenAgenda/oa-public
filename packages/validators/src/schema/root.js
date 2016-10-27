@@ -21,11 +21,26 @@ function getFlat( fields, values ) {
 
     return {
       field: f,
-      validator: registeredValidators[ type ]( utils.extend( { field: f }, fieldOptions ) ),
+      validator: _makeValidator( type, f, fieldOptions ),
       value: ( values || {} )[ f ]
     }
 
   } );
+
+}
+
+
+function _makeValidator( type, field, options ) {
+
+  let validatorOptions = utils.extend( { field }, options );
+
+  if ( type === 'list' ) {
+
+    validatorOptions.validators = registeredValidators;
+
+  }
+
+  return registeredValidators[ type ]( validatorOptions );
 
 }
 

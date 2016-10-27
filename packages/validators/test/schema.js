@@ -621,6 +621,50 @@ describe( 'schema validator v2', () => {
   } );
 
 
+  describe( 'schema using list validator', () => {
+
+    let validate;
+
+    before( () => {
+
+      schema.register( {
+        text: validators.text,
+        phone: validators.phone,
+        email: validators.email,
+        list: validators.list
+      } );
+
+      validate = schema( {
+        title: {
+          type: 'text'
+        },
+        registration: {
+          type: 'list',
+          types: [ 'phone', 'email' ]
+        }
+      } );
+
+    } );
+
+
+    it( 'list validator validates a data of potentially multiple types', () => {
+
+      validate( {
+        title: 'Yay',
+        registration: [ '031', 'yay@site.com' ]
+      } )
+
+      .should.eql( {
+        title: 'Yay',
+        registration: [ '031', 'yay@site.com' ]
+      } );
+
+    } );
+
+
+  } );
+
+
   describe( 'partial validation', () => {
 
     let validate;

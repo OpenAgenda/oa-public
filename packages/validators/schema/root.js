@@ -23,10 +23,22 @@ function getFlat(fields, values) {
 
     return {
       field: f,
-      validator: registeredValidators[type](_utils2.default.extend({ field: f }, fieldOptions)),
+      validator: _makeValidator(type, f, fieldOptions),
       value: (values || {})[f]
     };
   });
+}
+
+function _makeValidator(type, field, options) {
+
+  var validatorOptions = _utils2.default.extend({ field: field }, options);
+
+  if (type === 'list') {
+
+    validatorOptions.validators = registeredValidators;
+  }
+
+  return registeredValidators[type](validatorOptions);
 }
 
 function getDefault(fields) {

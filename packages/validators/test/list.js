@@ -2,7 +2,7 @@
 
 var should = require( 'should' ),
 
-validators = require( '../' );
+validators = require( './build' );
 
 describe( 'list validator', () => {
 
@@ -130,6 +130,27 @@ describe( 'list validator', () => {
       var clean = validate.validateItem( 'phone@number.com' );
 
       clean.should.equal( 'phone@number.com' );
+
+    } );
+
+  } );
+
+  describe( 'initialized with types list', () => {
+
+    let validate = validators.list( {
+      types: [ 'link', 'phone', 'email' ],
+      validators: {
+        link: validators.link,
+        phone: validators.phone,
+        email: validators.email
+      }
+    } );
+
+    it( 'includes stuff', () => {
+
+      validate( [ '08381', 'email@site.com', 'https://oa.com' ] )
+
+      .should.eql( [ '08381', 'email@site.com', 'https://oa.com' ] );
 
     } );
 

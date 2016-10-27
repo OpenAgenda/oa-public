@@ -8,17 +8,20 @@ var utils = require('utils');
  * an index.
  */
 
-module.exports = function (config, validators) {
+module.exports = function (config, validates) {
 
-  if (arguments.length == 1) {
+  if (arguments.length == 1 && utils.isArray(arguments[0])) {
 
-    validators = config;
+    validates = config;
     config = {};
   }
 
   var params = utils.extend({
     field: null,
-    optional: false
+    optional: false,
+    types: false,
+    validators: false,
+    validates: []
   }, config);
 
   utils.extend(validate, {
@@ -28,6 +31,27 @@ module.exports = function (config, validators) {
     validateItem: validateItem,
     decorateItem: decorateItem
   });
+
+  if (validates) {
+
+    params.validates = validates;
+  } else {
+
+    if (!params.types || !params.validators) {
+
+      throw new Error('if list validators are not given, validators and types must be provided in config');
+    }
+
+    params.types.forEach(function (type) {
+
+      if (params.validators[type] === undefined) {
+
+        throw new Error('list validator requires ' + type + ' validator to function');
+      }
+
+      params.validates.push(params.validators[type]());
+    });
+  }
 
   return utils.extend(validate, {
     type: 'list',
@@ -101,7 +125,7 @@ module.exports = function (config, validators) {
         errors = [],
         type;
 
-    validators.forEach(function (v) {
+    params.validates.forEach(function (v) {
 
       if (clean) return;
 
