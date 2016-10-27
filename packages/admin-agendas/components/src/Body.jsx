@@ -179,7 +179,7 @@ module.exports = React.createClass( {
     return new Promise( ( resolve, reject ) => {
 
       if ( data.credentials ) {
-        data.credentials = Object.assign( this.state.agenda.credentials, data.credentials );
+        data.credentials = Object.assign( {}, this.state.agenda.credentials, data.credentials );
       }
 
       post( `${this.props.setAgendaRes}/${this.state.agenda.uid}`, data, ( err, result ) => {
