@@ -206,6 +206,9 @@ function _initAdminAgendas( config ) {
   let d = w.defer();
 
   adminAgendaSvc.init( {
+    services: {
+      agendas: agendasSvc
+    },
     mysql: config.db,
     schemas: config.schemas,
     logger: logger
