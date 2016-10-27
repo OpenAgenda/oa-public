@@ -207,7 +207,8 @@ function _initAdminAgendas( config ) {
 
   adminAgendaSvc.init( {
     services: {
-      agendas: agendasSvc
+      agendas: agendasSvc,
+      agendaStakeholders: agendaStakeholders
     },
     mysql: config.db,
     schemas: config.schemas,
