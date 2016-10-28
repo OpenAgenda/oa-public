@@ -122,8 +122,8 @@ function toTimingsWidgetFormat( timings, dayStart, dayEnd ) {
   .map( function( t ) {
 
     return {
-      start: t.date + 'T' + t.begin + _tZ( t.date ),
-      end: _endDate( t.date, t.begin, t.end ) + 'T' + t.end + _tZ( t.date )
+      start: t.date + 'T' + t.begin + _tZ( t.date, t.begin ),
+      end: _endDate( t.date, t.begin, t.end ) + 'T' + t.end + _tZ( t.date, t.begin )
     }
 
   } );
@@ -153,9 +153,9 @@ function _endDate( d, begin, end ) {
 }
 
 
-function _tZ( d ) {
+function _tZ( d, t ) {
 
-  var tzh = ( new Date( d ) ).getTimezoneOffset() / 60;
+  var tzh = ( new Date( d + 'T' + t ) ).getTimezoneOffset() / 60;
 
   return ( tzh >= 0 ? '' : '+' ) + utils.fZ( - tzh ) + ':00';
 
