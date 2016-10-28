@@ -153,7 +153,7 @@ var deepExtend = require( 'deep-extend' ),
           'soundcloud', 'twitter', 'flickr',
           'instagram', 'tumblr', 'prezi',
           'google', 'ted', 'ina.fr', 'youtu',
-          'calameo'
+          'calameo', 'allocine'
         ]
       },
       newsletter: {
