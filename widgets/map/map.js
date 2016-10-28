@@ -257,6 +257,8 @@ function widget( elem, options ) {
 
         clusterGroup = m.createCluster( map, [] );
 
+        clusterGroup.markerCount = 0;
+
       } catch( e ) {
 
         console.error( e );
@@ -272,9 +274,25 @@ function widget( elem, options ) {
 
   function _resetClusterController( reqParams ) {
 
-    if ( _nonMapQueryChange( reqParams ) ) return true;
-
     var current = navHistory.get();
+
+    if ( current.uid !== reqParams.uid ) {
+
+      // if there is a change in opened event,
+      // cluster must be reset only if markerCount changed
+      if ( clusterGroup.markerCount < activeLocations.length ) {
+
+        return true;
+
+      }
+
+    } else {
+
+      // if is not a map filter change, reset cluster
+      if ( _nonMapQueryChange( reqParams ) ) return true;
+      
+    }
+
     
     // if it is a lateral movement of map, must be reset
     // else, it means bits of maps are now shown that were not shown before.
@@ -312,7 +330,7 @@ function widget( elem, options ) {
 
     utils.forEach( keys, function( k ) {
 
-      if ( [ 'neLat', 'neLng', 'swLat', 'swLng', 'uid', 'location' ].indexOf( k ) == -1 ) {
+      if ( [ 'neLat', 'neLng', 'swLat', 'swLng', 'location' ].indexOf( k ) == -1 ) {
 
         if ( JSON.stringify( reqParams[ k ] ) !== JSON.stringify( current[ k ] ) ) {
 
@@ -701,6 +719,8 @@ function widget( elem, options ) {
 
         m.clearClusterLayers( clusterGroup );
 
+        clusterGroup.markerCount = 0;
+
       } catch( e ) {
 
         log( 'could not clear cluster layers' );
@@ -721,6 +741,8 @@ function widget( elem, options ) {
     if ( enabled && useClusters && clusterGroup && resetCluster ) {
 
       _addClusterLayers( clusterGroup, markers );
+
+      clusterGroup.markerCount = activeLocations.length;
 
     }
 
