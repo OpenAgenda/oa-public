@@ -97,4 +97,14 @@
 
   }
 
+
+  @media(max-width: $screen-sm) {
+
+    .hook {
+      margin-top: 20px;
+      font-size: 55px;
+    }
+    
+  }
+
 }

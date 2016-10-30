@@ -28,7 +28,7 @@ $b: '.media';
 
   &-heading {
     font-size: 2.5em;
-    margin-bottom: 1em;
+    margin-bottom: 0.8em;
 
     em {
       color: $brand-primary;
@@ -37,6 +37,7 @@ $b: '.media';
   }
 
   p {
+    margin: 1em 0;
     font-size: 18px;
     font-weight: 200;
     line-height: 1.6;
