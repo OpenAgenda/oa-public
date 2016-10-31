@@ -1,0 +1,14 @@
+{
+  "base": {
+    "scriptParams": {
+      "state": {
+        "settings": {
+          "prefix": "/home/agendas"
+        },
+        "res": {
+          "list": "/home/agendas.json"
+        }
+      }
+    }
+  }
+}

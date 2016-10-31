@@ -8,23 +8,15 @@ var React = require( 'react' ),
 
   du = require( 'dom-utils' ),
 
-  dl = require( 'dom-utils/documentLocation' ),
-
   labels = require( 'labels/agenda-admin-events/filters' ),
 
   stateLabels = require( 'labels/event/states' ),
-
-  bravoLabels = require( 'labels/agenda-settings/bravo' ),
 
   getLabel = require( 'labels' )( labels ),
 
   getStateLabel = require( 'labels' )( stateLabels ),
 
-  getModalLabel = require( 'labels' )( bravoLabels ),
-
-  Modal = require( 'react-components/build/Modal' ),
-
-  CopyToClipboard = require( 'react-copy-to-clipboard' ),
+  BravoModal = require( './BravoModal' ),
 
   Select = require( 'react-select' ),
 
@@ -81,9 +73,7 @@ var React = require( 'react' ),
 
         temporary: {},
 
-        term: term,
-
-        bravoModal: this.getQueryPart( 'bravo' ) !== undefined
+        term: term
 
       };
 
@@ -216,14 +206,6 @@ var React = require( 'react' ),
 
     },
 
-    onCopied() {
-
-      this.setState( { copied: true } );
-
-      setTimeout( () => this.setState( { copied: false } ), 1500 );
-
-    },
-
 
     // state is in query
 
@@ -342,42 +324,7 @@ var React = require( 'react' ),
 
           </div>
 
-          <Modal
-            visible={this.state.bravoModal}
-            onClose={this.closeBravoModal}
-            classNames={{ overlay: 'popup-overlay big' }}
-          >
-            <h2 className="margin-bottom-xl">{getModalLabel( 'title', this.props.lang )}</h2>
-            <p className="margin-v-md">
-              <b>{getModalLabel( 'sendLink', this.props.lang )}</b><br />
-              <span className="text-muted">
-                {getModalLabel( 'copyLinkAndSend', this.props.lang )}
-              </span>
-            </p>
-            <div className="input-group">
-              <input type="text" className="form-control" value={window.location.origin + this.props.res.agenda} readOnly />
-              <span className="input-group-btn">
-                <CopyToClipboard text={window.location.origin + this.props.res.agenda || ''} onCopy={this.onCopied}>
-                  <button
-                    className="btn btn-primary btn-block"
-                    title={getModalLabel( 'copyLink', this.props.lang )}
-                  >
-                    <i className={`fa fa-${this.state.copied ? 'check' : 'clipboard'}`} aria-hidden="true"></i>
-                  </button>
-                </CopyToClipboard>
-              </span>
-            </div>
-            <div className="text-center margin-v-md">
-              <a className="btn btn-primary" href={this.props.res.addEvent}>
-                {getModalLabel( 'addEvent', this.props.lang )}
-              </a>
-            </div>
-            <div className="well text-right">
-              <button className="btn btn-danger margin-top-md" onClick={this.closeBravoModal}>
-                {getModalLabel( 'close', this.props.lang )}
-              </button>
-            </div>
-          </Modal>
+          <BravoModal lang={this.props.lang} res={this.props.res}/>
 
         </div>
 
@@ -385,14 +332,6 @@ var React = require( 'react' ),
 
 
     },
-
-    closeBravoModal() {
-
-      dl.setQueryPart( { bravo: undefined } );
-      this.setState( { bravoModal: false } );
-
-    },
-
 
     getQueryPart: function ( name ) {
 

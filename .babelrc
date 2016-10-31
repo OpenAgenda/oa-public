@@ -6,7 +6,12 @@
   "plugins": [
     "add-module-exports",
     "transform-decorators-legacy",
-    "transform-react-display-name"
+    "transform-react-display-name",
+
+    "transform-object-rest-spread",
+    "transform-class-properties",
+    "transform-export-extensions",
+    "transform-function-bind"
   ],
   "env": {
     "development": {

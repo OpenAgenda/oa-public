@@ -22,6 +22,7 @@
   "event/action",
   "eventForm/index",
   "eventFormTags/index",
+  "home/agendas",
   "search/agendas",
   "search/events",
   "newsletter/event/full",
