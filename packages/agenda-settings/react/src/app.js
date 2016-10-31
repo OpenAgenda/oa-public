@@ -36,7 +36,7 @@ export default function ( options, routes, fn ) {
   if ( process.env.NODE_ENV == 'development' && !window.devToolsExtension ) {
     const devToolsDest = document.createElement( 'div' );
     window.document.body.insertBefore( devToolsDest, null );
-    const DevTools = require( './containers' );
+    const DevTools = require( './containers/DevTools/DevTools' );
     ReactDOM.render(
       <Provider store={store} key="provider">
         <DevTools />

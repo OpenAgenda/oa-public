@@ -32,7 +32,7 @@ exports.default = function (options, routes, fn) {
   if (process.env.NODE_ENV == 'development' && !window.devToolsExtension) {
     var devToolsDest = document.createElement('div');
     window.document.body.insertBefore(devToolsDest, null);
-    var DevTools = require('./containers');
+    var DevTools = require('./containers/DevTools/DevTools');
     _server2.default.render(_react2.default.createElement(
       _reactRedux.Provider,
       { store: store, key: 'provider' },

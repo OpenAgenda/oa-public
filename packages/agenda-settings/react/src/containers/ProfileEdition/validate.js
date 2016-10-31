@@ -25,8 +25,7 @@ export function asyncValidate( values, dispatch, props ) {
   } ) )
     .then( ( { error } ) => {
       if ( error && error.errors ) {
-        return Object.assign( ...error.errors.map( v => ({ [v.field]: v.code }) ) );
+        throw Object.assign( ...error.errors.map( v => ({ [v.field]: v.code }) ) );
       }
-      return true;
     } );
 }

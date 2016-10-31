@@ -43,10 +43,9 @@ function asyncValidate(values, dispatch) {
     var error = _ref2.error;
 
     if (error && error.errors) {
-      return Object.assign.apply(Object, _toConsumableArray(error.errors.map(function (v) {
+      throw Object.assign.apply(Object, _toConsumableArray(error.errors.map(function (v) {
         return _defineProperty({}, v.field, v.code);
       })));
     }
-    return true;
   });
 }
