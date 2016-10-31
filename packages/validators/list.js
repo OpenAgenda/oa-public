@@ -18,7 +18,7 @@ module.exports = function (config, validates) {
 
   var params = utils.extend({
     field: null,
-    optional: false,
+    optional: true,
     types: false,
     validators: false,
     validates: []
