@@ -11,13 +11,14 @@ exports.default = function (defaultState, createStore, getRoutes, ApiClient, fn)
   var state = (0, _deepExtend2.default)({
     settings: {
       lang: 'fr',
-      prefix: ''
+      prefix: '',
+      apiRoot: ''
     },
     res: {}
   }, defaultState);
 
   var client = new ApiClient(state.settings.apiRoot);
-  var browserHistory = (0, _reactRouter.useRouterHistory)(_createBrowserHistory2.default)({ basename: state.settings.prefix });
+  var browserHistory = (0, _reactRouter.useRouterHistory)(_createBrowserHistory2.default)();
   var store = createStore(browserHistory, client, state);
   var history = (0, _reactRouterRedux.syncHistoryWithStore)(browserHistory, store);
 
@@ -26,6 +27,10 @@ exports.default = function (defaultState, createStore, getRoutes, ApiClient, fn)
         return !item.deferred;
       } }));
   };
+
+  if (typeof window !== 'undefined') {
+    window.React = _react2.default;
+  }
 
   if (process.env.NODE_ENV == 'development' && !window.devToolsExtension) {
     var devToolsDest = document.createElement('div');
@@ -45,7 +50,7 @@ exports.default = function (defaultState, createStore, getRoutes, ApiClient, fn)
     { store: store, key: 'provider' },
     _react2.default.createElement(
       _reactRouter.Router,
-      { history: history, render: renderRouter },
+      { history: history },
       getRoutes(store)
     )
   );

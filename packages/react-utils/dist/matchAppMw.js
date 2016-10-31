@@ -28,7 +28,7 @@ function matchAppMw(createStore, getRoutes, ApiClient) {
   return function (params, path, cb) {
     return function (req, res, next) {
 
-      var url = req.originalUrl.replace(path, '');
+      var url = req.originalUrl /*.replace( path, '' )*/;
       var client = new ApiClient(params.state.settings.apiRoot, req);
       var memoryHistory = (0, _createMemoryHistory2.default)(url);
       var store = createStore(memoryHistory, client, params.state);

@@ -11,7 +11,7 @@ export default function matchAppMw( createStore, getRoutes, ApiClient ) {
 
   return ( params, path, cb ) => ( req, res, next ) => {
 
-    const url = req.originalUrl.replace( path, '' );
+    const url = req.originalUrl/*.replace( path, '' )*/;
     const client = new ApiClient( params.state.settings.apiRoot, req );
     const memoryHistory = createHistory( url );
     const store = createStore( memoryHistory, client, params.state );

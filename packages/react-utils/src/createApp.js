@@ -12,18 +12,23 @@ export default function ( defaultState, createStore, getRoutes, ApiClient, fn ) 
   const state = deepExtend( {
     settings: {
       lang: 'fr',
-      prefix: ''
+      prefix: '',
+      apiRoot: ''
     },
     res: {}
   }, defaultState );
 
   const client = new ApiClient( state.settings.apiRoot );
-  const browserHistory = useRouterHistory( createHistory )( { basename: state.settings.prefix } );
+  const browserHistory = useRouterHistory( createHistory )( /*{ basename: state.settings.prefix }*/ );
   const store = createStore( browserHistory, client, state );
   const history = syncHistoryWithStore( browserHistory, store );
 
   const renderRouter = props => {
     return <ReduxAsyncConnect {...props} helpers={{ client }} filter={item => !item.deferred} />;
+  }
+
+  if ( typeof window !== 'undefined' ) {
+    window.React = React;
   }
 
   if ( process.env.NODE_ENV == 'development' && !window.devToolsExtension ) {
@@ -42,7 +47,7 @@ export default function ( defaultState, createStore, getRoutes, ApiClient, fn ) 
 
   return (
     <Provider store={store} key="provider">
-      <Router history={history} render={renderRouter}>
+      <Router history={history}>
         {getRoutes( store )}
       </Router>
     </Provider>
