@@ -530,6 +530,8 @@ function loadBaseData( func, cssFile ) {
 
   }
 
+  cssFile += '?v=' + config.cssVersion;
+
   return ( req, res, next ) => {
 
     req.log( 'loading base data' );
