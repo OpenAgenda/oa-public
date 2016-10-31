@@ -52,6 +52,7 @@ module.exports = ( enabledTypes, cb ) => {
           require( './admin/agendas.back' )( '/admin/agendas' )
         ],
         web: [ // open to the public
+          require( './home/back' )( '/home' ),
           require( './user/settings.back' )( '/settings' ),
           require( './newsletter/back' )( '/:slug/admin/newsletters' ),
           require( './newsletter/front' )( '/:slug/newsletters' ),

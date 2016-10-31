@@ -188,6 +188,18 @@ var deepExtend = require( 'deep-extend' ),
             method: 'get',
             uri: '/signup'
           },
+          'homeEvents' : {
+            method: 'get',
+            uri: '/home/events'
+          },
+          'homeMessages' : {
+            method: 'get',
+            uri: '/home/messages'
+          },
+          'homeNotifications' : {
+            method: 'get',
+            uri: '/home/notifications'
+          },
           'homeShow': {
             method: 'get',
             uri: '/home'

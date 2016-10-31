@@ -49,6 +49,7 @@
     "flattener": "git+ssh://git@bitbucket.org:openagenda/flattener.git",
     "gm": "1.21.1",
     "history": "^3.0.0",
+    "home": "git+ssh://git@bitbucket.org:openagenda/home.git",
     "image-upload": "git+ssh://git@bitbucket.org:openagenda/image-upload.git",
     "images": "git+ssh://git@bitbucket.org:openagenda/images.git",
     "labels": "git+ssh://git@bitbucket.org:openagenda/labels.git",
