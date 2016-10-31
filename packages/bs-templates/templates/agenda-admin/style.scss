@@ -1,4 +1,5 @@
 @import "../layout/base";
+@import '../components/nav';
 
 .agenda-admin {
 
@@ -19,44 +20,6 @@
   .body {
 
     padding: 0 30px 2em;
-
-  }
-
-  .nav {
-
-    h2 {
-
-      padding: 10px 30px;
-
-    }
-
-    .menu-item {
-
-      margin: 6px 0;
-      padding: 10px 30px;
-
-      border-left: 4px solid transparent;
-      
-      a {
-
-        color: inherit;
-
-      }
-
-      &.selected {
-
-        border-left: 4px solid $oa-blue;
-
-        a {
-
-          font-weight: bold;
-          color: $oa-blue;
-
-        }
-
-      }
-
-    }
 
   }
 
