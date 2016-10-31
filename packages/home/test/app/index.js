@@ -47,7 +47,7 @@ fixtures( [ {
 
 function matchApp( req, res, next ) {
 
-  const prefix = '/home';
+  const prefix = '/';
   const lang = req.query.lang || 'fr';
 
   mw.matchApp(

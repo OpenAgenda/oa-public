@@ -3,22 +3,15 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _redboxReact2 = require('redbox-react');
-
-var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-var _react2 = require('react');
-
-var _react3 = _interopRequireDefault(_react2);
-
-var _reactTransformCatchErrors3 = require('react-transform-catch-errors');
-
-var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _dec, _class, _class2, _temp;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
@@ -44,28 +37,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _components = {
-  App: {
-    displayName: 'App'
-  }
-};
-
-var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-  filename: 'react/src/containers/App/App.js',
-  components: _components,
-  locals: [],
-  imports: [_react3.default, _redboxReact3.default]
-});
-
-function _wrapComponent(id) {
-  return function (Component) {
-    return _reactTransformCatchErrors2(Component, id);
-  };
-}
-
 var selector = (0, _reduxForm.formValueSelector)('homeDashboard');
 
-var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state) {
+var App = (_dec = (0, _reactRedux.connect)(function (state) {
   return {
     res: state.res,
     lang: state.settings.lang,
@@ -83,7 +57,6 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
     _this.state = {
       menuOpen: false
     };
-    console.log('app construct');
     return _this;
   }
 
@@ -118,16 +91,16 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
       var newUser = !search && !query.search && (!agendas || !agendas.length);
 
       if (newUser) {
-        return _react3.default.createElement(
+        return _react2.default.createElement(
           'div',
           { className: 'container top-margined home' },
-          _react3.default.createElement(
+          _react2.default.createElement(
             'div',
             { className: 'col-sm-8 col-sm-offset-2' },
-            _react3.default.createElement(
+            _react2.default.createElement(
               'div',
               { className: 'row wsq' },
-              _react3.default.createElement(
+              _react2.default.createElement(
                 'div',
                 { className: 'content' },
                 this.props.children
@@ -137,93 +110,93 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
         );
       }
 
-      return _react3.default.createElement(
+      return _react2.default.createElement(
         'div',
         { className: 'container top-margined home' },
-        _react3.default.createElement(
+        _react2.default.createElement(
           'div',
           { className: 'row wsq' },
-          _react3.default.createElement(
+          _react2.default.createElement(
             'div',
             { className: 'col-sm-3 col-sm-push-9' },
-            _react3.default.createElement(
+            _react2.default.createElement(
               'div',
               { className: 'visible-xs-block' },
               ' ',
-              _react3.default.createElement(
+              _react2.default.createElement(
                 'div',
                 { className: 'row header' },
-                _react3.default.createElement(
+                _react2.default.createElement(
                   'h2',
                   null,
                   getLabel('myAgendas')
                 ),
-                _react3.default.createElement(
+                _react2.default.createElement(
                   'div',
                   { className: 'pull-right' },
-                  _react3.default.createElement(
+                  _react2.default.createElement(
                     'button',
                     { className: 'btn btn-default btn-collapse-nav', type: 'button',
                       onClick: function onClick() {
                         return _this2.setState({ menuOpen: !_this2.state.menuOpen });
                       }
                     },
-                    _react3.default.createElement('i', { className: 'fa fa-bars', 'aria-hidden': 'true' })
+                    _react2.default.createElement('i', { className: 'fa fa-bars', 'aria-hidden': 'true' })
                   )
                 )
               ),
-              _react3.default.createElement(
+              _react2.default.createElement(
                 _Collapse2.default,
                 { 'in': this.state.menuOpen },
-                _react3.default.createElement(
+                _react2.default.createElement(
                   'div',
                   { className: 'row' },
-                  _react3.default.createElement(
+                  _react2.default.createElement(
                     'div',
                     { className: 'nav' },
-                    _react3.default.createElement(
+                    _react2.default.createElement(
                       'ul',
                       { className: 'list-unstyled' },
-                      _react3.default.createElement(
+                      _react2.default.createElement(
                         'li',
                         { className: 'menu-item' },
-                        _react3.default.createElement(
+                        _react2.default.createElement(
                           'a',
                           { href: res.new, className: 'btn btn-primary create-agenda' },
                           getLabel('createAgenda')
                         )
                       ),
-                      _react3.default.createElement(
+                      _react2.default.createElement(
                         'li',
                         { className: 'menu-item selected' },
-                        _react3.default.createElement(
+                        _react2.default.createElement(
                           'a',
                           null,
                           getLabel('myAgendas')
                         )
                       ),
-                      _react3.default.createElement(
+                      _react2.default.createElement(
                         'li',
                         { className: 'menu-item' },
-                        _react3.default.createElement(
+                        _react2.default.createElement(
                           'a',
                           { href: res.events },
                           getLabel('myEvents')
                         )
                       ),
-                      _react3.default.createElement(
+                      _react2.default.createElement(
                         'li',
                         { className: 'menu-item' },
-                        _react3.default.createElement(
+                        _react2.default.createElement(
                           'a',
                           { href: res.messages },
                           getLabel('messages')
                         )
                       ),
-                      _react3.default.createElement(
+                      _react2.default.createElement(
                         'li',
                         { className: 'menu-item' },
-                        _react3.default.createElement(
+                        _react2.default.createElement(
                           'a',
                           { href: res.notifs },
                           getLabel('notifications')
@@ -234,50 +207,50 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
                 )
               )
             ),
-            _react3.default.createElement(
+            _react2.default.createElement(
               'div',
               { className: 'hidden-xs' },
               ' ',
-              _react3.default.createElement(
+              _react2.default.createElement(
                 'div',
                 { className: 'row' },
-                _react3.default.createElement(
+                _react2.default.createElement(
                   'div',
                   { className: 'nav nav-right' },
-                  _react3.default.createElement(
+                  _react2.default.createElement(
                     'ul',
                     { className: 'list-unstyled' },
-                    _react3.default.createElement(
+                    _react2.default.createElement(
                       'li',
                       { className: 'menu-item selected' },
-                      _react3.default.createElement(
+                      _react2.default.createElement(
                         'a',
                         null,
                         getLabel('myAgendas')
                       )
                     ),
-                    _react3.default.createElement(
+                    _react2.default.createElement(
                       'li',
                       { className: 'menu-item' },
-                      _react3.default.createElement(
+                      _react2.default.createElement(
                         'a',
                         { href: res.events },
                         getLabel('myEvents')
                       )
                     ),
-                    _react3.default.createElement(
+                    _react2.default.createElement(
                       'li',
                       { className: 'menu-item' },
-                      _react3.default.createElement(
+                      _react2.default.createElement(
                         'a',
                         { href: res.messages },
                         getLabel('messages')
                       )
                     ),
-                    _react3.default.createElement(
+                    _react2.default.createElement(
                       'li',
                       { className: 'menu-item' },
-                      _react3.default.createElement(
+                      _react2.default.createElement(
                         'a',
                         { href: res.notifs },
                         getLabel('notifications')
@@ -288,7 +261,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
               )
             )
           ),
-          _react3.default.createElement(
+          _react2.default.createElement(
             'div',
             { className: 'col-sm-9 col-sm-pull-3 content' },
             this.props.children
@@ -299,10 +272,9 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
   }]);
 
   return App;
-}(_react2.Component), _class2.childContextTypes = {
-  lang: _react2.PropTypes.string,
-  getLabel: _react2.PropTypes.func
-}, _temp)) || _class));
-
+}(_react.Component), _class2.childContextTypes = {
+  lang: _react.PropTypes.string,
+  getLabel: _react.PropTypes.func
+}, _temp)) || _class);
 exports.default = App;
 module.exports = exports['default'];
