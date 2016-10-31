@@ -7,7 +7,7 @@ module.exports = function (config) {
 
   var params = utils.extend({
     field: false,
-    optional: false,
+    optional: true,
     defaultLanguage: 'en'
   }, config || {});
 
@@ -20,7 +20,6 @@ module.exports = function (config) {
 
     var clean = {},
         tmp = {},
-        l,
         errors = [],
         validateText = text(params);
 
@@ -33,21 +32,25 @@ module.exports = function (config) {
 
     if (!value) value = {};
 
-    for (l in value) {
+    Object.keys(value).forEach(function (l) {
+
+      var langValue = value[l];
+
+      if (langValue === undefined || langValue === null) {
+
+        return;
+      }
 
       try {
 
-        clean[l] = validateText(value[l]);
+        clean[l] = validateText(langValue);
       } catch (lErrors) {
 
-        errors = errors.concat(lErrors.map(function (error) {
-
-          error.lang = l;
-
-          return error;
+        errors = errors.concat(lErrors.map(function (e) {
+          return utils.extend({ lang: l }, e);
         }));
       }
-    }
+    });
 
     if (errors.length) {
 
