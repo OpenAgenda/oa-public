@@ -39,7 +39,7 @@ export default class BravoModal extends Component {
 
   render() {
 
-    if ( this.state.modalOpen ) return null;
+    if ( !this.state.modalOpen ) return null;
 
     return (
       <Modal
