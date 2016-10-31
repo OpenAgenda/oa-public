@@ -88,7 +88,7 @@ function widget( elem, options ) {
 
   map,
 
-  popup,
+  popup, popupMarker,
 
   frozenAuto = false,
 
@@ -257,6 +257,8 @@ function widget( elem, options ) {
 
         clusterGroup = m.createCluster( map, [] );
 
+        clusterGroup.markerCount = 0;
+
       } catch( e ) {
 
         console.error( e );
@@ -272,9 +274,25 @@ function widget( elem, options ) {
 
   function _resetClusterController( reqParams ) {
 
-    if ( _nonMapQueryChange( reqParams ) ) return true;
-
     var current = navHistory.get();
+
+    if ( current.uid !== reqParams.uid ) {
+
+      // if there is a change in opened event,
+      // cluster must be reset only if markerCount changed
+      if ( clusterGroup.markerCount < activeLocations.length ) {
+
+        return true;
+
+      }
+
+    } else {
+
+      // if is not a map filter change, reset cluster
+      if ( _nonMapQueryChange( reqParams ) ) return true;
+      
+    }
+
     
     // if it is a lateral movement of map, must be reset
     // else, it means bits of maps are now shown that were not shown before.
@@ -312,7 +330,7 @@ function widget( elem, options ) {
 
     utils.forEach( keys, function( k ) {
 
-      if ( [ 'neLat', 'neLng', 'swLat', 'swLng', 'uid', 'location' ].indexOf( k ) == -1 ) {
+      if ( [ 'neLat', 'neLng', 'swLat', 'swLng', 'location' ].indexOf( k ) == -1 ) {
 
         if ( JSON.stringify( reqParams[ k ] ) !== JSON.stringify( current[ k ] ) ) {
 
@@ -341,29 +359,41 @@ function widget( elem, options ) {
 
     enabled = true;
 
+    log( 'defining bounds from navigation history and update' );
+
     if ( navHistory.matchCurrent( reqParams ) ) {
 
-      // nothing changed, no need to update
+      log( 'history implies no new change. Bounds do not move' );
+
       bounds = false;
 
     } else if ( navHistory.matchPrev( reqParams ) ) {
 
-      // query params match previous state. Bounds should
-      // go back to previous state
+      log( 'nav update shows history back. Moving bounds to previous state' );
+
       bounds = navHistory.back();
 
     } else if ( reqParams.neLat && navHistory.current() ) {
 
-      // query params have changed and contain geographical
-      // parts. bounds should stay put as they have been
-      // defined by user
+      log( 'nav update includes bound definition. Bounds do not change' );
+
       bounds = false;
 
       navHistory.add( reqParams, navHistory.current() );
 
     } else if ( firstEnabled && ( !utils.size( reqParams ) || _hasOnlyPassedParams( reqParams ) ) ) {
 
+      log( 'nav is init nav, no params are set or only passed events exist' );
+
       bounds = baseBounds;
+
+      navHistory.add( reqParams, bounds );
+
+    } else if ( reqParams.uid ) {
+
+      log( 'nav update includes event selection. Bounds are defined around event' );
+
+      bounds = m.createBounds( locations[ activeLocations[ 0 ] ].coords );
 
       navHistory.add( reqParams, bounds );
 
@@ -393,11 +423,7 @@ function widget( elem, options ) {
 
         selectedLocation = false;
 
-        if ( popup ) {
-
-          m.removePopup( popup );
-
-        }
+        _closePopup();
 
       }
 
@@ -441,7 +467,13 @@ function widget( elem, options ) {
 
       _closePopup();
 
-      popup = m.createPopup( map, templates.popup( popupData ), { marker: l.marker });
+      popupMarker = m.createMarker( map, {
+        position: location.coords,
+        icon: config.icons.inactive.icon,
+        anchor: config.icons.inactive.anchor
+      } );
+
+      popup = m.createPopup( map, templates.popup( popupData ), { marker: popupMarker });
 
     } );
 
@@ -449,11 +481,15 @@ function widget( elem, options ) {
 
   function _closePopup() {
 
-    if ( popup ) {
+    if ( !popup ) return;
 
-      m.removePopup( popup );
+    m.removePopup( popup );
+    popup = false;
 
-      popup = false;
+    if ( popupMarker ) {
+
+      map.removeLayer( popupMarker );
+      popupMarker = undefined;
 
     }
 
@@ -683,6 +719,8 @@ function widget( elem, options ) {
 
         m.clearClusterLayers( clusterGroup );
 
+        clusterGroup.markerCount = 0;
+
       } catch( e ) {
 
         log( 'could not clear cluster layers' );
@@ -703,6 +741,8 @@ function widget( elem, options ) {
     if ( enabled && useClusters && clusterGroup && resetCluster ) {
 
       _addClusterLayers( clusterGroup, markers );
+
+      clusterGroup.markerCount = activeLocations.length;
 
     }
 

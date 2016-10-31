@@ -1,5 +1,6 @@
 module.exports = {
   langAttribute: 'data-lang',
+  searchLabelAttribute: 'data-search-label',
   labels: {
     fr: {
       search: 'rechercher'

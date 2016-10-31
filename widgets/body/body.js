@@ -117,10 +117,15 @@ function widget( elem, options ) {
 
       _frameLink( function( href, sendFunc ) {
 
-        controller.releaseModal();
-        
         _update( href );
 
+        // wait till sweep is done
+        setTimeout( function() {
+
+          controller.releaseModal();
+
+        }, 30 );
+        
         bottomHit.enable( elem, function() {
 
           sendFunc( { bottom: true } );

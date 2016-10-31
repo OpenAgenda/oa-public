@@ -58,7 +58,7 @@ var widget = function( elem, options ) {
 
     if ( elem.hasAttribute( 'data-scope' ) ) {
 
-      scope = elem.getAttribute( 'data-scope' ).split( '|' )
+      scope = elem.getAttribute( 'data-scope' ).split( '|' );
 
     }
 
@@ -66,7 +66,7 @@ var widget = function( elem, options ) {
 
     log( 'initing' );
 
-    _createElement();
+    _createElement( elem.hasAttribute( config.searchLabelAttribute ) ? { search: elem.getAttribute( config.searchLabelAttribute ) } : config.labels[ lang ] );
 
     controller = options.register( wLib.interface( 'search', uid, {
       enable : enable,
@@ -113,13 +113,13 @@ var widget = function( elem, options ) {
 
   }
 
-  function _createElement() {
+  function _createElement( labels ) {
 
     styler( style );
 
     if ( !cn.el( elem, 'input' ) ) {
 
-      elem.innerHTML += template( { labels : config.labels[ lang ] } );
+      elem.innerHTML += template( { labels : labels } );
       
     }
 

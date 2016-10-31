@@ -812,6 +812,10 @@ module.exports = function( uid ) {
 
           }
 
+        } else if ( k === 'uid' ) {
+
+          cleanData[ k ] = parseInt( data[ k ] );
+
         } else {
 
           cleanData[ k ] = data[ k ];
