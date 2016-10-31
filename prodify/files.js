@@ -118,10 +118,6 @@ files = {
     ],
   ],
 
-  'home/agendas.js': [
-    [paths.h, 'agendas.bundle.js']
-  ],
-
   'review/adminList.min.js': [
     [paths.lib, 'common/common.js', 'remote/remote.js', 'lightbox/lightbox.js', 'urlStrings/urlStrings.js'],
     [paths.vd, 'spin/src/spin.min.js'],
