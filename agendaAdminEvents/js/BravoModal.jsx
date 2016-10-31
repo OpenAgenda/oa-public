@@ -38,9 +38,11 @@ export default class BravoModal extends Component {
   }
 
   render() {
+
+    if ( this.state.modalOpen ) return null;
+
     return (
       <Modal
-        visible={this.state.modalOpen}
         onClose={this.closeModal}
         classNames={{ overlay: 'popup-overlay big' }}
         disableBodyScroll={true}
