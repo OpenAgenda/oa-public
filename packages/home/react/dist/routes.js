@@ -6,9 +6,12 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function (store) {
 
+  var state = store.getState();
+  var basename = state.settings.prefix;
+
   return _react2.default.createElement(
     _reactRouter.Route,
-    { path: '/', component: _containers.App },
+    { path: basename, component: _containers.App },
     _react2.default.createElement(_reactRouter.IndexRoute, { component: _containers.Dashboard })
   );
 };

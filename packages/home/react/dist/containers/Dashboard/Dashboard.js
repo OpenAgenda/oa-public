@@ -1,24 +1,58 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redboxReact2 = require("redbox-react");
+var _redboxReact2 = require('redbox-react');
 
 var _redboxReact3 = _interopRequireDefault(_redboxReact2);
 
-var _react2 = require("react");
+var _react2 = require('react');
 
 var _react3 = _interopRequireDefault(_react2);
 
-var _reactTransformCatchErrors3 = require("react-transform-catch-errors");
+var _reactTransformCatchErrors3 = require('react-transform-catch-errors');
 
 var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _dec, _dec2, _dec3, _class, _class2, _temp2;
+
+var _reduxConnect = require('redux-connect');
+
+var _reactRedux = require('react-redux');
+
+var _reduxForm = require('redux-form');
+
+var _lodash = require('lodash.debounce');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _lodash3 = require('lodash.throttle');
+
+var _lodash4 = _interopRequireDefault(_lodash3);
+
+var _agendas = require('../../redux/modules/agendas');
+
+var agendasActions = _interopRequireWildcard(_agendas);
+
+var _monitorBottomHit = require('dom-utils/monitorBottomHit');
+
+var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
+
+var _Spinner = require('react-form-components/build/Spinner');
+
+var _Spinner2 = _interopRequireDefault(_Spinner);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -28,12 +62,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var _components = {
   Dashboard: {
-    displayName: "Dashboard"
+    displayName: 'Dashboard'
   }
 };
 
 var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-  filename: "react/src/containers/Dashboard/Dashboard.js",
+  filename: 'react/src/containers/Dashboard/Dashboard.js',
   components: _components,
   locals: [],
   imports: [_react3.default, _redboxReact3.default]
@@ -45,47 +79,336 @@ function _wrapComponent(id) {
   };
 }
 
-var Dashboard = _wrapComponent("Dashboard")(function (_Component) {
+var selector = (0, _reduxForm.formValueSelector)('homeDashboard');
+
+var searchSpinner = {
+  width: 1,
+  length: 3,
+  radius: 4
+};
+
+var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConnect)([{
+  promise: function promise(_ref) {
+    var _ref$store = _ref.store;
+    var dispatch = _ref$store.dispatch;
+    var getState = _ref$store.getState;
+
+    var state = getState();
+    var query = state.routing.locationBeforeTransitions.query;
+
+    if (!agendasActions.isLoaded(state)) {
+      return dispatch(agendasActions.load(query));
+    }
+  }
+}]), _dec2 = (0, _reactRedux.connect)(function (state, props) {
+  return {
+    initialValues: {
+      search: props.location.query.search || ''
+    },
+    res: state.res,
+    agendas: state.agendas.data,
+    page: state.agendas.page,
+    total: state.agendas.total,
+    loading: state.agendas.loading,
+    search: selector(state, 'search')
+  };
+}, agendasActions), _dec3 = (0, _reduxForm.reduxForm)({
+  form: 'homeDashboard'
+}), _dec(_class = _dec2(_class = _dec3(_class = (_temp2 = _class2 = function (_Component) {
   _inherits(Dashboard, _Component);
 
   function Dashboard() {
+    var _ref2;
+
+    var _temp, _this, _ret;
+
     _classCallCheck(this, Dashboard);
 
-    return _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).apply(this, arguments));
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call.apply(_ref2, [this].concat(args))), _this), _this.renderField = function (_ref3) {
+      var content = _ref3.content;
+      var _ref3$input = _ref3.input;
+      var name = _ref3$input.name;
+      var value = _ref3$input.value;
+      var label = _ref3.label;
+      var subLabel = _ref3.subLabel;
+      var max = _ref3.max;
+      var classNameGroup = _ref3.classNameGroup;
+      var errorOnDirty = _ref3.errorOnDirty;
+      var _ref3$meta = _ref3.meta;
+      var touched = _ref3$meta.touched;
+      var error = _ref3$meta.error;
+      var dirty = _ref3$meta.dirty;
+
+      var displayError = errorOnDirty ? dirty || touched : touched;
+      return _react3.default.createElement(
+        'div',
+        { className: 'form-group ' + classNameGroup + ' ' + (displayError && error ? 'has-error has-feedback' : '') },
+        label && _react3.default.createElement(
+          'label',
+          { htmlFor: name },
+          label
+        ),
+        subLabel,
+        content,
+        displayError && error && _react3.default.createElement(
+          'span',
+          { className: 'form-control-feedback' },
+          _react3.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' })
+        ),
+        displayError && error && _react3.default.createElement(
+          'div',
+          { className: 'text-danger ' + (max && 'pull-left' || '') },
+          _this.context.getLabel(error)
+        ),
+        max && _react3.default.createElement(
+          'div',
+          { className: 'text-right ' + (max - value.length < 0 && 'text-danger' || '') },
+          max - value.length
+        )
+      );
+    }, _this.renderSearchInput = function (_ref4) {
+      var type = _ref4.type;
+      var placeholder = _ref4.placeholder;
+      var className = _ref4.className;
+      var spellCheck = _ref4.spellCheck;
+      var action = _ref4.action;
+      var loading = _ref4.loading;
+
+      var props = _objectWithoutProperties(_ref4, ['type', 'placeholder', 'className', 'spellCheck', 'action', 'loading']);
+
+      var inputAttrs = { type: type, placeholder: placeholder, className: className, spellCheck: spellCheck };
+      var onChange = function onChange(e) {
+        props.input.onChange(e.target.value);
+        action();
+      };
+      var content = _react3.default.createElement(
+        'div',
+        null,
+        _react3.default.createElement('input', _extends({}, props.input, inputAttrs, { onChange: onChange })),
+        _react3.default.createElement(
+          'button',
+          { type: 'submit', className: 'btn' },
+          loading ? _react3.default.createElement(_Spinner2.default, { spinner: searchSpinner }) : _react3.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' })
+        )
+      );
+      return _this.renderField(_extends({ content: content }, props));
+    }, _this.search = function (values) {
+      return _this.props.list(values).then(function () {
+        _this.context.router.push({
+          query: _extends({}, _this.props.location.query, { search: values.search || undefined })
+        });
+      });
+    }, _this.debouncedSearch = (0, _lodash2.default)(_this.props.handleSubmit(_this.search), 400), _this.nextPage = function () {
+      var _this$props = _this.props;
+      var page = _this$props.page;
+      var total = _this$props.total;
+      var search = _this$props.search;
+      var loading = _this$props.loading;
+      var agendas = _this$props.agendas;
+
+      if (!agendas || !agendas.length || loading || page * 20 >= total) return;
+      _this.props.nextPage({ search: search }, (page || 1) + 1);
+    }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(Dashboard, [{
-    key: "render",
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      if (typeof document === 'undefined') return;
+      (0, _monitorBottomHit2.default)((0, _lodash4.default)(this.nextPage, 400));
+    }
+  }, {
+    key: 'render',
     value: function render() {
+      var _props = this.props;
+      var res = _props.res;
+      var handleSubmit = _props.handleSubmit;
+      var agendas = _props.agendas;
+      var loading = _props.loading;
+      var nextLoading = _props.nextLoading;
+      var search = _props.search;
+      var query = _props.location.query;
+      var getLabel = this.context.getLabel;
+
+      var newUser = !search && !query.search && (!agendas || !agendas.length);
+
+      if (newUser) {
+        return _react3.default.createElement(
+          'div',
+          { className: 'row' },
+          _react3.default.createElement(
+            'div',
+            { className: 'text-center new-user padding-v-md' },
+            _react3.default.createElement(
+              'h2',
+              { className: 'margin-v-md' },
+              getLabel('welcome')
+            ),
+            _react3.default.createElement(
+              'a',
+              { href: res.new, className: 'btn btn-primary margin-v-sm' },
+              getLabel('createAgenda')
+            ),
+            _react3.default.createElement(
+              'p',
+              { className: 'margin-v-sm' },
+              getLabel('orContributeToExisting')
+            ),
+            _react3.default.createElement(
+              'form',
+              { action: res.search, method: 'GET' },
+              _react3.default.createElement(
+                'div',
+                { className: 'form-group search center-block' },
+                _react3.default.createElement('input', { type: 'text', name: 'search', className: 'form-control' }),
+                _react3.default.createElement(
+                  'button',
+                  { type: 'submit', className: 'btn' },
+                  _react3.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' })
+                )
+              )
+            )
+          )
+        );
+      }
+
       return _react3.default.createElement(
-        "div",
+        'div',
         null,
         _react3.default.createElement(
-          "h2",
-          { className: "hidden-xs" },
-          "Mes agendas"
-        ),
-        _react3.default.createElement(
-          "form",
-          null,
+          'div',
+          { className: 'header' },
           _react3.default.createElement(
-            "div",
-            { className: "form-group search" },
-            _react3.default.createElement("input", { type: "text", className: "form-control", placeholder: "Rechercher un agenda" }),
+            'h2',
+            { className: 'hidden-xs' },
+            getLabel('myAgendas')
+          ),
+          _react3.default.createElement(
+            'div',
+            { className: 'hidden-xs pull-right' },
             _react3.default.createElement(
-              "button",
-              { type: "submit", className: "btn" },
-              _react3.default.createElement("i", { className: "fa fa-search", "aria-hidden": "true" })
+              'a',
+              { href: res.new, className: 'btn btn-primary create-agenda', type: 'button' },
+              getLabel('createAgenda')
             )
           )
         ),
-        _react3.default.createElement("div", { className: "row" })
+        _react3.default.createElement(
+          'form',
+          { onSubmit: handleSubmit(this.search) },
+          _react3.default.createElement(_reduxForm.Field, {
+            component: this.renderSearchInput,
+            name: 'search',
+            type: 'text',
+            classNameGroup: 'search',
+            className: 'form-control',
+            placeholder: getLabel('searchAgenda'),
+            action: this.debouncedSearch,
+            loading: loading
+          })
+        ),
+        _react3.default.createElement(
+          'div',
+          { className: 'row' },
+          agendas && agendas.map(function (agenda) {
+            return _react3.default.createElement(
+              'div',
+              { className: 'agenda-item media', key: agenda.uid },
+              _react3.default.createElement(
+                'div',
+                { className: 'media-left' },
+                _react3.default.createElement(
+                  'a',
+                  { href: res.show.replace(':slug', agenda.slug) },
+                  _react3.default.createElement('img', { className: 'media-object ill avatar', src: agenda.image, alt: agenda.title })
+                )
+              ),
+              _react3.default.createElement(
+                'div',
+                { className: 'media-body' },
+                _react3.default.createElement(
+                  'div',
+                  { className: 'title media-heading' },
+                  _react3.default.createElement(
+                    'a',
+                    { href: res.show.replace(':slug', agenda.slug) },
+                    _react3.default.createElement(
+                      'strong',
+                      null,
+                      agenda.title
+                    )
+                  ),
+                  !!agenda.official && _react3.default.createElement(
+                    'div',
+                    { className: 'official' },
+                    _react3.default.createElement('i', null),
+                    _react3.default.createElement(
+                      'div',
+                      { className: 'tooltip right', role: 'tooltip' },
+                      _react3.default.createElement('div', { className: 'tooltip-arrow' }),
+                      _react3.default.createElement(
+                        'div',
+                        { className: 'tooltip-inner' },
+                        getLabel('officialAgenda')
+                      )
+                    )
+                  )
+                ),
+                _react3.default.createElement(
+                  'div',
+                  { className: 'actions' },
+                  agenda.credential > 1 && _react3.default.createElement(
+                    'a',
+                    {
+                      href: res.moderate.replace(':slug', agenda.slug),
+                      className: 'text-muted margin-right-xs'
+                    },
+                    agenda.credential == 2 ? getLabel('manage') : getLabel('moderate')
+                  ),
+                  _react3.default.createElement(
+                    'a',
+                    { href: res.addEvent.replace(':slug', agenda.slug), className: 'text-muted' },
+                    getLabel('addAnEvent')
+                  )
+                )
+              )
+            );
+          }),
+          !agendas || !agendas.length && _react3.default.createElement(
+            'div',
+            { className: 'text-center text-muted margin-top-md' },
+            getLabel('noResult')
+          ),
+          nextLoading && _react3.default.createElement(
+            'div',
+            { className: 'padding-v-md', style: { position: 'relative' } },
+            _react3.default.createElement(_Spinner2.default, null)
+          )
+        )
       );
     }
   }]);
 
   return Dashboard;
-}(_react2.Component));
+}(_react2.Component), _class2.propTypes = {
+  list: _react2.PropTypes.func,
+  nextPage: _react2.PropTypes.func,
+  res: _react2.PropTypes.object,
+  agendas: _react2.PropTypes.array,
+  page: _react2.PropTypes.number,
+  total: _react2.PropTypes.number,
+  loading: _react2.PropTypes.bool,
+  nextLoading: _react2.PropTypes.bool,
+  search: _react2.PropTypes.string
+}, _class2.contextTypes = {
+  router: _react2.PropTypes.object,
+  getLabel: _react2.PropTypes.func
+}, _temp2)) || _class) || _class) || _class));
 
 exports.default = Dashboard;
-module.exports = exports["default"];
+;
+module.exports = exports['default'];

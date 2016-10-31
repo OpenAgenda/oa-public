@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import du from 'dom-utils';
-import app from '../../react/src/app';
+import app from '../../react/dist/app';
 
 window.onload = () => {
 

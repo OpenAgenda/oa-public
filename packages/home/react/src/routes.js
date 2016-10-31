@@ -4,8 +4,11 @@ import { App, Dashboard } from './containers';
 
 export default function ( store ) {
 
+  const state = store.getState();
+  const basename = state.settings.prefix;
+
   return (
-    <Route path="/" component={App}>
+    <Route path={basename} component={App}>
       <IndexRoute component={Dashboard} />
     </Route>
   );

@@ -22,9 +22,15 @@ var _dec, _class, _class2, _temp;
 
 var _reactRedux = require('react-redux');
 
+var _reduxForm = require('redux-form');
+
 var _labels = require('labels');
 
 var _labels2 = _interopRequireDefault(_labels);
+
+var _agendas = require('labels/home/agendas');
+
+var _agendas2 = _interopRequireDefault(_agendas);
 
 var _Collapse = require('react-bootstrap/lib/Collapse');
 
@@ -57,11 +63,14 @@ function _wrapComponent(id) {
   };
 }
 
-var labels = {}; // TODO import labels
+var selector = (0, _reduxForm.formValueSelector)('homeDashboard');
 
 var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state) {
   return {
-    lang: state.settings.lang
+    res: state.res,
+    lang: state.settings.lang,
+    agendas: state.agendas.data,
+    search: selector(state, 'search')
   };
 }), _dec(_class = (_temp = _class2 = function (_Component) {
   _inherits(App, _Component);
@@ -74,6 +83,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
     _this.state = {
       menuOpen: false
     };
+    console.log('app construct');
     return _this;
   }
 
@@ -86,7 +96,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
       return {
         lang: lang,
         getLabel: function getLabel(label) {
-          return (0, _labels2.default)(labels)(label, lang);
+          return (0, _labels2.default)(_agendas2.default)(label, lang);
         }
       };
     }
@@ -94,6 +104,38 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
     key: 'render',
     value: function render() {
       var _this2 = this;
+
+      var _props = this.props;
+      var agendas = _props.agendas;
+      var res = _props.res;
+      var search = _props.search;
+      var query = _props.location.query;
+
+      var _getChildContext = this.getChildContext();
+
+      var getLabel = _getChildContext.getLabel;
+
+      var newUser = !search && !query.search && (!agendas || !agendas.length);
+
+      if (newUser) {
+        return _react3.default.createElement(
+          'div',
+          { className: 'container top-margined home' },
+          _react3.default.createElement(
+            'div',
+            { className: 'col-sm-8 col-sm-offset-2' },
+            _react3.default.createElement(
+              'div',
+              { className: 'row wsq' },
+              _react3.default.createElement(
+                'div',
+                { className: 'content' },
+                this.props.children
+              )
+            )
+          )
+        );
+      }
 
       return _react3.default.createElement(
         'div',
@@ -106,41 +148,30 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
             { className: 'col-sm-3 col-sm-push-9' },
             _react3.default.createElement(
               'div',
-              { className: 'row content visible-xs-block' },
-              ' ',
-              _react3.default.createElement(
-                'h2',
-                null,
-                'Mes agendas'
-              ),
-              _react3.default.createElement(
-                'div',
-                { className: 'pull-right' },
-                _react3.default.createElement(
-                  'button',
-                  { className: 'btn btn-default btn-collapse-nav', type: 'button',
-                    onClick: function onClick() {
-                      return _this2.setState({ menuOpen: !_this2.state.menuOpen });
-                    }
-                  },
-                  _react3.default.createElement('i', { className: 'fa fa-bars', 'aria-hidden': 'true' })
-                )
-              )
-            ),
-            _react3.default.createElement(
-              'div',
-              { className: 'row hidden-xs' },
-              ' ',
-              _react3.default.createElement(
-                'button',
-                { className: 'btn btn-success center-block margin-v-md create-agenda', type: 'button' },
-                'Cr\xE9er un agenda'
-              )
-            ),
-            _react3.default.createElement(
-              'div',
               { className: 'visible-xs-block' },
               ' ',
+              _react3.default.createElement(
+                'div',
+                { className: 'row header' },
+                _react3.default.createElement(
+                  'h2',
+                  null,
+                  getLabel('myAgendas')
+                ),
+                _react3.default.createElement(
+                  'div',
+                  { className: 'pull-right' },
+                  _react3.default.createElement(
+                    'button',
+                    { className: 'btn btn-default btn-collapse-nav', type: 'button',
+                      onClick: function onClick() {
+                        return _this2.setState({ menuOpen: !_this2.state.menuOpen });
+                      }
+                    },
+                    _react3.default.createElement('i', { className: 'fa fa-bars', 'aria-hidden': 'true' })
+                  )
+                )
+              ),
               _react3.default.createElement(
                 _Collapse2.default,
                 { 'in': this.state.menuOpen },
@@ -157,9 +188,9 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
                         'li',
                         { className: 'menu-item' },
                         _react3.default.createElement(
-                          'button',
-                          { className: 'btn btn-success create-agenda', type: 'button' },
-                          'Cr\xE9er un agenda'
+                          'a',
+                          { href: res.new, className: 'btn btn-primary create-agenda' },
+                          getLabel('createAgenda')
                         )
                       ),
                       _react3.default.createElement(
@@ -167,8 +198,8 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
                         { className: 'menu-item selected' },
                         _react3.default.createElement(
                           'a',
-                          { href: '#' },
-                          'Mes agendas'
+                          null,
+                          getLabel('myAgendas')
                         )
                       ),
                       _react3.default.createElement(
@@ -176,8 +207,8 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
                         { className: 'menu-item' },
                         _react3.default.createElement(
                           'a',
-                          { href: '#' },
-                          'Mes \xE9v\xE9nements'
+                          { href: res.events },
+                          getLabel('myEvents')
                         )
                       ),
                       _react3.default.createElement(
@@ -185,8 +216,8 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
                         { className: 'menu-item' },
                         _react3.default.createElement(
                           'a',
-                          { href: '#' },
-                          'Messages'
+                          { href: res.messages },
+                          getLabel('messages')
                         )
                       ),
                       _react3.default.createElement(
@@ -194,8 +225,8 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
                         { className: 'menu-item' },
                         _react3.default.createElement(
                           'a',
-                          { href: '#' },
-                          'Notifications'
+                          { href: res.notifs },
+                          getLabel('notifications')
                         )
                       )
                     )
@@ -209,7 +240,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
               ' ',
               _react3.default.createElement(
                 'div',
-                { className: 'row collapse in', id: 'collapseNav' },
+                { className: 'row' },
                 _react3.default.createElement(
                   'div',
                   { className: 'nav nav-right' },
@@ -221,8 +252,8 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
                       { className: 'menu-item selected' },
                       _react3.default.createElement(
                         'a',
-                        { href: '#' },
-                        'Mes agendas'
+                        null,
+                        getLabel('myAgendas')
                       )
                     ),
                     _react3.default.createElement(
@@ -230,8 +261,8 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
                       { className: 'menu-item' },
                       _react3.default.createElement(
                         'a',
-                        { href: '#' },
-                        'Mes \xE9v\xE9nements'
+                        { href: res.events },
+                        getLabel('myEvents')
                       )
                     ),
                     _react3.default.createElement(
@@ -239,8 +270,8 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
                       { className: 'menu-item' },
                       _react3.default.createElement(
                         'a',
-                        { href: '#' },
-                        'Messages'
+                        { href: res.messages },
+                        getLabel('messages')
                       )
                     ),
                     _react3.default.createElement(
@@ -248,8 +279,8 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
                       { className: 'menu-item' },
                       _react3.default.createElement(
                         'a',
-                        { href: '#' },
-                        'Notifications'
+                        { href: res.notifs },
+                        getLabel('notifications')
                       )
                     )
                   )

@@ -1,12 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { formValueSelector } from 'redux-form';
 import makeGetterLabel from 'labels';
-const labels = {}; // TODO import labels
+import labels from 'labels/home/agendas';
 import Collapse from 'react-bootstrap/lib/Collapse';
+
+const selector = formValueSelector( 'homeDashboard' );
 
 @connect(
   state => ({
-    lang: state.settings.lang
+    res: state.res,
+    lang: state.settings.lang,
+    agendas: state.agendas.data,
+    search: selector( state, 'search' )
   })
 )
 export default class App extends Component {
@@ -34,52 +40,66 @@ export default class App extends Component {
 
   render() {
 
+    const { agendas, res, search, location: { query } } = this.props;
+    const { getLabel } = this.getChildContext();
+    const newUser = !search && !query.search && (!agendas || !agendas.length);
+
+    if ( newUser ) {
+      return (
+        <div className="container top-margined home">
+          <div className="col-sm-8 col-sm-offset-2">
+            <div className="row wsq">
+              <div className="content">
+                {this.props.children}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="container top-margined home">
         <div className="row wsq">
           <div className="col-sm-3 col-sm-push-9">
-            <div className="row content visible-xs-block"> {/* small screen version */}
-              <h2>Mes agendas</h2>
-              <div className="pull-right">
-                <button className="btn btn-default btn-collapse-nav" type="button"
-                        onClick={() => this.setState( { menuOpen: !this.state.menuOpen } )}
-                >
-                  <i className="fa fa-bars" aria-hidden="true" />
-                </button>
-              </div>
-            </div>
-            <div className="row hidden-xs"> {/* large screen version */}
-              <button className="btn btn-success center-block margin-v-md create-agenda" type="button">
-                Créer un agenda
-              </button>
-            </div>
             <div className="visible-xs-block"> {/* small screen version */}
+              <div className="row header">
+                <h2>{getLabel( 'myAgendas' )}</h2>
+                <div className="pull-right">
+                  <button className="btn btn-default btn-collapse-nav" type="button"
+                          onClick={() => this.setState( { menuOpen: !this.state.menuOpen } )}
+                  >
+                    <i className="fa fa-bars" aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
               <Collapse in={this.state.menuOpen}>
                 <div className="row">
                   <div className="nav">
                     <ul className="list-unstyled">
                       <li className="menu-item">
-                        <button className="btn btn-success create-agenda" type="button">
-                          Créer un agenda
-                        </button>
+                        <a href={res.new} className="btn btn-primary create-agenda">
+                          {getLabel( 'createAgenda' )}
+                        </a>
                       </li>
-                      <li className="menu-item selected"><a href="#">Mes agendas</a></li>
-                      <li className="menu-item"><a href="#">Mes événements</a></li>
-                      <li className="menu-item"><a href="#">Messages</a></li>
-                      <li className="menu-item"><a href="#">Notifications</a></li>
+                      <li className="menu-item selected"><a>{getLabel( 'myAgendas' )}</a></li>
+                      <li className="menu-item"><a href={res.events}>{getLabel( 'myEvents' )}</a></li>
+                      <li className="menu-item"><a href={res.messages}>{getLabel( 'messages' )}</a></li>
+                      <li className="menu-item"><a href={res.notifs}>{getLabel( 'notifications' )}</a></li>
                     </ul>
                   </div>
                 </div>
               </Collapse>
             </div>
+
             <div className="hidden-xs"> {/* large screen version */}
-              <div className="row collapse in" id="collapseNav">
+              <div className="row">
                 <div className="nav nav-right">
                   <ul className="list-unstyled">
-                    <li className="menu-item selected"><a href="#">Mes agendas</a></li>
-                    <li className="menu-item"><a href="#">Mes événements</a></li>
-                    <li className="menu-item"><a href="#">Messages</a></li>
-                    <li className="menu-item"><a href="#">Notifications</a></li>
+                    <li className="menu-item selected"><a>{getLabel( 'myAgendas' )}</a></li>
+                    <li className="menu-item"><a href={res.events}>{getLabel( 'myEvents' )}</a></li>
+                    <li className="menu-item"><a href={res.messages}>{getLabel( 'messages' )}</a></li>
+                    <li className="menu-item"><a href={res.notifs}>{getLabel( 'notifications' )}</a></li>
                   </ul>
                 </div>
               </div>
