@@ -8,7 +8,7 @@ module.exports = function( config ) {
 
   var params = utils.extend( {
     field: false,
-    optional: false,
+    optional: true,
     defaultLanguage: 'en'
   }, config || {} );
 
@@ -19,7 +19,7 @@ module.exports = function( config ) {
 
   function validate( value ) {
 
-    var clean = {}, tmp = {}, l, errors = [],
+    var clean = {}, tmp = {}, errors = [],
 
     validateText = text( params );
 
@@ -33,25 +33,27 @@ module.exports = function( config ) {
 
     if ( !value ) value = {};
 
-    for( l in value ) {
+    Object.keys( value ).forEach( l => {
 
-      try {
+      let langValue = value[ l ];
 
-        clean[ l ] = validateText( value[ l ] );
+      if ( langValue === undefined || langValue === null ) {
 
-      } catch( lErrors ) {
-
-        errors = errors.concat( lErrors.map( function( error ) {
-
-          error.lang = l;
-
-          return error;
-
-        } ) );
+        return;
 
       }
 
-    }
+      try {
+
+        clean[ l ] = validateText( langValue );
+
+      } catch( lErrors ) {
+
+        errors = errors.concat( lErrors.map( e => utils.extend( { lang: l }, e ) ) );
+
+      }
+
+    } );
 
     if ( errors.length ) {
 

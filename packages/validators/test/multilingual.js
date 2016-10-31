@@ -2,7 +2,7 @@
 
 const should = require( 'should' ),
 
-multilingual = require( '../multilingual' );
+multilingual = require( './build/multilingual' );
 
 describe( 'multilingual validator', () => {
 
@@ -59,5 +59,33 @@ describe( 'multilingual validator', () => {
 
   } );
 
+  it( 'null or undefined keyed value filtered out', () => {
+
+    let validate = multilingual(),
+
+    clean = false,
+
+    errors = [];
+
+    try {
+
+      clean = validate( {
+        en: null,
+        fr: 'Le texte anglais est franchement nul.'
+      } );
+
+    } catch( e ) {
+
+      errors = e;
+
+    }
+
+    errors.length.should.equal( 0 );
+
+    clean.should.eql( {
+      fr: 'Le texte anglais est franchement nul.'
+    } );
+
+  } );
 
 } );

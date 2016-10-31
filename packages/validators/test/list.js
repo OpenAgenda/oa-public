@@ -14,7 +14,6 @@ describe( 'list validator', () => {
       validators.email()
     ] );
 
-
     it( 'cleans list of invalid values', () => {
 
       let clean = validate.clean( [ 'fdfdsqf', 'mail@gmail.com', 'fdsqfdsq' ] );
