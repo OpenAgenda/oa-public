@@ -14,10 +14,9 @@ exports.default = function (history, client) {
   var middleware = (0, _redux.applyMiddleware)((0, _reactRouterRedux.routerMiddleware)(history), promiseMiddleware(client, state));
 
   if (process.env.NODE_ENV == 'development') {
-    var _require = require('redux-devtools');
-
-    var persistState = _require.persistState;
-    var DevTools = require('../containers/DevTools/DevTools');
+    var _require = require('redux-devtools'),
+        persistState = _require.persistState,
+        DevTools = require('../containers/DevTools/DevTools');
 
     enhancer = (0, _redux.compose)(middleware, window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(), persistState(getDebugSessionKey()));
   } else {
@@ -49,8 +48,8 @@ function promiseMiddleware(client) {
   return function (store) {
     return function (next) {
       return function (action) {
-        var promise = action.promise;
-        var types = action.types;
+        var promise = action.promise,
+            types = action.types;
 
         var rest = removeObjectProperties(action, ['promise', 'types']);
 
@@ -58,12 +57,10 @@ function promiseMiddleware(client) {
           return next(action);
         }
 
-        var _types = _slicedToArray(types, 3);
-
-        var REQUEST = _types[0];
-        var SUCCESS = _types[1];
-        var FAILURE = _types[2];
-
+        var _types = _slicedToArray(types, 3),
+            REQUEST = _types[0],
+            SUCCESS = _types[1],
+            FAILURE = _types[2];
 
         next(Object.assign({}, rest, { type: REQUEST }));
 

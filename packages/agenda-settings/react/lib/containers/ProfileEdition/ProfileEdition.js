@@ -76,12 +76,12 @@ function _wrapComponent(id) {
 }
 
 var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.connect)(function (state) {
-  var _state$agenda$data = state.agenda.data;
-  var uid = _state$agenda$data.uid;
-  var title = _state$agenda$data.title;
-  var description = _state$agenda$data.description;
-  var url = _state$agenda$data.url;
-  var slug = _state$agenda$data.slug;
+  var _state$agenda$data = state.agenda.data,
+      uid = _state$agenda$data.uid,
+      title = _state$agenda$data.title,
+      description = _state$agenda$data.description,
+      url = _state$agenda$data.url,
+      slug = _state$agenda$data.slug;
 
   return {
     initialValues: { uid: uid, title: title, description: description, url: url, slug: slug },
@@ -112,11 +112,11 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
   _createClass(ProfileEdition, [{
     key: 'renderSubmitBtn',
     value: function renderSubmitBtn() {
-      var _props = this.props;
-      var dirty = _props.dirty;
-      var submitting = _props.submitting;
-      var submitSucceeded = _props.submitSucceeded;
-      var valid = _props.valid;
+      var _props = this.props,
+          dirty = _props.dirty,
+          submitting = _props.submitting,
+          submitSucceeded = _props.submitSucceeded,
+          valid = _props.valid;
       var getLabel = this.context.getLabel;
 
 
@@ -143,17 +143,17 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
   }, {
     key: 'render',
     value: function render() {
-      var _props2 = this.props;
-      var handleSubmit = _props2.handleSubmit;
-      var agenda = _props2.agenda;
-      var modal = _props2.modal;
-      var imageUploaded = _props2.imageUploaded;
-      var res = _props2.res;
-      var setModal = _props2.setModal;
-      var remove = _props2.remove;
-      var _context = this.context;
-      var getLabel = _context.getLabel;
-      var lang = _context.lang;
+      var _props2 = this.props,
+          handleSubmit = _props2.handleSubmit,
+          agenda = _props2.agenda,
+          modal = _props2.modal,
+          imageUploaded = _props2.imageUploaded,
+          res = _props2.res,
+          setModal = _props2.setModal,
+          remove = _props2.remove;
+      var _context = this.context,
+          getLabel = _context.getLabel,
+          lang = _context.lang;
 
 
       var removeModal = {

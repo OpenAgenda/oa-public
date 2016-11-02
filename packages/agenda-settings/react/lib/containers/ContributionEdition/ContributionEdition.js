@@ -96,11 +96,11 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
   _createClass(ContributionEdition, [{
     key: 'renderSubmitBtn',
     value: function renderSubmitBtn() {
-      var _props = this.props;
-      var dirty = _props.dirty;
-      var submitting = _props.submitting;
-      var submitSucceeded = _props.submitSucceeded;
-      var valid = _props.valid;
+      var _props = this.props,
+          dirty = _props.dirty,
+          submitting = _props.submitting,
+          submitSucceeded = _props.submitSucceeded,
+          valid = _props.valid;
       var getLabel = this.context.getLabel;
 
 
@@ -127,11 +127,11 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
   }, {
     key: 'render',
     value: function render() {
-      var _props2 = this.props;
-      var handleSubmit = _props2.handleSubmit;
-      var fields = _props2.fields;
-      var errors = _props2.errors;
-      var contributionType = _props2.contributionType;
+      var _props2 = this.props,
+          handleSubmit = _props2.handleSubmit,
+          fields = _props2.fields,
+          errors = _props2.errors,
+          contributionType = _props2.contributionType;
       var getLabel = this.context.getLabel;
 
 

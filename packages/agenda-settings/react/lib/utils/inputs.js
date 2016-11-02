@@ -25,18 +25,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 function renderField(_ref) {
-  var content = _ref.content;
-  var _ref$input = _ref.input;
-  var name = _ref$input.name;
-  var value = _ref$input.value;
-  var label = _ref.label;
-  var subLabel = _ref.subLabel;
-  var max = _ref.max;
-  var errorOnDirty = _ref.errorOnDirty;
-  var _ref$meta = _ref.meta;
-  var touched = _ref$meta.touched;
-  var error = _ref$meta.error;
-  var dirty = _ref$meta.dirty;
+  var content = _ref.content,
+      _ref$input = _ref.input,
+      name = _ref$input.name,
+      value = _ref$input.value,
+      label = _ref.label,
+      subLabel = _ref.subLabel,
+      max = _ref.max,
+      errorOnDirty = _ref.errorOnDirty,
+      _ref$meta = _ref.meta,
+      touched = _ref$meta.touched,
+      error = _ref$meta.error,
+      dirty = _ref$meta.dirty;
 
   var displayError = errorOnDirty ? dirty || touched : touched;
   return _react2.default.createElement(
@@ -68,12 +68,11 @@ function renderField(_ref) {
 };
 
 function renderInput(_ref2) {
-  var type = _ref2.type;
-  var placeholder = _ref2.placeholder;
-  var className = _ref2.className;
-  var spellCheck = _ref2.spellCheck;
-
-  var props = _objectWithoutProperties(_ref2, ['type', 'placeholder', 'className', 'spellCheck']);
+  var type = _ref2.type,
+      placeholder = _ref2.placeholder,
+      className = _ref2.className,
+      spellCheck = _ref2.spellCheck,
+      props = _objectWithoutProperties(_ref2, ['type', 'placeholder', 'className', 'spellCheck']);
 
   var inputAttrs = { type: type, placeholder: placeholder, className: className, spellCheck: spellCheck };
   var content = _react2.default.createElement('input', _extends({}, props.input, inputAttrs));
@@ -81,13 +80,12 @@ function renderInput(_ref2) {
 };
 
 function renderTextarea(_ref3) {
-  var placeholder = _ref3.placeholder;
-  var className = _ref3.className;
-  var rows = _ref3.rows;
-  var cols = _ref3.cols;
-  var spellCheck = _ref3.spellCheck;
-
-  var props = _objectWithoutProperties(_ref3, ['placeholder', 'className', 'rows', 'cols', 'spellCheck']);
+  var placeholder = _ref3.placeholder,
+      className = _ref3.className,
+      rows = _ref3.rows,
+      cols = _ref3.cols,
+      spellCheck = _ref3.spellCheck,
+      props = _objectWithoutProperties(_ref3, ['placeholder', 'className', 'rows', 'cols', 'spellCheck']);
 
   var inputAttrs = { placeholder: placeholder, className: className, rows: rows, cols: cols, spellCheck: spellCheck };
   var content = _react2.default.createElement(
@@ -99,14 +97,13 @@ function renderTextarea(_ref3) {
 };
 
 function renderInputGroup(_ref4) {
-  var type = _ref4.type;
-  var placeholder = _ref4.placeholder;
-  var className = _ref4.className;
-  var before = _ref4.before;
-  var after = _ref4.after;
-  var spellCheck = _ref4.spellCheck;
-
-  var props = _objectWithoutProperties(_ref4, ['type', 'placeholder', 'className', 'before', 'after', 'spellCheck']);
+  var type = _ref4.type,
+      placeholder = _ref4.placeholder,
+      className = _ref4.className,
+      before = _ref4.before,
+      after = _ref4.after,
+      spellCheck = _ref4.spellCheck,
+      props = _objectWithoutProperties(_ref4, ['type', 'placeholder', 'className', 'before', 'after', 'spellCheck']);
 
   var inputAttrs = { type: type, placeholder: placeholder, className: className, spellCheck: spellCheck };
   var content = _react2.default.createElement(
@@ -120,13 +117,12 @@ function renderInputGroup(_ref4) {
 };
 
 function renderMarkdownInput(_ref5) {
-  var placeholder = _ref5.placeholder;
-  var _ref5$className = _ref5.className;
-  var className = _ref5$className === undefined ? '' : _ref5$className;
-  var _ref5$lang = _ref5.lang;
-  var lang = _ref5$lang === undefined ? 'fr' : _ref5$lang;
-
-  var props = _objectWithoutProperties(_ref5, ['placeholder', 'className', 'lang']);
+  var placeholder = _ref5.placeholder,
+      _ref5$className = _ref5.className,
+      className = _ref5$className === undefined ? '' : _ref5$className,
+      _ref5$lang = _ref5.lang,
+      lang = _ref5$lang === undefined ? 'fr' : _ref5$lang,
+      props = _objectWithoutProperties(_ref5, ['placeholder', 'className', 'lang']);
 
   var inputAttrs = { placeholder: placeholder, className: className, lang: lang };
   var content = _react2.default.createElement(_MarkdownComponent2.default, _extends({}, props.input, inputAttrs));

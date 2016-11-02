@@ -80,12 +80,12 @@ var CreationSecondStep = _wrapComponent('CreationSecondStep')((_dec = (0, _redux
   _createClass(CreationSecondStep, [{
     key: 'render',
     value: function render() {
-      var _props = this.props;
-      var previousPage = _props.previousPage;
-      var handleSubmit = _props.handleSubmit;
-      var errors = _props.errors;
-      var fields = _props.fields;
-      var title = _props.title;
+      var _props = this.props,
+          previousPage = _props.previousPage,
+          handleSubmit = _props.handleSubmit,
+          errors = _props.errors,
+          fields = _props.fields,
+          title = _props.title;
       var getLabel = this.context.getLabel;
 
 

@@ -135,8 +135,8 @@ function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     promise: function promise(client, _ref2) {
-      var res = _ref2.res;
-      var agenda = _ref2.agenda;
+      var res = _ref2.res,
+          agenda = _ref2.agenda;
       return client.get(res.get.replace(':uid', agenda.uid));
     }
   };
@@ -156,8 +156,8 @@ function edit(data) {
   return {
     types: [EDIT, EDIT_SUCCESS, EDIT_FAIL],
     promise: function promise(client, _ref4) {
-      var res = _ref4.res;
-      var agenda = _ref4.agenda;
+      var res = _ref4.res,
+          agenda = _ref4.agenda;
       return client.post(res.set.replace(':slug', agenda.data.slug), { data: data }).catch(catchValidation);
     }
   };
@@ -185,8 +185,8 @@ function remove() {
   return {
     types: [REMOVE, REMOVE_SUCCESS, REMOVE_FAIL],
     promise: function promise(client, _ref6) {
-      var res = _ref6.res;
-      var agenda = _ref6.agenda;
+      var res = _ref6.res,
+          agenda = _ref6.agenda;
       return client.post(res.remove.replace(':slug', agenda.data.slug));
     }
   };

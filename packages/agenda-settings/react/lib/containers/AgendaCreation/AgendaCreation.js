@@ -93,9 +93,9 @@ var AgendaCreation = _wrapComponent('AgendaCreation')((_dec = (0, _reactRedux.co
   }, {
     key: 'handleSubmit',
     value: function handleSubmit(values) {
-      var _props = this.props;
-      var create = _props.create;
-      var onCreated = _props.res.onCreated;
+      var _props = this.props,
+          create = _props.create,
+          onCreated = _props.res.onCreated;
 
       create(values).then(function (_ref) {
         var result = _ref.result;

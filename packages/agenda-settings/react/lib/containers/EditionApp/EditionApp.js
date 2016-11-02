@@ -67,9 +67,9 @@ function _wrapComponent(id) {
 
 var App = _wrapComponent('App')((_dec = (0, _reduxConnect.asyncConnect)([{
   promise: function promise(_ref) {
-    var _ref$store = _ref.store;
-    var dispatch = _ref$store.dispatch;
-    var getState = _ref$store.getState;
+    var _ref$store = _ref.store,
+        dispatch = _ref$store.dispatch,
+        getState = _ref$store.getState;
 
     if (!agendaActions.isLoaded(getState())) {
       return dispatch(agendaActions.load());
