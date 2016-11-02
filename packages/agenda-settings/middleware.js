@@ -48,7 +48,7 @@ function matchApp( appName, params, path, cb ) {
 
   return ( req, res, next ) => {
 
-    const url = req.originalUrl.replace( path, '' );
+    const url = req.originalUrl;
     const client = new ApiClient( params.state.settings.apiRoot, req );
     const memoryHistory = createHistory( url );
     const store = createStore( memoryHistory, client, params.state );

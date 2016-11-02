@@ -54,7 +54,7 @@ app.post( '/:slug/remove', [
 
 function matchApp( req, res, next ) {
 
-  const prefix = '';
+  const prefix = '/';
   const lang = req.query.lang || 'fr';
 
   if ( req.query._app == 'edition' ) {
@@ -105,13 +105,7 @@ function matchApp( req, res, next ) {
 
 function getApp( req, res, next, { store, component } = {} ) {
 
-  const prefix = '';
   const state = store ? store.getState() : {};
-
-  // Manually add prefix for react-router matching
-  if ( state.routing && state.routing.locationBeforeTransitions ) {
-    state.routing.locationBeforeTransitions.basename = prefix;
-  }
 
   req.data = { state };
   req.content = component ? ReactDOM.renderToString( component ) : '';

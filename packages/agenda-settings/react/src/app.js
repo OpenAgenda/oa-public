@@ -25,7 +25,7 @@ export default function ( options, routes, fn ) {
   }, options );
 
   const client = new ApiClient( params.state.settings.apiRoot );
-  const browserHistory = useRouterHistory( createHistory )( { basename: params.state.settings.prefix } );
+  const browserHistory = useRouterHistory( createHistory )();
   const store = createStore( browserHistory, client, params.state );
   const history = syncHistoryWithStore( browserHistory, store );
 

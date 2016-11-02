@@ -15,11 +15,13 @@ var _containers = require('./containers');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function createRoutes() {
+function createRoutes(store) {
+
+  var state = store.getState();
 
   return _react2.default.createElement(
     _reactRouter.Route,
-    { path: '/', component: _containers.CreationApp },
+    { path: state.settings.prefix, component: _containers.CreationApp },
     _react2.default.createElement(_reactRouter.IndexRoute, { component: _containers.AgendaCreation })
   );
 }

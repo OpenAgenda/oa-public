@@ -35,7 +35,7 @@
     "mysql": "^2.11.1",
     "react-components": "git+ssh://git@bitbucket.org/openagenda/react-components.git",
     "react-datepicker": "^0.29.0",
-    "react-dom": "^15.3.1",
+    "react-dom": "0.14.7",
     "react-form-components": "git+ssh://git@bitbucket.org/openagenda/react-form-components.git",
     "react-redux": "^4.4.5",
     "react-router": "^2.7.0",

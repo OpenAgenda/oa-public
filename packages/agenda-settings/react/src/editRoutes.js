@@ -21,12 +21,15 @@ function selectItem( item ) {
       }
     }
   };
+
 }
 
-export default function editRoutes() {
+export default function editRoutes( store ) {
+
+  const state = store.getState();
 
   return (
-    <Route path="/" component={EditionApp}>
+    <Route path={state.settings.prefix} component={EditionApp}>
       <IndexRoute component={ProfileEdition} onEnter={selectItem( 'settings_profile' )} />
       <Route path="/profile" component={ProfileEdition} onEnter={selectItem( 'settings_profile' )} />
       <Route path="/contribution" component={ContributionEdition} onEnter={selectItem( 'settings_contribution' )} />

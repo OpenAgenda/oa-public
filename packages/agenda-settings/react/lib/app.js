@@ -19,7 +19,7 @@ exports.default = function (options, routes, fn) {
   }, options);
 
   var client = new _ApiClient2.default(params.state.settings.apiRoot);
-  var browserHistory = (0, _reactRouter.useRouterHistory)(_history.createHistory)({ basename: params.state.settings.prefix });
+  var browserHistory = (0, _reactRouter.useRouterHistory)(_history.createHistory)();
   var store = (0, _create2.default)(browserHistory, client, params.state);
   var history = (0, _reactRouterRedux.syncHistoryWithStore)(browserHistory, store);
 
