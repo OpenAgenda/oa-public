@@ -34,7 +34,6 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
     "react-router-redux": "^4.0.6",
-    "react-throttle": "^0.3.0",
     "react-utils": "git+ssh://git@bitbucket.org/openagenda/react-utils.git",
     "redux": "^3.6.0",
     "redux-connect": "^3.0.0",
