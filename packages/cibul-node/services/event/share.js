@@ -7,9 +7,9 @@ config = require( '../../config' ),
 genUrl = require( '../genUrl' ).abs;
 
 module.exports = {
-  addCalendarLinks: addCalendarLinks,
-  getSocialLinks: getSocialLinks,
-  getFacebookFeedLink: getFacebookFeedLink
+  addCalendarLinks,
+  getSocialLinks,
+  getFacebookFeedLink
 };
 
 function getFacebookFeedLink( event, eventUrl, appId ) {
@@ -21,6 +21,8 @@ function getFacebookFeedLink( event, eventUrl, appId ) {
   + '&name=' + encodeURIComponent( event.title )
 
   + '&caption=' + encodeURIComponent( event.dateRange )
+
+  + '&description=' + encodeURIComponent( event.description )
 
   + '&app_id=' + appId;
 
