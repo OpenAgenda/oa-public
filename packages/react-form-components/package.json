@@ -13,7 +13,7 @@
     "start": "nodemon --exec 'npm' --ignore build --ext js,jsx run-script serve"
   },
   "dependencies": {
-    "bs-templates": "git+ssh://git@bitbucket.org:openagenda/bs-templates.git",
+    "bs-templates": "git+ssh://git@bitbucket.org/openagenda/bs-templates.git",
     "languages": "0.1.3",
     "load-script": "^1.0.0",
     "marked": "^0.3.6",
@@ -22,10 +22,10 @@
     "react-select": "^0.9.1",
     "react-tagsinput": "git://github.com/olahol/react-tagsinput.git#3967966b829950bde19b1355491174788b1b2002",
     "spin.js": "2.3.2",
-    "spinner": "git@bitbucket.org:openagenda/spinner.git",
+    "spinner": "git+ssh://git@bitbucket.org/openagenda/spinner.git",
     "to-markdown": "^3.0.1",
-    "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
-    "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git"
+    "utils": "git+ssh://git@bitbucket.org/openagenda/utils.git",
+    "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git"
   },
   "peerDependencies": {
     "react": "0.14.7"
@@ -42,6 +42,6 @@
     "react": "0.14.7",
     "reactify": "1.1.1",
     "should": "^7.1.1",
-    "test-app": "git@bitbucket.org:openagenda/test-app.git"
+    "test-app": "git+ssh://git@bitbucket.org/openagenda/test-app.git"
   }
 }
