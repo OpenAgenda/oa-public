@@ -360,7 +360,7 @@ function generateApiKey( query, options, cb ) {
     .done( v => cb( null, {
       success: v.success,
       errors: v.errors,
-      key: v.query.secret == 1 ? v.query.api_secret : v.query.api_key
+      key: v.params.secret ? v.query.api_secret : v.query.api_key
     } ), err => cb( err ) );
 
 }
@@ -915,7 +915,7 @@ function _generateApiKey( v ) {
     return v;
   }
 
-  v.query[ v.params.secret == 1 ? 'api_secret' : 'api_key' ] = crypto.randomHash();
+  v.query[ v.params.secret ? 'api_secret' : 'api_key' ] = crypto.randomHash();
 
   return v;
 

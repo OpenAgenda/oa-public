@@ -323,13 +323,13 @@ function generateApiKey( req, res, next ) {
 
   if ( !req.xhr ) return next();
 
-  service.get( req.user, ( err, user ) => {
+  service.get( req.user, { detailed: true }, ( err, user ) => {
 
     if ( err ) return next( err );
 
-    if ( req.query.secret == 1 && !user.api_secret ) return next( 'Unauthorized' );
+    if ( req.query.secret === '1' && !user.api_secret ) return next( 'Unauthorized' );
 
-    service.generateApiKey( req.user, { secret: req.query.secret }, ( err, result ) => {
+    service.generateApiKey( req.user, { secret: req.query.secret === '1' }, ( err, result ) => {
 
       if ( err ) return next( err );
 
