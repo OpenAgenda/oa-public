@@ -1,16 +1,9 @@
 {
-  "title": "Portal - Contact us",
+  "title": "The Portal",
   "description": "A solution tailored to your needs",
   "layout": "layout",
   "segments": [ "expertise", { 
     "key" : "portalwebsite", 
     "background" : "gray"
-  },  {
-    "key" : "getstarted",
-    "action" : {
-      "title" : "Give us your requirements!",
-      "link" : "#contact",
-      "label" : "Contact us"
-    }
-  }, "footer" ]
+  }, "contact", "footer" ]
 }

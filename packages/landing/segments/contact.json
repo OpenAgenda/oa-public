@@ -1,0 +1,14 @@
+{
+  "template" : "contact",
+  "contacts" : {
+    "title" : "Contact",
+    "phone" : "0176350143",
+    "email" : "contact@openagena.com",
+    "twitter" : "oagenda"
+  },
+  "action" : {
+    "title": "A question?",
+    "link": "#pipedrive",
+    "label": "Ask us here"
+  }
+}
