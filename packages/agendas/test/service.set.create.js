@@ -12,8 +12,10 @@ describe( 'service.set: create an agenda', function() {
 
   this.timeout( 30000 );
 
-  beforeEach( () => {
+  before( () => {
+
     svc.init( config );
+
   } );
 
   afterEach( () => {

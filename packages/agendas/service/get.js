@@ -6,7 +6,9 @@ utils = require( 'utils' ),
 
 details = require( './details' ),
 
-dbParse = require( 'mysql-utils/mapper' )( require( './validate' ).map ),
+map = require( './databaseFieldMap' ),
+
+dbParse = require( 'mysql-utils/mapper' )( map ),
 
 validate = require( './validate' ),
 
@@ -42,7 +44,7 @@ function get( identifiers, options, cb ) {
 
   .then( _get )
 
-  .then( _translate )
+  .then( _transform )
 
   .then( _detailed )
 
@@ -90,7 +92,7 @@ function _get( v ) {
 }
 
 
-function _translate( v ) {
+function _transform( v ) {
 
   if ( !v.entry ) return v;
 

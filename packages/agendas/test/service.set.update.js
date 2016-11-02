@@ -16,11 +16,11 @@ describe( 'service.set: update an agenda', function() {
     svc.init( config );
   } );
 
+  before( svc.test.fixtures );
+
   afterEach( () => {
     svc.init( config ); // reset interfaces
   } );
-
-  before( svc.test.fixtures );
 
   it( 'set sets a pre-exisiting agenda if identifier is given as first parameter', done => {
 
@@ -61,7 +61,7 @@ describe( 'service.set: update an agenda', function() {
 
     svc.set( { slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016' }, {
       official: true
-    }, ( err, result ) => {
+    }, { protected: false }, ( err, result ) => {
 
       should( err ).equal( null );
 
@@ -137,7 +137,8 @@ describe( 'service.set: update an agenda', function() {
         moderators: true
       }
     }, {
-      internal: true // to retrieve credentials after update
+      internal: true, // to retrieve credentials after update
+      protected: false
     }, ( err, result ) => {
 
       should( err ).equal( null )
@@ -180,6 +181,36 @@ describe( 'service.set: update an agenda', function() {
 
 
       done();
+
+    } );
+
+  } );
+
+
+  it( 'unprotected set cannot update protected field', done => {
+
+    let uid = 65903437;
+
+    svc.set( { uid }, {
+      credentials: {
+        moderators: true
+      }
+    }, { protected: false }, ( err, result ) => {
+
+      svc.set( { uid }, {
+        title: 'Nouveau titre',
+        credentials: {}
+      }, () => {
+
+        svc.get( { uid }, { internal: true }, ( err, data ) => {
+
+          data.credentials.moderators.should.equal( true );
+
+          done();
+
+        } );
+
+      } );
 
     } );
 

@@ -14,16 +14,15 @@ utils = require( 'utils' ),
 slug = require( 'slug' ),
 
 defineUnique = require( 'mysql-utils/defineUnique' ),
+verifyUnique = require( 'mysql-utils/verifyUnique' ),
 
 logger = require( 'basic-logger' ),
 
-map = require( './validate' ).map;
+map = require( './databaseFieldMap' );
 
 let knex, schemas, mysqlConfig, log, interfaces,
 
 dbParse = require( 'mysql-utils/mapper' )( map ),
-
-filterInternals = require( './lib/filterInternals' ),
 
 validate = require( './validate' ),
 
@@ -34,7 +33,7 @@ module.exports.init = init;
 
 function set( identifiers, data, options, cb ) {
 
-  if ( _isIdentifiers( identifiers ) ) {
+  if ( _areIdentifiers( identifiers ) ) {
 
     _update( identifiers, data, options, cb );
 
@@ -67,7 +66,7 @@ function _update( identifiers, data, options, cb ) {
     // unoptionables
     identifiers: identifiers,
     id: false,
-    data: data,
+    data,
     filteredData: null, // after protected values have been removed from input
     current: false, // what is in db before update
     merged: false, // merge of input and current db values
@@ -78,17 +77,17 @@ function _update( identifiers, data, options, cb ) {
 
   .then( _get( { target: 'current', internal: true } ) )
 
-  .then( _filterProtected )
-
   .then( _merge )
 
   .then( _setToNow( 'merged', 'updatedAt' ) )
 
   .then( _validate( 'merged' ) )
 
-  .then( _verifyUnique( 'slug' ) )
+  // filter must happen after validate to avoid
+  // incomplete data validation errors
+  .then( _filterProtected( 'clean' ) )
 
-  .then( _verifyUnique( 'uid' ) )
+  .then( _verifyUnique( 'slug' ) )
 
   .then( _doUpdate )
 
@@ -110,7 +109,7 @@ function _update( identifiers, data, options, cb ) {
     }
 
     cb( null, {
-      agenda: params.internal ? v.updated : filterInternals( map, v.updated ),
+      agenda: params.internal ? v.updated : dbParse.exclude( v.updated, 'internal' ),
       valid: !v.errors.length,
       success: v.success,
       errors: v.errors
@@ -137,7 +136,7 @@ function _create( data, options, cb ) {
 
   w( utils.extend( {}, params, {
     id: false,
-    data: data,
+    data,
     clean: null,
     created: null,
     errors: [],
@@ -161,7 +160,7 @@ function _create( data, options, cb ) {
 
   .then( _applyToLegacy )
 
-  .then( _get( { 
+  .then( _get( {
     target: 'created', 
     internal: true, 
     prerequisite: v => v.success && !v.errors.length,
@@ -177,7 +176,7 @@ function _create( data, options, cb ) {
     }
 
     cb( null, {
-      agenda: params.internal ? v.created : filterInternals( map, v.created ),
+      agenda: params.internal ? v.created : dbParse.exclude( v.created, 'internal' ),
       valid: !v.errors.length,
       success: v.success,
       errors: v.errors
@@ -305,7 +304,7 @@ function _doCreate( v ) {
 }
 
 
-function _isIdentifiers( identifiers ) {
+function _areIdentifiers( identifiers ) {
 
   if ( typeof identifiers === 'number' ) return true;
 
@@ -380,66 +379,73 @@ function _verifyUnique( field ) {
 
     log( 'verifying unique %s', field );
 
-    let where = {},
+    let d = w.defer(),
 
-    value = dbParse.toDb( v.data )[ field ];
+    // value checked for unicity is from data for create
+    // from merged values in case of update
+    value = dbParse.toDb( v.id ? v.merged : v.data )[ field ];
 
-    where[ field ] = value;
+    verifyUnique( {
+      table: schemas.agenda,
+      field,
+      value,
+      exclude: v.id ? { id: v.id } : false,
+      mysql: mysqlConfig
+    }, ( err, is ) => {
 
-    return knex( schemas.agenda )
+      if ( err ) return d.reject( err );
 
-    .select( 'id' )
-
-    .whereNot( { id: v.id } )
-
-    .andWhere( where )
-
-    .then( rows => {
-
-      if ( !rows.length ) {
+      if ( is ) {
 
         log( '%s is unique', field );
 
-        return v;
+        return d.resolve( v );
 
       }
 
       log( '%s is not unique', field );
 
       v.errors.push( {
-        field: field,
+        field,
         code: 'duplicate',
         message: 'duplicate value found',
         origin: value
       } );
 
-      return v;
+      return d.resolve( v );
 
     } );
+
+    return d.promise;
 
   }
 
 }
 
-function _filterProtected( v ) {
 
-  if ( !v.protected ) return v;
+function _filterProtected( namespace ) {
 
-  let data = v.data;
+  return v => {
 
-  v.data = {};
+    if ( !v.protected ) return v;
 
-  Object.keys( data ).forEach( k => {
+    let data = v[ namespace ];
 
-    if ( !dbParse.is( 'obj', 'protected', k ) ) {
+    v[ namespace ] = {};
 
-      v.data[ k ] = data[ k ];
+    Object.keys( data ).forEach( k => {
 
-    }
+      if ( !dbParse.is( 'obj', k, 'protected' ) ) {
 
-  } );
+        v[ namespace ][ k ] = data[ k ];
 
-  return v;
+      }
+
+    } );
+
+    return v;
+
+  }  
 
 }
 

@@ -2,6 +2,8 @@
 
 process.env.NODE_ENV = 'test';
 
+const async = require( 'async' );
+
 var should = require( 'should' ),
 
 // service loaded with test lib
@@ -118,6 +120,33 @@ describe( 'list', function () {
       done();
 
     } );
+
+  } );
+
+
+  it( 'a few lists do not leak db connections', done => {
+
+    let remaining = 400;
+
+    async.whilst( () => remaining, wcb => {
+
+      svc.list( 0, 10, ( err, agendas, total ) => {
+
+        remaining--;
+
+        wcb( err );
+
+      } );
+
+    }, err => {
+
+      remaining.should.equal( 0 );
+
+      should( err ).equal( null );
+
+      done();
+
+    } )
 
   } );
 

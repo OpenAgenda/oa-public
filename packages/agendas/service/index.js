@@ -22,13 +22,15 @@ const knexLib = require( 'knex' ),
 
   validate = require( './validate' ),
 
+  map = require( './databaseFieldMap' ),
+
   instanciate = require( './instanciate' ),
 
   imageFiles = require( 'image-files' ),
 
   slugs = require( './slugs' ),
 
-  dbParse = require( 'mysql-utils/mapper' )( validate.map ),
+  dbParse = require( 'mysql-utils/mapper' )( map ),
 
   utils = require( 'utils' ),
 
@@ -230,7 +232,7 @@ function _total( v ) {
 
 function _list( v ) {
 
-  let listFields = validate.map.filter( f => typeof f === 'string' || f.list === true || f.list === undefined ).map( f => typeof f === 'string' ? f : f.db );
+  let listFields = map.filter( f => typeof f === 'string' || f.list === true || f.list === undefined ).map( f => typeof f === 'string' ? f : f.db );
 
   return knex.transaction( trx => {
 

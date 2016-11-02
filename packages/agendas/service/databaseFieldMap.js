@@ -1,0 +1,54 @@
+"use strict";
+
+module.exports = [
+  {
+    db: 'id',
+    obj: 'id',
+    internal: true,
+    protected: true
+  },
+  {
+    db: 'owner_id',
+    obj: 'ownerId',
+    internal: true,
+    protected: true,
+    list: false
+  },
+  'slug',
+  {
+    db: 'uid',
+    obj: 'uid',
+    protected: true
+  },
+  {
+    db: 'official',
+    obj: 'official',
+    protected: true
+  },
+  'title',
+  'description',
+  'url',
+  'image',
+  {
+    db: 'updated_at',
+    obj: 'updatedAt'
+  },
+  {
+    db: 'created_at',
+    obj: 'createdAt'
+  },
+  {
+    db: 'settings',
+    obj: 'settings',
+    type: 'json',
+    list: false
+  },
+  {
+    db: 'credentials',
+    obj: 'credentials',
+    type: 'json',
+    internal: true,
+    protected: true,
+    list: false
+  }
+];

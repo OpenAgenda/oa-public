@@ -62,8 +62,6 @@ function build( cb ) {
   // populate the agenda schema
   .then( v => {
 
-    console.log( 'populating agendas' );
-
     return _query( v, 
       sql.data.agenda
       .replace( /\${schema}/g, config.schemas.agenda )
@@ -73,8 +71,6 @@ function build( cb ) {
 
   // populate the occurrence schema
   .then( v => {
-
-    console.log( 'populating occurrences' );
 
     return _query( v, 
       sql.data.occurrence
@@ -86,8 +82,6 @@ function build( cb ) {
   // populate the agendaEvent schema
   .then( v => {
 
-    console.log( 'populating agendaEvent references' );
-
     return _query( v, 
       sql.data.agendaEvent
       .replace( /\${schema}/g, config.schemas.agendaEvent )
@@ -97,8 +91,6 @@ function build( cb ) {
 
   // populate legacy credential table
   .then( v => {
-
-    console.log( 'populating credential references' );
 
     return _query( v, 
       sql.data.legacyCredentialSet

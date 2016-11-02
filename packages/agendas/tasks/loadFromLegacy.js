@@ -33,7 +33,7 @@ function loadFromLegacy( cb ) {
 
       legacy( agenda.id ).loadFromLegacy( ( err, legacyData ) => {
 
-        svc.set( agenda.id, Object.assign( agenda, legacyData ), { internal: true }, ( err, result ) => {
+        svc.set( agenda.id, Object.assign( agenda, legacyData ), { internal: true, protected: false }, ( err, result ) => {
 
           wcb();
 

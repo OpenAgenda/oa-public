@@ -6,7 +6,9 @@ const should = require( 'should' ),
 
 svc = require( '../service/test' ),
 
-config = require( '../testconfig' );
+config = require( '../testconfig' ),
+
+async = require( 'async' );
 
 describe( 'get', function() {
 
@@ -152,6 +154,33 @@ describe( 'get', function() {
       done();
 
     } );
+
+  } );
+
+
+  it( 'a few gets do not leak db connections', done => {
+
+    let remaining = 400;
+
+    async.whilst( () => remaining, wcb => {
+
+      svc.get( { uid: 94345899 }, ( err, agenda ) => {
+
+        remaining--;
+
+        wcb( err );
+
+      } );
+
+    }, err => {
+
+      remaining.should.equal( 0 );
+
+      should( err ).equal( null );
+
+      done();
+
+    } )
 
   } );
 

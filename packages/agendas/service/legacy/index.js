@@ -218,7 +218,7 @@ function _updateCredentials( v ) {
 
     return knex( schemas.legacyCredentialSet )
 
-    .insert( Object.assign( { 
+    .insert( Object.assign( {
       updated_at: new Date(),
       created_at: new Date(),
       review_id: vv.agendaId 
