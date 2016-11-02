@@ -14,9 +14,9 @@
   "license": "ISC",
   "dependencies": {
     "when": "^3.7.7",
-    "images": "git+ssh://git@bitbucket.org:openagenda/images.git",
-    "files": "git+ssh://git@bitbucket.org:openagenda/files.git",
-    "basic-logger": "git+ssh://git@bitbucket.org:openagenda/basic-logger.git"
+    "images": "git+ssh://git@bitbucket.org/openagenda/images.git",
+    "files": "git+ssh://git@bitbucket.org/openagenda/files.git",
+    "basic-logger": "git+ssh://git@bitbucket.org/openagenda/basic-logger.git"
   },
   "devDependencies": {
     "should": "^11.1.0"
