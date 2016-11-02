@@ -164,11 +164,15 @@ describe( 'list validator', () => {
 
   describe( 'with field', () => {
 
-    var validate = validators.list( { field: 'myfield' }, [
-      validators.link(),
-      validators.phone(),
-      validators.email()
-    ] );
+    var validate = validators.list( {
+      field: 'myfield',
+      types: [ 'link', 'phone', 'email' ],
+      validators: {
+        link: validators.link,
+        phone: validators.phone,
+        email: validators.email
+      }
+    } );
 
     it( 'includes field name in error', () => {
 

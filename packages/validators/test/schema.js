@@ -4,13 +4,13 @@ require( 'source-map-support' ).install();
 
 const validators = require( './build' ),
 
-schema = require( './build/newSchema' ),
+schema = require( './build/schema' ),
 
 should = require( 'should' ),
 
 utils = require( 'utils' );
 
-describe( 'schema validator v2', () => {
+describe( 'schema validator', () => {
 
   describe( 'shallow schemas', () => {
 
@@ -658,6 +658,29 @@ describe( 'schema validator v2', () => {
         title: 'Yay',
         registration: [ '031', 'yay@site.com' ]
       } );
+
+    } );
+
+
+    it( 'list validator provides field name in errors', () => {
+
+      let errors = [];
+
+      try {
+
+        validate( {
+          registration: [ 'lallalala' ]
+        } );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 2 );
+
+      errors[ 0 ].field.should.equal( 'registration' );
 
     } );
 

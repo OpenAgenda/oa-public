@@ -91,10 +91,7 @@ module.exports = function (config, validates) {
       } catch (errs) {
 
         errors = errors.concat(errs.map(function (e) {
-
-          e.index = i;
-
-          return e;
+          return utils.extend({}, e, { index: i, field: params.field });
         }));
       }
     });

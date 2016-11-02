@@ -99,13 +99,7 @@ module.exports = function( config, validates ) {
 
       } catch( errs ) {
 
-        errors = errors.concat( errs.map( function( e ) {
-
-          e.index = i;
-
-          return e;
-
-        } ) );
+        errors = errors.concat( errs.map( e => utils.extend( {}, e, { index: i, field: params.field } ) ) );
 
       }
 
