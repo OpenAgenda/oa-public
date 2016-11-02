@@ -123,6 +123,7 @@ module.exports = function ( path ) {
 
     const prefix = req.genUrl( 'agendaSettingsEditApp', { slug: req.params.slug } ).split( '?' )[ 0 ];
     const state = store ? store.getState() : {};
+    const lang = req.lang || 'fr';
 
     // Manually add prefix for react-router matching
     if ( state.routing && state.routing.locationBeforeTransitions ) {
@@ -132,7 +133,7 @@ module.exports = function ( path ) {
     const content = component ? ReactDOM.renderToString( component ) : '';
     const tab = 'settings_' + state.routing.locationBeforeTransitions.pathname.substr( 1 );
 
-    cmn.render( req, res, 'agendaSettings/edit', { scriptParams: { state }, content, tab } );
+    cmn.render( req, res, 'agendaSettings/edit', { scriptParams: { state }, lang, content, tab } );
 
   }
 

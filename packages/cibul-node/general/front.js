@@ -79,21 +79,24 @@ function corpo( req, res, next ) {
     getStats()
       .then( ( [ agendas, contributors, events ] ) => {
 
+        const lang = req.lang || 'fr';
+
         cmn.render( req, res, 'corpo/index', {
           metas: {
-            title: metaLabels( 'title', req.lang ),
-            description: metaLabels( 'description', req.lang ),
-            keywords: metaLabels( 'keywords', req.lang ),
+            title: metaLabels( 'title', lang ),
+            description: metaLabels( 'description', lang ),
+            keywords: metaLabels( 'keywords', lang ),
             robots: 'index, follow'
           },
           scriptParams : {
-            lang: req.lang || 'fr',
+            lang,
             stats: {
               agendas,
               contributors,
               events
             }
-          }
+          },
+          lang
         } );
 
       }, err => next( err ) );

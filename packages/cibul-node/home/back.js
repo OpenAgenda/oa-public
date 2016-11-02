@@ -36,23 +36,24 @@ module.exports = path => {
 
 function getApp( req, res, next, { store, component } = {} ) {
 
-  const prefix = req.genUrl( 'homeAgendas' );
+  // const prefix = req.genUrl( 'homeAgendas' ).split( '?' )[ 0 ];
   const state = store ? store.getState() : {};
+  const lang = req.lang || 'fr';
 
   // Manually add prefix for react-router matching
-  if ( state.routing && state.routing.locationBeforeTransitions ) {
+  /*if ( state.routing && state.routing.locationBeforeTransitions ) {
     state.routing.locationBeforeTransitions.basename = prefix;
-  }
+  }*/
 
   const content = component ? ReactDOM.renderToString( component ) : '';
 
-  cmn.render( req, res, 'home/agendas', { scriptParams: { state }, content } );
+  cmn.render( req, res, 'home/agendas', { scriptParams: { state }, lang, content } );
 
 }
 
 function matchApp( req, res, next ) {
 
-  const prefix = req.genUrl( 'homeAgendas' );
+  const prefix = req.genUrl( 'homeAgendas' ).split( '?' )[ 0 ];
   const lang = req.lang || 'fr';
 
   mw.matchApp(

@@ -63,11 +63,13 @@ module.exports = function ( path ) {
 
   function index( req, res ) {
 
+    const lang = req.lang || 'fr';
+
     mw.csrf( req, res, () => {
 
       const scriptParams = {
         prefix: path,
-        lang: req.lang || 'fr',
+        lang,
         urls: {
           getMe: '/getMe',
           updateProfile: '/updateProfile',
@@ -81,7 +83,7 @@ module.exports = function ( path ) {
         csrfToken: req.csrfToken()
       };
 
-      cmn.render( req, res, 'user/settings', { scriptParams } );
+      cmn.render( req, res, 'user/settings', { scriptParams, lang } );
     } );
 
   }
