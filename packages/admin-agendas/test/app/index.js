@@ -32,7 +32,12 @@ agendaStakeholdersSvc.init( config, () => {
 
     if ( err ) return console.error( err );
 
-    service.init( config );
+    service.init( Object.assign( {}, config, {
+      services: {
+        agendas: agendasSvc,
+        agendaStakeholders: agendaStakeholdersSvc
+      }
+    } ) );
 
     app.getAndListen();
 

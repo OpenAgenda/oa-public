@@ -6,7 +6,7 @@ var logger = require( 'basic-logger' ), log,
 
   service, config,
 
-  agendas = require( 'agendas' ),
+  agendas,
 
   utils = require( 'utils' );
 
@@ -32,6 +32,8 @@ function init( s, c ) {
       max: 100
     }
   }, c.mw || {} );
+
+  agendas = c.services.agendas;
 
 }
 

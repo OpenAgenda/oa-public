@@ -12,5 +12,13 @@ module.exports = {
     user: 'user',
   },
   mw: {
+    limit: {
+      default: 20,
+      max: 100
+    }
+  },
+  services: {
+    agendas: false,
+    agendaStakeholders: false
   }
 }

@@ -65,7 +65,7 @@ module.exports = React.createClass({
   resetSearchPage: function resetSearchPage(newQuery) {
     var _this2 = this;
 
-    var page = arguments.length <= 1 || arguments[1] === undefined ? 1 : arguments[1];
+    var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
     var cb = arguments[2];
 
 
@@ -113,7 +113,7 @@ module.exports = React.createClass({
   onSelectAgenda: function onSelectAgenda(id) {
     var _this4 = this;
 
-    var page = arguments.length <= 1 || arguments[1] === undefined ? 1 : arguments[1];
+    var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
 
     var query = {

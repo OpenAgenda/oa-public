@@ -276,9 +276,9 @@ module.exports = React.createClass({
     return this.props.pageRange[0] > 1;
   },
   renderFeaturesTab: function renderFeaturesTab() {
-    var _props = this.props;
-    var agenda = _props.agenda;
-    var setAgenda = _props.setAgenda;
+    var _props = this.props,
+        agenda = _props.agenda,
+        setAgenda = _props.setAgenda;
 
 
     return agenda.credentials && React.createElement(

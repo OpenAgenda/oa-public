@@ -14,7 +14,7 @@ module.exports = {
     return update(currentState, changes);
   },
   resetPageItems: function resetPageItems(currentState, query, data) {
-    var page = arguments.length <= 3 || arguments[3] === undefined ? 1 : arguments[3];
+    var page = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
 
 
     var changes = {
@@ -64,7 +64,7 @@ module.exports = {
     return update(currentState, changes);
   },
   selectAgenda: function selectAgenda(currentState, agenda, data) {
-    var page = arguments.length <= 3 || arguments[3] === undefined ? 1 : arguments[3];
+    var page = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
 
 
     var changes = {};

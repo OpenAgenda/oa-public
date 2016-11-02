@@ -6,7 +6,7 @@ var logger = require( 'basic-logger' ), log,
 
   mw = require( './middleware' ),
 
-  agendaStakeholders = require( 'agenda-stakeholders' ),
+  agendaStakeholders,
 
   w = require( 'when' ),
 
@@ -29,6 +29,8 @@ function init( c, cb ) {
   w( c )
 
   .then( () => {
+
+    agendaStakeholders = c.services.agendaStakeholders;
 
     if ( c.logger ) {
 

@@ -22,6 +22,10 @@ module.exports = {
     accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
     secretAccessKey: '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'
   },
+  services: {
+    agendas: false,
+    agendaStakeholders: false
+  },
   mw: {
     limit: {
       default: 20,
