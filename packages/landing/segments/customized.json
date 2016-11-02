@@ -1,0 +1,9 @@
+{
+  "template": "basic",
+  "title": "Customize event forms to meet your specific needs",
+  "points": [
+    "Add fields of any type, descriptions and labels to adapt forms to your use case",
+    "Define <strong>private fields</strong> visible only to agenda administrators",
+    "All customized data is exportable <strong>at all times</strong>"
+  ]
+}

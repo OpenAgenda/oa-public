@@ -1,0 +1,51 @@
+{
+  "template": "footer",
+  "offers": {
+    "title": "The offers",
+    "list": [ {
+      "link": "#openoffer",
+      "label": "Open agenda - Free"
+    }, {
+      "link": "#premiumoffer",
+      "label": "Premium agenda - 50€/month"
+    }, {
+      "link": "#networkoffer",
+      "label": "Network - 350€/month"
+    }, {
+      "link": "#portaloffer",
+      "label": "Portal - Contact us"
+    } ]
+  },
+  "more": {
+    "title": "Find out more",
+    "list": [ {
+      "link": "#configure",
+      "label": "Setup your agenda in an instant"
+    }, {
+      "link": "#collaborate",
+      "label": "Collaborate over huge event datasets"
+    }, {
+      "link": "#buildnetwork",
+      "label": "Manage networks of agendas"
+    }, {
+      "link": "#broadcast",
+      "label": "Broadcast your events"
+    } ]
+  },
+  "andmore": {
+    "title" : "... and more",
+    "list" : [ {
+      "link" : "#medias",
+      "label" : "Sites and medias using your events"
+    }, {
+      "link" : "#team",
+      "label" : "Meet the team"
+    }, {
+      "link" : "#references",
+      "label" : "References"
+    }, {
+      "link" : "#contactus",
+      "label" : "Contact us"
+    } ]
+  }
+}

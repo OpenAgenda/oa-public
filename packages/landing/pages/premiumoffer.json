@@ -1,0 +1,33 @@
+{
+  "key": "premiumoffer",
+  "title": "The Premium Agenda - 50€/month",
+  "description": "A fully featured agenda",
+  "layout": "layout",
+  "segments": [ {
+    "key": "startwith",
+    "title": "You get all the features from an Open Agenda, plus..."
+  }, {
+    "key": "customized",
+    "background": "gray"
+  }, {
+    "key": "customembed", 
+    "background": "white"
+  }, {
+    "key": "validationcircuit",
+    "background": "dark-purple"
+  }, {
+    "key": "moderators",
+    "background": "white"
+  }, {
+    "key": "boundaries",
+    "background": "gray"
+  }, {
+    "key": "paola",
+    "background" : "white",
+    "action" : {
+      "title" : "Get in touch!",
+      "link" : "#contact",
+      "label" : "Contact us"
+    }
+  }, "footer" ]
+}

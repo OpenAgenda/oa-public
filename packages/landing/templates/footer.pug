@@ -1,0 +1,21 @@
+footer.footer
+  .container
+    .row.spaced.text-center
+      .col-sm-4
+        h2 #{offers.title}
+        ul.list-unstyled
+          each o in offers.list
+            li
+              a(href=o.link)=o.label
+      .col-sm-4
+        h2 #{more.title}
+        ul.list-unstyled
+          each m in more.list
+            li
+              a(href=m.link)=m.label
+      .col-sm-4
+        h2 #{andmore.title}
+        ul.list-unstyled
+          each m in andmore.list
+            li
+              a(href=m.link)=m.label

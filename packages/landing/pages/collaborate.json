@@ -1,0 +1,13 @@
+{
+  "key": "collaborate",
+  "layout": "layout",
+  "title": "Collaborate over huge event datasets",
+  "description": "Assign different roles to different people to manage a lot of content efficiently",
+  "segments": [ {
+    "key": "stakeholders",
+    "background": "gray"
+  }, "moderators", {
+    "key": "network",
+    "background": "gray"
+  }, "paola", "footer" ]
+}

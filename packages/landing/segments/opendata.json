@@ -1,0 +1,9 @@
+{
+  "template": "basic",
+  "title": "Publish your events in OpenData",
+  "points": [
+    "All published events are given an <strong>OpenData license</strong>",
+    "They can be re-used by multiple websites through thanks to a multitude of export formats",
+    "Third-party platforms re-using events include: OpenDataSoft, TootSweet, TousVoisins"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "template": "testimonial",
+  "name": "Karine Gal",
+  "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/GAL_Karine.jpg",
+  "organization": "Semaine de l'industrie",
+  "testimonial": "Simplicité, interface dynamique, géolocalisation. Une équipe à l’écoute, de très bons conseils et très réactive",
+  "action": {
+    "title": "Ready?",
+    "link": "/signup",
+    "label": "Create an agenda"
+  }
+}

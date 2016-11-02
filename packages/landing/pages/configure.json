@@ -1,0 +1,19 @@
+{
+  "key": "configure",
+  "layout": "layout",
+  "title": "Set up your agenda in an instant",
+  "description": "Define who contributes, how you'll administrate it and how it should look",
+  "segments": [ {
+    "key": "contribution",
+    "background": "gray"
+  }, {
+    "key": "customized",
+    "background": "white"
+  }, {
+    "key": "boundaries",
+    "background": "dark-purple"
+  }, {
+    "key": "expertise", 
+    "background": "gray" 
+  }, "karine", "footer" ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "corpo",
+  "version": "1.0.0",
+  "description": "Project to speed up configuration of corpo static pages",
+  "main": "index.js",
+  "scripts": {
+    "start" : "node app.js"
+  },
+  "dependencies" : {
+    "lodash": "^4.16.4",
+    "pug": "^2.0.0-beta6"
+  },
+  "devDependencies": {
+    "bs-templates": "git+ssh://git@bitbucket.org:openagenda/bs-templates.git",
+    "labels": "git+ssh://git@bitbucket.org:openagenda/labels.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}

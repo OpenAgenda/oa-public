@@ -1,0 +1,17 @@
+div(class='testimonials background-' + ( background || 'white' ))
+  .container
+    .spaced
+      .row.text-center
+        .col-sm-6.text-left.margin-top-lg.margin-bottom-lg
+          blockquote
+            .quote
+              p #{testimonial}
+            footer.media
+              img(alt=name src=avatar class='img-circle' width=40)
+              strong #{name}
+              br
+              span #{organization}
+        .col-sm-6.text-center.margin-top.lg.margin-bottom-lg
+          h2 #{action.title}
+          p
+            a.btn.btn-primary.btn-lg(href=action.link)=action.label

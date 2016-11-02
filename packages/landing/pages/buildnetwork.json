@@ -1,0 +1,12 @@
+{
+  "layout": "layout",
+  "title": "Manage networks of agendas",
+  "description": "Whether your organization is a region, an association, a company with multiple branches, a network of agendas will allow you to get a global view of all your events.",
+  "segments": [ "network", {
+    "key": "opendata", 
+    "background": "dark-purple"
+  }, "exports", {
+    "key": "expertise",
+    "background": "gray"
+  }, "footer" ]
+}

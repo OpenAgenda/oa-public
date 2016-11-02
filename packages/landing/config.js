@@ -1,0 +1,355 @@
+"use strict";
+
+const fs = require( 'fs' );
+
+module.exports = {
+  basePath: '/discover',
+
+  // template types used by segments and layouts
+  templates: {
+    layout: 'layout.pug',
+    basic: 'basic.pug',
+    thin: 'thin.pug',
+    testimonial: 'testimonial.pug',
+    footer: 'footer.pug'
+  },
+
+  // page definitions including segment lists
+  pages: [ {
+    key: 'configure',
+    layout: 'layout',
+    title: 'Set up your agenda in an instant',
+    description: 'Define who contributes, how you\'ll administrate it and how it should look',
+    segments: [ {
+      key: 'contribution',
+      background: 'gray'
+    }, {
+      key: 'customized',
+      background: 'white'
+    }, {
+      key: 'boundaries',
+      background: 'dark-purple'
+    }, {
+      key: 'expertise', 
+      background: 'gray' 
+    }, 'karine', 'footer' ]
+  }, {
+    key: 'collaborate',
+    layout: 'layout',
+    title: 'Collaborate over huge event datasets',
+    description: 'Assign different roles to different people to manage a lot of content efficiently',
+    segments: [ {
+      key: 'stakeholders',
+      background: 'gray'
+    }, 'moderators', {
+      key: 'network',
+      background: 'gray'
+    }, 'paola', 'footer' ]
+  }, {
+    key: 'network',
+    layout: 'layout',
+    title: 'Manage networks of agendas',
+    description: 'Whether your organization is a region, an association, a company with multiple branches, a network of agendas will allow you to get a global view of all your events.',
+    segments: [ 'network', {
+      key: 'opendata', 
+      background: 'dark-purple'
+    }, 'exports', {
+      key: 'expertise',
+      background: 'gray'
+    }, 'footer' ]
+  }, {
+    key: 'broadcast',
+    title: 'Broadcast your events',
+    description: 'Your events are reusable throughout the internet in an Opendata format through multiple exports',
+    layout: 'layout',
+    segments: [ 'opendata', {
+      key: 'exports',
+      background: 'gray'
+    }, 'networkable', {
+      key: 'private',
+      background: 'dark-purple'
+    }, {
+      key: 'embed',
+      background: 'gray'
+    }, 'customembed', 'footer' ]
+  }, {
+    key: 'standardoffer',
+    title: 'The standard offer',
+    description: 'Everything here is free',
+    layout: 'layout',
+    segments: [ 'unlimited', {
+      key: 'opendata',
+      background: 'gray'
+    }, 'richcontent', {
+      key: 'publishcontrol',
+      background: 'dark-purple',
+    }, 'network', 'footer' ]
+  }, {
+    key: 'premiumoffer',
+    title: 'The custom offer - 50€/month',
+    description: 'Do more customization',
+    layout: 'layout',
+    segments: [ {
+      key: 'startwith',
+      title: 'You get all the features from the free offer, plus...'
+    }, {
+      key: 'customized',
+      background: 'gray'
+    }, {
+      key: 'customembed', 
+      background: 'white'
+    }, {
+      key: 'validationcircuit',
+      background: 'dark-purple'
+    }, {
+      key: 'moderators',
+      background: 'gray'
+    }, {
+      key: 'boundaries',
+      background: 'dark-purple'
+    }, 'footer' ]
+  }, {
+    key: 'networkoffer',
+    title: 'The network offer - 350€/month',
+    describe: 'Agendas for your and your network',
+    layout: 'layout',
+    segments: [ {
+      key: 'startwith',
+      title: 'Get all the features from the premium offer for a 100 agendas, plus...'
+    }, {
+      key: 'network',
+      background: 'gray'
+    }, {
+      key: 'support',
+      background: 'white'
+    }, 'footer' ]
+  }, {
+    key: 'portaloffer',
+    title: 'Portal - Contact us',
+    description: 'A solution tailored to your needs',
+    layout: 'layout',
+    segments: [ 'expertise', 'footer' ]
+  } ],
+
+
+  // segment definitions
+  segments: [ {
+    key: 'validationcircuit',
+    template: 'basic',
+    title: 'Get more out of your event validation process',
+    points: [
+      'A three step validation process',
+      'Your events are either To be moderated, ready to be published or published'
+    ]
+  }, {
+    key: 'support',
+    template: 'basic',
+    title: 'Project support',
+    points: [
+      'Get dedicated support throughout the lifecycle of your project',
+      'Get a one to one chat or phone conversation at the launch of your agenda',
+      'A board will be assigned to your project for managing issues & tasks'
+    ]
+  }, {
+    key: 'boundaries',
+    template: 'basic',
+    title: 'Set boundaries on dates and locations',
+    points: [
+      'Your agenda may be cover a fair or an exhibition',
+      'Specify beforehand which locations should be used',
+      'Add start and end limits for contribution dates'
+    ]
+  }, {
+    key: 'startwith',
+    template: 'thin'
+  }, {
+    key: 'unlimited',
+    template: 'basic',
+    title: 'Unlimited events, contributors and downloads',
+    points: [
+      'Do you need to handle thousands of events? No problem.',
+      'Invite as many as you need to contribute to your content',
+      'Download and export your events when you want'
+    ]
+  }, {
+    key: 'richcontent',
+    template: 'basic',
+    title: 'Multilingual and multimedia events',
+    points: [
+      'Add as many languages as you want to describe your events',
+      'Links to videos, soundtracks and images will be embedded in the descriptions'
+    ]
+  }, {
+    key: 'publishcontrol',
+    template: 'thin',
+    title: 'Decide whether to publish contributed content or to moderate first'
+  }, {
+    key: 'contribution',
+    template: 'basic',
+    title: 'Define how people will contribute to your agenda',
+    points: [
+      'Invite <strong>unlimited users</strong> to administrate or contribute',
+      'Decide whether to fully open your agenda to <strong>all</strong> contributions',
+      'Moderate contributions before publication <strong>or</strong> publish first and moderate after'
+    ]
+  }, {
+    key: 'customized',
+    template: 'basic',
+    title: 'Customize event forms to meet your specific needs',
+    points: [
+      'Add fields of any type, descriptions and labels to adapt forms to your use case',
+      'Define <strong>private fields</strong> visible only to agenda administrators',
+      'All customized data is exportable <strong>at all times</strong>'
+    ]
+  }, {
+    key: 'expertise',
+    template: 'basic',
+    title: 'Need help with the launch of your agenda? Our team is available to counsel you throughout your project',
+    points: [
+      'We assist you in selecting the <strong>right agenda structure</strong> for your organization',
+      'We provide support to all contributors',
+      'Our dedicated projet managers deploy and give you the right tools to mobilize your community'
+    ]
+  }, {
+    key: 'karine',
+    template: 'testimonial',
+    name: 'Karine Gal',
+    avatar: '//s3.eu-central-1.amazonaws.com/oastatic/GAL_Karine.jpg',
+    organization: 'Semaine de l\'industrie',
+    testimonial: 'Simplicité, interface dynamique, géolocalisation. Une équipe à l’écoute, de très bons conseils et très réactive',
+    action: {
+      title: 'Ready?',
+      link: '/signup',
+      label: 'Create an agenda'
+    }
+  }, {
+    key: 'paola',
+    template: 'testimonial',
+    name: 'Paola Scotton',
+    avatar: '//s3.eu-central-1.amazonaws.com/oastatic/paola-scotton.jpg',
+    organization: 'Réunion des Opéras de France - Tous à l\'Opéra',
+    testimonial: 'La solution idéale pour centraliser toutes les informations relatives à un événement commun. L’outil est très intuitif et simple d’utilisation, il tient toutes ses promesses.',
+    action: {
+      title: 'Ready?',
+      link: '/signup',
+      label: 'Create an agenda'
+    }
+  }, {
+    key: 'footer',
+    template: 'footer',
+    offers: {
+      title: 'The offers',
+      list: [ {
+        link: '#standardoffer',
+        label: 'Standard - Free'
+      }, {
+        link: '#premiumoffer',
+        label: 'Premium - 50€/month'
+      }, {
+        link: '#networkoffer',
+        label: 'Network - 350€/month'
+      }, {
+        link: '#portaloffer',
+        label: 'Portal - Contact us'
+      } ]
+    },
+    more: {
+      title: 'Find out more',
+      list: [ {
+        link: '#configure',
+        label: 'Setup your agenda in an instant'
+      }, {
+        link: '#collaborate',
+        label: 'Collaborate over huge event datasets'
+      }, {
+        link: '#network',
+        label: 'Manage networks of agendas'
+      }, {
+        link: '#broadcast',
+        label: 'Broadcast your events'
+      } ]
+    }
+  }, {
+    key: 'private',
+    template: 'basic',
+    title: 'Do you want to limit access to your Agenda?',
+    points: [
+      'Make your agendas <strong>private</strong>',
+      'Private agendas are only visible to chosen authenticated users',
+      'Keep at tight control over how you broadcast your data',
+      'This is a Custom feature!'
+    ]
+  }, {
+    key: 'stakeholders',
+    template: 'basic',
+    title: 'Invite contributors and administrators to collaborate on your agenda',
+    points: [
+      '<strong>Unlimited</strong> contributors and administrators',
+      'Choose to open your agenda to any contributor or limit to invited users only',
+      'Free feature!'
+    ]
+  }, {
+    key: 'moderators',
+    template: 'basic',
+    title: 'Name moderators to review contributions on your agenda',
+    points: [
+      'Moderators can review and bring changes to contributions',
+      'You define if moderators can publish events',
+      'Premium feature'
+    ]
+  }, {
+    key: 'network',
+    template: 'basic',
+    title: 'Build a network of agendas and form a unified overall event dataset',
+    points: [
+      'Each agenda can be managed independently',
+      'An aggregating agenda references any event published in the network',
+      'All events of the network can be <strong>searched</strong> and <strong>exported</strong> through the aggregator'
+    ]
+  }, {
+    key: 'opendata',
+    template: 'basic',
+    title: 'Publish your events in OpenData',
+    points: [
+      'All published events are given an <strong>OpenData license</strong>',
+      'They can be re-used by multiple websites through thanks to a multitude of export formats',
+      'Third-party platforms re-using events include: OpenDataSoft, TootSweet, TousVoisins'
+    ]
+  }, {
+    key: 'exports',
+    template: 'basic',
+    title: 'Make your events available in all file and export formats',
+    points: [
+      'Formats include <strong>csv/excel</strong>, ical, json, pdf',
+      'Exports can be <strong>filtered</strong> or shortlisted',
+      'Your events can be reused through other agendas of the platform'
+    ]
+  }, {
+    key: 'networkable',
+    template: 'basic',
+    title: 'Make your events available to medias and aggregators',
+    points: [
+      'Your city, region or parent organization can redistribute your content',
+      'See which agendas re-use your events',
+      'Third-parties further broadcast your events to their public'
+    ]
+  }, {
+    key: 'embed',
+    template: 'basic', 
+    title: 'Embed your agenda in your website and facebook page',
+    points: [
+      'Your agenda can be easily integrated into your website',
+      'Customize the css and the layout style of your integrated agenda',
+      'Add navigational widgets such as maps, categories or a search input'
+    ]
+  }, {
+    key: 'customembed',
+    template: 'basic',
+    title: 'Further customize your integrated agendas by building your own templates',
+    points: [
+      'Get full control on the layout of your integrated agenda by building your own templates',
+      'Choose what information to display on list and event views from a wide array of fields',
+      'This is a custom agenda feature'
+    ]
+  } ]
+}

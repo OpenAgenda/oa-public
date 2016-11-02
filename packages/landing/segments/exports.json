@@ -1,0 +1,9 @@
+{
+  "template": "basic",
+  "title": "Make your events available in all file and export formats",
+  "points": [
+    "Formats include <strong>csv/excel</strong>, ical, json, pdf",
+    "Exports can be <strong>filtered</strong> or shortlisted",
+    "Your events can be reused through other agendas of the platform"
+  ]
+}

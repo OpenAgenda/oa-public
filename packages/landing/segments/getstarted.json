@@ -1,0 +1,8 @@
+{
+  "template" : "action",
+  "action" : {
+    "title" : "Get started !",
+    "link" : "/signup",
+    "label" : "Create an agenda"
+  }
+}
