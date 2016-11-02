@@ -40,8 +40,13 @@
       display: inline-block;
     }
 
+    a + a {
+      margin-left: 12px;
+    }
+
     .media-left img {
       width: 90px;
+      height: 90px;
     }
 
     .media-body {
