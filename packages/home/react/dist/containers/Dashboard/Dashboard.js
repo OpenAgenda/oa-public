@@ -3,17 +3,24 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
+
+var _redboxReact2 = require('redbox-react');
+
+var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+var _react2 = require('react');
+
+var _react3 = _interopRequireDefault(_react2);
+
+var _reactTransformCatchErrors3 = require('react-transform-catch-errors');
+
+var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _dec, _dec2, _dec3, _class, _class2, _temp2;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
 
 var _reduxConnect = require('redux-connect');
 
@@ -53,6 +60,25 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var _components = {
+  Dashboard: {
+    displayName: 'Dashboard'
+  }
+};
+
+var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+  filename: 'react/src/containers/Dashboard/Dashboard.js',
+  components: _components,
+  locals: [],
+  imports: [_react3.default, _redboxReact3.default]
+});
+
+function _wrapComponent(id) {
+  return function (Component) {
+    return _reactTransformCatchErrors2(Component, id);
+  };
+}
+
 var selector = (0, _reduxForm.formValueSelector)('homeDashboard');
 
 var searchSpinner = {
@@ -61,7 +87,7 @@ var searchSpinner = {
   radius: 4
 };
 
-var Dashboard = (_dec = (0, _reduxConnect.asyncConnect)([{
+var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConnect)([{
   promise: function promise(_ref) {
     var _ref$store = _ref.store;
     var dispatch = _ref$store.dispatch;
@@ -118,27 +144,27 @@ var Dashboard = (_dec = (0, _reduxConnect.asyncConnect)([{
       var dirty = _ref3$meta.dirty;
 
       var displayError = errorOnDirty ? dirty || touched : touched;
-      return _react2.default.createElement(
+      return _react3.default.createElement(
         'div',
         { className: 'form-group ' + classNameGroup + ' ' + (displayError && error ? 'has-error has-feedback' : '') },
-        label && _react2.default.createElement(
+        label && _react3.default.createElement(
           'label',
           { htmlFor: name },
           label
         ),
         subLabel,
         content,
-        displayError && error && _react2.default.createElement(
+        displayError && error && _react3.default.createElement(
           'span',
           { className: 'form-control-feedback' },
-          _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' })
+          _react3.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' })
         ),
-        displayError && error && _react2.default.createElement(
+        displayError && error && _react3.default.createElement(
           'div',
           { className: 'text-danger ' + (max && 'pull-left' || '') },
           _this.context.getLabel(error)
         ),
-        max && _react2.default.createElement(
+        max && _react3.default.createElement(
           'div',
           { className: 'text-right ' + (max - value.length < 0 && 'text-danger' || '') },
           max - value.length
@@ -159,14 +185,14 @@ var Dashboard = (_dec = (0, _reduxConnect.asyncConnect)([{
         props.input.onChange(e.target.value);
         action();
       };
-      var content = _react2.default.createElement(
+      var content = _react3.default.createElement(
         'div',
         null,
-        _react2.default.createElement('input', _extends({}, props.input, inputAttrs, { onChange: onChange })),
-        _react2.default.createElement(
+        _react3.default.createElement('input', _extends({}, props.input, inputAttrs, { onChange: onChange })),
+        _react3.default.createElement(
           'button',
           { type: 'submit', className: 'btn' },
-          loading ? _react2.default.createElement(_Spinner2.default, { spinner: searchSpinner }) : _react2.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' })
+          loading ? _react3.default.createElement(_Spinner2.default, { spinner: searchSpinner }) : _react3.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' })
         )
       );
       return _this.renderField(_extends({ content: content }, props));
@@ -211,38 +237,38 @@ var Dashboard = (_dec = (0, _reduxConnect.asyncConnect)([{
       var newUser = !search && !query.search && (!agendas || !agendas.length);
 
       if (newUser) {
-        return _react2.default.createElement(
+        return _react3.default.createElement(
           'div',
           { className: 'row' },
-          _react2.default.createElement(
+          _react3.default.createElement(
             'div',
             { className: 'text-center new-user padding-v-md' },
-            _react2.default.createElement(
+            _react3.default.createElement(
               'h2',
               { className: 'margin-v-md' },
               getLabel('welcome')
             ),
-            _react2.default.createElement(
+            _react3.default.createElement(
               'a',
               { href: res.new, className: 'btn btn-primary margin-v-sm' },
               getLabel('createAgenda')
             ),
-            _react2.default.createElement(
+            _react3.default.createElement(
               'p',
               { className: 'margin-v-sm' },
               getLabel('orContributeToExisting')
             ),
-            _react2.default.createElement(
+            _react3.default.createElement(
               'form',
               { action: res.search, method: 'GET' },
-              _react2.default.createElement(
+              _react3.default.createElement(
                 'div',
                 { className: 'form-group search center-block' },
-                _react2.default.createElement('input', { type: 'text', name: 'search', className: 'form-control' }),
-                _react2.default.createElement(
+                _react3.default.createElement('input', { type: 'text', name: 'search', className: 'form-control' }),
+                _react3.default.createElement(
                   'button',
                   { type: 'submit', className: 'btn' },
-                  _react2.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' })
+                  _react3.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' })
                 )
               )
             )
@@ -250,31 +276,31 @@ var Dashboard = (_dec = (0, _reduxConnect.asyncConnect)([{
         );
       }
 
-      return _react2.default.createElement(
+      return _react3.default.createElement(
         'div',
         null,
-        _react2.default.createElement(
+        _react3.default.createElement(
           'div',
           { className: 'header' },
-          _react2.default.createElement(
+          _react3.default.createElement(
             'h2',
             { className: 'hidden-xs' },
             getLabel('myAgendas')
           ),
-          _react2.default.createElement(
+          _react3.default.createElement(
             'div',
             { className: 'hidden-xs pull-right' },
-            _react2.default.createElement(
+            _react3.default.createElement(
               'a',
               { href: res.new, className: 'btn btn-primary create-agenda', type: 'button' },
               getLabel('createAgenda')
             )
           )
         ),
-        _react2.default.createElement(
+        _react3.default.createElement(
           'form',
           { onSubmit: handleSubmit(this.search) },
-          _react2.default.createElement(_reduxForm.Field, {
+          _react3.default.createElement(_reduxForm.Field, {
             component: this.renderSearchInput,
             name: 'search',
             type: 'text',
@@ -285,46 +311,46 @@ var Dashboard = (_dec = (0, _reduxConnect.asyncConnect)([{
             loading: loading
           })
         ),
-        _react2.default.createElement(
+        _react3.default.createElement(
           'div',
           { className: 'row' },
           agendas && agendas.map(function (agenda) {
-            return _react2.default.createElement(
+            return _react3.default.createElement(
               'div',
               { className: 'agenda-item media', key: agenda.uid },
-              _react2.default.createElement(
+              _react3.default.createElement(
                 'div',
                 { className: 'media-left' },
-                _react2.default.createElement(
+                _react3.default.createElement(
                   'a',
                   { href: res.show.replace(':slug', agenda.slug) },
-                  _react2.default.createElement('img', { className: 'media-object ill avatar', src: agenda.image, alt: agenda.title })
+                  _react3.default.createElement('img', { className: 'media-object ill avatar', src: agenda.image, alt: agenda.title })
                 )
               ),
-              _react2.default.createElement(
+              _react3.default.createElement(
                 'div',
                 { className: 'media-body' },
-                _react2.default.createElement(
+                _react3.default.createElement(
                   'div',
                   { className: 'title media-heading' },
-                  _react2.default.createElement(
+                  _react3.default.createElement(
                     'a',
                     { href: res.show.replace(':slug', agenda.slug) },
-                    _react2.default.createElement(
+                    _react3.default.createElement(
                       'strong',
                       null,
                       agenda.title
                     )
                   ),
-                  !!agenda.official && _react2.default.createElement(
+                  !!agenda.official && _react3.default.createElement(
                     'div',
                     { className: 'official' },
-                    _react2.default.createElement('i', null),
-                    _react2.default.createElement(
+                    _react3.default.createElement('i', null),
+                    _react3.default.createElement(
                       'div',
                       { className: 'tooltip right', role: 'tooltip' },
-                      _react2.default.createElement('div', { className: 'tooltip-arrow' }),
-                      _react2.default.createElement(
+                      _react3.default.createElement('div', { className: 'tooltip-arrow' }),
+                      _react3.default.createElement(
                         'div',
                         { className: 'tooltip-inner' },
                         getLabel('officialAgenda')
@@ -332,18 +358,18 @@ var Dashboard = (_dec = (0, _reduxConnect.asyncConnect)([{
                     )
                   )
                 ),
-                _react2.default.createElement(
+                _react3.default.createElement(
                   'div',
                   { className: 'actions' },
-                  agenda.credential > 1 && _react2.default.createElement(
+                  agenda.credential > 1 && _react3.default.createElement(
                     'a',
                     {
                       href: res.moderate.replace(':slug', agenda.slug),
-                      className: 'text-muted margin-right-xs'
+                      className: 'text-muted'
                     },
                     agenda.credential == 2 ? getLabel('manage') : getLabel('moderate')
                   ),
-                  _react2.default.createElement(
+                  _react3.default.createElement(
                     'a',
                     { href: res.addEvent.replace(':slug', agenda.slug), className: 'text-muted' },
                     getLabel('addAnEvent')
@@ -352,15 +378,15 @@ var Dashboard = (_dec = (0, _reduxConnect.asyncConnect)([{
               )
             );
           }),
-          !agendas || !agendas.length && _react2.default.createElement(
+          !agendas || !agendas.length && _react3.default.createElement(
             'div',
             { className: 'text-center text-muted margin-top-md' },
             getLabel('noResult')
           ),
-          nextLoading && _react2.default.createElement(
+          nextLoading && _react3.default.createElement(
             'div',
             { className: 'padding-v-md', style: { position: 'relative' } },
-            _react2.default.createElement(_Spinner2.default, null)
+            _react3.default.createElement(_Spinner2.default, null)
           )
         )
       );
@@ -368,20 +394,21 @@ var Dashboard = (_dec = (0, _reduxConnect.asyncConnect)([{
   }]);
 
   return Dashboard;
-}(_react.Component), _class2.propTypes = {
-  list: _react.PropTypes.func,
-  nextPage: _react.PropTypes.func,
-  res: _react.PropTypes.object,
-  agendas: _react.PropTypes.array,
-  page: _react.PropTypes.number,
-  total: _react.PropTypes.number,
-  loading: _react.PropTypes.bool,
-  nextLoading: _react.PropTypes.bool,
-  search: _react.PropTypes.string
+}(_react2.Component), _class2.propTypes = {
+  list: _react2.PropTypes.func,
+  nextPage: _react2.PropTypes.func,
+  res: _react2.PropTypes.object,
+  agendas: _react2.PropTypes.array,
+  page: _react2.PropTypes.number,
+  total: _react2.PropTypes.number,
+  loading: _react2.PropTypes.bool,
+  nextLoading: _react2.PropTypes.bool,
+  search: _react2.PropTypes.string
 }, _class2.contextTypes = {
-  router: _react.PropTypes.object,
-  getLabel: _react.PropTypes.func
-}, _temp2)) || _class) || _class) || _class);
+  router: _react2.PropTypes.object,
+  getLabel: _react2.PropTypes.func
+}, _temp2)) || _class) || _class) || _class));
+
 exports.default = Dashboard;
 ;
 module.exports = exports['default'];

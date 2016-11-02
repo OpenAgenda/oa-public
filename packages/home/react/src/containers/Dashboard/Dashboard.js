@@ -191,7 +191,7 @@ export default class Dashboard extends Component {
                 <div className="actions">
                   {agenda.credential > 1 && <a
                     href={res.moderate.replace( ':slug', agenda.slug )}
-                    className="text-muted margin-right-xs"
+                    className="text-muted"
                   >
                     {agenda.credential == 2 ? getLabel( 'manage' ) : getLabel( 'moderate' )}
                   </a>}
