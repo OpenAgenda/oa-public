@@ -37,12 +37,11 @@
     "react-form-components": "git+ssh://git@bitbucket.org/openagenda/react-form-components.git",
     "utils": "git+ssh://git@bitbucket.org/openagenda/utils.git",
     "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git",
-    "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
     "when": "^3.7.7"
   },
   "devDependencies": {
-    "agenda-stakeholders": "git+ssh://git@bitbucket.org:openagenda/agenda-stakeholders.git",
-    "agendas": "git+ssh://git@bitbucket.org:openagenda/agendas.git",
+    "agenda-stakeholders": "git+ssh://git@bitbucket.org/openagenda/agenda-stakeholders.git",
+    "agendas": "git+ssh://git@bitbucket.org/openagenda/agendas.git",
     "babel-core": "^6.9.0",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
