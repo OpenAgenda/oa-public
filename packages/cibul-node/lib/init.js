@@ -326,6 +326,9 @@ function _initAgendaSettings( config ) {
   return new Promise( ( resolve, reject ) => {
 
     agendaSettings.init( {
+      services: {
+        agendas: agendasSvc
+      },
       mysql: config.db,
       schemas: config.schemas,
       logger: logger

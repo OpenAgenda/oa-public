@@ -14,7 +14,7 @@ const labels = require( 'labels/agenda-settings/agendaEdition' );
 const getLabel = require( 'labels' )( labels );
 
 
-module.exports = function ( path ) {
+module.exports = path => {
 
   const routes = {
 
@@ -101,11 +101,12 @@ module.exports = function ( path ) {
 
   function getNewApp( req, res ) {
 
+    const lang = req.lang || 'fr';
     const scriptParams = {
       state: {
         settings: {
           prefix: req.genUrl( 'agendaSettingsCreateApp' ).split( '?' )[ 0 ],
-          lang: req.lang || 'fr'
+          lang
         },
         res: {
           create: '/new',
@@ -115,23 +116,18 @@ module.exports = function ( path ) {
       }
     };
 
-    cmn.render( req, res, 'agendaSettings/new', { scriptParams } );
+    cmn.render( req, res, 'agendaSettings/new', { scriptParams, lang } );
 
   }
 
   function getEditApp( req, res, next, { store, component } = {} ) {
 
-    const prefix = req.genUrl( 'agendaSettingsEditApp', { slug: req.params.slug } ).split( '?' )[ 0 ];
     const state = store ? store.getState() : {};
+    const prefix = state.settings.prefix;
     const lang = req.lang || 'fr';
 
-    // Manually add prefix for react-router matching
-    if ( state.routing && state.routing.locationBeforeTransitions ) {
-      state.routing.locationBeforeTransitions.basename = prefix;
-    }
-
     const content = component ? ReactDOM.renderToString( component ) : '';
-    const tab = 'settings_' + state.routing.locationBeforeTransitions.pathname.substr( 1 );
+    const tab = 'settings_' + (state.routing.locationBeforeTransitions.pathname.substr( prefix.length + 1 ) || 'profile');
 
     cmn.render( req, res, 'agendaSettings/edit', { scriptParams: { state }, lang, content, tab } );
 
