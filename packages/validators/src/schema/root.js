@@ -53,7 +53,7 @@ function getDefault( fields ) {
 
     if ( fields[ k ].type === 'schema' ) {
 
-      clean[ k ] = getDefault( fields[ k ].fields );
+      clean[ k ] = fields[ k ].list ? [] : getDefault( fields[ k ].fields );
 
     } else {
 

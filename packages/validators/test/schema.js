@@ -544,6 +544,28 @@ describe( 'schema validator', () => {
     } );
 
 
+    it( 'list defaults as an empty array', () => {
+
+      let errors = [], clean,
+
+      validators = schema( {
+        aList: {
+          list: true,
+          fields: {
+            message: {
+              type: 'text'
+            }  
+          }
+        }
+      } );
+
+      validators.default.should.eql( {
+        aList: []
+      } );
+
+    } );
+
+
     it( 'validates a list of texts', () => {
 
       let errors = [], clean,
@@ -683,7 +705,6 @@ describe( 'schema validator', () => {
       errors[ 0 ].field.should.equal( 'registration' );
 
     } );
-
 
   } );
 
