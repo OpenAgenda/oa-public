@@ -499,6 +499,21 @@ function _getEvent( v ) {
 
     }
 
+    if ( v.entries.event.image ) {
+
+      v.data.image = {
+        filename: v.entries.event.image,
+        variants: [ {
+          type: 'full',
+          filename: 'evf' + v.entries.event.image
+        }, {
+          type: 'thumbnail',
+          filename: 'evtb' + v.entries.event.image
+        } ]
+      }
+
+    }
+
     v.data.draft = !v.entries.event.is_published;
 
     if ( v.entries.event.accessibility ) {

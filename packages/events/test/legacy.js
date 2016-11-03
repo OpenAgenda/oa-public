@@ -48,8 +48,29 @@ describe( 'legacy', function() {
         uid: 27434489,
         ownerUid: 63492667,
         agendaUid: 11311845,
-        image: null,
-        imageCredits: null,
+        image: {
+          filename: 'event_indoor-de-paris-cso-pro-1_563851.jpg',
+          credits: null,
+          size: {
+            height: null,
+            width: null
+          },
+          variants: [ {
+            "filename": "evfevent_indoor-de-paris-cso-pro-1_563851.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            },
+            "type": "full"
+          }, {
+            "filename": "evtbevent_indoor-de-paris-cso-pro-1_563851.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            },
+            "type": "thumbnail"
+          } ]
+        },
         private: false,
         slug: 'indoor-de-paris-cso-pro-1',
         locationUid: 46785382,

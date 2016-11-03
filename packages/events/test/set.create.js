@@ -10,7 +10,7 @@ mysql = require( 'mysql' );
 
 describe( 'set: create an event', function() {
 
-  this.timeout( 2000 );
+  this.timeout( 5000 );
 
   before( () => {
 
@@ -50,8 +50,15 @@ describe( 'set: create an event', function() {
           draft: 1,
           private: 0,
           registration: [],
-          image: null,
-          imageCredits: null,
+          image: {
+            filename: null,
+            credits: null,
+            size: {
+              height: null,
+              width: null
+            },
+            variants: []
+          },
           keywords: {},
           timezone: 'Europe/Paris',
           timings: [],
@@ -114,7 +121,15 @@ describe( 'set: create an event', function() {
         'email@site.com',
         'https://website.com'
       ],
-      imageCredits: 'Cé moi kai pri la foto',
+      image: {
+        filename: 'image.jpg',
+        credits: 'Cé moi kai pri la foto',
+        size: {
+          height: null,
+          width: null
+        },
+        variants: []
+      },
       accessibility: {
         mi: true,
         hi: true
@@ -149,8 +164,15 @@ describe( 'set: create an event', function() {
         keywords: { 
           fr: 'Des, mots, clés'
         },
-        image: null,
-        imageCredits: 'Cé moi kai pri la foto',
+        image: {
+          filename: 'image.jpg',
+          credits: 'Cé moi kai pri la foto',
+          size: {
+            height: null,
+            width: null
+          },
+          variants: []
+        },
         draft: 0,
         private: 0,
         timezone: 'Europe/Paris',

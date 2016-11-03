@@ -35,14 +35,32 @@ describe( 'event validation', () => {
       uid: 123,
       slug: 'a-slug',
       agendaUid: null,
-      ownerId: null,
+      ownerUid: null,
       title: {
         fr: 'Un titre'
       },
       description: {},
       longDescription: {},
       keywords: {},
-      image: null,
+      conditions: {},
+      accessibility: {
+        hi: false,
+        mi: false,
+        pi: false,
+        sl: false,
+        vi: false
+      },
+      image: {
+        filename: null,
+        credits: null,
+        size: {
+          height: null,
+          width: null
+        },
+        variants: []
+      },
+      registration: [],
+      timezone: 'Europe/Paris',
       locationUid: null,
       private: false,
       timings: [],
@@ -50,7 +68,9 @@ describe( 'event validation', () => {
       age: {
         min: null,
         max: null
-      }
+      },
+      updatedAt: undefined,
+      createdAt: undefined
     } );
 
   } );
@@ -85,13 +105,34 @@ describe( 'event validation', () => {
       },
       description: {},
       longDescription: {},
+      conditions: {},
       keywords: {},
+      accessibility: {
+        hi: false,
+        mi: false,
+        pi: false,
+        sl: false,
+        vi: false
+      },
       draft: true,
       timings: [],
+      registration: [],
       age: {
         min: null,
         max: null
-      }
+      },
+      image: {
+        credits: null,
+        filename: null,
+        size: {
+          height: null,
+          width: null
+        },
+        variants: []
+      },
+      timezone: 'Europe/Paris',
+      updatedAt: undefined,
+      createdAt: undefined
     } );
 
   } );

@@ -40,10 +40,10 @@ module.exports = [
     obj: 'keywords',
     type: 'json'
   },
-  'image',
   {
-    db: 'image_credits',
-    obj: 'imageCredits'
+    db: 'image',
+    obj: 'image',
+    type: 'json'
   },
   'draft',
   'private',

@@ -53,11 +53,11 @@
   },
   "image" : {
     "filename" : {
-      "type" : "string",
+      "type" : "text",
       "max" : 255
     },
     "credits" : {
-      "type" : "string",
+      "type" : "text",
       "max" : 255
     },
     "size" : {
@@ -72,10 +72,10 @@
       "list" : true,
       "fields" : {
         "type" : {
-          "type" : "string"
+          "type" : "text"
         },
         "filename" : {
-          "type" : "string",
+          "type" : "text",
           "max" : 255
         },
         "size" : {
@@ -150,11 +150,9 @@
     }
   },
   "updatedAt" : {
-    "type" : "date",
-    "optional" : false
+    "type" : "date"
   },
   "createdAt" : {
-    "type" : "date",
-    "optional" : false
+    "type" : "date"
   }
 }

@@ -7,6 +7,8 @@ const MODES = {
 
 utils = require( 'utils' ),
 
+_ = require( 'lodash' ),
+
 slugs = require( 'slugs' ),
 
 w = require( 'when' ),
@@ -43,7 +45,72 @@ function set( identifiers, data, options, cb ) {
 
 function _update( identifiers, data, options, cb ) {
 
-  cb( 'not implemented' );
+  if ( cb === undefined ) {
+
+    cb = options;
+    options = {};
+
+  }
+
+  const params = _.defaults( options, {
+    protected: true,
+    internal: false,
+    includeimagePath: false
+  } );
+
+  w( _.assign( {}, params, {
+    identifiers,
+    data,
+    id: false,
+    filteredData: null, // filtered out data as per 'protected' option
+    current: false, // as currently is 
+    merged: false, // merge of db and input prior to validation
+    clean: null, // validated clean data after merge
+    updated: null, // get from db after update
+    errors: [],  // eventual validation errors
+    success: false
+  } ) )
+
+  .then( _get( {
+    target: 'current',
+    internal: true
+  } ) )
+
+  .then( _merge )
+
+  .then( _setToNow( 'merged', 'updatedAt' ) )
+
+  .then( _validate( 'merged' ) )
+
+  .then( _filterProtected( 'clean' ) )
+
+  .then( _verifyUnique( 'slug' ) )
+
+  .then( _doUpdate )
+
+  .then( _get( {
+    target: 'updated',
+    internal: true,
+    prerequisite: v => v.success && !v.errors.length,
+    includeImagePath: params.includeImagePath
+  } ) )
+
+  .done( v => {
+
+    if ( v.success && config.interfaces ) {
+
+      config.interfaces.onUpdate( v.current, v.updated );
+
+    }
+
+    cb( null, {
+      event: params.internal ? v.updated : dbParse.exclude( v.updated, 'internal' ),
+      valid: !v.errors.length,
+      success: v.success,
+      errors: v.errors
+    } );
+
+  }, cb );
 
 }
 
@@ -135,6 +202,37 @@ function _validate( target ) {
     return v;
 
   }
+
+}
+
+
+function _doUpdate( v ) {
+
+  if ( v.errors.length ) {
+
+    log( 'update will not proceed' );
+
+    return v;
+
+  }
+
+  return knex( schemas.event )
+
+  .update( dbParse.toDb( v.clean ) )
+
+  .then( affected => {
+
+    v.success = !!affected;
+
+    if ( v.success ) {
+
+      log( 'updated event %s', v.id );
+
+    }
+
+    return v;
+
+  } );
 
 }
 
@@ -339,6 +437,35 @@ function _createSlugIfNotSet( v ) {
   } );
 
   return d.promise;
+
+}
+
+
+function _filterProtected( namespace ) {
+
+  return v => {
+
+    if ( !v.protected ) return v;
+
+    let data = v[ namespace ];
+
+    if ( !data ) return v;
+
+    v[ namespace ] = {};
+
+    Object.keys( data ).forEach( k => {
+
+      if ( !dbParse.is( 'obj', k, 'protected' ) ) {
+
+        v[ namespace ][ k ] = data[ k ];
+
+      }
+
+    } );
+
+    return v;
+
+  }  
 
 }
 
