@@ -1,9 +1,7 @@
 const logger = require( 'basic-logger' );
-const knexLib = require( 'knex' );
 const mw = require( './middleware' );
 
 let config;
-let knex;
 let log;
 
 module.exports = {
@@ -26,15 +24,6 @@ function init( c, cb ) {
       }
 
       log = logger( 'agenda-settings' );
-
-    } )
-
-    .then( () => {
-
-      knex = knexLib( {
-        client: 'mysql',
-        connection: c.mysql
-      } );
 
     } )
 

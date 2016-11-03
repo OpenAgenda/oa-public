@@ -31,8 +31,8 @@ export default function editRoutes( store ) {
   return (
     <Route path={state.settings.prefix} component={EditionApp}>
       <IndexRoute component={ProfileEdition} onEnter={selectItem( 'settings_profile' )} />
-      <Route path="/profile" component={ProfileEdition} onEnter={selectItem( 'settings_profile' )} />
-      <Route path="/contribution" component={ContributionEdition} onEnter={selectItem( 'settings_contribution' )} />
+      <Route path="profile" component={ProfileEdition} onEnter={selectItem( 'settings_profile' )} />
+      <Route path="contribution" component={ContributionEdition} onEnter={selectItem( 'settings_contribution' )} />
     </Route>
   );
 

@@ -47,8 +47,8 @@ function editRoutes(store) {
     _reactRouter.Route,
     { path: state.settings.prefix, component: _containers.EditionApp },
     _react2.default.createElement(_reactRouter.IndexRoute, { component: _containers.ProfileEdition, onEnter: selectItem('settings_profile') }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/profile', component: _containers.ProfileEdition, onEnter: selectItem('settings_profile') }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/contribution', component: _containers.ContributionEdition, onEnter: selectItem('settings_contribution') })
+    _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: _containers.ProfileEdition, onEnter: selectItem('settings_profile') }),
+    _react2.default.createElement(_reactRouter.Route, { path: 'contribution', component: _containers.ContributionEdition, onEnter: selectItem('settings_contribution') })
   );
 }
 module.exports = exports['default'];

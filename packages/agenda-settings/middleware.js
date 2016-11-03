@@ -1,8 +1,6 @@
 const React = require( 'react' );
 const logger = require( 'basic-logger' );
-const agendasSvc = require( 'agendas' );
 const mwUploadImage = require( 'image-upload/lib/middleware' );
-
 const createHistory = require( 'react-router/lib/createMemoryHistory' );
 const { Provider } = require( 'react-redux' );
 const createStore = require( './react/lib/redux/create' );
@@ -14,6 +12,7 @@ const createRoutes = require( './react/lib/createRoutes' );
 const editRoutes = require( './react/lib/editRoutes' );
 
 let service, config, log;
+let agendasSvc;
 
 module.exports = {
   init,
@@ -42,13 +41,15 @@ function init( s, c ) {
 
   log = logger( 'agenda-settings' );
 
+  agendasSvc = config.services.agendas;
+
 }
 
 function matchApp( appName, params, path, cb ) {
 
   return ( req, res, next ) => {
 
-    const url = req.originalUrl;
+    const url = req.originalUrl.split( '?' )[ 0 ];
     const client = new ApiClient( params.state.settings.apiRoot, req );
     const memoryHistory = createHistory( url );
     const store = createStore( memoryHistory, client, params.state );
@@ -143,7 +144,7 @@ function setImage( req, res, next ) {
 
         result.setImage( { path: tmpPath }, ( err, paths ) => {
 
-          if( err ) return cb( err );
+          if ( err ) return cb( err );
 
           cb( null, paths[ 0 ] );
 
