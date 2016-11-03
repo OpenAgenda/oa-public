@@ -14,7 +14,7 @@ const params = {
     res: {
       create: '/new',
       slugAvailable: '/agendas/slugs/available',
-      onCreated: '/:slug/admin?bravo'
+      onCreated: '/:slug/admin/settings/gettingStarted'
     }
   }
 };

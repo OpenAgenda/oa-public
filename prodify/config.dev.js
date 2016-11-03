@@ -41,14 +41,14 @@ module.exports = ( paths ) => {
     resolve: {
       extensions: [ '', '.js', '.jsx' ],
       moduleDirectories: [ './node_modules' ],
-      fallback: path.join( process.cwd(), 'node_modules' ),
+      fallback: path.join( path.dirname(__dirname), 'node_modules' ),
       alias: {
-        react: path.join( process.cwd(), 'node_modules/react' )
+        react: path.join( path.dirname(__dirname), 'node_modules/react' )
       }
     },
     resolveLoader: {
-      root: path.join( process.cwd(), 'node_modules' ),
-      fallback: path.join( process.cwd(), 'node_modules' )
+      root: path.join( path.dirname(__dirname), 'node_modules' ),
+      fallback: path.join( path.dirname(__dirname), 'node_modules' )
     },
     plugins: [
       new webpack.IgnorePlugin( /unicode\/category\/So/ ),
