@@ -46,9 +46,11 @@ describe( 'set: update an event', function() {
 
   it( 'update the event title', done => {
 
-    svc.set( id, { title: {
-      fr: 'Titre à jour'
-    } }, ( err, result ) => {
+    svc.set( id, { 
+      title: {
+        fr: 'Titre à jour'
+      }
+    }, ( err, result ) => {
 
       should( err ).equal( null );
 
@@ -64,6 +66,7 @@ describe( 'set: update an event', function() {
 
   } );
 
+
   it( 'invalid title update', done => {
 
     svc.set( id, { title: {} }, ( err, result ) => {
@@ -76,6 +79,28 @@ describe( 'set: update an event', function() {
         message: 'at least one language entry is required',
         origin: {} 
       } ] );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'updating with timings', done => {
+
+    svc.set( id, {
+      timings: [ {
+        begin: new Date( '2017-10-24T20:00:00' ),
+        end: new Date( '2017-10-24T22:00:00' )
+      } ]
+    }, ( err, result ) => {
+
+      should( err ).equal( null );
+
+      result.success.should.equal( true );
+
+      result.event.timings.length.should.equal( 1 );
 
       done();
 
