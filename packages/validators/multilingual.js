@@ -16,21 +16,33 @@ module.exports = function (config) {
     field: params.field
   });
 
-  function validate(value) {
+  function validate(origin) {
 
     var clean = {},
         tmp = {},
         errors = [],
+        value = void 0,
         validateText = text(params);
 
-    if (typeof value === 'string') {
+    if (typeof origin === 'string') {
 
-      tmp[params.defaultLanguage] = value;
+      tmp[params.defaultLanguage] = origin;
 
       value = tmp;
-    };
+    } else {
 
-    if (!value) value = {};
+      value = origin || {};
+    }
+
+    if (!params.optional && !Object.keys(value).length) {
+
+      throw [{
+        field: params.field,
+        code: 'required',
+        message: 'at least one language entry is required',
+        origin: origin
+      }];
+    }
 
     Object.keys(value).forEach(function (l) {
 

@@ -10,7 +10,8 @@ describe( 'multilingual validator', () => {
 
     let validate = multilingual( {
       field: 'multitext',
-      min: 3
+      min: 3,
+      optional: false
     } );
 
     it( 'gives text errors with associated lang', () => {
@@ -54,6 +55,31 @@ describe( 'multilingual validator', () => {
         en: 'English content',
         fr: 'Contenu Français'
       } );
+
+    } );
+
+    it( 'empty input on non-optional validator means an error', () => {
+
+      let errors = [];
+
+      try {
+
+        validate();
+
+      } catch( e ) { 
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 1 );
+
+      errors[ 0 ].should.eql( {
+        field: 'multitext',
+        code: 'required',
+        message: 'at least one language entry is required',
+        origin: undefined
+      } )
 
     } );
 
