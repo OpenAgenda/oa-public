@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "react-addons-update": "0.14.7",
-    "dom-utils": "git+ssh://git@bitbucket.org:openagenda/dom-utils.git"
+    "dom-utils": "git+ssh://git@bitbucket.org/openagenda/dom-utils.git"
   },
   "devDependencies": {
     "babel-core": "^6.14.0",
@@ -37,7 +37,7 @@
     "react-dom": "0.14.7",
     "reactify": "1.1.1",
     "should": "^7.1.1",
-    "test-app": "git@bitbucket.org:openagenda/test-app.git"
+    "test-app": "git+ssh://git@bitbucket.org/openagenda/test-app.git"
   },
   "browserify": {
     "transform": "reactify"
