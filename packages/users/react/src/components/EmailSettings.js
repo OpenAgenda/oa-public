@@ -43,7 +43,7 @@ const EmailSettings = React.createClass( {
 
               <div className="form-group">
                 <label htmlFor="password">{getLabels( 'password' )} *</label>
-                <input type="password" className="form-control" name="password" {...password}/>
+                <input type="password" className="form-control" name="password" autoComplete="off" {...password}/>
                 {password.touched && password.error &&
                 <div className="text-danger">{capitalize( getLabels( password.error ) )}</div>}
               </div>
