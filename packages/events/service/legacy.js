@@ -2,9 +2,13 @@
 
 const w = require( 'when' );
 
+const wn = require( 'when/node' );
+
 const knexLib = require( 'knex' );
 
 const utils = require( 'utils' );
+
+const _ = require( 'lodash' );
 
 const validate = require( './validate' );
 
@@ -30,33 +34,49 @@ function transfer( identifiers, options, cb ) {
 
   }
 
-  let result = {
-    transfered: false
-  }
+  w( {
+    identifiers,
+    event: null,
+    legacy: {
+      valid: null,
+      event: null,
+      entries: null
+    },
+    transfered: false,
+    getOptions: options
+  } )
 
-  get( identifiers, options, ( err, event, r ) => {
+  .then( _getServiceEvent )
 
-    if ( err ) return cb( err );
+  .then( _loadLegacy )
 
-    result.valid = r.valid;
+  .done( v => {
 
-    if ( !result.valid ) {
+    if ( !v.legacy.event ) {
 
-      return cb( null, utils.extend( result, r ) );
+      return cb( null, {
+        transfered: false,
+        legacy: v.legacy,
+        event: v.event
+      } );
 
     }
 
-    service.set( event, ( err, r ) => {
+    let set = v.event ? service.set.bind( null, v.identifiers ) : service.set;
+
+    set( v.legacy.event, ( err, r ) => {
 
       if ( err ) return cb( err );
 
-      result.transfered = r.success;
-
-      cb( null, utils.extend( result, r ) );
+      cb( null, Object.assign( {
+        transfered: r.success,
+        legacy: v.legacy,
+        created: !v.event
+      }, r ) );
 
     } );
 
-  } )
+  }, cb );
 
 }
 
@@ -289,6 +309,36 @@ function _getOccurrences( v ) {
       }
 
     } );
+
+    return v;
+
+  } );
+
+}
+
+
+function _getServiceEvent( v ) {
+
+  return wn.call( service.get, v.identifiers )
+
+  .then( event => {
+
+    v.event = event;
+
+    return v;
+
+  } );
+
+}
+
+
+function _loadLegacy( v ) {
+
+  return wn.call( get, v.identifiers, v.getOptions )
+
+  .then( r => {
+
+    v.legacy = _.assign( r[ 1 ], { event: r[ 0 ] } );
 
     return v;
 

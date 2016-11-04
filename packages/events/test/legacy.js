@@ -181,6 +181,8 @@ describe( 'legacy', function() {
 
       result.event.uid.should.equal( 27434489 );
 
+      result.created.should.equal( true );
+
       done();
 
     } );
@@ -211,6 +213,64 @@ describe( 'legacy', function() {
         } );
 
         done();
+
+      } );
+
+    } );
+
+  } );
+
+  it( 'second transfer is an update', done => {
+
+    svc.legacy.transfer( 147621, ( err, result ) => {
+
+      svc.set( 147621, { title: { fr: 'Changed!' } }, err => {
+
+        svc.get( 147621, ( err, event ) => {
+
+          event.title.fr.should.equal( 'Changed!' );
+
+          svc.legacy.transfer( 147621, ( err, result ) => {
+
+            result.transfered.should.equal( true );
+
+            result.created.should.equal( false );
+
+            result.event.title.fr.should.equal( 'Indoor de Paris - CSO Pro 1' );
+
+            done();
+
+          } );
+
+        } );
+
+      } );
+
+    } );
+
+  } );
+
+  it.only( 'second transfer does not add an additional entry in db', done => {
+
+    svc.legacy.transfer( 147621, ( err, result ) => {
+
+      result.created.should.equal( true );
+
+      svc.legacy.transfer( 147621, ( err, result ) => {
+
+        result.created.should.equal( false );
+
+        let con = mysql.createConnection( config.mysql );
+
+        con.query( 'select * from event', ( err, rows ) => {
+
+          rows.length.should.equal( 1 );
+
+          con.end();
+
+          done();
+
+        } );
 
       } );
 
