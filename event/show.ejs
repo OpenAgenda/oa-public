@@ -248,6 +248,9 @@
 <% if ( event.location.image ) { %>
         <div class="location-image">
           <img class="img-responsive" src="<%= event.location.image %>" alt="<%= event.location.name %>" />
+<% if ( event.location.imageCredits ) { %>
+          <span class="credits"><%= event.location.imageCredits %></span>
+<% } %>
         </div>
 <% } %>
 

@@ -43,7 +43,8 @@ module.exports = ( paths ) => {
       moduleDirectories: [ './node_modules' ],
       fallback: path.join( path.dirname(__dirname), 'node_modules' ),
       alias: {
-        react: path.join( path.dirname(__dirname), 'node_modules/react' )
+        react: path.join( path.dirname(__dirname), 'node_modules/react' ),
+        'react-dom': path.join( path.dirname(__dirname), 'node_modules/react-dom' )
       }
     },
     resolveLoader: {

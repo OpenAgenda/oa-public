@@ -114,6 +114,7 @@
         "name": "Musée des beaux-arts de valenciennes",
         "address": "Boulevard Watteau, Valenciennes",
         "image": "location71865148.jpg",
+        "imageCredits" : "This picture took itself",
         "city": "Valenciennes",
         "postalCode": "59300",
         "latitude": 50.357208,
