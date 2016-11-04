@@ -35,16 +35,11 @@ function _wrapComponent(id) {
   };
 }
 
-var React = require('react');
-
-var _require = require('redux-form');
-
-var reduxForm = _require.reduxForm;
-
-var _require2 = require('react-router-redux');
-
-var push = _require2.push;
-
+var React = require('react'),
+    _require = require('redux-form'),
+    reduxForm = _require.reduxForm,
+    _require2 = require('react-router-redux'),
+    push = _require2.push;
 
 var ApiKeySettings = _wrapComponent('ApiKeySettings')(React.createClass({
 
@@ -60,18 +55,18 @@ var ApiKeySettings = _wrapComponent('ApiKeySettings')(React.createClass({
 
   render: function render() {
     var getLabels = this.context.getLabels;
-    var _props = this.props;
-    var activeTab = _props.activeTab;
-    var dispatch = _props.dispatch;
-    var _props$fields = _props.fields;
-    var apiKey = _props$fields.apiKey;
-    var apiSecret = _props$fields.apiSecret;
-    var displayModal = _props.displayModal;
-    var generateApiKey = _props.generateApiKey;
+    var _props = this.props,
+        activeTab = _props.activeTab,
+        dispatch = _props.dispatch,
+        _props$fields = _props.fields,
+        apiKey = _props$fields.apiKey,
+        apiSecret = _props$fields.apiSecret,
+        displayModal = _props.displayModal,
+        generateApiKey = _props.generateApiKey;
 
 
     var generateApiKeyModal = function generateApiKeyModal() {
-      var secret = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
+      var secret = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       return {
         visible: true,
         title: getLabels('generateNewApiKey'),

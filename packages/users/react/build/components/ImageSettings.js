@@ -50,16 +50,16 @@ var ProfileSettings = _wrapComponent('ImageSettings')(React.createClass({
   },
 
   render: function render() {
-    var _context = this.context;
-    var lang = _context.lang;
-    var getLabels = _context.getLabels;
-    var _props = this.props;
-    var activeTab = _props.activeTab;
-    var routerActions = _props.routerActions;
-    var uploadImageRes = _props.uploadImageRes;
-    var removeImageRes = _props.removeImageRes;
-    var onUpdate = _props.onUpdate;
-    var image = _props.image;
+    var _context = this.context,
+        lang = _context.lang,
+        getLabels = _context.getLabels;
+    var _props = this.props,
+        activeTab = _props.activeTab,
+        routerActions = _props.routerActions,
+        uploadImageRes = _props.uploadImageRes,
+        removeImageRes = _props.removeImageRes,
+        onUpdate = _props.onUpdate,
+        image = _props.image;
 
 
     return React.createElement(

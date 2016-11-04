@@ -33,12 +33,9 @@ function _wrapComponent(id) {
   };
 }
 
-var React = require('react');
-
-var _require = require('react-redux');
-
-var connect = _require.connect;
-
+var React = require('react'),
+    _require = require('react-redux'),
+    connect = _require.connect;
 
 var App = _wrapComponent('App')(React.createClass({
 

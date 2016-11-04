@@ -17,7 +17,7 @@ var initialState = {
 };
 
 function userSettings() {
-  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments[1];
 
 
@@ -42,7 +42,7 @@ function userSettings() {
 }
 
 function getMe(state, status) {
-  var data = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+  var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
   switch (status) {
     case 'response':
@@ -53,7 +53,7 @@ function getMe(state, status) {
 }
 
 function updateUser(state, status) {
-  var user = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+  var user = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
   switch (status) {
     case 'response':
@@ -64,7 +64,7 @@ function updateUser(state, status) {
 }
 
 function generateApiKey(state, status) {
-  var data = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+  var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
   switch (status) {
     case 'response':

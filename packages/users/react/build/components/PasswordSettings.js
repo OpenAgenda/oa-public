@@ -35,20 +35,13 @@ function _wrapComponent(id) {
   };
 }
 
-var React = require('react');
-
-var _require = require('redux-form');
-
-var reduxForm = _require.reduxForm;
-
-var _require2 = require('utils');
-
-var capitalize = _require2.capitalize;
-
-var _require3 = require('react-router-redux');
-
-var push = _require3.push;
-
+var React = require('react'),
+    _require = require('redux-form'),
+    reduxForm = _require.reduxForm,
+    _require2 = require('utils'),
+    capitalize = _require2.capitalize,
+    _require3 = require('react-router-redux'),
+    push = _require3.push;
 
 var PasswordSettings = _wrapComponent('PasswordSettings')(React.createClass({
 
@@ -64,15 +57,15 @@ var PasswordSettings = _wrapComponent('PasswordSettings')(React.createClass({
 
   render: function render() {
     var getLabels = this.context.getLabels;
-    var _props = this.props;
-    var activeTab = _props.activeTab;
-    var dispatch = _props.dispatch;
-    var _props$fields = _props.fields;
-    var old_password = _props$fields.old_password;
-    var new_password = _props$fields.new_password;
-    var confirmation = _props$fields.confirmation;
-    var handleSubmit = _props.handleSubmit;
-    var successMessageDisplayed = _props.successMessageDisplayed;
+    var _props = this.props,
+        activeTab = _props.activeTab,
+        dispatch = _props.dispatch,
+        _props$fields = _props.fields,
+        old_password = _props$fields.old_password,
+        new_password = _props$fields.new_password,
+        confirmation = _props$fields.confirmation,
+        handleSubmit = _props.handleSubmit,
+        successMessageDisplayed = _props.successMessageDisplayed;
 
 
     return React.createElement(
@@ -102,7 +95,8 @@ var PasswordSettings = _wrapComponent('PasswordSettings')(React.createClass({
                 getLabels('actualPassword'),
                 ' *'
               ),
-              React.createElement('input', _extends({ type: 'password', className: 'form-control', name: 'old_password' }, old_password)),
+              React.createElement('input', _extends({ type: 'password', className: 'form-control', name: 'old_password',
+                autoComplete: 'off' }, old_password)),
               old_password.touched && old_password.error && React.createElement(
                 'div',
                 { className: 'text-danger' },
@@ -118,7 +112,8 @@ var PasswordSettings = _wrapComponent('PasswordSettings')(React.createClass({
                 getLabels('newPassword'),
                 ' *'
               ),
-              React.createElement('input', _extends({ type: 'password', className: 'form-control', name: 'new_password' }, new_password)),
+              React.createElement('input', _extends({ type: 'password', className: 'form-control', name: 'new_password',
+                autoComplete: 'off' }, new_password)),
               new_password.touched && new_password.error && React.createElement(
                 'div',
                 { className: 'text-danger' },
@@ -134,7 +129,8 @@ var PasswordSettings = _wrapComponent('PasswordSettings')(React.createClass({
                 getLabels('confirmation'),
                 ' *'
               ),
-              React.createElement('input', _extends({ type: 'password', className: 'form-control', name: 'confirmation' }, confirmation)),
+              React.createElement('input', _extends({ type: 'password', className: 'form-control', name: 'confirmation',
+                autoComplete: 'off' }, confirmation)),
               confirmation.touched && confirmation.error && React.createElement(
                 'div',
                 { className: 'text-danger' },

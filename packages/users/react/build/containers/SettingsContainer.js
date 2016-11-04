@@ -35,44 +35,26 @@ function _wrapComponent(id) {
   };
 }
 
-var React = require('react');
-
-var _require = require('redux');
-
-var bindActionCreators = _require.bindActionCreators;
-
-var _require2 = require('react-redux');
-
-var connect = _require2.connect;
-
-var _require3 = require('react-router-redux');
-
-var routerActions = _require3.routerActions;
-
-var _require4 = require('redux-form');
-
-var changeFieldValue = _require4.change;
-var resetForm = _require4.reset;
-
-var get = require('utils/get');
-
-var request = require('superagent');
-
-var actions = require('../actions');
-
-var Spinner = require('react-form-components/build/Spinner');
-
-var ProfileSettings = require('../components/ProfileSettings');
-
-var ImageSettings = require('../components/ImageSettings');
-
-var EmailSettings = require('../components/EmailSettings');
-
-var PasswordSettings = require('../components/PasswordSettings');
-
-var ApiKeySettings = require('../components/ApiKeySettings');
-
-var Modal = require('react-components/build/Modal');
+var React = require('react'),
+    _require = require('redux'),
+    bindActionCreators = _require.bindActionCreators,
+    _require2 = require('react-redux'),
+    connect = _require2.connect,
+    _require3 = require('react-router-redux'),
+    routerActions = _require3.routerActions,
+    _require4 = require('redux-form'),
+    changeFieldValue = _require4.change,
+    resetForm = _require4.reset,
+    get = require('utils/get'),
+    request = require('superagent'),
+    actions = require('../actions'),
+    Spinner = require('react-form-components/build/Spinner'),
+    ProfileSettings = require('../components/ProfileSettings'),
+    ImageSettings = require('../components/ImageSettings'),
+    EmailSettings = require('../components/EmailSettings'),
+    PasswordSettings = require('../components/PasswordSettings'),
+    ApiKeySettings = require('../components/ApiKeySettings'),
+    Modal = require('react-components/build/Modal');
 
 var SettingsContainer = _wrapComponent('SettingsContainer')(React.createClass({
 
@@ -93,24 +75,24 @@ var SettingsContainer = _wrapComponent('SettingsContainer')(React.createClass({
   },
   render: function render() {
     var getLabels = this.context.getLabels;
-    var _props = this.props;
-    var loading = _props.loading;
-    var user = _props.user;
-    var activeTab = _props.route.activeTab;
-    var routerActions = _props.routerActions;
-    var getUrl = _props.getUrl;
-    var updateUser = _props.updateUser;
-    var changeEmail = _props.changeEmail;
-    var changePassword = _props.changePassword;
-    var deleteAccount = _props.deleteAccount;
-    var generateApiKey = _props.generateApiKey;
-    var displayModal = _props.displayModal;
-    var modal = _props.modal;
-    var _props$successMessage = _props.successMessagesDisplayed;
-    var profileMessageDisplayed = _props$successMessage.updateProfile;
-    var emailMessageDisplayed = _props$successMessage.changeEmail;
-    var passwordMessageDisplayed = _props$successMessage.changePassword;
-    var onChangeProfileImage = _props.onChangeProfileImage;
+    var _props = this.props,
+        loading = _props.loading,
+        user = _props.user,
+        activeTab = _props.route.activeTab,
+        routerActions = _props.routerActions,
+        getUrl = _props.getUrl,
+        updateUser = _props.updateUser,
+        changeEmail = _props.changeEmail,
+        changePassword = _props.changePassword,
+        deleteAccount = _props.deleteAccount,
+        generateApiKey = _props.generateApiKey,
+        displayModal = _props.displayModal,
+        modal = _props.modal,
+        _props$successMessage = _props.successMessagesDisplayed,
+        profileMessageDisplayed = _props$successMessage.updateProfile,
+        emailMessageDisplayed = _props$successMessage.changeEmail,
+        passwordMessageDisplayed = _props$successMessage.changePassword,
+        onChangeProfileImage = _props.onChangeProfileImage;
 
 
     return React.createElement(
@@ -162,10 +144,10 @@ var SettingsContainer = _wrapComponent('SettingsContainer')(React.createClass({
 }));
 
 function mapStateToProps(_ref) {
-  var _ref$app = _ref.app;
-  var appSettings = _ref$app.appSettings;
-  var loading = _ref$app.loading;
-  var userSettings = _ref.userSettings;
+  var _ref$app = _ref.app,
+      appSettings = _ref$app.appSettings,
+      loading = _ref$app.loading,
+      userSettings = _ref.userSettings;
 
 
   return _extends({
@@ -226,8 +208,8 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
   }
 
   function updateUser(_ref2) {
-    var full_name = _ref2.full_name;
-    var culture = _ref2.culture;
+    var full_name = _ref2.full_name,
+        culture = _ref2.culture;
 
     dispatch(actions.updateUser('request'));
 
@@ -260,8 +242,8 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
   }
 
   function changeEmail(_ref3) {
-    var email = _ref3.email;
-    var password = _ref3.password;
+    var email = _ref3.email,
+        password = _ref3.password;
 
     dispatch(actions.changeEmail('request'));
 
@@ -290,9 +272,9 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
   }
 
   function changePassword(_ref4) {
-    var old_password = _ref4.old_password;
-    var new_password = _ref4.new_password;
-    var confirmation = _ref4.confirmation;
+    var old_password = _ref4.old_password,
+        new_password = _ref4.new_password,
+        confirmation = _ref4.confirmation;
 
     dispatch(actions.changePassword('request'));
 
@@ -320,7 +302,7 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
   }
 
   function generateApiKey() {
-    var secret = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
+    var secret = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
 
     dispatch(actions.generateApiKey('request'));
 

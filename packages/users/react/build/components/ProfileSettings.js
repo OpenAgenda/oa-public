@@ -35,20 +35,13 @@ function _wrapComponent(id) {
   };
 }
 
-var React = require('react');
-
-var _require = require('redux-form');
-
-var reduxForm = _require.reduxForm;
-
-var _require2 = require('utils');
-
-var capitalize = _require2.capitalize;
-
-var _require3 = require('react-router-redux');
-
-var push = _require3.push;
-
+var React = require('react'),
+    _require = require('redux-form'),
+    reduxForm = _require.reduxForm,
+    _require2 = require('utils'),
+    capitalize = _require2.capitalize,
+    _require3 = require('react-router-redux'),
+    push = _require3.push;
 
 var ProfileSettings = _wrapComponent('ProfileSettings')(React.createClass({
 
@@ -64,15 +57,15 @@ var ProfileSettings = _wrapComponent('ProfileSettings')(React.createClass({
 
   render: function render() {
     var getLabels = this.context.getLabels;
-    var _props = this.props;
-    var activeTab = _props.activeTab;
-    var _props$fields = _props.fields;
-    var full_name = _props$fields.full_name;
-    var culture = _props$fields.culture;
-    var handleSubmit = _props.handleSubmit;
-    var displayModal = _props.displayModal;
-    var deleteAccount = _props.deleteAccount;
-    var successMessageDisplayed = _props.successMessageDisplayed;
+    var _props = this.props,
+        activeTab = _props.activeTab,
+        _props$fields = _props.fields,
+        full_name = _props$fields.full_name,
+        culture = _props$fields.culture,
+        handleSubmit = _props.handleSubmit,
+        displayModal = _props.displayModal,
+        deleteAccount = _props.deleteAccount,
+        successMessageDisplayed = _props.successMessageDisplayed;
 
 
     var deleteModal = {
@@ -136,7 +129,7 @@ var ProfileSettings = _wrapComponent('ProfileSettings')(React.createClass({
                 React.createElement(
                   'option',
                   { value: 'fr' },
-                  'Français'
+                  'Fran\xE7ais'
                 ),
                 React.createElement(
                   'option',

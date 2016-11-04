@@ -57,10 +57,10 @@ var RelayContainer = _wrapComponent('RelayContainer')(React.createClass({
     };
   },
   render: function render() {
-    var _props = this.props;
-    var Component = _props.Component;
-    var store = _props.store;
-    var routerProps = _props.routerProps;
+    var _props = this.props,
+        Component = _props.Component,
+        store = _props.store,
+        routerProps = _props.routerProps;
 
     return React.createElement(Component, _extends({ store: store }, routerProps));
   }

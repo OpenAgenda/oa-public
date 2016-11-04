@@ -35,20 +35,13 @@ function _wrapComponent(id) {
   };
 }
 
-var React = require('react');
-
-var _require = require('redux-form');
-
-var reduxForm = _require.reduxForm;
-
-var _require2 = require('utils');
-
-var capitalize = _require2.capitalize;
-
-var _require3 = require('react-router-redux');
-
-var push = _require3.push;
-
+var React = require('react'),
+    _require = require('redux-form'),
+    reduxForm = _require.reduxForm,
+    _require2 = require('utils'),
+    capitalize = _require2.capitalize,
+    _require3 = require('react-router-redux'),
+    push = _require3.push;
 
 var EmailSettings = _wrapComponent('EmailSettings')(React.createClass({
 
@@ -64,14 +57,14 @@ var EmailSettings = _wrapComponent('EmailSettings')(React.createClass({
 
   render: function render() {
     var getLabels = this.context.getLabels;
-    var _props = this.props;
-    var activeTab = _props.activeTab;
-    var dispatch = _props.dispatch;
-    var _props$fields = _props.fields;
-    var email = _props$fields.email;
-    var password = _props$fields.password;
-    var handleSubmit = _props.handleSubmit;
-    var successMessageDisplayed = _props.successMessageDisplayed;
+    var _props = this.props,
+        activeTab = _props.activeTab,
+        dispatch = _props.dispatch,
+        _props$fields = _props.fields,
+        email = _props$fields.email,
+        password = _props$fields.password,
+        handleSubmit = _props.handleSubmit,
+        successMessageDisplayed = _props.successMessageDisplayed;
 
 
     return React.createElement(
@@ -117,7 +110,7 @@ var EmailSettings = _wrapComponent('EmailSettings')(React.createClass({
                 getLabels('password'),
                 ' *'
               ),
-              React.createElement('input', _extends({ type: 'password', className: 'form-control', name: 'password' }, password)),
+              React.createElement('input', _extends({ type: 'password', className: 'form-control', name: 'password', autoComplete: 'off' }, password)),
               password.touched && password.error && React.createElement(
                 'div',
                 { className: 'text-danger' },

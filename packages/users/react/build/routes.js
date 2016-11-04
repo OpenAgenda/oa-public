@@ -1,15 +1,11 @@
 'use strict';
 
-var React = require('react');
-
-var _require = require('react-router');
-
-var Route = _require.Route;
-var IndexRoute = _require.IndexRoute;
-
-var App = require('./containers/App');
-
-var SettingsContainer = require('./containers/SettingsContainer');
+var React = require('react'),
+    _require = require('react-router'),
+    Route = _require.Route,
+    IndexRoute = _require.IndexRoute,
+    App = require('./containers/App'),
+    SettingsContainer = require('./containers/SettingsContainer');
 
 module.exports = function (store) {
 
