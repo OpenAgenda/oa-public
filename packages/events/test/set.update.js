@@ -12,7 +12,7 @@ describe( 'set: update an event', function() {
 
   this.timeout( 5000 );
 
-  let id;
+  let id = 146173;
 
   before( () => {
 
@@ -23,24 +23,8 @@ describe( 'set: update an event', function() {
   beforeEach( done => {
 
     svc.test.fixtures( [
-      config.schemas.event + '_empty'
+      config.schemas.event
     ], done );
-
-  } );
-
-  beforeEach( done => {
-
-    svc.set( {
-      title: {
-        fr: 'My first event'
-      }
-    }, { internal: true }, ( err, result ) => {
-
-      id = result.event.id;
-
-      done();
-
-    } );
 
   } );
 
@@ -101,6 +85,42 @@ describe( 'set: update an event', function() {
       result.success.should.equal( true );
 
       result.event.timings.length.should.equal( 1 );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'an updated with internal boolean to true gives back "internal" fields', done => {
+
+    svc.set( id, {
+      "conditions" : "Its free!"
+    }, { internal: true }, ( err, result ) => {
+
+      result.success.should.equal( true );
+
+      result.event.id.should.equal( id );
+
+      done();      
+
+    } );
+
+  } );
+
+
+  it( 'a default update gives back event data excluding "internal" fields', done => {
+
+    svc.set( id, {
+      "accessibility" : {
+        "hi" : true
+      }
+    }, ( err, result ) => {
+
+      result.success.should.equal( true );
+
+      should( result.id ).equal( undefined );
 
       done();
 

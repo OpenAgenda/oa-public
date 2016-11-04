@@ -33,7 +33,8 @@ module.exports = [
   {
     db: 'long_description',
     obj: 'longDescription',
-    type: 'json'
+    type: 'json',
+    list: false
   },
   {
     db: 'keywords',

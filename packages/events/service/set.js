@@ -218,6 +218,10 @@ function _doUpdate( v ) {
 
   return knex( schemas.event )
 
+  .where( {
+    id: v.id
+  } )
+
   .update( dbParse.toDb( v.clean ) )
 
   .then( affected => {
