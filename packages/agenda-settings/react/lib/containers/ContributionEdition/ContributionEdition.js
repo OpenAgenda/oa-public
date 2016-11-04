@@ -65,12 +65,9 @@ function _wrapComponent(id) {
   };
 }
 
-var valuesSelector = (0, _reduxForm.formValueSelector)('contributionEdition');
-
 var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _reactRedux.connect)(function (state) {
   return {
-    initialValues: { settings: { contribution: state.agenda.data.settings.contribution } },
-    contributionType: valuesSelector(state, 'settings.contribution.type')
+    initialValues: { settings: { contribution: state.agenda.data.settings.contribution } }
   };
 }, { onSubmit: agendaActions.edit }), _dec2 = (0, _reduxForm.reduxForm)({
   form: 'contributionEdition',
@@ -130,8 +127,7 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
       var _props2 = this.props,
           handleSubmit = _props2.handleSubmit,
           fields = _props2.fields,
-          errors = _props2.errors,
-          contributionType = _props2.contributionType;
+          errors = _props2.errors;
       var getLabel = this.context.getLabel;
 
 
@@ -213,7 +209,7 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
                 ),
                 lang: this.context.lang
               }),
-              contributionType == 1 && _react3.default.createElement(
+              _react3.default.createElement(
                 'div',
                 { className: 'form-group' },
                 _react3.default.createElement(

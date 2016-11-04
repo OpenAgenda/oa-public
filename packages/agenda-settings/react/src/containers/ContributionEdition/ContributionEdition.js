@@ -1,16 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm, Field, formValueSelector } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
 import get from 'lodash.get';
 import * as agendaActions from '../../redux/modules/agenda';
 import { renderTextarea, renderMarkdownInput } from '../../utils/inputs';
 
-const valuesSelector = formValueSelector( 'contributionEdition' );
-
 @connect(
   state => ({
-    initialValues: { settings: { contribution: state.agenda.data.settings.contribution } },
-    contributionType: valuesSelector( state, 'settings.contribution.type' )
+    initialValues: { settings: { contribution: state.agenda.data.settings.contribution } }
   }),
   { onSubmit: agendaActions.edit }
 )
@@ -53,7 +50,7 @@ export default class ContributionEdition extends Component {
   }
 
   render() {
-    const { handleSubmit, fields, errors, contributionType } = this.props;
+    const { handleSubmit, fields, errors } = this.props;
     const { getLabel } = this.context;
 
     const getError = fieldname => {
@@ -98,7 +95,7 @@ export default class ContributionEdition extends Component {
                 subLabel={<p>{getLabel( 'consigneSubLabel' )}</p>}
                 lang={this.context.lang}
               />
-              {contributionType == 1 && <div className="form-group">
+              <div className="form-group">
                 <div className={`radio ${getError( 'settings.contribution.useFields' ) ? 'has-error' : ''}`}>
                   <p><b>{getLabel( 'contribUseFields' )}</b></p>
                   <label>
@@ -124,7 +121,7 @@ export default class ContributionEdition extends Component {
                     {getLabel( 'no' )}
                   </label>
                 </div>
-              </div>}
+              </div>
               <div className="form-group">
                 <div className={`radio ${getError( 'settings.contribution.defaultState' ) ? 'has-error' : ''}`}>
                   <p><b>{getLabel( 'contribDefaultState' )}</b></p>

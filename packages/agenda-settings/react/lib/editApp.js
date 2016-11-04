@@ -49,7 +49,6 @@ function editApp(options) {
       _domUtils2.default.addEvent(_domUtils2.default.el('.js_menu_item_' + t.className), 'click', function (e) {
 
         e.preventDefault();
-        console.log(t.to);
         store.dispatch((0, _reactRouterRedux.push)(t.to));
       });
     });
