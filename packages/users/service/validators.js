@@ -91,7 +91,7 @@ function validate( data ) {
 
 function update( data, removing ) {
 
-  return _validate( [
+  const result = _validate( [
     'full_name',
     'username',
     'culture',
@@ -103,6 +103,12 @@ function update( data, removing ) {
     'is_removed'
   ].concat( removing ? [] : 'email' )
     .filter( v => Object.keys( data ).indexOf( v ) !== -1 ), data );
+
+  if ( removing ) {
+    result.fields.email = data.email;
+  }
+
+  return result;
 
 }
 
