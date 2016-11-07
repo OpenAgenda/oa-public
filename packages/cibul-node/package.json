@@ -9,7 +9,7 @@
     "background": "nohup npm start >/dev/null 2>&1 &"
   },
   "dependencies": {
-    "ES": "git+ssh://git@bitbucket.org:cibul/es-node.git",
+    "ES": "git+ssh://git@bitbucket.org:openagenda/es-node.git",
     "admin-agendas": "git+ssh://git@bitbucket.org/openagenda/admin-agendas.git",
     "agenda-categories": "git+ssh://git@bitbucket.org:openagenda/agenda-categories.git",
     "agenda-event-references": "git+ssh://git@bitbucket.org:openagenda/agenda-event-references.git",
@@ -32,8 +32,8 @@
     "body-parser": "1.8.2",
     "bs-templates": "git+ssh://git@bitbucket.org:openagenda/bs-templates.git",
     "bunyan": "~1.0",
-    "cibulModel": "git+ssh://git@bitbucket.org:cibul/cibulmodel.git",
-    "cibulTemplates": "git+ssh://git@bitbucket.org:cibul/cibul-templates.git",
+    "cibulModel": "git+ssh://git@bitbucket.org:openagenda/cibulmodel.git",
+    "cibulTemplates": "git+ssh://git@bitbucket.org:openagenda/cibul-templates.git",
     "cookie-parser": "~1.3",
     "cookie-session": "1.2.0",
     "date-range": "git+ssh://git@bitbucket.org:openagenda/date-range.git",

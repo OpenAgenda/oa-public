@@ -79,6 +79,7 @@ module.exports = ( enabledTypes, cb ) => {
           require( './agenda/settings.back' )( '' ),
           require( './agenda/shares.front' )( '' ),
           require( './agenda/front' )( '' ),
+          require( './agenda/back' )( '' ),
           require( './agenda/facebook.back' )( '' ),
           require( './agenda/tagcat.back' )( '' ),
           require( './agenda/actions.front' )( '/:slug/actions' ),

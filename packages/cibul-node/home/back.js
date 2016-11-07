@@ -11,12 +11,12 @@ const mw = homeSvc.mw;
 module.exports = path => {
 
   const routes = {
-    homeAgendas: [ 'get', '', [
+    homeShow: [ 'get', '', [
       cmn.loadBaseData( 'oasfmain.css' ),
       matchApp
     ] ],
 
-    homeAgendasList: [ 'get', '/agendas', mw.agendas.list ]
+    homeShowList: [ 'get', '/agendas', mw.agendas.list ]
   };
 
   const router = modLib.Router( routes );
@@ -53,7 +53,7 @@ function getApp( req, res, next, { store, component } = {} ) {
 
 function matchApp( req, res, next ) {
 
-  const prefix = req.genUrl( 'homeAgendas' ).split( '?' )[ 0 ];
+  const prefix = req.genUrl( 'homeShow' ).split( '?' )[ 0 ];
   const lang = req.lang || 'fr';
 
   mw.matchApp(
@@ -61,7 +61,7 @@ function matchApp( req, res, next ) {
       state: {
         settings: { prefix, lang, apiRoot: `http://localhost:${config.port}` },
         res: {
-          list: req.genUrl( 'homeAgendasList' ),
+          list: req.genUrl( 'homeShowList' ),
           new: req.genUrl( 'agendaSettingsCreateApp' ),
           events: req.genUrl( 'homeEvents' ),
           messages: req.genUrl( 'homeMessages' ),

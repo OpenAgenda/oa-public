@@ -201,10 +201,6 @@ var deepExtend = require( 'deep-extend' ),
             method: 'get',
             uri: '/home/notifications'
           },
-          'homeShow': {
-            method: 'get',
-            uri: '/home'
-          },
           'aboutShow': {
             method: 'get',
             uri: '/about'
