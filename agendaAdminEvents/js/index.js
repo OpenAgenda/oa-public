@@ -15,7 +15,9 @@ params = {
     location: '#',
     contributor: '#',
     addEvent: '#',
-    agenda: '#'
+    agenda: '#',
+    setImage: '#',
+    cleatImage: '#'
   },
   selectors: {
     headerCanvas: '.js_header_canvas',
@@ -23,7 +25,8 @@ params = {
       link: '.js_head_link',
       body: '.js_head_body'
     }
-  }
+  },
+  image: '#'
 },
 
 ReactDom = require( 'react-dom' );

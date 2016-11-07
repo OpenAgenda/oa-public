@@ -16,8 +16,6 @@ var React = require( 'react' ),
 
   getStateLabel = require( 'labels' )( stateLabels ),
 
-  BravoModal = require( './BravoModal' ),
-
   Select = require( 'react-select' ),
 
   utils = require( 'utils' ),
@@ -323,8 +321,6 @@ var React = require( 'react' ),
             </div>
 
           </div>
-
-          <BravoModal lang={this.props.lang} res={this.props.res}/>
 
         </div>
 

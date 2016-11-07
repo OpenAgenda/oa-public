@@ -7,3 +7,4 @@ build/browserified/*
 build/sass/*
 npm-debug.log
 .idea/
+yarn.lock
