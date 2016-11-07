@@ -23,11 +23,11 @@ var modLib = require( '../lib/moduleLib' ),
   w = require( 'when' ),
 
   routes = {
-    corpoHome: [ 'get', '/', [ 
-      cmn.loadBaseData( 'oasfmain.css' ), 
-      _corpoBrowserCache,
+    corpoHome: [ 'get', '/', [
+      cmn.loadBaseData( 'oasfmain.css' ),
       cmn.requireUnlogged,
-      corpo 
+      _corpoBrowserCache,
+      corpo
     ] ],
     newsletterSubscribe: [ 'post', '/newsletter/subscribe', newsletterSubscribe ],
     serviceConnectCallback: [ 'get', '/services/:service/connect/callback', serviceConnectCallback ],
@@ -88,7 +88,7 @@ function corpo( req, res, next ) {
             keywords: metaLabels( 'keywords', lang ),
             robots: 'index, follow'
           },
-          scriptParams : {
+          scriptParams: {
             lang,
             stats: {
               agendas,
@@ -180,11 +180,15 @@ function newsletterSubscribe( req, res ) {
 
       res.redirect( 302, req.genUrl( 'corpoHome' ) );
 
-      mailer( {
-        subject: 'Nouvel inscrit à la newsletter',
-        recipient: [ 'romain@cibul.net', 'kaore@cibul.net' ],
-        text: '"' + req.body.email + '" a été ajouté à la newsletter.'
-      } );
+      [ 'romain@cibul.net', 'kaore@cibul.net' ].forEach( mailTo => {
+
+        mailer( {
+          subject: 'Nouvel inscrit à la newsletter',
+          recipient: mailTo,
+          text: '"' + req.body.email + '" a été ajouté à la newsletter.'
+        } );
+
+      } )
 
     }
 
@@ -196,13 +200,13 @@ function newsletterSubscribe( req, res ) {
 function start( req, res, next ) {
 
   const actions = {
-    header_signin: req.genUrl( 'signin' ), 
-    header_signup: req.genUrl( 'signup' ), 
-    header_phone: 'ok', 
-    main: req.genUrl( 'signup' ), 
-    pricing_free: req.genUrl( 'signup' ), 
-    pricing_custom: config.contactResource, 
-    pricing_premium: config.contactResource, 
+    header_signin: req.genUrl( 'signin' ),
+    header_signup: req.genUrl( 'signup' ),
+    header_phone: 'ok',
+    main: req.genUrl( 'signup' ),
+    pricing_free: req.genUrl( 'signup' ),
+    pricing_custom: config.contactResource,
+    pricing_premium: config.contactResource,
     pricing_tailored: config.contactResource,
     bottom: req.genUrl( 'signup' ),
     newsletter: req.genUrl( 'homeShow' )
