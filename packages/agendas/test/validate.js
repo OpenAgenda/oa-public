@@ -87,6 +87,7 @@ describe( 'validate', () => {
         slug: 'la-gargouille',
         uid: 122312,
         official: false,
+        private: false,
         ownerId: 1,
         settings: {
           contribution: {

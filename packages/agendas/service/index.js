@@ -119,7 +119,8 @@ function list( query, offset, limit, cb ) {
     total: false,
     detailed: false,
     search: null,
-    order: ''
+    order: '',
+    private: false
   }, query );
 
   if ( !knex ) return cb( 'no config' );
@@ -143,7 +144,7 @@ function list( query, offset, limit, cb ) {
 
     .then( _detailed )
 
-    .done( v => cb( null, v.agendas, v.total ) );
+    .done( v => cb( null, v.agendas, v.total ), cb );
 
 }
 
@@ -160,6 +161,12 @@ function count( cb ) {
 function _search( v ) {
 
   let ids = false;
+
+  if ( v.query.private !== null ) {
+
+    v.knex.where( 'private', v.query.private );
+
+  }
 
   if ( v.query.ids.length ) {
 
@@ -238,6 +245,7 @@ function _list( v ) {
 
     return v.knex
       .select.apply( v.knex, listFields )
+      // huh? order was defined prior to this
       .orderBy( 'updated_at', 'desc' )
       .limit( v.limit || 0 )
       .offset( v.offset || 0 )

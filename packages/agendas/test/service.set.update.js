@@ -47,7 +47,8 @@ describe( 'service.set: update an agenda', function() {
         },
         updatedAt: result.agenda.updatedAt,
         createdAt: result.agenda.createdAt,
-        official: 0
+        official: 0,
+        private: 0
       } );
 
       done();
@@ -150,6 +151,7 @@ describe( 'service.set: update an agenda', function() {
           slug: 'agenda-culturel-auvergne',
           uid: 65903437,
           official: 0,
+          private: 0,
           title: 'Agenda culturel Auvergne',
           description: 'test ! :)',
           url: '',

@@ -43,7 +43,8 @@ describe( 'get', function() {
         },
         createdAt: agenda.createdAt,
         updatedAt: agenda.updatedAt,
-        official: 0
+        official: 0,
+        private: 0
       } );
 
       done();
@@ -104,7 +105,8 @@ describe( 'get', function() {
         image: 'review_epn-espace-torcy_00.jpg',
         createdAt: agenda.createdAt,
         updatedAt: agenda.updatedAt,
-        official: 0
+        official: 0,
+        private: 0
       } );
 
       done();
@@ -148,7 +150,8 @@ describe( 'get', function() {
         },
         createdAt: agenda.createdAt,
         updatedAt: agenda.updatedAt,
-        official: 0
+        official: 0,
+        private: 0
       } );
 
       done();

@@ -44,7 +44,7 @@ describe( 'list', function () {
 
   it( 'list with { detailed: true } gets agendas with detailed info', done => {
 
-    svc.list( { detailed: true }, 94, 1, ( err, agendas ) => {
+    svc.list( { detailed: true, private: null }, 94, 1, ( err, agendas ) => {
 
       agendas[ 0 ].publishedEvents.should.equal( 9 );
 
@@ -55,9 +55,29 @@ describe( 'list', function () {
   } );
 
 
+  it( 'default list does not return private agendas', done => {
+
+    svc.list( 85, 10, ( err, agendas ) => {
+
+      // this agenda is private
+      agendas.filter( a => a.uid === 54289989 ).length.should.equal( 0 );
+
+      // these aren't
+      agendas.filter( a => a.uid === 24821824 ).length.should.equal( 1 );
+      agendas.filter( a => a.uid === 17582566 ).length.should.equal( 1 );
+
+      agendas.length.should.equal( 10 );
+
+      done();
+
+    } );
+
+  } );
+
+
   it( 'list with ids gets agendas', done => {
 
-    svc.list( { ids: [ 4828, 4848 ] }, 0, 2, ( err, agendas ) => {
+    svc.list( { ids: [ 4829, 4848 ] }, 0, 2, ( err, agendas ) => {
 
       agendas.length.should.equal( 2 );
 
@@ -70,7 +90,7 @@ describe( 'list', function () {
 
   it( 'list with ids, detailed and search gets agendas', done => {
 
-    svc.list( { ids: [ 4828, 4848 ], detailed: true, search: 'gradignan' }, 0, 2, ( err, agendas ) => {
+    svc.list( { ids: [ 4828, 4848 ], detailed: true, private: null, search: 'gradignan' }, 0, 2, ( err, agendas ) => {
 
       agendas.length.should.equal( 1 );
       agendas[ 0 ].publishedEvents.should.equal( 9 );

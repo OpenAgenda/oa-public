@@ -51,6 +51,7 @@ describe( 'service.set: create an agenda', function() {
             }
           },
           official: 0,
+          private: 0,
           createdAt: result.agenda.createdAt,
           updatedAt: result.agenda.updatedAt
         },
@@ -128,6 +129,7 @@ describe( 'service.set: create an agenda', function() {
           },
           image: null,
           official: 0,
+          private: 0,
           createdAt: result.agenda.createdAt,
           updatedAt: result.agenda.updatedAt
         },
@@ -208,6 +210,7 @@ describe( 'service.set: create an agenda', function() {
           settings: null,
           image: null,
           official: 0,
+          private: 0,
           settings: {
             contribution: {
               defaultState: 2,

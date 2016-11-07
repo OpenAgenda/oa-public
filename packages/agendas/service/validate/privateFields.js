@@ -26,6 +26,11 @@ module.exports = {
     type: 'text'
   },
 
+  private: {
+    type: 'boolean',
+    default: false
+  },
+
   credentials: {
 
     // activate moderators

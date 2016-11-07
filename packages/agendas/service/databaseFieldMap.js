@@ -44,6 +44,11 @@ module.exports = [
     list: false
   },
   {
+    db: 'private',
+    obj: 'private',
+    protected: true
+  },
+  {
     db: 'credentials',
     obj: 'credentials',
     type: 'json',
