@@ -41,6 +41,13 @@ routes = {
   ] ],
 
 
+  eventCreate: [ 'get', '/:slug/events/:eventUid/create', [
+    agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+    _loadEventByUid,
+    eventCreate
+  ] ],
+
+
   /**
    * process a save for event references
    */
@@ -139,6 +146,26 @@ function referencesSave( req, res, next ) {
       res.send( 'ok' );
 
     } );
+
+  } );
+
+}
+
+
+function eventCreate( req, res, next ) {
+
+  req.log( 'event was created' );
+
+  req.event.loadAgendaCustomContext( {
+    uid: req.agenda.uid,
+    customFields: req.agenda.getCustomFieldsConfig()
+  } );
+
+  req.event.evaluateCustomImageDuplication( err => {
+
+    if ( err ) req.log( 'error', err );
+
+    res.send( 'ok' );
 
   } );
 

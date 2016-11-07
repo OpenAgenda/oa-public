@@ -10,6 +10,8 @@ imageSvc = require( 'images' ),
 
 s3Svc = require( 'files' ).s3,
 
+async = require( 'async' ),
+
 log = require( 'logger' )( 'services/event/instance/custom' );
 
 module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
@@ -17,10 +19,60 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
   var customFields, agendaUid;
 
   return {
-    loadAgendaCustomContext: loadAgendaCustomContext,
-    setCustomImage: setCustomImage,
-    saveCustomImage: saveCustomImage,
-    unsetCustomImage: unsetCustomImage
+    loadAgendaCustomContext,
+    setCustomImage,
+    saveCustomImage,
+    unsetCustomImage,
+    evaluateCustomImageDuplication
+  }
+
+  function evaluateCustomImageDuplication( cb ) {
+
+    async.eachSeries( customFields.filter( f => f.fieldType === 'image' ), ( field, ecb ) => {
+
+      /*
+       
+      { name: 'illustration',
+        fieldType: 'image',
+        type: 'public',
+        optional: true,
+        label: { fr: 'Photo d\'illustration', en: 'Partner illustration' },
+        info: 
+         { fr: 'Chargez l\'illustration utilisée sur le champ précédent',
+           en: 'Load the image used in the previous field' } } 
+       */
+
+      instance.getCustomField( field.name, ( err, value ) => {
+
+        if ( err || !value ) return ecb( err );
+
+        let customImageEventUid = parseInt( value.split( '.' )[ 1 ] );
+
+        if ( customImageEventUid === instance.uid ) {
+
+          return ecb();
+
+        }
+
+        let src = getImagePathData( agendaUid, customImageEventUid, field.name );
+
+        let dst = getImagePathData( agendaUid, instance.uid, field.name );
+
+        // if the custom image name does not contain the uid of the current event
+        // we have a duplicated event, we need to duplicate the image as well.
+
+        s3Svc.copy( src.bucket, src.name, dst.bucket, dst.name, err => {
+
+          if ( err ) return ecb( err );
+
+          instance.setCustomField( field.name, dst.name, true, ecb );
+
+        } );
+
+      } );
+
+    }, cb );
+
   }
 
   function saveCustomImage( options, cb ) {
@@ -402,12 +454,18 @@ function _newImagePathname( v ) {
 
 function _existingImagePathname( v ) {
 
-  var name = [ v.agendaUid, v.instance.uid, v.name, 'jpg' ].join( '.' );
+  return getImagePathData( v.agendaUid, v.instance.uid, v.name );
+
+}
+
+function getImagePathData( agendaUid, eventUid, fieldName ) {
+
+  let imageName = [ agendaUid, eventUid, fieldName, 'jpg' ].join( '.' );
 
   return {
     bucket: config.aws.bucket,
-    name: name,
-    url: config.aws.imageBucketPath + name
+    name: imageName,
+    url: config.aws.imageBucketPath + imageName
   }
 
 }

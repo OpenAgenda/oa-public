@@ -62,7 +62,8 @@ function instanciate( data ) {
     'loadAgendaCustomContext', // load agenda context
     'setCustomImage',          // process custom image upload
     'unsetCustomImage',        // take a wild guess
-    'saveCustomImage'          // switch custom image from tmp store to permanent
+    'saveCustomImage',          // switch custom image from tmp store to permanent
+    'evaluateCustomImageDuplication'
   ] );
 
   exportable( svcInstance, instance, [

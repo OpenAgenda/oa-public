@@ -20,7 +20,7 @@ module.exports = {
     label : 'Moderators',
     uri : 'agendaAdminModerators',
     access: 'administrator',
-    requiredCred: 'moderators'
+    requiredCred: 'moderator'
   }, {
     section : 'manage',
     key : 'locations',
