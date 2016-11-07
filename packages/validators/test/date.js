@@ -26,6 +26,14 @@ describe( 'date validator', () => {
 
   } );
 
+  it( 'returns null if input is null and field is optional', () => {
+
+    let validate = dateValidator();
+
+    should( validate( null ) ).equal( null );
+
+  } );
+
   it( 'returns current date if default is set to \'now\'', done => {
 
     let validate = dateValidator( { default: 'now' } ),

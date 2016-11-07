@@ -47,7 +47,7 @@ module.exports = config => {
 
       }
 
-    } else if ( typeof value === 'undefined' ) {
+    } else if ( typeof value === 'undefined' || value === null ) {
 
       if ( !params.default && !params.optional ) {
 
@@ -65,6 +65,10 @@ module.exports = config => {
       } else if ( params.default ) {
 
         clean = new Date( params.default.getTime() );
+
+      } else if ( value === null ) {
+
+        clean = null;
 
       }
 
