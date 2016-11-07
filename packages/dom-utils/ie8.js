@@ -61,6 +61,16 @@ if ( !('trim' in String.prototype) ) {
     };
 }
 
+if ( !('trimLeft' in String.prototype) ) {
+
+  String.prototype.trimLeft = function() {
+
+    return this.replace(/^\s+/,"");
+    
+  }
+
+}
+
 // Add ECMA262-5 Array methods if not supported natively
 //
 if ( !('indexOf' in Array.prototype) ) {
