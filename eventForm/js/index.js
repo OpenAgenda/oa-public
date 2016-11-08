@@ -1,5 +1,9 @@
 "use strict";
 
+require( 'dom-utils/ie8' );
+
+require( 'dom-utils/ie9' );
+
 var formUtils = require( './formUtils' ),
 
 rUtils = require( './reactUtils' ),
