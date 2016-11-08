@@ -7,7 +7,9 @@ module.exports = init( {
   get: require( './service/get' ),
   set: require( './service/set' ),
   remove: require( './service/remove' ),
-  getConfig: require( './service/getConfig' ),
+  deleted: require( './service/deleted' ),
   legacy: require( './service/legacy' ),
+  stats: require( './service/stats' ),
+  getConfig: require( './service/getConfig' ),
   tasks: require( './tasks' )
 } );

@@ -26,7 +26,7 @@ describe( 'list events', function() {
 
   } );
 
-  it( 'simple remove', done => {
+  it( 'simple remove makes event innaccessible through get', done => {
 
     let identifier = { uid: 3564473 };
 
@@ -47,6 +47,23 @@ describe( 'list events', function() {
           done();
 
         } );
+
+      } );
+
+    } );
+
+  } );
+
+
+  it( 'remove makes event uid appear on deleted list', done => {
+
+    svc.remove( 145599, ( err, event ) => {
+
+      svc.deleted( 0, 1, ( err, deleted ) => {
+
+        deleted[ 0 ].uid.should.equal( 16319926 );
+
+        done();
 
       } );
 

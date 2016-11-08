@@ -28,7 +28,8 @@ function get( identifiers, options, cb ) {
   w( utils.extend( {
     identifiers,
     internal: false,
-    includeImagePath: false
+    includeImagePath: false,
+    private: false
   }, options, {
     entry: null, 
     data: null,
@@ -63,13 +64,21 @@ function get( identifiers, options, cb ) {
 
 function _get( v ) {
 
-  return knex( schemas.event )
+  let query = knex( schemas.event )
 
   .select( dbParse.fields( 'db', v.internal, [ 'id' ] ) )
 
   .where( v.identifiers )
 
-  .then( rows => {
+  .whereNull( 'deleted_at' );
+
+  if ( v.private !== null ) {
+
+    query.andWhere( 'private', v.private );
+
+  }
+
+  return query.then( rows => {
 
     if ( !rows.length ) return v;
 

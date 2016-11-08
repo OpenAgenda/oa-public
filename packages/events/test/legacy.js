@@ -104,7 +104,8 @@ describe( 'legacy', function() {
         } ],
         age: { min: null, max: null },
         updatedAt: event.updatedAt,
-        createdAt: event.createdAt 
+        createdAt: event.createdAt,
+        deletedAt: null
       } );
 
       done();
@@ -250,7 +251,7 @@ describe( 'legacy', function() {
 
   } );
 
-  it.only( 'second transfer does not add an additional entry in db', done => {
+  it( 'second transfer does not add an additional entry in db', done => {
 
     svc.legacy.transfer( 147621, ( err, result ) => {
 

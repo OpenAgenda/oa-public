@@ -55,7 +55,7 @@ function _update( identifiers, data, options, cb ) {
   const params = _.defaults( options, {
     protected: true,
     internal: false,
-    includeimagePath: false
+    includeImagePath: false
   } );
 
   w( _.assign( {}, params, {

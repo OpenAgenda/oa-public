@@ -20,6 +20,7 @@ CREATE TABLE `${schema}` (
   registration VARCHAR(1000),
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
+  deleted_at DATETIME,
   UNIQUE INDEX id_idx (id),
   UNIQUE INDEX uid_idx (uid),
   UNIQUE INDEX slug_idx (slug),

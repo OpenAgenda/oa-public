@@ -30,7 +30,7 @@ describe( 'set: update an event', function() {
 
   it( 'update the event title', done => {
 
-    svc.set( id, { 
+    svc.set( id, {
       title: {
         fr: 'Titre à jour'
       }
@@ -46,7 +46,7 @@ describe( 'set: update an event', function() {
 
       done();
 
-    } )
+    } );
 
   } );
 

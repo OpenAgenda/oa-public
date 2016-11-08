@@ -28,7 +28,7 @@ function list( query, offset, limit, options, cb ) {
     limit: 20,
     options: {
       total: false,
-      protected: true
+      internal: false
     }
   } );
 
@@ -55,13 +55,29 @@ function list( query, offset, limit, options, cb ) {
 
 function _list( v ) {
 
+  // get fields which need to be
   let listFields = map
 
     .filter( f => typeof f === 'string' || f.list === true || f.list === undefined )
 
-    .filter( f => v.options.protected && typeof f !== 'string' && f.protected ? false : true )
+    .filter( f => {
 
-    .map( f => typeof f === 'string' ? f : f.db )
+      let internalField = typeof f !== 'string' && f.internal,
+
+        displayInternal = v.options.internal;
+
+      return !internalField || ( internalField && displayInternal );
+
+    } )
+
+    .map( f => typeof f === 'string' ? f : f.db );
+
+  // add private / draft info when is requested in options
+  [ 'private', 'draft' ].forEach( f => {
+
+    if ( v.query[ f ] === null || v.query[ f ] === true ) listFields.push( f );
+
+  } );
 
   return knex.transaction( trx => {
 
@@ -117,11 +133,13 @@ function _search( v ) {
 
   }
 
-  if ( Object.keys( v.query ) ) {
+  if ( Object.keys( wheres ).length ) {
 
     v.knexQuery.where( wheres );
 
   }
+
+  v.knexQuery.whereNull( 'deleted_at' );
   
   return v;
 
@@ -135,8 +153,6 @@ function _total( v ) {
   return knex.transaction( trx => v.knexQuery.clone().count( 'id' ).transacting( trx ) )
 
   .then( result => {
-
-    console.log( result );
 
     v.total = result[ 0 ].id;
 

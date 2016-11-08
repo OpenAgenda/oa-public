@@ -70,7 +70,8 @@ describe( 'event validation', () => {
         max: null
       },
       updatedAt: undefined,
-      createdAt: undefined
+      createdAt: undefined,
+      deletedAt: undefined
     } );
 
   } );

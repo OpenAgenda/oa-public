@@ -46,8 +46,16 @@ module.exports = [
     obj: 'image',
     type: 'json'
   },
-  'draft',
-  'private',
+  {
+    db: 'draft',
+    obj: 'draft',
+    list: false
+  },
+  {
+    db: 'private',
+    obj: 'private',
+    list: false
+  },
   'timezone',
   {
     db: 'timings',
@@ -62,6 +70,13 @@ module.exports = [
   {
     db: 'created_at',
     obj: 'createdAt'
+  },
+  {
+    db: 'deleted_at',
+    obj: 'deletedAt',
+    protected: true,
+    internal: true,
+    list: false
   },
   {
     db: 'agenda_uid',

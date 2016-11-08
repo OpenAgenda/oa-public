@@ -1,5 +1,7 @@
 "use strict";
 
+process.env.NODE_ENV = 'test';
+
 const svc = require( '../service/test' ),
 
 config = require( '../testconfig' ),

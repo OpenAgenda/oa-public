@@ -53,11 +53,13 @@ function _doRemove( v ) {
 
   return knex( schemas.event )
 
-  .where( 'id', v.event.id ).del()
+  .update( 'deleted_at', new Date() )
 
-  .then( removedRows => {
+  .where( 'id', v.event.id )
 
-    v.success = !!removedRows;
+  .then( affected => {
+
+    v.success = !!affected;
 
     return v;
 
