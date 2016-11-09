@@ -1,3 +1,27 @@
+CREATE TABLE IF NOT EXISTS ${schema} (
+  id BIGINT AUTO_INCREMENT, 
+  uid BIGINT UNIQUE, 
+  main TINYINT(1) DEFAULT '0' NOT NULL, 
+  official TINYINT(1) DEFAULT '0' NOT NULL,
+  private TINYINT(1) DEFAULT '0' NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  owner_id BIGINT NOT NULL,
+  slug VARCHAR(255) NOT NULL UNIQUE,
+  description VARCHAR(165), /* 150 in real world */
+  image VARCHAR(255),
+  url VARCHAR(255),
+  collaborative TINYINT(1) DEFAULT '0' NOT NULL,
+  contribution_type TINYINT DEFAULT 0 NOT NULL,
+  contribution_info TEXT,
+  store TEXT,
+  credentials TEXT,
+  settings TEXT,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  INDEX owner_id_idx (owner_id), 
+  PRIMARY KEY(id)
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
+
 INSERT INTO ${schema} (`id`, `title`, `owner_id`, `slug`, `description`, `image`, `url`, `collaborative`, `created_at`, `updated_at`, `uid`, `main`, `store`, `contribution_type`, `contribution_info`, `official`, `private` ) VALUES
 (4818, 'Procès d''assises 2016', 7197, 'proces-d-assises-2016', 'Sélection des procès d''assise à Paris valant le coup d''être chroniqués', 'review_proces-d-assises-2016_00.jpg', '', 0, '2016-01-11 13:07:08', '2016-01-18 16:14:06', 17026855, 0, '{"order":"relative","moderated":false,"send_invitation_email":true,"contributorconfigstep":1}', 2, NULL, 0, 0 ),
 (4819, 'Liste des taches ', 7164, 'taches', 'Liste des taches ', NULL, '', 0, '2016-01-11 16:07:53', '2016-01-11 16:07:53', 20665250, 0, '{"order":"relative"}', 0, NULL, 0, 0 ),

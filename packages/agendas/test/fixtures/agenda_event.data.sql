@@ -1,3 +1,13 @@
+CREATE TABLE IF NOT EXISTS ${schema} (
+  id BIGINT AUTO_INCREMENT,
+  review_id BIGINT NOT NULL,
+  event_id BIGINT NOT NULL,
+  state TINYINT,
+  is_published TINYINT(1) DEFAULT '0' NOT NULL,
+  INDEX review_id_idx (review_id), 
+  PRIMARY KEY(id)
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
+
 INSERT INTO ${schema} ( `review_id`, `event_id`, `state` ) VALUES
 ( 4828, 1000, 2 ),
 ( 4828, 1001, 2 ),

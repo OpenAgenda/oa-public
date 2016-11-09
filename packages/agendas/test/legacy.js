@@ -18,7 +18,7 @@ describe( 'legacy: bridge with legacy data structure', function() {
 
   this.timeout( 30000 );
 
-  before( () => svc.init( config ) )
+  before( () => svc.init( config ) );
 
   beforeEach( svc.test.fixtures );
 
