@@ -16,9 +16,9 @@ sql = {
   data: {
     agenda: fs.readFileSync( __dirname + '/agenda.data.sql' ).toString(),
     event: fs.readFileSync( __dirname + '/event.data.sql' ).toString(),
-    agendaEvent: fs.readFileSync( __dirname + '/agendaEvent.data.sql' ).toString(),
+    agendaEvent: fs.readFileSync( __dirname + '/agenda_event.data.sql' ).toString(),
     stakeholder: fs.readFileSync( __dirname + '/stakeholder.data.sql' ).toString(),
-    stakeholderSettings: fs.readFileSync( __dirname + '/stakeholderSettings.data.sql' ).toString()
+    stakeholderSettings: fs.readFileSync( __dirname + '/stakeholder_settings.data.sql' ).toString()
   }
 },
 
