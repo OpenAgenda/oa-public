@@ -264,7 +264,11 @@ function _addCustomFields( v ) {
 
     custom.forEach( c => {
 
-      if ( c.fieldType == 'image' && c.value ) {
+      if ( c.fieldType === 'checkbox' ) {
+
+        v.decorated.customValues[ c.name ] = !!c.value;
+
+      } else if ( c.fieldType == 'image' && c.value ) {
 
         v.decorated.customValues[ c.name ] = config.aws.imageBucketPath + c.value;
 
