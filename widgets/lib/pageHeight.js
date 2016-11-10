@@ -13,8 +13,6 @@ var height,
 
 cn = require( '../../js/lib/common/common.mod' ),
 
-
-
 onChangeCb = false,
 
 firstChildPaddings = false,
@@ -25,19 +23,32 @@ cn.addEvent( window, 'resize', check );
 
 cn.addEvent( window, 'load', function() {
 
-  imagesLoaded( cn.el( 'body' ), check );
+  imagesLoaded( cn.el( 'body' ), function() {
+
+    check();
+
+    // big images still take time for the dom to adapt.
+    setTimeout( function() { 
+
+      check( true );
+
+    }, 500 );
+    
+  } );
 
 });
 
 function check( force ) {
 
-  var current = get();
-
-  if ( _isDisabled() ) return;
-
   if ( typeof force !== 'boolean' ) force = false;
 
-  if ( !force && ( height == current ) ) return;
+  var current = get();
+
+  if ( !force ) {
+
+    if ( _isDisabled() || height == current ) return;
+
+  }
 
   height = current;
 
