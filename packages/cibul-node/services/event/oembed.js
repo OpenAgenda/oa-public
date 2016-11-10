@@ -120,7 +120,7 @@ function _processLink( links ) {
 
     }
 
-    _getAndParse( config.oembed.res + '?api_key=' + config.oembed.key + '&url=' + encodeURI( processedLink.link ), function( err, data ) {
+    _getAndParse( config.oembed.res + '?api_key=' + config.oembed.key + '&url=' + encodeURIComponent( processedLink.link ), function( err, data ) {
 
       if ( err ) {
 
