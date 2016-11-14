@@ -4,9 +4,13 @@ const express = require( 'express' );
 
 const app = express();
 
+const server = require( 'http' ).createServer( app );
+
 const pages = require( './' );
 
 const fs = require( 'fs' );
+
+const reload = require( 'reload' );
 
 const port = process.env.PORT || 3000;
 
@@ -25,13 +29,15 @@ app.get( '/:page', ( req, res, next ) => {
 
   let p = pages( 'http://' + req.hostname + ':' + port ); // reload the thing  
 
-  req.content = p( req.params.page ).render();
+  req.content = p( req.params.page ).render( { lang: 'fr' } );
 
   next();
 
 } );
 
 app.use( '/fonts', express.static( __dirname + '/node_modules/font-awesome/fonts' ) );
+
+reload( server, app );
 
 app.get( '*', ( req, res ) => {
 
@@ -49,4 +55,5 @@ app.get( '*', ( req, res ) => {
 
 } );
 
-app.listen( port );
+
+server.listen( port );

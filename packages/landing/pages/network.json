@@ -1,0 +1,24 @@
+{
+  "key": "network",
+  "title": "networkOfferTitle",
+  "description": "networkOfferDescription",
+  "layout": "layout",
+  "segments": [ {
+    "key": "network",
+    "background": "gray"
+  }, {
+    "key": "support",
+    "background": "white"
+  }, {
+    "key" : "multiplePremium",
+    "background" : "gray",
+    "centered" : true
+  }, {
+    "key" : "getstarted",
+    "action" : {
+      "title" : "getStartedTitle",
+      "link" : "#contact",
+      "label" : "contactUsLabel"
+    }
+  }, "footer" ]
+}

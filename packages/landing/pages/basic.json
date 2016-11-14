@@ -1,0 +1,12 @@
+{
+  "title": "basicOfferTitle",
+  "description": "basicOfferDescription",
+  "layout": "layout",
+  "segments": [ "unlimited", {
+    "key": "opendata",
+    "background": "gray"
+  }, "multimedia", {
+    "key" : "broadcast",
+    "background" : "gray"
+  }, "getstarted", "footer" ]
+}

@@ -1,9 +1,8 @@
 {
   "template": "basic",
-  "title": "Invite contributors and administrators to collaborate on your agenda",
+  "title": "stakeholderTitle",
   "points": [
-    "<strong>Unlimited</strong> contributors and administrators",
-    "Choose to open your agenda to any contributor or limit to invited users only",
-    "Free feature!"
+    "stakeholderInvitation",
+    "stakeholderInfo"
   ]
 }

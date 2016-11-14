@@ -1,6 +1,6 @@
 {
-  "title": "The Portal",
-  "description": "A solution tailored to your needs",
+  "title": "tailoredTitle",
+  "description": "tailoredDescription",
   "layout": "layout",
   "segments": [ "expertise", { 
     "key" : "portalwebsite", 

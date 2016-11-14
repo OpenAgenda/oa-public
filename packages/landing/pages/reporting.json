@@ -1,0 +1,12 @@
+{
+  "title": "reportingToolTitle",
+  "description": "reportingToolDescription",
+  "layout": "layout",
+  "segments": [ {
+    "key" : "customized",
+    "background" : "gray"
+  }, {
+    "key" : "private",
+    "background" : "dark-purple" 
+  }, "paola", "footer" ]
+}

@@ -1,0 +1,12 @@
+{
+  "template": "basic",
+  "title": "broadcastTitle",
+  "text" : "broadcastText",
+  "points": [
+    "broadcastWebsite",
+    "broadcastFacebook",
+    "broadcastPersonal",
+    "broadcastMobile",
+    "broadcastMedia"
+  ]
+}

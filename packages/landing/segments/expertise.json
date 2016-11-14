@@ -1,9 +1,14 @@
 {
   "template": "basic",
-  "title": "Need help with the launch of your agenda? Our team is available to counsel you throughout your project",
+  "title": "expertiseTitle",
   "points": [
-    "We assist you in selecting the <strong>right agenda structure</strong> for your organization",
-    "We provide support to all contributors",
-    "Our dedicated projet managers deploy and give you the right tools to mobilize your community"
+    "expertiseOperationalSupport",
+    "expertiseEditorialGuide",
+    "expertiseDeploy",
+    "expertiseAnimation",
+    "expertiseModeration",
+    "expertiseReporting",
+    "expertiseTraining",
+    "expertiseContentPromotion"
   ]
 }

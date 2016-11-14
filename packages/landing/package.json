@@ -4,15 +4,17 @@
   "description": "Project to speed up configuration of corpo static pages",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "dependencies": {
     "express": "^4.14.0",
-    "pug": "^2.0.0-beta6",
-    "labels": "git+ssh://git@bitbucket.org:openagenda/labels.git"
+    "labels": "git+ssh://git@bitbucket.org:openagenda/labels.git",
+    "marked": "^0.3.6",
+    "pug": "^2.0.0-beta6"
   },
   "devDependencies": {
-    "bs-templates": "git+ssh://git@bitbucket.org:openagenda/bs-templates.git"
+    "bs-templates": "git+ssh://git@bitbucket.org:openagenda/bs-templates.git",
+    "reload": "^1.1.0"
   },
   "keywords": [],
   "author": "",

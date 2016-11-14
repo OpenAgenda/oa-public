@@ -10,7 +10,7 @@ div(class='testimonials background-' + ( background || 'white' ))
               img(alt=name src=avatar class='img-circle' width=40)
               strong #{name}
               br
-              span #{organization}
+              span!=organization
         .col-sm-6.text-center.margin-top.lg.margin-bottom-lg
           h2 #{action.title}
           p

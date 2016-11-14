@@ -1,9 +1,9 @@
 {
   "template" : "basic",
-  "title" : "A website at the domain of your choice dedicated to your event content",
+  "title" : "portalTitle",
   "points" : [
-    "A hosted website tailored for your brand",
-    "All navigation features of OpenAgenda on your portal",
-    "Managed event content"
+    "portalTailored",
+    "portalSearch",
+    "portalContent"
   ]
 }

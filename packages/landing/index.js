@@ -6,12 +6,15 @@ const fs = require( 'fs' );
 
 const _ = require( 'lodash' );
 
+const labels = require( 'labels/corpo/pages' );
+
 module.exports = function( basePath ) {
 
   const params = {
     templates: {},
     pages: [],
     segments: [],
+    labels,
     basePath
   }
 

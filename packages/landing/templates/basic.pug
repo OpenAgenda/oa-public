@@ -1,9 +1,11 @@
 div(class='background-' + ( background || 'white' ))
-  .container
+  div(class='container' + ( centered ? ' text-center' : '') )
     .spaced
       .media
         article.media-body.media-middle
-          h2.media-heading #{title}
+          h2.media-heading!=title
+          if typeof text !== 'undefined'
+          p!=text
           if typeof points !== 'undefined'
             ul
               each p in points

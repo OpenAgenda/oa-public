@@ -3,10 +3,10 @@
   "name": "Paola Scotton",
   "avatar": "//s3.eu-central-1.amazonaws.com/oastatic/paola-scotton.jpg",
   "organization": "Réunion des Opéras de France - Tous à l'Opéra",
-  "testimonial": "La solution idéale pour centraliser toutes les informations relatives à un événement commun. L’outil est très intuitif et simple d’utilisation, il tient toutes ses promesses.",
+  "testimonial": "paolaTestimony",
   "action": {
-    "title": "Ready?",
+    "title": "getStartedTitle",
     "link": "/signup",
-    "label": "Create an agenda"
+    "label": "getStartedButton"
   }
 }

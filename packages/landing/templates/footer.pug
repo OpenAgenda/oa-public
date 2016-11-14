@@ -12,10 +12,10 @@ footer.footer
         ul.list-unstyled
           each m in more.list
             li
-              a(href=m.link)=m.label
+              a(href=m.link)!=m.label
       .col-sm-4
         h2 #{andmore.title}
         ul.list-unstyled
           each m in andmore.list
             li
-              a(href=m.link)=m.label
+              a(href=m.link)!=m.label

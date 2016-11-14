@@ -1,15 +1,15 @@
 {
-  "title": "Broadcast your events",
-  "description": "Your events are reusable throughout the internet in an Opendata format through multiple exports",
+  "title": "exportsBroadcastTitle",
+  "description": "exportsBroadcastDescription",
   "layout": "layout",
   "segments": [ "opendata", {
     "key": "exports",
     "background": "gray"
-  }, "networkable", {
+  }, {
     "key": "private",
     "background": "dark-purple"
   }, {
-    "key": "embed",
+    "key": "customembed",
     "background": "gray"
-  }, "customembed", "footer" ]
+  }, "footer" ]
 }

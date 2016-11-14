@@ -1,0 +1,10 @@
+{
+  "template": "basic",
+  "title": "multimediaEventsTitle",
+  "points": [
+    "multimediaEventsTimings",
+    "multimediaEventsLang",
+    "multimediaEvents",
+    "multimediaEventsGeo"
+  ]
+}

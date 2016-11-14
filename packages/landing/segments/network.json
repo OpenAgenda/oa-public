@@ -1,9 +1,11 @@
 {
   "template": "basic",
-  "title": "Build a network of agendas and form a unified overall event dataset",
+  "title": "networkTitle",
   "points": [
-    "Each agenda can be managed independently",
-    "An aggregating agenda references any event published in the network",
-    "All events of the network can be <strong>searched</strong> and <strong>exported</strong> through the aggregator"
+    "networkInterconnected",
+    "networkEvolving",
+    "networkSupport",
+    "networkPremium",
+    "networkExport"
   ]
 }

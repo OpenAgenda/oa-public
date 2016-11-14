@@ -2,6 +2,7 @@
 
 const _ = require( 'lodash' );
 const pug = require( 'pug' );
+const marked = require( 'marked' );
 
 module.exports = config => {
 
@@ -9,7 +10,8 @@ module.exports = config => {
     basePath: false, // optional. If urls are to be generated
     templates: {},
     segments: [],
-    pages: []
+    pages: [],
+    labels: false // optional. If set, will look into keys for match
   } );
 
   // create the feature base renderers
@@ -65,7 +67,7 @@ module.exports = config => {
 
   function layout( pageParams, content, renderParams ) {
 
-    let data = renderParams.lang ? _reduceLabels( pageParams, renderParams.lang ) : pageParams;
+    let data = _reduceLabels( pageParams, renderParams.lang, params.labels );
 
     return pug.render( params.templates[ pageParams.layout ], _.assign( { content }, data ) );
 
@@ -83,7 +85,7 @@ module.exports = config => {
 
       data = _.assign( {}, renderer.defaults, s );
 
-      data = renderParams.lang ? _reduceLabels( data, renderParams.lang ) : data;
+      data = _reduceLabels( data, renderParams.lang, params.labels );
 
       try {
 
@@ -119,19 +121,54 @@ function _cleanPageSegment( segment ) {
 }
 
 
-function _reduceLabels( obj, lang ) {
+function _reduceLabels( obj, lang, labels = false ) {
 
-  if ( !_.isObject( obj ) ) return obj;
+  if ( !_.isObject( obj ) ) return _marked( obj );
 
   return _.mapValues( obj, o => {
 
-    if ( !_.isObject( o ) ) return o;
+    if ( _.isArray( o ) ) {
 
-    if ( o[ lang ] === undefined ) return _reduceLabels( o, lang );
+      return o.map( item => _reduceItem( item, lang, labels ) );
 
-    return o[ lang ];
+    }
+
+    return _reduceItem( o, lang, labels );
 
   } );
+
+}
+
+function _reduceItem( item, lang, labels ) {
+
+  if ( !_.isObject( item ) && labels && labels[ item ] !== undefined ) {
+
+    return _marked( labels[ item ][ lang ] );
+
+  }
+
+  if ( !_.isObject( item ) ) {
+
+    return _marked( item );
+
+  }
+
+  if ( item[ lang ] === undefined ) {
+
+    return _reduceLabels( item, lang, labels );
+
+  }
+
+  return _marked( item[ lang ] );
+
+}
+
+
+function _marked( text ) {
+
+  if ( typeof text !== 'string' ) return text;
+
+  return marked( text ).replace( /^<p>|<\/p>\n$/g, '' );
 
 }
 

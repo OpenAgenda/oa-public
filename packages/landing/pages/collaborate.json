@@ -1,8 +1,8 @@
 {
   "key": "collaborate",
   "layout": "layout",
-  "title": "Collaborate over huge event datasets",
-  "description": "Assign different roles to different people to manage a lot of content efficiently",
+  "title": "collaborateTitle",
+  "description": "collaborateDescription",
   "segments": [ {
     "key": "stakeholders",
     "background": "gray"

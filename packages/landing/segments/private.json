@@ -1,10 +1,9 @@
 {
   "template": "basic",
-  "title": "Do you want to limit access to your Agenda?",
+  "title": "privateTitle",
   "points": [
-    "Make your agendas <strong>private</strong>",
-    "Private agendas are only visible to chosen authenticated users",
-    "Keep at tight control over how you broadcast your data",
-    "This is a Custom feature!"
+    "privatePrivate",
+    "privateVisibility",
+    "privateBroadcast"
   ]
 }

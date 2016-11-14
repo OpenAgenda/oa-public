@@ -1,9 +1,8 @@
 {
   "template": "basic",
-  "title": "Project support",
+  "title": "supportTitle",
   "points": [
-    "Get dedicated support throughout the lifecycle of your project",
-    "Get a one to one chat or phone conversation at the launch of your agenda",
-    "A board will be assigned to your project for managing issues & tasks"
+    "supportBoard",
+    "supportLaunch"
   ]
 }

@@ -1,39 +1,39 @@
 {
   "template": "footer",
   "offers": {
-    "title": "The offers",
+    "title": "footerOffers",
     "list": [ {
-      "link": "#openoffer",
-      "label": "Open agenda - Free"
+      "link": "#basic",
+      "label": "footerBasic"
     }, {
-      "link": "#premiumoffer",
-      "label": "Premium agenda - 50€/month"
+      "link": "#premium",
+      "label": "footerPremium"
     }, {
-      "link": "#networkoffer",
-      "label": "Network - 350€/month"
+      "link": "#network",
+      "label": "footerNetwork"
     }, {
-      "link": "#portaloffer",
-      "label": "Portal - Contact us"
+      "link": "#tailored",
+      "label": "footerTailored"
     } ]
   },
   "more": {
-    "title": "Find out more",
+    "title": "footerMore",
     "list": [ {
-      "link": "#configure",
-      "label": "Setup your agenda in an instant"
-    }, {
-      "link": "#collaborate",
-      "label": "Collaborate over huge event datasets"
+      "link": "#broadcast",
+      "label": "exportsBroadcastTitle"
     }, {
       "link": "#buildnetwork",
-      "label": "Manage networks of agendas"
+      "label": "buildNetworkTitle"
     }, {
-      "link": "#broadcast",
-      "label": "Broadcast your events"
+      "link": "#collaborate",
+      "label": "collaborateTitle"
+    }, {
+      "link": "#reporting",
+      "label": "reportingToolTitle"
     } ]
   },
   "andmore": {
-    "title" : "... and more",
+    "title" : "footerAndMore",
     "list" : [ {
       "link" : "#medias",
       "label" : "Sites and medias using your events"
