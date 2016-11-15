@@ -35,17 +35,14 @@
   "andmore": {
     "title" : "footerAndMore",
     "list" : [ {
-      "link" : "#medias",
-      "label" : "Sites and medias using your events"
-    }, {
-      "link" : "#team",
-      "label" : "Meet the team"
+      "link" : "https://openagenda.zendesk.com/hc/fr/articles/202295681-Les-r%C3%A9utilisateurs-de-la-base-OpenAgenda",
+      "label" : "footerReuse"
     }, {
       "link" : "#references",
-      "label" : "References"
+      "label" : "footerReferences"
     }, {
       "link" : "#contactus",
-      "label" : "Contact us"
+      "label" : "contactTitle"
     } ]
   }
 }

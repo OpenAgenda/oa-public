@@ -1,0 +1,10 @@
+{
+  "title": "contactTitle",
+  "description": "contactDescription",
+  "layout": "layout",
+  "segments": [ "pipedrive", {
+    "key" : "contact",
+    "background" : "gray",
+    "action" : false
+  }, "footer" ]
+}

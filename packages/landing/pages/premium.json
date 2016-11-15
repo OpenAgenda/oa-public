@@ -16,6 +16,9 @@
     "key": "customembed", 
     "background": "gray"
   }, {
+    "key": "private",
+    "background": "white"
+  }, {
     "key": "validationcircuit",
     "background": "dark-purple"
   }, {

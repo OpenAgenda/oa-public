@@ -2,6 +2,9 @@ div(class='background-' + ( background || 'white' ))
   div(class='container' + ( centered ? ' text-center' : '') )
     .spaced
       .media
+        if typeof leftImage !== 'undefined'
+          figure.media-left.media-middle
+            img(src=leftImage width=256 class='big')
         article.media-body.media-middle
           h2.media-heading!=title
           if typeof text !== 'undefined'
@@ -11,3 +14,7 @@ div(class='background-' + ( background || 'white' ))
               each p in points
                 li 
                   p!=p
+
+        if typeof rightImage !== 'undefined'
+          figure.media-right.media-middle
+            img(src=rightImage width=256 class='big')
