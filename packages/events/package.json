@@ -1,5 +1,5 @@
 {
-  "name": "events",
+  "name": "events-service",
   "version": "1.0.0",
   "description": "handle core event data",
   "main": "index.js",
