@@ -19,7 +19,6 @@
   "dependencies": {
     "async": "^2.1.2",
     "basic-logger": "git+ssh://git@bitbucket.org:openagenda/basic-logger.git",
-    "fixtures": "git+ssh://git@bitbucket.org:openagenda/fixtures.git",
     "image-files": "git+ssh://git@bitbucket.org:openagenda/image-files.git",
     "knex": "^0.12.5",
     "lodash": "^4.16.6",

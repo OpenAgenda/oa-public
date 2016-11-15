@@ -14,8 +14,16 @@ module.exports = function( config, tables, cb ) {
     table: 'event',
     src: __dirname + '/event_empty.data.sql'
   }, {
+    key: 'event_few',
+    table: 'event',
+    src: __dirname + '/event_few.data.sql'
+  }, {
     table: 'legacy_event',
     src: __dirname + '/legacy_event.data.sql'
+  }, {
+    key: 'legacy_event_few',
+    table: 'legacy_event',
+    src: __dirname + '/legacy_event_few.data.sql'
   }, {
     table: 'legacy_event_translation',
     src: __dirname + '/legacy_event_translation.data.sql'
@@ -40,6 +48,9 @@ module.exports = function( config, tables, cb ) {
   }, {
     table: 'legacy_agenda',
     src: __dirname + '/legacy_agenda.data.sql'
+  }, {
+    table: 'legacy_deleted',
+    src: __dirname + '/legacy_deleted.data.sql'
   } ].filter( c => tables.indexOf( c.key || c.table ) !== -1 ), cb );
 
 }

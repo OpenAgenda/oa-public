@@ -231,7 +231,7 @@ describe( 'legacy', function() {
 
           event.title.fr.should.equal( 'Changed!' );
 
-          svc.legacy.transfer( 147621, ( err, result ) => {
+          svc.legacy.transfer( 147621, { force: true }, ( err, result ) => {
 
             result.transfered.should.equal( true );
 
@@ -257,7 +257,7 @@ describe( 'legacy', function() {
 
       result.created.should.equal( true );
 
-      svc.legacy.transfer( 147621, ( err, result ) => {
+      svc.legacy.transfer( 147621, { force: true }, ( err, result ) => {
 
         result.created.should.equal( false );
 
@@ -270,6 +270,36 @@ describe( 'legacy', function() {
           con.end();
 
           done();
+
+        } );
+
+      } );
+
+    } );
+
+  } );
+
+  it( 'second transfer does not occur unless forced or legacy has a later updatedAt value', done => {
+
+    svc.legacy.transfer( 147621, ( err, result ) => {
+
+      svc.set( 147621, { title: { fr: 'Changed!' } }, ( err, result ) => {
+
+        svc.get( 147621, ( err, event ) => {
+
+          event.title.fr.should.equal( 'Changed!' );
+
+          svc.legacy.transfer( 147621, ( err, result ) => {
+
+            result.success.should.equal( true );
+
+            result.transfered.should.equal( false );
+
+            result.created.should.equal( false );
+
+            done();
+
+          } );
 
         } );
 

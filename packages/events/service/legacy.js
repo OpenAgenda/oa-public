@@ -37,6 +37,7 @@ function transfer( identifiers, options, cb ) {
   w( {
     identifiers,
     event: null,
+    force: options.force || false,
     legacy: {
       valid: null,
       event: null,
@@ -55,12 +56,27 @@ function transfer( identifiers, options, cb ) {
     if ( !v.legacy.event ) {
 
       return cb( null, {
+        success: false,
         transfered: false,
         legacy: v.legacy,
         event: v.event
       } );
 
     }
+
+    // event already exists, if has been updated later than legacy, transfer is not made
+    if ( !v.force && v.event && v.event.updatedAt >= v.legacy.event.updatedAt ) {
+
+      return cb( null, {
+        success: true,
+        transfered: false,
+        created: false,
+        legacy: v.legacy,
+        event: v.event
+      } );      
+
+    }
+
 
     let set = v.event ? service.set.bind( null, v.identifiers ) : service.set;
 
@@ -69,6 +85,7 @@ function transfer( identifiers, options, cb ) {
       if ( err ) return cb( err );
 
       cb( null, Object.assign( {
+        success: r.success,
         transfered: r.success,
         legacy: v.legacy,
         created: !v.event

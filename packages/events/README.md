@@ -1,3 +1,5 @@
+Gérer les 'delete' dans le script de transfer avant intégration.
+
 # Overview
 
 This service provides methods to perform crud operations on events. Other than an origin agenda uid, it does handle any information related to agendas or agenda-decoration data such as tags, categories or custom fields.

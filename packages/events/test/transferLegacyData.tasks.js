@@ -1,5 +1,7 @@
 "use strict";
 
+process.env.NODE_ENV='test';
+
 const svc = require( '../service/test' ),
 
 config = require( '../testconfig' ),
@@ -21,8 +23,8 @@ describe( 'transferLegacyData', function() {
   beforeEach( done => {
 
     svc.test.fixtures( [
-      config.schemas.event + '_empty',
-      config.legacy.schemas.event,
+      config.schemas.event + '_few',
+      config.legacy.schemas.event + '_few',
       config.legacy.schemas.occurrence,
       config.legacy.schemas.eventTranslation,
       config.legacy.schemas.location,
@@ -30,21 +32,32 @@ describe( 'transferLegacyData', function() {
       config.legacy.schemas.eventLocationTranslation,
       config.legacy.schemas.agendaEvent,
       config.legacy.schemas.user,
-      config.legacy.schemas.agenda
+      config.legacy.schemas.agenda,
+      config.legacy.schemas.deleted
     ], done );
 
   } );
 
-  it( 'transfer has 0 fails', done => {
+  it( 'transfer gives detailed report', done => {
 
-    svc.tasks.transferLegacyData( { offset: 0, total: 20 }, ( err, result ) => {
+    svc.tasks.transferLegacyData( ( err, result ) => {
 
-      result.fails.should.equal( 0 );
+      result.should.eql( {
+        successes: 31,
+        transfered: 26,
+        removed: 3,
+        fails: 0,
+        removeFails: 0,
+        failUids: [],
+        removeFailUids: []
+      } );
 
       done();
 
     } );
 
   } );
+
+
 
 } );
