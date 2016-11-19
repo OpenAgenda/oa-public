@@ -114,4 +114,12 @@ Bridge library allowing a **get** from legacy db and permitting to **transfer** 
 
 ## Transfer task
 
-Takes all events from legacy db and updates service dataset. Uses 'transfer'. Does not handle delete delta yet.
+Takes all events from legacy db and updates service dataset. Uses 'transfer' from legacy endpoint.
+
+### Handling of non-published events during transfer
+
+Legacy events have an is_published field as part of their schema. The new schema does not use that field, replacing with a 'draft' field. Following the new schema, draft events can be incomplete, whereas non-draft events cannot. During the transfer, three cases arise to determine the 'draft' value of the translated event:
+
+ * **is_published is false**: draft is set to true
+ * **is_published is true, but event is evaluated as being incomplete: draft is set to true
+ * ** is_published is true and event is evaluated as being complete: draft is set to false

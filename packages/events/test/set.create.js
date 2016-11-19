@@ -86,10 +86,12 @@ describe( 'set: create an event', function() {
     svc.set( {
       title: {
         fr: 'My first event'
-      }
+      },
+      timings: [ {
+        begin: new Date(),
+        end: new Date()
+      } ]
     }, ( err, result ) => {
-
-      should( err ).equal( null );
 
       result.should.eql( {
         valid: true,
@@ -116,7 +118,7 @@ describe( 'set: create an event', function() {
           },
           keywords: {},
           timezone: 'Europe/Paris',
-          timings: [],
+          timings: result.event.timings,
           updatedAt: result.event.updatedAt,
           createdAt: result.event.createdAt,
           locationUid: null,

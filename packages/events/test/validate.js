@@ -19,7 +19,10 @@ describe( 'event validation', () => {
         title: {
           fr: 'Un titre'
         },
-        timings: [],
+        timings: [ {
+          begin: d,
+          end: d
+        } ],
         updatedAt: d,
         createdAt: d
       } )
@@ -65,7 +68,10 @@ describe( 'event validation', () => {
       timezone: 'Europe/Paris',
       locationUid: null,
       private: false,
-      timings: [],
+      timings: [ {
+        begin: d,
+        end: d
+      } ],
       draft: true,
       age: {
         min: null,
@@ -80,7 +86,7 @@ describe( 'event validation', () => {
 
   it( 'public validation only needs title', () => {
 
-    let clean, errors = [];
+    let clean, errors = [], d = new Date();
 
     try {
 
@@ -89,7 +95,10 @@ describe( 'event validation', () => {
         title: {
           fr: 'Un titre'
         },
-        timings: []
+        timings: [ {
+          begin: d,
+          end: d
+        } ]
       } );
 
     } catch( e ) {
@@ -118,7 +127,10 @@ describe( 'event validation', () => {
         vi: false
       },
       draft: true,
-      timings: [],
+      timings: [ {
+        begin: d,
+        end: d
+      } ],
       registration: [],
       age: {
         min: null,

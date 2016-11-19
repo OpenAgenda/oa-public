@@ -127,7 +127,10 @@
     "max" : 255
   },
   "timings" : {
-    "list" : true,
+    "list" : {
+      "min" : 1
+    },
+    "optional" : false,
     "fields" : {
       "begin" : {
         "type" : "date",
