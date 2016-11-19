@@ -51,9 +51,9 @@ describe( 'set: update an event', function() {
   } );
 
 
-  it( 'invalid title update', done => {
+  it( 'absent title is considered invalid for non draft event', done => {
 
-    svc.set( id, { title: {} }, ( err, result ) => {
+    svc.set( id, { title: {} }, { draft: false }, ( err, result ) => {
 
       result.success.should.equal( false );
 
@@ -63,6 +63,19 @@ describe( 'set: update an event', function() {
         message: 'at least one language entry is required',
         origin: {} 
       } ] );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'absent title is considered valid for draft event', done => {
+
+    svc.set( id, { title: {} }, { draft: true }, ( err, result ) => {
+
+      result.success.should.equal( true );
 
       done();
 

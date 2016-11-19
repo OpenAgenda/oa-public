@@ -150,10 +150,14 @@
     }
   },
   "updatedAt" : {
-    "type" : "date"
+    "type" : "date",
+    "optional" : false,
+    "server" : true
   },
   "createdAt" : {
-    "type" : "date"
+    "type" : "date",
+    "optional" : false,
+    "server" : true
   },
   "deletedAt" : {
     "type" : "date",

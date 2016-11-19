@@ -14,9 +14,15 @@ let out = {
     fields: {},
     content: '"use strict";// script-generated file. See src/fields.json\n\nmodule.exports = ',
     file: __dirname + '/../service/validate/serverFields.js'
+  },
+  all: {
+    fields: {},
+    content: '"use strict";// script-generated file. See src/fields.json\n\nmodule.exports = ',
+    file: __dirname + '/../service/validate/fields.js'
   }
 };
 
+// dispatch fields between server and front
 Object.keys( fields ).forEach( k => {
 
   let outKey = fields[ k ].server ? 'server' : 'front';
@@ -25,11 +31,11 @@ Object.keys( fields ).forEach( k => {
 
   fields[ k ].private = undefined;
 
-  out[ outKey ].fields[ k ] = fields[ k ];
+  out.all.fields[ k ] = out[ outKey ].fields[ k ] = fields[ k ];
 
 } );
 
-[ 'server', 'front' ].forEach( outKey => {
+[ 'all', 'server', 'front' ].forEach( outKey => {
 
   out[ outKey ].content += JSON.stringify( out[ outKey ].fields ) + ';';
 

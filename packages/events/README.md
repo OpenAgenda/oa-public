@@ -77,7 +77,8 @@ Create or update an event
 
 * **protected**: if true, protected values can be set. defaults at false. See database map file for list of protected values
 * **internal**: if true, internal values are included in result
-*  **includeImagePath**: if true, includes image path in result
+* **includeImagePath**: if true, includes image path in result
+* **draft**: if true, validates and sets a draft event. If false, validates and sets a published event. If null, draft value is deduced from data completeness. Default is true.
 
 ## Remove
 Delete an event ( soft delete, sets deleted_at field to now  )

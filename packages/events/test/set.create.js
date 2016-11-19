@@ -28,7 +28,60 @@ describe( 'set: create an event', function() {
 
   } );
 
-  it( 'create the simplest event', done => {
+  it( 'create the simplest draft event', done => {
+
+    svc.set( {}, { draft: true }, ( err, result ) => {
+
+      should( err ).equal( null );
+
+      result.should.eql( { 
+        event: {
+          slug: 'false',
+          uid: result.event.uid,
+          title: {},
+          description: {},
+          longDescription: {},
+          keywords: {},
+          image: {
+            filename: null,
+            credits: null,
+            size: {
+              width: null,
+              height: null
+            }, variants: []
+          },
+          draft: 1,
+          private: 0,
+          timezone: 'Europe/Paris',
+          timings: [],
+          updatedAt: result.event.updatedAt,
+          createdAt: result.event.createdAt,
+          locationUid: null,
+          accessibility: {
+            mi: false,
+            hi: false,
+            pi: false,
+            vi: false,
+            sl: false
+          },
+          age: {
+            min: null,
+            max: null
+          },
+          registration: []
+        },
+        valid: true,
+        success: true,
+        errors: [] 
+      } );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'create the simplest published event', done => {
 
     svc.set( {
       title: {
@@ -49,7 +102,7 @@ describe( 'set: create an event', function() {
           description: {},
           longDescription: {},
           keywords: {},
-          draft: 1,
+          draft: 0,
           private: 0,
           registration: [],
           image: {

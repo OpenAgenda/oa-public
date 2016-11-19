@@ -6,9 +6,9 @@ const frontValidate = require( '../service/validate/front' );
 
 describe( 'event validation', () => {
 
-  it( 'full validation only needs identifier fields and title to be informed to declare an event valid', () => {
+  it( 'full validation only needs identifier fields, title, and timestamps to be set to declare an event valid', () => {
 
-    let clean, errors = [];
+    let clean, errors = [], d = new Date();
 
     try {
 
@@ -19,7 +19,9 @@ describe( 'event validation', () => {
         title: {
           fr: 'Un titre'
         },
-        timings: []
+        timings: [],
+        updatedAt: d,
+        createdAt: d
       } )
       
     } catch ( e ) {
@@ -69,8 +71,8 @@ describe( 'event validation', () => {
         min: null,
         max: null
       },
-      updatedAt: undefined,
-      createdAt: undefined,
+      updatedAt: d,
+      createdAt: d,
       deletedAt: undefined
     } );
 
@@ -131,9 +133,7 @@ describe( 'event validation', () => {
         },
         variants: []
       },
-      timezone: 'Europe/Paris',
-      updatedAt: undefined,
-      createdAt: undefined
+      timezone: 'Europe/Paris'
     } );
 
   } );

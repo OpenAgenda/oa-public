@@ -2,7 +2,9 @@
 
 const schema = require( 'validators/schema' ),
 
-utils = require( 'utils' );
+  _ = require( 'lodash' ),
+
+  fields = require( './fields' );
 
 schema.register( {
   text: require( 'validators/text' ),
@@ -17,7 +19,13 @@ schema.register( {
   email: require( 'validators/email' )
 } );
 
-module.exports = schema( utils.extend( {},
-  require( './serverFields' ), 
-  require( './frontFields' )
-) );
+module.exports = schema( fields );
+
+module.exports.draft = schema( _.mapValues( fields, f => {
+
+  // all is optional for draft validator
+  if ( f.optional === false ) f.optional = true;
+
+  return f;
+
+} ) );

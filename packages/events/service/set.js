@@ -5,24 +5,27 @@ const MODES = {
   UPDATE: 'update'
 },
 
-utils = require( 'utils' ),
+  utils = require( 'utils' ),
 
-_ = require( 'lodash' ),
+  eventUtils = require( '../utils' ),
 
-slugs = require( 'slugs' ),
+  _ = require( 'lodash' ),
 
-w = require( 'when' ),
+  slugs = require( 'slugs' ),
 
-map = require( './databaseFieldMap' ),
+  w = require( 'when' ),
 
-dbParse = require( 'mysql-utils/mapper' )( map ),
+  map = require( './databaseFieldMap' ),
 
-logger = require( 'basic-logger' ),
+  dbParse = require( 'mysql-utils/mapper' )( map ),
 
-validate = require( './validate' ),
+  logger = require( 'basic-logger' ),
 
-defineUnique = require( 'mysql-utils/defineUnique' ),
-verifyUnique = require( 'mysql-utils/verifyUnique' );
+  validate = require( './validate' ),
+
+  defineUnique = require( 'mysql-utils/defineUnique' ),
+
+  verifyUnique = require( 'mysql-utils/verifyUnique' );
 
 let schemas, service, knex, config, log;
 
@@ -35,6 +38,7 @@ function set( identifiers, data, options, cb ) {
     _update( identifiers, data, options, cb );
 
   } else {
+
 
     _create( identifiers, data, options );
 
@@ -55,7 +59,8 @@ function _update( identifiers, data, options, cb ) {
   const params = _.defaults( options, {
     protected: true,
     internal: false,
-    includeImagePath: false
+    includeImagePath: false,
+    draft: false
   } );
 
   w( _.assign( {}, params, {
@@ -79,6 +84,8 @@ function _update( identifiers, data, options, cb ) {
   .then( _merge )
 
   .then( _setToNow( 'merged', 'updatedAt' ) )
+
+  .then( _evaluateDraft( 'merged' ) )
 
   .then( _validate( 'merged' ) )
 
@@ -126,7 +133,8 @@ function _create( data, options , cb ) {
 
   let params = utils.extend( {
     internal: false,
-    includeImagePath: false
+    includeImagePath: false,
+    draft: false
   }, options );
 
 
@@ -151,6 +159,8 @@ function _create( data, options , cb ) {
   .then( _setToNow( 'data', 'updatedAt' ) )
 
   .then( _setToNow( 'data', 'createdAt' ) )
+
+  .then( _evaluateDraft( 'data' ) )
 
   .then( _validate( 'data' ) )
 
@@ -183,13 +193,33 @@ function _create( data, options , cb ) {
 }
 
 
+/**
+ * evaluate from draft option
+ * ( if null then from data )
+ * if event is a draft
+ */
+function _evaluateDraft( target ) {
+
+  return v => {
+
+    v[ target ].draft = v.draft !== null ? v.draft : !eventUtils.isComplete( v[ target ] );
+
+    return v;
+
+  }
+
+}
+
+
 function _validate( target ) {
 
   return v => {
 
+    let validateFunc = v[ target ].draft ? validate.draft : validate;
+
     try {
 
-      v.clean = validate( v[ target ] );
+      v.clean = validateFunc( v[ target ] );
 
     } catch( e ) {
 
@@ -539,11 +569,19 @@ function _areIdentifiers( identifiers ) {
     return true;
 
   }
+    
+  let otherKeys = [], idKeys = [];
 
-  return !Object.keys( identifiers )
+  Object.keys( identifiers ).forEach( k => {
 
-    .filter( k => [ 'id', 'uid', 'slug' ].indexOf( k ) == -1 )
+    ( ( [ 'id', 'uid', 'slug' ].indexOf( k ) === -1 ) ? otherKeys : idKeys ).push( k )
 
-    .length;
+  } );
+
+  if ( !idKeys.length ) return false;
+
+  if ( otherKeys.length ) return false;
+
+  return true;
 
 }
