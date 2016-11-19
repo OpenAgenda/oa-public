@@ -32,11 +32,17 @@ function schema( options ) {
     utils.extend( params, cleanSchema( params.fields ) );
 
   }
+  
+  if ( params.field ) {
+
+    utils.extend( validate, { field: params.field } );
+
+  }
 
   /**
    * exposed endpoints
    */
-  return utils.extend( params.list ? listify( validate ) : validate, { 
+  return utils.extend( params.list ? listify( validate, params.list ) : validate, { 
     part,
     default: r.getDefault( params.fields ),
     fields: params.fields,

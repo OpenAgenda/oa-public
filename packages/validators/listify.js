@@ -1,5 +1,7 @@
 "use strict";
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 var _utils = require('utils');
 
 var _utils2 = _interopRequireDefault(_utils);
@@ -10,7 +12,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * makes validator process lists
  */
 
-module.exports = function (validator) {
+module.exports = function (validator, options) {
+
+  var params = _utils2.default.extend({
+    min: null,
+    max: null
+  }, (typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object' ? options : {});
 
   return _utils2.default.extend(validate, {
     type: validator.type,
@@ -45,6 +52,26 @@ module.exports = function (validator) {
         }));
       }
     });
+
+    if (params.min !== null && value.length < params.min) {
+
+      errors.push({
+        field: validator.field,
+        code: 'list.tooshort',
+        message: 'list is too short',
+        origin: value
+      });
+    }
+
+    if (params.max !== null && value.length > params.max) {
+
+      errors.push({
+        field: validator.field,
+        code: 'list.toolong',
+        message: 'list is too long',
+        origin: value
+      });
+    }
 
     if (errors.length) throw errors;
 

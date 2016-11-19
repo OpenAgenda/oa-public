@@ -565,7 +565,6 @@ describe( 'schema validator', () => {
 
     } );
 
-
     it( 'validates a list of texts', () => {
 
       let errors = [], clean,
@@ -595,6 +594,73 @@ describe( 'schema validator', () => {
       clean.should.eql( {
         aListOfTexts: [ 'a', 'b', 'c' ]
       } );
+
+    } );
+
+    it( 'list of texts with min value set throws error if not enough items are given', () => {
+
+      let errors = [], clean,
+
+      validator = schema( {
+        aListOfTexts: {
+          type: 'text',
+          optional: false,
+          list: {
+            min: 2
+          }
+        }
+      } );
+
+      try {
+
+        validator( {
+          aListOfTexts: [ 'ladida' ]
+        } );
+
+      } catch( e ) { errors = e; }
+
+      errors.length.should.equal( 1 );
+
+      errors.should.eql( [ { 
+        field: 'aListOfTexts',
+        code: 'list.tooshort',
+        message: 'list is too short',
+        origin: [ 'ladida' ] 
+      } ] );
+
+    } );
+
+
+    it( 'list of texts with max value set throws error if too many items are given', () => {
+
+      let errors = [], clean,
+
+      validator = schema( {
+        aListOfTexts: {
+          type: 'text',
+          optional: false,
+          list: {
+            max: 1
+          }
+        }
+      } );
+
+      try {
+
+        validator( {
+          aListOfTexts: [ 'la', 'dida' ]
+        } );
+
+      } catch( e ) { errors = e; }
+
+      errors.length.should.equal( 1 );
+
+      errors.should.eql( [ { 
+        field: 'aListOfTexts',
+        code: 'list.toolong',
+        message: 'list is too long',
+        origin: [ 'la', 'dida' ]
+      } ] );
 
     } );
 
@@ -637,6 +703,53 @@ describe( 'schema validator', () => {
           { message: 'Three' } 
         ] 
       } );
+
+    } );
+
+
+    it( 'list of objects can be too short', () => {
+
+      let errors = [], clean,
+
+        validator = schema( {
+          aListOfObjects: {
+            list: {
+              min: 4
+            },
+            fields: {
+              message: {
+                type: 'text'
+              }
+            }
+          }
+        } );
+
+      try {
+
+        clean = validator( {
+          aListOfObjects: [ {
+            message: 'One'
+          }, {
+            message: 'Two'
+          }, {
+            message: 'Three'
+          } ]
+        } );
+
+      } catch( e ) { errors = e; }
+
+      errors.should.eql( [ { 
+        field: 'aListOfObjects',
+        code: 'list.tooshort',
+        message: 'list is too short',
+        origin: [ {
+          message: 'One'
+        }, {
+          message: 'Two'
+        }, {
+          message: 'Three'
+        } ] } 
+      ] );
 
     } );
 

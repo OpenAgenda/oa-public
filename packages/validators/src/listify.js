@@ -6,7 +6,12 @@ import utils from 'utils';
  * makes validator process lists
  */
 
-module.exports = validator => {
+module.exports = ( validator, options ) => {
+
+  const params = utils.extend( {
+    min: null,
+    max: null
+  }, typeof options === 'object' ? options : {} );
 
   return utils.extend( validate, {
     type: validator.type,
@@ -43,6 +48,28 @@ module.exports = validator => {
       }
 
     } );
+
+    if ( params.min !== null && value.length < params.min ) {
+
+      errors.push( {
+        field: validator.field,
+        code: 'list.tooshort',
+        message: 'list is too short',
+        origin: value
+      } );
+
+    }
+
+    if ( params.max !== null && value.length > params.max ) {
+
+      errors.push( {
+        field: validator.field,
+        code: 'list.toolong',
+        message: 'list is too long',
+        origin: value
+      } );
+
+    }
 
     if ( errors.length ) throw errors;
 
