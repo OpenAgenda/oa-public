@@ -10,7 +10,7 @@ should = require( 'should' ),
 
 mysql = require( 'mysql' );
 
-describe( 'list events', function() {
+describe( 'get events', function() {
 
   this.timeout( 5000 );
 
@@ -117,6 +117,21 @@ describe( 'list events', function() {
     svc.get( 146173, { private: null }, ( err, event ) => {
 
       event.slug.should.equal( 'a-fancy_194' );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'a erroneous json get gives back an error', done => {
+
+    svc.get( 146318, ( err, event ) => {
+
+      should( err ).not.equal( null );
+
+      should( event ).equal( undefined );
 
       done();
 

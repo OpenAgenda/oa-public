@@ -48,8 +48,8 @@ describe( 'transferLegacyData', function() {
         removed: 3,
         fails: 0,
         removeFails: 0,
-        failUids: [],
-        removeFailUids: []
+        failIds: [],
+        removeFailIds: []
       } );
 
       done();

@@ -3,9 +3,10 @@
 const utils = require( 'utils' );
 const mysql = require( 'mysql' );
 const async = require( 'async' );
+const logger = require( 'basic-logger' );
 const _ = require( 'lodash' );
 
-let service, config;
+let service, config, log;
 
 module.exports = utils.extend( run, { init } );
 
@@ -31,8 +32,8 @@ function run( options, cb ) {
     fails: 0,
     removed: 0,
     removeFails: 0,
-    removeFailUids: [],
-    failUids: []
+    removeFailIds: [],
+    failIds: []
   }, limit = 20, offset = 0;
 
   async.whilst( () => !trasversed, wcb => {
@@ -45,19 +46,53 @@ function run( options, cb ) {
 
       async.eachSeries( rows, ( row, ecb ) => {
 
+        log( 'info', 'transferring event %s', row.id );
+
         service.legacy.transfer( row.id, ( err, r ) => {
 
-          if ( err ) return cb( err );
+          if ( err ) {
 
-          if ( r.success ) {
+            log( 'error', 'transferring event error: %s, error: %s', row.id, err );
+
+            result.fails++;
+            result.failIds.push( row.id );
+
+          } else if ( r.success && r.transfered ) {
+
+            log( 'info', 'transferring event success: %s, %s', row.id, r.created ? 'created' : 'updated' );
 
             result.successes++;
-            result.transfered += r.transfered ? 1 : 0;
+            result.transfered++;
+
+          } else if ( r.success ) {
+
+            log( 'info', 'transferring event not required: %s', row.id );
+
+            result.successes++;
+
+          } else if ( !r.valid ) {
+
+            log( 'error', 'transferring event not successful: %s event invalid with %s errors', row.id, r.errors.length );
+
+            r.errors.forEach( e => {
+
+              log( 'error', 'error %s: %s', row.id, Object.keys( e ).map( k => {
+
+                return k + ': ' + e[ k ];
+
+              } ).join( '|' ) );
+
+            } );
+
+            result.fails++;
+            result.failIds.push( row.id );
 
           } else {
 
+            log( 'error', 'transferring event not successful: %s unknown reason', row.id );
+
             result.fails++;
-            result.failUids.push( r.entries.event.uid );
+            result.failIds.push( row.id );
 
           }
 
@@ -104,7 +139,7 @@ function run( options, cb ) {
               } else {
 
                 result.removeFails++;
-                result.removeFailUids.push( event.uid );
+                result.removeFailIds.push( row.id );
 
               }
 
@@ -135,5 +170,7 @@ function init( svc, c ) {
   service = svc;
 
   config = c;
+
+  log = logger( 'events service/tasks/transferLegacyData' );
 
 }

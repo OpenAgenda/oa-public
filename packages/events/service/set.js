@@ -484,7 +484,7 @@ function init( svc, c ) {
 
   config = c;
 
-  log = logger( 'events service.set' );
+  log = logger( 'events service/set' );
 
 }
 
@@ -528,7 +528,17 @@ function _getFirstTitle( data ) {
 
 function _areIdentifiers( identifiers ) {
 
-  if ( typeof identifiers === 'number' ) return true;
+  if ( typeof identifiers === 'number' ) {
+
+    return true;
+
+  }
+
+  if ( typeof identifiers === 'string' ) {
+
+    return true;
+
+  }
 
   return !Object.keys( identifiers )
 

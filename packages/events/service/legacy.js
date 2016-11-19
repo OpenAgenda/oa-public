@@ -236,7 +236,7 @@ function _getOwner( v ) {
 
   .then( v => {
 
-    v.data.ownerUid = v.entries.user.uid;
+    v.data.ownerUid = v.entries.user ? v.entries.user.uid : null;
 
     return v;
 
@@ -291,8 +291,6 @@ function _getOccurrences( v ) {
   .where( 'event_id', v.entries.event.id )
 
   .then( rows => {
-
-    if ( !rows.length ) return v;
 
     v.entries.occurrences = rows;
 
@@ -429,7 +427,7 @@ function _getEventLocationTranslations( v ) {
 
   .select( v.fields.eventLocationTranslations )
 
-  .where( { id: v.entries.eventLocation.id } )
+  .where( { id: v.entries.eventLocation ? v.entries.eventLocation.id : -1 } )
 
   .then( rows => {
 
@@ -476,7 +474,11 @@ function _getEventLocation( v ) {
 
   .then( v => {
 
-    v.data.registration = ( v.entries.eventLocation.ticket_link || '' ).split( ',' ).map( v => v.trim() ).filter( v => v.length );
+    if ( v.entries.eventLocation ) {
+
+      v.data.registration = ( v.entries.eventLocation.ticket_link || '' ).split( ',' ).map( v => v.trim() ).filter( v => v.length );
+
+    }
 
     return v;
 
@@ -493,9 +495,11 @@ function _getEventTranslations( v ) {
 
   .where( { id: v.entries.event.id } )
 
+  .whereNotNull( 'title' ) // ignore null title rows
+
   .then( rows => {
 
-    v.entries.eventTranslations = rows;
+    v.entries.eventTranslations = rows.filter( r => r.title.length );
 
     return v;
 

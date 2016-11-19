@@ -2,6 +2,7 @@
 
 const knex = require( 'knex' );
 const utils = require( 'utils' );
+const logger = require( 'basic-logger' );
 
 module.exports = endpoints => {
 
@@ -13,6 +14,12 @@ module.exports = endpoints => {
         connection: c.mysql
       } )
     }, c );
+
+    if ( config.logger ) {
+
+      logger.setLogger( config.logger );
+
+    }
 
     Object.keys( endpoints ).forEach( e => {
 

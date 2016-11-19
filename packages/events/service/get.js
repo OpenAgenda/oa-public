@@ -10,11 +10,13 @@ dbParse = require( 'mysql-utils/mapper' )( map ),
 
 validate = require( './validate' ),
 
-sUtils = require( 'service-utils' );
+sUtils = require( 'service-utils' ),
+
+logger = require( 'basic-logger' );
 
 module.exports = utils.extend( get, { init } );
 
-let knex, schemas, service;
+let knex, schemas, service, log;
 
 function get( identifiers, options, cb ) {
 
@@ -95,9 +97,9 @@ function _transform( v ) {
 
   if ( !v.entry ) return v;
 
-  v.data = dbParse.toObj( v.entry );
+  let parsed = dbParse.toObj( v.entry, false );
 
-  v.data = _applyDefaults( v.data );
+  v.data = _applyDefaults( parsed );
 
   return v;
 
@@ -143,5 +145,7 @@ function init( svc, c ) {
   schemas = c.schemas;
 
   service = svc;
+
+  log = logger( 'events service/get' );
 
 }
