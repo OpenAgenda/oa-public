@@ -48,7 +48,7 @@ function schema(options) {
   /**
    * exposed endpoints
    */
-  return _utils2.default.extend(params.list ? (0, _listify2.default)(validate, params.list) : validate, {
+  return _utils2.default.extend(params.list ? (0, _listify2.default)(validate, params) : validate, {
     part: part,
     default: _root2.default.getDefault(params.fields),
     fields: params.fields,

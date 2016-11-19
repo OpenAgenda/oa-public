@@ -10,8 +10,9 @@ module.exports = ( validator, options ) => {
 
   const params = utils.extend( {
     min: null,
-    max: null
-  }, typeof options === 'object' ? options : {} );
+    max: null,
+    optional: !!options.optional
+  }, options.list );
 
   return utils.extend( validate, {
     type: validator.type,
@@ -49,7 +50,11 @@ module.exports = ( validator, options ) => {
 
     } );
 
-    if ( params.min !== null && value.length < params.min ) {
+    if ( 
+      ( !params.optional || value.length > 0 )
+      && params.min !== null
+      && value.length < params.min 
+    ) {
 
       errors.push( {
         field: validator.field,

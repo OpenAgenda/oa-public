@@ -664,6 +664,32 @@ describe( 'schema validator', () => {
 
     } );
 
+    it( 'an optional list of texts with min does not throw error when fed an empty list', () => {
+
+      let errors = [],
+
+      validator = schema( {
+        aListOfTexts: {
+          type: 'text',
+          optional: true,
+          list: {
+            min: 12
+          }
+        }
+      } );
+
+      try {
+
+        validator( {
+          aListOfTexts: []
+        } );
+
+      } catch( e ) { errors = e; }
+
+      errors.length.should.equal( 0 );
+
+    } );
+
 
     it( 'validates a list of objects', () => {
 

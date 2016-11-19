@@ -28,7 +28,7 @@ module.exports = function (config) {
     field: params.field
   });
 
-  return params.list ? (0, _listify2.default)(validator, params.list) : validator;
+  return params.list ? (0, _listify2.default)(validator, params) : validator;
 
   function validate(value) {
 

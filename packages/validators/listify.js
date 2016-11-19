@@ -1,7 +1,5 @@
 "use strict";
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
 var _utils = require('utils');
 
 var _utils2 = _interopRequireDefault(_utils);
@@ -16,8 +14,9 @@ module.exports = function (validator, options) {
 
   var params = _utils2.default.extend({
     min: null,
-    max: null
-  }, (typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object' ? options : {});
+    max: null,
+    optional: !!options.optional
+  }, options.list);
 
   return _utils2.default.extend(validate, {
     type: validator.type,
@@ -53,7 +52,7 @@ module.exports = function (validator, options) {
       }
     });
 
-    if (params.min !== null && value.length < params.min) {
+    if ((!params.optional || value.length > 0) && params.min !== null && value.length < params.min) {
 
       errors.push({
         field: validator.field,

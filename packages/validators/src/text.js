@@ -20,7 +20,7 @@ module.exports = function( config ) {
     field: params.field
   } );
 
-  return params.list ? listify( validator, params.list ) : validator;
+  return params.list ? listify( validator, params ) : validator;
 
   function validate( value ) {
 
