@@ -174,6 +174,7 @@ describe( 'legacy', function() {
   } );
 
 
+
   it( 'uid is maintained during transfer', done => {
 
     svc.legacy.transfer( { uid: 27434489 }, ( err, result ) => {
@@ -183,6 +184,47 @@ describe( 'legacy', function() {
       result.event.uid.should.equal( 27434489 );
 
       result.created.should.equal( true );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'transfer of an unpublished event sets a draft event', done => {
+
+    svc.legacy.transfer( 147601, ( err, result ) => {
+
+      result.created.should.equal( true );
+
+      result.event.draft.should.equal( 1 );
+
+      done();
+
+    } );    
+
+  } );
+
+
+  // 147598 has no title
+  it( 'transfer of an incomplete published event sets a draft event', done => {
+
+    svc.legacy.transfer( 147598, ( err, result ) => {
+
+      result.event.draft.should.equal( 1 );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'transfer of a complete published event sets an undrafted (published) event', done => {
+
+    svc.legacy.transfer( 147580, ( err, result ) => {
+
+      result.event.draft.should.equal( 0 );
 
       done();
 

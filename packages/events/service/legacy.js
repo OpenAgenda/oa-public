@@ -8,6 +8,8 @@ const knexLib = require( 'knex' );
 
 const utils = require( 'utils' );
 
+const eventUtils = require( '../utils' );
+
 const _ = require( 'lodash' );
 
 const validate = require( './validate' );
@@ -80,7 +82,7 @@ function transfer( identifiers, options, cb ) {
 
     let set = v.event ? service.set.bind( null, v.identifiers ) : service.set;
 
-    set( v.legacy.event, ( err, r ) => {
+    set( v.legacy.event, { draft: v.legacy.event.draft }, ( err, r ) => {
 
       if ( err ) return cb( err );
 
@@ -162,6 +164,8 @@ function get( identifiers, options, cb ) {
 
   .then( _getOwner )
 
+  .then( _defineDraft )
+
   .then( _revalidate )
 
   .done( v => {
@@ -177,6 +181,21 @@ function get( identifiers, options, cb ) {
 }
 
 
+function _defineDraft( v ) {
+
+  v.data.draft = true;
+
+  if ( v.entries.event.is_published && eventUtils.isComplete( v.data ) ) {
+
+    v.data.draft = false;
+
+  }
+
+  return v;
+
+}
+
+
 /**
  * filter out invalid data in non-essential fields
  */
@@ -188,7 +207,7 @@ function _revalidate( v ) {
 
   try {
 
-    v.clean = validate( v.data );
+    v.clean = ( v.data.draft ? validate.draft : validate )( v.data );
 
   } catch( e ) {
 
@@ -584,8 +603,6 @@ function _getEvent( v ) {
       }
 
     }
-
-    v.data.draft = !v.entries.event.is_published;
 
     if ( v.entries.event.accessibility ) {
 
