@@ -190,10 +190,10 @@
         <ul>
           <li class="unit price-success">
             <div class="price-title">
-              <h3><%= __( 'free' ) %></h3>
+              <h3><%= __( 'standardCalendar' ) %></h3>
             </div>
             <div class="price-body">
-              <p><%= __( 'standardCalendar' ) %></p>
+              <p><%= __( 'free' ) %></p>
               <ul>
                 <li><%= __( 'unlimitedEvents' ) %></li>
                 <li><%= __( 'unlimitedMembers' ) %></li>
@@ -201,7 +201,6 @@
                 <li><%= __( 'opendata' ) %></li>
                 <li><%= __( 'multilingualAndMedia' ) %></li>
                 <li><%= __( 'moderation' ) %></li>
-                <li><%= __( 'aggregation' ) %></li>
               </ul>
             </div>
             <div class="price-foot">
@@ -211,21 +210,20 @@
           </li>
           <li class="unit price-primary">
             <div class="price-title">
-              <h3>
-                50 € / <%= __( 'month' ) %><br>
-                <small>(600 € / <%= __( 'year' ) %>)</small>
-              </h3>
+              <h3><%= __( 'premiumCalendar' ) %></h3>
             </div>
             <div class="price-body">
-              <p><%= __( 'customCalendar' ) %></p>
+              <p>90 € / <%= __( 'month' ) %><br>
+                <small>(1080 € / <%= __( 'year' ) %>)</small>
+              </p>
               <ul>
-                <li><strong><%= __( 'standardFeatures' ) %> <i class="fa fa-check"></i></strong></li>
+                <li><strong><%= __( 'basicFeatures' ) %> <i class="fa fa-check"></i></strong></li>
                 <li><%= __( 'customFields' ) %></li>
+                <li><%= __( 'membersHierarchy' ) %></li>
+                <li><%= __( 'workflowManagement' ) %></li>
+                <li><%= __( 'customNotifications' ) %></li>
                 <li><%= __( 'customEmbed' ) %></li>
-                <li><%= __( 'dateLimitation' ) %></li>
-                <li><%= __( 'customVenue' ) %></li>
-                <li><%= __( 'premiumSupport' ) %></li>
-                <!--<li>Privé ou public</li>-->
+                <li><%- __( 'dateLimitation' ) %></li>
               </ul>
             </div>
             <div class="price-foot">
@@ -237,18 +235,17 @@
           </li>
           <li class="unit price-primary">
             <div class="price-title">
-              <h3>
-                350 € / <%= __( 'month' ) %><br>
-                <small>(4200 € / <%= __( 'year' ) %>)</small>
-              </h3>
+              <h3><%= __( 'networkCalendar' ) %></h3>
             </div>
             <div class="price-body">
-              <p><%= __( 'premiumCalendar' ) %></p>
+              <p>400 € / <%= __( 'month' ) %><br>
+                <small>(4800 € / <%= __( 'year' ) %>)</small>
+              </p>
               <ul>
-                <li><strong><%= __( 'customFeatures' ) %> <i class="fa fa-check"></i></strong></li>
-                <li><%= __( 'workflowManagement' ) %></li>
-                <li><%= __( 'membersHierarchy' ) %></li>
-                <!--<li>Emailing interne</li>-->
+                <li><strong><%= __( 'basicCalendars' ) %> <i class="fa fa-check"></i></strong></li>
+                <li><strong><%= __( 'premiumCalendars' ) %> <i class="fa fa-check"></i></strong></li>
+                <li><%= __( 'support' ) %></li>
+                <li><%= __( 'aggregation' ) %></li>
               </ul>
             </div>
             <div class="price-foot">
@@ -263,12 +260,16 @@
               <h3><%= __( 'tailored' ) %></h3>
             </div>
             <div class="price-body">
-              <p><%= __( 'portal' ) %></p>
+              <p><%= __( 'contactUs' ) %></p>
               <ul>
-                <li><strong><%= __( 'premiumFeatures' ) %> <i class="fa fa-check"></i></strong></li>
+                <li><%= __( 'operationalSupport' ) %></li>
                 <li><%= __( 'editorialControl' ) %></li>
+                <li><%= __( 'networkDeployment' ) %></li>
                 <li><%= __( 'communityManagement' ) %></li>
-                <li><%= __( 'deploymentAndReporting' ) %></li>
+                <li><%= __( 'contentModeration' ) %></li>
+                <li><%= __( 'reporting' ) %></li>
+                <li><%= __( 'training' ) %></li>
+                <li><%= __( 'contentPromotion' ) %></li>
                 <li><%= __( 'paperProgram' ) %></li>
               </ul>
             </div>
