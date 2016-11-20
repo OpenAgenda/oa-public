@@ -1,5 +1,7 @@
 "use strict";
 
+process.env.DEBUG_FD=1; // log to stdout instead of stderr
+
 var config,
 
 u = require( './lib/utilities.js' ),
@@ -53,7 +55,11 @@ module.exports = function( namespace, preloaded ) {
 
     if ( logger && level !== 'debug' ) logger.log( entry );
 
-    debugLog( message );
+    if ( _hasLogLevel( level ) ) {
+
+      debugLog( message );
+
+    }
 
     return config ? entry : null;
 
@@ -96,5 +102,11 @@ module.exports.init = function( c ) {
     debug.enable( c.debug.enable );
 
   }
+
+}
+
+function _hasLogLevel( level ) {
+
+  return u.TYPES.indexOf( level ) >= u.TYPES.indexOf( process.env.LOG_LEVEL );
 
 }

@@ -5,7 +5,8 @@ var TYPES = [ 'debug', 'info', 'notice', 'warning', 'error', 'crit', 'alert', 'e
 module.exports = {
   extend: extend,
   getLogLevel: getLogLevel, // info, debug, error and such. Extract that from given arguments
-  compileMessage: compileMessage
+  compileMessage: compileMessage,
+  TYPES: TYPES
 }
 
 function getLogLevel( type ) {
