@@ -18,9 +18,9 @@
     "pageId": "corpo",
     "references": [
       {
-        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_1.jpg",
-        "url": "http://agendadesentrepreneurs.openagenda.com/",
-        "caption": "L'agenda des Entrepreneurs"
+        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_issy.jpg",
+        "url": "http://www.issy.com/agenda",
+        "caption": "Le réseau d'agendas de la ville d'Issy-les-Moulineaux"
       },
       {
         "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_2.jpg",
