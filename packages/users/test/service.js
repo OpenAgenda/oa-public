@@ -175,6 +175,60 @@ describe( 'service', function () {
 
   } );
 
+  it( 'create with protected field but without protected option', done => {
+
+    service.set( {
+      full_name: 'Test et retest',
+      email: 'test.test2@openagenda.com',
+      culture: 'fr',
+      password: 'passwooord',
+      is_activated: 1
+    }, ( err, result ) => {
+
+      should( err ).equal( null );
+
+      service.get( { id: result.user.id }, { detailed: true }, ( err, user ) => {
+
+        should( err ).equal( null );
+        user.full_name.should.equal( 'Test et retest' );
+        user.email.should.equal( 'test.test2@openagenda.com' );
+        user.is_activated.should.equal( 0 );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
+  it( 'create an activated account', done => {
+
+    service.set( {
+      full_name: 'Test et retest',
+      email: 'test.test3@openagenda.com',
+      culture: 'fr',
+      password: 'passwooord',
+      is_activated: 1
+    }, { protected: false }, ( err, result ) => {
+
+      should( err ).equal( null );
+
+      service.get( { id: result.user.id }, { detailed: true }, ( err, user ) => {
+
+        should( err ).equal( null );
+        user.full_name.should.equal( 'Test et retest' );
+        user.email.should.equal( 'test.test3@openagenda.com' );
+        user.is_activated.should.equal( 1 );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
   it( 'create user with bad info', done => {
 
     service.set( {

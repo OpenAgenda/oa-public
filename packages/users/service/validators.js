@@ -21,6 +21,8 @@ schema.register( {
 
 // define the schema
 
+const protectedFields = [ 'is_activated' ];
+
 const schemaValidator = schema( {
   full_name: {
     type: 'text',
@@ -51,7 +53,8 @@ const schemaValidator = schema( {
     type: 'text'
   },
   is_activated: {
-    type: 'number'
+    type: 'number',
+    default: 0
   },
   is_removed: {
     type: 'number'
@@ -77,7 +80,7 @@ module.exports = Object.assign( validate, {
 } );
 
 
-function validate( data ) {
+function validate( data, isProtected ) {
 
   return _validate( [
     'full_name',
@@ -85,11 +88,11 @@ function validate( data ) {
     'email',
     'password',
     'salt'
-  ], data );
+  ].concat( isProtected ? [] : protectedFields ), data );
 
 }
 
-function update( data, removing ) {
+function update( data, isProtected, removing ) {
 
   const result = _validate( [
     'full_name',
@@ -99,9 +102,9 @@ function update( data, removing ) {
     'salt',
     'image',
     'store',
-    'is_activated',
     'is_removed'
-  ].concat( removing ? [] : 'email' )
+  ].concat( isProtected ? [] : protectedFields )
+    .concat( removing ? [] : 'email' )
     .filter( v => Object.keys( data ).indexOf( v ) !== -1 ), data );
 
   if ( removing ) {

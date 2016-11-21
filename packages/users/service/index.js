@@ -167,6 +167,7 @@ function set( query, options, cb ) {
 
   const params = Object.assign( {
     detailed: false,
+    protected: true
   }, options );
 
   if ( !config ) return cb( 'service not initialized' );
@@ -401,9 +402,9 @@ function _search( v ) {
 
 function _filterRemoved( v ) {
 
-  if (v.query.removed) return v;
+  if ( v.query.removed ) return v;
 
-  v.knex = v.knex.where('is_removed', 0);
+  v.knex = v.knex.where( 'is_removed', 0 );
 
   return v;
 
@@ -438,7 +439,7 @@ function _list( v ) {
   return knex.transaction( trx => {
 
     return v.knex
-      .column( detailed ? detailedFields : basicFields.concat(v.query.removed ? 'is_removed' : []) )
+      .column( detailed ? detailedFields : basicFields.concat( v.query.removed ? 'is_removed' : [] ) )
       .select()
       .orderBy( 'email', 'asc' )
       .limit( v.limit )
@@ -550,7 +551,9 @@ function _updateOrInsert( v ) {
 
       identifiers = Object.keys( v.identifier ),
 
-      validator = mode == 'update' ? validators.update( v.query, v.action == 'remove' ) : validators( v.query ),
+      validator = mode == 'update' ?
+        validators.update( v.query, v.params && v.params.protected, v.action == 'remove' ) :
+        validators( v.query, v.params && v.params.protected ),
 
       fields = validator.fields;
 
