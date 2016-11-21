@@ -16,4 +16,4 @@ L'application de test se lance sur localhost:3000 pour l'app de création et loc
 
 # Remerciements
 
-Je tiens tout particulièrement à remercier Pr. Olaffson pour son travail extraordinaire sur le service agenda
+Je tiens tout particulièrement à remercier Le Sublissime TechMegalord Olafsson pour son travail extraordinaire sur le service agenda
