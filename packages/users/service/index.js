@@ -4,6 +4,8 @@ const knexLib = require( 'knex' ),
 
   w = require( 'when' ),
 
+  wn = require( 'when/node' ),
+
   logger = require( 'basic-logger' ),
 
   mailer = require( 'mailer' ),
@@ -375,14 +377,16 @@ function remove( query, cb ) {
     query: query,
     errors: [],
     success: false,
-    action: 'remove'
+    action: 'remove',
+    user: false,
+    params: {
+      store: true
+    }
   } )
 
     .then( _get )
 
     .then( _removeUser )
-
-    .then( _updateOrInsert )
 
     .done( v => cb( null, v.success ), err => cb( err ) );
 
@@ -843,6 +847,7 @@ function _confirmChangeEmail( v ) {
 function _removeUser( v ) {
 
   if ( !v.user ) {
+
     v.errors.push( {
       code: 'user.notfound',
       message: 'user not found',
@@ -850,29 +855,41 @@ function _removeUser( v ) {
     v.success = false;
 
     return v;
+
   }
 
-  let d = w.defer();
+  return wn.call( config.interfaces.userWillRemove, v.user )
 
-  config.interfaces.userWillRemove( v.user, err => {
+  .then( () => {
 
-    if ( err ) return d.reject( err );
+    let date = new Date();
 
-    v.user.is_removed = 1;
-    v.user.is_activated = 0;
+    let store = JSON.parse( !v.user.store ? '{}' : v.user.store );
 
-    var date = new Date();
+    store.email = v.user.email;
 
-    v.user.username = `*removed-${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${v.user.id}`;
-    v.user.email = v.user.email.replace( '@', '@@' );
+    return knex( schemas.user )
 
-    v.query = v.user;
+    .update( {
+      is_removed: 1,
+      is_activated: 0,
+      updated_at: date,
+      username: `*removed-${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${v.user.id}`,
+      email: null,
+      store: JSON.stringify( store )
+    } )
 
-    d.resolve( v );
+    .where( { id: v.user.id } );
+
+  } )
+
+  .then( affected => {
+
+    v.success = affected === 1;
+
+    return v;
 
   } );
-
-  return d.promise;
 
 }
 

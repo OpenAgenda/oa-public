@@ -8,7 +8,9 @@ const config = require( '../testconfig' ),
 
   fixtures = require( 'fixtures' ),
 
-  service = require( '../service' );
+  service = require( '../service' ),
+
+  mysql = require( 'mysql' );
 
 
 describe( 'service', function () {
@@ -419,17 +421,39 @@ describe( 'service', function () {
 
   } );
 
-  it( 'delete user', done => {
+  it( 'delete user makes it unavailable through default get', done => {
 
-    service.remove( { id: 119 }, ( err, result ) => {
+    service.remove( { id: 119 }, ( err, success ) => {
 
       should( err ).equal( null );
-      result.should.equal( true );
+      success.should.equal( true );
 
       service.get( { id: 119 }, ( err, user ) => {
 
         should( err ).equal( null );
         should( user ).equal( null );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
+  it( 'delete user nulls email and puts it in store', done => {
+
+    service.remove( { id: 3589 }, ( err, success ) => {
+
+      let con = mysql.createConnection( config.mysql );
+
+      con.query( 'select * from user where id = ?', 3589, ( err, rows ) => {
+
+        con.end();
+
+        rows[ 0 ].store.should.equal( '{"email":"musiquedefe@gmail.com"}' );
+
+        should( rows[ 0 ].email ).equal( null );
 
         done();
 
