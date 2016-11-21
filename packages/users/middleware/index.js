@@ -20,23 +20,12 @@ var logger = require( 'basic-logger' ),
 
   images = require( 'images' ),
 
-  files = require( 'files' ),
-
-  createHistory = require( 'react-router/lib/createMemoryHistory' ),
-
-  createStore = require( '../react/build/create' ),
-
-  { syncHistoryWithStore } = require( 'react-router-redux' ),
-
-  { match } = require( 'react-router' ),
-
-  getRoutes = require( '../react/build/routes' );
+  files = require( 'files' );
 
 const csrf = csurf( { cookie: true } );
 
 module.exports = {
   init,
-  matchApp,
   csrf,
   csrfProtection,
   getMe,
@@ -81,38 +70,6 @@ function init( s, c ) {
   } );
 
   log = logger( 'users' );
-
-}
-
-function matchApp( path, cb ) {
-
-  return ( req, res, next ) => {
-
-    const url = req.originalUrl.replace( path, '' );
-    const memoryHistory = createHistory( url );
-    const store = createStore( memoryHistory );
-    const history = syncHistoryWithStore( memoryHistory, store );
-
-    match( {
-        history,
-        routes: getRoutes( store ),
-        location: url
-      },
-      ( error, redirectLocation, renderProps ) => {
-        if ( redirectLocation ) {
-          res.redirect( redirectLocation.pathname + redirectLocation.search );
-        } else if ( error ) {
-          console.error( 'ROUTER ERROR:', error );
-          next( error );
-        } else if ( renderProps ) {
-          cb( req, res );
-        } else {
-          next(); // Not found here
-        }
-      }
-    );
-
-  }
 
 }
 

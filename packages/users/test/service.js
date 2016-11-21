@@ -58,9 +58,22 @@ describe( 'service', function () {
 
   } );
 
-  it( 'get by id', done => {
+  it( 'get by id (query is object)', done => {
 
     service.get( { id: 2 }, ( err, user ) => {
+
+      should( err ).equal( null );
+      user.email.should.equal( 'romain.lange@gmail.com' );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'get by id (query is number)', done => {
+
+    service.get( 2, ( err, user ) => {
 
       should( err ).equal( null );
       user.email.should.equal( 'romain.lange@gmail.com' );

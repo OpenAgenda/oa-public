@@ -136,6 +136,8 @@ function get( query, options, cb ) {
     options = {};
   }
 
+  if ( typeof query === 'number' ) query = { id: query };
+
   const params = Object.assign( {
     fullImagePath: false,
     detailed: false,
