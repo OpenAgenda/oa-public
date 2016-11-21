@@ -8,6 +8,8 @@ import * as modalActions from '../../redux/modules/modal';
 import { validate, asyncValidate, schema as agendaSchema } from './validate';
 import { renderInput, renderTextarea, renderInputGroup } from '../../utils/inputs';
 
+const displayInputError = ( { dirty, touched } ) => touched && dirty;
+
 @connect(
   state => {
     const { uid, title, description, url, slug } = state.agenda.data;
@@ -99,6 +101,7 @@ export default class ProfileEdition extends Component {
                 className="form-control"
                 label={`${getLabel( 'name' )} *`}
                 max={agendaSchema.title.max}
+                displayError={displayInputError}
               />
               <Field
                 name="description"
@@ -107,6 +110,7 @@ export default class ProfileEdition extends Component {
                 className="form-control"
                 label={`${getLabel( 'description' )} *`}
                 max={agendaSchema.description.max}
+                displayError={displayInputError}
               />
               <Field
                 type="text"
@@ -115,6 +119,7 @@ export default class ProfileEdition extends Component {
                 className="form-control"
                 placeholder={getLabel( 'websitePlaceholder' )}
                 label={getLabel( 'website' )}
+                displayError={displayInputError}
               />
               <Field
                 type="text"
@@ -124,7 +129,7 @@ export default class ProfileEdition extends Component {
                 placeholder="URL"
                 label={getLabel( 'personalizedSlug' )}
                 before={<div className="input-group-addon">openagenda.com/</div>}
-                errorOnDirty={true}
+                displayError={displayInputError}
                 spellCheck={false}
               />
               <a role="button" className="text-danger" onClick={() => setModal( removeModal )}>

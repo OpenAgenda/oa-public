@@ -141,7 +141,11 @@ var CreationFirstStep = _wrapComponent('CreationFirstStep')((_dec = (0, _reduxFo
               { className: 'input-group-addon' },
               'openagenda.com/'
             ),
-            errorOnDirty: true,
+            displayError: function displayError(_ref) {
+              var dirty = _ref.dirty,
+                  touched = _ref.touched;
+              return dirty || touched;
+            },
             spellCheck: false
           }),
           _react3.default.createElement(

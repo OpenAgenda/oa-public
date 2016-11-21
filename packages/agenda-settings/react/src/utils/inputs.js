@@ -3,18 +3,18 @@ import MarkdownComponent from 'react-form-components/build/MarkdownComponent';
 
 export function renderField( {
   content, input: { name, value }, label, subLabel, max,
-  errorOnDirty, meta: { touched, error, dirty }
+  displayError, meta, meta: { error, touched }
 } ) {
-  const displayError = errorOnDirty ? dirty || touched : touched;
+  const errorDisplayed = displayError ? displayError( meta ) : touched;
   return (
-    <div className={`form-group ${displayError && error ? 'has-error has-feedback' : ''}`}>
+    <div className={`form-group ${errorDisplayed && error ? 'has-error has-feedback' : ''}`}>
       {label && <label htmlFor={name}>{label}</label>}
       {subLabel}
       {content}
-      {displayError && error && <span className="form-control-feedback">
+      {errorDisplayed && error && <span className="form-control-feedback">
           <i className="fa fa-times" aria-hidden="true"></i>
         </span>}
-      {displayError && error && <div className={`text-danger ${max && 'pull-left' || ''}`}>
+      {errorDisplayed && error && <div className={`text-danger ${max && 'pull-left' || ''}`}>
         {this.context.getLabel( error )}
       </div>}
       {max && <div className={`text-right ${max - value.length < 0 && 'text-danger' || ''}`}>

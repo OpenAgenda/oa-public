@@ -75,6 +75,12 @@ function _wrapComponent(id) {
   };
 }
 
+var displayInputError = function displayInputError(_ref) {
+  var dirty = _ref.dirty,
+      touched = _ref.touched;
+  return touched && dirty;
+};
+
 var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.connect)(function (state) {
   var _state$agenda$data = state.agenda.data,
       uid = _state$agenda$data.uid,
@@ -178,8 +184,8 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
             'button',
             { className: 'btn btn-danger pull-right',
               onClick: function onClick() {
-                return remove().then(function (_ref) {
-                  var result = _ref.result;
+                return remove().then(function (_ref2) {
+                  var result = _ref2.result;
                   return window.location.href = result.redirectTo || '/';
                 });
               }
@@ -222,7 +228,8 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
                 placeholder: getLabel('namePlaceholder'),
                 className: 'form-control',
                 label: getLabel('name') + ' *',
-                max: _validate.schema.title.max
+                max: _validate.schema.title.max,
+                displayError: displayInputError
               }),
               _react3.default.createElement(_reduxForm.Field, {
                 name: 'description',
@@ -230,7 +237,8 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
                 rows: 6,
                 className: 'form-control',
                 label: getLabel('description') + ' *',
-                max: _validate.schema.description.max
+                max: _validate.schema.description.max,
+                displayError: displayInputError
               }),
               _react3.default.createElement(_reduxForm.Field, {
                 type: 'text',
@@ -238,7 +246,8 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
                 component: this.renderInput,
                 className: 'form-control',
                 placeholder: getLabel('websitePlaceholder'),
-                label: getLabel('website')
+                label: getLabel('website'),
+                displayError: displayInputError
               }),
               _react3.default.createElement(_reduxForm.Field, {
                 type: 'text',
@@ -252,7 +261,7 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
                   { className: 'input-group-addon' },
                   'openagenda.com/'
                 ),
-                errorOnDirty: true,
+                displayError: displayInputError,
                 spellCheck: false
               }),
               _react3.default.createElement(

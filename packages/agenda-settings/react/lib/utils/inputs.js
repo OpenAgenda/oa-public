@@ -32,16 +32,16 @@ function renderField(_ref) {
       label = _ref.label,
       subLabel = _ref.subLabel,
       max = _ref.max,
-      errorOnDirty = _ref.errorOnDirty,
+      displayError = _ref.displayError,
+      meta = _ref.meta,
       _ref$meta = _ref.meta,
-      touched = _ref$meta.touched,
       error = _ref$meta.error,
-      dirty = _ref$meta.dirty;
+      touched = _ref$meta.touched;
 
-  var displayError = errorOnDirty ? dirty || touched : touched;
+  var errorDisplayed = displayError ? displayError(meta) : touched;
   return _react2.default.createElement(
     'div',
-    { className: 'form-group ' + (displayError && error ? 'has-error has-feedback' : '') },
+    { className: 'form-group ' + (errorDisplayed && error ? 'has-error has-feedback' : '') },
     label && _react2.default.createElement(
       'label',
       { htmlFor: name },
@@ -49,12 +49,12 @@ function renderField(_ref) {
     ),
     subLabel,
     content,
-    displayError && error && _react2.default.createElement(
+    errorDisplayed && error && _react2.default.createElement(
       'span',
       { className: 'form-control-feedback' },
       _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' })
     ),
-    displayError && error && _react2.default.createElement(
+    errorDisplayed && error && _react2.default.createElement(
       'div',
       { className: 'text-danger ' + (max && 'pull-left' || '') },
       this.context.getLabel(error)
