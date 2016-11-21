@@ -14,13 +14,16 @@ module.exports = React.createClass({
 
     var self = this,
 
-    createItem = function( item ) { 
+    createItem = function( item ) {
 
       return <li className="list-group-item" key={item.uid} onClick={self.onClick.bind(null, item)}>
         <a href="#">
-          <span>{item.fullName}</span> - <span>{item.email}</span>
+          <span>
+            {item.fullName}</span> - <span>{item.email}
+            {item.is_removed && <span style={{ color: 'brown' }}>Account removed</span>}
+          </span>
         </a>
-      </li> 
+      </li>
 
     };
 
