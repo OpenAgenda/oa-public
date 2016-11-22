@@ -84,12 +84,14 @@ function reducer() {
     case IMAGE_UPLOADED:
       if (action.error) return state;
       return _extends({}, state, {
+        imageChanged: true,
         data: _extends({}, state.data, {
           image: action.image || null
         })
       });
     case EDIT_SUCCESS:
       return _extends({}, state, {
+        imageChanged: false,
         data: action.result.agenda
       });
     default:

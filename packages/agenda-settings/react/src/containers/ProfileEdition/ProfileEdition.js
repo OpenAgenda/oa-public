@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
+import { updateSyncErrors } from 'redux-form/lib/actions';
 import ImageUpload from 'image-upload';
 import Modal from 'react-components/build/Modal';
 import * as agendaActions from '../../redux/modules/agenda';
@@ -17,7 +18,8 @@ const displayInputError = ( { dirty, touched } ) => touched && dirty;
       initialValues: { uid, title, description, url, slug },
       res: state.res,
       agenda: state.agenda.data,
-      modal: state.modal
+      modal: state.modal,
+      imageChanged: state.agenda.imageChanged
     };
   },
   { ...agendaActions, ...modalActions, onSubmit: agendaActions.edit }
@@ -29,6 +31,10 @@ const displayInputError = ( { dirty, touched } ) => touched && dirty;
   asyncBlurFields: [ 'slug' ],
   enableReinitialize: true
 } )
+@connect(
+  () => ({}),
+  { updateSyncErrors }
+)
 export default class ProfileEdition extends Component {
 
   static contextTypes = {
@@ -43,18 +49,25 @@ export default class ProfileEdition extends Component {
     this.renderInputGroup = renderInputGroup.bind( this );
   }
 
+  componentWillMount() {
+    this.props.updateSyncErrors( 'profileEdition' );
+  }
+
   renderSubmitBtn() {
-    const { dirty, submitting, submitSucceeded, valid } = this.props;
+    const { dirty, submitting, submitSucceeded, valid, imageChanged } = this.props;
     const { getLabel } = this.context;
 
-    if ( !dirty && submitSucceeded ) {
+    if ( !dirty && !imageChanged && submitSucceeded ) {
       return <button type="submit" className="btn btn-success" disabled>{getLabel( 'saved' )}</button>;
     } else if ( submitting ) {
       return <button type="submit" className="btn btn-primary" disabled>{getLabel( 'saving' )}</button>;
     } else {
-      return <button type="submit" className="btn btn-primary" {...{ disabled: dirty && valid ? undefined : true }}>
-        {getLabel( 'saveModifications' )}
-      </button>;
+      const disabled = (dirty && valid) || (imageChanged && !dirty) || (imageChanged && dirty && valid);
+      return (
+        <button type="submit" className="btn btn-primary"{...{ disabled: disabled ? undefined : true }}>
+          {getLabel( 'saveModifications' )}
+        </button>
+      );
     }
   }
 

@@ -20,11 +20,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _dec, _dec2, _class, _class2, _temp;
+var _dec, _dec2, _dec3, _class, _class2, _temp;
 
 var _reactRedux = require('react-redux');
 
 var _reduxForm = require('redux-form');
+
+var _actions = require('redux-form/lib/actions');
 
 var _imageUpload = require('image-upload');
 
@@ -93,7 +95,8 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
     initialValues: { uid: uid, title: title, description: description, url: url, slug: slug },
     res: state.res,
     agenda: state.agenda.data,
-    modal: state.modal
+    modal: state.modal,
+    imageChanged: state.agenda.imageChanged
   };
 }, _extends({}, agendaActions, modalActions, { onSubmit: agendaActions.edit })), _dec2 = (0, _reduxForm.reduxForm)({
   form: 'profileEdition',
@@ -101,7 +104,9 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
   asyncValidate: _validate.asyncValidate,
   asyncBlurFields: ['slug'],
   enableReinitialize: true
-}), _dec(_class = _dec2(_class = (_temp = _class2 = function (_Component) {
+}), _dec3 = (0, _reactRedux.connect)(function () {
+  return {};
+}, { updateSyncErrors: _actions.updateSyncErrors }), _dec(_class = _dec2(_class = _dec3(_class = (_temp = _class2 = function (_Component) {
   _inherits(ProfileEdition, _Component);
 
   function ProfileEdition() {
@@ -116,17 +121,23 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
   }
 
   _createClass(ProfileEdition, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.updateSyncErrors('profileEdition');
+    }
+  }, {
     key: 'renderSubmitBtn',
     value: function renderSubmitBtn() {
       var _props = this.props,
           dirty = _props.dirty,
           submitting = _props.submitting,
           submitSucceeded = _props.submitSucceeded,
-          valid = _props.valid;
+          valid = _props.valid,
+          imageChanged = _props.imageChanged;
       var getLabel = this.context.getLabel;
 
 
-      if (!dirty && submitSucceeded) {
+      if (!dirty && !imageChanged && submitSucceeded) {
         return _react3.default.createElement(
           'button',
           { type: 'submit', className: 'btn btn-success', disabled: true },
@@ -139,9 +150,10 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
           getLabel('saving')
         );
       } else {
+        var disabled = dirty && valid || imageChanged && !dirty || imageChanged && dirty && valid;
         return _react3.default.createElement(
           'button',
-          _extends({ type: 'submit', className: 'btn btn-primary' }, { disabled: dirty && valid ? undefined : true }),
+          _extends({ type: 'submit', className: 'btn btn-primary' }, { disabled: disabled ? undefined : true }),
           getLabel('saveModifications')
         );
       }
@@ -296,7 +308,7 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
 }(_react2.Component), _class2.contextTypes = {
   getLabel: _react3.default.PropTypes.func,
   lang: _react3.default.PropTypes.string
-}, _temp)) || _class) || _class));
+}, _temp)) || _class) || _class) || _class));
 
 exports.default = ProfileEdition;
 module.exports = exports['default'];

@@ -60,6 +60,7 @@ export default function reducer( state = initialState, action = {} ) {
       if ( action.error ) return state;
       return {
         ...state,
+        imageChanged: true,
         data: {
           ...state.data,
           image: action.image || null
@@ -68,6 +69,7 @@ export default function reducer( state = initialState, action = {} ) {
     case EDIT_SUCCESS:
       return {
         ...state,
+        imageChanged: false,
         data: action.result.agenda
       };
     default:
