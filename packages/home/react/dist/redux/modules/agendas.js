@@ -125,8 +125,8 @@ function nextPage(query, page) {
     types: [NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL],
     page: page,
     promise: function promise(client, _ref3) {
-      var res = _ref3.res;
-      var agendas = _ref3.agendas;
+      var res = _ref3.res,
+          agendas = _ref3.agendas;
       return client.get(res.list, { query: _extends({}, query, { page: page }) });
     }
   };

@@ -9,7 +9,8 @@ let log;
 
 module.exports = Object.assign( service, {
   init,
-  mw
+  mw,
+  getConfig: () => config
 } );
 
 function init( c, cb ) {

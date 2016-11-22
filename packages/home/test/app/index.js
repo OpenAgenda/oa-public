@@ -53,7 +53,12 @@ function matchApp( req, res, next ) {
   mw.matchApp(
     {
       state: {
-        settings: { prefix, lang, apiRoot: `http://localhost:${port}` },
+        settings: {
+          prefix,
+          lang,
+          apiRoot: `http://localhost:${port}`,
+          limitPerPage: config.mw.limit
+        },
         res: {
           list: '/agendas',
           new: '/new',

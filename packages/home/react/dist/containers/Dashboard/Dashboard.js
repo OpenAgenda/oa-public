@@ -89,9 +89,9 @@ var searchSpinner = {
 
 var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConnect)([{
   promise: function promise(_ref) {
-    var _ref$store = _ref.store;
-    var dispatch = _ref$store.dispatch;
-    var getState = _ref$store.getState;
+    var _ref$store = _ref.store,
+        dispatch = _ref$store.dispatch,
+        getState = _ref$store.getState;
 
     var state = getState();
     var query = state.routing.locationBeforeTransitions.query;
@@ -110,7 +110,8 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
     page: state.agendas.page,
     total: state.agendas.total,
     loading: state.agendas.loading,
-    search: selector(state, 'search')
+    search: selector(state, 'search'),
+    limitPerPage: state.settings.limitPerPage
   };
 }, agendasActions), _dec3 = (0, _reduxForm.reduxForm)({
   form: 'homeDashboard'
@@ -129,19 +130,19 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
     }
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call.apply(_ref2, [this].concat(args))), _this), _this.renderField = function (_ref3) {
-      var content = _ref3.content;
-      var _ref3$input = _ref3.input;
-      var name = _ref3$input.name;
-      var value = _ref3$input.value;
-      var label = _ref3.label;
-      var subLabel = _ref3.subLabel;
-      var max = _ref3.max;
-      var classNameGroup = _ref3.classNameGroup;
-      var errorOnDirty = _ref3.errorOnDirty;
-      var _ref3$meta = _ref3.meta;
-      var touched = _ref3$meta.touched;
-      var error = _ref3$meta.error;
-      var dirty = _ref3$meta.dirty;
+      var content = _ref3.content,
+          _ref3$input = _ref3.input,
+          name = _ref3$input.name,
+          value = _ref3$input.value,
+          label = _ref3.label,
+          subLabel = _ref3.subLabel,
+          max = _ref3.max,
+          classNameGroup = _ref3.classNameGroup,
+          errorOnDirty = _ref3.errorOnDirty,
+          _ref3$meta = _ref3.meta,
+          touched = _ref3$meta.touched,
+          error = _ref3$meta.error,
+          dirty = _ref3$meta.dirty;
 
       var displayError = errorOnDirty ? dirty || touched : touched;
       return _react3.default.createElement(
@@ -171,14 +172,13 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
         )
       );
     }, _this.renderSearchInput = function (_ref4) {
-      var type = _ref4.type;
-      var placeholder = _ref4.placeholder;
-      var className = _ref4.className;
-      var spellCheck = _ref4.spellCheck;
-      var action = _ref4.action;
-      var loading = _ref4.loading;
-
-      var props = _objectWithoutProperties(_ref4, ['type', 'placeholder', 'className', 'spellCheck', 'action', 'loading']);
+      var type = _ref4.type,
+          placeholder = _ref4.placeholder,
+          className = _ref4.className,
+          spellCheck = _ref4.spellCheck,
+          action = _ref4.action,
+          loading = _ref4.loading,
+          props = _objectWithoutProperties(_ref4, ['type', 'placeholder', 'className', 'spellCheck', 'action', 'loading']);
 
       var inputAttrs = { type: type, placeholder: placeholder, className: className, spellCheck: spellCheck };
       var onChange = function onChange(e) {
@@ -203,12 +203,12 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
         });
       });
     }, _this.debouncedSearch = (0, _lodash2.default)(_this.props.handleSubmit(_this.search), 400), _this.nextPage = function () {
-      var _this$props = _this.props;
-      var page = _this$props.page;
-      var total = _this$props.total;
-      var search = _this$props.search;
-      var loading = _this$props.loading;
-      var agendas = _this$props.agendas;
+      var _this$props = _this.props,
+          page = _this$props.page,
+          total = _this$props.total,
+          search = _this$props.search,
+          loading = _this$props.loading,
+          agendas = _this$props.agendas;
 
       if (!agendas || !agendas.length || loading || page * 20 >= total) return;
       _this.props.nextPage({ search: search }, (page || 1) + 1);
@@ -224,14 +224,15 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
   }, {
     key: 'render',
     value: function render() {
-      var _props = this.props;
-      var res = _props.res;
-      var handleSubmit = _props.handleSubmit;
-      var agendas = _props.agendas;
-      var loading = _props.loading;
-      var nextLoading = _props.nextLoading;
-      var search = _props.search;
-      var query = _props.location.query;
+      var _props = this.props,
+          res = _props.res,
+          handleSubmit = _props.handleSubmit,
+          agendas = _props.agendas,
+          loading = _props.loading,
+          nextLoading = _props.nextLoading,
+          search = _props.search,
+          limitPerPage = _props.limitPerPage,
+          query = _props.location.query;
       var getLabel = this.context.getLabel;
 
       var newUser = !search && !query.search && (!agendas || !agendas.length);
@@ -297,7 +298,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             )
           )
         ),
-        _react3.default.createElement(
+        ((agendas && agendas.length) > limitPerPage || query.search) && _react3.default.createElement(
           'form',
           { onSubmit: handleSubmit(this.search) },
           _react3.default.createElement(_reduxForm.Field, {
@@ -403,7 +404,8 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
   total: _react2.PropTypes.number,
   loading: _react2.PropTypes.bool,
   nextLoading: _react2.PropTypes.bool,
-  search: _react2.PropTypes.string
+  search: _react2.PropTypes.string,
+  limitPerPage: _react2.PropTypes.number
 }, _class2.contextTypes = {
   router: _react2.PropTypes.object,
   getLabel: _react2.PropTypes.func

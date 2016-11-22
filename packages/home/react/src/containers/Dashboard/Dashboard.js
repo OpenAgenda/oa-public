@@ -37,7 +37,8 @@ const searchSpinner = {
     page: state.agendas.page,
     total: state.agendas.total,
     loading: state.agendas.loading,
-    search: selector( state, 'search' )
+    search: selector( state, 'search' ),
+    limitPerPage: state.settings.limitPerPage
   }),
   agendasActions
 )
@@ -55,7 +56,8 @@ export default class Dashboard extends Component {
     total: PropTypes.number,
     loading: PropTypes.bool,
     nextLoading: PropTypes.bool,
-    search: PropTypes.string
+    search: PropTypes.string,
+    limitPerPage: PropTypes.number
   };
 
   static contextTypes = {
@@ -122,7 +124,7 @@ export default class Dashboard extends Component {
   }
 
   render() {
-    const { res, handleSubmit, agendas, loading, nextLoading, search, location: { query } } = this.props;
+    const { res, handleSubmit, agendas, loading, nextLoading, search, limitPerPage, location: { query } } = this.props;
     const { getLabel } = this.context;
     const newUser = !search && !query.search && (!agendas || !agendas.length);
 
@@ -156,7 +158,7 @@ export default class Dashboard extends Component {
             </a>
           </div>
         </div>
-        <form onSubmit={handleSubmit( this.search )}>
+        {((agendas && agendas.length) > limitPerPage || query.search) && <form onSubmit={handleSubmit( this.search )}>
           <Field
             component={this.renderSearchInput}
             name="search"
@@ -167,7 +169,7 @@ export default class Dashboard extends Component {
             action={this.debouncedSearch}
             loading={loading}
           />
-        </form>
+        </form>}
         <div className="row">
           {agendas && agendas.map( agenda => (
             <div className="agenda-item media" key={agenda.uid}>

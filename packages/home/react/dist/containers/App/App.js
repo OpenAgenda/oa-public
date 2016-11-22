@@ -104,15 +104,14 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
     value: function render() {
       var _this2 = this;
 
-      var _props = this.props;
-      var agendas = _props.agendas;
-      var res = _props.res;
-      var search = _props.search;
-      var query = _props.location.query;
+      var _props = this.props,
+          agendas = _props.agendas,
+          res = _props.res,
+          search = _props.search,
+          query = _props.location.query;
 
-      var _getChildContext = this.getChildContext();
-
-      var getLabel = _getChildContext.getLabel;
+      var _getChildContext = this.getChildContext(),
+          getLabel = _getChildContext.getLabel;
 
       var newUser = !search && !query.search && (!agendas || !agendas.length);
 
