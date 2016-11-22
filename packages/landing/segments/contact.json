@@ -1,14 +1,10 @@
 {
   "template" : "contact",
   "contacts" : {
-    "title" : "Contact",
+    "title" : "contactTitle",
     "phone" : "0176350143",
     "email" : "contact@openagenda.com",
     "twitter" : "oagenda"
   },
-  "action" : {
-    "title": "A question?",
-    "link": "#pipedrive",
-    "label": "Ask us here"
-  }
+  "action" : false
 }

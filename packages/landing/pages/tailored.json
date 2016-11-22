@@ -5,5 +5,8 @@
   "segments": [ "expertise", { 
     "key" : "portalwebsite", 
     "background" : "gray"
-  }, "contact", "footer" ]
+  }, "karine", {
+    "key" : "contact",
+    "background" : "gray"
+  }, "footer" ]
 }

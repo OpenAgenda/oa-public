@@ -5,8 +5,8 @@
   "organization": "Semaine de l'industrie",
   "testimony": "Simplicité, interface dynamique, géolocalisation. Une équipe à l’écoute, de très bons conseils et très réactive",
   "action": {
-    "title": "Ready?",
+    "title": "getStartedTitle",
     "link": "/signup",
-    "label": "Create an agenda"
+    "label": "getStartedButton"
   }
 }

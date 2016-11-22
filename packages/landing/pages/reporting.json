@@ -4,9 +4,9 @@
   "layout": "layout",
   "segments": [ {
     "key" : "customized",
-    "background" : "gray"
+    "background" : "white"
   }, {
     "key" : "private",
-    "background" : "dark-purple" 
+    "background" : "gray" 
   }, "testimony", "footer" ]
 }
