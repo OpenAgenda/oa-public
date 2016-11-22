@@ -160,6 +160,40 @@ describe( 'segments renderer basic usage', () => {
   } );
 
 
+  it( 'with links pointing to other sites', () => {
+
+    let f = segments( {
+      basePath: '/pages',
+      templates: {
+        linked: fs.readFileSync( __dirname + '/templates/linked.pug', 'utf-8' ),
+        layout: fs.readFileSync( __dirname + '/templates/layout.pug', 'utf-8' )
+      },
+      segments: [ {
+        key: 'f1',
+        template: 'linked',
+        label: 'Janine',
+        link: 'https://janinelagardienne.com'
+      } ],
+      pages: [ {
+        key: 'page1',
+        layout: 'layout',
+        title: 'This is page 1',
+        segments: [ 'f1' ]
+      } ]
+    } );
+
+    f( 'page1' ).render()
+
+    .should.equal( [
+      '<div class="layout">',
+        '<h1>This is page 1</h1>',
+        '<div><a href="https://janinelagardienne.com">Janine</a></div>',
+      '</div>'
+    ].join( '' ) );
+
+  } )
+
+
   it( 'with several languages', () => {
 
     let f = segments( {

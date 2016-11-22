@@ -6,8 +6,8 @@
   "segments": [ {
     "key": "stakeholders",
     "background": "gray"
-  }, "moderators", {
-    "key": "network",
+  }, "network", {
+    "key": "moderators",
     "background": "gray"
-  }, "paola", "footer" ]
+  }, "testimony", "footer" ]
 }

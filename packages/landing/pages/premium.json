@@ -25,7 +25,7 @@
     "key": "moderators",
     "background": "gray"
   }, {
-    "key": "paola",
+    "key": "testimony",
     "background" : "white",
     "action" : {
       "title" : "contactUsTitle",

@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const pug = require( 'pug' );
-const marked = require( 'marked' );
+const mark = require( './mark' );
 
 module.exports = config => {
 
@@ -93,7 +93,7 @@ module.exports = config => {
 
       } catch ( e ) {
 
-        throw new Error( 'Invalid data with segment ' + s.key );
+        throw new Error( 'Invalid data with segment ' + s.key + ': ' + e );
 
       }
 
@@ -123,7 +123,7 @@ function _cleanPageSegment( segment ) {
 
 function _reduceLabels( obj, lang, labels = false ) {
 
-  if ( !_.isObject( obj ) ) return _marked( obj );
+  if ( !_.isObject( obj ) ) return mark( obj );
 
   return _.mapValues( obj, o => {
 
@@ -143,13 +143,13 @@ function _reduceItem( item, lang, labels ) {
 
   if ( !_.isObject( item ) && labels && labels[ item ] !== undefined ) {
 
-    return _marked( labels[ item ][ lang ] );
+    return mark( labels[ item ][ lang ] );
 
   }
 
   if ( !_.isObject( item ) ) {
 
-    return _marked( item );
+    return mark( item );
 
   }
 
@@ -159,19 +159,9 @@ function _reduceItem( item, lang, labels ) {
 
   }
 
-  return _marked( item[ lang ] );
+  return mark( item[ lang ] );
 
 }
-
-
-function _marked( text ) {
-
-  if ( typeof text !== 'string' ) return text;
-
-  return marked( text ).replace( /^<p>|<\/p>\n$/g, '' );
-
-}
-
 
 function _buildLinks( render, params ) {
 

@@ -5,16 +5,17 @@
   "layout": "layout",
   "segments": [ {
     "key": "network",
-    "background": "gray"
-  }, {
-    "key": "support",
     "background": "white"
   }, {
+    "key": "support",
+    "background": "gray"
+  }, {
     "key" : "multiplePremium",
-    "background" : "gray",
+    "background" : "white",
     "centered" : true
   }, {
     "key" : "getstarted",
+    "background" : "gray",
     "action" : {
       "title" : "getStartedTitle",
       "link" : "#contact",

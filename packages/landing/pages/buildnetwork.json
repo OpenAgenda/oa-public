@@ -4,6 +4,6 @@
   "description": "buildNetworkDescription",
   "segments": [ "network", {
     "key": "opendata", 
-    "background": "dark-purple"
+    "background": "gray"
   }, "exports", "footer" ]
 }

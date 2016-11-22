@@ -6,13 +6,13 @@
     "key" : "opendata",
     "background" : "gray"
   }, {
-    "key": "exports",
+    "key": "customembed",
     "background": "white"
   }, {
-    "key": "private",
+    "key": "exports",
     "background": "gray"
   }, {
-    "key": "customembed",
+    "key": "private",
     "background": "white"
   }, "footer" ]
 }
