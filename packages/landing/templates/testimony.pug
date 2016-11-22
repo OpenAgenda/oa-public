@@ -1,4 +1,4 @@
-div(class='testimonials background-' + ( background || 'white' ))
+div( class='testimonials background-' + ( background || 'white' ) )
   .container
     .spaced
       .row.text-center
@@ -24,4 +24,3 @@ div(class='testimonials background-' + ( background || 'white' ))
             img( src=organization.logo alt=organization.name )
             p.margin-top-sm!=organization.name
             a(href=organization.link)!=organization.link
-            
