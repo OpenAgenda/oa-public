@@ -4,15 +4,15 @@
   "description": "networkOfferDescription",
   "layout": "layout",
   "segments": [ {
-    "key": "network",
-    "background": "white"
+    "key" : "multiplePremium",
+    "background" : "white",
+    "centered" : true
   }, {
     "key": "support",
     "background": "gray"
   }, {
-    "key" : "multiplePremium",
-    "background" : "white",
-    "centered" : true
+    "key": "network",
+    "background": "white"
   }, {
     "key" : "getstarted",
     "background" : "gray",
