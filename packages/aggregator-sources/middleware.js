@@ -1,0 +1,46 @@
+const logger = require( 'basic-logger' );
+
+const matchAppMw = require( 'react-utils/dist/matchAppMw' );
+const createStore = require( 'react-utils/dist/createStore' );
+const ApiClient = require( 'react-utils/dist/ApiClient' );
+
+const getRoutes = require( './react/dist/routes' );
+const reducer = require( './react/dist/redux/reducer' );
+
+let service, config, log;
+
+module.exports = {
+  init,
+  matchApp: matchAppMw( createStore( reducer ), getRoutes, ApiClient ),
+  list: aggregatorSourcesList
+};
+
+function init( s, c ) {
+
+  service = s;
+  config = c;
+
+  if ( c.logger ) {
+
+    logger.setLogger( c.logger );
+
+  }
+
+  log = logger( 'aggregator-sources' );
+
+}
+
+function aggregatorSourcesList( req, res ) {
+
+  const offset = (req.query.page - 1) * config.mw.limit;
+  const limit = config.mw.limit;
+
+  service( req.agenda.id ).list( { search: req.query.search }, offset, limit, { total: true } )
+    .then( result => {
+      res.send( result );
+    } )
+    .catch( err => {
+      res.status( 400 ).send( err );
+    } );
+
+}
