@@ -57,7 +57,8 @@ module.exports = function( params ) {
       complete: 'formcomplete',
       clear: 'eventclear',
       submit: 'formsubmit'
-    }
+    },
+    beforeSubmit: function( cb ) { cb() }
   }, params);
 
   var elem,
@@ -101,21 +102,26 @@ module.exports = function( params ) {
 
       du.preventDefault( e );
 
-      _process[name](function( encodedEvent ) {
-
-        var url = decodeURIComponent(params[name]).replace('{uid}', uid);
-
-        if ( encodedEvent ) {
-
-          _post( url, encodedEvent );
-
-        } else {
-
-          window.location.href = url;
-
-        }
+      params.beforeSubmit( function() {
         
-      });
+        _process[name](function( encodedEvent ) {
+
+          var url = decodeURIComponent(params[name]).replace('{uid}', uid);
+
+          if ( encodedEvent ) {
+
+            _post( url, encodedEvent );
+
+          } else {
+
+            window.location.href = url;
+
+          }
+          
+        });
+
+      } );
+
 
     });
 

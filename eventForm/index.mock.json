@@ -332,6 +332,12 @@
         { "slug":"alhambra","label":"alhambra" },
         { "slug":"science","label":"science" }
       ]
+    },
+    "translation" : {
+      "source" : "fr",
+      "target" : [ "de", "en", "es", "it" ],
+      "service" : "reverso",
+      "options" : "eyJ1c2VyIjoiQ1VMVFVSRSIsInBhc3N3b3JkIjoiclU3elQ3cWhhIn0="
     }
   },
   "empty" : {
