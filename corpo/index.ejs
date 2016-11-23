@@ -36,12 +36,6 @@
   </div>
 </div>
 
-<!--<div class="background-white">
-  <div class="container">
-    <hr>
-  </div>
-</div>-->
-
 <div id="functions">
   <div class="background-gray">
     <div class="container">
@@ -189,93 +183,98 @@
       <div class="pricing">
         <ul>
           <li class="unit price-success">
-            <div class="price-title">
-              <h3><%= __( 'standardCalendar' ) %></h3>
-            </div>
-            <div class="price-body">
-              <p><%= __( 'free' ) %></p>
-              <ul>
-                <li><%= __( 'unlimitedEvents' ) %></li>
-                <li><%= __( 'unlimitedMembers' ) %></li>
-                <li><%= __( 'unlimitedDownloads' ) %></li>
-                <li><%= __( 'opendata' ) %></li>
-                <li><%= __( 'multilingualAndMedia' ) %></li>
-                <li><%= __( 'moderation' ) %></li>
-              </ul>
-            </div>
+            <a href="<%= genUrl( 'discover', { page: 'basic' } ) %>">
+              <div class="price-title">
+                <h3><%= __( 'standardCalendar' ) %></h3>
+              </div>
+              <div class="price-body">
+                <p><%= __( 'free' ) %></p>
+                <ul>
+                  <li><%= __( 'unlimitedEvents' ) %></li>
+                  <li><%= __( 'unlimitedMembers' ) %></li>
+                  <li><%= __( 'unlimitedDownloads' ) %></li>
+                  <li><%= __( 'opendata' ) %></li>
+                  <li><%= __( 'multilingualAndMedia' ) %></li>
+                  <li><%= __( 'moderation' ) %></li>
+                </ul>
+              </div>
+            </a>
             <div class="price-foot">
               <a class="btn btn-success" href="<%= genUrl( 'start', { a: 'pricing_free' } ) %>"
                  rel="nofollow"><%= __( 'createAnAgenda' ) %></a>
             </div>
           </li>
           <li class="unit price-primary">
-            <div class="price-title">
-              <h3><%= __( 'premiumCalendar' ) %></h3>
-            </div>
-            <div class="price-body">
-              <p>90 € / <%= __( 'month' ) %><br>
-                <small>(1080 € / <%= __( 'year' ) %>)</small>
-              </p>
-              <ul>
-                <li><strong><%= __( 'basicFeatures' ) %> <i class="fa fa-check"></i></strong></li>
-                <li><%= __( 'customFields' ) %></li>
-                <li><%= __( 'membersHierarchy' ) %></li>
-                <li><%= __( 'workflowManagement' ) %></li>
-                <li><%= __( 'customNotifications' ) %></li>
-                <li><%= __( 'customEmbed' ) %></li>
-                <li><%- __( 'dateLimitation' ) %></li>
-              </ul>
-            </div>
+            <a href="<%= genUrl( 'discover', { page: 'premium' } ) %>">
+              <div class="price-title">
+                <h3><%= __( 'premiumCalendar' ) %></h3>
+              </div>
+              <div class="price-body">
+                <p>90 € / <%= __( 'month' ) %><br>
+                  <small>(1080 € / <%= __( 'year' ) %>)</small>
+                </p>
+                <ul>
+                  <li><strong><%= __( 'basicFeatures' ) %> <i class="fa fa-check"></i></strong></li>
+                  <li><%= __( 'customFields' ) %></li>
+                  <li><%= __( 'membersHierarchy' ) %></li>
+                  <li><%= __( 'workflowManagement' ) %></li>
+                  <li><%= __( 'customNotifications' ) %></li>
+                  <li><%= __( 'customEmbed' ) %></li>
+                  <li><%- __( 'dateLimitation' ) %></li>
+                </ul>
+              </div>
+            </a>
             <div class="price-foot">
-              <a class="btn btn-primary" href="<%= genUrl( 'start', { a: 'pricing_custom' } ) %>"
-                 rel="nofollow">
+              <a class="btn btn-primary" href="<%= genUrl( 'discover', { page: 'contactus' } ) %>" rel="nofollow">
                 <%= __( 'contactUs' ) %>
               </a>
             </div>
           </li>
           <li class="unit price-primary">
-            <div class="price-title">
-              <h3><%= __( 'networkCalendar' ) %></h3>
-            </div>
-            <div class="price-body">
-              <p>400 € / <%= __( 'month' ) %><br>
-                <small>(4800 € / <%= __( 'year' ) %>)</small>
-              </p>
-              <ul>
-                <li><strong><%= __( 'basicCalendars' ) %> <i class="fa fa-check"></i></strong></li>
-                <li><strong><%= __( 'premiumCalendars' ) %> <i class="fa fa-check"></i></strong></li>
-                <li><%= __( 'support' ) %></li>
-                <li><%= __( 'aggregation' ) %></li>
-              </ul>
-            </div>
-            <div class="price-foot">
-              <a class="btn btn-primary" href="<%= genUrl( 'start', { a: 'pricing_premium' } ) %>"
-                 rel="nofollow">
-                <%= __( 'contactUs' ) %>
-              </a>
-            </div>
+            <a href="<%= genUrl( 'discover', { page: 'network' } ) %>">
+              <div class="price-title">
+                <h3><%= __( 'networkCalendar' ) %></h3>
+              </div>
+              <div class="price-body">
+                <p>400 € / <%= __( 'month' ) %><br>
+                  <small>(4800 € / <%= __( 'year' ) %>)</small>
+                </p>
+                <ul>
+                  <li><strong><%= __( 'basicCalendars' ) %> <i class="fa fa-check"></i></strong></li>
+                  <li><strong><%= __( 'premiumCalendars' ) %> <i class="fa fa-check"></i></strong></li>
+                  <li><%= __( 'support' ) %></li>
+                  <li><%= __( 'aggregation' ) %></li>
+                </ul>
+              </div>
+              <div class="price-foot">
+                <a class="btn btn-primary" href="<%= genUrl( 'discover', { page: 'contactus' } ) %>" rel="nofollow">
+                  <%= __( 'contactUs' ) %>
+                </a>
+              </div>
+            </a>
           </li>
           <li class="unit price-primary">
-            <div class="price-title">
-              <h3><%= __( 'tailored' ) %></h3>
-            </div>
-            <div class="price-body">
-              <p><%= __( 'contactUs' ) %></p>
-              <ul>
-                <li><%= __( 'operationalSupport' ) %></li>
-                <li><%= __( 'editorialControl' ) %></li>
-                <li><%= __( 'networkDeployment' ) %></li>
-                <li><%= __( 'communityManagement' ) %></li>
-                <li><%= __( 'contentModeration' ) %></li>
-                <li><%= __( 'reporting' ) %></li>
-                <li><%= __( 'training' ) %></li>
-                <li><%= __( 'contentPromotion' ) %></li>
-                <li><%= __( 'paperProgram' ) %></li>
-              </ul>
-            </div>
+            <a href="<%= genUrl( 'discover', { page: 'tailored' } ) %>">
+              <div class="price-title">
+                <h3><%= __( 'tailored' ) %></h3>
+              </div>
+              <div class="price-body">
+                <p><%= __( 'contactUs' ) %></p>
+                <ul>
+                  <li><%= __( 'operationalSupport' ) %></li>
+                  <li><%= __( 'editorialControl' ) %></li>
+                  <li><%= __( 'networkDeployment' ) %></li>
+                  <li><%= __( 'communityManagement' ) %></li>
+                  <li><%= __( 'contentModeration' ) %></li>
+                  <li><%= __( 'reporting' ) %></li>
+                  <li><%= __( 'training' ) %></li>
+                  <li><%= __( 'contentPromotion' ) %></li>
+                  <li><%= __( 'paperProgram' ) %></li>
+                </ul>
+              </div>
+            </a>
             <div class="price-foot">
-              <a class="btn btn-primary" href="<%= genUrl( 'start', { a: 'pricing_tailored' } ) %>"
-                 rel="nofollow">
+              <a class="btn btn-primary" href="<%= genUrl( 'discover', { page: 'contactus' } ) %>" rel="nofollow">
                 <%= __( 'contactUs' ) %>
               </a>
             </div>
