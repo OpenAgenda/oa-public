@@ -401,7 +401,7 @@ function buildPdf( req, res, next ) {
 
     stream.pause();
 
-    eInst.exportable( ( err, clean ) => {
+    eInst.exportable( { filter: req.query.oaq }, ( err, clean ) => {
 
       if ( err ) {
 
@@ -425,9 +425,7 @@ function buildPdf( req, res, next ) {
 
     pdfStream.end();
 
-  });
-
-  
+  } );
 
 }
 
