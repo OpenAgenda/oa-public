@@ -169,7 +169,9 @@ function _buildLinks( render, params ) {
 
   params.pages.forEach( t => {
 
-    withLinks = withLinks.replace( '#' + t.key, params.basePath + '/' + t.key );
+    let rgx = new RegExp( '#' + t.key, 'g' );
+
+    withLinks = withLinks.replace( rgx, params.basePath + '/' + t.key );
 
   } );
 

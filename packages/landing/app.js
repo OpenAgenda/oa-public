@@ -29,6 +29,8 @@ app.get( '/:page', ( req, res, next ) => {
 
   let p = pages( 'http://' + req.hostname + ':' + port ); // reload the thing  
 
+  console.log( 'ip %s requesting page %s', req.ip, req.params.page );
+
   req.content = p( req.params.page ).render( { lang: 'fr' } );
 
   next();
