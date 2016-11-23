@@ -1,14 +1,22 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
-
-  cmn = require( '../lib/commons-app' ),
+const landing = require( 'landing' ),
 
   config = require( '../config' ),
 
+  landingPages = landing( config.root + '/discover' ),
+
+  coms = require( '../lib/coms' ),
+
+  w = require( 'when' ),
+
+  cmn = require( '../lib/commons-app' ),
+
   newsletter = require( 'newsletter' ),
 
-  mailer = require( 'mailer' ),
+  mailer = require( 'mailer' );
+
+var modLib = require( '../lib/moduleLib' ),
 
   model = require( '../services/model' ),
 
@@ -17,10 +25,6 @@ var modLib = require( '../lib/moduleLib' ),
   mwHelpers = require( '../services/lib/middlewareHelpers.js' ),
 
   path,
-
-  coms = require( '../lib/coms' ),
-
-  w = require( 'when' ),
 
   routes = {
     corpoHome: [ 'get', '/', [
@@ -33,7 +37,12 @@ var modLib = require( '../lib/moduleLib' ),
     serviceConnectCallback: [ 'get', '/services/:service/connect/callback', serviceConnectCallback ],
     emailUnsubscribe: [ 'get', '/unsubscribe', unsubscribe ],
     emailUnsubscribeSubmit: [ 'post', '/unsubscribe', unsubscribeSubmit ],
-    start: [ 'get', '/start', start ]
+    start: [ 'get', '/start', start ],
+    discover: [ 'get', '/discover/:page', [ 
+      cmn.loadBaseData( 'oasfmain.css' ),
+      _corpoBrowserCache,
+      discover 
+    ] ],
   };
 
 module.exports = function ( p ) {
@@ -191,6 +200,21 @@ function newsletterSubscribe( req, res ) {
       } )
 
     }
+
+  } );
+
+}
+
+
+function discover( req, res, next ) {
+
+  let page = landingPages( req.params.page ).render( { lang: req.lang } );
+
+  cmn.renderTemplate( req, 'corpo/empty', {}, ( err, layout ) => {
+
+    let content = layout.replace( '{content}', page );
+
+    res.send( content );
 
   } );
 
