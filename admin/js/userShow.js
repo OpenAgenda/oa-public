@@ -62,7 +62,7 @@ module.exports = React.createClass( {
     }
 
 
-    if ( !user.isActivated ) {
+    if ( !user.is_activated ) {
 
       activationLink = <span> - <a onClick={this.props.onUserActivation} href="#">activate</a></span>
 
@@ -70,7 +70,7 @@ module.exports = React.createClass( {
 
     return (
       <div>
-        <h2>{user.fullName}</h2>
+        <h2>{user.full_name}</h2>
         <table className="table">
           <tbody>
           <tr>
@@ -79,26 +79,26 @@ module.exports = React.createClass( {
           </tr>
           <tr>
             <td>email</td>
-            <td>{user.email}</td>
+            <td>{user.email} {user.is_removed && <span style={{ color: 'brown' }}>Account removed</span>}</td>
           </tr>
           <tr>
             <td>is activated?</td>
             <td>
-              <span>{user.isActivated ? "yes" : "no"}</span>
+              <span>{user.is_activated ? "yes" : "no"}</span>
               {activationLink}
             </td>
           </tr>
           <tr>
             <td>Created At</td>
-            <td>{user.createdAt}</td>
+            <td>{user.created_at}</td>
           </tr>
           <tr>
             <td>Updated At</td>
-            <td>{user.updatedAt}</td>
+            <td>{user.updated_at}</td>
           </tr>
           <tr>
             <td>Last signin</td>
-            <td>{user.lastSignin}</td>
+            <td>{user.last_signin}</td>
           </tr>
           </tbody>
         </table>
