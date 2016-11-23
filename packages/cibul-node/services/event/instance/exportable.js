@@ -171,7 +171,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
             end: new Date( timings[ 0 ].end )
           };
 
-          utils.extend( v, {
+          utils.extend( v.exportable, {
             firstDate: _stringifyDate( t.start ),
             firstTimeStart: moment.tz( t.start, timezone ).format( 'HH:mm' ),
             firstTimeEnd: moment.tz( t.end, timezone ).format( 'HH:mm' )
