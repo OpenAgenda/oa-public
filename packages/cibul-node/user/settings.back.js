@@ -20,6 +20,8 @@ var config = require( '../config' ),
 
   mw = users.mw,
 
+  matchApp = require( 'users/middleware/matchApp' ),
+
   labels = require( 'labels/users/settings' ),
 
   getLabels = require( 'labels' )( labels );
@@ -44,7 +46,7 @@ module.exports = function ( path ) {
     userSettingsUploadProfileImage: [ 'post', '/uploadProfileImage', [ cmn.requireLogged(), mw.uploadProfileImage ] ],
     userSettingsRemoveProfileImage: [ 'post', '/removeProfileImage', [ cmn.requireLogged(), mw.removeProfileImage ] ],
 
-    userSettingsApp: [ 'get', '*', mw.matchApp( path, index ) ]
+    userSettingsApp: [ 'get', '*', matchApp( path, index ) ]
   };
 
   var router = modLib.Router( routes );

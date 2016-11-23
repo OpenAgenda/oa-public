@@ -11,7 +11,9 @@ module.exports = {
     files: require( 'files' ),
     tags: require( 'agenda-tags' ),
     locations: require( 'agenda-locations' ),
-    categories: require( 'agenda-categories' )
+    categories: require( 'agenda-categories' ),
+    users: require( 'users' ),
+    stakeholders: require( 'agenda-stakeholders' )
   },
   config: require( './config' ),
   init: require( './lib/init' ),

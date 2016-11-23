@@ -8,6 +8,8 @@ const cmn = require( '../lib/commons-app' );
 const homeSvc = require( 'home' );
 const mw = homeSvc.mw;
 
+const homeConfig = homeSvc.getConfig();
+
 module.exports = path => {
 
   const routes = {
@@ -59,7 +61,12 @@ function matchApp( req, res, next ) {
   mw.matchApp(
     {
       state: {
-        settings: { prefix, lang, apiRoot: `http://localhost:${config.port}` },
+        settings: {
+          prefix,
+          lang,
+          apiRoot: `http://localhost:${config.port}`,
+          limitPerPage: homeConfig.mw.limit
+        },
         res: {
           list: req.genUrl( 'homeShowList' ),
           new: req.genUrl( 'agendaSettingsCreateApp' ),

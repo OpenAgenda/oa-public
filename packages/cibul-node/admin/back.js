@@ -201,12 +201,13 @@ function getUsers( req, res, next ) {
                 cmn.renderJson( req, res, {
                   user: lib.filterByAttr( req.loadedUser, [ 
                     'uid',
-                    'fullName',
+                    'full_name',
                     'email',
-                    'isActivated',
-                    'createdAt',
-                    'updatedAt',
-                    'lastSignin'
+                    'is_activated',
+                    'is_removed',
+                    'created_at',
+                    'updated_at',
+                    'last_signin'
                   ] ),
                   stakeholders
                 } );
@@ -243,8 +244,6 @@ function userChangePassword( req, res ) {
   const { uid, password: new_password } = req.query;
 
   users.changePassword( { uid, new_password }, ( err, result ) => {
-
-    console.log( err, result );
 
     if ( err || !result.success ) return res.json( { success: false } );
     res.json( { success: true } );
@@ -286,7 +285,7 @@ function _loadUser( req, res, next ) {
 
   var uid = req.query.uid;
 
-  model.users().get( { uid: uid }, function ( err, result ) {
+  users.get( { uid }, { removed: true, detailed: true }, ( err, result ) => {
 
     if ( err ) return cmn.catchError( req, res )( err );
 
@@ -326,7 +325,7 @@ function _searchUsers( req, res ) {
       cmn.renderJson( req, res, {
         users: rows.map( function ( row ) {
 
-          return { uid: row.uid, fullName: row.full_name, email: row.email };
+          return { uid: row.uid, fullName: row.full_name, email: row.email, is_removed: row.is_removed };
 
         } ),
         page: page,
