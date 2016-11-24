@@ -1,0 +1,15 @@
+{
+  "layout": "bsLayout/corpo",
+  "bsCss": {},
+  "labels": "corpo/index",
+  "helpers": {
+    "_i": "image"
+  },
+  "base": {
+    "showHeadLinks" : false,
+    "scriptParams": {
+      "lang": "fr"
+    },
+    "pageId": "corpo"
+  }
+}

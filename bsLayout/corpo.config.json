@@ -5,16 +5,6 @@
   "labels": "corpo/layout",
   "base": {
     "bottom": {
-      "scriptSources": [
-        "//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js",
-        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/transition.js",
-        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/collapse.js",
-        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/dropdown.js",
-        "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/carousel.js",
-        "//s3.eu-central-1.amazonaws.com/oastatic/typed.min.js",
-        "//s3.eu-central-1.amazonaws.com/oastatic/odometer.min.js",
-        "//cdn.slaask.com/chat.js"
-      ],
       "scripts": [],
       "metas": {
         "title": "OpenAgenda",
