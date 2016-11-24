@@ -1,4 +1,8 @@
 {
+  "keys" : [
+    { "lang" : "en", "key" : "contact-us" },
+    { "lang" : "fr", "key" : "contactez-nous" }
+  ],
   "title": "contactTitle",
   "description": "contactDescription",
   "layout": "layout",

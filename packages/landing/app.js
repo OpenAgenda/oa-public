@@ -31,7 +31,9 @@ app.get( '/:page', ( req, res, next ) => {
 
   console.log( 'ip %s requesting page %s', req.ip, req.params.page );
 
-  req.content = p( req.params.page ).render( { lang: 'fr' } );
+  req.content = p( req.params.page ).render();
+
+  req.headPart = p( req.params.page ).getHeadPart();
 
   next();
 
@@ -53,7 +55,7 @@ app.get( '*', ( req, res ) => {
 
   }
 
-  res.send( layout.replace( '{content}', req.content ) );
+  res.send( layout.replace( '<!--content-->', req.content ).replace('<!--head-->', req.headPart ) );
 
 } );
 

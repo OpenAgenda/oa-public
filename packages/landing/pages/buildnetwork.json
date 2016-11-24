@@ -1,4 +1,8 @@
 {
+  "keys" : [
+    { "lang" : "en", "key" : "build-your-network" },
+    { "lang" : "fr", "key" : "construisez-votre-reseau" }
+  ],
   "layout": "layout",
   "title": "buildNetworkTitle",
   "description": "buildNetworkDescription",

@@ -1,4 +1,9 @@
 {
+  "keys" : [ {
+    "lang" : "en", "key" : "broadcast-your-events"
+  }, {
+    "lang" : "fr", "key" : "diffusez-vos-evenements"
+  } ],
   "title": "exportsBroadcastTitle",
   "description": "exportsBroadcastDescription",
   "layout": "layout",

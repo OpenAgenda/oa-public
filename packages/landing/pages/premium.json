@@ -1,5 +1,8 @@
 {
-  "key": "premium",
+  "keys": [
+    { "lang" : "en", "key" : "premium-agenda" },
+    { "lang" : "fr", "key" : "agenda-premium" }
+  ],
   "title": "premiumOfferTitle",
   "description": "premiumOfferDescription",
   "layout": "layout",

@@ -1,4 +1,8 @@
 {
+  "keys" : [
+    { "lang" : "en", "key" : "a-tailored-offer" },
+    { "lang" : "fr", "key" : "une-offre-sur-mesure" }
+  ],
   "title": "tailoredTitle",
   "description": "tailoredDescription",
   "layout": "layout",

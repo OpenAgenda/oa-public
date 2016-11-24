@@ -1,4 +1,8 @@
 {
+  "keys" : [
+    { "lang" : "en", "key" : "testimonies" },
+    { "lang" : "fr", "key" : "temoignages" }
+  ],
   "title": "testimoniesTitle",
   "layout": "layout",
   "segments": [ {

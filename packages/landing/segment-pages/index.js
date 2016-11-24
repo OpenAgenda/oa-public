@@ -27,7 +27,7 @@ module.exports = config => {
 
   return page => {
 
-    let pageParams = params.pages.filter( t => t.key === page );
+    let pageParams = params.pages.filter( _matchPageKey( page ) );
 
     if ( !pageParams.length ) {
 
@@ -35,16 +35,19 @@ module.exports = config => {
 
     }
 
+    let lang = _pageLang( pageParams[ 0 ], page );
+
     return {
-      render: render.bind( null, pageParams[ 0 ] )
+      render: render.bind( null, pageParams[ 0 ], lang ),
+      getHeadPart: getHeadPart.bind( null, pageParams[ 0 ], lang )
     }
 
   }
 
-  function render( pageParams, options ) {
+  function render( pageParams, lang = false, options = {} ) {
 
     let renderParams = _.defaults( options || {}, {
-      lang: false
+      lang
     } );
 
     let r = segments( pageParams, renderParams );
@@ -57,13 +60,51 @@ module.exports = config => {
 
     if ( params.basePath ) {
 
-      r = _buildLinks( r, params );
+      r = _buildLinks( r, params, lang );
 
     }
 
     return r;
 
   } 
+
+  function getHeadPart( pageParams, lang = false ) {
+
+    let data = _reduceLabels( pageParams, lang, params.labels ),
+
+    renderParts = [];
+
+    Object.keys( data ).forEach( key => {
+
+      if ( key === 'title' ) {
+
+        renderParts.push( '<title>' + data[ key ] + '</title>' );
+
+      }
+
+      if ( [ 'title', 'description', 'keywords' ].indexOf( key ) !== -1 ) {
+
+        renderParts.push( '<meta name="' + key + '" content="' + data[ key ] + '" />' );
+
+      }
+
+    } );
+
+    if ( pageParams.keys ) {
+
+      pageParams.keys.forEach( item => {
+
+        if ( item.lang === lang ) return;
+
+        renderParts.push( '<link rel="alternate" hreflang="' + item.lang + '" href="' + params.basePath + '/' + item.key + '" />' );
+
+      } );
+
+    }
+
+    return renderParts.join( '\n' );
+
+  }
 
   function layout( pageParams, content, renderParams ) {
 
@@ -163,18 +204,64 @@ function _reduceItem( item, lang, labels ) {
 
 }
 
-function _buildLinks( render, params ) {
+function _buildLinks( render, params, lang = false ) {
 
   let withLinks = render;
 
   params.pages.forEach( t => {
 
-    let rgx = new RegExp( '#' + t.key, 'g' );
+    let srcKeys = t.key ? [ t.key ] : [],
 
-    withLinks = withLinks.replace( rgx, params.basePath + '/' + t.key );
+    destKey = t.key;
+
+    if ( t.keys ) {
+
+      srcKeys = srcKeys.concat( t.keys.map( t => t.key ) );
+
+    }
+
+    if ( lang && t.keys ) {
+
+      destKey = t.keys.filter( k => k.lang === lang )[ 0 ].key;
+
+    }
+
+    let rgx = new RegExp( '#(' + srcKeys.join( '|' ) + ')', 'g' );
+
+    withLinks = withLinks.replace( rgx, params.basePath + '/' + destKey );
 
   } );
 
   return withLinks;
+
+}
+
+
+function _matchPageKey( key ) {
+
+  return p => {
+
+    if ( p.keys ) {
+
+      return !!p.keys.filter( k => k.key === key ).length;
+
+    }
+
+    return key === p.key;
+
+  }
+
+}
+
+
+function _pageLang( params, key ) {
+
+  if ( !params.keys ) return false;
+
+  let match = params.keys.filter( k => k.key === key );
+
+  if ( !match.length ) return false;
+
+  return match[ 0 ].lang;
 
 }

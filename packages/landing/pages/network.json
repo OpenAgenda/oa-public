@@ -1,5 +1,9 @@
 {
-  "key": "network",
+  "keys" : [ {
+    "lang" : "en", "key" : "network-of-agendas" 
+  }, {
+    "lang" : "fr", "key" : "reseau-d-agendas"
+  } ],
   "title": "networkOfferTitle",
   "description": "networkOfferDescription",
   "layout": "layout",
