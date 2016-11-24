@@ -14,7 +14,7 @@ module.exports = {
 
     // used for detailed info gathering
     occurrence: 'occurrence',
-    agendaEvent: 'agenda_event'
+    agendaEvent: 'agenda_event',
 
     // used for legacy data persistence
     legacyCredentialSet: 'legacy_credential_set'

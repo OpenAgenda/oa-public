@@ -12,10 +12,15 @@ module.exports = utils.extend( svc, {
   }
 } );
 
-function _fixtures( cb ) {
+function _fixtures( options, cb ) {
+
+  if (arguments.length === 1) {
+    cb = options;
+    options = {};
+  }
 
   fixtures.init( svc.getConfig() );
 
-  fixtures( cb );
+  fixtures( options, cb );
 
 }

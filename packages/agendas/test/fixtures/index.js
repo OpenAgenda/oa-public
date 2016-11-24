@@ -15,7 +15,7 @@ module.exports.init = c => {
 };
 
 
-function build( cb ) {
+function build( options, cb ) {
 
   fixtures( [ {
     table: config.schemas.agenda,
@@ -29,6 +29,6 @@ function build( cb ) {
   }, {
     table: config.schemas.legacyCredentialSet,
     src: __dirname + '/legacy_credential_set.data.sql'
-  } ], cb );
+  } ], options, cb );
 
 }
