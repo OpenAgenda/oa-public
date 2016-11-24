@@ -208,9 +208,12 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           total = _this$props.total,
           search = _this$props.search,
           loading = _this$props.loading,
-          agendas = _this$props.agendas;
+          nextLoading = _this$props.nextLoading,
+          agendas = _this$props.agendas,
+          limitPerPage = _this$props.limitPerPage;
 
-      if (!agendas || !agendas.length || loading || page * 20 >= total) return;
+      console.log('next page', loading);
+      if (!agendas || !agendas.length || loading || nextLoading || page * limitPerPage >= total) return;
       _this.props.nextPage({ search: search }, (page || 1) + 1);
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
@@ -232,6 +235,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           nextLoading = _props.nextLoading,
           search = _props.search,
           limitPerPage = _props.limitPerPage,
+          total = _props.total,
           query = _props.location.query;
       var getLabel = this.context.getLabel;
 
@@ -298,7 +302,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             )
           )
         ),
-        ((agendas && agendas.length) > limitPerPage || query.search) && _react3.default.createElement(
+        (total > limitPerPage || query.search) && _react3.default.createElement(
           'form',
           { onSubmit: handleSubmit(this.search) },
           _react3.default.createElement(_reduxForm.Field, {

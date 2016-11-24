@@ -113,8 +113,9 @@ export default class Dashboard extends Component {
   debouncedSearch = debounce( this.props.handleSubmit( this.search ), 400 );
 
   nextPage = () => {
-    const { page, total, search, loading, agendas } = this.props;
-    if ( !agendas || !agendas.length || loading || page * 20 >= total ) return;
+    const { page, total, search, loading, nextLoading, agendas, limitPerPage } = this.props;
+    console.log( 'next page', loading );
+    if ( !agendas || !agendas.length || loading || nextLoading || page * limitPerPage >= total ) return;
     this.props.nextPage( { search }, (page || 1) + 1 );
   };
 
@@ -124,7 +125,10 @@ export default class Dashboard extends Component {
   }
 
   render() {
-    const { res, handleSubmit, agendas, loading, nextLoading, search, limitPerPage, location: { query } } = this.props;
+    const {
+      res, handleSubmit, agendas, loading, nextLoading,
+      search, limitPerPage, total, location: { query }
+    } = this.props;
     const { getLabel } = this.context;
     const newUser = !search && !query.search && (!agendas || !agendas.length);
 
@@ -158,7 +162,7 @@ export default class Dashboard extends Component {
             </a>
           </div>
         </div>
-        {((agendas && agendas.length) > limitPerPage || query.search) && <form onSubmit={handleSubmit( this.search )}>
+        {(total > limitPerPage || query.search) && <form onSubmit={handleSubmit( this.search )}>
           <Field
             component={this.renderSearchInput}
             name="search"
