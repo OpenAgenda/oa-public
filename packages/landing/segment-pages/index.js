@@ -39,7 +39,9 @@ module.exports = config => {
 
     return {
       render: render.bind( null, pageParams[ 0 ], lang ),
-      getHeadPart: getHeadPart.bind( null, pageParams[ 0 ], lang )
+      getHeadPart: getHeadPart.bind( null, pageParams[ 0 ], lang ),
+      getLang: () => lang,
+      getAlternateUrl: getAlternateUrl.bind( null, pageParams[ 0 ] )
     }
 
   }
@@ -66,7 +68,15 @@ module.exports = config => {
 
     return r;
 
-  } 
+  }
+
+  function getAlternateUrl( pageParams, lang ) {
+
+    let item = pageParams.keys.filter( item => item.lang === lang )[ 0 ];
+
+    return params.basePath + '/' + item.key;
+
+  }
 
   function getHeadPart( pageParams, lang = false ) {
 
