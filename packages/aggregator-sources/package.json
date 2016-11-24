@@ -28,6 +28,7 @@
     "react-router": "^3.0.0",
     "react-utils": "git+ssh://git@bitbucket.org/openagenda/react-utils.git",
     "redux-form": "^6.2.0",
+    "service-utils": "git+ssh://git@bitbucket.org/openagenda/service-utils.git",
     "when": "^3.7.7"
   },
   "devDependencies": {

@@ -146,6 +146,12 @@ export default class Dashboard extends Component {
               __html: getLabel( 'sourcesExplanation', { title: `<a href="${res.show.replace( ':slug', agenda.slug )}">${agenda.title}</a>` } )
             }}
           />
+          <p
+            className="text-muted"
+            dangerouslySetInnerHTML={{
+              __html: getLabel( 'addSources', { searchLink: res.search } )
+            }}
+          />
           <form onSubmit={handleSubmit( this.search )}>
             <Field
               component={this.renderSearchInput}
@@ -159,12 +165,6 @@ export default class Dashboard extends Component {
               visible={search || query.search || total >= perPageLimit}
             />
           </form>
-          <p
-            className="text-muted"
-            dangerouslySetInnerHTML={{
-              __html: getLabel( 'addSources', { searchLink: res.search } )
-            }}
-          />
         </div>
         <div className="row">
           {agendas && agendas.map( agendaItem => (
@@ -186,7 +186,7 @@ export default class Dashboard extends Component {
                   </div>}
                 </div>
                 <div className="actions">
-                  <a href={res.delete.replace( ':slug', agendaItem.slug )} className="text-muted">
+                  <a href={res.delete.replace( ':uid', agendaItem.uid )} className="text-muted">
                     {getLabel( 'removeSource' )}
                   </a>
                 </div>

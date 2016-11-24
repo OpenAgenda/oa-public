@@ -261,6 +261,12 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               __html: getLabel('sourcesExplanation', { title: '<a href="' + res.show.replace(':slug', agenda.slug) + '">' + agenda.title + '</a>' })
             }
           }),
+          _react3.default.createElement('p', {
+            className: 'text-muted',
+            dangerouslySetInnerHTML: {
+              __html: getLabel('addSources', { searchLink: res.search })
+            }
+          }),
           _react3.default.createElement(
             'form',
             { onSubmit: handleSubmit(this.search) },
@@ -275,13 +281,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               loading: loading,
               visible: search || query.search || total >= perPageLimit
             })
-          ),
-          _react3.default.createElement('p', {
-            className: 'text-muted',
-            dangerouslySetInnerHTML: {
-              __html: getLabel('addSources', { searchLink: res.search })
-            }
-          })
+          )
         ),
         _react3.default.createElement(
           'div',
@@ -335,7 +335,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                   { className: 'actions' },
                   _react3.default.createElement(
                     'a',
-                    { href: res.delete.replace(':slug', agendaItem.slug), className: 'text-muted' },
+                    { href: res.delete.replace(':uid', agendaItem.uid), className: 'text-muted' },
                     getLabel('removeSource')
                   )
                 )
