@@ -54,3 +54,19 @@
     }
   }
 }
+
+.background-gray.testimonials {
+
+  .quote {
+
+    background: $oa-white;
+
+    &:after {
+
+      border-color: $oa-white transparent;
+
+    }
+
+  }
+
+}
