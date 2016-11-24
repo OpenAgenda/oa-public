@@ -114,7 +114,6 @@ export default class Dashboard extends Component {
 
   nextPage = () => {
     const { page, total, search, loading, nextLoading, agendas, limitPerPage } = this.props;
-    console.log( 'next page', loading );
     if ( !agendas || !agendas.length || loading || nextLoading || page * limitPerPage >= total ) return;
     this.props.nextPage( { search }, (page || 1) + 1 );
   };

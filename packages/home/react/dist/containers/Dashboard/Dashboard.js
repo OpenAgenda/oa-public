@@ -212,7 +212,6 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           agendas = _this$props.agendas,
           limitPerPage = _this$props.limitPerPage;
 
-      console.log('next page', loading);
       if (!agendas || !agendas.length || loading || nextLoading || page * limitPerPage >= total) return;
       _this.props.nextPage({ search: search }, (page || 1) + 1);
     }, _temp), _possibleConstructorReturn(_this, _ret);
