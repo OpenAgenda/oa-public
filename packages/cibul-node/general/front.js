@@ -208,11 +208,19 @@ function newsletterSubscribe( req, res ) {
 
 function discover( req, res, next ) {
 
-  let page = landingPages( req.params.page ).render( { lang: req.lang } );
+  let page = landingPages( req.params.page );
+
+  if ( page.getLang() !== req.lang ) {
+
+    return res.redirect( page.getAlternateUrl( req.lang ) );
+
+  }
 
   cmn.renderTemplate( req, 'corpo/empty', {}, ( err, layout ) => {
 
-    let content = layout.replace( '{content}', page );
+    let content = layout.replace( '<!--content-->', page.render() );
+
+    content = content.replace( '<!--metas-->', page.getHeadPart() );
 
     res.send( content );
 
