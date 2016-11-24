@@ -20,7 +20,7 @@ module.exports = React.createClass({
         <a href="#">
           <span>
             {item.fullName}</span> - <span>{item.email}
-            {item.is_removed && <span style={{ color: 'brown' }}>Account removed</span>}
+            {item.is_removed ? <span style={{ color: 'brown' }}>Account removed</span> : null}
           </span>
         </a>
       </li>
