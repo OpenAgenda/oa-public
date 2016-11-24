@@ -14,7 +14,8 @@ module.exports = {
     occurrence: 'occurrence',
     stakeholder: 'stakeholder',
     stakeholderSettings: 'stakeholder_settings',
-    user: 'user'
+    user: 'user',
+    legacyCredentialSet: 'review_credential'
   },
   files: {
     tmpPath: '/var/tmp/',

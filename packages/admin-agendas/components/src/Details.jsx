@@ -45,7 +45,15 @@ module.exports = React.createClass( {
 
   },
 
+  setPrivate( checked ){
+
+    this.props.setAgenda( { private: checked } );
+
+  },
+
   renderAgendaHeader () {
+    const { setAgenda } = this.props;
+
     return (
       <header className="agenda-header">
         <div className="container-fluid profile notheme">
@@ -62,16 +70,25 @@ module.exports = React.createClass( {
                 <h1>{this.props.agenda.title}</h1>
                 <p>{this.props.agenda.description}</p>
               </a> { this.props.agenda.url ?
-              <p><a target="_blank" href={this.props.agenda.url}>{this.props.agenda.url}</a></p> : null }<p>
-              {this.props.agenda.uid ? <span>Agenda officiel <Switch
-                ref="switch"
-                className="rc-switch"
-                checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
-                unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
-                onChange={this.setOfficial}
-                checked={!!this.props.agenda.official}
-              /></span> : null}
-            </p>
+              <p><a target="_blank" href={this.props.agenda.url}>{this.props.agenda.url}</a></p> : null }
+                {this.props.agenda.uid ? <div>
+                  <div>Agenda officiel <Switch
+                    ref="switch"
+                    className="rc-switch"
+                    checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+                    unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+                    onChange={this.setOfficial}
+                    checked={!!this.props.agenda.official}
+                  /></div>
+                  <div>Agenda privé <Switch
+                    ref="switch"
+                    className="rc-switch"
+                    checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+                    unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+                    onChange={this.setPrivate}
+                    checked={!!this.props.agenda.private}
+                  /></div>
+                </div> : null}
             </div>
           </div>
         </div>

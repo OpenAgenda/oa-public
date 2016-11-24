@@ -36,7 +36,14 @@ module.exports = React.createClass({
 
     this.props.setAgenda({ official: checked });
   },
+  setPrivate: function setPrivate(checked) {
+
+    this.props.setAgenda({ private: checked });
+  },
   renderAgendaHeader: function renderAgendaHeader() {
+    var setAgenda = this.props.setAgenda;
+
+
     return React.createElement(
       "header",
       { className: "agenda-header" },
@@ -86,11 +93,11 @@ module.exports = React.createClass({
                 this.props.agenda.url
               )
             ) : null,
-            React.createElement(
-              "p",
+            this.props.agenda.uid ? React.createElement(
+              "div",
               null,
-              this.props.agenda.uid ? React.createElement(
-                "span",
+              React.createElement(
+                "div",
                 null,
                 "Agenda officiel ",
                 React.createElement(Switch, {
@@ -101,8 +108,21 @@ module.exports = React.createClass({
                   onChange: this.setOfficial,
                   checked: !!this.props.agenda.official
                 })
-              ) : null
-            )
+              ),
+              React.createElement(
+                "div",
+                null,
+                "Agenda priv\xE9 ",
+                React.createElement(Switch, {
+                  ref: "switch",
+                  className: "rc-switch",
+                  checkedChildren: React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" }),
+                  unCheckedChildren: React.createElement("i", { className: "fa fa-times", "aria-hidden": "true" }),
+                  onChange: this.setPrivate,
+                  checked: !!this.props.agenda.private
+                })
+              )
+            ) : null
           )
         )
       )
@@ -240,7 +260,7 @@ module.exports = React.createClass({
             "button",
             { className: "btn btn-default",
               onClick: this.props.getStakeholdersPage.bind(null, false) },
-            "Précédent"
+            "Pr\xE9c\xE9dent"
           )
         )
       );
