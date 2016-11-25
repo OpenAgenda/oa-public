@@ -4,7 +4,10 @@ const landing = require( 'landing' ),
 
   config = require( '../config' ),
 
-  landingPages = landing( config.root + '/discover' ),
+  landingPages = landing( {
+    en: config.root + '/discover',
+    fr: config.root + '/decouvrir'
+  } ),
 
   coms = require( '../lib/coms' ),
 
@@ -38,6 +41,11 @@ var modLib = require( '../lib/moduleLib' ),
     emailUnsubscribe: [ 'get', '/unsubscribe', unsubscribe ],
     emailUnsubscribeSubmit: [ 'post', '/unsubscribe', unsubscribeSubmit ],
     start: [ 'get', '/start', start ],
+    decouvrir: [ 'get', '/decouvrir/:page', [
+      cmn.loadBaseData( 'oasfmain.css' ),
+      _corpoBrowserCache,
+      discover 
+    ] ],
     discover: [ 'get', '/discover/:page', [ 
       cmn.loadBaseData( 'oasfmain.css' ),
       _corpoBrowserCache,
@@ -210,7 +218,7 @@ function discover( req, res, next ) {
 
   let page = landingPages( req.params.page );
 
-  if ( page.getLang() !== req.lang ) {
+  if ( req.query.lang && page.getLang() !== req.query.lang) {
 
     return res.redirect( page.getAlternateUrl( req.lang ) );
 
