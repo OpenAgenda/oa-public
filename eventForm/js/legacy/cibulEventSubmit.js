@@ -90,7 +90,7 @@ module.exports = function( params ) {
 
   },
 
-  _addButton = function(name) {
+  _addButton = function( name ) {
 
     var button = document.createElement('button');
 
@@ -98,34 +98,38 @@ module.exports = function( params ) {
 
     if (params.classes[name]) button.className = params.classes[name];
 
-    du.addEvent(button, 'click', function(e) {
-
-      du.preventDefault( e );
-
-      params.beforeSubmit( function() {
-        
-        _process[name](function( encodedEvent ) {
-
-          var url = decodeURIComponent(params[name]).replace('{uid}', uid);
-
-          if ( encodedEvent ) {
-
-            _post( url, encodedEvent );
-
-          } else {
-
-            window.location.href = url;
-
-          }
-          
-        });
-
-      } );
-
-
-    });
+    du.addEvent(button, 'click', _evaluateSubmit.bind( null, name ) );
 
     du.el(elem, params.selectors.actions).appendChild(button);
+
+    // remove this!
+    // _evaluateSubmit( name );
+
+  },
+
+  _evaluateSubmit = function( name, e ) {
+
+    if ( e ) du.preventDefault( e );
+
+    params.beforeSubmit( function() {
+      
+      _process[ name ]( function( encodedEvent ) {
+
+        var url = decodeURIComponent(params[name]).replace('{uid}', uid);
+
+        if ( encodedEvent ) {
+
+          _post( url, encodedEvent );
+
+        } else {
+
+          window.location.href = url;
+
+        }
+        
+      });
+
+    } );
 
   },
 

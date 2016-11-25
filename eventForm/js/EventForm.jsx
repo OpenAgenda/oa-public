@@ -4,6 +4,8 @@ const React = require( 'react' ),
 
   LanguageBar = require( 'react-form-components/build/LanguageBar' ),
 
+  Translation = require( 'react-form-components/build/Translation' ),
+
   TextField = require( './TextField.jsx' ),
 
   MultilingualTextField = require( './MultilingualTextField.jsx' ),
@@ -80,7 +82,7 @@ function EventFormFactory() {
             settings: false
           } ]
         },
-        translation: false
+        initTranslation: false
       }
 
     },
@@ -109,7 +111,11 @@ function EventFormFactory() {
 
       state.locationMode = state.location ? 'show' : 'search';
 
-      translator.init( this, this.props.translation );
+      state.translation = utils.extend( this.props.initTranslation, {
+        checked: this.props.initTranslation.languages
+      } );
+
+      translator.init( this, this.props.initTranslation.options, textFields );
 
       return state;
     },
@@ -639,6 +645,15 @@ function EventFormFactory() {
             timings={this.state.timings}
             configuration={this.props.configuration.field( 'timings' ) }
             onChange={this.onTimingsChange} />
+
+
+          <Translation
+            source={this.state.translation.source}
+            languages={this.state.translation.target}
+            checked={this.state.translation.checked}
+            check={translator.change.bind( null, true )}
+            uncheck={translator.change.bind( null, false )}
+          />
 
           <div className="js_form_canvas_below"></div>
 

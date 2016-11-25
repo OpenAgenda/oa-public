@@ -91,7 +91,7 @@ window.oaEventForm = function( options ) {
       tags={params.tags}
       tagSet={params.tagSet}
       labels= {params.labels}
-      translation= {params.translation} />, 
+      initTranslation= {params.translation} />, 
       rUtils.el( params.canvas )
     );
 

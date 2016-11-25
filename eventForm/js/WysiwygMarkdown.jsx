@@ -19,7 +19,8 @@ module.exports = React.createClass( {
   getInitialState: function() {
 
     return {
-      isTyping: false
+      isTyping: false,
+      editors: {}
     }
 
   },
@@ -128,64 +129,104 @@ module.exports = React.createClass( {
 
   },
 
+  initializeEditor: function( l, i ) {
+
+    setTimeout( () => {
+
+      tinymce.init({
+        selector: '.mce-box-' + i,
+        language: this.props.lang=='fr' ? 'fr_FR' : 'en_EN',
+        menubar: false,
+        plugins: 'autolink link lists print preview autoresize paste placeholder',
+        toolbar: 'formatselect bold italic bullist link',
+        statusbar: false,
+        browser_spellcheck:true,
+        block_formats: 'Paragraph=p;Header 2=h2;Header 3=h3;',
+        autoresize_min_height: 100,
+        // https://www.tinymce.com/docs/plugins/link/#link_title
+        link_title: false,
+        target_list: false,
+        default_link_target: '_blank',
+        link_assume_external_targets: false,
+        // pasted iframe are not converted in editor
+        invalid_elements: 'iframe',
+
+        setup: editor => {
+
+          makeUrlConverter( editor );
+
+          editor.on( 'change', this.onChange( l ) );
+
+          let editors = this.state.editors;
+
+          editors[ l ] = editor;
+
+          this.setState( { editors } );
+
+        },
+
+        paste_postprocess : ( pl, o ) => {
+
+          // paste from word-type processors insert a mess of tags
+          // in the html; these must be cleaned
+          o.node = this.cleanNode( o.node );
+
+        }
+      });
+
+    } );
+
+  },
+
+  updateEditorContent: function( l, value ) {
+
+    setTimeout( () => {
+
+      let html = marked( value );
+
+      let difference = _getDifference( this.state.editors[ l ].getContent(), html );
+
+      if ( difference.length < 5 ) return;
+
+      this.state.editors[ l ].setContent( html );
+
+    }, 10 );
+
+
+    //console.log( marked( value ) );
+
+    //this.state.editors[ l ].setContent( marked( value ) );
+
+  },
+
   render: function() {
 
-    var self = this,
+    let count = this.props.languages.length,
 
-    count = this.props.languages.length,
+    renderField = ( l, i ) => {
 
-    renderField = function( l, i ) {
+      var value = this.props.markdown ? ( this.props.markdown[ l ] ? this.props.markdown[ l ] : '' ) : '';
 
-      var value = self.props.markdown ? ( self.props.markdown[ l ] ? self.props.markdown[ l ] : '' ) : '';
+      if ( !this.state.editors[ l ] ) {
 
-      setTimeout( function() {
+        this.initializeEditor( l, i );
 
-        tinymce.init({
-          selector: '.mce-box-' + i,
-          language: self.props.lang=='fr' ? 'fr_FR' : 'en_EN',
-          menubar: false,
-          plugins: 'autolink link lists print preview autoresize paste placeholder',
-          toolbar: 'formatselect bold italic bullist link',
-          statusbar: false,
-          browser_spellcheck:true,
-          block_formats: 'Paragraph=p;Header 2=h2;Header 3=h3;',
-          autoresize_min_height: 100,
-          // https://www.tinymce.com/docs/plugins/link/#link_title
-          link_title: false,
-          target_list: false,
-          default_link_target: '_blank',
-          link_assume_external_targets: false,
-          // pasted iframe are not converted in editor
-          invalid_elements: 'iframe',
+      } else {
 
-          setup: function( editor ) {
+        this.updateEditorContent( l, value );
 
-            makeUrlConverter( editor );
-
-            editor.on( 'change', self.onChange( l ) );
-
-          },
-          paste_postprocess : function(pl, o) {
-
-            // paste from word-type processors insert a mess of tags
-            // in the html; these must be cleaned
-            o.node = self.cleanNode( o.node );
-
-          }
-        });
-
-      });
+      }
 
       if ( count > 1 ) {
 
         return <li className="lang-unit">
           <label className="off32">{l}</label>
-          <textarea className={'mce-box-' + i} value={ marked( value ) } placeholder={ self.props.placeholder[ self.props.lang ] }></textarea>
+          <textarea className={'mce-box-' + i} value={ marked( value ) } placeholder={ this.props.placeholder[ this.props.lang ] }></textarea>
         </li>
 
       } else {
 
-        return <textarea className={'mce-box-' + i} value={ marked( value ) } placeholder={ self.props.placeholder[ self.props.lang ] }></textarea>
+        return <textarea className={'mce-box-' + i} value={ marked( value ) } placeholder={ this.props.placeholder[ this.props.lang ] }></textarea>
 
       }
 
@@ -236,4 +277,23 @@ function makeUrlConverter( editor ) {
 
   }
 
+}
+
+
+function _getDifference( a = '', b = '' ) {
+
+  var i = 0;
+  var j = 0;
+  var result = "";
+
+  while (j < b.length)
+  {
+      if (a[i] != b[j] || i == a.length)
+          result += b[j];
+      else
+          i++;
+      j++;
+  }
+  
+  return result;
 }
