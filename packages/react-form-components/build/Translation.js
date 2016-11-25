@@ -38,6 +38,7 @@ var TranslationComponent = _react2.default.createClass({
       source: 'fr',
       languages: ['de', 'en', 'es', 'it'],
       labels: {
+        translationTitle: 'Translation',
         sourceLanguage: 'Source Language',
         targetLanguages: 'Automatic translation',
         translationHelp: 'Find out more'

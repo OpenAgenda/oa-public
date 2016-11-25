@@ -200,11 +200,11 @@ function flattenChildren(node) {
 function cleanNode(node) {
 
   var clean = document.createElement(node.nodeName),
-      cleanChild = undefined,
-      i = undefined,
-      type = undefined,
-      child = undefined,
-      cleanType = undefined;
+      cleanChild = void 0,
+      i = void 0,
+      type = void 0,
+      child = void 0,
+      cleanType = void 0;
 
   for (i = 0; i < node.childNodes.length; i++) {
 
