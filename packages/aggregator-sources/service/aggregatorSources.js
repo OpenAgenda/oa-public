@@ -1,5 +1,6 @@
 const w = require( 'when' );
-const { parseListArguments } = require( 'service-utils' );
+const { parseListArguments, identifiers: { clean: cleanIdentifiers } } = require( 'service-utils' );
+const agendasSvc = require( 'agendas' );
 
 let config;
 let knex;
@@ -7,9 +8,10 @@ let knex;
 module.exports = Object.assign( service, { init } );
 
 
-function service( reviewId ) {
+function service( aggregatorId ) {
   return {
-    list: list.bind( null, reviewId )
+    list: list.bind( null, aggregatorId ),
+    remove: remove.bind( null, aggregatorId )
   };
 }
 
@@ -19,11 +21,11 @@ function init( c, k ) {
 }
 
 
-function list( reviewId, query, offset, limit, options, cb ) {
+function list( aggregatorId, query, offset, limit, options, cb ) {
 
   const args = parseListArguments.apply( null, Array.from( arguments ).slice( 1 ) );
 
-  args.reviewId = reviewId;
+  args.aggregatorId = aggregatorId;
   args.params = Object.assign( {}, {
     total: false
   }, args.options );
@@ -32,7 +34,7 @@ function list( reviewId, query, offset, limit, options, cb ) {
   const baseRequest = knex( schemas.aggregatorSource + ' as s' )
     .leftJoin( schemas.agenda + ' as r', 's.review_id', 'r.id' )
     .leftJoin( schemas.aggregator + ' as agg', 'agg.id', 's.aggregator_id' )
-    .where( 'agg.review_id', args.reviewId );
+    .where( 'agg.review_id', args.aggregatorId );
 
   const promise = w( Object.assign( {}, args, {
     options: undefined,
@@ -48,6 +50,24 @@ function list( reviewId, query, offset, limit, options, cb ) {
     promise.done( v => args.cb( null, v.reviews, v.total ), args.cb );
   } else {
     return promise.then( v => ({ reviews: v.reviews, total: v.total }) );
+  }
+
+}
+
+function remove( aggregatorId, identifiers, cb ) {
+
+  const promise = w( {
+    aggregatorId,
+    identifiers
+  } )
+    .then( cleanIdentifiers() )
+    .then( _populate )
+    .then( _remove );
+
+  if ( typeof arguments[ arguments.length - 1 ] === 'function' ) {
+    promise.done( v => cb( null, true ), cb );
+  } else {
+    return promise.then( v => ({ success: true }) );
   }
 
 }
@@ -101,5 +121,63 @@ function _list( v ) {
       return v;
 
     } );
+
+}
+
+
+function _populate( v ) {
+
+  let source;
+
+  return w.promise( ( resolve, reject ) => {
+
+    agendasSvc.get( v.identifiers, { internal: true }, ( err, result ) => {
+
+      if ( err ) return reject( err );
+
+      source = result;
+
+      resolve( v );
+
+    } );
+
+  } )
+
+    .then( v => {
+
+      if ( !source ) throw new Error( 'Agenda not found' );
+
+      const { schemas } = config;
+
+      return knex( schemas.aggregatorSource + ' as s' )
+        .leftJoin( schemas.agenda + ' as r', 's.review_id', 'r.id' )
+        .leftJoin( schemas.aggregator + ' as agg', 'agg.id', 's.aggregator_id' )
+        .where( 'agg.review_id', v.aggregatorId )
+        .where( 's.review_id', source.id )
+        .select( 's.*' )
+        .limit( 1 )
+
+        .then( reviews => {
+
+          if ( !reviews.length ) throw new Error( 'This agenda is not a source' );
+
+          v.source = reviews[ 0 ];
+
+          return v;
+
+        } );
+
+    } );
+
+}
+
+function _remove( v ) {
+
+  const { schemas } = config;
+
+  return knex( schemas.aggregatorSource )
+    .del()
+    .where( 'review_id', v.source.review_id )
+    .then( () => v );
 
 }

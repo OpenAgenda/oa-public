@@ -11,6 +11,7 @@ exports.isLoaded = isLoaded;
 exports.load = load;
 exports.list = list;
 exports.nextPage = nextPage;
+exports.remove = remove;
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
@@ -23,6 +24,9 @@ var LIST_FAIL = 'aggregator-sources/sources/LIST_FAIL';
 var NEXT_PAGE = 'aggregator-sources/sources/NEXT_PAGE';
 var NEXT_PAGE_SUCCESS = 'aggregator-sources/sources/NEXT_PAGE_SUCCESS';
 var NEXT_PAGE_FAIL = 'aggregator-sources/sources/NEXT_PAGE_FAIL';
+var REMOVE = 'aggregator-sources/sources/REMOVE';
+var REMOVE_SUCCESS = 'aggregator-sources/sources/REMOVE_SUCCESS';
+var REMOVE_FAIL = 'aggregator-sources/sources/REMOVE_FAIL';
 
 var initialState = {
   loaded: false
@@ -91,6 +95,24 @@ function reducer() {
         error: action.error,
         nextLoading: false
       });
+    case REMOVE:
+      return _extends({}, state, {
+        removeLoading: true
+      });
+    case REMOVE_SUCCESS:
+      return _extends({}, state, {
+        data: state.data.filter(function (v) {
+          return v.uid !== action.uid;
+        }),
+        total: state.total - 1,
+        removeError: null,
+        removeLoading: false
+      });
+    case REMOVE_FAIL:
+      return _extends({}, state, {
+        removeError: action.error,
+        removeLoading: false
+      });
     default:
       return state;
   }
@@ -133,6 +155,22 @@ function nextPage(query, page) {
         query: _extends({}, query, {
           page: page
         })
+      });
+    }
+  };
+}
+
+function remove(uid) {
+  return {
+    types: [REMOVE, REMOVE_SUCCESS, REMOVE_FAIL],
+    uid: uid,
+    promise: function promise(client, _ref4) {
+      var res = _ref4.res,
+          agenda = _ref4.agenda;
+      return client.get(res.remove.replace(':slug', agenda.slug), {
+        query: {
+          uid: uid
+        }
       });
     }
   };

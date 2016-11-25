@@ -16,9 +16,9 @@ var _reactTransformCatchErrors3 = require('react-transform-catch-errors');
 
 var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _dec, _dec2, _dec3, _class, _class2, _temp2;
 
@@ -36,17 +36,25 @@ var _lodash3 = require('lodash.throttle');
 
 var _lodash4 = _interopRequireDefault(_lodash3);
 
-var _sources = require('../../redux/modules/sources');
-
-var sourcesActions = _interopRequireWildcard(_sources);
-
 var _monitorBottomHit = require('dom-utils/monitorBottomHit');
 
 var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
 
+var _Modal = require('react-components/build/Modal');
+
+var _Modal2 = _interopRequireDefault(_Modal);
+
 var _Spinner = require('react-form-components/build/Spinner');
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
+
+var _sources = require('../../redux/modules/sources');
+
+var sourcesActions = _interopRequireWildcard(_sources);
+
+var _modals = require('../../redux/modules/modals');
+
+var modalsActions = _interopRequireWildcard(_modals);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -113,9 +121,10 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
     nextLoading: state.sources.nextLoading,
     search: selector(state, 'search'),
     agenda: state.agenda,
-    perPageLimit: state.settings.perPageLimit
+    perPageLimit: state.settings.perPageLimit,
+    modals: state.modals
   };
-}, sourcesActions), _dec3 = (0, _reduxForm.reduxForm)({
+}, _extends({}, sourcesActions, modalsActions)), _dec3 = (0, _reduxForm.reduxForm)({
   form: 'aggregatorSourcesDashboard'
 }), _dec(_class = _dec2(_class = _dec3(_class = (_temp2 = _class2 = function (_Component) {
   _inherits(Dashboard, _Component);
@@ -237,12 +246,18 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           total = _props.total,
           loading = _props.loading,
           nextLoading = _props.nextLoading,
+          showModal = _props.showModal,
+          closeModal = _props.closeModal,
+          modals = _props.modals,
+          remove = _props.remove,
           search = _props.search,
           agenda = _props.agenda,
           perPageLimit = _props.perPageLimit,
           query = _props.location.query;
       var getLabel = this.context.getLabel;
 
+
+      var removeModal = modals.removeSource || {};
 
       return _react3.default.createElement(
         'div',
@@ -335,7 +350,13 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                   { className: 'actions' },
                   _react3.default.createElement(
                     'a',
-                    { href: res.delete.replace(':uid', agendaItem.uid), className: 'text-muted' },
+                    {
+                      role: 'button',
+                      onClick: function onClick() {
+                        return showModal('removeSource', { uid: agendaItem.uid });
+                      },
+                      className: 'text-muted'
+                    },
                     getLabel('removeSource')
                   )
                 )
@@ -352,6 +373,37 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             { className: 'padding-v-md', style: { position: 'relative' } },
             _react3.default.createElement(_Spinner2.default, null)
           )
+        ),
+        _react3.default.createElement(
+          _Modal2.default,
+          {
+            title: getLabel('removeSource'),
+            visible: removeModal.visible || false,
+            onClose: function onClose() {
+              return closeModal('removeSource');
+            }
+          },
+          _react3.default.createElement(
+            'p',
+            { className: 'margin-top-sm' },
+            getLabel('removeConfirmMessage')
+          ),
+          _react3.default.createElement(
+            'div',
+            { className: 'text-center' },
+            _react3.default.createElement(
+              'button',
+              {
+                className: 'btn btn-danger',
+                onClick: function onClick() {
+                  return remove(removeModal.uid).then(function () {
+                    return closeModal('removeSource');
+                  });
+                }
+              },
+              getLabel('removeSource')
+            )
+          )
         )
       );
     }
@@ -360,6 +412,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
   return Dashboard;
 }(_react2.Component), _class2.propTypes = {
   list: _react2.PropTypes.func,
+  remove: _react2.PropTypes.func,
   nextPage: _react2.PropTypes.func,
   res: _react2.PropTypes.object,
   agendas: _react2.PropTypes.array,
@@ -369,7 +422,8 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
   nextLoading: _react2.PropTypes.bool,
   search: _react2.PropTypes.string,
   slug: _react2.PropTypes.string,
-  perPageLimit: _react2.PropTypes.number
+  perPageLimit: _react2.PropTypes.number,
+  modals: _react2.PropTypes.object
 }, _class2.contextTypes = {
   router: _react2.PropTypes.object,
   getLabel: _react2.PropTypes.func

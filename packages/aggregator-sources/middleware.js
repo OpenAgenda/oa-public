@@ -12,7 +12,8 @@ let service, config, log;
 module.exports = {
   init,
   matchApp: matchAppMw( createStore( reducer ), getRoutes, ApiClient ),
-  list: aggregatorSourcesList
+  list,
+  remove
 };
 
 function init( s, c ) {
@@ -30,7 +31,7 @@ function init( s, c ) {
 
 }
 
-function aggregatorSourcesList( req, res ) {
+function list( req, res ) {
 
   const offset = (req.query.page - 1) * config.mw.limit;
   const limit = config.mw.limit;
@@ -40,6 +41,19 @@ function aggregatorSourcesList( req, res ) {
       res.send( result );
     } )
     .catch( err => {
+      res.status( 400 ).send( err );
+    } );
+
+}
+
+function remove( req, res ) {
+
+  service( req.agenda.id ).remove( req.query )
+    .then( result => {
+      res.send( result );
+    } )
+    .catch( err => {
+      console.log( err );
       res.status( 400 ).send( err );
     } );
 

@@ -7,6 +7,9 @@ const LIST_FAIL = 'aggregator-sources/sources/LIST_FAIL';
 const NEXT_PAGE = 'aggregator-sources/sources/NEXT_PAGE';
 const NEXT_PAGE_SUCCESS = 'aggregator-sources/sources/NEXT_PAGE_SUCCESS';
 const NEXT_PAGE_FAIL = 'aggregator-sources/sources/NEXT_PAGE_FAIL';
+const REMOVE = 'aggregator-sources/sources/REMOVE';
+const REMOVE_SUCCESS = 'aggregator-sources/sources/REMOVE_SUCCESS';
+const REMOVE_FAIL = 'aggregator-sources/sources/REMOVE_FAIL';
 
 const initialState = {
   loaded: false
@@ -81,6 +84,25 @@ export default function reducer( state = initialState, action ) {
         error: action.error,
         nextLoading: false
       };
+    case REMOVE:
+      return {
+        ...state,
+        removeLoading: true
+      };
+    case REMOVE_SUCCESS:
+      return {
+        ...state,
+        data: state.data.filter(v => v.uid !== action.uid),
+        total: state.total - 1,
+        removeError: null,
+        removeLoading: false
+      };
+    case REMOVE_FAIL:
+      return {
+        ...state,
+        removeError: action.error,
+        removeLoading: false
+      };
     default:
       return state;
   }
@@ -112,6 +134,18 @@ export function nextPage( query, page ) {
       query: {
         ...query,
         page
+      }
+    } )
+  }
+}
+
+export function remove( uid ) {
+  return {
+    types: [ REMOVE, REMOVE_SUCCESS, REMOVE_FAIL ],
+    uid,
+    promise: ( client, { res, agenda } ) => client.get( res.remove.replace( ':slug', agenda.slug ), {
+      query: {
+        uid
       }
     } )
   }

@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
 import debounce from 'lodash.debounce';
 import throttle from 'lodash.throttle';
-import * as sourcesActions from '../../redux/modules/sources';
 import monitorBottomHit from 'dom-utils/monitorBottomHit';
+import Modal from 'react-components/build/Modal';
 import Spinner from 'react-form-components/build/Spinner';
+import * as sourcesActions from '../../redux/modules/sources';
+import * as modalsActions from '../../redux/modules/modals';
 
 const selector = formValueSelector( 'aggregatorSourcesDashboard' );
 
@@ -40,9 +42,10 @@ const searchSpinner = {
     nextLoading: state.sources.nextLoading,
     search: selector( state, 'search' ),
     agenda: state.agenda,
-    perPageLimit: state.settings.perPageLimit
+    perPageLimit: state.settings.perPageLimit,
+    modals: state.modals
   }),
-  sourcesActions
+  { ...sourcesActions, ...modalsActions }
 )
 @reduxForm( {
   form: 'aggregatorSourcesDashboard'
@@ -51,6 +54,7 @@ export default class Dashboard extends Component {
 
   static propTypes = {
     list: PropTypes.func,
+    remove: PropTypes.func,
     nextPage: PropTypes.func,
     res: PropTypes.object,
     agendas: PropTypes.array,
@@ -60,7 +64,8 @@ export default class Dashboard extends Component {
     nextLoading: PropTypes.bool,
     search: PropTypes.string,
     slug: PropTypes.string,
-    perPageLimit: PropTypes.number
+    perPageLimit: PropTypes.number,
+    modals: PropTypes.object
   };
 
   static contextTypes = {
@@ -132,9 +137,12 @@ export default class Dashboard extends Component {
   render() {
     const {
       res, handleSubmit, agendas, total, loading, nextLoading,
+      showModal, closeModal, modals, remove,
       search, agenda, perPageLimit, location: { query }
     } = this.props;
     const { getLabel } = this.context;
+
+    const removeModal = modals.removeSource || {};
 
     return (
       <div>
@@ -186,7 +194,11 @@ export default class Dashboard extends Component {
                   </div>}
                 </div>
                 <div className="actions">
-                  <a href={res.delete.replace( ':uid', agendaItem.uid )} className="text-muted">
+                  <a
+                    role="button"
+                    onClick={() => showModal( 'removeSource', { uid: agendaItem.uid } )}
+                    className="text-muted"
+                  >
                     {getLabel( 'removeSource' )}
                   </a>
                 </div>
@@ -202,6 +214,23 @@ export default class Dashboard extends Component {
             <Spinner />
           </div>}
         </div>
+
+        <Modal
+          title={getLabel( 'removeSource' )}
+          visible={removeModal.visible || false}
+          onClose={() => closeModal( 'removeSource' )}
+        >
+          <p className="margin-top-sm">{getLabel('removeConfirmMessage')}</p>
+          <div className="text-center">
+            <button
+              className="btn btn-danger"
+              onClick={() => remove( removeModal.uid )
+                .then( () => closeModal( 'removeSource' ) )}
+            >
+              {getLabel( 'removeSource' )}
+            </button>
+          </div>
+        </Modal>
       </div>
     );
   }

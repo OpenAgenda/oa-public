@@ -3,7 +3,9 @@ const ReactDOM = require( 'react-dom/server' );
 const config = require( '../../testconfig.js' );
 const fixtures = require( 'fixtures' );
 const morgan = require( 'morgan' );
+const async = require( 'async' );
 
+const agendasSvc = require( 'agendas/service/test' );
 const aggregatorSourcesSvc = require( '../../service' );
 const mw = require( '../../middleware' );
 
@@ -21,6 +23,7 @@ const app = require( 'test-app' )( {
 const port = process.env.PORT || 3000;
 
 fixtures.init( config );
+agendasSvc.init( config );
 aggregatorSourcesSvc.init( config );
 
 app.use( morgan( 'combined' ) );
@@ -31,22 +34,26 @@ app.use( ( req, res, next ) => {
   next();
 } );
 
-/*fixtures( [ {
-  table: 'review',
-  src: __dirname + '/../fixtures/review.sql'
-}, {
-  table: 'aggregator',
-  src: __dirname + '/../fixtures/aggregator.sql'
-}, {
-  table: 'aggregator_source',
-  src: __dirname + '/../fixtures/aggregator_source.sql'
-} ], () => {*/
+async.waterfall( [
+  // agendasSvc.test.fixtures,
+  wcb => fixtures( [ {
+    table: 'review',
+    src: __dirname + '/../fixtures/review.sql'
+  }, {
+    table: 'aggregator',
+    src: __dirname + '/../fixtures/aggregator.sql'
+  }, {
+    table: 'aggregator_source',
+    src: __dirname + '/../fixtures/aggregator_source.sql'
+  } ], wcb )
+], () => {
 
   app.get( '/sources.json', mw.list );
+  app.get( '/remove', mw.remove );
 
   app.getAndListen( '*', port, matchApp );
 
-// } );
+} );
 
 
 function matchApp( req, res, next ) {
@@ -63,7 +70,7 @@ function matchApp( req, res, next ) {
     res: {
       list: '/sources.json',
       show: '#',
-      delete: '#',
+      remove: '/remove',
       search: '#'
     },
     agenda: {
