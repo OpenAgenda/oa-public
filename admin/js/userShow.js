@@ -79,7 +79,7 @@ module.exports = React.createClass( {
           </tr>
           <tr>
             <td>email</td>
-            <td>{user.email} {user.is_removed && <span style={{ color: 'brown' }}>Account removed</span>}</td>
+            <td>{user.email} {user.is_removed ? <span style={{ color: 'brown' }}>Account removed</span> : null}</td>
           </tr>
           <tr>
             <td>is activated?</td>

@@ -18,6 +18,7 @@
   "agendaSearch/index",
   "agendaSettings/new",
   "agendaSettings/edit",
+  "aggregatorSources/index",
   "event/show",
   "event/action",
   "event/embedShow",
