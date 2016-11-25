@@ -16,7 +16,7 @@ const params = {
     res: {
       list: '/sources.json',
       show: '#',
-      delete: '#',
+      remove: '#',
       search: '#'
     },
     agenda: {
