@@ -98,7 +98,7 @@ describe( 'agenda administrators', function() {
 
           i.email.should.equal( 'somedude@cibul.net' );
           i.type.should.equal( 2 );
-          i.aggregatorId.should.equal( agenda.id );
+          i.reviewId.should.equal( agenda.id );
 
           rs();
 

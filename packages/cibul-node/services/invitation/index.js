@@ -284,7 +284,7 @@ function _loadInvitationAgendas( invitations ) {
 
     async.each( invitations, function( invitation, ecb ) {
 
-      agendaSvc.get( { id: invitation.aggregatorId }, function( err, agenda ) {
+      agendaSvc.get( { id: invitation.reviewId }, function( err, agenda ) {
 
         if ( err ) return ecb( err );
 
@@ -362,11 +362,11 @@ function _loadInvitation( values ) {
 
 function _loadAgenda( values ) {
 
-  if ( !values.invitation || !values.invitation.aggregatorId ) return w( values );
+  if ( !values.invitation || !values.invitation.reviewId ) return w( values );
 
   return w.promise( function( resolve, reject ) {
 
-    agendaSvc.get( { id: values.invitation.aggregatorId }, function( err, agenda ) {
+    agendaSvc.get( { id: values.invitation.reviewId }, function( err, agenda ) {
 
       if ( err ) return reject( err );
 

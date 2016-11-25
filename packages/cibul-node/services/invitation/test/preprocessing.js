@@ -41,7 +41,7 @@ describe( 'invitation preprocessing', function() {
   // create an invitation from said agenda
   before( function( done ) {
 
-    cbm.lib.insert( 'invitations', { type: 1, userId: user.id, token: 888, aggregatorId: agenda.id }, function( err, i ) {
+    cbm.lib.insert( 'invitations', { type: 1, userId: user.id, token: 888, reviewId: agenda.id }, function( err, i ) {
 
       invitation = i;
 

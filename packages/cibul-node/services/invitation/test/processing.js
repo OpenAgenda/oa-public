@@ -80,12 +80,12 @@ describe( 'invitation processing', function() {
       invitations = [];
 
       async.eachSeries( [ 
-        { type: 1, userId: users[ 0 ].id, token: 123, aggregatorId: agendas[ 0 ].id },
-        { type: 1, email: users[ 0 ].email, token: 456, aggregatorId: agendas[ 1 ].id },
-        { type: 1, email: 'random@oa.com', token: 789, aggregatorId: agendas[ 2 ].id } ,
-        { type: 2, userId: users[ 3 ].id, token: 101112, aggregatorId: agendas[ 0 ].id },
-        { type: 2, email: users[ 3 ].email, token: 131415, aggregatorId: agendas[ 1 ].id },
-        { type: 2, email: 'otherrandom@oa.com', token: 161718, aggregatorId: agendas[ 2 ].id }
+        { type: 1, userId: users[ 0 ].id, token: 123, reviewId: agendas[ 0 ].id },
+        { type: 1, email: users[ 0 ].email, token: 456, reviewId: agendas[ 1 ].id },
+        { type: 1, email: 'random@oa.com', token: 789, reviewId: agendas[ 2 ].id } ,
+        { type: 2, userId: users[ 3 ].id, token: 101112, reviewId: agendas[ 0 ].id },
+        { type: 2, email: users[ 3 ].email, token: 131415, reviewId: agendas[ 1 ].id },
+        { type: 2, email: 'otherrandom@oa.com', token: 161718, reviewId: agendas[ 2 ].id }
       ], function( data, ecb ) {
 
         cbm.lib.insert( 'invitations', data, function( err, result ) {

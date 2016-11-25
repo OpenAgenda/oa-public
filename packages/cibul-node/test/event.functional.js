@@ -102,7 +102,7 @@ describe( 'unpublished in agenda', function() {
 
       testLib.model.lib.insert( 'eventEditors', { 
         eventId: event.id,
-        aggregatorId: agenda.id,
+        reviewId: agenda.id,
         type: 1
       }, done );
 

@@ -38,7 +38,7 @@ describe( 'event state changes', function() {
 
     event.setState( TYPES.VALIDATED, function( err ) {
 
-      cbm.lib.query( 'select state, is_published from review_article where event_id = ? and review_id = ? limit 0,1', [ event.id, event.aggregatorId ], function( err, rows ) {
+      cbm.lib.query( 'select state, is_published from review_article where event_id = ? and review_id = ? limit 0,1', [ event.id, event.reviewId ], function( err, rows ) {
 
         rows[ 0 ].state.should.equal( TYPES.VALIDATED );
 
@@ -56,7 +56,7 @@ describe( 'event state changes', function() {
 
     event.setState( TYPES.NOTVALIDATED, function( err ) {
 
-      cbm.lib.query( 'select state, is_published from review_article where event_id = ? and review_id = ? limit 0,1', [ event.id, event.aggregatorId ], function( err, rows ) {
+      cbm.lib.query( 'select state, is_published from review_article where event_id = ? and review_id = ? limit 0,1', [ event.id, event.reviewId ], function( err, rows ) {
 
         rows[ 0 ].state.should.equal( TYPES.NOTVALIDATED );
 
@@ -74,7 +74,7 @@ describe( 'event state changes', function() {
 
     event.setState( TYPES.PUBLISHED, function( err ) {
 
-      cbm.lib.query( 'select state, is_published from review_article where event_id = ? and review_id = ? limit 0,1', [ event.id, event.aggregatorId ], function( err, rows ) {
+      cbm.lib.query( 'select state, is_published from review_article where event_id = ? and review_id = ? limit 0,1', [ event.id, event.reviewId ], function( err, rows ) {
 
         rows[ 0 ].state.should.equal( TYPES.VALIDATED );
 

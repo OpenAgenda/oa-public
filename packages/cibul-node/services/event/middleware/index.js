@@ -448,7 +448,7 @@ function _get( paramName, fieldName, inAgendaContext ) {
 
       getParams[ fieldName ] = v.req.params[ paramName ];
 
-      if ( v.req.agenda && inAgendaContext ) getParams.aggregatorId = v.req.agenda.id;
+      if ( v.req.agenda && inAgendaContext ) getParams.reviewId = v.req.agenda.id;
 
       v.req.log( 'getting event with params %s', JSON.stringify( getParams ) );
 

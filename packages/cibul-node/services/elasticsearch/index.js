@@ -199,7 +199,7 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
 
   if ( agendaId ) {
 
-    esQuery.aggregatorId = agendaId;
+    esQuery.reviewId = agendaId;
 
     esQuery.options.order = [ 'featured', 'upcoming' ];
 

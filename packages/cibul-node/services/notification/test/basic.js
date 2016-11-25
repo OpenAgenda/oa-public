@@ -73,7 +73,7 @@ describe( 'notification - basic', function() {
           action: 'process',
           values: { 
             ownerId: user.id,
-            aggregatorId: agenda.id,
+            reviewId: agenda.id,
             userId: false, 
             type: cbm.notifications().TYPES.AGENDA.NEWCONTRIBUTOR
           } } );
@@ -98,7 +98,7 @@ describe( 'notification - basic', function() {
           type: 'notification',
           action: 'process',
           values: { 
-            aggregatorId: agenda.id,
+            reviewId: agenda.id,
             userId: false, 
             type: cbm.notifications().TYPES.AGENDA.EXPIREDSWAPCARD
           } } );
@@ -114,7 +114,7 @@ describe( 'notification - basic', function() {
   it( 'process - newContributor', function( done ) {
 
     notificationSvc.process( { values: {
-      aggregatorId: agenda.id,
+      reviewId: agenda.id,
       ownerId: user.id,
       userId: false,
       type: cbm.notifications().TYPES.AGENDA.NEWCONTRIBUTOR
@@ -130,7 +130,7 @@ describe( 'notification - basic', function() {
 
           admins.indexOf( row.userId ).should.not.equal( -1 );
 
-          row.aggregatorId.should.equal( agenda.id );
+          row.reviewId.should.equal( agenda.id );
           
         });
 
