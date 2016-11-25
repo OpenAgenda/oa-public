@@ -74,7 +74,7 @@ module.exports = config => {
 
     let item = pageParams.keys.filter( item => item.lang === lang )[ 0 ];
 
-    return params.basePath + '/' + item.key;
+    return _getBasePath( params.basePath , lang ) + '/' + item.key;
 
   }
 
@@ -108,7 +108,7 @@ module.exports = config => {
 
         if ( item.lang === lang ) return;
 
-        renderParts.push( '<link rel="alternate" hreflang="' + item.lang + '" href="' + params.basePath + '/' + item.key + '" />' );
+        renderParts.push( '<link rel="alternate" hreflang="' + item.lang + '" href="' + _getBasePath( params.basePath, lang ) + '/' + item.key + '" />' );
 
       } );
 
@@ -240,7 +240,7 @@ function _buildLinks( render, params, lang = false ) {
 
     let rgx = new RegExp( '#(' + srcKeys.join( '|' ) + ')', 'g' );
 
-    withLinks = withLinks.replace( rgx, params.basePath + '/' + destKey );
+    withLinks = withLinks.replace( rgx, _getBasePath( params.basePath, lang ) + '/' + destKey );
 
   } );
 
@@ -275,5 +275,14 @@ function _pageLang( params, key ) {
   if ( !match.length ) return false;
 
   return match[ 0 ].lang;
+
+}
+
+
+function _getBasePath( path, lang ) {
+
+  if ( typeof path === 'string' ) return path;
+
+  return path[ lang ];
 
 }
