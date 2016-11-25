@@ -3,6 +3,10 @@
     { "lang" : "en", "key" : "premium-agenda" },
     { "lang" : "fr", "key" : "agenda-premium" }
   ],
+  "head" : {
+    "title": "premiumOfferHeadTitle",
+    "description": "premiumOfferDescription"
+  },
   "title": "premiumOfferTitle",
   "description": "premiumOfferDescription",
   "layout": "layout",

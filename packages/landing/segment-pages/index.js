@@ -84,17 +84,19 @@ module.exports = config => {
 
     renderParts = [];
 
-    Object.keys( data ).forEach( key => {
+    if ( !data.head ) return '';
+
+    Object.keys( data.head ).forEach( key => {
 
       if ( key === 'title' ) {
 
-        renderParts.push( '<title>' + data[ key ] + '</title>' );
+        renderParts.push( '<title>' + data.head[ key ] + '</title>' );
 
       }
 
       if ( [ 'title', 'description', 'keywords' ].indexOf( key ) !== -1 ) {
 
-        renderParts.push( '<meta name="' + key + '" content="' + data[ key ] + '" />' );
+        renderParts.push( '<meta name="' + key + '" content="' + data.head[ key ] + '" />' );
 
       }
 

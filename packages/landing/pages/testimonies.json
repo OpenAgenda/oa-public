@@ -3,7 +3,11 @@
     { "lang" : "en", "key" : "testimonies" },
     { "lang" : "fr", "key" : "temoignages" }
   ],
-  "title": "testimoniesTitle",
+  "head" : {
+    "title" : "testimoniesHeadTitle",
+    "description" : "testimoniesHeadDescription"
+  },
+  "title" : "testimoniesTitle",
   "layout": "layout",
   "segments": [ {
     "key" : "testimony",

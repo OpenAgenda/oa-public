@@ -4,6 +4,10 @@
   }, {
     "lang" : "fr", "key" : "diffusez-vos-evenements"
   } ],
+  "head" : {
+    "title" : "broadcastHeadTitle",
+    "description" : "broadcastHeadDescription"
+  },
   "title": "exportsBroadcastTitle",
   "description": "exportsBroadcastDescription",
   "layout": "layout",

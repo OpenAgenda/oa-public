@@ -3,6 +3,10 @@
     { "lang" : "en", "key" : "a-tailored-offer" },
     { "lang" : "fr", "key" : "une-offre-sur-mesure" }
   ],
+  "head" : {
+    "title" : "tailoredHeadTitle",
+    "description" : "tailoredDescription"
+  },
   "title": "tailoredTitle",
   "description": "tailoredDescription",
   "layout": "layout",

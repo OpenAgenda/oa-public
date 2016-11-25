@@ -3,6 +3,10 @@
     { "lang" : "en", "key" : "your-reporting" },
     { "lang" : "fr", "key" : "votre-reporting" }
   ],
+  "head" : {
+    "title" : "reportingToolDescription",
+    "description" : "reportingToolDescription"
+  },
   "title": "reportingToolTitle",
   "description": "reportingToolDescription",
   "layout": "layout",

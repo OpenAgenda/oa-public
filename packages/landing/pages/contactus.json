@@ -3,6 +3,10 @@
     { "lang" : "en", "key" : "contact-us" },
     { "lang" : "fr", "key" : "contactez-nous" }
   ],
+  "head" : {
+    "title" : "contactHeadTitle",
+    "description" : "contactDescription"
+  },
   "title": "contactTitle",
   "description": "contactDescription",
   "layout": "layout",

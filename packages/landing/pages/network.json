@@ -4,6 +4,10 @@
   }, {
     "lang" : "fr", "key" : "reseau-d-agendas"
   } ],
+  "head" : {
+    "title": "networkOfferHeadTitle",
+    "description": "networkOfferDescription"
+  },
   "title": "networkOfferTitle",
   "description": "networkOfferDescription",
   "layout": "layout",

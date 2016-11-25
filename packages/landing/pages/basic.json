@@ -6,6 +6,10 @@
     "lang" : "fr",
     "key" : "agenda-basique"
   } ],
+  "head" : {
+    "title" : "basicOfferHeadTitle",
+    "description" : "basicOfferHeadDescription"
+  },
   "title" : "basicOfferTitle",
   "description": "basicOfferDescription",
   "layout": "layout",
