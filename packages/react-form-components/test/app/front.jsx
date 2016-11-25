@@ -20,6 +20,8 @@ GroupTagSelector = require( '../../components/GroupTagSelector.jsx' ),
 
 MarkdownComponent = require( '../../components/MarkdownComponent.jsx' ),
 
+Translation = require( '../../components/Translation' ),
+
 // needs to be babelified first
 SearchField = require( '../../build/SearchField' ),
 
@@ -39,6 +41,9 @@ Wrapper = React.createClass( {
 
     return {
       markdown: '',
+      translation: {
+        checked: [ 'en', 'es' ]
+      },
       values: {
         name: 'Poney Vert',
         phone: +3365034302,
@@ -111,15 +116,45 @@ Wrapper = React.createClass( {
 
   onMarkdownChange: function( value ) {
 
-    console.log( value );
-
     this.setState( { markdown: value } );
+
+  },
+
+  translationCheck: function( check, langCode ) {
+
+    let updated = {};
+
+    if ( check ) {
+
+      updated.checked = { $push: [ langCode ] };
+
+    } else {
+
+      updated.checked = { $splice: [[ this.state.translation.checked.indexOf( langCode ), 1 ]] };
+
+    }
+
+    this.setState( {
+      translation: update( this.state.translation, updated )
+    } );
 
   },
 
   render: function() {
 
     return <div>
+
+      <Translation
+        labels={{
+          translationTitle: 'Traduction',
+          sourceLanguage: 'Langue source',
+          targetLanguages: 'Traduction automatique',
+          translationHelp: 'En savoir plus'
+        }}
+        checked= { this.state.translation.checked }
+        check= { this.translationCheck.bind( null, true ) }
+        uncheck= { this.translationCheck.bind( null, false ) }
+      />
 
       <h2>Wysiwyg component</h2>
 

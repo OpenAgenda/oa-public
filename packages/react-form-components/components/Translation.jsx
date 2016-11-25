@@ -1,0 +1,69 @@
+"use strict";
+
+import React, { PropTypes } from 'react';
+
+import languages from 'languages';
+
+const Translation = props => ( <TranslationComponent {...props} /> );
+
+export default Translation;
+
+Translation.propTypes = {
+  source: PropTypes.string,
+  languages: PropTypes.array,
+  labels: PropTypes.object,
+  checked: PropTypes.array,
+  check: PropTypes.func,
+  uncheck: PropTypes.func
+}
+
+const TranslationComponent = React.createClass( {
+
+  getDefaultProps() {
+
+    return {
+      source: 'fr',
+      languages: [ 'de', 'en', 'es', 'it' ],
+      labels: {
+        sourceLanguage: 'Source Language',
+        targetLanguages: 'Automatic translation',
+        translationHelp: 'Find out more'
+      }
+    }
+
+  },
+
+  render() {
+
+    const labels = this.props.labels;
+
+    return <div className="form-group">
+      <a className="pull-right" target="_blank">{labels.translationHelp}</a>
+      <h2>{labels.translationTitle}</h2>
+      <div className="form-inline row">
+        <div className="col-sm-6">
+          <label>{labels.sourceLanguage}</label>
+          <div>
+            <span className="disabled">{languages.getLanguageInfo( this.props.source ).nativeName}</span>
+          </div>
+        </div>
+        <div className="col-sm-6">
+          <label>{labels.targetLanguages}</label>
+          <ul className="list-unstyled">
+            { this.props.languages.map( l => <li key={l} className="checkbox margin-right-sm">
+              <label>
+                <input 
+                  type="checkbox"
+                  onChange={ e => this.props.checked.indexOf( l ) !== -1 ? this.props.uncheck( l ) : this.props.check( l ) }
+                  checked={this.props.checked.indexOf( l )!==-1} />
+                  {l.toUpperCase()}
+              </label>
+            </li> ) }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  }
+
+} );

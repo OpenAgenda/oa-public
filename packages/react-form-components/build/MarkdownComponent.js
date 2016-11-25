@@ -43,7 +43,7 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
   function MarkdownComponent(props) {
     _classCallCheck(this, MarkdownComponent);
 
-    var _this = _possibleConstructorReturn(this, (MarkdownComponent.__proto__ || Object.getPrototypeOf(MarkdownComponent)).call(this, props));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MarkdownComponent).call(this, props));
 
     _utils2.default.extend(_this, {
       loadTinyMce: _this.loadTinyMce.bind(_this),
@@ -200,11 +200,11 @@ function flattenChildren(node) {
 function cleanNode(node) {
 
   var clean = document.createElement(node.nodeName),
-      cleanChild = void 0,
-      i = void 0,
-      type = void 0,
-      child = void 0,
-      cleanType = void 0;
+      cleanChild = undefined,
+      i = undefined,
+      type = undefined,
+      child = undefined,
+      cleanType = undefined;
 
   for (i = 0; i < node.childNodes.length; i++) {
 

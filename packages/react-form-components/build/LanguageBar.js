@@ -191,7 +191,7 @@ var LanguageItem = React.createClass({
     return React.createElement(
       'span',
       { onClick: this.onRemove, className: 'remove' },
-      '\u2715'
+      '✕'
     );
   },
 
