@@ -57,6 +57,8 @@ var deepExtend = require( 'deep-extend' ),
       },
       schemas: {
         agenda: 'review',
+        aggregator: 'aggregator',
+        aggregatorSource: 'aggregator_source',
         event: 'event',
         agendaEvent: 'review_article',
         occurrence: 'occurrence',
@@ -284,10 +286,6 @@ var deepExtend = require( 'deep-extend' ),
           'agendaAdminCategories': {
             method: 'get',
             uri: '/:slug/admin/categories'
-          },
-          'agendaAdminSources': {
-            method: 'get',
-            uri: '/:slug/admin/sources'
           },
           'agendaAdminWeb': {
             method: 'get',

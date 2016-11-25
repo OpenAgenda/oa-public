@@ -44,7 +44,7 @@ module.exports = function( options, cb ) {
 
   if ( params.agendaId ) {
 
-    params.reviewId = params.agendaId;
+    params.aggregatorId = params.agendaId;
 
     delete params.agendaId;
 
@@ -66,9 +66,9 @@ module.exports = function( options, cb ) {
 
   async.series( operations, function( err ) {
 
-    if ( params.reviewId ) {
+    if ( params.aggregatorId ) {
 
-      log( 'info', 'resync of agenda %s is complete', params.reviewId );
+      log( 'info', 'resync of agenda %s is complete', params.aggregatorId );
 
     } else {
 
@@ -154,11 +154,11 @@ function _update( type, query ) {
 
 function _defineGetQuery( type, params, obj ) {
 
-  var q = { id: obj[ type=='reviews' ? 'reviewId' : 'eventId' ] };
+  var q = { id: obj[ type=='reviews' ? 'aggregatorId' : 'eventId' ] };
 
-  if ( type == 'events' && params.reviewId ) {
+  if ( type == 'events' && params.aggregatorId ) {
 
-    q.reviewId = params.reviewId;
+    q.aggregatorId = params.aggregatorId;
 
   }
 
@@ -196,11 +196,11 @@ function _removeZombies( type, params ) {
 
         if ( dbRef ) return _delay( params.interval, next )();
 
-        log( 'info', 'removing %s zombie id %s', type, obj[ type=='reviews' ? 'reviewId' : 'eventId' ] );
+        log( 'info', 'removing %s zombie id %s', type, obj[ type=='reviews' ? 'aggregatorId' : 'eventId' ] );
 
         count.removed++;
 
-        lib[ type ]().remove( obj[ type=='reviews' ? 'reviewId' : 'eventId' ], _delay( params.interval, next ) );
+        lib[ type ]().remove( obj[ type=='reviews' ? 'aggregatorId' : 'eventId' ], _delay( params.interval, next ) );
 
       } );
 

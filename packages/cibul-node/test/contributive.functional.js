@@ -88,7 +88,7 @@ describe( 'contributive agenda', function () {
 
       i.email.should.equal( user.email );
       i.type.should.equal( 1 );
-      i.reviewId.should.equal( agenda.id );
+      i.aggregatorId.should.equal( agenda.id );
 
     } )
 

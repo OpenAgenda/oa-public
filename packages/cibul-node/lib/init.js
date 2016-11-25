@@ -53,6 +53,8 @@ const servicePath = __dirname + '/../services',
 
   homeSvc = require( 'home' ),
 
+  aggregatorSourcesSvc = require( 'aggregator-sources' ),
+
   coms = require( './coms' );
 
 let log;
@@ -112,6 +114,8 @@ module.exports = function ( config, cb ) {
 
     .then( _initHome )
 
+    .then( _initAggregatorSources )
+
     .done( () => {
       cb()
     }, err => {
@@ -125,9 +129,44 @@ module.exports = function ( config, cb ) {
 }
 
 
+function _initAggregatorSources( config ) {
+
+  log( 'info', 'aggregator-sources' );
+
+  let d = w.defer();
+
+  aggregatorSourcesSvc.init( {
+    mysql: config.db,
+    schemas: config.schemas,
+    image: {
+      path: config.aws.imageBucketPath.replace( 'cibuldev', 'cibul' ),
+      default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+    },
+    mw : {
+      limit: 20
+    }
+  }, err => {
+
+    if ( err ) {
+
+      log( 'error', 'could not init aggregator-sources: %s', err );
+
+      return d.reject( err );
+
+    }
+
+    d.resolve( config );
+
+  } );
+
+  return d.promise;
+
+}
+
+
 function _initHome( config ) {
 
-  log( 'info', 'initing home' );
+  log( 'info', 'home' );
 
   let d = w.defer();
 
@@ -161,7 +200,7 @@ function _initHome( config ) {
 
 function _initFacebook( config ) {
 
-  log( 'info', 'initing facebook' );
+  log( 'info', 'facebook' );
 
   let d = w.defer();
 

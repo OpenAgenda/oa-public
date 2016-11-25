@@ -127,7 +127,7 @@ module.exports = function ( model, config ) {
 
       function( callback ) {
 
-        model.events().list( { reviewId: agenda.id, offset: offset }, function( err, events ) {
+        model.events().list( { aggregatorId: agenda.id, offset: offset }, function( err, events ) {
 
           if ( err ) return callback( err );
 
@@ -237,7 +237,7 @@ module.exports = function ( model, config ) {
 
       function( callback ) {
 
-        model.events().list( { reviewId: agenda.id, offset: offset }, function( err, events ) {
+        model.events().list( { aggregatorId: agenda.id, offset: offset }, function( err, events ) {
 
           if ( err ) return callback( err );
 

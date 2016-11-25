@@ -134,7 +134,7 @@ describe( 'aggregator notify', function() {
     async.eachSeries( aggregatorAgendas, function( agg, ecb ) {
 
       model.lib.insert( 'reviewArticles', {
-        reviewId: agg.id, 
+        aggregatorId: agg.id,
         eventId: event.id,
         userId: event.ownerId,
         store: JSON.stringify( { sources: [ sourceAgenda.id ] } )
@@ -178,10 +178,10 @@ describe( 'aggregator notify', function() {
 
       model.fixtures.load( 'reviews', 'fetedelabretagne', { ownerId: event.ownerId }, function( err, a ) {
 
-        model.lib.insert( 'aggregator', { reviewId: a.id }, function( err, agg ) {
+        model.lib.insert( 'aggregator', { aggregatorId: a.id }, function( err, agg ) {
 
           model.lib.insert( 'aggregatorSource', {
-            reviewId: sourceAgenda.id,
+            aggregatorId: sourceAgenda.id,
             aggregatorId: agg.insertId
           }, function( err ) {
 

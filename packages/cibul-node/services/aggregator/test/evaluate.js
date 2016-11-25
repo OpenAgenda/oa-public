@@ -200,10 +200,10 @@ describe( 'aggregator evaluate', function() {
 
       model.fixtures.load( 'reviews', 'fetedelabretagne', { ownerId: event.ownerId }, function( err, a ) {
 
-        model.lib.insert( 'aggregator', { reviewId: a.id }, function( err, agg ) {
+        model.lib.insert( 'aggregator', { aggregatorId: a.id }, function( err, agg ) {
 
           model.lib.insert( 'aggregatorSource', {
-            reviewId: sourceAgenda.id,
+            aggregatorId: sourceAgenda.id,
             aggregatorId: agg.insertId
           }, function( err ) {
 

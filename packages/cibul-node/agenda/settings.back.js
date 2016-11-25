@@ -3,7 +3,7 @@
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
 const config = require( '../config' );
-const modLib = require( "../lib/moduleLib.js" );
+const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 const bodyParser = require( 'body-parser' );
 const agendaSettings = require( 'agenda-settings' );

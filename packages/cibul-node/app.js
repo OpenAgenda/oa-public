@@ -77,6 +77,7 @@ module.exports = ( enabledTypes, cb ) => {
           require( './location/suggestions.front' )( '/:slug/locations/:locationUid/suggest' ),
           require( './location/back' )( '' ),
           require( './agenda/settings.back' )( '' ),
+          require( './agenda/sources.back' )( '/:slug/admin' ),
           require( './agenda/shares.front' )( '' ),
           require( './agenda/front' )( '' ),
           require( './agenda/back' )( '' ),

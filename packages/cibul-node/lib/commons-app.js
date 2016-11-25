@@ -432,7 +432,7 @@ function render( req, res, templatePath, data, maintain ) {
       res.writeHead( statusCode, {
         "Content-Type" : "text/html; charset=utf-8",
         'Cache-Control' : res.get( 'Cache-Control' ) || 'no-cache'
-      });
+      } );
 
       res.write( render );
 

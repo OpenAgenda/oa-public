@@ -87,6 +87,7 @@
     "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git",
     "when": "~3.4",
     "xlsx-writestream": "0.4.0",
+    "aggregator-sources": "git+ssh://git@bitbucket.org:openagenda/aggregator-sources.git",
     "xml": "git+ssh://git@bitbucket.org:openagenda/xml.git"
   },
   "devDependencies": {

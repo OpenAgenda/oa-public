@@ -37,7 +37,7 @@ module.exports = {
     section : 'manage',
     key : 'sources',
     label : 'Sources',
-    uri : 'agendaAdminSources',
+    uri : 'aggregatorSourcesApp',
     access: 'administrator',
     requiredCred: 'aggregator'
   }, {

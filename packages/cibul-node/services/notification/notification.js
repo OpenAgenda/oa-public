@@ -141,11 +141,11 @@ function _createAdminNotifications( type, data, cb ) {
 
 function _loadAgendaAdministrators( values ) {
 
-  return wn.call( model.reviews().get, { id: values.entry.reviewId || values.entry.agendaId } )
+  return wn.call( model.reviews().get, { id: values.entry.aggregatorId || values.entry.agendaId } )
 
   .then( function( agenda ) {
 
-    if ( !agenda ) throw 'no agenda found for id ' + values.reviewId;
+    if ( !agenda ) throw 'no agenda found for id ' + values.aggregatorId;
 
     values.agenda = model.reviews().instance( agenda );
 

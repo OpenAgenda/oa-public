@@ -179,7 +179,7 @@ describe( 'aggregator source handlings', function() {
 
       model.fixtures.load( 'reviews', 'fetedelabretagne', { ownerId: event.ownerId }, function( err, a ) {
 
-        model.lib.insert( 'aggregator', { reviewId: a.id }, function( err, agg ) {
+        model.lib.insert( 'aggregator', { aggregatorId: a.id }, function( err, agg ) {
 
           aggregatorAgenda = a;
 
