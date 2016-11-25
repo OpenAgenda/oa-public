@@ -363,11 +363,11 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               )
             );
           }),
-          !agendas || !agendas.length && _react3.default.createElement(
+          !agendas || !agendas.length ? _react3.default.createElement(
             'div',
             { className: 'text-center text-muted margin-v-md' },
             getLabel('noResult')
-          ),
+          ) : null,
           nextLoading && _react3.default.createElement(
             'div',
             { className: 'padding-v-md', style: { position: 'relative' } },

@@ -206,9 +206,9 @@ export default class Dashboard extends Component {
             </div>
           ) )}
 
-          {!agendas || !agendas.length && <div className="text-center text-muted margin-v-md">
+          {!agendas || !agendas.length ? <div className="text-center text-muted margin-v-md">
             {getLabel( 'noResult' )}
-          </div>}
+          </div> : null}
 
           {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
             <Spinner />
