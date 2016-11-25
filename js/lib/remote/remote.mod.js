@@ -35,7 +35,7 @@ module.exports = {
     var retries = 0;
 
     if ( settings.retries ) retries = settings.retries;
-    if ( !settings.timeout ) settings.timeout = 2000;
+    if ( !settings.timeout ) settings.timeout = 5000;
     if ( !settings.name ) settings.name = url;
 
     var finished = false;
@@ -141,7 +141,7 @@ module.exports = {
   getJsonp: function(url, settings, callback){
 
     var timer,
-      timeout = settings.timeout?settings.timeout:2000,
+      timeout = settings.timeout?settings.timeout:5000,
       retries = settings.retries?settings.retries:0,
       sentUrl = this.appendToUrl(url, settings.data),
       self = this,

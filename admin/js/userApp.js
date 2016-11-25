@@ -53,7 +53,9 @@ var React = require( 'react' ),
 
       var self = this;
 
-      remote.getXmlHttp( config.res.users, { data: { uid: uid } }, function ( success, data ) {
+      remote.getXmlHttp( config.res.users, { data: { uid: uid } }, function ( responseType, data ) {
+
+        if ( responseType !== 'success' ) return alert( 'schplof.' );
 
         self.setState( {
           user: data.user,
@@ -82,7 +84,9 @@ var React = require( 'react' ),
 
       this.searchQuery = searchQuery;
 
-      remote.getXmlHttp( config.res.users, { data: searchQuery }, function ( success, data ) {
+      remote.getXmlHttp( config.res.users, { data: searchQuery }, function ( responseType, data ) {
+
+        if ( responseType !== 'success' ) return alert( 'schplof.' );
 
         if ( self.isMounted() ) {
 
