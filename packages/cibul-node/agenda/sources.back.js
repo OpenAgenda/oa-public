@@ -93,7 +93,7 @@ function matchApp( req, res, next ) {
         },
         res: {
           list: req.genUrl( 'aggregatorSourcesList', { slug: req.params.slug } ).split( '?' )[ 0 ],
-          show: req.genUrl( 'agendaShow', { slug: req.params.slug } ).split( '?' )[ 0 ],
+          show: req.genUrl( 'agendaShow', { slug: ':slug' } ).split( '?' )[ 0 ],
           remove: req.genUrl( 'aggregatorSourcesRemove', { slug: req.params.slug, uid: ':uid' } ).split( '?' )[ 0 ],
           search: req.genUrl( 'agendaSearch' ).split( '?' )[ 0 ]
         },
