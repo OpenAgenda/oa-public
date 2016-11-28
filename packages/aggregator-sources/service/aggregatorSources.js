@@ -1,5 +1,5 @@
 const w = require( 'when' );
-const { parseListArguments, identifiers: { clean: cleanIdentifiers } } = require( 'service-utils' );
+const { parseListArguments, identifiers: { clean: cleanIdentifiers }, promisePlusCb } = require( 'service-utils' );
 const agendasSvc = require( 'agendas' );
 
 let config;
@@ -44,13 +44,10 @@ function list( aggregatorId, query, offset, limit, options, cb ) {
   } ) )
     .then( _search )
     .then( _total )
-    .then( _list );
+    .then( _list )
+    .then( v => ({ reviews: v.reviews, total: v.total }) );
 
-  if ( typeof arguments[ arguments.length - 1 ] === 'function' ) {
-    promise.done( v => args.cb( null, v.reviews, v.total ), args.cb );
-  } else {
-    return promise.then( v => ({ reviews: v.reviews, total: v.total }) );
-  }
+  return promisePlusCb( promise, arguments );
 
 }
 
@@ -62,13 +59,10 @@ function remove( aggregatorId, identifiers, cb ) {
   } )
     .then( cleanIdentifiers() )
     .then( _populate )
-    .then( _remove );
+    .then( _remove )
+    .then( v => ({ success: true }) );
 
-  if ( typeof arguments[ arguments.length - 1 ] === 'function' ) {
-    promise.done( v => cb( null, true ), cb );
-  } else {
-    return promise.then( v => ({ success: true }) );
-  }
+  return promisePlusCb( promise, arguments );
 
 }
 
