@@ -9,6 +9,8 @@ const request = require( 'superagent' );
 const async = require( 'async' );
 const sha1 = require( 'sha1' );
 const crypto = require( 'crypto-browserify' );
+const marked = require( 'marked' );
+const toMarkdown = require( 'to-markdown' );
 
 module.exports = options => {
 
@@ -31,31 +33,38 @@ module.exports = options => {
 
     }
 
-    if ( _.isArray( destLang ) ) {
+    if ( !_.isArray( destLang ) ) {
 
-      let translations = {};
+      return singleTranslate( text, lang, destLang, cb );
 
-      return async.eachSeries( destLang, ( l, ecb ) => {
+    }
 
-        translate( text, lang, l, ( err, translation ) => {
+    let translations = {};
 
-          if ( err ) return ecb( err );
+    return async.eachSeries( destLang, ( l, ecb ) => {
 
-          translations[ l ] = translation;
+      singleTranslate( text, lang, l, ( err, translation ) => {
 
-          ecb();
+        if ( err ) return ecb( err );
 
-        } );
+        translations[ l ] = translation;
 
-      }, err => {
-
-        if ( err ) return cb( err );
-
-        cb( null, translations );
+        ecb();
 
       } );
 
-    }
+    }, err => {
+
+      if ( err ) return cb( err );
+
+      cb( null, translations );
+
+    } );
+
+  }
+
+
+  function singleTranslate( text, lang, destLang, cb ) {
 
     let created = _reversoCreated(),
 
@@ -65,7 +74,9 @@ module.exports = options => {
       settings.res + '/direction=',
       _parseLang( lang ), '-', _parseLang( destLang ),
       '?template=General&isUserTemplate=true'
-    ].join( '' );
+    ].join( '' ),
+
+    html = '<html><body>' + marked( text ) + '</html></body>';
 
     request.post( res )
 
@@ -75,15 +86,29 @@ module.exports = options => {
 
       .set( 'Created', created )
 
-      .send( text )
+      .send( html )
 
       .end( ( err, res ) => {
 
+        let cleanResponse = res.body.TranslatedText
+
+          // take away html wrappers
+          .replace( /^(\s+|)Html\s>\s<bodysuit>|< \/ html > < \/ bodysuit >(\s+|)$/g, '' )
+
+          // take away <Html <body>> type wrappers
+          .replace( /^<Html <body>>| <\/html> <\/body>$/g, '' )
+
+          // remove inserted id tgs
+          .replace( /< h[1-8] id = "(\s|)([a-z]|\-)+(\s|)" >/g, match => '< h' + match[ 3 ] + ' >' )
+
+          // remove spaces in opening and closing tags
+          .replace( /(\s|)<(\s|)(\/|)(\s|)(p|h[1-8]|a|span|div|ul|li)(\s|)>(\s|)/g, match => match.replace( /\s/g, '' ) );
+
         if ( err ) return cb( err );
 
-        cb( null, res.body.TranslatedText );
+        cb( null, toMarkdown( cleanResponse ).replace( /\n\n/g, '\n' ) );
 
-      } )
+      } );
 
   }
 

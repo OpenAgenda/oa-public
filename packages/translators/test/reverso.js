@@ -26,8 +26,68 @@ describe( 'reverso', function( done ) {
 
   } );
 
+  it( 'makes a translation of a markdown text', done => {
 
-  it( 'makes multiple translations', done => {
+    let r = reverso( config.reverso );
+
+    r( [
+      '# Résumé',
+      'Ceci traduit du markdown',
+      '## Comment?',
+      'Simple:',
+      '',
+      ' * le markdown est interpreté en html avant traduction',
+      ' * et l\'html de la réponse est traduit en markdown après',
+      ' * ça traduit de partout.'
+    ].join( '\n' ), 'en', ( err, translation ) => {
+
+      translation.split( '\n' ).should.eql( [
+        '# Summarized',
+        'This translates of the markdown',
+        '## How?',
+        'Simple:',
+        '*   the markdown is interpreté in html before translation',
+        '*   and the html of the answer is translated markdown there after',
+        '*   that translates of everywhere.'
+      ] );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'filters Html > <bodysuit>, < / html > < / bodysuit > and inserted id tags from translated content', done => {
+
+    let r = reverso( config.reverso );
+
+    r( '# Résumé', 'en', ( err, translation ) => {
+
+      translation.should.equal( '# Summarized' );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'filters <Html <body>> wrappers from translated content', done => {
+
+    let r = reverso( config.reverso );
+
+    r( 'Les chaussettes de l\'archiduchesse sont-elles sèches ou archi-sèches', 'es', ( err, translation ) => {
+
+      translation.should.equal( 'Los calcetines de la archiduquesa son secas o archi-secas' );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'makes multiple translations in one call', done => {
 
     let r = reverso( config.reverso );
 
