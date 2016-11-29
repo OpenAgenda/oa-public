@@ -332,6 +332,12 @@
         { "slug":"alhambra","label":"alhambra" },
         { "slug":"science","label":"science" }
       ]
+    },
+    "translation" : {
+      "source" : "fr",
+      "languages" : [ "de" ],
+      "service" : "reverso",
+      "options" : "eyJ1c2VyIjoiQ1VMVFVSRSIsInBhc3N3b3JkIjoiclU3elQ3cWhhIn0="
     }
   },
   "empty" : {
@@ -496,5 +502,16 @@
   "markdown" : {
     "useMarkdown" : true,
     "event" : {}
+  },
+  "translation" : {
+    "event" : {
+      "title" : { "fr" : "Les portes du temps" }
+    },
+    "translation" : {
+      "source" : "fr",
+      "languages" : [ "de" ],
+      "service" : "reverso",
+      "options" : "eyJ1c2VyIjoiQ1VMVFVSRSIsInBhc3N3b3JkIjoiclU3elQ3cWhhIn0="
+    }
   }
 }

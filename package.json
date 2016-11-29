@@ -32,6 +32,7 @@
     "agenda-settings": "git+ssh://git@bitbucket.org/openagenda/agenda-settings.git",
     "agenda-tags": "git+ssh://git@bitbucket.org/openagenda/agenda-tags.git",
     "aggregator-sources": "git+ssh://git@bitbucket.org/openagenda/aggregator-sources.git",
+    "translators": "git+ssh://git@bitbucket.org/openagenda/translators.git",
     "async": "0.9.0",
     "babel-core": "^6.9.0",
     "babel-loader": "^6.2.4",

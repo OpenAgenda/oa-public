@@ -57,7 +57,8 @@ module.exports = function( params ) {
       complete: 'formcomplete',
       clear: 'eventclear',
       submit: 'formsubmit'
-    }
+    },
+    beforeSubmit: function( cb ) { cb() }
   }, params);
 
   var elem,
@@ -89,7 +90,7 @@ module.exports = function( params ) {
 
   },
 
-  _addButton = function(name) {
+  _addButton = function( name ) {
 
     var button = document.createElement('button');
 
@@ -97,11 +98,22 @@ module.exports = function( params ) {
 
     if (params.classes[name]) button.className = params.classes[name];
 
-    du.addEvent(button, 'click', function(e) {
+    du.addEvent(button, 'click', _evaluateSubmit.bind( null, name ) );
 
-      du.preventDefault( e );
+    du.el(elem, params.selectors.actions).appendChild(button);
 
-      _process[name](function( encodedEvent ) {
+    // remove this!
+    // _evaluateSubmit( name );
+
+  },
+
+  _evaluateSubmit = function( name, e ) {
+
+    if ( e ) du.preventDefault( e );
+
+    params.beforeSubmit( function() {
+      
+      _process[ name ]( function( encodedEvent ) {
 
         var url = decodeURIComponent(params[name]).replace('{uid}', uid);
 
@@ -117,9 +129,7 @@ module.exports = function( params ) {
         
       });
 
-    });
-
-    du.el(elem, params.selectors.actions).appendChild(button);
+    } );
 
   },
 

@@ -36,6 +36,32 @@ body > header {
 
   overflow: hidden;
 
+  .spin-canvas {
+
+    left: 0;
+    top: 0;
+    z-index: 10;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5); 
+    
+    .spin-message {
+      color: gray;
+      text-align: center;
+      position: absolute;
+      width: 200px;
+      margin-left: -100px;
+      margin-top: 20px;
+    }
+    
+    &.spin-page {
+      position: fixed;
+    }
+    
+  }
+
   .help {
 
     float: right;
@@ -43,6 +69,17 @@ body > header {
 
   }
 
+  .checkbox input {
+
+    margin-right: 3px;
+
+  }
+
+  .margin-right-sm {
+
+    margin-right: 6px;
+
+  }
 
   .Select { /* overrides of sf style */
 

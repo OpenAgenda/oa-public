@@ -47,7 +47,8 @@ defaults = {
     references: 'ereferences'
   },
   custom: false,
-  labels: labels
+  labels: labels,
+  translation: false
 };
 
 // legacy
@@ -89,11 +90,14 @@ window.oaEventForm = function( options ) {
       categorySet={params.categorySet}
       tags={params.tags}
       tagSet={params.tagSet}
-      labels= {params.labels} />, 
+      labels= {params.labels}
+      initTranslation= {params.translation} />, 
       rUtils.el( params.canvas )
     );
 
   });
+
+  return EventForm.actionables;
 
   function onAgendaDataChange( data ) {
 
