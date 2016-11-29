@@ -42,13 +42,13 @@ describe( 'reverso', function( done ) {
     ].join( '\n' ), 'en', ( err, translation ) => {
 
       translation.split( '\n' ).should.eql( [
-        '# Summarized',
+        '# Summary',
         'This translates of the markdown',
         '## How?',
         'Simple:',
-        '*   the markdown is interpreté in html before translation',
-        '*   and the html of the answer is translated markdown there after',
-        '*   that translates of everywhere.'
+        '*   The markdown is interpreté html before translation',
+        '*   And the html of the answer is translated markdown there later',
+        '*   That translates of everywhere.'
       ] );
 
       done();
@@ -56,36 +56,6 @@ describe( 'reverso', function( done ) {
     } );
 
   } );
-
-
-  it( 'filters Html > <bodysuit>, < / html > < / bodysuit > and inserted id tags from translated content', done => {
-
-    let r = reverso( config.reverso );
-
-    r( '# Résumé', 'en', ( err, translation ) => {
-
-      translation.should.equal( '# Summarized' );
-
-      done();
-
-    } );
-
-  } );
-
-  it( 'filters <Html <body>> wrappers from translated content', done => {
-
-    let r = reverso( config.reverso );
-
-    r( 'Les chaussettes de l\'archiduchesse sont-elles sèches ou archi-sèches', 'es', ( err, translation ) => {
-
-      translation.should.equal( 'Los calcetines de la archiduquesa son secas o archi-secas' );
-
-      done();
-
-    } );
-
-  } );
-
 
   it( 'makes multiple translations in one call', done => {
 

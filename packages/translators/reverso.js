@@ -1,7 +1,7 @@
 "use strict";
 
 const settings = {
-  res: 'https://taas.reverso.net/riws/RestTranslation.svc/v1/output=json/TranslateText'
+  res: 'https://taas.reverso.net/riws/RestTranslation.svc/v1/output=json/TranslateHtml'
 }
 
 const _ = require( 'lodash' );
@@ -90,21 +90,15 @@ module.exports = options => {
 
       .end( ( err, res ) => {
 
-        let cleanResponse = res.body.TranslatedText
-
-          // take away html wrappers
-          .replace( /^(\s+|)Html\s>\s<bodysuit>|< \/ html > < \/ bodysuit >(\s+|)$/g, '' )
-
-          // take away <Html <body>> type wrappers
-          .replace( /^<Html <body>>| <\/html> <\/body>$/g, '' )
-
-          // remove inserted id tgs
-          .replace( /< h[1-8] id = "(\s|)([a-z]|\-)+(\s|)" >/g, match => '< h' + match[ 3 ] + ' >' )
-
-          // remove spaces in opening and closing tags
-          .replace( /(\s|)<(\s|)(\/|)(\s|)(p|h[1-8]|a|span|div|ul|li)(\s|)>(\s|)/g, match => match.replace( /\s/g, '' ) );
-
         if ( err ) return cb( err );
+
+        let html = ( new Buffer( res.body.TranslatedHtml, 'base64' ) ).toString(),
+
+        cleanResponse = html
+
+          .replace( /^<base href=""><meta http-equiv="Content-Type" content="text\/html; charset=UTF-8"><HTML DIR="LTR"><body>(<p>|)/g, '' )
+
+          .replace( /(<\/p>|)<\/html><\/body>$/g, '' );
 
         cb( null, toMarkdown( cleanResponse ).replace( /\n\n/g, '\n' ) );
 
