@@ -10,9 +10,16 @@ const depr = require( '../../../scripts/eveAgendas/lib/reverso' );
 
 describe( 'reverso', function( done ) {
 
-  it( 'makes a single translation', done => {
+  let r;
 
-    let r = reverso( config.reverso );
+  before( () => {
+
+    r = reverso( config.reverso );
+
+  } );
+
+
+  it( 'makes a single translation', done => {
 
     r( 'Les portes du temps des jeunes et des patrimoines', 'en', ( err, translation ) => {
 
@@ -27,8 +34,6 @@ describe( 'reverso', function( done ) {
   } );
 
   it( 'makes a translation of a markdown text', done => {
-
-    let r = reverso( config.reverso );
 
     r( [
       '# Résumé',
@@ -58,8 +63,6 @@ describe( 'reverso', function( done ) {
   } );
 
   it( 'makes multiple translations in one call', done => {
-
-    let r = reverso( config.reverso );
 
     r( 'Les chaussettes de l\'archiduchesse sont-elles sèches ou archi-sèches', [ 'en', 'es' ], ( err, translations ) => {
 

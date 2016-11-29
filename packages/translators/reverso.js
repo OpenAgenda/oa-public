@@ -123,7 +123,7 @@ function _reversoCreated() {
   return [ 
     _fZ( now.getMonth() + 1 ),
     _fZ( now.getDate() ),
-    _fZ( now.getFullYear() ) 
+    _fZ( now.getFullYear() )
   ].join( '/' )
 
   + ' ' + [
