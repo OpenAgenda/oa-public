@@ -33,6 +33,18 @@ describe( 'reverso', function( done ) {
 
   } );
 
+  it( 'empty or undefined source language gives back empty string', done => {
+
+    r( undefined , 'en', ( err, translation ) => {
+
+      translation.should.equal( '' );
+
+      done();
+
+    } );
+
+  } );
+
   it( 'makes a translation of a markdown text', done => {
 
     r( [

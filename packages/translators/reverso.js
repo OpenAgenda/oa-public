@@ -66,6 +66,12 @@ module.exports = options => {
 
   function singleTranslate( text, lang, destLang, cb ) {
 
+    if ( text === null || text === '' || text === undefined ) {
+
+      return cb( null, '' );
+
+    }
+
     let created = _reversoCreated(),
 
     signature = crypto.createHmac( 'sha1', params.password ).update( params.user + created ).digest( 'hex' ),
