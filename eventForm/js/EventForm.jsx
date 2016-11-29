@@ -117,11 +117,15 @@ function EventFormFactory() {
 
       state.locationMode = state.location ? 'show' : 'search';
 
-      state.translation = utils.extend( this.props.initTranslation, {
-        checked: this.props.initTranslation.languages
-      } );
+      if ( this.props.initTranslation ) {
 
-      translator.init( this, this.props.initTranslation.options, textFields );
+        state.translation = utils.extend( this.props.initTranslation, {
+          checked: this.props.initTranslation.languages
+        } );
+
+        translator.init( this, this.props.initTranslation.options, textFields );
+
+      }
 
       return state;
     },
@@ -660,7 +664,7 @@ function EventFormFactory() {
             configuration={this.props.configuration.field( 'timings' ) }
             onChange={this.onTimingsChange} />
 
-
+          { this.props.initTranslation ? 
           <Translation
             source={this.state.translation.source}
             languages={this.state.translation.target}
@@ -668,7 +672,7 @@ function EventFormFactory() {
             check={translator.change.bind( null, true )}
             uncheck={translator.change.bind( null, false )}
             labels= {flattenLabels( translationLabels, this.props.lang )}
-          />
+          /> : null }
 
           <div className="js_form_canvas_below"></div>
 

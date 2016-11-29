@@ -81,8 +81,6 @@ function translate( cb ) {
 
     if ( err ) {
 
-      console.log( err );
-
       context.setState( {
         translation: update( context.state.translation, { 
           translating: { $set: false },
@@ -102,7 +100,7 @@ function translate( cb ) {
 
     context.setState( newState );
 
-    Object.keys( updated ).forEach( field => {
+    fields.forEach( field => {
 
       context.onChange( field )( newState[ field ] );
 
