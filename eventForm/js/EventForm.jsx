@@ -64,7 +64,9 @@ module.exports.actionables = {
 
     translator( cb );
 
-  }
+  },
+
+  onSubmit: function() {}
 
 }
 
@@ -127,7 +129,16 @@ function EventFormFactory() {
 
       }
 
+
+      module.exports.actionables.onSubmit = this.onSubmitSpin;
+
       return state;
+    },
+
+    onSubmitSpin: function() {
+
+      this.setState( { submitSpin: true } );
+
     },
 
     getLabel: function( name ) {
@@ -677,6 +688,8 @@ function EventFormFactory() {
           <div className="js_form_canvas_below"></div>
 
           {this.state.translation && this.state.translation.translating ? <Spinner page={true} message={translationLabels.processingTranslation[ this.props.lang ]} /> : null }
+
+          {this.state.submitSpin ? <Spinner page={true} /> : null }
 
         </div>
 

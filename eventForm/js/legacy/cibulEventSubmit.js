@@ -115,6 +115,8 @@ module.exports = function( params ) {
       
       _process[ name ]( function( encodedEvent ) {
 
+        params.onSubmit();
+
         var url = decodeURIComponent(params[name]).replace('{uid}', uid);
 
         if ( encodedEvent ) {

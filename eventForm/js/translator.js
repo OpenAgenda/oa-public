@@ -55,7 +55,7 @@ function translate( cb ) {
 
       if ( !context.state[ field ] ) {
 
-        context.state[ field ] = { $set: {} };
+        updated[ field ] = { $set: {} };
 
       }
 
