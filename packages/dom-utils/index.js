@@ -20,7 +20,8 @@ module.exports = {
   getScrollOffsets: getScrollOffsets,
   windowInnerHeight: windowInnerHeight,
   parseJsonAttribute: parseJsonAttribute,
-  isSafari: isSafari
+  isSafari: isSafari,
+  scrollTo: scrollTo
 }
 
 function isSafari() {
@@ -308,6 +309,43 @@ function windowInnerHeight( w, d ) {
   }
 
   return w.innerHeight || d.documentElement.clientHeight || d.getElementsByTagName( 'body' )[ 0 ].clientHeight;
+
+}
+
+function scrollTo( elem, position ) {
+
+  if ( arguments.length === 1 ) {
+
+    position = elem;
+    elem = document.body;
+
+  }
+
+  if ( typeof position === 'undefined' ) {
+
+    position = 'top';
+
+  }
+
+  if ( typeof position === 'string' ) {
+
+    switch ( position ) {
+
+      case 'top': 
+
+        position = 0;
+        break;
+
+      case 'bottom':
+
+        position = elem.scrollHeight;
+        break;
+
+    }
+
+  }
+
+  window.scrollTo( 0, position );
 
 }
 
