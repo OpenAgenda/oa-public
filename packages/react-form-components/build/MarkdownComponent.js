@@ -43,7 +43,7 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
   function MarkdownComponent(props) {
     _classCallCheck(this, MarkdownComponent);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MarkdownComponent).call(this, props));
+    var _this = _possibleConstructorReturn(this, (MarkdownComponent.__proto__ || Object.getPrototypeOf(MarkdownComponent)).call(this, props));
 
     _utils2.default.extend(_this, {
       loadTinyMce: _this.loadTinyMce.bind(_this),
@@ -68,11 +68,11 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
 
       if (typeof document !== 'undefined') setTimeout(this.initializeTinyMce);
 
-      var _props = this.props;
-      var className = _props.className;
-      var label = _props.label;
-      var placeholder = _props.placeholder;
-      var value = _props.value;
+      var _props = this.props,
+          className = _props.className,
+          label = _props.label,
+          placeholder = _props.placeholder,
+          value = _props.value;
 
 
       return _react2.default.createElement(
