@@ -76,7 +76,7 @@ module.exports = React.createClass({
 
       self.setState( { userHasTyped: true } );
 
-      self.props.onChange( value, self.validate( value ) );
+      self.props.onChange( value, self.validate( value ), [ l ] );
 
     }
 

@@ -10,6 +10,8 @@ const async = require( 'async' );
 
 const translators = require( 'translators' );
 
+const du = require( 'dom-utils' );
+
 module.exports = translate;
 
 translate.init = init;
@@ -37,9 +39,13 @@ function translate( cb ) {
     languages: { $set: utils.unique( context.state.languages.concat( destLanguages ).concat( sourceLanguage ) ) }
   };
 
+  context.setState( {
+    translation: update( context.state.translation, { translating: { $set: true } } )
+  } );
+
   async.eachSeries( fields, ( field, ecb ) => {
 
-    let sourceValue = context.state[ field ][ sourceLanguage ];
+    let sourceValue = context.state[ field ] ? context.state[ field ][ sourceLanguage ] : '';
 
     updated[ field ] = {};
 
@@ -47,9 +53,23 @@ function translate( cb ) {
 
       if ( err ) return ecb( err );
 
+      if ( !context.state[ field ] ) {
+
+        context.state[ field ] = { $set: {} };
+
+      }
+
       Object.keys( translations ).forEach( lang => {
 
-        updated[ field ][ lang ] = { $set: translations[ lang ] };
+        if ( context.state[ field ] ) {
+
+          updated[ field ][ lang ] = { $set: translations[ lang ] }
+
+        } else {
+
+          updated[ field ][ '$set' ][ lang ] = translations[ lang ];
+
+        }
 
       } );
 
@@ -59,7 +79,24 @@ function translate( cb ) {
 
   }, err => {
 
-    if ( err ) return cb( err );
+    if ( err ) {
+
+      console.log( err );
+
+      context.setState( {
+        translation: update( context.state.translation, { 
+          translating: { $set: false },
+          message: { $set: 'Could not complete translation' }
+        } )
+      } );
+
+      return cb( err );
+
+    }
+
+    updated.translation = {
+      translating: { $set: false }
+    }
 
     let newState = update( context.state, updated );
 
@@ -70,6 +107,12 @@ function translate( cb ) {
       context.onChange( field )( newState[ field ] );
 
     } );
+
+    setTimeout( () => {
+
+      du.scrollTo( 'bottom' );
+
+    }, 200 );
 
     cb();
 
@@ -114,7 +157,7 @@ function change( check, language ) {
 
   } else {
 
-    checked.splice( checked.indexOf( language ), 1, 0 );
+    checked.splice( checked.indexOf( language ), 1 );
 
   }
 

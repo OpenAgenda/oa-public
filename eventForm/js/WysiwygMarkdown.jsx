@@ -45,7 +45,7 @@ module.exports = React.createClass( {
 
       }
 
-      if ( !errored ) self.props.onChange( changed );
+      if ( !errored ) self.props.onChange( changed, null, [ l ] );
       
     }
 
@@ -182,20 +182,21 @@ module.exports = React.createClass( {
 
     setTimeout( () => {
 
-      let html = marked( value );
+      let html = marked( value ), tinymceContent;
 
-      let difference = _getDifference( this.state.editors[ l ].getContent(), html );
+      try {
+
+        tinymceContent = this.state.editors[ l ].getContent();
+
+      } catch( e ) {}
+
+      let difference = _getDifference( tinymceContent, html );
 
       if ( difference.length < 5 ) return;
 
       this.state.editors[ l ].setContent( html );
 
     }, 10 );
-
-
-    //console.log( marked( value ) );
-
-    //this.state.editors[ l ].setContent( marked( value ) );
 
   },
 
@@ -207,7 +208,7 @@ module.exports = React.createClass( {
 
       var value = this.props.markdown ? ( this.props.markdown[ l ] ? this.props.markdown[ l ] : '' ) : '';
 
-      if ( !this.state.editors[ l ] ) {
+      if ( !this.state.editors[ l ] || this.state.editors[ l ].isHidden() ) {
 
         this.initializeEditor( l, i );
 

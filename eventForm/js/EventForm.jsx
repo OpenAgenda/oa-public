@@ -40,9 +40,15 @@ const React = require( 'react' ),
 
   Modal = require( 'react-components/build/Modal' ),
 
+  Spinner = require( 'react-components/build/Spinner' ),
+
   textFields = [ 'title', 'description', 'freeText', 'tags', 'conditions' ],
 
-  translator = require( './translator.js' );  
+  translator = require( './translator.js' ),
+
+  translationLabels = require( 'labels/event/translation' ),
+
+  flattenLabels = require( 'labels/flatten' );
 
 
 
@@ -128,19 +134,27 @@ function EventFormFactory() {
 
     onChange: function( field ) {
 
-      var self = this;
+      return ( value, errorMessage, changedLanguages = [] ) => {
 
-      return function( value, errorMessage ) {
-
-        var updated = {};
+        let updated = {};
 
         updated[ field ] = value;
 
         formErrors[ field ] = errorMessage;
 
-        self.setState( updated );
+        if ( this.state.translation && this.state.translation.checked.length && changedLanguages.length ) {
 
-        self.props.onTextChange( field, value, self.listErrorDetails( ) );
+          updated.translation = update( this.state.translation, {
+            checked: { 
+              $set: this.state.translation.checked.filter( l => changedLanguages.indexOf( l ) == -1 )
+            }
+          } );
+
+        }
+
+        this.setState( updated );
+
+        this.props.onTextChange( field, value, this.listErrorDetails( ) );
 
       }
 
@@ -653,9 +667,12 @@ function EventFormFactory() {
             checked={this.state.translation.checked}
             check={translator.change.bind( null, true )}
             uncheck={translator.change.bind( null, false )}
+            labels= {flattenLabels( translationLabels, this.props.lang )}
           />
 
           <div className="js_form_canvas_below"></div>
+
+          {this.state.translation && this.state.translation.translating ? <Spinner page={true} message={translationLabels.processingTranslation[ this.props.lang ]} /> : null }
 
         </div>
 
