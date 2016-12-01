@@ -528,6 +528,8 @@ var ugly = require( 'uglify-js' ),
 
       if ( err ) cb( err );
 
+      console.log(stats.toString( 'errors-only' ));
+
       var msg = stats.toString( {
           hash: false,
           chunks: false,
