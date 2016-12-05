@@ -197,7 +197,7 @@ function _validate( target ) {
 
     } catch( e ) {
 
-      log( 'validation failed with %s errors', e.length );
+      log( 'validation failed with %s errors: %s', e.length, JSON.stringify( e ) );
 
       v.errors = v.errors.concat( e );
 

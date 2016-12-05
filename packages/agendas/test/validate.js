@@ -45,6 +45,13 @@ describe( 'validate', () => {
             message: null,
             type: 0,
             useFields: false
+          },
+          translation: {
+            enabled: false,
+            languages: [],
+            options: null,
+            service: 'reverso',
+            source: 'fr'
           }
         },
         url: undefined
@@ -95,6 +102,13 @@ describe( 'validate', () => {
             message: null,
             type: 0,
             useFields: false
+          },
+          translation: {
+            enabled: false,
+            languages: [],
+            options: null,
+            service: 'reverso',
+            source: 'fr'
           }
         },
         updatedAt: now,

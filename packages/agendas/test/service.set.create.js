@@ -48,6 +48,13 @@ describe( 'service.set: create an agenda', function() {
               message: null,
               type: 0,
               useFields: false
+            },
+            translation: {
+              enabled: false,
+              languages: [],
+              options: null,
+              service: 'reverso',
+              source: 'fr'
             }
           },
           official: 0,
@@ -125,6 +132,13 @@ describe( 'service.set: create an agenda', function() {
               message: null,
               type: 0,
               useFields: false
+            },
+            translation: {
+              enabled: false,
+              languages: [],
+              options: null,
+              service: 'reverso',
+              source: 'fr'
             }
           },
           image: null,
@@ -216,6 +230,13 @@ describe( 'service.set: create an agenda', function() {
               message: null,
               type: 0,
               useFields: false
+            },
+            translation: {
+              enabled: false,
+              languages: [],
+              options: null,
+              service: 'reverso',
+              source: 'fr'
             }
           },
           credentials: {

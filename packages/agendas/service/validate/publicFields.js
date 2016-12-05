@@ -49,6 +49,35 @@ module.exports = {
         type: 'boolean',
         default: false
       }
+    },
+    translation: {
+      optional: true,
+      fields: {
+        enabled: {
+          type: 'boolean',
+          default: false
+        },
+        source: {
+          type: 'text',
+          min: 2,
+          max: 2,
+          default: 'fr'
+        },
+        languages: {
+          list: { min: 0 },
+          type: 'text',
+          min: 2,
+          max: 2,
+          default: []
+        },
+        service: {
+          type: 'text',
+          default: 'reverso'
+        },
+        options: {
+          type: 'text'
+        }
+      }
     }
   }
 }

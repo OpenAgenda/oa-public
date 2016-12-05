@@ -39,6 +39,13 @@ describe( 'get', function() {
             message: null,
             type: 0,
             useFields: false
+          },
+          translation: {
+            enabled: false,
+            languages: [],
+            options: null,
+            service: 'reverso',
+            source: 'fr'
           }
         },
         createdAt: agenda.createdAt,
@@ -100,6 +107,13 @@ describe( 'get', function() {
             message: null,
             type: 0,
             useFields: false
+          },
+          translation: {
+            enabled: false,
+            languages: [],
+            options: null,
+            service: 'reverso',
+            source: 'fr'
           }
         },
         image: 'review_epn-espace-torcy_00.jpg',
@@ -137,6 +151,13 @@ describe( 'get', function() {
             message: null,
             type: 0,
             useFields: false
+          },
+          translation: {
+            enabled: false,
+            languages: [],
+            options: null,
+            service: 'reverso',
+            source: 'fr'
           }
         },
         credentials: {

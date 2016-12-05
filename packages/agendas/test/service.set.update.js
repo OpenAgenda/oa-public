@@ -43,6 +43,13 @@ describe( 'service.set: update an agenda', function() {
             message: null,
             type: 0,
             useFields: false
+          },
+          translation: {
+            enabled: false,
+            languages: [],
+            options: null,
+            service: 'reverso',
+            source: 'fr'
           }
         },
         updatedAt: result.agenda.updatedAt,
@@ -162,6 +169,13 @@ describe( 'service.set: update an agenda', function() {
               message: null,
               type: 0,
               useFields: false
+            },
+            translation: {
+              enabled: false,
+              languages: [],
+              options: null,
+              service: 'reverso',
+              source: 'fr'
             }
           },
           updatedAt: result.agenda.updatedAt,

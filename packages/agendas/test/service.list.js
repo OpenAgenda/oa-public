@@ -44,7 +44,10 @@ describe( 'list', function () {
 
   it( 'list with { detailed: true } gets agendas with detailed info', done => {
 
-    svc.list( { detailed: true, private: null }, 94, 1, ( err, agendas ) => {
+    svc.list( {
+      detailed: true,
+      private: null
+    }, 94, 1, ( err, agendas ) => {
 
       agendas[ 0 ].publishedEvents.should.equal( 9 );
 
