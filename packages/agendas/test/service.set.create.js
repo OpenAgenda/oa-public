@@ -207,7 +207,6 @@ describe( 'service.set: create an agenda', function() {
           title: 'Seconde guerre punique',
           description: 'Evénements d\'une rando en Espagne/France/Italie',
           url: null,
-          settings: null,
           image: null,
           official: 0,
           private: 0,
