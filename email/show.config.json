@@ -9,6 +9,7 @@
     "description" : false,
     "mobileMeta" : false,
     "logo" : "https://openagenda.com/images/openagenda.png",
+    "bottomLogo" : "https://s3.eu-central-1.amazonaws.com/oastatic/avatar40.png",
     "css" : {
       "mobileWidth" : "400",
       "bgColor" : "background-color: #f4f4f4;",
