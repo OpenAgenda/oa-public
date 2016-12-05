@@ -12,7 +12,7 @@
 <% if ( typeof action !== 'undefined' ) { %>
 <% include ./top.html.part.ejs %>
 <div class="actionContent" style="<%= css.actionContent %>">
-  <a class="action" href="#" style="<%= css.action %>">Action</a>
+  <a class="action" href="<%= action.link %>" style="<%= css.action %>"><%= action.label %></a>
 </div>
 <% include ./bottom.html.part.ejs %>
 <% } %>
