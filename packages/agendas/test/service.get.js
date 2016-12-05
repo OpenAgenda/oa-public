@@ -20,6 +20,7 @@ describe( 'get', function() {
 
   before( svc.test.fixtures );
 
+  
   it( 'get gets an agenda by id', done => {
 
     svc.get( 4875, ( err, agenda ) => {
@@ -53,6 +54,21 @@ describe( 'get', function() {
         official: 0,
         private: 0
       } );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'find one agenda by title', done => {
+
+    svc.findOne( 'Produits Laitiers', ( err, agenda ) => {
+
+      should( err ).equal( null );
+
+      agenda.uid.should.equal( 52084961 );
 
       done();
 

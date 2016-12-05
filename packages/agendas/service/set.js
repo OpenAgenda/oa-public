@@ -64,9 +64,9 @@ function _update( identifiers, data, options, cb ) {
 
   w( utils.extend( {}, params, {
     // unoptionables
-    identifiers: identifiers,
+    identifiers,
     id: false,
-    data,
+    data: Object.assign( {}, data ),
     filteredData: null, // after protected values have been removed from input
     current: false, // what is in db before update
     merged: false, // merge of input and current db values
@@ -136,7 +136,7 @@ function _create( data, options, cb ) {
 
   w( utils.extend( {}, params, {
     id: false,
-    data,
+    data: Object.assign( {}, data ),
     clean: null,
     created: null,
     errors: [],

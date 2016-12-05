@@ -18,6 +18,34 @@ let knex, service, schemas, imagePath;
 
 module.exports = get;
 module.exports.init = init;
+module.exports.findOne = findOne;
+
+function findOne( search, options, cb ) {
+
+  if ( arguments.length === 2 ) {
+
+    cb = options;
+    options = {};
+
+  }
+
+  knex( schemas.agenda )
+
+    .select( 'id' )
+
+    .where( 'title', 'like', '%' + search + '%' )
+
+    .limit( 1 )
+
+  .then( rows => {
+
+    if ( !rows.length ) return cb( null, null );
+
+    get( rows[ 0 ].id, options, cb );
+
+  }, cb );
+
+}
 
 function get( identifiers, options, cb ) {
 
