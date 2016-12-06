@@ -6,6 +6,8 @@ const utils = require( 'utils' );
 
 const update = require( 'react-addons-update' );
 
+const onTranslationCheck = require( 'react-form-components/lib/onTranslationCheck' );
+
 const async = require( 'async' );
 
 const translators = require( 'translators' );
@@ -43,21 +45,30 @@ function translate( cb ) {
     translation: update( context.state.translation, { translating: { $set: true } } )
   } );
 
-  async.eachSeries( fields, ( field, ecb ) => {
+  let objToTranslate = {};
 
-    let sourceValue = context.state[ field ] ? context.state[ field ][ sourceLanguage ] : '';
+  fields.forEach( f => objToTranslate[ f ] = context.state[ f ] ? context.state[ f ][ sourceLanguage ] : '' );
 
-    updated[ field ] = {};
+  translator( objToTranslate, sourceLanguage, destLanguages, ( err, translatedObj ) => {
 
-    translator( sourceValue, sourceLanguage, destLanguages, ( err, translations ) => {
+    if ( err ) {
 
-      if ( err ) return ecb( err );
+      context.setState( {
+        translation: update( context.state.translation, { 
+          translating: { $set: false },
+          message: { $set: 'Could not complete translation' }
+        } )
+      } );
 
-      if ( !context.state[ field ] ) {
+      return cb( err );
 
-        updated[ field ] = { $set: {} };
+    }
 
-      }
+    Object.keys( translatedObj ).forEach( field => {
+
+      let translations = translatedObj[ field ];
+
+      updated[ field ] = context.state[ field ] ? {} : { $set: {} };
 
       Object.keys( translations ).forEach( lang => {
 
@@ -73,24 +84,7 @@ function translate( cb ) {
 
       } );
 
-      ecb( null );
-
     } );
-
-  }, err => {
-
-    if ( err ) {
-
-      context.setState( {
-        translation: update( context.state.translation, { 
-          translating: { $set: false },
-          message: { $set: 'Could not complete translation' }
-        } )
-      } );
-
-      return cb( err );
-
-    }
 
     updated.translation = {
       translating: { $set: false }
@@ -117,6 +111,7 @@ function translate( cb ) {
   } );
  
 }
+
 
 function init( ctx, options, f ) {
 
@@ -147,22 +142,10 @@ function init( ctx, options, f ) {
 
 function change( check, language ) {
 
-  let checked = context.state.translation.checked.concat( [] );
-
-  if ( check ) {
-
-    checked.push( language );
-
-  } else {
-
-    checked.splice( checked.indexOf( language ), 1 );
-
-  }
-
   context.setState( update( context.state, {
     translation: {
       checked: {
-        $set: checked
+        $set: onTranslationCheck( context.state.translation.checked, check, language )
       }
     }
   } ) );
