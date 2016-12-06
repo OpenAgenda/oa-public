@@ -23,7 +23,9 @@ module.exports = options => {
 
   if ( !params.password ) throw new Error( 'Password is not set' );
 
-  return function translate( text, lang, destLang, cb ) {
+  return translate; 
+
+  function translate( text, lang, destLang, cb ) {
 
     if ( arguments.length === 3 ) {
 
@@ -33,17 +35,56 @@ module.exports = options => {
 
     }
 
-    if ( !_.isArray( destLang ) ) {
+    if ( _.isPlainObject( text ) ) {
 
-      return singleTranslate( text, lang, destLang, cb );
+      return objectTranslate( text, lang, destLang, cb );
 
     }
+
+    if ( _.isArray( destLang ) ) {
+
+      return multipleTextTranslate( text, lang, destLang, cb );
+
+    }
+
+    return singleTextTranslate( text, lang, destLang, cb );
+
+  }
+
+
+  function objectTranslate( obj, lang, destLang, cb ) {
+
+    let translations = {};
+
+    return async.eachSeries( Object.keys( obj ), ( key, ecb ) => {
+
+      translate( obj[ key ], lang, destLang, ( err, translation ) => {
+
+        if ( err ) return ecb( err );
+
+        translations[ key ] = translation;
+
+        ecb();
+
+      } );
+
+    }, err => {
+
+      if ( err ) return cb( err );
+
+      cb( null, translations );
+
+    } );
+
+  }
+
+  function multipleTextTranslate( textArray, lang, destLang, cb ) {
 
     let translations = {};
 
     return async.eachSeries( destLang, ( l, ecb ) => {
 
-      singleTranslate( text, lang, l, ( err, translation ) => {
+      singleTextTranslate( textArray, lang, l, ( err, translation ) => {
 
         if ( err ) return ecb( err );
 
@@ -64,7 +105,7 @@ module.exports = options => {
   }
 
 
-  function singleTranslate( text, lang, destLang, cb ) {
+  function singleTextTranslate( text, lang, destLang, cb ) {
 
     if ( text === null || text === '' || text === undefined ) {
 

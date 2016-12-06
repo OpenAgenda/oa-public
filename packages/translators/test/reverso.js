@@ -91,4 +91,48 @@ describe( 'reverso', function( done ) {
 
   } );
 
+  it( 'translates an object', done => {
+
+    r( {
+      title: 'La fourchette',
+      description: 'La fourchette est un couvert de table ou un ustensile de cuisine permettant d\'attraper les aliments, sans les toucher directement avec les doigts.'
+    }, 'en', ( err, translatedObject ) => {
+
+      translatedObject.should.eql( {
+        title: 'The fork(range)',
+        description: 'The fork(range) is a place setting of table or a kitchen utensil allowing to catch food, without affecting(touching) them directly with fingers.'
+      } );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'translates an object in multiple languages', done => {
+
+    r( {
+      title: 'La fourchette',
+      description: 'La fourchette est un couvert de table ou un ustensile de cuisine permettant d\'attraper les aliments, sans les toucher directement avec les doigts.'
+    }, [ 'en', 'es' ], ( err, translatedObject ) => {
+
+      should( err ).equal( null );
+
+      translatedObject.should.eql( { 
+        title: { 
+          en: 'The fork(range)', 
+          es: 'El tenedor(gama)'
+        },
+        description: {
+          en: 'The fork(range) is a place setting of table or a kitchen utensil allowing to catch food, without affecting(touching) them directly with fingers.',
+          es: 'El tenedor(gama) es un cubierto de mesa o un utensilio de cocina que permite coger los alimentos, sin tocarlos directamente con los dedos.' 
+        }
+      } );
+
+      done();
+
+    } );
+
+  } )
+
 } );
