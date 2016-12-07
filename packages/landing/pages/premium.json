@@ -36,7 +36,7 @@
     "background" : "white",
     "action" : {
       "title" : "contactUsTitle",
-      "link" : "#contact",
+      "link" : "#contactus",
       "label" : "contactUsLabel"
     }
   }, "footer" ]
