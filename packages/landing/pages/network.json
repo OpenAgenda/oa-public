@@ -26,7 +26,7 @@
     "background" : "gray",
     "action" : {
       "title" : "getStartedTitle",
-      "link" : "#contact",
+      "link" : "#contactus",
       "label" : "contactUsLabel"
     }
   }, "footer" ]
