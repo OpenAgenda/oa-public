@@ -135,14 +135,8 @@
         </div>
 
         <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-screens" role="button" data-slide="prev">
-          <!-- <i class="fa fa-angle-left" aria-hidden="true"></i>
-          <span class="sr-only"><%= __( 'previous' ) %></span> -->
-        </a>
-        <a class="right carousel-control" href="#carousel-screens" role="button" data-slide="next">
-          <!-- <i class="fa fa-angle-right" aria-hidden="true"></i>
-          <span class="sr-only"><%= __( 'next' ) %></span> -->
-        </a>
+        <a class="left carousel-control" href="#carousel-screens" role="button" data-slide="prev"></a>
+        <a class="right carousel-control" href="#carousel-screens" role="button" data-slide="next"></a>
       </div>
     </div>
   </div>
@@ -160,8 +154,7 @@
               <p><%- testi.text[ [ 'fr', 'en' ].indexOf( lang ) !== -1 ? lang : 'fr' ] %></p>
             </div>
             <footer class="media">
-              <img class="img-circle" src="<%- testi.image %>"
-                 width="40">
+              <img class="img-circle" src="<%- testi.image %>" width="40">
               <strong><%= testi.name %></strong><br>
               <span><%= testi.job %></span>
             </footer>
@@ -169,9 +162,9 @@
         </li>
         <% }); %>
       </ul>
-      <!--<p class="text-center">
-        <a class="btn btn-link btn-lg" href="">Voir plus de références</a>
-      </p>-->
+      <p class="text-center">
+        <a class="btn btn-link btn-lg" href="<%= genUrl( 'discover', { lang: lang, page: 'testimonies' } ) %>"><%= __( 'seeMoreTestimonies' ) %></a>
+      </p>
     </div>
   </div>
 </div>
