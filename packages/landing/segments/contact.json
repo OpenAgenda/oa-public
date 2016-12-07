@@ -2,7 +2,7 @@
   "template" : "contact",
   "contacts" : {
     "title" : "contactTitle",
-    "phone" : "0176350143",
+    "phone" : "+33176350143",
     "email" : "contact@openagenda.com",
     "twitter" : "oagenda"
   },
