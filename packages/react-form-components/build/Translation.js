@@ -27,7 +27,8 @@ Translation.propTypes = {
   labels: _react.PropTypes.object,
   checked: _react.PropTypes.array,
   check: _react.PropTypes.func,
-  uncheck: _react.PropTypes.func
+  uncheck: _react.PropTypes.func,
+  helpLink: _react.PropTypes.string
 };
 
 var TranslationComponent = _react2.default.createClass({
@@ -42,7 +43,8 @@ var TranslationComponent = _react2.default.createClass({
         sourceLanguage: 'Source Language',
         targetLanguages: 'Automatic translation',
         translationHelp: 'Find out more'
-      }
+      },
+      helpLink: 'https://openagenda.zendesk.com/hc/fr/articles/213573709-Traduction-automatique-des-%C3%A9v%C3%A9nements'
     };
   },
   render: function render() {
@@ -55,7 +57,7 @@ var TranslationComponent = _react2.default.createClass({
       { className: 'form-group' },
       _react2.default.createElement(
         'a',
-        { className: 'pull-right', target: '_blank' },
+        { className: 'pull-right', target: '_blank', href: this.props.helpLink },
         labels.translationHelp
       ),
       _react2.default.createElement(

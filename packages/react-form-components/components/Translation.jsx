@@ -14,7 +14,8 @@ Translation.propTypes = {
   labels: PropTypes.object,
   checked: PropTypes.array,
   check: PropTypes.func,
-  uncheck: PropTypes.func
+  uncheck: PropTypes.func,
+  helpLink: PropTypes.string
 }
 
 const TranslationComponent = React.createClass( {
@@ -29,7 +30,8 @@ const TranslationComponent = React.createClass( {
         sourceLanguage: 'Source Language',
         targetLanguages: 'Automatic translation',
         translationHelp: 'Find out more'
-      }
+      },
+      helpLink: 'https://openagenda.zendesk.com/hc/fr/articles/213573709-Traduction-automatique-des-%C3%A9v%C3%A9nements'
     }
 
   },
@@ -39,7 +41,7 @@ const TranslationComponent = React.createClass( {
     const labels = this.props.labels;
 
     return <div className="form-group">
-      <a className="pull-right" target="_blank">{labels.translationHelp}</a>
+      <a className="pull-right" target="_blank" href={this.props.helpLink}>{labels.translationHelp}</a>
       <h2>{labels.translationTitle}</h2>
       <div className="form-inline row">
         <div className="col-sm-6">
