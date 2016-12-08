@@ -42,7 +42,11 @@
       <div class="spaced">
         <div class="media">
           <article class="media-body media-middle">
-            <h2 class="media-heading"><%- __( 'function1Head' ) %></h2>
+            <h2 class="media-heading">
+              <a href="<%= genUrl( 'discover', { lang: lang, page: 'basic-agenda' } ) %>">
+                <%- __( 'function1Head' ) %>
+              </a>
+            </h2>
             <p><%= __( 'function1Description' ) %></p>
           </article>
           <figure class="media-right media-middle">
@@ -63,7 +67,11 @@
                width="384">
           </figure>
           <article class="media-body media-middle">
-            <h2 class="media-heading"><%- __( 'function2Head' ) %></h2>
+            <h2 class="media-heading">
+              <a href="<%= genUrl( 'discover', { lang: lang, page: 'collaborative-agenda' } ) %>">
+                <%- __( 'function2Head' ) %>
+              </a>
+            </h2>
             <p><%- __( 'function2Description' ) %></p>
           </article>
         </div>
@@ -76,7 +84,11 @@
       <div class="spaced">
         <div class="media">
           <article class="media-body media-middle">
-            <h2 class="media-heading"><%- __( 'function3Head' ) %></h2>
+            <h2 class="media-heading">
+              <a href="<%= genUrl( 'discover', { lang: lang, page: 'build-your-network' } ) %>">
+                <%- __( 'function3Head' ) %>
+              </a>
+            </h2>
             <p><%- __( 'function3Description' ) %></p>
           </article>
           <figure class="media-right media-middle">
@@ -97,7 +109,7 @@
                width="256" class="shadow">
           </figure>
           <article class="media-body media-middle">
-            <h2 class="media-heading"><%- __( 'function4Head' ) %></h2>
+            <h2 class="media-heading"><a href="<%= genUrl( 'discover', { lang: lang, page: 'broadcast-your-events' } ) %>"><%- __( 'function4Head' ) %></a></h2>
             <p><%- __( 'function4Description' ) %></p>
           </article>
         </div>
