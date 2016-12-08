@@ -109,9 +109,9 @@ function list( query, offset, limit, cb ) {
   }, query );
 
   w( {
-    offset: offset,
-    limit: limit,
-    query: query,
+    offset,
+    limit,
+    query,
     users: [],
     total: null,
     knex: knex( schemas.user )
@@ -178,8 +178,8 @@ function set( query, options, cb ) {
 
   w( {
     identifier: getIdentifier( query, true ),
-    query: query,
-    params: params,
+    query: Object.assign( {}, query ),
+    params,
     user: null,
     valid: false,
     success: false,
@@ -209,7 +209,7 @@ function updateProfile( query, cb ) {
 
   w( {
     identifier: getIdentifier( query ),
-    query: query,
+    query,
     user: null,
     valid: false,
     success: false,
@@ -239,7 +239,7 @@ function changePassword( query, cb ) {
 
   w( {
     identifier: getIdentifier( query ),
-    query: query,
+    query: Object.assign( {}, query ),
     valid: false,
     success: false,
     errors: []
@@ -268,7 +268,7 @@ function verifyPassword( query, cb ) {
   w( {
     identifier: getIdentifier( query ),
     params: { password: true },
-    query: query,
+    query,
     success: false
   } )
 
@@ -286,7 +286,7 @@ function requestChangeEmail( query, cb ) {
 
   w( {
     identifier: getIdentifier( query, true ),
-    query: query,
+    query: Object.assign( {}, query ),
     params: { store: true },
     valid: false,
     success: false,
@@ -317,7 +317,7 @@ function confirmChangeEmail( query, cb ) {
 
   w( {
     identifier: getIdentifier( query ),
-    query: query,
+    query: Object.assign( {}, query ),
     params: { store: true },
     errors: [],
     emailChanged: false
@@ -350,7 +350,7 @@ function generateApiKey( query, options, cb ) {
 
   w( {
     identifier: getIdentifier( query ),
-    query,
+    query: Object.assign( {}, query ),
     params,
     errors: [],
     success: false
@@ -376,7 +376,7 @@ function remove( query, cb ) {
 
   w( {
     identifier: getIdentifier( query ),
-    query: query,
+    query,
     errors: [],
     success: false,
     action: 'remove',
