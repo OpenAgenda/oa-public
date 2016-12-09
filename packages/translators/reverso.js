@@ -16,7 +16,8 @@ module.exports = options => {
 
   const params = _.defaults( options, {
     user: false, // required
-    password: false // required
+    password: false, // required
+    timeout: 6000
   } );
 
   if ( !params.user ) throw new Error( 'User is not set' );
@@ -54,13 +55,25 @@ module.exports = options => {
 
   function objectTranslate( obj, lang, destLang, cb ) {
 
-    let translations = {};
+    let translations = {}, timeoutErrors = [];
 
     return async.eachSeries( Object.keys( obj ), ( key, ecb ) => {
 
-      translate( obj[ key ], lang, destLang, ( err, translation ) => {
+      translate( obj[ key ], lang, destLang, ( err, translation, timeouts ) => {
 
-        if ( err ) return ecb( err );
+        if ( err ) {
+
+          return ecb( err );
+
+        }
+
+        if ( timeouts ) {
+
+          timeoutErrors = timeoutErrors.concat( timeouts.map( e => Object.assign( { key }, e ) ) );
+
+          return ecb();
+
+        }
 
         translations[ key ] = translation;
 
@@ -72,21 +85,33 @@ module.exports = options => {
 
       if ( err ) return cb( err );
 
-      cb( null, translations );
+      cb( null, translations, timeoutErrors.length ? timeoutErrors : null );
 
     } );
 
   }
 
-  function multipleTextTranslate( textArray, lang, destLang, cb ) {
+  function multipleTextTranslate( text, lang, destLang, cb ) {
 
-    let translations = {};
+    let translations = {}, timeoutErrors = [];
 
     return async.eachSeries( destLang, ( l, ecb ) => {
 
-      singleTextTranslate( textArray, lang, l, ( err, translation ) => {
+      singleTextTranslate( text, lang, l, ( err, translation ) => {
 
-        if ( err ) return ecb( err );
+        if ( err && _isTimeoutError( err ) ) {
+
+          timeoutErrors.push( { lang: l } );
+
+          return ecb();
+
+        }
+
+        if ( err ) {
+
+          return ecb( err );
+
+        }
 
         translations[ l ] = translation;
 
@@ -98,7 +123,7 @@ module.exports = options => {
 
       if ( err ) return cb( err );
 
-      cb( null, translations );
+      cb( null, translations, timeoutErrors.length ? timeoutErrors : null );
 
     } );
 
@@ -126,6 +151,8 @@ module.exports = options => {
     html = '<html><body>' + marked( text ) + '</html></body>';
 
     request.post( res )
+
+      .timeout( params.timeout )
 
       .set( 'Username', params.user )
 
@@ -191,5 +218,12 @@ function _parseLang( code ) {
     es : 'spa',
     de : 'ger',
   } )[ code ];
+
+}
+
+
+function _isTimeoutError( err ) {
+
+  return err.toString() === 'Error: timeout of 1ms exceeded';
 
 }
