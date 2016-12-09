@@ -9,3 +9,21 @@
 <%- _txt.marked( description ) %>
 <% } %>
 <% include ./bottom.html.part.ejs %>
+<% if ( typeof action !== 'undefined' ) { %>
+<% include ./top.html.part.ejs %>
+<div class="actionContent" style="<%= css.actionContent %>">
+  <a class="action" href="<%= action.link %>" style="<%= css.action %>"><%= action.label %></a>
+</div>
+<% include ./bottom.html.part.ejs %>
+<% } %>
+<% include ./top.html.part.ejs %>
+<% include ./bottom.html.part.ejs %>
+<tr>
+  <td>
+    <div class="imageContent" style="<%= css.imageContent %>">
+      <a href="https://openagenda.com">
+        <img src="<%= bottomLogo %>" style=" <%= css.bottomLogoImage %>" id="bottomLogoImage"/>
+      </a>
+    </div>
+  </td>
+</tr>

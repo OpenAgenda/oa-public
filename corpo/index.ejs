@@ -42,7 +42,11 @@
       <div class="spaced">
         <div class="media">
           <article class="media-body media-middle">
-            <h2 class="media-heading"><%- __( 'function1Head' ) %></h2>
+            <h2 class="media-heading">
+              <a href="<%= genUrl( 'discover', { lang: lang, page: 'basic-agenda' } ) %>">
+                <%- __( 'function1Head' ) %>
+              </a>
+            </h2>
             <p><%= __( 'function1Description' ) %></p>
           </article>
           <figure class="media-right media-middle">
@@ -63,7 +67,11 @@
                width="384">
           </figure>
           <article class="media-body media-middle">
-            <h2 class="media-heading"><%- __( 'function2Head' ) %></h2>
+            <h2 class="media-heading">
+              <a href="<%= genUrl( 'discover', { lang: lang, page: 'collaborative-agenda' } ) %>">
+                <%- __( 'function2Head' ) %>
+              </a>
+            </h2>
             <p><%- __( 'function2Description' ) %></p>
           </article>
         </div>
@@ -76,7 +84,11 @@
       <div class="spaced">
         <div class="media">
           <article class="media-body media-middle">
-            <h2 class="media-heading"><%- __( 'function3Head' ) %></h2>
+            <h2 class="media-heading">
+              <a href="<%= genUrl( 'discover', { lang: lang, page: 'build-your-network' } ) %>">
+                <%- __( 'function3Head' ) %>
+              </a>
+            </h2>
             <p><%- __( 'function3Description' ) %></p>
           </article>
           <figure class="media-right media-middle">
@@ -97,7 +109,7 @@
                width="256" class="shadow">
           </figure>
           <article class="media-body media-middle">
-            <h2 class="media-heading"><%- __( 'function4Head' ) %></h2>
+            <h2 class="media-heading"><a href="<%= genUrl( 'discover', { lang: lang, page: 'broadcast-your-events' } ) %>"><%- __( 'function4Head' ) %></a></h2>
             <p><%- __( 'function4Description' ) %></p>
           </article>
         </div>
@@ -135,14 +147,8 @@
         </div>
 
         <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-screens" role="button" data-slide="prev">
-          <!-- <i class="fa fa-angle-left" aria-hidden="true"></i>
-          <span class="sr-only"><%= __( 'previous' ) %></span> -->
-        </a>
-        <a class="right carousel-control" href="#carousel-screens" role="button" data-slide="next">
-          <!-- <i class="fa fa-angle-right" aria-hidden="true"></i>
-          <span class="sr-only"><%= __( 'next' ) %></span> -->
-        </a>
+        <a class="left carousel-control" href="#carousel-screens" role="button" data-slide="prev"></a>
+        <a class="right carousel-control" href="#carousel-screens" role="button" data-slide="next"></a>
       </div>
     </div>
   </div>
@@ -160,8 +166,7 @@
               <p><%- testi.text[ [ 'fr', 'en' ].indexOf( lang ) !== -1 ? lang : 'fr' ] %></p>
             </div>
             <footer class="media">
-              <img class="img-circle" src="<%- testi.image %>"
-                 width="40">
+              <img class="img-circle" src="<%- testi.image %>" width="40">
               <strong><%= testi.name %></strong><br>
               <span><%= testi.job %></span>
             </footer>
@@ -169,9 +174,9 @@
         </li>
         <% }); %>
       </ul>
-      <!--<p class="text-center">
-        <a class="btn btn-link btn-lg" href="">Voir plus de références</a>
-      </p>-->
+      <p class="text-center">
+        <a class="btn btn-link btn-lg" href="<%= genUrl( 'discover', { lang: lang, page: 'testimonies' } ) %>"><%= __( 'seeMoreTestimonies' ) %></a>
+      </p>
     </div>
   </div>
 </div>

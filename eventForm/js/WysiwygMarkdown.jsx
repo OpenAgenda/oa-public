@@ -194,7 +194,12 @@ module.exports = React.createClass( {
 
       if ( difference.length < 5 ) return;
 
-      this.state.editors[ l ].setContent( html );
+      try {
+
+        this.state.editors[ l ].setContent( html );
+
+      } catch( e ) {}
+
 
     }, 10 );
 

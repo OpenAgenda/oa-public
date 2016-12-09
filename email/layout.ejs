@@ -150,6 +150,10 @@
       #logoImage { <%= css.logoImage %> }
 <% } %>
 
+<% if ( typeof css.bottomLogoImage !== 'undefined' ) { %>
+      #bottomLogoImage { <%= css.bottomLogoImage %> }
+<% } %>
+
 
       /* ========== Body Styles ========== */
 
@@ -267,9 +271,9 @@
 
       .itemSeparator { <%= css.itemSeparator %> }
 
-      #addEventLinkCanvas { <%= css.addEventLinkCanvas %> }
+      .actionContent { <%= css.actionContent %> }
 
-      #addEventLink { <%= css.addEventLink %> }
+      .action { <%= css.action %> }
 
       #linksCanvas { <%= css.linksCanvas %> }
 

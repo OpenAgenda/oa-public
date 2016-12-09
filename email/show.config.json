@@ -9,6 +9,7 @@
     "description" : false,
     "mobileMeta" : false,
     "logo" : "https://openagenda.com/images/openagenda.png",
+    "bottomLogo" : "https://s3.eu-central-1.amazonaws.com/oastatic/avatar40.png",
     "css" : {
       "mobileWidth" : "400",
       "bgColor" : "background-color: #f4f4f4;",
@@ -23,6 +24,7 @@
       "headerContenta" : "color:#EB4102; font-weight:normal; text-decoration:underline;",
       "imageContent" : "font-family:Helvetica; font-size:20px; font-weight:bold; line-height:100%; padding-top:0; padding-right:0; padding-bottom:0; padding-left:0; text-align:center; vertical-align:middle;",
       "logoImage" : "height: auto; max-width: 300px; margin-top: 15px; margin-bottom: 15px;",
+      "bottomLogoImage" : "height: auto; max-width: 200px; margin-top: 15px; margin-bottom: 15px;",
       "mapImage" : "height: auto; max-width: 600px;",
       "templateBody" : "background-color:#ffffff; border-top:1px solid #FFFFFF; padding:0 40px;",
       "bodyContent" : "color:#333; font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif; font-size:15px; line-height:150%; padding-top:20px; padding-right:40px; padding-bottom:0; padding-left:40px; text-align:left;",
@@ -37,7 +39,9 @@
       "h4" : "color:#333 !important; display:block; font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif; font-size:14px; font-weight:normal; line-height:100%; letter-spacing:normal; margin-top:0; margin-right:0; margin-bottom:25px; margin-left:0; text-align:left;",
       "h4a" : "color: #333;  text-decoration: none;",
       "smallprint" : "color: #666; font-size: 12px;",
-      "smallprinta" : "font-size: 12px;"
+      "smallprinta" : "font-size: 12px;",
+      "actionContent" : "text-align: center;margin-bottom: 20px;margin-top: 10px;",
+      "action" : "background-color: #41acdd; color: white; padding-top: 10px; padding-bottom: 10px; padding-left: 15px; padding-right: 15px; border-radius: 5px;text-decoration:none;"
     }
   }
 }

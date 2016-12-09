@@ -9,6 +9,10 @@
         "%event%" : "La foire au vin"
       },
       "link" : "https://openagenda.com"
+    },
+    "action" : {
+      "label" : "Clickez ici",
+      "link" : "https://openagenda.com"
     }
   },
   "standard" : {
