@@ -24,7 +24,7 @@
       "imageContent" : "font-family:Helvetica; font-size:20px; font-weight:bold; line-height:100%; padding-top:0; padding-right:0; padding-bottom:0; padding-left:0; text-align:center; vertical-align:middle;",
       "logoImage" : "height: auto; max-width: 300px; margin-top: 15px; margin-bottom: 15px;",
       "mapImage" : "height: auto; max-width: 600px;",
-      "templateBody" : "background-color:#ffffff; border-top:1px solid #FFFFFF;",
+      "templateBody" : "background-color:#ffffff; border-top:1px solid #FFFFFF; padding:0 40px;",
       "bodyContent" : "color:#333; font-family:\"Helvetica Neue\",Helvetica,Arial,sans-serif; font-size:15px; line-height:150%; padding-top:20px; padding-right:40px; padding-bottom:0; padding-left:40px; text-align:left;",
       "bodyContenta" : "color: #41ACDD; font-weight:normal; text-decoration: none;",
       "bodyContentImg" : "display:inline; height:auto; max-width:560px;",
