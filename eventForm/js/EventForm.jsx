@@ -48,6 +48,8 @@ const React = require( 'react' ),
 
   translationLabels = require( 'labels/event/translation' ),
 
+  eventFormLabels = require( 'labels/event/form' ),
+
   flattenLabels = require( 'labels/flatten' );
 
 
@@ -119,7 +121,7 @@ function EventFormFactory() {
 
       state.locationMode = state.location ? 'show' : 'search';
 
-      if ( this.props.initTranslation ) {
+      if ( this.props.initTranslation && this.props.initTranslation.enabled ) {
 
         state.translation = utils.extend( this.props.initTranslation, {
           checked: this.props.initTranslation.languages
@@ -675,7 +677,7 @@ function EventFormFactory() {
             configuration={this.props.configuration.field( 'timings' ) }
             onChange={this.onTimingsChange} />
 
-          { this.props.initTranslation ? 
+          { this.state.translation ? 
           <Translation
             source={this.state.translation.source}
             languages={this.state.translation.target}
@@ -689,7 +691,7 @@ function EventFormFactory() {
 
           {this.state.translation && this.state.translation.translating ? <Spinner page={true} message={translationLabels.processingTranslation[ this.props.lang ]} /> : null }
 
-          {this.state.submitSpin ? <Spinner page={true} /> : null }
+          {this.state.submitSpin ? <Spinner page={true} message={this.state.translation && this.state.translation.timeouts ? eventFormLabels.savingPartialTranslation[ this.props.lang ] : null } /> : null }
 
         </div>
 

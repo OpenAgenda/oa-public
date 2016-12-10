@@ -37,9 +37,7 @@ function translate( cb ) {
 
   destLanguages = context.state.translation.checked,
 
-  updated = {
-    languages: { $set: utils.unique( context.state.languages.concat( destLanguages ).concat( sourceLanguage ) ) }
-  };
+  updated = {};
 
   context.setState( {
     translation: update( context.state.translation, { translating: { $set: true } } )
@@ -49,7 +47,7 @@ function translate( cb ) {
 
   fields.forEach( f => objToTranslate[ f ] = context.state[ f ] ? context.state[ f ][ sourceLanguage ] : '' );
 
-  translator( objToTranslate, sourceLanguage, destLanguages, ( err, translatedObj ) => {
+  translator( objToTranslate, sourceLanguage, destLanguages, ( err, translatedObj, timeouts ) => {
 
     if ( err ) {
 
@@ -64,6 +62,10 @@ function translate( cb ) {
 
     }
 
+    updated.languages = { 
+      $set: utils.unique( context.state.languages.concat( sourceLanguage ) ) 
+    }
+
     Object.keys( translatedObj ).forEach( field => {
 
       let translations = translatedObj[ field ];
@@ -71,6 +73,12 @@ function translate( cb ) {
       updated[ field ] = context.state[ field ] ? {} : { $set: {} };
 
       Object.keys( translations ).forEach( lang => {
+
+        if ( updated.languages[ '$set' ].indexOf( lang ) === -1 ) {
+
+          updated.languages[ '$set' ].push( lang );
+
+        }
 
         if ( context.state[ field ] ) {
 
@@ -87,7 +95,8 @@ function translate( cb ) {
     } );
 
     updated.translation = {
-      translating: { $set: false }
+      translating: { $set: false },
+      timeouts: { $set: timeouts }
     }
 
     let newState = update( context.state, updated );
@@ -127,7 +136,7 @@ function init( ctx, options, f ) {
 
       config = JSON.parse( base64.decode( options ) );
 
-      translator = translators.reverso( config );
+      translator = translators.reverso( Object.assign( { timeout: 5000, }, config ) );
 
     } catch( e ) {
 

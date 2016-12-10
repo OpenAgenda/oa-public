@@ -102,9 +102,6 @@ module.exports = function( params ) {
 
     du.el(elem, params.selectors.actions).appendChild(button);
 
-    // remove this!
-    // _evaluateSubmit( name );
-
   },
 
   _evaluateSubmit = function( name, e ) {
