@@ -41,7 +41,10 @@ const TranslationComponent = React.createClass( {
     const labels = this.props.labels;
 
     return <div className="form-group">
-      <a className="pull-right" target="_blank" href={this.props.helpLink}>{labels.translationHelp}</a>
+      <a className="pull-right help" target="_blank" href={this.props.helpLink}>
+        <i className="fa fa-question-circle"></i>
+        <label style={{display:'none'}}>{labels.translationHelp}</label>
+    </a>
       <h2>{labels.translationTitle}</h2>
       <div className="form-inline row">
         <div className="col-sm-6">

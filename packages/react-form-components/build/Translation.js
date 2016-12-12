@@ -57,8 +57,13 @@ var TranslationComponent = _react2.default.createClass({
       { className: 'form-group' },
       _react2.default.createElement(
         'a',
-        { className: 'pull-right', target: '_blank', href: this.props.helpLink },
-        labels.translationHelp
+        { className: 'pull-right help', target: '_blank', href: this.props.helpLink },
+        _react2.default.createElement('i', { className: 'fa fa-question-circle' }),
+        _react2.default.createElement(
+          'label',
+          { style: { display: 'none' } },
+          labels.translationHelp
+        )
       ),
       _react2.default.createElement(
         'h2',
