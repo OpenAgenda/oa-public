@@ -691,7 +691,7 @@ function EventFormFactory() {
 
           {this.state.translation && this.state.translation.translating ? <Spinner page={true} message={translationLabels.processingTranslation[ this.props.lang ]} /> : null }
 
-          {this.state.submitSpin ? <Spinner page={true} message={this.state.translation && this.state.translation.timeouts ? eventFormLabels.savingPartialTranslation[ this.props.lang ] : null } /> : null }
+          {this.state.submitSpin ? <Spinner page={true} message={this.state.translation && this.state.translation.timeouts ? translationLabels.savingPartialTranslation[ this.props.lang ] : null } /> : null }
 
         </div>
 
