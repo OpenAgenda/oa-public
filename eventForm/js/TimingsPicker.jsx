@@ -53,7 +53,9 @@ module.exports = React.createClass( {
 
     return <div>
       <p className="help">
-        <a target="_blank" href="https://openagenda.zendesk.com/hc/fr/articles/202667461-Saisir-les-horaires-de-votre-%C3%A9v%C3%A9nement">{this.props.labels.timingsHelp[ this.props.lang ]}</a>
+        <a target="_blank" alt={this.props.labels.timingsHelp[ this.props.lang ]} href="https://openagenda.zendesk.com/hc/fr/articles/202667461-Saisir-les-horaires-de-votre-%C3%A9v%C3%A9nement">
+          <i className="fa fa-question-circle"></i>
+        </a>
       </p>
       <h2>{this.props.labels.timings[ this.props.lang ]}</h2>
       <Picker

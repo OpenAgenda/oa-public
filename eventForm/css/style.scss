@@ -67,6 +67,19 @@ body > header {
     float: right;
     padding: 1em 0;
 
+    i {
+
+      color: $oa-blue;
+      font-size: 1.3em;
+
+      &:hover {
+
+        color: darken( $oa-blue, 4 );
+
+      }
+
+    }
+
   }
 
   .checkbox input {

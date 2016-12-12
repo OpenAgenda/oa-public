@@ -334,6 +334,7 @@
       ]
     },
     "translation" : {
+      "enabled" : true,
       "source" : "fr",
       "languages" : [ "de" ],
       "service" : "reverso",
