@@ -101,7 +101,7 @@ function widget( elem, options ) {
 
     log( 'initing' );
     
-    var uid = _loadRes( options.anchorConfig );
+    var uid = _loadRes( options.anchorConfig[ 0 ] );
 
     controller = options.register( wLib.interface( 'body', uid, {
       change: change 
@@ -412,7 +412,7 @@ function widget( elem, options ) {
 
   function _initSrc( query ) {
 
-    if ( utils.size( query ) ) {
+    if ( utils.size( query ) || !elem.getAttribute( 'src' ) ) {
 
       change( query );
 
@@ -431,7 +431,7 @@ function widget( elem, options ) {
 
     } else {
 
-      lang = _readQueryPart( elem.getAttribute( 'src' ), 'lang', false );
+      lang = _readQueryPart( src, 'lang', false );
 
     }
 

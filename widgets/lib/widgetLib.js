@@ -112,7 +112,7 @@ function readAnchorConfig( elem ) {
 
   } else if ( elem.hasAttribute( 'src') ) {
 
-    return elem.getAttribute( 'src' );
+    return [ elem.getAttribute( 'src' ) ];
 
   }
 
