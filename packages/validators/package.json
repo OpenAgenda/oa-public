@@ -1,6 +1,6 @@
 {
   "name": "validators",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "",
   "main": "index.js",
   "watch": {
@@ -10,7 +10,6 @@
     }
   },
   "scripts": {
-    "pre-commit": "babel src -d ./",
     "build": "babel src -d ./",
     "build-test": "babel src -d test/build --source-maps inline && mocha",
     "watch": "npm-watch"

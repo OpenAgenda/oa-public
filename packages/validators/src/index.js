@@ -16,5 +16,6 @@ module.exports = {
   longitude: require( './longitude' ),
   pass: require( './pass' ),
   multilingual: require( './multilingual' ),
-  regex: require( './regex' )
+  regex: require( './regex' ),
+  choice: require( './choice' )
 }
