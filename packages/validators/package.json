@@ -19,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "lodash": "^4.17.2",
     "utils": "git+ssh://git@bitbucket.org/openagenda/utils.git"
   },
   "devDependencies": {
