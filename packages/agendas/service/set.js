@@ -9,7 +9,7 @@ w = require( 'when' ),
 
 get = require( './get' ),
 
-utils = require( 'utils' ),
+_ = require( 'lodash' ),
 
 slug = require( 'slug' ),
 
@@ -55,14 +55,14 @@ function _update( identifiers, data, options, cb ) {
 
   }
 
-  let params = utils.extend( {
+  let params = _.extend( {
     // option defaults
     protected: true, // protected fields cannot be tampered with
     internal: false, // retrieve internal fields when update is done
     includeImagePath: false
   }, options );
 
-  w( utils.extend( {}, params, {
+  w( _.extend( {}, params, {
     // unoptionables
     identifiers,
     id: false,
@@ -129,12 +129,12 @@ function _create( data, options, cb ) {
 
   }
 
-  let params = utils.extend( {
+  let params = _.extend( {
     internal: false,
     includeImagePath: false
   }, options );
 
-  w( utils.extend( {}, params, {
+  w( _.extend( {}, params, {
     id: false,
     data: Object.assign( {}, data ),
     clean: null,
@@ -452,7 +452,7 @@ function _filterProtected( namespace ) {
 
 function _merge( v ) {
 
-  v.merged = utils.extend( {}, v.current, v.data );
+  v.merged = _.merge( {}, v.current, v.data );
 
   return v;
 
@@ -474,7 +474,7 @@ function _setToNow( target, field ) {
 
 function _get( options ) {
 
-  let params = utils.extend( {
+  let params = _.extend( {
     clean: false,
     target: 'agenda',
     internal: false,

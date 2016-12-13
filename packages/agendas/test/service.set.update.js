@@ -232,6 +232,36 @@ describe( 'service.set: update an agenda', function() {
 
   } );
 
+  it( 'partial settings set does not impact remaining settings values', done => {
+
+    let uid = 65903437;
+
+    svc.set( { uid }, {
+      settings: {
+        translation: {
+          enabled: true
+        }
+      }
+    }, ( err, result ) => {
+
+      svc.set( { uid }, {
+        settings: {
+          contribution: {
+            defaultState: 1,
+          }
+        }
+      }, ( err, result ) => {
+
+        result.agenda.settings.translation.enabled.should.equal( true );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
 
   it( 'onUpdate callbacks with agenda data before and after update', done => {
 

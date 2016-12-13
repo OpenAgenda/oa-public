@@ -12,13 +12,14 @@
   "dependencies": {
     "async": "^1.5.2",
     "basic-logger": "git+ssh://git@bitbucket.org/openagenda/basic-logger.git",
+    "image-files": "git+ssh://git@bitbucket.org/openagenda/image-files.git",
     "knex": "^0.10.0",
+    "lodash": "^4.17.2",
     "mysql": "^2.10.2",
     "mysql-utils": "git+ssh://git@bitbucket.org/openagenda/mysql-utils.git",
     "slug": "^0.9.1",
     "utils": "git+ssh://git@bitbucket.org/openagenda/utils.git",
     "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git",
-    "image-files": "git+ssh://git@bitbucket.org/openagenda/image-files.git",
     "when": "^3.7.7"
   },
   "devDependencies": {
