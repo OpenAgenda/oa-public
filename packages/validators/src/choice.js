@@ -10,7 +10,8 @@ export default config => {
     key: 'value', // optional. For when labeled objects are given
     optional: true,
     min: null,
-    max: null
+    max: null,
+    default: null
   }, config );
 
   return _.extend( value => {
@@ -22,6 +23,12 @@ export default config => {
       .map( v => _.isObject( v ) ? v[ params.key ] : v )
 
       .filter( v => params.options.indexOf( v ) !== -1 );
+
+    if ( !clean.length && params.default !== null ) {
+
+      clean = [].concat( params.default );
+
+    }
 
     if ( !params.optional && !clean.length ) {
 

@@ -79,7 +79,7 @@ describe( 'multilingual validator', () => {
         code: 'required',
         message: 'at least one language entry is required',
         origin: undefined
-      } )
+      } );
 
     } );
 

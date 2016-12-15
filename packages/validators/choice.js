@@ -18,7 +18,8 @@ exports.default = function (config) {
     key: 'value', // optional. For when labeled objects are given
     optional: true,
     min: null,
-    max: null
+    max: null,
+    default: null
   }, config);
 
   return _core2.default.extend(function (value) {
@@ -28,6 +29,11 @@ exports.default = function (config) {
     }).filter(function (v) {
       return params.options.indexOf(v) !== -1;
     });
+
+    if (!clean.length && params.default !== null) {
+
+      clean = [].concat(params.default);
+    }
 
     if (!params.optional && !clean.length) {
 

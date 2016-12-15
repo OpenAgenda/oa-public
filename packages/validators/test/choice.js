@@ -76,6 +76,27 @@ describe( 'choice validator', () => {
 
     } );
 
+    it( 'default value can be specified', () => {
+
+      let clean;      
+
+      const validate = validators.choice( {
+        options: [ 2, 4, 12, 13 ],
+        optional: false,
+        key: 'id',
+        default: [ 2 ]
+      } );
+
+      try {
+
+        clean = validate()
+
+      } catch( e ) {}
+
+      clean.should.eql( [ 2 ] );
+
+    } );
+
   } );
 
   describe( 'fielded', () => {
