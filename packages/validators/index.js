@@ -7,6 +7,7 @@ module.exports = {
   phone: require('./phone'),
   list: require('./list'),
   number: require('./number'),
+  integer: require('./integer'),
   date: require('./date'),
   boolean: require('./boolean'),
   labels: require('./labels'),

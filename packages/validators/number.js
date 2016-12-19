@@ -15,8 +15,8 @@ module.exports = function (config) {
 
   var params = _utils2.default.extend({
     field: false, // required
-    min: undefined, // minus infinity if defined
-    max: undefined, // infinity and beyond?
+    min: null, // minus infinity if defined
+    max: null, // infinity and beyond?
     default: undefined, // if set, no input cleans to this
     optional: true
   }, config || {});
@@ -71,7 +71,7 @@ module.exports = function (config) {
       }];
     }
 
-    if (params.min !== undefined && clean < params.min) {
+    if (params.min !== null && clean < params.min) {
 
       throw [{
         field: validate.field,
@@ -84,7 +84,7 @@ module.exports = function (config) {
       }];
     }
 
-    if (params.max !== undefined && clean > params.max) {
+    if (params.max !== null && clean > params.max) {
 
       throw [{
         field: params.field,
