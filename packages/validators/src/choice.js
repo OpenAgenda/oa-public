@@ -11,7 +11,8 @@ export default config => {
     optional: true,
     min: null,
     max: null,
-    default: null
+    default: null,
+    unique: false
   }, config );
 
   return _.extend( value => {
@@ -36,6 +37,12 @@ export default config => {
         code: 'choice.required',
         message: 'a (known) value must be chosen'
       } ) ];
+
+    }
+
+    if ( params.unique ) {
+
+      return clean.length >= 1 ? clean[ 0 ] : clean;
 
     }
 

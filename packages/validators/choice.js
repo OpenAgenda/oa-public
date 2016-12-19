@@ -19,7 +19,8 @@ exports.default = function (config) {
     optional: true,
     min: null,
     max: null,
-    default: null
+    default: null,
+    unique: false
   }, config);
 
   return _core2.default.extend(function (value) {
@@ -41,6 +42,11 @@ exports.default = function (config) {
         code: 'choice.required',
         message: 'a (known) value must be chosen'
       })];
+    }
+
+    if (params.unique) {
+
+      return clean.length >= 1 ? clean[0] : clean;
     }
 
     if (params.min && clean.length < params.min) {

@@ -97,6 +97,25 @@ describe( 'choice validator', () => {
 
     } );
 
+    it( 'unique option outputs clean unique value', () => {
+
+      let clean;
+
+      const validate = validators.choice( {
+        options: [ 2, 4 ],
+        unique: true
+      } );
+
+      try {
+
+        clean = validate( 2 );
+
+      } catch( e ) {}
+
+      clean.should.equal( 2 );
+
+    } )
+
   } );
 
   describe( 'fielded', () => {
