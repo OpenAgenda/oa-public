@@ -392,6 +392,7 @@
     }
   },
   "standardcustom" : {
+    "translation" : false,
     "event" : {},
     "configuration" : {
       "fields" : [ {
@@ -423,6 +424,9 @@
           "startDate": "2016-04-05",
           "endDate": "2016-04-11"
         } ]
+      }, {
+        "name" : "location",
+        "disableChange" : true
       }, {
         "name" : "keywords",
         "display" : false

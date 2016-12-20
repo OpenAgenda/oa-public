@@ -519,8 +519,9 @@ function EventFormFactory() {
 
       return <div className="form-section">
         <LocationSelector
-          settings={ this.props.configuration.field( 'location' ).settings }
+          settings={this.props.configuration.field( 'location' ).settings}
           mode={this.state.locationMode}
+          disableChange={this.props.configuration.field( 'location' ).disableChange}
           onChangeMode={this.onLocationModeChange}
           location={this.state.location}
           lang={this.props.lang}
