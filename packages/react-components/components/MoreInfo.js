@@ -9,19 +9,23 @@ export default class MoreInfo extends Component {
     title: PropTypes.node,
     content: PropTypes.node,
     link: PropTypes.string,
-    placement: PropTypes.oneOf( [ 'top', 'right', 'bottom', 'left' ] )
+    placement: PropTypes.oneOf( [ 'top', 'right', 'bottom', 'left' ] ),
+    className: PropTypes.string,
+    style: PropTypes.object
   };
 
   static defaultProps = {
     title: null,
     content: null,
     link: null,
-    placement: 'right'
+    placement: 'right',
+    className: '',
+    style: null
   };
 
   render() {
 
-    const { id, title, content, link, placement } = this.props;
+    const { id, title, content, link, placement, className, style } = this.props;
 
     const popover = (
       <Popover id={id} title={title}>
@@ -29,11 +33,11 @@ export default class MoreInfo extends Component {
       </Popover>
     );
 
-    const iconStyle = {
+    const iconStyle = Object.assign( {
       color: '#41acdd',
       fontSize: '1.3em'
-    };
-    const icon = <i className="fa fa-question-circle" aria-hidden="true" style={iconStyle}></i>;
+    }, style );
+    const icon = <i className={`fa fa-question-circle ${className}`} aria-hidden="true" style={iconStyle}></i>;
 
     return (
       <OverlayTrigger trigger={[ 'hover', 'focus' ]} placement={placement} overlay={popover}>
