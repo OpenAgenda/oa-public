@@ -38,6 +38,33 @@
 
     border-bottom: 1px solid $oa-gray-light;
 
+    .checkbox {
+
+      span { 
+        
+        margin-right: 5px;
+        vertical-align: middle;
+
+        &.info {
+
+          color: $oa-gray-light;
+
+        }
+
+      }
+
+      &:hover {
+
+        span.info {
+
+          color: darken( $oa-gray-light, 5 );
+
+        }
+
+      }
+
+    }
+
     .tc-remove {
 
       .tc-remove-link {

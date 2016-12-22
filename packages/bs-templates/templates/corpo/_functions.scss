@@ -16,6 +16,23 @@
 
   }
 
+  .media-heading {
+
+    a {
+
+      color: inherit;
+
+      &:hover, &:hover em {
+
+        text-decoration: none;
+        color: lighten( $oa-blue, 10 );
+
+      }
+
+    }
+
+  }
+
   .media {
 
     ul {

@@ -222,3 +222,25 @@ body .crisp-client-container .crisp-client-excerpt .crisp-client-excerpt-minimiz
   line-height: 1.45;
 
 }
+
+
+/*
+  little help <i> element to encase in a <a> with the class .help
+ */
+
+.help {
+  
+  i {
+
+    color: $oa-blue;
+    font-size: 1.3em;
+
+    &:hover {
+
+      color: darken( $oa-blue, 5 );
+
+    }
+
+  }
+
+}
