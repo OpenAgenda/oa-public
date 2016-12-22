@@ -123,7 +123,8 @@ describe( 'validate', () => {
           moderators: false,
           tags: false,
           embedsHead: false,
-          embedsTemplates: false 
+          embedsTemplates: false,
+          aggregator: false
         }
       } );
 

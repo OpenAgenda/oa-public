@@ -73,6 +73,11 @@ module.exports = {
     emailstrategie: {
       type: 'boolean',
       default: false 
+    },
+
+    aggregator: {
+      type: 'boolean',
+      default: false
     }
 
   }

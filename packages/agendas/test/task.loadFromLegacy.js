@@ -107,7 +107,8 @@ describe( 'service.tasks.loadFromLegacy', function() {
         embedsTemplates:!!test.credRowBefore.custom_templates,
         indesign: !!test.credRowBefore.indesign,
         activatingInvitations: !!test.credRowBefore.activating_invitation,
-        emailstrategie: !!test.credRowBefore.emailstrategie
+        emailstrategie: !!test.credRowBefore.emailstrategie,
+        aggregator: !!test.credRowBefore.aggregator
       } );
 
       [ 'moderator', 'tags', 'custom_templates', 'custom_head', 'indesign' ].forEach( f => {

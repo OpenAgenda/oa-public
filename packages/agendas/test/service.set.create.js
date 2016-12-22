@@ -246,7 +246,8 @@ describe( 'service.set: create an agenda', function() {
             tags: false,
             indesign: false,
             embedsHead: false,
-            embedsTemplates: false 
+            embedsTemplates: false,
+            aggregator: false
           },
           createdAt: result.agenda.createdAt,
           updatedAt: result.agenda.updatedAt

@@ -187,7 +187,8 @@ describe( 'service.set: update an agenda', function() {
             tags: false,
             embedsHead: false,
             embedsTemplates: false,
-            indesign: false
+            indesign: false,
+            aggregator: false
           } 
         },
         valid: true,

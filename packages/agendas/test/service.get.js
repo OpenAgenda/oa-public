@@ -183,7 +183,8 @@ describe( 'get', function() {
           embedsTemplates: false,
           indesign: false,
           moderators: false,
-          tags: false
+          tags: false,
+          aggregator: false
         },
         createdAt: agenda.createdAt,
         updatedAt: agenda.updatedAt,
