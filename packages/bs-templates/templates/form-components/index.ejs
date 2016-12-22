@@ -1,28 +1,40 @@
 <% include ../layout/_top.ejs %>
 <% include ../agenda/_header.ejs %>
 <div class="container">
-  <div class="row top-margined">
-    <section class="col-sm-6 col-sm-offset-3">
-      <p>translation component</p>
-      <% include _translation %>
-    </section>
-    <section class="col-sm-6 col-sm-offset-3">
-      <p>multi input field</p>
-      <% include _multi-input-field %>
-    </section>
-    <section class="col-sm-6 col-sm-offset-3 disabled">
-      <p>disabled multi input field</p>
-      <% include _multi-input-field %>
-    </section>
-    <section class="col-sm-6 col-sm-offset-3">
-      <p>multilingual input field</p>
-      <% include _multilingual-input-field %>
-    </section>
-    <section class="col-sm-6 col-sm-offset-3">
-      <p>language bar</p>
-      <% include _language-bar %>
-    </section>
+    <div class="row top-margined">
+        <section class="col-sm-6 col-sm-offset-3">
+            <p>translation component</p>
+            <% include _translation %>
+        </section>
+        <section class="col-sm-6 col-sm-offset-3">
+            <p>multi input field</p>
+            <% include _multi-input-field %>
+        </section>
+        <section class="col-sm-6 col-sm-offset-3 disabled">
+            <p>disabled multi input field</p>
+            <% include _multi-input-field %>
+        </section>
+        <section class="col-sm-6 col-sm-offset-3">
+            <p>multilingual input field</p>
+            <% include _multilingual-input-field %>
+        </section>
+        <section class="col-sm-6 col-sm-offset-3">
+            <p>language bar</p>
+            <% include _language-bar %>
+        </section>
+        <section class="col-sm-6 col-sm-offset-3">
+            <p>Input with icon</p>
 
-  </div>
+            <div class="form-group input-icon-right margin-v-md">
+                <input type="text" class="form-control" placeholder="Rechercher un agenda" />
+                <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </div>
+
+            <div class="form-group input-icon-left margin-v-md">
+                <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                <input type="text" class="form-control" placeholder="Rechercher un agenda" />
+            </div>
+        </section>
+    </div>
 </div>
 <% include ../layout/_bottom.ejs %>

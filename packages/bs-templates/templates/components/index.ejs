@@ -1,46 +1,91 @@
 <% include ../layout/_top.ejs %>
 <div class="container">
 
-  <div class="row">
+    <div class="row">
 
-    <section class="col-sm-6 col-sm-offset-2 top-margined">
-      
-      <h2>Small map</h2>
-      <div class="wsq content" style="width:400px">
-        <% include _small-map %>
-      </div>
+        <section class="col-sm-6 col-sm-offset-2 top-margined">
 
-    </section>
+            <h2>Small map</h2>
+            <div class="wsq content" style="width:400px">
+                <% include _small-map %>
+            </div>
 
-  </div>
+        </section>
 
-  <div class="row">
-    
-    <section class="col-sm-6 col-sm-offset-2 top-margined">
-      <h2>Official label</h2>
+    </div>
 
-      <div class="wsq content">
-        <% include _official %>
+    <div class="row">
 
-        <% include _official-big %>
-      </div>
+        <section class="col-sm-6 col-sm-offset-2 top-margined">
+            <h2>Official label</h2>
 
-    </section>
+            <div class="wsq content">
+                <% include _official %>
 
-  </div>
+                <% include _official-big %>
+            </div>
 
-  <% include _dropdown.ejs %>
+        </section>
 
-  <div class="row">
-    <section class="col-sm-6 col-sm-offset-2 top-margined">
+    </div>
 
-      <h2>Calendar</h2>
+    <% include _dropdown.ejs %>
 
-      <div class="wsq content">
-        <% include _calendar %>
-      </div>
-    </section>
-  </div>
+    <div class="row">
+        <section class="col-sm-6 col-sm-offset-2 top-margined">
+
+            <h2>Calendar</h2>
+
+            <div class="wsq content">
+                <% include _calendar %>
+            </div>
+        </section>
+    </div>
+
+    <div class="row">
+        <section class="col-sm-6 col-sm-offset-2 top-margined">
+
+            <h2>Popover</h2>
+
+            <div class="wsq content">
+                <div style="position: relative">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                    <div style="height:120px;">
+                        <div
+                                role="tooltip" class="popover right"
+                                style="display:block;top:-37px;left:20px;"
+                        >
+                            <div class="arrow"></div>
+                            <h3 class="popover-title">Popover right</h3>
+                            <div class="popover-content">
+                                And here's some <strong>amazing</strong>
+                                content. It's very engaging. right?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="position: relative">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                    <div style="height:120px;">
+                        <div
+                            role="tooltip"
+                            class="popover right"
+                            style="display:block;top:-20px;left:18px;"
+                        >
+                            <div class="arrow"></div>
+                            <div class="popover-content">
+                                And here's some <strong>amazing</strong>
+                                content. It's very engaging. right?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</div>
 
 </div>
 <% include ../layout/_bottom.ejs %>

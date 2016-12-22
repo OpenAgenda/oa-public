@@ -42,11 +42,35 @@
   }
 
   .hook-action {
+
     margin-top: 100px;
 
-    .btn {
-      padding: 10px 35px;
+    .search {
+
+      input {
+
+        outline: none;
+        box-shadow: none;
+        border-color: initial;
+        font-size: 17px;
+
+      }
+
+      button {
+
+        right: 4px;
+
+        i {
+
+          color: $oa-black;
+          font-size: 20px;
+
+        }
+
+      }
+
     }
+
   }
 
   .hook-secondary-action {
@@ -59,6 +83,10 @@
       font-size: 0.9em;
       font-weight: 500;
 
+    }
+
+    .btn {
+      padding: 10px 35px;
     }
 
   }
@@ -97,14 +125,13 @@
 
   }
 
-
   @media(max-width: $screen-sm) {
 
     .hook {
       margin-top: 20px;
       font-size: 55px;
     }
-    
+
   }
 
 }

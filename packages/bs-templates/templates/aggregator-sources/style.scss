@@ -6,24 +6,6 @@
 
   .search {
     width: 50%;
-    position: relative;
-
-    input {
-      padding-right: 34px;
-    }
-
-    button {
-      position: absolute;
-      top: 1px;
-      right: 0;
-      background-color: transparent;
-
-      .spin-canvas {
-        top: 8px;
-        left: initial;
-        right: 8px;
-      }
-    }
   }
 
   .agenda-item {
