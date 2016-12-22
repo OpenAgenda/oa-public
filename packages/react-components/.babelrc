@@ -1,9 +1,16 @@
 {
   "presets": [
-    "es2015",
-    "react"
+    "react",
+    "es2015"
   ],
   "plugins": [
-    "transform-class-properties"
+    "add-module-exports",
+    "transform-decorators-legacy",
+    "transform-react-display-name",
+
+    "transform-object-rest-spread",
+    "transform-class-properties",
+    "transform-export-extensions",
+    "transform-function-bind"
   ]
 }

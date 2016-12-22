@@ -88,10 +88,10 @@ var Modal = React.createClass({
   render: function render() {
     var _this = this;
 
-    var _props = this.props;
-    var visible = _props.visible;
-    var title = _props.title;
-    var children = _props.children;
+    var _props = this.props,
+        visible = _props.visible,
+        title = _props.title,
+        children = _props.children;
 
 
     return React.createElement(

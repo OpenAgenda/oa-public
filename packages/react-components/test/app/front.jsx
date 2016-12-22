@@ -5,6 +5,7 @@ const ReactDom = require( 'react-dom' );
 const update = require( 'react-addons-update' );
 const List = require( '../../components/List' );
 const Modal = require( '../../components/Modal' );
+const MoreInfo = require( '../../components/MoreInfo' );
 
 class Wrapper extends Component {
 
@@ -63,6 +64,31 @@ class Wrapper extends Component {
             <p>Wahou, je suis bluffé</p>
             <img src="http://m.memegen.com/fptbj1.jpg" alt="wahou" style={{ maxWidth: '100%' }} />
           </Modal>
+        </div>
+
+        <div className="margin-top-sm">
+          <p>Juste un contenu en texte</p>
+          <MoreInfo
+            id="first-popover"
+            content="N'importe quoi par là"
+          />
+
+          <p>Titre + contenu en texte</p>
+          <MoreInfo
+            id="second-popover"
+            title="Un petit titre ici"
+            content="N'importe quoi par là"
+            placement="top"
+          />
+
+          <p>Avec un lien en plus</p>
+          <MoreInfo
+            id="third-popover"
+            title="Un petit titre ici"
+            content="N'importe quoi par là"
+            link="https://openagenda.zendesk.com/"
+            placement="bottom"
+          />
         </div>
 
       </div>
