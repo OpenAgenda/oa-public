@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Router, useRouterHistory } from 'react-router';
-import createHistory from 'history/createBrowserHistory';
+import createHistory from 'history/lib/createBrowserHistory';
 import { ReduxAsyncConnect } from 'redux-connect';
 import deepExtend from 'deep-extend';
 

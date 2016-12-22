@@ -3,8 +3,15 @@
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var superagent = require('superagent');
+var deepExtend = require('deep-extend');
 
 var methods = ['get', 'post', 'put', 'patch', 'del'];
+
+var defaultOptions = {
+  headers: {
+    'X-Requested-With': 'XMLHttpRequest'
+  }
+};
 
 var ApiClient = function ApiClient(apiRoot, req) {
   var _this = this;
@@ -23,15 +30,15 @@ var ApiClient = function ApiClient(apiRoot, req) {
   };
 
   methods.forEach(function (method) {
-    _this[method] = function (path) {
-      var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-      var query = _ref.query;
-      var data = _ref.data;
-      var headers = _ref.headers;
-      var files = _ref.files;
-      var fields = _ref.fields;
+    _this[method] = function (path, options) {
       return new Promise(function (resolve, reject) {
+        var _deepExtend = deepExtend({}, defaultOptions, options),
+            query = _deepExtend.query,
+            data = _deepExtend.data,
+            headers = _deepExtend.headers,
+            files = _deepExtend.files,
+            fields = _deepExtend.fields;
+
         var request = superagent[method](_this.formatUrl(path));
 
         if (query) {
@@ -63,9 +70,9 @@ var ApiClient = function ApiClient(apiRoot, req) {
         }
 
         request.end(function (err) {
-          var _ref2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+          var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+              body = _ref.body;
 
-          var body = _ref2.body;
           return err ? reject(body || err) : resolve(body);
         });
       });

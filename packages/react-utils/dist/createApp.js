@@ -70,7 +70,7 @@ var _reactRouterRedux = require('react-router-redux');
 
 var _reactRouter = require('react-router');
 
-var _createBrowserHistory = require('history/createBrowserHistory');
+var _createBrowserHistory = require('history/lib/createBrowserHistory');
 
 var _createBrowserHistory2 = _interopRequireDefault(_createBrowserHistory);
 
