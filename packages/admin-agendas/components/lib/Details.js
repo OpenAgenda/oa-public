@@ -307,6 +307,7 @@ module.exports = React.createClass({
       React.createElement(
         "p",
         null,
+        React.createElement("br", null),
         React.createElement(Switch, {
           className: "rc-switch",
           checkedChildren: React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" }),
@@ -316,7 +317,21 @@ module.exports = React.createClass({
           },
           checked: !!agenda.credentials.moderators
         }),
-        " Activate moderators"
+        " Moderators"
+      ),
+      React.createElement(
+        "p",
+        null,
+        React.createElement(Switch, {
+          className: "rc-switch",
+          checkedChildren: React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" }),
+          unCheckedChildren: React.createElement("i", { className: "fa fa-times", "aria-hidden": "true" }),
+          onChange: function onChange(checked) {
+            return setAgenda({ credentials: { aggregator: checked } });
+          },
+          checked: !!agenda.credentials.aggregator
+        }),
+        " Aggregator"
       ),
       React.createElement(
         "p",
@@ -330,7 +345,7 @@ module.exports = React.createClass({
           },
           checked: !!agenda.credentials.tags
         }),
-        " Activate agenda tags"
+        " Agenda tags"
       ),
       React.createElement(
         "p",

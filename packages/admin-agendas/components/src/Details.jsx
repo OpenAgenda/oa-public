@@ -195,6 +195,8 @@ module.exports = React.createClass( {
 
     return (
       agenda.credentials && <div>
+        <p></p>
+
         <p>
           <Switch
             className="rc-switch"
@@ -202,7 +204,17 @@ module.exports = React.createClass( {
             unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
             onChange={checked => setAgenda( { credentials: { moderators: checked } } )}
             checked={!!agenda.credentials.moderators}
-          /> Activate moderators
+          /> Moderators
+        </p>
+
+        <p>
+          <Switch
+            className="rc-switch"
+            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+            onChange={checked => setAgenda( { credentials: { aggregator: checked } } )}
+            checked={!!agenda.credentials.aggregator}
+          /> Aggregator
         </p>
 
         <p>
@@ -212,7 +224,7 @@ module.exports = React.createClass( {
             unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
             onChange={checked => setAgenda( { credentials: { tags: checked } } )}
             checked={!!agenda.credentials.tags}
-          /> Activate agenda tags
+          /> Agenda tags
         </p>
 
         <p>
