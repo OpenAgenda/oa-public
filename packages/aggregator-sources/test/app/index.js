@@ -71,11 +71,14 @@ function matchApp( req, res, next ) {
       list: '/sources.json',
       show: '#',
       remove: '/remove',
-      search: '#'
+      search: '#',
+      createAggregator: '#'
     },
     agenda: {
+      uid: 48959239,
       slug: 'la-gargouille',
-      title: 'La gargouille'
+      title: 'La gargouille',
+      isAggregator: false
     }
   };
 

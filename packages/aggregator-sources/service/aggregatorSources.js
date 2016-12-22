@@ -11,6 +11,7 @@ module.exports = Object.assign( service, { init } );
 function service( aggregatorId ) {
   return {
     list: list.bind( null, aggregatorId ),
+    createAggregator: remove.bind( null, aggregatorId ),
     remove: remove.bind( null, aggregatorId )
   };
 }

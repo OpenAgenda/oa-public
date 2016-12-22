@@ -20,7 +20,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _dec, _dec2, _dec3, _class, _class2, _temp2;
+var _dec, _dec2, _class, _class2, _temp2;
 
 var _reduxConnect = require('redux-connect');
 
@@ -47,6 +47,10 @@ var _Modal2 = _interopRequireDefault(_Modal);
 var _Spinner = require('react-form-components/build/Spinner');
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
+
+var _agenda = require('../../redux/modules/agenda');
+
+var agendaActions = _interopRequireWildcard(_agenda);
 
 var _sources = require('../../redux/modules/sources');
 
@@ -108,7 +112,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       return dispatch(sourcesActions.load(query));
     }
   }
-}]), _dec2 = (0, _reactRedux.connect)(function (state, props) {
+}], function (state, props) {
   return {
     initialValues: {
       search: props.location.query.search || ''
@@ -124,9 +128,9 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
     perPageLimit: state.settings.perPageLimit,
     modals: state.modals
   };
-}, _extends({}, sourcesActions, modalsActions)), _dec3 = (0, _reduxForm.reduxForm)({
+}, _extends({}, sourcesActions, modalsActions, agendaActions)), _dec2 = (0, _reduxForm.reduxForm)({
   form: 'aggregatorSourcesDashboard'
-}), _dec(_class = _dec2(_class = _dec3(_class = (_temp2 = _class2 = function (_Component) {
+}), _dec(_class = _dec2(_class = (_temp2 = _class2 = function (_Component) {
   _inherits(Dashboard, _Component);
 
   function Dashboard() {
@@ -202,7 +206,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       };
       var content = _react3.default.createElement(
         'div',
-        null,
+        { className: 'input-icon-right' },
         _react3.default.createElement('input', _extends({}, props.input, inputAttrs, { onChange: onChange })),
         _react3.default.createElement(
           'button',
@@ -250,6 +254,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           closeModal = _props.closeModal,
           modals = _props.modals,
           remove = _props.remove,
+          createAggregator = _props.createAggregator,
           search = _props.search,
           agenda = _props.agenda,
           perPageLimit = _props.perPageLimit,
@@ -258,6 +263,28 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
 
 
       var removeModal = modals.removeSource || {};
+
+      if (!agenda.isAggregator) {
+
+        return _react3.default.createElement(
+          'div',
+          { className: 'margin-top-sm' },
+          _react3.default.createElement(
+            'p',
+            null,
+            getLabel('aggregatorExplanation')
+          ),
+          _react3.default.createElement(
+            'div',
+            null,
+            _react3.default.createElement(
+              'button',
+              { className: 'btn btn-default', onClick: createAggregator },
+              getLabel('createAggregator')
+            )
+          )
+        );
+      }
 
       return _react3.default.createElement(
         'div',
@@ -427,7 +454,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
 }, _class2.contextTypes = {
   router: _react2.PropTypes.object,
   getLabel: _react2.PropTypes.func
-}, _temp2)) || _class) || _class) || _class));
+}, _temp2)) || _class) || _class));
 
 exports.default = Dashboard;
 ;

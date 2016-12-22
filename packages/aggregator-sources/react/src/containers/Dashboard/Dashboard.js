@@ -7,6 +7,7 @@ import throttle from 'lodash.throttle';
 import monitorBottomHit from 'dom-utils/monitorBottomHit';
 import Modal from 'react-components/build/Modal';
 import Spinner from 'react-form-components/build/Spinner';
+import * as agendaActions from '../../redux/modules/agenda';
 import * as sourcesActions from '../../redux/modules/sources';
 import * as modalsActions from '../../redux/modules/modals';
 
@@ -20,16 +21,15 @@ const searchSpinner = {
 
 
 @asyncConnect( [ {
-  promise: ( { store: { dispatch, getState } } ) => {
-    const state = getState();
-    const query = state.routing.locationBeforeTransitions.query;
+    promise: ( { store: { dispatch, getState } } ) => {
+      const state = getState();
+      const query = state.routing.locationBeforeTransitions.query;
 
-    if ( !sourcesActions.isLoaded( state ) ) {
-      return dispatch( sourcesActions.load( query ) );
+      if ( !sourcesActions.isLoaded( state ) ) {
+        return dispatch( sourcesActions.load( query ) );
+      }
     }
-  }
-} ] )
-@connect(
+  } ],
   ( state, props ) => ({
     initialValues: {
       search: props.location.query.search || ''
@@ -45,7 +45,7 @@ const searchSpinner = {
     perPageLimit: state.settings.perPageLimit,
     modals: state.modals
   }),
-  { ...sourcesActions, ...modalsActions }
+  { ...sourcesActions, ...modalsActions, ...agendaActions }
 )
 @reduxForm( {
   form: 'aggregatorSourcesDashboard'
@@ -105,7 +105,7 @@ export default class Dashboard extends Component {
       props.input.onChange( e.target.value );
       action();
     };
-    const content = <div>
+    const content = <div className="input-icon-right">
       <input {...props.input} {...inputAttrs} onChange={onChange} />
       <button type="submit" className="btn">
         {loading ? <Spinner spinner={searchSpinner} /> : <i className="fa fa-search" aria-hidden="true"></i>}
@@ -137,12 +137,25 @@ export default class Dashboard extends Component {
   render() {
     const {
       res, handleSubmit, agendas, total, loading, nextLoading,
-      showModal, closeModal, modals, remove,
+      showModal, closeModal, modals, remove, createAggregator,
       search, agenda, perPageLimit, location: { query }
     } = this.props;
     const { getLabel } = this.context;
 
     const removeModal = modals.removeSource || {};
+
+    if ( !agenda.isAggregator ) {
+
+      return (
+        <div className="margin-top-sm">
+          <p>{getLabel( 'aggregatorExplanation' )}</p>
+          <div>
+            <button className="btn btn-default" onClick={createAggregator}>{getLabel( 'createAggregator' )}</button>
+          </div>
+        </div>
+      );
+
+    }
 
     return (
       <div>
@@ -207,8 +220,8 @@ export default class Dashboard extends Component {
           ) )}
 
           {!agendas || !agendas.length ? <div className="text-center text-muted margin-v-md">
-            {getLabel( 'noResult' )}
-          </div> : null}
+              {getLabel( 'noResult' )}
+            </div> : null}
 
           {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
             <Spinner />
@@ -220,7 +233,7 @@ export default class Dashboard extends Component {
           visible={removeModal.visible || false}
           onClose={() => closeModal( 'removeSource' )}
         >
-          <p className="margin-top-sm">{getLabel('removeConfirmMessage')}</p>
+          <p className="margin-top-sm">{getLabel( 'removeConfirmMessage' )}</p>
           <div className="text-center">
             <button
               className="btn btn-danger"

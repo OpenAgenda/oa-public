@@ -92,7 +92,7 @@ export default function reducer( state = initialState, action ) {
     case REMOVE_SUCCESS:
       return {
         ...state,
-        data: state.data.filter(v => v.uid !== action.uid),
+        data: state.data.filter( v => v.uid !== action.uid ),
         total: state.total - 1,
         removeError: null,
         removeLoading: false
