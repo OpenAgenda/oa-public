@@ -7,6 +7,7 @@ const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 const bodyParser = require( 'body-parser' );
 const aggregatorSourcesSvc = require( 'aggregator-sources' );
+const model = require( '../services/model' );
 const agendaSvc = require( '../services/agenda' );
 const mw = aggregatorSourcesSvc.mw;
 
@@ -18,6 +19,7 @@ const routes = {
     cmn.checkAdministrator(),
     agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData( 'oasfmain.css' ),
+    populateIsAggregator,
     matchApp
   ] ],
 
@@ -26,6 +28,7 @@ const routes = {
     cmn.checkAdministrator(),
     agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData( 'oasfmain.css' ),
+    populateIsAggregator,
     matchApp
   ] ],
 
@@ -65,6 +68,19 @@ module.exports = path => {
 };
 
 
+function populateIsAggregator( req, res, next ) {
+
+  model.lib.query( `SELECT * from ${config.schemas.aggregator} WHERE review_id = ?`, [ req.agenda.id ], ( err, rows ) => {
+
+    if ( err ) return next( err );
+
+    req.isAggregator = !!(rows && rows.length);
+    next();
+
+  } );
+
+}
+
 function getApp( req, res, next, { store, component } = {} ) {
 
   const state = store ? store.getState() : {};
@@ -95,11 +111,14 @@ function matchApp( req, res, next ) {
           list: req.genUrl( 'aggregatorSourcesList', { slug: req.params.slug } ).split( '?' )[ 0 ],
           show: req.genUrl( 'agendaShow', { slug: ':slug' } ).split( '?' )[ 0 ],
           remove: req.genUrl( 'aggregatorSourcesRemove', { slug: req.params.slug, uid: ':uid' } ).split( '?' )[ 0 ],
-          search: req.genUrl( 'agendaSearch' ).split( '?' )[ 0 ]
+          search: req.genUrl( 'agendaSearch' ).split( '?' )[ 0 ],
+          createAggregator: req.genUrl( 'aggregatorCreate', { uid: ':uid' } ).split( '?' )[ 0 ]
         },
         agenda: {
+          uid: req.agenda.uid,
           slug: req.agenda.slug,
           title: req.agenda.title,
+          isAggregator: req.isAggregator
         }
       }
     },

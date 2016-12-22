@@ -16,6 +16,8 @@ module.exports = {
 
 function init( config ) {
 
+  if (!config) return;
+
   cli = redis.createClient( config.port, config.host );
 
 }
