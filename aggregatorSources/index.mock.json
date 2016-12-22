@@ -1,7 +1,11 @@
 {
   "base": {
     "scriptParams": {
-      "prefix": "/aggregatorSources/index"
+      "state": {
+        "settings": {
+          "prefix": "/aggregatorSources/index"
+        }
+      }
     }
   }
 }
