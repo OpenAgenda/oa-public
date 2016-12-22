@@ -46,7 +46,9 @@ var MoreInfo = (_temp = _class = function (_Component) {
           title = _props.title,
           content = _props.content,
           link = _props.link,
-          placement = _props.placement;
+          placement = _props.placement,
+          className = _props.className,
+          style = _props.style;
 
 
       var popover = _react2.default.createElement(
@@ -55,11 +57,11 @@ var MoreInfo = (_temp = _class = function (_Component) {
         content
       );
 
-      var iconStyle = {
+      var iconStyle = Object.assign({
         color: '#41acdd',
         fontSize: '1.3em'
-      };
-      var icon = _react2.default.createElement('i', { className: 'fa fa-question-circle', 'aria-hidden': 'true', style: iconStyle });
+      }, style);
+      var icon = _react2.default.createElement('i', { className: 'fa fa-question-circle ' + className, 'aria-hidden': 'true', style: iconStyle });
 
       return _react2.default.createElement(
         _OverlayTrigger2.default,
@@ -79,12 +81,16 @@ var MoreInfo = (_temp = _class = function (_Component) {
   title: _react.PropTypes.node,
   content: _react.PropTypes.node,
   link: _react.PropTypes.string,
-  placement: _react.PropTypes.oneOf(['top', 'right', 'bottom', 'left'])
+  placement: _react.PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
+  className: _react.PropTypes.string,
+  style: _react.PropTypes.object
 }, _class.defaultProps = {
   title: null,
   content: null,
   link: null,
-  placement: 'right'
+  placement: 'right',
+  className: '',
+  style: null
 }, _temp);
 exports.default = MoreInfo;
 module.exports = exports['default'];
