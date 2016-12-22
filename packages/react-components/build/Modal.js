@@ -2,7 +2,7 @@
 
 var React = require('react'),
     ReactDOM = require("react-dom"),
-    bodyScroll = require('./bodyScroll');
+    bodyScroll = require('./body-scroll');
 
 var Modal = React.createClass({
 

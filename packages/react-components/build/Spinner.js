@@ -1,0 +1,112 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _bodyScroll = require('./body-scroll');
+
+var _bodyScroll2 = _interopRequireDefault(_bodyScroll);
+
+var _spin = require('spin.js');
+
+var _spin2 = _interopRequireDefault(_spin);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Spinner = function Spinner(props) {
+  return _react2.default.createElement(SpinnerComponent, props);
+};
+
+exports.default = Spinner;
+
+
+Spinner.propTypes = {
+  loading: _react2.default.PropTypes.bool,
+  page: _react2.default.PropTypes.bool,
+  message: _react2.default.PropTypes.string,
+  options: _react2.default.PropTypes.object // spin.js options
+};
+
+var SpinnerComponent = _react2.default.createClass({
+  displayName: 'SpinnerComponent',
+  getDefaultProps: function getDefaultProps() {
+
+    return {
+      loading: true,
+      page: false,
+      message: null,
+      options: {
+        width: 1,
+        length: 6,
+        radius: 10,
+        color: '#666'
+      }
+    };
+  },
+  componentDidMount: function componentDidMount() {
+
+    this.spinner = new _spin2.default(this.props.options);
+
+    this.evaluate();
+  },
+  componentDidUpdate: function componentDidUpdate() {
+
+    this.evaluate();
+  },
+  componentWillUnmount: function componentWillUnmount() {
+
+    if (this.props.page) _bodyScroll2.default.enable();
+  },
+  evaluate: function evaluate() {
+
+    if (this.props.loading) {
+
+      this.spinner.spin(_reactDom2.default.findDOMNode(this.refs.canvas));
+
+      if (this.props.page) _bodyScroll2.default.disable();
+    } else {
+
+      this.spinner.stop();
+
+      if (this.props.page) _bodyScroll2.default.enable();
+    }
+  },
+  render: function render() {
+
+    var classes = [];
+
+    if (this.props.loading) classes.push('spin-canvas');
+
+    if (this.props.page) classes.push('spin-page');
+
+    return _react2.default.createElement(
+      'div',
+      { className: classes.join(' ') },
+      _react2.default.createElement(
+        'div',
+        { ref: 'canvas', style: {
+            position: 'absolute',
+            width: 0,
+            zIndex: 2000000000,
+            left: '50%',
+            top: '50%'
+          } },
+        this.props.message ? _react2.default.createElement(
+          'span',
+          { className: 'spin-message' },
+          this.props.message
+        ) : null
+      )
+    );
+  }
+});
+module.exports = exports['default'];

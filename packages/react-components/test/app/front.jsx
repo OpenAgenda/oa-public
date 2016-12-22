@@ -6,49 +6,69 @@ const update = require( 'react-addons-update' );
 const List = require( '../../components/List' );
 const Modal = require( '../../components/Modal' );
 const MoreInfo = require( '../../components/MoreInfo' );
+const Spinner = require( '../../components/Spinner' );
 
 class Wrapper extends Component {
 
   state = {
-    modal: false
+    modal: false,
+    pageSpin: false
   };
 
   displayModal = bool => {
+
     this.setState( {
       modal: bool
     } );
-  };
+
+  }
+
+  startPageSpin() {
+
+    this.setState( { pageSpin: true } );
+
+    setTimeout( () => {
+
+      this.setState( { pageSpin: false } );
+
+    }, 2000 );
+
+  }
 
   render() {
+
     const items = [
       {
-        title: 'First post',
-        owner: 'bibiche'
+        title: 'Efficacité',
+        owner: 'jeff'
       },
       {
-        title: 'First blowjob',
-        owner: 'pupuce'
+        title: 'Fiabilité',
+        owner: 'steve'
       },
       {
-        title: 'First fisting',
-        owner: 'pupute'
+        title: 'Top Contrôle',
+        owner: 'ted'
       }
     ];
 
     return (
 
       <div>
-        <h2>Simple List</h2>
-        <List
-          items={items}
-          renderItem={( item, i ) =>
-            <div key={i}>
-              <strong>{item.title}</strong> by{' '}
-              <small><strong>{item.owner}</strong></small>
-            </div>}
-        />
 
-        <hr />
+        <div>
+          <h2>Simple List</h2>
+          <List
+            items={items}
+            renderItem={( item, i ) =>
+              <div key={i}>
+                <strong>{item.title}</strong> by{' '}
+                <small><strong>{item.owner}</strong></small>
+              </div>}
+          />
+        </div>
+
+        <div className="separator"></div>
 
         <div>
           <button onClick={() => this.displayModal( true )}>
@@ -90,6 +110,31 @@ class Wrapper extends Component {
             placement="bottom"
           />
         </div>
+
+        <div className="separator"></div>
+
+        <h2>Spinner</h2>
+
+        <p>Simple central spinner</p>
+        <div style={{ height: '140px', position: 'relative', border: '1px solid #ccc' }}>
+
+          <Spinner />
+
+        </div>
+
+        <p>Spinner with a message</p>
+
+        <div style={{ height: '140px', position: 'relative', border: '1px solid #ccc' }}>
+
+          <Spinner message="Look ma', I'm spinning! Weeee!" />
+
+        </div>
+
+        <p>Full page spinner</p>
+
+        <button onClick={() => this.startPageSpin()}>Launch page spinner</button>
+
+        {this.state.pageSpin ? <Spinner page={true} message="this will close soon" /> : null }
 
       </div>
 
