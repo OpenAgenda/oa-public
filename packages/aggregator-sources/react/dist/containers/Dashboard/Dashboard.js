@@ -268,7 +268,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
 
         return _react3.default.createElement(
           'div',
-          { className: 'margin-top-sm' },
+          { className: 'margin-top-sm text-center' },
           _react3.default.createElement(
             'p',
             null,
@@ -276,10 +276,10 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           ),
           _react3.default.createElement(
             'div',
-            null,
+            { className: 'margin-v-lg' },
             _react3.default.createElement(
               'button',
-              { className: 'btn btn-default', onClick: createAggregator },
+              { className: 'btn btn-primary', onClick: createAggregator },
               getLabel('createAggregator')
             )
           )

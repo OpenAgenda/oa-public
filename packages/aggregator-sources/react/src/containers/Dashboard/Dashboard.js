@@ -147,10 +147,10 @@ export default class Dashboard extends Component {
     if ( !agenda.isAggregator ) {
 
       return (
-        <div className="margin-top-sm">
+        <div className="margin-top-sm text-center">
           <p>{getLabel( 'aggregatorExplanation' )}</p>
-          <div>
-            <button className="btn btn-default" onClick={createAggregator}>{getLabel( 'createAggregator' )}</button>
+          <div className="margin-v-lg">
+            <button className="btn btn-primary" onClick={createAggregator}>{getLabel( 'createAggregator' )}</button>
           </div>
         </div>
       );
