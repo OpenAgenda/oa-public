@@ -70,7 +70,7 @@ class GettingStarted extends Component {
 
         <div className="margin-v-lg">
           <p><b>{getLabel( 'addYourFirstEvent' )}</b></p>
-          <div className="text-center">
+          <div className="margin-v-md">
             <a className="btn btn-primary" href={res.addEvent}>
               {getLabel( 'addEvent' )}
             </a>
@@ -99,23 +99,23 @@ class GettingStarted extends Component {
             {getLabel( 'copyLinkAndSend' )}
           </span>
           <div className="row">
-            <div className="input-group margin-top-md col-xs-offset-3 col-xs-6 col-md-offset-4 col-md-4">
+            <div className="input-group margin-top-md col-md-8 margin-left-sm">
               <input type="text" className="form-control" defaultValue={window.location.origin + res.agenda || ''}
                      readOnly />
               <span className="input-group-btn">
-              <CopyToClipboard text={window.location.origin + res.agenda || ''} onCopy={this.onCopied}>
-                <button className="btn btn-primary btn-block" title={getLabel( 'copyLink' )}>
-                  <i className={`fa fa-${this.state.copied ? 'check' : 'clipboard'}`} aria-hidden="true" />
-                </button>
-              </CopyToClipboard>
-            </span>
+                <CopyToClipboard text={window.location.origin + res.agenda || ''} onCopy={this.onCopied}>
+                  <button className="btn btn-primary btn-block" title={getLabel( 'copyLink' )}>
+                    <i className={`fa fa-${this.state.copied ? 'check' : 'clipboard'}`} aria-hidden="true" />
+                  </button>
+                </CopyToClipboard>
+              </span>
             </div>
           </div>
         </div>
 
         <div className="margin-v-lg">
           <p><b>{getLabel( 'embedYourAgenda' )}</b></p>
-          <div className="text-center">
+          <div className="margin-v-md">
             <a className="btn btn-primary" href={res.createEmbed}>
               {getLabel( 'createEmbedded' )}
             </a>
