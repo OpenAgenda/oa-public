@@ -3,28 +3,18 @@
 process.env.NODE_ENV = 'test';
 
 const should = require( 'should' );
+const config = require( '../testconfig' );
+const mysql = require( 'mysql' );
 
-var config = require( '../testconfig' ),
+const service = require( './service' );
 
-fixtures = require( './fixtures' ),
 
-service = require( '../service' ),
-
-mysql = require( 'mysql' );
 
 describe( 'agenda-stakeholders', () => {
 
   describe( 'service', function() {
 
     this.timeout( 60000 );
-
-    before( done => {
-
-      fixtures.init( config );
-
-      fixtures( done );
-
-    } );
 
     before( done => {
 

@@ -6,25 +6,15 @@ var should = require( 'should' ),
 
 config = require( '../testconfig' ),
 
-fixtures = require( './fixtures' ),
-
 mysql = require( 'mysql' ),
 
-service = require( '../service' );
+service = require( './service' );
 
 describe( 'agenda-stakeholders', function () {
 
   describe( 'transferEvent', function () {
 
     this.timeout( 60000 );
-
-    before( done => {
-
-      fixtures.init( config );
-
-      fixtures( done );
-
-    } );
 
     before( done => {
 

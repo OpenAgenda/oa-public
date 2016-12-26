@@ -9,15 +9,26 @@ Service for handling agenda stakeholders.
 
 As stakeholders are always specific to one agenda, methods are only accessible through an object associated to an agenda id:
 
-    const service = require( 'agenda-service' );
+    const service = require( 'agenda-stakeholders' );
 
     // you need to init the service once in your project before using it with the config as defined in the 'Running the app' section
-    service.init( yourconfig );
+    service.init( yourconfig, err => { /* initialized and ready to use! */ } );
 
     var stakeholders = service( agendaId );
 
     // you are now handling stakholders of the agenda of Id 'agendaId'
     // stakeholders.list or .get ...
+
+
+## Testing
+
+Wether you want to use this service for your own lib tests or you want to add tests here, use the proxy service module `require( 'agenda-stakeholders/test/service' )`. It provides an additional method to load service config and prepare fixtures in one go:
+
+    const stakeholders = require( 'agenda-stakeholders/test/service' );
+
+    stakeholder.initAndLoad( config, [ [ files ] ], done );
+
+The optional files array is a list of the filenames to use for loading fixtures. Files are stored in the test/service folder of this repo. Not specifying this will just leave the test service to load default fixtures.
 
 
 ## Listing stakeholders

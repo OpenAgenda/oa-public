@@ -6,11 +6,10 @@ var config = require( '../testconfig' ),
 
 mysql = require( 'mysql' ),
 
-fixtures = require( './fixtures' ),
-
 defaultFields = require( '../service/defaultFields' ),
 
-service = require( '../service' ),
+// proxy of service for tests.
+service = require( './service' ),
 
 async = require( 'async' );
 
@@ -22,15 +21,7 @@ describe( 'agenda-stakeholders', () => {
 
     before( done => {
 
-      fixtures.init( config );
-
-      fixtures( done );
-
-    } );
-
-    before( done => {
-
-      service.init( config, done );
+      service.initAndLoad( config, done );
 
     } );
 

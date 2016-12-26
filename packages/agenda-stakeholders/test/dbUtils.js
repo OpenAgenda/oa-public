@@ -2,31 +2,24 @@
 
 process.env.NODE_ENV = 'test';
 
-var should = require( 'should' ),
+const should = require( 'should' );
+const config = require( '../testconfig' );
+const service = require( './service' );
+const mysql = require( 'mysql' );
+const knexLib = require( 'knex' );
+const w = require( 'when' );
 
-config = require( '../testconfig' ),
-
-fixtures = require( './fixtures' ),
-
-dbUtils = require( '../service/dbUtils' ),
-
-mysql = require( 'mysql' ),
-
-knexLib = require( 'knex' ),
-
-w = require( 'when' );
+const dbUtils = require( '../service/dbUtils' );
 
 describe( 'agenda-stakeholders', () => {
 
-  describe( 'dbUtils', function() {
+  describe( 'unit:dbUtils', function() {
     
     this.timeout( 60000 );
 
     before( done => {
 
-      fixtures.init( config );
-
-      fixtures( done );
+      service.init( config, done );
 
     } );
 
@@ -41,7 +34,6 @@ describe( 'agenda-stakeholders', () => {
       } );
 
     } );
-
 
     it( 'getStakeholder - finds', done => {
 

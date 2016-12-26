@@ -2,15 +2,14 @@
 
 process.env.NODE_ENV = 'test';
 
-var should = require( 'should' ),
+const should = require( 'should' );
 
-  config = require( '../testconfig' ),
+const config = require( '../testconfig' );
 
-  fixtures = require( './fixtures' ),
+const mysql = require( 'mysql' );
 
-  mysql = require( 'mysql' ),
-
-  service = require( '../service' );
+  // test proxy for service.
+const service = require( './service' );
 
 describe( 'agenda-stakeholders', () => {
 
@@ -20,18 +19,9 @@ describe( 'agenda-stakeholders', () => {
 
     before( done => {
 
-      fixtures.init( config );
-
-      fixtures( done );
+      service.initAndLoad( config, done );
 
     } );
-
-    before( done => {
-
-      service.init( config, done );
-
-    } );
-
 
     it( 'get with id gets stakeholder matching id', done => {
 
