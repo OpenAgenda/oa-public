@@ -25,11 +25,11 @@ correspondance = [ {
 } ];
 
 module.exports = {
-  dbToObj: dbToObj,
-  objToDb: objToDb
+  dbToObj,
+  objToDb
 }
 
-function objToDb( obj ) {
+function objToDb( obj, filterNull = false ) {
 
   let entry = {
     review_id: null,
@@ -67,6 +67,20 @@ function objToDb( obj ) {
       entry.organization = obj.custom.organization.slug;
 
     }
+
+  }
+
+  if ( filterNull ) {
+
+    let filtered = {};
+
+    Object.keys( entry ).forEach( k => {
+
+      if ( entry[ k ] !== null && entry[ k ] !== undefined ) filtered[ k ] = entry[ k ];
+
+    } );
+
+    return filtered;
 
   }
 

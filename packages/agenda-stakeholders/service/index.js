@@ -18,7 +18,9 @@ utils = require( 'utils' ),
 
 instanciate = require( './instanciate' ),
 
-gettersLib = require( './getters' ),
+get = require( './get' ),
+
+list = require( './list' ),
 
 legacy = require( './legacy' ),
 
@@ -28,7 +30,8 @@ settings = require( './settings' );
 
 module.exports = Object.assign( agenda, {
   init,
-  user
+  user,
+  agenda
 } );
 
 function agenda( agendaId ) {
@@ -39,9 +42,7 @@ function agenda( agendaId ) {
 
   }
 
-  let getters = gettersLib( agendaId ),
-
-  s = settings( agendaId ),
+  let s = settings( agendaId ),
 
   // exposed part of the service for a specific agenda
   agendaService = {};
@@ -60,10 +61,10 @@ function agenda( agendaId ) {
   };
 
   // get a stakeholder of an agenda
-  agendaService.get = get;
+  agendaService.get = instanciatedGet;
 
   // list stakeholders of an agenda
-  agendaService.list = getters.list;
+  agendaService.list = list.bind( null, { agendaId } );
 
   // transfer an event from one stakeholder to another
   agendaService.transferEvent = transferEvent( agendaId );
@@ -96,7 +97,7 @@ function agenda( agendaId ) {
   }
 
 
-  function get( identifiers, options, cb ) {
+  function instanciatedGet( identifiers, options, cb ) {
 
     if ( arguments.length === 2 ) {
 
@@ -105,23 +106,11 @@ function agenda( agendaId ) {
 
     }
 
-    let params = Object.assign( {
-      instanciate: false,
-      detailed: false
-    }, options || {} );
-
-    getters.get( identifiers, params, ( err, stakeholder ) => {
+    get( { agendaId }, identifiers, options, ( err, stakeholder ) => {
 
       if ( err ) return cb( err );
 
-      // avoid instanciating empty result
-      if ( !stakeholder ) {
-
-        return cb( null, null );
-
-      }
-
-      cb( null, params.instanciate ? agendaService.instanciate( stakeholder ) : stakeholder );
+      cb( null, stakeholder && options.instanciate ? agendaService.instanciate( stakeholder ) : stakeholder );
 
     } );
 
@@ -137,11 +126,10 @@ function user( userId ) {
 
   }
 
-  let getters = gettersLib.user( userId );
-
   // exposed part of the service for a specific user
   const userService = {
-    list: getters.list
+    list: list.bind( null, { userId } ),
+    get: get.bind( null, { userId } )
   };
 
   return userService;
@@ -196,11 +184,21 @@ function init( c, cb ) {
 
   .then( () => {
 
-    gettersLib.init( {
+    get.init( {
       knex,
       schemas,
       interfaces: config.interfaces
     } );
+
+  } )
+
+  .then( () => {
+
+    list.init( {
+      knex,
+      schemas,
+      interfaces: config.interfaces
+    } )
 
   } )
 
