@@ -1,0 +1,19 @@
+/**
+ * deprecating style by id
+ */
+#trio-actions, .summary {
+
+  i {
+    color: $oa-blue;
+    width: 140px;
+    line-height: 140px;
+    border-radius: 70px;
+    background: darken($oa-white, 10);
+    margin: auto auto 12px;
+  }
+
+  p {
+    margin: 0;
+  }
+  
+}
