@@ -1,6 +1,9 @@
 "use strict";
 
 const schema = require( 'validators/schema' );
+const creds = require( '../credentialTypes' );
+const isArray = require( 'lodash/isArray' );
+const isObject = require( 'lodash/isObject' );
 
 schema.register( {
   text: require( 'validators/text' ),
@@ -9,7 +12,39 @@ schema.register( {
   integer: require( 'validators/integer' )
 } );
 
-module.exports = schema( {
+module.exports = v => {
+
+  let pre = {};
+
+  if ( isObject( v ) ) { 
+
+    Object.keys( v ).forEach( k => {
+
+      if ( k === 'credentials' ) {
+
+        let credFilter = [].concat( v[ k ] );
+
+        if ( credFilter.length && typeof credFilter[ 0 ] === 'string' && credFilter[ 0 ].length > 1 ) {
+
+          pre[ k ] = creds.list( v[ k ] );
+
+          return;
+
+        }
+
+      }
+
+      pre[ k ] = v[ k ];
+
+    } );
+
+  }
+
+  return listQuerySchema( pre );
+
+}
+
+const listQuerySchema = schema( {
   search: {
     type: 'text',
     optional: true,
@@ -22,7 +57,7 @@ module.exports = schema( {
   credentials: {
     type: 'choice',
     optional: true,
-    options: require( '../credentialTypes' ).map( c => c.value )
+    options: creds.types.map( c => c.value )
   },
   userId: {
     type: 'integer',

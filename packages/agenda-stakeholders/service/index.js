@@ -38,7 +38,7 @@ function agenda( agendaId ) {
 
   if ( !config ) {
 
-    throw 'service not initialized';
+    throw new Error( 'service not initialized' );
 
   }
 

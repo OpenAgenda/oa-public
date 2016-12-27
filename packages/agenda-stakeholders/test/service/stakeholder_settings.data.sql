@@ -4,4 +4,4 @@ CREATE TABLE IF NOT EXISTS ${schema} (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 insert into ${schema} ( `id`, `store` ) values
-(4608, '{"fields": [{"field":"somefield", "type":"text", "params": {"min":2,"max":100}}]}');
+(4609, '{"fields": [{"field":"somefield", "type":"text", "params": {"min":2,"max":100}}]}');

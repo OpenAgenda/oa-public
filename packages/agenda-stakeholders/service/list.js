@@ -96,6 +96,24 @@ function _list( v ) {
 
     v.knex = v.knex.where( format.objToDb( v.query, true ) );
 
+    if ( v.query.search !== null ) {
+
+      v.knex.andWhere( 'store', 'like', '%' + v.query.search + '%' );
+
+    }
+
+    if ( v.query.invited !== null ) {
+
+      v.knex[ v.query.invited ? 'whereNull' : 'whereNotNull' ]( 'user_id' );
+
+    }
+
+    if ( v.query.credentials.length ) {
+
+      v.knex.whereIn( 'credential', v.query.credentials );
+
+    }
+
     return v.knex.clone()
       .select( 'id', 'credential', 'user_id', 'review_id', 'store', 'organization', 'updated_at', 'created_at' )
       .limit( v.limit )

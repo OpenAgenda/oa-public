@@ -143,18 +143,15 @@ function settings( agendaId ) {
 
       if ( err ) return cb( err );
 
-      let errors = [],
-
-      clean = [], cleanFieldValues = {};
+      let errors = [], clean = undefined;
 
       try {
 
-        let dirty = Object.keys( values ).map( k => {
+        let dirty = {}; 
 
-          return {
-            field: k,
-            value: typeof values[ k ] === 'object' ? values[ k ].label : values[ k ]
-          }
+        Object.keys( values ).map( k => {
+
+          dirty[ k ] = typeof values[ k ] === 'object' ? values[ k ].label : values[ k ];
 
         } );
 
@@ -166,13 +163,11 @@ function settings( agendaId ) {
 
       };
 
-      clean.forEach( c => { cleanFieldValues[ c.field ] = c.value } );
-
       cb( null, {
         valid: !errors.length,
-        clean: cleanFieldValues,
-        errors: errors,
-        settings: settings
+        clean,
+        errors,
+        settings
       } );
 
     } );
