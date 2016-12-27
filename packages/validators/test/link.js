@@ -68,7 +68,8 @@ describe( 'link validator', () => {
         'http://www.facebook.com/pages/Maison-Des-Musiques-Alternatives/256970411014473',
         'http://www.placedesreseaux.com/Dossiers/animer-developper/initiative-collective-1.html',
         'http://www.lebaneseunderground.com/music/index.asp',
-        'http://www.tourisme-ouestvar.com/les-journees-europeennes-du-patrimoine-ollioules-exposition-visites-guidees-animations.html?origine_affinage=true&mid=1&action=result&origine_affinage=true'
+        'http://www.tourisme-ouestvar.com/les-journees-europeennes-du-patrimoine-ollioules-exposition-visites-guidees-animations.html?origine_affinage=true&mid=1&action=result&origine_affinage=true',
+        'https://static.wixstatic.com/media/852505_4e3b455f81d2432d871076b2e796d8f7.png/v1/fill/w_184,h_68,al_c,usm_0.66_1.00_0.01/852505_4e3b455f81d2432d871076b2e796d8f7.png'
       ],
 
       notLinks = links.filter( l => {
