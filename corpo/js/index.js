@@ -26,9 +26,28 @@ window.hook( options => {
 
   $( function () {
 
-    checkOdometers();
+    var elems = $( '.counter' );
+    var odoAgendas = elems[ 0 ];
+    var odoContributors = elems[ 1 ];
+    var odoEvents = elems[ 2 ];
+    var format = options.lang === 'fr' ? '( ddd),dd' : '(,ddd).dd';
 
-    du.addEvent( document, "scroll", checkOdometers );
+    new Odometer( {
+      el: odoAgendas,
+      format
+    } );
+    new Odometer( {
+      el: odoContributors,
+      format
+    } );
+    new Odometer( {
+      el: odoEvents,
+      format
+    } );
+
+    checkOdometers(elems);
+
+    du.addEvent( document, "scroll", () => checkOdometers( elems ) );
 
     setTimeout( () => {
 
@@ -89,11 +108,11 @@ function isScrolledIntoView( elem ) {
 }
 
 
-function checkOdometers() {
+function checkOdometers(elems) {
 
-  var odoAgendas = $( '.odometer' )[ 0 ];
-  var odoContributors = $( '.odometer' )[ 1 ];
-  var odoEvents = $( '.odometer' )[ 2 ];
+  var odoAgendas = elems[ 0 ];
+  var odoContributors = elems[ 1 ];
+  var odoEvents = elems[ 2 ];
 
   if ( odoAgendas && isScrolledIntoView( odoAgendas ) ) {
     odoAgendas.innerText = params.stats.agendas;
