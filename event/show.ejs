@@ -220,6 +220,13 @@
       <div class="event-content">
 
         <div class="location-head">
+<% if ( !loner ) { %>
+        <% if ( event.location.agendaId === agendaId ) { %>
+          <div class="display-none js_admin_item js_role_agenda_moderator js_role_agenda_admin pull-right">
+            <a class="btn btn-default" rel="nofollow" href="<%= genUrl( 'agendaAdminLocations', { uids: [event.location.uid], slug: slug } ) %>"><%= __( 'edit location' ) %></a>
+          </div>
+        <% } %>
+<% } %>
           <label>
             <%- event.location.name %>
           </label>

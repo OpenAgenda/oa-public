@@ -1,5 +1,6 @@
 {
   "base": {
+    "agendaId" : 111,
     "loner": false,
     "title": "Jeu de Territoire pour développer la qualité de Vie",
     "description": "l'agenda des évènements repérés par ChezNous",
@@ -110,6 +111,7 @@
       "featured": false,
       "location": {
         "uid" : 46739624,
+        "agendaId" : 111,
         "link": "#",
         "name": "Musée des beaux-arts de valenciennes",
         "address": "Boulevard Watteau, Valenciennes",
