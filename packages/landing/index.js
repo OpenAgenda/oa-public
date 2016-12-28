@@ -16,7 +16,8 @@ module.exports = function( basePath ) {
     segments: [],
     labels,
     basePath,
-    baseDir: __dirname + '/templates'
+    baseDir: __dirname + '/templates',
+    throwOnUnknown: false
   }
 
   fs.readdirSync( __dirname + '/templates' ).map( f => {

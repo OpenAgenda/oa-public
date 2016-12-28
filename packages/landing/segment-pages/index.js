@@ -11,7 +11,8 @@ module.exports = config => {
     templates: {},
     segments: [],
     pages: [],
-    labels: false // optional. If set, will look into keys for match
+    labels: false, // optional. If set, will look into keys for match
+    throwOnUnknown: true
   } );
 
   // create the feature base renderers
@@ -31,7 +32,9 @@ module.exports = config => {
 
     if ( !pageParams.length ) {
 
-      throw new Error( 'unknown page ' + page );
+      if ( params.throwOnUnknown ) throw new Error( 'unknown page ' + page );
+
+      return null;
 
     }
 
