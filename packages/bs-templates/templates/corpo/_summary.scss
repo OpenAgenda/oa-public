@@ -20,13 +20,19 @@
     margin: 0;
   }
 
-  .features li {
+  .features {
 
-    margin-bottom: 10px;
+    padding: 0 4em;
 
-    &.already-included {
+    li {
 
-      color: $oa-gray-light;
+      margin-bottom: 10px;
+
+      &.already-included {
+
+        color: $oa-gray-light;
+
+      }
 
     }
 
