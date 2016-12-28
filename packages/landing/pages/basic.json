@@ -13,10 +13,18 @@
   "title" : "basicOfferTitle",
   "description": "basicOfferDescription",
   "layout": "layout",
-  "segments": [ "unlimited", {
+  "segments": [ {
+    "key": "basicSummary"
+  }, {
+    "key" : "unlimited",
+    "background" : "gray"
+  }, {
     "key": "opendata",
-    "background": "gray"
-  }, "multimedia", {
+    "background": "white"
+  }, {
+    "key" : "multimedia", 
+    "background" : "dark-purple"
+  }, {
     "key" : "broadcast",
     "background" : "gray"
   }, "getstarted", "footer" ]
