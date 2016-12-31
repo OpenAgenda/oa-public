@@ -74,6 +74,13 @@ Options:
 
      let instance = stakeholders.instanciate( gottenStakeholder );
 
+Available methods ( check for details below ):
+
+ * isValid
+ * getFieldValues
+ * setFieldValues
+ * save
+
 ### Instanciated stakeholder: isValid
 
 Find out whether stakeholder data is valid or not

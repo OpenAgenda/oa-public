@@ -1,6 +1,8 @@
 "use strict";
 
-module.exports = [ {
+const validator = require( './validator' );
+
+module.exports.fields = [ {
   field: 'organization',
   type: 'text',
   slugged: true, // when a slug should be generated and stored
@@ -21,4 +23,7 @@ module.exports = [ {
   field: 'email',
   type: 'email',
   params: {}
-} ];
+} ]
+
+// default schema derives from default stakeholder field set
+module.exports.schemaMap = validator.convertFieldsToSchemaMap( module.exports.fields );

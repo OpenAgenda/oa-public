@@ -295,17 +295,3 @@ function init( config ) {
   knex = config.knex;
 
 }
-
-
-/**
- * tell from settings whether field is slugged
- */
-function _isFieldSlugged( fieldName, settings ) {
-  
-  let fieldSettings = settings.fields.filter( f => f.field === utils.toUnderscore( fieldName ) );
-
-  if ( !fieldSettings.length ) return false;
-
-  return !!fieldSettings[ 0 ].slugged;
-
-}

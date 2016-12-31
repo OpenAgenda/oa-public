@@ -4,7 +4,7 @@ const should = require( 'should' );
 const service = require( './service' );
 const config = require( '../testconfig' );
 
-describe( 'agenda-stakeholders - initialization', function() {
+describe( 'agenda-stakeholders - functional (server): initialization', function() {
 
   this.timeout( 10000 );
 

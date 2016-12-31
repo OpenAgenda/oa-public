@@ -1,6 +1,6 @@
 "use strict";
 
-const defaultFields = require( './defaultFields' ),
+const defaultFields = require( '../iso/defaults' ).fields,
 
 w = require( 'when' ),
 

@@ -10,15 +10,13 @@ schema.register( {
   email: require( 'validators/email' )
 } );
 
-var validators = require( 'validators' ),
-
-utils = require( 'utils' );
-
 /**
  * stakeholder validator. Needs the fields settings to work
  */
 
-module.exports = fields => {
+module.exports = fields => schema( module.exports.convertFieldsToSchemaMap( fields ) );
+
+module.exports.convertFieldsToSchemaMap = fields => {
 
   let s = {};
 
@@ -28,16 +26,6 @@ module.exports = fields => {
 
   } );
 
-  return schema( s );
-
-  // derive a schema from fields ( if possible )
-  // validators.set is deprecated.
-  // should definitively use schema
-
-  /*return validators.set( fields.map( function( f ) {
-
-    return validators[ f.type ]( utils.extend( { field: f.field }, f.params ) );
-
-  } ) );*/
+  return s;
 
 }

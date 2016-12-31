@@ -6,14 +6,14 @@ var config = require( '../testconfig' ),
 
 mysql = require( 'mysql' ),
 
-defaultFields = require( '../service/defaultFields' ),
+defaultFields = require( '../iso/defaults' ).fields,
 
 // proxy of service for tests.
 service = require( './service' ),
 
 async = require( 'async' );
 
-describe( 'agenda-stakeholders - settings', function() {
+describe( 'agenda-stakeholders - functional (server): settings', function() {
 
   this.timeout( 60000 );
 

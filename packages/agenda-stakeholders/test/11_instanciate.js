@@ -7,7 +7,7 @@ const mysql = require( 'mysql' );
 const service = require( './service' );
 const config = require( '../testconfig' );
 
-describe( 'agenda-stakeholders - instanciate', function() {
+describe( 'agenda-stakeholders - unit (server): instanciate', function() {
 
   this.timeout( 60000 );
 

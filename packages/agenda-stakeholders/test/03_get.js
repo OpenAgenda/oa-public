@@ -8,7 +8,7 @@ const mysql = require( 'mysql' );
 
 const service = require( './service' );
 
-describe( 'agenda-stakeholders', function() {
+describe( 'agenda-stakeholders - functional (server): get', function() {
 
   this.timeout( 30000 );
 
@@ -18,7 +18,7 @@ describe( 'agenda-stakeholders', function() {
 
   } );
 
-  describe( 'service.agenda.get', () => {
+  describe( 'agenda.get', () => {
 
     it( 'get with id gets stakeholder matching id', done => {
 
@@ -104,7 +104,7 @@ describe( 'agenda-stakeholders', function() {
 
   } );
 
-  describe( 'service.user.get', () => {
+  describe( 'user.get', () => {
 
     it( 'get from user endpoint needs an agendaId to be specified', done => {
 

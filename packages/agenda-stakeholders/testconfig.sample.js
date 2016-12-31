@@ -4,17 +4,23 @@ module.exports = {
   mysql : {
     host : '127.0.0.1',
     database : 'stakeholder_test',
-    password : 'fdsfdsqfdsqf',
-    user : 'root'
+    password : 'fdsqfdsq',
+    user : 'fsdqfds'
   },
   schemas : {
     agenda: 'agenda',
     event: 'event',
     stakeholder: 'stakeholder',
-    stakeholderSettings: 'agenda_stakeholder_settings',
-    agendaEvent: 'agenda_event'
+    agendaEvent: 'agenda_event',
+    stakeholderSettings: 'agenda_stakeholder_settings'
   },
   interfaces: {
-    getEventCount: ( agendaId, userId, cb ) => {  cb( null, Math.ceil( Math.random() * 1000 ) );  }
+    getEventCount: ( agendaId, userId, cb ) => {  cb( null, 35 );  },
+    getUser: ( userId, cb ) => { cb( null, {
+      id: userId,
+      uid: 128492293,
+      user_name: 'Zorg', 
+      email: 'zorg@galactic.uv' 
+    } ) }
   }
 }

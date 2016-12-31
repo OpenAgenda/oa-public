@@ -12,11 +12,11 @@ storeLib = require( 'mysql-table-store' ),
 
 w = require( 'when' ),
 
-validator = require( './validator' ),
+validator = require( '../iso/validator' ),
 
 customFormat = require( './customFormat' ),
 
-defaultFields = require( './defaultFields' ),
+defaultFields = require( '../iso/defaults' ).fields,
 
 legacyLib = require( './legacy' );
 

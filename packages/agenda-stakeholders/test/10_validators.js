@@ -5,7 +5,7 @@ const should = require( 'should' );
 const validators = require( '../iso/validators' );
 
 
-describe( 'agenda-stakeholders - validators', () => {
+describe( 'agenda-stakeholders - unit (iso): validators', () => {
 
   describe( 'listOptions', () => {
 
