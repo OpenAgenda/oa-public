@@ -15,7 +15,7 @@ module.exports = React.createClass( {
     return {
       day: {
         start: '07:00',
-        end: '06:59'
+        end: '07:00'
       }
     }
 

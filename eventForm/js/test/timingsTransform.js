@@ -8,6 +8,21 @@ describe( 'timingsTransform', () => {
 
   describe( 'toTimingsWidgetFormat', () => {
 
+    it( 'times with centiseconds are cleaned', () => {
+
+      transform.toTimingsWidgetFormat( [ {
+        date: '2016-11-15',
+        begin: '09:00:00',
+        end: '07:00:00'
+      } ], '07:00', '07:00' )
+
+      .should.eql( [ { 
+        start: '2016-11-15T09:00:00+01:00',
+        end: '2016-11-16T07:00:00+01:00' 
+      } ] );
+
+    } );
+
     it( 'combines begin, end and date into start/end pair', () => {
 
       transform.toTimingsWidgetFormat( [ {
