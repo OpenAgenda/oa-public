@@ -36,10 +36,6 @@ var _lodash3 = require('lodash.throttle');
 
 var _lodash4 = _interopRequireDefault(_lodash3);
 
-var _agendas = require('../../redux/modules/agendas');
-
-var agendasActions = _interopRequireWildcard(_agendas);
-
 var _monitorBottomHit = require('dom-utils/monitorBottomHit');
 
 var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
@@ -47,6 +43,10 @@ var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
 var _Spinner = require('react-form-components/build/Spinner');
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
+
+var _agendas = require('../../redux/modules/agendas');
+
+var agendasActions = _interopRequireWildcard(_agendas);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -138,6 +138,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           subLabel = _ref3.subLabel,
           max = _ref3.max,
           classNameGroup = _ref3.classNameGroup,
+          visible = _ref3.visible,
           errorOnDirty = _ref3.errorOnDirty,
           _ref3$meta = _ref3.meta,
           touched = _ref3$meta.touched,
@@ -145,6 +146,9 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           dirty = _ref3$meta.dirty;
 
       var displayError = errorOnDirty ? dirty || touched : touched;
+
+      if (visible === false) return _react3.default.createElement('div', null);
+
       return _react3.default.createElement(
         'div',
         { className: 'form-group ' + classNameGroup + ' ' + (displayError && error ? 'has-error has-feedback' : '') },
@@ -187,7 +191,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       };
       var content = _react3.default.createElement(
         'div',
-        null,
+        { className: 'input-icon-right' },
         _react3.default.createElement('input', _extends({}, props.input, inputAttrs, { onChange: onChange })),
         _react3.default.createElement(
           'button',
@@ -301,7 +305,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             )
           )
         ),
-        (total > limitPerPage || query.search) && _react3.default.createElement(
+        _react3.default.createElement(
           'form',
           { onSubmit: handleSubmit(this.search) },
           _react3.default.createElement(_reduxForm.Field, {
@@ -312,7 +316,8 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             className: 'form-control',
             placeholder: getLabel('searchAgenda'),
             action: this.debouncedSearch,
-            loading: loading
+            loading: loading,
+            visible: total > limitPerPage || query.search || search
           })
         ),
         _react3.default.createElement(

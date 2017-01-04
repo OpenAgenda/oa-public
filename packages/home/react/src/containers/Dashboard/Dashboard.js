@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
 import debounce from 'lodash.debounce';
 import throttle from 'lodash.throttle';
-import * as agendasActions from '../../redux/modules/agendas';
 import monitorBottomHit from 'dom-utils/monitorBottomHit';
 import Spinner from 'react-form-components/build/Spinner';
+import * as agendasActions from '../../redux/modules/agendas';
 
 const selector = formValueSelector( 'homeDashboard' );
 
@@ -66,10 +66,13 @@ export default class Dashboard extends Component {
   };
 
   renderField = ( {
-    content, input: { name, value }, label, subLabel, max, classNameGroup,
+    content, input: { name, value }, label, subLabel, max, classNameGroup, visible,
     errorOnDirty, meta: { touched, error, dirty }
   } ) => {
     const displayError = errorOnDirty ? dirty || touched : touched;
+
+    if ( visible === false ) return <div></div>;
+
     return (
       <div className={`form-group ${classNameGroup} ${displayError && error ? 'has-error has-feedback' : ''}`}>
         {label && <label htmlFor={name}>{label}</label>}
@@ -94,7 +97,7 @@ export default class Dashboard extends Component {
       props.input.onChange( e.target.value );
       action();
     };
-    const content = <div>
+    const content = <div className="input-icon-right">
       <input {...props.input} {...inputAttrs} onChange={onChange} />
       <button type="submit" className="btn">
         {loading ? <Spinner spinner={searchSpinner} /> : <i className="fa fa-search" aria-hidden="true"></i>}
@@ -161,7 +164,7 @@ export default class Dashboard extends Component {
             </a>
           </div>
         </div>
-        {(total > limitPerPage || query.search) && <form onSubmit={handleSubmit( this.search )}>
+        <form onSubmit={handleSubmit( this.search )}>
           <Field
             component={this.renderSearchInput}
             name="search"
@@ -171,8 +174,9 @@ export default class Dashboard extends Component {
             placeholder={getLabel( 'searchAgenda' )}
             action={this.debouncedSearch}
             loading={loading}
+            visible={total > limitPerPage || query.search || search}
           />
-        </form>}
+        </form>
         <div className="row">
           {agendas && agendas.map( agenda => (
             <div className="agenda-item media" key={agenda.uid}>
