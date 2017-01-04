@@ -1,0 +1,72 @@
+@import "../layout/base";
+@import '../agenda-admin/style';
+@import '../form-components/input-with-icon';
+@import '../modal/style';
+
+.members-admin {
+
+  .nav-pills {
+
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    & > li {
+
+      margin-top: 12px;
+
+      & > a, & > a:focus {
+
+        color: $oa-black;
+        background-color: initial;
+
+      }
+
+      & > a:hover {
+
+        color: $oa-blue;
+        background-color: transparent;
+
+      }
+
+    }
+
+    & > li.active {
+
+      & > a, & > a:focus {
+
+        color: $oa-white;
+        background-color: $oa-blue;
+
+      }
+
+      & > a:hover {
+        background-color: lighten($oa-blue, 8);
+
+      }
+
+    }
+
+  }
+
+  .bo-list-item {
+
+    .actions {
+
+      a {
+
+        color: $oa-blue;
+
+        &:hover {
+
+          text-decoration: underline;
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
