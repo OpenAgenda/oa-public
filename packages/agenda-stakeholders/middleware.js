@@ -1,10 +1,11 @@
 "use strict";
 
-var service = require( '../service' );
+const _ = require( 'lodash' );
+const service = require( './service' );
 
 module.exports = {
-  loadAgenda: loadAgenda,
-  load: load
+  loadAgenda,
+  load
 }
 
 function loadAgenda( agendaNamespace, serviceNamespace ) {
@@ -18,6 +19,7 @@ function loadAgenda( agendaNamespace, serviceNamespace ) {
   }
 
 }
+
 
 function load( agendaNamespace, userNamespace, stakeholderNamespace ) {
 

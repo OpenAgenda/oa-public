@@ -8,8 +8,6 @@ const mysql = require( 'mysql' );
 
 const service = require( './service' );
 
-
-
 describe( 'agenda-stakeholders - functional (server): service', function() {
 
   this.timeout( 60000 );
@@ -132,5 +130,5 @@ describe( 'agenda-stakeholders - functional (server): service', function() {
     } );
 
   } );
-    
+
 } );

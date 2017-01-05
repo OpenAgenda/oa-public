@@ -5,7 +5,7 @@ const _ = {
   isEqual: require( 'lodash/isEqual' )
 }
 
-const ua = require( 'superagent' );
+const sa = require( 'superagent' );
 
 const defaults = {
   timeout: 10000,
@@ -63,7 +63,7 @@ module.exports = class {
 
     this._busyChange( true );
 
-    ua.get( this.getRes() )
+    sa.get( this.getRes() )
 
       .timeout( this.params.timeout )
 
@@ -99,7 +99,7 @@ module.exports = class {
 
     this._busyChange( true );
 
-    ua.post( this.getRes() )
+    sa.post( this.getRes() )
 
       .timeout( this.params.timeout )
 

@@ -25,6 +25,7 @@
     "when": "^3.7.7"
   },
   "devDependencies": {
+    "express": "^4.14.0",
     "should": "^8.3.0"
   }
 }

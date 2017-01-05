@@ -2,7 +2,9 @@
 
 const knexLib = require( 'knex' ),
 
-w = require( 'when' );
+w = require( 'when' ),
+
+_ = require( 'lodash' );
 
 var knex,
 
@@ -42,37 +44,29 @@ function agenda( agendaId ) {
 
   }
 
-  let s = settings( agendaId ),
+  let s = settings( agendaId );
 
-  // exposed part of the service for a specific agenda
-  agendaService = {};
+  // separate reference for re-use within service
+  let agendaService = {};
 
-  // set stakeholder requirements
-  agendaService.settings = { 
-    get: s.get,
-    set: s.set,
-    clear: s.clear,
-    setDefault: s.setDefault,
-    custom: {
-      validate: s.custom.validate,
-      toValues: s.custom.toValues,
-      toFields: s.custom.toFields
+  _.extend( agendaService, { 
+    get: instanciatedGet,
+    list: list.bind( null, { agendaId } ),
+    transferEvent: transferEvent( agendaId ),
+    instanciate: instanciate( agendaService ),
+    new: newStakeholder,
+    settings: { 
+      get: s.get,
+      set: s.set,
+      clear: s.clear,
+      setDefault: s.setDefault,
+      custom: {
+        validate: s.custom.validate,
+        toValues: s.custom.toValues,
+        toFields: s.custom.toFields
+      }
     }
-  };
-
-  // get a stakeholder of an agenda
-  agendaService.get = instanciatedGet;
-
-  // list stakeholders of an agenda
-  agendaService.list = list.bind( null, { agendaId } );
-
-  // transfer an event from one stakeholder to another
-  agendaService.transferEvent = transferEvent( agendaId );
-
-  // instanciation function for agenda stakeholders
-  agendaService.instanciate = instanciate( agendaService );
-
-  agendaService.new = newStakeholder;
+  } );
 
   return agendaService;
 
