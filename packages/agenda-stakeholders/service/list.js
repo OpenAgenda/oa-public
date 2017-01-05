@@ -48,7 +48,7 @@ function list() {
 
     cb( null, v.result.stakeholders, v.result.total );
 
-  } );
+  }, cb );
 
 }
 

@@ -30,3 +30,21 @@ module.exports.list = codes => {
   return module.exports.types.filter( t => codes.indexOf( t.code ) !== -1 ).map( t => t.value );
 
 }
+
+module.exports.codes = {
+  get: value => {
+
+    let matches = listCodes( [ value ] );
+
+    return matches.length ? matches[ 0 ] : undefined;
+
+  },
+  list: listCodes
+}
+
+
+function listCodes( values ) {
+
+  return module.exports.types.filter( t => values.indexOf( t.value ) !== -1 ).map( t => t.code );  
+
+}

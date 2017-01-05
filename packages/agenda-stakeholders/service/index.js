@@ -2,33 +2,33 @@
 
 const knexLib = require( 'knex' ),
 
-w = require( 'when' ),
+  w = require( 'when' ),
 
-_ = require( 'lodash' );
+  _ = require( 'lodash' ),
 
-var knex,
+  get = require( './get' ),
+
+  list = require( './list' ),
+
+  stats = require( './stats' ),
+
+  transferEvent = require( './transferEvent' ),
+
+  dbUtils = require( './dbUtils' ),
+
+  instanciate = require( './instanciate' ),
+
+  legacy = require( './legacy' ),
+
+  logger = require( 'basic-logger' ),
+
+  settings = require( './settings' );
+
+let knex,
 
 config,
 
-schemas,
-
-transferEvent = require( './transferEvent' ),
-
-dbUtils = require( './dbUtils' ),
-
-utils = require( 'utils' ),
-
-instanciate = require( './instanciate' ),
-
-get = require( './get' ),
-
-list = require( './list' ),
-
-legacy = require( './legacy' ),
-
-logger = require( 'basic-logger' ),
-
-settings = require( './settings' );
+schemas;
 
 module.exports = Object.assign( agenda, {
   init,
@@ -52,6 +52,7 @@ function agenda( agendaId ) {
   _.extend( agendaService, { 
     get: instanciatedGet,
     list: list.bind( null, { agendaId } ),
+    stats: stats.bind( null, { agendaId } ),
     transferEvent: transferEvent( agendaId ),
     instanciate: instanciate( agendaService ),
     new: newStakeholder,
@@ -73,7 +74,7 @@ function agenda( agendaId ) {
 
   function newStakeholder( options ) {
 
-    let stakeholder = utils.extend( {
+    let stakeholder = _.extend( {
       userId: null, // required
       credential: 1 // contributor
     }, options || {}, {
@@ -192,7 +193,13 @@ function init( c, cb ) {
       knex,
       schemas,
       interfaces: config.interfaces
-    } )
+    } );
+
+  } )
+
+  .then( () => {
+
+    stats.init( { knex, schemas } );
 
   } )
 
