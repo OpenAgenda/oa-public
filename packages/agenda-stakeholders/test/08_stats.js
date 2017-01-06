@@ -23,12 +23,10 @@ describe( 'agenda-stakeholders - functional (server): stats', function() {
 
     service.agenda( 4608 ).stats( ( err, stats ) => {
 
-      stats.should.eql( { 
-        credentialTotals: {
-          contributor: 508,
-          administrator: 10,
-          moderator: 46 
-        }
+      stats.credentialTotals.should.eql( { 
+        contributor: 508,
+        administrator: 10,
+        moderator: 46 
       } );
 
       done();
@@ -48,6 +46,26 @@ describe( 'agenda-stakeholders - functional (server): stats', function() {
         con.end();
 
         stats.credentialTotals.moderator.should.equal( rows[ 0 ][ 'count(id)' ] );
+
+        done();
+
+      } ); 
+
+    } );
+
+  } );
+
+  it( '.agenda stats provides total of members for a given agenda', done => {
+
+    service.agenda( 4608 ).stats( ( err, stats ) => {
+
+      let con = mysql.createConnection( config.mysql );
+
+      con.query( `select count(id) from ${config.schemas.stakeholder} where review_id = ?`, 4608, ( err, rows ) => {
+
+        con.end();
+
+        stats.total.should.equal( rows[ 0 ][ 'count(id)' ] );
 
         done();
 

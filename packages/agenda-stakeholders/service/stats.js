@@ -17,11 +17,14 @@ function stats( preFilter, cb ) {
     query: preFilter,
     knex: knex( schemas.stakeholder ),
     result: {
+      total: 0,
       credentialTotals: {}  
     }
   } )
 
   .then( _credentialTotals )
+
+  .then( _total )
 
   .done( v => {
 
@@ -54,6 +57,16 @@ function _credentialTotals( v ) {
     return v;
 
   } );
+
+}
+
+function _total( v ) {
+
+  v.result.total = 0;
+
+  Object.keys( v.result.credentialTotals ).forEach( t => v.result.total += v.result.credentialTotals[ t ] );
+
+  return v;
 
 }
 
