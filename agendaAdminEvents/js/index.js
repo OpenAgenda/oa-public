@@ -8,6 +8,8 @@ React = require( 'react' ),
 
 AdminEventsHeader = require( './AdminEventsHeader.jsx' ),
 
+removeEventWarning = require( './removeEventWarning' ),
+
 params = {
   lang: 'en',
   res: {
@@ -24,7 +26,8 @@ params = {
     headControls: {
       link: '.js_head_link',
       body: '.js_head_body'
-    }
+    },
+    removeEvent: '.js_remove_link'
   },
   image: '#'
 },
@@ -41,6 +44,8 @@ window.hook( function( options ) {
     res={params.res} />, du.el( params.selectors.headerCanvas ) );
 
   _toggler( params.selectors.headControls.link, params.selectors.headControls.body );
+
+  removeEventWarning( du.el( params.selectors.headerCanvas ), du.els( params.selectors.removeEvent ), params.lang );
 
 } );
 
@@ -68,5 +73,10 @@ function _toggler( link, body ) {
     } );
 
   } );
+
+}
+
+
+function _removeEvent( elems ) {
 
 }
