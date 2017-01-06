@@ -10,7 +10,7 @@ const service = require( './service' );
 
 describe( 'agenda-stakeholders - functional (server): get', function() {
 
-  this.timeout( 30000 );
+  this.timeout( 60000 );
 
   before( done => {
 

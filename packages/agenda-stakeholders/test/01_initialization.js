@@ -6,7 +6,7 @@ const config = require( '../testconfig' );
 
 describe( 'agenda-stakeholders - functional (server): initialization', function() {
 
-  this.timeout( 10000 );
+  this.timeout( 60000 );
 
   it( 'if the service is not initialized, endpoints will throw an error', () => {
 
