@@ -73,12 +73,6 @@ module.exports = function( anchorElem ) {
 
         }
 
-        if ( !category.active ) {
-
-          log( 'category not active' );
-
-        }
-
         if ( category.selected ) {
 
           _unselect( category );

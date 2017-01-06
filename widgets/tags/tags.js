@@ -315,12 +315,23 @@ function widget( elem, options ) {
 
       var count = ( typeof activeTags[ tag.s ] == 'undefined' ? 0 : activeTags[ tag.s ] );
 
+      var classes = [ 'oa-tag-' + tag.s ],
+
+      active = enabled && count,
+
+      selected = selectedTag == tag.s;
+
+      if ( active ) classes.push( 'active' );
+
+      if ( selected ) classes.push( 'selected' );
+
+      if ( !count ) classes.push( 'no-current-match' );
+
       data.tags.push( {
         label : tag.t,
         slug : tag.s,
-        className : 'oa-tag-' + tag.s,
-        active : enabled && count,
-        selected : selectedTag == tag.s,
+        classes : ' ' + classes.join( ' ' ),
+        selected : selected,
         count: count
       } );
 

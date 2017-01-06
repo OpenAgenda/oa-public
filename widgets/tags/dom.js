@@ -71,12 +71,6 @@ module.exports = function( anchorElem ) {
 
         }
 
-        if ( !tag.active ) {
-
-          log( 'tag not active' );
-
-        }
-
         if ( tag.selected ) {
 
           _unselect( tag );
