@@ -23,7 +23,7 @@ const bodyParser = require( 'body-parser' ),
 
   config = require( '../../testconfig.js' ),
 
-  service = require( '../../service' ),
+  service = require( '../service/index' ),
 
   mw = service.mw;
 
@@ -49,23 +49,15 @@ app.post( '/deleteAccount', [
 app.post( '/uploadProfileImage', mw.uploadProfileImage );
 app.post( '/removeProfileImage', mw.removeProfileImage );
 
-fixtures.init( config );
 
-fixtures( [ {
-  table: 'user',
-  src: path.resolve( __dirname, '../fixtures/user.data.sql' )
-}, {
-  table: 'api_key_set',
-  src: path.resolve( __dirname, '../fixtures/api_key_set.data.sql' )
-} ], err => {
+service.initAndLoad( config, err => {
 
   if ( err ) return console.error( err );
-
-  service.init( config );
 
   app.getAndListen( '*', 3000, [ mw.csrfProtection ] );
 
 } );
+
 
 function sendEmail( req, res ) {
 
