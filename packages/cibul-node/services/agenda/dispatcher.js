@@ -27,7 +27,6 @@ module.exports = agenda => {
     onEventFeaturedChange,
     onEventPublish,
     onEventUnpublish,
-    onEventRemove,
     onEventUpdate,
     onSetStakeholder
   }
@@ -82,31 +81,11 @@ module.exports = agenda => {
 
     log( 'agenda.%s.onEventUnpublish.%s', agenda.id, event.id );
 
-    aggregator.notifyUnpublish( event.id, agenda.id );
-
-    if ( !params.refresh ) return;
-
-    controlData.queue( agenda.id, {
-      type: 'eventRemove',
-      eventId: event.id
-    } );
-
-    agenda.refreshUpdatedAt();
-
-  }
-
-
-  function onEventRemove( event, options ) {
-
-    let params = Object.assign( {
-      refresh: true
-    }, options || {} );
-
-    log( 'agenda.%s.onEventRemove.%s', agenda.id, event.id );
-
     clearReferences( agenda.id, event.id );
 
     aggregator.notifyUnpublish( event.id, agenda.id );
+
+    if ( !params.refresh ) return;
 
     controlData.queue( agenda.id, {
       type: 'eventRemove',

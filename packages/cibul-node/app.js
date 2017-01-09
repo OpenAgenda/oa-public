@@ -84,7 +84,7 @@ module.exports = ( enabledTypes, cb ) => {
           require( './agenda/facebook.back' )( '' ),
           require( './agenda/tagcat.back' )( '' ),
           require( './agenda/actions.front' )( '/:slug/actions' ),
-          require( './agenda_bridges/back' )( '/:slug/admin/services' ),
+          //require( './agenda_bridges/back' )( '/:slug/admin/services' ),
           require( './agenda/exports.front' )( '/agendas/:uid' ),
           require( './agenda/exports.back' )( '/agendas/:uid/admin' ),
           require( './agenda/groupActions.back' )( '/agendas/:uid/admin' ),
@@ -187,7 +187,7 @@ module.exports = ( enabledTypes, cb ) => {
 
         tfy( require( './general/nominatim.task' ), { bootOffset: 10000, period: 60000 * 5 } );
 
-        tfy( require( './agenda_bridges/task' ), { bootOffset: 3000 } );
+        //tfy( require( './agenda_bridges/task' ), { bootOffset: 3000 } );
 
         tfy( require( './general/jobs.task' ), { bootOffset: 1000 } );
 
@@ -241,7 +241,7 @@ module.exports = ( enabledTypes, cb ) => {
 
         log( 'error', 'uncaughtException: %s', err.message );
 
-        console.error( (new Date).toUTCString(), 'uncaught: %s', err.message );
+        console.error( ( new Date ).toUTCString(), 'uncaught: %s', err.message );
 
         console.error( err.stack );
 

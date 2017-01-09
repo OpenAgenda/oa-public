@@ -424,7 +424,7 @@ function _formatEventItem( event, req, cb ) {
   inst.switchLanguage( req.lang );
 
   var formatted = lib.extend( inst, {
-    dateRange: inst.getRange( req.lang ),
+    dateRange: inst.getRange( req.lang, req.query.oaq ),
     closestDate: inst.getClosestDate(),
     keywords: inst.getTags(),
     tags: [],

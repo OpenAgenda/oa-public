@@ -111,7 +111,7 @@ module.exports = path => {
         res: {
           create: '/new',
           slugAvailable: '/agendas/slugs/available',
-          onCreated: '/:slug/admin?bravo'
+          onCreated: '/:slug/admin/getting-started'
         }
       }
     };

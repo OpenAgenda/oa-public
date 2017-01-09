@@ -8,7 +8,13 @@ cmn = require( '../lib/commons-app' ),
 
 eventSvc = require( '../services/event' ),
 
+tagSvc = require( 'agenda-tags' ),
+
+categorySvc = require( 'agenda-categories' ),
+
 locationMw = require( 'agenda-locations' ).mw(),
+
+utils = require( 'utils' ),
 
 perPage = 20,
 
@@ -21,6 +27,26 @@ routes = {
     agendaSvc.mw.decorateEvents(),
     agendaSvc.mw.cleanJson,
     json
+  ] ],
+
+  agendaJsonLocations: [ 'get', '/locations.json', [
+    agendaSvc.mw.load( 'uid' ),
+    _prepareLocationExport,
+    locationMw.list,
+    ( req, res ) => cmn.renderJson( req, res, req.locations )
+  ] ],
+
+  agendaJsonSettings: [ 'get', '/settings.json', [
+    agendaSvc.mw.load( 'uid' ),
+    _loadTagSet,
+    _loadCategorySet,
+    locationMw.loadSettings( 'locationSettings', true ),
+    ( req, res ) => cmn.renderJson( req, res, {
+      tagSet: req.tagSet,
+      categorSet: req.categorySet,
+      locationSet: req.locationSettings,
+      customSet: req.agenda.getCustomFieldsConfig()
+    } )
   ] ],
 
   agendaCsvEvents: [ 'get', '/events.csv', [
@@ -99,6 +125,7 @@ function json( req, res ) {
 
 }
 
+
 function addSource( req, res, next ) {
 
   req.aggregatorAgenda.sources.add( req.agenda, function( err ) {
@@ -130,5 +157,45 @@ function removeSource( req, res, next ) {
     res.redirect( 302, req.genUrl( 'agendaShow', { slug: req.agenda.slug } ) );
 
   });
+
+}
+
+function _prepareLocationExport( req, res, next ) {
+
+  utils.extend( req, { 
+    agendaId: req.agenda.id,
+    ignoreXhr: true,
+    filterInternal: true
+  } );
+
+  next();
+
+}
+
+function _loadTagSet( req, res, next ) {
+
+  tagSvc.get( req.agenda.id, ( err, tagSet ) => {
+
+    if ( err ) return next( err );
+
+    req.tagSet = tagSet;
+
+    next();
+
+  } );
+
+}
+
+function _loadCategorySet( req, res, next ) {
+
+  categorySvc.get( req.agenda.id, ( err, categorySet ) => {
+
+    if ( err ) return next( err );
+
+    req.categorySet = categorySet;
+
+    next();
+
+  } );
 
 }

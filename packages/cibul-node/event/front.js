@@ -145,6 +145,7 @@ function agendaEventShow( req, res ) {
   _addContactLink( req );
 
   cmn.render( req, res, 'event/show', {
+    agendaId: req.agenda.id,
     adminNav: req.query.admin_nav,
     event: req.formatted,
     components: req.components

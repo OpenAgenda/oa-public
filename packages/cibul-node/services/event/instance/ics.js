@@ -50,8 +50,8 @@ module.exports = function( agenda, eData /* event data */, ev /* event instance 
   repeated = [
     'DTSTAMP:' + _date(),
     'TZID:' + l.timezone.replace( '/', '-' ) ,
-    'SUMMARY:' + _esc( ev.getDescription() ),
-    'DESCRIPTION:' + truncatedDescription + ' ' + i18n( 'see more', lang ) + ': ' + url,
+    'SUMMARY:' + _esc( ev.getTitle() ),
+    'DESCRIPTION:' + _esc( ev.getDescription() ) + ( truncatedDescription.length ? ' - ' + truncatedDescription : '' ) + ' ' + i18n( 'see more', lang ) + ': ' + url,
     'STATUS:CONFIRMED',
     'LOCATION:' + l.name + '\\r\\n' + l.address,
     'GEO:' + l.latitude + ';' + l.longitude,

@@ -9,6 +9,13 @@ const landing = require( 'landing' ),
     fr: config.root + '/decouvrir'
   } ),
 
+  legacyPages = {
+    premium: 'premium-agenda',
+    basic: 'basic-agenda',
+    tailored: 'a-tailored-offer',
+    network: 'network-of-agendas'
+  },
+
   coms = require( '../lib/coms' ),
 
   w = require( 'when' ),
@@ -44,11 +51,15 @@ var modLib = require( '../lib/moduleLib' ),
     decouvrir: [ 'get', '/decouvrir/:page', [
       cmn.loadBaseData( 'oasfmain.css' ),
       _corpoBrowserCache,
+      _redirectLang,
+      _redirectLegacyLinks,
       discover 
     ] ],
     discover: [ 'get', '/discover/:page', [ 
       cmn.loadBaseData( 'oasfmain.css' ),
       _corpoBrowserCache,
+      _redirectLang,
+      _redirectLegacyLinks,
       discover 
     ] ],
   };
@@ -214,9 +225,46 @@ function newsletterSubscribe( req, res ) {
 }
 
 
+function _redirectLang( req, res, next ) {
+
+  if ( req.query && req.query.lang && [ 'fr', 'en' ].indexOf( req.query.lang ) === -1 ) {
+
+    return res.redirect( 301, req.genUrl( 'discover', { page: req.params.page, lang: 'en' } ) );
+
+  }
+
+  next();
+
+}
+
+
+function _redirectLegacyLinks( req, res, next ) {
+
+  if ( legacyPages[ req.params.page ] ) {
+
+    return res.redirect( 301, req.genUrl( 'discover', {
+      page: legacyPages[ req.params.page ],
+      lang: req.lang
+    } ) );
+
+  }
+
+  next();
+
+}
+
+
 function discover( req, res, next ) {
 
   let page = landingPages( req.params.page );
+
+  if ( !page ) {
+
+    req.log( 'error', 'unknown page %s', req.params.page );
+
+    return res.redirect( req.genUrl( 'corpoHome', { lang: req.lang } ) );
+
+  }
 
   if ( req.query.lang && page.getLang() !== req.query.lang) {
 
@@ -231,6 +279,13 @@ function discover( req, res, next ) {
     content = content.replace( '<!--metas-->', page.getHeadPart() );
 
     res.send( content );
+
+    req.log( 'info', {
+      landing: page.getAlternateUrl( 'fr' ).split( '/' ).pop(),
+      lang: req.lang,
+      message: 'discover page: ' + req.params.page,
+      userAgent: req.headers[ 'user-agent' ]
+    } );
 
   } );
 

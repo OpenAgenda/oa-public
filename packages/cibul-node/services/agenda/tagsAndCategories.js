@@ -129,7 +129,7 @@ function _streamedRefresh( v ) {
 
 function _refreshAgenda( v ) {
 
-  log( 'refreshing agenda %s', v.agendaId );
+  log( 'info', { action: 'refreshing agenda', agendaId: v.agendaId } );
 
   var d = w.defer();
 

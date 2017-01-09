@@ -337,7 +337,7 @@ var deepExtend = require( 'deep-extend' ),
           },
           'eventRemove': {
             method: 'get',
-            uri: '/remove/event/:eventSlug'
+            uri: '/event/:eventUid/remove'
           },
           'eventCalendarShare': {
             method: 'get',

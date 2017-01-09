@@ -85,7 +85,7 @@ function loadEvent( paramName, fieldName, options ) {
       if ( !v.user.logged ) {
 
         return res.redirect( req.genUrl( req.agenda ? 'agendaSignup' : 'signup', utils.extend( {
-          msg: 'limitedaccessevent',
+          msg: 'limitedAccessEvent',
           redirect: ( new Buffer( req.genUrl( req.agenda ? 'agendaEventShow' : 'eventShow', utils.extend( {
             eventSlug: req.event.slug
           }, req.agenda ? { slug: req.agenda.slug } : {} ) ) ).toString( 'base64' ) )

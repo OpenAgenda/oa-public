@@ -1,5 +1,7 @@
 "use strict";
 
+const filterTimings = require( './filterTimings' );
+
 var model = require( '../../model' ),
 
 state = require( './state' ),
@@ -43,7 +45,6 @@ function instanciate( data ) {
     getImage: _imageGetter( 'getImage' ),
     getThumbnail: _imageGetter( 'getThumbnail' ),
     getFullImage: _imageGetter( 'getFullImage' ),
-    remove: remove,
     transferOwnership: transferOwnership,
     refresh: refresh,
     getRange: getRange,
@@ -117,21 +118,6 @@ function instanciate( data ) {
   }
 
 
-  function remove( cb ) {
-
-    instance.remove( function( err ) {
-
-      if ( err ) return cb( err );
-
-      dsp.onRemove();
-
-      cb();
-
-    });
-
-  }
-
-
   function transferOwnership( userId, cb ) {
 
     instance.save( { ownerId: userId }, cb );
@@ -172,7 +158,7 @@ function instanciate( data ) {
   }
 
 
-  function getRange( language ) {
+  function getRange( language, filter ) {
 
     if ( !language ) {
 
@@ -180,16 +166,20 @@ function instanciate( data ) {
 
     }
 
-    let timezone = instance.getLocationDetails().timezone;
+    let timezone = instance.getLocationDetails().timezone,
 
-    return range( instance.getTimings().map( t => {
+    timings = instance.getTimings();
 
-      return {
-        start: new Date( t.start ),
-        end: new Date( t.end )
-      }
+    if ( filter && ( filter.from || filter.to ) ) {
 
-    } ), language, timezone );
+      timings = filterTimings( timings, filter, timezone );
+
+    }
+
+    return range( timings.map( t => ( {
+      start: new Date( t.start ),
+      end: new Date( t.end )
+    } ) ), language, timezone );
 
   }
 

@@ -146,7 +146,7 @@ function complete( agendaId, cb ) {
 
   _init();
 
-  log( 'triggering refresh for agenda id %s', agendaId );
+  log( 'info', { message: 'triggering refresh for agenda id %s', agendaId: agendaId }, agendaId );
 
   p.w( {
     agendaId,

@@ -25,7 +25,6 @@ module.exports = function( loaded, instance ) {
   return {
     stateChange,
     onSave,
-    onRemove,
     onRefresh
   }
 
@@ -88,15 +87,6 @@ module.exports = function( loaded, instance ) {
   function onSave( options ) {
 
     log( 'on save happened somehow with these options: %s', JSON.stringify( options ) );
-
-  }
-
-
-  function onRemove() {
-
-    log( 'onRemove' );
-
-    coms.publish( config.mainChannel, { name: 'event.delete', values: { id: instance.id } } );
 
   }
 

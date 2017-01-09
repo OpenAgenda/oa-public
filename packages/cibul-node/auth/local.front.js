@@ -27,11 +27,14 @@ pLib = require( './lib/passport' ),
 routes = {
 
   signin: [ 'get', '/signin', [ 
-    auth.checkUnloggedAndUpdateRedis, auth.renderSignin 
+    auth.checkUnloggedAndUpdateRedis,
+    _presetEmail,
+    auth.renderSignin 
   ] ],
 
   agendaSignin: [ 'get', '/:slug/signin', [
     auth.checkUnloggedAndUpdateRedis,
+    _presetEmail,
     auth.renderSignin
   ] ],
 
@@ -353,6 +356,16 @@ function _loadCaptcha( req, res, next ) {
   }
 
   next();
+
+}
+
+function _presetEmail( req, res, next ) {
+
+  if ( !req.query.email ) return next();
+
+  auth.renderSignin( req, res, {
+    email: req.query.email
+  } );
 
 }
 

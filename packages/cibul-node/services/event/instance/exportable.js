@@ -2,6 +2,8 @@
 
 const range = require( 'date-range' );
 
+const filterTimings = require( './filterTimings' );
+
 var i18n = require( '../../../i18n/i18n' ),
 
 genUrl = require( '../../genUrl' ),
@@ -123,58 +125,27 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     if ( !v.filter ) return v;
 
+    if ( !v.filter.from && !v.filter.to ) return v;
+
     let timezone = v.exportable.location.timezone || 'Europe/Paris';
 
-    if ( v.filter.from ) {
+    let timings = filterTimings( 
+      v.exportable.timings, 
+      v.filter, 
+      timezone
+    ).map( t => ( {
+      start: new Date( t.start ),
+      end: new Date( t.end )
+    } ) );
 
-      v.exportable = _filterFrom( v.exportable, v.filter.from, timezone );
-
-    }
-
-    if ( v.filter.to ) {
-
-      v.exportable = _filterTo( v.exportable, v.filter.to, timezone );
-
-    }
-
-    if ( v.filter.from || v.filter.to ) {
-
-      let timings = v.exportable.timings.map( t => {
-
-        return {
-          start: new Date( t.start ),
-          end: new Date( t.end )
-        }
-
-      } );
-
-      v.exportable.range = {
-        fr: range( timings, 'fr', timezone ),
-        en: range( timings, 'en', timezone )
-      }
-
+    v.exportable.range = {
+      fr: range( timings, 'fr', timezone ),
+      en: range( timings, 'en', timezone )
     }
 
     return v;
 
   }
-
-  function _filterFrom( event, fromValue, timezone ) {
-
-    event.timings = event.timings.filter( t => moment.tz( fromValue, timezone ).format( 'YYYY-MM-DD' ) <= moment.tz( t.start, timezone ).format( 'YYYY-MM-DD' ) );
-
-    return event;
-
-  }
-
-  function _filterTo( event, toValue, timezone ) {
-
-    event.timings = event.timings.filter( t => moment.tz( toValue, timezone ).format( 'YYYY-MM-DD' ) >= moment.tz( t.start, timezone ).format( 'YYYY-MM-DD' ) );
-
-    return event;
-
-  }
-
 
 
   function _adjustProtocol( v ) {

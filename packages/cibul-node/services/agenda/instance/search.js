@@ -25,6 +25,8 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
       if ( err ) return cb( err );
 
+      log( 'info', { action: 'resync.complete', agendaId: agenda.id, 'message' : 'resynced agenda' } );
+
       loaded.refresh( cb );
 
     } );

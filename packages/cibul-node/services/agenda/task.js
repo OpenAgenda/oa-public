@@ -90,12 +90,6 @@ function _onAgendaActivity( action ) {
 
 function _onEventActivity( action ) {
 
-  if ( action.name === 'event.delete' ) {
-
-    action.values.type = 'event.remove';
-
-  }
-
   log( 'info', action.values.agendaId ? '-- read event %s activity for agenda %s --' : '-- read event %s activity --', action.values.id, action.values.agendaId );
 
   eventSvc.get( { id: action.values.id }, ( err, event ) => {
@@ -129,6 +123,7 @@ function _onEventActivity( action ) {
 
           break;
 
+        case 'event.remove':
         case 'event.unpublish':
 
           dsp.onEventUnpublish( event, action.values );
@@ -139,12 +134,6 @@ function _onEventActivity( action ) {
         //case 'event.categoryUpdate': does not exist
 
           // do nothing, legacy es index catches the same event
-
-          break;
-
-        case 'event.remove':
-
-          dsp.onEventRemove( event, action.values );
 
           break;
 

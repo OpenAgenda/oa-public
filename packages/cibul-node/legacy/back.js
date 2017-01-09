@@ -8,6 +8,8 @@ eventSvc = require( '../services/event' ),
 
 userSvc = require( '../services/user' ),
 
+async = require( 'async' ),
+
 referencesSvc = require( 'agenda-event-references' ),
 
 cmn = require( '../lib/commons-app' ),
@@ -57,6 +59,15 @@ routes = {
     referencesSave
   ] ],
 
+
+
+  /**
+   * process an event delete
+   */
+  eventDelete: [ 'get', '/events/:eventUid/delete', [
+    _loadEventByUid,
+    eventDelete
+  ] ],
 
   /**
    * log sf messages
@@ -142,6 +153,40 @@ function referencesSave( req, res, next ) {
     referencesSvc( req.agenda.id ).set( req.event.id, refIds, err => {
 
       req.log( 'references for event %s set: %s', req.event.id, refIds.join( ', ' ) );
+
+      res.send( 'ok' );
+
+    } );
+
+  } );
+
+}
+
+
+function eventDelete( req, res, next ) {
+
+  req.event.getAgendaReferences( ( err, agendas ) => {
+
+    async.eachSeries( agendas, ( a, ecb ) => {
+
+      agendaSvc.get( { uid: a.uid }, ( err, agenda ) => {
+
+        agenda.removeEvent( req.event, ecb );
+
+      } );
+
+    }, err => {
+
+      // allow some wiggle room for tasks to process
+      setTimeout( () => {
+
+        req.event.remove( err => {
+
+          log( 'info', 'event %s removed', req.event.id );
+
+        } );
+
+      }, 6000 );
 
       res.send( 'ok' );
 

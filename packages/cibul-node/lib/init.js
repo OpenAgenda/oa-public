@@ -494,8 +494,15 @@ function _initAgendaLocations( config ) {
       accessKeyId: config.aws.accessKeyId,
       secretAccessKey: config.aws.secretAccessKey
     },
+    maxLimit: 300,
     // callbacks for updating other app services when changes occur
-    interfaces: appSvc.event.locations,
+    interfaces: utils.extend( {
+      getAgendaSettings: ( agendaId, cb ) => {
+
+        agendasSvc.get( agendaId, ( err, agenda ) => cb( err, agenda ? agenda.settings : {} ) )
+
+      }
+    }, appSvc.event.locations ),
     logger: logger
   }, err => {
 
@@ -635,6 +642,16 @@ function _initAgendaService( config ) { // sync
           }
         } );
 
+        if ( agenda.settings.contribution.useFields ) {
+
+          agendaStakeholders( agenda.id ).settings.setDefault( err => {
+
+            log( 'error', { message: 'agenda creation default stakeholder settings could not be created', error: err } );
+
+          } );
+
+        }
+
         agendaStakeholders( agenda.id ).new( {
           userId: agenda.ownerId, 
           credential: 2
@@ -662,6 +679,17 @@ function _initAgendaService( config ) { // sync
         } else if ( hasCredentialsChange ) {
 
           updateType = 'credentials';
+
+        }
+
+        // set stakeholder field requirements
+        if ( !before.settings.contribution.useFields && after.settings.contribution.useFields ) {
+
+          agendaStakeholders( before.id ).settings.setDefault( err => {
+
+            if ( err ) log( 'error', { message: 'agenda update default stakeholder settings could not be created', error: err, agendaId: before.id } );
+
+          } );
 
         }
 

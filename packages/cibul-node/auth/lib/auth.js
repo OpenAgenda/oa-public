@@ -1,5 +1,11 @@
 "use strict";
 
+const labels = require( 'labels/auth/messages' ),
+
+  getLabel = require( 'labels' )( labels ),
+
+  userSvc = require( '../../services/user' );
+
 var cmn = require( '../../lib/commons-app' ),
 
 lib = require( '../../lib/lib' ),
@@ -14,10 +20,6 @@ emailValidator = require( 'validators/email' )(),
 
 deepExtend = require( 'deep-extend' ),
 
-userSvc = require( '../../services/user' ),
-
-labels = require( 'labels/auth/messages' ),
-
 loadAgenda = require( '../../services/agenda' ).mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
 
 session = require( './session' ),
@@ -25,20 +27,20 @@ session = require( './session' ),
 exposed = {
   setSession: session.set,
   unsetSession: session.unset,
-  checkUnloggedAndUpdateRedis: checkUnloggedAndUpdateRedis,
-  signin: signin,
-  layoutData: layoutData,
-  ifUserLoaded: ifUserLoaded,
-  ifUserActivated: ifUserActivated,
-  ifUnresolved: ifUnresolved,
-  redirectToComplete: redirectToComplete,
-  redirectToResend: redirectToResend,
-  loadOptionals: loadOptionals,
-  saveOptionals: saveOptionals,
-  restoreOptionals: restoreOptionals,
-  serviceCallback: serviceCallback,
-  fullNameFromEmail: fullNameFromEmail,
-  done: done, // when a controller is done
+  checkUnloggedAndUpdateRedis,
+  signin,
+  layoutData,
+  ifUserLoaded,
+  ifUserActivated,
+  ifUnresolved,
+  redirectToComplete,
+  redirectToResend,
+  loadOptionals,
+  saveOptionals,
+  restoreOptionals,
+  serviceCallback,
+  fullNameFromEmail,
+  done, // when a controller is done
   errors: {
     defaultMessage: errorDefaultMessage,
     existingEmail: errorExistingEmail
@@ -136,6 +138,16 @@ function init( service ) {
    */
 
   function attemptCreate( values ) {
+
+    if ( !values.profile ) {
+
+      values.req.log( '%s profile data is not in hand, aborting attemptCreate', service );
+
+      values.data.message = getLabel( 'abortedAuth', { service }, values.req.lang );
+
+      return values;
+
+    }
 
     values.req.log( '%s attempting account creation with %s', service, JSON.stringify( values.profile ) );
 
@@ -467,7 +479,7 @@ function errorDefaultMessage( values ) {
 
   if ( !values.err.message ) {
 
-    values.err.message = 'There was a problem. Please try again later';
+    values.err.message = labels.genericError[ values.req.lang ];
 
   }
 
@@ -488,7 +500,7 @@ function errorExistingEmail( values ) {
 
     delete values.data.errors.email;
 
-    values.data.message = 'An account with your email already exists. Please sign in using your email and password';
+    values.data.message = labels.accountEmailAlreadyExists[ values.req.lang ];
 
     return exposed.renderSignin( values );
 
