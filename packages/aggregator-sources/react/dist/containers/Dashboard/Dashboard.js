@@ -162,7 +162,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
 
       var displayError = errorOnDirty ? dirty || touched : touched;
 
-      if (!visible) return _react3.default.createElement('div', null);
+      if (visible === false) return _react3.default.createElement('div', null);
 
       return _react3.default.createElement(
         'div',

@@ -78,7 +78,7 @@ function matchApp( req, res, next ) {
       uid: 48959239,
       slug: 'la-gargouille',
       title: 'La gargouille',
-      isAggregator: false
+      isAggregator: true
     }
   };
 
