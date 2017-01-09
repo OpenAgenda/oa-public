@@ -5,7 +5,6 @@ process.env.NODE_ENV = 'test';
 const should = require( 'should' );
 const config = require( '../testconfig' );
 const mysql = require( 'mysql' );
-
 const service = require( './service' );
 
 describe( 'agenda-stakeholders - functional (server): get', function() {

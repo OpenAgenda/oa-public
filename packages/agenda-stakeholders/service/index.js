@@ -12,17 +12,19 @@ const knexLib = require( 'knex' ),
 
   stats = require( './stats' ),
 
-  transferEvent = require( './transferEvent' ),
-
-  dbUtils = require( './dbUtils' ),
-
-  instanciate = require( './instanciate' ),
-
-  legacy = require( './legacy' ),
+  remove = require( './remove' ),
 
   logger = require( 'basic-logger' ),
 
-  settings = require( './settings' );
+  legacy = require( './legacy' ),
+
+  dbUtils = require( './dbUtils' ),
+
+  settings = require( './settings' ),
+
+  instanciate = require( './instanciate' ),
+
+  transferEvent = require( './transferEvent' );
 
 let knex,
 
@@ -53,6 +55,7 @@ function agenda( agendaId ) {
     get: instanciatedGet,
     list: list.bind( null, { agendaId } ),
     stats: stats.bind( null, { agendaId } ),
+    remove: remove.bind( null, { agendaId } ),
     transferEvent: transferEvent( agendaId ),
     instanciate: instanciate( agendaService ),
     new: newStakeholder,
@@ -183,6 +186,15 @@ function init( c, cb ) {
       knex,
       schemas,
       interfaces: config.interfaces
+    } );
+
+  } )
+
+  .then( () => {
+
+    remove.init( {
+      knex,
+      schemas
     } );
 
   } )
