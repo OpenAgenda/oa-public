@@ -78,6 +78,7 @@ module.exports = ( enabledTypes, cb ) => {
           require( './location/back' )( '' ),
           require( './agenda/settings.back' )( '' ),
           require( './agenda/sources.back' )( '/:slug/admin' ),
+          require( './agenda/members.back' )( '/:slug/admin' ),
           require( './agenda/shares.front' )( '' ),
           require( './agenda/front' )( '' ),
           require( './agenda/back' )( '' ),
