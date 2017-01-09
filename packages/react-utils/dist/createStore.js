@@ -15,7 +15,7 @@ exports.default = function (reducers) {
 
 
     var enhancer = void 0;
-    var middleware = (0, _redux.applyMiddleware)((0, _reactRouterRedux.routerMiddleware)(history), promiseMiddleware(client));
+    var middleware = (0, _redux.applyMiddleware)((0, _reactRouterRedux.routerMiddleware)(history), funcMiddleware(), promiseMiddleware(client));
 
     if (process.env.NODE_ENV == 'development') {
       var _require = require('redux-devtools'),
@@ -43,6 +43,22 @@ function getDebugSessionKey() {
   // By default we try to read the key from ?debug_session=<key> in the address bar
   var matches = window.location.href.match(/[?&]debug_session=([^&#]+)\b/);
   return matches && matches.length > 0 ? matches[1] : null;
+}
+
+function funcMiddleware() {
+
+  return function (_ref) {
+    var dispatch = _ref.dispatch,
+        getState = _ref.getState;
+    return function (next) {
+      return function (action) {
+
+        if (typeof action !== 'function') return next(action);
+
+        return action(store);
+      };
+    };
+  };
 }
 
 function promiseMiddleware(client) {

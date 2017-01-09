@@ -25,7 +25,7 @@ exports.default = function (defaultState, createStore, getRoutes, ApiClient, fn)
   var renderRouter = function renderRouter(props) {
     return _react2.default.createElement(_reduxConnect.ReduxAsyncConnect, _extends({}, props, { helpers: { client: client }, filter: function filter(item) {
         return !item.deferred;
-      } }));
+      }, history: history }));
   };
 
   if (typeof window !== 'undefined') {
@@ -50,7 +50,7 @@ exports.default = function (defaultState, createStore, getRoutes, ApiClient, fn)
     { store: store, key: 'provider' },
     _react2.default.createElement(
       _reactRouter.Router,
-      { history: history },
+      { history: history, render: renderRouter },
       getRoutes(store)
     )
   );

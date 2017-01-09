@@ -6,7 +6,7 @@ export default function ( reducers ) {
   return ( history, client, state = {} ) => {
 
     let enhancer;
-    const middleware = applyMiddleware( routerMiddleware( history ), promiseMiddleware( client ) );
+    const middleware = applyMiddleware( routerMiddleware( history ), funcMiddleware(), promiseMiddleware( client ) );
 
     if ( process.env.NODE_ENV == 'development' ) {
       const { persistState } = require( 'redux-devtools' );
@@ -34,6 +34,18 @@ function getDebugSessionKey() {
   return (matches && matches.length > 0) ? matches[ 1 ] : null;
 }
 
+function funcMiddleware() {
+
+  return ( { dispatch, getState } ) => next => action => {
+
+    if ( typeof action !== 'function' ) return next( action );
+
+    return action( store );
+
+  };
+
+}
+
 function promiseMiddleware( client ) {
 
   return store => next => action => {
@@ -44,7 +56,7 @@ function promiseMiddleware( client ) {
       return next( action );
     }
 
-    const [REQUEST, SUCCESS, FAILURE] = types;
+    const [ REQUEST, SUCCESS, FAILURE ] = types;
 
     next( { ...rest, type: REQUEST } );
 

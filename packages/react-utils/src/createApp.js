@@ -24,7 +24,7 @@ export default function ( defaultState, createStore, getRoutes, ApiClient, fn ) 
   const history = syncHistoryWithStore( browserHistory, store );
 
   const renderRouter = props => {
-    return <ReduxAsyncConnect {...props} helpers={{ client }} filter={item => !item.deferred} />;
+    return <ReduxAsyncConnect {...props} helpers={{ client }} filter={item => !item.deferred} history={history} />;
   }
 
   if ( typeof window !== 'undefined' ) {
@@ -47,7 +47,7 @@ export default function ( defaultState, createStore, getRoutes, ApiClient, fn ) 
 
   return (
     <Provider store={store} key="provider">
-      <Router history={history}>
+      <Router history={history} render={renderRouter}>
         {getRoutes( store )}
       </Router>
     </Provider>
