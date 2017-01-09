@@ -38,7 +38,7 @@ const searchSpinner = {
     total: state.agendas.total,
     loading: state.agendas.loading,
     search: selector( state, 'search' ),
-    limitPerPage: state.settings.limitPerPage
+    perPageLimit: state.settings.perPageLimit
   }),
   agendasActions
 )
@@ -57,7 +57,7 @@ export default class Dashboard extends Component {
     loading: PropTypes.bool,
     nextLoading: PropTypes.bool,
     search: PropTypes.string,
-    limitPerPage: PropTypes.number
+    perPageLimit: PropTypes.number
   };
 
   static contextTypes = {
@@ -109,6 +109,7 @@ export default class Dashboard extends Component {
   search = values => this.props.list( values )
     .then( () => {
       this.context.router.push( {
+        ...this.props.location,
         query: { ...this.props.location.query, search: values.search || undefined }
       } );
     } );
@@ -116,8 +117,8 @@ export default class Dashboard extends Component {
   debouncedSearch = debounce( this.props.handleSubmit( this.search ), 400 );
 
   nextPage = () => {
-    const { page, total, search, loading, nextLoading, agendas, limitPerPage } = this.props;
-    if ( !agendas || !agendas.length || loading || nextLoading || page * limitPerPage >= total ) return;
+    const { page, total, search, loading, nextLoading, agendas, perPageLimit } = this.props;
+    if ( !agendas || !agendas.length || loading || nextLoading || page * perPageLimit >= total ) return;
     this.props.nextPage( { search }, (page || 1) + 1 );
   };
 
@@ -129,10 +130,12 @@ export default class Dashboard extends Component {
   render() {
     const {
       res, handleSubmit, agendas, loading, nextLoading,
-      search, limitPerPage, total, location: { query }
+      search, perPageLimit, total, location: { query }
     } = this.props;
     const { getLabel } = this.context;
     const newUser = !search && !query.search && (!agendas || !agendas.length);
+
+    console.log( 'VISIBLE', total > perPageLimit || query.search || search );
 
     if ( newUser ) {
       return (
@@ -174,7 +177,7 @@ export default class Dashboard extends Component {
             placeholder={getLabel( 'searchAgenda' )}
             action={this.debouncedSearch}
             loading={loading}
-            visible={total > limitPerPage || query.search || search}
+            visible={total > perPageLimit || query.search || search}
           />
         </form>
         <div className="row">

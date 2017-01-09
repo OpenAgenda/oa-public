@@ -111,7 +111,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
     total: state.agendas.total,
     loading: state.agendas.loading,
     search: selector(state, 'search'),
-    limitPerPage: state.settings.limitPerPage
+    perPageLimit: state.settings.perPageLimit
   };
 }, agendasActions), _dec3 = (0, _reduxForm.reduxForm)({
   form: 'homeDashboard'
@@ -202,9 +202,9 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       return _this.renderField(_extends({ content: content }, props));
     }, _this.search = function (values) {
       return _this.props.list(values).then(function () {
-        _this.context.router.push({
+        _this.context.router.push(_extends({}, _this.props.location, {
           query: _extends({}, _this.props.location.query, { search: values.search || undefined })
-        });
+        }));
       });
     }, _this.debouncedSearch = (0, _lodash2.default)(_this.props.handleSubmit(_this.search), 400), _this.nextPage = function () {
       var _this$props = _this.props,
@@ -214,9 +214,9 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           loading = _this$props.loading,
           nextLoading = _this$props.nextLoading,
           agendas = _this$props.agendas,
-          limitPerPage = _this$props.limitPerPage;
+          perPageLimit = _this$props.perPageLimit;
 
-      if (!agendas || !agendas.length || loading || nextLoading || page * limitPerPage >= total) return;
+      if (!agendas || !agendas.length || loading || nextLoading || page * perPageLimit >= total) return;
       _this.props.nextPage({ search: search }, (page || 1) + 1);
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
@@ -237,12 +237,14 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           loading = _props.loading,
           nextLoading = _props.nextLoading,
           search = _props.search,
-          limitPerPage = _props.limitPerPage,
+          perPageLimit = _props.perPageLimit,
           total = _props.total,
           query = _props.location.query;
       var getLabel = this.context.getLabel;
 
       var newUser = !search && !query.search && (!agendas || !agendas.length);
+
+      console.log('VISIBLE', total > perPageLimit || query.search || search);
 
       if (newUser) {
         return _react3.default.createElement(
@@ -317,7 +319,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             placeholder: getLabel('searchAgenda'),
             action: this.debouncedSearch,
             loading: loading,
-            visible: total > limitPerPage || query.search || search
+            visible: total > perPageLimit || query.search || search
           })
         ),
         _react3.default.createElement(
@@ -413,7 +415,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
   loading: _react2.PropTypes.bool,
   nextLoading: _react2.PropTypes.bool,
   search: _react2.PropTypes.string,
-  limitPerPage: _react2.PropTypes.number
+  perPageLimit: _react2.PropTypes.number
 }, _class2.contextTypes = {
   router: _react2.PropTypes.object,
   getLabel: _react2.PropTypes.func

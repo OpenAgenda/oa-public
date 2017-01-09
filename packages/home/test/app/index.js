@@ -57,7 +57,7 @@ function matchApp( req, res, next ) {
           prefix,
           lang,
           apiRoot: `http://localhost:${port}`,
-          limitPerPage: config.mw.limit
+          perPageLimit: config.mw.limit
         },
         res: {
           list: '/agendas',
