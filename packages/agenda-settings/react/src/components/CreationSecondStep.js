@@ -77,7 +77,7 @@ export default class CreationSecondStep extends Component {
           </div>
         </form>
       </div>
-  );
+    );
   }
 
-  }
+}
