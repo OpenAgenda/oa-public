@@ -9,7 +9,7 @@ module.exports = {
   },
   schemas : {
     user: 'user',
-    api_key_set: 'api_key_set'
+    apiKeySet: 'api_key_set'
   },
   files: {
     tmpPath: '/var/tmp',

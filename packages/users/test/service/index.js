@@ -41,7 +41,7 @@ function fix( config, files, options, cb ) {
     table: config.schemas.user,
     src: path.dirname( __dirname ) + '/fixtures/user.data.sql'
   }, {
-    table: config.schemas.api_key_set,
+    table: config.schemas.apiKeySet,
     src: path.dirname( __dirname ) + '/fixtures/api_key_set.data.sql'
   } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) ), options, cb );
 

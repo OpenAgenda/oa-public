@@ -25,7 +25,7 @@ describe( 'service', function () {
       table: config.schemas.user,
       src: __dirname + '/fixtures/user.data.sql'
     }, {
-      table: config.schemas.api_key_set,
+      table: config.schemas.apiKeySet,
       src: __dirname + '/fixtures/api_key_set.data.sql'
     } ], done );
 

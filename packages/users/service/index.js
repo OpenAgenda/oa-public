@@ -479,12 +479,12 @@ function _get( v ) {
       .concat( store ? 'store' : [] )
       .concat( !detailed && !removed ? 'is_removed' : [] )
       .map( v => `${schemas.user}.${v}` )
-      .concat( detailed ? [ schemas.api_key_set + '.api_key', schemas.api_key_set + '.api_secret' ] : [] );
+      .concat( detailed ? [ schemas.apiKeySet + '.api_key', schemas.apiKeySet + '.api_secret' ] : [] );
 
     let request = knex.column( fields ).select().from( schemas.user );
 
     if ( detailed ) {
-      request = request.leftJoin( schemas.api_key_set, schemas.user + '.id', schemas.api_key_set + '.user_id' );
+      request = request.leftJoin( schemas.apiKeySet, schemas.user + '.id', schemas.apiKeySet + '.user_id' );
     }
 
     if ( !removed ) {
@@ -624,7 +624,7 @@ function _updateOrInsertApiKeySet( v ) {
 
     return knex
       .select( '*' )
-      .from( schemas.api_key_set )
+      .from( schemas.apiKeySet )
       .where( 'user_id', v.query.id || -1 )
       .limit( 1 )
       .transacting( trx );
@@ -674,7 +674,7 @@ function _updateOrInsertApiKeySet( v ) {
 
       knex.transaction( trx => {
 
-        const queryBuilder = knex( schemas.api_key_set )[ mode ]( fields );
+        const queryBuilder = knex( schemas.apiKeySet )[ mode ]( fields );
 
         if ( mode == 'update' ) {
 
