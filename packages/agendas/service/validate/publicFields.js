@@ -29,7 +29,7 @@ module.exports = {
   settings: {
     contribution: {
       type: {
-        default: 0,
+        default: 2,
         type: 'number',
         optional: false,
         min: 0, // no contribution
