@@ -109,9 +109,9 @@ function toTimingsWidgetFormat( timings, dayStart, dayEnd ) {
   .filter( function( t ) {
 
     // end can only be smaller or equal to begin if end is on the next day
-    if ( t.end <= t.begin ) {
+    if ( t.end <= _cleanTime( t.begin ) ) {
 
-      if ( t.end > dayEnd ) return false;
+      if ( _cleanTime( t.end ) > dayEnd ) return false;
 
     }
 
@@ -164,5 +164,15 @@ function _tZ( d, t ) {
 function _stringifyHours( d ) {
 
   return utils.fZ( d.getHours() ) + ':' + utils.fZ( d.getMinutes() );
+
+}
+
+function _cleanTime( str ) {
+
+  if ( !str ) return null;
+
+  if ( str.length > 5 ) return str.substr( 0, 5 );
+
+  return str;
 
 }

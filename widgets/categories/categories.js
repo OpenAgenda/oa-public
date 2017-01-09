@@ -209,12 +209,37 @@ var widget = function( elem, options ) {
 
       var count = ( typeof activeCategories[ category.s ] !== 'undefined' ? activeCategories[ category.s ] : 0 );
 
+      var classes = [],
+
+      selected = selectedCategory == category.s,
+
+      active = enabled && count;
+
+      if ( category.cl ) {
+
+        classes.push( category.cl );
+
+      }
+
+      if ( selected ) classes.push( 'selected' );
+
+      if ( active ) {
+
+        classes.push( 'active' );
+
+      } else {
+
+        log( 'category not active' );
+
+      }
+
+      if ( !count ) classes.push( 'no-current-match' );
+
       data.categories.push( {
         label : category.c,
         slug : category.s,
-        active : enabled && count,
-        className : category.cl,
-        selected : selectedCategory == category.s,
+        classes : ' ' + classes.join( ' ' ),
+        selected : selected,
         count : count
       } );
 

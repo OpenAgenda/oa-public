@@ -57,7 +57,7 @@
           <a class="item active" href="<%= !loner ? genUrl( 'agendaEventDuplicate', { slug: slug, eventSlug: event.slug } ) : genUrl( 'eventDuplicate', { eventSlug: event.slug } ) %>" rel="nofollow"><%= __( 'Duplicate' ) %></a>
         </li>
         <li class="list-group-item js_admin_item js_role_event_editor w25">
-          <a class="item active js_message_confirm" data-confirm="<%= __( 'Are you sure you want to delete this event?' ) %>" data-ok="<%= __( 'Confirm' ) %>" data-cancel="<%= __( 'Cancel' ) %>" href="<%= genUrl('eventRemove', { eventSlug: event.slug }) %>" rel="nofollow"><%= __( 'Delete' ) %></a>
+          <a class="item active js_message_confirm" data-confirm="<%= __( 'Are you sure you want to delete this event?' ) %>" data-ok="<%= __( 'Confirm' ) %>" data-cancel="<%= __( 'Cancel' ) %>" href="<%= genUrl('eventRemove', { eventUid: event.uid }) %>" rel="nofollow"><%= __( 'Delete' ) %></a>
         </li>
       </ul>
     </li>
