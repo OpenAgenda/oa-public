@@ -1,12 +1,11 @@
 "use strict";
 
 import React, { Component } from 'react';
-const ReactDom = require( 'react-dom' );
-const update = require( 'react-addons-update' );
-const List = require( '../../components/List' );
-const Modal = require( '../../components/Modal' );
-const MoreInfo = require( '../../components/MoreInfo' );
-const Spinner = require( '../../components/Spinner' );
+import ReactDom from 'react-dom';
+import List from '../../components/List';
+import Modal from '../../components/Modal';
+import MoreInfo from '../../components/MoreInfo';
+import Spinner from '../../components/Spinner';
 
 class Wrapper extends Component {
 
