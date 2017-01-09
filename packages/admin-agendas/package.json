@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test": "mocha -w",
-    "babelify": "babel components/src -d components/lib",
-    "preserve": "npm run-script babelify",
+    "build": "babel components/src -d components/lib",
+    "preserve": "npm run-script build",
     "serve": "node test/app",
     "start": "nodemon --exec 'npm' --ignore components --ext js,jsx run-script serve"
   },

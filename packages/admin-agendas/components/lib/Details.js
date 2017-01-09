@@ -304,10 +304,10 @@ module.exports = React.createClass({
     return agenda.credentials && React.createElement(
       "div",
       null,
+      React.createElement("p", null),
       React.createElement(
         "p",
         null,
-        React.createElement("br", null),
         React.createElement(Switch, {
           className: "rc-switch",
           checkedChildren: React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" }),
