@@ -180,7 +180,7 @@ function getUsers( req, res, next ) {
 
         stakeholdersSvc.user( req.loadedUser.id ).list( 0, 500, ( err, stakeholders = [] ) => {
 
-          agendasSvc.list( { ids: stakeholders.map( item => item.agendaId ) }, 0, 500, ( err, agendas ) => {
+          agendasSvc.list( { ids: stakeholders.map( item => item.agendaId ), private: true }, 0, 500, ( err, agendas ) => {
 
             model.lib.query( 'SELECT count(*) as nbrEvents, review_id ' +
               'FROM review_article WHERE user_id = ? AND store NOT LIKE "%\\"sources\\":%" GROUP BY review_id',

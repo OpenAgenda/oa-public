@@ -65,7 +65,7 @@ function matchApp( req, res, next ) {
           prefix,
           lang,
           apiRoot: `http://localhost:${config.port}`,
-          limitPerPage: homeConfig.mw.limit
+          perPageLimit: homeConfig.mw.limit
         },
         res: {
           list: req.genUrl( 'homeShowList' ),
