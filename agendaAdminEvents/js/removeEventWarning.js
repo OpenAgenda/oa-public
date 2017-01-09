@@ -10,7 +10,11 @@ let warningThis, lang = 'en';
 
 module.exports = ( canvas, elems, l ) => {
 
-  ReactDom.render( <WarningModal />, canvas );
+  let div = document.createElement( 'div' );
+
+  canvas.insertAdjacentElement( 'beforeend', div );
+
+  ReactDom.render( <WarningModal />, div );
 
   lang = l;
 
