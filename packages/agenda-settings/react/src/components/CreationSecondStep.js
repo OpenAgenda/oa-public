@@ -37,11 +37,20 @@ export default class CreationSecondStep extends Component {
             <div className={`radio ${getError( 'settings.contribution.type' ) ? 'has-error' : ''}`}>
               <p><b>{getLabel( 'contribType' )}</b></p>
               <label>
-                <Field name="settings.contribution.type" component="input" type="radio" value="0" />
+                <Field
+                  name="settings.contribution.type"
+                  component="input"
+                  type="radio"
+                  value="2" />
                 {getLabel( 'contribTypeChoosen' )}
               </label><br />
               <label>
-                <Field name="settings.contribution.type" component="input" type="radio" value="1" />
+                <Field
+                  name="settings.contribution.type"
+                  component="input"
+                  type="radio"
+                  value="1"
+                />
                 {getLabel( 'contribTypeAll' )}
               </label>
             </div>

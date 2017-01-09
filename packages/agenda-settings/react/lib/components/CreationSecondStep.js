@@ -122,14 +122,23 @@ var CreationSecondStep = _wrapComponent('CreationSecondStep')((_dec = (0, _redux
               _react3.default.createElement(
                 'label',
                 null,
-                _react3.default.createElement(_reduxForm.Field, { name: 'settings.contribution.type', component: 'input', type: 'radio', value: '0' }),
+                _react3.default.createElement(_reduxForm.Field, {
+                  name: 'settings.contribution.type',
+                  component: 'input',
+                  type: 'radio',
+                  value: '2' }),
                 getLabel('contribTypeChoosen')
               ),
               _react3.default.createElement('br', null),
               _react3.default.createElement(
                 'label',
                 null,
-                _react3.default.createElement(_reduxForm.Field, { name: 'settings.contribution.type', component: 'input', type: 'radio', value: '1' }),
+                _react3.default.createElement(_reduxForm.Field, {
+                  name: 'settings.contribution.type',
+                  component: 'input',
+                  type: 'radio',
+                  value: '1'
+                }),
                 getLabel('contribTypeAll')
               )
             )
