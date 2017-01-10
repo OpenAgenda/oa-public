@@ -71,6 +71,7 @@
     "leaflet.markercluster": "git://github.com/kaore/Leaflet.markercluster.git",
     "marked": "0.3.5",
     "masonry-layout": "4.1.0",
+    "member-apps": "git+ssh://git@bitbucket.org/openagenda/member-apps.git",
     "moment": "2.9.0",
     "moment-timezone": "^0.5.3",
     "node-sass": "3.3.3",
