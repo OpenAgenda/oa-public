@@ -13,7 +13,7 @@ const agendaSvc = require( '../services/agenda' );
 
 const routes = {
 
-  membersApp: [ 'get', '/members', [
+  membersApp: [ 'get', '', [
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdministrator(),
     agendaSvc.mw.loadAdminLayout,
@@ -21,7 +21,7 @@ const routes = {
     matchApp
   ] ],
 
-  membersSub: [ 'get', '/members/?*?', [
+  membersSub: [ 'get', '/?*?', [
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdministrator(),
     agendaSvc.mw.loadAdminLayout,
@@ -31,13 +31,13 @@ const routes = {
 
   /**********/
 
-  membersList: [ 'get', '/members/stakeholders.json', [
+  membersList: [ 'get', '/stakeholders.json', [
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdministrator(),
     mw.list
   ] ],
 
-  membersStats: [ 'get', '/members/stats', [
+  membersStats: [ 'get', '/stats', [
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdministrator(),
     mw.stats
