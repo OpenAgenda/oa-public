@@ -24,7 +24,6 @@ const app = require( 'test-app' )( {
 const port = process.env.PORT || 3000;
 
 fixtures.init( config );
-mw.init( stakeholdersSvc, config );
 usersSvc.init( config );
 
 async.waterfall( [
@@ -67,7 +66,8 @@ function matchApp( req, res, next ) {
     },
     res: {
       list: '/sources.json',
-      stats: '/stats'
+      stats: '/stats',
+      showContributor: '#'
     },
     agenda: {
       uid: 4608,
