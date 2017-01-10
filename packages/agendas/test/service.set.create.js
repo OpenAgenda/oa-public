@@ -46,7 +46,7 @@ describe( 'service.set: create an agenda', function() {
             contribution: {
               defaultState: 2,
               message: null,
-              type: 0,
+              type: 2,
               useFields: false
             },
             translation: {
@@ -130,7 +130,7 @@ describe( 'service.set: create an agenda', function() {
             contribution: {
               defaultState: 2,
               message: null,
-              type: 0,
+              type: 2,
               useFields: false
             },
             translation: {
@@ -228,7 +228,7 @@ describe( 'service.set: create an agenda', function() {
             contribution: {
               defaultState: 2,
               message: null,
-              type: 0,
+              type: 2,
               useFields: false
             },
             translation: {

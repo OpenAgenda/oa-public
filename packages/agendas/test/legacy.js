@@ -24,7 +24,7 @@ describe( 'legacy: bridge with legacy data structure', function() {
 
   describe( 'loadFromLegacy', () => {
 
-    it( 'loads settigs information from legacy data structure', done => {
+    it( 'loads settings information from legacy data structure', done => {
 
       legacy( 4878 ).loadFromLegacy( ( err, data ) => {
 

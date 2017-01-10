@@ -43,7 +43,7 @@ describe( 'validate', () => {
           contribution: {
             defaultState: 2,
             message: null,
-            type: 0,
+            type: 2,
             useFields: false
           },
           translation: {
@@ -100,7 +100,7 @@ describe( 'validate', () => {
           contribution: {
             defaultState: 2,
             message: null,
-            type: 0,
+            type: 2,
             useFields: false
           },
           translation: {

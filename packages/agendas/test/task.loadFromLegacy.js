@@ -14,7 +14,7 @@ async = require( 'async' );
 
 describe( 'service.tasks.loadFromLegacy', function() {
 
-  this.timeout( 30000 );
+  this.timeout( 60000 );
 
   before( () => {
     svc.init( config );
