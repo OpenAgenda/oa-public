@@ -8,7 +8,7 @@
           <img class="avatar" src="<%= _i( image ) %>" alt="<%= title %>">
 <% } %>
           <strong><%= title %></strong>
-          <span>(<%= __( 'see all the events' ) %>)</span>
+          <span>(<%= __( 'seeAllEvents' ) %>)</span>
         </a>
       </div>
     </div>
@@ -46,11 +46,11 @@
         <div class="meta-container">
           <p>
             <a rel="nofollow" class="btn btn-success event-action js_import_action" href="<%= event.importUri %>">
-              <i class="fa fa-plus-circle"></i><%= __( 'Add to my agenda' ) %>
+              <i class="fa fa-plus-circle"></i><%= __( 'addToAgenda' ) %>
             </a>
           </p>
           <p class="share">
-            <%= __('Share') %>&nbsp;:
+            <%= __('share') %>&nbsp;:
             <a href="<%= event.facebookShare %>" target="_blank" class="fb" rel="nofollow"><i class="fa fa-facebook"></i></a>
             <a href="<%= event.twitterShare %>" target="_blank" class="tw" rel="nofollow"><i class="fa fa-twitter"></i></a>
             <a href="<%= event.googleShare %>" target="_blank" class="gp" rel="nofollow"><i class="fa fa-google-plus"></i></a>
@@ -60,7 +60,7 @@
 <% if ( !event.isUpcoming ) { %>
           <p>
             <span class="event-action disabled">
-              <i class="fa fa-history"></i> <%= __('Past event') %>
+              <i class="fa fa-history"></i> <%= __('pastEvent') %>
             </span>
           </p>
 <% } %>
@@ -98,9 +98,9 @@
         <section class="detail-item">
           <h3><i class="fa fa-child"></i></h3>
 <% if ( !event.age.max ) { %> 
-          <p class="detail-item-content"><%= __( 'starting at %min% years old', { '%min%' : event.age.min } ) %></p>
+          <p class="detail-item-content"><%= __( 'startingAt', { 'min' : event.age.min } ) %></p>
 <% } else { %>
-          <p class="detail-item-content"><%= __( '%min% to %max% years old', { '%min%' : event.age.min, '%max%' : event.age.max } ) %></p>
+          <p class="detail-item-content"><%= __( 'minToMaxYearsOld', { 'min' : event.age.min, 'max' : event.age.max } ) %></p>
 <% } %>
         </section>
 <% } %>
@@ -157,7 +157,7 @@
         <div class="event-content">
 <% if ( event.category ) { %>
           <div class="category">
-            <label><%= __( 'Category' ) %>:</label>
+            <label><%= __( 'category' ) %>:</label>
             <span><%= event.category %></span>
           </div>
 <% } %>
@@ -165,7 +165,7 @@
           <div class="tag-groups">
 <% event.tagGroups.forEach( g => { %>
           <div class="tags">
-            <label><%= g.name || __( 'Tags' ) %>: </label>
+            <label><%= g.name || __( 'tags' ) %>: </label>
             <ul>
 <%- g.tags.map( t => {
       return '<li>' + _txt.escape( t.label ) + '</li>';
@@ -176,7 +176,7 @@
           </div>
 <% } else if ( [ 'undefined', 'string' ].indexOf( typeof event.tags ) == -1 && event.tags.length ) { %>
           <div class="tags">
-            <label><%= __( 'Tags' ) %>:</label>
+            <label><%= __( 'tags' ) %>:</label>
             <ul>
 <%- event.tags.map( t => {
       return '<li>' + _txt.escape( t.label ) + '</li>';
@@ -216,14 +216,14 @@
   || event.location.phone
   || event.location.tags ) { %>
     <div class="location-details">
-      <h3><%= __( 'About the venue' ) %></h3>
+      <h3><%= __( 'aboutTheVenue' ) %></h3>
       <div class="event-content">
 
         <div class="location-head">
 <% if ( !loner ) { %>
         <% if ( event.location.agendaId === agendaId ) { %>
           <div class="display-none js_admin_item js_role_agenda_moderator js_role_agenda_admin pull-right">
-            <a class="btn btn-default" rel="nofollow" href="<%= genUrl( 'agendaAdminLocations', { uids: [event.location.uid], slug: slug } ) %>"><%= __( 'edit location' ) %></a>
+            <a class="btn btn-default" rel="nofollow" href="<%= genUrl( 'agendaAdminLocations', { uids: [event.location.uid], slug: slug } ) %>"><%= __( 'editLocation' ) %></a>
           </div>
         <% } %>
 <% } %>
@@ -233,7 +233,7 @@
           <span><a target="_blank" href="<%= event.googleItineraryLink || '#' %>"><%- event.location.address %></a></span>
 <% if ( event.location.tags && event.location.tags.length ) { %>
           <div class="tags">
-            <label><%= __( 'Tags' ) %>:</label>
+            <label><%= __( 'tags' ) %>:</label>
             <ul>
 <%- event.location.tags.map( t => {
     return '<li>' + _txt.escape( t.label ) + '</li>';
@@ -248,7 +248,7 @@
 <% } %>
 <% if ( event.location.access ) { %>
         <p>
-          <strong><%= __( 'Access' ) %>:</strong>
+          <strong><%= __( 'access' ) %>:</strong>
           <span><%- event.location.access %></span>
         </p>
 <% } %>
@@ -280,7 +280,7 @@
 <% } %>
 <% if ( event.location.links && event.location.links.length ) { %>
           <li class="location-links">
-            <label><%= __( 'More links' ) %></label>: 
+            <label><%= __( 'moreLinks' ) %></label>:
 <% event.location.links.forEach( function( link ) { %>
             <a href="<%= link %>" target="_blank"><%= link %></a>
 <% } ); %>
@@ -289,7 +289,7 @@
 
 <% if ( !loner ) { %>
           <li>
-            <a class="display-none js_role_event_editor" rel="nofollow" href="<%= genUrl( 'locationSuggestion', { locationUid: event.location.uid, slug: slug, eventSlug: event.slug } ) %>"><%= __( 'request a change in the location information' ) %></a>
+            <a class="display-none js_role_event_editor" rel="nofollow" href="<%= genUrl( 'locationSuggestion', { locationUid: event.location.uid, slug: slug, eventSlug: event.slug } ) %>"><%= __( 'requestChangeLocation' ) %></a>
           </li>
 <% } %>
           </ul>
@@ -299,7 +299,7 @@
 
 <% if ( event.owner ) { %>  
         <div class="signature">
-          <p><%= __('created by %owner%', { '%owner%' : event.owner.name } ) %> <%= _t( event.updatedAt, 'dddd Do MMMM - HH:mm' ) %></p>- <a href="<%= event.owner.contactLink %>"><%= __( 'contact' ) %></a>
+          <p><%= __('createdBy', { 'owner' : event.owner.name } ) %> <%= _t( event.updatedAt, 'dddd Do MMMM - HH:mm' ) %></p>- <a href="<%= event.owner.contactLink %>"><%= __( 'contact' ) %></a>
         </div>
 <% } %>
       </section>

@@ -17,10 +17,10 @@
       "slug": "concert-de-sion-russel-jones-thomas-kahn-le-18-12-11",
       "image": "//cibul.s3.amazonaws.com/event_mastodon-big-business-krokodil_512724.jpg",
       "dateRange": [
-        "%start% to %finish%",
+        "startToFinish",
         {
-          "%start%": "2014-10-12",
-          "%finish%": "2014-10-14"
+          "start": "2014-10-12",
+          "finish": "2014-10-14"
         }
       ],
       "isUpcoming": true,

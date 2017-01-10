@@ -1,62 +1,58 @@
 {
-  
-  "layout" : "bsLayout/main",
-
-  "bsCss" : {
-    "main" : "/node_modules/bs-templates/compiled/main.css"
+  "layout": "bsLayout/main",
+  "labels": "event/show",
+  "bsCss": {
+    "main": "/node_modules/bs-templates/compiled/main.css"
   },
-
-  "helpers" : {
-    "_t" : "time",
-    "_i" : "image",
-    "_sl" : "shareLinks",
-    "_txt" : "text",
-    "_r" : "redirect"
+  "helpers": {
+    "_t": "time",
+    "_i": "image",
+    "_sl": "shareLinks",
+    "_txt": "text",
+    "_r": "redirect"
   },
-
-  "base" : {
-    "pageId" : "event",
-    "event" : {
+  "base": {
+    "pageId": "event",
+    "event": {
       "owner": false
     },
-    "hasCustomFields" : false,
-    "hasOwnershipTransfer" : false,
-    "impairments" : {
-      "hi" : "accessible to the hearing impaired",
-      "pi" : "accessible to the mentally impaired",
-      "mi" : "accessible to the motor impaired",
-      "vi" : "accessible to the visually impaired",
-      "sl" : "sign language available"
+    "hasCustomFields": false,
+    "hasOwnershipTransfer": false,
+    "impairments": {
+      "hi": "accessibleToHearing",
+      "pi": "accessibleToMentally",
+      "mi": "accessibleToMotor",
+      "vi": "accessibleToVisually",
+      "sl": "signLanguageAvailable"
     },
-    "adminNav" : {},
-    "states" : {
-      "draft" : {
-        "label" : "Draft",
-        "type" : null,
-        "agendaOnly" : false,
-        "hideAction" : true,
-        "classNames" : "js_role_event_editor js_role_agenda_moderator js_role_agenda_admin"
+    "adminNav": {},
+    "states": {
+      "draft": {
+        "label": "draft",
+        "type": null,
+        "agendaOnly": false,
+        "hideAction": true,
+        "classNames": "js_role_event_editor js_role_agenda_moderator js_role_agenda_admin"
       },
-      "tocontrol" : {
-        "label" : "To complete",
-        "type" : 0,
-        "agendaOnly" : true,
-        "classNames" : "js_role_agenda_admin js_role_agenda_moderator"
+      "tocontrol": {
+        "label": "toComplete",
+        "type": 0,
+        "agendaOnly": true,
+        "classNames": "js_role_agenda_admin js_role_agenda_moderator"
       },
-      "controlled" : {
-        "label" : "Ready for publishing",
-        "type" : 1,
-        "agendaOnly" : true,
-        "classNames" : "js_role_agenda_admin js_role_agenda_moderator"
+      "controlled": {
+        "label": "readyForPublishing",
+        "type": 1,
+        "agendaOnly": true,
+        "classNames": "js_role_agenda_admin js_role_agenda_moderator"
       },
-      "published" : {
-        "label" : "Published",
-        "type" : 2,
-        "agendaOnly" : false,
-        "classNames" : "js_role_event_editor js_role_agenda_admin"
+      "published": {
+        "label": "published",
+        "type": 2,
+        "agendaOnly": false,
+        "classNames": "js_role_event_editor js_role_agenda_admin"
       }
     }
   },
-  
-  "js" : true
+  "js": true
 }
