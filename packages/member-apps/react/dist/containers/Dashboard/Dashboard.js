@@ -603,7 +603,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
     var query = { search: search || undefined, credentials: credFilters };
 
     return list(query).then(function () {
-      return _this6.context.router.push((0, _deepExtend2.default)(location, { query: query }));
+      return _this6.context.router.push(_extends({}, location, { query: query }));
     });
   };
 

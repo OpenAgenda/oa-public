@@ -1,7 +1,15 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import validate from './validate';
 
+@connect(
+  () => ({
+    initialValues: {
+      role: '0'
+    }
+  })
+)
 @reduxForm( {
   form: 'inviteMembers',
   validate
@@ -90,7 +98,7 @@ export default class InviteMembersForm extends Component {
           classNameGroup="search margin-top-md margin-bottom-lg"
           className="form-control"
         >
-          <option selected disabled>{getLabel( 'selectRole' )}</option>
+          <option value="0" disabled>{getLabel( 'selectRole' )}</option>
           <option value="4">{getLabel( 'reader' )}</option>
           <option value="1">{getLabel( 'contributor' )}</option>
           <option value="3">{getLabel( 'moderator' )}</option>

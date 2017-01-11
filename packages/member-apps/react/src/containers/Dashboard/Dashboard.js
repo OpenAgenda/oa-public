@@ -143,7 +143,7 @@ export default class Dashboard extends Component {
     const query = { search: search || undefined, credentials: credFilters };
 
     return list( query )
-      .then( () => this.context.router.push( deepExtend( location, { query } ) ) );
+      .then( () => this.context.router.push( { ...location, query } ) );
   }
 
   debouncedSearch = debounce( this.props.handleSubmit( this.search ), 400 );

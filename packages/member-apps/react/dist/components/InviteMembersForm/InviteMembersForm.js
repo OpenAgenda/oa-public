@@ -20,7 +20,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _class, _class2, _temp, _initialiseProps;
+var _dec, _dec2, _class, _class2, _temp, _initialiseProps;
+
+var _reactRedux = require('react-redux');
 
 var _reduxForm = require('redux-form');
 
@@ -57,10 +59,16 @@ function _wrapComponent(id) {
   };
 }
 
-var InviteMembersForm = _wrapComponent('InviteMembersForm')((_dec = (0, _reduxForm.reduxForm)({
+var InviteMembersForm = _wrapComponent('InviteMembersForm')((_dec = (0, _reactRedux.connect)(function () {
+  return {
+    initialValues: {
+      role: '0'
+    }
+  };
+}), _dec2 = (0, _reduxForm.reduxForm)({
   form: 'inviteMembers',
   validate: _validate2.default
-}), _dec(_class = (_temp = _class2 = function (_Component) {
+}), _dec(_class = _dec2(_class = (_temp = _class2 = function (_Component) {
   _inherits(InviteMembersForm, _Component);
 
   function InviteMembersForm(props) {
@@ -108,7 +116,7 @@ var InviteMembersForm = _wrapComponent('InviteMembersForm')((_dec = (0, _reduxFo
           },
           _react3.default.createElement(
             'option',
-            { selected: true, disabled: true },
+            { value: '0', disabled: true },
             getLabel('selectRole')
           ),
           _react3.default.createElement(
@@ -224,7 +232,7 @@ var InviteMembersForm = _wrapComponent('InviteMembersForm')((_dec = (0, _reduxFo
 
     return _this2.renderField(_extends({ content: content }, props));
   };
-}, _temp)) || _class));
+}, _temp)) || _class) || _class));
 
 exports.default = InviteMembersForm;
 module.exports = exports['default'];
