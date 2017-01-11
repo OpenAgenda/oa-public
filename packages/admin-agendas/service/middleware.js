@@ -65,7 +65,7 @@ function list( req, res, next ) {
   query = Object.assign( {
     total: true,
     detailed: true,
-    private: true
+    private: null
   }, query );
 
   agendas.list( query, offset, limit, ( err, agendas, total ) => {
