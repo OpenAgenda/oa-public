@@ -135,8 +135,6 @@ export default class Dashboard extends Component {
     const { getLabel } = this.context;
     const newUser = !search && !query.search && (!agendas || !agendas.length);
 
-    console.log( 'VISIBLE', total > perPageLimit || query.search || search );
-
     if ( newUser ) {
       return (
         <div className="row">
