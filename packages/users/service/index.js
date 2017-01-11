@@ -589,7 +589,7 @@ function _updateOrInsert( v ) {
 
         fields.created_at = new Date();
 
-        defineUnique( {
+        return defineUnique( {
           table: schemas.user,
           field: 'uid',
           mysql: config.mysql
@@ -603,6 +603,8 @@ function _updateOrInsert( v ) {
         } );
 
       }
+
+      resolve();
 
     } )
       .then( () => knex.transaction( trx => {
