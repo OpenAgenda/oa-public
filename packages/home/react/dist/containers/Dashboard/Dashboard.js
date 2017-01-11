@@ -244,8 +244,6 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
 
       var newUser = !search && !query.search && (!agendas || !agendas.length);
 
-      console.log('VISIBLE', total > perPageLimit || query.search || search);
-
       if (newUser) {
         return _react3.default.createElement(
           'div',
