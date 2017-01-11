@@ -49,6 +49,10 @@
           background-color: white;
         }
 
+        &:not(:first-child):before {
+          margin-left: 8px;
+        }
+
         &.passed:before {
           font-weight: normal;
           color: $oa-blue;
