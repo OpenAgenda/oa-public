@@ -37,6 +37,7 @@
     "labels": "git+ssh://git@bitbucket.org/openagenda/labels.git",
     "mailer": "git+ssh://git@bitbucket.org/openagenda/mailer.git",
     "mysql": "^2.10.2",
+    "mysql-utils": "git+ssh://git@bitbucket.org/openagenda/mysql-utils.git",
     "react-components": "git+ssh://git@bitbucket.org/openagenda/react-components.git",
     "react-dom": "0.14.7",
     "react-form-components": "git+ssh://git@bitbucket.org/openagenda/react-form-components.git",

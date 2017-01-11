@@ -179,6 +179,7 @@ describe( 'service', function () {
       service.get( { id: result.user.id }, ( err, user ) => {
 
         should( err ).equal( null );
+        should.exist( user.uid );
         user.full_name.should.equal( 'Test et retest' );
         user.email.should.equal( 'test.test@openagenda.com' );
 

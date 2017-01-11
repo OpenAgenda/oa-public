@@ -16,6 +16,8 @@ const knexLib = require( 'knex' ),
 
   crypto = require( './crypto' ),
 
+  defineUnique = require( 'mysql-utils/defineUnique' ),
+
   mw = require( '../middleware' );
 
 
@@ -579,22 +581,43 @@ function _updateOrInsert( v ) {
 
     }
 
-    if ( mode == 'insert' ) fields.created_at = new Date();
-    fields.updated_at = new Date();
+    return new Promise( ( resolve, reject ) => {
 
-    return knex.transaction( trx => {
+      fields.updated_at = new Date();
 
-      var queryBuilder = knex( schemas.user )[ mode ]( fields );
+      if ( mode == 'insert' ) {
 
-      if ( mode == 'update' ) {
+        fields.created_at = new Date();
 
-        queryBuilder.where( identifiers[ 0 ] || 'id', v.identifier[ identifiers[ 0 ] ] || -1 )
+        defineUnique( {
+          table: schemas.user,
+          field: 'uid',
+          mysql: config.mysql
+        }, num => (num || 0) + 1, ( err, uniqueValue ) => {
+
+          if ( err ) reject( err );
+
+          fields.uid = uniqueValue;
+          resolve();
+
+        } );
 
       }
 
-      return queryBuilder.transacting( trx );
-
     } )
+      .then( () => knex.transaction( trx => {
+
+        var queryBuilder = knex( schemas.user )[ mode ]( fields );
+
+        if ( mode == 'update' ) {
+
+          queryBuilder.where( identifiers[ 0 ] || 'id', v.identifier[ identifiers[ 0 ] ] || -1 )
+
+        }
+
+        return queryBuilder.transacting( trx );
+
+      } ) )
 
       .then( result => {
 
@@ -862,36 +885,36 @@ function _removeUser( v ) {
 
   return wn.call( config.interfaces.userWillRemove, v.user )
 
-  .then( () => {
+    .then( () => {
 
-    let date = new Date();
+      let date = new Date();
 
-    let store = JSON.parse( !v.user.store ? '{}' : v.user.store );
+      let store = JSON.parse( !v.user.store ? '{}' : v.user.store );
 
-    store.email = v.user.email;
+      store.email = v.user.email;
 
-    return knex( schemas.user )
+      return knex( schemas.user )
 
-    .update( {
-      is_removed: 1,
-      is_activated: 0,
-      updated_at: date,
-      username: `*removed-${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${v.user.id}`,
-      email: null,
-      store: JSON.stringify( store )
+        .update( {
+          is_removed: 1,
+          is_activated: 0,
+          updated_at: date,
+          username: `*removed-${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${v.user.id}`,
+          email: null,
+          store: JSON.stringify( store )
+        } )
+
+        .where( { id: v.user.id } );
+
     } )
 
-    .where( { id: v.user.id } );
+    .then( affected => {
 
-  } )
+      v.success = affected === 1;
 
-  .then( affected => {
+      return v;
 
-    v.success = affected === 1;
-
-    return v;
-
-  } );
+    } );
 
 }
 
