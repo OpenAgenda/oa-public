@@ -145,7 +145,7 @@ function _getEventCounts( v ) {
 
     let d = w.defer();
 
-    interfaces.getEventCount( v.agendaId, s.userId, ( err, count ) => {
+    interfaces.getEventCount( v.query.agendaId, s.userId, ( err, count ) => {
 
       if ( err ) return d.reject( err );
 

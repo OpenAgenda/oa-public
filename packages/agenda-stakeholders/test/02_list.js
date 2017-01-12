@@ -60,6 +60,8 @@ describe( 'agenda-stakeholders - functional (server): list', function() {
 
     service.agenda( 4608 ).list( 0, 1, { detailed: true }, ( err, stakeholders ) => {
 
+      should( err ).equal( null );
+
       stakeholders[ 0 ].user.should.eql( {
         id: 2,
         uid: 128492293,
@@ -76,6 +78,8 @@ describe( 'agenda-stakeholders - functional (server): list', function() {
   it( 'detailed option to true means contribution count is retrieved', done => {
 
     service.agenda( 4608 ).list( 0, 1, { detailed: true }, ( err, stakeholders ) => {
+
+      should( err ).equal( null );
 
       stakeholders[ 0 ].eventCount.should.equal( 35 );
 

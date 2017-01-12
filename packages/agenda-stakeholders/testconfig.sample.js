@@ -15,7 +15,7 @@ module.exports = {
     stakeholderSettings: 'agenda_stakeholder_settings'
   },
   interfaces: {
-    getEventCount: ( agendaId, userId, cb ) => {  cb( null, 35 );  },
+    getEventCount: ( agendaId, userId, cb ) => {  cb( !agendaId || !userId ? 'missing identifier' : null, 35 );  },
     getUser: ( userId, cb ) => { cb( null, {
       id: userId,
       uid: 128492293,
