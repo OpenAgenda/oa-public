@@ -50,7 +50,7 @@ var ugly = require( 'uglify-js' ),
 
   browserify = require( 'browserify' ),
 
-  buildFilter = false,
+  buildFilter = [],
 
   browserified = [],
 
@@ -60,25 +60,21 @@ var ugly = require( 'uglify-js' ),
 
     log = debug( 'prodify' );
 
-    if ( process.argv.length === 3 ) {
-
-      buildFilter = process.argv.pop();
-
-    }
-
     async.series( [
       async.apply( prodifyCss, map, 'css', destCssPath ),
       async.apply( prodifyCss, map, 'embedCss', destEmbedCssPath ),
       async.apply( prodifyCss, map, 'adminCss', destAdminCssPath ),
       async.apply( prodifyCss, map, 'oaCss', destOACssPath ),
       async.apply( prodifyCss, map, 'oaeCss', destOAECssPath ),
-      async.apply( prodifyCss, map, 'oaetCss', destOAETCssPath ),
-      async.apply( prodifyPublicTemplates, map ),
-      async.apply( prodifyTemplateJs, map ),
-      async.apply( prodifyJs, map ),
-      _copyBsCss,
-      legacyProdify,
-    ], function ( err ) {
+      async.apply( prodifyCss, map, 'oaetCss', destOAETCssPath )
+    ].concat( onlyCss ? [] : [
+        async.apply( prodifyPublicTemplates, map ),
+        async.apply( prodifyTemplateJs, map ),
+        async.apply( prodifyJs, map )
+      ] ).concat( onlyCss ? _copyBsCss : [
+        _copyBsCss,
+        legacyProdify
+      ] ), function ( err ) {
 
       if ( err ) throw err;
 
@@ -108,7 +104,7 @@ var ugly = require( 'uglify-js' ),
 
   legacyProdify = function () {
 
-    if ( buildFilter || onlyCss ) {
+    if ( buildFilter.length || onlyCss ) {
 
       return;
 
@@ -173,7 +169,7 @@ var ugly = require( 'uglify-js' ),
 
   prodifyPublicTemplates = function ( map, cb ) {
 
-    if ( buildFilter || onlyCss ) {
+    if ( buildFilter.length || onlyCss ) {
 
       return cb();
 
@@ -260,7 +256,7 @@ var ugly = require( 'uglify-js' ),
 
   prodifyCss = function ( map, cssKey, destFile, cb ) {
 
-    if ( buildFilter && cssKey.indexOf( buildFilter ) === -1 ) {
+    if ( buildFilter.length && !buildFilter.some( v => cssKey.indexOf( v ) !== -1 ) ) {
 
       return cb();
 
@@ -515,7 +511,7 @@ var ugly = require( 'uglify-js' ),
 
     }
 
-    if ( buildFilter && paths.dest.name.indexOf( buildFilter ) === -1 ) {
+    if ( buildFilter.length && !buildFilter.some( v => paths.dest.name.indexOf( v ) !== -1 ) ) {
 
       return cb();
 
@@ -534,7 +530,7 @@ var ugly = require( 'uglify-js' ),
 
       if ( err ) cb( err );
 
-      console.log(stats.toString( 'errors-only' ));
+      console.log( stats.toString( 'errors-only' ) );
 
       var msg = stats.toString( {
           hash: false,
@@ -598,16 +594,18 @@ var ugly = require( 'uglify-js' ),
 
   };
 
-for ( var i = 0; i < process.argv.length; i++ ) {
-  if ( process.argv[ i ] == 'l' ) {
+for ( var i = 2; i < process.argv.length; i++ ) {
+  if ( process.argv[ i ] === 'l' ) {
     labels = true;
     changeLine = true;
-  } else if ( process.argv[ i ] == 'css' ) {
+  } else if ( process.argv[ i ] === 'css' ) {
     onlyCss = true;
+  } else {
+    buildFilter.push( process.argv[ i ] );
   }
 }
 
-if ( process.env.BUILD_ENV == 'development' ) {
+if ( process.env.BUILD_ENV === 'development' ) {
   production = false;
 }
 
