@@ -5,7 +5,6 @@ import { reduxForm, Field, formValueSelector } from 'redux-form';
 import classNames from 'classnames';
 import debounce from 'lodash.debounce';
 import throttle from 'lodash.throttle';
-import deepExtend from 'deep-extend';
 import monitorBottomHit from 'dom-utils/monitorBottomHit';
 import Modal from 'react-components/build/Modal';
 import Spinner from 'react-form-components/build/Spinner';
@@ -211,8 +210,8 @@ export default class Dashboard extends Component {
         <div className="media-body">
           <div className="title media-heading">
             {/*<a href="#">*/}
-              <strong>{user.full_name}</strong>{' '}
-              <span className="text-muted small">{this.credentialToStr( credential )}</span>
+            <strong>{user.full_name}</strong>{' '}
+            <span className="text-muted small">{this.credentialToStr( credential )}</span>
             {/*</a>*/}
           </div>
           <div className="actions">
@@ -243,14 +242,17 @@ export default class Dashboard extends Component {
     );
   }
 
-  renderFilter( nbr, key, label ) {
+  renderFilter( nbr, key ) {
     const { credFilters } = this.props;
+    const { getLabel } = this.context;
+
     const toggleFilter = credFilters.includes( key ) ? this.removeFilter : this.addFilter;
+    const label = key + (nbr > 1 ? 's' : '');
 
     return (
       <li role="presentation" className={classNames( { active: credFilters.includes( key ) } )}>
         <a href="#" onClick={e => toggleFilter( e, key )}>
-          <strong>{nbr}</strong> {label}{' '}
+          <strong>{nbr}</strong> {getLabel( label )}{' '}
           <i
             className={classNames( 'fa fa-times', { invisible: !credFilters.includes( key ) } )}
             aria-hidden="true"
@@ -306,10 +308,10 @@ export default class Dashboard extends Component {
               <i className={classNames( 'fa fa-times', { invisible: credFilters.length } )} aria-hidden="true"></i>
             </a>
           </li>*/}
-          {totalAdministrator > 0 && this.renderFilter( totalAdministrator || 0, 'administrator', 'Administrateurs' )}
-          {totalModerator > 0 && this.renderFilter( totalModerator || 0, 'moderator', 'Modérateurs' )}
-          {totalContributor > 0 && this.renderFilter( totalContributor || 0, 'contributor', 'Contributeurs' )}
-          {totalReader > 0 && this.renderFilter( totalReader || 0, 'reader', 'Lecteurs' )}
+          {totalAdministrator > 0 && this.renderFilter( totalAdministrator || 0, 'administrator' )}
+          {totalModerator > 0 && this.renderFilter( totalModerator || 0, 'moderator' )}
+          {totalContributor > 0 && this.renderFilter( totalContributor || 0, 'contributor' )}
+          {totalReader > 0 && this.renderFilter( totalReader || 0, 'reader' )}
         </ul>
 
         <form onSubmit={handleSubmit( this.search )}>

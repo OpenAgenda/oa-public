@@ -40,10 +40,6 @@ var _lodash3 = require('lodash.throttle');
 
 var _lodash4 = _interopRequireDefault(_lodash3);
 
-var _deepExtend = require('deep-extend');
-
-var _deepExtend2 = _interopRequireDefault(_deepExtend);
-
 var _monitorBottomHit = require('dom-utils/monitorBottomHit');
 
 var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
@@ -302,10 +298,13 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
     }
   }, {
     key: 'renderFilter',
-    value: function renderFilter(nbr, key, label) {
+    value: function renderFilter(nbr, key) {
       var credFilters = this.props.credFilters;
+      var getLabel = this.context.getLabel;
+
 
       var toggleFilter = credFilters.includes(key) ? this.removeFilter : this.addFilter;
+      var label = key + (nbr > 1 ? 's' : '');
 
       return _react3.default.createElement(
         'li',
@@ -321,7 +320,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             nbr
           ),
           ' ',
-          label,
+          getLabel(label),
           ' ',
           _react3.default.createElement('i', {
             className: (0, _classnames2.default)('fa fa-times', { invisible: !credFilters.includes(key) }),
@@ -382,10 +381,10 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
         _react3.default.createElement(
           'ul',
           { className: 'nav nav-pills', role: 'tablist' },
-          totalAdministrator > 0 && this.renderFilter(totalAdministrator || 0, 'administrator', 'Administrateurs'),
-          totalModerator > 0 && this.renderFilter(totalModerator || 0, 'moderator', 'Modérateurs'),
-          totalContributor > 0 && this.renderFilter(totalContributor || 0, 'contributor', 'Contributeurs'),
-          totalReader > 0 && this.renderFilter(totalReader || 0, 'reader', 'Lecteurs')
+          totalAdministrator > 0 && this.renderFilter(totalAdministrator || 0, 'administrator'),
+          totalModerator > 0 && this.renderFilter(totalModerator || 0, 'moderator'),
+          totalContributor > 0 && this.renderFilter(totalContributor || 0, 'contributor'),
+          totalReader > 0 && this.renderFilter(totalReader || 0, 'reader')
         ),
         _react3.default.createElement(
           'form',
