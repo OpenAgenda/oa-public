@@ -6,41 +6,45 @@ require( 'dom-utils/ie9' );
 
 var utils = require( 'utils' ),
 
-du = require( '../../js/lib/domUtils' ),
+  du = require( '../../js/lib/domUtils' ),
 
-mobileMonitor = require('./handleMobileMonitor.js'),
+  mobileMonitor = require( './handleMobileMonitor.js' ),
 
-mobileMenu = require( './mobileMenu' ),
+  mobileMenu = require( './mobileMenu' ),
 
-messageLinks = require('./handleMessageLinks.js'),
+  messageLinks = require( './handleMessageLinks.js' ),
 
-confirmMessage = require( './confirmMessage' ),
+  confirmMessage = require( './confirmMessage' ),
 
-cibulMessage = require( './cibulMessage' ),
+  cibulMessage = require( './cibulMessage' ),
 
-handleSession = require( './handleSession' ),
+  handleSession = require( './handleSession' ),
 
-headerProfile = require( './headerProfile' ),
+  headerProfile = require( './headerProfile' ),
 
-outdated = require( 'outdated-browser-rework' ),
+  outdated = require( 'outdated-browser-rework' ),
 
-toggle = require( './toggle' ),
+  toggle = require( './toggle' ),
 
-debug = require('debug'),
+  debug = require( 'debug' ),
 
-layout = require( './layout' ),
+  layout = require( './layout' ),
 
-log = debug('globals'),
+  log = debug( 'globals' ),
 
-flash = require('./handleFlashMessage.js'),
+  flash = require( './handleFlashMessage.js' ),
 
-eh = require('../../js/lib/EventHandler/EventHandler.js').sEventHandler.getInstance(),
+  eh = require( '../../js/lib/EventHandler/EventHandler.js' ).sEventHandler.getInstance(),
 
-ran = false, asapRan = false,
+  LE = require( 'le_js' ),
 
-hooks = [], asaps = [],
+  Raven = require( 'raven-js' ),
 
-params = {};
+  ran = false, asapRan = false,
+
+  hooks = [], asaps = [],
+
+  params = {};
 
 outdated( {
   browserSupport: {
@@ -48,9 +52,9 @@ outdated( {
     'IE': 9,
     'Safari': 5,
     'Mobile Safari': 5,
-    'Firefox':  24
+    'Firefox': 24
   }
-});
+} );
 
 /**
  * provide function to retrieve session data
@@ -59,12 +63,12 @@ outdated( {
 window.getSession = handleSession();
 
 
-du.asapReady( function() {
+du.asapReady( function () {
 
   if ( !utils.size( params ) ) {
 
     utils.extend( params, layout.getOptions( 'body' ) );
-    
+
   }
 
   if ( typeof window.eh !== 'undefined' ) eh = window.eh;
@@ -85,18 +89,18 @@ du.asapReady( function() {
 
   cibulMessage();
 
-  du.forEach( asaps, function( asapHook ) {
+  du.forEach( asaps, function ( asapHook ) {
 
     asapHook( params );
 
-  });
+  } );
 
   asapRan = true;
 
 } );
 
 
-du.addEvent( window, 'load', function() {
+du.addEvent( window, 'load', function () {
 
   if ( !utils.size( params ) ) {
 
@@ -106,11 +110,11 @@ du.addEvent( window, 'load', function() {
 
   headerProfile( params.profile );
 
-  du.forEach( hooks, function( hook ) {
+  du.forEach( hooks, function ( hook ) {
 
     hook( params );
 
-  });
+  } );
 
   ran = true;
 
@@ -122,7 +126,7 @@ du.addEvent( window, 'load', function() {
  * which are to be called when page is ready
  */
 
-window.hook = function( cb ) {
+window.hook = function ( cb ) {
 
   if ( ran ) return cb( params );
 
@@ -136,10 +140,26 @@ window.hook = function( cb ) {
  * available
  */
 
-window.asap = function( cb ) {
+window.asap = function ( cb ) {
 
   if ( asapRan ) return cb( params );
 
   asaps.push( cb )
 
 }
+
+window.hook( () => {
+
+  if ( !window.errorsTrackingConfig ) return;
+  const errorsTrackingConfig = window.errorsTrackingConfig;
+
+  LE.init( errorsTrackingConfig.logentriesKey );
+
+  Raven.config( errorsTrackingConfig.sentryDsn, {
+    dataCallback( data ) {
+      LE.log( data );
+      return data;
+    }
+  } ).install();
+
+} );
