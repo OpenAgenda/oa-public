@@ -36,6 +36,8 @@ var ugly = require( 'uglify-js' ),
 
   changeLine = false,
 
+  onlyCss = false,
+
   production = true,
 
   log,
@@ -106,7 +108,7 @@ var ugly = require( 'uglify-js' ),
 
   legacyProdify = function () {
 
-    if ( buildFilter ) {
+    if ( buildFilter || onlyCss ) {
 
       return;
 
@@ -171,7 +173,7 @@ var ugly = require( 'uglify-js' ),
 
   prodifyPublicTemplates = function ( map, cb ) {
 
-    if ( buildFilter ) {
+    if ( buildFilter || onlyCss ) {
 
       return cb();
 
@@ -429,6 +431,8 @@ var ugly = require( 'uglify-js' ),
 
   prodifyTemplateJs = function ( map, cb ) {
 
+    if ( onlyCss ) return cb();
+
     async.eachSeries( map, function ( mapItem, scb ) {
 
       var templateName = typeof mapItem == 'string' ? mapItem : mapItem.uri;
@@ -448,6 +452,8 @@ var ugly = require( 'uglify-js' ),
   },
 
   prodifyJs = function ( map, cb ) {
+
+    if ( onlyCss ) return cb();
 
     async.eachSeries( map, function ( mapItem, scb ) {
 
@@ -596,9 +602,13 @@ for ( var i = 0; i < process.argv.length; i++ ) {
   if ( process.argv[ i ] == 'l' ) {
     labels = true;
     changeLine = true;
-  } else if ( process.env.BUILD_ENV == 'development' ) {
-    production = false;
+  } else if ( process.argv[ i ] == 'css' ) {
+    onlyCss = true;
   }
+}
+
+if ( process.env.BUILD_ENV == 'development' ) {
+  production = false;
 }
 
 run();
