@@ -196,6 +196,8 @@ module.exports = ( enabledTypes, cb ) => {
 
         tfy( require( './services/elasticsearch' ).refresh, { period: 'daily', time: '00:00' } );
 
+        tfy( require( './services/notification/remove.task' ), { period: 'daily', time: '03:00' } );
+
         tfy( require( 'agenda-search' ).rebuild, { period: 'daily', time: '01:00' } );
 
         require( './general/mainLogger.task' )();
