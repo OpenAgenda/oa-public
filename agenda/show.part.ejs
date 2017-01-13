@@ -3,10 +3,10 @@
   <div class="col-sm-3"></div>
   <div class="col-sm-9">
 <% if ( ( passed === true ) && !hasSearchQuery ) { %>
-    <p><%- __( 'There are no upcoming events published in this agenda.' ) %></p>
+    <p><%- __( 'agendaHasNotUpcomingEvents' ) %></p>
 <% } else { %>
-    <p><%- __( 'There are no results for this search. You can make a site-wide search from the page header, or %page%', { 
-      '%page%' : '<a href="' + genUrl( 'agendaShow', { 'slug': agenda.slug } ) + '">' + __( 'reload this page' ) + '</a>'
+    <p><%- __( 'noResultForSearchWithLink', {
+      'page' : '<a href="' + genUrl( 'agendaShow', { 'slug': agenda.slug } ) + '">' + __( 'reloadPage' ) + '</a>'
     } ) %></p>
 <% } %>
   </div>

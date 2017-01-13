@@ -66,13 +66,13 @@
 <% } %>
         </div>
 <% if ( event.pricingInfo || event.registrationComponent ) { %>
-        <section class="detail-item">
-          <h3><i class="fa fa-ticket"></i></h3>
-          <div class="detail-item-content">
-<% if ( event.pricingInfo ) { %>
-            <p><%= event.pricingInfo %></p>
-<% } %>
-          </div>
+        <section class="detail-item conditions">
+          <h3><i class="fa fa-ticket"></i> <span>Conditions</span></h3>
+            <% if ( event.pricingInfo ) { %>
+              <div class="detail-item-content">
+                <p><%= event.pricingInfo %></p>
+              </div>
+            <% } %>
         </section>
 <% } %>
 <% if ( event.registrationComponent ) { %>

@@ -1,6 +1,8 @@
 {
   "layout" : "bsLayout/main",
 
+  "labels": "agendas/show",
+
   "bsCss" : {
     "main" : "/node_modules/bs-templates/compiled/main.css"
   },

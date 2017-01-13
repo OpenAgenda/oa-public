@@ -15,11 +15,11 @@
                 <section class="side-item side-search">
                     <h3 class="mobile-only">
                         <i class="fa fa-search side-icon"></i><span
-                                class="side-title"><%= __( 'Search in this agenda' ) %></span>
+                                class="side-title"><%= __( 'searchInThisAgenda' ) %></span>
                     </h3>
                     <div class="side-content">
                         <div class="search-form cbpgsc" data-cbctl="<%= agenda.uid %>|<%= lang %>">
-                            <input type="text" placeholder="<%= __( 'Search in this agenda' ) %>" class="search-input">
+                            <input type="text" placeholder="<%= __( 'searchInThisAgenda' ) %>" class="search-input">
                             <div class="search-button">
                                 <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
                             </div>
@@ -29,12 +29,12 @@
 
                 <section class="side-item side-map">
                     <h3 class="mobile-only">
-                        <i class="fa fa-map-marker side-icon"></i><span class="side-title"><%= __( 'Map' ) %></span>
+                        <i class="fa fa-map-marker side-icon"></i><span class="side-title"><%= __( 'map' ) %></span>
                     </h3>
                     <div class="side-content cbpgmp small-map" data-cbctl="<%= agenda.uid %>|<%= lang %>">
                         <div class="map-sync js_map_sync">
                             <input type="checkbox" id="map-sync" class="js_sync_checkbox">
-                            <label for="map-sync"><%= __( 'Search when I move the map' ) %></label>
+                            <label for="map-sync"><%= __( 'searchWhenMoveMap' ) %></label>
                         </div>
                     </div>
                 </section>
@@ -42,7 +42,7 @@
                 <section class="side-item side-calendar">
                     <h3 class="mobile-only">
                         <i class="fa fa-calendar-o side-icon"></i><span
-                                class="side-title"><%= __( 'Select dates' ) %></span>
+                                class="side-title"><%= __( 'selectDates' ) %></span>
                     </h3>
                     <div class="side-content">
                         <div class="cbpgcl cibulCalendar" data-cbctl="<%= agenda.uid %>|<%= lang %>"></div>
@@ -52,7 +52,7 @@
                 <section class="side-item side-categories display-none js_category_widget">
                     <h3>
                         <i class="fa fa-tag side-icon"></i>
-                        <span class="side-title"><%= __( 'Categories' ) %></span>
+                        <span class="side-title"><%= __( 'categories' ) %></span>
                     </h3>
                     <div class="side-content cbpgct" data-cbctl="<%= agenda.uid %>|bs"></div>
                 </section>
@@ -60,7 +60,7 @@
                 <section class="side-item side-tags display-none js_tags_widget">
                     <h3>
                         <i class="fa fa-tags side-icon"></i>
-                        <span class="side-title"><%= __( 'Tags' ) %></span>
+                        <span class="side-title"><%= __( 'tags' ) %></span>
                     </h3>
                     <div class="side-content cbpgtg" data-cbctl="<%= agenda.uid %>||bs"></div>
                 </section>
@@ -68,7 +68,7 @@
                 <section class="side-item display-none js_org_widget">
                     <h3>
                         <i class="fa fa-institution side-icon"></i><span
-                                class="side-title"><%= __( 'Organization' ) %></span>
+                                class="side-title"><%= __( 'organization' ) %></span>
                     </h3>
                     <div class="side-content cbpgor" data-cbctl="<%= agenda.uid %>|bs"></div>
                 </section>
@@ -83,9 +83,9 @@
     <div class="container">
         <p class="display-none js_add_button">
             <a class="btn btn-success btn-lg" href="<%= genUrl( 'agendaEventNew', { slug: agenda.slug } ) %>"
-               rel="nofollow"><%= __( 'Add an event' ) %></a>
+               rel="nofollow"><%= __( 'addEvent' ) %></a>
         </p>
-        <p><%= __( 'This agenda has not published any events yet' ) %></p>
+        <p><%= __( 'agendaHasNotEventsPublished' ) %></p>
     </div>
 </div>
 <% var centeredFooter = true; %>
@@ -95,7 +95,7 @@
     <ul class="edge-list">
         <li class="edge-item">
             <a class="edge-link" data-href="<%= genUrl( 'agendaAdminShow', { slug: agenda.slug } ) %>"
-               rel="nofollow"><%= __( 'Manage' ) %></a>
+               rel="nofollow"><%= __( 'manage' ) %></a>
         </li>
     </ul>
 </div>

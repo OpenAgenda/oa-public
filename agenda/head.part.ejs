@@ -20,7 +20,7 @@
               <i></i>
               <div class="tooltip right" role="tooltip">
                 <div class="tooltip-arrow"></div>
-                <div class="tooltip-inner"><%= __('Official agenda') %></div>
+                <div class="tooltip-inner"><%= __('officialAgenda') %></div>
               </div>
             </div>
 <% } %>
@@ -32,13 +32,13 @@
 <% } %>
             <% if ( includeActionLinks ) { %><div class="ctas">
                 <a class="btn btn-default" href="<%= genUrl( 'conversationAgendaContact', { uid: agenda.uid, redirect: _r({ module: 'review', action: 'show', slug: agenda.slug }) }) %>" rel="nofollow">
-                    <i class="fa fa-envelope" aria-hidden="true"></i> <strong><%= __( 'Contact' ) %></strong>
+                    <i class="fa fa-envelope" aria-hidden="true"></i> <strong><%= __( 'contact' ) %></strong>
                 </a>
                 <a class="btn btn-default js_use_search" href="<%= agenda.importUri %>" rel="nofollow">
-                    <i class="fa fa-share-alt"></i> <strong><%= __( 'Export' ) %> </strong>
+                    <i class="fa fa-share-alt"></i> <strong><%= __( 'export' ) %> </strong>
                 </a>
                 <a class="btn btn-success display-none js_add_button" href="<%= genUrl( 'agendaEventNew', { slug: agenda.slug } ) %>">
-                    <i class="fa fa-plus" aria-hidden="true"></i> <strong><%= __('Add an event') %></strong>
+                    <i class="fa fa-plus" aria-hidden="true"></i> <strong><%= __('addEvent') %></strong>
                 </a>
             </div><% } %>
       </div><% if ( includeActionLinks ) { %><!--

@@ -2,7 +2,7 @@
   <aside class="col-sm-3 event-aside">
     <div>
 <% if ( typeof event.featured !== 'undefined' && event.featured ) { %>
-      <span class="featured"><i class="fa fa-thumb-tack"></i> <%= __( 'Featured' ) %></span>
+      <span class="featured"><i class="fa fa-thumb-tack"></i> <%= __( 'featured' ) %></span>
 <% } %>
       <span class="time-count js_relative_time" data-relative-time="<%= event.closestDate %>"></span>
     </div>
@@ -34,7 +34,7 @@
       </div>
     </a>
     <a class="event-action" type="button" href="<%= event.importUri %>">
-      <i class="fa fa-plus-circle"></i> <%= __('Add to my agenda') %>
+      <i class="fa fa-plus-circle"></i> <%= __('addToMyAgenda') %>
     </a>
   </section>
 </article>
