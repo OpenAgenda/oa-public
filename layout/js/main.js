@@ -16,8 +16,6 @@ var utils = require( 'utils' ),
 
   confirmMessage = require( './confirmMessage' ),
 
-  cibulMessage = require( './cibulMessage' ),
-
   handleSession = require( './handleSession' ),
 
   headerProfile = require( './headerProfile' ),
@@ -86,8 +84,6 @@ du.asapReady( function () {
   toggle();
 
   flash();
-
-  cibulMessage();
 
   du.forEach( asaps, function ( asapHook ) {
 

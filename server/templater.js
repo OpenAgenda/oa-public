@@ -162,7 +162,7 @@ function _loadTranslator( data, cb ) {
     let templateLabels = templateLabelsPath ? _getLabels( templateLabelsPath ) : {};
 
     let getLabel = makeLabelGetter( Object.assign( {}, labels, templateLabels ) );
-    data.__ = (label, values) => getLabel( label, values, data.lang );
+    data.__ = ( label, values ) => getLabel( label, values, data.lang );
 
   }
 
@@ -302,20 +302,15 @@ function _loadLabels( lang ) {
 
     } ), function ( err, results ) {
 
-      var labels = {};
-
-      if ( err ) {labels
+      if ( err ) {
 
         log( 'File not found at %s. Ignoring.', err.path );
 
-      } else {
-
-        labels = JSON.parse( results[ 0 ] );
-
-        if ( results.length > 1 ) cn.extend( labels, JSON.parse( results[ 1 ] ) );
-
       }
 
+      const labels = JSON.parse( results[ 0 ] || '{}' );
+
+      if ( results.length > 1 ) cn.extend( labels, JSON.parse( results[ 1 ] || '{}' ) );
 
       data.labels = labels;
 

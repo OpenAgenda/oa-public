@@ -37,10 +37,6 @@
     "public" : true
   },
   {
-    "uri" : "user/transferMessage",
-    "public" : true
-  },
-  {
     "uri" : "user/bsMenu",
     "public" : true
   },
