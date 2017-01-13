@@ -23,7 +23,11 @@ var deepExtend = require( 'deep-extend' ),
           prefix: 'oa:',
           enable: false
         },
-        token: '1cdd4c11-fe29-4144-ae18-e4fb8392c282'
+        token: '1cdd4c11-fe29-4144-ae18-e4fb8392c282',
+        errorsTracking: {
+          logentriesKey: 'b78fe636-dc33-4aa3-be30-b7b4e642477c',
+          sentryDsn: 'https://5fe9d785fe8c43d2aac6372740474a4d@sentry.io/128991'
+        }
       },
       name: 'cibul-node',
       domain: 'openagenda.com',

@@ -8,40 +8,40 @@
 module.exports = {
 
   loadLogger,
-  
+
   render,                       // render and serve response
   renderJson,                   // render and serve json
   renderTemplate,               // render and serve template
   errorResponse,                // render error page
   catchError,                   // the heir of standard error handling
-  
+
   isLogged,                     // this guy speaks for himself.
   requireLogged,                // middleware. verify if user is logged
   requireUnlogged,
   https,                        // middleware. force https ( redirect to when not )
-  
+
   requireAdmin,
   loadBaseData,                 // middleware. 
   loadSession,                  // middleware. load session data
   loadUserUid,
   checkCredential,              // middleware. check that request agenda has required credential
   flashSetter,                  // middleware. set a flash prior to redirect
-  
+
   checkAdministrator,           // middleware. checks that logged user is administrator of loaded agenda
   checkModerator,
   checkContributor,
   checkAdminOrModerator,
   checkAdminOrModeratorOrKey,
   checkStakeholder,
-  
+
   useEmbedGoogleAnalytics,
-  
+
   getRedirect,                  // get redirect
-  
+
   writeToCookie,
   clearCookie,
   readCookie,
-  
+
   redirectLegacySearch,
   loadLegacyRoutes
 
@@ -53,49 +53,48 @@ module.exports = {
 
 var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2, R_MW = 3,
 
-express = require( 'express' ),
+  express = require( 'express' ),
 
-logger = require( 'logger' ),
+  logger = require( 'logger' ),
 
-log = logger( 'commons-app' ),
+  log = logger( 'commons-app' ),
 
-config = require( '../config' ),
+  config = require( '../config' ),
 
-w = require( 'when' ),
+  w = require( 'when' ),
 
-wn = require( 'when/node' ),
+  wn = require( 'when/node' ),
 
-model = require( '../services/model' ),
+  model = require( '../services/model' ),
 
-templater = require( 'cibulTemplates' ),
+  templater = require( 'cibulTemplates' ),
 
-i18n = require( '../i18n/i18n.js' ),
+  i18n = require( '../i18n/i18n.js' ),
 
-deepExtend = require( 'deep-extend' ),
+  deepExtend = require( 'deep-extend' ),
 
-utils = require( 'utils' ),
+  utils = require( 'utils' ),
 
-agendaSvc = require( '../services/agenda' ),
+  agendaSvc = require( '../services/agenda' ),
 
-async = require( 'async' ),
+  async = require( 'async' ),
 
-genUrl = require( '../services/genUrl' ),
+  genUrl = require( '../services/genUrl' ),
 
-languages = require( 'languages' ),
+  languages = require( 'languages' ),
 
-userSvc = require( '../services/user' ),
+  userSvc = require( '../services/user' ),
 
-labels = {
-  unauthorized: require( 'labels/errors/unauthorized' )
-},
+  labels = {
+    unauthorized: require( 'labels/errors/unauthorized' )
+  },
 
-qs = require( 'qs' );
-
+  qs = require( 'qs' );
 
 
 function loadEvent( paramName, fieldName ) {
 
-  return function( req, res, next ) {
+  return function ( req, res, next ) {
 
     var identifiers = {};
 
@@ -113,28 +112,27 @@ function loadEvent( paramName, fieldName ) {
 
     wn.call( model.events().get, identifiers )
 
-    .then( function( data ) {
+      .then( function ( data ) {
 
-      if ( !data ) throw { code: 404 };
+        if ( !data ) throw { code: 404 };
 
-      req.event = model.events().instance( data );
+        req.event = model.events().instance( data );
 
-      req.log.load({ event: req.event.slug });
+        req.log.load( { event: req.event.slug } );
 
-      next();
+        next();
 
-    })
+      } )
 
-    .catch( catchError( req, res ) );
+      .catch( catchError( req, res ) );
 
-  } 
+  }
 
 }
 
 
-
 /**
- * middleware for checking that logged user is administrator of 
+ * middleware for checking that logged user is administrator of
  * agenda loaded in request
  */
 
@@ -146,38 +144,38 @@ function checkAdministrator( options ) {
     redirect: false
   }, options ? options : {} );
 
-  return function( req, res, next ) {
+  return function ( req, res, next ) {
 
     wn.call( req[ params.name ].isAdministrator, { id: req.session.userId } )
 
-    .then( isAdmin => {
+      .then( isAdmin => {
 
-      if ( !isAdmin ) {
+        if ( !isAdmin ) {
 
-        if ( params.redirect ) {
+          if ( params.redirect ) {
 
-          res.setFlash( req, params.message );
+            res.setFlash( req, params.message );
 
-          return res.redirect( params.redirect );
+            return res.redirect( params.redirect );
+
+          }
+
+          throw {
+            message: params.message,
+            code: 403
+          };
 
         }
 
-        throw {
-          message : params.message,
-          code: 403
-        };
+        next();
 
-      }
+      } )
 
-      next();
+      .catch( err => {
 
-    } )
+        errorResponse( req, res, err );
 
-    .catch( err => {
-
-      errorResponse( req, res, err );
-
-    } );
+      } );
 
   }
 
@@ -187,19 +185,19 @@ function checkModerator( req, res, next ) {
 
   wn.call( req.agenda.isModerator, { id: req.session.userId } )
 
-  .then( function( isModerator ) {
+    .then( function ( isModerator ) {
 
-    if ( !isModerator ) throw { message : 'You do not have access to the moderation of this agenda.', code: 403 };
+      if ( !isModerator ) throw { message: 'You do not have access to the moderation of this agenda.', code: 403 };
 
-    next();
+      next();
 
-  } )
+    } )
 
-  .catch( function( err ) {
+    .catch( function ( err ) {
 
-    errorResponse( req, res, err );
+      errorResponse( req, res, err );
 
-  } );
+    } );
 
 }
 
@@ -208,15 +206,17 @@ function checkContributor( req, res, next ) {
 
   async.parallel( [
     async.apply( req.agenda.isAdministrator, { id: req.session.userId } ),
-    async.apply( req.agenda.isModerator, { id: req.session.userId } ),
-    async.apply( req.agenda.isContributor, { id: req.session.userId } )
+    async.apply( req.agenda.isModerator, { id: req.session.userId } ),
+    async.apply( req.agenda.isContributor, { id: req.session.userId } )
   ], ( err, results ) => {
 
     if ( err ) return next( err );
 
-    if ( !results.filter( ( r ) => { return r; } ).length ) {
+    if ( !results.filter( ( r ) => {
+        return r;
+      } ).length ) {
 
-      return next( { code: 403 } );
+      return next( { code: 403 } );
 
     }
 
@@ -231,12 +231,12 @@ function checkAdminOrModerator( req, res, next ) {
 
   async.parallel( [
     async.apply( req.agenda.isAdministrator, { id: req.session.userId } ),
-    async.apply( req.agenda.isModerator, { id: req.session.userId } )
-  ], function( err, results ) {
+    async.apply( req.agenda.isModerator, { id: req.session.userId } )
+  ], function ( err, results ) {
 
     if ( err ) return next( err );
 
-    if ( !results[ 0 ] && !results[ 1 ] ) return next( { code: 403 } );
+    if ( !results[ 0 ] && !results[ 1 ] ) return next( { code: 403 } );
 
     req.access = results[ 0 ] ? 'administrator' : 'moderator';
 
@@ -267,7 +267,7 @@ function checkAdminOrModeratorOrKey( req, res, next ) {
     if ( !req.agenda.isKeyValid( req.query.key ) ) {
 
       return next( {
-        message : 'the key is invalid',
+        message: 'the key is invalid',
         code: 403
       } );
 
@@ -347,7 +347,10 @@ function errorResponse( req, res, error, jsonResponse ) {
 
   if ( res.code === 413 ) {
 
-    error.message = i18n( 'Your submission is too large: maximum allowed is %max%kb, you submitted %sub%kb', { '%max%' : Math.ceil( error.limit/1000 ) , '%sub%' : Math.ceil( error.length/1000 ) }, req.lang );
+    error.message = i18n( 'Your submission is too large: maximum allowed is %max%kb, you submitted %sub%kb', {
+      '%max%': Math.ceil( error.limit / 1000 ),
+      '%sub%': Math.ceil( error.length / 1000 )
+    }, req.lang );
 
   } else if ( error.message ) {
 
@@ -361,7 +364,7 @@ function errorResponse( req, res, error, jsonResponse ) {
     renderJson( req, res, {
       success: false,
       message: error.message ? error.message : 'There was a problem during the handling of the request'
-    });
+    } );
 
     return;
 
@@ -372,14 +375,14 @@ function errorResponse( req, res, error, jsonResponse ) {
     req.baseData.head.css.main = '/css/compiled.css';
 
     render( req, res, errorTemplate, error );
-    
+
   } else {
 
-    loadBaseData()( req, res, function() {
+    loadBaseData()( req, res, function () {
 
       render( req, res, errorTemplate, error );
 
-    });
+    } );
 
   }
 
@@ -387,7 +390,7 @@ function errorResponse( req, res, error, jsonResponse ) {
 
 function catchError( req, res, jsonResponse ) {
 
-  return function( err ) {
+  return function ( err ) {
 
     log( 'error', 'caught error: %s', typeof err == 'object' && err.message ? err.message : JSON.stringify( err ) );
 
@@ -405,12 +408,11 @@ function catchError( req, res, jsonResponse ) {
 
     }
 
-    errorResponse( req, res, err, jsonResponse );  
+    errorResponse( req, res, err, jsonResponse );
 
   }
 
 }
-
 
 
 /**
@@ -419,7 +421,7 @@ function catchError( req, res, jsonResponse ) {
 
 function render( req, res, templatePath, data, maintain ) {
 
-  renderTemplate( req, templatePath, data, maintain, function( err, render ) {
+  renderTemplate( req, templatePath, data, maintain, function ( err, render ) {
 
     if ( err ) return catchError( req, res )( err );
 
@@ -430,8 +432,8 @@ function render( req, res, templatePath, data, maintain ) {
     if ( !req.xhr ) {
 
       res.writeHead( statusCode, {
-        "Content-Type" : "text/html; charset=utf-8",
-        'Cache-Control' : res.get( 'Cache-Control' ) || 'no-cache'
+        "Content-Type": "text/html; charset=utf-8",
+        'Cache-Control': res.get( 'Cache-Control' ) || 'no-cache'
       } );
 
       res.write( render );
@@ -449,14 +451,14 @@ function render( req, res, templatePath, data, maintain ) {
 
     }
 
-  });
+  } );
 
 }
 
 
 function renderTemplate( req, templatePath, data, maintain, cb ) {
 
-  var compiledData = deepExtend( {}, 
+  var compiledData = deepExtend( {},
     req.baseData ? req.baseData : {},
     data ? data : {}
   );
@@ -484,7 +486,7 @@ function renderTemplate( req, templatePath, data, maintain, cb ) {
 
   compiledData.env = process.env.NODE_ENV;
 
-  templater( templatePath + ( req.xhr ? '.part' : '' ), compiledData, function( err, result ) {
+  templater( templatePath + ( req.xhr ? '.part' : '' ), compiledData, function ( err, result ) {
 
     if ( err && req.xhr ) { // xhr request has no corresponding partial
 
@@ -565,7 +567,8 @@ function loadBaseData( func, cssFile ) {
 
       let googleAnalyticsId = req.googleAnalyticsId || config.googleAnalyticsId;
 
-      baseData.bottom.scripts.push('var _gaq = _gaq || [];var pluginUrl =\'//www.google-analytics.com/plugins/ga/inpage_linkid.js\';_gaq.push([\'_require\', \'inpage_linkid\', pluginUrl]);_gaq.push([\'_setAccount\', \'' + googleAnalyticsId + '\']);_gaq.push([\'_trackPageview\']);(function() {var ga = document.createElement(\'script\'); ga.type = \'text/javascript\'; ga.async = true;ga.src = (\'https:\' == document.location.protocol ? \'https://ssl\' : \'http://www\') + \'.google-analytics.com/ga.js\';var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ga, s);})();');
+      baseData.bottom.scripts.push( 'var _gaq = _gaq || [];var pluginUrl =\'//www.google-analytics.com/plugins/ga/inpage_linkid.js\';_gaq.push([\'_require\', \'inpage_linkid\', pluginUrl]);_gaq.push([\'_setAccount\', \'' + googleAnalyticsId + '\']);_gaq.push([\'_trackPageview\']);(function() {var ga = document.createElement(\'script\'); ga.type = \'text/javascript\'; ga.async = true;ga.src = (\'https:\' == document.location.protocol ? \'https://ssl\' : \'http://www\') + \'.google-analytics.com/ga.js\';var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ga, s);})();' );
+      baseData.bottom.scripts.push( `var errorsTrackingConfig = ${JSON.stringify( config.logger.errorsTracking )}` );
 
     }
 
@@ -600,7 +603,7 @@ function loadUserUid( req, res, next ) {
 
 
 /**
- * load session data 
+ * load session data
  */
 
 function loadSession( req, res, next ) {
@@ -610,7 +613,7 @@ function loadSession( req, res, next ) {
     req.log.load( {
       session: req.cookies[ config.cookie.name ].substr( 0, 10 )
     } );
-    
+
   }
 
   if ( req.session && req.session.userId ) {
@@ -740,7 +743,7 @@ function https( req, res, next ) {
 
   var redirectTo;
 
-  if ( req.headers['x-forwarded-proto'] == 'https' ) {
+  if ( req.headers[ 'x-forwarded-proto' ] == 'https' ) {
 
     next();
 
@@ -784,19 +787,19 @@ function checkCredential( name, options ) {
   var params = utils.extend( {
     name: 'agenda',
     namespace: false // if not set, response is error when cred is not assigned
-  }, options ? options: {} );
+  }, options ? options : {} );
 
   if ( !options ) options = {};
 
-  return function( req, res, next ) {
+  return function ( req, res, next ) {
 
-    model.agendas().instance( req[ params.name ] ).hasCredential( name, function( err, has ) {
+    model.agendas().instance( req[ params.name ] ).hasCredential( name, function ( err, has ) {
 
       if ( err ) return errorResponse( req, res, err );
 
       if ( !has && !params.namespace ) {
 
-          return errorResponse( req, res, 'user does not have required creds' );
+        return errorResponse( req, res, 'user does not have required creds' );
 
       }
 
@@ -814,12 +817,11 @@ function checkCredential( name, options ) {
 
       next();
 
-    });
+    } );
 
   };
 
 }
-
 
 
 /**
@@ -828,7 +830,7 @@ function checkCredential( name, options ) {
 
 function flashSetter( req, res, next ) {
 
-  res.setFlash = function( req, text, values ) {
+  res.setFlash = function ( req, text, values ) {
 
     if ( !values ) values = {};
 
@@ -845,8 +847,6 @@ function flashSetter( req, res, next ) {
 }
 
 
-
-
 function getRedirect( req, paramName ) {
 
   var redirectValue;
@@ -860,14 +860,14 @@ function getRedirect( req, paramName ) {
   if ( !req.query[ paramName ] ) {
 
     return false;
-    
-  } 
+
+  }
 
   try {
-  
+
     redirectValue = ( new Buffer( req.query[ paramName ], 'base64' ) ).toString()
-    
-  } catch( e ) {
+
+  } catch ( e ) {
 
     log( 'error', 'invalid redirect value in request: %s', req.query[ paramName ] );
 
@@ -876,7 +876,6 @@ function getRedirect( req, paramName ) {
   return redirectValue;
 
 }
-
 
 
 /**
@@ -916,7 +915,7 @@ function renderJson( req, res, data, options ) {
 
 function loadLogger( name ) {
 
-  return function( req, res, next ) {
+  return function ( req, res, next ) {
 
     req.log = logger( 'req' );
 
@@ -982,10 +981,10 @@ function _saveCookie( req, res, cookieValues ) {
   // do this both in req and res.
   req.cookies[ config.cookie.name ] = encodedCookieValues;
 
-  res.cookie( 
-    config.cookie.name, 
+  res.cookie(
+    config.cookie.name,
     encodedCookieValues,
-    { maxAge: 5*60*1000 }
+    { maxAge: 5 * 60 * 1000 }
   );
 
 }
@@ -994,19 +993,19 @@ function _decodeCookie( req ) {
 
   var encodedCookie = req.cookies[ config.cookie.name ],
 
-  cookieValues = {};
+    cookieValues = {};
 
   if ( encodedCookie ) {
 
     try {
 
-      cookieValues = JSON.parse( 
+      cookieValues = JSON.parse(
         ( new Buffer( encodedCookie, 'base64' ) ).toString()
       );
 
       return cookieValues;
-      
-    } catch( e ) {
+
+    } catch ( e ) {
 
       log( 'error', 'could not decode cookie' );
 
@@ -1026,7 +1025,6 @@ function _logRequest( req, res, next ) {
   next();
 
 }
-
 
 
 /**
@@ -1066,7 +1064,7 @@ function _defineLang( req ) {
 
 function _getLang( req ) {
 
-  return req.lang || _cleanLang( req.query ? req.query.lang : 'fr' );
+  return req.lang || _cleanLang( req.query ? req.query.lang : 'fr' );
 
 }
 
@@ -1096,7 +1094,7 @@ function loadLegacyRoutes( genUrl ) {
 
   var legacyRoutes = config.routes.globals;
 
-  for( var name in legacyRoutes ) {
+  for ( var name in legacyRoutes ) {
 
     legacyRoutes[ name ] = config.routes.defaultGlobalsPrefix + legacyRoutes[ name ].uri;
 
