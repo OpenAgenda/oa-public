@@ -30,9 +30,9 @@
   "Whoops. Could not retrieve the agenda."
   : "Oups. L'agenda n'a pas été retrouvé.",
   "You have been added to the newsletter list. Thanks!"
-  : "Vous avez été ajouté à la mailing liste. Merci!",
+  : "Vous avez été ajouté à notre liste d'envoi de lettre d'information. Merci!",
   "Either the email is invalid or the newsletter service is unavailable. Please try again later."
-  : "Soit l'email saisi est invalide, soit le service de newsletter est indisponible. Veuillez retenter l'inscription dans quelques minutes.",
+  : "Soit l'email saisi est invalide, soit le service de lettre d'information est indisponible. Veuillez retenter l'inscription dans quelques minutes.",
   "You're not an Administrator"
   : "Vous n'êtes pas administrateur",
   "the campaign was updated"
