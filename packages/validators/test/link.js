@@ -56,12 +56,15 @@ describe( 'link validator', () => {
 
     } );
 
+    
+
 
     it( 'are links', () => {
 
       let errors = false,
 
       links = [
+        '//graph.facebook.com/100002280111541/picture',
         'https://openagenda.com',
         'lemonde.fr',
         'lesjourneesdupatrimoine.gouv.fr',
