@@ -66,7 +66,7 @@ function addJob( invitation, lang, cb ) {
 
 function processInvitation( values, cb ) {
 
-  log( 'processing invitation %s', JSON.stringify( values ) );
+  log( 'info', 'processing invitation %s', JSON.stringify( values ) );
 
   _loadInvitation( values )
 

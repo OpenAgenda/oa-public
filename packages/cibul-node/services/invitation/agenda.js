@@ -198,11 +198,11 @@ function agendaInvitations( agenda ) {
 
       }
 
-      async.eachSeries( extractedEmails, function( email, ecb ) {
+      async.eachSeries( extractedEmails, ( email, ecb ) => {
 
         log( 'processing email %s', email );
 
-        agenda[ inviteMethods.get[ type ] ]( { email: email }, { creatorId: params.userId }, function( err, invitation, data ) {
+        agenda[ inviteMethods.get[ type ] ]( { email: email }, { creatorId: params.userId }, ( err, invitation, data ) => {
 
           if ( err ) {
 
