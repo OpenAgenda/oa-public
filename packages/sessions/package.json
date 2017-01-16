@@ -1,0 +1,29 @@
+{
+  "name": "sessions",
+  "version": "1.0.0",
+  "description": "The sessions service. Handles and provides information on open sessions of the OpenAgenda platform. Sessions are either logged or not.",
+  "main": "service/index.js",
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-alpha.2",
+    "cookies-js": "^1.2.3",
+    "lodash": "^4.17.4",
+    "redis": "^2.6.3",
+    "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git",
+    "utils": "git+ssh://git@bitbucket.org/openagenda/utils.git",
+    "when": "^3.7.7"
+  },
+  "devDependencies": {
+    "async": "^2.1.4",
+    "express": "^4.14.0",
+    "jsdom": "^9.9.1",
+    "should": "^11.1.2",
+    "superagent": "^3.3.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
