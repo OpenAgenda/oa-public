@@ -12,8 +12,6 @@ list = require( './list' ),
 
 timeliner = require( './timeliner' ),
 
-adminControls = require( '../../user/js/adminControls' ),
-
 documentLocation = require( 'dom-utils/documentLocation' ),
 
 config = require( './config' ),
@@ -56,12 +54,6 @@ if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) {
 
 }
 
-window.hook( function( options ) {
-
-  adminControls.init();
-
-} );
-
 window.asap( function( options ) {
 
   log = debug( 'agendaPage' );
@@ -89,9 +81,11 @@ window.asap( function( options ) {
 
       _handleAddButton( session, ctl );
 
-      adminControls( session, {
-        testFunc: _isAdmin( ctl )
-      } );
+      if ( !_isAdmin( ctl )( session ) ) return;
+
+      _displayAdminButton();
+
+      _removeAddButtonAsPrimary()
 
     } );
 
@@ -175,6 +169,22 @@ function _isAdmin( ctl ) {
 
 }
 
+
+function _removeAddButtonAsPrimary() {
+
+  let addButton = cn.el( params.selectors.add );
+
+  cn.addClass( addButton, 'btn-default' );
+  cn.removeClass( addButton, 'btn-primary' );
+
+}
+
+
+function _displayAdminButton() {
+
+  cn.removeClass( cn.el( params.selectors.admin ), params.classes.displayNone );
+
+}
 
 
 /**
