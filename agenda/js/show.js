@@ -182,7 +182,11 @@ function _removeAddButtonAsPrimary() {
 
 function _displayAdminButton() {
 
-  cn.removeClass( cn.el( params.selectors.admin ), params.classes.displayNone );
+  let adminButton = cn.el( params.selectors.admin );
+
+  adminButton.setAttribute( 'href', adminButton.getAttribute( 'data-href' ) );
+
+  cn.removeClass( adminButton, params.classes.displayNone );
 
 }
 

@@ -32,15 +32,17 @@
 <% } %>
             <% if ( includeActionLinks ) { %><div class="ctas">
                 <a class="btn btn-default" href="<%= genUrl( 'conversationAgendaContact', { uid: agenda.uid, redirect: _r({ module: 'review', action: 'show', slug: agenda.slug }) }) %>" rel="nofollow">
-                    <i class="fa fa-envelope" aria-hidden="true"></i> <strong><%= __( 'contact' ) %></strong>
+                    <i class="fa fa-envelope" aria-hidden="true"></i> <%= __( 'contact' ) %>
                 </a>
                 <a class="btn btn-default js_use_search" href="<%= agenda.importUri %>" rel="nofollow">
-                    <i class="fa fa-share-alt"></i> <strong><%= __( 'export' ) %> </strong>
+                    <i class="fa fa-share-alt"></i> <%= __( 'export' ) %>
                 </a>
                 <a class="btn btn-primary display-none js_add_button" href="<%= genUrl( 'agendaEventNew', { slug: agenda.slug } ) %>">
-                    <i class="fa fa-plus" aria-hidden="true"></i> <strong><%= __('addEvent') %></strong>
+                    <i class="fa fa-plus" aria-hidden="true"></i> <%= __('addEvent') %>
                 </a>
-                <a class="btn btn-primary js_admin_button display-none" data-href="<%= genUrl( 'agendaAdminShow', { slug: agenda.slug } ) %>" rel="nofollow"><%= __( 'manage' ) %></a>
+                <a class="btn btn-primary display-none js_admin_button" data-href="<%= genUrl( 'agendaAdminShow', { slug: agenda.slug } ) %>" rel="nofollow">
+                  <i class="fa fa-cogs"></i> <%= __( 'manage' ) %>
+                </a>
             </div><% } %>
       </div><% if ( includeActionLinks ) { %><!--
 <% include ./actionLinks.part.ejs %>
