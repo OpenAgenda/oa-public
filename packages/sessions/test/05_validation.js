@@ -8,7 +8,6 @@ describe( 'session - unit (server): validate', () => {
   it( 'server validate function describes data kept for session on server side', () => {
 
     let sessionData = {
-      code: 'sessioncookiecode',
       id: 1,
       uid: 12345678,
       email: 'gaetan.latouche@cibul.net',

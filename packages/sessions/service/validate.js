@@ -14,10 +14,6 @@ schema.register( {
 } );
 
 module.exports = schema( extend( {
-  code: {
-    type: 'text',
-    optional: false
-  },
   id: {
     type: 'integer',
     optional: false

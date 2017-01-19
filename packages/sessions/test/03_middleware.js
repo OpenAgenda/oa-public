@@ -216,4 +216,92 @@ describe( 'session - functional (server): middleware', () => {
 
   } );
 
+  describe( '.load', () => {
+
+    let server;
+
+    afterEach( done => server.close( done.bind( null ) ) );
+
+    it( 'loads logged user cookie info in req.user', done => {
+
+      server = helpers.launchTestApp( {
+        use: mw,
+        'get:/land': helpers.roundTrip,
+        'post:/signin' : [
+          ( req, res, next ) => { req.userIdentifier = { uid: 123 }; next(); },
+          mw.open(),
+          ( req, res ) => { res.send( 'ok' ); }
+        ],
+        'get:/get' : [
+          mw.load(),
+          ( req, res ) => {
+
+            req.user.should.eql( {
+              culture: 'fr',
+              uid: 12345678,
+              name: 'Gaetan Latouche',
+              thumbnail: '//graph.facebook.com/100002280111541/picture'
+            } );
+
+            res.send( 'ok' );
+
+          }
+        ]
+      } );
+
+      _runClientGetRoutine().then( res => { done(); } );
+
+    } );
+
+    it( 'loads all user info when detailed: true option is set', done => {
+
+      server = helpers.launchTestApp( {
+        use: mw,
+        'get:/land': helpers.roundTrip,
+        'post:/signin' : [
+          ( req, res, next ) => { req.userIdentifier = { uid: 123 }; next(); },
+          mw.open(),
+          ( req, res ) => { 
+
+            res.send( 'ok' ); 
+
+          }
+        ],
+        'get:/get' : [
+          mw.load( { detailed: true } ),
+          ( req, res ) => {
+
+            _.omit( req.user, [ 'latestActivity' ] ).should.eql( {
+              id: 1,
+              culture: 'fr',
+              uid: 12345678,
+              name: 'Gaetan Latouche',
+              thumbnail: '//graph.facebook.com/100002280111541/picture',
+              email: 'gaetan@cibul.net'
+            } );
+
+            res.send( 'ok' );
+
+          }
+        ]
+      } );
+
+      _runClientGetRoutine().then( res => { done(); } );
+
+    } );
+
+    function _runClientGetRoutine() {
+
+      const agent = sa.agent();
+
+      return agent.get( 'http://localhost:3000/land' )
+
+        .then( () => agent.post( 'http://localhost:3000/signin' ) )
+
+        .then( () => agent.get( 'http://localhost:3000/get' ) );
+
+    }
+
+  } )
+
 } );

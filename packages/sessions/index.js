@@ -16,6 +16,7 @@ module.exports = {
   get,
   close,
   setFlash,
+  isLogged,
   middleware
 }
 
@@ -35,7 +36,6 @@ function open( request, identifier, cb ) {
     request,
     identifier,
     user: null,
-    code: null,
     result: {
       success: false,
       data: null,
@@ -45,8 +45,6 @@ function open( request, identifier, cb ) {
   } )
 
   .then( _getUser )
-
-  .then( _getSessionCode )
 
   .then( _validateSessionData )
 
@@ -59,27 +57,59 @@ function open( request, identifier, cb ) {
 }
 
 
-function get( codeOrRequest, cb ) {
+function get( uidOrRequest, options, cb ) {
 
   if ( !config ) return cb( 'service has not been initialized' );
 
+  if ( arguments.length === 2 ) {
+
+    cb = arguments[ 1 ];
+    options = {}
+
+  }
+
+  const params = _.extend( {
+    detailed: false
+  }, options );
+
+  const uidGet = !( _.isObject( uidOrRequest ) && uidOrRequest.cookies );
+
   w( {
-    request: _.isObject( codeOrRequest ) && codeOrRequest.session ? codeOrRequest : null,
-    code: !_.isObject( codeOrRequest ) ? codeOrRequest : null,
-    storedData: null,
+    request: uidGet ? null : uidOrRequest,
+    uid: uidGet ? uidOrRequest : null,
     result: {
       errors: [],
       data: null
     } // the complete session data
   } )
 
-  .then( _getSessionCode )
+  .then( _loadCookieSessionData )
 
-  .then( _getStoredData )
+  .then( params.detailed || uidGet ? _mergeStoredData : v => v )
 
-  .then( _mergeCookieData )
+  .done( v => {
 
-  .done( v => cb( null, v.result.data ), cb );
+    if ( !v.result.data ) return cb( null, null );
+
+    // when a get by uid is made, data comes full from store. needs to be filtered if details were not required
+    let clean = !params.detailed && v.result.data.id ? cookieValidate( { user: v.result.data } ).user : v.result.data;
+
+    cb( null, clean );
+
+  }, cb );
+
+}
+
+
+function isLogged( request ) {
+
+  try {
+
+    return !!_cleanSession( request.session ).user;
+
+  } catch( e ) { console.log( e );}
+
+  return false;
 
 }
 
@@ -97,8 +127,6 @@ function close( request, cb ) {
     }
   } )
 
-  .then( _getSessionCode )
-
   .then( _removeFromStore )
 
   .then( _clearRequest )
@@ -113,6 +141,22 @@ function close( request, cb ) {
 
 }
 
+function _extractSession( v ) {
+
+  let d = w.defer();
+
+  middleware( v.request, {}, err => {
+
+    if ( err ) return d.reject( err );
+
+    d.resolve( v );
+
+  } )
+
+  return d.promise;
+
+}
+
 function _clearRequest( v ) {
 
   if ( v.result.errors.length ) return v;
@@ -124,25 +168,25 @@ function _clearRequest( v ) {
 }
 
 
-function _getStoredData( v ) {
+function _mergeStoredData( v ) {
 
   if ( v.result.errors.length ) return v;
-
-  let { code } = v;
 
   let d = w.defer(),
 
     cli = redis.createClient( config.redis.port, config.redis.host );
 
-  cli.get( config.redis.prefix + code, ( err, result ) => {
+  cli.get( _getRedisKey( v.uid ), ( err, result ) => {
 
     cli.quit();
 
     if ( err ) return d.reject( err );
 
+    if ( !result ) return d.resolve( v );
+
     try {
 
-      v.storedData = JSON.parse( result );
+      v.result.data = _.extend( v.result.data || {}, JSON.parse( result ) );
 
     } catch ( e ) {}
 
@@ -155,11 +199,17 @@ function _getStoredData( v ) {
 }
 
 
-function _mergeCookieData( v ) {
+function _loadCookieSessionData( v ) {
 
   if ( v.result.errors.length ) return v;
 
-  v.result.data = _.extend( {}, v.storedData, v.request ? _cleanSession( v.request.session ).user : {} );
+  let data = v.request ? _cleanSession( v.request.session ).user : null;
+
+  if ( !data ) return v;
+
+  v.result.data = data;
+
+  v.uid = v.result.data.uid;
 
   return v;
 
@@ -191,27 +241,6 @@ function _removeFromStore( v ) {
 }
 
 
-function _getSessionCode( v ) {
-
-  if ( v.result.errors.length ) return v;
-
-  if ( v.code ) return v;
-
-  v.code = v.request.cookies[ config.sessionCookie.name + '.sig' ];
-
-  if ( !v.code ) {
-
-    v.result.errors.push( {
-      code: 'sessionCookie.missing'
-    } );
-
-  }
-
-  return v;
-
-}
-
-
 function _extractCookieData( v ) {
 
   let { result } = v;
@@ -232,7 +261,7 @@ function _extractCookieData( v ) {
 /**
  * strip session data to known and desired values
  */
-function _cleanSession( session, data = {} ) {
+function _cleanSession( session = {}, data = {} ) {
 
   let filtered = _.pick( session, Object.keys( session ) ),
 
@@ -287,11 +316,9 @@ function _storeSessionData( v ) {
 
   let d = w.defer(),
 
-    cli = redis.createClient( config.redis.port, config.redis.host ),
+    cli = redis.createClient( config.redis.port, config.redis.host );
 
-    redisKey = config.redis.prefix + v.code;
-
-  cli.set( redisKey, JSON.stringify( result.data ), ( err, result ) => {
+  cli.set( _getRedisKey( user.uid ), JSON.stringify( result.data ), ( err, result ) => {
 
     cli.quit();
 
@@ -302,6 +329,13 @@ function _storeSessionData( v ) {
   } );
 
   return d.promise;
+
+}
+
+
+function _getRedisKey( uid ) {
+
+  return config.redis.prefix + uid;
 
 }
 

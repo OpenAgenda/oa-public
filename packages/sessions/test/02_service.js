@@ -14,7 +14,7 @@ describe( 'session - functional (server): open, close, get & update', () => {
 
   let request;
 
-  before( h.clearRedis );
+  beforeEach( h.clearRedis );
 
   beforeEach( () => sessions.init( config ) );
 
@@ -51,13 +51,11 @@ describe( 'session - functional (server): open, close, get & update', () => {
 
       sessions.open( request, { uid: 12345678 }, ( err, result ) => {
 
-        h.redisGet( config.redis.prefix + 'therandomsessioncode', ( err, result ) => {
+        h.redisGet( config.redis.prefix + 12345678, ( err, result ) => {
 
           let parsed = JSON.parse( result );
 
-          parsed.code.should.equal( 'therandomsessioncode' );
-
-          Object.keys( parsed ).should.eql( [ 'code', 'id', 'email', 'latestActivity', 'culture', 'uid', 'name', 'thumbnail' ] );
+          Object.keys( parsed ).should.eql( [ 'id', 'email', 'latestActivity', 'culture', 'uid', 'name', 'thumbnail' ] );
 
           done();
 
@@ -126,25 +124,23 @@ describe( 'session - functional (server): open, close, get & update', () => {
 
       sessions.open( request, { uid: 1234 }, () => {
 
-        sessions.get( request, ( err, session ) => {
+        sessions.get( request, { detailed: true }, ( err, session ) => {
 
           should( err ).equal( null );
 
           Object.keys( session ).should.eql( [
-            'code',
-            'id',
-            'email',
-            'latestActivity',
             'culture',
             'uid',
             'name', 
-            'thumbnail'
+            'thumbnail',
+            'id',
+            'email',
+            'latestActivity'
           ] );
 
           _.omit( session, [ 'latestActivity' ] )
 
           .should.eql( {
-            code: 'therandomsessioncode',
             id: 1,
             uid: 12345678,
             email: 'gaetan@cibul.net',
@@ -161,22 +157,19 @@ describe( 'session - functional (server): open, close, get & update', () => {
 
     } );
 
-    it( 'get takes code and calls back with session data', done => {
+    it( 'get takes uid and calls back with session data', done => {
 
-      sessions.open( request, { uid: 1234 }, () => {
+      sessions.open( request, { uid: 12345678 }, () => {
 
-        sessions.get( 'therandomsessioncode', ( err, session ) => {
+        sessions.get( 12345678, ( err, session ) => {
 
           should( err ).equal( null );
 
           _.omit( session, [ 'latestActivity' ] )
 
           .should.eql( {
-            code: 'therandomsessioncode',
-            id: 1,
             uid: 12345678,
-            email: 'gaetan@cibul.net',
-            culture: 'fr' ,
+            culture: 'fr',
             name: 'Gaetan Latouche',
             thumbnail: '//graph.facebook.com/100002280111541/picture'
           } );
@@ -186,6 +179,46 @@ describe( 'session - functional (server): open, close, get & update', () => {
         } );
 
       } );
+
+    } );
+
+    it( 'get for an unset session gives back null', done => {
+
+      sessions.get( 12345678, ( err, session ) => {
+
+        should( err ).equal( null );
+
+        should( session ).equal( null );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
+  describe( '.isLogged', () => {
+
+    it( 'determines based on request when user is logged', () => {
+
+      const req = {
+        session: {
+          user: { name: 'gaetan', uid: 123, culture: 'fr' }
+        }
+      }
+
+      sessions.isLogged( req ).should.equal( true );
+
+    } );
+
+    it( '.. and when the user is not logged', () => {
+
+      const req = {
+        session: {}
+      }
+
+      sessions.isLogged( req ).should.equal( false );
 
     } );
 

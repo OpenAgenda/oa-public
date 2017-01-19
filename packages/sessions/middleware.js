@@ -11,7 +11,6 @@ module.exports = _.extend( use, {
   open,
   load,
   close,
-  isLogged,
   init
 } );
 
@@ -92,20 +91,26 @@ function open( identifierNamespace = 'userIdentifier', targetNamespace = 'result
  * load session in req object
  */
 
-function load( req, res, next ) {
+function load( options ) {
 
-  
+  let params = _.extend( {
+    target: 'user',
+    detailed: false
+  }, options || {} );
 
-}
+  return ( req, res, next ) => {
 
+    sessions.get( req, { detailed: params.detailed }, ( err, user ) => {
 
-/**
- * say wether user is logged or not
- */
+      req[ params.target ] = user;
 
-function isLogged( req, res, next ) {
+      _logLoad( req, { userUid: user.uid } );
 
+      next();
 
+    } );
+
+  }
 
 }
 
