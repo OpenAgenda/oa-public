@@ -399,6 +399,13 @@
         "name" : "references",
         "display" : true
       }, {
+      }, {
+        "name" : "title",
+        "label" : {
+          "fr" : "Titre custo",
+          "en" : "Custom title"
+        }
+      }, {
         "name" : "longDescription",
         "placeholder" : {
           "fr" : "Ceci est un placeholder personnalisé",

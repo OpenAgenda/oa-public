@@ -568,7 +568,7 @@ function EventFormFactory() {
               constraints={{max: 140}}
               counter={true}
               optional={false}
-              label={this.props.labels.title}
+              label={this.props.configuration.field( 'title' ).getLabel( false, this.props.labels )}
               name='title'
               type='text'
               value={this.state.title}
@@ -582,7 +582,7 @@ function EventFormFactory() {
               constraints={{max: 200}}
               counter={true}
               optional={false}
-              label={this.props.labels.description}
+              label={this.props.configuration.field( 'description' ).getLabel( false, this.props.labels )}
               name='description'
               type='text'
               value={this.state.description}
