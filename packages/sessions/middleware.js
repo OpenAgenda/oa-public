@@ -34,7 +34,7 @@ function use( req, res, next ) {
         return next();
 
       }
-        
+  
       Object.keys( validateCookie.validateUnlogged.default ).forEach( k => {
 
         req.session[ k ] = validateCookie.validateUnlogged.default[ k ];

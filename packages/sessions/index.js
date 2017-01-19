@@ -105,7 +105,7 @@ function isLogged( request ) {
 
   try {
 
-    return !!_cleanSession( request.session ).user;
+    return !!cookieValidate( request.session ).user;
 
   } catch( e ) { console.log( e );}
 
