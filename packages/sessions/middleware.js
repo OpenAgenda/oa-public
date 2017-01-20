@@ -11,6 +11,8 @@ module.exports = _.extend( use, {
   open,
   load,
   close,
+  ifLogged: ifLoggedState.bind( null, true ),
+  ifUnlogged: ifLoggedState.bind( null, false ),
   init
 } );
 
@@ -46,6 +48,20 @@ function use( req, res, next ) {
     } );  
 
   } );
+
+}
+
+
+
+function ifLoggedState( state, fn ) {
+
+  return ( req, res, next ) => {
+
+    if ( state === sessions.isLogged( req ) ) return fn( req, res, next );
+
+    next();
+
+  }
 
 }
 
@@ -102,9 +118,11 @@ function load( options ) {
 
     sessions.get( req, { detailed: params.detailed }, ( err, user ) => {
 
+      if ( err ) return next( err );
+
       req[ params.target ] = user;
 
-      _logLoad( req, { userUid: user.uid } );
+      _logLoad( req, { userUid: user ? user.uid : null } );
 
       next();
 

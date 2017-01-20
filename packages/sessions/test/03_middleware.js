@@ -138,6 +138,139 @@ describe( 'session - functional (server): middleware', () => {
 
   } );
 
+  describe( '.ifLogged / .ifUnlogged', () => {
+
+    let server;
+
+    beforeEach( helpers.clearRedis );
+
+    afterEach( done => server.close( done.bind( null ) ) );
+
+    it( '.ifUnlogged calls given middleware if user is unlogged', done => {
+
+      server = helpers.launchTestApp( {
+        use: mw,
+        'get:/land': helpers.roundTrip,
+        'post:/signin' : helpers.roundTrip,
+        'post:/any' : [
+          mw.ifUnlogged( ( req, res, next ) => {
+
+            res.send( { ladida: true } )
+
+          } ),
+          ( req, res, next ) => { res.send( { ladida: false } ) }
+        ]
+      } );
+
+      _runClientIfLoggedRoutine( false ).then( res => {
+
+        res.body.should.eql( { ladida: true } );
+
+        done();
+
+      } );
+
+    } );
+
+
+    it( '.ifUlnogged calls next if user is logged', done => {
+
+      server = helpers.launchTestApp( {
+        use: mw,
+        'get:/land': helpers.roundTrip,
+        'post:/signin' : [
+          mw.open(),
+          ( req, res ) => { res.send( 'ok' ); }
+        ],
+        'post:/any' : [
+          mw.ifUnlogged( ( req, res, next ) => {
+
+            res.send( { ladida: true } )
+
+          } ),
+          ( req, res, next ) => { res.send( { ladida: false } ) }
+        ]
+      } );
+
+      _runClientIfLoggedRoutine( true ).then( res => {
+
+        res.body.should.eql( { ladida: false } );
+
+        done();
+
+      } );
+
+    } );
+
+    it( '.ifLogged calls next if user is not logged', done => {
+
+      server = helpers.launchTestApp( {
+        use: mw,
+        'get:/land': helpers.roundTrip,
+        'post:/signin' : helpers.roundTrip,
+        'post:/any' : [
+          mw.ifLogged( ( req, res, next ) => {
+
+            res.send( { ladida: true } )
+
+          } ),
+          ( req, res, next ) => { res.send( { ladida: false } ) }
+        ]
+      } );
+
+      _runClientIfLoggedRoutine( false ).then( res => {
+
+        res.body.should.eql( { ladida: false } );
+
+        done();
+
+      } );
+
+    } );
+
+    it( '.ifLogged calls given middleware if user is logged', done => {
+
+      server = helpers.launchTestApp( {
+        use: mw,
+        'get:/land': helpers.roundTrip,
+        'post:/signin' : [
+          mw.open(),
+          ( req, res ) => { res.send( 'ok' ); }
+        ],
+        'post:/any' : [
+          mw.ifLogged( ( req, res, next ) => {
+
+            res.send( { ladida: true } )
+
+          } ),
+          ( req, res, next ) => { res.send( { ladida: false } ) }
+        ]
+      } );
+
+      _runClientIfLoggedRoutine( true ).then( res => {
+
+        res.body.should.eql( { ladida: true } );
+
+        done();
+
+      } );
+
+    } )
+
+    function _runClientIfLoggedRoutine( signin = false ) {
+
+      const agent = sa.agent();
+
+      return agent.get( 'http://localhost:3000/land' )
+
+        .then( () => signin ? agent.post( 'http://localhost:3000/signin' ) : () => {} )
+
+        .then( () => agent.post( 'http://localhost:3000/any' ) );
+
+    }
+
+  } )
+
   describe( '.close', () => {
 
     let server;
