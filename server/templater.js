@@ -2,6 +2,8 @@
 
 const path = require( 'path' );
 
+const fs = require( 'fs' );
+
 const allLabels = require( 'labels/all' );
 
 const makeLabelGetter = require( 'labels/makeLabelGetter' );
@@ -133,44 +135,43 @@ function _renderTemplate( filename, templateBody, data ) {
 
 function _loadTranslator( data, cb ) {
 
-  if ( !data.config.labels ) {
+  let labels = _getLabels( data.config.labels );
+  let templateLabelsPath = data.layoutConfig && data.layoutConfig.labels || null;
+  let templateLabels = templateLabelsPath ? _getLabels( templateLabelsPath ) : {};
 
-    data.__ = ( label, values = {} ) => {
+  let getLabel = makeLabelGetter( Object.assign( {}, labels, templateLabels ) );
 
-      var translation = label;
+  data.__ = ( label, values = {} ) => {
 
-      if ( data.labels && data.labels[ label ] ) {
+    let translation = getLabel( label, values, data.lang );
 
-        translation = data.labels[ label ];
+    if ( translation ) return translation;
 
-      }
+    translation = label;
 
-      for ( var key in values ) {
+    if ( data.labels && data.labels[ label ] ) {
 
-        translation = translation.replace( key, values[ key ] );
+      translation = data.labels[ label ];
 
-      }
+    }
 
-      return translation;
+    for ( var key in values ) {
 
-    };
+      translation = translation.replace( key, values[ key ] );
 
-  } else {
+    }
 
-    let labels = _getLabels( data.config.labels );
-    let templateLabelsPath = data.layoutConfig && data.layoutConfig.labels || null;
-    let templateLabels = templateLabelsPath ? _getLabels( templateLabelsPath ) : {};
+    return translation;
 
-    let getLabel = makeLabelGetter( Object.assign( {}, labels, templateLabels ) );
-    data.__ = ( label, values ) => getLabel( label, values, data.lang );
-
-  }
+  };
 
   cb( null, data );
 
 }
 
 function _getLabels( path ) {
+  if ( !path ) return null;
+
   let branches = path.split( '/' );
   let currentBranch;
   let currentPos = allLabels;
@@ -298,7 +299,17 @@ function _loadLabels( lang ) {
 
     async.parallel( files.map( function ( name ) {
 
-      return async.apply( readFile, __dirname + '/../' + name + '.' + lang + '.json' );
+      const filePath = __dirname + '/../' + name + '.' + lang + '.json';
+
+      if ( !fs.existsSync( filePath ) ) {
+
+        log( 'File not found at %s. Ignoring.', filePath );
+
+        return cb => cb( null, '{}' );
+
+      }
+
+      return async.apply( readFile, filePath );
 
     } ), function ( err, results ) {
 
