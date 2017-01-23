@@ -153,7 +153,8 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           subLabel = _ref3.subLabel,
           max = _ref3.max,
           classNameGroup = _ref3.classNameGroup,
-          visible = _ref3.visible,
+          _ref3$visible = _ref3.visible,
+          visible = _ref3$visible === undefined ? true : _ref3$visible,
           errorOnDirty = _ref3.errorOnDirty,
           _ref3$meta = _ref3.meta,
           touched = _ref3$meta.touched,
@@ -162,7 +163,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
 
       var displayError = errorOnDirty ? dirty || touched : touched;
 
-      if (visible === false) return _react3.default.createElement('div', null);
+      if (visible !== true) return _react3.default.createElement('div', null);
 
       return _react3.default.createElement(
         'div',
