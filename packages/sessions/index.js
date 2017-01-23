@@ -236,7 +236,7 @@ function _clearRequest( v ) {
 
 function _mergeStoredData( v ) {
 
-  if ( v.result.errors.length ) return v;
+  if ( v.result.errors.length || !v.uid ) return v;
 
   let d = w.defer(),
 
