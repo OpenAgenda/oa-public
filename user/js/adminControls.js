@@ -143,7 +143,7 @@ function _displayItems() {
 
       du.removeClass( item, params.classes.displayNone );
 
-    });
+    } );
 
   });
 

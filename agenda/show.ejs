@@ -91,12 +91,5 @@
 <% var centeredFooter = true; %>
 <% include ../bsLayout/footer.part.ejs %>
 <% } %>
-<div id="admin-bar" class="edge-bar js_admin_controls">
-    <ul class="edge-list">
-        <li class="edge-item">
-            <a class="edge-link" data-href="<%= genUrl( 'agendaAdminShow', { slug: agenda.slug } ) %>"
-               rel="nofollow"><%= __( 'manage' ) %></a>
-        </li>
-    </ul>
-</div>
+
 <% include show.jsonld.ejs %>
