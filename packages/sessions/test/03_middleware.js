@@ -7,6 +7,7 @@ const sa = require( 'superagent' );
 const cookieParser = require( 'cookie-parser' );
 const validate = require( '../iso/cookie.validate' );
 const helpers = require( './lib/helpers' );
+const base64 = require( 'utils/base64' );
 const _ = require( 'lodash' );
 const should = require( 'should' );
 
@@ -19,6 +20,88 @@ describe( 'session - functional (server): middleware', () => {
   beforeEach( () => {
 
     sessions.init( config );
+
+  } );
+
+  describe( '.sync', () => {
+
+    let server;
+
+    afterEach( done => server.close( done.bind( null ) ) );
+
+    it( 'updates session with data fetched from getUser interface', done => {
+
+      server = helpers.launchTestApp( {
+        use: mw,
+        'get:/land' : helpers.roundTrip,
+        'post:/signin' : [ 
+          ( req, res, next ) => {
+            
+            req.userIdentifier = { uid: 123 }; 
+
+            next(); 
+
+          },
+          mw.open(),
+          ( req, res ) => { res.send( 'ok' ) } 
+        ],
+        'post:/sync' : [
+          ( req, res, next ) => {
+
+            // change test getUser to send different
+            // data.
+            sessions.init( _.extend( {}, config, {
+              interfaces: {
+                getUser: ( query, cb ) => {
+
+                  cb( null, {
+                    id: 1,
+                    uid: 1234,
+                    email: 'blorg@cibul.net',
+                    culture: 'en',
+                    name: 'Gaetanne',
+                    thumbnail: null
+                  } );
+
+                }
+              }
+            } ) );
+
+            next();
+
+          },
+          mw.sync(),
+          ( req, res ) => { 
+
+            res.send( 'ok' )
+
+          }
+        ]
+      } );
+
+      _runClientSyncRoutine().then( res => {
+
+        JSON.parse( base64.decode( res.header[ 'set-cookie' ][ 0 ].split( '=' )[ 1 ].split( ';' )[ 0 ] ) )
+
+          .user.culture.should.equal( 'en' );
+
+        done()
+
+      } );
+
+    } );
+
+    function _runClientSyncRoutine() {
+
+      const agent = sa.agent();
+
+      return agent.get( 'http://localhost:3000/land' )
+
+        .then( () => agent.post( 'http://localhost:3000/signin' ) )
+
+        .then( () => agent.post( 'http://localhost:3000/sync' ) );
+
+    }
 
   } );
 

@@ -11,6 +11,7 @@ module.exports = _.extend( use, {
   open,
   load,
   close,
+  sync,
   ifLogged: ifLoggedState.bind( null, true ),
   ifUnlogged: ifLoggedState.bind( null, false ),
   init
@@ -71,6 +72,28 @@ function close( targetNamespace = 'result' ) {
   return ( req, res, next ) => {
 
     sessions.close( req, ( err, result ) => {
+
+      if ( err ) return next( err );
+
+      req[ targetNamespace ] = result;
+
+      next();
+
+    } );
+
+  }
+
+}
+
+
+/**
+ * proxy for service sync method
+ */
+function sync( targetNamespace = 'result' ) {
+
+  return ( req, res, next ) => {
+
+    sessions.sync( req, ( err, result ) => {
 
       if ( err ) return next( err );
 

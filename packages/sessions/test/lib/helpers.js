@@ -11,7 +11,7 @@ let config;
 module.exports = {
   init: c => config = c,
   clearRedis,
-  redisGet,
+  redisHGet,
   roundTrip,
   launchTestApp
 }
@@ -57,9 +57,9 @@ function clearRedis( cb ) {
 
   let cli = _createClient();
 
-  cli.keys( config.redis.prefix + '*', ( err, result ) => {
+  cli.hkeys( config.redis.hash, ( err, result ) => {
 
-    async.each( result, cli.del.bind( cli ), err => {
+    async.each( result, cli.hdel.bind( cli, config.redis.hash ), err => {
 
       cli.quit();
 
@@ -71,11 +71,11 @@ function clearRedis( cb ) {
 
 }
 
-function redisGet( key, cb ) {
+function redisHGet( hash, key, cb ) {
 
   let cli = _createClient();
 
-  cli.get( key, ( err, result ) => {
+  cli.hget( hash, key, ( err, result ) => {
 
     cli.quit();
 

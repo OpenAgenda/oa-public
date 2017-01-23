@@ -7,6 +7,7 @@ const cookieValidate = require( './iso/cookie.validate' );
 const _ = require( 'lodash' );
 const w = require( 'when' );
 const redis = require( 'redis' );
+const parseListArguments = require( 'service-utils/parseListArguments' );
 
 let config, interfaces;
 
@@ -14,6 +15,8 @@ module.exports = {
   init,
   open,
   get,
+  list,
+  sync,
   close,
   setFlash,
   isLogged,
@@ -53,6 +56,67 @@ function open( request, identifier, cb ) {
   .then( _extractCookieData )
 
   .done( v => cb( null, v.result ), cb );
+
+}
+
+
+function sync( request, cb ) {
+
+  if ( !config ) return cb( 'service has not been initialized' );
+
+  get( request, ( err, user ) => {
+
+    if ( err ) return cb( err );
+
+    if ( !user ) {
+
+      return cb( null, {
+        success: false,
+        errors: [ {
+          code: 'session.notfound'
+        } ]
+      } );
+
+    }
+
+    open( request, { uid: user.uid }, cb );
+
+  } );
+
+}
+
+function list( qry, off, lim, opt, c ) {
+
+  const { query, offset, limit, options, cb } = parseListArguments.apply( null, arguments );
+
+  let cli = redis.createClient( config.redis.port, config.redis.host );
+
+  cli.hlen( config.redis.hash, ( err, total ) => {
+
+    if ( err ) {
+
+      cli.quit();
+
+      cb( err );
+
+    }
+
+    cli.hscan( config.redis.hash, offset, 'count', limit, ( err, result ) => {
+
+      cli.quit();
+
+      if ( err ) return cb( err );
+
+      cb( null, result[ 1 ]
+        .filter( ( r, i ) => i % 2 !== 0 )
+        .map( JSON.parse ),
+        total );
+
+    } );
+
+  } );
+
+
 
 }
 
@@ -120,12 +184,14 @@ function close( request, cb ) {
 
   w( {
     request,
-    code: null,
+    uid: request.uid,
     result: {
       success: false,
       errors: []
     }
   } )
+
+  .then( _loadCookieSessionData )
 
   .then( _removeFromStore )
 
@@ -176,7 +242,7 @@ function _mergeStoredData( v ) {
 
     cli = redis.createClient( config.redis.port, config.redis.host );
 
-  cli.get( _getRedisKey( v.uid ), ( err, result ) => {
+  cli.hget( config.redis.hash, v.uid, ( err, result ) => {
 
     cli.quit();
 
@@ -220,13 +286,13 @@ function _removeFromStore( v ) {
 
   if ( v.result.errors.length ) return v;
 
-  let { code } = v;
+  let { uid } = v;
 
   let d = w.defer(),
 
     cli = redis.createClient( config.redis.port, config.redis.host );
 
-  cli.del( config.redis.prefix + code, ( err, result ) => {
+  cli.hdel( config.redis.hash, uid, ( err, result ) => {
 
     cli.quit();
 
@@ -318,7 +384,7 @@ function _storeSessionData( v ) {
 
     cli = redis.createClient( config.redis.port, config.redis.host );
 
-  cli.set( _getRedisKey( user.uid ), JSON.stringify( result.data ), ( err, result ) => {
+  cli.hset( config.redis.hash, user.uid, JSON.stringify( result.data ), ( err, result ) => {
 
     cli.quit();
 
@@ -335,7 +401,7 @@ function _storeSessionData( v ) {
 
 function _getRedisKey( uid ) {
 
-  return config.redis.prefix + uid;
+  return config.redis.hash + uid;
 
 }
 

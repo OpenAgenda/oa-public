@@ -1,9 +1,12 @@
 "use strict";
 
-const config = require( '../iso/config' );
-const validate = require( '../iso/cookie.validate.js' );
-const base64 = require( 'utils/base64' );
-const extend = require( 'lodash/extend' );
+const config = require( '../iso/config' ),
+
+  validate = require( '../iso/cookie.validate.js' ),
+
+  base64 = require( 'utils/base64' ),
+
+  extend = require( 'lodash/extend' );
 
 let cookies = require( 'cookies-js' );
 

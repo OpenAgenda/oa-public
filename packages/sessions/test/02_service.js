@@ -7,6 +7,9 @@ const isoConfig = require( '../iso/config' );
 const h = require( './lib/helpers' );
 const extend = require( 'lodash/extend' );
 const _ = require( 'lodash' );
+const async = require( 'async' );
+
+const users = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/lib/users.json', 'utf-8' ) );
 
 h.init( config );
 
@@ -51,7 +54,7 @@ describe( 'session - functional (server): open, close, get & update', () => {
 
       sessions.open( request, { uid: 12345678 }, ( err, result ) => {
 
-        h.redisGet( config.redis.prefix + 12345678, ( err, result ) => {
+        h.redisHGet( config.redis.hash, 12345678, ( err, result ) => {
 
           let parsed = JSON.parse( result );
 
@@ -111,6 +114,114 @@ describe( 'session - functional (server): open, close, get & update', () => {
         result.data.uid.should.equal( 1234 );
 
         done();
+
+      } );
+
+    } );
+
+  } );
+
+
+  describe( '.list', () => {
+
+    beforeEach( h.clearRedis );
+
+    beforeEach( () => {
+
+      sessions.init( extend( {}, config, {
+        interfaces: {
+          getUser: ( query, cb ) => {
+
+            cb( null, users[ query.uid ] );
+
+          }
+        }
+      } ) );
+
+    } );
+
+    beforeEach( done => {
+
+      let i = 0;
+
+      async.whilst( () => i < 10, wcb => {
+
+        sessions.open( request, { uid: i }, ( err, result ) => {
+
+          i++;
+
+          wcb();
+
+        } );
+
+      }, err => { done(); } );
+
+    } );
+
+    it( 'lists through open sessions', done => {
+
+      sessions.list( 0, 5, ( err, sessions, total ) => {
+
+        should( err ).equal( null );
+
+        sessions.length.should.equal( 5 );
+
+        total.should.equal( 10 );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
+
+  describe( '.sync', () => {
+
+    it( 'sync is used only when a session is open', done => {
+
+      sessions.sync( request, ( err, result ) => {
+
+        result.success.should.equal( false );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'sync updates session with data fetched from getUser interface', done => {
+
+      sessions.open( request, { uid: 1234 }, () => {
+
+        // the data fetched from getUser changes a bit
+        sessions.init( extend( {}, config, {
+          interfaces: {
+            getUser: ( query, cb ) => {
+
+              cb( null, {
+                id: 1,
+                uid: 1234,
+                email: 'blorg@cibul.net',
+                culture: 'en',
+                name: 'Gaetanne',
+                thumbnail: null
+              } );
+
+            }
+          }
+        } ) );
+
+        sessions.sync( request, ( err, result ) => {
+
+          result.success.should.equal( true );
+
+          result.data.culture.should.equal( 'en' );
+
+          done();
+
+        } );
 
       } );
 
@@ -264,7 +375,7 @@ describe( 'session - functional (server): open, close, get & update', () => {
 
         sessions.close( request, ( err, result ) => {
 
-          h.redisGet( config.redis.prefix + 'therandomsessioncode', ( err, result ) => {
+          h.redisHGet( config.redis.hash, config.redis.prefix + 'therandomsessioncode', ( err, result ) => {
 
             should( err ).equal( null );
             should( result ).equal( null );

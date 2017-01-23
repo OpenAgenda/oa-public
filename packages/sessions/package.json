@@ -11,6 +11,7 @@
     "redis": "^2.6.3",
     "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git",
     "utils": "git+ssh://git@bitbucket.org/openagenda/utils.git",
+    "service-utils": "git+ssh://git@bitbucket.org/openagenda/service-utils.git",
     "when": "^3.7.7"
   },
   "devDependencies": {
