@@ -74,12 +74,12 @@ export default class Dashboard extends Component {
   };
 
   renderField = ( {
-    content, input: { name, value }, label, subLabel, max, classNameGroup, visible,
+    content, input: { name, value }, label, subLabel, max, classNameGroup, visible = true,
     errorOnDirty, meta: { touched, error, dirty }
   } ) => {
     const displayError = errorOnDirty ? dirty || touched : touched;
 
-    if ( visible === false ) return <div></div>;
+    if ( visible !== true ) return <div></div>;
 
     return (
       <div className={`form-group ${classNameGroup} ${displayError && error ? 'has-error has-feedback' : ''}`}>
