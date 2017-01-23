@@ -71,7 +71,7 @@ export default class Dashboard extends Component {
   } ) => {
     const displayError = errorOnDirty ? dirty || touched : touched;
 
-    if ( visible === false ) return <div></div>;
+    if ( visible !== true ) return <div></div>;
 
     return (
       <div className={`form-group ${classNameGroup} ${displayError && error ? 'has-error has-feedback' : ''}`}>
