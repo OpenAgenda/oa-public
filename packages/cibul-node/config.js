@@ -113,13 +113,13 @@ var deepExtend = require( 'deep-extend' ),
         port: 6379
       },
       session: {
-        name: 'oa', // ensure coherence with browser libs
+        name: 'oa', // session cookie name
+        writableName: 'oa.rw', // store client-editable data
         keys: [ 'hellomada', 'hellofada', 'iamnowat', 'campgranada' ],
         secret: 'yeepeekayaymadafaka',
         maxAge: 1000 * 60 * 60 * 48,
         httpOnly: false,
         namespace: 'sessions',
-        sfName: 'symfony',
         signed: true,
         secure: true
       },

@@ -800,6 +800,10 @@ function _initSessions( config ) {
       hash: config.session.namespace
     },
     sessionCookie: config.session,
+    writableCookie: {
+      maxAge: config.session.maxAge,
+      name: config.session.writableName // overriden by iso configuration
+    },
     interfaces: {
       getUser: ( query, cb ) => {
 
