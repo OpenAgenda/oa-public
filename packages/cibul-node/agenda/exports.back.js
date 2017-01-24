@@ -43,8 +43,7 @@ module.exports = function( path ) {
 
   router.pre( [
     cmn.redirectLegacySearch,
-    agendaSvc.mw.load( 'uid' ),
-    cmn.loadSession
+    agendaSvc.mw.load( 'uid' )
   ] );
 
   return {

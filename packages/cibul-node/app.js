@@ -104,11 +104,6 @@ module.exports = ( enabledTypes, cb ) => {
 
       app.use( ( req, res, next ) => {
 
-        /*console.log( '----' );
-        console.log( req.cookies.oa );
-        console.log( req.cookies[ 'oa.sig' ] );
-        console.log( '----' );*/
-
         res.setHeader( 'X-Powered-By', 'OpenAgenda' );
 
         next();
@@ -134,6 +129,8 @@ module.exports = ( enabledTypes, cb ) => {
         next();
 
       } );
+
+      app.use( cmn.lang );
 
       cmn.loadLegacyRoutes( genUrl );
 

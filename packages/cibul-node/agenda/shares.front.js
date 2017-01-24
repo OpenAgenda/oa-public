@@ -33,8 +33,7 @@ module.exports = function( path ) {
   var router = modLib.Router( routes );
 
   router.pre( [
-    cmn.loadLogger( 'agenda shares' ),
-    cmn.loadSession
+    cmn.loadLogger( 'agenda shares' )
   ] );
 
   return {

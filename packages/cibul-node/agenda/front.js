@@ -158,6 +158,7 @@ module.exports = function( path ) {
 
   router.pre( [
     cmn.loadLogger( 'agenda front' ),
+    cmn.lang,
   ] );
 
   return {

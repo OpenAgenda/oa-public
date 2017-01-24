@@ -25,7 +25,6 @@ module.exports = {
 
   requireAdmin,
   loadBaseData,                 // middleware. 
-  loadSession,                  // middleware. load session data
   loadUserUid,
   checkCredential,              // middleware. check that request agenda has required credential
 
@@ -47,7 +46,9 @@ module.exports = {
   redirectLegacySearch,
   loadLegacyRoutes,
 
-  redirectTo
+  redirectTo,
+
+  lang
 
 }
 
@@ -644,38 +645,6 @@ function loadUserUid( req, res, next ) {
 
 
 /**
- * load session data
- */
-
-function loadSession( req, res, next ) {
-
-  if ( req.session && req.session.user ) {
-
-    req.session.logged = true;
-    
-    req.user = req.session.user;
-
-    req.log.load( { userUid: req.user.uid } );
-
-  } else {
-
-    // super basic init
-    if ( !req.session ) req.session = {};
-
-    req.session.logged = false;
-
-    req.log.load( { userUid: false } );
-
-  }
-
-  _defineLang( req );
-
-  next();
-
-}
-
-
-/**
  * returns middleware that redirects to given route&params ( uses req.genUrl )
  */
 function redirectTo( route = 'corpoHome', params = {}, code = 302 ) {
@@ -988,6 +957,33 @@ function _logRequest( req, res, next ) {
 /**
  * explicitely define lang value for current request
  */
+
+
+function lang( req, res, next ) {
+
+  if ( req.query.lang ) {
+
+    req.lang = _cleanLang( req.query.lang );
+
+  } else if ( req.user ) {
+
+    req.lang = req.user.culture;
+
+  } else {
+
+    req.lang = 'fr';
+
+  }
+
+  if ( req.lang !== 'fr' ) {
+
+    req.genUrl.preload( { lang: req.lang } );
+
+  }
+
+  next();
+
+}
 
 function _defineLang( req ) {
 

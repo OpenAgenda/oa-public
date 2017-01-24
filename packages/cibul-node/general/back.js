@@ -41,14 +41,8 @@ routes = {
 
 module.exports = path => {
 
-  var router = modLib.Router( routes );
-
-  router.pre( [
-    cmn.loadSession
-  ] );
-
   return {
-    load: router.load( path ),
+    load: modLib.Router( routes ).load( path ),
     paths: modLib.getPaths( path, routes )
   }
 

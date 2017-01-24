@@ -20,8 +20,7 @@ module.exports = function( path ) {
   var router = modLib.Router( routes );
 
   router.pre( [
-    cmn.loadLogger( 'location front' ),
-    cmn.loadSession
+    cmn.loadLogger( 'location front' )
   ] );
 
   return {

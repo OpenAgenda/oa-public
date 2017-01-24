@@ -38,7 +38,6 @@ module.exports = function( path ) {
 
   router.pre( [
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
-    cmn.loadSession,
     sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     cmn.checkContributor,
     _checkField

@@ -56,7 +56,6 @@ module.exports = function( p ) {
   router.pre( [
     cmn.loadLogger( 'search front' ),
     cmn.redirectLegacySearch,
-    cmn.loadSession,
     _maintain( [ 'page', 'search' ] ),
   ] );
 
