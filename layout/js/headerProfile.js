@@ -1,100 +1,74 @@
 "use strict";
 
-var cn = require( '../../js/lib/common/common.mod.js' ),
+const session = require( 'sessions/client' ),
 
-cTemplater = require( './clientTemplater' ),
+  b64 = require( '../../js/lib/Base64/Base64.mod.js' ),
 
-b64 = require( '../../js/lib/Base64/Base64.mod.js' ),
+  toggle = require( './toggle' ),
 
-toggle = require( './toggle' ),
+  template = require( '../../user/menu.ejs' ),
 
-utils = require( 'utils' ),
+  getLabelFactory = require( 'labels' ),
 
-du = require( '../../js/lib/domUtils' ),
+  labels = require( 'labels/users/profile' ),
 
-params = {
-  selectors: {
-    languageMenu: '.js_language_menu',
-    headerLinks: '.js_header_links',
-    signinLink: '.js_signin_link',
-    profile: '.js_profile',
-    dropdown: '.js_profile_dropdown'
-  },
-  classes: {
-    displayNone: 'display-none'
-  },
-  template: 'user/menu'
-},
+  bsTemplate = require( '../../user/bsMenu.ejs' ),
 
-pClicked = false;
+  extend = require( 'lodash/extend' ),
 
-module.exports = function( options ) {
+  du = require( '../../js/lib/domUtils' ),
 
-  params = utils.extend( params, options );
+  params = {
+    selectors: {
+      languageMenu: '.js_language_menu',
+      headerLinks: '.js_header_links',
+      signinLink: '.js_signin_link',
+      profile: '.js_profile',
+      dropdown: '.js_profile_dropdown'
+    },
+    classes: {
+      displayNone: 'display-none'
+    },
+    template: 'user/menu'
+  };
 
-  var languageMenu = du.el( params.selectors.languageMenu ),
+let pClicked = false;
 
-  signinLink = du.el( params.selectors.signinLink );
+module.exports = options => {
 
-  // tmp hack to avoid execution on legacy project
-  if ( !languageMenu ) return;
+  extend( params, options );
 
-  // tmp hack to know which user template to load
-  if ( window.templates == 'bs' ) params.template = 'user/bsMenu';
+  let languageMenu = du.el( params.selectors.languageMenu ),
 
-  window.getSession( function( session ) {
+    signinLink = du.el( params.selectors.signinLink ),
 
-    if ( !session.logged ) {
+    ul = document.createElement( 'ul' ),
 
-      _addSigninLinkRedirect( du.el( params.selectors.signinLink ) );
+    li;
 
-      return;
+  if ( !session.isLogged() ) {
 
-    }
+    return;
 
-    languageMenu.parentNode.removeChild( languageMenu );
+  }
 
-    signinLink.parentNode.removeChild( signinLink );
+  let user = session.getUser();
 
-    cTemplater( params.template, {
-      urls: {
-        settingsIndex: '/settings',
-        homeEvents: '/home/events',
-        homeAgendas: '/home',
-        signout: '/signout',
-        agendaNew: '/new',
-        searchAgendas: '/agendas/search'
-      },
-      fullName: session.fullName,
-      thumbnail: session.thumbnail,
-      lang: session.culture,
-      lastUpdate: window.env=='dev' ? new Date() : session.lastTemplateUpdate
-    }, function( err, template ) {
+  if ( languageMenu ) languageMenu.parentNode.removeChild( languageMenu );
 
-      if ( err ) {
-        
-        return;
-        
-      }
+  signinLink.parentNode.removeChild( signinLink );
 
-      var rendered = template.render( session ),
+  ul.innerHTML = ( window.templates === 'bs' ? bsTemplate : template )( {
+    __ : getLabelFactory( labels, user.culture ),
+    fullName: user.name,
+    thumbnail: user.thumbnail ? user.thumbnail.replace( 'cibuldev', 'cibul' ) : null
+  } );
 
-      ul = document.createElement( 'ul' ),
+  li = du.el( ul, 'li' );
 
-      li;
+  du.el( params.selectors.headerLinks ).insertAdjacentElement( 'beforeend', li );
 
-      ul.innerHTML = rendered;
-
-      li = du.el( ul, 'li' );
-
-      du.el( params.selectors.headerLinks ).insertAdjacentElement( 'beforeend', li );
-
-      toggle( li );
-
-    });
-
-
-  });
+  toggle( li );
 
 };
 

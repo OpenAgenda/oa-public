@@ -5,43 +5,27 @@
   <% } else if ( fullName ) { %>
     <div class="full-name"><%= fullName %></div>
   <% } else { %>
-    <div class="full-name"><%= __('My profile') %></div>
+    <div class="full-name"><%= __( 'myProfile' ) %></div>
   <% } %>
   </div>
   <div class="user-profile-dropdown wsq col2 js_dropdown_menu">
     <ul>
-      <li><h3><%= __('General') %></h3></li>
+      <li><h3><%= __('general') %></h3></li>
       <li>
-        <a href="<%= genUrl('homeEvents') %>"><%= __('My Events') %></a>
+        <a href="/home/events"><%= __('myEvents') %></a>
       </li>
       <li>
-        <a href="<%= genUrl('settingsIndex') %>"><%= __('Settings') %></a>
+        <a href="/settings"><%= __('settings') %></a>
       </li>
       <li>
-        <a href="<%= genUrl('signout') %>"><%= __('Sign Out') %></a>
+        <a href="/signout"><%= __('signout') %></a>
       </li>
     </ul><!--
     --><ul>
-      <li><h3><%= __('Agendas') %></h3></li>
-      <li><a href="<%= genUrl('searchAgendas') %>"><%= __('Search agenda') %></a></li>
-      <li><a href="<%= genUrl('agendaNew') %>"><%= __('Create an agenda') %></a></li>
-  <% if ( reviews.edited.length ) { %>
-  <% for (var i=0; i<Math.min(5, reviews.edited.length); i++) { %>
-      <li>
-        <a href="<%= reviews.edited[i].url %>">
-  <% if ( reviews.edited[i].image ) { %>
-          <img src="<%= reviews.edited[i].image.replace('cibultest.', 'cibul.') %>"/>
-  <% } %>
-          <span <% if ( !reviews.edited[i].image ) { %>class="nopic"<% } %>><%= reviews.edited[i].title %></span>
-        </a>
-      </li>
-  <% } %>
-  <% if ( reviews.edited.length >= 5 ) { %>
-      <li>
-        <a href="<%= genUrl('homeAgendas') %>"><%= __('View all') %></a>
-      </li>
-  <% } %>
-  <% } %>
+      <li><h3><%= __( 'agendasTitle' ) %></h3></li>
+      <li><a href="/home"><%= __( 'myAgendas' ) %></a></li>
+      <li><a href="/agendas"><%= __( 'searchAgendas' ) %></a></li>
+      <li><a href="/new"><%= __( 'createAgenda' ) %></a></li>
     </ul>
   </div>
 </li>

@@ -1,91 +1,112 @@
 "use strict";
 
-var controllers = require( '../../widgets/controller/main' ),
+const controllers = require( '../../widgets/controller/main' ),
 
-qs = require( 'qs' ),
+  qs = require( 'qs' ),
 
-debug = require( 'debug' ),
+  debug = require( 'debug' ),
 
-cn = require( '../../js/lib/common/common.mod' ),
+  // deprecate this
+  cn = require( '../../js/lib/common/common.mod' ),
 
-list = require( './list' ),
+  // in favor of this
+  du = require( 'dom-utils' ),
 
-timeliner = require( './timeliner' ),
-
-documentLocation = require( 'dom-utils/documentLocation' ),
-
-config = require( './config' ),
-
-favorites = require( './favorites' ),
-
-widgets = {
-  search: require( '../../widgets/search/search' ),
-  tags: require( '../../widgets/tags/tags' ),
-  categories: require( '../../widgets/categories/categories' ),
-  map: require( '../../widgets/map/map' ),
-  calendar: require( '../../widgets/calendar/calendar' ),
-  activeFilters: require( '../../widgets/activeFilters/activeFilters' ),
-  organizations: require( '../../widgets/organizations/organizations' )
-},
-
-log,
-
-params = {
-  selectors: {
-    list: '.js_list_content',
-    add: '.js_add_button',
-    admin: '.js_admin_button',
-    org: '.js_org_widget',
-    titleSection: '.js_agenda_title',
-    searchLinks: '.js_use_search' // add search params to links with this class
+  _ = {
+    includes: require( 'lodash/includes' )
   },
-  classes: {
-    displayNone: 'display-none'
-  }
-},
 
-totalLib = require( './total' ), total,
+  get = require( 'utils/get' ),
 
-uid;
+  list = require( './list' ),
 
-if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) {
+  timeliner = require( './timeliner' ),
+
+  documentLocation = require( 'dom-utils/documentLocation' ),
+
+  config = require( './config' ),
+
+  favorites = require( './favorites' ),
+
+  widgets = {
+    search: require( '../../widgets/search/search' ),
+    tags: require( '../../widgets/tags/tags' ),
+    categories: require( '../../widgets/categories/categories' ),
+    map: require( '../../widgets/map/map' ),
+    calendar: require( '../../widgets/calendar/calendar' ),
+    activeFilters: require( '../../widgets/activeFilters/activeFilters' ),
+    organizations: require( '../../widgets/organizations/organizations' )
+  },
+
+  params = {
+    selectors: {
+      list: '.js_list_content',
+      add: '.js_add_button',
+      admin: '.js_admin_button',
+      org: '.js_org_widget',
+      titleSection: '.js_agenda_title',
+      searchLinks: '.js_use_search' // add search params to links with this class
+    },
+    res: {
+      role: '/session/agendas/:agendaUid/role'
+    },
+    classes: {
+      displayNone: 'display-none'
+    }
+  },
+
+  totalLib = require( './total' );
+
+let uid, log, total;
+
+if ( _.includes( [ 'tpl', 'dev' ], window.env ) ) {
 
   debug.enable( '*' );
 
+  if ( window.env === 'tpl' ) params.res.role = 'role.txt';
+
 }
 
-window.asap( function( options ) {
+window.asap( options => {
 
   log = debug( 'agendaPage' );
 
   log( 'initing' );
 
-  var controller = window.cibul.getController( options.uid ),
+  let controller = window.cibul.getController( options.uid ),
 
-  loader,
+    loader,
 
-  uid = options.uid,
+    uid = options.uid,
 
-  timeline = timeliner( options.lang ),
+    timeline = timeliner( options.lang ),
 
-  total = totalLib( '.js_total', options.lang );
+    total = totalLib( '.js_total', options.lang );
 
   favorites.init( {
     agendaUid: options.uid,
     res: options.res
   } );
 
-  window.getSession( function( session ) {
+  get( params.res.role.replace( ':agendaUid', uid ), ( err, res ) => {
 
-    controller.getControlData( function( ctl ) {
+    controller.getControlData( ctl => {
 
-      _handleAddButton( session, ctl );
+      if ( parseInt( ctl.c ) !== 0 ) {
 
-      if ( !_isAdmin( ctl )( session ) ) return;
+        _displayAddButton();
 
-      _displayAdminButton();
+      }
 
-      _removeAddButtonAsPrimary()
+      if ( res === 'administrator' ) {
+
+        _displayAddButton();
+
+        _displayAdminButton();
+
+        _removeAddButtonAsPrimary();
+
+      }
 
     } );
 
@@ -190,35 +211,6 @@ function _displayAdminButton() {
 
 }
 
-
-/**
- * toggle display of add button
- */
-
-function _handleAddButton( session, ctl ) {
-
-  // if agenda is contributive in any way, add button is shown.
-
-  if ( parseInt( ctl.c, 10 ) !== 0 ) {
-
-    _displayAddButton();
-
-    return;
-
-  }
-
-
-  // agenda is not contributive from here on. user must be admin
-  
-  if ( !_isAdmin( ctl )( session ) ) {
-
-    return;
-
-  }
-
-  _displayAddButton();
-
-}
 
 
 function _showOptionalWidgets( controller ) {

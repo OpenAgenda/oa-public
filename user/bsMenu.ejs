@@ -5,7 +5,7 @@
   <% } else if ( fullName ) { %>
     <span><%= fullName %></span>
   <% } else { %>
-    <span><%= __('My profile') %></span>
+    <span><%= __( 'myProfile' ) %></span>
   <% } %>
   </a>
   <ul class="dropdown-menu js_dropdown_menu collapse" role="menu">
@@ -13,39 +13,23 @@
       <div class="row">
         <ul class="list-unstyled col-md-6">
           <li>
-            <h3><%= __('General') %></h3>
+            <h3><%= __( 'general' ) %></h3>
           </li>
           <li>
-            <a href="<%= genUrl('homeEvents') %>"><%= __('My Events') %></a>
+            <a href="/home/events"><%= __( 'myEvents' ) %></a>
           </li>
           <li>
-            <a href="<%= genUrl('settingsIndex') %>"><%= __('Settings') %></a>
+            <a href="/settings"><%= __( 'settings' ) %></a>
           </li>
           <li>
-            <a href="<%= genUrl('signout') %>"><%= __('Sign Out') %></a>
+            <a href="/signout"><%= __( 'signout' ) %></a>
           </li>
         </ul>
         <ul class="list-unstyled col-md-6">
-          <li><h3><%= __('Agendas') %></h3></li>
-          <li><a href="<%= genUrl('searchAgendas') %>"><%= __('Search agenda') %></a></li>
-          <li><a href="<%= genUrl('agendaNew') %>"><%= __('Create an agenda') %></a></li>
-<% if ( reviews.edited.length ) { %>
-<% for (var i=0; i<Math.min(5, reviews.edited.length); i++) { %>
-          <li>
-            <a href="<%= reviews.edited[i].url %>">
-<% if ( reviews.edited[i].image ) { %>
-              <img src="<%= reviews.edited[i].image.replace('cibultest.', 'cibul.') %>"/>
-<% } %>
-              <span><%= reviews.edited[i].title %></span>
-            </a>
-          </li>
-<% } %>
-<% if ( reviews.edited.length >= 5 ) { %>
-          <li>
-            <a href="<%= genUrl('homeAgendas') %>"><%= __('View all') %></a>
-          </li>
-<% } %>
-<% } %>
+          <li><h3><%= __( 'agendasTitle' ) %></h3></li>
+          <li><a href="/home"><%= __( 'myAgendas' ) %></a></li>
+          <li><a href="/agendas"><%= __( 'searchAgendas' ) %></a></li>
+          <li><a href="/new"><%= __( 'createAgenda' ) %></a></li>
         </ul>
       </div>
     </li>

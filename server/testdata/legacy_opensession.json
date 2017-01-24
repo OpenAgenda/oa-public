@@ -1,0 +1,312 @@
+{
+   "success":true,
+   "basic":false,
+   "country":"FR",
+   "culture":"fr",
+   "logged":true,
+   "fullName":"Kari Olafsson",
+   "reviews":{
+      "edited":[
+         {
+            "url":"\/frontend_dev.php\/la-gargouille",
+            "slug":"la-gargouille",
+            "title":"La Gargouille",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_la-gargouille_00.jpg",
+            "description":"Une s\u00e9lection d'\u00e9v\u00e9nements \u00e0 Paris",
+            "uid":"48959239",
+            "oUid":"36234263"
+         },
+         {
+            "url":"\/frontend_dev.php\/collectif-culture-bar-bars",
+            "slug":"collectif-culture-bar-bars",
+            "title":"Collectif Culture Bar-Bars",
+            "image":false,
+            "description":"Agenda partag\u00e9 des caf\u00e9s cultures du Collectif Culture Bar-Bars",
+            "uid":"74583765",
+            "oUid":"6879632"
+         },
+         {
+            "url":"\/frontend_dev.php\/enlarge-your-paris",
+            "slug":"enlarge-your-paris",
+            "title":"Enlarge your Paris",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_enlarge-your-paris_01.jpg",
+            "description":"L'agenda des sorties de Paris Xtramuros",
+            "uid":"51780064",
+            "oUid":"51780064"
+         },
+         {
+            "url":"\/frontend_dev.php\/pepite",
+            "slug":"pepite",
+            "title":"L'agenda \u00e9v\u00e9nementiel, P\u00f4les \u00e9tudiants pour l'innovation, le transfert, l'entrepreneuriat (PEPITE)",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_pepite_00.jpg",
+            "description":"2014",
+            "uid":"71671864",
+            "oUid":"95960047"
+         },
+         {
+            "url":"\/frontend_dev.php\/economie-solidaire-centre",
+            "slug":"economie-solidaire-centre",
+            "title":"Economie Solidaire Centre",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_cresol_03.jpg",
+            "description":"Ev\u00e9nements relatifs \u00e0 l'Economie Solidaire en r\u00e9gion Centre\r\n\r\nContact : www.cresol.fr",
+            "uid":"93445909",
+            "oUid":"93445909"
+         },
+         {
+            "url":"\/frontend_dev.php\/exterieur-quai",
+            "slug":"exterieur-quai",
+            "title":"Ext\u00e9rieur Quai",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_exterieur-quai_00.jpg",
+            "description":"tous les \u00e9v\u00e9nements du Bouillon de l'Est",
+            "uid":"84245214",
+            "oUid":"47550597"
+         },
+         {
+            "url":"\/frontend_dev.php\/agenda-culturel-opendata-de-la-bourgogne",
+            "slug":"agenda-culturel-opendata-de-la-bourgogne",
+            "title":"Agenda Culturel OpenData de la Bourgogne",
+            "image":false,
+            "description":"Agenda ouvert de la vie artistique et culturelle en Bourgogne",
+            "uid":"24110065",
+            "oUid":"93892242"
+         },
+         {
+            "url":"\/frontend_dev.php\/festival-culture-bar-bars-2014",
+            "slug":"festival-culture-bar-bars-2014",
+            "title":"2014- Festival Culture Bar-Bars",
+            "image":false,
+            "description":"Programmations du Festival Culture Bar-Bars du 27.28 et 29 novembre",
+            "uid":"36979279",
+            "oUid":"6879632"
+         },
+         {
+            "url":"\/frontend_dev.php\/nuit-des-muses-2014",
+            "slug":"nuit-des-muses-2014",
+            "title":"Nuit des Mus\u00e9es 2014",
+            "image":false,
+            "description":"Tous les \u00e9v\u00e9nements",
+            "uid":"26475358",
+            "oUid":"36234263"
+         },
+         {
+            "url":"\/frontend_dev.php\/romainlange",
+            "slug":"romainlange",
+            "title":"Romain Lange",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_romainlange_00.jpg",
+            "description":"Va voir ailleurs s'il y est.",
+            "uid":"93892242",
+            "oUid":"93892242"
+         },
+         {
+            "url":"\/frontend_dev.php\/cibul",
+            "slug":"cibul",
+            "title":"Cibul",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_cibul_02.jpg",
+            "description":"Les \u00e9v\u00e9nements o\u00f9 vous pourrez nous rencontrer",
+            "uid":"83128747",
+            "oUid":"93892242"
+         },
+         {
+            "url":"\/frontend_dev.php\/les-balades-urbaines",
+            "slug":"les-balades-urbaines",
+            "title":"Les balades urbaines",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_les-balades-urbaines_00.jpg",
+            "description":"inventaire des balades urbaines, programme en libre t\u00e9l\u00e9chargement",
+            "uid":"89853373",
+            "oUid":"93892242"
+         },
+         {
+            "url":"\/frontend_dev.php\/fdb",
+            "slug":"fdb",
+            "title":"F\u00eate de la Bretagne [Gouel Breizh]",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_fdb_00.jpg",
+            "description":"Du 15 au 18 mai 2014, plus de 300 \u00e9v\u00e9nements, partout en Bretagne et ailleurs.",
+            "uid":"99666630",
+            "oUid":"95376390"
+         },
+         {
+            "url":"\/frontend_dev.php\/journee-arts-culture-sup",
+            "slug":"journee-arts-culture-sup",
+            "title":"Journ\u00e9e des arts et de la culture dans l'enseignement sup\u00e9rieur",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_jdc_02.jpg",
+            "description":"Ouverte au grand public, cette 1\u00e8re \u00e9dition illustre la diversit\u00e9 et la richesse des initiatives de la communaut\u00e9 \u00e9tudiante dans les domaines artistiques",
+            "uid":"15278580",
+            "oUid":"95960047"
+         },
+         {
+            "url":"\/frontend_dev.php\/nantes",
+            "slug":"nantes",
+            "title":"Nantes",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_nantes_00.jpg",
+            "description":"Programme Test",
+            "uid":"25910789",
+            "oUid":"93892242"
+         },
+         {
+            "url":"\/frontend_dev.php\/le-bouillon-belge",
+            "slug":"le-bouillon-belge",
+            "title":"Le Bouillon Belge",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_le-bouillon-belge_01.jpg",
+            "description":"tous les \u00e9v\u00e9nements du Bouillon Belge...",
+            "uid":"47550597",
+            "oUid":"47550597"
+         },
+         {
+            "url":"\/frontend_dev.php\/rennes",
+            "slug":"rennes",
+            "title":"Rennes",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_rennes_00.jpg",
+            "description":"Programme test",
+            "uid":"92494106",
+            "oUid":"93892242"
+         },
+         {
+            "url":"\/frontend_dev.php\/expositions-photo-paris",
+            "slug":"expositions-photo-paris",
+            "title":"Expositions Photo \u00e0 Paris",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_expositions-photo-paris_01.jpg",
+            "description":"Un petit programme qui repertorie les expositions photo Parisiennes (et dans la proche banlieue)",
+            "uid":"96631309",
+            "oUid":"36234263"
+         },
+         {
+            "url":"\/frontend_dev.php\/maison-des-cultures-du-monde",
+            "slug":"maison-des-cultures-du-monde",
+            "title":"Maison des Cultures du Monde",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_maison-des-cultures-du-monde_00.jpg",
+            "description":"Centre fran\u00e7ais du patrimoine culturel immat\u00e9riel",
+            "uid":"65384934",
+            "oUid":"93892242"
+         },
+         {
+            "url":"\/frontend_dev.php\/museomix",
+            "slug":"museomix",
+            "title":"Museomix",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_museomix_00.jpg",
+            "description":"Agenda collaboratif des \u00e9v\u00e9nements pour les Museomixeurs",
+            "uid":"76120272",
+            "oUid":"93892242"
+         },
+         {
+            "url":"\/frontend_dev.php\/les-nuits-capitales-hors-circuit",
+            "slug":"les-nuits-capitales-hors-circuit",
+            "title":"Les Nuits Capitales - Hors Circuit",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_les-nuits-capitales-hors-circuit_01.jpg",
+            "description":"Le Programme Hors Circuit du Festival des Nuits Capitales",
+            "uid":"67655039",
+            "oUid":"36234263"
+         },
+         {
+            "url":"\/frontend_dev.php\/avis-de-turbulences-7",
+            "slug":"avis-de-turbulences-7",
+            "title":"Avis de Turbulences #7",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_avis-de-turbulences-7_00.jpg",
+            "description":"Un appel \u00e0 la diversit\u00e9, pour que la danse vous transporte...",
+            "uid":"93761158",
+            "oUid":"36234263"
+         },
+         {
+            "url":"\/frontend_dev.php\/festival-d-automne-paris",
+            "slug":"festival-d-automne-paris",
+            "title":"Festival d'Automne \u00e0 Paris",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_festival-d-automne-paris_00.jpg",
+            "description":"Plus de soixante propositions composent cette ann\u00e9e l\u2019alchimie \u00e9nigmatique des spectacles qui diront l\u2019Automne...",
+            "uid":"50439958",
+            "oUid":"36234263"
+         },
+         {
+            "url":"\/frontend_dev.php\/festival-days-off",
+            "slug":"festival-days-off",
+            "title":"Festival Days Off",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_festival-days-off_00.jpg",
+            "description":"2eme Edition a la Cit\u00e9 de la Musique",
+            "uid":"52281342",
+            "oUid":"36234263"
+         },
+         {
+            "url":"\/frontend_dev.php\/paris-jazz-festival",
+            "slug":"paris-jazz-festival",
+            "title":"Paris Jazz Festival",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_paris-jazz-festival_00.jpg",
+            "description":"Le Parc Floral propose une programmation harmonis\u00e9e dans ses couleurs et ses ambitions des beaux jours de juin \u00e0 ceux de septembre.",
+            "uid":"58243859",
+            "oUid":"36234263"
+         },
+         {
+            "url":"\/frontend_dev.php\/futur-en-seine-2011",
+            "slug":"futur-en-seine-2011",
+            "title":"Futur en Seine 2011",
+            "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_futur-en-seine-2011_01.jpg",
+            "description":"Futur en Seine s\u2019articule autour d\u2019un Cycle de Conf\u00e9rences Internationales li\u00e9es au  Futur de la Vie, de la Cr\u00e9ation, des Communications et de la Ville.",
+            "uid":"84653177",
+            "oUid":"36234263"
+         },
+         {
+            "url":"\/frontend_dev.php\/yep",
+            "slug":"yep",
+            "title":"fsdqfdsq",
+            "image":false,
+            "description":"fdsqfdsqfsdqfds fqd fdsq fdsq fdsq fsq fdsf dsq fdsq",
+            "uid":"42652274",
+            "oUid":"36234263"
+         }
+      ],
+      "modUids" : [
+         "87878787" 
+      ],
+      "admUids":[
+         "84653177",
+         "83128747",
+         "58243859",
+         "52281342",
+         "50439958",
+         "96631309",
+         "93761158",
+         "67655039",
+         "47550597",
+         "48959239",
+         "36234263",
+         "93892242",
+         "51780064",
+         "99666630",
+         "15278580",
+         "84245214",
+         "74583765",
+         "36979279",
+         "71671864",
+         "24110065",
+         "26475358",
+         "42652274",
+         "28021981"
+      ]
+   },
+   "thumbnail":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_kaore-olafsson_01.jpg",
+   "id":"1",
+   "uid":"36234263",
+   "creds":[
+      {
+         "type":null,
+         "aUid":"67655039"
+      },
+      {
+         "type":null,
+         "aUid":"36234263"
+      },
+      {
+         "type":null,
+         "aUid":"48959239"
+      },
+      {
+         "type":"1",
+         "aUid":"26475358"
+      }
+   ],
+   "aggregator":true,
+   "counts":{
+      "event":3296,
+      "review":29,
+      "following":148,
+      "newmessages":"0",
+      "newnotifications":"1"
+   }
+}

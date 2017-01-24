@@ -57,7 +57,7 @@ module.exports = function ( templateName, options, cb ) {
 
       utils.extend( params, options );
 
-      _loadTemplate( templateName, params, function ( err, t, l ) {
+      _loadTemplate( templateName, params, function( err, t, l ) {
 
         if ( err ) return cb( err );
 
@@ -95,7 +95,11 @@ module.exports = function ( templateName, options, cb ) {
 
 function _loadTemplate( name, options, cb ) {
 
-  if ( options.lastUpdate ) _checkAndClearTemplates( options.lastUpdate );
+  /*if ( options.lastUpdate ) {
+
+    _checkAndClearTemplates( options.lastUpdate );
+
+  }*/
 
   async.parallel( [
     async.apply( _loadEjs, name ),

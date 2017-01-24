@@ -61,7 +61,7 @@ http.createServer( function ( req, res ) {
 
     .then( p.ifl( { responded: false }, _checkStatic ) )
 
-    .done( function ( v ) {
+    .done( v => {
 
       if ( !v.responded ) _prepareRender( v );
 
@@ -116,13 +116,13 @@ function _prepareRender( v ) {
   // render template
   .then( _render )
 
-  .done( function ( v ) {
+  .done( v => {
 
-    _respond( v.res, 200, v.render );
+    _respond( v.req, v.res, 200, v.render );
 
-  }, function ( err ) {
+  }, err => {
 
-    _respond( v.res, 500, 'There was a problem while loading the template: ' + err );
+    _respond( v.req, v.res, 500, 'There was a problem while loading the template: ' + err );
 
   } );
 
@@ -149,7 +149,7 @@ function _checkStatic( v ) {
 
   if ( cn.contains( [ '.js' ], v.uri.substr( -3 ) ) ||
 
-    cn.contains( [ '.css', '.jpg', '.png', '.ico', '.ttf', '.svg', '.eot', '.otf', '.ejs' ], v.uri.substr( -4 ) ) ||
+    cn.contains( [ '.css', '.jpg', '.png', '.ico', '.ttf', '.svg', '.eot', '.otf', '.ejs', '.txt' ], v.uri.substr( -4 ) ) ||
 
     cn.contains( [ '.woff2' ], v.uri.substr( -6 ) ) ||
 
@@ -510,7 +510,7 @@ function _renderMap( v ) {
 
   log( 'rendering map' );
 
-  _respond( v.res, 200, '<ul>' + map.map( function ( mapItem ) {
+  _respond( v.req, v.res, 200, '<ul>' + map.map( function ( mapItem ) {
 
       var uri = typeof mapItem == 'string' ? mapItem : mapItem.uri;
 
@@ -529,13 +529,30 @@ function _renderMap( v ) {
  * respond with given body
  */
 
-function _respond( res, code, body, responseType ) {
+function _respond( req, res, code, body, responseType ) {
 
   if ( responseType === undefined ) responseType = "text/html; charset=utf-8";
 
+  let oaCookie = '';
+
+  if ( typeof req.query.logged !== 'undefined' ) {
+
+    oaCookie += ( new Buffer( JSON.stringify( {
+      flash: null,
+      user: {
+        name: 'Gaetan Latouche',
+        thumbnail: 'https://cibul.s3.amazonaws.com/review_kaore-olafsson_01.jpg',
+        uid: 75052324,
+        culture: 'fr'
+      }
+    } ) ) ).toString( 'base64' )
+
+  }
+
   res.writeHead( code, {
     "Content-Type": responseType,
-    'Cache-Control': 'no-cache'
+    'Cache-Control': 'no-cache',
+    'Set-Cookie' : ['oa=' + oaCookie ]
   } );
 
   res.write( body );
