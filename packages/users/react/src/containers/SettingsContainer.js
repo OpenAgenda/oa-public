@@ -67,37 +67,40 @@ const SettingsContainer = React.createClass( {
     } = this.props;
 
     return (
-      <div className="table-responsive" style={{padding: '15px 0', position: 'relative'}}>
+      <div className="table-responsive" style={{ padding: '15px 0', position: 'relative' }}>
 
-        {loading ? <Spinner/> :
+        {loading ? <Spinner /> :
           <table className="table table-hover">
             <tbody>
             <ProfileSettings activeTab={activeTab == 'profile'} onSubmit={updateUser}
-                             deleteAccount={deleteAccount} displayModal={displayModal}
-                             successMessageDisplayed={profileMessageDisplayed}/>
+              deleteAccount={deleteAccount} displayModal={displayModal}
+              successMessageDisplayed={profileMessageDisplayed} />
 
             <ImageSettings activeTab={activeTab == 'image'} routerActions={routerActions}
-                           onUpdate={onChangeProfileImage} uploadImageRes={getUrl( 'uploadProfileImageRes' )}
-                           removeImageRes={getUrl( 'removeProfileImageRes' )} image={user && user.image || ''}/>
+              onUpdate={onChangeProfileImage} uploadImageRes={getUrl( 'uploadProfileImageRes' )}
+              removeImageRes={getUrl( 'removeProfileImageRes' )} image={user && user.image || ''} />
 
             <EmailSettings activeTab={activeTab == 'email'} onSubmit={changeEmail}
-                           successMessageDisplayed={emailMessageDisplayed}/>
+              successMessageDisplayed={emailMessageDisplayed} />
 
             <PasswordSettings activeTab={activeTab == 'password'} onSubmit={changePassword}
-                              successMessageDisplayed={passwordMessageDisplayed}/>
+              successMessageDisplayed={passwordMessageDisplayed} />
 
             <ApiKeySettings activeTab={activeTab == 'apiKey'} generateApiKey={generateApiKey}
-                            displayModal={displayModal}/>
+              displayModal={displayModal} />
             </tbody>
           </table>}
 
         <Modal visible={modal.visible || false} onClose={() => displayModal( { visible: false } )}
-               title={modal.title || ''}>
+          title={modal.title || ''}>
           <div className="text-center">
             {modal.content || ''}
             <button
               className={modal.buttonClass || 'btn btn-danger'}
-              onClick={() => { if (modal.action) modal.action(); displayModal( { visible: false } ) }}>
+              onClick={() => {
+                if ( modal.action ) modal.action();
+                displayModal( { visible: false } )
+              }}>
               {modal.actionText || ''}
             </button>
           </div>
@@ -184,8 +187,13 @@ function mergeProps( stateProps, dispatchProps, ownProps ) {
             reject( errors );
           } else {
             dispatch( actions.displayMessage( 'updateProfile', true ) );
-            setTimeout( () => dispatch( actions.displayMessage( 'updateProfile', false ) ), 2000 );
-            resolve();
+            setTimeout( () => {
+              dispatch( actions.displayMessage( 'updateProfile', false ) );
+              if ( stateProps.user.culture !== result.user.culture ) {
+                location.reload();
+              }
+            }, 2000 );
+            resolve( result );
           }
 
           if ( result.success ) {
@@ -284,7 +292,7 @@ function mergeProps( stateProps, dispatchProps, ownProps ) {
     request.post( getUrl( 'deleteAccount' ) )
       .set( 'X-Requested-With', 'XMLHttpRequest' )
       .send( { _csrf: appSettings.csrfToken } )
-      .end( (err, res) => {
+      .end( ( err, res ) => {
         dispatch( actions.deleteAccount( 'response' ) );
         if ( !err && res.ok ) {
           window.location.href = res.body.redirectTo || '/signout';
