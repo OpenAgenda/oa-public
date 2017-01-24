@@ -109,7 +109,7 @@ module.exports = ( enabledTypes, cb ) => {
         console.log( req.cookies[ 'oa.sig' ] );
         console.log( '----' );*/
 
-        res.removeHeader( 'X-Powered-By' );
+        res.setHeader( 'X-Powered-By', 'OpenAgenda' );
 
         next();
 

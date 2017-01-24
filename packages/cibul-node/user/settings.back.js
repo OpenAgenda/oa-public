@@ -54,7 +54,7 @@ module.exports = path => {
     userSettingsUploadProfileImage: [ 'post', '/uploadProfileImage', [ logged, mw.uploadProfileImage ] ],
     userSettingsRemoveProfileImage: [ 'post', '/removeProfileImage', [ logged, mw.removeProfileImage ] ],
 
-    userSettingsApp: [ 'get', '*', matchApp( path, index ) ]
+    userSettingsApp: [ 'get', '*', [ logged, matchApp( path, index ) ] ]
   },
 
     router = modLib.Router( routes );
