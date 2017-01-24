@@ -58,7 +58,7 @@ function changeStates( req, res, next ) {
 
   if ( !req.body.state.length ) {
 
-    sessions.setFlash( req, l.e( 'selectActionBefore', req.lang ) );
+    sessions.setFlash( req, res, l.e( 'selectActionBefore', req.lang ) );
 
     res.redirect( 302, redirectRes );
 
@@ -75,7 +75,7 @@ function changeStates( req, res, next ) {
 
   if ( !stateSwitch ) {
 
-    sessions.setFlash( req, l.e( 'unknownAction', req.lang ) );
+    sessions.setFlash( req, res, l.e( 'unknownAction', req.lang ) );
 
     return res.redirect( 302, redirectRes );
 
@@ -87,7 +87,7 @@ function changeStates( req, res, next ) {
 
     req.log( 'info', 'changing state of agenda events from %s to %s', labels[ stateSwitch[ 0 ] ], labels[ stateSwitch[ 1 ] ] );
 
-    sessions.setFlash( req, l.a( 'actionsInProcess', { 
+    sessions.setFlash( req, res, l.a( 'actionsInProcess', { 
       '%oldstate%' : '<strong>' + l.s( labels[ stateSwitch[ 0 ] ], req.lang ) + '</strong>',
       '%newstate%' : '<strong>' + l.s( labels[ stateSwitch[ 1 ] ], req.lang ) + '</strong>'
     }, req.lang ) );

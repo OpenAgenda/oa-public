@@ -6,6 +6,8 @@ const sessions = require( 'sessions' ),
 
   logged = sessions.middleware.ifUnlogged( cmn.redirectTo() ),
 
+  loadSession = sessions.middleware.load( { detailed: true } ),
+
   config = require( '../config' ),
 
   log = require( 'logger' )( 'user/settings.back' ),
@@ -34,27 +36,39 @@ const sessions = require( 'sessions' ),
 module.exports = path => {
 
   const routes = {
-    userSettingsGetMe: [ 'get', '/getMe', [ logged, mw.getMe ] ],
+    userSettingsGetMe: [ 'get', '/getMe', [ logged, loadSession, mw.getMe ] ],
     userSettingsUpdateProfile: [ 'get', '/updateProfile', [
+      loadSession,
       logged,
       mw.updateProfile,
+      ( req, res, next ) => {
+
+        if ( req.success ) return sessions.middleware.sync();
+
+        next();
+
+      },
       ( req, res ) => res.json( req.result )
     ] ],
-    userSettingsChangeEmail: [ 'get', '/changeEmail', [ logged, mw.requestChangeEmail, sendEmail ] ],
+    userSettingsChangeEmail: [ 'get', '/changeEmail', [ logged, loadSession, mw.requestChangeEmail, sendEmail ] ],
     userSettingsChangeEmailConfirmation: [ 'get', '/changeEmail/confirm', mw.confirmChangeEmail ],
-    userSettingsChangePassword: [ 'get', '/changePassword', [ logged, mw.changePassword ] ],
-    userSettingsGenerateApiKey: [ 'get', '/generateApiKey', [ logged, mw.generateApiKey ] ],
+    userSettingsChangePassword: [ 'get', '/changePassword', [ logged, loadSession, mw.changePassword ] ],
+    userSettingsGenerateApiKey: [ 'get', '/generateApiKey', [ logged, loadSession, mw.generateApiKey ] ],
     userSettingsDeleteAccount: [ 'post', '/deleteAccount', [
       logged,
+      loadSession, 
       mw.deleteAccount,
       ( req, res ) => {
-        req.setFlash( getLabels( 'accountRemoved', req.lang ) );
-        res.json( { redirectTo: req.genUrl( 'signout' ) } );
-      } ] ],
-    userSettingsUploadProfileImage: [ 'post', '/uploadProfileImage', [ logged, mw.uploadProfileImage ] ],
-    userSettingsRemoveProfileImage: [ 'post', '/removeProfileImage', [ logged, mw.removeProfileImage ] ],
 
-    userSettingsApp: [ 'get', '*', [ logged, matchApp( path, index ) ] ]
+        sessions.setFlash( req, res, getLabels( 'accountRemoved', req.lang ) );
+        
+        res.json( { redirectTo: req.genUrl( 'signout' ) } );
+
+      } ] ],
+    userSettingsUploadProfileImage: [ 'post', '/uploadProfileImage', [ logged, loadSession, mw.uploadProfileImage ] ],
+    userSettingsRemoveProfileImage: [ 'post', '/removeProfileImage', [ logged, loadSession, mw.removeProfileImage ] ],
+
+    userSettingsApp: [ 'get', '*', [ logged, loadSession, matchApp( path, index ) ] ]
   },
 
     router = modLib.Router( routes );

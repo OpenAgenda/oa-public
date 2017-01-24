@@ -242,7 +242,7 @@ function resync( req, res ) {
 
   } );
 
-  sessions.setFlash( req, 'resync is ongoing' );
+  sessions.setFlash( req, res, 'resync is ongoing' );
 
   redirect( req, res );
 
@@ -292,7 +292,7 @@ function agendaSearchPage( req, res, next ) {
 
 function agendaSearchRebuildRedirect( req, res, next ) {
 
-  sessions.setFlash( req, 'rebuilding agenda search index' );
+  sessions.setFlash( req, res, 'rebuilding agenda search index' );
 
   res.redirect( 302, req.genUrl( 'agendaSearch' ) );
 

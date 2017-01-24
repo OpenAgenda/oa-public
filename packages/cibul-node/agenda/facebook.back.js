@@ -69,7 +69,7 @@ function _onComplete( req, res, next ) {
 
     if ( err ) return next( req.query.error_msg ? req.query.error_msg : err );
 
-    sessions.setFlash( req, __( 'facebookTabAdded', req.lang ) );
+    sessions.setFlash( req, res, __( 'facebookTabAdded', req.lang ) );
 
     res.redirect( req.genUrl( 'facebookShow', { slug: agenda.slug } ) );
 

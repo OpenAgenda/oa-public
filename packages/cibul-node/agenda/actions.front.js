@@ -272,7 +272,7 @@ function _verifyAlreadyAdded( req, res, next ) {
 
     if ( has ) {
 
-      sessions.setFlash( req, __( 'eventAlreadyAdded', req.lang ) );
+      sessions.setFlash( req, res, __( 'eventAlreadyAdded', req.lang ) );
 
       res.redirect( req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } ) );
 
@@ -298,7 +298,7 @@ function _onActionComplete( req, res, success, message ) {
 
   }
 
-  sessions.setFlash( req, message )
+  sessions.setFlash( req, res, message )
 
   if ( req.redirect ) {
 

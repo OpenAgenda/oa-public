@@ -198,13 +198,13 @@ function newsletterSubscribe( req, res ) {
 
       req.log( 'error', { service: 'newsletter', message: result.message, error: result.message } );
 
-      sessions.setFlash( req, __( 'invalidEmail', req.lang ) );
+      sessions.setFlash( req, res, __( 'invalidEmail', req.lang ) );
 
       res.redirect( 302, req.genUrl( 'corpoHome' ) );
 
     } else {
 
-      sessions.setFlash( req, __( 'subscribed', req.lang ) );
+      sessions.setFlash( req, res, __( 'subscribed', req.lang ) );
 
       res.redirect( 302, req.genUrl( 'corpoHome' ) );
 
@@ -360,7 +360,7 @@ function unsubscribeSubmit( req, res ) {
 
     } else {
 
-      sessions.setFlash( req, __( 'unsubscribed', { '%email%': req.body.email }, req.lang ) );
+      sessions.setFlash( req, res, __( 'unsubscribed', { '%email%': req.body.email }, req.lang ) );
 
       res.redirect( 302, '/' );
 

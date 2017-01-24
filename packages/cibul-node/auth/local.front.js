@@ -192,7 +192,7 @@ function activateResend( req, res ) {
 
     .then( function( values ) {
 
-      sessions.setFlash( req, __( 'sendAgain', req.lang ) );
+      sessions.setFlash( req, res, __( 'sendAgain', req.lang ) );
 
       return lib.extend( values, { req: req, res: res } );
 

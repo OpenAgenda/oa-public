@@ -255,7 +255,7 @@ function _changeState( req, res, next ) {
 
     if ( !req.xhr ) {
 
-      sessions.setFlash( req, __( 'stateChanged', req.lang ) );
+      sessions.setFlash( req, res, __( 'stateChanged', req.lang ) );
 
     }
 
@@ -283,7 +283,7 @@ function _changeFeatured( req, res, next ) {
 
     }
 
-    sessions.setFlash( req, __( req.params.type === 'featured' ? 'featuredChange' : 'unfeaturedChange', req.lang ) );
+    sessions.setFlash( req, res, __( req.params.type === 'featured' ? 'featuredChange' : 'unfeaturedChange', req.lang ) );
 
     next();
 

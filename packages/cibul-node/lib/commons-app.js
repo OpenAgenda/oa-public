@@ -163,7 +163,7 @@ function checkAdministrator( options ) {
 
           if ( params.redirect ) {
 
-            sessions.setFlash( req, params.message );
+            sessions.setFlash( req, res, params.message );
 
             return res.redirect( params.redirect );
 
@@ -715,7 +715,7 @@ function requireAdmin( req, res, next ) {
 
     } else {
 
-      sessions.setFlash( req, 'Eerrh nooo, no esta, nooo, bye bye.' );
+      sessions.setFlash( req, res, 'Eerrh nooo, no esta, nooo, bye bye.' );
 
       res.redirect( 302, req.genUrl( 'corpoHome' ) );
 

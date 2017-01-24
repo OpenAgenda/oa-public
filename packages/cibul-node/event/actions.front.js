@@ -224,7 +224,7 @@ function eventMailSend( req, res, next ) {
         html: renders.html
       } );
 
-      sessions.setFlash( req, __( 'eventEmailSend', { '%count%' : emails.length } ) );
+      sessions.setFlash( req, res, __( 'eventEmailSend', { '%count%' : emails.length } ) );
       
       res.redirect( 302, req.genUrl( req.eventUri, req.eventUriParams ) );
 

@@ -132,7 +132,7 @@ function _redirectToSignin( req, res, message ) {
 
   return values => {
 
-    sessions.setFlash( req, message );
+    sessions.setFlash( req, res, message );
 
     res.redirect( 302, req.genUrl( 'signin' ) );
 

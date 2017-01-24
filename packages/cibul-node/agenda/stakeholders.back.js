@@ -193,19 +193,19 @@ function invite( options ) {
 
         if ( err ) {
 
-          sessions.setFlash( req, getInvLabel( 'invitationError', req.lang ) );
+          sessions.setFlash( req, res, getInvLabel( 'invitationError', req.lang ) );
 
         } else if ( result.count ) {
 
-          sessions.setFlash( req, getInvLabel( 'emailSubmitted', { count: result.count }, req.lang ) );
+          sessions.setFlash( req, res, getInvLabel( 'emailSubmitted', { count: result.count }, req.lang ) );
 
         } else if ( invitations.length == 0 ) {
 
-          sessions.setFlash( req, getInvLabel( 'noNewInvite', req.lang ) );
+          sessions.setFlash( req, res, getInvLabel( 'noNewInvite', req.lang ) );
 
         } else {
 
-          sessions.setFlash( req, getInvLabel( 'sentInvites', req.lang ) );
+          sessions.setFlash( req, res, getInvLabel( 'sentInvites', req.lang ) );
 
         }
 
@@ -241,11 +241,11 @@ function inviteResendAll( options ) {
 
         req.log( 'error', err );
 
-        sessions.setFlash( req, getInvLabel( 'invitationError', req.lang ) );
+        sessions.setFlash( req, res, getInvLabel( 'invitationError', req.lang ) );
 
       } else {
 
-        sessions.setFlash( req, getInvLabel( 'resentInvites', { '%count%' : invitations.length }, req.lang ) );
+        sessions.setFlash( req, res, getInvLabel( 'resentInvites', { '%count%' : invitations.length }, req.lang ) );
 
       }
 
@@ -283,17 +283,17 @@ function inviteResend( options ) {
 
       if ( err ) {
 
-        sessions.setFlash( req, getInvLabel( 'invitationError', req.lang ) );
+        sessions.setFlash( req, res, getInvLabel( 'invitationError', req.lang ) );
 
       } else if ( !invitation ) {
 
         req.log( 'error', JSON.stringify( result ) );
 
-        sessions.setFlash( req, getInvLabel( 'invitationNotSent', req.lang ) );
+        sessions.setFlash( req, res, getInvLabel( 'invitationNotSent', req.lang ) );
 
       } else {
 
-        sessions.setFlash( req, getInvLabel( 'resentInvite', req.lang ) );
+        sessions.setFlash( req, res, getInvLabel( 'resentInvite', req.lang ) );
 
       }
 
@@ -466,7 +466,7 @@ function transfer( req, res, next ) {
     // force ES update
     req.event.onSave();
 
-    sessions.setFlash( req, getActionLabel( 'ownershipTransfered', req.lang ) );
+    sessions.setFlash( req, res, getActionLabel( 'ownershipTransfered', req.lang ) );
 
     res.redirect( 302, req.genUrl( 'agendaEventShow', {
       slug: req.agenda.slug,

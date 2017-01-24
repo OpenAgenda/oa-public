@@ -79,7 +79,7 @@ module.exports = path => {
       cmn.checkAdministrator(),
       mw.removeAgenda,
       ( req, res ) => {
-        sessions.setFlash( req, getLabel( 'agendaRemoved', req.lang ) );
+        sessions.setFlash( req, res, getLabel( 'agendaRemoved', req.lang ) );
         res.json( { redirectTo: req.genUrl( 'homeShow' ) } );
       }
     ] ]
