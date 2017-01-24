@@ -37,7 +37,7 @@ app.use( bodyParser.urlencoded( { extended: true } ) );
 app.use( cookieParser() );
 
 app.get( '/getMe', mw.getMe );
-app.get( '/updateUser', mw.updateProfile );
+app.get( '/updateUser', mw.updateProfile, ( req, res ) => res.json( req.result ) );
 app.get( '/requestChangeEmail', [ mw.requestChangeEmail, sendEmail ] );
 app.get( '/changePassword', mw.changePassword );
 app.get( '/generateApiKey', mw.generateApiKey );

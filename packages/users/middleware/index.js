@@ -96,7 +96,8 @@ function updateProfile( req, res, next ) {
 
     if ( err ) return next( err );
 
-    res.json( result );
+    req.result = result;
+    next();
 
   } );
 
@@ -213,9 +214,9 @@ function confirmChangeEmail( req, res, next ) {
   service.confirmChangeEmail( req.query, ( err, success ) => {
 
     if ( success ) {
-      req.setFlash( 'Votre email a été modifié avec succés' )
+      req.setFlash( 'Votre email a été modifié avec succés' );
     } else {
-      req.setFlash( 'Le token n\'est pas ou plus valide' )
+      req.setFlash( 'Le token n\'est pas ou plus valide' );
     }
 
     res.redirect( req.genUrl( 'homeShow' ) );
