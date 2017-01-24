@@ -9,6 +9,7 @@ params = {
     canvas: 'lightbox-canvas',
     frame: 'wsq lightbox-frame',
     buttonBox: 'lightbox-buttons',
+    button: 'btn btn-primary',
     body: 'noscroll'
   }
 };
