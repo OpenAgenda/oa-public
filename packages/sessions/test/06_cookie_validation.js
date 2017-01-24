@@ -8,7 +8,6 @@ describe( 'session - unit (iso): cookie data validate', () => {
   it( 'cookie validate describes and cleans data kept in session cookie', () => {
 
     let cookieData = {
-      flash: 'Taanaaa Savioroftheuniverse! Pom pom pom pom.',
       user: {
         name: 'Gaetan Latouche',
         culture: 'fr',

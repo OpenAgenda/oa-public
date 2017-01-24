@@ -75,7 +75,6 @@ describe( 'session - functional (server): open, close, get & update', () => {
       sessions.open( request, { uid: 12345678 }, ( err, result ) => {
 
         request.session.should.eql( {
-          flash: null,
           user: {
             culture: 'fr',
             uid: 12345678,

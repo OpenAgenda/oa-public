@@ -21,7 +21,7 @@ describe( 'session - functional (client): session', () => {
 
         clientSession.test.loadCookiesLib( c );
 
-        c.set( isoConfig.cookie, base64.encode( JSON.stringify( { user: { uid: 123, name: 'tony', culture: 'en' } } ) ) );
+        c.set( isoConfig.cookies.session, base64.encode( JSON.stringify( { user: { uid: 123, name: 'tony', culture: 'en' } } ) ) );
 
         clientSession.getUser().should.eql( {
           uid: 123,
@@ -64,7 +64,7 @@ describe( 'session - functional (client): session', () => {
 
         clientSession.test.loadCookiesLib( cookiesLib( w ) );
 
-        c.set( isoConfig.cookie, base64.encode( JSON.stringify( { user: { uid: 123, name: 'tony', culture: 'en' } } ) ) );
+        c.set( isoConfig.cookies.session, base64.encode( JSON.stringify( { user: { uid: 123, name: 'tony', culture: 'en' } } ) ) );
 
         clientSession.isLogged().should.equal( true );
 
@@ -118,7 +118,7 @@ describe( 'session - functional (client): session', () => {
 
         clientSession.test.loadCookiesLib( c );
 
-        c.set( isoConfig.cookie, base64.encode( JSON.stringify( { flash: 'grut' } ) ) );
+        c.set( isoConfig.cookies.writable, base64.encode( JSON.stringify( { flash: 'grut' } ) ) );
 
         clientSession.flash().should.equal( 'grut' );
 
@@ -136,7 +136,7 @@ describe( 'session - functional (client): session', () => {
 
         clientSession.test.loadCookiesLib( c );
 
-        c.set( isoConfig.cookie, base64.encode( JSON.stringify( { flash: 'grut' } ) ) );
+        c.set( isoConfig.cookies.writable, base64.encode( JSON.stringify( { flash: 'grut' } ) ) );
 
         clientSession.flash();
 

@@ -2,5 +2,8 @@
 
 module.exports = {
   res: '/session',
-  cookie: 'oa'
+  cookies: {
+    session: 'oa',
+    writable: 'oa.rw'
+  }
 }

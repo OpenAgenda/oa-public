@@ -21,6 +21,8 @@ describe( 'session - functional (server): middleware', () => {
 
     sessions.init( config );
 
+    helpers.init( config );
+
   } );
 
   describe( '.sync', () => {
@@ -81,7 +83,9 @@ describe( 'session - functional (server): middleware', () => {
 
       _runClientSyncRoutine().then( res => {
 
-        JSON.parse( base64.decode( res.header[ 'set-cookie' ][ 0 ].split( '=' )[ 1 ].split( ';' )[ 0 ] ) )
+        let dc = base64.decode( res.header[ 'set-cookie' ][ 0 ].split( '=' )[ 1 ].split( ';' )[ 0 ] ).replace( String.fromCharCode( 0 ), '' );
+
+        JSON.parse( dc )
 
           .user.culture.should.equal( 'en' );
 
@@ -170,7 +174,6 @@ describe( 'session - functional (server): middleware', () => {
 
             // resut will contain result of session open operation
             req.result.cookieData.should.eql( {
-              flash: null,
               user: {
                 culture: 'fr',
                 uid: 12345678,

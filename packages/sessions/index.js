@@ -3,6 +3,7 @@
 const middleware = require( './middleware' );
 const isoConfig = require( './iso/config' );
 const validate = require( './service/validate' );
+const expressCookie = require( './service/expressCookie' );
 const cookieValidate = require( './iso/cookie.validate' );
 const _ = require( 'lodash' );
 const w = require( 'when' );
@@ -24,9 +25,13 @@ module.exports = {
 }
 
 
-function setFlash( request, message ) {
+function setFlash( request, response, message ) {
 
+  // this guy needs to handle a cookie.
   request.session.flash = message;
+
+  // this guy needs request and response.
+  expressCookie( request, response, config.writableCookie.name ).set( 'flash', message );
 
 }
 
@@ -434,11 +439,17 @@ function init( c ) {
   config = c;
 
   config.sessionCookie = _.extend( {}, c.sessionCookie, {
-    name: isoConfig.cookie
+    name: isoConfig.cookies.session
+  } );
+
+  config.writableCookie = _.extend( {}, c.writableCookie, {
+    name: isoConfig.cookies.writable
   } );
 
   interfaces = c.interfaces;
 
-  middleware.init( c, module.exports );
+  middleware.init( config, module.exports );
+
+  expressCookie.init( config );
 
 }

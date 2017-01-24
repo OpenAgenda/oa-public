@@ -22,66 +22,73 @@ module.exports = {
 
 function getUser() {
 
-  return _get().user || null;
+  return _getSession().user || null;
 
 }
 
 
 function isLogged() {
 
-  return !!_get().user;
+  return !!getUser();
 
 }
 
 function flash() {
 
-  let values = _get(),
+  let values = _getWritable(),
 
-  flash = values.flash;
+  flash = values ? values.flash : null;
 
-  _set( extend( values, { flash: null } ) );
+  _setWritable( extend( values, { flash: null } ) );
 
   return flash;
 
 }
 
-function _set( update ) {
+function _setWritable( update ) {
 
   let clean;
 
   try {
 
-    clean = validate( update );
+    clean = validate.writable( update );
 
   } catch ( e ) {
 
-    clean = validate.validateUnlogged.default;
+    clean = {}
 
   }
 
-  cookies.set( config.cookie, base64.encode( JSON.stringify( clean ) ) );
+  cookies.set( config.cookies.writable, base64.encode( JSON.stringify( clean ) ) );
 
 }
 
-function _get() {
+function _getSession() {
 
-  let cookieValue = cookies.get( config.cookie ),
+  return _get( config.cookies.session, validate ) || validate.validateUnlogged.default;
 
-  clean;
+}
 
-  if ( !cookieValue ) {
+function _getWritable() {
 
-    return validate.validateUnlogged.default;
+  return _get( config.cookies.writable, validate.writable );
 
-  }
+}
+
+
+function _get( name, validate ) {
+
+  let cookieValue = cookies.get( name ), clean;
+
+  if ( !cookieValue ) return null;
 
   try {
 
     clean = validate( JSON.parse( base64.decode( cookieValue ) ) );
 
-  } catch ( e ) {
+  } catch( e ) {
 
-    return validate.validateUnlogged.default;
+    return null;
 
   }
 

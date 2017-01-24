@@ -12,11 +12,14 @@ schema.register( {
   link: require( 'validators/link' )
 } );
 
-const fields = {
+const writableFields = {
   flash: {
     type: 'text',
     max: 1000
-  },
+  }
+}
+
+const fields = {
   user: {
     optional: true,
     fields: {
@@ -45,13 +48,16 @@ const fields = {
 // jumping through hoops because an empty subobject in schema is processed
 // as default: user is not always specified.
 
+const validateWritable = schema( writableFields );
+
 const validateLogged = schema( fields );
 
 const validateUnlogged = schema( omit( fields, [ 'user' ] ) );
 
 module.exports = extend( _validate, {
   validateLogged,
-  validateUnlogged
+  validateUnlogged,
+  writable: validateWritable
 } );
 
 function _validate( dirty ) {
