@@ -38,12 +38,12 @@ module.exports = path => {
   const routes = {
     userSettingsGetMe: [ 'get', '/getMe', [ logged, loadSession, mw.getMe ] ],
     userSettingsUpdateProfile: [ 'get', '/updateProfile', [
-      loadSession,
+      loadSession, // obliged to load detailed session as users.get does not take uid as alternative identifier
       logged,
       mw.updateProfile,
       ( req, res, next ) => {
 
-        if ( req.success ) return sessions.middleware.sync();
+        if ( req.success ) return sessions.middleware.sync( 'syncResult' )( req, res, next );
 
         next();
 
