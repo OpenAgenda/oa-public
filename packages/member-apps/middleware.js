@@ -39,14 +39,6 @@ function list( req, res ) {
 
     } );
 
-  /* service( req.agenda.id ).list( { search: req.query.search }, offset, limit, { total: true } )
-    .then( result => {
-      res.send( result );
-    } )
-    .catch( err => {
-      res.status( 400 ).send( err );
-    } ); */
-
 }
 
 function stats( req, res ) {
