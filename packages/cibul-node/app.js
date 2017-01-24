@@ -2,7 +2,9 @@
 
 const supervisor = require( './lib/supervisor' ),
 
-init = require( './lib/init' );
+  init = require( './lib/init' ),
+
+  sessions = require( 'sessions' );
 
 module.exports = ( enabledTypes, cb ) => {
 
@@ -57,6 +59,7 @@ module.exports = ( enabledTypes, cb ) => {
           require( './newsletter/back' )( '/:slug/admin/newsletters' ),
           require( './newsletter/front' )( '/:slug/newsletters' ),
           require( './general/front' )( '' ),
+          require( './general/session.back' )( '/session' ),
           require( './general/back' )( '' ),
           require( './search/front' )( '' ),
           require( './event/form.back' )( '' ),
@@ -96,9 +99,7 @@ module.exports = ( enabledTypes, cb ) => {
 
       app.set( 'trust proxy', 'loopback' );
 
-      app.use( cookieParser() );
-
-      app.use( cookieSession( config.session ) );
+      app.use( sessions.middleware );
 
       app.use( bodyParser.urlencoded( {
         extended: true,
@@ -106,6 +107,11 @@ module.exports = ( enabledTypes, cb ) => {
       } ) );
 
       app.use( ( req, res, next ) => {
+
+        /*console.log( '----' );
+        console.log( req.cookies.oa );
+        console.log( req.cookies[ 'oa.sig' ] );
+        console.log( '----' );*/
 
         res.removeHeader( 'X-Powered-By' );
 

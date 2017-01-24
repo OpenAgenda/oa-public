@@ -110,9 +110,7 @@ module.exports = function( path ) {
 
   router.pre( [
     cmn.loadLogger( 'event front' ),
-    cmn.redirectLegacySearch,
-    cmn.flashSetter,
-    cmn.loadSession
+    cmn.redirectLegacySearch
   ] );
 
   return {

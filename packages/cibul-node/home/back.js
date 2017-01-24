@@ -1,14 +1,20 @@
 "use strict";
 
-const React = require( 'react' );
-const ReactDOM = require( 'react-dom/server' );
-const config = require( '../config' );
-const modLib = require( "../lib/moduleLib.js" );
-const cmn = require( '../lib/commons-app' );
-const homeSvc = require( 'home' );
-const mw = homeSvc.mw;
+const React = require( 'react' ),
 
-const homeConfig = homeSvc.getConfig();
+ ReactDOM = require( 'react-dom/server' ),
+
+ config = require( '../config' ),
+
+ modLib = require( "../lib/moduleLib.js" ),
+
+ cmn = require( '../lib/commons-app' ),
+
+ home = require( 'home' ),
+
+ homeConfig = home.getConfig(),
+
+ sessions = require( 'sessions' );
 
 module.exports = path => {
 
@@ -18,15 +24,15 @@ module.exports = path => {
       matchApp
     ] ],
 
-    homeShowList: [ 'get', '/agendas', mw.agendas.list ]
+    homeShowList: [ 'get', '/agendas', home.mw.agendas.list ]
   };
 
   const router = modLib.Router( routes );
 
   router.pre( [
     cmn.loadLogger( 'home' ),
-    cmn.loadSession,
-    cmn.requireLogged()
+    sessions.middleware.load( { detailed: true } ), 
+    sessions.middleware.ifUnlogged( cmn.redirectTo() )
   ] );
 
   return {
@@ -58,7 +64,7 @@ function matchApp( req, res, next ) {
   const prefix = req.genUrl( 'homeShow' ).split( '?' )[ 0 ];
   const lang = req.lang || 'fr';
 
-  mw.matchApp(
+  home.mw.matchApp(
     {
       state: {
         settings: {

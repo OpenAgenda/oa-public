@@ -2,139 +2,142 @@
 
 const utils = require( 'utils' ),
 
-streamUtils = require( 'stream-utils' ),
+  sessions = require( 'sessions' ),
 
-flattener = require( 'flattener' ),
+  streamUtils = require( 'stream-utils' ),
 
-validator = require( 'validator' ),
+  flattener = require( 'flattener' ),
 
-csv = require( 'fast-csv' ),
+  validator = require( 'validator' ),
 
-xlsx = require( 'xlsx-writestream' ),
+  csv = require( 'fast-csv' ),
 
-getLabel = require( 'labels' )( require( 'labels/contributors/exportHeaders' ) ),
+  xlsx = require( 'xlsx-writestream' ),
 
-getCredentialLabel = require( 'labels' )( require( 'labels/contributors/credentials' ) );
+  getLabel = require( 'labels' )( require( 'labels/contributors/exportHeaders' ) ),
 
-var modLib = require( '../lib/moduleLib' ),
+  getCredentialLabel = require( 'labels' )( require( 'labels/contributors/credentials' ) ),
 
-cmn = require( '../lib/commons-app' ),
+  getActionLabel = require( 'labels' )( require( 'labels/agendas/actions' ) ),
 
-invitationSvc = require( '../services/invitation' ),
+  getInvLabel = require( 'labels' )( require( 'labels/agendas/invitations' ) ),
 
-agendaSvc = require( '../services/agenda' ),
+  modLib = require( '../lib/moduleLib' ),
 
-eventSvc = require( '../services/event' ),
+  cmn = require( '../lib/commons-app' ),
 
-userSvc = require( '../services/user' ),
+  invitationSvc = require( '../services/invitation' ),
 
-stakeholders = require( 'agenda-stakeholders' ),
+  agendaSvc = require( '../services/agenda' ),
 
-stakeholdersMw = require( 'agenda-stakeholders/middleware' ),
+  eventSvc = require( '../services/event' ),
 
+  userSvc = require( '../services/user' ),
 
-routes = {
+  stakeholders = require( 'agenda-stakeholders' ),
 
-  contributorsInvite:  [ 'post', '/contributors/invite', [ 
-    cmn.checkAdminOrModerator,
-    invite()
-  ] ],
+  stakeholdersMw = require( 'agenda-stakeholders/middleware' ),
 
-  administratorsInvite: [ 'post', '/admins/invite', [
-    cmn.checkAdministrator(),
-    invite( { inviteMethod: 'inviteAdministrators', redirect: 'agendaAdminAdministrators' } )
-  ]],
+  routes = {
 
-  moderatorsInvite: [ 'post', '/moderators/invite', [
-    cmn.checkAdministrator(),
-    invite( { inviteMethod: 'inviteModerators', redirect: 'agendaAdminModerators' } )
-  ]],
+    contributorsInvite:  [ 'post', '/contributors/invite', [ 
+      cmn.checkAdminOrModerator,
+      invite()
+    ] ],
 
-  contributorInviteResend: [ 'get', '/contributors/resend', [ 
-    cmn.checkAdminOrModerator,
-    inviteResend()
-  ] ],
+    administratorsInvite: [ 'post', '/admins/invite', [
+      cmn.checkAdministrator(),
+      invite( { inviteMethod: 'inviteAdministrators', redirect: 'agendaAdminAdministrators' } )
+    ]],
 
-  administratorInviteResend: [ 'get', '/admins/resend', [
-    cmn.checkAdministrator(),
-    inviteResend( { inviteMethod: 'inviteAdministrators', redirect: 'agendaAdminAdministrators' } )
-  ] ],
+    moderatorsInvite: [ 'post', '/moderators/invite', [
+      cmn.checkAdministrator(),
+      invite( { inviteMethod: 'inviteModerators', redirect: 'agendaAdminModerators' } )
+    ]],
 
-  moderatorsInviteResend: [ 'get', '/moderators/resend', [
-    cmn.checkAdministrator(),
-    inviteResend( { inviteMethod: 'inviteModerators', redirect: 'agendaAdminModerators' })
-  ] ],
+    contributorInviteResend: [ 'get', '/contributors/resend', [ 
+      cmn.checkAdminOrModerator,
+      inviteResend()
+    ] ],
 
-  contributorInviteResendAll: [ 'get', '/contributors/resendall', [ 
-    cmn.checkAdminOrModerator,
-    inviteResendAll()
-  ] ],
+    administratorInviteResend: [ 'get', '/admins/resend', [
+      cmn.checkAdministrator(),
+      inviteResend( { inviteMethod: 'inviteAdministrators', redirect: 'agendaAdminAdministrators' } )
+    ] ],
 
-  administratorInviteResendAll: [ 'get', '/admins/resendall', [
-    cmn.checkAdministrator(),
-    inviteResendAll( { inviteMethod: 'resendInviteAdministrators', redirect: 'agendaAdminAdministrators' } )
-  ] ],
+    moderatorsInviteResend: [ 'get', '/moderators/resend', [
+      cmn.checkAdministrator(),
+      inviteResend( { inviteMethod: 'inviteModerators', redirect: 'agendaAdminModerators' })
+    ] ],
 
-  moderatorsInviteResendAll: [ 'get', '/moderators/resendall', [
-    cmn.checkAdministrator(),
-    inviteResendAll( { inviteMethod: 'resendInviteModerators', redirect: 'agendaAdminModerators' })
-  ] ],
+    contributorInviteResendAll: [ 'get', '/contributors/resendall', [ 
+      cmn.checkAdminOrModerator,
+      inviteResendAll()
+    ] ],
 
-  stakeholdersCsvExport: [ 'get', '/contributors.csv', [
-    cmn.checkAdminOrModerator,
-    _loadFlattener,
-    streamCsv
-  ] ],
+    administratorInviteResendAll: [ 'get', '/admins/resendall', [
+      cmn.checkAdministrator(),
+      inviteResendAll( { inviteMethod: 'resendInviteAdministrators', redirect: 'agendaAdminAdministrators' } )
+    ] ],
 
-  stakeholdersXlsxExport: [ 'get', '/contributors.xlsx', [
-    cmn.checkAdminOrModerator,
-    _loadFlattener,
-    streamXlsx
-  ] ],
+    moderatorsInviteResendAll: [ 'get', '/moderators/resendall', [
+      cmn.checkAdministrator(),
+      inviteResendAll( { inviteMethod: 'resendInviteModerators', redirect: 'agendaAdminModerators' })
+    ] ],
 
-  contributorsInfo: [ 'get', '/contributors/info', [ 
-    cmn.checkAdministrator(),
-    agendaSvc.mw.loadAdminLayout,
-    cmn.loadBaseData( 'oasfmain.css' ),
-    info
-  ] ],
+    stakeholdersCsvExport: [ 'get', '/contributors.csv', [
+      cmn.checkAdminOrModerator,
+      _loadFlattener,
+      streamCsv
+    ] ],
 
-  contributorsInfoSubmit: [ 'post', '/contributors/info', [
-    cmn.checkAdministrator(),
-    agendaSvc.mw.loadAdminLayout,
-    cmn.loadBaseData(),
-    infoSubmit
-  ] ],
+    stakeholdersXlsxExport: [ 'get', '/contributors.xlsx', [
+      cmn.checkAdminOrModerator,
+      _loadFlattener,
+      streamXlsx
+    ] ],
 
-  eventTransfer: [ 'get', '/contributors/transfer/:eventSlug' , [
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    _checkAdminOrModeratorOrEventOwner,
-    cmn.checkCredential( 'eventTransfer' ),
-    stakeholdersMw.loadAgenda( 'agenda', 'stakeholders' ),
-    _loadUserByEmail,
-    transfer
-  ] ],
+    contributorsInfo: [ 'get', '/contributors/info', [ 
+      cmn.checkAdministrator(),
+      agendaSvc.mw.loadAdminLayout,
+      cmn.loadBaseData( 'oasfmain.css' ),
+      info
+    ] ],
 
-  stakeholderGet: [ 'get', '/contributors/:uid.json', [
-    cmn.checkAdminOrModerator,
-    _loadUserByUid,
-    stakeholdersMw.load( 'agenda', 'queriedUser' ),
-    ( req, res ) => {
+    contributorsInfoSubmit: [ 'post', '/contributors/info', [
+      cmn.checkAdministrator(),
+      agendaSvc.mw.loadAdminLayout,
+      cmn.loadBaseData(),
+      infoSubmit
+    ] ],
 
-      res.json( { name: req.queriedUser.fullName } );
+    eventTransfer: [ 'get', '/contributors/transfer/:eventSlug' , [
+      eventSvc.mw.load( 'eventSlug', 'slug' ),
+      _checkAdminOrModeratorOrEventOwner,
+      cmn.checkCredential( 'eventTransfer' ),
+      stakeholdersMw.loadAgenda( 'agenda', 'stakeholders' ),
+      _loadUserByEmail,
+      transfer
+    ] ],
 
-    }
-  ] ]
-  
-};
+    stakeholderGet: [ 'get', '/contributors/:uid.json', [
+      cmn.checkAdminOrModerator,
+      _loadUserByUid,
+      stakeholdersMw.load( 'agenda', 'queriedUser' ),
+      ( req, res ) => {
+
+        res.json( { name: req.queriedUser.fullName } );
+
+      }
+    ] ]
+    
+  };
 
 module.exports = function( path ) {
 
   var router = modLib.Router( routes );
 
   router.pre( [
-    cmn.flashSetter,
-    cmn.loadSession,
     agendaSvc.mw.load( 'slug' )
   ] );
 
@@ -165,8 +168,6 @@ function infoSubmit( req, res ) {
 
     if ( err ) return next( err );
 
-    res.setFlash( req, 'The info has been updated' );
-
     res.redirect( req.genUrl( 'contributorsInfo', { slug: req.agenda.slug } ) );
 
   } );
@@ -192,19 +193,19 @@ function invite( options ) {
 
         if ( err ) {
 
-          res.setFlash( req, 'Something went wrong. We will fix this shortly.' );
+          sessions.setFlash( req, getInvLabel( 'invitationError', req.lang ) );
 
         } else if ( result.count ) {
 
-          res.setFlash( req, 'Your %s submitted emails are being processed', { '%s' : result.count } );
+          sessions.setFlash( req, getInvLabel( 'emailSubmitted', { count: result.count }, req.lang ) );
 
         } else if ( invitations.length == 0 ) {
 
-          res.setFlash( req, 'No new invitation was sent' );
+          sessions.setFlash( req, getInvLabel( 'noNewInvite', req.lang ) );
 
         } else {
 
-          res.setFlash( req, 'Sent invitations: %s' , { '%s' : invitations.length } );
+          sessions.setFlash( req, getInvLabel( 'sentInvites', req.lang ) );
 
         }
 
@@ -238,11 +239,13 @@ function inviteResendAll( options ) {
 
       if ( err ) {
 
-        res.setFlash( req, 'Something went wrong. We will fix this shortly.' );
+        req.log( 'error', err );
+
+        sessions.setFlash( req, getInvLabel( 'invitationError', req.lang ) );
 
       } else {
 
-        res.setFlash( req, '%s invitations are being resent.<br/><br/>Note that invitations cannot be sent in bulk more than once every 24 hours' , { '%s' : invitations.length } );
+        sessions.setFlash( req, getInvLabel( 'resentInvites', { '%count%' : invitations.length }, req.lang ) );
 
       }
 
@@ -280,17 +283,17 @@ function inviteResend( options ) {
 
       if ( err ) {
 
-        res.setFlash( req, 'Something went wrong. We will fix this shortly.' );
+        sessions.setFlash( req, getInvLabel( 'invitationError', req.lang ) );
 
       } else if ( !invitation ) {
 
         req.log( 'error', JSON.stringify( result ) );
 
-        res.setFlash( req, 'Invitation could not be sent' );
+        sessions.setFlash( req, getInvLabel( 'invitationNotSent', req.lang ) );
 
       } else {
 
-        res.setFlash( req, 'The invitation is being resent' );
+        sessions.setFlash( req, getInvLabel( 'resentInvite', req.lang ) );
 
       }
 
@@ -463,7 +466,7 @@ function transfer( req, res, next ) {
     // force ES update
     req.event.onSave();
 
-    res.setFlash( req, 'ownership is transfered' );
+    sessions.setFlash( req, getActionLabel( 'ownershipTransfered', req.lang ) );
 
     res.redirect( 302, req.genUrl( 'agendaEventShow', {
       slug: req.agenda.slug,

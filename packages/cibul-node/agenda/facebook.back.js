@@ -1,50 +1,52 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const sessions = require( 'sessions' ),
 
-cmn = require( '../lib/commons-app' ),
+  modLib = require( '../lib/moduleLib' ),
 
-agendaSvc = require( '../services/agenda' ),
+  cmn = require( '../lib/commons-app' ),
 
-fb = require( 'facebook' ),
+  agendaSvc = require( '../services/agenda' ),
 
-utils = require( 'utils' ),
+  fb = require( 'facebook' ),
 
-config = require( '../config' ),
+  utils = require( 'utils' ),
 
-genUrl = require( '../services/genUrl' ),
+  config = require( '../config' ),
 
-routes = {
+  genUrl = require( '../services/genUrl' ),
 
-  facebookShow: [ 'get', '/:slug/admin/facebook', [
-    agendaSvc.mw.load( 'slug' ),
-    cmn.checkAdministrator(),
-    agendaSvc.mw.loadAdminLayout,
-    cmn.loadBaseData(),
-    show
-  ] ],
+  __ = require( 'labels' )( require( 'labels/agendas/actions' ) ),
 
-  facebookTabLink: [ 'get', '/agendas/:uid/facebook/tab/link', [
-    agendaSvc.mw.load( 'uid' ),
-    cmn.checkAdministrator(),
-    fb.tab.create
-  ] ],
+  routes = {
 
-  facebookTabRedirect: [ 'get', '/facebook/tab/create/:state', [
-    fb.tab.redirect,
-    _onComplete
-  ] ]
+    facebookShow: [ 'get', '/:slug/admin/facebook', [
+      agendaSvc.mw.load( 'slug' ),
+      cmn.checkAdministrator(),
+      agendaSvc.mw.loadAdminLayout,
+      cmn.loadBaseData(),
+      show
+    ] ],
 
-}
+    facebookTabLink: [ 'get', '/agendas/:uid/facebook/tab/link', [
+      agendaSvc.mw.load( 'uid' ),
+      cmn.checkAdministrator(),
+      fb.tab.create
+    ] ],
+
+    facebookTabRedirect: [ 'get', '/facebook/tab/create/:state', [
+      fb.tab.redirect,
+      _onComplete
+    ] ]
+
+  }
 
 module.exports = function( path ) {
 
   var router = modLib.Router( routes );
 
   router.pre( [
-    cmn.flashSetter,
-    cmn.loadSession,
-    cmn.requireLogged( { redirect: 'agendaSignup', redirectParams: [ 'slug' ] } )
+    sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignup', { slug: 'slug' } ) )
   ] );
 
   return {
@@ -67,7 +69,7 @@ function _onComplete( req, res, next ) {
 
     if ( err ) return next( req.query.error_msg ? req.query.error_msg : err );
 
-    res.setFlash( req, 'The agenda tab was added to your page' );
+    sessions.setFlash( req, __( 'facebookTabAdded', req.lang ) );
 
     res.redirect( req.genUrl( 'facebookShow', { slug: agenda.slug } ) );
 

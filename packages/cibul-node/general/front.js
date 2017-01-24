@@ -2,7 +2,11 @@
 
 const landing = require( 'landing' ),
 
+  sessions = require( 'sessions' ),
+
   config = require( '../config' ),
+
+  __ = require( 'labels' )( require( 'labels/newsletter/subscribe' ) ),
 
   landingPages = landing( {
     en: config.root + '/discover',
@@ -24,9 +28,9 @@ const landing = require( 'landing' ),
 
   newsletter = require( 'newsletter' ),
 
-  mailer = require( 'mailer' );
+  mailer = require( 'mailer' ),
 
-var modLib = require( '../lib/moduleLib' ),
+  modLib = require( '../lib/moduleLib' ),
 
   model = require( '../services/model' ),
 
@@ -34,14 +38,22 @@ var modLib = require( '../lib/moduleLib' ),
 
   mwHelpers = require( '../services/lib/middlewareHelpers.js' ),
 
-  path,
-
   routes = {
     corpoHome: [ 'get', '/', [
       cmn.loadBaseData( 'oasfmain.css' ),
-      cmn.requireUnlogged,
+      sessions.middleware.ifLogged( cmn.redirectTo( 'homeShow' ) ),
       _corpoBrowserCache,
       corpo
+    ] ],
+    signout: [ 'get', '/signout', [
+      sessions.middleware.ifUnlogged( cmn.redirectTo() ),
+      sessions.middleware.close(),
+      cmn.redirectTo()
+    ] ],
+    session: [ 'get', '/session', [
+      sessions.middleware.ifUnlogged( ( req, res, next ) => { res.send( null ) } ),
+      sessions.middleware.load(),
+      ( req, res, next ) => { res.send( req.user ); }
     ] ],
     newsletterSubscribe: [ 'post', '/newsletter/subscribe', newsletterSubscribe ],
     serviceConnectCallback: [ 'get', '/services/:service/connect/callback', serviceConnectCallback ],
@@ -64,16 +76,12 @@ var modLib = require( '../lib/moduleLib' ),
     ] ],
   };
 
-module.exports = function ( p ) {
-
-  path = p;
+module.exports = path => {
 
   var router = modLib.Router( routes );
 
   router.pre( [
     cmn.loadLogger( 'general' ),
-    cmn.flashSetter,
-    cmn.loadSession,
     cmn.loadBaseData( 'oa.css' )
   ] );
 
@@ -95,14 +103,6 @@ function _corpoBrowserCache( req, res, next ) {
 function corpo( req, res, next ) {
 
   cmn.https( req, res, () => {
-
-    if ( req.session.logged ) {
-
-      res.redirect( 302, req.genUrl( 'homeShow' ) );
-
-      return;
-
-    }
 
     getStats()
       .then( ( [ agendas, contributors, events ] ) => {
@@ -198,13 +198,13 @@ function newsletterSubscribe( req, res ) {
 
       req.log( 'error', { service: 'newsletter', message: result.message, error: result.message } );
 
-      res.setFlash( req, 'Either the email is invalid or the newsletter service is unavailable. Please try again later.' );
+      sessions.setFlash( req, __( 'invalidEmail', req.lang ) );
 
       res.redirect( 302, req.genUrl( 'corpoHome' ) );
 
     } else {
 
-      res.setFlash( req, 'You have been added to the newsletter list. Thanks!' );
+      sessions.setFlash( req, __( 'subscribed', req.lang ) );
 
       res.redirect( 302, req.genUrl( 'corpoHome' ) );
 
@@ -360,7 +360,7 @@ function unsubscribeSubmit( req, res ) {
 
     } else {
 
-      res.setFlash( req, 'You will from now on no longer receive event emails at the address %email%', { '%email%': req.body.email } );
+      sessions.setFlash( req, __( 'unsubscribed', { '%email%': req.body.email }, req.lang ) );
 
       res.redirect( 302, '/' );
 

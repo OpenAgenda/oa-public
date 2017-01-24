@@ -21,7 +21,6 @@ module.exports = function( path ) {
 
   router.pre( [
     cmn.loadLogger( 'location front' ),
-    cmn.flashSetter,
     cmn.loadSession
   ] );
 

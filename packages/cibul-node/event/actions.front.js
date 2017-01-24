@@ -1,90 +1,91 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const modLib = require( '../lib/moduleLib' ),
 
-utils = require( 'utils' ),
+  utils = require( 'utils' ),
 
-cmn = require( '../lib/commons-app' ),
+  sessions = require( 'sessions' ),
 
-agendaSvc = require( '../services/agenda' ),
+  cmn = require( '../lib/commons-app' ),
 
-eventSvc = require( '../services/event' ),
+  agendaSvc = require( '../services/agenda' ),
 
-mailer = require( 'mailer' ),
+  eventSvc = require( '../services/event' ),
 
-async = require( 'async' ),
+  mailer = require( 'mailer' ),
 
-model = require( '../services/model' ),
+  async = require( 'async' ),
 
-config = require( '../config' ),
+  __ = require( 'labels' )( require( 'labels/event/actions' ) ),
 
-routes = {
+  model = require( '../services/model' ),
 
-  eventActionShow: [ 'get', '/events/:eventSlug/action', [
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    eventSvc.mw.format,
-    eventSvc.mw.loadUris,
-    _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
-    actionShow
-  ] ],
-  
-  eventActionDatesShow: [ 'get', '/events/:eventSlug/action/dates', [
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    eventSvc.mw.format,
-    eventSvc.mw.loadUris,
-    _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
-    actionDatesShow
-  ] ],
+  config = require( '../config' ),
 
-  agendaEventActionShow: [ 'get', '/:slug/events/:eventSlug/action', [
-    agendaSvc.mw.load( 'slug' ),
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    eventSvc.mw.format,
-    eventSvc.mw.loadUris,
-    _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
-    actionShow
-  ]],
+  routes = {
 
-  agendaEventActionDatesShow: [ 'get', '/:slug/events/:eventSlug/action/dates', [
-    agendaSvc.mw.load( 'slug' ),
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    eventSvc.mw.format,
-    eventSvc.mw.loadUris,
-    _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
-    actionDatesShow
-  ] ],
+    eventActionShow: [ 'get', '/events/:eventSlug/action', [
+      eventSvc.mw.load( 'eventSlug', 'slug' ),
+      eventSvc.mw.format,
+      eventSvc.mw.loadUris,
+      _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
+      actionShow
+    ] ],
+    
+    eventActionDatesShow: [ 'get', '/events/:eventSlug/action/dates', [
+      eventSvc.mw.load( 'eventSlug', 'slug' ),
+      eventSvc.mw.format,
+      eventSvc.mw.loadUris,
+      _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
+      actionDatesShow
+    ] ],
 
-  agendaEventMailSend: [ 'post', '/:slug/events/:eventSlug/email', [
-    agendaSvc.mw.load( 'slug' ),
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    eventSvc.mw.format,
-    eventSvc.mw.loadUris,
-    eventMailSend
-  ] ],
+    agendaEventActionShow: [ 'get', '/:slug/events/:eventSlug/action', [
+      agendaSvc.mw.load( 'slug' ),
+      eventSvc.mw.load( 'eventSlug', 'slug' ),
+      eventSvc.mw.format,
+      eventSvc.mw.loadUris,
+      _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
+      actionShow
+    ]],
 
-  agendaEventIcsShow: [ 'get', '/:slug/events/:eventSlug/ics', [
-    agendaSvc.mw.load( 'slug' ),
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    eventSvc.mw.ics
-  ] ],
+    agendaEventActionDatesShow: [ 'get', '/:slug/events/:eventSlug/action/dates', [
+      agendaSvc.mw.load( 'slug' ),
+      eventSvc.mw.load( 'eventSlug', 'slug' ),
+      eventSvc.mw.format,
+      eventSvc.mw.loadUris,
+      _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
+      actionDatesShow
+    ] ],
 
-  eventMailSend: [ 'post', '/events/:eventSlug/email', [
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    eventSvc.mw.format,
-    eventSvc.mw.loadUris,
-    eventMailSend
-  ] ]
+    agendaEventMailSend: [ 'post', '/:slug/events/:eventSlug/email', [
+      agendaSvc.mw.load( 'slug' ),
+      eventSvc.mw.load( 'eventSlug', 'slug' ),
+      eventSvc.mw.format,
+      eventSvc.mw.loadUris,
+      eventMailSend
+    ] ],
 
-}
+    agendaEventIcsShow: [ 'get', '/:slug/events/:eventSlug/ics', [
+      agendaSvc.mw.load( 'slug' ),
+      eventSvc.mw.load( 'eventSlug', 'slug' ),
+      eventSvc.mw.ics
+    ] ],
+
+    eventMailSend: [ 'post', '/events/:eventSlug/email', [
+      eventSvc.mw.load( 'eventSlug', 'slug' ),
+      eventSvc.mw.format,
+      eventSvc.mw.loadUris,
+      eventMailSend
+    ] ]
+
+  }
 
 module.exports = function( path ) {
 
   var router = modLib.Router( routes );
 
-  router.pre( [
-    cmn.flashSetter,
-    cmn.loadSession
-  ] );
+  router.pre( [] );
 
   return {
     load: router.load( path ),
@@ -120,7 +121,7 @@ function actionShow( req, res ) {
       params: req.eventUriParams
     },
     agenda: req.agenda ? req.agenda : false,
-    logged: req.session.logged
+    logged: sessions.isLogged( req )
   };
 
   if ( req.query.back ) {
@@ -223,7 +224,7 @@ function eventMailSend( req, res, next ) {
         html: renders.html
       } );
 
-      res.setFlash( req, 'The event is being sent to %count% emails', { '%count%' : emails.length } );
+      sessions.setFlash( req, __( 'eventEmailSend', { '%count%' : emails.length } ) );
       
       res.redirect( 302, req.genUrl( req.eventUri, req.eventUriParams ) );
 

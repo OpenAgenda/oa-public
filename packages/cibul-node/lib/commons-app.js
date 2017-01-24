@@ -5,6 +5,12 @@
  */
 
 
+const sessions = require( 'sessions' ),
+
+  _ = require( 'lodash' ),
+
+  detailedSessionLoad = sessions.middleware.load( { detailed: true } );
+
 module.exports = {
 
   loadLogger,
@@ -15,9 +21,6 @@ module.exports = {
   errorResponse,                // render error page
   catchError,                   // the heir of standard error handling
 
-  isLogged,                     // this guy speaks for himself.
-  requireLogged,                // middleware. verify if user is logged
-  requireUnlogged,
   https,                        // middleware. force https ( redirect to when not )
 
   requireAdmin,
@@ -25,7 +28,6 @@ module.exports = {
   loadSession,                  // middleware. load session data
   loadUserUid,
   checkCredential,              // middleware. check that request agenda has required credential
-  flashSetter,                  // middleware. set a flash prior to redirect
 
   checkAdministrator,           // middleware. checks that logged user is administrator of loaded agenda
   checkModerator,
@@ -43,7 +45,9 @@ module.exports = {
   readCookie,
 
   redirectLegacySearch,
-  loadLegacyRoutes
+  loadLegacyRoutes,
+
+  redirectTo
 
 }
 
@@ -52,8 +56,6 @@ module.exports = {
  */
 
 var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2, R_MW = 3,
-
-  express = require( 'express' ),
 
   logger = require( 'logger' ),
 
@@ -138,7 +140,7 @@ function loadEvent( paramName, fieldName ) {
 
 function checkAdministrator( options ) {
 
-  var params = utils.extend( {
+  const params = utils.extend( {
     name: 'agenda',
     message: 'You do not have access to the administration of this agenda.',
     redirect: false
@@ -146,7 +148,13 @@ function checkAdministrator( options ) {
 
   return function ( req, res, next ) {
 
-    wn.call( req[ params.name ].isAdministrator, { id: req.session.userId } )
+    _prepareSession( req, res, err => {
+
+      if ( err ) return next( err );
+
+      if ( !sessions.isLogged( req ) ) return next( { code: 403 } );
+
+      wn.call( req[ params.name ].isAdministrator, { id: req.user.id } )
 
       .then( isAdmin => {
 
@@ -154,7 +162,7 @@ function checkAdministrator( options ) {
 
           if ( params.redirect ) {
 
-            res.setFlash( req, params.message );
+            sessions.setFlash( req, params.message );
 
             return res.redirect( params.redirect );
 
@@ -177,25 +185,34 @@ function checkAdministrator( options ) {
 
       } );
 
+    } );
   }
 
 }
 
 function checkModerator( req, res, next ) {
 
-  wn.call( req.agenda.isModerator, { id: req.session.userId } )
+  _prepareSession( req, res, err => {
 
-    .then( function ( isModerator ) {
+    if ( err ) return next( err );
 
-      if ( !isModerator ) throw { message: 'You do not have access to the moderation of this agenda.', code: 403 };
+    if ( !sessions.isLogged( req ) ) return next( { code: 403 } );
 
-      next();
+    wn.call( req.agenda.isModerator, { id: req.user.id } )
 
-    } )
+      .then( function ( isModerator ) {
 
-    .catch( function ( err ) {
+        if ( !isModerator ) throw { message: 'You do not have access to the moderation of this agenda.', code: 403 };
 
-      errorResponse( req, res, err );
+        next();
+
+      } )
+
+      .catch( function ( err ) {
+
+        errorResponse( req, res, err );
+
+      } );
 
     } );
 
@@ -204,23 +221,31 @@ function checkModerator( req, res, next ) {
 
 function checkContributor( req, res, next ) {
 
-  async.parallel( [
-    async.apply( req.agenda.isAdministrator, { id: req.session.userId } ),
-    async.apply( req.agenda.isModerator, { id: req.session.userId } ),
-    async.apply( req.agenda.isContributor, { id: req.session.userId } )
-  ], ( err, results ) => {
+  _prepareSession( req, res, err => {
 
     if ( err ) return next( err );
 
-    if ( !results.filter( ( r ) => {
-        return r;
-      } ).length ) {
+    if ( !sessions.isLogged( req ) ) return next( { code: 403 } );
 
-      return next( { code: 403 } );
+    async.parallel( [
+      async.apply( req.agenda.isAdministrator, { id: req.user.id } ),
+      async.apply( req.agenda.isModerator, { id: req.user.id } ),
+      async.apply( req.agenda.isContributor, { id: req.user.id } )
+    ], ( err, results ) => {
 
-    }
+      if ( err ) return next( err );
 
-    next();
+      if ( !results.filter( ( r ) => {
+          return r;
+        } ).length ) {
+
+        return next( { code: 403 } );
+
+      }
+
+      next();
+
+    } );
 
   } );
 
@@ -229,18 +254,26 @@ function checkContributor( req, res, next ) {
 
 function checkAdminOrModerator( req, res, next ) {
 
-  async.parallel( [
-    async.apply( req.agenda.isAdministrator, { id: req.session.userId } ),
-    async.apply( req.agenda.isModerator, { id: req.session.userId } )
-  ], function ( err, results ) {
+  _prepareSession( req, res, err => {
 
     if ( err ) return next( err );
 
-    if ( !results[ 0 ] && !results[ 1 ] ) return next( { code: 403 } );
+    if ( !sessions.isLogged( req ) ) return next( { code: 403 } );
 
-    req.access = results[ 0 ] ? 'administrator' : 'moderator';
+    async.parallel( [
+      async.apply( req.agenda.isAdministrator, { id: req.user.id } ),
+      async.apply( req.agenda.isModerator, { id: req.user.id } )
+    ], function ( err, results ) {
 
-    next();
+      if ( err ) return next( err );
+
+      if ( !results[ 0 ] && !results[ 1 ] ) return next( { code: 403 } );
+
+      req.access = results[ 0 ] ? 'administrator' : 'moderator';
+
+      next();
+
+    } );
 
   } );
 
@@ -248,11 +281,19 @@ function checkAdminOrModerator( req, res, next ) {
 
 function checkStakeholder( req, res, next ) {
 
-  req.agenda.isStakeholder( { id: req.session.userId }, ( err, is ) => {
+  _prepareSession( req, res, err => {
 
-    if ( !is ) return next( { code: 403 } );
+    if ( err ) return next( err );
 
-    next();
+    if ( !sessions.isLogged( req ) ) return next( { code: 403 } );
+
+    req.agenda.isStakeholder( { id: req.user.id }, ( err, is ) => {
+
+      if ( !is ) return next( { code: 403 } );
+
+      next();
+
+    } );
 
   } );
 
@@ -608,25 +649,13 @@ function loadUserUid( req, res, next ) {
 
 function loadSession( req, res, next ) {
 
-  if ( req.cookies[ config.cookie.name ] ) {
-
-    req.log.load( {
-      session: req.cookies[ config.cookie.name ].substr( 0, 10 )
-    } );
-
-  }
-
-  if ( req.session && req.session.userId ) {
+  if ( req.session && req.session.user ) {
 
     req.session.logged = true;
+    
+    req.user = req.session.user;
 
-    var user = {};
-
-    user.id = req.session.userId;
-
-    req.user = user;
-
-    req.log.load( { userId: user.id } );
+    req.log.load( { userUid: req.user.uid } );
 
   } else {
 
@@ -635,7 +664,7 @@ function loadSession( req, res, next ) {
 
     req.session.logged = false;
 
-    req.log.load( { userId: false } );
+    req.log.load( { userUid: false } );
 
   }
 
@@ -646,95 +675,38 @@ function loadSession( req, res, next ) {
 }
 
 
-function isLogged( req ) {
-
-  return !!req.session.logged;
-
-}
-
 /**
- * requiring logged client
- *
- * redirects to authShow if user is not logged
+ * returns middleware that redirects to given route&params ( uses req.genUrl )
  */
+function redirectTo( route = 'corpoHome', params = {}, code = 302 ) {
 
-function requireLogged( options ) {
+  return ( req, res, next ) => { 
 
-  var params = Object.assign( {
-    redirect: false,
-    redirectParams: []
-  }, options || {} );
+    let paramValues = {};
 
-  return ( req, res, next ) => {
+    Object.keys( params ).forEach( k => {
 
-    if ( isLogged( req ) ) {
+      paramValues[ k ] = _.get( req, params[ k ] )
 
-      next();
+    } );
 
-      return;
+    const redirect = req.genUrl( route, _.mapValues( params, k => _.get( req, k ) ) );
 
-    }
-
-    // is not logged, redirect to login screen
+    req.log( 'redirecting to %s', redirect );
 
     if ( req.xhr ) {
 
-      renderJson( req, res, {
-        success: false
-      } );
-
-    } else {
-
-      let redirectTo;
-
-      if ( !params.redirect ) {
-
-        redirectTo = req.genUrl( 'authShow', { redirect: ( new Buffer( req.originalUrl ) ).toString( 'base64' ) } );
-
-      } else {
-
-        let redirectValues = {};
-
-        params.redirectParams.forEach( ( p ) => {
-
-          redirectValues[ p ] = req.params[ p ];
-
-        } );
-
-        redirectTo = req.genUrl( params.redirect, redirectValues );
-
-      }
-
-      res.redirect( 302, redirectTo );
+      return renderJson( req, res, {
+        success: false,
+        redirect,
+        code
+      } )
 
     }
 
-  }
+    res.redirect( code, redirect )
 
-}
-
-
-function requireUnlogged( req, res, next ) {
-
-  if ( !isLogged( req ) ) {
-
-    next();
-
-    return;
-
-  }
-
-  if ( req.xhr ) {
-
-    renderJson( req, res, {
-      success: false
-    } );
-
-  } else {
-
-    res.redirect( 302, req.genUrl( 'homeShow' ) );
-
-  }
+  };
 
 }
 
@@ -762,19 +734,26 @@ function https( req, res, next ) {
 
 function requireAdmin( req, res, next ) {
 
-  var id = req.user.id;
+  sessions.get( req, { detailed: true }, ( err, session ) => {
 
-  if ( [ 1, 2, 9281, 11258, 15453 ].indexOf( parseInt( id, 10 ) ) !== -1 ) {
+    if ( err ) return next( err );
 
-    next();
+    let id = session.id;
 
-  } else {
+    if ( [ 1, 2, 11258, 15453 ].indexOf( parseInt( id ) ) !== -1 ) {
 
-    res.setFlash( req, 'Beat it.' );
+      next();
 
-    res.redirect( 302, req.genUrl( 'corpoHome' ) );
+    } else {
 
-  }
+      sessions.setFlash( req, 'Eerrh nooo, no esta, nooo, bye bye.' );
+
+      res.redirect( 302, req.genUrl( 'corpoHome' ) );
+
+    }
+
+  } )
+
 
 }
 
@@ -824,27 +803,6 @@ function checkCredential( name, options ) {
 }
 
 
-/**
- * add setFlash to response
- */
-
-function flashSetter( req, res, next ) {
-
-  res.setFlash = function ( req, text, values ) {
-
-    if ( !values ) values = {};
-
-    req.log( 'debug', 'setting flash to "%s"', text );
-
-    writeToCookie( req, res, 'flash', i18n( text, values, _getLang( req ) ) );
-
-  };
-
-  req.setFlash = res.setFlash.bind( null, req );
-
-  next();
-
-}
 
 
 function getRedirect( req, paramName ) {
@@ -1119,5 +1077,26 @@ function redirectLegacySearch( req, res, next ) {
   }
 
   next();
+
+}
+
+
+function _prepareSession( req, res, cb ) {
+
+  if ( !req.user || req.user.id ) {
+
+    detailedSessionLoad( req, res, err => { 
+
+      if ( err ) return cb( err );
+
+      cb();
+
+    } );
+
+  } else {
+
+    cb();
+
+  }
 
 }

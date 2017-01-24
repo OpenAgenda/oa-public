@@ -78,7 +78,6 @@ routes = {
   ] ],
 
   agendaSourceAdd: [ 'get', '/addTo/:aggUid', [
-    cmn.flashSetter,
     agendaSvc.mw.load( 'uid' ),
     agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
     cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
@@ -87,7 +86,6 @@ routes = {
   ] ],
 
   agendaSourceRemove: [ 'get', '/removeFrom/:aggUid', [
-    cmn.flashSetter,
     agendaSvc.mw.load( 'uid' ),
     agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
     cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
@@ -103,8 +101,7 @@ module.exports = function( path ) {
 
   router.pre( [
     cmn.redirectLegacySearch,
-    cmn.loadLogger( 'agenda front' ),
-    cmn.loadSession
+    cmn.loadLogger( 'agenda front' )
   ] );
 
   return {

@@ -24,8 +24,6 @@ module.exports = function( path ) {
   var router = modLib.Router( routes );
 
   router.pre( [
-    cmn.flashSetter,
-    cmn.loadSession,
     agendaSvc.mw.load( 'slug' ),
     embedSvc.mw.load( 'embedUid', 'uid' )
   ] );
@@ -51,8 +49,6 @@ function switchToV2( req, res, next ) {
       embedId: req.embed.id,
       agendaSlug: req.agenda.slug
     } );
-
-    res.setFlash( req, 'You can now configure and use the latest embed codes on your website' );
 
     res.redirect( 302, req.genUrl( 'agendaEmbedIndex', { slug: req.agenda.slug } ) );
 

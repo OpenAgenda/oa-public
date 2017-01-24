@@ -14,6 +14,8 @@ pLib = require( './lib/passport' ),
 
 auth = require( './lib/auth' )( 'twitter' ),
 
+sessions = require( 'sessions' ),
+
 deepExtend = require( 'deep-extend' ),
 
 genUrl = require( '../services/genUrl' ),
@@ -39,11 +41,9 @@ module.exports = function( path ) {
   var router = modLib.Router( routes );
 
   router.pre( [
-    cmn.flashSetter,
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
     cmn.loadBaseData( auth.layoutData, 'oa.css' ),
-    cmn.loadSession,
-    cmn.requireUnlogged
+    sessions.middleware.ifLogged( cmn.redirectTo() ),
   ] );
 
   return {
@@ -139,12 +139,7 @@ function _processSignin( req, res, next ) {
 
   pLib.authenticate( 'twitter-signin', {}, function( err, profile, data ) {
 
-    w( {
-      err: err,
-      profile: profile,
-      req: req,
-      res: res
-    } )
+    w( { err, profile, req, res } )
 
     .then( auth.attemptAuth )
 

@@ -22,12 +22,9 @@ deepExtend = require( 'deep-extend' ),
 
 loadAgenda = require( '../../services/agenda' ).mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
 
-session = require( './session' ),
+sessions = require( 'sessions' ),
 
 exposed = {
-  setSession: session.set,
-  unsetSession: session.unset,
-  checkUnloggedAndUpdateRedis,
   signin,
   layoutData,
   ifUserLoaded,
@@ -279,8 +276,8 @@ function signin( values ) {
 
   values.req.log( 'info', 'signing in user %s', user.email );
 
-  session.set( req, res, user, () => {
-
+  sessions.open( req, user, ( err, session ) => {
+    
     var redirectUrl;
 
     user.refreshLastSignin( ( err ) => {
@@ -609,20 +606,6 @@ function fullNameFromEmail( emailInput ) {
 
 }
 
-
-/**
- * check that user is logged and update redis either way
- */
-
-function checkUnloggedAndUpdateRedis( req, res, next ) {
-
-  session.syncRedis( req, res, function( err ) {
-
-    cmn.requireUnlogged( req, res, next );
-
-  } );
-
-}
 
 function done( values ) {
 

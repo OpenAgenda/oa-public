@@ -1,154 +1,156 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const sessions = require( 'sessions' ),
 
-cmn = require( '../lib/commons-app' ),
+  modLib = require( '../lib/moduleLib' ),
 
-config = require( '../config' ),
+  cmn = require( '../lib/commons-app' ),
 
-lib = require( '../lib/lib' ),
+  config = require( '../config' ),
 
-agendaSvc = require( '../services/agenda' ),
+  lib = require( '../lib/lib' ),
 
-agendaSearch = require( 'agenda-search' ),
+  agendaSvc = require( '../services/agenda' ),
 
-eventSvc = require( '../services/event' ),
+  agendaSearch = require( 'agenda-search' ),
 
-embedSvc = require( '../services/embed/embed' ),
+  eventSvc = require( '../services/event' ),
 
-mwHelpers = require( '../services/lib/middlewareHelpers' ),
+  embedSvc = require( '../services/embed/embed' ),
 
-perPage = 20,
+  mwHelpers = require( '../services/lib/middlewareHelpers' ),
 
-deepExtend = require( 'deep-extend' ),
+  perPage = 20,
 
-wn = require( 'when/node' ),
+  deepExtend = require( 'deep-extend' ),
 
-async = require( 'async' ),
+  wn = require( 'when/node' ),
 
-i18n = require( '../i18n/i18n' ),
+  async = require( 'async' ),
 
-timeHelper = require( 'cibulTemplates' ).helpers.time,
+  i18n = require( '../i18n/i18n' ),
 
-fb = require( 'facebook' ),
+  timeHelper = require( 'cibulTemplates' ).helpers.time,
 
-utils = require( 'utils' ),
+  fb = require( 'facebook' ),
 
-routes = {
+  utils = require( 'utils' ),
 
-  embedControlData: [ 'get', '/agendas/:uid/embeds/:embedUid/controldata', [ 
-    agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
-    embedSvc.mw.load( 'embedUid', 'uid' ),
-    embedSvc.mw.browserCacheControlData,
-    controlData
-  ] ],
-  
-  controlData: [ 'get', '/agendas/:uid/controldata', [ 
-    agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
-    agendaSvc.mw.browserCacheControlData,
-    controlData
-  ] ],
+  routes = {
 
-  agendaFacebook: [ 'post', '/facebook/tab', [
-    cmn.redirectLegacySearch,
-    cmn.useEmbedGoogleAnalytics,
-    fb.tab.loadAgendaId,
-    _loadAgendaByAgendaId,
-    _redirectToEmbed
-  ]],
-  
-  agendaEmbedShow: [ 'get', '/agendas/:uid/embed/events', [
-    cmn.redirectLegacySearch,
-    agendaSvc.mw.load( 'uid', { cache: true } ),
-    agendaSvc.mw.browserCache,
-    agendaSvc.mw.search( perPage ),
-    _format,
-    _appendFacebookParams,
-    _formatEmbedHeadLinks,
-    _formatEmbedLinks,
-    embedSvc.mw.renderEventItems,
-    embedSvc.mw.renderHeader,
-    showXhr( 'agenda/embedShow' ), 
-    cmn.useEmbedGoogleAnalytics,
-    cmn.loadBaseData( _layoutData, 'oae.css' ),  // this needs to switch to embed base css ( can be deactivated )
-    embedShow
-  ] ],
-  
-  customEmbedShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events', [ 
-    cmn.redirectLegacySearch,
-    agendaSvc.mw.load( 'uid', { cache: true } ),
-    embedSvc.mw.load( 'embedUid', 'uid' ),
-    embedSvc.mw.browserCache,
-    agendaSvc.mw.search( perPage ),
-    _format,
-    _formatEmbedHeadLinks,
-    _formatCustomEmbedLinks,
-    embedSvc.mw.renderEventItems,
-    embedSvc.mw.renderHeader,
-    showXhr( 'agenda/embedShow' ),
-    cmn.useEmbedGoogleAnalytics,
-    cmn.loadBaseData( _layoutData ),
-    embedSvc.mw.loadCustomLayoutData,
-    embedShow
-  ] ],
+    embedControlData: [ 'get', '/agendas/:uid/embeds/:embedUid/controldata', [ 
+      agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
+      embedSvc.mw.load( 'embedUid', 'uid' ),
+      embedSvc.mw.browserCacheControlData,
+      controlData
+    ] ],
+    
+    controlData: [ 'get', '/agendas/:uid/controldata', [ 
+      agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
+      agendaSvc.mw.browserCacheControlData,
+      controlData
+    ] ],
 
-  customEmbedShowPreview: [ 'get', '/agendas/:uid/previewEmbeds/:embedUid/events', [
-    cmn.redirectLegacySearch,
-    ( req, res, next ) => { req.preview = true; next() },
-    agendaSvc.mw.load( 'uid', { cache: true } ),
-    cmn.checkAdministrator(),
-    embedSvc.mw.load( 'embedUid', 'uid' ),
-    agendaSvc.mw.search( perPage, true ),
-    _format,
-    _formatEmbedHeadLinks,
-    _formatCustomEmbedLinks,
-    embedSvc.mw.renderEventItems,
-    embedSvc.mw.renderHeader,
-    showXhr( 'agenda/embedShow' ),
-    cmn.useEmbedGoogleAnalytics,
-    cmn.loadBaseData( _layoutData ),
-    embedSvc.mw.loadCustomLayoutData,
-    embedShow
-  ] ],
+    agendaFacebook: [ 'post', '/facebook/tab', [
+      cmn.redirectLegacySearch,
+      cmn.useEmbedGoogleAnalytics,
+      fb.tab.loadAgendaId,
+      _loadAgendaByAgendaId,
+      _redirectToEmbed
+    ]],
+    
+    agendaEmbedShow: [ 'get', '/agendas/:uid/embed/events', [
+      cmn.redirectLegacySearch,
+      agendaSvc.mw.load( 'uid', { cache: true } ),
+      agendaSvc.mw.browserCache,
+      agendaSvc.mw.search( perPage ),
+      _format,
+      _appendFacebookParams,
+      _formatEmbedHeadLinks,
+      _formatEmbedLinks,
+      embedSvc.mw.renderEventItems,
+      embedSvc.mw.renderHeader,
+      showXhr( 'agenda/embedShow' ), 
+      cmn.useEmbedGoogleAnalytics,
+      cmn.loadBaseData( _layoutData, 'oae.css' ),  // this needs to switch to embed base css ( can be deactivated )
+      embedShow
+    ] ],
+    
+    customEmbedShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events', [ 
+      cmn.redirectLegacySearch,
+      agendaSvc.mw.load( 'uid', { cache: true } ),
+      embedSvc.mw.load( 'embedUid', 'uid' ),
+      embedSvc.mw.browserCache,
+      agendaSvc.mw.search( perPage ),
+      _format,
+      _formatEmbedHeadLinks,
+      _formatCustomEmbedLinks,
+      embedSvc.mw.renderEventItems,
+      embedSvc.mw.renderHeader,
+      showXhr( 'agenda/embedShow' ),
+      cmn.useEmbedGoogleAnalytics,
+      cmn.loadBaseData( _layoutData ),
+      embedSvc.mw.loadCustomLayoutData,
+      embedShow
+    ] ],
 
-  agendaSearch: [ 'get', '/agendas', [
-    _modifiedSince1am,
-    agendaSearch.mw.list,
-    cmn.loadBaseData( 'oasfmain.css' ),
-    agendaSearchPage
-  ] ],
+    customEmbedShowPreview: [ 'get', '/agendas/:uid/previewEmbeds/:embedUid/events', [
+      cmn.redirectLegacySearch,
+      ( req, res, next ) => { req.preview = true; next() },
+      agendaSvc.mw.load( 'uid', { cache: true } ),
+      cmn.checkAdministrator(),
+      embedSvc.mw.load( 'embedUid', 'uid' ),
+      agendaSvc.mw.search( perPage, true ),
+      _format,
+      _formatEmbedHeadLinks,
+      _formatCustomEmbedLinks,
+      embedSvc.mw.renderEventItems,
+      embedSvc.mw.renderHeader,
+      showXhr( 'agenda/embedShow' ),
+      cmn.useEmbedGoogleAnalytics,
+      cmn.loadBaseData( _layoutData ),
+      embedSvc.mw.loadCustomLayoutData,
+      embedShow
+    ] ],
 
-  agendaSearchFormats: [ 'get', '/agendas.:format', agendaSearch.mw.list ],
+    agendaSearch: [ 'get', '/agendas', [
+      _modifiedSince1am,
+      agendaSearch.mw.list,
+      cmn.loadBaseData( 'oasfmain.css' ),
+      agendaSearchPage
+    ] ],
 
-  agendaSearchRebuild: [ 'get', '/agendas/rebuild', [
-    agendaSearch.mw.rebuild,
-    agendaSearchRebuildRedirect
-  ] ],
+    agendaSearchFormats: [ 'get', '/agendas.:format', agendaSearch.mw.list ],
 
-  agendaRedirect: [ 'get', '/agendas/:uid', [
-    cmn.redirectLegacySearch,
-    agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
-    redirect
-  ] ],
-  
-  agendaShow: [ 'get', '/:slug', [ 
-    cmn.redirectLegacySearch,
-    agendaSvc.mw.load( 'slug', { cache: true } ),
-    agendaSvc.mw.browserCache,
-    agendaSvc.mw.search( perPage ),
-    _format,
-    _formatShowLinks,
-    showXhr( 'agenda/show' ),
-    cmn.loadBaseData( _layoutData, 'oasfmain.css' ),
-    show
-  ] ],
+    agendaSearchRebuild: [ 'get', '/agendas/rebuild', [
+      agendaSearch.mw.rebuild,
+      agendaSearchRebuildRedirect
+    ] ],
 
-  agendaResync: [ 'get', '/:slug/resync', [
-    agendaSvc.mw.load( 'slug', { cache: true } ),
-    resync
-  ] ]
+    agendaRedirect: [ 'get', '/agendas/:uid', [
+      cmn.redirectLegacySearch,
+      agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
+      redirect
+    ] ],
+    
+    agendaShow: [ 'get', '/:slug', [ 
+      cmn.redirectLegacySearch,
+      agendaSvc.mw.load( 'slug', { cache: true } ),
+      agendaSvc.mw.browserCache,
+      agendaSvc.mw.search( perPage ),
+      _format,
+      _formatShowLinks,
+      showXhr( 'agenda/show' ),
+      cmn.loadBaseData( _layoutData, 'oasfmain.css' ),
+      show
+    ] ],
 
-};
+    agendaResync: [ 'get', '/:slug/resync', [
+      agendaSvc.mw.load( 'slug', { cache: true } ),
+      resync
+    ] ]
+
+  };
 
 module.exports = function( path ) {
 
@@ -156,8 +158,6 @@ module.exports = function( path ) {
 
   router.pre( [
     cmn.loadLogger( 'agenda front' ),
-    cmn.flashSetter,
-    cmn.loadSession
   ] );
 
   return {
@@ -241,7 +241,7 @@ function resync( req, res ) {
 
   } );
 
-  res.setFlash( req, 'resync is ongoing' );
+  sessions.setFlash( req, 'resync is ongoing' );
 
   redirect( req, res );
 
@@ -291,7 +291,7 @@ function agendaSearchPage( req, res, next ) {
 
 function agendaSearchRebuildRedirect( req, res, next ) {
 
-  res.setFlash( req, 'rebuilding agenda search index' );
+  sessions.setFlash( req, 'rebuilding agenda search index' );
 
   res.redirect( 302, req.genUrl( 'agendaSearch' ) );
 

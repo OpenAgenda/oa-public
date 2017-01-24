@@ -1,35 +1,37 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const modLib = require( '../lib/moduleLib' ),
 
-cmn = require( '../lib/commons-app' ),
+  cmn = require( '../lib/commons-app' ),
 
-w = require( 'when' ),
+  w = require( 'when' ),
 
-deepExtend = require( 'deep-extend' ),
+  deepExtend = require( 'deep-extend' ),
 
-auth = require( './lib/auth' ),
+  auth = require( './lib/auth' ),
 
-model = require( '../services/model' ),
+  model = require( '../services/model' ),
 
-log = require( 'logger' )( 'auth/local' ),
+  log = require( 'logger' )( 'auth/local' ),
 
-config = require( '../config' ),
+  config = require( '../config' ),
 
-lib = require( '../lib/lib' ),
+  lib = require( '../lib/lib' ),
 
-userSvc = require( '../services/user' ),
+  userSvc = require( '../services/user' ),
 
-agendaSvc = require( '../services/agenda' ),
+  agendaSvc = require( '../services/agenda' ),
 
-routes = {
+  sessions = require( 'sessions' ),
 
-  comexposiumSignin: [ 'get', '/comex/signin', [
-    auth.checkUnloggedAndUpdateRedis,
-    comexposiumSignin
-  ] ]
+  routes = {
 
-};
+    comexposiumSignin: [ 'get', '/comex/signin', [
+      sessions.middleware.ifLogged( cmn.redirectTo() ),
+      comexposiumSignin
+    ] ]
+
+  };
 
 module.exports = function( path ) {
 
@@ -38,9 +40,7 @@ module.exports = function( path ) {
   log( 'initing' );
 
   router.pre( [
-    cmn.https,
-    cmn.flashSetter,
-    cmn.loadSession
+    cmn.https
   ] );
 
   return {

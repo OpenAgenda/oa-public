@@ -1,5 +1,7 @@
 "use strict";
 
+const sessions = require( 'sessions' );
+
 var modLib = require( '../lib/moduleLib' ),
 
 log = require( 'logger' )( 'newsletter/back' ),
@@ -53,10 +55,8 @@ module.exports = function( path ) {
 
   router.pre( [
     agendaSvc.mw.load( 'slug' ),
-    cmn.flashSetter,
-    cmn.loadSession,
     cmn.loadBaseData( _layoutData ),
-    cmn.requireLogged(),
+    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     cmn.checkCredential( 'newsletters' ),
     cmn.checkAdministrator()
   ] );

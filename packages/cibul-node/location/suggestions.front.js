@@ -2,15 +2,17 @@
 
 const modLib = require( '../lib/moduleLib' ),
 
-cmn = require( '../lib/commons-app' ),
+  cmn = require( '../lib/commons-app' ),
 
-bodyParser = require( 'body-parser' ),
+  bodyParser = require( 'body-parser' ),
 
-agendaSvc = require( '../services/agenda' ),
+  agendaSvc = require( '../services/agenda' ),
 
-locationSvc = require( 'agenda-locations' ),
+  locationSvc = require( 'agenda-locations' ),
 
-stakeholderMw = require( 'agenda-stakeholders/middleware' );
+  stakeholderMw = require( 'agenda-stakeholders/middleware' ),
+
+  sessions = require( 'sessions' );
 
 let mw = locationSvc.mw();
 
@@ -37,9 +39,7 @@ module.exports = function( path ) {
   let router = modLib.Router( routes );
 
   router.pre( [
-    cmn.flashSetter,
-    cmn.loadSession,
-    cmn.requireLogged( { redirect: 'agendaSignup', redirectParams: [ 'slug' ] } ),
+    sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignup', { slug: 'slug' } ) ),
     cmn.loadUserUid,
     agendaSvc.mw.load( 'slug' ),
     cmn.checkStakeholder,

@@ -1,18 +1,22 @@
 "use strict";
 
-var svc,
+const sessions = require( 'sessions' ),
 
-p = require( '../../../lib/promises' ), w = p.w,
+  log = require( 'logger' )( 'event middleware' ),
 
-log = require( 'logger' )( 'event middleware' ),
+  utils = require( 'utils' ),
 
-utils = require( 'utils' ),
+  async = require( 'async' ),
 
-async = require( 'async' ),
+  i18n = require( '../../../i18n/i18n' ),
 
-config = require( '../../../config' ),
+  p = require( '../../../lib/promises' ),
 
-i18n = require( '../../../i18n/i18n' );
+  w = p.w,
+
+  config = require( '../../../config' );
+
+let svc;
 
 module.exports = function( eventService ) {
 
@@ -320,7 +324,7 @@ function _selectLanguage( v ) {
 
 function _loadOwnershipCreds( v ) {
 
-  if ( !v.req.session.logged ) return v;
+  if ( !sessions.isLogged( v.req ) ) return v;
 
   if ( v.event.ownerId == v.req.session.userId ) {
 
@@ -339,7 +343,7 @@ function _loadUserAgendaCreds( v ) {
 
   v.req.log( 'loading user agenda creds' );
 
-  if ( !v.req.session.logged ) {
+  if ( !sessions.isLogged( v.req ) ) {
 
     v.req.log( 'user is not logged' );
 
@@ -384,7 +388,7 @@ function _loadUserAgendaCreds( v ) {
 
 function _loadUserCreds( v ) {
 
-  v.user.logged = v.req.session.logged;
+  v.user.logged = sessions.isLogged( v.req );
 
   if ( !v.user.logged ) return v;
 

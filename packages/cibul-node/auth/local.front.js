@@ -1,119 +1,84 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const modLib = require( '../lib/moduleLib' ),
 
-cmn = require( '../lib/commons-app' ),
+  cmn = require( '../lib/commons-app' ),
 
-w = require( 'when' ),
+  w = require( 'when' ),
 
-deepExtend = require( 'deep-extend' ),
+  deepExtend = require( 'deep-extend' ),
 
-auth = require( './lib/auth' ),
+  auth = require( './lib/auth' ),
 
-https = require( 'https' ),
+  https = require( 'https' ),
 
-log = require( 'logger' )( 'auth/local' ),
+  log = require( 'logger' )( 'auth/local' ),
 
-config = require( '../config' ),
+  config = require( '../config' ),
 
-lib = require( '../lib/lib' ),
+  lib = require( '../lib/lib' ),
 
-userSvc = require( '../services/user' ),
+  userSvc = require( '../services/user' ),
 
-agendaSvc = require( '../services/agenda' ),
+  __ = require( 'labels' )( require( 'labels/auth/activation' ) ),
 
-pLib = require( './lib/passport' ),
+  agendaSvc = require( '../services/agenda' ),
 
-routes = {
+  pLib = require( './lib/passport' ),
 
-  signin: [ 'get', '/signin', [ 
-    auth.checkUnloggedAndUpdateRedis,
-    _presetEmail,
-    auth.renderSignin 
-  ] ],
+  sessions = require( 'sessions' ),
 
-  agendaSignin: [ 'get', '/:slug/signin', [
-    auth.checkUnloggedAndUpdateRedis,
-    _presetEmail,
-    auth.renderSignin
-  ] ],
+  routes = {
 
-  signinSubmit: [ 'post', '/signin', [ 
-    cmn.requireUnlogged, 
-    signinSubmit
-  ] ],
+    signin: [ 'get', '/signin', [ 
+      _presetEmail,
+      auth.renderSignin 
+    ] ],
 
-  agendaSigninSubmit: [ 'post', '/:slug/signin', [
-    cmn.requireUnlogged,
-    signinSubmit
-  ] ],
+    agendaSignin: [ 'get', '/:slug/signin', [
+      _presetEmail,
+      auth.renderSignin
+    ] ],
 
-  signout: [ 'get', '/signout', [
-    cmn.requireLogged(),
-    signout
-  ] ],
-  
-  signup: [ 'get', '/signup', [ 
-    cmn.requireUnlogged,
-    _loadCaptcha,
-    _guessFullName,
-    auth.renderSignup
-  ] ],
+    signinSubmit: [ 'post', '/signin', signinSubmit ],
 
-  agendaSignup: [ 'get', '/:slug/signup', [
-    cmn.requireUnlogged,
-    _loadCaptcha,
-    _guessFullName,
-    auth.renderSignup
-  ] ],
+    agendaSigninSubmit: [ 'post', '/:slug/signin', signinSubmit ],
+    
+    signup: [ 'get', '/signup', [ 
+      _loadCaptcha,
+      _guessFullName,
+      auth.renderSignup
+    ] ],
 
-  signupSubmit: [ 'post', '/signup', [
-    cmn.requireUnlogged,
-    signupSubmit
-  ] ],
+    agendaSignup: [ 'get', '/:slug/signup', [
+      _loadCaptcha,
+      _guessFullName,
+      auth.renderSignup
+    ] ],
 
-  agendaSignupSubmit: [ 'post', '/:slug/signup', [
-    cmn.requireUnlogged,
-    signupSubmit
-  ] ],
+    signupSubmit: [ 'post', '/signup', signupSubmit ],
 
-  signupComplete: [ 'get', '/signup/complete', [
-    cmn.requireUnlogged,
-    signupComplete
-  ] ],
+    agendaSignupSubmit: [ 'post', '/:slug/signup', signupSubmit ],
 
-  agendaSignupComplete: [ 'get', '/:slug/signup/complete', [
-    cmn.requireUnlogged,
-    signupComplete
-  ]],
+    signupComplete: [ 'get', '/signup/complete', signupComplete ],
 
-  activateResend: [ 'get', '/activate/resend', [
-    cmn.requireUnlogged,
-    activateResend
-  ] ],
+    agendaSignupComplete: [ 'get', '/:slug/signup/complete', signupComplete ],
 
-  agendaActivateResend: [ 'get', '/:slug/activate/resend', [
-    cmn.requireUnlogged,
-    activateResend
-  ]],
+    activateResend: [ 'get', '/activate/resend', activateResend ],
 
-  activate: [ 'get', '/activate/:token', [
-    cmn.requireUnlogged,
-    activate
-  ] ],
+    agendaActivateResend: [ 'get', '/:slug/activate/resend', activateResend ],
 
-  agendaActivate: [ 'get', '/:slug/activate/:token', [
-    cmn.requireUnlogged,
-    activate
-  ] ]
+    activate: [ 'get', '/activate/:token', activate ],
 
-},
+    agendaActivate: [ 'get', '/:slug/activate/:token', activate ]
 
-useOptions = {
-  usernameField: 'email',
-  passwordField: 'password',
-  passReqToCallback: true
-};
+  },
+
+  useOptions = {
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+  };
 
 
 module.exports = function( path ) {
@@ -128,10 +93,9 @@ module.exports = function( path ) {
 
   router.pre( [
     cmn.https,
-    cmn.flashSetter,
+    sessions.middleware.ifLogged( cmn.redirectTo() ),
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
-    cmn.loadBaseData( auth.layoutData, 'oa.css' ),
-    cmn.loadSession
+    cmn.loadBaseData( auth.layoutData, 'oa.css' )
   ] );
 
   return {
@@ -141,22 +105,6 @@ module.exports = function( path ) {
 
 }
 
-
-
-
-/**
- * controllers
- */
-
-function signout( req, res ) {
-
-  auth.unsetSession( req, res, function() {
-
-    res.redirect( 302, req.genUrl( 'corpoHome' ) );
-
-  } );
-
-}
 
 function signinSubmit( req, res, next ) {
 
@@ -244,7 +192,7 @@ function activateResend( req, res ) {
 
     .then( function( values ) {
 
-      res.setFlash( req, 'The activation email is being sent again' );
+      sessions.setFlash( req, __( 'sendAgain', req.lang ) );
 
       return lib.extend( values, { req: req, res: res } );
 
@@ -300,9 +248,6 @@ function _handleSigninRequest( req, email, password, done ) {
   userSvc.auth( email, password, done );
 
 }
-
-
-
 
 
 function _ifHasErrors( has, func ) {

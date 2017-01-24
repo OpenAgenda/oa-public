@@ -1,42 +1,42 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const modLib = require( '../lib/moduleLib' ),
 
-cmn = require( '../lib/commons-app' ),
+  cmn = require( '../lib/commons-app' ),
 
-config = require( '../config' ),
+  config = require( '../config' ),
 
-lib = require( '../lib/lib' ),
+  lib = require( '../lib/lib' ),
 
-pLib = require( './lib/passport' ),
+  pLib = require( './lib/passport' ),
 
-auth = require( './lib/auth' )( 'google' ),
+  auth = require( './lib/auth' )( 'google' ),
 
-genUrl = require( '../services/genUrl' ),
+  genUrl = require( '../services/genUrl' ),
 
-agendaSvc = require( '../services/agenda' ),
+  agendaSvc = require( '../services/agenda' ),
 
-w = require( 'when' ),
+  w = require( 'when' ),
 
-routes = {
-  googleSignin: [ 'get', '/google/signin', signin ],
-  agendaGoogleSignin: [ 'get', '/:slug/google/signin', signin ],
-  googleSigninCallback: [ 'get', '/google/signin/callback', auth.serviceCallback( auth.process( 'google', 'signin' ) ) ],
-  googleSignup: [ 'get', '/google/signup', signup ],
-  agendaGoogleSignup: [ 'get', '/:slug/google/signup', signup ],
-  googleSignupCallback: [ 'get', '/google/signup/callback', auth.serviceCallback( auth.process( 'google', 'signup' ) ) ]
-};
+  routes = {
+    googleSignin: [ 'get', '/google/signin', signin ],
+    agendaGoogleSignin: [ 'get', '/:slug/google/signin', signin ],
+    googleSigninCallback: [ 'get', '/google/signin/callback', auth.serviceCallback( auth.process( 'google', 'signin' ) ) ],
+    googleSignup: [ 'get', '/google/signup', signup ],
+    agendaGoogleSignup: [ 'get', '/:slug/google/signup', signup ],
+    googleSignupCallback: [ 'get', '/google/signup/callback', auth.serviceCallback( auth.process( 'google', 'signup' ) ) ]
+  },
+
+  sessions = require( 'sessions' );
 
 module.exports = function( path ) {
 
   var router = modLib.Router( routes );
 
   router.pre( [
-    cmn.flashSetter,
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
     cmn.loadBaseData( auth.layoutData, 'oa.css' ),
-    cmn.loadSession,
-    cmn.requireUnlogged
+    sessions.middleware.ifLogged( cmn.redirectTo() )
   ] );
 
   return {

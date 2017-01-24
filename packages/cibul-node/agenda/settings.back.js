@@ -9,6 +9,7 @@ const bodyParser = require( 'body-parser' );
 const agendaSettings = require( 'agenda-settings' );
 const mw = agendaSettings.mw;
 const agendaSvc = require( '../services/agenda' );
+const sessions = require( 'sessions' );
 
 const labels = require( 'labels/agenda-settings/agendaEdition' );
 const getLabel = require( 'labels' )( labels );
@@ -78,7 +79,7 @@ module.exports = path => {
       cmn.checkAdministrator(),
       mw.removeAgenda,
       ( req, res ) => {
-        req.setFlash( getLabel( 'agendaRemoved', req.lang ) );
+        sessions.setFlash( req, getLabel( 'agendaRemoved', req.lang ) );
         res.json( { redirectTo: req.genUrl( 'homeShow' ) } );
       }
     ] ]
@@ -88,9 +89,7 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadLogger( 'agendaSettings' ),
-    cmn.flashSetter,
-    cmn.loadSession,
-    cmn.requireLogged(),
+    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     bodyParser.json()
   ] );
 

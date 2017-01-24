@@ -1,92 +1,101 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const sessions = require( 'sessions' ),
 
-agendaSvc = require( '../services/agenda' ),
+  _ = require( 'lodash' ),
 
-eventSvc = require( '../services/event' ),
+  modLib = require( '../lib/moduleLib' ),
 
-userSvc = require( '../services/user' ),
+  agendaSvc = require( '../services/agenda' ),
 
-async = require( 'async' ),
+  eventSvc = require( '../services/event' ),
 
-referencesSvc = require( 'agenda-event-references' ),
+  userSvc = require( '../services/user' ),
 
-cmn = require( '../lib/commons-app' ),
+  async = require( 'async' ),
 
-log = require( 'logger' )( 'legacy' ),
+  referencesSvc = require( 'agenda-event-references' ),
 
-utils = require( 'utils' ),
+  cmn = require( '../lib/commons-app' ),
 
-bodyParser = require( 'body-parser' ),
+  log = require( 'logger' )( 'legacy' ),
 
-mailer = require( 'mailer' ),
+  utils = require( 'utils' ),
 
-routes = {
+  bodyParser = require( 'body-parser' ),
 
-  /**
-   * provide to sf the html of the head section of an agenda
-   */
-  headPart: [ 'get', '/:slug/head', [
-    agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
-    head
-  ] ],
+  mailer = require( 'mailer' ),
 
+  routes = {
 
-  /**
-   * process a save for a custom image
-   */
-  customImageSave: [ 'get', '/:slug/events/:eventUid/custom/:field/user/:userUid', [
-    agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
-    _loadEventByUid,
-    customImageSave
-  ] ],
+    /**
+     * provide to sf the html of the head section of an agenda
+     */
+    headPart: [ 'get', '/:slug/head', [
+      agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+      head
+    ] ],
 
 
-  eventCreate: [ 'get', '/:slug/events/:eventUid/create', [
-    agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
-    _loadEventByUid,
-    eventCreate
-  ] ],
+    /**
+     * process a save for a custom image
+     */
+    customImageSave: [ 'get', '/:slug/events/:eventUid/custom/:field/user/:userUid', [
+      agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+      _loadEventByUid,
+      customImageSave
+    ] ],
 
 
-  /**
-   * process a save for event references
-   */
-  eventReferencesSave: [ 'get', '/:slug/events/:eventUid/references', [
-    agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
-    _loadEventByUid,
-    referencesSave
-  ] ],
+    eventCreate: [ 'get', '/:slug/events/:eventUid/create', [
+      agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+      _loadEventByUid,
+      eventCreate
+    ] ],
+
+
+    /**
+     * process a save for event references
+     */
+    eventReferencesSave: [ 'get', '/:slug/events/:eventUid/references', [
+      agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+      _loadEventByUid,
+      referencesSave
+    ] ],
 
 
 
-  /**
-   * process an event delete
-   */
-  eventDelete: [ 'get', '/events/:eventUid/delete', [
-    _loadEventByUid,
-    eventDelete
-  ] ],
+    /**
+     * process an event delete
+     */
+    eventDelete: [ 'get', '/events/:eventUid/delete', [
+      _loadEventByUid,
+      eventDelete
+    ] ],
 
-  /**
-   * log sf messages
-   */
-  log: [ 'post', '/log', [
-    bodyParser.json(),
-    logController 
-  ] ],
+    /**
+     * log sf messages
+     */
+    log: [ 'post', '/log', [
+      bodyParser.json(),
+      logController 
+    ] ],
 
 
-  /**
-   * send mails on behalf of sf
-   */
-  mail: [ 'post', '/mail', [
-    bodyParser.json(),
-    mail
-  ] ]
+    /**
+     * send mails on behalf of sf
+     */
+    mail: [ 'post', '/mail', [
+      bodyParser.json(),
+      mail
+    ] ],
 
-};
+    /**
+     * provide session data to sf
+     */
+    session: [ 'get', '/session', session ]
+
+  };
 
 module.exports = function( path ) {
 
@@ -157,6 +166,19 @@ function referencesSave( req, res, next ) {
       res.send( 'ok' );
 
     } );
+
+  } );
+
+}
+
+
+function session( req, res, next ) {
+
+  sessions.get( req, { detailed: true }, ( err, user ) => {
+
+    if ( err ) return next( err );
+
+    res.send( user );
 
   } );
 

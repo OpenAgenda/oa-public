@@ -53,6 +53,8 @@ const servicePath = __dirname + '/../services',
 
   homeSvc = require( 'home' ),
 
+  sessions = require( 'sessions' ),
+
   aggregatorSourcesSvc = require( 'aggregator-sources' ),
 
   coms = require( './coms' );
@@ -77,6 +79,8 @@ module.exports = function ( config, cb ) {
   w( config )
 
     .then( _initLogger )
+
+    .then( _initSessions )
 
     .then( _initGenUrl )
 
@@ -779,6 +783,44 @@ function _initGenUrl( config ) { // sync
   log( 'info', 'genUrl' );
 
   genUrl.init( { domain: config.domain } );
+
+  return config;
+
+}
+
+
+function _initSessions( config ) {
+
+  log( 'info', 'sessions' );
+
+  sessions.init( {
+    redis: {
+      host: config.redis.host,
+      port: config.redis.port,
+      hash: config.session.namespace
+    },
+    sessionCookie: config.session,
+    interfaces: {
+      getUser: ( query, cb ) => {
+
+        userSvc.get( query, { detailed: true }, ( err, u ) => {
+
+          if ( err || !u ) return cb( err, u );          
+
+          cb( null, {
+            id: u.id,
+            uid: u.uid,
+            name: u.full_name,
+            thumbnail: u.image ? config.aws.imageBucketPath + u.image : null,
+            email: u.email,
+            culture: u.culture
+          } );
+
+        } );
+
+      }
+    }
+  } );
 
   return config;
 

@@ -85,6 +85,7 @@
     "tumblr-parser": "git+ssh://git@bitbucket.org:openagenda/tumblr-parser.git",
     "users": "git+ssh://git@bitbucket.org:openagenda/users.git",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
+    "sessions" : "git+ssh://git@bitbucket.org:openagenda/sessions.git",
     "validator": "3.40.0",
     "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git",
     "when": "~3.4",

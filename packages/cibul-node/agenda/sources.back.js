@@ -10,6 +10,7 @@ const aggregatorSourcesSvc = require( 'aggregator-sources' );
 const model = require( '../services/model' );
 const agendaSvc = require( '../services/agenda' );
 const mw = aggregatorSourcesSvc.mw;
+const sessions = require( 'sessions' );
 
 
 const routes = {
@@ -54,9 +55,7 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadLogger( 'aggregatorSources' ),
-    cmn.flashSetter,
-    cmn.loadSession,
-    cmn.requireLogged(),
+    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     bodyParser.json()
   ] );
 

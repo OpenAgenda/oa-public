@@ -1,42 +1,42 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const modLib = require( '../lib/moduleLib' ),
 
-cmn = require( '../lib/commons-app' ),
+  cmn = require( '../lib/commons-app' ),
 
-config = require( '../config' ),
+  config = require( '../config' ),
 
-lib = require( '../lib/lib' ),
+  lib = require( '../lib/lib' ),
 
-pLib = require( './lib/passport' ),
+  pLib = require( './lib/passport' ),
 
-auth = require( './lib/auth' )( 'facebook' ),
+  auth = require( './lib/auth' )( 'facebook' ),
 
-w = require( 'when' ),
+  w = require( 'when' ),
 
-genUrl = require( '../services/genUrl' ),
+  genUrl = require( '../services/genUrl' ),
 
-agendaSvc = require( '../services/agenda' ),
+  agendaSvc = require( '../services/agenda' ),
 
-routes = {
-  facebookSignin: [ 'get', '/facebook/signin', signin ],
-  agendaFacebookSignin: [ 'get', '/:slug/facebook/signin', signin ],
-  facebookSigninCallback: [ 'get', '/facebook/signin/callback', auth.process( 'facebook', 'signin' ) ],
-  facebookSignup: [ 'get', '/facebook/signup', signup ],
-  agendaFacebookSignup: [ 'get', '/:slug/facebook/signup', signup ],
-  facebookSignupCallback: [ 'get', '/facebook/signup/callback', auth.process( 'facebook', 'signup' ) ]
-};
+  routes = {
+    facebookSignin: [ 'get', '/facebook/signin', signin ],
+    agendaFacebookSignin: [ 'get', '/:slug/facebook/signin', signin ],
+    facebookSigninCallback: [ 'get', '/facebook/signin/callback', auth.process( 'facebook', 'signin' ) ],
+    facebookSignup: [ 'get', '/facebook/signup', signup ],
+    agendaFacebookSignup: [ 'get', '/:slug/facebook/signup', signup ],
+    facebookSignupCallback: [ 'get', '/facebook/signup/callback', auth.process( 'facebook', 'signup' ) ]
+  },
+
+  sessions = require( 'sessions' );
 
 module.exports = function( path ) {
 
   var router = modLib.Router( routes );
 
   router.pre( [
-    cmn.flashSetter,
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
     cmn.loadBaseData( auth.layoutData, 'oa.css' ),
-    cmn.loadSession,
-    cmn.requireUnlogged
+    sessions.middleware.ifLogged( cmn.redirectTo() )
   ] );
 
   return {

@@ -1,5 +1,7 @@
 "use strict";
 
+const sessions = require( 'sessions' );
+
 var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
@@ -37,7 +39,7 @@ module.exports = function( path ) {
   router.pre( [
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
     cmn.loadSession,
-    cmn.requireLogged(),
+    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     cmn.checkContributor,
     _checkField
   ] );

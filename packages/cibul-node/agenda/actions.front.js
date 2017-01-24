@@ -1,61 +1,64 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const sessions = require( 'sessions' ),
 
-cmn = require( '../lib/commons-app' ),
+  __ = require( 'labels' )( require( 'labels/agendas/errors' ) ),
 
-path,
+  modLib = require( '../lib/moduleLib' ),
 
-w = require( 'when' ),
+  cmn = require( '../lib/commons-app' ),
 
-eventSvc = require( '../services/event' ),
+  w = require( 'when' ),
 
-agendaSvc = require( '../services/agenda' ),
+  eventSvc = require( '../services/event' ),
 
-model = require( '../services/model' ),
+  agendaSvc = require( '../services/agenda' ),
 
-async = require( 'async' ),
+  model = require( '../services/model' ),
 
-getActionLabel = require( 'labels' )( require( 'labels/event/actions' ) ),
+  async = require( 'async' ),
 
-routes = {
+  getActionLabel = require( 'labels' )( require( 'labels/event/actions' ) ),
 
-  agendaActionShow: [ 'get', '/', actionShow ],
+  routes = {
 
-  agendaEventAdd: [ 'get', '/add/:eventUid', [
-    cmn.requireLogged(),
-    eventSvc.mw.load( 'eventUid', 'uid', { inAgendaContext: false } ),
-    _getRedirect,
-    cmn.checkStakeholder,
-    _verifyAlreadyAdded,
-    eventAdd
-  ] ],
+    agendaActionShow: [ 'get', '/', [ 
+      sessions.middleware.load( { detailed: true } ),
+      actionShow 
+    ] ],
 
-  agendaEventRemove: [ 'get', '/remove/:eventUid', [
-    cmn.requireLogged(),
-    eventSvc.mw.load( 'eventUid', 'uid' ),
-    _getRedirect,
-    cmn.checkStakeholder,
-    eventRemove
-  ] ]
+    agendaEventAdd: [ 'get', '/add/:eventUid', [
+      sessions.middleware.load(),
+      sessions.middleware.ifUnlogged( cmn.redirectTo() ),
+      eventSvc.mw.load( 'eventUid', 'uid', { inAgendaContext: false } ),
+      _getRedirect,
+      cmn.checkStakeholder,
+      _verifyAlreadyAdded,
+      eventAdd
+    ] ],
 
-};
+    agendaEventRemove: [ 'get', '/remove/:eventUid', [
+      sessions.middleware.load(),
+      sessions.middleware.ifUnlogged( cmn.redirectTo() ),
+      eventSvc.mw.load( 'eventUid', 'uid' ),
+      _getRedirect,
+      cmn.checkStakeholder,
+      eventRemove
+    ] ]
+
+  };
 
 module.exports = function( p ) {
-
-  path = p;
 
   var router = modLib.Router( routes );
 
   router.pre( [
-    cmn.flashSetter,
-    cmn.loadSession,
     agendaSvc.mw.load( 'slug' )
   ] );
 
   return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
+    load: router.load( p ),
+    paths: modLib.getPaths( p, routes )
   };
 
 }
@@ -88,7 +91,7 @@ function actionShow( req, res ) {
 
   .then( function( values ) {
 
-    if ( !req.session.logged ) return values;
+    if ( !sessions.isLogged( req ) ) return values;
 
     return w.promise( ( rs, rj ) => {
 
@@ -99,8 +102,8 @@ function actionShow( req, res ) {
       // list agendas which have the aggregator feature and of which user is admin
 
       async.each( [
-        { aggregator: true, adminId: req.session.userId, limit: false },
-        { aggregator: true, ownerId: req.session.userId, limit: false }
+        { aggregator: true, adminId: req.user.id, limit: false },
+        { aggregator: true, ownerId: req.user.id, limit: false }
       ], ( query, ecb ) => {
 
         model.reviews().list( query, ( err, agendas ) => {
@@ -144,7 +147,7 @@ function actionShow( req, res ) {
 
   .then( function( values ) {
 
-    if ( !req.session.logged ) return values;
+    if ( !sessions.isLogged( req ) ) return values;
 
     // get current aggregating agendas
     // and cross reference with users admined agendas
@@ -269,7 +272,7 @@ function _verifyAlreadyAdded( req, res, next ) {
 
     if ( has ) {
 
-      res.setFlash( req, 'event is already part of agenda' );
+      sessions.setFlash( req, __( 'eventAlreadyAdded', req.lang ) );
 
       res.redirect( req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } ) );
 
@@ -295,7 +298,7 @@ function _onActionComplete( req, res, success, message ) {
 
   }
 
-  res.setFlash( req, message );
+  sessions.setFlash( req, message )
 
   if ( req.redirect ) {
 

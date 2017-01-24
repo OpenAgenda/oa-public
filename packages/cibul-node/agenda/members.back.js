@@ -9,6 +9,7 @@ const bodyParser = require( 'body-parser' );
 const stakeholdersSvc = require( 'agenda-stakeholders' );
 const mw = require( 'member-apps/middleware' )( stakeholdersSvc, { limit: 20 } );
 const agendaSvc = require( '../services/agenda' );
+const sessions = require( 'sessions' );
 
 
 const routes = {
@@ -51,9 +52,7 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadLogger( 'members' ),
-    cmn.flashSetter,
-    cmn.loadSession,
-    cmn.requireLogged(),
+    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     bodyParser.json()
   ] );
 

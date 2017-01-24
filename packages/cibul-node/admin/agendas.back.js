@@ -30,10 +30,7 @@ module.exports = function( path ) {
   moment.locale( 'fr' );
 
   router.pre( [
-    cmn.flashSetter,
     cmn.loadBaseData( 'compiledAdmin.css' ),
-    cmn.loadSession,
-    cmn.requireLogged(),
     cmn.requireAdmin
   ] );
 

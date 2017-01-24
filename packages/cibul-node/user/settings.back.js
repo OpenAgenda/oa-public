@@ -1,12 +1,16 @@
 "use strict";
 
+const sessions = require( 'sessions' ),
+
+  cmn = require( '../lib/commons-app' ),
+
+  logged = sessions.middleware.ifUnlogged( cmn.redirectTo() );
+
 var config = require( '../config' ),
 
   log = require( 'logger' )( 'user/settings.back' ),
 
   modLib = require( "../lib/moduleLib.js" ),
-
-  cmn = require( '../lib/commons-app' ),
 
   moment = require( 'moment' ),
 
@@ -30,21 +34,21 @@ var config = require( '../config' ),
 module.exports = function ( path ) {
 
   var routes = {
-    userSettingsGetMe: [ 'get', '/getMe', [ cmn.requireLogged(), mw.getMe ] ],
-    userSettingsUpdateProfile: [ 'get', '/updateProfile', [ cmn.requireLogged(), mw.updateProfile ] ],
-    userSettingsChangeEmail: [ 'get', '/changeEmail', [ cmn.requireLogged(), mw.requestChangeEmail, sendEmail ] ],
+    userSettingsGetMe: [ 'get', '/getMe', [ logged, mw.getMe ] ],
+    userSettingsUpdateProfile: [ 'get', '/updateProfile', [ logged, mw.updateProfile ] ],
+    userSettingsChangeEmail: [ 'get', '/changeEmail', [ logged, mw.requestChangeEmail, sendEmail ] ],
     userSettingsChangeEmailConfirmation: [ 'get', '/changeEmail/confirm', mw.confirmChangeEmail ],
-    userSettingsChangePassword: [ 'get', '/changePassword', [ cmn.requireLogged(), mw.changePassword ] ],
-    userSettingsGenerateApiKey: [ 'get', '/generateApiKey', [ cmn.requireLogged(), mw.generateApiKey ] ],
+    userSettingsChangePassword: [ 'get', '/changePassword', [ logged, mw.changePassword ] ],
+    userSettingsGenerateApiKey: [ 'get', '/generateApiKey', [ logged, mw.generateApiKey ] ],
     userSettingsDeleteAccount: [ 'post', '/deleteAccount', [
-      cmn.requireLogged(),
+      logged,
       mw.deleteAccount,
       ( req, res ) => {
         req.setFlash( getLabels( 'accountRemoved', req.lang ) );
         res.json( { redirectTo: req.genUrl( 'signout' ) } );
       } ] ],
-    userSettingsUploadProfileImage: [ 'post', '/uploadProfileImage', [ cmn.requireLogged(), mw.uploadProfileImage ] ],
-    userSettingsRemoveProfileImage: [ 'post', '/removeProfileImage', [ cmn.requireLogged(), mw.removeProfileImage ] ],
+    userSettingsUploadProfileImage: [ 'post', '/uploadProfileImage', [ logged, mw.uploadProfileImage ] ],
+    userSettingsRemoveProfileImage: [ 'post', '/removeProfileImage', [ logged, mw.removeProfileImage ] ],
 
     userSettingsApp: [ 'get', '*', matchApp( path, index ) ]
   };
@@ -53,9 +57,7 @@ module.exports = function ( path ) {
 
   router.pre( [
     cmn.loadLogger( 'userSettings' ),
-    cmn.flashSetter,
-    cmn.loadBaseData( 'oasfmain.css' ),
-    cmn.loadSession
+    cmn.loadBaseData( 'oasfmain.css' )
   ] );
 
   return {

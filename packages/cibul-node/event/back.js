@@ -1,92 +1,93 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const modLib = require( '../lib/moduleLib' ),
 
-cmn = require( '../lib/commons-app' ),
+  cmn = require( '../lib/commons-app' ),
 
-eventSvc = require( '../services/event' ),
+  sessions = require( 'sessions' ),
 
-agendaSvc = require( '../services/agenda' ),
+  __ = require( 'labels' )( require( 'labels/event/states' ) ),
 
-eventReferences = require( 'agenda-event-references' ),
+  eventSvc = require( '../services/event' ),
 
-STATETYPES = require( '../services/model' ).events().STATETYPES,
+  agendaSvc = require( '../services/agenda' ),
 
-contributorLabels = require( 'labels/event/contributors' ),
+  eventReferences = require( 'agenda-event-references' ),
 
-w = require( 'when' ),
+  STATETYPES = require( '../services/model' ).events().STATETYPES,
 
-routes = {
+  contributorLabels = require( 'labels/event/contributors' ),
 
-  eventChangeState: [ 'get', '/events/:eventSlug/state/:type', [
-    agendaSvc.mw.load( 'slug' ), 
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    eventSvc.mw.checkEventEditor,
-    _checkAuthorizedChanges( [ STATETYPES.PUBLISHED ] ),
-    _changeState,
-    _redirect
-  ] ],
+  w = require( 'when' ),
 
-  agendaEventChangeState: [ 'get', '/:slug/events/:eventSlug/state/:type', [
-    agendaSvc.mw.load( 'slug' ),
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    _checkAuthorizedChanges( [ STATETYPES.VALIDATED, STATETYPES.NOTVALIDATED, STATETYPES.PUBLISHED ] ),
-    _changeStateCredential,
-    _changeState,
-    _xhrResponse,
-    _redirect
-  ] ],
+  routes = {
 
-  agendaEventChangeFeatured: [ 'get', '/:slug/events/:eventSlug/featured/:type', [
-    agendaSvc.mw.load( 'slug' ),
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    cmn.checkAdminOrModerator,
-    _checkAuthorizedChanges( [ 'featured', 'notfeatured' ] ),
-    _changeFeatured,
-    _redirect
-  ] ],
+    eventChangeState: [ 'get', '/events/:eventSlug/state/:type', [
+      agendaSvc.mw.load( 'slug' ), 
+      eventSvc.mw.load( 'eventSlug', 'slug' ),
+      eventSvc.mw.checkEventEditor,
+      _checkAuthorizedChanges( [ STATETYPES.PUBLISHED ] ),
+      _changeState,
+      _redirect
+    ] ],
 
-  agendaEventPrivate: [ 'get', '/agendas/:uid/events/:eventUid/private', [
-    agendaSvc.mw.load( 'uid' ),
-    eventSvc.mw.load( 'eventUid', 'uid' ),
-    cmn.checkAdminOrModerator,
-    getPrivateEventData
-  ] ],
+    agendaEventChangeState: [ 'get', '/:slug/events/:eventSlug/state/:type', [
+      agendaSvc.mw.load( 'slug' ),
+      eventSvc.mw.load( 'eventSlug', 'slug' ),
+      _checkAuthorizedChanges( [ STATETYPES.VALIDATED, STATETYPES.NOTVALIDATED, STATETYPES.PUBLISHED ] ),
+      _changeStateCredential,
+      _changeState,
+      _xhrResponse,
+      _redirect
+    ] ],
 
-  agendaEventReferences: [ 'get', '/agendas/:uid/events/:eventUid/references', [
-    agendaSvc.mw.load( 'uid' ),
-    eventSvc.mw.load( 'eventUid', 'uid' ),
-    _loadAdminOrModerator,
-    eventSvc.mw.components.getReferences,
-    ( req, res, next ) => {
+    agendaEventChangeFeatured: [ 'get', '/:slug/events/:eventSlug/featured/:type', [
+      agendaSvc.mw.load( 'slug' ),
+      eventSvc.mw.load( 'eventSlug', 'slug' ),
+      cmn.checkAdminOrModerator,
+      _checkAuthorizedChanges( [ 'featured', 'notfeatured' ] ),
+      _changeFeatured,
+      _redirect
+    ] ],
 
-      res.json( {
-        references: req.referencesRender
-      } );
+    agendaEventPrivate: [ 'get', '/agendas/:uid/events/:eventUid/private', [
+      agendaSvc.mw.load( 'uid' ),
+      eventSvc.mw.load( 'eventUid', 'uid' ),
+      cmn.checkAdminOrModerator,
+      getPrivateEventData
+    ] ],
 
-    }
-  ] ],
+    agendaEventReferences: [ 'get', '/agendas/:uid/events/:eventUid/references', [
+      agendaSvc.mw.load( 'uid' ),
+      eventSvc.mw.load( 'eventUid', 'uid' ),
+      _loadAdminOrModerator,
+      eventSvc.mw.components.getReferences,
+      ( req, res, next ) => {
 
-  // this name does not imply reference search
-  agendaEventReferenceSearch: [ 'get', '/agendas/:uid/events', [
-    cmn.requireLogged(),
-    agendaSvc.mw.load( 'uid' ),
-    ( req, res, next ) => { req.agendaId = req.agenda.id; next(); },
-    _loadAdminOrModerator,
-    eventReferences.mw.events,
-    ( req, res ) => { res.json( req.events ); }
-  ] ]
+        res.json( {
+          references: req.referencesRender
+        } );
 
-};
+      }
+    ] ],
+
+    // this name does not imply reference search
+    agendaEventReferenceSearch: [ 'get', '/agendas/:uid/events', [
+      sessions.middleware.ifUnlogged( cmn.redirectTo() ),
+      agendaSvc.mw.load( 'uid' ),
+      ( req, res, next ) => { req.agendaId = req.agenda.id; next(); },
+      _loadAdminOrModerator,
+      eventReferences.mw.events,
+      ( req, res ) => { res.json( req.events ); }
+    ] ]
+
+  };
 
 module.exports = function( path ) {
 
   var router = modLib.Router( routes );
 
-  router.pre( [
-    cmn.flashSetter,
-    cmn.loadSession
-  ] );
+  router.pre( [] );
 
   return {
     load: router.load( path ),
@@ -252,7 +253,11 @@ function _changeState( req, res, next ) {
 
     }
 
-    if ( !req.xhr ) res.setFlash( req, 'The event state has changed', {} );
+    if ( !req.xhr ) {
+
+      sessions.setFlash( req, __( 'stateChanged', req.lang ) );
+
+    }
 
     next();
 
@@ -278,7 +283,7 @@ function _changeFeatured( req, res, next ) {
 
     }
 
-    res.setFlash( req, req.params.type === 'featured' ? 'The event is now featured' : 'The event is no longer featured' );
+    sessions.setFlash( req, __( req.params.type === 'featured' ? 'featuredChange' : 'unfeaturedChange', req.lang ) );
 
     next();
 

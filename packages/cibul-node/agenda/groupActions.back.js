@@ -1,25 +1,31 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const sessions = require( 'sessions' ),
 
-cmn = require( '../lib/commons-app' ),
+  modLib = require( '../lib/moduleLib' ),
 
-path,
+  cmn = require( '../lib/commons-app' ),
 
-i18n = require( '../i18n/i18n' ),
+  i18n = require( '../i18n/i18n' ),
 
-agendaSvc = require( '../services/agenda' ),
+  agendaSvc = require( '../services/agenda' ),
 
-eventSvc = require( '../services/event' ),
+  eventSvc = require( '../services/event' ),
 
-routes = {
+  routes = {
 
-  agendaChangeEventStates: [ 'post', '/events/states', [
-    agendaSvc.mw.load( 'uid' ),
-    changeStates
-  ] ]
+    agendaChangeEventStates: [ 'post', '/events/states', [
+      agendaSvc.mw.load( 'uid' ),
+      changeStates
+    ] ]
 
-};
+  },
+
+  l = {
+    a: require( 'labels' )( require( 'labels/agendas/actions' ) ),
+    e: require( 'labels' )( require( 'labels/agendas/errors' ) ),
+    s: require( 'labels' )( require( 'labels/event/states' ) )
+  };
 
 module.exports = function( path ) {
 
@@ -28,8 +34,6 @@ module.exports = function( path ) {
   router.pre( [
     cmn.loadLogger( 'group actions' ),
     agendaSvc.mw.load( 'uid' ),
-    cmn.loadSession,
-    cmn.flashSetter,
     cmn.checkAdminOrModerator
   ] );
 
@@ -48,13 +52,13 @@ function changeStates( req, res, next ) {
 
   stateSwitch;
 
-  labels[ eventSvc.STATETYPES.NOTVALIDATED ] = 'to be completed';
-  labels[ eventSvc.STATETYPES.VALIDATED ] = 'ready to publish';
+  labels[ eventSvc.STATETYPES.NOTVALIDATED ] = 'tobecontrolled';
+  labels[ eventSvc.STATETYPES.VALIDATED ] = 'controlled';
   labels[ eventSvc.STATETYPES.PUBLISHED ] = 'published';
 
   if ( !req.body.state.length ) {
 
-    res.setFlash( req, 'Select an action to execute before pressing the button' );
+    sessions.setFlash( req, l.e( 'selectActionBefore', req.lang ) );
 
     res.redirect( 302, redirectRes );
 
@@ -71,7 +75,7 @@ function changeStates( req, res, next ) {
 
   if ( !stateSwitch ) {
 
-    res.setFlash( req, 'the action you requested is unknown' );
+    sessions.setFlash( req, l.e( 'unknownAction', req.lang ) );
 
     return res.redirect( 302, redirectRes );
 
@@ -83,10 +87,10 @@ function changeStates( req, res, next ) {
 
     req.log( 'info', 'changing state of agenda events from %s to %s', labels[ stateSwitch[ 0 ] ], labels[ stateSwitch[ 1 ] ] );
 
-    res.setFlash( req, 'Your action is being processed. Events in the state %oldstate% will shortly be changed to %newstate%.', { 
-      '%oldstate%' : '<strong>' + i18n( labels[ stateSwitch[ 0 ] ], req.lang ) + '</strong>',
-      '%newstate%' : '<strong>' + i18n( labels[ stateSwitch[ 1 ] ], req.lang ) + '</strong>'
-    } );
+    sessions.setFlash( req, l.a( 'actionsInProcess', { 
+      '%oldstate%' : '<strong>' + l.s( labels[ stateSwitch[ 0 ] ], req.lang ) + '</strong>',
+      '%newstate%' : '<strong>' + l.s( labels[ stateSwitch[ 1 ] ], req.lang ) + '</strong>'
+    }, req.lang ) );
 
     res.redirect( 302, redirectRes );
 

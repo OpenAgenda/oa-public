@@ -4,6 +4,7 @@ const config = require( '../config' );
 const modLib = require( "../lib/moduleLib.js" );
 const cmn = require( '../lib/commons-app' );
 const agendaSvc = require( '../services/agenda' );
+const sessions = require( 'sessions' );
 
 
 module.exports = path => {
@@ -30,9 +31,7 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadLogger( 'agendaBack' ),
-    cmn.flashSetter,
-    cmn.loadSession,
-    cmn.requireLogged(),
+    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdministrator(),
     agendaSvc.mw.loadAdminLayout,

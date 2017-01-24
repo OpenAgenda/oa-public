@@ -1,5 +1,7 @@
 "use strict";
 
+const sessions = require( 'sessions' );
+
 var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
@@ -49,9 +51,7 @@ module.exports = function( path ) {
   var router = modLib.Router( routes );
 
   router.pre( [
-    cmn.flashSetter,
-    cmn.loadSession,
-    cmn.requireLogged( { redirect: 'agendaSignup', redirectParams: [ 'slug' ] } )
+    sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignup', { slug: 'slug' } ) )
   ] );
 
   return {

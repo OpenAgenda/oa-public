@@ -1,138 +1,139 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const modLib = require( '../lib/moduleLib' ),
 
-cmn = require( '../lib/commons-app' ),
+  cmn = require( '../lib/commons-app' ),
 
-bodyParser = require( 'body-parser' ),
+  bodyParser = require( 'body-parser' ),
 
-agendaSvc = require( '../services/agenda' ),
+  agendaSvc = require( '../services/agenda' ),
 
-mw = require( 'agenda-locations' ).mw(),
+  mw = require( 'agenda-locations' ).mw(),
 
-routes = {
+  sessions = require( 'sessions' ),
 
-  locationIndex: [ 'get', '/:slug/locations', [
-    cmn.loadUserUid,
-    mw.list,
-    showList
-  ] ],
+  routes = {
 
-  agendaAdminLocations: [ 'get', '/:slug/admin/locations', [
-    cmn.checkAdminOrModerator,
-    agendaSvc.mw.loadAdminLayout,
-    cmn.loadBaseData( 'oasfmain.css' ),
-    cmn.loadUserUid,
-    mw.loadSettings(),
-    show
-  ] ],
+    locationIndex: [ 'get', '/:slug/locations', [
+      cmn.loadUserUid,
+      mw.list,
+      showList
+    ] ],
 
-  agendaLocationSet: [ 'post', '/:slug/locations', [
-    bodyParser.json(),
-    _checkCreate,
-    cmn.loadUserUid,
-    mw.setToValidate
-  ] ],
+    agendaAdminLocations: [ 'get', '/:slug/admin/locations', [
+      cmn.checkAdminOrModerator,
+      agendaSvc.mw.loadAdminLayout,
+      cmn.loadBaseData( 'oasfmain.css' ),
+      cmn.loadUserUid,
+      mw.loadSettings(),
+      show
+    ] ],
 
-  agendaAdminLocationSet: [ 'post', '/:slug/admin/locations', [
-    bodyParser.json(),
-    cmn.loadUserUid,
-    mw.set
-  ] ],
+    agendaLocationSet: [ 'post', '/:slug/locations', [
+      bodyParser.json(),
+      _checkCreate,
+      cmn.loadUserUid,
+      mw.setToValidate
+    ] ],
 
-  agendaAdminLocationRemove: [ 'post', '/:slug/admin/locations/remove', [
-    cmn.checkAdminOrModerator,
-    bodyParser.json(),
-    cmn.loadUserUid,
-    mw.remove
-  ] ],
+    agendaAdminLocationSet: [ 'post', '/:slug/admin/locations', [
+      bodyParser.json(),
+      cmn.loadUserUid,
+      mw.set
+    ] ],
 
-  agendaAdminLocationMerge: [ 'post', '/:slug/admin/locations/merge', [
-    cmn.checkAdminOrModerator,
-    bodyParser.json(),
-    mw.merge
-  ] ],
+    agendaAdminLocationRemove: [ 'post', '/:slug/admin/locations/remove', [
+      cmn.checkAdminOrModerator,
+      bodyParser.json(),
+      cmn.loadUserUid,
+      mw.remove
+    ] ],
 
-  agendaAdminLocationTerms: [ 'get', '/:slug/admin/locations/terms', [
-    cmn.checkAdminOrModerator,
-    mw.list.terms
-  ] ],
+    agendaAdminLocationMerge: [ 'post', '/:slug/admin/locations/merge', [
+      cmn.checkAdminOrModerator,
+      bodyParser.json(),
+      mw.merge
+    ] ],
 
-  locationGetStakeholder: [ 'get', '/:slug/admin/locations/stakeholders/:stakeholderId', [
-    cmn.checkAdminOrModerator,
-    ( req, res, next ) => {
+    agendaAdminLocationTerms: [ 'get', '/:slug/admin/locations/terms', [
+      cmn.checkAdminOrModerator,
+      mw.list.terms
+    ] ],
 
-      req.agendaId = req.agenda.id; 
-      req.stakeholderId = req.params.stakeholderId;
-      next();
+    locationGetStakeholder: [ 'get', '/:slug/admin/locations/stakeholders/:stakeholderId', [
+      cmn.checkAdminOrModerator,
+      ( req, res, next ) => {
 
-    },
-    mw.getStakeholder
-  ] ],
+        req.agendaId = req.agenda.id; 
+        req.stakeholderId = req.params.stakeholderId;
+        next();
 
-  locationGeocode: [ 'get', '/:slug/locations/geocode', [
-    cmn.loadUserUid,
-    mw.geocode
-  ] ],
+      },
+      mw.getStakeholder
+    ] ],
 
-  locationReverseGeocode: [ 'get', '/:slug/locations/geocode/reverse', [
-    cmn.loadUserUid,
-    mw.reverseGeocode
-  ] ],
+    locationGeocode: [ 'get', '/:slug/locations/geocode', [
+      cmn.loadUserUid,
+      mw.geocode
+    ] ],
 
-  locationResync: [ 'get', '/:slug/admin/locations/resync', [
-    mw.resync,
-    _resyncSuccess
-  ] ],
+    locationReverseGeocode: [ 'get', '/:slug/locations/geocode/reverse', [
+      cmn.loadUserUid,
+      mw.reverseGeocode
+    ] ],
 
-  locationToVerifyCount: [ 'get', '/:slug/admin/locations/verifycount', [
-    cmn.checkAdminOrModerator,
-    mw.getUnverifiedCount
-  ] ],
+    locationResync: [ 'get', '/:slug/admin/locations/resync', [
+      mw.resync,
+      _resyncSuccess
+    ] ],
 
-  locationNewImageUpload: [ 'post', '/:slug/locations/image', [
-    cmn.loadUserUid,
-    mw.newImageUpload
-  ] ],
+    locationToVerifyCount: [ 'get', '/:slug/admin/locations/verifycount', [
+      cmn.checkAdminOrModerator,
+      mw.getUnverifiedCount
+    ] ],
 
-  locationNewImageRemove: [ 'post', '/:slug/locations/image/remove', [
-    cmn.loadUserUid,
-    mw.newImageRemove
-  ] ],
+    locationNewImageUpload: [ 'post', '/:slug/locations/image', [
+      cmn.loadUserUid,
+      mw.newImageUpload
+    ] ],
 
-  locationImageUpload: [ 'post', '/:slug/locations/:locationUid/image', [
-    cmn.checkAdminOrModerator,
-    cmn.loadUserUid,
-    mw.imageUpload
-  ] ],
+    locationNewImageRemove: [ 'post', '/:slug/locations/image/remove', [
+      cmn.loadUserUid,
+      mw.newImageRemove
+    ] ],
 
-  locationImageRemove: [ 'post', '/:slug/locations/:locationUid/image/remove', [
-    cmn.checkAdminOrModerator,
-    cmn.loadUserUid,
-    mw.imageRemove
-  ] ],
+    locationImageUpload: [ 'post', '/:slug/locations/:locationUid/image', [
+      cmn.checkAdminOrModerator,
+      cmn.loadUserUid,
+      mw.imageUpload
+    ] ],
 
-  agendaLocationGet: [ 'get', '/:slug/locations/:locationUid', [
-    mw.load, ( req, res ) => { res.json( req.location ); }
-  ] ],
+    locationImageRemove: [ 'post', '/:slug/locations/:locationUid/image/remove', [
+      cmn.checkAdminOrModerator,
+      cmn.loadUserUid,
+      mw.imageRemove
+    ] ],
 
-  locationSuggestionRemove: [ 'post', '/:slug/locations/:locationUid/suggestion/remove', [
-    cmn.checkAdminOrModerator,
-    bodyParser.json(),
-    ( req, res, next ) => { req.stakeholderId = req.body.stakeholderId; console.log( req.body ); next(); },
-    mw.clearSuggestion
-  ] ]
+    agendaLocationGet: [ 'get', '/:slug/locations/:locationUid', [
+      mw.load, 
+      ( req, res ) => { res.json( req.location ); }
+    ] ],
 
-}
+    locationSuggestionRemove: [ 'post', '/:slug/locations/:locationUid/suggestion/remove', [
+      cmn.checkAdminOrModerator,
+      bodyParser.json(),
+      ( req, res, next ) => { req.stakeholderId = req.body.stakeholderId; console.log( req.body ); next(); },
+      mw.clearSuggestion
+    ] ]
+
+  };
 
 module.exports = function( path ) {
 
   var router = modLib.Router( routes );
 
   router.pre( [
-    cmn.flashSetter,
-    cmn.loadSession,
-    cmn.requireLogged( { redirect: 'agendaSignup', redirectParams: [ 'slug' ] } ),
+    sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignup', { slug: 'slug' } ) ),
     agendaSvc.mw.load( 'slug' )
   ] );
 
@@ -183,7 +184,7 @@ function show( req, res ) {
 
 function _resyncSuccess( req, res, next ) {
 
-  res.setFlash( req, 'resync is ongoing' );
+  sessions.setFlash( req, 'resync is ongoing' );
 
   res.redirect( req.genUrl( 'agendaAdminLocations', { slug: req.agenda.slug } ) );
 

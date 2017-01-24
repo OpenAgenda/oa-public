@@ -2,45 +2,47 @@
 
 const modLib = require( '../lib/moduleLib' ),
 
-cmn = require( '../lib/commons-app' ),
+  sessions = require( 'sessions' ),
 
-async = require( 'async' ),
+  cmn = require( '../lib/commons-app' ),
 
-agendaSvc = require( '../services/agenda' ),
+  async = require( 'async' ),
 
-agendaTags = require( 'agenda-tags' ),
+  agendaSvc = require( '../services/agenda' ),
 
-agendaCategories = require( 'agenda-categories' ),
+  agendaTags = require( 'agenda-tags' ),
 
-eventSvc = require( '../services/event' ),
+  agendaCategories = require( 'agenda-categories' ),
 
-bodyParser = require( 'body-parser' ),
+  eventSvc = require( '../services/event' ),
 
-getLabel = require( 'labels' )( require( 'labels/event/tagsForm' ) ),
+  bodyParser = require( 'body-parser' ),
 
-routes = {
+  getLabel = require( 'labels' )( require( 'labels/event/tagsForm' ) ),
 
-  agendaEventTagsForm: [ 'get', '/', [ 
-    _loadTagSet,
-    _loadTags,
-    _loadCategorySet,
-    _loadCategory,
-    xhrGet,
-    eventSvc.mw.format,
-    cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
-    page
-  ] ],
+  routes = {
 
-  agendaEventTagsFormSubmit: [ 'post', '/', [
-    _loadTagSet,
-    _loadCategorySet,
-    bodyParser.json(),
-    _validateTags,
-    _validateCategories,
-    update
-  ] ]
+    agendaEventTagsForm: [ 'get', '/', [ 
+      _loadTagSet,
+      _loadTags,
+      _loadCategorySet,
+      _loadCategory,
+      xhrGet,
+      eventSvc.mw.format,
+      cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
+      page
+    ] ],
 
-}
+    agendaEventTagsFormSubmit: [ 'post', '/', [
+      _loadTagSet,
+      _loadCategorySet,
+      bodyParser.json(),
+      _validateTags,
+      _validateCategories,
+      update
+    ] ]
+
+  }
 
 module.exports = path => {
 
@@ -50,7 +52,7 @@ module.exports = path => {
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     cmn.loadSession,
-    cmn.requireLogged(),
+    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     cmn.checkAdminOrModerator
   ] );
 

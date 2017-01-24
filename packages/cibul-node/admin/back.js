@@ -1,6 +1,8 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const sessions = require( 'sessions' ),
+
+  modLib = require( '../lib/moduleLib' ),
 
   cmn = require( '../lib/commons-app' ),
 
@@ -11,8 +13,6 @@ var modLib = require( '../lib/moduleLib' ),
   w = require( 'when' ),
 
   wn = require( 'when/node' ),
-
-  session = require( '../auth/lib/session' ),
 
   async = require( 'async' ),
 
@@ -32,7 +32,6 @@ var modLib = require( '../lib/moduleLib' ),
 
   agendasSvc = require( 'agendas' ),
 
-
   routes = {
     adminIndex: [ 'get', '/', index ],
     adminSearch: [ 'get', '/search', search ],
@@ -51,17 +50,14 @@ var modLib = require( '../lib/moduleLib' ),
   };
 
 
-module.exports = function ( path ) {
+module.exports = path => {
 
   var router = modLib.Router( routes );
 
   moment.locale( 'fr' );
 
   router.pre( [
-    cmn.flashSetter,
     cmn.loadBaseData(),
-    cmn.loadSession,
-    cmn.requireLogged(),
     cmn.requireAdmin
   ] );
 
@@ -268,7 +264,7 @@ function userActivate( req, res ) {
 
 function userSignin( req, res ) {
 
-  session.set( req, res, req.loadedUser, function () {
+  sessions.open( req, req.loadedUser, () => {
 
     if ( req.xhr ) return cmn.renderJson( req, res, { success: true } );
 

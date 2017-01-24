@@ -21,8 +21,6 @@ module.exports = function( path ) {
   var router = modLib.Router( routes );
 
   router.pre( [
-    cmn.flashSetter,
-    cmn.loadSession,
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdministrator(),
     cmn.checkCredential( 'emailstrategie' ),

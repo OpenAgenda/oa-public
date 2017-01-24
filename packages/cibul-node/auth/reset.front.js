@@ -1,32 +1,32 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const sessions = require( 'sessions' ),
 
-cmn = require( '../lib/commons-app' ),
+  modLib = require( '../lib/moduleLib' ),
 
-config = require( '../config' ),
+  cmn = require( '../lib/commons-app' ),
 
-w = require( 'when' ),
+  config = require( '../config' ),
 
-userSvc = require( '../services/user' ),
+  w = require( 'when' ),
 
-routes = {
-  lostPassword: [ 'get', '/lost', lostPassword ],
-  lostPasswordSubmit: [ 'post', '/lost', lostPasswordSubmit ],
-  resetPassword: [ 'get', '/reset/:token', resetPassword ],
-  resetPasswordSubmit: [ 'post', '/reset/:token', resetPasswordSubmit ]
-};
+  userSvc = require( '../services/user' ),
+
+  routes = {
+    lostPassword: [ 'get', '/lost', lostPassword ],
+    lostPasswordSubmit: [ 'post', '/lost', lostPasswordSubmit ],
+    resetPassword: [ 'get', '/reset/:token', resetPassword ],
+    resetPasswordSubmit: [ 'post', '/reset/:token', resetPasswordSubmit ]
+  };
 
 
-module.exports = function( path ) {
+module.exports = path => {
 
   var router = modLib.Router( routes );
 
   router.pre( [
-    cmn.flashSetter,
     cmn.loadBaseData(),
-    cmn.loadSession,
-    cmn.requireUnlogged
+    sessions.middleware.ifLogged( cmn.redirectTo() )
   ] );
 
   return {
@@ -130,9 +130,9 @@ function _render( req, res, uri, data ) {
 
 function _redirectToSignin( req, res, message ) {
 
-  return function( values ) {
+  return values => {
 
-    res.setFlash( req, message );
+    sessions.setFlash( req, message );
 
     res.redirect( 302, req.genUrl( 'signin' ) );
 
