@@ -16,8 +16,6 @@ var utils = require( 'utils' ),
 
   confirmMessage = require( './confirmMessage' ),
 
-  handleSession = require( './handleSession' ),
-
   headerProfile = require( './headerProfile' ),
 
   outdated = require( 'outdated-browser-rework' ),
@@ -54,12 +52,7 @@ outdated( {
   }
 } );
 
-/**
- * provide function to retrieve session data
- */
-
-window.getSession = handleSession();
-
+window.getSession = () => { console.log( 'calling old getSession' ) }
 
 du.asapReady( function () {
 
@@ -97,6 +90,7 @@ du.asapReady( function () {
 
 
 du.addEvent( window, 'load', function () {
+
 
   if ( !utils.size( params ) ) {
 

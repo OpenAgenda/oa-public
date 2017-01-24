@@ -20,7 +20,7 @@ qs = require( 'qs' ),
 
 getLabelFactory = require( 'labels' ),
 
-labels = ( require( 'labels/agendas/total' ) );
+labels = require( 'labels/agendas/total' );
 
 module.exports = function( selector, lang ) {
 
