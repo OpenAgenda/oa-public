@@ -122,7 +122,7 @@ describe( 'session - functional (server): open, close, get & update', () => {
   } );
 
 
-  describe( '.list', () => {
+  describe( '.scan', () => {
 
     beforeEach( h.clearRedis );
 
@@ -158,15 +158,39 @@ describe( 'session - functional (server): open, close, get & update', () => {
 
     } );
 
-    it( 'lists through open sessions', done => {
+    it( 'scans through open sessions', done => {
 
-      sessions.list( 0, 5, ( err, sessions, total ) => {
+      sessions.scan( 0, 5, ( err, sessions, nextCursor ) => {
 
         should( err ).equal( null );
 
-        sessions.length.should.equal( 5 );
+        nextCursor.should.not.equal( 0 );
 
-        total.should.equal( 10 );
+        sessions.length.should.not.equal( 0 );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'default fetch count is 10', done => {
+
+      sessions.scan( 0, ( err, sessions, nextCursor ) => {
+
+        should( err ).equal( null );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'nextCursor is 0 when end of scan is reached', done => {
+
+      sessions.scan( 6, 10, ( err, sessions, cursor ) => {
+
+        cursor.should.equal( 0 );
 
         done();
 

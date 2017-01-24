@@ -15,7 +15,7 @@ module.exports = {
   init,
   open,
   get,
-  list,
+  scan,
   sync,
   close,
   setFlash,
@@ -85,38 +85,35 @@ function sync( request, cb ) {
 
 }
 
-function list( qry, off, lim, opt, c ) {
+function scan( cursor, count, options, cb ) {
 
-  const { query, offset, limit, options, cb } = parseListArguments.apply( null, arguments );
+  if ( arguments.length == 3 ) {
+
+    options = {};
+    cb = arguments[ 2 ];
+
+  } else if ( arguments.length == 2 ) {
+
+    count = 10;
+    options = {};
+    cb = arguments[ 1 ];
+
+  }
 
   let cli = redis.createClient( config.redis.port, config.redis.host );
 
-  cli.hlen( config.redis.hash, ( err, total ) => {
+  cli.hscan( config.redis.hash, cursor, 'count', count, ( err, result ) => {
 
-    if ( err ) {
+    cli.quit();
 
-      cli.quit();
+    if ( err ) return cb( err );
 
-      cb( err );
-
-    }
-
-    cli.hscan( config.redis.hash, offset, 'count', limit, ( err, result ) => {
-
-      cli.quit();
-
-      if ( err ) return cb( err );
-
-      cb( null, result[ 1 ]
-        .filter( ( r, i ) => i % 2 !== 0 )
-        .map( JSON.parse ),
-        total );
-
-    } );
+    cb( null, result[ 1 ]
+      .filter( ( r, i ) => i % 2 !== 0 )
+      .map( JSON.parse ),
+      parseInt( result[ 0 ] ) );
 
   } );
-
-
 
 }
 
