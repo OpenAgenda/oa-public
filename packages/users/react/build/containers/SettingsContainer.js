@@ -133,7 +133,8 @@ var SettingsContainer = _wrapComponent('SettingsContainer')(React.createClass({
             {
               className: modal.buttonClass || 'btn btn-danger',
               onClick: function onClick() {
-                if (modal.action) modal.action();displayModal({ visible: false });
+                if (modal.action) modal.action();
+                displayModal({ visible: false });
               } },
             modal.actionText || ''
           )
@@ -223,9 +224,12 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
           } else {
             dispatch(actions.displayMessage('updateProfile', true));
             setTimeout(function () {
-              return dispatch(actions.displayMessage('updateProfile', false));
+              dispatch(actions.displayMessage('updateProfile', false));
+              if (stateProps.user.culture !== result.user.culture) {
+                location.reload();
+              }
             }, 2000);
-            resolve();
+            resolve(result);
           }
 
           if (result.success) {
