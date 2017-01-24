@@ -4,9 +4,9 @@ const sessions = require( 'sessions' ),
 
   cmn = require( '../lib/commons-app' ),
 
-  logged = sessions.middleware.ifUnlogged( cmn.redirectTo() );
+  logged = sessions.middleware.ifUnlogged( cmn.redirectTo() ),
 
-var config = require( '../config' ),
+  config = require( '../config' ),
 
   log = require( 'logger' )( 'user/settings.back' ),
 
@@ -31,11 +31,15 @@ var config = require( '../config' ),
   getLabels = require( 'labels' )( labels );
 
 
-module.exports = function ( path ) {
+module.exports = path => {
 
-  var routes = {
+  const routes = {
     userSettingsGetMe: [ 'get', '/getMe', [ logged, mw.getMe ] ],
-    userSettingsUpdateProfile: [ 'get', '/updateProfile', [ logged, mw.updateProfile ] ],
+    userSettingsUpdateProfile: [ 'get', '/updateProfile', [
+      logged,
+      mw.updateProfile,
+      ( req, res ) => res.json( req.result )
+    ] ],
     userSettingsChangeEmail: [ 'get', '/changeEmail', [ logged, mw.requestChangeEmail, sendEmail ] ],
     userSettingsChangeEmailConfirmation: [ 'get', '/changeEmail/confirm', mw.confirmChangeEmail ],
     userSettingsChangePassword: [ 'get', '/changePassword', [ logged, mw.changePassword ] ],
@@ -51,9 +55,9 @@ module.exports = function ( path ) {
     userSettingsRemoveProfileImage: [ 'post', '/removeProfileImage', [ logged, mw.removeProfileImage ] ],
 
     userSettingsApp: [ 'get', '*', matchApp( path, index ) ]
-  };
+  },
 
-  var router = modLib.Router( routes );
+    router = modLib.Router( routes );
 
   router.pre( [
     cmn.loadLogger( 'userSettings' ),
