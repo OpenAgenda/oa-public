@@ -690,7 +690,7 @@ function redirectTo( route = 'corpoHome', params = {}, code = 302 ) {
 
     } );
 
-    const redirect = req.genUrl( route, _.mapValues( params, k => _.get( req, k ) ) );
+    const redirect = req.genUrl( route, _.mapValues( params, k => _.get( req.params, k ) ) );
 
     req.log( 'redirecting to %s', redirect );
 

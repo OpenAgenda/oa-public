@@ -34,11 +34,7 @@ module.exports = ( enabledTypes, cb ) => {
 
       express = require( 'express' ),
 
-      cookieParser = require( 'cookie-parser' ),
-
-      bodyParser = require( 'body-parser' ),
-
-      cookieSession = require( 'cookie-session' );
+      bodyParser = require( 'body-parser' );
 
       log( 'info', 'running server' );
 
