@@ -35,7 +35,8 @@ schemas;
 module.exports = Object.assign( agenda, {
   init,
   user,
-  agenda
+  agenda,
+  types: require( '../iso/credentialTypes' )
 } );
 
 function agenda( agendaId ) {
