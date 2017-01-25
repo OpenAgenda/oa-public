@@ -423,7 +423,7 @@ describe( 'service', function () {
       should( err ).equal( null );
 
       service.generateApiKey( { id: 1 }, { secret: true }, ( err, result ) => {
-        
+
         should( err ).equal( null );
         should( result.key ).not.equal( user.api_secret );
 

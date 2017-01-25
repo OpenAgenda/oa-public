@@ -73,11 +73,12 @@ function init( s, c ) {
 
 }
 
+
 function getMe( req, res, next ) {
 
   if ( !req.xhr ) return next();
 
-  service.get( req.user, { fullImagePath: true, detailed: true }, ( err, user ) => {
+  service.get( { id: req.user.id, uid: req.user.uid }, { fullImagePath: true, detailed: true }, ( err, user ) => {
 
     if ( err ) return next( err );
 
@@ -92,7 +93,7 @@ function updateProfile( req, res, next ) {
 
   if ( !req.xhr ) return next();
 
-  service.updateProfile( Object.assign( {}, req.query, req.user ), ( err, result ) => {
+  service.updateProfile( Object.assign( {}, req.query, { id: req.user.id, uid: req.user.uid } ), ( err, result ) => {
 
     if ( err ) return next( err );
 
@@ -106,7 +107,7 @@ function updateProfile( req, res, next ) {
 
 function uploadProfileImage( req, res, next ) {
 
-  service.get( req.user, ( err, user ) => {
+  service.get( { id: req.user.id, uid: req.user.uid }, ( err, user ) => {
 
     if ( err ) return next( err );
 
@@ -118,7 +119,10 @@ function uploadProfileImage( req, res, next ) {
           path: tmpPath,
           uid: user.uid
         }, ( err, imagePath ) => {
-          service.set( Object.assign( { image: path.basename( imagePath ) }, req.user ), ( err, result ) => {
+          service.set( Object.assign(
+            { image: path.basename( imagePath ) },
+            { id: req.user.id, uid: req.user.uid }
+          ), ( err, result ) => {
 
             if ( err ) return next( err );
 
@@ -137,11 +141,11 @@ function uploadProfileImage( req, res, next ) {
 
 function removeProfileImage( req, res, next ) {
 
-  service.get( req.user, ( err, user ) => {
+  service.get( { id: req.user.id, uid: req.user.uid }, ( err, user ) => {
 
     if ( err ) return next( err );
 
-    service.set( Object.assign( { image: null }, req.user ), ( err, result ) => {
+    service.set( Object.assign( { image: null }, { id: req.user.id, uid: req.user.uid } ), ( err, result ) => {
 
       if ( err ) return next( err );
 
@@ -166,9 +170,13 @@ function requestChangeEmail( req, res, next ) {
 
   if ( !req.xhr ) return next();
 
-  service.verifyPassword( { id: req.user.id, password: req.query.password }, ( err, goodPassword ) => {
+  service.verifyPassword( {
+    id: req.user.id,
+    uid: req.user.uid,
+    password: req.query.password
+  }, ( err, goodPassword ) => {
 
-    let query = Object.assign( {}, req.query, req.user ),
+    let query = Object.assign( {}, req.query, { id: req.user.id, uid: req.user.uid } ),
 
       v = service.validators.changeEmail( query );
 
@@ -209,6 +217,7 @@ function requestChangeEmail( req, res, next ) {
 
 }
 
+
 function confirmChangeEmail( req, res, next ) {
 
   service.confirmChangeEmail( req.query, ( err, success ) => {
@@ -230,9 +239,13 @@ function changePassword( req, res, next ) {
 
   if ( !req.xhr ) return next();
 
-  service.verifyPassword( { id: req.user.id, password: req.query.old_password }, ( err, goodPassword ) => {
+  service.verifyPassword( {
+    id: req.user.id,
+    uid: req.user.uid,
+    password: req.query.old_password
+  }, ( err, goodPassword ) => {
 
-    let query = Object.assign( {}, req.query, req.user ),
+    let query = Object.assign( {}, req.query, { id: req.user.id, uid: req.user.uid } ),
 
       v = service.validators.changePassword( query );
 
@@ -277,17 +290,21 @@ function changePassword( req, res, next ) {
 
 }
 
+
 function generateApiKey( req, res, next ) {
 
   if ( !req.xhr ) return next();
 
-  service.get( req.user, { detailed: true }, ( err, user ) => {
+  service.get( { id: req.user.id, uid: req.user.uid }, { detailed: true }, ( err, user ) => {
 
     if ( err ) return next( err );
 
     if ( req.query.secret === '1' && !user.api_secret ) return next( 'Unauthorized' );
 
-    service.generateApiKey( req.user, { secret: req.query.secret === '1' }, ( err, result ) => {
+    service.generateApiKey( {
+      id: req.user.id,
+      uid: req.user.uid
+    }, { secret: req.query.secret === '1' }, ( err, result ) => {
 
       if ( err ) return next( err );
 
@@ -303,7 +320,7 @@ function deleteAccount( req, res, next ) {
 
   if ( !req.xhr ) return next();
 
-  let query = Object.assign( {}, req.query, req.user );
+  let query = Object.assign( {}, req.query, { id: req.user.id, uid: req.user.uid } );
 
   service.remove( query, ( err, success ) => {
 
@@ -316,6 +333,7 @@ function deleteAccount( req, res, next ) {
   } );
 
 }
+
 
 function csrfProtection( req, res, next ) {
 
@@ -348,6 +366,7 @@ function setProfileImage( params, cb ) {
 
 }
 
+
 function _format( v ) {
 
   log( 'formatting source file %s', v.path || v.url );
@@ -373,6 +392,7 @@ function _format( v ) {
 
 }
 
+
 function _upload( v ) {
 
   var d = w.defer();
@@ -390,6 +410,7 @@ function _upload( v ) {
   return d.promise;
 
 }
+
 
 function getProfileImageFormats( name ) {
 

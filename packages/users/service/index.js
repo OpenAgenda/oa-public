@@ -973,9 +973,6 @@ function getIdentifier( query, excludeEmail ) {
 
   var q = {};
 
-  excludeEmail = typeof excludeEmail === 'undefined' ? false : excludeEmail;
-
-
   query = Object.assign( {
     id: null,
     uid: null,
