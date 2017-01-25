@@ -28,7 +28,7 @@ module.exports = {
 
 function setFlash( request, response, message ) {
 
-  expressCookie( request, response, config.writableCookie.name ).set( 'flash', message );
+  expressCookie( config.writableCookie.name, request, response ).set( 'flash', message );
 
 }
 
