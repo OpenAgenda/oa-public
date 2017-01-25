@@ -42,7 +42,7 @@ function use( req, res, next ) {
 
         req.session[ k ] = validateCookie.validateUnlogged.default[ k ];
 
-      } );
+      } );  
 
       next();
 

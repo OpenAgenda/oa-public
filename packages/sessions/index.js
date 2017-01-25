@@ -21,6 +21,7 @@ module.exports = {
   close,
   setFlash,
   isLogged,
+  getCulture,
   middleware
 }
 
@@ -173,9 +174,24 @@ function isLogged( request ) {
 
     return !!cookieValidate( request.session ).user;
 
-  } catch( e ) { console.log( e );}
+  } catch( e ) { console.log( e ) }
 
   return false;
+
+}
+
+
+function getCulture( request ) {
+
+  try {
+
+    let user = cookieValidate( request.session ).user;
+
+    if ( user ) return user.culture;
+
+  } catch( e ) { console.log( e ); }
+
+  return null;
 
 }
 

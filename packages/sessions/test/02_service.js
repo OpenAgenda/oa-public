@@ -358,6 +358,32 @@ describe( 'session - functional (server): open, close, get & update', () => {
 
   } );
 
+  describe( '.getCulture', () => {
+
+    it( 'gets culture when user is logged', () => {
+
+      const req = {
+        session: {
+          user: { name: 'gaetan', uid: 123, culture: 'en' }
+        }
+      }
+
+      sessions.getCulture( req ).should.equal( 'en' );
+
+    } );
+
+    it( 'returns null when user is not logged', () => {
+
+      const req = {
+        session: {}
+      };
+
+      should( sessions.getCulture( req ) ).equal( null );
+
+    } );
+
+  } );
+
   describe( '.close', () => {
 
     it( 'close ends the session using the request object', done => {
