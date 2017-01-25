@@ -2,16 +2,20 @@
 
 module.exports = {
   sessionCookie: {
-    name: false, // overriden by iso configuration
-    keys: [ 'dsqfdsq', 'fdqfdsqfdsf', 'dsfdss' ],
+    name: 'oa',
+    keys: [ 'k', 'e', 'y', 's' ],
     maxAge: 1000 * 60 * 60 * 48, // 2 days
     signed: true,
     secure: false
   },
+  writableCookie: {
+    maxAge: 1000 * 60 * 60 * 48,
+    name: 'oa.rw' // overriden by iso configuration
+  },
   redis: {
     host: 'localhost',
     port: 6379,
-    prefix: 'sessiontests:'
+    hash: 'sessionstest'
   },
   interfaces: {
     getUser: ( query, cb ) => {
