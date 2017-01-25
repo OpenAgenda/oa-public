@@ -28,10 +28,6 @@ module.exports = {
 
 function setFlash( request, response, message ) {
 
-  // this guy needs to handle a cookie.
-  request.session.flash = message;
-
-  // this guy needs request and response.
   expressCookie( request, response, config.writableCookie.name ).set( 'flash', message );
 
 }
