@@ -80,7 +80,7 @@ function init( c ) {
 
   set.init( service, knex );
 
-  remove.init( service, knex )
+  remove.init( service, knex );
 
   instanciate.init( service );
 
@@ -145,7 +145,7 @@ function list( query, offset, limit, cb ) {
 
     .then( _detailed )
 
-    .done( v => cb( null, v.agendas, v.total ), cb );
+  .done( v => cb( null, v.agendas, v.total ), cb );
 
 }
 
