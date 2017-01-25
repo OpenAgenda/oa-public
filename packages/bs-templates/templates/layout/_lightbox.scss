@@ -3,7 +3,8 @@
  */
 .lightbox-canvas {
 
-  background-color: rgba( 100,100,100,0.1 );
+  background: rgba(0, 0, 0, 0.62);
+  z-index: 999998;
 
   .lightbox-frame {
 
