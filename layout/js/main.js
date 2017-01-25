@@ -26,7 +26,7 @@ var utils = require( 'utils' ),
 
   layout = require( './layout' ),
 
-  log = debug( 'globals' ),
+  log = debug( 'main' ),
 
   flash = require( './handleFlashMessage.js' ),
 
@@ -51,8 +51,6 @@ outdated( {
     'Firefox': 24
   }
 } );
-
-window.getSession = () => { console.log( 'calling old getSession' ) }
 
 du.asapReady( function () {
 
