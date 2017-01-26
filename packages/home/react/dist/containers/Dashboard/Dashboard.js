@@ -268,15 +268,19 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             ),
             _react3.default.createElement(
               'form',
-              { action: res.search, method: 'GET' },
+              { action: res.search, method: 'GET', className: 'margin-top-sm' },
               _react3.default.createElement(
                 'div',
                 { className: 'form-group search center-block' },
-                _react3.default.createElement('input', { type: 'text', name: 'search', className: 'form-control' }),
                 _react3.default.createElement(
-                  'button',
-                  { type: 'submit', className: 'btn' },
-                  _react3.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' })
+                  'div',
+                  { className: 'input-icon-right' },
+                  _react3.default.createElement('input', { type: 'text', name: 'search', className: 'form-control' }),
+                  _react3.default.createElement(
+                    'button',
+                    { type: 'submit', className: 'btn' },
+                    _react3.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' })
+                  )
                 )
               )
             )

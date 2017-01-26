@@ -142,12 +142,14 @@ export default class Dashboard extends Component {
             <h2 className="margin-v-md">{getLabel( 'welcome' )}</h2>
             <a href={res.new} className="btn btn-primary margin-v-sm">{getLabel( 'createAgenda' )}</a>
             <p className="margin-v-sm">{getLabel( 'orContributeToExisting' )}</p>
-            <form action={res.search} method="GET">
+            <form action={res.search} method="GET" className="margin-top-sm">
               <div className="form-group search center-block">
-                <input type="text" name="search" className="form-control" />
-                <button type="submit" className="btn">
-                  <i className="fa fa-search" aria-hidden="true"></i>
-                </button>
+                <div className="input-icon-right">
+                  <input type="text" name="search" className="form-control" />
+                  <button type="submit" className="btn">
+                    <i className="fa fa-search" aria-hidden="true"></i>
+                  </button>
+                </div>
               </div>
             </form>
           </div>
