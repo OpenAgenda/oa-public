@@ -16,9 +16,15 @@ eventSvc = require( '../services/event' ),
 
 routes = {
 
-  agendaEventNewCustomUpload: [ 'post', '/:slug/events/new/custom/:field/upload', agendaEventNewCustomUpload ],
+  agendaEventNewCustomUpload: [ 'post', '/:slug/events/new/custom/:field/upload', [ 
+    sessions.middleware.load(),
+    agendaEventNewCustomUpload
+  ] ],
 
-  agendaEventNewCustomRemove: [ 'post', '/:slug/events/new/custom/:field/remove', agendaEventNewCustomRemove ],
+  agendaEventNewCustomRemove: [ 'post', '/:slug/events/new/custom/:field/remove', [ 
+    sessions.middleware.load(),
+    agendaEventNewCustomRemove 
+  ] ],
 
   agendaEventCustomUpload: [ 'post', '/:slug/events/:eventSlug/edit/custom/:field/upload', [
     eventSvc.mw.load( 'eventSlug', 'slug' ),
@@ -67,7 +73,7 @@ function agendaEventNewCustomUpload( req, res, next ) {
       newEvent.setCustomImage( {
         name: req.params.field,
         path: path,
-        userUid: req.session.userUid
+        userUid: req.user.uid
       }, cb );
 
     }
@@ -86,7 +92,7 @@ function agendaEventNewCustomRemove( req, res, next ) {
 
   newEvent.unsetCustomImage( {
     name: req.params.field,
-    userUid: req.session.userUid
+    userUid: req.user.uid
   }, ( err ) => {
 
     if ( err ) return next( err );

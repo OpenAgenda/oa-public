@@ -130,17 +130,17 @@ function actionShow( req, res ) {
 
   }
 
-  async.eachSeries( actions, function( action, scb ) {
+  async.eachSeries( actions, ( action, scb ) => {
 
     loaders[ action ]( req, res, scb );
 
-  }, function( err ) {
+  }, err => {
 
     if ( err ) return next( err );
 
     return cmn.render( req, res, 'event/action', req.templateData );
 
-  });
+  } );
 
 }
 
@@ -286,17 +286,30 @@ function _calendarAction( req, res, next ) {
 
 function _agendasAction( req, res, next ) {
 
-  if ( !req.session.logged ) return next();
+  if ( !sessions.isLogged( req ) ) {
 
-  req.event.getAgendaReferences( { isPublished: null, internal: true }, ( err, agendasSharing ) => {
+    return next();
 
-    model.reviews().list( { stakeholderId: req.user.id, limit: 200 }, function( err, agendas ) {
+  }
 
-      if ( err ) return next( err );
+  sessions.get( req, { detailed: true }, ( err, session ) => {
 
-      req.templateData.agendas = agendas.map( a => {
+    if ( err ) {
 
-        return {
+      return next( err );
+
+    }
+
+    req.event.getAgendaReferences( { isPublished: null, internal: true }, ( err, agendasSharing ) => {
+
+      model.reviews().list( { 
+        stakeholderId: session.id, 
+        limit: 200
+      }, ( err, agendas ) => {
+
+        if ( err ) return next( err );
+
+        req.templateData.agendas = agendas.map( a => ( {
           uid: a.uid,
           slug: a.slug,
           title: a.title,
@@ -304,15 +317,16 @@ function _agendasAction( req, res, next ) {
           redirect: req.agenda ?
             new Buffer( req.genUrl( 'agendaEventActionShow', { slug: req.agenda.slug, eventSlug: req.event.slug } ) ).toString( 'base64' )
             : new Buffer( req.genUrl( 'eventActionShow', { eventSlug: req.event.slug } ) ).toString( 'base64' )
-        };
+        } ) );
+
+        next();
 
       } );
-
-      next();
 
     } );
 
   } );
+
 
 }
 

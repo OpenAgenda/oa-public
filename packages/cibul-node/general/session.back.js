@@ -4,7 +4,7 @@ const sessions = require( 'sessions' ),
 
   modLib = require( '../lib/moduleLib' ),
 
-  agendaSvc = require( 'agendas' ),
+  agendas = require( 'agendas' ),
 
   cmn = require( '../lib/commons-app' ),
 
@@ -16,6 +16,7 @@ const sessions = require( 'sessions' ),
     session: [ 'get', '/', [
       sessions.middleware.ifUnlogged( ( req, res, next ) => { res.send( null ) } ),
       sessions.middleware.load(),
+      ( req, res, next ) => { req.query.detailed ? _loadDetailed( req, res, next ) : next() },
       ( req, res, next ) => { res.send( req.user ); } 
     ] ],
     sessionMemberRole: [ 'get', '/agendas/:agendaUid/role', [
@@ -44,7 +45,7 @@ module.exports = p => {
 // middleware from service/agenda/middleware
 function agendaLoad( req, res, next ) {
 
-  agendaSvc.get( { uid: req.params.agendaUid }, { internal : true }, ( err, agenda ) => {
+  agendas.get( { uid: req.params.agendaUid }, { internal : true }, ( err, agenda ) => {
 
     if ( err ) return next( err );
 
@@ -68,6 +69,44 @@ function role( req, res, next ) {
   stakeholders.agenda( req.agendaRef.id ).get( { userId: req.user.id }, ( err, result ) => {
 
     res.send( result ? credentialTypes.codes.get( result.credential ) : null );
+
+  } );
+
+}
+
+
+// retrieve additional stuff related to current user session
+function _loadDetailed( req, res, next ) {
+
+  sessions.get( req, { detailed: true }, ( err, session ) => {
+
+    stakeholders.user( session.id ).list( 0, 1000, ( err, items, total ) => {
+
+      agendas.list( { ids: items.map( i => i.agendaId ) }, 0, 1000, ( err, agendas ) => {
+
+        if ( err ) return next( err );
+
+        req.user.agendas = items
+
+          .filter( i => agendas.indexOf( i.agendaId ) === -1 )
+
+          .map( i => {
+
+            let agenda = agendas.filter( a => a.id === i.agendaId )[ 0 ];
+
+            return {
+              title: agenda.title,
+              uid: agenda.uid,
+              role: stakeholders.types.codes.get( i.credential )
+            }
+
+          } );
+
+        next();
+
+      } );
+
+    } );
 
   } );
 

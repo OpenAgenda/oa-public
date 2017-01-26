@@ -205,7 +205,7 @@ function invite( options ) {
 
         } else {
 
-          sessions.setFlash( req, res, getInvLabel( 'sentInvites', req.lang ) );
+          sessions.setFlash( req, res, getInvLabel( 'sentInvites', { count : invitations.length }, req.lang ) );
 
         }
 
@@ -245,7 +245,7 @@ function inviteResendAll( options ) {
 
       } else {
 
-        sessions.setFlash( req, res, getInvLabel( 'resentInvites', { '%count%' : invitations.length }, req.lang ) );
+        sessions.setFlash( req, res, getInvLabel( 'resentInvites', { count : invitations.length }, req.lang ) );
 
       }
 

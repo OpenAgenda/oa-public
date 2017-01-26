@@ -25,7 +25,7 @@ module.exports = {
 
   requireAdmin,
   loadBaseData,                 // middleware. 
-  loadUserUid,
+  assign,                       // middleware for assigning values to req or res
   checkCredential,              // middleware. check that request agenda has required credential
 
   checkAdministrator,           // middleware. checks that logged user is administrator of loaded agenda
@@ -342,11 +342,7 @@ function errorResponse( req, res, error, jsonResponse ) {
 
   }
 
-  if ( !req.lang ) {
-
-    _defineLang( req );
-
-  }
+  if ( !req.lang ) lang( req );
 
   req.log( 'preparing error response' );
 
@@ -621,6 +617,20 @@ function loadBaseData( func, cssFile ) {
     }
 
     req.baseData = deepExtend( req.baseData ? req.baseData : {}, baseData );
+
+    next();
+
+  }
+
+}
+
+function assign( source, target ) {
+
+  return ( req, res, next ) => {
+
+    let obj = { req, res };
+
+    _.set( obj, target, _.get( obj, source ) );
 
     next();
 
@@ -965,35 +975,9 @@ function lang( req, res, next ) {
 
     req.lang = _cleanLang( req.query.lang );
 
-  } else if ( req.user ) {
+  } else if ( sessions.isLogged( req ) ) {
 
-    req.lang = req.user.culture;
-
-  } else {
-
-    req.lang = 'fr';
-
-  }
-
-  if ( req.lang !== 'fr' ) {
-
-    req.genUrl.preload( { lang: req.lang } );
-
-  }
-
-  next();
-
-}
-
-function _defineLang( req ) {
-
-  if ( req.query.lang ) {
-
-    req.lang = _cleanLang( req.query.lang );
-
-  } else if ( req.session && req.session.lang ) {
-
-    req.lang = _cleanLang( req.session.lang );
+    req.lang = sessions.getCulture( req );
 
   } else {
 
@@ -1007,7 +991,7 @@ function _defineLang( req ) {
 
   }
 
-  req.log.load( { lang: req.lang } );
+  if ( next ) next();
 
 }
 

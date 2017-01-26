@@ -31,7 +31,7 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadLogger( 'home' ),
-    sessions.middleware.load( { detailed: true } ), 
+    sessions.middleware.load( { detailed: true } ),
     sessions.middleware.ifUnlogged( cmn.redirectTo() )
   ] );
 

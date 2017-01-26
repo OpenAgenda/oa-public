@@ -15,7 +15,7 @@ const modLib = require( '../lib/moduleLib' ),
   routes = {
 
     locationIndex: [ 'get', '/:slug/locations', [
-      cmn.loadUserUid,
+      cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.list,
       showList
     ] ],
@@ -24,7 +24,7 @@ const modLib = require( '../lib/moduleLib' ),
       cmn.checkAdminOrModerator,
       agendaSvc.mw.loadAdminLayout,
       cmn.loadBaseData( 'oasfmain.css' ),
-      cmn.loadUserUid,
+      cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.loadSettings(),
       show
     ] ],
@@ -32,20 +32,20 @@ const modLib = require( '../lib/moduleLib' ),
     agendaLocationSet: [ 'post', '/:slug/locations', [
       bodyParser.json(),
       _checkCreate,
-      cmn.loadUserUid,
+      cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.setToValidate
     ] ],
 
     agendaAdminLocationSet: [ 'post', '/:slug/admin/locations', [
       bodyParser.json(),
-      cmn.loadUserUid,
+      cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.set
     ] ],
 
     agendaAdminLocationRemove: [ 'post', '/:slug/admin/locations/remove', [
       cmn.checkAdminOrModerator,
       bodyParser.json(),
-      cmn.loadUserUid,
+      cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.remove
     ] ],
 
@@ -66,6 +66,7 @@ const modLib = require( '../lib/moduleLib' ),
 
         req.agendaId = req.agenda.id; 
         req.stakeholderId = req.params.stakeholderId;
+        
         next();
 
       },
@@ -73,12 +74,12 @@ const modLib = require( '../lib/moduleLib' ),
     ] ],
 
     locationGeocode: [ 'get', '/:slug/locations/geocode', [
-      cmn.loadUserUid,
+      cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.geocode
     ] ],
 
     locationReverseGeocode: [ 'get', '/:slug/locations/geocode/reverse', [
-      cmn.loadUserUid,
+      cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.reverseGeocode
     ] ],
 
@@ -93,24 +94,24 @@ const modLib = require( '../lib/moduleLib' ),
     ] ],
 
     locationNewImageUpload: [ 'post', '/:slug/locations/image', [
-      cmn.loadUserUid,
+      cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.newImageUpload
     ] ],
 
     locationNewImageRemove: [ 'post', '/:slug/locations/image/remove', [
-      cmn.loadUserUid,
+      cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.newImageRemove
     ] ],
 
     locationImageUpload: [ 'post', '/:slug/locations/:locationUid/image', [
       cmn.checkAdminOrModerator,
-      cmn.loadUserUid,
+      cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.imageUpload
     ] ],
 
     locationImageRemove: [ 'post', '/:slug/locations/:locationUid/image/remove', [
       cmn.checkAdminOrModerator,
-      cmn.loadUserUid,
+      cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.imageRemove
     ] ],
 

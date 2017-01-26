@@ -47,7 +47,7 @@ function loadEvent( paramName, fieldName, options ) {
     inAgendaContext: true // if agenda is in request and event must not be loaded in agenda context, use this
   }, options || {} );
 
-  return function( req, res, next ) {
+  return ( req, res, next ) => {
 
     w( {
       req: req,
@@ -173,11 +173,19 @@ function cleanEvents( req, res, next ) {
 
 function checkEventEditor( req, res, next ) {
 
-  req.event.isEditor( req.session.userId, function( err, is ) {
+  sessions.get( req, { detailed: true }, ( err, user ) => {
 
-    if ( err || !is ) return next( err || { code: 403 } );
+    if ( err ) return cb( err );
 
-    next();
+    if ( !user ) return next( { code: 403 } );
+
+    req.event.isEditor( user.id, ( err, is ) => {
+
+      if ( err || !is ) return next( err || { code: 403 } );
+
+      next();
+
+    } );
 
   } );
 
@@ -322,23 +330,6 @@ function _selectLanguage( v ) {
 }
 
 
-function _loadOwnershipCreds( v ) {
-
-  if ( !sessions.isLogged( v.req ) ) return v;
-
-  if ( v.event.ownerId == v.req.session.userId ) {
-
-    log( 'user is owner' );
-
-    v.hasCreds = true;
-
-  }
-
-  return v;
-
-}
-
-
 function _loadUserAgendaCreds( v ) {
 
   v.req.log( 'loading user agenda creds' );
@@ -351,7 +342,7 @@ function _loadUserAgendaCreds( v ) {
 
   }
 
-  var user = { id: v.req.session.userId };
+  let user = v.req.user;
 
   return w.promise( function( rs, rj ) {
 
@@ -394,15 +385,22 @@ function _loadUserCreds( v ) {
 
   return w.promise( ( rs, rj ) => {
 
-    v.event.isEditor( v.req.session.userId, ( err, is ) => {
+    sessions.get( v.req, { detailed: true }, ( err, user ) => {
 
-      if ( err ) return rj( err );
+      v.req.user = user;
 
-      v.user.editor = is;
+      v.event.isEditor( v.req.user.id, ( err, is ) => {
 
-      rs( v );
+        if ( err ) return rj( err );
 
-    });
+        v.user.editor = is;
+
+        rs( v );
+
+      });
+
+    } );
+
 
   });
 

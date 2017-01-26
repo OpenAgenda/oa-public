@@ -50,11 +50,6 @@ const landing = require( 'landing' ),
       sessions.middleware.close(),
       cmn.redirectTo()
     ] ],
-    session: [ 'get', '/session', [
-      sessions.middleware.ifUnlogged( ( req, res, next ) => { res.send( null ) } ),
-      sessions.middleware.load(),
-      ( req, res, next ) => { res.send( req.user ); }
-    ] ],
     newsletterSubscribe: [ 'post', '/newsletter/subscribe', newsletterSubscribe ],
     serviceConnectCallback: [ 'get', '/services/:service/connect/callback', serviceConnectCallback ],
     emailUnsubscribe: [ 'get', '/unsubscribe', unsubscribe ],

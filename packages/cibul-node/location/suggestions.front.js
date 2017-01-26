@@ -40,7 +40,7 @@ module.exports = function( path ) {
 
   router.pre( [
     sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignup', { slug: 'slug' } ) ),
-    cmn.loadUserUid,
+    cmn.assign( 'req.user.uid', 'req.userUid' ),
     agendaSvc.mw.load( 'slug' ),
     cmn.checkStakeholder,
     stakeholderMw.load( 'agenda', 'user', 'stakeholder' ),

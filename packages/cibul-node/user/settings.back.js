@@ -43,7 +43,7 @@ module.exports = path => {
       mw.updateProfile,
       ( req, res, next ) => {
 
-        if ( req.success ) return sessions.middleware.sync( 'syncResult' )( req, res, next );
+        if ( req.result.success ) return sessions.middleware.sync( 'syncResult' )( req, res, next );
 
         next();
 

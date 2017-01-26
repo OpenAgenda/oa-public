@@ -90,6 +90,7 @@ module.exports = path => {
   router.pre( [
     cmn.loadLogger( 'agendaSettings' ),
     sessions.middleware.ifUnlogged( cmn.redirectTo() ),
+    sessions.middleware.load( { detailed: true } ),
     bodyParser.json()
   ] );
 

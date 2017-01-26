@@ -146,7 +146,7 @@ function search( query, options, cb ) {
 
   _prepare( query, options, ( params, esQuery ) => {
 
-    legacyLib.events().search( esQuery, function( err, result ) {
+    legacyLib.events().search( esQuery, ( err, result ) => {
 
       if ( err ) return cb( err );
 
@@ -329,7 +329,7 @@ function _clean( query, params ) {
   });
 
 
-  if ( query.uids ) {
+  if ( query.uids && !query.from ) {
 
     clean.when = false;
 
