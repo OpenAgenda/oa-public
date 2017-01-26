@@ -4,9 +4,11 @@ process.env.NODE_ENV = 'test';
 
 const should = require( 'should' ),
 
-svc = require( '../service/test' ),
+  svc = require( '../service/test' ),
 
-config = require( '../testconfig' );
+  config = require( '../testconfig' ),
+
+  mysql = require( 'mysql' );
 
 describe( 'service.set: update an agenda', function() {
 
@@ -136,6 +138,35 @@ describe( 'service.set: update an agenda', function() {
     } );
 
   } );
+
+
+  it( 'set credentials on agenda updates legacy data structure', done => {
+
+    svc.set( { uid: 41416256 }, {
+      credentials: {
+        aggregator: true
+      }
+    }, { 
+      internal: true,
+      protected: false
+    }, ( err, result ) => {
+
+      result.agenda.credentials.aggregator.should.equal( true );
+
+      let con = mysql.createConnection( config.mysql );
+
+      con.query( `select * from ${config.schemas.legacyCredentialSet} where review_id = ?`, result.agenda.id, ( err, rows ) => {
+
+        rows[ 0 ].aggregator.should.equal( 1 );
+
+        done();
+
+      } );
+
+    } );
+
+
+  } )
 
 
   it( 'set credentials on pre-exisiting agenda', done => {

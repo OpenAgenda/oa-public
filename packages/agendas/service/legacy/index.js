@@ -146,6 +146,7 @@ function _loadCredentials( v ) {
         moderators: row.moderator,
         embedsHead: row.custom_head,
         emailstrategie: row.emailstrategie,
+        aggregator: row.aggregator,
         tags: row.tags
       };
 
@@ -173,6 +174,7 @@ function _updateCredentials( v ) {
       custom_head: v.data.credentials.embedsHead,
       emailstrategie: v.data.credentials.emailstrategie,
       tags: v.data.credentials.tags,
+      aggregator: v.data.credentials.aggregator
     }
   } )
 

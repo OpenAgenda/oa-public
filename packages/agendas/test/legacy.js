@@ -43,7 +43,8 @@ describe( 'legacy: bridge with legacy data structure', function() {
             moderators: 0,
             embedsHead: 0,
             emailstrategie: 0,
-            tags: 1
+            tags: 1,
+            aggregator: 0
           }
         } );
 
