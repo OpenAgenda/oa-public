@@ -223,11 +223,11 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
             reject(errors);
           } else {
             dispatch(actions.displayMessage('updateProfile', true));
+            if (stateProps.user.culture !== result.user.culture) {
+              location.reload();
+            }
             setTimeout(function () {
               dispatch(actions.displayMessage('updateProfile', false));
-              if (stateProps.user.culture !== result.user.culture) {
-                location.reload();
-              }
             }, 2000);
             resolve(result);
           }
