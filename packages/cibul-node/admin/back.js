@@ -58,6 +58,7 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadBaseData(),
+    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     cmn.requireAdmin
   ] );
 

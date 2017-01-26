@@ -10,7 +10,9 @@ var config = require( '../config' ),
 
   bodyParser = require( 'body-parser' ),
 
-  moment = require( "moment" ),
+  moment = require( 'moment' ),
+
+  sessions = require( 'sessions' ),
 
   mw = require( 'admin-agendas' ).mw,
 
@@ -23,7 +25,7 @@ var config = require( '../config' ),
   };
 
 
-module.exports = function( path ) {
+module.exports = function ( path ) {
 
   var router = modLib.Router( routes );
 
@@ -31,6 +33,7 @@ module.exports = function( path ) {
 
   router.pre( [
     cmn.loadBaseData( 'compiledAdmin.css' ),
+    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     cmn.requireAdmin
   ] );
 
@@ -38,12 +41,12 @@ module.exports = function( path ) {
     load: router.load( path ),
     paths: modLib.getPaths( path, routes )
   }
-  
+
 };
 
 
 function index( req, res ) {
 
   cmn.render( req, res, 'admin/agendas', req.templateData );
-  
+
 }
