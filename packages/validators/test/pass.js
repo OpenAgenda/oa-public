@@ -2,17 +2,27 @@
 
 const should = require( 'should' ),
 
-validators = require( '../' );
+validators = require( './build' );
 
 describe( 'pass validator', () => {
 
   let validate = validators.pass();
 
-  it( 'passes everything', () => {
+  it( 'passes anything', () => {
 
     validate( 'anything' )
 
     .should.equal( 'anything' );
+
+  } );
+
+  it( 'passes lists of anything', () => {
+
+    let listOfAnything = [ 'fdsqfdss', 123, { a: 'b' } ];
+
+    validators.pass( { list: true } )( listOfAnything )
+
+      .should.eql( listOfAnything );
 
   } );
 

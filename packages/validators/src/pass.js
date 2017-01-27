@@ -1,19 +1,21 @@
 "use strict";
 
-var utils = require( 'utils' );
+import extend from 'lodash/extend';
+import listify from './listify';
 
-module.exports = function( config ) {
+export default config => {
 
-  var params = utils.extend( {
+  const params = extend( {
     field: undefined,
-    type: 'pass'
-  }, config || {} );
+    type: 'pass',
+    list: false
+  }, config || {} ),
 
-  return utils.extend( validate, {
+  validator = extend( v => v, {
     type: 'pass',
     field: params.field
   } );
 
-  function validate( value ) { return value; }
+  return params.list ? listify( validator, params ) : validator;  
 
 }

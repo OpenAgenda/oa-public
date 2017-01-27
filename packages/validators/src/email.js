@@ -1,24 +1,27 @@
 "use strict";
 
-import utils from 'utils'
+import extend from 'lodash/extend';
+import listify from './listify';
 
 const emailRgx = /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i;
 
 export default config => {
 
-  let params = utils.extend( {
+  const params = extend( {
     field: undefined,
     error: {
       code: 'email.invalid',
       message: 'email is not valid'
     },
     type: 'email'
-  }, config || {} );
+  }, config || {} ),
 
-  return utils.extend( validate, {
+  validator = extend( validate, {
     type: 'email',
     field: params.field
   } );
+
+  return params.list ? listify( validator, params ) : validator;
 
   function validate( value ) {
 

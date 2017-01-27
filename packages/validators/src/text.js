@@ -1,11 +1,11 @@
 "use strict";
 
-import utils from 'utils';
+import extend from 'lodash/extend';
 import listify from './listify';
 
-module.exports = function( config ) {
+export default config => {
 
-  const params = utils.extend( {
+  const params = extend( {
     field: false, // required
     min: 0,
     max: 1000000,
@@ -15,7 +15,7 @@ module.exports = function( config ) {
     list: false
   }, config || {} ),
 
-  validator = utils.extend( validate, {
+  validator = extend( validate, {
     type: 'text',
     field: params.field
   } );

@@ -2,7 +2,7 @@
 
 var should = require( 'should' ),
 
-validators = require( '../' );
+validators = require( './build' );
 
 describe( 'email validator', () => {
 
@@ -51,6 +51,22 @@ describe( 'email validator', () => {
     }
 
     caught.should.equal( true );
+
+  } );
+
+  it( 'validate lists of emails', () => {
+
+    let emails = [
+      'kev@gmail.com',
+      'in@gmail.com',
+      'ber@gmail.com',
+      'to@gmail.com',
+      'mmier@gmail.com'
+    ];
+
+    validators.email( { list: true } )( emails )
+
+    .should.eql( emails );
 
   } );
 

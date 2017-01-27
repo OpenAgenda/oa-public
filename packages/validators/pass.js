@@ -1,20 +1,34 @@
 "use strict";
 
-var utils = require('utils');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-module.exports = function (config) {
+var _extend = require('lodash/extend');
 
-  var params = utils.extend({
+var _extend2 = _interopRequireDefault(_extend);
+
+var _listify = require('./listify');
+
+var _listify2 = _interopRequireDefault(_listify);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (config) {
+
+  var params = (0, _extend2.default)({
     field: undefined,
-    type: 'pass'
-  }, config || {});
-
-  return utils.extend(validate, {
+    type: 'pass',
+    list: false
+  }, config || {}),
+      validator = (0, _extend2.default)(function (v) {
+    return v;
+  }, {
     type: 'pass',
     field: params.field
   });
 
-  function validate(value) {
-    return value;
-  }
+  return params.list ? (0, _listify2.default)(validator, params) : validator;
 };
+
+module.exports = exports['default'];

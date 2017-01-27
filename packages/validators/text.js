@@ -1,10 +1,14 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
-var _utils = require('utils');
+var _extend = require('lodash/extend');
 
-var _utils2 = _interopRequireDefault(_utils);
+var _extend2 = _interopRequireDefault(_extend);
 
 var _listify = require('./listify');
 
@@ -12,9 +16,9 @@ var _listify2 = _interopRequireDefault(_listify);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-module.exports = function (config) {
+exports.default = function (config) {
 
-  var params = _utils2.default.extend({
+  var params = (0, _extend2.default)({
     field: false, // required
     min: 0,
     max: 1000000,
@@ -23,7 +27,7 @@ module.exports = function (config) {
     default: null,
     list: false
   }, config || {}),
-      validator = _utils2.default.extend(validate, {
+      validator = (0, _extend2.default)(validate, {
     type: 'text',
     field: params.field
   });
@@ -94,3 +98,5 @@ module.exports = function (config) {
     return clean;
   }
 };
+
+module.exports = exports['default'];

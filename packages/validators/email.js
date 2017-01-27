@@ -4,9 +4,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _utils = require('utils');
+var _extend = require('lodash/extend');
 
-var _utils2 = _interopRequireDefault(_utils);
+var _extend2 = _interopRequireDefault(_extend);
+
+var _listify = require('./listify');
+
+var _listify2 = _interopRequireDefault(_listify);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14,19 +18,20 @@ var emailRgx = /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)
 
 exports.default = function (config) {
 
-  var params = _utils2.default.extend({
+  var params = (0, _extend2.default)({
     field: undefined,
     error: {
       code: 'email.invalid',
       message: 'email is not valid'
     },
     type: 'email'
-  }, config || {});
-
-  return _utils2.default.extend(validate, {
+  }, config || {}),
+      validator = (0, _extend2.default)(validate, {
     type: 'email',
     field: params.field
   });
+
+  return params.list ? (0, _listify2.default)(validator, params) : validator;
 
   function validate(value) {
 
