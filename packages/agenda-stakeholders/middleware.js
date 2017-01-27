@@ -14,7 +14,9 @@ function agenda( namespace = 'agenda' ) {
     load,
     get,
     list,
-    stats
+    stats,
+    update,
+    remove
   }
 
   function load( serviceNamespace = 'stakeholders' ) {
@@ -24,6 +26,63 @@ function agenda( namespace = 'agenda' ) {
       req[ serviceNamespace ] = service( req[ namespace ].id );
 
       next();
+
+    }
+
+  }
+
+  function remove( options ) {
+
+    let { namespaces } = _.extend( {
+      namespaces: {
+        stakeholder: 'stakeholder',
+        result: 'result'
+      }
+    }, options || {} );
+
+    return ( req, res, next ) => {
+
+      service.agenda( req[ namespace ].id ).remove( { id: req[ namespaces.stakeholder ].id }, ( err, result ) => {
+
+        if ( err ) return next( err );
+
+        req[ namespaces.result ] = result;
+
+        next();
+
+      } );
+
+    }
+
+  }
+
+  function update( options ) {
+
+    let { namespaces } = _.extend( {
+      namespaces: {
+        user: 'user',
+        result: 'result',
+        data: 'data' // the custom data only
+      }
+    }, options || {} );
+
+    return ( req, res, next ) => {
+
+      service.agenda( req[ namespace ].id ).get( { userId: req[ namespaces.user ].id }, { instanciate: true }, ( err, instance ) => {
+
+        if ( err ) return next( err );
+
+        instance.setFieldValues( req[ namespaces.data ], ( err, result ) => {
+
+          if ( err ) return next( err );
+
+          req[ namespaces.result ] = result;
+
+          next();
+
+        } );
+
+      } );
 
     }
 
