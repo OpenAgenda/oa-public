@@ -5,21 +5,29 @@ const service = require( './service' );
 const Stakeholder = require( './iso/Stakeholder' );
 
 module.exports = {
-  loadAgenda,
-  load
-}
-
-module.exports = {
   agenda
 }
 
 function agenda( namespace = 'agenda' ) {
 
   return {
-    load
+    load,
+    get
   }
 
-  function load( options ) {
+  function load( serviceNamespace = 'stakeholders' ) {
+
+    return ( req, res, next ) => {
+
+      req[ serviceNamespace ] = service( req[ namespace ].id );
+
+      next();
+
+    }
+
+  }
+
+  function get( options ) {
 
     let { namespaces } = _.extend( {
       namespaces: {
@@ -53,13 +61,7 @@ function agenda( namespace = 'agenda' ) {
 
 function loadAgenda( agendaNamespace, serviceNamespace ) {
 
-  return ( req, res, next ) => {
-
-    req[ serviceNamespace ] = service( req[ agendaNamespace ].id );
-
-    next();
-
-  }
+  
 
 }
 

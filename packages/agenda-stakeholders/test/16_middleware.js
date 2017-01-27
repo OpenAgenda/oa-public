@@ -25,7 +25,37 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
 
   describe( '.load', done => {
 
-    it( '.loads all stakeholder data by default', done => {
+    it( 'loads stakeholder agenda interface', done => {
+
+      const req = {
+        agenda: { id: 4608 }
+      },
+
+      res = {};
+
+      middleware.agenda().load()( req, res, next);
+
+      function next() {
+
+        // stakeholders agenda interface is loaded
+        // and ready to be used
+        req.stakeholders.list( 0, 1, ( err, items, total ) => {
+
+          items[ 0 ].id.should.equal( 6478 );
+
+          done();
+
+        } );
+
+      }
+
+    } );
+
+  } )
+
+  describe( '.get', done => {
+
+    it( 'loads all stakeholder data by default', done => {
 
       const req = {
         agenda: { id: 4608 },
@@ -34,7 +64,7 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
 
       res = {}; // not modified with load middleware
 
-      middleware.agenda().load()( req, res, next );
+      middleware.agenda().get()( req, res, next );
 
       function next() {
 
@@ -64,7 +94,7 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
 
       res = {};
 
-      middleware.agenda().load()( req, res, next );
+      middleware.agenda().get()( req, res, next );
 
       function next() { // normally this is the next middleware
 
@@ -94,7 +124,7 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
 
       res = {};
 
-      middleware.agenda( 'a' ).load( {
+      middleware.agenda( 'a' ).get( {
         namespaces: {
           user: 'u',
           stakeholder: 's',
