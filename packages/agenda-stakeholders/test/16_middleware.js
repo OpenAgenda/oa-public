@@ -51,7 +51,64 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
 
     } );
 
-  } )
+  } );
+
+  describe( '.list', () => {
+
+    it( 'lists stakeholders', done => {
+
+      const req = {
+        agenda: { id: 4608 },
+        query: { page: 1 }
+      },
+
+      res = {}; // not modified with load middleware
+
+      middleware.agenda().list()( req, res, next );
+
+      function next() {
+
+        req.stakeholders.length.should.equal( 20 );
+        req.total.should.equal( 564 );
+
+        done();
+
+      }
+
+    } );
+
+  } );
+
+  describe( '.stats', () => {
+
+    it( 'get stats on stakholders of an agenda', done => {
+
+      const req = {
+        agenda: { id: 4608 }
+      },
+
+      res = {};
+
+      middleware.agenda().stats()( req, res, next );
+
+      function next() {
+
+        req.stats.should.eql( {
+          total: 564,
+          credentialTotals: { 
+            contributor: 508, 
+            administrator: 10,
+            moderator: 46 
+          }
+        } );
+
+        done();
+
+      }
+
+    } );
+
+  } );
 
   describe( '.get', done => {
 

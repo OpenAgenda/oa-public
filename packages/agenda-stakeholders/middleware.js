@@ -12,7 +12,9 @@ function agenda( namespace = 'agenda' ) {
 
   return {
     load,
-    get
+    get,
+    list,
+    stats
   }
 
   function load( serviceNamespace = 'stakeholders' ) {
@@ -39,7 +41,7 @@ function agenda( namespace = 'agenda' ) {
 
     return ( req, res, next ) => {
 
-      service( req[ namespace ].id ).get( { userId: req[ namespaces.user ].id }, ( err, st ) => {
+      service.agenda( req[ namespace ].id ).get( { userId: req[ namespaces.user ].id }, ( err, st ) => {
 
         if ( err ) return next( err );
 
@@ -55,76 +57,61 @@ function agenda( namespace = 'agenda' ) {
 
   }
 
-}
+  function stats( options ) {
 
+    let { namespaces } = _.extend( {
+      namespaces: {
+        stats: 'stats'
+      }
+    }, options || {} );
 
+    return ( req, res, next ) => {
 
-function loadAgenda( agendaNamespace, serviceNamespace ) {
+      service.agenda( req[ namespace ].id ).stats( ( err, stats ) => {
 
-  
+        if ( err ) return next( err );
 
-}
+        req[ namespaces.stats ] = stats;
 
+        next();
 
-function load( agendaNamespace, userNamespace, stakeholderNamespace ) {
+      } );
 
-  agendaNamespace = agendaNamespace || 'agenda';
+    }
 
-  userNamespace = userNamespace || 'user';
+  }
 
-  stakeholderNamespace = stakeholderNamespace || 'stakeholder';
+  function list( options ) {
 
-  return ( req, res, next ) => {
+    let { namespaces, limit } = _.extend( {
+      namespaces: {
+        query: 'query',
+        stakeholders: 'stakeholders',
+        total: 'total'
+      },
+      limit: 20
+    }, options || {} );
 
-    let agendaStakeholders = service( req[ agendaNamespace ].id );    
+    return ( req, res, next ) => {
 
-    agendaStakeholders.get( { userId: req.user.id }, ( err, st ) => {
+      const offset = ( ( req[ namespaces.query ].page || 1 ) - 1 ) * limit;
 
-      if ( err ) return next( err );
+      service.agenda( req[ namespace ].id ).list( req[ namespaces.query ], offset, limit, {
+        total: true,
+        detailed: true
+      }, ( err, items, total ) => {
 
-      req[ stakeholderNamespace ] = st;
+        if ( err ) next( err );
 
-      next();
+        req[ namespaces.stakeholders ] = items;
+        req[ namespaces.total ] = total;
 
-    } );
+        next();
+
+      } );
+
+    }
 
   }
 
 }
-
-
-
-/*
-function list( req, res ) {
-
-  const offset = (req.query.page - 1) * config.limit;
-  const limit = config.limit;
-
-  const query = {
-    search: req.query.search,
-    credentials: req.query.credentials
-  };
-
-  service( req.agenda.id )
-    .list( query, offset, limit, { total: true, detailed: true }, ( err, stakeholders, total ) => {
-
-      if ( err ) return res.status( 400 ).send( err );
-
-      res.send( { stakeholders, total } );
-
-    } );
-
-}
-
-function stats( req, res ) {
-
-  service( req.agenda.id )
-    .stats( ( err, stats ) => {
-
-      if ( err ) return res.status( 400 ).send( err );
-
-      res.send( { stats } );
-
-    } );
-
-} */
