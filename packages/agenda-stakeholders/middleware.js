@@ -2,11 +2,54 @@
 
 const _ = require( 'lodash' );
 const service = require( './service' );
+const Stakeholder = require( './iso/Stakeholder' );
 
 module.exports = {
   loadAgenda,
   load
 }
+
+module.exports = {
+  agenda
+}
+
+function agenda( namespace = 'agenda' ) {
+
+  return {
+    load
+  }
+
+  function load( options ) {
+
+    let { namespaces } = _.extend( {
+      namespaces: {
+        user: 'user',
+        stakeholder: 'stakeholder',
+        instance: 'stakeholderInstance'
+      }
+    }, options || {} );
+
+    return ( req, res, next ) => {
+
+      service( req[ namespace ].id ).get( { userId: req[ namespaces.user ].id }, ( err, st ) => {
+
+        if ( err ) return next( err );
+
+        req[ namespaces.stakeholder ] = st;
+
+        req[ namespaces.instance ] = new Stakeholder( _.mapKeys( st.custom, ( v, k ) => _.snakeCase( k ) ) );
+
+        next();
+
+      } ); 
+
+    }
+
+  }
+
+}
+
+
 
 function loadAgenda( agendaNamespace, serviceNamespace ) {
 
@@ -46,3 +89,40 @@ function load( agendaNamespace, userNamespace, stakeholderNamespace ) {
   }
 
 }
+
+
+
+/*
+function list( req, res ) {
+
+  const offset = (req.query.page - 1) * config.limit;
+  const limit = config.limit;
+
+  const query = {
+    search: req.query.search,
+    credentials: req.query.credentials
+  };
+
+  service( req.agenda.id )
+    .list( query, offset, limit, { total: true, detailed: true }, ( err, stakeholders, total ) => {
+
+      if ( err ) return res.status( 400 ).send( err );
+
+      res.send( { stakeholders, total } );
+
+    } );
+
+}
+
+function stats( req, res ) {
+
+  service( req.agenda.id )
+    .stats( ( err, stats ) => {
+
+      if ( err ) return res.status( 400 ).send( err );
+
+      res.send( { stats } );
+
+    } );
+
+} */

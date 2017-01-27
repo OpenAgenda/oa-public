@@ -259,7 +259,9 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
         contact_name: 'Bah'
       } );
 
-      s.set( { email: 'not an email' } );
+      s.set( {
+        email: 'not an email'
+      } );
 
       s.get().should.eql( {
         email: 'not an email'
