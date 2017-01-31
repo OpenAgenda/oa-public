@@ -593,7 +593,7 @@ function _updateOrInsert( v ) {
           table: schemas.user,
           field: 'uid',
           mysql: config.mysql
-        }, num => (num || 0) + 1, ( err, uniqueValue ) => {
+        }, () => Math.ceil( Math.random() * 99999999 ), ( err, uniqueValue ) => {
 
           if ( err ) reject( err );
 
