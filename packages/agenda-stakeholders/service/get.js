@@ -18,7 +18,7 @@ function get( preFilter, identifiers, options, cb ) {
     cb = options;
     options = {}
 
-  }
+  } 
 
   w( {
     identifiers: validators.clean( 'getQuery', _.extend( {}, identifiers, preFilter ) ),
@@ -59,14 +59,21 @@ function init( config ) {
 function _get( v ) {
 
   let whereObj = format.objToDb( v.identifiers, true );
-
-  return knex( schemas.stakeholder )
+  
+  let k = knex( schemas.stakeholder )
 
     .select( '*' )
 
-    .where( whereObj )
+    .where( whereObj );
 
-    .limit( 1 ).offset( 0 )
+
+  if ( v.identifiers.email ) {
+
+    k.andWhere( 'store', 'like', '%"' + v.identifiers.email + '"%' );
+
+  }
+
+  return k.limit( 1 ).offset( 0 )
 
   .then( rows => {
 
@@ -114,7 +121,7 @@ function _getUserInfo( v ) {
 
   let d =w.defer();
 
-  interfaces.getUser( v.stakeholder.userId, ( err, user ) => {
+  interfaces.getUser( { id: v.stakeholder.userId }, ( err, user ) => {
 
     if ( err ) return d.reject( err );
 

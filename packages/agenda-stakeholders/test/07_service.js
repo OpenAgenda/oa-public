@@ -14,13 +14,7 @@ describe( 'agenda-stakeholders - functional (server): service', function() {
 
   before( done => {
 
-    service.init( config, done );
-
-  } );
-
-  before( done => {
-
-    service( 4608 ).settings.clear( false, done );
+    service.initAndLoad( config, done );
 
   } );
 
@@ -32,15 +26,13 @@ describe( 'agenda-stakeholders - functional (server): service', function() {
 
     instance.save( ( err, result ) => {
 
-      return done();
-
       should( err ).equal( null );
 
       result.valid.should.equal( false );
 
       result.saved.should.equal( false );
 
-      result.errors.length.should.equal( 4 );
+      result.errors.length.should.equal( 5 );
 
       done();
 
@@ -61,6 +53,7 @@ describe( 'agenda-stakeholders - functional (server): service', function() {
       } );
 
       instance.setFieldValues( {
+        email: 'daddywhatdyouleavebehind@for.me',
         organization: 'Hôtel de Sambucy - 12100 - Millau',
         contact_number: '03 85 86 92 82',
         contact_name: 'de Sambucy de Sorgue Marc',
@@ -84,6 +77,26 @@ describe( 'agenda-stakeholders - functional (server): service', function() {
 
   } );
 
+  it( 'new stakeholder does not necessarily have a bound user', done => {
+
+    let instance = service( 4608 ).new();
+
+    instance.setFieldValues( {
+      email: 'goudale@la.fr',
+      organization: 'Hôtel de Sambucy - 12100 - Millau',
+      contact_number: '03 85 86 92 82',
+      contact_name: 'de Sambucy de Sorgue Marc',
+      contact_position: 'Propriétaire'
+    }, ( err, result ) => {
+
+      result.success.should.equal( true );
+
+      done();
+
+    } );
+
+  } );
+
   it( 'new stakeholder is valid and saved', done => {
 
     let instance = service( 4608 ).new( {
@@ -91,6 +104,7 @@ describe( 'agenda-stakeholders - functional (server): service', function() {
     } );
 
     instance.setFieldValues( {
+      email: 'pompom@podom.pom',
       organization: 'Hôtel de Sambucy - 12100 - Millau',
       contact_number: '03 85 86 92 82',
       contact_name: 'de Sambucy de Sorgue Marc',

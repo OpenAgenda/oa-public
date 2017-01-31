@@ -154,14 +154,11 @@ describe( 'agenda-stakeholders - unit (server): instanciate', function() {
         organization: 'OpenAgenda',
         contact_number: '012345',
         contact_name: 'Gaetan Latouche',
-        contact_position: 'Guinea Pig'
+        contact_position: 'Guinea Pig',
+        email: 'mamalovesyoubaby@pf.uk'
       }, ( err, result ) => {
 
         should( err ).equal( null );
-
-        
-
-        return done();
 
         result.valid.should.equal( true );
         result.errors.length.should.equal( 0 );
@@ -177,7 +174,8 @@ describe( 'agenda-stakeholders - unit (server): instanciate', function() {
             organization: { label: 'OpenAgenda', slug: 'openagenda' },
             contact_number: '012345',
             contact_name: 'Gaetan Latouche',
-            contact_position: 'Guinea Pig'
+            contact_position: 'Guinea Pig',
+            email: 'mamalovesyoubaby@pf.uk'
           } );
 
           con.end();
@@ -209,7 +207,12 @@ describe( 'agenda-stakeholders - unit (server): instanciate', function() {
           field: 'contact_number',
           code: 'required',
           message: 'value must not be empty' 
-        } ] )
+        },  {
+          code: 'email.invalid',
+          field: 'email',
+          message: 'email is not valid',
+          origin: undefined
+        } ] );
 
         done();
 

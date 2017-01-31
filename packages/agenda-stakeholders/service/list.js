@@ -182,7 +182,7 @@ function _getUsersInfo( v ) {
 
     let d = w.defer();
 
-    interfaces.getUser( s.userId, ( err, user ) => {
+    interfaces.getUser( { id: s.userId }, ( err, user ) => {
 
       if ( err ) return d.reject( err );
 

@@ -55,9 +55,9 @@ module.exports = class {
 
   }
 
-  isValid() {
+  isValid( partial = false ) {
 
-    return !this.getErrors().length;
+    return !this.getErrors( partial ).length;
 
   }
 
@@ -77,7 +77,7 @@ module.exports = class {
 
   }
 
-  getErrors() {
+  getErrors( partial = false ) {
 
     let errors = [];
 
@@ -87,7 +87,7 @@ module.exports = class {
 
     } catch( e ) { errors =  e };
 
-    return errors;
+    return errors.filter( e => !partial || e.origin !== undefined );
 
   }
 

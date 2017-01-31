@@ -127,7 +127,7 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
         }
       },
 
-      res = {};
+        res = {};
 
       stakeholderMw.agenda().update()( req, res, next );
 

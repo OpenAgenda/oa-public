@@ -14,11 +14,13 @@ const knexLib = require( 'knex' ),
 
   remove = require( './remove' ),
 
-  logger = require( 'basic-logger' ),
+  create = require( './create' ),
 
   legacy = require( './legacy' ),
 
   dbUtils = require( './dbUtils' ),
+
+  logger = require( 'basic-logger' ),
 
   settings = require( './settings' ),
 
@@ -50,15 +52,19 @@ function agenda( agendaId ) {
   let s = settings( agendaId );
 
   // separate reference for re-use within service
-  let agendaService = {};
+  let agendaService = {},
 
-  _.extend( agendaService, { 
+    agendaStakeholderInstanciate = instanciate( agendaService );
+
+  _.extend( agendaService, {
     get: instanciatedGet,
     list: list.bind( null, { agendaId } ),
     stats: stats.bind( null, { agendaId } ),
     remove: remove.bind( null, { agendaId } ),
+    create: create.bind( null, { agendaId } ),
+    //bulkCreate: create.bulk.bind( null, { agendaId } ),
     transferEvent: transferEvent( agendaId ),
-    instanciate: instanciate( agendaService ),
+    instanciate: agendaStakeholderInstanciate,
     new: newStakeholder,
     settings: { 
       get: s.get,
@@ -78,20 +84,12 @@ function agenda( agendaId ) {
 
   function newStakeholder( options ) {
 
-    let stakeholder = _.extend( {
-      userId: null, // required
+    return agendaService.instanciate( _.extend( {
+      userId: null,
       credential: 1 // contributor
     }, options || {}, {
       agendaId
-    } );
-
-    if ( !stakeholder.userId ) {
-
-      throw 'userId is required';
-
-    }
-
-    return agendaService.instanciate( stakeholder );
+    } ) );
 
   }
 
@@ -196,6 +194,16 @@ function init( c, cb ) {
     remove.init( {
       knex,
       schemas
+    } );
+
+  } )
+
+  .then( () => {
+
+    create.init( {
+      knex,
+      schemas,
+      interfaces: config.interfaces
     } );
 
   } )

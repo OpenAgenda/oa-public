@@ -157,6 +157,7 @@ describe( 'agenda-stakeholders - functional (server): settings', function() {
   it( 'validates custom values', done => {
 
     service( 4608 ).settings.custom.validate( {
+      email: 'asyoufallthrough@thethinice.com',
       organization: 'DRAC ALPC',
       contact_number: '05 57 95 01 84',
       contact_name: 'DEYRES Joëlle',

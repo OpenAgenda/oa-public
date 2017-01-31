@@ -197,3 +197,11 @@ create a testconfig.js file at the root of the project with the following config
         agendaEvent: 'agenda_event'
       }
     }
+
+
+bulkCreate
+
+  creates stakeholders in bulk
+
+  create creates stakeholder on at a time and
+  gives result to interface

@@ -6,19 +6,19 @@
 
 const utils = require( 'utils' ),
 
-logger = require( 'basic-logger' ),
+  logger = require( 'basic-logger' ),
 
-storeLib = require( 'mysql-table-store' ),
+  storeLib = require( 'mysql-table-store' ),
 
-w = require( 'when' ),
+  w = require( 'when' ),
 
-validator = require( '../iso/validator' ),
+  validator = require( '../iso/validator' ),
 
-customFormat = require( './customFormat' ),
+  customFormat = require( './customFormat' ),
 
-defaultFields = require( '../iso/defaults' ).fields,
+  defaultFields = require( '../iso/defaults' ).fields,
 
-legacyLib = require( './legacy' );
+  legacyLib = require( './legacy' );
 
 var knex, schemas, log, store;
 
@@ -47,7 +47,7 @@ function settings( agendaId ) {
   function get( cb ) {
 
     store.get( agendaId, ( err, settings ) => {
-      
+
       if ( err ) return cb( err );
 
       if ( settings ) return cb( null, settings );

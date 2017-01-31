@@ -3,7 +3,9 @@
 const schema = require( 'validators/schema' );
 
 schema.register( {
-  boolean: require( 'validators/boolean' )
+  integer: require( 'validators/integer' ),
+  boolean: require( 'validators/boolean' ),
+  email: require( 'validators/email' )
 } );
 
 module.exports = schema( {
@@ -17,6 +19,10 @@ module.exports = schema( {
   },
   agendaId: {
     type: 'integer',
+    optional: true
+  },
+  email: {
+    type: 'email',
     optional: true
   }
 } );

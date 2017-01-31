@@ -73,6 +73,18 @@ describe( 'agenda-stakeholders - functional (server): get', function() {
 
     } );
 
+    it( 'get based on email', done => {
+
+      service.agenda( 4608 ).get( { email: 'invitedguy@email.com' }, ( err, stakeholder ) => {
+
+        stakeholder.custom.email.should.equal( 'invitedguy@email.com' );
+
+        done();
+
+      } );
+
+    } );
+
     it( 'leaving detailed unspecified means defaults to false and no additional data is fetched', done => {
 
       service.agenda( 4608 ).get( { id: 6975 }, ( err, stakeholder ) => {

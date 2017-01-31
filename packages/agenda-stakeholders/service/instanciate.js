@@ -2,17 +2,17 @@
 
 const validators = require( 'validators' ),
 
-utils = require( 'utils' ),
+  _ = require( 'lodash' ),
 
-w = require( 'when' ),
+  w = require( 'when' ),
 
-slug = require( 'slug' ),
+  slug = require( 'slug' ),
 
-logger = require( 'basic-logger' ),
+  logger = require( 'basic-logger' ),
 
-format = require( './format' );
+  format = require( './format' );
 
-var knex, schemas, log;
+let knex, schemas, log;
 
 module.exports = instanciate;
 
@@ -22,7 +22,7 @@ function instanciate( agendaService ) {
 
   return function( data ) {
 
-    let stakeholder = utils.extend( {
+    let stakeholder = _.extend( {
       custom: {}
     }, data );
 
@@ -148,7 +148,7 @@ function instanciate( agendaService ) {
 
       }
 
-      w( utils.extend( {
+      w( _.extend( {
         force: false,
         valid: null,
         saved: false
