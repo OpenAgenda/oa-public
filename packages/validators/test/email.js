@@ -16,6 +16,12 @@ describe( 'email validator', () => {
 
   } );
 
+  it( 'returns null if input is null and validaor is optional', () => {
+
+    should( validators.email( { optional: true } )() ).equal( null );
+
+  } );
+
   it( 'is not an email', () => {
 
     let caught = false;

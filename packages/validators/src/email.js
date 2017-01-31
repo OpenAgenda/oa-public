@@ -13,6 +13,7 @@ export default config => {
       code: 'email.invalid',
       message: 'email is not valid'
     },
+    optional: true,
     type: 'email'
   }, config || {} ),
 
@@ -26,6 +27,12 @@ export default config => {
   function validate( value ) {
 
     let clean = typeof value === 'string' ? value.trim() : '';
+
+    if ( !value && params.optional ) {
+
+      return null;
+
+    }
 
     if ( clean.indexOf( ' ' ) !== -1 || !emailRgx.test( clean ) ) {
 

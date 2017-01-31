@@ -24,6 +24,7 @@ exports.default = function (config) {
       code: 'email.invalid',
       message: 'email is not valid'
     },
+    optional: true,
     type: 'email'
   }, config || {}),
       validator = (0, _extend2.default)(validate, {
@@ -36,6 +37,11 @@ exports.default = function (config) {
   function validate(value) {
 
     var clean = typeof value === 'string' ? value.trim() : '';
+
+    if (!value && params.optional) {
+
+      return null;
+    }
 
     if (clean.indexOf(' ') !== -1 || !emailRgx.test(clean)) {
 
