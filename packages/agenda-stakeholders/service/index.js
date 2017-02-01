@@ -38,6 +38,9 @@ module.exports = Object.assign( agenda, {
   init,
   user,
   agenda,
+  tasks: {
+    create: create.task
+  },
   types: require( '../iso/credentialTypes' )
 } );
 
@@ -61,8 +64,9 @@ function agenda( agendaId ) {
     list: list.bind( null, { agendaId } ),
     stats: stats.bind( null, { agendaId } ),
     remove: remove.bind( null, { agendaId } ),
-    create: create.bind( null, { agendaId } ),
-    //bulkCreate: create.bulk.bind( null, { agendaId } ),
+    create: _.extend( create.bind( null, { agendaId } ), {
+      bulk: create.bulk.bind( null, { agendaId } )
+    } ),
     transferEvent: transferEvent( agendaId ),
     instanciate: agendaStakeholderInstanciate,
     new: newStakeholder,
@@ -203,7 +207,8 @@ function init( c, cb ) {
     create.init( {
       knex,
       schemas,
-      interfaces: config.interfaces
+      interfaces: config.interfaces,
+      queue: config.queue
     } );
 
   } )

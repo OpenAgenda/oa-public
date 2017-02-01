@@ -16,12 +16,19 @@ const _ = require( 'lodash' ),
 
   get = require( './get' ),
  
-  settings = require( './settings' );
- 
-let log, createProcess;
+  settings = require( './settings' ),
 
-module.exports = _.extend( create(), { 
+  queue = require( 'queue' ),
+
+  async = require( 'async' ),
+
+  createSingle = create();
+ 
+let log, createProcess, q, queueConfig;
+
+module.exports = _.extend( createSingle, { 
   bulk,
+  task,
   init
 } );
 
@@ -129,6 +136,12 @@ function create() {
 
       if ( err ) return cb( err );
 
+      if ( interfaces && interfaces.onCreate && processResult.values.result.success ) {
+
+        interfaces.onCreate( processResult.values.result.stakeholder );
+
+      }
+
       cb( null, processResult.values.result, processResult.report );
 
     } );
@@ -140,7 +153,63 @@ function create() {
 
 
 
-function bulk() {}
+/**
+ * this guy takes emails. Or stakeholder data
+ * and decides whether to put in queue
+ * or to process on the fly.
+ * 
+ */
+function bulk( base, listData, options, cb ) {
+
+  if ( arguments.length === 3 ) {
+
+    options = {};
+    cb = arguments[ 2 ];
+
+  }
+
+  if ( !_.isArray( listData ) ) {
+
+    return cb( 'input data must be a list' );
+
+  }
+
+  if ( listData.length > queueConfig.threshold ) {
+
+    _queueCreates( base, listData, options, cb );
+
+  } else {
+
+    _doCreates( base, listData, options, cb );
+
+  }
+
+}
+
+/**
+ * this guy processes bulked things.
+ */
+function task( onCreate = null ) {
+
+  q.setConsumer( ( { base, data, options }, cb ) => {
+
+    createSingle( base, data, options, ( err, result ) => {
+
+      if ( onCreate ) onCreate( err, result );
+
+      cb();
+
+    } );
+
+  } );
+
+  q.launch();
+
+  return {
+    shutdown: q.shutdown
+  }
+
+}
 
 function init( config ) {
 
@@ -153,6 +222,57 @@ function init( config ) {
   knex = config.knex;
 
   interfaces = config.interfaces;
+
+  queueConfig = config.queue;
+
+  q = queue( queueConfig.name, { redis: queueConfig.redis } );
+
+}
+
+
+function _doCreates( base, listData, options, cb ) {
+
+  let results = [];
+
+  async.eachSeries( listData, ( data, ecb ) => {
+
+    createSingle( base, data, options, ( err, result ) => {
+
+      results.push( [ err, result ] );
+
+      ecb();
+
+    } );
+
+  }, err => {
+
+    if ( err ) return cb( err );
+
+    cb( null, {
+      queued: false,
+      results
+    } );
+
+  } );
+
+}
+
+
+function _queueCreates( base, listData, options, cb ) {
+
+  return async.eachSeries( listData, ( data, ecb ) => {
+
+    q( { base, data, options }, ecb );
+
+  }, err => {
+
+    if ( err ) return cb( err );
+
+    cb( null, {
+      queued: true
+    } );
+
+  } );
 
 }
 

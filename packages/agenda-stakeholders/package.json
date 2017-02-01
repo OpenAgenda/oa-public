@@ -22,11 +22,13 @@
     "superagent": "^3.3.1",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
     "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git#v1.1.11",
-    "process-service" : "git+ssh://git@bitbucket.org:openagenda/process-service.git",
-    "when": "^3.7.7"
+    "process-service": "git+ssh://git@bitbucket.org:openagenda/process-service.git",
+    "when": "^3.7.7",
+    "queue": "git+ssh://git@bitbucket.org:openagenda/queue.git"
   },
   "devDependencies": {
     "express": "^4.14.0",
+    "redis": "^2.6.5",
     "should": "^8.3.0"
   }
 }
