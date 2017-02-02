@@ -74,7 +74,11 @@ describe( 'agenda-stakeholders - functional (server): settings', function() {
 
       should( err ).equal( null );
 
-      [ 'organization', 'contact_name', 'contact_position' ].forEach( field => {
+      [ 
+        'organization',
+        'contact_name',
+        'contact_position'
+      ].forEach( field => {
 
         data.fields.filter( f => f.field == field ).length.should.equal( 1 );
 

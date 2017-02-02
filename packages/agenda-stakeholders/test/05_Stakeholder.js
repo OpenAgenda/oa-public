@@ -7,9 +7,9 @@ const Stakeholder = require( '../iso/Stakeholder.js' );
 const extend = require( 'lodash/extend' );
 
 const validData = { 
-  contact_name: 'Jeff',
-  contact_number: '01',
-  contact_position: 'Over there',
+  contactName: 'Jeff',
+  contactNumber: '01',
+  contactPosition: 'Over there',
   organization: 'Jeff corp',
   email: 'jeff@email.com' 
 };
@@ -180,9 +180,9 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
       let s = new Stakeholder( {
         organization: 'Mail Inc',
         email: 'the@email.com',
-        contact_number: '01 02 03',
-        contact_name: 'Theem Ail',
-        contact_position: 'To the right'
+        contactNumber: '01 02 03',
+        contactName: 'Theem Ail',
+        contactPosition: 'To the right'
       } );
 
       s.isValid().should.equal( true );
@@ -192,7 +192,7 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
     it( 'and the opposite', () => {
 
       let s = new Stakeholder( {
-        contact_name: 'Shoo'
+        contactName: 'Shoo'
       } );
 
       s.isValid().should.equal( false );
@@ -209,14 +209,14 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
       let s = new Stakeholder( {
         organization: 'Mail Inc',
         email: 'the@email.com',
-        contact_number: 'Beeeepbeeepbeeep',
-        contact_name: 'Theem Ail',
-        contact_position: 'To the right'
+        contactNumber: 'Beeeepbeeepbeeep',
+        contactName: 'Theem Ail',
+        contactPosition: 'To the right'
       } );
 
       s.getErrors().should.eql( [ { 
         origin: 'Beeeepbeeepbeeep',
-        field: 'contact_number',
+        field: 'contactNumber',
         code: 'phone.invalid',
         message: 'value is not a phone number' 
       } ] );
@@ -239,11 +239,11 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
     it( 'get returns the current data', () => {
 
       let s = new Stakeholder( {
-        contact_name: 'Bidoo'
+        contactName: 'Bidoo'
       } );
 
       s.get().should.eql( {
-        contact_name: 'Bidoo'
+        contactName: 'Bidoo'
       } );
 
     } );
@@ -256,7 +256,7 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
     it( 'set sets the current field data, even when not valid', () => {
 
       let s = new Stakeholder( {
-        contact_name: 'Bah'
+        contactName: 'Bah'
       } );
 
       s.set( {
@@ -272,7 +272,7 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
     it( 'set returns the array of validation errors', () => {
 
       let s = new Stakeholder( {
-        contact_name: 'Jeff'
+        contactName: 'Jeff'
       } );
 
       s.set( extend( {}, validData, { email: 'Jeffsatemail.com' } ) )
@@ -292,11 +292,11 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
   describe( '.commit', () => {
 
     let broker = {
-      contact_name: 'Joel Backman',
-      contact_position: 'Lawyer',
+      contactName: 'Joel Backman',
+      contactPosition: 'Lawyer',
       organization: 'Backman',
       email: 'joel@backman.com',
-      contact_number: '+18002223344'
+      contactNumber: '+18002223344'
     };
 
     it( 'commit pushes the field data to the server', done => {

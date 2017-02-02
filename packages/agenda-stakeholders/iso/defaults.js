@@ -1,6 +1,8 @@
 "use strict";
 
 const validator = require( './validator' );
+const camelCase = require( 'lodash/camelCase' );
+const extend = require( 'lodash/extend' );
 
 module.exports.fields = [ {
   field: 'organization',
@@ -27,3 +29,5 @@ module.exports.fields = [ {
 
 // default schema derives from default stakeholder field set
 module.exports.schemaMap = validator.convertFieldsToSchemaMap( module.exports.fields );
+
+module.exports.camelCaseSchemaMap = validator.convertFieldsToSchemaMap( module.exports.fields.map( f => extend( {}, f, { field: camelCase( f.field ) } ) ) );

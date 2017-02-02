@@ -1,7 +1,7 @@
 "use strict";
 
 const defaults = {
-  schemaMap: require( './defaults' ).schemaMap,
+  schemaMap: require( './defaults' ).camelCaseSchemaMap,
   res: null,
   pull: false,
   onTransferChange: () => {}
