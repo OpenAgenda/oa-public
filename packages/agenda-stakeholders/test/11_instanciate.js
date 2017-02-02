@@ -164,6 +164,14 @@ describe( 'agenda-stakeholders - unit (server): instanciate', function() {
         result.errors.length.should.equal( 0 );
         result.success.should.equal( true );
 
+        result.data.should.eql( {
+          organization: { label: 'OpenAgenda', slug: 'openagenda' },
+          contactNumber: '012345',
+          contactName: 'Gaetan Latouche',
+          contactPosition: 'Guinea Pig',
+          email: 'mamalovesyoubaby@pf.uk'
+        } );
+
         let con = mysql.createConnection( config.mysql );
 
         con.query( `select * from ${config.schemas.stakeholder} where user_id = ? and review_id = ?`, [ 7795, 4608 ], ( err, rows ) => {

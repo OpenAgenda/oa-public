@@ -103,7 +103,7 @@ function instanciate( agendaService ) {
               success: true,
               valid: result.valid,
               errors: result.errors,
-              data: fieldValues
+              data: values
             } );
 
           } );
