@@ -142,10 +142,26 @@ module.exports = options => {
 
     signature = crypto.createHmac( 'sha1', params.password ).update( params.user + created ).digest( 'hex' ),
 
+    isUserTemplate = ( {
+      fr: {
+        en: 'true',
+        es: 'true',
+        de: 'true',
+        it: 'true'
+      },
+      en: {
+        fr: 'false',
+        es: 'false',
+        de: 'false',
+        it: 'true'
+      }
+    } )[ lang ][ destLang ],
+
     res = [ 
       settings.res + '/direction=',
       _parseLang( lang ), '-', _parseLang( destLang ),
-      '?template=General&isUserTemplate=true'
+      '?template=General&isUserTemplate=',
+      isUserTemplate
     ].join( '' ),
 
     html = '<html><body>' + marked( text ) + '</html></body>';

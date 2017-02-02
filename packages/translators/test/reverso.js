@@ -35,6 +35,20 @@ describe( 'reverso', function() {
 
     } );
 
+    it( 'make a translation from english to french', done => {
+
+      r( 'Well this works just swell mister', 'en', 'fr', ( err, translation ) => {
+
+        should( err ).equal( null );
+
+        translation.should.equal( 'Bien cela marche juste la houle monsieur' );
+
+        done();
+
+      } );
+
+    } );
+
     it( 'empty or undefined source language gives back empty string', done => {
 
       r( undefined , 'en', ( err, translation ) => {
