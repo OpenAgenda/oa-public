@@ -129,7 +129,18 @@ module.exports = class {
 
     }
 
-    this.link.commit( this._data, cb );
+    this.link.commit( this._data, err => {
+
+      if ( err ) return cb( err );
+
+      cb( null, {
+        success: true,
+        valid: true,
+        errors: [],
+        data: this._data
+      } );
+
+    } );
 
   }
 

@@ -303,9 +303,11 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
 
       let s = new Stakeholder( broker, { res: 'http://localhost:3000' } );
 
-      s.commit( err => {
+      s.commit( ( err, result ) => {
 
         should( err ).equal( null );
+
+        result.success.should.equal( true );
 
         server.getTestConfig().data.should.eql( broker );
         
