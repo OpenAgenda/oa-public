@@ -23,7 +23,7 @@ function agenda( namespace = 'agenda' ) {
 
     return ( req, res, next ) => {
 
-      req[ serviceNamespace ] = service( req[ namespace ].id );
+      _.set( req, serviceNamespace, service( _.get( req, namespace ).id ) );
 
       next();
 
@@ -33,7 +33,7 @@ function agenda( namespace = 'agenda' ) {
 
   function remove( options ) {
 
-    let { namespaces } = _.extend( {
+    let { namespaces } = _.merge( {
       namespaces: {
         stakeholder: 'stakeholder',
         result: 'result'
@@ -42,11 +42,11 @@ function agenda( namespace = 'agenda' ) {
 
     return ( req, res, next ) => {
 
-      service.agenda( req[ namespace ].id ).remove( { id: req[ namespaces.stakeholder ].id }, ( err, result ) => {
+      service.agenda( _.get( req, namespace ).id ).remove( { id: _.get( req, namespaces.stakeholder ).id }, ( err, result ) => {
 
         if ( err ) return next( err );
 
-        req[ namespaces.result ] = result;
+        _.set( req, namespaces.result, result );
 
         next();
 
@@ -58,7 +58,7 @@ function agenda( namespace = 'agenda' ) {
 
   function update( options ) {
 
-    let { namespaces } = _.extend( {
+    let { namespaces } = _.merge( {
       namespaces: {
         user: 'user',
         result: 'result',
@@ -68,15 +68,17 @@ function agenda( namespace = 'agenda' ) {
 
     return ( req, res, next ) => {
 
-      service.agenda( req[ namespace ].id ).get( { userId: req[ namespaces.user ].id }, { instanciate: true }, ( err, instance ) => {
+      service.agenda( _.get( req, namespace ).id ).get( { userId: _.get( req, namespaces.user ).id }, { instanciate: true }, ( err, instance ) => {
 
         if ( err ) return next( err );
 
-        instance.setFieldValues( req[ namespaces.data ], ( err, result ) => {
+        if ( !instance ) return next( 'stakeholder not found' );
+
+        instance.setFieldValues( _.get( req, namespaces.data ), ( err, result ) => {
 
           if ( err ) return next( err );
 
-          req[ namespaces.result ] = result;
+          _.set( req, namespaces.result, result );
 
           next();
 
@@ -90,7 +92,7 @@ function agenda( namespace = 'agenda' ) {
 
   function get( options ) {
 
-    let { namespaces } = _.extend( {
+    let { namespaces } = _.merge( {
       namespaces: {
         user: 'user',
         stakeholder: 'stakeholder',
@@ -100,13 +102,13 @@ function agenda( namespace = 'agenda' ) {
 
     return ( req, res, next ) => {
 
-      service.agenda( req[ namespace ].id ).get( { userId: req[ namespaces.user ].id }, ( err, st ) => {
+      service.agenda( _.get( req, namespace ).id ).get( { userId: _.get( req, namespaces.user ).id }, ( err, st ) => {
 
         if ( err ) return next( err );
 
-        req[ namespaces.stakeholder ] = st;
+        _.set( req, namespaces.stakeholder, st );
 
-        req[ namespaces.instance ] = new Stakeholder( _.mapKeys( st.custom, ( v, k ) => _.snakeCase( k ) ) );
+        _.set( req, namespaces.instance, new Stakeholder( _.mapKeys( st.custom, ( v, k ) => _.snakeCase( k ) ) ) );
 
         next();
 
@@ -118,7 +120,7 @@ function agenda( namespace = 'agenda' ) {
 
   function stats( options ) {
 
-    let { namespaces } = _.extend( {
+    let { namespaces } = _.merge( {
       namespaces: {
         stats: 'stats'
       }
@@ -126,11 +128,11 @@ function agenda( namespace = 'agenda' ) {
 
     return ( req, res, next ) => {
 
-      service.agenda( req[ namespace ].id ).stats( ( err, stats ) => {
+      service.agenda( _.get( req, namespace ).id ).stats( ( err, stats ) => {
 
         if ( err ) return next( err );
 
-        req[ namespaces.stats ] = stats;
+        _.set( req, namespaces.stats, stats );
 
         next();
 
@@ -142,7 +144,7 @@ function agenda( namespace = 'agenda' ) {
 
   function list( options ) {
 
-    let { namespaces, limit } = _.extend( {
+    let { namespaces, limit } = _.merge( {
       namespaces: {
         query: 'query',
         stakeholders: 'stakeholders',
@@ -153,17 +155,17 @@ function agenda( namespace = 'agenda' ) {
 
     return ( req, res, next ) => {
 
-      const offset = ( ( req[ namespaces.query ].page || 1 ) - 1 ) * limit;
+      const offset = ( ( _.get( req, namespaces.query ).page || 1 ) - 1 ) * limit;
 
-      service.agenda( req[ namespace ].id ).list( req[ namespaces.query ], offset, limit, {
+      service.agenda( _.get( req, namespace ).id ).list( _.get( req, namespaces.query ), offset, limit, {
         total: true,
         detailed: true
       }, ( err, items, total ) => {
 
         if ( err ) next( err );
 
-        req[ namespaces.stakeholders ] = items;
-        req[ namespaces.total ] = total;
+        _.set( req, namespaces.stakeholders, items );
+        _.set( req, namespaces.total, total );
 
         next();
 

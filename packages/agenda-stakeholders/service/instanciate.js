@@ -102,7 +102,8 @@ function instanciate( agendaService ) {
             cb( null, {
               success: true,
               valid: result.valid,
-              errors: result.errors
+              errors: result.errors,
+              data: fieldValues
             } );
 
           } );

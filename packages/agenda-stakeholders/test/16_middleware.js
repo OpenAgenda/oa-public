@@ -136,7 +136,14 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
         req.result.should.eql( {
           success: true,
           valid: true,
-          errors: []
+          errors: [],
+          data: {
+            organization: 'Latouche International Corp',
+            email: 'gaetan@latouche.com',
+            contact_number: '06',
+            contact_name: 'Gaetan Latouche',
+            contact_position: 'Overlord'
+          }
         } );
 
         done();
