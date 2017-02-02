@@ -24,7 +24,7 @@ module.exports = options => {
 
   if ( !params.password ) throw new Error( 'Password is not set' );
 
-  return translate; 
+  return translate;
 
   function translate( text, lang, destLang, cb ) {
 
@@ -132,7 +132,7 @@ module.exports = options => {
 
   function singleTextTranslate( text, lang, destLang, cb ) {
 
-    if ( text === null || text === '' || text === undefined ) {
+    if ( text === false || text === null || text === '' || text === undefined ) {
 
       return cb( null, '' );
 
