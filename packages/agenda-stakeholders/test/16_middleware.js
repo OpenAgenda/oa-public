@@ -121,9 +121,9 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
         data: {
           organization: 'Latouche International Corp',
           email: 'gaetan@latouche.com',
-          contact_number: '06',
-          contact_name: 'Gaetan Latouche',
-          contact_position: 'Overlord'
+          contactNumber: '06',
+          contactName: 'Gaetan Latouche',
+          contactPosition: 'Overlord'
         }
       },
 

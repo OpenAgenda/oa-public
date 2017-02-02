@@ -70,7 +70,9 @@ function instanciate( agendaService ) {
         save: true
       }, options );
 
-      agendaService.settings.custom.validate( fieldValues, ( err, result ) => {
+      let underscored = _.mapKeys( fieldValues, ( v, k ) => _.snakeCase( k ) );
+
+      agendaService.settings.custom.validate( underscored, ( err, result ) => {
 
         if ( err ) return cb( err );
 
