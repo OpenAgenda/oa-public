@@ -30,6 +30,8 @@ const knexLib = require( 'knex' ),
 
   slugs = require( './slugs' ),
 
+  middleware = require( '../middleware' ),
+
   dbParse = require( 'mysql-utils/mapper' )( map ),
 
   utils = require( 'utils' ),
@@ -40,6 +42,7 @@ const knexLib = require( 'knex' ),
     get,
     findOne: get.findOne,
     instanciate,
+    middleware,
     set,
     remove,
     count,
@@ -92,6 +95,8 @@ function init( c ) {
     files: c.files,
     logger: c.logger
   } );
+
+  middleware.init( c, service );
 
   Object.keys( service.tasks ).forEach( k => {
 
