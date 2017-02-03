@@ -1,19 +1,29 @@
 "use strict";
 
-module.exports = ( currentChecked, check, language ) => {
+const update = require( 'react-addons-update' );
 
-  let checked = currentChecked.concat( [] );
+module.exports = ( tState, check, langCode ) => {
+
+  const currentSetIndex = tState
+    .sets.map( s => s.source )
+    .indexOf( tState.source ),
+
+    currentChecked = tState.sets[ currentSetIndex ].checked;
+
+  let updated = { sets: {} };
 
   if ( check ) {
 
-    checked.push( language );
+    updated.sets[ currentSetIndex ] = { checked: { $push: [ langCode ] } };
 
   } else {
 
-    checked.splice( checked.indexOf( language ), 1 );
+    updated.sets[ currentSetIndex ] = { checked: {
+      $splice: [[ tState.sets[ currentSetIndex ].checked.indexOf( langCode ), 1 ]]
+    } };
 
   }
 
-  return checked;
+  return update( tState, updated );
 
 }

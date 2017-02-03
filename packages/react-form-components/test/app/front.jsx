@@ -22,6 +22,8 @@ MarkdownComponent = require( '../../components/MarkdownComponent.jsx' ),
 
 Translation = require( '../../components/Translation' ),
 
+onTranslationCheck = require( '../../lib/onTranslationCheck' ),
+
 // needs to be babelified first
 SearchField = require( '../../build/SearchField' ),
 
@@ -141,28 +143,8 @@ Wrapper = React.createClass( {
 
   translationCheck: function( check, sourceCode, langCode ) {
 
-    const currentSetIndex = this.state.translation
-      .sets.map( s => s.source )
-      .indexOf( this.state.translation.source ),
-
-      currentChecked = this.state.translation.sets[ currentSetIndex ].checked;
-
-    let updated = { sets: {} };
-
-    if ( check ) {
-
-      updated.sets[ currentSetIndex ] = { checked: { $push: [ langCode ] } };
-
-    } else {
-
-      updated.sets[ currentSetIndex ] = { checked: {
-        $splice: [[ this.state.translation.sets[ currentSetIndex ].checked.indexOf( langCode ), 1 ]]
-      } };
-
-    }
-
     this.setState( {
-      translation: update( this.state.translation, updated )
+      translation: onTranslationCheck( this.state.translation, check, langCode )
     } );
 
   },
