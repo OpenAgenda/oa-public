@@ -56,7 +56,7 @@ var deepExtend = require( 'deep-extend' ),
         host: 'cibul.cjlxznnlwwtq.eu-west-1.rds.amazonaws.com',
         port: 3306,
         user: 'root',
-        password: 'V4\'&4F:,Mtji\'hzq',
+        password: "V4'&4F:,Mtji'hzq",
         cache: true
       },
       schemas: {
