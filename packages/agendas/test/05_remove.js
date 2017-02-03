@@ -10,7 +10,7 @@ config = require( '../testconfig' ),
 
 mysql = require( 'mysql' );
 
-describe( 'service.remove', function() {
+describe( 'agendas - functional (server): remove', function() {
 
   this.timeout( 30000 );
 

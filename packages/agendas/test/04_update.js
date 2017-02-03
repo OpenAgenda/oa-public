@@ -10,7 +10,7 @@ const should = require( 'should' ),
 
   mysql = require( 'mysql' );
 
-describe( 'service.set: update an agenda', function() {
+describe( 'agendas - functional (server): set (update)', function() {
 
   this.timeout( 30000 );
 

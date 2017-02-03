@@ -11,7 +11,7 @@ var should = require( 'should' ),
 
   config = require( '../testconfig' );
 
-describe( 'list', function () {
+describe( 'agendas - functional (server): list', function () {
 
   this.timeout( 30000 );
 

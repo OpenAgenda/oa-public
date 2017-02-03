@@ -12,7 +12,7 @@ mysql = require( 'mysql' ),
 
 async = require( 'async' );
 
-describe( 'service.tasks.loadFromLegacy', function() {
+describe( 'agendas - functional (server): tasks/loadFromLegacy', function() {
 
   this.timeout( 60000 );
 

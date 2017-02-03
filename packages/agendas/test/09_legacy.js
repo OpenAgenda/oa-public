@@ -14,7 +14,7 @@ knex = require( 'knex' ),
 
 mysql = require( 'mysql' );
 
-describe( 'legacy: bridge with legacy data structure', function() {
+describe( 'agendas - unit (server): legacy bridging', function() {
 
   this.timeout( 30000 );
 

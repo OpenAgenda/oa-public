@@ -8,7 +8,7 @@ svc = require( '../service/test' ),
 
 config = require( '../testconfig' );
 
-describe( 'service.set: create an agenda', function() {
+describe( 'agendas - functional (server): set (create)', function() {
 
   this.timeout( 30000 );
 

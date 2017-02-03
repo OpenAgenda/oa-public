@@ -10,7 +10,7 @@ config = require( '../testconfig' ),
 
 async = require( 'async' );
 
-describe( 'get', function() {
+describe( 'agendas - functional (server): get', function() {
 
   this.timeout( 30000 );
 

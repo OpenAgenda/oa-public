@@ -12,7 +12,7 @@ fs = require( 'fs' ),
 
 async = require( 'async' );
 
-describe( 'instantiate', function() {
+describe( 'agendas - functional (server): instanciate', function() {
 
   this.timeout( 30000 );
 

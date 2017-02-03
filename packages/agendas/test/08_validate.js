@@ -6,7 +6,7 @@ publicValidate = require( '../service/validate/public' ),
 
 should = require( 'should' );
 
-describe( 'validate', () => {
+describe( 'agendas - unit (server): validate', () => {
 
   describe( 'public validator', () => {
 

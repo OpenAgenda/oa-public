@@ -10,7 +10,7 @@ const should = require( 'should' ),
 
   async = require( 'async' );
 
-describe( 'middleware', function() {
+describe( 'agendas - functional (server): middleware', function() {
 
   this.timeout( 30000 );
 

@@ -8,7 +8,7 @@ svc = require( '../service/test' ),
 
 config = require( '../testconfig' );
 
-describe( 'service.slugs', function() {
+describe( 'agendas - functional (server): slugs', function() {
 
   this.timeout( 30000 );
 
