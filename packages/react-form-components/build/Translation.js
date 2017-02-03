@@ -12,6 +12,10 @@ var _languages = require('languages');
 
 var _languages2 = _interopRequireDefault(_languages);
 
+var _reactSelect = require('react-select');
+
+var _reactSelect2 = _interopRequireDefault(_reactSelect);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Translation = function Translation(props) {
@@ -37,15 +41,43 @@ var TranslationComponent = _react2.default.createClass({
 
     return {
       source: 'fr',
-      languages: ['de', 'en', 'es', 'it'],
+      sets: [{
+        source: 'fr',
+        target: ['de', 'en', 'es', 'it'],
+        checked: []
+      }],
       labels: {
         translationTitle: 'Translation',
         sourceLanguage: 'Source Language',
         targetLanguages: 'Automatic translation',
-        translationHelp: 'Find out more'
+        translationHelp: 'Find out more',
+        sourceChange: 'Choose'
       },
-      helpLink: 'https://openagenda.zendesk.com/hc/fr/articles/213573709-Traduction-automatique-des-%C3%A9v%C3%A9nements'
+      helpLink: 'https://openagenda.zendesk.com/hc/fr/articles/213573709-Traduction-automatique-des-%C3%A9v%C3%A9nements',
+      check: function check() {},
+      uncheck: function uncheck() {},
+      sourceChange: function sourceChange() {}
     };
+  },
+  getInitialState: function getInitialState() {
+
+    return {
+      editingSource: false
+    };
+  },
+  sourceChange: function sourceChange(e) {
+
+    e.preventDefault();
+
+    this.setState({ editingSource: true });
+  },
+  updateSource: function updateSource(newSource) {
+
+    this.setState({
+      editingSource: false
+    });
+
+    this.props.sourceChange(newSource);
   },
   render: function render() {
     var _this = this;
@@ -54,7 +86,7 @@ var TranslationComponent = _react2.default.createClass({
 
     return _react2.default.createElement(
       'div',
-      { className: 'form-group' },
+      { className: 'form-group translation-form' },
       _react2.default.createElement(
         'a',
         { className: 'pull-right help', target: '_blank', href: this.props.helpLink },
@@ -81,13 +113,36 @@ var TranslationComponent = _react2.default.createClass({
             null,
             labels.sourceLanguage
           ),
-          _react2.default.createElement(
+          this.state.editingSource ? _react2.default.createElement(
             'div',
             null,
+            _react2.default.createElement(_reactSelect2.default, {
+              value: this.props.source,
+              options: this.props.sets.map(function (s) {
+                return {
+                  value: s.source,
+                  label: _languages2.default.getLanguageInfo(s.source).nativeName
+                };
+              }),
+              onChange: this.updateSource,
+              clearable: false })
+          ) : _react2.default.createElement(
+            'div',
+            { className: 'line' },
             _react2.default.createElement(
               'span',
               { className: 'disabled' },
               _languages2.default.getLanguageInfo(this.props.source).nativeName
+            ),
+            _react2.default.createElement(
+              'span',
+              null,
+              ' - ',
+              _react2.default.createElement(
+                'a',
+                { href: '#', onClick: this.sourceChange },
+                labels.sourceChange
+              )
             )
           )
         ),
@@ -101,23 +156,27 @@ var TranslationComponent = _react2.default.createClass({
           ),
           _react2.default.createElement(
             'ul',
-            { className: 'list-unstyled' },
-            this.props.languages.map(function (l) {
-              return _react2.default.createElement(
-                'li',
-                { key: l, className: 'checkbox margin-right-sm' },
-                _react2.default.createElement(
-                  'label',
-                  null,
-                  _react2.default.createElement('input', {
-                    type: 'checkbox',
-                    onChange: function onChange(e) {
-                      return _this.props.checked.indexOf(l) !== -1 ? _this.props.uncheck(l) : _this.props.check(l);
-                    },
-                    checked: _this.props.checked.indexOf(l) !== -1 }),
-                  l.toUpperCase()
-                )
-              );
+            { className: 'list-unstyled line' },
+            this.props.sets.filter(function (s) {
+              return s.source === _this.props.source;
+            }).map(function (s) {
+              return s.target.map(function (l) {
+                return _react2.default.createElement(
+                  'li',
+                  { key: l, className: 'checkbox margin-right-sm' },
+                  _react2.default.createElement(
+                    'label',
+                    null,
+                    _react2.default.createElement('input', {
+                      type: 'checkbox',
+                      onChange: function onChange(e) {
+                        return s.checked.indexOf(l) !== -1 ? _this.props.uncheck(s.source, l) : _this.props.check(s.source, l);
+                      },
+                      checked: s.checked.indexOf(l) !== -1 }),
+                    l.toUpperCase()
+                  )
+                );
+              });
             })
           )
         )

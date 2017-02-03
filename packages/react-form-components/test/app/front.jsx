@@ -42,7 +42,16 @@ Wrapper = React.createClass( {
     return {
       markdown: '',
       translation: {
-        checked: [ 'en', 'es' ]
+        source: 'en',
+        sets: [ {
+          source: 'fr',
+          target: [ 'de', 'en', 'es', 'it' ],
+          checked: [ 'en', 'es' ]
+        }, {
+          source: 'en',
+          target: [ 'de', 'fr', 'es', 'it' ],
+          checked: [ 'de', 'fr' ]
+        } ]
       },
       values: {
         name: 'Poney Vert',
@@ -120,17 +129,35 @@ Wrapper = React.createClass( {
 
   },
 
-  translationCheck: function( check, langCode ) {
+  translationSourceChange: function( newSource ) {
 
-    let updated = {};
+    this.setState( {
+      translation: update( this.state.translation, {
+        source: { $set: newSource }
+      } )
+    } );
+
+  },
+
+  translationCheck: function( check, sourceCode, langCode ) {
+
+    const currentSetIndex = this.state.translation
+      .sets.map( s => s.source )
+      .indexOf( this.state.translation.source ),
+
+      currentChecked = this.state.translation.sets[ currentSetIndex ].checked;
+
+    let updated = { sets: {} };
 
     if ( check ) {
 
-      updated.checked = { $push: [ langCode ] };
+      updated.sets[ currentSetIndex ] = { checked: { $push: [ langCode ] } };
 
     } else {
 
-      updated.checked = { $splice: [[ this.state.translation.checked.indexOf( langCode ), 1 ]] };
+      updated.sets[ currentSetIndex ] = { checked: {
+        $splice: [[ this.state.translation.sets[ currentSetIndex ].checked.indexOf( langCode ), 1 ]]
+      } };
 
     }
 
@@ -145,15 +172,18 @@ Wrapper = React.createClass( {
     return <div>
 
       <Translation
+        source={ this.state.translation.source }
+        sets={ this.state.translation.sets }
+        sourceChange={this.translationSourceChange}
         labels={{
           translationTitle: 'Traduction',
           sourceLanguage: 'Langue source',
           targetLanguages: 'Traduction automatique',
-          translationHelp: 'En savoir plus'
+          translationHelp: 'En savoir plus',
+          sourceChange: 'Changer'
         }}
-        checked= { this.state.translation.checked }
-        check= { this.translationCheck.bind( null, true ) }
-        uncheck= { this.translationCheck.bind( null, false ) }
+        check={ this.translationCheck.bind( null, true ) }
+        uncheck={ this.translationCheck.bind( null, false ) }
       />
 
       <h2>Wysiwyg component</h2>
