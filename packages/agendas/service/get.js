@@ -2,17 +2,19 @@
 
 const w = require( 'when' ),
 
-utils = require( 'utils' ),
+  _ = require( 'lodash' ),
 
-details = require( './details' ),
+  utils = require( 'utils' ),
 
-map = require( './databaseFieldMap' ),
+  details = require( './details' ),
 
-dbParse = require( 'mysql-utils/mapper' )( map ),
+  map = require( './databaseFieldMap' ),
 
-validate = require( './validate' ),
+  dbParse = require( 'mysql-utils/mapper' )( map ),
 
-sUtils = require( './lib/utils' );
+  validate = require( './validate' ),
+
+  sUtils = require( './lib/utils' );
 
 let knex, service, schemas, imagePath;
 
@@ -144,7 +146,7 @@ function _applyDefaults( data ) {
 
   Object.keys( data ).forEach( k => {
 
-    defaulted[ k ] = data[ k ] === null ? defaulted[ k ] : data[ k ];
+    defaulted[ k ] = _.includes( [ 'null', '{}' ], JSON.stringify( data[ k ] ) ) ? defaulted[ k ] : data[ k ];
 
   } );
 

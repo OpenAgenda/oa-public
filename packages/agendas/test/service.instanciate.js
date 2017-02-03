@@ -36,6 +36,79 @@ describe( 'instantiate', function() {
 
   } );
 
+
+  it( 'getRoles - basic agenda roles', done => {
+
+    svc.get( 4922, { instanciate: true }, ( err, agenda ) => {
+
+      agenda.getRoles( ( err, roles ) => {
+
+        should( err ).equal( null );
+
+        roles.should.eql( [ {
+          value: 1, code: 'contributor'
+        }, {
+          value: 2, code: 'administrator'
+        } ] );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
+
+  it( 'getRoles - agenda roles with moderators', done => {
+
+    svc.get( 4931, { instanciate: true }, ( err, agenda ) => {
+
+      agenda.getRoles( ( err, roles ) => {
+
+        should( err ).equal( null );
+
+        roles.should.eql( [ {
+          value: 1, code: 'contributor'
+        }, {
+          value: 2, code: 'administrator'
+        }, {
+          value: 3, code: 'moderator'
+        } ] );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
+
+  it( 'getRoles - private agenda roles', done => {
+
+    svc.get( 4826, { instanciate: true }, ( err, agenda ) => {
+
+      agenda.getRoles( ( err, roles ) => {
+
+        should( err ).equal( null );
+
+        roles.should.eql( [ {
+          value: 1, code: 'contributor'
+        }, {
+          value: 2, code: 'administrator'
+        }, {
+          value: 4, code: 'reader'
+        } ] );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
   it( 'setImage - successful set saves image name in db', done => {
 
     let con = mysql.createConnection( config.mysql ),

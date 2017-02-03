@@ -2,7 +2,11 @@
 
 const image = require( './image' ),
 
-logger = require( 'basic-logger' );
+  _ = require( 'lodash' ),
+
+  logger = require( 'basic-logger' ),
+
+  getRoles = require( './getRoles' );
 
 let service, log = console.log;
 
@@ -32,8 +36,41 @@ function Instance( data ) {
 
 Object.assign(
   Instance.prototype, 
-  image
+  image,
+  {
+    getRoles,
+    _loadInternals,
+    _getExistingRoles
+  }
 );
+
+function _loadInternals( cb ) {
+
+  service.get( { uid: this.data.uid }, { internal: true }, ( err, agenda ) => {
+
+    if ( err ) return cb( err );
+
+    if ( !agenda ) return cb();
+
+    _.forIn( agenda, ( value, field ) => {
+
+      if ( this.data[ field ] !== undefined ) return;
+
+      this.data[ field ] = value;
+
+    } );
+
+    cb();
+
+  } );
+
+}
+
+function _getExistingRoles() {
+
+  return service.getConfig().existingRoles;
+
+}
 
 function init( svc ) {
 
