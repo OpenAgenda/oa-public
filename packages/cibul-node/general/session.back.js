@@ -88,7 +88,7 @@ function _loadDetailed( req, res, next ) {
 
         req.user.agendas = items
 
-          .filter( i => agendas.indexOf( i.agendaId ) === -1 )
+          .filter( i => agendas.map( a => a.id ).indexOf( i.agendaId ) !== -1 )
 
           .map( i => {
 

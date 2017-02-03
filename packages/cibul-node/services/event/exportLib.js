@@ -1,70 +1,70 @@
 "use strict";
 
-var svc,
+const _ = require( 'lodash' ),
 
-utils = require( '../../lib/utils' ),
+  async = require( 'async' ),
 
-async = require( 'async' ),
+  moment = require( 'moment-timezone' ),
 
-moment = require( 'moment-timezone' ),
+  i18n = require( '../../i18n/i18n' ),
 
-i18n = require( '../../i18n/i18n' ),
+  genUrl = require( '../genUrl' ),
 
-genUrl = require( '../genUrl' ),
+  registration = require( 'registration/src/validate' ).getTypesAndValues,
 
-registration = require( 'registration/src/validate' ).getTypesAndValues,
+  timeHelper = require( 'cibulTemplates' ).helpers.time,
 
-timeHelper = require( 'cibulTemplates' ).helpers.time,
+  config = require( '../../config' ),
 
-config = require( '../../config' ),
+  _t = {
+    fr: timeHelper( { lang: 'fr' } ),
+    en: timeHelper( { lang: 'en' } ),
+  },
 
-_t = {
-  fr: timeHelper( { lang: 'fr' } ),
-  en: timeHelper( { lang: 'en' } ),
-},
+  legacyLocationFieldsMap = {
+    conditions: 'pricingInfo',
+    registrationUrl: 'ticketLink',
+    locationName: 'name',
+    locationUid: 'uid',
+    address: 'address',
+    postalCode: 'postcode',
+    city: 'city',
+    district: 'district',
+    department: 'department',
+    region: 'region',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    timings: 'timings'
+  },
 
-legacyLocationFieldsMap = {
-  conditions: 'pricingInfo',
-  registrationUrl: 'ticketLink',
-  locationName: 'name',
-  locationUid: 'uid',
-  address: 'address',
-  postalCode: 'postcode',
-  city: 'city',
-  district: 'district',
-  department: 'department',
-  region: 'region',
-  latitude: 'latitude',
-  longitude: 'longitude',
-  timings: 'timings'
-},
+  locationFieldsMap = {
+    uid : 'uid',
+    name : 'name',
+    slug : 'slug',
+    address : 'address',
+    image: 'image',
+    imageCredits: 'imageCredits',
+    postalCode : 'postcode',
+    city: 'city',
+    district: 'district',
+    department: 'department',
+    region: 'region',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    description: 'description',
+    access: 'access',
+    countryCode: 'countryCode',
+    website: 'website',
+    links: 'links',
+    phone: 'phone',
+    tags: 'tags',
+    timezone: 'timezone',
+    updatedAt: 'updatedAt'
+  }
 
-locationFieldsMap = {
-  uid : 'uid',
-  name : 'name',
-  slug : 'slug',
-  address : 'address',
-  image: 'image',
-  imageCredits: 'imageCredits',
-  postalCode : 'postcode',
-  city: 'city',
-  district: 'district',
-  department: 'department',
-  region: 'region',
-  latitude: 'latitude',
-  longitude: 'longitude',
-  description: 'description',
-  access: 'access',
-  countryCode: 'countryCode',
-  website: 'website',
-  links: 'links',
-  phone: 'phone',
-  tags: 'tags',
-  timezone: 'timezone',
-  updatedAt: 'updatedAt'
-}
+let svc;
 
-module.exports = function( service ) {
+module.exports = service => {
 
   svc = service;
 
@@ -126,26 +126,37 @@ function cleanEvent( eInst, cb ) {
 
     if ( err ) return cb( err );
 
-    var t;
+    let tFirst, tLast;
 
-    utils.extend( c, {
+    _.extend( c, {
       firstDate: null,
       firstTimeStart: null,
-      firstTimeEnd: null
+      firstTimeEnd: null,
+      lastDate: null,
+      lastTimeStart: null,
+      lastTimeEnd: null
     } );
 
     if ( timings.length ) {
 
-      t = {
+      tFirst = {
         start: new Date( timings[ 0 ].start ),
         end: new Date( timings[ 0 ].end )
       };
 
-      utils.extend( c, {
-        firstDate: _stringifyDate( t.start ),
-        firstTimeStart: moment.tz( t.start, timezone ).format( 'HH:mm' ),
-        firstTimeEnd: moment.tz( t.end, timezone ).format( 'HH:mm' )
-      });
+      tLast = {
+        start: new Date( timings[ timings.length - 1 ].start ),
+        end: new Date( timings[ timings.length - 1 ].end )
+      };
+
+      _.extend( c, {
+        firstDate: _stringifyDate( tFirst.start ),
+        firstTimeStart: moment.tz( tFirst.start, timezone ).format( 'HH:mm' ),
+        firstTimeEnd: moment.tz( tFirst.end, timezone ).format( 'HH:mm' ),
+        lastDate: _stringifyDate( tLast.start ),
+        lastTimeStart: moment.tz( tLast.start, timezone ).format( 'HH:mm' ),
+        lastTimeEnd: moment.tz( tLast.end, timezone ).format( 'HH:mm' )
+      } );
 
     }
 

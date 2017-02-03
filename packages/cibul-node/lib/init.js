@@ -289,7 +289,7 @@ function _initAdminAgendas( config ) {
   adminAgendaSvc.init( {
     services: {
       agendas: agendasSvc,
-      agendaStakeholders: agendaStakeholders
+      agendaStakeholders
     },
     mysql: config.db,
     schemas: config.schemas,
@@ -534,13 +534,23 @@ function _initAgendaStakeholders( config ) { // async
   let d = w.defer();
 
   agendaStakeholders.init( {
+    queue: {
+      name: config.queues.stakeholderCreate,
+      redis: config.redis,
+      threshold: 20
+    },
     schemas: config.schemas,
     mysql: config.db,
     logger: logger,
     interfaces: {
-      getUser: ( userId, cb ) => {
+      onCreate: stakeholder => {
 
-        userSvc.get( { id: userId }, cb );
+        // do stuff here
+
+      },
+      getUser: ( identifiers, cb ) => {
+
+        userSvc.get( identifiers, cb );
 
       },
       getEventCount: ( agendaId, userId, cb ) => {
@@ -633,6 +643,7 @@ function _initAgendaService( config ) { // sync
       accessKeyId: config.aws.accessKeyId,
       secretAccessKey: config.aws.secretAccessKey
     },
+    existingRoles: agendaStakeholders.types.types,
     imagePath: config.aws.imageBucketPath,
     logger,
     interfaces: {

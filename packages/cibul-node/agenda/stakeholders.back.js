@@ -113,9 +113,10 @@ const utils = require( 'utils' ),
 
     eventTransfer: [ 'get', '/contributors/transfer/:eventSlug' , [
       eventSvc.mw.load( 'eventSlug', 'slug' ),
+      sessions.middleware.load( { detailed: true } ),
       _checkAdminOrModeratorOrEventOwner,
       cmn.checkCredential( 'eventTransfer' ),
-      stakeholdersMw.loadAgenda( 'agenda', 'stakeholders' ),
+      stakeholdersMw.agenda().load(),
       _loadUserByEmail,
       transfer
     ] ],
@@ -123,10 +124,18 @@ const utils = require( 'utils' ),
     stakeholderGet: [ 'get', '/contributors/:uid.json', [
       cmn.checkAdminOrModerator,
       _loadUserByUid,
-      stakeholdersMw.load( 'agenda', 'queriedUser' ),
+      stakeholdersMw.agenda().get( { user: 'queriedUser' } ),
       ( req, res ) => {
 
-        res.json( { name: req.queriedUser.fullName } );
+        if ( !req.stakeholder ) {
+
+          res.status(404).send( 'Not found' );
+
+        } else {
+
+          res.json( { name: req.queriedUser.fullName } );
+
+        }
 
       }
     ] ]

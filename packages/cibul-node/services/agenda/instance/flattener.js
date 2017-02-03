@@ -263,6 +263,9 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         'firstDate',
         'firstTimeStart',
         'firstTimeEnd',
+        'lastDate',
+        'lastTimeStart',
+        'lastTimeEnd',
         { 
           sourceField: 'category',
           destField: categorySet && categorySet.name ? categorySet.name : 'category',

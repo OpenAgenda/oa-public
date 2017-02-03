@@ -1,99 +1,103 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const modLib = require( '../lib/moduleLib' ),
 
-agendaSvc = require( '../services/agenda' ),
+  agendaSvc = require( '../services/agenda' ),
 
-cmn = require( '../lib/commons-app' ),
+  cmn = require( '../lib/commons-app' ),
 
-eventSvc = require( '../services/event' ),
+  eventSvc = require( '../services/event' ),
 
-tagSvc = require( 'agenda-tags' ),
+  sessions = require( 'sessions' ),
 
-categorySvc = require( 'agenda-categories' ),
+  tagSvc = require( 'agenda-tags' ),
 
-locationMw = require( 'agenda-locations' ).mw(),
+  getAggLabel = require( 'labels' )( require( 'labels/aggregator-sources' ) ),
 
-utils = require( 'utils' ),
+  categorySvc = require( 'agenda-categories' ),
 
-perPage = 20,
+  locationMw = require( 'agenda-locations' ).mw(),
 
-routes = {
+  utils = require( 'utils' ),
 
-  agendaJsonEvents: [ 'get', '/events.json', [
-    agendaSvc.mw.load( 'uid' ),
-    agendaSvc.mw.search( perPage ),
-    eventSvc.mw.cleanEvents,
-    agendaSvc.mw.decorateEvents(),
-    agendaSvc.mw.cleanJson,
-    json
-  ] ],
+  perPage = 20,
 
-  agendaJsonLocations: [ 'get', '/locations.json', [
-    agendaSvc.mw.load( 'uid' ),
-    _prepareLocationExport,
-    locationMw.list,
-    ( req, res ) => cmn.renderJson( req, res, req.locations )
-  ] ],
+  routes = {
 
-  agendaJsonSettings: [ 'get', '/settings.json', [
-    agendaSvc.mw.load( 'uid' ),
-    _loadTagSet,
-    _loadCategorySet,
-    locationMw.loadSettings( 'locationSettings', true ),
-    ( req, res ) => cmn.renderJson( req, res, {
-      tagSet: req.tagSet,
-      categorSet: req.categorySet,
-      locationSet: req.locationSettings,
-      customSet: req.agenda.getCustomFieldsConfig()
-    } )
-  ] ],
+    agendaJsonEvents: [ 'get', '/events.json', [
+      agendaSvc.mw.load( 'uid' ),
+      agendaSvc.mw.search( perPage ),
+      eventSvc.mw.cleanEvents,
+      agendaSvc.mw.decorateEvents(),
+      agendaSvc.mw.cleanJson,
+      json
+    ] ],
 
-  agendaCsvEvents: [ 'get', '/events.csv', [
-    agendaSvc.mw.load( 'uid' ),
-    locationMw.loadSettings( 'locationSettings' ),
-    agendaSvc.mw.buildCsv( false )
-  ] ],
+    agendaJsonLocations: [ 'get', '/locations.json', [
+      agendaSvc.mw.load( 'uid' ),
+      _prepareLocationExport,
+      locationMw.list,
+      ( req, res ) => cmn.renderJson( req, res, req.locations )
+    ] ],
 
-  agendaPdfEvents: [ 'get', '/events.pdf', [
-    agendaSvc.mw.load( 'uid' ),
-    agendaSvc.mw.buildPdf
-  ] ],
+    agendaJsonSettings: [ 'get', '/settings.json', [
+      agendaSvc.mw.load( 'uid' ),
+      _loadTagSet,
+      _loadCategorySet,
+      locationMw.loadSettings( 'locationSettings', true ),
+      ( req, res ) => cmn.renderJson( req, res, {
+        tagSet: req.tagSet,
+        categorSet: req.categorySet,
+        locationSet: req.locationSettings,
+        customSet: req.agenda.getCustomFieldsConfig()
+      } )
+    ] ],
 
-  agendaXlsxEvents: [ 'get', '/events.xlsx', [
-    agendaSvc.mw.load( 'uid' ),
-    locationMw.loadSettings( 'locationSettings' ),
-    agendaSvc.mw.buildXlsx( false )
-  ]],
+    agendaCsvEvents: [ 'get', '/events.csv', [
+      agendaSvc.mw.load( 'uid' ),
+      locationMw.loadSettings( 'locationSettings' ),
+      agendaSvc.mw.buildCsv( false )
+    ] ],
 
-  agendaRssEvents: [ 'get', '/events.rss', [
-    agendaSvc.mw.load( 'uid' ),
-    agendaSvc.mw.search( 20 ),
-    agendaSvc.mw.rss
-  ]],
+    agendaPdfEvents: [ 'get', '/events.pdf', [
+      agendaSvc.mw.load( 'uid' ),
+      agendaSvc.mw.buildPdf
+    ] ],
 
-  agendaIcsEvents: [ 'get', '/events.ics', [
-    agendaSvc.mw.load( 'uid' ),
-    agendaSvc.mw.buildIcs
-  ] ],
+    agendaXlsxEvents: [ 'get', '/events.xlsx', [
+      agendaSvc.mw.load( 'uid' ),
+      locationMw.loadSettings( 'locationSettings' ),
+      agendaSvc.mw.buildXlsx( false )
+    ]],
 
-  agendaSourceAdd: [ 'get', '/addTo/:aggUid', [
-    agendaSvc.mw.load( 'uid' ),
-    agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
-    cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
-    cmn.checkAdministrator( { name: 'aggregatorAgenda' } ),
-    addSource
-  ] ],
+    agendaRssEvents: [ 'get', '/events.rss', [
+      agendaSvc.mw.load( 'uid' ),
+      agendaSvc.mw.search( 20 ),
+      agendaSvc.mw.rss
+    ]],
 
-  agendaSourceRemove: [ 'get', '/removeFrom/:aggUid', [
-    agendaSvc.mw.load( 'uid' ),
-    agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
-    cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
-    cmn.checkAdministrator( { name: 'aggregatorAgenda' } ),
-    removeSource
-  ] ]
+    agendaIcsEvents: [ 'get', '/events.ics', [
+      agendaSvc.mw.load( 'uid' ),
+      agendaSvc.mw.buildIcs
+    ] ],
 
-};
+    agendaSourceAdd: [ 'get', '/addTo/:aggUid', [
+      agendaSvc.mw.load( 'uid' ),
+      agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
+      cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
+      cmn.checkAdministrator( { name: 'aggregatorAgenda' } ),
+      addSource
+    ] ],
+
+    agendaSourceRemove: [ 'get', '/removeFrom/:aggUid', [
+      agendaSvc.mw.load( 'uid' ),
+      agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
+      cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
+      cmn.checkAdministrator( { name: 'aggregatorAgenda' } ),
+      removeSource
+    ] ]
+
+  };
 
 module.exports = function( path ) {
 
@@ -129,14 +133,14 @@ function addSource( req, res, next ) {
 
     if ( err ) return next( err );
 
-    res.setFlash( req, '%source% was added to the sources of %agg%. Its upcoming events will be added shortly.', {
-      '%source%' : '<strong>' + req.agenda.title + '</strong>',
-      '%agg%' : '<strong>' + req.aggregatorAgenda.title + '</strong>'
-    } );
+    sessions.setFlash( req, res, getAggLabel( 'sourceAdded', {
+      source : '<strong>' + req.agenda.title + '</strong>',
+      agg : '<strong>' + req.aggregatorAgenda.title + '</strong>'
+    }, req.lang ) );
 
     res.redirect( 302, req.genUrl( 'agendaShow', { slug: req.agenda.slug } ) );
 
-  });
+  } );
 
 }
 
@@ -146,10 +150,10 @@ function removeSource( req, res, next ) {
 
     if ( err ) return next( err );
 
-    res.setFlash( req, '%source% was removed from the sources of %agg%.', {
-      '%source%' : '<strong>' + req.agenda.title + '</strong>',
-      '%agg%' : '<strong>' + req.aggregatorAgenda.title + '</strong>'
-    } );
+    sessions.setFlash( req, res, getAggLabel( 'sourceRemoved', {
+      source : '<strong>' + req.agenda.title + '</strong>',
+      agg : '<strong>' + req.aggregatorAgenda.title + '</strong>'
+    }, req.lang ) );
 
     res.redirect( 302, req.genUrl( 'agendaShow', { slug: req.agenda.slug } ) );
 

@@ -286,7 +286,11 @@ function checkStakeholder( req, res, next ) {
 
     if ( err ) return next( err );
 
-    if ( !sessions.isLogged( req ) ) return next( { code: 403 } );
+    if ( !sessions.isLogged( req ) ) {
+
+      return next( { code: 403 } );
+
+    }
 
     req.agenda.isStakeholder( { id: req.user.id }, ( err, is ) => {
 
@@ -1063,7 +1067,7 @@ function redirectLegacySearch( req, res, next ) {
 
 function _prepareSession( req, res, cb ) {
 
-  if ( !req.user || req.user.id ) {
+  if ( !req.user || !req.user.id ) {
 
     detailedSessionLoad( req, res, err => { 
 

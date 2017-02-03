@@ -1,61 +1,63 @@
 "use strict";
 
-const range = require( 'date-range' );
+const range = require( 'date-range' ),
 
-const filterTimings = require( './filterTimings' );
+  filterTimings = require( './filterTimings' ),
 
-var i18n = require( '../../../i18n/i18n' ),
+  i18n = require( '../../../i18n/i18n' ),
 
-genUrl = require( '../../genUrl' ),
+  utils = require( 'utils' ),
 
-timeHelper = require( 'cibulTemplates' ).helpers.time,
+  genUrl = require( '../../genUrl' ),
 
-w = require( 'when' ),
+  timeHelper = require( 'cibulTemplates' ).helpers.time,
 
-moment = require( 'moment-timezone' ),
+  w = require( 'when' ),
 
-legacyLocationFieldsMap = {
-  conditions: 'pricingInfo',
-  registrationUrl: 'ticketLink',
-  locationName: 'name',
-  locationUid: 'uid',
-  address: 'address',
-  postalCode: 'postcode',
-  city: 'city',
-  district: 'district',
-  department: 'department',
-  region: 'region',
-  latitude: 'latitude',
-  longitude: 'longitude',
-  timings: 'timings'
-},
+  moment = require( 'moment-timezone' ),
 
-locationFieldsMap = {
-  uid : 'uid',
-  name : 'name',
-  slug : 'slug',
-  address : 'address',
-  image: 'image',
-  imageCredits: 'imageCredits',
-  postalCode : 'postcode',
-  city: 'city',
-  district: 'district',
-  department: 'department',
-  region: 'region',
-  latitude: 'latitude',
-  longitude: 'longitude',
-  description: 'description',
-  access: 'access',
-  countryCode: 'countryCode',
-  website: 'website',
-  links: 'links',
-  phone: 'phone',
-  tags: 'tags',
-  'timezone' : 'timezone',
-  'updatedAt' : 'updatedAt'
-},
+  legacyLocationFieldsMap = {
+    conditions: 'pricingInfo',
+    registrationUrl: 'ticketLink',
+    locationName: 'name',
+    locationUid: 'uid',
+    address: 'address',
+    postalCode: 'postcode',
+    city: 'city',
+    district: 'district',
+    department: 'department',
+    region: 'region',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    timings: 'timings'
+  },
 
-utils = require( 'utils' );
+  locationFieldsMap = {
+    uid : 'uid',
+    name : 'name',
+    slug : 'slug',
+    address : 'address',
+    image: 'image',
+    imageCredits: 'imageCredits',
+    postalCode : 'postcode',
+    city: 'city',
+    district: 'district',
+    department: 'department',
+    region: 'region',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    description: 'description',
+    access: 'access',
+    countryCode: 'countryCode',
+    website: 'website',
+    links: 'links',
+    phone: 'phone',
+    tags: 'tags',
+    'timezone' : 'timezone',
+    'updatedAt' : 'updatedAt'
+  },
+
+  _ = require( 'lodash' );
 
 module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
 
@@ -79,7 +81,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     let dateRange = instance.getDateRange( true );
 
-    w( utils.extend( {
+    w( _.extend( {
       protocol: null,
       filter: false,
       exportable: {
@@ -190,25 +192,36 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
         if ( err ) return rj( err );
 
-        var t;
+        let tFirst, tLast;
 
-        utils.extend( v, {
+        _.extend( v.exportable, {
           firstDate: null,
           firstTimeStart: null,
-          firstTimeEnd: null
+          firstTimeEnd: null,
+          lastDate: null,
+          lastTimeStart: null,
+          lastTimeEnd: null
         } );
 
         if ( timings.length ) {
 
-          t = {
+          tFirst = {
             start: new Date( timings[ 0 ].start ),
             end: new Date( timings[ 0 ].end )
           };
 
-          utils.extend( v.exportable, {
-            firstDate: _stringifyDate( t.start ),
-            firstTimeStart: moment.tz( t.start, timezone ).format( 'HH:mm' ),
-            firstTimeEnd: moment.tz( t.end, timezone ).format( 'HH:mm' )
+          tLast = {
+            start: new Date( timings[ timings.length - 1 ].start ),
+            end: new Date( timings[ timings.length - 1 ].end )
+          };
+
+          _.extend( v.exportable, {
+            firstDate: _stringifyDate( tFirst.start ),
+            firstTimeStart: moment.tz( tFirst.start, timezone ).format( 'HH:mm' ),
+            firstTimeEnd: moment.tz( tFirst.end, timezone ).format( 'HH:mm' ),
+            lastDate: _stringifyDate( tLast.start ),
+            lastTimeStart: moment.tz( tLast.start, timezone ).format( 'HH:mm' ),
+            lastTimeEnd: moment.tz( tLast.end, timezone ).format( 'HH:mm' )
           } );
 
         }

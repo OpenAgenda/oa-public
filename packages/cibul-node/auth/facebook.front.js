@@ -84,7 +84,8 @@ function signin( req, res, next ) {
   auth.saveOptionals( req, res, req.agenda ? { agenda: req.agenda.slug } : {} );
 
   pLib.authenticate( 'facebook-signin', {
-    scope: 'email', 
+    scope: 'email',
+    profileFields: ['id', 'email', 'name' ],
     callbackURL: genUrl.abs( 'facebookSigninCallback' )
   } )( req, res, next );
 
@@ -96,7 +97,8 @@ function signup( req, res, next ) {
   auth.saveOptionals( req, res, req.agenda ? { agenda: req.agenda.slug } : {} );
 
   pLib.authenticate( 'facebook-signup', {
-    scope: 'email', 
+    scope: 'email',
+    profileFields: ['id', 'email', 'name' ],
     callbackURL: genUrl.abs( 'facebookSignupCallback' )
   } )( req, res, next );
 

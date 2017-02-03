@@ -31,46 +31,80 @@ const modLib = require( '../lib/moduleLib' ),
   routes = {
 
     signin: [ 'get', '/signin', [ 
+      sessions.middleware.ifLogged( cmn.redirectTo() ),
       _presetEmail,
       auth.renderSignin 
     ] ],
 
     agendaSignin: [ 'get', '/:slug/signin', [
+      sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
       _presetEmail,
       auth.renderSignin
     ] ],
 
-    signinSubmit: [ 'post', '/signin', signinSubmit ],
+    signinSubmit: [ 'post', '/signin', [ 
+      sessions.middleware.ifLogged( cmn.redirectTo() ),
+      signinSubmit 
+    ] ],
 
-    agendaSigninSubmit: [ 'post', '/:slug/signin', signinSubmit ],
+    agendaSigninSubmit: [ 'post', '/:slug/signin', [
+      sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+      signinSubmit
+    ] ],
     
-    signup: [ 'get', '/signup', [ 
+    signup: [ 'get', '/signup', [
+      sessions.middleware.ifLogged( cmn.redirectTo() ),
       _loadCaptcha,
       _guessFullName,
       auth.renderSignup
     ] ],
 
     agendaSignup: [ 'get', '/:slug/signup', [
+      sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
       _loadCaptcha,
       _guessFullName,
       auth.renderSignup
     ] ],
 
-    signupSubmit: [ 'post', '/signup', signupSubmit ],
+    signupSubmit: [ 'post', '/signup', [
+      sessions.middleware.ifLogged( cmn.redirectTo() ),
+      signupSubmit
+    ] ], 
 
-    agendaSignupSubmit: [ 'post', '/:slug/signup', signupSubmit ],
+    agendaSignupSubmit: [ 'post', '/:slug/signup', [
+      sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+      signupSubmit
+    ] ], 
 
-    signupComplete: [ 'get', '/signup/complete', signupComplete ],
+    signupComplete: [ 'get', '/signup/complete', [
+      sessions.middleware.ifLogged( cmn.redirectTo() ),
+      signupComplete
+    ] ], 
 
-    agendaSignupComplete: [ 'get', '/:slug/signup/complete', signupComplete ],
+    agendaSignupComplete: [ 'get', '/:slug/signup/complete', [
+      sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+      signupComplete
+    ] ], 
 
-    activateResend: [ 'get', '/activate/resend', activateResend ],
+    activateResend: [ 'get', '/activate/resend', [
+      sessions.middleware.ifLogged( cmn.redirectTo() ),
+      activateResend
+    ] ], 
 
-    agendaActivateResend: [ 'get', '/:slug/activate/resend', activateResend ],
+    agendaActivateResend: [ 'get', '/:slug/activate/resend', [
+      sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+      activateResend
+    ] ], 
 
-    activate: [ 'get', '/activate/:token', activate ],
+    activate: [ 'get', '/activate/:token', [
+      sessions.middleware.ifLogged( cmn.redirectTo() ),
+      activate
+    ] ], 
 
-    agendaActivate: [ 'get', '/:slug/activate/:token', activate ]
+    agendaActivate: [ 'get', '/:slug/activate/:token', [
+      sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+      activate
+    ] ] 
 
   },
 
@@ -93,7 +127,6 @@ module.exports = function( path ) {
 
   router.pre( [
     cmn.https,
-    sessions.middleware.ifLogged( cmn.redirectTo() ),
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
     cmn.loadBaseData( auth.layoutData, 'oa.css' )
   ] );

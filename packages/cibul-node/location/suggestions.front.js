@@ -43,8 +43,13 @@ module.exports = function( path ) {
     cmn.assign( 'req.user.uid', 'req.userUid' ),
     agendaSvc.mw.load( 'slug' ),
     cmn.checkStakeholder,
-    stakeholderMw.load( 'agenda', 'user', 'stakeholder' ),
-    ( req, res, next ) => { req.stakeholderId = req.stakeholder.id; next(); },
+    stakeholderMw.agenda().get(),
+    ( req, res, next ) => {
+
+      req.stakeholderId = req.stakeholder.id;
+      next();
+
+    },
     mw.load,
     cmn.loadBaseData( 'oasfmain.css' ),
   ] );
