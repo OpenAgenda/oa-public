@@ -96,7 +96,7 @@ const TranslationComponent = React.createClass( {
           </div> :
           <div className="line">
             <span className="disabled">{languages.getLanguageInfo( this.props.source ).nativeName}</span>
-            <span> - <a href="#" onClick={this.sourceChange}>{labels.sourceChange}</a></span>
+            {this.props.sets.length > 1 ?<span> - <a href="#" onClick={this.sourceChange}>{labels.sourceChange}</a></span> : null }
           </div> }
         </div>
         <div className="col-sm-6">

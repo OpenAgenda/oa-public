@@ -134,7 +134,7 @@ var TranslationComponent = _react2.default.createClass({
               { className: 'disabled' },
               _languages2.default.getLanguageInfo(this.props.source).nativeName
             ),
-            _react2.default.createElement(
+            this.props.sets.length > 1 ? _react2.default.createElement(
               'span',
               null,
               ' - ',
@@ -143,7 +143,7 @@ var TranslationComponent = _react2.default.createClass({
                 { href: '#', onClick: this.sourceChange },
                 labels.sourceChange
               )
-            )
+            ) : null
           )
         ),
         _react2.default.createElement(
