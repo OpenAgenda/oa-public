@@ -111,6 +111,41 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
   } );
 
 
+  describe( '.bulkCreate', done => {
+
+    it( 'create multiple stakeholders', done => {
+
+      const req = {
+        agenda: { id: 4608 },
+        data: [ {
+          email: 'post-itspar-tout@merci.yacine'
+        } ],
+        allowPartial: true
+      }, res = {};
+
+      stakeholderMw.agenda().bulkCreate( { allowPartial: true } )( req, res, next );
+
+      function next() {
+
+        req.result.queued.should.equal( false );
+
+        req.result.results.length.should.equal( 1 );
+
+        let firstCreate = req.result.results[ 0 ],
+
+          [ err, result ] = firstCreate;
+
+        result.stakeholder.custom.email.should.equal( 'post-itspar-tout@merci.yacine' );
+
+        done();
+
+      }
+
+    } );
+
+  } );
+
+
   describe( '.update', done => {
 
     it( 'updates a stakeholder', done => {

@@ -7,6 +7,7 @@ const config = require( '../testconfig' );
 const mysql = require( 'mysql' );
 const creds = require( '../iso/credentialTypes' );
 
+
 const service = require( './service' );
 
 describe( 'agenda-stakeholders - functional (server): list', function() {
@@ -93,11 +94,26 @@ describe( 'agenda-stakeholders - functional (server): list', function() {
 
     service.agenda( 4608 ).list( { search: 'Mairie' }, 0, 10, { total: true }, ( err, stakeholders, total ) => {
 
-      stakeholders[ 0 ].custom.organization.label.should.equal( 'Mairie de Chinon' );
+      stakeholders[ 0 ].custom.organization.should.equal( 'Mairie de Chinon' );
 
       stakeholders.length.should.equal( 9 );
 
       total.should.equal( 9 );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'slug for slugged fields is given when showSlugs is true', done => {
+
+    service.agenda( 4608 ).list( { search: 'Mairie' }, 0, 1, { showSlugs: true }, ( err, stakeholders ) => {
+
+      stakeholders[ 0 ].custom.organization.should.eql( {
+        slug: 'mairie-de-chinon',
+        label: 'Mairie de Chinon'
+      } );
 
       done();
 

@@ -16,7 +16,8 @@ function agenda( namespace = 'agenda' ) {
     list,
     stats,
     update,
-    remove
+    remove,
+    bulkCreate
   }
 
   function load( serviceNamespace = 'stakeholders' ) {
@@ -118,6 +119,32 @@ function agenda( namespace = 'agenda' ) {
 
   }
 
+  function bulkCreate( options ) {
+
+    let { namespaces, allowPartial } = _.merge( {
+      namespaces: {
+        data: 'data',
+        result: 'result'
+      },
+      allowPartial: false
+    }, options || {} );
+
+    return ( req, res, next ) => {
+
+      service.agenda( _.get( req, namespace ).id ).create.bulk( _.get( req, namespaces.data ), { allowPartial }, ( err, result ) => {
+
+        if ( err ) return next( err );
+
+        _.set( req, namespaces.result, result );
+
+        next();
+
+      } );
+
+    }
+
+  }
+
   function stats( options ) {
 
     let { namespaces } = _.merge( {
@@ -144,13 +171,14 @@ function agenda( namespace = 'agenda' ) {
 
   function list( options ) {
 
-    let { namespaces, limit } = _.merge( {
+    let { namespaces, limit, showSlugs } = _.merge( {
       namespaces: {
         query: 'query',
         stakeholders: 'stakeholders',
         total: 'total'
       },
-      limit: 20
+      limit: 20,
+      showSlugs: false
     }, options || {} );
 
     return ( req, res, next ) => {
@@ -159,7 +187,8 @@ function agenda( namespace = 'agenda' ) {
 
       service.agenda( _.get( req, namespace ).id ).list( _.get( req, namespaces.query ), offset, limit, {
         total: true,
-        detailed: true
+        detailed: true,
+        showSlugs
       }, ( err, items, total ) => {
 
         if ( err ) next( err );

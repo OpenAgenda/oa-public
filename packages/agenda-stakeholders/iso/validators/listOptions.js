@@ -14,5 +14,9 @@ module.exports = schema( {
   detailed: {
     type: 'boolean',
     default: false
+  },
+  showSlugs: {
+    type: 'boolean',
+    default: false
   }
 } );

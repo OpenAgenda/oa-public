@@ -13,6 +13,7 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
 
       validators.listOptions().should.eql( {
         detailed: false,
+        showSlugs: false,
         total: false
       } );
 

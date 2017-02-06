@@ -124,7 +124,7 @@ function _list( v ) {
 
   .then( dbStakeholders => {
 
-    v.result.stakeholders = dbStakeholders.map( format.dbToObj );
+    v.result.stakeholders = dbStakeholders.map( s => format.dbToObj( s, { showSlugs: v.options.showSlugs } ) );
 
     return v;
 

@@ -1,28 +1,27 @@
 "use strict";
 
 // tests at test/format
+const _ = require( 'lodash' ),
 
-const utils = require( 'utils' ),
-
-correspondance = [ {
-  db: 'review_id',
-  obj: 'agendaId'
-}, {
-  db: 'user_id',
-  obj: 'userId'
-}, {
-  db: 'id',
-  obj: 'id'
-}, {
-  db: 'credential',
-  obj: 'credential'
-}, {
-  db: 'updated_at',
-  obj: 'updatedAt'
-}, {
-  db: 'created_at',
-  obj: 'createdAt'
-} ];
+  correspondance = [ {
+    db: 'review_id',
+    obj: 'agendaId'
+  }, {
+    db: 'user_id',
+    obj: 'userId'
+  }, {
+    db: 'id',
+    obj: 'id'
+  }, {
+    db: 'credential',
+    obj: 'credential'
+  }, {
+    db: 'updated_at',
+    obj: 'updatedAt'
+  }, {
+    db: 'created_at',
+    obj: 'createdAt'
+  } ];
 
 module.exports = {
   dbToObj,
@@ -49,13 +48,7 @@ function objToDb( obj, filterNull = false ) {
 
   if ( obj.custom ) {
 
-    let custom = {};
-
-    Object.keys( obj.custom ).forEach( k => {
-
-      custom[ utils.toUnderscore( k ) ] = obj.custom[ k ];
-
-    } );
+    let custom = _.mapKeys( obj.custom, ( v, k ) => _.snakeCase( k ) );
 
     entry.store = JSON.stringify( {
       custom_fields: custom
@@ -88,7 +81,7 @@ function objToDb( obj, filterNull = false ) {
 
 }
 
-function dbToObj( entry ) {
+function dbToObj( entry, options = {} ) {
 
   let obj = {
     id: null, 
@@ -100,7 +93,11 @@ function dbToObj( entry ) {
     custom: {}
   },
 
-  store = {};
+  store = {},
+
+  params = _.extend( {
+    showSlugs: true
+  }, options );
 
   if ( !entry || typeof entry !== 'object' ) {
 
@@ -120,17 +117,23 @@ function dbToObj( entry ) {
 
   } catch( e ) {}
 
-  if ( !store.custom_fields ) return obj;
+  if ( !store.custom_fields ) {
 
-  Object.keys( store.custom_fields ).forEach( k => {
+    return obj;
 
-    obj.custom[ utils.toCamelCase( k ) ] = store.custom_fields[ k ];
+  }
 
-  } );
+  obj.custom = _.mapKeys( store.custom_fields, ( v, k ) => _.camelCase( k ) );
 
   if ( entry.organization && typeof obj.custom.organization === 'string' ) {
 
     _legacyDbToObj( entry, obj );
+
+  }
+
+  if ( typeof obj.custom.organization === 'object' && !params.showSlugs ) {
+
+    obj.custom.organization = obj.custom.organization.label;
 
   }
 
