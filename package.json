@@ -80,6 +80,7 @@
     "qs": "2.3.3",
     "raven-js": "^3.9.1",
     "raw-loader": "^0.5.1",
+    "rc-switch": "^1.4.3",
     "react": "0.14.7",
     "react-addons-update": "0.14.7",
     "react-components": "git+ssh://git@bitbucket.org/openagenda/react-components.git",

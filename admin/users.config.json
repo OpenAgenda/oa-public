@@ -1,6 +1,8 @@
 {
   "layout": "adminLayout/main",
-  "css" : {
+  "bsCss" : {
+    "main" : "/node_modules/bs-templates/compiled/admin.css",
+    "react-table" : "/node_modules/react-table/react-table.css"
   },
   "helpers" : {
     "_t" : "time",

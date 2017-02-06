@@ -1,207 +1,281 @@
-var React = require( 'react' ),
+import React, { Component } from 'react';
+import ReactDom from 'react-dom';
+import ReactTable from 'react-table';
+import UserList from './userList';
+import UserSearch from './userSearch';
+import UserPagination from './userPagination';
+import UserShow from './userShow';
+import remote from '../../js/lib/remote/remote.mod';
+import cn from '../../js/lib/common/common.mod';
 
-  ReactDom = require( 'react-dom' ),
-
-  UserList = require( './userList' ),
-
-  UserSearch = require( './userSearch' ),
-
-  UserPagination = require( './userPagination' ),
-
-  UserShow = require( './userShow' ),
-
-  remote = require( '../../js/lib/remote/remote.mod' ),
-
-  cn = require( '../../js/lib/common/common.mod' ),
-
-  defaults = {
-    all: {
-      res: {
-        users: '/admin/users',
-        activate: '/admin/users/activate',
-        signin: '/admin/users/signin',
-        changePassword: '/admin/users/changePassword'
-      }
-    },
-    tpl: {
-      res: {
-        users: '/server/testdata/adminusers.json',
-        activate: '/server/testdata/adminusersactivate.json'
-      }
+const defaults = {
+  all: {
+    res: {
+      users: '/admin/users',
+      activate: '/admin/users/activate',
+      update: '/admin/users/update',
+      signin: '/admin/users/signin',
+      changePassword: '/admin/users/changePassword'
     }
   },
+  tpl: {
+    res: {
+      users: '/server/testdata/adminusers.json',
+      activate: '/server/testdata/adminusersactivate.json'
+    }
+  }
+};
 
-  config = ( [ 'tpl' ].indexOf( window.env ) !== 1 ) ? cn.extend( {}, defaults.all, defaults[ window.env ] ) : defaults.all,
+const config = ( [ 'tpl' ].indexOf( window.env ) !== 1 ) ? cn.extend( {}, defaults.all, defaults[ window.env ] ) : defaults.all;
 
-  UserApp = React.createClass( {
+class UserApp extends Component {
 
-    getInitialState: function () {
-      return {
-        users: [],
-        perPage: 40,
-        total: 0
-      }
-    },
+  constructor(props) {
+    super( props );
+    this.get = ::this.get;
+    this.handleChangePassword = ::this.handleChangePassword;
+    this.handlePageSelect = ::this.handlePageSelect;
+    this.handleSearchSubmit = ::this.handleSearchSubmit;
+    this.handleUserActivation = ::this.handleUserActivation;
+    this.handleUserUpdate = ::this.handleUserUpdate;
+    this.handleUserSignin = ::this.handleUserSignin;
+    this.viewSessions = ::this.viewSessions;
+  }
 
-    componentDidMount: function () {
+  state = {
+    users: [],
+    perPage: 40,
+    total: 0,
+    displaySessionModal: false
+  };
 
-      this.search();
+  componentDidMount() {
 
-    },
+    this.search();
 
-    get: function ( uid ) {
+  }
 
-      var self = this;
+  viewSessions() {
 
-      remote.getXmlHttp( config.res.users, { data: { uid: uid } }, function ( responseType, data ) {
+    this.setState( { displaySessionModal: !this.state.displaySessionModal } );
 
-        if ( responseType !== 'success' ) return alert( 'schplof.' );
 
-        self.setState( {
-          user: data.user,
-          stakeholders: data.stakeholders
-        } );
+  }
+
+  get( uid ) {
+
+    remote.getXmlHttp( config.res.users, { data: { uid: uid } }, ( responseType, data ) => {
+
+      if ( responseType !== 'success' ) return alert( 'schplof.' );
+
+      this.setState( {
+        user: data.user,
+        stakeholders: data.stakeholders
+      } );
+
+    } );
+
+  }
+
+  search( searchValue, page ) {
+
+    const searchQuery = {
+      page: page ? page : 1
+    };
+
+    const currentSearch = searchValue;
+
+    if ( currentSearch && currentSearch.length ) {
+
+      searchQuery.search = currentSearch;
+
+    }
+
+    this.searchQuery = searchQuery;
+
+    remote.getXmlHttp( config.res.users, { data: searchQuery }, ( responseType, data ) => {
+
+      if ( responseType !== 'success' ) return alert( 'schplof.' );
+
+      this.setState( {
+        page: data.page,
+        users: data.users,
+        total: data.total,
+        perPage: data.perPage
+      } );
+
+    } );
+
+  }
+
+  handleSearchSubmit( search ) {
+
+    this.search( search );
+
+  }
+
+  handlePageSelect( page ) {
+
+    this.search( this.searchQuery.search, page );
+
+  }
+
+  handleUserUpdate( data ) {
+
+    remote.postXmlHttp( config.res.update, { data: { ...data, uid: this.state.user.uid} }, ( responseType, result ) => {
+
+      if ( responseType !== 'success' ) return alert( 'schplof.' );
+
+      if ( !result.success ) return alert( result.message );
+
+      this.setState( { user: result.user } );
+
+    } );
+
+  }
+
+  handleUserActivation( e ) {
+
+    e.preventDefault();
+
+    remote.getXmlHttp( config.res.activate, { data: { uid: this.state.user.uid } }, ( responseType, data ) => {
+
+      if ( responseType !== 'success' ) return alert( 'schplof.' );
+
+      if ( !data.success ) return alert( data.message );
+
+      var user = this.state.user;
+
+      user.isActivated = true;
+
+      this.setState( { user: user } );
+
+    } );
+
+  }
+
+  handleUserSignin( e ) {
+
+    e.preventDefault();
+
+    remote.getXmlHttp( config.res.signin, { data: { uid: this.state.user.uid } }, ( responseType, data ) => {
+
+      if ( responseType !== 'success' ) return alert( 'schplof.' );
+
+      if ( !data.success ) return alert( data.message );
+
+      window.location.href = '/home';
+
+    } );
+
+  }
+
+  handleChangePassword( data ) {
+
+    return new Promise( ( resolve, reject ) => {
+
+      const { password } = data;
+      const { user: { uid } } = this.state;
+
+      if ( !uid || !password ) return reject();
+
+      remote.getXmlHttp( config.res.changePassword, { data: { uid, password } }, ( responseType, data ) => {
+
+        if ( responseType !== 'success' ) return reject();
+
+        return resolve();
 
       } );
 
-    },
+    } );
 
-    search: function ( searchValue, page ) {
+  }
 
-      var self = this,
+  render() {
 
-        searchQuery = {
-          page: page ? page : 1
-        },
+    const { page, perPage, total, users, displaySessionModal, user, stakeholders } = this.state;
 
-        currentSearch = searchValue;
-
-      if ( currentSearch && currentSearch.length ) {
-
-        searchQuery.search = currentSearch;
-
-      }
-
-      this.searchQuery = searchQuery;
-
-      remote.getXmlHttp( config.res.users, { data: searchQuery }, function ( responseType, data ) {
-
-        if ( responseType !== 'success' ) return alert( 'schplof.' );
-
-        if ( self.isMounted() ) {
-
-          self.setState( {
-            page: data.page,
-            users: data.users,
-            total: data.total,
-            perPage: data.perPage
-          } );
-
-        }
-
-      } );
-
-    },
-
-    handleSearchSubmit: function ( search ) {
-
-      this.search( search );
-
-    },
-
-    handlePageSelect: function ( page ) {
-
-      this.search( this.searchQuery.search, page );
-
-    },
-
-    handleUserActivation: function ( e ) {
-
-      var self = this;
-
-      e.preventDefault();
-
-      remote.getXmlHttp( config.res.activate, { data: { uid: this.state.user.uid } }, function ( responseType, data ) {
-
-        if ( responseType !== 'success' ) return alert( 'schplof.' );
-
-        if ( !data.success ) return alert( data.message );
-
-        var user = self.state.user;
-
-        user.isActivated = true;
-
-        self.setState( { user: user } );
-
-      } );
-
-    },
-
-    handleUserSignin: function ( e ) {
-
-      e.preventDefault();
-
-      remote.getXmlHttp( config.res.signin, { data: { uid: this.state.user.uid } }, function ( responseType, data ) {
-
-        if ( responseType !== 'success' ) return alert( 'schplof.' );
-
-        if ( !data.success ) return alert( data.message );
-
-        window.location.href = '/home';
-
-      } );
-
-    },
-
-    handleChangePassword: function ( data ) {
-
-      return new Promise( ( resolve, reject ) => {
-
-        const { password } = data;
-        const { user: { uid } } = this.state;
-
-        if ( !uid || !password ) return reject();
-
-        remote.getXmlHttp( config.res.changePassword, { data: { uid, password } }, function ( responseType, data ) {
-
-          if ( responseType !== 'success' ) return reject();
-
-          return resolve();
-
-        } );
-
-      } );
-
-    },
-
-    render: function () {
-
-      return (
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-12">
-              <h2>Users</h2>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-4">
-              <UserSearch onSearchSubmit={this.handleSearchSubmit}/>
-              <UserPagination page={this.state.page} perPage={this.state.perPage} total={this.state.total}
-                              onPageSelect={this.handlePageSelect}/>
-              <UserList users={this.state.users} onUserClick={this.get}/>
-            </div>
-            <div className="col-md-8">
-              <UserShow user={this.state.user} stakeholders={this.state.stakeholders} onUserActivation={this.handleUserActivation}
-                        onUserSignin={this.handleUserSignin} onUserChangePassword={this.handleChangePassword}/>
-            </div>
+    return (
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-12">
+            <h2>Users</h2>
+            <p>
+              <a role="button" onClick={this.viewSessions}>Voir les sessions ouvertes</a>
+            </p>
           </div>
         </div>
-      );
-    }
-  } );
+        <div className="row">
+          <div className="col-md-4">
+            <UserSearch
+              onSearchSubmit={this.handleSearchSubmit}
+            />
+            <UserPagination
+              page={page}
+              perPage={perPage}
+              total={total}
+              onPageSelect={this.handlePageSelect}
+            />
+            <UserList
+              users={users}
+              onUserClick={this.get}
+            />
+          </div>
+          <div className="col-md-8">
+            <UserShow
+              user={user}
+              stakeholders={stakeholders}
+              onUserActivation={this.handleUserActivation}
+              onUserSignin={this.handleUserSignin}
+              onUserChangePassword={this.handleChangePassword}
+              onUserUpdate={this.handleUserUpdate}
+            />
+          </div>
+        </div>
 
-module.exports = function ( canvasElem ) {
+        {displaySessionModal && <div className="modal" role="dialog" style={{ display: 'block' }}>
+          <div className="modal-dialog modal-lg" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                Sessions ouvertes
+              </div>
+              <div className="modal-body">
+                <ReactTable
+                  columns={[{
+                    header: 'First Name',
+                    accessor: 'firstName'
+                  }, {
+                    header: 'Last Name',
+                    id: 'lastName',
+                    accessor: d => d.lastName
+                  }, {
+                    header: 'Age',
+                    accessor: 'age'
+                  }]}
+                  manual // Forces table not to paginate or sort automatically, so we can handle it server-side
+                  defaultPageSize={10}
+                  data={this.state.data} // Set the rows to be displayed
+                  pages={this.state.pages} // Display the total number of pages
+                  loading={this.state.loading} // Display the loading overlay when we need it
+                  onChange={this.fetchData} // Request new data when things change
+                />
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.viewSessions}>
+                  Close
+                </button>
+                <button type="button" className="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>}
+      </div>
+    );
+  }
+}
 
-  ReactDom.render( <UserApp/>, canvasElem );
+module.exports = canvasElem => {
+
+  ReactDom.render( <UserApp />, canvasElem );
 
 };
