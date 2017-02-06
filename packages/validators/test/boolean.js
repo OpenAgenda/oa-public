@@ -2,7 +2,7 @@
 
 let should = require( 'should' ),
 
-validators = require( './build' );
+validators = require( '../' );
 
 describe( 'boolean validator', () => {
 

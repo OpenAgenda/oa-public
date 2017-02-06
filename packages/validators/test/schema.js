@@ -2,9 +2,9 @@
 
 require( 'source-map-support' ).install();
 
-const validators = require( './build' ),
+const validators = require( '../' ),
 
-schema = require( './build/schema' ),
+schema = require( '../src/schema' ),
 
 should = require( 'should' ),
 
@@ -859,8 +859,7 @@ describe( 'schema validator', () => {
       schema.register( {
         text: validators.text,
         link: validators.link,
-        number: validators.number,
-        link: validators.link
+        number: validators.number
       } );
 
       validate = schema( {
@@ -915,6 +914,35 @@ describe( 'schema validator', () => {
           someSetting: 12
         }
       } );
+
+    } );
+
+
+    it( 'validates a subset of the schema - with extra fields', () => {
+
+      let clean = null, errors = [];
+
+      try {
+
+        clean = validate.part( [ 'url', 'settings.someSetting', 'extra' ], {
+          url: 'https://openagenda.com',
+          settings: {
+            someSetting: 12
+          },
+          extra: 'pourquoi pas..'
+        } );
+
+      } catch ( e ) {
+
+        errors = errors.concat( e );
+
+      }
+
+      errors.should.eql( [ {
+        code: 'field.notdefined',
+        message: 'field isn\'t defined',
+        field: 'extra'
+      } ] );
 
     } );
 

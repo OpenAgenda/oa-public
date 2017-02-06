@@ -2,7 +2,7 @@
 
 var should = require( 'should' ),
 
-dateValidator = require( './build/date' );
+dateValidator = require( '../date' );
 
 describe( 'date validator', () => {
 

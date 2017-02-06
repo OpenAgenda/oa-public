@@ -2,7 +2,7 @@
 
 const should = require( 'should' );
 
-const validators = require( './build' );
+const validators = require( '../' );
 
 describe( 'integer validator', () => {
 

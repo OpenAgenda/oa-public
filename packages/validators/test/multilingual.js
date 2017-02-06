@@ -2,7 +2,7 @@
 
 const should = require( 'should' ),
 
-multilingual = require( './build/multilingual' );
+multilingual = require( '../multilingual' );
 
 describe( 'multilingual validator', () => {
 

@@ -21,9 +21,9 @@ function schema( options ) {
 
   }
 
-  const params = utils.extend( 
-    { field: null, list: false }, 
-    defaults, 
+  const params = utils.extend(
+    { field: null, list: false },
+    defaults,
     options.fields ? options : { fields: options, root: true }
   );
 
@@ -42,7 +42,7 @@ function schema( options ) {
   /**
    * exposed endpoints
    */
-  return utils.extend( params.list ? listify( validate, params ) : validate, { 
+  return utils.extend( params.list ? listify( validate, params ) : validate, {
     part,
     default: r.getDefault( params.fields ),
     fields: params.fields,
@@ -107,7 +107,19 @@ function schema( options ) {
 
     cursor = cursor[ leaf ];
 
-    let validator = registeredValidators[ cursor.type ]( cursor );
+    const type = cursor && cursor.type;
+
+    if ( !type ) {
+
+      throw {
+        code: 'field.notdefined',
+        message: 'field isn\'t defined',
+        field: leaf
+      };
+
+    }
+
+    let validator = registeredValidators[ type ]( cursor );
 
     return validator( value );
 

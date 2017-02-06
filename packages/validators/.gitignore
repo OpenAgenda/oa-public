@@ -1,6 +1,4 @@
 node_modules/*
 .idea/
-test/build/*
-!test/build/.empty
 yarn.lock
 npm-debug.log

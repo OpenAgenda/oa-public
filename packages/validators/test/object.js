@@ -1,6 +1,6 @@
 "use strict";
 
-const validators = require( './build' ),
+const validators = require( '../' ),
 
 should = require( 'should' ),
 

@@ -103,7 +103,18 @@ function schema(options) {
 
     cursor = cursor[leaf];
 
-    var validator = registeredValidators[cursor.type](cursor);
+    var type = cursor && cursor.type;
+
+    if (!type) {
+
+      throw {
+        code: 'field.notdefined',
+        message: 'field isn\'t defined',
+        field: leaf
+      };
+    }
+
+    var validator = registeredValidators[type](cursor);
 
     return validator(value);
   }
