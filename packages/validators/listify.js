@@ -52,7 +52,15 @@ module.exports = function (validator, options) {
       }
     });
 
-    if ((!params.optional || value.length > 0) && params.min !== null && value.length < params.min) {
+    if (!params.optional && value.length === 0) {
+
+      errors.push({
+        field: validator.field,
+        code: 'list.required',
+        message: 'list cannot be empty',
+        origin: value
+      });
+    } else if ((!params.optional || value.length > 0) && params.min !== null && value.length < params.min) {
 
       errors.push({
         field: validator.field,

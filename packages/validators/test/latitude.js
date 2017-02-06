@@ -2,7 +2,7 @@
 
 var should = require( 'should' ),
 
-validators = require( '../' );
+validators = require( '../src' );
 
 describe( 'latitude validator', () => {
 

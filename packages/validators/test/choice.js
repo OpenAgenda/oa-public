@@ -2,7 +2,7 @@
 
 const should = require( 'should' );
 
-const validators = require( '../' );
+const validators = require( '../src' );
 
 describe( 'choice validator', () => {
 

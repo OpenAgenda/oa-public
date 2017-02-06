@@ -59,9 +59,7 @@ module.exports = ( validator, options ) => {
         origin: value
       } );
 
-    }
-
-    if (
+    } else if (
       ( !params.optional || value.length > 0 )
       && params.min !== null
       && value.length < params.min
