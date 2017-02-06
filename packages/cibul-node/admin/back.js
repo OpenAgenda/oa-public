@@ -24,9 +24,9 @@ const sessions = require( 'sessions' ),
 
   adminSvc = require( '../services/admin/admin' ),
 
-  userSvc = require( '../services/user' ),
+  userOldSvc = require( '../services/user' ),
 
-  users = require( 'users' ),
+  usersSvc = require( 'users' ),
 
   stakeholdersSvc = require( 'agenda-stakeholders' ),
 
@@ -37,12 +37,16 @@ const sessions = require( 'sessions' ),
     adminSearch: [ 'get', '/search', search ],
     adminUsers: [ 'get', '/users', getUsers ],
     adminUserSignInAs: [ 'get', '/users/signin', [
-      _loadUser,
+      _loadUser(),
       userSignin
     ] ],
     adminUserActivate: [ 'get', '/users/activate', [
-      _loadUser,
+      _loadUser(),
       userActivate
+    ] ],
+    adminUserUpdate: [ 'post', '/users/update', [
+      _loadUser( 'post' ),
+      userUpdate
     ] ],
     adminUserChangePassword: [ 'get', '/users/changePassword', userChangePassword ],
     eventsByWeek: [ 'get', '/eventsbyweek', eventsByWeek ],
@@ -171,13 +175,16 @@ function getUsers( req, res, next ) {
 
     if ( req.query.uid ) {
 
-      return _loadUser( req, res, () => {
+      return _loadUser()( req, res, () => {
 
         if ( !req.loadedUser.id ) return next( 'User not found' );
 
         stakeholdersSvc.user( req.loadedUser.id ).list( 0, 500, ( err, stakeholders = [] ) => {
 
-          agendasSvc.list( { ids: stakeholders.map( item => item.agendaId ), private: null }, 0, 500, ( err, agendas ) => {
+          agendasSvc.list( {
+            ids: stakeholders.map( item => item.agendaId ),
+            private: null
+          }, 0, 500, ( err, agendas ) => {
 
             model.lib.query( 'SELECT count(*) as nbrEvents, review_id ' +
               'FROM review_article WHERE user_id = ? AND store NOT LIKE "%\\"sources\\":%" GROUP BY review_id',
@@ -196,7 +203,7 @@ function getUsers( req, res, next ) {
                 } );
 
                 cmn.renderJson( req, res, {
-                  user: lib.filterByAttr( req.loadedUser, [ 
+                  user: lib.filterByAttr( req.loadedUser, [
                     'uid',
                     'full_name',
                     'email',
@@ -204,7 +211,8 @@ function getUsers( req, res, next ) {
                     'is_removed',
                     'created_at',
                     'updated_at',
-                    'last_signin'
+                    'last_signin',
+                    'store'
                   ] ),
                   stakeholders
                 } );
@@ -240,7 +248,7 @@ function userChangePassword( req, res ) {
 
   const { uid, password: new_password } = req.query;
 
-  users.changePassword( { uid, new_password }, ( err, result ) => {
+  usersSvc.changePassword( { uid, new_password }, ( err, result ) => {
 
     if ( err || !result.success ) return res.json( { success: false } );
     res.json( { success: true } );
@@ -252,11 +260,50 @@ function userChangePassword( req, res ) {
 
 function userActivate( req, res ) {
 
-  userSvc.activation.activate( req.loadedUser, function ( err, result ) {
+  userOldSvc.activation.activate( req.loadedUser, function ( err, result ) {
 
     if ( err ) return cmn.catchError( req, res )( err );
 
     return cmn.renderJson( req, res, { success: true } );
+
+  } );
+
+}
+
+function userUpdate( req, res, next ) {
+
+  usersSvc.update( req.loadedUser.id, req.body, { internal: true }, err => {
+
+    if ( err ) return next( err );
+
+    usersSvc.get( req.loadedUser.id, { removed: true, detailed: true, store: true }, ( err, result ) => {
+
+      if ( err ) return next( err );
+
+      // Set new API secret key when admin activate enable_secret
+      if ( !(req.loadedUser.store && req.loadedUser.store.enable_secret) && req.body.enable_secret ) {
+
+        usersSvc.generateApiKey( { id: req.loadedUser.id }, { secret: true }, err => {
+
+          if ( err ) return next( err );
+
+          res.json( {
+            success: true,
+            user: result
+          } );
+
+        } )
+
+      } else {
+
+        res.json( {
+          success: true,
+          user: result
+        } );
+
+      }
+
+    } );
 
   } );
 
@@ -276,21 +323,27 @@ function userSignin( req, res ) {
 }
 
 
-function _loadUser( req, res, next ) {
+function _loadUser( type = 'get' ) {
 
-  if ( !req.query.uid ) return cmn.renderJson( req, res, { success: false, message: 'user uid is missing' } );
+  return ( req, res, next ) => {
 
-  var uid = req.query.uid;
+    const request = req[ type === 'get' ? 'query' : 'body' ];
 
-  users.get( { uid }, { removed: true, detailed: true }, ( err, result ) => {
+    if ( !request.uid ) return cmn.renderJson( req, res, { success: false, message: 'user uid is missing' } );
 
-    if ( err ) return cmn.catchError( req, res )( err );
+    var uid = request.uid;
 
-    req.loadedUser = result;
+    usersSvc.get( { uid }, { removed: true, detailed: true, store: true }, ( err, result ) => {
 
-    next();
+      if ( err ) return cmn.catchError( req, res )( err );
 
-  } );
+      req.loadedUser = result;
+
+      next();
+
+    } );
+
+  }
 
 }
 
