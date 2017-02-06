@@ -36,6 +36,8 @@ var _redux = require('redux');
 
 var _reactRouterRedux = require('react-router-redux');
 
+var _reduxForm = require('redux-form');
+
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 function getDebugSessionKey() {
@@ -81,11 +83,23 @@ function promiseMiddleware(client) {
 
         next(_extends({}, rest, { type: REQUEST }));
 
-        return promise(client, store.getState()).then(function (result) {
-          return next(_extends({}, rest, { result: result, type: SUCCESS }));
-        }, function (error) {
-          return next(_extends({}, rest, { error: error, type: FAILURE }));
-        });
+        try {
+
+          var actionPromise = promise(client, store.getState());
+
+          actionPromise.then(function (result) {
+            return next(_extends({}, rest, { result: result, type: SUCCESS }));
+          }, function (error) {
+            return next(_extends({}, rest, { error: error, type: FAILURE }));
+          });
+
+          return actionPromise;
+        } catch (error) {
+
+          console.error('MIDDLEWARE ERROR:', error);
+
+          return Promise.reject(next(_extends({}, rest, { error: error, type: FAILURE })));
+        }
       };
     };
   };

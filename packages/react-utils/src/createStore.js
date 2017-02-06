@@ -1,5 +1,6 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
+import { SubmissionError } from 'redux-form';
 
 export default function ( reducers ) {
 
@@ -60,11 +61,24 @@ function promiseMiddleware( client ) {
 
     next( { ...rest, type: REQUEST } );
 
-    return promise( client, store.getState() )
-      .then(
+    try {
+
+      const actionPromise = promise( client, store.getState() );
+
+      actionPromise.then(
         result => next( { ...rest, result, type: SUCCESS } ),
         error => next( { ...rest, error, type: FAILURE } )
       );
+
+      return actionPromise;
+
+    } catch ( error ) {
+
+      console.error( 'MIDDLEWARE ERROR:', error );
+
+      return Promise.reject( next( { ...rest, error, type: FAILURE } ) );
+
+    }
 
   };
 
