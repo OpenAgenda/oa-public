@@ -76,4 +76,29 @@ describe( 'email validator', () => {
 
   } );
 
+  it( 'validate lists of emails for non optional validator', () => {
+
+    let emails = [
+      
+    ], errors = [];
+
+    try {
+
+      validators.email( { list: true, optional: false } )( [] );  
+
+    } catch( e ) {
+
+      errors = e;
+
+    }
+
+    errors.should.eql( [ { 
+      field: undefined,
+      code: 'list.required',
+      message: 'list cannot be empty',
+      origin: [] 
+    } ] );
+
+  } );
+
 } );

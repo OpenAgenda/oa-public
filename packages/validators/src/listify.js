@@ -50,10 +50,21 @@ module.exports = ( validator, options ) => {
 
     } );
 
-    if ( 
+    if ( !params.optional && value.length === 0 ) {
+
+      errors.push( {
+        field: validator.field,
+        code: 'list.required',
+        message: 'list cannot be empty',
+        origin: value
+      } );
+
+    }
+
+    if (
       ( !params.optional || value.length > 0 )
       && params.min !== null
-      && value.length < params.min 
+      && value.length < params.min
     ) {
 
       errors.push( {

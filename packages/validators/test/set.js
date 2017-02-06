@@ -96,7 +96,7 @@ describe( 'set validator', () => {
     } );
 
 
-    it( 'ommitted input is caught by validator', () => {
+    it.skip( 'ommitted input is caught by validator', () => {
 
       let errors = [];
 
