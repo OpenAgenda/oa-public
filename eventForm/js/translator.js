@@ -20,6 +20,8 @@ translate.init = init;
 
 translate.change = change;
 
+translate.sourceChange = sourceChange;
+
 // EventForm component 'this'
 let context, 
 
@@ -35,7 +37,7 @@ function translate( cb ) {
 
   let sourceLanguage = context.state.translation.source,
 
-  destLanguages = context.state.translation.checked,
+  destLanguages = context.state.translation.sets.filter( s => s.source === sourceLanguage )[ 0 ].checked,
 
   updated = {};
 
@@ -149,14 +151,20 @@ function init( ctx, options, f ) {
 }
 
 
-function change( check, language ) {
+function change( check, sourceLanguage, language ) {
 
-  context.setState( update( context.state, {
-    translation: {
-      checked: {
-        $set: onTranslationCheck( context.state.translation.checked, check, language )
-      }
-    }
-  } ) );
+  context.setState( {
+    translation: onTranslationCheck( context.state.translation, check, language )
+  } );
+
+}
+
+function sourceChange( newSource ) {
+
+  context.setState( {
+    translation: update( context.state.translation, {
+      source: { $set: newSource }
+    } )
+  } );
 
 }

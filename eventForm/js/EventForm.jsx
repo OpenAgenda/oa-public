@@ -54,9 +54,9 @@ const React = require( 'react' ),
 
 
 
-var formErrors = {},
+let formErrors = {},
 
-EventForm = EventFormFactory();
+  EventForm = EventFormFactory();
 
 module.exports = EventForm;
 
@@ -123,9 +123,7 @@ function EventFormFactory() {
 
       if ( this.props.initTranslation && this.props.initTranslation.enabled ) {
 
-        state.translation = utils.extend( this.props.initTranslation, {
-          checked: this.props.initTranslation.languages
-        } );
+        state.translation = this.props.initTranslation;
 
         translator.init( this, this.props.initTranslation.options, textFields );
 
@@ -135,6 +133,7 @@ function EventFormFactory() {
       module.exports.actionables.onSubmit = this.onSubmitSpin;
 
       return state;
+
     },
 
     onSubmitSpin: function() {
@@ -159,13 +158,19 @@ function EventFormFactory() {
 
         formErrors[ field ] = errorMessage;
 
-        if ( this.state.translation && this.state.translation.checked.length && changedLanguages.length ) {
+        if ( this.state.translation && this.state.translation.enabled && changedLanguages.length ) {
 
-          updated.translation = update( this.state.translation, {
-            checked: { 
-              $set: this.state.translation.checked.filter( l => changedLanguages.indexOf( l ) == -1 )
-            }
+          let updatedTranslation = { sets: [] };
+
+          this.state.translation.sets.forEach( ( s, i ) => {
+
+            updatedTranslation.sets[ i ] = { checked: {
+              $set: s.checked.filter( l => changedLanguages.indexOf( l ) == -1 )
+            } }
+
           } );
+
+          updated.translation = update( this.state.translation, updatedTranslation );
 
         }
 
@@ -681,12 +686,13 @@ function EventFormFactory() {
           { this.state.translation ? 
           <Translation
             source={this.state.translation.source}
-            languages={this.state.translation.target}
-            checked={this.state.translation.checked}
+            sets={this.state.translation.sets}
             check={translator.change.bind( null, true )}
             uncheck={translator.change.bind( null, false )}
+            sourceChange={translator.sourceChange.bind( null )}
             labels= {flattenLabels( translationLabels, this.props.lang )}
           /> : null }
+
 
           <div className="js_form_canvas_below"></div>
 
