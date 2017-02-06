@@ -31,6 +31,11 @@
     "pageId": "corpo",
     "references": [
       {
+        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/orleans.jpg",
+        "url": "http://sortir.orleans-metropole.fr",
+        "caption": "Le portail d'événements de la métropole d'Orléans"
+      },
+      {
         "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_issy.jpg",
         "url": "http://www.issy.com/agenda",
         "caption": "Le réseau d'agendas de la ville d'Issy-les-Moulineaux"

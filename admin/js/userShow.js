@@ -1,24 +1,28 @@
 "use strict";
 
-var React = require( 'react' ),
+import React, { Component } from 'react';
+import List from 'react-components/build/List';
+import Switch from 'rc-switch';
 
-  remote = require( '../../js/lib/remote/remote.mod' ),
+export default class UserShow extends Component {
 
-  List = require( 'react-components/build/List' );
+  constructor( props ) {
+    super( props );
+    this.handleChangePassword = ::this.handleChangePassword;
+    this.handleSubmitChangePassword = ::this.handleSubmitChangePassword;
+    this.renderStakeholder = ::this.renderStakeholder;
+    this.toggleApiSecret = ::this.toggleApiSecret;
+  }
 
-module.exports = React.createClass( {
-
-  getInitialState() {
-    return {
-      password: null
-    };
-  },
+  state = {
+    password: null
+  };
 
   handleChangePassword( e ) {
 
     this.setState( { password: e.target.value } );
 
-  },
+  }
 
   handleSubmitChangePassword( e ) {
     e.preventDefault();
@@ -31,7 +35,7 @@ module.exports = React.createClass( {
           this.setState( { error: null } );
         }, 3000 );
       } );
-  },
+  }
 
   renderStakeholder( props ) {
     return (
@@ -40,16 +44,23 @@ module.exports = React.createClass( {
         <td>{credentialToString( props.credential )}</td>
         <td><a href={`/${props.agenda.slug}`}>{props.agenda.title}</a></td>
         <td>{props.nbrEvents}</td>
-        <td><pre>{JSON.stringify( props.custom, null, 4 )}</pre></td>
+        <td>
+          <pre>{JSON.stringify( props.custom, null, 4 )}</pre>
+        </td>
       </tr>
     );
-  },
+  }
 
-  render: function () {
+  toggleApiSecret() {
 
-    var user = this.props.user,
+    this.props.onUserUpdate( { enable_secret: !(this.props.user.store && this.props.user.store.enable_secret) } );
 
-      activationLink = '';
+  }
+
+  render() {
+
+    const user = this.props.user;
+    let activationLink = '';
 
     if ( !user ) {
 
@@ -100,9 +111,22 @@ module.exports = React.createClass( {
             <td>Last signin</td>
             <td>{user.last_signin}</td>
           </tr>
+          <tr>
+            <td>Enable API secret</td>
+            <td>
+              <Switch
+                ref="switch"
+                className="rc-switch"
+                checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+                unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+                onChange={this.toggleApiSecret}
+                checked={!!(user.store && user.store.enable_secret)}
+              />
+            </td>
+          </tr>
           </tbody>
         </table>
-        <a onClick={this.props.onUserSignin} href="#">Signin as user</a><br/>
+        <a onClick={this.props.onUserSignin} href="#">Signin as user</a><br />
         <form className="form-inline" onSubmit={this.handleSubmitChangePassword}>
           <div className="form-group">
             <label htmlFor="password">Nouveau mot de passe: </label>
@@ -132,7 +156,9 @@ module.exports = React.createClass( {
             <List
               items={this.props.stakeholders}
               renderItem={this.renderStakeholder}
-              renderEmpty={() => <tr><td colSpan="4" className="text-center">N'est pas contributeur !</td></tr>}
+              renderEmpty={() => <tr>
+                <td colSpan="4" className="text-center">N'est pas contributeur !</td>
+              </tr>}
               getPage={() => null}
               wrapTag="tbody"
             />
@@ -143,7 +169,7 @@ module.exports = React.createClass( {
 
   }
 
-} );
+}
 
 function credentialToString( type ) {
   switch ( type ) {
