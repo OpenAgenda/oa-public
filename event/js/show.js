@@ -6,6 +6,10 @@ utils = require( 'utils' ),
 
 du = require( 'dom-utils' ),
 
+get = require( 'utils/get' ),
+
+session = require( 'sessions/client' ),
+
 adminControls = require( '../../user/js/adminControls' ),
 
 ownershipTransfer = require( './ownershipTransfer' ),
@@ -57,20 +61,32 @@ window.hook( function( options ) {
 
 } );
 
-window.asap( function( options ) {
+window.asap( options => {
 
   var params = utils.extend( {
     hasCustomFields: false,
-    hasOwnershipTransfer: false
+    hasOwnershipTransfer: false,
+    res: {
+      detailedSession: '/session?detailed=1'
+    }
   }, defaults, options );
 
   log = debug( 'event' );
 
-  window.getSession( function( session ) {
+  if ( window.env === 'tpl' ) {
 
-    var roles = _defineRoles( params, session ),
+    params.res.detailedSession = 'detailedsession.json';
 
-    showControls;
+  }
+
+  _defineRoles( params, ( err, roles ) => {
+
+    log( 'roles: [%s]', roles.join( ',' ) );
+
+    let showControls = adminControls( session, {
+      testFunc: function() { return roles.length; },
+      displaySelectors: roles.map( r => params.selectors[ r ] )
+    } );
 
     if ( params.hasCustomFields ) {
 
@@ -94,12 +110,6 @@ window.asap( function( options ) {
 
     }
 
-    showControls = adminControls( session, {
-      testFunc: function() { return roles.length; },
-      displaySelectors: roles.map( function( r ) { return params.selectors[ r ]; } )
-    } );
-
-
     // ugly hack to display state if state control is not presented
     if ( !roles.filter( r => r == ROLES.AGENDAMODERATOR || r == ROLES.AGENDAADMIN ).length ) {
 
@@ -107,52 +117,66 @@ window.asap( function( options ) {
 
     }
 
-
-  });
+  } );
   
   eventMap();
 
 });
 
 
-function _defineRoles( params, session ) {
+function _defineRoles( params, cb ) {
 
-  var roles = [];
+  let roles = [], user;
 
-  if ( !session.logged ) return roles;
+  if ( !session.isLogged() ) return cb( null, roles );
+
+  user = session.getUser();
 
   // user is owner
-  if ( session.uid == params.ownerUid ) {
+  if ( user.uid == params.ownerUid ) {
 
     roles.push( ROLES.EVENTEDITOR );
 
-  } else if ( params.adminAgendaUids.filter( function( uid ) {
-
-    return session.reviews.admUids.concat( session.reviews.modUids ).indexOf( uid + '' ) !== -1;
-
-  }).length ) {
-
-    // user is moderator / admin of agenda having
-    // edition rights over event
-    
-    roles.push( ROLES.EVENTEDITOR );
-
   }
 
-  if ( params.agendaUid && session.reviews.admUids.indexOf( params.agendaUid + '' ) !== -1 ) {
+  get( params.res.detailedSession, ( err, res ) => {
 
-    roles.push( ROLES.AGENDAADMIN );
+    if ( err ) return cb( err );
 
-  }
+    if ( params.adminAgendaUids
 
-  if ( params.agendaUid && session.reviews.modUids.indexOf( params.agendaUid + '' ) !== -1 ) {
+      .filter( uid => res.agendas.map( a => a.uid ).indexOf( uid ) !== -1 )
 
-    roles.push( ROLES.AGENDAMODERATOR );
+      .map( uid => res.agendas.filter( a => a.uid === uid )[ 0 ].role )
 
-  }
+      .filter( r => [ 'administrator', 'moderator' ].indexOf( r ) !== -1 )
 
-  log( 'roles: [%s]', roles.join( ',' ) );
+      .length ) {
 
-  return roles;
+      roles.push( ROLES.EVENTEDITOR );
+
+    }
+
+    if ( !params.agendaUid ) return cb( null, roles );
+
+    let matches = res.agendas.filter( a => a.uid === params.agendaUid );
+
+    if ( !matches.length ) return cb( null, roles );
+
+    if ( matches.filter( a => a.role === 'administrator' ).length ) {
+
+      roles.push( ROLES.AGENDAADMIN );
+
+    }
+
+    if ( matches.filter( a => a.role === 'moderator' ).length ) {
+
+      roles.push( ROLES.AGENDAMODERATOR );
+
+    }
+
+    cb( null, roles );
+
+  } )
 
 }

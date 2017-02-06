@@ -61,7 +61,7 @@ module.exports = function(headSelector, sectionHeadSelector, sectionContent, opt
 
     var submitElems = (typeof params.submit.length=='undefined')?[params.submit]:params.submit;
 
-    forEach(submitElems, function(elem) {
+    cn.forEach(submitElems, function(elem) {
       select.insertAdjacentElement('afterend', elem);
     });
 

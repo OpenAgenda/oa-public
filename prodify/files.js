@@ -40,34 +40,11 @@ destOAETCssPath = __dirname + '/../../cibul-symfony/web/css/oaet.css',
 
 files = {
 
-  'globals.js': [
-    [ paths.lib, 'EventHandler/EventHandler.js' ],
-    [ paths.gl, 'globals.bundle.js' ],
-  ],
-
   'message.min.js': [
     [paths.m, 'handleMessage.js'],
     [paths.lib, 'common/common.js'],
     [paths.vd, 'setLinks/src/setLinks.js']
   ],
-
-
-  'header/search.min.js': [
-    [paths.hs, 'common.js', 'handleHeader.js', 'queryClient.js'],
-    [paths.lib, 'common/common.js', 'EventHandler/EventHandler.js', 'remote/remote.js', 'Base64/Base64.js' ],
-    [paths.vd,
-      'CibulCalendar/src/CibulCalendar.js',
-      'iscroll/src/iscroll.js',
-      'ejs/src/ejs_production.js',
-      'Cookies-master/src/cookies.js',
-    ],
-    [paths.jsc,
-      'handleContextMenu/src/handleContextMenu.js',
-      //'handleSession/src/handleSession.js',
-      'handleDisplayButton/src/handleDisplayButton.js'
-    ]
-  ],
-
 
   'event/list.min.js': [
     [paths.lib,
