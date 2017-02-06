@@ -1,4 +1,0 @@
-"use strict";
-
-module.exports = function (tree) {};
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9zY2hlbWEvZmxhdHRlbi5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7QUFFQSxPQUFPLE9BQVAsR0FBaUIsZ0JBQVEsQ0FJeEIsQ0FKRCIsImZpbGUiOiJmbGF0dGVuLmpzIiwic291cmNlc0NvbnRlbnQiOlsiXCJ1c2Ugc3RyaWN0XCI7XG5cbm1vZHVsZS5leHBvcnRzID0gdHJlZSA9PiB7XG5cbiAgXG4gIFxufSJdfQ==
