@@ -18,7 +18,9 @@ const knexLib = require( 'knex' ),
 
   defineUnique = require( 'mysql-utils/defineUnique' ),
 
-  mw = require( '../middleware' );
+  mw = require( '../middleware' ),
+
+  update = require( './update' );
 
 
 var config, knex, schemas;
@@ -28,7 +30,6 @@ const detailedFields = [ 'id', 'uid', 'full_name', 'username', 'email', 'image',
   'facebook_uid', 'twitter_id', 'google_id', 'culture', 'is_activated', 'created_at',
   'updated_at', 'last_notified', 'is_removed', 'last_signin', 'comexposium_id' ];
 
-
 module.exports = {
   init,
   mw,
@@ -36,6 +37,7 @@ module.exports = {
   list,
   get,
   set,
+  update,
   updateProfile,
   changePassword,
   verifyPassword,
@@ -82,7 +84,8 @@ function init( c, cb ) {
 
     .then( () => {
 
-      mw.init( require( './index' ), c );
+      mw.init( module.exports, c );
+      update.init( config, knex, module.exports );
 
     } )
 
@@ -551,7 +554,7 @@ function _updateOrInsert( v ) {
 
   const detailed = v.params && v.params.detailed;
 
-  get( v.query, { detailed: detailed }, ( err, user ) => {
+  get( v.query, { detailed, store: true }, ( err, user ) => {
 
     if ( err ) return d.reject( err );
 
@@ -607,6 +610,10 @@ function _updateOrInsert( v ) {
       resolve();
 
     } )
+      .then( () => {
+
+
+      } )
       .then( () => knex.transaction( trx => {
 
         var queryBuilder = knex( schemas.user )[ mode ]( fields );
@@ -849,7 +856,7 @@ function _requestChangeEmail( v ) {
 
 function _confirmChangeEmail( v ) {
 
-  var store = JSON.parse( v.user.store || {} );
+  var store = JSON.parse( v.user.store || '{}' );
 
   if ( store.new_email_token == v.query.token ) {
 
@@ -926,7 +933,13 @@ function _clean( v ) {
 
     v.user = utils.filterByAttr( v.user, [ 'id', 'uid', 'full_name', 'username', 'email', 'image', 'facebook_uid', 'twitter_id', 'google_id',
       'culture', 'is_activated', 'created_at', 'updated_at', 'last_notified', 'is_removed', 'last_signin', 'comexposium_id',
-      'api_key', 'api_secret' ] );
+      'api_key', 'api_secret' ].concat( v.params && v.params.store ? 'store' : [] ) );
+
+    if ( v.params && v.params.store && v.user && v.user.store ) {
+
+      v.user.store = JSON.parse( v.user.store || '{}' );
+
+    }
 
   }
 

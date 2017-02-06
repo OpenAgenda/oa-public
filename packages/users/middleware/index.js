@@ -20,7 +20,9 @@ var logger = require( 'basic-logger' ),
 
   images = require( 'images' ),
 
-  files = require( 'files' );
+  files = require( 'files' ),
+
+  _ = require( 'lodash' );
 
 const csrf = csurf( { cookie: true } );
 
@@ -28,6 +30,7 @@ module.exports = {
   init,
   csrf,
   csrfProtection,
+  load,
   getMe,
   updateProfile,
   uploadProfileImage,
@@ -70,6 +73,27 @@ function init( s, c ) {
   } );
 
   log = logger( 'users' );
+
+}
+
+
+function load( uidNamespace, toNamespace ) {
+
+  return ( req, res, next ) => {
+
+    service.get(
+      { uid: _.get( req, uidNamespace ) },
+      { fullImagePath: true, detailed: true },
+      ( err, user ) => {
+
+        if ( err ) return next( err );
+
+        _.set( req, toNamespace, user );
+        next();
+
+      } );
+
+  };
 
 }
 
