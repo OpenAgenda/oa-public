@@ -69,6 +69,26 @@ describe( 'agendas - functional (server): middleware', function() {
 
     } );
 
+    it( '.load namespaces can be specified', done => {
+
+      const req = {
+        uid: 94345899
+      }, 
+
+        res = {};
+
+      svc.middleware.load( { namespaces: { identifiers: { uid: 'uid' }, result: 'a' } } )( req, res, next );
+
+      function next( err ) {
+
+        req.a.title.should.equal( 'EPN "Espace Torcy"' );
+
+        done();
+
+      }
+
+    } )
+
   } );
 
 } );
