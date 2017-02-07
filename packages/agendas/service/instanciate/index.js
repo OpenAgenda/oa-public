@@ -46,7 +46,7 @@ Object.assign(
 
 function _loadInternals( cb ) {
 
-  service.get( { uid: this.data.uid }, { internal: true }, ( err, agenda ) => {
+  service.get( { uid: this.data.uid }, { internal: true, private: null }, ( err, agenda ) => {
 
     if ( err ) return cb( err );
 

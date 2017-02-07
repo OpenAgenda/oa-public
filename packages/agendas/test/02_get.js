@@ -144,6 +144,44 @@ describe( 'agendas - functional (server): get', function() {
     } );
 
   } );
+
+
+  it( 'get with unspecified "private" option cannot get private agenda', done => {
+
+    svc.get( { slug: 'agenda-culture-gradignan' }, ( err, agenda ) => {
+
+      should( err ).equal( null );
+      should( agenda ).equal( null );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'get with nulled "private" option gets private agenda', done => {
+
+    svc.get( { slug: 'agenda-culture-gradignan' }, { private: null }, ( err, agenda ) => {
+
+      agenda.slug.should.equal( 'agenda-culture-gradignan' );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'get with truthy "private" option gets private agenda', done => {
+
+    svc.get( { slug: 'agenda-culture-gradignan' }, { private: true }, ( err, agenda ) => {
+
+      agenda.slug.should.equal( 'agenda-culture-gradignan' );
+
+      done();
+
+    } );
+
+  } );
   
 
   it( 'get with internal option gets internal data like credentials and id', done => {

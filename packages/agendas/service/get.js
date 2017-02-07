@@ -63,7 +63,8 @@ function get( identifiers, options, cb ) {
     detailed: false,
     internal: false,
     instanciate: false,
-    includeImagePath: false
+    includeImagePath: false,
+    private: false
   }, options, {
     entry: null, 
     data: null,
@@ -103,13 +104,19 @@ function get( identifiers, options, cb ) {
  */
 function _get( v ) {
 
-  return knex( schemas.agenda )
+  let k = knex( schemas.agenda )
 
   .select( dbParse.fields( 'db', v.internal, [ 'id' ] ) )
 
-  .where( v.identifiers )
+  .where( v.identifiers );
 
-  .then( rows => {
+  if ( v.private !== null ) {
+
+    k.andWhere( 'private', v.private );
+
+  }
+
+  return k.then( rows => {
 
     if ( !rows.length ) return v;
 

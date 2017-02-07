@@ -87,7 +87,7 @@ describe( 'agendas - functional (server): instanciate', function() {
 
   it( 'getRoles - private agenda roles', done => {
 
-    svc.get( 4826, { instanciate: true }, ( err, agenda ) => {
+    svc.get( 4826, { instanciate: true, private: null }, ( err, agenda ) => {
 
       agenda.getRoles( ( err, roles ) => {
 
