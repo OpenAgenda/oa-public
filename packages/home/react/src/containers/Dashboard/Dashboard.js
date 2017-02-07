@@ -143,7 +143,7 @@ export default class Dashboard extends Component {
             <a href={res.new} className="btn btn-primary margin-v-sm">{getLabel( 'createAgenda' )}</a>
             <p className="margin-v-sm">{getLabel( 'orContributeToExisting' )}</p>
             <form action={res.search} method="GET" className="margin-top-sm">
-              <div className="form-group search center-block">
+              <div className="form-group input-icon-right search center-block">
                 <div className="input-icon-right">
                   <input type="text" name="search" className="form-control" />
                   <button type="submit" className="btn">

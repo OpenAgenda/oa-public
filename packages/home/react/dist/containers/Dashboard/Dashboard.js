@@ -271,7 +271,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               { action: res.search, method: 'GET', className: 'margin-top-sm' },
               _react3.default.createElement(
                 'div',
-                { className: 'form-group search center-block' },
+                { className: 'form-group input-icon-right search center-block' },
                 _react3.default.createElement(
                   'div',
                   { className: 'input-icon-right' },
