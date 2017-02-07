@@ -336,7 +336,15 @@
     "translation" : {
       "enabled" : true,
       "source" : "fr",
-      "languages" : [ "de" ],
+      "sets" : [ {
+        "source" : "en",
+        "target" : [ "it", "es", "de", "fr" ],
+        "checked" : [ "it", "es" ]
+      }, {
+        "source" : "fr",
+        "target" : [ "it", "es", "de", "en" ],
+        "checked" : [ "en", "de" ]
+      } ],
       "service" : "reverso",
       "options" : "eyJ1c2VyIjoiQ1VMVFVSRSIsInBhc3N3b3JkIjoiclU3elQ3cWhhIn0="
     }

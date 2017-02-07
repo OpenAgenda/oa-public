@@ -111,7 +111,7 @@ module.exports = function( params ) {
     fileInput.setAttribute('type', 'file');
     fileInput.setAttribute('name', 'image');
 
-    du.addEvent(fileInput, 'change', _fileChosen);
+    du.addEvent( fileInput, 'change', _fileChosen );
 
     du.addEvent(fileInput, 'click', function(e) {
       if (locked) du.preventDefault(e);

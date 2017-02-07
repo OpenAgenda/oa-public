@@ -98,7 +98,7 @@ window.asap( options => {
 
       }
 
-      if ( res === 'administrator' ) {
+      if ( [ 'administrator', 'moderator' ].indexOf( res ) !== -1 ) {
 
         _displayAddButton();
 

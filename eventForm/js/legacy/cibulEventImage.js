@@ -41,7 +41,7 @@ module.exports = function( params ) {
 
     }
 
-    eh.trigger( params.events.fetch, function( data ) {
+    eh.trigger( params.events.fetch, data => {
 
       handleEventImage({
         labels: params.labels,
