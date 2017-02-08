@@ -6,6 +6,8 @@ const knexLib = require( 'knex' ),
 
   w = require( 'when' ),
 
+  _ = require( 'lodash' ),
+
   guard = require( 'when/guard' ),
 
   legacy = require( './legacy' ),
@@ -34,7 +36,7 @@ const knexLib = require( 'knex' ),
 
   dbParse = require( 'mysql-utils/mapper' )( map ),
 
-  utils = require( 'utils' ),
+  parseListArguments = require( 'service-utils/parseListArguments' ),
 
   service = {
     init,
@@ -109,35 +111,52 @@ function init( c ) {
 }
 
 
-function list( query, offset, limit, cb ) {
+function list( q, off, l, op, c ) {
 
-  if ( arguments.length === 3 ) {
+  let { query, offset, limit, options, cb } = parseListArguments.apply( null, arguments );
 
-    cb = limit;
-    limit = offset;
-    offset = query;
-    query = {};
-
-  }
-
-  query = Object.assign( {
+  query = _.extend( {
     ids: [],
-    total: false,
-    detailed: false,
     search: null,
-    order: '',
-    private: false
+    order: ''
   }, query );
 
-  if ( !knex ) return cb( 'no config' );
+  const finalOptions = _.extend( {
+    private: false,
+    total: false,
+    detailed: false
+  }, options );
+
+  // options that were in query are to be DEPRECATED
+  Object.keys( finalOptions ).forEach( k => {
+
+    if ( options[ k ] === undefined && query[ k ] !== undefined ) {
+
+      console.log( '%s in query is DEPRECATED. set in options instead', k );
+
+      finalOptions[ k ] = query[ k ];
+      query[ k ] = undefined;
+
+    }
+
+  } );
+
+  if ( !knex ) {
+
+    return cb( 'no config' );
+
+  }
 
   w( {
     offset,
     limit,
     query,
-    agendas: [],
-    total: null,
-    knex: knex( schemas.agenda )
+    options: finalOptions,
+    knex: knex( schemas.agenda ),
+    result: {
+      agendas: [],
+      total: null
+    }
   } )
 
     .then( _search )
@@ -150,15 +169,18 @@ function list( query, offset, limit, cb ) {
 
     .then( _detailed )
 
-  .done( v => cb( null, v.agendas, v.total ), cb );
+  .done( v => cb( null, v.result.agendas, v.result.total ), cb );
 
 }
 
 function count( cb ) {
 
-  list( { total: true }, null, null, ( err, agendas, total ) => {
+  list( {}, null, null, { total: true }, ( err, agendas, total ) => {
+
     if ( err ) cb( err );
+
     cb( null, total );
+
   } );
 
 }
@@ -168,9 +190,9 @@ function _search( v ) {
 
   let ids = false;
 
-  if ( v.query.private !== null ) {
+  if ( v.options.private !== null ) {
 
-    v.knex.where( 'private', v.query.private );
+    v.knex.where( 'private', v.options.private );
 
   }
 
@@ -211,9 +233,7 @@ function _order( v ) {
 
   }
 
-  let orderParts = utils.toUnderscore( v.query.order ).split( '.' );
-
-  v.knex.orderBy( orderParts[ 0 ], orderParts[ 1 ] );
+  v.knex.orderBy.apply( v.knex, v.query.order.split( '.' ).map( _.snakeCase ) );
 
   return v;
 
@@ -222,7 +242,7 @@ function _order( v ) {
 
 function _total( v ) {
 
-  if ( !v.query.total ) return v;
+  if ( !v.options.total ) return v;
 
   return knex.transaction( trx => {
 
@@ -234,7 +254,7 @@ function _total( v ) {
 
   .then( result => {
 
-    v.total = result[ 0 ].agendas;
+    v.result.total = result[ 0 ].agendas;
 
     return v;
 
@@ -261,7 +281,7 @@ function _list( v ) {
 
   .then( agendas => {
 
-    v.agendas = agendas.map( dbParse.toObj );
+    v.result.agendas = agendas.map( dbParse.toObj );
 
     return v;
 
@@ -272,15 +292,15 @@ function _list( v ) {
 
 function _detailed( v ) {
 
-  if ( !v.query.detailed ) return v;
+  if ( !v.options.detailed ) return v;
 
   let gDetails = guard( guard.n( 1 ), agenda => wn.call( details.load, agenda ) );
 
-  return w.map( v.agendas, gDetails )
+  return w.map( v.result.agendas, gDetails )
 
     .then( agendas => {
 
-      v.agendas = agendas;
+      v.result.agendas = agendas;
 
       return v;
 

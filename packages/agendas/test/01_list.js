@@ -2,12 +2,12 @@
 
 process.env.NODE_ENV = 'test';
 
-const async = require( 'async' );
+const should = require( 'should' ),
 
-var should = require( 'should' ),
-
-// service loaded with test lib
+  // service loaded with test lib
   svc = require( '../service/test' ),
+
+  async = require( 'async' ),
 
   config = require( '../testconfig' );
 
@@ -41,8 +41,23 @@ describe( 'agendas - functional (server): list', function () {
 
   } );
 
-
   it( 'list with { detailed: true } gets agendas with detailed info', done => {
+
+    svc.list( {}, 94, 1, {
+      detailed: true,
+      private: null
+    }, ( err, agendas ) => {
+
+      agendas[ 0 ].publishedEvents.should.equal( 9 );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'DEPRECATE - list with { detailed: true } gets agendas with detailed info', done => {
 
     svc.list( {
       detailed: true,
@@ -91,9 +106,22 @@ describe( 'agendas - functional (server): list', function () {
   } );
 
 
-  it( 'list with ids, detailed and search gets agendas', done => {
+  it( 'DEPRECATE - list with ids, detailed and search gets agendas', done => {
 
     svc.list( { ids: [ 4828, 4848 ], detailed: true, private: null, search: 'gradignan' }, 0, 2, ( err, agendas ) => {
+
+      agendas.length.should.equal( 1 );
+      agendas[ 0 ].publishedEvents.should.equal( 9 );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'list with ids, detailed and search gets agendas', done => {
+
+    svc.list( { ids: [ 4828, 4848 ], search: 'gradignan' }, 0, 2, { detailed: true, private: null }, ( err, agendas ) => {
 
       agendas.length.should.equal( 1 );
       agendas[ 0 ].publishedEvents.should.equal( 9 );
