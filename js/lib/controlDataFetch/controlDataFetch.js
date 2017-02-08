@@ -26,7 +26,7 @@ res = {
 defaults = {
   uid: false, // required. the uid of the agenda
   embedUid: false, // optional. the uid of the embed
-  jsonp: false,
+  jsonp: false
 }
 
 module.exports = fetch;
@@ -42,6 +42,12 @@ function fetch( options, cb ) {
   if ( params.embedUid ) {
 
     fetchRes = fetchRes.replace( '{embedUid}', params.embedUid );
+
+  }
+
+  if ( window.controlData ) {
+
+    fetchRes = window.controlData;
 
   }
 
