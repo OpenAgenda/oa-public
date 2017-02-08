@@ -14,7 +14,8 @@ module.exports = React.createClass( {
     name: React.PropTypes.string,
     dynamic: React.PropTypes.bool,
     timeout: React.PropTypes.number,
-    loading: React.PropTypes.bool
+    loading: React.PropTypes.bool,
+    enableLoadingDisplay: React.PropTypes.bool
   },
 
   getDefaultProps: function() {
@@ -25,7 +26,8 @@ module.exports = React.createClass( {
       dynamic: false,
       timeout: 1500,
       loading: false,
-      threshold: 2
+      threshold: 2,
+      enableLoadingDisplay: true
     }
 
   },
@@ -115,6 +117,8 @@ module.exports = React.createClass( {
   },
 
   isLoading: function() {
+
+    if ( !this.props.enableLoadingDisplay ) return false;
 
     return !!( this.props.loading || this.timeout );
 
