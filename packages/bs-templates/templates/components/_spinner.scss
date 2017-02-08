@@ -9,23 +9,64 @@
   position: absolute;
   background: rgba(0, 0, 0, 0.03);
 
-  .spin-message {
+  &.spin-center {
 
-    color: $oa-gray;
-    text-align: center;
-    position: absolute;
-    width: 220px;
-    margin-left: -110px;
-    top: -50px;
-    padding: 90px 20px 30px;
-    background: $oa-white;
-    border-radius: 5px;
+    .spin-message {
 
+      color: $oa-gray;
+      text-align: center;
+      position: absolute;
+      width: 220px;
+      margin-left: -110px;
+      top: -50px;
+      padding: 90px 20px 30px;
+      background: $oa-white;
+      border-radius: 5px;
+
+    }
+  
   }
 
   &.spin-page {
 
     position: fixed;
+
+  }
+  
+  &.spin-inline {
+
+    > div {
+
+      display: inline-block;
+
+    }
+
+    position: relative;
+    height: 1em;
+    width: auto;
+    display: inline-block;
+    background: transparent;
+    vertical-align: middle;
+
+    .spinner {
+
+      left: 5px!important;
+      width: auto!important;
+      top: 62%!important;
+
+    }
+
+    .spin-message { 
+
+      margin-left: 1.3em;
+
+    }
+
+    & + span {
+
+      vertical-align: middle; 
+
+    }
 
   }
   
