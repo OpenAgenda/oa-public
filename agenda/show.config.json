@@ -21,7 +21,8 @@
     "isEmbed" : false,
     "passedIncluded" : false,
     "hasSearchQuery" : false,
-    "includeActionLinks" : true
+    "includeActionLinks" : true,
+    "private" : false
   },
   "js" : true
 }

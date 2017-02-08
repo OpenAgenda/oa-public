@@ -6,6 +6,7 @@
       "image" : "review_cheznous_598_00.jpg",
       "isEmpty" : false,
       "official" : true,
+      "private" : true,
       "slug" : "chez-nous",
       "url" : "http://cheznous.coop",
       "uid" : 48959239,
