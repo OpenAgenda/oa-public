@@ -97,7 +97,7 @@ function _update( type, query ) {
 
   if ( !query ) query = {};
 
-  return function( cb ) {
+  return  cb => {
 
     var count = { processed: 0, errors: 0 };
 
@@ -290,7 +290,7 @@ function _loopThroughIndex( type, params, usageFunc, cb ) {
 
 function _loopThroughDb( schema, params, usageFunc, cb ) {
 
-  var hasMore = true, limit = 100, offset = 0;
+  var hasMore = true, limit = 20, offset = 0;
 
   async.whilst( function()  {
 

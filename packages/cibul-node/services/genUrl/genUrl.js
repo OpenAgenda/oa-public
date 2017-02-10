@@ -2,9 +2,11 @@
 
 var deepExtend = require( 'deep-extend' ),
 
-log = require( 'debug' )( 'genUrl' ),
+  log = require( 'debug' )( 'genUrl' ),
 
-qs = require( 'qs' );
+  _ = require( 'lodash' ),
+
+  qs = require( 'qs' );
 
 module.exports = function( options ) {
 
@@ -26,16 +28,13 @@ function instanciate( options ) {
 
   preloaded = deepExtend( {}, defaults.preloaded );
 
-  genUrl.load = load;
-
-  genUrl.getPaths = getPaths;
-
-  genUrl.copy = copy;
-
-  genUrl.preload = preload;
-
-  return genUrl;
-
+  return _.extend( genUrl, {
+    load,
+    getPaths,
+    getPath,
+    copy,
+    preload
+  } );
   
   function genUrl( name, values, options ) {
 
@@ -114,6 +113,12 @@ function instanciate( options ) {
   function getPaths() {
 
     return paths;
+
+  }
+
+  function getPath( name ) {
+
+    return paths[ name ];
 
   }
 
