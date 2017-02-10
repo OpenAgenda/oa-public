@@ -22,24 +22,19 @@ module.exports = RadioTypeField( {
 
   renderField: function() {
 
-    var self = this,
-
-    renderOption = function( option ) {
-
-      return <li>
-        <input 
-          type={self.props.type}
-          name={self.props.field.name}
-          checked={self.isChecked( option )}
-          onChange={self.onChange.bind( self, option.value )} />
-        <label>{option.label[self.props.lang]}</label>
-      </li>;
-
-    };
-
-    return <ul>
-      {this.props.field.options.map( renderOption )}
-    </ul>;
+    return <div className="form-group">
+      <ul className="list-unstyled">
+        { this.props.field.options.map( option => <li className={this.props.type}>
+          <label>
+            <input 
+              type={this.props.type}
+              name={this.props.field.name}
+              checked={this.isChecked( option )}
+              onChange={this.onChange.bind( self, option.value )} /> {option.label[this.props.lang]}
+            </label>
+        </li> ) }
+      </ul>
+    </div>
 
   }
 

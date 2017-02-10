@@ -508,15 +508,17 @@ function EventFormFactory() {
 
     renderMarkdownField: function() {
 
-      return <WysiwygMarkdown
-        label={ this.props.configuration.field( 'longDescription' ).getLabel( false, this.props.labels ) }
-        placeholder={ this.props.configuration.field( 'longDescription' ).getPlaceholder( false, this.props.labels ) }
-        name='long_description'
-        markdown={this.state.freeText}
-        languages={this.state.languages}
-        onChange={this.onChange( 'freeText' )}
-        labels={this.props.labels}
-        lang={this.props.lang} />;
+      return <div className="multilingual-input-field">
+        <WysiwygMarkdown
+          label={ this.props.configuration.field( 'longDescription' ).getLabel( false, this.props.labels ) }
+          placeholder={ this.props.configuration.field( 'longDescription' ).getPlaceholder( false, this.props.labels ) }
+          name='long_description'
+          markdown={this.state.freeText}
+          languages={this.state.languages}
+          onChange={this.onChange( 'freeText' )}
+          labels={this.props.labels}
+          lang={this.props.lang} />
+        </div>
 
     },
 
@@ -567,7 +569,7 @@ function EventFormFactory() {
             onChange={ this.changeLanguages }
             getLabel={ this.getLabel } />
 
-          <div className="form-section">
+          <div className="multilingual-input-field">
 
             <MultilingualTextField
               constraints={{max: 140}}
@@ -582,7 +584,10 @@ function EventFormFactory() {
               onChange={this.onChange( 'title' )}
               lang={this.props.lang} />
 
-            { !this.props.configuration.field( 'description' ).fixed() ? 
+          </div>
+
+          { !this.props.configuration.field( 'description' ).fixed() ? 
+          <div className="multilingual-input-field">
             <MultilingualTextField
               constraints={{max: 200}}
               counter={true}
@@ -594,38 +599,43 @@ function EventFormFactory() {
               error={formErrors.description }
               languages={this.state.languages}
               onChange={this.onChange( 'description' )}
-              lang={this.props.lang} /> 
-            : null }
+              lang={this.props.lang} />
+          </div>
+          : null }
 
             { this.props.configuration.field( 'keywords' ).display() ?
-            <EventKeywordsField
-              constraints={{max: 255}}
-              counter={true}
-              value={this.state.tags}
-              name='keywords'
-              optional={true}
-              languages={this.state.languages}
-              onChange={this.onChange( 'tags' )}
-              label={this.props.labels.keywords}
-              error={formErrors.tags}
-              placeholder={this.props.labels.keywordPlaceholder}
-              lang={this.props.lang} /> : null }
+            <div className="multilingual-input-field">
+              <EventKeywordsField
+                constraints={{max: 255}}
+                counter={true}
+                value={this.state.tags}
+                name='keywords'
+                optional={true}
+                languages={this.state.languages}
+                onChange={this.onChange( 'tags' )}
+                label={this.props.labels.keywords}
+                error={formErrors.tags}
+                placeholder={this.props.labels.keywordPlaceholder}
+                lang={this.props.lang} /> 
+            </div> : null }
 
             { this.renderMarkdownField() }
 
-            <MultilingualTextField
-              constraints={{max: 255}}
-              counter={true}
-              label={ this.props.configuration.field( 'conditions' ).getLabel( false, this.props.labels ) }
-              placeholder={ this.props.configuration.field( 'conditions' ).getPlaceholder( false, this.props.labels ) }
-              name='conditions'
-              type='text'
-              optional={true}
-              value={this.state.conditions}
-              error={formErrors.conditions }
-              languages={this.state.languages}
-              onChange={this.onChange( 'conditions' )}
-              lang={this.props.lang} />  
+            <div className="multilingual-input-field">
+              <MultilingualTextField
+                constraints={{max: 255}}
+                counter={true}
+                label={ this.props.configuration.field( 'conditions' ).getLabel( false, this.props.labels ) }
+                placeholder={ this.props.configuration.field( 'conditions' ).getPlaceholder( false, this.props.labels ) }
+                name='conditions'
+                type='text'
+                optional={true}
+                value={this.state.conditions}
+                error={formErrors.conditions }
+                languages={this.state.languages}
+                onChange={this.onChange( 'conditions' )}
+                lang={this.props.lang} />  
+            </div>
 
             <Registration 
               lang={this.props.lang}
@@ -646,7 +656,7 @@ function EventFormFactory() {
 
           </div>
 
-          { this.props.custom ? <div className="form-section"><CustomFields
+          { this.props.custom ? <CustomFields
             fields={ this.props.custom }
             values={ this.state.custom }
             errors={ formErrors }
@@ -654,7 +664,7 @@ function EventFormFactory() {
             onChange={ this.changeCustom }
             labels={ this.props.labels }     
             res={ this.props.customRes }   
-            lang={ this.props.lang } /></div>
+            lang={ this.props.lang } />
           : '' }
 
           { this.props.configuration.field( 'references' ).display( false ) ? <References 
@@ -663,7 +673,7 @@ function EventFormFactory() {
             onChange={ this.props.onReferencesChange }
           /> : null }
 
-          <div>
+          <div className="margin-v-lg">
             <h2>{ this.props.labels.locationSection[ this.props.lang ] }</h2>
             { this.state.locationMode === 'create' ? 
               <Modal disableBodyScroll={{true}} classNames={{
@@ -675,34 +685,41 @@ function EventFormFactory() {
             : this.renderLocationSelector() }
           </div>
           
-          <TimingsPicker
-            labels={this.props.labels}
-            lang={this.props.lang}
-            error={formErrors.timings}
-            timings={this.state.timings}
-            configuration={this.props.configuration.field( 'timings' ) }
-            onChange={this.onTimingsChange} />
+          <div className="margin-v-lg">
+            <TimingsPicker
+              labels={this.props.labels}
+              lang={this.props.lang}
+              error={formErrors.timings}
+              timings={this.state.timings}
+              configuration={this.props.configuration.field( 'timings' ) }
+              onChange={this.onTimingsChange} />
+          </div>
 
-          { this.state.translation ? 
-          <Translation
-            source={this.state.translation.source}
-            sets={this.state.translation.sets}
-            check={translator.change.bind( null, true )}
-            uncheck={translator.change.bind( null, false )}
-            sourceChange={translator.sourceChange.bind( null )}
-            labels= {flattenLabels( translationLabels, this.props.lang )}
-          /> : null }
+          { this.state.translation ?  
+          <div className="margin-v-lg">
+            <Translation
+              source={this.state.translation.source}
+              sets={this.state.translation.sets}
+              check={translator.change.bind( null, true )}
+              uncheck={translator.change.bind( null, false )}
+              sourceChange={translator.sourceChange.bind( null )}
+              labels= {flattenLabels( translationLabels, this.props.lang )}
+            /> 
+          </div>
+          : null }
 
 
           <div className="js_form_canvas_below"></div>
 
-          {this.state.translation && this.state.translation.translating ? <Spinner page={true} message={translationLabels.processingTranslation[ this.props.lang ]} /> : null }
+          {this.state.translation && this.state.translation.translating ? 
+            <Spinner page={true} message={translationLabels.processingTranslation[ this.props.lang ]} /> 
+          : null }
 
-          {this.state.submitSpin ? <Spinner page={true} message={this.state.translation && this.state.translation.timeouts ? translationLabels.savingPartialTranslation[ this.props.lang ] : null } /> : null }
+          {this.state.submitSpin ? 
+            <Spinner page={true} message={this.state.translation && this.state.translation.timeouts ? translationLabels.savingPartialTranslation[ this.props.lang ] : null } /> 
+          : null }
 
         </div>
-
-      </div>
 
     }
 

@@ -25,12 +25,12 @@ module.exports = React.createClass({
   render: function() {
 
     return ( 
-      <ul>
-        <li>
+      <div className="checkbox">
+        <label>
           <input type="checkbox" checked={this.props.value} onChange={this.onChange} />
-          <label>{this.props.field.label[this.props.lang]}{this.props.field.optional ? '' : ' (*)'}</label>
-        </li>
-      </ul>
+          <span>{this.props.field.label[this.props.lang]}{this.props.field.optional ? '' : ' (*)'}</span>
+        </label>
+      </div>
     );
 
   }

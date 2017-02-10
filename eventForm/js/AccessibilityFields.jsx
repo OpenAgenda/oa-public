@@ -89,15 +89,12 @@ module.exports = React.createClass({
     var self = this;
 
     return (
-      <div className="cform">
-        <ul>
-          <li className="line" onClick={self.onEnabled}>
-            <input type="checkbox" name="accessibility" checked={self.state.enabled} />
-            <label>{this.props.label[ this.props.labelsLang ]}</label>
-          </li>
-        </ul>
-        <ul className="acc">
-          {this.types.map(function(type, idx){
+      <div className="accessibility">
+        <div onClick={self.onEnabled} className="checkbox">
+          <label><input type="checkbox" name="accessibility" checked={self.state.enabled} /> {this.props.label[ this.props.labelsLang ]}</label>
+        </div>
+        <ul className="list-unstyled">
+          {this.types.map( (type, idx) => {
             return <AccessibilityItem 
               key={idx}
               label={type.label[self.props.labelsLang]}

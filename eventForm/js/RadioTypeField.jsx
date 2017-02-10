@@ -73,14 +73,10 @@ module.exports = function( funcs ) {
 
     render: function() {
 
-      return <div className="cform">
+      return <div className="form-group">
         <label>{this.props.field.label[this.props.lang]}{this.props.field.optional ? '' : ' (*)'}</label>
         {renderHelpers.errorOrInfo.apply( this )}
-        <ul>
-          <li>
-            { this.renderField() }
-          </li>
-        </ul>
+        { this.renderField() }
       </div>;
 
     },

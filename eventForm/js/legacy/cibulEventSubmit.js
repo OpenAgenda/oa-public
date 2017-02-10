@@ -25,9 +25,9 @@ module.exports = function( params ) {
       lightboxFrame: 'lightbox-frame wsq',
       lightboxCanvas: 'lightbox-canvas',
       lightboxButtons: 'lightbox-buttons',
-      create: 'green',
-      update: 'green',
-      remove: 'red'
+      create: 'btn btn-primary',
+      update: 'btn btn-primary',
+      remove: 'btn btn-danger'
     },
     selectors: {
       actions: '.js_actions',

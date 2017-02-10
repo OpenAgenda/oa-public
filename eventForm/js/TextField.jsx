@@ -89,14 +89,12 @@ module.exports = React.createClass({
 
   render: function() {
 
-    return <ul>
-      <li>
-        <label>{this.props.label[this.props.lang]}{ this.props.optional ? '' : ' (*)' }</label>
-        {renderHelpers.renderInfo.apply( this )}
-        { this.renderField() }
-        { renderHelpers.renderError.apply( this ) }
-      </li>
-    </ul>
+    return <div className="form-group">
+      <label>{this.props.label[this.props.lang]}{ this.props.optional ? '' : ' (*)' }</label>
+      {renderHelpers.renderInfo.apply( this )}
+      { this.renderField() }
+      { renderHelpers.renderError.apply( this ) }
+    </div>
 
   },
 

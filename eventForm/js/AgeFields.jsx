@@ -164,35 +164,33 @@ module.exports = React.createClass({
     }
 
     return ( 
-      <div className="cform target-age">
-        <ul>
-          <li className="line">
-            <input type="checkbox" name="age" checked={this.state.enabled} onClick={this.onEnabled(!this.state.enabled)} />
-            <label onClick={this.onEnabled()}>{this.props.label[this.props.labelsLang]}</label> - 
-            <label onClick={this.onEnabled()} for="minage">{labels.min[this.props.labelsLang]}</label>
-            <Select
-              name="minage"
-              value={min}
-              options={this.getSelectOptions()}
-              clearable={false}
-              onChange={this.onChange( 'min' )}
-              onFocus={this.onEnabled(true)}
-              onBlur={this.onChange( 'min' )}
-              placeholder={labels.select[this.props.labelsLang]}
-            />
-            <label for="maxage">{labels.max[this.props.labelsLang]}</label>
-            <Select
-              name="maxage"
-              value={max}
-              options={this.getSelectOptions( this.props.value ? min : false )}
-              clearable={false}
-              onChange={this.onChange( 'max' )}
-              onBlur={this.onChange( 'max' )}
-              onFocus={this.onEnabled(true)}
-              placeholder={labels.select[this.props.labelsLang]}
-            />
-          </li>
-        </ul>
+      <div className="target-age margin-v-md">
+        <label onClick={this.onEnabled()}>
+          <input type="checkbox" name="age" checked={this.state.enabled} onClick={this.onEnabled(!this.state.enabled)} /> 
+          <span>{this.props.label[this.props.labelsLang]}</span>
+        </label> - 
+        <label onClick={this.onEnabled()} for="minage">{labels.min[this.props.labelsLang]}</label>
+        <Select
+          name="minage"
+          value={min}
+          options={this.getSelectOptions()}
+          clearable={false}
+          onChange={this.onChange( 'min' )}
+          onFocus={this.onEnabled(true)}
+          onBlur={this.onChange( 'min' )}
+          placeholder={labels.select[this.props.labelsLang]}
+        />
+        <label for="maxage">{labels.max[this.props.labelsLang]}</label>
+        <Select
+          name="maxage"
+          value={max}
+          options={this.getSelectOptions( this.props.value ? min : false )}
+          clearable={false}
+          onChange={this.onChange( 'max' )}
+          onBlur={this.onChange( 'max' )}
+          onFocus={this.onEnabled(true)}
+          placeholder={labels.select[this.props.labelsLang]}
+        />
       </div>
     );
 

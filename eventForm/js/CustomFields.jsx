@@ -58,98 +58,111 @@ module.exports = React.createClass({
 
         if ( field.multilingual ) {
 
-          return <MultilingualTextField
-            name={ field.name }
-            constraints= { field } 
-            label= { field.label }
-            info= { field.info }
-            optional= { field.optional }
-            lang= { self.props.lang } 
-            type= { field.fieldType } 
-            value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : {} }
-            error= { self.props.errors[ field.name ] || false }
-            languages= { self.props.languages }
-            onChange= { self.onChange( field.name ) } />;
+          return <div className="multilingual-input-field form-group margin-v-md">
+            <MultilingualTextField
+              name={ field.name }
+              constraints= { field } 
+              label= { field.label }
+              info= { field.info }
+              optional= { field.optional }
+              lang= { self.props.lang } 
+              type= { field.fieldType } 
+              value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : {} }
+              error= { self.props.errors[ field.name ] || false }
+              languages= { self.props.languages }
+              onChange= { self.onChange( field.name ) } />
+            </div>;
 
         } else {
 
-          return <TextField 
-            name= { field.name }
-            constraints= { field }
-            label= { field.label }
-            info= { field.info } 
-            optional= { field.optional }
-            lang= { self.props.lang } 
-            type= { field.fieldType } 
-            value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
-            error= { self.props.errors[ field.name ] || false }
-            onChange= { self.onChange( field.name ) } />;
+          return <div className="margin-v-md">
+            <TextField 
+              name= { field.name }
+              constraints= { field }
+              label= { field.label }
+              info= { field.info } 
+              optional= { field.optional }
+              lang= { self.props.lang } 
+              type= { field.fieldType } 
+              value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
+              error= { self.props.errors[ field.name ] || false }
+              onChange= { self.onChange( field.name ) } />
+          </div>
 
         }
 
       } else if ( field.fieldType == 'checkbox' ) {
 
-        return <CheckboxField
+        return <div className="margin-v-md">
+          <CheckboxField
           name= { field.name }
           field= { field }
           lang= { self.props.lang } 
           value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
           label= { field.label }
-          handleUpdate= { self.onChange( field.name ) } />;
+          handleUpdate= { self.onChange( field.name ) } /></div>;
 
       } else if ( field.fieldType == 'radio' ) {
 
-        return <RadioFields
-          name= { field.name }
-          type= "radio"
-          field= { field }
-          lang= { self.props.lang }
-          info= { field.info } 
-          value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
-          error= { self.props.errors[ field.name ] || false }
-          label= { field.label }
-          onChange= { self.onChange( field.name ) } />;
+        return <div className="margin-v-md">
+          <RadioFields
+            name= { field.name }
+            type= "radio"
+            field= { field }
+            lang= { self.props.lang }
+            info= { field.info } 
+            value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
+            error= { self.props.errors[ field.name ] || false }
+            label= { field.label }
+            onChange= { self.onChange( field.name ) } />
+        </div>
 
       } else if ( field.fieldType == 'select' ) {
 
-        return <SelectField
-          name= { field.name }
-          field= { field }
-          lang= { self.props.lang }
-          info= { field.info } 
-          value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
-          error= { self.props.errors[ field.name ] || false }
-          label= { field.label }
-          onChange= { self.onChange( field.name ) } />;
+        return <div className="margin-v-md">
+          <SelectField
+            name= { field.name }
+            field= { field }
+            lang= { self.props.lang }
+            info= { field.info } 
+            value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
+            error= { self.props.errors[ field.name ] || false }
+            label= { field.label }
+            onChange= { self.onChange( field.name ) } />
+        </div>
 
       } else if ( field.fieldType == 'multichoice' ) {
 
-        return <RadioFields
-          name= { field.name }
-          type= "checkbox"
-          field= { field }
-          lang= { self.props.lang }
-          info= { field.info } 
-          value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
-          error= { self.props.errors[ field.name ] || false }
-          label= { field.label }
-          onChange= { self.onChange( field.name ) } />;
+        return <div className="margin-v-md">
+          <RadioFields
+            name= { field.name }
+            type= "checkbox"
+            field= { field }
+            lang= { self.props.lang }
+            info= { field.info } 
+            value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
+            error= { self.props.errors[ field.name ] || false }
+            label= { field.label }
+            onChange= { self.onChange( field.name ) } />
+        </div>
 
       } else if ( field.fieldType == 'image' ) {
 
-        return <ImageUpload
-          className="upload"
-          name={ field.name }
-          upload={ self.props.res.upload.replace( '{field}', field.name ) }
-          remove={ self.props.res.remove.replace( '{field}', field.name ) }
-          lang={ self.props.lang }
-          value={ self.props.values[ field.name ] ? self.props.res.path + self.props.values[ field.name ] : '' }
-          label={ field.label }
-          info={ field.info }
-          buttonLabel={ self.props.labels.uploadButton }
-          buttonClass="blue button"
-          removeClass="red button"
-          handleUpdate={ self.onImageChange( field.name ) } />
+        return <div className="margin-v-md">
+          <ImageUpload
+            className="upload"
+            name={ field.name }
+            upload={ self.props.res.upload.replace( '{field}', field.name ) }
+            remove={ self.props.res.remove.replace( '{field}', field.name ) }
+            lang={ self.props.lang }
+            value={ self.props.values[ field.name ] ? self.props.res.path + self.props.values[ field.name ] : '' }
+            label={ field.label }
+            info={ field.info }
+            buttonLabel={ self.props.labels.uploadButton }
+            buttonClass="blue button"
+            removeClass="red button"
+            handleUpdate={ self.onImageChange( field.name ) } />
+        </div>
 
       }
 

@@ -226,7 +226,7 @@ module.exports = React.createClass( {
       if ( count > 1 ) {
 
         return <li className="lang-unit">
-          <label className="off32">{l}</label>
+          <label>{l}</label>
           <textarea className={'mce-box-' + i} value={ marked( value ) } placeholder={ this.props.placeholder[ this.props.lang ] }></textarea>
         </li>
 
@@ -240,7 +240,7 @@ module.exports = React.createClass( {
 
     if ( count > 1 ) {
 
-      return <ul>
+      return <ul className="list-unstyled">
         <li>
           <label>{ this.props.label[ this.props.lang ] }</label>
         </li>
@@ -249,7 +249,7 @@ module.exports = React.createClass( {
 
     } else {
 
-      return <ul>
+      return <ul className="list-unstyled">
         <li>
           <label>{ this.props.label[ this.props.lang ] }</label>
           { this.props.languages.map( renderField ) }

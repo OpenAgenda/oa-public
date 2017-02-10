@@ -117,17 +117,20 @@ module.exports = React.createClass( {
 
   renderField: function( value, l ) {
 
-    return <TagsInput 
-      value= { this.parse( this.props.value ? this.props.value[ l ] : '' ) }
-      inputProps={{
-        placeholder: value.length ? '' : this.props.placeholder[ this.props.lang ], 
-        className : 'react-tagsinput-input',
-        onBlur: this.onBlur( l ),
-        onChange: this.onInputChange( l ),
-        value: this.state.currentInputs[ l ]
-      }}
-      onChange={ this.onChange( l ) }
-      ref='tags' />
+    return <div className="multi-input">
+      <TagsInput 
+        value= { this.parse( this.props.value ? this.props.value[ l ] : '' ) }
+        inputProps={{
+          placeholder: value.length ? '' : this.props.placeholder[ this.props.lang ], 
+          className : 'react-tagsinput-input',
+          onBlur: this.onBlur( l ),
+          onChange: this.onInputChange( l ),
+          value: this.state.currentInputs[ l ]
+        }}
+        onChange={ this.onChange( l ) }
+        ref='tags'
+      />
+    </div>
 
   },
 
