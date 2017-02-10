@@ -300,23 +300,6 @@ $dayInWeek: 7;
 /* #endregion figures*/
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .primary-button{
   padding: 7px 12px;
   background-color: $lightBlue;
@@ -427,7 +410,7 @@ $dayInWeek: 7;
       }
     }
 
-    .rc-options{
+    .rc-options {
 
       text-align: left;
       
@@ -461,11 +444,35 @@ $dayInWeek: 7;
         color: $rcNormalFont;
       }
 
-      .Select-arrow{
+      .Select-arrow {
         color: $secondaryColor;
         border-color: $secondaryColor transparent transparent;
         top: 13px;
       }
+
+      .Select-arrow {
+        content: " ";
+        display: block;
+        height: 0;
+        margin-top: -ceil(2.5px);
+        position: absolute;
+        right: 10px;
+        top: 15px;
+        width: 0;
+        cursor: pointer;
+      }
+
+      .Select-arrow-zone {
+        content: " ";
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 30px;
+        cursor: pointer;
+      }
+
     }
 
     .rc-month {
