@@ -16,22 +16,28 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS ${schema} (
-`id` bigint(20) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `owner_id` bigint(20) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `description` mediumtext,
-  `image` varchar(255) DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
-  `collaborative` tinyint(1) NOT NULL DEFAULT '0',
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `uid` bigint(20) DEFAULT NULL,
-  `main` tinyint(1) NOT NULL DEFAULT '0',
-  `store` longtext,
-  `contribution_type` tinyint(4) NOT NULL DEFAULT '0',
-  `contribution_info` text
-) ENGINE=InnoDB AUTO_INCREMENT=5396 DEFAULT CHARSET=utf8;
+  id BIGINT AUTO_INCREMENT,
+  uid BIGINT UNIQUE,
+  main TINYINT(1) DEFAULT '0' NOT NULL,
+  official TINYINT(1) DEFAULT '0' NOT NULL,
+  private TINYINT(1) DEFAULT '0' NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  owner_id BIGINT NOT NULL,
+  slug VARCHAR(255) NOT NULL UNIQUE,
+  description VARCHAR(165), /* 150 in real world */
+  image VARCHAR(255),
+  url VARCHAR(255),
+  collaborative TINYINT(1) DEFAULT '0' NOT NULL,
+  contribution_type TINYINT DEFAULT 0 NOT NULL,
+  contribution_info TEXT,
+  store TEXT,
+  credentials TEXT,
+  settings TEXT,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  INDEX owner_id_idx (owner_id),
+  PRIMARY KEY(id)
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 
 --
 -- Dumping data for table ${schema}
@@ -45,19 +51,3 @@ INSERT INTO ${schema} (`id`, `title`, `owner_id`, `slug`, `description`, `image`
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table ${schema}
---
-ALTER TABLE ${schema}
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `slug` (`slug`), ADD UNIQUE KEY `uid` (`uid`), ADD KEY `owner_id_idx` (`owner_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table ${schema}
---
-ALTER TABLE ${schema}
-MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5396;

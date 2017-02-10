@@ -36,14 +36,14 @@ function agenda( namespace = 'agenda' ) {
 
     let { namespaces } = _.merge( {
       namespaces: {
-        stakeholder: 'stakeholder',
+        user: 'user',
         result: 'result'
       }
     }, options || {} );
 
     return ( req, res, next ) => {
 
-      service.agenda( _.get( req, namespace ).id ).remove( { id: _.get( req, namespaces.stakeholder ).id }, ( err, result ) => {
+      service.agenda( _.get( req, namespace ).id ).remove( { userId: _.get( req, namespaces.user ).id }, ( err, result ) => {
 
         if ( err ) return next( err );
 
@@ -107,6 +107,8 @@ function agenda( namespace = 'agenda' ) {
 
         if ( err ) return next( err );
 
+        if ( !st ) return next( 'stakeholder not found' );
+
         _.set( req, namespaces.stakeholder, st );
 
         _.set( req, namespaces.instance, new Stakeholder( _.mapKeys( st.custom, ( v, k ) => _.snakeCase( k ) ) ) );
@@ -131,7 +133,10 @@ function agenda( namespace = 'agenda' ) {
 
     return ( req, res, next ) => {
 
-      service.agenda( _.get( req, namespace ).id ).create.bulk( _.get( req, namespaces.data ), { allowPartial }, ( err, result ) => {
+      const { stakeholders, crendential } = _.get( req, namespaces.data );
+
+      service.agenda( _.get( req, namespace ).id )
+        .create.bulk( stakeholders, { allowPartial, crendential }, ( err, result ) => {
 
         if ( err ) return next( err );
 

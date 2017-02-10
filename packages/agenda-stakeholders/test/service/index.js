@@ -10,19 +10,31 @@ const svc = require( '../../' ),
 
 module.exports = svc;
 
-module.exports.initAndLoad = function( config, files, cb ) {
+module.exports.initAndLoad = function( config, files, options, cb ) {
 
-  if ( arguments.length === 2 ) {
+  const defautFiles = [
+    'agenda',
+    'event',
+    'stakeholder',
+    'agenda_event',
+    'stakeholder_settings'
+  ];
+
+  if ( arguments.length === 3 ) {
+
+    cb = options;
+
+    options = files;
+
+    files = defautFiles;
+
+  } else if ( arguments.length === 2 ) {
 
     cb = files;
 
-    files = [ 
-      'agenda',
-      'event',
-      'stakeholder',
-      'agenda_event',
-      'stakeholder_settings'
-    ]
+    options = { reset: true };
+
+    files = defautFiles;
 
   }
 
@@ -30,7 +42,7 @@ module.exports.initAndLoad = function( config, files, cb ) {
 
     if ( err ) return cb( err );
 
-    fixtures( config, files, cb );
+    fixtures( config, files, options, cb );
 
   } );
 

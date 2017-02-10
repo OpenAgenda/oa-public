@@ -2,7 +2,7 @@
 
 const fixtures = require( 'fixtures' );
 
-module.exports = function( config, files, cb ) {
+module.exports = function( config, files, options, cb ) {
 
   fixtures.init( { mysql: config.mysql } );
 
@@ -24,6 +24,6 @@ module.exports = function( config, files, cb ) {
   }, {
     table: config.schemas.stakeholderSettings,
     src: __dirname + '/stakeholder_settings.data.sql'
-  } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) ), cb );
+  } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) ), options, cb );
 
 }

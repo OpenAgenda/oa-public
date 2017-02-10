@@ -4,7 +4,7 @@
   "description": "",
   "main": "service/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +27,8 @@
     "queue": "git+ssh://git@bitbucket.org:openagenda/queue.git"
   },
   "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
     "express": "^4.14.0",
     "redis": "^2.6.5",
     "should": "^8.3.0"

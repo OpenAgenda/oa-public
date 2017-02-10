@@ -52,6 +52,12 @@ function agenda( agendaId ) {
 
   }
 
+  if ( !Number.isInteger(agendaId) ) {
+
+    throw new Error( 'agendaId is not a number' );
+
+  }
+
   let s = settings( agendaId );
 
   // separate reference for re-use within service

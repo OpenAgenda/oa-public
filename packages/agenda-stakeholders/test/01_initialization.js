@@ -50,7 +50,7 @@ describe( 'agenda-stakeholders - functional (server): initialization', function(
 
     service.initAndLoad( config, [
       'stakeholder_empty'
-    ], err => {
+    ], { reset: true }, err => {
 
       should( err ).equal( undefined );
 

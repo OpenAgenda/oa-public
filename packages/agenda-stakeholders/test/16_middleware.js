@@ -5,9 +5,10 @@ const should = require( 'should' );
 const config = require( '../testconfig' );
 const helpers = require( './lib/helpers' );
 const stakeholderMw = require( '../middleware' );
+const credentialTypes = require( '../iso/credentialTypes' );
 const _ = require( 'lodash' );
 
-describe( 'agenda-stakeholders - functional (server): middleware', function() {
+describe( 'agenda-stakeholders - functional (server): middleware', function () {
 
   this.timeout( 60000 );
 
@@ -23,17 +24,38 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
 
   } );
 
+  it( 'throw an error when agenda id is not found', done => {
+
+    const req = {
+        agenda: {}
+      },
+      res = {};
+
+    try {
+
+      stakeholderMw.agenda().load()( req, res, () => {
+      } );
+
+    } catch ( e ) {
+
+      e.should.eql( new Error( 'agendaId is not a number' ) );
+      done();
+
+    }
+
+  } );
+
   describe( '.load', done => {
 
     it( 'loads stakeholder agenda interface', done => {
 
       const req = {
-        agenda: { id: 4608 }
-      },
+          agenda: { id: 4608 }
+        },
 
-      res = {};
+        res = {};
 
-      stakeholderMw.agenda().load()( req, res, next);
+      stakeholderMw.agenda().load()( req, res, next );
 
       function next() {
 
@@ -58,11 +80,11 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
     it( 'lists stakeholders', done => {
 
       const req = {
-        agenda: { id: 4608 },
-        query: { page: 1 }
-      },
+          agenda: { id: 4608 },
+          query: { page: 1 }
+        },
 
-      res = {}; // not modified with load middleware
+        res = {}; // not modified with load middleware
 
       stakeholderMw.agenda().list()( req, res, next );
 
@@ -84,10 +106,10 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
     it( 'get stats on stakholders of an agenda', done => {
 
       const req = {
-        agenda: { id: 4608 }
-      },
+          agenda: { id: 4608 }
+        },
 
-      res = {};
+        res = {};
 
       stakeholderMw.agenda().stats()( req, res, next );
 
@@ -95,10 +117,10 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
 
         req.stats.should.eql( {
           total: 564,
-          credentialTotals: { 
-            contributor: 508, 
+          credentialTotals: {
+            contributor: 508,
             administrator: 10,
-            moderator: 46 
+            moderator: 46
           }
         } );
 
@@ -111,15 +133,18 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
   } );
 
 
-  describe( '.bulkCreate', done => {
+  describe( '.bulkCreate', () => {
 
     it( 'create multiple stakeholders', done => {
 
       const req = {
         agenda: { id: 4608 },
-        data: [ {
-          email: 'post-itspar-tout@merci.yacine'
-        } ],
+        data: {
+          stakeholders: [ {
+            email: 'post-itspar-tout@merci.yacine'
+          } ],
+          credential: credentialTypes.get( 'administrator' )
+        },
         allowPartial: true
       }, res = {};
 
@@ -151,16 +176,16 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
     it( 'updates a stakeholder', done => {
 
       const req = {
-        agenda: { id: 4608 },
-        user: { id: 7773 },
-        data: {
-          organization: 'Latouche International Corp',
-          email: 'gaetan@latouche.com',
-          contactNumber: '06',
-          contactName: 'Gaetan Latouche',
-          contactPosition: 'Overlord'
-        }
-      },
+          agenda: { id: 4608 },
+          user: { id: 7773 },
+          data: {
+            organization: 'Latouche International Corp',
+            email: 'gaetan@latouche.com',
+            contactNumber: '06',
+            contactName: 'Gaetan Latouche',
+            contactPosition: 'Overlord'
+          }
+        },
 
         res = {};
 
@@ -198,9 +223,9 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
     it( 'removes a stakeholder', done => {
 
       const req = {
-        agenda: { id: 4608 },
-        stakeholder: { id: 7255 }
-      },
+          agenda: { id: 4608 },
+          user: { id: 7830 }
+        },
 
         res = {};
 
@@ -224,11 +249,11 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
     it( 'loads all stakeholder data by default', done => {
 
       const req = {
-        agenda: { id: 4608 },
-        user: { id: 7674 }
-      },
+          agenda: { id: 4608 },
+          user: { id: 7674 }
+        },
 
-      res = {}; // not modified with load middleware
+        res = {}; // not modified with load middleware
 
       stakeholderMw.agenda().get()( req, res, next );
 
@@ -236,7 +261,7 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
 
         Object.keys( req.stakeholder ).should.eql( [
           'id', 'agendaId', 'userId', 'credential',
-          'updatedAt', 'createdAt', 'custom' 
+          'updatedAt', 'createdAt', 'custom'
         ] );
 
         done();
@@ -249,29 +274,29 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
     it( 'loads instance as well', done => {
 
       /**
-       * the instance .get method gives exactly the 
+       * the instance .get method gives exactly the
        * required data for a front Stakeholder instance
        */
 
       const req = {
-        agenda: { id: 4608 },
-        user: { id: 7674 }
-      },
+          agenda: { id: 4608 },
+          user: { id: 7674 }
+        },
 
-      res = {};
+        res = {};
 
       stakeholderMw.agenda().get()( req, res, next );
 
       function next() { // normally this is the next middleware
 
-        req.stakeholderInstance.get().should.eql( { 
+        req.stakeholderInstance.get().should.eql( {
           organization: {
             label: 'écomusée des monts du forez',
             slug: 'ecomusee-des-monts-du-forez'
           },
           contact_number: '0477506797',
           contact_name: 'Séverine DEVIN',
-          contact_position: 'Chargée des expositions et de la communication' 
+          contact_position: 'Chargée des expositions et de la communication'
         } );
 
         done();
@@ -284,11 +309,11 @@ describe( 'agenda-stakeholders - functional (server): middleware', function() {
     it( 'allows for namespace changes', done => {
 
       const req = {
-        a: { id: 4608 },
-        u: { id: 7674 }
-      },
+          a: { id: 4608 },
+          u: { id: 7674 }
+        },
 
-      res = {};
+        res = {};
 
       stakeholderMw.agenda( 'a' ).get( {
         namespaces: {

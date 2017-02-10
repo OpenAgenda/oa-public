@@ -16,11 +16,21 @@ module.exports = {
   },
   interfaces: {
     getEventCount: ( agendaId, userId, cb ) => {  cb( !agendaId || !userId ? 'missing identifier' : null, 35 );  },
-    getUser: ( userId, cb ) => { cb( null, {
-      id: userId,
-      uid: 128492293,
-      user_name: 'Zorg', 
-      email: 'zorg@galactic.uv' 
-    } ) }
+    getUser: ( identifiers, cb ) => {
+      cb( null, {
+        id: identifiers.id || 123,
+        uid: 128492293,
+        user_name: 'Zorg',
+        email: identifiers.email || 'zorg@galactic.uv'
+      } );
+    }
+  },
+  queue: {
+    name: 'stakeholderCreateTest',
+    threshold: 5,
+    redis: {
+      host: 'localhost',
+      port: 6379
+    }
   }
 }

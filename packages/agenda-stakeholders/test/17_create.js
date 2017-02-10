@@ -131,13 +131,13 @@ describe( 'agenda-stakeholders - functional (server): create', function() {
 
     it( 'onCreate interface is called when create is successful', done => {
 
-      service.initAndLoad( _.extend( {}, config, {
+      service.init( _.extend( {}, config, {
         interfaces: _.extend( {}, config.interfaces, {
           onCreate: stakeholder => {
 
             stakeholder.custom.email.should.equal( 'innocent@khn.com' );
 
-            service.initAndLoad( config, () => { done(); } );
+            service.init( config, () => { done(); } );
 
           }
         } )
