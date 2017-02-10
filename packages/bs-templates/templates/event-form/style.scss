@@ -2,6 +2,13 @@
 @import "../agenda/header";
 @import "social-shares";
 @import "references";
+@import "registration";
+@import "../form-components/react-select";
+@import "../form-components/translation";
+@import "timings-picker";
+@import "contribution-info";
+
+@import "legacy-event-form";
 
 /* event-dialog is to be deprecated */
 .event-dialog, .page-dialog {

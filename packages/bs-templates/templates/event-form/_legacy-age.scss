@@ -1,0 +1,36 @@
+.target-age {
+
+  & > * {
+
+    margin-right: 5px;
+    font-weight: normal;
+
+  }
+
+  input[type="checkbox"] {
+
+    margin-right: 0.5em;
+    vertical-align: top;
+
+  }
+
+  .Select-control {
+
+    width: 150px;
+
+  }
+
+  .Select-placeholder {
+
+    padding: 0px 52px 8px 10px;
+
+  }
+
+  .Select {
+
+    display: inline-block;
+    vertical-align: middle;
+
+  }
+
+}

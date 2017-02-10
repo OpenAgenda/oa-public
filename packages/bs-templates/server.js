@@ -96,6 +96,12 @@ app.get( /(png|jpg|jpeg|svg|eot|ttf|woff)$/, ( req, res, next ) => {
 
   } );
 
+  stream.on( 'error', err => {
+
+    console.error( err );
+
+  } );
+
   stream.on( 'end', () => {
 
     res.end();
