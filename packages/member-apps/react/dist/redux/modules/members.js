@@ -12,9 +12,29 @@ exports.load = load;
 exports.getStats = getStats;
 exports.list = list;
 exports.nextPage = nextPage;
+exports.update = update;
+exports.invite = invite;
+exports.cleanInviteResult = cleanInviteResult;
+exports.remove = remove;
 exports.addCredFilter = addCredFilter;
 exports.removeCredFilter = removeCredFilter;
 exports.cleanCredFilters = cleanCredFilters;
+
+var _Stakeholder = require('agenda-stakeholders/iso/Stakeholder');
+
+var _Stakeholder2 = _interopRequireDefault(_Stakeholder);
+
+var _reduxForm = require('redux-form');
+
+var _credentialTypes = require('agenda-stakeholders/iso/credentialTypes');
+
+var credentialsTypes = _interopRequireWildcard(_credentialTypes);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
@@ -30,6 +50,16 @@ var LIST_FAIL = 'member-apps/members/LIST_FAIL';
 var NEXT_PAGE = 'member-apps/members/NEXT_PAGE';
 var NEXT_PAGE_SUCCESS = 'member-apps/members/NEXT_PAGE_SUCCESS';
 var NEXT_PAGE_FAIL = 'member-apps/members/NEXT_PAGE_FAIL';
+var UPDATE = 'member-apps/members/UPDATE';
+var UPDATE_SUCCESS = 'member-apps/members/UPDATE_SUCCESS';
+var UPDATE_FAIL = 'member-apps/members/UPDATE_FAIL';
+var INVITE = 'member-apps/members/INVITE';
+var INVITE_SUCCESS = 'member-apps/members/INVITE_SUCCESS';
+var INVITE_FAIL = 'member-apps/members/INVITE_FAIL';
+var REMOVE = 'member-apps/members/REMOVE';
+var REMOVE_SUCCESS = 'member-apps/members/REMOVE_SUCCESS';
+var REMOVE_FAIL = 'member-apps/members/REMOVE_FAIL';
+var CLEAN_INVITE_RESULT = 'member-apps/members/CLEAN_INVITE_RESULT';
 var ADD_CRED_FILTER = 'member-apps/members/ADD_CRED_FILTER';
 var REMOVE_CRED_FILTER = 'member-apps/members/REMOVE_CRED_FILTER';
 var CLEAN_CRED_FILTERS = 'member-apps/members/CLEAN_CRED_FILTERS';
@@ -108,6 +138,61 @@ function reducer() {
         error: action.error,
         nextLoading: false
       });
+    case UPDATE:
+      return _extends({}, state, {
+        updateLoading: true
+      });
+    case UPDATE_SUCCESS:
+      var data = state.data.map(function (sh) {
+        return sh.user.uid === action.uid ? _extends({}, sh, {
+          custom: _extends({}, sh.custom, action.result.data)
+        }) : sh;
+      });
+      return _extends({}, state, {
+        data: data,
+        updateError: null,
+        updateLoading: false
+      });
+    case UPDATE_FAIL:
+      return _extends({}, state, {
+        updateError: action.error,
+        updateLoading: false
+      });
+    case INVITE:
+      return _extends({}, state, {
+        inviteLoading: true
+      });
+    case INVITE_SUCCESS:
+      return _extends({}, state, {
+        inviteError: null,
+        inviteLoading: false,
+        showInviteResult: true
+      });
+    case INVITE_FAIL:
+      return _extends({}, state, {
+        inviteError: action.error,
+        inviteLoading: false,
+        showInviteResult: true
+      });
+    case REMOVE_SUCCESS:
+      var index = state.data.findIndex(function (sh) {
+        return sh.user.uid === action.uid;
+      });
+      var stakeholder = state.data[index];
+      var credential = credentialsTypes.codes.get(stakeholder.credential);
+      return _extends({}, state, {
+        data: [].concat(_toConsumableArray(state.data.slice(0, index)), _toConsumableArray(state.data.slice(index + 1))),
+        total: state.total - 1,
+        stats: _extends({}, state.stats, {
+          total: state.stats.total - 1,
+          credentialTotals: _extends({}, state.stats.credentialTotals, _defineProperty({}, credential, state.stats.credentialTotals[credential] - 1))
+        })
+      });
+    case CLEAN_INVITE_RESULT:
+      return _extends({}, state, {
+        inviteError: false,
+        showInviteResult: false
+      });
     case ADD_CRED_FILTER:
       return _extends({}, state, {
         credFilters: [].concat(_toConsumableArray(state.credFilters), [action.credential])
@@ -178,12 +263,75 @@ function nextPage(query, page) {
   };
 }
 
-/* export function remove( id ) {
+function update(uid, values) {
   return {
-    types: [ REMOVE, REMOVE_SUCCESS, REMOVE_FAIL ],
-    promise: ( client, { res } ) => client.get( res.remove )
-  }
-} */
+    types: [UPDATE, UPDATE_SUCCESS, UPDATE_FAIL],
+    uid: uid,
+    promise: function promise(client, _ref5) {
+      var res = _ref5.res;
+
+      var stakeholder = new _Stakeholder2.default(values, { res: res.update.replace(':uid', uid) });
+
+      var flatErrors = function flatErrors(e) {
+        return e.reduce(function (prev, next) {
+          return _extends({}, prev, _defineProperty({}, next.field, next.code));
+        }, {});
+      };
+
+      var errors = stakeholder.getErrors();
+      if (errors.length) {
+        return Promise.reject(new _reduxForm.SubmissionError(flatErrors(errors)));
+      }
+
+      return new Promise(function (resolve, reject) {
+        stakeholder.commit(function (err, result) {
+          if (err) {
+            if (err.errors && err.errors.length) {
+              return reject(new _reduxForm.SubmissionError(flatErrors(err.errors)));
+            }
+            return reject(err);
+          }
+          resolve(result);
+        });
+      });
+    }
+  };
+}
+
+function invite(data) {
+  return {
+    types: [INVITE, INVITE_SUCCESS, INVITE_FAIL],
+    promise: function promise(client, _ref6) {
+      var res = _ref6.res;
+
+      var stakeholders = data.emails && data.emails.split(',').map(function (v) {
+        return v.trim();
+      }).filter(function (v) {
+        return !!v;
+      }).map(function (email) {
+        return { email: email };
+      });
+      return client.post(res.invite, { data: { stakeholders: stakeholders, credential: data.credential } });
+    }
+  };
+}
+
+function cleanInviteResult() {
+  return {
+    type: CLEAN_INVITE_RESULT
+  };
+}
+
+function remove(uid) {
+  return {
+    types: [REMOVE, REMOVE_SUCCESS, REMOVE_FAIL],
+    uid: uid,
+    promise: function promise(client, _ref7) {
+      var res = _ref7.res;
+      return client.get(res.remove.replace(':uid', uid));
+    }
+  };
+}
 
 function addCredFilter(credential) {
   return {

@@ -20,8 +20,10 @@
   "homepage": "https://bitbucket.org/openagenda/member-apps#readme",
   "dependencies": {
     "agenda-stakeholders": "git+ssh://git@bitbucket.org/openagenda/agenda-stakeholders.git",
+    "agendas": "git+ssh://git@bitbucket.org/openagenda/agendas.git",
     "async": "^2.1.4",
     "basic-logger": "^0.4.4",
+    "body-parser": "^1.16.0",
     "classnames": "^2.2.5",
     "dom-utils": "git+ssh://git@bitbucket.org/openagenda/dom-utils.git",
     "labels": "git+ssh://git@bitbucket.org/openagenda/labels.git",
@@ -30,7 +32,7 @@
     "react-form-components": "git+ssh://git@bitbucket.org/openagenda/react-form-components.git",
     "react-utils": "git+ssh://git@bitbucket.org/openagenda/react-utils.git",
     "redux-connect": "^5.0.0",
-    "redux-form": "^6.4.3",
+    "redux-form": "^6.5.0",
     "users": "git+ssh://git@bitbucket.org/openagenda/users.git"
   },
   "devDependencies": {

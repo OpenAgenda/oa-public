@@ -1,14 +1,19 @@
 const React = require( 'react' );
+const _ = require( 'lodash' );
 const ReactDOM = require( 'react-dom/server' );
 const path = require( 'path' );
 const async = require( 'async' );
 const fixtures = require( 'fixtures' );
 const morgan = require( 'morgan' );
+const agendasSvc = require( 'agendas/service/test' );
+const { middleware: agendasMw, instanciate: instanciateAgenda } = require( 'agendas' );
 const stakeholdersSvc = require( 'agenda-stakeholders/test/service' );
+const stakeholdersMw = require( 'agenda-stakeholders/middleware' );
 const usersSvc = require( 'users' );
+const bodyParser = require( 'body-parser' );
 const config = require( '../../testconfig.js' );
 
-const mw = require( '../../middleware' )( stakeholdersSvc, config.mw );
+const mw = require( '../../middleware' );
 
 const helpers = require( 'test-app/helpers' );
 const app = require( 'test-app' )( {
@@ -21,32 +26,168 @@ const app = require( 'test-app' )( {
   webpack: true
 } );
 
+app.use( bodyParser.urlencoded( { extended: false } ) );
+
+// parse application/json
+app.use( bodyParser.json() );
+
 const port = process.env.PORT || 3000;
 
 fixtures.init( config );
+agendasSvc.init( config );
+stakeholdersSvc.init( config );
 usersSvc.init( config );
 
 async.waterfall( [
-  wcb => stakeholdersSvc.init/*AndLoad*/( config, wcb )/*,
-  wcb => fixtures( [ {
-    table: 'user',
-    src: path.resolve( __dirname, '../fixtures/user.data.sql' )
-  }, {
-    table: 'api_key_set',
-    src: path.resolve( __dirname, '../fixtures/api_key_set.data.sql' )
-  } ], { reset: false }, wcb )*/
+  // wcb => agendasSvc.test.fixtures( [
+  //   'occurrence',
+  //   'legacy_credential_set'
+  // ], { reset: true }, wcb ),
+  // wcb => stakeholdersSvc.initAndLoad( config, { reset: false }, wcb ),
+  // wcb => fixtures( [ {
+  //   table: 'user',
+  //   src: path.resolve( __dirname, '../fixtures/user.data.sql' )
+  // }, {
+  //   table: 'api_key_set',
+  //   src: path.resolve( __dirname, '../fixtures/api_key_set.data.sql' )
+  // } ], { reset: false }, wcb )
 ], () => {
 
   app.use( morgan( 'combined' ) );
 
   app.use( ( req, res, next ) => {
-    req.user = { id: 2 };
+    req.user = { id: 4387 }; // 2 == administrator, 4387 == contributor
     req.agenda = { id: 4608 };
     next();
   } );
 
-  app.get( '/sources.json', mw.list );
-  app.get( '/stats', mw.stats );
+  app.use( agendasMw.load( {
+    namespaces: {
+      identifiers: {
+        id: 'agenda.id' // slug with req.params.slug in real world
+      }
+    },
+    instanciate: true,
+    internal: true
+  } ) );
+
+  app.use( stakeholdersMw.agenda( 'agenda.data' ).get( {
+    namespaces: {
+      user: 'user',
+      stakeholder: 'stakeholder',
+      instance: 'stakeholderInstance'
+    }
+  } ) );
+
+  app.use( agendasMw.loadRoles( {
+    namespaces: {
+      agenda: 'agenda', // slug with req.params.slug in real world
+      result: 'agendaRoles'
+    }
+  } ) );
+
+  app.get(
+    '/sources.json',
+    stakeholdersMw.agenda( 'agenda.data' ).list( { detailed: true } ),
+    ( { stakeholders, total }, res ) => res.json( { stakeholders, total } )
+  );
+
+  app.get(
+    '/stats',
+    stakeholdersMw.agenda( 'agenda.data' ).stats(),
+    ( { stats }, res ) => res.json( { stats } )
+  );
+
+  app.get(
+    '/remove/:uid',
+    usersSvc.mw.load( 'params.uid', 'stakeholderUser' ),
+    stakeholdersMw.agenda( 'agenda.data' ).get( {
+      namespaces: {
+        user: 'stakeholderUser',
+        stakeholder: 'stakeholderToUse',
+        instance: 'stakeholderInstanceToUse'
+      }
+    } ),
+    ( req, res, next ) => {
+      if ( req.stakeholder.credential === 3 && [ 2, 3 ].includes( req.stakeholderToUse.credential ) ) {
+        return next( new Error( 'You don\'t have right to remove this stakeholder' ) );
+      }
+      next();
+    },
+    stakeholdersMw.agenda( 'agenda.data' ).remove( {
+      namespaces: {
+        user: 'stakeholderUser'
+      }
+    } ),
+    ( { result }, res ) => res.status( !result.success ? 400 : 200 ).json( result )
+  );
+
+  app.post(
+    '/update/:uid',
+    usersSvc.mw.load( 'params.uid', 'stakeholderUser' ),
+    stakeholdersMw.agenda( 'agenda.data' ).get( {
+      namespaces: {
+        user: 'stakeholderUser',
+        stakeholder: 'stakeholderToUse',
+        instance: 'stakeholderInstanceToUse'
+      }
+    } ),
+    ( req, res, next ) => {
+      if ( req.stakeholder.credential !== 3 || ![ 2, 3 ].includes( req.stakeholderToUse.credential ) ) {
+        return next();
+      }
+      next( new Error( 'You don\'t have right to update this stakeholder' ) );
+    },
+    stakeholdersMw.agenda( 'agenda.data' ).update( {
+      namespaces: {
+        user: 'stakeholderUser',
+        data: 'body'
+      }
+    } ),
+    ( { result }, res ) => res.status( result.errors.length ? 400 : 200 ).json( result )
+  );
+
+  app.post(
+    '/invite',
+    ( req, res, next ) => {
+      if ( req.stakeholder.credential !== 3 || ![ 2, 3 ].includes( req.body.credential ) ) {
+        return next();
+      }
+      next( new Error( 'You don\'t have right to invite members with this role' ) );
+    },
+    stakeholdersMw.agenda( 'agenda.data' ).bulkCreate( {
+      namespaces: {
+        data: 'body'
+      },
+      allowPartial: true
+    } ),
+    ( req, res, next ) => {
+
+      const { queued } = req.result;
+      const [ errors, results ] = _.unzip( req.result.results ).map( _.compact );
+
+      if ( errors.length ) return next( { errors } );
+
+      const emailsRejected = _.compact( results.reduce( ( prev, next ) => {
+        let emailRejected;
+        if ( next.errors && next.errors.length ) {
+          emailRejected = next.errors.reduce( ( prev, next ) => {
+            return (next.code && next.code.includes( 'email' ) && next.origin) || null;
+          }, null );
+        }
+        return prev.concat( emailRejected );
+      }, [] ) );
+
+      req.result = { queued, emailsRejected, success: !emailsRejected.length };
+
+      next();
+
+    },
+    ( { result }, res ) => {
+      const status = (result.errors && result.errors.length) || !result.success ? 400 : 200;
+      res.status( status ).json( result )
+    }
+  );
 
   app.getAndListen( '*', port, matchApp );
 
@@ -65,22 +206,22 @@ function matchApp( req, res, next ) {
       perPageLimit: config.mw.limit
     },
     res: {
+      app: '#',
       list: '/sources.json',
+      update: '/update/:uid',
+      remove: '/remove/:uid',
+      invite: '/invite',
       stats: '/stats',
-      showContributor: '#'
+      showContributor: '#',
+      writeToMember: '#'
     },
     agenda: {
       uid: 4608,
       slug: 'rdj2016',
       title: 'Rendez-vous aux Jardins 2016 [Officiel]',
-      isAggregator: false,
-      private: true,
-      settings: {
-        contribution: {
-          type: 1
-        }
-      }
-    }
+      roles: req.agendaRoles
+    },
+    stakeholder: req.stakeholder
   };
 
   if ( process.env.NO_SSR ) {

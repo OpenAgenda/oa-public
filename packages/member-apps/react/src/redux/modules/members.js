@@ -1,3 +1,7 @@
+import Stakeholder from 'agenda-stakeholders/iso/Stakeholder';
+import { SubmissionError } from 'redux-form';
+import * as credentialsTypes from 'agenda-stakeholders/iso/credentialTypes';
+
 const LOAD = 'member-apps/members/LOAD';
 const LOAD_SUCCESS = 'member-apps/members/LOAD_SUCCESS';
 const LOAD_FAIL = 'member-apps/members/LOAD_FAIL';
@@ -10,6 +14,16 @@ const LIST_FAIL = 'member-apps/members/LIST_FAIL';
 const NEXT_PAGE = 'member-apps/members/NEXT_PAGE';
 const NEXT_PAGE_SUCCESS = 'member-apps/members/NEXT_PAGE_SUCCESS';
 const NEXT_PAGE_FAIL = 'member-apps/members/NEXT_PAGE_FAIL';
+const UPDATE = 'member-apps/members/UPDATE';
+const UPDATE_SUCCESS = 'member-apps/members/UPDATE_SUCCESS';
+const UPDATE_FAIL = 'member-apps/members/UPDATE_FAIL';
+const INVITE = 'member-apps/members/INVITE';
+const INVITE_SUCCESS = 'member-apps/members/INVITE_SUCCESS';
+const INVITE_FAIL = 'member-apps/members/INVITE_FAIL';
+const REMOVE = 'member-apps/members/REMOVE';
+const REMOVE_SUCCESS = 'member-apps/members/REMOVE_SUCCESS';
+const REMOVE_FAIL = 'member-apps/members/REMOVE_FAIL';
+const CLEAN_INVITE_RESULT = 'member-apps/members/CLEAN_INVITE_RESULT';
 const ADD_CRED_FILTER = 'member-apps/members/ADD_CRED_FILTER';
 const REMOVE_CRED_FILTER = 'member-apps/members/REMOVE_CRED_FILTER';
 const CLEAN_CRED_FILTERS = 'member-apps/members/CLEAN_CRED_FILTERS';
@@ -96,6 +110,70 @@ export default function reducer( state = initialState, action ) {
         error: action.error,
         nextLoading: false
       };
+    case UPDATE:
+      return {
+        ...state,
+        updateLoading: true
+      };
+    case UPDATE_SUCCESS:
+      const data = state.data.map( sh => (sh.user.uid === action.uid ? {
+          ...sh,
+          custom: { ...sh.custom, ...action.result.data }
+        } : sh) );
+      return {
+        ...state,
+        data,
+        updateError: null,
+        updateLoading: false
+      };
+    case UPDATE_FAIL:
+      return {
+        ...state,
+        updateError: action.error,
+        updateLoading: false
+      };
+    case INVITE:
+      return {
+        ...state,
+        inviteLoading: true
+      };
+    case INVITE_SUCCESS:
+      return {
+        ...state,
+        inviteError: null,
+        inviteLoading: false,
+        showInviteResult: true
+      };
+    case INVITE_FAIL:
+      return {
+        ...state,
+        inviteError: action.error,
+        inviteLoading: false,
+        showInviteResult: true
+      };
+    case REMOVE_SUCCESS:
+      const index = state.data.findIndex( sh => sh.user.uid === action.uid );
+      const stakeholder = state.data[ index ];
+      const credential = credentialsTypes.codes.get( stakeholder.credential );
+      return {
+        ...state,
+        data: [ ...state.data.slice( 0, index ), ...state.data.slice( index + 1 ) ],
+        total: state.total - 1,
+        stats: {
+          ...state.stats,
+          total: state.stats.total - 1,
+          credentialTotals: {
+            ...state.stats.credentialTotals,
+            [credential]: state.stats.credentialTotals[ credential ] - 1
+          },
+        }
+      };
+    case CLEAN_INVITE_RESULT:
+      return {
+        ...state,
+        inviteError: false,
+        showInviteResult: false
+      };
     case ADD_CRED_FILTER:
       return {
         ...state,
@@ -157,12 +235,59 @@ export function nextPage( query, page ) {
   };
 }
 
-/* export function remove( id ) {
+export function update( uid, values ) {
+  return {
+    types: [ UPDATE, UPDATE_SUCCESS, UPDATE_FAIL ],
+    uid,
+    promise: ( client, { res } ) => {
+      const stakeholder = new Stakeholder( values, { res: res.update.replace( ':uid', uid ) } );
+
+      const flatErrors = e => e.reduce( ( prev, next ) => ({ ...prev, [next.field]: next.code }), {} );
+
+      const errors = stakeholder.getErrors();
+      if ( errors.length ) {
+        return Promise.reject( new SubmissionError( flatErrors( errors ) ) );
+      }
+
+      return new Promise( ( resolve, reject ) => {
+        stakeholder.commit( ( err, result ) => {
+          if ( err ) {
+            if ( err.errors && err.errors.length ) {
+              return reject( new SubmissionError( flatErrors( err.errors ) ) );
+            }
+            return reject( err );
+          }
+          resolve( result );
+        } );
+      } );
+    }
+  };
+}
+
+export function invite( data ) {
+  return {
+    types: [ INVITE, INVITE_SUCCESS, INVITE_FAIL ],
+    promise: ( client, { res } ) => {
+      const stakeholders = data.emails && data.emails.split( ',' ).map( v => v.trim() ).filter( v => !!v )
+          .map( email => ({ email }) );
+      return client.post( res.invite, { data: { stakeholders, credential: data.credential } } );
+    }
+  };
+}
+
+export function cleanInviteResult() {
+  return {
+    type: CLEAN_INVITE_RESULT
+  };
+}
+
+export function remove( uid ) {
   return {
     types: [ REMOVE, REMOVE_SUCCESS, REMOVE_FAIL ],
-    promise: ( client, { res } ) => client.get( res.remove )
-  }
-} */
+    uid,
+    promise: ( client, { res } ) => client.get( res.remove.replace( ':uid', uid ) )
+  };
+}
 
 export function addCredFilter( credential ) {
   return {

@@ -2,12 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import validate from './validate';
+import { renderField, renderTextarea, renderSelect } from '../../utils/form';
 
 @connect(
-  () => ({
-    initialValues: {
-      role: '0'
-    }
+  state => ({
+    roles: state.agenda.roles,
+    userCredential: state.stakeholder.credential
   })
 )
 @reduxForm( {
@@ -18,92 +18,59 @@ export default class InviteMembersForm extends Component {
 
   constructor( props ) {
     super( props );
-    this.renderField = ::this.renderField;
-    this.renderTextarea = ::this.renderTextarea;
-    this.renderSelect = ::this.renderSelect;
+    this.renderField = this::renderField;
+    this.renderTextarea = this::renderTextarea;
+    this.renderSelect = this::renderSelect;
   }
 
   static contextTypes = {
     getLabel: PropTypes.func
   };
 
-  renderField = ( {
-    content, input: { name, value }, label, subLabel, max, classNameGroup, visible,
-    errorOnDirty, meta: { touched, error, dirty }
-  } ) => {
-    const displayError = errorOnDirty ? dirty || touched : touched;
-
-    if ( visible === false ) return <div></div>;
-
-    return (
-      <div className={`form-group ${classNameGroup} ${displayError && error ? 'has-error has-feedback' : ''}`}>
-        {label && <label htmlFor={name}>{label}</label>}
-        {subLabel}
-        {content}
-        {displayError && error && <span className="form-control-feedback">
-          <i className="fa fa-times" aria-hidden="true"></i>
-        </span>}
-        {displayError && error && <div className={`text-danger ${max && 'pull-left' || ''}`}>
-          {this.context.getLabel( error )}
-        </div>}
-        {max && <div className={`text-right ${max - value.length < 0 && 'text-danger' || ''}`}>
-          {max - value.length}
-        </div>}
-      </div>
-    );
-  };
-
-  renderTextarea = ( { placeholder, className, rows, cols, spellCheck, ...props } ) => {
-    const inputAttrs = { placeholder, className, rows, cols, spellCheck };
-
-    const content = <div>
-      <textarea {...props.input} {...inputAttrs} />
-    </div>
-
-    return this.renderField( { content, ...props } );
-  };
-
-  renderSelect = ( { className, children, ...props } ) => {
-    const inputAttrs = { className };
-
-    const content = <select {...props.input} {...inputAttrs}>
-      {children}
-    </select>;
-
-    return this.renderField( { content, ...props } );
-  };
-
   render() {
 
-    const { handleSubmit } = this.props;
+    const { handleSubmit, userCredential } = this.props;
     const { getLabel } = this.context;
 
+    const haveRole = value => this.props.roles.some(role => role.value === value);
+
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="invite-members-form">
         <Field
           label={getLabel( 'emails' )}
+          subLabel={<p className="text-muted">{getLabel( 'inviteMembersPlaceholder' )}</p>}
           component={this.renderTextarea}
           name="emails"
           type="textarea"
-          classNameGroup="search margin-v-md"
+          classNameGroup="emails-input margin-v-md"
           className="form-control"
           rows="5"
-          placeholder={getLabel( 'inviteMembersPlaceholder' )}
+          displayFeedback={false}
+          normalize={value => value}
+          format={value => value}
         />
         <Field
           label={getLabel( 'role' )}
           component={this.renderSelect}
-          name="role"
+          name="credential"
           type="select"
-          classNameGroup="search margin-top-md margin-bottom-lg"
+          classNameGroup="margin-top-md margin-bottom-lg"
           className="form-control"
+          defaultValue="0"
+          displayFeedback={false}
         >
-          <option value="0" disabled>{getLabel( 'selectRole' )}</option>
-          <option value="4">{getLabel( 'reader' )}</option>
-          <option value="1">{getLabel( 'contributor' )}</option>
-          <option value="3">{getLabel( 'moderator' )}</option>
-          <option value="2">{getLabel( 'administrator' )}</option>
+          <option value="0" hidden>{getLabel( 'selectRole' )}</option>
+          {haveRole(4) && <option value="4">{getLabel( 'reader' )}</option>}
+          {haveRole(1) && <option value="1">{getLabel( 'contributor' )}</option>}
+          {userCredential !== 3 && haveRole(3) && <option value="3">{getLabel( 'moderator' )}</option>}
+          {userCredential !== 3 && haveRole(2) && <option value="2">{getLabel( 'administrator' )}</option>}
         </Field>
+
+        <div className="text-center">
+          <button className="btn btn-primary" role="submit">
+            {getLabel( 'inviteMembers' )}
+          </button>
+        </div>
       </form>
     );
 

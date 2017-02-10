@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { asyncConnect } from 'redux-connect';
 import { connect } from 'react-redux';
-import { reduxForm, Field, formValueSelector } from 'redux-form';
+import { reduxForm, Field, formValueSelector, SubmissionError } from 'redux-form';
 import classNames from 'classnames';
 import debounce from 'lodash.debounce';
 import throttle from 'lodash.throttle';
@@ -10,15 +10,17 @@ import Modal from 'react-components/build/Modal';
 import Spinner from 'react-form-components/build/Spinner';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import InviteMembersForm from '../../components/InviteMembersForm/InviteMembersForm';
+import EditMemberForm from '../../components/EditMemberForm/EditMemberForm';
 import * as membersActions from '../../redux/modules/members';
 import * as modalsActions from '../../redux/modules/modals';
+import { renderField, renderSearchInput } from '../../utils/form';
 
-const selector = formValueSelector( 'membersDashboard' );
+const dashboardValuesSelector = formValueSelector( 'membersDashboard' );
+// const selector = formValueSelector( 'membersDashboard' );
 
-const searchSpinner = {
-  width: 1,
-  length: 3,
-  radius: 4
+const base64encode = str => {
+  str = encodeURIComponent( str );
+  return typeof window === 'undefined' ? new Buffer( str ).toString( 'base64' ) : btoa( str );
 };
 
 @asyncConnect( [ {
@@ -41,14 +43,17 @@ const searchSpinner = {
       search: props.location.query.search || ''
     },
     res: state.res,
+    userCrendential: state.stakeholder.credential,
     stakeholders: state.members.data,
     page: state.members.page,
     total: state.members.total,
     loading: state.members.loading,
     nextLoading: state.members.nextLoading,
     credFilters: state.members.credFilters,
+    showInviteResult: state.members.showInviteResult,
+    inviteError: state.members.inviteError,
     stats: state.members.stats,
-    search: selector( state, 'search' ),
+    search: dashboardValuesSelector( state, 'search' ),
     agenda: state.agenda,
     perPageLimit: state.settings.perPageLimit,
     modals: state.modals
@@ -65,6 +70,7 @@ export default class Dashboard extends Component {
     remove: PropTypes.func,
     nextPage: PropTypes.func,
     res: PropTypes.object,
+    userCrendential: PropTypes.number,
     stakeholders: PropTypes.array,
     addCredFilter: PropTypes.func,
     removeCredFilter: PropTypes.func,
@@ -80,7 +86,8 @@ export default class Dashboard extends Component {
     perPageLimit: PropTypes.number,
     showModal: PropTypes.func,
     closeModal: PropTypes.func,
-    modals: PropTypes.object
+    modals: PropTypes.object,
+    stopSubmit: PropTypes.func
   };
 
   static contextTypes = {
@@ -93,48 +100,9 @@ export default class Dashboard extends Component {
     this.addFilter = ::this.addFilter;
     this.removeFilter = ::this.removeFilter;
     this.cleanFilters = ::this.cleanFilters;
+    this.renderField = this::renderField;
+    this.renderSearchInput = this::renderSearchInput;
   }
-
-  renderField = ( {
-    content, input: { name, value }, label, subLabel, max, classNameGroup, visible = true,
-    errorOnDirty, meta: { touched, error, dirty }
-  } ) => {
-    const displayError = errorOnDirty ? dirty || touched : touched;
-
-    if ( visible !== true ) return <div></div>;
-
-    return (
-      <div className={`form-group ${classNameGroup} ${displayError && error ? 'has-error has-feedback' : ''}`}>
-        {label && <label htmlFor={name}>{label}</label>}
-        {subLabel}
-        {content}
-        {displayError && error && <span className="form-control-feedback">
-          <i className="fa fa-times" aria-hidden="true"></i>
-        </span>}
-        {displayError && error && <div className={`text-danger ${max && 'pull-left' || ''}`}>
-          {this.context.getLabel( error )}
-        </div>}
-        {max && <div className={`text-right ${max - value.length < 0 && 'text-danger' || ''}`}>
-          {max - value.length}
-        </div>}
-      </div>
-    );
-  };
-
-  renderSearchInput = ( { type, placeholder, className, spellCheck, action, loading, ...props } ) => {
-    const inputAttrs = { type, placeholder, className, spellCheck };
-    const onChange = e => {
-      props.input.onChange( e.target.value );
-      action();
-    };
-    const content = <div className="input-icon-right">
-      <input {...props.input} {...inputAttrs} onChange={onChange} />
-      <button type="submit" className="btn">
-        {loading ? <Spinner spinner={searchSpinner} /> : <i className="fa fa-search" aria-hidden="true"></i>}
-      </button>
-    </div>;
-    return this.renderField( { content, ...props } );
-  };
 
   search = ( { search } ) => {
     const { list, location, credFilters } = this.props;
@@ -201,7 +169,7 @@ export default class Dashboard extends Component {
   renderStakeholder( stakeholder ) {
     const { id, credential, custom, eventCount, user } = stakeholder;
     const { getLabel } = this.context;
-    const { res, showModal } = this.props;
+    const { res, showModal, userCrendential } = this.props;
 
     if ( !stakeholder.user ) return <div key={id}></div>;
 
@@ -209,10 +177,8 @@ export default class Dashboard extends Component {
       <div key={id} className="bo-list-item media">
         <div className="media-body">
           <div className="title media-heading">
-            {/*<a href="#">*/}
             <strong>{user.full_name}</strong>{' '}
             <span className="text-muted small">{this.credentialToStr( credential )}</span>
-            {/*</a>*/}
           </div>
           <div className="actions">
             {custom.organization && custom.organization.label &&
@@ -220,22 +186,30 @@ export default class Dashboard extends Component {
 
             {custom.contactNumber && <p className="text-muted">{custom.contactNumber}</p>}
 
-            <p className="text-muted">{user.email}</p>
+            {custom.email && <p className="text-muted">{custom.email}</p>}
 
             <a
               href={res.showContributor.replace( ':contributorUid', user.uid )}
               className="text-muted">{eventCount} {getLabel( 'events' )}
             </a>
-            {/*<button type="button" className="btn btn-link text-muted">{eventCount} {getLabel( 'events' )}</button>*/}
-            {/*<a href="#" className="text-muted">Modifier son profil</a>*/}
-            {/*<a
+            {(userCrendential !== 3 || ![ 2, 3 ].includes( credential ) ) && <a
               role="button"
               className="text-muted"
-              onClick={() => showModal( 'removeMember', { id } )}
+              onClick={() => showModal( 'editMember', { uid: user.uid, stakeholder } )}
             >
-              Retirer des membres
-            </a>*/}
-            {/*<a href="#" className="text-muted">Lui écrire</a>*/}
+              {getLabel( 'editProfile' )}
+            </a>}
+            {(userCrendential !== 3 || ![ 2, 3 ].includes( credential ) ) && <a
+              role="button"
+              className="text-muted"
+              onClick={() => showModal( 'removeMember', { uid: user.uid } )}
+            >
+              {getLabel( 'removeMember' )}
+            </a>}
+            <a href={res.writeToMember.replace( ':redirect', base64encode( res.app ) )}
+              className="text-muted">
+              {getLabel( 'writeToHim' )}
+            </a>
           </div>
         </div>
       </div>
@@ -264,8 +238,9 @@ export default class Dashboard extends Component {
 
   render() {
     const {
-      res, handleSubmit, stakeholders, total, loading, nextLoading, credFilters, stats,
-      showModal, closeModal, modals, remove, perPageLimit
+      res, handleSubmit, stakeholders, total, loading, nextLoading, stats,
+      showModal, closeModal, modals, update, invite, remove,
+      showInviteResult, cleanInviteResult, inviteError
     } = this.props;
     const { getLabel } = this.context;
 
@@ -276,6 +251,7 @@ export default class Dashboard extends Component {
       reader: totalReader
     } = stats.credentialTotals;
 
+    const editModal = modals.editMember || {};
     const removeModal = modals.removeMember || {};
     const inviteMembersModal = modals.inviteMembers || {};
 
@@ -284,17 +260,15 @@ export default class Dashboard extends Component {
         <h2>
           {getLabel( 'members' )}
 
-          {/*<div className="pull-right">
-            <DropdownButton bsStyle='default' title='Actions' id='dropdown-actions' pullRight>
-              <MenuItem onClick={() => showModal( 'inviteMembers' )}>Inviter des contributeurs</MenuItem>
-              /!*<MenuItem>Importer des contributeurs</MenuItem>*!/
+          <div className="pull-right">
+            <DropdownButton bsStyle='default' title={getLabel( 'actions' )} id='dropdown-actions' pullRight>
+              <MenuItem onClick={() => showModal( 'inviteMembers' )}>{getLabel( 'inviteMembers' )}</MenuItem>
+              {/* <MenuItem>Importer des contributeurs</MenuItem> */}
               <MenuItem divider />
-              <MenuItem>Exporter en xls</MenuItem>
-              <MenuItem>Exporter en csv</MenuItem>
-              <MenuItem divider />
-              <MenuItem>Ecrire aux utilisateurs</MenuItem>
+              <MenuItem>{getLabel( 'exportToXls' )}</MenuItem>
+              <MenuItem>{getLabel( 'exportToCsv' )}</MenuItem>
             </DropdownButton>
-          </div>*/}
+          </div>
         </h2>
 
         <p>
@@ -302,12 +276,12 @@ export default class Dashboard extends Component {
         </p>
 
         <ul className="nav nav-pills" role="tablist">
-          {/*<li role="presentation" className={classNames( { active: !credFilters.length } )}>
+          {/* <li role="presentation" className={classNames( { active: !credFilters.length } )}>
             <a href="#" onClick={e => this.cleanFilters( e )}>
               <strong>{stats.total || 0}</strong> Total{' '}
               <i className={classNames( 'fa fa-times', { invisible: credFilters.length } )} aria-hidden="true"></i>
             </a>
-          </li>*/}
+          </li> */}
           {totalAdministrator > 0 && this.renderFilter( totalAdministrator || 0, 'administrator' )}
           {totalModerator > 0 && this.renderFilter( totalModerator || 0, 'moderator' )}
           {totalContributor > 0 && this.renderFilter( totalContributor || 0, 'contributor' )}
@@ -343,7 +317,26 @@ export default class Dashboard extends Component {
           </div>}
         </div>
 
-        <Modal
+        {editModal.visible && <Modal
+          title={getLabel( 'editProfile' )}
+          onClose={() => closeModal( 'editMember' )}
+        >
+          <EditMemberForm
+            stakeholder={editModal.stakeholder}
+            onSubmit={( ...params ) => update( editModal.uid, ...params )
+              .then( result => {
+                if ( result.error && result.error instanceof SubmissionError ) {
+                  throw new SubmissionError( result.error.errors );
+                } else {
+                  closeModal( 'editMember' );
+                }
+                return result;
+              } )
+            }
+          />
+        </Modal>}
+
+        {removeModal.visible && <Modal
           title={getLabel( 'removeMember' )}
           visible={removeModal.visible || false}
           onClose={() => closeModal( 'removeMember' )}
@@ -352,32 +345,40 @@ export default class Dashboard extends Component {
           <div className="text-center">
             <button
               className="btn btn-danger"
-              onClick={() => remove( removeModal.id )
+              onClick={() => remove( removeModal.uid )
                 .then( () => closeModal( 'removeMember' ) )}
             >
               {getLabel( 'removeMember' )}
             </button>
           </div>
-        </Modal>
+        </Modal>}
 
-        <Modal
+        {inviteMembersModal.visible && <Modal
           title={getLabel( 'inviteMembers' )}
-          visible={inviteMembersModal.visible || false}
-          onClose={() => closeModal( 'inviteMembers' )}
+          onClose={() => {
+            closeModal( 'inviteMembers' );
+            cleanInviteResult();
+          }}
         >
-          <InviteMembersForm onSubmit={() => {
-          }} />
-
-          <div className="text-center">
-            <button
-              className="btn btn-primary"
-              onClick={() => remove( inviteMembersModal.id )
-                .then( () => closeModal( 'inviteMembers' ) )}
-            >
-              {getLabel( 'inviteMembers' )}
-            </button>
-          </div>
-        </Modal>
+          {showInviteResult ? <div>
+              {inviteError ? <div>
+                  {inviteError.emailsRejected && inviteError.emailsRejected.length ? <div>
+                      {getLabel( 'emailsCouldNotBeInvited' )} <b>{inviteError.emailsRejected.join( ', ' )}</b>
+                    </div> : <div>
+                      {getLabel( 'invitationProblem' )}
+                    </div>}
+                </div> : <div>
+                  {getLabel( 'membersInvited' )}
+                </div>}
+            </div> : <InviteMembersForm onSubmit={data => invite( data )
+              .then( result => {
+                if ( result.error && result.error instanceof SubmissionError ) {
+                  throw new SubmissionError( result.error.errors );
+                }
+                return result;
+              } )
+            } />}
+        </Modal>}
       </div>
     );
 

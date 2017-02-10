@@ -26,6 +26,10 @@ exports.default = (0, _createReducer2.default)({
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     return state;
   },
+  stakeholder: function stakeholder() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    return state;
+  },
   members: _members2.default,
   modals: _modals2.default
 });

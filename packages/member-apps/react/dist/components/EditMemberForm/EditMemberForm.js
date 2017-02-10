@@ -39,13 +39,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _components = {
-  InviteMembersForm: {
-    displayName: 'InviteMembersForm'
+  EditMembersForm: {
+    displayName: 'EditMembersForm'
   }
 };
 
 var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-  filename: 'react/src/components/InviteMembersForm/InviteMembersForm.js',
+  filename: 'react/src/components/EditMemberForm/EditMemberForm.js',
   components: _components,
   locals: [],
   imports: [_react3.default, _redboxReact3.default]
@@ -57,124 +57,103 @@ function _wrapComponent(id) {
   };
 }
 
-var InviteMembersForm = _wrapComponent('InviteMembersForm')((_dec = (0, _reactRedux.connect)(function (state) {
+var EditMembersForm = _wrapComponent('EditMembersForm')((_dec = (0, _reactRedux.connect)(function (state, props) {
+  var custom = props.stakeholder && props.stakeholder.custom;
   return {
-    roles: state.agenda.roles,
-    userCredential: state.stakeholder.credential
+    initialValues: {
+      organization: custom.organization,
+      email: custom.email,
+      contactNumber: custom.contactNumber,
+      contactName: custom.contactName,
+      contactPosition: custom.contactPosition
+    }
   };
 }), _dec2 = (0, _reduxForm.reduxForm)({
-  form: 'inviteMembers',
+  form: 'editMember',
   validate: _validate2.default
 }), _dec(_class = _dec2(_class = (_temp = _class2 = function (_Component) {
-  _inherits(InviteMembersForm, _Component);
+  _inherits(EditMembersForm, _Component);
 
-  function InviteMembersForm(props) {
-    _classCallCheck(this, InviteMembersForm);
+  function EditMembersForm(props) {
+    _classCallCheck(this, EditMembersForm);
 
-    var _this = _possibleConstructorReturn(this, (InviteMembersForm.__proto__ || Object.getPrototypeOf(InviteMembersForm)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (EditMembersForm.__proto__ || Object.getPrototypeOf(EditMembersForm)).call(this, props));
 
     _this.renderField = _form.renderField.bind(_this);
-    _this.renderTextarea = _form.renderTextarea.bind(_this);
-    _this.renderSelect = _form.renderSelect.bind(_this);
+    _this.renderInput = _form.renderInput.bind(_this);
     return _this;
   }
 
-  _createClass(InviteMembersForm, [{
+  _createClass(EditMembersForm, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
-      var _props = this.props,
-          handleSubmit = _props.handleSubmit,
-          userCredential = _props.userCredential;
+      var handleSubmit = this.props.handleSubmit;
       var getLabel = this.context.getLabel;
 
 
-      var haveRole = function haveRole(value) {
-        return _this2.props.roles.some(function (role) {
-          return role.value === value;
-        });
-      };
-
       return _react3.default.createElement(
         'form',
-        { onSubmit: handleSubmit, className: 'invite-members-form' },
+        { onSubmit: handleSubmit },
         _react3.default.createElement(_reduxForm.Field, {
-          label: getLabel('emails'),
-          subLabel: _react3.default.createElement(
-            'p',
-            { className: 'text-muted' },
-            getLabel('inviteMembersPlaceholder')
-          ),
-          component: this.renderTextarea,
-          name: 'emails',
-          type: 'textarea',
-          classNameGroup: 'emails-input margin-v-md',
-          className: 'form-control',
-          rows: '5',
-          displayFeedback: false,
-          normalize: function normalize(value) {
-            return value;
-          },
-          format: function format(value) {
-            return value;
-          }
+          label: 'Name',
+          component: this.renderInput,
+          name: 'contactName',
+          type: 'text',
+          classNameGroup: 'margin-v-md',
+          className: 'form-control'
         }),
-        _react3.default.createElement(
-          _reduxForm.Field,
-          {
-            label: getLabel('role'),
-            component: this.renderSelect,
-            name: 'credential',
-            type: 'select',
-            classNameGroup: 'margin-top-md margin-bottom-lg',
-            className: 'form-control',
-            defaultValue: '0',
-            displayFeedback: false
-          },
-          _react3.default.createElement(
-            'option',
-            { value: '0', hidden: true },
-            getLabel('selectRole')
-          ),
-          haveRole(4) && _react3.default.createElement(
-            'option',
-            { value: '4' },
-            getLabel('reader')
-          ),
-          haveRole(1) && _react3.default.createElement(
-            'option',
-            { value: '1' },
-            getLabel('contributor')
-          ),
-          userCredential !== 3 && haveRole(3) && _react3.default.createElement(
-            'option',
-            { value: '3' },
-            getLabel('moderator')
-          ),
-          userCredential !== 3 && haveRole(2) && _react3.default.createElement(
-            'option',
-            { value: '2' },
-            getLabel('administrator')
-          )
-        ),
+        _react3.default.createElement(_reduxForm.Field, {
+          label: 'Email',
+          component: this.renderInput,
+          name: 'email',
+          type: 'email',
+          classNameGroup: 'margin-v-md',
+          className: 'form-control'
+        }),
+        _react3.default.createElement(_reduxForm.Field, {
+          label: 'Tel',
+          component: this.renderInput,
+          name: 'contactNumber',
+          type: 'text',
+          classNameGroup: 'margin-v-md',
+          className: 'form-control',
+          placeholder: ''
+        }),
+        _react3.default.createElement(_reduxForm.Field, {
+          label: 'Position',
+          component: this.renderInput,
+          name: 'contactPosition',
+          type: 'text',
+          classNameGroup: 'margin-v-md',
+          className: 'form-control',
+          placeholder: ''
+        }),
+        _react3.default.createElement(_reduxForm.Field, {
+          label: 'Organization',
+          component: this.renderInput,
+          name: 'organization',
+          type: 'text',
+          classNameGroup: 'margin-v-md',
+          className: 'form-control',
+          placeholder: ''
+        }),
         _react3.default.createElement(
           'div',
           { className: 'text-center' },
           _react3.default.createElement(
             'button',
-            { className: 'btn btn-primary', role: 'submit' },
-            getLabel('inviteMembers')
+            { role: 'submit', className: 'btn btn-primary' },
+            getLabel('editProfile')
           )
         )
       );
     }
   }]);
 
-  return InviteMembersForm;
+  return EditMembersForm;
 }(_react2.Component), _class2.contextTypes = {
   getLabel: _react2.PropTypes.func
 }, _temp)) || _class) || _class));
 
-exports.default = InviteMembersForm;
+exports.default = EditMembersForm;
 module.exports = exports['default'];

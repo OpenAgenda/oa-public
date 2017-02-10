@@ -1,0 +1,15 @@
+import Stakeholder from 'agenda-stakeholders/iso/Stakeholder';
+
+export default function validate( values ) {
+
+  const flatErrors = e => e.reduce( ( prev, next ) => ({ ...prev, [next.field]: next.code }), {} );
+
+  const errors = new Stakeholder( values ).getErrors();
+
+  if ( errors.length ) {
+    return flatErrors( errors );
+  }
+
+  return true;
+
+}

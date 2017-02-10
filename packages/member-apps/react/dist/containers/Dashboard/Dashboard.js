@@ -20,7 +20,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _dec, _dec2, _dec3, _class, _class2, _temp, _initialiseProps;
+var _dec, _dec2, _dec3, _class, _class2, _temp;
 
 var _reduxConnect = require('redux-connect');
 
@@ -58,6 +58,10 @@ var _InviteMembersForm = require('../../components/InviteMembersForm/InviteMembe
 
 var _InviteMembersForm2 = _interopRequireDefault(_InviteMembersForm);
 
+var _EditMemberForm = require('../../components/EditMemberForm/EditMemberForm');
+
+var _EditMemberForm2 = _interopRequireDefault(_EditMemberForm);
+
 var _members = require('../../redux/modules/members');
 
 var membersActions = _interopRequireWildcard(_members);
@@ -66,11 +70,11 @@ var _modals = require('../../redux/modules/modals');
 
 var modalsActions = _interopRequireWildcard(_modals);
 
+var _form = require('../../utils/form');
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -97,12 +101,12 @@ function _wrapComponent(id) {
   };
 }
 
-var selector = (0, _reduxForm.formValueSelector)('membersDashboard');
+var dashboardValuesSelector = (0, _reduxForm.formValueSelector)('membersDashboard');
+// const selector = formValueSelector( 'membersDashboard' );
 
-var searchSpinner = {
-  width: 1,
-  length: 3,
-  radius: 4
+var base64encode = function base64encode(str) {
+  str = encodeURIComponent(str);
+  return typeof window === 'undefined' ? new Buffer(str).toString('base64') : btoa(str);
 };
 
 var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConnect)([{
@@ -128,14 +132,17 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       search: props.location.query.search || ''
     },
     res: state.res,
+    userCrendential: state.stakeholder.credential,
     stakeholders: state.members.data,
     page: state.members.page,
     total: state.members.total,
     loading: state.members.loading,
     nextLoading: state.members.nextLoading,
     credFilters: state.members.credFilters,
+    showInviteResult: state.members.showInviteResult,
+    inviteError: state.members.inviteError,
     stats: state.members.stats,
-    search: selector(state, 'search'),
+    search: dashboardValuesSelector(state, 'search'),
     agenda: state.agenda,
     perPageLimit: state.settings.perPageLimit,
     modals: state.modals
@@ -150,11 +157,42 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
 
     var _this = _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call(this, props));
 
-    _initialiseProps.call(_this);
+    _this.search = function (_ref2) {
+      var search = _ref2.search;
+      var _this$props = _this.props,
+          list = _this$props.list,
+          location = _this$props.location,
+          credFilters = _this$props.credFilters;
+
+
+      var query = { search: search || undefined, credentials: credFilters };
+
+      return list(query).then(function () {
+        return _this.context.router.push(_extends({}, location, { query: query }));
+      });
+    };
+
+    _this.debouncedSearch = (0, _lodash2.default)(_this.props.handleSubmit(_this.search), 400);
+
+    _this.nextPage = function () {
+      var _this$props2 = _this.props,
+          page = _this$props2.page,
+          total = _this$props2.total,
+          search = _this$props2.search,
+          loading = _this$props2.loading,
+          nextLoading = _this$props2.nextLoading,
+          stakeholders = _this$props2.stakeholders,
+          perPageLimit = _this$props2.perPageLimit;
+
+      if (!stakeholders || !stakeholders.length || loading || nextLoading || page * perPageLimit >= total) return;
+      _this.props.nextPage({ search: search }, (page || 1) + 1);
+    };
 
     _this.addFilter = _this.addFilter.bind(_this);
     _this.removeFilter = _this.removeFilter.bind(_this);
     _this.cleanFilters = _this.cleanFilters.bind(_this);
+    _this.renderField = _form.renderField.bind(_this);
+    _this.renderSearchInput = _form.renderSearchInput.bind(_this);
     return _this;
   }
 
@@ -239,7 +277,8 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       var getLabel = this.context.getLabel;
       var _props4 = this.props,
           res = _props4.res,
-          showModal = _props4.showModal;
+          showModal = _props4.showModal,
+          userCrendential = _props4.userCrendential;
 
 
       if (!stakeholder.user) return _react3.default.createElement('div', { key: id });
@@ -278,10 +317,10 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               { className: 'text-muted' },
               custom.contactNumber
             ),
-            _react3.default.createElement(
+            custom.email && _react3.default.createElement(
               'p',
               { className: 'text-muted' },
-              user.email
+              custom.email
             ),
             _react3.default.createElement(
               'a',
@@ -291,6 +330,34 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               eventCount,
               ' ',
               getLabel('events')
+            ),
+            (userCrendential !== 3 || ![2, 3].includes(credential)) && _react3.default.createElement(
+              'a',
+              {
+                role: 'button',
+                className: 'text-muted',
+                onClick: function onClick() {
+                  return showModal('editMember', { uid: user.uid, stakeholder: stakeholder });
+                }
+              },
+              getLabel('editProfile')
+            ),
+            (userCrendential !== 3 || ![2, 3].includes(credential)) && _react3.default.createElement(
+              'a',
+              {
+                role: 'button',
+                className: 'text-muted',
+                onClick: function onClick() {
+                  return showModal('removeMember', { uid: user.uid });
+                }
+              },
+              getLabel('removeMember')
+            ),
+            _react3.default.createElement(
+              'a',
+              { href: res.writeToMember.replace(':redirect', base64encode(res.app)),
+                className: 'text-muted' },
+              getLabel('writeToHim')
             )
           )
         )
@@ -341,13 +408,16 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           total = _props5.total,
           loading = _props5.loading,
           nextLoading = _props5.nextLoading,
-          credFilters = _props5.credFilters,
           stats = _props5.stats,
           showModal = _props5.showModal,
           closeModal = _props5.closeModal,
           modals = _props5.modals,
+          update = _props5.update,
+          invite = _props5.invite,
           remove = _props5.remove,
-          perPageLimit = _props5.perPageLimit;
+          showInviteResult = _props5.showInviteResult,
+          cleanInviteResult = _props5.cleanInviteResult,
+          inviteError = _props5.inviteError;
       var getLabel = this.context.getLabel;
       var _stats$credentialTota = stats.credentialTotals,
           totalAdministrator = _stats$credentialTota.administrator,
@@ -356,6 +426,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           totalReader = _stats$credentialTota.reader;
 
 
+      var editModal = modals.editMember || {};
       var removeModal = modals.removeMember || {};
       var inviteMembersModal = modals.inviteMembers || {};
 
@@ -365,7 +436,33 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
         _react3.default.createElement(
           'h2',
           null,
-          getLabel('members')
+          getLabel('members'),
+          _react3.default.createElement(
+            'div',
+            { className: 'pull-right' },
+            _react3.default.createElement(
+              _reactBootstrap.DropdownButton,
+              { bsStyle: 'default', title: getLabel('actions'), id: 'dropdown-actions', pullRight: true },
+              _react3.default.createElement(
+                _reactBootstrap.MenuItem,
+                { onClick: function onClick() {
+                    return showModal('inviteMembers');
+                  } },
+                getLabel('inviteMembers')
+              ),
+              _react3.default.createElement(_reactBootstrap.MenuItem, { divider: true }),
+              _react3.default.createElement(
+                _reactBootstrap.MenuItem,
+                null,
+                getLabel('exportToXls')
+              ),
+              _react3.default.createElement(
+                _reactBootstrap.MenuItem,
+                null,
+                getLabel('exportToCsv')
+              )
+            )
+          )
         ),
         _react3.default.createElement(
           'p',
@@ -426,7 +523,33 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             _react3.default.createElement(_Spinner2.default, null)
           )
         ),
-        _react3.default.createElement(
+        editModal.visible && _react3.default.createElement(
+          _Modal2.default,
+          {
+            title: getLabel('editProfile'),
+            onClose: function onClose() {
+              return closeModal('editMember');
+            }
+          },
+          _react3.default.createElement(_EditMemberForm2.default, {
+            stakeholder: editModal.stakeholder,
+            onSubmit: function onSubmit() {
+              for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
+                params[_key] = arguments[_key];
+              }
+
+              return update.apply(undefined, [editModal.uid].concat(params)).then(function (result) {
+                if (result.error && result.error instanceof _reduxForm.SubmissionError) {
+                  throw new _reduxForm.SubmissionError(result.error.errors);
+                } else {
+                  closeModal('editMember');
+                }
+                return result;
+              });
+            }
+          })
+        ),
+        removeModal.visible && _react3.default.createElement(
           _Modal2.default,
           {
             title: getLabel('removeMember'),
@@ -448,7 +571,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               {
                 className: 'btn btn-danger',
                 onClick: function onClick() {
-                  return remove(removeModal.id).then(function () {
+                  return remove(removeModal.uid).then(function () {
                     return closeModal('removeMember');
                   });
                 }
@@ -457,32 +580,49 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             )
           )
         ),
-        _react3.default.createElement(
+        inviteMembersModal.visible && _react3.default.createElement(
           _Modal2.default,
           {
             title: getLabel('inviteMembers'),
-            visible: inviteMembersModal.visible || false,
             onClose: function onClose() {
-              return closeModal('inviteMembers');
+              closeModal('inviteMembers');
+              cleanInviteResult();
             }
           },
-          _react3.default.createElement(_InviteMembersForm2.default, { onSubmit: function onSubmit() {} }),
-          _react3.default.createElement(
+          showInviteResult ? _react3.default.createElement(
             'div',
-            { className: 'text-center' },
-            _react3.default.createElement(
-              'button',
-              {
-                className: 'btn btn-primary',
-                onClick: function onClick() {
-                  return remove(inviteMembersModal.id).then(function () {
-                    return closeModal('inviteMembers');
-                  });
-                }
-              },
-              getLabel('inviteMembers')
+            null,
+            inviteError ? _react3.default.createElement(
+              'div',
+              null,
+              inviteError.emailsRejected && inviteError.emailsRejected.length ? _react3.default.createElement(
+                'div',
+                null,
+                getLabel('emailsCouldNotBeInvited'),
+                ' ',
+                _react3.default.createElement(
+                  'b',
+                  null,
+                  inviteError.emailsRejected.join(', ')
+                )
+              ) : _react3.default.createElement(
+                'div',
+                null,
+                getLabel('invitationProblem')
+              )
+            ) : _react3.default.createElement(
+              'div',
+              null,
+              getLabel('membersInvited')
             )
-          )
+          ) : _react3.default.createElement(_InviteMembersForm2.default, { onSubmit: function onSubmit(data) {
+              return invite(data).then(function (result) {
+                if (result.error && result.error instanceof _reduxForm.SubmissionError) {
+                  throw new _reduxForm.SubmissionError(result.error.errors);
+                }
+                return result;
+              });
+            } })
         )
       );
     }
@@ -494,6 +634,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
   remove: _react2.PropTypes.func,
   nextPage: _react2.PropTypes.func,
   res: _react2.PropTypes.object,
+  userCrendential: _react2.PropTypes.number,
   stakeholders: _react2.PropTypes.array,
   addCredFilter: _react2.PropTypes.func,
   removeCredFilter: _react2.PropTypes.func,
@@ -509,118 +650,11 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
   perPageLimit: _react2.PropTypes.number,
   showModal: _react2.PropTypes.func,
   closeModal: _react2.PropTypes.func,
-  modals: _react2.PropTypes.object
+  modals: _react2.PropTypes.object,
+  stopSubmit: _react2.PropTypes.func
 }, _class2.contextTypes = {
   router: _react2.PropTypes.object,
   getLabel: _react2.PropTypes.func
-}, _initialiseProps = function _initialiseProps() {
-  var _this6 = this;
-
-  this.renderField = function (_ref2) {
-    var content = _ref2.content,
-        _ref2$input = _ref2.input,
-        name = _ref2$input.name,
-        value = _ref2$input.value,
-        label = _ref2.label,
-        subLabel = _ref2.subLabel,
-        max = _ref2.max,
-        classNameGroup = _ref2.classNameGroup,
-        visible = _ref2.visible,
-        errorOnDirty = _ref2.errorOnDirty,
-        _ref2$meta = _ref2.meta,
-        touched = _ref2$meta.touched,
-        error = _ref2$meta.error,
-        dirty = _ref2$meta.dirty;
-
-    var displayError = errorOnDirty ? dirty || touched : touched;
-
-    if (visible === false) return _react3.default.createElement('div', null);
-
-    return _react3.default.createElement(
-      'div',
-      { className: 'form-group ' + classNameGroup + ' ' + (displayError && error ? 'has-error has-feedback' : '') },
-      label && _react3.default.createElement(
-        'label',
-        { htmlFor: name },
-        label
-      ),
-      subLabel,
-      content,
-      displayError && error && _react3.default.createElement(
-        'span',
-        { className: 'form-control-feedback' },
-        _react3.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' })
-      ),
-      displayError && error && _react3.default.createElement(
-        'div',
-        { className: 'text-danger ' + (max && 'pull-left' || '') },
-        _this6.context.getLabel(error)
-      ),
-      max && _react3.default.createElement(
-        'div',
-        { className: 'text-right ' + (max - value.length < 0 && 'text-danger' || '') },
-        max - value.length
-      )
-    );
-  };
-
-  this.renderSearchInput = function (_ref3) {
-    var type = _ref3.type,
-        placeholder = _ref3.placeholder,
-        className = _ref3.className,
-        spellCheck = _ref3.spellCheck,
-        action = _ref3.action,
-        loading = _ref3.loading,
-        props = _objectWithoutProperties(_ref3, ['type', 'placeholder', 'className', 'spellCheck', 'action', 'loading']);
-
-    var inputAttrs = { type: type, placeholder: placeholder, className: className, spellCheck: spellCheck };
-    var onChange = function onChange(e) {
-      props.input.onChange(e.target.value);
-      action();
-    };
-    var content = _react3.default.createElement(
-      'div',
-      { className: 'input-icon-right' },
-      _react3.default.createElement('input', _extends({}, props.input, inputAttrs, { onChange: onChange })),
-      _react3.default.createElement(
-        'button',
-        { type: 'submit', className: 'btn' },
-        loading ? _react3.default.createElement(_Spinner2.default, { spinner: searchSpinner }) : _react3.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' })
-      )
-    );
-    return _this6.renderField(_extends({ content: content }, props));
-  };
-
-  this.search = function (_ref4) {
-    var search = _ref4.search;
-    var _props6 = _this6.props,
-        list = _props6.list,
-        location = _props6.location,
-        credFilters = _props6.credFilters;
-
-
-    var query = { search: search || undefined, credentials: credFilters };
-
-    return list(query).then(function () {
-      return _this6.context.router.push(_extends({}, location, { query: query }));
-    });
-  };
-
-  this.debouncedSearch = (0, _lodash2.default)(this.props.handleSubmit(this.search), 400);
-
-  this.nextPage = function () {
-    var _props7 = _this6.props,
-        page = _props7.page,
-        total = _props7.total,
-        search = _props7.search,
-        loading = _props7.loading,
-        nextLoading = _props7.nextLoading,
-        stakeholders = _props7.stakeholders,
-        perPageLimit = _props7.perPageLimit;
-
-    if (!stakeholders || !stakeholders.length || loading || nextLoading || page * perPageLimit >= total) return;
-    _this6.props.nextPage({ search: search }, (page || 1) + 1);
-  };
 }, _temp)) || _class) || _class) || _class));
 
 exports.default = Dashboard;

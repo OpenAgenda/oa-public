@@ -6,6 +6,7 @@ import modals from './modules/modals';
 export default createReducer( {
   form,
   agenda: ( state = {} ) => state,
+  stakeholder: ( state = {} ) => state,
   members,
   modals
 } );

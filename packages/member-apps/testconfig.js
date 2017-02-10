@@ -1,6 +1,14 @@
 const userSvc = require( 'users' );
 
 module.exports = {
+  queue: {
+    name: 'stakeholderCreateTest',
+    threshold: 5,
+    redis: {
+      host: 'localhost',
+      port: 6379
+    }
+  },
   mysql: {
     database: 'oa_members_test',
     host: 'localhost',
@@ -9,26 +17,47 @@ module.exports = {
   },
   schemas: {
     agenda: 'agenda',
+    agendaEvent: 'agenda_event',
+    apiKeySet: 'api_key_set',
     event: 'event',
+    legacyCredentialSet: 'legacy_credential_set',
+    occurrence: 'occurrence',
     stakeholder: 'stakeholder',
     stakeholderSettings: 'agenda_stakeholder_settings',
-    agendaEvent: 'agenda_event',
-    user: 'user',
-    apiKeySet: 'api_key_set'
+    user: 'user'
   },
+
   mw: {
     limit: 20
   },
+
+  imagePath: '//openagendatst.s3.amazonaws.com/',
+
   files: {
     tmpPath: '/var/tmp',
     bucket: 'openagendatst',
     accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
     secretAccessKey: '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'
   },
+
+  existingRoles: [ {
+    value: 1,
+    code: 'contributor'
+  }, {
+    value: 2,
+    code: 'administrator'
+  }, {
+    value: 3,
+    code: 'moderator'
+  }, {
+    value: 4,
+    code: 'reader'
+  } ],
+
   interfaces: {
     getEventCount: ( agendaId, userId, cb ) => {
       cb( null, 35 );
     },
-    getUser: ( userId, cb ) => userSvc.get( { id: userId }, cb )
+    getUser: userSvc.get
   }
 };
