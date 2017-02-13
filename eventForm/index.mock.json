@@ -262,7 +262,7 @@
       "uid": 1238,
       "title": { "fr":  "Super concert de la mort", "en":  "Super Killer Concert", "es":  "Super Concierto Que Mata" },
       "description": { "fr":  "Moilneu", "en":  "There will be music", "es":  "Habra Musica"},
-      "freeText": { "fr":  "Pas vraiment plus à dire. Woof.", "en":  "Not really much more to tell", "es":  "No hay mucho mas que decir" },
+      "freeText": { "fr":  "", "en":  "Not really much more to tell", "es":  "No hay mucho mas que decir" },
       "tags": { "fr":  "concert, musique, son", "en":  "concert, music, sound", "es":  "concierto, musica, sonido" },
       "image": "1364.jpg",
       "conditions": {

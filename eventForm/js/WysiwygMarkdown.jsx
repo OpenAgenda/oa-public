@@ -6,6 +6,8 @@ marked = require( 'marked' ),
 
 toMarkdown = require( 'to-markdown' ),
 
+du = require( 'dom-utils' ),
+
 debug = require( 'debug' ),
 
 utils = require( 'utils' ),
@@ -227,12 +229,12 @@ module.exports = React.createClass( {
 
         return <li className="lang-unit">
           <label>{l}</label>
-          <textarea className={'mce-box-' + i} value={ marked( value ) } placeholder={ this.props.placeholder[ this.props.lang ] }></textarea>
+          <textarea className={'mce-box-' + i} value={ marked( value ) } placeholder={ du.nl2br( this.props.placeholder[ this.props.lang ] ) }></textarea>
         </li>
 
       } else {
 
-        return <textarea className={'mce-box-' + i} value={ marked( value ) } placeholder={ this.props.placeholder[ this.props.lang ] }></textarea>
+        return <textarea className={'mce-box-' + i} value={ marked( value ) } placeholder={ du.nl2br( this.props.placeholder[ this.props.lang ] ) }></textarea>
 
       }
 
