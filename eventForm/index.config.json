@@ -1,9 +1,7 @@
 {
   "layout" : "bsLayout/main",
   "bsCss" : {
-    "main" : "/node_modules/bs-templates/compiled/main.css",
-    "lg-variables" : "/css/variables.scss",
-    "lg-image-upload" : "/eventForm/css/_legacy_image_upload.scss"
+    "main" : "/node_modules/bs-templates/compiled/main.css"
   },
   "base" : {},
   "js" : true
