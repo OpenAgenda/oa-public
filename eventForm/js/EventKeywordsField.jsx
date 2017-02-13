@@ -125,7 +125,8 @@ module.exports = React.createClass( {
           className : 'react-tagsinput-input',
           onBlur: this.onBlur( l ),
           onChange: this.onInputChange( l ),
-          value: this.state.currentInputs[ l ]
+          value: this.state.currentInputs[ l ],
+          style: !value.length ? { width: '630px' } : null
         }}
         onChange={ this.onChange( l ) }
         ref='tags'
