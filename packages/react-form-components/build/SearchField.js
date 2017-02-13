@@ -77,16 +77,17 @@ module.exports = React.createClass({
       edit: e.target.value.length ? e.target.value : undefined
     });
 
-    this.clearTimeout();
+    /**
+     * A change call should be delayed only if the previous
+     * change has been called less than a threshold delay
+     **/
 
-    // if the length of the search string is below the
-    // threshold, ignore change
     if (e.target.value.length < this.props.threshold) {
 
       return;
     }
 
-    this.timeout = setTimeout(function () {
+    if (!this.timeout) {
 
       self.props.onChange(self.props.name, self.state.edit);
 
@@ -94,8 +95,25 @@ module.exports = React.createClass({
         value: self.state.edit
       });
 
-      self.timeout = undefined;
-    }, this.props.timeout);
+      this.timeout = setTimeout(function () {
+
+        self.timeout = undefined;
+      }, this.props.timeout);
+    } else {
+
+      this.clearTimeout();
+
+      this.timeout = setTimeout(function () {
+
+        self.props.onChange(self.props.name, self.state.edit);
+
+        self.setState({
+          value: self.state.edit
+        });
+
+        self.timeout = undefined;
+      }, this.props.timeout);
+    }
   },
 
   onCommit: function onCommit(e) {
