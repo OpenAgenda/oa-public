@@ -140,6 +140,8 @@ function init( service ) {
 
       values.req.log( '%s profile data is not in hand, aborting attemptCreate', service );
 
+      if ( !values.data ) values.data = {};
+
       values.data.message = getLabel( 'abortedAuth', { service }, values.req.lang );
 
       return values;
