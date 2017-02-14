@@ -21,7 +21,16 @@ var config = require( '../config' ),
     adminAgendasSearchRes: [ 'get', '/search', mw.agendas.list ],
     adminAgendasGetRes: [ 'get', '/get', mw.agendas.get ],
     adminAgendasSetRes: [ 'post', '/:uid', [ bodyParser.json(), mw.agendas.set ] ],
-    adminAgendasStakeholdersSearchRes: [ 'get', '/stakeholders/search', mw.stakeholders.list ]
+    adminAgendasStakeholdersSearchRes: [ 'get', '/stakeholders/search', [
+      ( req, res, next ) => {
+
+        req.query.agendaId = req.query.agendaId ? parseInt( req.query.agendaId ) : null;
+
+        next();
+        
+      },
+      mw.stakeholders.list 
+    ] ]
   };
 
 
