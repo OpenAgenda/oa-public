@@ -19,6 +19,7 @@ const defaults = {
       notifs: '/home/notifications',
       moderate: '/:slug/admin',
       show: '/:slug',
+      showPrivate: '/:slug.prv',
       addEvent: '/:slug/addevent',
       search: '/agendas'
     }

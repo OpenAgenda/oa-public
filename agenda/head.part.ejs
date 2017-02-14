@@ -43,7 +43,7 @@
 <% if ( agenda.url ) { %>
         <p><a target="_blank" href="<%= agenda.url %>"><%= agenda.url %></a></p>
 <% } %>
-            <% if ( includeActionLinks ) { %><div class="ctas">
+            <% if ( includeActionLinks && !agenda.private ) { %><div class="ctas">
                 <a class="btn btn-default" href="<%= genUrl( 'conversationAgendaContact', { uid: agenda.uid, redirect: _r({ module: 'review', action: 'show', slug: agenda.slug }) }) %>" rel="nofollow">
                     <i class="fa fa-envelope" aria-hidden="true"></i> <%= __( 'contact' ) %>
                 </a>
@@ -57,8 +57,7 @@
                   <i class="fa fa-cogs"></i> <%= __( 'manage' ) %>
                 </a>
             </div><% } %>
-      </div><% if ( includeActionLinks ) { %><!--
-<% include ./actionLinks.part.ejs %>
-    --><% } %></div>
+      </div>
+    </div>
   </div>
 </header>
