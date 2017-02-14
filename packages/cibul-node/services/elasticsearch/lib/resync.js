@@ -290,7 +290,7 @@ function _loopThroughIndex( type, params, usageFunc, cb ) {
 
 function _loopThroughDb( schema, params, usageFunc, cb ) {
 
-  var hasMore = true, limit = 20, offset = 0;
+  var hasMore = true, limit = 5, offset = 0;
 
   async.whilst( function()  {
 
