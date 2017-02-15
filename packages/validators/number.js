@@ -4,7 +4,7 @@ var _utils = require('utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 /*
 integer: require( 'react-form-components/validators/integer' )
@@ -13,15 +13,15 @@ state: validators.integer( { field: 'state', min: 0, max: 1, default: 1 } )
 
 module.exports = function (config) {
 
-  var params = _utils2.default.extend({
+  var params = _utils2['default'].extend({
     field: false, // required
     min: null, // minus infinity if defined
     max: null, // infinity and beyond?
-    default: undefined, // if set, no input cleans to this
+    'default': undefined, // if set, no input cleans to this
     optional: true
   }, config || {});
 
-  return _utils2.default.extend(validate, {
+  return _utils2['default'].extend(validate, {
     type: 'number',
     field: params.field
   });
@@ -41,9 +41,9 @@ module.exports = function (config) {
     // we have a clean value, we can check if it fits
     // in what we want.
 
-    if (clean === undefined && params.default !== undefined) {
+    if (clean === undefined && params['default'] !== undefined) {
 
-      return params.default;
+      return params['default'];
     }
 
     if (clean === undefined && params.optional) {

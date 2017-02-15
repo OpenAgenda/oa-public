@@ -8,13 +8,13 @@ var _utils = require('utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports.default = function (validators, options) {
+exports['default'] = function (validators, options) {
 
   validate.type = 'set';
 
-  var params = _utils2.default.extend({
+  var params = _utils2['default'].extend({
     compact: false
   }, options || {});
 

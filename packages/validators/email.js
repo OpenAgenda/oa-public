@@ -12,13 +12,13 @@ var _listify = require('./listify');
 
 var _listify2 = _interopRequireDefault(_listify);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var emailRgx = /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i;
 
-exports.default = function (config) {
+exports['default'] = function (config) {
 
-  var params = (0, _extend2.default)({
+  var params = (0, _extend2['default'])({
     field: undefined,
     error: {
       code: 'email.invalid',
@@ -27,12 +27,12 @@ exports.default = function (config) {
     optional: true,
     type: 'email'
   }, config || {}),
-      validator = (0, _extend2.default)(validate, {
+      validator = (0, _extend2['default'])(validate, {
     type: 'email',
     field: params.field
   });
 
-  return params.list ? (0, _listify2.default)(validator, params) : validator;
+  return params.list ? (0, _listify2['default'])(validator, params) : validator;
 
   function validate(value) {
 

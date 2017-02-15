@@ -4,7 +4,7 @@ var _utils = require('utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 module.exports = {
   registerValidators: registerValidators,
@@ -31,7 +31,7 @@ function getFlat(fields, values) {
 
 function _makeValidator(type, field, options) {
 
-  var validatorOptions = _utils2.default.extend({ field: field }, options);
+  var validatorOptions = _utils2['default'].extend({ field: field }, options);
 
   if (type === 'list') {
 
@@ -52,7 +52,7 @@ function getDefault(fields) {
       clean[k] = fields[k].list ? [] : getDefault(fields[k].fields);
     } else {
 
-      clean[k] = fields[k].default === undefined ? null : fields[k].default;
+      clean[k] = fields[k]['default'] === undefined ? null : fields[k]['default'];
     }
   });
 

@@ -10,7 +10,7 @@ var _listify = require('./listify');
 
 var _listify2 = _interopRequireDefault(_listify);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var MODES = {
   KEYED: 'keyed',
@@ -25,16 +25,16 @@ module.exports = function (options, validators) {
     options = {};
   }
 
-  var params = _utils2.default.extend({
+  var params = _utils2['default'].extend({
     field: null,
     list: false
   }, options),
-      validator = _utils2.default.extend(validate, {
+      validator = _utils2['default'].extend(validate, {
     type: 'object',
     field: params.field
   });
 
-  return params.list ? (0, _listify2.default)(validator) : validator;
+  return params.list ? (0, _listify2['default'])(validator) : validator;
 
   function validate(values) {
 
@@ -77,14 +77,14 @@ module.exports = function (options, validators) {
         try {
 
           clean = clean.concat(validator(matchingValue.value).map(function (c) {
-            return _utils2.default.extend(c, {
+            return _utils2['default'].extend(c, {
               field: matchingValue.field + '.' + c.field
             });
           }));
         } catch (e) {
 
           errors = errors.concat(e.map(function (objErr) {
-            return _utils2.default.extend(objErr, {
+            return _utils2['default'].extend(objErr, {
               field: matchingValue.field + '.' + objErr.field
             });
           }));

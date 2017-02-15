@@ -4,7 +4,7 @@ var _utils = require('utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 /**
  * makes validator process lists
@@ -12,13 +12,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 module.exports = function (validator, options) {
 
-  var params = _utils2.default.extend({
+  var params = _utils2['default'].extend({
     min: null,
     max: null,
     optional: !!options.optional
   }, options.list);
 
-  return _utils2.default.extend(validate, {
+  return _utils2['default'].extend(validate, {
     type: validator.type,
     field: validator.field
   });
@@ -29,7 +29,7 @@ module.exports = function (validator, options) {
         errors = [],
         value = v === undefined ? [] : v;
 
-    if (!_utils2.default.isArray(value)) {
+    if (!_utils2['default'].isArray(value)) {
 
       throw [{
         field: validator.field,
@@ -47,7 +47,7 @@ module.exports = function (validator, options) {
       } catch (errs) {
 
         errors = errors.concat(errs.map(function (e) {
-          return _utils2.default.extend(e, { index: i });
+          return _utils2['default'].extend(e, { index: i });
         }));
       }
     });

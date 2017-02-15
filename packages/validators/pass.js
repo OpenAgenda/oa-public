@@ -12,23 +12,23 @@ var _listify = require('./listify');
 
 var _listify2 = _interopRequireDefault(_listify);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports.default = function (config) {
+exports['default'] = function (config) {
 
-  var params = (0, _extend2.default)({
+  var params = (0, _extend2['default'])({
     field: undefined,
     type: 'pass',
     list: false
   }, config || {}),
-      validator = (0, _extend2.default)(function (v) {
+      validator = (0, _extend2['default'])(function (v) {
     return v;
   }, {
     type: 'pass',
     field: params.field
   });
 
-  return params.list ? (0, _listify2.default)(validator, params) : validator;
+  return params.list ? (0, _listify2['default'])(validator, params) : validator;
 };
 
 module.exports = exports['default'];

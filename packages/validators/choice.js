@@ -8,32 +8,32 @@ var _core = require('lodash/core');
 
 var _core2 = _interopRequireDefault(_core);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports.default = function (config) {
+exports['default'] = function (config) {
 
-  var params = _core2.default.extend({
+  var params = _core2['default'].extend({
     field: false,
     options: [], // required. Put something
     key: 'value', // optional. For when labeled objects are given
     optional: true,
     min: null,
     max: null,
-    default: null,
+    'default': null,
     unique: false
   }, config);
 
-  return _core2.default.extend(function (value) {
+  return _core2['default'].extend(function (value) {
 
     var clean = [].concat(value).map(function (v) {
-      return _core2.default.isObject(v) ? v[params.key] : v;
+      return _core2['default'].isObject(v) ? v[params.key] : v;
     }).filter(function (v) {
       return params.options.indexOf(v) !== -1;
     });
 
-    if (!clean.length && params.default !== null) {
+    if (!clean.length && params['default'] !== null) {
 
-      clean = [].concat(params.default);
+      clean = [].concat(params['default']);
     }
 
     if (!params.optional && !clean.length) {
@@ -68,7 +68,7 @@ exports.default = function (config) {
 
 function _getError(params, origin, error) {
 
-  return _core2.default.extend({
+  return _core2['default'].extend({
     origin: origin
   }, params.field ? { field: params.field } : {}, error);
 }

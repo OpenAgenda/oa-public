@@ -14,25 +14,25 @@ var _listify = require('./listify');
 
 var _listify2 = _interopRequireDefault(_listify);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports.default = function (config) {
+exports['default'] = function (config) {
 
-  var params = (0, _extend2.default)({
+  var params = (0, _extend2['default'])({
     field: false, // required
     min: 0,
     max: 1000000,
     trim: true,
     optional: true,
-    default: null,
+    'default': null,
     list: false
   }, config || {}),
-      validator = (0, _extend2.default)(validate, {
+      validator = (0, _extend2['default'])(validate, {
     type: 'text',
     field: params.field
   });
 
-  return params.list ? (0, _listify2.default)(validator, params) : validator;
+  return params.list ? (0, _listify2['default'])(validator, params) : validator;
 
   function validate(value) {
 
@@ -57,7 +57,7 @@ exports.default = function (config) {
 
     if (typeof value === 'undefined' || value === null || !clean.length) {
 
-      if (params.optional || params.default !== null) return params.default;
+      if (params.optional || params['default'] !== null) return params['default'];
 
       throw [{
         field: validate.field,

@@ -16,7 +16,7 @@ var _clean = require('./clean');
 
 var _clean2 = _interopRequireDefault(_clean);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var defaults = {
   fields: {}
@@ -24,7 +24,7 @@ var defaults = {
 
 var registeredValidators = { schema: schema };
 
-module.exports = _utils2.default.extend(schema, { register: register });
+module.exports = _utils2['default'].extend(schema, { register: register });
 
 function schema(options) {
 
@@ -33,34 +33,34 @@ function schema(options) {
     throw new Error('schema params missing at creation');
   }
 
-  var params = _utils2.default.extend({ field: null, list: false }, defaults, options.fields ? options : { fields: options, root: true });
+  var params = _utils2['default'].extend({ field: null, list: false }, defaults, options.fields ? options : { fields: options, root: true });
 
   if (params.root) {
 
-    _utils2.default.extend(params, (0, _clean2.default)(params.fields));
+    _utils2['default'].extend(params, (0, _clean2['default'])(params.fields));
   }
 
   if (params.field) {
 
-    _utils2.default.extend(validate, { field: params.field });
+    _utils2['default'].extend(validate, { field: params.field });
   }
 
-  var defaultValue = _root2.default.getDefault(params.fields);
+  var defaultValue = _root2['default'].getDefault(params.fields);
 
   /**
    * exposed endpoints
    */
-  return _utils2.default.extend(params.list ? (0, _listify2.default)(validate, params) : validate, {
+  return _utils2['default'].extend(params.list ? (0, _listify2['default'])(validate, params) : validate, {
     part: part,
     defaultValue: defaultValue, // .default is not tolerated by ie8
-    default: defaultValue,
+    'default': defaultValue,
     fields: params.fields,
     struct: params.root ? options : params.fields // legacy
   });
 
   function validate(value) {
 
-    var flattened = _root2.default.getFlat(params.fields, value);
+    var flattened = _root2['default'].getFlat(params.fields, value);
 
     var errors = [],
         clean = {};
@@ -74,7 +74,7 @@ function schema(options) {
 
         errors = errors.concat(errs.map(function (e) {
 
-          return params.field ? _utils2.default.extend({}, e, { field: params.field + '.' + e.field }) : e;
+          return params.field ? _utils2['default'].extend({}, e, { field: params.field + '.' + e.field }) : e;
         }));
       }
     });
@@ -89,7 +89,7 @@ function schema(options) {
 
   function part(path, value) {
 
-    if (_utils2.default.isArray(path)) {
+    if (_utils2['default'].isArray(path)) {
 
       return parts(path, value);
     }
@@ -131,7 +131,7 @@ function schema(options) {
 
       try {
 
-        _utils2.default.deep.set(clean, p, part(p, _utils2.default.deep(value, p)));
+        _utils2['default'].deep.set(clean, p, part(p, _utils2['default'].deep(value, p)));
       } catch (errs) {
 
         errors = errors.concat(errs);
@@ -151,5 +151,5 @@ function register(v) {
     registeredValidators[k] = v[k];
   });
 
-  _root2.default.registerValidators(registeredValidators);
+  _root2['default'].registerValidators(registeredValidators);
 }

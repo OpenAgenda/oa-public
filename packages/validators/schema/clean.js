@@ -6,7 +6,7 @@ var _utils = require('utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 module.exports = clean;
 
@@ -14,7 +14,7 @@ function clean(schema) {
 
   if (_isLeaf(schema)) {
 
-    return _utils2.default.extend({}, schema);
+    return _utils2['default'].extend({}, schema);
   }
 
   var cleanSchema = { fields: {}, list: false, type: 'schema' },
@@ -22,7 +22,7 @@ function clean(schema) {
 
   if (_isNormalized(schema)) {
 
-    _utils2.default.extend(cleanSchema, schema);
+    _utils2['default'].extend(cleanSchema, schema);
 
     schemaFields = schema.fields;
   } else {

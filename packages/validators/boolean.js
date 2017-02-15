@@ -8,17 +8,17 @@ var _utils = require('utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports.default = function (config) {
+exports['default'] = function (config) {
 
-  var params = _utils2.default.extend({
+  var params = _utils2['default'].extend({
     field: false,
-    default: undefined,
+    'default': undefined,
     optional: true
   }, config);
 
-  return _utils2.default.extend(validate, {
+  return _utils2['default'].extend(validate, {
     type: 'boolean',
     field: params.field
   });
@@ -27,7 +27,7 @@ exports.default = function (config) {
 
     if (typeof value === 'undefined') {
 
-      if (!params.optional && typeof params.default === 'undefined') {
+      if (!params.optional && typeof params['default'] === 'undefined') {
 
         throw [{
           field: validate.field,
@@ -37,15 +37,15 @@ exports.default = function (config) {
         }];
       }
 
-      if (typeof params.default !== 'undefined' && params.default !== null) {
+      if (typeof params['default'] !== 'undefined' && params['default'] !== null) {
 
-        return !!params.default;
+        return !!params['default'];
       }
 
       return null;
     }
 
-    if (value === null && params.default === null) {
+    if (value === null && params['default'] === null) {
 
       return null;
     }

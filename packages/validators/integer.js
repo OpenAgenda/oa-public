@@ -12,21 +12,21 @@ var _number = require('./number');
 
 var _number2 = _interopRequireDefault(_number);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports.default = function (config) {
+exports['default'] = function (config) {
 
-  var params = _core2.default.extend({
+  var params = _core2['default'].extend({
     field: false,
     optional: true,
     min: null,
     max: null,
-    default: null
+    'default': null
   }, config || {});
 
-  var validateNumber = (0, _number2.default)(params);
+  var validateNumber = (0, _number2['default'])(params);
 
-  return _core2.default.extend(function (value) {
+  return _core2['default'].extend(function (value) {
 
     var clean = null,
         errors = [];
@@ -55,7 +55,7 @@ exports.default = function (config) {
 
     if (parseInt(clean) !== parseFloat(clean)) {
 
-      throw [_core2.default.extend({
+      throw [_core2['default'].extend({
         code: 'integer.invalid',
         message: 'not an integer',
         origin: value
