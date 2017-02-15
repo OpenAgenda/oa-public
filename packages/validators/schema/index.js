@@ -45,12 +45,15 @@ function schema(options) {
     _utils2.default.extend(validate, { field: params.field });
   }
 
+  var defaultValue = _root2.default.getDefault(params.fields);
+
   /**
    * exposed endpoints
    */
   return _utils2.default.extend(params.list ? (0, _listify2.default)(validate, params) : validate, {
     part: part,
-    default: _root2.default.getDefault(params.fields),
+    defaultValue: defaultValue, // .default is not tolerated by ie8
+    default: defaultValue,
     fields: params.fields,
     struct: params.root ? options : params.fields // legacy
   });
