@@ -4,6 +4,15 @@ CREATE TABLE IF NOT EXISTS ${schema} (
   event_id BIGINT NOT NULL,
   state TINYINT,
   is_published TINYINT(1) DEFAULT '0' NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `content` mediumtext,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `store` longtext,
+  `category_id` bigint(20) DEFAULT NULL,
+  `facebook_id` bigint(20) DEFAULT NULL,
+  `featured` tinyint(1) NOT NULL DEFAULT '0',
   INDEX review_id_idx (review_id), 
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;

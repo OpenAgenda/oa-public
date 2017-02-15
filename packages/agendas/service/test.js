@@ -12,17 +12,31 @@ module.exports = utils.extend( svc, {
   }
 } );
 
-function _fixtures( options, cb ) {
+function _fixtures( files, options, cb ) {
 
-  if (arguments.length === 1) {
+  const defautFiles = [
+    'agenda',
+    'agenda_event',
+    'occurrence',
+    'legacy_credential_set'
+  ];
+
+  if (arguments.length === 2) {
 
     cb = options;
-    options = {};
+    options = files;
+    files = defautFiles;
     
+  } else if (arguments.length === 1) {
+
+    cb = files;
+    options = {};
+    files = defautFiles;
+
   }
 
   fixtures.init( svc.getConfig() );
 
-  fixtures( options, cb );
+  fixtures( files, options, cb );
 
 }

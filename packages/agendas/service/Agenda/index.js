@@ -6,17 +6,17 @@ const image = require( './image' ),
 
   logger = require( 'basic-logger' ),
 
-  getRoles = require( './getRoles' );
+  getRoles = require( './getRoles' ),
+
+  validate = require( '../validate' ),
+
+  publicValidate = require( '../validate/public' );
 
 let service, log = console.log;
 
-module.exports = Object.assign( data => {
+module.exports = Object.assign( Agenda, { init } );
 
-  return new Instance( data );
-
-}, { init } );
-
-function Instance( data ) {
+function Agenda( data ) {
 
   if ( !service ) {
 
@@ -35,10 +35,11 @@ function Instance( data ) {
 }
 
 Object.assign(
-  Instance.prototype, 
+  Agenda.prototype,
   image,
   {
     getRoles,
+    getData,
     _loadInternals,
     _getExistingRoles
   }
@@ -72,10 +73,20 @@ function _getExistingRoles() {
 
 }
 
+function getData( options ) {
+
+  const params = _.extend( {
+    internal: false
+  }, options || {} );
+
+  return params.internal ? this.data : publicValidate( this.data );
+
+}
+
 function init( svc ) {
 
   log = logger( 'agendas/instanciate' ),
 
-  service = svc;
+    service = svc;
 
 }

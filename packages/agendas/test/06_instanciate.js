@@ -109,6 +109,30 @@ describe( 'agendas - functional (server): instanciate', function() {
 
   } );
 
+  it( '.getData - get public raw data', done => {
+
+    svc.get( 4826, { instanciate: true, internal: true, private: true }, ( err, agenda ) => {
+
+      should( agenda.getData().id ).equal( undefined )
+
+      done();
+
+    } );
+
+  } );
+
+  it( '.getData - get all raw data', done => {
+
+    svc.get( 4826, { instanciate: true, internal: true, private: true }, ( err, agenda ) => {
+
+      should( agenda.getData( { internal: true } ).id ).equal( 4826 );
+
+      done();
+
+    } );
+
+  } );
+
   it( 'setImage - successful set saves image name in db', done => {
 
     let con = mysql.createConnection( config.mysql ),

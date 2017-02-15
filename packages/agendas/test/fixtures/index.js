@@ -15,7 +15,7 @@ module.exports.init = c => {
 };
 
 
-function build( options, cb ) {
+function build( files, options, cb ) {
 
   fixtures( [ {
     table: config.schemas.agenda,
@@ -29,6 +29,6 @@ function build( options, cb ) {
   }, {
     table: config.schemas.legacyCredentialSet,
     src: __dirname + '/legacy_credential_set.data.sql'
-  } ], options, cb );
+  } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) ), options, cb );
 
 }

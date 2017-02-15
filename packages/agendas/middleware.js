@@ -6,16 +6,18 @@ let service, config;
 
 module.exports = {
   init,
-  load
+  load,
+  loadRoles
 }
 
 function load( options ) {
 
-  let { namespaces, instanciate, detailed } = _.merge( {
+  const params = _.merge( {
     instanciate: false,
     detailed: false,
+    internal: false,
     namespaces: {
-      identifiers: {      
+      identifiers: {
         id: 'agendaId',
         uid: 'agendaUid',
         slug: 'agendaSlug',
@@ -26,23 +28,63 @@ function load( options ) {
 
   return ( req, res, next ) => {
 
-    let identifiers = {};
+    const identifiers = _getIdentifiers( params.namespaces.identifiers, req );
 
-    _.forIn( namespaces.identifiers, ( v, k ) => {
+    service.get( identifiers, _.pick( params, [ 'instanciate', 'detailed', 'internal' ] ),
+      ( err, agenda ) => {
 
-      if ( !v ) return;
+        if ( err ) return next( err );
 
-      identifiers[ k ] = _.get( req, v );
+        _.set( req, params.namespaces.result, agenda );
 
-    } );
+        next();
 
-    service.get( identifiers, { instanciate, detailed }, ( err, agenda ) => {
+      } );
+
+  }
+
+}
+
+function loadRoles( options ) {
+
+  let { namespaces } = _.merge( {
+    namespaces: {
+      agenda: 'agenda',
+      result: 'agendaRoles'
+    }
+  }, options || {} );
+
+  return ( req, res, next ) => {
+
+    const agenda = _.get( req, namespaces.agenda );
+
+    const _getRoles = instance => instance.getRoles( ( err, roles ) => {
 
       if ( err ) return next( err );
 
-      _.set( req, namespaces.result, agenda );
+      _.set( req, namespaces.result, roles );
 
       next();
+
+    } );
+
+    if ( agenda instanceof service.Agenda ) {
+
+      return _getRoles( agenda );
+
+    }
+
+    const identifierNamespaces = _getIdentifiers( {
+      id: namespaces.agenda + '.id',
+      uid: namespaces.agenda + '.uid',
+      slug: namespaces.agenda + '.slug'
+    }, req );
+
+    service.get( identifierNamespaces, { instanciate: true }, ( err, agenda ) => {
+
+      if ( err ) return next( err );
+
+      return _getRoles( agenda );
 
     } );
 
@@ -54,5 +96,21 @@ function init( c, svc ) {
 
   service = svc;
   config = c;
+
+}
+
+function _getIdentifiers( namespaces, req ) {
+
+  let identifiers = {};
+
+  _.forIn( namespaces, ( v, k ) => {
+
+    if ( !v ) return;
+
+    identifiers[ k ] = _.get( req, v );
+
+  } );
+
+  return identifiers;
 
 }

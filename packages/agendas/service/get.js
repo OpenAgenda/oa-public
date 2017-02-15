@@ -91,7 +91,7 @@ function get( identifiers, options, cb ) {
 
     }
 
-    cb( null, v.instanciate ? service.instanciate( v.filtered ) : v.filtered );
+    cb( null, v.instanciate ? new service.Agenda( v.filtered ) : v.filtered );
 
   }, cb );
 

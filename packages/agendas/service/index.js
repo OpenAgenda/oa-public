@@ -26,7 +26,7 @@ const knexLib = require( 'knex' ),
 
   map = require( './databaseFieldMap' ),
 
-  instanciate = require( './instanciate' ),
+  Agenda = require( './Agenda' ),
 
   imageFiles = require( 'image-files' ),
 
@@ -43,7 +43,8 @@ const knexLib = require( 'knex' ),
     list,
     get,
     findOne: get.findOne,
-    instanciate,
+    Agenda,
+    instanciate: data => new Agenda( data ),
     middleware,
     set,
     remove,
@@ -87,7 +88,7 @@ function init( c ) {
 
   remove.init( service, knex );
 
-  instanciate.init( service );
+  Agenda.init( service );
 
   slugs.init( schemas, knex );
 
@@ -199,7 +200,7 @@ function _search( v ) {
   if ( v.query.ids.length ) {
 
     ids = true;
-    
+
     v.knex = v.knex.whereIn( 'id', v.query.ids );
 
   }
@@ -227,7 +228,7 @@ function _order( v ) {
 
   if ( [ 'updatedAt.desc', 'createdAt.desc', 'updatedAt.asc', 'updatedAt.desc' ]
 
-  .indexOf( v.query.order ) == -1 ) {
+      .indexOf( v.query.order ) == -1 ) {
 
     return v;
 
@@ -252,13 +253,13 @@ function _total( v ) {
 
   } )
 
-  .then( result => {
+    .then( result => {
 
-    v.result.total = result[ 0 ].agendas;
+      v.result.total = result[ 0 ].agendas;
 
-    return v;
+      return v;
 
-  } );
+    } );
 
 }
 
