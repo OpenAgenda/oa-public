@@ -150,6 +150,7 @@ function agendaEventShow( req, res ) {
 
   cmn.render( req, res, 'event/show', {
     agendaId: req.agenda.id,
+    private: req.agenda.private,
     adminNav: req.query.admin_nav,
     event: req.formatted,
     components: req.components
