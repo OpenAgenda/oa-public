@@ -42,6 +42,7 @@ const modLib = require( '../lib/moduleLib' ),
 
     agendaEventActionShow: [ 'get', '/:slug/events/:eventSlug/action', [
       agendaSvc.mw.load( 'slug' ),
+      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       eventSvc.mw.load( 'eventSlug', 'slug' ),
       eventSvc.mw.format,
       eventSvc.mw.loadUris,
@@ -51,6 +52,7 @@ const modLib = require( '../lib/moduleLib' ),
 
     agendaEventActionDatesShow: [ 'get', '/:slug/events/:eventSlug/action/dates', [
       agendaSvc.mw.load( 'slug' ),
+      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       eventSvc.mw.load( 'eventSlug', 'slug' ),
       eventSvc.mw.format,
       eventSvc.mw.loadUris,
@@ -60,6 +62,7 @@ const modLib = require( '../lib/moduleLib' ),
 
     agendaEventMailSend: [ 'post', '/:slug/events/:eventSlug/email', [
       agendaSvc.mw.load( 'slug' ),
+      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       eventSvc.mw.load( 'eventSlug', 'slug' ),
       eventSvc.mw.format,
       eventSvc.mw.loadUris,
@@ -68,6 +71,7 @@ const modLib = require( '../lib/moduleLib' ),
 
     agendaEventIcsShow: [ 'get', '/:slug/events/:eventSlug/ics', [
       agendaSvc.mw.load( 'slug' ),
+      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       eventSvc.mw.load( 'eventSlug', 'slug' ),
       eventSvc.mw.ics
     ] ],

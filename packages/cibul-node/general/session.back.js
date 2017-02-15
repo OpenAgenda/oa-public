@@ -45,7 +45,7 @@ module.exports = p => {
 // middleware from service/agenda/middleware
 function agendaLoad( req, res, next ) {
 
-  agendas.get( { uid: req.params.agendaUid }, { internal : true }, ( err, agenda ) => {
+  agendas.get( { uid: req.params.agendaUid }, { internal : true, private: null }, ( err, agenda ) => {
 
     if ( err ) return next( err );
 
@@ -82,7 +82,7 @@ function _loadDetailed( req, res, next ) {
 
     stakeholders.user( session.id ).list( 0, 1000, ( err, items, total ) => {
 
-      agendas.list( { ids: items.map( i => i.agendaId ) }, 0, 1000, ( err, agendas ) => {
+      agendas.list( { ids: items.map( i => i.agendaId ) }, 0, 1000, { private: null }, ( err, agendas ) => {
 
         if ( err ) return next( err );
 

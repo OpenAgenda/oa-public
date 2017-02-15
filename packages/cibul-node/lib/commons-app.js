@@ -48,6 +48,9 @@ module.exports = {
 
   redirectTo,
 
+  ifIs: ( path, fn ) => ( req, res, next ) => _.get( req, path ) ? fn( req, res, next ) : next(),
+  ifIsNot: ( path, fn ) => ( req, res, next ) => _.get( req, path ) ? next() : fn( req, res, next ),
+
   lang
 
 }
@@ -251,7 +254,6 @@ function checkContributor( req, res, next ) {
   } );
 
 }
-
 
 function checkAdminOrModerator( req, res, next ) {
 
@@ -661,19 +663,24 @@ function loadUserUid( req, res, next ) {
 /**
  * returns middleware that redirects to given route&params ( uses req.genUrl )
  */
-function redirectTo( route = 'corpoHome', params = {}, code = 302 ) {
+function redirectTo( route = 'corpoHome', params = {}, options = {} ) {
+
+  const redirectParams = _.extend( {
+    code: 302,
+    maintainQuery: false
+  }, options );
 
   return ( req, res, next ) => { 
 
-    let paramValues = {};
+    let paramValues = _.mapValues( params, k => _.get( req.params, k ) );
 
-    Object.keys( params ).forEach( k => {
+    if ( params.maintainQuery ) {
 
-      paramValues[ k ] = _.get( req, params[ k ] )
+      _.extend( paramValues, req.query );
 
-    } );
+    }
 
-    const redirect = req.genUrl( route, _.mapValues( params, k => _.get( req.params, k ) ) );
+    const redirect = req.genUrl( route, paramValues );
 
     req.log( 'redirecting to %s', redirect );
 
@@ -682,12 +689,12 @@ function redirectTo( route = 'corpoHome', params = {}, code = 302 ) {
       return renderJson( req, res, {
         success: false,
         redirect,
-        code
+        code: redirectParams.code
       } )
 
     }
 
-    res.redirect( code, redirect )
+    res.redirect( redirectParams.code, redirect );
 
   };
 

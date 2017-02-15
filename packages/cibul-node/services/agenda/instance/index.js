@@ -339,9 +339,9 @@ function instanciate( data ) {
 
   function getContributionSettings( cb ) {
 
-    extAgendaSvc.get( { id: instance.id }, ( err, agenda ) => {
+    extAgendaSvc.get( { id: instance.id }, { private: null }, ( err, agenda ) => {
 
-      if ( err ) return cb( err );
+      if ( err || !agenda ) return cb( err || 'agenda not found' );
 
       cb( null, agenda.settings.contribution );
 

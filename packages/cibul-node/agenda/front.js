@@ -12,6 +12,9 @@ const sessions = require( 'sessions' ),
 
   agendaSvc = require( '../services/agenda' ),
 
+  // newer dedicated service
+  agendas = require( 'agendas' ),
+
   agendaSearch = require( 'agenda-search' ),
 
   eventSvc = require( '../services/event' ),
@@ -36,17 +39,50 @@ const sessions = require( 'sessions' ),
 
   utils = require( 'utils' ),
 
+  middlewares = {
+    show: [
+      agendaSvc.mw.search( perPage ),
+      _format,
+      _formatShowLinks,
+      showXhr( 'agenda/show' ),
+      cmn.loadBaseData( _layoutData, 'oasfmain.css' ),
+      show 
+    ],
+    embedShow: [ 
+      _format,
+      _formatEmbedHeadLinks,
+      _formatCustomEmbedLinks,
+      embedSvc.mw.renderEventItems,
+      embedSvc.mw.renderHeader,
+      showXhr( 'agenda/embedShow' ),
+      cmn.useEmbedGoogleAnalytics,
+      cmn.loadBaseData( _layoutData ),
+      embedSvc.mw.loadCustomLayoutData,
+      embedShow
+    ]
+  },
+
   routes = {
 
     embedControlData: [ 'get', '/agendas/:uid/embeds/:embedUid/controldata', [ 
       agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
       embedSvc.mw.load( 'embedUid', 'uid' ),
+      cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
       embedSvc.mw.browserCacheControlData,
       controlData
     ] ],
     
     controlData: [ 'get', '/agendas/:uid/controldata', [ 
       agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
+      cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
+      agendaSvc.mw.browserCacheControlData,
+      controlData
+    ] ],
+
+    controlDataPrivate: [ 'get', '/agendas/:uid/controldata.prv', [
+      agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
+      cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'controlData', { uid: 'uid' } ) ),
+      cmn.checkStakeholder,
       agendaSvc.mw.browserCacheControlData,
       controlData
     ] ],
@@ -56,12 +92,14 @@ const sessions = require( 'sessions' ),
       cmn.useEmbedGoogleAnalytics,
       fb.tab.loadAgendaId,
       _loadAgendaByAgendaId,
+      cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
       _redirectToEmbed
     ]],
     
     agendaEmbedShow: [ 'get', '/agendas/:uid/embed/events', [
       cmn.redirectLegacySearch,
       agendaSvc.mw.load( 'uid', { cache: true } ),
+      cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
       agendaSvc.mw.browserCache,
       agendaSvc.mw.search( perPage ),
       _format,
@@ -76,23 +114,14 @@ const sessions = require( 'sessions' ),
       embedShow
     ] ],
     
-    customEmbedShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events', [ 
+    customEmbedShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events', [
       cmn.redirectLegacySearch,
       agendaSvc.mw.load( 'uid', { cache: true } ),
+      cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
       embedSvc.mw.load( 'embedUid', 'uid' ),
       embedSvc.mw.browserCache,
-      agendaSvc.mw.search( perPage ),
-      _format,
-      _formatEmbedHeadLinks,
-      _formatCustomEmbedLinks,
-      embedSvc.mw.renderEventItems,
-      embedSvc.mw.renderHeader,
-      showXhr( 'agenda/embedShow' ),
-      cmn.useEmbedGoogleAnalytics,
-      cmn.loadBaseData( _layoutData ),
-      embedSvc.mw.loadCustomLayoutData,
-      embedShow
-    ] ],
+      agendaSvc.mw.search( perPage )
+    ].concat( middlewares.embedShow ) ],
 
     customEmbedShowPreview: [ 'get', '/agendas/:uid/previewEmbeds/:embedUid/events', [
       cmn.redirectLegacySearch,
@@ -100,18 +129,8 @@ const sessions = require( 'sessions' ),
       agendaSvc.mw.load( 'uid', { cache: true } ),
       cmn.checkAdministrator(),
       embedSvc.mw.load( 'embedUid', 'uid' ),
-      agendaSvc.mw.search( perPage, true ),
-      _format,
-      _formatEmbedHeadLinks,
-      _formatCustomEmbedLinks,
-      embedSvc.mw.renderEventItems,
-      embedSvc.mw.renderHeader,
-      showXhr( 'agenda/embedShow' ),
-      cmn.useEmbedGoogleAnalytics,
-      cmn.loadBaseData( _layoutData ),
-      embedSvc.mw.loadCustomLayoutData,
-      embedShow
-    ] ],
+      agendaSvc.mw.search( perPage, true )
+    ].concat( middlewares.embedShow ) ],
 
     agendaSearch: [ 'get', '/agendas', [
       _modifiedSince1am,
@@ -129,21 +148,23 @@ const sessions = require( 'sessions' ),
 
     agendaRedirect: [ 'get', '/agendas/:uid', [
       cmn.redirectLegacySearch,
-      agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
+      agendas.middleware.load( { namespaces: { identifiers: { uid: 'params.uid' } } } ),
       redirect
     ] ],
-    
-    agendaShow: [ 'get', '/:slug', [ 
+
+    agendaShowPrivate: [ 'get', '/:slug.prv', [
       cmn.redirectLegacySearch,
       agendaSvc.mw.load( 'slug', { cache: true } ),
+      cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'agendaShow', { slug: 'slug' } ) ),
+      cmn.checkStakeholder
+    ].concat( middlewares.show ) ],
+    
+    agendaShow: [ 'get', '/:slug', [
+      cmn.redirectLegacySearch,
+      agendaSvc.mw.load( 'slug', { cache: true } ),
+      cmn.ifIs( 'agenda.private', cmn.redirectTo( 'agendaShowPrivate', { slug: 'slug' } ) ),
       agendaSvc.mw.browserCache,
-      agendaSvc.mw.search( perPage ),
-      _format,
-      _formatShowLinks,
-      showXhr( 'agenda/show' ),
-      cmn.loadBaseData( _layoutData, 'oasfmain.css' ),
-      show
-    ] ],
+    ].concat( middlewares.show ) ],
 
     agendaResync: [ 'get', '/:slug/resync', [
       agendaSvc.mw.load( 'slug', { cache: true } ),
@@ -214,6 +235,7 @@ function show( req, res ) {
       title: req.agenda.title,
       description: req.agenda.description,
       url: req.agenda.url,
+      private: req.agenda.private,
       image: req.agenda.getImage( false ),
       official: req.agenda.official,
       isEmpty: req.agenda.isEmpty,
@@ -226,7 +248,9 @@ function show( req, res ) {
 }
 
 
-function redirect( req, res ) {
+function redirect( req, res, next ) {
+
+  if ( !req.agenda ) return next( { code: 404 } );
 
   return res.redirect( 301, req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { protocol: 'https://' } ) );
 
@@ -648,6 +672,14 @@ function _layoutData( req, res ) {
   if ( req.embed ) {
 
     data.scriptParams.autoscroll = req.embed.getAutoscroll();
+
+  }
+
+  if ( req.agenda.private ) {
+
+    data.bottom = {
+      scripts: [ 'window.controlData = \'' + req.genUrl( 'controlDataPrivate', { uid: req.agenda.uid } ) + '\'' ]
+    }
 
   }
 

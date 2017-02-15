@@ -96,7 +96,7 @@ function loadAgenda( paramName, fieldName, options ) {
 
     }
 
-    svc.get( getParams, options, function( err, a ) {
+    svc.get( getParams, options, ( err, a ) => {
 
       if ( err ) {
 

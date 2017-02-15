@@ -24,6 +24,7 @@ const sessions = require( 'sessions' ),
 
     agendaActionShow: [ 'get', '/', [ 
       sessions.middleware.load( { detailed: true } ),
+      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       actionShow 
     ] ],
 
@@ -76,7 +77,8 @@ function actionShow( req, res ) {
       description: req.agenda.getDescription(),
       slug: req.agenda.slug,
       uid: req.agenda.uid,
-      image: req.agenda.getImage()
+      image: req.agenda.getImage(),
+      private: req.agenda.private
     },
     hasAggregator: false,
     agendas: [],

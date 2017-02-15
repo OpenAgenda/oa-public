@@ -1,112 +1,118 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const modLib = require( '../lib/moduleLib' ),
 
-cmn = require( '../lib/commons-app' ),
+  cmn = require( '../lib/commons-app' ),
+  
+  config = require( '../config' ),
+  
+  utils = require( 'utils' ),
+  
+  agendaSvc = require( '../services/agenda' ),
+  
+  embedSvc = require( '../services/embed/embed' ),
+  
+  eventSvc = require( '../services/event' ),
+  
+  i18n = require( '../i18n/i18n' ),
 
-config = require( '../config' ),
+  middlewares = {
+    agendaEventShow: [
+      eventSvc.mw.load( 'eventSlug', 'slug' ),
+      eventSvc.mw.format,
+      eventSvc.mw.components,
+      _formatAgendaLinks( 'agendaShow', [ 'slug' ] ),
+      agendaSvc.mw.decorateEvent( false ),
+      _formatSocialLinks,
+      cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
+      _appendEventTransferCredential,
+      agendaEventShow
+    ],
+    customEmbedEventShow: [
+      agendaSvc.mw.decorateEvent( false ),
+      _formatSocialLinks,
+      _formatEmbedHeadLinks,
+      cmn.useEmbedGoogleAnalytics,
+      embedSvc.mw.renderEvent,
+      cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
+      embedSvc.mw.loadCustomLayoutData,
+      agendaEmbedEventShow
+    ]
+  },
 
-utils = require( 'utils' ),
+  routes = {
 
-agendaSvc = require( '../services/agenda' ),
+    agendaEventShowPrivate: [ 'get', '/:slug.prv/events/:eventSlug', [
+      agendaSvc.mw.load( 'slug' ),
+      cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'agendaShow', { slug: 'slug', eventSlug: 'eventSlug' } ) ),
+      cmn.checkStakeholder
+    ].concat( middlewares.agendaEventShow ) ],
 
-embedSvc = require( '../services/embed/embed' ),
+    agendaEventShow: [ 'get', '/:slug/events/:eventSlug', [
+      agendaSvc.mw.load( 'slug' ),
+      cmn.ifIs( 'agenda.private', cmn.redirectTo( 'agendaEventShowPrivate', { slug: 'slug', eventSlug: 'eventSlug' }, { maintainQuery: true } ) )
+    ].concat( middlewares.agendaEventShow ) ],
 
-eventSvc = require( '../services/event' ),
+    agendaEventRedirect: [ 'get', '/agendas/:uid/events/:eventUid', [
+      agendaSvc.mw.load( 'uid' ),
+      eventSvc.mw.load( 'eventUid', 'uid' ),
+      redirect
+    ]],
 
-i18n = require( '../i18n/i18n' ),
+    agendaEmbedEventShow: [ 'get', '/agendas/:uid/embed/events/:eventUid', [
+      agendaSvc.mw.load( 'uid' ),
+      eventSvc.mw.load( 'eventUid', 'uid' ),
+      _switchEmbedLang,
+      eventSvc.mw.format,
+      eventSvc.mw.components,
+      _formatAgendaLinks( 'agendaEmbedShow', [ 'uid' ] ),
+      agendaSvc.mw.decorateEvent( false ),
+      _formatSocialLinks,
+      _formatEmbedHeadLinks,
+      cmn.useEmbedGoogleAnalytics,
+      embedSvc.mw.renderEvent,
+      cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
+      _appendFacebookParams,
+      agendaEmbedEventShow
+    ] ],
 
-routes = {
+    agendaCustomEmbedEventShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events/:eventUid', [
+      agendaSvc.mw.load( 'uid' ),
+      embedSvc.mw.load( 'embedUid', 'uid' ),
+      eventSvc.mw.load( 'eventUid', 'uid' ),
+      _switchEmbedLang,
+      eventSvc.mw.format,
+      eventSvc.mw.components,
+      _formatAgendaLinks( 'customEmbedShow', [ 'uid', 'embedUid' ] ),
+    ].concat( middlewares.customEmbedEventShow ) ],
 
-  agendaEventShow: [ 'get', '/:slug/events/:eventSlug', [
-    agendaSvc.mw.load( 'slug' ),
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    eventSvc.mw.format,
-    eventSvc.mw.components,
-    _formatAgendaLinks( 'agendaShow', [ 'slug' ] ),
-    agendaSvc.mw.decorateEvent( false ),
-    _formatSocialLinks,
-    cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
-    _appendEventTransferCredential,
-    agendaEventShow
-  ] ],
+    agendaCustomEmbedEventShowPreview: [ 'get', '/agendas/:uid/previewEmbeds/:embedUid/events/:eventUid', [
+      agendaSvc.mw.load( 'uid' ),
+      cmn.checkAdministrator(),
+      embedSvc.mw.load( 'embedUid', 'uid' ),
+      eventSvc.mw.load( 'eventUid', 'uid' ),
+      _switchEmbedLang,
+      eventSvc.mw.format,
+      eventSvc.mw.components,
+      _formatAgendaLinks( 'customEmbedShowPreview', [ 'uid', 'embedUid' ] )
+    ].concat( middlewares.customEmbedEventShow ) ],
 
-  agendaEventRedirect: [ 'get', '/agendas/:uid/events/:eventUid', [
-    agendaSvc.mw.load( 'uid' ),
-    eventSvc.mw.load( 'eventUid', 'uid' ),
-    redirect
-  ]],
+    eventShow: [ 'get', '/events/:eventSlug', [
+      eventSvc.mw.load( 'eventSlug', 'slug' ),
+      eventSvc.mw.format,
+      eventSvc.mw.components,
+      _formatSocialLinks,
+      cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
+      show
+    ] ]
 
-  agendaEmbedEventShow: [ 'get', '/agendas/:uid/embed/events/:eventUid', [
-    agendaSvc.mw.load( 'uid' ),
-    eventSvc.mw.load( 'eventUid', 'uid' ),
-    _switchEmbedLang,
-    eventSvc.mw.format,
-    eventSvc.mw.components,
-    _formatAgendaLinks( 'agendaEmbedShow', [ 'uid' ] ),
-    agendaSvc.mw.decorateEvent( false ),
-    _formatSocialLinks,
-    _formatEmbedHeadLinks,
-    cmn.useEmbedGoogleAnalytics,
-    embedSvc.mw.renderEvent,
-    cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
-    _appendFacebookParams,
-    agendaEmbedEventShow
-  ] ],
+  },
 
-  agendaCustomEmbedEventShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events/:eventUid', [
-    agendaSvc.mw.load( 'uid' ),
-    embedSvc.mw.load( 'embedUid', 'uid' ),
-    eventSvc.mw.load( 'eventUid', 'uid' ),
-    _switchEmbedLang,
-    eventSvc.mw.format,
-    eventSvc.mw.components,
-    _formatAgendaLinks( 'customEmbedShow', [ 'uid', 'embedUid' ] ),
-    agendaSvc.mw.decorateEvent( false ),
-    _formatSocialLinks,
-    _formatEmbedHeadLinks,
-    cmn.useEmbedGoogleAnalytics,
-    embedSvc.mw.renderEvent,
-    cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
-    embedSvc.mw.loadCustomLayoutData,
-    agendaEmbedEventShow 
-  ] ],
+  deepExtend = require( 'deep-extend' );
 
-  agendaCustomEmbedEventShowPreview: [ 'get', '/agendas/:uid/previewEmbeds/:embedUid/events/:eventUid', [
-    agendaSvc.mw.load( 'uid' ),
-    cmn.checkAdministrator(),
-    embedSvc.mw.load( 'embedUid', 'uid' ),
-    eventSvc.mw.load( 'eventUid', 'uid' ),
-    _switchEmbedLang,
-    eventSvc.mw.format,
-    eventSvc.mw.components,
-    _formatAgendaLinks( 'customEmbedShowPreview', [ 'uid', 'embedUid' ] ),
-    agendaSvc.mw.decorateEvent( false ),
-    _formatSocialLinks,
-    _formatEmbedHeadLinks,
-    cmn.useEmbedGoogleAnalytics,
-    embedSvc.mw.renderEvent,
-    cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
-    embedSvc.mw.loadCustomLayoutData,
-    agendaEmbedEventShow 
-  ]],
+module.exports = path => {
 
-  eventShow: [ 'get', '/events/:eventSlug', [
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    eventSvc.mw.format,
-    eventSvc.mw.components,
-    _formatSocialLinks,
-    cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
-    show
-  ] ]
-
-},
-
-deepExtend = require( 'deep-extend' );
-
-module.exports = function( path ) {
-
-  var router = modLib.Router( routes );
+  const router = modLib.Router( routes );
 
   router.pre( [
     cmn.loadLogger( 'event front' ),

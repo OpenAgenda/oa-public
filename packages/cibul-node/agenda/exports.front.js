@@ -26,6 +26,7 @@ const modLib = require( '../lib/moduleLib' ),
 
     agendaJsonEvents: [ 'get', '/events.json', [
       agendaSvc.mw.load( 'uid' ),
+      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       agendaSvc.mw.search( perPage ),
       eventSvc.mw.cleanEvents,
       agendaSvc.mw.decorateEvents(),
@@ -35,6 +36,7 @@ const modLib = require( '../lib/moduleLib' ),
 
     agendaJsonLocations: [ 'get', '/locations.json', [
       agendaSvc.mw.load( 'uid' ),
+      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       _prepareLocationExport,
       locationMw.list,
       ( req, res ) => cmn.renderJson( req, res, req.locations )
@@ -42,6 +44,7 @@ const modLib = require( '../lib/moduleLib' ),
 
     agendaJsonSettings: [ 'get', '/settings.json', [
       agendaSvc.mw.load( 'uid' ),
+      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       _loadTagSet,
       _loadCategorySet,
       locationMw.loadSettings( 'locationSettings', true ),
@@ -55,34 +58,40 @@ const modLib = require( '../lib/moduleLib' ),
 
     agendaCsvEvents: [ 'get', '/events.csv', [
       agendaSvc.mw.load( 'uid' ),
+      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       locationMw.loadSettings( 'locationSettings' ),
       agendaSvc.mw.buildCsv( false )
     ] ],
 
     agendaPdfEvents: [ 'get', '/events.pdf', [
       agendaSvc.mw.load( 'uid' ),
+      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       agendaSvc.mw.buildPdf
     ] ],
 
     agendaXlsxEvents: [ 'get', '/events.xlsx', [
       agendaSvc.mw.load( 'uid' ),
+      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       locationMw.loadSettings( 'locationSettings' ),
       agendaSvc.mw.buildXlsx( false )
     ]],
 
     agendaRssEvents: [ 'get', '/events.rss', [
       agendaSvc.mw.load( 'uid' ),
+      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       agendaSvc.mw.search( 20 ),
       agendaSvc.mw.rss
     ]],
 
     agendaIcsEvents: [ 'get', '/events.ics', [
       agendaSvc.mw.load( 'uid' ),
+      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       agendaSvc.mw.buildIcs
     ] ],
 
     agendaSourceAdd: [ 'get', '/addTo/:aggUid', [
       agendaSvc.mw.load( 'uid' ),
+      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
       cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
       cmn.checkAdministrator( { name: 'aggregatorAgenda' } ),
@@ -91,6 +100,7 @@ const modLib = require( '../lib/moduleLib' ),
 
     agendaSourceRemove: [ 'get', '/removeFrom/:aggUid', [
       agendaSvc.mw.load( 'uid' ),
+      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
       cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
       cmn.checkAdministrator( { name: 'aggregatorAgenda' } ),
