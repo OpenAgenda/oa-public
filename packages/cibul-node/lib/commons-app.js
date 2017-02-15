@@ -587,7 +587,9 @@ function loadBaseData( func, cssFile ) {
         css: {
           main: '/css/' + cssFile
         },
-        js: {}
+        js: {
+          outdated: '/js/outdated.js'
+        }
       },
       bottom: {
         scripts: []
