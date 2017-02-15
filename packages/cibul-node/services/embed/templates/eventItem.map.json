@@ -45,6 +45,10 @@
       "name": "PricingInfo"
     },
     {
+      "mapTo": "pricingInfo",
+      "name": "Conditions"
+    },
+    {
       "mapTo": "ticketLink",
       "name": "TicketUrl"
     },
