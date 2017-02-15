@@ -49,6 +49,7 @@
               <i class="fa fa-plus-circle"></i><%= __( 'addToAgenda' ) %>
             </a>
           </p>
+          <% if ( loner || !private ) { %>
           <p class="share">
             <%= __('share') %>&nbsp;:
             <a href="<%= event.facebookShare %>" target="_blank" class="fb" rel="nofollow"><i class="fa fa-facebook"></i></a>
@@ -57,6 +58,7 @@
             <a href="<%= event.linkedInShare %>" target="_blank" class="li" rel="nofollow"><i class="fa fa-linkedin"></i></a>
             <a href="<%= event.importUri + '?action=email' %>" rel="nofollow"><i class="fa fa-envelope-o"></i></a>
           </p>
+          <% } %>
 <% if ( !event.isUpcoming ) { %>
           <p>
             <span class="event-action disabled">
@@ -299,7 +301,7 @@
 
 <% if ( event.owner ) { %>  
         <div class="signature">
-          <p><%= __('createdBy', { 'owner' : event.owner.name } ) %> <%= _t( event.updatedAt, 'dddd Do MMMM - HH:mm' ) %></p>- <a href="<%= event.owner.contactLink %>"><%= __( 'contact' ) %></a>
+          <p><%= __( 'createdBy', { 'owner' : event.owner.name } ) %> <%= _t( event.updatedAt, 'dddd Do MMMM - HH:mm' ) %></p>- <a href="<%= event.owner.contactLink %>"><%= __( 'contact' ) %></a>
         </div>
 <% } %>
       </section>

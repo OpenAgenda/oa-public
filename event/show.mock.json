@@ -2,6 +2,7 @@
   "base": {
     "agendaId" : 111,
     "loner": false,
+    "private" : false,
     "title": "Jeu de Territoire pour développer la qualité de Vie",
     "description": "l'agenda des évènements repérés par ChezNous",
     "image": "review_cheznous_598_00.jpg",
