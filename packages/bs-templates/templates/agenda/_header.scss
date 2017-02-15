@@ -204,11 +204,18 @@
 
     .agenda-title {
   
-      .official {
+      .agenda-badges {
 
         position: absolute;
+        right: -30px;
+        width: 60px;
         top: 7px;
-        right: 0;
+
+        &>div {
+
+          vertical-align: middle;
+
+        }
 
       }
       
