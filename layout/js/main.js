@@ -18,8 +18,6 @@ var utils = require( 'utils' ),
 
   headerProfile = require( './headerProfile' ),
 
-  outdated = require( 'outdated-browser-rework' ),
-
   toggle = require( './toggle' ),
 
   debug = require( 'debug' ),
@@ -41,16 +39,6 @@ var utils = require( 'utils' ),
   hooks = [], asaps = [],
 
   params = {};
-
-outdated( {
-  browserSupport: {
-    'Chrome': 33,
-    'IE': 9,
-    'Safari': 5,
-    'Mobile Safari': 5,
-    'Firefox': 24
-  }
-} );
 
 du.asapReady( function () {
 
@@ -88,7 +76,6 @@ du.asapReady( function () {
 
 
 du.addEvent( window, 'load', function () {
-
 
   if ( !utils.size( params ) ) {
 

@@ -72,6 +72,11 @@
   "eventLists/agendaList",
 
   {
+    "js" : "layout/js/outdated.js",
+    "prod" : "outdated.js"
+  },
+
+  {
     "js" : "widgets/spinner/spinner.js",
     "prod" : "embed/oaSpinnerWidget.js"
   },
