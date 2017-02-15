@@ -81,6 +81,7 @@ function matchApp( req, res, next ) {
           notifs: req.genUrl( 'homeNotifications' ),
           moderate: req.genUrl( 'agendaAdminShow', { slug: ':slug' } ),
           show: req.genUrl( 'agendaShow', { slug: ':slug' } ),
+          showPrivate: req.genUrl.getPath( 'agendaShowPrivate' ),
           addEvent: req.genUrl( 'agendaEventNew', { slug: ':slug' } ),
           search: req.genUrl( 'agendaSearch' )
         }
