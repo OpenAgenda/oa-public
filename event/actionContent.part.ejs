@@ -11,7 +11,7 @@
 <% } %>
 </div>
 <% } %>
-<% if ( actions.indexOf( 'agendas' ) !== -1 ) { %>
+<% if ( ( actions.indexOf( 'agendas' ) !== -1 ) && agenda && !agenda.private ) { %>
 <p class="legend"><%= __('Import in OpenAgenda') %></p>
 <% if ( logged ) { %>
 
@@ -48,7 +48,7 @@
 
 <% } %>
 
-<% if ( actions.indexOf( 'email' ) !== -1 ) { %>
+<% if ( ( actions.indexOf( 'email' ) !== -1 ) && ( !agenda || !agenda.private ) ) { %>
 
 <p class="legend"><%= __( 'Send to email addresses' ) %></p>
 

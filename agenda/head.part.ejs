@@ -15,13 +15,26 @@
         <a href="<%= genUrl( 'agendaShow', { slug: agenda.slug } ) %>">
           <div class="agenda-title">
             <h1><%= agenda.title %></h1>
+<% if ( agenda.official || agenda.private ) { %>
+            <div class="agenda-badges">
 <% if ( agenda.official ) { %>
-            <div class="official big">
-              <i></i>
-              <div class="tooltip right" role="tooltip">
-                <div class="tooltip-arrow"></div>
-                <div class="tooltip-inner"><%= __('officialAgenda') %></div>
+              <div class="official big">
+                <i></i>
+                <div class="tooltip right" role="tooltip">
+                  <div class="tooltip-arrow"></div>
+                  <div class="tooltip-inner"><%= __( 'officialAgenda' ) %></div>
+                </div>
               </div>
+<% } %>
+<% if ( agenda.private ) { %>
+              <div class="tooltip-icon big">
+                <i class="fa fa-unlock-alt"></i>
+                <div class="tooltip right" role="tooltip">
+                  <div class="tooltip-arrow"></div>
+                  <div class="tooltip-inner"><%= __( 'privateAgenda' ) %></div>
+                </div>
+              </div>
+<% } %>
             </div>
 <% } %>
           </div>
@@ -44,8 +57,7 @@
                   <i class="fa fa-cogs"></i> <%= __( 'manage' ) %>
                 </a>
             </div><% } %>
-      </div><% if ( includeActionLinks ) { %><!--
-<% include ./actionLinks.part.ejs %>
-    --><% } %></div>
+      </div>
+    </div>
   </div>
 </header>

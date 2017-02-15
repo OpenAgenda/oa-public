@@ -51,8 +51,9 @@
           <a class="btn btn-default" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: agenda.uid, page: 1, oaq: { passed: 1 } } ) %>">JSON *</a>
         </div>
 
-<% if ( hasAggregator ) { %>
-        <p class="legend"><%= __( 'Aggregate this agenda in' ) %> :</p>
+
+<% if ( hasAggregator && !agenda.private ) { %>
+        <p class="legend"><%= __('Aggregate this agenda in') %></p>
         <div class="btn-adds">
 <% if ( agendas.length ) { %>
 <% agendas.forEach( function( aggAgenda ) { %>
