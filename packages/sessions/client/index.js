@@ -65,7 +65,7 @@ function _setWritable( update ) {
 
 function _getSession() {
 
-  return _get( config.cookies.session, validate ) || validate.validateUnlogged.default;
+  return _get( config.cookies.session, validate ) || validate.validateUnlogged.defaultValue;
 
 }
 

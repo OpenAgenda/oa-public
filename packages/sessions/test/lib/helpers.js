@@ -3,7 +3,6 @@
 const redis = require( 'redis' );
 const async = require( 'async' );
 const express = require( 'express' );
-const sa = require( 'superagent' );
 
 
 let config;
