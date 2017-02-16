@@ -1,10 +1,10 @@
 "use strict";
 
-let validate = require( '../service/validate' ),
+const validate = require( '../service/validate' ),
 
-publicValidate = require( '../service/validate/public' ),
+  publicValidate = require( '../service/validate/public' ),
 
-should = require( 'should' );
+  should = require( 'should' );
 
 describe( 'agendas - unit (server): validate', () => {
 
