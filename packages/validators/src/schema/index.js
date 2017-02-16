@@ -1,5 +1,7 @@
 "use strict";
 
+import extend from 'lodash/extend';
+import isArray from 'lodash/isArray';
 import utils from 'utils';
 import listify from '../listify';
 import r from './root';
@@ -11,7 +13,7 @@ const defaults = {
 
 let registeredValidators = { schema };
 
-module.exports = utils.extend( schema, { register } );
+module.exports = extend( schema, { register } );
 
 function schema( options ) {
 
@@ -21,7 +23,7 @@ function schema( options ) {
 
   }
 
-  const params = utils.extend(
+  const params = extend(
     { field: null, list: false },
     defaults,
     options.fields ? options : { fields: options, root: true }
@@ -29,13 +31,13 @@ function schema( options ) {
 
   if ( params.root ) {
 
-    utils.extend( params, cleanSchema( params.fields ) );
+    extend( params, cleanSchema( params.fields ) );
 
   }
 
   if ( params.field ) {
 
-    utils.extend( validate, { field: params.field } );
+    extend( validate, { field: params.field } );
 
   }
 
@@ -44,12 +46,13 @@ function schema( options ) {
   /**
    * exposed endpoints
    */
-  return utils.extend( params.list ? listify( validate, params ) : validate, {
+  return extend( params.list ? listify( validate, params ) : validate, {
     part,
     defaultValue, // .default is not tolerated by ie8
     default: defaultValue,
     fields: params.fields,
-    struct: params.root ? options : params.fields // legacy
+    type: 'schema',
+    struct: params.root ? options : params.fields, // legacy
   } );
 
   function validate( value ) {
@@ -68,7 +71,7 @@ function schema( options ) {
 
         errors = errors.concat( errs.map( e => {
 
-          return params.field ? utils.extend( {}, e, { field: params.field + '.' + e.field } ) : e;
+          return params.field ? extend( {}, e, { field: params.field + '.' + e.field } ) : e;
 
         } ) );
 
@@ -89,7 +92,7 @@ function schema( options ) {
 
   function part( path, value ) {
 
-    if ( utils.isArray( path ) ) {
+    if ( isArray( path ) ) {
 
       return parts( path, value );
 

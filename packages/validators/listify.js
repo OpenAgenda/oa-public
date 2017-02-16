@@ -1,8 +1,12 @@
 "use strict";
 
-var _utils = require('utils');
+var _extend = require('lodash/extend');
 
-var _utils2 = _interopRequireDefault(_utils);
+var _extend2 = _interopRequireDefault(_extend);
+
+var _isArray = require('lodash/isArray');
+
+var _isArray2 = _interopRequireDefault(_isArray);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -12,13 +16,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 module.exports = function (validator, options) {
 
-  var params = _utils2['default'].extend({
+  var params = (0, _extend2['default'])({
     min: null,
     max: null,
-    optional: !!options.optional
+    optional: options.optional === undefined ? true : !!options.optional
   }, options.list);
 
-  return _utils2['default'].extend(validate, {
+  return (0, _extend2['default'])(validate, {
     type: validator.type,
     field: validator.field
   });
@@ -29,7 +33,7 @@ module.exports = function (validator, options) {
         errors = [],
         value = v === undefined ? [] : v;
 
-    if (!_utils2['default'].isArray(value)) {
+    if (!(0, _isArray2['default'])(value)) {
 
       throw [{
         field: validator.field,
@@ -47,7 +51,7 @@ module.exports = function (validator, options) {
       } catch (errs) {
 
         errors = errors.concat(errs.map(function (e) {
-          return _utils2['default'].extend(e, { index: i });
+          return (0, _extend2['default'])(e, { index: i });
         }));
       }
     });

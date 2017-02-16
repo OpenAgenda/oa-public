@@ -732,6 +732,31 @@ describe( 'schema validator', () => {
 
     } );
 
+    it( 'list defaults to empty list if value is undefined', () => {
+
+      let validate = schema( {
+        list: true,
+        fields: {
+          message: {
+            type: 'text'
+          }
+        }
+      } ), errors = [], clean;
+
+      try {
+
+        validate().should.eql( [] );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 0 );
+
+
+    } );
 
     it( 'list of objects can be too short', () => {
 

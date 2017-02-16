@@ -1,6 +1,7 @@
 "use strict";
 
-import utils from 'utils';
+import extend from 'lodash/extend';
+import isArray from 'lodash/isArray';
 
 /**
  * makes validator process lists
@@ -8,13 +9,13 @@ import utils from 'utils';
 
 module.exports = ( validator, options ) => {
 
-  const params = utils.extend( {
+  const params = extend( {
     min: null,
     max: null,
-    optional: !!options.optional
+    optional: options.optional === undefined ? true : !!options.optional
   }, options.list );
 
-  return utils.extend( validate, {
+  return extend( validate, {
     type: validator.type,
     field: validator.field
   } );
@@ -25,7 +26,7 @@ module.exports = ( validator, options ) => {
 
     value = v === undefined ? [] : v;
 
-    if ( !utils.isArray( value ) ) {
+    if ( !isArray( value ) ) {
 
       throw [ {
         field: validator.field,
@@ -44,7 +45,7 @@ module.exports = ( validator, options ) => {
 
       } catch( errs ) {
 
-        errors = errors.concat( errs.map( e => utils.extend( e, { index: i } ) ) );
+        errors = errors.concat( errs.map( e => extend( e, { index: i } ) ) );
 
       }
 

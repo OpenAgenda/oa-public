@@ -1,5 +1,13 @@
 "use strict";
 
+var _extend = require('lodash/extend');
+
+var _extend2 = _interopRequireDefault(_extend);
+
+var _isArray = require('lodash/isArray');
+
+var _isArray2 = _interopRequireDefault(_isArray);
+
 var _utils = require('utils');
 
 var _utils2 = _interopRequireDefault(_utils);
@@ -24,7 +32,7 @@ var defaults = {
 
 var registeredValidators = { schema: schema };
 
-module.exports = _utils2['default'].extend(schema, { register: register });
+module.exports = (0, _extend2['default'])(schema, { register: register });
 
 function schema(options) {
 
@@ -33,16 +41,16 @@ function schema(options) {
     throw new Error('schema params missing at creation');
   }
 
-  var params = _utils2['default'].extend({ field: null, list: false }, defaults, options.fields ? options : { fields: options, root: true });
+  var params = (0, _extend2['default'])({ field: null, list: false }, defaults, options.fields ? options : { fields: options, root: true });
 
   if (params.root) {
 
-    _utils2['default'].extend(params, (0, _clean2['default'])(params.fields));
+    (0, _extend2['default'])(params, (0, _clean2['default'])(params.fields));
   }
 
   if (params.field) {
 
-    _utils2['default'].extend(validate, { field: params.field });
+    (0, _extend2['default'])(validate, { field: params.field });
   }
 
   var defaultValue = _root2['default'].getDefault(params.fields);
@@ -50,13 +58,13 @@ function schema(options) {
   /**
    * exposed endpoints
    */
-  return _utils2['default'].extend(params.list ? (0, _listify2['default'])(validate, params) : validate, {
+  return (0, _extend2['default'])(params.list ? (0, _listify2['default'])(validate, params) : validate, {
     part: part,
     defaultValue: defaultValue, // .default is not tolerated by ie8
     'default': defaultValue,
     fields: params.fields,
-    struct: params.root ? options : params.fields // legacy
-  });
+    type: 'schema',
+    struct: params.root ? options : params.fields });
 
   function validate(value) {
 
@@ -74,7 +82,7 @@ function schema(options) {
 
         errors = errors.concat(errs.map(function (e) {
 
-          return params.field ? _utils2['default'].extend({}, e, { field: params.field + '.' + e.field }) : e;
+          return params.field ? (0, _extend2['default'])({}, e, { field: params.field + '.' + e.field }) : e;
         }));
       }
     });
@@ -89,7 +97,7 @@ function schema(options) {
 
   function part(path, value) {
 
-    if (_utils2['default'].isArray(path)) {
+    if ((0, _isArray2['default'])(path)) {
 
       return parts(path, value);
     }
