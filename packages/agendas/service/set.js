@@ -59,6 +59,7 @@ function _update( identifiers, data, options, cb ) {
     // option defaults
     protected: true, // protected fields cannot be tampered with
     internal: false, // retrieve internal fields when update is done
+    private: false,
     includeImagePath: false
   }, options );
 
@@ -75,7 +76,7 @@ function _update( identifiers, data, options, cb ) {
     errors: [] // validation errors
   } ) )
 
-  .then( _get( { target: 'current', internal: true } ) )
+  .then( _get( { target: 'current', internal: true, private: params.private } ) )
 
   .then( _merge )
 
@@ -97,7 +98,8 @@ function _update( identifiers, data, options, cb ) {
     target: 'updated',
     internal: true,
     prerequisite: v => v.success && !v.errors.length,
-    includeImagePath: params.includeImagePath
+    includeImagePath: params.includeImagePath,
+    private: params.private
   } ) )
 
   .done( v => {
@@ -478,6 +480,7 @@ function _get( options ) {
     clean: false,
     target: 'agenda',
     internal: false,
+    private: false,
     prerequisite: () => true
   }, options );
 
@@ -495,7 +498,8 @@ function _get( options ) {
 
     get( v.id ? { id: v.id } : v.identifiers, {
       internal: params.internal,
-      includeImagePath: params.includeImagePath
+      includeImagePath: params.includeImagePath,
+      private: params.private
     }, ( err, data ) => {
 
       if ( err ) return d.reject( err );
