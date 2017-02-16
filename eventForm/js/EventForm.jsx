@@ -42,7 +42,7 @@ const React = require( 'react' ),
 
   Spinner = require( 'react-components/build/Spinner' ),
 
-  textFields = [ 'title', 'description', 'freeText', 'tags', 'conditions' ],
+  textFields = [ 'title', 'description', 'freeText', 'keywords', 'conditions' ],
 
   translator = require( './translator.js' ),
 
@@ -608,13 +608,13 @@ function EventFormFactory() {
               <EventKeywordsField
                 constraints={{max: 255}}
                 counter={true}
-                value={this.state.tags}
+                value={this.state.keywords}
                 name='keywords'
                 optional={true}
                 languages={this.state.languages}
-                onChange={this.onChange( 'tags' )}
+                onChange={this.onChange( 'keywords' )}
                 label={this.props.labels.keywords}
-                error={formErrors.tags}
+                error={formErrors.keywords}
                 placeholder={this.props.labels.keywordPlaceholder}
                 lang={this.props.lang} /> 
             </div> : null }

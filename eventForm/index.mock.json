@@ -463,30 +463,18 @@
       "agendas": [
         {
           "uid": 84735921, 
-          "tags": [ "theatre-du-chatelet", "vente", "festival-nemo", "espace-jemmapes" ],
+          "nonemptytags": [ "theatre-du-chatelet", "vente", "festival-nemo", "espace-jemmapes" ],
+          "tags" : [],
           "category": "expositions"
         }
       ]
     },
     "agenda" : {
-      "categorySet" : {
-        "required" : true,
-        "info" : "Some info text",
-        "categories" : [
-          {"slug":"concerts","label":"Concerts"},
-          {"slug":"expositions","label":"Expositions"},
-          {"slug":"insolite","label":"Insolite"},
-          {"slug":"cinema","label":"Cin\u00e9ma"},
-          {"slug":"clubbing","label":"Clubbing"},
-          {"slug":"conferences","label":"Conf\u00e9rences"},
-          {"slug":"theatre","label":"Th\u00e9\u00e2tre"},
-          {"slug":"militant","label":"Militant"},
-          {"slug":"ateliers","label":"Ateliers"}
-        ]
-      },
+      "categorySet" : {"name":null,"info":null,"categories":[]},
       "tagSet" : {
         "groups" : [ {
           "required" : true,
+          "unique" : false,
           "info" : "Some info text",
           "tags" : [
             { "slug":"la-bellevilloise","label":"la bellevilloise" },
@@ -517,7 +505,8 @@
           ]
         } ]
       }
-    }
+    },
+    "translation" : false
   },
   "markdown" : {
     "useMarkdown" : true,
@@ -529,7 +518,11 @@
     },
     "translation" : {
       "source" : "fr",
-      "languages" : [ "de" ],
+      "sets" : [ {
+        "source" : "fr",
+        "target" : [ "en", "it" ],
+        "checked" : [ "en", "it" ]
+      } ],
       "service" : "reverso",
       "options" : "eyJ1c2VyIjoiQ1VMVFVSRSIsInBhc3N3b3JkIjoiclU3elQ3cWhhIn0="
     }
