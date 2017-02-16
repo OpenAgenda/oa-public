@@ -43,7 +43,7 @@ describe( 'agendas - functional (server): get', function() {
           },
           translation: {
             enabled: false,
-            languages: [],
+            sets: [],
             options: null,
             service: 'reverso',
             source: 'fr'
@@ -126,7 +126,7 @@ describe( 'agendas - functional (server): get', function() {
           },
           translation: {
             enabled: false,
-            languages: [],
+            sets: [],
             options: null,
             service: 'reverso',
             source: 'fr'
@@ -208,7 +208,7 @@ describe( 'agendas - functional (server): get', function() {
           },
           translation: {
             enabled: false,
-            languages: [],
+            sets: [],
             options: null,
             service: 'reverso',
             source: 'fr'

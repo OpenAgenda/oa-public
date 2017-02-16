@@ -63,12 +63,31 @@ module.exports = {
           max: 2,
           default: 'fr'
         },
-        languages: {
+        sets: {
           list: { min: 0 },
-          type: 'text',
-          min: 2,
-          max: 2,
-          default: []
+          default: [],
+          fields: {
+            source: {
+              type: 'text',
+              min: 2,
+              max: 2,
+              default: 'fr'
+            },
+            target: {
+              list: { min: 0 },
+              type: 'text',
+              min: 2,
+              max: 2,
+              default: [ 'en', 'es', 'it', 'de' ]
+            },
+            checked: {
+              list: { min: 0 },
+              type: 'text',
+              min: 2,
+              max: 2,
+              default: []
+            }
+          }
         },
         service: {
           type: 'text',

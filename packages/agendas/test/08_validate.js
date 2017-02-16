@@ -48,13 +48,70 @@ describe( 'agendas - unit (server): validate', () => {
           },
           translation: {
             enabled: false,
-            languages: [],
+            sets: [],
             options: null,
             service: 'reverso',
             source: 'fr'
           }
         },
         url: undefined
+      } );
+
+    } );
+
+    it( 'validate configured translation', () => {
+
+      let errors = [],
+
+      clean,
+
+      data = {
+        title: 'Title of the agenda',
+        description: 'Description of the agenda',
+        slug: 'title-of-the-agenda',
+        settings: {
+          translation: {
+            enabled: true,
+            source: 'en',
+            sets: [ {
+              source: 'fr',
+              target: [ 'en', 'de' ],
+              checked: []
+            }, {
+              source: 'en',
+              target: [ 'fr', 'it' ],
+              checked: [ 'fr', 'it' ]
+            } ]
+          }
+        }
+      };
+
+      try {
+        
+        clean = publicValidate( data );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 0 );
+
+      clean.settings.translation.should.eql( {
+        enabled: true,
+        source: 'en',
+        options: null,
+        service: 'reverso',
+        sets: [ {
+          source: 'fr',
+          target: [ 'en', 'de' ],
+          checked: []
+        }, {
+          source: 'en',
+          target: [ 'fr', 'it' ],
+          checked: [ 'fr', 'it' ]
+        } ]
       } );
 
     } );
@@ -105,7 +162,7 @@ describe( 'agendas - unit (server): validate', () => {
           },
           translation: {
             enabled: false,
-            languages: [],
+            sets: [],
             options: null,
             service: 'reverso',
             source: 'fr'

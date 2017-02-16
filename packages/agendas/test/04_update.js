@@ -48,7 +48,7 @@ describe( 'agendas - functional (server): set (update)', function() {
           },
           translation: {
             enabled: false,
-            languages: [],
+            sets: [],
             options: null,
             service: 'reverso',
             source: 'fr'
@@ -203,7 +203,7 @@ describe( 'agendas - functional (server): set (update)', function() {
             },
             translation: {
               enabled: false,
-              languages: [],
+              sets: [],
               options: null,
               service: 'reverso',
               source: 'fr'
