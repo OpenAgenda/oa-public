@@ -109,6 +109,8 @@ function agenda( namespace = 'agenda' ) {
 
         _.set( req, namespaces.stakeholder, st );
 
+        if ( !st ) return next();
+
         _.set( req, namespaces.instance, new Stakeholder( _.mapKeys( st.custom, ( v, k ) => _.snakeCase( k ) ) ) );
 
         next();
