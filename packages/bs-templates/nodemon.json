@@ -1,4 +1,4 @@
 {
   "ignore": [ ".git", "node_modules", "compiled" ],
-  "ext": "js ejs json"
+  "ext": "js ejs json scss"
 }
