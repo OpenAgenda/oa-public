@@ -9,7 +9,9 @@ const sessions = require( 'sessions' ),
 
   _ = require( 'lodash' ),
 
-  detailedSessionLoad = sessions.middleware.load( { detailed: true } );
+  detailedSessionLoad = sessions.middleware.load( { detailed: true } ),
+
+  getUnauthLabels = require( 'labels' )( require( 'labels/agendas/unauthorized' ) );
 
 module.exports = {
 
@@ -34,6 +36,7 @@ module.exports = {
   checkAdminOrModerator,
   checkAdminOrModeratorOrKey,
   checkStakeholder,
+  renderUnauthorized,
 
   useEmbedGoogleAnalytics,
 
@@ -48,8 +51,8 @@ module.exports = {
 
   redirectTo,
 
-  ifIs: ( path, fn ) => ( req, res, next ) => _.get( req, path ) ? fn( req, res, next ) : next(),
-  ifIsNot: ( path, fn ) => ( req, res, next ) => _.get( req, path ) ? next() : fn( req, res, next ),
+  ifIs: ( path, fn ) => ( req, res, next ) => _.get( req, path, false ) ? fn( req, res, next ) : next(),
+  ifIsNot: ( path, fn ) => ( req, res, next ) => _.get( req, path, false ) ? next() : fn( req, res, next ),
 
   lang
 
@@ -324,6 +327,32 @@ function checkAdminOrModeratorOrKey( req, res, next ) {
     next();
 
   } );
+
+}
+
+
+function renderUnauthorized() {
+
+  return ( req, res, next ) => {
+
+    loadBaseData( 'oasfmain.css' )( req, res, () => {
+
+      render( req, res, 'dialog/index', {
+        agenda: req.agenda,
+        title: getUnauthLabels( 'title', req.lang ),
+        content: getUnauthLabels( 'message', req.lang ),
+        actions: [ {
+          type: 'primary',
+          href: req.genUrl( 'conversationAgendaContact', { 
+            uid: req.agenda.uid, 
+          } ),
+          label: getUnauthLabels( 'contactAdmin', req.lang )
+        } ]
+      } );
+
+    } );
+
+  }
 
 }
 

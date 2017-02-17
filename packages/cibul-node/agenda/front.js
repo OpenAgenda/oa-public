@@ -27,6 +27,8 @@ const sessions = require( 'sessions' ),
 
   mwHelpers = require( '../services/lib/middlewareHelpers' ),
 
+  stakeholderMw = require( 'agenda-stakeholders/middleware' ),
+
   perPage = 20,
 
   deepExtend = require( 'deep-extend' ),
@@ -167,7 +169,9 @@ const sessions = require( 'sessions' ),
           $base64Route: [ 'agendaShowPrivate', { slug: 'slug' } ]
         }
       } ) ),
-      cmn.checkStakeholder
+      sessions.middleware.load( { detailed: true } ),
+      stakeholderMw.agenda().get(),
+      cmn.ifIsNot( 'stakeholder', cmn.renderUnauthorized() ),
     ].concat( middlewares.show ) ],
     
     agendaShow: [ 'get', '/:slug', [
@@ -713,7 +717,6 @@ function _layoutData( req, res ) {
   return data;
 
 }
-
 
 
 function _error( req, res ) {
