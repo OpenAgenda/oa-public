@@ -75,6 +75,9 @@
     "name" : "Access",
     "mapTo" : "location.access"
   }, {
+    "name" : "LocationAccess",
+    "mapTo" : "location.access"
+  }, {
     "name" : "LocationWebsite",
     "mapTo" : "location.website"
   }, {
@@ -91,6 +94,12 @@
     "mapTo" : "actionLink"
   }, {
     "name" : "ShareLabel",
+    "mapTo" : "actionLabel"
+  }, {
+    "name" : "ExportUrl",
+    "mapTo" : "actionLink"
+  }, {
+    "name" : "ExportLabel",
     "mapTo" : "actionLabel"
   }, {
     "name" : "FacebookShareUrl",
