@@ -107,8 +107,6 @@ function agenda( namespace = 'agenda' ) {
 
         if ( err ) return next( err );
 
-        if ( !st ) return next( 'stakeholder not found' );
-
         _.set( req, namespaces.stakeholder, st );
 
         _.set( req, namespaces.instance, new Stakeholder( _.mapKeys( st.custom, ( v, k ) => _.snakeCase( k ) ) ) );
