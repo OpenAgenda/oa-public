@@ -16,6 +16,8 @@ const modLib = require( '../lib/moduleLib' ),
   
   eventSvc = require( '../services/event' ),
 
+  stakeholderMw = require( 'agenda-stakeholders/middleware' ),
+
   getLabel = require( 'labels' )( require( 'labels/event/show' ) ),
 
   middlewares = {
@@ -56,7 +58,9 @@ const modLib = require( '../lib/moduleLib' ),
           $base64Route: [ 'agendaEventShowPrivate', { slug: 'slug', eventSlug: 'eventSlug' } ] 
         }
       } ) ),
-      cmn.checkStakeholder
+      sessions.middleware.load( { detailed: true } ),
+      stakeholderMw.agenda().get(),
+      cmn.ifIsNot( 'stakeholder', cmn.renderUnauthorized() )
     ].concat( middlewares.agendaEventShow ) ],
 
     agendaEventShow: [ 'get', '/:slug/events/:eventSlug', [
