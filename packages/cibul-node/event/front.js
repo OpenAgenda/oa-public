@@ -13,8 +13,8 @@ const modLib = require( '../lib/moduleLib' ),
   embedSvc = require( '../services/embed/embed' ),
   
   eventSvc = require( '../services/event' ),
-  
-  i18n = require( '../i18n/i18n' ),
+
+  getLabel = require( 'labels' )( require( 'labels/event/show' ) ),
 
   middlewares = {
     agendaEventShow: [
@@ -298,7 +298,7 @@ function _formatAgendaLinks( uri, keys ) {
       { lang: req.lang }
     ] );
 
-    req.formatted.backLabel = i18n( 'back', req.lang );
+    req.formatted.backLabel = getLabel( 'back', req.lang );
 
     // link to results for event location in agenda
     req.formatted.locationLink = req.genUrl( uri, [
@@ -380,7 +380,7 @@ function _formatEmbedLinks( req, res, next ) {
 
   }
 
-  req.formatted.backLabel = i18n( 'back', req.lang );
+  req.formatted.backLabel = getLabel( 'back', req.lang );
 
   next();
 
@@ -425,7 +425,7 @@ function _formatCustomEmbedLinks( req, res, next ) {
 
   }
 
-  req.formatted.backLabel = i18n( 'back', req.lang );
+  req.formatted.backLabel = getLabel( 'back', req.lang );
 
   next();
 
@@ -515,6 +515,8 @@ function _formatEmbedHeadLinks( req, res, next ) {
     slug: req.agenda.slug,
     eventSlug: req.event.slug
   }, { protocol: 'https://' } );
+
+  req.formatted.actionLabel = getLabel( 'export', req.lang );
 
   next();
 

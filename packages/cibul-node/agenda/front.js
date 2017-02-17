@@ -10,6 +10,10 @@ const sessions = require( 'sessions' ),
 
   lib = require( '../lib/lib' ),
 
+  getLabel = require( 'labels' )( require( 'labels/agendas/show' ) ),
+
+  getEventLabel = require( 'labels' )( require( 'labels/event/show' ) ),
+
   agendaSvc = require( '../services/agenda' ),
 
   // newer dedicated service
@@ -30,8 +34,6 @@ const sessions = require( 'sessions' ),
   wn = require( 'when/node' ),
 
   async = require( 'async' ),
-
-  i18n = require( '../i18n/i18n' ),
 
   timeHelper = require( 'cibulTemplates' ).helpers.time,
 
@@ -464,12 +466,12 @@ function _formatEventItem( event, req, cb ) {
     city: inst.getCity().label,
     pricingInfo: inst.getPricingInfo(),
     ticketLink: inst.getTicketLink(),
-    ticketLabel: i18n( 'Register', req.lang ),
+    ticketLabel: getEventLabel( 'ticketingLink', req.lang ),
     actionLink: req.genUrl( 'agendaEventActionShow', {
       slug: req.agenda.slug,
       eventSlug: event.slug
     }, { protocol: 'https://' } ),
-    actionLabel: i18n( 'Export', req.lang ),
+    actionLabel: getLabel( 'export', req.lang ),
     organization: event.organization ? { slug: event.organizationSlug, label: event.organization } : false,
     category: false,
     favorite: '<span class="fav js_fav_item" data-event-uid="' + inst.uid + '"></span>'
@@ -530,7 +532,7 @@ function _formatEmbedHeadLinks( req, res, next ) {
 
   req.actionLink = {
     url: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } ),
-    label: i18n( 'Export', req.lang )
+    label: getLabel( 'export', req.lang )
   };
 
   next();
