@@ -158,6 +158,15 @@ const sessions = require( 'sessions' ),
       cmn.redirectLegacySearch,
       agendaSvc.mw.load( 'slug', { cache: true } ),
       cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'agendaShow', { slug: 'slug' } ) ),
+      sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignin', { 
+        slug: 'slug',
+        msg: {
+          $raw: 'limitedAccessAgenda'
+        },
+        redirect: { 
+          $base64Route: [ 'agendaShowPrivate', { slug: 'slug' } ]
+        }
+      } ) ),
       cmn.checkStakeholder
     ].concat( middlewares.show ) ],
     

@@ -669,12 +669,45 @@ function redirectTo( route = 'corpoHome', params = {}, options = {} ) {
 
   const redirectParams = _.extend( {
     code: 302,
-    maintainQuery: false
+    maintainQuery: false,
+    raw: {}
   }, options );
 
   return ( req, res, next ) => { 
 
-    let paramValues = _.mapValues( params, k => _.get( req.params, k ) );
+    let paramValues = _.mapValues( params, k => {
+
+      if ( !_.isObject( k ) ) {
+
+        return _.get( req.params, k );
+
+      }
+
+      if ( k[ '$raw' ] ) {
+
+        return k[ '$raw' ];
+
+      }
+
+      if ( k[ '$route' ] || k[ '$base64Route' ] ) {
+
+        let key = k[ '$route' ] || k[ '$base64Route' ];
+
+        let v = req.genUrl( key[ 0 ], _.mapValues( key[ 1 ], r => _.get( req.params, r ) ) );
+
+        if ( k[ '$base64Route' ] ) {
+
+          v = ( new Buffer( v, 'utf-8' ) ).toString( 'base64' );
+
+        }
+
+        return v;
+
+      }
+
+      return null;
+
+    } );
 
     if ( params.maintainQuery ) {
 

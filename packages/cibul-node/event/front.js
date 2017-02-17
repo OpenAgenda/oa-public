@@ -5,8 +5,10 @@ const modLib = require( '../lib/moduleLib' ),
   cmn = require( '../lib/commons-app' ),
   
   config = require( '../config' ),
-  
-  utils = require( 'utils' ),
+
+  _ = require( 'lodash' ),
+
+  sessions = require( 'sessions' ),
   
   agendaSvc = require( '../services/agenda' ),
   
@@ -45,6 +47,15 @@ const modLib = require( '../lib/moduleLib' ),
     agendaEventShowPrivate: [ 'get', '/:slug.prv/events/:eventSlug', [
       agendaSvc.mw.load( 'slug' ),
       cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'agendaShow', { slug: 'slug', eventSlug: 'eventSlug' } ) ),
+      sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignin', { 
+        slug: 'slug',
+        msg: {
+          $raw: 'limitedAccessEvent'
+        },
+        redirect: { 
+          $base64Route: [ 'agendaEventShowPrivate', { slug: 'slug', eventSlug: 'eventSlug' } ] 
+        }
+      } ) ),
       cmn.checkStakeholder
     ].concat( middlewares.agendaEventShow ) ],
 
@@ -240,7 +251,7 @@ function _addLanguageLinks( req, uri, uriParams ) {
 
     linkedLanguages.push({
       label: lang,
-      link: req.genUrl( uri, utils.extend( {}, uriParams, { lang: lang } ) )
+      link: req.genUrl( uri, _.extend( {}, uriParams, { lang: lang } ) )
     });
 
   });
@@ -303,7 +314,7 @@ function _formatAgendaLinks( uri, keys ) {
     // link to results for event location in agenda
     req.formatted.locationLink = req.genUrl( uri, [
       routeValues,
-      { oaq: utils.extend( { location: req.event.getLocationUid() }, baseSearchQuery ) },
+      { oaq: _.extend( { location: req.event.getLocationUid() }, baseSearchQuery ) },
       { lang: req.lang }
     ] );
 
@@ -316,7 +327,7 @@ function _formatAgendaLinks( uri, keys ) {
 
       req.formatted.categoryLink = req.genUrl( uri, [
         routeValues,
-        { oaq: utils.extend( { category: req.formatted.categorySlug }, baseSearchQuery ) },
+        { oaq: _.extend( { category: req.formatted.categorySlug }, baseSearchQuery ) },
         { lang: req.lang }
       ] );
 
