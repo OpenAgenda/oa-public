@@ -25,6 +25,7 @@
   "event/action",
   "eventForm/index",
   "eventFormTags/index",
+  "dialog/index",
   "home/agendas",
   "members/index",
   "newsletter/event/full",

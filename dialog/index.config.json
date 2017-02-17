@@ -1,0 +1,14 @@
+{
+  "layout" : "bsLayout/main",
+  "bsCss" : {
+    "main" : "/node_modules/bs-templates/compiled/main.css"
+  },
+  "helpers" : {
+    "_txt" : "text",
+    "_i" : "image"
+  },
+  "labels" : "auth/messages",
+  "base" : {
+    "includeActionLinks" : false
+  }
+}
