@@ -2,11 +2,15 @@
 
 var express = require( 'express' );
 
-var app = express(),
+const app = express(),
+
+  server = require( 'http' ).createServer( app ),
 
   templatesBase = __dirname + '/templates',
 
   recursiveListPaths = require( './scripts/recursiveListPaths' ),
+
+  reload = require( 'reload' ),
 
   renderEjs = require( './scripts/renderEjs' ),
 
@@ -41,13 +45,18 @@ app.get( '/', ( req, res, next ) => {
 
 } );
 
+reload( server, app );
+
 
 /**
  * render ejs template
  */
 app.get( /ejs$/, ( req, res, next ) => {
 
-  res.send( renderEjs( templatesBase + req.path ) );
+  res.send( 
+    renderEjs( templatesBase + req.path )
+    .replace( '</head>', '<script src="/reload/reload.js"></script></head>' )
+  );
 
 } );
 
@@ -110,4 +119,4 @@ app.get( /(png|jpg|jpeg|svg|eot|ttf|woff)$/, ( req, res, next ) => {
 
 } );
 
-app.listen( process.env.PORT || 3000 );
+server.listen( process.env.PORT || 3000 );
