@@ -37,7 +37,9 @@ $secondaryColor: white;
     padding: 10px 20px;
     position: relative;
     text-decoration: none;
-    width: 230px;
+    display: inline-block;
+    min-width: 230px;
+    white-space: nowrap;
     &:hover {
       background-color:$secondaryColor;
       color: $primaryColor;
