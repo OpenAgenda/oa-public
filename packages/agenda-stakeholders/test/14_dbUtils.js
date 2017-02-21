@@ -51,7 +51,7 @@ describe( 'agenda-stakeholders - unit (server): dbUtils', function() {
         agendaId: 4608,
         credential: 1,
         createdAt: v.stakeholder.createdAt, // not tested
-        updatedAt: new Date( '2016-02-19 10:53:05.000 +0100' ),
+        updatedAt: new Date( '2016-02-19 10:53:05.000' ),
         custom: {
           organization: { 
             label: 'Arboretum des Grandes Bruyères',
@@ -59,6 +59,7 @@ describe( 'agenda-stakeholders - unit (server): dbUtils', function() {
           },
           contactNumber: '0238571261',
           contactName: 'Marie DEGAEY',
+          email: 'goa@tee.com',
           contactPosition: 'Chargée de développement touristique'           
         }
       } );

@@ -1,0 +1,204 @@
+"use strict";
+
+const async = require( 'async' ),
+
+  queue = require( 'queue' ),
+
+  logger = require( 'basic-logger' ),
+
+  _ = require( 'lodash' ),
+
+  create = require( './create' ),
+
+  update = require( './update' ),
+
+  get = require( './get' ),
+
+  types = require( '../iso/credentialTypes' );
+
+module.exports = _.extend( bulk, {
+  task,
+  init
+} );
+
+let q, queueConfig, log;
+
+
+/**
+ * this guy takes emails. Or stakeholder data
+ * and decides whether to put in queue
+ * or to process on the fly.
+ */
+function bulk( base, listData, options, cb ) {
+
+  if ( arguments.length === 3 ) {
+
+    options = {};
+    cb = arguments[ 2 ];
+
+  }
+
+  if ( !_.isArray( listData ) ) {
+
+    return cb( 'input data must be a list' );
+
+  }
+
+  if ( listData.length > queueConfig.threshold ) {
+
+    _queue( base, listData, options, cb );
+
+  } else {
+
+    _process( base, listData, options, cb );
+
+  }
+
+}
+
+
+/**
+ * this guy processes bulky work
+ * onCreate is likely used for testing only
+ */
+function task( onCreate = null ) {
+
+  q.setConsumer( ( { base, data, options }, cb ) => {
+
+    _processSingle( base, data, options, ( err, result ) => {
+
+      if ( onCreate ) onCreate( err, result );
+
+      cb( err, result );
+
+    } );
+
+  } );
+
+  q.launch();
+
+  return {
+    shutdown: q.shutdown
+  }
+
+}
+
+function init( config ) {
+
+  log = logger( 'bulkCreate' );
+
+  log( 'initing' );
+
+  queueConfig = config.queue;
+
+  q = queue( queueConfig.name, { redis: queueConfig.redis } );
+
+}
+
+
+function _process( base, listData, options, cb ) {
+
+  let results = [];
+
+  async.eachSeries( listData, ( data, ecb ) => {
+
+    _processSingle( base, data, options, ( err, result ) => {
+
+      results.push( [ err, result ] );
+
+      ecb();
+
+    } );
+
+  }, err => {
+
+    if ( err ) return cb( err );
+
+    cb( null, {
+      queued: false,
+      results
+    } );
+
+  } );
+
+}
+
+
+function _queue( base, listData, options, cb ) {
+
+  return async.eachSeries( listData, ( data, ecb ) => {
+
+    q( { base, data, options }, ecb );
+
+  }, err => {
+
+    if ( err ) return cb( err );
+
+    cb( null, {
+      queued: true
+    } );
+
+  } );
+
+}
+
+
+/**
+ * Decide whether the handle should be an update or a create. And execute.
+ */
+function _processSingle( base, data, options, cb ) {
+
+  if ( _.isObject( data ) && data.email ) {
+
+    get( base, { email: data.email }, options, ( err, stakeholder ) => {
+
+      if ( err ) return cb( err );
+
+      if ( !stakeholder ) return _create( base, data, options, cb );
+
+      // if a stakeholder exists and has a different credential
+      // than required, update only if cred is superior
+
+      if ( types.isSuperiorTo( stakeholder.credential, options.credential ) ) {
+
+        return cb( null, { 
+          operation: null, 
+          success: false,
+          errors: [ {
+            field: 'credential',
+            code: 'credential.downgrade',
+            origin: options.credential || types.get( 'contributor' )
+          } ]
+        } );
+
+      }
+
+      update( base, { email: data.email }, data, options, ( err, result ) => {
+
+        if ( err ) return cb( err );
+
+        cb( null, _.extend( result, { operation: 'update' } ) );
+
+      } );
+
+    } );
+
+  } else {
+
+    _create( base, data, options, cb );
+
+  }
+
+}
+
+function _create( base, data, options, cb ) {
+
+  create( base, data, options, ( err, result ) => {
+
+    if ( err ) return cb( err );
+
+    cb( null, _.extend( result, { operation: 'create' } ) );
+
+  } )
+
+}

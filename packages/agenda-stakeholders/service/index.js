@@ -16,6 +16,10 @@ const knexLib = require( 'knex' ),
 
   create = require( './create' ),
 
+  update = require( './update' ),
+
+  bulk = require( './bulk' ),
+
   legacy = require( './legacy' ),
 
   dbUtils = require( './dbUtils' ),
@@ -39,7 +43,7 @@ module.exports = Object.assign( agenda, {
   user,
   agenda,
   tasks: {
-    create: create.task
+    bulk: bulk.task
   },
   types: require( '../iso/credentialTypes' )
 } );
@@ -70,9 +74,9 @@ function agenda( agendaId ) {
     list: list.bind( null, { agendaId } ),
     stats: stats.bind( null, { agendaId } ),
     remove: remove.bind( null, { agendaId } ),
-    create: _.extend( create.bind( null, { agendaId } ), {
-      bulk: create.bulk.bind( null, { agendaId } )
-    } ),
+    create: create.bind( null, { agendaId } ),
+    update: update.bind( null, { agendaId } ),
+    bulk: bulk.bind( null, { agendaId } ),
     transferEvent: transferEvent( agendaId ),
     instanciate: agendaStakeholderInstanciate,
     new: newStakeholder,
@@ -214,6 +218,13 @@ function init( c, cb ) {
       knex,
       schemas,
       interfaces: config.interfaces,
+    } );
+
+  } )
+
+  .then( () => {
+
+    bulk.init( {
       queue: config.queue
     } );
 
@@ -240,6 +251,16 @@ function init( c, cb ) {
     dbUtils.init( {
       knex,
       schemas
+    } );
+
+  } )
+
+  .then( () => {
+
+    update.init( {
+      knex,
+      schemas,
+      interfaces: config.interfaces
     } );
 
   } )

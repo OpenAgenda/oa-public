@@ -4,17 +4,17 @@ module.exports.types = [ {
   value: 0,
   code: 'anonymous' // not used
 }, {
+  value: 4,
+  code: 'reader'
+}, {
   value: 1,
   code: 'contributor'
-}, {
-  value: 2,
-  code: 'administrator'
 }, {
   value: 3,
   code: 'moderator'
 }, {
-  value: 4,
-  code: 'reader'
+  value: 2,
+  code: 'administrator'
 } ];
 
 module.exports.get = code => {
@@ -42,6 +42,23 @@ module.exports.codes = {
   list: listCodes
 }
 
+module.exports.isSuperiorTo = ( cred, refCred ) => {
+
+  if ( cred === undefined ) cred = 1;
+
+  let rankings = [ -1, -1 ];
+
+  module.exports.types.forEach( ( t, i ) => {
+
+    if ( t.value === refCred ) rankings[ 1 ] = i;
+
+    if ( t.value === cred ) rankings[ 0 ] = i;
+
+  } );
+
+  return rankings[ 0 ] > rankings[ 1 ];
+
+}
 
 function listCodes( values ) {
 

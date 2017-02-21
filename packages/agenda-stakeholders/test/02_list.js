@@ -170,7 +170,7 @@ describe( 'agenda-stakeholders - functional (server): list', function() {
 
       // total of contributors & moderators loaded by
       // fixtures for agenda 4608
-      total.should.equal( 518 );
+      total.should.equal( 519 );
 
       done();
 

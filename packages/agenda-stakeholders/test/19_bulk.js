@@ -6,6 +6,7 @@ const service = require( './service' );
 const should = require( 'should' );
 const config = require( '../testconfig' );
 const _ = require( 'lodash' );
+const types = require( '../iso/credentialTypes' );
 const queue = require( 'queue' );
 
 describe( 'agenda-stakeholders - functional (server): create.bulk & task', function() {
@@ -45,7 +46,7 @@ describe( 'agenda-stakeholders - functional (server): create.bulk & task', funct
 
     it( 'bulk create takes a list of stakeholder data and callsback with listed create response', done => {
 
-      service.agenda( 4608 ).create.bulk( [ {
+      service.agenda( 4608 ).bulk( [ {
         email: 'jacky@ponceau.fr',
         contact_name: 'Jacky',
         organization: 'Chez Papy',
@@ -64,7 +65,10 @@ describe( 'agenda-stakeholders - functional (server): create.bulk & task', funct
         result.results[ 0 ][ 1 ].stakeholder.custom.should.eql( {
           email: 'jacky@ponceau.fr',
           contactName: 'Jacky',
-          organization: 'Chez Papy',
+          organization: {
+            label: 'Chez Papy',
+            slug: 'chez-papy'
+          },
           contactNumber: 17,
           contactPosition: 'Cuisto'
         } );
@@ -78,7 +82,7 @@ describe( 'agenda-stakeholders - functional (server): create.bulk & task', funct
 
     it( 'bulk create processes takes "allowPartial" option', done => {
 
-      service.agenda( 4608 ).create.bulk( [ {
+      service.agenda( 4608 ).bulk( [ {
         email: 'papy@ponceau.fr'
       } ], { allowPartial: true }, ( err, result ) => {
 
@@ -96,10 +100,68 @@ describe( 'agenda-stakeholders - functional (server): create.bulk & task', funct
 
     } );
 
+    it( 'bulk updates pre-existing stakeholders', done => {
+
+      service.agenda( 4608 ).bulk( [ {
+        email: 'goa@tee.com'
+      }, {
+        email: 'newgoa@tee.com'
+      } ], { 
+        allowPartial: true, 
+        credential: types.get( 'moderator' )
+      }, ( err, result ) => {
+
+        let r = result.results[ 0 ][ 1 ],
+
+          r1 = result.results[ 1 ][ 1 ];
+
+        r.success.should.equal( true );
+
+        r.operation.should.equal( 'update' );
+
+        r.stakeholder.custom.email.should.equal( 'goa@tee.com' );
+
+        r1.operation.should.equal( 'create' );
+
+        r1.success.should.equal( true );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'bulk does not allow downgrading stakeholders', done => {
+
+      service.agenda( 4608 ).bulk( [ {
+        email: 'downgradedgoa@tee.com'
+      } ], { 
+        allowPartial: true, 
+        credential: types.get( 'moderator' )
+      }, ( err, result ) => {
+
+        let r = result.results[ 0 ][ 1 ];
+
+        r.success.should.equal( false );
+
+        should( r.operation ).equal( null );
+
+        r.errors.should.eql( [ { 
+          field: 'credential', 
+          code: 'credential.downgrade', 
+          origin: 3 
+        } ] );
+
+        done();
+
+      } );
+
+    } );
+
 
     it( 'bulk create processes input if is below config threshold', done => {
 
-      service.agenda( 4608 ).create.bulk( [ {
+      service.agenda( 4608 ).bulk( [ {
         email: 'keeeviiiinnnalllléééééé@oa.com'
       }, {
         email: 'cooooode@oa.com'
@@ -124,7 +186,7 @@ describe( 'agenda-stakeholders - functional (server): create.bulk & task', funct
 
     it( 'bulk create over threshold queues creates', done => {
 
-      service.agenda( 4608 ).create.bulk( [ {
+      service.agenda( 4608 ).bulk( [ {
         email: 'grincheux@bn.disney'
       }, {
         email: 'jovial@bn.disney'
@@ -146,7 +208,7 @@ describe( 'agenda-stakeholders - functional (server): create.bulk & task', funct
 
     it( 'queued creates are processed by .task', done => {
 
-      service.agenda( 4608 ).create.bulk( [ {
+      service.agenda( 4608 ).bulk( [ {
         email: 'one@nb.com'
       }, {
         email: 'two@nb.com'
@@ -167,7 +229,7 @@ describe( 'agenda-stakeholders - functional (server): create.bulk & task', funct
       // task callback is not for production.
       // just here to demonstrate that create happens throught task.
       // use interfaces ( onCreate ) to follow creates
-      service.tasks.create( ( err, result ) => {
+      service.tasks.bulk( ( err, result ) => {
 
         let shouldEmail = [ 'one@nb.com', 'two@nb.com', 'three@nb.com', 'four@nb.com' ][ processedCount++ ]
 

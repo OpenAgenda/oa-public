@@ -119,8 +119,8 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
           total: 564,
           credentialTotals: {
             contributor: 508,
-            administrator: 10,
-            moderator: 46
+            administrator: 11,
+            moderator: 45
           }
         } );
 
@@ -133,7 +133,7 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
   } );
 
 
-  describe( '.bulkCreate', () => {
+  describe( '.bulk', () => {
 
     it( 'create multiple stakeholders', done => {
 
@@ -148,7 +148,7 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
         allowPartial: true
       }, res = {};
 
-      stakeholderMw.agenda().bulkCreate( { allowPartial: true } )( req, res, next );
+      stakeholderMw.agenda().bulk( { allowPartial: true } )( req, res, next );
 
       function next() {
 

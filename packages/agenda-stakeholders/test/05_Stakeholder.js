@@ -86,7 +86,6 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
 
     } );
 
-
   } );
 
 

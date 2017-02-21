@@ -3,6 +3,8 @@
 // tests at test/format
 const _ = require( 'lodash' ),
 
+  slug = require( 'slug' ),
+
   correspondance = [ {
     db: 'review_id',
     obj: 'agendaId'
@@ -58,6 +60,10 @@ function objToDb( obj, filterNull = false ) {
     if ( typeof obj.custom.organization === 'object' ) {
 
       entry.organization = obj.custom.organization.slug;
+
+    } else if ( typeof obj.custom.organization === 'string' ) {
+
+      entry.organization = slug( obj.custom.organization, { lower: true } );
 
     }
 

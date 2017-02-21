@@ -17,7 +17,7 @@ function agenda( namespace = 'agenda' ) {
     stats,
     update,
     remove,
-    bulkCreate
+    bulk
   }
 
   function load( serviceNamespace = 'stakeholders' ) {
@@ -121,7 +121,7 @@ function agenda( namespace = 'agenda' ) {
 
   }
 
-  function bulkCreate( options ) {
+  function bulk( options ) {
 
     let { namespaces, allowPartial } = _.merge( {
       namespaces: {
@@ -136,7 +136,8 @@ function agenda( namespace = 'agenda' ) {
       const { stakeholders, crendential } = _.get( req, namespaces.data );
 
       service.agenda( _.get( req, namespace ).id )
-        .create.bulk( stakeholders, { allowPartial, crendential }, ( err, result ) => {
+
+        .bulk( stakeholders, { allowPartial, crendential }, ( err, result ) => {
 
         if ( err ) return next( err );
 

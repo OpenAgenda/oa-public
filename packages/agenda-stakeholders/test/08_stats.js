@@ -25,8 +25,8 @@ describe( 'agenda-stakeholders - functional (server): stats', function() {
 
       stats.credentialTotals.should.eql( { 
         contributor: 508,
-        administrator: 10,
-        moderator: 46 
+        administrator: 11,
+        moderator: 45
       } );
 
       done();

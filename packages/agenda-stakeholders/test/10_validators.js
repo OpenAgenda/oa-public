@@ -76,7 +76,7 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
       .should.eql( {
         search: null,
         invited: null,
-        credentials: [ 1, 4 ],
+        credentials: [ 4, 1 ],
         userId: null,
         agendaId: null
       } );

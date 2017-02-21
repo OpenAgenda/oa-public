@@ -23,10 +23,10 @@ describe( 'agenda-stakeholders - functional (server): create', function() {
 
       service.agenda( 4608 ).create( {
         email: 'jacky@ponceau.fr',
-        contact_name: 'Jacky',
+        contactName: 'Jacky',
         organization: 'Chez Papy',
-        contact_number: 17,
-        contact_position: 'Cuisto'
+        contactNumber: 17,
+        contactPosition: 'Cuisto'
       }, ( err, result ) => {
 
         result.success.should.equal( true );
@@ -34,7 +34,10 @@ describe( 'agenda-stakeholders - functional (server): create', function() {
         result.stakeholder.custom.should.eql( {
           email: 'jacky@ponceau.fr',
           contactName: 'Jacky',
-          organization: 'Chez Papy',
+          organization: {
+            label: 'Chez Papy',
+            slug: 'chez-papy'
+          },
           contactNumber: 17,
           contactPosition: 'Cuisto'
         } );
