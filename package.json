@@ -76,7 +76,7 @@
     "moment": "2.9.0",
     "moment-timezone": "^0.5.3",
     "node-sass": "3.3.3",
-    "outdated-browser-rework": "0.1.1",
+    "outdated-browser-rework": "^1.0.2",
     "qs": "2.3.3",
     "raven-js": "^3.9.1",
     "raw-loader": "^0.5.1",
