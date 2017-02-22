@@ -6,6 +6,65 @@ This service provides methods to perform crud operations on events. Other than a
 
 Methods include basic crud operations, as well as validation, global stats and a deletion index.
 
+
+# Structure of an event
+
+## List of fields
+
+These exclude information relative to the event publication state, categorization or decoration in the context of an agenda/calendar.
+The only agenda-related information listed here is the 'origin' agenda, where the event was first published
+
+This list is not ( exactly ) the data given in the reboot of the json export. The json export will be a subset of this list, decorated with location details.
+
+id & deletedAt are not mentionned here as their use is strictly internal
+
+| Field name           | required    | read-only    | multilingual | type                  | default       | description
+|----------------------|:-----------:|:------------:|:------------:|-----------------------|:-------------:|-------------
+| uid                  |      x      |      x       |              | integer               |               | unique identifier
+| slug                 |      x      |              |              | text                  |               | unique slug ( used for urls )
+| ownerUid             |      x      |      x       |              | integer               |               | uid of the user owning the event
+| creatorUid *         |      x      |      x       |              | integer               |               | uid of the user having created the event
+| agendaUid            |      x      |              |              | integer               |               | uid of the agenda where the event was created
+| locationUid          |             |              |              | integer               |               | uid of the location where the event takes place
+| url*                 |             |              |              | link                  |               | for online events, url of the event
+| title                |      x      |      x       |      x       | text                  |               | title of the event
+| canonicalUrl*        |             |              |              | link                  |               | reference page for the event
+| description          |             |              |      x       | text                  |               | short description of the event
+| longDescription      |             |              |      x       | text                  |               | long description of the event
+| keywords             |             |              |      x       | list of texts         |    []         | keywords of the event
+| registration         |             |              |              | list of url/txt/phone |    []         | registration urls, phone numbers or emails
+| conditions           |             |              |      x       | text                  |               | condtions of access to the event ( rsvp required, free access... )
+| image                |             |              |              | object                |               | 
+| image.filename       |      x      |      x       |              | text                  |               | name of the image file  
+| image.credits        |             |              |              | text                  |               | image credits
+| image.size           |      x      |              |              | object                |               | 
+| image.size.width     |      x      |      x       |              | integer               |               | width of the image in pixels
+| image.size.height    |      x      |      x       |              | integer               |               | height of the image in pixels
+| image.variants       |             |              |              | list of objects       |               | variants of the image.
+| image.variants.type  |      x      |      x       |              | type of the variant   |               | type is either 'thumbnail' or 'original'
+| draft*               |      x      |              |              | boolean               |   false       | true when the event is a draft ( in which case it can be incomplete )
+| private              |             |      x       |              | boolean               |   false       | true if the event access is to be restricted
+| accessibility        |             |              |              | list of codes         |    []         | applicable accessibility during the event ( visually impaired, psychic impairment... )
+| timezone             |      x      |              |              | text                  |               | timezone of reference ( required event for online events )
+| accessTiming*        |             |              |              | text ( code )         |               | describes when, relative to timings, the event can be accessed: 'punctual' or 'flexible'
+| timings              |      x      |              |              | list of objects       |               | 
+| timings.begin        |      x      |              |              | datetime              |               | time when the event begins
+| timings.end          |      x      |              |              | datetime              |               | time when the event ends
+| age                  |             |              |              | object                |               |   
+| age.min              |             |              |              | integer               |               | minimum age for intended public
+| age.max              |             |              |              | integer               |               | maximum age for intended public
+| updatedAt            |      x      |       x      |              | datetime              |               | when the event was last updated
+| createdAt            |      x      |       x      |              | datetime              |               | when the event was last created
+
+## Proposed additional fields
+
+ * **creatorUid**: it occasionnally happens that an events change hands. It can be claimed by a user and passed on. Currently, only the ownerId is stored meaning that everytime an ownership change occurs the information of the original event creator is lost.
+ * **url**: some events are not associated to a physical location but rather to a virtual one ( i.e. a webinar ). The url serves as virtual location in these cases;
+ * **canonicalUrl**: some events have an origin independent from the OpenAgenda platform. In those cases, their representation on OA data formats will come with a canonical reference to the source event. This answers the issue raised by webmasters concerned by the SEO scores of their websites. The canonical url will encourage that any webpage displaying the event content would add a canonical url pointing to the origin website
+ * **draft**: feature regularly requested by users on OA. Draft events are partially completed events. Drafts can never be published, but they can be edited by any user having edition rights over the event.
+ * **accessTiming**: explicit indication stating how the event can be accessed relative to its timings. 'strict' would mean that an event can only be accessed precisely at the 'begin' time ( a theater play ), 'flexible' would mean that the event is accessible at any time between any given timing begin and end times. In many cases, this can be inferred by other event data ( keywords or single timing spans ), but if this is to be used in event filtering it can be useful to leave the final control to the event owner ( if the event has started and doors are closed, displaying it as an 'ongoing' event the user can go to is flawed ). event form UI can do the inferring, the user can just correct any wrong automatically defined value.
+
+
 # Methods
 
 ## Initialization
