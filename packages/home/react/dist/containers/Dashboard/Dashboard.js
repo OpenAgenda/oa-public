@@ -349,7 +349,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                   { className: 'title media-heading' },
                   _react3.default.createElement(
                     'a',
-                    { href: res.show.replace(':slug', agenda.slug) },
+                    { href: res[agenda.private ? 'showPrivate' : 'show'].replace(':slug', agenda.slug) },
                     _react3.default.createElement(
                       'strong',
                       null,
@@ -368,6 +368,21 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                         'div',
                         { className: 'tooltip-inner' },
                         getLabel('officialAgenda')
+                      )
+                    )
+                  ),
+                  !!agenda.private && _react3.default.createElement(
+                    'div',
+                    { className: 'tooltip-icon' },
+                    _react3.default.createElement('i', { className: 'fa fa-unlock-alt' }),
+                    _react3.default.createElement(
+                      'div',
+                      { className: 'tooltip right', role: 'tooltip' },
+                      _react3.default.createElement('div', { className: 'tooltip-arrow' }),
+                      _react3.default.createElement(
+                        'div',
+                        { className: 'tooltip-inner' },
+                        getLabel('privateAgenda')
                       )
                     )
                   )

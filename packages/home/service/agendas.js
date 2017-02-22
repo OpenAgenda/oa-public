@@ -79,7 +79,7 @@ function _total( v ) {
 
 function _list( v ) {
 
-  const fields = [ 'uid', 'title', 'slug', 'image', 'official', 'created_at', 'updated_at' ]
+  const fields = [ 'uid', 'title', 'slug', 'image', 'official', 'created_at', 'updated_at', 'private' ]
     .map( col => `${config.schemas.agenda}.${col}` )
     .concat( [ `${config.schemas.stakeholder}.credential as credential` ] );
 

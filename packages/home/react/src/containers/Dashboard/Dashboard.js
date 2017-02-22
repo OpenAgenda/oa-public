@@ -191,12 +191,19 @@ export default class Dashboard extends Component {
               </div>
               <div className="media-body">
                 <div className="title media-heading">
-                  <a href={res.show.replace( ':slug', agenda.slug )}><strong>{agenda.title}</strong></a>
+                  <a href={res[ agenda.private ? 'showPrivate' : 'show' ].replace( ':slug', agenda.slug )}><strong>{agenda.title}</strong></a>
                   {!!agenda.official && <div className="official">
                     <i />
                     <div className="tooltip right" role="tooltip">
                       <div className="tooltip-arrow" />
                       <div className="tooltip-inner">{getLabel( 'officialAgenda' )}</div>
+                    </div>
+                  </div>}
+                  {!!agenda.private && <div className="tooltip-icon">
+                    <i className="fa fa-unlock-alt"></i>
+                    <div className="tooltip right" role="tooltip">
+                      <div className="tooltip-arrow"></div>
+                      <div className="tooltip-inner">{getLabel( 'privateAgenda' )}</div>
                     </div>
                   </div>}
                 </div>

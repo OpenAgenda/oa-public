@@ -67,6 +67,7 @@ function matchApp( req, res, next ) {
           notifs: '/home/notifications',
           moderate: '/:slug/admin',
           show: '/:slug',
+          show: '/:slug.prv',
           addEvent: '/:slug/addevent',
           search: '/agendas'
         }
