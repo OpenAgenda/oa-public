@@ -179,11 +179,13 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
           agenda: { id: 4608 },
           user: { id: 7773 },
           data: {
-            organization: 'Latouche International Corp',
-            email: 'gaetan@latouche.com',
-            contactNumber: '06',
-            contactName: 'Gaetan Latouche',
-            contactPosition: 'Overlord'
+            fieldValues: {
+              organization: 'Latouche International Corp',
+              email: 'gaetan@latouche.com',
+              contactNumber: '06',
+              contactName: 'Gaetan Latouche',
+              contactPosition: 'Overlord'
+            }
           }
         },
 
@@ -197,7 +199,7 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
           success: true,
           valid: true,
           errors: [],
-          data: {
+          fieldValues: {
             organization: {
               label: 'Latouche International Corp',
               slug: 'latouche-international-corp'
@@ -207,6 +209,52 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
             contactName: 'Gaetan Latouche',
             contactPosition: 'Overlord'
           }
+        } );
+
+        done();
+
+      }
+
+    } );
+
+    it( 'updates a stakeholder with credentials', done => {
+
+      const req = {
+          agenda: { id: 4608 },
+          user: { id: 7773 },
+          data: {
+            fieldValues: {
+              organization: 'Latouche International Corp',
+              email: 'gaetan@latouche.com',
+              contactNumber: '06',
+              contactName: 'Gaetan Latouche',
+              contactPosition: 'Overlord'
+            },
+            credential: 3
+          }
+        },
+
+        res = {};
+
+      stakeholderMw.agenda().update( { credential: true } )( req, res, next );
+
+      function next() {
+
+        req.result.should.eql( {
+          success: true,
+          valid: true,
+          errors: [],
+          fieldValues: {
+            organization: {
+              label: 'Latouche International Corp',
+              slug: 'latouche-international-corp'
+            },
+            email: 'gaetan@latouche.com',
+            contactNumber: '06',
+            contactName: 'Gaetan Latouche',
+            contactPosition: 'Overlord'
+          },
+          credential: 3
         } );
 
         done();

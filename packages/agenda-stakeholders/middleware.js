@@ -59,7 +59,8 @@ function agenda( namespace = 'agenda' ) {
 
   function update( options ) {
 
-    let { namespaces } = _.merge( {
+    let { namespaces, credential } = _.merge( {
+      credential: false, // allow credential update
       namespaces: {
         user: 'user',
         result: 'result',
@@ -69,21 +70,30 @@ function agenda( namespace = 'agenda' ) {
 
     return ( req, res, next ) => {
 
-      service.agenda( _.get( req, namespace ).id ).get( { userId: _.get( req, namespaces.user ).id }, { instanciate: true }, ( err, instance ) => {
+      service.agenda( _.get( req, namespace ).id ).update( { 
+        userId: _.get( req, namespaces.user ).id 
+      }, _.get( req, namespaces.data ).fieldValues, {
+        credential: credential ? _.get( req, namespaces.data ).credential : null
+      },( err, result ) => {
 
         if ( err ) return next( err );
 
-        if ( !instance ) return next( 'stakeholder not found' );
+        let mwResult = {
+          success: result.success,
+          valid: result.valid,
+          errors: result.errors,
+          fieldValues: result.stakeholder ? result.stakeholder.custom : null
+        };
 
-        instance.setFieldValues( _.get( req, namespaces.data ), ( err, result ) => {
+        if ( credential ) {
 
-          if ( err ) return next( err );
+          mwResult.credential = result.stakeholder ? result.stakeholder.credential : null;
 
-          _.set( req, namespaces.result, result );
+        }
 
-          next();
+        _.set( req, namespaces.result, mwResult );
 
-        } );
+        next();
 
       } );
 
