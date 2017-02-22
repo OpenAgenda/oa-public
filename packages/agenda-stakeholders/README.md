@@ -66,7 +66,81 @@ Options:
  * event: the identifiers of the event to transfer: { id: 28374 }
 
 
-## Handling a stakeholder: instanciation
+
+## Handling a stakeholder: Stakeholder
+
+A stakeholder instance can be created on either client or server sides with iso/Stakeholder for updating stakholder field values and/or credential.
+
+### Basic usage & instanciation
+
+The simplest way to start using an instance is just to instanciate with a set of field values:
+
+    const Stakeholder = require( 'agenda-stakeholders/iso/Stakeholder');
+
+    let fieldValues = {
+      contactName: 'Al Ain',
+      contactPosition: 'Hydration manager',
+      organization: 'Al Ain mineral',
+      email: 'al@ain.ae',
+      contactNumber: '+971509232812'
+    };
+
+    let s = new Stakeholder( fieldValues );
+
+    s.get(); // gives the field values
+
+Update field values using set:
+
+    // starting from end of previous example
+    let updatedValues = extend( {}, fieldValues, { email: 'updated@email.com' } );
+
+    s.set( updatedValues ); // returns an array of validation errors ( or an empty array )
+
+To send data to a ressource that will store updates, a link can be set on the instance after it was created
+
+    s.setRes( 'http://localhost:3000/some/path' );
+
+Alternatively, the instance can be linked to a resource at initialization
+
+    let s = new Stakeholder( fieldValues, { res: 'http://localhost:3000/some/path' } );
+
+    s.set( updatedValues );
+
+    // data posted to res will look like this: { fieldValues: .. }
+    s.commit( ( err, result ) => {
+
+      /**
+       * result looks like this
+       * {
+       *   success: true,
+       *   valid: true,
+       *   errors: [], // if valid is false, this is not empty
+       *   fieldValues: // the values committed
+       * }
+       **/
+
+    } );
+
+### Handling a stakeholder credential
+
+The credential of a stakeholder can updated through an instance.
+For that to happen, separate data given at initialization between
+field values and credential.
+
+    let s = new Stakeholder( {
+      fieldValues,
+      credential: 2
+    }, { res } );
+
+From there, set should look like this:
+
+    s.set( { fieldValues, credential } )
+
+And a .commit will send `{ fieldValues, credential }`.
+
+
+
+## Handling a stakeholder: instanciation ( deprecated )
 
  To handle a stakeholder, it needs to be instanciated. Methods are then associated to the stakeholder that enable data to be fetched and/or modified
  
@@ -197,11 +271,3 @@ create a testconfig.js file at the root of the project with the following config
         agendaEvent: 'agenda_event'
       }
     }
-
-
-bulkCreate
-
-  creates stakeholders in bulk
-
-  create creates stakeholder on at a time and
-  gives result to interface

@@ -7,7 +7,7 @@ const should = require( 'should' );
 const config = require( '../testconfig' );
 const _ = require( 'lodash' );
 
-describe( 'agenda-stakeholders - functional (server): udpate', function() {
+describe( 'agenda-stakeholders - functional (server): update', function() {
 
   this.timeout( 60000 );
 

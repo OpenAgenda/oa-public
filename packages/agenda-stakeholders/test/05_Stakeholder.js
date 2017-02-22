@@ -24,7 +24,7 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
     // to 'data' through the given port
     server.resetTestConfig( {
       delay: 0,
-      data: { fieldValues: validFieldValues, credential: 1 }
+      data: { fieldValues: validFieldValues }
     } );
 
     server.listen( 3000 );
@@ -57,20 +57,9 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
 
     } );
 
-    it( 'Credentials can be passed in conjunction with data', () => {
-
-      let s = new Stakeholder( {
-        fieldValues: validFieldValues,
-        credential: 2
-      } );
-
-      s.isValid().should.equal( true );
-
-    } );
-
     it( 'To enable saving & syncing with server data, a "res" has to be specified', done => {
 
-      let s = new Stakeholder( { fieldValues: validFieldValues } );
+      let s = new Stakeholder( validFieldValues );
 
       s.isSynced( err => {
 
@@ -257,21 +246,6 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
 
     } );
 
-    it( 'get with true arg gets current data with credential', () => {
-
-      let s = new Stakeholder( {
-        contactName: 'Bidoo'
-      } );
-
-      s.get( true ).should.eql( {
-        fieldValues: {
-          contactName: 'Bidoo'
-        },
-        credential: 1
-      } );
-
-    } );
-
   } );
 
 
@@ -365,6 +339,108 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
           } );
 
         } );
+
+      } );
+
+    } );
+
+  } );
+
+
+  describe( 'with credential', () => {
+
+    beforeEach( () => {
+
+      server.resetTestConfig( {
+        delay: 0,
+        data: { 
+          fieldValues: validFieldValues,
+          credential: 1
+        }
+      } );
+
+      server.listen( 3000 );
+
+    } );
+
+    it( 'instanciate', done => {
+
+      let s = new Stakeholder( {
+        fieldValues: validFieldValues,
+        credential: 1 
+      }, { res: 'http://localhost:3000' } );
+
+      s.isSynced( ( err, synced ) => {
+
+        synced.should.equal( true );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'get', () => {
+
+      let s = new Stakeholder( {
+        fieldValues: validFieldValues,
+        credential: 1
+      } );
+
+      s.get().should.eql( {
+        fieldValues: validFieldValues,
+        credential: 1
+      } );
+
+    } );
+
+    it( 'set', () => {
+
+      let s = new Stakeholder( {
+        fieldValues: validFieldValues,
+        credential: 1
+      } ),
+
+        update = extend( {}, validFieldValues, { email: 'new@email.com' } );
+
+      s.set( {
+        fieldValues: update,
+        credential: 2
+      } ).should.eql( [] );
+
+      s.get().should.eql( {
+        fieldValues: update,
+        credential: 2
+      } );
+
+    } );
+
+    it( 'commit', done => {
+
+      let s = new Stakeholder( {
+        fieldValues: validFieldValues,
+        credential: 1
+      }, { res: 'http://localhost:3000' } ),
+
+        update = extend( {}, validFieldValues, { email: 'new@email.com' } );
+
+      s.set( {
+        fieldValues: update,
+        credential: 2
+      } );
+
+      s.commit( ( err, result ) => {
+
+        should( err ).equal( null );
+
+        result.success.should.equal( true );
+
+        server.getTestConfig().data.should.eql( {
+          fieldValues: update,
+          credential: 2
+        } );
+        
+        done();
 
       } );
 

@@ -108,12 +108,19 @@ module.exports = class {
 
   }
 
-  get( includeCredentials ) {
+  get( standardized ) {
 
-    return includeCredentials ? {
-      fieldValues: this._fieldValues,
+    if ( this._credential === null && !standardized ) {
+
+      return this._fieldValues;
+
+    }
+
+    return extend( {
+      fieldValues: this._fieldValues
+    }, this._credential ? {
       credential: this._credential
-    } : this._fieldValues;
+    } : {} );
 
   }
 
@@ -121,10 +128,7 @@ module.exports = class {
 
     if ( !this.link ) return cb( 'No link is established with server' );
 
-    this.link.isSynced( {
-      fieldValues: this._fieldValues,
-      credential: this._credential
-    }, cb );
+    this.link.isSynced( this.get( true ), cb );
 
   }
 
@@ -144,20 +148,15 @@ module.exports = class {
 
     }
 
-    this.link.commit( {
-      fieldValues: this._fieldValues, 
-      credential: this._credential
-    }, err => {
+    this.link.commit( this.get(), err => {
 
       if ( err ) return cb( err );
 
-      cb( null, {
+      cb( null, extend( {
         success: true,
         valid: true,
-        errors: [],
-        fieldValues: this._fieldValues,
-        credential: this._credential
-      } );
+        errors: []
+      }, this.get( true ) ) );
 
     } );
 
@@ -206,6 +205,6 @@ function _extractCredential( data ) {
 
   if ( data && data.credential ) return data.credential;
 
-  return types.get( 'contributor' );
+  return null;
 
 }
