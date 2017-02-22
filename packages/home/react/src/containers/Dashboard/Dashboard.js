@@ -66,12 +66,12 @@ export default class Dashboard extends Component {
   };
 
   renderField = ( {
-    content, input: { name, value }, label, subLabel, max, classNameGroup, visible,
+    content, input: { name, value }, label, subLabel, max, classNameGroup, visible = true,
     errorOnDirty, meta: { touched, error, dirty }
   } ) => {
     const displayError = errorOnDirty ? dirty || touched : touched;
 
-    if ( visible !== true ) return <div></div>;
+    if ( !visible ) return <div></div>;
 
     return (
       <div className={`form-group ${classNameGroup} ${displayError && error ? 'has-error has-feedback' : ''}`}>
@@ -177,7 +177,7 @@ export default class Dashboard extends Component {
             placeholder={getLabel( 'searchAgenda' )}
             action={this.debouncedSearch}
             loading={loading}
-            visible={total > perPageLimit || query.search || search}
+            visible={search || query.search || total > perPageLimit}
           />
         </form>
         <div className="row">
