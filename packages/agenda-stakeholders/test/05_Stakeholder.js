@@ -6,7 +6,7 @@ const Stakeholder = require( '../iso/Stakeholder.js' );
 
 const extend = require( 'lodash/extend' );
 
-const validData = { 
+const validFieldValues = { 
   contactName: 'Jeff',
   contactNumber: '01',
   contactPosition: 'Over there',
@@ -24,7 +24,7 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
     // to 'data' through the given port
     server.resetTestConfig( {
       delay: 0,
-      data: validData
+      data: { fieldValues: validFieldValues, credential: 1 }
     } );
 
     server.listen( 3000 );
@@ -43,16 +43,26 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
 
       let s = new Stakeholder();
 
-      s.set( validData );
+      s.set( validFieldValues );
 
       s.isValid().should.equal( true );
 
     } );
 
-
     it( 'Data can also be passed as first argument', () => {
 
-      let s = new Stakeholder( validData );
+      let s = new Stakeholder( validFieldValues );
+
+      s.isValid().should.equal( true );
+
+    } );
+
+    it( 'Credentials can be passed in conjunction with data', () => {
+
+      let s = new Stakeholder( {
+        fieldValues: validFieldValues,
+        credential: 2
+      } );
 
       s.isValid().should.equal( true );
 
@@ -60,7 +70,7 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
 
     it( 'To enable saving & syncing with server data, a "res" has to be specified', done => {
 
-      let s = new Stakeholder( validData );
+      let s = new Stakeholder( { fieldValues: validFieldValues } );
 
       s.isSynced( err => {
 
@@ -74,7 +84,7 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
 
     it( 'res can be specified at initialization', done => {
 
-      let s = new Stakeholder( validData, { res: 'http://localhost:3000' } );
+      let s = new Stakeholder( { fieldValues: validFieldValues }, { res: 'http://localhost:3000' } );
 
       s.isSynced( ( err, synced ) => {
 
@@ -93,7 +103,7 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
 
     it( 'res can be specified and re-specified later on', done => {
 
-      let s = new Stakeholder( validData );
+      let s = new Stakeholder( { fieldValues: validFieldValues } );
 
       s.setRes( 'http://localhost:3000' );
 
@@ -111,7 +121,7 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
 
       let expectedSequence = [ true, false ], iteration = 0;
 
-      let s = new Stakeholder( validData, { 
+      let s = new Stakeholder( validFieldValues, { 
         res: 'http://localhost:3000',
         onBusyChange: busy => {
 
@@ -145,7 +155,7 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
 
     it( 'Changing values after sync means instance will be unsynced again', done => {
 
-      let s = new Stakeholder( validData, {
+      let s = new Stakeholder( validFieldValues, {
         res: 'http://localhost:3000',
       } );
 
@@ -153,7 +163,7 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
 
         synced.should.equal( true );
 
-        s.set( extend( {}, validData, {
+        s.set( extend( {}, validFieldValues, {
           email: 'other@email.com'
         } ) );
 
@@ -224,7 +234,7 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
 
     it( 'it just returns an empty array if there are no errors', () => {
 
-      let s = new Stakeholder( validData );
+      let s = new Stakeholder( { fieldValues: validFieldValues } );
 
       s.getErrors().should.eql( [] );
 
@@ -243,6 +253,21 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
 
       s.get().should.eql( {
         contactName: 'Bidoo'
+      } );
+
+    } );
+
+    it( 'get with true arg gets current data with credential', () => {
+
+      let s = new Stakeholder( {
+        contactName: 'Bidoo'
+      } );
+
+      s.get( true ).should.eql( {
+        fieldValues: {
+          contactName: 'Bidoo'
+        },
+        credential: 1
       } );
 
     } );
@@ -274,7 +299,9 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
         contactName: 'Jeff'
       } );
 
-      s.set( extend( {}, validData, { email: 'Jeffsatemail.com' } ) )
+      s.set( {
+        fieldValues: extend( {}, validFieldValues, { email: 'Jeffsatemail.com' } ) 
+      } )
 
       .should.eql( [ {
         field: 'email',
@@ -291,11 +318,14 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
   describe( '.commit', () => {
 
     let broker = {
-      contactName: 'Joel Backman',
-      contactPosition: 'Lawyer',
-      organization: 'Backman',
-      email: 'joel@backman.com',
-      contactNumber: '+18002223344'
+      credential: 1,
+      fieldValues: {
+        contactName: 'Joel Backman',
+        contactPosition: 'Lawyer',
+        organization: 'Backman',
+        email: 'joel@backman.com',
+        contactNumber: '+18002223344'
+      }
     };
 
     it( 'commit pushes the field data to the server', done => {

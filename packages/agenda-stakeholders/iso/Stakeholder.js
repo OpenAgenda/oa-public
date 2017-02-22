@@ -11,6 +11,8 @@ const extend = require( 'lodash/extend' );
 
 const schema = require( 'validators/schema' );
 
+const types = require( './credentialTypes' );
+
 const Link = require( './Link' );
 
 module.exports = class {
@@ -21,7 +23,8 @@ module.exports = class {
 
     extend( this, {
       _schema: schema( clean.options.schemaMap ),
-      _data: clean.data,
+      _fieldValues: _extractFieldValues( clean.data ),
+      _credential: _extractCredential( clean.data ),
       _hooks: {
         onBusyChange: clean.options.onBusyChange
       }
@@ -83,7 +86,7 @@ module.exports = class {
 
     try {
 
-      this._schema( this._data );
+      this._schema( this._fieldValues );
 
     } catch( e ) { errors =  e };
 
@@ -93,15 +96,24 @@ module.exports = class {
 
   set( data ) {
 
-    this._data = data;
+    this._fieldValues = _extractFieldValues( data );
+
+    if ( data && data.credential ) {
+
+      this._credential = data.credential;
+
+    }
 
     return this.getErrors();
 
   }
 
-  get() {
+  get( includeCredentials ) {
 
-    return this._data;
+    return includeCredentials ? {
+      fieldValues: this._fieldValues,
+      credential: this._credential
+    } : this._fieldValues;
 
   }
 
@@ -109,7 +121,10 @@ module.exports = class {
 
     if ( !this.link ) return cb( 'No link is established with server' );
 
-    this.link.isSynced( this._data, cb );
+    this.link.isSynced( {
+      fieldValues: this._fieldValues,
+      credential: this._credential
+    }, cb );
 
   }
 
@@ -129,7 +144,10 @@ module.exports = class {
 
     }
 
-    this.link.commit( this._data, err => {
+    this.link.commit( {
+      fieldValues: this._fieldValues, 
+      credential: this._credential
+    }, err => {
 
       if ( err ) return cb( err );
 
@@ -137,7 +155,8 @@ module.exports = class {
         success: true,
         valid: true,
         errors: [],
-        data: this._data
+        fieldValues: this._fieldValues,
+        credential: this._credential
       } );
 
     } );
@@ -172,5 +191,21 @@ function _cleanConstructor( args ) {
     options: extend( {}, defaults, options ),
     cb
   }
+
+}
+
+function _extractFieldValues( data ) {
+
+  if ( data && data.fieldValues ) return data.fieldValues;
+
+  return data;
+
+}
+
+function _extractCredential( data ) {
+
+  if ( data && data.credential ) return data.credential;
+
+  return types.get( 'contributor' );
 
 }
