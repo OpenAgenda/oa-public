@@ -20,7 +20,9 @@ const knexLib = require( 'knex' ),
 
   mw = require( '../middleware' ),
 
-  update = require( './update' );
+  update = require( './update' ),
+
+  _ = require( 'lodash' );
 
 
 var config, knex, schemas;
@@ -152,7 +154,7 @@ function get( query, options, cb ) {
   if ( !config ) return cb( 'service not initialized' );
 
   w( {
-    identifier: getIdentifier( query ),
+    identifier: _.pick( query, [ 'id', 'uid', 'key', 'email' ] ),
     user: null,
     params
   } )
@@ -182,7 +184,7 @@ function set( query, options, cb ) {
   if ( !config ) return cb( 'service not initialized' );
 
   w( {
-    identifier: getIdentifier( query, true ),
+    identifier: _.pick( query, [ 'id', 'uid' ] ),
     query: Object.assign( {}, query ),
     params,
     user: null,
@@ -213,7 +215,7 @@ function updateProfile( query, cb ) {
   // full_name & culture
 
   w( {
-    identifier: getIdentifier( query ),
+    identifier: _.pick( query, [ 'id', 'uid', 'email' ] ),
     query,
     user: null,
     valid: false,
@@ -243,7 +245,7 @@ function changePassword( query, cb ) {
   if ( !config ) return cb( 'service not initialized' );
 
   w( {
-    identifier: getIdentifier( query ),
+    identifier: _.pick( query, [ 'id', 'uid', 'email' ] ),
     query: Object.assign( {}, query ),
     valid: false,
     success: false,
@@ -271,7 +273,7 @@ function verifyPassword( query, cb ) {
   if ( !config ) return cb( 'service not initialized' );
 
   w( {
-    identifier: getIdentifier( query ),
+    identifier: _.pick( query, [ 'id', 'uid', 'email' ] ),
     params: { password: true },
     query,
     success: false
@@ -290,7 +292,7 @@ function requestChangeEmail( query, cb ) {
   if ( !config ) return cb( 'service not initialized' );
 
   w( {
-    identifier: getIdentifier( query, true ),
+    identifier: _.pick( query, [ 'id', 'uid', 'email' ] ),
     query: Object.assign( {}, query ),
     params: { store: true },
     valid: false,
@@ -321,7 +323,7 @@ function confirmChangeEmail( query, cb ) {
   if ( !config ) return cb( 'service not initialized' );
 
   w( {
-    identifier: getIdentifier( query ),
+    identifier: _.pick( query, [ 'id', 'uid', 'email' ] ),
     query: Object.assign( {}, query ),
     params: { store: true },
     errors: [],
@@ -354,7 +356,7 @@ function generateApiKey( query, options, cb ) {
   if ( !config ) return cb( 'service not initialized' );
 
   w( {
-    identifier: getIdentifier( query ),
+    identifier: _.pick( query, [ 'id', 'uid', 'email' ] ),
     query: Object.assign( {}, query ),
     params,
     errors: [],
@@ -380,7 +382,7 @@ function remove( query, cb ) {
   if ( !config ) return cb( 'service not initialized' );
 
   w( {
-    identifier: getIdentifier( query ),
+    identifier: _.pick( query, [ 'id', 'uid', 'email' ] ),
     query,
     errors: [],
     success: false,
@@ -477,32 +479,29 @@ function _get( v ) {
   const store = v.params && v.params.store;
   const removed = v.params && v.params.removed || false;
 
-  return knex.transaction( trx => {
+  const fields = (detailed ? detailedFields : basicFields)
+    .concat( password ? [ 'password', 'salt' ] : [] )
+    .concat( store ? 'store' : [] )
+    .concat( !detailed && !removed ? 'is_removed' : [] )
+    .map( v => `${schemas.user}.${v}` )
+    .concat( detailed || v.identifier.key ? [ schemas.apiKeySet + '.api_key', schemas.apiKeySet + '.api_secret' ] : [] );
 
-    const fields = (detailed ? detailedFields : basicFields)
-      .concat( password ? [ 'password', 'salt' ] : [] )
-      .concat( store ? 'store' : [] )
-      .concat( !detailed && !removed ? 'is_removed' : [] )
-      .map( v => `${schemas.user}.${v}` )
-      .concat( detailed ? [ schemas.apiKeySet + '.api_key', schemas.apiKeySet + '.api_secret' ] : [] );
+  let request = knex.column( fields ).select().from( schemas.user );
 
-    let request = knex.column( fields ).select().from( schemas.user );
+  if ( detailed || v.identifier.key ) {
+    request = request.leftJoin( schemas.apiKeySet, schemas.user + '.id', schemas.apiKeySet + '.user_id' );
+  }
 
-    if ( detailed ) {
-      request = request.leftJoin( schemas.apiKeySet, schemas.user + '.id', schemas.apiKeySet + '.user_id' );
-    }
+  if ( !removed ) {
+    request = request.where( schemas.user + '.is_removed', 0 );
+  }
 
-    if ( !removed ) {
-      request = request.where( schemas.user + '.is_removed', 0 );
-    }
+  const whereColumn = v.identifier.key ? schemas.apiKeySet + '.api_key' : schemas.user + '.' + ( identifiers[ 0 ] || 'id' );
+  const whereValue = v.identifier[ identifiers[ 0 ] ] || -1;
 
-    return request
-      .where( schemas.user + '.' + ( identifiers[ 0 ] || 'id' ), v.identifier[ identifiers[ 0 ] ] || -1 )
-      .limit( 1 )
-      .transacting( trx );
-
-  } )
-
+  return request
+    .where( whereColumn, whereValue )
+    .limit( 1 )
     .then( users => {
 
       v.user = users.length ? users[ 0 ] : null;
@@ -981,24 +980,6 @@ function _generateApiKey( v ) {
 
 }
 
-
-function getIdentifier( query, excludeEmail ) {
-
-  var q = {};
-
-  query = Object.assign( {
-    id: null,
-    uid: null,
-    email: null
-  }, query );
-
-  [ 'id', 'uid' ].concat( excludeEmail ? [] : [ 'email' ] ).forEach( f => {
-    if ( query[ f ] !== null ) q[ f ] = query[ f ];
-  } );
-
-  return q;
-
-}
 
 function emailAlreadyTaken( email ) {
 

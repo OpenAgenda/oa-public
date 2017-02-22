@@ -110,6 +110,19 @@ describe( 'service', function () {
 
   } );
 
+  it( 'get by key', done => {
+
+    service.get( { key: '317e316466a629c8dacd4aa81f39c930' }, ( err, user ) => {
+
+      should( err ).equal( null );
+      user.email.should.equal( 'romain.lange@gmail.com' );
+
+      done();
+
+    } );
+
+  } );
+
   it( 'get inexistent user', done => {
 
     service.get( { email: 'blablabla@sorry.com' }, ( err, user ) => {
