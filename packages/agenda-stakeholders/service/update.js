@@ -99,7 +99,8 @@ function update( base, identifiers, data, options, cb ) {
     merged: null,
     options: _.extend( {
       allowPartial: false,
-      credential: null
+      credential: null,
+      userId: null
     }, options ),
     result: {
       success: null,
@@ -108,7 +109,11 @@ function update( base, identifiers, data, options, cb ) {
     }
   }, ( err, processResult ) => {
 
-    if ( err ) return cb( err );
+    if ( err ) {
+
+      return cb( err.error, null, err );
+
+    }
 
     if ( interfaces && interfaces.onUpdate && processResult.values.result.success ) {
 
@@ -132,6 +137,14 @@ function _doUpdate( base, stakeholder, merged, options, cb ) {
   if ( options.credential !== null ) {
 
     toUpdate.credential = options.credential;
+
+  }
+
+  if ( options.userId ) {
+
+    if ( stakeholder.userId ) return cb( 'cannot re-assign userId' );
+
+    toUpdate.userId = options.userId;
 
   }
 

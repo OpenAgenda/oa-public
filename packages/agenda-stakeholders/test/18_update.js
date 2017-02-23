@@ -112,6 +112,43 @@ describe( 'agenda-stakeholders - functional (server): update', function() {
 
     } );
 
+
+    it( 'userId is set when specified in update options AND is unset in stakeholder', done => {
+
+      service.agenda( 4608 ).update( {
+        id: 7716
+      }, {}, {
+        allowPartial: true,
+        userId: 2
+      }, ( err, result ) => {
+
+        should( err ).equal( null );
+
+        result.stakeholder.userId.should.equal( 2 );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'userId cannot be set if it already is', done => {
+
+      service.agenda( 4608 ).update( {
+        id: 7733
+      }, {}, {
+        allowPartial: true,
+        userId: 1
+      }, ( err, result ) => {
+
+        err.should.equal( 'cannot re-assign userId' );
+
+        done();
+
+      } );
+
+    } );
+
   } );
 
 } );
