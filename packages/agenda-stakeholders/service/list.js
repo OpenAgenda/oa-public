@@ -1,11 +1,19 @@
 "use strict";
 
-const parseListArguments = require( 'service-utils/parseListArguments' );
-const _ = require( 'lodash' );
-const logger = require( 'basic-logger' );
-const format = require( './format' );
-const w = require( 'when' );
-const validators = require( '../iso/validators' );
+const parseListArguments = require( 'service-utils/parseListArguments' ),
+
+  _ = require( 'lodash' ),
+
+  logger = require( 'basic-logger' ),
+
+  format = require( './format' ),
+
+  w = require( 'when' ),
+
+  validators = require( '../iso/validators' ),
+
+  evaluateCredentialFilter = require( './lib/evaluateCredentialFilter' );
+
 
 
 module.exports = _.extend( list, { init } );
@@ -35,6 +43,8 @@ function list() {
       total: null
     }
   } )
+
+  .then( evaluateCredentialFilter.bind( null, interfaces ) )
 
   .then( _list )
 
@@ -88,6 +98,9 @@ function _total( v ) {
   } );
 
 }
+
+
+
 
 
 function _list( v ) {

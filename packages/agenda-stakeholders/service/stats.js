@@ -1,14 +1,19 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const w = require( 'when' );
-const logger = require( 'basic-logger' );
-const types = require( '../iso/credentialTypes' );
+const _ = require( 'lodash' ),
+
+  w = require( 'when' ),
+
+  logger = require( 'basic-logger' ),
+
+  types = require( '../iso/credentialTypes' ),
+
+  evaluateCredentialFilter = require( './lib/evaluateCredentialFilter' );
 
 module.exports = _.extend( stats, { init } );
 
 // service globals
-let log, schemas, knex;
+let log, schemas, knex, interfaces;
 
 
 function stats( preFilter, cb ) {
@@ -18,9 +23,11 @@ function stats( preFilter, cb ) {
     knex: knex( schemas.stakeholder ),
     result: {
       total: 0,
-      credentialTotals: {}  
+      credentialTotals: {}
     }
   } )
+
+  .then( evaluateCredentialFilter.bind( null, interfaces ) )
 
   .then( _credentialTotals )
 
@@ -36,7 +43,7 @@ function stats( preFilter, cb ) {
 
 function _credentialTotals( v ) {
 
-  return v.knex
+  let k = v.knex
 
     .select( 'credential' )
 
@@ -44,9 +51,15 @@ function _credentialTotals( v ) {
 
     .where( 'review_id', v.query.agendaId )
 
-    .groupBy( 'credential' )
+    .groupBy( 'credential' );
 
-  .then( rows => {
+  if ( v.query.credentials ) {
+
+    k.whereIn( 'credential', v.query.credentials );
+
+  }
+
+  return k.then( rows => {
 
     rows.forEach( r => {
 
@@ -80,5 +93,7 @@ function init( config ) {
   schemas = config.schemas;
 
   knex = config.knex;
+
+  interfaces = config.interfaces;
 
 }

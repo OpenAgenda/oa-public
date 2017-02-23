@@ -25,6 +25,11 @@ module.exports = {
         user_name: 'Zorg',
         email: identifiers.email || 'zorg@galactic.uv'
       } );
+    },
+    getExistingCredentials: ( agendaId, cb ) => {
+
+      cb( null, [ 1, 2, 3, 4 ] );
+
     }
   },
   queue: {

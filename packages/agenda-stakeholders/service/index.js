@@ -242,7 +242,11 @@ function init( c, cb ) {
 
   .then( () => {
 
-    stats.init( { knex, schemas } );
+    stats.init( { 
+      knex, 
+      schemas, 
+      interfaces: config.interfaces
+    } );
 
   } )
 

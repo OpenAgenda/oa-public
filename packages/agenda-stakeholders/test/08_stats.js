@@ -2,74 +2,132 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require( 'should' );
-const config = require( '../testconfig' );
-const mysql = require( 'mysql' );
-const types = require( '../iso/credentialTypes' );
+const should = require( 'should' ),
 
-const service = require( './service' );
+  config = require( '../testconfig' ),
+
+  mysql = require( 'mysql' ),
+
+  types = require( '../iso/credentialTypes' ),
+
+  _ = require( 'lodash' ),
+
+  service = require( './service' );
 
 describe( 'agenda-stakeholders - functional (server): stats', function() {
 
-  this.timeout( 60000 );
+  describe( 'general', function() {
 
-  before( done => {
+    this.timeout( 60000 );
 
-    service.initAndLoad( config, done );
+    before( done => {
 
-  } );
+      service.initAndLoad( config, done );
 
-  it( '.agenda.stats provides stakeholder totals by credential code', done => {
+    } );
 
-    service.agenda( 4608 ).stats( ( err, stats ) => {
+    it( '.agenda.stats provides stakeholder totals by credential code', done => {
 
-      stats.credentialTotals.should.eql( { 
-        contributor: 508,
-        administrator: 11,
-        moderator: 45
+      service.agenda( 4608 ).stats( ( err, stats ) => {
+
+        stats.credentialTotals.should.eql( { 
+          contributor: 508,
+          administrator: 11,
+          moderator: 45
+        } );
+
+        done();
+
       } );
 
-      done();
+    } );
+
+    it( '.agenda.stats gives result matching database state', done => {
+
+      service.agenda( 4608 ).stats( ( err, stats ) => {
+
+        let con = mysql.createConnection( config.mysql );
+
+        con.query( `select count(id) from ${config.schemas.stakeholder} where review_id = ? and credential = ?`, [ 4608, types.get( 'moderator' ) ], ( err, rows ) => {
+
+          con.end();
+
+          stats.credentialTotals.moderator.should.equal( rows[ 0 ][ 'count(id)' ] );
+
+          done();
+
+        } ); 
+
+      } );
+
+    } );
+
+    it( '.agenda stats provides total of members for a given agenda', done => {
+
+      service.agenda( 4608 ).stats( ( err, stats ) => {
+
+        let con = mysql.createConnection( config.mysql );
+
+        con.query( `select count(id) from ${config.schemas.stakeholder} where review_id = ?`, 4608, ( err, rows ) => {
+
+          con.end();
+
+          stats.total.should.equal( rows[ 0 ][ 'count(id)' ] );
+
+          done();
+
+        } );
+
+      } );
 
     } );
 
   } );
 
-  it( '.agenda.stats gives result matching database state', done => {
+  describe( 'filtered by credential', function() {
 
-    service.agenda( 4608 ).stats( ( err, stats ) => {
+    this.timeout( 60000 );
 
-      let con = mysql.createConnection( config.mysql );
+    beforeEach( done => {
 
-      con.query( `select count(id) from ${config.schemas.stakeholder} where review_id = ? and credential = ?`, [ 4608, types.get( 'moderator' ) ], ( err, rows ) => {
-
-        con.end();
-
-        stats.credentialTotals.moderator.should.equal( rows[ 0 ][ 'count(id)' ] );
-
-        done();
-
-      } ); 
+      service.initAndLoad( config, done );
 
     } );
 
-  } );
+    it( 'stats exclude unset cred types when these are not given by interface', done => {
 
-  it( '.agenda stats provides total of members for a given agenda', done => {
+      service.agenda( 4608 ).stats( ( err, stats ) => {
 
-    service.agenda( 4608 ).stats( ( err, stats ) => {
+        stats.credentialTotals.should.eql( { 
+          contributor: 508,
+          administrator: 11,
+          moderator: 45
+        } );
 
-      let con = mysql.createConnection( config.mysql );
+        service.init( _.extend( {}, config, {
+          interfaces: _.extend( {}, config.interfaces, {
+            getExistingCredentials: ( agendaId, cb ) => {
 
-      con.query( `select count(id) from ${config.schemas.stakeholder} where review_id = ?`, 4608, ( err, rows ) => {
+              cb( null, [ 2 ] );
 
-        con.end();
+            }
+          } )
+        } ), () => {
 
-        stats.total.should.equal( rows[ 0 ][ 'count(id)' ] );
+          service.agenda( 4608 ).stats( ( err, stats ) => {
 
-        done();
+            stats.credentialTotals.should.eql( { 
+              administrator: 11
+            } );
 
-      } ); 
+            done();
+
+          } );
+
+
+        } );
+
+      } );
 
     } );
 

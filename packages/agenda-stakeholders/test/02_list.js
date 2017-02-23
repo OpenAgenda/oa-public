@@ -2,150 +2,198 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require( 'should' );
-const config = require( '../testconfig' );
-const mysql = require( 'mysql' );
-const creds = require( '../iso/credentialTypes' );
+const should = require( 'should' ),
+
+  config = require( '../testconfig' ),
+
+  mysql = require( 'mysql' ),
+
+  creds = require( '../iso/credentialTypes' ),
+
+  _ = require( 'lodash' );
 
 
 const service = require( './service' );
 
 describe( 'agenda-stakeholders - functional (server): list', function() {
 
-  this.timeout( 60000 );
+  describe( 'general', function() {
 
-  before( done => {
+    this.timeout( 60000 );
 
-    service.initAndLoad( config, done );
+    before( done => {
 
-  } );
-
-  it( 'a simple list call will get you a slice of stakeholders matching limit&offset difference', done => {
-
-    // same as service( 4608 ).list
-    service.agenda( 4608 ).list( 0, 10, ( err, stakeholders, total ) => {
-
-      stakeholders.length.should.equal( 10 );
-
-      done();
+      service.initAndLoad( config, done );
 
     } );
 
-  } );
+    it( 'a simple list call will get you a slice of stakeholders matching limit&offset difference', done => {
 
-  it( 'by default, total value is not fetched', done => {
+      // same as service( 4608 ).list
+      service.agenda( 4608 ).list( 0, 10, ( err, stakeholders, total ) => {
 
-    service.agenda( 4608 ).list( 0, 10, ( err, stakeholders, total ) => {
+        stakeholders.length.should.equal( 10 );
 
-      should( total ).equal( null );
-
-      done();
-
-    } );
-
-  } );
-
-  it( 'total option to true means total is fetched', done => {
-
-    service.agenda( 4608 ).list( 0, 10, { total: true }, ( err, stakeholders, total ) => {
-
-      total.should.equal( 564 );
-
-      done();
-
-    } );
-
-  } );
-
-  it( 'detailed option to true means user info is retrieved', done => {
-
-    service.agenda( 4608 ).list( 0, 1, { detailed: true }, ( err, stakeholders ) => {
-
-      should( err ).equal( null );
-
-      stakeholders[ 0 ].user.should.eql( {
-        id: 2,
-        uid: 128492293,
-        user_name: 'Zorg',
-        email: 'zorg@galactic.uv' 
-      } );
-
-      done();
-
-    } );
-
-  } );
-
-  it( 'detailed option to true means contribution count is retrieved', done => {
-
-    service.agenda( 4608 ).list( 0, 1, { detailed: true }, ( err, stakeholders ) => {
-
-      should( err ).equal( null );
-
-      stakeholders[ 0 ].eventCount.should.equal( 35 );
-
-      done();
-
-    } );        
-
-  } );
-
-  it( 'search query searches in custom field data', done => {
-
-    service.agenda( 4608 ).list( { search: 'Mairie' }, 0, 10, { total: true }, ( err, stakeholders, total ) => {
-
-      stakeholders[ 0 ].custom.organization.should.equal( 'Mairie de Chinon' );
-
-      stakeholders.length.should.equal( 9 );
-
-      total.should.equal( 9 );
-
-      done();
-
-    } );
-
-  } );
-
-  it( 'slug for slugged fields is given when showSlugs is true', done => {
-
-    service.agenda( 4608 ).list( { search: 'Mairie' }, 0, 1, { showSlugs: true }, ( err, stakeholders ) => {
-
-      stakeholders[ 0 ].custom.organization.should.eql( {
-        slug: 'mairie-de-chinon',
-        label: 'Mairie de Chinon'
-      } );
-
-      done();
-
-    } );
-
-  } );
-
-  it( 'invited ( unnassociated ) stakeholders are filtered with .invited query parameter', done => {
-
-    service.agenda( 4608 ).list( { invited: true }, 0, 10, { total: true }, ( err, stakeholders, total ) => {
-
-      total.should.equal( 6 );
-
-      stakeholders.forEach( s => {
-
-        should( s.userId ).equal( null );
+        done();
 
       } );
 
-      done();
+    } );
+
+    it( 'by default, total value is not fetched', done => {
+
+      service.agenda( 4608 ).list( 0, 10, ( err, stakeholders, total ) => {
+
+        should( total ).equal( null );
+
+        done();
+
+      } );
 
     } );
 
-  } );
+    it( 'total option to true means total is fetched', done => {
 
-  it( 'invited ( unnassociated ) are filtered out with .invited query parameter set to false', done => {
+      service.agenda( 4608 ).list( 0, 10, { total: true }, ( err, stakeholders, total ) => {
 
-    service.agenda( 4608 ).list( 0, 1, { total: true }, ( err, s, overallTotal ) => {
+        total.should.equal( 564 );
 
-      service.agenda( 4608 ).list( { invited: false }, 0, 1, { total: true }, ( err, s, withUserTotal ) => {
+        done();
 
-        overallTotal.should.equal( withUserTotal + 6 );
+      } );
+
+    } );
+
+    it( 'detailed option to true means user info is retrieved', done => {
+
+      service.agenda( 4608 ).list( 0, 1, { detailed: true }, ( err, stakeholders ) => {
+
+        should( err ).equal( null );
+
+        stakeholders[ 0 ].user.should.eql( {
+          id: 2,
+          uid: 128492293,
+          user_name: 'Zorg',
+          email: 'zorg@galactic.uv' 
+        } );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'detailed option to true means contribution count is retrieved', done => {
+
+      service.agenda( 4608 ).list( 0, 1, { detailed: true }, ( err, stakeholders ) => {
+
+        should( err ).equal( null );
+
+        stakeholders[ 0 ].eventCount.should.equal( 35 );
+
+        done();
+
+      } );        
+
+    } );
+
+    it( 'search query searches in custom field data', done => {
+
+      service.agenda( 4608 ).list( { search: 'Mairie' }, 0, 10, { total: true }, ( err, stakeholders, total ) => {
+
+        stakeholders[ 0 ].custom.organization.should.equal( 'Mairie de Chinon' );
+
+        stakeholders.length.should.equal( 9 );
+
+        total.should.equal( 9 );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'slug for slugged fields is given when showSlugs is true', done => {
+
+      service.agenda( 4608 ).list( { search: 'Mairie' }, 0, 1, { showSlugs: true }, ( err, stakeholders ) => {
+
+        stakeholders[ 0 ].custom.organization.should.eql( {
+          slug: 'mairie-de-chinon',
+          label: 'Mairie de Chinon'
+        } );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'invited ( unnassociated ) stakeholders are filtered with .invited query parameter', done => {
+
+      service.agenda( 4608 ).list( { invited: true }, 0, 10, { total: true }, ( err, stakeholders, total ) => {
+
+        total.should.equal( 6 );
+
+        stakeholders.forEach( s => {
+
+          should( s.userId ).equal( null );
+
+        } );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'invited ( unnassociated ) are filtered out with .invited query parameter set to false', done => {
+
+      service.agenda( 4608 ).list( 0, 1, { total: true }, ( err, s, overallTotal ) => {
+
+        service.agenda( 4608 ).list( { invited: false }, 0, 1, { total: true }, ( err, s, withUserTotal ) => {
+
+          overallTotal.should.equal( withUserTotal + 6 );
+
+          done();
+
+        } );
+
+      } );
+
+    } );
+
+    it( 'filter users by credential with the .credentials query parameter', done => {
+
+      service.agenda( 4608 ).list( { 
+        // credentials: [ 'moderator', 'contributor' ] also accepted
+        credentials: [ 1, 2 ] 
+      }, 0, 10, { total: true }, ( err, stakeholders, total ) => {
+
+        stakeholders.forEach( s => {
+
+          [ 1, 2 ].indexOf( s.credential ).should.not.equal( -1 );
+
+        } );
+
+        // total of contributors & moderators loaded by
+        // fixtures for agenda 4608
+        total.should.equal( 519 );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'combined filter', done => {
+
+      service.agenda( 4608 ).list( {
+        search: '@email.com',
+        credentials: [ 1, 2 ],
+        invited: true
+      }, 0, 10, { total: true }, ( err, stakeholders, total ) => {
+
+        total.should.equal( 4 );
 
         done();
 
@@ -155,40 +203,45 @@ describe( 'agenda-stakeholders - functional (server): list', function() {
 
   } );
 
-  it( 'filter users by credential with the .credentials query parameter', done => {
+  describe( 'filtered by credential', function() {
 
-    service.agenda( 4608 ).list( { 
-      // credentials: [ 'moderator', 'contributor' ] also accepted
-      credentials: [ 1, 2 ] 
-    }, 0, 10, { total: true }, ( err, stakeholders, total ) => {
+    this.timeout( 60000 );
 
-      stakeholders.forEach( s => {
+    beforeEach( done => {
 
-        [ 1, 2 ].indexOf( s.credential ).should.not.equal( -1 );
-
-      } );
-
-      // total of contributors & moderators loaded by
-      // fixtures for agenda 4608
-      total.should.equal( 519 );
-
-      done();
+      service.initAndLoad( config, done );
 
     } );
 
-  } );
+    
+    it( 'list excludes unset cred types when these are not given by interface', done => {
 
-  it( 'combined filter', done => {
+      service.agenda( 4608 ).list( 0, 10, ( err, stakeholders ) => {
 
-    service.agenda( 4608 ).list( {
-      search: '@email.com',
-      credentials: [ 1, 2 ],
-      invited: true
-    }, 0, 10, { total: true }, ( err, stakeholders, total ) => {
+        // there are users which are not administrators
+        stakeholders.map( s => s.credential ).filter( c => c !== 2 ).length.should.not.equal( 0 );
 
-      total.should.equal( 4 );
+        service.init( _.extend( {}, config, {
+          interfaces: _.extend( {}, config.interfaces, {
+            getExistingCredentials: ( agendaId, cb ) => {
 
-      done();
+              cb( null, [ 2 ] );
+
+            }
+          } )
+        } ), () => {
+
+          service.agenda( 4608 ).list( 0, 10, ( err, stakeholders ) => {
+
+            stakeholders.map( s => s.credential ).filter( c => c !== 2 ).length.should.equal( 0 );
+
+            done();
+
+          } );
+
+        } );
+
+      } );
 
     } );
 
