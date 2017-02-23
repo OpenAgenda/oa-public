@@ -13,6 +13,7 @@ const stakeholdersMw = require( 'agenda-stakeholders/middleware' );
 const mw = require( 'member-apps/middleware' );
 const { mw: { loadAdminLayout, load: oldAgendaLoad } } = require( '../services/agenda' );
 const sessions = require( 'sessions' );
+const _ = require( 'lodash' );
 
 
 const appMw = [
@@ -80,7 +81,8 @@ const routes = {
       namespaces: {
         user: 'stakeholderUser',
         data: 'body'
-      }
+      },
+      credential: true
     } ),
     ( { result }, res ) => res.status( result.errors.length ? 400 : 200 ).json( result )
   ] ],
@@ -92,7 +94,7 @@ const routes = {
       }
       next( new Error( 'You don\'t have right to invite members with this role' ) );
     },
-    stakeholdersMw.agenda( 'agendaInstance.data' ).bulkCreate( {
+    stakeholdersMw.agenda( 'agendaInstance.data' ).bulk( {
       namespaces: {
         data: 'body'
       },
@@ -105,11 +107,11 @@ const routes = {
 
       if ( errors.length ) return next( { errors } );
 
-      const emailsRejected = _.compact( results.reduce( ( prev, next ) => {
+      const emailsRejected = _.compact( results.reduce( ( prev, nextResult, i ) => {
         let emailRejected;
-        if ( next.errors && next.errors.length ) {
-          emailRejected = next.errors.reduce( ( prev, next ) => {
-            return (next.code && next.code.includes( 'email' ) && next.origin) || null;
+        if ( nextResult.errors && nextResult.errors.length ) {
+          emailRejected = nextResult.errors.reduce( ( prev, nextError ) => {
+            return (nextError.code && req.body.stakeholders[ i ].email) || null;
           }, null );
         }
         return prev.concat( emailRejected );
@@ -136,7 +138,7 @@ module.exports = path => {
     cmn.loadLogger( 'members' ),
     bodyParser.json(),
     sessions.middleware.load(),
-    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
+    sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
     agendasMw.load( {
       namespaces: {
         identifiers: {
@@ -206,14 +208,17 @@ function matchApp( req, res, next ) {
           invite: req.genUrl( 'membersInvite', { slug: req.agenda.slug } ),
           stats: req.genUrl( 'membersStats', { slug: req.agenda.slug } ),
           showContributor: req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ) + '?contributorUid=:contributorUid',
-          writeToMember: '#'
+          writeToMember: req.genUrl( 'conversationDiscussion', { uid: ':uid', redirect: ':redirect' } ),
+          exportToCsv: req.genUrl( 'agendaContributorsCsv', { slug: req.agenda.slug } ),
+          exportToXlsx: req.genUrl( 'agendaContributorsXlsx', { slug: req.agenda.slug } )
         },
         agenda: {
           uid: req.agenda.uid,
           slug: req.agenda.slug,
           title: req.agenda.title,
           roles: req.agendaRoles
-        }
+        },
+        stakeholder: req.stakeholder
       }
     },
     prefix,

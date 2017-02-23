@@ -561,6 +561,12 @@ function loadOptionals( req ) {
 
   }
 
+  if ( req.query.invitation ) {
+
+    optionals.invitation = req.query.invitation;
+
+  }
+
   if ( req.query.redirect ) {
 
     optionals.redirect = req.query.redirect;

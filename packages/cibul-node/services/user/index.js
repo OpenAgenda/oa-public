@@ -13,6 +13,7 @@ activation = require( './lib/activation' ),
 lostPassword = require( './lib/lostPassword' ),
 
 invitationSvc = require( '../invitation' ),
+invitation2Svc = require( 'invitations' ),
 
 async = require( 'async' ),
 
@@ -213,8 +214,8 @@ function _createProcess( createData, options ) {
 function onActivation( values ) {
 
   // on activation, invitations must be processed
-
-  return invitationSvc.processUser( values );
+  return invitation2Svc.execute( { token: values.invitation }, { user: values.user } )
+    .then( () => invitationSvc.processUser( values ) );
 
 }
 

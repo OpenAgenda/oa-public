@@ -57,7 +57,11 @@ const servicePath = __dirname + '/../services',
 
   aggregatorSourcesSvc = require( 'aggregator-sources' ),
 
-  coms = require( './coms' );
+  invitationsSvc = require( 'invitations' ),
+
+  coms = require( './coms' ),
+
+  getInvitationLabel = require( 'labels' )( require( 'labels/members/invitation' ) );
 
 let log;
 
@@ -120,6 +124,8 @@ module.exports = function ( config, cb ) {
 
     .then( _initAggregatorSources )
 
+    .then( _initInvitations )
+
     .done( () => {
       cb()
     }, err => {
@@ -129,6 +135,35 @@ module.exports = function ( config, cb ) {
       cb( err )
 
     } );
+
+}
+
+function _initInvitations( config ) {
+
+  log( 'info', 'invitations' );
+
+  invitationsSvc.init( {
+    mysql: config.db,
+    schemas: config.schemas,
+    interfaces: {
+      onAssign: ( action, invitation, cb ) => cb( null )
+    },
+    actions: {
+      linkStakeholder: ( executeData, actionParams, cb ) => {
+
+        const { user } = executeData;
+        const [ stakeholder ] = actionParams;
+
+        agendaStakeholders.agenda( stakeholder.agendaId ).update( {
+          id: stakeholder.id
+        }, {}, {
+          allowPartial: true,
+          userId: user.id
+        }, err => cb( err ) );
+
+      }
+    }
+  } );
 
 }
 
@@ -146,7 +181,7 @@ function _initAggregatorSources( config ) {
       path: config.aws.imageBucketPath.replace( 'cibuldev', 'cibul' ),
       default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
     },
-    mw : {
+    mw: {
       limit: 20
     }
   }, err => {
@@ -239,7 +274,7 @@ function _initImages( config ) {
 
   imageSvc.init( {
     tmpPath: config.tmpFolderPath,
-    logger: logger
+    logger
   } );
 
   return config;
@@ -256,7 +291,7 @@ function _initNewsletter( config ) {
       apiKey: config.sendinblue.apiKey,
       newsletterList: config.sendinblue.newsletterList
     },
-    logger: logger
+    logger
   } );
 
   return config;
@@ -272,7 +307,7 @@ function _initFiles( config ) {
     bucket: config.aws.bucket,
     accessKeyId: config.aws.accessKeyId, // required
     secretAccessKey: config.aws.secretAccessKey, // required too
-    logger: logger
+    logger
   } );
 
   return config;
@@ -293,7 +328,7 @@ function _initAdminAgendas( config ) {
     },
     mysql: config.db,
     schemas: config.schemas,
-    logger: logger
+    logger
   }, err => {
 
     if ( err ) {
@@ -328,7 +363,7 @@ function _initUsers( config ) {
       secretAccessKey: config.aws.secretAccessKey,
       tmpPath: config.tmpFolderPath
     },
-    logger: logger
+    logger
   }, err => {
 
     if ( err ) {
@@ -355,7 +390,7 @@ function _initEmailStrategie( config ) {
   emailStrategie.init( {
     database: config.emailStrategieDb,
     redis: config.redis,
-    logger: logger
+    logger
   } );
 
   return config;
@@ -374,13 +409,13 @@ function _initAgendaSettings( config ) {
       },
       mysql: config.db,
       schemas: config.schemas,
-      logger: logger
+      logger
     }, err => {
 
       if ( err ) return reject( err );
 
       resolve( config );
-      
+
     } );
 
   } );
@@ -397,7 +432,7 @@ function _initAgendaEventReferences( config ) {
   agendaEventReferences.init( {
     schema: config.schemas.eventReferences,
     mysql: config.db,
-    logger: logger,
+    logger,
     interfaces: {
 
       events: ( agendaId, refQuery, options, cb ) => {
@@ -507,7 +542,7 @@ function _initAgendaLocations( config ) {
 
       }
     }, appSvc.event.locations ),
-    logger: logger
+    logger
   }, err => {
 
     if ( err ) {
@@ -541,11 +576,42 @@ function _initAgendaStakeholders( config ) { // async
     },
     schemas: config.schemas,
     mysql: config.db,
-    logger: logger,
+    logger,
     interfaces: {
       onCreate: stakeholder => {
 
-        // do stuff here
+        agendasSvc.get( stakeholder.agendaId, ( err, agenda ) => {
+
+          if ( err || stakeholder.userId ) return;
+
+          invitationsSvc.assign( { email: stakeholder.custom.email }, 'linkStakeholder', stakeholder )
+            .then( result => {
+
+              const signupUrl = genUrl.abs( 'signup' ) + '?invitation=' + result.invitation.token;
+
+              mailer( {
+                recipient: stakeholder.custom.email,
+                subject: getInvitationLabel( 'emailSubject', 'fr' ),
+                data: {
+                  logo: 'https://openagenda.com/images/openagenda.png',
+                  title: {
+                    text: getInvitationLabel( 'emailTitle', { title: agenda.title }, 'fr' ),
+                    link: signupUrl
+                  },
+                  action: {
+                    label: getInvitationLabel( 'emailAction', 'fr' ),
+                    link: signupUrl
+                  },
+                  description: getInvitationLabel( 'emailDescription', {
+                    title: agenda.title,
+                    credential: getInvitationLabel( agendaStakeholders.types.codes.get( stakeholder.credential ), 'fr' )
+                  }, 'fr' ),
+                }
+              } );
+
+            } );
+
+        } );
 
       },
       getUser: ( identifiers, cb ) => {
@@ -559,7 +625,7 @@ function _initAgendaStakeholders( config ) { // async
           'select count( distinct ra.id ) event_count',
           'from review_article as ra',
           'where ra.review_id = ? and ra.user_id = ?'
-        ].join( ' ' ), [ agendaId, userId ], ( err, rows ) => {
+        ].join( ' ' ), [ agendaId, userId ], ( err, rows ) => {
 
           if ( err ) return cb( err );
 
@@ -618,7 +684,7 @@ function _initAgendaSearch( config ) { // sync
       path: config.aws.imageBucketPath.replace( 'cibuldev', 'cibul' ),
       default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
     },
-    logger: logger,
+    logger,
     site: {
       url: config.root,
       image: config.logo
@@ -661,14 +727,17 @@ function _initAgendaService( config ) { // sync
 
           agendaStakeholders( agenda.id ).settings.setDefault( err => {
 
-            log( 'error', { message: 'agenda creation default stakeholder settings could not be created', error: err } );
+            log( 'error', {
+              message: 'agenda creation default stakeholder settings could not be created',
+              error: err
+            } );
 
           } );
 
         }
 
         agendaStakeholders( agenda.id ).new( {
-          userId: agenda.ownerId, 
+          userId: agenda.ownerId,
           credential: 2
         } ).save( err => {
 
@@ -683,9 +752,9 @@ function _initAgendaService( config ) { // sync
 
         let updateType,
 
-        hasContributionSettingsChange = JSON.stringify( before.settings.contribution ) !== JSON.stringify( after.settings.contribution ),
+          hasContributionSettingsChange = JSON.stringify( before.settings.contribution ) !== JSON.stringify( after.settings.contribution ),
 
-        hasCredentialsChange = JSON.stringify( before.credentials ) !== JSON.stringify( after.credentials );
+          hasCredentialsChange = JSON.stringify( before.credentials ) !== JSON.stringify( after.credentials );
 
         if ( hasContributionSettingsChange ) {
 
@@ -702,7 +771,11 @@ function _initAgendaService( config ) { // sync
 
           agendaStakeholders( before.id ).settings.setDefault( err => {
 
-            if ( err ) log( 'error', { message: 'agenda update default stakeholder settings could not be created', error: err, agendaId: before.id } );
+            if ( err ) log( 'error', {
+              message: 'agenda update default stakeholder settings could not be created',
+              error: err,
+              agendaId: before.id
+            } );
 
           } );
 
@@ -734,7 +807,7 @@ function _initAgendaCategories( config ) { // async
   agendaCategories.init( {
     store: config.db,
     legacy: config.db,
-    logger: logger,
+    logger,
     interfaces: appSvc.agenda.tagsAndCategories
   }, err => {
 
@@ -758,7 +831,7 @@ function _initAgendaTags( config ) { // async
   agendaTags.init( {
     store: config.db,
     legacy: config.db,
-    logger: logger,
+    logger,
     interfaces: appSvc.agenda.tagsAndCategories
   }, err => {
 
@@ -777,11 +850,25 @@ function _initMailer( config ) { // sync
 
   log( 'info', 'mailer' );
 
+  const mailServiceConf = Object.assign( {}, config.mailer.serviceConf );
+
+  if ( config.mailer.service === 'ses' ) {
+
+    Object.assign( mailServiceConf, {
+      accessKeyId: config.aws.accessKeyId,
+      secretAccessKey: config.aws.secretAccessKey,
+      region: config.aws.region
+    } );
+
+  }
+
   mailer.init( {
     queueName: 'mailer',
     host: config.redis.host,
     port: config.redis.port,
-    log: logger( 'mailer' )
+    log: logger( 'mailer' ),
+    mailService: config.mailer.service,
+    mailServiceConf
   } );
 
   return config;
@@ -820,7 +907,7 @@ function _initSessions( config ) {
 
         userSvc.get( query, { detailed: true }, ( err, u ) => {
 
-          if ( err || !u ) return cb( err, u );          
+          if ( err || !u ) return cb( err, u );
 
           cb( null, {
             id: u.id,

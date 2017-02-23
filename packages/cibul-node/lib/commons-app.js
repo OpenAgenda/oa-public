@@ -50,6 +50,7 @@ module.exports = {
   loadLegacyRoutes,
 
   redirectTo,
+  redirectToSignin,
 
   ifIs: ( path, fn ) => ( req, res, next ) => _.get( req, path, false ) ? fn( req, res, next ) : next(),
   ifIsNot: ( path, fn ) => ( req, res, next ) => _.get( req, path, false ) ? next() : fn( req, res, next ),
@@ -163,34 +164,34 @@ function checkAdministrator( options ) {
 
       wn.call( req[ params.name ].isAdministrator, { id: req.user.id } )
 
-      .then( isAdmin => {
+        .then( isAdmin => {
 
-        if ( !isAdmin ) {
+          if ( !isAdmin ) {
 
-          if ( params.redirect ) {
+            if ( params.redirect ) {
 
-            sessions.setFlash( req, res, params.message );
+              sessions.setFlash( req, res, params.message );
 
-            return res.redirect( params.redirect );
+              return res.redirect( params.redirect );
+
+            }
+
+            throw {
+              message: params.message,
+              code: 403
+            };
 
           }
 
-          throw {
-            message: params.message,
-            code: 403
-          };
+          next();
 
-        }
+        } )
 
-        next();
+        .catch( err => {
 
-      } )
+          errorResponse( req, res, err );
 
-      .catch( err => {
-
-        errorResponse( req, res, err );
-
-      } );
+        } );
 
     } );
   }
@@ -221,7 +222,7 @@ function checkModerator( req, res, next ) {
 
       } );
 
-    } );
+  } );
 
 }
 
@@ -343,8 +344,8 @@ function renderUnauthorized() {
         content: getUnauthLabels( 'message', req.lang ),
         actions: [ {
           type: 'primary',
-          href: req.genUrl( 'conversationAgendaContact', { 
-            uid: req.agenda.uid, 
+          href: req.genUrl( 'conversationAgendaContact', {
+            uid: req.agenda.uid,
           } ),
           label: getUnauthLabels( 'contactAdmin', req.lang )
         } ]
@@ -702,7 +703,7 @@ function redirectTo( route = 'corpoHome', params = {}, options = {} ) {
     raw: {}
   }, options );
 
-  return ( req, res, next ) => { 
+  return ( req, res, next ) => {
 
     let paramValues = _.mapValues( params, k => {
 
@@ -761,6 +762,16 @@ function redirectTo( route = 'corpoHome', params = {}, options = {} ) {
     res.redirect( redirectParams.code, redirect );
 
   };
+
+}
+
+function redirectToSignin( req, res, next ) {
+
+  return redirectTo( 'signin', {
+    redirect: {
+      $raw: ( new Buffer( req.originalUrl, 'utf-8' ) ).toString( 'base64' )
+    }
+  } )( req, res, next );
 
 }
 
@@ -855,8 +866,6 @@ function checkCredential( name, options ) {
   };
 
 }
-
-
 
 
 function getRedirect( req, paramName ) {
@@ -1140,7 +1149,7 @@ function _prepareSession( req, res, cb ) {
 
   if ( !req.user || !req.user.id ) {
 
-    detailedSessionLoad( req, res, err => { 
+    detailedSessionLoad( req, res, err => {
 
       if ( err ) return cb( err );
 

@@ -284,6 +284,8 @@ function _sendToken( values ) {
 
   if ( values.iToken ) linkParams.iToken = values.iToken;
 
+  if ( values.invitation ) linkParams.invitation = values.invitation;
+
   if ( values.redirect ) linkParams.redirect = values.redirect;
 
   if ( values.agenda ) linkParams.slug = values.agenda.slug;

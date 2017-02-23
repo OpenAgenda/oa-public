@@ -72,7 +72,8 @@ var deepExtend = require( 'deep-extend' ),
         user: 'user',
         apiKeySet: 'api_key_set',
         eventReferences: 'agenda_event_reference',
-        legacyCredentialSet: 'review_credential'
+        legacyCredentialSet: 'review_credential',
+        invitation: 'invitation_2' // new invitation
       },
       auth: {
         local: {
@@ -129,9 +130,11 @@ var deepExtend = require( 'deep-extend' ),
       },
       mailer: {
         service: 'ses',
-        source: 'no-reply@openagenda.com',
-        replyTo: 'admin@openagenda.com',
-        simulated: false // legacy ./mailer
+        simulated: false, // legacy ./mailer
+        serviceConf: {
+          source: 'no-reply@openagenda.com',
+          replyTo: 'admin@openagenda.com'
+        }
       },
       api: {
         redis: {
@@ -365,6 +368,14 @@ var deepExtend = require( 'deep-extend' ),
           'conversationEventSignal': {
             method: 'get',
             uri: '/messages/new?type=4&slug=:eventSlug'
+          },
+          'agendaContributorsCsv': {
+            method: 'get',
+            uri: '/:slug/admin/contributors.csv'
+          },
+          'agendaContributorsXlsx': {
+            method: 'get',
+            uri: '/:slug/admin/contributors.xlsx'
           }
         },
         defaultGlobalsPrefix: ''
@@ -432,8 +443,12 @@ var deepExtend = require( 'deep-extend' ),
         port: 6379
       },
       mailer: {
-        service: 'dud',
-        simulated: true // legacy ./mailer
+        service: 'nodemailer',
+        simulated: true, // legacy ./mailer
+        serviceConf: {
+          host: '127.0.0.1',
+          port: '1025'
+        }
       },
       routes: {
         defaultGlobalsPrefix: '/frontend_dev.php'
