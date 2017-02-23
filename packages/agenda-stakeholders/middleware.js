@@ -143,11 +143,11 @@ function agenda( namespace = 'agenda' ) {
 
     return ( req, res, next ) => {
 
-      const { stakeholders, crendential } = _.get( req, namespaces.data );
+      const { stakeholders, credential } = _.get( req, namespaces.data );
 
       service.agenda( _.get( req, namespace ).id )
 
-        .bulk( stakeholders, { allowPartial, crendential }, ( err, result ) => {
+        .bulk( stakeholders, { allowPartial, credential }, ( err, result ) => {
 
         if ( err ) return next( err );
 
