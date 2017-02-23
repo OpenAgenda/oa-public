@@ -1,10 +1,6 @@
 "use strict";
 
-const supervisor = require( './lib/supervisor' ),
-
-  init = require( './lib/init' ),
-
-  sessions = require( 'sessions' );
+const supervisor = require( './lib/supervisor' );
 
 module.exports = ( enabledTypes, cb ) => {
 
@@ -20,9 +16,9 @@ module.exports = ( enabledTypes, cb ) => {
 
     let logger = require( 'logger' ),
 
-    config = require( './config' ),
+      config = require( './config' ),
 
-    log = logger( 'app' );
+      log = logger( 'app' );
 
     require( './lib/init' )( err => {
 
@@ -30,67 +26,71 @@ module.exports = ( enabledTypes, cb ) => {
 
       const tfy = require( './lib/taskify' ),
 
-      cmn = require( './lib/commons-app' ),
+        cmn = require( './lib/commons-app' ),
 
-      express = require( 'express' ),
+        express = require( 'express' ),
 
-      bodyParser = require( 'body-parser' );
+        bodyParser = require( 'body-parser' ),
+
+        sessions = require( 'sessions' ),
+
+        _ = require( 'lodash' );
 
       log( 'info', 'running server' );
 
       let app = express(),
 
-      server,
+        server,
 
-      genUrl = require( './services/genUrl' ).getSingleton(),
+        genUrl = require( './services/genUrl' ).getSingleton(),
 
-      webModules = {
-        admin: [ // for admins only
-          require( './admin/back' )( '/admin' ),
-          require( './admin/agendas.back' )( '/admin/agendas' )
-        ],
-        web: [ // open to the public
-          require( './home/back' )( '/home' ),
-          require( './user/settings.back' )( '/settings' ),
-          require( './newsletter/back' )( '/:slug/admin/newsletters' ),
-          require( './newsletter/front' )( '/:slug/newsletters' ),
-          require( './general/front' )( '' ),
-          require( './general/session.back' )( '/session' ),
-          require( './general/back' )( '' ),
-          require( './search/front' )( '' ),
-          require( './event/form.back' )( '' ),
-          require( './event/tagsForm.back' )( '/:slug/events/:eventSlug/tagcat' ),
-          require( './event/front' )( '' ),
-          require( './event/actions.front' )( '' ),
-          require( './event/back' )( '' ),
-          require( './auth/comexposium.front' )( '' ),
-          require( './auth/facebook.front' )( '' ),
-          require( './auth/twitter.front' )( '' ),
-          require( './auth/google.front' )( '' ),
-          require( './auth/local.front' )( '' ),
-          require( './auth/reset.front' )( '/password' ),
-          require( './agenda/stakeholders.back' )( '/:slug/admin' ),
-          require( './agenda/emailstrategie.back' )( '/:slug/admin/emailstrategie' ),
-          require( './agenda/embeds.back' )( '/:slug/admin/embeds' ),
-          require( './location/front' )( '/locations' ),
-          require( './location/suggestions.front' )( '/:slug/locations/:locationUid/suggest' ),
-          require( './location/back' )( '' ),
-          require( './agenda/settings.back' )( '' ),
-          require( './agenda/sources.back' )( '/:slug/admin' ),
-          require( './agenda/members.back' )( '/:slug/admin/members' ),
-          require( './agenda/shares.front' )( '' ),
-          require( './agenda/front' )( '' ),
-          require( './agenda/back' )( '' ),
-          require( './agenda/facebook.back' )( '' ),
-          require( './agenda/tagcat.back' )( '' ),
-          require( './agenda/actions.front' )( '/:slug/actions' ),
-          //require( './agenda_bridges/back' )( '/:slug/admin/services' ),
-          require( './agenda/exports.front' )( '/agendas/:uid' ),
-          require( './agenda/exports.back' )( '/agendas/:uid/admin' ),
-          require( './agenda/groupActions.back' )( '/agendas/:uid/admin' ),
-          require( './legacy/back' )( '/legacy' )
-        ]
-      };
+        webModules = {
+          admin: [ // for admins only
+            require( './admin/back' )( '/admin' ),
+            require( './admin/agendas.back' )( '/admin/agendas' )
+          ],
+          web: [ // open to the public
+            require( './home/back' )( '/home' ),
+            require( './user/settings.back' )( '/settings' ),
+            require( './newsletter/back' )( '/:slug/admin/newsletters' ),
+            require( './newsletter/front' )( '/:slug/newsletters' ),
+            require( './general/front' )( '' ),
+            require( './general/session.back' )( '/session' ),
+            require( './general/back' )( '' ),
+            require( './search/front' )( '' ),
+            require( './event/form.back' )( '' ),
+            require( './event/tagsForm.back' )( '/:slug/events/:eventSlug/tagcat' ),
+            require( './event/front' )( '' ),
+            require( './event/actions.front' )( '' ),
+            require( './event/back' )( '' ),
+            require( './auth/comexposium.front' )( '' ),
+            require( './auth/facebook.front' )( '' ),
+            require( './auth/twitter.front' )( '' ),
+            require( './auth/google.front' )( '' ),
+            require( './auth/local.front' )( '' ),
+            require( './auth/reset.front' )( '/password' ),
+            require( './agenda/stakeholders.back' )( '/:slug/admin' ),
+            require( './agenda/emailstrategie.back' )( '/:slug/admin/emailstrategie' ),
+            require( './agenda/embeds.back' )( '/:slug/admin/embeds' ),
+            require( './location/front' )( '/locations' ),
+            require( './location/suggestions.front' )( '/:slug/locations/:locationUid/suggest' ),
+            require( './location/back' )( '' ),
+            require( './agenda/settings.back' )( '' ),
+            require( './agenda/sources.back' )( '/:slug/admin' ),
+            require( './agenda/members.back' )( '/:slug/admin/members' ),
+            require( './agenda/shares.front' )( '' ),
+            require( './agenda/front' )( '' ),
+            require( './agenda/back' )( '' ),
+            require( './agenda/facebook.back' )( '' ),
+            require( './agenda/tagcat.back' )( '' ),
+            require( './agenda/actions.front' )( '/:slug/actions' ),
+            //require( './agenda_bridges/back' )( '/:slug/admin/services' ),
+            require( './agenda/exports.front' )( '/agendas/:uid' ),
+            require( './agenda/exports.back' )( '/agendas/:uid/admin' ),
+            require( './agenda/groupActions.back' )( '/agendas/:uid/admin' ),
+            require( './legacy/back' )( '/legacy' )
+          ]
+        };
 
 
       app.set( 'trust proxy', 'loopback' );

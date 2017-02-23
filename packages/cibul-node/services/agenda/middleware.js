@@ -18,6 +18,8 @@ eventSvc = require( '../event' ),
 
 config = require( '../../config' ),
 
+version = require( './helpers/version' ),
+
 tabLabels = require( 'labels' )( require( 'labels/agenda-admin/tabs' ) ),
 
 mwh = require( '../lib/middlewareHelpers' );
@@ -185,7 +187,6 @@ function loadAdminLayout( req, res, next ) {
         if ( err ) return wcb( err );
 
         // filter tabs where agenda does not have required creds
-
         req.layoutData.tabs = svcConfig.adminTabs.filter( tab => {
 
           tab.label = tabLabels( tab.key, req.lang );
@@ -202,6 +203,19 @@ function loadAdminLayout( req, res, next ) {
 
           return credentials.indexOf( tab.requiredCred ) !== -1;
 
+        } )
+
+        // filter out tabs not matching adequate version 
+        .filter( tab => {
+
+          if ( !tab.version ) {
+
+            return true;
+
+          }
+
+          return version( tab.version.split( ':' )[ 0 ], parseInt( tab.version.split( ':' )[ 1 ] ), { agendaUid: req.agenda.uid } );
+
         } );
 
         wcb();
@@ -217,6 +231,7 @@ function loadAdminLayout( req, res, next ) {
   } );
 
 }
+
 
 function formatTemplateData( req, res, next ) {
 

@@ -850,25 +850,15 @@ function _initMailer( config ) { // sync
 
   log( 'info', 'mailer' );
 
-  const mailServiceConf = Object.assign( {}, config.mailer.serviceConf );
-
-  if ( config.mailer.service === 'ses' ) {
-
-    Object.assign( mailServiceConf, {
-      accessKeyId: config.aws.accessKeyId,
-      secretAccessKey: config.aws.secretAccessKey,
-      region: config.aws.region
-    } );
-
-  }
-
   mailer.init( {
     queueName: 'mailer',
     host: config.redis.host,
     port: config.redis.port,
     log: logger( 'mailer' ),
     mailService: config.mailer.service,
-    mailServiceConf
+    mailServiceConf: Object.assign( {
+      mailDefault: config.mailer.mailDefault
+    }, config.mailerServices[ config.mailer.service ] )
   } );
 
   return config;

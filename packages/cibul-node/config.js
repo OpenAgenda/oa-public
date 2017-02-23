@@ -4,6 +4,14 @@ var deepExtend = require( 'deep-extend' ),
     all: {
       env: 'prod',
       corpoLastUpdate: '2016-02-28T11:07:29.000Z',
+      versions: {
+        members: [ {
+          version: 2,
+          agendaUids: [ 48959239 ]
+        }, {
+          version: 1
+        } ]
+      },
       port: 8901,
       multiCore: true,
       mainChannel: 'main',
@@ -129,11 +137,32 @@ var deepExtend = require( 'deep-extend' ),
         name: 'cibul'
       },
       mailer: {
-        service: 'ses',
+        service: 'mailgun',
         simulated: false, // legacy ./mailer
-        serviceConf: {
+        mailDefault: {
           source: 'no-reply@openagenda.com',
           replyTo: 'admin@openagenda.com'
+        }
+      },
+      mailerServices: {
+        dud: {},
+        mailgun: {
+          transport: {
+            auth: {
+              api_key: 'key-1dbfbb052b63a8e86a325778d2144204',
+              domain: 'mailgun.openagenda.com'
+            }
+          },
+          delay: 100
+        },
+        ses: {
+          accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
+          secretAccessKey: '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',
+          region: 'eu-west-1',
+        },
+        nodemailer: {
+          host: '127.0.0.1',
+          port: '1025'
         }
       },
       api: {
@@ -201,15 +230,15 @@ var deepExtend = require( 'deep-extend' ),
             method: 'get',
             uri: '/signup'
           },
-          'homeEvents' : {
+          'homeEvents': {
             method: 'get',
             uri: '/home/events'
           },
-          'homeMessages' : {
+          'homeMessages': {
             method: 'get',
             uri: '/home/messages'
           },
-          'homeNotifications' : {
+          'homeNotifications': {
             method: 'get',
             uri: '/home/notifications'
           },
@@ -445,9 +474,9 @@ var deepExtend = require( 'deep-extend' ),
       mailer: {
         service: 'nodemailer',
         simulated: true, // legacy ./mailer
-        serviceConf: {
-          host: '127.0.0.1',
-          port: '1025'
+        mailDefault: {
+          from: 'no-reply@openagenda.com',
+          replyTo: 'admin@openagenda.com'
         }
       },
       routes: {

@@ -13,14 +13,23 @@ module.exports = {
     key : 'contributors',
     label : 'Contributors',
     access: 'moderator',
-    uri : 'agendaAdminContributors'
+    uri : 'agendaAdminContributors',
+    version: 'members:1'
   }, {
     section : 'manage',
     key : 'moderators',
     label : 'Moderators',
     uri : 'agendaAdminModerators',
     access: 'administrator',
-    requiredCred: 'moderator'
+    requiredCred: 'moderator',
+    version: 'members:1'
+  }, {
+    section : 'manage',
+    key : 'members',
+    label : 'Members',
+    uri : 'agendaAdminMembers',
+    access: 'moderator',
+    version: 'members:2'
   }, {
     section : 'manage',
     key : 'locations',
@@ -79,7 +88,8 @@ module.exports = {
     key : 'administrators',
     label : 'Administrators',
     access: 'administrator',
-    uri : 'agendaAdminAdministrators'
+    uri : 'agendaAdminAdministrators',
+    version: 'members:1'
   }, {
     section : 'settings',
     key : 'settings_profile',

@@ -24,7 +24,7 @@ const appMw = [
 
 const routes = {
 
-  membersApp: [ 'get', '', appMw ],
+  agendaAdminMembers: [ 'get', '', appMw ],
   membersSub: [ 'get', '/?*?', appMw ],
 
   /**********/
@@ -188,7 +188,7 @@ function getApp( req, res, next, { store, component } = {} ) {
 
 function matchApp( req, res, next ) {
 
-  const prefix = req.genUrl( 'membersApp', { slug: req.params.slug } ).split( '?' )[ 0 ];
+  const prefix = req.genUrl( 'agendaAdminMembers', { slug: req.params.slug } ).split( '?' )[ 0 ];
   const lang = req.lang || 'fr';
 
   mw.matchApp(
@@ -201,7 +201,7 @@ function matchApp( req, res, next ) {
           perPageLimit: 20
         },
         res: {
-          app: req.genUrl( 'membersApp', { slug: req.agenda.slug } ),
+          app: req.genUrl( 'agendaAdminMembers', { slug: req.agenda.slug } ),
           list: req.genUrl( 'membersList', { slug: req.agenda.slug } ),
           update: req.genUrl( 'membersUpdate', { slug: req.agenda.slug, uid: ':uid' } ),
           remove: req.genUrl( 'membersRemove', { slug: req.agenda.slug, uid: ':uid' } ),
