@@ -58,7 +58,10 @@ function validate(values) {
     }))));
   }
 
-  console.log(values);
+  if (errors.emails && values.emails && values.emails.length > 1) {
+
+    errors.emails = 'emails.invalid';
+  }
 
   if (Object.keys(errors).length) {
     return errors;

@@ -19,7 +19,7 @@ const dashboardValuesSelector = formValueSelector( 'membersDashboard' );
 // const selector = formValueSelector( 'membersDashboard' );
 
 const base64encode = str => {
-  str = encodeURIComponent( str );
+  // str = encodeURIComponent( str );
   return typeof window === 'undefined' ? new Buffer( str ).toString( 'base64' ) : btoa( str );
 };
 
@@ -43,7 +43,7 @@ const base64encode = str => {
       search: props.location.query.search || ''
     },
     res: state.res,
-    userCrendential: state.stakeholder.credential,
+    userCredential: state.stakeholder.credential,
     stakeholders: state.members.data,
     page: state.members.page,
     total: state.members.total,
@@ -70,7 +70,7 @@ export default class Dashboard extends Component {
     remove: PropTypes.func,
     nextPage: PropTypes.func,
     res: PropTypes.object,
-    userCrendential: PropTypes.number,
+    userCredential: PropTypes.number,
     stakeholders: PropTypes.array,
     addCredFilter: PropTypes.func,
     removeCredFilter: PropTypes.func,
@@ -169,7 +169,7 @@ export default class Dashboard extends Component {
   renderStakeholder( stakeholder ) {
     const { id, credential, custom, eventCount, user } = stakeholder;
     const { getLabel } = this.context;
-    const { res, showModal, userCrendential } = this.props;
+    const { res, showModal, userCredential } = this.props;
 
     if ( !stakeholder.user ) return <div key={id}></div>;
 
@@ -192,21 +192,21 @@ export default class Dashboard extends Component {
               href={res.showContributor.replace( ':contributorUid', user.uid )}
               className="text-muted">{eventCount} {getLabel( 'events' )}
             </a>
-            {(userCrendential !== 3 || ![ 2, 3 ].includes( credential ) ) && <a
+            {(userCredential !== 3 || ![ 2, 3 ].includes( credential ) ) && <a
               role="button"
               className="text-muted"
               onClick={() => showModal( 'editMember', { uid: user.uid, stakeholder } )}
             >
               {getLabel( 'editProfile' )}
             </a>}
-            {(userCrendential !== 3 || ![ 2, 3 ].includes( credential ) ) && <a
+            {(userCredential !== 3 || ![ 2, 3 ].includes( credential ) ) && <a
               role="button"
               className="text-muted"
               onClick={() => showModal( 'removeMember', { uid: user.uid } )}
             >
               {getLabel( 'removeMember' )}
             </a>}
-            <a href={res.writeToMember.replace( ':redirect', base64encode( res.app ) )}
+            <a href={res.writeToMember.replace( ':uid', user.uid ).replace( ':redirect', base64encode( res.app ) )}
               className="text-muted">
               {getLabel( 'writeToHim' )}
             </a>
@@ -265,8 +265,8 @@ export default class Dashboard extends Component {
               <MenuItem onClick={() => showModal( 'inviteMembers' )}>{getLabel( 'inviteMembers' )}</MenuItem>
               {/* <MenuItem>Importer des contributeurs</MenuItem> */}
               <MenuItem divider />
-              <MenuItem>{getLabel( 'exportToXls' )}</MenuItem>
-              <MenuItem>{getLabel( 'exportToCsv' )}</MenuItem>
+              <MenuItem href={res.exportToXlsx}>{getLabel( 'exportToXlsx' )}</MenuItem>
+              <MenuItem href={res.exportToCsv}>{getLabel( 'exportToCsv' )}</MenuItem>
             </DropdownButton>
           </div>
         </h2>

@@ -105,7 +105,7 @@ var dashboardValuesSelector = (0, _reduxForm.formValueSelector)('membersDashboar
 // const selector = formValueSelector( 'membersDashboard' );
 
 var base64encode = function base64encode(str) {
-  str = encodeURIComponent(str);
+  // str = encodeURIComponent( str );
   return typeof window === 'undefined' ? new Buffer(str).toString('base64') : btoa(str);
 };
 
@@ -132,7 +132,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       search: props.location.query.search || ''
     },
     res: state.res,
-    userCrendential: state.stakeholder.credential,
+    userCredential: state.stakeholder.credential,
     stakeholders: state.members.data,
     page: state.members.page,
     total: state.members.total,
@@ -278,7 +278,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       var _props4 = this.props,
           res = _props4.res,
           showModal = _props4.showModal,
-          userCrendential = _props4.userCrendential;
+          userCredential = _props4.userCredential;
 
 
       if (!stakeholder.user) return _react3.default.createElement('div', { key: id });
@@ -331,7 +331,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               ' ',
               getLabel('events')
             ),
-            (userCrendential !== 3 || ![2, 3].includes(credential)) && _react3.default.createElement(
+            (userCredential !== 3 || ![2, 3].includes(credential)) && _react3.default.createElement(
               'a',
               {
                 role: 'button',
@@ -342,7 +342,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               },
               getLabel('editProfile')
             ),
-            (userCrendential !== 3 || ![2, 3].includes(credential)) && _react3.default.createElement(
+            (userCredential !== 3 || ![2, 3].includes(credential)) && _react3.default.createElement(
               'a',
               {
                 role: 'button',
@@ -355,7 +355,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             ),
             _react3.default.createElement(
               'a',
-              { href: res.writeToMember.replace(':redirect', base64encode(res.app)),
+              { href: res.writeToMember.replace(':uid', user.uid).replace(':redirect', base64encode(res.app)),
                 className: 'text-muted' },
               getLabel('writeToHim')
             )
@@ -453,12 +453,12 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               _react3.default.createElement(_reactBootstrap.MenuItem, { divider: true }),
               _react3.default.createElement(
                 _reactBootstrap.MenuItem,
-                null,
-                getLabel('exportToXls')
+                { href: res.exportToXlsx },
+                getLabel('exportToXlsx')
               ),
               _react3.default.createElement(
                 _reactBootstrap.MenuItem,
-                null,
+                { href: res.exportToCsv },
                 getLabel('exportToCsv')
               )
             )
@@ -634,7 +634,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
   remove: _react2.PropTypes.func,
   nextPage: _react2.PropTypes.func,
   res: _react2.PropTypes.object,
-  userCrendential: _react2.PropTypes.number,
+  userCredential: _react2.PropTypes.number,
   stakeholders: _react2.PropTypes.array,
   addCredFilter: _react2.PropTypes.func,
   removeCredFilter: _react2.PropTypes.func,

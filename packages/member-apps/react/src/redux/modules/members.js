@@ -1,6 +1,7 @@
 import Stakeholder from 'agenda-stakeholders/iso/Stakeholder';
 import { SubmissionError } from 'redux-form';
 import * as credentialsTypes from 'agenda-stakeholders/iso/credentialTypes';
+import _ from 'lodash';
 
 const LOAD = 'member-apps/members/LOAD';
 const LOAD_SUCCESS = 'member-apps/members/LOAD_SUCCESS';
@@ -118,7 +119,8 @@ export default function reducer( state = initialState, action ) {
     case UPDATE_SUCCESS:
       const data = state.data.map( sh => (sh.user.uid === action.uid ? {
           ...sh,
-          custom: { ...sh.custom, ...action.result.data }
+          credential: action.result.credential || sh.credential, // TODO remove parseInt ?
+          custom: { ...sh.custom, ...action.result.fieldValues }
         } : sh) );
       return {
         ...state,
@@ -240,7 +242,10 @@ export function update( uid, values ) {
     types: [ UPDATE, UPDATE_SUCCESS, UPDATE_FAIL ],
     uid,
     promise: ( client, { res } ) => {
-      const stakeholder = new Stakeholder( values, { res: res.update.replace( ':uid', uid ) } );
+      const stakeholder = new Stakeholder( {
+        fieldValues: _.omit( values, 'credential' ),
+        credential: values.credential
+      }, { res: res.update.replace( ':uid', uid ) } );
 
       const flatErrors = e => e.reduce( ( prev, next ) => ({ ...prev, [next.field]: next.code }), {} );
 

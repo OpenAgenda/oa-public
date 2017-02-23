@@ -65,8 +65,11 @@ var EditMembersForm = _wrapComponent('EditMembersForm')((_dec = (0, _reactRedux.
       email: custom.email,
       contactNumber: custom.contactNumber,
       contactName: custom.contactName,
-      contactPosition: custom.contactPosition
-    }
+      contactPosition: custom.contactPosition,
+      credential: props.stakeholder.credential
+    },
+    roles: state.agenda.roles,
+    userCredential: state.stakeholder.credential
   };
 }), _dec2 = (0, _reduxForm.reduxForm)({
   form: 'editMember',
@@ -81,21 +84,31 @@ var EditMembersForm = _wrapComponent('EditMembersForm')((_dec = (0, _reactRedux.
 
     _this.renderField = _form.renderField.bind(_this);
     _this.renderInput = _form.renderInput.bind(_this);
+    _this.renderSelect = _form.renderSelect.bind(_this);
     return _this;
   }
 
   _createClass(EditMembersForm, [{
     key: 'render',
     value: function render() {
-      var handleSubmit = this.props.handleSubmit;
+      var _props = this.props,
+          handleSubmit = _props.handleSubmit,
+          roles = _props.roles,
+          userCredential = _props.userCredential;
       var getLabel = this.context.getLabel;
 
+
+      var haveRole = function haveRole(value) {
+        return roles.some(function (role) {
+          return role.value === value;
+        });
+      };
 
       return _react3.default.createElement(
         'form',
         { onSubmit: handleSubmit },
         _react3.default.createElement(_reduxForm.Field, {
-          label: 'Name',
+          label: getLabel('name'),
           component: this.renderInput,
           name: 'contactName',
           type: 'text',
@@ -103,7 +116,7 @@ var EditMembersForm = _wrapComponent('EditMembersForm')((_dec = (0, _reactRedux.
           className: 'form-control'
         }),
         _react3.default.createElement(_reduxForm.Field, {
-          label: 'Email',
+          label: getLabel('email'),
           component: this.renderInput,
           name: 'email',
           type: 'email',
@@ -111,32 +124,70 @@ var EditMembersForm = _wrapComponent('EditMembersForm')((_dec = (0, _reactRedux.
           className: 'form-control'
         }),
         _react3.default.createElement(_reduxForm.Field, {
-          label: 'Tel',
+          label: getLabel('phone'),
           component: this.renderInput,
           name: 'contactNumber',
           type: 'text',
           classNameGroup: 'margin-v-md',
-          className: 'form-control',
-          placeholder: ''
+          className: 'form-control'
         }),
         _react3.default.createElement(_reduxForm.Field, {
-          label: 'Position',
+          label: getLabel('position'),
           component: this.renderInput,
           name: 'contactPosition',
           type: 'text',
           classNameGroup: 'margin-v-md',
-          className: 'form-control',
-          placeholder: ''
+          className: 'form-control'
         }),
         _react3.default.createElement(_reduxForm.Field, {
-          label: 'Organization',
+          label: getLabel('organization'),
           component: this.renderInput,
           name: 'organization',
           type: 'text',
           classNameGroup: 'margin-v-md',
-          className: 'form-control',
-          placeholder: ''
+          className: 'form-control'
         }),
+        _react3.default.createElement(
+          _reduxForm.Field,
+          {
+            label: getLabel('role'),
+            component: this.renderSelect,
+            name: 'credential',
+            type: 'select',
+            classNameGroup: 'margin-top-md margin-bottom-lg',
+            className: 'form-control',
+            defaultValue: '0',
+            displayFeedback: false,
+            parse: function parse(v) {
+              return parseInt(v);
+            }
+          },
+          _react3.default.createElement(
+            'option',
+            { value: '0', hidden: true },
+            getLabel('selectRole')
+          ),
+          haveRole(4) && _react3.default.createElement(
+            'option',
+            { value: '4' },
+            getLabel('reader')
+          ),
+          haveRole(1) && _react3.default.createElement(
+            'option',
+            { value: '1' },
+            getLabel('contributor')
+          ),
+          userCredential === 2 && haveRole(3) && _react3.default.createElement(
+            'option',
+            { value: '3' },
+            getLabel('moderator')
+          ),
+          userCredential === 2 && haveRole(2) && _react3.default.createElement(
+            'option',
+            { value: '2' },
+            getLabel('administrator')
+          )
+        ),
         _react3.default.createElement(
           'div',
           { className: 'text-center' },

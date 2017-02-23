@@ -32,7 +32,7 @@ export default class InviteMembersForm extends Component {
     const { handleSubmit, userCredential } = this.props;
     const { getLabel } = this.context;
 
-    const haveRole = value => this.props.roles.some(role => role.value === value);
+    const haveRole = value => this.props.roles.some( role => role.value === value );
 
     return (
       <form onSubmit={handleSubmit} className="invite-members-form">
@@ -58,12 +58,13 @@ export default class InviteMembersForm extends Component {
           className="form-control"
           defaultValue="0"
           displayFeedback={false}
+          parse={v => parseInt( v )}
         >
           <option value="0" hidden>{getLabel( 'selectRole' )}</option>
-          {haveRole(4) && <option value="4">{getLabel( 'reader' )}</option>}
-          {haveRole(1) && <option value="1">{getLabel( 'contributor' )}</option>}
-          {userCredential !== 3 && haveRole(3) && <option value="3">{getLabel( 'moderator' )}</option>}
-          {userCredential !== 3 && haveRole(2) && <option value="2">{getLabel( 'administrator' )}</option>}
+          {haveRole( 4 ) && <option value="4">{getLabel( 'reader' )}</option>}
+          {haveRole( 1 ) && <option value="1">{getLabel( 'contributor' )}</option>}
+          {userCredential !== 3 && haveRole( 3 ) && <option value="3">{getLabel( 'moderator' )}</option>}
+          {userCredential !== 3 && haveRole( 2 ) && <option value="2">{getLabel( 'administrator' )}</option>}
         </Field>
 
         <div className="text-center">

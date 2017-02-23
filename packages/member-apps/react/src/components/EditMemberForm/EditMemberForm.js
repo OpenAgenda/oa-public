@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import validate from './validate';
-import { renderField, renderInput } from '../../utils/form';
+import { renderField, renderInput, renderSelect } from '../../utils/form';
 
 @connect(
   ( state, props ) => {
@@ -13,8 +13,11 @@ import { renderField, renderInput } from '../../utils/form';
         email: custom.email,
         contactNumber: custom.contactNumber,
         contactName: custom.contactName,
-        contactPosition: custom.contactPosition
-      }
+        contactPosition: custom.contactPosition,
+        credential: props.stakeholder.credential
+      },
+      roles: state.agenda.roles,
+      userCredential: state.stakeholder.credential
     };
   }
 )
@@ -28,6 +31,7 @@ export default class EditMembersForm extends Component {
     super( props );
     this.renderField = this::renderField;
     this.renderInput = this::renderInput;
+    this.renderSelect = this::renderSelect;
   }
 
   static contextTypes = {
@@ -36,13 +40,15 @@ export default class EditMembersForm extends Component {
 
   render() {
 
-    const { handleSubmit } = this.props;
+    const { handleSubmit, roles, userCredential } = this.props;
     const { getLabel } = this.context;
+
+    const haveRole = value => roles.some( role => role.value === value );
 
     return (
       <form onSubmit={handleSubmit}>
         <Field
-          label="Name"
+          label={getLabel( 'name' )}
           component={this.renderInput}
           name="contactName"
           type="text"
@@ -50,7 +56,7 @@ export default class EditMembersForm extends Component {
           className="form-control"
         />
         <Field
-          label="Email"
+          label={getLabel( 'email' )}
           component={this.renderInput}
           name="email"
           type="email"
@@ -58,32 +64,46 @@ export default class EditMembersForm extends Component {
           className="form-control"
         />
         <Field
-          label="Tel"
+          label={getLabel( 'phone' )}
           component={this.renderInput}
           name="contactNumber"
           type="text"
           classNameGroup="margin-v-md"
           className="form-control"
-          placeholder=""
         />
         <Field
-          label="Position"
+          label={getLabel( 'position' )}
           component={this.renderInput}
           name="contactPosition"
           type="text"
           classNameGroup="margin-v-md"
           className="form-control"
-          placeholder=""
         />
         <Field
-          label="Organization"
+          label={getLabel( 'organization' )}
           component={this.renderInput}
           name="organization"
           type="text"
           classNameGroup="margin-v-md"
           className="form-control"
-          placeholder=""
         />
+        <Field
+          label={getLabel( 'role' )}
+          component={this.renderSelect}
+          name="credential"
+          type="select"
+          classNameGroup="margin-top-md margin-bottom-lg"
+          className="form-control"
+          defaultValue="0"
+          displayFeedback={false}
+          parse={v => parseInt( v )}
+        >
+          <option value="0" hidden>{getLabel( 'selectRole' )}</option>
+          {haveRole( 4 ) && <option value="4">{getLabel( 'reader' )}</option>}
+          {haveRole( 1 ) && <option value="1">{getLabel( 'contributor' )}</option>}
+          {userCredential === 2 && haveRole( 3 ) && <option value="3">{getLabel( 'moderator' )}</option>}
+          {userCredential === 2 && haveRole( 2 ) && <option value="2">{getLabel( 'administrator' )}</option>}
+        </Field>
 
         <div className="text-center">
           <button role="submit" className="btn btn-primary">

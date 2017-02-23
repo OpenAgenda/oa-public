@@ -56,7 +56,7 @@ async.waterfall( [
   app.use( morgan( 'combined' ) );
 
   app.use( ( req, res, next ) => {
-    req.user = { id: 4387 }; // 2 == administrator, 4387 == contributor
+    req.user = { id: 2 }; // 2 == administrator, 4387 == contributor
     req.agenda = { id: 4608 };
     next();
   } );
@@ -142,7 +142,8 @@ async.waterfall( [
       namespaces: {
         user: 'stakeholderUser',
         data: 'body'
-      }
+      },
+      credential: true
     } ),
     ( { result }, res ) => res.status( result.errors.length ? 400 : 200 ).json( result )
   );
@@ -155,7 +156,7 @@ async.waterfall( [
       }
       next( new Error( 'You don\'t have right to invite members with this role' ) );
     },
-    stakeholdersMw.agenda( 'agenda.data' ).bulkCreate( {
+    stakeholdersMw.agenda( 'agenda.data' ).bulk( {
       namespaces: {
         data: 'body'
       },
@@ -168,15 +169,12 @@ async.waterfall( [
 
       if ( errors.length ) return next( { errors } );
 
-      const emailsRejected = _.compact( results.reduce( ( prev, next ) => {
-        let emailRejected;
-        if ( next.errors && next.errors.length ) {
-          emailRejected = next.errors.reduce( ( prev, next ) => {
-            return (next.code && next.code.includes( 'email' ) && next.origin) || null;
-          }, null );
+      const emailsRejected = results.reduce( ( prev, nextResult, i ) => {
+        if ( nextResult.errors && nextResult.errors.length ) {
+          return prev.concat( req.body.stakeholders[ i ].email );
         }
-        return prev.concat( emailRejected );
-      }, [] ) );
+        return prev;
+      }, [] );
 
       req.result = { queued, emailsRejected, success: !emailsRejected.length };
 

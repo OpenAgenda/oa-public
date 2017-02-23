@@ -30,6 +30,10 @@ var _credentialTypes = require('agenda-stakeholders/iso/credentialTypes');
 
 var credentialsTypes = _interopRequireWildcard(_credentialTypes);
 
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -145,7 +149,8 @@ function reducer() {
     case UPDATE_SUCCESS:
       var data = state.data.map(function (sh) {
         return sh.user.uid === action.uid ? _extends({}, sh, {
-          custom: _extends({}, sh.custom, action.result.data)
+          credential: action.result.credential || sh.credential, // TODO remove parseInt ?
+          custom: _extends({}, sh.custom, action.result.fieldValues)
         }) : sh;
       });
       return _extends({}, state, {
@@ -270,7 +275,10 @@ function update(uid, values) {
     promise: function promise(client, _ref5) {
       var res = _ref5.res;
 
-      var stakeholder = new _Stakeholder2.default(values, { res: res.update.replace(':uid', uid) });
+      var stakeholder = new _Stakeholder2.default({
+        fieldValues: _lodash2.default.omit(values, 'credential'),
+        credential: values.credential
+      }, { res: res.update.replace(':uid', uid) });
 
       var flatErrors = function flatErrors(e) {
         return e.reduce(function (prev, next) {

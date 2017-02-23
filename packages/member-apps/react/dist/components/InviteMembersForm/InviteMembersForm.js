@@ -130,7 +130,10 @@ var InviteMembersForm = _wrapComponent('InviteMembersForm')((_dec = (0, _reactRe
             classNameGroup: 'margin-top-md margin-bottom-lg',
             className: 'form-control',
             defaultValue: '0',
-            displayFeedback: false
+            displayFeedback: false,
+            parse: function parse(v) {
+              return parseInt(v);
+            }
           },
           _react3.default.createElement(
             'option',
