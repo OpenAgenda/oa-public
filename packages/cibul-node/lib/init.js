@@ -588,7 +588,6 @@ function _initAgendaStakeholders( config ) { // async
             .then( result => {
 
               const signupUrl = genUrl.abs( 'signup' ) + '?invitation=' + result.invitation.token;
-              console.log( 'stakeholder.linkStore', stakeholder.linkStore );
               const lang = (stakeholder.linkStore && stakeholder.linkStore.lang) || 'fr';
 
               mailer( {
