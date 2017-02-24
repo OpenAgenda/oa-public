@@ -136,7 +136,8 @@ function agenda( namespace = 'agenda' ) {
     let { namespaces, allowPartial } = _.merge( {
       namespaces: {
         data: 'data',
-        result: 'result'
+        result: 'result',
+        linkStore: 'linkStore'
       },
       allowPartial: false
     }, options || {} );
@@ -147,7 +148,11 @@ function agenda( namespace = 'agenda' ) {
 
       service.agenda( _.get( req, namespace ).id )
 
-        .bulk( stakeholders, { allowPartial, credential }, ( err, result ) => {
+        .bulk( stakeholders, { 
+          allowPartial, 
+          credential,
+          linkStore: _.get( req, namespaces.linkStore, null )
+        }, ( err, result ) => {
 
         if ( err ) return next( err );
 
