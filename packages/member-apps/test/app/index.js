@@ -56,7 +56,10 @@ async.waterfall( [
   app.use( morgan( 'combined' ) );
 
   app.use( ( req, res, next ) => {
-    req.user = { id: 2 }; // 2 == administrator, 4387 == contributor
+    req.user = {
+      id: 2,
+      lang: req.query.lang || 'fr'
+    }; // 2 == administrator, 4387 == contributor
     req.agenda = { id: 4608 };
     next();
   } );
@@ -155,6 +158,12 @@ async.waterfall( [
         return next();
       }
       next( new Error( 'You don\'t have right to invite members with this role' ) );
+    },
+    ( req, res, next ) => {
+      req.linkStore = {
+        lang: req.user.lang
+      }
+      next();
     },
     stakeholdersMw.agenda( 'agenda.data' ).bulk( {
       namespaces: {
