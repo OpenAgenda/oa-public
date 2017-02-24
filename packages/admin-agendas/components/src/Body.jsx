@@ -81,11 +81,13 @@ module.exports = React.createClass( {
       searchPage: page
     };
 
+    this.setState( actions.setSearch( this.state, newQuery ) );
+
     get( this.props.searchRes, query, ( err, data ) => {
 
       if ( err ) return console.log( 'error', err );
 
-      this.setState( actions.resetPageItems( this.state, newQuery, data, page ) );
+      this.setState( actions.resetPageItems( this.state, data, page ) );
 
       updateHref( Object.assign( getQuery() || {}, query ) );
 

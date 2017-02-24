@@ -15,18 +15,26 @@ module.exports = {
 
   },
 
-  resetPageItems( currentState, query, data, page = 1 ) {
+  setSearch( currentState, query ) {
+
+    return update( currentState, {
+      search: {
+        query: {
+          $set: query
+        }
+      }
+    } );
+
+  },
+
+  resetPageItems( currentState, data, page = 1 ) {
 
     var changes = {
       search: {}
     };
-    
+
     changes.search.pageRange = {
       $set: [ parseInt( page ), parseInt( page ) ]
-    };
-
-    changes.search.query = {
-      $set: query
     };
 
     changes.search.agendas = {
@@ -126,6 +134,6 @@ module.exports = {
     }
 
     return update( currentState, changes );
-    
+
   }
 };

@@ -13,8 +13,18 @@ module.exports = {
 
     return update(currentState, changes);
   },
-  resetPageItems: function resetPageItems(currentState, query, data) {
-    var page = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+  setSearch: function setSearch(currentState, query) {
+
+    return update(currentState, {
+      search: {
+        query: {
+          $set: query
+        }
+      }
+    });
+  },
+  resetPageItems: function resetPageItems(currentState, data) {
+    var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
 
 
     var changes = {
@@ -23,10 +33,6 @@ module.exports = {
 
     changes.search.pageRange = {
       $set: [parseInt(page), parseInt(page)]
-    };
-
-    changes.search.query = {
-      $set: query
     };
 
     changes.search.agendas = {

@@ -74,11 +74,13 @@ module.exports = React.createClass({
       searchPage: page
     };
 
+    this.setState(actions.setSearch(this.state, newQuery));
+
     get(this.props.searchRes, query, function (err, data) {
 
       if (err) return console.log('error', err);
 
-      _this2.setState(actions.resetPageItems(_this2.state, newQuery, data, page));
+      _this2.setState(actions.resetPageItems(_this2.state, data, page));
 
       updateHref(Object.assign(getQuery() || {}, query));
 
