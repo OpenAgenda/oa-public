@@ -588,24 +588,26 @@ function _initAgendaStakeholders( config ) { // async
             .then( result => {
 
               const signupUrl = genUrl.abs( 'signup' ) + '?invitation=' + result.invitation.token;
+              console.log( 'stakeholder.linkStore', stakeholder.linkStore );
+              const lang = (stakeholder.linkStore && stakeholder.linkStore.lang) || 'fr';
 
               mailer( {
                 recipient: stakeholder.custom.email,
-                subject: getInvitationLabel( 'emailSubject', 'fr' ),
+                subject: getInvitationLabel( 'emailSubject', lang ),
                 data: {
                   logo: 'https://openagenda.com/images/openagenda.png',
                   title: {
-                    text: getInvitationLabel( 'emailTitle', { title: agenda.title }, 'fr' ),
+                    text: getInvitationLabel( 'emailTitle', { title: agenda.title }, lang ),
                     link: signupUrl
                   },
                   action: {
-                    label: getInvitationLabel( 'emailAction', 'fr' ),
+                    label: getInvitationLabel( 'emailAction', lang ),
                     link: signupUrl
                   },
                   description: getInvitationLabel( 'emailDescription', {
                     title: agenda.title,
-                    credential: getInvitationLabel( agendaStakeholders.types.codes.get( stakeholder.credential ), 'fr' )
-                  }, 'fr' ),
+                    credential: getInvitationLabel( agendaStakeholders.types.codes.get( stakeholder.credential ), lang )
+                  }, lang ),
                 }
               } );
 

@@ -94,6 +94,12 @@ const routes = {
       }
       next( new Error( 'You don\'t have right to invite members with this role' ) );
     },
+    ( req, res, next ) => {
+      req.linkStore = {
+        lang: req.lang
+      }
+      next();
+    },
     stakeholdersMw.agenda( 'agendaInstance.data' ).bulk( {
       namespaces: {
         data: 'body'
