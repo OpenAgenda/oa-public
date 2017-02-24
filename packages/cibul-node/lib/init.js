@@ -619,6 +619,17 @@ function _initAgendaStakeholders( config ) { // async
         userSvc.get( identifiers, cb );
 
       },
+      getExistingCredentials: ( agendaId, cb ) => {
+
+        agendaSvc.get( { id: agendaId }, { instanciate: true }, ( err, agenda ) => {
+
+          if ( err ) return cb( err );
+
+          agenda.getRoles( cb );
+
+        } );
+
+      },
       getEventCount: ( agendaId, userId, cb ) => {
 
         model.lib.query( [
