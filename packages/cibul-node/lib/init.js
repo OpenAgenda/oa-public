@@ -621,11 +621,17 @@ function _initAgendaStakeholders( config ) { // async
       },
       getExistingCredentials: ( agendaId, cb ) => {
 
-        agendaSvc.get( { id: agendaId }, { instanciate: true }, ( err, agenda ) => {
+        agendasSvc.get( { id: agendaId }, { instanciate: true }, ( err, agenda ) => {
 
           if ( err ) return cb( err );
 
-          agenda.getRoles( cb );
+          agenda.getRoles( ( err, credentials ) => {
+
+            if ( err ) return cb( err );
+
+            cb( null, credentials.map( c => c.value ) );
+
+          } );
 
         } );
 
@@ -869,7 +875,7 @@ function _initMailer( config ) { // sync
     mailService: config.mailer.service,
     mailServiceConf: Object.assign( {
       mailDefault: config.mailer.mailDefault
-    }, config.mailerServices[ config.mailer.service ] )
+    }, config.mailerServices[ config.mailer.service ] )
   } );
 
   return config;
