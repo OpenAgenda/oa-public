@@ -622,7 +622,7 @@ function _initAgendaStakeholders( config ) { // async
       },
       getExistingCredentials: ( agendaId, cb ) => {
 
-        agendasSvc.get( { id: agendaId }, { instanciate: true }, ( err, agenda ) => {
+        agendasSvc.get( { id: agendaId }, { instanciate: true, private: null }, ( err, agenda ) => {
 
           if ( err ) return cb( err );
 

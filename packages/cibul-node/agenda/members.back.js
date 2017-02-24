@@ -153,7 +153,8 @@ module.exports = path => {
         result: 'agendaInstance'
       },
       instanciate: true,
-      internal: true
+      internal: true,
+      private: null
     } ),
     stakeholdersMw.agenda( 'agendaInstance.data' ).get( {
       namespaces: {
@@ -166,7 +167,8 @@ module.exports = path => {
       namespaces: {
         agenda: 'agendaInstance', // slug with req.params.slug in real world
         result: 'agendaRoles'
-      }
+      },
+      private: null
     } ),
     oldAgendaLoad( 'slug' ),
     cmn.checkAdministrator()
