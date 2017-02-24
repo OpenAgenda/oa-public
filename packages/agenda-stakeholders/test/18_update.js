@@ -149,6 +149,41 @@ describe( 'agenda-stakeholders - functional (server): update', function() {
 
     } );
 
+    it( 'linkStore is maintained as long as user is not set', done => {
+
+      service.agenda( 4608 ).update( {
+        id: 9734
+      }, { organization: 'acme' }, {
+        allowPartial: true
+      }, ( err, result ) => {
+
+        result.stakeholder.linkStore.should.eql( { stuff: 'forLinking' } );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'linkStore is nullified if userId is set', done => {
+
+      service.agenda( 4608 ).update( {
+        id: 9734
+      }, {}, {
+        allowPartial: true,
+        userId: 1
+      }, ( err, result ) => {
+
+        result.success.should.equal( true );
+
+        should( result.stakeholder.linkStore ).equal( null );
+
+        done();
+
+      } );
+
+    } );
+
   } );
 
 } );

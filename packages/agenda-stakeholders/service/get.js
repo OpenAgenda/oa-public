@@ -59,7 +59,7 @@ function init( config ) {
 function _get( v ) {
 
   let whereObj = format.objToDb( v.identifiers, true );
-  
+
   let k = knex( schemas.stakeholder )
 
     .select( '*' )

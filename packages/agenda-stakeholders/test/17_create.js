@@ -193,6 +193,33 @@ describe( 'agenda-stakeholders - functional (server): create', function() {
 
     } );
 
+    it( 'data can be stored on an unlinked stakeholder', done => {
+
+      service.agenda( 4608 ).create( {
+        email: 'kraken@oa.com'
+      }, {
+        allowPartial: true,
+        linkStore: {
+          some: 'data',
+          lang: 'is'
+        }
+      }, ( err, result ) => {
+
+        should( err ).equal( null );
+
+        result.success.should.equal( true );
+
+        result.stakeholder.linkStore.should.eql( {
+          some: 'data',
+          lang: 'is'
+        } );
+
+        done();
+
+      } );
+
+    } );
+
   } );
 
   describe( 'create errors and edge cases', () => {

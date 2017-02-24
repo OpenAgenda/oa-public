@@ -13,6 +13,8 @@ const _ = require( 'lodash' ),
   get = require( './get' ),
 
   validate = require( './lib/validate.process' ),
+
+  cleanLinkStore = require( './lib/cleanLinkStore.process' ),
  
   settings = require( './settings' );
  
@@ -28,6 +30,7 @@ const createProcess = new Process( {
   tasks: {
     validate,
     get,
+    cleanLinkStore,
     _checkEmail,
     _loadUser,
     _doCreate,
@@ -64,6 +67,12 @@ const createProcess = new Process( {
       assign: [ 'result.user' ]
     } ]
   }, {
+    task: 'cleanLinkStore',
+    in: [ 'result.user', 'options.linkStore' ],
+    out: [ {
+      assign: [ 'options.linkStore' ]
+    } ]
+  }, {
     task: '_doCreate',
     in: [ 'base', 'data', 'result.user', 'options' ],
     out: [ {
@@ -96,7 +105,8 @@ function create( base, data, options, cb ) {
     data,
     options: _.extend( {
       allowPartial: false,
-      credential: types.get( 'contributor' )
+      credential: types.get( 'contributor' ),
+      linkStore: null
     }, options ),
     result: {
       success: null,
@@ -145,6 +155,7 @@ function _doCreate( base, data, user, options, cb ) {
       credential: options.credential,
       custom: data,
       agendaId: base.agendaId,
+      linkStore: options.linkStore,
       userId: user ? user.id : null
     } ) )
 

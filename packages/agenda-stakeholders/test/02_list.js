@@ -132,7 +132,7 @@ describe( 'agenda-stakeholders - functional (server): list', function() {
 
       service.agenda( 4608 ).list( { invited: true }, 0, 10, { total: true }, ( err, stakeholders, total ) => {
 
-        total.should.equal( 6 );
+        total.should.equal( 7 );
 
         stakeholders.forEach( s => {
 
@@ -152,7 +152,7 @@ describe( 'agenda-stakeholders - functional (server): list', function() {
 
         service.agenda( 4608 ).list( { invited: false }, 0, 1, { total: true }, ( err, s, withUserTotal ) => {
 
-          overallTotal.should.equal( withUserTotal + 6 );
+          overallTotal.should.equal( withUserTotal + 7 );
 
           done();
 

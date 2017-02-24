@@ -69,6 +69,16 @@ function objToDb( obj, filterNull = false ) {
 
   }
 
+  if ( obj.linkStore ) {
+
+    let store = entry.store ? JSON.parse( entry.store ) : {};
+
+    store.linkStore = obj.linkStore;
+
+    entry.store = JSON.stringify( store );
+
+  }
+
   if ( filterNull ) {
 
     let filtered = {};
@@ -123,23 +133,23 @@ function dbToObj( entry, options = {} ) {
 
   } catch( e ) {}
 
-  if ( !store.custom_fields ) {
+  obj.linkStore = store.linkStore || null;
 
-    return obj;
+  if ( store.custom_fields ) {
 
-  }
+    obj.custom = _.mapKeys( store.custom_fields, ( v, k ) => _.camelCase( k ) );
 
-  obj.custom = _.mapKeys( store.custom_fields, ( v, k ) => _.camelCase( k ) );
+    if ( entry.organization && typeof obj.custom.organization === 'string' ) {
 
-  if ( entry.organization && typeof obj.custom.organization === 'string' ) {
+      _legacyDbToObj( entry, obj );
 
-    _legacyDbToObj( entry, obj );
+    }
 
-  }
+    if ( typeof obj.custom.organization === 'object' && !params.showSlugs ) {
 
-  if ( typeof obj.custom.organization === 'object' && !params.showSlugs ) {
+      obj.custom.organization = obj.custom.organization.label;
 
-    obj.custom.organization = obj.custom.organization.label;
+    }
 
   }
 

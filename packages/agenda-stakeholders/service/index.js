@@ -10,6 +10,8 @@ const knexLib = require( 'knex' ),
 
   list = require( './list' ),
 
+  bulk = require( './bulk' ),
+
   stats = require( './stats' ),
 
   remove = require( './remove' ),
@@ -17,8 +19,6 @@ const knexLib = require( 'knex' ),
   create = require( './create' ),
 
   update = require( './update' ),
-
-  bulk = require( './bulk' ),
 
   legacy = require( './legacy' ),
 

@@ -309,7 +309,7 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
 
         Object.keys( req.stakeholder ).should.eql( [
           'id', 'agendaId', 'userId', 'credential',
-          'updatedAt', 'createdAt', 'custom'
+          'updatedAt', 'createdAt', 'custom', 'linkStore'
         ] );
 
         done();

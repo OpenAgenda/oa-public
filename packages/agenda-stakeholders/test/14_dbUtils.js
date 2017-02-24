@@ -51,6 +51,7 @@ describe( 'agenda-stakeholders - unit (server): dbUtils', function() {
         agendaId: 4608,
         credential: 1,
         createdAt: v.stakeholder.createdAt, // not tested
+        linkStore: null,
         updatedAt: new Date( '2016-02-19 10:53:05.000' ),
         custom: {
           organization: { 

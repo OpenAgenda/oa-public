@@ -1,22 +1,27 @@
 "use strict";
 
-const get = require( './get' ),
+const 
 
-  validate = require( './lib/validate.process' ),
+  _ = require( 'lodash' ),
+
+  get = require( './get' ),
 
   utils = require( 'utils' ),
-
-  Process = require( 'process-service' ),
-
-  types = require( '../iso/credentialTypes' ),
-
+  
   format = require( './format' ),
-
+  
   logger = require( 'basic-logger' ),
 
   settings = require( './settings' ),
 
-  _ = require( 'lodash' );
+  Process = require( 'process-service' ),
+  
+  types = require( '../iso/credentialTypes' ),
+  
+  validate = require( './lib/validate.process' ),
+
+  cleanLinkStore = require( './lib/cleanLinkStore.process' );
+
 
 module.exports = _.extend( update, {
   init
@@ -29,8 +34,9 @@ const updateProcess = new Process( {
   tasks: {
     get,
     validate,
+    cleanLinkStoreByStakeholder: cleanLinkStore.byStakeholder,
     _merge,
-    _doUpdate
+    _doUpdate,
   },
   process: [ {
     task: 'get',
@@ -41,6 +47,12 @@ const updateProcess = new Process( {
       end: true
     }, {
       assign: [ 'stakeholder' ]
+    } ]
+  }, {
+    task: 'cleanLinkStoreByStakeholder',
+    in: [ 'stakeholder', 'options.userId', 'options.linkStore' ],
+    out: [ {
+      assign: [ 'options.linkStore' ]
     } ]
   }, {
     task: '_merge',
@@ -145,6 +157,12 @@ function _doUpdate( base, stakeholder, merged, options, cb ) {
     if ( stakeholder.userId ) return cb( 'cannot re-assign userId' );
 
     toUpdate.userId = options.userId;
+
+  }
+
+  if ( options.linkStore ) {
+
+    toUpdate.linkStore = options.linkStore;
 
   }
 

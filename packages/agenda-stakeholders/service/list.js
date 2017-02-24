@@ -101,8 +101,6 @@ function _total( v ) {
 
 
 
-
-
 function _list( v ) {
 
   return knex.transaction( trx => {

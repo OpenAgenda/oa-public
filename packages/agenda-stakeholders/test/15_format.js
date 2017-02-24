@@ -67,7 +67,8 @@ describe( 'agenda stakeholders - unit (server): format', () => {
         contactNumber: '05 57 95 01 84',
         contactName: 'DEYRES Joëlle',
         contactPosition: 'coordination régionale manifestations patrimoine'
-      }
+      },
+      linkStore: null
     } );
 
   } );
