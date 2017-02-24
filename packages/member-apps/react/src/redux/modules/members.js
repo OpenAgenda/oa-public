@@ -117,9 +117,9 @@ export default function reducer( state = initialState, action ) {
         updateLoading: true
       };
     case UPDATE_SUCCESS:
-      const data = state.data.map( sh => (sh.user.uid === action.uid ? {
+      const data = state.data.map( sh => ((sh.user && sh.user.uid) === action.uid ? {
           ...sh,
-          credential: action.result.credential || sh.credential, // TODO remove parseInt ?
+          credential: action.result.credential || sh.credential,
           custom: { ...sh.custom, ...action.result.fieldValues }
         } : sh) );
       return {
@@ -250,6 +250,7 @@ export function update( uid, values ) {
       const flatErrors = e => e.reduce( ( prev, next ) => ({ ...prev, [next.field]: next.code }), {} );
 
       const errors = stakeholder.getErrors();
+
       if ( errors.length ) {
         return Promise.reject( new SubmissionError( flatErrors( errors ) ) );
       }

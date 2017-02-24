@@ -148,8 +148,8 @@ function reducer() {
       });
     case UPDATE_SUCCESS:
       var data = state.data.map(function (sh) {
-        return sh.user.uid === action.uid ? _extends({}, sh, {
-          credential: action.result.credential || sh.credential, // TODO remove parseInt ?
+        return (sh.user && sh.user.uid) === action.uid ? _extends({}, sh, {
+          credential: action.result.credential || sh.credential,
           custom: _extends({}, sh.custom, action.result.fieldValues)
         }) : sh;
       });
@@ -287,6 +287,7 @@ function update(uid, values) {
       };
 
       var errors = stakeholder.getErrors();
+
       if (errors.length) {
         return Promise.reject(new _reduxForm.SubmissionError(flatErrors(errors)));
       }
