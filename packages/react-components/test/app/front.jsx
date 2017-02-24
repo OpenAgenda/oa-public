@@ -114,6 +114,8 @@ class Wrapper extends Component {
 
         <h2>Spinner</h2>
 
+        <p><Spinner mode="inline" message="this is an inline spinner" /></p>
+
         <p>Simple central spinner</p>
         <div style={{ height: '140px', position: 'relative', border: '1px solid #ccc' }}>
 

@@ -22,21 +22,17 @@ const SpinnerComponent = React.createClass( {
 
     return {
       loading: true,
-      page: false,
+      page: false, // DEPRECATE this
+      mode: false, // page, inline
       message: null,
-      options: {
-        width: 1,
-        length: 6,
-        radius: 10,
-        color: '#666'
-      }
+      options: null
     }
 
   },
 
   componentDidMount() {
 
-    this.spinner = new spin( this.props.options );
+    this.spinner = new spin( this.getSpinOptions() );
 
     this.evaluate();
 
@@ -45,6 +41,30 @@ const SpinnerComponent = React.createClass( {
   componentDidUpdate() {
 
     this.evaluate();
+
+  },
+
+  getSpinOptions() {
+
+    if ( this.props.options ) return this.props.options;
+
+    if ( this.props.mode === 'inline' ) {
+
+      return {
+        width: 1,
+        length: 2,
+        radius: 4,
+        color: '#666'
+      }
+
+    }
+
+    return {
+      width: 1,
+      length: 6,
+      radius: 10,
+      color: '#666'
+    }
 
   },
 
@@ -74,20 +94,22 @@ const SpinnerComponent = React.createClass( {
 
   render() {
 
-    let classes = [];
+    let classes = [
+      this.props.mode === 'inline' ? 'spin-inline' : 'spin-center'
+    ];
 
     if ( this.props.loading ) classes.push( 'spin-canvas' );
 
-    if ( this.props.page ) classes.push( 'spin-page' );
+    if ( this.props.page || this.props.mode === 'page' ) classes.push( 'spin-page' );
 
     return <div className={classes.join( ' ' )}>
-      <div ref="canvas" style={{
+      <div ref="canvas" style={ this.props.mode !== 'inline' ? {
         position: 'absolute',
         width: 0,
         zIndex: 2000000000,
         left: '50%',
         top: '50%'
-      }}>
+      } : {} }>
       { this.props.message ? <span className="spin-message">{this.props.message}</span> : null }
       </div>
     </div>

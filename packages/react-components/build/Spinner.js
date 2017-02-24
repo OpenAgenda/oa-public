@@ -42,25 +42,42 @@ var SpinnerComponent = _react2.default.createClass({
 
     return {
       loading: true,
-      page: false,
+      page: false, // DEPRECATE this
+      mode: false, // page, inline
       message: null,
-      options: {
-        width: 1,
-        length: 6,
-        radius: 10,
-        color: '#666'
-      }
+      options: null
     };
   },
   componentDidMount: function componentDidMount() {
 
-    this.spinner = new _spin2.default(this.props.options);
+    this.spinner = new _spin2.default(this.getSpinOptions());
 
     this.evaluate();
   },
   componentDidUpdate: function componentDidUpdate() {
 
     this.evaluate();
+  },
+  getSpinOptions: function getSpinOptions() {
+
+    if (this.props.options) return this.props.options;
+
+    if (this.props.mode === 'inline') {
+
+      return {
+        width: 1,
+        length: 2,
+        radius: 4,
+        color: '#666'
+      };
+    }
+
+    return {
+      width: 1,
+      length: 6,
+      radius: 10,
+      color: '#666'
+    };
   },
   componentWillUnmount: function componentWillUnmount() {
 
@@ -82,24 +99,24 @@ var SpinnerComponent = _react2.default.createClass({
   },
   render: function render() {
 
-    var classes = [];
+    var classes = [this.props.mode === 'inline' ? 'spin-inline' : 'spin-center'];
 
     if (this.props.loading) classes.push('spin-canvas');
 
-    if (this.props.page) classes.push('spin-page');
+    if (this.props.page || this.props.mode === 'page') classes.push('spin-page');
 
     return _react2.default.createElement(
       'div',
       { className: classes.join(' ') },
       _react2.default.createElement(
         'div',
-        { ref: 'canvas', style: {
+        { ref: 'canvas', style: this.props.mode !== 'inline' ? {
             position: 'absolute',
             width: 0,
             zIndex: 2000000000,
             left: '50%',
             top: '50%'
-          } },
+          } : {} },
         this.props.message ? _react2.default.createElement(
           'span',
           { className: 'spin-message' },
