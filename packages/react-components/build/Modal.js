@@ -1,129 +1,193 @@
 "use strict";
 
-var React = require('react'),
-    ReactDOM = require("react-dom"),
-    bodyScroll = require('./body-scroll');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
 
-var Modal = React.createClass({
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-  displayName: 'Modal',
+var _class, _temp;
 
-  propTypes: {
-    title: React.PropTypes.string,
-    visible: React.PropTypes.bool,
-    onClose: React.PropTypes.func,
-    disableBodyScroll: React.PropTypes.bool
-  },
+var _react = require('react');
 
-  clickOnModal: false,
+var _react2 = _interopRequireDefault(_react);
 
-  getDefaultProps: function getDefaultProps() {
+var _reactDom = require('react-dom');
 
-    return {
-      title: null,
-      visible: true,
-      disableBodyScroll: false,
-      classNames: {
-        overlay: 'popup-overlay'
-      }
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _bodyScroll = require('./body-scroll');
+
+var _bodyScroll2 = _interopRequireDefault(_bodyScroll);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Modal = (_temp = _class = function (_Component) {
+  _inherits(Modal, _Component);
+
+  function Modal(props) {
+    _classCallCheck(this, Modal);
+
+    var _this = _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, props));
+
+    _this.state = {
+      clickOnModal: false
     };
-  },
-  componentDidUpdate: function componentDidUpdate() {
 
-    if (this.props.visible) {
+    _this.handleModalClick = _this.handleModalClick.bind(_this);
+    _this.handleDocumentClick = _this.handleDocumentClick.bind(_this);
+    _this.handleClose = _this.handleClose.bind(_this);
+    _this.handleEsc = _this.handleEsc.bind(_this);
+    return _this;
+  }
 
-      this.addClickEvents();
-    } else {
+  _createClass(Modal, [{
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+
+      if (this.props.visible) {
+
+        this.addClickEvents();
+      } else {
+
+        this.removeClickEvents();
+      }
+    }
+  }, {
+    key: 'addClickEvents',
+    value: function addClickEvents() {
+
+      _reactDom2.default.findDOMNode(this.modalRef).addEventListener('click', this.handleModalClick);
+
+      document.addEventListener('click', this.handleDocumentClick);
+      document.addEventListener('keydown', this.handleEsc);
+    }
+  }, {
+    key: 'removeClickEvents',
+    value: function removeClickEvents() {
+
+      _reactDom2.default.findDOMNode(this.modalRef).removeEventListener('click', this.handleModalClick);
+
+      document.removeEventListener('click', this.handleDocumentClick);
+      document.removeEventListener('keydown', this.handleEsc);
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+
+      if (this.props.visible) this.addClickEvents();
+
+      if (this.props.disableBodyScroll) _bodyScroll2.default.disable();
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
 
       this.removeClickEvents();
+
+      if (this.props.disableBodyScroll) _bodyScroll2.default.enable();
     }
-  },
-  addClickEvents: function addClickEvents() {
+  }, {
+    key: 'handleModalClick',
+    value: function handleModalClick() {
 
-    ReactDOM.findDOMNode(this.modalRef).addEventListener('click', this.handleModalClick);
+      this.state.clickOnModal = true;
+    }
+  }, {
+    key: 'handleDocumentClick',
+    value: function handleDocumentClick(e) {
 
-    document.addEventListener('click', this.handleDocumentClick);
-  },
-  removeClickEvents: function removeClickEvents() {
+      if (this.props.visible && !this.state.clickOnModal) {
 
-    ReactDOM.findDOMNode(this.modalRef).removeEventListener('click', this.handleModalClick);
+        var area = _reactDom2.default.findDOMNode(this.modalRef);
 
-    document.removeEventListener('click', this.handleDocumentClick);
-  },
-  componentDidMount: function componentDidMount() {
-
-    if (this.props.visible) this.addClickEvents();
-
-    if (this.props.disableBodyScroll) bodyScroll.disable();
-  },
-  componentWillUnmount: function componentWillUnmount() {
-
-    this.removeClickEvents();
-
-    if (this.props.disableBodyScroll) bodyScroll.enable();
-  },
-  handleModalClick: function handleModalClick() {
-
-    this.clickOnModal = true;
-  },
-  handleDocumentClick: function handleDocumentClick(e) {
-
-    if (this.props.visible && !this.clickOnModal) {
-
-      var area = ReactDOM.findDOMNode(this.modalRef);
-
-      if (!area.contains(e.target)) {
-        this.handleClose();
+        if (!area.contains(e.target)) {
+          this.handleClose();
+        }
       }
+
+      this.state.clickOnModal = false;
     }
-
-    this.clickOnModal = false;
-  },
-  handleClose: function handleClose() {
-    var onClose = this.props.onClose;
-
-
-    if (onClose) onClose();
-  },
-  render: function render() {
-    var _this = this;
-
-    var _props = this.props,
-        visible = _props.visible,
-        title = _props.title,
-        children = _props.children;
+  }, {
+    key: 'handleClose',
+    value: function handleClose() {
+      var onClose = this.props.onClose;
 
 
-    return React.createElement(
-      "div",
-      { style: { display: visible ? 'block' : 'none' }, className: this.props.classNames.overlay },
-      React.createElement(
-        "section",
-        { ref: function ref(_ref) {
-            return _this.modalRef = _ref;
-          } },
-        title ? React.createElement(
-          "header",
-          { className: "popup-title" },
-          React.createElement(
-            "h2",
-            null,
-            title
-          ),
-          React.createElement(
-            "a",
-            { onClick: this.handleClose, className: "close-link" },
-            React.createElement("i", { className: "fa fa-times fa-lg" })
+      if (onClose) onClose();
+    }
+  }, {
+    key: 'handleEsc',
+    value: function handleEsc(event) {
+      if (event.key === 'Escape') this.handleClose();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          visible = _props.visible,
+          title = _props.title,
+          children = _props.children;
+
+
+      return _react2.default.createElement(
+        'div',
+        {
+          style: { display: visible ? 'block' : 'none' },
+          className: this.props.classNames.overlay,
+          onKeyPress: this.onKeyPress
+        },
+        _react2.default.createElement(
+          'section',
+          { ref: function ref(_ref) {
+              return _this2.modalRef = _ref;
+            } },
+          title ? _react2.default.createElement(
+            'header',
+            { className: 'popup-title' },
+            _react2.default.createElement(
+              'h2',
+              null,
+              title
+            ),
+            _react2.default.createElement(
+              'a',
+              { onClick: this.handleClose, className: 'close-link' },
+              _react2.default.createElement('i', { className: 'fa fa-times fa-lg' })
+            )
+          ) : null,
+          _react2.default.createElement(
+            'div',
+            { className: 'popup-content' },
+            children
           )
-        ) : null,
-        React.createElement(
-          "div",
-          { className: "popup-content" },
-          children
         )
-      )
-    );
-  }
-});
+      );
+    }
+  }]);
 
-module.exports = Modal;
+  return Modal;
+}(_react.Component), _class.propTypes = {
+  title: _react.PropTypes.string,
+  visible: _react.PropTypes.bool,
+  onClose: _react.PropTypes.func,
+  disableBodyScroll: _react.PropTypes.bool
+}, _class.defaultProps = {
+  title: null,
+  visible: true,
+  disableBodyScroll: false,
+  classNames: {
+    overlay: 'popup-overlay'
+  }
+}, _temp);
+exports.default = Modal;
+module.exports = exports['default'];

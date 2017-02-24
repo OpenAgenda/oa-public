@@ -1,37 +1,39 @@
 "use strict";
 
-const React = require( 'react' ),
-
-  ReactDOM = require( "react-dom" ),
-
-  bodyScroll = require( './body-scroll' );
+import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import bodyScroll from './body-scroll';
 
 
-const Modal = React.createClass( {
+export default class Modal extends Component {
 
-  displayName: 'Modal',
+  static propTypes = {
+    title: PropTypes.string,
+    visible: PropTypes.bool,
+    onClose: PropTypes.func,
+    disableBodyScroll: PropTypes.bool
+  };
 
-  propTypes: {
-    title: React.PropTypes.string,
-    visible: React.PropTypes.bool,
-    onClose: React.PropTypes.func,
-    disableBodyScroll: React.PropTypes.bool
-  },
+  static defaultProps = {
+    title: null,
+    visible: true,
+    disableBodyScroll: false,
+    classNames: {
+      overlay: 'popup-overlay'
+    }
+  };
 
-  clickOnModal: false,
+  constructor( props ) {
+    super( props );
+    this.handleModalClick = ::this.handleModalClick;
+    this.handleDocumentClick = ::this.handleDocumentClick;
+    this.handleClose = ::this.handleClose;
+    this.handleEsc = ::this.handleEsc;
+  }
 
-  getDefaultProps() {
-
-    return {
-      title: null,
-      visible: true,
-      disableBodyScroll: false,
-      classNames: {
-        overlay: 'popup-overlay'
-      }
-    };
-
-  },
+  state = {
+    clickOnModal: false
+  };
 
   componentDidUpdate() {
 
@@ -45,23 +47,25 @@ const Modal = React.createClass( {
 
     }
 
-  },
+  }
 
   addClickEvents() {
 
     ReactDOM.findDOMNode( this.modalRef ).addEventListener( 'click', this.handleModalClick );
 
     document.addEventListener( 'click', this.handleDocumentClick );
+    document.addEventListener( 'keydown', this.handleEsc );
 
-  },
+  }
 
   removeClickEvents() {
 
     ReactDOM.findDOMNode( this.modalRef ).removeEventListener( 'click', this.handleModalClick );
 
     document.removeEventListener( 'click', this.handleDocumentClick );
+    document.removeEventListener( 'keydown', this.handleEsc );
 
-  },
+  }
 
   componentDidMount() {
 
@@ -69,7 +73,7 @@ const Modal = React.createClass( {
 
     if ( this.props.disableBodyScroll ) bodyScroll.disable();
 
-  },
+  }
 
   componentWillUnmount() {
 
@@ -77,17 +81,17 @@ const Modal = React.createClass( {
 
     if ( this.props.disableBodyScroll ) bodyScroll.enable();
 
-  },
+  }
 
   handleModalClick() {
 
-    this.clickOnModal = true;
+    this.state.clickOnModal = true;
 
-  },
+  }
 
   handleDocumentClick( e ) {
 
-    if ( this.props.visible && !this.clickOnModal ) {
+    if ( this.props.visible && !this.state.clickOnModal ) {
 
       const area = ReactDOM.findDOMNode( this.modalRef );
 
@@ -97,8 +101,8 @@ const Modal = React.createClass( {
 
     }
 
-    this.clickOnModal = false;
-  },
+    this.state.clickOnModal = false;
+  }
 
   handleClose() {
 
@@ -106,14 +110,22 @@ const Modal = React.createClass( {
 
     if ( onClose ) onClose();
 
-  },
+  }
+
+  handleEsc( event ) {
+    if ( event.key === 'Escape' ) this.handleClose();
+  }
 
   render() {
 
     const { visible, title, children } = this.props;
 
     return (
-      <div style={{ display: visible ? 'block' : 'none' }} className={this.props.classNames.overlay}>
+      <div
+        style={{ display: visible ? 'block' : 'none' }}
+        className={this.props.classNames.overlay}
+        onKeyPress={this.onKeyPress}
+      >
         <section ref={ref => this.modalRef = ref}>
           { title ?
             <header className="popup-title">
@@ -132,6 +144,4 @@ const Modal = React.createClass( {
 
   }
 
-} );
-
-module.exports = Modal;
+}
