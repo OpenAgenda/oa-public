@@ -1,0 +1,27 @@
+{
+  "name": "unsubscribed",
+  "version": "1.0.0",
+  "description": "Users are tired of receiving emails. They cannot unsubscribed. This service enables basic crud ops on an unsubscription list, maintanable by user, email type, object and object identifier.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "basic-logger": "git+ssh://git@bitbucket.org/openagenda/basic-logger.git",
+    "express": "^4.14.1",
+    "knex": "^0.12.7",
+    "lodash": "^4.17.4",
+    "mysql": "^2.10.2",
+    "utils": "git+ssh://git@bitbucket.org/openagenda/utils.git",
+    "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git",
+    "when": "^3.7.7"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "fixtures": "git+ssh://git@bitbucket.org/openagenda/fixtures.git",
+    "should": "^11.2.0",
+    "superagent": "^3.5.0"
+  }
+}
