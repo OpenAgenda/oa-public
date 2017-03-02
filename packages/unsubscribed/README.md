@@ -49,6 +49,11 @@ type or subject are required.
 
 This service is accessible from a parent express instance via its own express application. Use `app.use` on parent app as shown in tests.
 
+## genUrl
+
+Use genUrl to build links based on values. See tests in app test file.
+
+
 # Tests
 
 This is tested. Check tests for use cases.
