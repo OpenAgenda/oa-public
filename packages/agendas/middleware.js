@@ -16,6 +16,7 @@ function load( options ) {
     instanciate: false,
     detailed: false,
     internal: false,
+    private: false,
     namespaces: {
       identifiers: {
         id: 'agendaId',
@@ -30,7 +31,7 @@ function load( options ) {
 
     const identifiers = _getIdentifiers( params.namespaces.identifiers, req );
 
-    service.get( identifiers, _.pick( params, [ 'instanciate', 'detailed', 'internal' ] ),
+    service.get( identifiers, _.pick( params, [ 'instanciate', 'detailed', 'internal', 'private' ] ),
       ( err, agenda ) => {
 
         if ( err ) return next( err );
@@ -47,12 +48,15 @@ function load( options ) {
 
 function loadRoles( options ) {
 
-  let { namespaces } = _.merge( {
+  let  params = _.merge( {
     namespaces: {
       agenda: 'agenda',
       result: 'agendaRoles'
-    }
+    },
+    private: false
   }, options || {} );
+
+  let { namespaces } = params;
 
   return ( req, res, next ) => {
 
@@ -80,7 +84,7 @@ function loadRoles( options ) {
       slug: namespaces.agenda + '.slug'
     }, req );
 
-    service.get( identifierNamespaces, { instanciate: true }, ( err, agenda ) => {
+    service.get( identifierNamespaces, { instanciate: true, private: params.private }, ( err, agenda ) => {
 
       if ( err ) return next( err );
 

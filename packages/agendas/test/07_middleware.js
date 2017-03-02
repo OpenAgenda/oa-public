@@ -45,8 +45,8 @@ describe( 'agendas - functional (server): middleware', function () {
     it( '.load optionally loads agenda instance in req', done => {
 
       const req = {
-          agendaUid: 94345899
-        },
+        agendaUid: 94345899
+      },
 
         res = {};
 
@@ -118,10 +118,10 @@ describe( 'agendas - functional (server): middleware', function () {
     it( '.loadRoles with a preloaded agenda as instance load roles in req', done => {
 
       const req = {
-          uid: 94345899
-        },
+        uid: 94345899
+      },
 
-        res = {};
+      res = {};
 
       svc.middleware.load( {
         namespaces: {
@@ -157,10 +157,10 @@ describe( 'agendas - functional (server): middleware', function () {
     it( '.loadRoles with a preloaded agenda as object load roles in req', done => {
 
       const req = {
-          uid: 94345899
-        },
+        uid: 94345899
+      },
 
-        res = {};
+      res = {};
 
       svc.middleware.load( {
         namespaces: {
