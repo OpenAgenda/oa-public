@@ -23,15 +23,6 @@
 <% } %>
 <% include ./top.html.part.ejs %>
 <% include ./bottom.html.part.ejs %>
-<tr>
-  <td>
-    <div class="imageContent" style="<%= css.imageContent %>">
-      <a href="https://openagenda.com">
-        <img src="<%= bottomLogo %>" style=" <%= css.bottomLogoImage %>" id="bottomLogoImage"/>
-      </a>
-    </div>
-  </td>
-</tr>
 <% if ( typeof footerActions !== 'undefined' ) { %>
 <tr>
   <td style="<%= css.bodyContent %> <%= css.centered %>">
@@ -41,3 +32,12 @@
   </td>
 </tr>
 <% } %>
+<tr>
+  <td>
+    <div class="imageContent" style="<%= css.imageContent %>">
+      <a href="https://openagenda.com">
+        <img src="<%= bottomLogo %>" style=" <%= css.bottomLogoImage %>" id="bottomLogoImage"/>
+      </a>
+    </div>
+  </td>
+</tr>
