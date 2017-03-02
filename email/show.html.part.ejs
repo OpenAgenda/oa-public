@@ -1,6 +1,9 @@
 <div class="imageContent" style="<%= css.imageContent %>">
-  <img src="<%= logo %>" style=" <%= css.logoImage %>" id="logoImage"/>
+  <img src="<%= logo %>" style="<%= css.logoImage %>" id="logoImage"/>
 </div>
+<% if ( typeof surTitle !== 'undefined' && surTitle ) { %>
+  <h2 class="surTitle" style="<%= css.h2 + ' ' + css.surTitle %>"><%= surTitle %></h2>
+<% } %>
 <% include ./top.html.part.ejs %>
 <h1 style="<%= css.h1 %> <%= ( typeof title.center !== 'undefined' ) && title.center ? css.centered : '' %>">
   <a style="<%= css.h1a %>" href="<%= title.link %>"><%= __( title.text, title.values ) %></a>

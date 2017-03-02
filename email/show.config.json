@@ -43,7 +43,8 @@
       "actionContent" : "text-align: center;margin-bottom: 20px;margin-top: 10px;",
       "action" : "background-color: #41acdd; color: white; padding-top: 10px; padding-bottom: 10px; padding-left: 15px; padding-right: 15px; border-radius: 5px;text-decoration:none;",
       "centered" : "text-align: center;",
-      "hPadded" : "padding-left: 10px; padding-right: 10px;"
+      "hPadded" : "padding-left: 10px; padding-right: 10px;",
+      "surTitle" : "padding-top:0; padding-right:0; padding-bottom:20px; padding-left:0; text-align:center; vertical-align:middle;"
     }
   }
 }

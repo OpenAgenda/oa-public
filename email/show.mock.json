@@ -2,6 +2,7 @@
   "base" : {
     "type" : "html",
     "fullViewLink" : "http://somelink",
+    "surTitle" : "An agenda title",
     "title" : {
       "text" : "The agenda %title% published your event %event%",
       "values" : {
