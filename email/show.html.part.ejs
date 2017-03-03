@@ -1,6 +1,8 @@
+<% if ( typeof logo !== 'undefined' && logo ) { %>
 <div class="imageContent" style="<%= css.imageContent %>">
   <img src="<%= logo %>" style="<%= css.logoImage %>" id="logoImage"/>
 </div>
+<% } %>
 <% if ( typeof surTitle !== 'undefined' && surTitle ) { %>
   <h2 class="surTitle" style="<%= css.h2 + ' ' + css.surTitle %>"><%= surTitle %></h2>
 <% } %>
