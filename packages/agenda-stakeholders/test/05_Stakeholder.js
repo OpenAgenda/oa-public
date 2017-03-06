@@ -221,11 +221,22 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
 
     } );
 
-    it( 'it just returns an empty array if there are no errors', () => {
+    it( 'just returns an empty array if there are no errors', () => {
 
       let s = new Stakeholder( { fieldValues: validFieldValues } );
 
       s.getErrors().should.eql( [] );
+
+    } );
+
+    it( 'evaluates given non-empty value only when partial bool argument is true', () => {
+
+      let s = new Stakeholder( {
+        email: 'the@email.com',
+        contactName: ''
+      } );
+
+      s.getErrors( true ).should.eql( [] );
 
     } );
 

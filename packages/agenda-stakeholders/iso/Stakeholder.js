@@ -90,7 +90,9 @@ module.exports = class {
 
     } catch( e ) { errors =  e };
 
-    return errors.filter( e => !partial || e.origin !== undefined );
+    if ( !partial ) return errors;
+
+    return errors.filter( e => e.origin !== undefined && e.origin !== '' );
 
   }
 
