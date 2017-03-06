@@ -115,6 +115,35 @@ describe( 'agenda-stakeholders - functional (server): create', function() {
 
     } );
 
+    it( 'created stakeholder takes given name when existing', done => {
+
+      service.agenda( 4608 ).create( {
+        email: 'temps@ponceau.fr',
+        contactName: 'Des Portes'
+      }, { allowPartial: true }, ( err, result ) => {
+
+        result.stakeholder.custom.contactName.should.equal( 'Des Portes' );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'created stakeholder takes name given by interface when not specified in input data', done => {
+
+      service.agenda( 4608 ).create( {
+        email: 'macareu@bonnet.pc'
+      }, { allowPartial: true }, ( err, result ) => {
+
+        result.stakeholder.custom.contactName.should.equal( 'Zorg' );
+
+        done();
+
+      } );
+
+    } );
+
     it( 'credential ( role ) can be specified via create options', done => {
 
       service.agenda( 4608 ).create( {

@@ -63,7 +63,7 @@ describe( 'agenda-stakeholders - functional (server): get', function() {
         stakeholder.user.should.eql( { 
           id: 2576,
           uid: 128492293,
-          user_name: 'Zorg',
+          full_name: 'Zorg',
           email: 'zorg@galactic.uv' 
         } );
 

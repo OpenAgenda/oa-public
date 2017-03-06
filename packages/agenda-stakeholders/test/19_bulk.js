@@ -91,6 +91,7 @@ describe( 'agenda-stakeholders - functional (server): create.bulk & task', funct
         should( result.results[ 0 ][ 0 ] ).equal( null );
 
         result.results[ 0 ][ 1 ].stakeholder.custom.should.eql( {
+          contactName: 'Zorg',
           email: 'papy@ponceau.fr'
         } );
 

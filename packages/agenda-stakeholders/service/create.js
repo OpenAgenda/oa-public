@@ -33,6 +33,7 @@ const createProcess = new Process( {
     cleanLinkStore,
     _checkEmail,
     _loadUser,
+    _loadName,
     _doCreate,
   },
   process: [ {
@@ -71,6 +72,12 @@ const createProcess = new Process( {
     in: [ 'result.user', 'options.linkStore' ],
     out: [ {
       assign: [ 'options.linkStore' ]
+    } ]
+  }, {
+    task: '_loadName',
+    in: [ 'data', 'result.user' ],
+    out: [ {
+      assign: [ 'data' ]
     } ]
   }, {
     task: '_doCreate',
@@ -141,6 +148,19 @@ function init( config ) {
   knex = config.knex;
 
   interfaces = config.interfaces;
+
+}
+
+
+function _loadName( data, user, cb ) {
+
+  if ( !data.contactName && !data.contact_name && user ) {
+
+    data.contactName = user.full_name;
+
+  }
+
+  cb( null, data );
 
 }
 
