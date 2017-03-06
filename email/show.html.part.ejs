@@ -26,13 +26,13 @@
 <% include ./top.html.part.ejs %>
 <% include ./bottom.html.part.ejs %>
 <% if ( typeof footerActions !== 'undefined' ) { %>
+<% footerActions.forEach( a => { %>
 <tr>
   <td style="<%= css.bodyContent %> <%= css.centered %>">
-<% footerActions.forEach( a => { %>
     <a style="<%= css.smallprint %> <%= css.hPadded %>" href="<%= a.link %>"><%= a.text %></a>
-<% }) %>
   </td>
 </tr>
+<% }) %>
 <% } %>
 <tr>
   <td>
