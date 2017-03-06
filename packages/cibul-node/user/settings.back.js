@@ -36,40 +36,40 @@ const sessions = require( 'sessions' ),
 module.exports = path => {
 
   const routes = {
-    userSettingsGetMe: [ 'get', '/getMe', [ logged, loadSession, mw.getMe ] ],
-    userSettingsUpdateProfile: [ 'get', '/updateProfile', [
-      loadSession, // obliged to load detailed session as users.get does not take uid as alternative identifier
-      logged,
-      mw.updateProfile,
-      ( req, res, next ) => {
+      userSettingsGetMe: [ 'get', '/getMe', [ logged, loadSession, mw.getMe ] ],
+      userSettingsUpdateProfile: [ 'get', '/updateProfile', [
+        loadSession, // obliged to load detailed session as users.get does not take uid as alternative identifier
+        logged,
+        mw.updateProfile,
+        ( req, res, next ) => {
 
-        if ( req.result.success ) return sessions.middleware.sync( 'syncResult' )( req, res, next );
+          if ( req.result.success ) return sessions.middleware.sync( 'syncResult' )( req, res, next );
 
-        next();
+          next();
 
-      },
-      ( req, res ) => res.json( req.result )
-    ] ],
-    userSettingsChangeEmail: [ 'get', '/changeEmail', [ logged, loadSession, mw.requestChangeEmail, sendEmail ] ],
-    userSettingsChangeEmailConfirmation: [ 'get', '/changeEmail/confirm', mw.confirmChangeEmail ],
-    userSettingsChangePassword: [ 'get', '/changePassword', [ logged, loadSession, mw.changePassword ] ],
-    userSettingsGenerateApiKey: [ 'get', '/generateApiKey', [ logged, loadSession, mw.generateApiKey ] ],
-    userSettingsDeleteAccount: [ 'post', '/deleteAccount', [
-      logged,
-      loadSession, 
-      mw.deleteAccount,
-      ( req, res ) => {
+        },
+        ( req, res ) => res.json( req.result )
+      ] ],
+      userSettingsChangeEmail: [ 'get', '/changeEmail', [ logged, loadSession, mw.requestChangeEmail, sendEmail ] ],
+      userSettingsChangeEmailConfirmation: [ 'get', '/changeEmail/confirm', mw.confirmChangeEmail ],
+      userSettingsChangePassword: [ 'get', '/changePassword', [ logged, loadSession, mw.changePassword ] ],
+      userSettingsGenerateApiKey: [ 'get', '/generateApiKey', [ logged, loadSession, mw.generateApiKey ] ],
+      userSettingsDeleteAccount: [ 'post', '/deleteAccount', [
+        logged,
+        loadSession,
+        mw.deleteAccount,
+        ( req, res ) => {
 
-        sessions.setFlash( req, res, getLabels( 'accountRemoved', req.lang ) );
-        
-        res.json( { redirectTo: req.genUrl( 'signout' ) } );
+          sessions.setFlash( req, res, getLabels( 'accountRemoved', req.lang ) );
 
-      } ] ],
-    userSettingsUploadProfileImage: [ 'post', '/uploadProfileImage', [ logged, loadSession, mw.uploadProfileImage ] ],
-    userSettingsRemoveProfileImage: [ 'post', '/removeProfileImage', [ logged, loadSession, mw.removeProfileImage ] ],
+          res.json( { redirectTo: req.genUrl( 'signout' ) } );
 
-    userSettingsApp: [ 'get', '*', [ logged, loadSession, matchApp( path, index ) ] ]
-  },
+        } ] ],
+      userSettingsUploadProfileImage: [ 'post', '/uploadProfileImage', [ logged, loadSession, mw.uploadProfileImage ] ],
+      userSettingsRemoveProfileImage: [ 'post', '/removeProfileImage', [ logged, loadSession, mw.removeProfileImage ] ],
+
+      userSettingsApp: [ 'get', '*', [ logged, loadSession, matchApp( path, index ) ] ]
+    },
 
     router = modLib.Router( routes );
 
@@ -119,63 +119,34 @@ function sendEmail( req, res, next ) {
 
   if ( result.token && req.query.email ) {
     users.get( req.user, ( err, user ) => {
-      const emailData = {
+
+      const lang = req.lang || 'fr';
+      const link = req.genUrl( 'userSettingsChangeEmailConfirmation', {
+        token: result.token,
+        uid: user.uid
+      }, { protocol: 'https://' } );
+
+      mailer( {
         recipient: req.query.email,
-        link: req.genUrl( 'userSettingsChangeEmailConfirmation', {
-          token: result.token,
-          uid: user.uid
-        }, { protocol: 'https://' } ),
-        lang: req.lang || 'fr'
-      };
-
-      _sendEmail( emailData, err => {
-        if ( err ) next( err );
-
-        delete result.token;
-        res.json( result );
+        subject: getLabels( 'validationEmailSubject', lang ),
+        data: {
+          logo: 'https://openagenda.com/images/openagenda.png',
+          title: {
+            text: getLabels( 'validationEmailSubject', lang ),
+            link
+          },
+          action: {
+            label: getLabels( 'validationEmailAction', lang ),
+            link
+          },
+          description: getLabels( 'validationEmailContent', lang ),
+        }
       } );
+
+      delete result.token;
+      res.json( result );
+
     } );
   }
-
-}
-
-function _sendEmail( { link, recipient, lang }, cb ) {
-
-  const renders = {};
-  const emailData = {
-    title: {
-      text: getLabels( 'validationEmailSubject', lang )
-    },
-    description: 'Bonjour,\n\nVous avez demandé à changer l\'adresse email liée à votre compte OpenAgenda.' +
-    'Cliquez sur ce lien pour confirmer le changement d\'email ' + link + '\n\n' +
-    'Si vous n\'êtes pas l\'auteur de la demande de changement d\'adresse email, ne cliquez pas sur le lien, tout simplement.'
-  };
-
-  async.each( [ 'html', 'text' ], ( type, ecb ) => {
-
-    templater( 'email/show', Object.assign( { type }, emailData ), ( err, render ) => {
-
-      if ( err ) return ecb( err );
-
-      renders[ type ] = render;
-
-      ecb();
-
-    } );
-
-  }, err => {
-
-    if ( err ) return cb( err );
-
-    mailer( {
-      recipient,
-      subject: getLabels( 'validationEmailSubject', lang ),
-      text: renders.text,
-      html: renders.html
-    } );
-
-    cb();
-
-  } );
 
 }
