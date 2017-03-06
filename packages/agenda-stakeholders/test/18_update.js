@@ -113,6 +113,27 @@ describe( 'agenda-stakeholders - functional (server): update', function() {
     } );
 
 
+    /*it( 'deleted user flag is set through options', done => {
+
+      serrvice.agenda( 4608 ).get
+
+      service.agenda( 4608 ).update( {
+        id: 8310
+      }, {}, {
+        deleted: true, // user was deleted. userId will be set to null at the same time
+      }, ( err, result ) => {
+
+        result.success.should.equal( true );
+
+        result.stakeholder.deleted.should.equal( true );
+
+        done();
+
+      } );
+
+    } );*/
+
+
     it( 'userId is set when specified in update options AND is unset in stakeholder', done => {
 
       service.agenda( 4608 ).update( {

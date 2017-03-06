@@ -44,6 +44,18 @@ describe( 'agenda-stakeholders - functional (server): get', function() {
 
     } );
 
+    it( 'stakeholder provides deleted user flag value ( as a boolean )', done => {
+
+      service.agenda( 4608 ).get( { id: 6975 }, ( err, stakeholder ) => {
+
+        stakeholder.deletedUser.should.equal( false );
+
+        done();
+
+      } );
+
+    } );
+
     it( 'get with detailed option set gives stakeholder contribution count', done => {
 
       service.agenda( 4608 ).get( { id: 6975 }, { detailed: true }, ( err, stakeholder ) => {

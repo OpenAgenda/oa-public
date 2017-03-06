@@ -179,15 +179,19 @@ function _doCreate( base, data, user, options, cb ) {
       userId: user ? user.id : null
     } ) )
 
-    .asCallback( ( err, insertIds ) => {
+  .asCallback( ( err, insertIds ) => {
 
-      if ( err ) return cb( err );
+    if ( err ) return cb( err );
 
-      if ( !insertIds.length ) return cb( 'could not create stakeholder' );
+    if ( !insertIds.length ) {
 
-      cb( null, insertIds[ 0 ] ); 
+      return cb( 'could not create stakeholder' );
 
-    } );
+    }
+
+    cb( null, insertIds[ 0 ] ); 
+
+  } );
 
 }
 

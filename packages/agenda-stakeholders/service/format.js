@@ -15,6 +15,9 @@ const _ = require( 'lodash' ),
     db: 'id',
     obj: 'id'
   }, {
+    db: 'deleted_user',
+    obj: 'deletedUser'
+  }, {
     db: 'credential',
     obj: 'credential'
   }, {
@@ -38,6 +41,7 @@ function objToDb( obj, filterNull = false ) {
     credential: null,
     store: null,
     organization: null,
+    deleted_user: null,
     created_at: null,
     updated_at: null
   };
@@ -85,11 +89,21 @@ function objToDb( obj, filterNull = false ) {
 
     Object.keys( entry ).forEach( k => {
 
-      if ( entry[ k ] !== null && entry[ k ] !== undefined ) filtered[ k ] = entry[ k ];
+      if ( entry[ k ] !== null && entry[ k ] !== undefined ) {
+
+        filtered[ k ] = entry[ k ];
+
+      }
 
     } );
 
     return filtered;
+
+  }
+
+  if ( entry.deleted_user === null || entry.deleted_user === undefined ) {
+
+    entry = _.omit( entry, [ 'deleted_user' ] );
 
   }
 
@@ -104,6 +118,7 @@ function dbToObj( entry, options = {} ) {
     agendaId: null,
     userId: null,
     credential: null,
+    deletedUser: null,
     updatedAt: null,
     createdAt: null,
     custom: {}
@@ -150,6 +165,16 @@ function dbToObj( entry, options = {} ) {
       obj.custom.organization = obj.custom.organization.label;
 
     }
+
+  }
+
+  if ( obj.deletedUser === undefined ) {
+
+    obj = _.omit( obj, [ 'deletedUser' ] );
+
+  } else {
+
+    obj.deletedUser = !!obj.deletedUser;
 
   }
 

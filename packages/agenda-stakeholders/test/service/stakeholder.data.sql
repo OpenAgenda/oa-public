@@ -29,10 +29,11 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS ${schema} (
   `id` bigint(20),
   `user_id` bigint(20),
-  `review_id` bigint(20) NOT NULL,
-  `credential` bigint(20) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `review_id` bigint(20) not null,
+  `credential` bigint(20) not null,
+  `created_at` datetime not null,
+  `updated_at` datetime not null,
+  `deleted_user` tinyint(1) default 0 not null,
   `store` longtext,
   `organization` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=10746 DEFAULT CHARSET=latin1;

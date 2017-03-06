@@ -99,6 +99,7 @@ function agenda( agendaId ) {
   function newStakeholder( options ) {
 
     return agendaService.instanciate( _.extend( {
+      deletedUser: false,
       userId: null,
       credential: 1 // contributor
     }, options || {}, {

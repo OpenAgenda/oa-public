@@ -100,7 +100,7 @@ function getStakeholder( agendaNamespace, userNamespace, destNamespace ) {
 
     return knex.transaction( trx => {
 
-      let qObj = trx.select( 'credential', 'organization', 'store', 'review_id', 'store', 'user_id', 'id', 'created_at', 'updated_at' )
+      let qObj = trx.select( 'credential', 'organization', 'store', 'review_id', 'store', 'user_id', 'id', 'created_at', 'updated_at', 'deleted_user' )
 
       .from( schemas.stakeholder )
 
