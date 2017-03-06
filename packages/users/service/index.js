@@ -57,7 +57,7 @@ function init( c, cb ) {
   config = Object.assign( {
     interfaces: {
       // signal user deletion
-      userWillRemove: ( user, cb ) => {
+      beforeRemove: ( user, cb ) => {
         if ( cb ) cb( null )
       }
     }
@@ -891,7 +891,7 @@ function _removeUser( v ) {
 
   }
 
-  return wn.call( config.interfaces.userWillRemove, v.user )
+  return wn.call( config.interfaces.beforeRemove, v.user )
 
     .then( () => {
 

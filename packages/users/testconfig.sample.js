@@ -17,5 +17,8 @@ module.exports = {
     accessKeyId: 'ERSDFYUHKIJFLEUJF',
     secretAccessKey: 'cdfvq/fzeef-fcezqf'
   },
+  interfaces: {
+    beforeRemove: ( user, cb ) => cb( null )
+  },
   debug: true
 };

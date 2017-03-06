@@ -13,7 +13,7 @@ const config = require( '../testconfig' ),
   mysql = require( 'mysql' );
 
 
-describe( '.set', function () {
+describe( '.update', function () {
 
   this.timeout( 20000 );
 

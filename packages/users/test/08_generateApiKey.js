@@ -13,7 +13,7 @@ const config = require( '../testconfig' ),
   mysql = require( 'mysql' );
 
 
-describe( '.set', function () {
+describe( '.generateApiKey', function () {
 
   this.timeout( 20000 );
 
