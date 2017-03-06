@@ -112,7 +112,8 @@ function update( base, identifiers, data, options, cb ) {
     options: _.extend( {
       allowPartial: false,
       credential: null,
-      userId: null
+      userId: null,
+      deletedUser: null
     }, options ),
     result: {
       success: null,
@@ -152,6 +153,12 @@ function _doUpdate( base, stakeholder, merged, options, cb ) {
 
   }
 
+  if ( options.deletedUser !== null ) {
+
+    toUpdate.deletedUser = options.deletedUser;
+
+  }
+
   if ( options.userId ) {
 
     if ( stakeholder.userId ) return cb( 'cannot re-assign userId' );
@@ -168,7 +175,11 @@ function _doUpdate( base, stakeholder, merged, options, cb ) {
 
   knex( schemas.stakeholder )
 
-    .update( format.objToDb( toUpdate, true ) )
+    .update( _.extend( 
+      format.objToDb( toUpdate, true ), options.deletedUser === true ? {
+        user_id: null
+      } : {} ) 
+    )
 
     .where( {
       id: stakeholder.id

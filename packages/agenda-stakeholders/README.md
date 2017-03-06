@@ -66,6 +66,14 @@ Options:
  * event: the identifiers of the event to transfer: { id: 28374 }
 
 
+## Updating a stakeholder
+
+    service.agenda( id ).update( identifiers, data, [ options ], cb )
+
+Options:
+
+ * deletedUser: if set to true, userId will be nulled and stakeholder will be flagged as being linked to an account that has been deleted
+
 
 ## Handling a stakeholder: Stakeholder
 

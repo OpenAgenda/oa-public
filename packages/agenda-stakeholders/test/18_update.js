@@ -113,25 +113,62 @@ describe( 'agenda-stakeholders - functional (server): update', function() {
     } );
 
 
-    /*it( 'deleted user flag is set through options', done => {
+    it( 'deleted user flag is set through options', done => {
 
-      serrvice.agenda( 4608 ).get
-
-      service.agenda( 4608 ).update( {
+      service.agenda( 4608 ).get( {
         id: 8310
-      }, {}, {
-        deleted: true, // user was deleted. userId will be set to null at the same time
-      }, ( err, result ) => {
+      }, ( err, st ) => {
 
-        result.success.should.equal( true );
+        st.deletedUser.should.equal( false );
 
-        result.stakeholder.deleted.should.equal( true );
+        service.agenda( 4608 ).update( {
+          id: 8310
+        }, {}, {
+          allowPartial: true,
+          deletedUser: true, // user was deleted. userId will be set to null at the same time
+        }, ( err, result ) => {
 
-        done();
+          result.success.should.equal( true );
 
-      } );
+          result.stakeholder.deletedUser.should.equal( true );
 
-    } );*/
+          result.stakeholder.userId
+
+          done();
+
+        } );
+
+      } );
+
+    } );
+
+
+    it( 'userId is nulled when deletedUser flag is set', done => {
+
+      service.agenda( 4608 ).get( {
+        id: 8320
+      }, ( err, st ) => {
+
+        st.userId.should.not.equal( null );
+
+        service.agenda( 4608 ).update( {
+          id: 8320
+        }, {}, {
+          allowPartial: true,
+          deletedUser: true, // user was deleted. userId will be set to null at the same time
+        }, ( err, result ) => {
+
+          result.success.should.equal( true );
+
+          should( result.stakeholder.userId ).equal( null );
+
+          done();
+
+        } );
+
+      } );
+
+    } );
 
 
     it( 'userId is set when specified in update options AND is unset in stakeholder', done => {

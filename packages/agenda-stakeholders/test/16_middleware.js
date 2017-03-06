@@ -297,11 +297,11 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
     it( 'loads all stakeholder data by default', done => {
 
       const req = {
-          agenda: { id: 4608 },
-          user: { id: 7674 }
-        },
+        agenda: { id: 4608 },
+        user: { id: 7674 }
+      },
 
-        res = {}; // not modified with load middleware
+      res = {}; // not modified with load middleware
 
       stakeholderMw.agenda().get()( req, res, next );
 
