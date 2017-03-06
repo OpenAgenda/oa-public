@@ -4,6 +4,8 @@ const servicePath = __dirname + '/../services',
 
   w = require( 'when' ),
 
+  async = require( 'async' ),
+
   utils = require( 'utils' ),
 
   logger = require( 'logger' ),
@@ -386,6 +388,36 @@ function _initUsers( config ) {
       secretAccessKey: config.aws.secretAccessKey,
       tmpPath: config.tmpFolderPath
     },
+    interfaces: {
+      beforeRemove: ( user, cb ) => {
+
+        // remove 100 stakeholders
+
+        agendaStakeholders.user( user.id ).list( 0, 100, ( err, stakeholders ) => {
+
+          async.eachSeries(
+            stakeholders,
+            ( sh, acb ) => {
+
+              agendaStakeholders.agenda( sh.agendaId ).update( { id: sh.id }, {}, {
+                allowPartial: true,
+                deletedUser: true
+              }, err => {
+
+                if ( err ) log( 'error', 'could not remove stakeholder ', err );
+
+                acb( null );
+
+              } );
+
+            },
+            () => cb()
+          );
+
+        } );
+
+      }
+    },
     logger
   }, err => {
 
@@ -603,7 +635,7 @@ function _initAgendaStakeholders( config ) { // async
     interfaces: {
       onCreate: stakeholder => {
 
-        agendasSvc.get( { id: stakeholder.agendaId }, { private: null }, ( err, agenda ) => {
+        agendasSvc.get( { id: stakeholder.agendaId }, { private: null }, ( err, agenda ) => {
 
           if ( err ) return log( 'error', err );
 
@@ -614,7 +646,10 @@ function _initAgendaStakeholders( config ) { // async
           invitationsSvc.assign( { email: stakeholder.custom.email }, 'linkStakeholder', stakeholder )
             .then( result => {
 
-              let signupUrl = genUrl( 'signup', { invitation: result.invitation.token }, { abs: true, protocol: 'https://' } );
+              let signupUrl = genUrl( 'signup', { invitation: result.invitation.token }, {
+                abs: true,
+                protocol: 'https://'
+              } );
 
               let lang = (stakeholder.linkStore && stakeholder.linkStore.lang) || 'fr';
 
