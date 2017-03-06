@@ -53,6 +53,7 @@ describe( 'unsubscribed - functional: .is', function() {
     let userUid = 12345678,
 
       values = {
+        type: 'some.type',
         subject: 'agenda',
         identifier: 2
       };
@@ -63,7 +64,10 @@ describe( 'unsubscribed - functional: .is', function() {
 
       service( userUid ).add( values, ( err, result ) => {
 
-        service( userUid ).is( values, ( err, is ) => {
+        service( userUid ).is( {
+          subject: 'agenda',
+          identifier: 2
+        }, ( err, is ) => {
 
           is.should.equal( true );
 

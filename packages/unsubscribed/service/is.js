@@ -19,11 +19,19 @@ module.exports = ( userUid, data, cb ) => {
 
 function _is( data, cb ) {
 
-  let nulled = _.mapValues( data, v => v !== undefined ? v : null );
+  let nulled = _.pickBy( data, v => v !== null && v !== undefined ),
+
+  snNulled = _.mapKeys( nulled, ( v, k ) => _.snakeCase( k ) );
 
   c.knex( c.schemas.unsubscribed )
 
-    .where( _.mapKeys( nulled, ( v, k ) => _.snakeCase( k ) ) )
+    .where( snNulled )
+
+    .orWhere( function() {
+
+      this.where( _.omit( snNulled, [ 'type' ] ) ).whereNull( 'type' );
+
+    } )
 
     .count( 'id as c' )
 
