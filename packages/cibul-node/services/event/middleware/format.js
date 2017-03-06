@@ -27,6 +27,8 @@ module.exports = function( req, res, next ) {
 
   .then( _main )
 
+  .then( _keywords )
+
   .then( _image )
 
   .then( _timings )
@@ -287,6 +289,21 @@ function _image( v ) {
   var img = v.req.event.getImage( true );
 
   v.formatted.image = img ? img.replace( 'cibuldev', 'cibul' ) : false;
+
+  return v;
+
+}
+
+
+function _keywords( v ) {
+
+  v.formatted.keywordList = null;
+
+  if ( typeof v.formatted.keywords === 'string'  && v.formatted.keywords.length ) {
+
+    v.formatted.keywordList = v.formatted.keywords.split( ',' ).map( k => k.trim() ).filter( k => !!k.length );
+
+  }
 
   return v;
 

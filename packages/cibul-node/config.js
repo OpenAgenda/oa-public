@@ -81,7 +81,8 @@ var deepExtend = require( 'deep-extend' ),
         apiKeySet: 'api_key_set',
         eventReferences: 'agenda_event_reference',
         legacyCredentialSet: 'review_credential',
-        invitation: 'invitation_2' // new invitation
+        invitation: 'invitation_2', // new invitation
+        unsubscribed: 'unsubscribed_2' // first unsubscribe addresses newsletter only
       },
       auth: {
         local: {
@@ -425,6 +426,7 @@ var deepExtend = require( 'deep-extend' ),
           //enable: 'oa:services/agenda/controlData*,oa:services/agenda/task*,oa:services/agenda/dispatcher*,oa:services/aggregator*',
           //enable: 'oa:services/agenda/controlData*,oa:services/aggregator/sources'
           //enable: 'oa:services/aggregator/evaluate'
+          //enable: 'oa:search task*'
           enable: 'oa:*'
         },
         token: false // no need to log dev things

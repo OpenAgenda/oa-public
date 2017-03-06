@@ -214,6 +214,7 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
     'countryCode',
     'type',
     'accessibility',
+    'lang',
     'age',
     'uids'
   ].forEach( function( name ) {
@@ -362,7 +363,7 @@ function _clean( query, params ) {
   }
 
 
-  [ 'tags', 'accessibility' ].forEach( function( k ) {
+  [ 'tags', 'accessibility', 'lang' ].forEach( k => {
 
     if ( !query[ k ] ) return;
 

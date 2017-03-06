@@ -26,6 +26,8 @@ const sessions = require( 'sessions' ),
 
   mailer = require( 'mailer' ),
 
+  notificationMail = require( '../services/notification/mail' ),
+
   routes = {
 
     /**
@@ -88,6 +90,24 @@ const sessions = require( 'sessions' ),
     mail: [ 'post', '/mail', [
       bodyParser.json(),
       mail
+    ] ],
+
+    notifications: [ 'post', '/notifications', [
+      bodyParser.json(),
+      ( req, res, next ) => {
+
+        notificationMail( req.body, ( err, mails ) => {
+
+          if ( err ) return next( err );
+
+          mails.forEach( mailer );
+
+          next();
+
+        } );
+
+      },
+      ( req, res, next ) => cmn.renderJson( req, res, { success: true } )
     ] ],
 
     /**
@@ -329,6 +349,12 @@ function mail( req, res, next ) {
   }
 
   mail.subject = data.subject;
+
+  if ( data.unsubscribe ) {
+
+    // unsubscribed.getLinks( data.unsubscribe )
+
+  }
 
   mailer( mail, err => {
 

@@ -134,9 +134,15 @@
   }, {
     "name" : "Featured",
     "mapTo" : "featured"
+  }, {
+    "name" : "ContributorOrganization",
+    "mapTo" : "contributor.organization"
   } ],
-
   "children" : [ {
+    "name" : "Keywords",
+    "mapTo" : "keywordList",
+    "itemName" : "Keyword"
+  }, {
     "name" : "Accessibility",
     "mapTo" : "accessibility",
     "itemName" : "Accessibility"

@@ -429,9 +429,9 @@ function _handleError() {
 
   var args = Array.prototype.slice.call( arguments );
 
-  args.splice( 0, 0, 'error' );
+  console.log( JSON.stringify( args ) );
 
-  log.apply( null, args );
+  log( 'error', JSON.stringify( args ) );
 
   if ( _onComplete ) _onComplete( 'error' );
 

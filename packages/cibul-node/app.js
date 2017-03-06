@@ -84,10 +84,11 @@ module.exports = ( enabledTypes, cb ) => {
             require( './agenda/facebook.back' )( '' ),
             require( './agenda/tagcat.back' )( '' ),
             require( './agenda/actions.front' )( '/:slug/actions' ),
-            //require( './agenda_bridges/back' )( '/:slug/admin/services' ),
             require( './agenda/exports.front' )( '/agendas/:uid' ),
             require( './agenda/exports.back' )( '/agendas/:uid/admin' ),
-            require( './agenda/groupActions.back' )( '/agendas/:uid/admin' ),
+            require( './agenda/groupActions.back' )( '/agendas/:uid/admin' )
+          ],
+          webAndTask: [
             require( './legacy/back' )( '/legacy' )
           ]
         };
@@ -134,7 +135,7 @@ module.exports = ( enabledTypes, cb ) => {
 
       cmn.loadLegacyRoutes( genUrl );
 
-      webModules.web.concat( webModules.admin ).forEach( m => {
+      webModules.web.concat( webModules.admin ).concat( webModules.webAndTask ).forEach( m => {
 
         genUrl.load( m.paths );
 
@@ -154,6 +155,15 @@ module.exports = ( enabledTypes, cb ) => {
 
       }
 
+      if ( enabledTypes.includes( 'task' ) || enabledTypes.includes( 'web' ) ) {
+
+        webModules.webAndTask.forEach( m => m.load( app ) );
+
+        // delegate more to repo-ed services
+        require( './general/unsubscribed.front' )( app, '/unsubscribe' );
+
+      }
+
       app.use( ( req, res, next ) => {
 
         cmn.catchError( req, res )( { code: 404 } );
@@ -165,13 +175,6 @@ module.exports = ( enabledTypes, cb ) => {
         cmn.catchError( req, res )( err );
 
       } );
-
-
-      if ( enabledTypes.indexOf( 'web' ) !== -1 || enabledTypes.indexOf( 'admin' ) !== -1 ) {
-
-        server = app.listen( config.port );
-
-      }
 
 
       // only one process runs background tasks. supervisor handles that.
@@ -216,6 +219,8 @@ module.exports = ( enabledTypes, cb ) => {
         require( './services/lib/instanceQueue/task' )();
 
       }
+
+      server = app.listen( config.port );
 
       if ( cb ) cb( null, server );
 

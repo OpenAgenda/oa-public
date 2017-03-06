@@ -19,6 +19,8 @@ const servicePath = __dirname + '/../services',
 
   cookieParser = require( 'cookie-parser' ),
 
+  unsubscribed = require( 'unsubscribed' ),
+
   agendaSearch = require( 'agenda-search' ),
 
   agendasSvc = require( 'agendas' ),
@@ -126,6 +128,8 @@ module.exports = function ( config, cb ) {
 
     .then( _initInvitations )
 
+    .then( _initUnsubscribed )
+
     .done( () => {
       cb()
     }, err => {
@@ -137,6 +141,23 @@ module.exports = function ( config, cb ) {
     } );
 
 }
+
+
+function _initUnsubscribed( config ) {
+
+  log( 'info', 'unsubscribed' );
+
+  unsubscribed.init( {
+    mysql: config.db,
+    schemas: {
+      unsubscribed: config.schemas.unsubscribed
+    }
+  } );
+
+  return config;
+
+}
+
 
 function _initInvitations( config ) {
 
@@ -164,6 +185,8 @@ function _initInvitations( config ) {
       }
     }
   } );
+
+  return config;
 
 }
 
@@ -580,15 +603,20 @@ function _initAgendaStakeholders( config ) { // async
     interfaces: {
       onCreate: stakeholder => {
 
-        agendasSvc.get( stakeholder.agendaId, ( err, agenda ) => {
+        agendasSvc.get( { id: stakeholder.agendaId }, { private: null }, ( err, agenda ) => {
 
-          if ( err || stakeholder.userId ) return;
+          if ( err ) return log( 'error', err );
+
+          if ( !agenda ) return log( 'info', 'agenda not found: %s', stakeholder.agendaId );
+
+          if ( stakeholder.userId ) return;
 
           invitationsSvc.assign( { email: stakeholder.custom.email }, 'linkStakeholder', stakeholder )
             .then( result => {
 
-              const signupUrl = genUrl.abs( 'signup' ) + '?invitation=' + result.invitation.token;
-              const lang = (stakeholder.linkStore && stakeholder.linkStore.lang) || 'fr';
+              let signupUrl = genUrl( 'signup', { invitation: result.invitation.token }, { abs: true, protocol: 'https://' } );
+
+              let lang = (stakeholder.linkStore && stakeholder.linkStore.lang) || 'fr';
 
               mailer( {
                 recipient: stakeholder.custom.email,

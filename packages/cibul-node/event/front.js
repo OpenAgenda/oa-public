@@ -65,7 +65,10 @@ const modLib = require( '../lib/moduleLib' ),
 
     agendaEventShow: [ 'get', '/:slug/events/:eventSlug', [
       agendaSvc.mw.load( 'slug' ),
-      cmn.ifIs( 'agenda.private', cmn.redirectTo( 'agendaEventShowPrivate', { slug: 'slug', eventSlug: 'eventSlug' }, { maintainQuery: true } ) )
+      cmn.ifIs( 'agenda.private', cmn.redirectTo( 'agendaEventShowPrivate', {
+        slug: 'slug',
+        eventSlug: 'eventSlug' 
+      }, { maintainQuery: true } ) )
     ].concat( middlewares.agendaEventShow ) ],
 
     agendaEventRedirect: [ 'get', '/agendas/:uid/events/:eventUid', [
