@@ -50,6 +50,18 @@ describe( 'unsubscribed - functional: express app', function() {
 
     } );
 
+    it( 'generate link without type', () => {
+
+      service.app.genUrl( 'add', {
+        userUid: 123,
+        subject: 'agenda',
+        identifier: 218
+      } )
+
+      .should.equal( '/unsubscribe/u/123/s/agenda.218' );
+
+    } );
+
   } );
 
   describe( 'http calls', () => {
@@ -116,6 +128,40 @@ describe( 'unsubscribed - functional: express app', function() {
       .end( ( err, res ) => {
 
         sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456/t/notif_published_event/remove' )
+
+        .end( ( err, res ) => {
+
+          res.text.should.equal( 'ok' );
+
+          done();
+
+        } );
+
+      } );
+
+    } );
+
+    it( 'add without type', done => {
+
+      sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456' )
+
+      .end( ( err, res ) => {
+
+        res.text.should.equal( 'ok' )
+
+        done();
+
+      } )
+
+    } );
+
+    it( 'typeless remove', done => {
+
+      sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456' )
+
+      .end( ( err, res ) => {
+
+        sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456/remove' )
 
         .end( ( err, res ) => {
 

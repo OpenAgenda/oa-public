@@ -22,19 +22,30 @@ module.exports = service => {
 
   app.get( routes.add, serviceEndpoint( 'add' ) );
 
+  app.get( _typeless( routes.add ), serviceEndpoint( 'add', false ) );
+
   app.get( routes.remove, serviceEndpoint( 'remove' ) );
+
+  app.get( _typeless( routes.remove ), serviceEndpoint( 'remove', false ) );
 
   return _.extend( {}, app, { genUrl, useBy } );
 
-  function serviceEndpoint( name ) {
+  function serviceEndpoint( name, useType = true ) {
 
     return ( req, res, next ) => {
 
-      service( req.params.userUid )[ name ]( {
-        type: req.params.type,
+      let data = {
         subject: req.params.subject,
         identifier: req.params.identifier
-      }, ( err, result ) => {
+      }
+
+      if ( useType ) {
+
+        data.type = req.params.type;
+
+      }
+
+      service( req.params.userUid )[ name ]( data, ( err, result ) => {
 
         if ( err ) return next( err );
 
@@ -74,8 +85,14 @@ module.exports = service => {
 
     } );
 
-    return specificPath;
+    return specificPath.indexOf( '/t/:type' ) !== -1 ? _typeless( specificPath ) : specificPath;
 
   }
+
+}
+
+function _typeless( path ) {
+
+  return path.replace( '/t/:type', '' );
 
 }

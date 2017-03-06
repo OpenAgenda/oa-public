@@ -12,7 +12,7 @@ const should = require( 'should' ),
 
 describe( 'unsubscribed - functional: .add', function() {
 
-  before( done => {
+  beforeEach( done => {
 
     service.initAndLoad( config, done );
 
@@ -46,6 +46,37 @@ describe( 'unsubscribed - functional: .add', function() {
       } );
 
     } );
+
+  } );
+
+
+  it( 'simple add without type', done => {
+
+    service( 12345678 ).add( {
+      subject: 'agenda',
+      identifier: 12
+    }, ( err, result ) => {
+
+      const con = mysql.createConnection( config.mysql );
+
+      con.query( 'select * from unsubscribed limit 0, 1', ( err, rows ) => {
+
+        con.end();
+
+        _.pick( rows[ 0 ], [ 'type', 'subject', 'identifier', 'user_uid' ] )
+
+        .should.eql( {
+          type: null,
+          subject: 'agenda',
+          identifier: 12,
+          user_uid: 12345678
+        } );
+
+        done();
+
+      } );
+
+    } )
 
   } );
 
