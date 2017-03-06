@@ -59,8 +59,9 @@ function agenda( namespace = 'agenda' ) {
 
   function update( options ) {
 
-    let { namespaces, credential } = _.merge( {
+    let { namespaces, credential, allowPartial } = _.merge( {
       credential: false, // allow credential update
+      allowPartial: false, // allow partial update
       namespaces: {
         user: 'user',
         result: 'result',
@@ -73,7 +74,8 @@ function agenda( namespace = 'agenda' ) {
       service.agenda( _.get( req, namespace ).id ).update( { 
         userId: _.get( req, namespaces.user ).id 
       }, _.get( req, namespaces.data ).fieldValues, {
-        credential: credential ? _.get( req, namespaces.data ).credential : null
+        credential: credential ? _.get( req, namespaces.data ).credential : null,
+        allowPartial
       },( err, result ) => {
 
         if ( err ) return next( err );
