@@ -134,11 +134,16 @@ module.exports = class {
 
   }
 
-  commit( cb ) {
+  commit( allowPartial, cb ) {
+
+    if ( arguments.length === 1 ) {
+      cb = allowPartial;
+      allowPartial = false;
+    }
 
     if ( !this.link ) return cb( 'No link is established with server' );
 
-    let errors = this.getErrors();
+    let errors = this.getErrors( allowPartial );
 
     if ( errors.length ) {
 

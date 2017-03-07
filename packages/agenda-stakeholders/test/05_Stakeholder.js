@@ -355,6 +355,35 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
 
     } );
 
+    it( 'commit with partial data', done => {
+
+      let s = new Stakeholder( {
+        credential: 1,
+        fieldValues: {
+          contactName: 'Moris Jhonson'
+        }
+      }, { res: 'http://localhost:3000' } );
+
+      s.isSynced( ( err, synced ) => {
+
+        synced.should.equal( false );
+
+        s.commit( true, err => {
+
+          s.isSynced( ( err, synced ) => {
+
+            synced.should.equal( true );
+
+            done();
+
+          } );
+
+        } );
+
+      } );
+
+    } );
+
   } );
 
 
