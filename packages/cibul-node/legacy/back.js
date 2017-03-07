@@ -95,6 +95,8 @@ const sessions = require( 'sessions' ),
     notifications: [ 'post', '/notifications', [
       bodyParser.json(),
       ( req, res, next ) => {
+        
+        cmn.renderJson( req, res, { success: true } );
 
         notificationMail( req.body, ( err, mails ) => {
 
@@ -102,12 +104,9 @@ const sessions = require( 'sessions' ),
 
           mails.forEach( mailer );
 
-          next();
-
         } );
 
-      },
-      ( req, res, next ) => cmn.renderJson( req, res, { success: true } )
+      }
     ] ],
 
     /**

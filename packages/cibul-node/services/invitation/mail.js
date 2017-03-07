@@ -5,8 +5,8 @@ var model = require( '../model' ),
 config = require( '../../config' );
 
 module.exports = {
-  getMailIdentifier: getMailIdentifier,
-  loadUserFromMailIdentifier: loadUserFromMailIdentifier
+  getMailIdentifier,
+  loadUserFromMailIdentifier
 }
 
 function getMailIdentifier( invitation, cb ) {

@@ -4,6 +4,7 @@ const config = require( '../../config' );
 const users = require( 'users' );
 const async = require( 'async' );
 const _ = require( 'lodash' );
+const logger = require( 'logger' );
 const agendas = require( 'agendas' );
 const events = require( '../event' );
 const genUrl = require( '../genUrl' );
@@ -75,6 +76,8 @@ const types = {
 
 module.exports = ( notifications, cb ) => {
 
+  let log = logger( 'services/notification/mail' );
+
   async.mapLimit( notifications, 5, ( n, mcb ) => {
 
     let aggregatorAgendaId = null;
@@ -82,6 +85,14 @@ module.exports = ( notifications, cb ) => {
     if ( n.object ) {
 
       aggregatorAgendaId = n.object.aggregatorAgendaId;
+
+    }
+
+    if ( typeof types[ n.type ] === 'undefined' ) {
+
+      log( 'error', 'unhandled notification type: %s', n.type );
+
+      return mcb( null );
 
     }
 
@@ -138,7 +149,7 @@ module.exports = ( notifications, cb ) => {
               event: event ? _genLinked( _getLang( event.title, notifiedUser.culture ), agenda ? 'agendaEventShow' : 'eventShow', { slug: agenda ? agenda.slug : null, eventSlug: event.slug } ) : null,
               aggregator: aggregator ? _genLinked( aggregator.title, 'agendaShow', { slug: aggregator.slug } ) : null,
             }, notifiedUser.culture ),
-            footerActions: [ agenda ? {
+            footerActions: agenda ? [ {
               text: getLabel( 'unsubscribeFromNotification', notifiedUser.culture ),
               link: config.root + unsubscribed.app.genUrl( 'add', {
                 userUid: notifiedUser.uid,
@@ -146,7 +157,14 @@ module.exports = ( notifications, cb ) => {
                 identifier: agenda.uid,
                 type: mailType
               } )
-            } : [] ]
+            }, {
+              text: getLabel( 'unsubscribeFromAllNotifications', notifiedUser.culture ),
+              link: config.root + unsubscribed.app.genUrl( 'add', {
+                userUid: notifiedUser.uid,
+                subject: 'agenda',
+                identifier: agenda.uid
+              } )
+            } ] : []
           }
         } );
         

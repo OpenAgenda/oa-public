@@ -7,7 +7,7 @@ var deepExtend = require( 'deep-extend' ),
       versions: {
         members: [ {
           version: 2,
-          agendaUids: [ 48959239 ]
+          agendaUids: [ 48959239, 93961830 ]
         }, {
           version: 1
         } ]

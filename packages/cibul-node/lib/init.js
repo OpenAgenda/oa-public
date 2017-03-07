@@ -655,7 +655,7 @@ function _initAgendaStakeholders( config ) { // async
                 protocol: 'https://'
               } );
 
-              let lang = (stakeholder.linkStore && stakeholder.linkStore.lang) || 'fr';
+              let lang = ( stakeholder.linkStore && stakeholder.linkStore.lang ) || 'fr';
 
               mailer( {
                 recipient: stakeholder.custom.email,
