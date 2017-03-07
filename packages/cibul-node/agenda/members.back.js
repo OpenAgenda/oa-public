@@ -6,9 +6,7 @@ const config = require( '../config' );
 const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 const bodyParser = require( 'body-parser' );
-const { middleware: agendasMw, instanciate: instanciateAgenda } = require( 'agendas' );
-const usersSvc = require( 'users' );
-const stakeholdersSvc = require( 'agenda-stakeholders' );
+const { middleware: agendasMw } = require( 'agendas' );
 const stakeholdersMw = require( 'agenda-stakeholders/middleware' );
 const mw = require( 'member-apps/middleware' );
 const { mw: { loadAdminLayout, load: oldAgendaLoad } } = require( '../services/agenda' );
@@ -39,11 +37,13 @@ const routes = {
     ( { stats }, res ) => res.json( { stats } )
   ] ],
 
-  membersRemove: [ 'get', '/remove/:uid', [
-    usersSvc.mw.load( 'params.uid', 'stakeholderUser' ),
+  membersRemove: [ 'get', '/remove/:id', [
+    ( req, res, next ) => {
+      req.identifiers = { id: req.params.id };
+      next();
+    },
     stakeholdersMw.agenda( 'agendaInstance.data' ).get( {
       namespaces: {
-        user: 'stakeholderUser',
         stakeholder: 'stakeholderToUse',
         instance: 'stakeholderInstanceToUse'
       }
@@ -54,19 +54,17 @@ const routes = {
       }
       next();
     },
-    stakeholdersMw.agenda( 'agendaInstance.data' ).remove( {
-      namespaces: {
-        user: 'stakeholderUser'
-      }
-    } ),
+    stakeholdersMw.agenda( 'agendaInstance.data' ).remove(),
     ( { result }, res ) => res.status( !result.success ? 400 : 200 ).json( result )
   ] ],
 
-  membersUpdate: [ 'post', '/update/:uid', [
-    usersSvc.mw.load( 'params.uid', 'stakeholderUser' ),
+  membersUpdate: [ 'post', '/update/:id', [
+    ( req, res, next ) => {
+      req.identifiers = { id: req.params.id };
+      next();
+    },
     stakeholdersMw.agenda( 'agendaInstance.data' ).get( {
       namespaces: {
-        user: 'stakeholderUser',
         stakeholder: 'stakeholderToUse',
         instance: 'stakeholderInstanceToUse'
       }
@@ -79,7 +77,6 @@ const routes = {
     },
     stakeholdersMw.agenda( 'agendaInstance.data' ).update( {
       namespaces: {
-        user: 'stakeholderUser',
         data: 'body'
       },
       credential: true,
@@ -144,7 +141,7 @@ module.exports = path => {
   router.pre( [
     cmn.loadLogger( 'members' ),
     bodyParser.json(),
-    sessions.middleware.load(),
+    sessions.middleware.load( { detailed: true } ),
     sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
     agendasMw.load( {
       namespaces: {
@@ -157,9 +154,12 @@ module.exports = path => {
       internal: true,
       private: null
     } ),
+    ( req, res, next ) => {
+      req.identifiers = { userId: req.user.id };
+      next();
+    },
     stakeholdersMw.agenda( 'agendaInstance.data' ).get( {
       namespaces: {
-        user: 'user',
         stakeholder: 'stakeholder',
         instance: 'stakeholderInstance'
       }
@@ -172,7 +172,7 @@ module.exports = path => {
       private: null
     } ),
     oldAgendaLoad( 'slug' ),
-    cmn.checkAdministrator()
+    cmn.checkAdminOrModerator,
   ] );
 
   return {
@@ -212,11 +212,11 @@ function matchApp( req, res, next ) {
         res: {
           app: req.genUrl( 'agendaAdminMembers', { slug: req.agenda.slug } ),
           list: req.genUrl( 'membersList', { slug: req.agenda.slug } ),
-          update: req.genUrl( 'membersUpdate', { slug: req.agenda.slug, uid: ':uid' } ),
-          remove: req.genUrl( 'membersRemove', { slug: req.agenda.slug, uid: ':uid' } ),
+          update: req.genUrl( 'membersUpdate', { slug: req.agenda.slug, id: ':id' } ),
+          remove: req.genUrl( 'membersRemove', { slug: req.agenda.slug, id: ':id' } ),
           invite: req.genUrl( 'membersInvite', { slug: req.agenda.slug } ),
           stats: req.genUrl( 'membersStats', { slug: req.agenda.slug } ),
-          showContributor: req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ) + '?contributorUid=:contributorUid',
+          showContributor: req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ) + '?contributorId=:contributorId',
           writeToMember: req.genUrl( 'conversationDiscussion', { uid: ':uid', redirect: ':redirect' } ),
           exportToCsv: req.genUrl( 'agendaContributorsCsv', { slug: req.agenda.slug } ),
           exportToXlsx: req.genUrl( 'agendaContributorsXlsx', { slug: req.agenda.slug } )

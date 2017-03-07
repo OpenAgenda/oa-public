@@ -177,9 +177,13 @@ function _initInvitations( config ) {
         const { user } = executeData;
         const [ stakeholder ] = actionParams;
 
+        console.log( 'linkStakeholder', executeData, actionParams );
+
         agendaStakeholders.agenda( stakeholder.agendaId ).update( {
           id: stakeholder.id
-        }, {}, {
+        }, {
+          contact_name: user.full_name
+        }, {
           allowPartial: true,
           userId: user.id
         }, err => cb( err ) );
