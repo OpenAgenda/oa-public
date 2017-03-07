@@ -61,8 +61,8 @@ module.exports = React.createClass( {
             { this.props.agenda.image ?
               <div className="col-sm-2 avatar-container">
                 <a href={'/' + this.props.agenda.slug}> <img className="avatar"
-                                                             src={'https://cibul.s3.amazonaws.com/' + this.props.agenda.image}
-                                                             alt={this.props.agenda.title} /> </a>
+                  src={'https://cibul.s3.amazonaws.com/' + this.props.agenda.image}
+                  alt={this.props.agenda.title} /> </a>
               </div> : null }
 
             <div className={ this.props.agenda.image ? 'col-sm-7 title-container' : 'title-container' }>
@@ -71,24 +71,24 @@ module.exports = React.createClass( {
                 <p>{this.props.agenda.description}</p>
               </a> { this.props.agenda.url ?
               <p><a target="_blank" href={this.props.agenda.url}>{this.props.agenda.url}</a></p> : null }
-                {this.props.agenda.uid ? <div>
-                  <div>Agenda officiel <Switch
-                    ref="switch"
-                    className="rc-switch"
-                    checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
-                    unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
-                    onChange={this.setOfficial}
-                    checked={!!this.props.agenda.official}
-                  /></div>
-                  <div>Agenda privé <Switch
-                    ref="switch"
-                    className="rc-switch"
-                    checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
-                    unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
-                    onChange={this.setPrivate}
-                    checked={!!this.props.agenda.private}
-                  /></div>
-                </div> : null}
+              {this.props.agenda.uid ? <div>
+                <div>Agenda officiel <Switch
+                  ref="switch"
+                  className="rc-switch"
+                  checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+                  unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+                  onChange={this.setOfficial}
+                  checked={!!this.props.agenda.official}
+                /></div>
+                <div>Agenda privé <Switch
+                  ref="switch"
+                  className="rc-switch"
+                  checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+                  unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+                  onChange={this.setPrivate}
+                  checked={!!this.props.agenda.private}
+                /></div>
+              </div> : null}
             </div>
           </div>
         </div>
@@ -129,6 +129,14 @@ module.exports = React.createClass( {
 
   renderStakeholderItem( stakeholder ) {
 
+    if (!stakeholder.user) {
+      return (
+        <tr key={stakeholder.id}>
+          <td className="text-danger" colspan="7">User deleted</td>
+        </tr>
+      );
+    }
+
     return (
       <tr key={stakeholder.id}>
         <td className="text-primary">{stakeholder.user.uid}</td>
@@ -137,8 +145,11 @@ module.exports = React.createClass( {
         <td>{stakeholder.user.username}</td>
         <td>{stakeholder.user.email}</td>
         <td>le {stakeholder.user.created_at}</td>
-        <td><a href={'/admin/users/signin?uid=' + stakeholder.user.uid}><i className="fa fa-sign-in"
-                                                                           aria-hidden="true"></i></a></td>
+        <td>
+          <a href={'/admin/users/signin?uid=' + stakeholder.user.uid}>
+            <i className="fa fa-sign-in" aria-hidden="true"></i>
+          </a>
+        </td>
       </tr>
     );
 
@@ -151,7 +162,7 @@ module.exports = React.createClass( {
         <tr>
           <td colSpan="6" className="text-center">
             <button className="btn btn-default"
-                    onClick={this.props.getStakeholdersPage.bind( null, false )}>Précédent
+              onClick={this.props.getStakeholdersPage.bind( null, false )}>Précédent
             </button>
           </td>
         </tr>
@@ -167,7 +178,7 @@ module.exports = React.createClass( {
         <tr>
           <td colSpan="6" className="text-center">
             <button className="btn btn-default"
-                    onClick={this.props.getStakeholdersPage.bind( null, true )}>Suivant
+              onClick={this.props.getStakeholdersPage.bind( null, true )}>Suivant
             </button>
           </td>
         </tr>
@@ -295,11 +306,11 @@ module.exports = React.createClass( {
 
         <div className="nav nav-tabs">
           <li role="presentation" className={tab == 'stakeholders' ? 'active' : ''}
-              onClick={() => this.setTab( 'stakeholders' )}>
+            onClick={() => this.setTab( 'stakeholders' )}>
             <a href="#">Stakeholders</a>
           </li>
           <li role="presentation" className={tab == 'features' ? 'active' : ''}
-              onClick={() => this.setTab( 'features' )}>
+            onClick={() => this.setTab( 'features' )}>
             <a href="#">Features</a>
           </li>
         </div>

@@ -201,6 +201,18 @@ module.exports = React.createClass({
   },
   renderStakeholderItem: function renderStakeholderItem(stakeholder) {
 
+    if (!stakeholder.user) {
+      return React.createElement(
+        "tr",
+        { key: stakeholder.id },
+        React.createElement(
+          "td",
+          { className: "text-danger", colspan: "7" },
+          "User deleted"
+        )
+      );
+    }
+
     return React.createElement(
       "tr",
       { key: stakeholder.id },
@@ -241,8 +253,7 @@ module.exports = React.createClass({
         React.createElement(
           "a",
           { href: '/admin/users/signin?uid=' + stakeholder.user.uid },
-          React.createElement("i", { className: "fa fa-sign-in",
-            "aria-hidden": "true" })
+          React.createElement("i", { className: "fa fa-sign-in", "aria-hidden": "true" })
         )
       )
     );
