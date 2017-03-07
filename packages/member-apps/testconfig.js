@@ -1,4 +1,3 @@
-const userSvc = require( 'users' );
 const agendasSvc = require( 'agendas' );
 
 module.exports = {
@@ -59,7 +58,7 @@ module.exports = {
     getEventCount: ( agendaId, userId, cb ) => {
       cb( null, 35 );
     },
-    getUser: userSvc.get,
+    getUser: ( identifiers, cb ) => cb( null, identifiers ),
     getExistingCredentials: ( agendaId, cb ) => {
 
       agendasSvc.get( { id: agendaId }, { instanciate: true, private: null }, ( err, agenda ) => {

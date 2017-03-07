@@ -281,8 +281,6 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           userCredential = _props4.userCredential;
 
 
-      if (!stakeholder.user) return _react3.default.createElement('div', { key: id });
-
       return _react3.default.createElement(
         'div',
         { key: id, className: 'bo-list-item media' },
@@ -294,8 +292,8 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             { className: 'title media-heading' },
             _react3.default.createElement(
               'strong',
-              null,
-              custom.contactName || user.full_name
+              { className: (0, _classnames2.default)({ 'text-muted': !custom.contactName }) },
+              custom.contactName || user && user.full_name || getLabel('noName')
             ),
             ' ',
             _react3.default.createElement(
@@ -325,7 +323,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             _react3.default.createElement(
               'a',
               {
-                href: res.showContributor.replace(':contributorUid', user.uid),
+                href: res.showContributor.replace(':contributorId', id),
                 className: 'text-muted' },
               eventCount,
               ' ',
@@ -337,7 +335,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                 role: 'button',
                 className: 'text-muted',
                 onClick: function onClick() {
-                  return showModal('editMember', { uid: user.uid, stakeholder: stakeholder });
+                  return showModal('editMember', { stakeholder: stakeholder });
                 }
               },
               getLabel('editProfile')
@@ -348,15 +346,17 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                 role: 'button',
                 className: 'text-muted',
                 onClick: function onClick() {
-                  return showModal('removeMember', { uid: user.uid });
+                  return showModal('removeMember', { stakeholder: stakeholder });
                 }
               },
               getLabel('removeMember')
             ),
-            _react3.default.createElement(
+            user && _react3.default.createElement(
               'a',
-              { href: res.writeToMember.replace(':uid', user.uid).replace(':redirect', base64encode(res.app)),
-                className: 'text-muted' },
+              {
+                href: res.writeToMember.replace(':uid', user.uid).replace(':redirect', base64encode(res.app)),
+                className: 'text-muted'
+              },
               getLabel('writeToHim')
             )
           )
@@ -538,7 +538,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                 params[_key] = arguments[_key];
               }
 
-              return update.apply(undefined, [editModal.uid].concat(params)).then(function (result) {
+              return update.apply(undefined, [editModal.stakeholder.id].concat(params)).then(function (result) {
                 if (result.error && result.error instanceof _reduxForm.SubmissionError) {
                   throw new _reduxForm.SubmissionError(result.error.errors);
                 } else {
@@ -571,7 +571,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               {
                 className: 'btn btn-danger',
                 onClick: function onClick() {
-                  return remove(removeModal.uid).then(function () {
+                  return remove(removeModal.stakeholder.id).then(function () {
                     return closeModal('removeMember');
                   });
                 }

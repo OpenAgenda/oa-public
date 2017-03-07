@@ -171,13 +171,13 @@ export default class Dashboard extends Component {
     const { getLabel } = this.context;
     const { res, showModal, userCredential } = this.props;
 
-    if ( !stakeholder.user ) return <div key={id}></div>;
-
     return (
       <div key={id} className="bo-list-item media">
         <div className="media-body">
           <div className="title media-heading">
-            <strong>{custom.contactName || user.full_name}</strong>{' '}
+            <strong className={classNames( { 'text-muted': !custom.contactName } )}>
+              {custom.contactName || (user && user.full_name) || getLabel( 'noName' )}
+            </strong>{' '}
             <span className="text-muted small">{this.credentialToStr( credential )}</span>
           </div>
           <div className="actions">
@@ -189,27 +189,29 @@ export default class Dashboard extends Component {
             {custom.email && <p className="text-muted">{custom.email}</p>}
 
             <a
-              href={res.showContributor.replace( ':contributorUid', user.uid )}
+              href={res.showContributor.replace( ':contributorId', id )}
               className="text-muted">{eventCount} {getLabel( 'events' )}
             </a>
             {(userCredential !== 3 || ![ 2, 3 ].includes( credential ) ) && <a
               role="button"
               className="text-muted"
-              onClick={() => showModal( 'editMember', { uid: user.uid, stakeholder } )}
+              onClick={() => showModal( 'editMember', { stakeholder } )}
             >
               {getLabel( 'editProfile' )}
             </a>}
             {(userCredential !== 3 || ![ 2, 3 ].includes( credential ) ) && <a
               role="button"
               className="text-muted"
-              onClick={() => showModal( 'removeMember', { uid: user.uid } )}
+              onClick={() => showModal( 'removeMember', { stakeholder } )}
             >
               {getLabel( 'removeMember' )}
             </a>}
-            <a href={res.writeToMember.replace( ':uid', user.uid ).replace( ':redirect', base64encode( res.app ) )}
-              className="text-muted">
+            {user && <a
+              href={res.writeToMember.replace( ':uid', user.uid ).replace( ':redirect', base64encode( res.app ) )}
+              className="text-muted"
+            >
               {getLabel( 'writeToHim' )}
-            </a>
+            </a>}
           </div>
         </div>
       </div>
@@ -309,8 +311,8 @@ export default class Dashboard extends Component {
           {stakeholders && stakeholders.map( s => this.renderStakeholder( s ) )}
 
           {!stakeholders || !stakeholders.length ? <div className="text-center text-muted margin-v-md">
-              {getLabel( 'noResult' )}
-            </div> : null}
+            {getLabel( 'noResult' )}
+          </div> : null}
 
           {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
             <Spinner />
@@ -323,7 +325,7 @@ export default class Dashboard extends Component {
         >
           <EditMemberForm
             stakeholder={editModal.stakeholder}
-            onSubmit={( ...params ) => update( editModal.uid, ...params )
+            onSubmit={( ...params ) => update( editModal.stakeholder.id, ...params )
               .then( result => {
                 if ( result.error && result.error instanceof SubmissionError ) {
                   throw new SubmissionError( result.error.errors );
@@ -345,7 +347,7 @@ export default class Dashboard extends Component {
           <div className="text-center">
             <button
               className="btn btn-danger"
-              onClick={() => remove( removeModal.uid )
+              onClick={() => remove( removeModal.stakeholder.id )
                 .then( () => closeModal( 'removeMember' ) )}
             >
               {getLabel( 'removeMember' )}
@@ -361,23 +363,23 @@ export default class Dashboard extends Component {
           }}
         >
           {showInviteResult ? <div>
-              {inviteError ? <div>
-                  {inviteError.emailsRejected && inviteError.emailsRejected.length ? <div>
-                      {getLabel( 'emailsCouldNotBeInvited' )} <b>{inviteError.emailsRejected.join( ', ' )}</b>
-                    </div> : <div>
-                      {getLabel( 'invitationProblem' )}
-                    </div>}
-                </div> : <div>
-                  {getLabel( 'membersInvited' )}
-                </div>}
-            </div> : <InviteMembersForm onSubmit={data => invite( data )
-              .then( result => {
-                if ( result.error && result.error instanceof SubmissionError ) {
-                  throw new SubmissionError( result.error.errors );
-                }
-                return result;
-              } )
-            } />}
+            {inviteError ? <div>
+              {inviteError.emailsRejected && inviteError.emailsRejected.length ? <div>
+                {getLabel( 'emailsCouldNotBeInvited' )} <b>{inviteError.emailsRejected.join( ', ' )}</b>
+              </div> : <div>
+                {getLabel( 'invitationProblem' )}
+              </div>}
+            </div> : <div>
+              {getLabel( 'membersInvited' )}
+            </div>}
+          </div> : <InviteMembersForm onSubmit={data => invite( data )
+            .then( result => {
+              if ( result.error && result.error instanceof SubmissionError ) {
+                throw new SubmissionError( result.error.errors );
+              }
+              return result;
+            } )
+          } />}
         </Modal>}
       </div>
     );

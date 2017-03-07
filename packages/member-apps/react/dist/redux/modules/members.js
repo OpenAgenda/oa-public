@@ -148,7 +148,7 @@ function reducer() {
       });
     case UPDATE_SUCCESS:
       var data = state.data.map(function (sh) {
-        return (sh.user && sh.user.uid) === action.uid ? _extends({}, sh, {
+        return sh.id === action.id ? _extends({}, sh, {
           credential: action.result.credential || sh.credential,
           custom: _extends({}, sh.custom, action.result.fieldValues)
         }) : sh;
@@ -181,7 +181,7 @@ function reducer() {
       });
     case REMOVE_SUCCESS:
       var index = state.data.findIndex(function (sh) {
-        return sh.user.uid === action.uid;
+        return sh.id === action.id;
       });
       var stakeholder = state.data[index];
       var credential = credentialsTypes.codes.get(stakeholder.credential);
@@ -268,17 +268,17 @@ function nextPage(query, page) {
   };
 }
 
-function update(uid, values) {
+function update(id, values) {
   return {
     types: [UPDATE, UPDATE_SUCCESS, UPDATE_FAIL],
-    uid: uid,
+    id: id,
     promise: function promise(client, _ref5) {
       var res = _ref5.res;
 
       var stakeholder = new _Stakeholder2.default({
         fieldValues: _lodash2.default.omit(values, 'credential'),
         credential: values.credential
-      }, { res: res.update.replace(':uid', uid) });
+      }, { res: res.update.replace(':id', id) });
 
       var flatErrors = function flatErrors(e) {
         return e.reduce(function (prev, next) {
@@ -329,13 +329,13 @@ function cleanInviteResult() {
   };
 }
 
-function remove(uid) {
+function remove(id) {
   return {
     types: [REMOVE, REMOVE_SUCCESS, REMOVE_FAIL],
-    uid: uid,
+    id: id,
     promise: function promise(client, _ref7) {
       var res = _ref7.res;
-      return client.get(res.remove.replace(':uid', uid));
+      return client.get(res.remove.replace(':id', id));
     }
   };
 }

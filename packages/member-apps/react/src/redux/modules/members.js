@@ -117,7 +117,7 @@ export default function reducer( state = initialState, action ) {
         updateLoading: true
       };
     case UPDATE_SUCCESS:
-      const data = state.data.map( sh => ((sh.user && sh.user.uid) === action.uid ? {
+      const data = state.data.map( sh => (sh.id === action.id ? {
           ...sh,
           credential: action.result.credential || sh.credential,
           custom: { ...sh.custom, ...action.result.fieldValues }
@@ -154,7 +154,7 @@ export default function reducer( state = initialState, action ) {
         showInviteResult: true
       };
     case REMOVE_SUCCESS:
-      const index = state.data.findIndex( sh => sh.user.uid === action.uid );
+      const index = state.data.findIndex( sh => sh.id === action.id );
       const stakeholder = state.data[ index ];
       const credential = credentialsTypes.codes.get( stakeholder.credential );
       return {
@@ -167,7 +167,7 @@ export default function reducer( state = initialState, action ) {
           credentialTotals: {
             ...state.stats.credentialTotals,
             [credential]: state.stats.credentialTotals[ credential ] - 1
-          },
+          }
         }
       };
     case CLEAN_INVITE_RESULT:
@@ -237,15 +237,15 @@ export function nextPage( query, page ) {
   };
 }
 
-export function update( uid, values ) {
+export function update( id, values ) {
   return {
     types: [ UPDATE, UPDATE_SUCCESS, UPDATE_FAIL ],
-    uid,
+    id,
     promise: ( client, { res } ) => {
       const stakeholder = new Stakeholder( {
         fieldValues: _.omit( values, 'credential' ),
         credential: values.credential
-      }, { res: res.update.replace( ':uid', uid ) } );
+      }, { res: res.update.replace( ':id', id ) } );
 
       const flatErrors = e => e.reduce( ( prev, next ) => ({ ...prev, [next.field]: next.code }), {} );
 
@@ -285,11 +285,11 @@ export function cleanInviteResult() {
   };
 }
 
-export function remove( uid ) {
+export function remove( id ) {
   return {
     types: [ REMOVE, REMOVE_SUCCESS, REMOVE_FAIL ],
-    uid,
-    promise: ( client, { res } ) => client.get( res.remove.replace( ':uid', uid ) )
+    id,
+    promise: ( client, { res } ) => client.get( res.remove.replace( ':id', id ) )
   };
 }
 

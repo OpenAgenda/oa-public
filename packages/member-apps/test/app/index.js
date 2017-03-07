@@ -6,10 +6,9 @@ const async = require( 'async' );
 const fixtures = require( 'fixtures' );
 const morgan = require( 'morgan' );
 const agendasSvc = require( 'agendas/service/test' );
-const { middleware: agendasMw, instanciate: instanciateAgenda } = require( 'agendas' );
+const { middleware: agendasMw } = require( 'agendas' );
 const stakeholdersSvc = require( 'agenda-stakeholders/test/service' );
 const stakeholdersMw = require( 'agenda-stakeholders/middleware' );
-const usersSvc = require( 'users' );
 const bodyParser = require( 'body-parser' );
 const config = require( '../../testconfig.js' );
 
@@ -36,7 +35,6 @@ const port = process.env.PORT || 3000;
 fixtures.init( config );
 agendasSvc.init( config );
 stakeholdersSvc.init( config );
-usersSvc.init( config );
 
 async.waterfall( [
   // wcb => agendasSvc.test.fixtures( [
@@ -60,6 +58,7 @@ async.waterfall( [
       id: 2,
       lang: req.query.lang || 'fr'
     }; // 2 == administrator, 4387 == contributor
+    req.identifiers = { userId: req.user.id };
     req.agenda = { id: 4608 };
     next();
   } );
@@ -76,7 +75,6 @@ async.waterfall( [
 
   app.use( stakeholdersMw.agenda( 'agenda.data' ).get( {
     namespaces: {
-      user: 'user',
       stakeholder: 'stakeholder',
       instance: 'stakeholderInstance'
     }
@@ -90,7 +88,7 @@ async.waterfall( [
   } ) );
 
   app.get(
-    '/sources.json',
+    '/members.json',
     stakeholdersMw.agenda( 'agenda.data' ).list( { detailed: true } ),
     ( { stakeholders, total }, res ) => res.json( { stakeholders, total } )
   );
@@ -102,11 +100,13 @@ async.waterfall( [
   );
 
   app.get(
-    '/remove/:uid',
-    usersSvc.mw.load( 'params.uid', 'stakeholderUser' ),
+    '/remove/:id',
+    ( req, res, next ) => {
+      req.identifiers = { id: req.params.id };
+      next();
+    },
     stakeholdersMw.agenda( 'agenda.data' ).get( {
       namespaces: {
-        user: 'stakeholderUser',
         stakeholder: 'stakeholderToUse',
         instance: 'stakeholderInstanceToUse'
       }
@@ -117,20 +117,18 @@ async.waterfall( [
       }
       next();
     },
-    stakeholdersMw.agenda( 'agenda.data' ).remove( {
-      namespaces: {
-        user: 'stakeholderUser'
-      }
-    } ),
+    stakeholdersMw.agenda( 'agenda.data' ).remove(),
     ( { result }, res ) => res.status( !result.success ? 400 : 200 ).json( result )
   );
 
   app.post(
-    '/update/:uid',
-    usersSvc.mw.load( 'params.uid', 'stakeholderUser' ),
+    '/update/:id',
+    ( req, res, next ) => {
+      req.identifiers = { id: req.params.id };
+      next();
+    },
     stakeholdersMw.agenda( 'agenda.data' ).get( {
       namespaces: {
-        user: 'stakeholderUser',
         stakeholder: 'stakeholderToUse',
         instance: 'stakeholderInstanceToUse'
       }
@@ -143,7 +141,6 @@ async.waterfall( [
     },
     stakeholdersMw.agenda( 'agenda.data' ).update( {
       namespaces: {
-        user: 'stakeholderUser',
         data: 'body'
       },
       credential: true,
@@ -215,9 +212,9 @@ function matchApp( req, res, next ) {
     },
     res: {
       app: '#',
-      list: '/sources.json',
-      update: '/update/:uid',
-      remove: '/remove/:uid',
+      list: '/members.json',
+      update: '/update/:id',
+      remove: '/remove/:id',
       invite: '/invite',
       stats: '/stats',
       showContributor: '#',
