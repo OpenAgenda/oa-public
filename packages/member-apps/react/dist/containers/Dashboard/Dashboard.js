@@ -295,7 +295,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             _react3.default.createElement(
               'strong',
               null,
-              user.full_name
+              custom.contactName || user.full_name
             ),
             ' ',
             _react3.default.createElement(

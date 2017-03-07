@@ -1,4 +1,5 @@
 const userSvc = require( 'users' );
+const agendasSvc = require( 'agendas' );
 
 module.exports = {
   queue: {
@@ -58,6 +59,23 @@ module.exports = {
     getEventCount: ( agendaId, userId, cb ) => {
       cb( null, 35 );
     },
-    getUser: userSvc.get
+    getUser: userSvc.get,
+    getExistingCredentials: ( agendaId, cb ) => {
+
+      agendasSvc.get( { id: agendaId }, { instanciate: true, private: null }, ( err, agenda ) => {
+
+        if ( err ) return cb( err );
+
+        agenda.getRoles( ( err, credentials ) => {
+
+          if ( err ) return cb( err );
+
+          cb( null, credentials.map( c => c.value ) );
+
+        } );
+
+      } );
+
+    }
   }
 };

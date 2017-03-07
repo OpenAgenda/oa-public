@@ -249,19 +249,17 @@ export function update( uid, values ) {
 
       const flatErrors = e => e.reduce( ( prev, next ) => ({ ...prev, [next.field]: next.code }), {} );
 
-      const errors = stakeholder.getErrors();
+      const errors = stakeholder.getErrors( true );
 
       if ( errors.length ) {
         return Promise.reject( new SubmissionError( flatErrors( errors ) ) );
       }
 
       return new Promise( ( resolve, reject ) => {
-        stakeholder.commit( ( err, result ) => {
-          if ( err ) {
-            if ( err.errors && err.errors.length ) {
-              return reject( new SubmissionError( flatErrors( err.errors ) ) );
-            }
-            return reject( err );
+        stakeholder.commit( true, ( err, result ) => {
+          if ( err ) return reject( err );
+          if ( result.errors && result.errors.length ) {
+            return reject( new SubmissionError( flatErrors( result.errors ) ) );
           }
           resolve( result );
         } );

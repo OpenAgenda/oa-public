@@ -146,7 +146,8 @@ async.waterfall( [
         user: 'stakeholderUser',
         data: 'body'
       },
-      credential: true
+      credential: true,
+      allowPartial: true
     } ),
     ( { result }, res ) => res.status( result.errors.length ? 400 : 200 ).json( result )
   );

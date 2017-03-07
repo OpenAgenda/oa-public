@@ -177,7 +177,7 @@ export default class Dashboard extends Component {
       <div key={id} className="bo-list-item media">
         <div className="media-body">
           <div className="title media-heading">
-            <strong>{user.full_name}</strong>{' '}
+            <strong>{custom.contactName || user.full_name}</strong>{' '}
             <span className="text-muted small">{this.credentialToStr( credential )}</span>
           </div>
           <div className="actions">

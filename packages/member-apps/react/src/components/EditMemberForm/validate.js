@@ -4,7 +4,7 @@ export default function validate( values ) {
 
   const flatErrors = e => e.reduce( ( prev, next ) => ({ ...prev, [next.field]: next.code }), {} );
 
-  const errors = new Stakeholder( values ).getErrors();
+  const errors = new Stakeholder( values ).getErrors( true );
 
   if ( errors.length ) {
     return flatErrors( errors );

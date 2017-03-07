@@ -24,7 +24,7 @@ function validate(values) {
     }, {});
   };
 
-  var errors = new _Stakeholder2.default(values).getErrors();
+  var errors = new _Stakeholder2.default(values).getErrors(true);
 
   if (errors.length) {
     return flatErrors(errors);

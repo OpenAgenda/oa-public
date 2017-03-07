@@ -286,19 +286,17 @@ function update(uid, values) {
         }, {});
       };
 
-      var errors = stakeholder.getErrors();
+      var errors = stakeholder.getErrors(true);
 
       if (errors.length) {
         return Promise.reject(new _reduxForm.SubmissionError(flatErrors(errors)));
       }
 
       return new Promise(function (resolve, reject) {
-        stakeholder.commit(function (err, result) {
-          if (err) {
-            if (err.errors && err.errors.length) {
-              return reject(new _reduxForm.SubmissionError(flatErrors(err.errors)));
-            }
-            return reject(err);
+        stakeholder.commit(true, function (err, result) {
+          if (err) return reject(err);
+          if (result.errors && result.errors.length) {
+            return reject(new _reduxForm.SubmissionError(flatErrors(result.errors)));
           }
           resolve(result);
         });
