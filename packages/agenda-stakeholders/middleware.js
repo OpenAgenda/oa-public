@@ -36,6 +36,7 @@ function agenda( namespace = 'agenda' ) {
 
     let { namespaces } = _.merge( {
       namespaces: {
+        identifiers: 'identifiers',
         user: 'user',
         result: 'result'
       }
@@ -43,7 +44,16 @@ function agenda( namespace = 'agenda' ) {
 
     return ( req, res, next ) => {
 
-      service.agenda( _.get( req, namespace ).id ).remove( { userId: _.get( req, namespaces.user ).id }, ( err, result ) => {
+      let identifiers = _.get( req, namespaces.identifiers );
+
+      if ( !identifiers ) {
+
+        console.log( 'DEPRECATED: Use identifiers namespace instead of user in .remove middleware (agenda-stakeholders)' );
+        identifiers = { userId: _.get( req, namespaces.user ).id };
+
+      }
+
+      service.agenda( _.get( req, namespace ).id ).remove( identifiers, ( err, result ) => {
 
         if ( err ) return next( err );
 
@@ -63,6 +73,7 @@ function agenda( namespace = 'agenda' ) {
       credential: false, // allow credential update
       allowPartial: false, // allow partial update
       namespaces: {
+        identifiers: 'identifiers',
         user: 'user',
         result: 'result',
         data: 'data' // the custom data only
@@ -71,12 +82,19 @@ function agenda( namespace = 'agenda' ) {
 
     return ( req, res, next ) => {
 
-      service.agenda( _.get( req, namespace ).id ).update( { 
-        userId: _.get( req, namespaces.user ).id 
-      }, _.get( req, namespaces.data ).fieldValues, {
+      let identifiers = _.get( req, namespaces.identifiers );
+
+      if ( !identifiers ) {
+
+        console.log( 'DEPRECATED: Use identifiers namespace instead of user in .update middleware (agenda-stakeholders)' );
+        identifiers = { userId: _.get( req, namespaces.user ).id };
+
+      }
+
+      service.agenda( _.get( req, namespace ).id ).update( identifiers, _.get( req, namespaces.data ).fieldValues, {
         credential: credential ? _.get( req, namespaces.data ).credential : null,
         allowPartial
-      },( err, result ) => {
+      }, ( err, result ) => {
 
         if ( err ) return next( err );
 
@@ -107,6 +125,7 @@ function agenda( namespace = 'agenda' ) {
 
     let { namespaces } = _.merge( {
       namespaces: {
+        identifiers: 'identifiers',
         user: 'user',
         stakeholder: 'stakeholder',
         instance: 'stakeholderInstance'
@@ -115,7 +134,16 @@ function agenda( namespace = 'agenda' ) {
 
     return ( req, res, next ) => {
 
-      service.agenda( _.get( req, namespace ).id ).get( { userId: _.get( req, namespaces.user ).id }, ( err, st ) => {
+      let identifiers = _.get( req, namespaces.identifiers );
+
+      if ( !identifiers ) {
+
+        console.log( 'DEPRECATED: Use identifiers namespace instead of user in .get middleware (agenda-stakeholders)' );
+        identifiers = { userId: _.get( req, namespaces.user ).id };
+
+      }
+
+      service.agenda( _.get( req, namespace ).id ).get( identifiers, ( err, st ) => {
 
         if ( err ) return next( err );
 
@@ -127,7 +155,7 @@ function agenda( namespace = 'agenda' ) {
 
         next();
 
-      } ); 
+      } );
 
     }
 
@@ -150,19 +178,19 @@ function agenda( namespace = 'agenda' ) {
 
       service.agenda( _.get( req, namespace ).id )
 
-        .bulk( stakeholders, { 
-          allowPartial, 
+        .bulk( stakeholders, {
+          allowPartial,
           credential,
           linkStore: _.get( req, namespaces.linkStore, null )
         }, ( err, result ) => {
 
-        if ( err ) return next( err );
+          if ( err ) return next( err );
 
-        _.set( req, namespaces.result, result );
+          _.set( req, namespaces.result, result );
 
-        next();
+          next();
 
-      } );
+        } );
 
     }
 
@@ -170,7 +198,7 @@ function agenda( namespace = 'agenda' ) {
 
   function stats( options ) {
 
-    let { namespaces } = _.merge( {
+    let { namespaces } = _.merge( {
       namespaces: {
         stats: 'stats'
       }

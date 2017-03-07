@@ -6,7 +6,6 @@ const config = require( '../testconfig' );
 const helpers = require( './lib/helpers' );
 const stakeholderMw = require( '../middleware' );
 const credentialTypes = require( '../iso/credentialTypes' );
-const _ = require( 'lodash' );
 
 describe( 'agenda-stakeholders - functional (server): middleware', function () {
 
@@ -45,7 +44,7 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
 
   } );
 
-  describe( '.load', done => {
+  describe( '.load', () => {
 
     it( 'loads stakeholder agenda interface', done => {
 
@@ -171,13 +170,57 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
   } );
 
 
-  describe( '.update', done => {
+  describe( '.update', () => {
 
     it( 'updates a stakeholder', done => {
 
       const req = {
           agenda: { id: 4608 },
           user: { id: 7773 },
+          data: {
+            fieldValues: {
+              organization: 'Latouche International Corp',
+              email: 'gaetan@latouche.com',
+              contactNumber: '06',
+              contactName: 'Gaetan Latouche',
+              contactPosition: 'Overlord'
+            }
+          }
+        },
+
+        res = {};
+
+      stakeholderMw.agenda().update()( req, res, next );
+
+      function next() {
+
+        req.result.should.eql( {
+          success: true,
+          valid: true,
+          errors: [],
+          fieldValues: {
+            organization: {
+              label: 'Latouche International Corp',
+              slug: 'latouche-international-corp'
+            },
+            email: 'gaetan@latouche.com',
+            contactNumber: '06',
+            contactName: 'Gaetan Latouche',
+            contactPosition: 'Overlord'
+          }
+        } );
+
+        done();
+
+      }
+
+    } );
+
+    it( 'updates a stakeholder identified by his id', done => {
+
+      const req = {
+          agenda: { id: 4608 },
+          identifiers: { id: 7255 },
           data: {
             fieldValues: {
               organization: 'Latouche International Corp',
@@ -266,7 +309,7 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
   } );
 
 
-  describe( '.remove', done => {
+  describe( '.remove', () => {
 
     it( 'removes a stakeholder', done => {
 
@@ -289,10 +332,31 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
 
     } );
 
+    it( 'removes a stakeholder with his id', done => {
+
+      const req = {
+          agenda: { id: 4608 },
+          identifiers: { id: 7258 }
+        },
+
+        res = {};
+
+      stakeholderMw.agenda().remove()( req, res, next );
+
+      function next() {
+
+        req.result.success.should.equal( true );
+
+        done();
+
+      }
+
+    } );
+
   } );
 
 
-  describe( '.get', done => {
+  describe( '.get', () => {
 
     it( 'loads all stakeholder data by default', done => {
 
@@ -375,6 +439,38 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
 
         // the instance is loaded in the given namespace
         req.i.get().contact_name.should.equal( 'Séverine DEVIN' );
+
+        // the stakeholder object is loaded in the given namespace
+        req.s.agendaId.should.equal( 4608 );
+
+        done();
+
+      }
+
+    } );
+
+
+    it( 'get with id', done => {
+
+      const req = {
+          a: { id: 4608 },
+          identifiers: { id: 6975 }
+        },
+
+        res = {};
+
+      stakeholderMw.agenda( 'a' ).get( {
+        namespaces: {
+          identifiers: 'identifiers',
+          stakeholder: 's',
+          instance: 'i'
+        }
+      } )( req, res, next );
+
+      function next() {
+
+        // the instance is loaded in the given namespace
+        req.i.get().contact_name.should.equal( 'Isabelle Boucher-Doigneau' );
 
         // the stakeholder object is loaded in the given namespace
         req.s.agendaId.should.equal( 4608 );
