@@ -167,7 +167,7 @@ export default class Dashboard extends Component {
   }
 
   renderStakeholder( stakeholder ) {
-    const { id, credential, custom, eventCount, user } = stakeholder;
+    const { id, credential, custom, eventCount, user, deletedUser } = stakeholder;
     const { getLabel } = this.context;
     const { res, showModal, userCredential } = this.props;
 
@@ -181,12 +181,17 @@ export default class Dashboard extends Component {
             <span className="text-muted small">{this.credentialToStr( credential )}</span>
           </div>
           <div className="actions">
-            {custom.organization && custom.organization.label &&
-            <p className="text-muted">{custom.organization.label}</p>}
-
-            {custom.contactNumber && <p className="text-muted">{custom.contactNumber}</p>}
-
-            {custom.email && <p className="text-muted">{custom.email}</p>}
+            {deletedUser && <p className="text-danger">{getLabel( 'deletedUser' )}</p>}
+            {(custom.organization || custom.contactPosition) && <p>
+              {<span className="text-muted">{custom.organization || null}</span>}
+              {custom.organization && custom.contactPosition && ' - '}
+              {<span className="text-muted">{custom.contactPosition || null}</span>}
+            </p>}
+            {(custom.email || custom.contactNumber) && <p>
+              {<span className="text-muted">{custom.email || null}</span>}
+              {custom.email && custom.contactNumber && ' - '}
+              {<span className="text-muted">{custom.contactNumber || null}</span>}
+            </p>}
 
             <a
               href={res.showContributor.replace( ':contributorId', id )}

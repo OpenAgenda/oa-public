@@ -273,7 +273,8 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           credential = stakeholder.credential,
           custom = stakeholder.custom,
           eventCount = stakeholder.eventCount,
-          user = stakeholder.user;
+          user = stakeholder.user,
+          deletedUser = stakeholder.deletedUser;
       var getLabel = this.context.getLabel;
       var _props4 = this.props,
           res = _props4.res,
@@ -305,20 +306,40 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           _react3.default.createElement(
             'div',
             { className: 'actions' },
-            custom.organization && custom.organization.label && _react3.default.createElement(
+            deletedUser && _react3.default.createElement(
               'p',
-              { className: 'text-muted' },
-              custom.organization.label
+              { className: 'text-danger' },
+              getLabel('deletedUser')
             ),
-            custom.contactNumber && _react3.default.createElement(
+            (custom.organization || custom.contactPosition) && _react3.default.createElement(
               'p',
-              { className: 'text-muted' },
-              custom.contactNumber
+              null,
+              _react3.default.createElement(
+                'span',
+                { className: 'text-muted' },
+                custom.organization || null
+              ),
+              custom.organization && custom.contactPosition && ' - ',
+              _react3.default.createElement(
+                'span',
+                { className: 'text-muted' },
+                custom.contactPosition || null
+              )
             ),
-            custom.email && _react3.default.createElement(
+            (custom.email || custom.contactNumber) && _react3.default.createElement(
               'p',
-              { className: 'text-muted' },
-              custom.email
+              null,
+              _react3.default.createElement(
+                'span',
+                { className: 'text-muted' },
+                custom.email || null
+              ),
+              custom.email && custom.contactNumber && ' - ',
+              _react3.default.createElement(
+                'span',
+                { className: 'text-muted' },
+                custom.contactNumber || null
+              )
             ),
             _react3.default.createElement(
               'a',
