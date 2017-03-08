@@ -133,9 +133,7 @@ function processUser( values, cb ) {
 
   .then( function( invitations ) {
 
-
-
-    return w.promise( function( resolve, reject ) {
+    return w.promise( ( resolve, reject ) => {
 
       async.eachSeries( invitations, function( invitation, ecs ) {
 

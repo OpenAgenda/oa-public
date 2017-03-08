@@ -213,23 +213,20 @@ function _createProcess( createData, options ) {
 
 function onActivation( values ) {
 
-  // on activation, invitations must be processed... values.invitation is not always set!
-  return invitation2Svc.execute( { token: values.invitation }, { user: values.user } )
-    .then( () => invitationSvc.processUser( values ) )
+  return ( values.invitation ? invitation2Svc.execute( { token: values.invitation }, { user: values.user } ) : w() )
 
-    // mitigation for invitationSvc error ( non critical for creation process )
-    .then( () => values, () => values );
+    .then( () => invitationSvc.processUser( values ) );
 
 }
 
 
 function _validateAndCreate( values ) {
 
-  return w.promise( function( resolve, reject ) {
+  return w.promise( ( resolve, reject ) => {
 
     log( 'validating and creating user with %s', JSON.stringify( values.createData ) );
 
-    model.users().validateAndCreate( values.createData, function( err, user, result ) {
+    model.users().validateAndCreate( values.createData, ( err, user, result ) => {
 
       if ( err ) return reject( err );
 
