@@ -207,7 +207,7 @@ module.exports = React.createClass({
         { key: stakeholder.id },
         React.createElement(
           "td",
-          { className: "text-danger", colspan: "7" },
+          { className: "text-danger text-center", colSpan: 6 },
           "User deleted"
         )
       );
