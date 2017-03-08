@@ -132,7 +132,7 @@ module.exports = React.createClass( {
     if (!stakeholder.user) {
       return (
         <tr key={stakeholder.id}>
-          <td className="text-danger" colspan="7">User deleted</td>
+          <td className="text-danger text-center" colSpan={6}>User deleted</td>
         </tr>
       );
     }
