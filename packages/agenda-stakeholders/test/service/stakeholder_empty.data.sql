@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS ${schema} (
   `credential` bigint(20) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
+  `deleted_user` tinyint(1) default 0 not null,
   `store` longtext,
   `organization` varchar(255) DEFAULT NULL,
   PRIMARY KEY(id)

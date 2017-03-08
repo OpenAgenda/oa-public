@@ -126,7 +126,7 @@ function _list( v ) {
     }
 
     return v.knex.clone()
-      .select( 'id', 'credential', 'user_id', 'review_id', 'store', 'organization', 'updated_at', 'created_at' )
+      .select( 'id', 'credential', 'user_id', 'review_id', 'store', 'organization', 'updated_at', 'created_at', 'deleted_user' )
       .limit( v.limit )
       .offset( v.offset )
       .transacting( trx );
