@@ -177,8 +177,6 @@ function _initInvitations( config ) {
         const { user } = executeData;
         const [ stakeholder ] = actionParams;
 
-        console.log( 'linkStakeholder', executeData, actionParams );
-
         agendaStakeholders.agenda( stakeholder.agendaId ).update( {
           id: stakeholder.id
         }, {
@@ -650,7 +648,10 @@ function _initAgendaStakeholders( config ) { // async
           invitationsSvc.assign( { email: stakeholder.custom.email }, 'linkStakeholder', stakeholder )
             .then( result => {
 
-              let signupUrl = genUrl( 'signup', { invitation: result.invitation.token }, {
+              let signupUrl = genUrl( 'signup', {
+                invitation: result.invitation.token,
+                email: stakeholder.custom.email
+              }, {
                 abs: true,
                 protocol: 'https://'
               } );
