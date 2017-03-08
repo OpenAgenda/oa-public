@@ -1065,7 +1065,9 @@ function lang( req, res, next ) {
 
   } else {
 
-    req.lang = req.acceptsLanguages( [ 'fr', 'en' ] ) || 'fr';
+    // pages are in french unless explicited otherwise or unless user is logged
+    req.lang = 'fr';
+    //req.lang = req.acceptsLanguages( [ 'fr', 'en' ] ) || 'fr';
 
   }
 
