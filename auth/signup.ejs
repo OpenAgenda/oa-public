@@ -8,11 +8,12 @@
       <div class="row">
         <div class="content">
           <h2><%= __( 'Create an account' ) %></h2>
-          <a class="url" id="signin" href="<%= genUrl( agenda ? 'agendaSignin' : 'signin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"><%= __( 'But I already have an account' ) %></a>
           <% if ( typeof message !== 'undefined' ) { %>
           <div class="form-group">
             <span class="error"><%= __( message ) %></span>
           </div>
+          <% } else { %>
+          <a class="url" id="signin" href="<%= genUrl( agenda ? 'agendaSignin' : 'signin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"><%= __( 'But I already have an account' ) %></a>
           <% } %>
         </div>
       </div>
