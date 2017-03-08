@@ -110,9 +110,17 @@ module.exports = ( notifications, cb ) => {
         user,
         event,
         aggregator
-      ] = result,
+      ] = result;
 
-        mailType = types[ n.type ].code || _.snakeCase( types[ n.type ].label ),
+      if ( !notifiedUser ) {
+
+        log( 'error', 'could not find user to notify: %s', n.user_id )
+
+        return mcb( null );
+
+      }
+
+      let mailType = types[ n.type ].code || _.snakeCase( types[ n.type ].label ),
 
         action = _getAction( n.type, { 
           agenda: n.type === 20 ? aggregator : agenda, 

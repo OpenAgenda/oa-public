@@ -20,9 +20,9 @@ async = require( 'async' ),
 w = require( 'when' );
 
 module.exports = {
-  get: get,
+  get,
   auth: authenticate,
-  create: create,
+  create,
   onActivation: onActivation,
   updateTwitterId: updateTwitterId // tmp method required as long as there are twitter accounts with screen_name ref only
 }
@@ -213,9 +213,11 @@ function _createProcess( createData, options ) {
 
 function onActivation( values ) {
 
-  // on activation, invitations must be processed
+  // on activation, invitations must be processed... values.invitation is not always set!
   return invitation2Svc.execute( { token: values.invitation }, { user: values.user } )
-    .then( () => invitationSvc.processUser( values ) );
+    .then( () => invitationSvc.processUser( values ) )
+
+    .then( () => values, () => values );
 
 }
 

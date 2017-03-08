@@ -72,9 +72,9 @@ exposed.renderInvalidActivation = _render( 'auth/invalidActivation', {} );
 function init( service ) {
   
   return deepExtend( {
-    attemptAuth: attemptAuth,
-    attemptCreate: attemptCreate,
-    process: process,
+    attemptAuth,
+    attemptCreate,
+    process,
     errors: {}
   }, exposed );
 
@@ -148,6 +148,18 @@ function init( service ) {
 
     }
 
+    if ( service === 'facebook' && !values.profile.email ) {
+
+      values.req.log( '%s profile email is not in hand, aborting attemptCreate', service );
+
+      if ( !values.data ) values.data = {};
+
+      values.err = { message: getLabel( 'facebookEmailMissing', values.req.lang ) }
+
+      return values;
+
+    }
+
     values.req.log( '%s attempting account creation with %s', service, JSON.stringify( values.profile ) );
 
     return w.promise( function( resolve, reject ) {
@@ -174,6 +186,8 @@ function init( service ) {
         if ( err ) values.err = err;
 
         if ( user ) {
+
+          values.req.log( 'account was created' );
 
           values.user = user;
 
@@ -227,7 +241,7 @@ function process( service, name ) {
 
       .then( ifUnresolved( ifUserLoaded( true, signin ) ) )
 
-      .then( ifUnresolved( ifUserLoaded( false, errorDefaultMessage  )) )
+      .then( ifUnresolved( ifUserLoaded( false, errorDefaultMessage ) ) )
 
       .then( ifUnresolved( ifUserLoaded( false, module.exports[ name == 'signup' ? 'renderSignup' : 'renderSignin' ] ) ) )
 
