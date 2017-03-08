@@ -217,6 +217,7 @@ function onActivation( values ) {
   return invitation2Svc.execute( { token: values.invitation }, { user: values.user } )
     .then( () => invitationSvc.processUser( values ) )
 
+    // mitigation for invitationSvc error ( non critical for creation process )
     .then( () => values, () => values );
 
 }
