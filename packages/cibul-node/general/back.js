@@ -14,6 +14,8 @@ invitationSvc = require( '../services/invitation' ),
 
 bodyParser = require( 'body-parser' ),
 
+sessions = require( 'sessions' ),
+
 userSvc = require( '../services/user' ),
 
 routes = {
@@ -21,6 +23,7 @@ routes = {
   featureRequest: [ 'post', '/featurerequest', [
     cmn.loadLogger( 'featureRequest' ),
     bodyParser.json(),
+    sessions.middleware.load( { detailed: true } ),
     _loadUser,
     featureRequest 
   ] ],
