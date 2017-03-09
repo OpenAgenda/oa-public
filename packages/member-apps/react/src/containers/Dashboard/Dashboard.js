@@ -176,9 +176,10 @@ export default class Dashboard extends Component {
         <div className="media-body">
           <div className="title media-heading">
             <strong className={classNames( { 'text-muted': !custom.contactName } )}>
-              {custom.contactName || (user && user.full_name) || getLabel( 'noName' )}
-            </strong>{' '}
-            <span className="text-muted small">{this.credentialToStr( credential )}</span>
+              {custom.contactName || (user && user.full_name) ||
+              (!deletedUser ? getLabel( 'invited' ) : getLabel( 'noName' ))}
+            </strong>
+            <span className="text-muted small"> {this.credentialToStr( credential )}</span>
           </div>
           <div className="actions">
             {deletedUser && <p className="text-danger">{getLabel( 'deletedUser' )}</p>}

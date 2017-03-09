@@ -294,12 +294,12 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             _react3.default.createElement(
               'strong',
               { className: (0, _classnames2.default)({ 'text-muted': !custom.contactName }) },
-              custom.contactName || user && user.full_name || getLabel('noName')
+              custom.contactName || user && user.full_name || (!deletedUser ? getLabel('invited') : getLabel('noName'))
             ),
-            ' ',
             _react3.default.createElement(
               'span',
               { className: 'text-muted small' },
+              ' ',
               this.credentialToStr(credential)
             )
           ),
