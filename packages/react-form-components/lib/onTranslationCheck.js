@@ -1,16 +1,16 @@
 "use strict";
 
-const update = require( 'react-addons-update' );
+var update = require( 'react-addons-update' );
 
-module.exports = ( tState, check, langCode ) => {
+module.exports = function( tState, check, langCode ) {
 
-  const currentSetIndex = tState
+  var currentSetIndex = tState
     .sets.map( s => s.source )
     .indexOf( tState.source ),
 
     currentChecked = tState.sets[ currentSetIndex ].checked;
 
-  let updated = { sets: {} };
+  var updated = { sets: {} };
 
   if ( check ) {
 
