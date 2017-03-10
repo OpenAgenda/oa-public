@@ -232,6 +232,14 @@ function _loadEvent( v ) {
 
     if ( err ) return d.reject( err );
 
+    if ( !event ) {
+
+      log( 'error', 'event could not be loaded: %s', v.eventId );
+
+      return d.reject( err );
+
+    }
+
     event.loadAgendaContext( v.agendaId, err => {
 
       if ( err ) return d.reject( err );

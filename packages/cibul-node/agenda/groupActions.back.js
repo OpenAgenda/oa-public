@@ -88,8 +88,8 @@ function changeStates( req, res, next ) {
     req.log( 'info', 'changing state of agenda events from %s to %s', labels[ stateSwitch[ 0 ] ], labels[ stateSwitch[ 1 ] ] );
 
     sessions.setFlash( req, res, l.a( 'actionsInProcess', { 
-      '%oldstate%' : '<strong>' + l.s( labels[ stateSwitch[ 0 ] ], req.lang ) + '</strong>',
-      '%newstate%' : '<strong>' + l.s( labels[ stateSwitch[ 1 ] ], req.lang ) + '</strong>'
+      oldstate : '<strong>' + l.s( labels[ stateSwitch[ 0 ] ], req.lang ) + '</strong>',
+      newstate : '<strong>' + l.s( labels[ stateSwitch[ 1 ] ], req.lang ) + '</strong>'
     }, req.lang ) );
 
     res.redirect( 302, redirectRes );
