@@ -128,12 +128,23 @@ window.hook( () => {
   if ( !window.errorsTrackingConfig ) return;
   const errorsTrackingConfig = window.errorsTrackingConfig;
 
-  LE.init( errorsTrackingConfig.logentriesKey );
+  try {
+
+    LE.init( errorsTrackingConfig.logentriesKey );
+    
+  } catch ( e ) {}
 
   Raven.config( errorsTrackingConfig.sentryDsn, {
     dataCallback( data ) {
-      LE.log( data );
+
+      try {
+
+        LE.log( data );
+
+      } catch ( e ) {}
+
       return data;
+
     }
   } ).install();
 
