@@ -3,13 +3,19 @@
 const knexLib = require( 'knex' );
 const logger = require( 'basic-logger' );
 const feed = require( './feed' );
+const feeds = require( './feeds' );
+const activities = require( './activities' );
+const notifications = require( './notifications' );
 
 let config;
 let knex;
 
 module.exports = {
   init,
-  feed
+  feed,
+  feeds,
+  activities,
+  notifications
 };
 
 function init( c, cb ) {
@@ -23,7 +29,10 @@ function init( c, cb ) {
     connection: c.mysql
   } );
 
-  module.exports.feed.init( c );
+  feed.init( { config, knex } );
+  feeds.init( { config, knex } );
+  activities.init( { config, knex } );
+  notifications.init( { config, knex } );
 
   if ( cb ) cb();
 

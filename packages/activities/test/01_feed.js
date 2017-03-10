@@ -58,11 +58,7 @@ describe( 'activities - feed', function () {
 
       it( 'create an user feed', () => {
 
-        (() => {
-
-          service.feed( 'user', 1 ).create();
-
-        }).should.not.throw( 'You cannot use feed of type user' );
+        service.feed( 'user', 1 ).create();
 
       } );
 

@@ -6,6 +6,7 @@ const activities = require( './activities' );
 const notifications = require( './notifications' );
 
 let config;
+let knex;
 
 const FEED_TYPES = [ 'user', 'agenda', 'event' ];
 
@@ -13,9 +14,10 @@ const FEED_TYPES = [ 'user', 'agenda', 'event' ];
 module.exports = Object.assign( feed, { init } );
 
 
-function init( c ) {
+function init( { config: c, knex: k } ) {
 
   config = c;
+  knex = k;
 
 }
 
