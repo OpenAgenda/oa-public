@@ -1,0 +1,27 @@
+{
+  "name": "activities",
+  "version": "1.0.0",
+  "description": "",
+  "main": "service/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/activities.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/openagenda/activities#readme",
+  "dependencies": {
+    "basic-logger": "git+ssh://git@bitbucket.org/openagenda/basic-logger.git",
+    "knex": "^0.12.7",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "fixtures": "git+ssh://git@bitbucket.org/openagenda/fixtures.git",
+    "knex": "^0.12.7",
+    "should": "^11.2.1"
+  }
+}
