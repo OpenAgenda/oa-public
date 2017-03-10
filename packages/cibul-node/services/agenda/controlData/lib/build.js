@@ -166,7 +166,7 @@ function _remove( data, cb ) {
 
     }
 
-    log( 'event %s was removed from agenda %s control data', v.event.id, v.agenda.id );
+    log( 'event %s was removed from agenda %s control data', data.eventId, v.agenda.id );
 
     cb();
 
