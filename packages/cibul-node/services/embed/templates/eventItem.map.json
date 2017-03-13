@@ -83,10 +83,21 @@
     {
       "mapTo": "featured",
       "name": "Featured"
+    },
+    {
+      "name" : "ContributorOrganization",
+      "mapTo" : "contributor.organization"
     }
   ],
-  "children": [
+  "children": [ 
     {
+      "name" : "Keywords",
+      "mapTo" : "keywordList",
+      "itemName" : "Keyword"
+    },
+    {
+      "mapTo": "tags",
+      "name": "Tags",
       "attributes": [
         {
           "mapTo": "label",
@@ -100,9 +111,7 @@
           "mapTo": "slug",
           "name": "TagSlug"
         }
-      ],
-      "mapTo": "tags",
-      "name": "Tags"
+      ]
     }
   ]
 }

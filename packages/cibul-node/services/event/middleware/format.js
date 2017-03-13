@@ -1,19 +1,21 @@
 "use strict";
 
-var w = require( 'when' ),
+const w = require( 'when' ),
 
-timeHelper = require( 'cibulTemplates' ).helpers.time,
+  _ = require( 'lodash' ),
 
-registration = require( 'registration/src/validate' ).getTypesAndValues,
+  timeHelper = require( 'cibulTemplates' ).helpers.time,
 
-du = require( 'dom-utils' );
+  registration = require( 'registration/src/validate' ).getTypesAndValues,
+
+  du = require( 'dom-utils' );
 
 /**
  * prepare event data for display or upload
  * ( links & full pathed images )
  */
 
-module.exports = function( req, res, next ) {
+module.exports = _.extend( function( req, res, next ) {
 
   w( {
     req: req,
@@ -79,7 +81,9 @@ module.exports = function( req, res, next ) {
 
   }, next );
 
-}
+}, {
+  listifyKeywords
+} )
 
 
 function _location( v ) {
@@ -297,15 +301,17 @@ function _image( v ) {
 
 function _keywords( v ) {
 
-  v.formatted.keywordList = null;
-
-  if ( typeof v.formatted.keywords === 'string'  && v.formatted.keywords.length ) {
-
-    v.formatted.keywordList = v.formatted.keywords.split( ',' ).map( k => k.trim() ).filter( k => !!k.length );
-
-  }
+  v.formatted.keywordList = listifyKeywords( v.formatted.keywords );
 
   return v;
+
+}
+
+function listifyKeywords( keywords ) {
+
+  if ( typeof keywords !== 'string' ) return [];
+
+  return keywords.split( ',' ).map( k => k.trim() ).filter( k => !!k.length );
 
 }
 

@@ -23,6 +23,8 @@ const sessions = require( 'sessions' ),
 
   eventSvc = require( '../services/event' ),
 
+  eventFormat = require( '../services/event/middleware/format' ),
+
   embedSvc = require( '../services/embed/embed' ),
 
   mwHelpers = require( '../services/lib/middlewareHelpers' ),
@@ -459,14 +461,19 @@ function _formatEventItem( event, req, cb ) {
 
   var inst = eventSvc.instanciate( event ),
 
-  img = inst.getImage( true );
+  img = inst.getImage( true ),
+
+  keywords = inst.getTags(),
+
+  organization = event.organization ? { slug: event.organizationSlug, label: event.organization } : false;
 
   inst.switchLanguage( req.lang );
 
   var formatted = lib.extend( inst, {
     dateRange: inst.getRange( req.lang, req.query.oaq ),
     closestDate: inst.getClosestDate(),
-    keywords: inst.getTags(),
+    keywords,
+    keywordList: eventFormat.listifyKeywords( keywords ),
     tags: [],
     title: inst.getTitle(),
     image: img ? img.replace( 'cibuldev', 'cibul' ) : false,
@@ -485,7 +492,10 @@ function _formatEventItem( event, req, cb ) {
       eventSlug: event.slug
     }, { protocol: 'https://' } ),
     actionLabel: getLabel( 'export', req.lang ),
-    organization: event.organization ? { slug: event.organizationSlug, label: event.organization } : false,
+    organization,
+    contributor: {
+      organization: organization ? organization.label : null
+    },
     category: false,
     favorite: '<span class="fav js_fav_item" data-event-uid="' + inst.uid + '"></span>'
   } );
