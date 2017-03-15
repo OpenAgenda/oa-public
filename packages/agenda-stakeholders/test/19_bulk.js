@@ -27,7 +27,19 @@ describe( 'agenda-stakeholders - functional (server): create.bulk & task', funct
   before( done => {
 
     service.initAndLoad( _.extend( {}, config, {
-      queue: queueTestConfig
+      queue: queueTestConfig,
+      interfaces: _.extend( {}, config.interfaces, {
+        getUser: ( identifiers, cb ) => {
+
+           cb( null, {
+            id: Math.ceil( Math.random() * 1000000 ),
+            uid: 128492293,
+            full_name: 'Zorg', 
+            email: identifiers.email || 'zorg@galactic.uv'
+          } );
+
+        }
+      } )
     } ), done );
 
   } );
@@ -40,7 +52,7 @@ describe( 'agenda-stakeholders - functional (server): create.bulk & task', funct
 
     } );
 
-  } )
+  } );
 
   describe( 'below threshold ( direct execution )', () => {
 
@@ -160,6 +172,7 @@ describe( 'agenda-stakeholders - functional (server): create.bulk & task', funct
     } );
 
 
+
     it( 'bulk create processes input if is below config threshold', done => {
 
       service.agenda( 4608 ).bulk( [ {
@@ -241,6 +254,52 @@ describe( 'agenda-stakeholders - functional (server): create.bulk & task', funct
       } );
 
     } )
+
+  } );
+
+
+  describe( 'particulars', () => {
+
+    it( 'if email given in bulk matches a user account ( through interfaces ) but not a stakeholder email, operation should be an update', done => {
+
+      // getUser interface will find Ted
+      service.init( _.extend( {}, config, {
+        interfaces: _.extend( {}, config.interfaces, {
+          getUser: ( identifiers, cb ) => {
+
+            if ( identifiers && identifiers.email === 'ted@oa.com' ) {
+
+              return cb( null, {
+                // this id is a stakeholder in fixtures
+                id: 7886,
+                uid: 193982982,
+                user_name: 'Ted',
+                email: 'ted@oa.com'
+              } )
+
+            }
+
+            cb( null );
+
+          }
+        } )
+      } ) );
+
+
+      service.agenda( 4608 ).bulk( [ {
+        email: 'ted@oa.com'
+      } ], {
+        allowPartial: true,
+        credential: types.get( 'administrator' )
+      }, ( err, result ) => {
+
+        result.results[ 0 ][ 1 ].operation.should.equal( 'update' );
+
+        done();
+
+      } );
+
+    } );
 
   } );
 

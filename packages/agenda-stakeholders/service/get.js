@@ -33,7 +33,7 @@ function get( preFilter, identifiers, options, cb ) {
   .then( _getUserInfo )
 
   .done( v => {
-
+    
     cb( null, v.stakeholder );
 
   }, cb );

@@ -12,6 +12,12 @@ module.exports = ( user, linkStore, cb ) => cb( null, user ? null : linkStore );
  */
 module.exports.byStakeholder = ( stakeholder, userId, linkStore, cb ) => {
 
+  if ( !stakeholder ) {
+
+    return cb( null, null );
+
+  }
+
   if ( !linkStore && stakeholder.linkStore ) {
 
     linkStore = stakeholder.linkStore;

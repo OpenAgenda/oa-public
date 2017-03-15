@@ -226,7 +226,8 @@ function init( c, cb ) {
   .then( () => {
 
     bulk.init( {
-      queue: config.queue
+      queue: config.queue,
+      interfaces: config.interfaces
     } );
 
   } )

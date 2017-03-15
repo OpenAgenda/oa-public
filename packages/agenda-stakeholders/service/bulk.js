@@ -21,7 +21,7 @@ module.exports = _.extend( bulk, {
   init
 } );
 
-let q, queueConfig, log;
+let q, queueConfig, log, interfaces;
 
 
 /**
@@ -91,6 +91,8 @@ function init( config ) {
 
   queueConfig = config.queue;
 
+  interfaces = config.interfaces;
+
   q = queue( queueConfig.name, { redis: queueConfig.redis } );
 
 }
@@ -144,13 +146,41 @@ function _queue( base, listData, options, cb ) {
 
 
 /**
+ * get user in stakeholders by email or through interfaces.getUser
+ */
+
+function _getStakeholderByEmail( base, email, options, cb ) {
+
+  get( base, { email }, options, ( err, stakeholder ) => {
+
+    if ( err ) return cb( err );
+
+    if ( stakeholder ) return cb( null, stakeholder );
+
+    interfaces.getUser( { email }, ( err, user ) => {
+
+      if ( err ) return cb( err );
+
+      if ( !user ) return cb( null );
+
+      // get stakeholder using user id
+      get( base, { userId: user.id }, cb );
+
+    } );
+
+  } );
+
+}
+
+
+/**
  * Decide whether the handle should be an update or a create. And execute.
  */
 function _processSingle( base, data, options, cb ) {
 
   if ( _.isObject( data ) && data.email ) {
 
-    get( base, { email: data.email }, options, ( err, stakeholder ) => {
+    _getStakeholderByEmail( base, data.email, options, ( err, stakeholder ) => {
 
       if ( err ) return cb( err );
 
@@ -173,7 +203,7 @@ function _processSingle( base, data, options, cb ) {
 
       }
 
-      update( base, { email: data.email }, data, options, ( err, result ) => {
+      update( base, { id: stakeholder.id }, data, options, ( err, result ) => {
 
         if ( err ) return cb( err );
 

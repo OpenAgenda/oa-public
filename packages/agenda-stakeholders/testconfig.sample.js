@@ -19,12 +19,14 @@ module.exports = {
     onUpdate: ( before, after ) => {},
     getEventCount: ( agendaId, userId, cb ) => {  cb( !agendaId || !userId ? 'missing identifier' : null, 35 );  },
     getUser: ( identifiers, cb ) => {
+
       cb( null, {
         id: identifiers.id || 123,
         uid: 128492293,
         user_name: 'Zorg',
         email: identifiers.email || 'zorg@galactic.uv'
       } );
+      
     },
     getExistingCredentials: ( agendaId, cb ) => {
 
