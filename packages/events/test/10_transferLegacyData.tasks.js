@@ -10,7 +10,7 @@ should = require( 'should' ),
 
 mysql = require( 'mysql' );
 
-describe( 'transferLegacyData', function() {
+describe( 'events - functional (server): transfer legacy data', function() {
 
   this.timeout( 120000 );
 

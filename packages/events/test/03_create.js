@@ -10,7 +10,7 @@ should = require( 'should' ),
 
 mysql = require( 'mysql' );
 
-describe( 'set: create an event', function() {
+describe( 'events - functional (server): create', function() {
 
   this.timeout( 5000 );
 
@@ -30,7 +30,7 @@ describe( 'set: create an event', function() {
 
   it( 'create the simplest draft event', done => {
 
-    svc.set( {}, { draft: true }, ( err, result ) => {
+    svc.create( {}, { draft: true }, ( err, result ) => {
 
       should( err ).equal( null );
 
@@ -83,7 +83,8 @@ describe( 'set: create an event', function() {
 
   it( 'create the simplest published event', done => {
 
-    svc.set( {
+    // svc.set( { - deprecated
+    svc.create( {
       title: {
         fr: 'My first event'
       },
@@ -152,7 +153,8 @@ describe( 'set: create an event', function() {
 
   it( 'create the most complete event', done => {
 
-    svc.set( {
+    svc.create( {
+    //svc.set( {
       title: {
         fr : 'Un titre'
       },

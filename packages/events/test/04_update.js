@@ -8,7 +8,7 @@ should = require( 'should' ),
 
 mysql = require( 'mysql' );
 
-describe( 'set: update an event', function() {
+describe( 'events - functional (server): update', function() {
 
   this.timeout( 5000 );
 
@@ -30,7 +30,7 @@ describe( 'set: update an event', function() {
 
   it( 'update the event title', done => {
 
-    svc.set( id, {
+    svc.update( id, {
       title: {
         fr: 'Titre à jour'
       }
@@ -53,7 +53,7 @@ describe( 'set: update an event', function() {
 
   it( 'absent title is considered invalid for non draft event', done => {
 
-    svc.set( id, { title: {} }, { draft: false }, ( err, result ) => {
+    svc.update( id, { title: {} }, { draft: false }, ( err, result ) => {
 
       result.success.should.equal( false );
 
@@ -73,7 +73,7 @@ describe( 'set: update an event', function() {
 
   it( 'absent title is considered valid for draft event', done => {
 
-    svc.set( id, { title: {} }, { draft: true }, ( err, result ) => {
+    svc.update( id, { title: {} }, { draft: true }, ( err, result ) => {
 
       result.success.should.equal( true );
 
@@ -86,7 +86,7 @@ describe( 'set: update an event', function() {
 
   it( 'updating with timings', done => {
 
-    svc.set( id, {
+    svc.update( id, {
       timings: [ {
         begin: new Date( '2017-10-24T20:00:00' ),
         end: new Date( '2017-10-24T22:00:00' )
@@ -108,7 +108,7 @@ describe( 'set: update an event', function() {
 
   it( 'an updated with internal boolean to true gives back "internal" fields', done => {
 
-    svc.set( id, {
+    svc.update( id, {
       "conditions" : "Its free!"
     }, { internal: true }, ( err, result ) => {
 
@@ -125,7 +125,7 @@ describe( 'set: update an event', function() {
 
   it( 'a default update gives back event data excluding "internal" fields', done => {
 
-    svc.set( id, {
+    svc.update( id, {
       "accessibility" : {
         "hi" : true
       }

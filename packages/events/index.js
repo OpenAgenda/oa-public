@@ -6,6 +6,8 @@ module.exports = init( {
   list: require( './service/list' ),
   get: require( './service/get' ),
   set: require( './service/set' ),
+  create: require( './service/create' ),
+  update: require( './service/update' ),
   remove: require( './service/remove' ),
   deleted: require( './service/deleted' ),
   legacy: require( './service/legacy' ),

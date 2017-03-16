@@ -8,7 +8,7 @@ should = require( 'should' ),
 
 mysql = require( 'mysql' );
 
-describe( 'legacy', function() {
+describe( 'events - functional (server): legacy bridge', function() {
 
   this.timeout( 30000 );
 
@@ -267,7 +267,7 @@ describe( 'legacy', function() {
 
     svc.legacy.transfer( 147621, ( err, result ) => {
 
-      svc.set( 147621, { title: { fr: 'Changed!' } }, err => {
+      svc.update( 147621, { title: { fr: 'Changed!' } }, err => {
 
         svc.get( 147621, ( err, event ) => {
 
@@ -325,7 +325,7 @@ describe( 'legacy', function() {
 
     svc.legacy.transfer( 147621, ( err, result ) => {
 
-      svc.set( 147621, { title: { fr: 'Changed!' } }, ( err, result ) => {
+      svc.update( 147621, { title: { fr: 'Changed!' } }, ( err, result ) => {
 
         svc.get( 147621, ( err, event ) => {
 

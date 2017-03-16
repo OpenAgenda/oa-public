@@ -8,7 +8,7 @@ should = require( 'should' ),
 
 mysql = require( 'mysql' );
 
-describe( 'stats', function() {
+describe( 'events - functional (server): stats', function() {
 
   this.timeout( 10000 );
 

@@ -4,7 +4,7 @@ const should = require( 'should' );
 const validate = require( '../service/validate' );
 const frontValidate = require( '../service/validate/front' );
 
-describe( 'event validation', () => {
+describe( 'events - unit (iso): validation', () => {
 
   it( 'full validation only needs identifier fields, title, and timestamps to be set to declare an event valid', () => {
 

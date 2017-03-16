@@ -79,14 +79,13 @@ function transfer( identifiers, options, cb ) {
 
     }
 
-
-    let set = v.event ? service.set.bind( null, v.identifiers ) : service.set;
+    let set = v.event ? service.update.bind( null, v.identifiers ) : service.create;
 
     set( v.legacy.event, { draft: v.legacy.event.draft }, ( err, r ) => {
 
       if ( err ) return cb( err );
 
-      cb( null, Object.assign( {
+      cb( null, _.extend( {
         success: r.success,
         transfered: r.success,
         legacy: v.legacy,
