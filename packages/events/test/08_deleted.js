@@ -2,7 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 
-const svc = require( '../service/test' ),
+const svc = require( './service' ),
 
 config = require( '../testconfig' ),
 
@@ -14,17 +14,15 @@ describe( 'events - functional (server): deleted', function() {
 
   this.timeout( 5000 );
 
-  before( () => {
+  beforeEach( done => {
 
-    svc.init( config );
+    svc.initAndLoad( config, done );
 
   } );
 
-  beforeEach( done => {
+  afterEach( done => {
 
-    svc.test.fixtures( [
-      config.schemas.event
-    ], done );
+    svc.getConfig().knex.destroy( done );
 
   } );
 

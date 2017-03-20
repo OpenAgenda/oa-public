@@ -1,6 +1,6 @@
 "use strict";
 
-const svc = require( '../service/test' ),
+const svc = require( './service' ),
 
 config = require( '../testconfig' ),
 
@@ -12,18 +12,18 @@ describe( 'events - functional (server): stats', function() {
 
   this.timeout( 10000 );
 
-  before( () => {
+  beforeEach( done => {
 
-    svc.init( config );
+    svc.initAndLoad( config, [
+      config.schemas.event,
+      config.legacy.schemas.event
+    ], { reset: true }, done );
 
   } );
 
-  beforeEach( done => {
+  afterEach( done => {
 
-    svc.test.fixtures( [
-      config.schemas.event,
-      config.legacy.schemas.event
-    ], done );
+    svc.getConfig().knex.destroy( done );
 
   } );
 

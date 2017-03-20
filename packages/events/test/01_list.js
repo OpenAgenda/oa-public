@@ -2,29 +2,29 @@
 
 process.env.NODE_ENV = 'test';
 
-const svc = require( '../service/test' ),
+const svc = require( './service' ),
 
-config = require( '../testconfig' ),
+  config = require( '../testconfig' ),
 
-should = require( 'should' ),
+  should = require( 'should' ),
 
-mysql = require( 'mysql' );
+  mysql = require( 'mysql' ),
+
+  async = require( 'async' );
 
 describe( 'events - functional (server): list', function() {
 
-  this.timeout( 5000 );
-
-  before( () => {
-
-    svc.init( config );
-
-  } );
+  this.timeout( 50000 );
 
   beforeEach( done => {
 
-    svc.test.fixtures( [
-      config.schemas.event
-    ], done );
+    svc.initAndLoad( config, done );
+
+  } );
+
+  afterEach( done => {
+
+    svc.getConfig().knex.destroy( () => done() );
 
   } );
 

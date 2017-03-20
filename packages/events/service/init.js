@@ -1,14 +1,14 @@
 "use strict";
 
 const knex = require( 'knex' );
-const utils = require( 'utils' );
 const logger = require( 'basic-logger' );
+const _ = require( 'lodash' );
 
 module.exports = endpoints => {
 
   function init( c ) {
 
-    let config = utils.extend( {
+    let config = _.extend( {
       knex: knex( {
         client: 'mysql',
         connection: c.mysql
@@ -21,7 +21,7 @@ module.exports = endpoints => {
 
     }
 
-    Object.keys( endpoints ).forEach( e => {
+    _.keys( endpoints ).forEach( e => {
 
       endpoints[ e ].init( endpoints, config );
 
@@ -29,6 +29,6 @@ module.exports = endpoints => {
 
   }
 
-  return utils.extend( { init }, endpoints );
+  return _.extend( { init }, endpoints );
 
 }

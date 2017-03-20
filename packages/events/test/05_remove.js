@@ -1,28 +1,26 @@
 "use strict";
 
-const svc = require( '../service/test' ),
+const svc = require( './service' ),
 
-config = require( '../testconfig' ),
+  config = require( '../testconfig' ),
 
-should = require( 'should' ),
+  should = require( 'should' ),
 
-mysql = require( 'mysql' );
+  mysql = require( 'mysql' );
 
 describe( 'events - functional (server): remove', function() {
 
   this.timeout( 5000 );
 
-  before( () => {
+  beforeEach( done => {
 
-    svc.init( config );
+    svc.initAndLoad( config, done );
 
   } );
 
-  beforeEach( done => {
+  afterEach( done => {
 
-    svc.test.fixtures( [
-      config.schemas.event
-    ], done );
+    svc.getConfig().knex.destroy( done );
 
   } );
 

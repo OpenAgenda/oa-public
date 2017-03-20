@@ -1,6 +1,6 @@
 "use strict";
 
-const svc = require( '../service/test' ),
+const svc = require( './service' ),
 
 config = require( '../testconfig' ),
 
@@ -12,15 +12,9 @@ describe( 'events - functional (server): legacy bridge', function() {
 
   this.timeout( 30000 );
 
-  before( () => {
-
-    svc.init( config );
-
-  } );
-
   beforeEach( done => {
 
-    svc.test.fixtures( [
+    svc.initAndLoad( config, [
       config.schemas.event + '_empty', // load empty event data set
       config.legacy.schemas.event,
       config.legacy.schemas.occurrence,
@@ -31,7 +25,13 @@ describe( 'events - functional (server): legacy bridge', function() {
       config.legacy.schemas.agendaEvent,
       config.legacy.schemas.user,
       config.legacy.schemas.agenda
-    ], done );
+    ], { reset: true }, done );
+
+  } );
+
+  afterEach( done => {
+
+    svc.getConfig().knex.destroy( done );
 
   } );
 
