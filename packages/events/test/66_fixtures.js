@@ -14,7 +14,7 @@ describe( 'events - functional (server): legacy bridge', function() {
 
   beforeEach( done => {
 
-    svc.initAndLoad( config, [], { reset: true }, done );
+    svc.initAndLoad( config, [
       config.schemas.event + '_empty', // load empty event data set
       config.legacy.schemas.event,
       config.legacy.schemas.occurrence,
