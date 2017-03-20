@@ -187,7 +187,7 @@ function getUsers( req, res, next ) {
           }, 0, 500, ( err, agendas ) => {
 
             model.lib.query( 'SELECT count(*) as nbrEvents, review_id ' +
-              'FROM review_article WHERE user_id = ? AND store NOT LIKE "%\\"sources\\":%" GROUP BY review_id',
+              'FROM review_article WHERE user_id = ? GROUP BY review_id',
               [ req.loadedUser.id ],
               ( err, counters ) => {
 
