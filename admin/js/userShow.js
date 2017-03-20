@@ -43,7 +43,7 @@ export default class UserShow extends Component {
         <td>{props.id}</td>
         <td>{credentialToString( props.credential )}</td>
         <td><a href={`/${props.agenda.slug}`}>{props.agenda.title}</a></td>
-        <td>{props.nbrEvents}</td>
+        <td>{props.nbrEvents || '0'}</td>
         <td>
           <pre>{JSON.stringify( props.custom, null, 4 )}</pre>
         </td>
