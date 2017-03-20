@@ -94,7 +94,7 @@ function matchApp( appName, params, path, cb ) {
 
 function create( req, res, next ) {
 
-  agendasSvc.set( Object.assign( req.body, { ownerId: req.user.id } ), ( err, result ) => {
+  agendasSvc.set( Object.assign( req.body, { ownerId: req.user.id } ), { private: null }, ( err, result ) => {
 
     if ( err ) return next( err );
 
@@ -108,7 +108,7 @@ function create( req, res, next ) {
 
 function get( req, res, next ) {
 
-  agendasSvc.get( { uid: req.params.uid }, { includeImagePath: true }, ( err, result ) => {
+  agendasSvc.get( { uid: req.params.uid }, { includeImagePath: true, private: null }, ( err, result ) => {
 
     if ( err ) return next( err );
 
@@ -120,7 +120,7 @@ function get( req, res, next ) {
 
 function set( req, res, next ) {
 
-  agendasSvc.set( { slug: req.params.slug }, req.body, { includeImagePath: true }, ( err, result ) => {
+  agendasSvc.set( { slug: req.params.slug }, req.body, { includeImagePath: true, private: null }, ( err, result ) => {
 
     if ( err ) return next( err );
 
@@ -134,7 +134,7 @@ function set( req, res, next ) {
 
 function setImage( req, res, next ) {
 
-  agendasSvc.get( { slug: req.params.slug }, { instanciate: true }, ( err, result ) => {
+  agendasSvc.get( { slug: req.params.slug }, { instanciate: true, private: null }, ( err, result ) => {
 
     if ( err ) return next( err );
 
@@ -159,7 +159,7 @@ function setImage( req, res, next ) {
 
 function clearImage( req, res, next ) {
 
-  agendasSvc.get( { slug: req.params.slug }, { instanciate: true }, ( err, result ) => {
+  agendasSvc.get( { slug: req.params.slug }, { instanciate: true, private: null }, ( err, result ) => {
 
     if ( err ) return next( err );
 
