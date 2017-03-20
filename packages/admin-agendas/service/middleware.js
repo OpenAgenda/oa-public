@@ -83,7 +83,7 @@ function list( req, res, next ) {
 
 function get( req, res, next ) {
 
-  agendas.get( req.query, { detailed: true, internal: true }, ( err, agenda ) => {
+  agendas.get( req.query, { detailed: true, internal: true, private: null }, ( err, agenda ) => {
 
     if ( err ) return next( err );
 
@@ -95,7 +95,11 @@ function get( req, res, next ) {
 
 function set( req, res, next ) {
 
-  agendas.set( { uid: req.params.uid }, req.body, { internal: true, protected: false }, ( err, result ) => {
+  agendas.set( { uid: req.params.uid }, req.body, {
+    internal: true,
+    protected: false,
+    private: null
+  }, ( err, result ) => {
 
     if ( err ) return next( err );
 
