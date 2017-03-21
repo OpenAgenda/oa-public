@@ -255,7 +255,7 @@ function _logUpdates( type, count ) {
 
 function _loopThroughIndex( type, params, usageFunc, cb ) {
 
-  var hasMore = true, limit = 40, offset = 0;
+  var hasMore = true, limit = 10, offset = 0;
 
   async.whilst( function() {
 

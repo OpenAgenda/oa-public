@@ -200,7 +200,11 @@ function _sync( job, cb ) {
 
       async.whilst( function() { return hasMore; }, function( wcb ) {
 
-        agenda.events.list( { offset: offset, limit: 1, isPublished: null }, function( err, events ) {
+        agenda.events.list( { 
+          offset: offset,
+          limit: 1,
+          isPublished: null
+        }, function( err, events ) {
 
           if ( err ) return cb( err );
 
