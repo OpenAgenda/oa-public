@@ -14,7 +14,7 @@ const _ = require( 'lodash' ),
 
   validate = require( './lib/validate.process' ),
 
-  cleanLinkStore = require( './lib/cleanLinkStore.process' ),
+  validateContext = require( './lib/validateContext.process' ),
  
   settings = require( './settings' );
  
@@ -29,8 +29,8 @@ let schemas, knex, interfaces;
 const createProcess = new Process( {
   tasks: {
     validate,
+    validateContext,
     get,
-    cleanLinkStore,
     _checkEmail,
     _loadUser,
     _loadName,
@@ -50,6 +50,16 @@ const createProcess = new Process( {
       end: true
     } ]
   }, {
+    task: 'validateContext',
+    in: 'options.context',
+    out: [ {
+      assign: [ 'result.valid', 'result.context' ]
+    }, {
+      condition: false,
+      assign: [ 'result.valid', , 'result.contextErrors' ],
+      end: true
+    } ]
+  }, {
     task: '_checkEmail',
     condition: [ {
       'options.allowPartial': true,
@@ -66,12 +76,6 @@ const createProcess = new Process( {
     in: [ 'data.email' ],
     out: [ {
       assign: [ 'result.user' ]
-    } ]
-  }, {
-    task: 'cleanLinkStore',
-    in: [ 'result.user', 'options.linkStore' ],
-    out: [ {
-      assign: [ 'options.linkStore' ]
     } ]
   }, {
     task: '_loadName',
@@ -113,7 +117,7 @@ function create( base, data, options, cb ) {
     options: _.extend( {
       allowPartial: false,
       credential: types.get( 'contributor' ),
-      linkStore: null
+      context: null
     }, options ),
     result: {
       success: null,
@@ -126,7 +130,7 @@ function create( base, data, options, cb ) {
 
     if ( interfaces && interfaces.onCreate && processResult.values.result.success ) {
 
-      interfaces.onCreate( processResult.values.result.stakeholder );
+      interfaces.onCreate( processResult.values.result.stakeholder, processResult.values.result.context );
 
     }
 
@@ -175,7 +179,6 @@ function _doCreate( base, data, user, options, cb ) {
       credential: options.credential,
       custom: data,
       agendaId: base.agendaId,
-      linkStore: options.linkStore,
       userId: user ? user.id : null
     } ) )
 

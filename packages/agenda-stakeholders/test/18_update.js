@@ -207,40 +207,52 @@ describe( 'agenda-stakeholders - functional (server): update', function() {
 
     } );
 
-    it( 'linkStore is maintained as long as user is not set', done => {
+  } );
 
-      service.agenda( 4608 ).update( {
-        id: 9734
-      }, { organization: 'acme' }, {
-        allowPartial: true
-      }, ( err, result ) => {
+  describe( 'context', () => {
 
-        result.stakeholder.linkStore.should.eql( { stuff: 'forLinking' } );
+    this.timeout( 60000 );
 
-        done();
+    before( done => {
 
-      } );
+      service.initAndLoad( config, done );
 
     } );
 
-    it( 'linkStore is nullified if userId is set', done => {
+    beforeEach( () => {
+
+      service.init( config );
+
+    } );
+
+    it( 'context can be passed to interfaces', done => {
+
+      service.init( _.extend( {}, config, {
+        interfaces: _.extend( {}, config.interfaces, {
+          onUpdate: ( before, after, context ) => {
+
+            context.should.eql( {
+              lang: 'fr',
+              message: null
+            } );
+
+            done();
+
+          }
+        } )
+      } ) );
 
       service.agenda( 4608 ).update( {
-        id: 9734
-      }, {}, {
-        allowPartial: true,
-        userId: 1
-      }, ( err, result ) => {
+        userId: 7752
+      }, {
+        email: 'ines@aubout.pc'
+      }, { allowPartial: true, context: { lang: 'fr' } }, ( err, result ) => {
 
         result.success.should.equal( true );
 
-        should( result.stakeholder.linkStore ).equal( null );
-
-        done();
-
       } );
 
-    } );
+    } )
 
   } );
 

@@ -20,7 +20,7 @@ const
   
   validate = require( './lib/validate.process' ),
 
-  cleanLinkStore = require( './lib/cleanLinkStore.process' );
+  validateContext = require( './lib/validateContext.process' );
 
 
 module.exports = _.extend( update, {
@@ -34,7 +34,7 @@ const updateProcess = new Process( {
   tasks: {
     get,
     validate,
-    cleanLinkStoreByStakeholder: cleanLinkStore.byStakeholder,
+    validateContext,
     _merge,
     _doUpdate,
   },
@@ -47,12 +47,6 @@ const updateProcess = new Process( {
       end: true
     }, {
       assign: [ 'stakeholder' ]
-    } ]
-  }, {
-    task: 'cleanLinkStoreByStakeholder',
-    in: [ 'stakeholder', 'options.userId', 'options.linkStore' ],
-    out: [ {
-      assign: [ 'options.linkStore' ]
     } ]
   }, {
     task: '_merge',
@@ -71,6 +65,16 @@ const updateProcess = new Process( {
       assign: [ 'result.valid', 'result.success', 'result.errors' ]
     }, {
       condition: false,
+      end: true
+    } ]
+  }, {
+    task: 'validateContext',
+    in: 'options.context',
+    out: [ {
+      assign: [ 'result.valid', 'result.context' ]
+    }, {
+      condition: false,
+      assign: [ 'result.valid', , 'result.contextErrors' ],
       end: true
     } ]
   }, {
@@ -130,7 +134,7 @@ function update( base, identifiers, data, options, cb ) {
 
     if ( interfaces && interfaces.onUpdate && processResult.values.result.success ) {
 
-      interfaces.onUpdate( processResult.values.stakeholder, processResult.values.result.stakeholder );
+      interfaces.onUpdate( processResult.values.stakeholder, processResult.values.result.stakeholder, processResult.values.result.context );
 
     }
 

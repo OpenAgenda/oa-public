@@ -189,7 +189,7 @@ describe( 'agenda-stakeholders - functional (server): create', function() {
 
   describe( 'unlinked stakeholder', () => {
 
-    before( done => {
+    beforeEach( done => {
 
       // interface gives user to service
       // for these tests, we assume none of the emails
@@ -199,6 +199,12 @@ describe( 'agenda-stakeholders - functional (server): create', function() {
           getUser: ( identifiers, cb ) => { cb() }
         }
       } ), done.bind( null ) );
+
+    } );
+
+    afterEach( done => {
+
+      service.init( config, done.bind( null ) );
 
     } );
 
@@ -215,33 +221,6 @@ describe( 'agenda-stakeholders - functional (server): create', function() {
         result.success.should.equal( true );
 
         should( result.stakeholder.userId ).equal( null );
-
-        done();
-
-      } );
-
-    } );
-
-    it( 'data can be stored on an unlinked stakeholder', done => {
-
-      service.agenda( 4608 ).create( {
-        email: 'kraken@oa.com'
-      }, {
-        allowPartial: true,
-        linkStore: {
-          some: 'data',
-          lang: 'is'
-        }
-      }, ( err, result ) => {
-
-        should( err ).equal( null );
-
-        result.success.should.equal( true );
-
-        result.stakeholder.linkStore.should.eql( {
-          some: 'data',
-          lang: 'is'
-        } );
 
         done();
 
@@ -298,6 +277,52 @@ describe( 'agenda-stakeholders - functional (server): create', function() {
         } ] );
 
         done();
+
+      } );
+
+    } );
+
+  } );
+
+
+  describe( 'context', () => {
+
+    afterEach( done => {
+
+      service.init( config, done.bind( null ) );
+
+    } );
+
+    it( 'context data can be passed through options to interfaces', done => {
+
+      service.init( _.extend( {}, config, {
+        interfaces: _.extend( {}, config.interfaces, {
+          onCreate: ( stakeholder, context ) => {
+
+            context.should.eql( {
+              message: 'Lolipops',
+              lang: 'fr'
+            } );
+
+            done();
+
+          }
+        } )
+      } ) );
+
+      service.agenda( 4608 ).create( {
+        email: 'kraken@oa.com'
+      }, {
+        allowPartial: true,
+        context: {
+          message: 'Lolipops',
+          lang: 'fr'
+        }
+      }, ( err, result ) => {
+
+        should( err ).equal( null );
+
+        result.success.should.equal( true );
 
       } );
 
