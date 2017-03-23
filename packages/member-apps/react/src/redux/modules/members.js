@@ -286,7 +286,6 @@ export function resendInvitation( id ) {
   return {
     types: [ RESEND_INVITATION, RESEND_INVITATION_SUCCESS, RESEND_INVITATION_FAIL ],
     promise: ( client, { res } ) => {
-      console.log( res, res.update );
       return client.post( res.update.replace( ':id', id ), { data: { fieldValues: {} } } );
     }
   };
