@@ -259,12 +259,13 @@ describe( 'session - functional (server): middleware', () => {
     } );
 
 
-    it( '.ifUlnogged calls next if user is logged', done => {
+    it( '.ifUnlogged calls next if user is logged', done => {
 
       server = helpers.launchTestApp( {
         use: mw,
         'get:/land': helpers.roundTrip,
         'post:/signin' : [
+          ( req, res, next ) => { req.userIdentifier = { uid: 123 }; next(); },
           mw.open(),
           ( req, res ) => { res.send( 'ok' ); }
         ],
@@ -320,6 +321,7 @@ describe( 'session - functional (server): middleware', () => {
         use: mw,
         'get:/land': helpers.roundTrip,
         'post:/signin' : [
+          ( req, res, next ) => { req.userIdentifier = { uid: 123 }; next(); },
           mw.open(),
           ( req, res ) => { res.send( 'ok' ); }
         ],

@@ -49,11 +49,7 @@ function open( request, identifier, cb ) {
     }
   } )
 
-  .then( _getUser )
-
-  .then( _validateSessionData )
-
-  .then( _storeSessionData )
+  .then( _loadStore.bind( null, 'result.data' ) )
 
   .then( _extractCookieData )
 
@@ -135,11 +131,20 @@ function get( uidOrRequest, options, cb ) {
     detailed: false
   }, options );
 
+  // when uid is used for get,
+  // request of cookie is not the reference
+  // for the session. In which case, 
+
   const uidGet = !( _.isObject( uidOrRequest ) && uidOrRequest.cookies );
+
+  const fetchStore = params.detailed || uidGet;
+  const forceStoreGet = params.detailed && !uidGet;
+
 
   w( {
     request: uidGet ? null : uidOrRequest,
     uid: uidGet ? uidOrRequest : null,
+    store: null,
     result: {
       errors: [],
       data: null
@@ -148,11 +153,15 @@ function get( uidOrRequest, options, cb ) {
 
   .then( _loadCookieSessionData )
 
-  .then( params.detailed || uidGet ? _mergeStoredData : v => v )
+  .then( fetchStore ? _fetchStore : v => v )
+
+  .then( forceStoreGet ? v => { return v.store ? v : _loadStore( 'store', v ) } : v => v )
+
+  .then( fetchStore ? _mergeStoredData : v => v )
 
   .done( v => {
 
-    if ( !v.result.data ) return cb( null, null );
+    if ( !v.result.data || !Object.keys( v.result.data ).length ) return cb( null, null );
 
     // when a get by uid is made, data comes full from store. needs to be filtered if details were not required
     let clean = !params.detailed && v.result.data.id ? cookieValidate( { user: v.result.data } ).user : v.result.data;
@@ -160,6 +169,92 @@ function get( uidOrRequest, options, cb ) {
     cb( null, clean );
 
   }, cb );
+
+}
+
+function _fetchStore( v ) {
+
+  if ( v.result.errors.length || !v.uid ) return v;
+
+  let d = w.defer(),
+
+    cli = redis.createClient( config.redis.port, config.redis.host );
+
+  cli.hget( config.redis.hash, v.uid, ( err, result ) => {
+
+    cli.quit();
+
+    if ( err ) return d.reject( err );
+
+    v.store = result;
+
+    return d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _loadStore( storeNamespace, v ) {
+
+  if ( v.result.errors.length || ( !v.uid && !v.identifier ) ) {
+
+    return v;
+
+  }
+
+  let d = w.defer();
+
+  let identifier = v.identifier || { uid: v.uid };
+
+  interfaces.getUser( identifier, ( err, user ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.user = user;
+
+    if ( user === null ) {
+
+      v.result.errors = [ { code: 'user.notfound' } ];
+
+      return d.resolve( v );
+
+    }
+
+    // we are here and need to validate session data
+    try {
+
+      v.result.data = validate( _.extend( { 
+        latestActivity: new Date()
+      }, user ) );
+
+    } catch ( e ) {
+
+      v.result.errors = e;
+
+      return d.resolve( v );
+
+    }
+
+    let cli = redis.createClient( config.redis.port, config.redis.host );
+
+    cli.hset( config.redis.hash, user.uid, JSON.stringify( v.result.data ), ( err, result ) => {
+
+      _.set( v, storeNamespace, v.result.data );
+
+      cli.quit();
+
+      if ( err ) return d.reject( err );
+
+      d.resolve( v );
+
+    } );
+
+  } );
+
+  return d.promise;
 
 }
 
@@ -250,31 +345,19 @@ function _clearRequest( v ) {
 
 function _mergeStoredData( v ) {
 
-  if ( v.result.errors.length || !v.uid ) return v;
+  if ( v.result.errors.length || !v.uid ) {
 
-  let d = w.defer(),
+    return v;
 
-    cli = redis.createClient( config.redis.port, config.redis.host );
+  }
 
-  cli.hget( config.redis.hash, v.uid, ( err, result ) => {
+  try {
 
-    cli.quit();
+    v.result.data = _.extend( v.result.data || {}, JSON.parse( v.store ) );
 
-    if ( err ) return d.reject( err );
+  } catch ( e ) {}
 
-    if ( !result ) return d.resolve( v );
-
-    try {
-
-      v.result.data = _.extend( v.result.data || {}, JSON.parse( result ) );
-
-    } catch ( e ) {}
-
-    d.resolve( v );
-
-  } );
-
-  return d.promise;
+  return v;
 
 }
 
@@ -361,31 +444,6 @@ function _cleanSession( session = {}, data = {} ) {
 
 }
 
-
-function _validateSessionData( v ) {
-
-  let { user, code } = v, clean;
-
-  if ( v.result.errors.length ) return v;
-
-  try {
-
-    clean = validate( _.extend( { 
-      latestActivity: new Date(),
-      code
-    }, user ) );
-
-  } catch ( e ) {
-
-    v.result.errors = e;
-
-  }
-
-  v.result.data = clean;
-
-  return v;
-
-}
 
 
 function _storeSessionData( v ) {
