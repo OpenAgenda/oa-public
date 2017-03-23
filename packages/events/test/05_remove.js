@@ -18,11 +18,7 @@ describe( 'events - functional (server): remove', function() {
 
   } );
 
-  afterEach( done => {
-
-    svc.getConfig().knex.destroy( done );
-
-  } );
+  afterEach( svc.shutdown );
 
   it( 'simple remove makes event innaccessible through get', done => {
 

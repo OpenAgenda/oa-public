@@ -628,10 +628,7 @@ function _getEvent( v ) {
 
 function init( svc, c ) {
 
-  knex = knexLib( {
-    client: 'mysql',
-    connection: c.legacy.mysql
-  } );
+  knex = c.legacyKnex;
 
   schemas = c.legacy.schemas;
 

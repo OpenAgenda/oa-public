@@ -20,11 +20,7 @@ describe( 'events - functional (server): update', function() {
 
   } );
 
-  afterEach( done => {
-
-    svc.getConfig().knex.destroy( done );
-
-  } );
+  afterEach( svc.shutdown );
 
   it( 'update the event title', done => {
 

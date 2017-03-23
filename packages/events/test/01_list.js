@@ -22,11 +22,7 @@ describe( 'events - functional (server): list', function() {
 
   } );
 
-  afterEach( done => {
-
-    svc.getConfig().knex.destroy( () => done() );
-
-  } );
+  afterEach( svc.shutdown );
 
   it( 'simple list', done => {
 

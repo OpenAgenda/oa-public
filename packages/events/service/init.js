@@ -6,12 +6,18 @@ const _ = require( 'lodash' );
 
 module.exports = endpoints => {
 
+  let config = {}
+
   function init( c ) {
 
-    let config = _.extend( {
+    _.extend( config, {
       knex: knex( {
         client: 'mysql',
         connection: c.mysql
+      } ),
+      legacyKnex: knex( {
+        client: 'mysql',
+        connection: c.legacy.mysql
       } )
     }, c );
 
@@ -29,6 +35,16 @@ module.exports = endpoints => {
 
   }
 
-  return _.extend( { init }, endpoints );
+  function shutdown( cb ) {
+
+    config.knex.destroy( () => {
+
+      config.legacyKnex.destroy( cb );
+
+    } );
+
+  }
+
+  return _.extend( { init, shutdown }, endpoints );
 
 }

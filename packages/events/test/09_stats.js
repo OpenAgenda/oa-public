@@ -21,11 +21,7 @@ describe( 'events - functional (server): stats', function() {
 
   } );
 
-  afterEach( done => {
-
-    svc.getConfig().knex.destroy( done );
-
-  } );
+  afterEach( svc.shutdown );
 
   it( 'get stat info on event full sets', done => {
 

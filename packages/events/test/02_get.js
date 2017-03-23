@@ -20,11 +20,7 @@ describe( 'events - functional (server): get', function() {
 
   } );
 
-  afterEach( done => {
-
-    svc.getConfig().knex.destroy( done );
-
-  } );
+  afterEach( svc.shutdown );
 
   it( 'simple get', done => {
 

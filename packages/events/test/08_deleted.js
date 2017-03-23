@@ -20,11 +20,7 @@ describe( 'events - functional (server): deleted', function() {
 
   } );
 
-  afterEach( done => {
-
-    svc.getConfig().knex.destroy( done );
-
-  } );
+  afterEach( svc.shutdown );
 
   it( 'deleted gives deleted event uids with deletion timestamp', done => {
 

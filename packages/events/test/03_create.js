@@ -20,11 +20,7 @@ describe( 'events - functional (server): create', function() {
 
   } );
 
-  afterEach( done => {
-
-    svc.getConfig().knex.destroy( done );
-
-  } );
+  afterEach( svc.shutdown );
 
   it( 'create the simplest draft event', done => {
 

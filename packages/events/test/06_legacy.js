@@ -29,11 +29,7 @@ describe( 'events - functional (server): legacy bridge', function() {
 
   } );
 
-  afterEach( done => {
-
-    svc.getConfig().knex.destroy( done );
-
-  } );
+  afterEach( svc.shutdown );
 
   it( 'get', done => {
 
