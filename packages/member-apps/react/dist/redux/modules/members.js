@@ -333,7 +333,6 @@ function resendInvitation(id) {
     promise: function promise(client, _ref7) {
       var res = _ref7.res;
 
-      console.log(res, res.update);
       return client.post(res.update.replace(':id', id), { data: { fieldValues: {} } });
     }
   };
