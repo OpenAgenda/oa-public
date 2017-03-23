@@ -158,7 +158,7 @@ async.waterfall( [
       next( new Error( 'You don\'t have right to invite members with this role' ) );
     },
     ( req, res, next ) => {
-      req.linkStore = {
+      req.context = {
         lang: req.user.lang
       }
       next();

@@ -169,7 +169,9 @@ export default class Dashboard extends Component {
   renderStakeholder( stakeholder ) {
     const { id, credential, custom, eventCount, user, deletedUser } = stakeholder;
     const { getLabel } = this.context;
-    const { res, showModal, userCredential } = this.props;
+    const { res, showModal, userCredential, resendInvitation } = this.props;
+
+    const invited = !user && !deletedUser;
 
     return (
       <div key={id} className="bo-list-item media">
@@ -177,7 +179,7 @@ export default class Dashboard extends Component {
           <div className="title media-heading">
             <strong className={classNames( { 'text-muted': !custom.contactName } )}>
               {custom.contactName || (user && user.full_name) ||
-              (!deletedUser ? getLabel( 'invited' ) : getLabel( 'noName' ))}
+              (invited ? getLabel( 'invited' ) : getLabel( 'noName' ))}
             </strong>
             <span className="text-muted small"> {this.credentialToStr( credential )}</span>
           </div>
@@ -217,6 +219,15 @@ export default class Dashboard extends Component {
               className="text-muted"
             >
               {getLabel( 'writeToHim' )}
+            </a>}
+            {invited && <a
+              role="button"
+              onClick={() => resendInvitation( id )
+                .then( () => showModal( 'memberReinvited', { stakeholder, success: true } ) )
+                .catch( () => showModal( 'memberReinvited', { stakeholder, success: false } ) )}
+              className="text-muted"
+            >
+              {getLabel('resendInvitation')}
             </a>}
           </div>
         </div>
@@ -262,6 +273,7 @@ export default class Dashboard extends Component {
     const editModal = modals.editMember || {};
     const removeModal = modals.removeMember || {};
     const inviteMembersModal = modals.inviteMembers || {};
+    const memberReinvitedModal = modals.memberReinvited || {};
 
     return (
       <div>
@@ -386,6 +398,17 @@ export default class Dashboard extends Component {
               return result;
             } )
           } />}
+        </Modal>}
+
+        {memberReinvitedModal.visible && <Modal
+          title={getLabel( 'inviteMembers' )}
+          onClose={() => {
+            closeModal( 'memberReinvited' );
+          }}
+        >
+          {memberReinvitedModal.success ?
+            <div>{getLabel( 'invitationResended' )}</div> :
+            <div>{getLabel( 'invitationNotResended' )}</div>}
         </Modal>}
       </div>
     );

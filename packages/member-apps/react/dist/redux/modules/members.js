@@ -14,6 +14,7 @@ exports.list = list;
 exports.nextPage = nextPage;
 exports.update = update;
 exports.invite = invite;
+exports.resendInvitation = resendInvitation;
 exports.cleanInviteResult = cleanInviteResult;
 exports.remove = remove;
 exports.addCredFilter = addCredFilter;
@@ -60,6 +61,9 @@ var UPDATE_FAIL = 'member-apps/members/UPDATE_FAIL';
 var INVITE = 'member-apps/members/INVITE';
 var INVITE_SUCCESS = 'member-apps/members/INVITE_SUCCESS';
 var INVITE_FAIL = 'member-apps/members/INVITE_FAIL';
+var RESEND_INVITATION = 'member-apps/members/RESEND_INVITATION';
+var RESEND_INVITATION_SUCCESS = 'member-apps/members/RESEND_INVITATION_SUCCESS';
+var RESEND_INVITATION_FAIL = 'member-apps/members/RESEND_INVITATION_FAIL';
 var REMOVE = 'member-apps/members/REMOVE';
 var REMOVE_SUCCESS = 'member-apps/members/REMOVE_SUCCESS';
 var REMOVE_FAIL = 'member-apps/members/REMOVE_FAIL';
@@ -323,6 +327,18 @@ function invite(data) {
   };
 }
 
+function resendInvitation(id) {
+  return {
+    types: [RESEND_INVITATION, RESEND_INVITATION_SUCCESS, RESEND_INVITATION_FAIL],
+    promise: function promise(client, _ref7) {
+      var res = _ref7.res;
+
+      console.log(res, res.update);
+      return client.post(res.update.replace(':id', id), { data: { fieldValues: {} } });
+    }
+  };
+}
+
 function cleanInviteResult() {
   return {
     type: CLEAN_INVITE_RESULT
@@ -333,8 +349,8 @@ function remove(id) {
   return {
     types: [REMOVE, REMOVE_SUCCESS, REMOVE_FAIL],
     id: id,
-    promise: function promise(client, _ref7) {
-      var res = _ref7.res;
+    promise: function promise(client, _ref8) {
+      var res = _ref8.res;
       return client.get(res.remove.replace(':id', id));
     }
   };

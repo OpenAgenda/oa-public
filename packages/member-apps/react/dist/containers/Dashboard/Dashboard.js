@@ -279,8 +279,11 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       var _props4 = this.props,
           res = _props4.res,
           showModal = _props4.showModal,
-          userCredential = _props4.userCredential;
+          userCredential = _props4.userCredential,
+          resendInvitation = _props4.resendInvitation;
 
+
+      var invited = !user && !deletedUser;
 
       return _react3.default.createElement(
         'div',
@@ -294,7 +297,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             _react3.default.createElement(
               'strong',
               { className: (0, _classnames2.default)({ 'text-muted': !custom.contactName }) },
-              custom.contactName || user && user.full_name || (!deletedUser ? getLabel('invited') : getLabel('noName'))
+              custom.contactName || user && user.full_name || (invited ? getLabel('invited') : getLabel('noName'))
             ),
             _react3.default.createElement(
               'span',
@@ -379,6 +382,21 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                 className: 'text-muted'
               },
               getLabel('writeToHim')
+            ),
+            invited && _react3.default.createElement(
+              'a',
+              {
+                role: 'button',
+                onClick: function onClick() {
+                  return resendInvitation(id).then(function () {
+                    return showModal('memberReinvited', { stakeholder: stakeholder, success: true });
+                  }).catch(function () {
+                    return showModal('memberReinvited', { stakeholder: stakeholder, success: false });
+                  });
+                },
+                className: 'text-muted'
+              },
+              getLabel('resendInvitation')
             )
           )
         )
@@ -450,6 +468,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       var editModal = modals.editMember || {};
       var removeModal = modals.removeMember || {};
       var inviteMembersModal = modals.inviteMembers || {};
+      var memberReinvitedModal = modals.memberReinvited || {};
 
       return _react3.default.createElement(
         'div',
@@ -644,6 +663,24 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                 return result;
               });
             } })
+        ),
+        memberReinvitedModal.visible && _react3.default.createElement(
+          _Modal2.default,
+          {
+            title: getLabel('inviteMembers'),
+            onClose: function onClose() {
+              closeModal('memberReinvited');
+            }
+          },
+          memberReinvitedModal.success ? _react3.default.createElement(
+            'div',
+            null,
+            getLabel('invitationResended')
+          ) : _react3.default.createElement(
+            'div',
+            null,
+            getLabel('invitationNotResended')
+          )
         )
       );
     }

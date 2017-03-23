@@ -21,6 +21,9 @@ const UPDATE_FAIL = 'member-apps/members/UPDATE_FAIL';
 const INVITE = 'member-apps/members/INVITE';
 const INVITE_SUCCESS = 'member-apps/members/INVITE_SUCCESS';
 const INVITE_FAIL = 'member-apps/members/INVITE_FAIL';
+const RESEND_INVITATION = 'member-apps/members/RESEND_INVITATION';
+const RESEND_INVITATION_SUCCESS = 'member-apps/members/RESEND_INVITATION_SUCCESS';
+const RESEND_INVITATION_FAIL = 'member-apps/members/RESEND_INVITATION_FAIL';
 const REMOVE = 'member-apps/members/REMOVE';
 const REMOVE_SUCCESS = 'member-apps/members/REMOVE_SUCCESS';
 const REMOVE_FAIL = 'member-apps/members/REMOVE_FAIL';
@@ -118,10 +121,10 @@ export default function reducer( state = initialState, action ) {
       };
     case UPDATE_SUCCESS:
       const data = state.data.map( sh => (sh.id === action.id ? {
-          ...sh,
-          credential: action.result.credential || sh.credential,
-          custom: { ...sh.custom, ...action.result.fieldValues }
-        } : sh) );
+        ...sh,
+        credential: action.result.credential || sh.credential,
+        custom: { ...sh.custom, ...action.result.fieldValues }
+      } : sh) );
       return {
         ...state,
         data,
@@ -275,6 +278,16 @@ export function invite( data ) {
       const stakeholders = data.emails && data.emails.split( ',' ).map( v => v.trim() ).filter( v => !!v )
           .map( email => ({ email }) );
       return client.post( res.invite, { data: { stakeholders, credential: data.credential } } );
+    }
+  };
+}
+
+export function resendInvitation( id ) {
+  return {
+    types: [ RESEND_INVITATION, RESEND_INVITATION_SUCCESS, RESEND_INVITATION_FAIL ],
+    promise: ( client, { res } ) => {
+      console.log( res, res.update );
+      return client.post( res.update.replace( ':id', id ), { data: { fieldValues: {} } } );
     }
   };
 }
