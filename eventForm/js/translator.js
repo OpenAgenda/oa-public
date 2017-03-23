@@ -138,7 +138,7 @@ function init( ctx, options, f ) {
 
       config = JSON.parse( base64.decode( options ) );
 
-      translator = translators.reverso( Object.assign( { timeout: 5000, }, config ) );
+      translator = translators.reverso( Object.assign( { timeout: 10000, }, config ) );
 
     } catch( e ) {
 
