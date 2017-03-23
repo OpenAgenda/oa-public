@@ -167,7 +167,7 @@ function agenda( namespace = 'agenda' ) {
       namespaces: {
         data: 'data',
         result: 'result',
-        linkStore: 'linkStore'
+        context: 'context'
       },
       allowPartial: false
     }, options || {} );
@@ -181,7 +181,7 @@ function agenda( namespace = 'agenda' ) {
         .bulk( stakeholders, {
           allowPartial,
           credential,
-          linkStore: _.get( req, namespaces.linkStore, null )
+          context: _.get( req, namespaces.context, null )
         }, ( err, result ) => {
 
           if ( err ) return next( err );
