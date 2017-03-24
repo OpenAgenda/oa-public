@@ -25,14 +25,17 @@ module.exports = class {
       _schema: schema( clean.options.schemaMap ),
       _fieldValues: _extractFieldValues( clean.data ),
       _credential: _extractCredential( clean.data ),
+      _context: _extractContext( clean.data ),
       _hooks: {
         onBusyChange: clean.options.onBusyChange
       }
     } );
 
+    let link;
+
     if ( clean.options.res ) {
 
-      let link = this.setRes( clean.options.res );
+      link = this.setRes( clean.options.res );
 
     }
 
@@ -106,13 +109,19 @@ module.exports = class {
 
     }
 
+    if ( data && data.context ) {
+
+      this._context = data.context;
+
+    }
+
     return this.getErrors();
 
   }
 
   get( standardized ) {
 
-    if ( this._credential === null && !standardized ) {
+    if ( this._credential === null && this._context === null && !standardized ) {
 
       return this._fieldValues;
 
@@ -122,6 +131,8 @@ module.exports = class {
       fieldValues: this._fieldValues
     }, this._credential ? {
       credential: this._credential
+    } : {}, this._context ? {
+      context: this._context
     } : {} );
 
   }
@@ -211,6 +222,14 @@ function _extractFieldValues( data ) {
 function _extractCredential( data ) {
 
   if ( data && data.credential ) return data.credential;
+
+  return null;
+
+}
+
+function _extractContext( data ) {
+
+  if ( data && data.context ) return data.context;
 
   return null;
 
