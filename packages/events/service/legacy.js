@@ -125,7 +125,7 @@ function get( identifiers, options, cb ) {
       location: [ 'id', 'uid', 'store' ],
       user: [ 'uid' ],
       agendaEvents: [ 'review_id' ],
-      agendas: [ 'uid' ],
+      agendas: [ 'uid', 'private' ],
       occurrences: [ 'date', 'time_start', 'time_end' ]
     },
     entries: {
@@ -352,7 +352,7 @@ function _getOccurrences( v ) {
 
 function _getServiceEvent( v ) {
 
-  return wn.call( service.get, v.identifiers )
+  return wn.call( service.get, v.identifiers, { private: null } )
 
   .then( event => {
 
@@ -410,6 +410,7 @@ function _getAgendas( v ) {
     if ( !v.entries.agendas.length ) return v;
 
     v.data.agendaUid = v.entries.agendas[ 0 ].uid;
+    v.data.private = v.entries.agendas[ 0 ].private;
 
     return v;
 

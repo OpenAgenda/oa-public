@@ -29,6 +29,7 @@ module.exports = options => {
 
     params.get( v.id ? { id: v.id } : v.identifiers, {
       internal: params.internal,
+      private: null,
       includeImagePath: params.includeImagePath
     }, ( err, data ) => {
 

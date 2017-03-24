@@ -67,7 +67,7 @@ describe( 'events - functional (server): legacy bridge', function() {
             "type": "thumbnail"
           } ]
         },
-        private: false,
+        private: true,
         slug: 'indoor-de-paris-cso-pro-1',
         locationUid: 46785382,
         title: { fr: 'Indoor de Paris - CSO Pro 1' },
@@ -203,6 +203,32 @@ describe( 'events - functional (server): legacy bridge', function() {
   } );
 
 
+  it( 'transfer of an event from a private agenda sets a private event', done => {
+
+    svc.legacy.transfer( 147621, ( err, result ) => {
+
+      result.event.private.should.equal( 1 );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'transfer of an event from a public agenda sets a public event', done => {
+
+    svc.legacy.transfer( 147618, ( err, result ) => {
+
+      result.event.private.should.equal( 0 );
+
+      done();
+
+    } );
+
+  } );
+
+
   // 147598 has no title
   it( 'transfer of an incomplete published event sets a draft event', done => {
 
@@ -265,7 +291,7 @@ describe( 'events - functional (server): legacy bridge', function() {
 
       svc.update( 147621, { title: { fr: 'Changed!' } }, err => {
 
-        svc.get( 147621, ( err, event ) => {
+        svc.get( 147621, { private: null }, ( err, event ) => {
 
           event.title.fr.should.equal( 'Changed!' );
 
@@ -323,7 +349,7 @@ describe( 'events - functional (server): legacy bridge', function() {
 
       svc.update( 147621, { title: { fr: 'Changed!' } }, ( err, result ) => {
 
-        svc.get( 147621, ( err, event ) => {
+        svc.get( 147621, { private: null }, ( err, event ) => {
 
           event.title.fr.should.equal( 'Changed!' );
 
