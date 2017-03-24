@@ -24,7 +24,7 @@ module.exports = React.createClass({
     getLabel: React.PropTypes.func,
 
     // used to optionnally bypass getLabel and load main label as is
-    label: React.PropTypes.func,
+    label: React.PropTypes.string,
 
     // used to optionnally bypass getLabel and load info as is
     info: React.PropTypes.string,
