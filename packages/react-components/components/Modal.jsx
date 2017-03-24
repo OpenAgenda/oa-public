@@ -26,7 +26,7 @@ export default class Modal extends Component {
   constructor( props ) {
     super( props );
     this.handleModalClick = ::this.handleModalClick;
-    this.handleDocumentClick = ::this.handleDocumentClick;
+    this.handleOverlayClick = ::this.handleOverlayClick;
     this.handleClose = ::this.handleClose;
     this.handleEsc = ::this.handleEsc;
   }
@@ -52,8 +52,8 @@ export default class Modal extends Component {
   addClickEvents() {
 
     ReactDOM.findDOMNode( this.modalRef ).addEventListener( 'click', this.handleModalClick );
+    ReactDOM.findDOMNode( this.overlayRef ).addEventListener( 'click', this.handleOverlayClick );
 
-    document.addEventListener( 'click', this.handleDocumentClick );
     document.addEventListener( 'keydown', this.handleEsc );
 
   }
@@ -61,8 +61,8 @@ export default class Modal extends Component {
   removeClickEvents() {
 
     ReactDOM.findDOMNode( this.modalRef ).removeEventListener( 'click', this.handleModalClick );
+    ReactDOM.findDOMNode( this.overlayRef ).removeEventListener( 'click', this.handleOverlayClick );
 
-    document.removeEventListener( 'click', this.handleDocumentClick );
     document.removeEventListener( 'keydown', this.handleEsc );
 
   }
@@ -89,15 +89,11 @@ export default class Modal extends Component {
 
   }
 
-  handleDocumentClick( e ) {
+  handleOverlayClick( e ) {
 
     if ( this.props.visible && !this.state.clickOnModal ) {
 
-      const area = ReactDOM.findDOMNode( this.modalRef );
-
-      if ( !area.contains( e.target ) ) {
-        this.handleClose();
-      }
+      this.handleClose();
 
     }
 
@@ -125,6 +121,7 @@ export default class Modal extends Component {
         style={{ display: visible ? 'block' : 'none' }}
         className={this.props.classNames.overlay}
         onKeyPress={this.onKeyPress}
+        ref={ref => this.overlayRef = ref}
       >
         <section ref={ref => this.modalRef = ref}>
           { title ?

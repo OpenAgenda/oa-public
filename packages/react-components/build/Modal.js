@@ -42,7 +42,7 @@ var Modal = (_temp = _class = function (_Component) {
     };
 
     _this.handleModalClick = _this.handleModalClick.bind(_this);
-    _this.handleDocumentClick = _this.handleDocumentClick.bind(_this);
+    _this.handleOverlayClick = _this.handleOverlayClick.bind(_this);
     _this.handleClose = _this.handleClose.bind(_this);
     _this.handleEsc = _this.handleEsc.bind(_this);
     return _this;
@@ -65,8 +65,8 @@ var Modal = (_temp = _class = function (_Component) {
     value: function addClickEvents() {
 
       _reactDom2.default.findDOMNode(this.modalRef).addEventListener('click', this.handleModalClick);
+      _reactDom2.default.findDOMNode(this.overlayRef).addEventListener('click', this.handleOverlayClick);
 
-      document.addEventListener('click', this.handleDocumentClick);
       document.addEventListener('keydown', this.handleEsc);
     }
   }, {
@@ -74,8 +74,8 @@ var Modal = (_temp = _class = function (_Component) {
     value: function removeClickEvents() {
 
       _reactDom2.default.findDOMNode(this.modalRef).removeEventListener('click', this.handleModalClick);
+      _reactDom2.default.findDOMNode(this.overlayRef).removeEventListener('click', this.handleOverlayClick);
 
-      document.removeEventListener('click', this.handleDocumentClick);
       document.removeEventListener('keydown', this.handleEsc);
     }
   }, {
@@ -101,16 +101,12 @@ var Modal = (_temp = _class = function (_Component) {
       this.state.clickOnModal = true;
     }
   }, {
-    key: 'handleDocumentClick',
-    value: function handleDocumentClick(e) {
+    key: 'handleOverlayClick',
+    value: function handleOverlayClick(e) {
 
       if (this.props.visible && !this.state.clickOnModal) {
 
-        var area = _reactDom2.default.findDOMNode(this.modalRef);
-
-        if (!area.contains(e.target)) {
-          this.handleClose();
-        }
+        this.handleClose();
       }
 
       this.state.clickOnModal = false;
@@ -144,7 +140,10 @@ var Modal = (_temp = _class = function (_Component) {
         {
           style: { display: visible ? 'block' : 'none' },
           className: this.props.classNames.overlay,
-          onKeyPress: this.onKeyPress
+          onKeyPress: this.onKeyPress,
+          ref: function ref(_ref2) {
+            return _this2.overlayRef = _ref2;
+          }
         },
         _react2.default.createElement(
           'section',
