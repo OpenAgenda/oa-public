@@ -179,13 +179,14 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           page = _this$props2.page,
           total = _this$props2.total,
           search = _this$props2.search,
+          credFilters = _this$props2.credFilters,
           loading = _this$props2.loading,
           nextLoading = _this$props2.nextLoading,
           stakeholders = _this$props2.stakeholders,
           perPageLimit = _this$props2.perPageLimit;
 
       if (!stakeholders || !stakeholders.length || loading || nextLoading || page * perPageLimit >= total) return;
-      _this.props.nextPage({ search: search }, (page || 1) + 1);
+      _this.props.nextPage({ search: search || undefined, credentials: credFilters }, (page || 1) + 1);
     };
 
     _this.addFilter = _this.addFilter.bind(_this);

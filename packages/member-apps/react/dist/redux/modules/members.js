@@ -322,7 +322,13 @@ function invite(data) {
       }).map(function (email) {
         return { email: email };
       });
-      return client.post(res.invite, { data: { stakeholders: stakeholders, credential: data.credential } });
+      return client.post(res.invite, {
+        data: {
+          stakeholders: stakeholders, credential: data.credential, context: {
+            message: data.message
+          }
+        }
+      });
     }
   };
 }

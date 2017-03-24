@@ -11,6 +11,7 @@ exports.renderInput = renderInput;
 exports.renderTextarea = renderTextarea;
 exports.renderSelect = renderSelect;
 exports.renderSearchInput = renderSearchInput;
+exports.renderMarkdownInput = renderMarkdownInput;
 
 var _react = require('react');
 
@@ -19,6 +20,10 @@ var _react2 = _interopRequireDefault(_react);
 var _Spinner = require('react-form-components/build/Spinner');
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
+
+var _MarkdownComponent = require('react-form-components/build/MarkdownComponent');
+
+var _MarkdownComponent2 = _interopRequireDefault(_MarkdownComponent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -154,6 +159,21 @@ function renderSearchInput(_ref5) {
       loading ? _react2.default.createElement(_Spinner2.default, { spinner: searchSpinner }) : _react2.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' })
     )
   );
+
+  return renderField.call(this, _extends({ content: content }, props));
+};
+
+function renderMarkdownInput(_ref6) {
+  var _ref6$lang = _ref6.lang,
+      lang = _ref6$lang === undefined ? 'fr' : _ref6$lang,
+      label = _ref6.label,
+      placeholder = _ref6.placeholder,
+      className = _ref6.className,
+      props = _objectWithoutProperties(_ref6, ['lang', 'label', 'placeholder', 'className']);
+
+  var inputAttrs = { lang: lang, placeholder: placeholder, label: label, className: className };
+
+  var content = _react2.default.createElement(_MarkdownComponent2.default, _extends({}, props.input, inputAttrs));
 
   return renderField.call(this, _extends({ content: content }, props));
 };

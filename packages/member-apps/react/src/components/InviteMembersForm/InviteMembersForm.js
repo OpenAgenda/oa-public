@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import validate from './validate';
-import { renderField, renderTextarea, renderSelect } from '../../utils/form';
+import { renderField, renderTextarea, renderSelect, renderMarkdownInput } from '../../utils/form';
 
 @connect(
   state => ({
@@ -21,6 +21,7 @@ export default class InviteMembersForm extends Component {
     this.renderField = this::renderField;
     this.renderTextarea = this::renderTextarea;
     this.renderSelect = this::renderSelect;
+    this.renderMarkdownInput = this::renderMarkdownInput;
   }
 
   static contextTypes = {
@@ -66,6 +67,12 @@ export default class InviteMembersForm extends Component {
           {userCredential !== 3 && haveRole( 3 ) && <option value="3">{getLabel( 'moderator' )}</option>}
           {userCredential !== 3 && haveRole( 2 ) && <option value="2">{getLabel( 'administrator' )}</option>}
         </Field>
+        <Field
+          label={getLabel( 'message' )}
+          component={this.renderMarkdownInput}
+          name="message"
+          classNameGroup="margin-top-md margin-bottom-lg"
+        />
 
         <div className="text-center">
           <button className="btn btn-primary" role="submit">

@@ -76,6 +76,7 @@ var InviteMembersForm = _wrapComponent('InviteMembersForm')((_dec = (0, _reactRe
     _this.renderField = _form.renderField.bind(_this);
     _this.renderTextarea = _form.renderTextarea.bind(_this);
     _this.renderSelect = _form.renderSelect.bind(_this);
+    _this.renderMarkdownInput = _form.renderMarkdownInput.bind(_this);
     return _this;
   }
 
@@ -161,6 +162,12 @@ var InviteMembersForm = _wrapComponent('InviteMembersForm')((_dec = (0, _reactRe
             getLabel('administrator')
           )
         ),
+        _react3.default.createElement(_reduxForm.Field, {
+          label: getLabel('message'),
+          component: this.renderMarkdownInput,
+          name: 'message',
+          classNameGroup: 'margin-top-md margin-bottom-lg'
+        }),
         _react3.default.createElement(
           'div',
           { className: 'text-center' },

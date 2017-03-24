@@ -3,6 +3,7 @@ const _ = require( 'lodash' );
 const ReactDOM = require( 'react-dom/server' );
 const path = require( 'path' );
 const async = require( 'async' );
+const express = require( 'express' );
 const fixtures = require( 'fixtures' );
 const morgan = require( 'morgan' );
 const agendasSvc = require( 'agendas/service/test' );
@@ -24,6 +25,8 @@ const app = require( 'test-app' )( {
   decorateCanvas: false,
   webpack: true
 } );
+
+app.use( '/js', express.static( path.dirname( require.resolve( 'react-form-components/test/app' ) ) + '/js' ) );
 
 app.use( bodyParser.urlencoded( { extended: false } ) );
 
@@ -165,7 +168,8 @@ async.waterfall( [
     },
     stakeholdersMw.agenda( 'agenda.data' ).bulk( {
       namespaces: {
-        data: 'body'
+        data: 'body',
+        context: 'body.context'
       },
       allowPartial: true
     } ),
@@ -176,12 +180,15 @@ async.waterfall( [
 
       if ( errors.length ) return next( { errors } );
 
-      const emailsRejected = results.reduce( ( prev, nextResult, i ) => {
+      const emailsRejected = _.compact( results.reduce( ( prev, nextResult, i ) => {
+        let emailRejected;
         if ( nextResult.errors && nextResult.errors.length ) {
-          return prev.concat( req.body.stakeholders[ i ].email );
+          emailRejected = nextResult.errors.reduce( ( prev, nextError ) => {
+            return (nextError.code && req.body.stakeholders[ i ].email) || null;
+          }, null );
         }
-        return prev;
-      }, [] );
+        return prev.concat( emailRejected );
+      }, [] ) );
 
       req.result = { queued, emailsRejected, success: !emailsRejected.length };
 

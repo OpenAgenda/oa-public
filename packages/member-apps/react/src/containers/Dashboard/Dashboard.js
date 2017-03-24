@@ -116,9 +116,9 @@ export default class Dashboard extends Component {
   debouncedSearch = debounce( this.props.handleSubmit( this.search ), 400 );
 
   nextPage = () => {
-    const { page, total, search, loading, nextLoading, stakeholders, perPageLimit } = this.props;
+    const { page, total, search, credFilters, loading, nextLoading, stakeholders, perPageLimit } = this.props;
     if ( !stakeholders || !stakeholders.length || loading || nextLoading || page * perPageLimit >= total ) return;
-    this.props.nextPage( { search }, (page || 1) + 1 );
+    this.props.nextPage( { search: search || undefined, credentials: credFilters }, (page || 1) + 1 );
   };
 
   addFilter( e, key ) {
@@ -227,7 +227,7 @@ export default class Dashboard extends Component {
                 .catch( () => showModal( 'memberReinvited', { stakeholder, success: false } ) )}
               className="text-muted"
             >
-              {getLabel('resendInvitation')}
+              {getLabel( 'resendInvitation' )}
             </a>}
           </div>
         </div>

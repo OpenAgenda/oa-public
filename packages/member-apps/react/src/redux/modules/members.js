@@ -277,7 +277,13 @@ export function invite( data ) {
     promise: ( client, { res } ) => {
       const stakeholders = data.emails && data.emails.split( ',' ).map( v => v.trim() ).filter( v => !!v )
           .map( email => ({ email }) );
-      return client.post( res.invite, { data: { stakeholders, credential: data.credential } } );
+      return client.post( res.invite, {
+        data: {
+          stakeholders, credential: data.credential, context: {
+            message: data.message
+          }
+        }
+      } );
     }
   };
 }

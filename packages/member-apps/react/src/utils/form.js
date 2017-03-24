@@ -1,5 +1,6 @@
 import React from 'react';
 import Spinner from 'react-form-components/build/Spinner';
+import MarkdownComponent from 'react-form-components/build/MarkdownComponent';
 
 const searchSpinner = {
   width: 1,
@@ -8,9 +9,9 @@ const searchSpinner = {
 };
 
 export function renderField( {
-  content, input: { name, value }, label, subLabel, max, classNameGroup, visible,
-  displayError, displayFeedback = true, errorOnDirty, meta
-} ) {
+                               content, input: { name, value }, label, subLabel, max, classNameGroup, visible,
+                               displayError, displayFeedback = true, errorOnDirty, meta
+                             } ) {
 
   const { touched, error, dirty } = meta;
   displayError = displayError ? displayError( meta ) : (errorOnDirty ? dirty || touched : touched);
@@ -84,6 +85,19 @@ export function renderSearchInput( { type, placeholder, className, spellCheck, a
       {loading ? <Spinner spinner={searchSpinner} /> : <i className="fa fa-search" aria-hidden="true"></i>}
     </button>
   </div>;
+
+  return this::renderField( { content, ...props } );
+
+};
+
+export function renderMarkdownInput( { lang = 'fr', label, placeholder, className, ...props } ) {
+
+  const inputAttrs = { lang, placeholder, label, className };
+
+  const content = <MarkdownComponent
+    {...props.input}
+    {...inputAttrs}
+  />;
 
   return this::renderField( { content, ...props } );
 
