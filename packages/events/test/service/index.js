@@ -36,6 +36,12 @@ module.exports.initAndLoad = function( config, files, options, cb ) {
 
   fixtures.init( { mysql: config.mysql } );
 
+  if ( files.length && !_.difference( Object.keys( files[ 0 ] ), [ 'table', 'src' ] ).length ) {
+
+    return fixtures( files, options, cb );
+
+  }
+
   fixtures( [ {
     table: 'event',
     src: __dirname + '/event.data.sql'
