@@ -70,6 +70,12 @@ const routes = {
       }
     } ),
     ( req, res, next ) => {
+      req.context = _.merge( {
+        lang: req.lang
+      }, req.body.context );
+      next();
+    },
+    ( req, res, next ) => {
       if ( req.stakeholder.credential !== 3 || ![ 2, 3 ].includes( req.stakeholderToUse.credential ) ) {
         return next();
       }
@@ -93,9 +99,9 @@ const routes = {
       next( new Error( 'You don\'t have right to invite members with this role' ) );
     },
     ( req, res, next ) => {
-      req.linkStore = {
+      req.context = _.merge( {
         lang: req.lang
-      }
+      }, req.body.context );
       next();
     },
     stakeholdersMw.agenda( 'agendaInstance.data' ).bulk( {

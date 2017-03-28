@@ -6,6 +6,8 @@ const servicePath = __dirname + '/../services',
 
   async = require( 'async' ),
 
+  _ = require( 'lodash' ),
+
   utils = require( 'utils' ),
 
   logger = require( 'logger' ),
@@ -625,6 +627,44 @@ function _initAgendaStakeholders( config ) { // async
 
   let d = w.defer();
 
+  const sendStakeholderInvitation = ( invitation, stakeholder, context, agenda ) => {
+
+    const action = invitation.data.actions.find( v => v.name === 'linkStakeholder' );
+    context = action.params[ 1 ] || context;
+
+    let lang = ( context && context.lang ) || 'fr';
+
+    let signupUrl = genUrl( 'signup', {
+      invitation: invitation.token,
+      email: stakeholder.custom.email,
+      lang
+    }, {
+      abs: true,
+      protocol: 'https://'
+    } );
+
+    mailer( {
+      recipient: stakeholder.custom.email,
+      subject: getInvitationLabel( 'emailSubject', lang ),
+      data: {
+        logo: 'https://openagenda.com/images/openagenda.png',
+        title: {
+          text: getInvitationLabel( 'emailTitle', { title: agenda.title }, lang ),
+          link: signupUrl
+        },
+        action: {
+          label: getInvitationLabel( 'emailAction', lang ),
+          link: signupUrl
+        },
+        description: context.message ? context.message : getInvitationLabel( 'emailDescription', {
+          title: agenda.title,
+          credential: getInvitationLabel( agendaStakeholders.types.codes.get( stakeholder.credential ), lang )
+        }, lang )
+      }
+    } );
+
+  };
+
   agendaStakeholders.init( {
     queue: {
       name: config.queues.stakeholderCreate,
@@ -635,7 +675,9 @@ function _initAgendaStakeholders( config ) { // async
     mysql: config.db,
     logger,
     interfaces: {
-      onCreate: stakeholder => {
+      onCreate: ( stakeholder, context ) => {
+
+        if ( stakeholder.userId ) return;
 
         agendasSvc.get( { id: stakeholder.agendaId }, { private: null }, ( err, agenda ) => {
 
@@ -643,40 +685,39 @@ function _initAgendaStakeholders( config ) { // async
 
           if ( !agenda ) return log( 'info', 'agenda not found: %s', stakeholder.agendaId );
 
-          if ( stakeholder.userId ) return;
+          invitationsSvc.assign( { email: stakeholder.custom.email }, 'linkStakeholder', [ stakeholder, context ] )
+            .then( ( { invitation } ) => {
 
-          invitationsSvc.assign( { email: stakeholder.custom.email }, 'linkStakeholder', stakeholder )
-            .then( result => {
+              sendStakeholderInvitation( invitation, stakeholder, context, agenda );
 
-              let signupUrl = genUrl( 'signup', {
-                invitation: result.invitation.token,
-                email: stakeholder.custom.email
-              }, {
-                abs: true,
-                protocol: 'https://'
-              } );
+            } )
+            .catch( err => {
 
-              let lang = ( stakeholder.linkStore && stakeholder.linkStore.lang ) || 'fr';
+              console.log( 'Error', err );
 
-              mailer( {
-                recipient: stakeholder.custom.email,
-                subject: getInvitationLabel( 'emailSubject', lang ),
-                data: {
-                  logo: 'https://openagenda.com/images/openagenda.png',
-                  title: {
-                    text: getInvitationLabel( 'emailTitle', { title: agenda.title }, lang ),
-                    link: signupUrl
-                  },
-                  action: {
-                    label: getInvitationLabel( 'emailAction', lang ),
-                    link: signupUrl
-                  },
-                  description: getInvitationLabel( 'emailDescription', {
-                    title: agenda.title,
-                    credential: getInvitationLabel( agendaStakeholders.types.codes.get( stakeholder.credential ), lang )
-                  }, lang ),
-                }
-              } );
+            } );
+
+        } );
+
+      },
+      onUpdate: ( before, stakeholder, context ) => {
+
+        if (
+          !_.isEqual( _.omit( before, 'updatedAt' ), _.omit( stakeholder, 'updatedAt' ) )
+          || stakeholder.deletedUser
+          || stakeholder.userId
+        ) return;
+
+        agendasSvc.get( { id: stakeholder.agendaId }, { private: null }, ( err, agenda ) => {
+
+          if ( err ) return log( 'error', err );
+
+          if ( !agenda ) return log( 'info', 'agenda not found: %s', stakeholder.agendaId );
+
+          invitationsSvc.get( { email: stakeholder.custom.email } )
+            .then( ( { invitation } ) => {
+
+              sendStakeholderInvitation( invitation, stakeholder, context, agenda );
 
             } );
 
