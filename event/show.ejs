@@ -111,7 +111,7 @@
           <h3><i class="fa fa-map-marker"></i></h3>
           <div class="detail-item-content">
             <p>
-              <%= event.location.name %>
+              <%- event.location.name %><% /* escaped in model already */ %>
             </p>
             <p><a target="_blank" href="<%= event.googleItineraryLink || '#' %>"><%= event.location.address %></a></p>
           </div><!--
