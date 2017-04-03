@@ -75,7 +75,14 @@ module.exports = {
       default: false 
     },
 
+    // agenda can be an aggregator
     aggregator: {
+      type: 'boolean',
+      default: false
+    },
+
+    // invitation message can be customized
+    invitationMessage: {
       type: 'boolean',
       default: false
     }

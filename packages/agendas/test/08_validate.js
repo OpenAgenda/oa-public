@@ -177,6 +177,7 @@ describe( 'agendas - unit (server): validate', () => {
           activatingInvitations: false,
           emailstrategie: false,
           indesign: false,
+          invitationMessage: false,
           moderators: false,
           tags: false,
           embedsHead: false,

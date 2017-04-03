@@ -219,7 +219,8 @@ describe( 'agendas - functional (server): set (update)', function() {
             embedsHead: false,
             embedsTemplates: false,
             indesign: false,
-            aggregator: false
+            aggregator: false,
+            invitationMessage: false
           } 
         },
         valid: true,

@@ -222,7 +222,8 @@ describe( 'agendas - functional (server): get', function() {
           indesign: false,
           moderators: false,
           tags: false,
-          aggregator: false
+          aggregator: false,
+          invitationMessage: false
         },
         createdAt: agenda.createdAt,
         updatedAt: agenda.updatedAt,

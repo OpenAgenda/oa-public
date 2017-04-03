@@ -106,6 +106,7 @@ describe( 'agendas - functional (server): tasks/loadFromLegacy', function() {
         embedsHead: !!test.credRowBefore.custom_head,
         embedsTemplates:!!test.credRowBefore.custom_templates,
         indesign: !!test.credRowBefore.indesign,
+        invitationMessage: false,
         activatingInvitations: !!test.credRowBefore.activating_invitation,
         emailstrategie: !!test.credRowBefore.emailstrategie,
         aggregator: !!test.credRowBefore.aggregator

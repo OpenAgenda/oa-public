@@ -247,7 +247,8 @@ describe( 'agendas - functional (server): set (create)', function() {
             indesign: false,
             embedsHead: false,
             embedsTemplates: false,
-            aggregator: false
+            aggregator: false,
+            invitationMessage: false
           },
           createdAt: result.agenda.createdAt,
           updatedAt: result.agenda.updatedAt
