@@ -28,7 +28,8 @@ function list( query, offset, limit, options, cb ) {
     limit: 20,
     options: {
       total: false,
-      internal: false
+      internal: false,
+      detailed: false
     }
   } );
 
@@ -58,7 +59,7 @@ function _list( v ) {
   // get fields which need to be
   let listFields = map
 
-    .filter( f => typeof f === 'string' || f.list === true || f.list === undefined )
+    .filter( f => typeof f === 'string' || f.list === true || f.list === undefined || v.options.detailed )
 
     .filter( f => {
 

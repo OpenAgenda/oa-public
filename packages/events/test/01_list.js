@@ -106,6 +106,36 @@ describe( 'events - functional (server): list', function() {
 
   } );
 
+  it( 'if detailed options is set, non-list fields are also given', done => {
+
+    svc.list( 0, 1, { detailed: true }, ( err, events ) => {
+
+      Object.keys( events[ 0 ] ).should.eql( [ 
+        'slug',
+        'uid',
+        'title',
+        'description',
+        'longDescription',
+        'keywords',
+        'image',
+        'draft',
+        'private',
+        'timezone',
+        'timings',
+        'updatedAt',
+        'createdAt',
+        'locationUid',
+        'accessibility',
+        'age',
+        'registration'
+      ] );
+
+      done();
+
+    } );
+
+  } )
+
 
   it( 'if draft is specified in query, it is added to fields', done => {
 
