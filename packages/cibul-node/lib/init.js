@@ -675,7 +675,7 @@ function _initAgendaStakeholders( config ) { // async
     mysql: config.db,
     logger,
     interfaces: {
-      onCreate: ( stakeholder, context ) => {
+      onCreate( stakeholder, context ) {
 
         if ( stakeholder.userId ) return;
 
@@ -700,7 +700,7 @@ function _initAgendaStakeholders( config ) { // async
         } );
 
       },
-      onUpdate: ( before, stakeholder, context ) => {
+      onUpdate( before, stakeholder, context ) {
 
         if (
           !_.isEqual( _.omit( before, 'updatedAt' ), _.omit( stakeholder, 'updatedAt' ) )
@@ -724,12 +724,32 @@ function _initAgendaStakeholders( config ) { // async
         } );
 
       },
-      getUser: ( identifiers, cb ) => {
+      onRemove( stakeholder ) {
+
+        invitationsSvc.get( { email: stakeholder.custom.email } )
+          .then( ( { invitation } ) => {
+
+            const action = invitation.data.actions.find( v => {
+              return v.name === 'linkStakeholder' && v.params[ 0 ].id === stakeholder.id;
+            } );
+
+            if ( !action ) return;
+
+            if ( invitation.data.actions.length > 1 ) {
+              return invitation.removeAction( action.id );
+            }
+
+            return invitation.remove();
+
+          } );
+
+      },
+      getUser( identifiers, cb ) {
 
         userSvc.get( identifiers, cb );
 
       },
-      getExistingCredentials: ( agendaId, cb ) => {
+      getExistingCredentials( agendaId, cb ) {
 
         agendasSvc.get( { id: agendaId }, { instanciate: true, private: null }, ( err, agenda ) => {
 
@@ -746,7 +766,7 @@ function _initAgendaStakeholders( config ) { // async
         } );
 
       },
-      getEventCount: ( agendaId, userId, cb ) => {
+      getEventCount( agendaId, userId, cb ) {
 
         model.lib.query( [
           'select count( distinct ra.id ) event_count',
