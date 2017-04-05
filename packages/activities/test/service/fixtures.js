@@ -46,6 +46,21 @@ module.exports = ( config, files, options, cb ) => {
         }, {
           table: config.schemas.feed_notification,
           src: __dirname + '/feed_notification.data.sql'
+        }, {
+          table: config.schemas.rebuild_agenda,
+          src: __dirname + '/rebuild_agenda.data.sql'
+        }, {
+          table: config.schemas.rebuild_event,
+          src: __dirname + '/rebuild_event.data.sql'
+        }, {
+          table: config.schemas.rebuild_review_article,
+          src: __dirname + '/rebuild_review_article.data.sql'
+        }, {
+          table: config.schemas.rebuild_reviewer,
+          src: __dirname + '/rebuild_reviewer.data.sql'
+        }, {
+          table: config.schemas.rebuild_user,
+          src: __dirname + '/rebuild_user.data.sql'
         } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) ), { reset: false }, cb );
 
       } )

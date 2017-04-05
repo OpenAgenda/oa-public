@@ -17,7 +17,13 @@ module.exports.initAndLoad = function ( config, files, options, cb ) {
     'feed_notification'
   ];
 
-  if ( arguments.length === 3 ) {
+  if ( arguments.length === 3 && Array.isArray( arguments[ 1 ] ) ) {
+
+    cb = options;
+
+    options = { reset: true };
+
+  } else if ( arguments.length === 3 ) {
 
     cb = options;
 

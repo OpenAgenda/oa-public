@@ -5,8 +5,8 @@
 
 Permet de pré-sélectionner un feed, sans faire de requête à la BDD pour le moment.
 
-***params:***
-type: Le type de l'entité qui sera utilisée, peut être 'user', 'agenda', 'event', ou 'network' par exemple
+***params:***  
+type: Le type de l'entité qui sera utilisée, peut être 'user', 'agenda', 'event', ou 'network' par exemple  
 uid: L'uid de l'entité concernée
 
 ### .feed( type, uid ).create()

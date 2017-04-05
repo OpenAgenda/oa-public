@@ -29,10 +29,10 @@ function init( c, cb ) {
     connection: c.mysql
   } );
 
-  feed.init( { config, knex } );
-  feeds.init( { config, knex } );
-  activities.init( { config, knex } );
-  notifications.init( { config, knex } );
+  feed.init( { config, knex, service: module.exports } );
+  feeds.init( { config, knex, service: module.exports } );
+  activities.init( { config, knex, service: module.exports } );
+  notifications.init( { config, knex, service: module.exports } );
 
   if ( cb ) cb();
 

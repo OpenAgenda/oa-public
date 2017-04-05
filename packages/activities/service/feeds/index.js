@@ -9,23 +9,25 @@ const remove = require( './remove' );
 
 let config;
 let knex;
+let service;
 
 module.exports = Object.assign( feeds, { init } );
 
-function init( { config: c, knex: k } ) {
+function init( { config: c, knex: k, service: s } ) {
 
   config = c;
   knex = k;
+  service = s;
 
-  create.init( { config, knex } );
-  get.init( { config, knex } );
-  follow.init( { config, knex } );
-  unfollow.init( { config, knex } );
-  remove.init( { config, knex } );
+  create.init( { config, knex, service } );
+  get.init( { config, knex, service } );
+  follow.init( { config, knex, service } );
+  unfollow.init( { config, knex, service } );
+  remove.init( { config, knex, service } );
 
 }
 
-function feeds( entityType, entityUid ) {
+function feeds( identifiers ) {
 
   return _.mapValues( {
     create,
@@ -33,7 +35,7 @@ function feeds( entityType, entityUid ) {
     follow,
     unfollow,
     remove
-  }, fn => fn.bind( null, entityType, entityUid ) );
+  }, fn => fn.bind( null, identifiers ) );
 
 }
 

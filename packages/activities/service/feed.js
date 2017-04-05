@@ -5,10 +5,10 @@ const feeds = require( './feeds' );
 const activities = require( './activities' );
 const notifications = require( './notifications' );
 
+const FEED_TYPES = require( './feedTypes' );
+
 let config;
 let knex;
-
-const FEED_TYPES = [ 'user', 'agenda', 'event' ];
 
 
 module.exports = Object.assign( feed, { init } );
@@ -21,28 +21,28 @@ function init( { config: c, knex: k } ) {
 
 }
 
-function feed( entityType, entityUid ) {
+function feed( identifiers ) {
 
-  return _.deeply( _.mapValues )( Object.assign( feeds( entityType, entityUid ), {
-    activities: activities( entityType, entityUid ),
-    notifications: notifications( entityType, entityUid )
+  if ( !_.isObject( identifiers ) ) identifiers = { id: identifiers };
+
+  return _.deeply( _.mapValues )( Object.assign( feeds( identifiers ), {
+    activities: activities( identifiers ),
+    notifications: notifications( identifiers )
   } ), v => {
 
     if ( typeof v !== 'function' ) return v;
 
-    return () => {
+    return ( ...args ) => {
 
       if ( !config ) throw new Error( 'service not initialized' );
 
-      const identifiers = arguments.length === 1 ? { id: entityType } : { entityType, entityUid };
+      if ( identifiers.entityType && !FEED_TYPES.includes( identifiers.entityType ) ) {
 
-      if ( identifiers.entityType && !FEED_TYPES.includes( entityType ) ) {
-
-        throw new Error( `You cannot use feed of type ${entityType}` );
+        throw new Error( `You cannot use feed of type ${identifiers.entityType}` );
 
       }
 
-      return v.apply( this, arguments );
+      return v.apply( null, args );
 
     };
 

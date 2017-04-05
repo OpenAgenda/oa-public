@@ -7,26 +7,34 @@ const get = require( './get' );
 
 let config;
 let knex;
+let service;
 
-module.exports = Object.assign( activities, { init } );
+module.exports = Object.assign( activities, {
+  init,
+  // global usage, without predefined feed
+  add: add.bind( null, null ),
+  list: list.bind( null, null ),
+  get: get.bind( null, null )
+} );
 
-function init( { config: c, knex: k } ) {
+function init( { config: c, knex: k, service: s } ) {
 
   config = c;
   knex = k;
+  service = s;
 
-  add.init( { config, knex } );
-  list.init( { config, knex } );
-  get.init( { config, knex } );
+  add.init( { config, knex, service } );
+  list.init( { config, knex, service } );
+  get.init( { config, knex, service } );
 
 }
 
-function activities( entityType, entityUid ) {
+function activities( identifiers ) {
 
   return _.mapValues( {
     add,
     list,
     get
-  }, fn => fn.bind( null, entityType, entityUid ) );
+  }, fn => fn.bind( null, identifiers ) );
 
 }
