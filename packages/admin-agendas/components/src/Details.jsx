@@ -287,6 +287,16 @@ module.exports = React.createClass( {
             checked={!!agenda.credentials.emailstrategie}
           /> Emailstrategie tab
         </p>
+
+        <p>
+          <Switch
+            className="rc-switch"
+            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+            onChange={checked => setAgenda( { credentials: { invitationMessage: checked } } )}
+            checked={!!agenda.credentials.invitationMessage}
+          /> Invitation message
+        </p>
       </div>
     );
   },

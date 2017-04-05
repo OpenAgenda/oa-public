@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS ${schema} (
   `credential` bigint(20) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
+  `deleted_user` tinyint DEFAULT 0,
   `store` longtext,
   `organization` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=10746 DEFAULT CHARSET=latin1;

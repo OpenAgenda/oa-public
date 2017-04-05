@@ -428,6 +428,20 @@ module.exports = React.createClass({
           checked: !!agenda.credentials.emailstrategie
         }),
         " Emailstrategie tab"
+      ),
+      React.createElement(
+        "p",
+        null,
+        React.createElement(Switch, {
+          className: "rc-switch",
+          checkedChildren: React.createElement("i", { className: "fa fa-check", "aria-hidden": "true" }),
+          unCheckedChildren: React.createElement("i", { className: "fa fa-times", "aria-hidden": "true" }),
+          onChange: function onChange(checked) {
+            return setAgenda({ credentials: { invitationMessage: checked } });
+          },
+          checked: !!agenda.credentials.invitationMessage
+        }),
+        " Invitation message"
       )
     );
   },

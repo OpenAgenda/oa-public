@@ -98,7 +98,7 @@ function _agendaStakeholdersList( v ) {
     total: 1
   }, v.query );
 
-  agendaStakeholders( v.agendaId ).list( query, v.offset, v.limit, ( err, stakeholders, total ) => {
+  agendaStakeholders( parseInt( v.agendaId ) ).list( query, v.offset, v.limit, ( err, stakeholders, total ) => {
 
     if ( err ) d.reject( err );
 
