@@ -6,7 +6,7 @@ const logger = require( 'basic-logger' );
 const get = require( './get' );
 
 // service globals
-let log, schemas, knex;
+let interfaces, log, schemas, knex;
 
 module.exports = _.extend( remove, { init } );
 
@@ -26,6 +26,12 @@ function remove( preFilter, identifiers, cb ) {
   .then( _remove )
 
   .done( v => {
+
+    if ( interfaces && interfaces.onRemove && v.result.success ) {
+
+      interfaces.onRemove( v.stakeholder );
+
+    }
 
     cb( null, v.result );
 
@@ -88,5 +94,7 @@ function init( config ) {
   schemas = config.schemas;
 
   knex = config.knex;
+
+  interfaces = config.interfaces;
 
 }

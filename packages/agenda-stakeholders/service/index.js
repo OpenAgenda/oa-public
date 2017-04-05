@@ -208,7 +208,8 @@ function init( c, cb ) {
 
     remove.init( {
       knex,
-      schemas
+      schemas,
+      interfaces: config.interfaces
     } );
 
   } )
