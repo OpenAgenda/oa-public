@@ -231,7 +231,10 @@ function matchApp( req, res, next ) {
       uid: 4608,
       slug: 'rdj2016',
       title: 'Rendez-vous aux Jardins 2016 [Officiel]',
-      roles: req.agendaRoles
+      roles: req.agendaRoles,
+      credentials: {
+        invitationMessage: true
+      }
     },
     stakeholder: req.stakeholder
   };

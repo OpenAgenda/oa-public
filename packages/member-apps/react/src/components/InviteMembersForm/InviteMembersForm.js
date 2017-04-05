@@ -7,6 +7,7 @@ import { renderField, renderTextarea, renderSelect, renderMarkdownInput } from '
 @connect(
   state => ({
     roles: state.agenda.roles,
+    invitationMessage: state.agenda.credentials.invitationMessage,
     userCredential: state.stakeholder.credential
   })
 )
@@ -30,7 +31,7 @@ export default class InviteMembersForm extends Component {
 
   render() {
 
-    const { handleSubmit, userCredential } = this.props;
+    const { handleSubmit, userCredential, invitationMessage } = this.props;
     const { getLabel } = this.context;
 
     const haveRole = value => this.props.roles.some( role => role.value === value );
@@ -67,12 +68,12 @@ export default class InviteMembersForm extends Component {
           {userCredential !== 3 && haveRole( 3 ) && <option value="3">{getLabel( 'moderator' )}</option>}
           {userCredential !== 3 && haveRole( 2 ) && <option value="2">{getLabel( 'administrator' )}</option>}
         </Field>
-        <Field
+        {invitationMessage && <Field
           label={getLabel( 'message' )}
           component={this.renderMarkdownInput}
           name="message"
           classNameGroup="margin-top-md margin-bottom-lg"
-        />
+        />}
 
         <div className="text-center">
           <button className="btn btn-primary" role="submit">

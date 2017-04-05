@@ -60,6 +60,7 @@ function _wrapComponent(id) {
 var InviteMembersForm = _wrapComponent('InviteMembersForm')((_dec = (0, _reactRedux.connect)(function (state) {
   return {
     roles: state.agenda.roles,
+    invitationMessage: state.agenda.credentials.invitationMessage,
     userCredential: state.stakeholder.credential
   };
 }), _dec2 = (0, _reduxForm.reduxForm)({
@@ -87,7 +88,8 @@ var InviteMembersForm = _wrapComponent('InviteMembersForm')((_dec = (0, _reactRe
 
       var _props = this.props,
           handleSubmit = _props.handleSubmit,
-          userCredential = _props.userCredential;
+          userCredential = _props.userCredential,
+          invitationMessage = _props.invitationMessage;
       var getLabel = this.context.getLabel;
 
 
@@ -162,7 +164,7 @@ var InviteMembersForm = _wrapComponent('InviteMembersForm')((_dec = (0, _reactRe
             getLabel('administrator')
           )
         ),
-        _react3.default.createElement(_reduxForm.Field, {
+        invitationMessage && _react3.default.createElement(_reduxForm.Field, {
           label: getLabel('message'),
           component: this.renderMarkdownInput,
           name: 'message',
