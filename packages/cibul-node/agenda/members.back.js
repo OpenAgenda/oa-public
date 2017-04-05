@@ -231,6 +231,7 @@ function matchApp( req, res, next ) {
           uid: req.agenda.uid,
           slug: req.agenda.slug,
           title: req.agenda.title,
+          credentials: req.agendaInstance.data.credentials,
           roles: req.agendaRoles
         },
         stakeholder: req.stakeholder
