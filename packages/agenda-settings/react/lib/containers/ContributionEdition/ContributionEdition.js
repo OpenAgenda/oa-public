@@ -174,7 +174,7 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
                       name: 'settings.contribution.type',
                       component: 'input',
                       type: 'radio',
-                      value: '2',
+                      value: '0',
                       format: function format(v) {
                         return v.toString();
                       }

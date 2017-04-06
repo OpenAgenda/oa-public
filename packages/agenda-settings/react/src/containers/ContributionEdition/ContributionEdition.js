@@ -71,7 +71,7 @@ export default class ContributionEdition extends Component {
                       name="settings.contribution.type"
                       component="input"
                       type="radio"
-                      value="2"
+                      value="0"
                       format={v => v.toString()}
                     />
                     {getLabel( 'contribTypeChoosen' )}
