@@ -164,7 +164,7 @@ describe( 'events - functional (server): create', function() {
         fr: 'Une description longue'
       },
       keywords: {
-        fr: 'Des, mots, clés'
+        fr: [ 'Des', 'mots', 'clés' ]
       },
       conditions: {
         fr: 'Etre vivant'
@@ -215,7 +215,7 @@ describe( 'events - functional (server): create', function() {
           fr: 'Une description longue'
         },
         keywords: { 
-          fr: 'Des, mots, clés'
+          fr: [ 'Des', 'mots', 'clés' ]
         },
         image: {
           filename: 'image.jpg',

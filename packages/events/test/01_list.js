@@ -106,6 +106,20 @@ describe( 'events - functional (server): list', function() {
 
   } );
 
+  it( 'keywords appear as lists', done => {
+
+    svc.list( 0, 1, ( err, events ) => {
+
+      events[ 0 ].keywords.should.eql( { 
+        fr: [ 'famille', 'animation', 'enfant', 'monument' ] 
+      } );
+
+      done();
+
+    } );
+
+  } )
+
   it( 'if detailed options is set, non-list fields are also given', done => {
 
     svc.list( 0, 1, { detailed: true }, ( err, events ) => {

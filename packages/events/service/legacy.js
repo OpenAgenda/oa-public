@@ -544,7 +544,7 @@ function _getEventTranslations( v ) {
 
       v.entries.eventTranslations.forEach( t => {
 
-        v.data[ field.to ][ t.lang ] = t[ field.from ];
+        v.data[ field.to ][ t.lang ] = field.to === 'keywords' ? _parseKeywords( t[ field.from ] ) : t[ field.from ];
 
       } );
 
@@ -553,6 +553,15 @@ function _getEventTranslations( v ) {
     return v;
 
   } );
+
+}
+
+
+function _parseKeywords( keywords ) {
+
+  if ( !keywords || !keywords.length ) return [];
+
+  return keywords.split( ',' ).map( k => k.trim() );
 
 }
 

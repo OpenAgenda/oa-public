@@ -39,6 +39,7 @@
     "max" : 10000
   },
   "keywords" : {
+    "list" : true,
     "type" : "multilingual",
     "max" : 255
   },
