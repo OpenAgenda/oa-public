@@ -18,7 +18,7 @@ function parentLink( onLinkEstablished, onParentMessage ) {
   window.addEventListener( 'message', function _onParentMessageReceived( e ) {
 
     // prevent interference from embedded media messages
-    if ( [ 'vimeo.com', 'soundcloud.com' ].filter( function( unauthorizedOrigin ) {
+    if ( [ 'vimeo.com', 'soundcloud.com', 'cdn.iframe.ly' ].filter( function( unauthorizedOrigin ) {
 
       return e.origin.indexOf( unauthorizedOrigin ) !== -1
 
@@ -49,6 +49,8 @@ function parentLink( onLinkEstablished, onParentMessage ) {
     } else {
 
       log( 'received message from parent' );
+
+      if ( typeof e.data !== 'string' ) return console.log( 'ignoring message' );
 
       onParentMessage( JSON.parse( e.data ) );
 
