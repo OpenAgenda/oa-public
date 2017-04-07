@@ -50,8 +50,18 @@ module.exports = path => {
         },
         ( req, res ) => res.json( req.result )
       ] ],
-      userSettingsChangeEmail: [ 'get', '/changeEmail', [ logged, loadSession, mw.requestChangeEmail, sendEmail ] ],
-      userSettingsChangeEmailConfirmation: [ 'get', '/changeEmail/confirm', mw.confirmChangeEmail ],
+      userSettingsChangeEmail: [ 'get', '/changeEmail', [ 
+        logged, 
+        loadSession, 
+        mw.requestChangeEmail, 
+        sendEmail 
+      ] ],
+      userSettingsChangeEmailConfirmation: [ 'get', '/changeEmail/confirm', [
+        logged,
+        loadSession,
+        mw.confirmChangeEmail.bind( null, {/**defaultOptions**/} ),
+        changeEmailConfirm
+      ] ],
       userSettingsChangePassword: [ 'get', '/changePassword', [ logged, loadSession, mw.changePassword ] ],
       userSettingsGenerateApiKey: [ 'get', '/generateApiKey', [ logged, loadSession, mw.generateApiKey ] ],
       userSettingsDeleteAccount: [ 'post', '/deleteAccount', [
@@ -111,6 +121,15 @@ module.exports = path => {
   }
 
 };
+
+
+function changeEmailConfirm( req, res, next ) {
+
+  sessions.setFlash( req, res, getLabels( req.result.success ? 'changeEmailSuccess' : 'changeEmailFail', req.lang ) );
+
+  res.redirect( req.genUrl( 'homeShow' ) );
+
+}
 
 
 function sendEmail( req, res, next ) {
