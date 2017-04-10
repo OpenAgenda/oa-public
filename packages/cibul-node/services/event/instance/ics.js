@@ -53,7 +53,7 @@ module.exports = function( agenda, eData /* event data */, ev /* event instance 
     'SUMMARY:' + _esc( ev.getTitle() ),
     'DESCRIPTION:' + _esc( ev.getDescription() ) + ( truncatedDescription.length ? ' - ' + truncatedDescription : '' ) + ' ' + i18n( 'see more', lang ) + ': ' + url,
     'STATUS:CONFIRMED',
-    'LOCATION:' + l.name + '\\r\\n' + l.address,
+    'LOCATION:' + l.name + ' - ' + l.address,
     'GEO:' + l.latitude + ';' + l.longitude,
     'URL:' + url,
     'LAST-MODIFIED:' + _date( ev.updatedAt )
