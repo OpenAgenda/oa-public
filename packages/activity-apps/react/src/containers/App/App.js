@@ -1,0 +1,38 @@
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import makeGetterLabel from 'labels';
+import labels from 'labels/activities';
+
+@connect(
+  state => ({
+    res: state.res,
+    lang: state.settings.lang
+  })
+)
+export default class App extends Component {
+
+  static childContextTypes = {
+    lang: PropTypes.string,
+    getLabel: PropTypes.func
+  };
+
+  getChildContext() {
+    const { lang } = this.props;
+
+    return {
+      lang,
+      getLabel: ( label, values = {} ) => makeGetterLabel( labels )( label, values, lang )
+    };
+  }
+
+  render() {
+
+    return (
+      <div className="activity-admin">
+        {this.props.children}
+      </div>
+    );
+
+  }
+
+}
