@@ -21,7 +21,7 @@ module.exports = {
   sourceAdd: sources.add,
   sourceRemove: sources.remove,
   test: {
-    clear: q.test.clear,
+    clear: q.test.clear.bind( null, config.queues.aggregator ),
     flush: q.test.flush,
     evaluate: evaluate,
     process: sources.process

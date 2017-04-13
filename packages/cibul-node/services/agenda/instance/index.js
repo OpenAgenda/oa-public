@@ -158,7 +158,8 @@ function instanciate( data ) {
       stakeholder: null, // required!
       refresh: true,
       mute: false,
-      publish: true
+      publish: true,
+      state: undefined // when defined, publish param is ignored
     }, options );
 
     instance.isStakeholder( params.stakeholder, ( err, is ) => {
@@ -167,7 +168,7 @@ function instanciate( data ) {
 
       if ( !is ) return cb( 'you cannot contribute to this agenda' );
 
-      instance.addEvent( event, params.stakeholder, { publish: params.publish }, err => {
+      instance.addEvent( event, params.stakeholder, { publish: params.publish, state: params.state }, err => {
 
         if ( err ) return cb( err );
 

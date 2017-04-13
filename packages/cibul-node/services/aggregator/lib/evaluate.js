@@ -1,18 +1,30 @@
 "use strict";
 
-var agendaSvc = require( '../../agenda' ),
+const agendaSvc = require( '../../agenda' ),
 
-p = require( '../../../lib/promises' ),
+  p = require( '../../../lib/promises' ),
 
-aggUtils = require( './aggUtils' ),
+  aggUtils = require( './aggUtils' ),
 
-agendaTags = require( 'agenda-tags' ),
+  agendaTags = require( 'agenda-tags' ),
 
-agendaCategories = require( 'agenda-categories' ),
+  agendaCategories = require( 'agenda-categories' ),
 
-logger = require( 'logger' ), log,
+  logger = require( 'logger' ),
 
-wn = require( 'when/node' );
+  w = require( 'when' ),
+
+  _ = require( 'lodash' ),
+
+  async = require( 'async' ),
+
+  config = require( '../../../config' ),
+
+  wn = require( 'when/node' ),
+
+  rules = require( './rules' );
+
+let log;
 
 module.exports = {
   publish,
@@ -39,12 +51,16 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
     sourceId,
     aggregatingAgendaId,
     mute,
+    rules: [],
     referenced: null,
     referencedBySource: null,
+    shouldAggregate: true,
+    states: [],
     added: false,
     referencedOrAdded: false,
-    sourceTags: [],
     sourceCategories: [],
+    eventSourceTags: [],
+    eventSourceCustomFields: null,
     aggregatorTags: [],
     aggregatorCategories: [],
     eventTags: null,
@@ -57,7 +73,10 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
 
   .then( _loadAgendaTags( 'aggregatingAgendaId', 'aggregatorTags' ) )
 
-  .then( _loadAgendaTags( 'sourceId', 'sourceTags' ) )
+  .then( aggUtils.loadRules.bind( null, {
+    db: config.db,
+    log
+  } ) )
 
   .then( _loadAgendaCategories( 'aggregatingAgendaId', 'aggregatorCategories' ) )
 
@@ -71,11 +90,18 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
 
   .then( p.ife( { referenced: true }, _checkIfReferencedBySource ) )
 
-  .then( p.ife( { referenced: true, referencedBySource: true }, _addNewSourceReference ) )
+  .then( _loadEventSourceTagsAndCustomFields )
 
-  .then( p.ife( { referenced: false }, _addEventToAggregator ) )
+  .then( _evaluateShouldAggregate )
+
+  .then( p.ife( { referenced: true, referencedBySource: true, shouldAggregate: true }, _addNewSourceReference ) )
+
+  .then( p.ife( { referenced: false, shouldAggregate: true }, _addEventToAggregator ) )
 
   .then( p.ife( { referencedOrAdded: true }, _associateSameTags ) )
+
+  // this is useless as long as custom_fields are directly stored in event schema!
+  // .then( p.ife( { referencedOrAdded: true }, _associateSameCustomFields ) )
 
   .then( p.ife( { referencedOrAdded: true }, _associateSameCategory ) )
 
@@ -108,7 +134,13 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
       added: v.added
     } );
 
-  }, cb );
+  }, err => {
+
+    console.log( err );
+
+    cb( err );
+
+  } );
 
 }
 
@@ -166,6 +198,37 @@ function unpublish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
     } );
 
   }, cb );
+
+}
+
+
+function _evaluateShouldAggregate( v ) {
+
+  if ( !v.rules.length ) {
+
+    log( 'no rules to evaluate, allow aggregation' );
+
+    return v;
+
+  }
+
+  let matchingRuleValues = rules( v.rules, {
+    tags: v.eventSourceTags.map( t => t.label )
+  } );
+
+
+  // all rules must match to trigger aggregation
+  if ( matchingRuleValues.length !== v.rules.length ) {
+
+    v.shouldAggregate = false;
+
+  }
+
+  log( 'event %s aggregate', v.shouldAggregate ? 'should' : 'should not' );
+
+  v.states = matchingRuleValues.filter( m => m !== null && m.state !== undefined ).map( m => m.state );
+
+  return v;
 
 }
 
@@ -436,27 +499,56 @@ function _loadAgendaCategories( agendaIdNamespace, destNamespace ) {
 }
 
 
+function _loadEventSourceTagsAndCustomFields( v ) {
+
+  return wn.call( v.event.loadAgendaContext, v.sourceId )
+
+    .then( () => wn.call( v.event.getAgendaTags ) )
+
+    .then( tags => {
+
+      v.eventSourceTags = tags;
+
+      log( 'event is associated to %s tags', v.eventSourceTags.length );
+
+    } )
+
+    .then( () => wn.call( v.sourceAgenda.getEventPublicCustomData, v.event ) )
+
+    .then( customFields => {
+
+      if ( !_.isArray( customFields ) ) return;
+
+      v.eventSourceCustomFields = customFields.reduce( ( carry, v ) => {
+
+        carry[ v.name ] = v.value;
+
+        return carry;
+
+      }, {} );
+
+    } )
+
+    .then( () => v );
+
+}
+
+
+
 function _associateSameTags( v ) {
 
   log( 'checking for tags association' );
 
-  if ( !v.sourceTags.length || !v.aggregatorTags.length ) return v;
+  if ( !v.eventSourceTags.length || !v.aggregatorTags.length ) return v;
 
-  return wn.call( v.event.loadAgendaContext, v.sourceId )
-
-  .then( () => wn.call( v.event.getAgendaTags ) )
-
-  .then( tags => {
-
-    if ( !tags.length ) return;
-
-    log( 'event is associated to %s tags', tags.length );
+  return w().then( () => {
 
     // match to aggregator tags
-    return tags.filter( t => v.aggregatorTags.filter( at => at.label === t.label ).length )
+    return v.eventSourceTags
 
-    .map( t => v.aggregatorTags.filter( at => at.label === t.label )[ 0 ] );
+      .filter( t => v.aggregatorTags.filter( at => at.label === t.label ).length )
 
+      .map( t => v.aggregatorTags.filter( at => at.label === t.label )[ 0 ] );
 
   } )
 
@@ -467,6 +559,58 @@ function _associateSameTags( v ) {
   } ) )
 
   .then( () => v );
+
+}
+
+
+function _associateSameCustomFields( v ) {
+
+  if ( v.eventSourceCustomFields === null ) return v;
+
+  log( 'checking for custom fields association' );
+
+  let fieldsToSet = _.pickBy( v.eventSourceCustomFields, ( value, k ) => v.aggregatingAgenda.hasCustomField( k ) );
+
+  if ( Object.keys( fieldsToSet ).length === 0 ) {
+
+    log( 'no custom fields to add to aggregated event' );
+
+    return v;
+
+  }
+
+
+  return wn.call( v.event.loadAgendaContext, v.aggregatorAgendaId )
+
+    .then( () => {
+
+      let fieldNames = Object.keys( fieldsToSet ),
+
+        lastField = fieldNames.pop(),
+
+        d = w.defer();
+
+      async.eachSeries( fieldNames, ( field, ecb ) => {
+
+        v.event.setCustomField( field, fieldsToSet[ field ], false, ecb );
+
+      }, err => {
+
+        if ( err ) return d.reject( err );
+
+        v.event.setCustomField( lastField, fieldsToSet[ lastField ], true, err => {
+
+          if ( err ) return d.reject( err );
+
+          d.resolve( v );
+
+        } );
+
+      } );
+
+      return d.promise;
+
+    } );
 
 }
 
@@ -529,16 +673,21 @@ function _addEventToAggregator( v ) {
 
   let d = p.w.defer();
 
-  log( 'adding event %s to aggregating agenda %s', v.event.id, v.aggregatingAgenda.id );
+  let state = 2; // published
+
+  if ( v.states.length ) state = v.states.pop();
+
+  log( 'adding event %s to aggregating agenda %s with state %s', v.event.id, v.aggregatingAgenda.id, state );
 
   v.aggregatingAgenda.addEvent( v.event, {
     stakeholder: { id: v.aggregatingAgenda.ownerId },
+    state,
     mute: true
   }, err => {
 
     if ( err ) return d.reject( err );
 
-    log( 'event %s added to aggregating agenda %s', v.event.id, v.aggregatingAgenda.id );
+    log( 'event %s added to aggregating agenda %s with state %s', v.event.id, v.aggregatingAgenda.id, state );
 
     v.event.loadAgendaContext( v.aggregatingAgendaId, err => {
 

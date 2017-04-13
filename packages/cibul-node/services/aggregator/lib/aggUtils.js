@@ -1,14 +1,21 @@
 "use strict";
 
-var p = require( '../../../lib/promises' ),
+const p = require( '../../../lib/promises' ),
 
-async = require( 'async' ),
+  async = require( 'async' ),
 
-agendaSvc, eventSvc;
+  mysql = require( 'mysql' ),
+
+  VError = require( 'verror' ),
+
+  _ = require( 'lodash' );
+
+let agendaSvc, eventSvc;
 
 module.exports = {
   loadAgenda,
   loadEvent,
+  loadRules,
   getAllAggregatorIds
 }
 
@@ -105,6 +112,111 @@ function loadAgenda( namespace, identifier ) {
     });
 
   }
+
+}
+
+function loadRules( config, v ) {
+
+  let d = p.w.defer();
+
+  const params = _.extend( {
+    namespaces: {
+      aggregatingAgendaId: 'aggregatingAgendaId',
+      sourceId: 'sourceId',
+      rules: 'rules'
+    },
+    db: null,
+    log: ()=>{}
+  }, config );
+
+  let log = params.log;
+
+  const con = mysql.createConnection( params.db );
+
+  let aggregatorId, aggregatorStore = {}, sourceStore = {};
+
+
+  log( 'loadign aggregator rules' );
+
+  async.waterfall( [ wcb => {
+
+    con.query( 'select id, store from aggregator where review_id = ?', v[ params.namespaces.aggregatingAgendaId ], ( err, rows ) => {
+
+      if ( err ) return wcb( err );
+
+      if ( !rows.length ) return wcb();
+
+      aggregatorId = rows[ 0 ].id;
+
+      try {
+
+        aggregatorStore = JSON.parse( rows[ 0 ].store );
+
+      } catch( e ) {}
+
+      log( 'aggregator rules successfully loaded: %s', rows[ 0 ].store );
+
+      wcb();
+
+    } );
+
+  }, wcb => {
+
+    if ( !aggregatorId ) return wcb();
+
+    log( 'loading source rules' );
+
+    con.query( 'select store from aggregator_source where review_id = ? and aggregator_id = ?', [ v[ params.namespaces.sourceId ], aggregatorId ], ( err, rows ) => {
+
+      if ( err ) return wcb( err );
+
+      if ( !rows.length ) return wcb();
+
+      try {
+
+        sourceStore = JSON.parse( rows[ 0 ].store );
+
+      } catch( e ) {};
+
+      log( 'source rules successfully loaded: %s', rows[ 0 ].store );
+
+      wcb();
+
+    } );
+
+  } ], err => {
+
+    con.end();
+
+    if ( err ) {
+
+      return d.reject( new VError( err, 'encountered trouble when evaluating aggregation stores' ) );
+
+    }
+
+    let rules = [];
+
+    if ( aggregatorStore && aggregatorStore.rules ) {
+
+      rules = rules.concat( aggregatorStore.rules );
+
+    }
+
+    if ( sourceStore && sourceStore.rules ) {
+
+      rules = rules.concat( sourceStore.rules );
+
+    }
+
+    v[ params.namespaces.rules ] = rules;
+
+    log( 'loaded %s aggregation rules', rules.length );
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
 
 }
 

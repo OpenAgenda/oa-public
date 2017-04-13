@@ -92,6 +92,7 @@
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
     "validator": "3.40.0",
     "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git",
+    "verror": "^1.9.0",
     "when": "~3.4",
     "xlsx-writestream": "0.4.0",
     "xml": "git+ssh://git@bitbucket.org:openagenda/xml.git"
