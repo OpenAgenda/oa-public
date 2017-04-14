@@ -86,13 +86,17 @@ $tumblr-color: #32506d;
 @import "../layout/assets/stylesheets/bootstrap/responsive-utilities";
 
 // Font awesome
-@import "../../node_modules/font-awesome/scss/font-awesome.scss";
+@import "../../node_modules/font-awesome/scss/font-awesome";
+
+// Spacing
+@import "../../templates/layout/spacing";
 
 /////////////////////////////
 /////////////////////////////
 /////////////////////////////
 
 @import "../agenda/header";
+@import "../activities/style";
 
 // OA components
 @import '../components/rc-switch';
