@@ -63,10 +63,6 @@
             {
               "mapTo": "label",
               "name": "Tag"
-            },
-            {
-              "mapTo": "slug",
-              "name": "TagSlug"
             }
           ]
         }
