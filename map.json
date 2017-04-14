@@ -1,7 +1,9 @@
 [
+  "activities/agenda",
+  "admin/activities",
+  "admin/agendas",
   "admin/index",
   "admin/users",
-  "admin/agendas",
   "agenda/show",
   "agenda/embedShow",
   "agenda/action",
