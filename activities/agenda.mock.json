@@ -1,0 +1,11 @@
+{
+  "base": {
+    "scriptParams": {
+      "state": {
+        "settings": {
+          "prefix": "/activities/index"
+        }
+      }
+    }
+  }
+}

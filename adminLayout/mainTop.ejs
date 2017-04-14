@@ -17,4 +17,4 @@
     <script type="text/javascript" src="<%= js[i] %>"></script>
 <% } %>
   </head>
-  <body>
+  <body data-options="<%- typeof scriptParams !== 'undefined' ? _esc( JSON.stringify( scriptParams ) ) : '' %>">
