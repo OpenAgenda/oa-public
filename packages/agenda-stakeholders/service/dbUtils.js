@@ -33,7 +33,7 @@ function getEvent( idNamespace, eventNamespace ) {
 
   return v => knex.transaction( trx => {
 
-    return trx.select( 'id', 'owner_id', 'slug' )
+    return trx.select( 'id', 'uid', 'owner_id', 'slug' )
     
     .from( schemas.event )
 

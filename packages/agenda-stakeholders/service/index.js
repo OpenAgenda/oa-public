@@ -189,7 +189,8 @@ function init( c, cb ) {
 
     transferEvent.init( {
       knex,
-      schemas
+      schemas,
+      interfaces: config.interfaces
     } );
 
   } )

@@ -161,6 +161,7 @@ describe( 'agenda-stakeholders - unit (server): dbUtils', function() {
 
       v.event.should.eql( {
         id: 81296,
+        uid: 10974548,
         ownerId: 3083,
         slug: 'visite-commentee-du-parc'
       } );

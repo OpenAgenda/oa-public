@@ -5,19 +5,19 @@
  * ownership to other contributor of agenda
  */
 
-var knex, schemas,
+var interfaces, knex, schemas,
 
-utils = require( 'utils' ),
+  utils = require( 'utils' ),
 
-dbUtils = require( './dbUtils' ),
+  dbUtils = require( './dbUtils' ),
 
-logger = require( 'basic-logger' ), log,
+  logger = require( 'basic-logger' ), log,
 
-w = require( 'when' );
+  w = require( 'when' );
 
-module.exports = function( agendaId ) {
+module.exports = function ( agendaId ) {
 
-  return function( params, cb ) {
+  return function ( params, cb ) {
 
     w( utils.extend( {
 
@@ -33,35 +33,55 @@ module.exports = function( agendaId ) {
 
     }, params ) )
 
-    .then( dbUtils.getEvent( 'event', 'transferedEvent' ) )
+      .then( dbUtils.getEvent( 'event', 'transferedEvent' ) )
 
-    .then( dbUtils.getAgendaEvent( 'agenda', 'event', 'agendaEvent' ) )
+      .then( dbUtils.getAgendaEvent( 'agenda', 'event', 'agendaEvent' ) )
 
-    .then( dbUtils.getStakeholder( 'agenda', 'user', 'stakeholder' ) )
+      .then( dbUtils.getStakeholder( 'agenda', 'user', 'stakeholder' ) )
 
-    .then( _verifyDbFetches )
+      .then( _verifyDbFetches )
 
-    .then( dbUtils.updateAgendaEvent( 'agenda', 'event', 'stakeholder' ) )
+      .then( v => {
 
-    .then( _updateOwnership )
+        if ( !interfaces || !interfaces.beforeTransferEvent ) return v;
 
-    .done( v => {
+        return new Promise( ( resolve, reject ) => {
 
-      cb();
+          interfaces.beforeTransferEvent( v.transferedEvent.uid, v.transferedEvent.ownerId, v.user.id, err => {
 
-    }, cb );
+            if (err) return reject( err );
+
+            resolve( v );
+
+          } );
+
+        } );
+
+      } )
+
+      .then( dbUtils.updateAgendaEvent( 'agenda', 'event', 'stakeholder' ) )
+
+      .then( _updateOwnership )
+
+      .done( () => {
+
+        cb();
+
+      }, cb );
 
   }
 
 }
 
-module.exports.init = function( config ) {
+module.exports.init = function ( c ) {
 
   log = logger( 'transferEvent' );
 
-  schemas = config.schemas;
+  interfaces = c.interfaces;
 
-  knex = config.knex;
+  schemas = c.schemas;
+
+  knex = c.knex;
 
   log( 'inited' );
 
@@ -123,16 +143,16 @@ function _updateOwnership( v ) {
 
     return trx.table( schemas.event )
 
-    .where( {
-      id: v.transferedEvent.id
-    } )
+      .where( {
+        id: v.transferedEvent.id
+      } )
 
-    .update( {
-      owner_id: v.stakeholder.userId
-    } )
+      .update( {
+        owner_id: v.stakeholder.userId
+      } )
 
   } )
 
-  .then( result => v );
+    .then( result => v );
 
 }

@@ -76,7 +76,8 @@ function agenda( namespace = 'agenda' ) {
         identifiers: 'identifiers',
         user: 'user',
         result: 'result',
-        data: 'data' // the custom data only
+        data: 'data', // the custom data only
+        context: 'context'
       }
     }, options || {} );
 
@@ -93,7 +94,8 @@ function agenda( namespace = 'agenda' ) {
 
       service.agenda( _.get( req, namespace ).id ).update( identifiers, _.get( req, namespaces.data ).fieldValues, {
         credential: credential ? _.get( req, namespaces.data ).credential : null,
-        allowPartial
+        allowPartial,
+        context: _.get( req, namespaces.context, null )
       }, ( err, result ) => {
 
         if ( err ) return next( err );
