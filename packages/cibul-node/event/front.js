@@ -47,6 +47,7 @@ const modLib = require( '../lib/moduleLib' ),
   routes = {
 
     agendaEventShowPrivate: [ 'get', '/:slug.prv/events/:eventSlug', [
+      cmn.https,
       agendaSvc.mw.load( 'slug' ),
       cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'agendaShow', { slug: 'slug', eventSlug: 'eventSlug' } ) ),
       sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignin', { 
@@ -64,6 +65,7 @@ const modLib = require( '../lib/moduleLib' ),
     ].concat( middlewares.agendaEventShow ) ],
 
     agendaEventShow: [ 'get', '/:slug/events/:eventSlug', [
+      cmn.https,
       agendaSvc.mw.load( 'slug' ),
       cmn.ifIs( 'agenda.private', cmn.redirectTo( 'agendaEventShowPrivate', {
         slug: 'slug',
@@ -116,6 +118,7 @@ const modLib = require( '../lib/moduleLib' ),
     ].concat( middlewares.customEmbedEventShow ) ],
 
     eventShow: [ 'get', '/events/:eventSlug', [
+      cmn.https,
       eventSvc.mw.load( 'eventSlug', 'slug' ),
       eventSvc.mw.format,
       eventSvc.mw.components,

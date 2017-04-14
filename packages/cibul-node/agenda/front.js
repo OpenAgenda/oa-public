@@ -139,6 +139,7 @@ const sessions = require( 'sessions' ),
     ].concat( middlewares.embedShow ) ],
 
     agendaSearch: [ 'get', '/agendas', [
+      cmn.https,
       _modifiedSince1am,
       agendaSearch.mw.list,
       cmn.loadBaseData( 'oasfmain.css' ),
@@ -159,6 +160,7 @@ const sessions = require( 'sessions' ),
     ] ],
 
     agendaShowPrivate: [ 'get', '/:slug.prv', [
+      cmn.https,
       cmn.redirectLegacySearch,
       agendaSvc.mw.load( 'slug', { cache: true } ),
       cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'agendaShow', { slug: 'slug' } ) ),
@@ -177,6 +179,7 @@ const sessions = require( 'sessions' ),
     ].concat( middlewares.show ) ],
     
     agendaShow: [ 'get', '/:slug', [
+      cmn.https,
       cmn.redirectLegacySearch,
       agendaSvc.mw.load( 'slug', { cache: true } ),
       cmn.ifIs( 'agenda.private', cmn.redirectTo( 'agendaShowPrivate', { slug: 'slug' } ) ),
