@@ -1,0 +1,142 @@
+<% include ../layout/_top.ejs %>
+<div class="container legacy-event-form">
+  <div class="row top-margined">
+    <section class="col-sm-8 col-sm-offset-2 wsq">
+      <div class="row">
+        <div class="content">
+
+          <div style="display:block;" class="popup-overlay big" >
+            <section >
+              <div class="popup-content" >
+                <h2 >Nouveau lieu</h2>
+                <div class="form-section" >
+                  <div class="location-selector" >
+                    <div class="location-form" >
+                      <div class="head" >
+                        <span class="info" >Décrivez le lieu où se déroule l'événement</span>
+                      </div>
+                      <div class="form-group" >
+                        <label >Nom du lieu</label>
+                        <div class="" >
+                          <input class="form-control" type="text" placeholder="Exemple: Le Moulin Rouge" value="g" >
+                          <span > </span>
+                          <span >
+                          </span>
+                        </div>
+                        <p >
+                          <span class="error" data-reactid=".0.3.1.0.1.1.0.0.2.2.$string=1tooshort">Le champ doit comporter au moins 3 caractères</span>
+                        </p>
+                        <div class="alternatives" >
+                          <ul >
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="form-group country" >
+                        <label >Pays</label>
+                        <div class="Select is-searchable has-value" >
+                          <input type="hidden" value="FR" >
+                          <div class="Select-control" >
+                            <div class="Select-placeholder" >France</div>
+                            <div class="Select-input " style="display:inline-block;" >
+                              <input value="" tabindex="0" style="width:5px;box-sizing:content-box;" >
+                              <div style="position: absolute; visibility: hidden; height: 0px; width: 0px; overflow: scroll; white-space: pre; font-size: 14px; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-weight: normal; font-style: normal; letter-spacing: normal;" >
+                              </div>
+                            </div>
+                            <span class="Select-arrow-zone" >
+                              <span class="Select-arrow" >
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group" >
+                        <label >Adresse</label>
+                        <div class="input-group" >
+                          <input class="form-control" type="text" placeholder="Numéro Voie, Ville ( exemple : 82 Boulevard de Clichy, Paris )" >
+                          <span > </span>
+                          <span class="input-group-btn geocode" >
+                            <button class="btn btn-default" type="button" >
+                            <i class="fa fa-search" >
+                            </i>
+                            <div class="spin-center" >
+                              <div style="position:absolute;width:0;z-index:2000000000;left:50%;top:50%;" >
+                              </div>
+                            </div>
+                            </button>
+                          </span>
+                        </div>
+                        <div class="alternatives" >
+                          <ul >
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="form-group" >
+                        <div class="map leaflet-container leaflet-fade-anim"  tabindex="0" style="position: relative;">
+                          <div class="leaflet-map-pane" style="transform: translate3d(0px, 0px, 0px);">
+                            <div class="leaflet-tile-pane">
+                              <div class="leaflet-layer">
+                                <div class="leaflet-tile-container">
+                                </div>
+                                <div class="leaflet-tile-container leaflet-zoom-animated">
+                                  <img class="leaflet-tile leaflet-tile-loaded" src="//c.tiles.mapbox.com/v3/foursquare.meku766r/2/1/1.png" style="height: 256px; width: 256px; left: -34px; top: 18px;">
+                                  <img class="leaflet-tile leaflet-tile-loaded" src="//a.tiles.mapbox.com/v3/foursquare.meku766r/2/2/1.png" style="height: 256px; width: 256px; left: 222px; top: 18px;">
+                                  <img class="leaflet-tile leaflet-tile-loaded" src="//b.tiles.mapbox.com/v3/foursquare.meku766r/2/1/0.png" style="height: 256px; width: 256px; left: -34px; top: -238px;">
+                                  <img class="leaflet-tile leaflet-tile-loaded" src="//c.tiles.mapbox.com/v3/foursquare.meku766r/2/2/0.png" style="height: 256px; width: 256px; left: 222px; top: -238px;">
+                                  <img class="leaflet-tile leaflet-tile-loaded" src="//a.tiles.mapbox.com/v3/foursquare.meku766r/2/1/2.png" style="height: 256px; width: 256px; left: -34px; top: 274px;">
+                                  <img class="leaflet-tile leaflet-tile-loaded" src="//b.tiles.mapbox.com/v3/foursquare.meku766r/2/2/2.png" style="height: 256px; width: 256px; left: 222px; top: 274px;">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="leaflet-objects-pane">
+                              <div class="leaflet-shadow-pane">
+                              </div>
+                              <div class="leaflet-overlay-pane">
+                              </div>
+                              <div class="leaflet-marker-pane">
+                              </div>
+                              <div class="leaflet-popup-pane">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="leaflet-control-container">
+                            <div class="leaflet-top leaflet-left">
+                              <div class="leaflet-control-zoom leaflet-bar leaflet-control">
+                                <a class="leaflet-control-zoom-in" href="#" title="Zoom in">+</a>
+                                <a class="leaflet-control-zoom-out" href="#" title="Zoom out">-</a>
+                              </div>
+                            </div>
+                            <div class="leaflet-top leaflet-right">
+                            </div>
+                            <div class="leaflet-bottom leaflet-left">
+                            </div>
+                            <div class="leaflet-bottom leaflet-right">
+                              <div class="leaflet-control-attribution leaflet-control">
+                                <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <span >
+                      </span>
+                      <span >
+                      </span>
+                      <span >
+                      </span>
+                      <div class="form-group bottom" >
+                        <a href="#" >Annuler</a>
+                        <button class="btn btn-primary" >Créer</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<% include ../layout/_bottom.ejs %>

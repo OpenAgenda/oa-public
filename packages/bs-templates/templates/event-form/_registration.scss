@@ -89,12 +89,25 @@
     }
 
     .react-tagsinput-input {
+      
       background: transparent;
       border: 0;
       margin-bottom: 4px;
       outline: none;
       padding: 5px 4px 4px;
       width: 80px;
+
+      &::-webkit-input-placeholder {
+          color: $input-color-placeholder;
+      }
+      &::-moz-placeholder {
+         color: $input-color-placeholder;
+         opacity:  1;
+      }
+      &:-ms-input-placeholder {
+         color: $input-color-placeholder;
+      }
+
     }
 
   }

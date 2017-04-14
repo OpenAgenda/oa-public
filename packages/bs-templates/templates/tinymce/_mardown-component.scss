@@ -4,3 +4,7 @@
 .mce-panel {
   padding-right: 1px;
 }
+
+.mce-tinymce .mce-edit-area label {
+  color: $input-color-placeholder!important;
+}

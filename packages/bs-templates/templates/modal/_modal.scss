@@ -26,12 +26,20 @@
     left: 50%;
 
     /* bring your own prefixes */
-    transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 
   }
 
   &.big {
+
+    label {
+
+      border-radius: inherit;
+      color: inherit;
+      
+    }
 
     section {
 
@@ -42,6 +50,17 @@
 
       i {
         color: inherit;
+      }
+
+    }
+
+    // IE9 - scroll glitch fix
+    @media screen and (min-width:0) and (min-resolution: .001dpcm) { 
+
+      section {
+
+        -ms-transform: translate(-0, -50%);
+
       }
 
     }
