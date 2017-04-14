@@ -49,15 +49,13 @@ function getDebugSessionKey() {
 
 function funcMiddleware() {
 
-  return function (_ref) {
-    var dispatch = _ref.dispatch,
-        getState = _ref.getState;
+  return function (store) {
     return function (next) {
       return function (action) {
 
         if (typeof action !== 'function') return next(action);
 
-        return action(store);
+        return next(action(store));
       };
     };
   };

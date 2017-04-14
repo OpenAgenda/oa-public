@@ -37,11 +37,11 @@ function getDebugSessionKey() {
 
 function funcMiddleware() {
 
-  return ( { dispatch, getState } ) => next => action => {
+  return store => next => action => {
 
     if ( typeof action !== 'function' ) return next( action );
 
-    return action( store );
+    return next( action( store ) );
 
   };
 
