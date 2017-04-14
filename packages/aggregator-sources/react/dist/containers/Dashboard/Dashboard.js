@@ -163,7 +163,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
 
       var displayError = errorOnDirty ? dirty || touched : touched;
 
-      if (visible !== true) return _react3.default.createElement('div', null);
+      if (!visible) return _react3.default.createElement('div', null);
 
       return _react3.default.createElement(
         'div',
@@ -218,9 +218,9 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       return _this.renderField(_extends({ content: content }, props));
     }, _this.search = function (values) {
       return _this.props.list(values).then(function () {
-        _this.context.router.push({
+        _this.context.router.push(_extends({}, _this.props.location, {
           query: _extends({}, _this.props.location.query, { search: values.search || undefined })
-        });
+        }));
       });
     }, _this.debouncedSearch = (0, _lodash2.default)(_this.props.handleSubmit(_this.search), 400), _this.nextPage = function () {
       var _this$props = _this.props,

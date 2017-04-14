@@ -117,6 +117,7 @@ export default class Dashboard extends Component {
   search = values => this.props.list( values )
     .then( () => {
       this.context.router.push( {
+        ...this.props.location,
         query: { ...this.props.location.query, search: values.search || undefined }
       } );
     } );
