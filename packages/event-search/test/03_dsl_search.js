@@ -1,0 +1,621 @@
+"use strict";
+
+const should = require( 'should' );
+const config = require( '../testconfig' );
+const events = require( 'events-service/test/service' );
+const service = require( '../' );
+const dslSearch = require( '../service/search' ).dsl;
+const scroll = require( '../service/search' ).scroll;
+const locationsList = require( './service/locationsList' );
+const moment = require( 'moment-timezone' );
+
+
+describe( 'event-search - unit: dsl search', function() {
+
+  describe( 'simple search', function() {
+
+    this.timeout( 10000 );
+
+    before( done => {
+
+      events.initAndLoad( config.eventService, [ {
+        table: 'event',
+        src: __dirname + '/service/event.data.sql' 
+      } ], { reset: true }, done );
+
+    } );
+
+    before( done => {
+
+      service.init( config );
+
+      // list must be prepared to give all needed data
+      // for index
+      function list( offset, limit, cb ) {
+
+        events.list( offset, limit, {
+          internal: true,
+          detailed: true
+        }, cb );
+
+      }
+
+      service( 'simple_search' ).rebuild( {
+        eventsList: list,
+        locationsList
+      }, err => {
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'an event can be retrieved by uid', done => {
+
+      let dsl = {
+        query: {
+          term: {
+            uid: 6
+          }
+        }
+      };
+
+      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+
+        total.should.equal( 1 );
+
+        events[ 0 ].slug.should.equal( 'decouverte-du-handball-et-valorisation-du-mondial-de-handball' );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'several events can be retrieved by uid at once', done => {
+
+      let dsl = {
+        query: {
+          in: {
+            uid: [ 6, 11 ]
+          }
+        }
+      };
+
+      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+
+        total.should.equal( 2 );
+
+        events.map( e => e.slug ).should.eql( [ 'decouverte-du-handball-et-valorisation-du-mondial-de-handball', 'serres-la-claranda-cafe-citoyen' ] );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'simple title search', done => {
+
+      let dsl = {
+        query: {
+          match: {
+            search_internals_title: 'valorisation'
+          }
+        },
+        _source: {
+          excludes: [ 'search_internals_*' ]
+        }
+      };
+
+      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+
+        total.should.equal( 1 );
+
+        events[ 0 ].slug.should.equal( 'decouverte-du-handball-et-valorisation-du-mondial-de-handball' );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'simple english title search', done => {
+
+      let dsl = {
+        query: {
+          match: {
+            search_internals_title: 'discovery'
+          }
+        },
+        _source: {
+          excludes: [ 'search_internals_*' ]
+        }
+      };
+
+      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+
+        total.should.equal( 1 );
+
+        events[ 0 ].slug.should.equal( 'decouverte-du-handball-et-valorisation-du-mondial-de-handball' );
+
+        done();
+
+      } );
+
+    } );
+
+
+    it( 'sorting can show in order upcoming first and past second, then nearest from now first', done => {
+
+      let dsl = {
+        query: {
+          match: {
+            search_internals_title: 'Trié'
+          }
+        },
+        sort: [ {
+          'timings.end' : {
+            mode: 'min',
+            order: 'asc',
+            nested_path: 'timings',
+            nested_filter: {
+              range: { 'timings.end' : { gte: 'now' } }
+            }
+          }
+        }, {
+          search_internals_last_timing: { order: 'desc' }
+        } ],
+        _source: {
+          excludes: [ 'search_internals_*' ]
+        }
+      };
+
+      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+
+        total.should.equal( 5 );
+
+        events.map( e => e.slug ).should.eql( [
+          'nearest_in_the_future_0',
+          'almost_furthest_in_the_future_1',
+          'furthest_in_the_future_2',
+          'nearest_past_event_3',
+          'furthest_past_event_4'
+        ] );
+
+        done();
+
+      } );
+
+    } );
+
+
+    it( 'match on title, description and keywords fields', done => {
+
+      let dsl = {
+        query: {
+          multi_match: {
+            query: 'mississipi',
+            fields: [ 'search_internals_title', 'search_internals_description', 'search_internals_keywords_text' ]
+          }
+        }
+      };
+
+      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+
+        events.map( e => e.slug ).should.eql( [ 'multi_2', 'multi_1', 'multi_3' ] );
+
+        done();
+
+      } );
+
+    } );
+
+
+
+    it( 'filtering by timing to show only events starting within a certain time bracket ( independant of date )', done => {
+
+      let dsl = {
+        query: {
+          bool: {
+            must: [ {
+              match: {
+                search_internals_title: 'Horaires'
+              },
+            }, ],
+            // doc: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html
+            filter: [ {
+              nested: {
+                path: 'timings',
+                score_mode: 'min',
+                query: {
+                  range: {
+                    'timings.search_internals_begin_from_midnight' : {
+                      gte: 13*60*60,
+                      lte: 17*60*60
+                    }
+                  }
+                }
+              }
+            } ]
+          }
+        },
+        _source: {
+          // excludes does not go deep.
+          excludes: [ 'search_internals_*', 'timings.search_internals_*' ]
+        }
+      };
+
+      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+
+        total.should.equal( 1 );
+
+        events.map( e => e.slug ).should.eql( [ 'one_timing_fits_within bracket' ] );
+
+        done();
+
+      } );
+
+    } );
+
+
+    it( 'date range is displayed in local time', done => {
+
+      let dsl = {
+        query: {
+          match: {
+            search_internals_title: 'Other_Timezone_Horaires'
+          }
+        }
+      };
+      
+      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+
+        events[ 0 ].dateRange.should.eql( { 
+          fr: '24 octobre 2016, 08h00', 
+          en: '24 october 2016, 08:00' 
+        } );
+
+        done();
+
+      } );
+
+    } );
+
+
+    it( 'filtering by timing for a different timezone', done => {
+
+      // new york event happens at 2016-10-24T12:00:00.000Z
+      // so thats -4 hours, should be 8 in the morning
+
+      let dsl = {
+        query: {
+          bool: {
+            must: [ {
+              match: {
+                search_internals_title: 'Other_Timezone_Horaires'
+              },
+            }, ],
+            // doc: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html
+            filter: [ {
+              nested: {
+                path: 'timings',
+                score_mode: 'min',
+                query: {
+                  range: {
+                    'timings.search_internals_begin_from_midnight' : {
+                      gte: 8*60*60,
+                      lte: 8*60*60
+                    }
+                  }
+                }
+              }
+            } ]
+          }
+        },
+        _source: {
+          // excludes does not go deep.
+          excludes: [ 'search_internals_*', 'timings.search_internals_*' ]
+        }
+      };
+
+      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+
+        total.should.equal( 1 );
+
+        events.map( e => e.slug ).should.eql( [ 'new_york_event' ] );
+
+        done();
+
+      } );
+
+    } );
+
+
+    it( 'filtering by region ( same for location.department, city, countryCode )', done => {
+
+      let dsl = {
+        query: {
+          term: {
+            "location.region" : "Auvergne-Rhône-Alpes"
+          }
+        }
+      };
+
+      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+
+        total.should.equal( 1 );
+
+        events.map( e => e.slug ).should.eql( [ 'rhone_region_event' ] );
+
+        done();
+
+      } );
+
+    } );
+    
+
+    it( 'filtering by geolocation', done => {
+
+      let dsl = {
+        query: {
+          geo_bounding_box: {
+            search_internals_location: {
+              top_left: {
+                lat: 50,
+                lon: 5
+              },
+              bottom_right: {
+                lat: 49,
+                lon: 5.5
+              }
+            }
+          }
+        }
+      };
+
+      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+
+        total.should.equal( 1 );
+
+        events.map( e => e.slug ).should.eql( [ 'verdun_bound_box' ] );
+
+        done();
+
+      } );
+
+    } );
+
+
+    it( 'filtering by language', done => {
+
+      let dsl = {
+        query: {
+          term: {
+            "search_internals_languages" : "de"
+          }
+        }
+      }
+
+      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+
+        total.should.equal( 1 );
+
+        events.map( e => e.slug ).should.eql( [ 'german_event' ] );
+
+        done();
+
+      } );
+
+    } );
+
+
+    it( 'filtering by keyword', done => {
+
+      let dsl = {
+        query: {
+          term: {
+            "search_internals_keywords" : "word"
+          }
+        }
+      }
+
+      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+
+        total.should.equal( 1 );
+
+        events.map( e => e.slug ).should.eql( [ 'keyword_event' ] );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'filtering by multiple keywords', done => {
+
+      let dsl = {
+        query: {
+          bool: {
+            must: [ {
+              term: {
+                search_internals_keywords: 'autre'
+              }
+            }, {
+              term: {
+                search_internals_keywords: 'clé'
+              }
+            } ]
+          }
+        }
+      }
+
+      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+
+        total.should.equal( 1 );
+
+        events.map( e => e.slug ).should.eql( [ 'keyword_event_2' ] );
+
+        done();
+
+      } );
+
+    } );
+
+
+    it( 'filtering to keep events in between a timestamp bracket', done => {
+
+      let dsl = {
+        query: {
+          bool: {
+            // doc: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html
+            filter: [ {
+              nested: {
+                path: 'timings',
+                score_mode: 'min',
+                query: {
+                  range: {
+                    'timings.begin' : {
+                      gte: new Date( '2013-02-01' ),
+                      lte: new Date( '2013-02-28' )
+                    }
+                  }
+                }
+              }
+            } ]
+          }
+        }
+      }
+
+      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+
+        events.map( e => e.slug ).should.eql( [ 'bracketed_timestamp_1', 'bracketed_timestamp_2', 'bracketed_timestamp_3' ] );
+
+        done();
+
+      } );
+
+    } );
+
+
+    it( 'trasverse using scroll', done => {
+
+      let dsl = {
+        query: {
+          match_all: {}
+        }
+      }
+
+      let fetchedCount = 0;
+
+      let cacheFor = '1m';
+
+      dslSearch( 'simple_search', dsl, { scroll: cacheFor }, ( err, events, total, scrollId ) => {
+
+        fetchedCount += events.length;
+
+        scroll( scrollId, cacheFor, ( err, events, total ) => {
+
+          fetchedCount += events.length;
+
+          scroll( scrollId, cacheFor, ( err, events, total ) => {
+
+            fetchedCount += events.length;
+
+            fetchedCount.should.equal( total );
+
+            done();
+
+          } );
+
+        } );
+
+      } );
+        
+    } );
+
+
+
+    it( 'search_after fails when nested sort is done on date ( BIGINT ERROR )', done => {
+
+      // minutes from beginning of time would suffice.
+
+      let dsl = {
+        query: {
+          match_all: {}
+        },
+        sort: [ {
+          'timings.end' : {
+            mode: 'min',
+            order: 'asc',
+            nested_path: 'timings',
+            nested_filter: {
+              range: { 'timings.end' : { gte: 'now' } }
+            }
+          }
+        }, {
+          search_internals_last_timing: { order: 'desc' }
+        } ]
+      }
+
+      dslSearch( 'simple_search', dsl, ( err, events, total, searchAfter ) => {
+
+        dsl[ 'search_after' ] = searchAfter;
+
+        dslSearch( 'simple_search', dsl, ( err, events, total, searchAfter ) => {
+
+          err.message.should.equal( '[illegal_state_exception] No matching token for number_type [BIG_INTEGER]' );
+
+          done();
+
+        } );
+
+      } );
+
+    } );
+
+
+    it( 'from/size navigation works fine', done => {
+
+      let dsl = {
+        from: 0,
+        size: 5,
+        query: {
+          match_all: {}
+        },
+        sort: [ {
+          'timings.end' : {
+            mode: 'min',
+            order: 'asc',
+            nested_path: 'timings',
+            nested_filter: {
+              range: { 'timings.end' : { gte: 'now' } }
+            }
+          }
+        }, {
+          search_internals_last_timing: { order: 'desc' }
+        } ]
+      }
+
+      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+
+        let fourth = events[ 3 ].uid;
+
+        dsl.from = 3;
+
+        dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+
+          events[ 0 ].uid.should.equal( fourth );
+
+          done();
+
+        } );
+
+      } );
+
+    } );
+
+
+  } );
+
+} )
