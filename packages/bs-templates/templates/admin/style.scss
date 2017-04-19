@@ -100,6 +100,7 @@ $tumblr-color: #32506d;
 
 // OA components
 @import '../components/rc-switch';
+@import '../form-components/input-with-icon';
 
 html {
   @extend .height-100-md;
