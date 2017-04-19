@@ -1,2 +1,4 @@
-export App from './App/App';
-export Dashboard from './Dashboard/Dashboard';
+export AdminApp from './AdminApp/AdminApp';
+export AdminDashboard from './AdminDashboard/AdminDashboard';
+export AgendaApp from './AgendaApp/AgendaApp';
+export AgendaDashboard from './AgendaDashboard/AgendaDashboard';

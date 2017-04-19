@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import { App, Dashboard } from './containers';
+import { AdminApp, AdminDashboard } from '../../containers';
 
 export default function ( store ) {
 
@@ -8,8 +8,8 @@ export default function ( store ) {
   const basename = state.settings.prefix;
 
   return (
-    <Route path={basename} component={App}>
-      <IndexRoute component={Dashboard} />
+    <Route path={basename} component={AdminApp}>
+      <IndexRoute component={AdminDashboard} />
     </Route>
   );
 

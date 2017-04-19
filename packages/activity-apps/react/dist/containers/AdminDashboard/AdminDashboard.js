@@ -28,8 +28,6 @@ var _reduxConnect = require('redux-connect');
 
 var _reduxForm = require('redux-form');
 
-var _reduxBatchedActions = require('redux-batched-actions');
-
 var _debounce = require('lodash/debounce');
 
 var _debounce2 = _interopRequireDefault(_debounce);
@@ -81,13 +79,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _components = {
-  Dashboard: {
-    displayName: 'Dashboard'
+  AdminDashboard: {
+    displayName: 'AdminDashboard'
   }
 };
 
 var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-  filename: 'react/src/containers/Dashboard/Dashboard.js',
+  filename: 'react/src/containers/AdminDashboard/AdminDashboard.js',
   components: _components,
   locals: [],
   imports: [_react3.default, _redboxReact3.default]
@@ -103,9 +101,9 @@ _moment2.default.locale('fr');
 
 var formatActivity = (0, _format2.default)({}, _admin2.default);
 
-var dashboardValuesSelector = (0, _reduxForm.formValueSelector)('activityAppsDashboard');
+var dashboardValuesSelector = (0, _reduxForm.formValueSelector)('activityAppsAdminDashboard');
 
-var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConnect)([{
+var AdminDashboard = _wrapComponent('AdminDashboard')((_dec = (0, _reduxConnect.asyncConnect)([{
   promise: function promise(_ref) {
     var _ref$store = _ref.store,
         dispatch = _ref$store.dispatch,
@@ -136,14 +134,14 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
     query: dashboardValuesSelector(state, 'actor', 'verb', 'object', 'target', 'datetimeRange')
   };
 }, _extends({}, activitiesActions)), _dec2 = (0, _reduxForm.reduxForm)({
-  form: 'activityAppsDashboard'
+  form: 'activityAppsAdminDashboard'
 }), _dec(_class = _dec2(_class = (_temp = _class2 = function (_Component) {
-  _inherits(Dashboard, _Component);
+  _inherits(AdminDashboard, _Component);
 
-  function Dashboard(props) {
-    _classCallCheck(this, Dashboard);
+  function AdminDashboard(props) {
+    _classCallCheck(this, AdminDashboard);
 
-    var _this = _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (AdminDashboard.__proto__ || Object.getPrototypeOf(AdminDashboard)).call(this, props));
 
     _this.search = function (values) {
       return _this.props.list(values).then(function () {
@@ -177,7 +175,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
     return _this;
   }
 
-  _createClass(Dashboard, [{
+  _createClass(AdminDashboard, [{
     key: 'renderReactSelect',
     value: function renderReactSelect(_ref2) {
       var className = _ref2.className,
@@ -380,7 +378,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
     }
   }]);
 
-  return Dashboard;
+  return AdminDashboard;
 }(_react2.Component), _class2.propTypes = {
   list: _react2.PropTypes.func,
   nextPage: _react2.PropTypes.func,
@@ -395,6 +393,6 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
   getLabel: _react2.PropTypes.func
 }, _temp)) || _class) || _class));
 
-exports.default = Dashboard;
+exports.default = AdminDashboard;
 ;
 module.exports = exports['default'];

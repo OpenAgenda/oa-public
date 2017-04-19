@@ -43,6 +43,7 @@ function reducer() {
       return _extends({}, state, {
         loaded: true,
         data: action.result.activities,
+        lastPage: action.result.activities.length < action.perPageLimit,
         fromId: 0,
         error: null,
         loading: false
@@ -100,26 +101,33 @@ function isLoaded(globalState) {
 }
 
 function load(query) {
-  return {
-    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: function promise(client, _ref) {
-      var res = _ref.res;
-      return client.get(res.list, { query: query });
-    }
+  return function (_ref) {
+    var getState = _ref.getState;
+
+    var state = getState();
+
+    return {
+      types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
+      perPageLimit: state.settings.perPageLimit,
+      promise: function promise(client, _ref2) {
+        var res = _ref2.res;
+        return client.get(res.list, { query: query });
+      }
+    };
   };
 }
 
 function list(query) {
-  return function (_ref2) {
-    var getState = _ref2.getState;
+  return function (_ref3) {
+    var getState = _ref3.getState;
 
     var state = getState();
 
     return {
       types: [LIST, LIST_SUCCESS, LIST_FAIL],
       perPageLimit: state.settings.perPageLimit,
-      promise: function promise(client, _ref3) {
-        var res = _ref3.res;
+      promise: function promise(client, _ref4) {
+        var res = _ref4.res;
         return client.get(res.list, { query: query });
       }
     };
@@ -127,8 +135,8 @@ function list(query) {
 }
 
 function nextPage(query, fromId) {
-  return function (_ref4) {
-    var getState = _ref4.getState;
+  return function (_ref5) {
+    var getState = _ref5.getState;
 
     var state = getState();
 
@@ -136,8 +144,8 @@ function nextPage(query, fromId) {
       types: [NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL],
       fromId: fromId,
       perPageLimit: state.settings.perPageLimit,
-      promise: function promise(client, _ref5) {
-        var res = _ref5.res;
+      promise: function promise(client, _ref6) {
+        var res = _ref6.res;
         return client.get(res.list, {
           query: _extends({}, query, {
             fromId: fromId

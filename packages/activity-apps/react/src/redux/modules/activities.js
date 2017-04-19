@@ -26,6 +26,7 @@ export default function reducer( state = initialState, action ) {
         ...state,
         loaded: true,
         data: action.result.activities,
+        lastPage: action.result.activities.length < action.perPageLimit,
         fromId: 0,
         error: null,
         loading: false
@@ -90,9 +91,14 @@ export function isLoaded( globalState ) {
 }
 
 export function load( query ) {
-  return {
-    types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
-    promise: ( client, { res } ) => client.get( res.list, { query } )
+  return ( { getState } ) => {
+    const state = getState();
+
+    return {
+      types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
+      perPageLimit: state.settings.perPageLimit,
+      promise: ( client, { res } ) => client.get( res.list, { query } )
+    };
   };
 }
 

@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { asyncConnect } from 'redux-connect';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
-import { batchActions } from 'redux-batched-actions';
 import debounce from 'lodash/debounce';
 import pick from 'lodash/pick';
 import Select from 'react-select';
@@ -18,7 +17,7 @@ moment.locale( 'fr' );
 
 const formatActivity = activityFormatMaker( {}, activityLabels );
 
-const dashboardValuesSelector = formValueSelector( 'activityAppsDashboard' );
+const dashboardValuesSelector = formValueSelector( 'activityAppsAdminDashboard' );
 
 @asyncConnect( [ {
     promise: ( { store: { dispatch, getState } } ) => {
@@ -49,9 +48,9 @@ const dashboardValuesSelector = formValueSelector( 'activityAppsDashboard' );
   { ...activitiesActions }
 )
 @reduxForm( {
-  form: 'activityAppsDashboard'
+  form: 'activityAppsAdminDashboard'
 } )
-export default class Dashboard extends Component {
+export default class AdminDashboard extends Component {
 
   static propTypes = {
     list: PropTypes.func,
@@ -82,6 +81,7 @@ export default class Dashboard extends Component {
     .then( () => {
       const newQuery = pick( values, [ 'actor', 'verb', 'object', 'target', 'datetimeRange' ] );
       this.context.router.push( {
+        ...this.props.location,
         query: { ...this.props.location.query, ...newQuery }
       } );
     } );

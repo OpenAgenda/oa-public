@@ -7,6 +7,7 @@ const noopReducer = ( state = {} ) => state;
 
 export default createReducer( {
   form,
+  agenda: noopReducer,
   modals,
   activities
 } );

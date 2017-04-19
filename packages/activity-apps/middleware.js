@@ -6,7 +6,8 @@ const matchAppMw = require( 'react-utils/dist/matchAppMw' );
 const createStore = require( 'react-utils/dist/createStore' );
 const ApiClient = require( 'react-utils/dist/ApiClient' );
 
-const getRoutes = require( './react/dist/routes' );
+const getAdminRoutes = require( './react/dist/apps/admin/routes' );
+const getAgendaRoutes = require( './react/dist/apps/agenda/routes' );
 const reducer = require( './react/dist/redux/reducer' );
 
 const activitiesSvc = require( 'activities' );
@@ -15,7 +16,8 @@ let config;
 let log;
 
 module.exports = {
-  matchApp: matchAppMw( createStore( reducer ), getRoutes, ApiClient ),
+  matchAdminApp: matchAppMw( createStore( reducer ), getAdminRoutes, ApiClient ),
+  matchAgendaApp: matchAppMw( createStore( reducer ), getAgendaRoutes, ApiClient ),
   init,
   list
 };
@@ -51,7 +53,12 @@ function list( req, res ) {
     };
   }
 
-  activitiesSvc.activities.list( query, req.query.fromId || 0, limit )
+  const svc = req.agenda.uid ? activitiesSvc.feed( {
+    entityType: 'agenda',
+    entityUid: req.agenda.uid
+  } ) : activitiesSvc;
+
+  svc.activities.list( query, fromId || 0, limit )
     .then( activities => {
       res.send( { activities } );
     } )

@@ -27,6 +27,7 @@ var noopReducer = function noopReducer() {
 
 exports.default = (0, _createReducer2.default)({
   form: _reduxForm.reducer,
+  agenda: noopReducer,
   modals: _modals2.default,
   activities: _activities2.default
 });

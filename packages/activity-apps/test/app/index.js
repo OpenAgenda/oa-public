@@ -15,9 +15,7 @@ const helpers = require( 'test-app/helpers' );
 const app = require( 'test-app' )( {
   frontWrapper: __dirname + '/front.jsx',
   excludeDefaultStyles: true,
-  styles: [
-    __dirname + '/../../node_modules/bs-templates/compiled/admin.css'
-  ],
+  styles: [],
   decorateCanvas: false,
   webpack: true
 } );
@@ -44,6 +42,17 @@ async.waterfall( [
   } ], { reset: false }, wcb )
 ], () => {
 
+  app.use( ( req, res, next ) => {
+
+    if ( req.query._app == 'agenda' ) {
+      app.setStyles( [ __dirname + '/../../node_modules/bs-templates/compiled/main.css' ] );
+    } else {
+      app.setStyles( [ __dirname + '/../../node_modules/bs-templates/compiled/admin.css' ] );
+    }
+
+    next();
+
+  } );
 
   app.use( bodyParser.urlencoded( { extended: false } ) );
   app.use( bodyParser.json() );
@@ -55,11 +64,12 @@ async.waterfall( [
       lang: req.query.lang || 'fr'
     }; // 2 == administrator, 4387 == contributor
     req.identifiers = { userId: req.user.id };
-    req.agenda = { id: 4608 };
+    req.agenda = { id: 4608, uid: 62792452 };
     next();
   } );
 
   app.get( '/list', mw.list );
+  app.get( '/:uid/list', mw.list );
 
   app.getAndListen( '*', port, matchApp );
 
@@ -76,23 +86,50 @@ function matchApp( req, res, next ) {
       lang,
       apiRoot: `http://localhost:${port}`,
       perPageLimit: config.mw.limit
-    },
-    res: {
-      list: '/list'
     }
   };
 
-  if ( process.env.NO_SSR ) {
-    return getApp( req, res, next, {
-      store: { getState: () => state }
+  // Specific state for apps
+  if ( req.query._app == 'agenda' ) {
+
+    _.merge( state, {
+      res: {
+        list: `/list`
+      }
     } );
+
+  } else {
+
+    _.merge( state, {
+      res: {
+        list: '/list'
+      }
+    } );
+
   }
 
-  mw.matchApp(
-    { state },
-    prefix,
-    getApp
-  )( req, res, next );
+  if ( process.env.NO_SSR ) {
+    return getApp( req, res, next, { store: { getState: () => state } } );
+  }
+
+  // Match apps
+  if ( req.query._app == 'agenda' ) {
+
+    mw.matchAgendaApp(
+      { state },
+      prefix,
+      getApp
+    )( req, res, next );
+
+  } else {
+
+    mw.matchAdminApp(
+      { state },
+      prefix,
+      getApp
+    )( req, res, next );
+
+  }
 
 };
 
@@ -103,14 +140,39 @@ function getApp( req, res, next, { store, component } = {} ) {
   req.data = { state };
   req.content = component ? ReactDOM.renderToString( component ) : '';
 
-  helpers.renderCanvas( true, false, getHtmlBody() )( req, res );
+  helpers.renderCanvas( true, false, getHtmlBody( req ) )( req, res );
 
 }
 
-function getHtmlBody() {
+function getHtmlBody( req ) {
 
-  return (
-    `<div class="js_canvas">{content}</div>`
-  );
+  if ( req.query._app == 'agenda' ) {
+
+    return (
+      `<div class="container agenda-admin top-margined">
+        <div class="row wsq">
+          <div class="col col-sm-3 nav">
+            <ul class="list-unstyled">
+              <li class="menu-item js_menu_item js_menu_item_settings_activities selected">
+                <a class="active" href="/activities?_app=agenda">
+                  <span>Activités</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-sm-9 body">
+            <div class="js_canvas">{content}</div>
+          </div>
+        </div>
+      </div>`
+    );
+
+  } else { // admin
+
+    return (
+      `<div class="js_canvas">{content}</div>`
+    );
+
+  }
 
 }

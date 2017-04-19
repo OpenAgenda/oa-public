@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import makeGetterLabel from 'labels';
-import labels from 'labels/activities';
+import labels from 'labels/activities/agenda';
 
 @connect(
   state => ({
@@ -9,7 +9,7 @@ import labels from 'labels/activities';
     lang: state.settings.lang
   })
 )
-export default class App extends Component {
+export default class AgendaApp extends Component {
 
   static childContextTypes = {
     lang: PropTypes.string,
@@ -28,7 +28,7 @@ export default class App extends Component {
   render() {
 
     return (
-      <div className="activity-admin">
+      <div className="agenda-admin-activities">
         {this.props.children}
       </div>
     );

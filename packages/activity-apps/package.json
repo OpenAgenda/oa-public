@@ -33,6 +33,7 @@
     "react-bootstrap-daterangepicker": "^3.2.2",
     "react-bootstrap-datetimerangepicker": "^2.0.4",
     "react-form-components": "git+ssh://git@bitbucket.org/openagenda/react-form-components.git",
+    "react-router-redux": "^5.0.0-alpha.6",
     "react-select": "^1.0.0-rc.3",
     "react-utils": "git+ssh://git@bitbucket.org/openagenda/react-utils.git",
     "redux-connect": "^5.0.0",
