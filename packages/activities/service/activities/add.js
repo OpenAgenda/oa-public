@@ -178,8 +178,12 @@ function add() {
                     return ecb();
                   }
 
-                  // filter only for follows
-                  const filterFollows = follower.id ? config.filterFollows.filter( v => v.verb === activity.verb ) : [];
+
+                  let filterFollows = [];
+
+                  if ( follower.id && config.filterFollows ) {
+                    filterFollows = config.filterFollows.filter( v => v.verb === activity.verb );
+                  }
 
                   ( filterFollows.some( v => v.getFeeds ) ?
                     Promise.all( [

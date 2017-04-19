@@ -30,7 +30,7 @@ function list( identifiers ) {
 
   const args = parseListArguments.apply( null, Array.from( arguments ).slice( 1 ) );
 
-  args.query = _.pick( args.query, [ 'actor', 'verb', 'object', 'target' ] );
+  args.query = _.pick( args.query, [ 'actor', 'verb', 'object', 'target', 'createdAt' ] );
 
   const validateArgs = schema( {
     query: {
@@ -51,7 +51,7 @@ function list( identifiers ) {
     }
   } );
 
-  const {
+  let {
     query,
     offset: fromId,
     limit,
@@ -74,6 +74,9 @@ function list( identifiers ) {
           return prev;
         }, [] );
 
+      const { createdAt } = query;
+      query = _.pick( query, 'actor', 'verb', 'object', 'target' );
+
       const request = knex( config.schemas.activity ).column( columnToSelect )
         .where( query )
         .orderBy( 'id', 'desc' )
@@ -83,12 +86,24 @@ function list( identifiers ) {
         request.where( 'id', '<', fromId );
       }
 
+      if ( createdAt && createdAt.$lte ) {
+        request.where( 'created_at', '<=', createdAt.$lte );
+      }
+
+      if ( createdAt && createdAt.$gte ) {
+        request.where( 'created_at', '>=', createdAt.$gte );
+      }
+
+      if ( typeof createdAt === 'number' ) {
+        request.where( 'created_at', '=', createdAt );
+      }
+
       if ( feed ) {
         request.join(
           config.schemas.feed_activity,
           config.schemas.feed_activity + '.activity_id',
           config.schemas.activity + '.id'
-        );
+        ).where( config.schemas.feed_activity + '.feed_id', feed.id );
       }
 
       return request

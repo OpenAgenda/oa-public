@@ -45,36 +45,41 @@ function rebuild( args, options, logger ) {
     connection: mysqlConfig
   } );
 
-  service.init( {
-    mysql: mysqlConfig,
-    schemas: {
-      activity: options.activity_table,
-      feed: options.feed_table,
-      feed_activity: options.feed_activity_table,
-      feed_follow: options.feed_follow_table,
-      feed_notification: options.feed_notification_table
-    },
-    filterFollows: []
-  } );
-
   const results = {};
 
-  return knex( options.feed_table ).delete()
-    .then( () => knex( options.activity_table ).delete() )
+  return service.init( {
+    mysql: mysqlConfig,
+    schemas: {
+      activity: options.activityTable,
+      feed: options.feedTable,
+      feed_activity: options.feedActivityTable,
+      feed_follow: options.feedFollowTable,
+      feed_notification: options.feedNotificationTable
+    },
+    migrations: {
+      tableName: 'migrations_activities'
+    }
+  } )
     .then( () => {
 
-      return eachUsers( onEachUser )
-        .then( usersAffected => results.usersAffected = usersAffected )
+      return knex( options.feedTable ).delete()
+        .then( () => knex( options.activityTable ).delete() )
         .then( () => {
 
-          return eachEvents( onEachEvent )
-            .then( eventsAffected => results.eventsAffected = eventsAffected );
+          return eachUsers( onEachUser )
+            .then( usersAffected => results.usersAffected = usersAffected )
+            .then( () => {
 
-        } )
-        .then( () => {
+              return eachEvents( onEachEvent )
+                .then( eventsAffected => results.eventsAffected = eventsAffected );
 
-          return eachAgendas( onEachAgenda )
-            .then( agendasAffected => results.agendasAffected = agendasAffected );
+            } )
+            .then( () => {
+
+              return eachAgendas( onEachAgenda )
+                .then( agendasAffected => results.agendasAffected = agendasAffected );
+
+            } );
 
         } );
 
@@ -83,7 +88,7 @@ function rebuild( args, options, logger ) {
 
   function onEachUser( user, i, next ) {
 
-    logger.info( 'user', i );
+    console.log( 'user', i );
 
     if ( user.is_removed ) return next();
 
@@ -100,7 +105,9 @@ function rebuild( args, options, logger ) {
 
   function onEachEvent( event, i, next ) {
 
-    logger.info( 'event', i );
+    console.log( 'event', i );
+
+    if ( !event.uid ) return next();
 
     service.feed( { entityType: 'event', entityUid: event.uid } ).create( { internal: true } )
       .then( eventFeed => {
@@ -130,12 +137,24 @@ function rebuild( args, options, logger ) {
 
   function onEachAgenda( agenda, i, next ) {
 
-    logger.info( 'agenda', i );
+    console.log( 'agenda', i );
+
+    if ( !agenda.uid ) return next();
 
     return service.feed( {
       entityType: 'agenda',
       entityUid: agenda.uid
     } ).create( { internal: true } )
+      .catch( err => {
+
+        if ( err && err.message === 'Feed already exists' ) {
+          return service.feed( {
+            entityType: 'agenda',
+            entityUid: agenda.uid
+          } ).get( { internal: true } );
+        }
+
+      } )
       .then( agendaFeed => {
 
         if ( agenda.userRemoved ) return Promise.resolve();
@@ -143,7 +162,12 @@ function rebuild( args, options, logger ) {
         return service.feed( {
           entityType: 'user',
           entityUid: agenda.userUid
-        } ).follow( agendaFeed.id );
+        } ).follow( agendaFeed.id )
+          .catch( err => {
+
+            if ( err && err.message === 'Feed already followed' ) return;
+
+          } );
 
       } )
       .then( () => {
@@ -179,7 +203,7 @@ function rebuild( args, options, logger ) {
 
   function onEachReviewArticle( ra, i, next ) {
 
-    logger.info( 'review_article', i );
+    console.log( 'review_article', i );
 
     service.feed( {
       entityType: 'agenda',
@@ -188,7 +212,29 @@ function rebuild( args, options, logger ) {
       .then( () => next() )
       .catch( err => {
 
+        if ( err && err.message === 'Feed already followed' ) return next();
+        if ( err && err.message === 'Feed doesn\'t exists' ) {
+
+          return service.feed( { entityType: 'event', entityUid: ra.eventUid } ).create( err => {
+
+            if ( err ) {
+
+              console.error( err );
+              console.log( 'reviewUid', ra.reviewUid );
+              console.log( 'eventUid', ra.eventUid );
+              return next( err );
+
+            }
+
+            onEachReviewArticle( ra, i, next );
+
+          } );
+
+        }
+
         console.error( err );
+        console.log( 'reviewUid', ra.reviewUid );
+        console.log( 'eventUid', ra.eventUid );
         next( err );
 
       } );
@@ -197,7 +243,7 @@ function rebuild( args, options, logger ) {
 
   function onEachStakeholder( stakeholder, i, next ) {
 
-    logger.info( 'stakeholder', i );
+    console.log( 'stakeholder', i );
 
     if ( stakeholder.userRemoved ) return next();
 
@@ -221,7 +267,7 @@ function rebuild( args, options, logger ) {
 
     return nodefn.call(
       _traverseTable,
-      options.user_table,
+      options.userTable,
       q => q,
       eachCb
     );
@@ -232,14 +278,14 @@ function rebuild( args, options, logger ) {
 
     return nodefn.call(
       _traverseTable,
-      options.review_table,
+      options.reviewTable,
       q => q.select( [
-        options.review_table + '.*',
-        options.user_table + '.uid as userUid',
-        options.user_table + '.is_removed as userRemoved'
+        options.reviewTable + '.*',
+        options.userTable + '.uid as userUid',
+        options.userTable + '.is_removed as userRemoved'
       ] )
-        .join( options.user_table, options.review_table + '.owner_id', options.user_table + '.id' )
-        .where( options.user_table + '.is_removed', 0 ),
+        .join( options.userTable, options.reviewTable + '.owner_id', options.userTable + '.id' )
+        .where( options.userTable + '.is_removed', 0 ),
       eachCb
     );
 
@@ -249,13 +295,13 @@ function rebuild( args, options, logger ) {
 
     return nodefn.call(
       _traverseTable,
-      options.event_table,
+      options.eventTable,
       q => q.select( [
-        options.event_table + '.*',
-        options.user_table + '.uid as userUid',
-        options.user_table + '.is_removed as userRemoved'
+        options.eventTable + '.*',
+        options.userTable + '.uid as userUid',
+        options.userTable + '.is_removed as userRemoved'
       ] )
-        .join( options.user_table, options.event_table + '.owner_id', options.user_table + '.id' ),
+        .join( options.userTable, options.eventTable + '.owner_id', options.userTable + '.id' ),
       eachCb
     );
 
@@ -265,14 +311,14 @@ function rebuild( args, options, logger ) {
 
     return nodefn.call(
       _traverseTable,
-      options.review_article_table,
+      options.reviewArticleTable,
       q => q.select( [
-        options.review_article_table + '.*',
-        options.review_table + '.uid as reviewUid',
-        options.event_table + '.uid as eventUid'
+        options.reviewArticleTable + '.*',
+        options.reviewTable + '.uid as reviewUid',
+        options.eventTable + '.uid as eventUid'
       ] )
-        .join( options.review_table, options.review_article_table + '.review_id', options.review_table + '.id' )
-        .join( options.event_table, options.review_article_table + '.event_id', options.event_table + '.id' )
+        .join( options.reviewTable, options.reviewArticleTable + '.review_id', options.reviewTable + '.id' )
+        .join( options.eventTable, options.reviewArticleTable + '.event_id', options.eventTable + '.id' )
         .where( 'review_id', agenda.id ),
       eachCb
     );
@@ -283,15 +329,15 @@ function rebuild( args, options, logger ) {
 
     return nodefn.call(
       _traverseTable,
-      options.reviewer_table,
+      options.reviewerTable,
       q => q.select( [
-        options.reviewer_table + '.*',
-        options.review_table + '.uid as reviewUid',
-        options.user_table + '.uid as userUid',
-        options.user_table + '.is_removed as userRemoved'
+        options.reviewerTable + '.*',
+        options.reviewTable + '.uid as reviewUid',
+        options.userTable + '.uid as userUid',
+        options.userTable + '.is_removed as userRemoved'
       ] )
-        .join( options.review_table, options.reviewer_table + '.review_id', options.review_table + '.id' )
-        .join( options.user_table, options.reviewer_table + '.user_id', options.user_table + '.id' )
+        .join( options.reviewTable, options.reviewerTable + '.review_id', options.reviewTable + '.id' )
+        .join( options.userTable, options.reviewerTable + '.user_id', options.userTable + '.id' )
         .where( 'review_id', agenda.id ),
       eachCb
     );

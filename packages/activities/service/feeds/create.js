@@ -4,6 +4,7 @@ const _ = require( 'lodash' );
 const promisePlusCb = require( 'service-utils/promisePlusCb' );
 const schema = require( 'validators/schema' );
 const validators = require( 'validators' );
+const logger = require( 'basic-logger' );
 const method = require( '../../utils/method' );
 
 const FEED_TYPES = require( '../feedTypes' );
@@ -11,6 +12,7 @@ const FEED_TYPES = require( '../feedTypes' );
 let config;
 let knex;
 let service;
+let log;
 
 schema.register( {
   choice: validators.choice,
@@ -24,6 +26,8 @@ function init( { config: c, knex: k, service: s } ) {
   config = c;
   knex = k;
   service = s;
+
+  log = logger( 'activities - create' );
 
 }
 
@@ -130,7 +134,7 @@ function create() {
       } )
       .catch( error => {
 
-        if ( error && error.message == 'Feed doesn\'t exists' ) return;
+        if ( error && error.message === 'Feed doesn\'t exists' ) return;
 
         return Promise.reject( error );
 
@@ -144,10 +148,17 @@ function create() {
 
         return service.feed( ids[ 0 ] ).get( options );
 
+      } )
+      .then( feed => {
+
+        log( 'info', { message: 'Feed created', feed } );
+
+        return feed;
+
       } );
 
   }, { defaultHook } );
 
   return promisePlusCb( promise, cb );
 
-};
+}

@@ -4,10 +4,12 @@ const _ = require( 'lodash' );
 const promisePlusCb = require( 'service-utils/promisePlusCb' );
 const schema = require( 'validators/schema' );
 const validators = require( 'validators' );
+const logger = require( 'basic-logger' );
 
 let config;
 let knex;
 let service;
+let log;
 
 module.exports = Object.assign( follow, { init } );
 
@@ -16,6 +18,8 @@ function init( { config: c, knex: k, service: s } ) {
   config = c;
   knex = k;
   service = s;
+
+  log = logger( 'activities - follow' );
 
 }
 
@@ -84,10 +88,21 @@ function follow() {
 
       return knex( config.schemas.feed_follow )
         .insert( { target_feed: targetFeed.id, origin_feed: originFeed.id, store: JSON.stringify( store || {} ) } )
-        .then( ( [ feedFollowId ] ) => feedFollowId );
+        .then( ( [ feedFollowId ] ) => feedFollowId )
+        .then( result => {
+
+          log( 'info', {
+            originFeed,
+            targetFeed,
+            message: 'Feed n° %s follow feed n° %s'
+          }, targetFeed.id, originFeed.id );
+
+          return result;
+
+        } );
 
     } );
 
   return promisePlusCb( promise, cb );
 
-};
+}

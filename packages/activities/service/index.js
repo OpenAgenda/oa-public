@@ -1,5 +1,6 @@
 "use strict";
 
+const path = require( 'path' );
 const knexLib = require( 'knex' );
 const logger = require( 'basic-logger' );
 const feed = require( './feed' );
@@ -26,14 +27,23 @@ function init( c, cb ) {
 
   knex = knexLib( {
     client: 'mysql',
-    connection: c.mysql
+    connection: c.mysql,
+    migrations: Object.assign( {}, config.migrations, {
+      directory: path.resolve( path.dirname( __dirname ), 'migrations' )
+    } ),
+    schemas: config.schemas
   } );
 
-  feed.init( { config, knex, service: module.exports } );
-  feeds.init( { config, knex, service: module.exports } );
-  activities.init( { config, knex, service: module.exports } );
-  notifications.init( { config, knex, service: module.exports } );
+  return knex.migrate.latest()
+    .then( () => {
 
-  if ( cb ) cb();
+      feed.init( { config, knex, service: module.exports } );
+      feeds.init( { config, knex, service: module.exports } );
+      activities.init( { config, knex, service: module.exports } );
+      notifications.init( { config, knex, service: module.exports } );
+
+      if ( cb ) cb();
+
+    } );
 
 }
