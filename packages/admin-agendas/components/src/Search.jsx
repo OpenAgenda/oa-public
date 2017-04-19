@@ -6,7 +6,17 @@ var React = require( "react" ),
 
   List = require( 'react-components/build/List' ),
 
+  Spinner = require( 'react-form-components/build/Spinner' ),
+
   AgendaItem = require( './AgendaItem' );
+
+
+const searchSpinner = {
+  width: 1,
+  length: 3,
+  radius: 4
+};
+
 
 module.exports = React.createClass( {
 
@@ -27,7 +37,7 @@ module.exports = React.createClass( {
     return <div className="col-md-3 admin-search" ref="search">
       <div className="row">
         <div className="header">
-          <div className="form-group">
+          {/*<div className="form-group">
             <label className="sr-only" htmlFor="agenda_search">Agenda search</label>
             <SearchField
               name="oas[search]"
@@ -36,6 +46,21 @@ module.exports = React.createClass( {
               value={ this.props.query ? this.props.query.search : '' }
               onChange={this.props.onSearchChange}
             />
+          </div>*/}
+
+          <div className="form-group">
+            <label className="sr-only" htmlFor="agenda_search">Agenda search</label>
+            <div className="input-icon-right">
+              <input
+                className="form-control"
+                placeholder="Search"
+                value={ this.props.query ? this.props.query.search : '' }
+                onChange={e => this.props.onSearchChange( 'oas[search]', e.target.value )}
+              />
+              <button type="submit" className="btn">
+                {this.props.loading ? <Spinner spinner={searchSpinner} /> : <i className="fa fa-search" aria-hidden="true"></i>}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -46,7 +71,7 @@ module.exports = React.createClass( {
             total={this.props.total}
             pageRange={this.props.pageRange}
             getPage={this.props.getSearchPage}
-            renderItem={ i => <AgendaItem agenda={i} key={i.uid} onSelect={this.props.onSelectAgenda}/> }
+            renderItem={ i => <AgendaItem agenda={i} key={i.uid} onSelect={this.props.onSelectAgenda} /> }
             renderEmpty={() => <div className="empty"><p>Sorry, no agendas match this search</p></div>}
           />
         </div>

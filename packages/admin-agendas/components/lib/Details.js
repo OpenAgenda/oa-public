@@ -1,10 +1,43 @@
 "use strict";
 
+var _redboxReact2 = require("redbox-react");
+
+var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+var _react2 = require("react");
+
+var _react3 = _interopRequireDefault(_react2);
+
+var _reactTransformCatchErrors3 = require("react-transform-catch-errors");
+
+var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _components = {
+  Details: {
+    displayName: "Details"
+  }
+};
+
+var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+  filename: "components/src/Details.jsx",
+  components: _components,
+  locals: [],
+  imports: [_react3.default, _redboxReact3.default]
+});
+
+function _wrapComponent(id) {
+  return function (Component) {
+    return _reactTransformCatchErrors2(Component, id);
+  };
+}
+
 var React = require("react"),
     List = require('react-components/build/List'),
     Switch = require('rc-switch');
 
-module.exports = React.createClass({
+module.exports = _wrapComponent("Details")(React.createClass({
 
   displayName: 'Details',
 
@@ -495,7 +528,7 @@ module.exports = React.createClass({
       )
     );
   }
-});
+}));
 
 function credentialsToString(type) {
   switch (type) {

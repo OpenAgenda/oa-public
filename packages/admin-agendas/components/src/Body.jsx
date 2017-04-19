@@ -12,40 +12,55 @@ var React = require( "react" ),
 
   post = require( 'utils/post' ),
 
+  debounce = require( 'lodash/debounce' ),
+
   _updateHref = require( 'dom-utils/documentLocation' ).setQueryPart,
 
   getQuery = require( 'dom-utils/documentLocation' ).getQuery;
 
-module.exports = React.createClass( {
+const searchSpinner = {
+  width: 1,
+  length: 3,
+  radius: 4
+};
 
-  displayName: 'Body',
+module.exports = class Body extends React.Component {
 
-  propTypes: {
+  constructor( props ) {
+    super( props );
+
+    this.debouncedSearch = ::this.debouncedSearch;
+    this.search = ::this.search;
+    this.resetSearchPage = ::this.resetSearchPage;
+    this.onSearchChange = ::this.onSearchChange;
+    this.getSearchPage = ::this.getSearchPage;
+    this.onSelectAgenda = ::this.onSelectAgenda;
+    this.getStakeholdersPage = ::this.getStakeholdersPage;
+    this.setAgenda = ::this.setAgenda;
+  }
+
+  static propTypes = {
     searchRes: React.PropTypes.string,
     agendaRes: React.PropTypes.string,
     setAgendaRes: React.PropTypes.string,
     stakeholdersRes: React.PropTypes.string,
 
     agenda: React.PropTypes.object
-  },
+  };
 
-  getInitialState() {
-
-    return {
-      loading: true,
-      search: {
-        query: {},
-        agendas: [],
-        total: 0,
-        pageRange: [ 1, 1 ]
-      },
-      agenda: {},
-      stakeholders: [],
-      stakeholdersPageRange: [ 1, 1 ],
-      stakeholdersTotal: 0
-    }
-
-  },
+  state = {
+    loading: true,
+    search: {
+      query: {},
+      agendas: [],
+      total: 0,
+      pageRange: [ 1, 1 ]
+    },
+    agenda: {},
+    stakeholders: [],
+    stakeholdersPageRange: [ 1, 1 ],
+    stakeholdersTotal: 0
+  }
 
   componentDidMount() {
 
@@ -64,7 +79,7 @@ module.exports = React.createClass( {
       if ( q.agendaId ) this.onSelectAgenda( q.agendaId, q.stakeholdersPage );
     } );
 
-  },
+  }
 
   onSearchChange( name, search ) {
 
@@ -72,7 +87,7 @@ module.exports = React.createClass( {
       search: search
     } );
 
-  },
+  }
 
   resetSearchPage( newQuery, page = 1, cb ) {
 
@@ -83,7 +98,17 @@ module.exports = React.createClass( {
 
     this.setState( actions.setSearch( this.state, newQuery ) );
 
+    this.debouncedSearch( query, page, cb );
+
+  }
+
+  search( query, page, cb ) {
+
+    this.setState( actions.loading( this.state, true ) );
+
     get( this.props.searchRes, query, ( err, data ) => {
+
+      this.setState( actions.loading( this.state, false ) );
 
       if ( err ) return console.log( 'error', err );
 
@@ -95,7 +120,9 @@ module.exports = React.createClass( {
 
     } );
 
-  },
+  }
+
+  debouncedSearch = debounce( this.search, 500 );
 
   getSearchPage( next ) {
 
@@ -122,7 +149,7 @@ module.exports = React.createClass( {
 
     } );
 
-  },
+  }
 
   onSelectAgenda( id, page = 1 ) {
 
@@ -147,7 +174,7 @@ module.exports = React.createClass( {
 
     } );
 
-  },
+  }
 
   getStakeholdersPage( next ) {
 
@@ -174,7 +201,7 @@ module.exports = React.createClass( {
 
     } );
 
-  },
+  }
 
   setAgenda( data ) {
 
@@ -192,7 +219,7 @@ module.exports = React.createClass( {
 
     } );
 
-  },
+  }
 
   render() {
 
@@ -207,6 +234,7 @@ module.exports = React.createClass( {
             getSearchPage={this.getSearchPage}
             onSelectAgenda={this.onSelectAgenda}
             onSearchChange={this.onSearchChange}
+            loading={this.state.loading}
           />
           <Details
             agenda={this.state.agenda}
@@ -224,7 +252,7 @@ module.exports = React.createClass( {
 
   }
 
-} );
+};
 
 function updateHref( query ) {
 
