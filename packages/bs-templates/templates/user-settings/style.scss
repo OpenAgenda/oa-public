@@ -5,4 +5,8 @@
   .header {
     margin-bottom: 30px;
   }
+
+  table.table > tbody > tr.inactive:hover {
+    background-color: #f5f5f5;
+  }
 }
