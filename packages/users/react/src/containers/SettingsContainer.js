@@ -28,6 +28,8 @@ const React = require( 'react' ),
 
   ApiKeySettings = require( '../components/ApiKeySettings' ),
 
+  UnsubscribedSettings = require( '../components/UnsubscribedSettings' ),
+
   Modal = require( 'react-components/build/Modal' );
 
 
@@ -41,7 +43,8 @@ const SettingsContainer = React.createClass( {
 
   componentWillMount() {
 
-    this.props.getMe()
+    this.props.getMe() // TODO load unsubscribed list here (getUnsubscriptions)
+      .then( () => this.props.listUnsubscriptions() )
       .then(
         () => this.props.setLoading( false ),
         () => this.props.setLoading( false )
@@ -63,31 +66,54 @@ const SettingsContainer = React.createClass( {
         changeEmail: emailMessageDisplayed,
         changePassword: passwordMessageDisplayed
       },
-      onChangeProfileImage
+      onChangeProfileImage,
+      removeUnsubscription
     } = this.props;
 
     return (
       <div className="table-responsive" style={{ padding: '15px 0', position: 'relative' }}>
 
         {loading ? <Spinner /> :
-          <table className="table table-hover">
+          <table className="table">
             <tbody>
-            <ProfileSettings activeTab={activeTab == 'profile'} onSubmit={updateUser}
-              deleteAccount={deleteAccount} displayModal={displayModal}
-              successMessageDisplayed={profileMessageDisplayed} />
 
-            <ImageSettings activeTab={activeTab == 'image'} routerActions={routerActions}
-              onUpdate={onChangeProfileImage} uploadImageRes={getUrl( 'uploadProfileImageRes' )}
-              removeImageRes={getUrl( 'removeProfileImageRes' )} image={user && user.image || ''} />
+            <ProfileSettings
+              activeTab={activeTab == 'profile'}
+              onSubmit={updateUser}
+              deleteAccount={deleteAccount}
+              displayModal={displayModal}
+              successMessageDisplayed={profileMessageDisplayed}
+            />
 
-            <EmailSettings activeTab={activeTab == 'email'} onSubmit={changeEmail}
-              successMessageDisplayed={emailMessageDisplayed} />
+            <ImageSettings activeTab={activeTab == 'image'}
+              routerActions={routerActions}
+              onUpdate={onChangeProfileImage}
+              uploadImageRes={getUrl( 'uploadProfileImageRes' )}
+              removeImageRes={getUrl( 'removeProfileImageRes' )}
+              image={user && user.image || ''}
+            />
 
-            <PasswordSettings activeTab={activeTab == 'password'} onSubmit={changePassword}
-              successMessageDisplayed={passwordMessageDisplayed} />
+            <EmailSettings activeTab={activeTab == 'email'}
+              onSubmit={changeEmail}
+              successMessageDisplayed={emailMessageDisplayed}
+            />
 
-            <ApiKeySettings activeTab={activeTab == 'apiKey'} generateApiKey={generateApiKey}
-              displayModal={displayModal} />
+            <PasswordSettings activeTab={activeTab == 'password'}
+              onSubmit={changePassword}
+              successMessageDisplayed={passwordMessageDisplayed}
+            />
+
+            <ApiKeySettings
+              activeTab={activeTab == 'apiKey'}
+              generateApiKey={generateApiKey}
+              displayModal={displayModal}
+            />
+
+            <UnsubscribedSettings
+              activeTab={activeTab == 'unsubscribed'}
+              removeUnsubscription={removeUnsubscription}
+            />
+
             </tbody>
           </table>}
 
@@ -139,7 +165,9 @@ function mergeProps( stateProps, dispatchProps, ownProps ) {
     changePassword,
     generateApiKey,
     displayModal,
-    deleteAccount
+    deleteAccount,
+    listUnsubscriptions,
+    removeUnsubscription
   };
 
   return Object.assign( {}, ownProps, stateProps, mapDispatchToProps );
@@ -298,6 +326,46 @@ function mergeProps( stateProps, dispatchProps, ownProps ) {
           window.location.href = res.body.redirectTo || '/signout';
         }
       } );
+  }
+
+  function listUnsubscriptions() {
+    dispatch( actions.listUnsubscriptions( 'request' ) );
+
+    return new Promise( ( resolve, reject ) => {
+
+      request.get( appSettings.urls[ 'listUnsubscriptions' ].replace( ':userUid', stateProps.user.uid ) )
+        .end( ( err, result ) => {
+          if ( err ) return reject( err );
+          dispatch( actions.listUnsubscriptions( 'response', result.body ) );
+          resolve( result.body.unsubscriptions );
+        } );
+
+    } );
+  }
+
+  function removeUnsubscription( unsubscription ) {
+    dispatch( actions.removeUnsubscription( 'request' ) );
+
+    return new Promise( ( resolve, reject ) => {
+
+      let url = appSettings.urls[ 'removeUnsubscription' ]
+        .replace( ':userUid', stateProps.user.uid )
+        .replace( ':subject', unsubscription.subject )
+        .replace( ':identifier', unsubscription.identifier )
+        .replace( ':type', unsubscription.type );
+
+      if ( unsubscription.type === null ) {
+        url = url.replace( '/t/null', '' )
+      }
+
+      request.get( url )
+        .end( ( err, result ) => {
+          if ( err ) return reject( err );
+          dispatch( actions.removeUnsubscription( 'response', Object.assign( result.body, { unsubscription } ) ) );
+          resolve( result.body );
+        } );
+
+    } );
   }
 
   function getUrl( name ) {

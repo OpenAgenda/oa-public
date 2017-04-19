@@ -17,6 +17,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/users#readme",
   "dependencies": {
+    "async": "^2.3.0",
     "babel-loader": "^6.2.4",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-resolver": "0.0.7",
@@ -70,7 +71,8 @@
     "redbox-react": "^1.2.6",
     "redux-mock-store": "^1.0.2",
     "should": "^8.3.1",
-    "test-app": "git+ssh://git@bitbucket.org/openagenda/test-app.git"
+    "test-app": "git+ssh://git@bitbucket.org/openagenda/test-app.git",
+    "unsubscribed": "git+ssh://git@bitbucket.org/openagenda/unsubscribed.git"
   },
   "peerDependencies": {
     "react": "0.14.7"

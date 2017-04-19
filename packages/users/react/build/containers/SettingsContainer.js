@@ -54,6 +54,7 @@ var React = require('react'),
     EmailSettings = require('../components/EmailSettings'),
     PasswordSettings = require('../components/PasswordSettings'),
     ApiKeySettings = require('../components/ApiKeySettings'),
+    UnsubscribedSettings = require('../components/UnsubscribedSettings'),
     Modal = require('react-components/build/Modal');
 
 var SettingsContainer = _wrapComponent('SettingsContainer')(React.createClass({
@@ -67,7 +68,10 @@ var SettingsContainer = _wrapComponent('SettingsContainer')(React.createClass({
   componentWillMount: function componentWillMount() {
     var _this = this;
 
-    this.props.getMe().then(function () {
+    this.props.getMe() // TODO load unsubscribed list here (getUnsubscriptions)
+    .then(function () {
+      return _this.props.listUnsubscriptions();
+    }).then(function () {
       return _this.props.setLoading(false);
     }, function () {
       return _this.props.setLoading(false);
@@ -92,7 +96,8 @@ var SettingsContainer = _wrapComponent('SettingsContainer')(React.createClass({
         profileMessageDisplayed = _props$successMessage.updateProfile,
         emailMessageDisplayed = _props$successMessage.changeEmail,
         passwordMessageDisplayed = _props$successMessage.changePassword,
-        onChangeProfileImage = _props.onChangeProfileImage;
+        onChangeProfileImage = _props.onChangeProfileImage,
+        removeUnsubscription = _props.removeUnsubscription;
 
 
     return React.createElement(
@@ -100,22 +105,41 @@ var SettingsContainer = _wrapComponent('SettingsContainer')(React.createClass({
       { className: 'table-responsive', style: { padding: '15px 0', position: 'relative' } },
       loading ? React.createElement(Spinner, null) : React.createElement(
         'table',
-        { className: 'table table-hover' },
+        { className: 'table' },
         React.createElement(
           'tbody',
           null,
-          React.createElement(ProfileSettings, { activeTab: activeTab == 'profile', onSubmit: updateUser,
-            deleteAccount: deleteAccount, displayModal: displayModal,
-            successMessageDisplayed: profileMessageDisplayed }),
-          React.createElement(ImageSettings, { activeTab: activeTab == 'image', routerActions: routerActions,
-            onUpdate: onChangeProfileImage, uploadImageRes: getUrl('uploadProfileImageRes'),
-            removeImageRes: getUrl('removeProfileImageRes'), image: user && user.image || '' }),
-          React.createElement(EmailSettings, { activeTab: activeTab == 'email', onSubmit: changeEmail,
-            successMessageDisplayed: emailMessageDisplayed }),
-          React.createElement(PasswordSettings, { activeTab: activeTab == 'password', onSubmit: changePassword,
-            successMessageDisplayed: passwordMessageDisplayed }),
-          React.createElement(ApiKeySettings, { activeTab: activeTab == 'apiKey', generateApiKey: generateApiKey,
-            displayModal: displayModal })
+          React.createElement(ProfileSettings, {
+            activeTab: activeTab == 'profile',
+            onSubmit: updateUser,
+            deleteAccount: deleteAccount,
+            displayModal: displayModal,
+            successMessageDisplayed: profileMessageDisplayed
+          }),
+          React.createElement(ImageSettings, { activeTab: activeTab == 'image',
+            routerActions: routerActions,
+            onUpdate: onChangeProfileImage,
+            uploadImageRes: getUrl('uploadProfileImageRes'),
+            removeImageRes: getUrl('removeProfileImageRes'),
+            image: user && user.image || ''
+          }),
+          React.createElement(EmailSettings, { activeTab: activeTab == 'email',
+            onSubmit: changeEmail,
+            successMessageDisplayed: emailMessageDisplayed
+          }),
+          React.createElement(PasswordSettings, { activeTab: activeTab == 'password',
+            onSubmit: changePassword,
+            successMessageDisplayed: passwordMessageDisplayed
+          }),
+          React.createElement(ApiKeySettings, {
+            activeTab: activeTab == 'apiKey',
+            generateApiKey: generateApiKey,
+            displayModal: displayModal
+          }),
+          React.createElement(UnsubscribedSettings, {
+            activeTab: activeTab == 'unsubscribed',
+            removeUnsubscription: removeUnsubscription
+          })
         )
       ),
       React.createElement(
@@ -173,7 +197,9 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
     changePassword: changePassword,
     generateApiKey: generateApiKey,
     displayModal: displayModal,
-    deleteAccount: deleteAccount
+    deleteAccount: deleteAccount,
+    listUnsubscriptions: listUnsubscriptions,
+    removeUnsubscription: removeUnsubscription
   };
 
   return Object.assign({}, ownProps, stateProps, mapDispatchToProps);
@@ -335,6 +361,38 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
       if (!err && res.ok) {
         window.location.href = res.body.redirectTo || '/signout';
       }
+    });
+  }
+
+  function listUnsubscriptions() {
+    dispatch(actions.listUnsubscriptions('request'));
+
+    return new Promise(function (resolve, reject) {
+
+      request.get(appSettings.urls['listUnsubscriptions'].replace(':userUid', stateProps.user.uid)).end(function (err, result) {
+        if (err) return reject(err);
+        dispatch(actions.listUnsubscriptions('response', result.body));
+        resolve(result.body.unsubscriptions);
+      });
+    });
+  }
+
+  function removeUnsubscription(unsubscription) {
+    dispatch(actions.removeUnsubscription('request'));
+
+    return new Promise(function (resolve, reject) {
+
+      var url = appSettings.urls['removeUnsubscription'].replace(':userUid', stateProps.user.uid).replace(':subject', unsubscription.subject).replace(':identifier', unsubscription.identifier).replace(':type', unsubscription.type);
+
+      if (unsubscription.type === null) {
+        url = url.replace('/t/null', '');
+      }
+
+      request.get(url).end(function (err, result) {
+        if (err) return reject(err);
+        dispatch(actions.removeUnsubscription('response', Object.assign(result.body, { unsubscription: unsubscription })));
+        resolve(result.body);
+      });
     });
   }
 

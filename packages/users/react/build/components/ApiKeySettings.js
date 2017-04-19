@@ -85,7 +85,10 @@ var ApiKeySettings = _wrapComponent('ApiKeySettings')(React.createClass({
 
     return React.createElement(
       'tr',
-      { onClick: !activeTab ? dispatch.bind(this, push('/apiKey')) : null },
+      {
+        onClick: !activeTab ? dispatch.bind(this, push('/apiKey')) : null,
+        className: !activeTab ? 'inactive' : ''
+      },
       React.createElement(
         'td',
         { onClick: activeTab ? dispatch.bind(this, push('/')) : null,

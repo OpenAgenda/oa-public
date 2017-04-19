@@ -39,7 +39,10 @@ const ProfileSettings = React.createClass( {
     };
 
     return (
-      <tr onClick={!activeTab ? this.props.dispatch.bind( this, push( '/profile' ) ) : null}>
+      <tr
+        onClick={!activeTab ? this.props.dispatch.bind( this, push( '/profile' ) ) : null}
+        className={!activeTab ? 'inactive' : ''}
+      >
         <td onClick={activeTab ? this.props.dispatch.bind( this, push( '/' ) ) : null}
             className="col-md-3" style={{cursor: 'pointer'}}>{getLabels( 'userProfile' )}
         </td>

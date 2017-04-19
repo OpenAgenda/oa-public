@@ -28,7 +28,10 @@ const PasswordSettings = React.createClass( {
     const { activeTab, dispatch, fields: { old_password, new_password, confirmation }, handleSubmit, successMessageDisplayed } = this.props;
 
     return (
-      <tr onClick={!activeTab ? dispatch.bind( this, push( '/password' ) ) : null}>
+      <tr
+        onClick={!activeTab ? dispatch.bind( this, push( '/password' ) ) : null}
+        className={!activeTab ? 'inactive' : ''}
+      >
         <td onClick={activeTab ? dispatch.bind( this, push( '/' ) ) : null}
             className="col-md-3" style={{ cursor: 'pointer' }}>{getLabels( 'password' )}
         </td>

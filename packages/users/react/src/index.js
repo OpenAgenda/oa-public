@@ -52,7 +52,9 @@ module.exports = function ( options ) {
       generateApiKey: '/generateApiKey',
       deleteAccount: '/deleteAccount',
       uploadProfileImageRes: '/uploadProfileImage',
-      removeProfileImageRes: '/removeProfileImage'
+      removeProfileImageRes: '/removeProfileImage',
+      listUnsubscriptions: '/u/:userUid/list',
+      removeUnsubscription: '/u/:userUid/s/:subject.:identifier/t/:type/remove'
     }
   }, options );
 

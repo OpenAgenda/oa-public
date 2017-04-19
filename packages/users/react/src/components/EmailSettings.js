@@ -28,7 +28,10 @@ const EmailSettings = React.createClass( {
     const { activeTab, dispatch, fields: { email, password }, handleSubmit, successMessageDisplayed } = this.props;
 
     return (
-      <tr onClick={!activeTab ? dispatch.bind( this, push( '/email' ) ) : null}>
+      <tr
+        onClick={!activeTab ? dispatch.bind( this, push( '/email' ) ) : null}
+        className={!activeTab ? 'inactive' : ''}
+      >
         <td onClick={activeTab ? dispatch.bind( this, push( '/' ) ) : null}
             className="col-md-3" style={{cursor: 'pointer'}}>{getLabels( 'email' )}
         </td>

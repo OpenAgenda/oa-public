@@ -20,6 +20,7 @@ module.exports = function (store) {
     React.createElement(Route, { path: 'image', component: SettingsContainer, activeTab: 'image' }),
     React.createElement(Route, { path: 'email', component: SettingsContainer, activeTab: 'email' }),
     React.createElement(Route, { path: 'password', component: SettingsContainer, activeTab: 'password' }),
-    React.createElement(Route, { path: 'apiKey', component: SettingsContainer, activeTab: 'apiKey' })
+    React.createElement(Route, { path: 'apiKey', component: SettingsContainer, activeTab: 'apiKey' }),
+    React.createElement(Route, { path: 'unsubscribed', component: SettingsContainer, activeTab: 'unsubscribed' })
   );
 };

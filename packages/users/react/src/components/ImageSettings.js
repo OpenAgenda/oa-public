@@ -25,7 +25,10 @@ const ProfileSettings = React.createClass( {
     const { activeTab, routerActions, uploadImageRes, removeImageRes, onUpdate, image } = this.props;
 
     return (
-      <tr onClick={!activeTab ? routerActions.push.bind( null, '/image' ) : null}>
+      <tr
+        onClick={!activeTab ? routerActions.push.bind( null, '/image' ) : null}
+        className={!activeTab ? 'inactive' : ''}
+      >
         <td onClick={activeTab ? routerActions.push.bind( null, '/' ) : null}
             className="col-md-3" style={{cursor: 'pointer'}}>{getLabels( 'profileImage' )}
         </td>

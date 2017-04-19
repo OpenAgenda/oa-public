@@ -35,7 +35,39 @@ function userSettings() {
     case types.DELETE_ACCOUNT:
       return deleteAccount(state, action.status);
     case types.DISPLAY_MESSAGE:
-      return _extends({}, state, { successMessagesDisplayed: _extends({}, state.successMessagesDisplayed, _defineProperty({}, action.name, action.visible)) });
+      return _extends({}, state, {
+        successMessagesDisplayed: _extends({}, state.successMessagesDisplayed, _defineProperty({}, action.name, action.visible))
+      });
+    case types.LIST_UNSUBSCRIPTIONS:
+      return listUnsubscriptions(state, action.status, action.data);
+    case types.REMOVE_UNSUBSCRIPTION:
+      return removeUnsubscription(state, action.status, action.data);
+    default:
+      return state;
+  }
+}
+
+function removeUnsubscription(state, status) {
+  var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+  switch (status) {
+    case 'response':
+      return _extends({}, state, {
+        unsubscriptions: state.unsubscriptions.filter(function (v) {
+          return v.id !== data.unsubscription.id;
+        })
+      });
+    default:
+      return state;
+  }
+}
+
+function listUnsubscriptions(state, status) {
+  var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+  switch (status) {
+    case 'response':
+      return _extends({}, state, { unsubscriptions: data.unsubscriptions });
     default:
       return state;
   }

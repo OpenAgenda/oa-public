@@ -82,7 +82,10 @@ var ProfileSettings = _wrapComponent('ProfileSettings')(React.createClass({
 
     return React.createElement(
       'tr',
-      { onClick: !activeTab ? this.props.dispatch.bind(this, push('/profile')) : null },
+      {
+        onClick: !activeTab ? this.props.dispatch.bind(this, push('/profile')) : null,
+        className: !activeTab ? 'inactive' : ''
+      },
       React.createElement(
         'td',
         { onClick: activeTab ? this.props.dispatch.bind(this, push('/')) : null,

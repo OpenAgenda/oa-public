@@ -69,7 +69,10 @@ var EmailSettings = _wrapComponent('EmailSettings')(React.createClass({
 
     return React.createElement(
       'tr',
-      { onClick: !activeTab ? dispatch.bind(this, push('/email')) : null },
+      {
+        onClick: !activeTab ? dispatch.bind(this, push('/email')) : null,
+        className: !activeTab ? 'inactive' : ''
+      },
       React.createElement(
         'td',
         { onClick: activeTab ? dispatch.bind(this, push('/')) : null,

@@ -44,5 +44,16 @@ module.exports = {
   },
   displayMessage: function displayMessage(name, visible) {
     return { type: types.DISPLAY_MESSAGE, name: name, visible: visible };
+  },
+
+  listUnsubscriptions: function listUnsubscriptions() {
+    var status = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'request';
+    var data = arguments[1];
+    return { type: types.LIST_UNSUBSCRIPTIONS, status: status, data: data };
+  },
+  removeUnsubscription: function removeUnsubscription() {
+    var status = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'request';
+    var data = arguments[1];
+    return { type: types.REMOVE_UNSUBSCRIPTION, status: status, data: data };
   }
 };

@@ -64,7 +64,10 @@ var ProfileSettings = _wrapComponent('ImageSettings')(React.createClass({
 
     return React.createElement(
       'tr',
-      { onClick: !activeTab ? routerActions.push.bind(null, '/image') : null },
+      {
+        onClick: !activeTab ? routerActions.push.bind(null, '/image') : null,
+        className: !activeTab ? 'inactive' : ''
+      },
       React.createElement(
         'td',
         { onClick: activeTab ? routerActions.push.bind(null, '/') : null,

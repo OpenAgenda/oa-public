@@ -70,7 +70,10 @@ var PasswordSettings = _wrapComponent('PasswordSettings')(React.createClass({
 
     return React.createElement(
       'tr',
-      { onClick: !activeTab ? dispatch.bind(this, push('/password')) : null },
+      {
+        onClick: !activeTab ? dispatch.bind(this, push('/password')) : null,
+        className: !activeTab ? 'inactive' : ''
+      },
       React.createElement(
         'td',
         { onClick: activeTab ? dispatch.bind(this, push('/')) : null,

@@ -1,35 +1,31 @@
 "use strict";
 
-const bodyParser = require( 'body-parser' ),
+const _ = require( 'lodash' );
+const bodyParser = require( 'body-parser' );
+const cookieParser = require( 'cookie-parser' );
+const csurf = require( 'csurf' );
+const path = require( 'path' );
+const async = require( 'async' );
+const fixtures = require( 'fixtures' );
+const unsubscribedSvc = require( 'unsubscribed/test/service' );
+const service = require( '../service/index' );
+const config = require( '../../testconfig.js' );
 
-  cookieParser = require( 'cookie-parser' ),
+const mw = service.mw;
 
-  app = require( 'test-app' )( {
-    frontWrapper: __dirname + '/front.js',
-    excludeDefaultStyles: true,
-    styles: [
-      __dirname + '/../../node_modules/bs-templates/compiled/main.css'
-    ],
-    decorateCanvas: false,
-    webpack: true,
-    babelServer: true
-  } ),
-
-  csurf = require( 'csurf' ),
-
-  path = require( 'path' ),
-
-  fixtures = require( 'fixtures' ),
-
-  config = require( '../../testconfig.js' ),
-
-  service = require( '../service/index' ),
-
-  mw = service.mw;
-
+const app = require( 'test-app' )( {
+  frontWrapper: __dirname + '/front.js',
+  excludeDefaultStyles: true,
+  styles: [
+    __dirname + '/../../node_modules/bs-templates/compiled/main.css'
+  ],
+  decorateCanvas: false,
+  webpack: true,
+  babelServer: true
+} );
 
 app.use( ( req, res, next ) => {
-  req.user = { id: 119 };
+  req.user = { id: 1, uid: 75052324 };
   next();
 } );
 
@@ -49,8 +45,54 @@ app.post( '/deleteAccount', [
 app.post( '/uploadProfileImage', mw.uploadProfileImage );
 app.post( '/removeProfileImage', mw.removeProfileImage );
 
+unsubscribedSvc.app.useBy( app );
 
-service.initAndLoad( config, err => {
+app.get( unsubscribedSvc.app.routes.remove, ( req, res ) => {
+
+  if ( req.result ) return res.json( req.result );
+
+  res.status( 400 ).json( null );
+
+} );
+
+app.get( unsubscribedSvc.app.routes.list, ( req, res, next ) => {
+
+  if ( req.result ) {
+
+    if ( req.result.unsubscriptions ) {
+
+      return async.eachOfSeries( req.result.unsubscriptions, ( item, key, cb ) => {
+
+        _getAgenda( item.identifier, ( err, agenda ) => {
+
+          if ( err ) return cb( err );
+
+          req.result.unsubscriptions[ key ].agenda = agenda;
+
+          cb();
+
+        } );
+
+      }, err => {
+
+        if ( err ) return next( err );
+
+        return res.json( req.result );
+
+      } );
+
+    }
+
+  }
+
+  next();
+
+} );
+
+async.waterfall( [
+  wcb => service.initAndLoad( config, wcb ),
+  wcb => unsubscribedSvc.initAndLoad( config, { reset: false }, wcb )
+], err => {
 
   if ( err ) return console.error( err );
 
@@ -66,5 +108,17 @@ function sendEmail( req, res ) {
   delete result.token;
 
   res.json( result );
+
+}
+
+function _getAgenda( agendaUid, cb ) {
+
+  return cb( null, agendaUid === 85870128 ? {
+    slug: 'journees-arts-culture-sup-2017',
+    title: '2017 : Journées des Arts et de la Culture dans l\'Enseignement Supérieur'
+  } : {
+    slug: 'semaineindustrie2017',
+    title: 'Semaine de l\'Industrie 2017'
+  } );
 
 }
