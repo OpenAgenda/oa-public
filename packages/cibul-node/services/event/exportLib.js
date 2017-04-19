@@ -102,6 +102,14 @@ function cleanEvent( eInst, cb ) {
 
   l = eInst.locations.length ? eInst.locations[ 0 ] : false;
 
+  if ( eInst.origin ) {
+
+    c.origin = eInst.origin;
+
+    c.origin.oaUrl =  genUrl( 'agendaRedirect', { uid : c.origin.uid }, { protocol: 'https://' } );
+
+  }
+
   if ( l ) {
 
     _inject( c, l, legacyLocationFieldsMap );
