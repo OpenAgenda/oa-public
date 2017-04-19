@@ -242,17 +242,23 @@ function requestChangeEmail( req, res, next ) {
 }
 
 
-function confirmChangeEmail( req, res, next ) {
+function confirmChangeEmail( options, req, res, next ) {
+
+  const params = _.extend( {
+    namespaces: {
+      result: 'result'
+    }
+  }, options );
 
   service.confirmChangeEmail( req.query, ( err, success ) => {
 
-    if ( success ) {
-      req.setFlash( 'Votre email a été modifié avec succés' );
-    } else {
-      req.setFlash( 'Le token n\'est pas ou plus valide' );
+    if ( err ) return next( err );
+
+    req[ params.namespaces.result ] = {
+      success: success
     }
 
-    res.redirect( req.genUrl( 'homeShow' ) );
+    next();
 
   } );
 
