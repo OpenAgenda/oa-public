@@ -30,7 +30,7 @@ describe( 'unsubscribed - functional: .remove', function() {
 
       con.query( 'select count(id) as c from unsubscribed', ( err, rows ) => {
 
-        rows[ 0 ].c.should.equal( 1 );
+        rows[ 0 ].c.should.equal( 5 );
 
         service( 12345678 ).remove( {
           type: 'some.type',
@@ -44,7 +44,7 @@ describe( 'unsubscribed - functional: .remove', function() {
 
           con.query( 'select count( id ) as c from unsubscribed', ( err, rows ) => {
 
-            rows[ 0 ].c.should.equal( 0 );
+            rows[ 0 ].c.should.equal( 4 );
 
             done();
 

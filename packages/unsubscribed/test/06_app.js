@@ -14,7 +14,7 @@ const should = require( 'should' ),
 
   sa = require( 'superagent' );
 
-describe( 'unsubscribed - functional: express app', function() {
+describe( 'unsubscribed - functional: express app', function () {
 
   this.timeout( 30000 ); // pour la bécane de course de kevin
 
@@ -46,7 +46,7 @@ describe( 'unsubscribed - functional: express app', function() {
         type: 'event_added'
       } )
 
-      .should.equal( '/unsubscribe/u/123/s/agenda.218/t/event_added' );
+        .should.equal( '/unsubscribe/u/123/s/agenda.218/t/event_added' );
 
     } );
 
@@ -58,7 +58,7 @@ describe( 'unsubscribed - functional: express app', function() {
         identifier: 218
       } )
 
-      .should.equal( '/unsubscribe/u/123/s/agenda.218' );
+        .should.equal( '/unsubscribe/u/123/s/agenda.218' );
 
     } );
 
@@ -97,13 +97,13 @@ describe( 'unsubscribed - functional: express app', function() {
 
       sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456/t/notif_published_event' )
 
-      .end( ( err, res ) => {
+        .end( ( err, res ) => {
 
-        res.text.should.equal( 'ok' );
+          res.text.should.equal( 'ok' );
 
-        done();
+          done();
 
-      } );
+        } );
 
     } );
 
@@ -111,13 +111,13 @@ describe( 'unsubscribed - functional: express app', function() {
 
       sa.get( 'http://localhost:3000/unsubscribe/u/124/s/agenda.456/t/notif_published_event/remove' )
 
-      .end( ( err, res ) => {
+        .end( ( err, res ) => {
 
-        res.text.should.equal( 'nok' );
+          res.text.should.equal( 'nok' );
 
-        done();
+          done();
 
-      } );
+        } );
 
     } );
 
@@ -125,19 +125,19 @@ describe( 'unsubscribed - functional: express app', function() {
 
       sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456/t/notif_published_event' )
 
-      .end( ( err, res ) => {
-
-        sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456/t/notif_published_event/remove' )
-
         .end( ( err, res ) => {
 
-          res.text.should.equal( 'ok' );
+          sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456/t/notif_published_event/remove' )
 
-          done();
+            .end( ( err, res ) => {
+
+              res.text.should.equal( 'ok' );
+
+              done();
+
+            } );
 
         } );
-
-      } );
 
     } );
 
@@ -145,13 +145,13 @@ describe( 'unsubscribed - functional: express app', function() {
 
       sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456' )
 
-      .end( ( err, res ) => {
+        .end( ( err, res ) => {
 
-        res.text.should.equal( 'ok' )
+          res.text.should.equal( 'ok' )
 
-        done();
+          done();
 
-      } )
+        } )
 
     } );
 
@@ -159,9 +159,25 @@ describe( 'unsubscribed - functional: express app', function() {
 
       sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456' )
 
-      .end( ( err, res ) => {
+        .end( ( err, res ) => {
 
-        sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456/remove' )
+          sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456/remove' )
+
+            .end( ( err, res ) => {
+
+              res.text.should.equal( 'ok' );
+
+              done();
+
+            } );
+
+        } );
+
+    } );
+
+    it( 'typeless list', done => {
+
+      sa.get( 'http://localhost:3000/unsubscribe/u/123/list' )
 
         .end( ( err, res ) => {
 
@@ -170,8 +186,6 @@ describe( 'unsubscribed - functional: express app', function() {
           done();
 
         } );
-
-      } );
 
     } );
 

@@ -12,6 +12,8 @@ const should = require( 'should' ),
 
 describe( 'unsubscribed - functional: .is', function() {
 
+  this.timeout( 5000 );
+
   beforeEach( done => {
 
     service.initAndLoad( config, done );

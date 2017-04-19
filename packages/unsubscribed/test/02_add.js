@@ -12,6 +12,8 @@ const should = require( 'should' ),
 
 describe( 'unsubscribed - functional: .add', function() {
 
+  this.timeout( 5000 );
+
   beforeEach( done => {
 
     service.initAndLoad( config, done );
@@ -28,7 +30,7 @@ describe( 'unsubscribed - functional: .add', function() {
 
       const con = mysql.createConnection( config.mysql );
 
-      con.query( 'select * from unsubscribed limit 0, 1', ( err, rows ) => {
+      con.query( 'select * from unsubscribed limit 4, 1', ( err, rows ) => {
 
         con.end();
 
@@ -59,7 +61,7 @@ describe( 'unsubscribed - functional: .add', function() {
 
       const con = mysql.createConnection( config.mysql );
 
-      con.query( 'select * from unsubscribed limit 0, 1', ( err, rows ) => {
+      con.query( 'select * from unsubscribed limit 4, 1', ( err, rows ) => {
 
         con.end();
 

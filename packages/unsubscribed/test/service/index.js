@@ -14,7 +14,13 @@ module.exports.initAndLoad = function( config, files, options, cb ) {
     'unsubscribed',
   ];
 
-  if ( arguments.length === 3 ) {
+  if ( arguments.length === 3 && Array.isArray( arguments[ 1 ] ) ) {
+
+    cb = options;
+
+    options = { reset: true };
+
+  } else if ( arguments.length === 3 ) {
 
     cb = options;
 
@@ -32,8 +38,12 @@ module.exports.initAndLoad = function( config, files, options, cb ) {
 
   }
 
-  svc.init( config )
+  const params = Object.assign( {
+    reset: true
+  }, options );
 
-  fixtures( config, files, options, cb );
+  svc.init( config );
+
+  fixtures( config, files, params, cb );
 
 }

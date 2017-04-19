@@ -10,6 +10,7 @@ module.exports = service => {
   let path,
 
   routes = {
+    list: '/u/:userUid/list',
     add: '/u/:userUid/s/:subject.:identifier/t/:type',
     remove: '/u/:userUid/s/:subject.:identifier/t/:type/remove'
   };
@@ -22,19 +23,21 @@ module.exports = service => {
 
   app.get( routes.add, serviceEndpoint( 'add' ) );
 
+  app.get( routes.list, serviceEndpoint( 'list', false, false ) );
+
   app.get( _typeless( routes.add ), serviceEndpoint( 'add', false ) );
 
   app.get( routes.remove, serviceEndpoint( 'remove' ) );
 
   app.get( _typeless( routes.remove ), serviceEndpoint( 'remove', false ) );
 
-  return _.extend( {}, app, { genUrl, useBy } );
+  return _.extend( {}, app, { genUrl, useBy, routes } );
 
-  function serviceEndpoint( name, useType = true ) {
+  function serviceEndpoint( name, useType = true, withData = true ) {
 
     return ( req, res, next ) => {
 
-      let data = {
+      const data = {
         subject: req.params.subject,
         identifier: req.params.identifier
       }
@@ -45,7 +48,7 @@ module.exports = service => {
 
       }
 
-      service( req.params.userUid )[ name ]( data, ( err, result ) => {
+      const cb = ( err, result ) => {
 
         if ( err ) return next( err );
 
@@ -53,7 +56,9 @@ module.exports = service => {
 
         next();
 
-      } );
+      };
+
+      service( req.params.userUid )[ name ].apply( null, withData ? [ data, cb ] : [ cb ] );
 
     }
 
@@ -67,7 +72,7 @@ module.exports = service => {
    * path is here. Base path is used by genUrl.
    */
   
-  function useBy( parentApp, p ) {
+  function useBy( parentApp, p = '' ) {
 
     path = p;
 

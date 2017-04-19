@@ -9,6 +9,7 @@ const _ = require( 'lodash' ),
   endpoints = {
     is: require( './service/is' ),
     add: require( './service/add' ),
+    list: require( './service/list' ),
     clear: require( './service/clear' ),
     remove: require( './service/remove' )
   };
