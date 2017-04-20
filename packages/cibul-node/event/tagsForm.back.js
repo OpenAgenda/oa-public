@@ -18,6 +18,8 @@ const modLib = require( '../lib/moduleLib' ),
 
   bodyParser = require( 'body-parser' ),
 
+  _ = require( 'lodash' ),
+
   getLabel = require( 'labels' )( require( 'labels/event/tagsForm' ) ),
 
   routes = {
@@ -27,6 +29,8 @@ const modLib = require( '../lib/moduleLib' ),
       _loadTags,
       _loadCategorySet,
       _loadCategory,
+      _loadCustomSet,
+      _loadCustom,
       xhrGet,
       eventSvc.mw.format,
       cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
@@ -36,9 +40,11 @@ const modLib = require( '../lib/moduleLib' ),
     agendaEventTagsFormSubmit: [ 'post', '/', [
       _loadTagSet,
       _loadCategorySet,
+      _loadCustomSet,
       bodyParser.json(),
       _validateTags,
       _validateCategories,
+      _updateCustom,
       update
     ] ]
 
@@ -70,6 +76,39 @@ function _loadTags( req, res, next ) {
     if ( err ) return next( err );
 
     req.agendaTags = tags;
+
+    next();
+
+  } );
+
+}
+
+
+function _loadCustomSet( req, res, next ) {
+
+  req.customSet = req.agenda.getCustomFieldsConfig();
+
+  next();
+
+}
+
+function _loadCustom( req, res, next ) {
+
+  req.agenda.getEventPublicCustomData( req.event, ( err, customFields ) => {
+
+    if ( err ) return next( err );
+
+    req.agendaCustom = {};
+
+    if ( !_.isArray( customFields ) ) return next();
+
+    req.agendaCustom = customFields.reduce( ( carry, c ) => {
+
+      carry[ c.name ] = c.value;
+
+      return carry;
+
+    }, {} );
 
     next();
 
@@ -144,10 +183,13 @@ function xhrGet( req, res, next ) {
     event: {
       title: req.event.title,
       tags: req.agendaTags,
-      category: req.agendaCategory
+      category: req.agendaCategory,
+      custom: req.agendaCustom,
     },
+    languages: req.event.getLanguages(),
     categorySet: req.categorySet,
-    tagSet: req.tagSet
+    tagSet: req.tagSet,
+    customSet: req.customSet
   } ); 
 
 }
@@ -193,6 +235,39 @@ function _validateCategories( req, res, next ) {
   req.category = submittedCategory;
 
   next();
+
+}
+
+
+function _updateCustom( req, res, next ) {
+
+  if ( !req.customSet || ( !req.body.event && !req.body.event.custom ) ) {
+
+    return next();
+
+  }
+
+  let fieldNames = req.customSet.map( c => c.name ),
+
+    lastField = fieldNames.pop();
+
+  async.eachSeries( fieldNames, ( field, ecb ) => {
+
+    req.event.setCustomField( field, req.body.event.custom[ field ], false, ecb );
+
+  }, err => {
+
+    if ( err ) return next( err );
+
+    req.event.setCustomField( lastField, req.body.event.custom[ lastField ], true, err => {
+
+      if ( err ) return next( err );
+
+      next();
+
+    } );
+
+  } );
 
 }
 
