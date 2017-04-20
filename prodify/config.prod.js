@@ -8,7 +8,6 @@ const path = require( 'path' ),
 
   ourOwnModules = require( './ourOwnModules.json' );
 
-
 module.exports = paths => {
 
   return {
