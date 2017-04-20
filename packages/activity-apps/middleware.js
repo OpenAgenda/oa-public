@@ -53,7 +53,7 @@ function list( req, res ) {
     };
   }
 
-  const svc = req.agenda.uid ? activitiesSvc.feed( {
+  const svc = (req.agenda && req.agenda.uid) ? activitiesSvc.feed( {
     entityType: 'agenda',
     entityUid: req.agenda.uid
   } ) : activitiesSvc;
