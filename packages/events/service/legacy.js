@@ -108,7 +108,7 @@ function get( identifiers, options, cb ) {
 
   }
 
-  w( utils.extend( {
+  w( _.extend( {
     identifiers
   }, options, {
     fields: {
@@ -117,7 +117,7 @@ function get( identifiers, options, cb ) {
         'created_at', 'updated_at', 
         'age_min', 'age_max', 'image', 
         'accessibility', 'is_published',
-        'store', 'owner_id'
+        'store', 'owner_id', 'origin_uid'
       ],
       eventTranslations: [ 'title', 'description', 'free_text', 'tags', 'lang' ],
       eventLocation: [ 'id', 'location_id', 'ticket_link' ],
@@ -139,7 +139,7 @@ function get( identifiers, options, cb ) {
       agendas: []
     },
     errors: [],
-    data: utils.extend( {}, validate.default ),
+    data: _.extend( {}, validate.default ),
     clean: false
   } ) )
 
@@ -168,7 +168,7 @@ function get( identifiers, options, cb ) {
   .then( _revalidate )
 
   .done( v => {
-    
+
     cb( null, v.clean ? v.clean : v.data, {
       entries: v.entries,
       valid: !!v.clean,
@@ -397,6 +397,8 @@ function _getAgendas( v ) {
 
   .whereIn( 'id', v.entries.agendaEvents.map( ae => ae.review_id ) )
 
+  .orderBy( 'created_at', 'asc' )
+
   .then( rows => {
 
     v.entries.agendas = rows;
@@ -409,7 +411,6 @@ function _getAgendas( v ) {
 
     if ( !v.entries.agendas.length ) return v;
 
-    v.data.agendaUid = v.entries.agendas[ 0 ].uid;
     v.data.private = v.entries.agendas[ 0 ].private;
 
     return v;
@@ -586,17 +587,21 @@ function _getEvent( v ) {
 
     } );
 
-    if ( v.entries.event.age_min ) {
 
-      v.data.age.min = v.entries.event.age_min;
+    [ 
+      'id', 'uid', 'slug', 'created_at', 'updated_at',
+      [ 'origin_uid', 'agendaUid' ],
+      [ 'age_min', 'age.min' ],
+      [ 'age_max', 'age.max' ]
+    ].forEach( f => {
 
-    }
+      let fromField = _.isArray( f ) ? f[ 0 ] : f,
 
-    if ( v.entries.event.age_max ) {
+        toField = _.isArray( f ) ? f[ 1 ] : f;
 
-      v.data.age.max = v.entries.event.age_max;
+      _.set( v.data, toField, _.get( v.entries.event, fromField, null ) );
 
-    }
+    } );
 
     if ( v.entries.event.image ) {
 

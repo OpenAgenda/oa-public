@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `uid` bigint(20) DEFAULT NULL,
+  `origin_uid` bigint(20),
   `store` longtext,
   `eve_id` varchar(100) DEFAULT NULL,
   `custom_fields` text,

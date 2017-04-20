@@ -43,7 +43,7 @@ describe( 'events - functional (server): legacy bridge', function() {
         id: 147621,
         uid: 27434489,
         ownerUid: 63492667,
-        agendaUid: 11311845,
+        agendaUid: 48959239,
         image: {
           filename: 'event_indoor-de-paris-cso-pro-1_563851.jpg',
           credits: null,
