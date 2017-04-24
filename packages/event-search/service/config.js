@@ -8,17 +8,7 @@ const elasticsearch = require( 'elasticsearch' );
 
 let client;
 
-module.exports.get = () => {
-
-  if ( Object.keys( config ) === 0 ) {
-
-    throw new Error( 'Service has not been initialized' );
-
-  }
-
-  return config;
-
-}
+module.exports = config;
 
 module.exports.init = c => { 
 

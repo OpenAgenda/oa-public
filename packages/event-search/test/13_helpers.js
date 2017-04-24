@@ -17,7 +17,7 @@ describe( 'event-search - unit: helpers', function() {
 
     service.init( config );
 
-    client = service.getClient();
+    client = service.getConfig().client;
 
   } );
 
@@ -40,20 +40,20 @@ describe( 'event-search - unit: helpers', function() {
 
     beforeEach( done => {
 
-      client.indices.create( { index: 'test_index' }, done );
+      client.indices.create( { index: 'helpers_test_index' }, done );
 
     } );
 
     afterEach( done => {
 
-      client.indices.delete( { index: 'test_index' }, () => done() );
+      client.indices.delete( { index: 'helpers_test_index' }, () => done() );
 
     } );
 
     beforeEach( done => {
 
       client.indices.deleteAlias( {
-        index: 'test_index', 
+        index: 'helpers_test_index', 
         name: 'test_alias' 
       }, ( err, result ) => {
 
@@ -76,9 +76,9 @@ describe( 'event-search - unit: helpers', function() {
 
         .done( v => {
 
-          client.indices.get( { index: 'test_index' }, ( err, result ) => {
+          client.indices.get( { index: 'helpers_test_index' }, ( err, result ) => {
 
-            Object.keys( result ).should.eql( [ 'test_index' ] );
+            Object.keys( result ).should.eql( [ 'helpers_test_index' ] );
 
             done();
 
@@ -91,7 +91,7 @@ describe( 'event-search - unit: helpers', function() {
       it( 'if an index is specified in target namespace, remove', done => {
 
         w( {
-          process: { currentIndex: 'test_index' },
+          process: { currentIndex: 'helpers_test_index' },
           client
         } )
 
@@ -99,7 +99,7 @@ describe( 'event-search - unit: helpers', function() {
 
         .done( v => {
 
-          client.indices.get( { index: 'test_index' }, ( err, result ) => {
+          client.indices.get( { index: 'helpers_test_index' }, ( err, result ) => {
 
             should( err && err.status === 404 ).equal( true );
 
@@ -118,13 +118,13 @@ describe( 'event-search - unit: helpers', function() {
 
       beforeEach( done => {
 
-        client.indices.create( { index: 'test_index_2' }, done );
+        client.indices.create( { index: 'helpers_test_index_2' }, done );
 
       } );
 
       afterEach( done => {
 
-        client.indices.getAlias( { name: 'test_alias' }, ( err, result ) => {
+        client.indices.getAlias( { name: 'helper_test_alias' }, ( err, result ) => {
 
           async.eachSeries( Object.keys( result ), ( indexName, ecb ) => {
 
@@ -139,8 +139,8 @@ describe( 'event-search - unit: helpers', function() {
       it( 'associate alias to index specified in namespace', done => {
 
         w( {
-          in: { alias: 'test_alias' },
-          out: { indexName: 'test_index_2' },
+          in: { alias: 'helper_test_alias' },
+          out: { indexName: 'helpers_test_index_2' },
           client
         } )
 
@@ -148,11 +148,11 @@ describe( 'event-search - unit: helpers', function() {
 
         .done( v => {
 
-          client.indices.getAlias( { name: 'test_alias' }, ( err, result ) => {
+          client.indices.getAlias( { name: 'helper_test_alias' }, ( err, result ) => {
 
             Object.keys( result ).length.should.equal( 1 );
 
-            Object.keys( result )[ 0 ].should.equal( 'test_index_2' );
+            Object.keys( result )[ 0 ].should.equal( 'helpers_test_index_2' );
 
             done();
 
@@ -200,7 +200,7 @@ describe( 'event-search - unit: helpers', function() {
 
           client.indices.putAlias( { 
             name: v.in.alias, 
-            index: 'test_index' 
+            index: 'helpers_test_index' 
           }, ( err, response ) => {
 
             d.resolve( v );
@@ -215,7 +215,7 @@ describe( 'event-search - unit: helpers', function() {
 
         .done( v => {
 
-          v.process.currentIndex.should.equal( 'test_index' );
+          v.process.currentIndex.should.equal( 'helpers_test_index' );
 
           done();
 

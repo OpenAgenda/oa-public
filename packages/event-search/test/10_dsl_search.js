@@ -6,7 +6,6 @@ const events = require( 'events-service/test/service' );
 const service = require( '../' );
 const dslSearch = require( '../service/search' ).dsl;
 const scroll = require( '../service/search' ).scroll;
-const locationsList = require( './service/locationsList' );
 const moment = require( 'moment-timezone' );
 
 
@@ -41,8 +40,7 @@ describe( 'event-search - unit: dsl search', function() {
       }
 
       service( 'simple_search' ).rebuild( {
-        eventsList: list,
-        locationsList
+        eventsList: list
       }, err => {
 
         done();

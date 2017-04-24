@@ -67,7 +67,7 @@ describe( 'event-search - unit: query.validate', function() {
 
   it( 'returns a deep version of query', () => {
 
-    query.preClean( {
+    query.pre( {
       uid: 123,
       slug: 'the-slug',
       'date.gte' : '2017-05-21T12:00:00.000Z'

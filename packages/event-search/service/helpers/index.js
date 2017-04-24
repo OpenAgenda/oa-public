@@ -11,7 +11,6 @@ module.exports = {
   readIndexName: require( './readIndexName' ),
   removeIndex: require( './removeIndex' ),
   reassociateAlias: require( './reassociateAlias' ),
-  indexEvent, // unused for now.
   indexBulk
 }
 
@@ -23,7 +22,7 @@ function indexBulk( v, events, cb ) {
     index: {
       _index: v.process.indexName,
       _type: v.type,
-      _id: e.id
+      _id: e.uid
     }
   }, v.preParse( e ) ] ) );
 
@@ -33,21 +32,6 @@ function indexBulk( v, events, cb ) {
 
 }
 
-function indexEvent( v, event, cb ) {
-
-  // index as is
-  v.client.index({
-    index: v.process.indexName,
-    type: 'event',
-    id: event.id,
-    body: preParse( event )
-  }, ( err, result ) => {
-
-    cb( err );
-
-  } );
-
-}
 
 function checkList( namespace ) {
 

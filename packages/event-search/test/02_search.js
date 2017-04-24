@@ -3,7 +3,6 @@
 const should = require( 'should' );
 const config = require( '../testconfig' );
 const events = require( 'events-service/test/service' );
-const locationsList = require( './service/locationsList' );
 const service = require( '../' );
 
 describe( 'event search - functional: search', function() {
@@ -37,8 +36,7 @@ describe( 'event search - functional: search', function() {
       }
 
       service( 'simple_search' ).rebuild( {
-        eventsList: list,
-        locationsList
+        eventsList: list
       }, done );
 
     } );

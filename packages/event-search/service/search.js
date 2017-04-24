@@ -17,9 +17,7 @@ module.exports = _.extend( search, {
 
 function scroll( scrollId, scroll, cb ) {
 
-  let c = config.get();
-
-  c.client.scroll( { scrollId, scroll }, ( err, res ) => {
+  config.client.scroll( { scrollId, scroll }, ( err, res ) => {
 
     if ( err ) return cb( err );
 
@@ -39,10 +37,8 @@ function dsl( alias, dsl, options, cb ) {
 
   }
 
-  let c = config.get();
-
   const search = {
-    type: c.type,
+    type: config.type,
     index: alias,
     body: dsl
   };
@@ -53,7 +49,7 @@ function dsl( alias, dsl, options, cb ) {
 
   } );
 
-  c.client.search( search, ( err, res ) => {
+  config.client.search( search, ( err, res ) => {
 
     if ( err ) return cb( err );
 

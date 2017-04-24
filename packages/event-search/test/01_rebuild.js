@@ -4,7 +4,6 @@ const should = require( 'should' );
 const config = require( '../testconfig' );
 const events = require( 'events-service/test/service' );
 const service = require( '../' );
-const locationsList = require( './service/locationsList' );
 
 describe( 'event-search - functional: rebuild', function() {
 
@@ -73,8 +72,7 @@ describe( 'event-search - functional: rebuild', function() {
       it( 'generated index name is given in result details', done => {
 
         service( 'test_alias' ).rebuild( {
-          eventsList,
-          locationsList
+          eventsList
         }, ( err, result, details ) => {
 
           // index will look like this: test_alias_20170327T1013
@@ -89,11 +87,10 @@ describe( 'event-search - functional: rebuild', function() {
       it( 'index is effectively created', done => {
 
         service( 'test_alias' ).rebuild( {
-          eventsList,
-          locationsList
+          eventsList
         }, ( err, result, details ) => {
 
-          service.getClient().indices.exists( { index: details.indexName }, ( err, exists ) => {
+          service.getConfig().client.indices.exists( { index: details.indexName }, ( err, exists ) => {
 
             exists.should.equal( true );
 

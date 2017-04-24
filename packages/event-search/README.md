@@ -2,12 +2,42 @@
 
 The event search service. For searching events.
 
+
+# Initialization
+
+The service needs to be initialized before use. See the `testconfig.sample.js` file for a configuration sample:
+
+    const search = require( 'event-search' );
+
+    const configSample = require( './testconfig.sample.js' );
+
+    search.init( configSample );
+
+    // service is now ready to be used!
+
+
+# API
+
+## Single index operations
+
+The service allows you to handle an aliased event index through its main interface, a function taking the name of the handled alias:
+
+ * **search( 'alias_name' ).rebuild**: takes an event list function and loops on it to rebuild a search index. Discards the previous one on a successful operation
+ * **search( 'alias_name' ).search**: search an index. See tests for more details
+ * **search( 'alias_name' ).add**: add an event to an index. See tests for more details
+ * **search( 'alias_name' ).update**: update an event ( partial update ).
+ * **search( 'alias_name' ).remove**: remove an event from index.
+
+
+
+
+
+
 # Running Elasticearch 5.1 for development
 
-This is only useful if you are already running another version of elasticsearch as a service
+This is only useful if you are already running another version of elasticsearch as a service and need to launch elasticsearch manually
 
-
-cd /usr/share/elasticsearch-5.1.2 && sudo -H -u elasticsearch bash -c './bin/elasticsearch'
+sudo service elasticsearch stop && cd /usr/share/elasticsearch-5.1.2 && sudo -H -u elasticsearch bash -c './bin/elasticsearch'
 
 
 
@@ -39,47 +69,6 @@ react on event lifecycle happenings; lookup stakeholders, update main index and 
 https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-index
 
 
-
-
-search_after limitations:
-
-  try sorting by local date string saved as string type
-
-then try adding a sort for end time
-
-then give up and use from/size
-
-
-Store search templates in cluster state:
-
-
-https://www.elastic.co/guide/en/elasticsearch/reference/5.x/object.html
-
-
-TODO:
-
-  // do a dsl query endpoint to be tested
-  // against existing and required features.
-  // with filters and sort.
-  // use dsl test suite to build base mapping
-  // then prepare parser.
-
-Pagination: from & to is the simplest:
-  
- * should allow for 'search after': https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-search-after.html
-
- * and 'scroll': https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html#scroll-search-context
-
-
-// switch time from utc midnight to time from local midnight and start building query validator and dsl parser;
-
-Sorting:
-
-It is possible to filter nested items ( timings ) prior to sort, and it is possible to put several sorts.
-
-So first come events with upcoming timings ( based on end of last timing ),
-then sort by nearest upcoming date <- ?
-then sort by end of last timing
 
 
 # Sorting

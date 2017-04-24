@@ -8,44 +8,66 @@ const dateRange = require( 'date-range' );
 
 const countries = require( 'countries' );
 
-module.exports = event => {
+module.exports = ( event, part = false ) => {
 
-  let countryLabels = _.omit( countries.getLabel( event.location.countryCode ), [ 'code' ] );
+  let countryLabels = null;
 
-  return _.extend( {}, event, {
+  let parsed = {};
 
-    country: countryLabels,
+  _.keys( event ).filter( k => !part || ( event[ k ] !== undefined ) ).forEach( k => {
 
-    dateRange: _dateRange( event.timings, event.timezone ),
+    if ( k === 'location' ) {
 
-    timings: event.timings.map( t => {
+      let countryLabels = _.omit( countries.getLabel( event.location.countryCode ), [ 'code' ] );
 
-      t.search_internals_begin_from_midnight = _secondsMidnightDiff( event.timezone, t.begin );
+      _.extend( parsed, {
+        country: countryLabels,
+        search_internals_full_address_text: _fullAddress( event, countryLabels ),
+        search_internals_location: event.location ? {
+          lat: event.location.latitude,
+          lon: event.location.longitude
+        } : null
+      } );
 
-      return t;
+    } else if ( k === 'timings' ) {
 
-    } ),
+      _.extend( parsed, {
+        dateRange: _dateRange( event.timings, event.timezone ),
+        timings: event.timings.map( t => {
 
-    search_internals_title: _flatten( event.title ),
+          t.search_internals_begin_from_midnight = _secondsMidnightDiff( event.timezone, t.begin );
 
-    search_internals_description: _flatten( event.description ),
+          return t;
 
-    search_internals_last_timing: _reduceToLast( event.timings ),
+        } ),
+        search_internals_last_timing: _reduceToLast( event.timings )
+      } )
 
-    search_internals_location: event.location ? {
-      lat: event.location.latitude,
-      lon: event.location.longitude
-    } : null,
+    } else if ( k === 'title' ) {
 
-    search_internals_languages: _extractLanguages( event, [ 'title', 'description', 'longDescription' ] ),
+      parsed.search_internals_title = _flatten( event.title )
 
-    search_internals_keywords: _flatten( event.keywords ),
+    } else if ( k === 'description' ) {
 
-    search_internals_keywords_text: _flatten( event.keywords ),
+      parsed.search_internals_description = _flatten( event.description );
 
-    search_internals_full_address_text: _fullAddress( event, countryLabels )
+    } else if ( k === 'keywords' ) {
 
+      parsed.search_internals_keywords = _flatten( event.keywords );
+
+      parsed.search_internals_keywords_text = _flatten( event.keywords );
+
+    }
+    
   } );
+
+  if ( event.title && event.description ) {
+
+    parsed.search_internals_languages = _extractLanguages( event, [ 'title', 'description', 'longDescription' ] );
+
+  }
+
+  return _.extend( {}, event, parsed );
 
 }
 
@@ -93,6 +115,8 @@ function _extractLanguages( event, fields ) {
 
 
 function _flatten( value ) {
+
+  if ( !value ) return null;
 
   return _.flatten( Object.keys( value ).map( k => value[ k ] ) );
 

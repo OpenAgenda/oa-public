@@ -1,6 +1,6 @@
 "use strict";
 
-const configStore = require( './config' );
+const config = require( './config' );
 const h = require( './helpers' );
 const w = require( 'when' );
 const _ = require( 'lodash' );
@@ -10,8 +10,6 @@ const indexSettings = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/in
 
 module.exports = ( alias, lists, cb ) => {
 
-  const config = configStore.get();
-
   w( {
     in: {
       alias,
@@ -19,6 +17,7 @@ module.exports = ( alias, lists, cb ) => {
     },
     type: config.type,
     client: config.client,
+    interfaces: config.interfaces,
     preParse,
     process: {
       // index used before rebuild
@@ -31,7 +30,7 @@ module.exports = ( alias, lists, cb ) => {
 
   .then( h.checkList( 'in.lists.eventsList' ) )
 
-  .then( h.checkList( 'in.lists.locationsList' ) )
+  .then( h.checkList( 'interfaces.locationsList' ) )
 
   .then( h.createUniqueIndex.bind( null, indexSettings ) )
 
@@ -85,7 +84,7 @@ function _loopBulk( v, ecb ) {
 
       if ( err ) return wcb( err );
 
-      v.in.lists.locationsList( { 
+      v.interfaces.locationsList( { 
         uids: _.uniq( events.map( e => e.locationUid ) ) 
       }, 0, limit, ( err, locations ) => {
 
