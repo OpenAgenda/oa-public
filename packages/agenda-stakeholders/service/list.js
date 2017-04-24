@@ -126,9 +126,11 @@ function _list( v ) {
     }
 
     return v.knex.clone()
-      .select( 'id', 'credential', 'user_id', 'review_id', 'store', 'organization', 'updated_at', 'created_at', 'deleted_user' )
+      .select( 'id', 'credential', 'user_id', 'review_id', 'store', 'organization', 'updated_at', 'created_at', 'deleted_user', 'actions_counter' )
       .limit( v.limit )
       .offset( v.offset )
+      .orderBy( 'actions_counter', 'desc' )
+      .orderBy( 'id', 'asc' )
       .transacting( trx );
 
   } )

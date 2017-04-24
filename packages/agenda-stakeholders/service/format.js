@@ -26,6 +26,9 @@ const _ = require( 'lodash' ),
   }, {
     db: 'created_at',
     obj: 'createdAt'
+  }, {
+    db: 'actions_counter',
+    obj: 'actionsCounter'
   } ];
 
 module.exports = {
@@ -43,7 +46,8 @@ function objToDb( obj, filterNull = false ) {
     organization: null,
     deleted_user: null,
     created_at: null,
-    updated_at: null
+    updated_at: null,
+    actions_counter: null
   };
 
   correspondance.forEach( c => {
@@ -107,6 +111,12 @@ function objToDb( obj, filterNull = false ) {
 
   }
 
+  if ( entry.actions_counter === null || entry.actions_counter === undefined ) {
+
+    entry = _.omit( entry, [ 'actions_counter' ] );
+
+  }
+
   return entry;
 
 }
@@ -165,6 +175,12 @@ function dbToObj( entry, options = {} ) {
       obj.custom.organization = obj.custom.organization.label;
 
     }
+
+  }
+
+  if ( obj.actionsCounter === undefined ) {
+
+    obj = _.omit( obj, [ 'actionsCounter' ] );
 
   }
 

@@ -301,7 +301,11 @@ describe( 'agenda-stakeholders - functional (server): create', function() {
 
             context.should.eql( {
               message: 'Lolipops',
-              lang: 'fr'
+              lang: 'fr',
+              invitationSender: {
+                name: null,
+                userId: null
+              }
             } );
 
             done();

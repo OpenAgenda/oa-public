@@ -20,6 +20,8 @@ const knexLib = require( 'knex' ),
 
   update = require( './update' ),
 
+  increment = require( './increment' ),
+
   legacy = require( './legacy' ),
 
   dbUtils = require( './dbUtils' ),
@@ -76,6 +78,10 @@ function agenda( agendaId ) {
     remove: remove.bind( null, { agendaId } ),
     create: create.bind( null, { agendaId } ),
     update: update.bind( null, { agendaId } ),
+
+    // increment stakeholder counter - optimized ( 'actions' only )..
+    increment: increment.bind( null, { agendaId } ),
+
     bulk: bulk.bind( null, { agendaId } ),
     transferEvent: transferEvent( agendaId ),
     instanciate: agendaStakeholderInstanciate,
@@ -221,6 +227,15 @@ function init( c, cb ) {
       knex,
       schemas,
       interfaces: config.interfaces,
+    } );
+
+  } )
+
+  .then( () => {
+
+    increment.init( {
+      knex,
+      schemas,
     } );
 
   } )

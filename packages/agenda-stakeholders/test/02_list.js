@@ -40,6 +40,18 @@ describe( 'agenda-stakeholders - functional (server): list', function() {
 
     } );
 
+    it( 'by default, list is sorted by decreasing actions counter', done => {
+
+      service.agenda( 4608 ).list( 0, 4, ( err, stakeholders, total ) => {
+
+        stakeholders.map( s => s.actionsCounter ).should.eql( [ 200, 12, 4, 3 ] );
+
+        done();
+
+      } );
+
+    } );
+
     it( 'by default, total value is not fetched', done => {
 
       service.agenda( 4608 ).list( 0, 10, ( err, stakeholders, total ) => {
@@ -71,10 +83,10 @@ describe( 'agenda-stakeholders - functional (server): list', function() {
         should( err ).equal( null );
 
         stakeholders[ 0 ].user.should.eql( {
-          id: 2,
+          id: 3078,
           uid: 128492293,
           full_name: 'Zorg',
-          email: 'zorg@galactic.uv' 
+          email: 'zorg@galactic.uv'
         } );
 
         done();

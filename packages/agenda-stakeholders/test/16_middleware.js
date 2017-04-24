@@ -62,7 +62,7 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
         // and ready to be used
         req.stakeholders.list( 0, 1, ( err, items, total ) => {
 
-          items[ 0 ].id.should.equal( 6478 );
+          items[ 0 ].id.should.equal( 6856 );
 
           done();
 
@@ -79,11 +79,11 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
     it( 'lists stakeholders', done => {
 
       const req = {
-          agenda: { id: 4608 },
-          query: { page: 1 }
-        },
+        agenda: { id: 4608 },
+        query: { page: 1 }
+      },
 
-        res = {}; // not modified with load middleware
+      res = {}; // not modified with load middleware
 
       stakeholderMw.agenda().list()( req, res, next );
 
@@ -373,7 +373,7 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
 
         Object.keys( req.stakeholder ).should.eql( [
           'id', 'agendaId', 'userId', 'credential', 'deletedUser',
-          'updatedAt', 'createdAt', 'custom', 'linkStore'
+          'updatedAt', 'createdAt', 'custom', 'actionsCounter', 'linkStore'
         ] );
 
         done();

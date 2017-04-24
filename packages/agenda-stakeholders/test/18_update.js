@@ -132,7 +132,7 @@ describe( 'agenda-stakeholders - functional (server): update', function() {
 
           result.stakeholder.deletedUser.should.equal( true );
 
-          result.stakeholder.userId
+          should( result.stakeholder.userId ).equal( null );
 
           done();
 
@@ -233,7 +233,11 @@ describe( 'agenda-stakeholders - functional (server): update', function() {
 
             context.should.eql( {
               lang: 'fr',
-              message: null
+              message: null,
+              invitationSender: {
+                name: null,
+                userId: null
+              }
             } );
 
             done();

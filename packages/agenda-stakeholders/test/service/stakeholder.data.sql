@@ -35,19 +35,22 @@ CREATE TABLE IF NOT EXISTS ${schema} (
   `updated_at` datetime not null,
   `deleted_user` tinyint(1) default 0 not null,
   `store` longtext,
-  `organization` varchar(255) DEFAULT NULL
+  `organization` varchar(255) DEFAULT NULL,
+  `actions_counter` smallint default 0 not null
 ) ENGINE=InnoDB AUTO_INCREMENT=10746 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table ${schema}
 --
 
+INSERT INTO ${schema} (`id`, `user_id`, `review_id`, `credential`, `created_at`, `updated_at`, `store`, `organization`, `actions_counter` ) VALUES
+(6478, 2, 4608, 2, '2015-12-08 16:30:34', '2015-12-08 16:30:34', NULL, NULL, 12 ),
+(6480, 3083, 4608, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 3),
+(6769, 1, 4608, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 0 ),
+(6856, 3078, 4608, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 200),
+(6886, 3084, 4608, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 4 );
+
 INSERT INTO ${schema} (`id`, `user_id`, `review_id`, `credential`, `created_at`, `updated_at`, `store`, `organization`) VALUES
-(6478, 2, 4608, 2, '2015-12-08 16:30:34', '2015-12-08 16:30:34', NULL, NULL),
-(6480, 3083, 4608, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL),
-(6769, 1, 4608, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL),
-(6856, 3078, 4608, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL),
-(6886, 3084, 4608, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL),
 (6975, 2576, 4608, 3, '0000-00-00 00:00:00', '2016-02-04 21:20:21', '{"custom_fields":{"organization":"DRAC de Bourgogne Franche-Comt\\u00e9","contact_number":"0380685005","contact_name":"Isabelle Boucher-Doigneau","contact_position":"Communication"}}', 'drac-de-bourgogne-franche-comte'),
 (6976, 7347, 4608, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL),
 (6977, 7348, 4608, 2, '0000-00-00 00:00:00', '2016-02-04 21:20:21', '{"custom_fields":{"email": "downgradedgoa@tee.com", "organization":"DRAC Nord - Pas-de-Calais Picardie","contact_number":"03 28 36 62 35","contact_name":"Barrois","contact_position":"Charg\\u00e9 de communication"}}', 'drac-nord-pas-de-calais-picardie'),

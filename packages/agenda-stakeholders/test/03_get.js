@@ -44,6 +44,18 @@ describe( 'agenda-stakeholders - functional (server): get', function() {
 
     } );
 
+    it( 'get provides actions counter information', done => {
+
+      service.agenda( 4608 ).get( { userId: 3083 }, ( err, stakeholder ) => {
+
+        stakeholder.actionsCounter.should.equal( 3 );
+
+        done();
+
+      } );
+
+    } );
+
     it( 'stakeholder provides deleted user flag value ( as a boolean )', done => {
 
       service.agenda( 4608 ).get( { id: 6975 }, ( err, stakeholder ) => {

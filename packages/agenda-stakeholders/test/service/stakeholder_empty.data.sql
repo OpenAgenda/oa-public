@@ -8,5 +8,6 @@ CREATE TABLE IF NOT EXISTS ${schema} (
   `deleted_user` tinyint(1) default 0 not null,
   `store` longtext,
   `organization` varchar(255) DEFAULT NULL,
+  `actions_counter` smallint default 0 not null,
   PRIMARY KEY(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=10746 DEFAULT CHARSET=latin1;
