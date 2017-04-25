@@ -7,7 +7,7 @@ const config = require( '../testconfig' );
 
 describe( 'activities - feed', function () {
 
-  this.timeout( 15000 );
+  this.timeout( 30000 );
 
   describe( 'without config', () => {
 
