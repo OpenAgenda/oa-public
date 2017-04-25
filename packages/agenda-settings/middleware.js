@@ -120,15 +120,22 @@ function get( req, res, next ) {
 
 function set( req, res, next ) {
 
-  agendasSvc.set( { slug: req.params.slug }, req.body, { includeImagePath: true, private: null }, ( err, result ) => {
+  agendasSvc.set(
+    { slug: req.params.slug },
+    req.body,
+    {
+      includeImagePath: true,
+      private: null,
+      context: req.context || null
+    }, ( err, result ) => {
 
-    if ( err ) return next( err );
+      if ( err ) return next( err );
 
-    if ( result.errors.length ) res.status( 400 );
+      if ( result.errors.length ) res.status( 400 );
 
-    return res.json( result );
+      return res.json( result );
 
-  } );
+    } );
 
 }
 
