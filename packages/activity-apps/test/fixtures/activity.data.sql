@@ -1,7 +1,7 @@
 INSERT INTO `${schema}` (`id`, `actor`, `verb`, `object`, `target`, `store`, `created_at`, `updated_at`) VALUES
-  (26, 'user:31778051', 'agenda.sentInvitation', 'jean-bernard@coquin-vilain.fr', 'agenda:36282888', '{"labels":{"actor":"Jean-Pierre Poncé","target":"Un autre agenda"},"credential":2}', '2017-04-11 16:43:36', NULL),
+  (26, 'user:31778051', 'agenda.sendInvitation', 'jean-bernard@coquin-vilain.fr', 'agenda:36282888', '{"labels":{"actor":"Jean-Pierre Poncé","target":"Un autre agenda"},"credential":2}', '2017-04-11 16:43:36', NULL),
   (27, 'user:37345733', 'agenda.acceptInvitation', 'user:31778051', 'agenda:36282888', '{"labels":{"actor":"Jean-bernard Coquin-vilain","object":"Jean-Pierre Poncé","target":"Un autre agenda"},"credential":2}', '2017-04-11 16:44:16', NULL),
-  (28, 'user:37345733', 'agenda.sentInvitation', 'invite@surprise.fr', 'agenda:36282888', '{"labels":{"actor":"Jean-bernard Coquin-vilain","target":"Un autre agenda"},"credential":1}', '2017-04-11 16:44:49', NULL),
+  (28, 'user:37345733', 'agenda.sendInvitation', 'invite@surprise.fr', 'agenda:36282888', '{"labels":{"actor":"Jean-bernard Coquin-vilain","target":"Un autre agenda"},"credential":1}', '2017-04-11 16:44:49', NULL),
   (29, 'user:30978907', 'agenda.acceptInvitation', 'user:37345733', 'agenda:36282888', '{"labels":{"actor":"Invite Surprise","object":"Jean-bernard Coquin-vilain","target":"Un autre agenda"},"credential":1}', '2017-04-11 16:45:15', NULL),
   (30, 'user:37345733', 'agenda.setMemberRole', 'user:31778051', 'agenda:36282888', '{"labels":{"actor":"Jean-bernard Coquin-vilain","object":"Jean-Pierre Poncé","target":"Un autre agenda"},"beforeCredential":2,"credential":1}', '2017-04-12 09:30:36', NULL),
   (31, 'user:37345733', 'agenda.setMemberRole', 'user:31778051', 'agenda:36282888', '{"labels":{"actor":"Jean-bernard Coquin-vilain","object":"Jean-Pierre Poncé","target":"Un autre agenda"},"beforeCredential":1,"credential":2}', '2017-04-12 09:31:05', NULL),

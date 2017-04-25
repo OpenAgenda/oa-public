@@ -64,7 +64,7 @@ async.waterfall( [
       lang: req.query.lang || 'fr'
     }; // 2 == administrator, 4387 == contributor
     req.identifiers = { userId: req.user.id };
-    req.agenda = { id: 4608, uid: 62792452 };
+    req.agenda = { id: 4608, uid: 36282888 };
     next();
   } );
 

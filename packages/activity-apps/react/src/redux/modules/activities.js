@@ -12,8 +12,6 @@ const initialState = {
   loaded: false
 };
 
-// TODO last page
-
 export default function reducer( state = initialState, action ) {
   switch ( action.type ) {
     case LOAD:

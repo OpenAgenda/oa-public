@@ -147,7 +147,13 @@ var AdminDashboard = _wrapComponent('AdminDashboard')((_dec = (0, _reduxConnect.
       return _this.props.list(values).then(function () {
         var newQuery = (0, _pick2.default)(values, ['actor', 'verb', 'object', 'target', 'datetimeRange']);
         _this.context.router.push(_extends({}, _this.props.location, {
-          query: _extends({}, _this.props.location.query, newQuery)
+          query: _extends({}, _this.props.location.query, {
+            actor: undefined,
+            verb: undefined,
+            object: undefined,
+            target: undefined,
+            datetimeRange: undefined
+          }, newQuery)
         }));
       });
     };
@@ -272,13 +278,13 @@ var AdminDashboard = _wrapComponent('AdminDashboard')((_dec = (0, _reduxConnect.
                 },
                 _react3.default.createElement(
                   'option',
-                  { hidden: true },
+                  { value: '' },
                   'S\xE9l\xE9ctionner'
                 ),
                 _react3.default.createElement(
                   'option',
-                  { value: 'agenda.sentInvitation' },
-                  'agenda.sentInvitation'
+                  { value: 'agenda.sendInvitation' },
+                  'agenda.sendInvitation'
                 ),
                 _react3.default.createElement(
                   'option',
@@ -287,8 +293,68 @@ var AdminDashboard = _wrapComponent('AdminDashboard')((_dec = (0, _reduxConnect.
                 ),
                 _react3.default.createElement(
                   'option',
+                  { value: 'agenda.addMember' },
+                  'agenda.addMember'
+                ),
+                _react3.default.createElement(
+                  'option',
                   { value: 'agenda.setMemberRole' },
                   'agenda.setMemberRole'
+                ),
+                _react3.default.createElement(
+                  'option',
+                  { value: 'agenda.create' },
+                  'agenda.create'
+                ),
+                _react3.default.createElement(
+                  'option',
+                  { value: 'agenda.updateContribution' },
+                  'agenda.updateContribution'
+                ),
+                _react3.default.createElement(
+                  'option',
+                  { value: 'agenda.updateProfile' },
+                  'agenda.updateProfile'
+                ),
+                _react3.default.createElement(
+                  'option',
+                  { value: 'agenda.rename' },
+                  'agenda.rename'
+                ),
+                _react3.default.createElement(
+                  'option',
+                  { value: 'agenda.changeEventState' },
+                  'agenda.changeEventState'
+                ),
+                _react3.default.createElement(
+                  'option',
+                  { value: 'agenda.publishEvent' },
+                  'agenda.publishEvent'
+                ),
+                _react3.default.createElement(
+                  'option',
+                  { value: 'agenda.unpublishEvent' },
+                  'agenda.unpublishEvent'
+                ),
+                _react3.default.createElement(
+                  'option',
+                  { value: 'agenda.removeEvent' },
+                  'agenda.removeEvent'
+                ),
+                _react3.default.createElement(
+                  'option',
+                  { value: 'agenda.setOfficial' },
+                  'agenda.setOfficial'
+                ),
+                _react3.default.createElement(
+                  'option',
+                  { value: 'event.create' },
+                  'event.create'
+                ),
+                _react3.default.createElement(
+                  'option',
+                  { value: 'event.update' },
+                  'event.update'
                 )
               )
             ),

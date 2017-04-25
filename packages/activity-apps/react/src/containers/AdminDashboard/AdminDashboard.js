@@ -82,7 +82,14 @@ export default class AdminDashboard extends Component {
       const newQuery = pick( values, [ 'actor', 'verb', 'object', 'target', 'datetimeRange' ] );
       this.context.router.push( {
         ...this.props.location,
-        query: { ...this.props.location.query, ...newQuery }
+        query: {
+          ...this.props.location.query,
+          actor: undefined,
+          verb: undefined,
+          object: undefined,
+          target: undefined,
+          datetimeRange: undefined,
+          ...newQuery }
       } );
     } );
 
@@ -156,10 +163,22 @@ export default class AdminDashboard extends Component {
                 classNameGroup="margin-top-md margin-bottom-lg"
                 className="form-control"
               >
-                <option hidden>Séléctionner</option>
-                <option value="agenda.sentInvitation">agenda.sentInvitation</option>
+                <option value="">Séléctionner</option>
+                <option value="agenda.sendInvitation">agenda.sendInvitation</option>
                 <option value="agenda.acceptInvitation">agenda.acceptInvitation</option>
+                <option value="agenda.addMember">agenda.addMember</option>
                 <option value="agenda.setMemberRole">agenda.setMemberRole</option>
+                <option value="agenda.create">agenda.create</option>
+                <option value="agenda.updateContribution">agenda.updateContribution</option>
+                <option value="agenda.updateProfile">agenda.updateProfile</option>
+                <option value="agenda.rename">agenda.rename</option>
+                <option value="agenda.changeEventState">agenda.changeEventState</option>
+                <option value="agenda.publishEvent">agenda.publishEvent</option>
+                <option value="agenda.unpublishEvent">agenda.unpublishEvent</option>
+                <option value="agenda.removeEvent">agenda.removeEvent</option>
+                <option value="agenda.setOfficial">agenda.setOfficial</option>
+                <option value="event.create">event.create</option>
+                <option value="event.update">event.update</option>
               </Field>
             </div>
 
