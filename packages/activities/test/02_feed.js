@@ -28,7 +28,7 @@ describe( 'activities - feed', function () {
 
     before( done => {
 
-      service.initAndLoad( config, [ 'feed', 'feed_follow' ], {}, done );
+      service.initAndLoad( config, [ 'feed', 'feed_follow' ], done );
 
     } );
 

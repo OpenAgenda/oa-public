@@ -95,7 +95,7 @@ function add() {
         schema: {
           type: 'text',
           max: 255,
-          optional: false
+          optional: true
         }
       }
     }, {
@@ -182,7 +182,7 @@ function add() {
                   let filterFollows = [];
 
                   if ( follower.id && config.filterFollows ) {
-                    filterFollows = config.filterFollows.filter( v => v.verb === activity.verb );
+                    filterFollows = config.filterFollows.filter( v => ~[].concat( v.verb ).indexOf( activity.verb ) );
                   }
 
                   ( filterFollows.some( v => v.getFeeds ) ?
