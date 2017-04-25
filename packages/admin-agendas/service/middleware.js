@@ -98,7 +98,8 @@ function set( req, res, next ) {
   agendas.set( { uid: req.params.uid }, req.body, {
     internal: true,
     protected: false,
-    private: null
+    private: null,
+    context: req.context || null
   }, ( err, result ) => {
 
     if ( err ) return next( err );
