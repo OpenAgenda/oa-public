@@ -14,7 +14,9 @@ describe( 'agenda-stakeholders - functional (server): create.bulk & task', funct
   this.timeout( 60000 );
 
   const queueTestConfig = {
-    name: 'stakeholderCreateTest',
+    names: {
+      bulk: 'stakeholderCreateTest'
+    },
     threshold: 3,
     redis: {
       host: 'localhost',
@@ -22,7 +24,7 @@ describe( 'agenda-stakeholders - functional (server): create.bulk & task', funct
     }
   },
 
-  q = queue( queueTestConfig.name, { redis: queueTestConfig.redis } );
+  q = queue( queueTestConfig.names.bulk, { redis: queueTestConfig.redis } );
 
   before( done => {
 
@@ -46,7 +48,7 @@ describe( 'agenda-stakeholders - functional (server): create.bulk & task', funct
 
   beforeEach( done => {
 
-    q.test.clear( queueTestConfig.name, err => {
+    q.test.clear( queueTestConfig.names.bulk, err => {
 
       done();
 

@@ -32,10 +32,14 @@ module.exports = {
 
       cb( null, [ 1, 2, 3, 4 ] );
 
-    }
+    },
+    onMessage: ( stakeholder, message, cb ) => { cb() }
   },
   queue: {
-    name: 'stakeholderCreateTest',
+    names: {
+      bulk: 'stakeholderCreateTest',
+      message: 'stakeholderMessageTest'
+    },
     threshold: 5,
     redis: {
       host: 'localhost',

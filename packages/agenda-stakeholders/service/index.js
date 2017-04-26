@@ -20,15 +20,17 @@ const knexLib = require( 'knex' ),
 
   update = require( './update' ),
 
-  increment = require( './increment' ),
-
   legacy = require( './legacy' ),
+
+  message = require( './message' ),
 
   dbUtils = require( './dbUtils' ),
 
   logger = require( 'basic-logger' ),
 
   settings = require( './settings' ),
+
+  increment = require( './increment' ),
 
   instanciate = require( './instanciate' ),
 
@@ -45,7 +47,8 @@ module.exports = Object.assign( agenda, {
   user,
   agenda,
   tasks: {
-    bulk: bulk.task
+    bulk: bulk.task,
+    message: message.task
   },
   types: require( '../iso/credentialTypes' )
 } );
@@ -83,6 +86,8 @@ function agenda( agendaId ) {
     increment: increment.bind( null, { agendaId } ),
 
     bulk: bulk.bind( null, { agendaId } ),
+    message: message.bind( null, { agendaId } ),
+
     transferEvent: transferEvent( agendaId ),
     instanciate: agendaStakeholderInstanciate,
     new: newStakeholder,
@@ -243,6 +248,15 @@ function init( c, cb ) {
   .then( () => {
 
     bulk.init( {
+      queue: config.queue,
+      interfaces: config.interfaces
+    } );
+
+  } )
+
+  .then( () => {
+
+    message.init( {
       queue: config.queue,
       interfaces: config.interfaces
     } );

@@ -93,7 +93,7 @@ function init( config ) {
 
   interfaces = config.interfaces;
 
-  q = queue( queueConfig.name, { redis: queueConfig.redis } );
+  q = queue( queueConfig.names.bulk, { redis: queueConfig.redis } );
 
 }
 
