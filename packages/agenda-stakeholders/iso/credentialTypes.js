@@ -42,7 +42,7 @@ module.exports.codes = {
   list: listCodes
 }
 
-module.exports.isSuperiorTo = ( cred, refCred ) => {
+module.exports.isSuperiorTo = ( cred, refCred, orEqual = false ) => {
 
   if ( cred === undefined ) cred = 1;
 
@@ -56,7 +56,7 @@ module.exports.isSuperiorTo = ( cred, refCred ) => {
 
   } );
 
-  return rankings[ 0 ] > rankings[ 1 ];
+  return orEqual ? rankings[ 0 ] >= rankings[ 1 ] : rankings[ 0 ] > rankings[ 1 ];
 
 }
 
