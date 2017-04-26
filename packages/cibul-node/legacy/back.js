@@ -26,6 +26,12 @@ const sessions = require( 'sessions' ),
 
   mailer = require( 'mailer' ),
 
+  activitiesSvc = require( 'activities' ),
+
+  usersSvc = require( 'users' ),
+
+  stakeholdersSvc = require( 'agenda-stakeholders' ),
+
   notificationMail = require( '../services/notification/mail' ),
 
   routes = {
@@ -251,7 +257,55 @@ function eventCreate( req, res, next ) {
 
     if ( err ) req.log( 'error', err );
 
-    res.send( 'ok' );
+    activitiesSvc.feed( { entityType: 'event', entityUid: req.event.uid } ).create( ( err, eventFeed ) => {
+
+      if ( err ) req.log( 'error', err );
+
+      activitiesSvc.feed( { entityType: 'agenda', entityUid: req.agenda.uid } ).follow( eventFeed, err => {
+
+        if ( err ) req.log( 'error', err );
+
+        usersSvc.get( req.event.ownerId, ( err, user ) => {
+
+          if ( err ) req.log( 'error', err );
+
+          activitiesSvc.feed( { entityType: 'user', entityUid: user.uid } ).follow( eventFeed, err => {
+
+            if ( err ) req.log( 'error', err );
+
+            activitiesSvc.feed( { entityType: 'event', entityUid: req.event.uid } ).activities.add( {
+              actor: 'user:' + user.uid,
+              verb: 'event.create',
+              object: 'event:' + req.event.uid,
+              target: 'agenda:' + req.agenda.uid,
+              store: {
+                labels: {
+                  actor: user.full_name,
+                  object: req.event.title,
+                  target: req.agenda.title
+                }
+              }
+            }, err => {
+
+              if ( err ) req.log( 'error', err );
+
+              stakeholdersSvc.agenda( req.agenda.id ).increment( { userId: user.id }, err => {
+
+                if ( err ) req.log( 'error', err );
+
+                res.send( 'ok' );
+
+              } );
+
+            } );
+
+          } );
+
+        } );
+
+      } );
+
+    } );
 
   } );
 

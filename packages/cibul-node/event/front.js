@@ -3,17 +3,17 @@
 const modLib = require( '../lib/moduleLib' ),
 
   cmn = require( '../lib/commons-app' ),
-  
+
   config = require( '../config' ),
 
   _ = require( 'lodash' ),
 
   sessions = require( 'sessions' ),
-  
+
   agendaSvc = require( '../services/agenda' ),
-  
+
   embedSvc = require( '../services/embed/embed' ),
-  
+
   eventSvc = require( '../services/event' ),
 
   stakeholderMw = require( 'agenda-stakeholders/middleware' ),
@@ -50,13 +50,13 @@ const modLib = require( '../lib/moduleLib' ),
       cmn.https,
       agendaSvc.mw.load( 'slug' ),
       cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'agendaShow', { slug: 'slug', eventSlug: 'eventSlug' } ) ),
-      sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignin', { 
+      sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignin', {
         slug: 'slug',
         msg: {
           $raw: 'limitedAccessEvent'
         },
-        redirect: { 
-          $base64Route: [ 'agendaEventShowPrivate', { slug: 'slug', eventSlug: 'eventSlug' } ] 
+        redirect: {
+          $base64Route: [ 'agendaEventShowPrivate', { slug: 'slug', eventSlug: 'eventSlug' } ]
         }
       } ) ),
       sessions.middleware.load( { detailed: true } ),
@@ -69,15 +69,15 @@ const modLib = require( '../lib/moduleLib' ),
       agendaSvc.mw.load( 'slug' ),
       cmn.ifIs( 'agenda.private', cmn.redirectTo( 'agendaEventShowPrivate', {
         slug: 'slug',
-        eventSlug: 'eventSlug' 
-      }, { maintainQuery: true } ) )
+        eventSlug: 'eventSlug'
+      }, { maintainQuery: true } ) )
     ].concat( middlewares.agendaEventShow ) ],
 
     agendaEventRedirect: [ 'get', '/agendas/:uid/events/:eventUid', [
       agendaSvc.mw.load( 'uid' ),
       eventSvc.mw.load( 'eventUid', 'uid' ),
       redirect
-    ]],
+    ] ],
 
     agendaEmbedEventShow: [ 'get', '/agendas/:uid/embed/events/:eventUid', [
       agendaSvc.mw.load( 'uid' ),
@@ -106,7 +106,7 @@ const modLib = require( '../lib/moduleLib' ),
       _formatAgendaLinks( 'customEmbedShow', [ 'uid', 'embedUid' ] ),
     ].concat( middlewares.customEmbedEventShow ) ],
 
-    agendaCustomEmbedEventShowPreview: [ 'get', '/agendas/:uid/previewEmbeds/:embedUid/events/:eventUid', [
+    agendaCustomEmbedEventShowPreview: [ 'get', '/agendas/:uid/previewEmbeds/:embedUid/events/:eventUid', [
       agendaSvc.mw.load( 'uid' ),
       cmn.checkAdministrator(),
       embedSvc.mw.load( 'embedUid', 'uid' ),
@@ -119,12 +119,29 @@ const modLib = require( '../lib/moduleLib' ),
 
     eventShow: [ 'get', '/events/:eventSlug', [
       cmn.https,
+      ( req, res, next ) => {
+        if ( Number.isInteger( parseInt( req.params.eventSlug ) ) ) {
+          return next( 'route' );
+        }
+
+        next();
+      },
       eventSvc.mw.load( 'eventSlug', 'slug' ),
       eventSvc.mw.format,
       eventSvc.mw.components,
       _formatSocialLinks,
       cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
       show
+    ] ],
+
+    eventShowByUid: [ 'get', '/events/:eventUid', [
+      cmn.https,
+      eventSvc.mw.load( 'eventUid', 'uid' ),
+      ( req, res, next ) => {
+        req.agenda = req.event.origin;
+        next();
+      },
+      redirect
     ] ]
 
   },
@@ -179,12 +196,12 @@ function agendaEventShow( req, res ) {
 
 }
 
-function redirect( req, res ) {
+function redirect( req, res, next ) {
 
   if ( !req.agenda || !req.event ) return next( { code: 404 } );
 
   res.redirect( 301, req.genUrl( 'agendaEventShow', {
-    slug: req.agenda.slug, 
+    slug: req.agenda.slug,
     eventSlug: req.event.slug
   }, {
     protocol: 'https://'
@@ -212,10 +229,10 @@ function agendaCustomEmbedEventShow( req, res ) {
 
   // back link needs to
 
-  cmn.render( req, res, 'event/embedShow', { 
-    event: req.formatted, 
+  cmn.render( req, res, 'event/embedShow', {
+    event: req.formatted,
     backUri: 'customEmbedShow',
-    backQuery: { uid: req.params.uid, embedUid: req.params.embedUid }
+    backQuery: { uid: req.params.uid, embedUid: req.params.embedUid }
   } );
 
 }
@@ -257,14 +274,14 @@ function _addLanguageLinks( req, uri, uriParams ) {
 
   if ( !req.formatted.languages ) return;
 
-  req.formatted.languages.selection.forEach( function( lang ) {
+  req.formatted.languages.selection.forEach( function ( lang ) {
 
-    linkedLanguages.push({
+    linkedLanguages.push( {
       label: lang,
       link: req.genUrl( uri, _.extend( {}, uriParams, { lang: lang } ) )
-    });
+    } );
 
-  });
+  } );
 
   req.formatted.languages.selection = linkedLanguages;
 
@@ -286,7 +303,6 @@ function _addContactLink( req ) {
 }
 
 
-
 function _switchEmbedLang( req, res, next ) {
 
   req.event.switchLanguage( req.lang );
@@ -298,11 +314,11 @@ function _switchEmbedLang( req, res, next ) {
 
 function _formatAgendaLinks( uri, keys ) {
 
-  return function( req, res, next ) {
+  return function ( req, res, next ) {
 
     var routeValues = _getRouteValues( req, keys ),
 
-    baseSearchQuery = {};
+      baseSearchQuery = {};
 
     if ( req.query.fb ) routeValues.fb = 1;
 
@@ -313,8 +329,8 @@ function _formatAgendaLinks( uri, keys ) {
     }
 
     // link to go back to the agenda
-    req.formatted.backLink = req.genUrl( uri, [ 
-      routeValues, 
+    req.formatted.backLink = req.genUrl( uri, [
+      routeValues,
       req.query.oaq ? { oaq: req.query.oaq } : {},
       { lang: req.lang }
     ] );
@@ -355,11 +371,11 @@ function _getRouteValues( req, keys ) {
 
   if ( typeof keys == 'string' ) keys = [ keys ];
 
-  keys.forEach( function( k ) {
+  keys.forEach( function ( k ) {
 
     routeValues[ k ] = req.params[ k ];
 
-  });
+  } );
 
   return routeValues;
 
@@ -377,7 +393,7 @@ function _formatEmbedLinks( req, res, next ) {
     lang: req.lang
   } );
 
-  
+
   req.formatted.locationLink = req.genUrl( 'agendaEmbedShow', {
     uid: req.params.uid,
     oaq: {
@@ -397,7 +413,7 @@ function _formatEmbedLinks( req, res, next ) {
       oaq: {
         category: req.formatted.categorySlug
       }
-    });
+    } );
 
   }
 
@@ -414,8 +430,8 @@ function _formatEmbedLinks( req, res, next ) {
 
 function _formatCustomEmbedLinks( req, res, next ) {
 
-  req.formatted.backLink = req.genUrl( 'customEmbedShow', { 
-    uid: req.params.uid, 
+  req.formatted.backLink = req.genUrl( 'customEmbedShow', {
+    uid: req.params.uid,
     embedUid: req.params.embedUid,
     lang: req.lang
   } );
@@ -427,7 +443,7 @@ function _formatCustomEmbedLinks( req, res, next ) {
       location: req.event.getLocationUid()
     },
     lang: req.lang
-  });
+  } );
 
   req.formatted.googleItineraryLink = _googleItineraryLink( req.event.getLatitude(), req.event.getLongitude() );
 
@@ -442,7 +458,7 @@ function _formatCustomEmbedLinks( req, res, next ) {
         category: req.formatted.categorySlug
       },
       lang: req.lang
-    });
+    } );
 
   }
 
@@ -472,9 +488,9 @@ function _appendEventTransferCredential( req, res, next ) {
 }
 
 
-function _formatSocialLinks( req, res, next ) {
+function _formatSocialLinks( req, res, next ) {
 
-  let siteUrl = false, 
+  let siteUrl = false,
 
     eventUrl,
 
@@ -486,7 +502,7 @@ function _formatSocialLinks( req, res, next ) {
 
     eventUrl = req.genUrl( 'agendaEventShow', {
       slug: req.agenda.slug,
-      eventSlug: req.event.slug 
+      eventSlug: req.event.slug
     }, { protocol: 'https://' } );
 
     siteUrl = req.genUrl( 'agendaShow', {
@@ -546,7 +562,7 @@ function _formatEmbedHeadLinks( req, res, next ) {
 function _googleItineraryLink( lat, lng ) {
 
   return `https://www.google.com/maps/dir//${lat},${lng}/@${lat},${lng},17z`;
-  
+
 }
 
 function _googleMapsLink( lat, lng ) {
