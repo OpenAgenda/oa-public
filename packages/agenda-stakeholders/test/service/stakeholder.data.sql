@@ -611,13 +611,17 @@ INSERT INTO ${schema} (`id`, `user_id`, `review_id`, `credential`, `created_at`,
 (10552, 7914, 4608, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL),
 (10553, 11242, 4608, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL),
 (10554, 10707, 4608, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL),
-(10557, 12004, 4608, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL),
-(10560, 12010, 4608, 1, '0000-00-00 00:00:00', '2016-03-21 14:26:03', '{"custom_fields":{"organization":"cdc du perche thironnais","contact_number":"0237494949","contact_name":"smagghe","contact_position":"charg\\u00e9 d''accueil"}}', 'cdc-du-perche-thironnais'),
-(10563, 10884, 4608, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL),
-(10569, 12016, 4608, 1, '0000-00-00 00:00:00', '2016-03-21 15:27:11', '{"custom_fields":{"organization":"Jardins et Arboretum de Poulaines","contact_number":"06.73.01.15.23","contact_name":"Val\\u00e9rie ESNAULT","contact_position":"G\\u00e9rante"}}', 'jardins-et-arboretum-de-poulaines'),
-(10574, 12019, 4608, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL),
-(10579, 12026, 4608, 1, '0000-00-00 00:00:00', '2016-03-21 16:18:37', '{"custom_fields":{"organization":"JARDINS ET SANTE","contact_number":"03 80 36 55 61         &  06 20 91 76 94","contact_name":"POIRIER JEAN LUC & MARIE FRANCOISE","contact_position":"PROPRIETAIRE DE JARDIN  OUVERT AU PUBLIC"}}', 'jardins-et-sante'),
-(10580, 12019, 4609, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL);
+(10557, 12004, 4608, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL);
+
+
+INSERT INTO ${schema} (`id`, `user_id`, `review_id`, `credential`, `created_at`, `updated_at`, `store`, `organization`, `deleted_user`) VALUES
+
+(10560, 12010, 4608, 1, '0000-00-00 00:00:00', '2016-03-21 14:26:03', '{"custom_fields":{"organization":"cdc du perche thironnais","contact_number":"0237494949","contact_name":"smagghe","contact_position":"charg\\u00e9 d''accueil"}}', 'cdc-du-perche-thironnais', 1 ),
+(10563, 10884, 4608, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 1 ),
+(10569, 12016, 4608, 1, '0000-00-00 00:00:00', '2016-03-21 15:27:11', '{"custom_fields":{"organization":"Jardins et Arboretum de Poulaines","contact_number":"06.73.01.15.23","contact_name":"Val\\u00e9rie ESNAULT","contact_position":"G\\u00e9rante"}}', 'jardins-et-arboretum-de-poulaines', 1 ),
+(10574, 12019, 4608, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 1 ),
+(10579, 12026, 4608, 1, '0000-00-00 00:00:00', '2016-03-21 16:18:37', '{"custom_fields":{"organization":"JARDINS ET SANTE","contact_number":"03 80 36 55 61         &  06 20 91 76 94","contact_name":"POIRIER JEAN LUC & MARIE FRANCOISE","contact_position":"PROPRIETAIRE DE JARDIN  OUVERT AU PUBLIC"}}', 'jardins-et-sante', 1 ),
+(10580, 12019, 4609, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 1 );
 
 --
 -- Indexes for dumped tables

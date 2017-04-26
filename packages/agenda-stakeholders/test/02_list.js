@@ -259,4 +259,77 @@ describe( 'agenda-stakeholders - functional (server): list', function() {
 
   } );
 
+
+  describe( 'filtered by deletedUser', function() {
+
+    this.timeout( 60000 );
+
+    beforeEach( done => {
+
+      service.initAndLoad( config, done );
+
+    } );
+
+    it( 'list can be filtered to exclude or include deleted users', done => {
+
+      service.agenda( 4608 ).list( 0, 1, { total: true }, ( e, st, total ) => {
+
+        service.agenda( 4608 ).list( { deletedUser: true },  0, 1, { total: true }, ( e, st, deletedUserTotal ) => {
+
+          service.agenda( 4608 ).list( { deletedUser: false },  0, 1, { total: true }, ( e, st, undeletedUserTotal ) => {
+
+            deletedUserTotal.should.equal( 5 );
+
+            total.should.equal( undeletedUserTotal + deletedUserTotal );
+
+            done();
+
+          } );
+
+        } );
+
+      } );
+
+    } )
+
+  } );
+
+
+  describe( 'filtered by actionsCounter', function() {
+
+    // pour la Bête de kevin
+    this.timeout( 60000 );
+
+    beforeEach( done => {
+
+      service.initAndLoad( config, done );
+
+    } );
+
+    it( 'list can be filtered to show only users with actions counts', done => {
+
+      service.agenda( 4608 ).list( { actionsCounterEqualZero: false }, 0, 10, ( err, stakeholders, total ) => {
+
+        stakeholders.filter( s => !!s.actionsCounter ).length.should.equal( stakeholders.length );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'list can be filtered to show only users without actions counts', done => {
+
+      service.agenda( 4608 ).list( { actionsCounterEqualZero: true }, 0, 100, ( err, stakeholders, total ) => {
+
+        stakeholders.filter( s => !s.actionsCounter ).length.should.equal( stakeholders.length );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
 } );

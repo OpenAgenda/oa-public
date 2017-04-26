@@ -14,7 +14,7 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
       validators.listOptions().should.eql( {
         detailed: false,
         showSlugs: false,
-        total: false
+        total: false,
       } );
 
     } );
@@ -30,7 +30,9 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
         invited: null,
         credentials: [],
         agendaId: null,
-        userId: null
+        userId: null,
+        actionsCounterEqualZero: null,
+        deletedUser: null
       } );
 
     } );
@@ -44,7 +46,9 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
         invited: null,
         credentials: [],
         agendaId: null,
-        userId: null
+        userId: null,
+        actionsCounterEqualZero: null,
+        deletedUser: null
       } );
 
     } );
@@ -62,7 +66,9 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
         invited: false,
         credentials: [ 1, 2 ],
         agendaId: null,
-        userId: null
+        userId: null,
+        actionsCounterEqualZero: null,
+        deletedUser: null
       } );
 
     } );
@@ -78,7 +84,9 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
         invited: null,
         credentials: [ 4, 1 ],
         userId: null,
-        agendaId: null
+        agendaId: null,
+        actionsCounterEqualZero: null,
+        deletedUser: null
       } );
 
     } );
@@ -96,7 +104,9 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
         invited: null,
         credentials: [],
         agendaId: null,
-        userId: null
+        userId: null,
+        actionsCounterEqualZero: null,
+        deletedUser: null
       } );
 
     } );
@@ -110,7 +120,9 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
         invited: null,
         credentials: [],
         agendaId: null,
-        userId: null
+        userId: null,
+        actionsCounterEqualZero: null,
+        deletedUser: null
       } );
 
     } );
@@ -124,7 +136,9 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
         invited: null,
         credentials: [],
         agendaId: null,
-        userId: null
+        userId: null,
+        actionsCounterEqualZero: null,
+        deletedUser: null
       } );
 
     } );

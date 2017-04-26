@@ -66,5 +66,13 @@ const listQuerySchema = schema( {
   agendaId: {
     type: 'integer',
     optional: true
+  },
+  actionsCounterEqualZero: {
+    type: 'boolean',
+    optional: true
+  },
+  deletedUser: {
+    type: 'boolean',
+    optional: true
   }
 } )

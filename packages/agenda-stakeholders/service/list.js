@@ -125,6 +125,18 @@ function _list( v ) {
 
     }
 
+    if ( v.query.actionsCounterEqualZero !== null ) {
+
+      v.knex.andWhere( 'actions_counter', v.query.actionsCounterEqualZero ? '=' : '<>' , 0 );
+
+    }
+
+    if ( v.query.deletedUser !== null ) {
+
+      v.knex.andWhere( 'deleted_user', !!v.query.deletedUser );
+
+    }
+
     return v.knex.clone()
       .select( 'id', 'credential', 'user_id', 'review_id', 'store', 'organization', 'updated_at', 'created_at', 'deleted_user', 'actions_counter' )
       .limit( v.limit )
