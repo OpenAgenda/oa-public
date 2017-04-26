@@ -275,7 +275,8 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           custom = stakeholder.custom,
           eventCount = stakeholder.eventCount,
           user = stakeholder.user,
-          deletedUser = stakeholder.deletedUser;
+          deletedUser = stakeholder.deletedUser,
+          actionsCounter = stakeholder.actionsCounter;
       var getLabel = this.context.getLabel;
       var _props4 = this.props,
           res = _props4.res,
@@ -297,24 +298,35 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             { className: 'title media-heading' },
             _react3.default.createElement(
               'strong',
-              { className: (0, _classnames2.default)({ 'text-muted': !custom.contactName }) },
-              custom.contactName || user && user.full_name || (invited ? getLabel('invited') : getLabel('noName'))
+              null,
+              custom.contactName || user && user.full_name || (invited ? custom.email || getLabel('invited') : getLabel('noName'))
             ),
+            ' ',
             _react3.default.createElement(
               'span',
               { className: 'text-muted small' },
-              ' ',
               this.credentialToStr(credential)
+            ),
+            ' ',
+            _react3.default.createElement(
+              'span',
+              {
+                className: (0, _classnames2.default)('badge', 'badge-sm', {
+                  'badge-info': invited && !deletedUser,
+                  'badge-default': actionsCounter === 0 && !invited && !deletedUser,
+                  'badge-success': actionsCounter > 0,
+                  'badge-warning': deletedUser
+                })
+              },
+              actionsCounter > 0 && !deletedUser && !invited && getLabel('active'),
+              actionsCounter === 0 && !deletedUser && !invited && getLabel('inactive'),
+              invited && !deletedUser && getLabel('invited'),
+              deletedUser && !invited && getLabel('deleted')
             )
           ),
           _react3.default.createElement(
             'div',
             { className: 'actions' },
-            deletedUser && _react3.default.createElement(
-              'p',
-              { className: 'text-danger' },
-              getLabel('deletedUser')
-            ),
             (custom.organization || custom.contactPosition) && _react3.default.createElement(
               'p',
               null,
@@ -330,7 +342,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                 custom.contactPosition || null
               )
             ),
-            (custom.email || custom.contactNumber) && _react3.default.createElement(
+            !invited && (custom.email || custom.contactNumber) && _react3.default.createElement(
               'p',
               null,
               _react3.default.createElement(

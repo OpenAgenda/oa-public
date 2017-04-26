@@ -167,7 +167,7 @@ export default class Dashboard extends Component {
   }
 
   renderStakeholder( stakeholder ) {
-    const { id, credential, custom, eventCount, user, deletedUser } = stakeholder;
+    const { id, credential, custom, eventCount, user, deletedUser, actionsCounter } = stakeholder;
     const { getLabel } = this.context;
     const { res, showModal, userCredential, resendInvitation } = this.props;
 
@@ -177,20 +177,34 @@ export default class Dashboard extends Component {
       <div key={id} className="bo-list-item media">
         <div className="media-body">
           <div className="title media-heading">
-            <strong className={classNames( { 'text-muted': !custom.contactName } )}>
+            <strong>
               {custom.contactName || (user && user.full_name) ||
-              (invited ? getLabel( 'invited' ) : getLabel( 'noName' ))}
+              (invited ? custom.email || getLabel( 'invited' ) : getLabel( 'noName' ))}
             </strong>
-            <span className="text-muted small"> {this.credentialToStr( credential )}</span>
+            {' '}
+            <span className="text-muted small">{this.credentialToStr( credential )}</span>
+            {' '}
+            <span
+              className={classNames( 'badge', 'badge-sm', {
+                'badge-info': invited && !deletedUser,
+                'badge-default': actionsCounter === 0 && !invited && !deletedUser,
+                'badge-success': actionsCounter > 0,
+                'badge-warning': deletedUser
+              } )}
+            >
+              {actionsCounter > 0 && !deletedUser && !invited && getLabel( 'active' )}
+              {actionsCounter === 0 && !deletedUser && !invited && getLabel( 'inactive' )}
+              {invited && !deletedUser && getLabel( 'invited' )}
+              {deletedUser && !invited && getLabel( 'deleted' )}
+            </span>
           </div>
           <div className="actions">
-            {deletedUser && <p className="text-danger">{getLabel( 'deletedUser' )}</p>}
             {(custom.organization || custom.contactPosition) && <p>
               {<span className="text-muted">{custom.organization || null}</span>}
               {custom.organization && custom.contactPosition && ' - '}
               {<span className="text-muted">{custom.contactPosition || null}</span>}
             </p>}
-            {(custom.email || custom.contactNumber) && <p>
+            {!invited && (custom.email || custom.contactNumber) && <p>
               {<span className="text-muted">{custom.email || null}</span>}
               {custom.email && custom.contactNumber && ' - '}
               {<span className="text-muted">{custom.contactNumber || null}</span>}
