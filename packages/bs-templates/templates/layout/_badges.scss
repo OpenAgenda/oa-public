@@ -1,5 +1,9 @@
 @import "assets/stylesheets/bootstrap/badges";
 
+.badge.badge-sm {
+  padding: 2px 5px;
+}
+
 .badge-warning, .label-warning {
   background-color: $oa-warning;
   border-color: $oa-warning;
@@ -21,4 +25,10 @@
   color: $oa-blue;
   background-color: transparent;
   border: 1px solid $oa-blue;
+}
+
+.badge-success {
+  color: $oa-white;
+  background-color: $brand-success;
+  border: 1px solid $brand-success;
 }
