@@ -28,6 +28,8 @@ const modLib = require( '../lib/moduleLib' ),
 
   sessions = require( 'sessions' ),
 
+  invitationsSvc = require( 'invitations' ),
+
   routes = {
 
     signin: [ 'get', '/signin', [ 
@@ -269,7 +271,37 @@ function activate( req, res ) {
 
     }
 
-    auth.signin( { req: req, res: res, user: user } );
+    invitationsSvc.get( { token: req.query.invitation }, { includeProcessed: true }, ( err, { invitation } ) => {
+
+      if ( err || !invitation ) return auth.signin( { req, res, user } );
+
+      const actions = invitation.data.actions.filter( v => v.name === 'linkStakeholder' );
+
+      if ( actions.length === 1 ) {
+
+        const agendaId = actions[ 0 ].params[ 0 ].agendaId;
+
+        return agendaSvc.get( { id: agendaId }, ( err, agenda ) => {
+
+          if ( err ) {
+
+            console.error( 'Error:', err );
+
+          } else {
+
+            req.agenda = agenda;
+
+          }
+
+          auth.signin( { req, res, user } );
+
+        } );
+
+      }
+
+      return auth.signin( { req, res, user } );
+
+    } );
 
   });
 
