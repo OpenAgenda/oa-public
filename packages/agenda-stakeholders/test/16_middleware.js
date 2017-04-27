@@ -170,6 +170,30 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
   } );
 
 
+  describe.only( '.message', () => {
+
+    it( 'send message to multiple stakeholders', done => {
+
+      const req = {
+        agenda: { id: 4608 },
+        message: '**Bla bla bla**'
+      }, res = {};
+
+      stakeholderMw.agenda().message( { actionsCounterEqualZero: true } )( req, res, next );
+
+      function next() {
+
+        req.result.queued.should.equal( true );
+
+        done();
+
+      }
+
+    } );
+
+  } );
+
+
   describe( '.update', () => {
 
     it( 'updates a stakeholder', done => {

@@ -81,7 +81,7 @@ function _total( v ) {
 
   if ( !v.options.total ) return v;
 
-  return v.knex.clone()
+  return v.knex
     .count( 'id as stakeholders' )
     .then( result => {
 
@@ -129,7 +129,7 @@ function _list( v ) {
 
   }
 
-  return v.knex
+  return v.knex.clone()
     .select( 'id', 'credential', 'user_id', 'review_id', 'store', 'organization', 'updated_at', 'created_at', 'deleted_user', 'actions_counter' )
     .limit( v.limit )
     .offset( v.offset )

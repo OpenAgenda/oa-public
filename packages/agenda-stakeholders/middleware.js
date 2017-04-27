@@ -17,7 +17,8 @@ function agenda( namespace = 'agenda' ) {
     stats,
     update,
     remove,
-    bulk
+    bulk,
+    message
   }
 
   function load( serviceNamespace = 'stakeholders' ) {
@@ -185,6 +186,34 @@ function agenda( namespace = 'agenda' ) {
           credential,
           context: _.get( req, namespaces.context, null )
         }, ( err, result ) => {
+
+          if ( err ) return next( err );
+
+          _.set( req, namespaces.result, result );
+
+          next();
+
+        } );
+
+    }
+
+  }
+
+  function message( options ) {
+
+    let { namespaces, actionsCounterEqualZero } = _.merge( {
+      namespaces: {
+        message: 'message',
+        result: 'result'
+      },
+      actionsCounterEqualZero: null
+    }, options || {} );
+
+    return ( req, res, next ) => {
+
+      service.agenda( _.get( req, namespace ).id )
+
+        .message( { actionsCounterEqualZero }, _.get( req, namespaces.message, '' ), ( err, result ) => {
 
           if ( err ) return next( err );
 
