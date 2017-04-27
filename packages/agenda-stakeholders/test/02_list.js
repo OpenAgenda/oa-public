@@ -6,8 +6,6 @@ const should = require( 'should' ),
 
   config = require( '../testconfig' ),
 
-  mysql = require( 'mysql' ),
-
   creds = require( '../iso/credentialTypes' ),
 
   _ = require( 'lodash' );

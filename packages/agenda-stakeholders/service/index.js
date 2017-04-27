@@ -180,6 +180,8 @@ function init( c, cb ) {
 
   .then( () => {
 
+    if ( knex ) return;
+
     knex = knexLib( {
       client: 'mysql',
       connection: c.mysql

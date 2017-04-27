@@ -81,15 +81,9 @@ function _total( v ) {
 
   if ( !v.options.total ) return v;
 
-  return knex.transaction( trx => {
-
-    return v.knex.clone()
-      .count( 'id as stakeholders' )
-      .transacting( trx );
-
-  } )
-
-  .then( result => {
+  return v.knex.clone()
+    .count( 'id as stakeholders' )
+    .then( result => {
 
     v.result.total = result[ 0 ].stakeholders;
 
@@ -103,49 +97,44 @@ function _total( v ) {
 
 function _list( v ) {
 
-  return knex.transaction( trx => {
+  v.knex.where( format.objToDb( v.query, true ) );
 
-    v.knex = v.knex.where( format.objToDb( v.query, true ) );
+  if ( v.query.search !== null ) {
 
-    if ( v.query.search !== null ) {
+    v.knex.andWhere( 'store', 'like', '%' + v.query.search + '%' );
 
-      v.knex.andWhere( 'store', 'like', '%' + v.query.search + '%' );
+  }
 
-    }
+  if ( v.query.invited !== null ) {
 
-    if ( v.query.invited !== null ) {
+    v.knex[ v.query.invited ? 'whereNull' : 'whereNotNull' ]( 'user_id' );
 
-      v.knex[ v.query.invited ? 'whereNull' : 'whereNotNull' ]( 'user_id' );
+  }
 
-    }
+  if ( v.query.credentials.length ) {
 
-    if ( v.query.credentials.length ) {
+    v.knex.whereIn( 'credential', v.query.credentials );
 
-      v.knex.whereIn( 'credential', v.query.credentials );
+  }
 
-    }
+  if ( v.query.actionsCounterEqualZero !== null ) {
 
-    if ( v.query.actionsCounterEqualZero !== null ) {
+    v.knex.andWhere( 'actions_counter', v.query.actionsCounterEqualZero ? '=' : '<>' , 0 );
 
-      v.knex.andWhere( 'actions_counter', v.query.actionsCounterEqualZero ? '=' : '<>' , 0 );
+  }
 
-    }
+  if ( v.query.deletedUser !== null ) {
 
-    if ( v.query.deletedUser !== null ) {
+    v.knex.andWhere( 'deleted_user', !!v.query.deletedUser );
 
-      v.knex.andWhere( 'deleted_user', !!v.query.deletedUser );
+  }
 
-    }
-
-    return v.knex.clone()
-      .select( 'id', 'credential', 'user_id', 'review_id', 'store', 'organization', 'updated_at', 'created_at', 'deleted_user', 'actions_counter' )
-      .limit( v.limit )
-      .offset( v.offset )
-      .orderBy( 'actions_counter', 'desc' )
-      .orderBy( 'id', 'asc' )
-      .transacting( trx );
-
-  } )
+  return v.knex
+    .select( 'id', 'credential', 'user_id', 'review_id', 'store', 'organization', 'updated_at', 'created_at', 'deleted_user', 'actions_counter' )
+    .limit( v.limit )
+    .offset( v.offset )
+    .orderBy( 'actions_counter', 'desc' )
+    .orderBy( 'id', 'asc' )
 
   .then( dbStakeholders => {
 
