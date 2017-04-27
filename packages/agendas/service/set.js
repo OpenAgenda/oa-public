@@ -86,7 +86,7 @@ function _update( identifiers, data, options, cb ) {
 
   // filter must happen after validate to avoid
   // incomplete data validation errors
-  .then( _filterProtected( 'clean' ) )
+  .then( _filterProtected.bind( null, 'clean' ) )
 
   .then( _verifyUnique( 'slug' ) )
 
@@ -425,29 +425,28 @@ function _verifyUnique( field ) {
 }
 
 
-function _filterProtected( namespace ) {
+/**
+ * filters out protected fileds from given object if protected option is set
+ */
+function _filterProtected( namespace, v ) {
 
-  return v => {
+  if ( !v.protected ) return v;
 
-    if ( !v.protected ) return v;
+  let data = v[ namespace ] || {};
 
-    let data = v[ namespace ];
+  v[ namespace ] = {};
 
-    v[ namespace ] = {};
+  Object.keys( data ).forEach( k => {
 
-    Object.keys( data ).forEach( k => {
+    if ( !dbParse.is( 'obj', k, 'protected' ) ) {
 
-      if ( !dbParse.is( 'obj', k, 'protected' ) ) {
+      v[ namespace ][ k ] = data[ k ];
 
-        v[ namespace ][ k ] = data[ k ];
+    }
 
-      }
+  } );
 
-    } );
-
-    return v;
-
-  }  
+  return v;
 
 }
 
