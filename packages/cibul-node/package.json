@@ -20,6 +20,7 @@
     "agenda-tags": "git+ssh://git@bitbucket.org:openagenda/agenda-tags.git",
     "agendas": "git+ssh://git@bitbucket.org:openagenda/agendas.git",
     "aggregator-sources": "git+ssh://git@bitbucket.org:openagenda/aggregator-sources.git",
+    "activities": "git+ssh://git@bitbucket.org/openagenda/activities.git",
     "async": "~0.9",
     "aws-sdk": "~2.0",
     "babel-plugin-add-module-exports": "^0.2.1",

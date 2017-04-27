@@ -667,7 +667,10 @@ function _initAgendaStakeholders( config ) { // async
 
   agendaStakeholders.init( {
     queue: {
-      name: config.queues.stakeholderCreate,
+      names: {
+        bulk: config.queues.stakeholderCreate,
+        message: config.queues.stakeholderMessage
+      },
       redis: config.redis,
       threshold: 20
     },
@@ -675,6 +678,13 @@ function _initAgendaStakeholders( config ) { // async
     mysql: config.db,
     logger,
     interfaces: {
+      onMessage( stakeholder, message, cb ) {
+
+        // if user has an invitation, set activation link as call to action
+        // if user has an account, set agenda add event page as cta
+        cb()
+
+      },
       onCreate( stakeholder, context ) {
 
         if ( stakeholder.userId ) return;

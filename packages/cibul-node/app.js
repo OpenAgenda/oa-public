@@ -218,6 +218,10 @@ module.exports = ( enabledTypes, cb ) => {
 
         require( './services/lib/instanceQueue/task' )();
 
+        require( 'agenda-stakeholders' ).tasks.bulk();
+
+        require( 'agenda-stakeholders' ).tasks.message();
+
       }
 
       server = app.listen( config.port );

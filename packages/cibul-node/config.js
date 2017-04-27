@@ -45,7 +45,8 @@ var deepExtend = require( 'deep-extend' ),
         aggregator: 'aggregator',
         groupActions: 'groupactions',
         controlData: 'agendaControlDataQueue',
-        stakeholderCreate: 'stakeholderCreate'
+        stakeholderCreate: 'stakeholderCreate',
+        stakeholderMessage: 'stakeholderMessage'
       },
       legacyQueue: 'bgestack',
       tmpFolderPath: '/var/tmp/',
