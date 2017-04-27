@@ -285,7 +285,7 @@ function activate( req, res ) {
 
           if ( err ) {
 
-            console.error( 'Error:', err );
+            req.log( 'error', err );
 
           } else {
 
