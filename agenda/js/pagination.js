@@ -28,9 +28,9 @@ loading = false,
 prevPageExists = true;
 
 module.exports = {
-  init: init,
-  reset: reset,
-  loadNext: loadNext
+  init,
+  reset,
+  loadNext
 }
 
 function init( options ) {
@@ -47,7 +47,7 @@ function init( options ) {
 
   _initPrevPage( params.href );
 
-  if ( params.auto ) {
+  if ( params.auto && cn.el( params.selectors.list ) ) {
 
     _onHitBottom( cn.el( params.selectors.list ), loadNext );
 
