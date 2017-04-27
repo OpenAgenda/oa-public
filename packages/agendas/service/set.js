@@ -60,7 +60,8 @@ function _update( identifiers, data, options, cb ) {
     protected: true, // protected fields cannot be tampered with
     internal: false, // retrieve internal fields when update is done
     private: false,
-    includeImagePath: false
+    includeImagePath: false,
+    context: null
   }, options );
 
   w( _.extend( {}, params, {
@@ -106,7 +107,7 @@ function _update( identifiers, data, options, cb ) {
 
     if ( v.success && interfaces ) {
 
-      interfaces.onUpdate( v.current, v.updated );
+      interfaces.onUpdate( v.current, v.updated, v.context );
 
     }
 
