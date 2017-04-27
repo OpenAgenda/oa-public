@@ -51,8 +51,19 @@
          },
          "category":null,
          "tags":[
-
-         ]
+      {
+        "id": 40,
+        "label": "Musée de France"
+      },
+      {
+        "id": 42,
+        "label": "Monument historique"
+      },
+      {
+        "id": 20,
+        "label": "Sciences et techniques"
+      }
+    ]
       },
       {
          "uid":51980053,

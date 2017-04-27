@@ -36,8 +36,460 @@
     "category": {
       "slug": "conferencecolloquedebat",
       "label": "Conférence/Colloque/Débat"
+    },
+    "custom": {
+      "periodicity": "biennal",
+      "visitortypes": "professionalsonly",
+      "year": null,
+      "siteurl": "http://www.equipbaie.com",
+      "organizeremail": "info@equipbaie.com",
+      "salesemail": "philippe.piot@reedexpo.fr",
+      "nomenclature": "",
+      "visitorprofiles": "",
+      "totalnumberofvisitors": "20000",
+      "totalnumberexhibitors": "320",
+      "partner": null,
+      "partnerurl": null,
+      "organizername": "Reed Expositions France, Paris",
+      "organizerurl": "http://www.reedexpo.fr",
+      "facebookurl": "",
+      "twitterurl": "",
+      "flickrurl": "",
+      "instagramurl": null,
+      "dailymotionurl": null,
+      "youtubeurl": null,
+      "linkedinurl": null,
+      "testimony": null,
+      "imagetestimony": null,
+      "authortestimony": null,
+      "illustrationurl": "https://s3-eu-west-1.amazonaws.com/cibulstatic/Reed/Equipbaie.jpg",
+      "illustration": "47863189.69950346.illustration.jpg"
     }
   },
+  "languages" : [ "fr", "en" ],
+  "customSet": [
+    {
+      "name": "periodicity",
+      "fieldType": "radio",
+      "type": "public",
+      "optional": true,
+      "label": {
+        "fr": "Périodicité",
+        "en": "Periodicity"
+      },
+      "options": [
+        {
+          "label": {
+            "fr": "Annuel (une fois par an)",
+            "en": "Annual (once a year)"
+          },
+          "value": "annual"
+        },
+        {
+          "label": {
+            "en": "Biannual (twice a year)",
+            "fr": "Bi-Annuel (deux fois par an)"
+          },
+          "value": "biannual"
+        },
+        {
+          "label": {
+            "en": "Biennal (once every two years)",
+            "fr": "Biennal (une fois tous les 2 ans)"
+          },
+          "value": "biennal"
+        },
+        {
+          "label": {
+            "en": "Triennal (once every three years)",
+            "fr": "Triennal (une fois tous les 3 ans)"
+          },
+          "value": "triennal"
+        }
+      ]
+    },
+    {
+      "name": "visitortypes",
+      "type": "public",
+      "fieldType": "radio",
+      "optional": "true",
+      "label": {
+        "fr": "Type de visiteurs",
+        "en": "Type of visitors"
+      },
+      "options": [
+        {
+          "label": {
+            "fr": "Ouvert au public",
+            "en": "Open to the public"
+          },
+          "value": "opentopublic"
+        },
+        {
+          "label": {
+            "fr": "Réservé aux professionnels",
+            "en": "Professionals only"
+          },
+          "value": "professionalsonly"
+        }
+      ]
+    },
+    {
+      "name": "year",
+      "type": "public",
+      "fieldType": "integer",
+      "optional": true,
+      "label": {
+        "fr": "Edition",
+        "en": "Edition"
+      }
+    },
+    {
+      "name": "siteurl",
+      "type": "public",
+      "fieldType": "url",
+      "optional": true,
+      "max": 300,
+      "label": {
+        "fr": "Url du site web",
+        "en": "Website url"
+      }
+    },
+    {
+      "name": "organizeremail",
+      "type": "public",
+      "fieldType": "email",
+      "optional": true,
+      "label": {
+        "fr": "Email de l'organisateur",
+        "en": "Email of the organizer"
+      }
+    },
+    {
+      "name": "salesemail",
+      "type": "public",
+      "fieldType": "email",
+      "optional": true,
+      "label": {
+        "fr": "Email contact commercial",
+        "en": "Email of the Sales Service"
+      }
+    },
+    {
+      "name": "nomenclature",
+      "type": "public",
+      "fieldType": "textarea",
+      "optional": true,
+      "max": 3000,
+      "multilingual": true,
+      "label": {
+        "fr": "Produits et services",
+        "en": "Products and services"
+      }
+    },
+    {
+      "name": "visitorprofiles",
+      "type": "public",
+      "fieldType": "textarea",
+      "optional": true,
+      "max": 1000,
+      "multilingual": true,
+      "label": {
+        "fr": "Profils des visiteurs",
+        "en": "Visitor profiles"
+      }
+    },
+    {
+      "name": "numberofvisitorsnationals",
+      "type": "private",
+      "fieldType": "integer",
+      "optional": true,
+      "label": {
+        "fr": "Année dernière - Nombre de visiteurs nationaux",
+        "en": "Previous year - Number of national visitors"
+      }
+    },
+    {
+      "name": "numberofvisitorsforeign",
+      "type": "private",
+      "fieldType": "integer",
+      "optional": true,
+      "label": {
+        "fr": "Année dernière - Nombre de visiteurs étrangers",
+        "en": "Previous year - Number of foreign visitors"
+      }
+    },
+    {
+      "name": "totalnumberofvisitors",
+      "type": "public",
+      "fieldType": "integer",
+      "optional": true,
+      "label": {
+        "fr": "Année dernière - Nombre total de visiteurs",
+        "en": "Previous year - Total number of visitors"
+      }
+    },
+    {
+      "name": "ojs",
+      "fieldType": "checkbox",
+      "type": "public",
+      "optional": true,
+      "label": {
+        "fr": "Chiffres certifiés OJS",
+        "en": "OJS-certified numbers"
+      }
+    },
+    {
+      "name": "numberofnationalexhibitors",
+      "type": "private",
+      "fieldType": "integer",
+      "optional": true,
+      "label": {
+        "fr": "Année dernière - Nombre d'exposants nationaux",
+        "en": "Previous year - Number of national exhibitors"
+      }
+    },
+    {
+      "name": "numberofforeignexhibitors",
+      "type": "private",
+      "fieldType": "integer",
+      "optional": true,
+      "label": {
+        "fr": "Année dernière - Nombre d'exposants étrangers",
+        "en": "Previous year - Number of foreign exhibitors"
+      }
+    },
+    {
+      "name": "totalnumberexhibitors",
+      "type": "public",
+      "fieldType": "integer",
+      "optional": true,
+      "label": {
+        "fr": "Année dernière - Nombre total d'exposants",
+        "en": "Previous year - Total number of exhibitors"
+      }
+    },
+    {
+      "name": "partner",
+      "type": "public",
+      "fieldType": "text",
+      "optional": true,
+      "max": 300,
+      "label": {
+        "fr": "Partenaire",
+        "en": "Partner"
+      }
+    },
+    {
+      "name": "partnerurl",
+      "type": "public",
+      "fieldType": "url",
+      "optional": true,
+      "label": {
+        "fr": "Site web du partenaire",
+        "en": "Website of the partner"
+      }
+    },
+    {
+      "name": "organizername",
+      "type": "public",
+      "fieldType": "text",
+      "optional": true,
+      "max": 200,
+      "label": {
+        "fr": "Nom de la société organisatrice",
+        "en": "Name of the organizing company"
+      }
+    },
+    {
+      "name": "organizerurl",
+      "type": "public",
+      "fieldType": "url",
+      "optional": true,
+      "label": {
+        "fr": "Url de l'organisateur",
+        "en": "Url of the organizer"
+      }
+    },
+    {
+      "name": "directorname",
+      "type": "private",
+      "fieldType": "text",
+      "optional": true,
+      "max": 200,
+      "label": {
+        "fr": "Nom du directeur",
+        "en": "Name of the director"
+      }
+    },
+    {
+      "name": "financialdirectorname",
+      "type": "private",
+      "fieldType": "text",
+      "optional": true,
+      "max": 200,
+      "label": {
+        "fr": "Nom du directeur financier",
+        "en": "Name of the financial director"
+      }
+    },
+    {
+      "name": "netsurface",
+      "type": "private",
+      "fieldType": "integer",
+      "optional": true,
+      "label": {
+        "fr": "Année dernière - Surface nette (m2)",
+        "en": "Previous year - Net surface (sqm)"
+      }
+    },
+    {
+      "name": "emptysurfaceprice",
+      "type": "private",
+      "fieldType": "number",
+      "optional": true,
+      "label": {
+        "fr": "Prix du m2 nu",
+        "en": "Price by sqm, empty"
+      }
+    },
+    {
+      "name": "equippedsurfaceprice",
+      "type": "private",
+      "fieldType": "number",
+      "optional": true,
+      "label": {
+        "fr": "Prix du m2 équipé",
+        "en": "Price by sqm, equipped"
+      }
+    },
+    {
+      "name": "facebookurl",
+      "type": "public",
+      "fieldType": "url",
+      "optional": true,
+      "max": 300,
+      "label": {
+        "fr": "Lien page Facebook",
+        "en": "Facebook page link"
+      }
+    },
+    {
+      "name": "twitterurl",
+      "type": "public",
+      "fieldType": "url",
+      "optional": true,
+      "max": 300,
+      "label": {
+        "fr": "Lien compte Twitter",
+        "en": "Twitter account link"
+      }
+    },
+    {
+      "name": "flickrurl",
+      "type": "public",
+      "fieldType": "text",
+      "optional": true,
+      "max": 300,
+      "label": {
+        "fr": "Galerie Flickr",
+        "en": "Flickr Gallery"
+      }
+    },
+    {
+      "name": "instagramurl",
+      "type": "public",
+      "fieldType": "url",
+      "optional": true,
+      "max": 300,
+      "label": {
+        "fr": "Instagram",
+        "en": "Instagram"
+      }
+    },
+    {
+      "name": "dailymotionurl",
+      "type": "public",
+      "fieldType": "url",
+      "optional": true,
+      "max": 300,
+      "label": {
+        "fr": "Dailymotion",
+        "en": "Dailymotion"
+      }
+    },
+    {
+      "name": "youtubeurl",
+      "type": "public",
+      "fieldType": "url",
+      "optional": true,
+      "max": 300,
+      "label": {
+        "fr": "Youtube",
+        "en": "Youtube"
+      }
+    },
+    {
+      "name": "linkedinurl",
+      "type": "public",
+      "fieldType": "url",
+      "optional": true,
+      "max": 300,
+      "label": {
+        "fr": "LinkedIn",
+        "en": "LinkedIn"
+      }
+    },
+    {
+      "name": "testimony",
+      "type": "public",
+      "fieldType": "textarea",
+      "optional": true,
+      "multilingual": true,
+      "label": {
+        "fr": "Témoignage",
+        "en": "Testimony"
+      },
+      "info": {
+        "fr": "Merci d'ajouter du texte et non des liens!",
+        "en": "Thank you for adding text rather than links!"
+      }
+    },
+    {
+      "name": "imagetestimony",
+      "type": "public",
+      "fieldType": "text",
+      "optional": true,
+      "label": {
+        "fr": "Url image témoignages",
+        "en": "Url of image of testimonies"
+      }
+    },
+    {
+      "name": "authortestimony",
+      "type": "public",
+      "fieldType": "text",
+      "optional": true,
+      "label": {
+        "fr": "Auteur du témoignage",
+        "en": "Author of the testimony"
+      }
+    },
+    {
+      "name": "illustrationurl",
+      "type": "public",
+      "fieldType": "url",
+      "optional": true,
+      "info": {
+        "fr": "Collez un lien pointant vers l'illustration",
+        "en": "Paste an url pointing to the illustration"
+      },
+      "label": {
+        "fr": "Photo d'illustration",
+        "en": "Illustration photo"
+      }
+    }
+  ],
   "categorySet": {
     "categories": [
       {

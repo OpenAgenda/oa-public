@@ -7,6 +7,7 @@ import ReactDom from 'react-dom'
 import Spinner from 'react-form-components/build/Spinner'
 import TagSelector from 'agenda-tags/lib/TagSelector.jsx'
 import CategorySelector from 'agenda-categories/lib/CategorySelector.jsx'
+import CustomFields from '../../eventForm/js/CustomFields.jsx'
 import genLabelGet from 'labels'
 import labels from 'labels/event/tagsForm'
 import categorySetLabels from 'labels/agenda-categories/selector'
@@ -15,6 +16,7 @@ import Modal from 'react-components/build/Modal'
 import get from 'utils/get'
 import post from 'utils/post'
 import update from 'react-addons-update'
+import omitBy from 'lodash/omitBy'
 
 const defaults = {
   canvas: '.js_canvas',
@@ -53,7 +55,10 @@ App = React.createClass( {
       return this.setState( {
         tagSet: data.tagSet,
         categorySet: data.categorySet,
+        customSet: data.customSet,
         event: data.event,
+        languages: data.languages,
+        customSetErrors: {},
         loading: false
       } );
 
@@ -71,13 +76,41 @@ App = React.createClass( {
 
   onChange( type ) {
 
-    return values => {
+    let self = this;
+
+    return function( values ) {
 
       let changes = { event: {} };
 
-      changes.event[ type ] = { $set: values };
+      if ( type === 'custom' ) {
 
-      this.setState( update( this.state, changes ) );
+        let field = arguments[ 0 ], 
+
+          value = arguments[ 1 ],
+
+          error = arguments[ 2 ];
+
+        changes.event[ type ] = {};
+
+        changes.event[ type ][ field ] = {
+          $set: value
+        }
+
+        changes.customSetErrors = {}
+
+        changes.customSetErrors[ field ] = {
+          $set: error
+        };
+
+      } else {
+        
+        changes.event[ type ] = { 
+          $set: values
+        };
+
+      }
+
+      self.setState( update( self.state, changes ) );
 
     }
 
@@ -110,6 +143,8 @@ App = React.createClass( {
 
   submit() {
 
+    if ( this.hasValidationErrors() ) return;
+
     this.setState( {
       saving: true
     } );
@@ -128,6 +163,12 @@ App = React.createClass( {
       this.onSuccess();
 
     } );
+
+  },
+
+  hasValidationErrors() {
+
+    return !!Object.keys( omitBy( this.state.customSetErrors, v => !!v ) ).length;
 
   },
 
@@ -158,6 +199,17 @@ App = React.createClass( {
         onChange={ this.onChange( 'tags' ) }
         labels={tagSetLabels}
       /> : null }
+      { this.state.customSet.length ? <CustomFields
+        lang={this.props.lang}
+        fields={this.state.customSet.filter( c => c.fieldType !== 'image' )}
+        values={this.state.event.custom}
+        onChange={ this.onChange( 'custom' ) }
+        labels={labels}
+        res={{upload:'', remove: ''}}
+        languages={this.state.languages}
+        errors={this.state.customSetErrors}
+      /> : null }
+      { this.hasValidationErrors() ? <p className="error bg-danger margin-v-md padding-v-sm padding-h-sm">{getLabel( 'invalidError', this.props.lang )}</p> : null }
       <a href="#" className="text-danger" onClick={this.onCancel}>{getLabel( 'cancel', this.props.lang )}</a>
       { this.state.saving ? <button className="btn btn-primary pull-right" style={{position: 'relative'}}>{getLabel( 'submit', this.props.lang )} <Spinner spinner={{color: '#666', width: 1, length: 3, radius: 6}} /></button> : null }
       { !this.state.saving && !this.state.saveSuccess ? <button onClick={this.submit} className="btn btn-primary pull-right">{getLabel( 'submit', this.props.lang )}</button> : null }
