@@ -31,7 +31,8 @@ function init( c, cb ) {
     migrations: Object.assign( {}, config.migrations, {
       directory: path.resolve( path.dirname( __dirname ), 'migrations' )
     } ),
-    schemas: config.schemas
+    schemas: config.schemas,
+    debug: true
   } );
 
   return knex.migrate.latest()

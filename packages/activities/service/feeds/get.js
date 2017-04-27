@@ -68,7 +68,6 @@ function get() {
   } = identifiers;
 
   const params = _.merge( {
-    protected: true,
     internal: false,
     followed: false,
     followedBy: false

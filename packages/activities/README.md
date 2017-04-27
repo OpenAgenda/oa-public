@@ -1,19 +1,19 @@
 
 # Feed
 
-## activities.feed( type, uid )
+## activities.feed( { entityType, entityUid } ) / .feed( id )
 
 Permet de pré-sélectionner un feed, sans faire de requête à la BDD pour le moment.
 
 ***params:***  
-type: Le type de l'entité qui sera utilisée, peut être 'user', 'agenda', 'event', ou 'network' par exemple  
-uid: L'uid de l'entité concernée
+entityType: Le type de l'entité qui sera utilisée, peut être 'user', 'agenda', 'event', ou 'network' par exemple  
+entityUid: L'uid de l'entité concernée
 
-### .feed( type, uid ).create()
+### .feed( { entityType, entityUid } ).create()
 
 Créé un feed.
 
-### .feed( type, uid ).get( [options, cb] )
+### .feed( { entityType, entityUid } ).get( [options, cb] )
 
 Récupère les données du feed pré-sélectionné
 
@@ -29,11 +29,11 @@ return **data** *(object)*:
  - entityUid
 
 
-### .feed( type, uid ).remove( [cb] )
+### .feed( { entityType, entityUid } ).remove( [cb] )
 
 Supprime le feed de manière *soft*.
 
-### .feed( type, uid ).follow( feedId [, cb] )
+### .feed( { entityType, entityUid } ).follow( feedId [, cb] )
 
 **Alias:** .follow( entityType, uid [, cb] )
 
@@ -41,15 +41,15 @@ Follow un autre feed.
 
 *Note*: Par la suite on pourrait ajouter un champ `private` à la table activity qui rend ou non l'activité followable par d'autres.
 
-### .feed( type, uid ).unfollow( feedId [, cb] )
+### .feed( { entityType, entityUid } ).unfollow( feedId [, cb] )
 
-**Alias:** .unfollow( entityType, uid [, cb] )
+**Alias:** .unfollow( { entityType, entityUid } [, cb] )
 
 Arrête de suivre un autre feed, tout en gardant l'historique qui a été suivi jusqu'ici.
 
 ## Activities
 
-### .feed( type, uid ).activities.add( activity [, cb] )
+### .feed( { entityType, entityUid } ).activities.add( activity [, cb] )
 
 Ajoute une activité à un feed. Puis l'ajoute à une notification ou en créé une nouvelle si besoin.
 
@@ -60,7 +60,7 @@ activity *(object)*:
 - object *(string)*: le sujet concerné par l'activité
 - additional_infos *(object)*: des informations supplémentaires si besoin, utile pour le formatage des notifications
 
-### .feed( type, uid ).activities.list( [query,] fromId, limit, [options, cb] )
+### .feed( { entityType, entityUid } ).activities.list( [query,] fromId, limit, [options, cb] )
 
 Liste les activités d'un feed.
 
@@ -72,7 +72,7 @@ query *(object)*:
 
 options *(object)*: ??
 
-### .feed( type, uid ).activities.get( activityId [, cb] )
+### .feed( { entityType, entityUid } ).activities.get( activityId [, cb] )
 
 Récupère une activité, principalement utiliser par les notifications.
 
@@ -80,7 +80,7 @@ Récupère une activité, principalement utiliser par les notifications.
 
 Les notifications sont limitées aux feeds utilisateurs.
 
-### .feed( type, uid ).notifications.list( [query,] fromId, limit, [options, cb] )
+### .feed( { entityType, entityUid } ).notifications.list( [query,] fromId, limit, [options, cb] )
 
 Liste les notifications d'un feed.
 
@@ -90,11 +90,11 @@ query *(object)*:
 
 options *(object)*: ??
 
-### .feed( type, uid ).notifications.get( notificationId [, cb] )
+### .feed( { entityType, entityUid } ).notifications.get( notificationId [, cb] )
 
 Récupère une notification.
 
-### .feed( type, uid ).notifications.update( notificationId, data [, cb] )
+### .feed( { entityType, entityUid } ).notifications.update( notificationId, data [, cb] )
 
 Permet de marquer une notification comme vue ou lue.
 
@@ -103,6 +103,6 @@ data *(object)*:
 - mark_seen *(bool)*
 - mark_read *(bool)*
 
-### .feed( type, uid ).notifications.remove( notificationId [, cb] )
+### .feed( { entityType, entityUid } ).notifications.remove( notificationId [, cb] )
 
 Supprime une notification.
