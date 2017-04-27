@@ -9,8 +9,8 @@ exports.up = knex => {
     table.string( 'object' ).notNullable();
     table.string( 'target' );
     table.text( 'store', 'longtext' );
-    table.dateTime( 'created_at' ).notNullable().defaultTo( knex.fn.now() );
-    table.dateTime( 'updated_at' );
+    table.timestamp( 'created_at' ).notNullable().defaultTo( knex.fn.now() );
+    table.timestamp( 'updated_at' );
   } );
 
 };
