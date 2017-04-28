@@ -21,8 +21,6 @@ const servicePath = __dirname + '/../services',
 
   emailStrategie = require( 'emailStrategie' ),
 
-  cookieParser = require( 'cookie-parser' ),
-
   unsubscribed = require( 'unsubscribed' ),
 
   agendaSearch = require( 'agenda-search' ),
@@ -64,6 +62,10 @@ const servicePath = __dirname + '/../services',
   aggregatorSourcesSvc = require( 'aggregator-sources' ),
 
   invitationsSvc = require( 'invitations' ),
+
+  activitiesSvc = require( 'activities' ),
+
+  activityAppsMw = require( 'activity-apps/middleware' ),
 
   coms = require( './coms' ),
 
@@ -134,6 +136,10 @@ module.exports = function ( config, cb ) {
 
     .then( _initUnsubscribed )
 
+    .then( _initActivities )
+
+    .then( _initActivityApps )
+
     .done( () => {
       cb()
     }, err => {
@@ -143,6 +149,64 @@ module.exports = function ( config, cb ) {
       cb( err )
 
     } );
+
+}
+
+function _initActivityApps( config ) {
+
+  log( 'info', 'activity-apps' );
+
+  activityAppsMw.init( { limit: 20 } );
+
+  return config
+
+}
+
+function _initActivities( config ) {
+
+  log( 'info', 'activities' );
+
+  const getRole = agendaStakeholders.types.get; 
+
+  return activitiesSvc.init( {
+    mysql: config.db,
+    schemas: config.schemas,
+    migrations: {
+      tableName: 'activity_migrations'
+    },
+    filterFollows: [ {
+      verb: [ 'event.publish', 'event.unpublish' ],
+      getFeeds: true,
+      filter: ( activity, originFeed, targetFeed, follow, cb ) => {
+
+        if ( targetFeed.entityType === 'agenda' && targetFeed.entityUid !== activity.target.split( ':' )[ 1 ] ) {
+          return cb( null, false );
+        }
+
+        cb( null, true );
+
+      }
+    }, {
+      verb: 'agenda.setMemberRole',
+      filter: ( activity, originFeed, targetFeed, follow, cb ) => {
+
+        agendaStakeholders.type.get( 'moderator' );
+
+        if (
+          !agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'moderator' ), true ) // less than moderator
+          || (follow.store.credential === getRole( 'moderator' ) && activity.store.credential === getRole( 'administrator' ) ) // moderator doesn't sees who has become an administrator
+        ) {
+
+          return cb( null, false );
+
+        }
+
+        cb( null, true );
+
+      }
+    } ]
+  } )
+    .then( () => config );
 
 }
 
@@ -177,15 +241,16 @@ function _initInvitations( config ) {
       linkStakeholder: ( executeData, actionParams, cb ) => {
 
         const { user } = executeData;
-        const [ stakeholder ] = actionParams;
+        const [ stakeholder, context ] = actionParams;
 
         agendaStakeholders.agenda( stakeholder.agendaId ).update( {
           id: stakeholder.id
         }, {
-          contact_name: user.full_name
+          contact_name: user.fullName
         }, {
           allowPartial: true,
-          userId: user.id
+          userId: user.id,
+          context
         }, err => cb( err ) );
 
       }
@@ -397,26 +462,30 @@ function _initUsers( config ) {
 
         // remove 100 stakeholders
 
-        agendaStakeholders.user( user.id ).list( 0, 100, ( err, stakeholders ) => {
+        activitiesSvc.feed( { entityType: 'user', entityUid: user.uid } ).remove( () => {
 
-          async.eachSeries(
-            stakeholders,
-            ( sh, acb ) => {
+          agendaStakeholders.user( user.id ).list( 0, 100, ( err, stakeholders ) => {
 
-              agendaStakeholders.agenda( sh.agendaId ).update( { id: sh.id }, {}, {
-                allowPartial: true,
-                deletedUser: true
-              }, err => {
+            async.eachSeries(
+              stakeholders,
+              ( sh, acb ) => {
 
-                if ( err ) log( 'error', 'could not remove stakeholder ', err );
+                agendaStakeholders.agenda( sh.agendaId ).update( { id: sh.id }, {}, {
+                  allowPartial: true,
+                  deletedUser: true
+                }, err => {
 
-                acb( null );
+                  if ( err ) log( 'error', 'could not remove stakeholder ', err );
 
-              } );
+                  acb( null );
 
-            },
-            () => cb()
-          );
+                } );
+
+              },
+              () => cb()
+            );
+
+          } );
 
         } );
 
@@ -629,8 +698,26 @@ function _initAgendaStakeholders( config ) { // async
 
   const sendStakeholderInvitation = ( invitation, stakeholder, context, agenda ) => {
 
-    const action = invitation.data.actions.find( v => v.name === 'linkStakeholder' );
-    context = action.params[ 1 ] || context;
+    userSvc.get( context.invitationSender.userId, ( err, user ) => {
+
+      if ( err ) return log( 'error', err );
+
+      activitiesSvc.feed( { entityType: 'agenda', entityUid: agenda.uid } ).activities.add( {
+        actor: 'user:' + user.uid,
+        verb: 'agenda.sendInvitation',
+        object: stakeholder.custom.email,
+        target: 'agenda:' + agenda.uid,
+        store: {
+          labels: {
+            actor: context.invitationSender.name || user.full_name,
+            // object: stakeholder.custom.email,
+            target: agenda.title
+          },
+          credential: stakeholder.credential
+        }
+      } );
+
+    } );
 
     let lang = ( context && context.lang ) || 'fr';
 
@@ -687,14 +774,53 @@ function _initAgendaStakeholders( config ) { // async
       },
       onCreate( stakeholder, context ) {
 
-        if ( stakeholder.userId ) return;
-
         agendasSvc.get( { id: stakeholder.agendaId }, { private: null }, ( err, agenda ) => {
 
           if ( err ) return log( 'error', err );
 
           if ( !agenda ) return log( 'info', 'agenda not found: %s', stakeholder.agendaId );
 
+          // user already exists
+          if ( stakeholder.userId ) {
+
+            userSvc.get( stakeholder.userId, ( err, user ) => {
+
+              if ( err ) return log( 'error', err );
+
+              userSvc.get( context.invitationSender.userId, ( err, senderUser ) => {
+
+                if ( err ) return log( 'error', err );
+
+                activitiesSvc.feed( { entityType: 'user', entityUid: user.uid } )
+                  .follow( { entityType: 'agenda', entityUid: agenda.uid }, { credential: stakeholder.credential } )
+                  .then( () => {
+
+                    activitiesSvc.feed( { entityType: 'agenda', entityUid: agenda.uid } ).activities.add( {
+                      actor: 'user:' + senderUser.uid,
+                      verb: 'agenda.addMember',
+                      object: 'user:' + user.uid,
+                      target: 'agenda:' + agenda.uid,
+                      store: {
+                        labels: {
+                          actor: context.invitationSender.name || senderUser.full_name,
+                          object: stakeholder.custom.contactName || user.full_name,
+                          target: agenda.title
+                        },
+                        credential: stakeholder.credential
+                      }
+                    } );
+
+                  } );
+
+              } );
+
+            } );
+
+            return;
+
+          }
+
+          // new user
           invitationsSvc.assign( { email: stakeholder.custom.email }, 'linkStakeholder', [ stakeholder, context ] )
             .then( ( { invitation } ) => {
 
@@ -703,7 +829,7 @@ function _initAgendaStakeholders( config ) { // async
             } )
             .catch( err => {
 
-              console.log( 'Error', err );
+              log( 'error', err );
 
             } );
 
@@ -712,20 +838,105 @@ function _initAgendaStakeholders( config ) { // async
       },
       onUpdate( before, stakeholder, context ) {
 
-        if (
-          !_.isEqual( _.omit( before, 'updatedAt' ), _.omit( stakeholder, 'updatedAt' ) )
-          || stakeholder.deletedUser
-          || stakeholder.userId
-        ) return;
-
         agendasSvc.get( { id: stakeholder.agendaId }, { private: null }, ( err, agenda ) => {
 
           if ( err ) return log( 'error', err );
 
           if ( !agenda ) return log( 'info', 'agenda not found: %s', stakeholder.agendaId );
 
+          // Activities
+          userSvc.get( stakeholder.userId, ( err, user ) => {
+
+            if ( err ) return log( 'error', err );
+
+            userSvc.get( context.invitationSender.userId, ( err, senderUser ) => {
+
+              if ( err ) return log( 'error', err );
+
+              // new user
+              if ( stakeholder.userId && before.userId !== stakeholder.userId ) {
+
+                activitiesSvc.feed( { entityType: 'user', entityUid: user.uid } )
+                  .follow( { entityType: 'agenda', entityUid: agenda.uid }, { credential: stakeholder.credential } )
+                  .then( () => {
+
+                    activitiesSvc.feed( { entityType: 'agenda', entityUid: agenda.uid } ).activities.add( {
+                      actor: 'user:' + user.uid,
+                      verb: 'agenda.acceptInvitation',
+                      object: 'user:' + senderUser.uid,
+                      target: 'agenda:' + agenda.uid,
+                      store: {
+                        labels: {
+                          actor: stakeholder.custom.contactName || user.full_name,
+                          object: context.invitationSender.name || senderUser.full_name,
+                          target: agenda.title
+                        },
+                        credential: stakeholder.credential
+                      }
+                    } );
+
+                  } );
+
+              }
+
+              // change credentials
+              if ( stakeholder.userId && before.credential !== stakeholder.credential ) {
+
+                activitiesSvc.feed( { entityType: 'user', entityUid: user.uid } )
+                  .unfollow( { entityType: 'agenda', entityUid: agenda.uid }, err => {
+
+                    if ( err ) return log( 'error', err );
+
+                    activitiesSvc.feed( { entityType: 'user', entityUid: user.uid } )
+                      .follow( {
+                        entityType: 'agenda',
+                        entityUid: agenda.uid
+                      }, { credential: stakeholder.credential }, err => {
+
+                        if ( err ) return log( 'error', err );
+
+                        activitiesSvc.feed( { entityType: 'agenda', entityUid: agenda.uid } ).activities.add( {
+                          actor: 'user:' + senderUser.uid,
+                          verb: 'agenda.setMemberRole',
+                          object: 'user:' + user.uid,
+                          target: 'agenda:' + agenda.uid,
+                          store: {
+                            labels: {
+                              actor: context.invitationSender.name || senderUser.full_name,
+                              object: stakeholder.custom.contactName || user.full_name,
+                              target: agenda.title
+                            },
+                            beforeCredential: before.credential,
+                            credential: stakeholder.credential
+                          }
+                        } );
+
+                      } );
+
+                  } );
+
+              }
+
+            } );
+
+          } );
+
+          // Invitation
+          if (
+            !_.isEqual( _.omit( before, 'updatedAt' ), _.omit( stakeholder, 'updatedAt' ) )
+            || stakeholder.deletedUser
+            || stakeholder.userId
+          ) {
+
+            return;
+
+          }
+
           invitationsSvc.get( { email: stakeholder.custom.email } )
             .then( ( { invitation } ) => {
+
+              const action = invitation.data.actions.find( v => v.name === 'linkStakeholder' );
+              context = action.params[ 1 ] || context;
 
               sendStakeholderInvitation( invitation, stakeholder, context, agenda );
 
@@ -735,6 +946,25 @@ function _initAgendaStakeholders( config ) { // async
 
       },
       onRemove( stakeholder ) {
+
+        agendasSvc.get( { id: stakeholder.agendaId }, { private: null }, ( err, agenda ) => {
+
+          if ( err ) return log( 'error', err );
+
+          if ( !agenda ) return log( 'info', 'agenda not found: %s', stakeholder.agendaId );
+
+          userSvc.get( stakeholder.userId, ( err, user ) => {
+
+            if ( err ) return log( 'error', err );
+
+            if ( !user ) return;
+
+            activitiesSvc.feed( { entityType: 'user', entityUid: user.uid } )
+              .unfollow( { entityType: 'agenda', entityUid: agenda.uid } );
+
+          } );
+
+        } );
 
         invitationsSvc.get( { email: stakeholder.custom.email } )
           .then( ( { invitation } ) => {
@@ -752,6 +982,47 @@ function _initAgendaStakeholders( config ) { // async
             return invitation.remove();
 
           } );
+
+      },
+      beforeTransferEvent( eventUid, ownerId, nextOwnerId, cb ) {
+
+        userSvc.get( ownerId, ( err, ownerUser ) => {
+
+          if ( err ) return cb( err );
+
+          userSvc.get( nextOwnerId, ( err, nextOwnerUser ) => {
+
+            if ( err ) return cb( err );
+
+            activitiesSvc.feed( { entityType: 'user', entityUid: ownerUser.uid } )
+              .unfollow( { entityType: 'event', entityUid: eventUid }, err => {
+
+                if ( err ) {
+
+                  log( 'error', err );
+                  return cb( err );
+
+                }
+
+                activitiesSvc.feed( { entityType: 'user', entityUid: nextOwnerUser.uid } )
+                  .follow( { entityType: 'event', entityUid: eventUid }, err => {
+
+                    if ( err ) {
+
+                      log( 'error', err );
+                      return cb( err );
+
+                    }
+
+                    cb();
+
+                  } );
+
+              } );
+
+          } );
+
+        } );
 
       },
       getUser( identifiers, cb ) {
@@ -884,6 +1155,8 @@ function _initAgendaService( config ) { // sync
 
           agendaStakeholders( agenda.id ).settings.setDefault( err => {
 
+            if ( !err ) return;
+
             log( 'error', {
               message: 'agenda creation default stakeholder settings could not be created',
               error: err
@@ -893,19 +1166,48 @@ function _initAgendaService( config ) { // sync
 
         }
 
-        agendaStakeholders( agenda.id ).new( {
-          userId: agenda.ownerId,
-          credential: 2
-        } ).save( err => {
+        activitiesSvc.feed( { entityType: 'agenda', entityUid: agenda.uid } ).create( ( err, agendaFeed ) => {
 
-          if ( !err ) return;
+          if ( err ) return log( 'error', err );
 
-          log( 'error', 'could not name agenda %s owner administrator', agenda.id );
+          userSvc.get( agenda.ownerId, ( err, user ) => {
+
+            if ( err ) return log( 'error', err );
+
+            agendaStakeholders( agenda.id ).create( {
+              email: user.email
+            }, {
+              allowPartial: true,
+              credential: agendaStakeholders.types.get( 'administrator' )
+            }, ( err, stakeholder ) => {
+
+              if ( err ) return log( 'error', 'could not name agenda %s owner administrator', agenda.id );
+
+              activitiesSvc.feed( agendaFeed ).activities.add( {
+                actor: 'user:' + user.uid,
+                verb: 'agenda.create',
+                target: 'agenda:' + agenda.uid,
+                store: {
+                  labels: {
+                    actor: user.full_name,
+                    target: agenda.title
+                  }
+                }
+              } )
+                .catch( err => {
+
+                  log( 'error', err );
+
+                } );
+
+            } );
+
+          } );
 
         } );
 
       },
-      onUpdate: ( before, after ) => {
+      onUpdate: ( before, after, context ) => {
 
         let updateType,
 
@@ -945,6 +1247,74 @@ function _initAgendaService( config ) { // sync
             type: updateType
           }
         } );
+
+        if ( !_.isEqual(
+            _.omit( before, [ 'settings', 'credentials', 'title', 'official', 'updatedAt' ] ),
+            _.omit( after, [ 'settings', 'credentials', 'title', 'official', 'updatedAt' ] )
+          ) ) {
+
+          updateType = 'profile';
+
+        }
+
+        if ( context && context.user ) {
+
+          if ( before.title !== after.title ) {
+
+            activitiesSvc.feed( { entityType: 'agenda', entityUid: after.uid } ).activities.add( {
+              actor: 'user:' + context.user.uid,
+              verb: 'agenda.rename',
+              target: 'agenda:' + after.uid,
+              store: {
+                labels: {
+                  actor: context.user.name,
+                  beforeTitle: before.title,
+                  afterTitle: after.title
+                }
+              }
+            } );
+
+          }
+
+          if ( updateType && updateType !== 'credentials' ) {
+
+            activitiesSvc.feed( { entityType: 'agenda', entityUid: after.uid } ).activities.add( {
+              actor: 'user:' + context.user.uid,
+              verb: 'agenda.update' + _.upperFirst( updateType ),
+              target: 'agenda:' + after.uid,
+              store: {
+                labels: {
+                  actor: context.user.name,
+                  target: after.title
+                }
+              }
+            } );
+
+          }
+
+          if ( before.official !== after.official ) {
+
+            activitiesSvc.feed( { entityType: 'agenda', entityUid: after.uid } ).activities.add( {
+              actor: 'user:' + context.user.uid,
+              verb: 'agenda.setOfficial',
+              target: 'agenda:' + after.uid,
+              store: {
+                labels: {
+                  actor: context.user.name,
+                  target: after.title
+                },
+                officialized: !!after.official
+              }
+            } );
+
+          }
+
+        }
+
+      },
+      onRemove: agenda => {
+
+        activitiesSvc.feed( { entityType: 'agenda', entityUid: agenda.uid } ).remove();
 
       }
     }

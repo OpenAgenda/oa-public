@@ -1,16 +1,10 @@
 "use strict";
 
-var coms = require( '../../../lib/coms' ),
-
-mailContributor = require( './mailContributor' ),
-
-logger = require( 'logger' ),
-
-utils = require( 'utils' ),
-
-config = require( '../../../config' ),
-
-st = {}; // buffer serial saves
+const logger = require( 'logger' );
+const utils = require( 'utils' );
+const config = require( '../../../config' );
+const coms = require( '../../../lib/coms' );
+const mailContributor = require( './mailContributor' );
 
 /**
  * handles callbacks and events when changes occur in event

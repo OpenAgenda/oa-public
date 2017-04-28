@@ -59,6 +59,10 @@ module.exports = path => {
     agendaSettingsEditAgenda: [ 'post', '/:slug/admin/settings/edit', [
       agendaSvc.mw.load( 'slug' ),
       cmn.checkAdministrator(),
+      (req, res, next) => {
+        req.context = { user: req.user };
+        next();
+      },
       mw.set
     ] ],
 
@@ -89,8 +93,8 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadLogger( 'agendaSettings' ),
-    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     sessions.middleware.load( { detailed: true } ),
+    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     bodyParser.json()
   ] );
 

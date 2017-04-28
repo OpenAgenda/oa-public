@@ -16,11 +16,11 @@ module.exports = ( enabledTypes, cb ) => {
 
     let logger = require( 'logger' ),
 
-      config = require( './config' ),
-
-      log = logger( 'app' );
+      config = require( './config' );
 
     require( './lib/init' )( err => {
+
+      const log = logger( 'app' );
 
       if ( err ) return log( 'error', 'could not load app: %s', err );
 
@@ -47,7 +47,8 @@ module.exports = ( enabledTypes, cb ) => {
         webModules = {
           admin: [ // for admins only
             require( './admin/back' )( '/admin' ),
-            require( './admin/agendas.back' )( '/admin/agendas' )
+            require( './admin/agendas.back' )( '/admin/agendas' ),
+            require( './admin/activities.back' )( '/admin/activities' )
           ],
           web: [ // open to the public
             require( './home/back' )( '/home' ),
@@ -78,6 +79,7 @@ module.exports = ( enabledTypes, cb ) => {
             require( './agenda/settings.back' )( '' ),
             require( './agenda/sources.back' )( '/:slug/admin' ),
             require( './agenda/members.back' )( '/:slug/admin/members' ),
+            require( './agenda/activities.back' )( '/:slug/admin/activities' ),
             require( './agenda/shares.front' )( '' ),
             require( './agenda/front' )( '' ),
             require( './agenda/back' )( '' ),
@@ -221,6 +223,8 @@ module.exports = ( enabledTypes, cb ) => {
         require( 'agenda-stakeholders' ).tasks.bulk();
 
         require( 'agenda-stakeholders' ).tasks.message();
+
+        require( './activities/task' )();
 
       }
 

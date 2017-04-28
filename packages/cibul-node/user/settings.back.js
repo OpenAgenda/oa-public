@@ -110,7 +110,9 @@ module.exports = path => {
           generateApiKey: '/generateApiKey',
           deleteAccount: '/deleteAccount',
           uploadProfileImageRes: '/uploadProfileImage',
-          removeProfileImageRes: '/removeProfileImage'
+          removeProfileImageRes: '/removeProfileImage',
+          listUnsubscriptions: '/unsubscribe/u/:userUid/list',
+          removeUnsubscription: '/unsubscribe/u/:userUid/s/:subject.:identifier/t/:type/remove'
         },
         csrfToken: req.csrfToken()
       };

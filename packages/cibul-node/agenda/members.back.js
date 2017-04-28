@@ -71,7 +71,11 @@ const routes = {
     } ),
     ( req, res, next ) => {
       req.context = _.merge( {
-        lang: req.lang
+        lang: req.lang,
+        invitationSender: {
+          userId: req.stakeholder.userId,
+          name: req.stakeholder.custom.contactName
+        }
       }, req.body.context );
       next();
     },
@@ -100,7 +104,11 @@ const routes = {
     },
     ( req, res, next ) => {
       req.context = _.merge( {
-        lang: req.lang
+        lang: req.lang,
+        invitationSender: {
+          userId: req.stakeholder.userId,
+          name: req.stakeholder.custom.contactName
+        }
       }, req.body.context );
       next();
     },

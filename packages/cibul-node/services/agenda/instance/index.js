@@ -2,41 +2,43 @@
 
 var model = require( '../../model' ),
 
-utils = require( '../../../lib/utils' ),
+  utils = require( '../../../lib/utils' ),
 
-w = require( 'when' ),
+  w = require( 'when' ),
 
-extAgendaSvc = require( 'agendas' ),
+  extAgendaSvc = require( 'agendas' ),
 
-eventSvc = require( '../../event' ),
+  activitiesSvc = require( 'activities' ),
 
-search = require( './search' ),
+  eventSvc = require( '../../event' ),
 
-sources = require( './sources' ),
+  search = require( './search' ),
 
-async = require( 'async' ),
+  sources = require( './sources' ),
 
-logger = require( 'logger' ), log,
+  async = require( 'async' ),
 
-cache = require( '../../cache' ),
+  logger = require( 'logger' ), log,
 
-flattener = require( './flattener' ),
+  cache = require( '../../cache' ),
 
-aggregator = require( '../../aggregator' ),
+  flattener = require( './flattener' ),
 
-emailStrategie = require( './emailStrategie' ),
+  aggregator = require( '../../aggregator' ),
 
-groupActions = require( './groupActions' ),
+  emailStrategie = require( './emailStrategie' ),
 
-controlData = require( '../controlData' ),
+  groupActions = require( './groupActions' ),
 
-instanceQueue = require( '../../lib/instanceQueue' ),
+  controlData = require( '../controlData' ),
 
-coms = require( '../../../lib/coms' ),
+  instanceQueue = require( '../../lib/instanceQueue' ),
 
-config = require( '../../../config' ),
+  coms = require( '../../../lib/coms' ),
 
-onRefresh;
+  config = require( '../../../config' ),
+
+  onRefresh;
 
 module.exports = instanciate;
 
@@ -50,28 +52,28 @@ function instanciate( data ) {
 
   var instance = model.agendas().instance( data ),
 
-  svcInstance = utils.extend( {}, instance, {
-    addEvent,
-    removeEvent,
-    getContributionSettings,
-    setEventFeatured,
-    setEventUnfeatured,
-    setEventTagsAndCategory,
-    announceEventUpdate,
-    setContributor: _stakeholderSetter( 'setContributor' ),
-    setModerator: _stakeholderSetter( 'setModerator' ),
-    setAdministrator: _stakeholderSetter( 'setAdministrator' ),
-    unsetContributor: _stakeholderSetter( 'unsetContributor' ),
-    unsetModerator: _stakeholderSetter( 'unsetModerator' ),
-    unsetAdministrator: _stakeholderSetter( 'unsetAdministrator' ),
-    events: {
-      new: newEvent,
-      list: instance.events.list,
-      get: instance.events.get
-    },
-    refresh,
-    refreshUpdatedAt
-  });
+    svcInstance = utils.extend( {}, instance, {
+      addEvent,
+      removeEvent,
+      getContributionSettings,
+      setEventFeatured,
+      setEventUnfeatured,
+      setEventTagsAndCategory,
+      announceEventUpdate,
+      setContributor: _stakeholderSetter( 'setContributor' ),
+      setModerator: _stakeholderSetter( 'setModerator' ),
+      setAdministrator: _stakeholderSetter( 'setAdministrator' ),
+      unsetContributor: _stakeholderSetter( 'unsetContributor' ),
+      unsetModerator: _stakeholderSetter( 'unsetModerator' ),
+      unsetAdministrator: _stakeholderSetter( 'unsetAdministrator' ),
+      events: {
+        new: newEvent,
+        list: instance.events.list,
+        get: instance.events.get
+      },
+      refresh,
+      refreshUpdatedAt
+    } );
 
   instanceQueue( svcInstance, instance, [
     'queue'
@@ -82,18 +84,18 @@ function instanciate( data ) {
     'searchStream',
     'aggregate',
     'resync'
-  ]);
+  ] );
 
   sources( svcInstance, instance, [
     'sources.add',
     'sources.remove'
-  ]);
+  ] );
 
   flattener( svcInstance, instance, [
     'flattener'
   ] );
 
-  emailStrategie( svcInstance, instance, [ 
+  emailStrategie( svcInstance, instance, [
     'emailStrategie'
   ] );
 
@@ -150,7 +152,7 @@ function instanciate( data ) {
 
     if ( options.id ) {
 
-      return addEvent( event, { stakeholder: options }, cb );
+      return addEvent( event, { stakeholder: options }, cb );
 
     }
 
@@ -172,17 +174,22 @@ function instanciate( data ) {
 
         if ( err ) return cb( err );
 
-        if ( params.mute ) return cb();
+        activitiesSvc.feed( { entityType: 'agenda', entityUid: instance.uid } )
+          .follow( { entityType: 'event', entityUid: event.uid }, () => {
 
-        announceEventUpdate( event, {
-          type: 'event.publish',
-          refresh: params.refresh
-        } );
+            if ( params.mute ) return cb();
 
-        cb();
+            announceEventUpdate( event, {
+              type: 'event.publish',
+              refresh: params.refresh
+            } );
+
+            cb();
+
+          } );
 
       } );
-      
+
     } );
 
   }
@@ -224,24 +231,30 @@ function instanciate( data ) {
       refresh: true
     }, options ) )
 
-    .then( _checkIsStakeholder )
+      .then( _checkIsStakeholder )
 
-    .done( v => {
+      .done( v => {
 
-      instance.removeEvent( v.event, ( err, count ) => {
+        instance.removeEvent( v.event, ( err, count ) => {
 
-        if ( err ) return cb( err );
-        
-        announceEventUpdate( v.event, {
-          type: 'event.remove',
-          refresh: v.refresh
+          if ( err ) return cb( err );
+
+          activitiesSvc.feed( { entityType: 'agenda', entityUid: instance.uid } )
+            .unfollow( { entityType: 'event', entityUid: event.uid }, () => {
+
+              announceEventUpdate( v.event, {
+                type: 'event.remove',
+                refresh: v.refresh,
+                userId: (v.stakeholder && v.stakeholder.id) || null
+              } );
+
+              cb();
+
+            } );
+
         } );
 
-        cb();
-
-      } );
-
-    }, cb );
+      }, cb );
 
   }
 
@@ -316,7 +329,6 @@ function instanciate( data ) {
   }
 
 
-
   /**
    * when multiple actions are done on an event
    * it is more efficient to prevent an update
@@ -357,7 +369,7 @@ function instanciate( data ) {
 
   function _stakeholderSetter( methodName ) {
 
-    return function( user, options, cb ) {
+    return function ( user, options, cb ) {
 
       if ( arguments.length === 2 ) {
 
@@ -388,12 +400,12 @@ function instanciate( data ) {
 
         cb();
 
-      });
+      } );
 
     };
 
   }
-  
+
 }
 
 function setOnRefresh( cb ) {

@@ -20,16 +20,23 @@ var config = require( '../config' ),
     adminAgendasIndex: [ 'get', '/', index ],
     adminAgendasSearchRes: [ 'get', '/search', mw.agendas.list ],
     adminAgendasGetRes: [ 'get', '/get', mw.agendas.get ],
-    adminAgendasSetRes: [ 'post', '/:uid', [ bodyParser.json(), mw.agendas.set ] ],
+    adminAgendasSetRes: [ 'post', '/:uid', [
+      bodyParser.json(),
+      ( req, res, next ) => {
+        req.context = { user: req.user };
+        next();
+      },
+      mw.agendas.set
+    ] ],
     adminAgendasStakeholdersSearchRes: [ 'get', '/stakeholders/search', [
       ( req, res, next ) => {
 
         req.query.agendaId = req.query.agendaId ? parseInt( req.query.agendaId ) : null;
 
         next();
-        
+
       },
-      mw.stakeholders.list 
+      mw.stakeholders.list
     ] ]
   };
 
@@ -43,6 +50,7 @@ module.exports = function ( path ) {
   router.pre( [
     cmn.loadBaseData( 'compiledAdmin.css' ),
     sessions.middleware.ifUnlogged( cmn.redirectTo() ),
+    sessions.middleware.load(),
     cmn.requireAdmin
   ] );
 

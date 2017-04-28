@@ -32,10 +32,10 @@ const modLib = require( '../lib/moduleLib' ),
 
   routes = {
 
-    signin: [ 'get', '/signin', [ 
+    signin: [ 'get', '/signin', [
       sessions.middleware.ifLogged( cmn.redirectTo() ),
       _presetEmail,
-      auth.renderSignin 
+      auth.renderSignin
     ] ],
 
     agendaSignin: [ 'get', '/:slug/signin', [
@@ -44,16 +44,16 @@ const modLib = require( '../lib/moduleLib' ),
       auth.renderSignin
     ] ],
 
-    signinSubmit: [ 'post', '/signin', [ 
+    signinSubmit: [ 'post', '/signin', [
       sessions.middleware.ifLogged( cmn.redirectTo() ),
-      signinSubmit 
+      signinSubmit
     ] ],
 
     agendaSigninSubmit: [ 'post', '/:slug/signin', [
       sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
       signinSubmit
     ] ],
-    
+
     signup: [ 'get', '/signup', [
       sessions.middleware.ifLogged( cmn.redirectTo() ),
       _loadCaptcha,
@@ -71,42 +71,42 @@ const modLib = require( '../lib/moduleLib' ),
     signupSubmit: [ 'post', '/signup', [
       sessions.middleware.ifLogged( cmn.redirectTo() ),
       signupSubmit
-    ] ], 
+    ] ],
 
     agendaSignupSubmit: [ 'post', '/:slug/signup', [
       sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
       signupSubmit
-    ] ], 
+    ] ],
 
     signupComplete: [ 'get', '/signup/complete', [
       sessions.middleware.ifLogged( cmn.redirectTo() ),
       signupComplete
-    ] ], 
+    ] ],
 
     agendaSignupComplete: [ 'get', '/:slug/signup/complete', [
       sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
       signupComplete
-    ] ], 
+    ] ],
 
     activateResend: [ 'get', '/activate/resend', [
       sessions.middleware.ifLogged( cmn.redirectTo() ),
       activateResend
-    ] ], 
+    ] ],
 
-    agendaActivateResend: [ 'get', '/:slug/activate/resend', [
+    agendaActivateResend: [ 'get', '/:slug/activate/resend', [
       sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
       activateResend
-    ] ], 
+    ] ],
 
     activate: [ 'get', '/activate/:token', [
       sessions.middleware.ifLogged( cmn.redirectTo() ),
       activate
-    ] ], 
+    ] ],
 
     agendaActivate: [ 'get', '/:slug/activate/:token', [
       sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
       activate
-    ] ] 
+    ] ]
 
   },
 
@@ -117,7 +117,7 @@ const modLib = require( '../lib/moduleLib' ),
   };
 
 
-module.exports = function( path ) {
+module.exports = function ( path ) {
 
   var router = modLib.Router( routes );
 
@@ -145,7 +145,7 @@ function signinSubmit( req, res, next ) {
 
   pLib.authenticate( 'local-signin', {
     badRequestMessage: 'You must type in an email and a password'
-  }, function( err, user, data ) {
+  }, function ( err, user, data ) {
 
     w( {
       err: err,
@@ -155,19 +155,19 @@ function signinSubmit( req, res, next ) {
       user: user
     } )
 
-    .then( auth.ifUserLoaded( false, function( values ) {
+      .then( auth.ifUserLoaded( false, function ( values ) {
 
-      deepExtend( values.data, values.req.body );
+        deepExtend( values.data, values.req.body );
 
-      return auth.renderSignin( values );
+        return auth.renderSignin( values );
 
-    } ) )
+      } ) )
 
-    .then( auth.ifUserLoaded( true, auth.ifUserActivated( false, auth.redirectToResend ) ) )
+      .then( auth.ifUserLoaded( true, auth.ifUserActivated( false, auth.redirectToResend ) ) )
 
-    .then( auth.ifUserLoaded( true, auth.signin ) )
+      .then( auth.ifUserLoaded( true, auth.signin ) )
 
-    .done( auth.done , cmn.catchError( req, res ) );
+      .done( auth.done, cmn.catchError( req, res ) );
 
   } )( req, res, next );
 
@@ -178,24 +178,23 @@ function signupSubmit( req, res ) {
 
   w( { req: req, res: res, data: req.body } )
 
-  .then( _passwordMatchCheck )
+    .then( _passwordMatchCheck )
 
-  .then( _captchaCheck )
+    .then( _captchaCheck )
 
-  .then( _ifHasErrors( false, _attemptCreate ) )
+    .then( _ifHasErrors( false, _attemptCreate ) )
 
-  .then( auth.ifUserLoaded( true, auth.ifUserActivated( false, auth.redirectToComplete ) ) )
+    .then( auth.ifUserLoaded( true, auth.ifUserActivated( false, auth.redirectToComplete ) ) )
 
-  .then( auth.ifUserLoaded( true, auth.ifUserActivated( true, auth.signin ) ) )
+    .then( auth.ifUserLoaded( true, auth.ifUserActivated( true, auth.signin ) ) )
 
-  .then( auth.ifUnresolved( _pLoadCaptcha ) )
+    .then( auth.ifUnresolved( _pLoadCaptcha ) )
 
-  .then( auth.ifUnresolved( auth.renderSignup ) )
+    .then( auth.ifUnresolved( auth.renderSignup ) )
 
-  .done( auth.done , cmn.catchError( req, res ) );
+    .done( auth.done, cmn.catchError( req, res ) );
 
 }
-
 
 
 function signupComplete( req, res ) {
@@ -204,7 +203,7 @@ function signupComplete( req, res ) {
 
   if ( req.agenda ) resendQuery.slug = req.agenda.slug;
 
-  cmn.render( req, res, 'auth/activation', { 
+  cmn.render( req, res, 'auth/activation', {
     agenda: req.agenda,
     resendQuery: resendQuery
   } );
@@ -216,39 +215,39 @@ function activateResend( req, res ) {
 
   if ( !req.query.email ) {
 
-    auth.renderEmail( { req: req, res: res, title: 'Resend activation mail' });
+    auth.renderEmail( { req: req, res: res, title: 'Resend activation mail' } );
 
   } else {
 
-    userSvc.activation.createAndSend( lib.extend( auth.loadOptionals( req ), { 
+    userSvc.activation.createAndSend( lib.extend( auth.loadOptionals( req ), {
       email: req.query.email,
       agenda: req.agenda
     } ) )
 
-    .then( function( values ) {
+      .then( function ( values ) {
 
-      sessions.setFlash( req, res, __( 'sendAgain', req.lang ) );
+        sessions.setFlash( req, res, __( 'sendAgain', req.lang ) );
 
-      return lib.extend( values, { req: req, res: res } );
+        return lib.extend( values, { req: req, res: res } );
 
-    })
+      } )
 
-    .then( auth.redirectToComplete )
+      .then( auth.redirectToComplete )
 
-    .done( auth.done, function( error ) {
+      .done( auth.done, function ( error ) {
 
-      if ( error == 'no account was found' ) error = 'no account matches this email';
+        if ( error == 'no account was found' ) error = 'no account matches this email';
 
-      auth.renderEmail( {
-        req: req,
-        res: res,
-        data: {
-          errors: { email: error },
-          email: req.query.email
-        }
-      });
+        auth.renderEmail( {
+          req: req,
+          res: res,
+          data: {
+            errors: { email: error },
+            email: req.query.email
+          }
+        } );
 
-    });
+      } );
 
   }
 
@@ -257,7 +256,7 @@ function activateResend( req, res ) {
 
 function activate( req, res ) {
 
-  userSvc.activation.activateByToken( req.params.token, auth.loadOptionals( req ), function( err, user ) {
+  userSvc.activation.activateByToken( req.params.token, auth.loadOptionals( req ), function ( err, user ) {
 
     if ( err ) {
 
@@ -303,7 +302,7 @@ function activate( req, res ) {
 
     } );
 
-  });
+  } );
 
 }
 
@@ -317,7 +316,7 @@ function _handleSigninRequest( req, email, password, done ) {
 
 function _ifHasErrors( has, func ) {
 
-  return function( values ) {
+  return function ( values ) {
 
     if ( !!values.data.errors !== has ) return values;
 
@@ -330,13 +329,13 @@ function _ifHasErrors( has, func ) {
 
 function _pLoadCaptcha( v ) {
 
-  return w.promise( function( rs, rj ) {
+  return w.promise( function ( rs, rj ) {
 
-    _loadCaptcha( v.req, v.res, function() {
+    _loadCaptcha( v.req, v.res, function () {
 
       rs( v );
 
-    });
+    } );
 
   } );
 
@@ -350,7 +349,7 @@ function _loadCaptcha( req, res, next ) {
     if ( !req.baseData ) req.baseData = {};
 
     deepExtend( req.baseData, {
-      head: { 
+      head: {
         js: {
           captcha: {
             src: "https://www.google.com/recaptcha/api.js?hl=" + req.lang,
@@ -360,7 +359,7 @@ function _loadCaptcha( req, res, next ) {
         },
       },
       useCaptcha: true,
-      captchaKey: config.auth.local.captchaKey 
+      captchaKey: config.auth.local.captchaKey
     } );
 
   }
@@ -398,7 +397,7 @@ function _guessFullName( req, res, next ) {
 
 function _attemptCreate( values ) {
 
-  return w.promise( function( resolve, reject ) {
+  return w.promise( function ( resolve, reject ) {
 
     var options = auth.loadOptionals( values.req );
 
@@ -409,7 +408,7 @@ function _attemptCreate( values ) {
       email: values.req.body.email,
       password: values.req.body.password,
       culture: values.req.lang
-    }, options, function( err, user, data ) {
+    }, options, function ( err, user, data ) {
 
       if ( err ) return reject( err );
 
@@ -425,7 +424,7 @@ function _attemptCreate( values ) {
 
     } );
 
-  });
+  } );
 
 }
 
@@ -445,31 +444,31 @@ function _passwordMatchCheck( values ) {
 }
 
 function _captchaCheck( values ) {
-  
+
   if ( !config.auth.local.useCaptcha ) return values;
 
-  return w.promise( function( resolve, reject ) {
+  return w.promise( function ( resolve, reject ) {
 
     var verifyUrl = config.auth.local.captchaVerify + '?'
-    + 'secret=' + config.auth.local.captchaSecret
-    + '&response=' + values.req.body[ 'g-recaptcha-response' ]
-    + '&remoteip=' + values.req.header( 'x-forwarded-for' );
+      + 'secret=' + config.auth.local.captchaSecret
+      + '&response=' + values.req.body[ 'g-recaptcha-response' ]
+      + '&remoteip=' + values.req.header( 'x-forwarded-for' );
 
-    _getAndParse( verifyUrl, function( err, data ) {
+    _getAndParse( verifyUrl, function ( err, data ) {
 
-      if ( err || !data.success ) {
+      if ( err || !data.success ) {
 
         values.data.errors = {
           captcha: 'Try this again'
         };
-        
+
       }
 
       resolve( values );
 
     } );
 
-  });
+  } );
 
 
 }
@@ -480,7 +479,7 @@ function _getAndParse( url, cb ) {
 
   log( 'fetching %s', url );
 
-  https.get( url, function( res ) {
+  https.get( url, function ( res ) {
 
     if ( res.statusCode !== 200 ) {
 
@@ -492,19 +491,19 @@ function _getAndParse( url, cb ) {
 
     }
 
-    res.on( 'data', function( chunk ) {
+    res.on( 'data', function ( chunk ) {
 
       data += chunk;
 
-    });
+    } );
 
-    res.on( 'end', function() {
+    res.on( 'end', function () {
 
       try {
 
         data = JSON.parse( data );
 
-      } catch( e ) {
+      } catch ( e ) {
 
         log( 'error', 'invalid JSON received' );
 
@@ -514,7 +513,7 @@ function _getAndParse( url, cb ) {
 
       cb( null, data );
 
-    });
+    } );
 
   } );
 

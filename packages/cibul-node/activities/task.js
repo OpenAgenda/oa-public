@@ -1,0 +1,112 @@
+const logger = require( 'logger' );
+const utils = require( 'utils' );
+const async = require( 'async' );
+const activitiesSvc = require( 'activities' );
+const agendasSvc = require( 'agendas' );
+const usersSvc = require( 'users' );
+const eventSvc = require( '../services/event' );
+const coms = require( '../lib/coms' );
+const config = require( '../config' );
+
+let log;
+
+module.exports = function () {
+
+  log = logger( 'activities/task' );
+
+  coms.subscribe( config.mainChannel, ( err, action ) => {
+
+    if ( err ) return;
+
+    switch ( action.name ) {
+
+      case 'event.create':
+      case 'event.update':
+      case 'event.remove':
+
+        return _onEventActivity( action );
+
+    }
+
+  } );
+
+}
+
+
+function _onEventActivity( action ) {
+
+  log( 'info', action.values.agendaId ? '-- read event %s activity for agenda %s --' : '-- read event %s activity --', action.values.id, action.values.agendaId );
+
+  eventSvc.get( { id: action.values.id }, ( err, event ) => {
+
+    if ( err ) return log( 'error', 'could not fetch event %s', event.id );
+
+    const type = event.createdAt.toString() === event.updatedAt.toString() ? 'create' : 'update';
+    const userId = type === 'create' ? event.ownerId : action.values.user_id;
+
+    // If is real update, not a publishing or unpublishing
+    if ( type === 'update' && !action.values.type ) {
+
+      agendasSvc.get( action.values.review_id, ( err, agenda ) => {
+
+        if ( err ) return log( 'error', 'Error to get agenda %s', action.values.review_id );
+
+        usersSvc.get( userId, ( err, user ) => {
+
+          if ( err ) return log( 'error', 'Error to get user %s', userId );
+
+          if ( !user || !agenda ) {
+            return log( 'error', 'Error to get user %s or agenda %s', JSON.stringify( user ), JSON.stringify( agenda ) );
+          }
+
+          activitiesSvc.feed( { entityType: 'event', entityUid: event.uid } ).activities.add( {
+            actor: 'user:' + user.uid,
+            verb: 'event.update',
+            object: 'event:' + event.uid,
+            target: 'agenda:' + agenda.uid,
+            store: {
+              labels: {
+                actor: user.full_name,
+                object: event.title,
+                target: agenda.title
+              }
+            }
+          } );
+
+        } );
+
+      } );
+
+    } else if ( action.values.type === 'event.remove' ) { // action.values.agendaId & action.values.userId
+
+      agendasSvc.get( action.values.agendaId, ( err, agenda ) => {
+
+        if ( err ) return log( 'error', 'Error to get agenda %s', action.values.agendaId );
+
+        usersSvc.get( action.values.userId, ( err, user ) => {
+
+          if ( err ) return log( 'error', 'Error to get user %s', action.values.userId );
+
+          activitiesSvc.feed( { entityType: 'event', entityUid: event.uid } ).activities.add( {
+            actor: 'user:' + user.uid,
+            verb: 'agenda.removeEvent',
+            object: 'event:' + event.uid,
+            target: 'agenda:' + agenda.uid,
+            store: {
+              labels: {
+                actor: user.full_name,
+                object: event.title,
+                target: agenda.title
+              }
+            }
+          } );
+
+        } );
+
+      } );
+
+    }
+
+  } );
+
+}

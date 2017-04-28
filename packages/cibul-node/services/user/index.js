@@ -2,22 +2,24 @@
 
 var log = require( 'logger' )( 'user service' ),
 
-lib = require( '../../lib/lib' ),
+  lib = require( '../../lib/lib' ),
 
-config = require( '../../config' ),
+  config = require( '../../config' ),
 
-model = require( 'cibulModel' )( config.db ),
+  model = require( 'cibulModel' )( config.db ),
 
-activation = require( './lib/activation' ),
+  activation = require( './lib/activation' ),
 
-lostPassword = require( './lib/lostPassword' ),
+  lostPassword = require( './lib/lostPassword' ),
 
-invitationSvc = require( '../invitation' ),
-invitation2Svc = require( 'invitations' ),
+  invitationSvc = require( '../invitation' ),
+  invitation2Svc = require( 'invitations' ),
 
-async = require( 'async' ),
+  activitiesSvc = require( 'activities' ),
 
-w = require( 'when' );
+  async = require( 'async' ),
+
+  w = require( 'when' );
 
 module.exports = {
   get,
@@ -45,17 +47,17 @@ function authenticate( email, password, cb ) {
 
   w( { email: email, password: password } )
 
-  .then( _loadUser )
+    .then( _loadUser )
 
-  .then( activation.verify )
+    .then( activation.verify )
 
-  .then( _verifyPassword )
+    .then( _verifyPassword )
 
-  .done( function( values ) {
+    .done( function ( values ) {
 
-    cb( null, values.user, values );
+      cb( null, values.user, values );
 
-  }, cb );
+    }, cb );
 
 }
 
@@ -81,7 +83,7 @@ function get( params, cb ) {
 
 function _serviceAuthenticate( serviceFieldName ) {
 
-  return function( id, options, cb ) {
+  return function ( id, options, cb ) {
 
     if ( !cb ) {
 
@@ -93,22 +95,22 @@ function _serviceAuthenticate( serviceFieldName ) {
 
     w( { fieldName: serviceFieldName, id: id } )
 
-    .then( _findUserByServiceId )
+      .then( _findUserByServiceId )
 
-    .then( activation.verify )
+      .then( activation.verify )
 
-    .done( function( values ) {
+      .done( function ( values ) {
 
-      cb( null, values.user, values );
+        cb( null, values.user, values );
 
-    }, cb );
+      }, cb );
 
   }
 
 }
 
 
-function create( data, options, cb ){
+function create( data, options, cb ) {
 
   if ( !cb ) {
 
@@ -120,11 +122,11 @@ function create( data, options, cb ){
 
   _createProcess( data, options )
 
-  .done( function( values ) {
+    .done( function ( values ) {
 
-    cb( null, values.user, values );
+      cb( null, values.user, values );
 
-  }, cb );
+    }, cb );
 
 }
 
@@ -137,7 +139,7 @@ function updateTwitterId( user, profile ) {
 
   }
 
-  model.users().update( { id: user.id }, { twitterId: profile.id }, function( err, result ) {
+  model.users().update( { id: user.id }, { twitterId: profile.id }, function ( err, result ) {
 
     if ( err ) {
 
@@ -146,7 +148,7 @@ function updateTwitterId( user, profile ) {
     } else {
 
       log( 'twitter id has been fetched and saved for user %s: %s', user.id, JSON.stringify( result ) );
-      
+
     }
 
   } );
@@ -156,7 +158,7 @@ function updateTwitterId( user, profile ) {
 
 function _serviceCreate( serviceFieldName, activate ) {
 
-  return function( data, options, cb ) {
+  return function ( data, options, cb ) {
 
     if ( !cb ) {
 
@@ -167,24 +169,24 @@ function _serviceCreate( serviceFieldName, activate ) {
     }
 
     var createData = {
-      email: data.email,
-      fullName: data.fullName,
-      culture: data.culture ? data.culture : 'fr'
-    },
+        email: data.email,
+        fullName: data.fullName,
+        culture: data.culture ? data.culture : 'fr'
+      },
 
-    serviceData = {};
+      serviceData = {};
 
     serviceData[ serviceFieldName ] = data.id;
 
     _createProcess( lib.extend( {}, createData, serviceData, { isActivated: !!activate } ), options )
 
-    .done( function( values ) {
+      .done( function ( values ) {
 
-      values.service = serviceData;
+        values.service = serviceData;
 
-      cb( null, values.user, values );
+        cb( null, values.user, values );
 
-    }, cb );
+      }, cb );
 
 
   }
@@ -196,13 +198,13 @@ function _createProcess( createData, options ) {
 
   return w( lib.extend( { createData: createData }, options ? options : {} ) )
 
-  .then( _validateAndCreate )
+    .then( _validateAndCreate )
 
-  .then( _isLoaded( 'user', invitationSvc.preprocessUser ) )
+    .then( _isLoaded( 'user', invitationSvc.preprocessUser ) )
 
-  .then( _isLoaded( 'user', _ifIsActivated( true, onActivation ) ) )
+    .then( _isLoaded( 'user', _ifIsActivated( true, onActivation ) ) )
 
-  .then( _isLoaded( 'user', _ifIsActivated( false, activation.createAndSend ) ) )
+    .then( _isLoaded( 'user', _ifIsActivated( false, activation.createAndSend ) ) )
 
 }
 
@@ -213,9 +215,14 @@ function _createProcess( createData, options ) {
 
 function onActivation( values ) {
 
-  return ( values.invitation ? invitation2Svc.execute( { token: values.invitation }, { user: values.user } ) : w() )
+  return activitiesSvc.feed( { entityType: 'user', entityUid: values.user.uid } ).create()
+    .then( () => {
 
-    .then( () => invitationSvc.processUser( values ) );
+      return ( values.invitation ? invitation2Svc.execute( { token: values.invitation }, { user: values.user } ) : w() )
+
+        .then( () => invitationSvc.processUser( values ) );
+
+    } );
 
 }
 
@@ -242,31 +249,31 @@ function _validateAndCreate( values ) {
 
       resolve( values );
 
-    });
+    } );
 
-  });
+  } );
 
 }
 
 
 function _isLoaded( field, func ) {
 
-  return function( values ) {
-    
+  return function ( values ) {
+
     if ( !values[ field ] ) return w( values );
 
     return func( values );
-    
+
   }
 
 }
 
 function _ifIsActivated( expected, func ) {
 
-  return function( values ) {
-    
+  return function ( values ) {
+
     if ( values.user.isActivated !== expected ) return w( values );
-  
+
     if ( !func ) return values;
 
     return func( values );
@@ -300,7 +307,7 @@ function _loadUser( values ) {
 
     } );
 
-  });
+  } );
 
 }
 
@@ -331,7 +338,7 @@ function _findUserByServiceId( values ) {
 
       rs( values );
 
-    });
+    } );
 
   } );
 
@@ -344,9 +351,9 @@ function _verifyPassword( values ) {
 
   if ( values.inactive ) return values;
 
-  return w.promise( function( resolve, reject ) {
+  return w.promise( function ( resolve, reject ) {
 
-    model.users().validateEmailAndPassword( values.user.email, values.password, function( err, ok ) {
+    model.users().validateEmailAndPassword( values.user.email, values.password, function ( err, ok ) {
 
       if ( err ) return reject( err );
 
@@ -362,8 +369,8 @@ function _verifyPassword( values ) {
 
       resolve( values );
 
-    });
+    } );
 
-  });
+  } );
 
 }

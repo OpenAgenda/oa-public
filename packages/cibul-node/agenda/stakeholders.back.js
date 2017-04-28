@@ -328,7 +328,7 @@ function _loadFlattener( req, res, next ) {
     source: 'custom.email',
     target: getLabel( 'email', req.lang )
   }, {
-    source: 'custom.organization.label',
+    source: 'custom.organization',
     target: getLabel( 'organization', req.lang )
   }, {
     source: 'custom.contactNumber',

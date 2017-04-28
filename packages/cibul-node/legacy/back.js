@@ -72,11 +72,10 @@ const sessions = require( 'sessions' ),
     ] ],
 
 
-
     /**
      * process an event delete
      */
-    eventDelete: [ 'get', '/events/:eventUid/delete', [
+    eventDelete: [ 'get', '/events/:eventUid/delete', [
       _loadEventByUid,
       eventDelete
     ] ],
@@ -86,7 +85,7 @@ const sessions = require( 'sessions' ),
      */
     log: [ 'post', '/log', [
       bodyParser.json(),
-      logController 
+      logController
     ] ],
 
 
@@ -101,7 +100,7 @@ const sessions = require( 'sessions' ),
     notifications: [ 'post', '/notifications', [
       bodyParser.json(),
       ( req, res, next ) => {
-        
+
         cmn.renderJson( req, res, { success: true } );
 
         notificationMail( req.body, ( err, mails ) => {
@@ -122,7 +121,7 @@ const sessions = require( 'sessions' ),
 
   };
 
-module.exports = function( path ) {
+module.exports = function ( path ) {
 
   var router = modLib.Router( routes );
 
@@ -176,7 +175,7 @@ function referencesSave( req, res, next ) {
 
   req.log( 'received request to save references for uids %s', req.query.uids );
 
-  req.agenda.search( { uids: req.query.uids || [] }, { showAll: true }, ( err, result ) => {
+  req.agenda.search( { uids: req.query.uids || [] }, { showAll: true }, ( err, result ) => {
 
     if ( err ) return next( err );
 
@@ -216,7 +215,7 @@ function eventDelete( req, res, next ) {
 
     async.eachSeries( agendas, ( a, ecb ) => {
 
-      agendaSvc.get( { uid: a.uid }, ( err, agenda ) => {
+      agendaSvc.get( { uid: a.uid }, ( err, agenda ) => {
 
         agenda.removeEvent( req.event, ecb );
 
@@ -235,7 +234,11 @@ function eventDelete( req, res, next ) {
 
       }, 6000 );
 
-      res.send( 'ok' );
+      activitiesSvc.feed( { entityType: 'event', entityUid: req.event.uid } ).remove( () => {
+
+        res.send( 'ok' );
+
+      } );
 
     } );
 
@@ -363,7 +366,7 @@ function mail( req, res, next ) {
 
   let data = req.body,
 
-  mail = {};
+    mail = {};
 
   if ( !data ) {
 
@@ -433,9 +436,9 @@ function logController( req, res, next ) {
         origin: 'symfony',
       }, req.body ) );
 
-    } catch( e ) {
+    } catch ( e ) {
 
-      log( 'error', { origin: 'sf log', body: JSON.stringify( req.body ) } )
+      log( 'error', { origin: 'sf log', body: JSON.stringify( req.body ) } )
 
     }
 
@@ -472,7 +475,7 @@ function _cleanRecipients( recipients ) {
 
       clean = clean.concat( emails );
 
-    });
+    } );
 
   } else if ( typeof recipients == 'object' ) {
 
@@ -488,7 +491,7 @@ function _extractRecipients( obj ) {
 
   let emails = [];
 
-  for( let email in obj ) emails.push( email );
+  for ( let email in obj ) emails.push( email );
 
   return emails;
 

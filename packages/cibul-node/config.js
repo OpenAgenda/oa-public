@@ -108,7 +108,12 @@ var deepExtend = require( 'deep-extend' ),
         eventReferences: 'agenda_event_reference',
         legacyCredentialSet: 'review_credential',
         invitation: 'invitation_2', // new invitation
-        unsubscribed: 'unsubscribed_2' // first unsubscribe addresses newsletter only
+        unsubscribed: 'unsubscribed_2', // first unsubscribe addresses newsletter only
+        activity: 'activity',
+        feed: 'activity_feed',
+        feed_activity: 'activity_feed_activity',
+        feed_follow: 'activity_feed_follow',
+        feed_notification: 'activity_feed_notification'
       },
       auth: {
         local: {

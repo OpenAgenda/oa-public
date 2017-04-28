@@ -35,7 +35,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
     if ( !instance.isInAgendaContext() ) { 
 
-      return cb( null, instance.getIsDraft() ? 'draft' : _labelize( TYPES.PUBLISHED )  );
+      return cb( null, instance.getIsDraft() ? 'draft' : _labelize( TYPES.PUBLISHED ) );
 
     }
 
@@ -81,7 +81,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
   function setState( newState, cb ) {
 
-    getState( function( err, oldState ) {
+    getState( { labelized: false }, function( err, oldState ) {
 
       log( 'setting event %s state to %s', instance.id, newState );
 
@@ -101,9 +101,9 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
         if ( err ) return cb( err );
 
-        if ( onStateChange ) onStateChange( oldState, _labelize( newState ) );
+        if ( onStateChange ) onStateChange( _labelize( oldState ), _labelize( newState ) );
 
-        cb( null, result );
+        cb( null, result, { oldState, newState } );
 
       } );
 
