@@ -270,6 +270,12 @@ function activate( req, res ) {
 
     }
 
+    if ( !req.query || !req.query.invitation ) {
+
+      return auth.signin( { req, res, user } );
+
+    }
+
     invitationsSvc.get( { token: req.query.invitation }, { includeProcessed: true }, ( err, { invitation } ) => {
 
       if ( err || !invitation ) return auth.signin( { req, res, user } );
