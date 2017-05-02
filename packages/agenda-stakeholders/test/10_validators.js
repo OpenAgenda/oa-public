@@ -37,6 +37,28 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
 
     } );
 
+    it( 'when a query is given with default values, default values are returned', () => {
+
+      validators.listQuery( {
+        search: null,
+        invited: null,
+        credentials: [],
+        agendaId: null,
+        userId: null,
+        actionsCounterEqualZero: null,
+        deletedUser: null
+      } ).should.eql( {
+        search: null,
+        invited: null,
+        credentials: [],
+        agendaId: null,
+        userId: null,
+        actionsCounterEqualZero: null,
+        deletedUser: null
+      } );
+
+    } );
+
     it( 'a simple search query', () => {
 
       validators.listQuery( { search: 'billy@grut.com' } )

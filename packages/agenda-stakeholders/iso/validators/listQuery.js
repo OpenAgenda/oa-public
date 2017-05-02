@@ -16,7 +16,7 @@ module.exports = v => {
 
   let pre = {};
 
-  if ( isObject( v ) ) { 
+  if ( isObject( v ) ) {
 
     Object.keys( v ).forEach( k => {
 
@@ -52,7 +52,8 @@ const listQuerySchema = schema( {
   },
   invited: {
     type: 'boolean',
-    optional: true
+    optional: true,
+    default: null,
   },
   credentials: {
     type: 'choice',
@@ -69,10 +70,12 @@ const listQuerySchema = schema( {
   },
   actionsCounterEqualZero: {
     type: 'boolean',
-    optional: true
+    optional: true,
+    default: null
   },
   deletedUser: {
     type: 'boolean',
-    optional: true
+    optional: true,
+    default: null
   }
 } )
