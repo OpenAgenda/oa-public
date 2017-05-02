@@ -38,22 +38,27 @@ describe.skip( 'activities - rebuid', function () {
   it( 'rebuild', () => {
 
     return rebuild( {}, Object.assign( {}, config.mysql, {
-      user_table: config.schemas.rebuild_user,
-      review_table: config.schemas.rebuild_agenda,
-      review_article_table: config.schemas.rebuild_review_article,
-      event_table: config.schemas.rebuild_event,
-      reviewer_table: config.schemas.rebuild_reviewer,
+      userTable: config.schemas.rebuild_user,
+      reviewTable: config.schemas.rebuild_agenda,
+      reviewArticleTable: config.schemas.rebuild_review_article,
+      eventTable: config.schemas.rebuild_event,
+      reviewerTable: config.schemas.rebuild_reviewer,
 
-      activity_table: config.schemas.activity,
-      feed_table: config.schemas.feed,
-      feed_activity_table: config.schemas.feed_activity,
-      feed_follow_table: config.schemas.feed_follow,
-      feed_notification_table: config.schemas.feed_notification
+      activityTable: config.schemas.activity,
+      feedTable: config.schemas.feed,
+      feedActivityTable: config.schemas.feed_activity,
+      feedFollowTable: config.schemas.feed_follow,
+      feedNotificationTable: config.schemas.feed_notification
     } ), winston )
       .then( result => {
 
         console.log( result );
         return result;
+
+      } )
+      .catch( err => {
+
+        console.error( err );
 
       } )
       .should.fulfilledWith( {

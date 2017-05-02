@@ -17,6 +17,8 @@ const initProg = () => prog
   .option( '-u, --user', 'User for login.', null, 'root', true )
   .option( '-p, --password', 'Password to use when connecting to server.', null, 'grut', true )
 
+  .option( '-i, --interval', 'The interval between each iteration of a loop', prog.INT, 100, true )
+
   .option( '--activity_table', 'activity table', null, 'activity', true )
   .option( '--feed_table', 'feed table', null, 'activity_feed', true )
   .option( '--feed_activity_table', 'feed_activity table', null, 'activity_feed_activity', true )
@@ -344,39 +346,41 @@ function rebuild( args, options, logger ) {
 
   }
 
-}
+  function _traverseTable( table, queryModifier, eachCb, cb ) {
 
-function _traverseTable( table, queryModifier, eachCb, cb ) {
+    let rowsCount = 0;
+    let rowsAffected = 0;
 
-  let rowsCount = 0;
-  let rowsAffected = 0;
+    async.doWhilst(
+      dcb => {
 
-  async.doWhilst(
-    dcb => {
+        const query = knex( table ).offset( rowsAffected ).limit( 100 );
 
-      const query = knex( table ).offset( rowsAffected ).limit( 100 );
+        queryModifier( query )
+          .then( rows => {
 
-      queryModifier( query )
-        .then( rows => {
+            rowsCount = rows.length;
+            rowsAffected += rows.length;
 
-          rowsCount = rows.length;
-          rowsAffected += rows.length;
+            if ( !rows.length ) return dcb();
 
-          if ( !rows.length ) return dcb();
+            async.eachOfSeries( rows, ( item, i, ecb ) => {
+              setTimeout( () => {
+                eachCb( item, rowsAffected - rows.length + Number.parseInt( i ), ecb );
+              }, options.interval );
+            }, dcb );
 
-          async.eachOfSeries( rows, ( item, i, ecb ) => {
-            eachCb( item, rowsAffected - rows.length + Number.parseInt( i ), ecb )
-          }, dcb );
+          } );
 
-        } );
+      },
+      () => rowsCount > 0,
+      err => {
 
-    },
-    () => rowsCount > 0,
-    err => {
+        cb( err, rowsAffected );
 
-      cb( err, rowsAffected );
+      }
+    );
 
-    }
-  );
+  }
 
 }
