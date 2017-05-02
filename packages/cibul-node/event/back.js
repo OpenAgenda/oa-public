@@ -12,7 +12,6 @@ const contributorLabels = require( 'labels/event/contributors' );
 const w = require( 'when' );
 
 const activitiesSvc = require( 'activities' );
-const agendasSvc = require( 'agendas' );
 const usersSvc = require( 'users' );
 
 const routes = {

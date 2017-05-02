@@ -182,9 +182,8 @@ function getUsers( req, res, next ) {
         stakeholdersSvc.user( req.loadedUser.id ).list( 0, 500, ( err, stakeholders = [] ) => {
 
           agendasSvc.list( {
-            ids: stakeholders.map( item => item.agendaId ),
-            private: null
-          }, 0, 500, ( err, agendas ) => {
+            ids: stakeholders.map( item => item.agendaId )
+          }, 0, 500, { private: null }, ( err, agendas ) => {
 
             model.lib.query( 'SELECT count(*) as nbrEvents, review_id ' +
               'FROM review_article WHERE user_id = ? GROUP BY review_id',
