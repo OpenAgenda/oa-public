@@ -235,6 +235,7 @@ function cleanString( str ) {
 
   var charsToClean = [
     1, 2, 3, 4, 5, 6, 7, 8,
+    11, // VT
     31, // Information separator
     8232,
     8233
