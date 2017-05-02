@@ -79,7 +79,16 @@ function transfer( identifiers, options, cb ) {
 
     }
 
-    let set = v.event ? service.update.bind( null, v.identifiers ) : service.create;
+    let set = service.create;
+
+    // event already exists, an update is in order
+    if ( v.event ) {
+
+      set = service.update.bind( null, v.identifiers );
+
+      v.legacy.event.creatorUid = v.event.creatorUid;
+
+    }
 
     set( v.legacy.event, { draft: v.legacy.event.draft }, ( err, r ) => {
 
@@ -255,6 +264,8 @@ function _getOwner( v ) {
   .then( v => {
 
     v.data.ownerUid = v.entries.user ? v.entries.user.uid : null;
+
+    v.data.creatorUid = v.entries.user ? v.entries.user.uid : null;
 
     return v;
 

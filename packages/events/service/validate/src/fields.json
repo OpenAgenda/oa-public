@@ -17,6 +17,10 @@
     "type" : "number",
     "server" : true
   },
+  "creatorUid" : {
+    "type" : "number",
+    "server" : true
+  },
   "agendaUid" : {
     "type" : "number",
     "server" : true

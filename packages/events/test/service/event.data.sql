@@ -2,6 +2,7 @@ CREATE TABLE `${schema}` (
   id bigint(20) AUTO_INCREMENT,
   uid BIGINT UNIQUE,
   owner_uid bigint(20),
+  creator_uid bigint(20),
   agenda_uid bigint(20),
   location_uid bigint(20),
   slug VARCHAR(255) NOT NULL UNIQUE,

@@ -129,25 +129,25 @@ function _doCreate( v ) {
 
   return knex( schemas.event )
 
-  .insert( dbParse.toDb( v.clean ) )
+    .insert( dbParse.toDb( v.clean ) )
 
-  .then( result => {
+    .then( result => {
 
-    v.success = !!( result && result[ 0 ] );
+      v.success = !!( result && result[ 0 ] );
 
-    if ( !v.success ) return v;
+      if ( !v.success ) return v;
 
-    log( 'agenda of slug %s, uid %s, id %s successfully created', v.clean.slug, v.clean.uid, result[ 0 ] );
+      log( 'agenda of slug %s, uid %s, id %s successfully created', v.clean.slug, v.clean.uid, result[ 0 ] );
 
-    v.identifiers = {
-      id: result[ 0 ]
-    };
+      v.identifiers = {
+        id: result[ 0 ]
+      };
 
-    v.id = result[ 0 ];
+      v.id = result[ 0 ];
 
-    return v;
+      return v;
 
-  } );
+    } );
 
 }
 

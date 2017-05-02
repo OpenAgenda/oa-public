@@ -41,6 +41,7 @@ describe( 'events - unit (iso): validation', () => {
       slug: 'a-slug',
       agendaUid: null,
       ownerUid: null,
+      creatorUid: null,
       title: {
         fr: 'Un titre'
       },

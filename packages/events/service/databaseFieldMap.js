@@ -14,6 +14,13 @@ module.exports = [
     protected: true,
     list: false
   },
+  {
+    db: 'creator_uid',
+    obj: 'creatorUid',
+    internal: true,
+    protected: true,
+    list: false
+  },
   'slug',
   {
     db: 'uid',
@@ -39,6 +46,11 @@ module.exports = [
   {
     db: 'keywords',
     obj: 'keywords',
+    type: 'json'
+  },
+  {
+    db: 'conditions',
+    obj: 'conditions',
     type: 'json'
   },
   {

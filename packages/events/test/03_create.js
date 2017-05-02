@@ -35,6 +35,7 @@ describe( 'events - functional (server): create', function() {
           title: {},
           description: {},
           longDescription: {},
+          conditions: {},
           keywords: {},
           image: {
             filename: null,
@@ -98,6 +99,7 @@ describe( 'events - functional (server): create', function() {
           title: { fr: 'My first event' },
           description: {},
           longDescription: {},
+          conditions: {},
           keywords: {},
           draft: 0,
           private: 0,
@@ -148,7 +150,6 @@ describe( 'events - functional (server): create', function() {
   it( 'create the most complete event', done => {
 
     svc.create( {
-    //svc.set( {
       title: {
         fr : 'Un titre'
       },
@@ -214,6 +215,9 @@ describe( 'events - functional (server): create', function() {
         longDescription: {
           fr: 'Une description longue'
         },
+        conditions: {
+          fr: 'Etre vivant'
+        },
         keywords: { 
           fr: [ 'Des', 'mots', 'clés' ]
         },
@@ -236,6 +240,130 @@ describe( 'events - functional (server): create', function() {
         updatedAt: result.event.updatedAt,
         createdAt: result.event.createdAt,
         locationUid: 789,
+        accessibility: {
+          mi: true,
+          hi: true,
+          pi: false,
+          vi: false,
+          sl: false
+        },
+        age: {
+          min: 2,
+          max: 76
+        },
+        registration: [
+          '018436269',
+          'email@site.com',
+          'https://website.com'
+        ]
+      } );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'create the most complete event and include internal data in result', done => {
+
+    svc.create( {
+      title: {
+        fr : 'Un titre'
+      },
+      slug: 'un-titre',
+      ownerUid: 123,
+      creatorUid: 456,
+      agendaUid: 789,
+      locationUid: 101112,
+      draft: false,
+      description: {
+        fr: 'Une description'
+      },
+      longDescription: {
+        fr: 'Une description longue'
+      },
+      keywords: {
+        fr: [ 'Des', 'mots', 'clés' ]
+      },
+      conditions: {
+        fr: 'Etre vivant'
+      },
+      registration: [
+        '018436269',
+        'email@site.com',
+        'https://website.com'
+      ],
+      image: {
+        filename: 'image.jpg',
+        credits: 'Cé moi kai pri la foto',
+        size: {
+          height: null,
+          width: null
+        },
+        variants: []
+      },
+      accessibility: {
+        mi: true,
+        hi: true
+      },
+      timezone: 'Europe/Paris',
+      timings: [ {
+        begin: new Date(),
+        end: new Date()
+      } ],
+      age: {
+        min: 2,
+        max:76
+      }
+    }, { internal: true }, ( err, result ) => {
+
+      should( err ).equal( null );
+
+      result.success.should.equal( true );
+
+      result.event.should.eql( {
+        id: 147618, // this is an internal field
+        slug: 'un-titre',
+        uid: result.event.uid,
+        ownerUid: 123, // this too
+        creatorUid: 456, // and this
+        agendaUid: 789,
+        title: {
+          fr: 'Un titre'
+        },
+        description: {
+          fr: 'Une description'
+        },
+        longDescription: {
+          fr: 'Une description longue'
+        },
+        keywords: { 
+          fr: [ 'Des', 'mots', 'clés' ]
+        },
+        conditions: {
+          fr: 'Etre vivant'
+        },
+        image: {
+          filename: 'image.jpg',
+          credits: 'Cé moi kai pri la foto',
+          size: {
+            height: null,
+            width: null
+          },
+          variants: []
+        },
+        draft: 0,
+        private: 0,
+        timezone: 'Europe/Paris',
+        timings: [ {
+          begin: result.event.timings[ 0 ].begin,
+          end: result.event.timings[ 0 ].begin,
+        } ],
+        updatedAt: result.event.updatedAt,
+        createdAt: result.event.createdAt,
+        deletedAt: null,
+        locationUid: 101112,
         accessibility: {
           mi: true,
           hi: true,
