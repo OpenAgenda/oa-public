@@ -1,14 +1,16 @@
 "use strict";
 
-var src = require( './' ),
+const src = require( './' ),
 
-rss = require( 'rss' ),
+  rss = require( 'rss' ),
 
-eventSvc = require( '../event' ),
+  eventSvc = require( '../event' ),
 
-async = require( 'async' ),
+  async = require( 'async' ),
 
-config = require( '../../config' );
+  utils = require( 'utils' ),
+
+  config = require( '../../config' );
 
 
 /**
@@ -18,16 +20,22 @@ config = require( '../../config' );
 
 module.exports = function( req, res ) {
 
-  var feed = new rss( {
+  let feed = new rss( {
     title: req.agenda.title,
     description: req.agenda.description || req.agenda.title,
-    feed_url: req.genUrl( 'agendaRssEvents', { slug: req.agenda.slug }, { abs: true } ),
+    feed_url: req.genUrl( 'agendaRssEvents', { uid: req.agenda.uid }, { abs: true } ),
     site_url: req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { abs: true } ),
     generator: 'OpenAgenda',
     image_url: req.agenda.image ? config.aws.imageBucketPath + req.agenda.image : false,
     language: req.lang,
     pubDate: req.agenda.updatedAt,
-    ttl: 120
+    ttl: 120,
+    custom_namespaces: {
+      'oaevent': 'http://demos.openagenda.com/oaevent#'
+    },
+    custom_elements: [ {
+      'oaevent:image': 'Image of the event'
+    } ]
   } );
 
   async.eachSeries( req.events.map( eventSvc.instanciate ), ( eInst, ecb ) => {
@@ -46,12 +54,15 @@ module.exports = function( req, res ) {
 
       feed.item( {
         title: eInst.getTitle(),
-        description: '<p>' + eInst.getDescription() + '</p><p> ' + exp.range[ req.lang ] + '</p>' + ( exp.html[ req.lang ] || '' ) ,
+        description: _buildRssDescription( eInst, exp, req.lang ),
         url: req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: eInst.slug, lang: req.lang }, { abs: true } ),
         guid: req.agenda.uid + '/' + eInst.uid,
         date: eInst.createdAt,
         lat: exp.latitude,
-        long: exp.longitude
+        long: exp.longitude,
+        custom_elements: [ {
+          'oaevent:image' : exp.image
+        } ]
       } );
 
       ecb();
@@ -69,5 +80,23 @@ module.exports = function( req, res ) {
   } );
 
   
+
+}
+
+function _buildRssDescription( instance, exp, lang ) {
+
+  let longDescription = utils.cleanString( 
+    exp.html && exp.html[ lang ] ? exp.html[ lang ] : ''
+  );
+
+   return [ 
+    '<p>',
+      instance.getDescription(),
+    '</p>', 
+    '<p>',
+      exp.range[ lang ],
+    '</p>', 
+    longDescription
+  ].join( '' );    
 
 }
