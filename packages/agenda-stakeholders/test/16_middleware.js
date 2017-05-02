@@ -170,7 +170,7 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
   } );
 
 
-  describe.only( '.message', () => {
+  describe( '.message', () => {
 
     it( 'send message to multiple stakeholders', done => {
 
