@@ -18,10 +18,10 @@ const initProg = () => prog
   .option( '-p, --password', 'Password to use when connecting to server.', null, 'grut', true )
 
   .option( '--activity_table', 'activity table', null, 'activity', true )
-  .option( '--feed_table', 'feed table', null, 'feed', true )
-  .option( '--feed_activity_table', 'feed_activity table', null, 'feed_activity', true )
-  .option( '--feed_follow_table', 'feed_follow table', null, 'feed_follow', true )
-  .option( '--feed_notification_table', 'feed_notification table', null, 'feed_notification', true )
+  .option( '--feed_table', 'feed table', null, 'activity_feed', true )
+  .option( '--feed_activity_table', 'feed_activity table', null, 'activity_feed_activity', true )
+  .option( '--feed_follow_table', 'feed_follow table', null, 'activity_feed_follow', true )
+  .option( '--feed_notification_table', 'feed_notification table', null, 'activity_feed_notification', true )
 
   .option( '--user_table', 'user table', null, 'user', true )
   .option( '--review_table', 'review table', null, 'review', true )
