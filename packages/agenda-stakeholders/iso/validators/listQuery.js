@@ -68,8 +68,9 @@ const listQuerySchema = schema( {
     optional: true
   },
   actionsCounterEqualZero: {
-    type: 'boolean',
-    optional: true
+    type: 'choice',
+    optional: true,
+    options: [ null, true, false ]
   },
   deletedUser: {
     type: 'boolean',

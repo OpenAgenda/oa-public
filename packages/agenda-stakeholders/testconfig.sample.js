@@ -26,7 +26,7 @@ module.exports = {
         user_name: 'Zorg',
         email: identifiers.email || 'zorg@galactic.uv'
       } );
-      
+
     },
     getExistingCredentials: ( agendaId, cb ) => {
 
