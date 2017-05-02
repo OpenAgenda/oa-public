@@ -89,7 +89,8 @@ export default class AdminDashboard extends Component {
           object: undefined,
           target: undefined,
           datetimeRange: undefined,
-          ...newQuery }
+          ...newQuery
+        }
       } );
     } );
 
@@ -221,20 +222,30 @@ export default class AdminDashboard extends Component {
         </form>
 
         <div className="row padding-top-md">
-          {activities.map( activity => (
-            <div key={activity.id} className="margin-all-sm margin-left-md">
-              <strong>{moment( activity.createdAt ).format( 'LLL' )}:</strong>{' '}
-              <span dangerouslySetInnerHTML={{ __html: formatActivity( activity ) }} />
-            </div>
-          ) )}
+          <div className="col-md-offset-3 col-md-6">
+            {(activities && activities.length > 0) && <ul className="list-unstyled">
+              {activities.map( activity => (
+                <li key={activity.id} className="padding-bottom-xs">
+                  <label className="pull-left margin-right-sm small">
+                    {moment( activity.createdAt ).format( 'LLL' )}
+                  </label>
+                  <p dangerouslySetInnerHTML={{ __html: formatActivity( activity ) }} />
+                </li>
+              ) )}
+            </ul>}
 
-          <div className="text-center">
-            <button
-              className={classNames( 'btn', 'btn-default', { disabled: lastPage || nextLoading || loading } )}
-              onClick={this.nextPage}
-            >
-              Suivant
-            </button>
+            {(!activities || activities.length === 0) && <div className="margin-bottom-sm">
+              {getLabel( 'noActivity' )}
+            </div>}
+
+            {!lastPage && <div className="text-center">
+              <button
+                className={classNames( 'btn', 'btn-default', { disabled: nextLoading || loading } )}
+                onClick={this.nextPage}
+              >
+                Suivant
+              </button>
+            </div>}
           </div>
         </div>
       </div>

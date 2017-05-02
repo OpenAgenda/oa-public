@@ -71,21 +71,29 @@ export default class AgendaDashboard extends Component {
         <h2>{getLabel( 'activities' )}</h2>
 
         <div className="padding-top-md">
-          {activities.map( activity => (
-            <div key={activity.id} className="margin-bottom-sm">
-              <strong>{moment( activity.createdAt ).format( 'LLL' )}:</strong>{' '}
-              <span dangerouslySetInnerHTML={{ __html: formatActivity( activity, lang ) }} />
-            </div>
-          ) )}
+          {(activities && activities.length > 0) && <ul className="list-unstyled">
+            {activities.map( activity => (
+              <li key={activity.id} className="padding-bottom-xs">
+                <label className="pull-left margin-right-sm small">
+                  {moment( activity.createdAt ).format( 'LLL' )}
+                </label>
+                <p dangerouslySetInnerHTML={{ __html: formatActivity( activity ) }} />
+              </li>
+            ) )}
+          </ul>}
 
-          <div className="text-center">
+          {(!activities || activities.length === 0) && <div className="margin-bottom-sm">
+            {getLabel( 'noActivity' )}
+          </div>}
+
+          {!lastPage && <div className="text-center">
             <button
-              className={classNames( 'btn', 'btn-default', { disabled: lastPage || nextLoading || loading } )}
+              className={classNames( 'btn', 'btn-default', { disabled: nextLoading || loading } )}
               onClick={this.nextPage}
             >
               {getLabel( 'next' )}
             </button>
-          </div>
+          </div>}
         </div>
       </div>
     );

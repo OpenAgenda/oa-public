@@ -413,30 +413,41 @@ var AdminDashboard = _wrapComponent('AdminDashboard')((_dec = (0, _reduxConnect.
         _react3.default.createElement(
           'div',
           { className: 'row padding-top-md' },
-          activities.map(function (activity) {
-            return _react3.default.createElement(
-              'div',
-              { key: activity.id, className: 'margin-all-sm margin-left-md' },
-              _react3.default.createElement(
-                'strong',
-                null,
-                (0, _moment2.default)(activity.createdAt).format('LLL'),
-                ':'
-              ),
-              ' ',
-              _react3.default.createElement('span', { dangerouslySetInnerHTML: { __html: formatActivity(activity) } })
-            );
-          }),
           _react3.default.createElement(
             'div',
-            { className: 'text-center' },
-            _react3.default.createElement(
-              'button',
-              {
-                className: (0, _classnames2.default)('btn', 'btn-default', { disabled: lastPage || nextLoading || loading }),
-                onClick: this.nextPage
-              },
-              'Suivant'
+            { className: 'col-md-offset-3 col-md-6' },
+            activities && activities.length > 0 && _react3.default.createElement(
+              'ul',
+              { className: 'list-unstyled' },
+              activities.map(function (activity) {
+                return _react3.default.createElement(
+                  'li',
+                  { key: activity.id, className: 'padding-bottom-xs' },
+                  _react3.default.createElement(
+                    'label',
+                    { className: 'pull-left margin-right-sm small' },
+                    (0, _moment2.default)(activity.createdAt).format('LLL')
+                  ),
+                  _react3.default.createElement('p', { dangerouslySetInnerHTML: { __html: formatActivity(activity) } })
+                );
+              })
+            ),
+            (!activities || activities.length === 0) && _react3.default.createElement(
+              'div',
+              { className: 'margin-bottom-sm' },
+              getLabel('noActivity')
+            ),
+            !lastPage && _react3.default.createElement(
+              'div',
+              { className: 'text-center' },
+              _react3.default.createElement(
+                'button',
+                {
+                  className: (0, _classnames2.default)('btn', 'btn-default', { disabled: nextLoading || loading }),
+                  onClick: this.nextPage
+                },
+                'Suivant'
+              )
             )
           )
         )
