@@ -1,21 +1,24 @@
 "use strict";
 
-var config = require( '../../config' ),
+const config = require( '../../config' ),
 
-notify = require( './lib/notify' ),
+  notify = require( './lib/notify' ),
 
-evaluate = require( './lib/evaluate' ),
+  evaluate = require( './lib/evaluate' ),
 
-sources = require( './lib/sources' ),
+  sources = require( './lib/sources' ),
 
-task = require( './lib/task' ),
+  task = require( './lib/task' ),
 
-q = require( 'queue' )( config.queues.aggregator, { 
-  redis: config.redis,
-  schedulable: true
-} );
+  isAggregator = require( './lib/isAggregator' ),
+
+  q = require( 'queue' )( config.queues.aggregator, { 
+    redis: config.redis,
+    schedulable: true
+  } );
 
 module.exports = {
+  isAggregator,
   notifyPublish: notify.publish,
   notifyUnpublish: notify.unpublish,
   sourceAdd: sources.add,
