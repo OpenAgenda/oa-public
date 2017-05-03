@@ -82,6 +82,8 @@ function _loadDetailed( req, res, next ) {
 
     stakeholders.user( session.id ).list( 0, 1000, ( err, items, total ) => {
 
+      if ( err ) return next( err );
+
       agendas.list( { ids: items.map( i => i.agendaId ) }, 0, 1000, { private: null }, ( err, agendas ) => {
 
         if ( err ) return next( err );

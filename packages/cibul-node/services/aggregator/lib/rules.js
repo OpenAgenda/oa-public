@@ -6,13 +6,30 @@ module.exports = ( rules, event, key = 'value' ) => {
 
   return rules.filter( r => {
 
-    if ( r.query && r.query.tags && !_tags( event.tags, r.query.tags ) ) return false;
+    let passes = true;
 
-    return true;
+    if ( r.query ) {
+
+      passes = _.keys( r.query ).filter( field => {
+
+        if ( field === 'tags' ) {
+
+          return _tags( event.tags, r.query.tags );
+
+        }
+
+        return event[ field ] === r.query[ field ];
+
+      } ).length === _.keys( r.query ).length;
+
+    }
+
+    return passes;
 
   } ).map( r => _.get( r, key, null ) );
 
 }
+
 
 function _tags( evaluated, filter ) {
 

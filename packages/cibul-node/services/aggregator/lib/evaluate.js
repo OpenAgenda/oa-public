@@ -212,9 +212,11 @@ function _evaluateShouldAggregate( v ) {
 
   }
 
-  let matchingRuleValues = rules( v.rules, {
+  let event = _.extend( {
     tags: v.eventSourceTags.map( t => t.label )
-  } );
+  }, v.eventSourceCustomFields );
+
+  let matchingRuleValues = rules( v.rules, event );
 
 
   // all rules must match to trigger aggregation

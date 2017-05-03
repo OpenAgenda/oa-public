@@ -23,7 +23,7 @@ describe( 'aggregation rules', () => {
     }
   } ];
 
-  it( 'rules returns specified key of matches', () => {
+  it( 'rules returns specified value of matches', () => {
 
     let event = {
       tags: [ 'Tag1', 'Tag2' ]
@@ -46,6 +46,25 @@ describe( 'aggregation rules', () => {
     }
 
     rules( ruleset, event, 'value' ).length.should.equal( 2 );
+
+  } );
+
+
+  it( 'rules handle fields of string, number or boolean types as well', () => {
+
+    let ruleset = [ {
+      query: {
+        intercomunal_interest: true
+      }
+    } ]
+
+    rules( ruleset, { intercomunal_interest: false } )
+
+      .should.eql( [] );
+
+    rules( ruleset, { intercomunal_interest: true } )
+
+      .should.eql( [ null ] );
 
   } );
 
