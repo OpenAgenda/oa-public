@@ -1,24 +1,32 @@
 "use strict";
 
 module.exports = {
-  mysql : {
-    host : '127.0.0.1',
-    database : 'openagenda_usertest',
-    password : 'grut',
-    user : 'root'
+  mysql: {
+    host: '127.0.0.1',
+    database: 'oa_test_users',
+    password: 'grut',
+    user: 'root'
   },
-  schemas : {
+  schemas: {
     user: 'user',
-    apiKeySet: 'api_key_set'
+    apiKeySet: 'api_key_set',
+    unsubscribed: 'unsubscribed'
   },
   files: {
     tmpPath: '/var/tmp',
     bucket: 'openagendatst',
-    accessKeyId: 'ERSDFYUHKIJFLEUJF',
-    secretAccessKey: 'cdfvq/fzeef-fcezqf'
+    accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
+    secretAccessKey: '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'
   },
   interfaces: {
-    beforeRemove: ( user, cb ) => cb( null )
+    beforeRemove: ( user, cb ) => cb( null ),
+    getAgenda: ( agendaUid, cb ) => cb( null, agendaUid === 85870128 ? {
+      slug: 'journees-arts-culture-sup-2017',
+      title: '2017 : Journées des Arts et de la Culture dans l\'Enseignement Supérieur'
+    } : {
+      slug: 'semaineindustrie2017',
+      title: 'Semaine de l\'Industrie 2017'
+    } )
   },
   debug: true
 };
