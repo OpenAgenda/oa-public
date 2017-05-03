@@ -79,11 +79,11 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
     it( 'lists stakeholders', done => {
 
       const req = {
-        agenda: { id: 4608 },
-        query: { page: 1 }
-      },
+          agenda: { id: 4608 },
+          query: { page: 1 }
+        },
 
-      res = {}; // not modified with load middleware
+        res = {}; // not modified with load middleware
 
       stakeholderMw.agenda().list()( req, res, next );
 
@@ -176,7 +176,8 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
 
       const req = {
         agenda: { id: 4608 },
-        message: '**Bla bla bla**'
+        message: '**Bla bla bla**',
+        context: { lang: 'fr' }
       }, res = {};
 
       stakeholderMw.agenda().message( { actionsCounterEqualZero: true } )( req, res, next );
@@ -385,11 +386,11 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
     it( 'loads all stakeholder data by default', done => {
 
       const req = {
-        agenda: { id: 4608 },
-        user: { id: 7674 }
-      },
+          agenda: { id: 4608 },
+          user: { id: 7674 }
+        },
 
-      res = {}; // not modified with load middleware
+        res = {}; // not modified with load middleware
 
       stakeholderMw.agenda().get()( req, res, next );
 

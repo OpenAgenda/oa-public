@@ -6,22 +6,22 @@ const config = require( '../testconfig' );
 const _ = require( 'lodash' );
 const queue = require( 'queue' );
 
-describe( 'agenda-stakeholders - functional (server): message forwarding', function() {
+describe( 'agenda-stakeholders - functional (server): message forwarding', function () {
 
   // c'est bien la peine d'avoir un core i7
-  this.timeout( 10000 );
+  this.timeout( 40000 );
 
   const queueTestConfig = {
-    names: {
-      message: 'stakeholderMessageTest'
+      names: {
+        message: 'stakeholderMessageTest'
+      },
+      redis: {
+        host: 'localhost',
+        port: 6379
+      }
     },
-    redis: {
-      host: 'localhost',
-      port: 6379
-    }
-  },
 
-  q = queue( queueTestConfig.names.message, { redis: queueTestConfig.redis } );
+    q = queue( queueTestConfig.names.message, { redis: queueTestConfig.redis } );
 
   before( done => {
 
@@ -50,7 +50,7 @@ describe( 'agenda-stakeholders - functional (server): message forwarding', funct
     service.init( _.extend( {}, config, {
       queue: queueTestConfig,
       interfaces: _.extend( {}, config.interfaces, {
-        onMessage: ( stakeholder, message, cb ) => {
+        onMessage: ( stakeholder, message, context, cb ) => {
 
           i++;
 
@@ -62,7 +62,7 @@ describe( 'agenda-stakeholders - functional (server): message forwarding', funct
 
           if ( i === 4 ) {
 
-            done(); 
+            done();
 
           }
 
@@ -71,8 +71,13 @@ describe( 'agenda-stakeholders - functional (server): message forwarding', funct
     } ), () => {
 
       // first argument is query for list. Here message will be sent to "active" stakeholders.
-    // The first use case for this will be: { actionsCounterEqualZero: true, deletedUser: false }
-    service.agenda( 4608 ).message( { actionsCounterEqualZero: false }, '**remember how she said that we would meet again**', () => {} );
+      // The first use case for this will be: { actionsCounterEqualZero: true, deletedUser: false }
+      service.agenda( 4608 ).message(
+        { actionsCounterEqualZero: false },
+        '**remember how she said that we would meet again**',
+        { lang: 'fr' },
+        () => {}
+      );
 
       // run task
       service.tasks.message();

@@ -23,7 +23,7 @@ let q, queueConfig, log, interfaces;
 /**
  * queue message content and recipients query
  */
-function queueMessage( base, query, message, cb ) {
+function queueMessage( base, query, message, context, cb ) {
 
   log( 'queuing message %s', message );
 
@@ -31,7 +31,8 @@ function queueMessage( base, query, message, cb ) {
     type: 'list',
     base,
     query,
-    message
+    message,
+    context
   }, err => {
 
     log( 'queued message %s', message );
@@ -51,7 +52,7 @@ function queueMessage( base, query, message, cb ) {
  * and for each stakeholder queue message
  * process job.
  */
-function listAndQueueStakeholders( { query, message, base }, cb ) {
+function listAndQueueStakeholders( { query, message, base, context }, cb ) {
 
   const limit = 20; // why not.
 
@@ -75,7 +76,7 @@ function listAndQueueStakeholders( { query, message, base }, cb ) {
 
       async.eachSeries( stakeholders, ( stakeholder, ecb ) => {
 
-        q( { type: 'item', stakeholder, message }, ecb );
+        q( { type: 'item', stakeholder, message, context }, ecb );
 
       }, wcb );
 
@@ -85,9 +86,9 @@ function listAndQueueStakeholders( { query, message, base }, cb ) {
 
 }
 
-function processSingleMessage( { stakeholder, message }, cb ) {
+function processSingleMessage( { stakeholder, message, context }, cb ) {
 
-  interfaces.onMessage( stakeholder, message, cb );
+  interfaces.onMessage( stakeholder, message, context, cb );
 
 }
 

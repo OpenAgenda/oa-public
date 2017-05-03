@@ -201,27 +201,33 @@ function agenda( namespace = 'agenda' ) {
 
   function message( options ) {
 
-    let { namespaces, actionsCounterEqualZero } = _.merge( {
+    let { namespaces, actionsCounterEqualZero, deletedUser } = _.merge( {
       namespaces: {
         message: 'message',
-        result: 'result'
+        result: 'result',
+        context: 'context'
       },
-      actionsCounterEqualZero: null
+      actionsCounterEqualZero: null,
+      deletedUser: false
     }, options || {} );
 
     return ( req, res, next ) => {
 
       service.agenda( _.get( req, namespace ).id )
 
-        .message( { actionsCounterEqualZero }, _.get( req, namespaces.message, '' ), ( err, result ) => {
+        .message(
+          { actionsCounterEqualZero, deletedUser },
+          _.get( req, namespaces.message, '' ),
+          _.get( req, namespaces.context, null ),
+          ( err, result ) => {
 
-          if ( err ) return next( err );
+            if ( err ) return next( err );
 
-          _.set( req, namespaces.result, result );
+            _.set( req, namespaces.result, result );
 
-          next();
+            next();
 
-        } );
+          } );
 
     }
 
