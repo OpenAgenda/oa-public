@@ -144,6 +144,29 @@ const routes = {
       const status = (result.errors && result.errors.length) || !result.success ? 400 : 200;
       res.status( status ).json( result )
     }
+  ] ],
+
+  membersSendMessage: [ 'post', '/send-message', [
+    ( req, res, next ) => {
+
+      if ( !req.agendaInstance.data.credentials.invitationMessage ) {
+
+        return next( new Error( 'You don\'t have right to send message to all members' ) );
+
+      }
+
+      req.context = { lang: req.lang };
+
+      stakeholdersMw.agenda( 'agendaInstance.data' ).message( {
+        namespaces: {
+          message: 'body.message'
+        },
+        actionsCounterEqualZero: req.query.inactive ? true : null,
+        deletedUser: false
+      } )( req, res, next );
+
+    },
+    ( { result }, res ) => res.status( result.errors && result.errors.length ? 400 : 200 ).json( result )
   ] ]
 
 };
@@ -233,7 +256,8 @@ function matchApp( req, res, next ) {
           showContributor: req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ) + '?contributorId=:contributorId',
           writeToMember: req.genUrl( 'conversationDiscussion', { uid: ':uid', redirect: ':redirect' } ),
           exportToCsv: req.genUrl( 'agendaContributorsCsv', { slug: req.agenda.slug } ),
-          exportToXlsx: req.genUrl( 'agendaContributorsXlsx', { slug: req.agenda.slug } )
+          exportToXlsx: req.genUrl( 'agendaContributorsXlsx', { slug: req.agenda.slug } ),
+          sendMessage: req.genUrl( 'membersSendMessage', { slug: req.agenda.slug } )
         },
         agenda: {
           uid: req.agenda.uid,

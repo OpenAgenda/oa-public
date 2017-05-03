@@ -69,7 +69,11 @@ const servicePath = __dirname + '/../services',
 
   coms = require( './coms' ),
 
-  getInvitationLabel = require( 'labels' )( require( 'labels/members/invitation' ) );
+  makeLabelGetter = require( 'labels' ),
+
+  getInvitationLabel = makeLabelGetter( require( 'labels/members/invitation' ) ),
+
+  getMessageLabel = makeLabelGetter( require( 'labels/agenda-stakeholders/message' ) );
 
 let log;
 
@@ -166,7 +170,7 @@ function _initActivities( config ) {
 
   log( 'info', 'activities' );
 
-  const getRole = agendaStakeholders.types.get; 
+  const getRole = agendaStakeholders.types.get;
 
   return activitiesSvc.init( {
     mysql: config.db,
@@ -765,11 +769,93 @@ function _initAgendaStakeholders( config ) { // async
     mysql: config.db,
     logger,
     interfaces: {
-      onMessage( stakeholder, message, cb ) {
+      onMessage( stakeholder, message, context, cb ) {
 
-        // if user has an invitation, set activation link as call to action
-        // if user has an account, set agenda add event page as cta
-        cb()
+        if ( stakeholder.deletedUser ) return cb();
+
+        agendasSvc.get( stakeholder.agendaId, ( err, agenda ) => {
+
+          if ( err ) log( 'error', err );
+
+          const sendMessageEmail = ( url, linkLabel, emailAddress, lang ) => mailer( {
+            recipient: stakeholder.custom.email,
+            subject: getMessageLabel( 'newMessage', { agenda: agenda.title }, lang ),
+            data: {
+              logo: 'https://openagenda.com/images/openagenda.png',
+              title: {
+                text: getMessageLabel( 'newMessage', { agenda: agenda.title }, lang ),
+                link: url
+              },
+              action: {
+                label: linkLabel,
+                link: url
+              },
+              description: message
+            }
+          }, cb );
+
+          if ( stakeholder.userId && stakeholder.custom.email ) {
+
+            // Member
+            const lang = context.lang || 'fr';
+
+            sendMessageEmail(
+              genUrl( 'agendaShow', { slug: agenda.slug } ),
+              getMessageLabel( 'seeAgenda', lang ),
+              stakeholder.custom.email,
+              lang
+            );
+
+          } else if ( stakeholder.userId ) {
+
+            // User without custom.email
+            userSvc.get( stakeholder.userId, { detailed: true }, ( err, user ) => {
+
+              if ( err || !user ) return cb();
+
+              const lang = context.lang || 'fr';
+
+              sendMessageEmail(
+                genUrl( 'agendaShow', { slug: agenda.slug } ),
+                getMessageLabel( 'seeAgenda', lang ),
+                user.email,
+                lang
+              );
+
+            } );
+
+          } else if ( stakeholder.custom.email ) {
+
+            // Invited
+            invitationsSvc.get( { email: stakeholder.custom.email } )
+              .then( ( { invitation } ) => {
+
+                const action = invitation.data.actions.find( v => v.name === 'linkStakeholder' );
+                const contextInvitation = action.params[ 1 ] || context;
+
+                const lang = ( contextInvitation && contextInvitation.lang ) || 'fr';
+
+                const signupUrl = genUrl( 'signup', {
+                  invitation: invitation.token,
+                  email: stakeholder.custom.email,
+                  lang
+                }, {
+                  abs: true,
+                  protocol: 'https://'
+                } );
+
+                sendMessageEmail(
+                  signupUrl,
+                  getInvitationLabel( 'emailAction', lang ),
+                  stakeholder.custom.email,
+                  lang
+                );
+
+              } );
+
+          }
+
+        } );
 
       },
       onCreate( stakeholder, context ) {

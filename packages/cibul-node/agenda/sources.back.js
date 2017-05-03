@@ -7,6 +7,7 @@ const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 const bodyParser = require( 'body-parser' );
 const aggregatorSourcesSvc = require( 'aggregator-sources' );
+const aggregatorSvc = require( '../services/aggregator' );
 const model = require( '../services/model' );
 const agendaSvc = require( '../services/agenda' );
 const mw = aggregatorSourcesSvc.mw;
@@ -69,11 +70,11 @@ module.exports = path => {
 
 function populateIsAggregator( req, res, next ) {
 
-  model.lib.query( `SELECT * from ${config.schemas.aggregator} WHERE review_id = ?`, [ req.agenda.id ], ( err, rows ) => {
+  aggregatorSvc.isAggregator( req.agenda.id, ( err, isAggregator ) => {
 
     if ( err ) return next( err );
 
-    req.isAggregator = !!(rows && rows.length);
+    req.isAggregator = isAggregator;
     next();
 
   } );

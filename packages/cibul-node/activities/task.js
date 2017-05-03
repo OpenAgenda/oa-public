@@ -47,7 +47,7 @@ function _onEventActivity( action ) {
     // If is real update, not a publishing or unpublishing
     if ( type === 'update' && !action.values.type ) {
 
-      agendasSvc.get( action.values.review_id, ( err, agenda ) => {
+      agendasSvc.get( action.values.review_id, { private: null }, ( err, agenda ) => {
 
         if ( err ) return log( 'error', 'Error to get agenda %s', action.values.review_id );
 

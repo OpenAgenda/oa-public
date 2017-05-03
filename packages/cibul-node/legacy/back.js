@@ -12,6 +12,8 @@ const sessions = require( 'sessions' ),
 
   userSvc = require( '../services/user' ),
 
+  aggregatorSvc = require( '../services/aggregator' ),
+
   async = require( 'async' ),
 
   referencesSvc = require( 'agenda-event-references' ),
@@ -264,45 +266,23 @@ function eventCreate( req, res, next ) {
 
       if ( err ) req.log( 'error', err );
 
-      activitiesSvc.feed( { entityType: 'agenda', entityUid: req.agenda.uid } ).follow( eventFeed, err => {
+      aggregatorSvc.isAggregator( req.agenda.id, ( err, isAggregator ) => {
 
         if ( err ) req.log( 'error', err );
 
-        usersSvc.get( req.event.ownerId, ( err, user ) => {
+        console.log( 'IS AGGREGATOR', isAggregator );
+
+        if ( isAggregator ) {
+
+          return _addCreateEventActivity( eventFeed )( req, res );
+
+        }
+
+        activitiesSvc.feed( { entityType: 'agenda', entityUid: req.agenda.uid } ).follow( eventFeed, err => {
 
           if ( err ) req.log( 'error', err );
 
-          activitiesSvc.feed( { entityType: 'user', entityUid: user.uid } ).follow( eventFeed, err => {
-
-            if ( err ) req.log( 'error', err );
-
-            activitiesSvc.feed( { entityType: 'event', entityUid: req.event.uid } ).activities.add( {
-              actor: 'user:' + user.uid,
-              verb: 'event.create',
-              object: 'event:' + req.event.uid,
-              target: 'agenda:' + req.agenda.uid,
-              store: {
-                labels: {
-                  actor: user.full_name,
-                  object: req.event.title,
-                  target: req.agenda.title
-                }
-              }
-            }, err => {
-
-              if ( err ) req.log( 'error', err );
-
-              stakeholdersSvc.agenda( req.agenda.id ).increment( { userId: user.id }, err => {
-
-                if ( err ) req.log( 'error', err );
-
-                res.send( 'ok' );
-
-              } );
-
-            } );
-
-          } );
+          _addCreateEventActivity( eventFeed )( req, res );
 
         } );
 
@@ -494,5 +474,51 @@ function _extractRecipients( obj ) {
   for ( let email in obj ) emails.push( email );
 
   return emails;
+
+}
+
+function _addCreateEventActivity( eventFeed ) {
+
+  return ( req, res ) => {
+
+    usersSvc.get( req.event.ownerId, ( err, user ) => {
+
+      if ( err ) req.log( 'error', err );
+
+      activitiesSvc.feed( { entityType: 'user', entityUid: user.uid } ).follow( eventFeed, err => {
+
+        if ( err ) req.log( 'error', err );
+
+        activitiesSvc.feed( { entityType: 'event', entityUid: req.event.uid } ).activities.add( {
+          actor: 'user:' + user.uid,
+          verb: 'event.create',
+          object: 'event:' + req.event.uid,
+          target: 'agenda:' + req.agenda.uid,
+          store: {
+            labels: {
+              actor: user.full_name,
+              object: req.event.title,
+              target: req.agenda.title
+            }
+          }
+        }, err => {
+
+          if ( err ) req.log( 'error', err );
+
+          stakeholdersSvc.agenda( req.agenda.id ).increment( { userId: user.id }, err => {
+
+            if ( err ) req.log( 'error', err );
+
+            res.send( 'ok' );
+
+          } );
+
+        } );
+
+      } );
+
+    } );
+
+  }
 
 }
