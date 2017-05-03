@@ -1,0 +1,8 @@
+<!DOCTYPE oaevent [
+
+  <!ELEMENT image (#CDATA)>
+  <!ELEMENT range (#CDATA)>
+  <!ELEMENT location (#CDATA)>
+  <!ELEMENT address (#CDATA)>
+
+]>
