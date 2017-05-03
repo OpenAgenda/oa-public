@@ -112,7 +112,7 @@ var UnsubscribedSettings = _wrapComponent('UnsubscribedSettings')((_dec = (0, _r
               unsubscriptions && unsubscriptions.length > 0 && unsubscriptions.map(function (unsubscription) {
                 return _react3.default.createElement(
                   'div',
-                  { key: unsubscription.id, style: { paddingTop: '6px' } },
+                  { key: unsubscription.id, className: 'margin-v-sm' },
                   _react3.default.createElement(
                     'span',
                     {

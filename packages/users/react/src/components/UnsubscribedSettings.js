@@ -40,7 +40,7 @@ export default class UnsubscribedSettings extends Component {
 
             <div>
               {unsubscriptions && unsubscriptions.length > 0 && unsubscriptions.map( unsubscription => (
-                <div key={unsubscription.id} style={{ paddingTop: '6px' }}>
+                <div key={unsubscription.id} className="margin-v-sm">
                   <span
                     style={{ cursor: 'pointer', marginTop: '-2px', fontSize: '18px' }}
                     className="text-danger pull-right"
