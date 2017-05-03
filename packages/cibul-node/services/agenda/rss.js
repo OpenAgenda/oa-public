@@ -31,10 +31,16 @@ module.exports = function( req, res ) {
     pubDate: req.agenda.updatedAt,
     ttl: 120,
     custom_namespaces: {
-      'oaevent': 'http://demos.openagenda.com/oaevent#'
+      'oaevent': 'https://s3.eu-central-1.amazonaws.com/oastatic/dtd/oaevent#'
     },
     custom_elements: [ {
       'oaevent:image': 'Image of the event'
+    }, {
+      'oaevent:range': 'Time range of the event'
+    }, {
+      'oaevent:location' : 'Name of the location of the event'
+    }, {
+      'oaevent:address' : 'Address of the event'
     } ]
   } );
 
@@ -61,7 +67,13 @@ module.exports = function( req, res ) {
         lat: exp.latitude,
         long: exp.longitude,
         custom_elements: [ {
-          'oaevent:image' : exp.image
+          'oaevent:image' : exp.image || null
+        }, {
+          'oaevent:range' : exp.range[ req.lang ]
+        }, {
+          'oaevent:location' : exp.location.name
+        }, {
+          'oaevent:address' : exp.location.address
         } ]
       } );
 
