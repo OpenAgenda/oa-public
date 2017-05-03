@@ -45,7 +45,7 @@ function increment( base, identifiers, cb ) {
 
       if ( err ) {
 
-        let error = new VError( err, 'could not increment field %s for stakeholder %s', counterField, JSON.stringify( stakeholder ) );
+        let error = new VError( err, 'could not increment field %s for stakeholder %s', counterField, JSON.stringify( identifiers ) );
 
         if ( cb ) return cb( error );
 
