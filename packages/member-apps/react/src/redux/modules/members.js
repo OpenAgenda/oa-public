@@ -31,6 +31,9 @@ const CLEAN_INVITE_RESULT = 'member-apps/members/CLEAN_INVITE_RESULT';
 const ADD_CRED_FILTER = 'member-apps/members/ADD_CRED_FILTER';
 const REMOVE_CRED_FILTER = 'member-apps/members/REMOVE_CRED_FILTER';
 const CLEAN_CRED_FILTERS = 'member-apps/members/CLEAN_CRED_FILTERS';
+const SEND_MESSAGE = 'member-apps/members/SEND_MESSAGE';
+const SEND_MESSAGE_SUCCESS = 'member-apps/members/SEND_MESSAGE_SUCCESS';
+const SEND_MESSAGE_FAIL = 'member-apps/members/SEND_MESSAGE_FAIL';
 
 
 const initialState = {
@@ -308,6 +311,13 @@ export function remove( id ) {
     types: [ REMOVE, REMOVE_SUCCESS, REMOVE_FAIL ],
     id,
     promise: ( client, { res } ) => client.get( res.remove.replace( ':id', id ) )
+  };
+}
+
+export function sendMessage( data, inactive ) {
+  return {
+    types: [ SEND_MESSAGE, SEND_MESSAGE_SUCCESS, SEND_MESSAGE_FAIL ],
+    promise: ( client, { res } ) => client.post( res.sendMessage, { data, query: { inactive } } )
   };
 }
 

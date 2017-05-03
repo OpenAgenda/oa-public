@@ -62,6 +62,10 @@ var _EditMemberForm = require('../../components/EditMemberForm/EditMemberForm');
 
 var _EditMemberForm2 = _interopRequireDefault(_EditMemberForm);
 
+var _SendMessageForm = require('../../components/SendMessageForm/SendMessageForm');
+
+var _SendMessageForm2 = _interopRequireDefault(_SendMessageForm);
+
 var _members = require('../../redux/modules/members');
 
 var membersActions = _interopRequireWildcard(_members);
@@ -132,6 +136,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       search: props.location.query.search || ''
     },
     res: state.res,
+    credentials: state.agenda.credentials,
     userCredential: state.stakeholder.credential,
     stakeholders: state.members.data,
     page: state.members.page,
@@ -467,9 +472,11 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           update = _props5.update,
           invite = _props5.invite,
           remove = _props5.remove,
+          sendMessage = _props5.sendMessage,
           showInviteResult = _props5.showInviteResult,
           cleanInviteResult = _props5.cleanInviteResult,
-          inviteError = _props5.inviteError;
+          inviteError = _props5.inviteError,
+          credentials = _props5.credentials;
       var getLabel = this.context.getLabel;
       var _stats$credentialTota = stats.credentialTotals,
           totalAdministrator = _stats$credentialTota.administrator,
@@ -482,6 +489,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       var removeModal = modals.removeMember || {};
       var inviteMembersModal = modals.inviteMembers || {};
       var memberReinvitedModal = modals.memberReinvited || {};
+      var writeToMembersModal = modals.writeToMembers || {};
 
       return _react3.default.createElement(
         'div',
@@ -502,6 +510,21 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                     return showModal('inviteMembers');
                   } },
                 getLabel('inviteMembers')
+              ),
+              credentials.invitationMessage && _react3.default.createElement(_reactBootstrap.MenuItem, { divider: true }),
+              credentials.invitationMessage && _react3.default.createElement(
+                _reactBootstrap.MenuItem,
+                { onClick: function onClick() {
+                    return showModal('writeToMembers');
+                  } },
+                getLabel('sendMessageToAll')
+              ),
+              credentials.invitationMessage && _react3.default.createElement(
+                _reactBootstrap.MenuItem,
+                { onClick: function onClick() {
+                    return showModal('writeToMembers', { inactive: true });
+                  } },
+                getLabel('sendMessageToInactives')
               ),
               _react3.default.createElement(_reactBootstrap.MenuItem, { divider: true }),
               _react3.default.createElement(
@@ -694,6 +717,26 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             null,
             getLabel('invitationNotResended')
           )
+        ),
+        writeToMembersModal.visible && _react3.default.createElement(
+          _Modal2.default,
+          {
+            title: getLabel(writeToMembersModal.inactive ? 'sendMessageToInactives' : 'sendMessageToAll'),
+            visible: writeToMembersModal.visible || false,
+            onClose: function onClose() {
+              return closeModal('writeToMembers');
+            }
+          },
+          _react3.default.createElement(_SendMessageForm2.default, { onSubmit: function onSubmit(data) {
+              return sendMessage(data, writeToMembersModal.inactive).then(function (result) {
+                if (result.error && result.error instanceof _reduxForm.SubmissionError) {
+                  throw new _reduxForm.SubmissionError(result.error.errors);
+                }
+                return result;
+              }).then(function () {
+                return closeModal('writeToMembers');
+              });
+            } })
         )
       );
     }

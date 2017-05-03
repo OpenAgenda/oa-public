@@ -37,7 +37,11 @@ const port = process.env.PORT || 3000;
 
 fixtures.init( config );
 agendasSvc.init( config );
-stakeholdersSvc.init( config );
+stakeholdersSvc.init( config, () => {
+
+  stakeholdersSvc.tasks.message();
+
+} );
 
 async.waterfall( [
   // wcb => agendasSvc.test.fixtures( [
@@ -169,7 +173,7 @@ async.waterfall( [
     stakeholdersMw.agenda( 'agenda.data' ).bulk( {
       namespaces: {
         data: 'body',
-        context: 'body.context'
+        context: 'context'
       },
       allowPartial: true
     } ),
@@ -197,8 +201,19 @@ async.waterfall( [
     },
     ( { result }, res ) => {
       const status = (result.errors && result.errors.length) || !result.success ? 400 : 200;
-      res.status( status ).json( result )
+      res.status( status ).json( result );
     }
+  );
+
+  app.post(
+    '/send-message',
+    ( req, res, next ) => stakeholdersMw.agenda( 'agenda.data' ).message( {
+      namespaces: {
+        message: 'body.message'
+      },
+      actionsCounterEqualZero: req.query.inactive ? true : null
+    } )( req, res, next ),
+    ( { result }, res ) => res.status( result.errors && result.errors.length ? 400 : 200 ).json( result )
   );
 
   app.getAndListen( '*', port, matchApp );
@@ -225,7 +240,8 @@ function matchApp( req, res, next ) {
       invite: '/invite',
       stats: '/stats',
       showContributor: '#',
-      writeToMember: '#'
+      writeToMember: '#', // old chat
+      sendMessage: '/send-message'
     },
     agenda: {
       uid: 4608,

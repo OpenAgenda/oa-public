@@ -76,6 +76,20 @@ module.exports = {
 
       } );
 
+    },
+    onMessage: ( stakeholder, message, cb ) => {
+      cb()
+    }
+  },
+  queue: {
+    names: {
+      bulk: 'stakeholderCreateTest',
+      message: 'stakeholderMessageTest'
+    },
+    threshold: 5,
+    redis: {
+      host: 'localhost',
+      port: 6379
     }
   }
 };

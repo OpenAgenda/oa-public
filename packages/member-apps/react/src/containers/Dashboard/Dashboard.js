@@ -11,6 +11,7 @@ import Spinner from 'react-form-components/build/Spinner';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import InviteMembersForm from '../../components/InviteMembersForm/InviteMembersForm';
 import EditMemberForm from '../../components/EditMemberForm/EditMemberForm';
+import SendMessageForm from '../../components/SendMessageForm/SendMessageForm';
 import * as membersActions from '../../redux/modules/members';
 import * as modalsActions from '../../redux/modules/modals';
 import { renderField, renderSearchInput } from '../../utils/form';
@@ -43,6 +44,7 @@ const base64encode = str => {
       search: props.location.query.search || ''
     },
     res: state.res,
+    credentials: state.agenda.credentials,
     userCredential: state.stakeholder.credential,
     stakeholders: state.members.data,
     page: state.members.page,
@@ -272,8 +274,8 @@ export default class Dashboard extends Component {
   render() {
     const {
       res, handleSubmit, stakeholders, total, loading, nextLoading, stats,
-      showModal, closeModal, modals, update, invite, remove,
-      showInviteResult, cleanInviteResult, inviteError
+      showModal, closeModal, modals, update, invite, remove, sendMessage,
+      showInviteResult, cleanInviteResult, inviteError, credentials
     } = this.props;
     const { getLabel } = this.context;
 
@@ -288,6 +290,7 @@ export default class Dashboard extends Component {
     const removeModal = modals.removeMember || {};
     const inviteMembersModal = modals.inviteMembers || {};
     const memberReinvitedModal = modals.memberReinvited || {};
+    const writeToMembersModal = modals.writeToMembers || {};
 
     return (
       <div>
@@ -298,6 +301,14 @@ export default class Dashboard extends Component {
             <DropdownButton bsStyle='default' title={getLabel( 'actions' )} id='dropdown-actions' pullRight>
               <MenuItem onClick={() => showModal( 'inviteMembers' )}>{getLabel( 'inviteMembers' )}</MenuItem>
               {/* <MenuItem>Importer des contributeurs</MenuItem> */}
+              {credentials.invitationMessage && <MenuItem divider />}
+              {credentials.invitationMessage && <MenuItem onClick={() => showModal( 'writeToMembers' )}>
+                {getLabel( 'sendMessageToAll' )}
+              </MenuItem>}
+              {credentials.invitationMessage &&
+              <MenuItem onClick={() => showModal( 'writeToMembers', { inactive: true } )}>
+                {getLabel( 'sendMessageToInactives' )}
+              </MenuItem>}
               <MenuItem divider />
               <MenuItem href={res.exportToXlsx}>{getLabel( 'exportToXlsx' )}</MenuItem>
               <MenuItem href={res.exportToCsv}>{getLabel( 'exportToCsv' )}</MenuItem>
@@ -423,6 +434,22 @@ export default class Dashboard extends Component {
           {memberReinvitedModal.success ?
             <div>{getLabel( 'invitationResended' )}</div> :
             <div>{getLabel( 'invitationNotResended' )}</div>}
+        </Modal>}
+
+        {writeToMembersModal.visible && <Modal
+          title={getLabel( writeToMembersModal.inactive ? 'sendMessageToInactives' : 'sendMessageToAll' )}
+          visible={writeToMembersModal.visible || false}
+          onClose={() => closeModal( 'writeToMembers' )}
+        >
+          <SendMessageForm onSubmit={data => sendMessage( data, writeToMembersModal.inactive )
+            .then( result => {
+              if ( result.error && result.error instanceof SubmissionError ) {
+                throw new SubmissionError( result.error.errors );
+              }
+              return result;
+            } )
+            .then( () => closeModal( 'writeToMembers' ) )
+          } />
         </Modal>}
       </div>
     );
