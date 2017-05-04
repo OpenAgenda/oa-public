@@ -182,7 +182,7 @@ function onMessage( stakeholder, message, context, cb ) {
 
   if ( stakeholder.deletedUser ) return cb();
 
-  agendas.get( stakeholder.agendaId, ( err, agenda ) => {
+  agendas.get( stakeholder.agendaId, { includeImagePath: true }, ( err, agenda ) => {
 
     if ( err ) log( 'error', err );
 
@@ -261,7 +261,7 @@ function onMessage( stakeholder, message, context, cb ) {
 
 function onUpdate( before, stakeholder, context ) {
 
-  agendas.get( { id: stakeholder.agendaId }, { private: null }, ( err, agenda ) => {
+  agendas.get( { id: stakeholder.agendaId }, { private: null, includeImagePath: true }, ( err, agenda ) => {
 
     if ( err ) return log( 'error', err );
 
@@ -372,7 +372,7 @@ function onUpdate( before, stakeholder, context ) {
 
 function onCreate( stakeholder, context ) {
 
-  agendas.get( { id: stakeholder.agendaId }, { private: null }, ( err, agenda ) => {
+  agendas.get( { id: stakeholder.agendaId }, { private: null, includeImagePath: true }, ( err, agenda ) => {
 
     if ( err ) return log( 'error', err );
 
@@ -443,10 +443,10 @@ function onCreate( stakeholder, context ) {
 function _sendMessageEmail( agenda, url, linkLabel, emailAddress, lang, cb ) {
 
   mailer( {
-    recipient: stakeholder.custom.email,
+    recipient: emailAddress,
     subject: getMessageLabel( 'newMessage', { agenda: agenda.title }, lang ),
     data: {
-      logo: 'https://openagenda.com/images/openagenda.png',
+      logo: agenda.image || 'https://openagenda.com/images/openagenda.png',
       title: {
         text: getMessageLabel( 'newMessage', { agenda: agenda.title }, lang ),
         link: url
@@ -500,7 +500,7 @@ function _sendStakeholderInvitation( invitation, stakeholder, context, agenda ) 
     recipient: stakeholder.custom.email,
     subject: getInvitationLabel( 'emailSubject', lang ),
     data: {
-      logo: 'https://openagenda.com/images/openagenda.png',
+      logo: agenda.image || 'https://openagenda.com/images/openagenda.png',
       title: {
         text: getInvitationLabel( 'emailTitle', { title: agenda.title }, lang ),
         link: signupUrl
