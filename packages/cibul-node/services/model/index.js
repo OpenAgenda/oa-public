@@ -11,10 +11,10 @@ model = modelLib( config.db, {
   cache: cache
 } );
 
-cache.init( config.useCache ? config.redis : false );
-
 module.exports = model;
 
 module.exports.fixtures = modelLib.fixtures( model );
 
 module.exports.fixtureSets = modelLib.fixtureSets( model );
+
+module.exports.initless = true;

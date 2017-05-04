@@ -25,7 +25,7 @@ const sessions = require( 'sessions' ),
 
   eventFormat = require( '../services/event/middleware/format' ),
 
-  embedSvc = require( '../services/embed/embed' ),
+  embedSvc = require( '../services/embed' ),
 
   mwHelpers = require( '../services/lib/middlewareHelpers' ),
 

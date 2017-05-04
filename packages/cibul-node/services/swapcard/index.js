@@ -34,7 +34,7 @@ module.exports = function ( model, config ) {
     null
   ),
 
-  notification = require( '../notification/notification' );
+  notification = require( '../notification' );
 
   moment.lang( 'fr' );
 
@@ -686,3 +686,5 @@ module.exports = function ( model, config ) {
   }
 
 };
+
+module.exports.initless = true;

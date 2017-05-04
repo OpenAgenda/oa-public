@@ -18,6 +18,7 @@ fileSvc = require( 'files' ).file;
 
 
 module.exports = {
+  initless: true,
   list: model.locations().list,
   update: model.locations().update,
   get: get,

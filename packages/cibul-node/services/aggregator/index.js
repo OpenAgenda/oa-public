@@ -29,7 +29,8 @@ module.exports = {
     evaluate: evaluate,
     process: sources.process
   },
-  task: task
+  task: task,
+  initless: true
 }
 
 notify.set( { q } );

@@ -12,7 +12,7 @@ config = require( '../../config' ),
 
 mail = require( './mail' ),
 
-notification = require( '../notification/notification' ),
+notification = require( '../notification' ),
 
 async = require( 'async' ),
 

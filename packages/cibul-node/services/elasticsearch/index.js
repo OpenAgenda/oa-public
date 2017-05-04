@@ -21,6 +21,7 @@ resync.set( legacyLib );
 refresh.set( legacyLib );
 
 module.exports = {
+  initless: true,
   agendas,
   search,
   searchAgendas,

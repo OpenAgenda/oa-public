@@ -4,7 +4,7 @@ var aggUtils = require( './aggUtils' ),
 
 p = require( '../../../lib/promises' ),
 
-notify = require( '../../notification/notification' ).notify,
+notify = require( '../../notification' ).notify,
 
 logger = require( 'logger' ), log,
 

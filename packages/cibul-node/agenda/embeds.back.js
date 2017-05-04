@@ -6,7 +6,7 @@ cmn = require( '../lib/commons-app' ),
 
 agendaSvc = require( '../services/agenda' ),
 
-embedSvc = require( '../services/embed/embed' ),
+embedSvc = require( '../services/embed' ),
 
 model = require( '../services/model' ),
 

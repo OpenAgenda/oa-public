@@ -13,6 +13,7 @@ coms = require( '../../lib/coms' ),
 exportLib = require( './exportLib' );
 
 module.exports = {
+  initless: true,
   get,
   search: es.search,
   create: create,

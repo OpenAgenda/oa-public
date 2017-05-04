@@ -10,9 +10,9 @@ module.exports = function() {
 
 }
 
-module.exports.init = function( config ) {
+module.exports.init = function( { domain } ) {
 
-  singleton = genUrl( config );
+  singleton = genUrl( { domain } );
 
   return singleton;
 

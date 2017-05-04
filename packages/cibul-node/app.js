@@ -18,7 +18,7 @@ module.exports = ( enabledTypes, cb ) => {
 
       config = require( './config' );
 
-    require( './lib/init' )( err => {
+    require( './services/init' )( err => {
 
       const log = logger( 'app' );
 

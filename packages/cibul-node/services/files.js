@@ -1,0 +1,16 @@
+"use strict";
+
+const files = require( 'files' ),
+
+  logger = require( 'logger' );
+
+module.exports.init = config => {
+
+  files.init( {
+    bucket: config.aws.bucket,
+    accessKeyId: config.aws.accessKeyId, // required
+    secretAccessKey: config.aws.secretAccessKey, // required too
+    logger
+  } );
+
+}

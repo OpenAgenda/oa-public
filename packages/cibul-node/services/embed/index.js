@@ -11,6 +11,7 @@ coms = require( '../../lib/coms' ),
 agendaSvc = require( '../agenda' );
 
 module.exports = {
+  initless: true,
   get
 }
 

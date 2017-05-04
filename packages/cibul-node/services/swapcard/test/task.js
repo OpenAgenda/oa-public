@@ -19,7 +19,7 @@ helpers = require( './helpers/helpers' ),
 
 model = require( '../../../services/model' ),
 
-swapcard = require( '../swapcard' )( model, config ),
+swapcard = require( '../' )( model, config ),
 
 async = require( 'async' ),
 

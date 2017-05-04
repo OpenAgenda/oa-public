@@ -14,7 +14,7 @@ fixtures = require( 'cibulModel/test/fixtures/fixtures' )( cbm ),
 
 sets = require( 'cibulModel/test/fixtures/sets' )( cbm ),
 
-notificationSvc = require( '../notification' ),
+notificationSvc = require( '../' ),
 
 coms = require( '../../../lib/coms' );
 

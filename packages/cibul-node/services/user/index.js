@@ -33,6 +33,8 @@ module.exports.activation = activation( module.exports );
 
 module.exports.lostPassword = lostPassword( module.exports );
 
+module.exports.initless = true;
+
 
 authenticate.facebook = _serviceAuthenticate( 'facebookUid' );
 authenticate.twitter = _serviceAuthenticate( 'twitterId' );

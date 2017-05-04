@@ -26,17 +26,19 @@ TYPES = {
 
 module.exports = {
   agenda: agendaInvitations,
-  addJob: addJob,
-  processUser: processUser,
-  preprocessUser: preprocessUser,
+  addJob,
+  processUser,
+  preprocessUser,
 
   // route invitation to internal service based on its type
-  processInvitation: processInvitation,
-  getComs: getComs,
+  processInvitation,
+  getComs,
 
   // load invitation from mail@ part of email
   // or define mail@ part
-  mail: mail
+  mail,
+
+  initless: true // in app service, no need to init
 
 }
 

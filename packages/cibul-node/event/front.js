@@ -12,7 +12,7 @@ const modLib = require( '../lib/moduleLib' ),
 
   agendaSvc = require( '../services/agenda' ),
 
-  embedSvc = require( '../services/embed/embed' ),
+  embedSvc = require( '../services/embed' ),
 
   eventSvc = require( '../services/event' ),
 

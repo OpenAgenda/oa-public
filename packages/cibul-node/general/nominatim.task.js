@@ -12,7 +12,7 @@ async = require( 'async' ),
 
 france = require( '../services/nominatim/franceCleaner' ),
 
-nom = require( '../services/nominatim/nominatim' ),
+nom = require( '../services/nominatim' ),
 
 geocode = require( 'agenda-locations' ).utils.geocode,
 

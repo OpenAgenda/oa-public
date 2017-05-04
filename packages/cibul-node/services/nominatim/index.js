@@ -119,6 +119,9 @@ module.exports.clean = function(data) {
 
 };
 
+
+module.exports.initless = true;
+
 function _get( path, cb ) {
 
   https.get( {

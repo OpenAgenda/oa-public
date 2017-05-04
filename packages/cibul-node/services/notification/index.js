@@ -46,7 +46,8 @@ module.exports = {
     expiredSwapcard: _notify( TYPES.AGENDA.EXPIREDSWAPCARD ),
     newSource: newSource
   },
-  process: process
+  process: process,
+  initless: true
 };
 
 

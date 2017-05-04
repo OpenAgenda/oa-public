@@ -1,0 +1,108 @@
+"use strict";
+
+const VError = require( 'verror' );
+
+const fs = require( 'fs' ),
+
+  async = require( 'async' ),
+
+  logger = require( 'logger' );
+
+let log;
+
+
+module.exports = function( config, cb ) {
+
+  let t = new Date;
+
+  // define config to use
+  if ( arguments.length == 1 && typeof config === 'function' ) {
+
+    cb = config;
+    config = require( '../config' );
+
+  } else if ( arguments.length === 0 ) {
+
+    config = require( '../config' );
+    cb = () => {};
+
+  }
+
+  // init logger
+  
+  logger.init( config.logger );
+
+  log = logger( 'init' );
+
+  
+  // init services
+
+  fs.readdir( __dirname, ( err, services ) => {
+
+    if ( err ) return cb( err );
+
+    async.each( services, _init.bind( null, config ), err => {
+
+      if ( err ) return cb( new VError( err, 'service initialization did not go well' ) );
+
+      log( 'info', 'ok %s', ( ( new Date ).getTime() - t.getTime() ) + 'ms' );
+
+      return;
+
+      cb();
+
+    } ); 
+
+  } );
+
+}
+
+// init does not need to be initialized by init.
+module.exports.initless = true;
+
+
+function _init( config, fileOrFolderName, cb ) {
+
+  let t = new Date();
+
+  const name = fileOrFolderName.split( '.' )[ 0 ];
+
+  let service = require( __dirname + '/' + name );
+
+  if ( service.initless ) {
+
+    // not worth logging, no need to worry.
+    return cb();
+
+  }
+
+  if ( !service.init ) {
+
+    log( 'error', '%s: >>>>>>>>>>>>>>>>>>>>>> init missing! <<<<<<<<<<<<<<<<<<<<<<<', name );
+
+    return cb();
+
+  }
+
+  if ( service.init.length === 1 ) {
+
+    service.init( config );
+
+    log( 'info', '%s: ok %s', name, ( ( new Date ).getTime() - t.getTime() ) + 'ms' );
+
+    // avoid async on sync
+    setTimeout( () => cb(), 0 );
+
+  } else {
+
+    service.init( config, err => {
+
+      log( 'info', err ? '%s: NOK' : '%s: ok %s', name, ( ( new Date ).getTime() - t.getTime() ) + 'ms' );
+
+      cb( err );
+
+    } );
+
+  }
+
+}

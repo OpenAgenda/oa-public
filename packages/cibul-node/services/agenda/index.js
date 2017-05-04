@@ -11,6 +11,7 @@ config = require( '../../config' ),
 es = require( '../elasticsearch' );
 
 module.exports = {
+  initless: true,
   list: model.agendas().list,
   search,
   get,
