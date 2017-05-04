@@ -18,13 +18,13 @@ module.exports.init = config => {
       name: config.session.writableName // overriden by iso configuration
     },
     interfaces: {
-      getUser
+      getUser: getUser.bind( null, config.aws.imageBucketPath )
     }
   } );
 
 }
 
-function getUser( query, cb ) {
+function getUser( imageBucketPath, query, cb ) {
 
   userSvc.get( query, { detailed: true }, ( err, u ) => {
 
@@ -34,7 +34,7 @@ function getUser( query, cb ) {
       id: u.id,
       uid: u.uid,
       name: u.full_name,
-      thumbnail: u.image ? config.aws.imageBucketPath + u.image : null,
+      thumbnail: u.image ? imageBucketPath + u.image : null,
       email: u.email,
       culture: u.culture
     } );

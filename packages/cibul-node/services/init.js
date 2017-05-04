@@ -47,8 +47,6 @@ module.exports = function( config, cb ) {
 
       log( 'info', 'ok %s', ( ( new Date ).getTime() - t.getTime() ) + 'ms' );
 
-      return;
-
       cb();
 
     } ); 
