@@ -10,7 +10,7 @@ const agendas = require( 'agendas' ),
 
 let log = console.log;
 
-function onRemove( stakeholder ) {
+module.exports = function ( stakeholder ) {
 
   agendas.get( { id: stakeholder.agendaId }, { private: null }, ( err, agenda ) => {
 
@@ -22,7 +22,9 @@ function onRemove( stakeholder ) {
 
       if ( err ) return log( 'error', err );
 
-      if ( !user ) return;
+      if ( !user ) return log( 'error', 'user %s not found', stakeholder.userId );
+
+      log( 'unfollowing agenda for user uid %s', user.uid );
 
       activities.feed( { entityType: 'user', entityUid: user.uid } )
         .unfollow( { entityType: 'agenda', entityUid: agenda.uid } );

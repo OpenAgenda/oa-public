@@ -14,7 +14,7 @@ const agendas = require( 'agendas' ),
 
 let log = console.log;
 
-function onUpdate( before, stakeholder, context ) {
+module.exports = function ( before, stakeholder, context ) {
 
   agendas.get( { id: stakeholder.agendaId }, { private: null, includeImagePath: true }, ( err, agenda ) => {
 

@@ -12,7 +12,7 @@ const agendas = require( 'agendas' ),
 
 let log = console.log;
 
-function onCreate( stakeholder, context ) {
+module.exports = function ( stakeholder, context ) {
 
   agendas.get( { id: stakeholder.agendaId }, { private: null, includeImagePath: true }, ( err, agenda ) => {
 
@@ -23,6 +23,8 @@ function onCreate( stakeholder, context ) {
     // user already exists
     if ( stakeholder.userId ) {
 
+      log( 'user (id %s) already exists', stakeholder.userId );
+
       users.get( stakeholder.userId, ( err, user ) => {
 
         if ( err ) return log( 'error', err );
@@ -30,6 +32,8 @@ function onCreate( stakeholder, context ) {
         users.get( context.invitationSender.userId, ( err, senderUser ) => {
 
           if ( err ) return log( 'error', err );
+
+          if ( !senderUser ) return log( 'error', 'sender user ( id %s ) not found', context.invitationSender.userId );
 
           activities.feed( { entityType: 'user', entityUid: user.uid } )
             .follow( { entityType: 'agenda', entityUid: agenda.uid }, { credential: stakeholder.credential } )
@@ -62,6 +66,8 @@ function onCreate( stakeholder, context ) {
       return;
 
     }
+
+    log( 'user does not exist, sending invitation to %s', stakeholder.custom.email );
 
     // new user
     invitations.assign( { email: stakeholder.custom.email }, 'linkStakeholder', [ stakeholder, context ] )

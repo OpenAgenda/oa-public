@@ -6,7 +6,7 @@ const users = require( 'users' ),
 
 let log = console.log;
 
-function beforeTransferEvent( eventUid, ownerId, nextOwnerId, cb ) {
+module.exports = function ( eventUid, ownerId, nextOwnerId, cb ) {
 
   users.get( ownerId, ( err, ownerUser ) => {
 
