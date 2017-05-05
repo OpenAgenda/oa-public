@@ -16,6 +16,8 @@ let log = console.log;
 
 module.exports = function ( before, stakeholder, context ) {
 
+  log( 'updated member %s', stakeholder.id );
+
   agendas.get( { id: stakeholder.agendaId }, { private: null, includeImagePath: true }, ( err, agenda ) => {
 
     if ( err ) return log( 'error', err );

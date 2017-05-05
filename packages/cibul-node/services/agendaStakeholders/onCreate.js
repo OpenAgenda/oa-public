@@ -14,6 +14,8 @@ let log = console.log;
 
 module.exports = function ( stakeholder, context ) {
 
+  log( 'processing invitation for member %s', stakeholder.id );
+
   agendas.get( { id: stakeholder.agendaId }, { private: null, includeImagePath: true }, ( err, agenda ) => {
 
     if ( err ) return log( 'error', err );
@@ -23,7 +25,7 @@ module.exports = function ( stakeholder, context ) {
     // user already exists
     if ( stakeholder.userId ) {
 
-      log( 'user (id %s) already exists', stakeholder.userId );
+      log( 'member (id %s) is created and associated with user (id %s)', stakeholder.id, stakeholder.userId );
 
       users.get( stakeholder.userId, ( err, user ) => {
 
