@@ -35,6 +35,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
         agenda,
         genUrl( 'agendaShow', { slug: agenda.slug } ),
         getMessageLabel( 'seeAgenda', lang ),
+        message,
         stakeholder.custom.email,
         lang,
         cb
@@ -53,6 +54,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
           agenda,
           genUrl( 'agendaShow', { slug: agenda.slug } ),
           getMessageLabel( 'seeAgenda', lang ),
+          message,
           user.email,
           lang,
           cb
@@ -84,6 +86,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
             agenda,
             signupUrl,
             getInvitationLabel( 'emailAction', lang ),
+            message,
             stakeholder.custom.email,
             lang,
             cb
@@ -100,7 +103,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
 module.exports.setLog = l => log = l;
 
 
-function _sendMessageEmail( agenda, url, linkLabel, emailAddress, lang, cb ) {
+function _sendMessageEmail( agenda, url, linkLabel, message, emailAddress, lang, cb ) {
 
   mailer( {
     recipient: emailAddress,
