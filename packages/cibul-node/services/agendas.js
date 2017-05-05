@@ -27,8 +27,8 @@ module.exports.init = config => {
     imagePath: config.aws.imageBucketPath,
     logger,
     interfaces: {
-      onCreate,
-      onUpdate,
+      onCreate: onCreate.bind( null, config.mainChannel ),
+      onUpdate: onUpdate.bind( null, config.mainChannel ),
       onRemove
     }
   } );
@@ -36,10 +36,10 @@ module.exports.init = config => {
 }
 
 
-function onCreate( agenda ) {
+function onCreate( channel, agenda ) {
 
   // legacy elasticsearch needs to index reviews
-  coms.publish( config.mainChannel, {
+  coms.publish( channel, {
     name: 'agenda.create',
     values: {
       id: agenda.id
@@ -110,7 +110,7 @@ function onRemove( agenda ) {
 }
 
 
-function onUpdate( before, after, context ) {
+function onUpdate( channel, before, after, context ) {
 
   let updateType,
 
@@ -143,7 +143,7 @@ function onUpdate( before, after, context ) {
 
   }
 
-  coms.publish( config.mainChannel, {
+  coms.publish( channel, {
     name: 'agenda.update',
     values: {
       id: after.id,
