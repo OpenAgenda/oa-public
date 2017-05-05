@@ -1,0 +1,38 @@
+"use strict";
+
+const agendaStakeholders = require( 'agenda-stakeholders' ),
+
+  logger = require( 'logger' ),
+
+  interfaces = {
+    onMessage: require( './onMessage' ),
+    onCreate: require( './onCreate' ),
+    onUpdate: require( './onUpdate' ),
+    onRemove: require( './onRemove' ),
+    beforeTransferEvent: require( './beforeTransferEvent' ),
+    getUser: require( './getUser' ),
+    getExistingCredentials: require( './getExistingCredentials' ),
+    getEventCount: require( './getEventCount' )
+  }
+
+module.exports.init = ( config, cb ) => {
+
+  // set interface log functions
+  Object.keys( interfaces ).forEach( k => interfaces[ k ].setLog( logger( 'agendaStakeholders/' + k ) ) );
+
+  agendaStakeholders.init( {
+    queue: {
+      names: {
+        bulk: config.queues.stakeholderCreate,
+        message: config.queues.stakeholderMessage
+      },
+      redis: config.redis,
+      threshold: 20
+    },
+    schemas: config.schemas,
+    mysql: config.db,
+    logger,
+    interfaces
+  }, cb );
+
+}
