@@ -37,9 +37,13 @@ function _onEventActivity( action ) {
 
   log( 'info', action.values.agendaId ? '-- read event %s activity for agenda %s --' : '-- read event %s activity --', action.values.id, action.values.agendaId );
 
+  // untested code ( event deletion case ) - fixing event deletion exception with error handling.
+
   eventSvc.get( { id: action.values.id }, ( err, event ) => {
 
-    if ( err ) return log( 'error', 'could not fetch event %s', event.id );
+    if ( err ) return log( 'error', 'could not fetch event %s: %s', action.values.id, err );
+
+    if ( !event ) return log( 'error', 'no event could be loaded for event id %s', action.values.id );
 
     const type = event.createdAt.toString() === event.updatedAt.toString() ? 'create' : 'update';
     const userId = type === 'create' ? event.ownerId : action.values.user_id;
@@ -86,6 +90,8 @@ function _onEventActivity( action ) {
         usersSvc.get( action.values.userId, ( err, user ) => {
 
           if ( err ) return log( 'error', 'Error to get user %s', action.values.userId );
+
+          if ( !user ) return log( 'error', 'could not load user of id %s', action.values.userId );
 
           activitiesSvc.feed( { entityType: 'event', entityUid: event.uid } ).activities.add( {
             actor: 'user:' + user.uid,
