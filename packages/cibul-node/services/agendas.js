@@ -4,7 +4,9 @@ const agendas = require( 'agendas' );
 
 const agendaStakeholders = require( 'agenda-stakeholders' ),
   
-  activitiesSvc = require( 'activities' ),
+  activities = require( 'activities' ),
+
+  users = require( 'users' ),
 
   coms = require( '../lib/coms' ),
 
@@ -61,11 +63,11 @@ function onCreate( channel, agenda ) {
 
   }
 
-  activitiesSvc.feed( { entityType: 'agenda', entityUid: agenda.uid } ).create( ( err, agendaFeed ) => {
+  activities.feed( { entityType: 'agenda', entityUid: agenda.uid } ).create( ( err, agendaFeed ) => {
 
     if ( err ) return log( 'error', err );
 
-    userSvc.get( agenda.ownerId, ( err, user ) => {
+    users.get( agenda.ownerId, ( err, user ) => {
 
       if ( err ) return log( 'error', err );
 
@@ -78,7 +80,7 @@ function onCreate( channel, agenda ) {
 
         if ( err ) return log( 'error', 'could not name agenda %s owner administrator', agenda.id );
 
-        activitiesSvc.feed( agendaFeed ).activities.add( {
+        activities.feed( agendaFeed ).activities.add( {
           actor: 'user:' + user.uid,
           verb: 'agenda.create',
           target: 'agenda:' + agenda.uid,
@@ -105,7 +107,7 @@ function onCreate( channel, agenda ) {
 
 function onRemove( agenda ) {
 
-  activitiesSvc.feed( { entityType: 'agenda', entityUid: agenda.uid } ).remove();
+  activities.feed( { entityType: 'agenda', entityUid: agenda.uid } ).remove();
 
 }
 
@@ -164,7 +166,7 @@ function onUpdate( channel, before, after, context ) {
 
     if ( before.title !== after.title ) {
 
-      activitiesSvc.feed( { entityType: 'agenda', entityUid: after.uid } ).activities.add( {
+      activities.feed( { entityType: 'agenda', entityUid: after.uid } ).activities.add( {
         actor: 'user:' + context.user.uid,
         verb: 'agenda.rename',
         target: 'agenda:' + after.uid,
@@ -181,7 +183,7 @@ function onUpdate( channel, before, after, context ) {
 
     if ( updateType && updateType !== 'credentials' ) {
 
-      activitiesSvc.feed( { entityType: 'agenda', entityUid: after.uid } ).activities.add( {
+      activities.feed( { entityType: 'agenda', entityUid: after.uid } ).activities.add( {
         actor: 'user:' + context.user.uid,
         verb: 'agenda.update' + _.upperFirst( updateType ),
         target: 'agenda:' + after.uid,
@@ -197,7 +199,7 @@ function onUpdate( channel, before, after, context ) {
 
     if ( before.official !== after.official ) {
 
-      activitiesSvc.feed( { entityType: 'agenda', entityUid: after.uid } ).activities.add( {
+      activities.feed( { entityType: 'agenda', entityUid: after.uid } ).activities.add( {
         actor: 'user:' + context.user.uid,
         verb: 'agenda.setOfficial',
         target: 'agenda:' + after.uid,
