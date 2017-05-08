@@ -12,7 +12,8 @@ var log = require( 'logger' )( 'user service' ),
 
   lostPassword = require( './lib/lostPassword' ),
 
-  invitationSvc = require( '../invitation' ),
+  invitationSvc,
+
   invitation2Svc = require( 'invitations' ),
 
   activitiesSvc = require( 'activities' ),
@@ -33,7 +34,12 @@ module.exports.activation = activation( module.exports );
 
 module.exports.lostPassword = lostPassword( module.exports );
 
-module.exports.initless = true;
+module.exports.init = config => {
+
+  // avoid circular references
+  invitationSvc = require( '../invitation' );
+
+}
 
 
 authenticate.facebook = _serviceAuthenticate( 'facebookUid' );
