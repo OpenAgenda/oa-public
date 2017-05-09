@@ -15,6 +15,7 @@
     "admin-agendas": "git+ssh://git@bitbucket.org/openagenda/admin-agendas.git",
     "agenda-categories": "git+ssh://git@bitbucket.org:openagenda/agenda-categories.git",
     "agenda-event-references": "git+ssh://git@bitbucket.org:openagenda/agenda-event-references.git",
+    "events-service" : "git+ssh://git@bitbucket.org:openagenda/events-service.git",
     "agenda-locations": "git+ssh://git@bitbucket.org:openagenda/agenda-locations.git",
     "agenda-search": "git+ssh://git@bitbucket.org:openagenda/agenda-search.git",
     "agenda-settings": "git+ssh://git@bitbucket.org/openagenda/agenda-settings.git",
