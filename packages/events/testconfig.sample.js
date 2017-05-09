@@ -1,0 +1,58 @@
+"use strict";
+
+module.exports = {
+
+  mysql : {
+    host : '127.0.0.1',
+    database : 'oatest_event',
+    password : 'grut',
+    user : 'root'
+  },
+
+  schemas: {
+    event: 'event'
+  },
+
+  imagePath: '//openagendatst.s3.amazonaws.com/',
+
+  files: {
+    tmpPath: __dirname + '/test/tmp',
+    bucket: 'openagendatst',
+    accessKeyId: '-----',
+    secretAccessKey: '-----'
+  },
+
+  legacy: {
+    mysql : {
+      host : '127.0.0.1',
+      database : 'oatest_event',
+      password : 'grut',
+      user : 'root'
+    },
+    schemas: {
+      event: 'legacy_event',
+      occurrence: 'legacy_occurrence',
+      eventTranslation: 'legacy_event_translation',
+      location: 'legacy_location',
+      eventLocation: 'legacy_event_location',
+      eventLocationTranslation: 'legacy_event_location_translation',
+      agendaEvent: 'legacy_agenda_event',
+      user: 'legacy_user',
+      agenda: 'legacy_agenda',
+      deleted: 'legacy_deleted'
+    }
+  },
+
+  interfaces: {
+
+    onCreate: event => {},
+
+    onUpdate: ( before, after ) => {},
+
+    beforeRemove: ( event, cb ) => { cb() },
+
+    onRemove: event => {}
+
+  }
+
+}
