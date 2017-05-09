@@ -17,6 +17,8 @@ module.exports.init = config => {
 
   log = logger( 'events/interfaces' );
 
+  Object.keys( interfaces ).forEach( k => interfaces[ k ].setLog( logger( 'events/interfaces/' + k ) ) );
+
   events.init( {
     mysql: config.db,
     schemas: {

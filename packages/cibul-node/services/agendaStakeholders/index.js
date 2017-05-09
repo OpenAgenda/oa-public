@@ -18,7 +18,7 @@ const agendaStakeholders = require( 'agenda-stakeholders' ),
 module.exports.init = ( config, cb ) => {
 
   // set interface log functions
-  Object.keys( interfaces ).forEach( k => interfaces[ k ].setLog( logger( 'agendaStakeholders/' + k ) ) );
+  Object.keys( interfaces ).forEach( k => interfaces[ k ].setLog( logger( 'agendaStakeholders/interfaces' + k ) ) );
 
   agendaStakeholders.init( {
     queue: {
