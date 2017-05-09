@@ -9,15 +9,25 @@ const events = require( 'events-service' ),
     onUpdate: require( './onUpdate' ),
     beforeRemove: require( './beforeRemove' ),
     onRemove: require( './onRemove' )
-  };
+  },
+
+  legacy = require( './legacy' );
 
 let log = console.log;
 
-module.exports.init = config => {
+module.exports = {
+  init,
+  legacy
+}
+
+
+function init( config ) {
 
   log = logger( 'events/interfaces' );
 
   Object.keys( interfaces ).forEach( k => interfaces[ k ].setLog( logger( 'events/interfaces/' + k ) ) );
+
+  legacy.setLog( logger( 'events/interfaces/legacy' ) );
 
   events.init( {
     mysql: config.db,
@@ -36,50 +46,6 @@ module.exports.init = config => {
       schemas: config.schemas
     },
     interfaces
-  } );
-
-}
-
-module.exports.legacy = {
-  onCreate: _transfer,
-  onUpdate: _transfer,
-  onRemove: _legacyRemove
-}
-
-function _transfer( event ) {
-
-  events.legacy.transfer( event, ( err, result ) => {
-
-    if ( err ) {
-
-      return log( 'error', 'event %s transfer failed: %s', event.uid, err );
-
-    }
-
-    log( 'info', 'event %s successfully transfered: %s', result.event.uid, result.created ? 'creation' : 'update' );
-
-  } );
-
-}
-
-function _legacyRemove( event ) {
-
-  events.remove( { uid: event.uid }, ( err, result ) => {
-
-    if ( err ) {
-
-      log( 'error', 'event %s remove failed: %s', err );
-
-    } else if ( result.success ) {
-
-      log( 'info', 'event %s remove successful', event.uid );
-
-    } else {
-
-      log( 'info', 'event %s remove not performed', event.uid );
-
-    }
-
   } );
 
 }
