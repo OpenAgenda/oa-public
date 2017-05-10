@@ -1,0 +1,20 @@
+{
+  "name": "simple-cache",
+  "version": "1.0.0",
+  "description": "Redis wrapper to provide simple to use interface for http caching.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "redis": "^2.7.1",
+    "verror": "^1.10.0"
+  },
+  "devDependencies": {
+    "should": "^11.2.1"
+  }
+}
