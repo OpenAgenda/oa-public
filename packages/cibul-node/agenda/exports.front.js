@@ -16,6 +16,8 @@ const modLib = require( '../lib/moduleLib' ),
 
   categorySvc = require( 'agenda-categories' ),
 
+  cacheMw = require( '../lib/cache.mw' ),
+
   locationMw = require( 'agenda-locations' ).mw(),
 
   utils = require( 'utils' ),
@@ -25,12 +27,19 @@ const modLib = require( '../lib/moduleLib' ),
   routes = {
 
     agendaJsonEvents: [ 'get', '/events.json', [
+      cacheMw.send( 'agendas', 'params.uid' ),
       agendaSvc.mw.load( 'uid' ),
       cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       agendaSvc.mw.search( perPage ),
       eventSvc.mw.cleanEvents,
       agendaSvc.mw.decorateEvents(),
       agendaSvc.mw.cleanJson,
+      cacheMw.set( 'agendas', 'agenda.uid', 30, req => JSON.stringify( {
+        total: req.total,
+        offset: req.offset,
+        limit: req.limit,
+        events: req.formatted,
+      } ) ),
       json
     ] ],
 
@@ -208,5 +217,49 @@ function _loadCategorySet( req, res, next ) {
     next();
 
   } );
+
+}
+
+
+function _cachedJsonResponse( cached, req, res ) {
+
+  req.log( 'info', { cached: 'agenda:' + req.params.uid } );
+
+  res.set( 'Content-Type', 'application/json' );
+
+  res.send( cached );
+
+}
+
+
+
+
+
+function _cacheAgendaResource( req, res, next ) {
+
+  return ( req, res, next ) => {
+
+    sCache( 'agendas', req.agenda.uid ).set( req.url, JSON.stringify( {
+      total: req.total,
+      offset: req.offset,
+      limit: req.limit,
+      events: req.formatted,
+    } ), 10, err => {
+
+      if ( err ) {
+
+        req.log( 'error', { cached: 'agenda:' + req.agenda.uid, error: err, action: 'set' } );
+
+      } else {
+
+        req.log( 'info', { cached: 'agenda:' + req.agenda.uid, action: 'set' } );
+
+      }
+
+    } )
+
+    next();
+
+  }
 
 }

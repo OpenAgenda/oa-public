@@ -35,6 +35,7 @@
     "babel-register": "latest",
     "body-parser": "1.8.2",
     "bs-templates": "git+ssh://git@bitbucket.org:openagenda/bs-templates.git",
+    "simple-cache" : "git+ssh://git@bitbucket.org:openagenda/simple-cache.git",
     "bunyan": "~1.0",
     "cibulModel": "git+ssh://git@bitbucket.org:openagenda/cibulmodel.git",
     "cibulTemplates": "git+ssh://git@bitbucket.org:openagenda/cibul-templates.git",

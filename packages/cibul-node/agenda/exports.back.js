@@ -1,41 +1,41 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const modLib = require( '../lib/moduleLib' ),
 
-agendaSvc = require( '../services/agenda' ),
+  agendaSvc = require( '../services/agenda' ),
 
-cmn = require( '../lib/commons-app' ),
+  cmn = require( '../lib/commons-app' ),
 
-eventSvc = require( '../services/event' ),
+  eventSvc = require( '../services/event' ),
 
-locationMw = require( 'agenda-locations' ).mw(),
+  locationMw = require( 'agenda-locations' ).mw(),
 
-perPage = 20,
+  perPage = 20,
 
-routes = {
+  routes = {
 
-  agendaAdminCsvEvents: [ 'get', '/events.csv', [
-    cmn.checkAdminOrModeratorOrKey,
-    locationMw.loadSettings( 'locationSettings' ),
-    agendaSvc.mw.buildCsv( true )
-  ] ],
+    agendaAdminCsvEvents: [ 'get', '/events.csv', [
+      cmn.checkAdminOrModeratorOrKey,
+      locationMw.loadSettings( 'locationSettings' ),
+      agendaSvc.mw.buildCsv( true )
+    ] ],
 
-  agendaAdminXlsxEvents: [ 'get', '/events.xlsx', [
-    cmn.checkAdminOrModeratorOrKey,
-    locationMw.loadSettings( 'locationSettings' ),
-    agendaSvc.mw.buildXlsx( true )
-  ] ],
+    agendaAdminXlsxEvents: [ 'get', '/events.xlsx', [
+      cmn.checkAdminOrModeratorOrKey,
+      locationMw.loadSettings( 'locationSettings' ),
+      agendaSvc.mw.buildXlsx( true )
+    ] ],
 
-  agendaAdminJsonEvents: [ 'get', '/events.json', [
-    cmn.checkAdminOrModeratorOrKey,
-    agendaSvc.mw.search( perPage, true ),
-    eventSvc.mw.cleanEvents,
-    agendaSvc.mw.decorateEvents( true ),
-    agendaSvc.mw.cleanJson,
-    json
-  ] ]
+    agendaAdminJsonEvents: [ 'get', '/events.json', [
+      cmn.checkAdminOrModeratorOrKey,
+      agendaSvc.mw.search( perPage, true ),
+      eventSvc.mw.cleanEvents,
+      agendaSvc.mw.decorateEvents( true ),
+      agendaSvc.mw.cleanJson,
+      json
+    ] ]
 
-};
+  };
 
 module.exports = function( path ) {
 
@@ -56,8 +56,10 @@ module.exports = function( path ) {
 function json( req, res ) {
 
   cmn.renderJson( req, res, {
-    events: req.formatted,
-    total: req.total
+    total: req.total,
+    offset: req.offset,
+    limit: req.limit,
+    events: req.formatted
   } );
 
 }
