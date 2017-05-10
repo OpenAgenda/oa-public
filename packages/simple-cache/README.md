@@ -1,15 +1,32 @@
 # Overview
 
-Redis wrapper to provide simple to use interface for http caching.
+Redis wrapper to provide simple to use interface for http caching ( and other types of caching why not. )
 
-    const sCache = require( 'simple-cache' );
+Add a cache setter and getter in your middleware flow to handle cached data per namespace/id pairs;
 
-    sCache.init( '...' );
+Cache for an object can be managed based on its type and its identifier. Compulsory parameters therefore for the primary service endpoint a namespace and identifier needs to be specified.
 
-    app.use( '/a-route', sCache( { namespace: 'agenda', identifier: 'agenda.uid', ttl: '1m' } ) );
+# Read & write through service
 
-Cached data needs to be easily cleared by namespace/identifier pair. So keys can look like this
+Use the .get & .set endpoints given by a service( namespace, identifier ) call:
 
-    'simplecache:agenda:1820:https://whateverspecificurl?must=be&cached='
+    const simpleCache = require( 'simple-cache' );
 
-This is followed by an expires.
+    // do this once
+    simpleCache.init( { redis, prefix: 'serviceprefix' } );
+
+    let ttl = 10; // seconds
+
+    simpleCache( 'agendas', 12347890 ).set( '/events.json?passed=1', '{jsondatahere}', ttl, ( err, result ) => {
+
+      simpleCache( 'agendas', 12347890 ).get( '/events.json?passed=1', ( err, cachedValue ) => {
+
+        cachedValue // equals {jsondatahere} for 10 seconds.
+
+      } );
+
+    } );
+
+# Read through middleware
+
+See tests.
