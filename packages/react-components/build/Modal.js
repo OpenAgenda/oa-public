@@ -13,6 +13,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
@@ -176,10 +180,10 @@ var Modal = (_temp = _class = function (_Component) {
 
   return Modal;
 }(_react.Component), _class.propTypes = {
-  title: _react.PropTypes.string,
-  visible: _react.PropTypes.bool,
-  onClose: _react.PropTypes.func,
-  disableBodyScroll: _react.PropTypes.bool
+  title: _propTypes2.default.string,
+  visible: _propTypes2.default.bool,
+  onClose: _propTypes2.default.func,
+  disableBodyScroll: _propTypes2.default.bool
 }, _class.defaultProps = {
   title: null,
   visible: true,

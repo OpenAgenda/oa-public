@@ -8,6 +8,14 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _createReactClass = require('create-react-class');
+
+var _createReactClass2 = _interopRequireDefault(_createReactClass);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
@@ -30,14 +38,13 @@ exports.default = Spinner;
 
 
 Spinner.propTypes = {
-  loading: _react2.default.PropTypes.bool,
-  page: _react2.default.PropTypes.bool,
-  message: _react2.default.PropTypes.string,
-  options: _react2.default.PropTypes.object // spin.js options
+  loading: _propTypes2.default.bool,
+  page: _propTypes2.default.bool,
+  message: _propTypes2.default.string,
+  options: _propTypes2.default.object // spin.js options
 };
 
-var SpinnerComponent = _react2.default.createClass({
-  displayName: 'SpinnerComponent',
+var SpinnerComponent = (0, _createReactClass2.default)({
   getDefaultProps: function getDefaultProps() {
 
     return {

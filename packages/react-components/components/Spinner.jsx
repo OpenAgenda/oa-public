@@ -1,6 +1,8 @@
 "use strict";
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import bodyScroll from './body-scroll';
 import spin from 'spin.js';
@@ -10,13 +12,13 @@ const Spinner = props => ( <SpinnerComponent {...props} />);
 export default Spinner;
 
 Spinner.propTypes = {
-  loading: React.PropTypes.bool,
-  page: React.PropTypes.bool,
-  message: React.PropTypes.string,
-  options: React.PropTypes.object // spin.js options
+  loading: PropTypes.bool,
+  page: PropTypes.bool,
+  message: PropTypes.string,
+  options: PropTypes.object // spin.js options
 }
 
-const SpinnerComponent = React.createClass( {
+const SpinnerComponent = createReactClass( {
 
   getDefaultProps() {
 
@@ -110,7 +112,7 @@ const SpinnerComponent = React.createClass( {
         left: '50%',
         top: '50%'
       } : {} }>
-      { this.props.message ? <span className="spin-message">{this.props.message}</span> : null }
+        { this.props.message ? <span className="spin-message">{this.props.message}</span> : null }
       </div>
     </div>
 

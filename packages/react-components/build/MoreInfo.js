@@ -13,6 +13,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _Popover = require('react-bootstrap/lib/Popover');
 
 var _Popover2 = _interopRequireDefault(_Popover);
@@ -77,13 +81,13 @@ var MoreInfo = (_temp = _class = function (_Component) {
 
   return MoreInfo;
 }(_react.Component), _class.propTypes = {
-  id: _react.PropTypes.string.isRequired,
-  title: _react.PropTypes.node,
-  content: _react.PropTypes.node,
-  link: _react.PropTypes.string,
-  placement: _react.PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
-  className: _react.PropTypes.string,
-  style: _react.PropTypes.object
+  id: _propTypes2.default.string.isRequired,
+  title: _propTypes2.default.node,
+  content: _propTypes2.default.node,
+  link: _propTypes2.default.string,
+  placement: _propTypes2.default.oneOf(['top', 'right', 'bottom', 'left']),
+  className: _propTypes2.default.string,
+  style: _propTypes2.default.object
 }, _class.defaultProps = {
   title: null,
   content: null,

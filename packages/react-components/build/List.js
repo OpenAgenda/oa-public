@@ -1,25 +1,27 @@
 "use strict";
 
 var React = require('react'),
+    createReactClass = require('create-react-class'),
+    PropTypes = require('prop-types'),
     monitorBottomHit = require('dom-utils/monitorBottomHit');
 
-var List = React.createClass({
+var List = createReactClass({
 
   displayName: 'List',
 
   propTypes: {
-    items: React.PropTypes.array,
-    total: React.PropTypes.number,
-    pageRange: React.PropTypes.array,
-    limit: React.PropTypes.number,
-    getPage: React.PropTypes.func,
-    renderItem: React.PropTypes.func,
-    prevLabel: React.PropTypes.string,
-    nextLabel: React.PropTypes.string,
-    renderEmpty: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.string]),
-    renderPrev: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.string]),
-    renderNext: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.string]),
-    wrapTag: React.PropTypes.string //TODO React component possibility
+    items: PropTypes.array,
+    total: PropTypes.number,
+    pageRange: PropTypes.array,
+    limit: PropTypes.number,
+    getPage: PropTypes.func,
+    renderItem: PropTypes.func,
+    prevLabel: PropTypes.string,
+    nextLabel: PropTypes.string,
+    renderEmpty: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    renderPrev: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    renderNext: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    wrapTag: PropTypes.string //TODO React component possibility
   },
 
   getDefaultProps: function getDefaultProps() {
