@@ -8,6 +8,8 @@ React = require( 'react' ),
 
 ReactDom = require( 'react-dom' ),
 
+createReactClass = require( 'create-react-class' ),
+
 Show = require( '../../react/src/Show' ),
 
 Editor = require( '../../react/src/Editor' ),
@@ -47,7 +49,7 @@ let Wrapper;
 
 window.onload = () => { ReactDom.render( <Wrapper />, du.el( '.js_canvas' ) ); }
 
-Wrapper = React.createClass( {
+Wrapper = createReactClass( {
 
   onChange( updatedUids ) {
 
