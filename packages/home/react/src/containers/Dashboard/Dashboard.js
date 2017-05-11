@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { asyncConnect } from 'redux-connect';
 import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
@@ -66,9 +67,9 @@ export default class Dashboard extends Component {
   };
 
   renderField = ( {
-    content, input: { name, value }, label, subLabel, max, classNameGroup, visible = true,
-    errorOnDirty, meta: { touched, error, dirty }
-  } ) => {
+                    content, input: { name, value }, label, subLabel, max, classNameGroup, visible = true,
+                    errorOnDirty, meta: { touched, error, dirty }
+                  } ) => {
     const displayError = errorOnDirty ? dirty || touched : touched;
 
     if ( !visible ) return <div></div>;
@@ -191,7 +192,8 @@ export default class Dashboard extends Component {
               </div>
               <div className="media-body">
                 <div className="title media-heading">
-                  <a href={res[ agenda.private ? 'showPrivate' : 'show' ].replace( ':slug', agenda.slug )}><strong>{agenda.title}</strong></a>
+                  <a
+                    href={res[ agenda.private ? 'showPrivate' : 'show' ].replace( ':slug', agenda.slug )}><strong>{agenda.title}</strong></a>
                   {!!agenda.official && <div className="official">
                     <i />
                     <div className="tooltip right" role="tooltip">
