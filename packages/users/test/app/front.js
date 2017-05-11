@@ -7,7 +7,7 @@ const config = require( '../../testconfig' ),
 
 window.onload = function() {
 
-  window.env = config.debug ? 'dev' : 'prod';
+  window.env = config.debug ? 'development' : 'production';
 
   main();
 
