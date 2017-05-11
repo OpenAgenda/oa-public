@@ -8,7 +8,7 @@ config = require( './config' ),
 
 UID = 0,
 
-env = window.env ? window.env : 'prod',
+env = window.env ? window.env : 'production',
 
 tpl = require( './preview.tblr' ),
 

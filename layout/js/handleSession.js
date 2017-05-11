@@ -86,7 +86,7 @@ module.exports = window.handleSession = function( options ) {
 
   function _defineUrl() {
 
-    var env = window.env ? window.env : 'prod',
+    var env = window.env ? window.env : 'production',
 
     url = params.url[ env ];
 

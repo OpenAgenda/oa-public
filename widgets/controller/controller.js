@@ -14,7 +14,7 @@ controlDataFetch = require( '../../js/lib/controlDataFetch/controlDataFetch' ),
 
 qs = require( 'qs' ),
 
-env = window.env ? window.env : 'prod',
+env = window.env ? window.env : 'production',
 
 defaults = {
   all: {

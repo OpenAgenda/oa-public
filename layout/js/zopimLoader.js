@@ -1,7 +1,7 @@
 var cn = require('../../js/lib/common/common.mod.js'),
 
 params = {
-  env: 'prod',
+  env: 'production',
   events: {
     mobileCheck: 'mobilecheck'
   },

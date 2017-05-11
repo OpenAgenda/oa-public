@@ -50,7 +50,7 @@ du.asapReady( function () {
 
   if ( typeof window.eh !== 'undefined' ) eh = window.eh;
 
-  if ( params.env == 'dev' || window.env == 'dev' ) debug.enable( '*' );
+  if ( params.env == 'development' || window.env == 'development' ) debug.enable( '*' );
 
   mobileMonitor( document, window, navigator, eh );
 

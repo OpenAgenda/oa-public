@@ -35,7 +35,7 @@ function fetch( options, cb ) {
 
   var params = cn.extend( {}, defaults, options ),
 
-  fetchRes = res[ window.env || 'prod' ][ params.embedUid ? 'embed' : 'agenda' ]
+  fetchRes = res[ window.env || 'production' ][ params.embedUid ? 'embed' : 'agenda' ]
 
   .replace( '{uid}', params.uid );
 

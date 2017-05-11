@@ -1,6 +1,6 @@
 var cn = require( '../../js/lib/common/common.mod.js' ),
 
-env = window.env ? window.env : 'prod',
+env = window.env ? window.env : 'production',
 
 config = {
   all: {

@@ -29,7 +29,7 @@ templates = {
   popup: require( './popup.ejs' )
 },
 
-env = window.env ? window.env : 'prod',
+env = window.env ? window.env : 'production',
 
 res = {
   all: {

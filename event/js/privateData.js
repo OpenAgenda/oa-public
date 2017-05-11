@@ -11,7 +11,7 @@ debug = require( 'debug' ), log,
 defaults = {
   uid: false,
   agendaUid: false,
-  env: 'prod',
+  env: 'production',
   selector: '.js_custom',
   url: {
     prod: '/agendas/{agendaUid}/events/{eventUid}/private',

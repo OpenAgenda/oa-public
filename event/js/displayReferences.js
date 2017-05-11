@@ -11,7 +11,7 @@ du = require( 'dom-utils' ),
 get = require( 'utils/get' ),
 
 defaults = {
-  env: 'prod',
+  env: 'production',
   selector: '.js_references',
   url: {
     prod: '/agendas/{agendaUid}/events/{eventUid}/references',

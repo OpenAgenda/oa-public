@@ -18,7 +18,7 @@ cn.addEvent( window, 'load', function() {
 
   cn.extend( params, options );
 
-  if ( options.env == 'dev' || window.env == 'dev' ) debug.enable( '*' );
+  if ( options.env == 'development' || window.env == 'development' ) debug.enable( '*' );
 
   cn.forEach( hooks, function( hook ) {
 
