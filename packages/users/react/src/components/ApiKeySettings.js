@@ -2,28 +2,40 @@
 
 const React = require( 'react' ),
 
+  createReactClass = require( 'create-react-class' ),
+
+  PropTypes = require( 'prop-types' ),
+
   { reduxForm } = require( 'redux-form' ),
 
-  { push } = require( 'react-router-redux' );
+  { push } = require( 'react-router-redux' ),
+
+  { connect } = require( 'react-redux' );
+
+const domOnlyProps = ( {
+                         initialValue, autofill, onUpdate, valid, invalid, dirty,
+                         pristine, active, touched, visited, autofilled,
+                         ...domProps
+                       } ) => domProps;
 
 
-const ApiKeySettings = React.createClass( {
+const ApiKeySettings = createReactClass( {
 
   displayName: 'ApiKeySettings',
 
   propTypes: {
-    activeTab: React.PropTypes.bool
+    activeTab: PropTypes.bool
   },
 
   contextTypes: {
-    getLabels: React.PropTypes.func
+    getLabels: PropTypes.func
   },
 
   render: function () {
 
     const { getLabels } = this.context;
 
-    const { activeTab, dispatch, fields: { apiKey, apiSecret }, displayModal, generateApiKey } = this.props;
+    const { activeTab, dispatch, fields: { apiKey, apiSecret }, displayModal, generateApiKey, prefix } = this.props;
 
     const generateApiKeyModal = ( secret = 0 ) => ({
       visible: true,
@@ -36,14 +48,14 @@ const ApiKeySettings = React.createClass( {
 
     return (
       <tr
-        onClick={!activeTab ? dispatch.bind( this, push( '/apiKey' ) ) : null}
+        onClick={!activeTab ? dispatch.bind( this, push( prefix + '/apiKey' ) ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
-        <td onClick={activeTab ? dispatch.bind( this, push( '/' ) ) : null}
-            className="col-md-3" style={{cursor: 'pointer'}}>{getLabels( 'apiKeys' )}
+        <td onClick={activeTab ? dispatch.bind( this, push( prefix + '/' ) ) : null}
+          className="col-md-3" style={{ cursor: 'pointer' }}>{getLabels( 'apiKeys' )}
         </td>
         {activeTab ? <td>
-          <div style={{padding: '0 5px'}}>
+          <div style={{ padding: '0 5px' }}>
             <p>{getLabels( 'apiKeyInformation' )}</p>
 
             <p>
@@ -55,10 +67,10 @@ const ApiKeySettings = React.createClass( {
             <div className="form-group">
               <label htmlFor="api_key">{getLabels( 'publicKey' )}</label>
               <div className="input-group">
-                <input type="text" className="form-control" name="api_key" readOnly {...apiKey}/>
+                <input type="text" className="form-control" name="api_key" readOnly {...domOnlyProps( apiKey )} />
                 <span className="input-group-btn">
                   <button className="btn btn-default" type="button"
-                          onClick={() => displayModal( generateApiKeyModal() )}>
+                    onClick={() => displayModal( generateApiKeyModal() )}>
                     <i className="fa fa-refresh" aria-hidden="true"></i>
                   </button>
                 </span>
@@ -68,17 +80,17 @@ const ApiKeySettings = React.createClass( {
             {apiSecret.value && <div className="form-group">
               <label htmlFor="api_secret">{getLabels( 'secretKey' )}</label>
               <div className="input-group">
-                <input type="text" className="form-control" name="api_secret" readOnly {...apiSecret}/>
+                <input type="text" className="form-control" name="api_secret" readOnly {...domOnlyProps( apiSecret )} />
                 <span className="input-group-btn">
                   <button className="btn btn-default" type="button"
-                          onClick={() => displayModal( generateApiKeyModal( 1 ) )}>
+                    onClick={() => displayModal( generateApiKeyModal( 1 ) )}>
                     <i className="fa fa-refresh" aria-hidden="true"></i>
                   </button>
                 </span>
               </div>
             </div>}
           </div>
-        </td> : <td style={{cursor: 'pointer'}}>{getLabels( 'showApiKeys' )}</td>}
+        </td> : <td style={{ cursor: 'pointer' }}>{getLabels( 'showApiKeys' )}</td>}
       </tr>
     );
 
@@ -89,4 +101,4 @@ const ApiKeySettings = React.createClass( {
 module.exports = reduxForm( {
   form: 'apiKeySettings',
   fields: [ 'apiKey', 'apiSecret' ]
-} )( ApiKeySettings );
+} )( connect( state => ({ prefix: state.app.appSettings.prefix }) )( ApiKeySettings ) );

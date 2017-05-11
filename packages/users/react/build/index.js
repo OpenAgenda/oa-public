@@ -48,7 +48,7 @@ module.exports = function (options) {
 
   var settings = Object.assign(params, du.parseJsonAttribute('body', params.dataTag));
 
-  var browserHistory = useRouterHistory(createHistory)({ basename: params.prefix });
+  var browserHistory = useRouterHistory(createHistory)();
   var store = createStore(browserHistory);
   var history = syncHistoryWithStore(browserHistory, store);
 

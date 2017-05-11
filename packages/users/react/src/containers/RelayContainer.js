@@ -1,15 +1,19 @@
 "use strict";
 
-const React = require( 'react' );
+const React = require( 'react' ),
+
+createReactClass = require( 'create-react-class' ),
+
+PropTypes = require( 'prop-types' );
 
 
-const RelayContainer = React.createClass( {
+const RelayContainer = createReactClass( {
 
   displayName: 'RelayContainer',
 
   childContextTypes: {
-    lang: React.PropTypes.string,
-    getLabels: React.PropTypes.func
+    lang: PropTypes.string,
+    getLabels: PropTypes.func
   },
 
   getChildContext() {

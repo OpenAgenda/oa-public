@@ -1,58 +1,48 @@
 "use strict";
 
-var _redboxReact2 = require('redbox-react');
-
-var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-var _react2 = require('react');
-
-var _react3 = _interopRequireDefault(_react2);
-
-var _reactTransformCatchErrors3 = require('react-transform-catch-errors');
-
-var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _components = {
-  EmailSettings: {
-    displayName: 'EmailSettings'
-  }
-};
-
-var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-  filename: 'react/src/components/EmailSettings.js',
-  components: _components,
-  locals: [],
-  imports: [_react3.default, _redboxReact3.default]
-});
-
-function _wrapComponent(id) {
-  return function (Component) {
-    return _reactTransformCatchErrors2(Component, id);
-  };
-}
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 var React = require('react'),
+    createReactClass = require('create-react-class'),
+    PropTypes = require('prop-types'),
     _require = require('redux-form'),
     reduxForm = _require.reduxForm,
     _require2 = require('utils'),
     capitalize = _require2.capitalize,
     _require3 = require('react-router-redux'),
-    push = _require3.push;
+    push = _require3.push,
+    _require4 = require('react-redux'),
+    connect = _require4.connect;
 
-var EmailSettings = _wrapComponent('EmailSettings')(React.createClass({
+var domOnlyProps = function domOnlyProps(_ref) {
+  var initialValue = _ref.initialValue,
+      autofill = _ref.autofill,
+      onUpdate = _ref.onUpdate,
+      valid = _ref.valid,
+      invalid = _ref.invalid,
+      dirty = _ref.dirty,
+      pristine = _ref.pristine,
+      active = _ref.active,
+      touched = _ref.touched,
+      visited = _ref.visited,
+      autofilled = _ref.autofilled,
+      domProps = _objectWithoutProperties(_ref, ['initialValue', 'autofill', 'onUpdate', 'valid', 'invalid', 'dirty', 'pristine', 'active', 'touched', 'visited', 'autofilled']);
+
+  return domProps;
+};
+
+var EmailSettings = createReactClass({
 
   displayName: 'EmailSettings',
 
   propTypes: {
-    activeTab: React.PropTypes.bool
+    activeTab: PropTypes.bool
   },
 
   contextTypes: {
-    getLabels: React.PropTypes.func
+    getLabels: PropTypes.func
   },
 
   render: function render() {
@@ -64,18 +54,19 @@ var EmailSettings = _wrapComponent('EmailSettings')(React.createClass({
         email = _props$fields.email,
         password = _props$fields.password,
         handleSubmit = _props.handleSubmit,
-        successMessageDisplayed = _props.successMessageDisplayed;
+        successMessageDisplayed = _props.successMessageDisplayed,
+        prefix = _props.prefix;
 
 
     return React.createElement(
       'tr',
       {
-        onClick: !activeTab ? dispatch.bind(this, push('/email')) : null,
+        onClick: !activeTab ? dispatch.bind(this, push(prefix + '/email')) : null,
         className: !activeTab ? 'inactive' : ''
       },
       React.createElement(
         'td',
-        { onClick: activeTab ? dispatch.bind(this, push('/')) : null,
+        { onClick: activeTab ? dispatch.bind(this, push(prefix + '/')) : null,
           className: 'col-md-3', style: { cursor: 'pointer' } },
         getLabels('email')
       ),
@@ -97,7 +88,7 @@ var EmailSettings = _wrapComponent('EmailSettings')(React.createClass({
                 getLabels('email'),
                 ' *'
               ),
-              React.createElement('input', _extends({ type: 'text', className: 'form-control', name: 'email' }, email)),
+              React.createElement('input', _extends({ type: 'text', className: 'form-control', name: 'email' }, domOnlyProps(email))),
               email.touched && email.error && React.createElement(
                 'div',
                 { className: 'text-danger' },
@@ -113,7 +104,12 @@ var EmailSettings = _wrapComponent('EmailSettings')(React.createClass({
                 getLabels('password'),
                 ' *'
               ),
-              React.createElement('input', _extends({ type: 'password', className: 'form-control', name: 'password', autoComplete: 'off' }, password)),
+              React.createElement('input', _extends({
+                type: 'password',
+                className: 'form-control',
+                name: 'password',
+                autoComplete: 'off'
+              }, domOnlyProps(password))),
               password.touched && password.error && React.createElement(
                 'div',
                 { className: 'text-danger' },
@@ -148,9 +144,11 @@ var EmailSettings = _wrapComponent('EmailSettings')(React.createClass({
     );
   }
 
-}));
+});
 
 module.exports = reduxForm({
   form: 'emailSettings',
   fields: ['email', 'password']
-})(EmailSettings);
+})(connect(function (state) {
+  return { prefix: state.app.appSettings.prefix };
+})(EmailSettings));

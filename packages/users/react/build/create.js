@@ -9,7 +9,7 @@ var _require = require('redux'),
     _require2 = require('react-router-redux'),
     routerMiddleware = _require2.routerMiddleware;
 
-module.exports = function (history) {
+module.exports = function (history, initialState) {
 
   var enhancer = void 0;
   var middleware = applyMiddleware(routerMiddleware(history), promiseMiddleware);
@@ -25,7 +25,7 @@ module.exports = function (history) {
   }
 
   var reducers = require('./reducers/index');
-  var initialState = typeof window !== 'undefined' ? window.__data : undefined;
+  // const initialState = typeof window !== 'undefined' ? window.__data : undefined;
   var store = createStore(reducers, initialState, enhancer);
 
   return store;

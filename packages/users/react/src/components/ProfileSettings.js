@@ -2,23 +2,35 @@
 
 const React = require( 'react' ),
 
+  createReactClass = require( 'create-react-class' ),
+
+  PropTypes = require( 'prop-types' ),
+
   { reduxForm } = require( 'redux-form' ),
 
   { capitalize } = require( 'utils' ),
 
-  { push } = require( 'react-router-redux' );
+  { push } = require( 'react-router-redux' ),
+
+  { connect } = require( 'react-redux' );
+
+const domOnlyProps = ( {
+                         initialValue, autofill, onUpdate, valid, invalid, dirty,
+                         pristine, active, touched, visited, autofilled,
+                         ...domProps
+                       } ) => domProps;
 
 
-const ProfileSettings = React.createClass( {
+const ProfileSettings = createReactClass( {
 
   displayName: 'ProfileSettings',
 
   propTypes: {
-    activeTab: React.PropTypes.bool
+    activeTab: PropTypes.bool
   },
 
   contextTypes: {
-    getLabels: React.PropTypes.func
+    getLabels: PropTypes.func
   },
 
   render: function () {
@@ -27,7 +39,7 @@ const ProfileSettings = React.createClass( {
 
     const {
       activeTab, fields: { full_name, culture }, handleSubmit, displayModal, deleteAccount,
-      successMessageDisplayed
+      successMessageDisplayed, prefix
     } = this.props;
 
     const deleteModal = {
@@ -40,10 +52,10 @@ const ProfileSettings = React.createClass( {
 
     return (
       <tr
-        onClick={!activeTab ? this.props.dispatch.bind( this, push( '/profile' ) ) : null}
+        onClick={!activeTab ? this.props.dispatch.bind( this, push( prefix + '/profile' ) ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
-        <td onClick={activeTab ? this.props.dispatch.bind( this, push( '/' ) ) : null}
+        <td onClick={activeTab ? this.props.dispatch.bind( this, push( prefix + '/' ) ) : null}
             className="col-md-3" style={{cursor: 'pointer'}}>{getLabels( 'userProfile' )}
         </td>
         {activeTab ? <td>
@@ -51,14 +63,14 @@ const ProfileSettings = React.createClass( {
             <form onSubmit={handleSubmit} style={{paddingBottom: '8px'}}>
               <div className="form-group">
                 <label htmlFor="full_name">{getLabels( 'fullname' )} *</label>
-                <input type="text" className="form-control" name="full_name" {...full_name}/>
+                <input type="text" className="form-control" name="full_name" {...domOnlyProps( full_name )}/>
                 {full_name.touched && full_name.error &&
                 <div className="text-danger">{capitalize( getLabels( full_name.error ) )}</div>}
               </div>
 
               <div className="form-group">
                 <label htmlFor="culture">{getLabels( 'language' )} *</label>
-                <select name="culture" className="form-control" {...culture}>
+                <select name="culture" className="form-control" {...domOnlyProps( culture )}>
                   <option value="fr">Français</option>
                   <option value="en">English</option>
                 </select>
@@ -92,4 +104,4 @@ const ProfileSettings = React.createClass( {
 module.exports = reduxForm( {
   form: 'profileSettings',
   fields: [ 'full_name', 'culture' ]
-} )( ProfileSettings );
+} )( connect( state => ({ prefix: state.app.appSettings.prefix }) )( ProfileSettings ) );

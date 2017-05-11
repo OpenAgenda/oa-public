@@ -7,13 +7,14 @@ const { match } = require( 'react-router' );
 const getRoutes = require( '../react/build/routes' );
 
 
-module.exports = function matchApp( path, cb ) {
+module.exports = function matchApp( params, path, cb ) {
 
   return ( req, res, next ) => {
 
-    const url = req.originalUrl.replace( path, '' );
+    const url = req.originalUrl/*.replace( path, '' )*/;
+
     const memoryHistory = createHistory( url );
-    const store = createStore( memoryHistory );
+    const store = createStore( memoryHistory, params.state || {} );
     const history = syncHistoryWithStore( memoryHistory, store );
 
     match( {

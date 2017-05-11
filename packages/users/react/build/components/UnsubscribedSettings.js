@@ -20,6 +20,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class, _class2, _temp;
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactRedux = require('react-redux');
 
 var _reactRouterRedux = require('react-router-redux');
@@ -57,7 +61,8 @@ function _wrapComponent(id) {
 
 var UnsubscribedSettings = _wrapComponent('UnsubscribedSettings')((_dec = (0, _reactRedux.connect)(function (state) {
   return {
-    unsubscriptions: state.userSettings.unsubscriptions
+    unsubscriptions: state.userSettings.unsubscriptions,
+    prefix: state.app.appSettings.prefix
   };
 }, { push: _reactRouterRedux.push }), _dec(_class = (_temp = _class2 = function (_Component) {
   _inherits(UnsubscribedSettings, _Component);
@@ -76,21 +81,22 @@ var UnsubscribedSettings = _wrapComponent('UnsubscribedSettings')((_dec = (0, _r
           activeTab = _props.activeTab,
           push = _props.push,
           unsubscriptions = _props.unsubscriptions,
-          removeUnsubscription = _props.removeUnsubscription;
+          removeUnsubscription = _props.removeUnsubscription,
+          prefix = _props.prefix;
 
 
       return _react3.default.createElement(
         'tr',
         {
           onClick: !activeTab ? function () {
-            return push('/unsubscribed');
+            return push(prefix + '/unsubscribed');
           } : null,
           className: !activeTab ? 'inactive' : ''
         },
         _react3.default.createElement(
           'td',
           { onClick: activeTab ? function () {
-              return push('/');
+              return push(prefix + '/');
             } : null,
             className: 'col-md-3', style: { cursor: 'pointer' } },
           getLabels('emailUnsubscription')
@@ -149,10 +155,10 @@ var UnsubscribedSettings = _wrapComponent('UnsubscribedSettings')((_dec = (0, _r
 
   return UnsubscribedSettings;
 }(_react2.Component), _class2.propTypes = {
-  unsubscriptions: _react2.PropTypes.array,
-  push: _react2.PropTypes.func
+  unsubscriptions: _propTypes2.default.array,
+  push: _propTypes2.default.func
 }, _class2.contextTypes = {
-  getLabels: _react2.PropTypes.func
+  getLabels: _propTypes2.default.func
 }, _temp)) || _class));
 
 exports.default = UnsubscribedSettings;

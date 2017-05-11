@@ -1,52 +1,23 @@
 "use strict";
 
-var _redboxReact2 = require('redbox-react');
-
-var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-var _react2 = require('react');
-
-var _react3 = _interopRequireDefault(_react2);
-
-var _reactTransformCatchErrors3 = require('react-transform-catch-errors');
-
-var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _components = {
-  ImageSettings: {
-    displayName: 'ImageSettings'
-  }
-};
-
-var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-  filename: 'react/src/components/ImageSettings.js',
-  components: _components,
-  locals: [],
-  imports: [_react3.default, _redboxReact3.default]
-});
-
-function _wrapComponent(id) {
-  return function (Component) {
-    return _reactTransformCatchErrors2(Component, id);
-  };
-}
-
 var React = require('react'),
-    ImageUpload = require('image-upload/components/build/ImageUploader');
+    createReactClass = require('create-react-class'),
+    PropTypes = require('prop-types'),
+    ImageUpload = require('image-upload/components/build/ImageUploader'),
+    _require = require('react-redux'),
+    connect = _require.connect;
 
-var ProfileSettings = _wrapComponent('ImageSettings')(React.createClass({
+var ProfileSettings = createReactClass({
 
   displayName: 'ImageSettings',
 
   propTypes: {
-    activeTab: React.PropTypes.bool
+    activeTab: PropTypes.bool
   },
 
   contextTypes: {
-    lang: React.PropTypes.string,
-    getLabels: React.PropTypes.func
+    lang: PropTypes.string,
+    getLabels: PropTypes.func
   },
 
   render: function render() {
@@ -59,18 +30,19 @@ var ProfileSettings = _wrapComponent('ImageSettings')(React.createClass({
         uploadImageRes = _props.uploadImageRes,
         removeImageRes = _props.removeImageRes,
         onUpdate = _props.onUpdate,
-        image = _props.image;
+        image = _props.image,
+        prefix = _props.prefix;
 
 
     return React.createElement(
       'tr',
       {
-        onClick: !activeTab ? routerActions.push.bind(null, '/image') : null,
+        onClick: !activeTab ? routerActions.push.bind(null, prefix + '/image') : null,
         className: !activeTab ? 'inactive' : ''
       },
       React.createElement(
         'td',
-        { onClick: activeTab ? routerActions.push.bind(null, '/') : null,
+        { onClick: activeTab ? routerActions.push.bind(null, prefix + '/') : null,
           className: 'col-md-3', style: { cursor: 'pointer' } },
         getLabels('profileImage')
       ),
@@ -96,6 +68,8 @@ var ProfileSettings = _wrapComponent('ImageSettings')(React.createClass({
     );
   }
 
-}));
+});
 
-module.exports = ProfileSettings;
+module.exports = connect(function (state) {
+  return { prefix: state.app.appSettings.prefix };
+})(ProfileSettings);

@@ -2,34 +2,40 @@
 
 const React = require( 'react' ),
 
-  ImageUpload = require( 'image-upload/components/build/ImageUploader' );
+  createReactClass = require( 'create-react-class' ),
+
+  PropTypes = require( 'prop-types' ),
+
+  ImageUpload = require( 'image-upload/components/build/ImageUploader' ),
+
+  { connect } = require( 'react-redux' );
 
 
-const ProfileSettings = React.createClass( {
+const ProfileSettings = createReactClass( {
 
   displayName: 'ImageSettings',
 
   propTypes: {
-    activeTab: React.PropTypes.bool
+    activeTab: PropTypes.bool
   },
 
   contextTypes: {
-    lang: React.PropTypes.string,
-    getLabels: React.PropTypes.func
+    lang: PropTypes.string,
+    getLabels: PropTypes.func
   },
 
   render: function () {
 
     const { lang, getLabels } = this.context;
 
-    const { activeTab, routerActions, uploadImageRes, removeImageRes, onUpdate, image } = this.props;
+    const { activeTab, routerActions, uploadImageRes, removeImageRes, onUpdate, image, prefix } = this.props;
 
     return (
       <tr
-        onClick={!activeTab ? routerActions.push.bind( null, '/image' ) : null}
+        onClick={!activeTab ? routerActions.push.bind( null, prefix + '/image' ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
-        <td onClick={activeTab ? routerActions.push.bind( null, '/' ) : null}
+        <td onClick={activeTab ? routerActions.push.bind( null, prefix + '/' ) : null}
             className="col-md-3" style={{cursor: 'pointer'}}>{getLabels( 'profileImage' )}
         </td>
         {activeTab ? <td>
@@ -50,4 +56,4 @@ const ProfileSettings = React.createClass( {
 
 } );
 
-module.exports = ProfileSettings;
+module.exports = connect( state => ({ prefix: state.app.appSettings.prefix }) )( ProfileSettings );

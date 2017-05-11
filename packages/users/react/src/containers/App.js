@@ -2,15 +2,19 @@
 
 const React = require( 'react' ),
 
+  createReactClass = require( 'create-react-class' ),
+
+  PropTypes = require( 'prop-types' ),
+
   { connect } = require( 'react-redux' );
 
 
-const App = React.createClass( {
+const App = createReactClass( {
 
   displayName: 'App',
 
   contextTypes: {
-    getLabels: React.PropTypes.func
+    getLabels: PropTypes.func
   },
 
   render() {

@@ -28,11 +28,12 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "basic-logger": "git+ssh://git@bitbucket.org/openagenda/basic-logger.git",
+    "create-react-class": "^15.5.3",
     "csurf": "^1.8.3",
     "deep-extend": "^0.4.1",
     "dom-utils": "git+ssh://git@bitbucket.org/openagenda/dom-utils.git",
     "files": "git+ssh://git@bitbucket.org/openagenda/files.git",
-    "history": "^2.1.1",
+    "history": "^3.3.0",
     "image-upload": "git+ssh://git@bitbucket.org/openagenda/image-upload.git",
     "images": "git+ssh://git@bitbucket.org/openagenda/images.git",
     "knex": "^0.10.0",
@@ -41,11 +42,12 @@
     "mailer": "git+ssh://git@bitbucket.org/openagenda/mailer.git",
     "mysql": "^2.10.2",
     "mysql-utils": "git+ssh://git@bitbucket.org/openagenda/mysql-utils.git",
+    "prop-types": "^15.5.8",
     "react-components": "git+ssh://git@bitbucket.org/openagenda/react-components.git",
-    "react-dom": "0.14.7",
+    "react-dom": "^15.5.4",
     "react-form-components": "git+ssh://git@bitbucket.org/openagenda/react-form-components.git",
     "react-redux": "^4.4.5",
-    "react-router": "^2.4.0",
+    "react-router": "^3.0.5",
     "react-router-redux": "^4.0.4",
     "redux": "^3.5.2",
     "redux-devtools": "^3.2.0",
@@ -66,7 +68,7 @@
     "bs-templates": "git+ssh://git@bitbucket.org/openagenda/bs-templates.git",
     "cookie-parser": "^1.4.3",
     "fixtures": "git+ssh://git@bitbucket.org/openagenda/fixtures.git",
-    "react": "0.14.7",
+    "react": "^15.5.4",
     "react-transform-catch-errors": "^1.0.2",
     "redbox-react": "^1.2.6",
     "redux-mock-store": "^1.0.2",
@@ -75,6 +77,6 @@
     "unsubscribed": "git+ssh://git@bitbucket.org/openagenda/unsubscribed.git"
   },
   "peerDependencies": {
-    "react": "0.14.7"
+    "react": "^15.5.4"
   }
 }

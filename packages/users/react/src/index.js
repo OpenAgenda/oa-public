@@ -60,7 +60,7 @@ module.exports = function ( options ) {
 
   const settings = Object.assign( params, du.parseJsonAttribute( 'body', params.dataTag ) );
 
-  const browserHistory = useRouterHistory( createHistory )( { basename: params.prefix } );
+  const browserHistory = useRouterHistory( createHistory )(/* { basename: params.prefix } */);
   const store = createStore( browserHistory );
   const history = syncHistoryWithStore( browserHistory, store );
 

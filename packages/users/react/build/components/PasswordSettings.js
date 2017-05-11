@@ -1,58 +1,48 @@
 "use strict";
 
-var _redboxReact2 = require('redbox-react');
-
-var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-var _react2 = require('react');
-
-var _react3 = _interopRequireDefault(_react2);
-
-var _reactTransformCatchErrors3 = require('react-transform-catch-errors');
-
-var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _components = {
-  PasswordSettings: {
-    displayName: 'PasswordSettings'
-  }
-};
-
-var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-  filename: 'react/src/components/PasswordSettings.js',
-  components: _components,
-  locals: [],
-  imports: [_react3.default, _redboxReact3.default]
-});
-
-function _wrapComponent(id) {
-  return function (Component) {
-    return _reactTransformCatchErrors2(Component, id);
-  };
-}
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 var React = require('react'),
+    createReactClass = require('create-react-class'),
+    PropTypes = require('prop-types'),
     _require = require('redux-form'),
     reduxForm = _require.reduxForm,
     _require2 = require('utils'),
     capitalize = _require2.capitalize,
     _require3 = require('react-router-redux'),
-    push = _require3.push;
+    push = _require3.push,
+    _require4 = require('react-redux'),
+    connect = _require4.connect;
 
-var PasswordSettings = _wrapComponent('PasswordSettings')(React.createClass({
+var domOnlyProps = function domOnlyProps(_ref) {
+  var initialValue = _ref.initialValue,
+      autofill = _ref.autofill,
+      onUpdate = _ref.onUpdate,
+      valid = _ref.valid,
+      invalid = _ref.invalid,
+      dirty = _ref.dirty,
+      pristine = _ref.pristine,
+      active = _ref.active,
+      touched = _ref.touched,
+      visited = _ref.visited,
+      autofilled = _ref.autofilled,
+      domProps = _objectWithoutProperties(_ref, ['initialValue', 'autofill', 'onUpdate', 'valid', 'invalid', 'dirty', 'pristine', 'active', 'touched', 'visited', 'autofilled']);
+
+  return domProps;
+};
+
+var PasswordSettings = createReactClass({
 
   displayName: 'PasswordSettings',
 
   propTypes: {
-    activeTab: React.PropTypes.bool
+    activeTab: PropTypes.bool
   },
 
   contextTypes: {
-    getLabels: React.PropTypes.func
+    getLabels: PropTypes.func
   },
 
   render: function render() {
@@ -65,18 +55,19 @@ var PasswordSettings = _wrapComponent('PasswordSettings')(React.createClass({
         new_password = _props$fields.new_password,
         confirmation = _props$fields.confirmation,
         handleSubmit = _props.handleSubmit,
-        successMessageDisplayed = _props.successMessageDisplayed;
+        successMessageDisplayed = _props.successMessageDisplayed,
+        prefix = _props.prefix;
 
 
     return React.createElement(
       'tr',
       {
-        onClick: !activeTab ? dispatch.bind(this, push('/password')) : null,
+        onClick: !activeTab ? dispatch.bind(this, push(prefix + '/password')) : null,
         className: !activeTab ? 'inactive' : ''
       },
       React.createElement(
         'td',
-        { onClick: activeTab ? dispatch.bind(this, push('/')) : null,
+        { onClick: activeTab ? dispatch.bind(this, push(prefix + '/')) : null,
           className: 'col-md-3', style: { cursor: 'pointer' } },
         getLabels('password')
       ),
@@ -99,7 +90,7 @@ var PasswordSettings = _wrapComponent('PasswordSettings')(React.createClass({
                 ' *'
               ),
               React.createElement('input', _extends({ type: 'password', className: 'form-control', name: 'old_password',
-                autoComplete: 'off' }, old_password)),
+                autoComplete: 'off' }, domOnlyProps(old_password))),
               old_password.touched && old_password.error && React.createElement(
                 'div',
                 { className: 'text-danger' },
@@ -116,7 +107,7 @@ var PasswordSettings = _wrapComponent('PasswordSettings')(React.createClass({
                 ' *'
               ),
               React.createElement('input', _extends({ type: 'password', className: 'form-control', name: 'new_password',
-                autoComplete: 'off' }, new_password)),
+                autoComplete: 'off' }, domOnlyProps(new_password))),
               new_password.touched && new_password.error && React.createElement(
                 'div',
                 { className: 'text-danger' },
@@ -133,7 +124,7 @@ var PasswordSettings = _wrapComponent('PasswordSettings')(React.createClass({
                 ' *'
               ),
               React.createElement('input', _extends({ type: 'password', className: 'form-control', name: 'confirmation',
-                autoComplete: 'off' }, confirmation)),
+                autoComplete: 'off' }, domOnlyProps(confirmation))),
               confirmation.touched && confirmation.error && React.createElement(
                 'div',
                 { className: 'text-danger' },
@@ -168,9 +159,11 @@ var PasswordSettings = _wrapComponent('PasswordSettings')(React.createClass({
     );
   }
 
-}));
+});
 
 module.exports = reduxForm({
   form: 'passwordSettings',
   fields: ['old_password', 'new_password', 'confirmation']
-})(PasswordSettings);
+})(connect(function (state) {
+  return { prefix: state.app.appSettings.prefix };
+})(PasswordSettings));

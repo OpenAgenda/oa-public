@@ -9,12 +9,13 @@ var React = require('react'),
 
 module.exports = function (store) {
 
-  var state = store.getState(),
-      lang = state.app && state.app.appSettings && state.app.appSettings.lang || null;
+  var state = store.getState();
+  var lang = state.app && state.app.appSettings && state.app.appSettings.lang || null;
+  var prefix = state.app && state.app.appSettings && state.app.appSettings.prefix || '/';
 
   return React.createElement(
     Route,
-    { path: '/', component: App, lang: lang },
+    { path: prefix, component: App, lang: lang },
     React.createElement(IndexRoute, { component: SettingsContainer, activeTab: false }),
     React.createElement(Route, { path: 'profile', component: SettingsContainer, activeTab: 'profile' }),
     React.createElement(Route, { path: 'image', component: SettingsContainer, activeTab: 'image' }),

@@ -1,41 +1,10 @@
 "use strict";
 
-var _redboxReact2 = require('redbox-react');
-
-var _redboxReact3 = _interopRequireDefault(_redboxReact2);
-
-var _react2 = require('react');
-
-var _react3 = _interopRequireDefault(_react2);
-
-var _reactTransformCatchErrors3 = require('react-transform-catch-errors');
-
-var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _components = {
-  SettingsContainer: {
-    displayName: 'SettingsContainer'
-  }
-};
-
-var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-  filename: 'react/src/containers/SettingsContainer.js',
-  components: _components,
-  locals: [],
-  imports: [_react3.default, _redboxReact3.default]
-});
-
-function _wrapComponent(id) {
-  return function (Component) {
-    return _reactTransformCatchErrors2(Component, id);
-  };
-}
-
 var React = require('react'),
+    createReactClass = require('create-react-class'),
+    PropTypes = require('prop-types'),
     _require = require('redux'),
     bindActionCreators = _require.bindActionCreators,
     _require2 = require('react-redux'),
@@ -57,12 +26,12 @@ var React = require('react'),
     UnsubscribedSettings = require('../components/UnsubscribedSettings'),
     Modal = require('react-components/build/Modal');
 
-var SettingsContainer = _wrapComponent('SettingsContainer')(React.createClass({
+var SettingsContainer = createReactClass({
 
   displayName: 'SettingsContainer',
 
   contextTypes: {
-    getLabels: React.PropTypes.func
+    getLabels: PropTypes.func
   },
 
   componentWillMount: function componentWillMount() {
@@ -166,7 +135,7 @@ var SettingsContainer = _wrapComponent('SettingsContainer')(React.createClass({
       )
     );
   }
-}));
+});
 
 function mapStateToProps(_ref) {
   var _ref$app = _ref.app,

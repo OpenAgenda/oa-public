@@ -9,11 +9,12 @@ const React = require( 'react' ),
 
 module.exports = store => {
 
-  const state = store.getState(),
-    lang = (state.app && state.app.appSettings && state.app.appSettings.lang) || null;
+  const state = store.getState();
+  const lang = (state.app && state.app.appSettings && state.app.appSettings.lang) || null;
+  const prefix = (state.app && state.app.appSettings && state.app.appSettings.prefix) || '/';
 
   return (
-    <Route path="/" component={App} lang={lang}>
+    <Route path={prefix} component={App} lang={lang}>
       <IndexRoute component={SettingsContainer} activeTab={false}/>
       <Route path="profile" component={SettingsContainer} activeTab="profile"/>
       <Route path="image" component={SettingsContainer} activeTab="image"/>

@@ -2,6 +2,10 @@
 
 const React = require( 'react' ),
 
+  createReactClass = require( 'create-react-class' ),
+
+  PropTypes = require( 'prop-types' ),
+
   { bindActionCreators } = require( 'redux' ),
 
   { connect } = require( 'react-redux' ),
@@ -33,12 +37,12 @@ const React = require( 'react' ),
   Modal = require( 'react-components/build/Modal' );
 
 
-const SettingsContainer = React.createClass( {
+const SettingsContainer = createReactClass( {
 
   displayName: 'SettingsContainer',
 
   contextTypes: {
-    getLabels: React.PropTypes.func
+    getLabels: PropTypes.func
   },
 
   componentWillMount() {

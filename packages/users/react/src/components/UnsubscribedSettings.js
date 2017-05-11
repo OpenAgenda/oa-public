@@ -1,11 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import camelCase from 'lodash/camelCase';
 
 @connect(
   state => ({
-    unsubscriptions: state.userSettings.unsubscriptions
+    unsubscriptions: state.userSettings.unsubscriptions,
+    prefix: state.app.appSettings.prefix
   }),
   { push }
 )
@@ -24,15 +26,15 @@ export default class UnsubscribedSettings extends Component {
 
     const { getLabels } = this.context;
 
-    const { activeTab, push, unsubscriptions, removeUnsubscription } = this.props;
+    const { activeTab, push, unsubscriptions, removeUnsubscription, prefix } = this.props;
 
     return (
       <tr
-        onClick={!activeTab ? () => push( '/unsubscribed' ) : null}
+        onClick={!activeTab ? () => push( prefix + '/unsubscribed' ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
-        <td onClick={activeTab ? () => push( '/' ) : null}
-          className="col-md-3" style={{ cursor: 'pointer' }}>{getLabels('emailUnsubscription')}
+        <td onClick={activeTab ? () => push( prefix + '/' ) : null}
+          className="col-md-3" style={{ cursor: 'pointer' }}>{getLabels( 'emailUnsubscription' )}
         </td>
         {activeTab ? <td>
           <div style={{ padding: '0 5px' }}>
