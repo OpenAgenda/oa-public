@@ -2,7 +2,7 @@
 
 import search from './search'
 import events from './events'
-import update from 'react-addons-update'
+import update from 'immutability-helper'
 
 export default ( state = {}, action ) => {
 

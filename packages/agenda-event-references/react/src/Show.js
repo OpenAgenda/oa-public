@@ -1,13 +1,15 @@
 "use strict";
 
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
+import createReactClass from 'create-react-class'
 import EventItem from './components/EventItem'
 import labels from 'labels/event/references'
 import makeLabelsGetter from 'labels'
 
 let getLabel = makeLabelsGetter( labels );
 
-export default React.createClass( {
+export default createReactClass( {
 
   propTypes: {
     events: PropTypes.array,

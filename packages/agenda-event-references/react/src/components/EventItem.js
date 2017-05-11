@@ -1,13 +1,15 @@
 "use strict";
 
 import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 
-module.exports = React.createClass( {
+module.exports = createReactClass( {
 
   propTypes: {
-    event: React.PropTypes.object,
-    onRemove: React.PropTypes.func,
-    onClick: React.PropTypes.func
+    event: PropTypes.object,
+    onRemove: PropTypes.func,
+    onClick: PropTypes.func
   },
 
   onClick( e ) {
@@ -34,17 +36,17 @@ module.exports = React.createClass( {
 
   render() {
 
-    return <div className="media" onClick={this.onClick} >
+    return <div className="media" onClick={this.onClick}>
       { this.props.event.image ? <div className="media-left">
         <a className="event-pic" href={this.props.event.link || '#'}>
           <img className="media-object" src={this.props.event.image} />
         </a>
       </div> : null }
-      { this.props.onRemove ? 
-      <a href="#" className="pull-right remove" onClick={ this.onRemove }>
-        <i className="fa fa-trash"></i>
-      </a>
-      : null }
+      { this.props.onRemove ?
+        <a href="#" className="pull-right remove" onClick={ this.onRemove }>
+          <i className="fa fa-trash"></i>
+        </a>
+        : null }
       <div className="media-body">
         <a href={this.props.event.link || '#'}>
           <h4 className="media-heading">{ this.props.event.title }</h4>

@@ -44,7 +44,7 @@ svc.init( config, () => {
 
 let testEvents = JSON.parse( fs.readFileSync( __dirname + '/events.json' ) );
 
-function eventSearch( agendaId, query, cb ) {
+function eventSearch( agendaId, query, options, cb ) {
 
   cb( null, testEvents
 

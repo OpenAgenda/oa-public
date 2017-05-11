@@ -50,8 +50,8 @@ function searchRequest(query) {
 }
 
 function searchSuccess(_ref) {
-  var events = _ref.events;
-  var query = _ref.query;
+  var events = _ref.events,
+      query = _ref.query;
 
 
   _clickTracker2.default.switchOff('search');

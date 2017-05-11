@@ -12,14 +12,14 @@ var _events = require('./events');
 
 var _events2 = _interopRequireDefault(_events);
 
-var _reactAddonsUpdate = require('react-addons-update');
+var _immutabilityHelper = require('immutability-helper');
 
-var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
+var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
-  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
 
 

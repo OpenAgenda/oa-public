@@ -20,11 +20,9 @@ function switchOn(name) {
   trackers.filter(function (t) {
     return t.name === name;
   }).forEach(function (t) {
-    var _getElems2 = _getElems(t.selector);
-
-    var body = _getElems2.body;
-    var elem = _getElems2.elem;
-
+    var _getElems2 = _getElems(t.selector),
+        body = _getElems2.body,
+        elem = _getElems2.elem;
 
     switchOff(name);
 
@@ -63,11 +61,9 @@ function switchOff(name) {
   trackers.filter(function (t) {
     return t.name === name;
   }).forEach(function (t) {
-    var _getElems3 = _getElems(t.selector);
-
-    var body = _getElems3.body;
-    var elem = _getElems3.elem;
-
+    var _getElems3 = _getElems(t.selector),
+        body = _getElems3.body,
+        elem = _getElems3.elem;
 
     if (!elem) return;
 
@@ -77,7 +73,7 @@ function switchOff(name) {
 }
 
 function create(name, selector) {
-  var handler = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+  var handler = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
 
   var matches = trackers.filter(function (t) {

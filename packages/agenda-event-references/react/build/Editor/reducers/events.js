@@ -4,14 +4,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reactAddonsUpdate = require('react-addons-update');
+var _immutabilityHelper = require('immutability-helper');
 
-var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
+var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
-  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
 
 
@@ -19,7 +19,7 @@ exports.default = function () {
 
     case 'EVENTS_REQUEST':
 
-      return (0, _reactAddonsUpdate2.default)(state, {
+      return (0, _immutabilityHelper2.default)(state, {
         loading: { $set: true },
         events: []
       });
@@ -28,7 +28,7 @@ exports.default = function () {
 
     case 'EVENTS_SUCCESS':
 
-      return (0, _reactAddonsUpdate2.default)(state, {
+      return (0, _immutabilityHelper2.default)(state, {
         loading: { $set: false },
         events: { $set: action.events.map(function (e) {
             return {
@@ -48,7 +48,7 @@ exports.default = function () {
 
     case 'EVENTS_FAILED':
 
-      return (0, _reactAddonsUpdate2.default)(state, {
+      return (0, _immutabilityHelper2.default)(state, {
         loading: { $set: false },
         events: { $set: [] },
         error: { $set: action.error }
@@ -67,7 +67,7 @@ exports.default = function () {
         return state;
       }
 
-      return (0, _reactAddonsUpdate2.default)(state, {
+      return (0, _immutabilityHelper2.default)(state, {
         events: {
           $splice: [[removedEventIndex, 1]]
         }
@@ -82,7 +82,7 @@ exports.default = function () {
         return state;
       }
 
-      return (0, _reactAddonsUpdate2.default)(state, {
+      return (0, _immutabilityHelper2.default)(state, {
         search: {
           $set: {
             display: false

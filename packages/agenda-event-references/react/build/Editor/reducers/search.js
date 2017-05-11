@@ -4,14 +4,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reactAddonsUpdate = require('react-addons-update');
+var _immutabilityHelper = require('immutability-helper');
 
-var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
+var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
-  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
 
 
@@ -19,7 +19,7 @@ exports.default = function () {
 
     case 'SEARCH_REQUEST':
 
-      return (0, _reactAddonsUpdate2.default)(state, {
+      return (0, _immutabilityHelper2.default)(state, {
         search: {
           searching: { $set: true },
           query: { $set: action.query }
@@ -28,7 +28,7 @@ exports.default = function () {
 
     case 'SEARCH_FAILED':
 
-      return (0, _reactAddonsUpdate2.default)(state, {
+      return (0, _immutabilityHelper2.default)(state, {
         search: {
           searching: { $set: false },
           error: { $set: action.error }
@@ -37,7 +37,7 @@ exports.default = function () {
 
     case 'SEARCH_SUCCESS':
 
-      return (0, _reactAddonsUpdate2.default)(state, {
+      return (0, _immutabilityHelper2.default)(state, {
         search: {
           searching: { $set: false },
           query: { $set: action.query },
@@ -62,7 +62,7 @@ exports.default = function () {
 
     case 'SEARCH_SHOW':
 
-      return (0, _reactAddonsUpdate2.default)(state, {
+      return (0, _immutabilityHelper2.default)(state, {
         search: {
           display: { $set: true }
         }
@@ -70,7 +70,7 @@ exports.default = function () {
 
     case 'SEARCH_HIDE':
 
-      return (0, _reactAddonsUpdate2.default)(state, {
+      return (0, _immutabilityHelper2.default)(state, {
         search: {
           display: { $set: false }
         }

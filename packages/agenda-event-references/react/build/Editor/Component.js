@@ -8,6 +8,14 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _createReactClass = require('create-react-class');
+
+var _createReactClass2 = _interopRequireDefault(_createReactClass);
+
 var _EventItem = require('../components/EventItem');
 
 var _EventItem2 = _interopRequireDefault(_EventItem);
@@ -20,10 +28,6 @@ var _SearchField = require('react-form-components/build/SearchField');
 
 var _SearchField2 = _interopRequireDefault(_SearchField);
 
-var _reactSelect = require('react-select');
-
-var _reactSelect2 = _interopRequireDefault(_reactSelect);
-
 var _clickTracker = require('../clickTracker');
 
 var _clickTracker2 = _interopRequireDefault(_clickTracker);
@@ -35,13 +39,12 @@ var Editor = function Editor(props) {
 };
 
 Editor.propTypes = {
-  search: _react.PropTypes.object,
-  onSearchType: _react.PropTypes.func,
-  onShow: _react.PropTypes.func
+  search: _propTypes2.default.object,
+  onSearchType: _propTypes2.default.func,
+  onShow: _propTypes2.default.func
 };
 
-var EditorComponent = _react2.default.createClass({
-  displayName: 'EditorComponent',
+var EditorComponent = (0, _createReactClass2.default)({
   componentDidMount: function componentDidMount() {
 
     _clickTracker2.default.switchOn('search');
@@ -51,15 +54,15 @@ var EditorComponent = _react2.default.createClass({
     _clickTracker2.default.switchOn('search');
   },
   render: function render() {
-    var _props = this.props;
-    var onShow = _props.onShow;
-    var onSearch = _props.onSearch;
-    var onEventRemove = _props.onEventRemove;
-    var onEventAdd = _props.onEventAdd;
-    var search = _props.search;
-    var events = _props.events;
-    var loading = _props.loading;
-    var getLabel = _props.getLabel;
+    var _props = this.props,
+        onShow = _props.onShow,
+        onSearch = _props.onSearch,
+        onEventRemove = _props.onEventRemove,
+        onEventAdd = _props.onEventAdd,
+        search = _props.search,
+        events = _props.events,
+        loading = _props.loading,
+        getLabel = _props.getLabel;
 
 
     return _react2.default.createElement(

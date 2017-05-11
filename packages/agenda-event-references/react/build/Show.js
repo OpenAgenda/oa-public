@@ -8,6 +8,14 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _createReactClass = require('create-react-class');
+
+var _createReactClass2 = _interopRequireDefault(_createReactClass);
+
 var _EventItem = require('./components/EventItem');
 
 var _EventItem2 = _interopRequireDefault(_EventItem);
@@ -24,13 +32,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var getLabel = (0, _labels2.default)(_references2.default);
 
-exports.default = _react2.default.createClass({
-  displayName: 'Show',
-
+exports.default = (0, _createReactClass2.default)({
 
   propTypes: {
-    events: _react.PropTypes.array,
-    lang: _react.PropTypes.string
+    events: _propTypes2.default.array,
+    lang: _propTypes2.default.string
   },
 
   getDefaultProps: function getDefaultProps() {
