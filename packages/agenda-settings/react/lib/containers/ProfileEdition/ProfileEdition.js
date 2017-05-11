@@ -22,6 +22,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _dec, _dec2, _dec3, _class, _class2, _temp;
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactRedux = require('react-redux');
 
 var _reduxForm = require('redux-form');
@@ -306,8 +310,8 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
 
   return ProfileEdition;
 }(_react2.Component), _class2.contextTypes = {
-  getLabel: _react3.default.PropTypes.func,
-  lang: _react3.default.PropTypes.string
+  getLabel: _propTypes2.default.func,
+  lang: _propTypes2.default.string
 }, _temp)) || _class) || _class) || _class));
 
 exports.default = ProfileEdition;

@@ -19,14 +19,14 @@ exports.default = function (options, routes, fn) {
   }, options);
 
   var client = new _ApiClient2.default(params.state.settings.apiRoot);
-  var browserHistory = (0, _reactRouter.useRouterHistory)(_history.createHistory)();
+  var browserHistory = (0, _reactRouter.useRouterHistory)(_createBrowserHistory2.default)();
   var store = (0, _create2.default)(browserHistory, client, params.state);
   var history = (0, _reactRouterRedux.syncHistoryWithStore)(browserHistory, store);
 
   var renderRouter = function renderRouter(props) {
     return _react2.default.createElement(_reduxConnect.ReduxAsyncConnect, _extends({}, props, { helpers: { client: client }, filter: function filter(item) {
         return !item.deferred;
-      } }));
+      }, history: history }));
   };
 
   if (process.env.NODE_ENV == 'development' && !window.devToolsExtension) {
@@ -67,7 +67,9 @@ var _reactRouterRedux = require('react-router-redux');
 
 var _reactRouter = require('react-router');
 
-var _history = require('history');
+var _createBrowserHistory = require('history/lib/createBrowserHistory');
+
+var _createBrowserHistory2 = _interopRequireDefault(_createBrowserHistory);
 
 var _reduxConnect = require('redux-connect');
 

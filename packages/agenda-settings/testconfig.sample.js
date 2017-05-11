@@ -12,9 +12,9 @@ module.exports = {
   },
   schemas : {
     agenda: 'agenda',
-    agendaEvent: 'agendaEvent',
-    occurence: 'occurence',
-    legacyCredentialSet: 'legacyCredentialSet'
+    occurrence: 'occurrence',
+    agendaEvent: 'agenda_event',
+    legacyCredentialSet: 'legacy_credential_set'
   },
   files: {
     tmpPath: '/var/tmp/',

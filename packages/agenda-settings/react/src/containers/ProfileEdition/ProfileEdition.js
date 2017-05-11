@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { updateSyncErrors } from 'redux-form/lib/actions';
@@ -38,8 +39,8 @@ const displayInputError = ( { dirty, touched } ) => touched && dirty;
 export default class ProfileEdition extends Component {
 
   static contextTypes = {
-    getLabel: React.PropTypes.func,
-    lang: React.PropTypes.string
+    getLabel: PropTypes.func,
+    lang: PropTypes.string
   };
 
   constructor() {
@@ -84,7 +85,7 @@ export default class ProfileEdition extends Component {
           {getLabel( 'close' )}
         </button>
         <button className="btn btn-danger pull-right"
-                onClick={() => remove().then( ( { result } ) => window.location.href = result.redirectTo || '/' )}
+          onClick={() => remove().then( ( { result } ) => window.location.href = result.redirectTo || '/' )}
         >
           {getLabel( 'remove' )}
         </button>
@@ -156,8 +157,8 @@ export default class ProfileEdition extends Component {
         </div>
 
         <Modal visible={modal.visible || false}
-               onClose={() => setModal( { visible: false } )}
-               title={modal.title || ''}>
+          onClose={() => setModal( { visible: false } )}
+          title={modal.title || ''}>
           {modal.content || ''}
         </Modal>
       </div>

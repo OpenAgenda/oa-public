@@ -22,6 +22,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _dec, _class, _class2, _temp;
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactRedux = require('react-redux');
 
 var _components2 = require('../../components');
@@ -151,9 +155,9 @@ var AgendaCreation = _wrapComponent('AgendaCreation')((_dec = (0, _reactRedux.co
 
   return AgendaCreation;
 }(_react2.Component), _class2.propTypes = {
-  create: _react2.PropTypes.func
+  create: _propTypes2.default.func
 }, _class2.contextTypes = {
-  getLabel: _react2.PropTypes.func
+  getLabel: _propTypes2.default.func
 }, _temp)) || _class));
 
 exports.default = AgendaCreation;

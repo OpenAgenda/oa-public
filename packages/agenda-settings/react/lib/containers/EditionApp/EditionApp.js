@@ -20,6 +20,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _dec2, _class, _class2, _temp;
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactRedux = require('react-redux');
 
 var _reduxConnect = require('redux-connect');
@@ -114,8 +118,8 @@ var App = _wrapComponent('App')((_dec = (0, _reduxConnect.asyncConnect)([{
 
   return App;
 }(_react2.Component), _class2.childContextTypes = {
-  lang: _react2.PropTypes.string,
-  getLabel: _react2.PropTypes.func
+  lang: _propTypes2.default.string,
+  getLabel: _propTypes2.default.func
 }, _temp)) || _class) || _class));
 
 exports.default = App;
