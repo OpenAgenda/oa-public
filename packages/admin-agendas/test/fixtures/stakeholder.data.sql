@@ -35,7 +35,8 @@ CREATE TABLE IF NOT EXISTS ${schema} (
   `updated_at` datetime NOT NULL,
   `deleted_user` tinyint DEFAULT 0,
   `store` longtext,
-  `organization` varchar(255) DEFAULT NULL
+  `organization` varchar(255) DEFAULT NULL,
+  `actions_counter` smallint default 0 not null
 ) ENGINE=InnoDB AUTO_INCREMENT=10746 DEFAULT CHARSET=latin1;
 
 --

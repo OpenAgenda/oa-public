@@ -1,24 +1,28 @@
 "use strict";
 
-var React = require( "react" ),
+var React = require( 'react' ),
+
+  PropTypes = require( 'prop-types' ),
+
+  createReactClass = require( 'create-react-class' ),
 
   List = require( 'react-components/build/List' ),
 
   Switch = require( 'rc-switch' );
 
 
-module.exports = React.createClass( {
+module.exports = createReactClass( {
 
   displayName: 'Details',
 
   propTypes: {
-    agenda: React.PropTypes.object,
-    stakeholders: React.PropTypes.array,
-    pageRange: React.PropTypes.array,
-    total: React.PropTypes.number,
-    getStakeholdersPage: React.PropTypes.func,
-    setAgenda: React.PropTypes.func,
-    limit: React.PropTypes.number
+    agenda: PropTypes.object,
+    stakeholders: PropTypes.array,
+    pageRange: PropTypes.array,
+    total: PropTypes.number,
+    getStakeholdersPage: PropTypes.func,
+    setAgenda: PropTypes.func,
+    limit: PropTypes.number
   },
 
   getDefaultProps() {

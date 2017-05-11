@@ -62,13 +62,12 @@ function list( req, res, next ) {
 
   if ( !req.xhr ) return next();
 
-  query = Object.assign( {
+
+  agendas.list( query, offset, limit, {
     total: true,
     detailed: true,
     private: null
-  }, query );
-
-  agendas.list( query, offset, limit, ( err, agendas, total ) => {
+  }, ( err, agendas, total ) => {
 
     if ( err ) return next( err );
 

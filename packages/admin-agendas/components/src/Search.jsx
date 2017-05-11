@@ -1,6 +1,10 @@
 "use strict";
 
-var React = require( "react" ),
+var React = require( 'react' ),
+
+  PropTypes = require( 'prop-types' ),
+
+  createReactClass = require( 'create-react-class' ),
 
   SearchField = require( 'react-form-components/build/SearchField' ),
 
@@ -18,18 +22,18 @@ const searchSpinner = {
 };
 
 
-module.exports = React.createClass( {
+module.exports = createReactClass( {
 
   displayName: 'Search',
 
   propTypes: {
-    query: React.PropTypes.object,
-    agendas: React.PropTypes.array,
-    total: React.PropTypes.number,
-    pageRange: React.PropTypes.arrayOf( React.PropTypes.number ),
-    onSelectAgenda: React.PropTypes.func,
-    onSearchChange: React.PropTypes.func,
-    getSearchPage: React.PropTypes.func
+    query: PropTypes.object,
+    agendas: PropTypes.array,
+    total: PropTypes.number,
+    pageRange: PropTypes.arrayOf( PropTypes.number ),
+    onSelectAgenda: PropTypes.func,
+    onSearchChange: PropTypes.func,
+    getSearchPage: PropTypes.func
   },
 
   render(){

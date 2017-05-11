@@ -22,7 +22,10 @@ module.exports = {
     agendaStakeholders: false
   },
   queue: {
-    name: 'adminAgendasTest',
+    names: {
+      bulk: 'adminAgendasCreateTest',
+      message: 'adminAgendasMessageTest'
+    },
     threshold: 5,
     redis: {
       host: 'localhost',

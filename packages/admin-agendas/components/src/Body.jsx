@@ -1,6 +1,8 @@
 "use strict";
 
-var React = require( "react" ),
+var React = require( 'react' ),
+
+  PropTypes = require( 'prop-types' ),
 
   Search = require( './Search' ),
 
@@ -40,12 +42,12 @@ module.exports = class Body extends React.Component {
   }
 
   static propTypes = {
-    searchRes: React.PropTypes.string,
-    agendaRes: React.PropTypes.string,
-    setAgendaRes: React.PropTypes.string,
-    stakeholdersRes: React.PropTypes.string,
+    searchRes: PropTypes.string,
+    agendaRes: PropTypes.string,
+    setAgendaRes: PropTypes.string,
+    stakeholdersRes: PropTypes.string,
 
-    agenda: React.PropTypes.object
+    agenda: PropTypes.object
   };
 
   state = {

@@ -1,14 +1,16 @@
 "use strict";
 
-var React = require( 'react' );
+const React = require( 'react' );
+const PropTypes = require( 'prop-types' );
+const createReactClass = require( 'create-react-class' );
 
-module.exports = React.createClass( {
+module.exports = createReactClass( {
 
   displayName: 'AgendaItem',
 
   propTypes: {
-    agenda: React.PropTypes.object,
-    onSelect: React.PropTypes.func
+    agenda: PropTypes.object,
+    onSelect: PropTypes.func
   },
 
   render: function() {

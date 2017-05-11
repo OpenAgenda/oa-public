@@ -1,14 +1,14 @@
 "use strict";
 
-var _redboxReact2 = require("redbox-react");
+var _redboxReact2 = require('redbox-react');
 
 var _redboxReact3 = _interopRequireDefault(_redboxReact2);
 
-var _react2 = require("react");
+var _react2 = require('react');
 
 var _react3 = _interopRequireDefault(_react2);
 
-var _reactTransformCatchErrors3 = require("react-transform-catch-errors");
+var _reactTransformCatchErrors3 = require('react-transform-catch-errors');
 
 var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
 
@@ -26,12 +26,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var _components = {
   Body: {
-    displayName: "Body"
+    displayName: 'Body'
   }
 };
 
 var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-  filename: "components/src/Body.jsx",
+  filename: 'components/src/Body.jsx',
   components: _components,
   locals: [],
   imports: [_react3.default, _redboxReact3.default]
@@ -43,7 +43,8 @@ function _wrapComponent(id) {
   };
 }
 
-var React = require("react"),
+var React = require('react'),
+    PropTypes = require('prop-types'),
     Search = require('./Search'),
     Details = require('./Details'),
     actions = require('./actions'),
@@ -59,7 +60,7 @@ var searchSpinner = {
   radius: 4
 };
 
-module.exports = _wrapComponent("Body")((_temp = _class = function (_React$Component) {
+module.exports = _wrapComponent('Body')((_temp = _class = function (_React$Component) {
   _inherits(Body, _React$Component);
 
   function Body(props) {
@@ -95,7 +96,7 @@ module.exports = _wrapComponent("Body")((_temp = _class = function (_React$Compo
   }
 
   _createClass(Body, [{
-    key: "componentDidMount",
+    key: 'componentDidMount',
     value: function componentDidMount() {
       var _this2 = this;
 
@@ -115,7 +116,7 @@ module.exports = _wrapComponent("Body")((_temp = _class = function (_React$Compo
       });
     }
   }, {
-    key: "onSearchChange",
+    key: 'onSearchChange',
     value: function onSearchChange(name, search) {
 
       this.resetSearchPage({
@@ -123,7 +124,7 @@ module.exports = _wrapComponent("Body")((_temp = _class = function (_React$Compo
       });
     }
   }, {
-    key: "resetSearchPage",
+    key: 'resetSearchPage',
     value: function resetSearchPage(newQuery) {
       var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
       var cb = arguments[2];
@@ -139,7 +140,7 @@ module.exports = _wrapComponent("Body")((_temp = _class = function (_React$Compo
       this.debouncedSearch(query, page, cb);
     }
   }, {
-    key: "search",
+    key: 'search',
     value: function search(query, page, cb) {
       var _this3 = this;
 
@@ -159,7 +160,7 @@ module.exports = _wrapComponent("Body")((_temp = _class = function (_React$Compo
       });
     }
   }, {
-    key: "getSearchPage",
+    key: 'getSearchPage',
     value: function getSearchPage(next) {
       var _this4 = this;
 
@@ -186,7 +187,7 @@ module.exports = _wrapComponent("Body")((_temp = _class = function (_React$Compo
       });
     }
   }, {
-    key: "onSelectAgenda",
+    key: 'onSelectAgenda',
     value: function onSelectAgenda(id) {
       var _this5 = this;
 
@@ -213,7 +214,7 @@ module.exports = _wrapComponent("Body")((_temp = _class = function (_React$Compo
       });
     }
   }, {
-    key: "getStakeholdersPage",
+    key: 'getStakeholdersPage',
     value: function getStakeholdersPage(next) {
       var _this6 = this;
 
@@ -240,13 +241,13 @@ module.exports = _wrapComponent("Body")((_temp = _class = function (_React$Compo
       });
     }
   }, {
-    key: "setAgenda",
+    key: 'setAgenda',
     value: function setAgenda(data) {
       var _this7 = this;
 
       return new Promise(function (resolve, reject) {
 
-        post(_this7.props.setAgendaRes + "/" + _this7.state.agenda.uid, data, function (err, result) {
+        post(_this7.props.setAgendaRes + '/' + _this7.state.agenda.uid, data, function (err, result) {
 
           if (err) return reject(err);
 
@@ -257,18 +258,18 @@ module.exports = _wrapComponent("Body")((_temp = _class = function (_React$Compo
       });
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
 
       return React.createElement(
-        "div",
-        { className: "admin" },
+        'div',
+        { className: 'admin' },
         React.createElement(
-          "div",
-          { className: "container-fluid" },
+          'div',
+          { className: 'container-fluid' },
           React.createElement(
-            "div",
-            { className: "row" },
+            'div',
+            { className: 'row' },
             React.createElement(Search, {
               query: this.state.search.query,
               agendas: this.state.search.agendas,
@@ -297,12 +298,12 @@ module.exports = _wrapComponent("Body")((_temp = _class = function (_React$Compo
 
   return Body;
 }(React.Component), _class.propTypes = {
-  searchRes: React.PropTypes.string,
-  agendaRes: React.PropTypes.string,
-  setAgendaRes: React.PropTypes.string,
-  stakeholdersRes: React.PropTypes.string,
+  searchRes: PropTypes.string,
+  agendaRes: PropTypes.string,
+  setAgendaRes: PropTypes.string,
+  stakeholdersRes: PropTypes.string,
 
-  agenda: React.PropTypes.object
+  agenda: PropTypes.object
 }, _temp));
 
 function updateHref(query) {
