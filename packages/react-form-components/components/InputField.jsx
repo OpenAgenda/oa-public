@@ -2,42 +2,46 @@
 
 var React = require( 'react' ),
 
-getLabel = require( '../lib/makeLabelGetter' )( require( '../labels' ) );
+  createReactClass = require( 'create-react-class' ),
 
-module.exports = React.createClass( {
+  PropTypes = require( 'prop-types' ),
+
+  getLabel = require( '../lib/makeLabelGetter' )( require( '../labels' ) );
+
+module.exports = createReactClass( {
 
   displayName: 'InputField',
 
   propTypes: {
 
     // value - usually a string
-    lang: React.PropTypes.string,
+    lang: PropTypes.string,
 
     // the name of the input
-    name: React.PropTypes.string,
+    name: PropTypes.string,
 
     // used by component to load labels
-    getLabel: React.PropTypes.func,
+    getLabel: PropTypes.func,
     
     // called when value changes
-    onChange: React.PropTypes.func,
+    onChange: PropTypes.func,
 
     // optional validator
-    validator: React.PropTypes.func,
+    validator: PropTypes.func,
 
     // optional placeholder
-    placeholder: React.PropTypes.string,
+    placeholder: PropTypes.string,
 
     // type of input ( textarea or text )
-    type: React.PropTypes.string,
+    type: PropTypes.string,
 
     // optional button
-    renderButton: React.PropTypes.func,
+    renderButton: PropTypes.func,
     
     // optional autofocus
-    autoFocus: React.PropTypes.bool,
+    autoFocus: PropTypes.bool,
 
-    enabled: React.PropTypes.bool
+    enabled: PropTypes.bool
 
   },
 

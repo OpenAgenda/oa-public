@@ -33,7 +33,7 @@ MultiInputField = require( '../../components/MultiInputField.jsx' ),
 
 Spinner = require( '../../components/Spinner.jsx' ),
 
-update = require( 'react-addons-update' ),
+update = require( 'immutability-helper' ),
 
 validators = require( '../../validators' ),
 

@@ -8,6 +8,14 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _createReactClass = require('create-react-class');
+
+var _createReactClass2 = _interopRequireDefault(_createReactClass);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _languages = require('languages');
 
 var _languages2 = _interopRequireDefault(_languages);
@@ -26,17 +34,16 @@ exports.default = Translation;
 
 
 Translation.propTypes = {
-  source: _react.PropTypes.string,
-  languages: _react.PropTypes.array,
-  labels: _react.PropTypes.object,
-  checked: _react.PropTypes.array,
-  check: _react.PropTypes.func,
-  uncheck: _react.PropTypes.func,
-  helpLink: _react.PropTypes.string
+  source: _propTypes2.default.string,
+  languages: _propTypes2.default.array,
+  labels: _propTypes2.default.object,
+  checked: _propTypes2.default.array,
+  check: _propTypes2.default.func,
+  uncheck: _propTypes2.default.func,
+  helpLink: _propTypes2.default.string
 };
 
-var TranslationComponent = _react2.default.createClass({
-  displayName: 'TranslationComponent',
+var TranslationComponent = (0, _createReactClass2.default)({
   getDefaultProps: function getDefaultProps() {
 
     return {

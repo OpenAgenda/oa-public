@@ -2,37 +2,41 @@
 
 var React = require( 'react' ),
 
+createReactClass = require( 'create-react-class' ),
+
+PropTypes = require( 'prop-types' ),
+
 makeLabelGetter = require( '../lib/makeLabelGetter' ),
 
 validator = require( '../validators/groupTags' ),
 
 labels = require( '../labels' );
 
-module.exports = React.createClass( {
+module.exports = createReactClass( {
 
   displayName: 'GroupTagSelector',
 
   propTypes: {
 
-    lang: React.PropTypes.string,
+    lang: PropTypes.string,
 
     // name of component set, given back on callback value
-    name: React.PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
 
     // set of tag groups
-    set: React.PropTypes.object,
+    set: PropTypes.object,
 
     // used by component to load labels
-    getLabel: React.PropTypes.func,
+    getLabel: PropTypes.func,
 
     // current tag selection
-    value: React.PropTypes.array,
+    value: PropTypes.array,
 
     // optional renderer for additional component under tag item
-    tagBottom: React.PropTypes.func,
+    tagBottom: PropTypes.func,
 
     // optional list of tags that 
-    disabledTagIds: React.PropTypes.array
+    disabledTagIds: PropTypes.array
   },
 
   getDefaultProps: function() {

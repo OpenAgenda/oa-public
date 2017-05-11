@@ -1,6 +1,6 @@
 "use strict";
 
-var update = require( 'react-addons-update' );
+var update = require( 'immutability-helper' );
 
 module.exports = function( tState, check, langCode ) {
 

@@ -1,20 +1,22 @@
 "use strict";
 
 var React = require('react'),
+    createReactClass = require('create-react-class'),
+    PropTypes = require('prop-types'),
     Spinner = require('./Spinner');
 
-module.exports = React.createClass({
+module.exports = createReactClass({
 
   displayName: 'SearchField',
 
   propTypes: {
-    value: React.PropTypes.string,
-    threshold: React.PropTypes.number,
-    name: React.PropTypes.string,
-    dynamic: React.PropTypes.bool,
-    timeout: React.PropTypes.number,
-    loading: React.PropTypes.bool,
-    enableLoadingDisplay: React.PropTypes.bool
+    value: PropTypes.string,
+    threshold: PropTypes.number,
+    name: PropTypes.string,
+    dynamic: PropTypes.bool,
+    timeout: PropTypes.number,
+    loading: PropTypes.bool,
+    enableLoadingDisplay: PropTypes.bool
   },
 
   getDefaultProps: function getDefaultProps() {

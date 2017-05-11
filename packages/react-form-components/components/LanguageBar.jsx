@@ -2,6 +2,10 @@
 
 var React = require( 'react' ),
 
+createReactClass = require( 'create-react-class' ),
+
+PropTypes = require( 'prop-types' ),
+
 languages = require( 'languages' ),
 
 Select = require( 'react-select' ),
@@ -10,22 +14,22 @@ labels = require( '../labels' ),
 
 makeLabelGetter = require( '../lib/makeLabelGetter' );
 
-module.exports = React.createClass( {
+module.exports = createReactClass( {
 
   displayName: 'LanguageBar',
 
   propTypes: {
 
-    enabled: React.PropTypes.array,
+    enabled: PropTypes.array,
 
     // if languages can be added removed or changed
-    editable: React.PropTypes.bool,
+    editable: PropTypes.bool,
 
     // used by component to load labels
-    getLabel: React.PropTypes.func,
+    getLabel: PropTypes.func,
 
     // notify parent of new language selection
-    onChange: React.PropTypes.func
+    onChange: PropTypes.func
 
   },
 
@@ -193,7 +197,7 @@ module.exports = React.createClass( {
 
 } );
 
-var LanguageItem = React.createClass( {
+var LanguageItem = createReactClass( {
 
   onRemove: function() {
 

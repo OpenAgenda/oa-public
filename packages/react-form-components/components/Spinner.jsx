@@ -2,16 +2,20 @@
 
 var React = require( 'react' ),
 
+createReactClass = require( 'create-react-class' ),
+
+PropTypes = require( 'prop-types' ),
+
 ReactDom = require( 'react-dom' ),
 
 Spinner = require( 'spin.js' );
 
-module.exports = React.createClass( {
+module.exports = createReactClass( {
 
   displayName: 'Spinner',
 
   propTypes: {
-    loading: React.PropTypes.bool
+    loading: PropTypes.bool
   },
 
   getDefaultProps() {
@@ -45,7 +49,7 @@ module.exports = React.createClass( {
 
     if ( this.props.loading ) {
 
-      this.spinner.spin( ReactDom.findDOMNode( this.refs.canvas ) );
+      this.spinner.spin( ReactDom.findDOMNode( this.canvas ) );
 
     } else {
 
@@ -57,7 +61,7 @@ module.exports = React.createClass( {
 
   render: function() {
 
-    return <div className={this.props.loading?'spin-canvas':''} ref="canvas"></div>;
+    return <div className={this.props.loading?'spin-canvas':''} ref={r => this.canvas = r}></div>;
 
   }
 

@@ -1,6 +1,7 @@
 "use strict";
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import utils from 'utils';
 import load from 'load-script';
 import toMarkdown from 'to-markdown';
@@ -65,7 +66,8 @@ export default class MarkdownComponent extends Component {
           placeholder={placeholder}
           className={this.state.uniqueClassName}
           value={ marked( value ) }
-          onChange={() => {}}
+          onChange={() => {
+          }}
         >
         </textarea>
       </div>

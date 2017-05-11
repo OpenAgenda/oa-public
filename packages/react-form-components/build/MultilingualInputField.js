@@ -1,45 +1,47 @@
 "use strict";
 
 var React = require('react'),
+    createReactClass = require('create-react-class'),
+    PropTypes = require('prop-types'),
     makeLabelGetter = require('../lib/makeLabelGetter'),
     labels = require('../labels'),
     utils = require('utils');
 
-module.exports = React.createClass({
+module.exports = createReactClass({
 
   displayName: 'MultilingualInputField',
 
   propTypes: {
 
     // enabled boolean
-    enabled: React.PropTypes.array,
+    enabled: PropTypes.array,
 
     // list of language codes to display
-    languages: React.PropTypes.array,
+    languages: PropTypes.array,
 
     // language-indexed values. ex: { fr: 'v1', en: 'v2' }
-    value: React.PropTypes.object,
+    value: PropTypes.object,
 
     // used by component to load labels
-    getLabel: React.PropTypes.func,
+    getLabel: PropTypes.func,
 
     // used to optionnally bypass getLabel and load main label as is
-    label: React.PropTypes.string,
+    label: PropTypes.string,
 
     // used to optionnally bypass getLabel and load info as is
-    info: React.PropTypes.string,
+    info: PropTypes.string,
 
     // called when value changes
-    onChange: React.PropTypes.func,
+    onChange: PropTypes.func,
 
     // rows to display if field is textarea
-    rows: React.PropTypes.number,
+    rows: PropTypes.number,
 
     // type of the field. either text or textarea
-    type: React.PropTypes.string,
+    type: PropTypes.string,
 
     // bottom is a component generator that takes a lang
-    bottom: React.PropTypes.func
+    bottom: PropTypes.func
 
   },
 

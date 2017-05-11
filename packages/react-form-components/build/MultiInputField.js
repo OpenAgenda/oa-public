@@ -1,22 +1,24 @@
 "use strict";
 
 var React = require('react'),
+    createReactClass = require('create-react-class'),
+    PropTypes = require('prop-types'),
     _getLabel = require('../lib/makeLabelGetter')(require('../labels')),
     TagsInput = require('react-tagsinput');
 
-module.exports = React.createClass({
+module.exports = createReactClass({
 
   displayName: 'MultiInputField',
 
   propTypes: {
 
-    value: React.PropTypes.array,
+    value: PropTypes.array,
     // the form name of the field
-    name: React.PropTypes.string,
-    typeIconClassNames: React.PropTypes.object,
-    lang: React.PropTypes.string,
-    validator: React.PropTypes.func,
-    enabled: React.PropTypes.bool
+    name: PropTypes.string,
+    typeIconClassNames: PropTypes.object,
+    lang: PropTypes.string,
+    validator: PropTypes.func,
+    enabled: PropTypes.bool
 
   },
 
@@ -139,6 +141,7 @@ module.exports = React.createClass({
         renderTag: this.renderItem,
         onChange: this.onChange,
         inputProps: {
+          placeholder: null,
           onBlur: this.onBlur,
           onChange: this.onInputChange,
           value: this.state.inputValue,

@@ -13,6 +13,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _utils = require('utils');
 
 var _utils2 = _interopRequireDefault(_utils);
@@ -147,15 +151,15 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
 
   return MarkdownComponent;
 }(_react.Component), _class.propTypes = {
-  tinymceUrl: _react.PropTypes.string,
-  className: _react.PropTypes.string,
-  value: _react.PropTypes.string,
-  label: _react.PropTypes.string,
-  placeholder: _react.PropTypes.string,
-  onChange: _react.PropTypes.func,
-  tinyMceOptions: _react.PropTypes.object,
-  uniqueClassName: _react.PropTypes.string,
-  lang: _react.PropTypes.string
+  tinymceUrl: _propTypes2.default.string,
+  className: _propTypes2.default.string,
+  value: _propTypes2.default.string,
+  label: _propTypes2.default.string,
+  placeholder: _propTypes2.default.string,
+  onChange: _propTypes2.default.func,
+  tinyMceOptions: _propTypes2.default.object,
+  uniqueClassName: _propTypes2.default.string,
+  lang: _propTypes2.default.string
 }, _class.defaultProps = {
   className: 'form-group',
   value: '',

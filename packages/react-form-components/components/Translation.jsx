@@ -1,6 +1,8 @@
 "use strict";
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import languages from 'languages';
 import Select from 'react-select';
 
@@ -18,7 +20,7 @@ Translation.propTypes = {
   helpLink: PropTypes.string
 }
 
-const TranslationComponent = React.createClass( {
+const TranslationComponent = createReactClass( {
 
   getDefaultProps() {
 
@@ -37,9 +39,12 @@ const TranslationComponent = React.createClass( {
         sourceChange: 'Choose'
       },
       helpLink: 'https://openagenda.zendesk.com/hc/fr/articles/213573709-Traduction-automatique-des-%C3%A9v%C3%A9nements',
-      check: () => {},
-      uncheck: () => {},
-      sourceChange: () => {}
+      check: () => {
+      },
+      uncheck: () => {
+      },
+      sourceChange: () => {
+      }
     }
 
   },
@@ -77,39 +82,40 @@ const TranslationComponent = React.createClass( {
     return <div className="form-group translation-form">
       <a className="pull-right help" target="_blank" href={this.props.helpLink}>
         <i className="fa fa-question-circle"></i>
-        <label style={{display:'none'}}>{labels.translationHelp}</label>
-    </a>
+        <label style={{ display: 'none' }}>{labels.translationHelp}</label>
+      </a>
       <h2>{labels.translationTitle}</h2>
       <div className="form-inline row">
         <div className="col-sm-6">
           <label>{labels.sourceLanguage}</label>
-          { this.state.editingSource ? 
-          <div>
-            <Select
-              value={this.props.source}
-              options={this.props.sets.map( s => ({
-                value: s.source,
-                label: languages.getLanguageInfo( s.source ).nativeName
-              }))}
-              onChange={this.updateSource}
-              clearable={false} />
-          </div> :
-          <div className="line">
-            <span className="disabled">{languages.getLanguageInfo( this.props.source ).nativeName}</span>
-            {this.props.sets.length > 1 ?<span> - <a href="#" onClick={this.sourceChange}>{labels.sourceChange}</a></span> : null }
-          </div> }
+          { this.state.editingSource ?
+            <div>
+              <Select
+                value={this.props.source}
+                options={this.props.sets.map( s => ({
+                  value: s.source,
+                  label: languages.getLanguageInfo( s.source ).nativeName
+                }) )}
+                onChange={this.updateSource}
+                clearable={false} />
+            </div> :
+            <div className="line">
+              <span className="disabled">{languages.getLanguageInfo( this.props.source ).nativeName}</span>
+              {this.props.sets.length > 1 ?
+                <span> - <a href="#" onClick={this.sourceChange}>{labels.sourceChange}</a></span> : null }
+            </div> }
         </div>
         <div className="col-sm-6">
           <label>{labels.targetLanguages}</label>
           <ul className="list-unstyled line">
-            { this.props.sets.filter( s => s.source === this.props.source ).map( s => s.target.map( l => 
+            { this.props.sets.filter( s => s.source === this.props.source ).map( s => s.target.map( l =>
               <li key={l} className="checkbox margin-right-sm">
                 <label>
-                  <input 
+                  <input
                     type="checkbox"
                     onChange={ e => s.checked.indexOf( l ) !== -1 ? this.props.uncheck( s.source, l ) : this.props.check( s.source, l ) }
-                    checked={s.checked.indexOf( l )!==-1} />
-                    {l.toUpperCase()}
+                    checked={s.checked.indexOf( l ) !== -1} />
+                  {l.toUpperCase()}
                 </label>
               </li> ) ) }
           </ul>
