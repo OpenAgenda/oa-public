@@ -20,6 +20,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _class, _temp;
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactBootstrapDatetimerangepicker = require('react-bootstrap-datetimerangepicker');
 
 var _reactBootstrapDatetimerangepicker2 = _interopRequireDefault(_reactBootstrapDatetimerangepicker);
@@ -152,9 +156,9 @@ var DateTimePicker = _wrapComponent('DateTimePicker')((_temp = _class = function
 
   return DateTimePicker;
 }(_react2.Component), _class.PropTypes = {
-  handleEvent: _react2.PropTypes.func,
-  startValue: _react2.PropTypes.oneOfType([_react2.PropTypes.string, _react2.PropTypes.object]),
-  endValue: _react2.PropTypes.oneOfType([_react2.PropTypes.string, _react2.PropTypes.object])
+  handleEvent: _propTypes2.default.func,
+  startValue: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.object]),
+  endValue: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.object])
 }, _temp));
 
 exports.default = DateTimePicker;

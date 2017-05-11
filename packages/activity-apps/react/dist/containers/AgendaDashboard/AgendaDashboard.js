@@ -22,6 +22,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _dec, _class, _class2, _temp2;
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reduxConnect = require('redux-connect');
 
 var _moment = require('moment');
@@ -198,18 +202,18 @@ var AgendaDashboard = _wrapComponent('AgendaDashboard')((_dec = (0, _reduxConnec
 
   return AgendaDashboard;
 }(_react2.Component), _class2.propTypes = {
-  list: _react2.PropTypes.func,
-  nextPage: _react2.PropTypes.func,
-  res: _react2.PropTypes.object,
-  activities: _react2.PropTypes.array,
-  fromId: _react2.PropTypes.number,
-  loading: _react2.PropTypes.bool,
-  nextLoading: _react2.PropTypes.bool,
-  lastPage: _react2.PropTypes.bool
+  list: _propTypes2.default.func,
+  nextPage: _propTypes2.default.func,
+  res: _propTypes2.default.object,
+  activities: _propTypes2.default.array,
+  fromId: _propTypes2.default.number,
+  loading: _propTypes2.default.bool,
+  nextLoading: _propTypes2.default.bool,
+  lastPage: _propTypes2.default.bool
 }, _class2.contextTypes = {
-  router: _react2.PropTypes.object,
-  lang: _react2.PropTypes.string,
-  getLabel: _react2.PropTypes.func
+  router: _propTypes2.default.object,
+  lang: _propTypes2.default.string,
+  getLabel: _propTypes2.default.func
 }, _temp2)) || _class));
 
 exports.default = AgendaDashboard;
