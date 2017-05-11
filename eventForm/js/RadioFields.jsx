@@ -24,7 +24,7 @@ module.exports = RadioTypeField( {
 
     return <div className="form-group">
       <ul className="list-unstyled">
-        { this.props.field.options.map( option => <li className={this.props.type}>
+        { this.props.field.options.map( (option, i) => <li key={i} className={this.props.type}>
           <label>
             <input 
               type={this.props.type}

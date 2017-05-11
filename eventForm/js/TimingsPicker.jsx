@@ -2,13 +2,15 @@
 
 var React = require( 'react' ),
 
+createReactClass = require( 'create-react-class' ),
+
 Picker = require( 'react-timings-picker' ),
 
 utils = require( 'utils' ),
 
 transform = require( './timingsTransform' );
 
-module.exports = React.createClass( {
+module.exports = createReactClass( {
 
   getDefaultProps: function() {
 

@@ -4,6 +4,8 @@ var Select = require( 'react-select' ),
 
 React = require( 'react' ),
 
+createReactClass = require( 'create-react-class' ),
+
 labels = require( 'labels/cibul-templates/age-fields' ),
 
 limits = {
@@ -11,7 +13,7 @@ limits = {
   max: 120
 };
 
-module.exports = React.createClass({
+module.exports = createReactClass({
 
   getInitialState: function() {
 
@@ -169,7 +171,7 @@ module.exports = React.createClass({
           <input type="checkbox" name="age" checked={this.state.enabled} onClick={this.onEnabled(!this.state.enabled)} /> 
           <span>{this.props.label[this.props.labelsLang]}</span>
         </label> - 
-        <label onClick={this.onEnabled()} for="minage">{labels.min[this.props.labelsLang]}</label>
+        <label onClick={this.onEnabled()} htmlFor="minage">{labels.min[this.props.labelsLang]}</label>
         <Select
           name="minage"
           value={min}
@@ -180,7 +182,7 @@ module.exports = React.createClass({
           onBlur={this.onChange( 'min' )}
           placeholder={labels.select[this.props.labelsLang]}
         />
-        <label for="maxage">{labels.max[this.props.labelsLang]}</label>
+        <label htmlFor="maxage">{labels.max[this.props.labelsLang]}</label>
         <Select
           name="maxage"
           value={max}

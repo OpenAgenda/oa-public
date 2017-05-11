@@ -2,6 +2,10 @@
 
 const React = require( 'react' ),
 
+  createReactClass = require( 'create-react-class' ),
+
+  PropTypes = require( 'prop-types' ),
+
   LanguageBar = require( 'react-form-components/build/LanguageBar' ),
 
   Translation = require( 'react-form-components/build/Translation' ),
@@ -34,7 +38,7 @@ const React = require( 'react' ),
 
   utils = require( 'utils' ),
 
-  update = require( 'react-addons-update' ),
+  update = require( 'immutability-helper' ),
 
   languageUtils = require( './legacy/languageUtils' ),
 
@@ -74,10 +78,10 @@ module.exports.actionables = {
 
 function EventFormFactory() {
 
-  return React.createClass( {
+  return createReactClass( {
 
     propTypes: {
-      configuration: React.PropTypes.object
+      configuration: PropTypes.object
     },
 
     getDefaultProps: function() {

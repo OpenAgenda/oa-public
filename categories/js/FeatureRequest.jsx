@@ -2,6 +2,8 @@
 
 var React = require( 'react' ),
 
+  createReactClass = require( 'create-react-class' ),
+
 xhr = require( 'xhr' ),
 
 Spinner = require( 'spinner' ),
@@ -33,7 +35,7 @@ labels = {
   }
 };
 
-module.exports = React.createClass( {
+module.exports = createReactClass( {
 
   getInitialState: function() {
 

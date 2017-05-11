@@ -2,6 +2,8 @@
 
 var React = require( 'react'),
 
+createReactClass = require( 'create-react-class' ),
+
 rUtils = require( './reactUtils.js' ),
 
 defaults = {
@@ -13,7 +15,7 @@ defaults = {
 
 labels = require( 'labels/event/accessibility' );
 
-module.exports = React.createClass({
+module.exports = createReactClass({
 
   types: [ {
     code: 'mi',
@@ -112,7 +114,7 @@ module.exports = React.createClass({
 
 });
 
-var AccessibilityItem = React.createClass({
+var AccessibilityItem = createReactClass({
 
   onClick: function() {
 

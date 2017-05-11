@@ -2,6 +2,8 @@
 
 var React = require( 'react' ),
 
+createReactClass = require( 'create-react-class' ),
+
 TagEditor = require( 'agenda-tags/lib/TagEditor.jsx' ),
 
 CategoryEditor = require( 'agenda-categories/lib/CategoryEditor.jsx' ),
@@ -29,7 +31,7 @@ labels = {
 
 tplEnv = window.env=='tpl';
 
-module.exports = React.createClass( {
+module.exports = createReactClass( {
 
   getInitialState: function() {
 

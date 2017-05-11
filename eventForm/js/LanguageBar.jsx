@@ -2,11 +2,13 @@
 
 var React = require( 'react' ),
 
+createReactClass = require( 'create-react-class' ),
+
 languages = require( 'languages' ),
 
 Select = require( 'react-select' );
 
-module.exports = React.createClass( {
+module.exports = createReactClass( {
 
   getInitialState: function() {
 
@@ -129,7 +131,7 @@ module.exports = React.createClass( {
 
 } );
 
-var LanguageItem = React.createClass( {
+var LanguageItem = createReactClass( {
 
   onRemove: function() {
 

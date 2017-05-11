@@ -2,13 +2,15 @@
 
 var React = require( 'react' ),
 
+createReactClass = require( 'create-react-class' ),
+
 validators = require( './validators' ),
 
 utils = require( 'utils' ),
 
 renderHelpers = require( './renderHelpers.jsx' );
 
-module.exports = React.createClass({
+module.exports = createReactClass({
 
   getInitialState: function() {
 

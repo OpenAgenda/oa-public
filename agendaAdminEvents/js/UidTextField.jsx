@@ -2,20 +2,24 @@
 
 var React = require('react'),
 
+createReactClass = require( 'create-react-class' ),
+
+PropTypes = require( 'prop-types' ),
+
 utils = require( 'utils' ),
 
 get = require( 'utils/get' ); 
 
 module.exports = function( textName, uidName ) {
 
-  return React.createClass( {
+  return createReactClass( {
 
     propTypes: {
-      res: React.PropTypes.string,
-      getQueryPart: React.PropTypes.func,
-      onChange: React.PropTypes.func,
-      onKeyUp: React.PropTypes.func,
-      placeholder: React.PropTypes.string
+      res: PropTypes.string,
+      getQueryPart: PropTypes.func,
+      onChange: PropTypes.func,
+      onKeyUp: PropTypes.func,
+      placeholder: PropTypes.string
     },
 
     getInitialState: function() {

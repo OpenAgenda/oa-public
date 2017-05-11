@@ -3,6 +3,7 @@
 const du = require( 'dom-utils' );
 const React = require( 'react' );
 const ReactDom = require( 'react-dom' );
+const createReactClass = require( 'create-react-class' );
 const Modal = require( 'react-components/build/Modal' );
 const labels = require( 'labels/agenda-admin-events/list' );
 
@@ -37,7 +38,7 @@ module.exports = ( canvas, elems, l ) => {
 }
 
 
-const WarningModal = React.createClass( {
+const WarningModal = createReactClass( {
 
   getInitialState: function() {
 

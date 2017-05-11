@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import deepExtend from 'deep-extend';
 import makeGetterLabel from 'labels';
@@ -101,7 +102,7 @@ class GettingStarted extends Component {
           <div className="row">
             <div className="input-group margin-top-md col-md-8 margin-left-sm">
               <input type="text" className="form-control" defaultValue={window.location.origin + res.agenda || ''}
-                     readOnly />
+                readOnly />
               <span className="input-group-btn">
                 <CopyToClipboard text={window.location.origin + res.agenda || ''} onCopy={this.onCopied}>
                   <button className="btn btn-primary btn-block" title={getLabel( 'copyLink' )}>
