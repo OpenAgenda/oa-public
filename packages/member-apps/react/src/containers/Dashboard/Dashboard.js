@@ -275,7 +275,7 @@ export default class Dashboard extends Component {
   render() {
     const {
       res, handleSubmit, stakeholders, total, loading, nextLoading, stats,
-      showModal, closeModal, modals, update, invite, remove, sendMessage,
+      showModal, closeModal, setModal, modals, update, invite, remove, sendMessage,
       showInviteResult, cleanInviteResult, inviteError, credentials
     } = this.props;
     const { getLabel } = this.context;
@@ -442,15 +442,29 @@ export default class Dashboard extends Component {
           visible={writeToMembersModal.visible || false}
           onClose={() => closeModal( 'writeToMembers' )}
         >
-          <SendMessageForm onSubmit={data => sendMessage( data, writeToMembersModal.inactive )
-            .then( result => {
-              if ( result.error && result.error instanceof SubmissionError ) {
-                throw new SubmissionError( result.error.errors );
-              }
-              return result;
-            } )
-            .then( () => closeModal( 'writeToMembers' ) )
-          } />
+          {!writeToMembersModal.confirmation ?
+            <SendMessageForm onSubmit={data => sendMessage( data, writeToMembersModal.inactive )
+              .then( result => {
+                if ( result.error && result.error instanceof SubmissionError ) {
+                  throw new SubmissionError( result.error.errors );
+                }
+                return result;
+              } )
+              .then( () => setModal( 'writeToMembers', { confirmation: true } ) )
+            } /> :
+
+            <div className="text-center">
+              <div className="margin-v-md">
+                {getLabel( 'messageSent' )}
+              </div>
+
+              <button
+                onClick={() => closeModal( 'writeToMembers' )}
+                className="btn btn-danger"
+              >
+                {getLabel( 'close' )}
+              </button>
+            </div>}
         </Modal>}
       </div>
     );

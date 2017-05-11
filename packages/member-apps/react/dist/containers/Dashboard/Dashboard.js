@@ -472,6 +472,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           stats = _props5.stats,
           showModal = _props5.showModal,
           closeModal = _props5.closeModal,
+          setModal = _props5.setModal,
           modals = _props5.modals,
           update = _props5.update,
           invite = _props5.invite,
@@ -731,16 +732,34 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               return closeModal('writeToMembers');
             }
           },
-          _react3.default.createElement(_SendMessageForm2.default, { onSubmit: function onSubmit(data) {
+          !writeToMembersModal.confirmation ? _react3.default.createElement(_SendMessageForm2.default, { onSubmit: function onSubmit(data) {
               return sendMessage(data, writeToMembersModal.inactive).then(function (result) {
                 if (result.error && result.error instanceof _reduxForm.SubmissionError) {
                   throw new _reduxForm.SubmissionError(result.error.errors);
                 }
                 return result;
               }).then(function () {
-                return closeModal('writeToMembers');
+                return setModal('writeToMembers', { confirmation: true });
               });
-            } })
+            } }) : _react3.default.createElement(
+            'div',
+            { className: 'text-center' },
+            _react3.default.createElement(
+              'div',
+              { className: 'margin-v-md' },
+              getLabel('messageSent')
+            ),
+            _react3.default.createElement(
+              'button',
+              {
+                onClick: function onClick() {
+                  return closeModal('writeToMembers');
+                },
+                className: 'btn btn-danger'
+              },
+              getLabel('close')
+            )
+          )
         )
       );
     }

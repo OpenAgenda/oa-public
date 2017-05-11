@@ -8,11 +8,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.default = reducer;
 exports.showModal = showModal;
+exports.setModal = setModal;
 exports.closeModal = closeModal;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var SHOW = 'member-apps/modals/SHOW';
+var SET = 'member-apps/modals/SET';
 var CLOSE = 'member-apps/modals/CLOSE';
 
 var initialState = {};
@@ -26,6 +28,8 @@ function reducer() {
       return _extends({}, state, _defineProperty({}, action.name, _extends({}, action.options, {
         visible: true
       })));
+    case SET:
+      return _extends({}, state, _defineProperty({}, action.name, _extends({}, state[action.name], action.options)));
     case CLOSE:
       return _extends({}, state, _defineProperty({}, action.name, _extends({}, state[action.name], {
         visible: false
@@ -40,6 +44,16 @@ function showModal(name) {
 
   return {
     type: SHOW,
+    name: name,
+    options: options
+  };
+}
+
+function setModal(name) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  return {
+    type: SET,
     name: name,
     options: options
   };
