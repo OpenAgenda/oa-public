@@ -184,15 +184,7 @@ module.exports = ( enabledTypes, cb ) => {
 
       if ( loadTasks && ( enabledTypes.indexOf( 'task' ) !== -1 ) ) {
 
-        //require( './newsletter/task' ).load( { period: 60000, bootOffset: 15000 } );
-
-        tfy( require( './mailer/task' ), { bootOffset: 14909 } );
-
         tfy( require( './search/task' ), { bootOffset: 1000 } );
-
-        tfy( require( './general/nominatim.task' ), { bootOffset: 10000, period: 60000 * 5 } );
-
-        //tfy( require( './agenda_bridges/task' ), { bootOffset: 3000 } );
 
         tfy( require( './general/jobs.task' ), { bootOffset: 1000 } );
 
