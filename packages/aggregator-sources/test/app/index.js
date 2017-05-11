@@ -82,10 +82,8 @@ function matchApp( req, res, next ) {
     }
   };
 
-  if ( process.env.NO_SSR ) { // TODO doesn't work
-    return getApp( req, res, next, {
-      store: { getState: () => state }
-    } );
+  if ( process.env.NO_SSR ) {
+    return getApp( req, res, next, { store: { getState: () => state } } );
   }
 
   mw.matchApp(

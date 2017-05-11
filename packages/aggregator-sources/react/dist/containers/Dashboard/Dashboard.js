@@ -22,6 +22,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _dec, _dec2, _class, _class2, _temp2;
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reduxConnect = require('redux-connect');
 
 var _reactRedux = require('react-redux');
@@ -439,22 +443,22 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
 
   return Dashboard;
 }(_react2.Component), _class2.propTypes = {
-  list: _react2.PropTypes.func,
-  remove: _react2.PropTypes.func,
-  nextPage: _react2.PropTypes.func,
-  res: _react2.PropTypes.object,
-  agendas: _react2.PropTypes.array,
-  page: _react2.PropTypes.number,
-  total: _react2.PropTypes.number,
-  loading: _react2.PropTypes.bool,
-  nextLoading: _react2.PropTypes.bool,
-  search: _react2.PropTypes.string,
-  slug: _react2.PropTypes.string,
-  perPageLimit: _react2.PropTypes.number,
-  modals: _react2.PropTypes.object
+  list: _propTypes2.default.func,
+  remove: _propTypes2.default.func,
+  nextPage: _propTypes2.default.func,
+  res: _propTypes2.default.object,
+  agendas: _propTypes2.default.array,
+  page: _propTypes2.default.number,
+  total: _propTypes2.default.number,
+  loading: _propTypes2.default.bool,
+  nextLoading: _propTypes2.default.bool,
+  search: _propTypes2.default.string,
+  slug: _propTypes2.default.string,
+  perPageLimit: _propTypes2.default.number,
+  modals: _propTypes2.default.object
 }, _class2.contextTypes = {
-  router: _react2.PropTypes.object,
-  getLabel: _react2.PropTypes.func
+  router: _propTypes2.default.object,
+  getLabel: _propTypes2.default.func
 }, _temp2)) || _class) || _class));
 
 exports.default = Dashboard;
