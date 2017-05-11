@@ -1,6 +1,5 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
-import { SubmissionError } from 'redux-form';
 
 export default function ( reducers ) {
 

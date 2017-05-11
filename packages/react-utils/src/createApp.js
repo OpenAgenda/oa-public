@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
