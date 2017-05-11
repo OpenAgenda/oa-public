@@ -62,7 +62,6 @@ function list( req, res, next ) {
 
   if ( !req.xhr ) return next();
 
-
   agendas.list( query, offset, limit, {
     total: true,
     detailed: true,
@@ -71,10 +70,7 @@ function list( req, res, next ) {
 
     if ( err ) return next( err );
 
-    return res.json( {
-      agendas: agendas,
-      total: total
-    } );
+    return res.json( { agendas, total } );
 
   } );
 
