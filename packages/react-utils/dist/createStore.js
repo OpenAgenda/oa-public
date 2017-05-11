@@ -17,7 +17,7 @@ exports.default = function (reducers) {
     var enhancer = void 0;
     var middleware = (0, _redux.applyMiddleware)((0, _reactRouterRedux.routerMiddleware)(history), funcMiddleware(), promiseMiddleware(client));
 
-    if (process.env.NODE_ENV == 'development') {
+    if (process.env.NODE_ENV == 'development' && typeof window !== 'undefined') {
       var _require = require('redux-devtools'),
           persistState = _require.persistState;
 
