@@ -680,7 +680,7 @@ function EventFormFactory() {
           <div className="margin-v-lg">
             <h2>{ this.props.labels.locationSection[ this.props.lang ] }</h2>
             { this.state.locationMode === 'create' ? 
-              <Modal disableBodyScroll={{true}} classNames={{
+              <Modal disableBodyScroll={true} classNames={{
                 overlay: 'popup-overlay big'
               }} onClose={ ()=>{ this.onLocationModeChange( 'search' ); } } >
                 <h2>{this.getLabel( 'locationCreate' )}</h2>

@@ -99,6 +99,7 @@ App = createReactClass( {
 
         changes.customSetErrors = {}
 
+        // if error is undefined, the key should be unset rather than set to 'undefined'
         changes.customSetErrors[ field ] = {
           $set: error
         };
@@ -169,7 +170,7 @@ App = createReactClass( {
 
   hasValidationErrors() {
 
-    return !!Object.keys( omitBy( this.state.customSetErrors, v => !!v ) ).length;
+    return !!Object.keys( omitBy( this.state.customSetErrors, v => !v ) ).length;
 
   },
 
