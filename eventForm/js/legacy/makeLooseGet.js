@@ -7,7 +7,7 @@ module.exports = function( params ) {
   params = utils.extend({
     url: false,
     onResponse: false,
-    debug: [ 'dev', 'tpl' ].indexOf( window.env ) !== -1
+    debug: [ 'development', 'tpl' ].indexOf( window.env ) !== -1
   }, params);
 
   var pending = false, queued = false, count = 0,

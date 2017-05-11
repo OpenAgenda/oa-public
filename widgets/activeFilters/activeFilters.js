@@ -16,7 +16,7 @@ dateLabels = require( './dateLabels' ),
 
 onReady;
 
-if ( ['tpl', 'dev'].indexOf( window.env ) !== -1 ) {
+if ( ['tpl', 'development'].indexOf( window.env ) !== -1 ) {
 
   debug.enable( '*' );
 

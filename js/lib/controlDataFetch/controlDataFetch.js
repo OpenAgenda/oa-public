@@ -5,11 +5,11 @@ var cn = require( '../common/common.mod.js' ),
 remote = require( '../remote/remote.mod.js' ),
 
 res = {
-  prod: {
+  production: {
     agenda : '//openagenda.com/agendas/{uid}/controldata',
     embed : '//openagenda.com/agendas/{uid}/embeds/{embedUid}/controldata'
   },
-  dev: {
+  development: {
     agenda : '//d.openagenda.com/agendas/{uid}/controldata',
     embed : '//d.openagenda.com/agendas/{uid}/embeds/{embedUid}/controldata'
   },

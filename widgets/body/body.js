@@ -79,7 +79,7 @@ function widget( elem, options ) {
 
   var env = elem.hasAttribute( 'data-preview' ) ? 'preview' : window.env;
 
-  if ( ['tpl', 'dev', 'preview' ].indexOf( env ) !== -1 ) {
+  if ( ['tpl', 'development', 'preview' ].indexOf( env ) !== -1 ) {
 
     debug.enable( '*' );
 

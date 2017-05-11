@@ -20,7 +20,7 @@ defaults = {
   all: {
     search : '//openagenda.com/widgets/{uid}/search'
   },
-  dev: {
+  development: {
     search : '//d.openagenda.com/widgets/{uid}/search'
   },
   test: {

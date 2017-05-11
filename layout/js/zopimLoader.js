@@ -12,7 +12,7 @@ module.exports = function(doc, win, eh, options) {
 
   cn.extend(params, options?options:{});
 
-  //if (params.env=='dev') return;
+  //if (params.env=='development') return;
   
   eh.trigger('mobilecheck', function( isMobile ) {
 

@@ -32,7 +32,7 @@ defaults = {
   count: config.count
 };
 
-if ( cn.contains( [ 'dev', 'tpl' ], env ) ) debug.enable( '*' );
+if ( cn.contains( [ 'development', 'tpl' ], env ) ) debug.enable( '*' );
 
 cn.addEvent( window, 'load', _init );
 

@@ -22,7 +22,7 @@ onReady,
 
 oneWidgetReady = false;
 
-if ( [ 'tpl', 'dev' ].indexOf( window.env ) ) debug.enable( '*' );
+if ( [ 'tpl', 'development' ].indexOf( window.env ) ) debug.enable( '*' );
 
 function widget( elem, options ) {
 

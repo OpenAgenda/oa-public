@@ -27,7 +27,7 @@ styler = require( '../lib/widgetStyler' ),
 onReady;
 
 
-if ( cn.contains( [ 'tpl', 'dev' ], window.env ) ) debug.enable( '*' );
+if ( cn.contains( [ 'tpl', 'development' ], window.env ) ) debug.enable( '*' );
 
 
 var widget = function( elem, options ) {

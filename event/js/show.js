@@ -39,7 +39,7 @@ defaults.selectors[ ROLES.EVENTEDITOR ] = '.js_role_event_editor';
 defaults.selectors[ ROLES.AGENDAMODERATOR ] = '.js_role_agenda_moderator';
 defaults.selectors[ ROLES.AGENDAADMIN ] = '.js_role_agenda_admin';
 
-if ( [ 'tpl', 'dev' ].indexOf( window.env ) !== -1 ) {
+if ( [ 'tpl', 'development' ].indexOf( window.env ) !== -1 ) {
 
   debug.enable( '*' );
 
