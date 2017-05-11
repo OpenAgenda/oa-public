@@ -20,6 +20,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class, _class2, _temp;
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactRedux = require('react-redux');
 
 var _reduxForm = require('redux-form');
@@ -107,7 +111,7 @@ var SendMessageForm = _wrapComponent('SendMessageForm')((_dec = (0, _reduxForm.r
 
   return SendMessageForm;
 }(_react2.Component), _class2.contextTypes = {
-  getLabel: _react2.PropTypes.func
+  getLabel: _propTypes2.default.func
 }, _temp)) || _class));
 
 exports.default = SendMessageForm;

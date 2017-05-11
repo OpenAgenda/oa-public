@@ -22,6 +22,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _dec, _dec2, _dec3, _class, _class2, _temp;
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reduxConnect = require('redux-connect');
 
 var _reactRedux = require('react-redux');
@@ -744,31 +748,31 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
 
   return Dashboard;
 }(_react2.Component), _class2.propTypes = {
-  list: _react2.PropTypes.func,
-  remove: _react2.PropTypes.func,
-  nextPage: _react2.PropTypes.func,
-  res: _react2.PropTypes.object,
-  userCredential: _react2.PropTypes.number,
-  stakeholders: _react2.PropTypes.array,
-  addCredFilter: _react2.PropTypes.func,
-  removeCredFilter: _react2.PropTypes.func,
-  cleanCredFilters: _react2.PropTypes.func,
-  credFilters: _react2.PropTypes.array,
-  page: _react2.PropTypes.number,
-  total: _react2.PropTypes.number,
-  stats: _react2.PropTypes.object,
-  loading: _react2.PropTypes.bool,
-  nextLoading: _react2.PropTypes.bool,
-  search: _react2.PropTypes.string,
-  slug: _react2.PropTypes.string,
-  perPageLimit: _react2.PropTypes.number,
-  showModal: _react2.PropTypes.func,
-  closeModal: _react2.PropTypes.func,
-  modals: _react2.PropTypes.object,
-  stopSubmit: _react2.PropTypes.func
+  list: _propTypes2.default.func,
+  remove: _propTypes2.default.func,
+  nextPage: _propTypes2.default.func,
+  res: _propTypes2.default.object,
+  userCredential: _propTypes2.default.number,
+  stakeholders: _propTypes2.default.array,
+  addCredFilter: _propTypes2.default.func,
+  removeCredFilter: _propTypes2.default.func,
+  cleanCredFilters: _propTypes2.default.func,
+  credFilters: _propTypes2.default.array,
+  page: _propTypes2.default.number,
+  total: _propTypes2.default.number,
+  stats: _propTypes2.default.object,
+  loading: _propTypes2.default.bool,
+  nextLoading: _propTypes2.default.bool,
+  search: _propTypes2.default.string,
+  slug: _propTypes2.default.string,
+  perPageLimit: _propTypes2.default.number,
+  showModal: _propTypes2.default.func,
+  closeModal: _propTypes2.default.func,
+  modals: _propTypes2.default.object,
+  stopSubmit: _propTypes2.default.func
 }, _class2.contextTypes = {
-  router: _react2.PropTypes.object,
-  getLabel: _react2.PropTypes.func
+  router: _propTypes2.default.object,
+  getLabel: _propTypes2.default.func
 }, _temp)) || _class) || _class) || _class));
 
 exports.default = Dashboard;
