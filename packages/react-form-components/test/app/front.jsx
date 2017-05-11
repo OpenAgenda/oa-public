@@ -8,6 +8,8 @@ window.onload = function() {
 
 var React = require( 'react' ),
 
+createReactClass = require( 'create-react-class' ),
+
 getLabel = require( '../../lib/makeLabelGetter' )( require( '../../labels' ) ),
 
 ReactDom = require( 'react-dom' ),
@@ -37,7 +39,7 @@ update = require( 'immutability-helper' ),
 
 validators = require( '../../validators' ),
 
-Wrapper = React.createClass( {
+Wrapper = createReactClass( {
 
   getInitialState: function() {
 
