@@ -90,7 +90,30 @@ window.asap( function( options ) {
 
 });
 
+/**
+ * hack to force reload of page in the event
+ */
+function _facebookPassedRefreshFix() {
+
+  setTimeout( function() {
+
+    if ( window.location.href.indexOf( 'passed' ) !== -1 ) {
+
+      if ( window.location.href.indexOf( 'refreshed' ) == -1 ) {
+
+        return window.location.href += '&refreshed=';
+
+      }
+
+    }
+
+  }, 200 );
+
+}
+
 function _initFacebook( params, list ) {
+
+  _facebookPassedRefreshFix();
 
   var handler = facebookEmbedded( params );
 
