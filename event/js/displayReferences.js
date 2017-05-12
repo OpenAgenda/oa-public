@@ -14,8 +14,8 @@ defaults = {
   env: 'production',
   selector: '.js_references',
   url: {
-    prod: '/agendas/{agendaUid}/events/{eventUid}/references',
-    dev: '/agendas/{agendaUid}/events/{eventUid}/references',
+    production: '/agendas/{agendaUid}/events/{eventUid}/references',
+    development: '/agendas/{agendaUid}/events/{eventUid}/references',
     tpl: '/server/testdata/references.json'
   }
 };

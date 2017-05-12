@@ -14,8 +14,8 @@ defaults = {
   env: 'production',
   selector: '.js_custom',
   url: {
-    prod: '/agendas/{agendaUid}/events/{eventUid}/private',
-    dev: '/agendas/{agendaUid}/events/{eventUid}/private',
+    production: '/agendas/{agendaUid}/events/{eventUid}/private',
+    development: '/agendas/{agendaUid}/events/{eventUid}/private',
     tpl: '/server/testdata/privateeventdata.json'
   },
   customHead: '<div class="private-head"><i class="fa fa-lock"></i></div>',
