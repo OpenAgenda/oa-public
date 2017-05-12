@@ -228,6 +228,8 @@ function onActivation( values ) {
 
       return ( values.invitation ? invitation2Svc.execute( { token: values.invitation }, { user: values.user } ) : w() )
 
+        .then( () => invitation2Svc.execute( { email: values.user.email }, { user: values.user } ) )
+
         .then( () => invitationSvc.processUser( values ) );
 
     } );

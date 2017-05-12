@@ -68,6 +68,12 @@ module.exports = ( stakeholder, message, context, cb ) => {
       invitations.get( { email: stakeholder.custom.email } )
         .then( ( { invitation } ) => {
 
+          if ( !invitation ) {
+
+            return cb();
+
+          }
+
           const action = invitation.data.actions.find( v => v.name === 'linkStakeholder' );
           const contextInvitation = action.params[ 1 ] || context;
 
@@ -98,7 +104,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
 
   } );
 
-}
+};
 
 module.exports.setLog = l => log = l;
 
@@ -109,7 +115,7 @@ function _sendMessageEmail( agenda, url, linkLabel, message, emailAddress, lang,
     recipient: emailAddress,
     subject: getMessageLabel( 'newMessage', { agenda: agenda.title }, lang ),
     data: {
-      logo: agenda.image || 'https://openagenda.com/images/openagenda.png',
+      logo: agenda.image ? agenda.image.replace( '.com/', '.com/rwtb' ) : 'https://openagenda.com/images/openagenda.png',
       title: {
         text: getMessageLabel( 'newMessage', { agenda: agenda.title }, lang ),
         link: url

@@ -639,7 +639,7 @@ function loadBaseData( func, cssFile ) {
 
     }
 
-    if ( config.env == 'prod' ) {
+    if ( config.env == 'production' ) {
 
       let googleAnalyticsId = req.googleAnalyticsId || config.googleAnalyticsId;
 

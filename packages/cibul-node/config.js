@@ -2,7 +2,7 @@ var deepExtend = require( 'deep-extend' ),
 
   config = {
     all: {
-      env: 'prod',
+      env: 'production',
       corpoLastUpdate: '2016-02-28T11:07:29.000Z',
       versions: {
         members: [ {
@@ -86,6 +86,7 @@ var deepExtend = require( 'deep-extend' ),
       geocodeFarm: {
         key: 'c90247db-b0de461fb1e9-8517d6450e7b'
       },
+      serverSideRendering: true,
       db: {
         database: 'oa',
         host: 'cibul.cjlxznnlwwtq.eu-west-1.rds.amazonaws.com',
@@ -449,10 +450,10 @@ var deepExtend = require( 'deep-extend' ),
       }
     },
 
-    dev: {
+    development: {
       domain: 'd.openagenda.com',
       root: 'https://d.openagenda.com',
-      env: 'dev',
+      env: 'development',
       multiCore: false,
       mainChannel: 'maindev',
       logger: {
@@ -626,10 +627,10 @@ var deepExtend = require( 'deep-extend' ),
       }
     },
 
-    prod: {}
+    production: {}
   };
 
-var currentConfig = _loadEnv( process.env.NODE_ENV || 'dev' );
+var currentConfig = _loadEnv( process.env.NODE_ENV || 'development' );
 
 currentConfig.loadEnv = _loadEnv;
 
@@ -639,7 +640,7 @@ currentConfig.loadEnv = _loadEnv;
  */
 
 currentConfig.emailStrategieDb = deepExtend( {}, currentConfig.db, {
-  database: 'emailStrategie' + ( process.env.NODE_ENV !== 'prod' ? process.env.NODE_ENV : '' )
+  database: 'emailStrategie' + ( process.env.NODE_ENV !== 'production' ? process.env.NODE_ENV : '' )
 } );
 
 module.exports = currentConfig;

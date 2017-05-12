@@ -50,16 +50,16 @@ module.exports = path => {
         },
         ( req, res ) => res.json( req.result )
       ] ],
-      userSettingsChangeEmail: [ 'get', '/changeEmail', [ 
-        logged, 
-        loadSession, 
-        mw.requestChangeEmail, 
-        sendEmail 
+      userSettingsChangeEmail: [ 'get', '/changeEmail', [
+        logged,
+        loadSession,
+        mw.requestChangeEmail,
+        sendEmail
       ] ],
       userSettingsChangeEmailConfirmation: [ 'get', '/changeEmail/confirm', [
         logged,
         loadSession,
-        mw.confirmChangeEmail.bind( null, {/**defaultOptions**/} ),
+        mw.confirmChangeEmail.bind( null, { /**defaultOptions**/ } ),
         changeEmailConfirm
       ] ],
       userSettingsChangePassword: [ 'get', '/changePassword', [ logged, loadSession, mw.changePassword ] ],
@@ -78,7 +78,15 @@ module.exports = path => {
       userSettingsUploadProfileImage: [ 'post', '/uploadProfileImage', [ logged, loadSession, mw.uploadProfileImage ] ],
       userSettingsRemoveProfileImage: [ 'post', '/removeProfileImage', [ logged, loadSession, mw.removeProfileImage ] ],
 
-      userSettingsApp: [ 'get', '*', [ logged, loadSession, matchApp( path, index ) ] ]
+      userSettingsApp: [ 'get', '*', [ logged, loadSession, matchApp( {
+        state: {
+          app: {
+            appSettings: {
+              prefix: path
+            }
+          }
+        }
+      }, path, index ) ] ]
     },
 
     router = modLib.Router( routes );

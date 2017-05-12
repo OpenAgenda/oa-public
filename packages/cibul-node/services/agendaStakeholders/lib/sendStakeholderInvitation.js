@@ -1,6 +1,8 @@
 "use strict";
 
-const users = require( 'users' ),
+const agendaStakeholders = require( 'agenda-stakeholders' ),
+
+  users = require( 'users' ),
 
   makeLabelGetter = require( 'labels' ),
 

@@ -1,5 +1,7 @@
 "use strict";
 
+const React = require( 'react' );
+const ReactDOMServer = require( 'react-dom/server' );
 const modLib = require( '../lib/moduleLib' );
 const cmn = require( '../lib/commons-app' );
 const sessions = require( 'sessions' );
@@ -12,6 +14,7 @@ const contributorLabels = require( 'labels/event/contributors' );
 const w = require( 'when' );
 
 const activitiesSvc = require( 'activities' );
+const activitiesEventApp = require( 'activity-apps/react/dist/apps/event' )
 const usersSvc = require( 'users' );
 
 const routes = {
@@ -77,7 +80,37 @@ const routes = {
     ( req, res ) => {
       res.json( req.events );
     }
-  ] ]
+  ] ],
+
+
+  agendaEventActivities: [ 'get', '/agendas/:uid/events/:eventUid/activities', [
+    agendaSvc.mw.load( 'uid' ),
+    eventSvc.mw.load( 'eventUid', 'uid' ),
+    cmn.checkAdminOrModerator,
+    ( req, res, next ) => {
+
+      const limit = 1;
+
+      activitiesSvc.feed( {
+        entityType: 'event',
+        entityUid: req.event.uid
+      } ).activities.list( req.query.fromId || 0, limit )
+        .then( activities => {
+          const lastPage = activities.length < limit;
+
+          res.json( {
+            html: ReactDOMServer.renderToStaticMarkup( activitiesEventApp( { activities, lang: req.lang || 'fr' } ) ),
+            nextUrl: lastPage ? null : req.genUrl( 'agendaEventActivities', {
+              uid: req.agenda.uid,
+              eventUid: req.event.uid,
+              fromId: activities[ activities.length - 1 ].id
+            } )
+          } );
+        } )
+        .catch( next );
+
+    }
+  ] ],
 
 };
 

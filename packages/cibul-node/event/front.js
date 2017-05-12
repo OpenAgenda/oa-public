@@ -127,6 +127,13 @@ const modLib = require( '../lib/moduleLib' ),
         next();
       },
       eventSvc.mw.load( 'eventSlug', 'slug' ),
+      ( req, res, next ) => {
+        if ( req.event.origin ) {
+          req.agenda = req.event.origin;
+          return redirect( req, res, next );
+        }
+        next();
+      },
       eventSvc.mw.format,
       eventSvc.mw.components,
       _formatSocialLinks,

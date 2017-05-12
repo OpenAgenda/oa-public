@@ -11,7 +11,7 @@ const fs = require( 'fs' ),
 let log;
 
 
-module.exports = function( config, cb ) {
+module.exports = function ( config, cb ) {
 
   let t = new Date;
 
@@ -29,19 +29,19 @@ module.exports = function( config, cb ) {
   }
 
   // init logger
-  
+
   logger.init( config.logger );
 
   log = logger( 'init' );
 
-  
+
   // init services
 
   fs.readdir( __dirname, ( err, services ) => {
 
     if ( err ) return cb( err );
 
-    async.each( services, _init.bind( null, config ), err => {
+    async.eachSeries( services, _init.bind( null, config ), err => {
 
       if ( err ) return cb( new VError( err, 'service initialization did not go well' ) );
 
@@ -49,7 +49,7 @@ module.exports = function( config, cb ) {
 
       cb();
 
-    } ); 
+    } );
 
   } );
 
