@@ -23,6 +23,7 @@
     "async": "^2.1.4",
     "basic-logger": "^0.4.4",
     "body-parser": "^1.16.0",
+    "bootstrap-daterangepicker": "^2.1.25",
     "classnames": "^2.2.5",
     "dom-utils": "git+ssh://git@bitbucket.org/openagenda/dom-utils.git",
     "jquery": "^3.2.1",
