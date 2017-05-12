@@ -12,6 +12,8 @@ describe( 'reverso', function() {
 
   describe( 'successful requests', function( done ) {
 
+    this.timeout( 10000 );
+
     let r;
 
     before( () => {
@@ -27,7 +29,7 @@ describe( 'reverso', function() {
 
         should( err ).equal( null );
 
-        translation.should.equal( 'The doors of the time(weather) of the young people and the heritage(holdings)' );
+        translation.should.equal( 'The doors of the time(weather) of the young people and of heritages' );
 
         done();
 
@@ -41,7 +43,7 @@ describe( 'reverso', function() {
 
         should( err ).equal( null );
 
-        translation.should.equal( 'Bien cela marche juste la houle monsieur' );
+        translation.should.equal( 'Bien cela travaille juste la houle le monsieur' );
 
         done();
 
@@ -79,9 +81,9 @@ describe( 'reverso', function() {
           'This translates of the markdown',
           '## How?',
           'Simple:',
-          '*   The markdown is interpreté html before translation',
-          '*   And the html of the answer is translated markdown there later',
-          '*   That translates of everywhere.'
+          '*   the markdown is interpreté in html before translation',
+          '*   and the html of answer is translated into markdown afterwards',
+          '*   that translates of everywhere.'
         ] );
 
         done();
@@ -97,9 +99,43 @@ describe( 'reverso', function() {
         should( err ).equal( null );
 
         translations.should.eql( { 
-          en: 'The socks of the archduchess are dry or extremely dry',
-          es: 'Los calcetines de la archiduquesa son secas o archi-secas'
+          en: 'The socks of the archduchess are dry or extremely - sandbanks',
+          es: 'Los calcetines de la archiduquesa son secos o archi-secos'
         } );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'Translation from french to german works', done => {
+
+      r( 'Je suis mal en campagne et mal en ville', 'fr', 'de', ( err, translation ) => {
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'Translation from french to english works', done => {
+
+      r( 'Peut-être un peu trop fragile', 'fr', 'en', ( err, translation ) => {
+
+        translation.should.equal( 'Maybe slightly too fragile' );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'Translation from french to italian works', done => {
+
+      r( 'Allo maman bobo', 'fr', 'it', ( err, translation ) => {
+
+        translation.should.equal( 'Ciao mamma di boho' );
 
         done();
 
@@ -116,7 +152,7 @@ describe( 'reverso', function() {
 
         translatedObject.should.eql( {
           title: 'The fork(range)',
-          description: 'The fork(range) is a place setting of table or a kitchen utensil allowing to catch food, without affecting(touching) them directly with fingers.'
+          description: 'The fork(range) is a place setting of table or an utensil of cooking(kitchen) allowing to catch food, without affecting(touching) them directly with fingers.'
         } );
 
         done();
@@ -137,11 +173,11 @@ describe( 'reverso', function() {
         translatedObject.should.eql( { 
           title: { 
             en: 'The fork(range)', 
-            es: 'El tenedor(gama)'
+            es: 'El tenedor'
           },
           description: {
-            en: 'The fork(range) is a place setting of table or a kitchen utensil allowing to catch food, without affecting(touching) them directly with fingers.',
-            es: 'El tenedor(gama) es un cubierto de mesa o un utensilio de cocina que permite coger los alimentos, sin tocarlos directamente con los dedos.' 
+            en: 'The fork(range) is a place setting of table or an utensil of cooking(kitchen) allowing to catch food, without affecting(touching) them directly with fingers.',
+            es: 'El tenedor es un cubierto de mesa o un utensilio de cocina que permite coger los alimentos, sin tocarlos directamente con los dedos.' 
           }
         } );
 

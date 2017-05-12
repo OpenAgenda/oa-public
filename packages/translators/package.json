@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "async": "^2.1.2",
-    "crypto-browserify": "^3.11.0",
+    "crypto-browserify": "^3.0.9",
     "lodash": "^4.17.1",
     "marked": "^0.3.6",
     "sha1": "^1.1.1",
