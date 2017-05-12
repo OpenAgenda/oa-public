@@ -52,7 +52,7 @@ module.exports = {
   menu: menu
 }
 
-if ( [ 'tpl', 'dev' ].indexOf( window.env ) !== -1 ) {
+if ( [ 'tpl', 'development' ].indexOf( window.env ) !== -1 ) {
 
   debug.enable( '*' );
 

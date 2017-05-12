@@ -29,7 +29,7 @@ templates = {
   popup: require( './popup.ejs' )
 },
 
-env = window.env ? window.env : 'prod',
+env = window.env ? window.env : 'production',
 
 res = {
   all: {
@@ -49,7 +49,7 @@ styler = require( '../lib/widgetStyler' ),
 
 onReady; // cb to call when a widget is ready
 
-if ( [ 'tpl', 'dev' ].indexOf( env ) !== -1 ) debug.enable( '*' );
+if ( [ 'tpl', 'development' ].indexOf( env ) !== -1 ) debug.enable( '*' );
 
 res = utils.extend( res.all, res[ env ] ? res[ env ] : {} );
 

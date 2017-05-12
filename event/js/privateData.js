@@ -11,7 +11,7 @@ debug = require( 'debug' ), log,
 defaults = {
   uid: false,
   agendaUid: false,
-  env: 'prod',
+  env: 'production',
   selector: '.js_custom',
   url: {
     prod: '/agendas/{agendaUid}/events/{eventUid}/private',
@@ -31,7 +31,7 @@ module.exports = function( options ) {
 
   if ( window.env ) params.env = window.env;
 
-  if ( [ 'dev', 'tpl' ].indexOf( params.env ) !== -1 ) {
+  if ( [ 'development', 'tpl' ].indexOf( params.env ) !== -1 ) {
 
     debug.enable( '*' );
 

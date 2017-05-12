@@ -1,6 +1,8 @@
-var React = require( 'react' );
+var React = require( 'react' ),
 
-module.exports = React.createClass({
+  createReactClass = require( 'create-react-class' );
+
+module.exports = createReactClass({
 
   handleClick: function( e ) {
 

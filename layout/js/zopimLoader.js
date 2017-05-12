@@ -1,7 +1,7 @@
 var cn = require('../../js/lib/common/common.mod.js'),
 
 params = {
-  env: 'prod',
+  env: 'production',
   events: {
     mobileCheck: 'mobilecheck'
   },
@@ -12,7 +12,7 @@ module.exports = function(doc, win, eh, options) {
 
   cn.extend(params, options?options:{});
 
-  //if (params.env=='dev') return;
+  //if (params.env=='development') return;
   
   eh.trigger('mobilecheck', function( isMobile ) {
 

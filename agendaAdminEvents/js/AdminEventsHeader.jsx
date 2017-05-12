@@ -2,6 +2,10 @@
 
 var React = require( 'react' ),
 
+  createReactClass = require( 'create-react-class' ),
+
+  PropTypes = require( 'prop-types' ),
+
   TermSelectorPicker = require( 'agenda-locations/components/build/TermSelectorPicker' ),
 
   qs = require( 'qs' ),
@@ -26,11 +30,11 @@ var React = require( 'react' ),
 
   ContributorField = UidTextField( 'contributor', 'contributorUid' ),
 
-  AdminEventsHeader = React.createClass( {
+  AdminEventsHeader = createReactClass( {
 
     propTypes: {
 
-      lang: React.PropTypes.string
+      lang: PropTypes.string
 
     },
 

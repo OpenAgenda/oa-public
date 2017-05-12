@@ -4,7 +4,7 @@ const base64 = require( 'utils/base64' );
 
 const utils = require( 'utils' );
 
-const update = require( 'react-addons-update' );
+const update = require( 'immutability-helper' );
 
 const onTranslationCheck = require( 'react-form-components/lib/onTranslationCheck' );
 

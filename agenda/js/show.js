@@ -59,7 +59,7 @@ const controllers = require( '../../widgets/controller/main' ),
 
 let uid, log, total;
 
-if ( _.includes( [ 'tpl', 'dev' ], window.env ) ) {
+if ( _.includes( [ 'tpl', 'development' ], window.env ) ) {
 
   debug.enable( '*' );
 

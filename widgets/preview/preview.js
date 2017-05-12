@@ -8,7 +8,7 @@ config = require( './config' ),
 
 UID = 0,
 
-env = window.env ? window.env : 'prod',
+env = window.env ? window.env : 'production',
 
 tpl = require( './preview.tblr' ),
 
@@ -32,7 +32,7 @@ defaults = {
   count: config.count
 };
 
-if ( cn.contains( [ 'dev', 'tpl' ], env ) ) debug.enable( '*' );
+if ( cn.contains( [ 'development', 'tpl' ], env ) ) debug.enable( '*' );
 
 cn.addEvent( window, 'load', _init );
 

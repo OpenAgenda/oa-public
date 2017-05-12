@@ -16,7 +16,7 @@ styler = require( '../lib/widgetStyler' ),
 
 UID = 0, CONFIG = 1;
 
-if ( [ 'tpl', 'dev' ].indexOf( window.env ) !== -1 ) debug.enable( '*' );
+if ( [ 'tpl', 'development' ].indexOf( window.env ) !== -1 ) debug.enable( '*' );
 
 function widget( elem, options ) {
 

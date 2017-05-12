@@ -5,11 +5,11 @@ var cn = require( '../common/common.mod.js' ),
 remote = require( '../remote/remote.mod.js' ),
 
 res = {
-  prod: {
+  production: {
     agenda : '//openagenda.com/agendas/{uid}/controldata',
     embed : '//openagenda.com/agendas/{uid}/embeds/{embedUid}/controldata'
   },
-  dev: {
+  development: {
     agenda : '//d.openagenda.com/agendas/{uid}/controldata',
     embed : '//d.openagenda.com/agendas/{uid}/embeds/{embedUid}/controldata'
   },
@@ -35,7 +35,7 @@ function fetch( options, cb ) {
 
   var params = cn.extend( {}, defaults, options ),
 
-  fetchRes = res[ window.env || 'prod' ][ params.embedUid ? 'embed' : 'agenda' ]
+  fetchRes = res[ window.env || 'production' ][ params.embedUid ? 'embed' : 'agenda' ]
 
   .replace( '{uid}', params.uid );
 

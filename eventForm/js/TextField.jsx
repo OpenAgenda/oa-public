@@ -2,6 +2,8 @@
 
 var React = require( 'react' ),
 
+createReactClass = require( 'create-react-class' ),
+
 validators = require( './validators' ),
 
 renderHelpers = require( './renderHelpers.jsx' ),
@@ -30,7 +32,7 @@ function trim( v ) {
 
 }
 
-module.exports = React.createClass({
+module.exports = createReactClass({
 
   getInitialState: function() {
 

@@ -2,6 +2,8 @@
 
 var React = require( 'react' ),
 
+createReactClass = require( 'create-react-class' ),
+
 TextField = require( './TextField.jsx' ),
 
 MultilingualTextField = require( './MultilingualTextField.jsx' ),
@@ -16,7 +18,7 @@ ImageUpload = require( 'image-upload/components/build/ImageUploader' ),
 
 utils = require( 'utils' );
 
-module.exports = React.createClass({
+module.exports = createReactClass({
 
   onChange: function( field ) {
 

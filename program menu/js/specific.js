@@ -457,7 +457,7 @@ var init_newsletter_handler = function(env) {
 
   var valid = false;
 
-  if (typeof env == 'undefined') env = 'prod';
+  if (typeof env == 'undefined') env = 'production';
 
   $('.js_date_newsletter_filter').inputControl({
     errorDomRelativePosition: 'next',
@@ -550,7 +550,7 @@ var init_newsletter_handler = function(env) {
 
   var handle_newsletter_request = function(callback) {
 
-    if (env=='dev') {
+    if (env=='development') {
       $('.js_newsletter_submit').lock();
       setTimeout(function(){
         $('.js_newsletter_submit').lock(false);

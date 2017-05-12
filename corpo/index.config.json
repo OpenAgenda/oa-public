@@ -31,32 +31,32 @@
     "pageId": "corpo",
     "references": [
       {
-        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/orleans.jpg",
+        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/home/integration_orleans.jpg",
         "url": "http://sortir.orleans-metropole.fr",
         "caption": "Le portail d'événements de la métropole d'Orléans"
       },
       {
-        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_issy.jpg",
+        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/home/integration_saison_culturelle.jpg",
+        "url": "http://saisonculturelle.fr/Programme",
+        "caption": "Saison culturelle 2017"
+      },
+      {
+        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/home/integration_issy.jpg",
         "url": "http://www.issy.com/agenda",
         "caption": "Le réseau d'agendas de la ville d'Issy-les-Moulineaux"
       },
       {
-        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_2.jpg",
-        "url": "http://www.entreprises.gouv.fr/semaine-industrie",
-        "caption": "La semaine de l'industrie"
-      },
-      {
-        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_pompidou.jpg",
+        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/home/integration_pompidou.jpg",
         "url": "http://www.centrepompidou40ans.fr",
         "caption": "Le Centre Pompidou fête ses 40 ans"
       },
       {
-        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_4.jpg",
+        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/home/integration_semaine_numerique.jpg",
         "url": "http://www.lasemainenumerique.paris/",
         "caption": "La semaine numérique"
       },
       {
-        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/integration_bondy.jpg",
+        "image": "//s3-eu-west-1.amazonaws.com/cibulstatic/home/integration_bondy.jpg",
         "url": "http://www.ville-bondy.fr/agenda/",
         "caption": "L'agenda de la ville de Bondy"
       }

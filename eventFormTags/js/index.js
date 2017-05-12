@@ -4,6 +4,7 @@ import utils from 'utils'
 import du from 'dom-utils'
 import React from 'react'
 import ReactDom from 'react-dom'
+import createReactClass from 'create-react-class'
 import Spinner from 'react-form-components/build/Spinner'
 import TagSelector from 'agenda-tags/lib/TagSelector.jsx'
 import CategorySelector from 'agenda-categories/lib/CategorySelector.jsx'
@@ -15,7 +16,7 @@ import tagSetLabels from 'labels/agenda-tags/selector'
 import Modal from 'react-components/build/Modal'
 import get from 'utils/get'
 import post from 'utils/post'
-import update from 'react-addons-update'
+import update from 'immutability-helper'
 import omitBy from 'lodash/omitBy'
 
 const defaults = {
@@ -25,7 +26,7 @@ const defaults = {
 
 getLabel = genLabelGet( labels ),
 
-App = React.createClass( {
+App = createReactClass( {
 
   getInitialState() { return {
     loading: true,

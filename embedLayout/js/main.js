@@ -32,7 +32,7 @@ du.addEvent( window, 'load', function() {
 
   _init();
 
-  if ( params.env == 'dev' || window.env == 'dev' ) debug.enable( '*' );
+  if ( params.env == 'development' || window.env == 'development' ) debug.enable( '*' );
 
   du.forEach( hooks, function( hook ) {
 

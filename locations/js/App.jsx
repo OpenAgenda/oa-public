@@ -2,11 +2,13 @@
 
 var React = require( 'react' ),
 
+createReactClass = require( 'create-react-class' ),
+
 LocactionsAdmin = require( '../../node_modules/components/AgendaAdminLocations.jsx' ),
 
 tplEnv = window.env=='tpl';
 
-module.exports = React.createClass( {
+module.exports = createReactClass( {
 
   render: function() {
 

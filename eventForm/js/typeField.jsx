@@ -4,6 +4,8 @@ var Select = require( 'react-select' ),
 
 React = require( 'react' ),
 
+createReactClass = require( 'create-react-class' ),
+
 ReactDom = require( 'react-dom' ),
 
 rUtils = require( './reactUtils.js' ),
@@ -27,7 +29,7 @@ module.exports = function( options ) {
 }
 
 
-var TypeField = React.createClass({
+var TypeField = createReactClass({
 
   labels: {
     label: {
@@ -104,7 +106,7 @@ var TypeField = React.createClass({
     return (
       <ul className="cform">
         <li>
-          <label for="type">{this.labels.label[ this.props.lang ]}</label>
+          <label htmlFor="type">{this.labels.label[ this.props.lang ]}</label>
           <div>
             <Select
               name="type"

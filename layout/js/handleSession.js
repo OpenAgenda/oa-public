@@ -44,7 +44,7 @@ module.exports = window.handleSession = function( options ) {
 
   if ( window.env ) params.env = window.env;
 
-  if ( cn.contains( [ 'dev', 'tpl' ], params.env ) ) debug.enable( '*' );
+  if ( cn.contains( [ 'development', 'tpl' ], params.env ) ) debug.enable( '*' );
 
   log = debug( 'handleSession' );
 
@@ -86,7 +86,7 @@ module.exports = window.handleSession = function( options ) {
 
   function _defineUrl() {
 
-    var env = window.env ? window.env : 'prod',
+    var env = window.env ? window.env : 'production',
 
     url = params.url[ env ];
 

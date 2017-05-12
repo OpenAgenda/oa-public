@@ -2,6 +2,8 @@
 
 var React = require( 'react' ),
 
+createReactClass = require( 'create-react-class' ),
+
 marked = require( 'marked' ),
 
 toMarkdown = require( 'to-markdown' ),
@@ -16,7 +18,7 @@ log = debug( 'wysiwyg' ),
 
 changeDelay = 3000, tm; // refreshing the component is expensive
 
-module.exports = React.createClass( {
+module.exports = createReactClass( {
 
   getInitialState: function() {
 

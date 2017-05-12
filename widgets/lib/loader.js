@@ -16,7 +16,7 @@ defaults = {
   }
 },
 
-env = window.env ? window.env : 'prod',
+env = window.env ? window.env : 'production',
 
 params = utils.extend( defaults.all, defaults[ env ] ? defaults[ env ] : {} );
 
