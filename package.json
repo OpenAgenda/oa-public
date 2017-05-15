@@ -90,7 +90,7 @@
     "react-copy-to-clipboard": "^4.2.3",
     "react-dom": "^15.5.4",
     "react-form-components": "git+ssh://git@bitbucket.org/openagenda/react-form-components.git",
-    "react-select": "github:oagenda/react-select",
+    "react-select": "^1.0.0-rc.4",
     "react-table": "^5.0.2",
     "react-tagsinput": "^3.7.0",
     "react-timings-picker": "git://github.com/Oagenda/react-timings-picker.git",

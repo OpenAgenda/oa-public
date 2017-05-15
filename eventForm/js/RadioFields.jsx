@@ -20,7 +20,7 @@ module.exports = RadioTypeField( {
 
   },
 
-  renderField: function() {
+  renderField() {
 
     return <div className="form-group">
       <ul className="list-unstyled">
@@ -30,7 +30,7 @@ module.exports = RadioTypeField( {
               type={this.props.type}
               name={this.props.field.name}
               checked={this.isChecked( option )}
-              onChange={this.onChange.bind( self, option.value )} /> {option.label[this.props.lang]}
+              onChange={this.onChange.bind( this, option.value )} /> {option.label[this.props.lang]}
             </label>
         </li> ) }
       </ul>

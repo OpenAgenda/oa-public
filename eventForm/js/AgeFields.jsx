@@ -41,9 +41,9 @@ module.exports = createReactClass({
 
       current = JSON.parse( JSON.stringify( self.props.value ) );
 
-      if ( e.target ) {
+      if ( e.value ) {
 
-        v = e.target.value;
+        v = e.value;
 
       } else {
 

@@ -75,7 +75,7 @@ var TypeField = createReactClass({
   onChange: function( newType ) {
 
     this.setState( {
-      type: newType
+      type: newType.value
     });
 
   },

@@ -237,7 +237,7 @@ var React = require( 'react' ),
 
                   onChange={function ( state ) {
 
-                    self.setQueryPart( 'state', state );
+                    self.setQueryPart( 'state', state.value );
 
                   }} />
 

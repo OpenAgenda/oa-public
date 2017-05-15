@@ -28,7 +28,7 @@ module.exports = RadioTypeField( {
     return <Select
       value={this.props.value}
       options={this.getOptions()}
-      onChange={this.onChange}
+      onChange={obj => this.onChange( obj.value )}
       clearable={false} />
 
   }

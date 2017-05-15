@@ -91,7 +91,7 @@ module.exports = createReactClass( {
 
     var languages = this.props.languages.slice();
 
-    languages.push( newCode );
+    languages.push( newCode.value );
 
     this.hideSelect();
 

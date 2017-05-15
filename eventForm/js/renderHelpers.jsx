@@ -93,7 +93,7 @@ function renderInfo() {
   var infos = this.props.info[this.props.lang].split( '\n' );
 
   return <span className="info">
-    {infos.map( function( info ) { return <span>{info}</span> } )}
+    {infos.map( ( info, i ) => <span key={i}>{info}</span> )}
   </span>
 
 }
