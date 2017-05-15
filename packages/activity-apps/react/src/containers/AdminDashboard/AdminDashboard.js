@@ -164,6 +164,7 @@ export default class AdminDashboard extends Component {
                 type="select"
                 classNameGroup="margin-top-md margin-bottom-lg"
                 className="form-control"
+                placeholder="Séléctionner"
               >
                 <option value="">Séléctionner</option>
                 <option value="agenda.sendInvitation">agenda.sendInvitation</option>

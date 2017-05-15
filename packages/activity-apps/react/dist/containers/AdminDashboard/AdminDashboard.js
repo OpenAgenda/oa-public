@@ -278,7 +278,8 @@ var AdminDashboard = _wrapComponent('AdminDashboard')((_dec = (0, _reduxConnect.
                   name: 'verb',
                   type: 'select',
                   classNameGroup: 'margin-top-md margin-bottom-lg',
-                  className: 'form-control'
+                  className: 'form-control',
+                  placeholder: 'S\xE9l\xE9ctionner'
                 },
                 _react3.default.createElement(
                   'option',
