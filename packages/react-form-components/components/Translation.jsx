@@ -71,7 +71,7 @@ const TranslationComponent = createReactClass( {
       editingSource: false
     } );
 
-    this.props.sourceChange( newSource );
+    this.props.sourceChange( newSource.value );
 
   },
 

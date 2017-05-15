@@ -84,7 +84,7 @@ var TranslationComponent = (0, _createReactClass2.default)({
       editingSource: false
     });
 
-    this.props.sourceChange(newSource);
+    this.props.sourceChange(newSource.value);
   },
   render: function render() {
     var _this = this;
