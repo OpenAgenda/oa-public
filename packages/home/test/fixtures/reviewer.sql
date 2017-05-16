@@ -36,6 +36,8 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
   `store` longtext,
   `organization` varchar(255) DEFAULT NULL,
   `creator_id` bigint(20) DEFAULT NULL,
+  `deleted_user` tinyint DEFAULT 0,
+  `actions_counter` int DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `user_id_idx` (`user_id`),
   KEY `review_id_idx` (`review_id`)

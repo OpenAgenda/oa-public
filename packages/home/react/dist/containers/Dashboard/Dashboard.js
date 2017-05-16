@@ -32,13 +32,13 @@ var _reactRedux = require('react-redux');
 
 var _reduxForm = require('redux-form');
 
-var _lodash = require('lodash.debounce');
+var _debounce = require('lodash/debounce');
 
-var _lodash2 = _interopRequireDefault(_lodash);
+var _debounce2 = _interopRequireDefault(_debounce);
 
-var _lodash3 = require('lodash.throttle');
+var _throttle = require('lodash/throttle');
 
-var _lodash4 = _interopRequireDefault(_lodash3);
+var _throttle2 = _interopRequireDefault(_throttle);
 
 var _monitorBottomHit = require('dom-utils/monitorBottomHit');
 
@@ -211,7 +211,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           query: _extends({}, _this.props.location.query, { search: values.search || undefined })
         }));
       });
-    }, _this.debouncedSearch = (0, _lodash2.default)(_this.props.handleSubmit(_this.search), 400), _this.nextPage = function () {
+    }, _this.debouncedSearch = (0, _debounce2.default)(_this.props.handleSubmit(_this.search), 400), _this.nextPage = function () {
       var _this$props = _this.props,
           page = _this$props.page,
           total = _this$props.total,
@@ -230,7 +230,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
     key: 'componentWillMount',
     value: function componentWillMount() {
       if (typeof document === 'undefined') return;
-      (0, _monitorBottomHit2.default)((0, _lodash4.default)(this.nextPage, 400));
+      (0, _monitorBottomHit2.default)((0, _throttle2.default)(this.nextPage, 400));
     }
   }, {
     key: 'render',
@@ -332,10 +332,10 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
         _react3.default.createElement(
           'div',
           { className: 'row' },
-          agendas && agendas.map(function (agenda) {
+          agendas && agendas.map(function (agenda, i) {
             return _react3.default.createElement(
               'div',
-              { className: 'agenda-item media', key: agenda.uid },
+              { className: 'agenda-item media', key: i },
               _react3.default.createElement(
                 'div',
                 { className: 'media-left' },
@@ -395,13 +395,13 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                 _react3.default.createElement(
                   'div',
                   { className: 'actions' },
-                  agenda.credential > 1 && _react3.default.createElement(
+                  agenda.stakeholder.credential > 1 && _react3.default.createElement(
                     'a',
                     {
                       href: res.moderate.replace(':slug', agenda.slug),
                       className: 'text-muted'
                     },
-                    agenda.credential == 2 ? getLabel('manage') : getLabel('moderate')
+                    agenda.stakeholder.credential == 2 ? getLabel('manage') : getLabel('moderate')
                   ),
                   _react3.default.createElement(
                     'a',

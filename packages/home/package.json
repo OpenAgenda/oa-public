@@ -21,10 +21,12 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/home#readme",
   "dependencies": {
+    "async": "^2.4.0",
     "basic-logger": "^0.4.4",
     "dom-utils": "git+ssh://git@bitbucket.org/openagenda/dom-utils.git",
     "knex": "^0.12.6",
     "labels": "git+ssh://git@bitbucket.org/openagenda/labels.git",
+    "lodash": "^4.17.4",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "mysql": "^2.11.1",
@@ -42,6 +44,8 @@
     "superagent": "^2.3.0"
   },
   "devDependencies": {
+    "agenda-stakeholders": "git+ssh://git@bitbucket.org/openagenda/agenda-stakeholders.git",
+    "agendas": "git+ssh://git@bitbucket.org/openagenda/agendas.git",
     "babel-cli": "^6.16.0",
     "babel-loader": "^6.2.8",
     "babel-plugin-add-module-exports": "^0.2.1",

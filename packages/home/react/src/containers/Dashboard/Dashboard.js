@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { asyncConnect } from 'redux-connect';
 import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
-import debounce from 'lodash.debounce';
-import throttle from 'lodash.throttle';
+import debounce from 'lodash/debounce';
+import throttle from 'lodash/throttle';
 import monitorBottomHit from 'dom-utils/monitorBottomHit';
 import Spinner from 'react-form-components/build/Spinner';
 import * as agendasActions from '../../redux/modules/agendas';
@@ -182,8 +182,8 @@ export default class Dashboard extends Component {
           />
         </form>
         <div className="row">
-          {agendas && agendas.map( agenda => (
-            <div className="agenda-item media" key={agenda.uid}>
+          {agendas && agendas.map( (agenda, i) => (
+            <div className="agenda-item media" key={i}>
 
               <div className="media-left">
                 <a href={res.show.replace( ':slug', agenda.slug )}>
@@ -210,11 +210,11 @@ export default class Dashboard extends Component {
                   </div>}
                 </div>
                 <div className="actions">
-                  {agenda.credential > 1 && <a
+                  {agenda.stakeholder.credential > 1 && <a
                     href={res.moderate.replace( ':slug', agenda.slug )}
                     className="text-muted"
                   >
-                    {agenda.credential == 2 ? getLabel( 'manage' ) : getLabel( 'moderate' )}
+                    {agenda.stakeholder.credential == 2 ? getLabel( 'manage' ) : getLabel( 'moderate' )}
                   </a>}
                   <a href={res.addEvent.replace( ':slug', agenda.slug )} className="text-muted">
                     {getLabel( 'addAnEvent' )}
