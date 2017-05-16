@@ -197,6 +197,7 @@ describe( 'agendas - functional (server): get', function() {
         uid: 94345899,
         title: 'EPN "Espace Torcy"',
         description: 'Agenda de l\'EPN "Espace Torcy"\r\n2 rue de Torcy 75018 Paris\r\nTél : 01 40 38 67 00\r\nEmail : epn@ensparis.fr',
+        formSchemaId: null,
         url: 'http://www.ensparis.fr',
         image: 'review_epn-espace-torcy_00.jpg',
         settings: {

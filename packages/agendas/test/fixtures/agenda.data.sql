@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS ${schema} (
   private TINYINT(1) DEFAULT '0' NOT NULL,
   title VARCHAR(255) NOT NULL,
   owner_id BIGINT NOT NULL,
+  form_schema_id BIGINT,
   slug VARCHAR(255) NOT NULL UNIQUE,
   description VARCHAR(165), /* 150 in real world */
   image VARCHAR(255),

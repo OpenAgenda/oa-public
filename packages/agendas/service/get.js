@@ -189,11 +189,17 @@ function _filterInternals( v ) {
 
   v.filtered = {};
 
-  Object.keys( v.data ).filter( f => v.internal || !dbParse.is( 'obj', f, 'internal' ) ).forEach( f => {
+  Object.keys( v.data )
+    .filter( f => {
 
-    v.filtered[ f ] = v.data[ f ];
+      return v.internal || !dbParse.is( 'obj', f, 'internal' );
 
-  } );
+    } )
+    .forEach( f => {
+
+      v.filtered[ f ] = v.data[ f ];
+
+    } );
 
   return v;
 

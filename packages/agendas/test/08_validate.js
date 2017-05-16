@@ -153,6 +153,7 @@ describe( 'agendas - unit (server): validate', () => {
         official: false,
         private: false,
         ownerId: 1,
+        formSchemaId: null,
         settings: {
           contribution: {
             defaultState: 2,

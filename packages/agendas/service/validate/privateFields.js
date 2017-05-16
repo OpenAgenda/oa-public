@@ -3,12 +3,12 @@
 module.exports = {
 
   uid: {
-    type: 'number',
+    type: 'integer',
     optional: false
   },
   
   ownerId: {
-    type: 'number',
+    type: 'integer',
     optional: false
   },
   
@@ -20,6 +20,11 @@ module.exports = {
   createdAt: {
     type: 'date',
     optional: false
+  },
+
+  formSchemaId: {
+    type: 'integer',
+    optional: true
   },
   
   image: {

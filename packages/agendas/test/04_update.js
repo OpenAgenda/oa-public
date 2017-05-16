@@ -186,6 +186,7 @@ describe( 'agendas - functional (server): set (update)', function() {
         agenda: { 
           id: 4887,
           ownerId: 7388,
+          formSchemaId: null,
           slug: 'agenda-culturel-auvergne',
           uid: 65903437,
           official: 0,

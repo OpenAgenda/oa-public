@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS ${schema} (
   title VARCHAR(255) NOT NULL,
   owner_id BIGINT NOT NULL,
   slug VARCHAR(255) NOT NULL UNIQUE,
+  form_schema_id BIGINT,
   description VARCHAR(165), /* 150 in real world */
   image VARCHAR(255),
   url VARCHAR(255),

@@ -216,6 +216,7 @@ describe( 'agendas - functional (server): set (create)', function() {
         agenda: { 
           id: result.agenda.id,
           ownerId: 1,
+          formSchemaId: null,
           slug: 'seconde-guerre-punique',
           uid: result.agenda.uid,
           title: 'Seconde guerre punique',

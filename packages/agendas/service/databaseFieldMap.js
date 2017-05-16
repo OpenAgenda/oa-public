@@ -14,6 +14,13 @@ module.exports = [
     protected: true,
     list: false
   },
+  {
+    db: 'form_schema_id',
+    obj: 'formSchemaId',
+    internal: true,
+    protected: true,
+    list: false
+  },
   'slug',
   {
     db: 'uid',

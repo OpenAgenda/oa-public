@@ -30,14 +30,14 @@ module.exports = {
     contribution: {
       type: {
         default: 2,
-        type: 'number',
+        type: 'integer',
         optional: false,
         min: 0, // no contribution
         max: 2  // contribution on invitation only
       },
       defaultState: {
         default: 2,
-        type: 'number',
+        type: 'integer',
         optional: false,
         min: 0, // to be controlled
         max: 2  // published
