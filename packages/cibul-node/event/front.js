@@ -560,6 +560,7 @@ function _formatEmbedHeadLinks( req, res, next ) {
     eventSlug: req.event.slug
   }, { protocol: 'https://' } );
 
+
   req.formatted.actionLabel = getLabel( 'export', req.lang );
 
   next();

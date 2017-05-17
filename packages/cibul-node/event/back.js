@@ -89,7 +89,7 @@ const routes = {
     cmn.checkAdminOrModerator,
     ( req, res, next ) => {
 
-      const limit = 1;
+      const limit = 20;
 
       activitiesSvc.feed( {
         entityType: 'event',
@@ -100,6 +100,7 @@ const routes = {
 
           res.json( {
             html: ReactDOMServer.renderToStaticMarkup( activitiesEventApp( { activities, lang: req.lang || 'fr' } ) ),
+            count: activities.length,
             nextUrl: lastPage ? null : req.genUrl( 'agendaEventActivities', {
               uid: req.agenda.uid,
               eventUid: req.event.uid,
