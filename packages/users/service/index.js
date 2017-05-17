@@ -27,8 +27,8 @@ const knexLib = require( 'knex' ),
 
 var config, knex, schemas;
 
-const basicFields = [ 'id', 'uid', 'full_name', 'username', 'email', 'image', 'created_at', 'updated_at' ];
-const detailedFields = [ 'id', 'uid', 'full_name', 'username', 'email', 'image',
+const basicFields = [ 'id', 'uid', 'full_name', 'username', 'email', 'image', 'is_new', 'created_at', 'updated_at' ];
+const detailedFields = [ 'id', 'uid', 'full_name', 'username', 'email', 'image', 'is_new',
   'facebook_uid', 'twitter_id', 'google_id', 'culture', 'is_activated', 'created_at',
   'updated_at', 'last_notified', 'is_removed', 'last_signin', 'comexposium_id' ];
 
@@ -46,7 +46,8 @@ module.exports = {
   requestChangeEmail,
   confirmChangeEmail,
   generateApiKey,
-  remove
+  remove,
+  setNewFlag
 };
 
 
@@ -97,7 +98,7 @@ function init( c, cb ) {
 
 function list( query, offset, limit, cb ) {
 
-  if ( !config ) throw 'service not initialized';
+  if ( !config ) throw new Error( 'service not initialized' );
 
   if ( arguments.length === 3 ) {
 
@@ -401,6 +402,55 @@ function remove( query, cb ) {
 
 }
 
+function setNewFlag( query, flag, options, cb ) {
+
+  if ( !config ) return cb( 'service not initialized' );
+
+  if ( arguments.length === 3 ) {
+    cb = options;
+    options = {};
+  }
+
+  w( {
+    identifier: _.pick( query, [ 'id', 'uid', 'email' ] ),
+    query,
+    errors: [],
+    success: false,
+    params: options
+  } )
+
+    .then( _get )
+
+    .then( v => new Promise( ( resolve, reject ) => {
+
+      const exceptedFlag = flag ? 1 : 0;
+
+      if ( !v.user || v.user.is_new === exceptedFlag ) return resolve( v );
+
+      set(
+        Object.assign( {}, v.query, { is_new: exceptedFlag } ),
+        Object.assign( {}, v.params, { protected: false } ),
+        ( err, result ) => {
+
+          if ( err ) return reject( err );
+
+          if ( result.success ) {
+
+            v.user = result.user
+            v.success = true;
+
+          }
+
+          return resolve( v );
+
+        } );
+
+    } ) )
+
+    .done( v => cb( null, v.success ), err => cb( err ) );
+
+}
+
 
 function _search( v ) {
 
@@ -510,7 +560,7 @@ function _get( v ) {
 
     }, err => {
 
-      throw err;
+      throw new Error( err );
 
     } );
 
@@ -520,7 +570,7 @@ function _checkEmailTaken( v ) {
 
   if ( v.query.email ) {
 
-    return emailAlreadyTaken( v.query.email )
+    return _emailAlreadyTaken( v.query.email )
 
       .then( emailTaken => {
 
@@ -670,7 +720,7 @@ function _updateOrInsertApiKeySet( v ) {
 
     }, err => {
 
-      throw err;
+      throw new Error( err );
 
     } )
 
@@ -930,9 +980,12 @@ function _clean( v ) {
 
   if ( v.user ) {
 
-    v.user = utils.filterByAttr( v.user, [ 'id', 'uid', 'full_name', 'username', 'email', 'image', 'facebook_uid', 'twitter_id', 'google_id',
-      'culture', 'is_activated', 'created_at', 'updated_at', 'last_notified', 'is_removed', 'last_signin', 'comexposium_id',
-      'api_key', 'api_secret' ].concat( v.params && v.params.store ? 'store' : [] ) );
+    v.user = utils.filterByAttr( v.user, [
+      'id', 'uid', 'full_name', 'username', 'email', 'image', 'facebook_uid',
+      'twitter_id', 'google_id', 'culture', 'is_activated', 'created_at', 'updated_at', 'last_notified', 'is_removed',
+      'is_new', 'last_signin', 'comexposium_id', 'api_key', 'api_secret'
+    ]
+      .concat( v.params && v.params.store ? 'store' : [] ) );
 
     if ( v.params && v.params.store && v.user && v.user.store ) {
 
@@ -981,7 +1034,7 @@ function _generateApiKey( v ) {
 }
 
 
-function emailAlreadyTaken( email ) {
+function _emailAlreadyTaken( email ) {
 
   var d = w.defer();
 

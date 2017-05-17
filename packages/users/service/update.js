@@ -21,7 +21,10 @@ schema.register( {
 } );
 
 
-const basicFields = [ 'id', 'uid', 'full_name', 'username', 'culture', 'email', 'image', 'created_at', 'updated_at' ];
+const basicFields = [
+  'id', 'uid', 'full_name', 'username', 'culture',
+  'email', 'image', 'is_new', 'created_at', 'updated_at'
+];
 const protectedFields = [ 'is_activated' ];
 
 const storeFields = [ 'enable_secret' ];
@@ -219,6 +222,9 @@ function _validate( namespaces ) {
     is_removed: {
       type: 'number'
     },
+    is_new: {
+      type: 'number'
+    },
     created_at: {
       type: 'date'
     },
@@ -244,15 +250,16 @@ function _validate( namespaces ) {
         'culture',
         'image'
       ].concat( !params.protected ? [
-          'id',
-          'uid',
-          'email',
-          'is_activated'
-        ] : [] ).concat( params.internal ? [
-          'created_at',
-          'updated_at',
-          'enable_secret'
-        ] : [] ).filter( v => Object.keys( data ).includes( v ) );
+        'id',
+        'uid',
+        'email',
+        'is_activated',
+        'is_new'
+      ] : [] ).concat( params.internal ? [
+        'created_at',
+        'updated_at',
+        'enable_secret'
+      ] : [] ).filter( v => Object.keys( data ).includes( v ) );
 
       const cleanedData = schemaValidator.part( fieldsToClean, data );
 

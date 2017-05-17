@@ -25,7 +25,8 @@ CREATE TABLE `${schema}` (
   `google_id` varchar(255) DEFAULT NULL,
   `uid` bigint(20) DEFAULT NULL,
   `last_signin` datetime DEFAULT NULL,
-  `comexposium_id` varchar(255) DEFAULT NULL
+  `comexposium_id` varchar(255) DEFAULT NULL,
+  `is_new` tinyint DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `${schema}` (`id`, `full_name`, `username`, `email`, `image`, `facebook_uid`, `twitter_screen_name`, `culture`, `is_activated`, `main`, `password`, `salt`, `created_at`, `updated_at`, `last_notified`, `is_removed`, `store`, `api_key`, `is_basic`, `twitter_id`, `google_id`, `uid`, `last_signin`, `comexposium_id`) VALUES

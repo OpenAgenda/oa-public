@@ -21,7 +21,7 @@ schema.register( {
 
 // define the schema
 
-const protectedFields = [ 'is_activated' ];
+const protectedFields = [ 'is_activated', 'is_new' ];
 
 const schemaValidator = schema( {
   full_name: {
@@ -55,6 +55,9 @@ const schemaValidator = schema( {
   is_activated: {
     type: 'number',
     default: 0
+  },
+  is_new: {
+    type: 'number'
   },
   is_removed: {
     type: 'number'
