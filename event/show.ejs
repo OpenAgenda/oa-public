@@ -190,9 +190,9 @@
 <% if ( event.image ) { %>
           <img  class="img-responsive" src="<%= event.image %>">
 <% } %>
-          <div class="description"><%- event.freeText %></div>
+          <div class="description event-content-section"><%- event.freeText %></div>
 
-          <div class="custom js_custom">
+          <div class="js_custom event-content-section">
 <% if ( event.custom ) { %>
 <% var custom = event.custom, labels = event.customLabels; %>
             <% include custom.part.ejs %>
@@ -298,6 +298,10 @@
       </div>
     </div>
 <% } %>
+
+    <div class="js_contributor"></div>
+
+    <div class="js_activities"></div>
 
 <% if ( event.owner ) { %>  
         <div class="signature">

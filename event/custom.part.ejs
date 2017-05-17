@@ -1,9 +1,11 @@
-<% if ( typeof customHead !== 'undefined' ) { %><%- customHead %><% } %>
-<dl <% if ( typeof customClass !== 'undefined' ) { %>class="<%= customClass %>"<% } %>>
+<dl class="event-item-info">
 <% for ( var i in custom ) { %>
 <% if ( custom[ i ].value ) { %>
 <% if ( custom[ i ].fieldType == 'url' ) { %>
-  <dt><%= labels[ custom[ i ].name ] %></dt>
+  <dt class="<%= typeof private !== 'undefined' && private ? 'privateable' : '' %>">
+    <span><%= labels[ custom[ i ].name ] %></span>
+    <% if ( typeof private !== 'undefined' && private ) { %><%- private %><% } %>
+  </dt>
   <dd>
     <a target="_blank" href="<%= custom[ i ].value %>"><%= custom[ i ].value %></a>
   </dd>
@@ -15,17 +17,26 @@
 <% } else if ( custom[ i ].fieldType == 'checkbox' ) { %>
   <% if ( custom[ i ].value ) { %><dt><%= labels[ custom[ i ].name ] %></dt><% } %>
 <% } else if ( custom[ i ].fieldType == 'email' ) { %>
-  <dt><%= labels[ custom[ i ].name ] %></dt>
+  <dt class="<%= typeof private !== 'undefined' && private ? 'privateable' : '' %>">
+    <span><%= labels[ custom[ i ].name ] %></span>
+    <% if ( typeof private !== 'undefined' && private ) { %><%- private %><% } %>
+  </dt>
   <dd>
     <a href="mailto:<%= custom[ i ].value %>"><%= custom[ i ].value %></a>
   </dd>
 <% } else if ( custom[ i ].label && [ 'radio', 'checkbox', 'select', 'multichoice' ].indexOf( custom[ i ].fieldType ) !== -1 ) { %>
-  <dt><%= labels[ custom[ i ].name ] %></dt>
+  <dt class="<%= typeof private !== 'undefined' && private ? 'privateable' : '' %>">
+    <span><%= labels[ custom[ i ].name ] %></span>
+    <% if ( typeof private !== 'undefined' && private ) { %><%- private %><% } %>
+  </dt>
   <dd>
     <span><%= typeof custom[ i ].label == 'string' ? custom[ i ].label : custom[ i ].label.join( ', ' )  %></span>
   </dd>
 <% } else { %>
-  <dt><%= labels[ custom[ i ].name ] %></dt>
+  <dt class="<%= typeof private !== 'undefined' && private ? 'privateable' : '' %>">
+    <span><%= labels[ custom[ i ].name ] %></span>
+    <% if ( typeof private !== 'undefined' && private ) { %><%- private %><% } %>
+  </dt>
   <dd>
     <span><%= custom[ i ].value %></span>
   </dd>
