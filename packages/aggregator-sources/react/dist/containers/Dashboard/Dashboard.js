@@ -240,10 +240,15 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
   }
 
   _createClass(Dashboard, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
       if (typeof document === 'undefined') return;
-      (0, _monitorBottomHit2.default)((0, _lodash4.default)(this.nextPage, 400));
+      (0, _monitorBottomHit2.default)((0, _lodash4.default)(this.nextPage, 400, { trailing: false }));
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      _monitorBottomHit2.default.stop();
     }
   }, {
     key: 'render',

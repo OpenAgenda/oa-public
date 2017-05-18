@@ -131,9 +131,13 @@ export default class Dashboard extends Component {
     this.props.nextPage( { search }, (page || 1) + 1 );
   };
 
-  componentWillMount() {
+  componentDidMount() {
     if ( typeof document === 'undefined' ) return;
-    monitorBottomHit( throttle( this.nextPage, 400 ) );
+    monitorBottomHit( throttle( this.nextPage, 400, { trailing: false } ) );
+  }
+
+  componentWillUnmount() {
+    monitorBottomHit.stop();
   }
 
   render() {
