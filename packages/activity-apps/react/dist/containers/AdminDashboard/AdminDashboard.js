@@ -36,6 +36,10 @@ var _debounce = require('lodash/debounce');
 
 var _debounce2 = _interopRequireDefault(_debounce);
 
+var _throttle = require('lodash/throttle');
+
+var _throttle2 = _interopRequireDefault(_throttle);
+
 var _pick = require('lodash/pick');
 
 var _pick2 = _interopRequireDefault(_pick);
@@ -44,17 +48,21 @@ var _reactSelect = require('react-select');
 
 var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
+var _Spinner = require('react-form-components/build/Spinner');
+
+var _Spinner2 = _interopRequireDefault(_Spinner);
+
 var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+var _monitorBottomHit = require('dom-utils/monitorBottomHit');
+
+var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
+
 var _admin = require('labels/activities/admin');
 
 var _admin2 = _interopRequireDefault(_admin);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
 
 var _format = require('activities/format');
 
@@ -218,15 +226,22 @@ var AdminDashboard = _wrapComponent('AdminDashboard')((_dec = (0, _reduxConnect.
           _split2$2 = _split2[1],
           endValue = _split2$2 === undefined ? '' : _split2$2;
 
-      return _react3.default.createElement(
-        'div',
-        null,
-        _react3.default.createElement(_components2.DateTimePicker, {
-          handleEvent: handleEvent,
-          startValue: startValue && (0, _moment2.default)(startValue),
-          endValue: endValue && (0, _moment2.default)(endValue)
-        })
-      );
+      return _react3.default.createElement(_components2.DateTimePicker, {
+        handleEvent: handleEvent,
+        startValue: startValue && (0, _moment2.default)(startValue),
+        endValue: endValue && (0, _moment2.default)(endValue)
+      });
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      if (typeof document === 'undefined') return;
+      (0, _monitorBottomHit2.default)((0, _throttle2.default)(this.nextPage, 400, { trailing: false }));
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      _monitorBottomHit2.default.stop();
     }
   }, {
     key: 'render',
@@ -235,8 +250,6 @@ var AdminDashboard = _wrapComponent('AdminDashboard')((_dec = (0, _reduxConnect.
           handleSubmit = _props.handleSubmit,
           reset = _props.reset,
           activities = _props.activities,
-          lastPage = _props.lastPage,
-          loading = _props.loading,
           nextLoading = _props.nextLoading;
       var getLabel = this.context.getLabel;
 
@@ -442,17 +455,10 @@ var AdminDashboard = _wrapComponent('AdminDashboard')((_dec = (0, _reduxConnect.
               { className: 'margin-bottom-sm' },
               getLabel('noActivity')
             ),
-            !lastPage && _react3.default.createElement(
+            nextLoading && _react3.default.createElement(
               'div',
-              { className: 'text-center' },
-              _react3.default.createElement(
-                'button',
-                {
-                  className: (0, _classnames2.default)('btn', 'btn-default', { disabled: nextLoading || loading }),
-                  onClick: this.nextPage
-                },
-                'Suivant'
-              )
+              { className: 'padding-v-md', style: { position: 'relative' } },
+              _react3.default.createElement(_Spinner2.default, null)
             )
           )
         )

@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { asyncConnect } from 'redux-connect';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
 import debounce from 'lodash/debounce';
+import throttle from 'lodash/throttle';
 import pick from 'lodash/pick';
 import Select from 'react-select';
+import Spinner from 'react-form-components/build/Spinner';
 import moment from 'moment';
+import monitorBottomHit from 'dom-utils/monitorBottomHit';
 import activityLabels from 'labels/activities/admin';
-import classNames from 'classnames';
 import activityFormatMaker from 'activities/format';
 import * as activitiesActions from '../../redux/modules/activities';
 import { renderField, renderSelect, renderInput } from '../../utils/form';
@@ -125,19 +127,26 @@ export default class AdminDashboard extends Component {
     const [ startValue = '', endValue = '' ] = (field.input.value || '').split( '|' );
 
     return (
-      <div>
-        <DateTimePicker
-          handleEvent={handleEvent}
-          startValue={startValue && moment( startValue )}
-          endValue={endValue && moment( endValue )}
-        />
-      </div>
+      <DateTimePicker
+        handleEvent={handleEvent}
+        startValue={startValue && moment( startValue )}
+        endValue={endValue && moment( endValue )}
+      />
     );
 
   }
 
+  componentDidMount() {
+    if ( typeof document === 'undefined' ) return;
+    monitorBottomHit( throttle( this.nextPage, 400, { trailing: false } ) );
+  }
+
+  componentWillUnmount() {
+    monitorBottomHit.stop();
+  }
+
   render() {
-    const { handleSubmit, reset, activities, lastPage, loading, nextLoading } = this.props;
+    const { handleSubmit, reset, activities, nextLoading } = this.props;
     const { getLabel } = this.context;
 
     return (
@@ -240,13 +249,8 @@ export default class AdminDashboard extends Component {
               {getLabel( 'noActivity' )}
             </div>}
 
-            {!lastPage && <div className="text-center">
-              <button
-                className={classNames( 'btn', 'btn-default', { disabled: nextLoading || loading } )}
-                onClick={this.nextPage}
-              >
-                Suivant
-              </button>
+            {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
+              <Spinner />
             </div>}
           </div>
         </div>

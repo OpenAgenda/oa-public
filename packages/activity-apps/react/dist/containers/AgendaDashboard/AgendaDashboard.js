@@ -32,9 +32,17 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _classnames = require('classnames');
+var _throttle = require('lodash/throttle');
 
-var _classnames2 = _interopRequireDefault(_classnames);
+var _throttle2 = _interopRequireDefault(_throttle);
+
+var _Spinner = require('react-form-components/build/Spinner');
+
+var _Spinner2 = _interopRequireDefault(_Spinner);
+
+var _monitorBottomHit = require('dom-utils/monitorBottomHit');
+
+var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
 
 var _format = require('activities/format');
 
@@ -132,19 +140,26 @@ var AgendaDashboard = _wrapComponent('AgendaDashboard')((_dec = (0, _reduxConnec
   }
 
   _createClass(AgendaDashboard, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
       var lang = this.context.lang;
 
       _moment2.default.locale(lang);
+
+      if (typeof document !== 'undefined') {
+        (0, _monitorBottomHit2.default)((0, _throttle2.default)(this.nextPage, 400, { trailing: false }));
+      }
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      _monitorBottomHit2.default.stop();
     }
   }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
           activities = _props.activities,
-          lastPage = _props.lastPage,
-          loading = _props.loading,
           nextLoading = _props.nextLoading;
       var _context = this.context,
           getLabel = _context.getLabel,
@@ -174,7 +189,7 @@ var AgendaDashboard = _wrapComponent('AgendaDashboard')((_dec = (0, _reduxConnec
                   { className: 'pull-left margin-right-sm small' },
                   (0, _moment2.default)(activity.createdAt).format('LLL')
                 ),
-                _react3.default.createElement('p', { dangerouslySetInnerHTML: { __html: formatActivity(activity) } })
+                _react3.default.createElement('p', { dangerouslySetInnerHTML: { __html: formatActivity(activity, lang) } })
               );
             })
           ),
@@ -183,17 +198,10 @@ var AgendaDashboard = _wrapComponent('AgendaDashboard')((_dec = (0, _reduxConnec
             { className: 'margin-bottom-sm' },
             getLabel('noActivity')
           ),
-          !lastPage && _react3.default.createElement(
+          nextLoading && _react3.default.createElement(
             'div',
-            { className: 'text-center' },
-            _react3.default.createElement(
-              'button',
-              {
-                className: (0, _classnames2.default)('btn', 'btn-default', { disabled: nextLoading || loading }),
-                onClick: this.nextPage
-              },
-              getLabel('next')
-            )
+            { className: 'padding-v-md', style: { position: 'relative' } },
+            _react3.default.createElement(_Spinner2.default, null)
           )
         )
       );

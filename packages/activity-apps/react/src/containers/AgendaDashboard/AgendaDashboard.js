@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { asyncConnect } from 'redux-connect';
 import moment from 'moment';
-import classNames from 'classnames';
+import throttle from 'lodash/throttle';
+import Spinner from 'react-form-components/build/Spinner';
+import monitorBottomHit from 'dom-utils/monitorBottomHit';
 import activityFormatMaker from 'activities/format';
 import activityLabels from 'labels/activities/agenda';
 import * as activitiesActions from '../../redux/modules/activities';
@@ -50,11 +52,19 @@ export default class AgendaDashboard extends Component {
     getLabel: PropTypes.func
   };
 
-  componentWillMount() {
+  componentDidMount() {
 
     const { lang } = this.context;
     moment.locale( lang );
 
+    if ( typeof document !== 'undefined' ) {
+      monitorBottomHit( throttle( this.nextPage, 400, { trailing: false } ) );
+    }
+
+  }
+
+  componentWillUnmount() {
+    monitorBottomHit.stop();
   }
 
   nextPage = () => {
@@ -64,7 +74,7 @@ export default class AgendaDashboard extends Component {
   };
 
   render() {
-    const { activities, lastPage, loading, nextLoading } = this.props;
+    const { activities, nextLoading } = this.props;
     const { getLabel, lang } = this.context;
 
     return (
@@ -78,7 +88,7 @@ export default class AgendaDashboard extends Component {
                 <label className="pull-left margin-right-sm small">
                   {moment( activity.createdAt ).format( 'LLL' )}
                 </label>
-                <p dangerouslySetInnerHTML={{ __html: formatActivity( activity ) }} />
+                <p dangerouslySetInnerHTML={{ __html: formatActivity( activity, lang ) }} />
               </li>
             ) )}
           </ul>}
@@ -87,13 +97,8 @@ export default class AgendaDashboard extends Component {
             {getLabel( 'noActivity' )}
           </div>}
 
-          {!lastPage && <div className="text-center">
-            <button
-              className={classNames( 'btn', 'btn-default', { disabled: nextLoading || loading } )}
-              onClick={this.nextPage}
-            >
-              {getLabel( 'next' )}
-            </button>
+          {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
+            <Spinner />
           </div>}
         </div>
       </div>

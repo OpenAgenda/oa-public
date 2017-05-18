@@ -15,7 +15,9 @@ const helpers = require( 'test-app/helpers' );
 const app = require( 'test-app' )( {
   frontWrapper: __dirname + '/front.jsx',
   excludeDefaultStyles: true,
-  styles: [],
+  styles: [
+    __dirname + '/../../node_modules/bs-templates/compiled/admin.css'
+  ],
   decorateCanvas: false,
   webpack: true
 } );
