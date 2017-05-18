@@ -31,16 +31,14 @@ module.exports = function( req, res ) {
     pubDate: req.agenda.updatedAt,
     ttl: 120,
     custom_namespaces: {
-      'oaevent': 'https://s3.eu-central-1.amazonaws.com/oastatic/dtd/oaevent#'
+      'ev': 'http://purl.org/rss/1.0/modules/event/'
     },
     custom_elements: [ {
-      'oaevent:image': 'Image of the event'
+      'ev:startdate': 'Event first start date and time'
     }, {
-      'oaevent:range': 'Time range of the event'
+      'ev:enddate': 'Event final end date and time'
     }, {
-      'oaevent:location' : 'Name of the location of the event'
-    }, {
-      'oaevent:address' : 'Address of the event'
+      'ev:location' : 'Name and Address of the location of the event'
     } ]
   } );
 
@@ -58,7 +56,7 @@ module.exports = function( req, res ) {
 
       eInst.switchLanguage( req.lang );
 
-      feed.item( {
+      let item = {
         title: eInst.getTitle(),
         description: _buildRssDescription( eInst, exp, req.lang ),
         url: req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: eInst.slug, lang: req.lang }, { abs: true } ),
@@ -67,15 +65,24 @@ module.exports = function( req, res ) {
         lat: exp.latitude,
         long: exp.longitude,
         custom_elements: [ {
-          'oaevent:image' : exp.image || null
+          'ev:startdate' : exp.timings[ 0 ].start
         }, {
-          'oaevent:range' : exp.range[ req.lang ]
+          'ev:enddate' : exp.timings[ exp.timings.length - 1 ].end
         }, {
-          'oaevent:location' : exp.location.name
-        }, {
-          'oaevent:address' : exp.location.address
+          'ev:location' : exp.location.name + ' - ' + exp.location.address
         } ]
-      } );
+      }
+
+      if ( exp.image ) {
+
+        item.enclosure = {
+          url: exp.image,
+          type: 'image/jpeg'
+        }
+
+      }
+
+      feed.item( item );
 
       ecb();
 
