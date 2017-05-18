@@ -1,33 +1,44 @@
 "use strict";
 
-var utils = require( 'utils' ),
+var _ = {
+  extend: require( 'lodash/extend' ),
+  keys: require( 'lodash/keys' )
+},
 
-du = require( 'dom-utils' ),
+  du = require( 'dom-utils' ),
 
-remote = require( '../../js/lib/remote/remote.mod.js' ),
+  activities = require( './activities' ),
 
-debug = require( 'debug' ), log,
+  displayContributor = require( './contributor' ),
 
-defaults = {
-  uid: false,
-  agendaUid: false,
-  env: 'production',
-  selector: '.js_custom',
-  url: {
-    prod: '/agendas/{agendaUid}/events/{eventUid}/private',
-    dev: '/agendas/{agendaUid}/events/{eventUid}/private',
-    tpl: '/server/testdata/privateeventdata.json'
-  },
-  customHead: '<div class="private-head"><i class="fa fa-lock"></i></div>',
-  customTemplate: require( '../custom.part.ejs' ),
-  contributorHead: '<div class="private-subhead"></div>',
-  contributorTemplate: require( '../contributor.part.ejs' ),
-  className: 'private'
-}
+  remote = require( '../../js/lib/remote/remote.mod.js' ),
+
+  debug = require( 'debug' ), log,
+
+  defaults = {
+    uid: false,
+    agendaUid: false,
+    env: 'production',
+    selector: '.js_custom',
+    url: {
+      production: '/agendas/{agendaUid}/events/{eventUid}/private',
+      development: '/agendas/{agendaUid}/events/{eventUid}/private',
+      tpl: '/server/testdata/privateeventdata.json'
+    },
+    activitiesSelector: '.js_activities',
+    contributorsSelector: '.js_contributor',
+    activitiesUrl: {
+      production: '/agendas/{agendaUid}/events/{eventUid}/activities',
+      development: '/agendas/{agendaUid}/events/{eventUid}/activities',
+      tpl: '/server/testdata/eventactivitiesdata.json'
+    },
+    customTemplate: require( '../custom.part.ejs' ),
+    className: 'private'
+  }
 
 module.exports = function( options ) {
 
-  var params = utils.extend( {}, defaults, options ? options : {} );
+  var params = _.extend( {}, defaults, options ? options : {} );
 
   if ( window.env ) params.env = window.env;
 
@@ -40,7 +51,8 @@ module.exports = function( options ) {
   log = debug( 'customData' );
 
   return {
-    load: load
+    load: load,
+    activities: displayActivities
   }
 
   function load( agendaUid, eventUid ) {
@@ -56,26 +68,34 @@ module.exports = function( options ) {
         return;
 
       }
-
-      if ( utils.size( data.custom ) || utils.size( data.contributor ) ) {
-
-        du.el( params.selector ).insertAdjacentHTML( 'beforeend', params.customHead );
-
-      }
       
-      if ( utils.size( data.custom.custom ) ) {
+      if ( _.keys( data.custom.custom ).length ) {
 
         du.el( params.selector ).insertAdjacentHTML( 'beforeend', _renderCustom( data.custom ) );
 
       }
 
-      if ( data.contributor && utils.size( data.contributor ) ) {
+      if ( data.contributor && _.keys( data.contributor ).length ) {
 
-        du.el( params.selector ).insertAdjacentHTML( 'beforeend', _renderContributor( data.contributor ) );
+        displayContributor( {
+          contributor: data.contributor,
+          canvas: du.el( params.contributorsSelector )
+        } );
 
       }
 
     });
+
+  }
+
+  function displayActivities( agendaUid, eventUid, lang ) {
+
+    activities( {
+      canvas: du.el( params.activitiesSelector ),
+      res: params.activitiesUrl[ params.env ],
+      fetch: _fetch,
+      lang
+    } );
 
   }
 
@@ -118,7 +138,7 @@ module.exports = function( options ) {
 
   function _renderCustom( data ) {
 
-    data.customClass = params.className;
+    data.private = '<div class="private-label"><i class="fa fa-unlock-alt"></i> <span>Information privée</span></div>';
 
     return params.customTemplate( data );
 

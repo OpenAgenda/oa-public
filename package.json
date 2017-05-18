@@ -78,7 +78,7 @@
     "member-apps": "git+ssh://git@bitbucket.org/openagenda/member-apps.git",
     "moment": "2.9.0",
     "moment-timezone": "^0.5.3",
-    "node-sass": "3.3.3",
+    "node-sass": "^4.5.2",
     "outdated-browser-rework": "^1.0.2",
     "prop-types": "^15.5.8",
     "qs": "2.3.3",

@@ -30,8 +30,8 @@ config = {
       listFrame: '.cbpglst'
     }
   },
-  prod: {},
-  dev: {
+  production: {},
+  development: {
     resources: {
       form:    '//d.openagenda.com/frontend_dev.php/embed/{uid}/form',
       sandbox: '//d.openagenda.com/frontend_dev.php/embed/{uid}/form/sandbox'

@@ -88,17 +88,7 @@ window.asap( options => {
       displaySelectors: roles.map( r => params.selectors[ r ] )
     } );
 
-    if ( params.hasCustomFields ) {
-
-      adminControls.ifAdmin( function() {
-
-        log( 'user is admin' );
-
-        privateData().load( params.agendaUid, params.uid );
-
-      } );
-
-    }
+    var prv = privateData();
 
     displayReferences( params.agendaUid, params.uid );
 
@@ -114,6 +104,17 @@ window.asap( options => {
     if ( !roles.filter( r => r == ROLES.AGENDAMODERATOR || r == ROLES.AGENDAADMIN ).length ) {
 
       du.removeClass( du.el( '.js_current_state' ), 'display-none' );
+
+    } else {
+
+      if ( params.hasCustomFields ) {
+
+        prv.load( params.agendaUid, params.uid );
+
+
+      }
+
+      prv.activities( params.agendaUid, params.uid, params.lang );
 
     }
 
