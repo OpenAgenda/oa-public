@@ -47,7 +47,7 @@ function agendasList( req, res, next ) {
 
   stakeholdersList(
     req.user.id,
-    offset,
+    0,
     500, // hmmmm..
     ( err, stakeholders ) => {
 
@@ -65,9 +65,12 @@ function agendasList( req, res, next ) {
 
           if ( err ) return next( err );
 
-          reviews = _.zipWith( reviews, stakeholders, ( review, stakeholder ) => {
+          reviews = reviews.map( review => {
+
+            const stakeholder = stakeholders.find( s => s.agendaId === review.id );
             return Object.assign( {}, review, { stakeholder } );
-          } ).filter( review => !!review.id );
+
+          } );
 
           res.send( {
             total,
