@@ -31,6 +31,16 @@ module.exports = function ( stakeholder, context ) {
 
         if ( err ) return log( 'error', err );
 
+        if ( user.is_new ) {
+
+          users.setNewFlag( { id: stakeholder.userId }, false, ( err ) => {
+
+            if ( err ) return log( 'error', err );
+
+          } );
+
+        }
+
         users.get( context.invitationSender.userId, ( err, senderUser ) => {
 
           if ( err ) return log( 'error', err );

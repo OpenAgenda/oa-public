@@ -3,7 +3,7 @@
 const agendas = require( 'agendas' );
 
 const agendaStakeholders = require( 'agenda-stakeholders' ),
-  
+
   activities = require( 'activities' ),
 
   users = require( 'users' ),
@@ -14,9 +14,11 @@ const agendaStakeholders = require( 'agenda-stakeholders' ),
 
   _ = require( 'lodash' );
 
+let log = console.log;
+
 module.exports.init = config => {
 
- agendas.init( {
+  agendas.init( {
     mysql: config.db,
     schemas: config.schemas,
     files: {
@@ -36,6 +38,8 @@ module.exports.init = config => {
   } );
 
 }
+
+module.exports.setLog = l => log = l;
 
 
 function onCreate( channel, agenda ) {
@@ -70,6 +74,16 @@ function onCreate( channel, agenda ) {
     users.get( agenda.ownerId, ( err, user ) => {
 
       if ( err ) return log( 'error', err );
+
+      if ( user.is_new ) {
+
+        users.setNewFlag( { id: user.id }, false, ( err ) => {
+
+          if ( err ) return log( 'error', err );
+
+        } )
+
+      }
 
       agendaStakeholders( agenda.id ).create( {
         email: user.email

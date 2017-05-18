@@ -1,20 +1,13 @@
 "use strict";
 
-const React = require( 'react' ),
+const React = require( 'react' );
+const ReactDOM = require( 'react-dom/server' );
+const config = require( '../config' );
+const modLib = require( "../lib/moduleLib.js" );
+const cmn = require( '../lib/commons-app' );
+const homeMw = require( 'home/middleware' );
+const sessions = require( 'sessions' );
 
- ReactDOM = require( 'react-dom/server' ),
-
- config = require( '../config' ),
-
- modLib = require( "../lib/moduleLib.js" ),
-
- cmn = require( '../lib/commons-app' ),
-
- home = require( 'home' ),
-
- homeConfig = home.getConfig(),
-
- sessions = require( 'sessions' );
 
 module.exports = path => {
 
@@ -24,7 +17,7 @@ module.exports = path => {
       matchApp
     ] ],
 
-    homeShowList: [ 'get', '/agendas', home.mw.agendas.list ]
+    homeShowList: [ 'get', '/agendas', homeMw.agendas.list ]
   };
 
   const router = modLib.Router( routes );
@@ -42,16 +35,11 @@ module.exports = path => {
 
 }
 
+
 function getApp( req, res, next, { store, component } = {} ) {
 
-  // const prefix = req.genUrl( 'homeAgendas' ).split( '?' )[ 0 ];
   const state = store ? store.getState() : {};
   const lang = req.lang || 'fr';
-
-  // Manually add prefix for react-router matching
-  /*if ( state.routing && state.routing.locationBeforeTransitions ) {
-    state.routing.locationBeforeTransitions.basename = prefix;
-  }*/
 
   const content = component ? ReactDOM.renderToString( component ) : '';
 
@@ -64,14 +52,14 @@ function matchApp( req, res, next ) {
   const prefix = req.genUrl( 'homeShow' ).split( '?' )[ 0 ];
   const lang = req.lang || 'fr';
 
-  home.mw.matchApp(
+  homeMw.matchApp(
     {
       state: {
         settings: {
           prefix,
           lang,
           apiRoot: `http://localhost:${config.port}`,
-          perPageLimit: homeConfig.mw.limit
+          perPageLimit: homeMw.getConfig().mw.limit
         },
         res: {
           list: req.genUrl( 'homeShowList' ),

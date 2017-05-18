@@ -1,10 +1,13 @@
 "use strict";
 
-const home = require( 'home' );
+const homeMw = require( 'home/middleware' );
+const agendasSvc = require( 'agendas' );
+const stakeholdersSvc = require( 'agenda-stakeholders' );
+
 
 module.exports.init = ( config, cb ) => {
 
-  home.init( {
+  homeMw.init( {
     mysql: config.db,
     schemas: config.schemas,
     image: {
@@ -13,6 +16,14 @@ module.exports.init = ( config, cb ) => {
     },
     mw: {
       limit: 20
+    },
+    interfaces: {
+      agendas: {
+        list: agendasSvc.list
+      },
+      stakeholders: {
+        list: ( userId, ...args ) => stakeholdersSvc.user( userId ).list( ...args )
+      }
     }
   }, cb );
 
