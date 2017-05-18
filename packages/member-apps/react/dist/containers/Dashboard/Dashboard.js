@@ -277,6 +277,11 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       (0, _monitorBottomHit2.default)((0, _lodash4.default)(this.nextPage, 400, { trailing: false }));
     }
   }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      _monitorBottomHit2.default.stop();
+    }
+  }, {
     key: 'renderStakeholder',
     value: function renderStakeholder(stakeholder) {
       var id = stakeholder.id,

@@ -169,6 +169,10 @@ export default class Dashboard extends Component {
     monitorBottomHit( throttle( this.nextPage, 400, { trailing: false } ) );
   }
 
+  componentWillUnmount() {
+    monitorBottomHit.stop();
+  }
+
   renderStakeholder( stakeholder ) {
     const { id, credential, custom, eventCount, user, deletedUser, actionsCounter } = stakeholder;
     const { getLabel } = this.context;
