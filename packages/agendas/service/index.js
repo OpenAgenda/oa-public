@@ -117,7 +117,7 @@ function list( q, off, l, op, c ) {
   let { query, offset, limit, options, cb } = parseListArguments.apply( null, arguments );
 
   query = _.extend( {
-    ids: [],
+    ids: null,
     search: null,
     order: ''
   }, query );
@@ -189,17 +189,13 @@ function count( cb ) {
 
 function _search( v ) {
 
-  let ids = false;
-
   if ( v.options.private !== null ) {
 
     v.knex.where( 'private', v.options.private );
 
   }
 
-  if ( v.query.ids.length ) {
-
-    ids = true;
+  if ( v.query.ids ) {
 
     v.knex = v.knex.whereIn( 'id', v.query.ids );
 
@@ -211,7 +207,7 @@ function _search( v ) {
 
   }
 
-  v.knex = v.knex[ ids ? 'andWhere' : 'where' ]( function () {
+  v.knex = v.knex[ v.query.ids ? 'andWhere' : 'where' ]( function () {
 
     this.where( 'title', 'like', `%${v.query.search}%` )
       .orWhere( 'description', 'like', `%${v.query.search}%` )

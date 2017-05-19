@@ -93,6 +93,19 @@ describe( 'agendas - functional (server): list', function () {
   } );
 
 
+  it( 'list with empty ids returns empty list', done => {
+
+    svc.list( { ids: [] }, 0, 10, ( err, agendas ) => {
+
+      agendas.length.should.equal( 0 );
+
+      done();
+
+    } );
+
+  } );
+
+
   it( 'list with ids gets agendas', done => {
 
     svc.list( { ids: [ 4829, 4848 ] }, 0, 2, ( err, agendas ) => {
