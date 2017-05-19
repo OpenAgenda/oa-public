@@ -1,0 +1,151 @@
+{
+  "nextOptionId": 20,
+  "fields": [
+    {
+      "field": "quisuisje",
+      "label": {
+        "fr": "Qui suis-je?"
+      },
+      "info": null,
+      "write": "contributor",
+      "read": null,
+      "optional": false,
+      "options": [
+        {
+          "id": 1,
+          "value": "club",
+          "label": {
+            "fr": "Clubs"
+          }
+        },
+        {
+          "id": 2,
+          "value": "comite",
+          "label": {
+            "fr": "Comités"
+          }
+        },
+        {
+          "id": 3,
+          "value": "ligue",
+          "label": {
+            "fr": "Ligues"
+          }
+        },
+        {
+          "id": 4,
+          "value": "clubcomite",
+          "label": {
+            "fr": "Clubs / Comités"
+          }
+        },
+        {
+          "id": 5,
+          "value": "clubligue",
+          "label": {
+            "fr": "Clubs / Ligues"
+          }
+        },
+        {
+          "id": 6,
+          "value": "comiteligue",
+          "label": {
+            "fr": "Comités / Ligues"
+          }
+        },
+        {
+          "id": 7,
+          "value": "unss",
+          "label": {
+            "fr": "Fédérations scolaires et universitaires : UNSS"
+          }
+        },
+        {
+          "id": 8,
+          "value": "usep",
+          "label": {
+            "fr": "Fédérations scolaires et universitaires : USEP"
+          }
+        },
+        {
+          "id": 9,
+          "value": "edunat",
+          "label": {
+            "fr": "Fédérations scolaires et universitaires : éducation nationale"
+          }
+        },
+        {
+          "id": 10,
+          "value": "ugsel",
+          "label": {
+            "fr": "Fédérations scolaires et universitaires : UGSEL"
+          }
+        },
+        {
+          "id": 11,
+          "value": "ffsu",
+          "label": {
+            "fr": "Fédérations scolaires et universitaires : FFSU"
+          }
+        },
+        {
+          "id": 12,
+          "value": "AutreAssociationSportive",
+          "label": {
+            "fr": "Autre association sportive"
+          }
+        },
+        {
+          "id": 13,
+          "value": "AssoEtudiante",
+          "label": {
+            "fr": "Association étudiante"
+          }
+        },
+        {
+          "id": 14,
+          "value": "Ecole",
+          "label": {
+            "fr": "École"
+          }
+        },
+        {
+          "id": 15,
+          "value": "Collectivite",
+          "label": {
+            "fr": "Collectivité"
+          }
+        },
+        {
+          "id": 16,
+          "value": "AssoCulturelle",
+          "label": {
+            "fr": "Association culturelle"
+          }
+        },
+        {
+          "id": 17,
+          "value": "BarRestoBoite",
+          "label": {
+            "fr": "Bar-restaurant-boîte de nuit"
+          }
+        },
+        {
+          "id": 18,
+          "value": "Entreprises",
+          "label": {
+            "fr": "Entreprises"
+          }
+        },
+        {
+          "id": 19,
+          "value": "Autre",
+          "label": {
+            "fr": "Autre"
+          }
+        }
+      ],
+      "fieldType": "radio"
+    }
+  ]
+}

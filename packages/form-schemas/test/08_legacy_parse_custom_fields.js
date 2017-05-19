@@ -1,0 +1,52 @@
+"use strict";
+
+const should = require( 'should' );
+
+const parseCustomFields = require( '../legacy/parseCustomFields' );
+
+const fs = require( 'fs' );
+
+describe( 'form-schemas - unit (server): legacy custom fields', function() {
+
+  it( 'takes a form schema, a custom field set with one text field, gives the form schema completed with the text field', () => {
+
+    parseCustomFields( { fields: [] }, _get( 'text.in' ) )
+
+      .should.eql( _get( 'text.out' ) );
+
+  } );
+
+  it( 'number field', () => {
+
+    parseCustomFields( { fields: [] }, _get( 'number.in' ) )
+
+      .should.eql( _get( 'number.out' ) );
+
+  } );
+
+  it( 'integer field', () => {
+
+    parseCustomFields( { fields: [] }, _get( 'integer.in' ) )
+
+      .should.eql( _get( 'integer.out' ) );
+
+  } );
+
+  it( 'textarea field', () => {
+
+
+  } );
+
+  it( 'radio field', () => {
+
+    parseCustomFields( { fields: [] }, _get( 'radio.in' ) ).should.eql( _get( 'radio.out' ) );
+
+  } )
+
+} );
+
+function _get( name ) {
+
+  return JSON.parse( fs.readFileSync( __dirname + '/parse/' + name + '.json', 'utf-8' ) );
+
+}

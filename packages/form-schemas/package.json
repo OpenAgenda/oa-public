@@ -1,0 +1,23 @@
+{
+  "name": "form-schemas",
+  "version": "1.0.0",
+  "description": "Handle event data structure configuration storage",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "knex": "^0.13.0",
+    "labels": "git+ssh://git@bitbucket.org/openagenda/labels.git",
+    "lodash": "^4.16.6",
+    "basic-logger": "git+ssh://git@bitbucket.org:openagenda/basic-logger.git",
+    "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git"
+  },
+  "devDependencies": {
+    "fixtures": "git+ssh://git@bitbucket.org/openagenda/fixtures.git",
+    "should": "^11.1.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

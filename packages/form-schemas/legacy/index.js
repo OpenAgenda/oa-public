@@ -1,0 +1,168 @@
+"use strict";
+
+const parseCustomFields = require( './parseCustomFields' ),
+
+  parseTagSet = require( './parseTagSet' ),
+
+  knex = require( 'knex' ),
+
+  _ = require( 'lodash' ),
+
+  VError = require( 'verror' );
+
+let config, client, service;
+
+module.exports = {
+  get,
+  transfer,
+  task,
+  shutdown,
+  init
+}
+
+
+async function get( agendaId ) {
+
+  let customFields, 
+
+    tagSet, 
+
+    categorySet,
+
+    formData = { fields: [] };
+
+  try {
+
+    customFields = await _queryStore( config.legacy.schemas.agenda, agendaId, 'customFields' );
+
+    if ( customFields ) formData = parseCustomFields( formData, customFields );
+
+  } catch( e ) {
+
+    throw new VError( e, 'could not parse legacy custom fields for agenda of id %s', agendaId );
+
+  }
+
+  try {
+
+    tagSet = await _queryStore( config.legacy.schemas.tagSet, agendaId );
+
+    if ( tagSet ) formData = parseTagSet( formData, tagSet );
+
+  } catch( e ) {
+
+    throw new VError( e, 'could not parse legacy tag set for agenda of id %s', agendaId );
+
+  }
+
+  try {
+
+    categorySet = await _queryStore( config.legacy.schemas.categorySet, agendaId );
+
+    if ( categorySet ) formData = parseTagSet.categories( formData, categorySet );
+
+  } catch( e ) {
+
+    throw new VError( e, 'could not parse legacy category set for agenda of id %s', agendaId );
+
+  }
+
+  return formData.fields.length ? formData : null;
+
+}
+
+async function transfer( agendaId ) {
+
+  let formSchema, // rebuilt formSchema from legacy data
+
+    agenda,// agenda reference
+
+    result, // creation or update result.
+
+    operation; // type of the transfer operation: create or update
+
+  if ( !client ) {
+
+    throw new Error( 'database client not initialized' );
+
+  }
+
+  agenda = await client( config.legacy.schemas.agenda ).select( [ 
+    'form_schema_id'
+  ] )
+
+    .where( { id: agendaId } )
+
+    .then( rows => rows.length ? rows[ 0 ] : null );
+
+  if ( !agenda ) {
+
+    return {
+      transfered: false,
+      message: 'agenda not found',
+      agendaId
+    }
+
+  }
+
+  operation = agenda[ 'form_schema_id' ] ? 'update' : 'create';
+
+  formSchema = await get( agendaId );
+
+  if ( operation === 'update' ) {
+
+    result = await service.update( agendaId, formSchema );
+
+  } else {
+
+    result = await service.create( formSchema );
+
+  }
+
+  if ( result.success && operation === 'create' ) {
+
+    await client( config.legacy.schemas.agenda ).update( {
+      form_schema_id: result.id
+    } ).where( 'id', agendaId );
+
+  }
+
+  return _.extend( {
+    transfered: true,
+    operation
+  }, result );
+
+}
+
+function task() {}
+
+function init( c, svc ) {
+
+  config = c;
+
+  service = svc;
+
+  client = knex( {
+    client: 'mysql',
+    connection: c.legacy
+  } );
+
+}
+
+function shutdown() {
+
+  client.destroy();
+
+}
+
+function _queryStore( schema, id, key ) {
+
+  return client( schema )
+    .select( 'store' )
+    .where( { id } )
+    .limit( 1 )
+    .then( rows => rows.length ? rows[ 0 ].store : null )
+    .then( storeString => storeString ? JSON.parse( storeString ) : null )
+    .then( store => store && key ? store[ key ] : store );
+
+}
