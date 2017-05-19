@@ -61,7 +61,7 @@ const knexLib = require( 'knex' ),
 
 module.exports = service;
 
-let knex, config, schemas, log;
+let knex, config, schemas, imagePath, log;
 
 function init( c ) {
 
@@ -79,6 +79,8 @@ function init( c ) {
     logger.setLogger( c.logger );
 
   }
+
+  imagePath = service.getConfig().imagePath;
 
   details.init( schemas, knex );
 
@@ -125,7 +127,8 @@ function list( q, off, l, op, c ) {
   const finalOptions = _.extend( {
     private: false,
     total: false,
-    detailed: false
+    detailed: false,
+    includeImagePath: false
   }, options );
 
   // options that were in query are to be DEPRECATED
@@ -278,7 +281,18 @@ function _list( v ) {
 
   .then( agendas => {
 
-    v.result.agendas = agendas.map( dbParse.toObj );
+    v.result.agendas = agendas.map( dbParse.toObj )
+      .map( agenda => {
+
+        if ( v.options.includeImagePath && agenda.image ) {
+
+          agenda.image = imagePath + agenda.image;
+
+        }
+
+        return agenda;
+
+      } );
 
     return v;
 
