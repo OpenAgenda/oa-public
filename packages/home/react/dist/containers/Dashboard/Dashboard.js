@@ -395,20 +395,14 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                 _react3.default.createElement(
                   'div',
                   { className: 'actions' },
-                  function () {
-                    if (!agenda.stakeholder) {
-                      console.log('Y\'A PAS DE STAKEHOLDER LA :', agenda.id);
-                      return;
-                    }
-                    return agenda.stakeholder.credential > 1 && _react3.default.createElement(
-                      'a',
-                      {
-                        href: res.moderate.replace(':slug', agenda.slug),
-                        className: 'text-muted'
-                      },
-                      agenda.stakeholder.credential == 2 ? getLabel('manage') : getLabel('moderate')
-                    );
-                  }(),
+                  agenda.stakeholder.credential > 1 && _react3.default.createElement(
+                    'a',
+                    {
+                      href: res.moderate.replace(':slug', agenda.slug),
+                      className: 'text-muted'
+                    },
+                    agenda.stakeholder.credential == 2 ? getLabel('manage') : getLabel('moderate')
+                  ),
                   _react3.default.createElement(
                     'a',
                     { href: res.addEvent.replace(':slug', agenda.slug), className: 'text-muted' },
