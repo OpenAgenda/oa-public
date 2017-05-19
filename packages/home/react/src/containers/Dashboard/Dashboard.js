@@ -182,7 +182,7 @@ export default class Dashboard extends Component {
           />
         </form>
         <div className="row">
-          {agendas && agendas.map( (agenda, i) => (
+          {agendas && agendas.map( ( agenda, i ) => (
             <div className="agenda-item media" key={i}>
 
               <div className="media-left">
@@ -210,12 +210,18 @@ export default class Dashboard extends Component {
                   </div>}
                 </div>
                 <div className="actions">
-                  {agenda.stakeholder.credential > 1 && <a
-                    href={res.moderate.replace( ':slug', agenda.slug )}
-                    className="text-muted"
-                  >
-                    {agenda.stakeholder.credential == 2 ? getLabel( 'manage' ) : getLabel( 'moderate' )}
-                  </a>}
+                  { (() => {
+                    if ( !agenda.stakeholder ) {
+                      console.log( 'Y\'A PAS DE STAKEHOLDER LA :', agenda.id );
+                      return;
+                    }
+                    return agenda.stakeholder.credential > 1 && <a
+                        href={res.moderate.replace( ':slug', agenda.slug )}
+                        className="text-muted"
+                      >
+                        {agenda.stakeholder.credential == 2 ? getLabel( 'manage' ) : getLabel( 'moderate' )}
+                      </a>;
+                  })() }
                   <a href={res.addEvent.replace( ':slug', agenda.slug )} className="text-muted">
                     {getLabel( 'addAnEvent' )}
                   </a>

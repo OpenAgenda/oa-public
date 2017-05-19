@@ -24,8 +24,8 @@ const port = process.env.PORT || 3000;
 
 homeMw.init( config );
 fixtures.init( config );
-agendasSvc.init( config );
-stakeholdersSvc.init( config );
+agendasSvc.init( Object.assign( {}, config, config.services.agendas ) );
+stakeholdersSvc.init( Object.assign( {}, config, config.services.agendaStakeholders ) );
 
 app.use( morgan( 'combined' ) );
 
