@@ -68,6 +68,14 @@ function translate( cb ) {
       $set: utils.unique( context.state.languages.concat( sourceLanguage ) ) 
     }
 
+    translatedObj = _truncateOverflows( translatedObj, {
+      title: 140,
+      description: 255,
+      freeText: 10000,
+      keywords: 255,
+      conditions: 255
+    } );
+
     Object.keys( translatedObj ).forEach( field => {
 
       let translations = translatedObj[ field ];
@@ -166,5 +174,37 @@ function sourceChange( newSource ) {
       source: { $set: newSource }
     } )
   } );
+
+}
+
+
+function _truncateOverflows( texts, max ) {
+
+  let truncated = {};
+
+  Object.keys( texts ).forEach( field => {
+
+    Object.keys( texts[ field ] ).forEach( lang => {
+
+      if ( !truncated[ field ] ) truncated[ field ] = {};
+
+      if ( texts[ field ][ lang ].length <= max[ field ] ) {
+
+        truncated[ field ][ lang ] = texts[ field ][ lang ];
+
+      } else {
+
+        truncated[ field ][ lang ] = texts[ field ][ lang ].substr( 0, max[ field ] - 3 ) + '...';
+
+      }
+
+    } );
+
+  } );
+
+
+  console.log( truncated );
+
+  return truncated;
 
 }
