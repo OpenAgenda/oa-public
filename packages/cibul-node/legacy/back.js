@@ -12,6 +12,8 @@ const sessions = require( 'sessions' ),
 
   userSvc = require( '../services/user' ),
 
+  VError = require( 'verror' ),
+
   aggregatorSvc = require( '../services/aggregator' ),
 
   async = require( 'async' ),
@@ -292,7 +294,11 @@ function eventCreate( req, res, next ) {
 
     activitiesSvc.feed( { entityType: 'event', entityUid: req.event.uid } ).create( ( err, eventFeed ) => {
 
-      if ( err ) req.log( 'error', err );
+      if ( err ) {
+
+        return next( new VError( err, 'could not create feed for event of uid %s', req.event.uid ) );
+
+      }
 
       aggregatorSvc.isAggregator( req.agenda.id, ( err, isAggregator ) => {
 
@@ -523,7 +529,13 @@ function _addCreateEventActivity( eventFeed, req ) {
 
   usersSvc.get( req.event.ownerId, ( err, user ) => {
 
-    if ( err ) req.log( 'error', err );
+    if ( err ) return req.log( 'error', err );
+
+    if ( !user ) {
+
+      return req.log( 'error', new VError( 'user of id %s not found', req.event.ownerId ) );
+
+    }
 
     activitiesSvc.feed( {
       entityType: 'user',
