@@ -132,7 +132,8 @@ describe( 'activities - feed', function () {
       it( 'get an inexistent feed', () => {
 
         return service.feed( { entityType: 'user', entityUid: 32 } ).get()
-          .should.rejectedWith( Error, { message: 'Feed doesn\'t exists' } );
+
+          .should.fulfilledWith( null );
 
       } );
 
@@ -217,10 +218,10 @@ describe( 'activities - feed', function () {
 
       } );
 
-      it( 'unfollow feed that not exists', () => {
+      it( 'unfollow feed that does not exists', () => {
 
         return service.feed( { id: 2 } ).unfollow( { id: 75 } )
-          .should.rejectedWith( Error, { message: 'Feed doesn\'t exists' } );
+          .should.fulfilledWith( 0 );
 
       } );
 
@@ -245,7 +246,7 @@ describe( 'activities - feed', function () {
       it( 'remove a user feed that not exist', () => {
 
         return service.feed( { entityType: 'user', entityUid: 32 } ).remove()
-          .should.rejectedWith( Error, { message: 'Feed doesn\'t exists' } );
+          .should.fulfilledWith( 0 );
 
       } );
 

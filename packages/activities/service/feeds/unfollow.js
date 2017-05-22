@@ -24,10 +24,23 @@ function init( { config: c, knex: k, service: s } ) {
 function unfollow( identifiers, followedFeedIdentifiers, cb ) {
 
   const promise = service.feed( identifiers ).get( { internal: true } )
+
     .then( feed => {
+
+      if ( feed === null ) {
+
+        return 0;
+
+      }
 
       return service.feed( followedFeedIdentifiers ).get( { internal: true } )
         .then( followedFeed => {
+
+          if ( followedFeed === null ) {
+
+            return 0;
+
+          }
 
           return knex( config.schemas.feed_follow ).delete().where( {
             origin_feed: followedFeed.id,

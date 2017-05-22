@@ -26,6 +26,12 @@ function remove( identifiers, cb ) {
   const promise = service.feed( identifiers ).get( { internal: true } )
     .then( feed => {
 
+      if ( !feed ) {
+
+        return 0;
+
+      }
+
       return knex( config.schemas.feed ).delete().where( { id: feed.id } )
         .then( result => {
 

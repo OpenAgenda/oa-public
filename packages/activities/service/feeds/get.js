@@ -167,21 +167,11 @@ function get() {
       return prev;
     }, {} );
 
-    return knex( config.schemas.feed ).column( columnToSelect ).where( where ).limit( 1 )
-      .then( rows => {
-
-        if ( !rows.length ) {
-
-          throw new Error( 'Feed doesn\'t exists' );
-
-        }
-
-        return Promise.resolve( rows[ 0 ] );
-
-      } )
+    return knex( config.schemas.feed ).first( columnToSelect ).where( where )
+      
       .then( feed => {
 
-        if ( !params.followed ) return feed;
+        if ( !feed || !params.followed ) return feed;
 
         return knex( config.schemas.feed_follow ).select().where( { target_feed: feed.id } )
           .then( rows => {
@@ -199,7 +189,7 @@ function get() {
       } )
       .then( feed => {
 
-        if ( !params.followedBy ) return feed;
+        if ( !feed || !params.followedBy ) return feed;
 
         return knex( config.schemas.feed_follow ).select().where( { origin_feed: feed.id } )
           .then( rows => {
@@ -216,6 +206,8 @@ function get() {
 
       } )
       .then( feed => {
+
+        if ( !feed ) return null;
 
         if ( !params.internal && (params.followed || params.followedBy) ) {
           feed = _.omit( feed, 'id' );
