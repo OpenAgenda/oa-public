@@ -8,6 +8,7 @@ schema.register( {
   boolean: require( 'validators/boolean' ),
   link: require( 'validators/link' ),
   number: require( 'validators/number' ),
+  integer: require( 'validators/integer' ),
   date: require( 'validators/date' ),
   slug: require( '../slugs/validator' )
 } );
