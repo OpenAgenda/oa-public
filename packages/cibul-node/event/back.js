@@ -91,24 +91,36 @@ const routes = {
 
       const limit = 20;
 
-      activitiesSvc.feed( {
+      let feed = activitiesSvc.feed( {
         entityType: 'event',
         entityUid: req.event.uid
-      } ).activities.list( req.query.fromId || 0, limit )
-        .then( activities => {
-          const lastPage = activities.length < limit;
+      } );
 
-          res.json( {
-            html: ReactDOMServer.renderToStaticMarkup( activitiesEventApp( { activities, lang: req.lang || 'fr' } ) ),
-            count: activities.length,
-            nextUrl: lastPage ? null : req.genUrl( 'agendaEventActivities', {
-              uid: req.agenda.uid,
-              eventUid: req.event.uid,
-              fromId: activities[ activities.length - 1 ].id
-            } )
-          } );
-        } )
-        .catch( next );
+      feed.get().then( data => {
+
+        if ( !data ) return res.json( {} );
+
+        activities.list( req.query.fromId || 0, limit )
+        
+          .then( activities => {
+
+            const lastPage = activities.length < limit;
+
+            res.json( {
+              html: ReactDOMServer.renderToStaticMarkup( activitiesEventApp( { activities, lang: req.lang || 'fr' } ) ),
+              count: activities.length,
+              nextUrl: lastPage ? null : req.genUrl( 'agendaEventActivities', {
+                uid: req.agenda.uid,
+                eventUid: req.event.uid,
+                fromId: activities[ activities.length - 1 ].id
+              } )
+            } );
+
+          } )
+
+          .catch( next );
+
+      } );
 
     }
   ] ],
