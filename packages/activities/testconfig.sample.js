@@ -10,20 +10,22 @@ module.exports = {
     user: 'root'
   },
   migrations: {
-    tableName: 'migrations',
+    tableName: 'activity_migrations',
     directory: path.resolve( __dirname, 'migrations' )
   },
   schemas: {
     activity: 'activity',
-    feed: 'feed',
-    feed_activity: 'feed_activity',
-    feed_follow: 'feed_follow',
-    feed_notification: 'feed_notification',
+    feed: 'activity_feed',
+    feed_activity: 'activity_feed_activity',
+    feed_follow: 'activity_feed_follow',
+    feed_notification: 'activity_feed_notification',
+    // The following schemas ar used only for rebuild tests
     rebuild_agenda: 'rebuild_agenda',
     rebuild_event: 'rebuild_event',
     rebuild_review_article: 'rebuild_review_article',
     rebuild_reviewer: 'rebuild_reviewer',
-    rebuild_user: 'rebuild_user'
+    rebuild_user: 'rebuild_user',
+    rebuild_aggregator: 'rebuild_aggregator',
   },
   filterFollows: [ {
     verb: 'event.publish',

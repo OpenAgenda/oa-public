@@ -30,7 +30,8 @@ describe.skip( 'activities - rebuid', function () {
       'rebuild_event',
       'rebuild_review_article',
       'rebuild_reviewer',
-      'rebuild_user'
+      'rebuild_user',
+      'rebuild_aggregator',
     ], done );
 
   } );
@@ -43,12 +44,15 @@ describe.skip( 'activities - rebuid', function () {
       reviewArticleTable: config.schemas.rebuild_review_article,
       eventTable: config.schemas.rebuild_event,
       reviewerTable: config.schemas.rebuild_reviewer,
+      aggregatorTable: config.schemas.rebuild_aggregator,
 
       activityTable: config.schemas.activity,
       feedTable: config.schemas.feed,
       feedActivityTable: config.schemas.feed_activity,
       feedFollowTable: config.schemas.feed_follow,
-      feedNotificationTable: config.schemas.feed_notification
+      feedNotificationTable: config.schemas.feed_notification,
+
+      migrationTable: config.migrations.tableName
     } ), winston )
       .then( result => {
 
@@ -66,7 +70,7 @@ describe.skip( 'activities - rebuid', function () {
         usersAffected: 108,
         stakeholdersAffected: 100,
         eventsAffected: 256,
-        reviewArticlesAffected: 256
+        reviewArticlesAffected: 172
       } );
 
   } );

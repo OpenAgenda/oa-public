@@ -3,7 +3,6 @@
 // proxy function for service in a test env. Init does service init as well as fixture loading.
 
 const svc = require( '../../' );
-const knexLib = require( 'knex' );
 const fixtures = require( 'fixtures' );
 
 module.exports = svc;
@@ -92,6 +91,9 @@ module.exports.initAndLoad = function ( config, files, options, cb ) {
       }, {
         table: config.schemas.rebuild_user,
         src: __dirname + '/rebuild_user.data.sql'
+      }, {
+        table: config.schemas.rebuild_aggregator,
+        src: __dirname + '/rebuild_aggregator.data.sql'
       } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) ), { reset: false }, cb );
 
     } )

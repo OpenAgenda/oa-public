@@ -30,6 +30,9 @@ const initProg = () => prog
   .option( '--review_article_table', 'review_article table', null, 'review_article', true )
   .option( '--event_table', 'event table', null, 'event', true )
   .option( '--reviewer_table', 'reviewer table', null, 'reviewer', true )
+  .option( '--aggregator_table', 'aggregator table', null, 'aggregator', true )
+
+  .option( '--migration_table', 'migration table', null, 'activity_migrations', true )
   .action( rebuild );
 
 initProg();
@@ -59,7 +62,7 @@ function rebuild( args, options, logger ) {
       feed_notification: options.feedNotificationTable
     },
     migrations: {
-      tableName: 'migrations_activities'
+      tableName: options.migrationTable
     }
   } )
     .then( () => {
@@ -156,6 +159,8 @@ function rebuild( args, options, logger ) {
           } ).get( { internal: true } );
         }
 
+        return Promise.reject( err );
+
       } )
       .then( agendaFeed => {
 
@@ -169,12 +174,14 @@ function rebuild( args, options, logger ) {
 
             if ( err && err.message === 'Feed already followed' ) return;
 
+            return Promise.reject( err );
+
           } );
 
       } )
       .then( () => {
 
-        return eachReviewArticles( agenda, onEachReviewArticle )
+        return (agenda.aggId ? Promise.resolve( 0 ) : eachReviewArticles( agenda, onEachReviewArticle ))
           .then( reviewArticlesAffected => {
 
             results.reviewArticlesAffected = (results.reviewArticlesAffected || 0) + reviewArticlesAffected;
@@ -284,9 +291,11 @@ function rebuild( args, options, logger ) {
       q => q.select( [
         options.reviewTable + '.*',
         options.userTable + '.uid as userUid',
-        options.userTable + '.is_removed as userRemoved'
+        options.userTable + '.is_removed as userRemoved',
+        options.aggregatorTable + '.id as aggId'
       ] )
         .join( options.userTable, options.reviewTable + '.owner_id', options.userTable + '.id' )
+        .leftJoin( options.aggregatorTable, options.reviewTable + '.id', options.aggregatorTable + '.review_id' )
         .where( options.userTable + '.is_removed', 0 ),
       eachCb
     );

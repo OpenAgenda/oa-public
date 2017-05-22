@@ -1,4 +1,4 @@
-INSERT INTO `feed_activity` (`feed_id`, `activity_id`) VALUES
+INSERT INTO `${schema}` (`feed_id`, `activity_id`) VALUES
   (2, 1),
   (2, 3),
   (2, 4),
