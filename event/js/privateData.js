@@ -92,7 +92,7 @@ module.exports = function( options ) {
 
     activities( {
       canvas: du.el( params.activitiesSelector ),
-      res: params.activitiesUrl[ params.env ],
+      res: params.activitiesUrl[ params.env ].replace( '{agendaUid}', agendaUid ).replace( '{eventUid}', eventUid ),
       fetch: _fetch,
       lang
     } );
