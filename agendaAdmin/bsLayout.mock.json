@@ -30,7 +30,11 @@
     "section" : "manage",
     "key" : "locations",
     "label" : "Locations",
-    "uri" : "agendaAdminLocations"
+    "uri" : "agendaAdminLocations",
+    "badge" : {
+      "label" : "nouveau",
+      "link" : "https://openagenda.com"
+    }
   }, {
     "section" : "manage",
     "key" : "sources",
