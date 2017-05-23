@@ -1,5 +1,7 @@
 "use strict";
 
+const config = require( '../config' );
+
 const agendas = require( 'agendas' );
 
 const agendaStakeholders = require( 'agenda-stakeholders' ),
@@ -7,6 +9,8 @@ const agendaStakeholders = require( 'agenda-stakeholders' ),
   activities = require( 'activities' ),
 
   users = require( 'users' ),
+
+  model = require( './model' ),
 
   coms = require( '../lib/coms' ),
 
@@ -33,6 +37,7 @@ module.exports.init = config => {
     interfaces: {
       onCreate: onCreate.bind( null, config.mainChannel ),
       onUpdate: onUpdate.bind( null, config.mainChannel ),
+      beforeRemove,
       onRemove
     }
   } );
@@ -118,6 +123,18 @@ function onCreate( channel, agenda ) {
   } );
 
 }
+
+
+function beforeRemove( agenda, cb ) {
+
+  model.lib.query(
+    `DELETE FROM ${config.schemas.conversationReviewerRequestInfo} WHERE review_id = ?`,
+    agenda.id,
+    () => cb()
+  );
+
+}
+
 
 function onRemove( agenda ) {
 
