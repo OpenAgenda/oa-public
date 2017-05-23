@@ -2,29 +2,29 @@
 
 var log = require( 'logger' )( 'user svc - activation' ),
 
-lib = require( '../../../lib/lib' ),
+  lib = require( '../../../lib/lib' ),
 
-config = require( '../../../config' ),
+  config = require( '../../../config' ),
 
-mailer = require( 'mailer' ),
+  mailer = require( 'mailer' ),
 
-model = require( 'cibulModel' )( config.db ),
+  model = require( 'cibulModel' )( config.db ),
 
-genUrl = require( '../../genUrl' ),
+  genUrl = require( '../../genUrl' ),
 
-i18n = require( '../../../i18n/i18n' ),
+  i18n = require( '../../../i18n/i18n' ),
 
-templater = require( 'cibulTemplates' ),
+  templater = require( 'cibulTemplates' ),
 
-utils = require( 'utils' ),
+  utils = require( 'utils' ),
 
-async = require( 'async' ),
+  async = require( 'async' ),
 
-w = require( 'when' ),
+  w = require( 'when' ),
 
-wn = require( 'when/node' ),
+  wn = require( 'when/node' ),
 
-userSvc;
+  userSvc;
 
 function init( svc ) {
 
@@ -46,32 +46,31 @@ function createAndSend( values ) {
 
   log( 'creating and sending activation token' );
 
-  return w.promise( function( resolve, reject ) {
+  return w.promise( function ( resolve, reject ) {
 
     _loadInactiveUser( values )
 
-    .then( _createToken )
+      .then( _createToken )
 
-    .then( _sendToken )
+      .then( _sendToken )
 
-    .done( function( values ) {
+      .done( function ( values ) {
 
-      log( 'info', 'token created and sent at %s - activation link: "%s"', values.user.email, values.link );
+        log( 'info', 'token created and sent at %s - activation link: "%s"', values.user.email, values.link );
 
-      resolve( values );
+        resolve( values );
 
-    }, function( err ) {
+      }, function ( err ) {
 
-      log( 'error', 'createAndSend failed: %s', err );
+        log( 'error', 'createAndSend failed: %s', err );
 
-      reject( err );
+        reject( err );
 
-    });
+      } );
 
-  });
+  } );
 
 }
-
 
 
 /**
@@ -91,7 +90,7 @@ function activateByToken( token, options, cb ) {
 
   }
 
-  model.tokens().getActivation( { token: token }, function( err, tokenObj ) {
+  model.tokens().getActivation( { token: token }, function ( err, tokenObj ) {
 
     if ( err ) return cb( err );
 
@@ -103,7 +102,7 @@ function activateByToken( token, options, cb ) {
 
     }
 
-    userSvc.get( { id: tokenObj.userId }, function( err, user ) {
+    userSvc.get( { id: tokenObj.userId }, function ( err, user ) {
 
       if ( err ) return cb( err );
 
@@ -121,7 +120,7 @@ function activateByToken( token, options, cb ) {
 
     } );
 
-  });
+  } );
 
 }
 
@@ -134,15 +133,16 @@ function activate( user, options, cb ) {
 
     options = {}
 
-  };
+  }
+  ;
 
   if ( user.isActivated ) {
 
-    log( 'info', 'user was already activated: %s', token );
+    log( 'info', 'user was already activated: %s', user.id );
 
     if ( !options.tokenObj ) return cb( null, user );
 
-    model.tokens().removeActivation( options.tokenObj, function( err ) {
+    model.tokens().removeActivation( options.tokenObj, function ( err ) {
 
       if ( err ) return cb( err );
 
@@ -152,7 +152,7 @@ function activate( user, options, cb ) {
 
   } else {
 
-    model.users().update( user, { isActivated: true }, function( err ) {
+    model.users().update( user, { isActivated: true }, function ( err ) {
 
       if ( err ) return cb( err );
 
@@ -160,7 +160,7 @@ function activate( user, options, cb ) {
 
       if ( !options.tokenObj ) {
 
-        userSvc.onActivation( lib.extend( { user: user }, options ) ).then( function() {
+        userSvc.onActivation( lib.extend( { user: user }, options ) ).then( function () {
 
           cb( null, user );
 
@@ -168,25 +168,25 @@ function activate( user, options, cb ) {
 
       } else {
 
-        model.tokens().removeActivation( options.tokenObj, function( err ) {
+        model.tokens().removeActivation( options.tokenObj, function ( err ) {
 
           if ( err ) return cb( err );
 
-          userSvc.onActivation( lib.extend( { user: user }, options ) ).then( function() {
+          userSvc.onActivation( lib.extend( { user: user }, options ) ).then( function () {
 
             cb( null, user );
 
           }, cb );
 
-        });
+        } );
 
       }
 
-    });
+    } );
 
   }
 
-} 
+}
 
 
 /**
@@ -200,7 +200,7 @@ function verify( values ) {
   if ( values.user.isActivated ) return values;
 
   // user is not activated
-  
+
   values.inactive = true;
 
   if ( !values.errors ) values.errors = {}
@@ -209,8 +209,7 @@ function verify( values ) {
 
   return values;
 
-} 
-
+}
 
 
 function _loadInactiveUser( values ) {
@@ -227,9 +226,9 @@ function _loadInactiveUser( values ) {
 
     log( 'loading user based on values %s', JSON.stringify( user ) );
 
-    return w.promise( function( resolve, reject ) {
+    return w.promise( function ( resolve, reject ) {
 
-      userSvc.get( user, function( err, result ) {
+      userSvc.get( user, function ( err, result ) {
 
         log( 'loaded user %s', JSON.stringify( result ) );
 
@@ -245,7 +244,7 @@ function _loadInactiveUser( values ) {
 
       } );
 
-    });
+    } );
 
   }
 
@@ -254,11 +253,11 @@ function _loadInactiveUser( values ) {
 
 function _createToken( values ) {
 
-  return w.promise( function( resolve, reject ) {
+  return w.promise( function ( resolve, reject ) {
 
     log( 'creating/fetching token' );
 
-    model.tokens().getActivation( { userId: values.user.id, email: values.user.email }, true, function( err, token ) {
+    model.tokens().getActivation( { userId: values.user.id, email: values.user.email }, true, function ( err, token ) {
 
       log( 'token retrieved: %s', JSON.stringify( token ) );
 
@@ -280,7 +279,7 @@ function _sendToken( values ) {
 
   let linkParams = { token: values.token },
 
-  d = w.defer();
+    d = w.defer();
 
   if ( values.iToken ) linkParams.iToken = values.iToken;
 
@@ -292,15 +291,15 @@ function _sendToken( values ) {
 
   var link = genUrl.abs( values.agenda ? 'agendaActivate' : 'activate', linkParams ),
 
-  title = i18n( 'Activate your OpenAgenda account', values.user.culture ),
+    title = i18n( 'Activate your OpenAgenda account', values.user.culture ),
 
-  text = "Congratulations!, You just created your OpenAgenda account. Click on the following link to activate it \n %link%",
+    text = "Congratulations!, You just created your OpenAgenda account. Click on the following link to activate it \n %link%",
 
-  renders = {};
+    renders = {};
 
   values.link = link;
 
-  async.each( [ 'html', 'text' ], ( type, ecb ) => {
+  async.each( [ 'html', 'text' ], ( type, ecb ) => {
 
     templater( 'email/show', utils.extend( { type: type }, {
       lang: values.user.culture,
@@ -309,7 +308,7 @@ function _sendToken( values ) {
         text: title,
         link: link
       },
-      description: i18n( text, { '%link%' : link }, values.user.culture )
+      description: i18n( text, { '%link%': link }, values.user.culture )
     } ), ( err, render ) => {
 
       if ( err ) return ecb( err );
@@ -318,7 +317,7 @@ function _sendToken( values ) {
 
       ecb();
 
-    } );  
+    } );
 
   }, err => {
 
@@ -329,7 +328,7 @@ function _sendToken( values ) {
       subject: title,
       text: renders.text,
       html: renders.html
-    } ); 
+    } );
 
     d.resolve( values );
 
