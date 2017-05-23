@@ -214,7 +214,7 @@ function loadAdminLayout( req, res, next ) {
 
           }
 
-          return version( tab.version.split( ':' )[ 0 ], parseInt( tab.version.split( ':' )[ 1 ] ), { agendaUid: req.agenda.uid } );
+          return version( tab.version.split( ':' )[ 0 ], parseInt( tab.version.split( ':' )[ 1 ] ), { agendaUid: req.agenda.uid, createdAt: req.agenda.createdAt } );
 
         } );
 

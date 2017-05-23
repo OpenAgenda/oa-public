@@ -6,6 +6,9 @@ module.exports = function( namespace, testedVersion, criterias ) {
 
   let matching = config.versions[ namespace ].filter( v => {
 
+    // version now is also determined by creation timestamp
+    if ( new Date( v.createdAt ) < criterias.createdAt ) return true;
+
     // version is determined by agendaUid
     if ( v.agendaUids ) {
 

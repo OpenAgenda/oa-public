@@ -7,6 +7,7 @@ var deepExtend = require( 'deep-extend' ),
       versions: {
         members: [ {
           version: 2,
+          createdAt: '2016-05-22T00:00:00.000Z',
           agendaUids: [ 
             47863189, // reed expo
             48959239, // la gargouille
