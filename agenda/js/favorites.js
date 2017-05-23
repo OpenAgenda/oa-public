@@ -137,34 +137,31 @@ function sweep( ignoreFlagged ) {
 
 function menu() {
 
-  if ( !favUids.length ) {
+  if (!favUids.length) {
 
-    if ( du.el( params.selectors.menu ) ) {
+    if (du.el(params.selectors.menu)) {
 
-      du.addClass( du.el( params.selectors.menu ), params.classes.displayNone );
-      du.removeClass( du.el( params.selectors.empty ), params.classes.displayNone );
-
+      du.addClass(du.el(params.selectors.menu), params.classes.displayNone);
+      du.removeClass(du.el(params.selectors.empty), params.classes.displayNone);
     }
 
     return;
-
   }
 
-  var query = qs.stringify( { search: { uids: favUids } } );
+  let query = favUids.map( uid => 'oaq[uids][]=' + uid ).join( '&' );
 
-  du.el( params.selectors.info ).innerHTML = du.el( params.selectors.info ).innerHTML.replace( '{count}', favUids.length );
+  du.el(params.selectors.info).innerHTML = du.el(params.selectors.info).innerHTML.replace('{count}', favUids.length);
 
-  utils.forEach( du.els( params.selectors.exports ), function( linkElem ) {
+  utils.forEach(du.els(params.selectors.exports), function (linkElem) {
 
-    linkElem.setAttribute( 'href', linkElem.getAttribute( 'href' ) + '?' + query );
+    linkElem.setAttribute('href', linkElem.getAttribute('href') + '?' + query);
+  });
 
-  } );
-
-  du.addClass( du.el( params.selectors.empty ), params.classes.displayNone );
-  du.removeClass( du.el( params.selectors.menu ), params.classes.displayNone );
+  du.addClass(du.el(params.selectors.empty), params.classes.displayNone);
+  du.removeClass(du.el(params.selectors.menu), params.classes.displayNone);
 
   _eventifyClear();
-
+  
 }
 
 
