@@ -673,7 +673,11 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             onClose: function onClose() {
               closeModal('inviteMembers');
               cleanInviteResult();
-            }
+            },
+            classNames: {
+              overlay: 'popup-overlay big'
+            },
+            disableBodyScroll: true
           },
           showInviteResult ? _react3.default.createElement(
             'div',
@@ -751,7 +755,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             { className: 'text-center' },
             _react3.default.createElement(
               'div',
-              { className: 'margin-v-md' },
+              { className: 'margin-v-sm' },
               getLabel('messageSent')
             ),
             _react3.default.createElement(

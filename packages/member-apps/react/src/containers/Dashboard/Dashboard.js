@@ -409,6 +409,10 @@ export default class Dashboard extends Component {
             closeModal( 'inviteMembers' );
             cleanInviteResult();
           }}
+          classNames={{
+            overlay: 'popup-overlay big'
+          }}
+          disableBodyScroll
         >
           {showInviteResult ? <div>
             {inviteError ? <div>
@@ -458,7 +462,7 @@ export default class Dashboard extends Component {
             } /> :
 
             <div className="text-center">
-              <div className="margin-v-md">
+              <div className="margin-v-sm">
                 {getLabel( 'messageSent' )}
               </div>
 
