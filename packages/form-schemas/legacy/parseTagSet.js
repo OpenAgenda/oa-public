@@ -53,7 +53,8 @@ function _parseGroup( g ) {
       label: {
         fr: t.label
       },
-      value: t.slug
+      value: t.slug,
+      legacyId: t.id
     } ) )
   }, g.unique ? {} : {
     min: null,

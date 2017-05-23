@@ -41,7 +41,13 @@ describe( 'form-schemas - unit (server): legacy custom fields', function() {
 
     parseCustomFields( { fields: [] }, _get( 'radio.in' ) ).should.eql( _get( 'radio.out' ) );
 
-  } )
+  } );
+
+  it( 'multichoice field', () => {
+
+    parseCustomFields( { fields: [] }, _get( 'multichoice.in' ) ).should.eql( _get( 'checkbox.out' ) );
+
+  } );
 
 } );
 

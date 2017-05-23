@@ -20,9 +20,10 @@ module.exports = ( formSchema, customFields ) => {
       // url,
       // email,
       // image,
-      // multichoice,
+      multichoice: parseChoice,
       // select,
       radio: parseChoice,
+      checkbox: parseCheckbox,
       // checkbox
     } )[ f.fieldType ];
 
@@ -54,6 +55,18 @@ function parseChoice( field ) {
 
 }
 
+function parseCheckbox( field ) {
+
+  let csField = _parseBase( field, false );
+
+  return _.extend( csField, {
+    options: [ {
+      label: field.label,
+      value: true
+    } ]
+  } );
+}
+
 /**
  * extract base field configuration
  */
@@ -63,7 +76,7 @@ function _parseBase( field, minMaxed = false ) {
     field: field.name,
     optional: field.optional !== undefined ? !!field.optional : true,
     label: field.label,
-    fieldType: field.fieldType,
+    fieldType: _fieldType( field.fieldType ),
     read: field.type === 'private' ? 'moderator' : null,
     write: 'contributor'
   }
@@ -87,5 +100,13 @@ function _parseBase( field, minMaxed = false ) {
   }
 
   return base;
+
+}
+
+function _fieldType( legacy ) {
+
+  if ( legacy === 'multichoice' ) return 'checkbox';
+
+  return legacy;
 
 }

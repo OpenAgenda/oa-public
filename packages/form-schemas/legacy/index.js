@@ -8,14 +8,16 @@ const parseCustomFields = require( './parseCustomFields' ),
 
   _ = require( 'lodash' ),
 
-  VError = require( 'verror' );
+  VError = require( 'verror' ),
+
+  agendaEventGet = require( './agendaEventGet' );
 
 let config, client, service;
 
 module.exports = {
   get,
   transfer,
-  task,
+  agendaEventGet,
   shutdown,
   init
 }
@@ -134,8 +136,6 @@ async function transfer( agendaId ) {
 
 }
 
-function task() {}
-
 function init( c, svc ) {
 
   config = c;
@@ -146,6 +146,10 @@ function init( c, svc ) {
     client: 'mysql',
     connection: c.legacy
   } );
+
+  agendaEventGet.init( config, service, {
+    transfer, get
+  }, client );
 
 }
 

@@ -1,6 +1,6 @@
 "use strict";
 
-const types = require( './types' );
+const types = Object.keys( require( './types' ) );
 
 const schema = require( 'validators/schema' );
 
@@ -173,6 +173,10 @@ types.forEach( type => {
         label: {
           type: 'multilingual',
           optional: false
+        },
+        legacyId: {
+          type: 'integer',
+          optional: true
         }
       }
     }

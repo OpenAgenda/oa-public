@@ -78,28 +78,32 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
             value: 'ecole',
             label: {
               fr: 'Niveau scolaire: Ecole'
-            }
+            },
+            legacyId: 10124
           },
           {
             id: 2,
             value: 'college',
             label: {
               fr: 'Niveau scolaire: Collège'
-            }
+            },
+            legacyId: 10125
           },
           {
             "id": 3,
             "value": "lycee",
             "label": {
               "fr": "Niveau scolaire: Lycée"
-            }
+            },
+            legacyId: 10126
           },
           {
             "id": 4,
             "value": "autre",
             "label": {
               "fr": "Niveau scolaire: Autre"
-            }
+            },
+            legacyId: 10127
           } ],
           fieldType: "checkbox"
         },
@@ -118,21 +122,24 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
               "value": "a-cappella",
               "label": {
                 "fr": "Style musical : A cappella"
-              }
+              },
+              legacyId: 10128
             },
             {
               "id": 6,
               "value": "afrique",
               "label": {
                 "fr": "Style musical : Afrique"
-              }
+              },
+              legacyId: 10129
             },
             {
               "id": 7,
               "value": "baroque",
               "label": {
                 "fr": "Style musical : Baroque"
-              }
+              },
+              legacyId: 10130
             }
           ],
           "fieldType": "radio"
@@ -182,21 +189,24 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
             "value": "atelier",
             "label": {
               "fr": "Atelier"
-            }
+            },
+            "legacyId" : 3028
           },
           {
             "id": 2,
             "value": "exposition",
             "label": {
               "fr": "Exposition"
-            }
+            },
+            "legacyId" : 3029
           },
           {
             "id": 3,
             "value": "jeu",
             "label": {
               "fr": "Jeu"
-            }
+            },
+            "legacyId" : 3030
           }
         ],
         "fieldType": "radio"

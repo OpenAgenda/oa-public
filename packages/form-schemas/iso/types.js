@@ -1,13 +1,13 @@
 "use strict";
 
-module.exports = [
-  'radio',
-  'checkbox',
-  'select',
-  'integer',
-  'number',
-  'text',
-  'textarea',
-  'markdown',
-  'image'
-];
+module.exports = {
+  radio: 'choice.unique',
+  checkbox: 'choice',
+  select: 'choice.unique',
+  integer: 'integer',
+  number: 'number',
+  text: 'text',
+  textarea: 'text',
+  markdown: 'text',
+  image: 'text'
+}

@@ -1,6 +1,6 @@
 "use strict";
 
-const types = require( './types' );
+const types = Object.keys( require( './types' ) );
 
 const _ = require( 'lodash/core' );
 

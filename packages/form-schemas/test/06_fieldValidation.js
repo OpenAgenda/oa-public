@@ -55,8 +55,8 @@ describe( 'field validation', () => {
         write: null,
         optional: true,
         options: [
-          { id: null, value: '1', label: { fr: 'Un' } },
-          { id: null, value: '2', label: { fr: 'Deux' } } 
+          { id: null, legacyId: null, value: '1', label: { fr: 'Un' } },
+          { id: null, legacyId: null, value: '2', label: { fr: 'Deux' } } 
         ],
         fieldType: 'radio'
       } );

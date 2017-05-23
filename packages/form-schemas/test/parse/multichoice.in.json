@@ -1,0 +1,126 @@
+[
+  {
+    "name": "organizertype",
+    "fieldType": "multichoice",
+    "type": "public",
+    "optional": false,
+    "label": {
+      "fr": "Type d'organisateurs",
+      "en": "Organizers type"
+    },
+    "options": [
+      {
+        "label": {
+          "fr": "Association / Fondation",
+          "en": "Association / Foundation"
+        },
+        "value": "association"
+      },
+      {
+        "label": {
+          "fr": "CCI / Chambre des Métiers et de l'Artisanat",
+          "en": "Chamber of professions and craftsmanship"
+        },
+        "value": "cci"
+      },
+      {
+        "label": {
+          "fr": "Centre de recherche",
+          "en": "Research center"
+        },
+        "value": "recherche"
+      },
+      {
+        "label": {
+          "fr": "Centre technique",
+          "en": "Technical center"
+        },
+        "value": "technique"
+      },
+      {
+        "label": {
+          "fr": "DIRECCTE",
+          "en": "DIRECCTE"
+        },
+        "value": "direccte"
+      },
+      {
+        "label": {
+          "fr": "Etablissement d'enseignement scolaire",
+          "en": "Teaching establishment"
+        },
+        "value": "enseignementscolaire"
+      },
+      {
+        "label": {
+          "fr": "Etablissement d'enseignement supérieur",
+          "en": "Superior studies establishment"
+        },
+        "value": "enseignementsuperieur"
+      },
+      {
+        "label": {
+          "fr": "Etablissement de formation professionnelle (lycées professionnels)",
+          "en": "Professionnal training establishment"
+        },
+        "value": "formation"
+      },
+      {
+        "label": {
+          "fr": "Entreprise",
+          "en": "Company"
+        },
+        "value": "entreprise"
+      },
+      {
+        "label": {
+          "fr": "Organisation professionnelle",
+          "en": "Professionnal organization"
+        },
+        "value": "orgpro"
+      },
+      {
+        "label": {
+          "fr": "Organisation syndicale",
+          "en": "Syndicate"
+        },
+        "value": "syndicat"
+      },
+      {
+        "label": {
+          "fr": "Pôle de compétitivité",
+          "en": "Competitiveness Pole"
+        },
+        "value": "polecompet"
+      },
+      {
+        "label": {
+          "fr": "Pôle de développement, de compétence",
+          "en": "Development and skills pole"
+        },
+        "value": "poledev"
+      },
+      {
+        "label": {
+          "fr": "Pôle Emploi",
+          "en": "Pôle Emploi ( employment agency )"
+        },
+        "value": "poleemploi"
+      },
+      {
+        "label": {
+          "fr": "Préfecture",
+          "en": "Prefecture"
+        },
+        "value": "prefecture"
+      },
+      {
+        "label": {
+          "fr": "Autre",
+          "en": "Other"
+        },
+        "value": "other"
+      }
+    ]
+  }
+]

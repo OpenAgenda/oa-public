@@ -54,6 +54,31 @@ function initAndLoad( config, files, options, cb ) {
   }, {
     table: 'legacy_agenda',
     src: __dirname + '/legacy_agenda.data.sql'
+  }, {
+    table: 'legacy_event',
+    src: __dirname + '/legacy_event.data.sql'
+  }, {
+    key: 'legacy_event_few',
+    table: 'legacy_event',
+    src: __dirname + '/legacy_event_few.data.sql'
+  }, {
+    table: 'legacy_agenda_event',
+    src: __dirname + '/legacy_agenda_event.data.sql',
+  }, {
+    key: 'legacy_agenda_event_few',
+    table: 'legacy_agenda_event',
+    src: __dirname + '/legacy_agenda_event_few.data.sql',
+  }, {
+    key: 'legacy_agenda_tag_few',
+    table: 'legacy_agenda_tag',
+    src: __dirname + '/legacy_agenda_tag_few.data.sql'
+  }, {
+    table: 'legacy_agenda_event_tag',
+    src: __dirname + '/legacy_agenda_event_tag.data.sql'
+  }, {
+    key: 'legacy_agenda_event_tag_few',
+    table: 'legacy_agenda_event_tag',
+    src: __dirname + '/legacy_agenda_event_tag_few.data.sql'
   } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) ), options, cb );
 
 }

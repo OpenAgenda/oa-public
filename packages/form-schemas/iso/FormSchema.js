@@ -9,6 +9,8 @@ const _ = {
 
 const validateField = require( './validateField' );
 
+const getSchema = require( './getSchema' );
+
 module.exports = class {
 
   constructor( data ) {
@@ -91,6 +93,12 @@ module.exports = class {
 
   }
 
+  getValidate() {
+
+    return getSchema( this.data.fields );
+
+  }
+
   _checkFieldIndex( index, errorMessage = 'Index exceeds schema size' ) {
 
     if ( index < 0 || index >= this.getFieldCount() ) {
@@ -154,7 +162,7 @@ function validate( data, client = false ) {
     .filter( f => f.options )
 
     // build one big options list
-    .reduce( ( options, f ) => options.concat( f.options ), [] ) 
+    .reduce( ( options, f ) => options.concat( f.options ), [] )
 
     // keep biggest id
     .reduce( ( biggestId, o ) => o.id > biggestId ? o.id : biggestId, 0 );
