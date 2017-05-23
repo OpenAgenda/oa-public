@@ -100,7 +100,7 @@ const routes = {
 
         if ( !data ) return res.json( {} );
 
-        activities.list( req.query.fromId || 0, limit )
+        feed.activities.list( req.query.fromId || 0, limit )
         
           .then( activities => {
 
