@@ -224,6 +224,10 @@ function _createProcess( createData, options ) {
 function onActivation( values ) {
 
   return activitiesSvc.feed( { entityType: 'user', entityUid: values.user.uid } ).create()
+    .catch( err => {
+      if ( err && err.message === 'Feed already exists' ) return;
+      return Promise.reject( err );
+    } )
     .then( () => {
 
       return ( values.invitation ? invitation2Svc.execute( { token: values.invitation }, { user: values.user } ) : w() )

@@ -178,7 +178,7 @@ function _processSignup( req, res, next ) {
 
     .then( auth.ifUserLoaded( false, _attemptTwitterCreate ) )
 
-    .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( false, _resendActivationToken ) ) ) )
+    // .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( false, _resendActivationToken ) ) ) )
 
     .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( true, auth.signin ) ) ) )
 
