@@ -22,6 +22,8 @@ version = require( './helpers/version' ),
 
 tabLabels = require( 'labels' )( require( 'labels/agenda-admin/tabs' ) ),
 
+_ = require( 'lodash' ),
+
 mwh = require( '../lib/middlewareHelpers' );
 
 module.exports = function( agendaService ) {
@@ -189,8 +191,6 @@ function loadAdminLayout( req, res, next ) {
         // filter tabs where agenda does not have required creds
         req.layoutData.tabs = svcConfig.adminTabs.filter( tab => {
 
-          tab.label = tabLabels( tab.key, req.lang );
-
           // if user is moderator and tab access is not given to moderators,
           // filter.
           if ( req.access == 'moderator' && tab.access !== 'moderator' ) {
@@ -215,6 +215,25 @@ function loadAdminLayout( req, res, next ) {
           }
 
           return version( tab.version.split( ':' )[ 0 ], parseInt( tab.version.split( ':' )[ 1 ] ), { agendaUid: req.agenda.uid, createdAt: req.agenda.createdAt } );
+
+        } )
+
+        .map( tab => {
+
+          let label = tabLabels( tab.key, req.lang ),
+
+            badge = null;
+
+          if ( tab.badge ) {
+
+            badge = _.extend( {}, tab.badge, { label: tabLabels( tab.badge.label, req.lang ) } );
+
+          }
+
+          return _.extend( {}, tab, {
+            badge: badge || undefined,
+            label
+          } )
 
         } );
 

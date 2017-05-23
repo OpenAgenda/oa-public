@@ -29,7 +29,11 @@ module.exports = {
     label : 'Members',
     uri : 'agendaAdminMembers',
     access: 'moderator',
-    version: 'members:2'
+    version: 'members:2',
+    badge: {
+      link: 'https://openagenda.zendesk.com/hc/fr/articles/115003229549-G%C3%A9rer-les-membres-de-votre-agenda',
+      label: 'newTab'
+    }
   }, {
     section : 'manage',
     key : 'locations',
