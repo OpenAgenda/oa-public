@@ -8,6 +8,7 @@ var deepExtend = require( 'deep-extend' ),
         members: [ {
           version: 2,
           agendaUids: [ 
+            47863189, // reed expo
             48959239, // la gargouille
             93961830, // jerusalem
             5897476,  // jerusalem
