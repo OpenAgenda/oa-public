@@ -28,6 +28,7 @@ module.exports = {
   },
 
   imagePath: '//openagendatst.s3.amazonaws.com/',
+  defaultImagePath: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
 
   existingRoles: [ {
     value: 1,

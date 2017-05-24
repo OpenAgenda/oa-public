@@ -2,17 +2,17 @@
 
 const should = require( 'should' ),
 
-svc = require( '../service/test' ),
+  svc = require( '../service/test' ),
 
-config = require( '../testconfig' ),
+  config = require( '../testconfig' ),
 
-mysql = require( 'mysql' ),
+  mysql = require( 'mysql' ),
 
-fs = require( 'fs' ),
+  fs = require( 'fs' ),
 
-async = require( 'async' );
+  async = require( 'async' );
 
-describe( 'agendas - functional (server): instanciate', function() {
+describe( 'agendas - functional (server): instanciate', function () {
 
   this.timeout( 30000 );
 
@@ -26,13 +26,13 @@ describe( 'agendas - functional (server): instanciate', function() {
 
     fs.createReadStream( __dirname + '/files/rainfrog.jpg' )
 
-    .pipe( fs.createWriteStream( __dirname + '/files/tmp.jpg' ) )
+      .pipe( fs.createWriteStream( __dirname + '/files/tmp.jpg' ) )
 
-    .on( 'close', () => {
+      .on( 'close', () => {
 
-      done();
+        done();
 
-    } );
+      } );
 
   } );
 
@@ -137,7 +137,7 @@ describe( 'agendas - functional (server): instanciate', function() {
 
     let con = mysql.createConnection( config.mysql ),
 
-    aId = 4922;
+      aId = 4922;
 
     async.series( [ wcb => {
 
@@ -175,16 +175,16 @@ describe( 'agendas - functional (server): instanciate', function() {
 
   it( 'setImage - successful set gives list of image paths', done => {
 
-    svc.get( 4922, { instanciate: true }, ( err, agenda ) => {
+    svc.get( 4922, { instanciate: true }, ( err, agenda ) => {
 
       agenda.setImage( { path: __dirname + '/files/tmp.jpg' }, ( err, result ) => {
 
         should( err ).equal( null );
 
-        result.should.eql( [ 
+        result.should.eql( [
           'https://openagendatst.s3.amazonaws.com/agenda93716628.jpg',
           'https://openagendatst.s3.amazonaws.com/rwtbagenda93716628.jpg',
-          'https://openagendatst.s3.amazonaws.com/agenda93716628_o.jpg' 
+          'https://openagendatst.s3.amazonaws.com/agenda93716628_o.jpg'
         ] );
 
         done();
@@ -199,7 +199,7 @@ describe( 'agendas - functional (server): instanciate', function() {
 
     async.waterfall( [ wcb => {
 
-      svc.get( 4922, { instanciate: true }, ( err, a ) => {
+      svc.get( 4922, { instanciate: true }, ( err, a ) => {
 
         wcb( null, a );
 
@@ -237,10 +237,10 @@ describe( 'agendas - functional (server): instanciate', function() {
 
   } );
 
-  
+
   it( 'getImage - default get is without path', done => {
 
-    svc.get( 4820, { instanciate: true }, ( err, a ) => {
+    svc.get( 4820, { instanciate: true }, ( err, a ) => {
 
       a.getImage().should.equal( 'review_planning-intervenants_00.jpg' );
 
@@ -270,6 +270,24 @@ describe( 'agendas - functional (server): instanciate', function() {
       should( a.getImage() ).equal( null );
 
       should( a.getImage( true ) ).equal( null );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'getImage - no image returns default path if config allows this', done => {
+
+    svc.init( Object.assign( {}, config, { useDefaultImage: true } ) );
+
+    svc.get( 4832, { instanciate: true }, ( err, a ) => {
+
+      should( a.getImage( false, true ) ).equal( config.defaultImagePath );
+
+      should( a.getImage( true, true ) ).equal( config.defaultImagePath );
+
+      svc.init( config );
 
       done();
 

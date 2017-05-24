@@ -41,13 +41,13 @@ function setImage( { path, url }, cb ) {
 }
 
 
-function getImage( includePath ) {
+function getImage( includePath = false, useDefaultImage = false ) {
 
-  let path = imageFiles.getBucketPath(),
+  const { defaultImagePath } = this.service.getConfig();
+  const path = imageFiles.getBucketPath();
+  const image = this.data.image ? this.data.image.split( '/' ).pop() : null;
 
-  image = this.data.image ? this.data.image.split( '/' ).pop() : null;
-
-  if ( image === null ) return null;
+  if ( image === null ) return useDefaultImage ? defaultImagePath : null;
 
   return ( includePath ? path : '' ) + image;
 

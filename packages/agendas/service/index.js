@@ -128,7 +128,8 @@ function list( q, off, l, op, c ) {
     private: false,
     total: false,
     detailed: false,
-    includeImagePath: false
+    includeImagePath: false,
+    useDefaultImage: false
   }, options );
 
   // options that were in query are to be DEPRECATED
@@ -173,7 +174,7 @@ function list( q, off, l, op, c ) {
 
     .then( _detailed )
 
-  .done( v => cb( null, v.result.agendas, v.result.total ), cb );
+    .done( v => cb( null, v.result.agendas, v.result.total ), cb );
 
 }
 
@@ -279,24 +280,28 @@ function _list( v ) {
 
   } )
 
-  .then( agendas => {
+    .then( agendas => {
 
-    v.result.agendas = agendas.map( dbParse.toObj )
-      .map( agenda => {
+      v.result.agendas = agendas.map( dbParse.toObj )
+        .map( agenda => {
 
-        if ( v.options.includeImagePath && agenda.image ) {
+          if ( v.options.includeImagePath && agenda.image ) {
 
-          agenda.image = imagePath + agenda.image;
+            agenda.image = imagePath + agenda.image;
 
-        }
+          } else if ( v.options.useDefaultImage && !agenda.image ) {
 
-        return agenda;
+            agenda.image = service.getConfig().defaultImagePath;
 
-      } );
+          }
 
-    return v;
+          return agenda;
 
-  } );
+        } );
+
+      return v;
+
+    } );
 
 }
 

@@ -64,6 +64,7 @@ function get( identifiers, options, cb ) {
     internal: false,
     instanciate: false,
     includeImagePath: false,
+    useDefaultImage: false,
     private: false
   }, options, {
     entry: null, 
@@ -88,6 +89,10 @@ function get( identifiers, options, cb ) {
     if ( v.includeImagePath && v.filtered.image ) {
 
       v.filtered.image = imagePath + v.filtered.image;
+
+    } else if ( v.useDefaultImage && !v.filtered.image )  {
+
+      v.filtered.image = service.getConfig().defaultImagePath;
 
     }
 
