@@ -294,11 +294,13 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
     value: function renderStakeholder(stakeholder) {
       var id = stakeholder.id,
           credential = stakeholder.credential,
+          invited = stakeholder.invited,
           custom = stakeholder.custom,
           eventCount = stakeholder.eventCount,
           user = stakeholder.user,
           deletedUser = stakeholder.deletedUser,
-          actionsCounter = stakeholder.actionsCounter;
+          actionsCounter = stakeholder.actionsCounter,
+          owner = stakeholder.owner;
       var _props4 = this.props,
           res = _props4.res,
           showModal = _props4.showModal,
@@ -308,7 +310,6 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       var getLabel = this.context.getLabel;
 
 
-      var invited = !user && !deletedUser;
       var stakeholderType = function () {
         if (actionsCounter > 0 && !deletedUser && !invited) return 'active';
         if (actionsCounter === 0 && !deletedUser && !invited) return 'inactive';
@@ -413,7 +414,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               },
               getLabel('editProfile')
             ),
-            stakeholder.userId !== agenda.ownerId && (userCredential !== 3 || ![2, 3].includes(credential)) && _react3.default.createElement(
+            !owner && (userCredential !== 3 || ![2, 3].includes(credential)) && _react3.default.createElement(
               'a',
               {
                 role: 'button',

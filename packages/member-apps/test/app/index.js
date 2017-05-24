@@ -96,7 +96,16 @@ async.waterfall( [
 
   app.get(
     '/members.json',
-    stakeholdersMw.agenda( 'agenda.data' ).list( { detailed: true } ),
+    stakeholdersMw.agenda( 'agenda.data' ).list( { total: true, detailed: true } ),
+    ( req, res, next ) => {
+      req.stakeholders = req.stakeholders.map( s => {
+        s.invited = !s.userId && !s.deletedUser;
+        s.owner = s.userId === req.user.id;
+        if ( s.user && s.user.id ) delete s.user.id;
+        return _.omit( s, 'userId' );
+      } );
+      next();
+    },
     ( { stakeholders, total }, res ) => res.json( { stakeholders, total } )
   );
 

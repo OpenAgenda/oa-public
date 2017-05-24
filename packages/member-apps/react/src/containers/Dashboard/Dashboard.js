@@ -176,11 +176,10 @@ export default class Dashboard extends Component {
   }
 
   renderStakeholder( stakeholder ) {
-    const { id, credential, custom, eventCount, user, deletedUser, actionsCounter } = stakeholder;
+    const { id, credential, invited, custom, eventCount, user, deletedUser, actionsCounter, owner } = stakeholder;
     const { res, showModal, userCredential, resendInvitation, agenda } = this.props;
     const { getLabel } = this.context;
 
-    const invited = !user && !deletedUser;
     const stakeholderType = (() => {
       if ( actionsCounter > 0 && !deletedUser && !invited ) return 'active';
       if ( actionsCounter === 0 && !deletedUser && !invited ) return 'inactive';
@@ -241,7 +240,7 @@ export default class Dashboard extends Component {
             >
               {getLabel( 'editProfile' )}
             </a>}
-            {stakeholder.userId !== agenda.ownerId && (userCredential !== 3 || ![ 2, 3 ].includes( credential ) ) && <a
+            {!owner && (userCredential !== 3 || ![ 2, 3 ].includes( credential ) ) && <a
               role="button"
               className="text-muted"
               onClick={() => showModal( 'removeMember', { stakeholder } )}
