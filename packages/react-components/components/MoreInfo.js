@@ -24,9 +24,29 @@ export default class MoreInfo extends Component {
     style: null
   };
 
+  constructor( props ) {
+    super( props );
+    this.renderIcon = ::this.renderIcon;
+  }
+
+  renderIcon() {
+
+    const { className, link, style } = this.props;
+
+    const iconStyle = Object.assign( {
+      color: '#41acdd',
+      fontSize: '1.3em'
+    }, style );
+
+    const icon = <i className={`fa fa-question-circle ${className}`} aria-hidden="true" style={iconStyle}></i>;
+
+    return link ? <a href={link} target="_blank">{icon}</a> : icon;
+
+  }
+
   render() {
 
-    const { id, title, content, link, placement, className, style } = this.props;
+    const { children, id, title, content, placement } = this.props;
 
     const popover = (
       <Popover id={id} title={title}>
@@ -34,15 +54,10 @@ export default class MoreInfo extends Component {
       </Popover>
     );
 
-    const iconStyle = Object.assign( {
-      color: '#41acdd',
-      fontSize: '1.3em'
-    }, style );
-    const icon = <i className={`fa fa-question-circle ${className}`} aria-hidden="true" style={iconStyle}></i>;
 
     return (
       <OverlayTrigger trigger={[ 'hover', 'focus' ]} placement={placement} overlay={popover}>
-        {link ? <a href={link} target="_blank">{icon}</a> : icon}
+        {children || this.renderIcon()}
       </OverlayTrigger>
     );
 

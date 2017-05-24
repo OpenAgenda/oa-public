@@ -30,6 +30,7 @@ export default class Modal extends Component {
     this.handleOverlayClick = ::this.handleOverlayClick;
     this.handleClose = ::this.handleClose;
     this.handleEsc = ::this.handleEsc;
+    this.setModalRef = ::this.setModalRef;
   }
 
   state = {
@@ -113,6 +114,15 @@ export default class Modal extends Component {
     if ( event.key === 'Escape' ) this.handleClose();
   }
 
+  setModalRef( ref ) {
+    this.modalRef = ref;
+    if ( this.props.modalRef ) this.props.modalRef( ref );
+  }
+
+  getModalRef() {
+    return this.modalRef;
+  }
+
   render() {
 
     const { visible, title, children } = this.props;
@@ -124,7 +134,7 @@ export default class Modal extends Component {
         onKeyPress={this.onKeyPress}
         ref={ref => this.overlayRef = ref}
       >
-        <section ref={ref => this.modalRef = ref}>
+        <section ref={this.setModalRef}>
           { title ?
             <header className="popup-title">
               <h2>{title}</h2>

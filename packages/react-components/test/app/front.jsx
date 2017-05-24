@@ -108,6 +108,14 @@ class Wrapper extends Component {
             link="https://openagenda.zendesk.com/"
             placement="bottom"
           />
+
+          <p>Avec un p'tit t'enfant</p>
+          <MoreInfo
+            id="fourth-popover"
+            content="Ce badge est un badge !"
+          >
+            <div className="badge">Un badge !</div>
+          </MoreInfo>
         </div>
 
         <div className="separator"></div>

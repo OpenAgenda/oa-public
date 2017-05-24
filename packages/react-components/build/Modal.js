@@ -49,6 +49,7 @@ var Modal = (_temp = _class = function (_Component) {
     _this.handleOverlayClick = _this.handleOverlayClick.bind(_this);
     _this.handleClose = _this.handleClose.bind(_this);
     _this.handleEsc = _this.handleEsc.bind(_this);
+    _this.setModalRef = _this.setModalRef.bind(_this);
     return _this;
   }
 
@@ -129,6 +130,17 @@ var Modal = (_temp = _class = function (_Component) {
       if (event.key === 'Escape') this.handleClose();
     }
   }, {
+    key: 'setModalRef',
+    value: function setModalRef(ref) {
+      this.modalRef = ref;
+      if (this.props.modalRef) this.props.modalRef(ref);
+    }
+  }, {
+    key: 'getModalRef',
+    value: function getModalRef() {
+      return this.modalRef;
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -145,15 +157,13 @@ var Modal = (_temp = _class = function (_Component) {
           style: { display: visible ? 'block' : 'none' },
           className: this.props.classNames.overlay,
           onKeyPress: this.onKeyPress,
-          ref: function ref(_ref2) {
-            return _this2.overlayRef = _ref2;
+          ref: function ref(_ref) {
+            return _this2.overlayRef = _ref;
           }
         },
         _react2.default.createElement(
           'section',
-          { ref: function ref(_ref) {
-              return _this2.modalRef = _ref;
-            } },
+          { ref: this.setModalRef },
           title ? _react2.default.createElement(
             'header',
             { className: 'popup-title' },

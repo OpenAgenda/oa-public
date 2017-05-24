@@ -36,23 +36,46 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var MoreInfo = (_temp = _class = function (_Component) {
   _inherits(MoreInfo, _Component);
 
-  function MoreInfo() {
+  function MoreInfo(props) {
     _classCallCheck(this, MoreInfo);
 
-    return _possibleConstructorReturn(this, (MoreInfo.__proto__ || Object.getPrototypeOf(MoreInfo)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (MoreInfo.__proto__ || Object.getPrototypeOf(MoreInfo)).call(this, props));
+
+    _this.renderIcon = _this.renderIcon.bind(_this);
+    return _this;
   }
 
   _createClass(MoreInfo, [{
+    key: 'renderIcon',
+    value: function renderIcon() {
+      var _props = this.props,
+          className = _props.className,
+          link = _props.link,
+          style = _props.style;
+
+
+      var iconStyle = Object.assign({
+        color: '#41acdd',
+        fontSize: '1.3em'
+      }, style);
+
+      var icon = _react2.default.createElement('i', { className: 'fa fa-question-circle ' + className, 'aria-hidden': 'true', style: iconStyle });
+
+      return link ? _react2.default.createElement(
+        'a',
+        { href: link, target: '_blank' },
+        icon
+      ) : icon;
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _props = this.props,
-          id = _props.id,
-          title = _props.title,
-          content = _props.content,
-          link = _props.link,
-          placement = _props.placement,
-          className = _props.className,
-          style = _props.style;
+      var _props2 = this.props,
+          children = _props2.children,
+          id = _props2.id,
+          title = _props2.title,
+          content = _props2.content,
+          placement = _props2.placement;
 
 
       var popover = _react2.default.createElement(
@@ -61,20 +84,10 @@ var MoreInfo = (_temp = _class = function (_Component) {
         content
       );
 
-      var iconStyle = Object.assign({
-        color: '#41acdd',
-        fontSize: '1.3em'
-      }, style);
-      var icon = _react2.default.createElement('i', { className: 'fa fa-question-circle ' + className, 'aria-hidden': 'true', style: iconStyle });
-
       return _react2.default.createElement(
         _OverlayTrigger2.default,
         { trigger: ['hover', 'focus'], placement: placement, overlay: popover },
-        link ? _react2.default.createElement(
-          'a',
-          { href: link, target: '_blank' },
-          icon
-        ) : icon
+        children || this.renderIcon()
       );
     }
   }]);
