@@ -52,6 +52,7 @@ describe( 'events - functional (server): create', function() {
           updatedAt: result.event.updatedAt,
           createdAt: result.event.createdAt,
           locationUid: null,
+          agendaUid: null,
           accessibility: {
             mi: false,
             hi: false,
@@ -119,6 +120,7 @@ describe( 'events - functional (server): create', function() {
           updatedAt: result.event.updatedAt,
           createdAt: result.event.createdAt,
           locationUid: null,
+          agendaUid: null,
           accessibility: {
             hi: false, mi: false, pi: false, sl: false, vi: false
           },
@@ -155,7 +157,6 @@ describe( 'events - functional (server): create', function() {
       },
       slug: 'un-titre',
       ownerUid: 123,
-      agendaUid: 456,
       locationUid: 789,
       draft: false,
       description: {
@@ -240,6 +241,7 @@ describe( 'events - functional (server): create', function() {
         updatedAt: result.event.updatedAt,
         createdAt: result.event.createdAt,
         locationUid: 789,
+        agendaUid: null,
         accessibility: {
           mi: true,
           hi: true,

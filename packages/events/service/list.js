@@ -49,6 +49,8 @@ function list( query, offset, limit, options, cb ) {
 
   .then( _list )
 
+  .then( params.options.detailed ? _detailed : v => v )
+
   .done( v => params.cb( null, v.events, v.total ), params.cb );
 
 }
@@ -95,6 +97,54 @@ function _list( v ) {
     v.events = events.map( dbParse.toObj );
 
     return v;
+
+  } );
+
+}
+
+
+function _detailed( v ) {
+  
+  if ( !config.interfaces.getOriginAgendas || !config.interfaces.getLocations ) {
+
+    log( 'error', 'cannot fetched detailed info: service interfaces are missing' );
+
+    return v;
+
+  }
+
+  return new Promise( ( rs, rj ) => {
+
+    let originAgendaUids = v.events.map( e => e.agendaUid ).filter( uid => uid );
+
+    config.interfaces.getOriginAgendas( originAgendaUids, ( err, agendas ) => {
+
+      if ( err ) {
+
+        return rj( new VError( e, 'could not retrieve origin agendas on detailed list operation for query %s', JSON.stringify( v.query ) ) );
+
+      }
+
+      let locationUids = v.events.map( e => e.locationUid ).filter( uid => uid );
+
+      config.interfaces.getLocations( locationUids, ( err, locations ) => {
+
+        if ( err ) {
+
+          return rj( new VError( e, 'could not retrieve locations on detailed list operation for query %s', JSON.stringify( v.query ) ) );          
+
+        }
+
+        v.events = v.events.map( e => _.extend( e, {
+          location: _.find( locations, l => l.uid === e.locationUid ) || null,
+          agenda: _.find( agendas, a => a.uid === e.agendaUid ) || null
+        } ) );
+
+        rs( v );
+
+      } );
+
+    } );
 
   } );
 

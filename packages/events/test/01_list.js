@@ -8,6 +8,8 @@ const svc = require( './service' ),
 
   should = require( 'should' ),
 
+  _ = require( 'lodash' ),
+
   mysql = require( 'mysql' ),
 
   async = require( 'async' );
@@ -120,7 +122,7 @@ describe( 'events - functional (server): list', function() {
 
   } )
 
-  it( 'if detailed options is set, non-list fields are also given', done => {
+  it( 'if detailed option is set, non-list fields are also given', done => {
 
     svc.list( 0, 1, { detailed: true }, ( err, events ) => {
 
@@ -138,17 +140,46 @@ describe( 'events - functional (server): list', function() {
         'timings',
         'updatedAt',
         'createdAt',
+        'agendaUid',
         'locationUid',
         'accessibility',
         'age',
-        'registration'
+        'registration',
+        'location',
+        'agenda'
       ] );
 
       done();
 
     } );
 
-  } )
+  } );
+
+  it( 'if detailed option is set, additional information is fetched for location and origin agenda', done => {
+
+    svc.list( 3, 1, { detailed: true }, ( err, events ) => {
+
+      _.pick( events[ 0 ], [ 'location', 'agenda' ] ).should.eql( { 
+        location: { 
+          name: 'La case de Janine',
+          uid: 25756772,
+          latitude: 48.8674277,
+          longitude: 2.350881,
+          address: '1 passage du ponceau, Paris'
+        },
+        agenda: { 
+          uid: 27545135,
+          title: 'La Gargouille',
+          image: null,
+          offical: true 
+        } 
+      } );
+
+      done();
+
+    } );
+
+  } );
 
 
   it( 'if draft is specified in query, it is added to fields', done => {

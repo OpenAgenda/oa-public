@@ -93,7 +93,7 @@ module.exports = [
   {
     db: 'agenda_uid',
     obj: 'agendaUid',
-    internal: true,
+    protected: true,
     list: false
   },
   {
