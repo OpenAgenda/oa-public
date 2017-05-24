@@ -244,9 +244,10 @@ function matchApp( req, res, next ) {
       sendMessage: '/send-message'
     },
     agenda: {
-      uid: 4608,
-      slug: 'rdj2016',
-      title: 'Rendez-vous aux Jardins 2016 [Officiel]',
+      uid: req.agenda.data.uid,
+      slug: req.agenda.data.slug,
+      title: req.agenda.data.title,
+      ownerId: req.agenda.data.ownerId,
       roles: req.agendaRoles,
       credentials: {
         invitationMessage: true

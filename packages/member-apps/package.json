@@ -26,7 +26,7 @@
     "classnames": "^2.2.5",
     "dom-utils": "git+ssh://git@bitbucket.org/openagenda/dom-utils.git",
     "labels": "git+ssh://git@bitbucket.org/openagenda/labels.git",
-    "lodash.throttle": "^4.1.1",
+    "lodash": "^4.17.4",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",

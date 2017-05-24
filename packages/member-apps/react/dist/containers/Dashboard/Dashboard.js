@@ -36,13 +36,17 @@ var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _lodash = require('lodash.debounce');
+var _debounce = require('lodash/debounce');
 
-var _lodash2 = _interopRequireDefault(_lodash);
+var _debounce2 = _interopRequireDefault(_debounce);
 
-var _lodash3 = require('lodash.throttle');
+var _throttle = require('lodash/throttle');
 
-var _lodash4 = _interopRequireDefault(_lodash3);
+var _throttle2 = _interopRequireDefault(_throttle);
+
+var _upperFirst = require('lodash/upperFirst');
+
+var _upperFirst2 = _interopRequireDefault(_upperFirst);
 
 var _monitorBottomHit = require('dom-utils/monitorBottomHit');
 
@@ -51,6 +55,10 @@ var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
 var _Modal = require('react-components/build/Modal');
 
 var _Modal2 = _interopRequireDefault(_Modal);
+
+var _MoreInfo = require('react-components/build/MoreInfo');
+
+var _MoreInfo2 = _interopRequireDefault(_MoreInfo);
 
 var _Spinner = require('react-form-components/build/Spinner');
 
@@ -181,7 +189,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       });
     };
 
-    _this.debouncedSearch = (0, _lodash2.default)(_this.props.handleSubmit(_this.search), 400);
+    _this.debouncedSearch = (0, _debounce2.default)(_this.props.handleSubmit(_this.search), 400);
 
     _this.nextPage = function () {
       var _this$props2 = _this.props,
@@ -274,7 +282,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      (0, _monitorBottomHit2.default)((0, _lodash4.default)(this.nextPage, 400, { trailing: false }));
+      (0, _monitorBottomHit2.default)((0, _throttle2.default)(this.nextPage, 400, { trailing: false }));
     }
   }, {
     key: 'componentWillUnmount',
@@ -291,15 +299,22 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           user = stakeholder.user,
           deletedUser = stakeholder.deletedUser,
           actionsCounter = stakeholder.actionsCounter;
-      var getLabel = this.context.getLabel;
       var _props4 = this.props,
           res = _props4.res,
           showModal = _props4.showModal,
           userCredential = _props4.userCredential,
-          resendInvitation = _props4.resendInvitation;
+          resendInvitation = _props4.resendInvitation,
+          agenda = _props4.agenda;
+      var getLabel = this.context.getLabel;
 
 
       var invited = !user && !deletedUser;
+      var stakeholderType = function () {
+        if (actionsCounter > 0 && !deletedUser && !invited) return 'active';
+        if (actionsCounter === 0 && !deletedUser && !invited) return 'inactive';
+        if (invited && !deletedUser) return 'invited';
+        if (deletedUser && !invited) return 'deleted';
+      }();
 
       return _react3.default.createElement(
         'div',
@@ -323,19 +338,26 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             ),
             ' ',
             _react3.default.createElement(
-              'span',
+              _MoreInfo2.default,
               {
-                className: (0, _classnames2.default)('badge', 'badge-sm', {
-                  'badge-info': invited && !deletedUser,
-                  'badge-default': actionsCounter === 0 && !invited && !deletedUser,
-                  'badge-success': actionsCounter > 0,
-                  'badge-warning': deletedUser
-                })
+                id: 'moreinfo-' + id,
+                content: getLabel('moreinfo' + (0, _upperFirst2.default)(stakeholderType))
               },
-              actionsCounter > 0 && !deletedUser && !invited && getLabel('active'),
-              actionsCounter === 0 && !deletedUser && !invited && getLabel('inactive'),
-              invited && !deletedUser && getLabel('invited'),
-              deletedUser && !invited && getLabel('deleted')
+              _react3.default.createElement(
+                'span',
+                {
+                  className: (0, _classnames2.default)('badge', 'badge-sm', {
+                    'badge-info': stakeholderType === 'invited',
+                    'badge-default': stakeholderType === 'inactive',
+                    'badge-success': stakeholderType === 'active',
+                    'badge-warning': stakeholderType === 'deleted'
+                  })
+                },
+                stakeholderType === 'active' && getLabel('active'),
+                stakeholderType === 'inactive' && getLabel('inactive'),
+                stakeholderType === 'invited' && getLabel('invited'),
+                stakeholderType === 'deleted' && getLabel('deleted')
+              )
             )
           ),
           _react3.default.createElement(
@@ -391,7 +413,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               },
               getLabel('editProfile')
             ),
-            (userCredential !== 3 || ![2, 3].includes(credential)) && _react3.default.createElement(
+            stakeholder.userId !== agenda.ownerId && (userCredential !== 3 || ![2, 3].includes(credential)) && _react3.default.createElement(
               'a',
               {
                 role: 'button',
@@ -644,25 +666,49 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               return closeModal('removeMember');
             }
           },
-          _react3.default.createElement(
-            'p',
-            { className: 'margin-top-sm' },
-            getLabel('removeConfirmMessage')
-          ),
-          _react3.default.createElement(
+          removeModal.error ? _react3.default.createElement(
             'div',
             { className: 'text-center' },
             _react3.default.createElement(
+              'div',
+              { className: 'margin-v-sm' },
+              getLabel('removeModalError')
+            ),
+            _react3.default.createElement(
               'button',
               {
-                className: 'btn btn-danger',
                 onClick: function onClick() {
-                  return remove(removeModal.stakeholder.id).then(function () {
-                    return closeModal('removeMember');
-                  });
-                }
+                  return closeModal('removeMember');
+                },
+                className: 'btn btn-danger'
               },
-              getLabel('removeMember')
+              getLabel('close')
+            )
+          ) : _react3.default.createElement(
+            'div',
+            null,
+            _react3.default.createElement(
+              'p',
+              { className: 'margin-top-sm' },
+              getLabel('removeConfirmMessage')
+            ),
+            _react3.default.createElement(
+              'div',
+              { className: 'text-center' },
+              _react3.default.createElement(
+                'button',
+                {
+                  className: 'btn btn-danger',
+                  onClick: function onClick() {
+                    return remove(removeModal.stakeholder.id).then(function () {
+                      return closeModal('removeMember');
+                    }).catch(function () {
+                      return setModal('removeMember', { error: true });
+                    });
+                  }
+                },
+                getLabel('removeMember')
+              )
             )
           )
         ),

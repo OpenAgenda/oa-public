@@ -1,5 +1,3 @@
-const logger = require( 'basic-logger' );
-
 const matchAppMw = require( 'react-utils/dist/matchAppMw' );
 const createStore = require( 'react-utils/dist/createStore' );
 const ApiClient = require( 'react-utils/dist/ApiClient' );

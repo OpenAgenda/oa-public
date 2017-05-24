@@ -4,10 +4,12 @@ import { asyncConnect } from 'redux-connect';
 import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector, SubmissionError } from 'redux-form';
 import classNames from 'classnames';
-import debounce from 'lodash.debounce';
-import throttle from 'lodash.throttle';
+import debounce from 'lodash/debounce';
+import throttle from 'lodash/throttle';
+import upperFirst from 'lodash/upperFirst';
 import monitorBottomHit from 'dom-utils/monitorBottomHit';
 import Modal from 'react-components/build/Modal';
+import MoreInfo from 'react-components/build/MoreInfo';
 import Spinner from 'react-form-components/build/Spinner';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import InviteMembersForm from '../../components/InviteMembersForm/InviteMembersForm';
@@ -175,10 +177,16 @@ export default class Dashboard extends Component {
 
   renderStakeholder( stakeholder ) {
     const { id, credential, custom, eventCount, user, deletedUser, actionsCounter } = stakeholder;
+    const { res, showModal, userCredential, resendInvitation, agenda } = this.props;
     const { getLabel } = this.context;
-    const { res, showModal, userCredential, resendInvitation } = this.props;
 
     const invited = !user && !deletedUser;
+    const stakeholderType = (() => {
+      if ( actionsCounter > 0 && !deletedUser && !invited ) return 'active';
+      if ( actionsCounter === 0 && !deletedUser && !invited ) return 'inactive';
+      if ( invited && !deletedUser ) return 'invited';
+      if ( deletedUser && !invited ) return 'deleted';
+    })();
 
     return (
       <div key={id} className="bo-list-item media">
@@ -191,19 +199,24 @@ export default class Dashboard extends Component {
             {' '}
             <span className="text-muted small">{this.credentialToStr( credential )}</span>
             {' '}
-            <span
-              className={classNames( 'badge', 'badge-sm', {
-                'badge-info': invited && !deletedUser,
-                'badge-default': actionsCounter === 0 && !invited && !deletedUser,
-                'badge-success': actionsCounter > 0,
-                'badge-warning': deletedUser
-              } )}
+            <MoreInfo
+              id={`moreinfo-${id}`}
+              content={getLabel( 'moreinfo' + upperFirst( stakeholderType ) )}
             >
-              {actionsCounter > 0 && !deletedUser && !invited && getLabel( 'active' )}
-              {actionsCounter === 0 && !deletedUser && !invited && getLabel( 'inactive' )}
-              {invited && !deletedUser && getLabel( 'invited' )}
-              {deletedUser && !invited && getLabel( 'deleted' )}
+              <span
+                className={classNames( 'badge', 'badge-sm', {
+                  'badge-info': stakeholderType === 'invited',
+                  'badge-default': stakeholderType === 'inactive',
+                  'badge-success': stakeholderType === 'active',
+                  'badge-warning': stakeholderType === 'deleted'
+                } )}
+              >
+                {stakeholderType === 'active' && getLabel( 'active' )}
+                {stakeholderType === 'inactive' && getLabel( 'inactive' )}
+                {stakeholderType === 'invited' && getLabel( 'invited' )}
+                {stakeholderType === 'deleted' && getLabel( 'deleted' )}
             </span>
+            </MoreInfo>
           </div>
           <div className="actions">
             {(custom.organization || custom.contactPosition) && <p>
@@ -228,7 +241,7 @@ export default class Dashboard extends Component {
             >
               {getLabel( 'editProfile' )}
             </a>}
-            {(userCredential !== 3 || ![ 2, 3 ].includes( credential ) ) && <a
+            {stakeholder.userId !== agenda.ownerId && (userCredential !== 3 || ![ 2, 3 ].includes( credential ) ) && <a
               role="button"
               className="text-muted"
               onClick={() => showModal( 'removeMember', { stakeholder } )}
@@ -391,16 +404,30 @@ export default class Dashboard extends Component {
           visible={removeModal.visible || false}
           onClose={() => closeModal( 'removeMember' )}
         >
-          <p className="margin-top-sm">{getLabel( 'removeConfirmMessage' )}</p>
-          <div className="text-center">
+          {removeModal.error ? <div className="text-center">
+            <div className="margin-v-sm">
+              {getLabel( 'removeModalError' )}
+            </div>
+
             <button
+              onClick={() => closeModal( 'removeMember' )}
               className="btn btn-danger"
-              onClick={() => remove( removeModal.stakeholder.id )
-                .then( () => closeModal( 'removeMember' ) )}
             >
-              {getLabel( 'removeMember' )}
+              {getLabel( 'close' )}
             </button>
-          </div>
+          </div> : <div>
+            <p className="margin-top-sm">{getLabel( 'removeConfirmMessage' )}</p>
+            <div className="text-center">
+              <button
+                className="btn btn-danger"
+                onClick={() => remove( removeModal.stakeholder.id )
+                  .then( () => closeModal( 'removeMember' ) )
+                  .catch( () => setModal( 'removeMember', { error: true } ) )}
+              >
+                {getLabel( 'removeMember' )}
+              </button>
+            </div>
+          </div>}
         </Modal>}
 
         {inviteMembersModal.visible && <Modal
