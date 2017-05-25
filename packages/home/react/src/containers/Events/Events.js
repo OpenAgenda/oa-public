@@ -107,6 +107,18 @@ export default class Events extends Component {
     return field[ this.props.lang ] || field[ Object.keys( field )[ 0 ] ];
   }
 
+  getEventShowLink( event ) {
+    const { res } = this.props;
+
+    if ( !event.agenda ) {
+      return res.events.showWithoutAgenda.replace( ':eventSlug', event.slug );
+    }
+
+    return res.events[ event.private ? 'showPrivate' : 'show' ]
+      .replace( ':slug', event.agenda.slug )
+      .replace( ':eventSlug', event.slug );
+  }
+
   render() {
     const {
       res, handleSubmit, events, loading, nextLoading,
@@ -151,9 +163,7 @@ export default class Events extends Component {
 
               <div className="media-left">
                 <a
-                  href={res.events[ event.private ? 'showPrivate' : 'show' ]
-                    .replace( ':slug', event.agenda && event.agenda.slug )
-                    .replace( ':eventSlug', event.slug )}
+                  href={this.getEventShowLink( event )}
                 >
                   <img
                     className="media-object ill avatar"
@@ -165,11 +175,7 @@ export default class Events extends Component {
               <div className="media-body">
                 <div className="title media-heading">
                   <div className="agenda">{event.agenda && event.agenda.title}</div>
-                  <a
-                    href={res.events[ event.private ? 'showPrivate' : 'show' ]
-                      .replace( ':slug', event.agenda && event.agenda.slug )
-                      .replace( ':eventSlug', event.slug )}
-                  >
+                  <a href={this.getEventShowLink( event )}>
                     <strong>{this.getMultilangLabel( event.title )}</strong>
                   </a>
                   {!!event.private && <div className="tooltip-icon">

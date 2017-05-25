@@ -84,7 +84,8 @@ const getDefaultState = ( { lang, prefix } ) => ({
     events: {
       list: '/events.json',
       show: '/:slug/events/:eventSlug',
-      showPrivate: '/:slug/events/:eventSlug.prv'
+      showPrivate: '/:slug/events/:eventSlug.prv',
+      showWithoutAgenda: '/events/:eventSlug'
     },
     messages: '/home/messages',
     notifs: '/home/notifications',

@@ -192,6 +192,18 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
       return field[this.props.lang] || field[Object.keys(field)[0]];
     }
   }, {
+    key: 'getEventShowLink',
+    value: function getEventShowLink(event) {
+      var res = this.props.res;
+
+
+      if (!event.agenda) {
+        return res.events.showWithoutAgenda.replace(':eventSlug', event.slug);
+      }
+
+      return res.events[event.private ? 'showPrivate' : 'show'].replace(':slug', event.agenda.slug).replace(':eventSlug', event.slug);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -274,7 +286,7 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
                 _react3.default.createElement(
                   'a',
                   {
-                    href: res.events[event.private ? 'showPrivate' : 'show'].replace(':slug', event.agenda && event.agenda.slug).replace(':eventSlug', event.slug)
+                    href: _this2.getEventShowLink(event)
                   },
                   _react3.default.createElement('img', {
                     className: 'media-object ill avatar',
@@ -296,9 +308,7 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
                   ),
                   _react3.default.createElement(
                     'a',
-                    {
-                      href: res.events[event.private ? 'showPrivate' : 'show'].replace(':slug', event.agenda && event.agenda.slug).replace(':eventSlug', event.slug)
-                    },
+                    { href: _this2.getEventShowLink(event) },
                     _react3.default.createElement(
                       'strong',
                       null,
