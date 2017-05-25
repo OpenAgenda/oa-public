@@ -97,7 +97,7 @@ function eventsList( req, res, next ) {
   const limit = config.mw.limit;
 
   eventsList(
-    { private: null, draft: null, ownerUid: req.user.uid },
+    { private: null, draft: null, ownerUid: req.user.uid, order: 'updatedAt.desc' },
     offset,
     limit,
     { total: true, detailed: true, useDefaultImage: true },
