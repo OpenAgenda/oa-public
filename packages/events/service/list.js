@@ -180,9 +180,9 @@ function _order( possibleOrders ) {
 
     if ( possibleOrders.indexOf( v.query.order ) === -1 ) return v;
 
-    let orderParts = _.snakeCase( v.query.order ).split( '.' );
+    let orderParts = v.query.order.split( '.' );
 
-    v.knexQuery.orderBy( orderParts[ 0 ], orderParts[ 1 ] );
+    v.knexQuery.orderBy( _.snakeCase( orderParts[ 0 ] ), orderParts[ 1 ] );
 
     return v;
 
