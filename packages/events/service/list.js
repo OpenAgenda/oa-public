@@ -24,7 +24,8 @@ function list( query, offset, limit, options, cb ) {
     query: {
       order: null,
       private: false,
-      draft: false
+      draft: false,
+      ownerUid: null
     },
     offset: 0,
     limit: 20,

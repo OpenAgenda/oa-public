@@ -8,7 +8,7 @@ should = require( 'should' ),
 
 mysql = require( 'mysql' );
 
-describe.only( 'events - functional (server): legacy bridge', function() {
+describe( 'events - functional (server): legacy bridge', function() {
 
   this.timeout( 60000 );
 
@@ -189,13 +189,13 @@ describe.only( 'events - functional (server): legacy bridge', function() {
   } );
 
 
-  it( 'transfer of an unpublished event sets a draft event', done => {
+  it( 'transfer of an unpublished event does not impact draft state of event', done => {
 
     svc.legacy.transfer( 147601, ( err, result ) => {
 
       result.created.should.equal( true );
 
-      result.event.draft.should.equal( 1 );
+      result.event.draft.should.equal( 0 );
 
       done();
 
