@@ -146,15 +146,17 @@ var Modal = (_temp = _class = function (_Component) {
       var _this2 = this;
 
       var _props = this.props,
-          visible = _props.visible,
           title = _props.title,
           children = _props.children;
 
 
+      if (!visible) {
+        return null;
+      }
+
       return _react2.default.createElement(
         'div',
         {
-          style: { display: visible ? 'block' : 'none' },
           className: this.props.classNames.overlay,
           onKeyPress: this.onKeyPress,
           ref: function ref(_ref) {

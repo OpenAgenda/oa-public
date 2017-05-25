@@ -125,11 +125,14 @@ export default class Modal extends Component {
 
   render() {
 
-    const { visible, title, children } = this.props;
+    const { title, children } = this.props;
+
+    if ( !visible ) {
+      return null;
+    }
 
     return (
       <div
-        style={{ display: visible ? 'block' : 'none' }}
         className={this.props.classNames.overlay}
         onKeyPress={this.onKeyPress}
         ref={ref => this.overlayRef = ref}
