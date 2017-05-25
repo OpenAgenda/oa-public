@@ -88,7 +88,6 @@ var deepExtend = require( 'deep-extend' ),
       geocodeFarm: {
         key: 'c90247db-b0de461fb1e9-8517d6450e7b'
       },
-      serverSideRendering: true,
       db: {
         database: 'oa',
         host: 'cibul.cjlxznnlwwtq.eu-west-1.rds.amazonaws.com',
@@ -221,7 +220,8 @@ var deepExtend = require( 'deep-extend' ),
         tmpBucketPath: 'https://cibultmp.s3.amazonaws.com/',
         staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/',
         bucket: 'cibul',
-        tmpBucket: 'cibultmp'
+        tmpBucket: 'cibultmp',
+        defaultImagePath: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
       },
       sendinblue: {
         apiKey: 'Gg6zBJdqf8mjHXFp',
@@ -271,10 +271,6 @@ var deepExtend = require( 'deep-extend' ),
           'signup': {
             method: 'get',
             uri: '/signup'
-          },
-          'homeEvents': {
-            method: 'get',
-            uri: '/home/events'
           },
           'homeMessages': {
             method: 'get',

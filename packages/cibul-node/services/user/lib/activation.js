@@ -133,7 +133,8 @@ function activate( user, options, cb ) {
 
     options = {}
 
-  };
+  }
+  ;
 
   if ( user.isActivated ) {
 
@@ -198,7 +199,7 @@ function verify( values ) {
 
   if ( values.user.isActivated ) return values;
 
-  // user is not activated
+// user is not activated
 
   values.inactive = true;
 

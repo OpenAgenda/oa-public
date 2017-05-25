@@ -8,7 +8,9 @@ const events = require( 'events-service' ),
     onCreate: require( './onCreate' ),
     onUpdate: require( './onUpdate' ),
     beforeRemove: require( './beforeRemove' ),
-    onRemove: require( './onRemove' )
+    onRemove: require( './onRemove' ),
+    getOriginAgendas: require( './getOriginAgendas' ),
+    getLocations: require( './getLocations' )
   },
 
   legacy = require( './legacy' );
@@ -35,6 +37,7 @@ function init( config ) {
       event: config.schemas.eventService
     },
     imagePath: config.aws.imageBucketPath,
+    defaultImagePath: config.aws.defaultImagePath,
     files: {
       tmpPath: config.tmpFolderPath,
       bucket: config.aws.bucket,

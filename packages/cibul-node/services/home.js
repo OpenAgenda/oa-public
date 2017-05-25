@@ -3,6 +3,7 @@
 const homeMw = require( 'home/middleware' );
 const agendasSvc = require( 'agendas' );
 const stakeholdersSvc = require( 'agenda-stakeholders' );
+const eventsSvc = require( 'events-service' );
 
 
 module.exports.init = ( config, cb ) => {
@@ -23,6 +24,9 @@ module.exports.init = ( config, cb ) => {
       },
       stakeholders: {
         list: ( userId, ...args ) => stakeholdersSvc.user( userId ).list( ...args )
+      },
+      events: {
+        list: eventsSvc.list
       }
     }
   }, cb );

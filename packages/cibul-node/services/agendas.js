@@ -33,6 +33,7 @@ module.exports.init = config => {
     },
     existingRoles: agendaStakeholders.types.types,
     imagePath: config.aws.imageBucketPath,
+    defaultImagePath: config.aws.defaultImagePath,
     logger,
     interfaces: {
       onCreate: onCreate.bind( null, config.mainChannel ),

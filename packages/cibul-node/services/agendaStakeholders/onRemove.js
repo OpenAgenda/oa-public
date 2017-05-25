@@ -36,6 +36,8 @@ module.exports = function ( stakeholder ) {
   invitations.get( { email: stakeholder.custom.email } )
     .then( ( { invitation } ) => {
 
+      if ( !invitation ) return;
+
       const action = invitation.data.actions.find( v => {
         return v.name === 'linkStakeholder' && v.params[ 0 ].id === stakeholder.id;
       } );

@@ -157,7 +157,7 @@ module.exports = ( enabledTypes, cb ) => {
 
       }
 
-      if ( enabledTypes.includes( 'task' ) || enabledTypes.includes( 'web' ) ) {
+      if ( enabledTypes.includes( 'task' ) || enabledTypes.includes( 'web' ) ) {
 
         webModules.webAndTask.forEach( m => m.load( app ) );
 
@@ -220,19 +220,51 @@ module.exports = ( enabledTypes, cb ) => {
 
       }
 
-      server = app.listen( config.port );
+      server = app.listen( config.port, () => {
+
+        log( 'info', '-- Server listening on port %s --', config.port );
+
+      } );
 
       if ( cb ) cb( null, server );
 
       process.on( 'uncaughtException', err => {
 
-        log( 'error', 'uncaughtException: %s', err.message );
+        try {
 
-        console.error( ( new Date ).toUTCString(), 'uncaught: %s', err.message );
+          throw err;
 
-        console.error( err.stack );
+        } catch ( e ) {
 
-        process.exit( 1 );
+          log( 'error', 'uncaughtException: %s', e.message );
+
+          console.error( ( new Date ).toUTCString() + ' uncaught: %s', e.message );
+
+          console.error( e.stack );
+
+          process.exit( 1 );
+
+        }
+
+      } );
+
+      process.on( 'unhandledRejection', err => {
+
+        try {
+
+          throw err;
+
+        } catch ( e ) {
+
+          log( 'error', 'unhandledRejection: %s', e.message );
+
+          console.error( ( new Date ).toUTCString() + ' unhandled: %s', e.message );
+
+          console.error( e.stack );
+
+          process.exit( 1 );
+
+        }
 
       } );
 

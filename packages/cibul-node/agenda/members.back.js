@@ -28,7 +28,15 @@ const routes = {
   /**********/
 
   membersList: [ 'get', '/stakeholders.json', [
-    stakeholdersMw.agenda( 'agendaInstance.data' ).list( { detailed: true } ),
+    stakeholdersMw.agenda( 'agendaInstance.data' ).list( { total: true, detailed: true } ),
+    ( req, res, next ) => {
+      req.stakeholders = req.stakeholders.map( s => {
+        s.invited = !s.userId && !s.deletedUser;
+        s.owner = s.userId === req.user.id;
+        return _.omit( s, 'userId', 'user.id' );
+      } );
+      next();
+    },
     ( { stakeholders, total }, res ) => res.json( { stakeholders, total } )
   ] ],
 
@@ -49,13 +57,17 @@ const routes = {
       }
     } ),
     ( req, res, next ) => {
+      if ( req.stakeholder.userId === req.agenda.ownerId ) {
+        return next( new Error( 'You don\'t have right to remove the owner of this agenda' ) );
+      }
       if ( req.stakeholder.credential === 3 && [ 2, 3 ].includes( req.stakeholderToUse.credential ) ) {
         return next( new Error( 'You don\'t have right to remove this stakeholder' ) );
       }
       next();
     },
     stakeholdersMw.agenda( 'agendaInstance.data' ).remove(),
-    ( { result }, res ) => res.status( !result.success ? 400 : 200 ).json( result )
+    ( { result }, res ) => res.status( !result.success ? 400 : 200 ).json( result ),
+    ( err, req, res, next ) => res.status( 500 ).json( err )
   ] ],
 
   membersUpdate: [ 'post', '/update/:id', [
@@ -263,6 +275,7 @@ function matchApp( req, res, next ) {
           uid: req.agenda.uid,
           slug: req.agenda.slug,
           title: req.agenda.title,
+          ownerId: req.agenda.ownerId,
           credentials: req.agendaInstance.data.credentials,
           roles: req.agendaRoles
         },

@@ -16,8 +16,13 @@ module.exports = path => {
       cmn.loadBaseData( 'oasfmain.css' ),
       matchApp
     ] ],
+    homeEvents: [ 'get', '/events', [
+      cmn.loadBaseData( 'oasfmain.css' ),
+      matchApp
+    ] ],
 
-    homeShowList: [ 'get', '/agendas', homeMw.agendas.list ]
+    homeShowList: [ 'get', '/agendas', homeMw.agendas.list ],
+    homeEventsList: [ 'get', '/events.json', homeMw.events.list ]
   };
 
   const router = modLib.Router( routes );
@@ -43,7 +48,7 @@ function getApp( req, res, next, { store, component } = {} ) {
 
   const content = component ? ReactDOM.renderToString( component ) : '';
 
-  cmn.render( req, res, 'home/agendas', { scriptParams: { state }, lang, content } );
+  cmn.render( req, res, 'home/index', { scriptParams: { state }, lang, content } );
 
 }
 
@@ -62,15 +67,21 @@ function matchApp( req, res, next ) {
           perPageLimit: homeMw.getConfig().mw.limit
         },
         res: {
-          list: req.genUrl( 'homeShowList' ),
-          new: req.genUrl( 'agendaSettingsCreateApp' ),
-          events: req.genUrl( 'homeEvents' ),
+          agendas: {
+            create: req.genUrl( 'agendaSettingsCreateApp' ),
+            list: req.genUrl( 'homeShowList' ),
+            show: req.genUrl( 'agendaShow', { slug: ':slug' } ),
+            showPrivate: req.genUrl.getPath( 'agendaShowPrivate' ),
+            addEvent: req.genUrl( 'agendaEventNew', { slug: ':slug' } )
+          },
+          events: {
+            list: req.genUrl( 'homeEventsList' ),
+            show: req.genUrl.getPath( 'agendaEventShow' ),
+            showPrivate: req.genUrl.getPath( 'agendaEventShowPrivate' )
+          },
           messages: req.genUrl( 'homeMessages' ),
           notifs: req.genUrl( 'homeNotifications' ),
           moderate: req.genUrl( 'agendaAdminShow', { slug: ':slug' } ),
-          show: req.genUrl( 'agendaShow', { slug: ':slug' } ),
-          showPrivate: req.genUrl.getPath( 'agendaShowPrivate' ),
-          addEvent: req.genUrl( 'agendaEventNew', { slug: ':slug' } ),
           search: req.genUrl( 'agendaSearch' )
         }
       }

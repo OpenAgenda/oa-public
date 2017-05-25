@@ -394,7 +394,7 @@ function errorResponse( req, res, error, jsonResponse ) {
 
     req.log( 'error', 'received error: %s', JSON.stringify( error ) );
 
-    console.error( ( new Date ).toUTCString(), 'uncaught: %s', JSON.stringify( error ) );
+    console.error( ( new Date ).toUTCString() +  ' caught: %s', JSON.stringify( error ) );
 
     console.error( error.stack ? error.stack : 'no stack' );
 
