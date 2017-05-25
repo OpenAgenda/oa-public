@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import app from 'home/react/dist/app';
+import createApp from 'home/react/dist/app';
 import deepExtend from 'deep-extend';
 import du from 'dom-utils';
 
@@ -29,7 +29,9 @@ const defaults = {
 window.hook( options => {
 
   const params = deepExtend( {}, defaults, options );
+  const app = createApp( params );
 
-  ReactDOM.render( app( params ), du.el( '.js_canvas' ) );
+  app.match( du.el( '.js_canvas' ) );
+  // ReactDOM.render( app, du.el( '.js_canvas' ) );
 
 } );
