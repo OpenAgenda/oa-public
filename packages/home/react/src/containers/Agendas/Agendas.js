@@ -76,6 +76,7 @@ export default class Agendas extends Component {
       <div>
         <AgendasSearch
           id="homeAgendas"
+          destroyOnUnmount={false}
           initialValues={{ search: query.search || '' }}
           fieldIsVisible={() => query.search}
           onSearch={values => {

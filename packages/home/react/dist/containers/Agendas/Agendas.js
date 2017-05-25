@@ -168,6 +168,7 @@ var Agendas = _wrapComponent('Agendas')((_dec = (0, _reduxConnect.asyncConnect)(
         null,
         _react3.default.createElement(_components2.AgendasSearch, {
           id: 'homeAgendas',
+          destroyOnUnmount: false,
           initialValues: { search: query.search || '' },
           fieldIsVisible: function fieldIsVisible() {
             return query.search;

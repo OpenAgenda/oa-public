@@ -32,6 +32,8 @@ var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
+var _reduxForm = require('redux-form');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -59,8 +61,11 @@ function _wrapComponent(id) {
   };
 }
 
+var selector = (0, _reduxForm.formValueSelector)('homeAgendas');
+
 var Menu = _wrapComponent('Menu')((_dec = (0, _reactRedux.connect)(function (state) {
   return {
+    agendasSearch: selector(state, 'search'),
     res: state.res,
     lang: state.settings.lang,
     prefix: state.settings.prefix,
@@ -82,7 +87,8 @@ var Menu = _wrapComponent('Menu')((_dec = (0, _reactRedux.connect)(function (sta
           res = _props.res,
           tab = _props.tab,
           prefix = _props.prefix,
-          creationButton = _props.creationButton;
+          creationButton = _props.creationButton,
+          agendasSearch = _props.agendasSearch;
       var getLabel = this.context.getLabel;
 
 
@@ -103,7 +109,7 @@ var Menu = _wrapComponent('Menu')((_dec = (0, _reactRedux.connect)(function (sta
           { className: (0, _classnames2.default)('menu-item', { selected: tab === 'agendas' }) },
           _react3.default.createElement(
             _reactRouter.Link,
-            { to: prefix || '/' },
+            { to: { pathname: prefix || '/', query: { search: agendasSearch || undefined } } },
             getLabel('myAgendas')
           )
         ),

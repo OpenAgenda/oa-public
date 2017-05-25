@@ -3,9 +3,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { formValueSelector } from 'redux-form';
+
+const selector = formValueSelector( 'homeAgendas' );
 
 @connect(
   state => ({
+    agendasSearch: selector( state, 'search' ),
     res: state.res,
     lang: state.settings.lang,
     prefix: state.settings.prefix,
@@ -24,7 +28,7 @@ export default class Menu extends Component {
 
   render() {
 
-    const { res, tab, prefix, creationButton } = this.props;
+    const { res, tab, prefix, creationButton, agendasSearch } = this.props;
     const { getLabel } = this.context;
 
     return (
@@ -35,7 +39,7 @@ export default class Menu extends Component {
           </a>
         </li>}
         <li className={classNames( 'menu-item', { selected: tab === 'agendas' } )}>
-          <Link to={prefix || '/'}>
+          <Link to={{ pathname: prefix || '/', query: { search: agendasSearch || undefined } }}>
             {getLabel( 'myAgendas' )}
           </Link>
         </li>
