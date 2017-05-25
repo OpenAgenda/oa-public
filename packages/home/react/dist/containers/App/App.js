@@ -18,7 +18,7 @@ var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErr
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _class, _class2, _temp;
+var _dec, _class, _class2, _temp2;
 
 var _propTypes = require('prop-types');
 
@@ -26,21 +26,27 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactRedux = require('react-redux');
 
-var _reduxForm = require('redux-form');
-
 var _labels = require('labels');
 
 var _labels2 = _interopRequireDefault(_labels);
 
-var _agendas = require('labels/home/agendas');
+var _home = require('labels/home');
 
-var _agendas2 = _interopRequireDefault(_agendas);
+var _home2 = _interopRequireDefault(_home);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
 
 var _Collapse = require('react-bootstrap/lib/Collapse');
 
 var _Collapse2 = _interopRequireDefault(_Collapse);
 
+var _components2 = require('../../components');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -67,27 +73,31 @@ function _wrapComponent(id) {
   };
 }
 
-var selector = (0, _reduxForm.formValueSelector)('homeDashboard');
-
 var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state) {
   return {
     res: state.res,
     lang: state.settings.lang,
-    agendas: state.agendas.data,
-    search: selector(state, 'search')
+    isNew: state.settings.isNew,
+    prefix: state.settings.prefix,
+    tab: state.menu.tab
   };
-}), _dec(_class = (_temp = _class2 = function (_Component) {
+}), _dec(_class = (_temp2 = _class2 = function (_Component) {
   _inherits(App, _Component);
 
   function App() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
     _classCallCheck(this, App);
 
-    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-    _this.state = {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       menuOpen: false
-    };
-    return _this;
+    }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(App, [{
@@ -99,7 +109,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
       return {
         lang: lang,
         getLabel: function getLabel(label) {
-          return (0, _labels2.default)(_agendas2.default)(label, lang);
+          return (0, _labels2.default)(_home2.default)(label, lang);
         }
       };
     }
@@ -109,17 +119,15 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
       var _this2 = this;
 
       var _props = this.props,
-          agendas = _props.agendas,
           res = _props.res,
-          search = _props.search,
-          query = _props.location.query;
+          tab = _props.tab,
+          isNew = _props.isNew,
+          prefix = _props.prefix;
 
       var _getChildContext = this.getChildContext(),
           getLabel = _getChildContext.getLabel;
 
-      var newUser = !search && !query.search && (!agendas || !agendas.length);
-
-      if (newUser) {
+      if (isNew) {
         return _react3.default.createElement(
           'div',
           { className: 'container top-margined home' },
@@ -141,7 +149,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
 
       return _react3.default.createElement(
         'div',
-        { className: 'container top-margined home' },
+        { className: (0, _classnames2.default)('container top-margined home', _defineProperty({}, 'home-' + tab, tab)) },
         _react3.default.createElement(
           'div',
           { className: 'row wsq' },
@@ -183,55 +191,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
                   _react3.default.createElement(
                     'div',
                     { className: 'nav' },
-                    _react3.default.createElement(
-                      'ul',
-                      { className: 'list-unstyled' },
-                      _react3.default.createElement(
-                        'li',
-                        { className: 'menu-item' },
-                        _react3.default.createElement(
-                          'a',
-                          { href: res.new, className: 'btn btn-primary create-agenda' },
-                          getLabel('createAgenda')
-                        )
-                      ),
-                      _react3.default.createElement(
-                        'li',
-                        { className: 'menu-item selected' },
-                        _react3.default.createElement(
-                          'a',
-                          null,
-                          getLabel('myAgendas')
-                        )
-                      ),
-                      _react3.default.createElement(
-                        'li',
-                        { className: 'menu-item' },
-                        _react3.default.createElement(
-                          'a',
-                          { href: res.events },
-                          getLabel('myEvents')
-                        )
-                      ),
-                      _react3.default.createElement(
-                        'li',
-                        { className: 'menu-item' },
-                        _react3.default.createElement(
-                          'a',
-                          { href: res.messages },
-                          getLabel('messages')
-                        )
-                      ),
-                      _react3.default.createElement(
-                        'li',
-                        { className: 'menu-item' },
-                        _react3.default.createElement(
-                          'a',
-                          { href: res.notifs },
-                          getLabel('notifications')
-                        )
-                      )
-                    )
+                    _react3.default.createElement(_components2.Menu, null)
                   )
                 )
               )
@@ -246,46 +206,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
                 _react3.default.createElement(
                   'div',
                   { className: 'nav nav-right' },
-                  _react3.default.createElement(
-                    'ul',
-                    { className: 'list-unstyled' },
-                    _react3.default.createElement(
-                      'li',
-                      { className: 'menu-item selected' },
-                      _react3.default.createElement(
-                        'a',
-                        null,
-                        getLabel('myAgendas')
-                      )
-                    ),
-                    _react3.default.createElement(
-                      'li',
-                      { className: 'menu-item' },
-                      _react3.default.createElement(
-                        'a',
-                        { href: res.events },
-                        getLabel('myEvents')
-                      )
-                    ),
-                    _react3.default.createElement(
-                      'li',
-                      { className: 'menu-item' },
-                      _react3.default.createElement(
-                        'a',
-                        { href: res.messages },
-                        getLabel('messages')
-                      )
-                    ),
-                    _react3.default.createElement(
-                      'li',
-                      { className: 'menu-item' },
-                      _react3.default.createElement(
-                        'a',
-                        { href: res.notifs },
-                        getLabel('notifications')
-                      )
-                    )
-                  )
+                  _react3.default.createElement(_components2.Menu, { creationButton: false })
                 )
               )
             )
@@ -304,7 +225,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
 }(_react2.Component), _class2.childContextTypes = {
   lang: _propTypes2.default.string,
   getLabel: _propTypes2.default.func
-}, _temp)) || _class));
+}, _temp2)) || _class));
 
 exports.default = App;
 module.exports = exports['default'];

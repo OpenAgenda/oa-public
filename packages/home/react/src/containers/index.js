@@ -1,2 +1,3 @@
 export App from './App/App';
-export Dashboard from './Dashboard/Dashboard';
+export Agendas from './Agendas/Agendas';
+export Events from './Events/Events';

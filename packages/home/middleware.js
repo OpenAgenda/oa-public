@@ -1,5 +1,5 @@
 const logger = require( 'basic-logger' );
-const _ = require( 'lodash' );
+const range = require( 'date-range' );
 
 const matchAppMw = require( 'react-utils/dist/matchAppMw' );
 const createStore = require( 'react-utils/dist/createStore' );
@@ -7,6 +7,8 @@ const ApiClient = require( 'react-utils/dist/ApiClient' );
 
 const getRoutes = require( './react/dist/routes' );
 const reducer = require( './react/dist/redux/reducer' );
+
+require( 'moment/locale/fr' );
 
 let config, log;
 
@@ -16,6 +18,9 @@ module.exports = {
   matchApp: matchAppMw( createStore( reducer ), getRoutes, ApiClient ),
   agendas: {
     list: agendasList
+  },
+  events: {
+    list: eventsList
   }
 };
 
@@ -60,7 +65,7 @@ function agendasList( req, res, next ) {
         },
         offset,
         limit,
-        { includeImagePath: true, private: null, total: true },
+        { includeImagePath: true, private: null, total: true, useDefaultImage: true },
         ( err, reviews, total ) => {
 
           if ( err ) return next( err );
@@ -77,7 +82,42 @@ function agendasList( req, res, next ) {
             reviews
           } );
 
-        } )
+        } );
+
+    } );
+
+}
+
+function eventsList( req, res, next ) {
+  const {
+    events: { list: eventsList }
+  } = config.interfaces;
+
+  const offset = (req.query.page - 1) * config.mw.limit;
+  const limit = config.mw.limit;
+
+  eventsList(
+    { private: null, draft: null, ownerUid: req.user.uid },
+    offset,
+    limit,
+    { total: true, detailed: true, useDefaultImage: true },
+    ( err, events, total ) => {
+
+      if ( err ) return next( err );
+
+      events = events.map( event => {
+
+        const timings = event.timings.map( t => ({ start: new Date( t.begin ), end: new Date( t.end ) }) );
+        const timerange = range( timings, req.lang || 'fr', event.timezone || 'Europe/Paris' );
+
+        return Object.assign( {}, event, { timerange } );
+
+      } );
+
+      res.send( {
+        total,
+        events
+      } );
 
     } );
 

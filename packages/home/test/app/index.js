@@ -2,10 +2,12 @@ const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
 const morgan = require( 'morgan' );
 const async = require( 'async' );
+const _ = require( 'lodash' );
 const fixtures = require( 'fixtures' );
 const homeMw = require( '../../middleware' );
 const agendasSvc = require( 'agendas/service/test' );
 const stakeholdersSvc = require( 'agenda-stakeholders/test/service' );
+const eventsSvc = require( 'events-service/test/service' );
 const config = require( '../../testconfig.js' );
 const mw = require( '../../middleware' );
 
@@ -24,13 +26,17 @@ const port = process.env.PORT || 3000;
 
 homeMw.init( config );
 fixtures.init( config );
-agendasSvc.init( Object.assign( {}, config, config.services.agendas ) );
-stakeholdersSvc.init( Object.assign( {}, config, config.services.agendaStakeholders ) );
+agendasSvc.init( _.merge( {}, config, config.services.agendas ) );
+stakeholdersSvc.init( _.merge( {}, config, config.services.agendaStakeholders ) );
+// eventsSvc.init( _.merge( {}, config, config.services.events ) );
 
 app.use( morgan( 'combined' ) );
 
 app.use( ( req, res, next ) => {
-  req.user = { id: 2 };
+  req.user = {
+    id: 27696, // 2
+    uid: 15723194 // 99999999
+  };
   next();
 } );
 
@@ -42,47 +48,58 @@ async.waterfall( [
     table: 'reviewer',
     src: __dirname + '/../fixtures/reviewer.sql'
   } ], wcb ),
+  wcb => eventsSvc.initAndLoad( _.merge( {}, config, config.services.events ), [
+    'event'
+  ], { reset: false }, wcb )
   // wcb => stakeholdersSvc.initAndLoad( config, [
   //   'agenda',
   //   'stakeholder'
   // ], { reset: false }, wcb )
 ], () => {
 
-  app.get( '/agendas', homeMw.agendas.list );
+  app.get( '/agendas.json', homeMw.agendas.list );
+  app.get( '/events.json', homeMw.events.list );
 
   app.getAndListen( '*', port, matchApp );
 
 } );
 
 
+const getDefaultState = ( { lang, prefix } ) => ({
+  settings: {
+    prefix,
+    lang,
+    apiRoot: `http://localhost:${port}`,
+    perPageLimit: config.mw.limit,
+    isNew: false
+  },
+  res: {
+    agendas: {
+      create: '/new',
+      list: '/agendas.json',
+      show: '/:slug',
+      showPrivate: '/:slug.prv',
+      addEvent: '/:slug/addevent'
+    },
+    events: {
+      list: '/events.json',
+      show: '/:slug/events/:eventSlug',
+      showPrivate: '/:slug/events/:eventSlug.prv'
+    },
+    messages: '/home/messages',
+    notifs: '/home/notifications',
+    moderate: '/:slug/admin',
+    search: '/agendas'
+  }
+});
+
 function matchApp( req, res, next ) {
 
-  const prefix = '/';
   const lang = req.query.lang || 'fr';
+  const prefix = '';
 
   mw.matchApp(
-    {
-      state: {
-        settings: {
-          prefix,
-          lang,
-          apiRoot: `http://localhost:${port}`,
-          perPageLimit: config.mw.limit
-        },
-        res: {
-          list: '/agendas',
-          new: '/new',
-          events: '/home/events',
-          messages: '/home/messages',
-          notifs: '/home/notifications',
-          moderate: '/:slug/admin',
-          show: '/:slug',
-          showPrivate: '/:slug.prv',
-          addEvent: '/:slug/addevent',
-          search: '/agendas'
-        }
-      }
-    },
+    { state: getDefaultState( { lang, prefix } ) },
     prefix,
     getApp
   )( req, res, next );
@@ -91,9 +108,14 @@ function matchApp( req, res, next ) {
 
 function getApp( req, res, next, { store, component } = {} ) {
 
-  // const prefix = '/home';
-  const state = store ? store.getState() : {};
+  if ( res.headersSent ) return;
 
+  if ( process.env.NO_SSR ) {
+    req.data = { state: getDefaultState( { lang: req.query.lang || 'fr', prefix: '' } ) };
+    return helpers.renderCanvas( true, false, '<div class="js_canvas">{content}</div>' )( req, res );
+  }
+
+  const state = store ? store.getState() : {};
   req.data = { state };
   req.content = component ? ReactDOM.renderToString( component ) : '';
 

@@ -20,15 +20,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _class, _class2, _temp;
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactRedux = require('react-redux');
-
-var _labels = require('labels');
-
-var _labels2 = _interopRequireDefault(_labels);
-
-var _agendaCreation = require('labels/agenda-settings/agendaCreation');
-
-var _agendaCreation2 = _interopRequireDefault(_agendaCreation);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -39,13 +35,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _components = {
-  App: {
-    displayName: 'App'
+  Welcome: {
+    displayName: 'Welcome'
   }
 };
 
 var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-  filename: 'react/src/containers/App/CreationApp.js',
+  filename: 'react/src/components/Welcome/Welcome.js',
   components: _components,
   locals: [],
   imports: [_react3.default, _redboxReact3.default]
@@ -57,55 +53,74 @@ function _wrapComponent(id) {
   };
 }
 
-var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state) {
+var Welcome = _wrapComponent('Welcome')((_dec = (0, _reactRedux.connect)(function (state) {
   return {
-    lang: state.settings.lang
+    res: state.res
   };
 }), _dec(_class = (_temp = _class2 = function (_Component) {
-  _inherits(App, _Component);
+  _inherits(Welcome, _Component);
 
-  function App() {
-    _classCallCheck(this, App);
+  function Welcome() {
+    _classCallCheck(this, Welcome);
 
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Welcome.__proto__ || Object.getPrototypeOf(Welcome)).apply(this, arguments));
   }
 
-  _createClass(App, [{
-    key: 'getChildContext',
-    value: function getChildContext() {
-      var lang = this.props.lang;
-
-
-      return {
-        lang: lang,
-        getLabel: function getLabel(label) {
-          return (0, _labels2.default)(_agendaCreation2.default)(label, lang);
-        }
-      };
-    }
-  }, {
+  _createClass(Welcome, [{
     key: 'render',
     value: function render() {
+      var res = this.props.res;
+      var getLabel = this.context.getLabel;
 
-      // const { getLabel } = this.context;
 
       return _react3.default.createElement(
         'div',
-        { className: 'page' },
+        { className: 'row' },
         _react3.default.createElement(
           'div',
-          { className: 'container agenda-settings-creation' },
-          this.props.children
+          { className: 'text-center new-user padding-v-md' },
+          _react3.default.createElement(
+            'h2',
+            { className: 'margin-v-md' },
+            getLabel('welcome')
+          ),
+          _react3.default.createElement(
+            'a',
+            { href: res.agendas.create, className: 'btn btn-primary margin-v-sm' },
+            getLabel('createAgenda')
+          ),
+          _react3.default.createElement(
+            'p',
+            { className: 'margin-v-sm' },
+            getLabel('orContributeToExisting')
+          ),
+          _react3.default.createElement(
+            'form',
+            { action: res.search, method: 'GET', className: 'margin-top-sm' },
+            _react3.default.createElement(
+              'div',
+              { className: 'form-group input-icon-right search center-block' },
+              _react3.default.createElement(
+                'div',
+                { className: 'input-icon-right' },
+                _react3.default.createElement('input', { type: 'text', name: 'search', className: 'form-control' }),
+                _react3.default.createElement(
+                  'button',
+                  { type: 'submit', className: 'btn' },
+                  _react3.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' })
+                )
+              )
+            )
+          )
         )
       );
     }
   }]);
 
-  return App;
-}(_react2.Component), _class2.childContextTypes = {
-  lang: _react2.PropTypes.string,
-  getLabel: _react2.PropTypes.func
+  return Welcome;
+}(_react2.Component), _class2.contextTypes = {
+  getLabel: _propTypes2.default.func
 }, _temp)) || _class));
 
-exports.default = App;
+exports.default = Welcome;
 module.exports = exports['default'];

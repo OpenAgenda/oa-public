@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDom from 'react-dom';
 import du from 'dom-utils';
-import app from '../../react/dist/app';
+import createApp from '../../react/dist/app';
 
 window.onload = () => {
 
-  ReactDom.render( app( du.parseJsonAttribute( 'body', 'data-options' ) ), du.el( '.js_canvas' ) );
+  const app = createApp( du.parseJsonAttribute( 'body', 'data-options' ) );
+
+  app.match( du.el( '.js_canvas' ) );
+  // ReactDom.render( app, du.el( '.js_canvas' ) );
 
 };
