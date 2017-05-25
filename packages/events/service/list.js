@@ -6,6 +6,8 @@ const w = require( 'when' );
 
 const VError = require( 'verror' );
 
+const validateQuery = require( './validate/listQuery' );
+
 const logger = require( 'basic-logger' );
 
 const map = require( './databaseFieldMap' );
@@ -21,12 +23,8 @@ module.exports = Object.assign( list, { init } );
 function list( query, offset, limit, options, cb ) {
 
   const params = _.defaultsDeep( svcUtils.parseListArguments.apply( null, arguments ), {
-    query: {
-      order: null,
-      private: false,
-      draft: false,
-      ownerUid: null
-    },
+    query: {},
+    cleanQuery: null,
     offset: 0,
     limit: 20,
     options: {
@@ -45,17 +43,26 @@ function list( query, offset, limit, options, cb ) {
     knexQuery: knex( schemas.event )
   } ) )
 
+    .then( _clean )
+
     .then( _search )
 
     .then( _total )
-
-    .then( _order( [ 'updatedAt.desc', 'createdAt.desc', 'updatedAt.asc', 'updatedAt.desc' ] ) )
 
     .then( _list )
 
     .then( params.options.detailed ? _detailed : v => v )
 
     .done( v => params.cb( null, v.events, v.total ), params.cb );
+
+}
+
+
+function _clean( v ) {
+
+  v.cleanQuery = validateQuery( v.query );
+
+  return v;  
 
 }
 
@@ -82,20 +89,23 @@ function _list( v ) {
   // add private / draft info when is requested in options
   [ 'private', 'draft' ].forEach( f => {
 
-    if ( v.query[ f ] === null || v.query[ f ] === true ) listFields.push( f );
+    if ( v.cleanQuery[ f ] === null || v.cleanQuery[ f ] === true ) listFields.push( f );
 
   } );
 
-  return knex.transaction( trx => {
+  if ( v.cleanQuery.order ) {
 
-    return v.knexQuery
-      .select.apply( v.knexQuery, listFields )
-      .limit( v.limit || 0 )
-      .offset( v.offset || 0 )
-      .transacting( trx );
+    let orderParts = v.cleanQuery.order.split( '.' );
 
-  } )
+    v.knexQuery.orderBy( _.snakeCase( orderParts[ 0 ] ), orderParts[ 1 ] );
 
+  }
+
+  return v.knexQuery
+    .select.apply( v.knexQuery, listFields )
+    .limit( v.limit || 0 )
+    .offset( v.offset || 0 )
+     
     .then( events => {
 
       v.events = events.map( dbParse.toObj )
@@ -144,7 +154,7 @@ function _detailed( v ) {
 
       if ( err ) {
 
-        return rj( new VError( e, 'could not retrieve origin agendas on detailed list operation for query %s', JSON.stringify( v.query ) ) );
+        return rj( new VError( e, 'could not retrieve origin agendas on detailed list operation for query %s', JSON.stringify( v.cleanQuery ) ) );
 
       }
 
@@ -154,7 +164,7 @@ function _detailed( v ) {
 
         if ( err ) {
 
-          return rj( new VError( e, 'could not retrieve locations on detailed list operation for query %s', JSON.stringify( v.query ) ) );
+          return rj( new VError( e, 'could not retrieve locations on detailed list operation for query %s', JSON.stringify( v.cleanQuery ) ) );
 
         }
 
@@ -174,48 +184,39 @@ function _detailed( v ) {
 }
 
 
-function _order( possibleOrders ) {
-
-  return v => {
-
-    if ( possibleOrders.indexOf( v.query.order ) === -1 ) return v;
-
-    let orderParts = v.query.order.split( '.' );
-
-    v.knexQuery.orderBy( _.snakeCase( orderParts[ 0 ] ), orderParts[ 1 ] );
-
-    return v;
-
-  }
-
-}
-
 
 function _search( v ) {
 
   let wheres = {};
 
-  if ( v.query.private !== null ) {
+  if ( v.cleanQuery.private !== null ) {
 
-    wheres.private = v.query.private;
-
-  }
-
-  if ( v.query.draft !== null ) {
-
-    wheres.draft = v.query.draft;
+    wheres.private = v.cleanQuery.private;
 
   }
 
-  if ( v.query.ownerUid !== null ) {
+  if ( v.cleanQuery.draft !== null ) {
 
-    wheres.owner_uid = v.query.ownerUid;
+    wheres.draft = v.cleanQuery.draft;
 
   }
+
+  if ( v.cleanQuery.ownerUid !== null ) {
+
+    wheres.owner_uid = v.cleanQuery.ownerUid;
+
+  }
+
 
   if ( Object.keys( wheres ).length ) {
 
     v.knexQuery.where( wheres );
+
+  }
+
+  if ( v.cleanQuery.search !== null ) {
+
+    v.knexQuery.where( 'title', 'like', '%' + v.cleanQuery.search + '%' );
 
   }
 

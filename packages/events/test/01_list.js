@@ -56,6 +56,24 @@ describe( 'events - functional (server): list', function() {
   } );
 
 
+  it( 'search searches', done => {
+
+    svc.list( { search: 'Pierre' }, 0, 10, ( err, events ) => {
+
+      events.length.should.not.equal( 0 );
+
+      events.map( e => JSON.stringify( e.title ).toLowerCase() )
+        .filter( t => t.includes( 'pierre' ) )
+        .length
+        .should.equal( events.length );
+
+      done();
+
+    } );
+
+  } );
+
+
   it( 'list with private to true gets private events only', done => {
 
     svc.list( { private: true }, 0, 20, ( err, events ) => {
