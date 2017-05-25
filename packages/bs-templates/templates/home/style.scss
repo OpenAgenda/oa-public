@@ -1,8 +1,8 @@
 @import "../layout/base";
 @import '../components/agenda-item';
+@import 'event-item';
 @import '../components/nav';
 @import '../form-components/input-with-icon';
-
 
 .home {
 
@@ -26,23 +26,26 @@
       display: inline-block;
     }
 
-    .actions a + a {
-      margin-left: 12px;
-    }
-
     .media-left img {
       width: 90px;
       height: 90px;
     }
 
     .media-body {
-      .actions a {
+      .actions {
         font-size: 13px;
-        text-decoration: none;
         color: #777777;
 
-        &:hover {
-          color: #41acdd;
+        a {
+          text-decoration: none;
+
+          &:hover {
+            color: #41acdd;
+          }
+        }
+
+        a + a {
+          margin-left: 12px;
         }
       }
     }
@@ -84,6 +87,98 @@
 
     .nav {
       padding: 20px 0;
+    }
+
+  }
+
+}
+
+.home.home-events {
+
+  .event-item {
+
+    .media-left img {
+
+      border-radius: 0;
+
+    }
+
+    .media-body {
+
+      vertical-align: baseline;
+
+      .media-heading {
+
+        .agenda {
+
+          font-size: 13px;
+          font-style: italic;
+          margin-bottom: 4px;
+
+        }
+
+        .agenda ~ a {
+
+          padding: 4px 0;
+
+        }
+
+        .badge {
+
+          margin-left: 8px;
+          vertical-align: baseline;
+
+        }
+
+      }
+
+    }
+
+  }
+
+  .popup-overlay {
+
+    section {
+
+      height: 90%;
+
+      .popup-content {
+
+        form .form-group.search {
+
+          width: 100%;
+
+        }
+
+        .agenda-item {
+
+          padding: 0;
+
+          .media-left img {
+
+            width: 40px;
+            height: 40px;
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  @media (min-width: $screen-sm) {
+
+    .event-item {
+
+      .media-body {
+
+        padding-right: 40px;
+
+      }
+
     }
 
   }

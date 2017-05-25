@@ -102,18 +102,8 @@ $tumblr-color: #32506d;
 @import '../components/rc-switch';
 @import '../form-components/input-with-icon';
 
-html {
-  @extend .height-100-md;
-}
-
 body {
-  @extend .height-100-md;
-
   background-color: $oa-gray-lightest;
-}
-
-.js_canvas {
-  @extend .height-100-md;
 }
 
 .mobile-only {

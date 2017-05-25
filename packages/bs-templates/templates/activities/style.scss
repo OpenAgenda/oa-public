@@ -1,3 +1,11 @@
 @import "../layout/base";
 @import "../form-components/react-select";
 @import "daterangepicker";
+
+.activity-admin {
+
+  .spin-canvas {
+    background-color: transparent;
+  }
+
+}
