@@ -1,6 +1,5 @@
 "use strict";
 
-const utils = require( 'utils' );
 const mysql = require( 'mysql' );
 const async = require( 'async' );
 const logger = require( 'basic-logger' );
@@ -8,7 +7,7 @@ const _ = require( 'lodash' );
 
 let service, config, log;
 
-module.exports = utils.extend( run, { init } );
+module.exports = _.extend( run, { init } );
 
 function run( options, cb ) {
 
