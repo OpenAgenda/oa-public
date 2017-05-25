@@ -14,5 +14,6 @@
   "translators",
   "sessions",
   "agenda-stakeholders",
-  "activities/format"
+  "activities/format",
+  "dom-utils"
 ]
