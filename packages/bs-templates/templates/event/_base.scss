@@ -12,6 +12,7 @@
 
   //content
   #content {
+
     padding: 25px 0;
 
     > .container {
@@ -21,109 +22,95 @@
     .sidebar {
       margin-top: 10px;
     }
+
   }
 
   .event-content {
 
-    strong {
-      font-weight: 400;
+    background: $oa-white;
+    border-radius: 3px;
+
+  }
+
+
+  .event-content-section {
+
+    padding: 20px;
+
+  }
+
+  .event-item-info {
+
+    dt {
+
+      padding: 0 0 5px;
+
     }
 
-    h1 {
-      margin: 0;
-      padding: 10px 20px;
-    }
+    dd {
 
-    .description {
+      padding: 0 0 20px;
 
-      font-size: 15px;
-      font-weight: 300;
-      padding: 10px 20px;
+      img {
 
-      div {
+        max-width: 100%;
 
-        /* this applies to embedded content */
-        margin: 20px 0;
+      }
+
+      &:last-child {
+
+        padding-bottom: 0;
 
       }
 
     }
 
-    .short-description {
+  }
 
-      padding: 10px 20px 0;
+  strong {
+    font-weight: 400;
+  }
+
+  h1 {
+    margin: 0;
+    padding: 10px 20px;
+  }
+
+  .description {
+
+    font-size: 15px;
+    font-weight: 300;
+
+    div {
+
+      /* this applies to embedded content */
+      margin: 20px 0;
 
     }
 
-    .title {
+  }
+
+  .short-description {
+
+    padding: 10px 20px 0;
+
+  }
+
+  .title {
+  
+    font-size: 24px;
+    font-weight: 300;
+    margin: 30px 0 15px;
     
-      font-size: 24px;
-      font-weight: 300;
-      margin: 30px 0 15px;
-      
-    }
+  }
 
-    .img-responsive {
+  .img-responsive {
 
-      width: 100%;
+    width: 100%;
 
-    }
+  }
 
-    .custom {
-
-      dl {
-        
-        padding: 10px 20px;
-        margin-bottom: 0;
-
-        dt {
-          padding: 5px 0 5px;
-        }
-
-        dd {
-          
-          padding: 0 0 5px;
-          
-          &.image {
-            
-            text-align: center;
-
-            img {
-              max-width: 100%;
-            }
-
-          }
-
-        }
-
-      }
-
-
-      .private-head {
-
-        background: $oa-blue;
-        padding: 5px 20px;
-
-        i { color: $oa-white; }
-
-        font-size: 1.2em;
-
-      }
-
-      .private-subhead {
-        
-        border-bottom: 1px solid $oa-blue;
-        background-color: rgba( $oa-blue, 0.05 );
-
-      }
-
-      dl.private {
-
-        background-color: rgba( $oa-blue, 0.05 );
-
-      }
-
-    }
+    
 
     @media (min-width: 768px) {
 
@@ -131,9 +118,7 @@
         padding: 20px 40px 0;
       }
 
-      .description {
-        padding: 20px 40px;
-      }
+      
 
       .short-description {
         font-size: 24px;
@@ -141,7 +126,6 @@
         padding: 20px 40px 0;
       }
     }
-  }
     
 
   // signature
@@ -189,7 +173,7 @@
 
     color: $oa-gray;
     font-size: 0.9em;
-    padding: 30px 20px 10px;
+    padding: 0 20px 10px;
 
   }
 

@@ -25,6 +25,11 @@
 
     }
 
+    a.badge {
+      color: $oa-white;
+      margin-left: 0.5em;
+    }
+
     &.selected {
 
       a {
@@ -32,6 +37,10 @@
         font-weight: bold;
         color: $oa-blue;
 
+      }
+
+      a.badge {
+        color: $oa-white;
       }
 
     }
