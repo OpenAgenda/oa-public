@@ -214,7 +214,7 @@ export default class Dashboard extends Component {
                 {stakeholderType === 'inactive' && getLabel( 'inactive' )}
                 {stakeholderType === 'invited' && getLabel( 'invited' )}
                 {stakeholderType === 'deleted' && getLabel( 'deleted' )}
-            </span>
+              </span>
             </MoreInfo>
           </div>
           <div className="actions">

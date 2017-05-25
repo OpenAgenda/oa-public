@@ -101,8 +101,7 @@ async.waterfall( [
       req.stakeholders = req.stakeholders.map( s => {
         s.invited = !s.userId && !s.deletedUser;
         s.owner = s.userId === req.user.id;
-        if ( s.user && s.user.id ) delete s.user.id;
-        return _.omit( s, 'userId' );
+        return _.omit( s, 'userId', 'user.id' );
       } );
       next();
     },
