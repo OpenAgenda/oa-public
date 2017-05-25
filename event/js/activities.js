@@ -18,7 +18,7 @@ module.exports = ( { canvas, fetch, res, lang } ) => {
 
     if ( err ) return console.log( 'errored', err );
 
-    if ( !result.count ) return;
+    if ( !result || !result.count ) return;
 
     _displayActivities( canvas, result.html, labels.activity[ lang ] );
 

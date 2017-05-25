@@ -30,7 +30,11 @@
     "section" : "manage",
     "key" : "sources",
     "label" : "Sources",
-    "uri" : "agendaAdminSources"
+    "uri" : "agendaAdminSources",
+    "badge" : {
+      "label" : "nouveau",
+      "link" : "https://openagenda.com"
+    }
   }, {
     "section" : "export",
     "key" : "swapcard",

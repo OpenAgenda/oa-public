@@ -9,4 +9,9 @@
     <span><%= t.label %></span>
 <% } %>
   </a>
+<% if ( typeof t.badge !== 'undefined' ) { %>
+  <a class="badge badge-primary" href="<%= t.badge.link %>" target="_blank">
+    <%= t.badge.label %>
+  </a>
+<% } %>
 </li>
