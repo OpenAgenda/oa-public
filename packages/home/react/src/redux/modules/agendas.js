@@ -17,8 +17,7 @@ export default function reducer( state = initialState, action ) {
         ...state,
         [ action.key ]: {
           ...state[ action.key ],
-          loading: true,
-          query: action.query
+          loading: true
         }
       };
     case LOAD_SUCCESS:
@@ -51,8 +50,7 @@ export default function reducer( state = initialState, action ) {
         ...state,
         [ action.key ]: {
           ...state[ action.key ],
-          loading: true,
-          query: action.query
+          loading: true
         }
       };
     case LIST_SUCCESS:
@@ -120,7 +118,6 @@ export function isLoaded( key, globalState ) {
 export function load( key, query ) {
   return {
     key,
-    query,
     types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
     promise: ( client, { res } ) => client.get( res.agendas.list, { query } )
   };
@@ -129,7 +126,6 @@ export function load( key, query ) {
 export function list( key, query ) {
   return {
     key,
-    query,
     types: [ LIST, LIST_SUCCESS, LIST_FAIL ],
     promise: ( client, { res } ) => client.get( res.agendas.list, { query } )
   }
@@ -138,7 +134,6 @@ export function list( key, query ) {
 export function nextPage( key, query, page ) {
   return {
     key,
-    query,
     page,
     types: [ NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL ],
     promise: ( client, { res, agendas } ) => client.get( res.agendas.list, { query: { ...query, page } } )

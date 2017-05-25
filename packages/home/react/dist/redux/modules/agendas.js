@@ -35,8 +35,7 @@ function reducer() {
   switch (action.type) {
     case LOAD:
       return _extends({}, state, _defineProperty({}, action.key, _extends({}, state[action.key], {
-        loading: true,
-        query: action.query
+        loading: true
       })));
     case LOAD_SUCCESS:
       return _extends({}, state, _defineProperty({}, action.key, _extends({}, state[action.key], {
@@ -57,8 +56,7 @@ function reducer() {
       })));
     case LIST:
       return _extends({}, state, _defineProperty({}, action.key, _extends({}, state[action.key], {
-        loading: true,
-        query: action.query
+        loading: true
       })));
     case LIST_SUCCESS:
       return _extends({}, state, _defineProperty({}, action.key, _extends({}, state[action.key], {
@@ -105,7 +103,6 @@ function isLoaded(key, globalState) {
 function load(key, query) {
   return {
     key: key,
-    query: query,
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     promise: function promise(client, _ref) {
       var res = _ref.res;
@@ -117,7 +114,6 @@ function load(key, query) {
 function list(key, query) {
   return {
     key: key,
-    query: query,
     types: [LIST, LIST_SUCCESS, LIST_FAIL],
     promise: function promise(client, _ref2) {
       var res = _ref2.res;
@@ -129,7 +125,6 @@ function list(key, query) {
 function nextPage(key, query, page) {
   return {
     key: key,
-    query: query,
     page: page,
     types: [NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL],
     promise: function promise(client, _ref3) {
